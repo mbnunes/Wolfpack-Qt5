@@ -2,6 +2,60 @@
 	These items are not available ingame.
 -->
 <definitions>
+	<!-- Duplicate Item -->
+	<item id="a64">
+		<id>0x0a64</id>
+	</item>
+
+	<item id="a65">
+		<id>0x0a65</id>
+	</item>
+
+	<!-- Animation without start -->
+	<item id="37eb">
+		<id>0x37eb</id>
+	</item>
+
+	<!-- Strange Tiles, look like Energy Bolt and some other spell -->
+	<item id="379e">
+		<id>0x379e</id>
+	</item>
+
+	<item id="379f">
+		<id>0x379f</id>
+	</item>
+
+	<!-- Really Strange Fountain (seems to be from UOTD/UOLBR) -->
+	<item id="90d">
+		<id>0x090d</id>
+	</item>
+
+	<item id="90e">
+		<id>0x090e</id>
+	</item>
+
+	<item id="90f">
+		<id>0x090f</id>
+	</item>
+
+	<item id="910">
+		<id>0x0910</id>
+	</item>
+
+	<!-- Unused Chimney -->
+	<item id="8d7">
+		<id>0x08d7</id>
+	</item>
+
+	<!-- Not definable Stone Pylons -->
+	<item id="7d6">
+		<id>0x07d6</id>
+	</item>
+
+	<item id="7d9">
+		<id>0x07d9</id>
+	</item>
+
 	<!-- Unuse & Nodraw -->
 	<item id="0">
 		<id>0x0000</id>

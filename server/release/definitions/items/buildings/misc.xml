@@ -59,4 +59,362 @@
 		<id>0x03ae</id>
 		<category>Buildings\Docks\Pier 6</category>
 	</item>
+
+	<!-- Ankhs -->
+	<item id="2">
+		<id>0x0002</id>
+		<category>Decoration\Ankhs\Ankh 1</category>
+	</item>
+
+	<item id="3">
+		<id>0x0003</id>
+		<category>Decoration\Ankhs\Ankh 2</category>
+	</item>
+
+	<item id="4">
+		<id>0x0004</id>
+		<category>Decoration\Ankhs\Ankh 3</category>
+	</item>
+
+	<item id="5">
+		<id>0x0005</id>
+		<category>Decoration\Ankhs\Ankh 4</category>
+	</item>
+
+	<!-- Suspension Bridge -->
+	<item id="7e1">
+		<id>0x07e1</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 1</category>
+	</item>
+
+	<item id="7e2">
+		<id>0x07e2</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 2</category>
+	</item>
+
+	<item id="7e3">
+		<id>0x07e3</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 3</category>
+	</item>
+
+	<item id="7e4">
+		<id>0x07e4</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 4</category>
+	</item>
+
+	<item id="7e5">
+		<id>0x07e5</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 5</category>
+	</item>
+
+	<item id="7e6">
+		<id>0x07e6</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 6</category>
+	</item>
+
+	<item id="7e7">
+		<id>0x07e7</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 7</category>
+	</item>
+
+	<item id="7e8">
+		<id>0x07e8</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 8</category>
+	</item>
+
+	<item id="7e9">
+		<id>0x07e9</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 9</category>
+	</item>
+
+	<item id="7ea">
+		<id>0x07ea</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 10</category>
+	</item>
+
+	<item id="7eb">
+		<id>0x07eb</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 11</category>
+	</item>
+
+	<item id="7ec">
+		<id>0x07ec</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 12</category>
+	</item>
+
+	<item id="7ed">
+		<id>0x07ed</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 13</category>
+	</item>
+
+	<item id="7ee">
+		<id>0x07ee</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 14</category>
+	</item>
+
+	<item id="7ef">
+		<id>0x07ef</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 15</category>
+	</item>
+
+	<item id="7f0">
+		<id>0x07f0</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 16</category>
+	</item>
+
+	<item id="7f1">
+		<id>0x07f1</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 17</category>
+	</item>
+
+	<item id="7f2">
+		<id>0x07f2</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 18</category>
+	</item>
+
+	<item id="7f3">
+		<id>0x07f3</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 19</category>
+	</item>
+
+	<item id="7f4">
+		<id>0x07f4</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 20</category>
+	</item>
+
+	<item id="7f5">
+		<id>0x07f5</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 21</category>
+	</item>
+
+	<item id="7f6">
+		<id>0x07f6</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 22</category>
+	</item>
+
+	<item id="7f7">
+		<id>0x07f7</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 23</category>
+	</item>
+
+	<item id="7f8">
+		<id>0x07f8</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 24</category>
+	</item>
+
+	<item id="7f9">
+		<id>0x07f9</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 25</category>
+	</item>
+
+	<item id="7fa">
+		<id>0x07fa</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 26</category>
+	</item>
+
+	<item id="7fb">
+		<id>0x07fb</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 27</category>
+	</item>
+
+	<item id="7fc">
+		<id>0x07fc</id>
+		<category>Buildings\Suspension Bridge\Bridge (N/S) 28</category>
+	</item>
+
+	<item id="7fd">
+		<id>0x07fd</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 1</category>
+	</item>
+
+	<item id="7fe">
+		<id>0x07fe</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 2</category>
+	</item>
+
+	<item id="7ff">
+		<id>0x07ff</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 3</category>
+	</item>
+
+	<item id="800">
+		<id>0x0800</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 4</category>
+	</item>
+
+	<item id="801">
+		<id>0x0801</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 5</category>
+	</item>
+
+	<item id="802">
+		<id>0x0802</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 6</category>
+	</item>
+
+	<item id="803">
+		<id>0x0803</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 7</category>
+	</item>
+
+	<item id="804">
+		<id>0x0804</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 8</category>
+	</item>
+
+	<item id="805">
+		<id>0x0805</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 9</category>
+	</item>
+
+	<item id="806">
+		<id>0x0806</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 10</category>
+	</item>
+
+	<item id="807">
+		<id>0x0807</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 11</category>
+	</item>
+
+	<item id="808">
+		<id>0x0808</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 12</category>
+	</item>
+
+	<item id="809">
+		<id>0x0809</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 13</category>
+	</item>
+
+	<item id="80a">
+		<id>0x080a</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 14</category>
+	</item>
+
+	<item id="80b">
+		<id>0x080b</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 15</category>
+	</item>
+
+	<item id="80c">
+		<id>0x080c</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 16</category>
+	</item>
+
+	<item id="80d">
+		<id>0x080d</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 17</category>
+	</item>
+
+	<item id="80e">
+		<id>0x080e</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 18</category>
+	</item>
+
+	<item id="80f">
+		<id>0x080f</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 19</category>
+	</item>
+
+	<item id="810">
+		<id>0x0810</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 20</category>
+	</item>
+
+	<item id="811">
+		<id>0x0811</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 21</category>
+	</item>
+
+	<item id="812">
+		<id>0x0812</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 22</category>
+	</item>
+
+	<item id="813">
+		<id>0x0813</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 23</category>
+	</item>
+
+	<item id="814">
+		<id>0x0814</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 24</category>
+	</item>
+
+	<item id="815">
+		<id>0x0815</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 25</category>
+	</item>
+
+	<item id="816">
+		<id>0x0816</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 26</category>
+	</item>
+
+	<item id="817">
+		<id>0x0817</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 27</category>
+	</item>
+
+	<item id="818">
+		<id>0x0818</id>
+		<category>Buildings\Suspension Bridge\Bridge (W/E) 28</category>
+	</item>
+
+	<!-- Stalagmites &amp; Flowstones -->
+	<item id="8e0">
+		<id>0x08e0</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 1</category>
+	</item>
+
+	<item id="8e1">
+		<id>0x08e1</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 2</category>
+	</item>
+
+	<item id="8e2">
+		<id>0x08e2</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Flowstone 1</category>
+	</item>
+
+	<item id="8e3">
+		<id>0x08e3</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Flowstone 2</category>
+	</item>
+
+	<item id="8e4">
+		<id>0x08e4</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 3</category>
+	</item>
+
+	<item id="8e5">
+		<id>0x08e5</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 4</category>
+	</item>
+
+	<item id="8e6">
+		<id>0x08e6</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Flowstone 3</category>
+	</item>
+
+	<item id="8e7">
+		<id>0x08e7</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 5</category>
+	</item>
+
+	<item id="8e8">
+		<id>0x08e8</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Flowstone 4</category>
+	</item>
+
+	<item id="8e9">
+		<id>0x08e9</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 6</category>
+	</item>
+
+	<item id="8ea">
+		<id>0x08ea</id>
+		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 7</category>
+	</item>
 </definitions>

@@ -1,0 +1,72 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Orc Camp Deciration                                           |
+=================================================================
+-->
+<definitions>
+	<!-- Orc Camp Decoration -->
+	<item id="41f">
+		<id>0x041f</id>
+		<category>Misc\Orc Camp Decoration\Gruesome Standard 1</category>
+	</item>
+
+	<item id="420">
+		<id>0x0420</id>
+		<category>Misc\Orc Camp Decoration\Gruesome Standard 2</category>
+	</item>
+
+	<item id="426">
+		<id>0x0426</id>
+		<category>Misc\Orc Camp Decoration\Tattered Banner 1</category>
+	</item>
+
+	<item id="427">
+		<id>0x0427</id>
+		<category>Misc\Orc Camp Decoration\Tattered Banner 2</category>
+	</item>
+
+	<item id="428">
+		<id>0x0428</id>
+		<category>Misc\Orc Camp Decoration\Gruesome Standard 3</category>
+	</item>
+
+	<item id="429">
+		<id>0x0429</id>
+		<category>Misc\Orc Camp Decoration\Gruesome Standard 4</category>
+	</item>
+
+	<item id="42a">
+		<id>0x042a</id>
+		<category>Misc\Orc Camp Decoration\Tattered Banner 3</category>
+	</item>
+
+	<item id="42b">
+		<id>0x042b</id>
+		<category>Misc\Orc Camp Decoration\Tattered Banner 4</category>
+	</item>
+
+	<item id="42c">
+		<id>0x042c</id>
+		<category>Misc\Orc Camp Decoration\Tattered Banner 5</category>
+	</item>
+
+	<item id="42d">
+		<id>0x042d</id>
+		<category>Misc\Orc Camp Decoration\Tattered Banner 6</category>
+	</item>
+
+	<item id="42e">
+		<id>0x042e</id>
+		<category>Misc\Orc Camp Decoration\Tattered Banner 7</category>
+	</item>
+
+	<item id="42f">
+		<id>0x042f</id>
+		<category>Misc\Orc Camp Decoration\Tattered Banner 8</category>
+	</item>
+</definitions>

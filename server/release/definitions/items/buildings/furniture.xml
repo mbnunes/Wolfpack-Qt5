@@ -7,9 +7,487 @@
 =================================================================
 -->
 <definitions>
-	<!-- a throne -->
-	<item id="b33">
-		<name>Throne</name>
-		<id>0xB33</id>
+	<!-- Chest of Drawers 1 -->
+	<item id="a2c">
+		<id>0x0a2c</id>
+		<type>1</type>
+		<category>Decoration\Furniture\Chest of Drawers (N/S) 1</category>
 	</item>
+
+	<item id="a2d">
+		<id>0x0a2d</id>
+		<category>Decoration\Furniture\Chest of Drawers (N/S) 2</category>
+	</item>
+
+	<item id="a2e">
+		<id>0x0a2e</id>
+		<category>Decoration\Furniture\Chest of Drawers (N/S) 3</category>
+	</item>
+
+	<item id="a2f">
+		<id>0x0a2f</id>
+		<category>Decoration\Furniture\Chest of Drawers (N/S) 4</category>
+	</item>
+
+	<item id="a30">
+		<id>0x0a30</id>
+		<type>1</type>
+		<category>Decoration\Furniture\Chest of Drawers (N/S) 5</category>
+	</item>
+
+	<item id="a31">
+		<id>0x0a31</id>
+		<category>Decoration\Furniture\Chest of Drawers (N/S) 6</category>
+	</item>
+
+	<item id="a32">
+		<id>0x0a32</id>
+		<category>Decoration\Furniture\Chest of Drawers (N/S) 7</category>
+	</item>
+
+	<item id="a33">
+		<id>0x0a33</id>
+		<category>Decoration\Furniture\Chest of Drawers (N/S) 8</category>
+	</item>
+
+	<item id="a34">
+		<id>0x0a34</id>
+		<type>1</type>
+		<category>Decoration\Furniture\Chest of Drawers (W/E) 1</category>
+	</item>
+
+	<item id="a35">
+		<id>0x0a35</id>
+		<category>Decoration\Furniture\Chest of Drawers (W/E) 2</category>
+	</item>
+
+	<item id="a36">
+		<id>0x0a36</id>
+		<category>Decoration\Furniture\Chest of Drawers (W/E) 3</category>
+	</item>
+
+	<item id="a37">
+		<id>0x0a37</id>
+		<category>Decoration\Furniture\Chest of Drawers (W/E) 4</category>
+	</item>
+
+	<item id="a38">
+		<id>0x0a38</id>
+		<type>1</type>
+		<category>Decoration\Furniture\Chest of Drawers (W/E) 5</category>
+	</item>
+
+	<item id="a39">
+		<id>0x0a39</id>
+		<category>Decoration\Furniture\Chest of Drawers (W/E) 6</category>
+	</item>
+
+	<item id="a3a">
+		<id>0x0a3a</id>
+		<category>Decoration\Furniture\Chest of Drawers (W/E) 7</category>
+	</item>
+
+	<item id="a3b">
+		<id>0x0a3b</id>
+		<category>Decoration\Furniture\Chest of Drawers (W/E) 8</category>
+	</item>
+
+	<item id="a3c">
+		<id>0x0a3c</id>
+		<category>Decoration\Furniture\Dresser (N/S) 1</category>
+		<type>1</type>
+	</item>
+
+	<item id="a3d">
+		<id>0x0a3d</id>
+		<type>1</type>
+		<category>Decoration\Furniture\Dresser (N/S) 2</category>
+	</item>
+
+	<item id="a3e">
+		<id>0x0a3e</id>
+		<category>Decoration\Furniture\Dresser (N/S) 3</category>
+	</item>
+
+	<item id="a3f">
+		<id>0x0a3f</id>
+		<category>Decoration\Furniture\Dresser (N/S) 4</category>
+	</item>
+
+	<item id="a40">
+		<id>0x0a40</id>
+		<category>Decoration\Furniture\Dresser (N/S) 5</category>
+	</item>
+
+	<item id="a41">
+		<id>0x0a41</id>
+		<category>Decoration\Furniture\Dresser (N/S) 6</category>
+	</item>
+
+	<item id="a42">
+		<id>0x0a42</id>
+		<category>Decoration\Furniture\Dresser (N/S) 7</category>
+	</item>
+
+	<item id="a43">
+		<id>0x0a43</id>
+		<category>Decoration\Furniture\Dresser (N/S) 8</category>
+	</item>
+
+	<item id="a44">
+		<id>0x0a44</id>
+		<type>1</type>
+		<category>Decoration\Furniture\Dresser (W/E) 1</category>
+	</item>
+
+	<item id="a45">
+		<id>0x0a45</id>
+		<type>1</type>
+		<category>Decoration\Furniture\Dresser (W/E) 2</category>
+	</item>
+
+	<item id="a46">
+		<id>0x0a46</id>
+		<category>Decoration\Furniture\Dresser (W/E) 3</category>
+	</item>
+
+	<item id="a47">
+		<id>0x0a47</id>
+		<category>Decoration\Furniture\Dresser (W/E) 4</category>
+	</item>
+
+	<item id="a48">
+		<id>0x0a48</id>
+		<category>Decoration\Furniture\Dresser (W/E) 5</category>
+	</item>
+
+	<item id="a49">
+		<id>0x0a49</id>
+		<category>Decoration\Furniture\Dresser (W/E) 6</category>
+	</item>
+
+	<item id="a4a">
+		<id>0x0a4a</id>
+		<category>Decoration\Furniture\Dresser (W/E) 7</category>
+	</item>
+
+	<item id="a4b">
+		<id>0x0a4b</id>
+		<category>Decoration\Furniture\Dresser (W/E) 8</category>
+	</item>
+
+	<item id="a4c">
+		<id>0x0a4c</id>
+		<category>Decoration\Furniture\Armoire 1 (N/S) (Open)</category>
+	</item>
+
+	<item id="a4d">
+		<id>0x0a4d</id>
+		<category>Decoration\Furniture\Armoire 1 (N/S) (Closed)</category>
+	</item>
+
+	<item id="a4e">
+		<id>0x0a4e</id>
+		<category>Decoration\Furniture\Armoire 2 (N/S) (Open)</category>
+	</item>
+
+	<item id="a4f">
+		<id>0x0a4f</id>
+		<category>Decoration\Furniture\Armoire 2 (N/S) (Closed)</category>
+	</item>
+
+	<item id="a50">
+		<id>0x0a50</id>
+		<category>Decoration\Furniture\Armoire 1 (W/E) (Open)</category>
+	</item>
+
+	<item id="a51">
+		<id>0x0a51</id>
+		<category>Decoration\Furniture\Armoire 1 (W/E) (Closed)</category>
+	</item>
+
+	<item id="a52">
+		<id>0x0a52</id>
+		<category>Decoration\Furniture\Armoire 2 (W/E) (Open)</category>
+	</item>
+
+	<item id="a53">
+		<id>0x0a53</id>
+		<category>Decoration\Furniture\Armoire 2 (W/E) (Closed)</category>
+	</item>
+
+	<!-- Decoration / Bedroom -->
+	<item id="a55">
+		<id>0x0a55</id>
+		<category>Decoration\Bedroom\Bedroll (W/E) (Open)</category>
+	</item>
+
+	<item id="a56">
+		<id>0x0a56</id>
+		<category>Decoration\Bedroom\Bedroll (N/S) (Open)</category>
+	</item>
+
+	<item id="a57">
+		<id>0x0a57</id>
+		<category>Decoration\Bedroom\Bedroll</category>
+	</item>
+
+	<item id="a58">
+		<id>0x0a58</id>
+		<category>Decoration\Bedroom\Bedroll (W/E) (Closed)</category>
+	</item>
+
+	<item id="a59">
+		<id>0x0a59</id>
+		<category>Decoration\Bedroom\Bedroll (N/S) (Closed)</category>
+	</item>
+
+	<item id="a5a">
+		<id>0x0a5a</id>
+		<category>Decoration\Bedroom\Beige Bed (N/S) (1/2)</category>
+	</item>
+
+	<item id="a5b">
+		<id>0x0a5b</id>
+		<category>Decoration\Bedroom\Beige Bed (N/S) (2/2)</category>
+	</item>
+
+	<item id="a5c">
+		<id>0x0a5c</id>
+		<category>Decoration\Bedroom\Gray Bed (N/S) (1/2)</category>
+	</item>
+
+	<item id="a5d">
+		<id>0x0a5d</id>
+		<category>Decoration\Bedroom\Gray Bed (W/E) (2/2)</category>
+	</item>
+
+	<item id="a5e">
+		<id>0x0a5e</id>
+		<category>Decoration\Bedroom\White Bed (N/S) (2/2)</category>
+	</item>
+
+	<item id="a5f">
+		<id>0x0a5f</id>
+		<category>Decoration\Bedroom\White Bed (N/S) (1/2)</category>
+	</item>
+
+	<item id="a60">
+		<id>0x0a60</id>
+		<category>Decoration\Bedroom\White Bed (W/E) (2/2)</category>
+	</item>
+
+	<item id="a61">
+		<id>0x0a61</id>
+		<category>Decoration\Bedroom\White Bed (W/E) (1/2)</category>
+	</item>
+
+	<item id="a62">
+		<id>0x0a62</id>
+		<category>Decoration\Bedroom\Gray Bed (W/E) (1/2)</category>
+	</item>
+
+	<item id="a63">
+		<id>0x0a63</id>
+		<category>Decoration\Bedroom\Gray Bed (N/S) (2/2)</category>
+	</item>
+
+	<item id="a66">
+		<id>0x0a66</id>
+		<category>Decoration\Bedroom\Untidy Gray Bed (N/S) (2/2) (Pillow)</category>
+	</item>
+
+	<item id="a67">
+		<id>0x0a67</id>
+		<category>Decoration\Bedroom\Untidy Gray Bed (N/S) (2/2)</category>
+	</item>
+
+	<item id="a68">
+		<id>0x0a68</id>
+		<category>Decoration\Bedroom\Untidy Gray Bed (N/S) (1/2)</category>
+	</item>
+
+	<item id="a69">
+		<id>0x0a69</id>
+		<category>Decoration\Bedroom\Untidy Gray Bed (W/E) (2/2) (Pillow)</category>
+	</item>
+
+	<item id="a6a">
+		<id>0x0a6a</id>
+		<category>Decoration\Bedroom\Untidy Gray Bed (W/E) (2/2)</category>
+	</item>
+
+	<item id="a6b">
+		<id>0x0a6b</id>
+		<category>Decoration\Bedroom\Untidy Gray Bed (W/E) (1/2)</category>
+	</item>
+
+	<item id="a6c">
+		<id>0x0a6c</id>
+	</item>
+
+	<item id="a6d">
+		<id>0x0a6d</id>
+	</item>
+
+	<item id="a6e">
+		<id>0x0a6e</id>
+	</item>
+
+	<item id="a6f">
+		<id>0x0a6f</id>
+	</item>
+
+	<item id="a70">
+		<id>0x0a70</id>
+	</item>
+
+	<item id="a71">
+		<id>0x0a71</id>
+	</item>
+
+	<item id="a72">
+		<id>0x0a72</id>
+	</item>
+
+	<item id="a73">
+		<id>0x0a73</id>
+	</item>
+
+	<item id="a74">
+		<id>0x0a74</id>
+	</item>
+
+	<item id="a75">
+		<id>0x0a75</id>
+	</item>
+
+	<item id="a76">
+		<id>0x0a76</id>
+	</item>
+
+	<item id="a77">
+		<id>0x0a77</id>
+	</item>
+
+	<item id="a78">
+		<id>0x0a78</id>
+	</item>
+
+	<item id="a79">
+		<id>0x0a79</id>
+	</item>
+
+	<item id="a7a">
+		<id>0x0a7a</id>
+	</item>
+
+	<item id="a7b">
+		<id>0x0a7b</id>
+	</item>
+
+	<item id="a7c">
+		<id>0x0a7c</id>
+	</item>
+
+	<item id="a7d">
+		<id>0x0a7d</id>
+	</item>
+
+	<item id="a7e">
+		<id>0x0a7e</id>
+	</item>
+
+	<item id="a7f">
+		<id>0x0a7f</id>
+	</item>
+
+	<item id="a80">
+		<id>0x0a80</id>
+	</item>
+
+	<item id="a81">
+		<id>0x0a81</id>
+	</item>
+
+	<item id="a82">
+		<id>0x0a82</id>
+	</item>
+
+	<item id="a83">
+		<id>0x0a83</id>
+	</item>
+
+	<item id="a84">
+		<id>0x0a84</id>
+	</item>
+
+	<item id="a85">
+		<id>0x0a85</id>
+	</item>
+
+	<item id="a86">
+		<id>0x0a86</id>
+	</item>
+
+	<item id="a87">
+		<id>0x0a87</id>
+	</item>
+
+	<item id="a88">
+		<id>0x0a88</id>
+	</item>
+
+	<item id="a89">
+		<id>0x0a89</id>
+	</item>
+
+	<item id="a8a">
+		<id>0x0a8a</id>
+	</item>
+
+	<item id="a8b">
+		<id>0x0a8b</id>
+	</item>
+
+	<item id="a8c">
+		<id>0x0a8c</id>
+	</item>
+
+	<item id="a8d">
+		<id>0x0a8d</id>
+	</item>
+
+	<item id="a8e">
+		<id>0x0a8e</id>
+	</item>
+
+	<item id="a8f">
+		<id>0x0a8f</id>
+	</item>
+
+	<item id="a90">
+		<id>0x0a90</id>
+	</item>
+
+	<item id="a91">
+		<id>0x0a91</id>
+	</item>
+
+	<item id="a92">
+		<id>0x0a92</id>
+	</item>
+
+	<item id="a93">
+		<id>0x0a93</id>
+	</item>
+
+	<item id="a94">
+		<id>0x0a94</id>
+	</item>
+
+	<item id="a95">
+		<id>0x0a95</id>
+	</item>
+
 </definitions>

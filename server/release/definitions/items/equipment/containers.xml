@@ -47,7 +47,7 @@
 	<item id="e7d">
 		<id>0xe7d</id>
 		<type>1</type>
-		<category>Equipment\Containers\Wooden Box</category>
+		<category>Equipment\Containers\Wooden Box (W/E)</category>
 		<weight>4.0</weight>
 	</item>
 
@@ -57,5 +57,67 @@
 		<type>1</type>
 		<category>Equipment\Containers\Strong Box</category>
 		<weight>10.0</weight>
+	</item>
+
+	<!-- Metal Box -->
+	<item id="9a8">
+		<id>0x09a8</id>
+		<type>1</type>
+		<category>Equipment\Containers\Metal Box (N/S)</category>
+		<weight>5.0</weight>
+	</item>
+
+	<item id="9a9">
+		<id>0x09a9</id>
+		<type>1</type>
+		<category>Equipment\Containers\Small Crate (N/S)</category>
+	</item>
+
+	<item id="9aa">
+		<id>0x09aa</id>
+		<type>1</type>
+		<category>Equipment\Containers\Wooden Box (N/S)</category>
+		<weight>4.0</weight>
+	</item>
+
+	<item id="9ab">
+		<id>0x09ab</id>
+		<category>Equipment\Containers\Metal Chest (N/S)</category>
+		<type>1</type>
+	</item>
+
+	<item id="9ac">
+		<id>0x09ac</id>
+		<type>1</type>
+		<category>Equipment\Containers\Bushel</category>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="9b0">
+		<id>0x09b0</id>
+		<type>1</type>
+		<category>Equipment\Containers\Belt Pouch (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="9b1">
+		<id>0x09b1</id>
+		<type>1</type>
+		<category>Equipment\Containers\Basket 2</category>
+		<weight>2.0</weight>
+	</item>
+
+	<item id="990">
+		<id>0x0990</id>
+		<type>1</type>
+		<category>Equipment\Containers\Basket 1</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="9b2">
+		<id>0x09b2</id>
+		<type>1</type>
+		<category>Equipment\Containers\Backpack (N/S)</category>
+		<weight>3.0</weight>
 	</item>
 </definitions>

@@ -30,4 +30,15 @@
 		<id>0x045c</id>
 		<category>Decoration\Chairs\Sandstone Bench (W/E)</category>
 	</item>
+
+	<!-- Stool -->
+	<item id="a2a">
+		<id>0x0a2a</id>
+		<category>Decoration\Chairs\Stool 1</category>
+	</item>
+
+	<item id="a2b">
+		<id>0x0a2b</id>
+		<category>Decoration\Chairs\Stool 2</category>
+	</item>
 </definitions>

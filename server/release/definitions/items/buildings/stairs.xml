@@ -1153,4 +1153,76 @@
 		<id>0x0402</id>
 		<category>Buildings\Stairs\Sandstone 2\Sandstone Stairs 21</category>
 	</item>
+
+	<!-- Platform -->
+	<item id="7bd">
+		<id>0x07bd</id>
+		<category>Buildings\Stairs\Platform\Platform 1</category>
+	</item>
+
+	<item id="7be">
+		<id>0x07be</id>
+		<category>Buildings\Stairs\Platform\Platform 2</category>
+	</item>
+
+	<item id="7bf">
+		<id>0x07bf</id>
+		<category>Buildings\Stairs\Platform\Platform 3</category>
+	</item>
+
+	<item id="7c0">
+		<id>0x07c0</id>
+		<category>Buildings\Stairs\Platform\Platform 4</category>
+	</item>
+
+	<item id="7c1">
+		<id>0x07c1</id>
+		<category>Buildings\Stairs\Platform\Platform 5</category>
+	</item>
+
+	<item id="7c2">
+		<id>0x07c2</id>
+		<category>Buildings\Stairs\Platform\Platform 6</category>
+	</item>
+
+	<item id="7c3">
+		<id>0x07c3</id>
+		<category>Buildings\Stairs\Platform\Platform 7</category>
+	</item>
+
+	<item id="7c4">
+		<id>0x07c4</id>
+		<category>Buildings\Stairs\Platform\Platform 8</category>
+	</item>
+
+	<item id="7c5">
+		<id>0x07c5</id>
+		<category>Buildings\Stairs\Platform\Platform 9</category>
+	</item>
+
+	<item id="7c6">
+		<id>0x07c6</id>
+		<category>Buildings\Stairs\Platform\Platform 10</category>
+	</item>
+
+	<!-- Stone Step -->
+	<item id="915">
+		<id>0x0915</id>
+		<category>Buildings\Stairs\Stone Step\Stone Step 1</category>
+	</item>
+
+	<item id="916">
+		<id>0x0916</id>
+		<category>Buildings\Stairs\Stone Step\Stone Step 2</category>
+	</item>
+
+	<item id="917">
+		<id>0x0917</id>
+		<category>Buildings\Stairs\Stone Step\Stone Step 3</category>
+	</item>
+
+	<item id="918">
+		<id>0x0918</id>
+		<category>Buildings\Stairs\Stone Step\Stone Step 4</category>
+	</item>
 </definitions>

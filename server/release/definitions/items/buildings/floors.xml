@@ -814,6 +814,11 @@
                 <id>0x052c</id>
                 <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 8</category>
         </item>
+
+		<item id="81d">
+			<id>0x081d</id>
+            <category>Buildings\Floors\Sandstone Floor\Sandstone Floor 9</category>
+		</item>
 	
 		<!-- Dark Dark Sandstone Floor -->
         <item id="52f">
@@ -982,4 +987,44 @@
                 <category>Buildings\Floors\Cave Floor\Cave Floor 24</category>
         </item>
 
+	<!-- Dark Wooden Planks -->
+	<item id="7c9">
+		<id>0x07c9</id>
+		<category>Buildings\Floors\Dark Wooden Planks\Dark Wooden Plank 1</category>
+	</item>
+
+	<item id="7ca">
+		<id>0x07ca</id>
+		<category>Buildings\Floors\Dark Wooden Planks\Dark Wooden Plank 2</category>
+	</item>
+
+	<item id="7cb">
+		<id>0x07cb</id>
+		<category>Buildings\Floors\Dark Wooden Planks\Dark Wooden Plank 3</category>
+	</item>
+
+	<item id="7cc">
+		<id>0x07cc</id>
+		<category>Buildings\Floors\Dark Wooden Planks\Dark Wooden Plank 4</category>
+	</item>
+
+	<item id="7cd">
+		<id>0x07cd</id>
+		<category>Buildings\Floors\Dark Wooden Planks\Dark Wooden Plank 5</category>
+	</item>
+
+	<item id="7ce">
+		<id>0x07ce</id>
+		<category>Buildings\Floors\Dark Wooden Planks\Dark Wooden Plank 6</category>
+	</item>
+
+	<item id="7cf">
+		<id>0x07cf</id>
+		<category>Buildings\Floors\Dark Wooden Planks\Dark Wooden Plank 7</category>
+	</item>
+
+	<item id="7d0">
+		<id>0x07d0</id>
+		<category>Buildings\Floors\Dark Wooden Planks\Dark Wooden Plank 8</category>
+	</item>
 </definitions>

@@ -1,0 +1,72 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Curtains                                                      |
+=================================================================
+-->
+<definitions>
+	<!-- Red Curtains -->
+	<item id="980">
+		<id>0x0980</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 1</categories>
+	</item>
+
+	<item id="981">
+		<id>0x0981</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 2</categories>
+	</item>
+
+	<item id="982">
+		<id>0x0982</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 3</categories>
+	</item>
+
+	<item id="983">
+		<id>0x0983</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 4</categories>
+	</item>
+
+	<item id="984">
+		<id>0x0984</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 5</categories>
+	</item>
+
+	<item id="985">
+		<id>0x0985</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 6</categories>
+	</item>
+
+	<item id="986">
+		<id>0x0986</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 7</categories>
+	</item>
+
+	<item id="987">
+		<id>0x0987</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 8</categories>
+	</item>
+
+	<item id="988">
+		<id>0x0988</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 9</categories>
+	</item>
+
+	<item id="989">
+		<id>0x0989</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 10</categories>
+	</item>
+
+	<item id="98a">
+		<id>0x098a</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 11</categories>
+	</item>
+
+	<item id="98b">
+		<id>0x098b</id>
+		<categories>Decoration\Curtains\Red Curtain\Red Curtain 12</categories>
+	</item>
+</definitions>

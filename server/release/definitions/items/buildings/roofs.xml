@@ -849,6 +849,26 @@
                 <category>Buildings\Roofs\Tile Roof\Roof 15</category>
         </item>
 
+		<item id="6fd">
+			<id>0x06fd</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 16</category>
+		</item>
+	
+		<item id="6fe">
+			<id>0x06fe</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 17</category>
+		</item>
+	
+		<item id="6ff">
+			<id>0x06ff</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 18</category>
+		</item>
+	
+		<item id="700">
+			<id>0x0700</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 19</category>
+		</item>
+
         <!-- Wooden Shingle -->
         <item id="5c2">
                 <id>0x05c2</id>

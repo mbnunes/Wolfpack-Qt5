@@ -404,110 +404,110 @@
 	<!-- Portcullis -->
 	<item id="6f5">
 		<id>0x6f5</id>
-		<category>Buildings\Doors\Portcullis (N/S)</category>
+		<category>Buildings\Doors\Portcullis\Portcullis (N/S)</category>
 	</item>
 
 	<item id="6f6">
 		<id>0x6f6</id>
-		<category>Buildings\Doors\Portcullis (W/E)</category>
+		<category>Buildings\Doors\Portcullis\Portcullis (W/E)</category>
 	</item>
 
 	<!-- Light Wooden Gate -->
 	<item id="839">
 		<id>0x0839</id>
 		<type>12</type>
-		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (S/SW)</category>
+		<category>Buildings\Doors\Wooden Gate 1\Gate (S/SW)</category>
 	</item>
 
 	<item id="83b">
 		<id>0x083b</id>
 		<type>12</type>
-		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (S/SE)</category>
+		<category>Buildings\Doors\Wooden Gate 1\Gate (S/SE)</category>
 	</item>
 
 	<item id="83d">
 		<type>12</type>
 		<id>0x083d</id>
-		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (S/NW)</category>
+		<category>Buildings\Doors\Wooden Gate 1\Gate (S/NW)</category>
 	</item>
 
 	<item id="83f">
 		<type>12</type>
 		<id>0x083f</id>
-		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (S/NE)</category>
+		<category>Buildings\Doors\Wooden Gate 1\Gate (S/NE)</category>
 	</item>
 
 	<item id="841">
 		<type>12</type>
 		<id>0x0841</id>
-		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (W/SW)</category>
+		<category>Buildings\Doors\Wooden Gate 1\Gate (W/SW)</category>
 	</item>
 
 	<item id="843">
 		<type>12</type>
 		<id>0x0843</id>
-		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (W/NW)</category>
+		<category>Buildings\Doors\Wooden Gate 1\Gate (W/NW)</category>
 	</item>
 
 	<item id="845">
 		<type>12</type>
 		<id>0x0845</id>
-		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (W/SE)</category>
+		<category>Buildings\Doors\Wooden Gate 1\Gate (W/SE)</category>
 	</item>
 
 	<item id="847">
 		<id>0x0847</id>
 		<type>12</type>
-		<category>Buildings\Doors\Light Wooden Gate\Light Wooden Gate (W/NE)</category>
+		<category>Buildings\Doors\Wooden Gate 1\Gate (W/NE)</category>
 	</item>
 
 	<!-- Dark Wooden Gate -->
 	<item id="866">
 		<id>0x0866</id>
 		<type>12</type>
-		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (S/SW)</category>
+		<category>Buildings\Doors\Wooden Gate 2\Gate (S/SW)</category>
 	</item>
 
 	<item id="868">
 		<id>0x0868</id>
 		<type>12</type>
-		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (S/SE)</category>
+		<category>Buildings\Doors\Wooden Gate 2\Gate (S/SE)</category>
 	</item>
 
 	<item id="86a">
 		<id>0x086a</id>
 		<type>12</type>
-		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (S/NW)</category>
+		<category>Buildings\Doors\Wooden Gate 2\Gate (S/NW)</category>
 	</item>
 
 	<item id="86c">
 		<id>0x086c</id>
 		<type>12</type>
-		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (S/NE)</category>
+		<category>Buildings\Doors\Wooden Gate 2\Gate (S/NE)</category>
 	</item>
 
 	<item id="86e">
 		<id>0x086e</id>
 		<type>12</type>
-		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (W/SW)</category>
+		<category>Buildings\Doors\Wooden Gate 2\Gate (W/SW)</category>
 	</item>
 
 	<item id="870">
 		<id>0x0870</id>
 		<type>12</type>
-		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (W/NW)</category>
+		<category>Buildings\Doors\Wooden Gate 2\Gate (W/NW)</category>
 	</item>
 
 	<item id="872">
 		<id>0x0872</id>
 		<type>12</type>
-		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (W/SE)</category>
+		<category>Buildings\Doors\Wooden Gate 2\Gate (W/SE)</category>
 	</item>
 
 	<item id="874">
 		<id>0x0874</id>
 		<type>12</type>
-		<category>Buildings\Doors\Dark Wooden Gate\Dark Wooden Gate (W/NE)</category>
+		<category>Buildings\Doors\Wooden Gate 2\Gate (W/NE)</category>
 	</item>
 
 	<!-- Iron Gate 1 -->

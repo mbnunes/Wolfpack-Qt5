@@ -109,4 +109,149 @@
 		<id>0x041e</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 20</category>
 	</item>
+
+	<!-- Dirt Patches -->
+	<item id="911">
+		<id>0x0911</id>
+		<category>Ground Tiles\Dirt Patches\Dirt Patch 1</category>
+	</item>
+
+	<item id="912">
+		<id>0x0912</id>
+		<category>Ground Tiles\Dirt Patches\Dirt Patch 2</category>
+	</item>
+
+	<item id="913">
+		<id>0x0913</id>
+		<category>Ground Tiles\Dirt Patches\Dirt Patch 3</category>
+	</item>
+
+	<item id="914">
+		<id>0x0914</id>
+		<category>Ground Tiles\Dirt Patches\Dirt Patch 4</category>
+	</item>
+
+	<!-- Lava tiles by sandstorm -->
+
+	<!-- Lava animated tiles -->
+    <item id="12ee">
+		<id>0x12ee</id>
+		<category>Ground Tiles\Lava\Lava 1</category>
+	</item>
+
+	<item id="12f4">
+		<id>0x12f4</id>
+		<category>Ground Tiles\Lava\Lava 2</category>
+	</item>
+
+	<item id="12fa">
+		<id>0x12fa</id>
+		<category>Ground Tiles\Lava\Lava 3</category>
+	</item>
+
+	<item id="12fe">
+		<id>0x12fe</id>
+		<category>Ground Tiles\Lava\Lava 4</category>
+	</item>
+
+	<item id="1300">
+		<id>0x1300</id>
+		<category>Ground Tiles\Lava\Lava 5</category>
+	</item>
+
+	<item id="1306">
+		<id>0x1306</id>
+		<category>Ground Tiles\Lava\Lava 6</category>
+	</item>
+
+	<item id="130c">
+		<id>0x130c</id>
+		<category>Ground Tiles\Lava\Lava 7</category>
+	</item>
+
+	<item id="1312">
+		<id>0x1312</id>
+		<category>Ground Tiles\Lava\Lava 8</category>
+	</item>
+
+	<item id="1318">
+		<id>0x1318</id>
+		<category>Ground Tiles\Lava\Lava 9</category>
+	</item>
+
+	<!-- Lava animated border -->
+	<item id="131e">
+		<id>0x131e</id>
+		<category>Ground Tiles\Lava\Border\Border 1</category>
+	</item>
+
+	<item id="1324">
+		<id>0x1324</id>
+		<category>Ground Tiles\Lava\Border\Border 2</category>
+	</item>
+
+	<item id="1327">
+		<id>0x1327</id>
+		<category>Ground Tiles\Lava\Border\Border 3</category>
+	</item>
+
+	<item id="132a">
+		<id>0x132a</id>
+		<category>Ground Tiles\Lava\Border\Border 4</category>
+	</item>
+
+	<item id="132d">
+		<id>0x132d</id>
+		<category>Ground Tiles\Lava\Border\Border 5</category>
+	</item>
+
+	<item id="1330">
+		<id>0x1330</id>
+		<category>Ground Tiles\Lava\Border\Border 6</category>
+	</item>
+
+	<item id="1333">
+		<id>0x1333</id>
+		<category>Ground Tiles\Lava\Border\Border 7</category>
+	</item>
+
+	<item id="1336">
+		<id>0x1336</id>
+		<category>Ground Tiles\Lava\Border\Border 8</category>
+	</item>
+
+	<item id="1339">
+		<id>0x1339</id>
+		<category>Ground Tiles\Lava\Border\Border 9</category>
+	</item>
+
+	<item id="133c">
+		<id>0x133c</id>
+		<category>Ground Tiles\Lava\Border\Border 10</category>
+	</item>
+
+	<item id="133f">
+		<id>0x133f</id>
+		<category>Ground Tiles\Lava\Border\Border 11</category>
+	</item>
+
+	<item id="1342">
+		<id>0x1342</id>
+		<category>Ground Tiles\Lava\Border\Border 12</category>
+	</item>
+
+	<item id="1345">
+		<id>0x1345</id>
+		<category>Ground Tiles\Lava\Border\Border 13</category>
+	</item>
+
+	<item id="1348">
+		<id>0x1348</id>
+		<category>Ground Tiles\Lava\Border\Border 14</category>
+	</item>
+
+	<item id="134b">
+		<id>0x134b</id>
+		<category>Ground Tiles\Lava\Border\Border 15</category>
+	</item>
 </definitions>

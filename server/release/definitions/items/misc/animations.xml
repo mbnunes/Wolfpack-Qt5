@@ -1,0 +1,169 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+        <item id="36b0">
+                <id>0x36b0</id>
+                <category>Misc\Animations\Explosion 1</category>
+        </item>
+
+        <item id="36bd">
+                <id>0x36bd</id>
+                <category>Misc\Animations\Explosion 2</category>
+        </item>
+
+        <item id="36cb">
+                <id>0x36cb</id>
+                <category>Misc\Animations\Explosion 3</category>
+        </item>
+
+        <item id="36d4">
+                <id>0x36d4</id>
+                <category>Misc\Animations\Fireball (large)</category>
+        </item>
+
+        <item id="36e4">
+                <id>0x36e4</id>
+                <category>Misc\Animations\Fireball (small)</category>
+        </item>
+
+        <item id="36f4">
+                <id>0x36f4</id>
+                <category>Misc\Animations\Fire Snake</category>
+        </item>
+
+        <item id="36fe">
+                <id>0x36fe</id>
+                <category>Misc\Animations\Explosion Ball</category>
+        </item>
+
+        <item id="3709">
+                <id>0x3709</id>
+                <category>Misc\Animations\Fire Column</category>
+        </item>
+
+        <item id="3709">
+                <id>0x3709</id>
+                <category>Misc\Animations\Fire Column</category>
+        </item>
+
+        <item id="3728">
+                <id>0x3728</id>
+                <category>Misc\Animations\Smoke</category>
+        </item>
+
+        <item id="3735">
+                <id>0x3735</id>
+                <category>Misc\Animations\Fizzle</category>
+        </item>
+
+        <item id="373a">
+                <id>0x373a</id>
+                <category>Misc\Animations\Sparkle (blue) 1</category>
+        </item>
+
+        <item id="3779">
+                <id>0x3779</id>
+                <category>Misc\Animations\Sparkle (blue) 2</category>
+        </item>
+
+        <item id="374a">
+                <id>0x374a</id>
+                <category>Misc\Animations\Sparkle (red)</category>
+        </item>
+
+        <item id="375a">
+                <id>0x375a</id>
+                <category>Misc\Animations\Sparkle (blue & gold) 1</category>
+        </item>
+
+        <item id="376a">
+                <id>0x376a</id>
+                <category>Misc\Animations\Sparkle (blue & gold) 2</category>
+        </item>
+
+        <item id="3789">
+                <id>0x3789</id>
+                <category>Misc\Animations\Death Vortex</category>
+        </item>
+
+        <item id="37a0">
+                <id>0x37a0</id>
+                <category>Misc\Animations\Field of Blades</category>
+        </item>
+
+        <item id="37b9">
+                <id>0x37b9</id>
+                <category>Misc\Animations\Glow</category>
+        </item>
+
+        <item id="37c4">
+                <id>0x37c4</id>
+                <category>Misc\Animations\Glow (like a star)</category>
+        </item>
+
+        <item id="37cc">
+                <id>0x37cc</id>
+                <category>Misc\Animations\Death Vortex</category>
+        </item>
+
+        <item id="3818">
+                <id>0x3818</id>
+                <category>Energy</category>
+        </item>
+
+        <item id="3915">
+                <id>0x3915</id>
+                <category>Field of Poison (N/S) 1</category>
+        </item>
+
+        <item id="3e02">
+                <id>0x3e02</id>
+                <category>Field of Poison (N/S) 2</category>
+        </item>
+
+        <item id="3920">
+                <id>0x3920</id>
+                <category>Field of Poison (W/E)</category>
+        </item>
+
+        <item id="3946">
+                <id>0x3946</id>
+                <category>Field of Energy (N/S)</category>
+        </item>
+
+        <item id="3956">
+                <id>0x3956</id>
+                <category>Field of Energy (W/E)</category>
+        </item>
+
+        <item id="3967">
+                <id>0x3967</id>
+                <category>Field of Paralysis (N/S)</category>
+        </item>
+
+        <item id="3979">
+                <id>0x3979</id>
+                <category>Field of Paralysis (W/E)</category>
+        </item>
+
+        <item id="398c">
+                <id>0x398c</id>
+                <category>Field of Fire (N/S) 1</category>
+        </item>
+
+        <item id="3e27">
+                <id>0x3e27</id>
+                <category>Field of Fire (N/S) 2</category>
+        </item>
+
+        <item id="3996">
+                <id>0x3996</id>
+                <category>Field of Fire (W/E)</category>
+        </item>
+</definitions>
