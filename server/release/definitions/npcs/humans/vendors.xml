@@ -2071,9 +2071,59 @@
 		</shopkeeper>
 		<category>Vendors\Herbalist (Female)</category>
 	</npc>
+	<!-- Stablemaster (no real vendor) -->
 	<npc id="stablemaster_male">
 		<inherit>base_male</inherit>
 		<title>the Stablemaster</title>
-		<shopkeeper/>
+		<events>speech_stablemaster</events>
+		<fencing>
+			<random min="150" max="380"/>
+		</fencing>
+		<parrying>
+			<random min="450" max="680"/>
+		</parrying>
+		<swordsmanship>
+			<random min="150" max="380"/>
+		</swordsmanship>
+		<wrestling>
+			<random min="150" max="380"/>
+		</wrestling>
+		<macefighting>
+			<random min="150" max="380"/>
+		</macefighting>
+		<magicresistance>
+			<random min="450" max="680"/>
+		</magicresistance>
+		<tactics>
+			<random min="450" max="680"/>
+		</tactics>
+		<category>Vendors\Stablemaster (Male)</category>
+	</npc>
+	<npc id="stablemaster_female">
+		<inherit>base_female</inherit>
+		<title>the Stablemaster</title>
+		<events>speech_stablemaster</events>
+		<fencing>
+			<random min="150" max="380"/>
+		</fencing>
+		<parrying>
+			<random min="450" max="680"/>
+		</parrying>
+		<swordsmanship>
+			<random min="150" max="380"/>
+		</swordsmanship>
+		<wrestling>
+			<random min="150" max="380"/>
+		</wrestling>
+		<macefighting>
+			<random min="150" max="380"/>
+		</macefighting>
+		<magicresistance>
+			<random min="450" max="680"/>
+		</magicresistance>
+		<tactics>
+			<random min="450" max="680"/>
+		</tactics>
+		<category>Vendors\Stablemaster (Female)</category>
 	</npc>
 </definitions>
