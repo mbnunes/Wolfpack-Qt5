@@ -367,6 +367,7 @@ void itemmessage(UOXSOCKET s, char *txt, int serial, short color)
 		(pi->id()==0x1BF2 && color == 0x0000))
 		color = 0x03B2;
 	    else
+			if(!(pi->corpse == 1))
 		color = 0x0481;
 
 	int tl=44+strlen(txt)+1;

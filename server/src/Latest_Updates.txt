@@ -44,3 +44,5 @@ will highlight red. (Ripper)
 36) Added: So you cant entice or provoke healers,tele guards,city guards,chaos guards & order guards.(Ripper)
 37) Added: when singleclick on a item the white is brighter :) (Ripper)
 38) Fixed: 'makegm & 'makecns should work correctly again. (Ripper)
+39) Added: Check # to banker AI. say Check # to any banker to get a check for # amount. To
+cash check, just drop on any banker :) (Ripper)

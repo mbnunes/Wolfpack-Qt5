@@ -704,6 +704,21 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	int t=calcCharFromSer(pp->Tserial);
 	P_ITEM bankbox = pc_currchar->GetBankBox();
 	int amt = pi->amount;
+	int value = pi->value;
+	
+	if (pi->id() == 0x14F0 && pi->type == 1000)
+	{
+		 int n=Items->SpawnItem(cc,DEREF_P_CHAR(pc_currchar),value,"#",1,0x0E,0xED,0,0,0,0);
+	     if(n==-1) return false;
+	     const P_ITEM pi_n=MAKE_ITEMREF_LRV(n,false);
+		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name, value);
+		 npctalk(s,t,(char*)temp,0);
+		 bankbox->AddItem(pi_n);
+	     statwindow(s, DEREF_P_CHAR(pc_currchar));
+		 return true;
+	}
+    else
+	{	    
 	if (pi->id() == 0x0EED)
 	{
 		sprintf((char*)temp,"%s you have deposited %i gold.",pc_currchar->name, amt);
@@ -723,8 +738,9 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			 item_bounce5(s,pi);
 			 return true;
 		  }
-	   }
+	}
 	return true;
+	}
 }
 
 static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
@@ -842,6 +858,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				if( ( pTC->isNpc() ) && ( pTC->npcaitype == 4 ) )
 				{
 					ItemDroppedOnGuard( ps, pp, pi);
+					return true;
 				}
 				if ( pTC->npcaitype == 5 )
 				{
@@ -869,6 +886,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				else // The player is training from this NPC
 				{
 					ItemDroppedOnTrainer( ps, pp, pi);
+					return true;
 				}
 			}//if human or not
 		}

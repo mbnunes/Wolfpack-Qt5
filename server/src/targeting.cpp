@@ -2545,7 +2545,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 			{
 				Items->DeleItem(j);
 
-				P_ITEM pi=Items->SpawnItem(i,1,"a resurrect robe",0,0x1F03,0,0);
+				P_ITEM pi=Items->SpawnItem(i,1,"a robe",0,0x1F03,0,0);
 				if(!pi) return false;
 				pi->SetContSerial(pc->serial);
 				pi->layer=0x16;

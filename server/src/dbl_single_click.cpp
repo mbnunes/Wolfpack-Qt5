@@ -919,6 +919,11 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				}
 				return;
 			}
+		case 1000: // Ripper...bank checks
+			{
+				sysmessage(s, "To cash this, you need to drop it on a banker.");
+				return;
+			}
 		default:						
 			break; // case (itype!) 
 		}// switch (itype)
@@ -1469,6 +1474,13 @@ void singleclick(UOXSOCKET s)
 		int spellcount=Magic->SpellsInBook(DEREF_P_ITEM(pi));
 		sprintf((char*)temp, "[%i spells]", spellcount);
 		itemmessage(s, (char*)temp, serial,0x0481);
+	}
+
+	if (pi->type == 1000) // Ripper...used for bank checks.
+	{
+		int goldcount = pi->value;
+		sprintf((char*)temp, "[%i gold]", goldcount);
+		itemmessage(s, (char*)temp, pi->serial,0x0481);
 	}
 	
 	if (pc_currchar->getPriv()&8)

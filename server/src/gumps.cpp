@@ -1375,7 +1375,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 	else if ((main>=5256) && (main<8192)) // Tracking fix 12-30-98
 	{
 //		openscript("items.scp");
-		sprintf(sect, "ITEMMENU %i", main-256);
+		sprintf(sect, "ITEMMENU %i", main-2042);//256);
 		script = i_scripts[items_script];
 	}
 	else if(main>=ITEMMENUOFFSET && main<MAKEMENUOFFSET)
@@ -1503,8 +1503,8 @@ void gmmenu(int s, int m) // Open one of the gray GM Call menus
 {
 	int total, i;
 	int lentext;
-	char sect[512];
-	static char gmtext[255][257];
+	char sect[2042];
+	static char gmtext[2042][2044];
 	int gmnumber=0;
 	int gmindex,loopexit=0;
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
@@ -1527,7 +1527,7 @@ void gmmenu(int s, int m) // Open one of the gray GM Call menus
 		if (script1[0]!='}')
 		{
 			gmnumber++;
-			strncpy(gmtext[gmnumber], script1, 256);
+			strncpy(gmtext[gmnumber], script1, 2042);//256);
 			read1();
 		}
 	}
@@ -1567,9 +1567,9 @@ void itemmenu(int s, int m) // Menus for item creation
 {
 	int total, i,y,ss,yy;
 	int lentext;
-	char sect[512];
-	static char gmtext[255][257]; // crashfix LB, was 30 !!!, increased to 255
-	int gmid[255]; // crashifx LB
+	char sect[2042];
+	static char gmtext[2042][2044]; // crashfix LB, was 30 !!!, increased to 255
+	int gmid[2042]; // crashifx LB
 	int gmnumber=0;
 	int gmindex,loopexit=0;
 	
@@ -1602,7 +1602,7 @@ void itemmenu(int s, int m) // Menus for item creation
 	if (pc_currchar->menupriv!=-1 || pc_currchar->menupriv!=1)  // account 0 users can use it always
 	{
       y=-1;ss=0;yy=pc_currchar->menupriv;
-	  while(menupriv[yy][ss]!=-1 && ss<256)
+	  while(menupriv[yy][ss]!=-1 && ss<2042)//256)
 	  { 
 		  if (menupriv[yy][ss]==gmindex ) 
 		  {

@@ -530,8 +530,10 @@ bool BankerSpeech(cChar* pBanker, char* comm, cChar* pPlayer, UOXSOCKET s)
 		return 0;
 	if (pPlayer->dist(pBanker) > 6)
 		return 0;
+	if (!(strstr(comm,"BANK") || strstr(comm,"BALANCE") || strstr(comm,"WITHDRAW") || strstr(comm,"CHECK")))
+		return 0;
 	BankerAI->DoAI(s,DEREF_P_CHAR(pBanker),comm);
-	return true;
+	return 1;
 }
 
 bool TrainerSpeech(cChar* pTrainer, char* comm, cChar* pPlayer, UOXSOCKET s)

@@ -521,16 +521,19 @@ void cCharStuff::cDragonAI::DoneAI(int i,int currenttime)
 bool cCharStuff::cBankerAI::DoAI(int c,int i,char *comm)
 {
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
-	char search1[50], search2[50], search3[50];
+	char search1[50], search2[50], search3[50], search4[50];
 	char *response1=0;
 	char *response2=0;
 	char *response3=0;
+	char *response4=0;
 	strcpy(search1,"BANK");
     strcpy(search2,"BALANCE");
 	strcpy(search3,"WITHDRAW");
+	strcpy(search4,"CHECK");
     response1=(strstr( comm, search1));
     response2=(strstr( comm, search2));
 	response3=(strstr( comm, search3));
+	response4=(strstr( comm, search4));
 	if(SrvParms->usespecialbank)
 	{
 		strcpy(search1, SrvParms->specialbanktrigger);
@@ -552,6 +555,10 @@ bool cCharStuff::cBankerAI::DoAI(int c,int i,char *comm)
 	else if (response3 && (!(pc_currchar->dead)))
 	{
 		return Withdraw(c,i,comm);
+	}
+	else if (response4 && (!(pc_currchar->dead)))
+	{
+		return Check(c,i,comm);
 	}
 	return true;
 }
@@ -599,4 +606,54 @@ bool cCharStuff::cBankerAI::Withdraw(int c, int i, char *comm)
 		    sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
 	        npctalk(c, i, temp,1);
 	        return true;
+}
+
+bool cCharStuff::cBankerAI::Check(int c, int i, char *comm)
+{
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
+	    int a=0;
+	    char value1[50]={' '};
+	    char value2[50]={' '};
+	    value1[0]=0;
+	    value2[0]=0;
+	    while(comm[a]!=0 && comm[a]!=' ' && a<50 )
+		{
+		   a++;
+		}
+	    strncpy(value1, temp, a);
+	    value1[a]=0;
+	    if (value1[0]!='[' && comm[a]!=0) strcpy(value2, comm+a+1);
+		int d = pc_currchar->CountBankGold();
+		{
+		    int goldcount=str2num(value2);
+			if(goldcount < 5000 || goldcount > 1000000)
+			{
+				sprintf(temp, "%s you can only get checks worth 5000gp to 1000000gp.", pc_currchar->name);
+		        npctalk(c, i, temp,1);
+		        return false;
+			}
+			if( d >= goldcount )
+			{
+				int n=Items->SpawnItem(c,DEREF_P_CHAR(pc_currchar),1,"bank check",0,0x14,0xF0,0,0,0,0); // bank check
+	            if(n==-1) return false;
+				const P_ITEM pi=MAKE_ITEMREF_LRV(n,false);
+				pi->type = 1000;
+                pi->setId(0x14F0);
+				pi->color1 = 0x00;
+				pi->color2 = 0x99;
+                pi->priv |= 0x02;
+				pi->value = goldcount;
+		        DeleBankItem(DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldcount );
+				P_ITEM bankbox = pc_currchar->GetBankBox();
+				bankbox->AddItem(pi);
+	            statwindow(c, DEREF_P_CHAR(pc_currchar));
+		        sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name, goldcount);
+		        npctalk(c, i, temp,1);
+		        return true;
+			}
+		    else
+		       sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
+	           npctalk(c, i, temp,1);
+	           return true;
+		}
 }

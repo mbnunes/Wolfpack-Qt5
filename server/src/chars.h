@@ -439,6 +439,7 @@ public:
 		void MakeCheck(int c,int i);
 		void CashCheck(int c,int i);
 		bool Withdraw(int c,int i, char *comm);
+		bool Check(int c,int i, char *comm);
 		bool Balance(int c, int i);
 		void OpenBank(int c);
 	};
