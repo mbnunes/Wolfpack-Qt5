@@ -243,15 +243,16 @@ void cSpellBook::registerInFactory()
 void cSpellBook::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cItem::buildSqlString( fields, tables, conditions );
-	//fields.push_back( "" );
-	//tables.push_back( "boats" );
-	//conditions.push_back( "uobjectmap.serial = boats.serial" );
+	fields.push_back( "spellbooks.spells1,spellbooks.spells2" );
+	tables.push_back( "spellbooks" );
+	conditions.push_back( "uobjectmap.serial = spellbooks.serial" );
 }
 
 void cSpellBook::load( char **result, UINT16 &offset )
 {
 	cItem::load( result, offset );
-	
+	spells1_ = atoi( result[offset++] );
+	spells2_ = atoi( result[offset++] );
 }
 
 void cSpellBook::save( const QString &s  )

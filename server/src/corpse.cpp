@@ -30,6 +30,7 @@
 #include "corpse.h"
 #include "network.h"
 #include "network/uotxpackets.h"
+#include "worldmain.h"
 #include "network/uosocket.h"
 
 #include <functional>
@@ -51,15 +52,33 @@ void cCorpse::registerInFactory()
 void cCorpse::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cItem::buildSqlString( fields, tables, conditions );
-	//fields.push_back( "" );
-	//tables.push_back( "boats" );
-	//conditions.push_back( "uobjectmap.serial = boats.serial" );
+	fields.push_back( "corpses.bodyid,corpses.hairstyle,corpses.haircolor,corpses.beardstyle,corpses.beardcolor" );
+	tables.push_back( "corpses" );
+	conditions.push_back( "uobjectmap.serial = corpses.serial" );
 }
 
 void cCorpse::load( char **result, UINT16 &offset )
 {
 	cItem::load( result, offset );
-	
+	bodyId_ = atoi( result[offset++] );
+	hairStyle_ = atoi( result[offset++] );
+	hairColor_ = atoi( result[offset++] );
+	beardStyle_ = atoi( result[offset++] );
+	beardColor_ = atoi( result[offset++] );
+
+	// Get the corpse equipment
+	QString sql = "SELECT corpses_equipment.layer,corpses_equipment.item FROM corpses_equipment WHERE serial = '" + QString::number( serial ) + "'";
+
+	if( mysql_query( cwmWorldState->mysql, sql.latin1() ) )
+		throw mysql_error( cwmWorldState->mysql );
+
+	MYSQL_RES *mResult = mysql_use_result( cwmWorldState->mysql );
+
+	// Fetch row-by-row
+	while( MYSQL_ROW row = mysql_fetch_row( mResult ) )
+		equipment_.insert( make_pair( atoi( row[0] ), atoi( row[1] ) ) );
+
+	mysql_free_result( mResult );
 }
 
 void cCorpse::save( const QString &s  )
