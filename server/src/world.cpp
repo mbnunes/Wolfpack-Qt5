@@ -1340,6 +1340,8 @@ void cWorld::backupWorld(const QString &filename, unsigned int count, bool compr
 	// Check if we need to remove a previous backup
 	QMap<QDateTime, QString> backups = listBackups(filename);
 
+	QString backupName = QFileInfo(filename).dirPath(true) + QDir::separator();
+
 	if (backups.count() >= count) {
 		// Remove the oldest backup
 		QDateTime current;
@@ -1353,14 +1355,14 @@ void cWorld::backupWorld(const QString &filename, unsigned int count, bool compr
 			}
 		}
 
-		if (!backup.isNull() && !QFile::remove(backup)) {
+		if (!backup.isNull() && !QFile::remove( backupName + backup )) {
 			Console::instance()->log(LOG_ERROR, QString("Unable to remove backup %1. No new backup has been created.\n").arg(backup));
 			return;
 		}
 	}
 
 	// Rename the old worldfile to the new backup name
-	QString backupName = QFileInfo(filename).dirPath(true) + QDir::separator() + QFileInfo(filename).baseName(false);
+	backupName.append( QFileInfo(filename).baseName(false) );
 	QDateTime current = QDateTime::currentDateTime();
 	backupName.append(current.toString("-yyyyMMdd-hhmm")); // Append Timestamp
 	backupName.append(".");
