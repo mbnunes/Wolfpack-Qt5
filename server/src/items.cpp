@@ -2000,7 +2000,7 @@ void cItem::showName( cUOSocket *socket )
 		if( weight_ == 255 )
 			tWeight -= 255;
 
-		QString message = tr( "[%1 items, %2 stones]" ).arg( content_.size() ).arg( ceil( tWeight/10 ) );
+		QString message = tr( "[%1 items, %2 stones]" ).arg( content_.size() ).arg( tWeight/10 );
 
 		socket->showSpeech( this, message, 0x3B2 );
 	}
