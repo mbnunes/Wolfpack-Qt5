@@ -29,6 +29,7 @@
 #define __WORLD_H__
 
 // Wolfpack Includes
+#include "defines.h"
 #include "typedefs.h"
 #include "singleton.h"
 

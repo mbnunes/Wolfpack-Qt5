@@ -687,6 +687,13 @@ void Action_Wander::movePath( const Coord_cl& pos )
 
 void Action_Flee::execute()
 {
+	P_CHAR pFleeFrom = World::instance()->findChar(pFleeFromSer);
+
+	if (!pFleeFrom) {
+		pFleeFromSer = INVALID_SERIAL;
+		return;
+	}
+
 	if ( !m_npc->hasPath() )
 	{
 		Coord_cl newPos = m_npc->pos();
@@ -736,7 +743,7 @@ float Action_FleeAttacker::preCondition()
 	if ( m_npc->hitpoints() < m_npc->criticalHealth() )
 		return 0.0f;
 
-	pFleeFrom = pAttacker;
+	pFleeFromSer = pAttacker->serial();
 
 	// 1.0 = Full Health, 0.0 = Dead
 	float diff = 1.0 - QMAX( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );

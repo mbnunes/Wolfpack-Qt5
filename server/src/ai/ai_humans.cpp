@@ -329,7 +329,7 @@ void Human_Guard::registerInFactory()
 	AIFactory::instance()->registerType( "Human_Guard", productCreator_HG );
 }
 
-Human_Guard::Human_Guard( P_NPC npc ) : AbstractAI( npc ), m_currentVictim( NULL )
+Human_Guard::Human_Guard( P_NPC npc ) : AbstractAI( npc ), m_currentVictimSer( INVALID_SERIAL )
 {
 	notorietyOverride_ = 1;
 	m_actions.append( new Human_Guard_Wander( npc, this ) );
@@ -345,16 +345,25 @@ void Human_Guard::check()
 
 void Human_Guard::selectVictim()
 {
+	P_CHAR m_currentVictim = World::instance()->findChar(m_currentVictimSer);
+
+	if (!m_currentVictim) {
+		m_currentVictimSer = INVALID_SERIAL;
+	}
+
 	if ( m_currentVictim )
 	{
 		// Check if the current target is valid, including:
 		// - Target not dead.
 		// - Target in attack range.
 		// - Target not innocent.
-		if ( m_currentVictim->isDead() || m_currentVictim->isInnocent() )
+		if ( m_currentVictim->isDead() || m_currentVictim->isInnocent() ) {
 			m_currentVictim = NULL;
-		else if ( !m_npc->inRange( m_currentVictim, Config::instance()->attack_distance() ) )
+			m_currentVictimSer = INVALID_SERIAL;
+		} else if ( !m_npc->inRange( m_currentVictim, Config::instance()->attack_distance() ) ) {
 			m_currentVictim = NULL;
+			m_currentVictimSer = INVALID_SERIAL;
+		}
 	}
 
 	if ( !m_currentVictim )
@@ -371,6 +380,7 @@ void Human_Guard::selectVictim()
 					continue;
 
 				m_currentVictim = pChar;
+				m_currentVictimSer = pChar->serial();
 				break;
 			}
 		}

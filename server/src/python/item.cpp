@@ -118,17 +118,22 @@ wpItem_compare,
 0,0,0,0,0,0,0,0,0,
 };
 
+PyObject* PyCreateItemObject( P_ITEM item )
+{
+	//	wpItem *returnVal = ItemCache::instance()->allocObj( &wpItemType );
+	wpItem* returnVal = PyObject_New( wpItem, &wpItemType );
+	returnVal->pItem = item;
+	return ( PyObject * ) returnVal;
+}
+
 PyObject* PyGetItemObject( P_ITEM item )
 {
 	if ( item == NULL )
 	{
 		Py_RETURN_NONE;
+	} else {
+		return item->getPyObject();
 	}
-
-	//	wpItem *returnVal = ItemCache::instance()->allocObj( &wpItemType );
-	wpItem* returnVal = PyObject_New( wpItem, &wpItemType );
-	returnVal->pItem = item;
-	return ( PyObject * ) returnVal;
 }
 
 // Method declarations

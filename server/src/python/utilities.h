@@ -83,6 +83,7 @@ Coord_cl getWpCoord( PyObject* object );
 
 bool checkWpItem( PyObject* object );
 PyObject* PyGetItemObject( P_ITEM );
+PyObject* PyCreateItemObject( P_ITEM );
 P_ITEM getWpItem( PyObject* );
 int PyConvertItem( PyObject*, P_ITEM* item );
 
@@ -90,6 +91,7 @@ PyObject* PyGetObjectObject( cUObject* );
 
 bool checkWpChar( PyObject* object );
 PyObject* PyGetCharObject( P_CHAR );
+PyObject* PyCreateCharObject( P_CHAR );
 P_CHAR getWpChar( PyObject* );
 int PyConvertChar( PyObject* object, P_CHAR* character );
 int PyConvertPlayer( PyObject* object, P_PLAYER* player );

@@ -150,15 +150,9 @@ wpChar_compare,
 0,
 };
 
-
-
-PyObject* PyGetCharObject( P_CHAR pChar )
+// I N T E R N A L
+PyObject *PyCreateCharObject( P_CHAR pChar )
 {
-	if ( !pChar )
-	{
-		Py_RETURN_NONE;
-	}
-
 	//	wpChar *returnVal = CharCache::instance()->allocObj( &wpCharType );
 	wpChar* returnVal = PyObject_New( wpChar, &wpCharType );
 	returnVal->pChar = pChar;
@@ -171,6 +165,16 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 	returnVal->py_skilllock	= NULL;
 
 	return ( PyObject * ) returnVal;
+}
+
+PyObject* PyGetCharObject( P_CHAR pChar )
+{
+	if ( !pChar )
+	{
+		Py_RETURN_NONE;
+	} else {
+		return pChar->getPyObject();
+	}
 }
 
 // Methods

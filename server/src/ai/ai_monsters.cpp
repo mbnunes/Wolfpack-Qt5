@@ -126,8 +126,15 @@ P_CHAR findBestTarget(P_NPC npc) {
 
 void Monster_Aggressive::check()
 {
+	// Our current victim
+	P_CHAR m_currentVictim = World::instance()->findChar(m_currentVictimSer);
+	if (!m_currentVictim) {
+		m_currentVictim = INVALID_SERIAL;
+	}
+
 	if (m_currentVictim && invalidTarget(m_npc, m_currentVictim)) {
 		m_currentVictim = 0;
+		m_currentVictim = INVALID_SERIAL;
 		m_npc->fight(0);
 	}
 
@@ -139,6 +146,7 @@ void Monster_Aggressive::check()
 
 			if (target) {
 				m_currentVictim = target;
+				m_currentVictimSer = target->serial();
 				m_npc->fight(target);
 			}
 		}

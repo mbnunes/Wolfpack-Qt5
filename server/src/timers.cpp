@@ -427,7 +427,7 @@ int cTimers::countSerializables()
 }
 
 cDelayedOnCreateCall::cDelayedOnCreateCall( cUObject* obj, const QString& definition ) :
-	obj_(obj), def_(definition)
+	objSer_(obj->serial()), def_(definition)
 {
 	setSerializable( false );
 	expiretime = 0; // right on the next loop.
@@ -435,7 +435,11 @@ cDelayedOnCreateCall::cDelayedOnCreateCall( cUObject* obj, const QString& defini
 
 void cDelayedOnCreateCall::Expire()
 {
-	obj_->onCreate(def_);
+	cUObject *object = World::instance()->findObject(objSer_);
+
+	if (object) {
+		object->onCreate(def_);
+	}
 }
 
 void cTimers::insert( cTimer* pT )

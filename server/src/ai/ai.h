@@ -36,6 +36,7 @@
 #include "../definable.h"
 #include "../singleton.h"
 #include "../typedefs.h"
+#include "../world.h"
 
 // library includes
 #include <qptrlist.h>
@@ -196,11 +197,11 @@ protected:
 class Action_Flee : public Action_Wander
 {
 protected:
-	Action_Flee() : Action_Wander(), pFleeFrom( NULL )
+	Action_Flee() : Action_Wander(), pFleeFromSer( INVALID_SERIAL )
 	{
 	}
 public:
-	Action_Flee( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ), pFleeFrom( NULL )
+	Action_Flee( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ), pFleeFromSer( INVALID_SERIAL )
 	{
 	}
 	virtual void execute();
@@ -210,7 +211,7 @@ public:
 		return "Action_Flee";
 	}
 protected:
-	P_CHAR pFleeFrom;
+	SERIAL pFleeFromSer;
 };
 
 class Action_FleeAttacker : public Action_Flee
@@ -314,14 +315,14 @@ public:
 class Monster_Aggressive : public AbstractAI
 {
 protected:
-	Monster_Aggressive() : AbstractAI(), m_currentVictim( NULL )
+	Monster_Aggressive() : AbstractAI(), m_currentVictimSer( INVALID_SERIAL )
 	{
 		notorietyOverride_ = 3;
 		nextVictimCheck = 0;
 	}
 
 public:
-	Monster_Aggressive( P_NPC npc ) : AbstractAI( npc ), m_currentVictim( NULL )
+	Monster_Aggressive( P_NPC npc ) : AbstractAI( npc ), m_currentVictimSer( INVALID_SERIAL )
 	{
 		notorietyOverride_ = 3;
 		nextVictimCheck = 0;
@@ -329,15 +330,13 @@ public:
 
 	virtual void check();
 
-	P_CHAR currentVictim() const
-	{
-		return m_currentVictim;
+	P_CHAR currentVictim() const {
+		return World::instance()->findChar(m_currentVictimSer);
 	}
 protected:
 	virtual void selectVictim() = 0;
-
 	unsigned int nextVictimCheck;
-	P_CHAR m_currentVictim;
+	SERIAL m_currentVictimSer;
 };
 
 class Monster_Aggressive_L0 : public Monster_Aggressive
@@ -785,7 +784,7 @@ public:
 class Human_Guard : public AbstractAI
 {
 protected:
-	Human_Guard() : AbstractAI(), m_currentVictim( NULL )
+	Human_Guard() : AbstractAI(), m_currentVictimSer( INVALID_SERIAL )
 	{
 		notorietyOverride_ = 1;
 	}
@@ -803,12 +802,12 @@ public:
 
 	P_CHAR currentVictim() const
 	{
-		return m_currentVictim;
+		return World::instance()->findChar(m_currentVictimSer);
 	}
 protected:
 	virtual void selectVictim();
 
-	P_CHAR m_currentVictim;
+	SERIAL m_currentVictimSer;
 };
 
 #endif /* AI_H_HEADER_INCLUDED */

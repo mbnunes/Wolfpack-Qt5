@@ -81,12 +81,13 @@ float Animal_Wild_Flee::preCondition()
 		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( ri.GetData() );
 		if ( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
 		{
-			pFleeFrom = pPlayer;
+			pFleeFromSer = pPlayer->serial();
 		}
 		if ( pPlayer && m_npc->owner() == pPlayer )
 			return 0.0f;
 	}
-	if ( pFleeFrom )
+	
+	if ( pFleeFromSer != INVALID_SERIAL )
 		return 1.0f;
 
 	return 0.0f;

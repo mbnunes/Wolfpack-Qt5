@@ -154,7 +154,7 @@ public:
 
 class cDelayedOnCreateCall : public cTimer
 {
-	cUObject* obj_;
+	SERIAL objSer_;
 	const QString def_;
 public:
 	cDelayedOnCreateCall( cUObject*, const QString& definition );
