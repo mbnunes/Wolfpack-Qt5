@@ -1435,7 +1435,7 @@ void			cTmpEffFibHeap::decrease( cTempEffect* pT, int diffTime ) // O( 1 )
 		return;
 
 	pT->expiretime -= diffTime;
-	if( pT != this->head )
+	if( pT->father )
 	{
 		// first cut pT out and insert it into the root list
 		// mark the father, if the father is already marked,
