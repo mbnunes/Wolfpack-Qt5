@@ -94,8 +94,8 @@ for row in range(0, rows):
 		if id < len(commands):
 			command = commands[id]
 			overview += '<td>- <a href="command_%s.html">%s</a></td>' % (command['name'].lower(), command['name'])
-	else:
-		overview += "<td>&nbsp;</td>\n";
+		else:
+			overview += "<td>&nbsp;</td>\n";
 
 	overview += "</tr>\n" 	
 
@@ -156,8 +156,8 @@ for row in range(0, rows):
 		if id < len(events):
 			event = events[id]
 			overview += '<td><a href="event_%s.html">%s</a></td>' % (event['name'].lower(), event['name'])
-	else:
-		overview += "<td>&nbsp;</td>\n";
+		else:
+			overview += "<td>&nbsp;</td>\n";
 
 	overview += "</tr>\n" 	
 
@@ -218,8 +218,8 @@ for row in range(0, rows):
 		if id < len(objects):
 			object = objects[id]
 			overview += '<td><a href="object_%s.html">%s</a></td>' % (object['object'].lower(), object['object'])
-	else:
-		overview += "<td>&nbsp;</td>\n";
+		else:
+			overview += "<td>&nbsp;</td>\n";
 
 	overview += "</tr>\n" 	
 
@@ -281,9 +281,9 @@ for object in objects:
 			id = col * rows + row
 			if id < len(methods):
 				method = methods[id]
-				overview += '<td>-&#160;<a href="#meth_%s">%s</a></td>' % (method['method'].lower(), method['method'])
-		else:
-			overview += "<td>&nbsp;</td>\n";
+				overview += '<td width="15%%">-&#160;<a href="#meth_%s">%s</a></td>' % (method['method'].lower(), method['method'])
+			else:
+				overview += "<td width=\"15%\">&nbsp;</td>\n";
 	
 		overview += "</tr>\n"
 		
@@ -301,9 +301,9 @@ for object in objects:
 			id = col * rows + row
 			if id < len(properties):
 				property = properties[id]
-				overview += '<td>-&#160;<a href="#prop_%s">%s</a></td>' % (property['property'].lower(), property['property'])
-		else:
-			overview += "<td>&nbsp;</td>\n";
+				overview += '<td width="15%%">-&#160;<a href="#prop_%s">%s</a></td>' % (property['property'].lower(), property['property'])
+			else:
+				overview += "<td width=\"15%\">&nbsp;</td>\n";
 	
 		overview += "</tr>\n"
 		
@@ -415,8 +415,8 @@ for row in range(0, rows):
 		if id < len(modules):
 			module = modules[id]
 			overview += '<td>- <a href="module_%s.html">%s</a></td>' % (module.replace('.', '_').lower(), module)
-	else:
-		overview += "<td>&nbsp;</td>\n";
+		else:
+			overview += "<td>&nbsp;</td>\n";
 
 	overview += "</tr>\n" 	
 
@@ -464,8 +464,8 @@ for module in modules:
 			if id < len(localfunctions):
 				function = localfunctions[id]
 				overview += '<td>-&#160;<a href="#func_%s">%s</a></td>' % (function['name'].lower(), function['name'])
-		else:
-			overview += "<td>&nbsp;</td>\n";
+			else:
+				overview += "<td>&nbsp;</td>\n";
 	
 		overview += "</tr>\n"
 		
