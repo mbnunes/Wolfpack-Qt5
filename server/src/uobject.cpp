@@ -116,8 +116,8 @@ void cUObject::Serialize(ISerialization &archive)
 		archive.write("pos.z", pos.z);
 		archive.write("pos.map", pos.map);
 		archive.write("pos.plane", pos.plane);
-		archive.doneWritting();
 	}
+	cSerializable::Serialize( archive );
 }
 
 inline string cUObject::objectID()

@@ -32,20 +32,12 @@
 #if !defined(AFX_WPSCRIPTMANAGER_H__267F80C6_32E0_43C9_992F_9FAD5DECDC2C__INCLUDED_)
 #define AFX_WPSCRIPTMANAGER_H__267F80C6_32E0_43C9_992F_9FAD5DECDC2C__INCLUDED_
 
-// Our Includes
-//#include "wppythonscript.h"
-
 // System Includes
 #include <map>
-#include <string>
-
-// Library includes
-#include "qstring.h"
 
 // Forward definitions
 class WPDefaultScript;
-
-//using namespace std;
+class QString;
 
 enum WPScriptTypes
 {

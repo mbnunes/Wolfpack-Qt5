@@ -31,6 +31,7 @@
 
 #include "iserialization.h"
 #include "uobject.h"
+#include "tmpeff.h"
 
 /*!
  * Reads the entiere object out of the serialization stream.
@@ -43,7 +44,7 @@
  *
  * @see readObjectID
  */
-void ISerialization::readObject( cUObject *base )
+void ISerialization::readObject( cSerializable *base )
 {
 	base->Serialize(*this);
 }
@@ -57,8 +58,15 @@ void ISerialization::readObject( cUObject *base )
  *
  * @see readObjec
  */
-void ISerialization::writeObject( cUObject *base )
+void ISerialization::writeObject( cSerializable *base )
 {
 	writeObjectID( base->objectID() );
 	base->Serialize(*this);
+}
+
+
+void cSerializable::Serialize( ISerialization &archive )
+{
+	if ( archive.isWritting())
+		archive.doneWritting();
 }

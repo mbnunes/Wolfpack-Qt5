@@ -1,6 +1,39 @@
+//==================================================================================
+//
+//      Wolfpack Emu (WP)
+//	UO Server Emulation Program
+//
+//	Copyright 1997, 98 by Marcus Rating (Cironian)
+//  Copyright 2001 by holders identified in authors.txt
+//	This program is free software; you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation; either version 2 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//	* In addition to that license, if you are running this program or modified
+//	* versions of it on a public system you HAVE TO make the complete source of
+//	* the version used by you available or provide people with a location to
+//	* download it.
+//
+//
+//
+//	Wolfpack Homepage: http://wpdev.sf.net/
+//========================================================================================
 
 #include "menuactions.h"
 #include "srvparams.h"
+
+// Library Includes
+#include "qdom.h"
 
 enum eItemState
 {
@@ -338,7 +371,7 @@ UI32 countResources( P_ITEM Container, const vector< UI16 > &MatchingIDs, const 
 }
 
 // ACTIONS YOU CAN USE IN YOUR XML ACTION FILES
-bool useItem( UOXSOCKET Socket, QDomElement Action, bool Failed )
+bool useItem( UOXSOCKET Socket, QDomElement& Action, bool Failed )
 {
 	bool CheckColor = false;
 	bool CheckName = false;
@@ -443,7 +476,7 @@ bool useItem( UOXSOCKET Socket, QDomElement Action, bool Failed )
 }
 
 // Checks if the user has a specific item
-bool hasItem( UOXSOCKET Socket, QDomElement Action )
+bool hasItem( UOXSOCKET Socket, QDomElement& Action )
 {
 	bool CheckColor = false;
 	bool CheckName = false;
@@ -541,7 +574,7 @@ bool hasItem( UOXSOCKET Socket, QDomElement Action )
 // If will play sounds if it's not "muted" by using quiet="1"
 // And if it fails it will consoume half of the resources needed
 // To create the item
-bool checkSkill( UOXSOCKET Socket, QDomElement Action )
+bool checkSkill( UOXSOCKET Socket, QDomElement& Action )
 {
 	SI32 Minimum = 0;
 	SI32 Maximum = 1000;
@@ -606,7 +639,7 @@ bool checkSkill( UOXSOCKET Socket, QDomElement Action )
 }
 
 // This will craft an item
-bool makeItem( UOXSOCKET Socket, QDomElement Action )
+bool makeItem( UOXSOCKET Socket, QDomElement& Action )
 {
 	// Things we need to do in this "node":
 	// Calculate a Rank for the created item
@@ -662,3 +695,4 @@ bool makeItem( UOXSOCKET Socket, QDomElement Action )
 
 	return true;
 }
+

@@ -96,10 +96,6 @@ SOURCE=.\admin.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\archive.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\basics.cpp
 # End Source File
 # Begin Source File
@@ -409,10 +405,6 @@ SOURCE=.\accounts.h
 # Begin Source File
 
 SOURCE=.\admin.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\archive.h
 # End Source File
 # Begin Source File
 

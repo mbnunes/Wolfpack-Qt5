@@ -35,10 +35,19 @@
 #include <string>
 
 #include "qstring.h"
-//#include "uobject.h"
 
 // Forward class declarations
-class cUObject;
+class ISerialization;
+
+class cSerializable
+{
+public:
+	//virtual cSerializable();
+	virtual ~cSerializable() = 0 {;}
+
+	virtual void		Serialize( ISerialization &archive ) = 0;
+	virtual std::string objectID( void ) = 0;
+};
 
 /*!
 CLASS
@@ -54,7 +63,7 @@ USAGE
 */
 class ISerialization
 {
-	friend class cUObject; // give access to doneWritting
+	friend class cSerializable; // give access to doneWritting
 protected:
 	enum _enState { enReading, enWritting, enClosed };
 	_enState _state;
@@ -74,8 +83,8 @@ public:
 	virtual unsigned int size() = 0;
 	virtual unsigned int getVersion() = 0;
 
-	virtual void readObject( cUObject * );
-	virtual void writeObject( cUObject * );
+	virtual void readObject( cSerializable * );
+	virtual void writeObject( cSerializable * );
 
 	// Write Methods
 	virtual void writeObjectID(std::string) = 0;

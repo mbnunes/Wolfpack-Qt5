@@ -61,7 +61,7 @@ private:
 	DefSections Menus;
 	DefSections Resources;
 
-	bool ImportSections( QString FileName );
+	bool ImportSections( const QString& FileName );
 	void ProcessNode( QDomElement Node );
 
 public:

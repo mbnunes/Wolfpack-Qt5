@@ -79,7 +79,7 @@ void WPDefManager::ProcessNode( QDomElement Node )
 }
 
 // Recursive Function for Importing Script Sections
-bool WPDefManager::ImportSections( QString FileName )
+bool WPDefManager::ImportSections( const QString& FileName )
 {    
 	QDomDocument Document( "definitions" );
 	QFile File( FileName );
@@ -94,14 +94,15 @@ bool WPDefManager::ImportSections( QString FileName )
 		return false;
 	}
 
-    if ( !Document.setContent( &File ) ) {
+	QString errorMessage;
+	int errorLine, errorColumn;
+    if ( !Document.setContent( &File, &errorMessage, &errorLine, &errorColumn ) ) 
+	{
         File.close();
         
 		clConsole.ProgressFail();
 
-		clConsole.send( "Unable to parse " );
-		clConsole.send( FileName.ascii() );
-		clConsole.send( "!\n" );
+		clConsole.send( QString("Unable to parse file %1\nError:%2(%3:%4)\n").arg(FileName).arg(errorMessage).arg(errorLine).arg(errorColumn).latin1() );
 
 		return false;
 	}
@@ -117,11 +118,9 @@ bool WPDefManager::ImportSections( QString FileName )
 	{
 		if( NodeList.item( i ).isElement() )
 		{
-			//QDomNode *myNode = &NodeList.item( i ).cloneNode();
 			ProcessNode( NodeList.item( i ).cloneNode().toElement() );
 		}
 	}
-
 	return true;
 }
 
@@ -130,7 +129,7 @@ void WPDefManager::Load( void )
 {
 	clConsole.PrepareProgress( "Loading Definitions" );
 
-	if( ImportSections( QString( "definitions.xml" ) ) )	
+	if( ImportSections( "definitions.xml" )	)
 		clConsole.ProgressDone();
 	else
 		clConsole.ProgressFail();
@@ -168,9 +167,7 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		break;
 	};
 
-	//return &(*ListPointer)[ Section ];
 	return &( ListPointer->find( Section ).data() );
-	//return ListPointer->find( Section )->second;
 }
 
 // Returns a list of section-names found

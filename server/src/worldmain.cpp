@@ -980,6 +980,35 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 	}
 	clConsole.send(" Done.\n");
 	archive->close();
+
+	// Load Temporary Effects
+	archive->prepareReading("effects");
+	clConsole.send("Loading Temp. Effects %i...\n", archive->size());
+	progress.restart(archive->size());
+	for ( i = 0; i < archive->size(); ++progress, ++i)
+	{
+		archive->readObjectID(objectID);
+
+		cTempEffects* pTE = NULL;
+
+		if( objectID == "TmpEff" )
+		{
+			pTE = new cTmpEff;
+		}
+		else if( objectID == "ScriptEff" )
+		{
+			pTE = new cScriptEff;
+		}
+		else
+			continue; // an error occured..
+
+		archive->readObject( pTE );
+
+		AllTmpEff->Insert( pTE );
+	}
+	clConsole.send(" Done.\n");
+	archive->close();
+
 	delete archive;
 }
 
@@ -996,7 +1025,7 @@ void CWorldMain::savenewworld(QString module)
 {
 	static unsigned long ocCount, oiCount;
 
-	AllTmpEff->Off();
+//	AllTmpEff->Off();
 
 	if ( !Saving() )
 	{
@@ -1028,6 +1057,12 @@ void CWorldMain::savenewworld(QString module)
 	archive->close();
 	delete archive;
 
+	archive = cPluginFactory::serializationArchiver( module );
+	archive->prepareWritting("effects");
+	AllTmpEff->Serialize( *archive );
+	archive->close();
+	delete archive;
+
 	ItemsThread.join();
 
 //	archive.prepareWritting("items");
@@ -1048,7 +1083,7 @@ void CWorldMain::savenewworld(QString module)
 
 	isSaving = false;
 
-	AllTmpEff->On();
+//	AllTmpEff->On();
 	uiCurrentTime = getNormalizedTime();
 }
 

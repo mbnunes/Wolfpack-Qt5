@@ -43,6 +43,8 @@
 #include "debug.h"
 #include "srvparams.h"
 #include "wolfpack.h"
+#include "iserialization.h"
+#include <algorithm>
 
 
 #undef  DBGFILE
@@ -113,6 +115,56 @@ static void reverseIncognito(P_CHAR pc)
 	}
 }
 
+int cTempEffects::getDest()
+{
+	return destSer;
+}
+
+void cTempEffects::setDest(int ser)
+{
+	destSer=ser;
+}
+
+int cTempEffects::getSour()
+{
+	return sourSer;
+}
+
+void cTempEffects::setSour(int ser)
+{
+	sourSer=ser;
+}
+
+void cTempEffects::setExpiretime_s(int seconds)
+{
+	expiretime=uiCurrentTime+(seconds*MY_CLOCKS_PER_SEC);
+}
+
+void cTempEffects::setExpiretime_ms(float milliseconds)
+{
+	expiretime=uiCurrentTime+floor(( milliseconds / 1000 )*MY_CLOCKS_PER_SEC);
+}
+
+void cTempEffects::Serialize(ISerialization &archive)
+{
+	if (archive.isReading())
+	{
+		archive.read( "expiretime",		this->expiretime ); // exptime must be subtracted from current server clock time, so it can be recalculated on next server startup
+		archive.read( "dispellable",	this->dispellable );
+		archive.read( "srcserial",		this->sourSer );
+		archive.read( "destserial",		this->destSer );
+		this->expiretime += uiCurrentTime;
+	}
+	else if( archive.isWritting() )
+	{
+		archive.write( "expiretime",	( this->expiretime - uiCurrentTime ) ); // exptime must be subtracted from current server clock time, so it can be recalculated on next server startup
+		archive.write( "dispellable",	this->dispellable );
+		archive.write( "srcserial",		this->getSour() );
+		archive.write( "destserial",	this->getDest() );
+	}
+	cSerializable::Serialize( archive );
+}
+
 void cTmpEff::Init()
 {
 	sourSer = INVALID_SERIAL;
@@ -125,30 +177,6 @@ void cTmpEff::Init()
 	dispellable=0;
 }
 
-int cTmpEff::getDest()
-{
-	return destSer;
-}
-
-void cTmpEff::setDest(int ser)
-{
-	destSer=ser;
-}
-
-int cTmpEff::getSour()
-{
-	return sourSer;
-}
-
-void cTmpEff::setSour(int ser)
-{
-	sourSer=ser;
-}
-
-void cTmpEff::setExpiretime_s(int seconds)
-{
-	expiretime=uiCurrentTime+(seconds*MY_CLOCKS_PER_SEC);
-}
 
 void cTmpEff::On(P_CHAR pc)
 {
@@ -205,6 +233,7 @@ void cTmpEff::Off(P_CHAR pc)
 		break;
 	}
 }
+
 
 void cTmpEff::Reverse()
 {
@@ -471,15 +500,60 @@ void cTmpEff::Expire()
 	Items->CheckEquipment(pc_s); //AntiChrist - checks equipments for stats requirements
 }
 
+void cTmpEff::Serialize(ISerialization &archive)
+{
+	if( archive.isReading() )
+	{
+		archive.read( "more1",			this->more1 );
+		archive.read( "more2",			this->more2 );
+		archive.read( "more3",			this->more3 );
+		archive.read( "num",			this->num );
+	}
+	else if( archive.isWritting() )
+	{
+		archive.write( "more1",			this->more1 );
+		archive.write( "more2",			this->more2 );
+		archive.write( "more3",			this->more3 );
+		archive.write( "num",			this->num );
+	}
+	cTempEffects::Serialize(archive);
+}
+
+void cScriptEff::Expire()
+{
+	;// here ya go darkstorm :P
+}
+
+void cScriptEff::Serialize(ISerialization &archive)
+{
+	if( archive.isReading() )
+	{
+		archive.read( "scriptname",		this->scriptname );
+		archive.read( "functionname",	this->functionname );
+	}
+	else if( archive.isWritting() )
+	{
+		archive.write( "scriptname",	this->scriptname );
+		archive.write( "functionname",	this->functionname );
+	}
+	cTempEffects::Serialize(archive);
+}
+
+/*
 void cAllTmpEff::Off()
 {
 	register unsigned int i;
 	for ( i = 0; i < teffects.size(); ++i)
 	{
-		cTmpEff *pTE = teffects[i];
-		P_CHAR pc = FindCharBySerial(pTE->getDest());
-		if (pc)
-			pTE->Off(pc);
+		cTempEffects *pTEs = teffects[i];
+		if( typeid(*pTEs) == typeid(cTmpEff) ) // is it a "normal" temp effect
+		{
+			cTmpEff *pTE = dynamic_cast<cTmpEff *>(pTEs);
+			
+			P_CHAR pc = FindCharBySerial(pTE->getDest());
+			if (pc)
+				pTE->Off(pc);
+		}
 	}
 }
 
@@ -488,36 +562,67 @@ void cAllTmpEff::On()
 	register unsigned int i;
 	for ( i = 0; i < teffects.size(); ++i)
 	{
-		cTmpEff *pTE = teffects[i];
-		P_CHAR pc = FindCharBySerial(pTE->getDest());
-		if (pc)
-			pTE->On(pc);
+		cTempEffects *pTEs = teffects[i];
+		if( typeid(*pTEs) == typeid(cTmpEff) ) // is it a "normal" temp effect
+		{
+			cTmpEff *pTE = dynamic_cast<cTmpEff *>(pTEs);
+	
+			P_CHAR pc = FindCharBySerial(pTE->getDest());
+			if (pc)
+				pTE->On(pc);
+		}
 	}
 }
+*/
 
 void cAllTmpEff::Check()
 {
 	if ( !teffects.empty() && (*teffects.begin())->expiretime <= uiCurrentTime )
 	{
-		cTmpEff* pTE = (*teffects.begin());
-		pTE->Expire();
-		teffects.erase( teffects.begin() ); // still sorted.
-		delete pTE;
+		cTempEffects *pTEs = *teffects.begin();
+
+		pTEs->Expire();
+		pop_heap( teffects.begin(), teffects.end(), ComparePredicate() ); // still sorted.
+		delete pTEs;
 	}
+}
+
+bool cAllTmpEff::Exists( P_CHAR pc_source, P_CHAR pc_dest, int num )
+{
+	cTmpEff *pTE;
+	for( register int i = 0; i < teffects.size(); i++ )
+	{
+		if( teffects[i] != NULL && typeid( teffects[i] ) == typeid( cTmpEff ) )
+		{
+			pTE = dynamic_cast<cTmpEff *>(teffects[i]);
+			if( pTE->getSour() == pc_source->serial &&
+				pTE->getDest() == pc_dest->serial &&
+				pTE->num == num )
+				return true;
+		}
+	}
+	return false;
 }
 
 bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
+	
 	int color, color1, color2, socket; //used for incognito spell
 
 	if ( pc_source == NULL || pc_dest == NULL )
 		return false;
 
+	cTempEffects *pTEs;
 	cTmpEff *pTE;
 	register unsigned int i;
 	for ( i = 0; i < teffects.size(); ++i)	// If there is already an effect of the same or similar kind, reverse it first (Duke)
 	{
-		pTE = teffects[i];
+		pTEs = teffects[i];
+		if( typeid(*pTEs) == typeid(cTmpEff) )
+			pTE = dynamic_cast<cTmpEff *>(pTEs);
+		else
+			continue;
+
 		if (pTE->getDest() == pc_dest->serial)
 		{
 			if ((pTE->num==3 && num==3)||
@@ -536,6 +641,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			{
 				pTE->Reverse();
 				teffects.erase( teffects.begin() + i ); // Should we continue searching?
+				make_heap( teffects.begin(), teffects.end(), ComparePredicate() );
 			}
 		}
 	}
@@ -711,7 +817,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			c1 = pc_dest->skin(); // transparency for monsters allowed, not for players,
 														 // if polymorphing from monster to player we have to switch from transparent to semi-transparent
 			b=c1&0x4000;
-			if (b==16384 && (k >=0x0190 && k<=0x03e1))
+			if (b==16384 && (k >= 0x0190 && k <= 0x03e1))
 			{
 				if (c1!=0x8000)
 				{
@@ -1033,10 +1139,28 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char mor
 	return true;
 }
 
-void cAllTmpEff::Insert(cTmpEff* pTE)
+void cAllTmpEff::Insert(cTempEffects* pTE)
 {
 	teffects.push_back( pTE );
-	sort( teffects.begin(), teffects.end(), ComparePredicate()); // Make sure it keeps ordered.
+	push_heap( teffects.begin(), teffects.end(), ComparePredicate() );
+}
+
+void cAllTmpEff::Serialize(ISerialization &archive)
+{
+	for( register int i = 0; i < teffects.size(); i++ )
+		archive.writeObject( teffects[i] );
+}
+
+void cAllTmpEff::Dispel( P_CHAR pc_dest )
+{
+	vector<cTempEffects *>::iterator i;
+	for( i = teffects.begin(); i != teffects.end(); i++ )
+		if( i != NULL && (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial )
+		{
+			(*i)->Off( pc_dest );
+			teffects.erase( i );
+		}
+	make_heap( teffects.begin(), teffects.end(), ComparePredicate() );
 }
 
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)

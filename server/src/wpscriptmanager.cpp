@@ -87,7 +87,7 @@ void WPScriptManager::load( void )
 	UI32 ScriptsLoaded = 0;
 
 	// Each Section is a Script identifier
-	for( UI32 i = 0; i < SectionList.count(); i++ )
+	for( UI32 i = 0; i < SectionList.count(); ++i )
 	{
 		QDomNode *NodePtr = DefManager->getSection( WPDT_SCRIPT, SectionList[ i ] );
 		QDomElement Node = NodePtr->toElement();
@@ -108,13 +108,10 @@ void WPScriptManager::load( void )
 			continue;
 	
 		Script->load( Node );
-		add( SectionList[ i ].ascii(), Script );
-		ScriptsLoaded++;
+		add( SectionList[ i ].latin1(), Script );
+		++ScriptsLoaded;
 	}
 
 	clConsole.ProgressDone();
-	QString Message;
-	Message.sprintf( "%d Script(s) loaded successfully\n", ScriptsLoaded );
-	
-	clConsole.send( Message.ascii() );
+	clConsole.send( QString("%1 Script(s) loaded successfully\n").arg(ScriptsLoaded).latin1() );
 }

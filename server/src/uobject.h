@@ -36,6 +36,7 @@
 #include "typedefs.h"
 #include "coord.h"
 #include "mstring.h"
+#include "iserialization.h"
 //#include "WPDefaultScript.h"
 
 // System includes
@@ -46,11 +47,11 @@
 #include "qstring.h"
 
 // Forward class declarations
-class ISerialization;
+//class ISerialization;
 class Coord_cl;
 class WPDefaultScript;
 
-class cUObject
+class cUObject : public cSerializable
 {
 // Data Members
 public:
