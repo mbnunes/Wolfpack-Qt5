@@ -142,7 +142,7 @@ public:
 	}
 
 protected:
-	virtual void doneWritting() {};
+	virtual void done() {};
 };
 
 #endif //__SERIMPLEMENTOR_H__

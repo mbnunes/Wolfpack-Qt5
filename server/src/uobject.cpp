@@ -111,7 +111,10 @@ void cUObject::Serialize(ISerialization &archive)
 		eventList_ = QStringList::split( ",", events );
 		recreateEvents(); 
 
-		tags.load( archive );
+		QString objectID;
+		archive.readObjectID( objectID );
+		if( objectID == "CUSTOMTAGS" )
+			archive.readObject( &tags );
 	}
 	else if (archive.isWritting())
 	{
@@ -127,8 +130,7 @@ void cUObject::Serialize(ISerialization &archive)
 		events = eventList_.join( "," );
 		archive.write( "events", events );
 
-		tags.save( archive );
-
+		archive.writeObject( &tags );
 	}
 	cSerializable::Serialize( archive );
 }

@@ -64,9 +64,7 @@ void ISerialization::writeObject( cSerializable *base )
 	base->Serialize(*this);
 }
 
-
 void cSerializable::Serialize( ISerialization &archive )
 {
-	if ( archive.isWritting())
-		archive.doneWritting();
+	archive.done();
 }

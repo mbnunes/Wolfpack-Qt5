@@ -111,7 +111,7 @@ void serXmlFile::prepareReading(std::string ident, int bLevel)
 		document = 0;
 		prepareReading( ident.c_str(), ++bLevel );
 	}
-	node = root.firstChild().toElement();
+	node = root;
 	ISerialization::prepareReading(ident);
 }
 
@@ -139,6 +139,7 @@ void serXmlFile::prepareWritting(std::string ident)
 	root = document->createElement(document->doctype().name());
 	root.setAttribute( "version", _version );
 	root.setAttribute( "count", _count);
+	node = root;
 
 	ISerialization::prepareWritting(ident);
 }
@@ -183,9 +184,12 @@ void serXmlFile::close()
 
 void serXmlFile::writeObjectID( const QString &data )
 {
-	node = document->createElement("objectID");
+	if( node == root )
+		++_count;
+	QDomElement newNode = document->createElement("objectID");
+	node.appendChild( newNode );
+	node = newNode;
 	node.setAttribute("value", data);
-	++_count;
 }
 
 void serXmlFile::write(const char* Key, std::string &data)
@@ -251,25 +255,40 @@ void serXmlFile::write(const char* Key, double data)
 	node.appendChild( newNode );
 }
 
-void serXmlFile::doneWritting()
+void serXmlFile::done()
 {
-//	root.appendChild( node );
-	QTextStream stream ( file );
-	node.save( stream, 1 );
+	if( this->isWritting() )
+	{
+		if( node.parentNode().isElement() )
+		{
+			if( node.parentNode().toElement() == root )
+			{
+				QTextStream stream ( file );
+				node.save( stream, 1 );
+			}
+			node = node.parentNode().toElement();
+		}
+	}
+	else
+	{
+		QDomNode parent = node.parentNode();
+		parent.removeChild( node );
+		node = parent.toElement();
+	}
 }
 
 void serXmlFile::readObjectID(QString &data)
 {
 	// Read the object-id if we're done reading the current item (this *will* lead to bugs with non-new item-files)
-	if( ( node.nodeName() != "objectID" ) || !node.hasChildNodes() )
+	node = node.firstChild().toElement();
+	while( ( node.nodeName() != "objectID" ) || !node.hasChildNodes() )
 	{
 		node = node.nextSibling().toElement();
 		if( node.isNull() )
 			return;
-		readObjectID( data ); // "Re-read"
 	}
-	else if ( node.nodeName() == "objectID" )
-		data = node.attribute("value");
+		
+	data = node.attribute("value");
 }
 
 void serXmlFile::read(const char* Key, std::string& data)

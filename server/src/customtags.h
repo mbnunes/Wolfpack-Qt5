@@ -58,7 +58,7 @@ template <class T> class QValueListNode;
 template <class Key, class T> class QMap;
 template <class Key, class T> class QMapConstIterator;
 
-class cVariant
+class cVariant : public cSerializable
 {
 public:
     enum Type {	Invalid,	Map,	List,	String,		StringList,		Int,	UInt,	Bool,
@@ -67,6 +67,7 @@ public:
 
 	cVariant();
 	~cVariant();
+	
 	cVariant( const cVariant& p );
     cVariant( const QString& );
     cVariant( const QCString& );
@@ -88,6 +89,21 @@ public:
     bool operator==( const cVariant& ) const;
     bool operator!=( const cVariant& ) const;
 
+	// implements cSerializable
+	virtual QString		objectID() const  { return "VARIANT";}
+	virtual void		Serialize(ISerialization &archive)
+	{
+		if( archive.isReading() )
+		{
+			this->load( archive );
+		}
+		else
+		{
+			this->save( archive );
+		}
+		cSerializable::Serialize( archive );
+	}
+	
     Type type() const;
 
     const char* typeName() const;
@@ -233,11 +249,53 @@ inline QMapConstIterator<QString,cVariant> cVariant::mapFind( const QString& key
     return ((const QMap<QString,cVariant>*)d->value.ptr)->find( key );
 }
 
-class cCustomTags
+class cCustomTags : public cSerializable
 {
 public:
 	cCustomTags() {;}
 	~cCustomTags() {;}
+
+	// implements cSerializable
+	virtual QString		objectID() const  { return "CUSTOMTAGS";}
+	virtual void		Serialize(ISerialization &archive)
+	{
+		if( archive.isReading() )
+		{
+			int uiSize = 0;
+			archive.read( "size", uiSize );
+			for( int i = 0; i < uiSize; i++ )
+			{
+				QString key;
+				cVariant val;				
+				
+				archive.read( (char*)QString("key%1").arg(i).latin1(), key );
+				QString objectID;
+				archive.readObjectID( objectID );
+				if( objectID == "VARIANT" )
+					archive.readObject( &val );
+
+				std::pair< QString, cVariant > toInsert( key, val );
+				this->tags_.insert( toInsert );
+			}
+		}
+		else
+		{
+			int uiSize = tags_.size();
+			archive.write( "size", uiSize );
+			std::map< QString, cVariant >::iterator it = this->tags_.begin();
+			int i = 0;
+			while( it != this->tags_.end() )
+			{
+				QString key = it->first;
+				cVariant val = it->second;
+				archive.write( (char*)QString("key%1").arg(i).latin1(), key );
+				archive.writeObject( &val );
+				it++;
+				i++;
+			}
+		}
+		cSerializable::Serialize( archive );
+	}
 
 	cVariant	get( QString key ) { return this->tags_[ key ]; }
 	void		set( QString key, cVariant value ) 
@@ -273,36 +331,6 @@ public:
 			it++;
 		}
 		return values_;
-	}
-
-	void	load( ISerialization &archive )
-	{
-		int uiSize = 0;
-		archive.read( "tags.size", uiSize );
-		for( int i = 0; i < uiSize; i++ )
-		{
-			QString key;
-			cVariant val;
-			archive.read( "tags.key", key );
-			val.load( archive );
-			std::pair< QString, cVariant > toInsert( key, val );
-			this->tags_.insert( toInsert );
-		}
-	}
-
-	void	save( ISerialization &archive )
-	{
-		int uiSize = tags_.size();
-		archive.write( "tags.size", uiSize );
-		std::map< QString, cVariant >::iterator it = this->tags_.begin();
-		while( it != this->tags_.end() )
-		{
-			QString key = it->first;
-			cVariant val = it->second;
-			archive.write( "tags.key", key );
-			val.save( archive );
-			it++;
-		}
 	}
 
 private:

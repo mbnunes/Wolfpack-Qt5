@@ -81,7 +81,7 @@ public:
 	virtual void write(const char* Key, bool data);
 	virtual void write(const char* Key, double data);
 
-	virtual void doneWritting();
+	virtual void done();
 
 	// Read Methods
 	virtual void readObjectID(QString &data);

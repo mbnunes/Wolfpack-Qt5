@@ -183,7 +183,7 @@ void serBinFile::write(const char* Key, double data)
 	file.write((char*)&data, 8);
 }
 
-void serBinFile::doneWritting()
+void serBinFile::done()
 {
 
 }
