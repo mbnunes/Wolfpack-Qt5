@@ -93,8 +93,8 @@ def checkhit(attacker, defender, time):
 	# Get the skills used by the attacker and defender
 	attackerWeapon = attacker.getweapon()
 	defenderWeapon = defender.getweapon()
-	attackerSkill = combat.utilities.weaponskill(attacker, attackerWeapon, 1)
-	defenderSkill = combat.utilities.weaponskill(defender, defenderWeapon)
+	attackerSkill = combat.utilities.weaponskill(attacker, attackerWeapon, True)
+	defenderSkill = combat.utilities.weaponskill(defender, defenderWeapon, True)
 
 	combat.utilities.playswinganimation(attacker, defender, attackerWeapon)
 
