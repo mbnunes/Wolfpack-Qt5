@@ -138,17 +138,28 @@ class GateTravel (Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		# We can only recall from recall runes
-		if not target.hasscript( 'magic.rune' ):
-			char.message(502357)
-			return
+		# Runebook recall support
+		runebook = magic.runebook.isRunebook(target) and len(args) == 1		
+
+		# We can only recall from recall runes or via the runebook
+		if not runebook:
+			if not target.hasscript('magic.rune'):
+				char.message(502357)
+				return
+	
+			if not target.hastag('marked') or target.gettag('marked') != 1:
+				char.message(502354)
+				return
+
+			location = target.gettag('location')
+			location = location.split(",")
+			location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
+			char.log(LOG_MESSAGE, 'Tries to gate to %s using rune.\n' % str(location))
+		else:
+			location = args[0]
+			char.log(LOG_MESSAGE, 'Tries to gate to %s using runebook.\n' % str(location))
 
 		if not self.consumerequirements(char, mode, args, target, item):
-			return
-
-		if not target.hastag('marked') or target.gettag('marked') != 1:
-			char.message(502354)
-			fizzle(char)
 			return
 
 		region = wolfpack.region(char.pos.x, char.pos.y, char.pos.map)
@@ -157,10 +168,6 @@ class GateTravel (Spell):
 			char.message(501802)
 			fizzle(char)
 			return
-
-		location = target.gettag('location')
-		location = location.split(",")
-		location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
 
 		region = wolfpack.region(location.x, location.y, location.map)
 
@@ -184,7 +191,7 @@ class GateTravel (Spell):
 		gate.moveto(char.pos)
 		gate.settag('dispellable_field', 1)
 		gate.addscript( 'magic.gate' )
-		gate.settag('target', target.gettag('location'))
+		gate.settag('target', str(location))
 		gate.update()
 		gate.soundeffect(0x20e)
 		serials.append(gate.serial)

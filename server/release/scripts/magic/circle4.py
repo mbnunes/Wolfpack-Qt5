@@ -125,17 +125,28 @@ class Recall (Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		# We can only recall from recall runes
-		if not target.hasscript( 'magic.rune' ):
-			char.message(502357)
-			return
+		# Runebook recall support
+		runebook = magic.runebook.isRunebook(target) and len(args) == 1		
+
+		# We can only recall from recall runes or via the runebook
+		if not runebook:
+			if not target.hasscript('magic.rune'):
+				char.message(502357)
+				return
+	
+			if not target.hastag('marked') or target.gettag('marked') != 1:
+				char.message(502354)
+				return
+
+			location = target.gettag('location')
+			location = location.split(",")
+			location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
+			char.log(LOG_MESSAGE, 'Tries to recall to %s using rune.\n' % str(location))
+		else:
+			location = args[0]
+			char.log(LOG_MESSAGE, 'Tries to recall to %s using runebook.\n' % str(location))
 
 		if not self.consumerequirements(char, mode, args, target, item):
-			return
-
-		if not target.hastag('marked') or target.gettag('marked') != 1:
-			char.message(502354)
-			fizzle(char)
 			return
 
 		region = None
@@ -145,10 +156,6 @@ class Recall (Spell):
 			char.message(501802)
 			fizzle(char)
 			return
-
-		location = target.gettag('location')
-		location = location.split(",")
-		location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
 
 		region = None
 		region = wolfpack.region(location.x, location.y, location.map)

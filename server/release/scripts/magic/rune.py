@@ -113,4 +113,6 @@ def onSingleClick( item, char ):
 
 # Identify the item as a rune
 def onCreate( item, definition ):
-	item.settag( 'marked', 0 )
+	if not item.hastag('marked'):
+		item.settag( 'marked', 0 )
+
