@@ -142,5 +142,14 @@ P_ITEM Packitem(P_CHAR pc); // Find packitem
 P_ITEM GetOutmostCont(P_ITEM pItem, short rec = 10);
 P_CHAR GetPackOwner(P_ITEM pItem, short rec = 10);
 
+/////////////////////////////////// Remove Me before release!!!! ///////////////////////////
+#include "network.h"
+
+inline UOXSOCKET toOldSocket(cUOSocket* s)
+{
+	return cNetwork::instance()->getuoSocketsIndex(s);
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+
 #endif
 

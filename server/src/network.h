@@ -100,6 +100,7 @@ private:
 	// junk
 	UOXSOCKET getuoSocketsIndex( cUOSocket* );
 	friend UOXSOCKET calcSocketFromChar(P_CHAR);
+	friend UOXSOCKET toOldSocket( cUOSocket* );
 };
 
 // Helper Function

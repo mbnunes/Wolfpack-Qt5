@@ -148,7 +148,7 @@ public:
 	void TDummy(int s);
 	void Tinkering(int s);
 	void AButte(int s1, P_ITEM pButte);
-	void Persecute(UOXSOCKET s);//AntiChrist persecute stuff
+	void Persecute(cUOSocket*);//AntiChrist persecute stuff
 	void Cartography(int s); // By Polygon - opens the cartography skillmenu
 	bool HasEmptyMap(P_CHAR pc); // By Polygon - checks if player has an empty map
 	bool DelEmptyMap(P_CHAR pc); // By Polygon - deletes an empty map from the player's pack

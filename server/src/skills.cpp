@@ -2551,9 +2551,9 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 //and his mana decreases each time you try to persecute him
 //decrease=3+(your int/10)
 //
-void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
+void cSkills::Persecute ( cUOSocket* socket ) //AntiChrist - persecute stuff
 {
-	P_CHAR pc_currchar = currchar[s];
+	P_CHAR pc_currchar = socket->player();
 	P_CHAR target = FindCharBySerial(pc_currchar->targ);
 
 	if (target->isGM()) return;
@@ -2569,29 +2569,34 @@ void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 			else 
 				target->mn-=decrease;//decrease mana
 			updatestats(target,1);//update
-			sysmessage(s,"Your spiritual forces disturb the enemy!");
-			sysmessage(calcSocketFromChar(target),"A damned soul is disturbing your mind!");
+			socket->sysMessage(tr("Your spiritual forces disturb the enemy!"));
+			if ( target->socket() )
+			{
+				target->socket()->sysMessage(tr("A damned soul is disturbing your mind!"));
+			}
 			SetSkillDelay(pc_currchar);
 
 			sprintf((char*)temp, "%s is persecuted by a ghost!!", target->name.c_str());
 					
 			// Dupois pointed out the for loop was changing i which would drive stuff nuts later
 				
-			for (int j=0;j<now;j++)
+			for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
 			{
-				if((inrange1(s, j) && perm[j]) && (s!=j))
+				if(socket->inRange(s) && s != socket) 
 				{
 					pc_currchar->emotecolor = 0x0026;
-					npcemote(j, target, (char*)temp, 1);
+					npcemote(toOldSocket(s), target, (char*)temp, 1);
 				}
 			}
-		} else
+		} 
+		else
 		{
-			sysmessage(s,"Your mind is not strong enough to disturb the enemy.");
+			socket->sysMessage(tr("Your mind is not strong enough to disturb the enemy."));
 		}
-	} else
+	} 
+	else
 	{
-		sysmessage(s,"You are unable to persecute him now...rest a little...");
+		socket->sysMessage(tr("You are unable to persecute him now...rest a little..."));
 	}
 }
 

@@ -264,10 +264,6 @@ SOURCE=.\qsf.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\rcvpkg.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\regions.cpp
 # End Source File
 # Begin Source File
@@ -573,10 +569,6 @@ SOURCE=.\platform.h
 # Begin Source File
 
 SOURCE=.\prototypes.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\rcvpkg.h
 # End Source File
 # Begin Source File
 

@@ -120,6 +120,7 @@ public:
 	void handleGetTip( cUORxGetTip* packet );
 	void handleChangeWarmode( cUORxChangeWarmode* packet );
 	void handleTarget( cUORxTarget *packet );
+	void handleRequestAttack( cUORxRequestAttack* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );
@@ -146,6 +147,7 @@ public:
 	void updateStamina( P_CHAR pChar = NULL );
 	void updateMana( P_CHAR pChar = NULL );
 	void updateHealth( P_CHAR pChar = NULL );
+	bool inRange( cUOSocket* ) const;
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );

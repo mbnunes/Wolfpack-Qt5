@@ -71,7 +71,6 @@ HEADERS         = client.h \
                   pfactory.h \
 		  platform.h \
 		  prototypes.h \
-                  rcvpkg.h \
 		  regions.h \
 		  remadmin.h \
 		  resource.h \
@@ -157,7 +156,6 @@ SOURCES         = client.cpp \
                   pfactory.cpp \
 		  pointer.cpp \
 		  qsf.cpp \
-                  rcvpkg.cpp \
 		  regions.cpp \
 		  remadmin.cpp \
 		  scriptc.cpp \

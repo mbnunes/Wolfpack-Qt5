@@ -59,6 +59,7 @@
 
 //keep the target highlighted so that we know who we're attacking =)
 //26/10/99//new packet
+
 void SndAttackOK(UOXSOCKET s, int serial)
 {
 	unsigned char attackok[6]="\xAA\x00\x00\x00\x00";//AntiChrist! 26/10/99
@@ -1655,7 +1656,7 @@ void npctalk_runic(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC s
 	}
 }
 
-void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam) // NPC speech
+void npcemote(int s, P_CHAR pc_npc, const char *txt, char antispam) // NPC speech
 {
 	int tl;
 	char machwas;
