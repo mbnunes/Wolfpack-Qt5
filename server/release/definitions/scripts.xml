@@ -18,6 +18,8 @@
 	<script id="clothing_bless_deed" type="python" module="clothing_bless_deed" />
 	<script id="item_bless_deed"	type="python" module="item_bless_deed" />
 	<script id="carpentry_deed" type="python" module="carpentry_deed" />
+	<script id="multideed" 		type="python" module="multideed" />
+	<script id="signpost" 		type="python" module="signpost" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
