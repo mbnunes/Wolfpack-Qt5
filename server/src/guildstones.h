@@ -65,6 +65,7 @@ public:
 	std::string			charter;
 	std::string			webpage;
 	SERIAL				master;
+	SERIAL				priv;
 	std::vector<SERIAL>	recruit;
 	std::vector<SERIAL>	member;
 	std::vector<SERIAL>	war;
