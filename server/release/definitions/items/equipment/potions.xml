@@ -12,8 +12,7 @@
 	<!-- Nightsight -->
 	<item id="potion_nightsight">
 		<id>0xf06</id>
-		<name>black potion</name>
-		<identified>nightsight</identified>
+		<name>Nightsight</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Nightsight</category>
@@ -26,8 +25,7 @@
 	<!-- Lesser Heal -->
 	<item id="potion_lesserheal">
 		<id>0xf0c</id>
-		<name>yellow potion</name>
-		<identified>lesser heal</identified>
+		<name>Lesser Heal</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Heal (lesser)</category>
@@ -40,8 +38,7 @@
 	<!-- Heal -->
 	<item id="potion_heal">
 		<id>0xf0c</id>
-		<name>yellow potion</name>
-		<identified>heal</identified>
+		<name>Heal</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Heal</category>
@@ -52,8 +49,7 @@
 	<!-- Greater Heal -->
 	<item id="potion_greaterheal">
 		<id>0xf0c</id>
-		<name>yellow potion</name>
-		<identified>greater heal</identified>
+		<name>Greater Heal</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Heal (greater)</category>
@@ -64,8 +60,7 @@
 	<!-- Lesser Poison -->
 	<item id="potion_lesserpoison">
 		<id>0xf0a</id>
-		<name>green potion</name>
-		<identified>lesser poison</identified>
+		<name>Lesser Poison</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison (lesser)</category>
@@ -78,8 +73,7 @@
 	<!-- Poison -->
 	<item id="potion_poison">
 		<id>0xf0a</id>
-		<name>green potion</name>
-		<identified>poison</identified>
+		<name>Poison</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison</category>
@@ -90,8 +84,7 @@
 	<!-- Greater Poison -->
 	<item id="potion_greaterpoison">
 		<id>0xf0a</id>
-		<name>green potion</name>
-		<identified>greater poison</identified>
+		<name>Greater Poison</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison (greater)</category>
@@ -102,8 +95,7 @@
 	<!-- Greater Poison -->
 	<item id="potion_deadlypoison">
 		<id>0xf0a</id>
-		<name>green potion</name>
-		<identified>deadly poison</identified>
+		<name>Deadly Poison</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison (deadly)</category>
@@ -113,8 +105,7 @@
 
 	<item id="potion_refresh">
 		<id>0xf0b</id>
-		<name>red potion</name>
-		<identified>refresh</identified>
+		<name>Refresh</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Refresh</category>
@@ -124,8 +115,7 @@
 
 	<item id="potion_totalrefresh">
 		<id>0xf0b</id>
-		<name>red potion</name>
-		<identified>total refresh</identified>
+		<name>Total Refresh</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Refresh</category>
@@ -135,8 +125,7 @@
 
 	<item id="potion_lessercure">
 		<id>0xf07</id>
-		<name>orange potion</name>
-		<identified>lesser cure</identified>
+		<name>Lesser Cure</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Cure (lesser)</category>
@@ -146,8 +135,7 @@
 
 	<item id="potion_cure">
 		<id>0xf07</id>
-		<name>orange potion</name>
-		<identified>cure</identified>
+		<name>Cure</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Cure</category>
@@ -157,8 +145,7 @@
 
 	<item id="potion_greatercure">
 		<id>0xf07</id>
-		<name>orange potion</name>
-		<identified>lesser cure</identified>
+		<name>Lesser Cure</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Cure (greater)</category>
@@ -168,8 +155,7 @@
 
 	<item id="potion_agility">
 		<id>0xf08</id>
-		<name>blue potion</name>
-		<identified>agility</identified>
+		<name>Agility</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Agility</category>
@@ -179,8 +165,7 @@
 
 	<item id="potion_greateragility">
 		<id>0xf08</id>
-		<name>blue potion</name>
-		<identified>greater agility</identified>
+		<name>Greater Agility</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Agility (greater)</category>
@@ -190,8 +175,7 @@
 
 	<item id="potion_strength">
 		<id>0xf09</id>
-		<name>white potion</name>
-		<identified>strength</identified>
+		<name>Strength</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Strength</category>
@@ -201,8 +185,7 @@
 
 	<item id="potion_greaterstrength">
 		<id>0xf09</id>
-		<name>white potion</name>
-		<identified>greater strength</identified>
+		<name>Greater Strength</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Strength (greater)</category>
@@ -212,8 +195,7 @@
 
 	<item id="potion_lesserexplosion">
 		<id>0xf0d</id>
-		<name>purple potion</name>
-		<identified>lesser explosion</identified>
+		<name>Lesser Explosion</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Explosion (lesser)</category>
@@ -223,8 +205,7 @@
 
 	<item id="potion_explosion">
 		<id>0xf0d</id>
-		<name>purple potion</name>
-		<identified>explosion</identified>
+		<name>Explosion</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Explosion</category>
@@ -234,8 +215,7 @@
 
 	<item id="potion_greaterexplosion">
 		<id>0xf0d</id>
-		<name>purple potion</name>
-		<identified>greater explosion</identified>
+		<name>Greater Explosion</name>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Explosion (greater)</category>

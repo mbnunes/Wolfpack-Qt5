@@ -12,7 +12,6 @@
 		<durability><random min="30" max="46" /></durability>
 		<weight>4.0</weight>
 		<tag name="resname" value="iron" />
-		<tag name="remaining_uses" type="int" value="35" />
 		<events>equipment,blades</events>
 		<category>Weapons\Axes\Hatchet (N/S)</category>
 		<type>1002</type>
