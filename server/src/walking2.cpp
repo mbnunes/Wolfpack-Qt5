@@ -1041,6 +1041,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 #endif
 				//Let GMs see logged out players
 				if ( online(DEREF_P_CHAR(mapchar)) || mapchar->npc || pc->isGM())
+				if (oldx != newx || oldy != newy)
 				{
 					if (
 						(((abs(newx-mapchar->pos.x)== visibleRange )||(abs(newy-mapchar->pos.y)== visibleRange )) &&
