@@ -9,29 +9,30 @@
 =================================================================
 -->
 <definitions>
+
 	<item id="20c8">
 		<id>0x20c8</id>
-		<category>Misc\Figurines\Ettin (big)</category>
+		<category>Misc\Figurines\Ettin Frame</category>
 	</item>
 
 	<item id="20c9">
 		<id>0x20c9</id>
-		<category>Misc\Figurines\Gorilla (big)</category>
+		<category>Misc\Figurines\Gorilla Frame</category>
 	</item>
 
 	<item id="20ca">
 		<id>0x20ca</id>
-		<category>Misc\Figurines\Lizardman (big)</category>
+		<category>Misc\Figurines\Lizardman Frame</category>
 	</item>
 
 	<item id="20cb">
 		<id>0x20cb</id>
-		<category>Misc\Figurines\Ogre (big)</category>
+		<category>Misc\Figurines\Ogre Frame</category>
 	</item>
 
 	<item id="20cc">
 		<id>0x20cc</id>
-		<category>Misc\Figurines\Troll (big)</category>
+		<category>Misc\Figurines\Troll Frame</category>
 	</item>
 
 	<item id="20cd">
@@ -141,7 +142,7 @@
 
 	<item id="20e2">
 		<id>0x20e2</id>
-		<category>Misc\Figurines\Rabbit (big)</category>
+		<category>Misc\Figurines\Rabbit Frame</category>
 	</item>
 
 	<item id="20e3">
@@ -201,7 +202,7 @@
 
 	<item id="20ee">
 		<id>0x20ee</id>
-		<category>Misc\Figurines\Bird (big)</category>
+		<category>Misc\Figurines\Bird 1</category>
 	</item>
 
 	<item id="20ef">
@@ -361,7 +362,7 @@
 
 	<item id="211a">
 		<id>0x211a</id>
-		<category>Misc\Figurines\Bird</category>
+		<category>Misc\Figurines\Bird 2</category>
 	</item>
 
 	<item id="211b">
@@ -501,428 +502,428 @@
 
 	<!-- Third Dawn Figurines -->
 	<item id="21f1">
-		<id>0x2137</id>
-		<category>Misc\Figurines\Fire Steed</category>
+		<id>0x21f1</id>
+		<category>Misc\Figurines\TD\Fire Steed</category>
 	</item>
 
 	<item id="2580">
 		<id>0x2580</id>
-		<category>Misc\Figurines\Billy Goat</category>
+		<category>Misc\Figurines\TD\Billy Goat</category>
 	</item>
 
 	<item id="2581">
 		<id>0x2581</id>
-		<category>Misc\Figurines\Centaur</category>
+		<category>Misc\Figurines\TD\Centaur</category>
 	</item>
 
 	<item id="2582">
 		<id>0x2582</id>
-		<category>Misc\Figurines\Corpser (3d)</category>
+		<category>Misc\Figurines\TD\Corpser</category>
 	</item>
 
 	<item id="2583">
 		<id>0x2583</id>
-		<category>Misc\Figurines\Cougar</category>
+		<category>Misc\Figurines\TD\Cougar</category>
 	</item>
 
 	<item id="2584">
 		<id>0x2584</id>
-		<category>Misc\Figurines\Daemon (3d)</category>
+		<category>Misc\Figurines\TD\Daemon</category>
 	</item>
 
 	<item id="2585">
 		<id>0x2585</id>
-		<category>Misc\Figurines\Black Gate Daemon</category>
+		<category>Misc\Figurines\TD\Black Gate Daemon</category>
 	</item>
 
 	<item id="2586">
 		<id>0x2586</id>
-		<category>Misc\Figurines\Elder Daemon</category>
+		<category>Misc\Figurines\TD\Elder Daemon</category>
 	</item>
 
 	<item id="2587">
 		<id>0x2587</id>
-		<category>Misc\Figurines\Ice Fiend Daemon</category>
+		<category>Misc\Figurines\TD\Ice Fiend Daemon</category>
 	</item>
 
 	<item id="2588">
 		<id>0x2588</id>
-		<category>Misc\Figurines\Dog Hound</category>
+		<category>Misc\Figurines\TD\Dog Hound</category>
 	</item>
 
 	<item id="2589">
 		<id>0x2589</id>
-		<category>Misc\Figurines\Etherial Warriors</category>
+		<category>Misc\Figurines\TD\Etherial Warriors</category>
 	</item>
 
 	<item id="258a">
 		<id>0x258a</id>
-		<category>Misc\Figurines\Evil Mage</category>
+		<category>Misc\Figurines\TD\Evil Mage</category>
 	</item>
 
 	<item id="258b">
 		<id>0x258b</id>
-		<category>Misc\Figurines\Evil Mage Boss</category>
+		<category>Misc\Figurines\TD\Evil Mage Boss</category>
 	</item>
 
 	<item id="258c">
 		<id>0x258c</id>
-		<category>Misc\Figurines\Giant Frog</category>
+		<category>Misc\Figurines\TD\Giant Frog</category>
 	</item>
 
 	<item id="258d">
 		<id>0x258d</id>
-		<category>Misc\Figurines\Gargoyle (3d)</category>
+		<category>Misc\Figurines\TD\Gargoyle</category>
 	</item>
 
 	<item id="258e">
 		<id>0x258e</id>
-		<category>Misc\Figurines\Stone Gargoyle</category>
+		<category>Misc\Figurines\TD\Stone Gargoyle</category>
 	</item>
 
 	<item id="258f">
 		<id>0x258f</id>
-		<category>Misc\Figurines\Gazer (3d)</category>
+		<category>Misc\Figurines\TD\Gazer</category>
 	</item>
 
 	<item id="2590">
 		<id>0x2590</id>
-		<category>Misc\Figurines\Efreet</category>
+		<category>Misc\Figurines\TD\Efreet</category>
 	</item>
 
 	<item id="2591">
 		<id>0x2591</id>
-		<category>Misc\Figurines\Ghoul (3d)</category>
+		<category>Misc\Figurines\TD\Ghoul</category>
 	</item>
 
 	<item id="2592">
 		<id>0x2592</id>
-		<category>Misc\Figurines\Silverback Gorilla</category>
+		<category>Misc\Figurines\TD\Silverback Gorilla</category>
 	</item>
 
 	<item id="2593">
 		<id>0x2593</id>
-		<category>Misc\Figurines\Great Worm</category>
+		<category>Misc\Figurines\TD\Great Worm</category>
 	</item>
 
 	<item id="2594">
 		<id>0x2594</id>
-		<category>Misc\Figurines\Stone Harpy</category>
+		<category>Misc\Figurines\TD\Stone Harpy</category>
 	</item>
 
 	<item id="2595">
 		<id>0x2595</id>
-		<category>Misc\Figurines\Headless (3d)</category>
+		<category>Misc\Figurines\TD\Headless</category>
 	</item>
 
 	<item id="2596">
 		<id>0x2596</id>
-		<category>Misc\Figurines\Hell Hound</category>
+		<category>Misc\Figurines\TD\Hell Hound</category>
 	</item>
 
 	<item id="2597">
 		<id>0x2597</id>
-		<category>Misc\Figurines\Hellcat</category>
+		<category>Misc\Figurines\TD\Hellcat</category>
 	</item>
 
 	<item id="2598">
 		<id>0x2598</id>
-		<category>Misc\Figurines\Dappled Brown Horse</category>
+		<category>Misc\Figurines\TD\Dappled Brown Horse</category>
 	</item>
 
 	<item id="2599">
 		<id>0x2599</id>
-		<category>Misc\Figurines\Dappled Gray Horse</category>
+		<category>Misc\Figurines\TD\Dappled Gray Horse</category>
 	</item>
 
 	<item id="259a">
 		<id>0x259a</id>
-		<category>Misc\Figurines\Dark Brown Horse</category>
+		<category>Misc\Figurines\TD\Dark Brown Horse</category>
 	</item>
 
 	<item id="259b">
 		<id>0x259b</id>
-		<category>Misc\Figurines\Dark Steed</category>
+		<category>Misc\Figurines\TD\Dark Steed</category>
 	</item>
 
 	<item id="259c">
 		<id>0x259c</id>
-		<category>Misc\Figurines\Nightmare</category>
+		<category>Misc\Figurines\TD\Nightmare</category>
 	</item>
 
 	<item id="259d">
 		<id>0x259d</id>
-		<category>Misc\Figurines\Silver Steed</category>
+		<category>Misc\Figurines\TD\Silver Steed</category>
 	</item>
 
 	<item id="259e">
 		<id>0x259e</id>
-		<category>Misc\Figurines\Tan Horse</category>
+		<category>Misc\Figurines\TD\Tan Horse</category>
 	</item>
 
 	<item id="259f">
 		<id>0x259f</id>
-		<category>Misc\Figurines\Imp</category>
+		<category>Misc\Figurines\TD\Imp</category>
 	</item>
 
 	<item id="25a0">
 		<id>0x25a0</id>
-		<category>Misc\Figurines\Kirin</category>
+		<category>Misc\Figurines\TD\Kirin</category>
 	</item>
 
 	<item id="25a1">
 		<id>0x25a1</id>
-		<category>Misc\Figurines\Komodo Dragon</category>
+		<category>Misc\Figurines\TD\Komodo Dragon</category>
 	</item>
 
 	<item id="25a2">
 		<id>0x25a2</id>
-		<category>Misc\Figurines\Kraken</category>
+		<category>Misc\Figurines\TD\Kraken</category>
 	</item>
 
 	<item id="25a3">
 		<id>0x25a3</id>
-		<category>Misc\Figurines\Snow Leopard</category>
+		<category>Misc\Figurines\TD\Snow Leopard</category>
 	</item>
 
 	<item id="25a4">
 		<id>0x25a4</id>
-		<category>Misc\Figurines\Liche (3d)</category>
+		<category>Misc\Figurines\TD\Liche</category>
 	</item>
 
 	<item id="25a5">
 		<id>0x25a5</id>
-		<category>Misc\Figurines\Liche Lord (3d)</category>
+		<category>Misc\Figurines\TD\Liche Lord</category>
 	</item>
 
 	<item id="25a6">
 		<id>0x25a6</id>
-		<category>Misc\Figurines\Mongbat (3d)</category>
+		<category>Misc\Figurines\TD\Mongbat</category>
 	</item>
 
 	<item id="25a7">
 		<id>0x25a7</id>
-		<category>Misc\Figurines\Mummy</category>
+		<category>Misc\Figurines\TD\Mummy</category>
 	</item>
 
 	<item id="25a8">
 		<id>0x25a8</id>
-		<category>Misc\Figurines\Ogre Lord</category>
+		<category>Misc\Figurines\TD\Ogre Lord</category>
 	</item>
 
 	<item id="25a9">
 		<id>0x25a9</id>
-		<category>Misc\Figurines\Ophidian Archmage</category>
+		<category>Misc\Figurines\TD\Ophidian Archmage</category>
 	</item>
 
 	<item id="25aa">
 		<id>0x25aa</id>
-		<category>Misc\Figurines\Ophidian Knight</category>
+		<category>Misc\Figurines\TD\Ophidian Knight</category>
 	</item>
 
 	<item id="25ab">
 		<id>0x25ab</id>
-		<category>Misc\Figurines\Ophidian Mage (3d)</category>
+		<category>Misc\Figurines\TD\Ophidian Mage</category>
 	</item>
 
 	<item id="25ac">
 		<id>0x25ac</id>
-		<category>Misc\Figurines\Ophidian Queen (3d)</category>
+		<category>Misc\Figurines\TD\Ophidian Queen</category>
 	</item>
 
 	<item id="25ad">
 		<id>0x25ad</id>
-		<category>Misc\Figurines\Ophidian Warrior (3d)</category>
+		<category>Misc\Figurines\TD\Ophidian Warrior</category>
 	</item>
 
 	<item id="25ae">
 		<id>0x25ae</id>
-		<category>Misc\Figurines\Orc (3d)</category>
+		<category>Misc\Figurines\TD\Orc</category>
 	</item>
 
 	<item id="25af">
 		<id>0x25af</id>
-		<category>Misc\Figurines\Orc Captain</category>
+		<category>Misc\Figurines\TD\Orc Captain</category>
 	</item>
 
 	<item id="25b0">
 		<id>0x25b0</id>
-		<category>Misc\Figurines\Orc Lord</category>
+		<category>Misc\Figurines\TD\Orc Lord</category>
 	</item>
 
 	<item id="25b1">
 		<id>0x25b1</id>
-		<category>Misc\Figurines\Orc Shaman</category>
+		<category>Misc\Figurines\TD\Orc Shaman</category>
 	</item>
 
 	<item id="25b2">
 		<id>0x25b2</id>
-		<category>Misc\Figurines\Desert Ostard (3d)</category>
+		<category>Misc\Figurines\TD\Desert Ostard</category>
 	</item>
 
 	<item id="25b3">
 		<id>0x25b3</id>
-		<category>Misc\Figurines\Forest Ostard (3d)</category>
+		<category>Misc\Figurines\TD\Forest Ostard</category>
 	</item>
 
 	<item id="25b4">
 		<id>0x25b4</id>
-		<category>Misc\Figurines\Frenzied Ostard (3d)</category>
+		<category>Misc\Figurines\TD\Frenzied Ostard</category>
 	</item>
 
 	<item id="25b5">
 		<id>0x25b5</id>
-		<category>Misc\Figurines\Panther (3d)</category>
+		<category>Misc\Figurines\TD\Panther</category>
 	</item>
 
 	<item id="25b6">
 		<id>0x25b6</id>
-		<category>Misc\Figurines\Pixie</category>
+		<category>Misc\Figurines\TD\Pixie</category>
 	</item>
 
 	<item id="25b7">
 		<id>0x25b7</id>
-		<category>Misc\Figurines\Rat Man (3d)</category>
+		<category>Misc\Figurines\TD\Rat Man</category>
 	</item>
 
 	<item id="25b8">
 		<id>0x25b8</id>
-		<category>Misc\Figurines\Rotting Corpse</category>
+		<category>Misc\Figurines\TD\Rotting Corpse</category>
 	</item>
 
 	<item id="25b9">
 		<id>0x25b9</id>
-		<category>Misc\Figurines\Giant Scorpion</category>
+		<category>Misc\Figurines\TD\Giant Scorpion</category>
 	</item>
 
 	<item id="25ba">
 		<id>0x25ba</id>
-		<category>Misc\Figurines\Sea Horse</category>
+		<category>Misc\Figurines\TD\Sea Horse</category>
 	</item>
 
 	<item id="25bb">
 		<id>0x25bb</id>
-		<category>Misc\Figurines\Nameless One</category>
+		<category>Misc\Figurines\TD\Nameless One</category>
 	</item>
 
 	<item id="25bc">
 		<id>0x25bc</id>
-		<category>Misc\Figurines\Skeleton (3d)</category>
+		<category>Misc\Figurines\TD\Skeleton</category>
 	</item>
 
 	<item id="25bd">
 		<id>0x25bd</id>
-		<category>Misc\Figurines\Skeleton Knight</category>
+		<category>Misc\Figurines\TD\Skeleton Knight</category>
 	</item>
 
 	<item id="25be">
 		<id>0x25be</id>
-		<category>Misc\Figurines\Skeleton Mage</category>
+		<category>Misc\Figurines\TD\Skeleton Mage</category>
 	</item>
 
 	<item id="25bf">
 		<id>0x25bf</id>
-		<category>Misc\Figurines\Giant Snake</category>
+		<category>Misc\Figurines\TD\Giant Snake</category>
 	</item>
 
 	<item id="25c0">
 		<id>0x25c0</id>
-		<category>Misc\Figurines\Giant Ice Snake</category>
+		<category>Misc\Figurines\TD\Giant Ice Snake</category>
 	</item>
 
 	<item id="25c1">
 		<id>0x25c1</id>
-		<category>Misc\Figurines\Giant Lava Snake</category>
+		<category>Misc\Figurines\TD\Giant Lava Snake</category>
 	</item>
 
 	<item id="25c2">
 		<id>0x25c2</id>
-		<category>Misc\Figurines\Silver Serpent</category>
+		<category>Misc\Figurines\TD\Silver Serpent</category>
 	</item>
 
 	<item id="25c3">
 		<id>0x25c3</id>
-		<category>Misc\Figurines\Black Widow Spider</category>
+		<category>Misc\Figurines\TD\Black Widow Spider</category>
 	</item>
 
 	<item id="25c4">
 		<id>0x25c4</id>
-		<category>Misc\Figurines\Dread Spider</category>
+		<category>Misc\Figurines\TD\Dread Spider</category>
 	</item>
 
 	<item id="25c5">
 		<id>0x25c5</id>
-		<category>Misc\Figurines\Frost Spider</category>
+		<category>Misc\Figurines\TD\Frost Spider</category>
 	</item>
 
 	<item id="25c6">
 		<id>0x25c6</id>
-		<category>Misc\Figurines\Giant Spider</category>
+		<category>Misc\Figurines\TD\Giant Spider</category>
 	</item>
 
 	<item id="25c7">
 		<id>0x25c7</id>
-		<category>Misc\Figurines\Ghost</category>
+		<category>Misc\Figurines\TD\Ghost</category>
 	</item>
 
 	<item id="25c8">
 		<id>0x25c8</id>
-		<category>Misc\Figurines\Swamp Tentacles</category>
+		<category>Misc\Figurines\TD\Swamp Tentacles</category>
 	</item>
 
 	<item id="25c9">
 		<id>0x25c9</id>
-		<category>Misc\Figurines\Terathan Drone (3d)</category>
+		<category>Misc\Figurines\TD\Terathan Drone</category>
 	</item>
 
 	<item id="25ca">
 		<id>0x25ca</id>
-		<category>Misc\Figurines\Terathan Avenger (3d)</category>
+		<category>Misc\Figurines\TD\Terathan Avenger</category>
 	</item>
 
 	<item id="25cb">
 		<id>0x25cb</id>
-		<category>Misc\Figurines\Terathan Queen (3d)</category>
+		<category>Misc\Figurines\TD\Terathan Queen</category>
 	</item>
 
 	<item id="25cc">
 		<id>0x25cc</id>
-		<category>Misc\Figurines\Terathan Warrior (3d)</category>
+		<category>Misc\Figurines\TD\Terathan Warrior</category>
 	</item>
 
 	<item id="25cd">
 		<id>0x25cd</id>
-		<category>Misc\Figurines\Titan (3d)</category>
+		<category>Misc\Figurines\TD\Titan</category>
 	</item>
 
 	<item id="25ce">
 		<id>0x25ce</id>
-		<category>Misc\Figurines\Unicorn</category>
+		<category>Misc\Figurines\TD\Unicorn</category>
 	</item>
 
 	<item id="25cf">
 		<id>0x25cf</id>
-		<category>Misc\Figurines\Wolf (3d)</category>
+		<category>Misc\Figurines\TD\Wolf</category>
 	</item>
 
 	<item id="25d0">
 		<id>0x25d0</id>
-		<category>Misc\Figurines\Dire Wolf</category>
+		<category>Misc\Figurines\TD\Dire Wolf</category>
 	</item>
 
 	<item id="25d1">
 		<id>0x25d1</id>
-		<category>Misc\Figurines\Gray Wolf</category>
+		<category>Misc\Figurines\TD\Gray Wolf</category>
 	</item>
 
 	<item id="25d2">
 		<id>0x25d2</id>
-		<category>Misc\Figurines\Silver Wolf</category>
+		<category>Misc\Figurines\TD\Silver Wolf</category>
 	</item>
 
 	<item id="25d3">
 		<id>0x25d3</id>
-		<category>Misc\Figurines\Timber Wolf</category>
+		<category>Misc\Figurines\TD\Timber Wolf</category>
 	</item>
 
 	<item id="25d4">
@@ -932,222 +933,325 @@
 
 	<item id="25d5">
 		<id>0x25d5</id>
-		<category>Misc\Figurines\Zombie (3d)</category>
+		<category>Misc\Figurines\TD\Zombie</category>
 	</item>
 
 	<item id="25d6">
 		<id>0x25d6</id>
-		<category>Misc\Figurines\Acid Elemental</category>
+		<category>Misc\Figurines\TD\Acid Elemental</category>
 	</item>
 
 	<item id="25d7">
 		<id>0x25d7</id>
-		<category>Misc\Figurines\Air Elemental (3d)</category>
+		<category>Misc\Figurines\TD\Air Elemental (3d)</category>
 	</item>
 
 	<item id="25d8">
 		<id>0x25d8</id>
-		<category>Misc\Figurines\Blood Elemental</category>
+		<category>Misc\Figurines\TD\Blood Elemental</category>
 	</item>
 
 	<item id="25d9">
 		<id>0x25d9</id>
-		<category>Misc\Figurines\Fire Elemental (3d)</category>
+		<category>Misc\Figurines\TD\Fire Elemental</category>
 	</item>
 
 	<item id="25da">
 		<id>0x25da</id>
-		<category>Misc\Figurines\Ice Elemental (3d)</category>
+		<category>Misc\Figurines\TD\Ice Elemental</category>
 	</item>
 
 	<item id="25db">
 		<id>0x25db</id>
-		<category>Misc\Figurines\Poison Elemental (3d)</category>
+		<category>Misc\Figurines\TD\Poison Elemental</category>
 	</item>
 
 	<item id="25dc">
 		<id>0x25dc</id>
-		<category>Misc\Figurines\Snow Elemental</category>
+		<category>Misc\Figurines\TD\Snow Elemental</category>
 	</item>
 
 	<item id="25dd">
 		<id>0x25dd</id>
-		<category>Misc\Figurines\Water Elemental</category>
+		<category>Misc\Figurines\TD\Water Elemental</category>
 	</item>
 	
 	<!-- LBR Creatures -->
 	<item id="25f8">
 		<id>0x25f8</id>
-		<category>Misc\Figurines\Adranath</category>
+		<category>Misc\Figurines\TD\Adranath</category>
 	</item>
 
 	<item id="25f9">
 		<id>0x25f9</id>
-		<category>Misc\Figurines\Lord Blackthorn</category>
+		<category>Misc\Figurines\TD\Lord Blackthorn</category>
 	</item>
 
 	<item id="25fa">
 		<id>0x25fa</id>
-		<category>Misc\Figurines\Captain Dasha</category>
+		<category>Misc\Figurines\TD\Captain Dasha</category>
 	</item>
 
 	<item id="25fb">
 		<id>0x25fb</id>
-		<category>Misc\Figurines\Dawn</category>
+		<category>Misc\Figurines\TD\Dawn</category>
 	</item>
 
 	<item id="25fc">
 		<id>0x25fc</id>
-		<category>Misc\Figurines\Warlord Kabur</category>
+		<category>Misc\Figurines\TD\Warlord Kabur</category>
 	</item>
 
 	<item id="2602">
 		<id>0x2602</id>
-		<category>Misc\Figurines\Solen Queen</category>
+		<category>Misc\Figurines\TD\Solen Queen</category>
 	</item>
 
 	<item id="2603">
 		<id>0x2603</id>
-		<category>Misc\Figurines\Solen Warrior</category>
+		<category>Misc\Figurines\TD\Solen Warrior</category>
 	</item>
 
 	<item id="2604">
 		<id>0x2604</id>
-		<category>Misc\Figurines\Solen Worker</category>
+		<category>Misc\Figurines\TD\Solen Worker</category>
 	</item>
 
 	<item id="2605">
 		<id>0x2605</id>
-		<category>Misc\Figurines\Arcane Demon</category>
+		<category>Misc\Figurines\TD\Arcane Demon</category>
 	</item>
 
 	<item id="2606">
 		<id>0x2606</id>
-		<category>Misc\Figurines\Betrayer</category>
+		<category>Misc\Figurines\TD\Betrayer</category>
 	</item>
 
 	<item id="2607">
 		<id>0x2607</id>
-		<category>Misc\Figurines\Bogling</category>
+		<category>Misc\Figurines\TD\Bogling</category>
 	</item>
 
 	<item id="2608">
 		<id>0x2608</id>
-		<category>Misc\Figurines\Bog Thing</category>
+		<category>Misc\Figurines\TD\Bog Thing</category>
 	</item>
 
 	<item id="2609">
 		<id>0x2609</id>
-		<category>Misc\Figurines\Chaos Demon</category>
+		<category>Misc\Figurines\TD\Chaos Demon</category>
 	</item>
 
 	<item id="260a">
 		<id>0x260a</id>
-		<category>Misc\Figurines\Chariot</category>
+		<category>Misc\Figurines\TD\Chariot</category>
 	</item>
 
 	<item id="260b">
 		<id>0x260b</id>
-		<category>Misc\Figurines\Exodus Minion</category>
+		<category>Misc\Figurines\TD\Exodus Minion</category>
 	</item>
 
 	<item id="260c">
 		<id>0x260c</id>
-		<category>Misc\Figurines\Exodus Overseer</category>
+		<category>Misc\Figurines\TD\Exodus Overseer</category>
 	</item>
 
 	<item id="260d">
 		<id>0x260d</id>
-		<category>Misc\Figurines\Doppleganger</category>
+		<category>Misc\Figurines\TD\Doppleganger</category>
 	</item>
 
 	<item id="260e">
 		<id>0x260e</id>
-		<category>Misc\Figurines\Moloch Demon</category>
+		<category>Misc\Figurines\TD\Moloch Demon</category>
 	</item>
 
 	<item id="260f">
 		<id>0x260f</id>
-		<category>Misc\Figurines\Giant Beetle</category>
+		<category>Misc\Figurines\TD\Giant Beetle</category>
 	</item>
 
 	<item id="2610">
 		<id>0x2610</id>
-		<category>Misc\Figurines\Golem</category>
+		<category>Misc\Figurines\TD\Golem</category>
 	</item>
 
 	<item id="2611">
 		<id>0x2611</id>
-		<category>Misc\Figurines\Horde Demon</category>
+		<category>Misc\Figurines\TD\Horde Demon</category>
 	</item>
 
 	<item id="2612">
 		<id>0x2612</id>
-		<category>Misc\Figurines\Juggernaut</category>
+		<category>Misc\Figurines\TD\Juggernaut</category>
 	</item>
 
 	<item id="2613">
 		<id>0x2613</id>
-		<category>Misc\Figurines\Plague Beast</category>
+		<category>Misc\Figurines\TD\Plague Beast</category>
 	</item>
 
 	<item id="2614">
 		<id>0x2614</id>
-		<category>Misc\Figurines\Quagmire</category>
+		<category>Misc\Figurines\TD\Quagmire</category>
 	</item>
 
 	<item id="2615">
 		<id>0x2615</id>
-		<category>Misc\Figurines\Ridgeback</category>
+		<category>Misc\Figurines\TD\Ridgeback</category>
 	</item>
 
 	<item id="2616">
 		<id>0x2616</id>
-		<category>Misc\Figurines\Sand Vortex</category>
+		<category>Misc\Figurines\TD\Sand Vortex</category>
 	</item>
 
 	<item id="2617">
 		<id>0x2617</id>
-		<category>Misc\Figurines\Skeletal Mount</category>
+		<category>Misc\Figurines\TD\Skeletal Mount</category>
 	</item>
 
 	<item id="2618">
 		<id>0x2618</id>
-		<category>Misc\Figurines\Sphinx</category>
+		<category>Misc\Figurines\TD\Sphinx</category>
 	</item>
 
 	<item id="2619">
 		<id>0x2619</id>
-		<category>Misc\Figurines\Sawmp Dragon</category>
+		<category>Misc\Figurines\TD\Sawmp Dragon</category>
 	</item>
 
 	<item id="261a">
 		<id>0x261a</id>
-		<category>Misc\Figurines\Swarm</category>
+		<category>Misc\Figurines\TD\Swarm</category>
 	</item>
 
 	<item id="261b">
 		<id>0x261b</id>
-		<category>Misc\Figurines\Plague Beast Lord</category>
+		<category>Misc\Figurines\TD\Plague Beast Lord</category>
 	</item>
 
 	<item id="261c">
 		<id>0x261c</id>
-		<category>Misc\Figurines\Meer Mage</category>
+		<category>Misc\Figurines\TD\Meer Mage</category>
 	</item>
 
 	<item id="261d">
 		<id>0x261d</id>
-		<category>Misc\Figurines\Meer Warrior</category>
+		<category>Misc\Figurines\TD\Meer Warrior</category>
 	</item>
 
 	<item id="261e">
 		<id>0x261e</id>
-		<category>Misc\Figurines\Juka Mage</category>
+		<category>Misc\Figurines\TD\Juka Mage</category>
 	</item>
 
 	<item id="261f">
 		<id>0x261f</id>
-		<category>Misc\Figurines\Juka Warrior</category>
+		<category>Misc\Figurines\TD\Juka Warrior</category>
 	</item>
+
+	<!-- Age of Shadows Figurines -->
+	<item id="2620">
+		<id>0x2620</id>
+		<category>Misc\Figurines\AoS\Crystal Elemental</category>
+	</item>
+
+	<item id="2621">
+		<id>0x2621</id>
+		<category>Misc\Figurines\AoS\Treefellow</category>
+	</item>
+
+	<item id="2622">
+		<id>0x2622</id>
+		<category>Misc\Figurines\AoS\Skittering Hopper</category>
+	</item>
+
+	<item id="2623">
+		<id>0x2623</id>
+		<category>Misc\Figurines\AoS\Devourer of Souls</category>
+	</item>
+
+	<item id="2624">
+		<id>0x2624</id>
+		<category>Misc\Figurines\AoS\Flesh Golem</category>
+	</item>
+
+	<item id="2625">
+		<id>0x2625</id>
+		<category>Misc\Figurines\AoS\Gore Fiend</category>
+	</item>
+
+	<item id="2626">
+		<id>0x2626</id>
+		<category>Misc\Figurines\AoS\Impaler</category>
+	</item>
+
+	<item id="2627">
+		<id>0x2627</id>
+		<category>Misc\Figurines\AoS\Gibberling</category>
+	</item>
+
+	<item id="2628">
+		<id>0x2628</id>
+		<category>Misc\Figurines\AoS\Bone Daemon</category>
+	</item>
+
+	<item id="2629">
+		<id>0x2629</id>
+		<category>Misc\Figurines\AoS\Patchwork Skeleton</category>
+	</item>
+
+	<item id="262a">
+		<id>0x262a</id>
+		<category>Misc\Figurines\AoS\Wailing Banshee</category>
+	</item>
+
+	<item id="262b">
+		<id>0x262b</id>
+		<category>Misc\Figurines\AoS\Shadow Knight</category>
+	</item>
+
+	<item id="262c">
+		<id>0x262c</id>
+		<category>Misc\Figurines\AoS\Abyssmal Horror</category>
+	</item>
+
+	<item id="262d">
+		<id>0x262d</id>
+		<category>Misc\Figurines\AoS\Darknight Creeper</category>
+	</item>
+
+	<item id="262e">
+		<id>0x262e</id>
+		<category>Misc\Figurines\AoS\Ravager</category>
+	</item>
+
+	<item id="262f">
+		<id>0x262f</id>
+		<category>Misc\Figurines\AoS\Flesh Renderer</category>
+	</item>
+
+	<item id="2630">
+		<name>wanderer of the void</name>
+		<id>0x2630</id>
+		<category>Misc\Figurines\AoS\Wanderer of the Void</category>
+	</item>
+
+	<item id="2631">
+		<id>0x2631</id>
+		<category>Misc\Figurines\AoS\Vampire Bat</category>
+	</item>
+
+	<item id="2632">
+		<id>0x2632</id>
+		<category>Misc\Figurines\AoS\Demon Knight</category>
+	</item>
+
+	<item id="2633">
+		<id>0x2630</id>
+		<category>Misc\Figurines\AoS\Mound of Maggots</category>
+	</item>
+
 </definitions>
