@@ -149,7 +149,7 @@ void cSrvParams::readData() {
 	// General Group
 	showSkillTitles_		= getBool("General",	"ShowSkillTitles", true, true );
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
-	statcap_				= getNumber("General",	"StatsCap",			250, true);
+	statcap_				= getNumber("General",	"StatsCap",			225, true);
 	commandPrefix_			= getString("General",	"Command Prefix",	"'", true);
 	skillAdvanceModifier_	= getNumber("General",	"Skill Advance Modifier", 1000, true);
 	statsAdvanceModifier_	= getNumber("General",	"Stats Advance Modifier", 500, true);

@@ -44,34 +44,16 @@
 // Forward Declaration
 class cUOSocket;
 
-struct stAdvancement
-{
-	UINT16 base;
-	UINT16 success;
-	UINT16 failure;
-};
-
-struct stSkill
-{
-	UINT16 strength, dexterity, intelligence;
+struct stSkill {
 	QString name, defname, title;
-	QValueVector< stAdvancement > advancement;
 };
 
 class cSkills
 {
 private:
-	int GetSubIngotAmt(int p, char id1, char id2, char color1, char color2);
-	int DeleSubIngot(int p, int id1, int id2, int color1, int color2, int amount);
-	void Hide( cUOSocket* );
-	void Stealth( cUOSocket* );
-	void PeaceMaking( cUOSocket* );
-
 	QStringList skillRanks;
-	QValueVector< stAdvancement > advStrength;
-	QValueVector< stAdvancement > advDexterity;
-	QValueVector< stAdvancement > advIntelligence;
-	QValueVector< stSkill > skills;
+	QValueVector<stSkill> skills;
+
 public:
 	// Skill management methods
 	void load();
@@ -82,13 +64,7 @@ public:
 	const QString &getSkillDef( UINT16 skill ) const;
 	INT16 findSkillByDef( const QString &defname ) const; // -1 = Not Found
 
-	bool advanceSkill( P_CHAR pChar, UINT16 skill, SI32 min, SI32 max, bool success ) const;
-	bool advanceStats( P_PLAYER pChar, UINT16 skill ) const;
-
 	// Skill Usage methods
-	void PlayInstrumentWell(cUOSocket*, P_ITEM pi);
-	void PlayInstrumentPoor(cUOSocket*, P_ITEM pi);
-	P_ITEM GetInstrument( cUOSocket* );
 	void Meditation(cUOSocket* s);
 	// skills using crafting menus
 	void Blacksmithing( cUOSocket* socket );
@@ -100,11 +76,7 @@ public:
 
 	static void RandomSteal( cUOSocket*, SERIAL );	
 	void Track(P_CHAR pc_i);
-	void PotionToBottle(P_PLAYER pc, P_ITEM pi_mortar);
-	void SpiritSpeak(int s);
 	void SkillUse( cUOSocket*, UINT16 );
-	void CreateTrackingMenu(int s, int m);
-	void TrackingMenu(int s, int gmindex);
 	void Snooping(P_PLAYER, P_ITEM);
 };
 

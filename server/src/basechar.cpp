@@ -117,6 +117,13 @@ cBaseChar::cBaseChar()
 	regenStaminaTime_	= uiCurrentTime + SrvParams->staminarate() * MY_CLOCKS_PER_SEC;
 	regenManaTime_		= uiCurrentTime + SrvParams->manarate() * MY_CLOCKS_PER_SEC;
 	saycolor_			= 600;
+	hitpointsBonus_		= 0;
+	staminaBonus_		= 0;
+	manaBonus_			= 0;
+	strengthCap_		= 125;
+	dexterityCap_		= 125;
+	intelligenceCap_	= 125;
+	statCap_			= SrvParams->statcap();
 }
 
 cBaseChar::cBaseChar(const cBaseChar& right)
@@ -150,6 +157,8 @@ void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStrin
 	fields.push_back( "characters.gender,characters.propertyflags" );
 	fields.push_back( "characters.murderer" );
 	fields.push_back( "characters.guarding" );
+	fields.push_back( "characters.hitpointsbonus,characters.staminabonus,characters.manabonus");
+	fields.push_back( "characters.strcap,characters.dexcap,characters.intcap,characters.statcap" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
@@ -202,6 +211,13 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	murdererSerial_ = atoi( result[offset++] );
 	ser = atoi( result[offset++] );
 	guarding_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
+	hitpointsBonus_ = atoi(result[offset++]);
+	staminaBonus_ = atoi(result[offset++]);
+	manaBonus_ = atoi(result[offset++]);
+	strengthCap_ = atoi(result[offset++]);
+	dexterityCap_ = atoi(result[offset++]);
+	intelligenceCap_ = atoi(result[offset++]);
+	statCap_ = atoi(result[offset++]);
 
 	// Query the Skills for this character
 	QString sql = "SELECT skill,value,locktype,cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
@@ -282,6 +298,13 @@ void cBaseChar::save()
 		addField( "propertyflags", propertyFlags_ );
 		addField( "murderer", murdererSerial_ );
 		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
+		addField( "hitpointsbonus", hitpointsBonus_ );
+		addField( "staminabonus", staminaBonus_ );
+		addField( "manabonus", manaBonus_ );
+		addField( "strcap", strengthCap_ );
+		addField( "dexcap", dexterityCap_ );
+		addField( "intcap", intelligenceCap_ );
+		addField( "statcap", statCap_ );
 		addCondition( "serial", serial() );
 		saveFields;
 
@@ -807,6 +830,11 @@ bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 	if( chance >= RandomNum( 0, 1000 ) )
 		success = true;
 
+	// We can only advance when doing things which aren't below our ability
+	if (advance && skillValue(skill) < max) {
+	  	onSkillGain(skill, min, max, success);
+	}
+
 	return success;
 }
 
@@ -1207,6 +1235,9 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	else SET_INT_PROPERTY( "skin", skin_ )
+	else SET_INT_PROPERTY( "maxhitpoints", maxHitpoints_ )
+	else SET_INT_PROPERTY( "maxstamina", maxStamina_ )
+	else SET_INT_PROPERTY( "maxmana", maxMana_ )
 	else SET_INT_PROPERTY( "lastmovement", lastMovement_ )
 	else SET_INT_PROPERTY( "xskin", orgSkin_ )
 	else SET_INT_PROPERTY( "orgskin", orgSkin_ )
@@ -1257,20 +1288,29 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else SET_FLOAT_PROPERTY( "weight", weight_ )
 	else SET_INT_PROPERTY( "saycolor", saycolor_ )
 	else SET_INT_PROPERTY( "emotecolor", emoteColor_ )
-	else SET_INT_PROPERTY( "strength", strength_ )
-	else SET_INT_PROPERTY( "dexterity", dexterity_ )
-	else SET_INT_PROPERTY( "intelligence", intelligence_ )
-	else SET_INT_PROPERTY( "strength2", strengthMod_ )
-	else SET_INT_PROPERTY( "dexterity2", dexterityMod_ )
-	else SET_INT_PROPERTY( "intelligence2", intelligenceMod_ )
-	else SET_INT_PROPERTY( "xid", orgBodyID_ )
+	else if (name == "strength") {
+		setStrength(value.toInt());
+		return 0;
+	} else if (name == "dexterity") {
+		setDexterity(value.toInt());
+		return 0;
+	} else if (name == "intelligence") {
+		setIntelligence(value.toInt());
+		return 0;
+	} else if (name == "strength2") {
+		setStrengthMod(value.toInt());
+		return 0;
+	} else if (name == "dexterity2") {
+		setDexterityMod(value.toInt());
+		return 0;
+	} else if (name == "intelligence2") {
+		setIntelligenceMod(value.toInt());
+		return 0;
+	} else SET_INT_PROPERTY( "xid", orgBodyID_ )
 	else SET_INT_PROPERTY( "orgid", orgBodyID_ )
-	else SET_INT_PROPERTY( "maxhitpoints", maxHitpoints_ )
 	else SET_INT_PROPERTY( "hitpoints", hitpoints_ )
 	else SET_INT_PROPERTY( "health", hitpoints_ )
-	else SET_INT_PROPERTY( "maxstamina", maxStamina_ )
 	else SET_INT_PROPERTY( "stamina", stamina_ )
-	else SET_INT_PROPERTY( "maxmana", maxMana_ )
 	else SET_INT_PROPERTY( "mana", mana_ )
 	else SET_INT_PROPERTY( "karma", karma_ )
 	else SET_INT_PROPERTY( "fame", fame_ )
@@ -1291,7 +1331,16 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "sex", gender_ )
 	else SET_INT_PROPERTY( "gender", gender_ )
 	else SET_INT_PROPERTY( "id", bodyID_ )
-	else if( name == "invulnerable" )
+	else if (name == "hitpointsbonus") {
+		setHitpointsBonus(value.toInt());
+		return 0;
+	} else if (name == "staminabonus") {
+		setStaminaBonus(value.toInt());
+		return 0;
+	} else if (name == "manabonus") {
+		setManaBonus(value.toInt());
+		return 0;
+	} else if( name == "invulnerable" )
 	{
 		setInvulnerable( value.toInt() );
 		return 0;
@@ -1306,14 +1355,16 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		setFrozen( value.toInt() );
 		return 0;
 	}
-
+	else SET_INT_PROPERTY( "strengthcap", strengthCap_ )
+	else SET_INT_PROPERTY( "dexteritycap", dexterityCap_ )
+	else SET_INT_PROPERTY( "intelligencecap", intelligenceCap_ )
+	else SET_INT_PROPERTY( "statcap", statCap_ )
 
 	return cUObject::setProperty( name, value );
 }
 
 stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 {
-
 	GET_PROPERTY( "orgname", orgName_ )
 	else GET_PROPERTY( "lastmovement", (int)lastMovement_ )
 	else GET_PROPERTY( "title", title_ )
@@ -1355,6 +1406,10 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "xid", orgBodyID_ )
 	else GET_PROPERTY( "maxhitpoints", maxHitpoints_ )
 	else GET_PROPERTY( "hitpoints", hitpoints_ )
+	else GET_PROPERTY( "strengthcap", strengthCap_ )
+	else GET_PROPERTY( "dexteritycap", dexterityCap_ )
+	else GET_PROPERTY( "intelligencecap", intelligenceCap_ )
+	else GET_PROPERTY( "statcap", statCap_ )
 	else GET_PROPERTY( "health", hitpoints_ )
 	else GET_PROPERTY( "maxstamina", maxStamina_ )
 	else GET_PROPERTY( "stamina", stamina_ )
@@ -1380,6 +1435,9 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "invulnerable", isInvulnerable() )
 	else GET_PROPERTY( "invisible", isInvisible() )
 	else GET_PROPERTY( "frozen", isFrozen() )
+	else GET_PROPERTY( "hitpointsbonus", hitpointsBonus_ )
+	else GET_PROPERTY( "staminabonus", staminaBonus_ )
+	else GET_PROPERTY( "manabonus", manaBonus_ )
 
 	// skill.
 	else if( name.left( 6 ) == "skill." )
@@ -2584,4 +2642,13 @@ void cBaseChar::poll(unsigned int time, unsigned int events) {
 			}
 		}
 	}
+}
+
+void cBaseChar::refreshMaximumValues() {
+	if (objectType() == enPlayer) {
+		maxHitpoints_ = std::max(1, ((strength_ - strengthMod_) / 2) + strengthMod_ + hitpointsBonus_ + 50);
+	}
+
+	maxStamina_ = std::max(1, dexterity_ + dexterityMod_ + staminaBonus_);
+	maxMana_ = std::max(1, intelligence_ + intelligenceMod_ + manaBonus_);
 }

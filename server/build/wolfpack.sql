@@ -91,6 +91,13 @@ CREATE TABLE `characters` (
 	`propertyflags` int(11)  NOT NULL default '0',
 	`murderer` int(11) NOT NULL default '-1',
 	`guarding` int(11) NOT NULL default '-1',
+	`hitpointsbonus` smallint(6) NOT NULL default '0',
+	`staminabonus` smallint(6) NOT NULL default '0',
+	`manabonus` smallint(6) NOT NULL default '0',
+	`strcap` tinyint(4)  NOT NULL default '125',
+	`dexcap` tinyint(4)  NOT NULL default '125',
+	`intcap` tinyint(4)  NOT NULL default '125',
+  `statcap` tinyint(4)  NOT NULL default '225',
 	PRIMARY KEY (`serial`)
 );
 
@@ -195,13 +202,9 @@ CREATE TABLE `players` (
 	`visualrange` tinyint(3)  NOT NULL default '0',
 	`profile` longtext,
 	`fixedlight` tinyint(3)  NOT NULL default '0',
-	`strcap` tinyint(4)  NOT NULL default '125',
-	`dexcap` tinyint(4)  NOT NULL default '125',
-	`intcap` tinyint(4)  NOT NULL default '125',
 	`strlock` tinyint(4)  NOT NULL default '0',
 	`dexlock` tinyint(4)  NOT NULL default '0',
 	`intlock` tinyint(4)  NOT NULL default '0',
-  `statcap` tinyint(4)  NOT NULL default '225',
 	PRIMARY KEY (`serial`)
 );
 

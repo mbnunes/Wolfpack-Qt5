@@ -291,6 +291,8 @@ public:
 		nextSwing_ = data;
 	}
 
+	void refreshMaximumValues();
+
 	// getters
     ushort			bodyArmor() const;
     ushort			bodyID() const;    
@@ -340,6 +342,9 @@ public:
 	unsigned int	lastMovement() const;
     QString			title() const;
     float			weight() const;
+	short			hitpointsBonus() const;
+	short			staminaBonus() const;
+	short			manaBonus() const;
 	// bit flag getters
 	bool			isIncognito() const;
 	bool			isPolymorphed() const;
@@ -429,6 +434,23 @@ public:
 	void setDead(bool data);
 	void setAtWar(bool data);
 	void setInvulnerable(bool data);
+	void setHitpointsBonus(short data);
+	void setStaminaBonus(short data);
+	void setManaBonus(short data);
+	unsigned char			statCap() const;
+	void setStatCap(unsigned char data);
+
+	unsigned char strengthCap() const;
+	unsigned char dexterityCap() const;
+	unsigned char intelligenceCap() const;
+	void setStrengthCap(unsigned char data);
+	void setDexterityCap(unsigned char data);
+	void setIntelligenceCap(unsigned char data);
+	unsigned char statCap_;
+	unsigned char strengthCap_;
+	unsigned char dexterityCap_;
+	unsigned char intelligenceCap_;
+
 	// advanced setters for data structures
 	// skills
 	void setSkillValue( ushort skill, ushort value );
@@ -521,6 +543,11 @@ protected:
 
     // Weight of the char, including worn items.
     float weight_;
+
+	// Bonus values for stamina, health and mana (maximum values)
+	short hitpointsBonus_;
+	short staminaBonus_;
+	short manaBonus_;
 
     // Base body armor value.
     ushort bodyArmor_;
@@ -774,6 +801,7 @@ inline void cBaseChar::setDexterityMod(short data)
 {
     dexterityMod_ = data;
 	changed_ = true;
+	refreshMaximumValues();
 }
 
 inline short cBaseChar::dexterity() const
@@ -785,6 +813,7 @@ inline void cBaseChar::setDexterity(short data)
 {
     dexterity_ = data;
 	changed_ = true;
+	refreshMaximumValues();
 }
 
 inline ushort cBaseChar::emoteColor() const
@@ -873,6 +902,7 @@ inline void cBaseChar::setIntelligence(short data)
 {
     intelligence_ = data;
 	changed_ = true;
+	refreshMaximumValues();
 }
 
 inline short cBaseChar::intelligenceMod() const
@@ -884,6 +914,7 @@ inline void cBaseChar::setIntelligenceMod(short data)
 {
     intelligenceMod_ = data;
 	changed_ = true;
+	refreshMaximumValues();
 }
 
 inline short cBaseChar::karma() const
@@ -917,6 +948,7 @@ inline void cBaseChar::setMana(short data)
 {
     mana_ = data;
 	changed_ = true;
+	refreshMaximumValues();
 }
 
 inline ushort cBaseChar::maxHitpoints() const
@@ -1085,6 +1117,7 @@ inline void cBaseChar::setStrength(short data)
 {
     strength_ = data;
 	changed_ = true;
+	refreshMaximumValues();
 }
 
 inline short cBaseChar::strengthMod() const
@@ -1096,6 +1129,7 @@ inline void cBaseChar::setStrengthMod(short data)
 {
     strengthMod_ = data;
 	changed_ = true;
+	refreshMaximumValues();
 }
 
 inline float cBaseChar::weight() const
@@ -1396,6 +1430,72 @@ inline unsigned int cBaseChar::lastMovement() const {
 
 inline void cBaseChar::setLastMovement(unsigned int data) {
 	lastMovement_ = data;
+}
+
+inline short cBaseChar::hitpointsBonus() const {
+	return hitpointsBonus_;
+}
+
+inline short cBaseChar::manaBonus() const {
+	return manaBonus_;
+}
+
+inline short cBaseChar::staminaBonus() const {
+	return staminaBonus_;
+}
+
+inline void cBaseChar::setHitpointsBonus(short data) {
+	hitpointsBonus_ = data;
+	refreshMaximumValues();
+	changed_ = true;
+}
+
+inline void cBaseChar::setManaBonus(short data) {
+	manaBonus_ = data;
+	refreshMaximumValues();
+	changed_ = true;
+}
+
+inline void cBaseChar::setStaminaBonus(short data) {
+	staminaBonus_ = data;
+	refreshMaximumValues();
+	changed_ = true;
+}
+
+inline unsigned char cBaseChar::strengthCap() const {
+	return strengthCap_;
+}
+
+inline unsigned char cBaseChar::dexterityCap() const {
+	return dexterityCap_;
+}
+
+inline unsigned char cBaseChar::intelligenceCap() const {
+	return intelligenceCap_;
+}
+
+inline void cBaseChar::setStrengthCap(unsigned char data) {
+	strengthCap_ = data;
+	changed_ = true;
+}
+
+inline void cBaseChar::setDexterityCap(unsigned char data) {
+	dexterityCap_ = data;
+	changed_ = true;
+}
+
+inline void cBaseChar::setIntelligenceCap(unsigned char data) {
+	intelligenceCap_ = data;
+	changed_ = true;
+}
+
+inline void cBaseChar::setStatCap(unsigned char data) {
+	statCap_ = data;
+	changed_ = true;
+}
+
+inline unsigned char cBaseChar::statCap() const {
+	return statCap_;
 }
 
 #endif /* CBASECHAR_H_HEADER_INCLUDED */

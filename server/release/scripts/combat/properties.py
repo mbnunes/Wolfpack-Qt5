@@ -131,7 +131,7 @@ def getdamage(char):
     # Special treatment for fists.
     if not weapon:
       mindamage = char.strength / 28
-      maxdamage = char.strength / 28
+      maxdamage = mindamage
     else:
       mindamage = fromitem(weapon, MINDAMAGE)
       maxdamage = fromitem(weapon, MAXDAMAGE)

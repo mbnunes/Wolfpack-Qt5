@@ -56,181 +56,6 @@
 // System Includes
 #include <math.h>
 
-void cSkills::Hide( cUOSocket *socket ) 
-{ 
-	P_PLAYER pChar = socket->player();
-
-	if (!pChar || pChar->isHidden()) {
-		return; 
-	}
-
-	// See if anyone is in fight with us
-	QPtrList<cFightInfo> fights = pChar->fights();
-
-	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
-		P_CHAR enemy = info->attacker();
-
-		if (enemy == pChar) {
-			enemy = info->victim();
-		}
-
-		if (pChar->canSeeChar(enemy)) {
-			socket->clilocMessage(501238);
-			return;
-		}
-	}
-	
-	if (!pChar->checkSkill(HIDING, 0, 1000)) { 
-		socket->clilocMessage(501237);
-		return; 
-	} 
-	
-	socket->clilocMessage(501240);
-	pChar->setHidden(true);
-	pChar->resend(); // Remove + Resend (GMs etc.)
-	
-	// Resend us to ourself
-	if (pChar->socket()) {
-		pChar->socket()->updatePlayer();
-	}
-}
-
-void cSkills::Stealth( cUOSocket *socket )
-{
-	P_PLAYER pChar = socket->player();
-
-	if( !pChar )
-		return;
-
-	if( !pChar->isHidden() )
-	{
-		pChar->message( tr( "You must hide first." ) );
-		return;
-	}
-
-	if( pChar->skillValue( HIDING ) < 700 )
-	{
-		socket->sysMessage( tr( "You are not hidden well enough. Become better at hiding." ) );
-		return;
-	}
-
-	if( !pChar->checkSkill( STEALTH, 0, 1000 ) ) 
-	{
-		socket->sysMessage( tr( "You fail to stealth with your environment." ) );
-		pChar->unhide();
-		return;
-	}
-
-	socket->sysMessage( tr( "You can move %1 steps unseen" ).arg( SrvParams->maxStealthSteps() ) );
-	pChar->setStealthedSteps( 0 );
-}
-
-void cSkills::PeaceMaking(cUOSocket* socket)
-{
-	int res1, res2, j;
-	P_ITEM p_inst = Skills->GetInstrument(socket);
-	if (p_inst == NULL) 
-	{
-		socket->sysMessage( tr( "You do not have an instrument to play on!" ) );
-		return;
-	}
-	P_CHAR pc_currchar = socket->player();
-	res1=pc_currchar->checkSkill( PEACEMAKING, 0, 1000);
-	res2=pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000);
-	if (res1 && res2)
-	{
-		Skills->PlayInstrumentWell(socket, p_inst);
-		socket->sysMessage( tr( "You play your hypnotic music, stopping the battle.") );
-		
-		RegionIterator4Chars ri(pc_currchar->pos(), VISRANGE);
-		for (ri.Begin(); !ri.atEnd(); ri++)
-		{
-			P_CHAR mapchar = ri.GetData();
-			if( mapchar && mapchar->isAtWar() )
-			{
-				if (mapchar->objectType() == enPlayer) {
-					P_PLAYER pp = dynamic_cast<P_PLAYER>(mapchar);
-					if( pp->socket() )
-						pp->socket()->sysMessage( tr("You hear some lovely music, and forget about fighting.") );
-				}
-
-				mapchar->fight(0);
-			}
-		}
-	} 
-	else 
-	{
-		Skills->PlayInstrumentPoor(socket, p_inst);
-		socket->sysMessage( tr("You attempt to calm everyone, but fail.") );
-	}
-}
-
-void cSkills::PlayInstrumentWell(cUOSocket* socket, P_ITEM pi)
-{
-	P_CHAR pc_currchar = socket->player();
-	switch(pi->id())
-	{
-	case 0x0E9C:	pc_currchar->soundEffect( 0x0038 );	break;
-	case 0x0E9D:
-	case 0x0E9E:	pc_currchar->soundEffect( 0x0052 );	break;
-	case 0x0EB1:
-	case 0x0EB2:	pc_currchar->soundEffect( 0x0045 );	break;
-	case 0x0EB3:
-	case 0x0EB4:	pc_currchar->soundEffect( 0x004C );	break;
-	}
-}
-
-void cSkills::PlayInstrumentPoor(cUOSocket* socket, P_ITEM pi)
-{
-	P_CHAR pc_currchar = socket->player();
-	switch(pi->id())
-	{
-	case 0x0E9C:	pc_currchar->soundEffect( 0x0039);	break;
-	case 0x0E9D:
-	case 0x0E9E:	pc_currchar->soundEffect( 0x0053);	break;
-	case 0x0EB1:
-	case 0x0EB2:	pc_currchar->soundEffect( 0x0046);	break;
-	case 0x0EB3:
-	case 0x0EB4:	pc_currchar->soundEffect( 0x004D);	break;
-	}
-}
-
-P_ITEM cSkills::GetInstrument(cUOSocket* socket)
-{
-	P_CHAR pc_currchar = socket->player();
-
-	unsigned int ci = 0;
-	P_ITEM pBackpack = pc_currchar->getBackpack();
-	cItem::ContainerContent container = pBackpack->content();
-	cItem::ContainerContent::iterator it = container.begin();
-	for (; it != container.end(); ++it )
-	{
-		P_ITEM pi = *it;
-		if ( IsInstrument(pi->id()) )
-		{
-			return pi;
-		}
-	}
-	return 0;
-}
-
-void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds + skill[SPIRITSPEAK]/50 + INT
-{
-	//	Unsure if spirit speaking should they attempt again?
-	//	Suggestion: If they attempt the skill and the timer is !0 do not have it raise the skill
-	
-	/*if(!Skills->CheckSkill(currchar[s], SPIRITSPEAK, 0, 1000))
-	{
-		sysmessage(s,"You fail your attempt at contacting the netherworld.");
-		return;
-	}
-	
-	impaction(s,0x11);			// I heard there is no action...but I decided to add one
-	soundeffect(s,0x02,0x4A);	// only get the sound if you are successful
-	sysmessage(s,"You establish a connection to the netherworld.");
-	currchar->setSpritSpeakTimer( SetTimerSec(currchar[s]->spiritspeaktimer,SrvParams->spiritspeaktimer()+currchar[s]->in) );*/
-}
-
 void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the skill list
 {
 	P_PLAYER pChar = socket->player();
@@ -636,141 +461,36 @@ void cSkills::load()
 	// Try to get all skills first
 	UINT32 i;
 	
-	for( i = 0; i < ALLSKILLS; ++i )
-	{
-		const cElement *skill = DefManager->getDefinition( WPDT_SKILL, QString::number( i ) );
+	for (i = 0; i < ALLSKILLS; ++i) {
+		const cElement *skill = DefManager->getDefinition(WPDT_SKILL, QString::number(i));
 
-		if( !skill )
+		if (!skill) {
 			continue;
+		}
 
 		stSkill nSkill;
 
-		for( unsigned int j = 0; j < skill->childCount(); ++j )
-		{
+		for (unsigned int j = 0; j < skill->childCount(); ++j) {
 			const cElement *node = skill->getChild( j );
-
-			if( node->name() == "str" )
-			{
-				nSkill.strength = node->text().toInt();
-			}
-			else if( node->name() == "dex" )
-			{
-				nSkill.dexterity = node->text().toInt();
-			}
-			else if( node->name() == "int" )
-			{
-				nSkill.intelligence = node->text().toInt();
-			}
-			else if( node->name() == "name" )
-			{
+			if( node->name() == "name" ) {
 				nSkill.name = node->text();
-			}
-			else if( node->name() == "defname" )
-			{
+			} else if( node->name() == "defname" ) {
 				nSkill.defname = node->text();
-			}
-			else if( node->name() == "title" )
-			{
+			} else if( node->name() == "title" ) {
 				nSkill.title = node->text();
-			}
-			// Advancement section
-			else if( node->name() == "advancement" )
-			{
-				stAdvancement advancement;
-
-				advancement.base = node->getAttribute( "base", "0" ).toInt();
-				advancement.failure = node->getAttribute( "failure", "0" ).toInt();
-				advancement.success = node->getAttribute( "success", "0" ).toInt();
-
-				nSkill.advancement.push_back( advancement );
 			}
 		}
 
 		skills.push_back( nSkill );
 	}
 
-	// Load Strength/Dexterity/Intelligence Advancement tables
-	const cElement *stat = DefManager->getDefinition( WPDT_SKILL, "strength" );
-	
-	if( !stat )
-	{
-		Console::instance()->log( LOG_ERROR, "Couldn't find strength advancement table." );		
-	}
-	else
-	{
-		for( INT32 i = 0; i < stat->childCount(); ++i )
-		{
-			const cElement *elem = stat->getChild( i );
-
-			if( elem->name() == "advancement" )
-			{
-				stAdvancement advancement;
-
-				advancement.base = elem->getAttribute( "base", "0" ).toInt();
-				advancement.failure = elem->getAttribute( "failure", "0" ).toInt();
-				advancement.success = elem->getAttribute( "success", "0" ).toInt();
-
-				advStrength.push_back( advancement );
-			}
-		}
-	}
-
-	stat = DefManager->getDefinition( WPDT_SKILL, "dexterity" );
-	
-	if( !stat )
-	{
-		Console::instance()->log( LOG_ERROR, "Couldn't find dexterity advancement table." );
-	}
-	else
-	{
-		for( INT32 i = 0; i < stat->childCount(); ++i )
-		{
-			const cElement *elem = stat->getChild( i );
-
-			if( elem->name() == "advancement" )
-			{
-				stAdvancement advancement;
-
-				advancement.base = elem->getAttribute( "base", "0" ).toInt();
-				advancement.failure = elem->getAttribute( "failure", "0" ).toInt();
-				advancement.success = elem->getAttribute( "success", "0" ).toInt();
-
-				advDexterity.push_back( advancement );
-			}
-		}
-	}
-
-	stat = DefManager->getDefinition( WPDT_SKILL, "intelligence" );
-	
-	if( !stat )
-	{
-		Console::instance()->log( LOG_ERROR, "Couldn't find intelligence advancement table." );		
-	}
-	else
-	{
-		for( INT32 i = 0; i < stat->childCount(); ++i )
-		{
-			const cElement *elem = stat->getChild( i );
-
-			if( elem->name() == "advancement" )
-			{
-				stAdvancement advancement;
-
-				advancement.base = elem->getAttribute( "base", "0" ).toInt();
-				advancement.failure = elem->getAttribute( "failure", "0" ).toInt();
-				advancement.success = elem->getAttribute( "success", "0" ).toInt();
-
-				advIntelligence.push_back( advancement );
-			}
-		}
-	}
-
 	// Load Skill Ranks
-	skillRanks = DefManager->getList( "SKILL_RANKS" );
+	skillRanks = DefManager->getList("SKILL_RANKS");
 
-	// Fill it up to 9 Ranks
-	while( skillRanks.count() < 9 )
-		skillRanks.push_back( "" );
+	// Fill it up to 10 Ranks
+	while (skillRanks.count() < 10) {
+		skillRanks.push_back("");
+	}
 }
 
 void cSkills::unload()
@@ -779,47 +499,38 @@ void cSkills::unload()
 }
 
 // For the Paperdoll
-QString cSkills::getSkillTitle( P_CHAR pChar ) const
-{
-/*	QString skillTitle( "" );
+QString cSkills::getSkillTitle(P_CHAR pChar) const {
+	QString skillTitle("");
+	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
 
-	// Two ways of getting an empty title:
-	// a) Configuration says we don't want Skill Titles
-	// b) Character has a specific flag (priv & 0x10)
-	if( !pChar->showSkillTitles() || !SrvParams->showSkillTitles() || pChar->isNpc() || pChar->isGMorCounselor() )
-		return skillTitle;
+	if (SrvParams->showSkillTitles() && player && !player->isGM()) {
+		unsigned short skill = 0;
+		unsigned short skillValue = 0;
+		
+		for (int i = 0; i < ALLSKILLS; ++i) {
+			if (pChar->skillValue(i) > skillValue) {
+                skill = i;
+				skillValue = pChar->skillValue(i);
+			}
+		}
+		
+		unsigned char title = std::max(1, ((int)pChar->skillValue(skill) - 300) / 100);
 
-	// Build our Skill Title (so first of all find the highest skill)
-	UINT16 skill = pChar->bestSkill();
-	UINT16 skillValue = pChar->skillValue( skill );
+		if (title >= skillRanks.size()) {
+			pChar->log(LOG_ERROR, "Invalid skill rank information.\n");
+			return skillTitle;
+		}
 
-	// Append the Skill Rank
-	if( skillValue  >= 1000 )		skillTitle.append( skillRanks[8] );
-	else if( skillValue >= 900 )	skillTitle.append( skillRanks[7] );
-	else if( skillValue >= 800 )	skillTitle.append( skillRanks[6] );
-	else if( skillValue >= 700 )	skillTitle.append( skillRanks[5] );
-	else if( skillValue >= 600 )	skillTitle.append( skillRanks[4] );
-	else if( skillValue >= 500 )	skillTitle.append( skillRanks[3] );
-	else if( skillValue >= 400 )	skillTitle.append( skillRanks[2] );
-	else if( skillValue >= 300 )	skillTitle.append( skillRanks[1] );
-	else							skillTitle.append( skillRanks[0] );
+		// Skill not found
+		if (skill >= skills.size()) {
+			pChar->log(LOG_ERROR, QString("Skill id out of range: %u.\n").arg(skill));
+			return skillTitle;
+		}
 
-	// Skill not found
-	if( skill >= skills.size() )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
-		return skillTitle;
+		skillTitle = QString("%1 %2").arg(skillRanks[title]).arg(skills[skill].title);
 	}
 
-	if( skills[skill].title.isNull() )
-		return skillTitle;
-
-	// Append the real Skill Title
-	skillTitle.append( skills[skill].title );
-
 	return skillTitle;
-	*/
-	return "";
 }
 
 const QString &cSkills::getSkillName( UINT16 skill ) const
@@ -855,244 +566,4 @@ const QString &cSkills::getSkillDef( UINT16 skill ) const
 	}
 	
 	return skills[skill].defname;
-}
-
-bool cSkills::advanceStats(P_PLAYER pChar, UINT16 skill) const {
-	UINT16 realStr = pChar->strength() - pChar->strengthMod();
-	UINT16 realDex = pChar->dexterity() - pChar->dexterityMod();
-	UINT16 realInt = pChar->intelligence() - pChar->intelligenceMod();
-
-	UINT32 statSum = realDex + realStr + realInt;
-
-	// First of all determine which stat can be raised using this skill
-	// 1: Strength, 2: Dexterity: 3: Intelligence
-
-	UINT8 strChance = 0, dexChance = 0, intChance = 0;
-
-	// Strength can be risen
-	if( realStr < pChar->strengthCap() && realStr < skills[ skill ].strength
-		&& pChar->strengthLock() == 0)
-		strChance = skills[ skill ].strength - realStr;
-
-	// Dexterity can be risen
-	if( realDex < pChar->dexterityCap() && realDex < skills[ skill ].dexterity 
-		&& pChar->dexterityLock() == 0)
-		dexChance = skills[ skill ].dexterity - realDex;
-
-	// Intelligence can be risen
-	if( realInt < pChar->intelligenceCap() && realInt < skills[ skill ].intelligence 
-		&& pChar->intelligenceLock() == 0)
-		intChance = skills[ skill ].intelligence - realInt;
-
-	// No Stat can be risen by using this skill!
-	if( intChance == 0 && dexChance == 0 && strChance == 0 )
-		return false;
-
-	// Now select the skill that will actually be risen
-	UINT16 choice = RandomNum( 1, intChance + dexChance + strChance );
-
-	bool gained = false;
-
-	// 0 - strChance, strChance - ( strChance + dexChance ), ( strChance + dexChance ) - ( strChance + dexChance + intChance )
-	if (choice <= strChance) {
-		for( INT32 i = advStrength.size() - 1; i >= 0 ; --i )
-		{
-			if( advStrength[i].base <= realStr && ( advStrength[ i ].success >= RandomNum( 0, 10000 ) ) ) {
-				if (!pChar->onStatGain(0)) {
-					if (statSum >= SrvParams->statcap()) {
-						// See if we can lower another stat to advance in this stat.
-						if (pChar->dexterityLock() == 1 && pChar->dexterity() > 1) {
-							pChar->setDexterity(pChar->dexterity() - 1);
-
-							pChar->setMaxStamina(QMAX(1, pChar->maxStamina() - 1));
-						} else if (pChar->intelligenceLock() == 1 && pChar->intelligence() > 1) {
-							pChar->setIntelligence(pChar->intelligence() - 1);
-							pChar->setMaxMana(QMAX(1, pChar->maxMana() - 1));
-						} else {
-							return false;
-						}
-					}
-
-					pChar->setStrength( pChar->strength() + 1 );
-					pChar->setMaxHitpoints( pChar->maxHitpoints() + 1 );
-				}
-				gained = true;
-				break;
-			}
-		}
-	} else if (( choice - strChance ) < dexChance) {
-		// Raise Dex
-		for( INT32 i = advDexterity.size() - 1; i >= 0 ; --i )
-		{
-			if( advDexterity[i].base <= realDex && ( advDexterity[ i ].success >= RandomNum( 0, 10000 ) ) )
-			{
-				if( !pChar->onStatGain(1) ) 
-				{
-					if (statSum >= SrvParams->statcap()) {
-						// See if we can lower another stat to advance in this stat.
-						if (pChar->strengthLock() == 1 && pChar->strength() > 1) {
-							pChar->setStrength(pChar->strength() - 1);
-							pChar->setMaxHitpoints(QMAX(pChar->maxHitpoints() - 1, 1));
-						} else if (pChar->intelligenceLock() == 1 && pChar->intelligence() > 1) {
-							pChar->setIntelligence(pChar->intelligence() - 1);
-							pChar->setMaxMana(QMAX(pChar->maxMana() - 1, 1));
-						} else {
-							return false;
-						}
-					}
-
-					pChar->setDexterity( pChar->dexterity() + 1 );
-					pChar->setMaxStamina( pChar->maxStamina() + 1 );
-				}
-				gained = true;
-				break;
-			}
-		}
-	} 
-	else if (choice - ( strChance + dexChance ) < intChance) 
-	{
-		// Raise Int
-		for( INT32 i = advIntelligence.size() - 1; i >= 0 ; --i )
-		{
-			if( advIntelligence[i].base <= realInt && ( advIntelligence[ i ].success >= RandomNum( 0, 10000 ) ) )
-			{
-				if( !pChar->onStatGain(2) ) 
-				{
-					if (statSum >= SrvParams->statcap()) {
-						// See if we can lower another stat to advance in this stat.
-						if (pChar->dexterityLock() == 1 && pChar->dexterity() > 1) 
-						{
-							pChar->setDexterity(pChar->dexterity() - 1);
-							pChar->setMaxStamina(QMAX(pChar->maxStamina() - 1, 1));
-						}
-						else if (pChar->strengthLock() == 1 && pChar->strength() > 1) 
-						{
-							pChar->setStrength(pChar->strength() - 1);
-							pChar->setMaxHitpoints(QMAX(pChar->maxHitpoints() - 1, 1));
-						}
-						else 
-						{
-							return false;
-						}
-					}
-
-					pChar->setIntelligence(pChar->intelligence() + 1);
-					pChar->setMaxMana(pChar->maxMana() + 1);
-				}
-				gained = true;
-				break;
-			}
-		}
-	}
-
-	// If we gained a certain stat let's update the clients
-	// stat values.
-	if( gained )
-	{
-		// Atrohpy for Stats needs to be implemented here
-		P_PLAYER pc = dynamic_cast<P_PLAYER>(pChar);
-		if( pc && pc->socket() )
-			pc->socket()->sendStatWindow();
-	}
-
-	return gained;
-}
-
-bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, SI32 min, SI32 max, bool success ) const
-{
-	if( !pChar )
-		return false;
-
-	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
-
-	if (pChar->onSkillGain(skill, min, max, success ) ) 
-		return true;
-
-	// For GMs there is no LockState
-	UINT8 lockState = ( pPlayer && pPlayer->isGM() ) ? 0 : pChar->skillLock( skill );
-
-	// NOTE:
-	// Before this change, if you used locked skills you couldn't gain
-	// in stats. This is removed now
-	if( pPlayer && advanceStats( pPlayer, skill ) )
-		return false;
-
-	// We don't gain in locked or lowered skills
-	if( lockState )
-		return false;
-
-	// Is the skill at it's single cap already ?
-	// NOTE: Later on we need to provide support for power scrolls
-	if( pChar->skillValue( skill ) >= pChar->skillCap( skill ) )
-		return false;
-
-	// If our skillsum is at the serverset skill cap we need
-	// to find a skill we can lower in order to gain
-	UINT32 skillSum = pChar->getSkillSum();
-	
-	QValueVector< UINT16 > atrophySkills;
-
-	if( SrvParams->skillcap() && skillSum >= SrvParams->skillcap() * 10 )
-	{
-		// 1: Lower Skill
-		for( UINT32 i = 0; i < ALLSKILLS; ++i )
-		{
-			if( i != skill && pChar->skillLock( i ) == 1 && pChar->skillValue( i ) > 0 )
-			{
-				// Found a skill we can lower
-				atrophySkills.push_back( i );
-			}
-		}
-
-		// If we didn't find any skill we could lower, return false
-		if( atrophySkills.size() == 0 )
-			return false;
-	}
-
-	stAdvancement advance = {0,};
-	bool found = false;
-
-	// Find the stAdvance for our current skillLevel
-	for( INT32 i = skills[ skill ].advancement.size() - 1; i >= 0; --i )
-	{
-		advance = skills[ skill ].advancement[ i ];
-
-		if( advance.base <= pChar->skillValue( skill ) )
-		{
-			found = true;
-			break;
-		}
-	}
-
-	// There is not one single advancement section defined for this skill
-	if( !found )
-		return false;
-
-	UINT32 chance = success ? advance.success : advance.failure;
-	chance *= 10;
-
-	bool gained = false;
-
-	if( chance > rand() % SrvParams->skillAdvanceModifier() )
-	{
-		gained = true;
-		pChar->setSkillValue( skill, pChar->skillValue( skill ) + 1 );
-
-		if( pPlayer && pPlayer->socket() )
-			pPlayer->socket()->sendSkill( skill );
-	}
-
-	// Let a skill fall if we really gained and statcap is reached
-	if( gained && atrophySkills.size() > 0 )
-	{
-		// Which skill do we want to lower
-		UINT16 skill = atrophySkills[ RandomNum( 0, atrophySkills.size() ) ];
-
-		pChar->setSkillValue( skill, pChar->skillValue( skill ) - 1 );
-		
-		if( pPlayer && pPlayer->socket() )
-			pPlayer->socket()->sendSkill( skill );
-	}
-	
-	return gained;
 }

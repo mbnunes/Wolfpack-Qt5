@@ -128,11 +128,12 @@
 	<!-- System Scripts -->
 	<script>webadmin</script>
 	<script>uogstatus</script>
+  <script>skillgain</script>
 
 	<!-- Tools -->
 	<script>tools.pickaxe</script>
 
-	<!-- Skills -->
+	<!-- Skills -->  
 	<script>skills</script>
 	<script>skills.anatomy</script>
 	<script>skills.animallore</script>

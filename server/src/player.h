@@ -133,12 +133,6 @@ public:
 	UINT8					visualRange() const;
 	QString					profile() const;
     UINT8					fixedLightLevel() const;
-	unsigned char			strengthCap() const;
-	unsigned char			dexterityCap() const;
-	unsigned char			intelligenceCap() const;
-	unsigned char			strengthLock() const;
-	unsigned char			dexterityLock() const;
-	unsigned char			intelligenceLock() const;
 
 	// bit flag getters
 	bool					maySnoop() const;
@@ -171,9 +165,11 @@ public:
 	void setShowSerials(bool data);
 	void setParty(cParty *data);
 	void setGuild(cGuild *data);
-	void setStrengthCap(unsigned char data);
-	void setDexterityCap(unsigned char data);
-	void setIntelligenceCap(unsigned char data);
+
+	unsigned char			strengthLock() const;
+	unsigned char			dexterityLock() const;
+	unsigned char			intelligenceLock() const;
+
 	void setStrengthLock(unsigned char data);
 	void setDexterityLock(unsigned char data);
 	void setIntelligenceLock(unsigned char data);
@@ -236,9 +232,6 @@ protected:
 	unsigned char strengthLock_;
 	unsigned char dexterityLock_;
 	unsigned char intelligenceLock_;
-	unsigned char strengthCap_;
-	unsigned char dexterityCap_;
-	unsigned char intelligenceCap_;
 
 	// Time till the quest arrow for tracking disappears.
 	UINT32 trackingTime_;
@@ -277,7 +270,7 @@ inline void cPlayer::setAccount(cAccount* data, bool moveFromAccToAcc)
 {
 	if( moveFromAccToAcc && account_ != 0 )
 		account_->removeCharacter( this );
-
+	
 	account_ = data;
 
 	if( account_ != 0 )
@@ -447,18 +440,6 @@ inline cGuild *cPlayer::guild() const {
 	return guild_;
 }
 
-inline unsigned char cPlayer::strengthCap() const {
-	return strengthCap_;
-}
-
-inline unsigned char cPlayer::dexterityCap() const {
-	return dexterityCap_;
-}
-
-inline unsigned char cPlayer::intelligenceCap() const {
-	return intelligenceCap_;
-}
-
 inline unsigned char cPlayer::strengthLock() const {
 	return strengthLock_;
 }
@@ -471,28 +452,19 @@ inline unsigned char cPlayer::intelligenceLock() const {
 	return intelligenceLock_;
 }
 
-inline void cPlayer::setStrengthCap(unsigned char data) {
-	strengthCap_ = data;
-}
-
-inline void cPlayer::setDexterityCap(unsigned char data) {
-	dexterityCap_ = data;
-}
-
-inline void cPlayer::setIntelligenceCap(unsigned char data) {
-	intelligenceCap_ = data;
-}
-
 inline void cPlayer::setStrengthLock(unsigned char data) {
 	strengthLock_ = data;
+	changed_ = true;
 }
 
 inline void cPlayer::setDexterityLock(unsigned char data) {
 	dexterityLock_ = data;
+	changed_ = true;
 }
 
 inline void cPlayer::setIntelligenceLock(unsigned char data) {
 	intelligenceLock_ = data;
+	changed_ = true;
 }
 
 #endif /* CPLAYER_H_HEADER_INCLUDED */

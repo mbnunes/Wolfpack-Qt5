@@ -895,24 +895,11 @@
 
 	<!--  Swordsmanship -->
 	<skill id="40">
-		<str>125</str>
-		<dex>125</dex>
-		<int>0</int>
+		<strchance>0.75</strchance>
+		<dexchance>0.25</dexchance>
 		<defname>SWORDSMANSHIP</defname>
 		<name>Swordsmanship</name>
 		<title>Swordsman</title>
-		<advancement base="0" failure="50" success="75" />
-		<advancement base="100" failure="30" success="70" />
-		<advancement base="200" failure="25" success="65" />
-		<advancement base="300" failure="20" success="60" />
-		<advancement base="400" failure="15" success="55" />
-		<advancement base="500" failure="10" success="50" />
-		<advancement base="600" failure="5" success="30" />
-		<advancement base="700" failure="2" success="25" />
-		<advancement base="800" failure="1" success="20" />
-		<advancement base="900" failure="0" success="15" />
-		<advancement base="990" failure="0" success="10" />
-		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
 	<!--  Mace  Fighting -->
@@ -1156,39 +1143,6 @@
 	</skill>
 
 	<!--
-		The Chance for Statgain is "success" out of 10000.
-		That means if success is 1 every 10 000th use of a
-		stat dependent skill will result in a gain.
-	-->
-
-	<!--  Strength -->
-	<skill id="strength">
-		<advancement base="0" success="200" />
-		<advancement base="50" success="100" />
-		<advancement base="90" success="100" />
-		<advancement base="99" success="50" />
-		<advancement base="120" success="0" />
-	</skill>
-
-	<!--  Dexterity -->
-	<skill id="dexterity">
-		<advancement base="0" success="200" />
-		<advancement base="50" success="100" />
-		<advancement base="90" success="100" />
-		<advancement base="99" success="50" />
-		<advancement base="120" success="0" />
-	</skill>
-
-	<!--  Intelligence -->
-	<skill id="intelligence">
-		<advancement base="0" success="200" />
-		<advancement base="50" success="100" />
-		<advancement base="90" success="100" />
-		<advancement base="99" success="50" />
-		<advancement base="120" success="0" />
-	</skill>
-
-	<!--
 		This list represents the "rank" of a player in a
 		specific skill. It's ordered from the lowest to the
 		highest rank. If you don't want them, simply make the
@@ -1204,5 +1158,6 @@
 		<item>Adept</item>
 		<item>Master</item>
 		<item>Grandmaster</item>
+    <item>Legendary</item>
 	</list>
 </definitions>

@@ -37,6 +37,7 @@
 #include "../player.h"
 #include "../globals.h"
 #include "../wpdefmanager.h"
+#include "../skills.h"
 
 // Library Includes
 #include <qstringlist.h>
@@ -460,6 +461,11 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	if( !nameByScript.isNull() ) {
 		setName( nameByScript );
 	} else {
+		QString title = pChar->title();
+		if (title.isEmpty()) {
+			title = Skills->getSkillTitle(pChar);
+		}
+
 		QStringList titles = DefManager->getList("REPUTATION_TITLES");
 		
 		// Calculate the position inside the list
@@ -504,10 +510,10 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 				prefix.append(" ");
 			}
 
-			setName( prefix + pChar->name() + ( pChar->title().isEmpty() ? QString("") : ", " + pChar->title() ) );
+			setName( prefix + pChar->name() + ( title.isEmpty() ? QString("") : ", " + title ) );
 		} else {
-			setName( pChar->name() + ( pChar->title().isEmpty() ? QString("") : ", " + pChar->title() ) );
-		}		
+			setName( pChar->name() + ( title.isEmpty() ? QString("") : ", " + title ) );
+		}
 	}
 
 	if( pChar->isAtWar() )

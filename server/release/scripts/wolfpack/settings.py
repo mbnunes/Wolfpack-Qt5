@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Functions for modifying settings				#
+# Functions for modifying settings				                      #
 #===============================================================#
 
 import _wolfpack.settings

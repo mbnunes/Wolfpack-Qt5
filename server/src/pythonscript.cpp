@@ -253,7 +253,7 @@ bool cPythonScript::callChainedEventHandler( ePythonEvent event, cPythonScript**
 		// Find a valid handler function
 		for( unsigned int i = 0; i < count; ++i )
 		{
-			PyObject *result = copy[i]->callEvent( event, args );
+			PyObject *result = copy[i]->callEvent(event, args);
 			
 			if( result )
 			{

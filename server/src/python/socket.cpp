@@ -539,8 +539,20 @@ static PyObject *wpSocket_log( wpSocket *self, PyObject *args )
 	return PyTrue;
 }
 
+static PyObject *wpSocket_updateskill(wpSocket *self, PyObject *args) {
+	unsigned short skill;
+
+	if (!PyArg_ParseTuple( args, "H:socket.updateskill(skill)", &skill)) {
+		return 0;
+	}
+
+	self->pSock->sendSkill(skill);
+	return PyTrue;
+}
+
 static PyMethodDef wpSocketMethods[] = 
 {
+	{ "updateskill",		(getattrofunc)wpSocket_updateskill, METH_VARARGS, NULL },
 	{ "questarrow",			(getattrofunc)wpSocket_questarrow, METH_VARARGS, NULL },
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
     { "clilocmessage",		(getattrofunc)wpSocket_clilocmessage, METH_VARARGS, "Sends a localized message to the socket." },

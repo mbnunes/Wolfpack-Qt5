@@ -807,7 +807,7 @@ static PyObject* wpElement_findchild(wpElement *self, PyObject *args) {
 static PyObject* wpElement_getchild(wpElement *self, PyObject *args) {
 	unsigned int pos;
 
-	if (!PyArg_ParseTuple(args, "s:element.getchild(pos)", &pos)) {
+	if (!PyArg_ParseTuple(args, "I:element.getchild(pos)", &pos)) {
 		return 0;
 	}
     
