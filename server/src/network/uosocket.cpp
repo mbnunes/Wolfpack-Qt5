@@ -29,11 +29,14 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+#include "qhostaddress.h"
+
 #include "uosocket.h"
 #include "uopacket.h"
 #include "uotxpackets.h"
 #include "asyncnetio.h"
 #include "../network.h"
+#include "../chars.h"
 
 // Wolfpack Includes
 #include "../accounts.h"
@@ -41,6 +44,7 @@
 #include "../junk.h"
 #include "../structs.h"
 #include "../srvparams.h"
+#include "../wpdefmanager.h"
 
 #include <conio.h>
 #include <iostream>
@@ -87,6 +91,10 @@ void cUOSocket::recieve()
 		return;
 	}
 
+	// Switch to encrypted mode if one of the advanced packets is recieved
+	if( packetId == 0x91 )
+		_state = SS_LOGGEDIN;
+
 	// Relay it to the handler functions
 	switch( packetId )
 	{
@@ -108,12 +116,16 @@ void cUOSocket::recieve()
 		handleSelectShard( dynamic_cast< cUORxSelectShard* >( packet ) ); break;
 	case 0x91:
 		handleServerAttach( dynamic_cast< cUORxServerAttach* >( packet ) ); break;
+	case 0x34:
+		handleQuery( dynamic_cast< cUORxQuery* >( packet ) ); break;
 	case 0x73:
 		break; // Pings are handeled
 	case 0x83:
 		handleDeleteCharacter( dynamic_cast< cUORxDeleteCharacter* >( packet ) ); break;
 	case 0x5D:
 		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;
+	case 0xC8:
+		handleUpdateRange( dynamic_cast< cUORxUpdateRange* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -181,9 +193,6 @@ void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 
 void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 {
-	// From this point our output is compressed (!)
-	_state = SS_LOGGEDIN;
-
 	// Re-Authenticate the user !!
 	if( _account < 0 )
 	{
@@ -225,10 +234,28 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 	updateCharList();
 }
 
+// When a user selects a character to play this is the handler
 void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 {
-	//cout << "User is trying to play character " << packet->character().latin1() << " [" << packet->password().latin1() << "]" << endl;
-	//cout << "in slot " << packet->slot() << endl;
+	// Check the character the user wants to play
+	vector< P_CHAR > characters = Accounts->characters( _account );
+
+	if( packet->slot() >= characters.size() )
+	{
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
+		return;
+	}
+
+	_player = characters[ packet->slot() ];
+	playChar();
+}
+
+// Set up the neccesary stuff to play
+void cUOSocket::playChar( P_CHAR pChar )
+{
+	if( pChar == NULL )
+		pChar = _player;
 
 	// Minimum Requirements for log in
 	// a) Set the map the user is on
@@ -237,47 +264,37 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 	// d) Start the Game
 	// e) Set the Game Time
 
-	cUOTxClientFeatures *clientFeatures = new cUOTxClientFeatures;
-	clientFeatures->setLbr( true );
-	clientFeatures->setT2a( true );
-	send( clientFeatures );
-	delete clientFeatures;
+	cUOTxClientFeatures clientFeatures;
+	clientFeatures.setLbr( true );
+	clientFeatures.setT2a( true );
+	send( &clientFeatures );
 
 	// Confirm the Login
-	cUOTxConfirmLogin *confirmLogin = new cUOTxConfirmLogin;
+	cUOTxConfirmLogin confirmLogin;
+	confirmLogin.fromChar( pChar );
+		
+	confirmLogin.setUnknown3( 0x007f0000 );
+	confirmLogin.setUnknown4( 0x00000007 );
+	confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
 
-	// Set our data here
-	confirmLogin->setSerial( 0x00000001 );
-	confirmLogin->setBody( 0x190 );
-	confirmLogin->setDirection( 0x00 );
-	confirmLogin->setX( 1000 );
-	confirmLogin->setY( 1000 );
-	confirmLogin->setZ( 20 );
-
-	// Set the unknown data
-	confirmLogin->setUnknown3( 0x007f0000 );
-	confirmLogin->setUnknown4( 0x00000007 );
-	confirmLogin->setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
-
-	send( confirmLogin );
-	delete confirmLogin;
+	send( &confirmLogin );
 
 	// Change the map after the client knows about the char
-	cUOTxChangeMap *changeMap = new cUOTxChangeMap;
-	changeMap->setMap( MT_TRAMMEL );
-	send( changeMap );
-	delete changeMap;
+	cUOTxChangeMap changeMap;
+	changeMap.setMap( MT_FELUCCA );
+	send( &changeMap );
 
 	// Start the game!
-	cUOTxStartGame *startGame = new cUOTxStartGame;
-	send( startGame );
-	delete startGame;
+	cUOTxStartGame startGame;
+	send( &startGame );
 
 	// Send the gametime
-	cUOTxGameTime *gameTime = new cUOTxGameTime;
-	gameTime->setTime( 12, 19, 3 );
-	send( gameTime );
-	delete gameTime;
+	cUOTxGameTime gameTime;
+	gameTime.setTime( 12, 19, 3 );
+	send( &gameTime );
+
+	// We're now playing this char:
+	_player = pChar;
 }
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
@@ -316,6 +333,8 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 
 // Processes a create character request
 // Notes from Lord Binaries packet documentation:
+#define cancelCreate( message ) cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION ); send( &denyLogin ); sysMessage( message ); disconnect(); return;
+
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 {
 	// Several security checks
@@ -325,10 +344,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	if( characters.size() >= 5 )
 	{
 		clConsole.send( QString( "%1 is trying to create char but has more than 5 characters" ).arg( Accounts->findByNumber( _account ) ) );
-		cUOTxDenyLogin denyLogin( DL_OTHER );
-		send( &denyLogin );
-		sysMessage( "You already have more than 5 characters" );		
-		return;
+		cancelCreate( "You already have more than 5 characters" )
 	}
 
 	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
@@ -338,20 +354,14 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	if( statSum > 80 )
 	{
 		clConsole.send( QString( "%1 is trying to create char with wrong stats: %2" ).arg( Accounts->findByNumber( _account ) ).arg( statSum ) );
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
-		send( &denyLogin );
-		sysMessage( QString( "Invalid Character stat sum: %1" ).arg( statSum ) );
-		return;
+		cancelCreate( QString( "Invalid Character stat sum: %1" ).arg( statSum ) )
 	}
 
 	// Every stat needs to be below 60
 	if( ( packet->strength() > 60 ) || ( packet->dexterity() > 60 ) || ( packet->intelligence() > 60 ) )
 	{
 		clConsole.send( QString( "%1 is trying to create char with wrong stats: %2 [str] %3 [dex] %4 [int]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->strength() ).arg( packet->dexterity() ).arg( packet->intelligence() ) );
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
-		send( &denyLogin );
-		sysMessage( "Invalid Character stats" );
-		return;
+		cancelCreate( "Invalid Character stats" )
 	}
 
 	// Check the skills
@@ -362,40 +372,28 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	{
 		QString failMessage = QString( "%1 is trying to create char with wrong skills: %1 [%2%] %3 [%4%] %5 [%6%]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() );
 		clConsole.send( failMessage );
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
-		send( &denyLogin );
-		sysMessage( "Invalid Character skills" );
-		return;
+		cancelCreate( "Invalid Character skills" )
 	}
 
 	// Check Hair
 	if( packet->hairStyle() && ( !isHair( packet->hairStyle() ) || !isHairColor( packet->hairColor() ) ) )
 	{
 		clConsole.send( QString( "%1 is trying to create a char with wrong hair %2 [Color: %3]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
-		send( &denyLogin );
-		sysMessage( "Invalid Hair" );
-		return;
+		cancelCreate( "Invalid hair" )
 	}
 
 	// Check Beard
 	if( packet->beardStyle() && ( !isBeard( packet->beardStyle() ) || !isHairColor( packet->beardColor() ) ) )
 	{
 		clConsole.send( QString( "%1 is trying to create a char with wrong beard %2 [Color: %3]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
-		send( &denyLogin );
-		sysMessage( "Invalid Beard" );
-		return;
+		cancelCreate( "Invalid beard" )
 	}
 
 	// Check color for pants and shirt
 	if( !isNormalColor( packet->shirtColor() ) || !isNormalColor( packet->pantsColor() ) )
 	{
 		clConsole.send( QString( "%1 is trying to create a char with wrong shirt [%2] or pant [%3] color" ).arg( Accounts->findByNumber( _account ) ).arg( packet->shirtColor() ).arg( packet->pantsColor() ) );
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
-		send( &denyLogin );
-		sysMessage( "Invalid Shirt or Pant color" );
-		return;
+		cancelCreate( "Invalid shirt or pant color" )
 	}
 
 	// Check the start location
@@ -403,20 +401,14 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	if( packet->startTown() > startLocations.size() )
 	{
 		clConsole.send( QString( "%1 is trying to create a char with wrong start location: %2" ).arg( Accounts->findByNumber( _account ) ).arg( packet->startTown() ) );
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
-		send( &denyLogin );
-		sysMessage( "Invalid start location" );
-		return;
+		cancelCreate( "Invalid start location" )
 	}
 
 	// Finally check the skin
 	if( !isSkinColor( packet->skinColor() ) )
 	{
 		clConsole.send( QString( "%1 is trying to create a char with wrong skin color: %2" ).arg( Accounts->findByNumber( _account ) ).arg( packet->skinColor() ) );
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
-		send( &denyLogin );
-		sysMessage( "Invalid Skin color" );
-		return;
+		cancelCreate( "Invalid skin color" )
 	}
 
 	// FINALLY create the char
@@ -512,13 +504,74 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem = pChar->getBankBox();
 	pItem = pChar->getBackpack();
 	
-	player_ = pChar;
+	pChar->setAccount( _account );
+	_player = pChar;
 
-	giveNewbieItems();
+	giveNewbieItems( packet );
+	
+	// Start the game with the newly created char -- OR RELAY HIM !!
+    playChar();
+
+	/*cUOTxRelayServer relayServer;
+	QHostAddress hostAddress;
+	hostAddress.setAddress( "127.0.0.1" );
+	relayServer.setServerIp( hostAddress.ip4Addr() );
+	relayServer.setServerPort( 2593 );
+	send( &relayServer );*/
 }
 
-void cUOSocket::giveNewbieItems( void ) 
+void cUOSocket::giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill ) 
 {
+	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill = 0xFF ) ? "default" : QString::number( skill ) );
+
+	// No Items defined
+	if( !startItems )
+		return;
+
+	// Just one type of node: item
+	QDomElement node = startItems->firstChild().toElement();
+
+	while( !node.isNull() )
+	{
+		if( node.nodeName() == "item" )
+		{
+			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+
+			if( pItem )
+			{
+				pItem->applyDefinition( node );
+				// Put it into the backpack
+				P_ITEM backpack = _player->getBackpack();
+				backpack->AddItem( pItem );
+			}
+		}
+		else if( node.nodeName() == "bankitem" )
+		{
+			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+
+			if( pItem )
+			{
+				pItem->applyDefinition( node );
+				// Put it into the bankbox
+				P_ITEM bankbox = _player->getBankBox();
+				bankbox->AddItem( pItem );
+			}
+		}
+		else if( node.nodeName() == "equipment" )
+		{
+			P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+
+			if( pItem )
+			{
+				pItem->applyDefinition( node );
+				// Put it onto the char
+				pItem->setContSerial( _player->serial );
+				_player->giveItemBonus( pItem );
+			}
+		}
+
+		node = node.nextSibling().toElement();
+	}
 }
 
 void cUOSocket::sysMessage( const QString &message, Q_UINT16 color )
@@ -552,4 +605,57 @@ void cUOSocket::updateCharList()
 
 	send( charList );
 	delete charList;
+}
+
+// Sends either a stat or a skill packet
+void cUOSocket::handleQuery( cUORxQuery *packet )
+{
+	P_CHAR pChar = FindCharBySerial( packet->serial() );
+
+	if( !pChar )
+		return;
+
+	// Skills of other people can only be queried as a gm
+	if( packet->type() == cUORxQuery::Skills )
+	{
+		if( ( pChar != _player ) && !_player->isGM() )
+			return;
+
+		// Send a full skill update
+		cUOTxSendSkills skillList;
+		skillList.fromChar( pChar );
+		send( &skillList );
+	}
+	else if( packet->type() == cUORxQuery::Stats )
+	{
+		// For other chars we only send the basic stats
+		cUOTxSendStats sendStats;
+		sendStats.setAllowRename( _player->Owns( pChar ) || _player->isGM() );
+		
+		sendStats.setMaxHp( 100 );
+		sendStats.setHp( (pChar->hp/pChar->st)*100 );
+
+		sendStats.setName( pChar->name.c_str() );
+		sendStats.setSerial( pChar->serial );
+		
+		sendStats.setFullMode( pChar == _player );
+
+		// Set the rest - and reset if nec.
+		if( pChar == _player )
+		{
+			sendStats.setHp( pChar->hp );
+			sendStats.setMaxHp( pChar->st );
+			sendStats.setStrength( pChar->st );
+			sendStats.setDexterity( pChar->effDex() );
+			sendStats.setIntelligence( pChar->in );
+		}
+
+		send( &sendStats );
+	}
+}
+
+void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
+{
+	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
+	_viewRange = packet->range();
 }

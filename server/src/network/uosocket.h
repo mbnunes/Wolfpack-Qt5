@@ -42,6 +42,7 @@ class cUOPacket;
 
 // Too many Forward Declarations
 #include "uorxpackets.h"
+#include "../typedefs.h"
 
 enum eSocketState
 {
@@ -59,10 +60,10 @@ private:
 	Q_INT32 _account; // Our account-id > should be a pointer
 	P_CHAR _player;
 	eSocketState _state;
-	Q_UINT8 lastPacket;
+	Q_UINT8 lastPacket, _viewRange;
 
 	bool authenticate( const QString &username, const QString &password );
-	void giveNewbieItems( void );
+	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
 
 public:
 	cUOSocket( QSocketDevice *sDevice ): 
@@ -79,6 +80,7 @@ public:
 
 	Q_UINT32 rxBytes( void ) { return _rxBytes; }
 	Q_UINT32 txBytes( void ) { return _txBytes; }
+	Q_UINT8 viewRange( void ) { return _viewRange; }
 	void setRxBytes( Q_UINT32 data ) { _rxBytes = data; }
 	void setTxBytes( Q_UINT32 data ) { _txBytes = data; }
 
@@ -95,12 +97,15 @@ public:
 	void handleDeleteCharacter( cUORxDeleteCharacter *packet );
 	void handlePlayCharacter( cUORxPlayCharacter *packet );
 	void handleCreateChar( cUORxCreateChar *packet );
+	void handleUpdateRange( cUORxUpdateRange *packet );
+	void handleQuery( cUORxQuery *packet );
 
 	// Utilities
 	void sysMessage( const QString &message, Q_UINT16 color = 0x0037 );
 	void sendCharList();
 	void updateCharList();
 	void disconnect( void ); // Call this whenever the socket should disconnect
+	void playChar( P_CHAR player = NULL ); // Play a character
 };
 
 #endif

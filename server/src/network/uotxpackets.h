@@ -184,6 +184,7 @@ public:
 	void setFlags( Q_UINT8 data ) { rawPacket[ 28 ] = data; }
 	void setHighlight( Q_UINT8 data ) { rawPacket[ 29 ] = data; }
 	void setUnknown5( char data[7] ) { memcpy( &rawPacket.data()[30], data, 7 ); }
+	void fromChar( P_CHAR pChar );
 };
 
 enum eMapType
@@ -416,6 +417,7 @@ public:
 	};
 
 	void addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realSkill, eStatus status );
+	void fromChar( P_CHAR pChar );
 };
 
 // 0x20 DrawPlayer
@@ -503,6 +505,31 @@ public:
 	void setLanguage( const QString &data ) { memcpy( &rawPacket.data()[14], data.latin1(), MIN( data.length()+1, 4 ) ); }
 	void setName( const QString &data ) { memcpy( &rawPacket.data()[18], data.latin1(), MIN( data.length()+1, 30 ) ); }
 	void setText( const QString &data );
+};
+
+// 0x11 SendStats
+class cUOTxSendStats: public cUOPacket
+{
+public:
+	cUOTxSendStats(): cUOPacket( 0x11, 66 ) { setShort( 1, 0x42 ); }
+
+	void setFullMode( bool mode ) { rawPacket[42] = mode ? 0x01 : 0x00; }
+	void setAllowRename( bool mode ) { rawPacket[41] = mode ? 0xFF : 0x00; }
+	void setSerial( SERIAL serial ) { setInt( 3, serial ); }
+	void setName( const QString &name ) { memcpy( &rawPacket.data()[7], name.latin1(), MIN( name.length()+1, 30 ) ); }
+	void setHp( Q_UINT16 data ) { setShort( 37, data ); }
+	void setMaxHp( Q_UINT16 data ) { setShort( 39, data ); }
+	void setSex( bool male ) { rawPacket[43] = male ? 0 : 1; }
+	void setStrength( Q_UINT16 data ) { setShort( 44, data ); }
+	void setDexterity( Q_UINT16 data ) { setShort( 46, data ); }
+	void setIntelligence( Q_UINT16 data ) { setShort( 48, data ); }
+	void setStamina( Q_UINT16 data ) { setShort( 50, data ); }
+	void setMaxStamina( Q_UINT16 data ) { setShort( 52, data ); }
+	void setMana( Q_UINT16 data ) { setShort( 54, data ); }
+	void setMaxMana( Q_UINT16 data ) { setShort( 56, data ); }
+	void setGold( Q_UINT32 data ) { setInt( 58, data ); }
+	void setArmor( Q_UINT16 data ) { setShort( 62, data ); }
+	void setWeight( Q_UINT16 data ) { setShort( 64, data ); }
 };
 
 #endif

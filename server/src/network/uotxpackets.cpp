@@ -124,6 +124,7 @@ void cUOTxSendSkills::addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realS
 	// Overwrite the last 2 bytes (terminator) and readd them later
 	Q_INT32 offset = rawPacket.count() - 2;
 	rawPacket.resize( rawPacket.count() + 7 );
+	setShort( 1, rawPacket.count() );
 
 	setShort( offset, skillId );
 	setShort( offset+2, skill );
@@ -155,4 +156,24 @@ void cUOTxUnicodeSpeech::setText( const QString &data )
 
 	// Add the new Terminator
 	setShort( rawPacket.count() - 2, 0 );
+}
+
+// Sets all data automatically
+void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
+{
+	setSerial( pChar->serial );
+	setBody( pChar->id() );
+	setDirection( pChar->dir );
+	setX( pChar->pos.x );
+	setY( pChar->pos.y );
+	setZ( pChar->pos.z );
+}
+
+void cUOTxSendSkills::fromChar( P_CHAR pChar )
+{
+	if( !pChar )
+		return;
+
+	for( Q_UINT8 i = 0; i < ALLSKILLS; ++i )
+		addSkill( i, pChar->skill( i ), pChar->baseSkill( i ), cUOTxSendSkills::Up );
 }

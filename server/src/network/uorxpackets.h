@@ -38,6 +38,23 @@
 
 cUOPacket *getUOPacket( const QByteArray &data );
 
+// 0x34: Query
+class cUORxQuery: public cUOPacket
+{
+public:
+	enum eType
+	{
+		Stats = 0x04,
+		Skills
+	};
+
+	cUORxQuery( const QByteArray &data ): cUOPacket( data ) {}
+
+	Q_UINT32 pattern( void ) { return getInt( 1 ); }
+	eType type( void ) { return ( rawPacket[5] == 0x05 ) ? Skills : Stats; }
+	Q_UINT32 serial( void ) { return getInt( 6 ); }
+};
+
 // 0x00: Create Char
 class cUORxCreateChar: public cUOPacket
 {
@@ -58,17 +75,25 @@ public:
 	Q_UINT8 skillValue2( void ) { return rawPacket[77]; }
 	Q_UINT8 skillId3( void ) { return rawPacket[78]; }
 	Q_UINT8 skillValue3( void ) { return rawPacket[79]; }
-	Q_UINT16 skinColor( void ) { return getShort( 80 ); }
-	Q_UINT16 hairStyle( void ) { return getShort( 82 ); }
-	Q_UINT16 hairColor( void ) { return getShort( 84 ); }
-	Q_UINT16 beardStyle( void ) { return getShort( 86 ); }
-	Q_UINT16 beardColor( void ) { return getShort( 88 ); }
+	Q_INT16 skinColor( void ) { return getShort( 80 ); }
+	Q_INT16 hairStyle( void ) { return getShort( 82 ); }
+	Q_INT16 hairColor( void ) { return getShort( 84 ); }
+	Q_INT16 beardStyle( void ) { return getShort( 86 ); }
+	Q_INT16 beardColor( void ) { return getShort( 88 ); }
 	Q_UINT16 startTown( void ) { return getShort( 90 ); }
 	Q_UINT16 unknown1( void ) { return getShort( 92 ); }
 	Q_UINT16 slot( void ) { return getShort( 94 ); }
 	Q_UINT32 ip( void ) { return getInt( 96 ); }
-	Q_UINT16 shirtColor( void ) { return getShort( 100 ); }
-	Q_UINT16 pantsColor( void ) { return getShort( 102 ); }
+	Q_INT16 shirtColor( void ) { return getShort( 100 ); }
+	Q_INT16 pantsColor( void ) { return getShort( 102 ); }
+};
+
+// 0xC8: UpdateRange
+class cUORxUpdateRange: public cUOPacket
+{
+public:
+	cUORxUpdateRange( const QByteArray &data ): cUOPacket( data ) {}
+	Q_UINT8 range( void ) { return rawPacket[1]; }
 };
 
 // 0x01: NotifyDisconnect
