@@ -1,0 +1,92 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Plate Jingasa 1 -->
+	<item id="2777">
+		<id>0x2777</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Armor\Base\Samurai\Shields\Plate\Jingasa 1-1</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+	</item>
+
+	<item id="27c2" inherit="2777">
+		<id>0x27c2</id>
+		<baseid>2777</baseid>
+		<category>Armor\Base\Samurai\Shields\Plate\Jingasa 1-2</category>
+	</item>
+
+	<!-- Plate Jingasa 2 -->
+	<item id="2781">
+		<id>0x2781</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Armor\Base\Samurai\Shields\Plate\Jingasa 2-1</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+	</item>
+
+	<item id="27cc" inherit="2781">
+		<id>0x27cc</id>
+		<baseid>2781</baseid>
+		<category>Armor\Base\Samurai\Shields\Plate\Jingasa 2-2</category>
+	</item>
+
+	<!-- Plate Jingasa 3 -->
+	<item id="2784">
+		<id>0x2784</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Armor\Base\Samurai\Shields\Plate\Jingasa 3-1</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+	</item>
+
+	<item id="27cf" inherit="2784">
+		<id>0x27cf</id>
+		<baseid>2784</baseid>
+		<category>Armor\Base\Samurai\Shields\Plate\Jingasa 3-2</category>
+	</item>
+
+</definitions>
