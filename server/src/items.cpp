@@ -490,6 +490,13 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 
 void cItem::save()
 {
+	// Critical issue:
+	// We have to save decaytimes relatively... This means that every decaying object
+	// on the ground needs to be saved :/
+	// we should move a new timer system on todo
+	if( decaytime_ > 0 )
+		changed_ = true;
+
 	if ( changed_ )
 	{
 		initSave;
@@ -524,7 +531,7 @@ void cItem::save()
 		addField("amount",		amount_);
 		addField("doordir",		doordir_);
 		addField("dye",			dye_);
-		addField("decaytime",		decaytime_ > 0 ? decaytime_ - uiCurrentTime : 0);
+		addField("decaytime",	(decaytime_ > 0) ? decaytime_ + uiCurrentTime : 0	);
 		addField("att",			att_);
 		addField("def",			def_);
 		addField("hidamage",		hidamage_);
