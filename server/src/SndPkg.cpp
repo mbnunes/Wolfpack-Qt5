@@ -316,7 +316,7 @@ void sysmessage(UOXSOCKET s, char *txt, ...) // System message (In lower left co
 	va_list argptr;
 	char msg[512];
 	va_start( argptr, txt );
-	vsprintf( msg, translate(txt), argptr );
+	vsprintf( msg, txt, argptr );
 	va_end( argptr );
 	int tl = 44 + strlen( msg ) + 1;
 	talk[1]=tl>>8;
