@@ -51,6 +51,7 @@
 	<!-- Deeds -->
 	<script>deeds.hairstyle</script>
 
+
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
 	<script>wolfpack.commands.action</script>
@@ -71,6 +72,9 @@
 	<script>wolfpack.commands.serverinfo</script>
 	<script>wolfpack.commands.restore</script>
 
+	<!-- Database Scripts -->
+	<script>mysql_optimize_db</script>
+	
 	<!-- Magic -->
 	<script>spellbook</script>
 	<script>recall_rune</script>
