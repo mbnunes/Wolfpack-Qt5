@@ -519,6 +519,106 @@ PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 	return PyInt_FromLong( avail );
 }
 
+PyObject* wpChar_isitem( wpChar* self, PyObject* args )
+{
+	return PyFalse;
+}
+
+PyObject* wpChar_ischar( wpChar* self, PyObject* args )
+{
+	return PyTrue;
+}
+
+/*!
+	Returns the custom tag passed
+*/
+PyObject* wpChar_gettag( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return Py_None;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for gettag is 1\n" );
+		return Py_None;
+	}
+
+	QString key = getArgStr( 0 );
+	cVariant value = self->pChar->tags.get( key );
+
+	if( value.type() == cVariant::String )
+		return PyString_FromString( value.asString().latin1() );
+	else if( value.type() == cVariant::UInt )
+		return PyInt_FromLong( value.asUInt() );
+
+	return Py_None;
+}
+
+/*!
+	Sets a custom tag
+*/
+PyObject* wpChar_settag( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) || ( !checkArgStr( 1 ) && !checkArgInt( 1 )  ) )
+	{
+		clConsole.send( "Minimum argument count for settag is 2\n" );
+		return PyFalse;
+	}
+
+	QString key = getArgStr( 0 );
+
+	self->pChar->tags.remove( key );
+
+	if( checkArgStr( 1 ) )
+		self->pChar->tags.set( key, cVariant( getArgStr( 1 ) ) );
+	else if( checkArgInt( 1 ) )
+		self->pChar->tags.set( key, cVariant( getArgInt( 1 ) ) );
+
+	return PyTrue;
+}
+
+/*!
+	Checks if a certain tag exists
+*/
+PyObject* wpChar_hastag( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for hastag is 1\n" );
+		return PyFalse;
+	}
+
+	QString key = getArgStr( 0 );
+	
+	return self->pChar->tags.get( key ).isValid() ? PyTrue : PyFalse;
+}
+
+/*!
+	Deletes a given tag
+*/
+PyObject* wpChar_deltag( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for deltag is 1\n" );
+		return PyFalse;
+	}
+
+	QString key = getArgStr( 0 );
+	self->pChar->tags.remove( key );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
@@ -538,6 +638,16 @@ static PyMethodDef wpCharMethods[] =
 	{ "useresource",	(getattrofunc)wpChar_useresource, METH_VARARGS, "Consumes a resource posessed by the char." },
 	{ "countresource",	(getattrofunc)wpChar_countresource, METH_VARARGS, "Counts the amount of a certain resource the user has." },
 	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Let's the user emote." },
+
+	// Tag System
+	{ "gettag",				(getattrofunc)wpChar_gettag, METH_VARARGS, "Gets a tag assigned to a specific char." },
+	{ "settag",				(getattrofunc)wpChar_settag, METH_VARARGS, "Sets a tag assigned to a specific char." },
+	{ "hastag",				(getattrofunc)wpChar_hastag, METH_VARARGS, "Checks if a certain char has the specified tag." },
+	{ "deltag",				(getattrofunc)wpChar_deltag, METH_VARARGS, "Deletes the specified tag." },
+
+	// Is*? Functions
+	{ "isitem",			(getattrofunc)wpChar_isitem, METH_VARARGS, "Is this an item." },
+	{ "ischar",			(getattrofunc)wpChar_ischar, METH_VARARGS, "Is this a char." },
     { NULL, NULL, 0, NULL }
 };
 

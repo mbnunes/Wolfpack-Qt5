@@ -415,6 +415,16 @@ PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 	return PyTrue;
 }
 
+PyObject* wpItem_ischar( wpItem* self, PyObject* args )
+{
+	return PyFalse;
+}
+
+PyObject* wpItem_isitem( wpItem* self, PyObject* args )
+{
+	return PyTrue;
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
@@ -426,10 +436,16 @@ static PyMethodDef wpItemMethods[] =
 	{ "weaponskill",		(getattrofunc)wpItem_weaponskill, METH_VARARGS, "Returns the skill used with this weapon. -1 if it isn't a weapon." },
 	{ "useresource",		(getattrofunc)wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
 	{ "countresource",		(getattrofunc)wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
+	
+	// Tag System
 	{ "gettag",				(getattrofunc)wpItem_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." },
 	{ "settag",				(getattrofunc)wpItem_settag, METH_VARARGS, "Sets a tag assigned to a specific item." },
 	{ "hastag",				(getattrofunc)wpItem_hastag, METH_VARARGS, "Checks if a certain item has the specified tag." },
 	{ "deltag",				(getattrofunc)wpItem_deltag, METH_VARARGS, "Deletes the specified tag." },
+
+	// Is*? Functions
+	{ "isitem",				(getattrofunc)wpItem_isitem, METH_VARARGS, "Is this an item." },
+	{ "ischar",				(getattrofunc)wpItem_ischar, METH_VARARGS, "Is this a char." },
     { NULL, NULL, 0, NULL }
 };
 

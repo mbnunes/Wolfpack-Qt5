@@ -37,6 +37,7 @@
 
 #include "utilities.h"
 #include "../network/uosocket.h"
+#include "target.h"
 
 /*!
 	Struct for WP Python Sockets
@@ -102,7 +103,7 @@ PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 
 	if( !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for socket.sysmessage is 1" );
+		clConsole.send( "Minimum argument count for socket.sysmessage is 1\n" );
 		return PyFalse;
 	}
 
@@ -187,11 +188,55 @@ PyObject* wpSocket_sendspeech( wpSocket* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Sends speech of a given object to the socket
+*/
+PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	if( !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for socket.sysmessage is 1\n" );
+		return PyFalse;
+	}
+
+	// Collect Data
+	QString responsefunc = getArgStr( 0 );
+	QString cancelfunc, timeoutfunc;
+	UINT16 timeout;
+	PyObject *targetargs = 0;
+
+	// If Second argument is present, it has to be a tuple
+	if( PyTuple_Size( args ) > 1 && PyTuple_Check( PyTuple_GetItem( args, 1 ) ) )
+		targetargs = PyTuple_GetItem( args, 1 );
+
+	if( !targetargs )
+		targetargs = PyTuple_New( 0 );
+
+	if( checkArgStr( 2 ) )
+		cancelfunc = getArgStr( 1 );
+
+	if( checkArgStr( 3 ) && checkArgInt( 4 ) )
+	{
+		timeout = getArgInt( 4 );
+		timeoutfunc = getArgStr( 3 );
+	}
+
+	cPythonTarget *target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );
+	target->setTimeout( uiCurrentTime + timeout );
+	self->pSock->attachTarget( target );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpSocketMethods[] = 
 {
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
 	{ "sendspeech",			(getattrofunc)wpSocket_sendspeech, METH_VARARGS, "Sends raw speech to the socket." },
 	{ "disconnect",			(getattrofunc)wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
+	{ "attachtarget",		(getattrofunc)wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" },
     { NULL, NULL, 0, NULL }
 };
 
