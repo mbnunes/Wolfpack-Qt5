@@ -487,7 +487,7 @@ namespace Combat
 		// Boni to damage:
 
 		// Tactics (% of Base Damage is Tactics + 50)
-		damage = damage * ( floor( pAttacker->skill( TACTICS ) / 10 ) + 50 ) / 100;
+		damage = damage * ( pAttacker->skill( TACTICS ) / 10 + 50 ) / 100;
 
 		// Strength (add 1/5 of strength * damage)
 		damage += damage * ( pAttacker->st() / 500 );

@@ -1329,7 +1329,7 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, 
 	std::vector< cTempEffect* > teffects_ = teffects.asVector();
 	std::vector< cTempEffect* >::iterator i = teffects_.begin();
 	for( i = teffects_.begin(); i != teffects_.end(); i++ )
-		if( i != NULL && (*i) != NULL && ( !onlyDispellable || (*i)->dispellable ) && (*i)->getDest() == pc_dest->serial && (*i)->objectID() == type )
+		if( (*i) != NULL && ( !onlyDispellable || (*i)->dispellable ) && (*i)->getDest() == pc_dest->serial && (*i)->objectID() == type )
 		{
 			if( isCharSerial( (*i)->getSour() ) )
 			{
@@ -1348,7 +1348,7 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 	std::vector< cTempEffect* > teffects_ = teffects.asVector();
 	std::vector< cTempEffect* >::iterator i = teffects_.begin();
 	for( i = teffects_.begin(); i != teffects_.end(); i++ )
-		if( i != NULL && (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial )
+		if( (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial )
 		{
 			if( isCharSerial( (*i)->getDest() ) )
 			{

@@ -52,10 +52,12 @@ class cAsyncNetIO : public ZThread::Thread
 	ZThread::FastMutex mapsMutex;
 
 public:
+	
+	~cAsyncNetIO() throw() {}	
 
 	bool registerSocket(QSocketDevice*);
 	bool unregisterSocket(QSocketDevice*);
-    Q_ULONG	bytesAvailable(QSocketDevice*) const;
+	Q_ULONG	bytesAvailable(QSocketDevice*) const;
 
 	virtual void run() throw();
 

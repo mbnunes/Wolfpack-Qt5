@@ -84,9 +84,9 @@
 
 //#include "WPScriptManager.h" // Script System
 
-struct MatchItemAndSerial : public std::binary_function<const P_ITEM, SERIAL, bool>
+struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
 {
-	bool operator()(P_ITEM const& pi, SERIAL serial) const
+	bool operator()(P_ITEM pi, SERIAL serial) const
 	{
 		return pi->serial == serial;
 	}

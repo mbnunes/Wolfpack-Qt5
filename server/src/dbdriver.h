@@ -41,7 +41,7 @@ class cDBResult;
 
 class cDBDriver
 {
-	friend cDBResult;
+	friend class cDBResult;
 private:
 	st_mysql *getConnection();
 	void putConnection( st_mysql* );
