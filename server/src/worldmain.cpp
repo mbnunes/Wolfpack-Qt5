@@ -62,7 +62,7 @@ void CWorldMain::cItemsSaver::run() throw()
 	{
 		waitMutex.acquire();
 		ISerialization* archive = cPluginFactory::serializationArchiver( module );
-		archive->prepareWritting("items");
+		archive->prepareWritting(QString("%1items").arg(SrvParams->worldSaveDirectory()).latin1());
 		AllItemsIterator iterItems;
 		for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
 		{
@@ -809,7 +809,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 {
 
 	ISerialization* archive = cPluginFactory::serializationArchiver(module);
-	archive->prepareReading("items"); // Load Items
+	archive->prepareReading(QString("%1items").arg(SrvParams->worldSaveDirectory()).latin1()); // Load Items
 	string objectID;
 	register unsigned int i;
 	clConsole.send("Loading Items %i...\n", archive->size());
@@ -873,7 +873,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 	archive->close();
 
 	// Load Chars
-	archive->prepareReading("chars");
+	archive->prepareReading(QString("%1chars").arg(SrvParams->worldSaveDirectory()).latin1());
 	clConsole.send("Loading Characters %i...\n", archive->size());
 	progress.restart(archive->size());
 	for ( i = 0; i < archive->size(); ++progress, ++i)
@@ -982,7 +982,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 	archive->close();
 
 	// Load Temporary Effects
-	archive->prepareReading("effects");
+	archive->prepareReading(QString("%1effects").arg(SrvParams->worldSaveDirectory()).latin1());
 	clConsole.send("Loading Temp. Effects %i...\n", archive->size());
 	progress.restart(archive->size());
 	for ( i = 0; i < archive->size(); ++progress, ++i)
@@ -1050,7 +1050,7 @@ void CWorldMain::savenewworld(QString module)
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
 
 	ISerialization* archive = cPluginFactory::serializationArchiver( module );
-	archive->prepareWritting("chars");
+	archive->prepareWritting(QString("%1chars").arg(SrvParams->worldSaveDirectory()).latin1());
 	AllCharsIterator iterChars;
 	for (iterChars.Begin(); !iterChars.atEnd(); ++iterChars)
 	{
@@ -1060,7 +1060,7 @@ void CWorldMain::savenewworld(QString module)
 	delete archive;
 
 	archive = cPluginFactory::serializationArchiver( module );
-	archive->prepareWritting("effects");
+	archive->prepareWritting(QString("%1effects").arg(SrvParams->worldSaveDirectory()).latin1() );
 	AllTmpEff->Serialize( *archive );
 	archive->close();
 	delete archive;
