@@ -696,7 +696,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, int i, char *comm)
 		if (d >= goldcount)
 		{
 			const P_ITEM pi = Items->SpawnItem(c, DEREF_P_CHAR(pc_currchar), 1, "bank check", 0, 0x14, 0xF0, 0, 0, 0, 0); // bank check
-			if (pi == NULL)
+			if (pi != NULL)
 			pi->type = 1000;
 			pi->setId(0x14F0);
 			pi->color1 = 0x00;
