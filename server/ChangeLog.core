@@ -28,7 +28,7 @@ Wolfpack 12.9.8 Beta (4. August 2004)
 	- (Configurable) Speedhack Countermeasure
 		(See Anti Speed Hack settings in the General group)
 	- Added some additional checking to wolfpack.pro
-	- Began binary save feature. (Incomplete)
+	- Binary save feature. Use the "binary" driver.
 	- Fixes for mul and diff files.
 		Haven should now work.
 	- Database Change:
