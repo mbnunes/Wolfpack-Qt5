@@ -77,7 +77,6 @@
 
 using namespace std;
 
-
 /*****************************************************************************
   cUOSocket member functions
  *****************************************************************************/
@@ -109,6 +108,50 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 
 	// Creation of a new socket counts as activity
 	_lastActivity = getNormalizedTime();
+}
+
+// Initialize all packet handlers to zero
+PyObject *cUOSocket::handlers[255] = {
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
+void cUOSocket::registerPacketHandler(unsigned char packet, PyObject *handler) {
+	if (handlers[packet]) {
+		Py_DECREF(handlers[packet]);
+	}
+
+	// Only install callable packet handlers.
+	if (handler && PyCallable_Check(handler)) {
+		Py_INCREF(handler);
+		handlers[packet] = handler;
+	} else {
+		// Clear the packet handler.
+		handlers[packet] = 0;
+	}	
+}
+
+void cUOSocket::clearPacketHandlers() {
+	for (int i = 0; i < 256; ++i) {
+		if (handlers[i]) {
+			Py_DECREF(handlers[i]);
+			handlers[i] = 0;
+		}		
+	}
 }
 
 /*!
@@ -204,15 +247,32 @@ void cUOSocket::recieve()
 {
 	cUOPacket *packet = cNetwork::instance()->netIo()->recvPacket( _socket );
 
-	if( !packet )
+	if (!packet) {
 		return;
+	}
 
-	Q_UINT8 packetId = (*packet)[0];
+	unsigned char packetId = (*packet)[0];
+
+	if (handlers[packetId]) {
+		PyObject *args = Py_BuildValue("(NN)", PyGetSocketObject(this), CreatePyPacket(packet));
+		PyObject *result = PyObject_CallObject(handlers[packetId], args);
+		Py_DECREF(args);
+
+		bool handled = result && PyObject_IsTrue(result);
+		Py_XDECREF(result);
+		reportPythonError(QString::null);
+
+		// Override the internal packet handler.
+		if (handled) {
+			_lastActivity = getNormalizedTime();
+			delete packet;
+			return;
+		}
+	}
 
 	// Disconnect harmful clients
-	if( ( _account == 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
-	{
-		log( QString( "Communication error: %1 instead of 0x80 or 0x91\n" ).arg( packetId, 2, 16 ) );
+	if ((_account == 0) && (packetId != 0x80) && (packetId != 0x91)) {
+		log(QString("Communication error: 0x%1 instead of 0x80 or 0x91\n").arg(packetId, 2, 16));
 		
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( DL_BADCOMMUNICATION );

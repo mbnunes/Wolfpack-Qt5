@@ -86,9 +86,27 @@ private:
 	unsigned short _screenWidth, _screenHeight;
 
 	bool authenticate( const QString &username, const QString &password );
-//	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
+
+	/*!
+		\brief This array contains all registered packet handlers known
+		to all sockets.
+	*/
+	static PyObject *handlers[255];
 
 public:
+	/*!
+		\brief This static function registers a python function to handle
+		a specific type of packet.
+		\param packet The id of the packet to handle.
+		\param handler The python function for handling the packet.
+	*/
+    static void registerPacketHandler(unsigned char packet, PyObject *handler);
+
+	/*
+		\brief This function clears all installed packet handlers.
+	*/
+	static void clearPacketHandlers();
+
 	inline unsigned short screenWidth() const {
 		return _screenWidth;
 	}

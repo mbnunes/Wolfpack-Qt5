@@ -907,6 +907,27 @@ static PyObject *wpRegisterCommand( PyObject* self, PyObject* args )
 }
 
 /*!
+	Registers a global packet hook.
+*/
+static PyObject *wpRegisterPacketHook( PyObject* self, PyObject* args )
+{
+	unsigned char packet;
+	PyObject *function;
+
+	if (!PyArg_ParseTuple(args, "bO:wolfpack.registerpackethook(packet, handler)", &packet, &function)) {
+		return 0;
+	}
+
+	if (!PyCallable_Check(function)) {
+		PyErr_SetString(PyExc_TypeError, "A callable object was expected.");
+		return 0;
+	}
+
+	cUOSocket::registerPacketHandler(packet, function);
+	return PyTrue;
+}
+
+/*!
 	Coord object creation
 */
 static PyObject *wpCoord( PyObject* self, PyObject* args )
@@ -1239,6 +1260,7 @@ static PyMethodDef wpGlobal[] =
 	{ "multi",				wpMulti,						METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." },
 	{ "list",				wpList,							METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
 	{ "registerglobal",		wpRegisterGlobal,				METH_VARARGS, "Registers a global script hook." },
+	{ "registerpackethook", wpRegisterPacketHook,			METH_VARARGS, "Registers a packet hook." },
 	{ "registercommand",	wpRegisterCommand,				METH_VARARGS, "Registers a global command hook." },
 	{ "serveruptime",		wpServerUptime,					METH_NOARGS, "Returns uptime of server in seconds." },
 	{ "serverversion",		wpServerVersion,				METH_NOARGS, "Returns the server version string." },

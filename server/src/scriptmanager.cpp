@@ -37,6 +37,7 @@
 #include "items.h"
 #include "pythonscript.h"
 #include "python/engine.h"
+#include "network/uosocket.h"
 
 // Library Includes
 #include <qstring.h>
@@ -98,8 +99,10 @@ void cScriptManager::reload( void )
 }
 
 // Unload all scripts
-void cScriptManager::unload()
-{
+void cScriptManager::unload() {
+	// Clear all packet handlers.
+	cUOSocket::clearPacketHandlers();
+
 	cScriptManager::iterator it;
 	
 	for( it = scripts.begin(); it != scripts.end(); ++it )

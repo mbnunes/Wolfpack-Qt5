@@ -204,15 +204,6 @@
 				RelativePath=".\win\console_win.cpp">
 			</File>
 			<File
-				RelativePath=".\getopts.cpp">
-			</File>
-			<File
-				RelativePath=".\getopts.h">
-			</File>
-			<File
-				RelativePath=".\win\getopts_win.cpp">
-			</File>
-			<File
 				RelativePath=".\contextmenu.cpp">
 			</File>
 			<File
@@ -268,6 +259,15 @@
 			</File>
 			<File
 				RelativePath=".\factory.h">
+			</File>
+			<File
+				RelativePath=".\getopts.cpp">
+			</File>
+			<File
+				RelativePath=".\getopts.h">
+			</File>
+			<File
+				RelativePath=".\win\getopts_win.cpp">
 			</File>
 			<File
 				RelativePath=".\globals.cpp">
@@ -426,7 +426,7 @@
 				RelativePath=".\srvparams.h">
 			</File>
 			<File
-				RelativePath=".\srvparams_win.cpp">
+				RelativePath=".\win\srvparams_win.cpp">
 			</File>
 			<File
 				RelativePath=".\structs.h">
