@@ -45,6 +45,7 @@
 void cGump::Button(int s, int button, SERIAL serial, char type)
 {
 	int j=-1,i,c,serhash;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	
     // if ((button)==0 || (button==1)) clConsole.send("gump-menu, type# %i closed\n",type); // lord bin
 	if(button>10000) {
@@ -147,12 +148,12 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 		if(button<200)	
 		{		
 			button-=7;
-			chars[currchar[s]].making=button;
+			pc_currchar->making=button;
 			Commands->WhoCommand(s,type,button);
 		}
 		else
 		{ 
-			i=chars[currchar[s]].making;
+			i=pc_currchar->making;
 			if (i<0)
 			{
 			  sysmessage(s,"selected character not found");
@@ -171,14 +172,14 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 			case 200://gochar 
 				doGmMoveEff(s); 	// have a flamestrike at origin and at player destination point 	//Aldur
 				
-				chars[currchar[s]].MoveTo(chars[c].pos.x,chars[c].pos.y,chars[c].pos.z); 
+				pc_currchar->MoveTo(chars[c].pos.x,chars[c].pos.y,chars[c].pos.z); 
 				teleport(currchar[s]); 
 				
 				doGmMoveEff(s); 
 				break;
 			case 201://xtele
 				//Targ->XTeleport(s, 3);
-				chars[c].MoveTo(chars[currchar[s]].pos.x,chars[currchar[s]].pos.y,chars[currchar[s]].pos.z);
+				chars[c].MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 				teleport(c);
 				
 				break;
@@ -285,10 +286,11 @@ void cGump::Input(int s)
 	index=buffer[s][8];
 	text=(char*)&buffer[s][12];
 	serial = LongFromCharPtr((unsigned char*)&buffer[s][3]);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 
 	Guilds->GumpInput(s,type,index,text);
 
-	if (type == 1 && (chars[currchar[s]].isGM()))//AntiChrist
+	if (type == 1 && (pc_currchar->isGM()))//AntiChrist
 	{
 		j = calcItemFromSer( serial );
 		if ( j == -1 ) return; //lb
@@ -347,8 +349,8 @@ void cGump::Input(int s)
 		RefreshItem(j);//AntiChrist
 		tweakmenu(s, items[j].serial);
  }
- //if (type==2 && (chars[currchar[s]].priv|1))//uhm?? what was that |1?! i think it should be &1...AntiChrist
- if (type==2 && (chars[currchar[s]].isGM()))//AntiChrist
+ //if (type==2 && (pc_currchar->priv|1))//uhm?? what was that |1?! i think it should be &1...AntiChrist
+ if (type==2 && (pc_currchar->isGM()))//AntiChrist
  {
 	P_CHAR pc_j = FindCharBySerial( serial );
 	if (pc_j == NULL) return;
@@ -428,6 +430,7 @@ void cGump::Menu(UOXSOCKET s, int m, ITEM it)
 	int is,j=-1,ds;
 	char tt[255];
 	char tt2[255];
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	
 	openscript("gumps.scp");
 	sprintf(sect, "GUMPMENU %i", m);
@@ -484,10 +487,10 @@ void cGump::Menu(UOXSOCKET s, int m, ITEM it)
 
 	gump1[1]=length>>8; // total length
 	gump1[2]=length%256;
-	gump1[3]=chars[currchar[s]].ser1;
-	gump1[4]=chars[currchar[s]].ser2;
-	gump1[5]=chars[currchar[s]].ser3;
-	gump1[6]=chars[currchar[s]].ser4;
+	gump1[3]=pc_currchar->ser1;
+	gump1[4]=pc_currchar->ser2;
+	gump1[5]=pc_currchar->ser3;
+	gump1[6]=pc_currchar->ser4;
 	gump1[7]=0;
 	gump1[8]=0;
 	gump1[9]=0;
@@ -1343,6 +1346,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 	int i;
 	char lscomm[512],lsnum[512];  // Magius(CHE) for Rank-System
 	Script *script;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	
 	main=(buffer[s][5]<<8)+buffer[s][6];
 	sub=(buffer[s][7]<<8)+buffer[s][8];
@@ -1452,11 +1456,11 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 				script->NextLineSplitted();
 				itemmake[s].minskill=str2num(script2);
 				itemmake[s].maxskill=itemmake[s].minskill*SrvParms->skilllevel;
-				// clConsole.send("needs %i, has %i\nskillneed %i, skillhas %i\n",itemmake[s].need,itemmake[s].has,itemmake[s].minskill,chars[currchar[s]].skill[chars[currchar[s]].making]);
+				// clConsole.send("needs %i, has %i\nskillneed %i, skillhas %i\n",itemmake[s].need,itemmake[s].has,itemmake[s].minskill,pc_currchar->skill[pc_currchar->making]);
 				// Duke: we must count with the same criteria as in MakeMenu() !
 				if (    itemmake[s].has<itemmake[s].needs
 					|| (itemmake[s].has2 && itemmake[s].has2<itemmake[s].needs)
-					|| (chars[currchar[s]].skill[chars[currchar[s]].making] < itemmake[s].minskill))
+					|| (pc_currchar->skill[pc_currchar->making] < itemmake[s].minskill))
 					i--;    // skip this item
 			}
 
@@ -1503,6 +1507,7 @@ void gmmenu(int s, int m) // Open one of the gray GM Call menus
 	static char gmtext[255][257];
 	int gmnumber=0;
 	int gmindex,loopexit=0;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	
 	openscript("menus.scp");
 	sprintf(sect, "GMMENU %i", m);
@@ -1536,10 +1541,10 @@ void gmmenu(int s, int m) // Open one of the gray GM Call menus
 	}
 	gmprefix[1]=total>>8;
 	gmprefix[2]=total%256;
-	gmprefix[3]=chars[currchar[s]].ser1;
-	gmprefix[4]=chars[currchar[s]].ser2;
-	gmprefix[5]=chars[currchar[s]].ser3;
-	gmprefix[6]=chars[currchar[s]].ser4;
+	gmprefix[3]=pc_currchar->ser1;
+	gmprefix[4]=pc_currchar->ser2;
+	gmprefix[5]=pc_currchar->ser3;
+	gmprefix[6]=pc_currchar->ser4;
 	gmprefix[7]=gmindex>>8;
 	gmprefix[8]=gmindex%256;
 	Xsend(s, gmprefix, 9);
@@ -1568,6 +1573,8 @@ void itemmenu(int s, int m) // Menus for item creation
 	int gmnumber=0;
 	int gmindex,loopexit=0;
 	
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	
 	openscript("items.scp");
 	sprintf(sect, "ITEMMENU %i", m);
 	if (!i_scripts[items_script]->find(sect))
@@ -1592,9 +1599,9 @@ void itemmenu(int s, int m) // Menus for item creation
 	///////////////////////////////////////////////////
 
 	y=-1;
-	if (chars[currchar[s]].menupriv!=-1 || chars[currchar[s]].menupriv!=1)  // account 0 users can use it always
+	if (pc_currchar->menupriv!=-1 || pc_currchar->menupriv!=1)  // account 0 users can use it always
 	{
-      y=-1;ss=0;yy=chars[currchar[s]].menupriv;
+      y=-1;ss=0;yy=pc_currchar->menupriv;
 	  while(menupriv[yy][ss]!=-1 && ss<256)
 	  { 
 		  if (menupriv[yy][ss]==gmindex ) 
@@ -1607,8 +1614,8 @@ void itemmenu(int s, int m) // Menus for item creation
 
 	}
 		
-	if (chars[currchar[s]].menupriv==-1 || chars[currchar[s]].menupriv==1) yy=1; else yy=0;
-	//clConsole.send("y: %i z: %i yy: %i\n",y,chars[currchar[s]].menupriv,yy);
+	if (pc_currchar->menupriv==-1 || pc_currchar->menupriv==1) yy=1; else yy=0;
+	//clConsole.send("y: %i z: %i yy: %i\n",y,pc_currchar->menupriv,yy);
 	if (yy==0) if (gmindex>990 && gmindex<999) yy=1; // alchemy uses itemmenus, so ignore alchemy targets for menupriv sys
 	if (y==-1 && yy==0) 
 	{
@@ -1650,10 +1657,10 @@ void itemmenu(int s, int m) // Menus for item creation
 
 	gmprefix[1]=total>>8;
 	gmprefix[2]=total%256;
-	gmprefix[3]=chars[currchar[s]].ser1;
-	gmprefix[4]=chars[currchar[s]].ser2;
-	gmprefix[5]=chars[currchar[s]].ser3;
-	gmprefix[6]=chars[currchar[s]].ser4;
+	gmprefix[3]=pc_currchar->ser1;
+	gmprefix[4]=pc_currchar->ser2;
+	gmprefix[5]=pc_currchar->ser3;
+	gmprefix[6]=pc_currchar->ser4;
 	gmprefix[7]=(gmindex+ITEMMENUOFFSET)>>8;
 	gmprefix[8]=(gmindex+ITEMMENUOFFSET)%256;
 	Xsend(s, gmprefix, 9);

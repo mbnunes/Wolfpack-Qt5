@@ -162,8 +162,9 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 {
 	if(buffer[nSocket][11]==0xFF && buffer[nSocket][12]==0xFF && buffer[nSocket][13]==0xFF && buffer[nSocket][14]==0xFF) 
 		return; // check if user canceled operation
-	
-	P_ITEM pVial=MAKE_ITEMREF_LR(addx[nSocket]);
+
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[nSocket]);
+	P_ITEM pVial = MAKE_ITEMREF_LR(addx[nSocket]);
 	if (!pVial) return; // should never happen
 	
 	int nTargetID=-1,nDagger=-1,nDist=0,item,serhash,i,dag,ci;
@@ -176,9 +177,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 	nItemID = calcItemFromSer( serial ); // or a corpse/differnt item ?
 	if ((nItemID!=-1) && (nTargetID==-1)) nTargetID=nItemID;
 	
-	int cc = currchar[nSocket];
-	serial=chars[cc].serial; // search for a dagger in the players hand
-	serhash=serial%HASHMAX;
+	serial=pc_currchar->serial; // search for a dagger in the players hand
 	item=-1;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for (ci=0;ci<vecContainer.size();ci++)
@@ -204,7 +203,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 		{
 			// checkskill hmmm what skill/s has/have to added here LB ...
 			
-			if( nTargetID == cc)
+			if( nTargetID == DEREF_P_CHAR(pc_currchar))
 			{
 				if(chars[nTargetID].hp<=10)
 				{
@@ -221,14 +220,14 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 			}
 			else
 			{
-				nDist=chardist(cc,nTargetID);
-				if((inrange1p(cc,nTargetID))&&
+				nDist=chardist(DEREF_P_CHAR(pc_currchar), nTargetID);
+				if((inrange1p(DEREF_P_CHAR(pc_currchar), nTargetID))&&
 					(nDist<=2))
 				{
-					sprintf((char*)temp,"%s has pricked you with a dagger and sampled your blood.",chars[cc].name);
+					sprintf((char*)temp,"%s has pricked you with a dagger and sampled your blood.", pc_currchar->name);
 					if(chars[nTargetID].isNpc())
 					{
-						Karma(cc,nTargetID,(0-(chars[nTargetID].karma)));
+						Karma(DEREF_P_CHAR(pc_currchar),nTargetID,(0-(chars[nTargetID].karma)));
 						if((chars[nTargetID].id1==0x00)&&((chars[nTargetID].id2==0x0c)||(chars[nTargetID].id2>=0x3b)&&(chars[nTargetID].id2<=0x3d)))
 							pVial->more1=1;
 						chars[nTargetID].hp=(chars[nTargetID].hp-((rand()%6)+2));
@@ -239,7 +238,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 					}
 					else
 					{
-						Karma(cc,nTargetID,(0-(chars[nTargetID].karma)));
+						Karma(DEREF_P_CHAR(pc_currchar),nTargetID,(0-(chars[nTargetID].karma)));
 						chars[nTargetID].hp=(chars[nTargetID].hp-((rand()%6)+2));
 						sysmessage(calcSocketFromChar(nTargetID),(char*)temp);
 						MakeNecroReg(nSocket,pVial,0x0E24);
@@ -257,7 +256,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 			if(items[nTargetID].corpse==1)
 			{
 				pVial->more1=items[nTargetID].more1;
-				Karma(cc,-1,-1000);
+				Karma(DEREF_P_CHAR(pc_currchar),-1,-1000);
 				if(items[nTargetID].more2<4)
 				{
 					sysmessage(nSocket,"You take a sample of blood from the corpse.");
@@ -271,21 +270,21 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 	if(nDagger==-1) sysmessage(nSocket,"You do not have a dagger equipped.");	
 }
 
-void MakeNecroReg(int nSocket,P_ITEM pMat,short id)
+void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 {
 	int iItem=0;
-	int cc=currchar[nSocket];
-	int p=packitem(cc);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[nSocket]);
+	int p=packitem(DEREF_P_CHAR(pc_currchar));
 
 	if( id>=0x1B11 && id<=0x1B1C ) // Make bone powder.
 	{
-		sprintf((char*)temp,"%s is grinding some bone into powder.", chars[cc].name);
-		npcemoteall(cc, (char*)temp,1);
-		tempeffect(cc, cc, 9, 0, 0, 0);
-		tempeffect(cc, cc, 9, 0, 3, 0);
-		tempeffect(cc, cc, 9, 0, 6, 0);
-		tempeffect(cc, cc, 9, 0, 9, 0);
-		iItem=Items->SpawnItem(nSocket,cc,1,"bone powder",1,0x0F,0x8F,0,0,1,1);
+		sprintf((char*)temp,"%s is grinding some bone into powder.", pc_currchar->name);
+		npcemoteall(DEREF_P_CHAR(pc_currchar), (char*)temp,1);
+		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 0, 0);
+		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 3, 0);
+		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 6, 0);
+		tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 9, 0, 9, 0);
+		iItem=Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"bone powder",1,0x0F,0x8F,0,0,1,1);
 		if(iItem==-1) return;//AntiChrist to preview crashes
 		items[iItem].morex=666;
 		items[iItem].more1=1; // this will fill more with info to tell difference between ash and bone
@@ -296,14 +295,14 @@ void MakeNecroReg(int nSocket,P_ITEM pMat,short id)
 	{
 		if(pMat->more1==1)
 		{
-			iItem=Items->SpawnItem(nSocket,cc,1,"#",1,0x0F,0x82,0,0,1,1);
+			iItem=Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"#",1,0x0F,0x82,0,0,1,1);
 			if(iItem==-1) return;//AntiChrist to preview crashes
 			items[iItem].value=15;
 			items[iItem].morex=666;
 		}
 		else
 		{
-			iItem=Items->SpawnItem(nSocket,cc,1,"#",1,0x0F,0x7D,0,0,1,1);
+			iItem=Items->SpawnItem(nSocket,DEREF_P_CHAR(pc_currchar),1,"#",1,0x0F,0x7D,0,0,1,1);
 			if(iItem==-1) return;//AntiChrist to preview crashes
 			items[iItem].value=10;
 			items[iItem].morex=666;

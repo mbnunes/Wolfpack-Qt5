@@ -3357,19 +3357,9 @@ void npcact(int s)
 
 void npcToggleCombat(int s)
 {
-	chars[s].war=(!(chars[s].war));
-	Movement->CombatWalk(s);
-}
-
-int calcSerFromChar(int i)
-{
-	if ((i>=0) && (i < cmem))
-		return (chars[i].ser1<<24)+(chars[i].ser2<<16)+(chars[i].ser3<<8)+chars[i].ser4;
-	else
-	{
-		LogMessage("calcSerFromChar() - char not existant (%i)"_ i);
-		return -1;
-	}
+	P_CHAR pc = MAKE_CHAR_REF(s);
+	pc->war = !pc->war;
+	Movement->CombatWalk(pc);
 }
 
 int checkBoundingBox(int xPos, int yPos, int fx1, int fy1, int fz1, int fx2, int fy2)
@@ -3388,8 +3378,6 @@ int checkBoundingCircle(int xPos, int yPos, int fx1, int fy1, int fz1, int radiu
 			return 1;
 		return 0;
 }
-
-
 
 void setabovelight(unsigned char lightchar)
 {
@@ -3673,7 +3661,7 @@ void npcattacktarget(int target2, int target)
 		 {
 			pc_target->emotecolor1=0x00;
 			pc_target->emotecolor2=0x26;
-			npcemote(i, target2, (char*)temp,1);
+			npcemote(i, DEREF_P_CHAR(pc_target2), (char*)temp,1);
 		 }
 	}
 }

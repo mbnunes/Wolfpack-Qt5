@@ -2317,7 +2317,7 @@ void MsgBoardQuestEscortRemovePost( int npcIndex )
 	// thereby removing it from the bulletin boards list
 	
 	P_CHAR pc_npc = MAKE_CHARREF_LR(npcIndex);
-	int s = calcSerFromChar( npcIndex );
+	SERIAL s = pc_npc->serial;
 	int loopexit=0;
 	
 	FILE *file = NULL;

@@ -1296,36 +1296,36 @@ bool cMovement::IsGMBody(P_CHAR pc)
 }
 
 
-void cMovement::CombatWalk(int s) // Only for switching to combat mode
+void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 {
     for (unsigned int i=0;i<now;i++)
     {
 		// moved perm[i] first since its much faster
-        if ((perm[i]) && (inrange1p(s, currchar[i])))
+        if ((perm[i]) && (inrange1p(DEREF_P_CHAR(pc), currchar[i])))
         {
-            extmove[1] = chars[s].ser1;
-            extmove[2] = chars[s].ser2;
-            extmove[3] = chars[s].ser3;
-            extmove[4] = chars[s].ser4;
-            extmove[5] = chars[s].id1;
-            extmove[6] = chars[s].id2;
-            extmove[7] = (unsigned char)(chars[s].pos.x>>8);
-            extmove[8] = (unsigned char)(chars[s].pos.x%256);
-            extmove[9] = (unsigned char)(chars[s].pos.y>>8);
-            extmove[10] = (unsigned char)(chars[s].pos.y%256);
-            extmove[11] = chars[s].dispz;
-            extmove[12] = (unsigned char)(chars[s].dir&0x7F);
+            extmove[1] = pc->ser1;
+            extmove[2] = pc->ser2;
+            extmove[3] = pc->ser3;
+            extmove[4] = pc->ser4;
+            extmove[5] = pc->id1;
+            extmove[6] = pc->id2;
+            extmove[7] = (unsigned char)(pc->pos.x>>8);
+            extmove[8] = (unsigned char)(pc->pos.x%256);
+            extmove[9] = (unsigned char)(pc->pos.y>>8);
+            extmove[10] = (unsigned char)(pc->pos.y%256);
+            extmove[11] = pc->dispz;
+            extmove[12] = (unsigned char)(pc->dir&0x7F);
             
-			ShortToCharPtr(chars[s].skin, &extmove[13]);
+			ShortToCharPtr(pc->skin, &extmove[13]);
             
             
-            if (chars[s].war) extmove[15]=0x40; else extmove[15]=0x00;
-            if (chars[s].hidden) extmove[15]=extmove[15]|0x80;
-            if (chars[s].poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
-            const int guild = Guilds->Compare( s, currchar[i] );
+            if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
+            if (pc->hidden) extmove[15]=extmove[15]|0x80;
+            if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
+            const int guild = Guilds->Compare( DEREF_P_CHAR(pc), currchar[i] );
             const int race = 0; //Races->Compare( s, currchar[i] );
-            if (chars[s].kills > repsys.maxkills ) extmove[16]=6; // ripper
-            //if (chars[s].npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
+            if (pc->kills > repsys.maxkills ) extmove[16]=6; // ripper
+            //if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
             //chars[i].flag=0x04;       // everyone should be blue on default
             else if (guild==1  || race==2)//Same guild (Green)
                 extmove[16]=2;
@@ -1334,7 +1334,7 @@ void cMovement::CombatWalk(int s) // Only for switching to combat mode
             //                  else if( !chars[i].npc && ( chars[i].priv&1 || chars[i].priv&80 ) )
             //                          extmove[16] = 7;
             else {
-                switch(chars[s].flag)
+                switch(pc->flag)
                 {//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
                 case 0x01: extmove[16]=6; break;// If a bad, show as red. 
                 case 0x04: extmove[16]=1; break;// If a good, show as blue.
@@ -1344,10 +1344,10 @@ void cMovement::CombatWalk(int s) // Only for switching to combat mode
                 }
             }
             
-            if (!chars[s].war)
+            if (!pc->war)
             {
-                //                              chars[s].attacker=-1;
-                chars[s].targ=-1;
+                //                              pc->attacker=-1;
+                pc->targ=-1;
             }
             Network->xSend(i, extmove, 17, 0);
         }

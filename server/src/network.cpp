@@ -1402,7 +1402,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					{
 						updatechar(DEREF_P_CHAR(pc_currchar));
 					}
-					Movement->CombatWalk(DEREF_P_CHAR(pc_currchar));
+					Movement->CombatWalk(pc_currchar);
 					dosocketmidi(s);
 					pc_currchar->disturbMed(s);
 					break;

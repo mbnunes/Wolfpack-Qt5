@@ -16,7 +16,7 @@ private:
 public:
 
 	void Walking( P_CHAR pc, int dir, int seq );
-	void CombatWalk( int s );
+	void CombatWalk( P_CHAR pc );
 	bool CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z);
 	bool CanCharMove(P_CHAR pc, short int x, short int y, signed char &z, int dir);
 	void NpcMovement( unsigned int currenttime, P_CHAR pc_i );
