@@ -203,8 +203,8 @@ def onSkillGain(char, skill, lower, higher, success):
 
 		if char.hastag(tagname):
 			try:
-				value = int(char.gettag(tagname))
-				totalskills -= value / 10.0
+				tagvalue = int(char.gettag(tagname))
+				totalskills -= tagvalue / 10.0
 			except:
 				pass
 
