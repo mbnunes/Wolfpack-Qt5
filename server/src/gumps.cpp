@@ -491,7 +491,7 @@ void cSpawnRegionInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choi
 	if( region_ )
 	{
 		cSpawnRegionInfoGump* pGump = new cSpawnRegionInfoGump( region_, choice.button );
-		cGumpsManager::getInstance()->attachGump( socket, pGump );
+		socket->send( pGump );
 	}
 }
 
@@ -589,7 +589,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	if( char_ )
 	{
 		cCharInfoGump* pGump = new cCharInfoGump( char_, choice.button );
-		cGumpsManager::getInstance()->attachGump( socket, pGump );
+		socket->send( pGump );
 	}
 }
 

@@ -36,6 +36,7 @@
 // Library Includes
 #include "qcstring.h"
 #include "qsocketdevice.h"
+#include <stack>
 
 // Forward Declarations
 class cUOPacket;
@@ -47,6 +48,7 @@ class cTargetRequest;
 #include "uotxpackets.h"
 #include "../typedefs.h"
 #include "../wptargetrequests.h"
+#include "../gumpsmgr.h"
 
 class cUOSocket
 {
@@ -61,6 +63,9 @@ private:
 	UINT8 lastPacket, _viewRange, _walkSequence;
 	cTargetRequest *targetRequest;
 	QString _lang,_version;
+
+	std::map< SERIAL, cGump* > gumps;
+	std::stack< SERIAL > free_serials;
 
 	bool authenticate( const QString &username, const QString &password );
 	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
@@ -99,6 +104,7 @@ public:
 
 	void recieve(); // Tries to recieve one packet and process it
 	void send( cUOPacket *packet );
+	void send( cGump	 *gump );
 
 	// Handler
 	void handleLoginRequest( cUORxLoginRequest *packet );

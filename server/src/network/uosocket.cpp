@@ -56,7 +56,7 @@
 #include "../guildstones.h"
 #include "../combat.h"
 #include "../books.h"
-#include "../gumpsmgr.h"
+#include "../gumps.h"
 
 //#include <conio.h>
 #include <iostream>
@@ -86,7 +86,7 @@ using namespace std;
 */
 cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
 		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
-		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) 
+		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice )
 {
 }
 
@@ -97,6 +97,13 @@ cUOSocket::~cUOSocket(void)
 {
 	delete _socket;
 	delete targetRequest;
+
+	std::map< SERIAL, cGump* >::iterator it = gumps.begin();
+	while( it != gumps.end() )
+	{
+		delete it->second;
+		it++;
+	}
 }
 
 /*!
@@ -109,6 +116,42 @@ void cUOSocket::send( cUOPacket *packet )
 		return;
 
 	cNetwork::instance()->netIo()->sendPacket( _socket, packet, ( _state != LoggingIn ) );
+}
+
+/*!
+  Sends \a gump to client.
+*/
+void cUOSocket::send( cGump *gump )
+{
+	if( free_serials.size() > 0 )
+	{
+		gump->setSerial( free_serials.top() );
+		free_serials.pop();
+	}
+	else
+		gump->setSerial( gumps.size() + 1 );
+
+	gumps.insert( make_pair< SERIAL, cGump* >( gump->serial(), gump ) );
+
+	QString layout = gump->layout().join( "" );
+	Q_UINT32 gumpsize = 21 + layout.length() + 2;
+	QStringList text = gump->text();
+	QStringList::const_iterator it = text.begin();
+	while( it != text.end() )
+	{
+		gumpsize += (*it).length() * 2 + 2;
+		it++;
+	}
+	cUOTxGumpDialog uoPacket( gumpsize );
+
+	uoPacket.setSerial( gump->serial() );
+	uoPacket.setType( gump->type() );
+	uoPacket.setX( gump->x() );
+	uoPacket.setY( gump->y() );
+	uoPacket.setContent( layout, text );
+
+	send( &uoPacket );
+	//uoPacket.print( &cout ); // for debugging
 }
 
 /*!
@@ -1798,7 +1841,17 @@ void cUOSocket::handleAction( cUORxAction *packet )
 
 void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 {
-	cGumpsManager::getInstance()->handleResponse( this, packet->serial(), packet->type(), packet->choice() );
+	cGump* pGump = NULL;
+	std::map< SERIAL, cGump* >::iterator it = gumps.find( packet->serial() );
+	if( it != gumps.end() )
+		pGump = it->second;
+	
+	if( pGump )
+	{
+		free_serials.push( it->first );
+		gumps.erase( it );
+		pGump->handleResponse( this, packet->choice() );
+	}
 }
 
 void cUOSocket::sendVendorCont( P_ITEM pItem )

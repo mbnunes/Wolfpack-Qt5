@@ -918,7 +918,7 @@ public:
 			pGump->addButton( 90, 240, 0x481, 0x483, 0 ); // Only Exit possible
 			pGump->addText( 130, 240, tr( "Close" ), 0x834 );
 
-			cGumpsManager::getInstance()->attachGump( socket, pGump );
+			socket->send( pGump );
 		}
 		// Static Tiles
 		else if( target->model() && !target->serial() )
@@ -956,7 +956,7 @@ public:
 			pGump->addResizeGump( 300, 120, 0xBB8, 110, 150 );
 			pGump->addTilePic( 340, 160 - ( sTile.height / 2 ), target->model() );
 
-			cGumpsManager::getInstance()->attachGump( socket, pGump );
+			socket->send( pGump );
 		}
 		
 		// dynamic objects
@@ -968,7 +968,7 @@ public:
 				if( pChar )
 				{
 					cCharInfoGump* pGump = new cCharInfoGump( pChar, 1 );
-					cGumpsManager::getInstance()->attachGump( socket, pGump );
+					socket->send( pGump );
 				}
 			}
 		}
@@ -1305,7 +1305,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 
 				cSpawnRegionInfoGump* pGump = new cSpawnRegionInfoGump( spawnRegion, 1 );
 
-				cGumpsManager::getInstance()->attachGump( socket, pGump );
+				socket->send( pGump );
 			}
 		}
 		else if( args[1].lower() == "all" )
@@ -1330,7 +1330,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 			pGump->addButton( 90, 200, 0x481, 0x483, 0 ); // Only Exit possible
 			pGump->addText( 130, 200, tr( "Close" ), 0x834 );
 
-			cGumpsManager::getInstance()->attachGump( socket, pGump );
+			socket->send( pGump );
 		}
 	}
 }

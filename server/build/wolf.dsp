@@ -61,8 +61,8 @@ LINK32=link.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir ""
-# PROP Intermediate_Dir "Debug"
+# PROP Output_Dir "c:\wolfpack"
+# PROP Intermediate_Dir "c:\wolfpack\intermediate"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
@@ -176,10 +176,6 @@ SOURCE=.\guildstones.cpp
 # Begin Source File
 
 SOURCE=.\gumps.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\gumpsmgr.cpp
 # End Source File
 # Begin Source File
 
@@ -500,10 +496,6 @@ SOURCE=.\guildstones.h
 # Begin Source File
 
 SOURCE=.\gumps.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\gumpsmgr.h
 # End Source File
 # Begin Source File
 
