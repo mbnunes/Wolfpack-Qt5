@@ -230,7 +230,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 			pMulti->removeItem( pItem );
 		}
 	}
-
+	
 	pChar->addItem( cChar::Dragging, pItem );
 }
 

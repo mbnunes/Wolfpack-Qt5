@@ -2461,27 +2461,13 @@ void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
 
-void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight )
+void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRemove )
 {
 	if( pItem == this || !pItem )
 		return;
 
-	// Remove from Old Container
-	if( pItem->container() )
-	{
-		if( pItem->container()->isChar() )
-		{
-			P_CHAR pChar = dynamic_cast< P_CHAR >( pItem->container() );
-			if( pChar )
-				pChar->removeItem( (cChar::enLayer)pItem->layer() );
-		}
-		else if( pItem->container()->isItem() )
-		{
-			P_ITEM pCont = dynamic_cast< P_ITEM >( pItem->container() );
-			if( pCont )
-				pCont->removeItem( pItem );
-		}
-	}
+	if( !noRemove )
+		removeFromCont( handleWeight );
 
 	content_.push_back( pItem );
 	if( randomPos && !this->ContainerPileItem( pItem ) ) // try to pile

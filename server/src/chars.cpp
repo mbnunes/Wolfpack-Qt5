@@ -3417,7 +3417,7 @@ bool cChar::onShowContext( cUObject *object )
 	return false;
 }
 
-void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight )
+void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight, bool noRemove )
 {
 	// DoubleEquip is *NOT* allowed
 	if ( content_.contains(layer) )
@@ -3426,8 +3426,8 @@ void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight )
 		return;
 	}
 
-	// Remove from Old Container
-	pi->removeFromCont( handleWeight );
+	if( !noRemove )
+		pi->removeFromCont();
 
 	content_.insert( (ushort)(layer), pi );
 	pi->setLayer( layer );

@@ -775,7 +775,7 @@ public:
 	void startRepeatedAction( UINT8 action, UINT16 delay );
 	void stopRepeatedAction();
 
-	void addItem( enLayer layer, cItem*, bool handleWeight = true );
+	void addItem( enLayer layer, cItem*, bool handleWeight = true, bool noRemove = false );
 	void removeItem( enLayer layer, bool handleWeight = true );
 	ContainerContent content() const;
 	cItem* atLayer( enLayer layer ) const;

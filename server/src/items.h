@@ -296,7 +296,7 @@ public:
 	void SetRandPosInCont(cItem* pCont);
 	bool PileItem(cItem* pItem);
 	bool ContainerPileItem(cItem* pItem);	// try to find an item in the container to stack with
-	void addItem(cItem* pItem, bool randomPos = true, bool handleWeight = true );	// Add Item to container
+	void addItem(cItem* pItem, bool randomPos = true, bool handleWeight = true, bool noRemove = false ); // Add Item to container
 	void removeItem(cItem*, bool handleWeight = true );
 	void removeFromCont( bool handleWeight = true );
 	ContainerContent content() const;
