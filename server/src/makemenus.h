@@ -80,7 +80,7 @@ class cUseItem : public cDefinable
 {
 public:
 	cUseItem( const QDomElement &Tag );
-	cUseItem( QString name, QValueVector< UINT16 > ids, QValueVector< UINT16 > colors, UINT16 amount );
+	cUseItem( const QString& name, const QValueVector< UINT16 >& ids, const QValueVector< UINT16 >& colors, UINT16 amount );
 
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );

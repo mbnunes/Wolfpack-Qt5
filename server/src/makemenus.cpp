@@ -136,12 +136,9 @@ cUseItem::cUseItem( const QDomElement &Tag )
 		colors_.push_back( 0 );
 }
 
-cUseItem::cUseItem( QString name, QValueVector< UINT16 > ids, QValueVector< UINT16 > colors, UINT16 amount )
+cUseItem::cUseItem( const QString& name, const QValueVector< UINT16 >& ids, const QValueVector< UINT16 >& colors, UINT16 amount ) :
+amount_(amount), colors_(colors), id_(ids), name_(name)
 {
-	this->amount_ = amount;
-	this->colors_ = colors;
-	this->id_ = ids;
-	name_ = name;
 }
 
 void cUseItem::processNode( const QDomElement &Tag )
