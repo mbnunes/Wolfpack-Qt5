@@ -41,9 +41,9 @@ time = 24 * 3600000 * 7 # Every Week
 worldtables = "`boats`, `boats_itemids`, `boats_itemoffsets`,`bookpages`,`books`, `characters`, `corpses`, `corpses_equipment`, `effects`, `effects_properties`, `guilds`, `guilds_canidates`, `guilds_members`, `houses`, `items`, `multis`, `multis_bans`, `multis_friends`, `npcs`, `players`, `settings`, `skills`, `tags`, `uobject`, `uobjectmap`"
 
 """
-	\command mysql_backup_db
+	\command backupdb
 	\description Performs a backup on the world and account database.
-	\notes This command can only be used if one of your
+	\notes This command can only be used if at least one of your
 	databases is using the MySQL driver.
 """
 
@@ -51,7 +51,7 @@ def onLoad():
 	if enabled == TRUE:
 		if accountsdriver == 'mysql' or worlddriver == 'mysql':
 			wolfpack.addtimer( time, "system.mysql_backup_db.timer", [] )
-			wolfpack.registercommand( "mysql_backup", cmdbackupdb )
+			wolfpack.registercommand( "backupdb", cmdbackupdb )
 
 def cmdbackupdb( socket, command, arguments ):
 	if enabled == TRUE:
