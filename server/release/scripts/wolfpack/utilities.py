@@ -237,18 +237,18 @@ def isoregem( item ):
 	return item.id == 0x1ea7 and item.hastag( 'resource' ) and item.gettag( 'resource' ) == 'ore'
 
 def ismountainorcave( tile ):
-	return tile in  range(  220,  231 ) + \
-			range(  236,  247 ) + \
-			range(  252,  263 ) + \
-			range(  268,  279 ) + \
-			range(  286,  297 ) + \
-			range(  321,  324 ) + \
-			range(  467,  474 ) + \
-			range(  476,  487 ) + \
-			range(  492,  495 ) + \
-			range(  543,  579 ) + \
-			range(  581,  601 ) + \
-			range(  610,  613 ) + \
+	return tile in range( 220, 231 ) + \
+			range( 236, 247 ) + \
+			range( 252, 263 ) + \
+			range( 268, 279 ) + \
+			range( 286, 297 ) + \
+			range( 321, 324 ) + \
+			range( 467, 474 ) + \
+			range( 476, 487 ) + \
+			range( 492, 495 ) + \
+			range( 543, 579 ) + \
+			range( 581, 621 ) + \
+			range( 700, 715 ) + \
 			range( 1339, 1359 ) + \
 			range( 1361, 1363 ) + \
 			range( 1386, 1386 ) + \
@@ -259,10 +259,17 @@ def ismountainorcave( tile ):
 			range( 1861, 1884 ) + \
 			range( 1981, 2004 ) + \
 			range( 2028, 2033 ) + \
-			range( 2100, 2105 )
+			range( 2100, 2105 ) + \
+			range( 16233, 16248 ) + \
+			range( 17419, 17438 ) + \
+			range( 17723, 17747 ) + \
+			range( 23335, 23358 ) + \
+			range( 29505, 29521 ) + \
+			range( 29745, 29753 ) + \
+			range( 30009, 30012 )
 
 def issand( tile ):
-	return tile in  range(   22,   62 ) + \
+	return tile in range(   22,   62 ) + \
 			range(   68,   75 ) + \
 			range(  286,  301 ) + \
 			range(  402,  402 ) + \
@@ -281,6 +288,9 @@ def issand( tile ):
 			range( 1623, 1626 ) + \
 			range( 1635, 1642 ) + \
 			range( 1647, 1650 )
+
+def iscrystal( tile ):
+	return tile in range( 25904, 25132 )
 
 def cleartag( self, args ):
 	char = args[0]
