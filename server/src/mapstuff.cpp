@@ -911,7 +911,6 @@ pos(0), exactCoords(exact), tileid(0)
 	}
 }
 
-//##ModelId=3C5D92E10185
 staticrecord *MapStaticIterator::First()
 {
 	index = 0;

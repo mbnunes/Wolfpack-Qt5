@@ -166,7 +166,7 @@ bool inVisRange(int x1, int y1, int x2, int y2)
 
 int inrange1 (UOXSOCKET a, UOXSOCKET b) // Are players from sockets a and b in visual range
 {
-	if ( a == INVALID_UOXSOCKET || b == INVALID_UOXSOCKET )
+	if ( a == INVALID_UOXSOCKET || b == INVALID_UOXSOCKET || !currchar[a] || !currchar[b] );
 		return 0;
 	if (!(a==b)
 		&& inVisRange(currchar[a]->pos.x, currchar[a]->pos.y, currchar[b]->pos.x, currchar[b]->pos.y))

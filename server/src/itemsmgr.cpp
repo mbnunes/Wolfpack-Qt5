@@ -129,7 +129,7 @@ void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 void cItemsManager::purge()
 {
 	list<cItem*>::iterator it;
-	for (it = deletedItems.begin(); it != deletedItems.end(); it++)
+	for (it = deletedItems.begin(); it != deletedItems.end(); ++it)
 	{
 		delete *it;
 	}
