@@ -57,14 +57,19 @@ struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
 
 void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 {
+	cUOTxClearBuy clearBuy;
+	clearBuy.setSerial( packet->serial() );
+
 	P_PLAYER pChar = socket->player();
+
+	if ( !pChar || pChar->free ) {
+		socket->send( &clearBuy );
+		return;
+	}
+
 	P_NPC pVendor = dynamic_cast<P_NPC>( FindCharBySerial( packet->serial() ) );
 
-	cUOTxClearBuy clearBuy;
-	clearBuy.setSerial( pVendor->serial() );
-
-	if ( !pChar || !pVendor || pVendor->free || pChar->free )
-	{
+	if (!pVendor || pVendor->free) {
 		socket->send( &clearBuy );
 		return;
 	}
@@ -246,7 +251,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 	P_CHAR pVendor = FindCharBySerial( packet->serial() );
 
 	cUOTxClearBuy clearBuy;
-	clearBuy.setSerial( pVendor->serial() );
+	clearBuy.setSerial( packet->serial() );
 
 	if ( !pChar || !pVendor || pVendor->free || pChar->free )
 	{
