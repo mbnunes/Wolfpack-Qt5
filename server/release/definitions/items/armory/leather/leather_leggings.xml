@@ -28,6 +28,7 @@
 		<weight>4.0</weight>
 		<buyprice>80</buyprice>
 		<sellprice>40</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Leather\Leggings (N/S)</category>
 	</item>

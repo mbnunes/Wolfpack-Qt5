@@ -31,6 +31,7 @@
 		<weight>15</weight>
 		<buyprice>147</buyprice>
 		<sellprice>73</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Ringmail\Leggings (N/S)</category>
 	</item>

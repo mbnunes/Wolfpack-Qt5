@@ -31,6 +31,7 @@
 		<weight>2</weight>
 		<buyprice>122</buyprice>
 		<sellprice>61</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Ringmail\Gloves (N/S)</category>
 	</item>

@@ -31,6 +31,7 @@
 		<weight>4.0</weight>
 		<buyprice>245</buyprice>
 		<sellprice>122</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Platemail\Female Armor (N/S)</category>
 	</item>

@@ -28,6 +28,7 @@
 		<weight>2.0</weight>
 		<buyprice>74</buyprice>
 		<sellprice>37</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Leather\Gorget</category>
 	</item>

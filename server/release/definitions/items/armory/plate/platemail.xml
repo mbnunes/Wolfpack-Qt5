@@ -31,6 +31,7 @@
 		<weight>10.0</weight>
 		<buyprice>273</buyprice>
 		<sellprice>136</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Platemail\Male Armor (N/S)</category>
 	</item>

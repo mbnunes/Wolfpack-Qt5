@@ -31,6 +31,7 @@
 		<weight>2.0</weight>
 		<buyprice>145</buyprice>
 		<sellprice>72</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Platemail\Gloves (N/S)</category>
 	</item>

@@ -31,6 +31,7 @@
 		<weight>7.0</weight>
 		<buyprice>170</buyprice>
 		<sellprice>85</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Platemail\Helm (N/S)</category>
 	</item>

@@ -11,7 +11,7 @@
 	<!-- order shield -->
 	<item id="1bc4">
 		<id>0x1bc4</id>
-		<name>Order shield</name>
+		<name>order shield</name>
 		<decay />
 		<nodye />
 		<defense>30</defense>

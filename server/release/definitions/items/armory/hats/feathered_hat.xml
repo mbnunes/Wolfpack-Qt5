@@ -1,0 +1,19 @@
+
+<definitions>
+
+	<!-- Feathered Hat -->
+	<item id="171a">
+		<category>Clothes\Headwear\Feathered Hat</category>
+		<category>Armor\Headwear\Feathered Hat</category>
+		<id>0x171a</id>
+		<dye />
+		<durability><random min="20" max="25" /></durability>
+		<tag name='req_str' value='10' type='int' />
+		<buyprice>27</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+</definitions>

@@ -1,0 +1,19 @@
+
+<definitions>
+
+	<!-- Straw Hat -->
+	<item id="1717">
+		<category>Clothes\Headwear\Straw Hat</category>
+		<category>Armor\Headwear\Straw Hat</category>
+		<id>0x1717</id>
+		<dye />
+		<durability><random min="20" max="25" /></durability>
+		<tag name='req_str' value='10' type='int' />
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+</definitions>

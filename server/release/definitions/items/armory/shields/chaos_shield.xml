@@ -11,7 +11,7 @@
 	<!-- chaos shield -->
 	<item id="1bc3">
 		<id>0x1bc3</id>
-		<name>Chaos shield</name>
+		<name>chaos shield</name>
 		<decay />
 		<nodye />
 		<defense>32</defense>

@@ -22,6 +22,7 @@
 		<weight>5.0</weight>
 		<buyprice>127</buyprice>
 		<sellprice>63</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Helmets\Orc Helm (N/S)</category>
 	</item>

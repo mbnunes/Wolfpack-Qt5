@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Bandana n/s -->
+	<item id="153f">
+		<category>Armor\Headwear\Bandana (N/S)</category>
+		<category>Clothes\Headwear\Bandana (N/S)</category>
+		<id>0x153f</id>
+		<dye />
+		<color><random list="COLORS_RANDOM" /></color>
+		<tag name='req_str' type='int' value='10' />
+		<durability><random min="20" max="25" /></durability>
+		<buyprice>14</buyprice>
+		<sellprice>6</sellprice>
+		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+	<!-- Bandana w/e -->
+	<item id="1540">
+		<inherit id="153f" />
+		<id>0x1540</id>
+		<color><random list="COLORS_RANDOM" /></color>
+		<category>Clothes\Headwear\Bandana (W/E)</category>
+		<category>Armor\Headwear\Bandana (W/E)</category>
+	</item>
+
+</definitions>

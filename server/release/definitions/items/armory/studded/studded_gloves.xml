@@ -28,6 +28,7 @@
 		<weight>1.0</weight>
 		<buyprice>79</buyprice>
 		<sellprice>39</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Studded Leather\Gloves (N/S)</category>
 	</item>

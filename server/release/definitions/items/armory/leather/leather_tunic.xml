@@ -28,6 +28,7 @@
 		<weight>2.0</weight>
 		<buyprice>101</buyprice>
 		<sellprice>52</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Leather\Tunic (N/S)</category>
 	</item>

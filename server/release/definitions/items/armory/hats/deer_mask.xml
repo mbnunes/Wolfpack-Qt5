@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- Deer Mask n/s -->
+	<item id="1547">
+		<category>Clothes\Headwear\Deer Mask (N/S)</category>
+		<category>Armor\Headwear\Deer Mask (N/S)</category>
+		<id>0x1547</id>
+		<nodye />
+		<defense>2</defense>
+		<tag name='req_str' type='int' value='10' />
+		<durability><random min="20" max="25" /></durability>
+		<weight>4.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+	<!-- Deer Mask w/e -->
+	<item id="1548">
+		<inherit id="1547" />
+		<category>Clothes\Headwear\Deer Mask (W/E)</category>
+		<category>Armor\Headwear\Deer Mask (W/E)</category>
+		<id>0x1548</id>
+	</item>
+
+</definitions>

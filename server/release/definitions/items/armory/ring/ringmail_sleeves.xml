@@ -30,6 +30,7 @@
 		<weight>15</weight>
 		<buyprice>127</buyprice>
 		<sellprice>63</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Ringmail\Sleeves (N/S)</category>
 	</item>

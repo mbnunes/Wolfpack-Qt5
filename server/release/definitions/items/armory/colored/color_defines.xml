@@ -19,20 +19,13 @@
 		<color>0x973</color>
 		<!-- <defense>+6</defense> -->
 		<value>1.1</value>
-		<tag name="armor_physical" value="6" type="int" />
-		<tag name="armor_fire" value="0" type="int" />
-		<tag name="armor_cold" value="0" type="int" />
-		<tag name="armor_poison" value="0" type="int" />
-		<tag name="armor_energy" value="0" type="int" />
-		<tag name="weapon_physical" value="0" type="int" />
-		<tag name="weapon_fire" value="0" type="int" />
-		<tag name="weapon_cold" value="0" type="int" />
-		<tag name="weapon_poison" value="0" type="int" />
-		<tag name="weapon_energy" value="0" type="int" />
-		<tag name="armor_durability" value="50" type="int" />
-		<tag name="weapon_durability" value="100" type="int" />
-		<tag name="armor_reqs" value="20" type="int" />
-		<tag name="weapon_reqs" value="50" type="int" />
+		<tag name="res_physical" value="6" type="int" />
+		<tag name="res_fire" value="0" type="int" />
+		<tag name="res_cold" value="0" type="int" />
+		<tag name="res_poison" value="0" type="int" />
+		<tag name="res_energy" value="0" type="int" />
+		<tag name="res_durability" value="50" type="int" />
+		<tag name="aos_lower_requirements" value="20" type="int" />
 		<tag name="resname" value="dullcopper" />
 	</define>
 
@@ -41,18 +34,12 @@
 		<color>0x966</color>
 		<!-- <defense>+2</defense> --> <!-- this means 110 percent of original defense -->
 		<value>1.2</value>
-		<tag name="armor_physical" value="2" type="int" />
-		<tag name="armor_fire" value="1" type="int" />
-		<tag name="armor_cold" value="0" type="int" />
-		<tag name="armor_poison" value="0" type="int" />
-		<tag name="armor_energy" value="5" type="int" />
-		<tag name="weapon_physical" value="-20" type="int" />
-		<tag name="weapon_fire" value="0" type="int" />
-		<tag name="weapon_cold" value="20" type="int" />
-		<tag name="weapon_poison" value="0" type="int" />
-		<tag name="weapon_energy" value="0" type="int" />
-		<tag name="armor_durability" value="100" type="int" />
-		<tag name="weapon_durability" value="50" type="int" />
+		<tag name="res_physical" value="2" type="int" />
+		<tag name="res_fire" value="1" type="int" />
+		<tag name="res_cold" value="0" type="int" />
+		<tag name="res_poison" value="0" type="int" />
+		<tag name="res_energy" value="5" type="int" />
+		<tag name="aos_boni_durability" value="100" type="int" />
 		<tag name="resname" value="shadowiron" />
 	</define>
 
@@ -61,16 +48,11 @@
 		<color>0x96d</color>
 		<!-- <defense>+1</defense> -->
 		<value>1.3</value>
-		<tag name="armor_physical" value="1" type="int" />
-		<tag name="armor_fire" value="1" type="int" />
-		<tag name="armor_cold" value="0" type="int" />
-		<tag name="armor_poison" value="5" type="int" />
-		<tag name="armor_energy" value="2" type="int" />
-		<tag name="weapon_physical" value="-30" type="int" />
-		<tag name="weapon_fire" value="0" type="int" />
-		<tag name="weapon_cold" value="0" type="int" />
-		<tag name="weapon_poison" value="10" type="int" />
-		<tag name="weapon_energy" value="20" type="int" />
+		<tag name="res_physical" value="1" type="int" />
+		<tag name="res_fire" value="1" type="int" />
+		<tag name="res_cold" value="0" type="int" />
+		<tag name="res_poison" value="5" type="int" />
+		<tag name="res_energy" value="2" type="int" />
 		<tag name="resname" value="copper" />
 	</define>
 
@@ -79,16 +61,11 @@
 		<color>0x972</color>
 		<!-- <defense>+3</defense>-->
 		<value>1.4</value>
-		<tag name="armor_physical" value="3" type="int" />
-		<tag name="armor_fire" value="0" type="int" />
-		<tag name="armor_cold" value="5" type="int" />
-		<tag name="armor_poison" value="1" type="int" />
-		<tag name="armor_energy" value="1" type="int" />
-		<tag name="weapon_physical" value="-40" type="int" />
-		<tag name="weapon_fire" value="40" type="int" />
-		<tag name="weapon_cold" value="0" type="int" />
-		<tag name="weapon_poison" value="0" type="int" />
-		<tag name="weapon_energy" value="0" type="int" />
+		<tag name="res_physical" value="3" type="int" />
+		<tag name="res_fire" value="0" type="int" />
+		<tag name="res_cold" value="5" type="int" />
+		<tag name="res_poison" value="1" type="int" />
+		<tag name="res_energy" value="1" type="int" />
 		<tag name="resname" value="bronze" />
 	</define>
 
@@ -97,19 +74,13 @@
 		<color>0x8a5</color>
 		<!-- <defense>+1</defense>-->
 		<value>1.5</value>
-		<tag name="armor_physical" value="1" type="int" />
-		<tag name="armor_fire" value="1" type="int" />
-		<tag name="armor_cold" value="2" type="int" />
-		<tag name="armor_poison" value="0" type="int" />
-		<tag name="armor_energy" value="2" type="int" />
-		<tag name="weapon_physical" value="0" type="int" />
-		<tag name="weapon_fire" value="0" type="int" />
-		<tag name="weapon_cold" value="0" type="int" />
-		<tag name="weapon_poison" value="0" type="int" />
-		<tag name="weapon_energy" value="0" type="int" />
-		<tag name="luck" value="40" type="int" />
-		<tag name="armor_reqs" value="30" type="int" />
-		<tag name="weapon_reqs" value="50" type="int" />
+		<tag name="res_physical" value="1" type="int" />
+		<tag name="res_fire" value="1" type="int" />
+		<tag name="res_cold" value="2" type="int" />
+		<tag name="res_poison" value="0" type="int" />
+		<tag name="res_energy" value="2" type="int" />
+		<tag name="aos_boni_luck" value="40" type="int" />
+		<tag name="aos_lower_requirements" value="30" type="int" />
 		<tag name="resname" value="gold" />
 	</define>
 
@@ -118,19 +89,13 @@
 		<color>0x430</color>
 		<!-- <defense>+1</defense>-->
 		<value>1.5</value>
-		<tag name="armor_physical" value="1" type="int" />
-		<tag name="armor_fire" value="1" type="int" />
-		<tag name="armor_cold" value="3" type="int" />
-		<tag name="armor_poison" value="1" type="int" />
-		<tag name="armor_energy" value="2" type="int" />
-		<tag name="weapon_physical" value="-10" type="int" />
-		<tag name="weapon_fire" value="0" type="int" />
-		<tag name="weapon_cold" value="10" type="int" />
-		<tag name="weapon_poison" value="0" type="int" />
-		<tag name="weapon_energy" value="0" type="int" />
-		<tag name="luck" value="40" type="int" />
-		<tag name="armor_reqs" value="30" type="int" />
-		<tag name="weapon_reqs" value="50" type="int" />
+		<tag name="res_physical" value="1" type="int" />
+		<tag name="res_fire" value="1" type="int" />
+		<tag name="res_cold" value="3" type="int" />
+		<tag name="res_poison" value="1" type="int" />
+		<tag name="res_energy" value="2" type="int" />
+		<tag name="aos_boni_luck" value="40" type="int" />
+		<tag name="aos_lower_requirements" value="30" type="int" />
 		<tag name="resname" value="silver" />
 	</define>
 
@@ -139,16 +104,11 @@
 		<color>0x979</color>
 		<!-- <defense>+2</defense>-->
 		<value>1.6</value>
-		<tag name="armor_physical" value="2" type="int" />
-		<tag name="armor_fire" value="3" type="int" />
-		<tag name="armor_cold" value="2" type="int" />
-		<tag name="armor_poison" value="2" type="int" />
-		<tag name="armor_energy" value="2" type="int" />
-		<tag name="weapon_physical" value="-50" type="int" />
-		<tag name="weapon_fire" value="0" type="int" />
-		<tag name="weapon_cold" value="30" type="int" />
-		<tag name="weapon_poison" value="0" type="int" />
-		<tag name="weapon_energy" value="20" type="int" />
+		<tag name="res_physical" value="2" type="int" />
+		<tag name="res_fire" value="3" type="int" />
+		<tag name="res_cold" value="2" type="int" />
+		<tag name="res_poison" value="2" type="int" />
+		<tag name="res_energy" value="2" type="int" />
 		<tag name="resname" value="agapite" />
 	</define>
 
@@ -157,16 +117,11 @@
 		<color>0x89f</color>
 		<!-- <defense>+3</defense> -->
 		<value>1.7</value>
-		<tag name="armor_physical" value="3" type="int" />
-		<tag name="armor_fire" value="3" type="int" />
-		<tag name="armor_cold" value="2" type="int" />
-		<tag name="armor_poison" value="3" type="int" />
-		<tag name="armor_energy" value="1" type="int" />
-		<tag name="weapon_physical" value="-60" type="int" />
-		<tag name="weapon_fire" value="0" type="int" />
-		<tag name="weapon_cold" value="0" type="int" />
-		<tag name="weapon_poison" value="40" type="int" />
-		<tag name="weapon_energy" value="20" type="int" />
+		<tag name="res_physical" value="3" type="int" />
+		<tag name="res_fire" value="3" type="int" />
+		<tag name="res_cold" value="2" type="int" />
+		<tag name="res_poison" value="3" type="int" />
+		<tag name="res_energy" value="1" type="int" />
 		<tag name="resname" value="verite" />
 	</define>
 
@@ -175,58 +130,40 @@
 		<color>0x8ab</color>
 		<!-- <defense>+4</defense> -->
 		<value>1.8</value>
-		<tag name="armor_physical" value="4" type="int" />
-		<tag name="armor_fire" value="0" type="int" />
-		<tag name="armor_cold" value="3" type="int" />
-		<tag name="armor_poison" value="3" type="int" />
-		<tag name="armor_energy" value="3" type="int" />
-		<tag name="weapon_physical" value="-60" type="int" />
-		<tag name="weapon_fire" value="10" type="int" />
-		<tag name="weapon_cold" value="20" type="int" />
-		<tag name="weapon_poison" value="10" type="int" />
-		<tag name="weapon_energy" value="20" type="int" />
-		<tag name="armor_durability" value="50" type="int" />
-		<tag name="weapon_durability" value="0" type="int" />
+		<tag name="res_physical" value="4" type="int" />
+		<tag name="res_fire" value="0" type="int" />
+		<tag name="res_cold" value="3" type="int" />
+		<tag name="res_poison" value="3" type="int" />
+		<tag name="res_energy" value="3" type="int" />
+		<tag name="aos_boni_durability" value="50" type="int" />
 		<tag name="resname" value="valorite" />
 	</define>
-	
+
 	<define id="merkite_armor">
 		<name>merkite %1</name>
 		<color>0x8b0</color>
 		<!-- <defense>+5</defense> -->
 		<value>2.0</value>
-		<tag name="armor_physical" value="3" type="int" />
-		<tag name="armor_fire" value="3" type="int" />
-		<tag name="armor_cold" value="3" type="int" />
-		<tag name="armor_poison" value="3" type="int" />
-		<tag name="armor_energy" value="3" type="int" />
-		<tag name="weapon_physical" value="-80" type="int" />
-		<tag name="weapon_fire" value="20" type="int" />
-		<tag name="weapon_cold" value="20" type="int" />
-		<tag name="weapon_poison" value="20" type="int" />
-		<tag name="weapon_energy" value="20" type="int" />
-		<tag name="armor_durability" value="50" type="int" />
-		<tag name="weapon_durability" value="50" type="int" />
+		<tag name="res_physical" value="3" type="int" />
+		<tag name="res_fire" value="3" type="int" />
+		<tag name="res_cold" value="3" type="int" />
+		<tag name="res_poison" value="3" type="int" />
+		<tag name="res_energy" value="3" type="int" />
+		<tag name="aos_boni_durability" value="50" type="int" />
 		<tag name="resname" value="merkite" />
 	</define>
-	
+
 	<define id="mythril_armor">
 		<name>mythril %1</name>
 		<color>0x84c</color>
 		<!-- <defense>+5</defense> -->
 		<value>2.2</value>
-		<tag name="armor_physical" value="4" type="int" />
-		<tag name="armor_fire" value="4" type="int" />
-		<tag name="armor_cold" value="4" type="int" />
-		<tag name="armor_poison" value="4" type="int" />
-		<tag name="armor_energy" value="4" type="int" />
-		<tag name="weapon_physical" value="-80" type="int" />
-		<tag name="weapon_fire" value="20" type="int" />
-		<tag name="weapon_cold" value="20" type="int" />
-		<tag name="weapon_poison" value="20" type="int" />
-		<tag name="weapon_energy" value="20" type="int" />
-		<tag name="armor_durability" value="50" type="int" />
-		<tag name="weapon_durability" value="50" type="int" />
+		<tag name="res_physical" value="4" type="int" />
+		<tag name="res_fire" value="4" type="int" />
+		<tag name="res_cold" value="4" type="int" />
+		<tag name="res_poison" value="4" type="int" />
+		<tag name="res_energy" value="4" type="int" />
+		<tag name="aos_boni_durability" value="50" type="int" />
 		<tag name="resname" value="mythril" />
 	</define>
 

@@ -28,6 +28,7 @@
 		<weight>3.0</weight>
 		<buyprice>103</buyprice>
 		<sellprice>51</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Studded Leather\Leggings (N/S)</category>
 	</item>

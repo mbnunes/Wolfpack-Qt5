@@ -1,0 +1,19 @@
+
+<definitions>
+
+	<!-- Bonnet -->
+	<item id="1719">
+		<category>Clothes\Headwear\Bonnet</category>
+		<category>Armor\Headwear\Bonnet</category>
+		<id>0x1719</id>
+		<dye />
+		<durability><random min="20" max="25" /></durability>
+		<tag name='req_str' value='10' type='int' />
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+</definitions>

@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Skullcap n/s -->
+	<item id="1543">
+		<category>Clothes\Headwear\Skull Cap (N/S)</category>
+		<category>Armor\Headwear\Skull Cap (N/S)</category>
+		<id>0x1543</id>
+		<dye />
+		<color><random list="COLORS_RANDOM" /></color>
+		<tag name='req_str' value='10' type='int' />
+		<durability><random min="6" max="10" /></durability>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
+		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+	<!-- Skullcap w/e -->
+	<item id="1544">
+		<inherit id="1543" />
+		<category>Clothes\Headwear\Skull Cap (W/E)</category>
+		<category>Armor\Headwear\Skull Cap (W/E)</category>
+		<id>0x1544</id>
+	</item>
+
+</definitions>

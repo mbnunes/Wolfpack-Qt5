@@ -1,0 +1,16 @@
+
+<definitions>
+
+	<!-- Jester Hat -->
+	<item id="172e">
+		<category>Clothes\Headwear\Jester Hat</category>
+		<category>Armor\Headwear\Jester Hat</category>
+		<id>0x172e</id>
+		<dye />
+		<durability><random min="20" max="25" /></durability>
+		<tag name='req_str' value='10' type='int' />
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+</definitions>

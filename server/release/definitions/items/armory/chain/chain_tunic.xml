@@ -30,6 +30,7 @@
 		<smelt>14</smelt>
 		<weight>7.0</weight>
 		<buyprice>103</buyprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Chainmail\Tunic NS</category>
 	</item>

@@ -27,6 +27,7 @@
 		<restock>10</restock>
 		<weight>2</weight>
 		<value>0</value>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Bone\Bone Gloves (N/S)</category>
 	</item>

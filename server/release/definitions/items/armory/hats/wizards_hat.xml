@@ -1,0 +1,19 @@
+
+<definitions>
+
+	<!-- Wizard's Hat -->
+	<item id="1718">
+		<category>Clothes\Headwear\Wizard's Hat</category>
+		<category>Armor\Headwear\Wizard's Hat</category>
+		<id>0x1718</id>
+		<dye />
+		<durability><random min="20" max="25" /></durability>
+		<tag name='req_str' value='10' type='int' />
+		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+</definitions>

@@ -31,6 +31,7 @@
 		<weight>15.0</weight>
 		<buyprice>218</buyprice>
 		<sellprice>109</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Ringmail\Tunic (N/S)</category>
 	</item>

@@ -28,6 +28,7 @@
 		<weight>5.0</weight>
 		<buyprice>128</buyprice>
 		<sellprice>64</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Studded Leather\Tunic (N/S)</category>
 	</item>

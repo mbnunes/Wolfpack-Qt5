@@ -28,6 +28,7 @@
 		<weight>1.0</weight>
 		<buyprice>120</buyprice>
 		<sellprice>60</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Studded Leather\Bustier (N/S)</category>
 	</item>

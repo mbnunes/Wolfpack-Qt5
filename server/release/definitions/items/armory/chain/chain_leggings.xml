@@ -31,6 +31,7 @@
 		<weight>7.0</weight>
 		<buyprice>166</buyprice>
 		<sellprice>83</sellprice>
+		<type>1009</type>
 		<events>equipment</events>
 		<category>Armor\Chainmail\Leggings (N/S)</category>
 	</item>

@@ -1,0 +1,24 @@
+
+<definitions>
+
+	<!-- Orc Mask 1 n/s -->
+	<item id="141b">
+		<id>0x141b</id>
+		<tag name='req_str' value='10' type='int' />
+		<durability><random min="20" max="25" /></durability>
+		<category>Clothes\Headwear\Orc Mask (N/S)</category>
+		<category>Armor\Headwear\Orc Mask (N/S)</category>
+		<weight>4.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+	<!-- Orc Mask 1 w/e -->
+	<item id="141c">
+		<inherit id="141b" />
+		<id>0x141c</id>
+		<category>Clothes\Headwear\Orc Mask (W/E)</category>
+		<category>Armor\Headwear\Orc Mask (W/E)</category>
+	</item>
+
+</definitions>
