@@ -25,6 +25,14 @@ def onCollide(player, item):
 			player.socket.clilocmessage(501942)
 		return
 
+	# Move his pets if he has any
+	if player.player:
+		for follower in player.followers:
+			if follower.wandertype == 4 and follower.distanceto(player) < 5:
+				follower.removefromview()
+				follower.moveto(location)
+				follower.update(0)
+
 	player.removefromview()
 	player.moveto(pos)
 	player.update()

@@ -171,7 +171,7 @@ class Recall (Spell):
 			return
 
 		# Move his pets if he has any
-		if char.char:
+		if char.player:
 			for follower in char.followers:
 				if follower.wandertype == 4 and follower.distanceto(char) < 5:
 					follower.removefromview()
