@@ -44,6 +44,7 @@
 #include "../wpscriptmanager.h"
 #include "../wpdefmanager.h"
 #include "../wpdefaultscript.h"
+#include "../verinfo.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -789,7 +790,7 @@ static PyMethodDef wpSockets[] =
 {
 	{ "first",			wpSocketsFirst,	METH_VARARGS, "Returns the first connected socket." },
 	{ "next",			wpSocketsNext,	METH_VARARGS, "Returns the next connected socket." },
-	{ "count",			wpSocketsCount,	METH_VARARGS, "Returns the next connected socket." },
+	{ "count",			wpSocketsCount,	METH_VARARGS, "Returns the number of connected sockets." },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
@@ -813,6 +814,27 @@ PyObject *wpCoord( PyObject* self, PyObject* args )
 	pos.map = getArgInt( 3 );
 
 	return PyGetCoordObject( pos );
+}
+
+/*!
+	Returns uptime of server in seconds
+*/
+PyObject* wpServerUptime( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(args);
+	Q_UNUSED(self);
+	return PyInt_FromLong( uiCurrentTime / MY_CLOCKS_PER_SEC );
+}
+
+/*!
+	Returns the server version string
+*/
+PyObject* wpServerVersion( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(args);
+	Q_UNUSED(self);
+	wp_version_info wpversioninfo;
+	return PyString_FromString( QString("%1 %2 %3").arg( wpversioninfo.productstring.c_str() ).arg( wpversioninfo.betareleasestring.c_str() ).arg( wpversioninfo.verstring.c_str() ).latin1() );
 }
 
 /*!
@@ -841,6 +863,8 @@ static PyMethodDef wpGlobal[] =
 	{ "list",				wpList,				METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
 	{ "registerglobal",		wpRegisterGlobal,	METH_VARARGS, "Registers a global script hook." },
 	{ "registercommand",	wpRegisterCommand,	METH_VARARGS, "Registers a global command hook." },
+	{ "serveruptime",		wpServerUptime,		METH_VARARGS, "Returns uptime of server in seconds." },
+	{ "serverversion",		wpServerVersion,	METH_VARARGS, "Returns the server version string." },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
