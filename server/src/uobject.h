@@ -66,8 +66,9 @@ class cUObject : public PersistentObject, public cDefinable
 //	Q_OBJECT
 // Data Members
 private:
- 	QString bindmenu_;
+	QString bindmenu_;
 
+protected:
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 

@@ -50,7 +50,7 @@ class cChar;
 // Beware! This is abstract (more or less)
 class cMulti : public cItem
 {
-private:
+protected:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 
 public:
