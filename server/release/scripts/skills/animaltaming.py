@@ -26,18 +26,17 @@ TAMING_DELAY = 10000
 
 # Button for AnimalTaming pressed on skill gump
 def animaltaming( char, skill ):
-	socket = char.socket
-	if char.hastag('skill_delay'):
+	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
-		if cur_time < char.gettag('skill_delay'):
-			socket.clilocmessage(500118, "", 0x3b2, 3)
+		if cur_time < char.socket.gettag( 'skill_delay' ):
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
 		else:
-			char.deltag('skill_delay')
+			char.socket.deltag( 'skill_delay' )
 
 	# Assign the target request
-	socket.clilocmessage( 502789, "", 0x3b2, 3 )
-	socket.attachtarget("skills.animaltaming.response")
+	char.socket.clilocmessage( 502789, "", 0x3b2, 3 )
+	char.socket.attachtarget("skills.animaltaming.response")
 	return 1
 
 def response(char, args, target):
@@ -122,7 +121,7 @@ def dotame(char, totame):
 	socket.clilocmessage( 1010598, "", 0x3b2, 3, totame )
 
 	cur_time = servertime()
-	char.settag( 'skill_delay', cur_time + TAMING_DELAY )
+	char.socket.settag('skill_delay', cur_time + TAMING_DELAY)
 
 	# set timer
 	char.addtimer( TAMING_DURATION, "skills.animaltaming.callback", [ havetamed, totame.serial, 0 ] )
