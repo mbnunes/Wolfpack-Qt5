@@ -742,10 +742,6 @@ InputName=items
 # End Source File
 # Begin Source File
 
-SOURCE=.\itemsmgr.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\magic.h
 # End Source File
 # Begin Source File
