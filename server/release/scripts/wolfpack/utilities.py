@@ -607,24 +607,42 @@ def createlockandkey( container ):
 	\param explodes
 	\param hue
 	\param rendermode
+	\param
 	\return none
 	\description Animates a character's throwing of an object at a given target.
 """
-def throwobject( char, object, target, sendobject=0, speed=10, fixeddir=0, explodes=0, hue=0, rendermode=0 ):
-	char.turnto(target.pos)
-	char.action(0x9)
-	char.movingeffect(object.id, target.pos, fixeddir, explodes, speed, hue, rendermode)
+def throwobject( char, object, target, sendobject=0, movable=1, speed=10, fixeddir=0, explodes=0, hue=0, rendermode=0 ):
 	# This will make the object leave the character's pack and land at the target location.
 	if sendobject > 0 and object:
 		if target.char:
+			# Container Workaround
+			if object.container:
+				object.container = 0
 			char.say('Bombing a character with %s!' % (object.name) )
-			object.moveto(target.char.pos.x, target.char.pos.y)
-		elif target.item and target.item.type != 1 and (not target.item.container):
+			object.moveto(target.char.pos)
+		elif target.item:
+			if target.item.type == 1 or target.item.type == 21:
+				return OOPS
+			# Container Workaround
+			if object.container:
+				object.container = 0
 			char.say('Bombing an item with %s!' % (object.name) )
-			object.moveto( target.item.pos.x, target.item.pos.y )
+			object.moveto( target.item.pos )
 		else:
+			# Container Workaround
+			if object.container:
+				object.container = 0
 			char.say('Bombing something else with %s!' % (object.name) )
-			object.moveto( target.pos.x, target.pos.y )
+			object.moveto( target.pos )
+		char.turnto(target.pos)
+		char.action(0x9)
+		char.movingeffect(object.id, target.pos, fixeddir, explodes, speed, hue, rendermode)
+		object.magic = movable
 		object.update()
+	else:
+		char.turnto(target.pos)
+		char.action(0x9)
+		char.movingeffect(object.id, target.pos, fixeddir, explodes, speed, hue, rendermode)
+
 	return
 

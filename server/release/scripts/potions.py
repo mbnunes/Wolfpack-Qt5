@@ -54,11 +54,80 @@ def onUse( char, item ):
 	return OK
 
 def targetexplosionpotion(char, args, target):
-	throwobject( char, args[0], target, 1 )
-	return OK
+	potion = args[0]
+	throwobject( char, potion, target, 1, 3, 5 )
+	# char, potion, counter value
+	potionexplosion( [ char, potion, 3 ] )
+	potion.settag('exploding', 'true')
+	return
 
 def potionexplosion(args):
-	return OK
+	# item.say() or similar feature is missing
+	# item.effect() is missing
+	char = args[0]
+	potion = args[1]
+	counter = args[2]
+	if counter > 0:
+		wolfpack.addtimer(1000, "potions.potioncountdown", [char, potion, counter] )
+		return
+	else:
+		potion.soundeffect(0x307) # Boom!
+		potionregion( [char, potion] )
+		potion.delete()
+		return
+
+def potioncountdown( time, args ):
+	char = args[0]
+	potion = args[1]
+	counter = args[2]
+	if counter > 0:
+		#item.say("%s" % str(counter) )
+		potionexplosion([ char, potion, int(counter - 1) ])
+	return
+
+def potionregion( args ):
+	char = args[0]
+	potion = args[1]
+	if potion.container:
+		return OOPS
+	if potion.gettag('potiontype') == 11:
+		outradius = 1
+	elif potion.gettag('potiontype') == 12:
+		outradius = 2
+	elif potion.gettag('potiontype') == 13:
+		outradius = 3
+	else:
+		outradius = 1
+	x1 = int(potion.pos.x - outradius)
+	y1 = int(potion.pos.y - outradius)
+	x2 = int(potion.pos.x + outradius)
+	y2 = int(potion.pos.y + outradius)
+	# Character Bombing
+	damageregion = wolfpack.charregion( x1, y1, x2, y2, potion.pos.map )
+	target = damageregion.first
+	while target:
+		target.effect(0x36BD, 20, 10)
+		potiondamage(char, target, potion)
+		target = damageregion.next
+
+	# Chain Reaction Bombing
+	chainregion = wolfpack.itemregion( x1, y1, x2, y2, potion.pos.map )
+	chainbomb= chainregion.first
+	while chainbomb:
+		if chainbomb.baseid in [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]:
+			if not chainbomb.hastag('exploding'):
+				wolfpack.addtimer(1000, "potions.potioncountdown", [char, chainbomb, 1] )
+				chainbomb = chainregion.next
+			else:
+				chainbomb = chainregion.next
+		else:
+			chainbomb = chainregion.next
+
+	return
+
+def potiondamage( char, target, potion ):
+	target.say("Ouch!")
+	return
 
 # Check what kind of potion we use, drink or throw
 def potioncheck( char, item, potiontype ):
