@@ -183,7 +183,7 @@ void cCorpse::update( cUOSocket *mSock )
 	sendItem.setSerial( serial() );
 	sendItem.setCoord( pos() );
 	sendItem.setDirection( direction() );
-	sendItem.setColor( color() );
+	sendItem.setColor( color() | 0x8000 );
 
 	if( mSock )
 	{
