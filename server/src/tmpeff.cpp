@@ -1678,6 +1678,7 @@ cRepeatAction::cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay )
 	mage->action( anim );
 	expiretime = uiCurrentTime + delay;
 	dispellable = false;
+	serializable = false;
 }
 
 void cRepeatAction::Expire()

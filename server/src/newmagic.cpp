@@ -11,6 +11,8 @@
 #include "srvparams.h"
 #include "TmpEff.h"
 #include "wpdefmanager.h"
+#include "wpscriptmanager.h"
+#include "wpdefaultscript.h"
 #include "tilecache.h"
 
 class cSpellTarget : public cTargetRequest
@@ -35,11 +37,48 @@ public:
 
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
+		if( !socket->player() || !socket->player()->casting() )
+			return true;
+
 		// Target information:
 		socket->sysMessage( "Target information:" );
 		socket->sysMessage( QString( "SERIAL: %1" ).arg( target->serial() ) );
 		socket->sysMessage( QString( "Pos: %1,%2,%3" ).arg( target->x() ).arg( target->y() ).arg( target->z() ) );
 		socket->sysMessage( QString( "Model: %1" ).arg( target->model() ) );
+
+		stNewSpell *sInfo = NewMagic->findSpell( spell );
+
+		if( !sInfo || !NewMagic->checkTarget( socket->player(), sInfo, target ) )
+			return true;
+
+		// The Target is correct, let us do our spellcheck now and consume mana + reagents.
+		if( !NewMagic->useMana( socket->player(), spell ) || !NewMagic->useReagents( socket->player(), spell ) )
+		{
+			NewMagic->disturb( socket->player(), false, -1 );
+			return true;
+		}
+
+		if( !NewMagic->checkSkill( socket->player(), spell, false ) )
+		{
+			NewMagic->disturb( socket->player(), true, -1 );
+			return true;
+		}
+
+		cUObject *pObject = 0;
+
+		if( isCharSerial( target->serial() ) )
+			pObject = FindCharBySerial( target->serial() );
+		else if( isItemSerial( target->serial() ) )
+			pObject = FindItemBySerial( target->serial() );
+
+		Coord_cl pos = socket->player()->pos;
+		pos.x = target->x();
+		pos.y = target->y();
+		pos.z = target->z();
+
+		// Call the Spell Effect for this Spell
+		if( sInfo->script )
+			sInfo->script->onSpellSuccess( socket->player(), spell, type, pObject, pos, target->model() );
 
 		return true;
 	}
@@ -88,6 +127,8 @@ void cNewMagic::load()
 		if( !id || id > 64 )
 			continue;
 
+		spells[id].script = 0;
+
         id--;
 		QDomElement node = elem->firstChild().toElement();
 
@@ -130,6 +171,8 @@ void cNewMagic::load()
 				spells[id].mana = node.text().toInt();
 			else if( node.nodeName() == "scroll" )
 				spells[id].scroll = hex2dec( node.text() ).toLong();
+			else if( node.nodeName() == "script" )
+				spells[id].script = ScriptManager->find( node.text() );
 
 			QDomNode tmp = node.nextSibling();
 			if( !tmp.isNull() )
@@ -356,6 +399,12 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	if( !checkMana( pMage, spell ) || !checkReagents( pMage, spell ) )
 		return;
 
+	// We start casting here
+	pMage->setCasting( true );
+
+	// We get frozen here too
+	pMage->setPriv2( pMage->priv2() | 0x02 );	
+
 	// Say the mantra
 	// Type 0x0A : Spell
 	pMage->talk( sInfo->mantra, pMage->saycolor(), 0x0A, false );
@@ -367,27 +416,12 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	// This will repeat the animation until
 	// We are done casting or until we are being
 	// disturbed.
-	//pMage->startRepeatedAction( 0xE9, 1250 ); // Repeat every 1250 ms
-
-	cUOTxAction action;
-	action.setAction( 0xE9 );
-	action.setSerial( pMage->serial );
-	action.setDirection( pMage->dir() );
-	action.setRepeat( 3 );
-	action.setRepeatFlag( 1 );
-	action.setSpeed( 1 );
-
-	pMage->socket()->send( &action );
+	pMage->startRepeatedAction( sInfo->action, sInfo->actiondelay ); // Repeat every 1250 ms
 
 	// Now we have to do the following: 
 	// We show the target cursor after a given amount of time (set in the scripts)
 	// So what we are adding here is cEndCasting() supplying the Serial of our Mage 
 	// And the ID of our Spell.
-
-	// This is the place where we start casting
-	pMage->setCasting( true );
-
-	// Only repeat the animation if walking disturbs casting
 	cTempEffects::getInstance()->insert( new cEndCasting( pMage, spell, CT_BOOK, sInfo->delay ) );
 }
 

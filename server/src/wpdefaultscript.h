@@ -40,6 +40,7 @@
 #include "qdom.h"
 
 class cUObject;
+class Coord_cl;
 
 class WPDefaultScript  
 {
@@ -101,6 +102,12 @@ public:
 	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { return false; }
 
 	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { return false; }
+	
+	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }
+	virtual bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }
+	virtual bool onSpellTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model ) { return false; }
+	virtual bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model ) { return false; }
+	virtual bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model ) { return false; }
 };
 
-#endif // !defined(AFX_WPDEFAULTSCRIPT_H__FDB3420A_822D_4D37_8D60_1ED584CC02DF__INCLUDED_)
+#endif

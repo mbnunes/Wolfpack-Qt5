@@ -77,44 +77,27 @@ void WPPythonScript::load( const QDomElement &Data )
 	// Initialize it
 	codeModule = NULL;
 
-	QDomNodeList nodeList = Data.childNodes();
+	QString moduleName = Data.attribute( "module" );
 
-	if( nodeList.count() < 1 )
+	if( moduleName.isNull() || moduleName.isEmpty() )
 		return;
 
-	// Walk all settings
-	for( UI08 i = 0; i < nodeList.count(); i++ )
+	// Compile the codemodule
+	char moduleNameStr[1024]; // Just to be sure
+	strcpy( &moduleNameStr[ 0 ], moduleName.latin1() );
+
+	codeModule = PyImport_ImportModule( moduleNameStr );
+
+	if( codeModule == NULL )
 	{
-		if( !nodeList.item( i ).isElement() )
-			continue;
+		clConsole.ProgressFail();
 
-		QDomElement element = nodeList.item( i ).toElement();
+		if( PyErr_Occurred() )
+			PyErr_Print();
 
-		if( element.nodeName() == "module" )
-		{
-			if( !element.attributes().contains( "name" ) )
-				continue;
-
-			QString moduleName = element.attributeNode( "name" ).nodeValue();
-
-			// Compile the codemodule
-			char moduleNameStr[1024]; // Just to be sure
-			strcpy( &moduleNameStr[ 0 ], moduleName.latin1() );
-
-			codeModule = PyImport_ImportModule( moduleNameStr );
-
-			if( codeModule == NULL )
-			{
-				clConsole.ProgressFail();
-
-				if( PyErr_Occurred() )
-					PyErr_Print();
-
-				clConsole.send( QString( "\nError while compiling module [" + moduleName + "]\n" ) );
-				clConsole.PrepareProgress( "Continuing loading" );
-				return;
-			}
-		}
+		clConsole.send( QString( "\nError while compiling module [" + moduleName + "]\n" ) );
+		clConsole.PrepareProgress( "Continuing loading" );
+		return;
 	}
 }
 
@@ -304,6 +287,99 @@ bool WPPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
 		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
 
 	PyEvalMethod( "onShowContextMenu" )
+}
+
+bool WPPythonScript::onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type )
+{
+	PyHasMethod( "onBeginCast" )
+	
+	PyObject *tuple = PyTuple_New( 3 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
+	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
+
+	PyEvalMethod( "onBeginCast" )
+}
+
+bool WPPythonScript::onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type )
+{
+	PyHasMethod( "onEndCast" )
+	
+	PyObject *tuple = PyTuple_New( 3 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
+	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
+
+	PyEvalMethod( "onEndCast" )
+}
+
+bool WPPythonScript::onSpellTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model )
+{
+	PyHasMethod( "onSpellTarget" )
+	
+	PyObject *tuple = PyTuple_New( 6 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
+	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( spell ) );
+	
+	// Check what kind of data we have here
+	if( pObject && isCharSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 3, PyGetCharObject( (P_CHAR)pObject ) );
+	else if( pObject && isItemSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 3, PyGetItemObject( (P_ITEM)pObject ) );
+	else if( !pObject )
+		PyTuple_SetItem( tuple, 3, Py_None );
+
+	PyTuple_SetItem( tuple, 4, PyGetCoordObject( pos ) );
+	PyTuple_SetItem( tuple, 5, PyInt_FromLong( model ) );
+
+	PyEvalMethod( "onSpellTarget" )
+}
+
+bool WPPythonScript::onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model )
+{
+	PyHasMethod( "onSpellSuccess" )
+	
+	PyObject *tuple = PyTuple_New( 6 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
+	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( spell ) );
+	
+	// Check what kind of data we have here
+	if( pObject && isCharSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 3, PyGetCharObject( (P_CHAR)pObject ) );
+	else if( pObject && isItemSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 3, PyGetItemObject( (P_ITEM)pObject ) );
+	else if( !pObject )
+		PyTuple_SetItem( tuple, 3, Py_None );
+
+	PyTuple_SetItem( tuple, 4, PyGetCoordObject( pos ) );
+	PyTuple_SetItem( tuple, 5, PyInt_FromLong( model ) );
+
+	PyEvalMethod( "onSpellSuccess" )
+}
+
+bool WPPythonScript::onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model )
+{
+	PyHasMethod( "onSpellFailure" )
+	
+	PyObject *tuple = PyTuple_New( 6 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
+	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( spell ) );
+	
+	// Check what kind of data we have here
+	if( pObject && isCharSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 3, PyGetCharObject( (P_CHAR)pObject ) );
+	else if( pObject && isItemSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 3, PyGetItemObject( (P_ITEM)pObject ) );
+	else if( !pObject )
+		PyTuple_SetItem( tuple, 3, Py_None );
+
+	PyTuple_SetItem( tuple, 4, PyGetCoordObject( pos ) );
+	PyTuple_SetItem( tuple, 5, PyInt_FromLong( model ) );
+
+	PyEvalMethod( "onSpellFailure" )
 }
 
 //============ wolfpack.server

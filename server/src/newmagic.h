@@ -71,12 +71,15 @@ struct stReagents
 	UINT8 ginseng, bloodmoss, mandrake, blackpearl, spidersilk, sulfurash, garlic, nightshade;
 };
 
+class WPDefaultScript;
+
 struct stNewSpell
 {
 	QString name, mantra, target;
 	UINT16 booklow, bookhigh, scrolllow, scrollhigh, actiondelay, delay, scroll;
 	UINT8 action, targets, flags, mana;
 	stReagents reagents;
+	WPDefaultScript *script;
 };
 
 struct stSpellStub

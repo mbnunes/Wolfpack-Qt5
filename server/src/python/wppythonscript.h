@@ -76,6 +76,12 @@ public:
 
 	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );
 	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );
+
+	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type );
+	virtual bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type );
+	virtual bool onSpellTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
+	virtual bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
+	virtual bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
 };
 
 #endif // __WPPYTHONSCRIPT_H__
