@@ -1247,8 +1247,8 @@ void walking(int c, int dir, int sequence)
   
 	if ((pc->pos.x!=oldx)||(pc->pos.y!=oldy))
 	{
-        if (pc->isPlayer() || pc->questType || pc->tamed)
-            objTeleporters(c); 
+//        if (pc->isPlayer() || pc->questType || pc->tamed)
+ //           objTeleporters(c); 
             teleporters(c);
 	}
 

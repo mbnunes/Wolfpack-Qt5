@@ -41,7 +41,6 @@
 #include "magic.h"
 #include "chars.h"
 #include "items.h"
-#include "scriptc.h"
 #include "SndPkg.h"
 #include "itemid.h"
 #include "debug.h"

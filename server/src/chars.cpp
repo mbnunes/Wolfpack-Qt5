@@ -818,7 +818,7 @@ void cChar::Serialize(ISerialization &archive)
 		SetOwnSerial(ownserial);
 		SetSpawnSerial(spawnserial_);
 	
-		unsigned int tagSize = 0, i = 0;
+/*		unsigned int tagSize = 0, i = 0;
 		QString tagKey;
 		QString tmpValue;
 		cVariant tagValue;
@@ -836,7 +836,7 @@ void cChar::Serialize(ISerialization &archive)
 			tagKey = tagKey.remove(0, 2);
 			this->tags->set( tagKey, tagValue );
 			i++;
-		}
+		}*/
 	}
 	else if ( archive.isWritting())
 	{

@@ -1737,7 +1737,7 @@ void statwindow(int s, P_CHAR pc) // Opens the status window
 
 void updates(UOXSOCKET s) // Update Window
 {
-	UI32 x, y = 10;
+	UI32 y = 10;
 
 #pragma note("new xml format: convert section MOTD to <list> with id MOTD")
 	QStringList motdText = DefManager->getList( "MOTD" );
@@ -1747,7 +1747,6 @@ void updates(UOXSOCKET s) // Update Window
 		y += (*it).length();
 		it++;
 	}
-	x = motdText.size();
 	
 	updscroll[1]=y>>8;
 	updscroll[2]=y%256;
@@ -1764,66 +1763,44 @@ void updates(UOXSOCKET s) // Update Window
 	}
 }
 
-void tips(int s, int i) // Tip of the day window
+void tips(int s, int tip) // Tip of the day window
 {
-	int x, y
-	char temp[512];
+	UI32 y = 10;
 
-	if (i==0) i=1; // WTF IS THAT i ??? impossible immortal indisposed ???
-	openscript("misc.scp");
-	if (!i_scripts[misc_script]->find("TIPS"))
-	{
-		closescript();
+	if( tip == 0 ) 
+		tip = 1; 
+
+#pragma note("new xml format: convert section TIPS to <list> with id TIPS")
+#pragma note("new xml format: convert section TIP to <list> linked in TIPS-list")
+	QStringList tipList = DefManager->getList( "TIPS" );
+	if( tipList.size() == 0 )
 		return;
-	}
-	x=i;
-	unsigned long loopexit=0;
-	do
+	else if( tip > tipList.size() )
+		tip = tipList.size();
+
+	QStringList tipText = DefManager->getList( tipList[ tip-1 ] );
+	QStringList::iterator it = tipText.begin();
+	while( it != tipText.end() )
 	{
-		read2();
-		if (!(strcmp("TIP", (char*)script1))) x--;
+		y += (*it).length();
+		it++;
 	}
-	while ((x>0)&&script1[0]!='}'&&script1[0]!=0 && (++loopexit < MAXLOOPS) );
-	closescript();
-	if (!(strcmp("}", (char*)script1)))
-	{
-		tips(s, 1);
-		return;
-	}
-	openscript("misc.scp");
-	sprintf(temp, "TIP %i", str2num(script2));
-	if (!i_scripts[misc_script]->find(temp))
-	{
-		closescript();
-		return;
-	}
-	pos=ftell(scpfile);
-	x=-1;
-	y=-2;
-	loopexit=0;
-	do
-	{
-		read1();
-		x++;
-		y+=strlen((char*)script1)+1;
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-	y+=10;
-	fseek(scpfile, pos, SEEK_SET);
+
 	updscroll[1]=y>>8;
 	updscroll[2]=y%256;
 	updscroll[3]=0;
-	updscroll[7]=i;
+	updscroll[7]=tip;
 	updscroll[8]=(y-10)>>8;
 	updscroll[9]=(y-10)%256;
+
 	Xsend(s, updscroll, 10);
-	for (j=0;j<x;j++)
+
+	it = tipText.begin();
+	while( it != tipText.end() )
 	{
-		read1();
-		sprintf(temp, "%s ", script1);
-		Xsend(s, temp, strlen(temp));
+		Xsend( s, (*it).latin1(), (*it).length() );
+		it++;
 	}
-	closescript();
 }
 
 void weblaunch(int s, char *txt) // Direct client to a web page
