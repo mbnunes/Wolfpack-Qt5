@@ -105,6 +105,9 @@ def check_timeouts():
 	Clears all currently opened sessions
 """
 def clear_sessions():
+	if not os.path.exists( 'sessions' ):
+		os.mkdir( 'sessions', 0700 )
+
 	files = os.listdir( 'sessions/' )
 	for file in files:
 		if file.endswith( '.dat' ):
