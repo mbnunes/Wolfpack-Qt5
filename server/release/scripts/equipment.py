@@ -333,3 +333,53 @@ def onUnequip(char, item, layer):
 	# Update Stats
 	if changed:
 		char.updatestats()
+
+# Try to equip an item after calling onWearItem for it
+def onUse(player, item):
+	tile = wolfpack.tiledata(item.id)
+	layer = tile['layer']
+
+	if layer == 0 or not (tile['flag3'] & 0x40):		
+		return 0	
+		
+	previous = player.itemonlayer(layer)
+	if previous:
+		tobackpack(previous, player)
+		previous.soundeffect(0x57)
+		previous.update()
+	
+	if layer == LAYER_RIGHTHAND or layer == LAYER_LEFTHAND:
+		# Check if we're equipping on one of the standard layers
+		righthand = player.itemonlayer(LAYER_RIGHTHAND)
+		lefthand = player.itemonlayer(LAYER_LEFTHAND)
+		
+		if righthand and righthand.twohanded:
+			tobackpack(righthand, backpack)
+			righthand.update()
+			righthand.soundeffect(0x57)
+			
+		if lefthand and lefthand.twohanded:
+			tobackpack(lefthand, backpack)			
+			lefthand.update()
+			lefthand.soundeffect(0x57)
+	
+	# Check if there is another dclick handler
+	# in the eventchain somewhere. if not,
+	# return 1 to handle the equip event.
+	events = item.events	
+	
+	for event in events:
+		if wolfpack.hasevent(event, EVENT_WEARITEM):
+			result = wolfpack.callevent(event, EVENT_WEARITEM, (player, player, item, layer))
+			if result:
+				return 1
+			
+	player.additem(layer, item)	
+	item.update()
+	item.soundeffect(0x57)
+	
+	for event in events[events.index("equipment")+1:]:
+		if wolfpack.hasevent(event, EVENT_USE):
+		 return 0		
+
+	return 1
