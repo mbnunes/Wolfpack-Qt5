@@ -75,6 +75,7 @@
 
 extern "C" {
 	void init_socket( void );
+	int Py_NoSiteFlag;
 };
 
 #undef DBGFILE
@@ -2729,6 +2730,8 @@ void startPython( int argc, char* argv[] )
 	Py_SetProgramName( argv[ 0 ] );
 	Py_SetPythonHome( "python" ); // Subdirectory "python" is the base path
 
+	Py_NoSiteFlag = 1;
+
 	Py_Initialize(); // Initialize python finally
 	PySys_SetArgv( argc, argv );
 
@@ -2774,7 +2777,21 @@ void startPython( int argc, char* argv[] )
 
 		PyList_Append( searchPath, PyString_FromString( element.text().ascii() ) );
 	}
-	
+
+        // Import site now
+        PyObject *m = PyImport_ImportModule("site");
+        if( m == NULL )
+        {
+                clConsole.ProgressFail();
+                if( PyErr_Occurred() )
+                        PyErr_Print();
+                return;
+        }
+        else
+        {
+                Py_XDECREF( m );
+        }
+
 	init_socket();
 	initPythonExtensions();
 
