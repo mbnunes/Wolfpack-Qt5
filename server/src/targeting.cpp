@@ -3294,13 +3294,12 @@ void cTargets::ResurrectionTarget( UOXSOCKET s )
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
 	if( serial == INVALID_SERIAL ) return;
-	int i=calcCharFromSer(serial);
-	if (i>-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if (pc->dead)
 		{
-			Targ->NpcResurrectTarget(i);
+			Targ->NpcResurrectTarget(DEREF_P_CHAR(pc));
 			return;
 		}
 	}
@@ -3314,10 +3313,9 @@ void cTargets::ShowAccountCommentTarget(int s)
 
 	int serial=LongFromCharPtr(buffer[s]+7);
 	if( serial == INVALID_SERIAL ) return;
-	int i=calcCharFromSer(serial);
-	if(i!=-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if(pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if(pc->account==-1)
 		{
 			sysmessage(s,"No account available for that character.");
@@ -3370,10 +3368,9 @@ void cTargets::SetHome(int s)
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
 	if(serial == INVALID_SERIAL ) return;
-	int i=calcCharFromSer(serial);
-	if(i!=-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if(pc!=NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->homelocx=addx[s];
 		pc->homelocy=addy[s];
 		pc->homelocz=addz[s];
@@ -3384,10 +3381,9 @@ void cTargets::SetWork(int s)
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
 	if( serial == INVALID_SERIAL ) return;
-	int i=calcCharFromSer(serial);
-	if(i!=-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if(pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->worklocx=addx[s];
 		pc->worklocy=addy[s];
 		pc->worklocz=addz[s];
@@ -3398,10 +3394,9 @@ void cTargets::SetFood(int s)
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
 	if( serial == INVALID_SERIAL ) return;
-	int i=calcCharFromSer(serial);
-	if(i!=-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if(pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->foodlocx=addx[s];
 		pc->foodlocy=addy[s];
 		pc->foodlocz=addz[s];
