@@ -963,7 +963,6 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 	}
 	signed char sz, mz, z;
 	bool check = false;
-	map_st mapt;
 	for( x = x0; x <= x1; x++ ) 
 	{
 		for( y = y0; y <= y1; y++) 

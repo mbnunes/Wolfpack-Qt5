@@ -115,7 +115,6 @@ public:
 	cUObject();
 	cUObject( cUObject& ); // Copy constructor
 	virtual ~cUObject() {};
-	virtual void Serialize(ISerialization &archive) {};
 	virtual QString objectID() const = 0;
 	void moveTo( const Coord_cl& );
 	QString bindmenu() const { return bindmenu_; }

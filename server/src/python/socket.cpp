@@ -84,6 +84,7 @@ PyObject* PyGetSocketObject( cUOSocket *socket )
 */
 PyObject* wpSocket_disconnect( wpSocket* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pSock )
 		return PyFalse;
 
@@ -205,6 +206,9 @@ PyObject *wpSocket_getAttr( wpSocket *self, char *name )
 
 int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value )
 {
+	Q_UNUSED(self);
+	Q_UNUSED(name);
+	Q_UNUSED(value);
 	return 0;
 }
 

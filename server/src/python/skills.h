@@ -44,6 +44,7 @@ typedef struct {
 
 int wpSkills_length( wpSkills *self )
 {
+	Q_UNUSED(self);
 	return ALLSKILLS;
 }
 

@@ -860,6 +860,7 @@ bool VendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, const QStr
 // msg must already be capitalized
 void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 {
+	Q_UNUSED(socket);
 	// Not inside a multi
 	if( pPlayer->multis == INVALID_SERIAL )
 		return; 

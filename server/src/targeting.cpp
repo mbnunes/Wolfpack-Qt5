@@ -80,7 +80,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 
 	if( pc->owner() == pc_currchar )
 	{
-		pc->talk( tr("I work for you, you need not buy things from me!"), -1, 0 );
+		pc->talk( tr("I work for you, you need not buy things from me!") );
 		return;
 	}
 

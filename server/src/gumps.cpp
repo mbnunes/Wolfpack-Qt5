@@ -148,6 +148,13 @@ void cGump::addCroppedText( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT
 }
 
 
+void cGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+{
+	Q_UNUSED(socket);
+	Q_UNUSED(choice);
+#pragma note("This is a good candidate for pure virtual")
+}
+
 cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 {
 	region_ = region;
@@ -460,9 +467,6 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				break;
 			case 18:
 				{
-					UINT16 x,y;
-					INT8 z;
-
 					Coord_cl npos( char_->pos );
 					QStringList sects = QStringList::split( " ", it->second );
 					if( sects.count() > 0 )
@@ -787,9 +791,6 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				break;
 			case 5:
 				{
-					UINT16 x,y;
-					INT8 z;
-
 					Coord_cl npos( item_->pos );
 					QStringList sects = QStringList::split( " ", it->second );
 					if( sects.count() > 0 )
@@ -1282,7 +1283,6 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 	std::vector< WPPAGE_TYPE > pageTypes;
 	std::vector< UINT32 > offsets;
 	UINT32 offset = 0;
-	UINT32 bla = 0;
 
 	QStringList categories = cPagesManager::getInstance()->categories();
 

@@ -104,11 +104,11 @@ public:
 	int					getDest();
 	void				setSour(int ser);
 	int					getSour();
-	void				On(P_CHAR pc) {;}
-	void				Off(P_CHAR pc) {;}
+	void				On(P_CHAR pc)  { Q_UNUSED(pc); }
+	void				Off(P_CHAR pc) { Q_UNUSED(pc); }
 	virtual void		Expire() = 0;
 	virtual void		Serialize(ISerialization &archive);
-	virtual void		Dispel( P_CHAR pSource, bool silent = false ) {;}
+	virtual void		Dispel( P_CHAR pSource, bool silent = false ) { Q_UNUSED(pSource); Q_UNUSED(silent); }
 	virtual QString		objectID() const  { return objectid;}
 	bool				isSerializable( void ) { return serializable; }
 	void				setSerializable( bool data ) { serializable = data; }

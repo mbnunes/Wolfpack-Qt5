@@ -607,6 +607,12 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 {
 	// Several security checks
+	if ( !_account )
+	{
+		clConsole.send( tr("%1 sent cUORxCreateChar without being authenticated, disconnecting. Probably a crypt client").arg(this->_socket->peerAddress().toString()) );
+		this->_socket->close();
+		return;
+	}
 	QValueVector<cChar*> characters = _account->caracterList();
 
     // If we have more than 5 characters

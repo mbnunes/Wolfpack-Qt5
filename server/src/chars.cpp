@@ -30,8 +30,8 @@
 //========================================================================================
 
 // Platform include
+#include <limits>
 #include "platform.h"
-
 
 // Wolfpack includes
 #include "accounts.h"
@@ -2050,9 +2050,8 @@ UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
 // Formerly deathstuff()
 void cChar::kill()
 {
-	int l, q, ele;
+	int ele;
 	int nType=0;
-	UINT32 ci;
 
 	if( free )
 		return;
@@ -2168,7 +2167,6 @@ void cChar::kill()
 	
 	unmount();
 
-	P_ITEM pi_j;
 #pragma note("Implement here tradewindow closing and disposal of it's cItem*")
 	// Close here the trade window... we still not sure how this will work, so I took out
 	//the old code
@@ -2300,7 +2298,6 @@ void cChar::kill()
 
 			if( pi_j->type() == 1 && pi_j->layer() != 0x1A && pi_j->layer() != 0x1B && pi_j->layer() != 0x1C && pi_j->layer() != 0x1D )
 			{   // if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
-				unsigned int ci1;
 				cItem::ContainerContent container = pi_j->content();
 				cItem::ContainerContent::const_iterator it2 = container.begin();
 				for ( ; it2 != container.end(); ++it2 )
@@ -2934,7 +2931,6 @@ void cChar::attackTarget( P_CHAR defender )
 		return;
 
 	playmonstersound( defender, defender->id(), SND_STARTATTACK );
-	int i;
 	unsigned int cdist=0 ;
 
 	P_CHAR target = FindCharBySerial( defender->targ() );

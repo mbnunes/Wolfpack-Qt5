@@ -36,8 +36,7 @@
 
 #include <fstream>
 #include <cstdio>
-#include "qmap.h"
-using namespace std;
+
 /*!
 CLASS
     

@@ -153,3 +153,8 @@ QString cDefinable::getNodeValue( const QDomElement &Tag ) const
 	return hex2dec( Value );
 }
 
+void cDefinable::processModifierNode( const QDomElement &Tag )
+{
+	Q_UNUSED(Tag);
+#pragma note("This is a good candidate for pure virtual")
+};

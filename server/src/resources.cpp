@@ -68,10 +68,6 @@ cResource::cResource( const QDomElement &Tag ) : amountmin_( 0 ), amountmax_( 0 
 	applyDefinition( Tag );
 }
 
-cResource::~cResource()
-{
-}
-
 void cResource::processNode( const QDomElement &Tag )
 {
 	QString TagName = Tag.nodeName();
@@ -1129,16 +1125,6 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 	this->setName2("#");
 	this->visible = 2; // gm visible
 }
-
-cResourceItem::~cResourceItem()
-{
-}
-
-void cResourceItem::Serialize( ISerialization &archive )
-{
-	//cSerializable::Serialize( archive );
-}
-
 
 // class cAllResources
 

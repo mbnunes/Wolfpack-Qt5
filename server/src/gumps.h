@@ -79,7 +79,7 @@ public:
 	void addRawLayout( const QString &data ) { layout_.push_back( data ); }
 	Q_UINT32 addRawText( const QString &data );
 
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice ) {}
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 	
 	// Comfort Setters
 	void startPage( Q_UINT32 pageId = 0 ) { layout_.push_back( QString( "{page %1}" ).arg( pageId ) ); }
@@ -210,11 +210,11 @@ protected:
 	QString responsefuncname_;
 
 public:
-	cPythonGump() {}
-
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice ) 
 	{
 		// TODO: passing choice to script/function
+		Q_UNUSED(socket);
+		Q_UNUSED(choice);
 	}
 };
 

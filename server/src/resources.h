@@ -49,7 +49,6 @@ class cResource : public cDefinable
 {
 public:
 	cResource( const QDomElement &Tag );
-	~cResource();
 
 	struct convertspec_st
 	{
@@ -122,10 +121,8 @@ class cResourceItem : public cItem
 {
 public:
 	cResourceItem( const QString& resource, UINT32 amount, UINT32 vein );
-	~cResourceItem();
 
 	// implements cSerializable
-	virtual void Serialize( ISerialization &archive );
 	virtual QString objectID( void ) const { return "RESOURCEITEM"; }
 
 	// Getters
