@@ -107,7 +107,7 @@ def cleartag( self, args ):
 
 def antimacrocheck( char, skillid, object ):
 	#Get or set antimacro tag: "AM" + SERIAL = COUNT
-	tagname = "AMC_" + str( char.serial ) + " " + str( skillid )
+	tagname = "AMC_%i_%i" % ( char.serial, skillid )
 	if object.hastag( tagname ):
 		count = object.gettag( tagname )
 		object.settag( tagname, int( count + 1 ) )
