@@ -871,6 +871,11 @@ void objTeleporters(int s)
 									if (RandomNum(1, 100) <= pmi->morez)
 										soundeffect3(pmi, (pmi->morex << 8) + pmi->morey);
 								}
+
+								if(pmi->type == 88)
+								{
+									RaceManager->SetRace(pc_s,pmi->morex);
+								}
 					}
 				}
 			}

@@ -3046,11 +3046,6 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 	if( itemToLock != -1 )
 	{
 		P_ITEM pi=MAKE_ITEMREF_LR(itemToLock);
-		if(!chars[currchar[s]].Owns(pi))
-		{
-			sysmessage(s,"This is not your item!");
-			return;
-		}
 		if (Items->isFieldSpellItem(itemToLock))
 		{
 			sysmessage(s,"you cannot release this!");

@@ -195,6 +195,7 @@ struct region_st
 	int goodbuy[256]; // Magius(CHE)
 	int goodrnd1[256]; // Magius(CHE) (2)
 	int goodrnd2[256]; // Magius(CHE) (2)
+	int RaceOwner; // Skyfires Race stuff
 };
 
 struct spawnregion_st// Regionspawns

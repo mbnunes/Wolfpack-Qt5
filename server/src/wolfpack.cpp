@@ -188,9 +188,9 @@ inline bool inRange(int x1, int y1, int x2, int y2, int range)
 
 int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on socket s
 {
-	int vr=VISRANGE;
+	
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],0);
-
+	int vr=Races[pc_currchar->race]->VisRange;
 	if (pi == NULL) // blackwind Crash fix 
 		return 0; 
 
@@ -671,11 +671,11 @@ char *complete_title(CHARACTER p) // generates the ENTIRE title plus criminal st
 			strcpy((char*)temp,tempstr);
 			if (strlen(pc->title)>0)
 			{//Titled & Skill
-				sprintf(tempstr, "%s %s, %s %s", temp, pc->title, title1(pc), title2(pc));
+				sprintf(tempstr, "%s %s %s, %s %s", temp, Races[pc->race]->RaceName, pc->title, title1(pc), title2(pc));
 			}
 			else
 			{//Just skilled
-				sprintf(tempstr, "%s, %s %s", temp, title1(pc), title2(pc));
+				sprintf(tempstr, "%s %s, %s %s", Races[pc->race]->RaceName, temp, title1(pc), title2(pc));
 			}
 		}
 	}
@@ -1815,7 +1815,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	//	character strcture.
 	pc->GuildType=-1;				//	Default to no guild
 	pc->GuildTraitor=false;	//	Also defauot to non trator, or no guild
-	pc->race=1;
+	pc->race=0; // Default human race
 	if (buffer[s][0x46]!='\x00')
 	{
 		pc->id2=0x91;
@@ -3095,7 +3095,9 @@ int main(int argc, char *argv[])
 
 	item_char_test(); //LB
 	Guilds->CheckConsistancy(); // LB
-
+	clConsole.send("Loading Races!\n");
+	RaceManager->LoadRaceFile();
+	clConsole.send("Races Loaded!\n");
 	Weather->start();
 	//Network->InitConnThread();
 
@@ -5703,6 +5705,8 @@ void StartClasses(void)
 	Weather=new cWeather;
 	HouseManager=new cHouseManager;
 	House.resize(0);
+	RaceManager=new cRaceManager;
+	Races.resize(0);
 	// Sky's AI Stuff
 	DragonAI=new cCharStuff::cDragonAI;
 	BankerAI=new cCharStuff::cBankerAI;

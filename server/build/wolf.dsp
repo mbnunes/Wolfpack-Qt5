@@ -271,6 +271,10 @@ SOURCE=.\qsf.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\races.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\rcvpkg.cpp
 # End Source File
 # Begin Source File
@@ -551,6 +555,10 @@ SOURCE=.\prototypes.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\races.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\rcvpkg.h
 # End Source File
 # Begin Source File
@@ -681,6 +689,10 @@ SOURCE=.\wpconsole.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=.\icon2.ico
+# End Source File
 # Begin Source File
 
 SOURCE=.\res.rc

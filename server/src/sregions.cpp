@@ -348,6 +348,10 @@ void loadregions()//New -- Zippy spawn regions
 				{
 					if (str2num(script2)) region[i].priv|=0x08;
 				}
+				else if(!(strcmp("OWNERRACE",(char*)script1)))
+				{
+					region[i].RaceOwner = str2num(script2);
+				}
 				else if (!(strcmp("SNOWCHANCE", script1)))
 				{
 					gettokennum(script2, 0);
@@ -519,12 +523,12 @@ void checkregion(int i)
 		{
 			if (region[chars[i].region].name[0]!=0)
 			{
-				sprintf((char*)temp, "You have left %s.", region[chars[i].region].name);
+				sprintf((char*)temp, "You have left %s  %s.",Races[region[chars[i].region].RaceOwner]->RaceName, region[chars[i].region].name);
 				sysmessage(s, (char*)temp);
 			}
 			if (region[calcreg].name[0]!=0)
 			{
-				sprintf((char*)temp, "You have entered %s.", region[calcreg].name);
+				sprintf((char*)temp, "You have entered %s %s.",Races[region[calcreg].RaceOwner]->RaceName, region[calcreg].name);
 				sysmessage(s, (char*)temp);
 			}
 			j=strcmp(region[calcreg].guardowner, region[chars[i].region].guardowner);

@@ -239,10 +239,13 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					{
 						onl = online(DEREF_P_CHAR(pc));
 						d = chardist(i, DEREF_P_CHAR(pc));
-						if (d > 10 || pc->isInvul() || pc->dead || !onl)
+						if (d > 10 || pc->isInvul() || pc->dead || !onl || pc->isHidden())
 							continue;
-						npcattacktarget(i, DEREF_P_CHAR(pc));
-						npctalkall(i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+						if(pc->isCriminal() || pc->isMurderer())
+						{
+							npcattacktarget(i, DEREF_P_CHAR(pc));
+							npctalkall(i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+						}
 					}
 				}
 			}
@@ -346,7 +349,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 					{
 						onl = online(DEREF_P_CHAR(pc));
 						d = chardist(i, DEREF_P_CHAR(pc));
-						if (d > 10 || pc->isPlayer() || pc->npcaitype != 2)
+						if (d > 10 || pc->isPlayer() || pc->npcaitype != 61)
 							continue;
 						npcattacktarget(i, DEREF_P_CHAR(pc));
 						return;

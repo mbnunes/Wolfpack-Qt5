@@ -1907,6 +1907,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			// IF TARGET VALID
 			if (pc_defender != NULL)				// we have to have targetted a person to kill them :)
 			{
+				if(true == Races[pc_defender->race]->CheckSpellImune(curSpell))
+				{
+					sysmessage(s,"He seems unaffected by your spell!");
+					return;
+				}
 				if( chardist( i, cc ) > SrvParms->attack_distance )
 				{
 					sysmessage( s, "You can't cast on someone that far away!" );
@@ -1917,7 +1922,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				{
 					if( aggressiveSpell( curSpell ) )
 					{
-						if ((pc_defender->isInnocent())&&(i != cc)&& !pc_currchar->Owns(&chars[i])&&(!Guilds->Compare(i,cc)) ){criminal(cc);}
+						if ((pc_defender->isInnocent())&&(i != cc)&& !pc_currchar->Owns(&chars[i])&&(!Guilds->Compare(i,cc))&&(!RaceManager->CheckRelation(pc_currchar,pc_defender)) ){criminal(cc);}
 						if (pc_defender->npcaitype==17) // Ripper 11-14-99
 						{
 							sysmessage(s," They are Invulnerable merchants!");

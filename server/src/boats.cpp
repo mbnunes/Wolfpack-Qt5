@@ -168,8 +168,6 @@ bool inmulti(Coord_cl pos, P_ITEM pi)//see if they are in the multi at these cho
 	for (j=0;j<length;j++)
 	{
 		mfile->get_st_multi(&multi);
-		/*clConsole.send("DEBUG: Multi { vis=%i - (%i,%i) } check(%i,%i,%i)   -   total(%i,%i)\n",
-		multi.visible,multi.x,multi.y,x,y,z,multi.x+items[m].x,items[m].y+multi.y);*/
 		if ((multi.visible)&&(pi->pos.x+multi.x == pos.x) && (pi->pos.y+multi.y == pos.y))
 		{
 			return true;

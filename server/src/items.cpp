@@ -327,6 +327,12 @@ void cItem::setId(short id)
 	id2=id&0x00FF;
 }
 
+void cItem::setColor(short color)
+{
+	color1=color>>8;
+	color2=color&0x00FF;
+}
+
 static int getname(int i, char* itemname)
 {
 	tile_st tile;
@@ -643,7 +649,7 @@ void cItem::Init(char mkser)
 	this->def=0; // Item defense
 	this->lodamage=0; //Minimum Damage weapon inflicts
 	this->hidamage=0; //Maximum damage weapon inflicts
-	this->racehate=0; //race hating weapon -Fraz-
+	this->racehate=-1; //race hating weapon -Fraz-
 	this->smelt=0; // for smelting items
 	this->secureIt=0; // secured chests
 	this->wpsk=0; //The skill needed to use the item

@@ -1087,7 +1087,7 @@ char cSkills::CheckSkill(int c, unsigned short int sk, int low, int high)
 	P_CHAR pc = MAKE_CHARREF_LRV(c,0);
     UOXSOCKET s=-1;
     if(pc->isPlayer()) s=calcSocketFromChar(DEREF_P_CHAR(pc));
-
+	
 	if( pc->dead ) // fix for magic resistance exploit and probably others too, LB
 	{
 		sprintf((char*)temp,"Ghosts can not train %s",skillname[sk]);
@@ -1096,6 +1096,11 @@ char cSkills::CheckSkill(int c, unsigned short int sk, int low, int high)
 	}
 	if (pc->isGM())
 		return 1;
+	if(false == Races[pc->race]->CheckSkillUse(sk)) // RACE skill check!
+	{
+		sysmessage(s,"Your race can not use this skill!");
+		return 0;
+	}
 	if(high>1200) high=1200;
 
 	int charrange=pc->skill[sk]-low;	// how far is the player's skill above the required minimum ?
@@ -1297,7 +1302,11 @@ void cSkills::AdvanceStats(CHARACTER s, int sk)
 
 	if(pc->isGM())		// a GM ?
 		isGM=true;
-	if(pc->st + pc->realDex() + pc->in >= SrvParms->statcap)
+	if(Races[pc->race]->StrCap<=pc->st)
+		atCap = true;
+	if(Races[pc->race]->IntCap<=pc->in)
+		atCap = true;
+	if(Races[pc->race]->DexCap<=pc->realDex())
 		atCap = true;
 	
 	i=skill[sk].advance_index;

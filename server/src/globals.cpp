@@ -310,7 +310,7 @@ cAllTmpEff		*AllTmpEff;
 cMovement		*Movement;
 cWeather		*Weather;
 cHouseManager   *HouseManager;
-
+cRaceManager    *RaceManager;
 // Sky's AI
 cCharStuff::cDragonAI	*DragonAI;
 cCharStuff::cBankerAI	*BankerAI;	

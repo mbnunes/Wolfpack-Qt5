@@ -1383,7 +1383,7 @@ void textflags (int s, int i, char *name)
 
 	Guilds->Title(s,i);
 
-	int tl,guild;
+	int tl,guild,race;
 	tl=44+strlen(name2)+1;
 	talk[1]=tl>>8;//AntiChrist
 	talk[2]=tl%256;
@@ -1395,12 +1395,13 @@ void textflags (int s, int i, char *name)
 	talk[8]=1;
 	talk[9]=6; // Mode: "You see"
 	guild=Guilds->Compare(currchar[s],i);
-	if (guild==1) //Same guild (Green)
+	race = RaceManager->CheckRelation(pc,pc_currchar);
+	if (guild==1 || race == 1) //Same guild (Green)
 	{
 		talk[10]=0x00;
 		talk[11]=0x43;
 	}
-	else if (guild==2) //enemy (Orange)
+	else if (guild==2 || race == 2) //enemy (Orange)
 	{
 		talk[10]=0x00;
 		talk[11]=0x30;
@@ -1493,7 +1494,7 @@ void teleport(int s) // Teleports character to its current set coordinates
 							impowncreate(k, i, 1);
 						}
 					} else if (mapitem != NULL) {
-						if(iteminrange(k, DEREF_P_ITEM(mapitem),VISRANGE))
+						if(iteminrange(k, DEREF_P_ITEM(mapitem),Races[pc->race]->VisRange))
 						{
 							senditem(k, DEREF_P_ITEM(mapitem));
 						}
@@ -2742,6 +2743,11 @@ void dolight(int s, char level)
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
 	light[1]=level;
+	if(Races[pc_currchar->race]->NightSight)
+	{
+		light[1]=pc_currchar->fixedlight;
+		Xsend(s, light, 2);
+	}
 	if (worldfixedlevel!=255)
 	{
 		light[1]=worldfixedlevel;
@@ -2872,11 +2878,12 @@ void impowncreate(int s, int i, int z) //socket, player to send
 	if (pc->poisoned) oc[17]=oc[17]|0x04; //AntiChrist -- thnx to SpaceDog
 
 	k=19;
-	int guild;
+	int guild,race;
 	guild=Guilds->Compare(currchar[s],i);
-	if (guild==1)//Same guild (Green)
+	race=RaceManager->CheckRelation(pc_currchar,pc);
+	if (guild==1 || race == 1)//Same guild (Green)
 		oc[18]=2;
-	else if (guild==2) // Enemy guild.. set to orange
+	else if (guild==2 || race == 2) // Enemy guild.. set to orange
 		oc[18]=5;
 	else
 		switch(pc->flag)

@@ -185,6 +185,7 @@ public:
 	void SetMultiSerial(long mulser);
 
 	void setId(short id);
+	void setColor(short color);
 	inline short id()			{return (short)((id1<<8)+id2);}
 
 	inline short color()		{return (short)((color1<<8)+color2);}

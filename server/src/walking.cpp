@@ -661,9 +661,9 @@ bool WalkSendToPlayers(UOXSOCKET s, CHARACTER c, int dir, int oldx, int oldy, in
 			if ((inrange1p(c, currchar[i])) && (perm[i]))
 			{
 				if (
-					(((abs(newx - chars[currchar[i]].pos.x) == VISRANGE) || (abs(newy - chars[currchar[i]].pos.y) == VISRANGE)) &&
-					((abs(oldx - chars[currchar[i]].pos.x)>VISRANGE) || (abs(oldy - chars[currchar[i]].pos.y)>VISRANGE))) ||
-					((abs(newx - chars[currchar[i]].pos.x) == VISRANGE) && (abs(newy - chars[currchar[i]].pos.y) == VISRANGE))
+					(((abs(newx - chars[currchar[i]].pos.x) == Races[pc->race]->VisRange) || (abs(newy - chars[currchar[i]].pos.y) == Races[pc->race]->VisRange)) &&
+					((abs(oldx - chars[currchar[i]].pos.x)>Races[pc->race]->VisRange) || (abs(oldy - chars[currchar[i]].pos.y)>Races[pc->race]->VisRange))) ||
+					((abs(newx - chars[currchar[i]].pos.x) == Races[pc->race]->VisRange) && (abs(newy - chars[currchar[i]].pos.y) == Races[pc->race]->VisRange))
 					)
 				{
 					impowncreate(i, c, 1);
@@ -738,7 +738,7 @@ bool WalkSendToPlayers(UOXSOCKET s, CHARACTER c, int dir, int oldx, int oldy, in
 						
 						
 						ShortToCharPtr(pc->skin, &extmove[13]);
-						
+						P_CHAR pc_check = MAKE_CHAR_REF(currchar[i]);
 						if (pc->war)
 							extmove[15] = 0x40;
 						else 
@@ -749,11 +749,12 @@ bool WalkSendToPlayers(UOXSOCKET s, CHARACTER c, int dir, int oldx, int oldy, in
 							extmove[15] |= 0x80; // Ripper
 						if (pc->poisoned)
 							extmove[15] |= 0x04; // AntiChrist -- thnx to SpaceDog
-						int guild;
+						int guild,race;
 						guild = Guilds->Compare(c, currchar[i]);
-						if (guild == 1)// Same guild (Green)
+						race = RaceManager->CheckRelation(pc,pc_check);
+						if (guild == 1 || race == 1)// Same guild (Green)
 							extmove[16] = 2;
-						else if (guild == 2) // Enemy guild.. set to orange
+						else if (guild == 2 || race == 2) // Enemy guild.. set to orange
 							extmove[16] = 5;
 						else
 						{
@@ -800,9 +801,9 @@ bool WalkHandleCharsAtNewPos(UOXSOCKET s, CHARACTER c, int oldx, int oldy, int n
 			if ((online(DEREF_P_CHAR(pc_i))||pc_i->isNpc())||(pc->isGM()))//Let GMs see logged out players
 			{
 				if (
-					(((abs(newx-pc_i->pos.x)==VISRANGE)||(abs(newy-pc_i->pos.y)==VISRANGE)) &&
-					((abs(oldx-pc_i->pos.x)>VISRANGE)||(abs(oldy-pc_i->pos.y)>VISRANGE))) ||
-					((abs(newx-pc_i->pos.x)==VISRANGE)&&(abs(newy-pc_i->pos.y)==VISRANGE))
+					(((abs(newx-pc_i->pos.x)==Races[pc_i->race]->VisRange)||(abs(newy-pc_i->pos.y)==Races[pc_i->race]->VisRange)) &&
+					((abs(oldx-pc_i->pos.x)>Races[pc_i->race]->VisRange)||(abs(oldy-pc_i->pos.y)>Races[pc_i->race]->VisRange))) ||
+					((abs(newx-pc_i->pos.x)==Races[pc_i->race]->VisRange)&&(abs(newy-pc_i->pos.y)==Races[pc_i->race]->VisRange))
 					)
 				{
 					impowncreate(s, DEREF_P_CHAR(pc_i), 1);
@@ -1299,6 +1300,7 @@ void walking2(CHARACTER s) // Only for switching to combat mode
 				
 				if (sendit)
 				{
+					P_CHAR pc_check = MAKE_CHAR_REF(currchar[i]);
 					extmove[1] = pc_s->ser1;
 					extmove[2] = pc_s->ser2;
 					extmove[3] = pc_s->ser3;
@@ -1337,11 +1339,12 @@ void walking2(CHARACTER s) // Only for switching to combat mode
 						extmove[15] |= 0x04; // AntiChrist -- thnx to SpaceDog
 					if (pc_s->kills >= 4)
 						extmove[16] = 6; // ripper
-					int guild;
+					int guild, race;
 					guild = Guilds->Compare(s, currchar[i]);
-					if (guild == 1)// Same guild (Green)
+					race = RaceManager->CheckRelation(pc_s,pc_check);
+					if (guild == 1 || race == 1)// Same guild (Green)
 						extmove[16] = 2;
-					else if (guild == 2) // Enemy guild.. set to orange
+					else if (guild == 2 || race == 2) // Enemy guild.. set to orange
 						extmove[16] = 5;
 					else 
 					{

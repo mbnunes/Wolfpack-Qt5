@@ -393,7 +393,7 @@ void cHouseManager::AddHome(int s,int i)
 		for(ri.Begin();ri.GetData() != ri.End(); ri++)
 		{
 			P_ITEM si = ri.GetData();
-			senditem(s, DEREF_P_ITEM(si));
+			sendinrange(DEREF_P_ITEM(si));
 		}
 		if (!(norealmulti))
 		{
@@ -481,7 +481,9 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 				} 
 			}
 		}
-		HouseManager->RemoveKeys(items[i].serial);
+		int h=HouseManager->GetHouseNum(pc);
+		if(h>=0)
+			HouseManager->RemoveHouse(h);
 		sysmessage(s,"All house items and keys removed.");
 		
 		pc->pos.z = pc->dispz = Map->MapElevation(pc->pos.x, pc->pos.y);
@@ -595,14 +597,10 @@ int cHouseManager::CheckDecayStatus()
 		}
 		else // house ok -> update unused-time-attribute
 		{
-           timediff=(ct-House[h]->LastUsed)/MY_CLOCKS_PER_SEC;
+           timediff=(ct-House[h]->LastUsed);
 		   House[h]->TimeUnused+=timediff; // might be over limit now, but it will be cought next check anyway
-
-		   House[h]->LastUsed=ct;	// if we don't do that and housedecay is checked every 11 minutes,
-									// it would add 11,22,33,... minutes. So now timeused_last should in fact
-									// be called timeCHECKED_last. but as there is a new timer system coming up
-									// that will make things like this much easier, I'm too lazy now to rename
-									// it (Duke, 16.2.2001)
+		   House[h]->TimeUnused=House[h]->TimeUnused/MY_CLOCKS_PER_SEC;
+		   House[h]->LastUsed=ct;	
 		}	
 		houses++; 
 		h++;

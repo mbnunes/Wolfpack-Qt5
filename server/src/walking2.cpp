@@ -275,7 +275,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 		if (pc_vis != NULL)
 		{
 			int distance=chardist(DEREF_P_CHAR(pc_vis), DEREF_P_CHAR(pc));
-			if(distance<=VISRANGE)
+			if(distance<=Races[pc_vis->race]->VisRange)
 				SendWalkToOtherPlayers(pc_vis, dir, oldx, oldy);
 		}
 	}
@@ -949,7 +949,7 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short int oldy)
 {
 	// lets cache these vars in advance
-	const int visibleRange = VISRANGE;//Races->getVisRange( pc->race );
+	const int visibleRange = Races[pc->race]->VisRange;//Races->getVisRange( pc->race );
 	const int newx=pc->pos.x;
 	const int newy=pc->pos.y;
 
@@ -963,13 +963,14 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				((abs(oldx-chars[currchar[i]].pos.x)>visibleRange )||(abs(oldy-chars[currchar[i]].pos.y)>visibleRange ))) ||
 				((abs(newx-chars[currchar[i]].pos.x)==visibleRange )&&(abs(newy-chars[currchar[i]].pos.y)==visibleRange ))
 				)*/
-			if ((abs(newx-chars[currchar[i]].pos.x)<VISRANGE) && (abs(newy-chars[currchar[i]].pos.y)<VISRANGE))
+			if ((abs(newx-chars[currchar[i]].pos.x)<Races[pc->race]->VisRange) && (abs(newy-chars[currchar[i]].pos.y)<Races[pc->race]->VisRange))
 			{
 				impowncreate(i, DEREF_P_CHAR(pc), 1);
 			}
 			else
 				//    if ((abs(newx-chars[currchar[i]].pos.x)<VISRANGE)||(abs(newy-chars[currchar[i]].pos.y)<VISRANGE))
 			{
+				P_CHAR pc_check = MAKE_CHAR_REF(currchar[i]);
 				LongToCharPtr(pc->serial, &extmove[1]);
 				ShortToCharPtr(pc->id(), &extmove[5]);
 				extmove[7]=pc->pos.x>>8;
@@ -993,14 +994,12 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				int guild, race;
 				//chars[i].flag=0x04;       // everyone should be blue on default
 				guild=Guilds->Compare( DEREF_P_CHAR(pc), currchar[i] );
-				race = 0; //Races->Compare( DEREF_P_CHAR(pc), currchar[i] );
+				race = RaceManager->CheckRelation(pc,pc_check);
 				if( pc->kills > repsys.maxkills ) extmove[16]=6;
-				else if (guild==1 || race==2)//Same guild (Green)
+				else if (guild==1 || race==1)//Same guild (Green)
 					extmove[16]=2;
-				else if (guild==2 || race==1) // Enemy guild.. set to orange
+				else if (guild==2 || race==2) // Enemy guild.. set to orange
 					extmove[16]=5;
-				//                    else if ( !chars[i].npc && ( chars[i].priv&1 || chars[i].priv&80 ) )
-				//                            extmove[16] = 7;
 				else
 				{
 					switch(pc->flag)
@@ -1025,7 +1024,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 	if (socket!=INVALID_UOXSOCKET)
 	{
 		// lets cache these vars in advance
-		const int visibleRange = VISRANGE; //Races->getVisRange( pc->race );
+		const int visibleRange = Races[pc->race]->VisRange; //Races->getVisRange( pc->race );
 
 		const int newx=pc->pos.x;
 		const int newy=pc->pos.y;
@@ -1104,7 +1103,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 		return;
 
 	// lets cache these vars in advance
-	const int visibleRange = VISRANGE;//Races->getVisRange( pc->race );
+	const int visibleRange = Races[pc->race]->VisRange;//Races->getVisRange( pc->race );
 	const short int newx = pc->pos.x;
 	const short int newy = pc->pos.y;
 	const short int oldx = GetXfromDir(pc->dir + 4, newx);
@@ -1334,6 +1333,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 		// moved perm[i] first since its much faster
         if ((perm[i]) && (inrange1p(DEREF_P_CHAR(pc), currchar[i])))
         {
+			P_CHAR pc_check = MAKE_CHAR_REF(currchar[i]);
             extmove[1] = pc->ser1;
             extmove[2] = pc->ser2;
             extmove[3] = pc->ser3;
@@ -1354,13 +1354,13 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             if (pc->hidden) extmove[15]=extmove[15]|0x80;
             if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
             const int guild = Guilds->Compare( DEREF_P_CHAR(pc), currchar[i] );
-            const int race = 0; //Races->Compare( s, currchar[i] );
+            const int race = RaceManager->CheckRelation(pc,pc_check);
             if (pc->kills > repsys.maxkills ) extmove[16]=6; // ripper
             //if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
             //chars[i].flag=0x04;       // everyone should be blue on default
-            else if (guild==1  || race==2)//Same guild (Green)
+            else if (guild==1  || race==1)//Same guild (Green)
                 extmove[16]=2;
-            else if (guild==2 || race==1) // Enemy guild.. set to orange
+            else if (guild==2 || race==2) // Enemy guild.. set to orange
                 extmove[16]=5;
             //                  else if( !chars[i].npc && ( chars[i].priv&1 || chars[i].priv&80 ) )
             //                          extmove[16] = 7;
