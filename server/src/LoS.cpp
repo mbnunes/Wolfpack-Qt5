@@ -29,11 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-/////////////////////
-// Name:	LoS.cpp
-// History:	cut from wolfpack.cpp by Duke, 26.10.00
-//
-
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"
@@ -84,7 +79,7 @@ the line of sight.
 	if( target.map != source.map )
 		return blocked;
 
-	if( target.x == -1 && target.y == -1 )  
+	if( target.x == 0xFFFF && target.y == 0xFFFF )  
 		return not_blocked;		// target canceled
 
 	if( (source.x == target.x) && (source.y == target.y) && (source.z == target.z) )
@@ -122,17 +117,17 @@ the line of sight.
 
 	
 	if( sgn_x == 0 && sgn_y == 0 && !sgn_z == 0 ) // should fix shooting through floor issues
-		for( i = 0; i < abs( target.z - source.z ); i++ )
+		for( i = 0; i < abs( target.z - source.z ); ++i )
 		{
 			collisions.push_back( Coord_cl( source.x, source.y, source.z + sgn_z, source.map ) );
 		}
 	else if( sgn_x == 0 ) // if we are on the same x-level, just push every x/y coordinate in y-direction from src to trg into the array
-		for( i = 0; i < (sgn_y * m); i++ )
+		for( i = 0; i < (sgn_y * m); ++i )
 		{
 			collisions.push_back( Coord_cl( source.x, source.y + (sgn_y * i), source.z + (SI08)floor( dz_y * (double)i ), source.map ) );
 		}
 	else if ( sgn_y == 0 ) // if we are on the same y-level, just push every x/y coordinate in x-direction from src to trg into the array
-		for( i = 0; i < (sgn_x * n); i++ )
+		for( i = 0; i < (sgn_x * n); ++i )
 		{
 			collisions.push_back( Coord_cl( source.x + (sgn_x * i), source.y, source.z + (SI08)floor( dz_x * (double)i ), source.map ) );
 		}
@@ -164,7 +159,7 @@ the line of sight.
 			}
 		}
 	
-		for( i = 0; (sgn_y * m > sgn_x * n) && (i < (sgn_y * m)); i++ )
+		for( i = 0; (sgn_y * m > sgn_x * n) && (i < (sgn_y * m)); ++i )
 		{
 			SI32 gridy = source.y + (sgn_y * i);
 			if( ( ( m == 0 ) && ( gridy == 0 ) ) ||

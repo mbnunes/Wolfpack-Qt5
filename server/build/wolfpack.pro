@@ -7,7 +7,7 @@
 PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE        = app
-CONFIG          = console debug thread
+CONFIG          = qt console debug thread
 INCLUDEPATH     = lib/ZThread/include lib/Python/include
 DEFINES         = REENTRANT ZTHREAD_STATIC NDEBUG
 win32:DEFINES  += WIN32 
