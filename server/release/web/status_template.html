@@ -1,208 +1,156 @@
 <%
-import os
 import sys
 import wolfpack
 import wolfpack.sockets
 import wolfpack.accounts
 import wolfpack.time
-import time
-
-#
-# Escape a given string for HTML output
-#
-def escapeString(text):
-	text = unicode(text)
-	text = text.replace('<', '&lt;')
-	text = text.replace('>', '&gt;')
-	return text
-
-#
-# Count visible sockets
-#
-playercount = 0
-socket = wolfpack.sockets.first()
-while socket:
-	if socket.player and not socket.player.invisible:
-		playercount += 1
-	socket = wolfpack.sockets.next()
 
 %>
-<?
-	function getStatusTime() {
-		return <%=int(time.time())%>;
-	}
-?>
-<table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td height="16" class="text"><strong>Verbundene Accounts :</strong> <%=playercount%> von <%=wolfpack.accounts.count()%></td>
-  </tr>
-  <tr>
-    <td height="16" class="text"><strong>Spieler Charaktere :</strong> <%=wolfpack.playercount()%></td>
-  </tr>
-  <tr>
-    <td height="16" class="text"><strong>NPCs:</strong> <%=wolfpack.npccount()%></td>
-  </tr>
-  <tr>
-    <td height="16" class="text"><strong>Items:</strong> <%=wolfpack.itemcount()%></td>
-  </tr>
-  <tr>
-    <td height="16" class="text"><strong>Ingame Zeit:</strong> Tag <%=wolfpack.time.days()%>, <%=wolfpack.time.hour()%>:<%="%02u" % wolfpack.time.minute()%></td>
-  </tr>
-  <tr>
-    <td height="16" class="text"><strong>Server Version:</strong> <%=wolfpack.serverversion()%> [Linux]</td>
-  </tr>
-  <tr>
-    <td height="16" class="text"><strong>Server Uptime:</strong> <?
-	$server_uptime = floor(<%=wolfpack.currenttime()%> / 1000);
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Wolfpack Status</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #FFFFFF;
+}
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+.maintitle {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 16px;
+	font-weight: bold;
+	color: #336633;
+}
 
-	// Uptime berechnen
-	$parts = array();
-	if ($server_uptime >= 86400) {
-		$value = floor($server_uptime / 86400);
-		$server_uptime %= 86400;
-		array_push($parts, $value . ' Tage');
-	}
+.smalltext {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 10px;
+	color: #999999;
+}
 
-        if ($server_uptime >= 3600) {
-                $value = floor($server_uptime / 3600);
-                $server_uptime %= 3600;
-                array_push($parts, $value . ' Stunden');
-        }
+.sectiontitle {
 
-        if ($server_uptime >= 60) {
-                $value = floor($server_uptime / 60);
-                $server_uptime %= 60;
-                array_push($parts, $value . ' Minuten');
-        }
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 14px;
+	font-weight: bold;
+	color: #666666;
+}
 
-	echo implode(' ', $parts);
-?></td>
+.text {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 12px;
+}
+
+img {
+	border: 0;
+}
+
+a {
+	color: #0000FF;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #FF0000;
+}
+
+-->
+</style></head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+	<td bgcolor="#004026"><img src="top_logo.jpg" width="586" height="87" /></td>
   </tr>
   <tr>
-    <td width="50%" height="16" class="text"><strong>Aktualisiert:</strong> vor <?
-    	$diff = time() - getStatusTime();
-    	if ($diff < 0) {
-    		$diff = 0;
-    	}
-    	$parts = array();
-    	
-    	// how much time has passed (check hours)
-    	if ($diff >= 3600) {
-    		$hours = floor($diff / 3600);
-    		$diff = $diff % 3600;
-    		array_push($parts, $hours . " Stunden");
-    	}
-    	
-    	// how much time has passed (check minutes)
-    	if ($diff >= 60) {
-    		$minutes = floor($diff / 60);
-    		$diff = $diff % 60;
-    		array_push($parts, $minutes . " Minuten");
-    	}
-    	
-    	if ($diff != 0) {
-    		array_push($parts, $diff . " Sekunden");
-    	}
-    	
-    	echo implode(' ', $parts);
-    ?></td>
+	<td bgcolor="#DDDDDD" height="2"><img src="spacer.gif" width="1" height="2" /></td>
   </tr>
+</table>
+<div align="center"><br />
+<span class="maintitle">SERVERSTATUS</span>  </div>
+<table width="530"  border="0" align="center" cellpadding="5" cellspacing="0">
   <tr>
-    <td height="52" class="text"><br />
-      <strong>Verbundene Spieler:</strong><br />
-      <table width="97%" height="1" border="0" cellpadding="0" cellspacing="1">
-        <%
+<%
 socket = wolfpack.sockets.first()
+nextsocket = wolfpack.sockets.next()
+count_players = 0
 while socket:
-	if socket.player and not socket.player.invisible:
+	if( socket.player and not socket.player.invisible ):
+		count_players+=1
+	socket = nextsocket
+	nextsocket = wolfpack.sockets.next()
+%>
+	<td width="520"><strong>Connected Accounts:</strong> <%=count_players%> of <%=wolfpack.accounts.count()%><br />
+	  <br />
+	  <strong>Player Characters:</strong> <%=count_players%> <br />
+	  <strong>NPCs:</strong> <%=wolfpack.npccount()%> <br />
+	  <strong>Items:</strong> <%=wolfpack.itemcount()%> <br />
+	  <strong>Ingame Time:</strong> Day <%=wolfpack.time.days()%>, <%=wolfpack.time.hour()%>:<%="%02u" % wolfpack.time.minute()%> <br /> <br />
+	  <strong>Connected Players:</strong><br>
+	  <table width="100%" border="0" cellspacing="1" cellpadding="0">
+<%
+socket = wolfpack.sockets.first()
+nextsocket = wolfpack.sockets.next()
+while socket:
+	if( socket.player and not socket.player.invisible ):
 		%>
-        <tr>
-          <%
+		<tr>
+		<%
 		notoriety = socket.player.notoriety()
 		NOTOCOLORS = {
-			1: "#811F1E",
-			2: "#A99E88",
-			3: "#666666",
-			4: "#333333",
-			5: "#6A533C",
-			6: "#2F3240",
+			1: "#0000DD",
+			2: "#10d010",
+			3: "#d0d0d0",
+			4: "#d0d0d0",
+			5: "#ff9900",
+			6: "#d01010",
 		}
 		
 		BODYIMGS = {
-			0x190: '/images/status/gender_male.gif',
-			0x191: '/images/status/gender_female.gif',
-			0x192: '/images/status/gender_male.gif',
-			0x193: '/images/status/gender_female.gif',
+			0x190: 'gender_male.gif',
+			0x191: 'gender_female.gif',
+			0x192: 'gender_male.gif',
+			0x193: 'gender_female.gif',			
 		}
 		
 		print '<td width="16" valign="middle">'
 		if BODYIMGS.has_key(socket.player.id):
 			print '<div align="center"><img src="%s"></div>' % BODYIMGS[socket.player.id]
-		elif socket.player.gender == 0:
-			print '<div align="center"><img src="%s"></div>' % BODYIMGS[0x190]
 		else:
-			print '<div align="center"><img src="%s"></div>' % BODYIMGS[0x191]
-		print '</td><td valign="middle" class="text">'
+			print '<img src="spacer.gif" width="14">'
+		print '</td><td valign="middle">'
 		
-		abbrev = ''
-		if socket.player.guild:
-			abbrev = ' [%s]' % socket.player.guild.abbreviation
-
 		if NOTOCOLORS.has_key(notoriety):
-			print '<font color="%s" face="Arial"><b>%s</b>%s</font>' % (NOTOCOLORS[notoriety], escapeString(socket.player.name), escapeString(abbrev))
+			print '<font color="%s" face="Georgia"><b>%s</b></font>' % (NOTOCOLORS[notoriety], unicode(socket.player.name))
 		else:
-			print '<b>%s</b>' % escapeString(socket.player.name)
+			print '<b>%s</b>' % socket.player.name
 
-		if socket.player.region and len(socket.player.region.name) > 0:
-			print ' (%s)' % escapeString(socket.player.region.name)
+	  	if socket.player.region and len(socket.player.region.name) > 0:
+	  		print ' (%s)' % unicode(socket.player.region.name)
+	  		
+	  	print '</td></tr>'
+		%></tr>
+<%
+		if( nextsocket and nextsocket.player and not nextsocket.player.invisible ):
+			%>
+		<tr><td colspan="2" bgcolor="#DDDDDD"><img src="spacer.gif" width="1" height="1"></td></tr>
 			
-		print '</td></tr>'
-		%>
-        </tr>
-        <%
-	socket = wolfpack.sockets.next()
+<%
+	socket = nextsocket
+	nextsocket = wolfpack.sockets.next()
 %>
-      </table></td>
+		</table>
+	  </td>
   </tr>
-  
-  <tr>
-    <td height="52"><br />
-      <table width="97%" height="1" border="0" cellpadding="0" cellspacing="1">
-        <%
-guilds = wolfpack.guilds()
-
-if len(guilds) > 0:
-	%>
-	    <tr bgcolor="#EEE6D2">
-			<td class="text"><b>Gilde</b></td> <td class="text"><b>Mitglieder</b></td> <td class="text"><b>Webseite</b></td>
-        </tr>
-<%
-
-for guild in guilds:
-		abbrev = ''
-		if len(guild.abbreviation) > 0:
-			abbrev = ' [%s]' % guild.abbreviation
-
-		if guild.alignment == 0:
-			color = 'black'
-		elif guild.alignment == 2:
-			color = 'red'
-		elif guild.alignment == 1:
-			color = 'blue'
-
-		link = ''
-		if len(guild.website) > 0 and guild.website.startswith('http://'):
-			link = '<a href="%s" target="_blank">Link</a>' % (guild.website)
-		elif len(guild.website) > 0:
-			link = '<a href="http://%s" target="_blank">Link</a>' % (guild.website)
-
-		%>
-        <tr>
-			<td width="60%" class="text"><strong><font color="<%=color%>"><%=guild.name%><%=abbrev%></font></strong></td> <td class="text"><%=len(guild.members)%></td> <td class="text"><%=link%></td>
-        </tr>
-<%
-%>
-      </table></td>
-  </tr>  
-  
 </table>
+</body>
+</html>

@@ -271,7 +271,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.2</dexchance>
 		<intchance>0.8</intchance>
-		<gainchance>3</gainchance>
+		<gainchance>1</gainchance>
 		<defname>INSCRIPTION</defname>
 		<name>Inscription</name>
 		<title>Scribe</title>

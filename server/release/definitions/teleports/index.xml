@@ -7,9 +7,9 @@
 =================================================================
 -->
 <definitions>
-<!--	<include file="definitions/teleports/felucca.xml"/>
+	<include file="definitions/teleports/felucca.xml"/>
 	<include file="definitions/teleports/trammel.xml"/>
 	<include file="definitions/teleports/ilshenar.xml"/>
 	<include file="definitions/teleports/malas.xml"/>
-	<include file="definitions/teleports/tokuno.xml"/>-->
+	<include file="definitions/teleports/tokuno.xml"/>
 </definitions>

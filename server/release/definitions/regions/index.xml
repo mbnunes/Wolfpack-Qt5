@@ -10,8 +10,8 @@
 	Regions Index File
 -->
 <definitions>
-<!--	<include file="definitions/regions/felucca/index.xml"/>
-	<include file="definitions/regions/trammel/index.xml"/>-->
+	<include file="definitions/regions/felucca/index.xml"/>
+	<include file="definitions/regions/trammel/index.xml"/>
 	<include file="definitions/regions/ilshenar/index.xml"/>
 	<include file="definitions/regions/malas/index.xml"/>
 	<include file="definitions/regions/tokuno/index.xml"/>
