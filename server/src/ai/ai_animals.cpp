@@ -45,6 +45,7 @@ static AbstractAI* productCreator_AW()
 void Animal_Wild::registerInFactory()
 {
 	AIFactory::instance()->registerType( "Animal_Wild", productCreator_AW );
+	AIFactory::instance()->registerType( "Animal_Aggressive", productCreator_AW );
 }
 
 static AbstractAI* productCreator_AD()

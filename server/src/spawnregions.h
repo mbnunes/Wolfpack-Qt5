@@ -120,6 +120,10 @@ public:
 		return rectList;
 	}
 
+	inline unsigned int nextTime() {
+		return nextTime_;
+	}
+
 private:
 	virtual void processNode( const cElement* Tag );
 	void spawnSingleNPC();

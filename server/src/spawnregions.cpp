@@ -383,10 +383,14 @@ void cSpawnRegion::checkTimer( void )
 
 void cAllSpawnRegions::check( void )
 {
+	int respawned = 0;
 	iterator it( this->begin() );
-	while ( it != this->end() )
+	while ( it != this->end() && respawned < 50 )
 	{
-		it->second->checkTimer();
+		if ( it->second->nextTime() <= Server::instance()->time() ) {
+			it->second->reSpawn();
+			respawned++;
+		}
 		++it;
 	}
 }
