@@ -90,10 +90,10 @@ def onShowTooltip(viewer, object, tooltip):
     if energy:
       tooltip.add(1060407, str(energy))
 
-  fire = fromitem(object, PHYSICAL_FIRE)
-  cold = fromitem(object, PHYSICAL_COLD)
-  poison = fromitem(object, PHYSICAL_POISON)
-  energy = fromitem(object, PHYSICAL_ENERGY)
+  fire = fromitem(object, RESISTANCE_FIRE)
+  cold = fromitem(object, RESISTANCE_COLD)
+  poison = fromitem(object, RESISTANCE_POISON)
+  energy = fromitem(object, RESISTANCE_ENERGY)
   physical = fromitem(object, RESISTANCE_PHYSICAL)
 
   if physical:
