@@ -694,14 +694,6 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 		return;
 	}
 
-	// Trash can
-	if ( pCont->type() == 87 )
-	{
-		pItem->remove();
-		socket->sysMessage( tr( "As you let go of the item it disappears." ) );
-		return;
-	}
-
 	// We drop something on the belongings of one of our playervendors
 	/*	if( ( packOwner != NULL ) && ( packOwner->npcaitype() == 17 ) && packOwner->owner() == pChar )
 	{
