@@ -13,8 +13,6 @@ class SlayerEntry:
 
 	# Does this slayer slay the given npc?
 	def slays(self, npc):
-		npc.say('CHECKING SLAYING: ' + str(self.npcs))
-		
 		if not npc.hasstrproperty('slayer_group'):
 			return False
 
