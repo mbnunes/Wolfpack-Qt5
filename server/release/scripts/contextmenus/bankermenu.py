@@ -18,7 +18,7 @@ def onContextEntry( char, target, tag  ):
 		target.say( "Here is your bank box, %s." % char.name,5 )
 		char.socket.sendcontainer( bank )
 	elif( tag == 2):
-	bank = char.getbankbox()
+		bank = char.getbankbox()
 	if bank:
 		amount = bank.countresource( 0xEED, 0x0 )
 		if not amount:
