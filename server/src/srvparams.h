@@ -98,7 +98,7 @@ protected:
 	unsigned short port_;
 	float goldWeight_;
 	unsigned int playercorpsedecaymultiplier_;
-	unsigned short lootdecayswithcorpse_;
+	bool lootdecayswithcorpse_;
 	float invisTimer_;
 	unsigned short skillDelay_;
 	int skillLevel_;
@@ -266,7 +266,7 @@ public:
 	unsigned short port() const;
 	float goldWeight() const;
 	unsigned int playercorpsedecaymultiplier() const;
-	unsigned short lootdecayswithcorpse() const;
+	bool lootdecayswithcorpse() const;
 	float invisTimer() const;
 	unsigned short skillDelay() const;
 	int skillLevel() const;
@@ -576,7 +576,7 @@ inline unsigned int cSrvParams::playercorpsedecaymultiplier() const
 	return playercorpsedecaymultiplier_;
 }
 
-inline unsigned short cSrvParams::lootdecayswithcorpse() const
+inline bool cSrvParams::lootdecayswithcorpse() const
 {
 	return lootdecayswithcorpse_;
 }

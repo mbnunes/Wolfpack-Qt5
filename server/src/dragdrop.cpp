@@ -151,13 +151,13 @@ static void item_bounce6(const P_CLIENT ps, const P_ITEM pi)
 
 void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 {
-	int amount, update = 0, serial;
+	unsigned short amount, update = 0;
 	UOXSOCKET s = ps->GetSocket();
 	P_CHAR pc_currchar = ps->getPlayer();
 	
 	P_CHAR npc = NULL;
 	
-	serial = calcserial(buffer[s][1], buffer[s][2], buffer[s][3], buffer[s][4]);
+	SERIAL serial = calcserial(buffer[s][1], buffer[s][2], buffer[s][3], buffer[s][4]);
 	if (serial == INVALID_SERIAL || buffer[s][1] < 0x40)
 		return;	// landscape or a character
 	P_ITEM pi = FindItemBySerial(serial);

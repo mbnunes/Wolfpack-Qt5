@@ -528,7 +528,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("morex",		morex);
 		archive.write("morey",		morey);
 		archive.write("morez",		morez);
-		archive.write("amount",		amount);
+		archive.write("amount",		amount_);
 		archive.write("pileable",	pileable);
 		archive.write("doordir",	doordir);
 		archive.write("dye",		dye);

@@ -141,10 +141,29 @@ void serXmlFile::close()
 {
 	if ( isWritting() )
 	{
+		QString originalName = file->name();
+		file->close();
+		rename( originalName.latin1(), QString(originalName + ".bak").latin1() );
+		file->open( IO_WriteOnly );
+		QFile* oldFile = new QFile(originalName + ".bak");
+		oldFile->open( IO_ReadOnly );
 		QTextStream stream( file );
-		root.setAttribute( "count", _count ); // save counting now.
-		document->appendChild( root );
-		document->save( stream, 0 );
+		stream << "<!DOCTYPE " << document->doctype().name() << ">" << endl;
+		stream << "<" << document->doctype().name() << " version=\"" << QString::number(_version) << "\" count=\"" 
+			<< QString::number(_count) << "\" >" << endl;
+		QString line;
+		QTextStream t ( oldFile );
+		line = t.readLine();
+		while ( line != QString::null )
+		{
+			stream << line << endl;
+			line = t.readLine();
+		}
+		oldFile->close();
+		delete oldFile;
+		QFile::remove(originalName + ".bak"); // remove temp file
+		stream << "</" << document->doctype().name() << ">";
+		file->close();
 	}
 	if ( file )
 	{
@@ -221,7 +240,9 @@ void serXmlFile::write(const char* Key, bool data)
 
 void serXmlFile::doneWritting()
 {
-	root.appendChild( node );
+//	root.appendChild( node );
+	QTextStream stream ( file );
+	node.save( stream, 1 );
 }
 
 void serXmlFile::readObjectID(std::string &data)
@@ -245,54 +266,78 @@ void serXmlFile::read(const char* Key, std::string& data)
 {
 	QDomNodeList nodeList = node.elementsByTagName( Key );
 	if ( nodeList.count() > 0 )
+	{
 		data = nodeList.item( 0 ).toElement().attribute("value").latin1();
+		node.removeChild( nodeList.item(0) ); // Free up the memory
+	}
 }
 
 void serXmlFile::read(const char* Key, unsigned int  &data)
 {
 	QDomNodeList nodeList = node.elementsByTagName( Key );
 	if ( nodeList.count() > 0 )
+	{
 		data = nodeList.item( 0 ).toElement().attribute("value").toUInt();
+		node.removeChild( nodeList.item(0) ); // Free up the memory
+	}
 }
 
 void serXmlFile::read(const char* Key, signed   int  &data)
 {
 	QDomNodeList nodeList = node.elementsByTagName( Key );
 	if ( nodeList.count() > 0 )
+	{
 		data = nodeList.item( 0 ).toElement().attribute("value").toInt();
+		node.removeChild( nodeList.item(0) ); // Free up the memory
+	}
 }
 
 void serXmlFile::read(const char* Key, signed short &data)
 {
 	QDomNodeList nodeList = node.elementsByTagName( Key );
 	if ( nodeList.count() > 0 )
+	{
 		data = nodeList.item( 0 ).toElement().attribute("value").toShort();
+		node.removeChild( nodeList.item(0) ); // Free up the memory
+	}
 }
 
 void serXmlFile::read(const char* Key, unsigned short &data)
 {
 	QDomNodeList nodeList = node.elementsByTagName( Key );
 	if ( nodeList.count() > 0 )
+	{
 		data = nodeList.item( 0 ).toElement().attribute("value").toUShort();
+		node.removeChild( nodeList.item(0) ); // Free up the memory
+	}
 }
 
 void serXmlFile::read(const char* Key, unsigned char &data)
 {
 	QDomNodeList nodeList = node.elementsByTagName( Key );
 	if ( nodeList.count() > 0 )
+	{
 		data = nodeList.item( 0 ).toElement().attribute("value").toUShort();
+		node.removeChild( nodeList.item(0) ); // Free up the memory
+	}
 }
 
 void serXmlFile::read(const char* Key, signed   char &data)
 {
 	QDomNodeList nodeList = node.elementsByTagName( Key );
 	if ( nodeList.count() > 0 )
+	{
 		data = nodeList.item( 0 ).toElement().attribute("value").toShort();
+		node.removeChild( nodeList.item(0) ); // Free up the memory
+	}
 }
 
 void serXmlFile::read(const char* Key, bool &data)
 {
 	QDomNodeList nodeList = node.elementsByTagName( Key );
 	if ( nodeList.count() > 0 )
+	{
 		data = nodeList.item( 0 ).toElement().attribute("value") == "true" ? true : false;
+		node.removeChild( nodeList.item(0) ); // Free up the memory
+	}
 }

@@ -198,7 +198,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 	LongToCharPtr(pi->serial, &sbookstart[1]);
 	Xsend(s, sbookstart, 7);
 
-	int spells[64] = {0,};
+	int spells[65] = {0,};
 	int i, scount=0;
 
 	unsigned int ci=0;
@@ -1650,7 +1650,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	double d;
 	bool recalled;
 	int n;
-	int x, y, z, dx, dy, dz;
+	int dx, dy, dz;
 	int fx[5], fy[5]; // bugfix LB, was fx[4] ...
 	unsigned char id1, id2;	
 	int snr;
@@ -2101,10 +2101,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		else if( reqLocTarget( curSpell ) )
 		{
 			// field spells mostly go here
-			x=fx[0]=(buffer[s][11]<<8)+buffer[s][12];
-			y=fy[0]=(buffer[s][13]<<8)+buffer[s][14];
+			Coord_cl targetLocation((buffer[s][11]<<8)+buffer[s][12], (buffer[s][13]<<8)+buffer[s][14], buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]), currchar[s]->pos.map); 
+			int x=fx[0]=(buffer[s][11]<<8)+buffer[s][12];
+			int y=fy[0]=(buffer[s][13]<<8)+buffer[s][14];
 			//z=buffer[s][16];
-			z=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]); // bugfix, LB
+			int z=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]); // bugfix, LB
 			
 			defender=LongFromCharPtr(buffer[s]+7);
 			P_CHAR pc_i = FindCharBySerial( defender );
@@ -2119,16 +2120,16 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			//AntiChrist - location check
 			if (!(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF))
 			{
-				Coord_cl clTemp1(x,y,z);
+				//Coord_cl clTemp1(x,y,z);
 				
-				if ((line_of_sight( s, pc_currchar->pos, clTemp1,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+				if ((line_of_sight( s, pc_currchar->pos, targetLocation,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 					(pc_currchar->isGM())))
 				{
 					if( fieldSpell( curSpell ) )
 					{
 						//AntiChrist - fixed the fields missing middle piece - 9/99
 						//(changed the order of fy and fy also!)
-						j = fielddir(pc_currchar, x, y, z); // lb bugfix, socket char# confusion
+						j = fielddir(pc_currchar, targetLocation.x, targetLocation.y, targetLocation.z); // lb bugfix, socket char# confusion
 						if (j)
 						{
 							fx[0]=fx[1]=fx[2]=fx[3]=fx[4]=x;
@@ -2176,6 +2177,18 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							{
 								sysmessage(s,"Give up wanabe Jesus !");
 								return;
+							}
+							if (!Map->CanMonsterMoveHere(targetLocation))
+							{
+								 switch(RandomNum(0,4))
+								 {
+								 case 0: sysmessage(s,"Thats a no teleport zone!"); break;
+								 case 1: sysmessage(s,"Thats not possible!"); break;
+								 case 2: sysmessage(s,"You can't teleport here!"); break;
+								 default:
+									 break;
+								 }
+							     return;                            
 							}
 							
 							mapRegions->Remove(pc_currchar); //LB
