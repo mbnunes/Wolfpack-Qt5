@@ -537,10 +537,13 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 
 		// Apply button
 		addButton( 50, 340, 0x481, 0x483, 1 ); 
-		addText( 90, 340, tr( "Apply" ), 0x834 );
-		// Close button
-		addButton( 160, 340, 0x47E, 0x480, 0 ); 
-		addText( 200, 340, tr( "Close" ), 0x834 );
+		addText( 80, 340, tr( "Apply" ), 0x834 );
+		// OK button
+		addButton( 125, 340, 0x481, 0x483, 0 ); 
+		addText( 155, 340, tr( "OK" ), 0x834 );
+
+		addButton( 190, 340, 0x47E, 0x480, -1 ); 
+		addText( 220, 340, tr( "Cancel" ), 0x834 );
 
 		page_++;
 		startPage( page_ );
@@ -685,6 +688,9 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 
 void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 {
+	if( choice.button == -1 )
+		return;
+
 	if( char_ )
 	{
 		std::map< UINT16, QString >::iterator it = choice.textentries.begin();
@@ -823,11 +829,13 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 
 		// Apply button
 		addButton( 50, 340, 0x481, 0x483, 1 ); 
-		addText( 90, 340, tr( "Apply" ), 0x834 );
-		// Close button
-		addButton( 160, 340, 0x47E, 0x480, 0 ); 
-		addText( 200, 340, tr( "Close" ), 0x834 );
+		addText( 80, 340, tr( "Apply" ), 0x834 );
+		// OK button
+		addButton( 125, 340, 0x481, 0x483, 0 ); 
+		addText( 155, 340, tr( "OK" ), 0x834 );
 
+		addButton( 190, 340, 0x47E, 0x480, -1 ); 
+		addText( 220, 340, tr( "Cancel" ), 0x834 );
 
 		page_++;
 		startPage( page_ );
@@ -969,6 +977,9 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 
 void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 {
+	if( choice.button == -1 )
+		return;
+
 	if( item_ )
 	{
 		std::map< UINT16, QString >::iterator it = choice.textentries.begin();

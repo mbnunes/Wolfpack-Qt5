@@ -816,7 +816,10 @@ void commandTele( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 {
-	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
+	if( args.count() > 0 )
+		cwmWorldState->savenewworld( args[0] );
+	else
+		cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
 }
 
 #define FLAG_STUB( a, b, c ) if( tile.a & b ) flags.push_back( tr( c ) )
