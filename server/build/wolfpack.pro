@@ -126,7 +126,6 @@ SOURCES         = \
 		ai_monsters.cpp \
 		ai_vendors.cpp \
 		basechar.cpp \
-		basechar_flatstore.cpp \
 		basics.cpp \
 		boats.cpp \
 		books.cpp \
@@ -147,7 +146,6 @@ SOURCES         = \
 		gumps.cpp \
 		house.cpp \
 		iserialization.cpp \
-		item_flatstore.cpp \
 		itemid.cpp \
 		items.cpp \
 		LoS.cpp \
@@ -157,14 +155,12 @@ SOURCES         = \
 		multiscache.cpp \
 		network.cpp \
 		npc.cpp \
-		npc_flatstore.cpp \
 		encryption.cpp \
 		pfactory.cpp \
 		persistentbroker.cpp \
 		persistentobject.cpp \
 		preferences.cpp \
 		player.cpp \
-		player_flatstore.cpp \
 		pythonscript.cpp \
 		resources.cpp \
 		sectors.cpp \
@@ -185,7 +181,6 @@ SOURCES         = \
 		tracking.cpp \
 		Trade.cpp \                  
 		uobject.cpp \
-		uobject_flatstore.cpp \
 		utilsys.cpp \
 		wolfpack.cpp \
 		wpconsole.cpp \
