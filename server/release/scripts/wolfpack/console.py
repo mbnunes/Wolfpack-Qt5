@@ -11,3 +11,6 @@ import _wolfpack.console
 
 def getbuffer():
 	return _wolfpack.console.getbuffer()
+
+def send():
+	return _wolfpack.console.send( sring2console )
