@@ -493,15 +493,14 @@ def createpack(char, killer, corpse, pack):
 		packamount = item[ PACK_AMOUNT ]
 		packitem = item[ PACK_ITEM ]
 
-		spawn = False
-
-		if packchance >= random.random():
-			spawn = True
+		# Check if the given item should spawn.
+		spawn = packchance >= random.random()
 			
-		# There is a chance that the item will spawn anyway if the luck check
-		# succeeds
-		if not spawn:
-			spawn = luckChance > random.randint(0, 9999)
+		# This check has been greatly reduced in its power. 
+		# Now there just is a *second* check if you succeed
+		# with your luck check.
+		if not spawn and luckChance > random.randint(0, 9999):
+			spawn = packchance >= random.random()
 			
 		if spawn:
 			if type( packamount ) == str:
