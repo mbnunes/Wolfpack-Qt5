@@ -24,16 +24,30 @@ def addmulti(player, arguments, target):
 	if target.item and target.item.container:
 		player.socket.sysmessage("You can't add the multi there.")
 		return
-
+		
 	multi = wolfpack.addmulti(str(arguments[0]))
+	
+	# If arguments[1] is true, make the item
+	# static
+	if arguments[1]:
+		multi.decay = False
+		multi.movable = 3
+	
 	multi.moveto(target.pos)
 	multi.update()
 
 #
 # Target response for adding an item
 #
-def additem(player, arguments, target):
+def additem(player, arguments, target):		
 	item = wolfpack.additem(str(arguments[0]))
+	
+	# If arguments[1] is true, make the item
+	# static
+	if arguments[1]:
+		item.decay = False
+		item.movable = 3
+	
 	if target.item:
 		if target.item.type == 1:
 			target.item.additem(item, 1, 1, 0)
@@ -49,6 +63,22 @@ def additem(player, arguments, target):
 	item.update()
 
 #
+# Add an item and make it nodecay + movable 2
+#
+def static(socket, command, arguments):
+	if len(arguments) > 0:
+		if wolfpack.getdefinition(WPDT_ITEM, arguments):
+			socket.sysmessage("Where do you want to place the item '%s'?" % arguments)
+			socket.attachtarget("commands.add.additem", [arguments, True])
+		elif wolfpack.getdefinition(WPDT_MULTI, arguments):
+			socket.sysmessage("Where do you want to place the multi '%s'?" % arguments)
+			socket.attachtarget("commands.add.addmulti", [arguments, True])
+		else:
+			socket.sysmessage('No Item, NPC or Multi definition by that name found.')
+	else:
+		socket.sysmessage('Usage: static <id>')
+
+#
 # Add an item or character or
 # show the addmenu.
 #
@@ -56,13 +86,13 @@ def add(socket, command, arguments):
 	if len(arguments) > 0:
 		if wolfpack.getdefinition(WPDT_ITEM, arguments):
 			socket.sysmessage("Where do you want to place the item '%s'?" % arguments)
-			socket.attachtarget("commands.add.additem", [arguments])
+			socket.attachtarget("commands.add.additem", [arguments, False])
 		elif wolfpack.getdefinition(WPDT_NPC, arguments):
 			socket.sysmessage("Where do you want to spawn the npc '%s'?" % arguments)
 			socket.attachtarget("commands.add.addnpc", [arguments])
 		elif wolfpack.getdefinition(WPDT_MULTI, arguments):
 			socket.sysmessage("Where do you want to place the multi '%s'?" % arguments)
-			socket.attachtarget("commands.add.addmulti", [arguments])
+			socket.attachtarget("commands.add.addmulti", [arguments, False])
 		else:
 			socket.sysmessage('No Item, NPC or Multi definition by that name found.')
 		return
@@ -218,6 +248,7 @@ def generateAddMenu():
 
 def onLoad():
 	wolfpack.registercommand('add', add)
+	wolfpack.registercommand('static', static)
 	
 def onUnload():
         global generated
@@ -225,12 +256,20 @@ def onUnload():
 
 """
 	\command add
-	\description Add a npc or item and if no definition was specified, open a menu.
+	\description Add a npc, item or multi and if no definition was specified, open a menu.
 	\usage - <code>add npc-id</code>
 	- <code>add item-id</code>
+	- <code>add multi-id</code>
 	- <code>add</code>
 	If neither a npc nor an item id is passed to the add command, a menu with all
 	categorized item and npc definitions is shown.
 	The menu is automatically generated from the definitions of items and NPCs
 	based on the <category> tag.
+"""
+
+"""
+	\command static
+	\description Add an item or multi and make it not decay and not movable.
+	\usage - <code>add item-id</code>
+	- <code>add multi-id</code>
 """
