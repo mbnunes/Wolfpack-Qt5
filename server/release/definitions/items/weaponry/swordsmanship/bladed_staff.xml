@@ -2,9 +2,9 @@
 <definitions>
 
 	<!-- Bladed Staff -->
-	<item id="26c9">
-		<id>0x26c9</id>
-		<name>double bladed staff</name>
+	<item id="26c7">
+		<id>0x26c7</id>
+		<name>bladed staff</name>
 		<twohanded />
 		<decay />
 		<nodye />
@@ -17,13 +17,13 @@
 		<tag name="req_str" value="40" type="int" />
 		<type>1001</type>
 		<events>equipment,weapons_blades</events>
-		<category>Weapons\Swords\Double Bladed Staff (N/S)</category>
+		<category>Weapons\Swords\Bladed Staff (N/S)</category>
 	</item>
 
 	<item id="26bd">
-		<inherit id="26c9" />
+		<inherit id="26c7" />
 		<id>0x26bd</id>
-		<category>Weapons\Swords\Double Bladed Staff (E/W)</category>
+		<category>Weapons\Swords\Bladed Staff (E/W)</category>
 	</item>
 
 </definitions>
