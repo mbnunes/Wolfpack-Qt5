@@ -717,7 +717,9 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	// Shirt
 	pItem->setId( 0x1517 );
 	pItem->setColor( packet->shirtColor() );
-	pChar->addItem( cChar::Shirt, pItem );
+	pItem->setMaxhp( RandomNum( 25, 50 ) );
+	pItem->setHp( pItem->maxhp() );
+	pChar->addItem( cChar::Shirt, pItem );	
 	pItem->dye = 1;
 	pItem->priv |= 0x02;
 	ItemsManager::instance()->registerItem( pItem );
@@ -728,6 +730,8 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	// Skirt or Pants
 	pItem->setId( ( packet->gender() != 0 ) ? 0x1516 : 0x152E );
 	pItem->setColor( packet->pantsColor() );
+	pItem->setMaxhp( RandomNum( 25, 50 ) );
+	pItem->setHp( pItem->maxhp() );
 	pChar->addItem( cChar::Pants, pItem );
 	pItem->dye = 1;
 	pItem->priv |= 0x02;
