@@ -348,6 +348,7 @@ void cSectorMaps::remove( cUObject *object )
 	if( isItemSerial( object->serial() ) )
 	{
 		P_ITEM pItem = dynamic_cast< P_ITEM >( object );
+
 		if( pItem )
 		{
 			Coord_cl pos = pItem->pos();
@@ -358,6 +359,7 @@ void cSectorMaps::remove( cUObject *object )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
 			
 			it->second->removeItem( (cUObject*)pItem );
+			pItem->setDecayTime( 0 ); // Reset Decay Time
 		}
 	}
 	else if( isCharSerial( object->serial() ) )
