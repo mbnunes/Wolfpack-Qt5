@@ -1,11 +1,17 @@
 
 <definitions>
+	<!-- Britain -->
+	<region name="Tokuno Moongates">
+		<rectangle x1="1167" y1="996" x2="1171" y2="1000" map="4" /> <!-- Isamu-Jima -->
+		<rectangle x1="799" y1="1201" x2="805" y2="1207" map="4" /> <!-- Makoto-Jima -->
+		<rectangle x1="267" y1="625" x2="274" y2="632" map="4" /> <!-- Homare-Jima -->
+	</region>
+	
+	<region name="Zento">
+		<rectangle x1="656" y1="1192" x2="816" y2="1320" map="4" />
+	</region>
 
-	<!-- Towns -->
-	
-	<!-- Dungeons -->
-	
-	<!-- Misc. -->
-	
-
+	<region name="Fan Dancer's Dojo">
+		<rectangle x1="969" y1="194" x2="992" y2="224" map="4" />
+	</region>
 </definitions>

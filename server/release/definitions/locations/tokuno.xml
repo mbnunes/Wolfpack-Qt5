@@ -7,7 +7,7 @@
 =================================================================
 -->
 <definitions>
-
-	
-
+	<location id="zento" category="Tokuno\Zento">736,1256,30,4</location>
+	<location id="beetlescape" category="Tokuno\Beetlescape">798,245,58,4</location>
+	<location id="fandancersdojo" category="Tokuno\Fan Dancer's Dojo">977,223,23,4</location>
 </definitions>
