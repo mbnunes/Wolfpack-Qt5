@@ -1,5 +1,7 @@
 Wolfpack ChangeLog
 
+Wolfpack 12.9.10 Beta (4. September 2004)
+
 Wolfpack 12.9.9 Beta (CVS)
 	- Allowed viewing and setting account properties via .set and .show.
 	  Replace <property> with the name of the account property and <value>

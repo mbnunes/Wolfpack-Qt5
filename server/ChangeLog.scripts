@@ -1,34 +1,50 @@
 Wolfpack 13.0.0 ChangeLog
 
-Wolfpack 12.9.9 Beta (CVS)
+Wolfpack 12.9.10 Beta (CVS)
+	* Core Changes:
+	* Definition Changes:
+	* Python Script Changes:
+	* Misc. Changes:
+	* Known Issues, Bugs, and Missing Features:
+		- Some skills are still incomplete.
+		- Spawn regions are incomplete.
+			We welcome donated OSI-like spawn scripts!
+		- Town/World regions are incomplete.
+			We welcome donated OSI-like region scripts!
+		- Teleport Scripts are incomplete.
+			We welcome donated OSI-like teleport scripts!
+		- Possible that a few monsters are missing and/or incomplete.
+		- Reloading Python too many times can crash the server.
+		- There are still some memory leaks.
+		- Large gumps can potentially crash remote clients.
+		- Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.9 Beta (4. September 2004)
 	* Core Changes:
 		- Allowed viewing and setting account properties via .set and .show.
-			Replace <property> with the name of the account property and <value>
-			with the value you want to set:
-			.set account.<property> <value>
-			.show account.<property>
+		  Replace <property> with the name of the account property and <value>
+		  with the value you want to set:
+		  .set account.<property> <value>
+		  .show account.<property>
 		- Moved the account property getters and setters into the cAccount class.
 		- Added an e-mail field to the account database.
 		- Added the "email" property for accounts to the python interface.
 		- .exportdefinitions now exports data about NPCS and their equipment to the
-			categories.db database.
+		  categories.db database.
 		- .exportdefinitions now exports data about multis to the
-			categories.db database.
+		  categories.db database.
 		- Backup functionality for the binary save driver.
 		- Binary backups can automatically be compressed using gzip.
 		- The number of backups kept can be limited.
-		- Allowed scripts to be attached to base definitions by using
-			<basescripts>a,b,c</basescripts>. Those scripts are attached to objects by
-			using their baseid property. If you change the <basescripts> tags in the
-			definition, all objects using that definition will use the new scripts
-			automatically.
+		- Allowed scripts to be attached to base definitions by using <basescripts>a,b,c</basescripts>.
+		  Those scripts are attached to objects by using their baseid property. If you change the <basescripts>
+		  tags in the definition, all objects using that definition will use the new scripts automatically.
 		- onDetach and onAttach are not called for those scripts.
 		- hasscript(a) will return true if a is in the basescripts.
 		- addscript now prepends a new script rather than appending it.
-		- The python .scripts property includes all script names, including the
-			scripts in basescripts.
-		- Added a new property .basescripts to get a comma separated list of all
-			scripts in the basescripts list.
+		- the python .scripts property includes all script names, including the scripts in basescripts.
+		- added a new property .basescripts to get a comma separated list of all scripts in the
+		  basescripts list.
 		- New property: char.overweight Returns true if the character is overloaded.
 		- New property: char.maxweight Returns the maximum stones a character can carry.
 		- Stamina loss while walking.
@@ -38,8 +54,15 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Fixed an issue with account names containing foreign characters on save.
 		- Fixed an issue with walking/running not being sent to other cliens.
 		- Added wolfpack.queuecode to queue a python function for the next mainloop iteration.
+		- Ignore a 4.0.4a multi purpose packet that doesn't make sense.
+		- Fixed a bug related to serverlists duplication on configuration reload.
 		- Documentation fixes for item.addtimer.
 		- Item Base Definitions are now reloaded correctly.
+		- Fixed bug #0000267 (Max. falling height is now infinite).
+		- Fixed bug #0000268 (coord.validspawnspot() now corrects the z value of coordinates)
+		- Made startup more fault tolerant.
+		- Fixed a bug where the skin hue of mobiles was not being sent to clients in range.
+		- Fix for the unix console crashing if a QString::null was sent.
 	* Definition Changes:
 		- Tag Changes:
 			<events></events> is now <scripts></scripts>
