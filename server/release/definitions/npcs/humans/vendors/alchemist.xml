@@ -57,7 +57,7 @@
 				<item id="potion_lessercure" />
 				<item id="potion_lesserheal" />
 				<item id="potion_lesserpoison" />
-				<item id="potion_lesserexplosion" />				
+				<item id="potion_lesserexplosion" />
 			</sellable>
 		</shopkeeper>
 	</npc>
