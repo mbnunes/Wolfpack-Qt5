@@ -68,7 +68,7 @@ void cConMenu::processNode( const QDomElement &Tag )
 	if( TagName == "access" && Tag.hasAttribute( "acl" ))
 	{
 		tOptions.processNode( Tag );
-		options_.insert( make_pair< QString, cConMenuOptions >( Tag.attribute( "acl" ), tOptions ));
+		options_.insert( Tag.attribute( "acl" ), tOptions );
 		tOptions.deleteAll();
 	}
 }
@@ -79,11 +79,11 @@ cConMenu::cConMenu(const QDomElement &Tag)
 	applyDefinition( Tag );
 }
 
-cConMenuOptions* cConMenu::getOptionsByAcl( QString acl )
+const cConMenuOptions* cConMenu::getOptionsByAcl( QString acl ) const
 {
-	std::map< QString, cConMenuOptions >::iterator it = options_.find( acl );
+	QMap< QString, cConMenuOptions >::const_iterator it = options_.find( acl );
 	if( it != options_.end() )
-		return &it->second;
+		return &it.data();
 	
 	return 0;
 }
@@ -97,27 +97,25 @@ void cAllConMenus::load( void )
 		QDomElement* DefSection = DefManager->getSection( WPDT_CONTEXTMENU, (*it) );
 		if( !DefSection->isNull() )
 		{
-			cConMenu* pMenu = new cConMenu( *DefSection );
-			if( pMenu )
-				menus_.insert( make_pair< QString, cConMenu > ( (*it), *pMenu ) );
+			menus_.insert( (*it), cConMenu( *DefSection ) );
 		}
-		it++;
+		++it;
 	}
 	
 }
 
 bool cAllConMenus::MenuExist( QString bindmenu )
 {
-	std::map< QString, cConMenu >::iterator it = menus_.find( bindmenu );
+	QMap< QString, cConMenu >::iterator it = menus_.find( bindmenu );
 	if ( it != menus_.end() ) 
 		return true;
 	return false;
 }
-cConMenuOptions* cAllConMenus::getMenu( QString bindmenu, QString acl )
+const cConMenuOptions* cAllConMenus::getMenu( QString bindmenu, QString acl ) const
 {
-	std::map< QString, cConMenu >::iterator it = menus_.find( bindmenu );
+	QMap< QString, cConMenu >::const_iterator it = menus_.find( bindmenu );
 	if ( it != menus_.end() ) 	
-		return it->second.getOptionsByAcl( acl );
+		return it.data().getOptionsByAcl( acl );
 
 	return 0;
 }

@@ -967,7 +967,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 	
 	menu.setSerial ( packet->serial() ); 
 	
-	cConMenuOptions *tOptions =	cAllConMenus::getInstance()->getMenu( bindmenu, acl );
+	const cConMenuOptions *tOptions = cAllConMenus::getInstance()->getMenu( bindmenu, acl );
 	
 	if ( !tOptions )
 		return;

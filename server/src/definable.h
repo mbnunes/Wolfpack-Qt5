@@ -41,6 +41,7 @@
 class cDefinable
 {
 public:
+	virtual ~cDefinable() {}
 	void applyDefinition( const QDomElement &sectionNode );
 protected:
 	virtual void processNode( const QDomElement &Tag ) = 0;

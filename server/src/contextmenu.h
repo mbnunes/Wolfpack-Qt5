@@ -29,15 +29,16 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __CONTEXTMENU_H
-#define __CONTEXTMENU_H
+#if !defined (__CONTEXTMENU_H__)
+#define __CONTEXTMENU_H__
 
-
-#include <vector>
-#include <map>
 #include "definable.h"
 #include "wpdefmanager.h"
 #include "globals.h"
+
+
+#include <qvaluevector.h>
+#include <qmap.h>
 
 
 class cConSingleOption
@@ -57,17 +58,17 @@ private:
 	QString		scriptname_;
 };
 
-typedef std::vector< cConSingleOption > vSingleOption;
+typedef QValueVector< cConSingleOption > vSingleOption;
 
 class cConMenuOptions : public cDefinable
 {
 public:
-	typedef std::vector< cConSingleOption > vSingleOption;
+	typedef QValueVector< cConSingleOption > vSingleOption;
 	
 	void			processNode( const QDomElement &Tag );
-	vSingleOption	getOptions( void ) { return options_; }
+	vSingleOption	getOptions( void ) const { return options_; }
 	void			addOption( const QDomElement &Tag );
-	void			deleteAll( void ) {	options_.erase( options_.begin(), options_.end() );	}
+	void			deleteAll( void ) {	options_.clear();	}
 	
 private: 
 	vSingleOption	options_;
@@ -77,12 +78,13 @@ private:
 class cConMenu : public cDefinable
 {
 public:
-						cConMenu( const QDomElement &Tag );
-	void				processNode( const QDomElement &Tag );
-	cConMenuOptions*	getOptionsByAcl( QString acl );
+							cConMenu() {};
+							cConMenu( const QDomElement &Tag );
+	void					processNode( const QDomElement &Tag );
+	const cConMenuOptions*	getOptionsByAcl( QString acl ) const;
 	
 private:
-	std::map< QString, cConMenuOptions >	options_;
+	QMap< QString, cConMenuOptions >	options_;
 };
 
 class cAllConMenus
@@ -100,12 +102,12 @@ public:
 	bool	MenuExist( QString bindmenu );
 	void	load( void );
 	void	reload( void );
-	cConMenuOptions* getMenu( QString bindmenu, QString acl );
+	const cConMenuOptions* getMenu( QString bindmenu, QString acl ) const;
 	
 private:
-	std::map< QString, cConMenu >	menus_;
+	QMap< QString, cConMenu >	menus_;
 	
 };
 
-#endif
+#endif // __CONTEXTMENU_H__
 
