@@ -158,6 +158,7 @@ Wolfpack 12.9.13 Beta (SVN)
   - Enabled tithing of gold, resurrection and karma locking at ankhs.
  * Misc. Changes:
   - FAQ Updates.
+  - Now compiling with the KDE Cygwin QT version on Windows. (http://kde-cygwin.sf.net)
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
   - Spawn regions are incomplete.
