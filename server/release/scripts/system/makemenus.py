@@ -337,7 +337,7 @@ class CraftItemAction(MakeItemAction):
 			materials.append(material[:2]) # Last element is the amount left to find
 
 		# This loop checks for all required materials at once.
-		for item in backpack.content:
+		for item in backpack.content:		
 			# Check if the pile is used by the main material
 			if item.baseid in submaterial1baseids:
 				submaterial1amount -= item.amount
@@ -349,7 +349,7 @@ class CraftItemAction(MakeItemAction):
 				continue
 				
 			for material in materials:
-				if item.baseid in material[0]:
+				if item.baseid in material[0]:					
 					material[1] -= item.amount
 					break # Break the inner loop
 
@@ -370,7 +370,7 @@ class CraftItemAction(MakeItemAction):
 				else:
 					player.socket.sysmessage(self.lackmaterial)
 			return False
-			
+
 		# Check if we found all the normal material we need to produce this item.
 		for material in materials:
 			if material[1] > 0:

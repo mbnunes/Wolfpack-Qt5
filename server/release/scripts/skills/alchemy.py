@@ -59,6 +59,9 @@ class BrewItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
 		self.markable = 1 # All alchemy items are not markable
+		self.bottled = True # Whatever we produce comes in bottles
+		self.successmessage = 500279 # Custom Success Message
+		self.failmessage = 500287 # Custom Fail Message
 
 	#
 	# No exceptional alchemist items.
@@ -70,10 +73,13 @@ class BrewItemAction(CraftItemAction):
 	# Play the "grind" sound when we fail to create a potion
 	#
 	def fail(self, player, arguments, lostmaterials):
-		player.socket.clilocmessage(500287)
+		if type(self.failmessage) == int:
+			player.socket.clilocmessage(self.failmessage)
+		else:
+			player.socket.sysmessage(self.failmessage)
 
 		# Re-create the empty bottle in the users backpack
-		if lostmaterials:
+		if lostmaterials and self.bottled:
 			bottle = wolfpack.additem('f0e')
 			if not wolfpack.utilities.tobackpack(bottle, player):
 				bottle.update()
@@ -83,7 +89,10 @@ class BrewItemAction(CraftItemAction):
 	#
 	def success(self, player, arguments, item, exceptional=0, marked=0):
 		player.soundeffect(0x240)
-		player.socket.clilocmessage(500279)
+		if type(self.successmessage) == int:
+			player.socket.clilocmessage(self.successmessage)
+		else:
+			player.socket.sysmessage(self.successmessage)
 
 	#
 	# There are no special properties
