@@ -139,6 +139,12 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 		addText( 50, 120, tr( "Name: %1" ).arg( region->id() ), 0x834 );
 		addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( region->npcs() ).arg( region->maxNpcs() ), 0x834 );
 		addText( 50, 160, tr( "Items: %1 of %2" ).arg( region->items() ).arg( region->maxItems() ), 0x834 );
+		if (region->active()) {
+			addText( 50, 180, tr( "Active" ), 0x834 );
+		} else {
+			addText( 50, 180, tr( "Inactive" ), 0x834 );
+		}
+		addText( 50, 200, tr( "Groups: %1" ).arg(region->groups().join(", ")), 0x834 );
 		//addText( 50, 180, tr( "Coordinates: %1" ).arg( allrectangles.size() ), 0x834 );
 
 		// OK button

@@ -61,6 +61,7 @@
 #include "utilities.h"
 #include "tempeffect.h"
 #include "worlditerator.h"
+#include "pyspawnregion.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -564,6 +565,25 @@ static PyObject* wpRegion( PyObject* self, PyObject* args )
 		return 0;
 
 	return PyGetRegionObject( Territories::instance()->region( x, y, map ) );
+}
+
+/*
+	\function wolfpack.spawnregion
+	\param id The spawnregion id.
+	\return A <object id="spawnregion">spawnregion</object> object or None if there is no region with the given name.
+	\description Finds a spawnregion with the given id.
+*/
+static PyObject* wpSpawnregion( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self );
+	
+	// Three arguments
+	char *name;
+	if ( !PyArg_ParseTuple( args, "s:wolfpack.spawnregion", &name) )
+		return 0;
+
+	cSpawnRegion *spawn = SpawnRegions::instance()->region(name);
+	return PyGetSpawnRegionObject(spawn);
 }
 
 /*
@@ -1844,6 +1864,7 @@ static PyMethodDef wpGlobal[] =
 { "addtimer",			wpAddtimer,						METH_VARARGS, "Adds a timed effect" },
 { "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." },
 { "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
+{ "spawnregion",		wpSpawnregion,					METH_VARARGS, 0 },
 { "currenttime",		wpCurrenttime,					METH_NOARGS, "Time in ms since server-start" },
 { "newguild",			wpNewguild,						METH_VARARGS, 0},
 { "statics",			wpStatics,						METH_VARARGS, "Returns a list of static-item at a given position" },

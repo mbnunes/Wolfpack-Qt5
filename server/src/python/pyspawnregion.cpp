@@ -62,7 +62,23 @@ wpDealloc,
 };
 
 /*
-\method spawnregion.removeitem
+\method spawnregion.add
+\param object
+\description Add the given object to this spawnregion.
+*/
+static PyObject* wpSpawnRegion_add( wpSpawnRegion *self, PyObject *args) {
+	cUObject *object;
+
+	if (!PyArg_ParseTuple(args, "O&:spawnregion.add(obj)", &PyConvertObject, &object)) {
+		return 0;
+	}
+
+	object->setSpawnregion(self->pRegion);
+	Py_RETURN_NONE;
+}
+
+/*
+\method spawnregion.remove
 \param serial
 \description Remove the given object from a spawnregion, freeing the slot for a new item
 to be spawned.
@@ -95,26 +111,31 @@ static PyObject* wpSpawnRegion_remove( wpSpawnRegion* self, PyObject* args )
 }
 
 /*
-\method spawnregion.spawn
-\param baseids [Optional] is a list of BaseIDs to be spawned from
-\description Remove the given object from a spawnregion, freeing the slot for a new item
-to be spawned.
+\method spawnregion.respawn
+\description Issue a spawn cycle of this spawnregion.
 */
-static PyObject* wpSpawnRegion_spawn( wpSpawnRegion* /*self*/, PyObject* args )
+static PyObject* wpSpawnRegion_respawn( wpSpawnRegion* self, PyObject* args )
 {
-	PyObject* baseids = 0;
-	if ( !PyArg_ParseTuple( args, "|O!:spawnregion.spawn([baseids])", &PyList_Type, &baseids ) )
-	{
-		return 0;
-	}
-	
+	self->pRegion->reSpawn();
+	Py_RETURN_NONE;
+}
+
+/*
+\method spawnregion.clear
+\description Clear this spawnregion.
+*/
+static PyObject* wpSpawnRegion_clear( wpSpawnRegion* self, PyObject* args )
+{
+	self->pRegion->deSpawn();
 	Py_RETURN_NONE;
 }
 
 static PyMethodDef wpSpawnRegionMethods[] =
 {
+{ "add",				( getattrofunc ) wpSpawnRegion_add,	METH_VARARGS, NULL },
 { "remove",				( getattrofunc ) wpSpawnRegion_remove,	METH_VARARGS, NULL },
-{ "spawn",				( getattrofunc ) wpSpawnRegion_spawn,	METH_VARARGS, NULL },
+{ "respawn",			( getattrofunc ) wpSpawnRegion_respawn,	METH_VARARGS, NULL },
+{ "clear",				( getattrofunc ) wpSpawnRegion_clear,	METH_VARARGS, NULL },
 { NULL, NULL, 0, NULL }
 };
 
@@ -128,84 +149,70 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 		return QString2Python( self->pRegion->id() );
 	}
 	/*
-	\rproperty spawnregion.maxitemspawn
+	\rproperty spawnregion.maxitems The maximum number of items spawned by this region.
 	*/
-	else if ( !strcmp( name, "maxitemspawn" ) )
+	else if ( !strcmp( name, "maxitems" ) )
 	{
 		return PyInt_FromLong( self->pRegion->maxItems() );
 	}
 	/*
-	\rproperty spawnregion.maxnpcspawn
+	\rproperty spawnregion.maxnpcs The maximum number of npcs spawned by this region.
 	*/
-	else if ( !strcmp( name, "maxnpcspawn" ) )
+	else if ( !strcmp( name, "maxnpcs" ) )
 	{
 		return PyInt_FromLong( self->pRegion->maxNpcs() );
 	}
 	/*
-	\rproperty spawnregion.npcspawncount
+	\rproperty spawnregion.spawnednpcs The number of npcs currently spawned in this region.
 	*/
-	else if ( !strcmp( name, "npcspawncount" ) )
+	else if ( !strcmp( name, "spawnednpcs" ) )
 	{
 		return PyInt_FromLong( self->pRegion->npcs() );
 	}
 	/*
-	\rproperty spawnregion.itemspawncount
+	\rproperty spawnregion.spawneditems The number of items currently spawned in this region.
 	*/
-	else if ( !strcmp( name, "itemspawncount" ) )
+	else if ( !strcmp( name, "spawneditems" ) )
 	{
 		return PyInt_FromLong( self->pRegion->items() );
 	}
 	/*
-	\rproperty spawnregion.npcspawnlist
+	\rproperty spawnregion.items A list of serials for the items currently spawned in this region.
 	*/
-	else if ( !strcmp( name, "npcspawnlist" ) )
-	{
-	/*	QStringList sections = self->pRegion->npcSections();
-		PyObject* tuple = PyTuple_New( sections.size() );
-		for ( uint i = 0; i < sections.size(); ++i )
-		{
-			PyTuple_SetItem( tuple, i, QString2Python( sections[i] ) );
-		}
-		return tuple;*/
-	}
-	/*
-	\rproperty spawnregion.itemspawnlist
-	*/
-	else if ( !strcmp( name, "itemspawnlist" ) )
-	{
-		/*QStringList sections = self->pRegion->itemSections();
-		PyObject* tuple = PyTuple_New( sections.size() );
-		for ( uint i = 0; i < sections.size(); ++i )
-		{
-			PyTuple_SetItem( tuple, i, QString2Python( sections[i] ) );
-		}
-		return tuple;*/
-	}
-	/*
-	\rproperty spawnregion.spawneditems
-	*/
-	else if ( !strcmp( name, "spawneditems" ) )
+	else if ( !strcmp( name, "items" ) )
 	{
 		QPtrList<cUObject> objects = self->pRegion->spawnedItems();
 		PyObject* list = PyList_New( objects.count() );
 		cUObject *object;
+		int offset = 0;
 
 		for ( object = objects.first(); object; object = objects.next() )
-			PyList_Append( list, PyInt_FromLong( object->serial() ) );
+			PyList_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
 		return list;
 	}
 	/*
-	\rproperty spawnregion.spawnednpcs
+	\rproperty spawnregion.npcs A list of serials for the npcs currently spawned in this region.
 	*/
-	else if ( !strcmp( name, "spawnednpcs" ) )
+	else if ( !strcmp( name, "npcs" ) )
 	{
 		QPtrList<cUObject> objects = self->pRegion->spawnedNpcs();
 		PyObject* list = PyList_New( objects.count() );
 		cUObject *object;
+		int offset = 0;
 
 		for ( object = objects.first(); object; object = objects.next() )
-			PyList_Append( list, PyInt_FromLong( object->serial() ) );
+			PyList_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
 		return list;
+	}
+	/*
+	\property spawnregion.active Indicates whether this spawnregion is currently active.
+	*/
+	else if (!strcmp( name, "active") ) {
+		if (self->pRegion->active()) {
+			Py_RETURN_TRUE;
+		} else {
+			Py_RETURN_FALSE;
+		}
 	}
 
 	return Py_FindMethod( wpSpawnRegionMethods, ( PyObject * ) self, name );
@@ -216,7 +223,15 @@ static int wpSpawnRegion_setAttr( wpSpawnRegion* self, char* name, PyObject* val
 	Q_UNUSED( self );
 	Q_UNUSED( name );
 	Q_UNUSED( value );
-	// SpawnRegions have no changeable attributes yet
+	
+	if (!strcmp(name, "active")) {
+		if (PyObject_IsTrue(value)) {
+			self->pRegion->setActive(true);
+		} else {
+			self->pRegion->setActive(false);
+		}
+	}
+
 	return 0;
 }
 

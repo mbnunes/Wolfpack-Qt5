@@ -147,7 +147,7 @@ void getBlockingTiles(const Coord_cl &pos, QValueList<stBlockingItem> &items) {
 
 	for (P_ITEM ditem = ditems->first(); ditem; ditem = ditems->next()) {
 		// If the item is invisible or a multi, skip past it.
-		if (ditem->visible() != 0 || ditem->isMulti()) {
+		if (ditem->isMulti()) {
 			continue;
 		}
 

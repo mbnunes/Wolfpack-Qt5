@@ -655,14 +655,11 @@ void cSpawnRegion::spawnSingleItem()
 
 void cSpawnRegion::onSpawn( cUObject* obj )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_CREATE );
+	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SPAWN );
 
-	if ( global )
-	{
+	if ( global ) {
 		PyObject* args = Py_BuildValue( "NN", PyGetSpawnRegionObject( this ), PyGetObjectObject( obj ) );
-
 		global->callEventHandler( EVENT_SPAWN, args );
-
 		Py_DECREF( args );
 	}
 }
@@ -670,16 +667,18 @@ void cSpawnRegion::onSpawn( cUObject* obj )
 // do one spawn and reset the timer
 void cSpawnRegion::reSpawn( void )
 {
-	unsigned int i = 0;
-	for ( i = 0; i < npcsPerCycle_; ++i )
-		if ( npcs() < maxNpcAmt_ )
-			spawnSingleNPC(); // spawn a random npc
+	if (active_) {
+		unsigned int i = 0;
+		for ( i = 0; i < npcsPerCycle_; ++i )
+			if ( npcs() < maxNpcAmt_ )
+				spawnSingleNPC(); // spawn a random npc
 
-	for ( i = 0; i < this->itemsPerCycle_; i++ )
-		if ( items() < this->maxItemAmt_ )
-			spawnSingleItem(); // spawn a random item
+		for ( i = 0; i < this->itemsPerCycle_; i++ )
+			if ( items() < this->maxItemAmt_ )
+				spawnSingleItem(); // spawn a random item
 
-	this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
+		this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
+	}
 }
 
 void cSpawnRegion::reSpawnToMax( void )

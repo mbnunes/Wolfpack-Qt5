@@ -45,6 +45,9 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Added an option to disable spawnregions alltogether for build servers etc.
 	- GMs now can really move everything.
 	- Logged out characters are no longer shown in gray because of client bugs.
+	- Invis items can now be used to block the line of sight.
+	- Fixed the spawnregion python interface and added documentation.
+	- Made the spawnregion info gump show the active/inactive state and the groups for spawnregions.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

@@ -108,6 +108,10 @@ public:
 		return active_;
 	}
 
+	inline void setActive(bool value) {
+		active_ = value;
+	}
+
 	inline unsigned int nextTime() {
 		return nextTime_;
 	}
