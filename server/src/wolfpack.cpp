@@ -477,7 +477,6 @@ int main( int argc, char **argv )
 	QWaitCondition niceLevel;
 
 	unsigned char cycles = 0;
-	lockDataMutex();
 
 	// This is our main loop
 	while (keeprun) {
@@ -509,9 +508,7 @@ int main( int argc, char **argv )
 			PyEval_RestoreThread( _save );
 
 			// Unlock the main mutex to give the gui time for processing data
-			unlockDataMutex();
-			lockDataMutex();
-		}
+		}      
 
 		// Perform Threadsafe Actions
 		if (!actionQueue.empty()) {
@@ -524,13 +521,17 @@ int main( int argc, char **argv )
 				{
 				case RELOAD_ACCOUNTS:
 					Console::instance()->sendProgress( "Reloading Accounts" );
+					lockDataMutex();
 					Accounts::instance()->reload();
+					unlockDataMutex();
 					Console::instance()->sendDone();
 					break;
 
 				case RELOAD_CONFIGURATION:
 					Console::instance()->sendProgress( "Reloading Configuration" );
+					lockDataMutex();
 					SrvParams->reload();
+					unlockDataMutex();
 					Console::instance()->sendDone();
 					break;
 
@@ -542,7 +543,9 @@ int main( int argc, char **argv )
 					break;
 
 				case SAVE_WORLD:
+					lockDataMutex();
 					World::instance()->save();
+					unlockDataMutex();
 					break;
 				}
 			}
@@ -551,8 +554,11 @@ int main( int argc, char **argv )
 
 		// See if we should release our data lock for a while.
 		Console::instance()->poll();
+
+		lockDataMutex();
 		cNetwork::instance()->poll();
 		Timing::instance()->poll();
+        unlockDataMutex();
 	}
 
 	unlockDataMutex();

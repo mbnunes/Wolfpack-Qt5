@@ -1272,8 +1272,7 @@ static PyObject *wpGetDefinitions(PyObject *self, PyObject *args) {
 		PyTuple_SetItem(result, i, elements[i]->getPyObject());
 	}
 
-	for ( uint j = 0; j < sections.size(); ++j ) 
-	{
+	for (uint j = 0; j < sections.size(); ++j) {
 		cElement *element = const_cast<cElement*>(DefManager->getDefinition((eDefCategory)type, sections[j]));
 		PyTuple_SetItem(result, i++, element->getPyObject());
 	}
