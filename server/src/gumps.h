@@ -214,30 +214,6 @@ public:
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
 
-class cCharInfoGump : public cGump
-{
-	Q_OBJECT
-protected:
-	cBaseChar* char_;
-
-public:
-	cCharInfoGump( cBaseChar* char_ );
-
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
-};
-
-class cItemInfoGump : public cGump
-{
-	Q_OBJECT
-protected:
-	cItem* item_;
-
-public:
-	cItemInfoGump( cItem* item_ );
-
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
-};
-
 class cTagsInfoGump : public cGump
 {
 	Q_OBJECT

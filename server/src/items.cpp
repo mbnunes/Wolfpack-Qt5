@@ -2781,6 +2781,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "timeunused", time_unused )
 	else SET_INT_PROPERTY( "timeusedlast", timeused_last )
 	else SET_INT_PROPERTY( "magic", magic_ )
+	else SET_INT_PROPERTY( "visible", visible_ )
 
 	// Flags
 	else if( name == "decay" )
@@ -2942,6 +2943,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "wipeable", priv_ & 0x10 ? 1 : 0 )
 	else GET_PROPERTY( "twohanded", priv_ & 0x20 ? 1 : 0 )
 	else GET_PROPERTY( "corpse", priv_ & 0x40 ? 1 : 0 )
+	else GET_PROPERTY( "visible", visible() )
 
 	return cUObject::getProperty( name, value );
 }

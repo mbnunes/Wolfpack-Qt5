@@ -1002,3 +1002,5 @@ int wpItem_compare( PyObject *a, PyObject *b )
 
 	return !( pA == pB );
 }
+
+

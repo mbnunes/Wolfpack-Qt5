@@ -621,42 +621,6 @@ void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
 	World::instance()->save();
 }
 
-void commandInfo( cUOSocket *socket, const QString &command, QStringList &args ) throw()
-{ 
-	Q_UNUSED(command);
-	SERIAL serial = args.size() > 0 ? args[0].toUInt() : INVALID_SERIAL;
-	if( serial != INVALID_SERIAL )
-	{
-		if( isCharSerial( serial ) )
-		{
-			P_CHAR pc = FindCharBySerial( serial );
-			if( pc )
-			{
-				cCharInfoGump* pGump = new cCharInfoGump( pc );
-				socket->send( pGump );
-			}
-			else
-				socket->sysMessage( tr("The given serial is invalid!") );
-		}
-		else
-		{
-			P_ITEM pi = FindItemBySerial( serial );
-			if( pi )
-			{
-				cItemInfoGump* pGump = new cItemInfoGump( pi );
-				socket->send( pGump );
-			}
-			else
-				socket->sysMessage( tr("The given serial is invalid!") );
-		}
-	}
-	else
-	{
-		socket->sysMessage( tr( "Please select a target" ) );
-		socket->attachTarget( new cInfoTarget );
-	}
-}
-
 void commandServerTime( cUOSocket *socket, const QString &command, QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -1392,7 +1356,6 @@ stCommand cCommands::commands[] =
 	{ "FIX",			commandFix },
 	{ "GO",				commandGo },
 	{ "GMTALK",			commandGmtalk },
-	{ "INFO",			commandInfo },
 	{ "INVIS",			commandInvis },
 	{ "KILL",			commandKill },
 	{ "MAKEMENU",		commandMakeMenu },

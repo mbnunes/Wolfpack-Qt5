@@ -57,6 +57,7 @@
 #include "../basechar.h"
 #include "../player.h"
 #include "../npc.h"
+#include "../targetrequests.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -650,6 +651,7 @@ PyObject *wpTiledata( PyObject* self, PyObject* args )
 	PyDict_SetItemString( dict, "wet", PyInt_FromLong( tile.isWet() ) );
 	PyDict_SetItemString( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
 	PyDict_SetItemString( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
+	PyDict_SetItemString( dict, "flagnames", PyString_FromString( getFlagNames( tile ).join(",") ) );
 	
 	return dict;
 }

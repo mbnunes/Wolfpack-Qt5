@@ -1541,10 +1541,17 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else if( name == "incognito" )
 	{
 		setIncognito( value.toInt() );
+		return 0;
 	}
 	else if( name == "polymorph" )
 	{
 		setPolymorphed( value.toInt() );
+		return 0;
+	}
+	else if( name == "dead" )
+	{
+		setDead( value.toInt() );
+		return 0;
 	}
 	else if( name == "haircolor" )
 	{
@@ -1588,6 +1595,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else if( name == "creationdate" )
 	{
 		creationDate_ = QDateTime::fromString( value.toString() );
+		return 0;
 	}
 	else SET_INT_PROPERTY( "stealthedsteps", stealthedSteps_ )
 	else SET_INT_PROPERTY( "runningsteps", runningSteps_ )
@@ -1595,16 +1603,19 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else if( name == "tamed" )
 	{
 		setTamed( value.toInt() );
+		return 0;
 	}
 	else SET_CHAR_PROPERTY( "guarding", guarding_ )
 	else SET_INT_PROPERTY( "murderer", murdererSerial_ )
 	else if( name == "casting" )
 	{
 		setCasting( value.toInt() );
+		return 0;
 	}
 	else if( name == "hidden" )
 	{
 		setHidden( value.toInt() );
+		return 0;
 	}
 	else SET_INT_PROPERTY( "hunger", hunger_ )
 	else SET_INT_PROPERTY( "hungertime", hungerTime_ )
@@ -1615,6 +1626,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else if( name == "ra" )
 	{
 		setReactiveArmor( value.toInt() );
+		return 0;
 	}
 	else SET_INT_PROPERTY( "flag", flag_ )
 	else SET_INT_PROPERTY( "murderertime", murdererTime_ )
@@ -1622,6 +1634,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else if( name == "meditating" )
 	{
 		setMeditating( value.toInt() );
+		return 0;
 	}
 	else SET_INT_PROPERTY( "weight", weight_ )
 	else if( name == "stones" )
@@ -1655,6 +1668,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else if( name == "war" )
 	{
 		setAtWar( value.toInt() );
+		return 0;
 	}
 	else SET_INT_PROPERTY( "target", combatTarget_ )
 	else SET_INT_PROPERTY( "nextswing", nextHitTime_ )
@@ -1671,7 +1685,24 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else if( name == "attackfirst" )
 	{
 		setAttackFirst( value.toInt() );
+		return 0;
 	}
+	else if( name == "invulnerable" )
+	{
+		setInvulnerable( value.toInt() );
+		return 0;
+	}
+	else if( name == "invisible" )
+	{
+		setInvisible( value.toInt() );
+		return 0;
+	}
+	else if( name == "frozen" )
+	{
+		setFrozen( value.toInt() );
+		return 0;
+	}
+
 
 	return cUObject::setProperty( name, value );
 }
@@ -1747,7 +1778,10 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "sex", gender_ )
 	else GET_PROPERTY( "id", bodyID_ )
 	else GET_PROPERTY( "attackfirst", attackFirst() )
-
+	else GET_PROPERTY( "invulnerable", isInvulnerable() )
+	else GET_PROPERTY( "invisible", isInvisible() )
+	else GET_PROPERTY( "frozen", isFrozen() )
+	
 	// skill.
 	else if( name.left( 6 ) == "skill." )
 	{

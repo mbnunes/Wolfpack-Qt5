@@ -52,9 +52,15 @@ PyObject *wpGumpResponse_getAttr( wpGumpResponse *self, char *name )
 		// Create a dictionary
 		PyObject *dict = PyDict_New();
 
-		std::map< unsigned short, QString >::iterator iter = self->response->textentries.begin();
-		for( ; iter != self->response->textentries.end(); ++iter )
-			PyDict_SetItem( dict, PyInt_FromLong( iter->first ), PyString_FromString( iter->second.latin1() ) );
+		std::map< unsigned short, QString > textentries = self->response->textentries;
+		std::map< unsigned short, QString >::iterator iter = textentries.begin();
+		for( ; iter != textentries.end(); ++iter )
+		{
+			if( !iter->second.isEmpty() )
+				PyDict_SetItem( dict, PyInt_FromLong( iter->first ), PyString_FromString( iter->second.latin1() ) );
+			else
+				PyDict_SetItem( dict, PyInt_FromLong( iter->first ), PyString_FromString( "" ) );
+		}
 
 		return dict;
 	}

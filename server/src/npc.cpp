@@ -1062,6 +1062,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	else if( name == "following" )
 	{
 		setWanderFollowTarget( value.toInt() );
+		return 0;
 	}
 	else if( name == "destination" )
 	{
@@ -1071,22 +1072,27 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	else if( name == "fx1" || name == "wanderx1" )
 	{
 		setWanderX1( value.toInt() );
+		return 0;
 	}
 	else if( name == "fx2" || name == "wanderx2" )
 	{
 		setWanderX2( value.toInt() );
+		return 0;
 	}
 	else if( name == "fy1" || name == "wandery1" )
 	{
 		setWanderY1( value.toInt() );
+		return 0;
 	}
 	else if( name == "fy2" || name == "wandery2" )
 	{
 		setWanderY2( value.toInt() );
+		return 0;
 	}
 	else if( name == "fz1" || name == "wanderradius" )
 	{
 		setWanderRadius( value.toInt() );
+		return 0;
 	}
 	else SET_INT_PROPERTY( "totame", tamingMinSkill_ )
 	else SET_INT_PROPERTY( "summontime", summonTime_) 
@@ -1139,7 +1145,6 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "fy2", wanderY2() )
 	else GET_PROPERTY( "wanderradius", wanderRadius() )
 	else GET_PROPERTY( "fz1", wanderRadius() )
-	else GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
 	else GET_PROPERTY( "totame", tamingMinSkill_ )
 	else GET_PROPERTY( "summontime", (int)summonTime_) 
 	else GET_PROPERTY( "summontimer", (int)summonTime_) 
