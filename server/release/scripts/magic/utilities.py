@@ -114,7 +114,7 @@ def statmodifier_dispel(char, args, source, dispelargs):
 #
 # A stat enhancing spell has expired
 #
-def statmodifier_expire(char, args):
+def statmodifier_expire(char, args):	
 	stat = args[0]
 	amount = args[1]
 

@@ -35,15 +35,12 @@ def response( char, args, target ):
 	item = wolfpack.finditem( args[0] )
 	if not item:
 		return
-
-	# Check reach
-	if target.item and not char.canreach(target.item, 5):
+		
+	if target.char and not char.canreach(target.char, 5):
 		char.socket.clilocmessage(500312)
 		return
-	elif target.char and not char.canreach(target.char, 5):
-		char.socket.clilocmessage(500312)
-		return
-	elif target.pos and not char.canreach(target.pos, 5):
+		
+	elif not target.item and not char.canreach(target.pos, 5):
 		char.socket.clilocmessage(500312)
 		return
 
@@ -51,17 +48,26 @@ def response( char, args, target ):
 	# Wood => Kindling/Logs
 	model = 0
 
-	if target.item:
+	if target.item:	
 		if target.item.id == 0x2006 and target.item.corpse:
+			if not char.canreach(target.item, 5):
+				char.socket.clilocmessage(500312)
+				return
+
 			carve_corpse( char, target.item )
 			return
-		else:
-			model = target.item.id
 
 		# For cutting fish
-		if model in fish:
+		elif target.item.id in fish:
+			if target.item.getoutmostchar() != char:
+				char.socket.clilocmessage(500312)
+				return
+
 			cut_fish(char, target.item)
 			return
+			
+		else:
+			model = target.item.id
 
 	# This is for sheering only
 	elif target.char and target.char.npc:
@@ -172,8 +178,8 @@ def carve_corpse( char, corpse ):
 
 # CUT FISH
 def cut_fish( char, item ):
-		item_new = wolfpack.additem( "97a" )
-		item_new.amount = item.amount * 2
-		if not utilities.tocontainer( item_new, char.getbackpack() ):
-			item_new.update()
-		item.delete()
+	item_new = wolfpack.additem( "97a" )
+	item_new.amount = item.amount * 2
+	if not utilities.tocontainer( item_new, char.getbackpack() ):
+		item_new.update()
+	item.delete()

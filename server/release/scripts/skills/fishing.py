@@ -9,6 +9,7 @@ from wolfpack.consts import *
 import wolfpack
 import wolfpack.time
 import wolfpack.utilities
+import wolfpack.console
 from math import floor
 import random
 
@@ -279,10 +280,10 @@ def itemtimer( char, args ):
 
 	# Success!
 	if not spawnmonster:
-		socket.clilocmessage( 0xf61fc, "", 0x3b2, 3, 0, str(itemname) ) # You pull out an item :
+		socket.clilocmessage( 0xf61fc, "", 0x3b2, 3, None, str(itemname) ) # You pull out an item :
 	else:
-		socket.clilocmessage( 0xf61fd, "", 0x3b2, 3, 0, str(itemname) ) # You pull out an item along with a monster :
+		socket.clilocmessage( 0xf61fd, "", 0x3b2, 3, None, str(itemname) ) # You pull out an item along with a monster :
 
-def resourceDecayTimer( resource, args ):
+def resourceDecayTimer( resource, args ):	
 	resource.delete()
 	return

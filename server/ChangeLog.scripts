@@ -8,6 +8,8 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed bug #0000288 - All monsters should have 2000 mintaming.
 		- Fixed bug part 2 of #0000283 - Occlo renamed to Haven in locations.
 		- Fixed bug #0000304. (Cast animations for non humans)
+		- Fishing pole now should have the twohanded flag.
+		- Fishing now shows the success cliloc message correctly.
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
@@ -19,6 +21,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Characters with an enabled staff flag can cast spells
 		  without any requirements now (even when using books and other
 		  items).
+		- Fixed bug #0000308. (Using blades on items not possible)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
