@@ -1,4 +1,43 @@
 
+"""
+	\command account
+	\description This command will modify account information.
+	\usage - <code>account create username password</code>
+	- <code>account remove username</code>
+	- <code>account set username key value</code>
+	- <code>account show username key</code>
+	 Use the create subcommand to create a new account with the given username and password.
+	To remove an account along with all player characters on that account, use the remove
+	subcommand and pass the username to it.
+	To change properties of a given account, use the set subcommand and pass the username,
+	the property key and the new property value to it. See the notes for a list of valid property keys.
+	To view properties of an account, use the show subcommand and pass the property key to it.
+	\notes The following properties can be set for accounts:
+	<i>password</i>
+	The account password.
+	<br />
+	<i>acl</i>
+	The name of the access control list.
+	<br />
+	<i>block</i>
+	Block status of the account.
+	<br />
+	In addition to the writeable properties, the following properties can be shown:
+	<br />
+	<i>loginattempts</i>
+	How many failed login attempts have been made since the last successful login.
+	<br />
+	<i>lastlogin</i>
+	When was the last successful login made.
+	<br />
+	<i>chars</i>
+	Prints a list of player characters on this account.
+	<br />
+	Valid values for the block property are either on, off or for how long the account should be blocked.
+	<br />
+	If you have enabled MD5 passwords, you can only view the hashed password when showing the password property.
+"""
+
 import wolfpack
 import wolfpack.accounts
 import string
@@ -161,6 +200,7 @@ def accountShow( socket, username, key ):
 		if account:
 			# Rank Checking
 			if account.rank >= characcount.rank:
+				socket.sysmessage( "Error: Your account rank does not permit this!" )
 				return False
 			if key == 'acl':
 				socket.sysmessage( "%s.acl = %s" % ( account.name, account.acl ) )
@@ -194,21 +234,30 @@ def accountShow( socket, username, key ):
 				return True
 		# Failure to find the account
 		else:
-			socket.sysmessage( "Failed to locate the given account!" )
-			return True
+			socket.sysmessage( "Error: Account %s could not be located!" % username )
+			return False
 
 # Sets account properties
 def accountSet( socket, username, key, value ):
+	char = socket.player
+	characcount = wolfpack.accounts.find( char.account.name )
 	# Usernames are limited to 16 characters in length
-	if len( username ) > 16:
-		socket.sysmessage( "The given username exceeds the 16 character limit!" )
-		return True
+	if len( username ) > 16 or len( username ) == 0:
+		if len( username ) > 16:
+			socket.sysmessage( "Error: Username exceeds the 16 character limit!" )
+		if len( username ) == 0:
+			socket.sysmessage( "Error: Username is NULL!" )
+		return False
 	# Find the account
 	else:
 		account = wolfpack.accounts.find( username )
 		if account:
-			return True
+			if account.rank >= characcount.rank:
+				socket.sysmessage( "Error: Your account rank does not permit this!" )
+				return False
+			else:
+				return True
 		# Failure to find the account
 		else:
-			socket.sysmessage( "Failed to locate the given account!" )
+			socket.sysmessage( "Error: Account %s could not be located!" % username )
 			return True
