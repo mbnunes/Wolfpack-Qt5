@@ -215,7 +215,7 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 		if( this->z_[rndRectNum] != 255 )
 			pos.z = this->z_[rndRectNum];
 		else
-			pos.z = Map->height( pos );
+			pos.z = Map->mapElevation( pos );
 
 		pos.map = rectangles_[rndRectNum].map;
 
@@ -295,6 +295,7 @@ void cSpawnRegion::reSpawnToMax( void )
 			{
 				this->npcSerials_.push_back( pc->serial() );
 				pc->setSpawnregion( this->name_ );
+				pc->update();
 			}
 		}
 	}

@@ -1508,7 +1508,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 {
 	if( pos.x >= ( Map->mapTileWidth(pos.map) * 8 ) || pos.y >= ( Map->mapTileHeight(pos.map) * 8 ) )
 		return false;
-    const signed char elev = Map->height( pos );
+    const signed char elev = Map->mapElevation( pos );
 	Coord_cl target = pos;
 	target.z = elev;
 	if (ILLEGAL_Z == elev)

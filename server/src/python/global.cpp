@@ -499,22 +499,16 @@ static PyObject *wpStatics( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	// Minimum is x, y, map
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
-	{
-		PyErr_BadArgument();
+	uint x = 0, y = 0, map = 0;
+	uchar exact = 0;
+	if ( !PyArg_ParseTuple( args, "iii|b:wolfpack.statics", &x, &y, &map, &exact ) )
 		return 0;
-	}
 	
-	bool exact = true;
-	
-	if( checkArgInt( 3 ) && getArgInt( 3 ) == 0 )
-		exact = false;
-	
-	StaticsIterator iter = Map->staticsIterator( Coord_cl( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) ), exact );
+	StaticsIterator iter = Map->staticsIterator( Coord_cl( x, y, 0, map ), exact );
 	
 	PyObject *list = PyList_New( 0 );
-	UINT32 xBlock = getArgInt( 0 ) / 8;
-	UINT32 yBlock = getArgInt( 1 ) / 8;
+	UINT32 xBlock = x / 8;
+	UINT32 yBlock = y / 8;
 
 	while( !iter.atEnd() )
 	{
@@ -523,7 +517,7 @@ static PyObject *wpStatics( PyObject* self, PyObject* args )
 
 		PyDict_SetItemString( dict, "id", PyInt_FromLong( iter->itemid ) );
 		PyDict_SetItemString( dict, "x", PyInt_FromLong( ( xBlock * 8 ) + iter->xoff ) );
-		PyDict_SetItemString( dict, "y", PyInt_FromLong( ( yBlock * 8 )+ iter->yoff ) );
+		PyDict_SetItemString( dict, "y", PyInt_FromLong( ( yBlock * 8 ) + iter->yoff ) );
 		PyDict_SetItemString( dict, "z", PyInt_FromLong( iter->zoff ) );
 
 		PyList_Append( list, dict );

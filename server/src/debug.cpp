@@ -578,7 +578,7 @@ protected:
 	}
 };
 
-static debugThread myDebugThread;
+//static debugThread myDebugThread;
 
 
 #endif
