@@ -64,7 +64,33 @@ extern int main( int argc, char **argv );
 #define WM_TRAY_NOTIFY WM_USER + 1
 
 CHARFORMAT cf;
-NOTIFYICONDATA icondata;
+struct {
+	DWORD cbSize;
+	HWND hWnd;
+	UINT uID;
+	UINT uFlags;
+	UINT uCallbackMessage;
+	HICON hIcon;
+#if (_WIN32_IE < 0x0500)
+	CHAR   szTip[64];
+#else
+	CHAR   szTip[128];
+#endif
+#if (_WIN32_IE >= 0x0500)
+	DWORD dwState;
+	DWORD dwStateMask;
+	CHAR   szInfo[256];
+	union {
+		UINT  uTimeout;
+		UINT  uVersion;
+	} DUMMYUNIONNAME;
+	CHAR   szInfoTitle[64];
+	DWORD dwInfoFlags;
+#endif
+#if (_WIN32_IE >= 0x600)
+	GUID guidItem;
+#endif
+} icondata;
 HMENU hmMainMenu;
 HICON iconRed = 0, iconGreen = 0;
 HBITMAP hLogo = 0;
@@ -530,7 +556,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	initex.dwICC = ICC_WIN95_CLASSES;
 	initex.dwSize = sizeof(INITCOMMONCONTROLSEX);
 	InitCommonControlsEx(&initex);
-
+#pragma comment(lib, "comctl32.lib") // needed for InitCommonControlsEx call
 	appInstance = hInstance;
 	guiThread = GetCurrentThreadId();
 
@@ -588,6 +614,10 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	icondata.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
 	icondata.uCallbackMessage = WM_TRAY_NOTIFY;
 
+#if !defined(TTS_BALLOON)
+# define TTS_BALLOON             0x40
+#endif
+
 	// This is "ported" from MFC
 	tooltip = CreateWindowEx(WS_EX_TOPMOST, TOOLTIPS_CLASS, NULL, WS_POPUP|TTS_NOPREFIX|TTS_ALWAYSTIP|TTS_BALLOON,
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, mainWindow, NULL, hInstance, NULL);
@@ -603,7 +633,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		GetClientRect(mainWindow, &info.rect);
 		SendMessage(tooltip, TTM_ADDTOOL, 0, (LPARAM)&info);
 	}
-	Shell_NotifyIcon(NIM_ADD, &icondata);
+	Shell_NotifyIconA(NIM_ADD, (PNOTIFYICONDATAA)&icondata);
 
 	cServerThread serverThread(lpCmdLine);
 	serverThread.start();
@@ -642,16 +672,19 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			// Update the icon
 			static unsigned int lastState = 0xFFFFFFFF;
 
-			if (lastState != serverState) {
-				if (serverState == RUNNING) {
+			if (lastState != serverState) 
+			{
+				if (serverState == RUNNING) 
+				{
 					SendMessage(mainWindow, WM_SETICON, ICON_SMALL, (WPARAM)iconGreen);
 					SendMessage(statusIcon, STM_SETIMAGE, IMAGE_ICON, (LPARAM)iconGreen);
-				} else {
+				} 
+				else 
+				{
 					SendMessage(mainWindow, WM_SETICON, ICON_SMALL, (WPARAM)iconRed);
 					SendMessage(statusIcon, STM_SETIMAGE, IMAGE_ICON, (LPARAM)iconRed);
 				}
 			}
-
 			lastState = serverState;
 		}
 
@@ -659,7 +692,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		DispatchMessage( &msg );
 	}
 
-	Shell_NotifyIcon(NIM_DELETE, &icondata);
+	Shell_NotifyIconA(NIM_DELETE, (PNOTIFYICONDATAA)&icondata);
 
 	keeprun = 0; // We quit, so let's quit the server too
 
@@ -697,7 +730,7 @@ void cConsole::send(const QString &sMessage)
 	if (!progress.isEmpty()) {
 		QString temp = progress;
 		progress = QString::null;
-		for (int i = 0; i < temp.length() + 4; ++i) {
+		for (uint i = 0; i < temp.length() + 4; ++i) {
 			send("\b");
 		}
 		progress = temp;
@@ -880,8 +913,15 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 }
 
 void cConsole::notifyServerState(enServerState newstate) {
-	#define ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
-	qstrcpy(icondata.szInfoTitle, "Wolfpack Server Status");
+
+	// Required ugly stuff
+#if !defined (NIF_INFO)
+# define NIF_INFO        0x00000010
+#endif
+#if !defined(NIIF_INFO)
+# define NIIF_INFO       0x00000001
+#endif
+
 	icondata.uFlags = NIF_ICON;
 	
 	if (newstate == RUNNING) {
@@ -890,23 +930,31 @@ void cConsole::notifyServerState(enServerState newstate) {
 		icondata.hIcon = iconRed;
 	}
 
+#if (_WIN32_IE >= 0x0500)
+	qstrcpy(icondata.szInfoTitle, "Wolfpack Server Status");
 	// Startup has finished
-	if (serverState == STARTUP && newstate == RUNNING) {
+	if (serverState == STARTUP && newstate == RUNNING) 
+	{
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;
 		icondata.dwInfoFlags = NIIF_INFO;
 		qstrcpy(icondata.szInfo, "Wolfpack has started up and is now ready to use.");
-	} else if (serverState == SCRIPTRELOAD && newstate == RUNNING) {
+	} 
+	else if (serverState == SCRIPTRELOAD && newstate == RUNNING)
+	{
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;
 		icondata.dwInfoFlags = NIIF_INFO;
 		qstrcpy(icondata.szInfo, "Wolfpack has finished reloading the scripts.");
-	} else if (newstate == SHUTDOWN) {
+	} 
+	else if (newstate == SHUTDOWN) 
+	{
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;
 		icondata.dwInfoFlags = NIIF_INFO;
 		qstrcpy(icondata.szInfo, "Wolfpack is now shutting down.");
 	}
+#endif
 
-	Shell_NotifyIcon(NIM_MODIFY, &icondata);
+	Shell_NotifyIconA(NIM_MODIFY, (PNOTIFYICONDATAA)&icondata);
 }

@@ -86,7 +86,6 @@ static bool parseParameter( const QString &param )
 		{
 			PyObject *pName, *pModule, *pDict, *pFunc;
 			PyObject *pArgs, *pValue;
-			int i;
 			pName = PyString_FromString( param.left(param.length() - 3).latin1() );
 			/* Error checking of pName left out */
 

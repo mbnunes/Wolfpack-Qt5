@@ -214,7 +214,8 @@ void Preferences::removeGroup( const QString& group )
 */
 void Preferences::flush()
 {
-    if ( d->dirty_ ) {
+    if ( d->dirty_ ) 
+	{
         writeData();
         d->dirty_ = false;
     }
@@ -234,7 +235,8 @@ void Preferences::readData()
 {
     // open file
     QFile datafile(d->file_);
-    if (!datafile.open(IO_ReadOnly)) {
+    if (!datafile.open(IO_ReadOnly)) 
+	{
         // error opening file
         qWarning("Error: cannot open preferences file " + d->file_);
         datafile.close();
@@ -245,7 +247,8 @@ void Preferences::readData()
 
     // open dom document
     QDomDocument doc("preferences");
-    if (!doc.setContent(&datafile)) {
+    if (!doc.setContent(&datafile)) 
+	{
         qWarning("Error: " + d->file_ + " is not a proper preferences file");
         datafile.close();
         d->formatstate_ = false;
@@ -254,14 +257,16 @@ void Preferences::readData()
     datafile.close();
 
     // check the doc type and stuff
-    if (doc.doctype().name() != "preferences") {
+    if (doc.doctype().name() != "preferences") 
+	{
         // wrong file type
         qWarning("Error: " + d->file_ + " is not a valid preferences file");
         d->formatstate_ = false;
         return;
     }
     QDomElement root = doc.documentElement();
-    if (root.attribute("application") != d->format_) {
+    if (root.attribute("application") != d->format_) 
+	{
         // right file type, wrong application
         qWarning("Error: " + d->file_ + " is not a preferences file for " + d->format_);
         d->formatstate_ = false;
@@ -288,9 +293,12 @@ void Preferences::processGroup( const QDomElement& group)
     QDomNodeList options;
     QString currentgroup_ = group.attribute("name", "Default");
     options = group.elementsByTagName("option");
-    for (unsigned n=0; n<options.count(); ++n) {
-        if (options.item(n).isElement()) {
-			if (!options.item(n).isComment()) {
+    for (unsigned n=0; n<options.count(); ++n) 
+	{
+        if (options.item(n).isElement()) 
+		{
+			if (!options.item(n).isComment()) 
+			{
 				elem = options.item(n).toElement();
 				setString(currentgroup_, elem.attribute("key"), elem.attribute("value"));
 			}
@@ -318,7 +326,8 @@ void Preferences::writeData()
 		// comment the group
 		QString commentText = getGroupDoc(git.key());
 
-		if (commentText != QString::null) {
+		if (commentText != QString::null) 
+		{
 			root.appendChild(doc.createTextNode("\n\n  "));
 			root.appendChild(doc.createComment("\n  " + commentText.replace("\n", "\n  ") + "\n  "));
 			root.appendChild(doc.createTextNode("\n  "));
@@ -328,10 +337,12 @@ void Preferences::writeData()
         group = doc.createElement("group");
         group.setAttribute("name", git.key());
         // add in options
-        for (pit = (*git).begin(); pit != (*git).end(); ++pit) {
+        for (pit = (*git).begin(); pit != (*git).end(); ++pit) 
+		{
 			QString commentText = getEntryDoc(git.key(), pit.key());
 
-			if (commentText != QString::null) {
+			if (commentText != QString::null) 
+			{
 				group.appendChild(doc.createTextNode("\n\n    "));
 				group.appendChild(doc.createComment(" " + commentText.replace("\n", "\n      ") + " "));
 				group.appendChild(doc.createTextNode("\n    "));
@@ -371,10 +382,12 @@ bool Preferences::fileState() { return d->filestate_; }
 
 bool Preferences::formatState() { return d->formatstate_; }
 
-QString Preferences::getGroupDoc(const QString &group) {
+QString Preferences::getGroupDoc(const QString &group) 
+{
 	return QString::null;
 }
 
-QString Preferences::getEntryDoc(const QString &group, const QString &entry) {
+QString Preferences::getEntryDoc(const QString &group, const QString &entry) 
+{
 	return QString::null;
 }
