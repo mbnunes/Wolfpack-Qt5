@@ -42,6 +42,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added watersource tags (bug #0000399)
   - Converted NPC skill tags to <skill id="skillname">value</skill>
   - Fix for skills.xml and NPCs: magicresist is now magicresistance.
+  - Fixed weaponsmith not buying weapons.
  * Python Script Changes:
   - Added a follow command.
   - Tinkers can now choose a second material.

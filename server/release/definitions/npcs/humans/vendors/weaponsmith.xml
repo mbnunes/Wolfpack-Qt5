@@ -39,15 +39,53 @@
 				<item id="e88"><amount>20</amount></item> <!-- Pitchfork -->
 				<item id="1403"><amount>20</amount></item> <!-- Short Spear -->
 
-				<item id="f5e"><amount>20</amount></item>--> <!-- Broadsword -->
-				<item id="1441"><amount>20</amount></item>--> <!-- Cutlass -->
-				<item id="13ff"><amount>20</amount></item>--> <!-- Katana -->
-				<item id="1401"><amount>20</amount></item>--> <!-- Kryss -->
-				<item id="f60"><amount>20</amount></item>--> <!-- Longsword -->
-				<item id="13b6"><amount>20</amount></item>--> <!-- Scimitar -->
-				<item id="13b8"><amount>20</amount></item>--> <!-- Thin Longsword -->
-				<item id="13b9"><amount>20</amount></item>--> <!-- Viking Sword -->
+				<item id="f5e"><amount>20</amount></item> <!-- Broadsword -->
+				<item id="1441"><amount>20</amount></item> <!-- Cutlass -->
+				<item id="13ff"><amount>20</amount></item> <!-- Katana -->
+				<item id="1401"><amount>20</amount></item> <!-- Kryss -->
+				<item id="f60"><amount>20</amount></item> <!-- Longsword -->
+				<item id="13b6"><amount>20</amount></item> <!-- Scimitar -->
+				<item id="13b8"><amount>20</amount></item> <!-- Thin Longsword -->
+				<item id="13b9"><amount>20</amount></item> <!-- Viking Sword -->
 			</restockable>
+			<sellable>
+				<item id="f47"/> <!-- Battle Axe -->
+				<item id="f4b"/> <!-- Double Axe -->
+				<item id="f45"/> <!-- Executioners Axe -->
+				<item id="13fb"/> <!-- Large Battle Axe -->
+				<item id="e86"/> <!-- Pickaxe -->
+				<item id="1443"/> <!-- Two Handed Axe -->
+				<item id="13b0"/> <!-- War Axe -->
+				<item id="f49"/> <!-- Axe -->
+
+				<item id="13f6"/> <!-- Butcher Knife -->
+				<item id="ec3"/> <!-- Cleaver -->
+				<item id="f52"/> <!-- Dagger -->
+				<item id="ec4"/> <!-- Skinning Knife -->
+
+				<item id="13b4"/> <!-- Club -->
+				<item id="143d"/> <!-- Hammer Pick -->
+				<item id="f5c"/> <!-- Mace -->
+				<item id="143b"/> <!-- Maul -->
+				<item id="1439"/> <!-- War Hammer-->
+				<item id="1407"/> <!-- War Mace -->
+
+				<item id="f4e"/> <!-- Bardiche -->
+				<item id="143e"/> <!-- Halberd -->
+
+				<item id="f63"/> <!-- Spear -->
+				<item id="e88"/> <!-- Pitchfork -->
+				<item id="1403"/> <!-- Short Spear -->
+
+				<item id="f5e"/> <!-- Broadsword -->
+				<item id="1441"/> <!-- Cutlass -->
+				<item id="13ff"/> <!-- Katana -->
+				<item id="1401"/> <!-- Kryss -->
+				<item id="f60"/> <!-- Longsword -->
+				<item id="13b6"/> <!-- Scimitar -->
+				<item id="13b8"/> <!-- Thin Longsword -->
+				<item id="13b9"/> <!-- Viking Sword -->
+			</sellable>
 		</shopkeeper>
 		<skill id="armslore"><random min="640" max="1000" /></skill>
 		<skill id="blacksmithing"><random min="650" max="880" /></skill>
