@@ -3,10 +3,11 @@ import wolfpack
 
 def onLogin( player ):
 	socket = player.socket
-	socket.sysmessage( "Welcome to Wolfpack %s" % ( wolfpack.serverversion() )  )
-	socket.sysmessage( "Please refer to http://www.wpdev.org for bug reporting." )
+	socket.sysmessage( "Welcome to %s" % ( wolfpack.serverversion() )  )
+	socket.sysmessage( "Report Bugs: http://bugs.wpdev.org/" )
 	player.hidden = 0
 	player.update()
+	socket.resendplayer()
 	return True
 
 def onLogout( player ):
