@@ -29,7 +29,11 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+#if defined (__unix__)
+#include <limits.h>  //compatability issue. GCC 2.96 doesn't have limits include
+#else
 #include <limits> // Python tries to redefine some of this stuff, so include first
+#endif
 
 
 #include "utilities.h"
