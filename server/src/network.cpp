@@ -698,6 +698,8 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 		vis = clientsAllowed.begin();    
 		t = (*vis).c_str();
 		strcpy(temp, t);
+
+		idname[0]=0;
 		
 		if (!(strcmp(temp, "ALL")))
 		{

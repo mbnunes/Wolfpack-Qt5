@@ -3549,8 +3549,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 			if (pc!=NULL)
 			{
 				Cready=true;
-			    if (pc->stablemaster_serial)
-					return;		// can't target stabled/mounted pets
 			}
 		}
 
