@@ -1,3 +1,9 @@
+CREATE TABLE `settings` (
+	`option` varchar(255) NOT NULL default '',
+	`value` varchar(255) NOT NULL default '',
+	PRIMARY KEY (`option`)
+);
+
 CREATE TABLE `boats` (
 	`serial` int(11) NOT NULL default '0',
 	`autosail` tinyint(1) NOT NULL default '0',
@@ -130,7 +136,7 @@ CREATE TABLE `items` (
 	`def` int(10)  NOT NULL default '0',
 	`hidamage` smallint(6) NOT NULL default '0',
 	`lodamage` smallint(6) NOT NULL default '0',
-	`weight` int(11) NOT NULL default '0',
+	`weight` float NOT NULL default '0',
 	`hp` smallint(6) NOT NULL default '0',
 	`maxhp` smallint(6) NOT NULL default '0',
 	`speed` int(11) NOT NULL default '0',
