@@ -521,8 +521,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		if ( !player && CheckForCharacterAtXYZ( pChar, newCoord ) )
 		{
 			P_NPC npc = dynamic_cast<P_NPC>( pChar );
-			if ( npc )
-			{
+			if ( npc ) {
 				npc->clearPath();
 			}
 			return false;
