@@ -1248,8 +1248,7 @@ void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest *packet )
 	pMulti->sendCH( this );
 }
 
-void cUOSocket::handleToolTip(cUORxRequestToolTip *packet)
-{
+void cUOSocket::handleToolTip(cUORxRequestToolTip *packet) {
 	cUOTxTooltipList tooltip;
 	cUObject *object = World::instance()->findObject(packet->serial());
 	

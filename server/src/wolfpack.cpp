@@ -248,8 +248,21 @@ int main( int argc, char **argv )
 	Console::instance()->send("Wolfpack Homepage: http://www.wpdev.org/\n");
 	Console::instance()->send("By using this software you agree to the license accompanying this release.\n");
 	Console::instance()->send("Compiled on " __DATE__ " " __TIME__ "\n");
-	Console::instance()->send("Compiled for QT " QT_VERSION_STR "\n");
-	Console::instance()->send("\n");
+	Console::instance()->send("Compiled for QT " QT_VERSION_STR " (Using: ");
+	Console::instance()->send(qVersion());
+	Console::instance()->send(qSharedBuild() ? " Shared" : " Static");
+	Console::instance()->send(")\n");
+	QString pythonBuild = Py_GetVersion();
+	pythonBuild = pythonBuild.left(pythonBuild.find(' '));
+
+#if defined(Py_ENABLE_SHARED)
+	pythonBuild += " Shared";
+#else
+	pythonBuild += " Static";
+#endif
+
+	Console::instance()->send("Compiled for Python " PY_VERSION " (Using: ");
+	Console::instance()->send(pythonBuild + ")\n\n");
 	
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring, wp_version.betareleasestring, wp_version.verstring );
 	Console::instance()->setConsoleTitle( consoleTitle );

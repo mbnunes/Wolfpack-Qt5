@@ -32,6 +32,7 @@
 
 #include "../network/uotxpackets.h"
 #include "../network/uosocket.h"
+#include "objectcache.h"
 #include "../basechar.h"
 #include "../player.h"
 
@@ -39,6 +40,16 @@ typedef struct {
     PyObject_HEAD;
 	cUOTxTooltipList *list;
 } wpTooltip;
+
+// Note: Must be of a different type to cause more then 1 template instanciation
+class cTooltipCache : public cObjectCache<wpTooltip, 50> {
+};
+
+typedef SingletonHolder<cTooltipCache> TooltipCache;
+
+static void FreeTooltipObject(PyObject *obj) {
+	TooltipCache::instance()->freeObj(obj);
+}
 
 // Forward Declarations
 static PyObject *wpTooltip_getAttr( wpTooltip *self, char *name );
@@ -53,7 +64,7 @@ static PyTypeObject wpTooltipType = {
     "wpTooltip",
     sizeof(wpTooltipType),
     0,
-    wpDealloc,				
+    FreeTooltipObject,				
     0,								
     (getattrfunc)wpTooltip_getAttr,
     (setattrfunc)wpTooltip_setAttr,
@@ -129,15 +140,14 @@ static PyObject *wpTooltip_add( wpTooltip *self, PyObject *args )
 
 PyObject* PyGetTooltipObject( cUOTxTooltipList *tooltip )
 {
-	if( !tooltip )
-	{
-		Py_INCREF( Py_None );
+	if (!tooltip) {
+		Py_INCREF(Py_None);
 		return Py_None;
 	}
 
-	wpTooltip *cObject = PyObject_New( wpTooltip, &wpTooltipType );
-	cObject->list = tooltip;
-    return (PyObject*)( cObject );	
+	wpTooltip *object = TooltipCache::instance()->allocObj(&wpTooltipType);	
+	object->list = tooltip;
+    return (PyObject*)object;
 }
 
 static PyObject *wpTooltip_getAttr( wpTooltip *self, char *name )

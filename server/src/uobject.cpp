@@ -847,4 +847,3 @@ void cUObject::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	tooltip.setSerial(serial_);
 	tooltip.setId(tooltip_);
 }
-
