@@ -21,6 +21,10 @@ def onShowTooltip( sender, target, tooltip ):
 		tooltip.add( 1060738, str( target.gettag( "value") ) )
 
 def onUse( char, item ):
+	if not char.canreach(item, -1):
+		char.socket.clilocmessage(500364)
+		return True
+	
 	#D: 0xFE8F0 (0)	
 	#Gold was deposited in your account:
 	bankbox = char.getbankbox()
