@@ -97,25 +97,25 @@
 			<item id="222e">
 				<id>0x222e</id>
 				<nodecay />
-				<category>Vegitation\Mushrooms\Giant\Giant Mushroom 1</category>
+				<category>Vegetation\Mushrooms\Giant\Giant Mushroom 1</category>
 			</item>
 			
 			<item id="222f">
 				<id>0x222f</id>
 				<nodecay />
-				<category>Vegitation\Mushrooms\Giant\Giant Mushroom 1</category>
+				<category>Vegetation\Mushrooms\Giant\Giant Mushroom 1</category>
 			</item>
 			
 			<item id="2230">
 				<id>0x2230</id>
 				<nodecay />
-				<category>Vegitation\Mushrooms\Giant\Giant Mushroom 1</category>
+				<category>Vegetation\Mushrooms\Giant\Giant Mushroom 1</category>
 			</item>
 			
 			<item id="2231">
 				<id>0x2231</id>
 				<nodecay />
-				<category>Vegitation\Mushrooms\Giant\Giant Mushroom 1</category>
+				<category>Vegetation\Mushrooms\Giant\Giant Mushroom 1</category>
 			</item>
 			
 </definitions>
