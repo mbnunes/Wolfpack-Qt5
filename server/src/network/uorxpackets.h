@@ -510,6 +510,7 @@ public:
 // 0xD7 Aos fighting book, Custom houses build commands
 class  cUORxAosMultiPurpose : public cUOPacket
 {
+public:
 	enum eSubCommands
 	{
 		CHBackup =		0x02, //Custom house backup
