@@ -126,10 +126,7 @@
 				<item id="f8d">
 					<amount>999</amount>
 				</item>
-				<item id="e34">
-					<amount>10</amount>
-				</item>
-				
+
 				<item id="scribes_pen"><amount>10</amount></item> <!-- Blank Scrolls -->
 				<item id="e34"><amount>20</amount></item> <!-- Blank Scrolls -->
 			</restockable>
