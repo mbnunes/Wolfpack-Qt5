@@ -15,6 +15,13 @@
 #define PyHasMethod(a) if( !PyObject_HasAttr( codeModule, PyString_FromString( a ) ) ) return false;
 #define PyHasMethodVoid(a) if( !PyObject_HasAttr( codeModule, PyString_FromString( a ) ) ) return;
 
+// Setting and getting item properties
+#define setItemIntProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->##property = PyInt_AS_LONG( value );
+#define setItemStrProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->##property = PyString_AS_STRING( value );
+
+#define getItemIntProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyInt_FromLong( self->Item->##property );
+#define getItemStrProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyString_FromString( self->Item->##property );
+
 // If an error occured, report it
 inline void PyReportError( void )
 {
@@ -537,51 +544,45 @@ PyObject* PyWPMovement_accept( PyObject* self, PyObject* args )
 
 PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 {
-	if( !strcmp( name, "name" ) )
-		return PyString_FromString( self->Item->name.c_str() );	
-
-	else if( !strcmp( name, "id" ) )
-		return PyInt_FromLong( self->Item->id() );
-
-	else if( !strcmp( name, "serial" ) )
-		return PyInt_FromLong( self->Item->serial );
-
-	else if( !strcmp( name, "amount" ) )
-		return PyInt_FromLong( self->Item->amount );
-
-
+	getItemStrProperty( "name", name.c_str() )
+	else getItemIntProperty( "id", id() )
+	else getItemIntProperty( "serial", serial )
+	else getItemIntProperty( "amount", amount )
 
 	// If no property is found search for a method
 	return Py_FindMethod( Py_WPItemMethods, (PyObject*)self, name );
 }
 
-#define setIntProperty( property ) if( !strcmp ( name, "property" ) ) self->Item->property = PyInt_AS_LONG( value );
-#define setStrProperty( property ) if( !strcmp ( name, "property" ) ) self->Item->property = PyString_AS_STRING( value );
-
 int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 {
-
 	if( !strcmp( name, "id" ) )
 		self->Item->setId( PyInt_AS_LONG( value ) );
 
-	else setStrProperty( name )
-	else setIntProperty( serial )
-	else setIntProperty( color )
-	else setIntProperty( amount )
+	else setItemStrProperty( "name", name )
+	else setItemIntProperty( "color", color )
+	else setItemIntProperty( "amount", amount )
+	else setItemIntProperty( "serial", serial )
+	else setItemIntProperty( "x", pos.x )
+	else setItemIntProperty( "y", pos.y )
+	else setItemIntProperty( "z", pos.z )
+	else setItemIntProperty( "plane", pos.plane )
 
 	return 0;
 }
 
 // This will send the item to all surrounding clients
-PyObject* Py_WPItem_update( PyObject* self, PyObject* args )
+PyObject* Py_WPItem_update( Py_WPItem* self, PyObject* args )
 {
-	return NULL;
+	RefreshItem( self->Item );
+	return PyTrue;
 }
 
-// This will delete the object and it's reference
-PyObject* Py_WPItem_delete( PyObject* self, PyObject* args )
+// This is *USELESS* Amount = 0 should do it
+PyObject* Py_WPItem_delete( Py_WPItem* self, PyObject* args )
 {
-	return NULL;
+	Items->DeleItem( self->Item );
+	self = (Py_WPItem*)Py_None;
+	return PyTrue;
 }
 
 // ============================ class: char
