@@ -1,5 +1,11 @@
-
+<!--
+	This file contains the spell definitions as well as the
+	script definitions. Please keep that in mind.
+-->
 <definitions>
+	<script id="spell_recall" type="python" module="spells.recall" />
+	<script id="spell_mark" type="python" module="spells.mark" />
+
 	<!-- Clumsy -->
 	<spell id="1">
 		<name>Clumsy</name>
@@ -11,7 +17,7 @@
 		<mantra>Uus Jux</mantra>
 		<action>0x10</action>
 		<delay>500</delay>
-		<target>Select target for clumsy.</target>
+		<target>Select a  target for your spell.</target>
 		<reagents>
 			<bloodmoss>1</bloodmoss>
 			<nightshade>1</nightshade>
@@ -21,64 +27,91 @@
 		</targets>
 		<flags>
 			<reflectable />
-			<resistable />
+			<agressive />
 		</flags>
 		<script>spell_clumsy</script>
 	</spell>
 
-<!-- // Create Food -->
+	<script id="spell_clumsy" type="python" module="spells.circle1.clumsy" />
+
+	<!-- Create Food -->
 	<spell id="2">
-		<circle>1</circle>
+		<name>Create Food</name>
+		<mana>4</mana>
 		<booklow>11</booklow>
 		<bookhigh>401</bookhigh>
 		<scrolllow>0</scrolllow>
 		<scrollhigh>201</scrollhigh>
-		<mantra>In Mani Yelm</mantra>
+		<mantra>In Mani Ylem</mantra>
 		<action>0x10</action>
+		<delay>500</delay>
+		<target>Select a  target for your spell.</target>
 		<reagents>
-			<mana>4</mana>
 			<mandrake>1</mandrake>
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 		</reagents>
+		<targets>
+			<ground />
+		</targets>
+		<script>spell_createfood</script>
 	</spell>
 
-<!-- // Feeblemind -->
+	<script id="spell_createfood" type="python" module="spells.circle1.createfood" />
+
+	<!-- Feeblemind -->
 	<spell id="3">
-		<circle>1</circle>
+		<name>Feeblemind</name>
 		<booklow>11</booklow>
+		<mana>4</mana>
 		<bookhigh>401</bookhigh>
 		<scrolllow>0</scrolllow>
 		<scrollhigh>201</scrollhigh>
 		<mantra>Rel Wis</mantra>
 		<action>0x10</action>
-		<target>Select target for feeblemind.</target>
-		<reflect />
-		<reagents>
-			<mana>4</mana>
+		<delay>500</delay>
+		<target>Select a  target for your spell.</target>
+		<flags>
+			<agressive />
+			<reflectable />
+		</flags>
+		<reagents>			
 			<ginseng>1</ginseng>
 			<nightshade>1</nightshade>
 		</reagents>
-		<agressive />		
+		<targets>
+			<char />
+		</targets>
+		<script>spell_feeblemind</script>
 	</spell>
 
-<!-- // Heal -->
+	<script id="spell_feeblemind" type="python" module="spells.circle1.feeblemind" />
+
+	<!-- Heal -->
 	<spell id="4">
-		<circle>1</circle>
+		<mana>4</mana>
 		<booklow>11</booklow>
 		<bookhigh>401</bookhigh>
 		<scrolllow>0</scrolllow>
 		<scrollhigh>201</scrollhigh>
 		<mantra>In Mani</mantra>
+		<name>Heal</name>
 		<action>0x10</action>
-		<target>Select person to heal.</target>
+		<target>Select a  target for your spell.</target>
+		<action>0x10</action>
+		<delay>500</delay>
+		<targets>
+			<char />
+		</targets>
 		<reagents>
-			<mana>4</mana>
 			<garlic>1</garlic>
 			<ginseng>1</ginseng>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<script>spell_heal</script>
 	</spell>
+
+	<script id="spell_heal" type="python" module="spells.circle1.heal" />
 
 	<!-- Magic Arrow -->
 	<spell id="5">
@@ -90,70 +123,99 @@
 		<mantra>In Por Ylem</mantra>
 		<action>0x10</action>
 		<delay>500</delay>
-		<target>Select target for magic arrow.</target>
+		<target>Select a  target for your spell.</target>
 		<mana>4</mana>
 		<reagents>
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
 		<flags>
-			<agressive />
 			<reflectable />
+			<agressive />
 		</flags>
+		<script>spell_magicarrow</script>
 	</spell>
+	
+	<script id="spell_magicarrow" type="python" module="spells.circle1.magicarrow" />
 
-<!-- // Night Sight -->
+	<!-- Night Sight -->
 	<spell id="6">
-		<circle>1</circle>
+		<mana>4</mana>
+		<delay>500</delay>
 		<booklow>11</booklow>
 		<bookhigh>401</bookhigh>
 		<scrolllow>0</scrolllow>
 		<scrollhigh>201</scrollhigh>
 		<mantra>In Lor</mantra>
+		<name>Night Sight</name>
 		<action>0x10</action>
-		<target>Select target for night sight.</target>
+		<target>Select a  target for your spell.</target>
 		<reagents>
-			<mana>4</mana>
 			<ash>1</ash>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
+		<script>spell_nightsight</script>
 	</spell>
 
-<!-- // Reactive Armour -->
+	<script id="spell_nightsight" type="python" module="spells.circle1.nightsight" />
+
+	<!--  Reactive Armor -->
 	<spell id="7">
-		<circle>1</circle>
+		<mana>4</mana>
+		<delay>500</delay>
 		<booklow>11</booklow>
 		<bookhigh>401</bookhigh>
 		<scrolllow>0</scrolllow>
 		<scrollhigh>201</scrollhigh>
 		<mantra>Flam Sanct</mantra>
+		<name>Reactive Armor</name>
 		<action>0x10</action>
-		<target>Select target for reactive armour.</target>
+		<target>Select a  target for your spell.</target>
 		<reagents>
-			<mana>4</mana>
 			<ash>1</ash>
 			<garlic>1</garlic>
 			<spidersilk>1</spidersilk>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
+		<script>spell_reactivearmor</script>
 	</spell>
 
-<!-- // Weaken -->
+	<script id="spell_reactivearmor" type="python" module="spells.circle1.reactivearmor" />
+
+	<!-- Weaken -->
 	<spell id="8">
-		<circle>1</circle>
+		<mana>4</mana>
+		<delay>500</delay>
 		<booklow>11</booklow>
 		<bookhigh>401</bookhigh>
 		<scrolllow>0</scrolllow>
 		<scrollhigh>201</scrollhigh>
 		<mantra>Des Mani</mantra>
+		<name>Weaken</name>
 		<action>0x10</action>
-		<target>Select target for weaken.</target>
-		<reflect />
+		<target>Select a  target for your spell.</target>
+		<flags>
+			<agressive />
+			<reflectable />
+		</flags>
 		<reagents>
-			<mana>4</mana>
 			<garlic>1</garlic>
 			<nightshade>1</nightshade>
 		</reagents>
+		<targets>
+			<char />
+		</targets>
+		<script>spell_weaken</script>
 	</spell>
+
+	<script id="spell_weaken" type="python" module="spells.circle1.weaken" />
+
+	<!-- Circle 2 -->
 
 <!-- // Agility -->
 	<spell id="9">

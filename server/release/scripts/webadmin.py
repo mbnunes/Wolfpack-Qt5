@@ -126,7 +126,8 @@ def onLoad():
 
 def onUnload():
 	# Stop the Thread
-	thread.cancel()
-	del thread
+	global thread
+	if thread:
+		thread.cancel()
 
 	web.sessions.clear_sessions()

@@ -9,18 +9,11 @@
 	<script id="lightsource"	type="python" module="lightsource" />
 	<script id="weapons_blades" type="python" module="weapons.blades" />
 	<script id="scissors" 		type="python" module="scissors" />
-	<script id="webadmin"		type="python" module="webadmin" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
 
-	<!-- Spell Scripts -->
-	<script id="spell_clumsy" type="python" module="spells.clumsy" />
-	<script id="spell_createfood" type="python" module="spells.createfood" />
-	<script id="spell_recall" type="python" module="spells.recall" />
-	<script id="spell_mark" type="python" module="spells.mark" />
-
-	<!-- moongate -->
+	<!-- Moongate -->
 	<script id="moongate" type="python" module="moongate" />
 
 	<!-- Context menu scripts -->
@@ -31,5 +24,11 @@
 	<script id="speech_pets" type="python" module="speech.pets" />
 	<script id="speech_banker" type="python" module="speech.banker" />
 	<script id="speech_barber" type="python" module="speech.barber" />
+
+	<!-- System Scripts -->
+	<script id="webadmin"		type="python" module="webadmin" />
+
+	<!-- Load *LAST* thats important -->
+	<script id="errorhandler"	type="python" module="errorhandler" />
 
 </definitions>

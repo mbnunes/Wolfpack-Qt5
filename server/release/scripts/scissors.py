@@ -9,6 +9,8 @@
 import wolfpack
 
 def onUse( char, item ):
+	item.ASDASDASD()
+
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage( 0, 500, 312 ) # You can't reach...
