@@ -1,3 +1,4 @@
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Nasdaq Boom (World of Cracking) -->
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -13,1041 +14,1588 @@
 		<title>the Banker</title>
 		<events>speech_banker</events>
 		<bindmenu>banker_menu</bindmenu>
-
-		<swordsmanship><random min="150" max="380" /></swordsmanship>
-		<itemid><random min="500" max="700" /></itemid>
-		<tactics><random min="150" max="380" /></tactics>
-
+		<swordsmanship>
+			<random min="150" max="380"/>
+		</swordsmanship>
+		<itemid>
+			<random min="500" max="700"/>
+		</itemid>
+		<tactics>
+			<random min="150" max="380"/>
+		</tactics>
 		<category>Vendors\Banker (Male)</category>
 	</npc>
-
 	<npc id="banker_female">
 		<inherit>base_female</inherit>
 		<title>the Banker</title>
 		<events>speech_banker</events>
 		<bindmenu>banker_menu</bindmenu>
-
-		<swordsmanship><random min="150" max="380" /></swordsmanship>
-		<itemid><random min="500" max="700" /></itemid>
-		<tactics><random min="150" max="380" /></tactics>
-
+		<swordsmanship>
+			<random min="150" max="380"/>
+		</swordsmanship>
+		<itemid>
+			<random min="500" max="700"/>
+		</itemid>
+		<tactics>
+			<random min="150" max="380"/>
+		</tactics>
 		<category>Vendors\Banker (Female)</category>
 	</npc>
-
 	<!-- Barber (no real vendor) -->
 	<npc id="barber_male">
 		<inherit>base_male</inherit>
 		<title>the Barber</title>
 		<events>speech_barber</events>
-		
-		<fencing><random min="150" max="380" /></fencing>
-		<parrying><random min="450" max="680" /></parrying>
-		<swordsmanship><random min="150" max="380" /></swordsmanship>
-		<wrestling><random min="150" max="380" /></wrestling>
-		<macefighting><random min="150" max="380" /></macefighting>
-		<magicresistance><random min="450" max="680" /></magicresistance>
-		<tactics><random min="450" max="680" /></tactics>
-
+		<fencing>
+			<random min="150" max="380"/>
+		</fencing>
+		<parrying>
+			<random min="450" max="680"/>
+		</parrying>
+		<swordsmanship>
+			<random min="150" max="380"/>
+		</swordsmanship>
+		<wrestling>
+			<random min="150" max="380"/>
+		</wrestling>
+		<macefighting>
+			<random min="150" max="380"/>
+		</macefighting>
+		<magicresistance>
+			<random min="450" max="680"/>
+		</magicresistance>
+		<tactics>
+			<random min="450" max="680"/>
+		</tactics>
 		<category>Vendors\Barber (Male)</category>
 	</npc>
-
 	<npc id="barber_female">
 		<inherit>base_female</inherit>
 		<title>the Barber</title>
 		<events>speech_barber</events>
-		
-		<fencing><random min="150" max="380" /></fencing>
-		<parrying><random min="450" max="680" /></parrying>
-		<swordsmanship><random min="150" max="380" /></swordsmanship>
-		<wrestling><random min="150" max="380" /></wrestling>
-		<macefighting><random min="150" max="380" /></macefighting>
-		<magicresistance><random min="450" max="680" /></magicresistance>
-		<tactics><random min="450" max="680" /></tactics>
-
+		<fencing>
+			<random min="150" max="380"/>
+		</fencing>
+		<parrying>
+			<random min="450" max="680"/>
+		</parrying>
+		<swordsmanship>
+			<random min="150" max="380"/>
+		</swordsmanship>
+		<wrestling>
+			<random min="150" max="380"/>
+		</wrestling>
+		<macefighting>
+			<random min="150" max="380"/>
+		</macefighting>
+		<magicresistance>
+			<random min="450" max="680"/>
+		</magicresistance>
+		<tactics>
+			<random min="450" max="680"/>
+		</tactics>
 		<category>Vendors\Barber (Female)</category>
 	</npc>
-
 	<!-- A tanner vendor -->
 	<npc id="tanner_male">
 		<inherit>base_male</inherit>
 		<title>the Tanner</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="1711"><amount>10</amount></item>
-				<item inherit="170f"><amount>10</amount></item>
+				<item inherit="1711">
+					<amount>10</amount>
+				</item>
+				<item inherit="170f">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="1711"><amount>10</amount></item>
-				<item inherit="170f"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="1711"><amount>10</amount></item>
-				<item inherit="170f"><amount>10</amount></item>
+				<item inherit="1711"/>
+				<item inherit="170f"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Tanner (Male)</category>
-	</npc>	
-	
+	</npc>
 	<npc id="tanner_female">
 		<inherit>base_female</inherit>
 		<title>the Tanner</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="1711"><amount>10</amount></item>
-				<item inherit="170f"><amount>10</amount></item>
+				<item inherit="1711">
+					<amount>10</amount>
+				</item>
+				<item inherit="170f">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="1711"><amount>10</amount></item>
-				<item inherit="170f"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="1711"><amount>10</amount></item>
-				<item inherit="170f"><amount>10</amount></item>
+				<item inherit="1711"/>
+				<item inherit="170f"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Tanner (Female)</category>
 	</npc>
-
 	<!-- A blacksmith vendor -->
 	<npc id="blacksmith_male">
 		<inherit>base_male</inherit>
 		<title>the Blacksmith</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="fbb"><amount>10</amount></item>
-				<item inherit="fbc"><amount>10</amount></item>
-				<item inherit="13e4"><amount>10</amount></item>
-				<item inherit="13e3"><amount>10</amount></item>
-				<item inherit="fb4"><amount>10</amount></item>
-				<item inherit="fb5"><amount>10</amount></item>
-				<item inherit="1bf2"><amount>10</amount></item>
-				<item inherit="e85"><amount>10</amount></item>
-				<item inherit="f39"><amount>10</amount></item>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
+				<item inherit="fbb">
+					<amount>10</amount>
+				</item>
+				<item inherit="fbc">
+					<amount>10</amount>
+				</item>
+				<item inherit="13e4">
+					<amount>10</amount>
+				</item>
+				<item inherit="13e3">
+					<amount>10</amount>
+				</item>
+				<item inherit="fb4">
+					<amount>10</amount>
+				</item>
+				<item inherit="fb5">
+					<amount>10</amount>
+				</item>
+				<item inherit="1bf2">
+					<amount>10</amount>
+				</item>
+				<item inherit="e85">
+					<amount>10</amount>
+				</item>
+				<item inherit="f39">
+					<amount>10</amount>
+				</item>
+				<item inherit="13bb">
+					<amount>10</amount>
+				</item>
+				<item inherit="13c3">
+					<amount>10</amount>
+				</item>
+				<item inherit="13c4">
+					<amount>10</amount>
+				</item>
+				<item inherit="140d">
+					<amount>10</amount>
+				</item>
+				<item inherit="140f">
+					<amount>10</amount>
+				</item>
+				<item inherit="140b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1408">
+					<amount>10</amount>
+				</item>
+				<item inherit="1c04">
+					<amount>10</amount>
+				</item>
+				<item inherit="1416">
+					<amount>10</amount>
+				</item>
+				<item inherit="1410">
+					<amount>10</amount>
+				</item>
+				<item inherit="1414">
+					<amount>10</amount>
+				</item>
+				<item inherit="1413">
+					<amount>10</amount>
+				</item>
+				<item inherit="1412">
+					<amount>10</amount>
+				</item>
+				<item inherit="141a">
+					<amount>10</amount>
+				</item>
+				<item inherit="13f2">
+					<amount>10</amount>
+				</item>
+				<item inherit="13f1">
+					<amount>10</amount>
+				</item>
+				<item inherit="13ef">
+					<amount>10</amount>
+				</item>
+				<item inherit="13ed">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b73">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b76">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b7b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b74">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="fbb"><amount>10</amount></item>
-				<item inherit="fbc"><amount>10</amount></item>
-				<item inherit="13e4"><amount>10</amount></item>
-				<item inherit="13e3"><amount>10</amount></item>
-				<item inherit="fb4"><amount>10</amount></item>
-				<item inherit="fb5"><amount>10</amount></item>
-				<item inherit="1bf2"><amount>10</amount></item>
-				<item inherit="e85"><amount>10</amount></item>
-				<item inherit="f39"><amount>10</amount></item>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="fbb"><amount>10</amount></item>
-				<item inherit="fbc"><amount>10</amount></item>
-				<item inherit="13e4"><amount>10</amount></item>
-				<item inherit="13e3"><amount>10</amount></item>
-				<item inherit="fb4"><amount>10</amount></item>
-				<item inherit="fb5"><amount>10</amount></item>
-				<item inherit="1bf2"><amount>10</amount></item>
-				<item inherit="e85"><amount>10</amount></item>
-				<item inherit="f39"><amount>10</amount></item>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
+				<item inherit="fbb"/>
+				<item inherit="fbc"/>
+				<item inherit="13e4"/>
+				<item inherit="13e3"/>
+				<item inherit="fb4"/>
+				<item inherit="fb5"/>
+				<item inherit="1bf2"/>
+				<item inherit="e85"/>
+				<item inherit="f39"/>
+				<item inherit="13bb"/>
+				<item inherit="13c3"/>
+				<item inherit="13c4"/>
+				<item inherit="140d"/>
+				<item inherit="140f"/>
+				<item inherit="140b"/>
+				<item inherit="1408"/>
+				<item inherit="1c04"/>
+				<item inherit="1416"/>
+				<item inherit="1410"/>
+				<item inherit="1414"/>
+				<item inherit="1413"/>
+				<item inherit="1412"/>
+				<item inherit="141a"/>
+				<item inherit="13f2"/>
+				<item inherit="13f1"/>
+				<item inherit="13ef"/>
+				<item inherit="13ed"/>
+				<item inherit="1b73"/>
+				<item inherit="1b76"/>
+				<item inherit="1b7b"/>
+				<item inherit="1b74"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\blacksmith (Male)</category>
 	</npc>
-
 	<npc id="blacksmith_female">
 		<inherit>base_female</inherit>
 		<title>the Blacksmith</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="fbb"><amount>10</amount></item>
-				<item inherit="fbc"><amount>10</amount></item>
-				<item inherit="13e4"><amount>10</amount></item>
-				<item inherit="13e3"><amount>10</amount></item>
-				<item inherit="fb4"><amount>10</amount></item>
-				<item inherit="fb5"><amount>10</amount></item>
-				<item inherit="1bf2"><amount>10</amount></item>
-				<item inherit="e85"><amount>10</amount></item>
-				<item inherit="f39"><amount>10</amount></item>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
+				<item inherit="fbb">
+					<amount>10</amount>
+				</item>
+				<item inherit="fbc">
+					<amount>10</amount>
+				</item>
+				<item inherit="13e4">
+					<amount>10</amount>
+				</item>
+				<item inherit="13e3">
+					<amount>10</amount>
+				</item>
+				<item inherit="fb4">
+					<amount>10</amount>
+				</item>
+				<item inherit="fb5">
+					<amount>10</amount>
+				</item>
+				<item inherit="1bf2">
+					<amount>10</amount>
+				</item>
+				<item inherit="e85">
+					<amount>10</amount>
+				</item>
+				<item inherit="f39">
+					<amount>10</amount>
+				</item>
+				<item inherit="13bb">
+					<amount>10</amount>
+				</item>
+				<item inherit="13c3">
+					<amount>10</amount>
+				</item>
+				<item inherit="13c4">
+					<amount>10</amount>
+				</item>
+				<item inherit="140d">
+					<amount>10</amount>
+				</item>
+				<item inherit="140f">
+					<amount>10</amount>
+				</item>
+				<item inherit="140b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1408">
+					<amount>10</amount>
+				</item>
+				<item inherit="1c04">
+					<amount>10</amount>
+				</item>
+				<item inherit="1416">
+					<amount>10</amount>
+				</item>
+				<item inherit="1410">
+					<amount>10</amount>
+				</item>
+				<item inherit="1414">
+					<amount>10</amount>
+				</item>
+				<item inherit="1413">
+					<amount>10</amount>
+				</item>
+				<item inherit="1412">
+					<amount>10</amount>
+				</item>
+				<item inherit="141a">
+					<amount>10</amount>
+				</item>
+				<item inherit="13f2">
+					<amount>10</amount>
+				</item>
+				<item inherit="13f1">
+					<amount>10</amount>
+				</item>
+				<item inherit="13ef">
+					<amount>10</amount>
+				</item>
+				<item inherit="13ed">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b73">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b76">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b7b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b74">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="fbb"><amount>10</amount></item>
-				<item inherit="fbc"><amount>10</amount></item>
-				<item inherit="13e4"><amount>10</amount></item>
-				<item inherit="13e3"><amount>10</amount></item>
-				<item inherit="fb4"><amount>10</amount></item>
-				<item inherit="fb5"><amount>10</amount></item>
-				<item inherit="1bf2"><amount>10</amount></item>
-				<item inherit="e85"><amount>10</amount></item>
-				<item inherit="f39"><amount>10</amount></item>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="fbb"><amount>10</amount></item>
-				<item inherit="fbc"><amount>10</amount></item>
-				<item inherit="13e4"><amount>10</amount></item>
-				<item inherit="13e3"><amount>10</amount></item>
-				<item inherit="fb4"><amount>10</amount></item>
-				<item inherit="fb5"><amount>10</amount></item>
-				<item inherit="1bf2"><amount>10</amount></item>
-				<item inherit="e85"><amount>10</amount></item>
-				<item inherit="f39"><amount>10</amount></item>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
+				<item inherit="fbb"/>
+				<item inherit="fbc"/>
+				<item inherit="13e4"/>
+				<item inherit="13e3"/>
+				<item inherit="fb4"/>
+				<item inherit="fb5"/>
+				<item inherit="1bf2"/>
+				<item inherit="e85"/>
+				<item inherit="f39"/>
+				<item inherit="13bb"/>
+				<item inherit="13c3"/>
+				<item inherit="13c4"/>
+				<item inherit="140d"/>
+				<item inherit="140f"/>
+				<item inherit="140b"/>
+				<item inherit="1408"/>
+				<item inherit="1c04"/>
+				<item inherit="1416"/>
+				<item inherit="1410"/>
+				<item inherit="1414"/>
+				<item inherit="1413"/>
+				<item inherit="1412"/>
+				<item inherit="141a"/>
+				<item inherit="13f2"/>
+				<item inherit="13f1"/>
+				<item inherit="13ef"/>
+				<item inherit="13ed"/>
+				<item inherit="1b73"/>
+				<item inherit="1b76"/>
+				<item inherit="1b7b"/>
+				<item inherit="1b74"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Blacksmith (Female)</category>
 	</npc>
-	
 	<!-- A baker vendor -->
 	<npc id="baker_male">
 		<inherit>base_male</inherit>
 		<title>the Baker</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="98c"><amount>10</amount></item>
-				<item inherit="9e9"><amount>10</amount></item>
-				<item inherit="9ea"><amount>10</amount></item>
-				<item inherit="9eb"><amount>10</amount></item>
-				<item inherit="9ec"><amount>10</amount></item>
-				<item inherit="103b"><amount>10</amount></item>
-				<item inherit="103c"><amount>10</amount></item>
-				<item inherit="1039"><amount>10</amount></item>
-				<item inherit="ff8"><amount>10</amount></item>
-				<item inherit="ff9"><amount>10</amount></item>
-				<item inherit="9f0"><amount>10</amount></item>
-				<item inherit="9d6"><amount>10</amount></item>
+				<item inherit="98c">
+					<amount>10</amount>
+				</item>
+				<item inherit="9e9">
+					<amount>10</amount>
+				</item>
+				<item inherit="9ea">
+					<amount>10</amount>
+				</item>
+				<item inherit="9eb">
+					<amount>10</amount>
+				</item>
+				<item inherit="9ec">
+					<amount>10</amount>
+				</item>
+				<item inherit="103b">
+					<amount>10</amount>
+				</item>
+				<item inherit="103c">
+					<amount>10</amount>
+				</item>
+				<item inherit="1039">
+					<amount>10</amount>
+				</item>
+				<item inherit="ff8">
+					<amount>10</amount>
+				</item>
+				<item inherit="ff9">
+					<amount>10</amount>
+				</item>
+				<item inherit="9f0">
+					<amount>10</amount>
+				</item>
+				<item inherit="9d6">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="98c"><amount>10</amount></item>
-				<item inherit="9e9"><amount>10</amount></item>
-				<item inherit="9ea"><amount>10</amount></item>
-				<item inherit="9eb"><amount>10</amount></item>
-				<item inherit="9ec"><amount>10</amount></item>
-				<item inherit="103b"><amount>10</amount></item>
-				<item inherit="103c"><amount>10</amount></item>
-				<item inherit="1039"><amount>10</amount></item>
-				<item inherit="ff8"><amount>10</amount></item>
-				<item inherit="ff9"><amount>10</amount></item>
-				<item inherit="9f0"><amount>10</amount></item>
-				<item inherit="9d6"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="98c"><amount>10</amount></item>
-				<item inherit="9e9"><amount>10</amount></item>
-				<item inherit="9ea"><amount>10</amount></item>
-				<item inherit="9eb"><amount>10</amount></item>
-				<item inherit="9ec"><amount>10</amount></item>
-				<item inherit="103b"><amount>10</amount></item>
-				<item inherit="103c"><amount>10</amount></item>
-				<item inherit="1039"><amount>10</amount></item>
-				<item inherit="ff8"><amount>10</amount></item>
-				<item inherit="ff9"><amount>10</amount></item>
-				<item inherit="9f0"><amount>10</amount></item>
-				<item inherit="9d6"><amount>10</amount></item>
+				<item inherit="98c"/>
+				<item inherit="9e9"/>
+				<item inherit="9ea"/>
+				<item inherit="9eb"/>
+				<item inherit="9ec"/>
+				<item inherit="103b"/>
+				<item inherit="103c"/>
+				<item inherit="1039"/>
+				<item inherit="ff8"/>
+				<item inherit="ff9"/>
+				<item inherit="9f0"/>
+				<item inherit="9d6"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Baker (Male)</category>
 	</npc>
-
 	<npc id="baker_female">
 		<inherit>base_female</inherit>
 		<title>the Baker</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="98c"><amount>10</amount></item>
-				<item inherit="9e9"><amount>10</amount></item>
-				<item inherit="9ea"><amount>10</amount></item>
-				<item inherit="9eb"><amount>10</amount></item>
-				<item inherit="9ec"><amount>10</amount></item>
-				<item inherit="103b"><amount>10</amount></item>
-				<item inherit="103c"><amount>10</amount></item>
-				<item inherit="1039"><amount>10</amount></item>
-				<item inherit="ff8"><amount>10</amount></item>
-				<item inherit="ff9"><amount>10</amount></item>
-				<item inherit="9f0"><amount>10</amount></item>
-				<item inherit="9d6"><amount>10</amount></item>
+				<item inherit="98c">
+					<amount>10</amount>
+				</item>
+				<item inherit="9e9">
+					<amount>10</amount>
+				</item>
+				<item inherit="9ea">
+					<amount>10</amount>
+				</item>
+				<item inherit="9eb">
+					<amount>10</amount>
+				</item>
+				<item inherit="9ec">
+					<amount>10</amount>
+				</item>
+				<item inherit="103b">
+					<amount>10</amount>
+				</item>
+				<item inherit="103c">
+					<amount>10</amount>
+				</item>
+				<item inherit="1039">
+					<amount>10</amount>
+				</item>
+				<item inherit="ff8">
+					<amount>10</amount>
+				</item>
+				<item inherit="ff9">
+					<amount>10</amount>
+				</item>
+				<item inherit="9f0">
+					<amount>10</amount>
+				</item>
+				<item inherit="9d6">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="98c"><amount>10</amount></item>
-				<item inherit="9e9"><amount>10</amount></item>
-				<item inherit="9ea"><amount>10</amount></item>
-				<item inherit="9eb"><amount>10</amount></item>
-				<item inherit="9ec"><amount>10</amount></item>
-				<item inherit="103b"><amount>10</amount></item>
-				<item inherit="103c"><amount>10</amount></item>
-				<item inherit="1039"><amount>10</amount></item>
-				<item inherit="ff8"><amount>10</amount></item>
-				<item inherit="ff9"><amount>10</amount></item>
-				<item inherit="9f0"><amount>10</amount></item>
-				<item inherit="9d6"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="98c"><amount>10</amount></item>
-				<item inherit="9e9"><amount>10</amount></item>
-				<item inherit="9ea"><amount>10</amount></item>
-				<item inherit="9eb"><amount>10</amount></item>
-				<item inherit="9ec"><amount>10</amount></item>
-				<item inherit="103b"><amount>10</amount></item>
-				<item inherit="103c"><amount>10</amount></item>
-				<item inherit="1039"><amount>10</amount></item>
-				<item inherit="ff8"><amount>10</amount></item>
-				<item inherit="ff9"><amount>10</amount></item>
-				<item inherit="9f0"><amount>10</amount></item>
-				<item inherit="9d6"><amount>10</amount></item>
+				<item inherit="98c"/>
+				<item inherit="9e9"/>
+				<item inherit="9ea"/>
+				<item inherit="9eb"/>
+				<item inherit="9ec"/>
+				<item inherit="103b"/>
+				<item inherit="103c"/>
+				<item inherit="1039"/>
+				<item inherit="ff8"/>
+				<item inherit="ff9"/>
+				<item inherit="9f0"/>
+				<item inherit="9d6"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Baker (Female)</category>
 	</npc>
-
 	<!-- A Healer vendor -->
 	<npc id="healer_male">
 		<inherit>base_male</inherit>
 		<title>the Healer</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="e21"><amount>10</amount></item>
-				<item inherit="f07"><amount>10</amount></item>
-				<item inherit="f0c"><amount>10</amount></item>
-				<item inherit="f84"><amount>10</amount></item>
-				<item inherit="f85"><amount>10</amount></item>
-				<item inherit="f8d"><amount>10</amount></item>
-				<item inherit="f9e"><amount>10</amount></item>
+				<item inherit="e21">
+					<amount>10</amount>
+				</item>
+				<item inherit="f07">
+					<amount>10</amount>
+				</item>
+				<item inherit="f0c">
+					<amount>10</amount>
+				</item>
+				<item inherit="f84">
+					<amount>10</amount>
+				</item>
+				<item inherit="f85">
+					<amount>10</amount>
+				</item>
+				<item inherit="f8d">
+					<amount>10</amount>
+				</item>
+				<item inherit="f9e">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="e21"><amount>10</amount></item>
-				<item inherit="f07"><amount>10</amount></item>
-				<item inherit="f0c"><amount>10</amount></item>
-				<item inherit="f84"><amount>10</amount></item>
-				<item inherit="f85"><amount>10</amount></item>
-				<item inherit="f8d"><amount>10</amount></item>
-				<item inherit="f9e"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="e21"><amount>10</amount></item>
-				<item inherit="f07"><amount>10</amount></item>
-				<item inherit="f0c"><amount>10</amount></item>
-				<item inherit="f84"><amount>10</amount></item>
-				<item inherit="f85"><amount>10</amount></item>
-				<item inherit="f8d"><amount>10</amount></item>
-				<item inherit="f9e"><amount>10</amount></item>
+				<item inherit="e21"/>
+				<item inherit="f07"/>
+				<item inherit="f0c"/>
+				<item inherit="f84"/>
+				<item inherit="f85"/>
+				<item inherit="f8d"/>
+				<item inherit="f9e"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Healer (Male)</category>
 	</npc>
-
 	<npc id="healer_female">
 		<inherit>base_female</inherit>
 		<title>the Healer</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="e21"><amount>10</amount></item>
-				<item inherit="f07"><amount>10</amount></item>
-				<item inherit="f0c"><amount>10</amount></item>
-				<item inherit="f84"><amount>10</amount></item>
-				<item inherit="f85"><amount>10</amount></item>
-				<item inherit="f8d"><amount>10</amount></item>
-				<item inherit="f9e"><amount>10</amount></item>
+				<item inherit="e21">
+					<amount>10</amount>
+				</item>
+				<item inherit="f07">
+					<amount>10</amount>
+				</item>
+				<item inherit="f0c">
+					<amount>10</amount>
+				</item>
+				<item inherit="f84">
+					<amount>10</amount>
+				</item>
+				<item inherit="f85">
+					<amount>10</amount>
+				</item>
+				<item inherit="f8d">
+					<amount>10</amount>
+				</item>
+				<item inherit="f9e">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="e21"><amount>10</amount></item>
-				<item inherit="f07"><amount>10</amount></item>
-				<item inherit="f0c"><amount>10</amount></item>
-				<item inherit="f84"><amount>10</amount></item>
-				<item inherit="f85"><amount>10</amount></item>
-				<item inherit="f8d"><amount>10</amount></item>
-				<item inherit="f9e"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="e21"><amount>10</amount></item>
-				<item inherit="f07"><amount>10</amount></item>
-				<item inherit="f0c"><amount>10</amount></item>
-				<item inherit="f84"><amount>10</amount></item>
-				<item inherit="f85"><amount>10</amount></item>
-				<item inherit="f8d"><amount>10</amount></item>
-				<item inherit="f9e"><amount>10</amount></item>
+				<item inherit="e21"/>
+				<item inherit="f07"/>
+				<item inherit="f0c"/>
+				<item inherit="f84"/>
+				<item inherit="f85"/>
+				<item inherit="f8d"/>
+				<item inherit="f9e"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Healer (Female)</category>
 	</npc>
-
 	<!-- A armorer vendor -->
 	<npc id="armorer_male">
 		<inherit>base_male</inherit>
 		<title>the Armorer</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
+				<item inherit="13bb">
+					<amount>10</amount>
+				</item>
+				<item inherit="13c3">
+					<amount>10</amount>
+				</item>
+				<item inherit="13c4">
+					<amount>10</amount>
+				</item>
+				<item inherit="140d">
+					<amount>10</amount>
+				</item>
+				<item inherit="140f">
+					<amount>10</amount>
+				</item>
+				<item inherit="140b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1408">
+					<amount>10</amount>
+				</item>
+				<item inherit="1c04">
+					<amount>10</amount>
+				</item>
+				<item inherit="1416">
+					<amount>10</amount>
+				</item>
+				<item inherit="1410">
+					<amount>10</amount>
+				</item>
+				<item inherit="1414">
+					<amount>10</amount>
+				</item>
+				<item inherit="1413">
+					<amount>10</amount>
+				</item>
+				<item inherit="1412">
+					<amount>10</amount>
+				</item>
+				<item inherit="141a">
+					<amount>10</amount>
+				</item>
+				<item inherit="13f2">
+					<amount>10</amount>
+				</item>
+				<item inherit="13f1">
+					<amount>10</amount>
+				</item>
+				<item inherit="13ef">
+					<amount>10</amount>
+				</item>
+				<item inherit="13ed">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b73">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b76">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b7b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b74">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
+				<item inherit="13bb"/>
+				<item inherit="13c3"/>
+				<item inherit="13c4"/>
+				<item inherit="140d"/>
+				<item inherit="140f"/>
+				<item inherit="140b"/>
+				<item inherit="1408"/>
+				<item inherit="1c04"/>
+				<item inherit="1416"/>
+				<item inherit="1410"/>
+				<item inherit="1414"/>
+				<item inherit="1413"/>
+				<item inherit="1412"/>
+				<item inherit="141a"/>
+				<item inherit="13f2"/>
+				<item inherit="13f1"/>
+				<item inherit="13ef"/>
+				<item inherit="13ed"/>
+				<item inherit="1b73"/>
+				<item inherit="1b76"/>
+				<item inherit="1b7b"/>
+				<item inherit="1b74"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Armorer (Male)</category>
 	</npc>
-
 	<npc id="armorer_female">
 		<inherit>base_female</inherit>
 		<title>the Armorer</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
+				<item inherit="13bb">
+					<amount>10</amount>
+				</item>
+				<item inherit="13c3">
+					<amount>10</amount>
+				</item>
+				<item inherit="13c4">
+					<amount>10</amount>
+				</item>
+				<item inherit="140d">
+					<amount>10</amount>
+				</item>
+				<item inherit="140f">
+					<amount>10</amount>
+				</item>
+				<item inherit="140b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1408">
+					<amount>10</amount>
+				</item>
+				<item inherit="1c04">
+					<amount>10</amount>
+				</item>
+				<item inherit="1416">
+					<amount>10</amount>
+				</item>
+				<item inherit="1410">
+					<amount>10</amount>
+				</item>
+				<item inherit="1414">
+					<amount>10</amount>
+				</item>
+				<item inherit="1413">
+					<amount>10</amount>
+				</item>
+				<item inherit="1412">
+					<amount>10</amount>
+				</item>
+				<item inherit="141a">
+					<amount>10</amount>
+				</item>
+				<item inherit="13f2">
+					<amount>10</amount>
+				</item>
+				<item inherit="13f1">
+					<amount>10</amount>
+				</item>
+				<item inherit="13ef">
+					<amount>10</amount>
+				</item>
+				<item inherit="13ed">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b73">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b76">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b7b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1b74">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="13bb"><amount>10</amount></item>
-				<item inherit="13c3"><amount>10</amount></item>
-				<item inherit="13c4"><amount>10</amount></item>
-				<item inherit="140d"><amount>10</amount></item>
-				<item inherit="140f"><amount>10</amount></item>
-				<item inherit="140b"><amount>10</amount></item>
-				<item inherit="1408"><amount>10</amount></item>
-				<item inherit="1c04"><amount>10</amount></item>
-				<item inherit="1416"><amount>10</amount></item>
-				<item inherit="1410"><amount>10</amount></item>
-				<item inherit="1414"><amount>10</amount></item>
-				<item inherit="1413"><amount>10</amount></item>
-				<item inherit="1412"><amount>10</amount></item>
-				<item inherit="141a"><amount>10</amount></item>
-				<item inherit="13f2"><amount>10</amount></item>
-				<item inherit="13f1"><amount>10</amount></item>
-				<item inherit="13ef"><amount>10</amount></item>
-				<item inherit="13ed"><amount>10</amount></item>
-				<item inherit="1b73"><amount>10</amount></item>
-				<item inherit="1b76"><amount>10</amount></item>
-				<item inherit="1b7b"><amount>10</amount></item>
-				<item inherit="1b74"><amount>10</amount></item>
+				<item inherit="13bb"/>
+				<item inherit="13c3"/>
+				<item inherit="13c4"/>
+				<item inherit="140d"/>
+				<item inherit="140f"/>
+				<item inherit="140b"/>
+				<item inherit="1408"/>
+				<item inherit="1c04"/>
+				<item inherit="1416"/>
+				<item inherit="1410"/>
+				<item inherit="1414"/>
+				<item inherit="1413"/>
+				<item inherit="1412"/>
+				<item inherit="141a"/>
+				<item inherit="13f2"/>
+				<item inherit="13f1"/>
+				<item inherit="13ef"/>
+				<item inherit="13ed"/>
+				<item inherit="1b73"/>
+				<item inherit="1b76"/>
+				<item inherit="1b7b"/>
+				<item inherit="1b74"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Armorer (Female)</category>
 	</npc>
-
 	<!-- A provisioner vendor -->
-	<npc id="provisioner">
+	<npc id="provisioner_male">
 		<inherit>base_male</inherit>
 		<title>the Provisioner</title>
 		<shopkeeper>
-			<restockable>
-
-			</restockable>
+			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Provisioner (Male)</category>
 	</npc>
-
+	<npc id="provisioner_female">
+		<inherit>base_female</inherit>
+		<title>the Provisioner</title>
+		<shopkeeper>
+			<restockable/>
+		</shopkeeper>
+		<category>Vendors\Provisioner (Female)</category>
+	</npc>
 	<!-- A jeweler vendor -->
-	<npc id="jeweler">
+	<npc id="jeweler_male">
 		<inherit>base_male</inherit>
 		<title>the Jeweler</title>
 		<shopkeeper>
 			<restockable>
-
+				<item inherit="f1b">
+					<amount>10</amount>
+				</item>
+				<item inherit="f0f">
+					<amount>10</amount>
+				</item>
+				<item inherit="f21">
+					<amount>10</amount>
+				</item>
+				<item inherit="f10">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2f">
+					<amount>10</amount>
+				</item>
+				<item inherit="f11">
+					<amount>10</amount>
+				</item>
+				<item inherit="f12">
+					<amount>10</amount>
+				</item>
+				<item inherit="f19">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1f">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1a">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1c">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1d">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2a">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2b">
+					<amount>10</amount>
+				</item>
+				<item inherit="f13">
+					<amount>10</amount>
+				</item>
+				<item inherit="f14">
+					<amount>10</amount>
+				</item>
+				<item inherit="f15">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2c">
+					<amount>10</amount>
+				</item>
+				<item inherit="f23">
+					<amount>10</amount>
+				</item>
+				<item inherit="f24">
+					<amount>10</amount>
+				</item>
+				<item inherit="f16">
+					<amount>10</amount>
+				</item>
+				<item inherit="f17">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2e">
+					<amount>10</amount>
+				</item>
+				<item inherit="f22">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1e">
+					<amount>10</amount>
+				</item>
+				<item inherit="f20">
+					<amount>10</amount>
+				</item>
+				<item inherit="f18">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2d">
+					<amount>10</amount>
+				</item>
+				<item inherit="f26">
+					<amount>10</amount>
+				</item>
+				<item inherit="f27">
+					<amount>10</amount>
+				</item>
+				<item inherit="f28">
+					<amount>10</amount>
+				</item>
+				<item inherit="f29">
+					<amount>10</amount>
+				</item>
+				<item inherit="f30">
+					<amount>10</amount>
+				</item>
+				<item inherit="f25">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f05">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f06">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f07">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f08">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f09">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f0a">
+					<amount>10</amount>
+				</item>
 			</restockable>
+			<sellable>
+				<item inherit="f1b"/>
+				<item inherit="f0f"/>
+				<item inherit="f21"/>
+				<item inherit="f10"/>
+				<item inherit="f2f"/>
+				<item inherit="f11"/>
+				<item inherit="f12"/>
+				<item inherit="f19"/>
+				<item inherit="f1f"/>
+				<item inherit="f1a"/>
+				<item inherit="f1c"/>
+				<item inherit="f1d"/>
+				<item inherit="f2a"/>
+				<item inherit="f2b"/>
+				<item inherit="f13"/>
+				<item inherit="f14"/>
+				<item inherit="f15"/>
+				<item inherit="f2c"/>
+				<item inherit="f23"/>
+				<item inherit="f24"/>
+				<item inherit="f16"/>
+				<item inherit="f17"/>
+				<item inherit="f2e"/>
+				<item inherit="f22"/>
+				<item inherit="f1e"/>
+				<item inherit="f20"/>
+				<item inherit="f18"/>
+				<item inherit="f2d"/>
+				<item inherit="f26"/>
+				<item inherit="f27"/>
+				<item inherit="f28"/>
+				<item inherit="f29"/>
+				<item inherit="f30"/>
+				<item inherit="f25"/>
+				<item inherit="1f05"/>
+				<item inherit="1f06"/>
+				<item inherit="1f07"/>
+				<item inherit="1f08"/>
+				<item inherit="1f09"/>
+				<item inherit="1f0a"/>
+			</sellable>
 		</shopkeeper>
 		<category>Vendors\Jeweler (Male)</category>
 	</npc>
-
+	<npc id="jeweler_female">
+		<inherit>base_female</inherit>
+		<title>the Jeweler</title>
+		<shopkeeper>
+			<restockable>
+				<item inherit="f1b">
+					<amount>10</amount>
+				</item>
+				<item inherit="f0f">
+					<amount>10</amount>
+				</item>
+				<item inherit="f21">
+					<amount>10</amount>
+				</item>
+				<item inherit="f10">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2f">
+					<amount>10</amount>
+				</item>
+				<item inherit="f11">
+					<amount>10</amount>
+				</item>
+				<item inherit="f12">
+					<amount>10</amount>
+				</item>
+				<item inherit="f19">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1f">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1a">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1c">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1d">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2a">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2b">
+					<amount>10</amount>
+				</item>
+				<item inherit="f13">
+					<amount>10</amount>
+				</item>
+				<item inherit="f14">
+					<amount>10</amount>
+				</item>
+				<item inherit="f15">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2c">
+					<amount>10</amount>
+				</item>
+				<item inherit="f23">
+					<amount>10</amount>
+				</item>
+				<item inherit="f24">
+					<amount>10</amount>
+				</item>
+				<item inherit="f16">
+					<amount>10</amount>
+				</item>
+				<item inherit="f17">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2e">
+					<amount>10</amount>
+				</item>
+				<item inherit="f22">
+					<amount>10</amount>
+				</item>
+				<item inherit="f1e">
+					<amount>10</amount>
+				</item>
+				<item inherit="f20">
+					<amount>10</amount>
+				</item>
+				<item inherit="f18">
+					<amount>10</amount>
+				</item>
+				<item inherit="f2d">
+					<amount>10</amount>
+				</item>
+				<item inherit="f26">
+					<amount>10</amount>
+				</item>
+				<item inherit="f27">
+					<amount>10</amount>
+				</item>
+				<item inherit="f28">
+					<amount>10</amount>
+				</item>
+				<item inherit="f29">
+					<amount>10</amount>
+				</item>
+				<item inherit="f30">
+					<amount>10</amount>
+				</item>
+				<item inherit="f25">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f05">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f06">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f07">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f08">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f09">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f0a">
+					<amount>10</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item inherit="f1b"/>
+				<item inherit="f0f"/>
+				<item inherit="f21"/>
+				<item inherit="f10"/>
+				<item inherit="f2f"/>
+				<item inherit="f11"/>
+				<item inherit="f12"/>
+				<item inherit="f19"/>
+				<item inherit="f1f"/>
+				<item inherit="f1a"/>
+				<item inherit="f1c"/>
+				<item inherit="f1d"/>
+				<item inherit="f2a"/>
+				<item inherit="f2b"/>
+				<item inherit="f13"/>
+				<item inherit="f14"/>
+				<item inherit="f15"/>
+				<item inherit="f2c"/>
+				<item inherit="f23"/>
+				<item inherit="f24"/>
+				<item inherit="f16"/>
+				<item inherit="f17"/>
+				<item inherit="f2e"/>
+				<item inherit="f22"/>
+				<item inherit="f1e"/>
+				<item inherit="f20"/>
+				<item inherit="f18"/>
+				<item inherit="f2d"/>
+				<item inherit="f26"/>
+				<item inherit="f27"/>
+				<item inherit="f28"/>
+				<item inherit="f29"/>
+				<item inherit="f30"/>
+				<item inherit="f25"/>
+				<item inherit="1f05"/>
+				<item inherit="1f06"/>
+				<item inherit="1f07"/>
+				<item inherit="1f08"/>
+				<item inherit="1f09"/>
+				<item inherit="1f0a"/>
+			</sellable>
+		</shopkeeper>
+		<category>Vendors\Jeweler (Femele)</category>
+	</npc>
 	<!-- A Tailor vendor -->
-	<npc id="tailor">
+	<npc id="tailor_male">
 		<inherit>base_male</inherit>
 		<title>the Tailor</title>
 		<shopkeeper>
-			<restockable>				
-				<item inherit="153f"><amount>10</amount></item> <!-- Bandana -->
-				<item inherit="1515"><amount>10</amount></item> <!-- Cloak -->
-				<item inherit="108b"><amount>10</amount></item> <!-- Beads -->
-				<item inherit="1516"><amount>10</amount></item> <!-- Skirt -->
-				<item inherit="1517"><amount>10</amount></item> <!-- Plain Shirt -->
+			<restockable>
+				<item inherit="153f">
+					<amount>10</amount>
+				</item>
+				<item inherit="1515">
+					<amount>10</amount>
+				</item>
+				<item inherit="108b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1516">
+					<amount>10</amount>
+				</item>
+				<item inherit="1517">
+					<amount>10</amount>
+				</item>
 			</restockable>
 		</shopkeeper>
 		<category>Vendors\Tailor (Male)</category>
 	</npc>
-
+	<npc id="tailor_female">
+		<inherit>base_female</inherit>
+		<title>the Tailor</title>
+		<shopkeeper>
+			<restockable>
+				<item inherit="153f">
+					<amount>10</amount>
+				</item>
+				<item inherit="1515">
+					<amount>10</amount>
+				</item>
+				<item inherit="108b">
+					<amount>10</amount>
+				</item>
+				<item inherit="1516">
+					<amount>10</amount>
+				</item>
+				<item inherit="1517">
+					<amount>10</amount>
+				</item>
+			</restockable>
+		</shopkeeper>
+		<category>Vendors\Tailor (Female)</category>
+	</npc>
 	<!-- A weaver vendor -->
 	<npc id="weaver">
 		<inherit>base_male</inherit>
 		<title>the Weaver</title>
 		<shopkeeper>
-			<restockable>
-
-			</restockable>
+			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Weaver (Male)</category>
 	</npc>
-
 	<!-- A cook vendor -->
 	<npc id="cook">
 		<inherit>base_male</inherit>
 		<title>the Cook</title>
 		<shopkeeper>
-			<restockable>
-
-			</restockable>
+			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Cook (Male)</category>
 	</npc>
-
 	<!-- A butcher vendor -->
 	<npc id="butcher">
 		<inherit>base_male</inherit>
 		<title>the butcher</title>
 		<shopkeeper>
-			<restockable>
-
-			</restockable>
+			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Butcher (Male)</category>
 	</npc>
-
 	<!-- A architect vendor -->
 	<npc id="architect">
 		<inherit>base_male</inherit>
 		<title>the Architect</title>
 		<shopkeeper>
-			<restockable>
-
-			</restockable>
+			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Architect (Male)</category>
 	</npc>
-
 	<!-- A carpenter vendor -->
 	<npc id="carpenter">
 		<inherit>base_male</inherit>
 		<title>the Carpenter</title>
 		<shopkeeper>
-			<restockable>
-
-			</restockable>
+			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Carpenter (Male)</category>
 	</npc>
-
 	<!-- A tinker vendor -->
 	<npc id="tinker">
 		<inherit>base_male</inherit>
 		<title>the Tinker</title>
 		<shopkeeper>
-			<restockable>
-
-			</restockable>
+			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Tinker (Male)</category>
 	</npc>
-
 	<!-- A mage vendor -->
 	<npc id="mage_male">
 		<inherit>base_male</inherit>
 		<title>the Mage</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="efa"><amount>10</amount></item>
-				<item inherit="1f14"><amount>10</amount></item>
-				<item inherit="1f15"><amount>10</amount></item>
-				<item inherit="1f16"><amount>10</amount></item>
-				<item inherit="1f17"><amount>10</amount></item>
-				<item inherit="1f2e"><amount>10</amount></item>
-				<item inherit="1f2f"><amount>10</amount></item>
-				<item inherit="1f30"><amount>10</amount></item>
-				<item inherit="1f31"><amount>10</amount></item>
-				<item inherit="1f32"><amount>10</amount></item>
-				<item inherit="1f33"><amount>10</amount></item>
-				<item inherit="1f2d"><amount>10</amount></item>
-				<item inherit="1f34"><amount>10</amount></item>
-				<item inherit="1f35"><amount>10</amount></item>
-				<item inherit="1f36"><amount>10</amount></item>
-				<item inherit="1f37"><amount>10</amount></item>
-				<item inherit="1f38"><amount>10</amount></item>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
-				<item inherit="e34"><amount>10</amount></item>
+				<item inherit="efa">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f14">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f15">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f16">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f17">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f2e">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f2f">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f30">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f31">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f32">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f33">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f2d">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f34">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f35">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f36">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f37">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f38">
+					<amount>10</amount>
+				</item>
+				<item inherit="f7a">
+					<amount>50</amount>
+				</item>
+				<item inherit="f7b">
+					<amount>50</amount>
+				</item>
+				<item inherit="f84">
+					<amount>50</amount>
+				</item>
+				<item inherit="f85">
+					<amount>50</amount>
+				</item>
+				<item inherit="f86">
+					<amount>50</amount>
+				</item>
+				<item inherit="f88">
+					<amount>50</amount>
+				</item>
+				<item inherit="f8c">
+					<amount>50</amount>
+				</item>
+				<item inherit="f8d">
+					<amount>50</amount>
+				</item>
+				<item inherit="e34">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="efa"><amount>10</amount></item>
-				<item inherit="1f14"><amount>10</amount></item>
-				<item inherit="1f15"><amount>10</amount></item>
-				<item inherit="1f16"><amount>10</amount></item>
-				<item inherit="1f17"><amount>10</amount></item>
-				<item inherit="1f2e"><amount>10</amount></item>
-				<item inherit="1f2f"><amount>10</amount></item>
-				<item inherit="1f30"><amount>10</amount></item>
-				<item inherit="1f31"><amount>10</amount></item>
-				<item inherit="1f32"><amount>10</amount></item>
-				<item inherit="1f33"><amount>10</amount></item>
-				<item inherit="1f2d"><amount>10</amount></item>
-				<item inherit="1f34"><amount>10</amount></item>
-				<item inherit="1f35"><amount>10</amount></item>
-				<item inherit="1f36"><amount>10</amount></item>
-				<item inherit="1f37"><amount>10</amount></item>
-				<item inherit="1f38"><amount>10</amount></item>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
-				<item inherit="e34"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="efa"><amount>10</amount></item>
-				<item inherit="1f14"><amount>10</amount></item>
-				<item inherit="1f15"><amount>10</amount></item>
-				<item inherit="1f16"><amount>10</amount></item>
-				<item inherit="1f17"><amount>10</amount></item>
-				<item inherit="1f2e"><amount>10</amount></item>
-				<item inherit="1f2f"><amount>10</amount></item>
-				<item inherit="1f30"><amount>10</amount></item>
-				<item inherit="1f31"><amount>10</amount></item>
-				<item inherit="1f32"><amount>10</amount></item>
-				<item inherit="1f33"><amount>10</amount></item>
-				<item inherit="1f2d"><amount>10</amount></item>
-				<item inherit="1f34"><amount>10</amount></item>
-				<item inherit="1f35"><amount>10</amount></item>
-				<item inherit="1f36"><amount>10</amount></item>
-				<item inherit="1f37"><amount>10</amount></item>
-				<item inherit="1f38"><amount>10</amount></item>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
-				<item inherit="e34"><amount>10</amount></item>
+				<item inherit="efa"/>
+				<item inherit="1f14"/>
+				<item inherit="1f15"/>
+				<item inherit="1f16"/>
+				<item inherit="1f17"/>
+				<item inherit="1f2e"/>
+				<item inherit="1f2f"/>
+				<item inherit="1f30"/>
+				<item inherit="1f31"/>
+				<item inherit="1f32"/>
+				<item inherit="1f33"/>
+				<item inherit="1f2d"/>
+				<item inherit="1f34"/>
+				<item inherit="1f35"/>
+				<item inherit="1f36"/>
+				<item inherit="1f37"/>
+				<item inherit="1f38"/>
+				<item inherit="f7a"/>
+				<item inherit="f7b"/>
+				<item inherit="f84"/>
+				<item inherit="f85"/>
+				<item inherit="f86"/>
+				<item inherit="f88"/>
+				<item inherit="f8c"/>
+				<item inherit="f8d"/>
+				<item inherit="e34"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Mage (Male)</category>
 	</npc>
-
 	<npc id="mage_female">
 		<inherit>base_female</inherit>
 		<title>the Mage</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="efa"><amount>10</amount></item>
-				<item inherit="1f14"><amount>10</amount></item>
-				<item inherit="1f15"><amount>10</amount></item>
-				<item inherit="1f16"><amount>10</amount></item>
-				<item inherit="1f17"><amount>10</amount></item>
-				<item inherit="1f2e"><amount>10</amount></item>
-				<item inherit="1f2f"><amount>10</amount></item>
-				<item inherit="1f30"><amount>10</amount></item>
-				<item inherit="1f31"><amount>10</amount></item>
-				<item inherit="1f32"><amount>10</amount></item>
-				<item inherit="1f33"><amount>10</amount></item>
-				<item inherit="1f2d"><amount>10</amount></item>
-				<item inherit="1f34"><amount>10</amount></item>
-				<item inherit="1f35"><amount>10</amount></item>
-				<item inherit="1f36"><amount>10</amount></item>
-				<item inherit="1f37"><amount>10</amount></item>
-				<item inherit="1f38"><amount>10</amount></item>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
-				<item inherit="e34"><amount>10</amount></item>
+				<item inherit="efa">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f14">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f15">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f16">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f17">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f2e">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f2f">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f30">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f31">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f32">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f33">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f2d">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f34">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f35">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f36">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f37">
+					<amount>10</amount>
+				</item>
+				<item inherit="1f38">
+					<amount>10</amount>
+				</item>
+				<item inherit="f7a">
+					<amount>50</amount>
+				</item>
+				<item inherit="f7b">
+					<amount>50</amount>
+				</item>
+				<item inherit="f84">
+					<amount>50</amount>
+				</item>
+				<item inherit="f85">
+					<amount>50</amount>
+				</item>
+				<item inherit="f86">
+					<amount>50</amount>
+				</item>
+				<item inherit="f88">
+					<amount>50</amount>
+				</item>
+				<item inherit="f8c">
+					<amount>50</amount>
+				</item>
+				<item inherit="f8d">
+					<amount>50</amount>
+				</item>
+				<item inherit="e34">
+					<amount>10</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="efa"><amount>10</amount></item>
-				<item inherit="1f14"><amount>10</amount></item>
-				<item inherit="1f15"><amount>10</amount></item>
-				<item inherit="1f16"><amount>10</amount></item>
-				<item inherit="1f17"><amount>10</amount></item>
-				<item inherit="1f2e"><amount>10</amount></item>
-				<item inherit="1f2f"><amount>10</amount></item>
-				<item inherit="1f30"><amount>10</amount></item>
-				<item inherit="1f31"><amount>10</amount></item>
-				<item inherit="1f32"><amount>10</amount></item>
-				<item inherit="1f33"><amount>10</amount></item>
-				<item inherit="1f2d"><amount>10</amount></item>
-				<item inherit="1f34"><amount>10</amount></item>
-				<item inherit="1f35"><amount>10</amount></item>
-				<item inherit="1f36"><amount>10</amount></item>
-				<item inherit="1f37"><amount>10</amount></item>
-				<item inherit="1f38"><amount>10</amount></item>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
-				<item inherit="e34"><amount>10</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="efa"><amount>10</amount></item>
-				<item inherit="1f14"><amount>10</amount></item>
-				<item inherit="1f15"><amount>10</amount></item>
-				<item inherit="1f16"><amount>10</amount></item>
-				<item inherit="1f17"><amount>10</amount></item>
-				<item inherit="1f2e"><amount>10</amount></item>
-				<item inherit="1f2f"><amount>10</amount></item>
-				<item inherit="1f30"><amount>10</amount></item>
-				<item inherit="1f31"><amount>10</amount></item>
-				<item inherit="1f32"><amount>10</amount></item>
-				<item inherit="1f33"><amount>10</amount></item>
-				<item inherit="1f2d"><amount>10</amount></item>
-				<item inherit="1f34"><amount>10</amount></item>
-				<item inherit="1f35"><amount>10</amount></item>
-				<item inherit="1f36"><amount>10</amount></item>
-				<item inherit="1f37"><amount>10</amount></item>
-				<item inherit="1f38"><amount>10</amount></item>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
-				<item inherit="e34"><amount>10</amount></item>
+				<item inherit="efa"/>
+				<item inherit="1f14"/>
+				<item inherit="1f15"/>
+				<item inherit="1f16"/>
+				<item inherit="1f17"/>
+				<item inherit="1f2e"/>
+				<item inherit="1f2f"/>
+				<item inherit="1f30"/>
+				<item inherit="1f31"/>
+				<item inherit="1f32"/>
+				<item inherit="1f33"/>
+				<item inherit="1f2d"/>
+				<item inherit="1f34"/>
+				<item inherit="1f35"/>
+				<item inherit="1f36"/>
+				<item inherit="1f37"/>
+				<item inherit="1f38"/>
+				<item inherit="f7a"/>
+				<item inherit="f7b"/>
+				<item inherit="f84"/>
+				<item inherit="f85"/>
+				<item inherit="f86"/>
+				<item inherit="f88"/>
+				<item inherit="f8c"/>
+				<item inherit="f8d"/>
+				<item inherit="e34"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Mage (Female)</category>
 	</npc>
-
 	<!-- A alchemist vendor -->
 	<npc id="alchemist">
 		<inherit>base_male</inherit>
 		<title>the Alchemist</title>
 		<shopkeeper>
-			<restockable>
-
-			</restockable>
+			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Alchemist (Male)</category>
 	</npc>
-
 	<!-- A herbalist vendor -->
 	<npc id="herbalist_male">
 		<inherit>base_male</inherit>
 		<title>the Herbalist</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
+				<item inherit="f7a">
+					<amount>50</amount>
+				</item>
+				<item inherit="f7b">
+					<amount>50</amount>
+				</item>
+				<item inherit="f84">
+					<amount>50</amount>
+				</item>
+				<item inherit="f85">
+					<amount>50</amount>
+				</item>
+				<item inherit="f86">
+					<amount>50</amount>
+				</item>
+				<item inherit="f88">
+					<amount>50</amount>
+				</item>
+				<item inherit="f8c">
+					<amount>50</amount>
+				</item>
+				<item inherit="f8d">
+					<amount>50</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
+				<item inherit="f7a"/>
+				<item inherit="f7b"/>
+				<item inherit="f84"/>
+				<item inherit="f85"/>
+				<item inherit="f86"/>
+				<item inherit="f88"/>
+				<item inherit="f8c"/>
+				<item inherit="f8d"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Herbalist (Male)</category>
 	</npc>
-
 	<npc id="herbalist_female">
 		<inherit>base_female</inherit>
 		<title>the Herbalist</title>
 		<shopkeeper>
 			<restockable>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
+				<item inherit="f7a">
+					<amount>50</amount>
+				</item>
+				<item inherit="f7b">
+					<amount>50</amount>
+				</item>
+				<item inherit="f84">
+					<amount>50</amount>
+				</item>
+				<item inherit="f85">
+					<amount>50</amount>
+				</item>
+				<item inherit="f86">
+					<amount>50</amount>
+				</item>
+				<item inherit="f88">
+					<amount>50</amount>
+				</item>
+				<item inherit="f8c">
+					<amount>50</amount>
+				</item>
+				<item inherit="f8d">
+					<amount>50</amount>
+				</item>
 			</restockable>
-			<buyable>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
-			</buyable>
 			<sellable>
-				<item inherit="f7a"><amount>50</amount></item>
-				<item inherit="f7b"><amount>50</amount></item>
-				<item inherit="f84"><amount>50</amount></item>
-				<item inherit="f85"><amount>50</amount></item>
-				<item inherit="f86"><amount>50</amount></item>
-				<item inherit="f88"><amount>50</amount></item>
-				<item inherit="f8c"><amount>50</amount></item>
-				<item inherit="f8d"><amount>50</amount></item>
+				<item inherit="f7a"/>
+				<item inherit="f7b"/>
+				<item inherit="f84"/>
+				<item inherit="f85"/>
+				<item inherit="f86"/>
+				<item inherit="f88"/>
+				<item inherit="f8c"/>
+				<item inherit="f8d"/>
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Herbalist (Female)</category>
 	</npc>
-	
 	<npc id="stablemaster_male">
 		<inherit>base_male</inherit>
 		<title>the Stablemaster</title>
-		<shopkeeper>
-			
-		</shopkeeper>
+		<shopkeeper/>
 	</npc>
-	
 </definitions>
