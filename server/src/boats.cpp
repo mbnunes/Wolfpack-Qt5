@@ -699,7 +699,7 @@ bool cBoat::move( void )
 		dy -= shift_;
 		break;
 	default:
-		clConsole.log( QString( "WARNING: cBoat::Move: invalid boatdirection caught (boatdir: %1, serial: %2), corrected to north boatdir!").arg(this->boatdir).arg(this->serial()).latin1() );
+		clConsole.log( LOG_WARNING, QString( "cBoat::Move: invalid boatdirection caught (boatdir: %1, serial: %2), corrected to north boatdir!" ).arg( this->boatdir ).arg( this->serial() ) );
 		this->boatdir = 0;
 		dy -= moves_;
 		break;

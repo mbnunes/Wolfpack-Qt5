@@ -115,27 +115,31 @@ void WPConsole_cl::send(const QString &sMessage)
 }
 
 //========================================================================================
-// Send a char string to the log
-void WPConsole_cl::log(char* szMessage, ...)
+void WPConsole_cl::log( UINT8 logLevel, const QString &message )
 {
-	va_list argptr;
-	char msg[512];
+	switch( logLevel )
+	{
+	case LOG_ERROR:
+	case LOG_FATAL:
+		ChangeColor( WPC_RED );
+		send( "ERROR" );
+		ChangeColor( WPC_NORMAL );
+		break;
+	case LOG_NOTICE:
+		ChangeColor( WPC_WHITE );
+		send( "NOTICE" );
+		ChangeColor( WPC_NORMAL );
+		break;
+	case LOG_WARNING:
+		ChangeColor( WPC_YELLOW );
+		send( "WARNING" );
+		ChangeColor( WPC_NORMAL );
+		break;
+	}
 
-	va_start(argptr, szMessage);
-	vsnprintf(msg, 512, szMessage, argptr);
-	va_end(argptr);
-	
-	QString sMessage(msg);
-	log(sMessage);
+	send( ": " + message + "\n" );
 }
-//========================================================================================
-// Send a message to the log
-void WPConsole_cl::log(const QString& sMessage)
-{
-	if (logstrm != NULL)
-		(*logstrm) << sMessage;
 
-}
 //========================================================================================
 // Send a char string to the error
 void WPConsole_cl::error(char* szMessage, ...)

@@ -203,10 +203,17 @@ void serBinFile::read(const char* Key, string& data)
 		if ( uiSize != 0 )
 		{
 			char* c_Str = new char[uiSize + 1];
-			file.read(c_Str, uiSize);
-			c_Str[uiSize] = 0;
-			data = c_Str;
-			delete [] c_Str;
+			if( c_Str )
+			{
+				file.read(c_Str, uiSize);
+				c_Str[uiSize] = 0;
+				data = c_Str;
+				delete [] c_Str;
+			}
+			else
+			{
+				qFatal( QString( "Out of memory, couldn't allocate %1 bytes of memory." ).arg( uiSize ) );
+			}
 		}
 	}
 	else

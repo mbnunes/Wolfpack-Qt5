@@ -63,6 +63,12 @@ enum WPC_ColorKeys
 	WPC_WHITE,
 };
 
+// I'll use defines here
+#define LOG_ERROR 1
+#define LOG_WARNING 2
+#define LOG_NOTICE 3
+#define LOG_FATAL 4
+
 class WPConsole_cl
 {
 private:
@@ -84,8 +90,7 @@ public:
 
 
 	// Log a message
-	void log(char* szMessage, ...);
-	void log(const QString& );
+	void log( UINT8 logLevel, const QString &message );
 
 	// Flag an error
 	void error(char* szMessage, ...);

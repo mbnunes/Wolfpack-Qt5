@@ -1221,7 +1221,7 @@ P_ITEM cAllItems::createScriptItem( const QString& Section )
 	
 	if( DefSection->isNull() ) // section not found 
 	{
-		clConsole.log( QString("Unable to create unscripted item: %1\n").arg(Section).latin1() );
+		clConsole.log( LOG_ERROR, QString( "Unable to create unscripted item: %1\n" ).arg( Section ) );
 		return NULL;
 	}
 

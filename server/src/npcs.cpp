@@ -127,7 +127,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 
 	if( !DefSection || DefSection->isNull() )
 	{
-		clConsole.log( QString( "Unable to create unscripted npc: %1\n" ).arg( section ).latin1() );
+		clConsole.log( LOG_ERROR, QString( "Unable to create unscripted npc: %1\n" ).arg( section ) );
 		return NULL;
 	}
 
