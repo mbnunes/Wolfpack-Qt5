@@ -32,6 +32,10 @@
 #include "serbinfile.h"
 #include "platform.h"
 
+// Save Path
+#include "junk.h"
+#include "srvparams.h"
+
 // Library Includes
 #include "qfile.h"
 #include "qstring.h"
@@ -61,7 +65,8 @@ void serBinFile::prepareReading(std::string ident, int bLevel)
 	if ( bLevel >= backuplevel )
 		return; // nothing more can be done.
 
-	QString fileName(ident.c_str());
+	QString fileName( QString( "%1%2" ).arg( SrvParams->worldSaveDirectory() ).arg( ident.c_str() ) );
+
 	if ( bLevel != 0 )
 		fileName += QString("-%1").arg(bLevel);
 	fileName.append(".bin");
@@ -90,7 +95,8 @@ void serBinFile::prepareReading(std::string ident, int bLevel)
 
 void serBinFile::prepareWritting(std::string ident)
 {
-	QString fileName(ident.c_str());
+	QString fileName( QString( "%1%2" ).arg( SrvParams->worldSaveDirectory() ).arg( ident.c_str() ) );
+
 	// perform backups
 	unsigned int i;
 	QFile::remove( ident.c_str() + QString("-%1.%2").arg(backuplevel).arg("bin"));

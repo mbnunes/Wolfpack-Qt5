@@ -34,6 +34,10 @@
 
 //using namespace std;
 
+// Save Path
+#include "junk.h"
+#include "srvparams.h"
+
 // Libraries
 #include "qstring.h"
 #include "qfile.h"
@@ -72,7 +76,8 @@ void serXmlFile::prepareReading(std::string ident, int bLevel)
 	if ( bLevel >= backuplevel )
 		return; // nothing more can be done.
 
-	QString fileName(ident.c_str());
+	QString fileName( QString( "%1%2" ).arg( SrvParams->worldSaveDirectory() ).arg( ident.c_str() ) );
+
 	if ( bLevel != 0 )
 		fileName += QString("-%1").arg(bLevel);
 	fileName.append(".xml");
@@ -112,7 +117,8 @@ void serXmlFile::prepareReading(std::string ident, int bLevel)
 
 void serXmlFile::prepareWritting(std::string ident)
 {
-	QString fileName(ident.c_str());
+	QString fileName( QString( "%1%2" ).arg( SrvParams->worldSaveDirectory() ).arg( ident.c_str() ) );
+
 	// perform backups
 	unsigned int i;
 	QFile::remove( ident.c_str() + QString("-%1.%2").arg(backuplevel).arg("xml"));
