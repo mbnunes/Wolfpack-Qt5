@@ -192,6 +192,8 @@
 	<startitems id="magery">
 	        <inherit id="default" />
 	        <!--Spellbook --><equipment id="efa"></equipment>
+	        <!--Wizards Hat --><equipment id="1718"></equipment>
+	        <!--Robe --><equipment id="1f03"></equipment>
 	        <!--Random 1-4 Circle Scrolls--><item><inherit><random list="1_THRU_4_CIRCLE" /></inherit></item>
 	        <!--Random 1-4 Circle Scrolls--><item><inherit><random list="1_THRU_4_CIRCLE" /></inherit></item>
 	        <!--Random 1-4 Circle Scrolls--><item><inherit><random list="1_THRU_4_CIRCLE" /></inherit></item>
