@@ -1,12 +1,15 @@
 import wolfpack
 from wolfpack.consts import *
 
+ch7x7 = [ 7, 7, 0x13ec ]
+
 def onUse( char, item ):
-   char.socket.attachmultitarget( "multideed.response", 0x13ec )
+   char.socket.attachmultitarget( "multideed.response", ch7x7[2], [ch7x7] )
    return 1
 
 def response( char, args, target ):
-   foundation( char, target, 7, 7 )
+   ar = args[0]
+   foundation( char, target, ar[0], ar[1] )
    return 1
 
 def foundation( char, target, width, height ):
@@ -34,7 +37,6 @@ def foundation( char, target, width, height ):
    #Draw floor
    for y in xrange( top+1,bottom+1 ):
       for x in xrange( right+1,left+1 ):
-         char.socket.sysmessage( str(x) +" "+ str(y) )
          multi.addchtile( 0x31f4, x, y, 7 )
 
    #Draw corners
