@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# .wipe/nuke Commands											#
+# .wipe/nuke/nukez Commands					#
 #===============================================================#
 
 """
@@ -27,12 +27,19 @@
 	use wipe all, the whole world will be wiped.
 	\notes There is also <b>NUKE</b> which is an alias for this command.
 """
+"""
+	\command nukez
+	\description Remove items in a certain area at a given height.
+	\usage - <code>nukez z</code>
+	- <code>nuke z baseid</code>
+	Z is the height where the items should be removed.
+	\notes If baseid is given, only items with that baseid will get removed.
+"""
 
 import wolfpack
 import string
 import wolfpack.gumps
 from wolfpack.gumps import WarningGump
-#from wolfpack.utilities import *
 
 def getBoundingBox( socket, callback, args ) :
 	socket.attachtarget( "commands.wipe.getBoundingBoxResponse", [0, callback, None, args] )
@@ -58,7 +65,27 @@ def nuke( socket, command, argstring ):
 	
 	socket.sysmessage("Select the area to remove")
 	getBoundingBox( socket, wipeBoundingBox, baseid )
-	return 1
+	return True
+
+def nukez( socket, command, arguments ):
+	if( len(arguments) == 0 or arguments.count(' ') > 1 ):
+		socket.sysmessage('Usage: .nukez z [ baseid ]')
+		return
+
+	if( arguments.count(' ') == 1 ):
+		(z, baseid) = arguments.split(' ')
+	else:
+		z = arguments
+		baseid =  None
+	try:
+		z = int(z)
+	except:
+		socket.sysmessage('Invalid z value.')
+		return
+	
+	socket.sysmessage("Select the area to remove")
+	getBoundingBox( socket, wipeBoundingBox, [z, baseid] )
+	return True
 
 def wipeAllWorld( player, accept, state ):
 	if not accept:
@@ -81,7 +108,7 @@ def wipeAllWorld( player, accept, state ):
 	player.socket.sysmessage( "%i items have been removed from world" % len(serials) )
 	return
 
-def wipeBoundingBox( socket, target1, target2, baseid ):
+def wipeBoundingBox( socket, target1, target2, argstring ):
 	if target1.pos.map != target2.pos.map:
 		return False
 	x1 = min( target1.pos.x, target2.pos.x )
@@ -92,16 +119,23 @@ def wipeBoundingBox( socket, target1, target2, baseid ):
 	iterator = wolfpack.itemregion( x1, y1, x2, y2, target2.pos.map )
 	item = iterator.first
 	count = 0
+	if( argstring and len(argstring) == 2 ):
+		(z, baseid) = argstring
+	else:
+		baseid = argstring
+		z = None
+
 	while item:
-		if not baseid or item.baseid == baseid:
+		if (not z or z == item.pos.z) and (not baseid or item.baseid == baseid):
 			item.delete()
 			count += 1
 		item = iterator.next
 	socket.sysmessage( "%i items removed" % count )
 
-	return 1
+	return True
 
 def onLoad():
 	wolfpack.registercommand( "wipe", nuke )
 	wolfpack.registercommand( "nuke", nuke )
+	wolfpack.registercommand( "nukez", nukez )
 	return
