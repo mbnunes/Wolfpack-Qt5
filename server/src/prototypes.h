@@ -68,8 +68,6 @@ void InitServerSettings();
 void DeleteClasses();
 int chardir(P_CHAR a, P_CHAR b);
 int fielddir(P_CHAR pc, int x, int y, int z);
-int RandomNum(int nLowNum, int nHighNum);
-float RandomNum( float nLowNum, float nHighNum );
 
 void endmessage(int x);
 

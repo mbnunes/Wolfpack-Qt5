@@ -90,25 +90,12 @@ inline void numtostr(int i, char *ourstring) { sprintf(ourstring,"%d",i) ;}
 #define BASE_HEX 16
 
 // sereg : roll dices d&d style
-int rollDice( QString dicePattern );
-
-/*
-// Xan : conversion from sz to numbers
-int str2num (char *sz, int base = BASE_AUTO);
-int str2num (std::string sz,int base = BASE_AUTO);
-
-// Xan : new style hexstring to number
-inline int hex2num (char *sz)
-{
-	return str2num(sz, BASE_HEX);
-}
-
-inline int hex2num (std::string sz)
-{
-	return str2num(sz,BASE_HEX);
-}
-*/
+int rollDice( const QString& dicePattern );
 
 bool parseCoordinates( const QString &input, Coord_cl &coord );
+
+int RandomNum(int nLowNum, int nHighNum);
+
+float RandomFloatNum(float nLowNum, float nHighNum);
 
 #endif 

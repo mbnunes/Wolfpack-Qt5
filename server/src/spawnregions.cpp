@@ -294,7 +294,7 @@ void cSpawnRegion::reSpawnToMax( void )
 		Coord_cl pos;
 		if( this->findValidSpot( pos ) )
 		{
-			QString NpcSect = this->npcSections_[ RandomNum( 1, this->npcSections_.size() ) - 1 ];
+			QString NpcSect = this->npcSections_[ RandomNum( 1, static_cast<uint>(this->npcSections_.size()) ) - 1 ];
 			P_CHAR pc = cCharStuff::createScriptNpc( NpcSect, pos );
 			if( pc != NULL )
 			{

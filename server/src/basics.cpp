@@ -61,7 +61,7 @@ int RandomNum(int nLowNum, int nHighNum)
 	Returns a random number between \a nLowNum
 	and \a nHighNum.
 */
-float RandomNum(float nLowNum, float nHighNum)
+float RandomFloatNum(float nLowNum, float nHighNum)
 {
 	if (nHighNum - nLowNum + 1)
 	{
@@ -81,7 +81,7 @@ float RandomNum(float nLowNum, float nHighNum)
   of xdy + z, which means roll a dice with y faces x times adding
   the result. After the x rolls, add z to the result.
 */
-int rollDice( QString dicePattern ) // roll dices d&d style
+int rollDice( const QString& dicePattern ) // roll dices d&d style
 {
 	// dicePattern looks like "xdy+z"
 	// which equals RandomNum(x,y)+z
