@@ -56,23 +56,15 @@ class cTrade;
 #include "itemid.h"
 #include "debug.h"
 
-//##ModelId=3C5D92B20105
 class cTrade
 {
 public:
-	//##ModelId=3C5D92B2012E
 	void buyaction(int s);
-	//##ModelId=3C5D92B20142
 	void restock(int s);
-	//##ModelId=3C5D92B20156
 	void sellaction(int s);
-	//##ModelId=3C5D92B2016A
 	P_ITEM tradestart(UOXSOCKET s, P_CHAR pc_i);
-	//##ModelId=3C5D92B2017E
 	void clearalltrades();
-	//##ModelId=3C5D92B20188
 	void trademsg(int s);
-	//##ModelId=3C5D92B2019C
 	void dotrade(P_ITEM cont1, P_ITEM cont2);
 };
 

@@ -47,49 +47,35 @@
 
 using namespace std;
 
-//##ModelId=3C5D92BF02F9
 struct move_st
 {
-	//##ModelId=3C5D92BF0335
 	int effect[18];
 };
 
-//##ModelId=3C5D92BF038F
 struct stat_st
 {
-	//##ModelId=3C5D92BF03AD
 	int effect[17];
 };
 
-//##ModelId=3C5D92BF03DF
 struct sound_st
 {
-	//##ModelId=3C5D92C00015
 	int effect[2];
 };
 
-//##ModelId=3C5D92C0005B
 struct path_st 
 {
-	//##ModelId=3C5D92C0007A
 	unsigned short x;
-	//##ModelId=3C5D92C0008D
 	unsigned short y;
 };
 
 // REPSYS
-//##ModelId=3C5D92C0017E
 struct repsys_st
 {
-	//##ModelId=3C5D92C0019C
 	long int		murderdecay;
-	//##ModelId=3C5D92C001B0
 	unsigned int	maxkills;
-	//##ModelId=3C5D92C001BA
 	int				crimtime;
 };
 
-//##ModelId=3C5D92C00296
 struct resource_st
 {
 	unsigned int		logs;

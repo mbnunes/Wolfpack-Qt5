@@ -78,49 +78,33 @@ extern TileCache_cl clTiledata ;
 
 
 //Class definitions
-//##ModelId=3C5D92DA0063
+
 class MultiCache_cl
 {
 public:
         /// Constructor
-	//##ModelId=3C5D92DA008B
         MultiCache_cl()   ;
         /// Cosntructor of itself
-	//##ModelId=3C5D92DA0095
         MultiCache_cl(const MultiCache_cl& clData) ;
-
-	//##ModelId=3C5D92DA00A0
 		MultiCache_cl(string sDirectory) ;
         /// Desctructor
-	//##ModelId=3C5D92DA00B3
         ~MultiCache_cl() ;
 
         /// Clear out any that we have
-
-	//##ModelId=3C5D92DA00BD
 		bool clear( );
 
 
 		// Set our directory
-	//##ModelId=3C5D92DA00C7
 		void setDirectory(string sDirectory) ;
 
 		// Cache the tiles
-	//##ModelId=3C5D92DA00DB
 		bool cacheData() ;
 
-
-	//##ModelId=3C5D92DA00E5
 		MultiCache_cl&  operator=(const MultiCache_cl& clData) ;
-
-
-	//##ModelId=3C5D92DA00F9
 		bool isValid(SI32 siId) ;
 
 private:
-	//##ModelId=3C5D92DA010D
 		bool processVerdata() ;
-	//##ModelId=3C5D92DA0117
 		bool processMap() ;
 
 private:

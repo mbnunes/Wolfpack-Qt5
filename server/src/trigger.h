@@ -49,15 +49,11 @@ class cTrigger;
 #include "SndPkg.h"
 #include "debug.h"
 
-//##ModelId=3C5D92B2001F
 class cTrigger
 {
 public:
-	//##ModelId=3C5D92B20033
 	void triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype);
-	//##ModelId=3C5D92B2005B
     void triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype);
-	//##ModelId=3C5D92B20079
 	int  checkenvoke(char eid1, char eid2);
 };
 

@@ -103,28 +103,19 @@ g5: Wolfpack derivates
 
 /// note: no code for offical encoding yet, but will be added soon, LB 30-Sept 2001
 
-
-//##ModelId=3C5D92AF01F2
 struct wpversion_32bit
 {
-	//##ModelId=3C5D92AF0210
 	unsigned char major_version;
-	//##ModelId=3C5D92AF0224
     unsigned char sub_version;
-	//##ModelId=3C5D92AF022E
 	unsigned char subsub_version;
-	//##ModelId=3C5D92AF0242
 	unsigned char flags;
-	//##ModelId=3C5D92AF0256
 	unsigned char derivate;
-	//##ModelId=3C5D92AF026A
 	wpversion_32bit() : flags(0) { ; }
 
 };
 
 
 // changed all the #defines dealing with verison stuff to a struct, LB
-//##ModelId=3C5D92AF031E
 struct wp_version_info
 {
     public:

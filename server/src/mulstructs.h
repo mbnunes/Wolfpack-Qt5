@@ -55,14 +55,10 @@
 
 
 // Any specific structures
-//##ModelId=3C5D92DA0135
  struct  verdata_st
 {
-	//##ModelId=3C5D92DA017C
 	SI32 siOffset ;
-	//##ModelId=3C5D92DA01A4
 	SI32 siSize ;
-	//##ModelId=3C5D92DA01C2
 	SI32 siExtra ;
 };
 

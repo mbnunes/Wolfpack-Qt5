@@ -36,21 +36,15 @@
 
 #ifndef __unix__ // win32 only
 
-//##ModelId=3C5D92A90261
 struct T_struct
 {
-	//##ModelId=3C5D92A902BB
 	unsigned long int message_type;
 };
 
-//##ModelId=3C5D92A9030B
 struct sm_struct
 {
-	//##ModelId=3C5D92A90347
    unsigned long int messagethread_pid;
-	//##ModelId=3C5D92A9035B
    unsigned long int wolfcore_pid;
-	//##ModelId=3C5D92AA00DC
    unsigned long int wolfcore_prid;
 };
 

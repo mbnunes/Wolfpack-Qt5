@@ -48,79 +48,43 @@ USAGE
         a summary of it's (public) operations>.
 
 */
-//##ModelId=3C5D92D001A9
 class serTextFile : public ISerialization
 {
 protected:
-	//##ModelId=3C5D92D0025E
 	std::fstream file;
-	//##ModelId=3C5D92D00271
 	unsigned int _version;
-	//##ModelId=3C5D92D0028F
 	unsigned int _count;
 public:
-	//##ModelId=3C5D92D002A3
 	serTextFile() : _version(0), _count(0) {}
-	//##ModelId=3C5D92D002AD
 	virtual ~serTextFile() {}
-
-	//##ModelId=3C5D92D002B7
 	virtual void prepareReading(std::string ident);
-	//##ModelId=3C5D92D002CB
 	virtual void prepareWritting(std::string ident);
-	//##ModelId=3C5D92D002DF
 	virtual void close();	
-
-	//##ModelId=3C5D92D002F3
 	virtual unsigned int getVersion();
-	//##ModelId=3C5D92D002FD
 	virtual unsigned int size();
-	//##ModelId=3C5D92D00308
 	virtual void setVersion(unsigned int);
 
 	// Write Methods
-	//##ModelId=3C5D92D0031B
 	virtual void writeObjectID(std::string data);
-
-	//##ModelId=3C5D92D00339
 	virtual void write(std::string Key, std::string &data);
-	//##ModelId=3C5D92D0034E
 	virtual void write(std::string Key, unsigned int data);
-	//##ModelId=3C5D92D0036C
 	virtual void write(std::string Key, signed int data);
-	//##ModelId=3C5D92D00394
 	virtual void write(std::string Key, signed short data);
-	//##ModelId=3C5D92D1002E
 	virtual void write(std::string Key, unsigned short data);
-	//##ModelId=3C5D92D1004C
 	virtual void write(std::string Key, unsigned char data);
-	//##ModelId=3C5D92D100A6
 	virtual void write(std::string Key, signed char data);
-	//##ModelId=3C5D92D100C4
 	virtual void write(std::string Key, bool data);
-
-	//##ModelId=3C5D92D100E2
 	virtual void doneWritting();
 
 	// Read Methods
-	//##ModelId=3C5D92D100ED
 	virtual void readObjectID(std::string &data);
-
-	//##ModelId=3C5D92D10101
 	virtual void read(std::string Key, std::string    &data);
-	//##ModelId=3C5D92D1013C
 	virtual void read(std::string Key, unsigned int   &data);
-	//##ModelId=3C5D92D1015A
 	virtual void read(std::string Key, signed   int   &data);
-	//##ModelId=3C5D92D10178
 	virtual void read(std::string Key, unsigned short &data);
-	//##ModelId=3C5D92D10196
 	virtual void read(std::string Key, signed short   &data);
-	//##ModelId=3C5D92D101B4
 	virtual void read(std::string Key, unsigned char  &data);
-	//##ModelId=3C5D92D101DC
 	virtual void read(std::string Key, signed   char  &data);
-	//##ModelId=3C5D92D101F1
 	virtual void read(std::string Key, bool           &data);
 };
 

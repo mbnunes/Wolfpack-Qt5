@@ -57,17 +57,12 @@ class cSpeech;
 #include "utilsys.h"
 
 //void responsevendor(UOXSOCKET s, int vendor);
-//##ModelId=3C5D92D00040
 class cSpeech
 {
 public:
-	//##ModelId=3C5D92D0005E
 	int response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr);
-	//##ModelId=3C5D92D0007D
     void talking(UOXSOCKET, string&);
-	//##ModelId=3C5D92D00091
     void wchar2char (const char* str);
-	//##ModelId=3C5D92D000A4
     void char2wchar (const char* str);
 };
 
