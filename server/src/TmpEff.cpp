@@ -311,7 +311,7 @@ void cTmpEff::Expire()
 		break;
 	case 6:
 		pc_s->chgDex(-1 * more1);
-		pc_s->stm=min(pc_s->stm, (int)pc_s->effDex());
+		pc_s->stm=min(pc_s->stm, pc_s->effDex());
 		statwindow(calcSocketFromChar(pc_s), pc_s);
 		break;
 	case 7:
@@ -347,7 +347,7 @@ void cTmpEff::Expire()
 		pc_s->st-=more1;
 		pc_s->hp=min(pc_s->hp, pc_s->st);
 		pc_s->chgDex(-1 * more2);
-		pc_s->stm=min(pc_s->stm, (int)pc_s->effDex());
+		pc_s->stm=min(pc_s->stm, pc_s->effDex());
 		pc_s->in-=more3;
 		pc_s->mn=min(pc_s->mn, pc_s->in);
 		statwindow(calcSocketFromChar(pc_s), pc_s);
@@ -587,7 +587,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		if (pc_dest->effDex()<more1)
 			more1=pc_dest->effDex();
 		pc_dest->chgDex(-1 * more1);
-		pc_dest->stm=min(pc_dest->stm, (int)pc_dest->effDex());
+		pc_dest->stm=min(pc_dest->stm, pc_dest->effDex());
 		statwindow(calcSocketFromChar(pc_dest), pc_dest);
 		pTE->setExpiretime_s(pc_source->skill[MAGERY]/10);
 		pTE->more1=more1;

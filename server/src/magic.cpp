@@ -1031,7 +1031,7 @@ void cMagic::NPCHeal(P_CHAR pc)
 	{
 		SubtractMana(pc, 10);
 		int j=pc->hp+(pc->skill[MAGERY]/30+RandomNum(1,12));
-		pc->hp=min(pc->st, j);
+		pc->hp = min(pc->st, static_cast<signed short>(j));
 		doStaticEffect(pc, 4);
 		updatestats(pc, 0);
 	}
