@@ -158,8 +158,8 @@ void cRaces::LoadRaceFile()
 
 void cRaces::SetRace(P_CHAR pc, int race)
 {
-	int i = 0, n = 0;
-	int so=calcSocketFromChar(DEREF_P_CHAR(pc));
+	int i = 0;
+	int so = calcSocketFromChar(DEREF_P_CHAR(pc));
 	short colorlist = addrandomcolor(DEREF_P_CHAR(pc),(char*)Races[race]->HairBeardList.c_str());
 
 	pc->race=race;
@@ -171,11 +171,11 @@ void cRaces::SetRace(P_CHAR pc, int race)
 		vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 		for (int ci=0;ci<vecContainer.size();ci++)
 		{
-			i=calcItemFromSer(vecContainer[ci]);
-			if (i!=-1)
-				if ((items[i].contserial==pc->serial) && (items[i].layer==0x0B))
+			P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+			if (pi != NULL)
+				if ((pi->contserial == pc->serial) && (pi->layer==0x0B))
 				{
-					Items->DeleItem(i);
+					Items->DeleItem(pi);
 				}
 		}
 	}
@@ -185,11 +185,11 @@ void cRaces::SetRace(P_CHAR pc, int race)
 		vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 		for (int ci=0;ci<vecContainer.size();ci++)
 		{
-			i=calcItemFromSer(vecContainer[ci]);
-			if (i!=-1)
-				if ((items[i].layer==0x10) && (items[i].contserial==pc->serial))
+			P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+			if (pi != NULL)
+				if ((pi->layer==0x10) && (pi->contserial==pc->serial))
 				{
-					Items->DeleItem(i);
+					Items->DeleItem(pi);
 				}
 		}
 	}
@@ -201,17 +201,16 @@ void cRaces::SetRace(P_CHAR pc, int race)
 			vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 			for (int ci=0;ci<vecContainer.size();ci++)
 			{
-				i=calcItemFromSer(vecContainer[ci]);
-				if (i!=-1)
-					if ((items[i].layer==0x10) && (items[i].contserial==pc->serial))
+				P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+				if ( pi != NULL)
+					if ((pi->layer==0x10) && (pi->contserial==pc->serial))
 					{
-						Items->DeleItem(i);
+						Items->DeleItem(pi);
 					}
 			}
 			int beardstyle=RandomBeardStyle();
-			n=Items->SpawnItem(so,DEREF_P_CHAR(pc),1, "#", 0, 0x20, beardstyle, 0x04, 0x62,0,0);
-			if(n==-1) return;//AntiChrist to preview crashes
-			const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
+			P_ITEM pi = MAKE_ITEM_REF(Items->SpawnItem(so,DEREF_P_CHAR(pc),1, "#", 0, 0x20, beardstyle, 0x04, 0x62,0,0));
+			if(pi == NULL) return;//AntiChrist to preview crashes
 			pi->setColor(colorlist);
 			pi->SetContSerial(pc->serial);
 			pi->layer=0x10;
@@ -233,8 +232,7 @@ void cRaces::SetRace(P_CHAR pc, int race)
 					}
 			}
 			int hairstyle = RandomHairStyle();
-			n = Items->SpawnItem( so, DEREF_P_CHAR(pc), 1, "#", 0, 0x20, hairstyle, 0x04, 0x62, 0, 0 );
-			const P_ITEM pi = MAKE_ITEM_REF(n);
+			P_ITEM pi = MAKE_ITEM_REF(Items->SpawnItem( so, DEREF_P_CHAR(pc), 1, "#", 0, 0x20, hairstyle, 0x04, 0x62, 0, 0 ));
 			if (pi == NULL)
 				return;
 			pi->setColor(colorlist);

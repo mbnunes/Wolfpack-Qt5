@@ -38,92 +38,92 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 {
 	int i;
 
-	if (pPlayer->inputmode)		// Speech is directly used to set a member
+	if (pPlayer->inputmode != cChar::enNone)		// Speech is directly used to set a member
 	{
+		P_ITEM pTarget = FindItemBySerial(pPlayer->inputitem);
 		switch (pPlayer->inputmode)
 		{
-		case 1:// Pricing an item //PlayerVendors
+		case cChar::enPricing:// Pricing an item //PlayerVendors
 			i = str2num(comm);
 			if (i>0)
 			{
-				items[pPlayer->inputitem].value = i;
+				pTarget->value = i;
 				sysmessage(s, "This item's price has been set to %i.", i);
 			}
 			else 
 			{
-				sysmessage(s, "No price entered, this item's price has been set to %i.", items[pPlayer->inputitem].value);
+				sysmessage(s, "No price entered, ignored.");
 			}
-			pPlayer->inputmode = 2;
+			pPlayer->inputmode = cChar::enPricing;
 			sysmessage(s, "Enter a description for this item.");
 			return true;
-		case 2:// Describing an item
-			strcpy(items[pPlayer->inputitem].desc, comm);
+		case cChar::enDescription:// Describing an item
+			strcpy(pTarget->desc, comm);
 			sysmessage(s, "This item is now described as %s, ", comm);
-			pPlayer->inputmode=0;
-			pPlayer->inputitem = -1;
+			pPlayer->inputmode = cChar::enNone;
+			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
-		case 4:
-			sprintf(items[pPlayer->inputitem].name, "Rune to %s", comm);
+		case cChar::enRenameRune:
+			sprintf(pTarget->name, "Rune to %s", comm);
 			sysmessage(s, "Rune renamed to: Rune to %s", comm);
-			pPlayer->inputmode=0;
-			pPlayer->inputitem=-1;
+			pPlayer->inputmode = cChar::enNone;
+			pPlayer->inputitem=INVALID_SERIAL;
 			return true;
-		case 5: // eagle rename deed
-			strcpy(pPlayer->name, comm);
+		case cChar::enNameDeed: // eagle rename deed
+			strncpy(pPlayer->name, comm, 49);
 			sysmessage(s, "Your new name is: %s", comm);
-			pPlayer->inputmode=0;
-			pPlayer->inputitem=-1;
+			pPlayer->inputmode = cChar::enNone;
+			pPlayer->inputitem=INVALID_SERIAL;
 			return true;
-		case 6: // house sign rename
-			strcpy(items[pPlayer->inputitem].name, comm);
+		case cChar::enHouseSign: // house sign rename
+			strncpy(pTarget->name, comm, 49);
 			sysmessage(s, "Renamed to: %s", comm);
-			pPlayer->inputmode=0;
-			pPlayer->inputitem=-1;
+			pPlayer->inputmode = cChar::enNone;
+			pPlayer->inputitem=INVALID_SERIAL;
 			return true;
-		default:
-			;	// do nothing
-		}
-	}
-
-	if (pPlayer->pagegm == 1)
-	{
-		gmpages[pPlayer->playercallnum].reason = comm;
-		sprintf(temp, "GM Page from %s [%x]: %s",pPlayer->name, pPlayer->serial, comm);
-		int x = 0;
-		for (i = 0; i < now; i++)
-		{
-			if ((chars[currchar[i]].isGM()) && perm[i])
+		case cChar::enPageGM:
 			{
-				x = 1;
-				sysmessage(i, temp);
+				gmpages[pPlayer->playercallnum].reason = comm;
+				sprintf(temp, "GM Page from %s [%x]: %s",pPlayer->name, pPlayer->serial, comm);
+				int x = 0;
+				for (i = 0; i < now; i++)
+				{
+					if ((chars[currchar[i]].isGM()) && perm[i])
+					{
+						x = 1;
+						sysmessage(i, temp);
+					}
+				}
+				if (x == 1)
+					sysmessage(s, "Available Game Masters have been notified of your request.");
+				else 
+					sysmessage(s, "There was no Game Master available, page queued.");
+				pPlayer->inputmode = cChar::enNone;
+				return true;
 			}
-		}
-		if (x == 1)
-			sysmessage(s, "Available Game Masters have been notified of your request.");
-		else 
-			sysmessage(s, "There was no Game Master available to take your call.");
-		pPlayer->pagegm = 0;
-		return true;
-	}
-	if (pPlayer->pagegm == 2) // Counselor page
-	{
-		counspages[pPlayer->playercallnum].reason = comm;
-		sprintf(temp, "Counselor Page from %s [%x]: %s", pPlayer->name, pPlayer->serial, comm);
-		int x = 0;
-		for (i = 0; i < now; i++)
-		{
-			if (chars[currchar[i]].isCounselor() && perm[i])
+		case cChar::enPageCouns:
 			{
-				x = 1;
-				sysmessage(i, (char*)temp);
-			}	
+				counspages[pPlayer->playercallnum].reason = comm;
+				sprintf(temp, "Counselor Page from %s [%x]: %s", pPlayer->name, pPlayer->serial, comm);
+				int x = 0;
+				for (i = 0; i < now; i++)
+				{
+					if (chars[currchar[i]].isCounselor() && perm[i])
+					{
+						x = 1;
+						sysmessage(i, (char*)temp);
+					}	
+				}
+				if (x == 1)
+					sysmessage(s, "Available Counselors have been notified of your request.");
+				else	 
+					sysmessage(s, "There was no Counselor available to take your call.");
+				pPlayer->inputmode = cChar::enNone;
+				return true;
+			}
+		default:
+			break;	// do nothing
 		}
-		if (x == 1)
-			sysmessage(s, "Available Counselors have been notified of your request.");
-		else 
-			sysmessage(s, "There was no Counselor available to take your call.");
-		pPlayer->pagegm = 0;
-		return true;
 	}
 	return false;
 }
@@ -143,7 +143,7 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	//// if not return
     ///////////////////////////////////////////////////////////////////
 	
-	bool found=false;
+	bool found = false;
 	P_CHAR p_pet = NULL;
 	cRegion::RegionIterator4Chars ri(pPlayer->pos);
 	for (ri.Begin(); (p_pet=ri.GetData()) != ri.End(); ri++)

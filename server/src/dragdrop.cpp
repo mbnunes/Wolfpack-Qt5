@@ -148,7 +148,7 @@ static void item_bounce6(const P_CLIENT ps, const P_ITEM pi)
 
 void get_item(P_CLIENT ps) // Client grabs an item
 {
-	int x,  npc=-1, amount, update = 0, serial;
+	int npc=-1, amount, update = 0, serial;
 //	tile_st tile;
 	int z;// antichrist for trade fix
 	UOXSOCKET s = ps->GetSocket();
@@ -166,48 +166,48 @@ void get_item(P_CLIENT ps) // Client grabs an item
 	pc_currchar->disturbMed(s); // Meditation
 	
 	// Zippy's stealing changes  
-	x = DEREF_P_ITEM(pi);
-	if (!items[x].isInWorld())  // Find character owning item
+	P_ITEM px = pi;
+	if (!px->isInWorld())  // Find character owning item
 	{
 		unsigned long loopexit = 0;
 		do  // Find character owning item
 		{
-			if (isCharSerial(items[x].contserial))
+			if (isCharSerial(px->contserial))
 			{
-				npc = calcCharFromSer(items[x].contserial);
+				npc = calcCharFromSer(px->contserial);
 			}
 			else  // its an item
 			{
-				if (items[x].isInWorld())
+				if (px->isInWorld())
 				{
 					npc=-1;
 					break;
 				}
-				x = calcItemFromSer(items[x].contserial);
+				px = FindItemBySerial(px->contserial);
 				// ANTICHRIST -- SECURE TRADE FIX
-				if (x!=-1) // LB overwriting x is essential here, dont change it!!!
+				if (px != NULL) // LB overwriting x is essential here, dont change it!!!
 				{
-					if (items[x].layer == 0 && items[x].id() == 0x1E5E)
+					if (px->layer == 0 && px->id() == 0x1E5E)
 					{
 						// Trade window???
-						serial = calcserial(items[x].moreb1, items[x].moreb2, items[x].moreb3, items[x].moreb4);
+						serial = calcserial(px->moreb1, px->moreb2, px->moreb3, px->moreb4);
 						if (serial == INVALID_SERIAL)
 							return;
 						z = calcItemFromSer(serial);
 						if (z!=-1)
-							if ((items[z].morez || items[x].morez))
+							if ((items[z].morez || px->morez))
 							{
 								items[z].morez = 0;
-								items[x].morez = 0;
-								sendtradestatus(z, x);
+								px->morez = 0;
+								sendtradestatus(z, DEREF_P_ITEM(px));
 							}
 					}
 					// Blackwinds Looting is crime implementation
 					// changed slightly by Ripper
-					if (items[x].corpse != 0 && !pc_currchar->Owns(&items[x])) 
+					if (px->corpse != 0 && !pc_currchar->Owns(px)) 
 					{ 
-						P_CHAR co = FindCharBySerial(items[x].ownserial);
-						if (items[x].more2 == 1 && Guilds->Compare(cc, DEREF_P_CHAR(co)) == 0) 
+						P_CHAR co = FindCharBySerial(px->ownserial);
+						if (px->more2 == 1 && Guilds->Compare(cc, DEREF_P_CHAR(co)) == 0) 
 						{ 
 							pc_currchar->karma -= 5; 
 							criminal(cc);
@@ -215,11 +215,11 @@ void get_item(P_CLIENT ps) // Client grabs an item
 						} 
 						npc = 0;
 					} // Criminal stuff
-					if (items[x].corpse != 0)
+					if (px->corpse != 0)
 						npc = 0;
 				} // end if x!=-1
 				
-				if (x==-1)
+				if (px == NULL)
 					npc = 0; 
 			}
 		} while ((npc==-1) &&(++loopexit < MAXLOOPS));
@@ -243,19 +243,19 @@ void get_item(P_CLIENT ps) // Client grabs an item
 	// End Zippy's change
 	
 	// Boats->
-	if (x!=-1 && npc!=-1)
+	if (px != NULL && npc!=-1)
 	{
-		if (items[x].multis>0)
-			imultisp.remove(items[x].multis, items[x].serial);
-		items[x].startDecay();
+		if (px->multis>0)
+			imultisp.remove(px->multis, px->serial);
+		px->startDecay();
 		// End Boats Change
 		
 		// AntiChrist -- for poisoned items
-		if (items[x].layer>0)
+		if (px->layer>0)
 		{
-			chars[npc].removeItemBonus(&items[x]);	// remove BONUS STATS given by equipped special items
+			chars[npc].removeItemBonus(px);	// remove BONUS STATS given by equipped special items
 		}
-		if ((items[x].trigon==1) && (items[x].layer != 0) && (items[x].layer != 15) && (items[x].layer < 19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
+		if ((px->trigon==1) && (px->layer != 0) && (px->layer != 15) && (px->layer < 19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
 			triggerwitem(s, DEREF_P_ITEM(pi), 1); // trigger is fired
 		}	
@@ -1201,8 +1201,8 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		{
 			if (chars[j].npcaitype==17 && chars[j].isNpc() && pc_currchar->Owns(&chars[j]))
 			{
-				pc_currchar->inputitem=nItem;
-				pc_currchar->inputmode=1;
+				pc_currchar->inputitem = items[nItem].serial;
+				pc_currchar->inputmode = cChar::enPricing;
 				sysmessage(s, "Set a price for this item.");
 			}
 		}

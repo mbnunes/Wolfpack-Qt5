@@ -1142,7 +1142,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 // Thyme 2000.09.15
 // At the request of Abaddon
 // Thyme BEGIN
-//						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==pc->pos.z))
+//						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
 						if ( ( mapitem->pos.x == newx ) &&
 							 ( mapitem->pos.y == newy ) &&
 							 ( pc->pos.z >= mapitem->pos.z ) &&

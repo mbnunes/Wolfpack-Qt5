@@ -624,8 +624,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			}
 			else
 			{
-				pc_currchar->inputmode = 4;
-				pc_currchar->inputitem = DEREF_P_ITEM(pi);
+				pc_currchar->inputmode = cChar::enRenameRune;
+				pc_currchar->inputitem = pi->serial;
 				sysmessage(s, "Enter new rune name.");
 			}
 			return;// case 50 (rune)
@@ -662,7 +662,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			Items->DeleItem(pi);
 			return;
 		case 186: // rename deed! -- eagle 1/29/00
-			pc_currchar->inputitem = DEREF_P_ITEM(pi);
+			pc_currchar->inputitem = pi->serial;
 			sysmessage(s, "Enter your new name.");
 			Items->DeleItem(pi);
 			return;// rename deed! -- eagle 1/29/00

@@ -323,8 +323,8 @@ void cChar::Init(bool ser)
 	this->regen=0;
 	this->regen2=0;
 	this->regen3=0;//Regeneration times for mana, stamin, and str
-	this->inputmode=0;
-	this->inputitem=-1;
+	this->inputmode = enNone;
+	this->inputitem = INVALID_SERIAL;
 	this->attacker = INVALID_SERIAL; // Character's serial who attacked this character
 	this->npcmovetime=0; // Next time npc will walk
 	this->npcWander=0; // NPC Wander Mode
@@ -347,7 +347,6 @@ void cChar::Init(bool ser)
 	this->npcaitype=0; // NPC ai
 	this->callnum=-1; //GM Paging
 	this->playercallnum=-1; //GM Paging
-	this->pagegm=0; //GM Paging
 	this->region=255;
 	this->skilldelay=0;
 	this->objectdelay=0;

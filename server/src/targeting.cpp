@@ -548,7 +548,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			else if ((pi->type==7)&&(iteminrange(s,pi,2)))
 			{
 				chars[currchar[s]].inputitem=DEREF_P_ITEM(pi);
-				chars[currchar[s]].inputmode=6;
+				chars[currchar[s]].inputmode = cChar::enDescription;
 				sysmessage(s,"Enter new name for key.");//morrolan rename keys
 				return;
 			}
@@ -575,7 +575,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			{
 				sysmessage(s, "What do you wish the sign to say?");
 				chars[currchar[s]].inputitem=DEREF_P_ITEM(pi); //Morrolan sign kludge
-				chars[currchar[s]].inputmode=6;
+				chars[currchar[s]].inputmode=cChar::enHouseSign;
 				return;
 			}
 

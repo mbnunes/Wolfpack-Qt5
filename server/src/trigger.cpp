@@ -164,7 +164,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 	unsigned int i, uiTempi, uiCompleted = 0;
 	int tl;
 	int p, j, c, r;
-	int itemnum=-1;
+	P_ITEM pi_itemnum  = NULL;
 	P_ITEM pi_needitem = NULL;
 	int npcnum=-1;
 	int trig = 0;
@@ -846,7 +846,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								RefreshItem(c);
 							}
 							// end addons	
-							itemnum = c;
+							pi_itemnum = MAKE_ITEM_REF(c);
 							if (ttype)
 								openscript("triggers.scp");// AntiChrist
 							else 
@@ -1203,8 +1203,8 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 					case 'N':
 						if ((!(strcmp("NEWTYPE", (char*)script1))) ||(!(strcmp("SETTYPE", (char*)script1))))  // Set active item type
 						{
-							if (itemnum>-1)
-								items[itemnum].type = str2num(script2);
+							if (pi_itemnum != NULL)
+								pi_itemnum->type = str2num(script2);
 							else
 							{
 								if (ti>-1)
@@ -1275,10 +1275,10 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("NEWOWNER", (char*)script1)))  // Set ownership of item
 						{
-							if (itemnum>-1)
+							if (pi_itemnum != NULL)
 							{
 								p = currchar[ts];
-								items[itemnum].SetOwnSerial(chars[p].serial);
+								pi_itemnum->SetOwnSerial(chars[p].serial);
 							}
 							if (npcnum>-1)
 							{
@@ -1485,9 +1485,9 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if ((!(strcmp("NEWNAME", (char*)script1))))  // Give the new item/npc a name
 						{
-							if (itemnum>-1)
+							if (pi_itemnum != NULL)
 							{
-								strcpy(items[itemnum].name, (char*)script2);
+								strcpy(pi_itemnum->name, (char*)script2);
 							}
 							if (npcnum>-1)
 							{
@@ -1496,9 +1496,9 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("NEWTRIG", (char*)script1)))  // Give the new item/npc a dynamic trigger number
 						{
-							if (itemnum>-1)
+							if (pi_itemnum != NULL)
 							{
-								items[itemnum].trigger = str2num(script2);
+								pi_itemnum->trigger = str2num(script2);
 							}
 							if (npcnum>-1)
 							{
@@ -1958,7 +1958,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								items[pc_ts->envokeitem].id1 = hexnumber(0);
 								items[pc_ts->envokeitem].id2 = hexnumber(1);		
 								RefreshItem(pc_ts->envokeitem);// AntiChrist
-								itemnum = pc_ts->envokeitem;
+								pi_itemnum = MAKE_ITEM_REF(pc_ts->envokeitem);
 							}
 						}
 						else if (!(strcmp("SETOWNER", (char*)script1)))  // Set ownership of item
@@ -1983,7 +1983,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								pi->id1 = hexnumber(0);
 								pi->id2 = hexnumber(1);				
 								RefreshItem(ti);// AntiChrist
-								itemnum = ti;
+								pi_itemnum = MAKE_ITEM_REF(ti);
 							}
 						}
 						break;
@@ -2126,7 +2126,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 	signed int j;
 	int p, c;
 	unsigned int i;
-	int itemnum=-1;
+	P_ITEM pi_itemnum = NULL;
 	int npcnum=-1;
 	P_ITEM pi_needitem = NULL;
 	long int pos;
@@ -2479,27 +2479,13 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 								pc_ts->hunger = 1;
 							switch (pc_ts->hunger)
 							{
-							case 0:	
-								sysmessage(ts, "You eat the food, but are still extremely hungry.");
-								break;
-							case 1: 
-								sysmessage(ts, "You eat the food, but are still extremely hungry.");
-								break;
-							case 2: 
-								sysmessage(ts, "After eating the food, you feel much less hungry.");
-								break;
-							case 3: 
-								sysmessage(ts, "You eat the food, and begin to feel more satiated.");
-								break;
-							case 4: 
-								sysmessage(ts, "You feel quite full after consuming the food.");
-								break;
-							case 5: 
-								sysmessage(ts, "You are nearly stuffed, but manage to eat the food.");
-								break;
-							case 6: 
-								sysmessage(ts, "You are simply too full to eat any more!");
-								break;
+							case 0:	sysmessage(ts, "You eat the food, but are still extremely hungry.");	break;
+							case 1: sysmessage(ts, "You eat the food, but are still extremely hungry.");	break;
+							case 2: sysmessage(ts, "After eating the food, you feel much less hungry.");	break;
+							case 3: sysmessage(ts, "You eat the food, and begin to feel more satiated.");	break;
+							case 4: sysmessage(ts, "You feel quite full after consuming the food.");		break;
+							case 5: sysmessage(ts, "You are nearly stuffed, but manage to eat the food.");	break;
+							case 6: sysmessage(ts, "You are simply too full to eat any more!");				break;
 							}
 						}
 						break;
@@ -2887,10 +2873,10 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						}
 						else if (!(strcmp("NEWOWNER", (char*)script1)))  // Set ownership of NPC
 						{
-							if (itemnum>-1)
+							if (pi_itemnum != NULL)
 							{// item
 								p = DEREF_P_CHAR(pc_ts);
-								items[itemnum].SetOwnSerial(pc_ts->serial);
+								pi_itemnum->SetOwnSerial(pc_ts->serial);
 							}
 							if (npcnum>-1)
 							{// char
@@ -2968,14 +2954,14 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						}
 						else if ((!(strcmp("NEWTYPE", (char*)script1))) ||(!(strcmp("SETTYPE", (char*)script1))))  // Set active item type
 						{
-							if (itemnum>-1)
-								items[itemnum].type = str2num(script2);
+							if (pi_itemnum != NULL)
+								pi_itemnum->type = str2num(script2);
 						}
 						else if (!(strcmp("NEWNAME", (char*)script1)))  // Give the new item/npc a name
 						{
-							if (itemnum>-1)
+							if (pi_itemnum != NULL)
 							{
-								strcpy(items[itemnum].name, (char*)script2);
+								strcpy(pi_itemnum->name, (char*)script2);
 							}
 							if (npcnum>-1)
 							{
@@ -2984,9 +2970,9 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						}
 						else if (!(strcmp("NEWTRIG", (char*)script1)))  // Give the new item/npc a dynamic trigger number
 						{
-							if (itemnum>-1)
+							if (pi_itemnum != NULL)
 							{
-								items[itemnum].trigger = str2num(script2);
+								pi_itemnum->trigger = str2num(script2);
 							}
 							if (npcnum>-1)
 							{

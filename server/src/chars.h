@@ -44,32 +44,33 @@
 class cChar
 {
 public:
-  //  Chaos/Order Guild Stuff for Ripper
-  short     GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
-  bool      GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
-  RACE race; // -Fraz- Race AddOn
-  // Skyfire's NPC advancments.
-  int worklocx;
-  int worklocy;
-  int worklocz;
-  int homelocx;
-  int homelocy;
-  int homelocz;
-  int foodlocx;
-  int foodlocy;
-  int foodlocz;
-  bool may_levitate;
-  //Skyfire - End NPC's home/work/food vars'
-  unsigned char pathnum;
-  path_st path[PATHNUM];
+	typedef enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
+	//  Chaos/Order Guild Stuff for Ripper
+	short     GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
+	bool      GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
+	RACE race; // -Fraz- Race AddOn
+	// Skyfire's NPC advancments.
+	int worklocx;
+	int worklocy;
+	int worklocz;
+	int homelocx;
+	int homelocy;
+	int homelocz;
+	int foodlocx;
+	int foodlocy;
+	int foodlocz;
+	bool may_levitate;
+	//Skyfire - End NPC's home/work/food vars'
+	unsigned char pathnum;
+	path_st path[PATHNUM];
 	unsigned char			ser1; // Character serial number
 	unsigned char			ser2;
 	unsigned char			ser3;
 	unsigned char			ser4;
 	int				serial;
-
+	
 	int				multis;//Multi serial
-
+	
     bool			free;
 	char			name[50];
 	char			orgname[50];//original name - for Incognito
@@ -77,18 +78,18 @@ public:
 	bool			unicode; // This is set to 1 if the player uses unicode speech, 0 if not
 	int				account; // changed to signed, lb
 	Coord_cl		pos;
-//	int				x;
-//	int				y;
-//	signed char z;
+	//	int				x;
+	//	int				y;
+	//	signed char z;
 	signed char	dispz; // Z that the char is SHOWN at. Server needs other coordinates for real movement calculations.
-	                   // changed from unsigned to signed, LB
-	          
-//	Coord_cl		oldpos;
-//	unsigned int	oldx; // fix for jail bug
-//	unsigned int	oldy; // fix for jail bug
-
-//	signed char 	oldz;
-
+	// changed from unsigned to signed, LB
+	
+	//	Coord_cl		oldpos;
+	//	unsigned int	oldx; // fix for jail bug
+	//	unsigned int	oldy; // fix for jail bug
+	
+	//	signed char 	oldz;
+	
 	char			dir; //&0F=Direction
 	unsigned char			id1; // Character body type
 	unsigned char			id2; // Character body type
@@ -115,13 +116,13 @@ public:
 	
 protected:
 	unsigned char	priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
-							// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
+	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	void	day(unsigned long day) ; // set the day it was created
 	unsigned long day() ;	// Retrieve the day it was created
 public:
 	unsigned char	gmrestrict;	// for restricting GMs to certain regions
 	char			priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
-							// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
+	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
 	int			            priv3[7];  // needed for Lord binarys meta-gm stuff
 	unsigned char			fonttype; // Speech font to use
 	UI16					saycolor; // Color for say messages
@@ -129,7 +130,7 @@ public:
 	unsigned char			emotecolor2; // Color for emote messages
 	int				st; // Strength
 	int				st2; // Reserved for calculation
-
+	
 	// a temporary (quick&dirty) encapsulation for Dexterity. (Duke, 21.8.2001)
 protected:
 	short dx;		// Dexterity
@@ -144,9 +145,9 @@ public:
 	void  chgDex(short val)		{tmpDex += val;}// intended for temporary changes of Dex
 	void  chgRealDex(short val) {dx += val;if(dx<1) dx=1;if(dx>100) dx=100;}	// intended for permanent changes of Dex
 	bool  incDecDex(short val)	{dx2 += val;
-								if (dx2>1000) {dx2-=1000;chgRealDex(1);return true;}
-								else return false;}
-
+	if (dx2>1000) {dx2-=1000;chgRealDex(1);return true;}
+	else return false;}
+	
 	int in; // Intelligence
 	int in2; // Reserved for calculation
 	int hp; // Hitpoints
@@ -162,8 +163,8 @@ public:
 	unsigned char cell; // Reserved for jailing players
 	unsigned int jailtimer; // Blackwind - Timer used for crystall ball and jail time.
 	int			 jailsecs;	//             Tweak this value by using command tweak before jailing person 
-							//			   or he will be jailed 1 day ( in realtime )
-
+	//			   or he will be jailed 1 day ( in realtime )
+	
 	int ownserial; // If Char is an NPC, this sets its owner
 	int robe; // Serial number of generated death robe (If char is a ghost)
 	int karma;
@@ -182,7 +183,7 @@ public:
 	unsigned int timeout; // Combat timeout (For hitting)
 	unsigned int timeout2; // memory of last shot timeout
 	unsigned int regen, regen2, regen3;//Regeneration times for mana, stamin, and str
-	short inputmode;	// Used for entering text; 0= none, 4=rename rune
+	enInputMode inputmode;	// Used for entering text; 0= none, 4=rename rune
 	int inputitem;		// index of item the text is referring to
 	SERIAL attacker; // Character's serial who attacked this character
 	unsigned int npcmovetime; // Next time npc will walk
@@ -206,7 +207,7 @@ public:
 	int npcaitype; // NPC ai
 	int callnum; //GM Paging
 	int playercallnum; //GM Paging
-	int pagegm; //GM Paging
+	//int pagegm; //GM Paging
 	//char region;
 	unsigned char region;
 	unsigned long skilldelay;
@@ -225,15 +226,15 @@ public:
 	unsigned int trackingtarget; // Tracking target ID
 	unsigned int trackingtargets[MAXTRACKINGTARGETS];
 	unsigned int fishingtimer; // Timer used to delay the catching of fish
- 
+	
 	int advobj; //Has used advance gate?
-
+	
 	int poison; // used for poison skill 
 	unsigned int poisoned; // type of poison
 	unsigned int poisontime; // poison damage timer
 	unsigned int poisontxt; // poision text timer
 	unsigned int poisonwearofftime; // LB, makes poision wear off ...
-
+	
 	int fleeat;
 	int reattackat;
 	int trigger; //Trigger number that character activates
@@ -280,7 +281,7 @@ public:
 	unsigned long int clientidletime; // LB
     //unsigned long int swing;
 	int swingtarg; //Tagret they are going to hit after they swing
-
+	
 	unsigned int holdg; // Gold a player vendor is holding for Owner
 	//int weather;//Weather!
 	char fly_steps; // number of step the creatures flies if it can fly
@@ -292,16 +293,16 @@ public:
 	bool guarded;							// (Abaddon) if guarded
     unsigned int smoketimer; // LB
 	unsigned int smokedisplaytimer;
-
+	
 	unsigned int antispamtimer;//LB - anti spam
-
+	
 	unsigned int antiguardstimer;//AntiChrist - anti "GUARDS" spawn
-
+	
 	int carve; //AntiChrist - for new carve system
-
+	
 	int	hairserial;//there are needed for incognito stuff
 	int	beardserial;
-
+	
 	unsigned long int begging_timer;
 	int postType;
 	int questType;
@@ -313,18 +314,18 @@ public:
 	int				prevX; // fix for looping gate travel bug (bounce back problem)
 	int				prevY;
 	signed char 	prevZ;
-
+	
 	unsigned char commandLevel;             // 0 = player, 1 = counselor, 2 = GM
-
+	
 	int spawnregion; 
-
+	
 	int stablemaster_serial; 
 	char npc_type;		// currently only used for stabling, (type==1 -> stablemaster)
-						// can be used for other npc types too of course
-
+	// can be used for other npc types too of course
+	
 	unsigned long int time_unused;     
 	unsigned long int timeused_last;
-
+	
 	short id()				{return (short)((id1<<8)+id2);}
 	void setId(short id)	{id1=id>>8;	id2=id&0x00FF;}
 	bool  isPlayer()        {return (this->npc==0);}
@@ -348,7 +349,7 @@ public:
 	void setMurderer()		{flag=0x01;}
 	void setInnocent()		{flag=0x04;}
 	void setCriminal()		{flag=0x02;}
-
+	
 	void setAttackFirst()		{this->attackfirst=1;}
 	void resetAttackFirst()		{this->attackfirst=0;}
 	void fight(cChar* pOpponent);
@@ -407,7 +408,7 @@ private:
 	bool ResizeMemory();
 	void CollectReusableSlots();
 	int  GetReusableSlot();
-
+	
 public:
 	void DeleteChar(int k);
 	void CheckMemoryRequest();
@@ -432,7 +433,7 @@ public:
 		void Breath(int i,int currenttime);
 		void DoneAI(int i,int currenttime);
 	};
-
+	
 	class cBankerAI
 	{
 	public:
@@ -456,7 +457,7 @@ public:
 	P_CHAR End()								{ return NULL; }
 	P_CHAR GetData(void)						{ return pos < charcount ? &chars[pos] : NULL; }
 	AllCharsIterator& operator++(int/* inc*/)		{ pos++; return *this; }
-
+	
 };
 
 

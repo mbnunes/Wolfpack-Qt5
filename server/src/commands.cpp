@@ -556,7 +556,7 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 			sprintf((char*)temp,"%s [%d][%d][%d][%d] called at %s, %s",counspages[i].name.c_str(),a1,a2,a3,a4,counspages[i].timeofcall,counspages[i].reason.c_str());
 			if(heartbeat) Writeslot((char*)temp);
 			pc_currchar->playercallnum=i;
-			pc_currchar->pagegm=2;
+			pc_currchar->inputmode = cChar::enPageCouns;
 			x2++;
 			break;
 		}
@@ -570,9 +570,8 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 	{
 		if(strcmp(reason,"OTHER"))
 		{
-			pc_currchar->pagegm=0;
-			sprintf((char*)temp, "Counselor Page from %s [%x %x %x %x]: %s",
-				pc_currchar->name, a1, a2, a3, a4, reason);
+			pc_currchar->inputmode = cChar::enNone;
+			sprintf((char*)temp, "Counselor Page from %s [%x %x %x %x]: %s", pc_currchar->name, a1, a2, a3, a4, reason);
 			for (i=0;i<now;i++)
 				if (chars[currchar[i]].isCounselor() && perm[i])
 				{
@@ -622,7 +621,7 @@ void cCommands::GMPage(int s, char *reason)
 			sprintf((char*)temp,"%s [%d][%d][%d][%d] called at %s, %s",gmpages[i].name.c_str(),a1,a2,a3,a4,gmpages[i].timeofcall,gmpages[i].reason.c_str());
 			if(heartbeat) Writeslot((char*)temp);
 			pc_currchar->playercallnum=i;
-			pc_currchar->pagegm=1;
+			pc_currchar->inputmode = cChar::enPageCouns;
 			x2++;
 			break;
 		}
@@ -636,7 +635,7 @@ void cCommands::GMPage(int s, char *reason)
 	{
 		if(strcmp(reason,"OTHER"))
 		{
-			pc_currchar->pagegm=0;
+			pc_currchar->inputmode = cChar::enNone;
 			sprintf((char*)temp, "Page from %s [%x %x %x %x]: %s",
 				pc_currchar->name, a1, a2, a3, a4, reason);
 			for (i=0;i<now;i++) if (chars[currchar[i]].isGM() && perm[i])

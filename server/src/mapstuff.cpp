@@ -411,6 +411,7 @@ signed char cMapStuff::DynamicElevation(short int x, short int y, signed char ol
 
 int cMapStuff::MultiTile(int i, short int x, short int y, signed char oldz)
 {
+	P_ITEM pi = MAKE_ITEM_REF(i);
 	SI32 length = 0;
 	st_multi multi;
 	UOXFile *mfile = NULL;
@@ -425,8 +426,8 @@ int cMapStuff::MultiTile(int i, short int x, short int y, signed char oldz)
 	for (int j=0;j<length;j++)
 	{
 		mfile->get_st_multi(&multi);
-		if ((multi.visible && (items[i].pos.x+multi.x == x) && (items[i].pos.y+multi.y == y)
-			&& (abs(items[i].pos.z+multi.z-oldz)<=1)))
+		if ((multi.visible && (pi->pos.x+multi.x == x) && (pi->pos.y+multi.y == y)
+			&& (abs(pi->pos.z+multi.z-oldz)<=1)))
 		{
 			int mt=multi.tile;
 			/*if (DoesTileBlock(mt)) return mt;
@@ -1045,7 +1046,8 @@ map_st cMapStuff::SeekMap0( unsigned short x, unsigned short y )
 	const UI16 x1 = x /8, y1 = y / 8, x2 = x % 8, y2 = y % 8;
 	static SI16 CurCachePos = 0;
 
-	if( !Cache ) {
+	if( !Cache ) 
+	{
 		map_st map;
 		const SI32 pos = ( x1 * MapTileHeight * 196 ) + ( y1 * 196 ) + ( y2 * 24 ) + ( x2 * 3 ) + 4;
 		mapfile->seek(pos, SEEK_SET);
