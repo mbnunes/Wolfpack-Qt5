@@ -44,10 +44,12 @@
 #include "territories.h"
 #include "network/uosocket.h"
 #include "pagesystem.h"
+#include "wpdefaultscript.h"
 
 // Library Includes
 #include <qdatetime.h>
 #include <qfile.h>
+#include <vector>
 
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"
@@ -916,9 +918,6 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
 	{
 		P_CHAR pNpc = ri.GetData();
 
-		if( pPlayer == pNpc )
-			continue;
-
 		// We will only process NPCs here
 		if( !pNpc->isNpc() )
 			continue;
@@ -926,6 +925,21 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
 		// at least they should be on the screen
 		if( pPlayer->dist( pNpc ) > 16 )
 			continue;
+
+		// Check if the NPC has a script that can handle 
+		// speech events and then check if it can handle everything
+		// or just certain things
+		std::vector< WPDefaultScript* > events = pPlayer->getEvents();
+		for( std::vector< WPDefaultScript* >::const_iterator iter = events.begin(); iter != events.end(); ++iter )
+		{
+			WPDefaultScript *script = *iter;
+			if( !script->handleSpeech() )
+				continue;
+
+			if( script->catchAllSpeech() || script->canHandleSpeech( comm, std::vector< UINT16 >() ) )
+				if( script->onSpeech( pNpc, pPlayer, comm, std::vector< UINT16 >() ) )
+					return true;
+		}
 
 		if( StableSpeech( socket, pPlayer, pNpc, comm ) )
 			return true;
