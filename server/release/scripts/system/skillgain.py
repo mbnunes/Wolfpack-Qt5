@@ -17,7 +17,7 @@ SKILL_STRCHANCE = 5
 SKILL_DEXCHANCE = 6
 SKILL_INTCHANCE = 7
 
-GLOBAL_FACTOR = 1.0
+GLOBAL_FACTOR = 0.5
 
 #
 # Skill data registry
@@ -229,8 +229,6 @@ def onSkillGain(char, skill, lower, higher, success):
 	# Multiply with another gainfactor
 	gainchance = gainchance * GLOBAL_FACTOR
 
-	char.log(LOG_TRACE, 'Gainchance for skill %s is %f.\n' % (SKILLNAMES[skill], gainchance))
-
 	# Tamed creatures get a * 2 bonus for their gain.
 	if char.npc and char.tamed:
 		gainchance *= 2
@@ -252,7 +250,6 @@ def onSkillGain(char, skill, lower, higher, success):
 		realdex = char.dexterity - char.dexterity2
 		realint = char.intelligence - char.intelligence2
 
-
 		if (char.npc or char.strengthlock != 0) or realstr >= char.strengthcap:
 			strchance = 0.0
 		else:
@@ -267,6 +264,10 @@ def onSkillGain(char, skill, lower, higher, success):
 			intchance = 0.0
 		else:
 			intchance /= 33.3
+
+		# Gainchances for stats
+		#if skill != FOCUS:
+		#	char.log(LOG_TRACE, "Gainchances. Skill %s. Str: %f Dex: %f Int: %f\n" % (SKILLNAMES[skill], strchance, dexchance, intchance))
 
 		# Roll three times
 		if strchance > random():
