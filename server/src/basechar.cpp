@@ -812,7 +812,7 @@ void cBaseChar::resurrect()
 	awardFame( 0 );
 	soundEffect( 0x0214 );
 	setBody( orgBody_ );
-	setSkin( orgSkin_ );
+	setSkin( orgSkin_ );	
 	setDead( false );
 	hitpoints_ = QMAX( 1, ( Q_UINT16 ) ( 0.1 * maxHitpoints_ ) );
 	stamina_ = ( Q_UINT16 ) ( 0.1 * maxStamina_ );
@@ -886,7 +886,8 @@ void cBaseChar::resurrect()
 
 		corpse->remove();
 
-		resend( false );
+		removeFromView(false); // The skin changed
+		resend(false);
 
 		// Let him "stand up"
 		this->action( action, 2, true );
@@ -1577,8 +1578,10 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	/*
 		\property char.skin This integer property contains the skin color of the character.
 	*/
-	else
-		SET_INT_PROPERTY( "skin", skin_ )
+	else if (name == "skin") {
+		skin_ = value.toInt();		
+		removeFromView(false);
+	}		
 
 		// \property char.direction This is the direction this character is facing.
 	else
