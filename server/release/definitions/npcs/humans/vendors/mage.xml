@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<npc id="mage_inventory">
 		<shopkeeper>
 			<restockable>
@@ -81,12 +82,10 @@
 				<item id="1f70"><amount>20</amount></item>
 				<item id="1f71"><amount>20</amount></item>
 				<item id="1f72"><amount>20</amount></item>
-			
 				<!-- Spellbook -->
 				<item id="efa">
 					<amount>10</amount>
 				</item>
-				
 				<!-- Runes -->
 				<item id="1f14">
 					<amount>10</amount>
@@ -100,7 +99,6 @@
 				<item id="1f17">
 					<amount>10</amount>
 				</item>
-				
 				<!-- Reagents -->
 				<item id="f7a">
 					<amount>999</amount>
@@ -126,7 +124,6 @@
 				<item id="f8d">
 					<amount>999</amount>
 				</item>
-
 				<item id="scribes_pen"><amount>10</amount></item> <!-- Blank Scrolls -->
 				<item id="e34"><amount>20</amount></item> <!-- Blank Scrolls -->
 			</restockable>
@@ -218,11 +215,11 @@
 				<item id="1f72"/>
 			</sellable>
 		</shopkeeper>
-		<evaluatinginteligence><random min="650" max="880" /></evaluatinginteligence>
-		<inscription><random min="600" max="830" /></inscription>
-		<magery><random min="640" max="1000" /></magery>
-		<meditation><random min="600" max="830" /></meditation>
-		<magicresist><random min="650" max="880" /></magicresist>
+		<skill id="evaluatinginteligence"><random min="650" max="880" /></skill>
+		<skill id="inscription"><random min="600" max="830" /></skill>
+		<skill id="magery"><random min="640" max="1000" /></skill>
+		<skill id="meditation"><random min="600" max="830" /></skill>
+		<skill id="magicresist"><random min="650" max="880" /></skill>
 	</npc>
 
 	<!-- A mage vendor -->
@@ -237,7 +234,7 @@
 		<category>Vendors\Mage (Male)</category>
 		<inherit id="mage_inventory" />
 	</npc>
-	
+
 	<npc id="mage_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Mage</title>
 		<equipped>

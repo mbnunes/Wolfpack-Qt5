@@ -174,9 +174,8 @@
 				<item id="1f0a"/>
 			</sellable>
 		</shopkeeper>
-		<itemidentification><random min="640" max="1000" /></itemidentification>
+		<skill id="itemidentification"><random min="640" max="1000" /></skill>
 	</npc>
-
 
 	<!-- A jeweler vendor -->
 	<npc id="jeweler_male" inherit="vendor_male">
@@ -184,7 +183,7 @@
 		<title context="Vendor Male Titles">the Jeweler</title>
 		<category>Vendors\Jeweler (Male)</category>
 	</npc>
-	
+
 	<npc id="jeweler_female" inherit="vendor_female">
 		<inherit id="jeweler_inventory" />
 		<title context="Vendor Female Titles">the Jeweler</title>

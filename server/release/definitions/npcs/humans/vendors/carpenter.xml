@@ -70,8 +70,8 @@
 			</sellable>
 		</shopkeeper>
 		<title context="Vendor Male Titles">the Carpenter</title>
-		<carpentry><random min="850" max="1000" /></carpentry>
-		<lumberjacking><random min="600" max="830" /></lumberjacking>
+		<skill id="carpentry"><random min="850" max="1000" /></skill>
+		<skill id="lumberjacking"><random min="600" max="830" /></skill>
 	</npc>
 
 	<!-- A carpenter vendor -->

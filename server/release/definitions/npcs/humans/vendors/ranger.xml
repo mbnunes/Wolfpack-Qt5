@@ -15,14 +15,14 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
-		<title context="Vendor Male Titles">Ranger</title>
-		<animallore><random min="850" max="1000" /></animallore>
-		<animaltaming><random min="850" max="1000" /></animaltaming>
-		<archery><random min="600" max="830" /></archery>
-		<camping><random min="550" max="780" /></camping>
-		<herding><random min="550" max="780" /></herding>
-		<hiding><random min="450" max="680" /></hiding>
-		<tracking><random min="650" max="880" /></tracking>
+		<title context="Vendor Male Titles">the Ranger</title>
+		<skill id="animallore"><random min="850" max="1000" /></skill>
+		<skill id="animaltaming"><random min="850" max="1000" /></skill>
+		<skill id="archery"><random min="600" max="830" /></skill>
+		<skill id="camping"><random min="550" max="780" /></skill>
+		<skill id="herding"><random min="550" max="780" /></skill>
+		<skill id="hiding"><random min="450" max="680" /></skill>
+		<skill id="tracking"><random min="650" max="880" /></skill>
 	</npc>
 
 	<!-- A ranger vendor -->

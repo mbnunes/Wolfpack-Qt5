@@ -1,0 +1,46 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- a terathan warrior -->
+	<npc id="terathan_warrior" inherit="monster_base">
+		<name>terathan warrior</name>
+		<id>70</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="166" max="215"/></str>
+		<dex><random min="96" max="145"/></dex>
+		<int><random min="41" max="65"/></int>
+		<maxmana>0</maxmana>
+		<maxhitpoints><random min="100" max="129"/></maxhitpoints>
+		<!-- Skills -->
+		<poisoning><random min="601" max="800"/></poisoning>
+		<magicresistance><random min="601" max="750"/></magicresistance>
+		<tactics><random min="801" max="1000"/></tactics>
+		<wrestling><random min="801" max="900"/></wrestling>
+		<!-- Damage -->
+		<mindamage>16</mindamage>
+		<maxdamage>38</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<tag name="res_fire" value="20,30" type="int" />
+		<tag name="res_physical" value="30,35" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<!-- Misc. -->
+		<desc>The warrior caste of the community, plans and carries out assaults on their enemies. Though martially trained, the warrior is better able towin a battle through strategy. Terathan warriors never waver in battle, and are certain to fight to the death.</desc>
+		<!-- Missing: Level 1 Map -->
+		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
+		<category>Monsters\Terathan\Terathan Warrior</category>
+		<strproperty name="slayer_group" value="terathans" />
+		<intproperty name="carve_meat" value="4" />
+	</npc>
+
+</definitions>

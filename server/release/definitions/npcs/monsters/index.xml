@@ -69,7 +69,7 @@
 	<include file="definitions/npcs/monsters/summoned/index.xml"/>
 
 	<!-- Terathan -->
-	<include file="definitions/npcs/monsters/terathen/index.xml"/>
+	<include file="definitions/npcs/monsters/terathan/index.xml"/>
 
 	<!-- Undead -->
 	<include file="definitions/npcs/monsters/undead/index.xml"/>

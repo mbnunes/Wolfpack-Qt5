@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<npc id="weaponsmith_inventory">
 		<shopkeeper>
 			<restockable>
@@ -18,21 +19,21 @@
 				<item id="1443"><amount>20</amount></item> <!-- Two Handed Axe -->
 				<item id="13b0"><amount>20</amount></item> <!-- War Axe -->
 				<item id="f49"><amount>20</amount></item> <!-- Axe -->
-				
+
 				<item id="13f6"><amount>20</amount></item> <!-- Butcher Knife -->
 				<item id="ec3"><amount>20</amount></item> <!-- Cleaver -->
 				<item id="f52"><amount>20</amount></item> <!-- Dagger -->
 				<item id="ec4"><amount>20</amount></item> <!-- Skinning Knife -->
 
-				<item id="13b4"><amount>20</amount></item> <!-- Club --> 
-				<item id="143d"><amount>20</amount></item> <!-- Hammer Pick --> 
-				<item id="f5c"><amount>20</amount></item> <!-- Mace --> 
-				<item id="143b"><amount>20</amount></item> <!-- Maul --> 
-				<item id="1439"><amount>20</amount></item> <!-- War Hammer--> 
-				<item id="1407"><amount>20</amount></item> <!-- War Mace --> 
+				<item id="13b4"><amount>20</amount></item> <!-- Club -->
+				<item id="143d"><amount>20</amount></item> <!-- Hammer Pick -->
+				<item id="f5c"><amount>20</amount></item> <!-- Mace -->
+				<item id="143b"><amount>20</amount></item> <!-- Maul -->
+				<item id="1439"><amount>20</amount></item> <!-- War Hammer-->
+				<item id="1407"><amount>20</amount></item> <!-- War Mace -->
 
-				<item id="f4e"><amount>20</amount></item> <!-- Bardiche --> 
-				<item id="143e"><amount>20</amount></item> <!-- Halberd --> 
+				<item id="f4e"><amount>20</amount></item> <!-- Bardiche -->
+				<item id="143e"><amount>20</amount></item> <!-- Halberd -->
 
 				<item id="f63"><amount>20</amount></item> <!-- Spear -->
 				<item id="e88"><amount>20</amount></item> <!-- Pitchfork -->
@@ -48,8 +49,8 @@
 				<item id="13b9"><amount>20</amount></item>--> <!-- Viking Sword -->
 			</restockable>
 		</shopkeeper>
-		<armslore><random min="640" max="1000" /></armslore>
-		<blacksmithing><random min="650" max="880" /></blacksmithing>
+		<skill id="armslore"><random min="640" max="1000" /></skill>
+		<skill id="blacksmithing"><random min="650" max="880" /></skill>
 	</npc>
 
 	<!-- A weaponsmith vendor -->
@@ -61,7 +62,7 @@
 		<category>Vendors\Weaponsmith (Male)</category>
 		<inherit id="weaponsmith_inventory" />
 	</npc>
-	
+
 	<npc id="weaponsmith_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Weaponsmith</title>
 		<equipped>

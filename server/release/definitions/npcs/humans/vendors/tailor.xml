@@ -17,7 +17,6 @@
 				<item id="fa9"><amount>20</amount></item> <!-- Dyes -->
 				<item id="fab"><amount>20</amount></item> <!-- Dye Tub  -->
 				<item id="f95"><amount>20</amount><color>0</color></item> <!-- Bolt Of Cloth -->
-				
 				<item id="1efd"><amount>20</amount><color>0</color></item> <!-- Fancy Shirt -->
 				<item id="1517"><amount>20</amount><color>0</color></item> <!-- Shirt -->
 				<item id="152e"><amount>20</amount><color>0</color></item> <!-- Short Pants -->
@@ -32,7 +31,6 @@
 				<item id="1f7b"><amount>20</amount><color>0</color></item> <!-- Doublet -->
 				<item id="1fa1"><amount>20</amount><color>0</color></item> <!-- Tunic -->
 				<item id="1f9f"><amount>20</amount><color>0</color></item> <!-- Jester Suit -->
-				
 				<item id="171c"><amount>20</amount><color>0</color></item> <!-- Jester Hat -->
 				<item id="1713"><amount>20</amount><color>0</color></item> <!-- Floppy Hat -->
 				<item id="1714"><amount>20</amount><color>0</color></item> <!-- Wide Brim Hat -->
@@ -45,7 +43,6 @@
 				<item id="1719"><amount>20</amount><color>0</color></item> <!-- Bonnet -->
 				<item id="171a"><amount>20</amount><color>0</color></item> <!-- Feathered Hat -->
 				<item id="171b"><amount>20</amount><color>0</color></item> <!-- Tricorne Hat -->
-				
 				<item id="fa0"><amount>20</amount></item> <!-- Spool Of Thread -->
 				<item id="1a9c"><amount>20</amount></item> <!-- Flax -->
 				<item id="df9"><amount>20</amount></item> <!-- Cotton -->
@@ -57,7 +54,6 @@
 				<item id="fa9"></item> <!-- Dyes -->
 				<item id="fab"></item> <!-- Dye Tub  -->
 				<item id="f95"></item> <!-- Bolt Of Cloth -->
-				
 				<item id="1efd"></item> <!-- Fancy Shirt -->
 				<item id="1517"></item> <!-- Shirt -->
 				<item id="152e"></item> <!-- Short Pants -->
@@ -72,7 +68,6 @@
 				<item id="1f7b"></item> <!-- Doublet -->
 				<item id="1fa1"></item> <!-- Tunic -->
 				<item id="1f9f"></item> <!-- Jester Suit -->
-				
 				<item id="171c"></item> <!-- Jester Hat -->
 				<item id="1713"></item> <!-- Floppy Hat -->
 				<item id="1714"></item> <!-- Wide Brim Hat -->
@@ -85,14 +80,13 @@
 				<item id="1719"></item> <!-- Bonnet -->
 				<item id="171a"></item> <!-- Feathered Hat -->
 				<item id="171b"></item> <!-- Tricorne Hat -->
-				
 				<item id="fa0"></item> <!-- Spool Of Thread -->
 				<item id="1a9c"></item> <!-- Flax -->
 				<item id="df9"></item> <!-- Cotton -->
 				<item id="df8"></item> <!-- Wool -->
 			</sellable>
 		</shopkeeper>
-		<tailoring><random min="640" max="1000"/></tailoring>
+		<skill id="tailoring"><random min="640" max="1000"/></skill>
 	</npc>
 
 	<!-- A Tailor vendor -->

@@ -26,10 +26,10 @@
 				<item id="e9e" />
 			</sellable>
 		</shopkeeper>
-		<discordance><random min="640" max="1000" /></discordance>
-		<musicianship><random min="640" max="1000" /></musicianship>
-		<peacemaking><random min="650" max="880" /></peacemaking>
-		<provocation><random min="600" max="830" /></provocation>
+		<skill id="discordance"><random min="640" max="1000" /></skill>
+		<skill id="musicianship"><random min="640" max="1000" /></skill>
+		<skill id="peacemaking"><random min="650" max="880" /></skill>
+		<skill id="provocation"><random min="600" max="830" /></skill>
 	</npc>
 
 	<!-- A bard vendor -->

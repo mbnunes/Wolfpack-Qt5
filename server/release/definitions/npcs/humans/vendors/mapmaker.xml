@@ -15,7 +15,7 @@
 				<item id="14ec"><amount>20</amount></item> <!-- Blank Map -->
 			</restockable>
 		</shopkeeper>
-		<cartography><random min="900" max="1000" /></cartography>
+		<skill id="cartography"><random min="900" max="1000" /></skill>
 	</npc>
 
 	<!-- A mapmaker vendor -->
@@ -24,7 +24,7 @@
 		<category>Vendors\MapMaker (Male)</category>
 		<inherit id="mapmaker_inventory" />
 	</npc>
-	
+
 	<npc id="mapmaker_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Mapmaker</title>
 		<category>Vendors\MapMaker (Female)</category>

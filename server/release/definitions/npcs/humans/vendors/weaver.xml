@@ -19,7 +19,7 @@
 				<item id="e1d"><amount>20</amount></item> <!-- Dark Yarn -->
 			</restockable>
 		</shopkeeper>
-		<tailoring><random min="650" max="880" /></tailoring>
+		<skill id="tailoring"><random min="650" max="880" /></skill>
 	</npc>
 
 	<!-- A weaver vendor -->
@@ -30,7 +30,7 @@
 		<category>Vendors\Weaver (Male)</category>
 		<inherit id="weaver_inventory" />
 	</npc>
-	
+
 	<npc id="weaver_female">
 		<inherit>vendor_female</inherit>
 		<title context="Vendor Female Titles">the Weaver</title>

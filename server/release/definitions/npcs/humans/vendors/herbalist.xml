@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<npc id="herbalist_inventory">
 		<shopkeeper>
 			<restockable>
@@ -46,9 +47,9 @@
 				<item id="f8d"/>
 			</sellable>
 		</shopkeeper>
-		<alchemy><random min="800" max="1000" /></alchemy>
-		<cooking><random min="800" max="1000" /></cooking>
-		<tasteidentification><random min="800" max="1000" /></tasteidentification>
+		<skill id="alchemy"><random min="800" max="1000" /></skill>
+		<skill id="cooking"><random min="800" max="1000" /></skill>
+		<skill id="tasteidentification"><random min="800" max="1000" /></skill>
 	</npc>
 
 	<!-- A herbalist vendor -->
@@ -57,7 +58,7 @@
 		<title context="Vendor Male Titles">the Herbalist</title>
 		<category>Vendors\Herbalist (Male)</category>
 	</npc>
-	
+
 	<npc id="herbalist_female" inherit="vendor_female">
 		<inherit id="herbalist_inventory" />
 		<title context="Vendor Female Titles">the Herbalist</title>

@@ -23,7 +23,7 @@
 		<equipped>
 			<item id="dbf" /> <!-- Fishing Pole -->
 		</equipped>
-		<fishing><random min="750" max="980" /></fishing>
+		<skill id="fishing"><random min="750" max="980" /></skill>
 	</npc>
 
 	<!-- A fisherman vendor -->
@@ -32,7 +32,7 @@
 		<title context="Vendor Male Titles">the Fisherman</title>
 		<category>Vendors\Fisherman (Male)</category>
 	</npc>
-	
+
 	<!-- A fisherlady vendor -->
 	<npc id="fisherlady_female" inherit="vendor_female">
 		<inherit id="fisher_inventory" />

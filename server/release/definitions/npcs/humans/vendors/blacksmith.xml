@@ -141,8 +141,8 @@
 				<item id="1b74"/>
 			</sellable>
 		</shopkeeper>
-		<armslore><random min="360" max="680" /></armslore>
-		<blacksmithing><random min="650" max="880" /></blacksmithing>
+		<skill id="armslore"><random min="360" max="680" /></skill>
+		<skill id="blacksmithing"><random min="650" max="880" /></skill>
 	</npc>
 
 	<!-- A blacksmith vendor -->
@@ -154,7 +154,6 @@
 			<item id="140d" /> <!-- Bascinet -->
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>
-
 	</npc>
 
 	<npc id="blacksmith_female" inherit="vendor_female">
@@ -165,7 +164,6 @@
 			<item id="140d" /> <!-- Bascinet -->
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>
-
 	</npc>
 
 </definitions>

@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<npc id="leatherworker_inventory">
 		<shopkeeper>
 			<restockable>
@@ -16,7 +17,7 @@
 			<sellable>
 				<item id="1081"/>
 				<item id="leather_cut"/>
-				<item id="leather_hides"/>		
+				<item id="leather_hides"/>
 			</sellable>
 		</shopkeeper>
 	</npc>
@@ -27,7 +28,7 @@
 		<category>Vendors\Leatherworker (Male)</category>
 		<inherit id="leatherworker_inventory" />
 	</npc>
-	
+
 	<npc id="leatherworker_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Leatherworker</title>
 		<category>Vendors\Leatherworker (Female)</category>

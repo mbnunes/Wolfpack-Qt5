@@ -8,11 +8,7 @@
 -->
 <definitions>
 
-	<!-- A Healer vendor -->
-	<npc id="healer_male">
-		<inherit>vendor_male</inherit>
-		<bindmenu>paperdoll_menu,vendor_menu,train_menu,healer_menu</bindmenu>
-		<title context="Vendor Male Titles">the Healer</title>
+	<npc id="healer_base">
 		<shopkeeper>
 			<restockable>
 				<item id="e21">
@@ -47,54 +43,23 @@
 				<item id="f9e"/>
 			</sellable>
 		</shopkeeper>
-		<anatomy><random min="800" max="1000" /></anatomy>
-		<healing><random min="800" max="1000" /></healing>
-		<forensics><random min="800" max="1000" /></forensics>
-		<spiritspeak><random min="800" max="1000" /></spiritspeak>
+		<bindmenu>paperdoll_menu,vendor_menu,train_menu,healer_menu</bindmenu>
+		<skill id="anatomy"><random min="800" max="1000" /></skill>
+		<skill id="healing"><random min="800" max="1000" /></skill>
+		<skill id="forensics"><random min="800" max="1000" /></skill>
+		<skill id="spiritspeak"><random min="800" max="1000" /></skill>
+	</npc>
+
+	<!-- A Healer vendor -->
+	<npc id="healer_male" inherit="vendor_male">
+		<inherit id="healer_base" />
+		<title context="Vendor Male Titles">the Healer</title>
 		<category>Vendors\Healer (Male)</category>
 	</npc>
 
-	<npc id="healer_female">
-		<inherit>vendor_female</inherit>
+	<npc id="healer_female" inherit="vendor_female">
+		<inherit id="healer_base" />
 		<title context="Vendor Female Titles">the Healer</title>
-		<bindmenu>paperdoll_menu,vendor_menu,train_menu,healer_menu</bindmenu>
-		<shopkeeper>
-			<restockable>
-				<item id="e21">
-					<amount>10</amount>
-				</item>
-				<item id="f07">
-					<amount>10</amount>
-				</item>
-				<item id="f0c">
-					<amount>10</amount>
-				</item>
-				<item id="f84">
-					<amount>10</amount>
-				</item>
-				<item id="f85">
-					<amount>10</amount>
-				</item>
-				<item id="f8d">
-					<amount>10</amount>
-				</item>
-				<item id="f9e">
-					<amount>10</amount>
-				</item>
-			</restockable>
-			<sellable>
-				<item id="e21"/>
-				<item id="f07"/>
-				<item id="f0c"/>
-				<item id="f84"/>
-				<item id="f85"/>
-				<item id="f8d"/>
-				<item id="f9e"/>
-			</sellable>
-		</shopkeeper>
-		<forensics><random min="800" max="1000" /></forensics>
-		<spiritspeak><random min="800" max="1000" /></spiritspeak>
-		<swordsmanship><random min="800" max="1000" /></swordsmanship>
 		<category>Vendors\Healer (Female)</category>
 	</npc>
 

@@ -57,8 +57,8 @@
 				<item id="potion_lesserexplosion" />
 			</sellable>
 		</shopkeeper>
-		<alchemy><random min="850" max="1000" /></alchemy>
-		<tasteidentification><random min="650" max="880" /></tasteidentification>
+		<skill id="alchemy"><random min="850" max="1000" /></skill>
+		<skill id="tasteidentification"><random min="650" max="880" /></skill>
 	</npc>
 
 	<!-- A alchemist vendor -->

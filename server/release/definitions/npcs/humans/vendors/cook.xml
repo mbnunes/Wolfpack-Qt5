@@ -38,8 +38,8 @@
 				<item id="1609" />
 			</sellable>
 		</shopkeeper>
-		<cooking><random min="900" max="1000" /></cooking>
-		<tasteidentification><random min="750" max="980" /></tasteidentification>
+		<skill id="cooking"><random min="900" max="1000" /></skill>
+		<skill id="tasteidentification"><random min="750" max="980" /></skill>
 	</npc>
 
 	<!-- A cook vendor -->
@@ -51,7 +51,7 @@
 		</equipped>
 		<category>Vendors\Cook (Male)</category>
 	</npc>
-	
+
 	<npc id="cook_female" inherit="vendor_female">
 		<inherit id="cook_inventory" />
 		<title context="Vendor Female Titles">the Cook</title>

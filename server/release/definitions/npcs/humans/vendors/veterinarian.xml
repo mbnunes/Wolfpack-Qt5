@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<npc id="veterinarian_inventory">
 		<shopkeeper>
 			<restockable>
@@ -17,8 +18,8 @@
 				<item id="e21"><amount>20</amount></item> <!-- Bandages -->
 			</restockable>
 		</shopkeeper>
-		<veterinary><random min="900" max="1000"/></veterinary>
-		<animallore><random min="850" max="1000"/></animallore>
+		<skill id="veterinary"><random min="900" max="1000"/></skill>
+		<skill id="animallore"><random min="850" max="1000"/></skill>
 	</npc>
 
 	<!-- A veterinarian -->
@@ -27,7 +28,7 @@
 		<category>Vendors\Veterinarian (Male)</category>
 		<inherit id="veterinarian_inventory" />
 	</npc>
-	
+
 	<npc id="veterinarian_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Veterinarian</title>
 		<category>Vendors\Veterinarian (Female)</category>

@@ -10,7 +10,7 @@
 
 	<npc id="artist_inventory">
 		<title context="Vendor Male Titles">the Artist</title>
-		<anatomy><random min="750" max="980" /></anatomy>
+		<skill id="anatomy"><random min="750" max="980" /></skill>
 	</npc>
 
 	<!-- A artist -->
