@@ -7,11 +7,21 @@
 =================================================================
 -->
 <definition>
+	<item id="book_base" type="book">
+		<value>1000</value>
+		<name>a book</name>
+		<identified>an empty book</identified>
+		<decay />
+		<id>0xFF1</id>
+		<weight>10</weight>
+		<type>11</type>
+		<pages>32</pages>
+	</item>
 	<item id="first_book" type="book">
 		<value>1000</value>
 		<name>a book</name>
 		<identified>the First Book</identified>
-		<decay />
+		<nodecay />
 		<id>0xFF1</id>
 		<weight>10</weight>
 		<predefined />
@@ -28,15 +38,126 @@ the second page!</page>
 		<type>11</type>
 	</item>
 	
-	<item id="empty_book" type="book">
-		<value>1000</value>
-		<name>a book</name>
-		<identified>an empty book</identified>
-		<decay />
-		<id>0xFF1</id>
-		<weight>10</weight>
-		<type>11</type>
-		<pages>32</pages>
+	<item id="book_bold_stranger" type="book">
+		<inherit>book_base</inherit>
+		<identified>The Bold Stranger</identified>
+		<nodecay />
+		<predefined />
+		<readonly />
+		<title>The Bold Stranger</title>
+		<author>Old Fabio the Poor</author>
+		<content>
+<page no="1"> In a time before
+time, the Gods that
+be assembled a group
+of artisans, crafts
+men and lore masters
+(for, yes, even in
+those days, art
+existed)to create the</page>
+<page no="2">world of Sosaria. To
+this group, the gods
+gave a tiny world,
+Rytabul, in which to
+test their works, to
+see if they were of
+the quality desired
+for the true world in</page>
+<page no="3">which they would be
+placed.  And though
+the gods were tight
+fisted with their
+gold, this small crew
+worked hard and long,
+and were happy in
+their tasks.</page>
+<page no="4"> A small corner of
+Rytabul had been
+claimed by the
+artisan Selrahc the
+Slow. Though he was
+Not the fastest of
+The assembled
+workers, the gods</page>
+<page no="5">smiled upon his work,
+even presenting him
+with a mystic
+talisman proclaiming
+his work the best
+among the newer
+artisans.And so
+Selrahc went about</page>
+<page no="6">his business,
+creating hundreds
+of designs which
+would one day add
+color and variety
+to Sosaria. One day a
+stranger appeared to
+Selrahc.  His chest</page>
+<page no="7">was bare and he wore
+trousers of the
+brightest green, and
+whereever he went,
+plants grew in his
+footsteps. This
+caused Selrahc no end
+of trouble, the</page>
+<page no="8">stranger always
+looking over his
+shoulder, and the
+plants sprouting in
+places Selrahc
+required to ply his
+art. And so Selrahc
+approached the</page>
+<page no="9">stranger and bade
+him speak.  But this
+man in green
+remained silent.
+Selrahc pleaded with
+the stranger to give
+his name, and would
+he please leave</page>
+<page no="10">Selrahc to his work.
+But this mysterious
+stranger remained
+mute.
+ This angered
+Selrahc mightily. Who
+was this silent man,
+interfering with</page>
+<page no="11">tasks the gods
+themselves had
+entrusted to Selrahc?
+In an attempt to
+embarrass this
+interloper, Selrahc
+stole his green
+trousers, leaving him</page>
+<page no="12">naked and open to
+comments about his
+very manhood, and
+still the stranger
+would not speak,
+would not leave this
+tiny corner of
+Rytabul.</page>
+<page no="13">Vexed to his very
+limits, Selrahc took
+his war axe and
+smote the silent one
+mightily, again and
+again, until the
+silent stranger ran
+away, having never</page>
+<page no="14">said a word, and
+never showed himself
+in Rytabul again.
+ Thus endeth the
+tale of the bold
+stranger.</page>
+		</content>
 	</item>
-	
+
 </definition>
