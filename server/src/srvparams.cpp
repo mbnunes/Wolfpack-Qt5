@@ -337,4 +337,53 @@ void cSrvParams::guardsActive(bool enabled)
 	setBool("General", "Guards Enabled", enabled);
 }
 
+struct stGroupDoc {
+	const char *group;
+	const char *documentation;
+};
 
+static stGroupDoc group_doc[] = {
+	{"AI", "This group configures the NPC AI."},
+	{"Accounts", "This group configures the account management."},
+	{"Database", "This group configures access to the worldsave database."},
+	{0, 0}
+};
+
+QString cSrvParams::getGroupDoc(const QString &group) {
+	// Try to find documentation for a group in our table
+	unsigned int i = 0;
+
+	while (group_doc[i].group) {
+		if (group == group_doc[i].group) {
+			return group_doc[i].documentation;
+		}
+		++i;
+	}
+
+	return Preferences::getGroupDoc(group);
+}
+
+struct stEntryDoc {
+	const char *group;
+	const char *entry;
+	const char *documentation;
+};
+
+static stEntryDoc entry_doc[] = {
+	{"Accounts", "Database Driver", "Possible values are: sqlite, mysql"},
+	{0, 0, 0}
+};
+
+QString cSrvParams::getEntryDoc(const QString &group, const QString &entry) {
+	// Try to find documentation for an entry in our table
+	unsigned int i = 0;
+
+	while (entry_doc[i].group && entry_doc[i].entry) {
+		if (group == entry_doc[i].group && entry == entry_doc[i].entry) {
+			return entry_doc[i].documentation;
+		}
+		++i;
+	}
+
+	return Preferences::getEntryDoc(group, entry);
+}

@@ -80,6 +80,9 @@ protected:
     void readData();
     void writeData();
     void processGroup( const QDomElement& group );
+	
+	virtual QString getGroupDoc(const QString &group);
+	virtual QString getEntryDoc(const QString &group, const QString &entry);
 
 private:
 	PreferencesPrivate* d;

@@ -313,11 +313,28 @@ void Preferences::writeData()
 	PreferencesPrivate::PrefMap::Iterator pit;
     QDomElement group, option;
     for (git = d->groups_.begin(); git != d->groups_.end(); ++git) {
+		// comment the group
+		QString commentText = getGroupDoc(git.key());
+
+		if (commentText != QString::null) {
+			root.appendChild(doc.createTextNode("\n\n  "));
+			root.appendChild(doc.createComment("\n  " + commentText.replace("\n", "\n  ") + "\n  "));
+			root.appendChild(doc.createTextNode("\n  "));
+		}
+
         // create a group element
         group = doc.createElement("group");
         group.setAttribute("name", git.key());
         // add in options
         for (pit = (*git).begin(); pit != (*git).end(); ++pit) {
+			QString commentText = getEntryDoc(git.key(), pit.key());
+
+			if (commentText != QString::null) {
+				group.appendChild(doc.createTextNode("\n\n    "));
+				group.appendChild(doc.createComment(" " + commentText.replace("\n", "\n      ") + " "));
+				group.appendChild(doc.createTextNode("\n    "));
+			}
+
             option = doc.createElement("option");
             option.setAttribute("key", pit.key());
             option.setAttribute("value", pit.data());
@@ -339,7 +356,7 @@ void Preferences::writeData()
 
     // write it out
     QTextStream textstream(&datafile);
-    doc.save(textstream, 4);
+    doc.save(textstream, 2);
     datafile.close();
     d->formatstate_ = true;
 }
@@ -351,3 +368,11 @@ const QString& Preferences::format() { return d->format_; }
 bool Preferences::fileState() { return d->filestate_; }
 
 bool Preferences::formatState() { return d->formatstate_; }
+
+QString Preferences::getGroupDoc(const QString &group) {
+	return QString::null;
+}
+
+QString Preferences::getEntryDoc(const QString &group, const QString &entry) {
+	return QString::null;
+}

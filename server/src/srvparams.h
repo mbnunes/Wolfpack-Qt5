@@ -59,6 +59,9 @@ const unsigned int FIRST_YEAR = 1970;
 class cSrvParams : public Preferences
 {
 protected:
+	QString getGroupDoc(const QString &group);
+	QString getEntryDoc(const QString &group, const QString &entry);
+
 	std::vector<ServerList_st> serverList_;
 	std::vector<StartLocation_st> startLocation_;
 	
