@@ -266,7 +266,7 @@ inline void cBufferedWriter::writeRaw( const void* data, unsigned int size, bool
 		// overflow the buffer anymore, then just append
 		unsigned int pos = 0;
 
-		while ( d->bufferpos + size >= buffersize )
+		while ( d->bufferpos + size >= ( unsigned int ) buffersize )
 		{
 			unsigned int bspace = buffersize - d->bufferpos;
 

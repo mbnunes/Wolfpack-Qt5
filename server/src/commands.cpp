@@ -677,42 +677,59 @@ void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList
 /*
 	Recursive processing function to get neccesary information about items.
 */
-static void processItem(QMap<QCString, QString> &item, const cElement *node) {
+static void processItem( QMap<QCString, QString> &item, const cElement *node )
+{
 	// If there is an inherit tag, inherit a parent item definition.
-	QString inherit = node->getAttribute("inherit");
-	if (inherit != QString::null) {
-		const cElement *parent = Definitions::instance()->getDefinition(WPDT_ITEM, inherit);
-		if (parent) {
-			processItem(item, parent);
+	QString inherit = node->getAttribute( "inherit" );
+	if ( inherit != QString::null )
+	{
+		const cElement *parent = Definitions::instance()->getDefinition( WPDT_ITEM, inherit );
+		if ( parent )
+		{
+			processItem( item, parent );
 		}
 	}
 
 	int count = node->childCount();
 	int i;
-	for (i = 0; i < count; ++i) {
-		const cElement *child = node->getChild(i);
-		
+	for ( i = 0; i < count; ++i )
+	{
+		const cElement *child = node->getChild( i );
+
 		// Inherit properties from another item definition
-		if (child->name() == "inherit") {
+		if ( child->name() == "inherit" )
+		{
 			const cElement *parent = 0;
 
-			if (child->hasAttribute("id")) {
-				parent = Definitions::instance()->getDefinition(WPDT_ITEM, child->getAttribute("id"));
-			} else {
-				parent = Definitions::instance()->getDefinition(WPDT_ITEM, child->text());
+			if ( child->hasAttribute("id") )
+			{
+				parent = Definitions::instance()->getDefinition( WPDT_ITEM, child->getAttribute( "id" ) );
 			}
-			 
-			if (parent) {
-				processItem(item, parent);
+			else
+			{
+				parent = Definitions::instance()->getDefinition( WPDT_ITEM, child->text() );
 			}
-		} else if (child->name() == "id") {
-            item["dispid"] = child->value();
-		} else if (child->name() == "name") {
-			item["name"] = child->text();
-		} else if (child->name() == "color") {
-			item["color"] = child->value();
-		} else if (child->name() == "category") {
-			item["categoryname"] = child->text();
+
+			if ( parent )
+			{
+				processItem( item, parent );
+			}
+		}
+		else if ( child->name() == "id" )
+		{
+			item[ "dispid" ] = child->value();
+		}
+		else if ( child->name() == "name" )
+		{
+			item[ "name" ] = child->text();
+		}
+		else if ( child->name() == "color" )
+		{
+			item[ "color" ] = child->value();
+		}
+		else if ( child->name() == "category" )
+		{
+			item[ "categoryname" ] = child->text();
 		}
 	}
 }
@@ -722,64 +739,88 @@ typedef QMap< unsigned char, QMap<QCString, QString> > EquipmentContainer;
 /*
 	Recursive processing function to get neccesary information about npcs.
 */
-static void processNpc(QMap<QCString, QString> &item, const cElement *node, EquipmentContainer &equipment) {
+static void processNpc( QMap<QCString, QString> &item, const cElement *node, EquipmentContainer &equipment )
+{
 	// If there is an inherit tag, inherit a parent item definition.
-	QString inherit = node->getAttribute("inherit");
-	if (inherit != QString::null) {
-		const cElement *parent = Definitions::instance()->getDefinition(WPDT_NPC, inherit);
-		if (parent) {
-			processNpc(item, parent, equipment);
+	QString inherit = node->getAttribute( "inherit" );
+	if ( inherit != QString::null )
+	{
+		const cElement *parent = Definitions::instance()->getDefinition( WPDT_NPC, inherit );
+		if ( parent )
+		{
+			processNpc( item, parent, equipment );
 		}
 	}
 
 	int count = node->childCount();
 	int i;
-	for (i = 0; i < count; ++i) {
-		const cElement *child = node->getChild(i);
-		
+	for ( i = 0; i < count; ++i )
+	{
+		const cElement *child = node->getChild( i );
+
 		// Inherit properties from another item definition
-		if (child->name() == "inherit") {
+		if ( child->name() == "inherit" )
+		{
 			const cElement *parent = 0;
 
-			if (child->hasAttribute("id")) {
-				parent = Definitions::instance()->getDefinition(WPDT_NPC, child->getAttribute("id"));
-			} else {
-				parent = Definitions::instance()->getDefinition(WPDT_NPC, child->text());
+			if ( child->hasAttribute( "id" ) )
+			{
+				parent = Definitions::instance()->getDefinition( WPDT_NPC, child->getAttribute( "id" ) );
 			}
-			 
-			if (parent) {
-				processNpc(item, parent, equipment);
+			else
+			{
+				parent = Definitions::instance()->getDefinition( WPDT_NPC, child->text() );
 			}
-		} else if (child->name() == "id") {
-            item["bodyid"] = child->value();
-		} else if (child->name() == "skin") {
-			item["skin"] = child->value();
-		} else if (child->name() == "category") {
-			item["categoryname"] = child->text();
-		} else if (child->name() == "equipped") {
+
+			if ( parent )
+			{
+				processNpc( item, parent, equipment );
+			}
+		}
+		else if ( child->name() == "id" )
+		{
+			item[ "bodyid" ] = child->value();
+		}
+		else if ( child->name() == "skin" )
+		{
+			item[ "skin" ] = child->value();
+		}
+		else if ( child->name() == "category" )
+		{
+			item[ "categoryname" ] = child->text();
+		}
+		else if ( child->name() == "equipped" )
+		{
 			int j;
-			for (j = 0; j < child->childCount(); ++j) {
+			for ( j = 0; j < child->childCount(); ++j )
+			{
 				const cElement *subchild = child->getChild(j);
 
-				if (subchild->name() == "item") {					
+				if ( subchild->name() == "item" )
+				{
 					QString id;
-					if (subchild->hasAttribute("id")) {
-						id = subchild->getAttribute("id");
-					} else if (subchild->hasAttribute("list")) {
-						id = Definitions::instance()->getRandomListEntry(subchild->getAttribute("list"));
+					if ( subchild->hasAttribute( "id" ) )
+					{
+						id = subchild->getAttribute( "id" );
+					}
+					else if ( subchild->hasAttribute( "list" ) )
+					{
+						id = Definitions::instance()->getRandomListEntry( subchild->getAttribute( "list" ) );
 					}
 
-					const cElement *itemNode = Definitions::instance()->getDefinition(WPDT_ITEM, id);
+					const cElement *itemNode = Definitions::instance()->getDefinition( WPDT_ITEM, id );
 
-					if (itemNode) {
+					if ( itemNode )
+					{
 						QMap<QCString, QString> item;
-						processItem(item, itemNode);
-						
-						unsigned int id = item["dispid"].toInt();
-						tile_st tile = TileCache::instance()->getTile(id);
-						if (tile.layer != 0 && tile.layer <= 0x19 && tile.animation != 0) {
-							item["anim"] = QString::number(tile.animation);
-							equipment.insert(tile.layer, item);
+						processItem( item, itemNode );
+
+						unsigned int id = item[ "dispid" ].toInt();
+						tile_st tile = TileCache::instance()->getTile( id );
+						if ( tile.layer != 0 && tile.layer <= 0x19 && tile.animation != 0 )
+						{
+							item[ "anim" ] = QString::number( tile.animation );
+							equipment.insert( tile.layer, item );
 						}
 					}
 				}
@@ -788,66 +829,71 @@ static void processNpc(QMap<QCString, QString> &item, const cElement *node, Equi
 	}
 }
 
-static void ensureCategory(QMap<QString, unsigned int> &categories, unsigned int &lastcategory, QString category) {
-	int pos = category.findRev('\\');
-	if (pos != -1) {
-		QString parentCategory = category.left(pos);
-		ensureCategory(categories, lastcategory, parentCategory);
+static void ensureCategory( QMap<QString, unsigned int> &categories, unsigned int &lastcategory, QString category )
+{
+	int pos = category.findRev( '\\' );
+	if ( pos != -1 )
+	{
+		QString parentCategory = category.left( pos );
+		ensureCategory( categories, lastcategory, parentCategory );
 	}
 
-	if (!categories.contains(category)) {
-		categories.insert(category, ++lastcategory);
+	if ( !categories.contains( category ) )
+	{
+		categories.insert( category, ++lastcategory );
 	}
 }
 
 /*
 	\command exportdefinitions
 	\description Export the definitions used by the WPGM utility.
-	\notes This command will export the definitions used by the WPGM utility to 
+	\notes This command will export the definitions used by the WPGM utility to
 	a file called categories.db in your wolfpack directory.
 */
 void commandExportDefinitions( cUOSocket *socket, const QString &command, const QStringList &args) throw() {
-	if (QFile::exists("categories.db") && !QFile::remove("categories.db")) {
-		socket->sysMessage("Unable to remove existing categories.db.");
+	if ( QFile::exists( "categories.db" ) && !QFile::remove( "categories.db" ) ) {
+		socket->sysMessage( "Unable to remove existing categories.db." );
 		return;
 	}
 
 	cSQLiteDriver driver;
-	driver.setDatabaseName("categories.db");
-	
-	if (!driver.open()) {
-		socket->sysMessage("Unable to open categories.db in your wolfpack directory.");
+	driver.setDatabaseName( "categories.db" );
+
+	if ( !driver.open() )
+	{
+		socket->sysMessage( "Unable to open categories.db in your wolfpack directory." );
 		return;
 	}
 
-	Console::instance()->log(LOG_MESSAGE, QString("Exporting definitions to %1.\n").arg("categories.db"));
+	Console::instance()->log( LOG_MESSAGE, QString( "Exporting definitions to %1.\n" ).arg( "categories.db" ) );
 
-	try {
+	try
+	{
 		// Create Tables
-		driver.exec("CREATE TABLE items (\
+		driver.exec( "CREATE TABLE items (\
 			id INTEGER PRIMARY KEY,\
 			name varchar(255) NULL,\
 			parent int NOT NULL,\
 			artid int,\
 			color int,\
 			addid varchar(255)\
-		);");
+		);" );
 
-		driver.exec("CREATE TABLE categories (\
+		driver.exec( "CREATE TABLE categories (\
 			id INTEGER PRIMARY KEY,\
 			name varchar(255) NULL,\
 			parent int NOT NULL,\
 			type int\
-		);");
+		);" );
 
-		driver.exec("CREATE TABLE locationcategories (\
+		driver.exec( "CREATE TABLE locationcategories (\
 			id INTEGER PRIMARY KEY,\
 			name varchar(255) NULL,\
 			parent int NOT NULL,\
 			type int\
-		);");
+		);" );
 
-		driver.exec("CREATE TABLE locations (\
+		driver.exec( "CREATE TABLE locations (\
 			id INTEGER PRIMARY KEY,\
 			name varchar(255) NULL,\
 			parent INT NOT NULL,\
@@ -856,31 +902,30 @@ void commandExportDefinitions( cUOSocket *socket, const QString &command, const 
 			posz INT NOT NULL,\
 			posmap INT NOT NULL,\
 			location varchar(255)\
-		);");
+		);" );
 
-		// Create Tables
-		driver.exec("CREATE TABLE npcs (\
+		driver.exec( "CREATE TABLE npcs (\
 			id INTEGER PRIMARY KEY,\
 			name varchar(255) NULL,\
 			parent int NOT NULL,\
 			bodyid int,\
 			skin int,\
 			addid varchar(255)\
-		);");
+		);" );
 
-		driver.exec("CREATE TABLE npccategories (\
+		driver.exec( "CREATE TABLE npccategories (\
 			id INTEGER PRIMARY KEY,\
 			name varchar(255) NULL,\
 			parent int NOT NULL,\
 			type int\
-		);");
+		);" );
 
-		driver.exec("CREATE TABLE npcequipment (\
+		driver.exec( "CREATE TABLE npcequipment (\
 			id int NOT NULL,\
 			artid int NOT NULL,\
 			layer int NOT NULL,\
 			color int NOT NULL\
-		);");
+		);" );
 
 		unsigned int lastcategory = 0;
 		QMap<QString, unsigned int> categories;
@@ -894,237 +939,274 @@ void commandExportDefinitions( cUOSocket *socket, const QString &command, const 
 			const cElement *element = Definitions::instance()->getDefinition(WPDT_ITEM, *sectionIt);
 
 			item.clear();
-			item.insert("name", QString::null);
-			item.insert("color", "0");
-			item.insert("dispid", "0");
-			item.insert("category", "0");
-			item.insert("categoryname", QString::null);
+			item.insert( "name", QString::null );
+			item.insert( "color", "0" );
+			item.insert( "dispid", "0" );
+			item.insert( "category", "0" );
+			item.insert( "categoryname", QString::null );
 
-			processItem(item, element);
+			processItem( item, element );
 
-			QString category = item["categoryname"];
+			QString category = item[ "categoryname" ];
 
-			if (category.isNull()) {
+			if ( category.isNull() )
+			{
 				continue;
 			}
 
-			// Strip out the portion after the last slash 
-			int pos = category.findRev('\\');
-			if (pos != -1) {
-				category = category.left(pos);
+			// Strip out the portion after the last slash
+			int pos = category.findRev( '\\' );
+			if ( pos != -1 )
+			{
+				category = category.left( pos );
 			}
 
 			// Create an id for the category
-			if (!categories.contains(category)) {
-				ensureCategory(categories, lastcategory, category);
-				item["category"] = QString::number(lastcategory);
-			} else {
-				item["category"] = QString::number(categories[category]);
+			if ( !categories.contains( category ) )
+			{
+				ensureCategory( categories, lastcategory, category );
+				item[ "category" ] = QString::number( lastcategory );
+			}
+			else
+			{
+				item[ "category" ] = QString::number( categories[ category ] );
 			}
 
 			// See if there has been a custom name definition
-			QString categoryname = item["categoryname"];
-			if (pos != -1) {
-				item["name"] = categoryname.right(categoryname.length() - (pos + 1));
-			} else {
-				item["name"] = categoryname;
+			QString categoryname = item[ "categoryname" ];
+			if ( pos != -1 )
+			{
+				item[ "name" ] = categoryname.right( categoryname.length() - ( pos + 1 ) );
+			}
+			else
+			{
+				item[ "name" ] = categoryname;
 			}
 
 			// Insert the item into the table.
 			QString section = *sectionIt;
-			QString sql = QString("INSERT INTO items VALUES(NULL,'%1',%2,%3,%4,'%5');")
-				.arg(item["name"].replace("'", "''"))
-				.arg(item["category"])
-				.arg(item["dispid"])
-				.arg(item["color"])
-				.arg(section.replace("'", "''"));
-			driver.exec(sql);
+			QString sql = QString( "INSERT INTO items VALUES(NULL,'%1',%2,%3,%4,'%5');" )
+				.arg( item[ "name" ].replace( "'", "''" ) )
+				.arg( item[ "category" ] )
+				.arg( item[ "dispid" ] )
+				.arg( item[ "color" ] )
+				.arg( section.replace( "'", "''" ) );
+			driver.exec( sql );
 		}
 
 		// Ensure that all categories are in the list
-		for (categoriesIt = categories.begin(); categoriesIt != categories.end(); ++categoriesIt) {
+		for ( categoriesIt = categories.begin(); categoriesIt != categories.end(); ++categoriesIt )
+		{
 			unsigned int parent = 0;
-			int pos = categoriesIt.key().findRev('\\');
-			if (pos != -1) {
-				QString parentName = categoriesIt.key().left(pos);
-				if (categories.contains(parentName)) {
-					parent = categories[parentName];
+			int pos = categoriesIt.key().findRev( '\\' );
+			if ( pos != -1 )
+			{
+				QString parentName = categoriesIt.key().left( pos );
+				if ( categories.contains( parentName ) )
+				{
+					parent = categories[ parentName ];
 				}
 			}
 
 			QString name = categoriesIt.key();
 			name = name.right(name.length() - (pos + 1));
 
-			QString sql = QString("INSERT INTO categories VALUES(%1,'%2',%3,0);")
-				.arg(categoriesIt.data())
-				.arg(name.replace("'", "''"))
-				.arg(parent);
-			driver.exec(sql);
+			QString sql = QString( "INSERT INTO categories VALUES(%1,'%2',%3,0);" )
+				.arg( categoriesIt.data() )
+				.arg( name.replace( "'", "''" ) )
+				.arg( parent );
+			driver.exec( sql );
 		}
 
 		categories.clear();
 		lastcategory = 0;
-		
-		sections = Definitions::instance()->getSections(WPDT_LOCATION);
-		for (sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt) {
-			const cElement *element = Definitions::instance()->getDefinition(WPDT_LOCATION, *sectionIt);
 
-			QString category = element->getAttribute("category");
-			if (category.isNull()) {
-				continue;
-			}
-			
-            int pos = category.findRev('\\');
+		sections = Definitions::instance()->getSections( WPDT_LOCATION );
+		for ( sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt )
+		{
+			const cElement *element = Definitions::instance()->getDefinition( WPDT_LOCATION, *sectionIt );
 
-			if (pos == -1) {
+			QString category = element->getAttribute( "category" );
+			if ( category.isNull() )
+			{
 				continue;
 			}
 
-			QString name = category.right(category.length() - (pos + 1));
-			category = category.left(pos);
+			int pos = category.findRev( '\\' );
+
+			if ( pos == -1 )
+			{
+				continue;
+			}
+
+			QString name = category.right( category.length() - ( pos + 1 ) );
+			category = category.left( pos );
 
 			// Create an id for the category
 			unsigned int categoryId;
-			if (!categories.contains(category)) {
-				ensureCategory(categories, lastcategory, category);
+			if ( !categories.contains( category ) )
+			{
+				ensureCategory( categories, lastcategory, category );
 				categoryId = lastcategory;
-			} else {
-				categoryId = categories[category];
+			}
+			else
+			{
+				categoryId = categories[ category ];
 			}
 
 			Coord_cl coord;
-			parseCoordinates(element->text(), coord);
+			parseCoordinates( element->text(), coord );
 			QString id = *sectionIt;
-            
-            QString sql = QString("INSERT INTO locations VALUES(NULL,'%1',%2,%3,%4,%5,%6,'%7');")
-				.arg(name.replace("'", "''"))
-				.arg(categoryId)
-				.arg(coord.x)
-				.arg(coord.y)
-				.arg(coord.z)
-				.arg(coord.map)
-				.arg(id.replace("'", "''"));
-				
-			driver.exec(sql);
+
+			QString sql = QString( "INSERT INTO locations VALUES(NULL,'%1',%2,%3,%4,%5,%6,'%7');" )
+				.arg( name.replace( "'", "''" ) )
+				.arg( categoryId )
+				.arg( coord.x )
+				.arg( coord.y )
+				.arg( coord.z )
+				.arg( coord.map )
+				.arg( id.replace( "'", "''" ) );
+
+			driver.exec( sql );
 		}
 
 		// Ensure that all categories are in the list
-		for (categoriesIt = categories.begin(); categoriesIt != categories.end(); ++categoriesIt) {
+		for ( categoriesIt = categories.begin(); categoriesIt != categories.end(); ++categoriesIt )
+		{
 			unsigned int parent = 0;
-			int pos = categoriesIt.key().findRev('\\');
-			if (pos != -1) {
-				QString parentName = categoriesIt.key().left(pos);
-				if (categories.contains(parentName)) {
-					parent = categories[parentName];
+			int pos = categoriesIt.key().findRev( '\\' );
+			if ( pos != -1 )
+			{
+				QString parentName = categoriesIt.key().left( pos );
+				if ( categories.contains( parentName ) )
+				{
+					parent = categories[ parentName ];
 				}
 			}
 
 			QString name = categoriesIt.key();
-			name = name.right(name.length() - (pos + 1));
+			name = name.right( name.length() - ( pos + 1 ) );
 
-			QString sql = QString("INSERT INTO locationcategories VALUES(%1,'%2',%3,0);")
-				.arg(categoriesIt.data())
-				.arg(name.replace("'", "''"))
-				.arg(parent);
-			driver.exec(sql);
+			QString sql = QString( "INSERT INTO locationcategories VALUES(%1,'%2',%3,0);" )
+				.arg( categoriesIt.data() )
+				.arg( name.replace( "'", "''" ) )
+				.arg( parent );
+			driver.exec( sql );
 		}
 
 		// Process NPCS
 		lastcategory = 0;
 		categories.clear();
-		sections = Definitions::instance()->getSections(WPDT_NPC);
+		sections = Definitions::instance()->getSections( WPDT_NPC );
 
 		EquipmentContainer equipment;
 
-		for (sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt) {
-			const cElement *element = Definitions::instance()->getDefinition(WPDT_NPC, *sectionIt);
+		for ( sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt )
+		{
+			const cElement *element = Definitions::instance()->getDefinition( WPDT_NPC, *sectionIt );
 
 			equipment.clear();
 			item.clear();
-			item.insert("name", QString::null);
-			item.insert("skin", "0");
-			item.insert("bodyid", "0");
-			item.insert("category", "0");
-			item.insert("categoryname", QString::null);
+			item.insert( "name", QString::null );
+			item.insert( "skin", "0" );
+			item.insert( "bodyid", "0" );
+			item.insert( "category", "0" );
+			item.insert( "categoryname", QString::null );
 
-			processNpc(item, element, equipment);
+			processNpc( item, element, equipment );
 
-			QString category = item["categoryname"];
+			QString category = item[ "categoryname" ];
 
-			if (category.isNull()) {
+			if ( category.isNull() )
+			{
 				continue;
 			}
 
-			// Strip out the portion after the last slash 
-			int pos = category.findRev('\\');
-			if (pos != -1) {
-				category = category.left(pos);
+			// Strip out the portion after the last slash
+			int pos = category.findRev( '\\' );
+			if ( pos != -1 )
+			{
+				category = category.left( pos );
 			}
 
 			// Create an id for the category
-			if (!categories.contains(category)) {
-				ensureCategory(categories, lastcategory, category);
-				item["category"] = QString::number(lastcategory);
-			} else {
-				item["category"] = QString::number(categories[category]);
+			if ( !categories.contains( category ) )
+			{
+				ensureCategory( categories, lastcategory, category );
+				item[ "category" ] = QString::number( lastcategory );
+			}
+			else
+			{
+				item[ "category" ] = QString::number( categories[ category ] );
 			}
 
-			QString categoryname = item["categoryname"];
-			if (pos != -1) {
-				item["name"] = categoryname.right(categoryname.length() - (pos + 1));
-			} else {
-				item["name"] = categoryname;
+			QString categoryname = item[ "categoryname" ];
+			if ( pos != -1 )
+			{
+				item[ "name" ] = categoryname.right( categoryname.length() - ( pos + 1 ) );
+			}
+			else
+			{
+				item[ "name" ] = categoryname;
 			}
 
 			// Insert the item into the table.
 			QString section = *sectionIt;
-			QString sql = QString("INSERT INTO npcs VALUES(NULL,'%1',%2,%3,%4,'%5');")
-				.arg(item["name"].replace("'", "''"))
-				.arg(item["category"])
-				.arg(item["bodyid"])
-				.arg(item["skin"])
-				.arg(section.replace("'", "''"));
-			driver.exec(sql);
+			QString sql = QString( "INSERT INTO npcs VALUES(NULL,'%1',%2,%3,%4,'%5');" )
+				.arg( item[ "name" ].replace( "'", "''" ) )
+				.arg( item[ "category" ] )
+				.arg( item[ "bodyid" ] )
+				.arg( item[ "skin" ] )
+				.arg( section.replace( "'", "''" ) );
+			driver.exec( sql );
 
 			int lastInsertId = driver.lastInsertId();
 
 			EquipmentContainer::iterator eIt;
-			for (eIt = equipment.begin(); eIt != equipment.end(); ++eIt) {
-				QString sql = QString("INSERT INTO npcequipment VALUES(%1,%2,%3,%4);")
-					.arg(lastInsertId)
-					.arg(eIt.data()["anim"].toInt())
-					.arg(eIt.key())
-					.arg(eIt.data()["color"].toInt());
-				driver.exec(sql);
+			for ( eIt = equipment.begin(); eIt != equipment.end(); ++eIt )
+			{
+				QString sql = QString( "INSERT INTO npcequipment VALUES(%1,%2,%3,%4);" )
+					.arg( lastInsertId )
+					.arg( eIt.data()[ "anim" ].toInt() )
+					.arg( eIt.key() )
+					.arg( eIt.data()[ "color" ].toInt() );
+				driver.exec( sql );
 			}
 		}
 
 		// Ensure that all categories are in the list
-		for (categoriesIt = categories.begin(); categoriesIt != categories.end(); ++categoriesIt) {
+		for ( categoriesIt = categories.begin(); categoriesIt != categories.end(); ++categoriesIt )
+		{
 			unsigned int parent = 0;
-			int pos = categoriesIt.key().findRev('\\');
-			if (pos != -1) {
-				QString parentName = categoriesIt.key().left(pos);
-				if (categories.contains(parentName)) {
-					parent = categories[parentName];
+			int pos = categoriesIt.key().findRev( '\\' );
+			if ( pos != -1 )
+			{
+				QString parentName = categoriesIt.key().left( pos );
+				if ( categories.contains( parentName ) )
+				{
+					parent = categories[ parentName ];
 				}
 			}
 
 			QString name = categoriesIt.key();
-			name = name.right(name.length() - (pos + 1));
+			name = name.right( name.length() - ( pos + 1 ) );
 
-			QString sql = QString("INSERT INTO npccategories VALUES(%1,'%2',%3,0);")
-				.arg(categoriesIt.data())
-				.arg(name.replace("'", "''"))
-				.arg(parent);
-			driver.exec(sql);
+			QString sql = QString( "INSERT INTO npccategories VALUES(%1,'%2',%3,0);" )
+				.arg( categoriesIt.data() )
+				.arg( name.replace( "'", "''" ) )
+				.arg( parent );
+			driver.exec( sql );
 		}
 
-		socket->sysMessage("Finished exporting definitions to categories.db.");
-	} catch(const QString &e) {
-		socket->sysMessage(e);
-	} catch(const wpException &e) {
-		socket->sysMessage(e.error());
+		socket->sysMessage( "Finished exporting definitions to categories.db." );
+	}
+	catch( const QString &e )
+	{
+		socket->sysMessage( e );
+	}
+	catch( const wpException &e )
+	{
+		socket->sysMessage( e.error() );
 	}
 
 	driver.close();
