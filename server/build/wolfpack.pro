@@ -134,7 +134,6 @@ SOURCES         = \
 		  debug.cpp \
 		  definable.cpp \
 		  dragdrop.cpp \
-		  fishing.cpp \
 		  globals.cpp \
 		  guildstones.cpp \
 		  gumps.cpp \
