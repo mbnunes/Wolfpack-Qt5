@@ -304,11 +304,9 @@ void cDefinitions::reload( void )
 }
 
 // Load the Definitions
-void cDefinitions::load( void )
-{
+void cDefinitions::load(void) {
 	unsigned int i = 0;
-
-	impl->imports = QStringList::split( ";", Config::instance()->getString( "General", "Definitions", "definitions/index.xml", true ) );
+	impl->imports = QStringList::split(";", Config::instance()->getString( "General", "Definitions", "definitions/index.xml", true));
 
 	while (i < impl->imports.size()) {
 		ImportSections(impl->imports[i]);

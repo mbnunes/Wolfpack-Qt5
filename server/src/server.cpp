@@ -280,17 +280,17 @@ bool cServer::run(int argc, char **argv) {
 
 		uiCurrentTime = getNormalizedTime(); // Update our currenttime
 
-		try {
-			Console::instance()->poll();
+		try {			
 			Network::instance()->poll();
 			Timing::instance()->poll();
+			Console::instance()->poll();
 		} catch(wpException e) {
 			Console::instance()->log(LOG_PYTHON, e.error() + "\n");
 		}
 	}
 
-	Console::instance()->stop();
 	setState(SHUTDOWN);
+	Console::instance()->stop();	
 	ScriptManager::instance()->onServerStop(); // Notify python scripts about shutdown
 	Network::instance()->broadcast("The server is shutting down.");
 	unload();
