@@ -49,7 +49,7 @@ class Factory
 public:
 	bool registerType(const keyType& id, productCreator creator)
     {
-		return associations_.insert( mapTypes::value_type( id, creator ) ).second;
+		return associations_.insert( std::make_pair( id, creator ) ).second;
     }
         
 	bool unregisterType(const keyType& id)
