@@ -200,14 +200,17 @@ public:
 		sModule = path.left( position );
 		QString sFunction = path.right( path.length() - ( position + 1 ) );
 
-		pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
-
-		if ( pModule )
-		{
-			pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-			if ( pFunc && !PyCallable_Check( pFunc ) )
+		// The Python string functions don't like null pointers
+		if (sModule.latin1()) {
+			pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+	
+			if ( pModule && sFunction.latin1() )
 			{
-				cleanUp();
+				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
+				if ( pFunc && !PyCallable_Check( pFunc ) )
+				{
+					cleanUp();
+				}
 			}
 		}
 
@@ -226,12 +229,16 @@ public:
 
 	QString functionPath() const
 	{
-		PyObject* module = PyObject_GetAttrString(pFunc, "__module__");
-		PyObject* name = PyObject_GetAttrString(pFunc, "__name__");
-		QString result = Python2QString(module) + "." + Python2QString(name);
-		Py_XDECREF( name );
-		Py_XDECREF( module );
-		return result;
+		if (isValid()) {
+			PyObject* module = PyObject_GetAttrString(pFunc, "__module__");
+			PyObject* name = PyObject_GetAttrString(pFunc, "__name__");
+			QString result = Python2QString(module) + "." + Python2QString(name);
+			Py_XDECREF( name );
+			Py_XDECREF( module );
+			return result;
+		} else {
+			return QString::null;
+		}
 	}
 
 	void cleanUp()

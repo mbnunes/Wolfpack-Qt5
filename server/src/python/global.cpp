@@ -534,9 +534,20 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 		}
 		Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
 		toCall = new PythonFunction( func );
+
+	        if (!toCall || !toCall->isValid()) {
+	                PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s", func.latin1());
+	                return 0;
+	        }
+
 	}
 	else
 		toCall = new PythonFunction( function );
+
+	if (!toCall || !toCall->isValid()) {
+		PyErr_SetString(PyExc_RuntimeError, "The function callback you specified was invalid.");
+		return 0;
+	}
 
 	if ( !PyList_Check( arguments ) )
 		return 0;
