@@ -41,9 +41,9 @@
 
 // cTerritories
 
-void cTerritory::Init( void )
+void cTerritory::init( void )
 {
-	cBaseRegion::Init();
+	cBaseRegion::init();
 	midilist_ = 0;
 	setGuarded( false );
 	setMark( true );
@@ -55,7 +55,6 @@ void cTerritory::Init( void )
 	guardowner_ = QString();
 	snowchance_ = 50;
 	rainchance_ = 50;
-	subregions_ = QStringList();
 	guardSections_ = QStringList();
 	guardSections_.push_back( "standard_guard" );
 }
@@ -208,9 +207,8 @@ void cTerritory::processNode( const QDomElement &Tag )
 	// </region>
 	else if( TagName == "region" && Tag.attributes().contains( "id" ) )
 	{
-		this->subregions_.push_back( Tag.attribute( "id" ) );
-		pair< QString, cTerritory* > toInsert( Tag.attribute( "id" ), new cTerritory( Tag ) );
-		cAllTerritories::getInstance()->insert( toInsert );
+		cTerritory* toinsert_ = new cTerritory( Tag );
+		this->subregions_.push_back( toinsert_ );
 	}
 
 	else
@@ -222,66 +220,39 @@ QString cTerritory::getGuardSect( void )
 	return this->guardSections_[ RandomNum( 0, this->guardSections_.size()-1 ) ];
 }
 
-bool	cTerritory::contains( UI16 posx, UI16 posy )
-{
-	bool containsPos = cBaseRegion::contains( posx, posy );
-	if( containsPos )
-	{
-		QStringList::iterator it = this->subregions_.begin();
-		while( it != this->subregions_.end() )
-		{
-			if( cAllTerritories::getInstance()->region( *it )->contains( posx, posy ) )
-				return false; // if the positions are within a subregion of this region return false!
-			it++;
-		}
-	}
-	return containsPos;
-}
-
 // cAllTerritories
 
 cAllTerritories::~cAllTerritories( void )
 {
-	iterator it = this->begin();
-	while( it != this->end() )
-	{
-		delete it->second; // delete the cTerritory objects from the stack!
-		it++;
-	}
+	delete this->topregion_;
 }
 
-void cAllTerritories::Load( void )
+void cAllTerritories::load( void )
 {
 	UI32 starttime = getNormalizedTime();
 	QStringList DefSections = DefManager->getSections( WPDT_REGION );
 	clConsole.PrepareProgress( "Loading regions..." );
 
 	QStringList::iterator it = DefSections.begin();
-	while( it != DefSections.end() )
+	while( it != DefSections.end() && this->topregion_ == NULL )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_REGION, *it );
-
-		pair< QString, cTerritory* > toInsert( *it, new cTerritory( *DefSection ) );
-		this->insert( toInsert );
-
+		this->topregion_ = new cTerritory( *DefSection );
 		it++;
 	}
 
 	UI32 endtime = getNormalizedTime();
 	clConsole.ProgressDone();
-	clConsole.send( QString( "Loaded %1 regions in %2 sec.\n" ).arg( DefSections.size() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
+
+	if( DefSections.size() > 1 )
+	{
+		clConsole.error( QString("WARNING: found more than 1 top level region! check your scripts! (found %1)\n").arg( DefSections.size() ).latin1() );
+	}
+
+	clConsole.send( QString( "Loaded %1 regions in %2 sec.\n" ).arg( this->count() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
 }
 
-cTerritory*	cAllTerritories::region( QString regName )
-{
-	cBaseRegion* Region = cAllBaseRegions::region( regName );
-	if( Region == NULL )
-		return NULL;
-	else
-		return dynamic_cast< cTerritory* >(Region);
-}
-
-void cAllTerritories::Check( P_CHAR pc )
+void cAllTerritories::check( P_CHAR pc )
 {
 	UOXSOCKET s = calcSocketFromChar( pc );
 	UI32 j;

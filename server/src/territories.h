@@ -47,14 +47,12 @@ class cTerritory : public cBaseRegion
 public:
 	cTerritory( const QDomElement &Tag )
 	{
-		this->Init();
+		this->init();
 		this->name_ = Tag.attribute( "id" );
 		this->applyDefinition( Tag );
 	}
-	virtual ~cTerritory() {;}
 
-	void	Init( void );
-	bool	contains( UI16 posx, UI16 posy );
+	void	init( void );
 
 	// Getters
 	QString		name( void )			{ return name_; }
@@ -106,23 +104,17 @@ public:
 	cAllTerritories() {;}
 	~cAllTerritories();
 
-	void		Load( void );
-	void		Check( P_CHAR pc );
+	void		load( void );
+	void		check( P_CHAR pc );
 
-	cTerritory*	region( QString regName );
+	cTerritory* region( QString regName )
+	{
+		return dynamic_cast< cTerritory* >(this->topregion_->region( regName ));
+	}
+
 	cTerritory* region( UI16 posx, UI16 posy )
 	{
-		iterator it = this->begin();
-		cTerritory* Region = NULL;
-		while( it != this->end() && Region == NULL )
-		{
-			Region = dynamic_cast< cTerritory* >(it->second);
-			if( Region != NULL && !Region->contains( posx, posy ) )
-				Region = NULL;
-			it++;
-		}
-
-		return Region;
+		return dynamic_cast< cTerritory* >(this->topregion_->region( posx, posy ));
 	}
 
 	QString		getGuardSect( void );

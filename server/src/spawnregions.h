@@ -39,14 +39,13 @@ class cSpawnRegion : public cBaseRegion
 public:
 	cSpawnRegion( const QDomElement &Tag )
 	{
-		this->Init();
-		this->name_ = Tag.parentNode().toElement().attribute( "id" );
+		this->init();
+		this->name_ = Tag.attribute( "id" );
 		this->applyDefinition( Tag );
 	}
-	virtual ~cSpawnRegion() {;}
 
-	void	Init( void );
-	void	Add( UI32 serial );
+	void	init( void );
+	void	add( UI32 serial );
 
 	void	reSpawn( void );
 	void	deSpawn( void );
@@ -79,7 +78,7 @@ private:
 	vector< UI08 >			z_;				// Height, if not specified, z will be chosen
 };
 
-class cAllSpawnRegions : public cAllBaseRegions
+class cAllSpawnRegions : public cAllBaseRegions, public std::map< QString, cSpawnRegion* >
 {
 private:
 	static cAllSpawnRegions instance;
@@ -87,10 +86,11 @@ public:
 	cAllSpawnRegions() {;}
 	~cAllSpawnRegions();
 
-	virtual void	Load( void );
-	void	Check( void );
+	virtual void	load( void );
+	void	check( void );
 
 	cSpawnRegion*	region( QString regName );
+	cSpawnRegion*	region( UI16 posx, UI16 posy );
 
 	void	reSpawn( void );
 	void	reSpawnToMax( void );

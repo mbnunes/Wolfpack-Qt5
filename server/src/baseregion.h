@@ -49,28 +49,91 @@
 class cBaseRegion : public cDefinable
 {
 public:
-	virtual ~cBaseRegion() = 0 {;}
+	cBaseRegion() {;}
 
-	void	Init( void )
+	cBaseRegion( const QDomElement& Tag )
 	{
-		name_ = QString();
+		this->init();
+		this->name_ = Tag.attribute( "id" );
+		this->applyDefinition( Tag );
+	}
+
+	virtual ~cBaseRegion()
+	{
+		std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
+		while( it != this->subregions_.end() )
+		{
+			delete (*it);
+			it++;
+		}
+	}
+
+	void	init( void )
+	{
+		name_ = "the wilderness";
 	}
 
 	bool	contains( UI16 posx, UI16 posy )
 	{
-		for( UI32 i = 0; i < this->x1_.size(); i++ )
+		std::vector< rect_st >::iterator it = this->rectangles_.begin();
+		while( it != this->rectangles_.end() )
 		{
-			if( ( ( posx >= x1_[i] && posx <= x2_[i] ) ||
-				( posx >= x2_[i] && posx <= x2_[i] ) ) &&
-				( ( posy >= y1_[i] && posy <= y2_[i] ) ||
-				( posy >= y2_[i] && posy <= y2_[i] ) ) )
-			{
-				return true;
-			}
+			if( ( ( posx >= (*it).x1 && posx <= (*it).x2 )   ||
+				  ( posx >= (*it).x2 && posx <= (*it).x2 ) ) &&
+				( ( posy >= (*it).y1 && posy <= (*it).y2 )   ||
+				  ( posy >= (*it).y2 && posy <= (*it).y1 ) ) )
+				  return true;
+			it++;
 		}
 		return false;
 	}
 
+	cBaseRegion*				region( QString regName )
+	{
+		if( this->name_ == regName )
+			return this;
+		else
+		{
+			std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
+			while( it != this->subregions_.end() )
+			{
+				cBaseRegion* currRegion = (*it)->region( regName );
+				if( currRegion != NULL )
+					return currRegion;
+				it++;
+			}
+		}
+		return NULL;
+	}
+
+	cBaseRegion*				region( UI16 posx, UI16 posy )
+	{
+		cBaseRegion* foundRegion = NULL;
+		if( this->contains( posx, posy ) )
+			foundRegion = this;
+		
+		std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
+		while( it != this->subregions_.end() )
+		{
+			cBaseRegion* currRegion = (*it)->region( posx, posy );
+			if( currRegion != NULL )
+				foundRegion = currRegion;
+			it++;
+		}
+		return NULL;
+	}
+
+	UI32							count( void )
+	{
+		UI32 result = 1;
+		std::vector< cBaseRegion* >::iterator it = this->subregions_.begin();
+		while( it != this->subregions_.end() )
+		{
+			result += (*it)->count();
+			it++;
+		}
+		return result;
+	}
 protected:
 	virtual void processNode( const QDomElement &Tag )
 	{
@@ -80,50 +143,61 @@ protected:
 		// <rectangle x1="0" x2="1000" y1="0" y2="500" />
 		if( TagName == "rectangle"  )
 		{
-			this->x1_.push_back( Tag.attribute( "x1" ).toUShort() );
-			this->x2_.push_back( Tag.attribute( "x2" ).toUShort() );
-			this->y1_.push_back( Tag.attribute( "y1" ).toUShort() );
-			this->y2_.push_back( Tag.attribute( "y2" ).toUShort() );
+			rect_st toinsert_;
+			toinsert_.x1 = Tag.attribute( "x1" ).toUShort();
+			toinsert_.x2 = Tag.attribute( "x2" ).toUShort();
+			toinsert_.y1 = Tag.attribute( "y1" ).toUShort();
+			toinsert_.y2 = Tag.attribute( "y2" ).toUShort();
+			this->rectangles_.push_back( toinsert_ );
 		}
+
+		else if( TagName == "region" && Tag.attributes().contains( "id" ) )
+			this->subregions_.push_back( new cBaseRegion( Tag ) );
 	}
 
 protected:
-	QString					name_;			// name of the region (section's name)
-	std::vector< UI16 >		x1_;			// vector of Top left X
-	std::vector< UI16 >		x2_;			// vector of Bottom right x
-	std::vector< UI16 >		y1_;			// vector of Top left y
-	std::vector< UI16 >		y2_;			// vector of Bottom right y
-	QStringList				subregions_;		// list of region identifiers of included regions by this one
+	struct rect_st 
+	{
+		UI16 x1;
+		UI16 x2;
+		UI16 y1;
+		UI16 y2;
+	};
+
+	QString							name_;			// name of the region (section's name)
+	std::vector< rect_st >			rectangles_;	// vector of rectangles
+	std::vector< cBaseRegion* >		subregions_;	// list of region object references of included regions
 };
 
-class cAllBaseRegions : public std::map< QString, cBaseRegion* >
+class cAllBaseRegions
 {
 public:
 	virtual ~cAllBaseRegions() = 0 {;}
 
-	virtual void Load( void ) = 0;
+	virtual void load( void ) = 0;
 
 	void reload( void )
 	{
-		iterator it = this->begin();
-		while( it != this->end() )
-		{
-			delete it->second; // delete the objects from the stack!
-			it++;
-		}
-
-		this->Load();
+		delete this->topregion_;
+		this->load();
 	}
 
 	cBaseRegion*	region( QString regName )
 	{
-		iterator it = this->find( regName );
-		if( it != this->end() )
-			return it->second;
-		else
-			return NULL;
+		return topregion_->region( regName );
 	}
 
+	cBaseRegion*	region( UI16 posx, UI16 posy )
+	{
+		return topregion_->region( posx, posy );
+	}
+
+	UI32			count( void )
+	{
+		return topregion_->count();
+	}
+protected:
+	cBaseRegion* topregion_;
 };
 
 #endif

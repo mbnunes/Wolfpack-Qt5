@@ -45,9 +45,9 @@
 
 // cSpawnRegions
 
-void cSpawnRegion::Init( void )
+void cSpawnRegion::init( void )
 {
-	cBaseRegion::Init();
+	cBaseRegion::init();
 	npcSections_ = QStringList();
 	itemSections_ = QStringList();
 	maxNpcAmt_ = 0;
@@ -59,7 +59,7 @@ void cSpawnRegion::Init( void )
 	nextTime_ = 0;
 }
 
-void cSpawnRegion::Add( UI32 serial )
+void cSpawnRegion::add( UI32 serial )
 {
 	if( serial >= 0x40000000 )
 		this->itemSerials_.push_back( serial );
@@ -173,10 +173,7 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 		Tag.attributes().contains( "x1" ) && Tag.attributes().contains( "x2" ) && 
 		Tag.attributes().contains( "y1" ) && Tag.attributes().contains( "y2" ) )
 	{
-		this->x1_.push_back( Tag.attribute( "x1" ).toUShort() );
-		this->x2_.push_back( Tag.attribute( "x2" ).toUShort() );
-		this->y1_.push_back( Tag.attribute( "y1" ).toUShort() );
-		this->y2_.push_back( Tag.attribute( "y2" ).toUShort() );
+		cBaseRegion::processNode( Tag );
 
 		if( Tag.attributes().contains( "z" ) )
 			this->z_.push_back( Tag.attribute( "z" ).toUShort() );
@@ -193,9 +190,9 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 	UI32 i = 0;
 	while( i < 100 )
 	{
-		int rndRectNum = RandomNum( 0, this->x1_.size()-1 );
-		pos.x = RandomNum( this->x1_[rndRectNum], this->x2_[rndRectNum] );
-		pos.y = RandomNum( this->y1_[rndRectNum], this->y2_[rndRectNum] );
+		int rndRectNum = RandomNum( 0, this->rectangles_.size()-1 );
+		pos.x = RandomNum( this->rectangles_[rndRectNum].x1, this->rectangles_[rndRectNum].x2 );
+		pos.y = RandomNum( this->rectangles_[rndRectNum].y1, this->rectangles_[rndRectNum].y2 );
 		if( this->z_[rndRectNum] != 255 )
 			pos.z = this->z_[rndRectNum];
 		else
@@ -344,15 +341,13 @@ void cSpawnRegion::checkTimer( void )
 // cAllSpawnRegions
 cAllSpawnRegions::~cAllSpawnRegions( void )
 {
-	iterator it = this->begin();
-	while( it != this->end() )
-	{
-		delete it->second; // delete the cSpawnRegion objects from the stack!
-		it++;
-	}
+	delete topregion_;
+	// the destructor of cBaseRegion contains the deletement of its subregion!
+	// so the regions will be deleted recursively from the stack by this one
+	// operation!
 }
 
-void cAllSpawnRegions::Load( void )
+void cAllSpawnRegions::load( void )
 {
 	UI32 starttime = getNormalizedTime();
 	QStringList DefSections = DefManager->getSections( WPDT_SPAWNREGION );
@@ -363,8 +358,10 @@ void cAllSpawnRegions::Load( void )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_SPAWNREGION, *it );
 
-		pair< QString, cSpawnRegion* > toInsert( *it, new cSpawnRegion( *DefSection ) );
+		cSpawnRegion* toinsert_ = new cSpawnRegion( *DefSection );
+		pair< QString, cSpawnRegion* > toInsert( *it, toinsert_ );
 		this->insert( toInsert );
+		this->topregion_ = toinsert_;
 
 		it++;
 	}
@@ -376,7 +373,7 @@ void cAllSpawnRegions::Load( void )
 		
 		iterator iter_spreg = this->find( pc->spawnregion() );
 		if( iter_spreg != this->end() )
-			dynamic_cast< cSpawnRegion* >(iter_spreg->second)->Add( pc->serial );
+			iter_spreg->second->add( pc->serial );
 	}
 
 	AllItemsIterator iter_item;
@@ -386,7 +383,7 @@ void cAllSpawnRegions::Load( void )
 		
 		iterator iter_spreg = this->find( pi->spawnregion() );
 		if( iter_spreg != this->end() )
-			dynamic_cast< cSpawnRegion* >(iter_spreg->second)->Add( pi->serial );
+			iter_spreg->second->add( pi->serial );
 	}
 
 	UI32 endtime = getNormalizedTime();
@@ -394,12 +391,12 @@ void cAllSpawnRegions::Load( void )
 	clConsole.send( QString( "Loaded %1 spawnregions in %2 sec.\n" ).arg( DefSections.size() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
 }
 
-void cAllSpawnRegions::Check( void )
+void cAllSpawnRegions::check( void )
 {
 	iterator it = this->begin();
 	while( it != this->end() )
 	{
-		dynamic_cast< cSpawnRegion* >(it->second)->checkTimer();
+		it->second->checkTimer();
 		it++;
 	}
 }
@@ -409,7 +406,7 @@ void cAllSpawnRegions::reSpawn( void )
 	iterator it = this->begin();
 	while( it != this->end() )
 	{
-		dynamic_cast< cSpawnRegion* >(it->second)->reSpawn();
+		it->second->reSpawn();
 		it++;
 	}
 }
@@ -419,7 +416,7 @@ void cAllSpawnRegions::reSpawnToMax( void )
 	iterator it = this->begin();
 	while( it != this->end() )
 	{
-		dynamic_cast< cSpawnRegion* >(it->second)->reSpawnToMax();
+		it->second->reSpawnToMax();
 		it++;
 	}
 }
@@ -429,18 +426,23 @@ void cAllSpawnRegions::deSpawn( void )
 	iterator it = this->begin();
 	while( it != this->end() )
 	{
-		dynamic_cast< cSpawnRegion* >(it->second)->deSpawn();
+		it->second->deSpawn();
 		it++;
 	}
 }
 
 cSpawnRegion*	cAllSpawnRegions::region( QString regName )
 {
-	cBaseRegion* Region = cAllBaseRegions::region( regName );
+	cSpawnRegion* Region = this->find( regName )->second;
 	if( Region == NULL )
 		return NULL;
 	else
-		return dynamic_cast< cSpawnRegion* >(Region);
+		return Region;
+}
+
+cSpawnRegion*	cAllSpawnRegions::region( UI16 posx, UI16 posy )
+{
+	return dynamic_cast< cSpawnRegion* >(this->topregion_->region( posx, posy ));
 }
 
 // Singleton
