@@ -32,17 +32,18 @@ import wolfpack
 import string
 import wolfpack.gumps
 from wolfpack.gumps import WarningGump
-from wolfpack.utilities import *
+#from wolfpack.utilities import *
 
 def getBoundingBox( socket, callback ) :
 	socket.attachtarget( "commands.wipe.getBoundingBoxResponse", [0, callback] )
+	return
 
 def getBoundingBoxResponse( char, args, target ):
 	if args[0] == 0:
 		char.socket.attachtarget("commands.wipe.getBoundingBoxResponse", [1, args[1], target] )
 	else:
 		args[1]( char.socket, args[2], target )
-
+	return
 
 def nuke( socket, command, argstring ):
 	if len( argstring ) > 0:
@@ -63,31 +64,35 @@ def wipeAllWorld( player, accept, state ):
 	player.socket.sysmessage( "Removing all items from world, this may take a while" )
 	iterator = wolfpack.itemiterator()
 	item = iterator.first
-	count = 0;
+	count = 0
 	while item:
 		if item.container == None:
 			item.delete()
 			count += 1
 		item = iterator.next
 	player.socket.sysmessage( "%i items have been removed from world" % count )
+	return
 
 def wipeBoundingBox( socket, target1, target2 ):
-	x1 = min(target1.pos.x, target2.pos.x)
-	x2 = max(target1.pos.x, target2.pos.x)
-	y1 = min(target1.pos.y, target2.pos.y)
-	y2 = max(target1.pos.y, target2.pos.y)
-	
-	count = 0
-	iterator = wolfpack.itemregion( x1, y1, x2, x2, target2.pos.map )
+	if target1.pos.map != target2.pos.map:
+		return False
+	x1 = min( target1.pos.x, target2.pos.x )
+	x2 = max( target1.pos.x, target2.pos.x )
+	y1 = min( target1.pos.y, target2.pos.y )
+	y2 = max( target1.pos.y, target2.pos.y )
+
+	iterator = wolfpack.itemregion( x1, y1, x2, y2, target2.pos.map )
 	item = iterator.first
+	count = 0
 	while item:
 		item.delete()
+		count += 1
 		item = iterator.next
-		count += 1;
-
 	socket.sysmessage( "%i items removed" % count )
+
 	return 1
 
 def onLoad():
 	wolfpack.registercommand( "wipe", nuke )
 	wolfpack.registercommand( "nuke", nuke )
+	return

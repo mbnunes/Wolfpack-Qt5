@@ -5,7 +5,6 @@
 
 import wolfpack
 from wolfpack import utilities
-from wolfpack.consts import *
 
 def onLoad():
 	wolfpack.registercommand( "tele", commandTele )
@@ -30,5 +29,5 @@ def teleport( char, args, target ):
 	if char.socket:
 		char.socket.resendworld()
 	utilities.smokepuff(char, source)
-	utilities.smokepuff(char, target)	
+	utilities.smokepuff(char, target)
 	return True
