@@ -36,6 +36,7 @@
 #include "../wpconsole.h"
 #include "../TmpEff.h"
 #include "../mapobjects.h"
+#include "../territories.h"
 
 #include "utilities.h"
 #include "tempeffect.h"
@@ -291,6 +292,21 @@ PyObject* wpAddtimer( PyObject* self, PyObject* args )
 }
 
 /*!
+	Tries to find a region for a specific position.
+*/
+PyObject* wpRegion( PyObject* self, PyObject* args )
+{
+	// Three arguments
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	return PyGetRegionObject( cAllTerritories::getInstance()->region( getArgInt( 0 ), getArgInt( 1 ) ) );
+}
+
+/*!
 	Returns the time in ms since the last server-start
 	used for object-delays and others
 */
@@ -310,6 +326,7 @@ static PyMethodDef wpGlobal[] =
 	{ "finditem",		wpFinditem,		METH_VARARGS, "Tries to find an item based on it's serial" },
 	{ "findchar",		wpFindchar,		METH_VARARGS, "Tries to find a char based on it's serial" },
 	{ "addtimer",		wpAddtimer,		METH_VARARGS, "Adds a timed effect" },
+	{ "region",			wpRegion,		METH_VARARGS, "Gets the region at a specific position" },
 	{ "currenttime",	wpCurrenttime,	METH_VARARGS, "Time in ms since server-start" },
     { NULL, NULL, 0, NULL } // Terminator
 };
