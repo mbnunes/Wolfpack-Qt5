@@ -130,7 +130,13 @@ TURNABLES = {
 	0xebc: [0xebb],
 	# Dress Form
 	0xec6: [0xec7],
-	0xec7: [0xec6]
+	0xec7: [0xec6],
+	# Globe
+	0x1047: [0x1048],
+	0x1048: [0x1047],
+	# Bulletin Board
+	0x1e5e: [0x1e5f],
+	0x1e5f: [0x1e5e]
 }
 
 TURNDEEDS = {
@@ -180,10 +186,10 @@ def targetitem( char, args, target ):
 		# Safety Checks
 		if not finditem:
 			socket.sysmessage("You must target an item!")
-			return 1
-		if ( finditem.lockeddown ) or ( finditem.movable > 1 ) or ( finditem.movable == 2 and finditem.owner != char ):
+			return True
+		if ( finditem.lockeddown ) or ( not char.gm and finditem.movable > 1 ) or ( finditem.movable == 2 and finditem.owner != char ):
 			socket.sysmessage("This object is not movable by you!")
-			return 1
+			return True
 		# Object Exists
 		if finditem:
 			# Turnable Furniture
@@ -195,7 +201,7 @@ def targetitem( char, args, target ):
 			elif int(finditem.id) == utilities.hex2dec(0x14ef) and str(finditem.baseid) in TURNDEEDS:
 				if finditem.container != char.getbackpack():
 					socket.sysmessage("This deed needs to be in your backpack to turn it!")
-					return 1
+					return True
 				else:
 					finditem.settag( 'carpentry_type', str(TURNDEEDS[finditem.baseid][1]) )
 					finditem.name = str(TURNDEEDS[str(finditem.baseid)][2])
@@ -207,8 +213,8 @@ def targetitem( char, args, target ):
 		# Error
 		else:
 			socket.sysmessage("This item is not turnable.")
-			return 1
+			return True
 	# Error
 	else:
 		socket.sysmessage("This item is not turnable.")
-		return 1
+		return True

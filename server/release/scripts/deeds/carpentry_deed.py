@@ -39,7 +39,8 @@ deeds = {
 	'flour_mill_e':[ 1015151, 2, "1921", "1923" ],
 	'flour_mill_s':[ 1015152, 1, "192d", "192f" ],
 	'water_trough_e':[ 1015153, 2, "b43", "b44" ],
-	'water_trough_s':[ 1015154, 1, "b41", "b42" ]
+	'water_trough_s':[ 1015154, 1, "b41", "b42" ],
+	'bulletin_board':[ 1027774, 0, "1e5e" ]
 }
 
 def onShowToolTip( sender, target, tooltip ):
@@ -60,15 +61,17 @@ def onUse( char, item ):
 		return True
 
 	# check if this char is in it's own house
-	if not( char.multi ):
+	# GMs should always be able to use
+	if not char.gm and not( char.multi ):
 		#You can only build this in a house.
 		char.socket.clilocmessage(500275)
 		return True
-
-	if not multi or multi.ownserial != char.serial:
+	
+	# buggy!
+	#if not char.gm and char.multi or char.multi.ownserial != char.serial:
 		#You must own the house to do this.
-		char.socket.clilocmessage(502096)
-		return True
+	#	char.socket.clilocmessage(502096)
+	#	return True
 
 	#Where would you like to place this decoration?
 	char.socket.clilocmessage( 1049780, "", 0x3b2 )
