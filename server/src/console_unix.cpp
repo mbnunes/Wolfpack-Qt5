@@ -48,8 +48,7 @@ protected:
 		{
 			while( serverState < SHUTDOWN )
 			{
-				char c = cin.peek();
-				
+				char c = cin.get();
 				if( c > 0 && serverState == RUNNING )
 				{
 					Console::instance()->handleCommand( QChar( c ) );			
