@@ -25,8 +25,8 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
+// Wolfpack Includes
 #include "../config.h"
-#include "../globals.h"
 #include "../console.h"
 #include "../log.h"
 

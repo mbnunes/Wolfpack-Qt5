@@ -25,6 +25,11 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
+// Wolfpack includes
+#include "../console.h"
+#include "../getopts.h"
+#include "../server.h"
+
 // System Includes
 #include <sys/time.h>
 #include <stdio.h>
@@ -34,12 +39,6 @@
 
 // Qt Includes
 #include <qthread.h>
-
-// Wolfpack includes
-#include "../console.h"
-#include "../getopts.h"
-#include "../globals.h"
-#include "../server.h"
 
 using namespace std;
 
