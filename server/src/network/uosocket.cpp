@@ -694,7 +694,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 */
 void cUOSocket::giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill ) 
 {
-	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? "default" : QString::number( skill ) );
+	QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : QString::number( skill ) );
 
 	// No Items defined
 	if( !startItems )
