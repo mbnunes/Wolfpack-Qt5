@@ -292,6 +292,7 @@ int main( int argc, char *argv[] )
 	SetVersion(wp_version.verstring.c_str());
 #endif
 */
+	keeprun = 1;
 	QApplication app( argc, argv, false ); // we need one instance
 	QTranslator translator( 0 ); // must be valid thru app life.
 
@@ -432,7 +433,6 @@ int main( int argc, char *argv[] )
 
 
 	SetGlobalVars();
-	keeprun = 1;
 
 	// initial randomization call
 	srand( uiCurrentTime );

@@ -79,7 +79,7 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 	if( !pChar->account()->authorized("command", pCommand ))
 	{
 		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.lower() ) );
-		socket->log( QString("Access to command '%1' was denied").arg(pCommand.lower()) );
+		socket->log( QString("Access to command '%1' was denied\n").arg(pCommand.lower()) );
 		return;
 	}
 
