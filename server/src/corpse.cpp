@@ -264,35 +264,41 @@ cCorpse::cCorpse( bool init )
 stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 {
 	/*
-		\property corpse.bodyid The body if of the dead creature.
+		\property item.bodyid The body if of the dead creature.
+		This property only exists for corpses.
 	*/
 	SET_INT_PROPERTY( "bodyid", bodyId_ )
 	else
 	/*
-		\property corpse.hairstyle The id of the hairstyle displayed on the corpse.
+		\property item.hairstyle The id of the hairstyle displayed on the corpse.
 		For no hair use 0.
+		This property only exists for corpses.
 	*/
 		SET_INT_PROPERTY( "hairstyle", hairStyle_ )
 	else
 	/*
-		\property corpse.haircolor The color of the hair displayed on the corpse.
+		\property item.haircolor The color of the hair displayed on the corpse.
+		This property only exists for corpses.
 	*/
 		SET_INT_PROPERTY( "haircolor", hairColor_ )
 	else
 	/*
-		\property corpse.beardstyle The id of the beardstyle displayed on the corpse.
+		\property item.beardstyle The id of the beardstyle displayed on the corpse.
 		For no beard use 0.
+		This property only exists for corpses.
 	*/
 		SET_INT_PROPERTY( "beardstyle", beardStyle_ )
 	else
 	/*
-		\property corpse.beardcolor The color of the beard displayed on the corpse.
+		\property item.beardcolor The color of the beard displayed on the corpse.
+		This property only exists for corpses.
 	*/
 		SET_INT_PROPERTY( "beardcolor", beardColor_ )
 
 	/*
-		\property corpse.murderer The character who killed this creature. May be None if the
+		\property item.murderer The character who killed this creature. May be None if the
 		character has been deleted or the owner of this corpse accidently died.
+		This property only exists for corpses.
 	*/
 	else if (name == "murderer")
 	{
@@ -304,21 +310,24 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 		}
 	}
 	/*
-		\property corpse.murdertime The time when the murder was comitted in seconds
+		\property item.murdertime The time when the murder was comitted in seconds
 		since the epoch (UNIX timestamp).
+		This property only exists for corpses.
 	*/
 	else
 		SET_INT_PROPERTY( "murdertime", murdertime_ )
 
 	/*
-		\property corpse.direction The direction this corpse is facing.
+		\property item.direction The direction this corpse is facing.
+		This property only exists for corpses.
 	*/
 	else
 		SET_INT_PROPERTY( "direction", direction_ )
 
 	/*
-		\property corpse.charbaseid The npc definition id of the murdererd creature.
+		\property item.charbaseid The npc definition id of the murdererd creature.
 		This is used to derive the carve section for this corpse.
+		This property only exists for corpses.
 	*/
 	else
 		SET_STR_PROPERTY( "charbaseid", charbaseid_ )

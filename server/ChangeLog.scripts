@@ -9,11 +9,15 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Removed command: addevent
 		- Removed command: removeevent
 	* Definition Changes:
+		- Fixed Sheep definitions
 	* Python Script Changes:
 		- New Command: taginfo
 		- New Function: wolfpack.findobject(serial)
+		- New Function: wolfpack.charbase(baseid)
 		- New command: addevent
 		- New command: removeevent
+		- Fixed carving
+		- Fixed sheering of sheeps and wool regrowing
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
