@@ -554,6 +554,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Usage: allskills &lt;value&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invisible is now &apos;0&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invisible is now &apos;1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: password &lt;newpassword&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your password can have a maximum of 30 characters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your password has been changed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: gmtalk &lt;message&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>If you wish to use this, it must be equipped or in your backpack.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -702,10 +730,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>That rune is not yet marked!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>That is out of charges.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -758,10 +782,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>What do you want to use this on?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Must be closer to use this!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -783,6 +803,10 @@
     </message>
     <message>
         <source>Who will you use the bandages on?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are at: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -835,10 +859,6 @@
     </message>
     <message>
         <source>Thank you %1 for thy service. We have made it safely to %2. Here is thy pay as promised.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%s is grinding some bone into powder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1006,6 +1026,55 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Loading skills</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postprocessing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The owner of Serial 0x%1 is invalid: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The guard target of Serial 0x%1 is invalid: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting lost items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resetting all Trade windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initializing Multis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initializing GM Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading IP Blocking rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wolfpack running on port %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shutting down network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saving configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The poison was cured.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1039,10 +1108,6 @@
     </message>
     <message>
         <source>You feel much more strong!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are now a criminal!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1153,7 +1218,23 @@
     </message>
 </context>
 <context>
+    <name>cAllSpawnRegions</name>
+    <message>
+        <source>Warning: Top level spawnregion %1 lacks rectangle tag, ignoring region</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>cAllTerritories</name>
+    <message>
+        <source>Warning: Top level region %1 lacks rectangle tag, ignoring region</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loaded %1 regions in %2 sec.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>You have left %1.</source>
         <translation type="unfinished"></translation>
@@ -1389,6 +1470,10 @@
     </message>
     <message>
         <source>Ghosts can not train %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are now a criminal!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1628,18 +1713,6 @@
         <source>%1 you have insufficent funds!</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>%1 you can only get checks worth 5000gp to 1000000gp.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 your check has been placed in your bankbox, it is worth %2.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%s you have insufficent funds!</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>cCharStuff::cDragonAI</name>
@@ -1652,6 +1725,19 @@
     <name>cCommands</name>
     <message>
         <source>Access to command &apos;%1&apos; was denied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown Command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WARNING: No ACLs for players, counselors, gms and admins defined!
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WARNING: Tag %1 lacks &quot;id&quot; attribute</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1676,6 +1762,10 @@
 </context>
 <context>
     <name>cDragItems</name>
+    <message>
+        <source>You lost some karma.</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>You are dead and can&apos;t do that.</source>
         <translation type="unfinished"></translation>
@@ -1725,11 +1815,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>The character does not seem to want the item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>You cannot put houses in containers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You fail to put that into %1&apos;s pack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot put that into the belongings of another player</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1753,6 +1851,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>*You see %1 eating %2*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Bring that to a merchant if you want to sell it!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1773,11 +1875,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>*cough* Thank thee!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Sorry, but i can only use gold.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Thank you %1 for the %2 gold!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have gained some karma!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1794,26 +1904,6 @@
     </message>
     <message>
         <source>I thank thee for thy payment. That should give thee a good start on thy way. Farewell!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The character does not seem to want the item.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You cannot put that into the belongings of another player</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>*You see %1 eating %2*</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>*cough* Thank thee!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You have gained some karma!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1997,10 +2087,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>[value: %1]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>at %1gp</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2152,7 +2238,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Value:</source>
+        <source>Price:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2567,6 +2653,14 @@
     </message>
 </context>
 <context>
+    <name>cNetwork</name>
+    <message>
+        <source>[%1] Client disconnected
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>cNewMagic</name>
     <message>
         <source>Your spell fizzles.</source>
@@ -2759,14 +2853,6 @@
     </message>
 </context>
 <context>
-    <name>cQuadNode</name>
-    <message>
-        <source>Warning: two nodes on same positions found!
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>cRemoveEventTarget</name>
     <message>
         <source>You have to target a character or an item.</source>
@@ -2876,23 +2962,11 @@
         <source>Please select a valid character or item</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Invalid coordinates &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown key &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>cShowTarget</name>
     <message>
-        <source>Unknown tag &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown key &apos;%1&apos;</source>
+        <source>You have to target a valid object.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4182,21 +4256,6 @@
     </message>
 </context>
 <context>
-    <name>cTargets</name>
-    <message>
-        <source>I work for you, you need not buy things from me!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You cannot afford that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thank you.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>cTileTarget</name>
     <message>
         <source>Please select the second corner.</source>
@@ -4385,6 +4444,10 @@
     </message>
     <message>
         <source>*You see %1 attacking you*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Help! Guards! I&apos;ve been attacked!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -7,9 +7,9 @@
 PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE        = app
-CONFIG          = qt console debug thread
+CONFIG         += qt console debug thread
 INCLUDEPATH     = lib/ZThread/include lib/Python/include
-DEFINES        += REENTRANT ZTHREAD_STATIC NDEBUG WP_DONT_USE_HASH_MAP
+DEFINES        += REENTRANT ZTHREAD_STATIC WP_DONT_USE_HASH_MAP
 win32:DEFINES  += WIN32 
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
@@ -98,8 +98,6 @@ HEADERS         = \
 		  wpconsole.h \
 		  tilecache.h \
 		  walking.h \
-		  packlen.h \
-		  extract.h \
 		  wpdefaultscript.h \
 		  wpdefmanager.h \
 		  wpscriptmanager.h \
@@ -184,7 +182,6 @@ SOURCES         = \
 		  worldmain.cpp \
 		  wpconsole.cpp \
 		  walking.cpp \
-		  packlen.cpp \
 		  wpdefmanager.cpp \
 		  wpdefaultscript.cpp \
 		  wpscriptmanager.cpp \
@@ -219,6 +216,9 @@ TRANSLATIONS    = \
                   languages/wolfpack_pt-BR.ts \
                   languages/wolfpack_it.ts \
                   languages/wolfpack_nl.ts \
+                  languages/wolfpack_es.ts \
+                  languages/wolfpack_de.ts \
+                  languages/wolfpack_fr.ts \
                   languages/wolfpack_ge.ts
 
 unix:SOURCES += srvparams_unix.cpp

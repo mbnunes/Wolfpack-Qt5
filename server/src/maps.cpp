@@ -137,6 +137,9 @@ Maps::~Maps()
 		delete it.data();
 }
 
+/*!
+	Registers a map id and corresponding file to be accessible to Wolfpack
+*/
 bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
 {
 	MapsPrivate* p = new MapsPrivate( basePath + staticsidx, basePath + mapfile, basePath + staticsfile );

@@ -38,15 +38,8 @@
 
 // Platfrom specifics
 #include "platform.h"
-#include "qstring.h"
 
-// System includes
-
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <cctype>
-#include <cstdio>
+// Forward definitions
 
 class Coord_cl;
 class QString;
@@ -77,17 +70,6 @@ inline void ShortToCharPtr(const unsigned short i, unsigned char *p)
 {
 	*p = static_cast<UI08>(i>>8); *(p+1) = static_cast<UI08>(i);	// no %256 for 2nd byte, truncation will occur anyway
 }
-
-
-// LB, wrapping of the stdlib num-2-str functions
-inline void numtostr(int i, char *ourstring) { sprintf(ourstring,"%d",i) ;}
-
-#define BASE_INARRAY -1
-#define BASE_AUTO 0
-#define BASE_BIN 2
-#define BASE_OCT 8
-#define BASE_DEC 10
-#define BASE_HEX 16
 
 // sereg : roll dices d&d style
 int rollDice( const QString& dicePattern );

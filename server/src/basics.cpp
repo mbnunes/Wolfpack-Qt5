@@ -35,15 +35,16 @@
 //
 //
 
+// Wolfpack Includes
 #include "basics.h"
-#include "qstringlist.h"
 #include "coord.h"
-
 
 // Library Includes
 #include <qstring.h>
+#include <qstringlist.h>
 
 #include <math.h>
+#include <stdlib.h>
 
 /*!
   Returns a random number between \a nLowNum

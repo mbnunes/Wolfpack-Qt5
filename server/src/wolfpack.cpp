@@ -1863,10 +1863,10 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
 
    // now compose result string
 
-   numtostr(abs(xH),xHs);
-   numtostr(abs(xM),xMs);
-   numtostr(abs(yH),yHs);
-   numtostr(abs(yM),yMs);
+//   numtostr(abs(xH),xHs);
+//   numtostr(abs(xM),xMs);
+//   numtostr(abs(yH),yHs);
+//   numtostr(abs(yM),yMs);
 
    strcpy((char*)sextant, xHs);
    strcat((char*)sextant,"o ");
