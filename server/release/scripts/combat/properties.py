@@ -54,6 +54,8 @@ PROPERTIES = {
 	AMMUNITION: ['ammunition', '', 0],
 	PROJECTILE: ['projectile', 0, 0],
 	PROJECTILEHUE: ['projectilehue', 0, 0],
+	SWING: ['swing', [0xa, 0x9, 0x1f] ],
+	MNTSWING: ['mountswing', [0x1a] ]
 }
 
 #
@@ -143,13 +145,13 @@ def fromchar(char, property):
 	value = 0 # Default
 	minvalue = 0
 	resistance = 0
-	
+
 	# Special calculations for resistance properties
 	# They depend on Magic Resistance
 	if property in [RESISTANCE_COLD, RESISTANCE_ENERGY, RESISTANCE_FIRE, RESISTANCE_PHYSICAL, RESISTANCE_POISON]:
-		resistance = 1		
+		resistance = 1
 		magicresist = char.skill[MAGICRESISTANCE]
-		
+
 		if magicresist >= 1000:
 			minvalue = int(40 + (magicresist - 1000) / 50)
 		elif magicresist >= 400:
@@ -170,26 +172,26 @@ def fromchar(char, property):
 	if resistance:
 		if value < minvalue:
 			value = minvalue
-			
+
 		# Reactive Armor
 		if char.propertyflags & 0x10000:
 			if property == RESISTANCE_PHYSICAL:
 				value += 15 + char.skill[INSCRIPTION] / 200
 			else:
 				value = max(0, value - 5)
-		
-		# Protection		
+
+		# Protection
 		if char.propertyflags & 0x20000:
 			if property == RESISTANCE_PHYSICAL:
 				value = max(0, value - (15 - char.skill[INSCRIPTION] / 200))
-				
+
 		# Magic Reflect
 		if char.propertyflags & 0x40000:
 			if property == RESISTANCE_PHYSICAL:
 				value = max(0, value - (25 - char.skill[INSCRIPTION] / 200))
 			else:
 				value += 10
-				
+
 		if value > 70:
 			value = 70
 

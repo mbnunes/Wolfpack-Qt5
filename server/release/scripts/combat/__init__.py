@@ -16,7 +16,7 @@ def onLoad():
 
 #
 # This is called when the character swings at his combat target.
-# We do all the combat stuff here and set a new timeout until 
+# We do all the combat stuff here and set a new timeout until
 # the next hit can be done.
 #
 def onSwing(attacker, defender, time):
@@ -57,7 +57,7 @@ def onSwing(attacker, defender, time):
 						combat.aos.miss(attacker, defender, weapon, time)
 			elif combat.aos.checkhit(attacker, defender, time):
 					combat.aos.hit(attacker, defender, weapon, time)
-			else:					
+			else:
 					combat.aos.miss(attacker, defender, weapon, time)
 
 		except:
@@ -80,7 +80,7 @@ def onShowStatus(char, packet):
 	# Scale damage
 	mindamage = int(combat.aos.scaledamage(char, mindamage, 0))
 	maxdamage = int(combat.aos.scaledamage(char, maxdamage, 0))
-	
+
 	packet.setshort(62, combat.properties.fromchar(char, RESISTANCE_PHYSICAL)) # Physical resistance
 	packet.setshort(70, combat.properties.fromchar(char, RESISTANCE_FIRE)) # Fire Resistance
 	packet.setshort(72, combat.properties.fromchar(char, RESISTANCE_COLD)) # Cold Resistance

@@ -97,15 +97,12 @@ def playswinganimation(char, target, weapon):
 
   # Humans
   else:
-    action = random.choice([0x0a, 0x09, 0x1f])
+    if weapon:
+      action = combat.properties.fromitem(weapon, SWING)
+    else:
+      action = [0x1f]
 
-    if weapon and WEAPON_INFORMATION.has_key(weapon.type):
-      if weapon.twohanded:
-        action = random.choice(WEAPON_INFORMATION[weapon.type][TWOHANDED_SWING])
-      else:
-        action = random.choice(WEAPON_INFORMATION[weapon.type][ONEHANDED_SWING])
-
-    char.action(action)
+    char.action( random.choice(action) )
 
 #
 # Play hurt animation for the defender
