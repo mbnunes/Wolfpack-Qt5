@@ -45,17 +45,7 @@
 #include "player.h"
 
 // Library Includes
-#include "qstringlist.h"
-
-#undef  DBGFILE
-#define DBGFILE "Network.cpp"
-
-// Authenticate return codes
-
-#define LOGIN_NOT_FOUND -3
-#define BAD_PASSWORD -4
-#define ACCOUNT_BANNED -5
-#define ACCOUNT_WIPE -6
+#include <qstringlist.h>
 
 cNetwork *cNetwork::instance_;
 
@@ -107,6 +97,8 @@ cNetwork::~cNetwork( void )
 
 void cNetwork::poll( void )
 {
+	lock();
+
 	// Check for new Connections (LoginServer)
 	if( loginServer_ && loginServer_->haveNewConnection() )
 	{
@@ -132,47 +124,49 @@ void cNetwork::poll( void )
 	}
 
 	// fast return
-	if( uoSockets.isEmpty() && loginSockets.isEmpty() )
-		return;
-
-	// Check for new Packets
-	cUOSocket* uoSocket = 0;
-	for ( uoSocket = uoSockets.first(); uoSocket; uoSocket = uoSockets.next() )
+	if( !uoSockets.isEmpty() || !loginSockets.isEmpty() )
 	{
-		// Check for disconnected sockets
-		if ( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isWritable() || uoSocket->socket()->isInactive() || !uoSocket->socket()->isOpen() )
+		// Check for new Packets
+		cUOSocket* uoSocket = 0;
+		for ( uoSocket = uoSockets.first(); uoSocket; uoSocket = uoSockets.next() )
 		{
-			uoSocket->log( "Client disconnected.\n" );
-			uoSocket->disconnect();
-			netIo_->unregisterSocket( uoSocket->socket() );			
-			uoSockets.remove( uoSocket );
-		}
-		else
-		{
-			uoSocket->recieve();
+			// Check for disconnected sockets
+			if ( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isWritable() || uoSocket->socket()->isInactive() || !uoSocket->socket()->isOpen() )
+			{
+				uoSocket->log( "Client disconnected.\n" );
+				uoSocket->disconnect();
+				netIo_->unregisterSocket( uoSocket->socket() );			
+				uoSockets.remove( uoSocket );
+			}
+			else
+			{
+				uoSocket->recieve();
 
-			if( uiCurrentTime % 500 == 0 ) // Once every 0.5 Seconds
-				uoSocket->poll();
+				if( uiCurrentTime % 500 == 0 ) // Once every 0.5 Seconds
+					uoSocket->poll();
+			}
+		}
+
+		for ( uoSocket = loginSockets.first(); uoSocket; uoSocket = loginSockets.next())
+		{
+			if( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isOpen() )
+			{
+				uoSocket->log( "Client disconnected.\n" );
+				netIo_->unregisterSocket( uoSocket->socket() );
+				loginSockets.remove();
+				continue;
+			}
+			else
+				uoSocket->recieve();
+
+			if ( uoSocket->state() == cUOSocket::InGame )
+			{
+				uoSockets.append( loginSockets.take() );
+			}
 		}
 	}
 
-	for ( uoSocket = loginSockets.first(); uoSocket; uoSocket = loginSockets.next())
-	{
-		if( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isOpen() )
-		{
-			uoSocket->log( "Client disconnected.\n" );
-			netIo_->unregisterSocket( uoSocket->socket() );
-			loginSockets.remove();
-			continue;
-		}
-		else
-			uoSocket->recieve();
-
-		if ( uoSocket->state() == cUOSocket::InGame )
-		{
-			uoSockets.append( loginSockets.take() );
-		}
-	}
+	unlock();
 }
 
 // Load IP Blocking rules
@@ -195,10 +189,14 @@ void cNetwork::unload( void )
 
 void cNetwork::broadcast( const QString &message, UINT16 color, UINT16 font )
 {
+	lock();
+
 	cUOSocket *mSock = uoSockets.first();
 	while( mSock )
 	{
 		mSock->sysMessage( message, color, font );
 		mSock = uoSockets.next();
 	}
+
+	unlock();
 }

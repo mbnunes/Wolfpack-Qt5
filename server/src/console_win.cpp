@@ -43,6 +43,9 @@
 #include "console.h"
 #include "resource.h"
 #include "globals.h"
+#include "network.h"
+#include "player.h"
+#include "wolfpack.h"
 
 /*
 	This file includes the Windows GUI implementation of our Console.
@@ -58,6 +61,7 @@ extern int main( int argc, char **argv );
 
 HMENU hmMainMenu;
 HBITMAP hLogo = 0;
+HWND lblUptime = 0, bmpLogo;
 HBRUSH hbSeparator = 0, hbBackground = 0;
 HWND logWindow = 0;			// Log Window
 HWND inputWindow = 0;		// Input Textfield
@@ -66,6 +70,7 @@ HINSTANCE appInstance = 0;	// Application Instance
 HFONT font = 0;				// The font we'll use
 unsigned int inputHeight = 0; // For measuring the height of the input field
 unsigned int logLimit = 0;	// How many characters fit into the log window
+unsigned int uptimeTimer = 0;
 bool canClose = false;
 
 /*
@@ -104,22 +109,9 @@ void drawWindow( HWND window )
 	HDC dc = BeginPaint( window, &paintInfo );
 
 	RECT rect;
-	GetClientRect( window,  &rect );
+	GetClientRect( window, &rect );
 
-	paintRect( dc, 0, 0, rect.right, 87, hbBackground );
 	paintRect( dc, 0, 87, rect.right, 1, hbSeparator );
-
-	// Draw our Logo
-	HDC tempdc = CreateCompatibleDC( dc );
-	HGDIOBJ oldobj = SelectObject( tempdc, hLogo );
-
-	BITMAP bm;
-	GetObject( hLogo, sizeof(bm), &bm );
-
-	BitBlt( dc, 0, 0, bm.bmWidth, bm.bmHeight, tempdc, 0, 0, SRCCOPY );
-
-	SelectObject( tempdc, oldobj );
-	DeleteDC( tempdc );
 
 	EndPaint( window, &paintInfo );
 }
@@ -128,34 +120,68 @@ bool handleMenuSelect( unsigned int id )
 {
 	bool result = true;
 
-	switch( id )
+	if( serverState != RUNNING )
 	{
-	case IDC_EXIT:
-		keeprun = 0;
-
-		if( canClose )
-			DestroyWindow( mainWindow );
-
-		break;
-
-	case ID_RELOAD_ACCOUNTS:
-		Console::instance()->send( "RELOADING ACCOUNTS\n" );
-		break;
-
-	case ID_RELOAD_PYTHON:
-		Console::instance()->send( "RELOADING PYTHON\n" );
-		break;
-
-	case ID_RELOAD_SCRIPTS:
-		Console::instance()->send( "RELOADING SCRIPTS\n" );
-		break;
-
-	case ID_RELOAD_CONFIGURATION:
-		Console::instance()->send( "RELOADING CONFIGURATION\n" );
-		break;
-
-	default:
 		result = false;
+	}
+	else
+	{
+		cUOSocket *mSock;
+		unsigned int i;
+
+		switch( id )
+		{
+		case IDC_EXIT:
+			keeprun = 0;
+
+			if( canClose )
+				DestroyWindow( mainWindow );
+
+			break;
+
+		case ID_RELOAD_ACCOUNTS:
+			queueAction( RELOAD_ACCOUNTS );
+			break;
+
+		case ID_RELOAD_PYTHON:
+			queueAction( RELOAD_PYTHON );
+			break;
+
+		case ID_RELOAD_SCRIPTS:
+			queueAction( RELOAD_SCRIPTS );
+			break;
+
+		case ID_RELOAD_CONFIGURATION:
+			queueAction( RELOAD_CONFIGURATION );
+			break;
+
+		case ID_SERVER_SAVEWORLD:
+			queueAction( SAVE_WORLD );
+			break;
+
+		case ID_SERVER_LISTUSERS:
+			// We simply do our thread safety manually here
+			cNetwork::instance()->lock();
+
+			// Generate a list of Users
+			mSock = cNetwork::instance()->first();
+			i = 0;
+			
+			for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+			{
+				if( mSock->player() )
+					Console::instance()->send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
+			}
+
+			cNetwork::instance()->unlock();
+
+			Console::instance()->send( QString( "Total Users Online: %1\n" ).arg( i ) );
+
+			break;
+
+		default:
+			result = false;
+		}
 	}
 
 	return result;
@@ -163,15 +189,27 @@ bool handleMenuSelect( unsigned int id )
 
 LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam )
 {
-	if( mainWindow && hwnd != mainWindow )
-		return DefWindowProc( hwnd, msg, wparam, lparam ); 
-
 	CHARFORMAT cf;	
 	LOGFONT lfont;
 	NMHDR *notify = (NMHDR*)lparam;
+	HDC dc;	
 
 	switch( msg )
 	{
+	case WM_CTLCOLORSTATIC:
+		if( (HWND)lparam == lblUptime )
+		{
+			dc = (HDC)wparam;
+
+			SelectObject( dc, GetStockObject(ANSI_VAR_FONT) );
+			SetTextColor( dc, RGB( 0xAF, 0xAF, 0xAF ) );
+
+			SetBkMode( dc, TRANSPARENT );
+			SelectObject( dc, GetStockObject( SYSTEM_FONT ) );
+			return (LRESULT)hbBackground;
+		}
+		return DefWindowProc( hwnd, msg, wparam, lparam ); 
+
 	case WM_COMMAND:
 		if( handleMenuSelect( wparam ) )
 			return 0;
@@ -179,8 +217,6 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 	case WM_CREATE:
 		hLogo = LoadBitmap( appInstance, MAKEINTRESOURCE( IDB_LOGO ) );
-		hbSeparator = CreateSolidBrush( RGB( 0xAF, 0xAF, 0xAF ) );
-		hbBackground = CreateSolidBrush( RGB( 0, 64, 38 ) );
 
 		// Create Richedit Box
 		logWindow = CreateWindow( RICHEDIT_CLASS, 0, ES_LEFT|ES_MULTILINE|ES_AUTOVSCROLL|ES_READONLY|WS_CHILD|WS_VISIBLE|WS_VSCROLL, 0, 0, 10, 10, hwnd, (HMENU)CONTROL_LOGWINDOW, appInstance, 0 );
@@ -223,8 +259,16 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		// Create InputWindow
 		inputWindow = CreateWindow( "EDIT", 0, ES_LEFT|ES_AUTOHSCROLL|WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP, 0, 0, 10, 10, hwnd, (HMENU)CONTROL_INPUT, appInstance, 0 );
 
+		bmpLogo = CreateWindow( "STATIC", 0, SS_BITMAP|WS_CHILD|WS_VISIBLE, 0, 0, 586, 87, hwnd, 0, appInstance, 0 );
+		SendMessage( bmpLogo, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hLogo );
+
+		lblUptime = CreateWindow( "STATIC", 0, WS_CHILD|WS_VISIBLE, 400, 15, 250, 25, hwnd, 0, appInstance, 0 );
+			
+		// Set up our timer to refresh the nice Uptime Counter
+		uptimeTimer = SetTimer( NULL, 0, 500, 0 );
+
 		return 0;
-	
+
 	// Autosize our Window Elements
 	case WM_SIZE:
 		if( logWindow && inputWindow && wparam != SIZE_MINIMIZED && wparam != SIZE_MAXHIDE )
@@ -254,9 +298,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 	case WM_PAINT:
 		drawWindow( hwnd );
-
-	case WM_ERASEBKGND:
-		return 1;
+		return DefWindowProc( hwnd, msg, wparam, lparam );
 
 	case WM_NOTIFY:
 		if( wparam == CONTROL_LOGWINDOW )
@@ -304,6 +346,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		return 1;
 
 	case WM_DESTROY:
+		KillTimer( NULL, uptimeTimer );
 		DestroyMenu( hmMainMenu );
 		DeleteObject( hLogo );
 		DeleteObject( hbSeparator );
@@ -408,13 +451,17 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		return 1;
 	}
 
+	hbSeparator = CreateSolidBrush( RGB( 0xAF, 0xAF, 0xAF ) );
+	hbBackground = CreateSolidBrush( RGB( 0, 64, 38 ) );
+
 	// Create the WindowClass
 	WNDCLASS wpClass;
 	ZeroMemory( &wpClass, sizeof( WNDCLASS ) );
 	wpClass.hInstance = hInstance;
 	wpClass.lpfnWndProc = wpWindowProc;
+	wpClass.hCursor = LoadCursor( NULL, MAKEINTRESOURCE( IDC_ARROW ) );
 	wpClass.hIcon = LoadIcon( hInstance, MAKEINTRESOURCE( IDI_ICON1 ) );
-	wpClass.hbrBackground = GetSysColorBrush( COLOR_BTNFACE );
+	wpClass.hbrBackground = hbBackground;
 	wpClass.lpszClassName = WOLFPACK_CLASS;
 	wpClass.style = CS_DBLCLKS | CS_VREDRAW | CS_HREDRAW;
 	
@@ -457,6 +504,12 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			}
 
 			continue;
+		}
+		else if( msg.message == WM_TIMER )
+		{
+			char message[512];
+			sprintf( message, "Uptime: %02u:%02u:%02u", ( uiCurrentTime / 1000 / 3600 ), ( uiCurrentTime / 1000 / 60 ) % 60, ( uiCurrentTime / 1000 ) % 3600 );
+			SetWindowText( lblUptime, message );
 		}
 
 		TranslateMessage( &msg );

@@ -1073,16 +1073,16 @@ static PyObject* wpPacket( PyObject* self, PyObject* args )
 	return CreatePyPacket( (unsigned char)id, (unsigned short)size );
 }
 
-static PyObject* wpQueueReload( PyObject* self, PyObject* args )
+static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	
 	unsigned int type = 0;
 
-	if( !PyArg_ParseTuple( args, "i:wolfpack.queuereload( type )", &type ) )
+	if( !PyArg_ParseTuple( args, "i:wolfpack.queueaction( type )", &type ) )
 		return 0;
 	
-	queueReload( (eReloadType)type );
+	queueAction( (eActionType)type );
 
 	return PyInt_FromLong( 1 );
 }
@@ -1134,7 +1134,7 @@ static PyMethodDef wpGlobal[] =
 	{ "isclosing",			wpIsClosing,					METH_NOARGS, "Returns if the server is in closing state" },
 	{ "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" },
 	{ "charbase",			wpCharBase,						METH_VARARGS, NULL },
-	{ "queuereload",		wpQueueReload,					METH_VARARGS, NULL },
+	{ "queueaction",		wpQueueAction,					METH_VARARGS, NULL },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 

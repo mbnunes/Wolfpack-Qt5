@@ -37,6 +37,7 @@
 #include "platform.h"
 
 // System Includes
+#include <qmutex.h>
 
 //Forward class Declaration
 class cNetworkStuff;
@@ -74,6 +75,7 @@ private:
 	cAsyncNetIO *netIo_;
 	cListener *loginServer_;
 	cListener *gameServer_;
+	QMutex mutex;
 
 public:
 
@@ -89,6 +91,8 @@ public:
 
 	void poll( void ); // called by the main loop
 
+	void lock() { mutex.lock(); }
+	void unlock() { mutex.unlock(); }
 	cAsyncNetIO *netIo()	{ return netIo_; }
 	cUOSocket *first()		{ return uoSockets.first(); }
 	cUOSocket *next()		{ return uoSockets.next(); }

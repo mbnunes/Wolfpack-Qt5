@@ -13,6 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
+// Deutsch (Deutschland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+
+/////////////////////////////////////////////////////////////////////////////
 //
 // Icon
 //
@@ -45,6 +50,11 @@ BEGIN
         MENUITEM "&Configuration",              ID_RELOAD_CONFIGURATION
         MENUITEM "&Python",                     ID_RELOAD_PYTHON
         MENUITEM "&Scripts",                    ID_RELOAD_SCRIPTS
+    END
+    POPUP "&Server"
+    BEGIN
+        MENUITEM "&Save World",                 ID_SERVER_SAVEWORLD
+        MENUITEM "&List Users",                 ID_SERVER_LISTUSERS
     END
 END
 
@@ -119,6 +129,11 @@ BEGIN
 END
 
 #endif    // APSTUDIO_INVOKED
+
+#endif    // Deutsch (Deutschland) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
 
 #ifndef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////

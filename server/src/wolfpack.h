@@ -32,14 +32,15 @@
 #if !defined( __WOLFPACK_H__ )
 #define __WOLFPACK_H__
 
-enum eReloadType
+enum eActionType
 {
 	RELOAD_SCRIPTS = 0,
 	RELOAD_PYTHON,
 	RELOAD_ACCOUNTS,
-	RELOAD_CONFIGURATION
+	RELOAD_CONFIGURATION,
+	SAVE_WORLD
 };
 
-void queueReload( eReloadType );
+void queueAction( eActionType );
 
 #endif

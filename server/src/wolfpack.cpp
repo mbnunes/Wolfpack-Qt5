@@ -248,13 +248,14 @@ static void InitMultis()
 	}
 }
 
-QMutex reloadMutex;
-QValueVector< eReloadType > reloadQueue;
+QMutex actionMutex;
+QValueVector< eActionType > actionQueue;
 
-void queueReload( eReloadType type )
+void queueAction( eActionType type )
 {
-	QMutexLocker lock( &reloadMutex );
-	reloadQueue.push_back( type );
+	actionMutex.lock();
+	actionQueue.push_back( type );
+	actionMutex.unlock();
 }
 
 //#if defined(_DEBUG)
@@ -523,13 +524,13 @@ int main( int argc, char *argv[] )
 		// Update our currenttime
 		uiCurrentTime = getNormalizedTime();
 
-		// It is save to process any pending reloads now
-		reloadMutex.lock();
+		// Perform Threadsafe Actions
+		actionMutex.lock();
 
-		while( reloadQueue.count() > 0 )
+		while( actionQueue.begin() != actionQueue.end() )
 		{
-			eReloadType type = reloadQueue[0];
-			reloadQueue.erase( reloadQueue.begin() );
+			eActionType type = *(actionQueue.begin());
+			actionQueue.erase( actionQueue.begin() );
 
 			switch( type )
 			{
@@ -551,10 +552,14 @@ int main( int argc, char *argv[] )
 			case RELOAD_PYTHON:
 				ScriptManager::instance()->reload();
 				break;
+
+			case SAVE_WORLD:
+				World::instance()->save();
+				break;
 			}
 		}
 
-		reloadMutex.unlock();
+		actionMutex.unlock();
 
 		Console::instance()->poll();
 
