@@ -171,7 +171,8 @@ def onDamage(char, type, amount, source):
 	if char.propertyflags & 0x20000:
 		return amount
 
-	char.socket.clilocmessage(500641)
+	if char.socket:
+		char.socket.clilocmessage(500641)
 	fizzle(char)
 	return amount
 
