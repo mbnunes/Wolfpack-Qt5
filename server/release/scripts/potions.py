@@ -15,16 +15,16 @@ from wolfpack.consts import RED, ALCHEMY, STRENGTH_TIME, ANIM_FIDGET3, \
 # potion [ return_bottle, aggressive, target, name ]
 POTIONS = \
 {
-	0:		[ True, 0, 0, '#1044542', '#1041620', 'potion_nightsight' ], # nightsight
-	1:		[ True, 0, 0, '#1044543', '#1041634', 'potion_lesserheal' ], # lesser heal
-	2:		[ True, 0, 0, '#1044544', '#1041635', 'potion_heal' ], # heal
-	3:		[ True, 0, 0, '#1044545', '#1041636', 'potion_greaterheal' ], # greater heal
-	4:		[ True, 0, 0, '#1044552', '#1041621', 'potion_lessercure' ], # lesser cure
-	5:		[ True, 0, 0, '#1044553', '#1041622', 'potion_cure' ], # cure
-	6:		[ True, 0, 0, '#1044554', '#1041623', 'potion_greatercure' ], # greater cure
-	7:		[ True, 0, 0, '#1044540', '#1041624', 'potion_agility' ], # agility
-	8:		[ True, 0, 0, '#1044541', '#1041625', 'potion_greateragility' ], # greater agility
-	9:		[ True, 0, 0, '#1044546', '#1041626', 'potion_strength' ], # strength
+	0:  [ True, 0, 0, '#1044542', '#1041620', 'potion_nightsight' ], # nightsight
+	1:  [ True, 0, 0, '#1044543', '#1041634', 'potion_lesserheal' ], # lesser heal
+	2:  [ True, 0, 0, '#1044544', '#1041635', 'potion_heal' ], # heal
+	3:	[ True, 0, 0, '#1044545', '#1041636', 'potion_greaterheal' ], # greater heal
+	4:	[ True, 0, 0, '#1044552', '#1041621', 'potion_lessercure' ], # lesser cure
+	5:	[ True, 0, 0, '#1044553', '#1041622', 'potion_cure' ], # cure
+	6:	[ True, 0, 0, '#1044554', '#1041623', 'potion_greatercure' ], # greater cure
+	7:	[ True, 0, 0, '#1044540', '#1041624', 'potion_agility' ], # agility
+	8:	[ True, 0, 0, '#1044541', '#1041625', 'potion_greateragility' ], # greater agility
+	9:	[ True, 0, 0, '#1044546', '#1041626', 'potion_strength' ], # strength
 	10:	[ True, 0, 0, '#1044547', '#1041627', 'potion_greaterstrength' ], # greater strength
 	11:	[ False, 1, 1, '#1044555', '#1041637', 'potion_lesserexplosion' ], # lesser explosion
 	12:	[ False, 1, 1, '#1044556', '#1041638', 'potion_explosion' ], # explosion
@@ -49,7 +49,7 @@ POT_NAME = 3
 KEG_NAME = 4
 POT_DEF = 5
 
-explosions = [ 0x36b0, 0x36bd, 0x36cb]
+explosions = [ 0x36b0, 0x36bd, 0x36cb ]
 explodables = [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]
 
 # Use the potion
@@ -75,9 +75,9 @@ def onUse( char, item ):
 			if potiontype in [ 11, 12, 13 ]:
 				# char, potion, counter value
 				if not item.hastag('exploding'):
-					potionexplosion( [ char.serial, item.serial, 4, item.amount ] )
+					potionexplosion( item, [ char.serial, 4] )
 					item.settag('exploding', 'true')
-				socket.sysmessage( 'Please select a target...', RED )
+				socket.sysmessage( 'You should throw this now!', RED )
 				socket.attachtarget( "potions.targetexplosionpotion", [ item ] )
 
 		# We just drink this potion...
@@ -119,6 +119,7 @@ def targetexplosionpotion(char, args, target):
 	if not potion:
 		return 0
 	if target.char:
+		# i dont think we need some of these...
 		if target.char.invulnerable:
 			return 0
 		if target.char.dead:
@@ -151,16 +152,17 @@ def targetexplosionpotion(char, args, target):
 		socket.clilocmessage(1005539)
 		return
 
-	throwobject(char, potion, pos, 1, 3, 5)
-	# char, potion, counter value
-	#potionexplosion( [ char.serial, potion.serial, 4, potion.amount ] )
+	#verify the potion still exists to be thrown...
+	if potion:
+		throwobject(char, potion, pos, 1, 3, 5)
+
 	return
 
 # Explosion Potion Function
 def potionexplosion( potion, args ):
 	char = wolfpack.findchar(args[0])
-	counter = args[2]
-	bonus = args[3]
+	counter = args[1]
+	bonus = potion.amount
 	if not bonus:
 		bonus = 1
 	if counter > 0:
