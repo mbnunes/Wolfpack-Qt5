@@ -134,11 +134,9 @@ def check_room( item, pos ):
 		return 1
 	# pentagram
 	elif num_item == 9:
-		for x in range( pos.x - 1, pos.x + 2 ):
-			for y in range( pos.y - 1, pos.y + 2 ):
-				ret0 = check_spot( x, y, pos.map )
-				if not ret0:
-					return 0
+		ret0 = wolfpack.items( pos.x, pos.y, pos.map, 2 )
+		if not ret0:
+			return 0
 		return 1
 	# no other case : error
 	return 0
