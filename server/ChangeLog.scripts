@@ -20,6 +20,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Added encryption keys for 4.0.5
 		- Fixed a carpentry resource bug.
 		- Added mountids for all known mountables.
+		- Fixed a lot of the monster sounds.
 	* Python Script Changes:
 		- Fixed BONUS* properties.
 		- Fixed other property issues.
