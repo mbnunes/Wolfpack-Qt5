@@ -1584,7 +1584,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 				   k++;
 				   
 				   if ((items[i].pos.x+xos<1) || (items[i].pos.y+yos<1)) lb=0; /* lord binary, fixes crash when calling npcvalid with negative coordiantes */
-				   else lb=validNPCMove(items[i].pos.x+xos,items[i].pos.y+yos,items[i].pos.z,c);				 
+				   else lb=Movement->validNPCMove(items[i].pos.x+xos,items[i].pos.y+yos,items[i].pos.z,c);				 
 				   
 				   //Bug fix Monsters spawning on water:
 				   MapStaticIterator msi(items[i].pos.x + xos, items[i].pos.y + yos);

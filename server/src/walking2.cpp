@@ -2104,3 +2104,86 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 	}
 	return newz;
 }
+
+// knox, reinserted it since some other files access it,
+//       100% sure this is wrong, however the smaller ill.
+int cMovement::validNPCMove( short int x, short int y, signed char z, CHARACTER s )
+{
+	const int getcell=mapRegions->GetCell(x,y);
+
+	P_CHAR pc_s = MAKE_CHARREF_LRV(s, 0);
+
+    pc_s->blocked++;
+	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
+    for ( unsigned int k = 0; k < vecEntries.size(); k++)
+    {
+		P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
+        if (mapitem != NULL)
+        {
+		    tile_st tile;
+            Map->SeekTile(mapitem->id(), &tile);
+            if (mapitem->pos.x==x && mapitem->pos.y==y && mapitem->pos.z+tile.height>z+1 && mapitem->pos.z<z+MaxZstep)
+            {
+                // bugfix found by JustMichael, moved by crackerjack
+                // 8/2/99 makes code run faster too - one less loop :)
+                if (mapitem->id()==0x3946 || mapitem->id()==0x3956) return 0;
+                if (mapitem->id1<=2 || (mapitem->id()>=0x0300 && mapitem->id()<=0x03E2)) return 0;
+                if (mapitem->id()>0x0854 && mapitem->id()<0x0866) return 0;
+                
+                if (mapitem->type==12)
+                {
+                    if (pc_s->isNpc() && (strlen(pc_s->title) > 0 || pc_s->npcaitype != 0))
+                    {                            
+                        // clConsole.send("doors!!!\n");
+                        dooruse(-1, DEREF_P_ITEM(mapitem));
+                        
+                    }                                   
+                    pc_s->blocked=0;
+                    return 0;
+                }
+                
+            }
+        }
+    }
+
+	// experimental check for bad spawning/walking places, not optimized in any way (Duke, 3.9.01)
+	int mapid = 0;
+	signed char mapz = Map->AverageMapElevation(x, y, mapid);	// just to get the map-ID
+	if (mapz != illegal_z)
+	{
+		if ((mapid >= 0x25A && mapid <= 0x261) ||	// cave wall
+			(mapid >= 0x266 && mapid <= 0x26D) ||	// cave wall
+			(mapid >= 0x2BC && mapid <= 0x2CB) )	// cave wall
+			return 0;
+		if ( mapid >= 0x0A8 && mapid <= 0x0AB) 	// water (ocean ?)
+			return 0;
+//		land_st land;
+//		Map->SeekLand(mapid, &land);
+	}
+		
+    // see if the map says its ok to move here
+    if (Map->CanMonsterMoveHere(x, y, z))
+    {
+		pc_s->blocked = 0;
+		return 1;
+    }
+    return 0;
+}
+
+
+// Static Members
+void cMovement::getXYfromDir(int dir, int *x, int *y)
+{
+	switch(dir&0x07)
+	{
+	case 0: (*y)--;				break;
+	case 1: (*x)++; (*y)--;		break;
+	case 2: (*x)++;				break;
+	case 3: (*x)++; (*y)++;		break;
+	case 4: (*y)++;				break;
+	case 5: (*x)--; (*y)++;		break;
+	case 6: (*x)--;				break;
+	case 7: (*x)--; (*y)--;		break;
+	}
+}
+

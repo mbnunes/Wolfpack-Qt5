@@ -111,8 +111,6 @@ void DeleteClasses();
 void npcToggleCombat(int s);
 int chardir(int a, int b);
 UOXSOCKET calcSocketFromChar(CHARACTER i);
-int validNPCMove(int x, int y, signed char z, int s);
-void getXYfromDir(int dir, int *x, int *y);
 int calcItemFromSer(unsigned char ser1, unsigned char ser2, unsigned char ser3, unsigned char ser4);
 int calcItemFromSer(int ser); // Added by Magius(CHE) (2)
 int calcCharFromSer(int ser1, int ser2, int ser3, int ser4);

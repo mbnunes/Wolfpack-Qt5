@@ -27,6 +27,9 @@ public:
 	int  calc_walk( P_CHAR pc, unsigned int x, unsigned int y, unsigned int oldx, unsigned int oldy, bool justask );
 	bool calc_move( P_CHAR pc, short int x, short int y, signed char &z, int dir );
 
+	// Static members
+	static void getXYfromDir(int dir, int *x, int *y);
+
 private:
 
 	bool MoveHeightAdjustment( int MoveType, unitile_st *thisblock, int &ontype, signed int &nItemTop, signed int &nNewZ );

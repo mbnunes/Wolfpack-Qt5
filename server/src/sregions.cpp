@@ -53,15 +53,15 @@ bool FindSpotForItem(int r, int &x, int &y, int &z)
 
 		if (Map->CanMonsterMoveHere(x, y, z))
 		{
-#if 0
+#if 1		// disabled for now
 			return true;
 #else
 			for (int dir=0;dir<=7;dir++)		// check if we can move FROM here
 			{
 				int newX = x;
 				int newY = y;
-				getXYfromDir(dir,&newX,&newY);	// get coords of the location we want to walk
-				if (validNPCMove(newX, newY, z, dir))
+				cMovement::getXYfromDir(dir,&newX,&newY);	// get coords of the location we want to walk
+				if (Movement->validNPCMove(newX, newY, z, dir))
 					return true;
 			}
 #endif
