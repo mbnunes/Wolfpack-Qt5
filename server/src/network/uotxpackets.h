@@ -1361,6 +1361,15 @@ public:
 	{
 		setShort( 18, data );
 	}
+	void setXOffset( unsigned short data ) {
+		setShort(20, data);
+	}
+	void setYOffset( unsigned short data ) {
+		setShort(22, data);
+	}
+	void setZOffset( unsigned short data ) {
+		setShort(24, data);
+	}
 };
 
 // 0x54 SoundEffect

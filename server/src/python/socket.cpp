@@ -331,9 +331,10 @@ static PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
 	char* cancelfunc = 0;
 	char* timeoutfunc = 0;
 	unsigned int timeout = 0;
+	short xoffset, yoffset, zoffset;
 
-	if ( !PyArg_ParseTuple( args, "sHO!|ssI:socket.attachmultitarget"
-		"(callback, multi, args, [cancelcallback], [timeoutcallback], [timeout])", &responsefunc, &multiid, &PyList_Type, &targetargs, &cancelfunc, &timeoutfunc, &timeout ) )
+	if ( !PyArg_ParseTuple( args, "sHO!hhh|ssI:socket.attachmultitarget"
+		"(callback, multi, args, xoffset, yoffset, zoffset, [cancelcallback], [timeoutcallback], [timeout])", &responsefunc, &multiid, &PyList_Type, &targetargs, &xoffset, &yoffset, &zoffset, &cancelfunc, &timeoutfunc, &timeout ) )
 	{
 		return 0;
 	}
@@ -342,12 +343,11 @@ static PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
 
 	cPythonTarget* target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );
 
-	if ( timeout )
-	{
+	if ( timeout ) {
 		target->setTimeout( Server::instance()->time() + timeout );
 	}
 
-	self->pSock->attachTarget( target, 0x4000 + multiid );
+	self->pSock->attachTarget( target, 0x4000 + multiid, xoffset, yoffset, zoffset );
 	Py_RETURN_NONE;
 }
 

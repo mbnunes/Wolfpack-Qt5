@@ -126,30 +126,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>GM Page from %1: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Available Game Masters have been notified of your request.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There was no Game Master available, page queued.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Counselor Page from %1: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Available Counselors have been notified of your request.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There was no Counselor available, page queued.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hello, my name is %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -434,6 +410,36 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>All spawnregions have respawned to maximum.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to open categories.db in your wolfpack directory.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting definitions to %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to initialize the python extension modules
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occured while compiling &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occured: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occured in &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File &apos;%1&apos;,%2 in &apos;%3&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1308,6 +1314,470 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <comment>C:/Wolfpack/scripts/speech/banker.py</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The position (%s) you targetted is more than 30 tiles away. Are you sure to add a spawn there?</source>
+        <comment>C:/Wolfpack/scripts/commands/spawn.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adding %s spawn at %s.</source>
+        <comment>C:/Wolfpack/scripts/commands/spawn.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a %s spawn</source>
+        <comment>C:/Wolfpack/scripts/commands/spawn.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: spawn npc radius mintime maxtime</source>
+        <comment>C:/Wolfpack/scripts/commands/spawn.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: npc spawn radius mintime maxtime</source>
+        <comment>C:/Wolfpack/scripts/commands/spawn.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Where do you want to spawn npc %s.</source>
+        <comment>C:/Wolfpack/scripts/commands/spawn.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here is your bank box, %s.</source>
+        <comment>C:/Wolfpack/scripts/contextmenus/bankermenu.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alas you don&apos;t have any money in your bank.</source>
+        <comment>C:/Wolfpack/scripts/contextmenus/bankermenu.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have %i gold in your bank.</source>
+        <comment>C:/Wolfpack/scripts/contextmenus/bankermenu.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a recall rune for %s</source>
+        <comment>C:/Wolfpack/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>an unmarked recall rune</source>
+        <comment>C:/Wolfpack/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your stomach growls...</source>
+        <comment>C:/Wolfpack/scripts/system/hunger.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your stomach hurts from the lack of food...</source>
+        <comment>C:/Wolfpack/scripts/system/hunger.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SKILLS</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MATERIALS</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OTHER</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ITEM</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make Now</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You don&apos;t have enough material to make that.</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You try to craft with an invalid material.</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make Last</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repair Item</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enhance Item</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Smelt Item</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Menu</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Ten</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dont Mark Item</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark Item</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You didn&apos;t make anything yet.</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CATEGORIES</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SELECTIONS</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Page</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next Page</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You put the new item into your backpack.</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chance to create an exceptional item: %0.02f%%.&lt;br&gt;</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not skilled enough to use this material.</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You selected an invalid material.</source>
+        <comment>C:/Wolfpack/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New %s page from &apos;%s&apos; on account &apos;%s&apos;:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Updated %s page from &apos;%s&apos; on account &apos;%s&apos;:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s requeues gm page from %s (%s).
+</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s assigns gm page from %s (%s) to himself.
+</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Menu</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Category: %s</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Char name:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Account name:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Char position:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page sent from:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date/time:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to char position</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bring char</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to page position</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send message:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;msg&gt;</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show socket info gump</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Requeue page</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete page</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s sends player %s (%s) a message: %s
+</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s deletes gm page from %s (%s).
+</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s (%s) updates his gm page [%s]:
+%s
+</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s (%s) makes a gm page [%s]:
+%s
+</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s (%s) deletes his gm page.
+</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Help menu</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Category:</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Queue</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Char: </source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Account: </source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Category: </source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time: </source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page %u of %u</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>BUG</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STUCK</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GAMEPLAY</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You requeue your previous page.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You assign the gm page to yourself.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This page is already assigned to someone else.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A message from %s: %s</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The message has been sent.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This player is currently offline. The message has not been sent.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This player is currently offline.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You requeue the page.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your gm page has been deleted.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You remove the page.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your page has been removed.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have to enter a message for your page.</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>BUILD</source>
+        <comment>C:/Wolfpack/scripts/system/pages.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to %s</source>
+        <comment>C:/Wolfpack/scripts/system/players.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Report Bugs: http://bugs.wpdev.org/</source>
+        <comment>C:/Wolfpack/scripts/system/players.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AbstractAI</name>
@@ -1432,6 +1902,14 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <name>ScriptAI</name>
     <message>
         <source>Action tag in ai definition must contain attributes for pre-,postcondition and execute at least
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Speech</name>
+    <message>
+        <source>Saying &apos;%1&apos; (%2, 0x%3).
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1771,10 +2249,6 @@ This is an unsorted and not neccesarily complete list of people who contributed 
 <context>
     <name>cBaseChar</name>
     <message>
-        <source>Your pet is in battle right now!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You have killed %1 innocent people.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1799,6 +2273,140 @@ This is an unsorted and not neccesarily complete list of people who contributed 
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Trying to change the serial of char 0x%1 to the already occupied serial 0x%2.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid equipped element missing id and list attribute in npc definition &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid equipped element &apos;%1&apos; in npc definition &apos;%2&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Summoned npc &apos;%1&apos; (&apos;%2&apos;, 0x%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Npc &apos;%1&apos; (&apos;%2&apos;, 0x%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Player &apos;%1&apos; (&apos;%2&apos;, 0x%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>summoned npc &apos;%1&apos; (&apos;%2&apos;, 0x%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>npc &apos;%1&apos; (&apos;%2&apos;, 0x%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>player &apos;%1&apos; (&apos;%2&apos;, 0x%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>himself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>accident</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 was killed by %2.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cBaseDef</name>
+    <message>
+        <source>Basedef %1 has invalid integer property %2.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cCharBaseDef</name>
+    <message>
+        <source>Base definition &apos;%1&apos; has invalid speed tag.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Missing npc definition &apos;%1&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cCharBaseDefs</name>
+    <message>
+        <source>Unable to load body information from %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid body id in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid basesound in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid figurine in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid attacksound in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid idlesound in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid hitsound in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid gethitsound in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid deathsound in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid mountid in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid flags in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid bodytype in bodyinfo file: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cCommands</name>
@@ -1820,6 +2428,63 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <source>Unknown Command</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unknown command used: %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No ACLs for players, counselors, gms and admins defined!
+Check your scripts, wolfpack.xml and make sure to run Wolfpack from the proper folder
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cConfig</name>
+    <message>
+        <source>This group configures the NPC AI.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This group configures the account management.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This group configures access to the worldsave database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If active login attempts with non-existing login names will create a new account automatically
+This is very usefull for new shards without account policy
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Possible values are: sqlite, mysql</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should not be more than 6, due to client restrictions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will store hashed passwords, increasing password security.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If active, will convert older plain text passwords into MD5 hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UO Mul files not found at &apos;%1&apos;, trying to locate...
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find *.mul files path. Please check wolfpack.xml, section &quot;General&quot;, key &quot;MulPath&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cConsole</name>
@@ -1833,6 +2498,103 @@ This is an unsorted and not neccesarily complete list of people who contributed 
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Done
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skipped
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WOLFPACK: Secure mode disabled. Press ? for a commands list.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WOLFPACK: Secure mode re-enabled.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WOLFPACK: Secure mode prevents keyboard commands! Press &apos;S&apos; to disable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WOLFPACK: Immediate Shutdown initialized!
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Console commands:
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source><byte value="x9"/>Q: Shutdown the server.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source><byte value="x9"/># - Save world
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source><byte value="x9"/>W - Display logged in characters
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source><byte value="x9"/>A - Reload accounts
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source><byte value="x9"/>R - Reload scripts
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source><byte value="x9"/>S - Toggle Secure mode </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[enabled]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[disabled]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source><byte value="x9"/>? - Commands list (this)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End of commands list.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cDefinable</name>
+    <message>
+        <source>Circulary inheriting %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cGetTagTarget</name>
@@ -1843,39 +2605,51 @@ This is an unsorted and not neccesarily complete list of people who contributed 
 </context>
 <context>
     <name>cHelpGump</name>
-    <message>
-        <source>&lt;msg&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Help menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GM Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Counselor Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Categories:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 Page from %2 [%3]: %4</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>cItem</name>
     <message>
         <source>You see %1 destroy his </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saving item 0x%1 although it&apos;s already freed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting item 0x%1 because of invalid container 0x%2.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to change the serial of item 0x%1 to the already occupied serial 0x%2.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cItem::processContainerNode &lt;item list=&quot;myList&quot;/&gt; not implemented!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Content element lacking id and list attribute in item definition &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rejected putting an item into itself (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create unscripted item: %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cItemBaseDef</name>
+    <message>
+        <source>Missing item definition &apos;%1&apos;.
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1887,6 +2661,35 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>You need to target a living being</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cLog</name>
+    <message>
+        <source>Couldn&apos;t open logfile &apos;%1&apos;
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ERROR: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WARNING: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cMaps</name>
+    <message>
+        <source>Unable to find the files for map %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[cMaps::staticsIterator line %1] map id(%2) not registered!
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1935,6 +2738,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <source> (frozen)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unable to create unscripted npc: %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cNetwork</name>
@@ -1976,91 +2784,63 @@ This is an unsorted and not neccesarily complete list of people who contributed 
 </context>
 <context>
     <name>cPageInfoGump</name>
+</context>
+<context>
+    <name>cPagesGump</name>
+</context>
+<context>
+    <name>cParty</name>
     <message>
-        <source>Page Menu</source>
+        <source>Removed &apos;%1&apos; from the party.
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Char name:</source>
+        <source>Left the party.
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Account name:</source>
+        <source>Told &apos;%1&apos; in party &apos;%2&apos;.
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Char position:</source>
+        <source>Told the whole party: &apos;%1&apos;.
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Page sent from:</source>
+        <source>Accepted party invitation from &apos;%1&apos;.
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date/time:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Go to char position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bring char</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Go to page position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send message:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;msg&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show socket info gump</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Move page on top</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Access to command &apos;go&apos; was denied</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Access to command &apos;move&apos; was denied</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message sent.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ERROR: Page has been deleted in the meantime!</source>
+        <source>Declined party invitation from &apos;%1&apos;.
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>cPagesGump</name>
+    <name>cPartyCancelInvitation</name>
     <message>
-        <source>Page Queue</source>
+        <source>Party invitation from &apos;%1&apos; timed out.
+</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>cPartyInvitation</name>
     <message>
-        <source>Page %1 of %2</source>
+        <source>Invited &apos;%1&apos; to join his party.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cPersistentBroker</name>
+    <message>
+        <source>PersistentBroker not connected to database.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2099,11 +2879,41 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>cChar::canPickUp() - bad parm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid item tag without id or list in startitem definition &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to equip invalid item (%1) in startitem definition &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unrecognized startitem tag &apos;%1&apos; in definition &apos;%2&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source> <byte value="x9"/>Lady %1<byte value="x9"/>%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source> <byte value="x9"/>Lord %1<byte value="x9"/>%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cPythonGump</name>
+    <message>
+        <source>Couldn&apos;t find code module %1 for a gump callback.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cPythonScript</name>
+    <message>
+        <source>Script %1 has non callable event: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2137,6 +2947,35 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Please target a valid vendor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cScriptManager</name>
+    <message>
+        <source>Duplicate Script: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cSectorMap</name>
+    <message>
+        <source>Invalid Sectormap boundaries (Width: %1, Height: %2).</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cSectorMaps</name>
+    <message>
+        <source>Couldn&apos;t find a map with the id %1. (cSectorMaps::findItems)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t find a map with the id %1. (cSectorMaps::findChars)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t find a map with the id %1. (cSectorMaps::findMultis)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2231,6 +3070,26 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>By using this software you agree to the license accompanying this release.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compiled on %1 %2
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compiled with SQLite %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MySQL Support: disabled
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2366,6 +3225,20 @@ The server has been shut down. You can close this window now.
         <source>You notice %1 trying to peek into your pack!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Invalid skill rank information.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skill id out of range: %u.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skill id out of range: %u</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cSpawnRegion</name>
@@ -2469,6 +3342,11 @@ The server has been shut down. You can close this window now.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unable to find valid spot for spawnregion %1.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cSpawnRegionInfoGump</name>
@@ -2486,6 +3364,30 @@ The server has been shut down. You can close this window now.
     </message>
     <message>
         <source>Items: %1 of %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status: Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status: Inactive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next Respawn: %1 seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total Points: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delay: %1 to %2 seconds</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2515,6 +3417,11 @@ The server has been shut down. You can close this window now.
         <source>Couldn&apos;t find destination region for two-way teleporter at %1.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Region %1 lacks rectangle tag, ignoring region.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cTiming</name>
@@ -2524,10 +3431,6 @@ The server has been shut down. You can close this window now.
     </message>
     <message>
         <source>You are no longer a murderer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are starving.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2667,10 +3570,6 @@ The server has been shut down. You can close this window now.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>That is a secured chest!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Your ghostly hand passes trough the object.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2708,6 +3607,41 @@ The server has been shut down. You can close this window now.
     </message>
     <message>
         <source>Unexpected button input.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Communication error: 0x%1 instead of 0x80 or 0x91
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected character &apos;%1&apos; (0x%2).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Created character &apos;%1&apos; (0x%2).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle for %1 ms. Disconnecting.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wrong lock value for extended stats packet: %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wrong stat value for extended stats packet: %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looking into corpse of player &apos;%1&apos; (&apos;%2&apos;, 0x%3)
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2750,6 +3684,147 @@ The server has been shut down. You can close this window now.
     </message>
     <message>
         <source>Worldsave Completed In %1ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading %1 objects from %2.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid worldfile, unknown and unskippable type %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to open the world database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to load world database. Version mismatch: %1 != %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item with invalid position %1,%2,%3,%4.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item with invalid container [0x%1].
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The world loaded in %1 ms.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saving World...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown Worldsave Database Driver &apos;%1&apos;, check your wolfpack.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t open the database: %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> [%1ms]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Failed
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saving failed: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t register a NULL object in the world.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to register a null object in the World.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to register an item with the Serial 0x%1 which is already in use.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to register an object with an item serial (0x%1) which is no item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to register a character with the Serial 0x%1 which is already in use.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to register an object with a character serial (0x%1) which is no character.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to register an object with an invalid Serial (0x%1) in the World.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to unregister a null object from the world.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to unregister a non-existing item with the serial 0x%1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to unregister a non-existing character with the serial 0x%1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to unregister an object with an invalid serial (0x%1).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to delete a null object from the worldsave.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to remove backup %1. No new backup has been created.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cXmlHandler</name>
+    <message>
+        <source>Unable to open %1!
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate %1: %2
+[File: %3, Line: %4]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown element: %1
+[File: %2, Line: %3]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1
+[File: %2, Line: %3, Column: %4</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -2161,7 +2161,7 @@ void cUOSocket::attachTarget( cTargetRequest* request )
 	send( &target );
 }
 
-void cUOSocket::attachTarget( cTargetRequest* request, Q_UINT16 multiid )
+void cUOSocket::attachTarget( cTargetRequest* request, Q_UINT16 multiid, unsigned short xoffset, unsigned short yoffset, unsigned short zoffset )
 {
 	if ( multiid < 0x4000 )
 		return;
@@ -2175,6 +2175,9 @@ void cUOSocket::attachTarget( cTargetRequest* request, Q_UINT16 multiid )
 	targetRequest = request;
 
 	cUOTxPlace target;
+	target.setXOffset(xoffset);
+	target.setYOffset(yoffset);
+	target.setZOffset(zoffset);
 	target.setTargSerial( 1 );
 	target.setModelID( multiid - 0x4000 );
 	send( &target );

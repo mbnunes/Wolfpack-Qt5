@@ -1,6 +1,8 @@
 Wolfpack ChangeLog
 
-Wolfpack 12.9.12 Beta (CVS)
+Wolfpack 12.9.13 Beta (CVS)
+
+Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error
 	- Fixed a npc title loading problem (UTF-8)
 	- Added an onResurrection event.
