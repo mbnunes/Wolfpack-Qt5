@@ -53,8 +53,9 @@
 static bool Item_ToolWearOut(P_ITEM pi)
 {
 	if((rand()%4)==0)
-		pi->hp--; //Take off a hit point
-	if(pi->hp<=0)
+		pi->setHp( pi->hp() - 1 ); //Take off a hit point
+
+	if( pi->hp() <= 0 )
 	{	 
 		Items->DeleItem(pi);
 		return true;

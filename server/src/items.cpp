@@ -99,8 +99,8 @@ cItem::cItem( cItem &src )
 	this->hidamage_=src.hidamage_;
 	this->racehate_ = src.racehate_;
 	this->smelt=src.smelt;
-	this->hp = src.hp;
-	this->maxhp=src.maxhp;
+	this->hp_ = src.hp_;
+	this->maxhp_=src.maxhp_;
 	this->st=src.st;
 	this->st2=src.st2;
 	this->dx=src.dx;
@@ -465,8 +465,8 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("st",			st);
 		archive.read("time_unused",	time_unused);
 		archive.read("weight",		weight_);
-		archive.read("hp",			hp);
-		archive.read("maxhp",		maxhp);
+		archive.read("hp",			hp_);
+		archive.read("maxhp",		maxhp_);
 		archive.read("rank",		rank);
 		archive.read("st2",			st2);
 		archive.read("dx",			dx);
@@ -533,8 +533,8 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("st",			st);
 		archive.write("time_unused",time_unused);
 		archive.write("weight",		weight_);
-		archive.write("hp",			hp);
-		archive.write("maxhp",		maxhp);
+		archive.write("hp",			hp_);
+		archive.write("maxhp",		maxhp_);
 		archive.write("rank",		rank);
 		archive.write("st2",		st2);
 		archive.write("dx",			dx);
@@ -716,8 +716,8 @@ void cItem::Init(bool mkser)
 	this->hidamage_=0; //Maximum damage weapon inflicts
 	this->racehate_=-1; //race hating weapon -Fraz-
 	this->smelt=0; // for smelting items
-	this->hp=0; //Number of hit points an item has.
-	this->maxhp=0; // Max number of hit points an item can have.
+	this->hp_=0; //Number of hit points an item has.
+	this->maxhp_=0; // Max number of hit points an item can have.
 	this->st=0; // The strength needed to equip the item
 	this->st2=0; // The strength the item gives
 	this->dx=0; // The dexterity needed to equip the item
@@ -917,7 +917,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					if (!(strcmp("HIDAMAGE", (char*)script1)))
 						pi->setHidamage( str2num( script2 ) );
 					else if (!(strcmp("HP", (char*)script1)))
-						pi->hp = str2num(script2);
+						pi->setHp( str2num(script2) );
 					break;
 					
 				case 'I':
@@ -975,7 +975,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					else if (!strcmp("MOVABLE", (char*)script1))
 						pi->magic = str2num(script2);
 					else if (!strcmp("MAXHP", (char*)script1))
-						pi->maxhp = str2num(script2); // by Magius(CHE)
+						pi->setMaxhp( str2num(script2) ); // by Magius(CHE)
 					else if (!strcmp("MOREX", (char*)script1))
 						pi->morex = str2num(script2);
 					else if (!strcmp("MOREY", (char*)script1))
@@ -1084,8 +1084,8 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 		if( tile.flag2&0x08 )
 			pi->setPileable( true );
 		
-		if (!pi->maxhp && pi->hp)
-			pi->maxhp = pi->hp; // Magius(CHE)
+		if( !pi->maxhp() && pi->hp() )
+			pi->setMaxhp( pi->hp() ); // Magius(CHE)
 	}
 	
 	return pi;	
@@ -1438,7 +1438,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				case 'H':
 				case 'h':
 					if (!(strcmp("GOOD",(char*)script1))) pi->good=str2num(script2); // Added by Magius(CHE)
-					else if (!(strcmp("HP", (char*)script1))) pi->hp=str2num(script2);
+					else if (!(strcmp("HP", (char*)script1))) pi->setHp( str2num(script2) );
 					else if (!(strcmp("HIDAMAGE", (char*)script1))) pi->setHidamage( str2num( script2 ) );
 				break;
 				
@@ -1455,7 +1455,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 
 				case 'M':
 				case 'm':
-					if (!(strcmp("MAXHP", (char*)script1))) pi->maxhp=str2num(script2); // by Magius(CHE)
+					if (!(strcmp("MAXHP", (char*)script1))) pi->setMaxhp( str2num(script2) ); // by Magius(CHE)
 					else if (!(strcmp("MOVABLE",(char*)script1))) pi->magic=str2num(script2);
 					else if (!(strcmp("MORE", (char*)script1)))
 					{
@@ -1564,13 +1564,16 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Ad
 
 	if(nDigging) 
 	{
-		if (pi->value!=0) pi->value=1+(rand()%(pi->value)); 
-		if (pi->hp!=0) pi->hp=1+(rand()%(pi->hp));
-		// blackwinds fix 
-		if (pi->maxhp != 0)
+		if( pi->value != 0 ) 
+			pi->value = 1 + ( rand() % ( pi->value ) ); 
+		
+		if(pi->hp()!=0) 
+			pi->setHp( 1 + ( rand() % pi->hp() ) );
+		
+		if(pi->maxhp() != 0)
 		{
-			pi->maxhp=1+(rand()%pi->maxhp); 
-			pi->hp=1+(rand()%pi->maxhp);
+			pi->setMaxhp( 1 + ( rand() % pi->maxhp() ) ); 
+			pi->setHp( 1 + ( rand() % pi->maxhp() ) );
 		}
 	}
 
@@ -2017,8 +2020,8 @@ void cAllItems::applyItemSection( P_ITEM Item, QDomElement *Section )
 		// <durability>10</durabilty>
 		else if( TagName == "durability" )
 		{
-			Item->maxhp = Value.toLong();
-			Item->hp = Item->maxhp;
+			Item->setMaxhp( Value.toLong() );
+			Item->setHp( Item->maxhp() );
 		}
 
 		// <speed>10</speed>

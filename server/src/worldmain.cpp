@@ -856,7 +856,9 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 			pi->setWeight( pi->getWeight() );
 		}
 
-		if (pi->maxhp==0) pi->maxhp=pi->hp;
+		if( pi->maxhp() == 0) 
+			pi->setMaxhp( pi->hp() );
+
 		// Tauriel adding region pointers
 		if (pi->isInWorld())
 		{

@@ -95,11 +95,11 @@ void applyRank( UOXSOCKET Socket, P_ITEM Item, UI08 Rank )
 	if( Item->def > 0 ) 
 		Item->def = ( Rank * Item->def ) / 7;
 
-	if( Item->hp > 0 ) 
-		Item->hp = ( Rank * Item->hp ) / 7;
+	if( Item->hp() > 0 ) 
+		Item->setHp( ( Rank * Item->hp() ) / 7 );
 
-	if( Item->maxhp > 0 ) 
-		Item->maxhp = ( Rank * Item->maxhp ) / 7;
+	if( Item->maxhp() > 0 ) 
+		Item->setMaxhp( ( Rank * Item->maxhp() ) / 7 );
 
 	switch( Rank )
 	{

@@ -424,12 +424,14 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 		else if( TagName == "backpack" )
 			if( Char->packitem == INVALID_SERIAL )
 			{
-				P_ITEM pBackpack = Items->SpawnItem(-1,Char,1,"Backpack",0,0x0E,0x75,0,0,0);
+				P_ITEM pBackpack = Items->SpawnItem( -1, Char, 1, "Backpack", 0, 0x0E,0x75,0,0,0);
+
 				if( pBackpack == NULL )
 				{
 					Npcs->DeleteChar( Char );
 					return;
 				}
+
 				Char->packitem = pBackpack->serial;
 				pBackpack->pos.x = 0;
 				pBackpack->pos.y = 0;

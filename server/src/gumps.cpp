@@ -330,8 +330,8 @@ void cGump::Input(int s)
 		case 19:	k = str2num( text );	pj->def = k;		break;	// Def
 		case 20:	k = str2num( text );	pj->magic = k;		break;	// Magic
 		case 21:	k = str2num( text );	pj->visible = k;	break;	// Visible
-		case 22:	k = str2num( text );	pj->hp = k;			break;	// Current Hitpoints
-		case 23:	k = str2num( text );	pj->maxhp = k;		break;	// MAX Hitpoints
+		case 22:	k = str2num( text );	pj->setHp(k);		break;	// Current Hitpoints
+		case 23:	k = str2num( text );	pj->setMaxhp(k);	break;	// MAX Hitpoints
 		case 24:	k = str2num( text );	pj->setSpeed( k );	break;	// Speed (for Combat)
 		case 25:	k = str2num( text );	pj->rank = k;		break;	// Rank
 		case 26:	k = str2num( text );	pj->value = k;		break;	// Value

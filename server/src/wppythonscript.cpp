@@ -793,14 +793,14 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "defense", Item->def )
 	else getIntProperty( "lodamage", Item->lodamage() )
 	else getIntProperty( "hidamage", Item->hidamage() )
-	else getIntProperty( "health", Item->hp )
-	else getIntProperty( "maxhealth", Item->maxhp )
-	else getIntProperty( "strength", Item->st )
-	else getIntProperty( "dexterity", Item->dx )
-	else getIntProperty( "intelligence", Item->in )
-	else getIntProperty( "strength2", Item->st2 )
-	else getIntProperty( "dexterity2", Item->dx2 )
-	else getIntProperty( "intelligence2", Item->in2 )
+	else getIntProperty( "hp", Item->hp() )
+	else getIntProperty( "maxhp", Item->maxhp() )
+	else getIntProperty( "str", Item->st )
+	else getIntProperty( "dex", Item->dx )
+	else getIntProperty( "int", Item->in )
+	else getIntProperty( "str2", Item->st2 )
+	else getIntProperty( "dex2", Item->dx2 )
+	else getIntProperty( "int2", Item->in2 )
 	else getIntProperty( "speed", Item->speed() )
 	else getIntProperty( "smelt", Item->smelt )
 	else getIntProperty( "secured", Item->secured() ? 1 : 0 )
@@ -869,6 +869,12 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else if( !strcmp( name, "type" ) )
 		self->Item->setType( PyInt_AS_LONG( value ) );
 
+	else if( !strcmp( name, "hp" ) )
+		self->Item->setHp( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "maxhp" ) )
+		self->Item->setMaxhp( PyInt_AS_LONG( value ) );
+
 	else if( !strcmp( name, "type2" ) )
 		self->Item->setType2( PyInt_AS_LONG( value ) );
 
@@ -901,14 +907,12 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else setIntProperty( "dye", Item->dye )
 	else setIntProperty( "corpse", Item->corpse )
 	else setIntProperty( "defense", Item->def )
-	else setIntProperty( "health", Item->hp )
-	else setIntProperty( "maxhealth", Item->maxhp )
-	else setIntProperty( "strength", Item->st )
-	else setIntProperty( "dexterity", Item->dx )
-	else setIntProperty( "intelligence", Item->in )
-	else setIntProperty( "strength2", Item->st2 )
-	else setIntProperty( "dexterity2", Item->dx2 )
-	else setIntProperty( "intelligence2", Item->in2 )
+	else setIntProperty( "str", Item->st )
+	else setIntProperty( "dex", Item->dx )
+	else setIntProperty( "int", Item->in )
+	else setIntProperty( "str2", Item->st2 )
+	else setIntProperty( "dex2", Item->dx2 )
+	else setIntProperty( "int2", Item->in2 )
 
 	else if( !strcmp( name, "speed" ) )
 		self->Item->setSpeed( PyInt_AS_LONG( value ) );
@@ -1059,9 +1063,9 @@ PyObject *Py_WPCharGetAttr( Py_WPChar *self, char *name )
 	else getIntProperty( "stamina", Char->stm )
 	else getIntProperty( "mana", Char->mn )
 
-	else getIntProperty( "strength", Char->st )
-	else getIntProperty( "dexterity", Char->effDex() )
-	else getIntProperty( "intelligence", Char->in )
+	else getIntProperty( "str", Char->st )
+	else getIntProperty( "dex", Char->effDex() )
+	else getIntProperty( "int", Char->in )
 
 	else getIntProperty( "x", Char->pos.x )
 	else getIntProperty( "y", Char->pos.y )
@@ -1106,12 +1110,12 @@ int Py_WPCharSetAttr( Py_WPChar *self, char *name, PyObject *value )
 	else setIntProperty( "stamina", Char->stm )
 	else setIntProperty( "mana", Char->mn )
 
-	else setIntProperty( "strength", Char->st )
+	else setIntProperty( "str", Char->st )
 	
-	else if( !strcmp( "dexterity", name ) )
+	else if( !strcmp( "dex", name ) )
 		self->Char->setDex( PyInt_AS_LONG( value ) );
 	
-	else setIntProperty( "intelligence", Char->in )
+	else setIntProperty( "int", Char->in )
 
 	else setIntProperty( "x", Char->pos.x )
 	else setIntProperty( "y", Char->pos.y )

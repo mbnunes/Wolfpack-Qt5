@@ -61,6 +61,8 @@ private:
 	SI16 speed_;
 	SI16 racehate_; 
 	SI16 weight_;
+	SI16 hp_; //Number of hit points an item has.
+	SI16 maxhp_; // Max number of hit points an item can have.
 
 public:
 	// Getters
@@ -84,6 +86,8 @@ public:
 	bool			pileable()	const { return priv&0x20; }; // Can Item be piled
 	SI16			racehate()	const { return racehate_; }; // Race ID this weapon does double damage to
 	SI16			weight()	const { return weight_; };
+	SI16			hp()		const { return hp_; }; // Number of hitpoints an item has
+	SI16			maxhp()		const { return maxhp_; }; // Maximum number of hitpoints an item has
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -107,6 +111,8 @@ public:
 	void	setPileable( bool nValue ) { ( nValue ) ? priv &= 0x20 : priv |= 0xDF; };
 	void	setRacehate( SI16 nValue ) { racehate_ = nValue; };
 	void	setWeight( SI16 nValue ) { weight_ = nValue; };
+	void	setHp( SI16 nValue ) { hp_ = nValue; };
+	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -137,8 +143,6 @@ public:
 	unsigned char corpse; // Is item a corpse
 	unsigned int att; // Item attack
 	unsigned int def; // Item defense
-	signed short hp; //Number of hit points an item has.
-	signed short maxhp; // Max number of hit points an item can have.
 	signed short st; // The strength needed to equip the item
 	signed short st2; // The strength the item gives
 	signed short dx; // The dexterity needed to equip the item

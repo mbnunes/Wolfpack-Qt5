@@ -166,8 +166,8 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 	if (pWeapon && !(rand()%50)	// a 2 percent chance (Duke, 07.11.2000)
 		&& pWeapon->type() !=9)	// but not for spellbooks (Duke, 09/10/00)
 	{
-		pWeapon->hp--; //Take off a hit point
-		if(pWeapon->hp<=0)
+		pWeapon->setHp( pWeapon->hp() - 1 ); //Take off a hit point
+		if( pWeapon->hp() <= 0 )
 		{
 			sysmessage(s1, tr("Your weapon has been destroyed"));
 			if ( ( pWeapon->trigon == 1 ) && ( pWeapon->layer() > 0 ) )// -Frazurbluu- Trigger Type 2 is my new trigger type *-
@@ -179,9 +179,6 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 	}
 
 	// End here - Magius(CHE) - For armour absorbtion system
-
-
-
 	pc_attacker->setSwingTarg(-1);
 
 	if((chardist(pc_attacker, pc_deffender)>1 && fightskill!=ARCHERY) || !los) return;
@@ -284,8 +281,10 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 				if (Skills->CheckSkill(pc_deffender, PARRYING, 0, 1000))// chance to block with shield
 				{
 					if (pShield->def!=0) damage-=rand()%(pShield->def);// damage absorbed by shield
-					if(rand()%2) pShield->hp--; //Take off a hit point
-					if(pShield->hp<=0)
+					if( rand() % 2 ) 
+						pShield->setHp( pShield->hp() - 1 ); //Take off a hit point
+
+					if( pShield->hp() <= 0 )
 					{
 						sysmessage(s2, tr("Your shield has been destroyed"));
 						if ( ( pShield->trigon == 1 ) && ( pShield->layer() > 0 ) )// -Frazurbluu- Trigger Type 2 is my new trigger type *-
@@ -986,7 +985,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 				int armordef=0; 
 				if (pi->def>0) 
 				{ 
-					float armorhpperc=((float)pi->hp/((float)pi->maxhp/100)); 
+					float armorhpperc = ( (float)pi->hp()/((float)pi->maxhp()/100)); 
 					armordef=(int)(((float)pi->def/100)*armorhpperc); 
 				} 
 
@@ -1063,8 +1062,8 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 		if(pj->layer()!=0x0B && pj->layer()!=0x10 && pj->layer()!=0x15) // bugfix lB,was 0x15, 0x15,0x15 !! 
 		{ 
 			if((rand()%2)==0) 
-				pj->hp--; //Take off a hit point 
-			if(pj->hp<=0) 
+				pj->setHp( pj->hp() - 1 ); //Take off a hit point 
+			if(pj->hp()<=0) 
 			{ 
 				sysmessage(k, tr("Your %1 has been destroyed").arg(pj->getName()));
 				pc->removeItemBonus(pj);	// remove BONUS STATS given by equipped special items

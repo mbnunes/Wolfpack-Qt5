@@ -1773,7 +1773,7 @@ void cSkills::ArmsLoreTarget(int s)
 			sysmessage(s, tr("Sorry this is a old item and it doesn't have maximum hp") );
 		else
 		{
-			totalhp= (float) pi->hp/pi->maxhp;
+			totalhp = (float)pi->hp() / pi->maxhp();
 			strcpy((char*)temp, tr("This item ") );
 			if      (totalhp>0.9) strcpy((char*)p2, tr("is brand new.") ); 
 			else if (totalhp>0.8) strcpy((char*)p2, tr("is almost new.") );
@@ -2821,7 +2821,7 @@ void cSkills::RepairTarget(UOXSOCKET s)
 	{
 		if (!CheckInPack(s,pi)) 
 			return;
-		if (!pi->hp)
+		if( !pi->hp() )
 		{
 			sysmessage(s, tr(" That item cant be repaired.") );
 			return;
@@ -2831,7 +2831,7 @@ void cSkills::RepairTarget(UOXSOCKET s)
 			sysmessage(s,tr(" Must be closer to the anvil.") );;
 			return;
 		}
-		if (pi->hp>=pi->maxhp)
+		if( pi->hp() >= pi->maxhp() )
 		{
 			sysmessage(s,tr(" That item is at full strength.") );
 			return;
@@ -2841,16 +2841,16 @@ void cSkills::RepairTarget(UOXSOCKET s)
 		else if ((smithing>=700)) dmg=2;
 		else if ((smithing>=500)) dmg=3;
 
-		if (Skills->CheckSkill((pc),BLACKSMITHING, 0, 1000))
+		if(Skills->CheckSkill((pc),BLACKSMITHING, 0, 1000))
 		{
-			pi->maxhp-=dmg;
-			pi->hp=pi->maxhp;
+			pi->setMaxhp( pi->maxhp() - dmg );
+			pi->setHp( pi->maxhp() );
 			sysmessage(s, tr(" * the item has been repaired.*") );
 		}
 		else
 		{
-			pi->hp-=2;
-			pi->maxhp-=1;
+			pi->setHp( pi->hp() - 2 );
+			pi->setMaxhp( pi->maxhp() - 1 );
 			sysmessage(s, tr(" * You fail to repair the item. *") );;
 			sysmessage(s, tr(" * You weaken the item.*") );;
 		}

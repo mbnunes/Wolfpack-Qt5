@@ -1928,7 +1928,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->setContSerial(pc->serial);
 	pi->setType( 0 );
 	pi->dye=1;
-	pi->hp=10;
+	pi->setHp( 10 );
 	pi->priv |= 0x02; // Mark as a newbie item
 	}
 
@@ -1948,7 +1948,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->setContSerial(pc->serial);
 	pi->setLayer( 0x05 );
 	pi->dye=1;
-	pi->hp=10;
+	pi->setHp( 10 );
 	pi->def=1;
 	pi->priv |= 0x02; // Mark as a newbie item
 	}
@@ -1959,7 +1959,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->setContSerial(pc->serial);
 	pi->setLayer( 0x03 );
 	pi->dye=1;
-	pi->hp=10;
+	pi->setHp( 10 );
 	pi->def=1;
 	pi->priv |= 0x02; // Mark as a newbie item
 	}
@@ -1970,7 +1970,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->setContSerial(pc->serial);
 	pi->setLayer( 0x01 );
 	//pi->att=5;
-	pi->hp=10;
+	pi->setHp( 10 );
 	pi->setSpeed( 50 );
 	pi->setLodamage( 3 );
 	pi->setHidamage( 15 );
@@ -2405,7 +2405,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		pi->moreb2 = pc_mount->st;
 		pi->moreb3 = pc_mount->realDex();
 		pi->moreb4 = pc_mount->in;
-		pi->hp = pc_mount->hp;
+		pi->setHp( pc_mount->hp );
 		pi->setLodamage( pc_mount->fame );
 		pi->setHidamage( pc_mount->karma );
 		pi->poisoned = pc_mount->poisoned();

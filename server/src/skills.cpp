@@ -147,8 +147,8 @@ void cSkills::ApplyRank( int s, P_ITEM pi, int rank )
 		if (pi->hidamage()>0) pi->setHidamage((rank*pi->hidamage())/10);
 		if (pi->att>0) pi->att=(rank*pi->att)/10;
 		if (pi->def>0) pi->def=(rank*pi->def)/10;
-		if (pi->hp>0) pi->hp=(rank*pi->hp)/10;
-		if (pi->maxhp>0) pi->maxhp=(rank*pi->maxhp)/10;
+		if (pi->hp()>0) pi->setHp( (rank*pi->hp())/10 );
+		if (pi->maxhp()>0) pi->setHp( (rank*pi->maxhp())/10 );
 		switch(rank)
 		{
 			case 1: sysmessage(s,"You made an item with no quality!"); break;
@@ -428,8 +428,8 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 					else if (strlen(p3) < spaceleft) strcpy(p4, p3);
 					pi->setName( pi->name() + p4 );	// append name extension
 
-					pi->hp += pi->hp / modifier;
-					pi->maxhp = pi->hp;
+					pi->setHp( pi->hp() + ( pi->hp() / modifier ) );
+					pi->setMaxhp( pi->maxhp() + ( pi->maxhp() / modifier ) );
 					pi->def += pi->def / modifier;
 					pi->att += pi->att / modifier;
 					pi->setLodamage( pi->lodamage() + ( pi->lodamage() / modifier ) );
@@ -2049,25 +2049,25 @@ void TellScroll( char *menu_name, int s, long snum )
 			return;
 		}
 		
-		if (part < 3)		// failure !
+		if( part < 3 )		// failure !
 		{
 			switch(part)
 			{
 			case 0:
 				sysmessage(s,"Your hand jerks and you punch a hole in the item");
-				pi->hp -= 3;
+				pi->setHp( pi->hp() - 3 );
 				break;
 			case 1:
 				sysmessage(s,"Your hand slips and you dent the item");
-				pi->hp -= 2;
+				pi->setHp( pi->hp() - 2 );
 				break;
 			case 2:
 				sysmessage(s,"Your hand cramps and you scratch the item");
-				pi->hp--;
+				pi->setHp( pi->hp() - 1 );
 				break;
 			}
-			if(pi->hp<1)
-				pi->hp=1;
+			if( pi->hp() < 1 )
+				pi->setHp( 1 );
 		}
 		else				// success !
 		{

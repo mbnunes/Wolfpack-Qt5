@@ -433,31 +433,33 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							p = 100;
 						if (pi != NULL)
 						{
-							c = pi->hp;
-							if (pi->maxhp>0)
+							c = pi->hp();
+							if (pi->maxhp()>0)
 							{
 								if ((rand()%(100)) + 1 <= p)
 								{
-									if ((c >= pi->maxhp) &&(j>0))
+									if ((c >= pi->maxhp()) &&(j>0))
 									{
 										sprintf(tempstr, "Your %s is already totally repaired!", tempname);
 										sysmessage(ts, tempstr);
 									}
-									pi->hp += j;
-									if (pi->hp >= pi->maxhp)
-										pi->hp = pi->maxhp;
-									if (pi->hp - c>0)
+									pi->setHp( pi->hp() + j );
+
+									if (pi->hp() >= pi->maxhp())
+										pi->setHp( pi->maxhp() );
+
+									if( pi->hp() - c > 0 )
 									{
 										if (strlen(cmsg))
 											sysmessage(ts, cmsg);
 										else 
 										{
-											total = (float) pi->hp/pi->maxhp; // Magius(CHE) §
+											total = (float) pi->hp()/pi->maxhp(); // Magius(CHE) §
 											sprintf(tempstr, "Your %s is now repaired! [%.1f%%]", tempname, total*100);  // Magius(CHE) §
 											sysmessage(ts, tempstr);
 										}
 									}
-									else if (pi->hp - c < 0)
+									else if (pi->hp() - c < 0)
 									{
 										if (strlen(fmsg))
 											sysmessage(ts, fmsg);
@@ -467,7 +469,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 											sysmessage(ts, tempstr);
 										}
 									}
-									if (pi->hp <= 0)
+									if (pi->hp() <= 0)
 									{
 										sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname);
 										sysmessage(ts, tempstr);
@@ -509,31 +511,33 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							p = 100;
 						if (pi_evti != NULL)
 						{
-							c = pi_evti->hp;
-							if (pi_evti->maxhp>0)
+							c = pi_evti->hp();
+							if( pi_evti->maxhp() > 0 )
 							{
 								if ((rand()%(100)) + 1 <= p)
 								{
-									if ((c >= pi_evti->maxhp) &&(j>0))
+									if ((c >= pi_evti->maxhp()) &&(j>0))
 									{
 										sprintf(tempstr, "Your %s is already totally repaired!", tempname2);
 										sysmessage(ts, tempstr);
 									}
-									pi_evti->hp += j;
-									if (pi_evti->hp >= pi_evti->maxhp)
-										pi_evti->hp = pi_evti->maxhp;
-									if (pi_evti->hp - c>0)
+									pi_evti->setHp( pi_evti->hp() + j );
+									
+									if (pi_evti->hp() >= pi_evti->maxhp())
+										pi_evti->setHp( pi_evti->maxhp() );
+
+									if( pi_evti->hp() - c > 0 )
 									{
 										if (strlen(cmsg))
 											sysmessage(ts, cmsg);
 										else 
 										{
-											total = (float) pi_evti->hp/pi_evti->maxhp;
+											total = (float)pi_evti->hp() / pi_evti->maxhp();
 											sprintf(tempstr, "Your %s is now repaired! [%.1f%%]", tempname2, total*100);
 											sysmessage(ts, tempstr);
 										}
 									}
-									else if (pi_evti->hp - c < 0)
+									else if (pi_evti->hp() - c < 0)
 									{
 										if (strlen(fmsg))
 											sysmessage(ts, fmsg);
@@ -543,7 +547,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 											sysmessage(ts, tempstr);
 										}
 									}
-									if (pi_evti->hp <= 0)
+									if (pi_evti->hp() <= 0)
 									{
 										sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname2);
 										sysmessage(ts, tempstr);
@@ -572,13 +576,13 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							p = 100;
 						if (pi_evti != NULL)
 						{
-							if (pi_evti->maxhp>0)
+							if (pi_evti->maxhp()>0)
 							{
 								if ((rand()%(100)) + 1 <= p)
 								{
-									pi_evti->maxhp += j; // Magius(CHE) §
-									if (pi_evti->hp >= pi_evti->maxhp)
-										pi_evti->hp = pi_evti->maxhp;
+									pi_evti->setMaxhp( pi_evti->maxhp() + j ); // Magius(CHE) §
+									if (pi_evti->hp() >= pi_evti->maxhp() )
+										pi_evti->setHp( pi_evti->maxhp() );
 									if (str2num(script2) >= 0)
 									{
 										if (strlen(cmsg))
@@ -599,7 +603,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 											sysmessage(ts, tempstr);
 										}
 									}
-									if (pi_evti->maxhp <= 0)
+									if (pi_evti->maxhp() <= 0)
 									{
 										sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname2);
 										sysmessage(ts, tempstr);
@@ -1038,13 +1042,13 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								p = 100;
 							if (pi!=NULL)
 							{
-								if (pi->maxhp>0)
+								if (pi->maxhp()>0)
 								{
 									if ((rand()%(100)) + 1 <= p)
 									{
-										pi->maxhp += j;
-										if (pi->hp >= pi->maxhp)
-											pi->hp = pi->maxhp;
+										pi->setMaxhp( pi->maxhp() + j );
+										if (pi->hp() >= pi->maxhp())
+											pi->setHp( pi->maxhp() );
 										if (str2num(script2) >= 0)
 										{
 											if (strlen(cmsg))
@@ -1065,7 +1069,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 												sysmessage(ts, tempstr);
 											}
 										}
-										if (pi->maxhp <= 0)
+										if (pi->maxhp() <= 0)
 										{
 											sprintf(tempstr, "Your %s was too old and it has been destoryed!", tempname);
 											sysmessage(ts, tempstr);
@@ -1334,31 +1338,32 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								p = 100;
 							if (pi_needitem != NULL)
 							{
-								c = pi_needitem->hp;
-								if (pi_needitem->maxhp>0)
+								c = pi_needitem->hp();
+								if (pi_needitem->maxhp()>0)
 								{
 									if ((rand()%(100)) + 1 <= p)
 									{
-										if ((c >= pi_needitem->maxhp) &&(j>0))
+										if ((c >= pi_needitem->maxhp()) &&(j>0))
 										{
 											sprintf(tempstr, "Your %s is already totally repaired!", tempname3);
 											sysmessage(ts, tempstr);
 										}
-										pi_needitem->hp += j;
-										if (pi_needitem->hp >= pi_needitem->maxhp)
-											pi_needitem->hp = pi_needitem->maxhp;
-										if (pi_needitem->hp - c>0)
+										pi_needitem->setHp( pi_needitem->hp() + j );
+										if( pi_needitem->hp() >= pi_needitem->maxhp() )
+											pi_needitem->setHp( pi_needitem->maxhp() );
+
+										if (pi_needitem->hp() - c>0)
 										{
 											if (strlen(cmsg))
 												sysmessage(ts, cmsg);
 											else 
 											{
-												total = (float) pi_needitem->hp/pi_needitem->maxhp; // Magius(CHE) §
+												total = (float) pi_needitem->hp()/pi_needitem->maxhp(); // Magius(CHE) §
 												sprintf(tempstr, "Your %s is now repaired! [%.1f%%]", tempname3, total*100);  // Magius(CHE) §
 												sysmessage(ts, tempstr);
 											}
 										}
-										else if (pi_needitem->hp - c < 0)
+										else if (pi_needitem->hp() - c < 0)
 										{
 											if (strlen(fmsg))
 												sysmessage(ts, fmsg);
@@ -1368,7 +1373,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 												sysmessage(ts, tempstr);
 											}
 										}
-										if (pi_needitem->hp <= 0)
+										if (pi_needitem->hp() <= 0)
 										{
 											sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname3);
 											sysmessage(ts, tempstr);
@@ -1396,13 +1401,13 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								p = 100;
 							if (pi_needitem != NULL)
 							{
-								if (pi_needitem->maxhp>0)
+								if (pi_needitem->maxhp()>0)
 								{
 									if ((rand()%(100)) + 1 <= p)
 									{
-										pi_needitem->maxhp += j;
-										if (pi_needitem->hp >= pi_needitem->maxhp)
-											pi_needitem->hp = pi_needitem->maxhp;
+										pi_needitem->setMaxhp( pi_needitem->maxhp() + j );
+										if (pi_needitem->hp() >= pi_needitem->maxhp())
+											pi_needitem->setHp( pi_needitem->maxhp() );
 										if (str2num(script2) >= 0)
 										{
 											if (strlen(cmsg))
@@ -1423,7 +1428,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 												sysmessage(ts, tempstr);
 											}
 										}
-										if (pi_needitem->maxhp <= 0)
+										if (pi_needitem->maxhp() <= 0)
 										{
 											sprintf(tempstr, "Your %s was too old and it has been destoryed!", tempname3);
 											sysmessage(ts, tempstr);
@@ -2193,29 +2198,29 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							p = 100;
 						if (pi_evti != NULL)
 						{
-							c = pi_evti->hp;
-							if (pi_evti->maxhp>0)
+							c = pi_evti->hp();
+							if (pi_evti->maxhp()>0)
 							{
 								if ((rand()%(100)) + 1 <= p)
 								{
-									if ((c >= pi_evti->maxhp) &&(j>0))
+									if ((c >= pi_evti->maxhp()) &&(j>0))
 									{
 										sysmessage(ts, "Your %s is already totally repaired!", tempname2);
 									}
-									pi_evti->hp += j;
-									if (pi_evti->hp >= pi_evti->maxhp)
-										pi_evti->hp = pi_evti->maxhp;
-									if (pi_evti->hp - c>0)
+									pi_evti->setHp( pi_evti->hp() + j );
+									if (pi_evti->hp() >= pi_evti->maxhp())
+										pi_evti->setHp( pi_evti->maxhp() );
+									if (pi_evti->hp() - c>0)
 									{
 										if (strlen(cmsg))
 											sysmessage(ts, cmsg);
 										else 
 										{
-											total = (float) pi_evti->hp/pi_evti->maxhp;
+											total = (float) pi_evti->hp() / pi_evti->maxhp();
 											sysmessage(ts, "Your %s is now repaired! [%.1f%%]", tempname2, total*100);
 										}
 									}
-									else if (pi_evti->hp - c < 0)
+									else if (pi_evti->hp() - c < 0)
 									{
 										if (strlen(fmsg))
 											sysmessage(ts, fmsg);
@@ -2224,7 +2229,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 											sysmessage(ts, "Your %s appears to be more ruined than before!", tempname2);
 										}
 									}
-									if (pi_evti->hp <= 0)
+									if (pi_evti->hp() <= 0)
 									{
 										sysmessage(ts, "Your %s was too old and it has been destroyed!", tempname2);
 										if (pi_evti->amount()>1)
@@ -2273,13 +2278,13 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							p = 100;
 						if (pi_evti != NULL)
 						{
-							if (pi_evti->maxhp>0)
+							if (pi_evti->maxhp()>0)
 							{
 								if ((rand()%(100)) + 1 <= p)
 								{
-									pi_evti->maxhp += j; // Magius(CHE) §
-									if (pi_evti->hp >= pi_evti->maxhp)
-										pi_evti->hp = pi_evti->maxhp;
+									pi_evti->setMaxhp( pi_evti->maxhp() + j ); // Magius(CHE) §
+									if( pi_evti->hp() >= pi_evti->maxhp() )
+										pi_evti->setHp( pi_evti->maxhp() );
 									if (str2num(script2) >= 0)
 									{
 										if (strlen(cmsg))
@@ -2298,7 +2303,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 											sysmessage(ts, "Your %s appears to be not resistant as before!", tempname2);
 										}
 									}
-									if (pi_evti->maxhp <= 0)
+									if (pi_evti->maxhp() <= 0)
 									{
 										sysmessage(ts, "Your %s was too old and it has been destroyed!", tempname2);
 										if (pi_evti->amount()>1)
