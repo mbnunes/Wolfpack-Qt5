@@ -30,7 +30,12 @@
 //========================================================================================
 
 // Platform include
+#if !defined(__unix__)
 #include <limits>
+#else
+#include <limits.h>
+#endif
+
 #include "platform.h"
 
 // Wolfpack includes

@@ -573,7 +573,7 @@ PyObject* wpChar_settag( wpChar* self, PyObject* args )
 	if( checkArgStr( 1 ) )
 		self->pChar->tags.set( key, cVariant( getArgStr( 1 ) ) );
 	else if( checkArgInt( 1 ) )
-		self->pChar->tags.set( key, cVariant( getArgInt( 1 ) ) );
+		self->pChar->tags.set( key, cVariant( (int)getArgInt( 1 ) ) );
 
 	return PyTrue;
 }

@@ -371,7 +371,7 @@ PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	if( checkArgStr( 1 ) )
 		self->pItem->tags.set( key, cVariant( QString( PyString_AsString( PyTuple_GetItem( args, 1 ) ) ) ) );
 	else if( checkArgInt( 1 ) )
-		self->pItem->tags.set( key, cVariant( PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) ) );
+		self->pItem->tags.set( key, cVariant( (int)getArgInt( 0 ) ) );
 
 	return PyTrue;
 }
