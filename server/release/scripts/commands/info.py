@@ -21,6 +21,11 @@ from wolfpack.gumps import cGump
 from wolfpack.utilities import *
 from wolfpack import *
 
+def str2bool( str ):
+    if str.upper() == "TRUE":
+        return True
+    return False
+
 def info( socket, command, argstring ):
 	#args = argstring.split(" ")
 	#if len(argstring) > 0:
@@ -201,7 +206,7 @@ def charinfo( socket, char ):
 	# 11
 	gump.addText( 113, 360, "Position (x,y,z,map):", 0x834 )
 	gump.addResizeGump( 280, 360, 0xBB8, 215, 20 )
-	gump.addInputField( 284, 360, 200, 16, 0x834, 10, unicode( char.pos.x )+","+unicode( char.pos.y )+","+unicode( char.pos.z )+","+unicode( char.pos.map ) )
+	gump.addInputField( 284, 360, 200, 16, 0x834, 11, unicode( char.pos.x )+","+unicode( char.pos.y )+","+unicode( char.pos.z )+","+unicode( char.pos.map ) )
 	# 12
 	gump.addText( 113, 380, "Direction:", 0x834 )
 	gump.addResizeGump( 280, 380, 0xBB8, 215, 20 )
@@ -382,16 +387,16 @@ def charinfo( socket, char ):
 		gump.addText( 113, 220, "Notoriety:", 0x834 )
 		gump.addResizeGump( 280, 220, 0xBB8, 215, 20 )
 		if char.hastag('notoriety'):
-			gump.addInputField( 284, 200, 200, 16, 0x834, 42, unicode( char.gettag('notoriety') ) )
+			gump.addInputField( 284, 200, 200, 16, 0x834, 43, unicode( char.gettag('notoriety') ) )
 		else:
-			gump.addInputField( 284, 200, 200, 16, 0x834, 42, '' )
+			gump.addInputField( 284, 200, 200, 16, 0x834, 43, '' )
 		# 44
 		gump.addText( 113, 240, "Poisoned:", 0x834 )
 		gump.addResizeGump( 280, 240, 0xBB8, 215, 20 )
 		if char.hastag('poisoned'):
-			gump.addInputField( 284, 200, 200, 16, 0x834, 42, unicode( char.gettag('poisoned') ) )
+			gump.addInputField( 284, 200, 200, 16, 0x834, 44, unicode( char.gettag('poisoned') ) )
 		else:
-			gump.addInputField( 284, 200, 200, 16, 0x834, 42, '' )
+			gump.addInputField( 284, 200, 200, 16, 0x834, 44, '' )
 		# 45
 		#gump.addText( 113, 260, ":", 0x834 )
 		#gump.addResizeGump( 280, 260, 0xBB8, 215, 20 )
@@ -569,7 +574,7 @@ def charinfo_response( player, args, choice ):
 		elif key == 12:
 			char.direction = int( textentries[ key ] )
 		elif key == 13:
-			char.invulnerable = int(  textentries[ key ]  )
+                        char.invulnerable = str2bool( textentries[ key ] )
 		elif key == 14:
 			char.strength = int( textentries[ key ] )
 		elif key == 15:
@@ -589,21 +594,21 @@ def charinfo_response( player, args, choice ):
 		elif key == 22:
 			char.mana = int( textentries[ key ] )
 		elif key == 23:
-			char.hidden = int( textentries[ key ] )
+                        char.hidden = str2bool( textentries[ key ] )
 		elif key == 24:
-			char.dead = int( textentries[ key ] )
+                        char.dead = str2bool( textentries[ key ] )
 		elif key == 25:
-			char.polymorph = int( textentries[ key ] )
+			char.polymorph = str2bool( textentries[ key ] )
 		elif key == 26:
-			char.incognito = int( textentries[ key ] )
+			char.incognito = str2bool( textentries[ key ] )
 		elif key == 27:
 			char.hunger = int( textentries[ key ] )
 		elif key == 28:
-			char.war = int( textentries[ key ] )
+			char.war = str2bool( textentries[ key ] )
 		elif key == 29:
-			char.invisible = int( textentries[ key ] )
+			char.invisible = str2bool( textentries[ key ] )
 		elif key == 30:
-			char.frozen = int( textentries[ key ] )
+			char.frozen = str2bool( textentries[ key ] )
 		elif key == 31:
 			char.stealthedsteps = int( textentries[ key ] )
 		elif key == 32:
