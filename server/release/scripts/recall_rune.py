@@ -78,6 +78,11 @@ def rename_callback( char, args, response ):
 
 	item.name = response.text[1]
 
+def onShowTooltip(viewer, object, tooltip):
+  if object.hastag('charges'):
+    charges = object.gettag('charges')
+    tooltip.add(1060584, str(charges))
+
 def onSingleClick( item, char ):
 	# We are not a rune
 	if not isrune( item ):

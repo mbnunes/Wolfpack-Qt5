@@ -100,6 +100,23 @@ void startPython( int argc, char* argv[], bool silent )
 
 	Py_XDECREF( m );
 	
+	// Try changing the stderr + stdout pointers
+	PyObject *file = PyFile_FromString("python.log", "w");
+	
+	if (file) {
+		Py_INCREF(file);
+		PySys_SetObject("stderr", file);
+		Py_INCREF(file);
+		PySys_SetObject("stdout", file);
+		Py_DECREF(file);
+	} else {
+		if (!silent) {
+			Console::instance()->ProgressFail();
+			Console::instance()->log(LOG_ERROR, "Couldn't open python.log for writing.\n");
+			Console::instance()->PrepareProgress( "Starting Python interpreter" );
+		}
+	}
+
 	try
 	{
 		init_wolfpack_globals(); // Init wolfpack extensions

@@ -73,30 +73,30 @@ def potioncheck( char, item, potiontype ):
 	else:
 		# Heal Potions
 		if potiontype == 'lesser_heal' or potiontype == 'heal' or potiontype == 'greater_heal':
-			if canUsePotion( char, item ):
-				if char.hastag( 'poisoned' ):
+			if canUsePotion(char, item):
+				if char.hastag('poisoned'):
 					# You can not heal yourself in your current state.
-					char.socket.clilocmessage( 1005000, '', GRAY )
+					char.socket.clilocmessage(1005000)
 					return OOPS
 				if char.hitpoints >= char.maxhitpoints:
 					# You decide against drinking this potion, as you are already at full health.
-					char.socket.clilocmessage( 1049547, '', GRAY )
+					char.socket.clilocmessage(1049547)
 				else:
-					healPotion( char, item, potiontype )
+					healPotion(char, item, potiontype)
 		
 		# Cure Potions
 		elif potiontype == 'lesser_cure' or potiontype == 'cure' or potiontype == 'greater_cure':
-			if canUsePotion( char, item ):
-				socket.sysmessage( 'Drinking a cure potion.' )
+			if canUsePotion(char, item):
+				socket.sysmessage('Drinking a cure potion.')
 		
 		# Agility Potions
 		elif potiontype == 'agility' or potiontype == 'greater_agility':
-			if canUsePotion( char, item ):
-				if not char.hastag( 'agility_effect' ):
-					agilityPotion( char, item, potiontype )
+			if canUsePotion(char, item):
+				if not char.hastag('agility_effect'):
+					agilityPotion(char, item, potiontype)
 				else:
 					# You are already under a similar effect.
-					char.socket.clilocmessage( 502173, '', GRAY )
+					char.socket.clilocmessage(502173)
 		
 		# Strength Potions
 		elif potiontype == 'strength' or potiontype == 'greater_strength':
@@ -111,13 +111,12 @@ def potioncheck( char, item, potiontype ):
 		elif potiontype == 'lesser_poison' or potiontype == 'poison' or potiontype == 'greater_poison' or potiontype == 'deadly_poison':
 			if canUsePotion( char, item ):
 				poisonPotion( char, item, potiontype )
-				#socket.sysmessage( 'Drinking a poison potion.' )
-		
+
 		# Nightsight Potions
 		elif potiontype == 'nightsight':
 			if canUsePotion( char, item ):
 				nightsightPotion( char, potion )
-		
+
 		# Not Known
 		else:
 			socket.sysmessage( 'Unknown potion...' )

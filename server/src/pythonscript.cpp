@@ -88,6 +88,8 @@ static char *eventNames[] =
 	"onSwing",
 	"onShowStatus",
 	"onChangeRegion",
+	"onAttach",
+	"onDetach",
 	0
 };
 

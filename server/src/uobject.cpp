@@ -228,11 +228,18 @@ void cUObject::clearEvents()
 {
 	if( scriptChain )
 	{
-		delete [] scriptChain;
+		cPythonScript **myChain = scriptChain;
 		scriptChain = 0;
-
 		eventList_ = QString::null;
 		changed_ = true;
+
+		if (cPythonScript::canChainHandleEvent(EVENT_DETACH, myChain)) {
+			PyObject *args = Py_BuildValue("(N)", getPyObject());
+			cPythonScript::callChainedEventHandler(EVENT_DETACH, myChain, args);
+			Py_DECREF(args);
+		}
+
+		delete [] myChain;
 	}
 }
 
@@ -288,6 +295,12 @@ void cUObject::addEvent(cPythonScript *event) {
 	}
 
 	changed_ = true;
+
+	if (event->canHandleEvent(EVENT_ATTACH)) {
+		PyObject *args = Py_BuildValue("(N)", getPyObject());
+		event->callEvent(EVENT_ATTACH, args);
+		Py_DECREF(args);
+	}
 }
 
 /*!
@@ -295,6 +308,8 @@ void cUObject::addEvent(cPythonScript *event) {
 */
 void cUObject::removeEvent( const QString& name )
 {
+	cPythonScript *event = 0;
+
 	if( scriptChain && hasEvent( name ) )
 	{
 		unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
@@ -312,8 +327,11 @@ void cUObject::removeEvent( const QString& name )
 
 			for( unsigned int i = 1; i < count; ++i )
 			{
-				if( scriptChain[i]->name() != name )
+				if( scriptChain[i]->name() != name ) {
 					newScriptChain[pos++] = scriptChain[i];
+				} else {
+					event = scriptChain[i];
+				}
 			}
 
 			delete [] scriptChain;
@@ -332,6 +350,12 @@ void cUObject::removeEvent( const QString& name )
 	}
 
 	changed_ = true;
+
+	if (event && event->canHandleEvent(EVENT_ATTACH)) {
+		PyObject *args = Py_BuildValue("(N)", getPyObject());
+		event->callEvent(EVENT_ATTACH, args);
+		Py_DECREF(args);
+	}
 }
 
 // If the scripts are reloaded call that for each and every existing object
@@ -364,6 +388,12 @@ void cUObject::recreateEvents() {
 
 		eventList_ = newevents;
 		scriptChain[0] = reinterpret_cast<cPythonScript*>(count);
+
+		if (scriptChain && cPythonScript::canChainHandleEvent(EVENT_ATTACH, scriptChain)) {
+			PyObject *args = Py_BuildValue("(N)", getPyObject());
+			cPythonScript::callChainedEventHandler(EVENT_ATTACH, scriptChain, args);
+			Py_DECREF(args);
+		}
 	}
 }
 
