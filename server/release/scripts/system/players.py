@@ -8,11 +8,9 @@ def onLogin( player ):
 	player.hidden = 0
 	player.update()
 	socket.resendplayer()
-	return True
 
 def onLogout( player ):
 	socket = player.socket
 	player.removefromview()
 	player.hidden = 1
 	player.update()
-	return True
