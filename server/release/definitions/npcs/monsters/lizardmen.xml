@@ -12,7 +12,7 @@
 	<npc id="lizard_man_weak">
 		<name>a lizard man</name>
 		<id>0x021</id>
-<category>Monsters\lizardmen\lizard man weak</category>
+		<category>Monsters\lizardmen\lizard man weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -51,14 +51,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_lizard_man_weak</carve>
+		<carve>carve_lizard_man_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a lizard man medium-->
 	<npc id="lizard_man_medium">
 		<name>a lizard man</name>
 		<id>0x021</id>
-<category>Monsters\lizardmen\lizard man medium</category>
+		<category>Monsters\lizardmen\lizard man medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -97,14 +97,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_lizard_man_medium</carve>
+		<carve>carve_lizard_man_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a lizard man hard-->
 	<npc id="lizard_man_hard">
 		<name>a lizard man</name>
 		<id>0x021</id>
-<category>Monsters\lizardmen\lizard man hard</category>
+		<category>Monsters\lizardmen\lizard man hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -143,7 +143,7 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_lizard_man_hard</carve>
+		<carve>carve_lizard_man_hard</carve>
 		<!-- Priv -->
 	</npc>
 </definitions>

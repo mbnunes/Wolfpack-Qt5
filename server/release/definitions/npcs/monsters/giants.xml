@@ -12,7 +12,7 @@
 	<npc id="cyclops_weak">
 		<name>a cyclops</name>
 		<id>0x04c</id>
-<category>Monsters\giants\cyclops weak</category>
+		<category>Monsters\giants\cyclops weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -51,14 +51,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_cyclops_weak</carve>
+		<carve>carve_cyclops_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a cyclops medium-->
 	<npc id="cyclops_medium">
 		<name>a cyclops</name>
 		<id>0x04c</id>
-<category>Monsters\giants\cyclops medium</category>
+		<category>Monsters\giants\cyclops medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -97,14 +97,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_cyclops_medium</carve>
+		<carve>carve_cyclops_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a cyclops hard-->
 	<npc id="cyclops_hard">
 		<name>a cyclops</name>
 		<id>0x04c</id>
-<category>Monsters\giants\cyclops hard</category>
+		<category>Monsters\giants\cyclops hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -143,14 +143,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_cyclops_hard</carve>
+		<carve>carve_cyclops_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ettin weak-->
 	<npc id="ettin_weak">
 		<name>a ettin</name>
-		<id>0x011</id>
-<category>Monsters\giants\ettin weak</category>
+		<id>0x02</id>
+		<category>Monsters\giants\ettin weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -189,14 +189,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_ettin_weak</carve>
+		<carve>carve_ettin_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ettin medium-->
 	<npc id="ettin_medium">
 		<name>a ettin</name>
-		<id>0x011</id>
-<category>Monsters\giants\ettin medium</category>
+		<id>0x02</id>
+		<category>Monsters\giants\ettin medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -235,14 +235,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_ettin_medium</carve>
+		<carve>carve_ettin_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ettin hard-->
 	<npc id="ettin_hard">
 		<name>a ettin</name>
-		<id>0x011</id>
-<category>Monsters\giants\ettin hard</category>
+		<id>0x02</id>
+		<category>Monsters\giants\ettin hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -281,14 +281,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_ettin_hard</carve>
+		<carve>carve_ettin_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a titan weak-->
 	<npc id="titan_weak">
 		<name>a titan</name>
 		<id>0x04a</id>
-<category>Monsters\giants\titan weak</category>
+		<category>Monsters\giants\titan weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -336,14 +336,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-<carve>carve_titan_weak</carve>
+		<carve>carve_titan_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a titan medium-->
 	<npc id="titan_medium">
 		<name>a titan</name>
 		<id>0x04a</id>
-<category>Monsters\giants\titan medium</category>
+		<category>Monsters\giants\titan medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -391,14 +391,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-<carve>carve_titan_medium</carve>
+		<carve>carve_titan_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a titan hard-->
 	<npc id="titan_hard">
 		<name>a titan</name>
 		<id>0x04a</id>
-<category>Monsters\giants\titan hard</category>
+		<category>Monsters\giants\titan hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -446,14 +446,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-<carve>carve_titan_hard</carve>
+		<carve>carve_titan_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ogr weak-->
 	<npc id="ogr_weak">
 		<name>a ogr</name>
 		<id>0x001</id>
-<category>Monsters\giants\ogr weak</category>
+		<category>Monsters\giants\ogr weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -492,14 +492,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_ogr_weak</carve>
+		<carve>carve_ogr_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ogr medium-->
 	<npc id="ogr_medium">
 		<name>a ogr</name>
 		<id>0x001</id>
-<category>Monsters\giants\ogr medium</category>
+		<category>Monsters\giants\ogr medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -538,14 +538,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_ogr_medium</carve>
+		<carve>carve_ogr_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ogr hard-->
 	<npc id="ogr_hard">
 		<name>a ogr</name>
 		<id>0x001</id>
-<category>Monsters\giants\ogr hard</category>
+		<category>Monsters\giants\ogr hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -584,14 +584,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_ogr_hard</carve>
+		<carve>carve_ogr_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a troll weak-->
 	<npc id="troll_weak">
 		<name>a troll</name>
 		<id>0x036</id>
-<category>Monsters\giants\troll weak</category>
+		<category>Monsters\giants\troll weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -630,14 +630,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_troll_weak</carve>
+		<carve>carve_troll_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a troll medium-->
 	<npc id="troll_medium">
 		<name>a troll</name>
 		<id>0x036</id>
-<category>Monsters\giants\troll medium</category>
+		<category>Monsters\giants\troll medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -676,14 +676,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_troll_medium</carve>
+		<carve>carve_troll_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a troll hard-->
 	<npc id="troll_hard">
 		<name>a troll</name>
 		<id>0x036</id>
-<category>Monsters\giants\troll hard</category>
+		<category>Monsters\giants\troll hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -722,7 +722,7 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_troll_hard</carve>
+		<carve>carve_troll_hard</carve>
 		<!-- Priv -->
 	</npc>
 </definitions>

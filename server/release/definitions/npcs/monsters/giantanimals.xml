@@ -12,7 +12,7 @@
 	<npc id="ret_giant_weak">
 		<name>a ret (giant)</name>
 		<id>0x0d7</id>
-<category>Monsters\giantanimals\ret giant weak</category>
+		<category>Monsters\giantanimals\ret giant weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -48,14 +48,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_ret_giant_weak</carve>
+		<carve>carve_ret_giant_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ret (giant) medium-->
 	<npc id="ret_giant_medium">
 		<name>a ret (giant)</name>
 		<id>0x0d7</id>
-<category>Monsters\giantanimals\ret giant medium</category>
+		<category>Monsters\giantanimals\ret giant medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -91,14 +91,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_ret_giant_medium</carve>
+		<carve>carve_ret_giant_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a ret (giant) hard-->
 	<npc id="ret_giant_hard">
 		<name>a ret (giant)</name>
 		<id>0x0d7</id>
-<category>Monsters\giantanimals\ret giant hard</category>
+		<category>Monsters\giantanimals\ret giant hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -134,14 +134,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_ret_giant_hard</carve>
+		<carve>carve_ret_giant_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a snake weak-->
 	<npc id="snake_weak">
 		<name>a snake</name>
 		<id>0x034</id>
-<category>Monsters\giantanimals\snake weak</category>
+		<category>Monsters\giantanimals\snake weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -180,14 +180,14 @@
 		<poisoning>
 			<random min="427" max="591"/>
 		</poisoning>
-<carve>carve_snake_weak</carve>
+		<carve>carve_snake_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a snake medium-->
 	<npc id="snake_medium">
 		<name>a snake</name>
 		<id>0x034</id>
-<category>Monsters\giantanimals\snake medium</category>
+		<category>Monsters\giantanimals\snake medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -226,14 +226,14 @@
 		<poisoning>
 			<random min="503" max="696"/>
 		</poisoning>
-<carve>carve_snake_medium</carve>
+		<carve>carve_snake_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a snake hard-->
 	<npc id="snake_hard">
 		<name>a snake</name>
 		<id>0x034</id>
-<category>Monsters\giantanimals\snake hard</category>
+		<category>Monsters\giantanimals\snake hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -272,14 +272,14 @@
 		<poisoning>
 			<random min="578" max="800"/>
 		</poisoning>
-<carve>carve_snake_weak</carve>
-            <!-- Priv -->
+		<carve>carve_snake_hard</carve>
+		<!-- Priv -->
 	</npc>
 	<!-- a spider (gaint) weak-->
 	<npc id="spider_gaint_weak">
 		<name>a spider (gaint)</name>
 		<id>0x01c</id>
-<category>Monsters\giantanimals\spider gaint weak</category>
+		<category>Monsters\giantanimals\spider gaint weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -321,14 +321,14 @@
 		<poisoning>
 			<random min="513" max="673"/>
 		</poisoning>
-<carve>carve_spider_gaint_weak</carve>
+		<carve>carve_spider_gaint_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a spider (gaint) medium-->
 	<npc id="spider_gaint_medium">
 		<name>a spider (gaint)</name>
 		<id>0x01c</id>
-<category>Monsters\giantanimals\spider gaint medium</category>
+		<category>Monsters\giantanimals\spider gaint medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -370,14 +370,14 @@
 		<poisoning>
 			<random min="604" max="792"/>
 		</poisoning>
-<carve>carve_spider_gaint_medium</carve>
+		<carve>carve_spider_gaint_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a spider (gaint) hard-->
 	<npc id="spider_gaint_hard">
 		<name>a spider (gaint)</name>
 		<id>0x01c</id>
-<category>Monsters\giantanimals\spider gaint hard</category>
+		<category>Monsters\giantanimals\spider gaint hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -419,14 +419,14 @@
 		<poisoning>
 			<random min="694" max="910"/>
 		</poisoning>
-<carve>carve_spider_gaint_hard</carve>
+		<carve>carve_spider_gaint_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a scorpion (gaint) weak-->
 	<npc id="scorpion_gaint_weak">
 		<name>a scorpion (gaint)</name>
 		<id>0x030</id>
-<category>Monsters\giantanimals\scorpion gaint weak</category>
+		<category>Monsters\giantanimals\scorpion gaint weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -468,14 +468,14 @@
 		<poisoning>
 			<random min="708" max="842"/>
 		</poisoning>
-<carve>carve_scorpion_gaint_weak</carve>
+		<carve>carve_scorpion_gaint_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a scorpion (gaint) medium-->
 	<npc id="scorpion_gaint_medium">
 		<name>a scorpion (gaint)</name>
 		<id>0x030</id>
-<category>Monsters\giantanimals\scorpion gaint medium</category>
+		<category>Monsters\giantanimals\scorpion gaint medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -517,14 +517,14 @@
 		<poisoning>
 			<random min="834" max="991"/>
 		</poisoning>
-<carve>carve_scorpion_gaint_medium</carve>
+		<carve>carve_scorpion_gaint_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a scorpion (gaint) hard-->
 	<npc id="scorpion_gaint_hard">
 		<name>a scorpion (gaint)</name>
 		<id>0x030</id>
-<category>Monsters\giantanimals\scorpion gaint hard</category>
+		<category>Monsters\giantanimals\scorpion gaint hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -566,14 +566,14 @@
 		<poisoning>
 			<random min="959" max="1139"/>
 		</poisoning>
-<carve>carve_scorpion_gaint_hard</carve>
+		<carve>carve_scorpion_gaint_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a serpent (gaint) weak-->
 	<npc id="serpent_gaint_weak">
 		<name>a serpent (gaint)</name>
 		<id>0x015</id>
-<category>Monsters\giantanimals\serpent gaint weak</category>
+		<category>Monsters\giantanimals\serpent gaint weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -615,14 +615,14 @@
 		<poisoning>
 			<random min="666" max="847"/>
 		</poisoning>
-<carve>carve_serpent_gaint_weak</carve>
+		<carve>carve_serpent_gaint_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a serpent (gaint) medium-->
 	<npc id="serpent_gaint_medium">
 		<name>a serpent (gaint)</name>
 		<id>0x015</id>
-<category>Monsters\giantanimals\serpent gaint medium</category>
+		<category>Monsters\giantanimals\serpent gaint medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -664,14 +664,14 @@
 		<poisoning>
 			<random min="784" max="997"/>
 		</poisoning>
-<carve>carve_serpent_gaint_medium</carve>
+		<carve>carve_serpent_gaint_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a serpent (gaint) hard-->
 	<npc id="serpent_gaint_hard">
 		<name>a serpent (gaint)</name>
 		<id>0x015</id>
-<category>Monsters\giantanimals\serpent gaint hard</category>
+		<category>Monsters\giantanimals\serpent gaint hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -713,14 +713,14 @@
 		<poisoning>
 			<random min="901" max="1146"/>
 		</poisoning>
-<carve>carve_serpent_gaint_hard</carve>
+		<carve>carve_serpent_gaint_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a gaint toad weak-->
 	<npc id="gaint_toad_weak">
 		<name>a gaint toad</name>
 		<id>0x050</id>
-<category>Monsters\giantanimals\gaint toad weak</category>
+		<category>Monsters\giantanimals\gaint toad weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -756,14 +756,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_gaint_toad_weak</carve>
+		<carve>carve_gaint_toad_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a gaint toad medium-->
 	<npc id="gaint_toad_medium">
 		<name>a gaint toad</name>
 		<id>0x050</id>
-<category>Monsters\giantanimals\gaint toad medium</category>
+		<category>Monsters\giantanimals\gaint toad medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -799,14 +799,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_gaint_toad_medium</carve>
+		<carve>carve_gaint_toad_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a gaint toad hard-->
 	<npc id="gaint_toad_hard">
 		<name>a gaint toad</name>
 		<id>0x050</id>
-<category>Monsters\giantanimals\gaint toad hard</category>
+		<category>Monsters\giantanimals\gaint toad hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-0" max="-624"/>
@@ -842,7 +842,7 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_gaint_toad_hard</carve>
+		<carve>carve_gaint_toad_hard</carve>
 		<!-- Priv -->
 	</npc>
 </definitions>

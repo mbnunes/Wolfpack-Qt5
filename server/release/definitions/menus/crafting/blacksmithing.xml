@@ -19,7 +19,7 @@
 			<model>0x13E3</model>
 			<description>Repair an item with this option</description>
 			<make name="repair">
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="350" max="525" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
@@ -28,11 +28,81 @@
 	<menu id="BLACKSMITHING_armor">
 		<name>Armor</name>
 
-		<menu inherit="BLACKSMITHING_ARMOR_chain" />
 		<menu inherit="BLACKSMITHING_ARMOR_ring" />
+		<menu inherit="BLACKSMITHING_ARMOR_chain" />
 		<menu inherit="BLACKSMITHING_ARMOR_plate" />
-		<menu inherit="BLACKSMITHING_helmets" />
+		<menu inherit="BLACKSMITHING_ARMOR_helmets" />
 	</menu>
+
+	<menu id="BLACKSMITHING_weapons">
+		<name>Weapon</name>
+
+		<menu inherit="BLACKSMITHING_WEAPON_bladed" />
+		<menu inherit="BLACKSMITHING_WEAPON_axes" />
+		<menu inherit="BLACKSMITHING_WEAPON_polearms" />
+		<menu inherit="BLACKSMITHING_WEAPON_bashing" />
+	</menu>
+
+	<menu id="BLACKSMITHING_ARMOR_ring">
+		<name>Ringmail Armor</name>
+
+		<action type="resource">
+			<name>Gloves</name>
+			<model>0x13F1</model>
+			<description>Ringmail Gloves</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="10" />
+				<makeitem section="armor_ring_gloves" amount="1" />
+				<skillcheck skillid="7" min="120" max="180" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Sleeves</name>
+			<model>0x13EF</model>
+			<description>Ringmail Sleeves</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="14" />
+				<makeitem section="armor_ring_sleeves" amount="1" />
+				<skillcheck skillid="7" min="169" max="254" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+ 
+		<action type="resource">
+			<name>Leggings</name>
+			<model>0x13F1</model>
+			<description>Ringmail Leggings</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="16" />
+				<makeitem section="armor_ring_leggings" amount="1" />
+				<skillcheck skillid="7" min="194" max="292" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Tunic</name>
+			<model>0x13ED</model>
+			<description>Ringmail Tunic</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="18" />
+				<makeitem section="armor_ring_tunic" amount="1" />
+				<skillcheck skillid="7" min="219" max="329" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+	</menu>
+
 
 	<menu id="BLACKSMITHING_ARMOR_chain">
 		<name>Chainmail Armor</name>
@@ -40,231 +110,208 @@
 		<action type="resource">
 			<name>Coif</name>
 			<model>0x13BB</model>
-			<description>a chainmail coif</description>
+			<description>Chainmail Coif</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="4" />
+				<useitem amount="10" />
 				<makeitem section="armor_chain_coif" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="145" max="218" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
-				
+
 		<action type="resource">
 			<name>Leggings</name>
 			<model>0x13C3</model>
-			<description>chainmail leggings</description>
+			<description>Chainmail Leggings</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="7" />
+				<useitem amount="18" />
 				<makeitem section="armor_chain_leggings" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="367" max="551" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
-		
+
 		<action type="resource">
 			<name>Tunic</name>
 			<model>0x13C4</model>
-			<description>a chainmail tunic</description>
+			<description>Chainmail Tunic</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="9" />
+				<useitem amount="20" />
 				<makeitem section="armor_chain_tunic" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="391" max="587" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
 	</menu>
-	
-	<menu id="BLACKSMITHING_ARMOR_ring">
-		<name>Ringmail Armor</name>
 
-		<action type="resource">
-			<name>Gloves</name>
-			<model>0x13F2</model>
-			<description>ringmail gloves</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="3" />
-				<makeitem section="armor_ring_gloves" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>
-				
-		<action type="resource">
-			<name>Leggings</name>
-			<model>0x13F1</model>
-			<description>ringmail leggings</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="7" />
-				<makeitem section="armor_ring_leggings" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>
-		
-		<action type="resource">
-			<name>Sleeves</name>
-			<model>0x13EF</model>
-			<description>ringmail sleeves</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="6" />
-				<makeitem section="armor_ring_sleeves" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>
-		
-		<action type="resource">
-			<name>Tunic</name>
-			<model>0x13ED</model>
-			<description>a ringmail tunic</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="9" />
-				<makeitem section="armor_ring_tunic" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>
-	</menu>	
-	
 	<menu id="BLACKSMITHING_ARMOR_plate">
 		<name>Plate Armor</name>
-
-		<action type="resource">
-			<name>Female Brustpiece</name>
-			<model>0x1C04</model>
-			<description>female plate brustpiece</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="6" />
-				<makeitem section="armor_plate_female" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>
-				
-		<action type="resource">
-			<name>Male Chest</name>
-			<model>0x1416</model>
-			<description>a male plate chest</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="11" />
-				<makeitem section="armor_plate_male" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>
-		
-		<action type="resource">
-			<name>Arms</name>
-			<model>0x1410</model>
-			<description>plate arms</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="7" />
-				<makeitem section="armor_plate_arms" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>
-		
-		<action type="resource">
-			<name>Gloves</name>
-			<model>0x1414</model>
-			<description>plate gloves</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="5" />
-				<makeitem section="armor_plate_gloves" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>
-		
+	
 		<action type="resource">
 			<name>Gorget</name>
 			<model>0x1413</model>
-			<description>plate gorget</description>
+			<description>Platemail Gorget</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="4" />
+				<useitem amount="10" />
 				<makeitem section="armor_plate_gorget" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="564" max="846" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
-		
+
 		<action type="resource">
-			<name>Helmet</name>
-			<model>0x1412</model>
-			<description>plate helmet</description>
+			<name>Gloves</name>
+			<model>0x1414</model>
+			<description>Platemail Gloves</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="6" />
-				<makeitem section="armor_plate_helmet" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<useitem amount="12" />
+				<makeitem section="armor_plate_gloves" amount="1" />
+				<skillcheck skillid="7" min="589" max="884" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
-		
+
+		<action type="resource">
+			<name>Arms</name>
+			<model>0x1410</model>
+			<description>Platemail Arms</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="18" />
+				<makeitem section="armor_plate_arms" amount="1" />
+				<skillcheck skillid="7" min="663" max="995" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
 		<action type="resource">
 			<name>Leggings</name>
-			<model>0x141A</model>
-			<description>plate leggings</description>
+			<model>0x13F1</model>
+			<description>Platemail Leggings</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="9" />
+				<useitem amount="20" />
 				<makeitem section="armor_plate_leggings" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="688" max="1000" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
-	</menu>	
-	
-	<menu id="BLACKSMITHING_helmets">
+
+		<action type="resource">
+			<name>Tunic</name>
+			<model>0x1416</model>
+			<description>Platemail Tunic</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="25" />
+				<makeitem section="armor_plate_male" amount="1" />
+				<skillcheck skillid="7" min="750" max="1000" />
+				<skillcheck skillid="4" min="180" max="270" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Femaile Tunic</name>
+			<model>0x1C04</model>
+			<description>Platemail female Tunic</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="20" />
+				<makeitem section="armor_plate_female" amount="1" />
+				<skillcheck skillid="7" min="441" max="662" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+	</menu>
+
+	<menu id="BLACKSMITHING_ARMOR_helmets" >
 		<name>Helmets</name>
-		
+
+		<action type="resource">
+			<name>Helmet</name>
+			<model>0x13F1</model>
+			<description>Helmet</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="15" />
+				<makeitem section="helmets_helmet" amount="1" />
+				<skillcheck skillid="7" min="379" max="569" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
 		<action type="resource">
 			<name>Bascinet</name>
 			<model>0x140D</model>
-			<description>a bascinet helmet</description>
+			<description>Bascinet</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="4" />
+				<useitem amount="15" />
 				<makeitem section="helmets_bascinet" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="83" max="125" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
-				
+
 		<action type="resource">
-			<name>Nose Helmet</name>
+			<name>Nose Helm</name>
 			<model>0x140F</model>
-			<description>a nose helmet</description>
+			<description>Nose Helm</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="4" />
+				<useitem amount="15" />
 				<makeitem section="helmets_nose" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="379" max="569" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
-		</action>		
-				
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
 		<action type="resource">
-			<name>Helmet</name>
-			<model>0x140B</model>
-			<description>a helmet</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="3" />
-				<makeitem section="helmets_helmet" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>		
-				
-		<action type="resource">
-			<name>Close Helmet</name>
+			<name>Close Helm</name>
 			<model>0x1408</model>
-			<description>a close helmet</description>
+			<description>Close Helm</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="4" />
+				<useitem amount="15" />
 				<makeitem section="helmets_close" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="379" max="569" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
-		</action>		
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Plate Helm</name>
+			<model>0x140D</model>
+			<description>Plate Helm</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="15" />
+				<makeitem section="armor_plate_helmet" amount="1" />
+				<skillcheck skillid="7" min="626" max="939" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
 	</menu>
+	
 
 	<menu id="BLACKSMITHING_shields">
 		<name>Shields</name>
@@ -272,82 +319,424 @@
 		<action type="resource">
 			<name>Buckler</name>
 			<model>0x1B73</model>
-			<description>a buckler shield</description>
+			<description>Buckler</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="6" />
+				<useitem amount="10" />
 				<makeitem section="shields_buckler" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="0" max="100" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Bronze</name>
+			<model>0x1B72</model>
+			<description>Bronze</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="12" />
+				<makeitem section="shields_bronze" amount="1" />
+				<skillcheck skillid="7" min="0" max="100" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Metal</name>
+			<model>0x1B7B</model>
+			<description>Metal</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="14" />
+				<makeitem section="shields_shield" amount="1" />
+				<skillcheck skillid="7" min="0" max="100" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Kite</name>
+			<model>0x1B74</model>
+			<description>Kite</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="16" />
+				<makeitem section="shields_kite" amount="1" />
+				<skillcheck skillid="7" min="46" max="100" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
 
 		<action type="resource">
 			<name>Heater</name>
 			<model>0x1B76</model>
-			<description>a heater shield</description>
+			<description>Heater</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="11" />
+				<useitem amount="18" />
 				<makeitem section="shields_heater" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="7" min="243" max="365" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
-		</action>
-		
-		<action type="resource">
-			<name>Shield</name>
-			<model>0x1B7B</model>
-			<description>a shield</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="5" />
-				<makeitem section="shields_shield" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
-		</action>
-		
-		<action type="resource">
-			<name>Kite Shield</name>
-			<model>0x1B74</model>
-			<description>a kite shield</description>
-			<make resource="RESOURCE_INGOT">
-				<useitem amount="8" />
-				<makeitem section="shields_kite" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
 	</menu>
-		
-	<menu id="BLACKSMITHING_weapons">
-		<name>Weapons</name>
 
-		<menu inherit="BLACKSMITHING_WEAPONS_swords" />
-	</menu>	
-	
-	<menu id="BLACKSMITHING_WEAPONS_swords">
-		<name>Swords</name>
-		
+	<menu id="BLACKSMITHING_WEAPON_bladed" >
+		<name>Bladed Weapon</name>
+
 		<action type="resource">
-			<name>Broad sword</name>
-			<model>0x0F5E</model>
-			<description>Craft a broad sword with this option. You can select different materials for this item if you are skilled enough and have the necessary resources!</description>
+			<name>Dagger</name>
+			<model>0xF51</model>
+			<description>Dagger</description>
 			<make resource="RESOURCE_INGOT">
-				<useitem amount="5" />
-				<makeitem section="weapons_swords_broad" amount="1" />
-				<skillcheck skillid="7" min="350" max="850" />
+				<useitem amount="3" />
+				<makeitem section="weapon_swords_dagger" amount="1" />
+				<skillcheck skillid="7" min="0" max="100" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
+
 		<action type="resource">
-			<name>Viking sword</name>
+			<name>Cutlass</name>
+			<model>0x1441</model>
+			<description>Cutlass</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="8" />
+				<makeitem section="weapon_swords_cutlass" amount="1" />
+				<skillcheck skillid="7" min="243" max="365" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Katana</name>
+			<model>0x13FF</model>
+			<description>Katana</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="8" />
+				<makeitem section="weapon_swords_katana" amount="1" />
+				<skillcheck skillid="7" min="441" max="662" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Kryss</name>
+			<model>0x1401</model>
+			<description>Kryss</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="8" />
+				<makeitem section="weapon_swords_kryss" amount="1" />
+				<skillcheck skillid="7" min="367" max="551" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Scimitar</name>
+			<model>0x13B6</model>
+			<description>Scimitar</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="10" />
+				<makeitem section="weapon_swords_scimitar" amount="1" />
+				<skillcheck skillid="7" min="317" max="476" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Broadsword</name>
+			<model>0xF5E</model>
+			<description>Broadsword</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="10" />
+				<makeitem section="weapon_swords_broad" amount="1" />
+				<skillcheck skillid="7" min="354" max="531" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Longsword</name>
+			<model>0xF61</model>
+			<description>Longsword</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="12" />
+				<makeitem section="weapon_swords_long" amount="1" />
+				<skillcheck skillid="7" min="280" max="420" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Viking Sword</name>
 			<model>0x13B9</model>
-			<description>Craft a viking sword with this option.</description>
+			<description>Viking Sword</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="14" />
+				<makeitem section="weapon_swords_viking" amount="1" />
+				<skillcheck skillid="7" min="243" max="365" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+	</menu>
+
+	<menu id="BLACKSMITHING_WEAPON_axes" >
+		<name>Axes Weapon</name>
+
+		<action type="resource">
+			<name>Battle Axe</name>
+			<model>0xF47</model>
+			<description>Battle Axe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="14" />
+				<makeitem section="weapon_axes_battle" amount="1" />
+				<skillcheck skillid="7" min="305" max="1000" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Axe</name>
+			<model>0xF49</model>
+			<description>Axe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="14" />
+				<makeitem section="weapon_axes_axe" amount="1" />
+				<skillcheck skillid="7" min="342" max="458" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Executioner's Axe</name>
+			<model>0xF45</model>
+			<description>Executioner's Axe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="14" />
+				<makeitem section="weapon_axes_executioner" amount="1" />
+				<skillcheck skillid="7" min="342" max="513" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Two-handed Axe</name>
+			<model>0x1443</model>
+			<description>Two-handed Axe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="16" />
+				<makeitem section="weapon_axes_twohanded" amount="1" />
+				<skillcheck skillid="7" min="330" max="495" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Double Axe</name>
+			<model>0xF4B</model>
+			<description>Double Axe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="12" />
+				<makeitem section="weapon_axes_double" amount="1" />
+				<skillcheck skillid="7" min="293" max="440" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Large Battle Axe</name>
+			<model>0x13FB</model>
+			<description>Large Battle Axe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="12" />
+				<makeitem section="weapon_axes_largebattle" amount="1" />
+				<skillcheck skillid="7" min="280" max="420" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>War Axe</name>
+			<model>0x13B0</model>
+			<description>War Battle Axe</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="16" />
+				<makeitem section="weapon_axes_war" amount="1" />
+				<skillcheck skillid="7" min="391" max="587" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+	</menu>
+
+	<menu id="BLACKSMITHING_WEAPON_polearms" >
+		<name>Polearms Weapon</name>
+
+		<action type="resource">
+			<name>Short Spear</name>
+			<model>0x1403</model>
+			<description>Short Spear</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="6" />
-				<makeitem section="weapons_swords_viking" amount="1" name="iron viking sword" />
-				<skillcheck skillid="7" min="400" max="850" />
-				<skillcheck skillid="4" min="200" max="500" />
+				<makeitem section="weapon_fencing_shortspear" amount="1" />
+				<skillcheck skillid="7" min="453" max="680" />
+				<skillcheck skillid="4" min="180" max="500" />
 			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
 		</action>
-	</menu>	
+
+		<action type="resource">
+			<name>Spear</name>
+			<model>0xF62</model>
+			<description>Spear</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="12" />
+				<makeitem section="weapon_fencing_spear" amount="1" />
+				<skillcheck skillid="7" min="490" max="735" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>War Fork</name>
+			<model>0x1405</model>
+			<description>War Fork</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="12" />
+				<makeitem section="weapon_fencing_warfork" amount="1" />
+				<skillcheck skillid="7" min="429" max="644" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Bardiche</name>
+			<model>0x0f4d</model>
+			<description>Bardiche</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="18" />
+				<makeitem section="weapon_swords_bardiche" amount="1" />
+				<skillcheck skillid="7" min="317" max="476" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Halberd</name>
+			<model>0x143f</model>
+			<description>Halberd</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="20" />
+				<makeitem section="weapon_swords_halberd" amount="1" />
+				<skillcheck skillid="7" min="391" max="587" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+	</menu>
+
+
+	<menu id="BLACKSMITHING_WEAPON_bashing" >
+		<name>Bashing Weapon</name>
+
+		<action type="resource">
+			<name>Mace</name>
+			<model>0xf5c</model>
+			<description>Mace</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="6" />
+				<makeitem section="weapon_maces_mace" amount="1" />
+				<skillcheck skillid="7" min="145" max="218" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>Maul</name>
+			<model>0x143b</model>
+			<description>Maul</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="10" />
+				<makeitem section="weapon_maces_maul" amount="1" />
+				<skillcheck skillid="7" min="194" max="291" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>War Mace</name>
+			<model>0x1407</model>
+			<description>War Mace</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="14" />
+				<makeitem section="weapon_maces_warmace" amount="1" />
+				<skillcheck skillid="7" min="280" max="420" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+
+		<action type="resource">
+			<name>War Hammer</name>
+			<model>0x1439</model>
+			<description>War Hammer</description>
+			<make resource="RESOURCE_INGOT">
+				<useitem amount="16" />
+				<makeitem section="weapon_maces_warhammer" amount="1" />
+				<skillcheck skillid="7" min="342" max="513" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<fail>You failed to craft this item</fail>
+			<success>You succeeded in crafting this item</success>
+		</action>
+	</menu>
 </definitions>

@@ -65,7 +65,7 @@
 	<npc id="gazer_medium">
 		<name>a gazer</name>
 		<id>0x016</id>
-<category>Monsters\magicals_summoned\gazer medium</category>
+		<category>Monsters\magicals_summoned\gazer medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -119,7 +119,7 @@
 	<npc id="gazer_hard">
 		<name>a gazer</name>
 		<id>0x016</id>
-<category>Monsters\magicals_summoned\gazer hard</category>
+		<category>Monsters\magicals_summoned\gazer hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -173,7 +173,7 @@
 	<npc id="elemental_air_weak">
 		<name>a elemental (air)</name>
 		<id>0x00d</id>
-<category>Monsters\magicals_summoned\elemental air weak</category>
+		<category>Monsters\magicals_summoned\elemental air weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -227,7 +227,7 @@
 	<npc id="elemental_air_medium">
 		<name>a elemental (air)</name>
 		<id>0x00d</id>
-<category>Monsters\magicals_summoned\elemental air medium</category>
+		<category>Monsters\magicals_summoned\elemental air medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -281,7 +281,7 @@
 	<npc id="elemental_air_hard">
 		<name>a elemental (air)</name>
 		<id>0x00d</id>
-<category>Monsters\magicals_summoned\elemental air hard</category>
+		<category>Monsters\magicals_summoned\elemental air hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -335,7 +335,7 @@
 	<npc id="elemental_earth_weak">
 		<name>a elemental (earth)</name>
 		<id>0x00e</id>
-<category>Monsters\magicals_summoned\elemental earth weak</category>
+		<category>Monsters\magicals_summoned\elemental earth weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -380,7 +380,7 @@
 	<npc id="elemental_earth_medium">
 		<name>a elemental (earth)</name>
 		<id>0x00e</id>
-<category>Monsters\magicals_summoned\elemental earth medium</category>
+		<category>Monsters\magicals_summoned\elemental earth medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -425,7 +425,7 @@
 	<npc id="elemental_earth_hard">
 		<name>a elemental (earth)</name>
 		<id>0x00e</id>
-<category>Monsters\magicals_summoned\elemental earth hard</category>
+		<category>Monsters\magicals_summoned\elemental earth hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -470,7 +470,7 @@
 	<npc id="elemental_fire_weak">
 		<name>a elemental (fire)</name>
 		<id>0x00f</id>
-<category>Monsters\magicals_summoned\elemental fire weak</category>
+		<category>Monsters\magicals_summoned\elemental fire weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -524,7 +524,7 @@
 	<npc id="elemental_fire_medium">
 		<name>a elemental (fire)</name>
 		<id>0x00f</id>
-<category>Monsters\magicals_summoned\elemental fire medium</category>
+		<category>Monsters\magicals_summoned\elemental fire medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -578,7 +578,7 @@
 	<npc id="elemental_fire_hard">
 		<name>a elemental (fire)</name>
 		<id>0x00f</id>
-<category>Monsters\magicals_summoned\elemental fire hard</category>
+		<category>Monsters\magicals_summoned\elemental fire hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>
@@ -686,7 +686,7 @@
 	<npc id="elemental_water_medium">
 		<name>a elemental (water)</name>
 		<id>0x00g</id>
-<category>Monsters\magicals_summoned\elemental water medium</category>
+		<category>Monsters\magicals_summoned\elemental water medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-2500" max="-4999"/>

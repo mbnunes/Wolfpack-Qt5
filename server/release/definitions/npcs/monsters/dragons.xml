@@ -12,7 +12,7 @@
 	<npc id="dragon_gray_weak">
 		<name>a dragon (gray)</name>
 		<id>0x00c</id>
-<category>Monsters\dragons\dragon gray weak</category>
+		<category>Monsters\dragons\dragon gray weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -60,14 +60,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-<carve>carve_dragon_gray_weak</carve>
+		<carve>carve_dragon_gray_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a dragon (gray) medium-->
 	<npc id="dragon_gray_medium">
 		<name>a dragon (gray)</name>
 		<id>0x00c</id>
-<category>Monsters\dragons\dragon gray medium</category>
+		<category>Monsters\dragons\dragon gray medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -115,14 +115,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-<carve>carve_dragon_gray_medium</carve>
+		<carve>carve_dragon_gray_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a dragon (gray) hard-->
 	<npc id="dragon_gray_hard">
 		<name>a dragon (gray)</name>
 		<id>0x00c</id>
-<category>Monsters\dragons\dragon gray hard</category>
+		<category>Monsters\dragons\dragon gray hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -170,14 +170,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-<carve>carve_dragon_gray_hard</carve>
+		<carve>carve_dragon_gray_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a dragon (red) weak-->
 	<npc id="dragon_red_weak">
 		<name>a dragon (red)</name>
 		<id>0x03b</id>
-<category>Monsters\dragons\dragon red weak</category>
+		<category>Monsters\dragons\dragon red weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -225,14 +225,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-<carve>carve_dragon_red_weak</carve>
+		<carve>carve_dragon_red_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a dragon (red) medium-->
 	<npc id="dragon_red_medium">
 		<name>a dragon (red)</name>
 		<id>0x03b</id>
-<category>Monsters\dragons\dragon red medium</category>
+		<category>Monsters\dragons\dragon red medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -280,14 +280,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-<carve>carve_dragon_red_medium</carve>
+		<carve>carve_dragon_red_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a dragon (red) hard-->
 	<npc id="dragon_red_hard">
 		<name>a dragon (red)</name>
 		<id>0x03b</id>
-<category>Monsters\dragons\dragon red hard</category>
+		<category>Monsters\dragons\dragon red hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -335,14 +335,14 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-<carve>carve_dragon_red_hard</carve>
+		<carve>carve_dragon_red_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a drake (gray) weak-->
 	<npc id="drake_gray_weak">
 		<name>a drake (gray)</name>
 		<id>0x03c</id>
-<category>Monsters\dragons\drake gray weak</category>
+		<category>Monsters\dragons\drake gray weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-5000" max="-9999"/>
@@ -381,14 +381,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_drake_gray_weak</carve>
+		<carve>carve_drake_gray_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a drake (gray) medium-->
 	<npc id="drake_gray_medium">
 		<name>a drake (gray)</name>
 		<id>0x03c</id>
-<category>Monsters\dragons\drake gray medium</category>
+		<category>Monsters\dragons\drake gray medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-5000" max="-9999"/>
@@ -427,14 +427,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_drake_gray_medium</carve>
+		<carve>carve_drake_gray_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a drake (gray) hard-->
 	<npc id="drake_gray_hard">
 		<name>a drake (gray)</name>
 		<id>0x03c</id>
-<category>Monsters\dragons\drake gray hard</category>
+		<category>Monsters\dragons\drake gray hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-5000" max="-9999"/>
@@ -473,14 +473,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_drake_gray_hard</carve>
+		<carve>carve_drake_gray_hard</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a drake (red) weak-->
 	<npc id="drake_red_weak">
 		<name>a drake (red)</name>
 		<id>0x03d</id>
-<category>Monsters\dragons\drake red weak</category>
+		<category>Monsters\dragons\drake red weak</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-5000" max="-9999"/>
@@ -519,14 +519,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_drake_red_weak</carve>
+		<carve>carve_drake_red_weak</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a drake (red) medium-->
 	<npc id="drake_red_medium">
 		<name>a drake (red)</name>
 		<id>0x03d</id>
-<category>Monsters\dragons\drake red medium</category>
+		<category>Monsters\dragons\drake red medium</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-5000" max="-9999"/>
@@ -565,14 +565,14 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_drake_red_medium</carve>
+		<carve>carve_drake_red_medium</carve>
 		<!-- Priv -->
 	</npc>
 	<!-- a drake (red) hard-->
 	<npc id="drake_red_hard">
 		<name>a drake (red)</name>
 		<id>0x03d</id>
-<category>Monsters\dragons\drake red hard</category>
+		<category>Monsters\dragons\drake red hard</category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-5000" max="-9999"/>
@@ -611,7 +611,7 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-<carve>carve_drake_red_hard</carve>
+		<carve>carve_drake_red_hard</carve>
 		<!-- Priv -->
 	</npc>
 </definitions>
