@@ -835,6 +835,11 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			socket->sysMessage( tr( "Casting from scrolls is currently not supported." ) );
 			return;
 
+		// 1106: Tailoring Tools
+		case 1106:
+			Skills->Tailoring( socket );
+			return;
+
 		default:						
 			break;
 		}
