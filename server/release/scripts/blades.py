@@ -88,7 +88,7 @@ def response( char, args, target ):
 		elif target.model != 0:
 			treeid = target.model
 
-		if istree( treeid ):
+		if istree(treeid):
 			# Axes/Polearms get Logs, Swords get kindling.
 			# Also allows a mace's war axe to be use. 0x13af and 0x13b0
 			if item.type == 1002 or item.id == 0x13af or item.id == 0x13b0:

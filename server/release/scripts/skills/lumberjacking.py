@@ -35,9 +35,11 @@ def response( args ):
 	if not socket:
 		return OOPS
 
-	if socket.hastag('is_lumberjacking') and ( socket.gettag( 'is_lumberjacking' ) < servertime() ):
+	if socket.hastag('is_lumberjacking') and ( socket.gettag( 'is_lumberjacking' ) > servertime() ):
 		socket.clilocmessage( 500119, "", GRAY )
 		return OOPS
+	else:
+		socket.deltag('is_lumberjacking')
 
 	# Player can reach that ?
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
