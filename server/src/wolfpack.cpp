@@ -4570,6 +4570,9 @@ void itemsfx(UOXSOCKET s, short item)
 
 void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of all npcs
 // LB 9.8.99/17.9/20.9
+
+// completed: LB 27.3.2002
+
 {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // soundflags	0: normal, 5 sounds (attack-started, idle, attack, defence, dying, see WOLFPACK.h)
@@ -4625,6 +4628,9 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x0a].who_am_i+=1;
 	creatures[0x0a].icon=8403;
 
+	creatures[0x0b].basesound = 387;                            // dread spider
+	creatures[0x0b].icon=  8445;
+
 	creatures[0x0c].basesound=362;								// Green dragon
 	creatures[0x0c].who_am_i+=1; // flying creature
 	creatures[0x0c].icon=8406;
@@ -4647,17 +4653,32 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x12].basesound=0x016F;							// Ettin 2
 	creatures[0x12].icon=8408;
 
+	creatures[0x13].basesound = 387;                            // dread spider 2
+	creatures[0x13].icon=8445;
+
+	creatures[0x14].basesound = 904;                            // frost spider
+	creatures[0x14].icon=8445;
+
 	creatures[0x15].basesound=219;								// Giant snake
 	creatures[0x15].icon=8446;
 
 	creatures[0x16].basesound=377;								// gazer
 	creatures[0x16].icon=8426;
 
+	creatures[0x17].basesound=229;								// dire wolf
+	creatures[0x17].icon=8476;
+
 	creatures[0x18].basesound=412;								// liche
 	creatures[0x18].icon=8440; // counldnt find a better one :(
 
+	creatures[0x19].basesound=229;								// grey wolf
+    creatures[0x19].icon=8476;
+
 	creatures[0x1a].basesound=382;								// ghost 1
 	creatures[0x1a].icon=8457;
+
+	creatures[0x1b].basesound=229;								// grey wolf
+    creatures[0x1b].icon=8476;
 
 	creatures[0x1c].basesound=387;								// giant spider
 	creatures[0x1c].icon=8445;
@@ -4671,18 +4692,29 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x1f].basesound=407;								// headless
 	creatures[0x1f].icon=8458;
 
+	// 0x20 is *really* missing, crashes (2d) client if instanciated
+
 	creatures[0x21].basesound=417;								// lizardman
 	creatures[0x23].basesound=417;
 	creatures[0x24].basesound=417;
-	creatures[0x25].basesound=417;
-	creatures[0x26].basesound=417;
+
 	creatures[0x21].icon=creatures[0x23].icon=
-	creatures[0x24].icon=creatures[0x25].icon=
-	creatures[0x26].icon=8414;
+	creatures[0x24].icon=8414;
+
+	creatures[0x22].basesound=creatures[0x25].basesound=229;    // wolves
+	creatures[0x22].icon=creatures[0x25].icon=8476;
+
+	creatures[0x26].basesound=696;								// black daemon
+	creatures[0x26].icon=8452;
+	creatures[0x26].who_am_i+=1; // set fly bit
 
 	creatures[0x27].basesound=422;								// mongbat
 	creatures[0x27].who_am_i+=1; // yes, they can fly
 	creatures[0x27].icon=8441;
+
+	creatures[0x28].basesound=696;								// elder daemon
+	creatures[0x28].icon=8452;
+	creatures[0x28].who_am_i+=1;
 
 	creatures[0x29].basesound=0x01b0;							// orc 3
 	creatures[0x29].icon=8416;
@@ -4693,11 +4725,23 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x2a].icon=creatures[0x2c].icon=
 	creatures[0x2d].icon=8419;
 
+	creatures[0x2b].basesound=696;								// ice daemon
+	creatures[0x2b].icon=8452;
+	creatures[0x2b].who_am_i+=1;
+	
+	creatures[0x2e].basesound=362;								// ancient worm
+	creatures[0x2e].icon=8452;
+	creatures[0x2e].who_am_i+=1;
+
 	creatures[0x2f].basesound=0x01ba;							// Reaper
 	creatures[0x2f].icon=8442;
 
 	creatures[0x30].basesound=397;								// giant scorprion
 	creatures[0x30].icon=8420;
+
+	creatures[0x31].basesound=362;								// ancient worm white
+	creatures[0x31].icon=8452;
+	creatures[0x31].who_am_i+=1;
 
 	creatures[0x32].basesound=452;								// skeleton 2
 	creatures[0x32].icon=8423;
@@ -4730,8 +4774,231 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x3c].who_am_i+=1;
 	creatures[0x3d].basesound=362;								// smaller green dragon
 	creatures[0x3d].who_am_i+=1;
+	creatures[0x3e].basesound=362;								// wyvern
+	creatures[0x3e].who_am_i+=1;
 	creatures[0x3b].icon=creatures[0x3c].icon=
-	creatures[0x3d].icon=8406;
+	creatures[0x3e].icon=creatures[0x3d].icon=8406;
+
+    creatures[0x3f].basesound=115;                              // cougar
+	creatures[0x3f].icon=8450;
+
+	creatures[0x40].basesound=115;                              // snow leopard
+	creatures[0x40].icon=8450;
+
+	creatures[0x41].basesound=115;                              // snow leopard 2
+	creatures[0x41].icon=8450;
+
+	creatures[0x42].basesound=639;                              // swamp tentacle
+	creatures[0x42].icon=8402;
+
+	creatures[0x43].basesound=372;                              // stone gargoyle
+	creatures[0x43].icon=8409;
+
+	creatures[0x44].basesound=377;                              // gazer
+	creatures[0x44].icon=8436;
+
+	creatures[0x45].basesound=875;                              // gazer 2
+	creatures[0x45].icon=8436;
+
+	creatures[0x46].basesound=1170;                             // terathen warrior
+	creatures[0x46].icon=8490;
+
+    creatures[0x47].basesound=1170;                             // terathen drone
+	creatures[0x47].icon=8491;
+
+	creatures[0x48].basesound=639;                             // terathen queen
+	creatures[0x48].icon=8492;
+
+	creatures[0x49].basesound=402;                             // stone harpy
+	creatures[0x49].icon=8412;
+	creatures[0x49].who_am_i+=1;
+
+	creatures[0x4a].basesound=959;                             // Imp
+	creatures[0x4a].who_am_i+=1;
+	creatures[0x4a].icon=8485;
+
+	creatures[0x4b].basesound=604;                             // Cyclop
+	creatures[0x4b].icon=8493;
+
+	creatures[0x4c].basesound=609;                             // Titan
+	creatures[0x4c].icon=8494;
+
+	creatures[0x4d].basesound=1100;                            // kraken
+	creatures[0x4d].icon=8402;
+
+	creatures[0x4e].basesound=412;                            // liche lord
+	creatures[0x4e].icon=8440;
+
+	creatures[0x4f].basesound=417;                            // liche lord 2
+	creatures[0x4f].icon=8440;
+    
+	creatures[0x50].basesound=858;                            // giant frog 1
+	creatures[0x50].icon=8495;
+
+	creatures[0x51].basesound=863;                            // giant frog 2
+	creatures[0x51].icon=8496;
+
+	creatures[0x52].basesound=417;                            // liche lord 3
+	creatures[0x52].icon=8440;
+
+	creatures[0x53].basesound=427;                            // ogre 2
+	creatures[0x53].icon=8395;
+
+	creatures[0x54].basesound=427;                            // ogre 3
+	creatures[0x54].icon=8395;
+
+	creatures[0x55].basesound=589;                            // ophedian mage
+	creatures[0x55].icon=8498;
+
+	creatures[0x56].basesound=589;                            // ophedian warrior
+	creatures[0x56].icon=8499;
+
+	creatures[0x57].basesound=589;                            // ophedian queen
+	creatures[0x57].icon=8500;
+
+	creatures[0x58].basesound=153;                            // mountain goat 2
+	creatures[0x58].icon=8456;
+
+	creatures[0x59].basesound=387;                             // giant snake ice
+	creatures[0x59].icon=8444;
+
+	creatures[0x5a].basesound=387;                             // giant snake lava
+	creatures[0x5a].icon=8444;
+
+	creatures[0x5b].basesound=904;                             // giant snake silver
+	creatures[0x5b].icon=8444;
+	
+	creatures[0x5c].basesound=904;                             // giant snake silver
+	creatures[0x5c].icon=8444;
+
+	creatures[0x5d].basesound=904;                             // giant snake silver
+	creatures[0x5d].icon=8444;
+
+	creatures[0x5e].basesound=456;                             // ice slime
+	creatures[0x5e].icon=8424;
+
+    /// 0x5f not there, crashing 2d clients if instanciated
+
+	creatures[0x60].basesound=456;                             // ice slime
+	creatures[0x60].icon=8424;
+
+	creatures[0x61].basesound=133;                             // hell hound
+	creatures[0x61].icon=8426;
+
+	creatures[0x62].basesound=133;                             // hell hound 2
+	creatures[0x62].icon=8426;
+
+	creatures[0x63].basesound=229;                             // wolf 2
+	creatures[0x63].icon=8426;
+
+	creatures[0x64].basesound=229;                             // wolf 3
+	creatures[0x64].icon=8426;
+
+	creatures[0x65].basesound=679;                             // centaur
+	creatures[0x65].icon=8481;
+
+	creatures[0x66].basesound=768;                             // exodus
+	creatures[0x66].icon=8453;
+	creatures[0x66].who_am_i+=1;
+
+	creatures[0x67].basesound=704;                             // asian dragon
+	creatures[0x67].icon=8406;
+	creatures[0x67].who_am_i+=1;
+
+	creatures[0x68].basesound=1160;                            // skeletal dragon
+	creatures[0x68].icon=8406;
+	creatures[0x68].who_am_i+=1;
+
+	creatures[0x69].basesound=722;                            // dragon
+	creatures[0x69].icon=8406;
+	creatures[0x69].who_am_i+=1;
+
+	creatures[0x6a].basesound=717;                            // shadow wyrm
+	creatures[0x6a].icon=8406;
+	creatures[0x6a].who_am_i+=1;
+
+	creatures[0x6b].basesound=268;                            // agapite elemental
+	creatures[0x6b].icon=8407;
+
+	creatures[0x6c].basesound=268;                            // bronze elemental
+	creatures[0x6c].icon=8407;
+
+	creatures[0x6d].basesound=268;                            // copper elemental
+	creatures[0x6d].icon=8407;
+
+	creatures[0x6e].basesound=268;                            // agapite elemental
+	creatures[0x6e].icon=8407;
+
+	creatures[0x6f].basesound=268;                            // agapite elemental
+	creatures[0x6f].icon=8407;
+
+	creatures[0x70].basesound=268;                            // valorite elemental
+	creatures[0x70].icon=8407;
+
+	creatures[0x70].basesound=268;                            // verite elemental
+	creatures[0x70].icon=8407;
+
+	creatures[0x71].basesound=168;                            // horse dark steed
+	creatures[0x71].icon=8481;
+
+	creatures[0x72].basesound=168;                            // horse ethernal
+	creatures[0x72].icon=8480;
+
+	creatures[0x73].basesound=168;                            // horse nightmare
+	creatures[0x73].icon=8481;
+
+	creatures[0x74].basesound=168;                            // horse silver steed
+	creatures[0x74].icon=8479;
+
+	creatures[0x75].basesound=168;                            // horse war brittain
+	creatures[0x75].icon=8481;
+
+	creatures[0x76].basesound=168;                            // horse war mage council
+	creatures[0x76].icon=8481;
+
+	creatures[0x77].basesound=168;                            // horse mage council
+	creatures[0x77].icon=8481;
+
+	creatures[0x78].basesound=168;                            // horse minax
+	creatures[0x78].icon=8481;
+
+	creatures[0x79].basesound=168;                            // horse shadowlord
+	creatures[0x79].icon=8481;
+
+	creatures[0x7a].basesound=1212;                           // horse unicorn
+	creatures[0x7a].icon=8480;
+
+	creatures[0x7b].basesound=757;                            // ethereal
+	creatures[0x7b].icon=8440;
+	creatures[0x7b].who_am_i++;
+	
+	creatures[0x7c].basesound=589;                            // evil mage 1
+	creatures[0x7c].icon=8440;
+	
+	creatures[0x7d].basesound=639;                            // evil mage 2
+	creatures[0x7d].icon=8440;
+
+	creatures[0x7e].basesound=599;                            // evil mage 3
+	creatures[0x7e].icon=8440;
+
+	creatures[0x7f].basesound=105;                            // hell cat
+	creatures[0x7f].icon=8475;
+
+	creatures[0x80].basesound=1133;                           // pixie
+	creatures[0x80].icon=8403;
+
+	creatures[0x81].basesound=846;                            // swamp tentacle
+	creatures[0x81].icon=8402;
+
+	creatures[0x82].basesound=372;                            // gargolye 3
+	creatures[0x82].icon=8409;
+
+	creatures[0x83].basesound=880;                            // efreet genie
+	creatures[0x83].icon=8409;
+
+	creatures[0x84].basesound=965;                            // kirin
+	creatures[0x84].icon=8501;
+
 
 	creatures[0x96].basesound=477;								// sea serpant
 	creatures[0x96].basesound=3;
