@@ -380,11 +380,11 @@ signed char cMapStuff::DynamicElevation(short int x, short int y, signed char ol
 	//int z = illegal_z;
 	signed char z = illegal_z;
 	const int getcell = mapRegions->GetCell(Coord_cl(x,y, oldz));
-	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
-
-	for (unsigned int k = 0; k < vecEntries.size(); k++)
+	cRegion::raw vecEntries = mapRegions->GetCellEntries(getcell);
+	cRegion::rawIterator it = vecEntries.begin();
+	for (; it != vecEntries.end(); ++it )
 	{
-		P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
+		P_ITEM mapitem = FindItemBySerial(*it);
 		if (mapitem != NULL)
 		{
 			if(mapitem->isMulti())
@@ -443,10 +443,11 @@ int cMapStuff::MultiTile(P_ITEM pi, short int x, short int y, signed char oldz)
 int cMapStuff::DynTile(short int x, short int y, signed char oldz)
 {
 	const int getcell = mapRegions->GetCell(Coord_cl(x,y, oldz));
-	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
-	for (unsigned int k = 0; k < vecEntries.size(); k++)
+	cRegion::raw vecEntries = mapRegions->GetCellEntries(getcell);
+	cRegion::rawIterator it = vecEntries.begin();
+	for (; it != vecEntries.end(); ++it )
     {
-		P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
+		P_ITEM mapitem = FindItemBySerial(*it);
 		if (mapitem != NULL)
 		{
 			if(mapitem->isMulti())

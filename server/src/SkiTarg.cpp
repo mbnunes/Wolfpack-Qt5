@@ -52,7 +52,7 @@ P_ITEM Check4Pack(UOXSOCKET s)
 	P_ITEM pi_pack = Packitem(pc_currchar);
 	if (pi_pack == NULL)
 	{
-		sysmessage(s,tr("Time to buy a backpack") );
+		sysmessage(s, tr("Time to buy a backpack") );
 	}
 	return pi_pack;
 }
@@ -220,14 +220,16 @@ static bool ForgeInRange(int s)
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos);
 	unsigned int increment=0, checkgrid, a;
+#pragma note("Replace by Region Item iterator")
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 	{
 		for (a=0;a<3;a++)
 		{
-			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-			for ( unsigned int k = 0; k < vecEntries.size(); k++)
+			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+			cRegion::rawIterator it = vecEntries.begin();
+			for (; it != vecEntries.end(); ++it)
 			{
-				P_ITEM pi = FindItemBySerial(vecEntries[k]);
+				P_ITEM pi = FindItemBySerial(*it);
 				if (pi != NULL)
 					if(IsForge(pi->id()))
 						if(iteminrange(s,pi,3))
@@ -245,14 +247,16 @@ static bool AnvilInRange(int s)
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos);
 	unsigned int increment=0, checkgrid, a;
+#pragma note("Replace by region item iterator")
 	for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 	{
 		for (a=0;a<3;a++)
 		{
-			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-			for ( unsigned int k = 0; k < vecEntries.size(); k++)
+			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+			cRegion::rawIterator it = vecEntries.begin();
+			for (; it != vecEntries.end(); ++it)
 			{
-				P_ITEM pi = FindItemBySerial(vecEntries[k]);
+				P_ITEM pi = FindItemBySerial(*it);
 				if (pi != NULL)
 					if(IsAnvil(pi->id()))
 						if(iteminrange(s,pi,3))

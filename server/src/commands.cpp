@@ -81,7 +81,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 	}
 
 	if(y==-1) {
-		sysmessage(s, "Unrecognized command.");
+		sysmessage(s, tr("Unrecognized command."));
 		return;
 	} else {
 		if((pc_currchar->isTrueGM() && !pc_currchar->isGM()) ||		// a restricted GM outside his region(s)
@@ -89,7 +89,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 			(!(pc_currchar->priv3[command_table[y].cmd_priv_m]&
 			(0-0xFFFFFFFF<<command_table[y].cmd_priv_b))))
 		{
-			sysmessage(s, "Access denied.");
+			sysmessage(s, tr("Access denied."));
 			return;
 		}
 
@@ -108,7 +108,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addx[s]=makenumber(1);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes one number as an argument.");
+				sysmessage(s, tr("This command takes one number as an argument."));
 			}
 			break;
 		case CMD_TARGETXY:
@@ -117,7 +117,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addy[s]=makenumber(2);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes two numbers as arguments.");
+				sysmessage(s, tr("This command takes two numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETXYZ:
@@ -127,7 +127,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addz[s]=makenumber(3);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes three numbers as arguments.");
+				sysmessage(s, tr("This command takes three numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETHX:
@@ -135,7 +135,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addx[s]=hexnumber(1);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes one hex number as an argument.");
+				sysmessage(s, tr("This command takes one hex number as an argument."));
 			}
 			break;
 		case CMD_TARGETHXY:
@@ -144,7 +144,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addy[s]=hexnumber(2);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes two hex numbers as arguments.");
+				sysmessage(s, tr("This command takes two hex numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETHXYZ:
@@ -154,7 +154,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addz[s]=hexnumber(3);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes three hex numbers as arguments.");
+				sysmessage(s, tr("This command takes three hex numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETID1:
@@ -162,7 +162,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addid1[s]=makenumber(1);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes one number as an argument.");
+				sysmessage(s, tr("This command takes one number as an argument."));
 			}
 			break;
 		case CMD_TARGETID2:
@@ -171,7 +171,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addid2[s] = static_cast<unsigned char>(makenumber(2));
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes two numbers as arguments.");
+				sysmessage(s, tr("This command takes two numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETID3:
@@ -181,7 +181,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addid3[s] = static_cast<unsigned char>(makenumber(3));
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes three numbers as arguments.");
+				sysmessage(s, tr("This command takes three numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETID4:
@@ -193,7 +193,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				//clConsole.send("1: %i 2: %i 3: %i 4: %i\n",addid1[s],addid2[s],addid2[s],addid3[s],addid4[s]);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes four numbers as arguments.");
+				sysmessage(s, tr("This command takes four numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETHID1:
@@ -201,7 +201,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addid1[s] = static_cast<unsigned char>(hexnumber(1));
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes one hex number as an argument.");
+				sysmessage(s, tr("This command takes one hex number as an argument."));
 			}
 			break;
 		case CMD_TARGETHID2:
@@ -210,7 +210,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addid2[s] = static_cast<unsigned char>(hexnumber(2));
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes two hex numbers as arguments.");
+				sysmessage(s, tr("This command takes two hex numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETHID3:
@@ -220,7 +220,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addid3[s] = static_cast<unsigned char>(hexnumber(3));
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes three hex numbers as arguments.");
+				sysmessage(s, tr("This command takes three hex numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETHID4:
@@ -231,7 +231,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				addid4[s] = static_cast<unsigned char>(hexnumber(4));
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes four hex numbers as arguments.");
+				sysmessage(s, tr("This command takes four hex numbers as arguments."));
 			}
 			break;
 		case CMD_TARGETTMP:
@@ -239,7 +239,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				tempint[s]=makenumber(1);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes a number as an argument.");
+				sysmessage(s, tr("This command takes a number as an argument."));
 			}
 			break;
 		case CMD_TARGETHTMP:
@@ -247,11 +247,11 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 				tempint[s]=hexnumber(1);
 				_do_target(s, (TARGET_S *)command_table[y].cmd_extra);
 			} else {
-				sysmessage(s, "This command takes a hex number as an argument.");
+				sysmessage(s, tr("This command takes a hex number as an argument."));
 			}
 			break;
 		default:
-			sysmessage(s, "BUG: Command has a bad command type set!");
+			sysmessage(s, tr("BUG: Command has a bad command type set!"));
 			break;
 		}
 		return;
@@ -338,14 +338,10 @@ void cCommands::NextCall(int s, int type)
 				if (pc_player != NULL)
 				{
 					sysmessage(s, "");
-					sprintf((char*)temp, "Transporting to next call: %s", gmpages[i].name.c_str());
-					sysmessage(s, (char*)temp);
-					sprintf((char*)temp, "Problem: %s.", gmpages[i].reason.c_str());
-					sysmessage(s, (char*)temp);
-					sprintf((char*)temp, "Serial number %x", gmpages[i].serial);
-					sysmessage(s, (char*)temp);
-					sprintf((char*)temp, "Paged at %s.", gmpages[i].timeofcall);
-					sysmessage(s, (char*)temp);
+					sysmessage(s, tr("Transporting to next call: %1").arg(gmpages[i].name.c_str()));
+					sysmessage(s, tr("Problem: %1.").arg(gmpages[i].reason.c_str()));
+					sysmessage(s, tr("Serial number %1").arg(gmpages[i].serial, 16));
+					sysmessage(s, tr("Paged at %1.").arg((char*)gmpages[i].timeofcall));
 					gmpages[i].handled = 1;
 					pc_currchar->moveTo(pc_player->pos);
 					pc_currchar->callnum = i;
@@ -357,7 +353,7 @@ void cCommands::NextCall(int s, int type)
 			}// if
 		}// for
 		if (x == 0)
-			sysmessage(s, "The GM queue is currently empty");
+			sysmessage(s, tr("The GM queue is currently empty"));
 	} // end first IF
 	else // Player is only a counselor
 	{
@@ -371,14 +367,10 @@ void cCommands::NextCall(int s, int type)
 				if (pc_player != NULL)
 				{
 					sysmessage(s, "");
-					sprintf((char*)temp, "Transporting to next call: %s", counspages[i].name.c_str());
-					sysmessage(s, (char*)temp);
-					sprintf((char*)temp, "Problem: %s.", counspages[i].reason.c_str());
-					sysmessage(s, (char*)temp);
-					sprintf((char*)temp, "Serial number %x", counspages[i].serial);
-					sysmessage(s, (char*)temp);
-					sprintf((char*)temp, "Paged at %s.", counspages[i].timeofcall);
-					sysmessage(s, (char*)temp);
+					sysmessage(s, tr("Transporting to next call: %1").arg(counspages[i].name.c_str()));
+					sysmessage(s, tr("Problem: %1.").arg(counspages[i].reason.c_str()));
+					sysmessage(s, tr("Serial number %1").arg(counspages[i].serial, 16));
+					sysmessage(s, tr("Paged at %1.").arg(counspages[i].timeofcall));
 					gmpages[i].handled = 1;
 					pc_currchar->moveTo(pc_player->pos);
 					pc_currchar->callnum = i;
@@ -391,7 +383,7 @@ void cCommands::NextCall(int s, int type)
 				break;
 		}// for
 	    if (x == 0)
-			sysmessage(s, "The Counselor queue is currently empty");
+			sysmessage(s, tr("The Counselor queue is currently empty"));
 	}// if
 }
 
@@ -405,7 +397,7 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 
 	if (r<=0 || r>=255) return;
 
-	sysmessage(s,"Killing spawn, this may cause lag...");
+	sysmessage(s, tr("Killing spawn, this may cause lag..."));
 
 	AllCharsIterator iter_char;
 	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
@@ -433,9 +425,8 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 	}
 
 	gcollect();
-	sysmessage(s, "Done.");
-	sprintf(temp, "%i of Spawn %i have been killed.",killed,r-1);
-	sysmessage(s, temp);
+	sysmessage(s, tr("Done."));
+	sysmessage(s, tr("%1 of Spawn %2 have been killed.").arg(killed).arg(r-1));
 }
 
 void cCommands::RegSpawnMax (int s, int r) // rewrite LB
@@ -461,8 +452,7 @@ void cCommands::RegSpawnMax (int s, int r) // rewrite LB
 	}	
 	
 	spawnregion[r].nexttime=currenttime+(MY_CLOCKS_PER_SEC*60*RandomNum(spawnregion[r].mintime,spawnregion[r].maxtime));	
-	sprintf(temps, "Done. %d total NPCs/items spawned in Spawnregion %d.",spawn,r-1);
-	sysmessage(s, temps);
+	sysmessage(s, tr("Done. %1 total NPCs/items spawned in Spawnregion %2.").arg(spawn).arg(r-1));
 
 	if (temps!=NULL) delete [] temps;
 }
@@ -478,32 +468,26 @@ void cCommands::RegSpawnNum (int s, int r, int n) // rewrite by LB
 
 	temps = new char[100];
 
-		spawn = (spawnregion[r].max-spawnregion[r].current);
-		if (n > spawn) 
-		{		
-			sprintf(temps, "%d too many for region %d, spawning %d to reach MAX:%d instead.",n, r-1, spawn, spawnregion[r].max);
-			sysmessage(s, temps);
-			n=spawn;
-		}		
-		sprintf(temps, "Region %d is Spawning: %d NPCs/items, this will cause some lag.", r-1, spawn);
-		sysbroadcast(temps);
-
-		for(i=1;i<spawn;i++)
-		{
-			doregionspawn(r);
-		}//for	
+	spawn = (spawnregion[r].max-spawnregion[r].current);
+	if (n > spawn) 
+	{		
+		sysmessage(s, tr("%1 too many for region %2, spawning %3 to reach MAX:%4 instead.").arg(n).arg(r-1).arg(spawn).arg(spawnregion[r].max));
+		n=spawn;
+	}		
+	sysbroadcast( tr("Region %1 is Spawning: %2 NPCs/items, this will cause some lag.").arg(r-1).arg(spawn));
+	for(i=1;i<spawn;i++)
+	{
+		doregionspawn(r);
+	}//for	
 	
-		spawnregion[r].nexttime=currenttime+(MY_CLOCKS_PER_SEC*60*RandomNum(spawnregion[r].mintime,spawnregion[r].maxtime));
-
-		sprintf(temps, "Done. %d total NPCs/items spawned in Spawnregion %d.",spawn,r-1);
-		sysmessage(s, temps);	
-	    if (temps!=NULL) delete [] temps; // fixing memory leak, LB
-
+	spawnregion[r].nexttime=currenttime+(MY_CLOCKS_PER_SEC*60*RandomNum(spawnregion[r].mintime,spawnregion[r].maxtime));
+	sysmessage(s, tr("Done. %1 total NPCs/items spawned in Spawnregion %2.").arg(spawn).arg(r-1));
+    if (temps!=NULL) delete [] temps; // fixing memory leak, LB
 }//regspawnnum
 
 void cCommands::KillAll(int s, int percent, const char* sysmsg)
 {
-	sysmessage(s,"Killing all characters, this may cause some lag...");
+	sysmessage(s, tr("Killing all characters, this may cause some lag..."));
 	sysbroadcast(sysmsg);
 	AllCharsIterator iter_char;
 	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
@@ -519,7 +503,7 @@ void cCommands::KillAll(int s, int percent, const char* sysmsg)
 			}
 		}
 	}
-	sysmessage(s, "Done.");
+	sysmessage(s, tr("Done."));
 }
 
 //o---------------------------------------------------------------------------o
@@ -559,28 +543,28 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 	}
 	if(x2==0)
 	{
-		sysmessage(s,"The Counselor Queue is currently full. Contact the shard operator");
-		sysmessage(s,"and ask them to increase the size of the queue.");
+		sysmessage(s,tr("The Counselor Queue is currently full. Contact the shard operator"));
+		sysmessage(s,tr("and ask them to increase the size of the queue."));
 	}
 	else
 	{
 		if(strcmp(reason,"OTHER"))
 		{
 			pc_currchar->inputmode = cChar::enNone;
-			sprintf((char*)temp, "Counselor Page from %s [%8x]: %s", pc_currchar->name.c_str(), pc_currchar->serial, reason);
+			QString temp = tr("Counselor Page from %1 [%2]: %3").arg(pc_currchar->name.c_str()).arg(pc_currchar->serial, 16).arg(reason);
 			for (i=0;i<now;i++)
 				if (currchar[i]->isCounselor() && perm[i])
 				{
-					x=1;
-					sysmessage(i, (char*)temp);
+					x = 1;
+					sysmessage(i, temp);
 				}
 			if (x==1)
 			{
-				sysmessage(s, "Available Counselors have been notified of your request.");
+				sysmessage(s, tr("Available Counselors have been notified of your request."));
 			}
-			else sysmessage(s, "There was no Counselor available to take your call.");
+			else sysmessage(s, tr("There was no Counselor available to take your call."));
 		}
-		else sysmessage(s,"Please enter the reason for your Counselor request");
+		else sysmessage(s, tr("Please enter the reason for your Counselor request"));
 	}
 }
 
@@ -619,28 +603,30 @@ void cCommands::GMPage(int s, char *reason)
 	}
 	if (x2==0)
 	{
-		sysmessage(s,"The GM Queue is currently full. Contact the shard operator");
-		sysmessage(s,"and ask them to increase the size of the queue.");
+		sysmessage(s, tr("The GM Queue is currently full. Contact the shard operator"));
+		sysmessage(s, tr("and ask them to increase the size of the queue."));
 	}
 	else
 	{
 		if(strcmp(reason,"OTHER"))
 		{
 			pc_currchar->inputmode = cChar::enNone;
-			sprintf((char*)temp, "Page from %s [%8x]: %s",
-				pc_currchar->name.c_str(), pc_currchar->serial, reason);
-			for (i=0;i<now;i++) if (currchar[i]->isGM() && perm[i])
+			QString temp = tr("Page from %1 [%2]: %3").arg(pc_currchar->name.c_str()).arg(pc_currchar->serial, 16).arg(reason);
+			for (i=0;i<now; ++i) 
 			{
-				x=1;
-				sysmessage(i, (char*)temp);
+				if (currchar[i]->isGM() && perm[i])
+				{
+					x=1;
+					sysmessage(i, temp);
+				}
 			}
 			if (x==1)
 			{
-				sysmessage(s, "Available Game Masters have been notified of your request.");
+				sysmessage(s, tr("Available Game Masters have been notified of your request."));
 			}
-			else sysmessage(s, "There was no Game Master available to take your call.");
+			else sysmessage(s, tr("There was no Game Master available to take your call."));
 		}
-		else sysmessage(s,"Please enter the reason for your GM request");
+		else sysmessage(s, tr("Please enter the reason for your GM request"));
 	}
 }
 
@@ -716,7 +702,7 @@ void cCommands::SetItemTrigger(int s)
   P_ITEM pi = FindItemBySerial(serial);
   if (pi != NULL)
   {
-		sysmessage(s,"Item triggered");
+		sysmessage(s, tr("Item triggered"));
 		pi->trigger=addx[s];
   }
 }
@@ -730,7 +716,7 @@ void cCommands::SetTriggerType(int s)
   P_ITEM pi = FindItemBySerial(serial);
   if (pi != NULL)
   {
-		sysmessage(s,"Trigger type set");
+		sysmessage(s, tr("Trigger type set"));
 		pi->trigtype=addx[s];
   }
 }
@@ -744,7 +730,7 @@ void cCommands::SetTriggerWord(int s)
   P_CHAR pc = FindCharBySerial(serial);
   if (pc != NULL)
   {
-		sysmessage(s,"Trigger word set");
+		sysmessage(s, tr("Trigger word set"));
 		pc->trigword = xtext[s];
   }
 }
@@ -782,7 +768,7 @@ void cCommands::SetNPCTrigger(int s)
 	{
 		//   if (chars[i].npc)
 		//   {
-		sysmessage(s, "NPC triggered");
+		sysmessage(s, tr("NPC triggered"));
 		pc->trigger = addx[s];
 		//   }else{
 		//    sysmessage(s,"You can not trigger Player Characters");
@@ -809,7 +795,7 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 	P_CHAR pc_c = FindCharBySerial( serial ); // find selected char ...
 	if (pc_c == NULL) 
 	{
-		sysmessage(s,"selected character not found");
+		sysmessage(s, tr("selected character not found"));
 		return;
 	}
 //	P_CHAR pc_c = MAKE_CHARREF_LR(c);
@@ -985,25 +971,20 @@ void cCommands::ShowGMQue(int s, int type) // Shows next unhandled call in the G
 				if(x==0)
 				{
 					sysmessage(s,"");
-					sprintf((char*)temp,"Next unhandled page from %s", gmpages[i].name.c_str());
-					sysmessage(s,(char*)temp);
-					sprintf((char*)temp,"Problem: %s.", gmpages[i].reason.c_str());
-					sysmessage(s,(char*)temp);
-					sprintf((char*)temp,"Serial number %x", gmpages[i].serial);
-					sysmessage(s,(char*)temp);
-					sprintf((char*)temp,"Paged at %s.", gmpages[i].timeofcall);
-					sysmessage(s,(char*)temp);
+					sysmessage(s, tr("Next unhandled page from %1").arg(gmpages[i].name.c_str()));
+					sysmessage(s, tr("Problem: %1.").arg(gmpages[i].reason.c_str()));
+					sysmessage(s, tr("Serial number %1").arg(gmpages[i].serial, 16));
+					sysmessage(s, tr("Paged at %1.").arg(gmpages[i].timeofcall, 16));
 				}
 				x++;
 			}
 		}
 		if (x>0)
 		{
-			sprintf((char*)temp,"Total pages in queue: %i",x);
 			sysmessage(s,"");
-			sysmessage(s,(char*)temp);
+			sysmessage(s, tr("Total pages in queue: %1").arg(x));
 		}
-		else sysmessage(s,"The GM queue is currently empty");
+		else sysmessage(s, tr("The GM queue is currently empty"));
 	} //end of first if
 	else //Player is a counselor so show counselor queue
 	{
@@ -1014,25 +995,20 @@ void cCommands::ShowGMQue(int s, int type) // Shows next unhandled call in the G
 				if(x==0)
 				{
 					sysmessage(s,"");
-					sprintf((char*)temp,"Next unhandled page from %s", counspages[i].name.c_str());
-					sysmessage(s,(char*)temp);
-					sprintf((char*)temp,"Problem: %s.", counspages[i].reason.c_str());
-					sysmessage(s,(char*)temp);
-					sprintf((char*)temp,"Serial number %x", counspages[i].serial);
-					sysmessage(s,(char*)temp);
-					sprintf((char*)temp,"Paged at %s.", counspages[i].timeofcall);
-					sysmessage(s,(char*)temp);
+					sysmessage(s, tr("Next unhandled page from %1").arg(counspages[i].name.c_str()));
+					sysmessage(s, tr("Problem: %1.").arg(counspages[i].reason.c_str()));
+					sysmessage(s, tr("Serial number %1").arg(counspages[i].serial, 16));
+					sysmessage(s, tr("Paged at %1.").arg(counspages[i].timeofcall));
 				}
 				x++;
 			}
 		}
 		if (x>0)
 		{
-			sprintf((char*)temp,"Total pages in queue: %i",x);
 			sysmessage(s,"");
-			sysmessage(s,(char*)temp);
+			sysmessage(s, tr("Total pages in queue: %1").arg(x));
 		}
-		else sysmessage(s,"The Counselor queue is currently empty");
+		else sysmessage(s, tr("The Counselor queue is currently empty"));
 	}
 }
 // new wipe function, basically it prints output on the console when someone wipes so that

@@ -67,11 +67,12 @@ void do_lsd(UOXSOCKET s)
 		{
 			for (int a=0;a<3;a++)
 			{
-				vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid + a);
-				for ( unsigned int k = 0; k < vecEntries.size(); k++)
+				cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid + a);
+				cRegion::rawIterator it = vecEntries.begin();
+				for ( ; it != vecEntries.end(); ++it )
 				{
-					P_ITEM pi = FindItemBySerial(vecEntries[k]);
-					P_CHAR mapchar = FindCharBySerial(vecEntries[k]);
+					P_ITEM pi = FindItemBySerial(*it);
+					P_CHAR mapchar = FindCharBySerial(*it);
 					if (pi != NULL)
 					{
 						 color = pi->color; // fetch item's color
@@ -995,11 +996,12 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			{
 				for (int a=0;a<3;a++)
 				{
-					vector<SERIAL> vecEntries( mapRegions->GetCellEntries(checkgrid + a) );
-					for ( unsigned int k = 0; k < vecEntries.size(); k++)
+					cRegion::raw vecEntries( mapRegions->GetCellEntries(checkgrid + a) );
+					cRegion::rawIterator it = vecEntries.begin();
+					for (; it != vecEntries.end(); ++it)
 					{
-						P_CHAR mapchar = FindCharBySerial(vecEntries[k]);
-						P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
+						P_CHAR mapchar = FindCharBySerial(*it);
+						P_ITEM mapitem = FindItemBySerial(*it);
 						if (mapchar != NULL)
 						{//Instalog //AntiChrist
 								//AntiChrist
@@ -1029,6 +1031,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 							{
 								if(mapitem->gatetime<=currenttime) // LB !!!
 								{
+									unsigned int k;
 									for (k=0;k<2;k++) 
 										Items->DeleItem(mapitem); // bugfix for items disappearing
 								}

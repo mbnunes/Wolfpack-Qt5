@@ -1017,7 +1017,7 @@ int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr)
 
 
 
-void cSpeech::talking(int s, string& speech) // PC speech
+void cSpeech::talking(int s, const QString& speech) // PC speech
 {
 /*
 	Unicode speech format
@@ -1060,12 +1060,11 @@ void cSpeech::talking(int s, string& speech) // PC speech
 	char name[50] = {0,};	// it **IS** important to 0 out the remaining gaps
 	
 	P_CHAR pc_currchar = currchar[s];	
-	strcpy(nonuni, speech.c_str());
+	strcpy(nonuni, speech.latin1());
 
 	// len+font+color+type = same postion for non unicode and unicode speech packets
 	// but 8 ... x DIFFER a lot for unicode and non unicode packets !!!
 
-//	memset(name, 0, 30); 
 	strncpy(name, pc_currchar->name.c_str(), 50);
 
 	char speech_type       = buffer[s][3]; 
@@ -1073,7 +1072,7 @@ void cSpeech::talking(int s, string& speech) // PC speech
 	char speech_fontbyte1  = buffer[s][6];
 	char speech_fontbyte2  = buffer[s][7];
 
-	int ucl = ( strlen ( nonuni ) * 2 ) + 2 ;	
+	int ucl = ( speech.length() * 2 ) + 2;
 	int tl = ucl + 48 ;
 
 	if (pc_currchar->unicode)
@@ -1108,7 +1107,7 @@ void cSpeech::talking(int s, string& speech) // PC speech
 
 	//// Very important: do not use buffer[s][] anymore in this function !!!!
 	//// unicode text that gets send is in unicodetext, nonunicode text for normal string processing in non uni code
-	string punt(nonuni) ;
+	string punt(nonuni);
 	if (InputSpeech(punt, pc_currchar, s))	// handle things like renaming or describing an item
 		return;
 
@@ -1123,7 +1122,7 @@ void cSpeech::talking(int s, string& speech) // PC speech
 		
 	if (nonuni[0] == SrvParams->commandPrefix() )
 	{
-		Commands->Command(s, speech);
+		Commands->Command(s, speech.latin1());
 		return;
 	}
 

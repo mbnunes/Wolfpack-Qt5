@@ -477,10 +477,11 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, si
 	{
 		for (a=0;a<3;a++)
 		{
-			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-			for ( unsigned int k = 0; k < vecEntries.size(); k++)
+			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+			cRegion::rawIterator it = vecEntries.begin();
+			for (; it != vecEntries.end(); ++it)
 			{
-				P_CHAR pc_i = FindCharBySerial(vecEntries[k]);
+				P_CHAR pc_i = FindCharBySerial(*it);
 				if (pc_i != NULL)
 				{
 					if (pc_i != pc && (online(pc_i) || pc_i->isNpc()))
@@ -900,7 +901,7 @@ void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int 
 	// i'm trying a new optimization here, if we end up in the same map cell
 	// as we started, i'm sure there's no real reason to remove and readd back
 	// to the same spot..
-	if (mapRegions->GetCell(Coord_cl(oldx, oldy, 0)) != mapRegions->GetCell(Coord_cl(nowx, nowy, 0)))
+	if (cRegion::GetCell(Coord_cl(oldx, oldy, 0)) != cRegion::GetCell(Coord_cl(nowx, nowy, 0)))
 	{
 		// restore our original location and remove ourself
 		pc->pos.x = oldx;
@@ -934,7 +935,7 @@ void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int 
 // actually send the walk command back to the player and increment the sequence
 void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence)
 {
-	if (socket!=INVALID_UOXSOCKET)
+	if (socket != INVALID_UOXSOCKET)
 	{
 		char walkok[4]="\x22\x00\x01";
 		walkok[1]=buffer[socket][2];
@@ -950,14 +951,14 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 }
 
 	
-void cMovement::SendWalkToOtherPlayers(P_CHAR pc,P_CHAR us, int dir, short int oldx, short int oldy, UOXSOCKET socket )
+void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, int dir, short int oldx, short int oldy, UOXSOCKET socket )
 {
 
 	// Ok, we are TOLD to how to send this to
 	
 	// We need to decide, to send a 78, or 77.
 
-	UOXSOCKET visSocket = calcSocketFromChar(pc) ;
+	UOXSOCKET visSocket = calcSocketFromChar(pc);
 	{
 		// It is a real player, we actually care
 		const int newx = pc->pos.x ;
@@ -974,52 +975,48 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc,P_CHAR us, int dir, short int o
 		}
 		else if ( visSocket != INVALID_SOCKET ) // did we get a valid socket?
 		{
-				// We just need to send out a 77
-
-				
-				LongToCharPtr(us->serial, &extmove[1]);
-				ShortToCharPtr(us->id(), &extmove[5]);
-				extmove[7]=us->pos.x>>8;
-				extmove[8]=us->pos.x%256;
-				extmove[9]=us->pos.y>>8;
-				extmove[10]=us->pos.y%256;
-				extmove[11]=us->dispz;
-				extmove[12]=dir;
-				ShortToCharPtr(us->skin, &extmove[13]);
-				if( us->isNpc() /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
-					extmove[12]=dir|0x80;
-				if( us->isNpc() && (pc->ftarg != INVALID_SERIAL))
-					extmove[12]=dir|0x80;
-				if (us->war) extmove[15]=0x40; else extmove[15]=0x00;
-				if (us->hidden) extmove[15]=extmove[15]|0x80;
-				if( us->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
-				if(us->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
-				//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
-				int guild, race;
-				//chars[i].flag=0x04;       // everyone should be blue on default
-				guild = GuildCompare( pc, us );
-				race = Races.CheckRelation(pc,us);
-				if( us->kills > repsys.maxkills ) extmove[16]=6;
-				else if (guild==1 || race==1)//Same guild (Green)
-					extmove[16]=2;
-				else if (guild==2 || race==2) // Enemy guild.. set to orange
-					extmove[16]=5;
-				else
-				{
-					switch(us->flag)
-					{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
-					case 0x01: extmove[16]=6; break;// If a bad, show as red.
-					case 0x04: extmove[16]=1; break;// If a good, show as blue.
-					case 0x08: extmove[16]=2; break; //green (guilds)
-					case 0x10: extmove[16]=5; break;//orange (guilds)
-					default:extmove[16]=3; break;//grey
-					}
+			// We just need to send out a 77
+			LongToCharPtr(us->serial, &extmove[1]);
+			ShortToCharPtr(us->id(), &extmove[5]);
+			extmove[7]=us->pos.x>>8;
+			extmove[8]=us->pos.x%256;
+			extmove[9]=us->pos.y>>8;
+			extmove[10]=us->pos.y%256;
+			extmove[11]=us->dispz;
+			extmove[12]=dir;
+			ShortToCharPtr(us->skin, &extmove[13]);
+			if( us->isNpc() /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
+				extmove[12]=dir|0x80;
+			if( us->isNpc() && (pc->ftarg != INVALID_SERIAL))
+				extmove[12]=dir|0x80;
+			if (us->war) extmove[15]=0x40; else extmove[15]=0x00;
+			if (us->hidden) extmove[15]=extmove[15]|0x80;
+			if( us->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
+			if(us->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
+			//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
+			int guild, race;
+			//chars[i].flag=0x04;       // everyone should be blue on default
+			guild = GuildCompare( pc, us );
+			race = Races.CheckRelation(pc,us);
+			if( us->kills > repsys.maxkills ) extmove[16]=6;
+			else if (guild==1 || race==1)//Same guild (Green)
+				extmove[16]=2;
+			else if (guild==2 || race==2) // Enemy guild.. set to orange
+				extmove[16]=5;
+			else
+			{
+				switch(us->flag)
+				{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
+				case 0x01: extmove[16]=6; break;// If a bad, show as red.
+				case 0x04: extmove[16]=1; break;// If a good, show as blue.
+				case 0x08: extmove[16]=2; break; //green (guilds)
+				case 0x10: extmove[16]=5; break;//orange (guilds)
+				default:extmove[16]=3; break;//grey
 				}
-				Network->xSend(visSocket, extmove, 17, 0);
-
+			}
+			Network->xSend(visSocket, extmove, 17, 0);
 		}
 	}
-
 }
 
 
@@ -1224,10 +1221,11 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 		for (int i=0;i<3;i++)
 		{
 			P_ITEM mapitem = NULL;
-			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+i);
-			for ( unsigned int k = 0; k < vecEntries.size(); k++)
+			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+i, enItemsOnly);
+			cRegion::rawIterator it = vecEntries.begin();
+			for (; it != vecEntries.end(); ++it)
 			{
-				mapitem = FindItemBySerial(vecEntries[k]);
+				mapitem = FindItemBySerial(*it);
 				if (mapitem != NULL)
 				{
 #if DEBUG_WALKING
@@ -2223,11 +2221,12 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
 
 	if ( pc_s == NULL ) return 0;
 
-    pc_s->blocked++;
-	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
-    for ( unsigned int k = 0; k < vecEntries.size(); k++)
+    ++pc_s->blocked;
+	cRegion::raw vecEntries = mapRegions->GetCellEntries(getcell);
+	cRegion::rawIterator it = vecEntries.begin();
+    for (; it != vecEntries.end(); ++it)
     {
-		P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
+		P_ITEM mapitem = FindItemBySerial(*it);
         if (mapitem != NULL)
         {
 		    tile_st tile;

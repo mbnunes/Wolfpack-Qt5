@@ -773,9 +773,9 @@ void command_where(UOXSOCKET s)
     if (pcc_cs == NULL) return;
 	
 	if (strlen(region[pcc_cs->region].name)>0)
-		sprintf((char*)temp, "You are at: %s",region[pcc_cs->region].name); 
-	else strcpy((char*)temp, "You are at: unknown area");
-	sysmessage(s,(char*)temp);
+		sysmessage(s, tr("You are at: %1").arg((char*)region[pcc_cs->region].name)); 
+	else 
+		sysmessage(s, tr("You are at: unknown area"));
 	
 	sprintf((char*)temp, "%i %i (%i)",pcc_cs->pos.x,pcc_cs->pos.y,pcc_cs->pos.z); 
 	sysmessage(s,(char*)temp);
@@ -955,10 +955,11 @@ void command_showids(UOXSOCKET s)
 	
 	//Char mapRegions
 	int getcell=mapRegions->GetCell(pc_currchar->pos);
-	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
-	for (unsigned int k = 0; k < vecEntries.size(); k++)
+	cRegion::raw vecEntries = mapRegions->GetCellEntries(getcell);
+	cRegion::rawIterator it = vecEntries.begin();
+	for (; it != vecEntries.end(); ++it )
 	{
-		P_CHAR mapchar = FindCharBySerial(vecEntries[k]);
+		P_CHAR mapchar = FindCharBySerial(*it);
 		if ( mapchar != NULL)
 		{
 			if (inrange1p(currchar[s], mapchar)) 
@@ -1051,7 +1052,7 @@ void command_setseason(UOXSOCKET s)
 		for (i=0;i<now;i++) if (perm[i]) Xsend(i,setseason,3);
 	}
 	else
-		sysmessage(s, "Setseason takes one argument.");	
+		sysmessage(s, tr("Setseason takes one argument."));	
 }
 
 void command_xtele(UOXSOCKET s)
@@ -1093,7 +1094,7 @@ void command_go(UOXSOCKET s)
 void command_zerokills(UOXSOCKET s)
 // Sets all PK counters to 0.
 {
-	sysmessage(s,"Zeroing all player kills...");
+	sysmessage(s, tr("Zeroing all player kills..."));
 	AllCharsIterator iter_char;
 	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
@@ -1101,7 +1102,7 @@ void command_zerokills(UOXSOCKET s)
 		pc->kills=0;
 		setcharflag(pc);//AntiChrist
 	}		
-	sysmessage(s, "All player kills are now 0.");
+	sysmessage(s, tr("All player kills are now 0."));
 }
 
 void command_tile(UOXSOCKET s)
@@ -1168,7 +1169,7 @@ void command_iwipe(UOXSOCKET s)
 		mstring dummy = Commands->params[1];
 		dummy.lower();
 		if (!strcmp("all", dummy.c_str())) {
-			sysmessage(s,"Well aren't you the funny one!");
+			sysmessage(s, tr("Well aren't you the funny one!"));
 	}}
 	else if (tnum==5) { // Wipe according to world coordinates
 		clickx[s]=makenumber(1);
@@ -1187,7 +1188,7 @@ void command_add(UOXSOCKET s)
 {
 	if (tnum==2 || tnum>3)//AntiChrist
 	{
-		sysmessage(s,"Sintax error. Usage: /add <id1> <id2>");
+		sysmessage(s, tr("Sintax error. Usage: /add <id1> <id2>"));
 		return;
 	} else if (tnum==3)
 	{
@@ -1328,9 +1329,9 @@ void command_showtime(UOXSOCKET s)
 // Displays the current UO time.
 {
 	if (ampm || (!ampm && hour==12))
-		sprintf((char*)temp, "%s %2.2d %s %2.2d %s", "WOLFPACK: Time: ", hour, ":", minute, "PM");
+		sprintf((char*)temp, "%s %2.2d %s %2.2d %s", tr("WOLFPACK: Time: ").latin1(), hour, ":", minute, "PM");
 	else
-		sprintf((char*)temp, "%s %2.2d %s %2.2d %s", "WOLFPACK: Time: ", hour, ":",minute, "AM");
+		sprintf((char*)temp, "%s %2.2d %s %2.2d %s", tr("WOLFPACK: Time: ").latin1(), hour, ":",minute, "AM");
 	sysmessage(s,(char*)temp);
 	return;
 	
@@ -1372,12 +1373,12 @@ void command_shutdown(UOXSOCKET s)
 		if (makenumber(1)==0)
 		{
 			endtime=0;
-			sysbroadcast("Shutdown has been interrupted.");
+			sysbroadcast(tr("Shutdown has been interrupted."));
 		}
 		else endmessage(0);
 	}
 	else
-		sysmessage(s, "Syntax: shutdown [seconds]");
+		sysmessage(s, tr("Syntax: shutdown [seconds]"));
 	return;
 }
 
@@ -1472,7 +1473,7 @@ void command_tell(UOXSOCKET s)
 void command_dry(UOXSOCKET s)
 // Set weather to dry (no rain or snow).
 {
-	sysmessage(s,"Being Worked On!\n");
+	sysmessage(s, tr("Being Worked On!\n"));
 	/*	int i;
 	wtype=0;
 	for (i=0;i<now;i++) if (perm[i]) weather(i,0);*/
@@ -1482,7 +1483,7 @@ void command_dry(UOXSOCKET s)
 void command_rain(UOXSOCKET s)
 // Sets the weather condition to rain.
 {
-	sysmessage(s,"Being Worked On!\n");
+	sysmessage(s, tr("Being Worked On!\n"));
 	/*		int i;
 	if (wtype==2)
 	{
@@ -1498,7 +1499,7 @@ void command_rain(UOXSOCKET s)
 void command_snow(UOXSOCKET s)
 // Sets the weather condition to snow.
 {
-	sysmessage(s,"Being Worked On!\n");
+	sysmessage(s, tr("Being Worked On!\n"));
 	/*	int i;
 	if (wtype==1)
 	{
@@ -1578,7 +1579,7 @@ void command_gcollect(UOXSOCKET s)
 // Runs garbage collection routines.
 {
 	gcollect();
-	sysmessage(s,"command succesfull");
+	sysmessage(s, tr("command succesfull"));
 	return;
 }
 
@@ -1588,7 +1589,7 @@ void command_allmoveon(UOXSOCKET s)
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 |= 0x01;
 	teleport((currchar[s]));
-	sysmessage(s, "ALLMOVE enabled."); // Crackerjack 07/25/99
+	sysmessage(s, tr("ALLMOVE enabled."));
 	return;
 	
 }
@@ -1599,7 +1600,7 @@ void command_allmoveoff(UOXSOCKET s)
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 &= (0xFF-0x01);
 	teleport((currchar[s]));
-	sysmessage(s, "ALLMOVE disabled."); // Crackerjack 07/25/99
+	sysmessage(s, tr("ALLMOVE disabled."));
 	return;
 	
 }
@@ -1610,7 +1611,7 @@ void command_showhs(UOXSOCKET s)
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 |= 0x04;
 	teleport((currchar[s]));
-	sysmessage(s, "House icons visible. (Houses invisible)");
+	sysmessage(s, tr("House icons visible. (Houses invisible)"));
 	return;
 	
 }
@@ -1621,7 +1622,7 @@ void command_hidehs(UOXSOCKET s)
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->priv2 &= (0xFF-0x04);
 	teleport((currchar[s]));
-	sysmessage(s, "House icons hidden. (Houses visible)");
+	sysmessage(s, tr("House icons hidden. (Houses visible)"));
 	return;
 }
 
@@ -1726,7 +1727,7 @@ void command_readini(UOXSOCKET s)
 // Re-loads the WOLFPACK.INI file.
 {
 	Admin->ReadIni();
-	sysmessage(s, "INI file reloaded.");
+	sysmessage(s, tr("INI file reloaded."));
 	return;
 }
 
@@ -1794,7 +1795,7 @@ void command_secondsperuominute(UOXSOCKET s)
 	if (tnum==2)
 	{
 		secondsperuominute=makenumber(1);
-		sysmessage(s, "Seconds per UO minute set.");
+		sysmessage(s, tr("Seconds per UO minute set."));
 	}
 	return;
 	
@@ -1806,7 +1807,7 @@ void command_brightlight(UOXSOCKET s)
 	if (tnum==2)
 	{
 		worldbrightlevel=hexnumber(1);
-		sysmessage(s, "World bright light level set.");
+		sysmessage(s, tr("World bright light level set."));
 	}
 	return;
 	
@@ -1818,7 +1819,7 @@ void command_darklight(UOXSOCKET s)
 	if (tnum==2)
 	{
 		worlddarklevel=hexnumber(1);
-		sysmessage(s, "World dark light level set.");
+		sysmessage(s, tr("World dark light level set."));
 	}
 	return;
 	
@@ -1830,7 +1831,7 @@ void command_dungeonlight(UOXSOCKET s)
 	if (tnum==2)
 	{
 		dungeonlightlevel=min(hexnumber(1), 27);
-		sysmessage(s, "Dungeon light level set.");
+		sysmessage(s, tr("Dungeon light level set."));
 	}
 	return;
 	
@@ -1858,7 +1859,7 @@ void command_restock(UOXSOCKET s)
 // Forces a manual vendor restock.
 {
 	Trade->restock(0);
-	sysmessage(s, "Manual shop restock has occurred.");
+	sysmessage(s, tr("Manual shop restock has occurred."));
 	return;
 	
 }
@@ -1867,7 +1868,7 @@ void command_restockall(UOXSOCKET s)
 // Forces a manual vendor restock to maximum values.
 {
 	Trade->restock(1);
-	sysmessage(s, "Restocking all shops to their maximums");
+	sysmessage(s, tr("Restocking all shops to their maximums"));
 	return;
 	
 }
@@ -1878,9 +1879,9 @@ void command_setshoprestockrate(UOXSOCKET s)
 	if (tnum==2)
 	{
 		shoprestockrate=makenumber(1);
-		sysmessage(s, "NPC shop restock rate changed.");
+		sysmessage(s, tr("NPC shop restock rate changed."));
 	}
-	else sysmessage(s, "Invalid number of parameters.");
+	else sysmessage(s, tr("Invalid number of parameters."));
 	return;
 	
 }
@@ -1946,7 +1947,7 @@ void command_reloadserver(UOXSOCKET s)
 // Reloads the SERVER.SCP file.
 {
 	loadserverscript();
-	sysmessage(s,"Server.scp reloaded.");
+	sysmessage(s, tr("Server.scp reloaded."));
 	return;
 }
 
@@ -2078,43 +2079,31 @@ void command_killall(UOXSOCKET s)
 void command_pdump(UOXSOCKET s)
 // Display some performance information.
 {
-	sysmessage(s, "Performace Dump:");
-	
-	sprintf((char*)temp, "Network code: %fmsec [%i]" _ (float)((float)networkTime/(float)networkTimeCount) _ networkTimeCount);
-	sysmessage(s,(char*) temp);
-	
-	sprintf((char*)temp, "Timer code: %fmsec [%i]" _ (float)((float)timerTime/(float)timerTimeCount) _ timerTimeCount);
-	sysmessage(s, (char*)temp);
-	
-	sprintf((char*)temp, "Auto code: %fmsec [%i]" _ (float)((float)autoTime/(float)autoTimeCount) _ autoTimeCount);
-	sysmessage(s, (char*)temp);
-	
-	sprintf((char*)temp, "Loop Time: %fmsec [%i]" _ (float)((float)loopTime/(float)loopTimeCount) _ loopTimeCount);
-	sysmessage(s, (char*)temp);
-	
-	sprintf((char*)temp, "Simulation Cycles/Sec: %f" _ (1000.0*(1.0/(float)((float)loopTime/(float)loopTimeCount))));
-	sysmessage(s, (char*)temp);
+	sysmessage(s, tr("Performace Dump:"));
+	sysmessage(s, tr("Network code: %1msec [%2]").arg((float)((float)networkTime/(float)networkTimeCount)).arg(networkTimeCount));
+	sysmessage(s, tr("Timer code: %1msec [%2]").arg((float)((float)timerTime/(float)timerTimeCount)).arg(timerTimeCount));
+	sysmessage(s, tr("Auto code: %1msec [%2]").arg((float)((float)autoTime/(float)autoTimeCount)).arg(autoTimeCount));
+	sysmessage(s, tr("Loop Time: %1msec [%2]").arg((float)((float)loopTime/(float)loopTimeCount)).arg(loopTimeCount));
+	sysmessage(s, tr("Simulation Cycles/Sec: %1").arg((1000.0*(1.0/(float)((float)loopTime/(float)loopTimeCount)))));
 	return;
 }
 
 void command_rename2(UOXSOCKET s)
 // (text) Rename an item or character.
 {
-			 if (tnum>1)
-			 {
-				 addx[s]=1;
-				 strcpy(xtext[s], Commands->GetAllParams().c_str());
-				 target(s, 0, 1, 0, 1, "Select item or character to rename.");
-			 } 
-			 return;
-			 
+	 if (tnum>1)
+	 {
+		 addx[s]=1;
+		 strcpy(xtext[s], Commands->GetAllParams().c_str());
+		 target(s, 0, 1, 0, 1, "Select item or character to rename.");
+	 } 
+	 return;
 }
 
 void command_readspawnregions(UOXSOCKET s)
-// Re-read the SPAWN.SCP file.
 {
 	loadspawnregions();
-	sysmessage(s,"Spawnregions reloaded.");
+	sysmessage(s, tr("Spawnregions reloaded."));
 	return;
 	
 }
@@ -2123,7 +2112,7 @@ void command_gy(UOXSOCKET s)
 // (text) GM Yell - Announce a message to all online GMs.
 {
 	if(now==1) {
-		sysmessage(s,"There are no other users connected.");
+		sysmessage(s, tr("There are no other users connected."));
 		return;
 	}
 	
@@ -2195,7 +2184,7 @@ void command_tilew(UOXSOCKET s)
 		addid1[s]=0; // lb, i was so free and placed it here so that we dont have y-1 rows of 0-id items ... hope that was not intentinal ..
 		addid2[s]=0;
 	}  
-	else { sysmessage(s, "Format: /tilew ID1 ID2 X1 X2 Y1 Y2 Z"); }
+	else { sysmessage(s, tr("Format: /tilew ID1 ID2 X1 X2 Y1 Y2 Z")); }
 	return;
 	
 }
@@ -2234,7 +2223,7 @@ void command_wanim(UOXSOCKET s)
 		w_anim[0]=(signed char) hexnumber(1);
 		w_anim[1]=(signed char) hexnumber(2);
 		
-		sysmessage(s,"new lightening animation set!");
+		sysmessage(s, tr("new lightening animation set!"));
 	}
 }
 
@@ -2246,7 +2235,7 @@ void command_gotocur(UOXSOCKET s)
 	
 	if(pc_currchar->callnum==0)
 	{
-		sysmessage(s,"You are not currently on a call.");
+		sysmessage(s, tr("You are not currently on a call."));
 	}
 	else
 	{  
@@ -2255,7 +2244,7 @@ void command_gotocur(UOXSOCKET s)
 		if(pc_i != NULL)
 		{
 			pc_currchar->moveTo(pc_i->pos);
-			sysmessage(s,"Transporting to your current call.");
+			sysmessage(s, tr("Transporting to your current call."));
 			teleport((currchar[s]));
 			x++;
 		}  
@@ -2267,7 +2256,7 @@ void command_gotocur(UOXSOCKET s)
 				
 			{
 				pc_currchar->moveTo(pc_i->pos);
-				sysmessage(s,"Transporting to your current call.");
+				sysmessage(s, tr("Transporting to your current call."));
 				teleport((currchar[s]));
 			}
 		}
@@ -2302,23 +2291,23 @@ void command_gmtransfer(UOXSOCKET s)
 			}
 			if (x2==0)
 			{
-				sysmessage(s,"The GM Queue is currently full. Contact the shard operator");
-				sysmessage(s,"and ask them to increase the size of the queue.");
+				sysmessage(s, tr("The GM Queue is currently full. Contact the shard operator"));
+				sysmessage(s, tr("and ask them to increase the size of the queue."));
 			}
 			else
 			{
-				sysmessage(s,"Call successfully transferred to the GM queue.");
+				sysmessage(s, tr("Call successfully transferred to the GM queue."));
 				donewithcall(s,1);
 			}
 		}
 		else
 		{
-			sysmessage(s,"Only Counselors may use this command.");
+			sysmessage(s, tr("Only Counselors may use this command."));
 		}
 	}
 	else
 	{
-		sysmessage(s,"You are not currently on a call");
+		sysmessage(s, tr("You are not currently on a call"));
 	}
 }
 
@@ -2327,12 +2316,12 @@ void command_who(UOXSOCKET s)
 {
 	if(now==1) 
 	{
-		sysmessage(s,"There are no other users connected.");
+		sysmessage(s, tr("There are no other users connected."));
 		return;
 	}
 	
 	int i, j=0;
-	sysmessage(s,"Current Users in the World:");
+	sysmessage(s, tr("Current Users in the World:"));
 	for (i=0;i<now;i++)
 	{
 		if(perm[i]) //Keeps NPC's from appearing on the list
@@ -2342,15 +2331,14 @@ void command_who(UOXSOCKET s)
 			sysmessage(s, (char*)temp);
 		}
 	}
-	sprintf((char*)temp,"Total Users Online: %d\n", j);
-	sysmessage(s,(char*)temp);
-	sysmessage(s,"End of userlist");
+	sysmessage(s, tr("Total Users Online: %1\n").arg(j));
+	sysmessage(s, tr("End of userlist"));
 }
 
 void command_gms(UOXSOCKET s)
 {
 	int i, j=0;
-	sysmessage(s,"Current GMs and Counselors in the world:");
+	sysmessage(s, tr("Current GMs and Counselors in the world:"));
 	for (i=0;i<now;i++)
 	{
 		if(perm[i] && currchar[i]->isCounselor()) //Keeps NPC's from appearing on the list
@@ -2359,9 +2347,8 @@ void command_gms(UOXSOCKET s)
 			sysmessage(s, (char*)currchar[i]->name.c_str());
 		}
 	}
-	sprintf((char*)temp, "Total Staff Online: %d\n", j);
-	sysmessage(s, (char*)temp);
-	sysmessage(s,"End of stafflist");
+	sysmessage(s, tr("Total Staff Online: %d\n").arg(j));
+	sysmessage(s, tr("End of stafflist"));
 }
 
 void command_regspawnall(UOXSOCKET s)
@@ -2386,7 +2373,7 @@ void command_regspawnall(UOXSOCKET s)
 		spawnregion[i].nexttime = uiCurrentTime+(MY_CLOCKS_PER_SEC*60*RandomNum(spawnregion[i].mintime,spawnregion[i].maxtime));
 	}
 	
-	sysmessage(s, "Done. %d total NPCs/items spawned in %d regions.",spawn,spawnregion.size());
+	sysmessage(s, tr("Done. %1 total NPCs/items spawned in %2 regions.").arg(spawn).arg(spawnregion.size()));
 }
 
 void command_wipenpcs(UOXSOCKET s)
@@ -2424,7 +2411,7 @@ void command_wipenpcs(UOXSOCKET s)
 	
 	gcollect();
 	
-	sysmessage(s, "All NPC's have been wiped (%i).", deleted);
+	sysmessage(s, tr("All NPC's have been wiped (%1).").arg(deleted));
 	
 }
 
@@ -2433,7 +2420,7 @@ void command_cleanup(UOXSOCKET s)
 	int corpses=0;
 	char temp[100];
 	
-	sysmessage(s,"Cleaning corpses and closing gates...");
+	sysmessage(s, tr("Cleaning corpses and closing gates..."));
 	AllItemsIterator iter_items;
 	for( iter_items.Begin(); !iter_items.atEnd(); iter_items++ )
 	{
@@ -2446,9 +2433,8 @@ void command_cleanup(UOXSOCKET s)
 		}
 	}
 	gcollect();
-	sysmessage(s, "Done.");
-	sprintf(temp, "%i corpses or gates have been cleaned.",corpses);
-	sysmessage(s, temp);
+	sysmessage(s, tr("Done."));
+	sysmessage(s, tr("%1 corpses or gates have been cleaned.").arg(corpses));
 }
 
 /* new commands go just above this line. :-) */
@@ -2463,7 +2449,7 @@ void command_setmenupriv(UOXSOCKET s)
 		i=makenumber(1); 
 		if (menupriv[i][0]==-1)
 		{
-			sysmessage(s,"invalid menu priv number");
+			sysmessage(s, tr("invalid menu priv number"));
 			return;
 		}
 		
@@ -2471,14 +2457,14 @@ void command_setmenupriv(UOXSOCKET s)
 		target(s,0,1,0,248,"Select character to set menu privs.");
 		return;
 		
-	} else sysmessage(s,"this command takes one arument");
+	} else sysmessage(s, tr("this command takes one arument"));
 }
 
 void command_delid( UOXSOCKET s )
 {
 	if (tnum != 3)
 	{
-		sysmessage( s, "Syntax Error. Usage: /delid <id1> <id2>" );
+		sysmessage( s, tr("Syntax Error. Usage: /delid <id1> <id2>") );
 		return;
 	}
 	
@@ -2500,7 +2486,7 @@ void command_deltype( UOXSOCKET s )
 {
 	if (tnum != 2)
 	{
-		sysmessage( s, "Syntax Error. Usage: /deltype <type>" );
+		sysmessage( s, tr("Syntax Error. Usage: /deltype <type>") );
 		return;
 	}
 	
@@ -2522,7 +2508,7 @@ void command_sysm(UOXSOCKET s)
 { 
 	if (now == 1)
 	{ 
-		sysmessage(s, "There are no other users connected."); 
+		sysmessage(s, tr("There are no other users connected.")); 
 		return; 
 	}	
 	strcpy(xtext[s], Commands->GetAllParams().c_str()); 
@@ -2532,7 +2518,7 @@ void command_sysm(UOXSOCKET s)
 void command_eclipse(UOXSOCKET s) 
 { 
 	SrvParms->eclipsetimer = (unsigned int)((double) uiCurrentTime +(ECLIPSETIMER*MY_CLOCKS_PER_SEC));
-	sysmessage(s, "Eclipse ! Earth fades !! "); 
+	sysmessage(s, tr("Eclipse ! Earth fades !! ")); 
 }
 
 void command_jail(UOXSOCKET s) 
@@ -2574,17 +2560,17 @@ void command_password(UOXSOCKET s)
 		char pwd[200] = {0,};
 		strncpy(pwd, &tbuffer[Commands->cmd_offset+9], 198);
 		if ((!isalpha(pwd[0]))&&(!isdigit(pwd[0]))) {
-			sysmessage(s, "Passwords must start with a letter or a number\n");
+			sysmessage(s, tr("Passwords must start with a letter or a number\n"));
 			return;
 		}
 		if (Accounts->ChangePassword( pc_currchar->account, pwd )) 
-			sysmessage(s, "Password changed to %s", &tbuffer[Commands->cmd_offset+9]);
+			sysmessage(s, tr("Password changed to %1").arg((char*)pwd));
 		else 
-			sysmessage(s, "Some Error occured while changing password!");
+			sysmessage(s, tr("Some Error occured while changing password!"));
 		
 	}
 	else 
-		sysmessage(s, "You must type 'PASSWORD <newpassword>");
+		sysmessage(s, tr("You must type 'PASSWORD <newpassword>"));
 	
 	return;
 }

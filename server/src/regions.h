@@ -38,13 +38,18 @@
 // System includes
 
 #include <map>
-#include <vector>
+#include <list>
+
+// Library Includes
 
 using namespace std;
 
 // Forward class definition
 
 class cUObject;
+class cRegion;
+class RegionIterator4Chars;
+class RegionIterator4Items;
 
 // wolfpack includes
 #include "typedefs.h"
@@ -57,61 +62,16 @@ enum enDomain { enAll, enCharsOnly, enItemsOnly};
 
 class cRegion
 {
-private:
-//	static unsigned char GridSize;
-//	static unsigned char ColSize;
-	typedef multimap<UI32, SERIAL>::iterator iterMapCells;
-
-	multimap<UI32, SERIAL> MapCells;
-
-	bool Add (UI32, SERIAL);
-	bool Remove (UI32, SERIAL);
 
 public:
 	friend class RegionIterator4Chars;
 	friend class RegionIterator4Items;
-	class RegionIterator4Chars
-	{
-	protected:
-		P_CHAR currentCharacter;
-		UI32 cell;
-		UI32 endCell;
-		UI32 currentCell;
-		UI32 currentIndex;
-		vector<SERIAL> vecEntries;
-		Coord_cl position;
-		bool NextCell(void);
-	public:
-		RegionIterator4Chars(const Coord_cl&); 
-		void Begin(void);
-		bool atEnd(void) const;
-		P_CHAR GetData(void);
-		// Operators
-		RegionIterator4Chars& operator++(int);
-		RegionIterator4Chars& operator=( const Coord_cl& );
-	};
 
-	class RegionIterator4Items
-	{
-	protected:
-		P_ITEM currentItem;
-		UI32 cell;
-		UI32 endCell;
-		UI32 currentCell;
-		UI32 currentIndex;
-		Coord_cl position;
-		vector<SERIAL> vecEntries;
+	typedef vector<SERIAL> raw;
+	typedef vector<SERIAL>::iterator rawIterator;
+	typedef ::RegionIterator4Chars RegionIterator4Chars;
+	typedef ::RegionIterator4Items RegionIterator4Items;
 
-		bool NextCell(void);
-	public:
-		RegionIterator4Items(const Coord_cl&); 
-		void Begin(void);
-		bool atEnd(void);
-		P_ITEM GetData(void);
-		// Operators
-		RegionIterator4Items& operator++(int);
-		RegionIterator4Items& operator=(const Coord_cl&);
-	};
 
 	static unsigned int GetCell(const Coord_cl&);
 	static unsigned int StartGrid(const Coord_cl&);
@@ -120,9 +80,63 @@ public:
 
 	bool Add(cUObject*);
 	bool Remove(cUObject*);
-	vector<SERIAL> GetCellEntries(UI32 cell, enDomain type = enAll);
+	raw GetCellEntries(UI32 cell, enDomain type = enAll);
 	static unsigned int GetColSize() {return ColSize;};
 
+private:
+//	static unsigned char GridSize;
+//	static unsigned char ColSize;
+	typedef map<UI32, raw >::iterator iterMapCells;
+
+	map<UI32, raw > MapCellsItems;
+	map<UI32, raw > MapCellsChars;
+
+	bool Add (UI32, SERIAL);
+	bool Remove (UI32, SERIAL);
+
+};
+
+class RegionIterator4Chars
+{
+protected:
+	P_CHAR currentCharacter;
+	UI32 cell;
+	UI32 endCell;
+	UI32 currentCell;
+	cRegion::rawIterator currentIndex;
+	cRegion::raw vecEntries;
+	Coord_cl position;
+	bool NextCell(void);
+public:
+	RegionIterator4Chars(const Coord_cl&); 
+	void Begin(void);
+	bool atEnd(void) const;
+	P_CHAR GetData(void);
+	// Operators
+	RegionIterator4Chars& operator++(int);
+	RegionIterator4Chars& operator=( const Coord_cl& );
+};
+
+class RegionIterator4Items
+{
+protected:
+	P_ITEM currentItem;
+	UI32 cell;
+	UI32 endCell;
+	UI32 currentCell;
+	cRegion::rawIterator currentIndex;
+	Coord_cl position;
+	cRegion::raw vecEntries;
+
+	bool NextCell(void);
+public:
+	RegionIterator4Items(const Coord_cl&); 
+	void Begin(void);
+	bool atEnd(void);
+	P_ITEM GetData(void);
+	// Operators
+	RegionIterator4Items& operator++(int);
+	RegionIterator4Items& operator=(const Coord_cl&);
 };
 
 #endif // __REGION_H__

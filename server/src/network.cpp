@@ -1107,7 +1107,6 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 	P_CHAR pc_target = NULL;
 	P_ITEM pi_target = NULL;
-	string punt ;
 	string cpps;
 	vector<string>::const_iterator viter;
 		
@@ -1253,92 +1252,97 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					teleport((pc_currchar));
 					break;
 
-				case 0x03:// Speech			
-					pc_currchar->unicode = false;
-					punt = (char*)&buffer[s][8] ;
-					//strcpy((char*)nonuni, (char*)&buffer[s][8]);
-					//Speech->talking(s, (char*)nonuni);
-					Speech->talking(s,punt) ;
+				case 0x03:// Speech
+					{
+						pc_currchar->unicode = false;
+						QString punt = (char*)&buffer[s][8];
+						//strcpy((char*)nonuni, (char*)&buffer[s][8]);
+						//Speech->talking(s, (char*)nonuni);
+						Speech->talking(s,punt) ;
+					}
 					break;
-
 
 				// Thx a lot to Beosil for laying out the basics of the new structure of that packet since client 2.0.7
 				// Thx a lot to Punt for the implementation of it (4'th Feb 2001)
         			// Fixed a few erratas in that initial packet interpretation (LB 14-Feb 2001)
 
 				case 0xAD: // Unicode Speech			
-					pc_currchar->unicode = true;
-			    	// Check for command word versions of this packet														
-
-					if ( (buffer[s][3]) >=0xc0 )
-					{			
-						// Get the trigger
+					{
+						pc_currchar->unicode = true;
+						// Check for command word versions of this packet														
 						
-						buffer[s][3] = buffer[s][3] & 0x0F ; // set to normal (cutting off the ascii indicator since we are converting back to unicode)					
-
-						int num_words,/*idx=0,*/ num_unknown;				
-
-						// number of distict trigger words
-						num_words = ( (static_cast<int>(buffer[s][12])) << 24 ) + ( (static_cast<int>(buffer[s][13])) << 16 );
-						num_words = num_words & 0xfff00000;
-						num_words = (num_words >> 20);
-
-						/*************************************/
-						// plz dont delete yet
-						// trigger word index in/from speech.mul, not required [yet]
-						/*idx = ( (static_cast<int>(buffer[s][13])) << 24 ) + ( (static_cast<int>(buffer[s][14])) << 16);
-						idx = idx & 0x0fff0000;
-						idx = ( (idx << 4) >> 20) ;*/						
-						//cout << "#keywords was " << hex << num_words << "\n" << hex << static_cast<int>(buffer[s][12]) << " " << hex << static_cast<int> (buffer[s][13]) << " " << static_cast<int> (buffer[s][14]) << " " << static_cast<int> (buffer[s][15]) << endl ;
-						// cout << "idx: " << idx << endl;
-						/*************************************/
-
-						if ((num_words %2) == 1)  // odd number ?
-						{
-                          				num_unknown = ( num_words / 2 )  * 3;
-						} else
-						{
-                          				num_unknown = ( ( num_words / 2 ) * 3 ) - 1 ;
-						}
-
-						myoffset = 15 + num_unknown;					
-				
-						//
-						//	Now adjust the buffer
-						int iWord ;
-						//int iTempBuf ;
-						iWord = static_cast<int> ((buffer[s][1] << 8)) + static_cast<int> (buffer[s][2]) ;
-						myj = 12 ;
-
-						//cout << "Max length characters will be " << dec << (iWord - myoffset) << endl ;
-						mysize = iWord - myoffset ;
-						int i;
-						for (i=0; i < mysize ; i++)
-						{
-							mytempbuf[i] = buffer[s][i+myoffset] ;
-						}
-
-						for (i=0; i < mysize ; i++)
-						{							
-							myj++ ;
-							buffer[s][myj] = mytempbuf[i] ;
-							//iTempBuf = static_cast<int> (mytempbuf[i]) ;
-							//cout << "Copying value of " << hex << iTempBuf << endl ;
-							myj++;
-							buffer[s][myj] = 0 ;
+						if ( (buffer[s][3]) >=0xc0 )
+						{			
+							// Get the trigger
 							
-						}
-
-						iWord = (((iWord - myoffset ) * 2) + 12) ;
-						//cout << "Setting buffer size to " << dec << iWord << endl ;
-						buffer[s][1] = static_cast<unsigned char> ( ( ( iWord & 0xFF00 ) >>8 ) ) ;
-						buffer[s][2] = static_cast<unsigned char> ( iWord & 0x00FF ) ;															
-					}	
-	
-					Speech->wchar2char((char*)&buffer[s][13]);
-					strncpy((char*)nonuni, temp, ((buffer[s][1]<<8)+buffer[s][2])/2);
-					punt = (char*) nonuni ;
-					Speech->talking(s, punt);
+							buffer[s][3] = buffer[s][3] & 0x0F ; // set to normal (cutting off the ascii indicator since we are converting back to unicode)					
+							
+							int num_words,/*idx=0,*/ num_unknown;				
+							
+							// number of distict trigger words
+							num_words = ( (static_cast<int>(buffer[s][12])) << 24 ) + ( (static_cast<int>(buffer[s][13])) << 16 );
+							num_words = num_words & 0xfff00000;
+							num_words = (num_words >> 20);
+							
+							/*************************************/
+							// plz dont delete yet
+							// trigger word index in/from speech.mul, not required [yet]
+							/*idx = ( (static_cast<int>(buffer[s][13])) << 24 ) + ( (static_cast<int>(buffer[s][14])) << 16);
+							idx = idx & 0x0fff0000;
+							idx = ( (idx << 4) >> 20) ;*/						
+							//cout << "#keywords was " << hex << num_words << "\n" << hex << static_cast<int>(buffer[s][12]) << " " << hex << static_cast<int> (buffer[s][13]) << " " << static_cast<int> (buffer[s][14]) << " " << static_cast<int> (buffer[s][15]) << endl ;
+							// cout << "idx: " << idx << endl;
+							/*************************************/
+							
+							if ((num_words %2) == 1)  // odd number ?
+							{
+								num_unknown = ( num_words / 2 )  * 3;
+							} else
+							{
+								num_unknown = ( ( num_words / 2 ) * 3 ) - 1 ;
+							}
+							
+							myoffset = 15 + num_unknown;					
+							
+							//
+							//	Now adjust the buffer
+							int iWord ;
+							//int iTempBuf ;
+							iWord = static_cast<int> ((buffer[s][1] << 8)) + static_cast<int> (buffer[s][2]) ;
+							myj = 12 ;
+							
+							//cout << "Max length characters will be " << dec << (iWord - myoffset) << endl ;
+							mysize = iWord - myoffset ;
+							int i;
+							for (i=0; i < mysize ; i++)
+							{
+								mytempbuf[i] = buffer[s][i+myoffset] ;
+							}
+							
+							for (i=0; i < mysize ; i++)
+							{							
+								myj++ ;
+								buffer[s][myj] = mytempbuf[i] ;
+								//iTempBuf = static_cast<int> (mytempbuf[i]) ;
+								//cout << "Copying value of " << hex << iTempBuf << endl ;
+								myj++;
+								buffer[s][myj] = 0 ;
+								
+							}
+							
+							iWord = (((iWord - myoffset ) * 2) + 12) ;
+							//cout << "Setting buffer size to " << dec << iWord << endl ;
+							buffer[s][1] = static_cast<unsigned char> ( ( ( iWord & 0xFF00 ) >>8 ) ) ;
+							buffer[s][2] = static_cast<unsigned char> ( iWord & 0x00FF ) ;															
+						}	
+						
+						//Speech->wchar2char((char*)&buffer[s][13]);
+						QString speech;
+						speech.setUnicodeCodes((ushort*)&buffer[s][13], (buffer[s][1]<<8)+buffer[s][2]);
+						//strncpy((char*)nonuni, temp, ((buffer[s][1]<<8)+buffer[s][2])/2);
+						//ring punt = (char*) nonuni ;
+						Speech->talking(s, speech);
+					}
 					break;
 
 				case 0x06:// Doubleclick			

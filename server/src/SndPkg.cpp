@@ -1439,11 +1439,12 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		{
 			for (int a=0;a<3;a++)
 			{
-				vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-				for ( unsigned int w = 0; w < vecEntries.size(); w++)
+				cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+				cRegion::rawIterator it = vecEntries.begin();
+				for ( ; it != vecEntries.end(); ++it)
 				{
-					P_CHAR mapchar = FindCharBySerial(vecEntries[w]);
-					P_ITEM mapitem = FindItemBySerial(vecEntries[w]);
+					P_CHAR mapchar = FindCharBySerial(*it);
+					P_ITEM mapitem = FindItemBySerial(*it);
 					if (mapchar != NULL)
 					{
 						if ((mapchar->isNpc()||online(mapchar)||pc->isGM())&&(pc != mapchar)&&(inrange1p(pc, mapchar)))

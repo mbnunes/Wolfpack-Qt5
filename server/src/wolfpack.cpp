@@ -1473,10 +1473,11 @@ void explodeitem(int s, P_ITEM pi)
 	{
 		for (a=0;a<3;a++)
 		{
-			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-			for ( unsigned int k = 0; k < vecEntries.size(); k++)
+			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+			cRegion::rawIterator it = vecEntries.begin();
+			for (; it != vecEntries.end(); ++it)
 			{
-				piMap = FindItemBySerial(vecEntries[k]);
+				piMap = FindItemBySerial(*it);
 				if (piMap != NULL)
 				{
 					if (piMap->id()==0x0F0D && piMap->type==19) // check for expl-potions

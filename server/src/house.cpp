@@ -538,11 +538,12 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 		{       
 			for (a=0;a<3;a++)
 			{                                       
-				vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-				for (unsigned int k = 0; k < vecEntries.size(); k++)
+				cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+				cRegion::rawIterator it = vecEntries.begin();
+				for (; it != vecEntries.end(); ++it )
 				{
-					P_CHAR mapchar = FindCharBySerial(vecEntries[k]);
-					P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
+					P_CHAR mapchar = FindCharBySerial(*it);
+					P_ITEM mapitem = FindItemBySerial(*it);
 					if (mapchar != NULL)
 					{
 						if( mapchar->pos.x >= x1 && mapchar->pos.y >= y1 && mapchar->pos.x <= x2 && mapchar->pos.y <= y2 )

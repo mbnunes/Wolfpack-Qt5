@@ -185,5 +185,6 @@ SOURCES         = Client.cpp \
 		  packlen.cpp
 INTERFACES	=
 TRANSLATIONS    = \
-                  wolfpack_pt-BR.ts
+                  languages/wolfpack_pt-BR.ts \
+                  languages/wolfpack_it.ts
 

@@ -61,7 +61,7 @@ class cSpeech
 {
 public:
 	int response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr);
-    void talking(UOXSOCKET, string&);
+    void talking(UOXSOCKET, const QString& );
     void wchar2char (const char* str);
     void char2wchar (const char* str);
 };

@@ -287,14 +287,15 @@ char cMagic::GateCollision(P_CHAR pc_player)
 	// - Tauriel's region stuff 3/6/99
 	int getcell = mapRegions->GetCell(pc_player->pos);
 
-	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
-	for (unsigned int k = 0; k < vecEntries.size(); k++)
+	cRegion::raw vecEntries = mapRegions->GetCellEntries(getcell, enItemsOnly);
+	cRegion::rawIterator it = vecEntries.begin();
+	for (; it != vecEntries.end(); ++it )
 	{
 		if (vecEntries.size() == 0)
 			break;
-		if (!isItemSerial(vecEntries[k]))
+		if (!isItemSerial(*it))
 			continue;
-		P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
+		P_ITEM mapitem = FindItemBySerial(*it);
 		if (mapitem != NULL)
 		{
 			if (mapitem->type == 51 || (mapitem->type==52))
@@ -2820,14 +2821,16 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			StartGrid=mapRegions->StartGrid(pc_currchar->pos);
 			getcell=mapRegions->GetCell(pc_currchar->pos);
 			increment=0;
+#pragma note("Replace by Char region iterator")
 			for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
 			{
 				for (a=0;a<3;a++)
 				{
-					vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-					for ( unsigned int k = 0; k < vecEntries.size(); k++)
+					cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+					cRegion::rawIterator it = vecEntries.begin();
+					for (; it != vecEntries.end(); ++it )
 					{
-						P_CHAR pc = FindCharBySerial(vecEntries[k]);
+						P_CHAR pc = FindCharBySerial(*it);
 						if (pc != NULL)
 						{
 							if (pc->isInvul() || pc->npcaitype==17)		// don't affect vendors

@@ -775,16 +775,17 @@ void objTeleporters(P_CHAR pc_s)
 	
 	int	StartGrid = mapRegions->StartGrid(pc_s->pos);
 	//	int	getcell=mapRegions->GetCell(pc_s->x,pc_s->y);
-	
+#pragma note("replace by item region iterator")	
 	unsigned int increment = 0;
 	for (unsigned int checkgrid = StartGrid + (increment*mapRegions->GetColSize()); increment < 3; increment++, checkgrid = StartGrid + (increment*mapRegions->GetColSize()))
 	{
 		for (int a = 0; a < 3; a++)
 		{
-			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid + a);
-			for ( unsigned int k = 0; k < vecEntries.size(); k++)
+			cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid + a);
+			cRegion::rawIterator it = vecEntries.begin();
+			for ( ; it != vecEntries.end(); ++it )
 			{
-				P_ITEM pmi = FindItemBySerial(vecEntries[k]);
+				P_ITEM pmi = FindItemBySerial(*it);
 				if (pmi != NULL)
 				{
 					if (pmi->pos.x == x && pmi->pos.y == y &&

@@ -45,23 +45,41 @@
 // Private Add.
 bool cRegion::Add(UI32 cell, SERIAL serial)
 {
-	MapCells.insert(make_pair(cell, serial));
+	if ( isItemSerial(serial) )
+		MapCellsItems[cell].push_back(serial);
+	else if ( isCharSerial( serial ) )
+		MapCellsChars[cell].push_back(serial);
+	else return false;
 	return true;
 }
 
 bool cRegion::Remove(UI32 cell, SERIAL serial)
 {
-	bool bStatus = false ;
-	multimap<UI32, SERIAL>::iterator iterData;
-	pair<iterMapCells, iterMapCells> iterRange = MapCells.equal_range(cell);
-		
-	for (iterData = iterRange.first; iterData != iterRange.second; ++iterData)
+	bool bStatus = false;
+	if ( isItemSerial( serial ) )
 	{
-		if (iterData->second == serial)
+		iterMapCells it = MapCellsItems.find(cell);
+		if ( it != MapCellsItems.end() )
 		{
-			MapCells.erase(iterData);
-			bStatus = true;
-			break;
+			rawIterator it2 = find(it->second.begin(), it->second.end(), serial);
+			if ( it2 != it->second.end() )
+			{
+				it->second.erase( it2 );
+				bStatus = true;
+			}
+		}
+	}
+	else if ( isCharSerial( serial ) )
+	{
+		iterMapCells it = MapCellsChars.find( cell );
+		if ( it != MapCellsChars.end() )
+		{
+			rawIterator it2 = find( it->second.begin(), it->second.end(), serial);
+			if ( it2 != it->second.end())
+			{
+				it->second.erase( it2 );
+				bStatus = true;
+			}
 		}
 	}
 	return bStatus;
@@ -104,31 +122,38 @@ unsigned int cRegion::GetCell(const Coord_cl& pos)
 	return (unsigned int) ((cell<0) ? 0 : cell);  // - Return 0 if negative otherwise cell #
 }
 
-vector<SERIAL> cRegion::GetCellEntries(UI32 cell, enDomain type)
+cRegion::raw cRegion::GetCellEntries(UI32 cell, enDomain type)
 {
-	vector<SERIAL> vecValue;
+	raw vecValue;
 	iterMapCells iterData;
-	pair<iterMapCells, iterMapCells> iterRange = MapCells.equal_range(cell);
-
-	vecValue.reserve(std::distance(iterRange.first, iterRange.second));
-	for (iterData = iterRange.first; iterData != iterRange.second; ++iterData)
+	
+	switch (type)
 	{
-		switch (type)
+	case enAll:
 		{
-		case enAll:
-			vecValue.push_back(iterData->second);
-			break;
-		case enCharsOnly:
-			if (isCharSerial(iterData->second))
-				vecValue.push_back(iterData->second);
-			break;
-		case enItemsOnly:
-			if (isItemSerial(iterData->second))
-				vecValue.push_back(iterData->second);
-			break;
-		default:
-			clConsole.send("Warning: Fallout from GetCellEntries, domain = %i\n", type);
+			iterMapCells it = MapCellsItems.find( cell );
+			if ( it != MapCellsItems.end() )
+				vecValue = it->second;
+			iterMapCells it2 = MapCellsChars.find( cell );
+			if ( it2 != MapCellsChars.end() )
+			{
+				vecValue.reserve( vecValue.size() + it2->second.size() );
+				copy(it2->second.begin(), it2->second.end(), back_inserter(vecValue));
+			}
 		}
+		break;
+	case enCharsOnly:
+		iterData = MapCellsChars.find( cell );
+		if ( iterData != MapCellsChars.end() )
+			return iterData->second;
+		break;
+	case enItemsOnly:
+		iterData = MapCellsItems.find( cell );
+		if ( iterData != MapCellsItems.end() )
+			return iterData->second;
+		break;
+	default:
+		clConsole.send("Warning: Fallout from GetCellEntries, domain = %i\n", type);
 	}
 	return vecValue;
 }
@@ -143,7 +168,11 @@ unsigned int cRegion::StartGrid(const Coord_cl& pos)
 	return (unsigned int) (gridx + gridy + (gridx * (ColSize-1)));
 }
 
-cRegion::RegionIterator4Chars::RegionIterator4Chars(const Coord_cl& pos)
+// ==========================================================================================
+// Iterator4Chars
+// ==========================================================================================
+
+RegionIterator4Chars::RegionIterator4Chars(const Coord_cl& pos)
 {
 	cell = currentCell = ::cRegion::StartGrid( pos ); // they are centered.
 	currentIndex = 0;
@@ -151,7 +180,7 @@ cRegion::RegionIterator4Chars::RegionIterator4Chars(const Coord_cl& pos)
 	currentCharacter = NULL;
 }
 
-bool cRegion::RegionIterator4Chars::NextCell(void)
+bool RegionIterator4Chars::NextCell(void)
 {
 	++currentCell;	//adjacent cell
 	if (currentCell%cRegion::GetColSize() > cell%cRegion::GetColSize()+1)
@@ -159,17 +188,17 @@ bool cRegion::RegionIterator4Chars::NextCell(void)
 	if (atEnd())
 		return false;	// upper right corner of the box reached
 	vecEntries = mapRegions->GetCellEntries(currentCell, enCharsOnly);
-	currentIndex = 0;
+	currentIndex = vecEntries.begin();
 	return true;
 }
 
-P_CHAR cRegion::RegionIterator4Chars::GetData(void)
+P_CHAR RegionIterator4Chars::GetData(void)
 {
-	if ( currentCharacter == NULL && vecEntries.size() != 0)
-		currentCharacter =  FindCharBySerial(vecEntries[currentIndex]);
-	else if (currentCharacter->serial != vecEntries[currentIndex])
-		currentCharacter =  FindCharBySerial(vecEntries[currentIndex]);
-	if (currentCharacter == NULL && currentIndex < vecEntries.size())
+	if ( currentCharacter == NULL && !vecEntries.empty() )
+		currentCharacter =  FindCharBySerial(*currentIndex);
+	else if (currentCharacter->serial != *currentIndex)
+		currentCharacter =  FindCharBySerial(*currentIndex);
+	if (currentCharacter == NULL && currentIndex != vecEntries.end())
 	{	// Dam, invalid entrie!
 		// go next and recurse.
 		(*this)++;
@@ -178,49 +207,51 @@ P_CHAR cRegion::RegionIterator4Chars::GetData(void)
 	return currentCharacter;
 }
 
-void cRegion::RegionIterator4Chars::Begin(void)
+void RegionIterator4Chars::Begin(void)
 {
 	currentCell = cell;
 	Coord_cl lastmapPos( cMapStuff::mapTileWidth(position)*8, cMapStuff::mapTileHeight(position)*8, position.z, position.map, position.plane );
-	endCell = max ( cell + 2 * cRegion::GetColSize() + 2, static_cast<long unsigned int>(cRegion::GetCell(lastmapPos))); // Find out where we stop.
-	currentIndex = 0;
+	endCell = min ( cell + 2 * cRegion::GetColSize() + 2, static_cast<long unsigned int>(cRegion::GetCell(lastmapPos))); // Find out where we stop.
 	vecEntries = mapRegions->GetCellEntries(currentCell, enCharsOnly);
+	currentIndex = vecEntries.begin();
 	while ( vecEntries.empty() && !atEnd() ) // make sure we start with something at least.
 		(*this)++;
 }
 
-bool cRegion::RegionIterator4Chars::atEnd(void) const
+bool RegionIterator4Chars::atEnd(void) const
 {
 	return ( currentCell >= endCell ); // Equal to last region?
 }
 
-cRegion::RegionIterator4Chars& cRegion::RegionIterator4Chars::operator++ (int)
+RegionIterator4Chars& RegionIterator4Chars::operator++ (int)
 {
 	++currentIndex;
-	if (currentIndex >= vecEntries.size())
+	if (currentIndex >= vecEntries.end() || vecEntries.empty())
 		NextCell();
 	if ( vecEntries.empty() && !atEnd())
 		(*this)++; // recurse;
 	return *this;
 }
 
-cRegion::RegionIterator4Chars& cRegion::RegionIterator4Chars::operator= (const Coord_cl& pos)
+RegionIterator4Chars& RegionIterator4Chars::operator= (const Coord_cl& pos)
 {
 	cell = currentCell = ::cRegion::GetCell(pos);
-	currentIndex = 0;
 	position = pos; // Remember where we started for consistency check.
 	return *this;
 }
 
-cRegion::RegionIterator4Items::RegionIterator4Items(const Coord_cl& pos)
+// ==========================================================================================
+// Iterator4Items
+// ==========================================================================================
+
+RegionIterator4Items::RegionIterator4Items(const Coord_cl& pos)
 {
 	cell = currentCell = ::cRegion::StartGrid( pos ); // they are centered.
-	currentIndex = 0;
 	position = pos; // remember where we started.
 	currentItem = NULL;
 }
 
-bool cRegion::RegionIterator4Items::NextCell(void)
+bool RegionIterator4Items::NextCell(void)
 {
 	++currentCell;	//adjacent cell
 	if (currentCell%cRegion::GetColSize() > cell%cRegion::GetColSize()+1)
@@ -228,17 +259,17 @@ bool cRegion::RegionIterator4Items::NextCell(void)
 	if (atEnd())
 		return false;	// upper right corner of the box reached
 	vecEntries = mapRegions->GetCellEntries(currentCell, enItemsOnly);
-	currentIndex = 0;
+	currentIndex = vecEntries.begin();
 	return true;
 }
 
-P_ITEM cRegion::RegionIterator4Items::GetData(void)
+P_ITEM RegionIterator4Items::GetData(void)
 {
-	if (currentItem == NULL && vecEntries.size() != 0)
-		currentItem = FindItemBySerial(vecEntries[currentIndex]);
-	else if (currentItem->serial != vecEntries[currentIndex])
-		currentItem =  FindItemBySerial(vecEntries[currentIndex]);
-	if (currentItem == NULL && currentIndex < vecEntries.size())
+	if (currentItem == NULL && !vecEntries.empty())
+		currentItem = FindItemBySerial(*currentIndex);
+	else if (currentItem->serial != *currentIndex)
+		currentItem =  FindItemBySerial(*currentIndex);
+	if (currentItem == NULL && currentIndex != vecEntries.end())
 	{	// Dam, invalid entrie!
 		// go next and recurse.
 		(*this)++;
@@ -247,36 +278,37 @@ P_ITEM cRegion::RegionIterator4Items::GetData(void)
 	return currentItem;
 }
 
-void cRegion::RegionIterator4Items::Begin(void)
+void RegionIterator4Items::Begin(void)
 {
 	currentCell = cell;
 	Coord_cl lastmapPos( cMapStuff::mapTileWidth(position)*8, cMapStuff::mapTileHeight(position)*8, position.z, position.map, position.plane );
-	endCell = max ( cell + 2 * cRegion::GetColSize() + 2, static_cast<long unsigned int>(cRegion::GetCell(lastmapPos))); // Find out where we stop.
-	currentIndex = 0;
+	endCell = min ( cell + 2 * cRegion::GetColSize() + 2, static_cast<long unsigned int>(cRegion::GetCell(lastmapPos))); // Find out where we stop.
 	vecEntries = mapRegions->GetCellEntries(currentCell, enItemsOnly);
+	currentIndex = vecEntries.begin();
 	while ( vecEntries.empty() && !atEnd() ) // make sure we start with something at least.
 		(*this)++;
 }
 
-bool cRegion::RegionIterator4Items::atEnd(void)
+bool RegionIterator4Items::atEnd(void)
 {
-	return ( currentCell >= endCell ); // Equal to last region?
+	return (!( currentCell < endCell )); // Equal to last region?
 }
 
-cRegion::RegionIterator4Items& cRegion::RegionIterator4Items::operator++ (int)
+RegionIterator4Items& RegionIterator4Items::operator++ (int)
 {
 	++currentIndex;
-	if (currentIndex >= vecEntries.size())
+	if (currentIndex >= vecEntries.end() || vecEntries.empty())
 		NextCell();
 	if ( vecEntries.empty() && !atEnd())
+	{
 		(*this)++; // recurse;
+	}
 	return *this;
 }
 
-cRegion::RegionIterator4Items& cRegion::RegionIterator4Items::operator= (const Coord_cl& pos)
+RegionIterator4Items& RegionIterator4Items::operator= (const Coord_cl& pos)
 {
 	cell = currentCell = ::cRegion::GetCell(pos);
-	currentIndex = 0;
 	position = pos; // Remember where we started for consistency check.
 	return *this;
 }
