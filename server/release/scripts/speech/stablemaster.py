@@ -277,17 +277,14 @@ def gump_callback( char, args, response ):
 		vendor.say( "I can't sell this!" )
 		return
 
-	price = prices[ id ]
 	id_npc = idnpc[ id ]
 	id_shrink = idshrink[ id ]
 
 
 	if ( button == 0x0000 ):  	#shrink
-
 		if not shrinks.has_key( id ):
 			vendor.say( "They not SHRINKABLE..." )
 			return
-
 		count = prices[ id ] + prices_shrinks
 		if char.countresource( 0xeed, 0 ) < count:
 			vendor.say( "You don't have enoug gold!" )
@@ -297,9 +294,13 @@ def gump_callback( char, args, response ):
 		vendor.say( "That is %i gold." % count )
 		item = wolfpack.additem( "%s" % id_shrink )
 		if not item:
-			print "Invalid defintion: %x\n" % id
+			console.send ( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_shrink, vendor) )
 			return
 		item.settag( "npc_id", "%s" % id_npc )
+		if rideables.has_key( id ):
+			item.settag( "npc_type", "mount" )
+		else:
+			item.settag( "npc_type", "follow" )
 		char.message( item.gettag( "npc_id" ) )
 		if not wolfpack.utilities.tocontainer( item, char.getbackpack() ):
 			item.update()
@@ -320,7 +321,7 @@ def gump_callback( char, args, response ):
 		pos = char.pos
 		npc = wolfpack.addnpc( id_npc, pos )
 		if not npc:
-			print "Invalid defintion: %x\n" % id
+			console.send ( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_npc, vendor) )
 			return
 		npc.owner = char
 		npc.tamed = 1
@@ -343,7 +344,7 @@ def gump_callback( char, args, response ):
 		pos = char.pos
 		npcmount = wolfpack.addnpc( id_npc, pos )
 		if not npcmount:
-			print "Invalid defintion: %x\n" % id
+			console.send ( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_npc, vendor) )
 			return
 		char.mount(npcmount)
 		return

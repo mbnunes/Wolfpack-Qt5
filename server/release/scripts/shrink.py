@@ -20,9 +20,17 @@ def onUse( char, item ):
 		return 1
 
 	npcid = item.gettag( "npc_id" )
+	npctype = item.gettag( "npc_type" )
 	pos = char.pos
-	npcmount = wolfpack.addnpc( npcid, pos )
-	char.mount( npcmount )
-	item.delete()
-
+	npc = wolfpack.addnpc( npcid, pos )
+	if ( npctype == 'mount' ):
+		char.mount( npc )
+		item.delete()
+	elif ( npctype == 'follow' ):
+		npc.tamed = 1
+		npc.npcwander = 0
+		npc.follow( char )
+		item.delete()
+	else: 
+		item.delete()
 	return 1
