@@ -88,6 +88,7 @@
 	<!-- Magic -->
 	<script>magic</script>
 	<script>magic.spellbook</script>
+	<script>magic.nightsight</script>
 	<script>magic.rune</script>
 	<script>magic.runebook</script>
 	<script>magic.scroll</script>	
@@ -132,6 +133,7 @@
 	<script>system.skillgain</script>
 	<script>system.hardwareinfo</script>
 	<script>system.spawns</script>
+	<script>system.poison</script>
 	<script>system.trading</script>
 	<script>system.uogstatus</script>
 	<script>system.webadmin</script>

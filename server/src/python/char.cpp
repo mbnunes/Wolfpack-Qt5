@@ -1,3 +1,4 @@
+
 //==================================================================================
 //
 //      Wolfpack Emu (WP)
@@ -660,7 +661,7 @@ static PyObject* wpChar_emote( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	if (checkArgStr(0)) {
+	if (!checkArgStr(0)) {
 		PyErr_BadArgument();
 		return NULL;
 	}
@@ -1394,7 +1395,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 	{
 		TempEffects::instance()->dispel( self->pChar, 0, false );
 	}
-	else if( checkArgChar( 0 ) )
+	else
 	{
 		// Iterate trough the list of tempeffects
 		cBaseChar::EffectContainer effects = self->pChar->effects();
@@ -1786,7 +1787,7 @@ static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	self->pChar->update( true );
+	self->pChar->update();
 	
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -2137,6 +2138,34 @@ static PyObject *wpChar_log(wpChar *self, PyObject *args) {
 	return Py_None;
 }
 
+/*
+	\method char.callevent
+	\description Call a python event chain for this object. Ignore global hooks.
+	\param event The id of the event you want to call. See <library id="wolfpack.consts">wolfpack.consts</library> for constants.
+	\param args A tuple of arguments you want to pass to this event handler.
+	\return The result of the first handling event.
+*/
+static PyObject *wpChar_callevent(wpChar *self, PyObject *args) {	
+	unsigned int event;
+	PyObject *eventargs;
+
+	if (!PyArg_ParseTuple(args, "IO!:char.callevent(event, args)", &event, &PyTuple_Type, &eventargs)) {
+		return 0;
+	}
+
+	if (cPythonScript::canChainHandleEvent((ePythonEvent)event, self->pChar->getEvents())) {
+		bool result = cPythonScript::callChainedEventHandler((ePythonEvent)event, self->pChar->getEvents(), eventargs);
+
+		if (result) {
+			Py_INCREF(Py_True);
+			return Py_True;
+		}
+	}
+
+	Py_INCREF(Py_False);
+	return Py_False;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
@@ -2183,6 +2212,7 @@ static PyMethodDef wpCharMethods[] =
 
 	{ "addtimer",		(getattrofunc)wpChar_addtimer,			METH_VARARGS, "Adds a timer to this character." },
 	{ "dispel",			(getattrofunc)wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
+	{ "callevent",		(getattrofunc)wpChar_callevent,			METH_VARARGS, 0},
 
 	// Update Stats
 	{ "updatestats",	(getattrofunc)wpChar_updatestats,		METH_VARARGS, "Resends other stats to this character." },

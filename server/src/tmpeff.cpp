@@ -232,7 +232,7 @@ void cTempEffects::check()
 */
 void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent, bool onlyDispellable )
 {
-	if (cPythonScript::canChainHandleEvent(EVENT_DISPEL, pc_dest->getEvents())) {
+	/*if (cPythonScript::canChainHandleEvent(EVENT_DISPEL, pc_dest->getEvents())) {
 		PyObject *source;
 		if (pSource) {
 			source = pSource->getPyObject();
@@ -254,7 +254,7 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, 
 		if (result) {
 			return;
 		}
-	}
+	}*/
 
 	std::vector<cTempEffect*>::iterator it = teffects.begin();
 	QPtrList<cTempEffect> eraselist;

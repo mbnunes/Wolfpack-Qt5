@@ -83,6 +83,7 @@ enum ePythonEvent
 	EVENT_DETACH,
 	EVENT_TIMECHANGE,
 	EVENT_DISPEL,
+	EVENT_TELEKINESIS,
 	EVENT_COUNT,
 };
 
@@ -116,7 +117,8 @@ public:
 	PyObject *callEvent( const QString &event, PyObject *args = 0, bool ignoreErrors = false );
 	bool callEventHandler( ePythonEvent, PyObject *args = 0, bool ignoreErrors = false );
 	bool callEventHandler( const QString &event, PyObject *args = 0, bool ignoreErrors = false );
-	
+
+	bool canHandleEvent(const QString &event);
 	bool canHandleEvent( ePythonEvent event )
 	{
 		if( event >= EVENT_COUNT )

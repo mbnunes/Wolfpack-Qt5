@@ -330,10 +330,7 @@ public:
     short			orgBodyID() const;
     QString			orgName() const;
     ushort			orgSkin() const;
-    int				poison() const;
-    uint			poisoned() const;
-    uint			poisonTime() const;
-    uint			poisonWearOffTime() const;
+    signed char poison() const;
     uint			propertyFlags() const;
 	uint			regenHitpointsTime() const;
 	uint			regenStaminaTime() const;
@@ -360,7 +357,6 @@ public:
 	bool			isCasting() const;
 	bool			isHidden() const;
 	bool			isInvisible() const;
-	bool			hasReactiveArmor() const;
 	bool			isMeditating() const;
 	bool			isFrozen() const;
 	bool			showSkillTitles() const;
@@ -408,10 +404,7 @@ public:
     void setOrgName(const QString &data);
     void setOrgSkin(ushort data);
 	void setLastMovement(unsigned int data);
-    void setPoison(int data);
-    void setPoisoned(uint data);
-    void setPoisonTime(uint data);
-    void setPoisonWearOffTime(uint data);
+    void setPoison(signed char data);
     void setPropertyFlags(uint data);
 	void setRegenHitpointsTime(uint data);
 	void setRegenStaminaTime(uint data);
@@ -434,7 +427,6 @@ public:
 	void setCasting(bool data);
 	void setHidden(bool data);
 	void setInvisible(bool data);
-	void setReactiveArmor(bool data);
 	void setMeditating(bool data);
 	void setFrozen(bool data);
 	void setShowSkillTitles(bool data);
@@ -540,13 +532,17 @@ protected:
     // 04 - casting, cOldChar::casting_
     // 05 - hidden, cOldChar::hidden_, Bit 1 & 2
     // 06 - invisible, cOldChar::invisible_, Bit 3
-    // 07 - reactive armor, cOldChar::ra_
+    // 07 - dontuse
     // 08 - meditating, cOldChar::med_
     // 09 - frozen, cOldChar::priv2_, Bit 2
     // 10 - show skill titles, cOldChar::priv2, Bit 4
     // 11 - dead, cOldChar::dead
     // 12 - war, cOldChar::war
-	// 13 - invulnerable, cOldChar::priv2 Bit 3
+		// 13 - invulnerable, cOldChar::priv2 Bit 3
+		// UPPER WORD:
+		// 17 - ReactiveArmor (0x2000)
+		// 18 - Protection (0x4000)
+		// 19 - Magic Reflect (0x8000)
     uint propertyFlags_;
 
     // Weight of the char, including worn items.
@@ -652,17 +648,8 @@ protected:
     // time till next skill usage is possible
     uint skillDelay_;
 
-    // Poison value. dont ask me :/
-    int poison_;
-
-    // poisoned value.dont ask me :/
-    uint poisoned_;
-
-    // poison timer value. dont ask me..
-    uint poisonTime_;
-
-    // poison wear off timer.dont ask me
-    uint poisonWearOffTime_;
+    // Poison level applied to this character. -1 for none.
+    signed char poison_;
 
     // Title of the char.
     QString title_;
@@ -1006,47 +993,14 @@ inline void cBaseChar::setOrgSkin(ushort data)
 	changed_ = true;
 }
 
-inline int cBaseChar::poison() const
+inline signed char cBaseChar::poison() const
 {
     return poison_;
 }
 
-inline void cBaseChar::setPoison(int data)
+inline void cBaseChar::setPoison(signed char data)
 {
-    poison_ = data;
-	changed_ = true;
-}
-
-inline uint cBaseChar::poisoned() const
-{
-    return poisoned_;
-}
-
-inline void cBaseChar::setPoisoned(uint data)
-{
-    poisoned_ = data;
-	changed_ = true;
-}
-
-inline uint cBaseChar::poisonTime() const
-{
-    return poisonTime_;
-}
-
-inline void cBaseChar::setPoisonTime(uint data)
-{
-    poisonTime_ = data;
-	changed_ = true;
-}
-
-inline uint cBaseChar::poisonWearOffTime() const
-{
-    return poisonWearOffTime_;
-}
-
-inline void cBaseChar::setPoisonWearOffTime(uint data)
-{
-    poisonWearOffTime_ = data;
+  poison_ = data;
 	changed_ = true;
 }
 
@@ -1255,11 +1209,6 @@ inline bool cBaseChar::isInvisible() const
 	return propertyFlags_ & 0x0020;
 }
 
-inline bool cBaseChar::hasReactiveArmor() const
-{
-	return propertyFlags_ & 0x0040;
-}
-
 inline bool cBaseChar::isMeditating() const
 {
 	return propertyFlags_ & 0x0080;
@@ -1323,12 +1272,6 @@ inline void cBaseChar::setHidden(bool data)
 inline void cBaseChar::setInvisible(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0020; else propertyFlags_ &= ~0x0020; 
-	changed_ = true;
-}
-
-inline void cBaseChar::setReactiveArmor(bool data)
-{
-	if( data ) propertyFlags_ |= 0x0040; else propertyFlags_ &= ~0x0040; 
 	changed_ = true;
 }
 

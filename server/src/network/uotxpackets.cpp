@@ -274,26 +274,24 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	// ->runningSteps() is greater than zero in that case
 	setDirection( pChar->runningSteps() ? pChar->direction()|0x80 : pChar->direction() );
 
-	if( pChar->isAtWar() )
-		setFlag( 0x40 );
+	setFlag(0);
 
-	/*if (pChar->isInvulnerable()) {
-		setFlag(flag() | 0x08);
-	}*/
+	if( pChar->isAtWar() )
+		setFlag(flag() | 0x40);
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
 	if (player && !player->socket() && !player->logoutTime()) {
 		setFlag(flag() | 0x80);
 	}
 
-	if( pChar->isHidden() || pChar->isInvisible() )
-		setFlag( flag() | 0x80 );
+	if(pChar->isHidden() || pChar->isInvisible())
+		setFlag(flag() | 0x80);
 
-	if( pChar->isDead() && !pChar->isAtWar() )
-		setFlag( flag() | 0x80 );
+	if(pChar->isDead() && !pChar->isAtWar())
+		setFlag(flag() | 0x80);
 
-	if( pChar->poisoned() )
-		setFlag( flag() | 0x04 );
+	if (pChar->poison() >= 0)
+		setFlag(flag() | 0x04);
 }
 
 
@@ -348,7 +346,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	if (pChar->isDead() && !pChar->isAtWar())
 		setFlag( flag() | 0x80 );
 
-	if( pChar->poisoned() )
+	if( pChar->poison() >= 0 )
 		setFlag( flag() | 0x04 );
 
 	// Add our equipment - This does not seem to work !?
@@ -407,13 +405,11 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 			setSkin(pChar->skin());
 		}
 	}
+
+	setFlag(0);
 	
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
-
-	/*if (pChar->isInvulnerable()) {
-		setFlag(flag() | 0x08);
-	}*/
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
 	if (player && !player->socket() && !player->logoutTime()) {
@@ -426,12 +422,12 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	if( pChar->isDead() && !pChar->isAtWar() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->poisoned() )
+	if( pChar->poison() >= 0 )
 		setFlag( flag() | 0x04 );
 
-	setX( pChar->pos().x );
-	setY( pChar->pos().y );
-	setZ( pChar->pos().z );
+	setX(pChar->pos().x);
+	setY(pChar->pos().y);
+	setZ(pChar->pos().z);
 	setDirection( pChar->direction() );
 	//void setFlags( unsigned char data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 9 = invul,0x40=attack, 0x80=hidden CHARMODE_WAR
 }
@@ -525,6 +521,8 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 		}
 	}
 
+	setFlag(0);
+
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
@@ -543,7 +541,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	if( pChar->isDead() && !pChar->isAtWar() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->poisoned() )
+	if( pChar->poison() >= 0 )
 		setFlag( flag() | 0x04 );
 }
 

@@ -1236,11 +1236,11 @@ void cItem::soundEffect( UINT16 sound )
 // Update the top-containers
 void cItem::setWeight( float nValue )
 {
-	setTotalweight( ceilf( ( totalweight_ - ( amount_ * weight_ ) ) * 100 ) / 100 );
+	setTotalweight(totalweight_ - ( amount_ * weight_ ));
 	changed( TOOLTIP );
 	flagChanged();
-	weight_ = ceilf( nValue * 100 ) / 100;
-	setTotalweight( ceilf( ( totalweight_ + ( amount_ * weight_ ) ) * 100 ) / 100 );
+	weight_ = nValue;
+	setTotalweight(totalweight_ + ( amount_ * weight_ ));
 }
 
 // This subtracts the weight of the top-container

@@ -445,6 +445,12 @@ void Action_Wander::execute()
 {
 	m_npc->fight(0);
 
+	// If the next wandertype hasn't come yet.
+	if (m_npc->nextMoveTime() > uiCurrentTime) {
+		return;
+	}
+	m_npc->setNextMoveTime();
+
 	switch( m_npc->wanderType() )
 	{
 	case enFreely:

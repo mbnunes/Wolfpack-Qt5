@@ -54,20 +54,19 @@ int wpSkills_length( wpSkills *self )
 PyObject *wpSkills_get( wpSkills *self, int skill )
 {
 	if( !self->pChar || self->pChar->free || skill >= ALLSKILLS )
-		return PyInt_FromLong( -1 );
+		return PyInt_FromLong(-1);
 
-	if( self->type == 0 )
-		return PyInt_FromLong( self->pChar->skillValue( skill ) );
-	else if( self->type == 1 )
-		return PyInt_FromLong( self->pChar->skillCap( skill ) );
+	if (self->type == 0)
+		return PyInt_FromLong(self->pChar->skillValue(skill));
+	else if (self->type == 1)
+		return PyInt_FromLong(self->pChar->skillCap(skill));
 	else
-		return PyInt_FromLong( self->pChar->skillLock( skill ) );
+		return PyInt_FromLong(self->pChar->skillLock(skill));
 }
 
 PyObject *wpSkills_set( wpSkills *self, int skill, PyObject *pValue )
 {
-	if( !self->pChar || self->pChar->free || skill >= ALLSKILLS || !PyInt_Check( pValue ) )
-	{
+	if (!self->pChar || self->pChar->free || skill >= ALLSKILLS || !PyInt_Check(pValue)) {
 		PyErr_BadArgument();
 		return 0;
 	}
@@ -75,16 +74,17 @@ PyObject *wpSkills_set( wpSkills *self, int skill, PyObject *pValue )
 	UINT16 value = PyInt_AsLong( pValue );
 
 	if( self->type == 0 )
-		self->pChar->setSkillValue( skill, value );
+		self->pChar->setSkillValue(skill, value);
 	else if( self->type == 1 )
-		self->pChar->setSkillCap( skill, value );
+		self->pChar->setSkillCap(skill, value);
 	else if( self->type == 2 )
-		self->pChar->setSkillLock( skill, value );
+		self->pChar->setSkillLock(skill, value);
 
-	P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
+	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(self->pChar);
 	
-	if( pPlayer && pPlayer->socket() )
-		pPlayer->socket()->sendSkill( skill );
+	if (pPlayer && pPlayer->socket()) {
+		pPlayer->socket()->sendSkill(skill);
+	}
 
 	return 0;
 }

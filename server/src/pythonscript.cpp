@@ -471,6 +471,16 @@ static char *eventNames[] =
 	*/
 	"onDispel",
 
+	/*
+		\event onTelekinesis
+		\param char The character trying to use telekinesis on this object.
+		\param item The object being used.
+		\condition This event is called when someone tries to use telekinesis on this
+		item. It is only called for the item.
+		\return Return behaviour is the same as for onUse.
+	*/
+	"onTelekinesis",
+
 	0
 };
 
@@ -585,6 +595,22 @@ PyObject* cPythonScript::callEvent( const QString &name, PyObject *args, bool ig
 	}
 
 	return result;
+}
+
+bool cPythonScript::canHandleEvent(const QString &event) {
+	if (codeModule && !event.isEmpty() && PyObject_HasAttrString(codeModule, const_cast<char*>(event.latin1()))) {
+		PyObject *object = PyObject_GetAttrString(codeModule, const_cast<char*>(event.latin1()));
+
+		if (object) {
+			if (PyCallable_Check(object)) {
+				Py_DECREF(object);
+				return true;
+			}
+
+			Py_DECREF(object);
+		}
+	}
+	return false;
 }
 
 bool cPythonScript::callEventHandler( ePythonEvent event, PyObject *args, bool ignoreErrors )

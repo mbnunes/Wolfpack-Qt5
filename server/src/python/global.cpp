@@ -1261,14 +1261,122 @@ static PyObject *wpUnlock(PyObject *self, PyObject *args) {
 	return Py_None;
 }
 
+static PyObject *wpCallEvent(PyObject *self, PyObject *args) {
+	char *script;
+	unsigned int event;
+	PyObject *eventargs;
+
+	if (!PyArg_ParseTuple(args, "sIO!:wolfpack.callevent(scriptname, event, args)", 
+		&script, &event, &PyTuple_Type, &eventargs)) {
+		return 0;
+	}
+
+	cPythonScript *pythonscript = ScriptManager::instance()->find(script);
+
+	if (!pythonscript) {
+		PyErr_SetString(PyExc_ValueError, "You tried to access an unknown script.");
+		return 0;
+	}
+
+	PyObject *result = pythonscript->callEvent((ePythonEvent)event, eventargs);
+
+	if (!result) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+
+	return result;
+}
+
+static PyObject *wpHasEvent(PyObject *self, PyObject *args) {
+	char *script;
+	unsigned int event;
+
+	if (!PyArg_ParseTuple(args, "sI:wolfpack.hasevent(scriptname, event)", &script, &event)) {
+		return 0;
+	}
+
+	cPythonScript *pythonscript = ScriptManager::instance()->find(script);
+
+	if (!pythonscript) {
+		PyErr_SetString(PyExc_ValueError, "You tried to access an unknown script.");
+		return 0;
+	}
+
+	bool result = pythonscript->canHandleEvent((ePythonEvent)event);
+
+	if (result) {
+		Py_INCREF(Py_True);
+		return Py_True;
+	} else {
+		Py_INCREF(Py_False);
+		return Py_False;
+	}
+}
+
+static PyObject *wpCallNamedEvent(PyObject *self, PyObject *args) {
+	char *script;
+	char *event;
+	PyObject *eventargs;
+
+	if (!PyArg_ParseTuple(args, "ssO!:wolfpack.callevent(scriptname, event, args)", 
+		&script, &event, &PyTuple_Type, &eventargs)) {
+		return 0;
+	}
+
+	cPythonScript *pythonscript = ScriptManager::instance()->find(script);
+
+	if (!pythonscript) {
+		PyErr_SetString(PyExc_ValueError, "You tried to access an unknown script.");
+		return 0;
+	}
+
+	PyObject *result = pythonscript->callEvent(event, eventargs);
+
+	if (!result) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+
+	return result;
+}
+
+static PyObject *wpHasNamedEvent(PyObject *self, PyObject *args) {
+	char *script;
+	char *event;
+
+	if (!PyArg_ParseTuple(args, "ss:wolfpack.hasnamedevent(scriptname, eventname)", &script, &event)) {
+		return 0;
+	}
+
+	cPythonScript *pythonscript = ScriptManager::instance()->find(script);
+
+	if (!pythonscript) {
+		PyErr_SetString(PyExc_ValueError, "You tried to access an unknown script.");
+		return 0;
+	}
+
+	bool result = pythonscript->canHandleEvent(event);
+
+	if (result) {
+		Py_INCREF(Py_True);
+		return Py_True;
+	} else {
+		Py_INCREF(Py_False);
+		return Py_False;
+	}
+}
+
 /*!
 	wolfpack
 	Initializes wolfpack
 */
 static PyMethodDef wpGlobal[] = 
 {
-	{ "lock",				wpLock,							METH_VARARGS, NULL },
-	{ "unlock",				wpUnlock,						METH_VARARGS, NULL },
+	{ "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
+	{ "hasevent",			wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
+	{ "callnamedevent",		wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
+	{ "hasnamedevent",		wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
 	{ "getdefinition",		wpGetDefinition,				METH_VARARGS, "Gets a certain definition by it's id." },
 	{ "getdefinitions",		wpGetDefinitions,				METH_VARARGS, "Gets all definitions by type." },
 	{ "packet",				wpPacket,						METH_VARARGS, NULL },

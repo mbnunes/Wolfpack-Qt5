@@ -97,10 +97,7 @@ cBaseChar::cBaseChar()
 	murdererTime_		= 0;
 	criminalTime_		= 0;
 	skillDelay_			= 0;
-	poison_				= 0;
-	poisoned_			= 0;
-	poisonTime_			= 0;
-	poisonWearOffTime_	= 0;
+	poison_				= -1;
     title_				= "";
 	cUObject::name_		= "Man";
     orgName_			= "Man";
@@ -202,8 +199,8 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	deaths_ = atoi( result[offset++] );
 	offset++; // Skip body armor which is out of use
 	hunger_ = atoi( result[offset++] );
-	poison_ = atoi( result[offset++] );
-	poisoned_ = atoi( result[offset++] );
+	poison_ = (char)atoi( result[offset++] );
+	offset++; // Skip poisoned
 	murdererTime_ = atoi( result[offset++] ) + uiCurrentTime;
 	criminalTime_ = atoi( result[offset++] ) + uiCurrentTime;
 	gender_ = atoi( result[offset++] );
@@ -259,9 +256,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 void cBaseChar::save()
 {
 	initSave;
-
-	if ( changed_ )
-	{		
+	if (changed_) {		
 		setTable( "characters" );
 
 		addField( "serial", serial() );
@@ -293,7 +288,7 @@ void cBaseChar::save()
 		addField( "def", 0);
 		addField( "hunger", hunger_);
 		addField( "poison", poison_);
-		addField( "poisoned", poisoned_);
+		addField( "poisoned", 0);
 		addField( "murderertime", murdererTime_ ? murdererTime_ - uiCurrentTime : 0);
 		addField( "criminaltime", criminalTime_ ? criminalTime_ - uiCurrentTime : 0);
 		addField( "gender", gender_ );
@@ -311,25 +306,17 @@ void cBaseChar::save()
 		saveFields;
 	}
 
-	QValueVector<stSkillValue>::iterator it;
-	int i = 0;
+	QValueVector<stSkillValue>::iterator it;	
 	persistentBroker->lockTable("skills");
-	for( it = skills_.begin(); it != skills_.end(); ++it )
-	{
+	int i = 0;
+	QCString query(256); // 256 byte should be enough
+	for (it = skills_.begin(); it != skills_.end(); ++it, ++i) {
 		if ((*it).changed) {
-			clearFields;
-			setTable( "skills" );
-			addField( "serial", serial() );
-			addField( "skill", i );
-			addField( "value", (*it).value );
-			addField( "locktype", (*it).lock );
-			addField( "cap", (*it).cap );
-			addCondition( "serial", serial() );
-			addCondition( "skill", i );
-			saveFields;
+			query.sprintf("REPLACE INTO skills VALUES(%u,%u,%u,%u,%u);", 
+				serial_, i, (*it).value, (*it).lock, (*it).cap);
+			persistentBroker->executeQuery(query.data());
 			(*it).changed = false;
 		}
-		++i;
 	}
 	persistentBroker->unlockTable("skills");
 
@@ -1321,7 +1308,7 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 		pi->container_ = this; // Avoid a flagChanged()
 	}
 
-	if (handleWeight) {
+	if (handleWeight && (pi->layer() < 0x1A || pi->layer() == 0x1E)) {
 		weight_ += pi->totalweight();
 	}
 }
@@ -1513,27 +1500,34 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		setHidden( value.toInt() );
 		return 0;
 	}
+	
 	/*
 		\property char.hunger This integer property indicates the food level of the character. 0 is the lowest food level, 6 the highest.
 	*/
 	else SET_INT_PROPERTY( "hunger", hunger_ )
+	
 	/*
 		\property char.hungertime This integer property is the next servertime the foodlevel of this character will be reduced.
 	*/	
 	else SET_INT_PROPERTY( "hungertime", hungerTime_ )
-	else SET_INT_PROPERTY( "poison", poison_ )
-	else SET_INT_PROPERTY( "poisoned", poisoned_ )
-	else SET_INT_PROPERTY( "poisontime", poisonTime_ )
-	else SET_INT_PROPERTY( "poisonwearofftime", poisonWearOffTime_ )
-	else if( name == "ra" )
-	{
-		setReactiveArmor( value.toInt() );
-		return 0;
-	}
+	
 	/*
-		\property char.flag This integer property is the property bitfield of this character.
+		\property char.poison The strength of the poison applied to this character.
+		A value of -1 means that no poision is applied to this character.
 	*/
-	else SET_INT_PROPERTY( "flag", flag_ )
+	else SET_INT_PROPERTY("poison", poison_)
+
+	/*
+		\property char.flag The ingame notoriety for this character.
+	*/
+	else SET_INT_PROPERTY("flag", flag_)
+	
+	/*
+		\property propertyflags The bitfield (32 bit) with basechar properties. You can use the 
+		upper 8 bits for custom properties.
+	*/
+	else SET_INT_PROPERTY("propertyflags", propertyFlags_)
+	
 	/*
 		\property char.murderertime This integer property indicates when the next kill of the murder count will be removed.
 	*/
@@ -1762,11 +1756,8 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "hunger", hunger_ )
 	else GET_PROPERTY( "hungertime", (int)hungerTime_ )
 	else GET_PROPERTY( "poison", poison_ )
-	else GET_PROPERTY( "poisoned", (int)poisoned_ )
-	else GET_PROPERTY( "poisontime", (int)poisonTime_ )
-	else GET_PROPERTY( "poisonwearofftime", (int)poisonWearOffTime_ )
-	else GET_PROPERTY( "ra", hasReactiveArmor() )
 	else GET_PROPERTY( "flag", flag_ )
+	else GET_PROPERTY( "propertyflags", (int)propertyFlags_ )
 	else GET_PROPERTY( "murderertime", (int)murdererTime_ )
 	else GET_PROPERTY( "criminaltime", (int)criminalTime_ )
 	else GET_PROPERTY( "meditating", isMeditating() )
@@ -1822,6 +1813,25 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 		if( skillId != -1 )
 		{
 			value = cVariant( this->skillValue( skillId ) );
+			return 0;
+		}
+	// skillcap.
+	} else if( name.left( 9 ) == "skillcap." ) {
+		QString skill = name.right( name.length() - 9 );
+		INT16 skillId = Skills->findSkillByDef( skill );
+
+		if( skillId != -1 )
+		{
+			value = cVariant( this->skillCap( skillId ) );
+			return 0;
+		}
+
+	} else {
+		// See if there's a skill by that name
+		INT16 skillId = Skills->findSkillByDef(name);
+
+		if (skillId != -1) {
+			value = cVariant(skillValue(skillId));
 			return 0;
 		}
 	}
@@ -2348,11 +2358,11 @@ bool cBaseChar::kill(cUObject *source) {
 		return false;
 
 	changed(TOOLTIP);
-	changed_ = true;
-	setDead(true);
+	changed_ = true;	
 	hitpoints_ = 0;
-	setPoisoned(0);
-	setPoison(0);
+	updateHealth();
+	setDead(true);
+	setPoison(-1);	
 
 	if (isPolymorphed()) {
 		setBodyID(orgBodyID_);

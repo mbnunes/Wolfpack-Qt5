@@ -241,10 +241,11 @@ void cNPC::setOwner(P_PLAYER data, bool nochecks)
 
 void cNPC::setNextMoveTime()
 {
-	if( isTamed() )
-		setNextMoveTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->tamedNpcMoveTime() );
-	else
-		setNextMoveTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->npcMoveTime() );
+	if (isTamed()) {
+		setNextMoveTime(floor(uiCurrentTime + SrvParams->tamedNpcMoveTime() * MY_CLOCKS_PER_SEC));
+	} else {
+		setNextMoveTime(floor(uiCurrentTime + SrvParams->npcMoveTime() * MY_CLOCKS_PER_SEC));
+	}
 }
 
 // Update flags etc.
@@ -870,6 +871,23 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 
 		setSpell( spell, value.toInt() );
 		return 0;
+	// skillcap.
+	} else if( name.left( 9 ) == "skillcap." ) {
+		QString skill = name.right( name.length() - 9 );
+		INT16 skillId = Skills->findSkillByDef( skill );
+
+		if( skillId != -1 )
+		{
+			setSkillCap(skillId, value.toInt());
+			return 0;
+		}
+	} else {
+		INT16 skillId = Skills->findSkillByDef(name);
+
+		if (skillId != -1) {
+			setSkillValue(skillId, value.toInt());
+			return 0;
+		}
 	}
 
 	return cBaseChar::setProperty( name, value );

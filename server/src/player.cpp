@@ -1168,6 +1168,28 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 				socket_->sendSkill( skillId );
 			return 0;
 		}
+
+	// skillcap.
+	} else if( name.left( 9 ) == "skillcap." ) {
+		QString skill = name.right( name.length() - 9 );
+		INT16 skillId = Skills->findSkillByDef( skill );
+
+		if( skillId != -1 )
+		{
+			setSkillCap(skillId, value.toInt());
+			if (socket_)
+				socket_->sendSkill(skillId);
+			return 0;
+		}
+
+	} else {
+		INT16 skillId = Skills->findSkillByDef(name);
+		if (skillId != -1) {
+			setSkillValue(skillId, value.toInt());
+			if(socket_)
+				socket_->sendSkill(skillId);
+			return 0;
+		}
 	}
 
 	return cBaseChar::setProperty( name, value );

@@ -915,6 +915,34 @@ static PyObject* wpItem_removeitems(wpItem *self, PyObject *args) {
 	return PyInt_FromLong(self->pItem->removeItems(baseids, amount));
 }
 
+/*
+	\method item.callevent
+	\description Call a python event chain for this object. Ignore global hooks.
+	\param event The id of the event you want to call. See <library id="wolfpack.consts">wolfpack.consts</library> for constants.
+	\param args A tuple of arguments you want to pass to this event handler.
+	\return The result of the first handling event.
+*/
+static PyObject *wpItem_callevent(wpItem *self, PyObject *args) {	
+	unsigned int event;
+	PyObject *eventargs;
+
+	if (!PyArg_ParseTuple(args, "IO!:item.callevent(event, args)", &event, &PyTuple_Type, &eventargs)) {
+		return 0;
+	}
+
+	if (cPythonScript::canChainHandleEvent((ePythonEvent)event, self->pItem->getEvents())) {
+		bool result = cPythonScript::callChainedEventHandler((ePythonEvent)event, self->pItem->getEvents(), eventargs);
+
+		if (result) {
+			Py_INCREF(Py_True);
+			return Py_True;
+		}
+	}
+
+	Py_INCREF(Py_False);
+	return Py_False;
+}
+
 static PyMethodDef wpItemMethods[] =
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
@@ -939,6 +967,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "lightning",			(getattrofunc)wpItem_lightning, METH_VARARGS, 0 },
 	{ "resendtooltip",		(getattrofunc)wpItem_resendtooltip, METH_VARARGS, 0 },
 	{ "dupe",				(getattrofunc)wpItem_dupe, METH_VARARGS, 0 },
+	{ "callevent",			(getattrofunc)wpItem_callevent, METH_VARARGS, 0 },
 
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
