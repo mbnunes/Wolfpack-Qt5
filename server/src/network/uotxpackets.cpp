@@ -614,7 +614,7 @@ void cUOTxItemContent::addItem( P_ITEM pItem )
 {
 	if ( !pItem )
 		return;
-	SERIAL contserial = -1;
+	SERIAL contserial = INVALID_SERIAL;
 	if ( pItem->container() )
 		contserial = pItem->container()->serial();
 

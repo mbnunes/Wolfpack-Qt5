@@ -42,9 +42,7 @@ cGetopts::~cGetopts()
 // get user's options
 void cGetopts::parse_options( int argc, char** argv )
 {
-	unsigned int i;
-
-	for ( i = 1; i < argc; i++ )
+	for ( int i = 1; i < argc; i++ )
 	{
 		if ( argv[i][0] == '-' )
 		{

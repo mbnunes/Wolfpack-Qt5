@@ -224,7 +224,7 @@ void cNPC::setNextMoveTime()
 }
 
 // Update flags etc.
-void cNPC::update( bool excludeself )
+void cNPC::update( bool )
 {
 	cUOTxUpdatePlayer update;
 	update.fromChar( this );
@@ -533,6 +533,7 @@ void cNPC::soundEffect( UI16 soundId, bool hearAll )
 
 void cNPC::giveGold( Q_UINT32 amount, bool inBank )
 {
+	Q_UNUSED(inBank);
 	P_ITEM pCont = getBackpack();
 
 	if ( !pCont )

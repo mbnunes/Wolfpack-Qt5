@@ -70,6 +70,7 @@ bool cDBDriver::exec( const QString& query )
 void cDBDriver::lockTable( const QString& table )
 {
 }
+
 void cDBDriver::unlockTable( const QString& table )
 {
 }
@@ -77,7 +78,8 @@ QString cDBDriver::error()
 {
 	return QString::null;
 }
-void cDBDriver::setActiveConnection( int id )
+
+void cDBDriver::setActiveConnection( int )
 {
 }
 
@@ -265,7 +267,7 @@ const char* cDBResult::className() const
   cSQLiteDriver member functions
  *****************************************************************************/
 
-bool cSQLiteDriver::open( int id )
+bool cSQLiteDriver::open( int )
 {
 	char* error = NULL;
 

@@ -1905,6 +1905,7 @@ static PyObject* wpDriver( PyObject* self, PyObject* args )
 
 static PyObject* wpClose( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	try
 	{
 		PersistentBroker::instance()->disconnect();

@@ -441,7 +441,6 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 			}
 			else if ( mChar )
 			{
-				UI08 map = mChar->pos().map;
 				mChar->removeFromView( false );
 				mChar->moveTo( pChar->pos() );
 				mChar->resend( false );
@@ -455,7 +454,6 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 			}
 			else if ( mChar )
 			{
-				UI08 map = pChar->pos().map;
 				pChar->removeFromView( false );
 				pChar->moveTo( mChar->pos() );
 				pChar->resend( false );

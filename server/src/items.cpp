@@ -1283,6 +1283,7 @@ void cItem::setTotalweight( float data )
 
 void cItem::talk( const QString& message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
+	Q_UNUSED(autospam);
 	if ( color == 0xFFFF )
 	{
 		color = 0x3b2;

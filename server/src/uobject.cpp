@@ -142,7 +142,7 @@ void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 unsigned int cUObject::dist( cUObject* d ) const
 {
 	if ( !d )
-		return ~0;
+		return static_cast<uint>(~0);
 	return pos_.distance( d->pos_ );
 }
 

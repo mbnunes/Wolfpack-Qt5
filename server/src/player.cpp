@@ -257,6 +257,7 @@ void cPlayer::resend( bool clean )
 
 void cPlayer::talk( const QString& message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
+	Q_UNUSED(autospam);
 	if ( color == 0xFFFF )
 		color = saycolor_;
 

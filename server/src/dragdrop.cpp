@@ -871,8 +871,14 @@ void DragAndDrop::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker 
 
 void DragAndDrop::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
 {
+	Q_UNUSED(socket);
+	Q_UNUSED(pItem);
+	Q_UNUSED(pBanker);
 }
 
 void DragAndDrop::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer )
 {
+	Q_UNUSED(socket);
+	Q_UNUSED(pItem);
+	Q_UNUSED(pTrainer);
 }

@@ -63,13 +63,13 @@ static PyObject* wpContent_get( wpContent* self, int id )
 		if ( !pc )
 			goto error;
 		cBaseChar::ItemContainer container = pc->content();
-		if ( id >= container.size() || id < 0 )
+		if ( id < 0 || static_cast<uint>(id) >= container.size() )
 			goto error;
 		cBaseChar::ItemContainer::const_iterator it( container.begin() );
 		/*
-				 * Ask Correa before trying to `optimize` this,
-				 * there isn't much standard complient options here.
-				 */
+		 * Ask Correa before trying to `optimize` this,
+		 * there isn't much standard complient options here.
+		 */
 		for ( int i = 0; i < id && it != container.end(); ++i )
 			++it;
 
@@ -84,13 +84,13 @@ static PyObject* wpContent_get( wpContent* self, int id )
 		if ( !pi )
 			goto error;
 		cItem::ContainerContent container = pi->content();
-		if ( id >= container.size() || id < 0 )
+		if ( id < 0 || static_cast<uint>(id) >= container.size() )
 			goto error;
 		cItem::ContainerContent::const_iterator it( container.begin() );
 		/*
-				 * Ask Correa before trying to `optimize` this,
-				 * there isn't much standard complient options here.
-				 */
+		 * Ask Correa before trying to `optimize` this,
+		 * there isn't much standard complient options here.
+		 */
 		for ( int i = 0; i < id && it != container.end(); ++i )
 			++it;
 

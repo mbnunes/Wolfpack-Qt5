@@ -414,7 +414,6 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 			}
 
 			map_st map1, map2;
-			SI32 j;
 
 			bool posHigherThanMap;
 			map1 = Maps::instance()->seekMap( ( *this ) );
@@ -753,7 +752,7 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 					if ( !def )
 						continue;
 					QValueVector<multiItem_st> multi = def->getEntries();
-					for ( j = 0; j < multi.size(); ++j )
+					for ( unsigned int j = 0; j < multi.size(); ++j )
 					{
 						if ( ( multi[j].visible ) && ( pi->pos().x + multi[j].x == ( *pit ).x ) && ( pi->pos().y + multi[j].y == ( *pit ).y ) )
 						{
@@ -1326,7 +1325,7 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 					continue;
 				}
 				QValueVector<multiItem_st> multi = def->getEntries();
-				for ( j = 0; j < multi.size(); ++j )
+				for ( unsigned int j = 0; j < multi.size(); ++j )
 				{
 					if ( ( multi[j].visible ) && ( pi->pos().x + multi[j].x == ( *pit ).x ) && ( pi->pos().y + multi[j].y == ( *pit ).y ) )
 					{

@@ -454,16 +454,10 @@ void cSectorMaps::remove( cUObject* object )
 	}
 }
 
-cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, int x1, int y1, int x2, int y2 )
+cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uint x1, uint y1, uint x2, uint y2 )
 {
-	x1 = QMAX( 0, x1 );
-	x2 = QMAX( 0, x2 );
-	y1 = QMAX( 0, y1 );
-	y2 = QMAX( 0, y2 );
-
 	// First step: count how many items we are going to hold
 	unsigned int count = 0;
-	unsigned int gridSize = sector->gridWidth() * sector->gridHeight();
 	unsigned int xBlock, yBlock;
 
 	if ( x1 > x2 )
@@ -523,11 +517,8 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, int
 }
 
 // Find items in a specific block
-cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, int x, int y )
+cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uint x, uint y )
 {
-	x = QMAX( 0, x );
-	y = QMAX( 0, y );
-
 	unsigned int block = sector->calcBlockId( x, y );
 	unsigned int count = sector->countItems( block );
 
@@ -561,11 +552,8 @@ cCharSectorIterator* cSectorMaps::findChars( const Coord_cl& center, unsigned ch
 	return findChars( center.map, ( int ) center.x - distance, ( int ) center.y - distance, center.x + distance, center.y + distance );
 }
 
-cItemSectorIterator* cSectorMaps::findItems( unsigned char map, int x, int y )
+cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x, uint y )
 {
-	x = QMAX( 0, x );
-	y = QMAX( 0, y );
-
 	std::map<unsigned char, cSectorMap*>::const_iterator it = itemmaps.find( map );
 
 	if ( it == itemmaps.end() )
@@ -577,11 +565,8 @@ cItemSectorIterator* cSectorMaps::findItems( unsigned char map, int x, int y )
 	return static_cast<cItemSectorIterator*>( findObjects( MT_ITEMS, it->second, x, y ) );
 }
 
-cCharSectorIterator* cSectorMaps::findChars( unsigned char map, int x, int y )
+cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x, uint y )
 {
-	x = QMAX( 0, x );
-	y = QMAX( 0, y );
-
 	std::map<unsigned char, cSectorMap*>::const_iterator it = charmaps.find( map );
 
 	if ( it == charmaps.end() )
@@ -593,13 +578,8 @@ cCharSectorIterator* cSectorMaps::findChars( unsigned char map, int x, int y )
 	return static_cast<cCharSectorIterator*>( findObjects( MT_CHARS, it->second, x, y ) );
 }
 
-cItemSectorIterator* cSectorMaps::findItems( unsigned char map, int x1, int y1, int x2, int y2 )
+cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x1, uint y1, uint x2, uint y2 )
 {
-	x1 = QMAX( 0, x1 );
-	y1 = QMAX( 0, y1 );
-	x2 = QMAX( 0, x2 );
-	y2 = QMAX( 0, y2 );
-
 	std::map<unsigned char, cSectorMap*>::const_iterator it = itemmaps.find( map );
 
 	if ( it == itemmaps.end() )
@@ -611,13 +591,8 @@ cItemSectorIterator* cSectorMaps::findItems( unsigned char map, int x1, int y1, 
 	return static_cast<cItemSectorIterator*>( findObjects( MT_ITEMS, it->second, x1, y1, x2, y2 ) );
 }
 
-cCharSectorIterator* cSectorMaps::findChars( unsigned char map, int x1, int y1, int x2, int y2 )
+cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x1, uint y1, uint x2, uint y2 )
 {
-	x1 = QMAX( 0, x1 );
-	y1 = QMAX( 0, y1 );
-	x2 = QMAX( 0, x2 );
-	y2 = QMAX( 0, y2 );
-
 	std::map<unsigned char, cSectorMap*>::const_iterator it = charmaps.find( map );
 
 	if ( it == charmaps.end() )

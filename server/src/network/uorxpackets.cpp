@@ -181,7 +181,7 @@ QString cUORxSpeechRequest::message()
 		// The UO client encodes the UNICODE speech in a rather strange... format.
 		// So we need to iterate trough the speech
 
-		return QString().fromUtf8( speech.data() );
+		return QString::fromUtf8( speech.data() );
 	}
 	else
 		return getUnicodeString( 12, getShort( 1 ) - 12 );

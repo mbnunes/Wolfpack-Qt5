@@ -1250,6 +1250,7 @@ void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList
 */
 void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
 {
+	Q_UNUSED(args);
 	class DoorGenerator
 	{
 		enum DoorFacing

@@ -778,6 +778,7 @@ static PyObject* wpSocket_log( wpSocket* self, PyObject* args )
 
 static PyObject* wpSocket_updateplayer( wpSocket* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	self->pSock->updatePlayer();
 	return PyTrue();
 }

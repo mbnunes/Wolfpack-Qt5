@@ -418,6 +418,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 */
 void cUOSocket::handleHardwareInfo( cUORxHardwareInfo* packet )
 {
+	Q_UNUSED(packet);
 	// Do something with the retrieved hardware information here
 	// > Hardware Log ??
 	//QString hardwareMsg = QString( "Hardware: %1 Processors [Type: %2], %2 MB RAM, %3 MB Harddrive" ).arg( packet->processorCount() ).arg( packet->processorType() ).arg( packet->memoryInMb() ).arg( packet->largestPartitionInMb() );
@@ -1211,39 +1212,58 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 
 void cUOSocket::handleCHBackup( cUORxAosMultiPurpose* packet )
 {
+	Q_UNUSED(packet);
 }
+
 void cUOSocket::handleCHRestore( cUORxAosMultiPurpose* packet )
 {
+	Q_UNUSED(packet);
 }
+
 void cUOSocket::handleCHCommit( cUORxAosMultiPurpose* packet )
 {
+	Q_UNUSED(packet);
 }
+
 void cUOSocket::handleCHDelete( cUORxCHDelete* packet )
 {
+	Q_UNUSED(packet);
 }
+
 void cUOSocket::handleCHAddElement( cUORxCHAddElement* packet )
 {
+	Q_UNUSED(packet);
 }
+
 void cUOSocket::handleCHClose( cUORxAosMultiPurpose* packet )
 {
+	Q_UNUSED(packet);
 }
+
 void cUOSocket::handleCHStairs( cUORxCHStairs* packet )
 {
+	Q_UNUSED(packet);
 }
+
 void cUOSocket::handleCHSync( cUORxAosMultiPurpose* packet )
 {
+	Q_UNUSED(packet);
 }
+
 void cUOSocket::handleCHClear( cUORxAosMultiPurpose* packet )
 {
+	Q_UNUSED(packet);
 }
+
 void cUOSocket::handleCHLevel( cUORxCHLevel* packet )
 {
 	player()->onCHLevelChange( packet->level() );
 }
+
 void cUOSocket::handleCHRevert( cUORxAosMultiPurpose* packet )
 {
+	Q_UNUSED(packet);
 }
-
 
 void cUOSocket::handleCastSpell( cUORxCastSpell* packet )
 {
@@ -1928,7 +1948,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		++count;
 	}
 
-	if ( pCont->objectID() == "cCorpse" )
+	if ( pCont->objectID() == QString("cCorpse") )
 	{
 		cCorpse* pCorpse = dynamic_cast<cCorpse*>( pCont );
 

@@ -122,22 +122,9 @@ public:
 		return "sqlite";
 	}
 
-	cSQLiteDriver()
-	{
-	}
-	virtual ~cSQLiteDriver()
-	{
-	}
-
 	bool open( int id = CONN_MAIN );
 	void close();
 
-	void lockTable( const QString& table )
-	{
-	}
-	void unlockTable( const QString& table )
-	{
-	}
 	bool tableExists( const QString& table );
 	QString error()
 	{
@@ -155,13 +142,6 @@ public:
 	const char* name() const
 	{
 		return "mysql";
-	}
-
-	cMySQLDriver()
-	{
-	}
-	virtual ~cMySQLDriver()
-	{
 	}
 
 	bool open( int id = CONN_MAIN );

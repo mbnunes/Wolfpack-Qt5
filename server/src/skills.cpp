@@ -91,7 +91,6 @@ void cSkills::SkillUse( cUOSocket* socket, UINT16 id ) // Skill is clicked on th
 
 	cTargetRequest* targetRequest = NULL;
 	QString message;
-	int s = -1;
 
 	switch ( id )
 	{

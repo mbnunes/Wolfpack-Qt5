@@ -550,6 +550,9 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 
 static int wpParty_setAttr( wpParty* self, char* name, PyObject* value )
 {
+	Q_UNUSED(self);
+	Q_UNUSED(name);
+	Q_UNUSED(value);
 	return 0;
 }
 

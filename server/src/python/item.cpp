@@ -731,13 +731,15 @@ static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 {
-	/*	Q_UNUSED(args);
-		if( self->pItem->free )
-		{
-			Py_INCREF( Py_None );
-			return Py_None;
-		}
-		return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) */
+	Q_UNUSED(args);
+	/*	
+	if( self->pItem->free )
+	{
+		Py_INCREF( Py_None );
+		return Py_None;
+	}
+	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) 
+	*/
 	Py_INCREF( Py_None );
 	return Py_None;
 }
@@ -799,6 +801,7 @@ static PyObject* wpItem_dupe( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_isblessed( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if ( self->pItem->free )
 	{
 		return 0;

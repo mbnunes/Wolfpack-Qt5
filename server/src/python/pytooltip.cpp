@@ -90,6 +90,7 @@ static PyObject* wpTooltip_add( wpTooltip* self, PyObject* args )
 
 static PyObject* wpTooltip_reset( wpTooltip* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	self->list->resize( 19 );
 	self->list->setShort( 1, 19 );
 	return PyTrue();

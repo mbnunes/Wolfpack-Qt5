@@ -638,6 +638,8 @@ protected:
 
 int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd )
 {
+	Q_UNUSED( hPrevInstance );
+	Q_UNUSED( nShowCmd );
 #if defined(_DEBUG)
 	/*	AllocConsole();
 		CONSOLE_SCREEN_BUFFER_INFO coninfo;

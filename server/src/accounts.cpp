@@ -80,7 +80,7 @@ bool cAccount::isBlocked() const
 uint cAccount::secsToUnblock() const
 {
 	if ( isBlocked() )
-		return ~0;
+		return static_cast<uint>(~0);
 	else if ( blockUntil.isValid() && blockUntil < QDateTime::currentDateTime() )
 		return QDateTime::currentDateTime().secsTo( blockUntil );
 	return 0;
