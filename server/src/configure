@@ -189,6 +189,9 @@ do
 	shift;
 done;
 
+# first of all, let's assassinate the Makefile ;)
+rm -f Makefile;
+
 if [ "${_STATIC}" = "y" ];
 then
 	QMAKE_LFLAGS="-static";
@@ -413,6 +416,19 @@ then
 	fi;
 else
 	echo "not found." >&2;
+	exit 1;
+fi;
+
+if [ ! "$(grep '^LIBS' Makefile | grep -- '-lqt-mt')" ];
+then
+	echo "failed!" >&2;
+	cat >&2 <<-EOF
+	Sorry, Qt has to be installed multi threaded.
+	To compile qt multi threaded, use -thread there as a ./configure option.
+	EOF
+
+	rm -f Makefile;
+
 	exit 1;
 fi;
 
