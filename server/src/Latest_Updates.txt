@@ -62,3 +62,4 @@ screen away to open bank. helps to open from outsidebank. (Ripper)
 52) fixed: a HUGE bug with spell casting weapons :) This bug could cause almost *every* kind
 	of misbehaviour in LoneWolf. A big hand for Pokey :)  (Lonewolf)
 53) fixed: a *second* instance of type bug #45 in inscription (Lonewolf)
+54) Fixed: targeting.cpp:3111 invalid item index <-1> (Lonewolf)

@@ -3168,14 +3168,11 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 
 void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from items
 {
-	int c,i,j,l;
+	int c,j,l;
 	int k;
 
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if( serial == INVALID_SERIAL) return;
-	i=calcItemFromSer(serial);
-	P_ITEM pi=MAKE_ITEMREF_LR(i);
-	if (i==-1)
+	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	if (!pi)
 	{
 		sysmessage(s,"no item found");
 		return;
@@ -3214,9 +3211,6 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 	impowncreate(s,currchar[s],0); // if equipped send new old color too
 
 	chars[currchar[s]].removeHalo(pi);
-//	removefromptr(&glowsp[chars[currchar[s]].serial%HASHMAX],i);
-
-	//sysmessage(s,"unglow under cosntruction");
 }
 
 void cTargets::MenuPrivTarg(int s)//LB's menu privs
