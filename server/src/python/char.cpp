@@ -2361,7 +2361,7 @@ static PyObject* wpChar_additem( wpChar* self, PyObject* args )
 	P_ITEM pItem;
 	unsigned int handleweight = 1;
 
-	if ( !PyArg_ParseTuple( args, "|O&:char.additem(layer, item, [handleweight], [noremove])", &layer, &PyConvertItem, &pItem, &handleweight ) )
+	if ( !PyArg_ParseTuple( args, "iO&|i:char.additem(layer, item, [handleweight])", &layer, &PyConvertItem, &pItem, &handleweight ) )
                 return 0;
 
 	if ( pItem )
