@@ -6,7 +6,7 @@ import sys
 from parse import parsepython, parsecpp, getVersion
 from glob import glob
 
-paths = sys.argv[2:]
+paths = sys.argv[1:]
 commands = []
 events = []
 

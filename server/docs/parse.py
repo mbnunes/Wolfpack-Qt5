@@ -130,8 +130,6 @@ def parsepython(filename):
 	file.close()
 
 	commands = []
-	events = []
-
 	results = pattern.finditer(content)
 	for result in results:
 		text = result.group(1)
@@ -139,12 +137,7 @@ def parsepython(filename):
 			command = parsecommand(text)
 			if command:
 				commands.append(command)
-		elif text.startswith('\\event'):
-			event = parseevent(text)
-			if event:
-				events.append(event)
-
-	return (commands, events)
+	return (commands, [])
 
 #
 # The following function parses a C++ file 

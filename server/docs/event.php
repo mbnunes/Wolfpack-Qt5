@@ -100,9 +100,8 @@ a:active {
 	}  else {
 ?>
           <span class="sectiontitle">SCRIPTING EVENTS</span><br>
-          To use one of the commands in this section, you have to know about your <em>Command Prefix</em> first. The default command prefix is the character <strong>'</strong>, but you can change it to any character you like in your wolfpack.xml file. If you know your command prefix, simply prepend it to the name of the command and say it ingame. The command will then be executed. <br>
-          The name of the command is case insensitive.<br>
-          You can see a list of all available commands at the bottom of this page.<br><br>
+          Your scripts will be notified of certain events by event functions. To use one of these events, simply place the event function in your script. The name of event functions are case sensitive.<br>
+          You can see a list of all available events at the bottom of this page.<br>
       </p>
       <?
 }
