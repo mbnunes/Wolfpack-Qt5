@@ -238,6 +238,7 @@ struct stBodyInfo {
 	unsigned char flags;
 	unsigned char soundmode;
 	unsigned char type;
+	unsigned short mountid;
 };
 
 class cCharBaseDefs

@@ -2525,73 +2525,18 @@ void cBaseChar::showPaperdoll( cUOSocket* source, bool hotkey )
 		source->sendPaperdoll( this );
 	}
 
-	// Is that faster ??
-	switch ( body_ )
-	{
-	case 0x003A:
-	case 0x0039:
-	case 0x003B:
-	case 0x0074:
-	case 0x0075:
-	case 0x0072:
-	case 0x007A:
-	case 0x0084:
-	case 0x0073:
-	case 0x0076:
-	case 0x0077:
-	case 0x0078:
-	case 0x0079:
-	case 0x00AA:
-	case 0x00AB:
-	case 0x00BB:
-	case 0x0090:
-	case 0x00C8:
-	case 0x00E2:
-	case 0x00E4:
-	case 0x00CC:
-	case 0x00DC:
-	case 0x00D2:
-	case 0x00DA:
-	case 0x00DB:
-	case 0x0317:
-	case 0x0319:
-	case 0x031A:
-	case 0x031F:
-		// Try to mount the rideable animal
-		if ( dist( pChar ) < 2 || pChar->isGM() )
-		{
-			if ( !pChar->isHuman() )
-			{
-				source->clilocMessage( 1061628 ); // You can't do that while polymorphed
-				return;
+	P_NPC npc = dynamic_cast<P_NPC>(this);
+
+	// Mounting and pack animals
+	if (npc) {
+		if (body_ == 0x123 || body_  == 0x124) {
+			if ( npc->owner() == pChar || pChar->isGM() ) {
+				source->sendContainer( getBackpack() );
 			}
-
-			if ( pChar->isDead() )
-			{
-				source->clilocMessage( 500949 );
-				return;
-			}
-
-			if ( isAtWar() )
-				source->sysMessage( tr( "Your pet is in battle right now!" ) );
-			else
-				pChar->mount( dynamic_cast<P_NPC>( this ) );
+		} else {
+			pChar->mount(npc); // Try mounting this
 		}
-		else
-		{
-			source->clilocMessage( 500206 );
-		}
-
-		break;
-	case 0x123:
-	case 0x124:
-		if ( objectType() == enNPC && dynamic_cast<P_NPC>( this )->owner() == pChar )
-			source->sendContainer( getBackpack() );
-		break;
-
-	default:
-		break;
-	};
+	}
 }
 
 /*

@@ -35,7 +35,7 @@ IDR_MAINMENU MENU
 }
 
 1 VERSIONINFO
- FILEVERSION 12,9,11,0
+ FILEVERSION 12,9,12,0
  PRODUCTVERSION 13,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -54,7 +54,7 @@ IDR_MAINMENU MENU
             VALUE "Comments", "http://www.wpdev.org/"
             VALUE "CompanyName", "Wolfpack Development Team"
             VALUE "FileDescription", "Ultima Online Server Emulator"
-            VALUE "FileVersion", "12.9.11 Beta"
+            VALUE "FileVersion", "12.9.12 Beta"
             VALUE "LegalCopyright", "© 2001-2004 Wolfpack Dev. Team"
             VALUE "OriginalFilename", "wolfpack.exe"
             VALUE "ProductName", "Wolfpack Emu"

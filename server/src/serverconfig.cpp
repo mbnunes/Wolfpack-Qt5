@@ -175,6 +175,7 @@ void cConfig::readData()
 	mulPath_ = QDir::convertSeparators( getString( "General", "MulPath", "./muls/", true ) );
 	logPath_ = QDir::convertSeparators( getString( "General", "LogPath", "./logs/", true ) );
 	logRotate_ = getBool( "General", "LogRotate", true, true );
+	mountRange_ = getNumber( "General", "Mount Range", 2, true );
 
 	// Network
 	loginPort_ = getNumber( "Network", "Loginserver Port", 2593, true );

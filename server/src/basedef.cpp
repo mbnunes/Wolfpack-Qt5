@@ -293,6 +293,18 @@ void cCharBaseDefs::loadBodyInfo() {
 					bodyinfo.figurine = 0;
 				}
 
+				// Load the mount item for mounting
+				QString mountid = hex2dec(element.attribute("mountid"));
+				if (!mountid.isNull()) {
+					bodyinfo.mountid = mountid.toUShort(&ok);
+					if (!ok) {
+						Console::instance()->log(LOG_WARNING, tr("Invalid mountid in bodyinfo file: %1.\n").arg(mountid));
+						continue;
+					}
+				} else {
+					bodyinfo.mountid = 0;
+				}
+
 				// Soundmode for skipping non existing sounds
 				QString soundmode = hex2dec(element.attribute("soundmode"));
 				if (!soundmode.isNull()) {

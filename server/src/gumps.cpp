@@ -149,7 +149,7 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 		// Next Spawn		
 		unsigned int nextRespawn = 0;
 		if (region->nextTime() > Server::instance()->time()) {
-			(region->nextTime() - Server::instance()->time()) / 1000;
+			nextRespawn = (region->nextTime() - Server::instance()->time()) / 1000;
 		}
 		addText( 50, 220, tr("Next Respawn: %1 seconds").arg(nextRespawn), 0x834);
 		addText( 50, 240, tr("Total Points: %1").arg(region->countPoints()), 0x834);

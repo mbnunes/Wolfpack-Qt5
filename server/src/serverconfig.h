@@ -89,6 +89,7 @@ protected:
 	unsigned int skillAdvanceModifier_;
 	unsigned int statsAdvanceModifier_;
 	unsigned short objectDelay_;
+	unsigned char mountRange_;
 	bool stealing_;
 	bool guardsActive_;
 	bool saveSpawns_;
@@ -235,6 +236,7 @@ public:
 	int niceLevel() const;
 	unsigned int itemDecayTime() const;
 	unsigned int corpseDecayTime() const;
+	unsigned char mountRange() const;
 	bool lootdecayswithcorpse() const;
 	float invisTimer() const;
 	unsigned short skillDelay() const;
@@ -770,6 +772,11 @@ inline bool cConfig::enableTrammelSeason() const
 inline bool cConfig::overwriteDefinitions() const
 {
 	return overwriteDefinitions_;
+}
+
+inline unsigned char cConfig::mountRange() const
+{
+	return mountRange_;
 }
 
 inline unsigned int cConfig::maxCharsPerAccount() const

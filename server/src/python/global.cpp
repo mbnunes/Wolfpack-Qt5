@@ -1748,6 +1748,7 @@ static PyObject* wpSetOption( PyObject* /*self*/, PyObject* args )
 	- figurine
 	- type
 	- body
+	- mountid
 	</code>
 	\description Retrieve information about a given character body.
 */
@@ -1765,6 +1766,7 @@ static PyObject* wpBodyInfo( PyObject* /*self*/, PyObject* args )
 	PyDict_SetItemString( dict, "basesound", PyInt_FromLong( info.basesound ) );
 	PyDict_SetItemString( dict, "body", PyInt_FromLong( info.body ) );
 	PyDict_SetItemString( dict, "figurine", PyInt_FromLong( info.figurine ) );
+	PyDict_SetItemString( dict, "mountid", PyInt_FromLong( info.mountid ) );
 	PyDict_SetItemString( dict, "flags", PyInt_FromLong( info.flags ) );
 	PyDict_SetItemString( dict, "soundmode", PyInt_FromLong( info.soundmode ) );
 	PyDict_SetItemString( dict, "type", PyInt_FromLong( info.type ) );

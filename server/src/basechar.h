@@ -561,6 +561,10 @@ public:
 		return result;
 	}
 
+	inline unsigned short mountId() {
+		return CharBaseDefs::instance()->getBodyInfo(body()).mountid;
+	}
+
 	virtual QCString bindmenu()
 	{
 		return basedef_ ? basedef_->bindmenu() : 0;

@@ -105,7 +105,7 @@ public:
 	virtual stError* setProperty( const QString& name, const cVariant& value );
 	PyObject* getProperty( const QString& name );
 	P_NPC unmount();
-	void mount( P_NPC pMount );
+	bool mount( P_NPC pMount );
 	bool isGM() const;
 	bool isCounselor() const;
 	bool isGMorCounselor() const;

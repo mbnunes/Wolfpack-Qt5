@@ -453,17 +453,27 @@ P_NPC cPlayer::unmount()
 	return NULL;
 }
 
-void cPlayer::mount( P_NPC pMount )
+bool cPlayer::mount( P_NPC pMount )
 {
 	if ( !pMount )
-		return;
+		return false;
+
+	if (isDead()) {
+		return false;
+	}
+
+	unsigned short mountId = pMount->mountId();
+
+	if (!mountId) {
+		return false; // Not mountable
+	}
 
 	cUOSocket* socket = this->socket();
-	if ( !inRange( pMount, 2 ) && !isGM() )
+	if ( !inRange( pMount, Config::instance()->mountRange() ) && !isGM() )
 	{
 		if ( socket )
 			socket->sysMessage( tr( "You are too far away to mount!" ) );
-		return;
+		return true; // Mountable, but not in range
 	}
 
 	if ( pMount->owner() == this || isGM() )
@@ -472,85 +482,16 @@ void cPlayer::mount( P_NPC pMount )
 
 		P_ITEM pMountItem = new cItem;
 		pMountItem->Init();
-		pMountItem->setId( 0x915 );
+		pMountItem->setId( mountId );
 		pMountItem->setColor( pMount->skin() );
 
-		switch ( pMount->body() )
-		{
-		case 0xC8:
-			pMountItem->setId( 0x3E9F ); break; // Horse
-		case 0xE2:
-			pMountItem->setId( 0x3EA0 ); break; // Horse
-		case 0xE4:
-			pMountItem->setId( 0x3EA1 ); break; // Horse
-		case 0xCC:
-			pMountItem->setId( 0x3EA2 ); break; // Horse
-		case 0xD2:
-			pMountItem->setId( 0x3EA3 ); break; // Desert Ostard
-		case 0xDA:
-			pMountItem->setId( 0x3EA4 ); break; // Frenzied Ostard
-		case 0xDB:
-			pMountItem->setId( 0x3EA5 ); break; // Forest Ostard
-		case 0xDC:
-			pMountItem->setId( 0x3EA6 ); break; // LLama
-		case 0x34:
-			pMountItem->setId( 0x3E9F ); break; // Brown Horse
-		case 0x4E:
-			pMountItem->setId( 0x3EA0 ); break; // Grey Horse
-		case 0x50:
-			pMountItem->setId( 0x3EA1 ); break; // Tan Horse
-		case 0x74:
-			pMountItem->setId( 0x3EB5 ); break; // Nightmare
-		case 0x75:
-			pMountItem->setId( 0x3EA8 ); break; // Silver Steed
-		case 0x72:
-			pMountItem->setId( 0x3EA9 ); break; // Dark Steed
-		case 0x7A:
-			pMountItem->setId( 0x3EB4 ); break; // Unicorn
-		case 0x84:
-			pMountItem->setId( 0x3EAD ); break; // Kirin
-		case 0x73:
-			pMountItem->setId( 0x3EAA ); break; // Etheral
-		case 0x76:
-			pMountItem->setId( 0x3EB2 ); break; // War Horse-Brit
-		case 0x77:
-			pMountItem->setId( 0x3EB1 ); break; // War Horse-Mage Council
-		case 0x78:
-			pMountItem->setId( 0x3EAF ); break; // War Horse-Minax
-		case 0x79:
-			pMountItem->setId( 0x3EB0 ); break; // War Horse-Shadowlord
-		case 0xAA:
-			pMountItem->setId( 0x3EAB ); break; // Etheral LLama
-		case 0x3A:
-			pMountItem->setId( 0x3EA4 ); break; // Forest Ostard
-		case 0x39:
-			pMountItem->setId( 0x3EA3 ); break; // Desert Ostard
-		case 0x3B:
-			pMountItem->setId( 0x3EA5 ); break; // Frenzied Ostard
-		case 0x90:
-			pMountItem->setId( 0x3EB3 ); break; // Seahorse
-		case 0xAB:
-			pMountItem->setId( 0x3EAC ); break; // Etheral Ostard
-		case 0xBB:
-			pMountItem->setId( 0x3EB8 ); break; // Ridgeback
-		case 0x17:
-			pMountItem->setId( 0x3EBC ); break; // giant beetle
-		case 0x19:
-			pMountItem->setId( 0x3EBB ); break; // skeletal mount
-		case 0x1a:
-			pMountItem->setId( 0x3EBD ); break; // swamp dragon
-		case 0x1f:
-			pMountItem->setId( 0x3EBE ); break; // armor dragon
-		}
-		
 		this->setDirection( pMount->direction() );
 		this->addItem( cBaseChar::Mount, pMountItem );
 		pMountItem->setTag( "pet", cVariant( pMount->serial() ) );
 		pMountItem->update();
 
 		// if this is a gm lets tame the animal in the process
-		if ( isGM() )
-		{
+		if ( isGM() ) {
 			pMount->setOwner( this );
 		}
 		
@@ -562,6 +503,8 @@ void cPlayer::mount( P_NPC pMount )
 	}
 	else
 		socket->sysMessage( tr( "You dont own that creature." ) );
+
+	return true;
 }
 
 bool cPlayer::isGM() const
