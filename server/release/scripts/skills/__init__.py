@@ -170,8 +170,9 @@ def statgain( char, stat ):
 
 def totalskills( char ):
 	total = 0
+	charSkill = char.skill
 	for i in range( 0, ALLSKILLS ):
-		total += char.skill[ i ]
+		total += charSkill[ i ]
 	return total
 
 def totalstats( char ):
