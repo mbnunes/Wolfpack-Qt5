@@ -5,6 +5,7 @@ import random
 import wolfpack
 import wolfpack.time
 from wolfpack.utilities import tobackpack, energydamage
+from wolfpack.consts import *
 
 class BladeSpirits (Spell):
 	def __init__(self):
@@ -123,13 +124,13 @@ class Incognito (Spell):
 		newhaircolor = random.randint(1102, 1150)
 
 		if char.id == 0x190:
-			char.name = 'Man'
+			char.name = random.choice( wolfpack.list( "NAMES_MALE" ) )
 
 			# Create new hair
 			newhair = random.choice(['2044', '2045', '2046', '203c', '203b', '203d', '2047', '2048', '2049', '204a', ''])
 			newbeard = random.choice(['203e', '203f', '2040', '2041', '204b', '204c', '204d', ''])
 		else:
-			char.name = 'Woman'
+			char.name = random.choice( wolfpack.list( "NAMES_FEMALE" ) )
 			newhair = random.choice(['2044', '2045', '2046', '203c', '203b', '203d', '2047', '2048', '2049', '204a', ''])
 
 		hair = char.itemonlayer(LAYER_HAIR)
