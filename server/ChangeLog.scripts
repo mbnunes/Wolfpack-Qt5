@@ -54,6 +54,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed foreign characters for the page system.
 		- Fixed bandages for logged out chars.
 		- Rewrote the bandages script.
+		- Added macro support for bowing and salutes.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
