@@ -190,7 +190,9 @@ static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 static PyObject* wpCoord_effect( wpCoord* self, PyObject* args )
 {
 	unsigned short id, duration, speed;
-	if (!PyArg_ParseTuple(args, "hhh:coord.effect(id, speed, duration)", &id, &speed, &duration)) {
+	int rendermode = 0;
+	short hue = 0;
+	if (!PyArg_ParseTuple(args, "hhh|hi:coord.effect(id, speed, duration, [hue], [rendermode])", &id, &speed, &duration, &hue, &rendermode)) {
 		return 0;
 	}
 
@@ -200,6 +202,8 @@ static PyObject* wpCoord_effect( wpCoord* self, PyObject* args )
 	effect.setSourcePos( self->coord );
 	effect.setDuration( duration );
 	effect.setSpeed( speed );
+    effect.setHue(hue);
+	effect.setRenderMode(rendermode);
 
 	cUOSocket* mSock;
 	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
