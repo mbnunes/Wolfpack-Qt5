@@ -11,12 +11,14 @@ from wolfpack.consts import *
 import wolfpack
 
 def stopfight(pet):
-	if pet.attacktarget:
-		pet.attacktarget = None
+	pet.attacktarget = None
+	pet.war = 0
+	pet.updateflags()
 
-	if pet.war:
-		pet.war = 0
-		pet.updateflags()
+def startfight(pet, targetchar):
+	pet.attacktarget = targetchar
+	pet.war = 1
+	pet.updateflags()
 
 def come(char, pet, all=0):
 	if all:
@@ -42,7 +44,7 @@ def follow_me(char, pet, all=0):
 	if all:
 		for follower in char.followers:
 			follow_me(char, follower, 0)
-	elif pet and pet.owner == char and pet.distanceto(char) < 18:
+	if pet and pet.owner == char and pet.distanceto(char) < 18:
 		stopfight(pet)
 		pet.follow(char)
 		pet.sound(SND_ATTACK)
@@ -51,11 +53,7 @@ def go_target(char, arguments, target):
 	(pet, all) = arguments
 	if all:
 		for follower in char.followers:
-			if follower.distanceto(char) < 18:
-				stopfight(follower)
-				follower.guarding = None
-				follower.goto(target.pos)
-				follower.sound(SND_ATTACK)
+			go_target(char, [follower.serial, 0], target)
 	else:
 		pet = wolfpack.findchar(pet)
 		if pet and pet.owner == char and pet.distanceto(char) < 18:
@@ -65,23 +63,33 @@ def go_target(char, arguments, target):
 			pet.sound(SND_ATTACK)
 
 def go(char, pet, all=0):
-	char.socket.sysmessage('Please select a destination?')
+	char.socket.sysmessage('Please select a destination.')
 	char.socket.attachtarget("speech.pets.go_target", [pet.serial, all])
 
 def attack_target(char, arguments, target):
 	if not target.char or target.char == char:
-		char.socket.sysmessage('Your pets can''t attack that.')
+		char.socket.sysmessage('Your pets cannot attack that.')
 		return
 
 	(pet, all) = arguments
 	if all:
 		for follower in char.followers:
-			follower.fight(target.char)
-			follower.sound(SND_ATTACK)
+			attack_target(char, [follower.serial, 0], target)
 	else:
 		pet = wolfpack.findchar(pet)
+		if target.char == pet:
+			char.socket.sysmessage('Your pet refuses to kill itself.')
+			return
 		if pet and pet.owner == char and pet.distanceto(char) < 18:
+			startfight(pet, target.char)
 			pet.fight(target.char)
+			
+			# right here we need to not interrupt the target, but i cant register a fight unless i do, right? not sure.
+			target.char.fight(pet)
+			target.char.follow(pet)
+			
+			go_target(char, arguments, target)
+			follow_target(char, arguments, target)
 			pet.sound(SND_ATTACK)
 
 def attack(char, pet, all=0):
@@ -120,23 +128,22 @@ def follow_target(char, arguments, target):
 		return
 
 	(pet, all) = arguments
+	pet = wolfpack.findchar(pet)
 	if all:
 		for follower in char.followers:
-			if follower.distanceto(char) < 18:
-				stopfight(follower)
-				follower.guarding = None
-				follower.follow(target.char)
-				follower.sound(SND_ATTACK)
-	else:
-		pet = wolfpack.findchar(pet)
-		if pet and pet.owner == char and pet.distanceto(char) < 18:
-			stopfight(pet)
-			pet.guarding = None
-			pet.follow(target.char)
-			pet.sound(SND_ATTACK)
+			go_target(char, [follower.serial, 0], target)
+	elif pet and pet.owner == char and pet.distanceto(char) < 18:
+		#char.socket.sysmessage('Pet following:' + str(target.char.serial))
+		pet.guarding = None
+		pet.follow(target.char)
+		pet.sound(SND_ATTACK)
 
 def follow(char, pet, all=0):
-	char.socket.sysmessage('Who do you want your pet to follow?')
+	if all == 1:
+		char.socket.sysmessage('Who do you want your pets to follow?')
+	else:
+		char.socket.sysmessage('Who do you want your pet to follow?')
+
 	char.socket.attachtarget("speech.pets.follow_target", [pet.serial, all])
 
 def release(char, pet):
@@ -155,93 +162,103 @@ def onSpeech(pet, char, text, keywords):
 	if not char.socket:
 		return 0
 
-	# Check if the pet is owned by char
+	# Test Ownership / Allow GMs to control
 	if ( not pet.owner or pet.owner != char ) and not char.gm:
 		return 0
 
+	# Test All
 	# Check for keywords
-	checkname = not text.startswith('all ')
-	text = text.lower()
+	
+	all = text.startswith('all ')
+	
+	if all:
+		text = text.lower()
+		#char.socket.sysmessage('zzz ALL')
+		# begin all #
+		# All Follow Me
+		if 232 in keywords and 355 in keywords and 364 in keywords:
+			#char.socket.sysmessage('zzz all follow me')
+			follow_me(char, pet, 1)
+			return 1
+	
+		# All Follow
+		elif 232 in keywords and 346 in keywords and 357 in keywords:
+			#char.socket.sysmessage('zzz all follow')
+			follow(char, pet, 1)
+			return 1
+		
+		# All Kill, All Attack
+		elif (360 in keywords and 349 in keywords) or (361 in keywords and 350 in keywords):
+			#char.socket.sysmessage('zzz all attack')
+			attack(char, pet, 1)
+			return 1
 
-	# for all* commands we dont need to check for the name
-	if not checkname:
-		for keyword in keywords:
-			if (keyword >= 356 and keyword <= 364) or keyword == 368:
-				checkname = 0
+		# All Come (356)
+		elif 356 in keywords and 341 in keywords:
+			#char.socket.sysmessage('zzz all come')
+			come(char, pet, 1)
+			return 1
 
-	# Check if we are mean't by this command
-	if checkname:
+		# All Stay, All Stop
+		elif (368 in keywords and 367 in keywords) or (359 in keywords and 353 in keywords):
+			#char.socket.sysmessage('zzz all stay')
+			stop(char, pet, 1)
+			return 1
+
+		# All Go
+		elif text == 'all go':
+			#char.socket.sysmessage('zzz all go')
+			go(char, pet, 1)
+			return 1
+
+		# end all #
+	else:
+		# begin not all #
+		# Test Name if not all, return false if false
 		if not text.startswith(pet.name.lower() + " "):
 			return 0
 
-	# Come (341)
-	if 341 in keywords:
-		come(char, pet, 0)
-		return 1
+		# Follow Me
+		elif 232 in keywords and 355 in keywords:
+			#char.socket.sysmessage('zzz Follow me')
+			follow_me(char, pet, 0)
+			return 1
 
-	# All Come (356)
-	elif 356 in keywords:
-		come(char, pet, 1)
-		return 1
+		# Follow
+		elif 232 in keywords and 346 in keywords:
+			#char.socket.sysmessage('zzz Follow')
+			follow(char, pet, 0)
+			return 1
+		
+		# Kill, Attack
+		elif 349 in keywords or 350 in keywords:
+			attack(char, pet, 0)
+			return 1
 
-	# All Go
-	elif text == 'all go':
-		go(char, pet, 1)
-		return 1
+		# Stay, Stop
+		elif 353 in keywords or 367 in keywords:
+			stop(char, pet, 0)
+			return 1
 
-	# Go
-	elif text.endswith('go'):
-		go(char, pet, 0)
-		return 1
+		# Come (341)
+		if 341 in keywords:
+			come(char, pet, 0)
+			return 1
 
-	# All Kill, All Attack
-	elif 360 in keywords or 361 in keywords:
-		attack(char, pet, 1)
-		return 1
+		# Go
+		elif text.endswith('go'):
+			go(char, pet, 0)
+			return 1
+		
+		# Transfer
+		elif 366 in keywords:
+			transfer(char, pet)
+			return 1
 
-	# Kill, Attack
-	elif 349 in keywords or 350 in keywords:
-		attack(char, pet, 0)
-		return 1
-
-	# Transfer
-	elif 366 in keywords:
-		transfer(char, pet)
-		return 1
-
-	# Release
-	elif 365 in keywords:
-		release(char, pet)
-		return 1
-
-	# All Stay, All Stop
-	elif 368 in keywords or 359 in keywords:
-		stop(char, pet, 1)
-		return 1
-
-	# Stay, Stop
-	elif 353 in keywords or 367 in keywords:
-		stop(char, pet, 0)
-		return 1
-
-	# Follow Me
-	elif 355 in keywords:
-		follow_me(char, pet, 0)
-		return 1
-
-	# All Follow Me
-	elif 364 in keywords:
-		follow_me(char, pet, 1)
-		return 1
-
-	# All Follow
-	elif 357 in keywords:
-		follow(char, pet, 1)
-		return 1
-
-	# Follow
-	elif 346 in keywords:
-		follow(char, pet, 1)
-		return 1
+		# Release
+		elif 365 in keywords:
+			release(char, pet)
+			return 1
+		# end some #
 
 	return 0
