@@ -1,26 +1,36 @@
 
 <definitions>
 
-	<!-- a terathen warrior -->
-	<npc id="terathen_warrior">
-		<name>a terathen warrior</name>
+	<!-- a terathan warrior -->
+	<npc id="terathan_warrior">
+		<name>a terathan warrior</name>
 		<id>0x046</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="30" max="35"/></defense>
-		<lodamage>16</lodamage>
-		<hidamage>38</hidamage>
+		<karma>-4000</karma>
+		<fame>4000</fame>
 		<gold><random min="60" max="90"/></gold>
 		<!-- Stats -->
 		<str><random min="166" max="215"/></str>
-		<dex><random min="191" max="145"/></dex>
+		<dex><random min="96" max="145"/></dex>
 		<int><random min="41" max="65"/></int>
 		<!-- Skills -->
-		<wrestling><random min="801" max="900"/></wrestling>
-		<tactics><random min="801" max="1000"/></tactics>
+		<poisoning><random min="601" max="800"/></poisoning>
 		<magicresistance><random min="601" max="750"/></magicresistance>
-		<!-- Priv -->
+		<tactics><random min="801" max="1000"/></tactics>
+		<wrestling><random min="801" max="900"/></wrestling>
+		<!-- Damage -->
+		<lodamage>7</lodamage>
+		<hidamage>17</hidamage>
+		<!-- Resists -->
+		<defense><random min="30" max="35"/></defense>
+		<tag name="coldresist" value="25,35" />
+		<tag name="energyresist" value="25,35" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="30,35" />
+		<tag name="poisonresist" value="30,40" />
+		<!-- Misc. -->
+		<desc>The warrior caste of the community, plans and carries out assaults ontheir enemies. Though martially trained, the warrior is better able towin a battle through strategy. Terathan warriors never waver inbattle, and are certain to fight to the death.</desc>
+		<category>Monsters\Terathan\Terathan Warrior</category>
 	</npc>
 
 </definitions>

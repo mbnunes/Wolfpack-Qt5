@@ -5,25 +5,36 @@
 	<npc id="terathan_avenger">
 		<name>a terathan avenger</name>
 		<id>0x5</id>
-		<category>Monsters\Terathans\Terathan Avenger</category>
 		<skin>0x66d</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="1500" /></fame>
-		<defense><random min="40" max="50" /></defense>
-		<lodamage>59</lodamage>
-		<hidamage>77</hidamage>
+		<karma>-15000</karma>
+		<fame>15000</fame>
 		<!-- Stats -->
-		<str><random min="467" max="645" /></str>
-		<dex><random min="77" max="95" /></dex>
-		<int><random min="126" max="150" /></int>
+		<str><random min="467" max="645"/></str>
+		<dex><random min="77" max="95"/></dex>
+		<int><random min="703" max="1000"/></int>
 		<!-- Skills -->
-		<wrestling><random min="901" max="1000" /></wrestling>
-		<tactics><random min="901" max="1000" /></tactics>
-		<magicresistance><random min="651" max="800" /></magicresistance>
-		<evaluatingintel><random min="703" max="1000" /></evaluatingintel>
-		<poisoning><random min="601" max="800" /></poisoning>
-		<magery><random min="703" max="1000" /></magery>
+		<evaluatingintel><random min="703" max="1000"/></evaluatingintel>
+		<magery><random min="703" max="1000"/></magery>
+		<poisoning><random min="601" max="800"/></poisoning>
+		<magicresistance><random min="651" max="800"/></magicresistance>
+		<tactics><random min="901" max="1000"/></tactics>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>18</lodamage>
+		<hidamage>22</hidamage>
+		<tag name="physicaldamage" value="50" />
+		<tag name="poisondamage" value="50" />
+		<!-- Resists -->
+		<defense><random min="40" max="50" /></defense>
+		<tag name="coldresist" value="35,45" />
+		<tag name="energyresist" value="35,45" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="40,50" />
+		<tag name="poisonresist" value="90,100" />
+		<!-- Misc. -->
+		<desc>The harbinger of vengeance among the Terathans. Their very touchpoisons the body as well as the mind. The Avengers are unleashed bythe Matriarch only on the deepest infiltrators of their homeland. Itis said Avengers possess the most arcane of weapons, but those are wononly by removing them from the hands of a dead Avenger.</desc>
+		<category>Monsters\Terathan\Terathan Avenger</category>
 	</npc>
 
 </definitions>

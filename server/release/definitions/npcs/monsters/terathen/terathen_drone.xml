@@ -1,27 +1,36 @@
 
 <definitions>
 
-	<!-- a terathen drone -->
-	<npc id="terathen_drone">
-		<name>a terathen drone</name>
+	<!-- a terathan drone -->
+	<npc id="terathan_drone">
+		<name>a terathan drone</name>
 		<id>0x47</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-1250" max="-2499"/></karma>
-		<fame><random min="1250" max="2499"/></fame>
-		<defense><random min="20" max="25"/></defense>
-		<lodamage>9</lodamage>
-		<hidamage>16</hidamage>
+		<karma>-2000</karma>
+		<fame>2000</fame>
 		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="36" max="65"/></str>
 		<dex><random min="96" max="145"/></dex>
 		<int><random min="21" max="45"/></int>
 		<!-- Skills -->
-		<wrestling><random min="401" max="500"/></wrestling>
-		<tactics><random min="301" max="500"/></tactics>
+		<poisoning><random min="401" max="600"/></poisoning>
 		<magicresistance><random min="301" max="450"/></magicresistance>
-		<anatomy><random min="0" max="0"/></anatomy>
-		<!-- Priv -->
+		<tactics><random min="301" max="500"/></tactics>
+		<wrestling><random min="401" max="500"/></wrestling>
+		<!-- Damage -->
+		<lodamage>6</lodamage>
+		<hidamage>12</hidamage>
+		<!-- Resists -->
+		<defense><random min="20" max="25"/></defense>
+		<tag name="coldresist" value="15,25" />
+		<tag name="energyresist" value="15,25" />
+		<tag name="fireresist" value="10,20" />
+		<tag name="physicalresist" value="20,25" />
+		<tag name="poisonresist" value="30,40" />
+		<!-- Misc. -->
+		<desc>The workers of the Terathan community. Drones perform the dual role ofbuilder and shock trooper. In times of peace, drones are used togather materials for temples and homes. Working together, these dronescan build an entire community in months. In times of war, dronesattack the front lines of any opposing enemy force. Using musclesbuilt from years of labor, drones should not have their fightingability underestimated.</desc>
+		<category>Monsters\Terathan\Terathan Drone</category>
 	</npc>
 
 </definitions>
