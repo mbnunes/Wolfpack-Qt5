@@ -203,7 +203,9 @@ def onUse( char, item ):
 
 	# This is annoying and eats bandwith but its the only way to "reopen" the spellbook
 	# once its already open.
-	char.socket.removeobject(item)
+	#char.socket.removeobject(item)
+	if item.container and item.container.isitem():
+		char.socket.sendobject(item.container)	
 	char.socket.sendobject(item)
 
 	packet = wolfpack.packet( 0x24, 7 )

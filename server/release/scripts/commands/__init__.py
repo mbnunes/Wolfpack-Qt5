@@ -118,6 +118,39 @@ def multigems(socket, command, arguments):
 	socket.resendworld()
 
 """
+	\command goname
+	\usage - <code>goname name</code>
+	\description Go to the first character found with the given name.
+"""
+def goname(socket, command, arguments):
+	if len(arguments) == 0:
+		socket.sysmessage('Usage: goname <name>')
+		return
+	
+	chars = wolfpack.chariterator()
+
+	char = chars.first
+	found = None
+	name = hash(arguments.lower())
+	
+	while char:
+		if hash(char.name.lower()) == name:
+			found = char
+			break
+
+		char = chars.next
+		
+	if not found:
+		socket.sysmessage('A character with the given name was not found.')
+	else:
+		socket.sysmessage("Going to character '%s' [Serial: 0x%x]." % (found.name, found.serial))
+		pos = found.pos
+		socket.player.removefromview()
+		socket.player.moveto(pos)
+		socket.player.update()
+		socket.resendworld()
+	
+"""
 	\command gouid
 	\usage - <code>gouid serial</code>
 	\description Find an object with the given serial and move to it.
@@ -133,6 +166,7 @@ def gouid(socket, command, arguments):
 		item = wolfpack.finditem(uid)
 		if item:
 			container = item.getoutmostitem()
+
 			if container.container:
 				container = container.container
 
@@ -143,6 +177,10 @@ def gouid(socket, command, arguments):
 			socket.player.moveto(pos)
 			socket.player.update()
 			socket.resendworld()
+			
+			if item.container.isitem():
+				socket.sendobject(item.container)
+				socket.sendcontainer(item.container)
 		else:
 			socket.sysmessage('No item with the serial 0x%x could be found.' % uid)
 		return
@@ -214,6 +252,7 @@ def onLoad():
 	wolfpack.registercommand("multigems", multigems)
 	wolfpack.registercommand("followers", followers)
 	wolfpack.registercommand("gouid", gouid)
+	wolfpack.registercommand("goname", goname)
 	wolfpack.registercommand("newlos", newlos)
 
 """

@@ -154,7 +154,7 @@ class Protection(Spell):
 			char.soundeffect(0x1e9)
 
 			# Remove Magic Resistance Skill
-			amount = 35 - int(char.skill[INSCRIPTION] / 200)
+			amount = 350 - int(char.skill[INSCRIPTION] / 200)
 			if char.skill[MAGICRESISTANCE] - amount < 0:
 				amount = char.skill[MAGICRESISTANCE]
 
