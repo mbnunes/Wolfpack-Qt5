@@ -62,8 +62,8 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 
 	P_CHAR pc_currchar = currchar[s];
 
-	cCommands::command_line = speech.c_str();
-	cCommands::params = QStringList::split( " ", cCommands::command_line );
+	this->command_line = speech.c_str();
+	this->params = QStringList::split( " ", this->command_line );
 	
 	strcpy((char*)nonuni, speech.c_str());
 	strcpy((char*)tbuffer, (char*)nonuni);

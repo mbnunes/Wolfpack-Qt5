@@ -43,6 +43,7 @@ void cSetPrivLvlTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 		return;
 
 	pc->setPrivLvl( plevel_ );
+	sysmessage( socket, QString("PrivLvl set to : %1").arg(plevel_) );
 };
 
 void cAddNpcTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
@@ -52,9 +53,9 @@ void cAddNpcTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 
 	QStringList arguments = QStringList::split( " ", npc_ );
 
-	if( arguments.size() == 1 ) // script section string
-		Npcs->createScriptNpc( socket, NULL, arguments[0], targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc + Map->TileHeight( targetInfo.model ) );
-	else if( arguments.size() == 2 ) // 2 partial hex numbers for art-id
+	if( !npc_.contains( " " ) ) // script section string
+		Npcs->createScriptNpc( socket, NULL, npc_, targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc + Map->TileHeight( targetInfo.model ) );
+	else if( arguments.size() == 2 ) // 2 partial hex numbers for art-id ?
 	{
 		P_CHAR pc = Npcs->MemCharFree ();
 		if ( pc == NULL )
