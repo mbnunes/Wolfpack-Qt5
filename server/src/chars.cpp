@@ -293,7 +293,7 @@ void cChar::Init(bool ser)
 	this->setGuarded(false); // True if CHAR is guarded by some NPC
 	this->setSmokeTimer(0);
 	this->setSmokeDisplayTimer(0);
-	this->setCarve(-1); // AntiChrist - for new carving system
+	this->setCarve( (char*)0 ); // carving system
 	this->setAntiguardstimer(0); // AntiChrist - for "GUARDS" call-spawn
 	this->setPolymorph(false);//polymorph - AntiChrist
 	this->setIncognito(false);//incognito - AntiChrist
@@ -1217,7 +1217,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<carve>3</carve>
 	else if( TagName == "carve" ) 
-		this->setCarve( Value.toInt() );
+		this->setCarve( Value );
 
 	//<cantrain />
 	else if( TagName == "cantrain" )

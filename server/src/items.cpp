@@ -141,7 +141,7 @@ cItem::cItem( cItem &src )
 	this->doordir = src.doordir;
 	this->dooropen = src.dooropen;
 	this->dye = src.dye;
-	this->carve = src.carve;
+	this->carve_ = src.carve_;
 	this->att = src.att;
 	this->def = src.def;
 	this->lodamage_=src.lodamage_;
@@ -611,6 +611,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("glow_color",	glow_color);
 		archive.read("glowtype",	glow_effect);
 		archive.read("desc",		desc);
+		archive.read("carve",		carve_);
 	}
 	else if ( archive.isWritting())
 	{
@@ -677,6 +678,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("glow_color",	glow_color);
 		archive.write("glowtype",	glow_effect);
 		archive.write("desc",		desc);
+		archive.write("carve",		carve_);
 	}
 	cUObject::Serialize(archive);
 }
@@ -795,7 +797,7 @@ void cItem::Init(bool mkser)
 	this->doordir=0; // Reserved for doors
 	this->dooropen=0;
 	this->dye=0; // Reserved: Can item be dyed by dye kit
-	this->carve=-1;//AntiChrist-for new carving system
+	this->carve_=(char*)0;// carving system
 	this->att=0; // Item attack
 	this->def=0; // Item defense
 	this->lodamage_=0; //Minimum Damage weapon inflicts

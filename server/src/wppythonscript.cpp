@@ -824,7 +824,6 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "good", Item->good ) 
 	else getIntProperty( "madewith", Item->madewith ) 
 	else getStrProperty( "desc", Item->desc.c_str() ) 
-	else getIntProperty( "carve", Item->carve ) 
 	else getStrProperty( "spawnregion", Item->spawnregion().latin1() )
 
 	// If no property is found search for a method
@@ -957,7 +956,6 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else setIntProperty( "good", Item->good ) 
 	else setIntProperty( "madewith", Item->madewith ) 
 	else setStrProperty( "desc", Item->desc ) 
-	else setIntProperty( "carve", Item->carve ) 
 
 	else if( !strcmp( name, "spawnregion" ) )
 		self->Item->setSpawnRegion( PyString_AS_STRING( value ) );

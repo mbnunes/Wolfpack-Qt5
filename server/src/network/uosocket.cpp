@@ -1072,8 +1072,6 @@ void cUOSocket::playMusic()
 	cTerritory* Region = cAllTerritories::getInstance()->region( _player->region );
 	UINT32 midi = 0;
 
-	#pragma note("new xml format: convert section MIDILIST COMBAT to <list> with id MIDI_COMBAT")
-
 	if( _player->war )
 		midi = DefManager->getRandomListEntry( "MIDI_COMBAT" ).toInt();
 

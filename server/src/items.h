@@ -66,6 +66,7 @@ protected:
 	SI08		smelt_;
 	QString		spawnregion_;
 	INT32		totalweight_;
+	QString		carve_;
 
 	// More values
 	UI08 moreb1_;
@@ -113,6 +114,7 @@ public:
 	bool			newbie()		const { return priv&0x02; }		// Is the Item Newbie
 	P_CHAR			owner();
 	INT32			totalweight()	const { return totalweight_; }
+	QString			carve()			const { return carve_; }
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -147,6 +149,7 @@ public:
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv |= 0x02 : priv &= 0xFD; }
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( INT32 data );
+	void	setCarve( QString data ) { carve_ = data; };
 
 	cItem() {;};
 	cItem( cItem& src); // Copy constructor
@@ -240,7 +243,6 @@ public:
 	
 	string desc;
 	
-	int carve; //AntiChrist - for new carve system
 	bool incognito; //AntiChrist - for items under incognito effect
 	// ^^ NUTS !! - move that to priv
 

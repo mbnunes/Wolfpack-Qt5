@@ -195,7 +195,7 @@ protected:
 	unsigned int			smokedisplaytimer_;
 	unsigned int			antispamtimer_;//LB - anti spam
 	unsigned int			antiguardstimer_;//AntiChrist - anti "GUARDS" spawn
-	int						carve_; //AntiChrist - for new carve system
+	QString					carve_; // carve system
 	int						hairserial_;//there are needed for incognito stuff
 	int						beardserial_;
 	unsigned int			begging_timer_;
@@ -335,7 +335,7 @@ public:
 	unsigned int			smokedisplaytimer() const {return smokedisplaytimer_;}
 	unsigned int			antispamtimer() const { return antispamtimer_;}
 	unsigned int			antiguardstimer() const { return antiguardstimer_;}
-	int						carve() const {return carve_;}
+	QString					carve() const {return carve_;}
 	SERIAL					hairserial() const {return hairserial_;}
 	SERIAL					beardserial() const { return beardserial_;}
 	unsigned int			begging_timer() const {return begging_timer_;}
@@ -446,7 +446,7 @@ public:
 	void					setSmokeDisplayTimer ( unsigned int data ) { smokedisplaytimer_ = data; }
 	void					setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
 	void					setAntiguardstimer( unsigned int data ) { antiguardstimer_ = data;}
-	void					setCarve( int data ) { carve_ = data;}
+	void					setCarve( QString data ) { carve_ = data;}
 	void					setHairSerial( SERIAL data ) { hairserial_ = data;}
 	void					setBeardSerial( SERIAL data ) {beardserial_ = data;}
 	void 					setBegging_timer( unsigned int data ) { begging_timer_ = data;}

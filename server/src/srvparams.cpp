@@ -269,7 +269,7 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 					QStringList strList2 = QStringList::split(",", strList[1].stripWhiteSpace());
 					QHostAddress host;
 					host.setAddress( strList2[0] );
-					server.sIP = host.ip4Addr();
+					server.sIP = strList2[0];
 					server.ip = resolveName( server.sIP );
 
 					bool ok = false;
@@ -462,6 +462,14 @@ Q_INT32 resolveName( const QString& data )
 		    }
 		}
 	}
-	return uiValue;
+
+	// inet_addr returns the ip in reverse order
+	Q_INT32 part1 = 0, part2 = 0, part3 = 0, part4 = 0;
+	part1 = ( (uiValue & 0x000000FF) << 24 );
+	part2 = ( (uiValue & 0x0000FF00) << 8 );
+	part3 = ( (uiValue & 0x00FF0000) >> 8 );
+	part4 = ( (uiValue & 0xFF000000) >> 24 );
+
+	return (part1 + part2 + part3 + part4);
 }
 

@@ -950,7 +950,7 @@ void deathstuff(P_CHAR pc_player)
 	ele = pc_player->xid; // Amount == corpse type
 	pi_c->setAmount( ele );
 	pi_c->morey = ishuman(pc_player);//is human?? - AntiChrist
-	pi_c->carve=pc_player->carve();//store carve section - AntiChrist
+	pi_c->setCarve( pc_player->carve() );//store carve section
 	pi_c->setName2( pc_player->name.c_str() );
 
 	pi_c->setType( 1 );

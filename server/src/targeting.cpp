@@ -1626,43 +1626,22 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		deletecorpse=true;
 	} else
 	{
-		openscript("carve.scp");
-		sprintf(sect,"CARVE %i",pi3->carve);
-		if (!i_scripts[carve_script]->find(sect))
-		{
-			closescript();
-			return;
-		}
+		QStringList carveList = DefManager->getList( pi3->carve() );
 
-		unsigned long loopexit=0;
-		do
+		QStringList::const_iterator it = carveList.begin();
+		while( it != carveList.end() )
 		{
-			read2();
-			if (script1[0]!='}')
+			P_ITEM nItem = Items->createScriptItem( (*it) );
+			if( nItem )
 			{
-				if (!(strcmp("ADDITEM",(char*)script1)))
-				{
-					storeval=str2num(script2);
-					pos=ftell(scpfile);
-					closescript();
-					P_ITEM pi10 = Items->createScriptItem(s,script2,0);
-					if (pi10 == NULL)
-						return;
-					pi10->setLayer( 0x00 );
-					pi10->setContSerial(pi3->serial);
-					pi10->pos.x=20+(rand()%50);
-					pi10->pos.y=85+(rand()%75);
-					pi10->pos.z=9;
-					RefreshItem(pi10);//let's finally refresh the item
-					strcpy((char*)script1, "DUMMY");
-					openscript("carve.scp");
-					fseek(scpfile, pos, SEEK_SET);
-				}
+				nItem->setContSerial( pi3->serial );
+				nItem->pos.x=20+(rand()%50);
+				nItem->pos.y=85+(rand()%75);
+				nItem->pos.z=9;
+				RefreshItem( nItem );
 			}
+			it++;
 		}
-		while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
-
-		closescript();
 	}
 
 
@@ -1702,7 +1681,7 @@ static void CorpseTarget(const P_CLIENT pC)
 			{
 				pi->more1 = 1;// corpse being carved...can't carve it anymore
 				
-				if (pi->morey || pi->carve>-1)
+				if (pi->morey || !pi->carve().isEmpty())
 				{// if specified, use enhanced carving system!
 					newCarveTarget(s, pi);// AntiChrist
 				}
