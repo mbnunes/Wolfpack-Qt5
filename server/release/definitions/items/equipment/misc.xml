@@ -15,6 +15,7 @@
 		<value>1</value>
 		<weight>0.02</weight>
 		<category>Equipment\Misc\Kindling</category>
+		<events>kindling</events>
 	</item>
 
 </definitions>

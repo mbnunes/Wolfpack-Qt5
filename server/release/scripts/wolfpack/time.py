@@ -8,6 +8,7 @@
 #===============================================================#
 
 import _wolfpack.time
+import _wolfpack
 
 def second():
 	return _wolfpack.time.second()
@@ -29,3 +30,6 @@ def year():
 
 def timestamp():
 	return _wolfpack.time.timestamp()
+
+def servertime():
+	return _wolfpack.currenttime()

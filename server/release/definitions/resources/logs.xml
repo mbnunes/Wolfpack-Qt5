@@ -9,7 +9,7 @@
 <definitions>
 	<resource id="RESOURCE_LOG">
 		<name>log</name>
-		<amount min="15" max="20" />
+		<amount min="10" max="15" />
 		<artid><getlist id="IDS_TREE" /></artid>
 		<skillid>44</skillid>
 		<refreshtime>180</refreshtime>

@@ -38,6 +38,7 @@
 		<id>0x0f51</id>
 		<type>1005</type>
 		<category>Weapons\Fencing\Dagger (N/S)</category>
+		<events>dagger</events>
 	</item>
 
 	<item id="f52">

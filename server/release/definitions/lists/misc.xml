@@ -7,6 +7,10 @@
 =================================================================
 -->
 <definitions>
+	<list id="TEST_CARVE">
+		<item>9f1,10</item>
+	</list>
+
 	<!-- Page Categories -->
 	<list id="PAGE_CATEGORIES">
 		<item>BUG</item>

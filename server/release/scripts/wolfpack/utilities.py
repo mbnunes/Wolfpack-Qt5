@@ -137,3 +137,24 @@ def hex2dec( value ):
 		return int( value )
 	else:
 		return int( value.replace( "0x", "" ), 16 )
+
+def itemsmatch( a, b ):
+	return a.type == b.type and a.id == b.id and a.color == b.color and a.events == b.events
+
+def tobackpack( item, char ):
+	backpack = char.getbackpack()
+	return tocontainer( item, backpack )
+
+def tocontainer( item, container ):
+	for content in container.content:
+		# Found an item to stack with
+		if itemsmatch( content, item ):
+			if content.amount + item.amount <= 65535:
+				content.amount = content.amount + item.amount
+				content.update()
+				item.delete()
+				return 1 # Stacked
+
+	# We couldn't stack
+	container.additem( item, 1, 1, 0 )
+	return 0 # Not stacked
