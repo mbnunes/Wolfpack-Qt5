@@ -54,21 +54,10 @@ def response( args ):
 		return False
 
 	##########
-	if socket.hastag( 'wood_gem' ):
-		veingem = wolfpack.finditem( socket.gettag( 'wood_gem' ) )
-		if not veingem:
-			veingem = getvein( socket, pos, target )
-			if not veingem:
-				socket.deltag( 'wood_gem' )
-				veingem = createwoodgem( target, pos )
-				socket.settag( 'wood_gem', int(veingem.serial) )
-	else:
-		veingem = getvein( socket, pos, target )
-		# OK, we still don't have a veingem to get our wood, lets create it here.
-		if not veingem:
-			veingem = createwoodgem( target, pos )
-		else:
-			socket.settag( 'wood_gem', veingem.serial )
+	veingem = getvein( socket, pos, target )
+	# OK, we still don't have a veingem to get our wood, lets create it here.
+	if not veingem:
+		veingem = createwoodgem( target, pos )
 
 	if not veingem:
 		veingem = createwoodgem( target, pos )
@@ -136,7 +125,7 @@ def hack_logs( char, target, tool, resource ):
 	resname = resource.gettag( 'resname' )
 	amount = resource.gettag( 'resourcecount' )
 
-	resourcecount = resource.gettag( 'resourcecount' )
+	resourcecount = int(resource.gettag( 'resourcecount' ))
 
 	# No resource left to harvest?
 	if resourcecount <= 0:
