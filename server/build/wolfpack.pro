@@ -280,11 +280,11 @@ TRANSLATIONS    = \
 		languages/wolfpack_fr.ts \
 		languages/wolfpack_ge.ts
 
-unix:SOURCES  += srvparams_unix.cpp \
-		 console_unix.cpp
+unix:SOURCES  += unix/srvparams_unix.cpp \
+		 unix/console_unix.cpp
 
-win32:SOURCES += srvparams_win.cpp \
-		 console_win.cpp
+win32:SOURCES += win/srvparams_win.cpp \
+		 win/console_win.cpp
 
 DISTFILES     += AUTHORS.txt \
 		 COPYING.txt \
