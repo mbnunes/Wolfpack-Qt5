@@ -10,57 +10,57 @@
 
 	<!-- Dont create this as a normal item -->
 	<item id="base_book">
-		<value>130</value>
+		<value value="130" />
 		<decay />
-		<weight>1.0</weight> <!-- A bit low i think -->
-		<type>11</type>
+		<weight value="1.0" /> <!-- A bit low i think -->
+		<type value="11" />
 		<basescripts>book</basescripts>
-		<buyprice>15</buyprice>
+		<buyprice value="15" />
 	</item>
 
 	<!-- Book 1 -->
 	<item id="fef" inherit="base_book">
 		<category>Equipment\Books\Book 1</category>
-		<id>0x0fef</id>
+		<id>0xfef</id>
 	</item>
 
 	<!-- Book 2 -->
 	<item id="ff0" inherit="base_book">
 		<category>Equipment\Books\Book 2</category>
-		<id>0x0ff0</id>
+		<id>0xff0</id>
 	</item>
 
 	<!-- Book 3 -->
 	<item id="ff1" inherit="base_book">
 		<category>Equipment\Books\Book 3</category>
-		<id>0x0ff1</id>
+		<id>0xff1</id>
 	</item>
 
 	<!-- Book 4 -->
 	<item id="ff2" inherit="base_book">
 		<category>Equipment\Books\Book 4</category>
-		<id>0x0ff2</id>
+		<id>0xff2</id>
 	</item>
 
 	<!-- Book 5 -->
 	<item id="ff3" inherit="base_book">
 		<category>Equipment\Books\Book 5</category>
-		<id>0x0ff3</id>
+		<id>0xff3</id>
 	</item>
 
 	<!-- Book 6 -->
 	<item id="ff4" inherit="base_book">
 		<category>Equipment\Books\Book 6</category>
-		<id>0x0ff4</id>
+		<id>0xff4</id>
 	</item>
 
 	<item id="fbd" inherit="base_book">
-		<id>0x0fbd</id>
+		<id>0xfbd</id>
 		<category>Equipment\Books\Book 7 (N/S)</category>
 	</item>
 
 	<item id="fbe" inherit="base_book">
-		<id>0x0fbe</id>
+		<id>0xfbe</id>
 		<category>Equipment\Books\Book 7 (W/E)</category>
 	</item>
 

@@ -10,13 +10,13 @@
 
 	<item id="e78">
 		<id>0xe78</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Basin</category>
 	</item>
 
 	<item id="e7a">
 		<id>0xe7a</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Picnic Basket</category>
 	</item>
 
@@ -28,24 +28,24 @@
 	<item id="e7f">
 		<id>0xe7f</id>
 		<category>Equipment\Containers\Keg</category>
-		<type>1</type>
+		<type value="1" />
 		<basescripts>furniture</basescripts>
 	</item>
 
 	<item id="e83">
 		<id>0xe83</id>
 		<category>Equipment\Containers\Empty Tub</category>
-		<type>1</type>
+		<type value="1" />
 	</item>
 
 	<item id="e84">
 		<id>0xe83</id>
-		<type>1</type>
+		<type value="1" />
 	</item>
 
 	<item id="9b0">
 		<id>0x9b0</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Belt Pouch (N/S)</category>
 		<weight>1.0</weight>
 		<dye />
@@ -53,14 +53,14 @@
 
 	<item id="990">
 		<id>0x990</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Basket</category>
 		<weight>1.0</weight>
 	</item>
 
 	<item id="9b1">
 		<id>0x9b1</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Small Basket</category>
 		<weight>2.0</weight>
 	</item>
@@ -68,7 +68,7 @@
 	<!-- Strong Box -->
 	<item id="e80">
 		<id>0xe80</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Strong Box</category>
 		<weight>10.0</weight>
 	</item>
@@ -83,30 +83,30 @@
 	<!-- Bag -->
 	<item id="e76">
 		<id>0xe76</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Bag</category>
 		<weight>2.0</weight>
-		<buyprice>6</buyprice>
+		<buyprice value="6" />
 		<dye />
 	</item>
 
 	<!-- Pouch -->
 	<item id="e79">
 		<id>0xe79</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Pouch</category>
 		<weight>1.0</weight>
-		<buyprice>6</buyprice>
+		<buyprice value="6" />
 		<dye />
 	</item>
 
 	<!-- Backpack -->
 	<item id="e75">
 		<id>0xe75</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Backpack</category>
 		<weight>3.0</weight>
-		<buyprice>15</buyprice>
+		<buyprice value="15" />
 		<dye />
 	</item>
 
@@ -118,9 +118,9 @@
 	<!-- Wooden Box -->
 	<item id="e7d">
 		<id>0xe7d</id>
-		<type>1</type>
-		<buyprice>14</buyprice>
-		<sellprice>7</sellprice>
+		<type value="1" />
+		<buyprice value="14" />
+		<sellprice value="7" />
 		<category>Equipment\Containers\Wooden Box (W/E)</category>
 		<basescripts>furniture</basescripts>
 		<flip>0xe7d;0x9aa</flip>
@@ -135,7 +135,7 @@
 	<!-- Metal Box -->
 	<item id="9a8">
 		<id>0x9a8</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Metal Box (N/S)</category>
 		<weight>5.0</weight>
 	</item>
@@ -144,7 +144,7 @@
 	<item id="9ab">
 		<id>0x9ab</id>
 		<category>Equipment\Containers\Metal Chest (N/S)</category>
-		<type>1</type>
+		<type value="1" />
 	</item>
 
 	<item id="e7c" inherit="9ab">
@@ -154,16 +154,16 @@
 
 	<item id="9ac">
 		<id>0x9ac</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Bushel</category>
 		<weight>3.0</weight>
 	</item>
 
 	<item id="e3c">
 		<id>0xe3c</id>
-		<type>1</type>
-		<buyprice>14</buyprice>
-		<sellprice>7</sellprice>
+		<type value="1" />
+		<buyprice value="14" />
+		<sellprice value="7" />
 		<category>Equipment\Containers\Big Crate (W/E)</category>
 		<basescripts>furniture</basescripts>
 		<flip>0xe3c;0xe3d</flip>
@@ -176,9 +176,9 @@
 
 	<item id="e3e">
 		<id>0xe3e</id>
-		<type>1</type>
-		<buyprice>12</buyprice>
-		<sellprice>6</sellprice>
+		<type value="1" />
+		<buyprice value="12" />
+		<sellprice value="6" />
 		<category>Equipment\Containers\Medium Crate (W/E)</category>
 		<basescripts>furniture</basescripts>
 		<flip>0xe3e;0xe3f</flip>
@@ -191,9 +191,9 @@
 
 	<item id="9a9">
 		<id>0x9a9</id>
-		<buyprice>10</buyprice>
-		<sellprice>5</sellprice>
-		<type>1</type>
+		<buyprice value="10" />
+		<sellprice value="5" />
+		<type value="1" />
 		<category>Equipment\Containers\Small Crate (N/S)</category>
 		<basescripts>furniture</basescripts>
 		<flip>0x9a9;0xe7e</flip>
@@ -206,7 +206,7 @@
 
 	<item id="e40">
 		<id>0xe40</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Golden Metal Chest (W/E)</category>
 	</item>
 
@@ -217,9 +217,9 @@
 
 	<item id="e42">
 		<id>0xe42</id>
-		<type>1</type>
-		<buyprice>30</buyprice>
-		<sellprice>15</sellprice>
+		<type value="1" />
+		<buyprice value="30" />
+		<sellprice value="15" />
 		<category>Equipment\Containers\Wooden Metal Chest (W/E)</category>
 		<basescripts>furniture</basescripts>
 		<flip>0xe42;0xe43</flip>
@@ -232,7 +232,7 @@
 
 	<item id="e77">
 		<id>0xe77</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Barrel 1</category>
 	</item>
 
@@ -250,187 +250,187 @@
 
 	<item id="280b">
 		<id>0x280b</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 01</category>
 	</item>
 
 	<item id="280c">
 		<id>0x280c</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 02</category>
 	</item>
 
 	<item id="280d">
 		<id>0x280d</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 03</category>
 	</item>
 
 	<item id="280e">
 		<id>0x280e</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 04</category>
 	</item>
 
 	<item id="280f">
 		<id>0x280f</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 05</category>
 	</item>
 
 	<item id="2810">
 		<id>0x2810</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 06</category>
 	</item>
 
 	<item id="2811">
 		<id>0x2811</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 07</category>
 	</item>
 
 	<item id="2812">
 		<id>0x2812</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 08</category>
 	</item>
 
 	<item id="2813">
 		<id>0x2813</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 09</category>
 	</item>
 
 	<item id="2814">
 		<id>0x2814</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Chest 10</category>
 	</item>
 
 	<item id="2815">
 		<id>0x2815</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Cabinent 01</category>
 	</item>
 
 	<item id="2816">
 		<id>0x2816</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Cabinent 02</category>
 	</item>
 
 	<item id="2817">
 		<id>0x2817</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Cabinent 03</category>
 	</item>
 
 	<item id="2818">
 		<id>0x2818</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Cabinent 04</category>
 	</item>
 
 	<item id="2857">
 		<id>0x2857</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Armoire 01</category>
 	</item>
 
 	<item id="2858">
 		<id>0x2858</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Armoire 02</category>
 	</item>
 
 	<item id="2859">
 		<id>0x2859</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Armoire 03</category>
 	</item>
 
 	<item id="285a">
 		<id>0x285a</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Armoire 04</category>
 	</item>
 
 	<item id="285b">
 		<id>0x285b</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Armoire 05</category>
 	</item>
 
 	<item id="285c">
 		<id>0x285c</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Armoire 06</category>
 	</item>
 
 	<item id="285d">
 		<id>0x285d</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Armoire 07</category>
 	</item>
 
 	<item id="285e">
 		<id>0x285e</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Armoire 08</category>
 	</item>
 
 	<item id="24d5">
 		<id>0x24d5</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Basket 01</category>
 	</item>
 
 	<item id="24d6">
 		<id>0x24d6</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Basket 02</category>
 	</item>
 
 	<item id="24d7">
 		<id>0x24d7</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Basket 03</category>
 	</item>
 
 	<item id="24d8">
 		<id>0x24d8</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Basket 04</category>
 	</item>
 
 	<item id="24d9">
 		<id>0x24d9</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Basket 05</category>
 	</item>
 
 	<item id="24da">
 		<id>0x24da</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Basket 06</category>
 	</item>
 
 	<item id="24db">
 		<id>0x24db</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Basket 07</category>
 	</item>
 
 	<item id="24dc">
 		<id>0x24dc</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Basket 08</category>
 	</item>
 
 	<item id="24dd">
 		<id>0x24dd</id>
-		<type>1</type>
+		<type value="1" />
 		<category>Equipment\Containers\Samurai\Basket 09</category>
 	</item>
 

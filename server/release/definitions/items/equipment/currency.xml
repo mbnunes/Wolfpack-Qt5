@@ -11,48 +11,57 @@
 	<!-- Copper Coins -->
 	<item id="eea">
 		<id>0xeea</id>
+		<amount value="1" />
 		<category>Equipment\Coins\Copper Coin</category>
 	</item>
 
 	<item id="eeb">
 		<id>0xeeb</id>
+		<amount value="1" />
 		<category>Equipment\Coins\Copper Coins 1</category>
 	</item>
 
 	<item id="eec">
 		<id>0xeec</id>
+		<amount value="1" />
 		<category>Equipment\Coins\Copper Coins 2</category>
 	</item>
 
 	<!-- Gold Coins -->
 	<item id="eed">
 		<id>0xeed</id>
+		<amount value="1" />
 		<category>Equipment\Coins\Gold Coin</category>
 	</item>
 
 	<item id="eee">
 		<id>0xeee</id>
+		<amount value="1" />
 		<category>Equipment\Coins\Gold Coins 1</category>
 	</item>
 
 	<item id="eef">
 		<id>0xeef</id>
+		<amount value="1" />
 		<category>Equipment\Coins\Gold Coins 2</category>
 	</item>
 
     <!-- Silver Coins -->
 	<item id="ef0">
 		<id>0xef0</id>
+		<amount value="1" />
 		<category>Equipment\Coins\Silver Coin</category>
 	</item>
 
 	<item id="ef1">
 		<id>0xef1</id>
+		<amount value="1" />
 		<category>Equipment\Coins\Silver Coins 1</category>
 	</item>
 
 	<item id="ef2">
 		<id>0xef2</id>
+		<amount value="1" />
 		<category>Equipment\Coins\Silver Coins 2</category>
 	</item>
 

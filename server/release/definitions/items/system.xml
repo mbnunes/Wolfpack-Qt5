@@ -23,15 +23,15 @@
 	<!-- Corpse -->
 	<item id="2006">
 		<id>0x2006</id>
-		<type>1</type> <!-- Absolutly Neccesary -->
+		<type value="1" /> <!-- Absolutly Neccesary -->
 	</item>
 
 	<!-- Spawngem -->
 	<item id="spawngem" inherit="1f13">
 		<invisible />
-		<scripts>spawngem</scripts>
+		<basescripts>spawngem</basescripts>
 		<nodecay />
-		<movable>3</movable>
+		<movable value="3" />
 	</item>
 
 	<!-- Trash Can -->
@@ -39,10 +39,10 @@
 		<id>0xe77</id>
 		<name>trashcan</name>
 		<basescripts>trashcan</basescripts>
-		<color>0x430</color>
+		<color value="0x430" />
 		<nodecay />
-		<movable>2</movable>
-		<type>1</type>
+		<movable value="2" />
+		<type value="1" />
 		<category>Equipment\Containers\Trashcan</category>
 	</item>
 
