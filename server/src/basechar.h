@@ -739,6 +739,7 @@ protected:
 	// 17 - ReactiveArmor (0x10000)
 	// 18 - Protection (0x20000)
 	// 19 - Magic Reflect (0x40000)
+	// 20 - Cursed (0x80000)
 	// 21 - Mana Drain (0x100000)
 	// 22 - Disable Fame/Karma Titles (0x200000)
 	// 23 - Disable Underwear (0x400000)

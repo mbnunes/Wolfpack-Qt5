@@ -373,18 +373,20 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 
 Q_UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
-	// Player is incognito
-	if ( isIncognito() )
-	{
-		return 0x03;
-	}
-
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red, 0x07 Yellow
 	Q_UINT8 result;
 
 	if ( isInvulnerable() )
 	{
 		return 7;
+	}
+
+	if ( isIncognito() ) {
+		return 1; // Always Innocent
+	}
+
+	if ( isPolymorphed() && !isHuman() ) {
+		return 3; // Polymorph Defaults to Grey Name
 	}
 
 	// Guilds override kills
