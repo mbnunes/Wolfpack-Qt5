@@ -191,7 +191,7 @@ def comparetitle(a, b):
 # MakeMenu Gump Response Handler
 #
 def MakeMenuResponse(player, arguments, response):
-  assert(len(arguments) == 1)
+  assert(len(arguments) >= 1)
   menu = arguments[0]
   arguments = list(arguments)[1:]
 

@@ -5,6 +5,7 @@ from wolfpack.consts import *
 from combat.properties import itemcheck, fromitem
 from combat.utilities import weaponskill
 
+
 #
 # Show certain modifiers stored in tags.
 #
@@ -25,14 +26,23 @@ def modifiers(object, tooltip):
       tooltip.add(cliloc, str(object.gettag(tag)))
 
 PREFIXES = {
-    'dullcopper': 1018332,
-    'shadowiron': 1018333,
-    'copper': 1018334,
-    'bronze': 1018335,
-    'gold': 1018336,
-    'agapite': 1018337,
-    'verite': 1018338,
-    'valorite': 1018339,
+    'dullcopper': 'Dull Copper',
+    'shadowiron': 'Shadow Iron',
+    'copper': 'Copper',
+    'bronze': 'Bronze',
+    'gold': 'Gold',
+    'agapite': 'Agapite',
+    'verite': 'Verite',
+    'valorite': 'Valorite',
+}
+
+PREFIXES2 = {
+    'red_scales': 'Red Scale',
+    'yellow_scales': 'Yellow Scale',
+    'black_scales': 'Black Scale',
+    'green_scales': 'Green Scale',
+    'white_scales': 'White Scale',
+    'blue_scales': 'Blue Scale',
 }
 
 #
@@ -40,23 +50,38 @@ PREFIXES = {
 # These are shown to the user in form of tooltips.
 #
 def onShowTooltip(viewer, object, tooltip):
-  # Reinsert the name if we need an ore prefix
-  if object.hastag('resname'):    
-    resname = str(object.gettag('resname'))
-    if PREFIXES.has_key(resname):
-      tooltip.reset() # Remove all previous lines
-      prefix = PREFIXES[resname]
-      if len(object.name) == 0:
-        itemname = '#' + str(1020000 + object.id)
-      else:
-        itemname = object.name
+  armor = itemcheck(object, ITEM_ARMOR)
+  weapon = itemcheck(object, ITEM_WEAPON)
+  shield = itemcheck(object, ITEM_SHIELD)
 
-      if object.amount > 1:
-        # amount\torename\tname
-        tooltip.add(1050045, "%u\t#%u\t%s" % (object.amount, prefix, itemname))
-      else:
-        # orename\tname
-        tooltip.add(1053099, "#%u\t%s" % (prefix, itemname))
+  if (armor or weapon or shield) and object.amount == 1:
+    # Reinsert the name if we need an ore prefix
+    if object.hastag('resname'):    
+      resname = str(object.gettag('resname'))
+      hasprefix1 = PREFIXES.has_key(resname)
+    else:
+      hasprefix1 = 0
+  
+    if object.hastag('resname2'):
+      resname2 = str(object.gettag('resname2'))
+      hasprefix2 = PREFIXES2.has_key(resname2)
+    else:
+      hasprefix2 = 0
+
+    if len(object.name) == 0:
+      itemname = '#' + str(1020000 + object.id)
+    else:
+      itemname = object.name
+  
+    if hasprefix1 and hasprefix2:
+      tooltip.reset()
+      tooltip.add(1053099, "%s %s\t%s" % (PREFIXES[resname], PREFIXES2[resname2], itemname))
+    elif hasprefix1 and not hasprefix2:
+      tooltip.reset()
+      tooltip.add(1053099, "%s\t%s" % (PREFIXES[resname], itemname))
+    elif not hasprefix1 and hasprefix2:  
+      tooltip.reset()
+      tooltip.add(1053099, "%s\t%s" % (PREFIXES2[resname2], itemname))
 
   # Exceptional item?
   if object.hastag('exceptional'):
@@ -67,10 +92,6 @@ def onShowTooltip(viewer, object, tooltip):
     crafter = wolfpack.findchar(serial)
     if crafter:
       tooltip.add(1050043, crafter.name)
-
-  armor = itemcheck(object, ITEM_ARMOR)
-  weapon = itemcheck(object, ITEM_WEAPON)  
-  shield = itemcheck(object, ITEM_SHIELD)
 
   # Only Armors and Weapons have durability
   if weapon or armor or shield:
@@ -179,7 +200,17 @@ def onWearItem(player, wearer, item, layer):
     else:
       player.socket.sysmessage('You are not ingellgent enough to equip this item.')
     return 1
-      
+
+  # Reject equipping an item with durability 1 or less
+  # if it's an armor, shield or weapon
+  armor = itemcheck(item, ITEM_ARMOR)
+  weapon = itemcheck(item, ITEM_WEAPON)
+  shield = itemcheck(item, ITEM_SHIELD)
+
+  if item.health < 1:
+    player.socket.sysmessage('You need to repair this before using it again.')
+    return 1    
+
   return 0
 
 #

@@ -79,15 +79,42 @@ def checkanvilandforge(char):
   return 0
 
 #
+# Check if the character is using the right tool
+#
+def checktool(char, item):
+  # Has to be in our posession
+  if item.getoutmostchar() != char:
+    char.socket.clilocmessage(500364)
+    return 0
+
+  # We do not allow "invulnerable" tools.
+  if not item.hastag('remaining_uses'):
+    char.socket.clilocmessage(1044038)
+    item.delete()
+    return 0
+  
+  # See if we have another tool equipped
+  equipped = char.itemonlayer(LAYER_RIGHTHAND)
+  if equipped and equipped != item:
+    char.socket.clilocmessage(1048146)
+    return 0
+  
+  return 1
+
+#
 # Bring up the blacksmithing menu
 #
 def onUse(char, item):
+  if not checktool(char, item):
+    return 1
+
   if not checkanvilandforge(char):
     char.socket.clilocmessage(1044267)
-  else:
-    menu = findmenu('BLACKSMITHING')
-    if menu:
-      menu.send(char)
+    return 1
+
+  menu = findmenu('BLACKSMITHING')
+  if menu:
+    menu.send(char, [item.serial])
   return 1
 
 #
@@ -187,8 +214,10 @@ class SmithItemAction(CraftItemAction):
     # Look for forge and anvil
     if not checkanvilandforge(player):
       player.socket.clilocmessage(1044267)
-      self.parent.send(player)
       return 0
+
+    if not checktool(player, wolfpack.finditem(arguments[0])):
+      return 0    
 
     return CraftItemAction.make(self, player, arguments)
 
@@ -209,15 +238,9 @@ class BlacksmithingMenu(MakeMenu):
     self.allowmark = 1
     self.submaterials1 = METALS
     self.submaterials2 = SCALES
-    self.submaterial2missing = 1053097
+    self.submaterial2missing = 1060884
     self.submaterial1missing = 1044037
     self.submaterial1noskill = 1044268
-
-  #
-  # Look for anvil and fire and then show the menu.
-  #
-  def send(self, player, arguments = []):
-    MakeMenu.send(self, player, arguments)
 
   #
   # Get the material used by the character from the tags
