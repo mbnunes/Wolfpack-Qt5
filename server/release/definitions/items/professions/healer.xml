@@ -11,19 +11,19 @@
 <definitions>
 	<!-- Bandages -->
 	<item id="e20">
-		<id>0x0e20</id>
-		<category>Equipment\Misc\Bloody Bandages 2</category>
+		<id>0xe20</id>
+		<category>Professions\Healer\Bloody Bandages 2</category>
 		<events>bandages</events>
 	</item>
 
 	<item id="e21">
-		<id>0x0e21</id>
-		<category>Equipment\Misc\Clean Bandages 2</category>
+		<id>0xe21</id>
+		<category>Professions\Healer\Clean Bandages 2</category>
 		<events>bandages</events>
 	</item>
 
 	<item id="e22">
-		<id>0x0e22</id>
+		<id>0xe22</id>
 		<category>Professions\Healer\Bloody Bandages 1</category>
 		<events>bandages</events>
 	</item>
