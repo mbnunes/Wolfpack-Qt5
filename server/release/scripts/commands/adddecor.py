@@ -27,7 +27,7 @@ from wolfpack import console
 
 # Tree Lists
 treeindex = [ 'cca', 'ccb', 'ccc', 'ccd', 'cd0', 'cd3', 'cd6', 'cd8', 'cda', 'cdd', 'ce0', 'ce3', 'ce6', 'cf8', 'cfe', 'd01', 'd94', 'd98', 'd9c', 'da0', 'da4', 'da8' ]
-jungletreeindex = [ 'jungle1', 'jungle2', 'jungle3', 'jungle4', 'jungle5', 'jungle6', 'jungle7' ]
+jungleindex = [ 'jungle1', 'jungle2', 'jungle3', 'jungle4', 'jungle5', 'jungle6', 'jungle7' ]
 forestlist = [ 'ccd', 'cd0', 'cd3', 'cd6', 'cd8', 'cda', 'cdd', 'ce0', 'ce3', 'ce6' ]
 swamplist = [ 'cf8', 'cfe', 'd01' ]
 fruitlist = [ 'd94', 'd98', 'd9c', 'da0', 'da4', 'da8' ]
