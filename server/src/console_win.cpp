@@ -53,6 +53,7 @@ extern int main( int argc, char **argv );
 
 // Variables important for this GUI implementation
 #define CONTROL_LOGWINDOW 0x10
+#define CONTROL_INPUT 0x11
 
 HWND logWindow = 0;			// Log Window
 HWND inputWindow = 0;		// Input Textfield
@@ -60,6 +61,7 @@ HWND mainWindow = 0;		// Main Window
 HINSTANCE appInstance = 0;	// Application Instance
 HFONT font = 0;				// The font we'll use
 unsigned int inputHeight = 0; // For measuring the height of the input field
+unsigned int logLimit = 0;	// How many characters fit into the log window
 
 /*
 	Directly taken from MSDN
@@ -81,8 +83,9 @@ static QString getErrorString()
 
 LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam )
 {
-	CHARFORMAT cf;
+	CHARFORMAT cf;	
 	LOGFONT lfont;
+	NMHDR *notify = (NMHDR*)lparam;
 
 	switch( msg )
 	{
@@ -96,6 +99,8 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 			DestroyWindow( hwnd );
 			return TRUE;
 		}
+
+		logLimit = SendMessage( logWindow, EM_GETLIMITTEXT, 0, 0 );
 
 		// Set up the fonts we need        
 		ZeroMemory( &lfont, sizeof( LOGFONT ) );
@@ -123,7 +128,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		SendMessage( logWindow, EM_SETEVENTMASK, 0, ENM_LINK|ENM_MOUSEEVENTS|ENM_KEYEVENTS );
 
 		// Create InputWindow
-		inputWindow = CreateWindow( "EDIT", 0, ES_LEFT|ES_AUTOHSCROLL|ES_AUTOVSCROLL|ES_NOHIDESEL|WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP, 0, 0, 10, 10, hwnd, 0, appInstance, 0 );
+		inputWindow = CreateWindow( "EDIT", 0, ES_LEFT|ES_AUTOHSCROLL|WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP, 0, 0, 10, 10, hwnd, (HMENU)CONTROL_INPUT, appInstance, 0 );
 
 		return 0;
 	
@@ -162,9 +167,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 	case WM_NOTIFY:
 		if( wparam == CONTROL_LOGWINDOW )
-		{
-			NMHDR *notify = (NMHDR*)lparam;
-			
+		{		
 			if( notify->code == EN_LINK )
 			{
 				ENLINK *link = (ENLINK*)notify;
@@ -186,7 +189,19 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 					// Reset selection to the end
 				}				
 			}
+			else if( notify->code == EN_MSGFILTER )
+			{
+				MSGFILTER *msg = (MSGFILTER*)notify;
+
+				// Append to the Input Control
+				if( msg->msg == WM_CHAR )
+				{
+					SendMessage( inputWindow, WM_SETFOCUS, 0, 0 );
+					SendMessage( inputWindow, WM_CHAR, msg->wParam, msg->lParam );
+				}
+			}
 		}
+		return 0;
 		
 	case WM_DESTROY:
 		keeprun = 0;
@@ -315,6 +330,9 @@ int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 
 	while( GetMessage( &msg, mainWindow, 0, 0 ) > 0 )
 	{
+		if( msg.message == WM_CHAR && msg.hwnd == inputWindow && msg.lParam == '\r' )
+			continue;
+
 		TranslateMessage( &msg );
 		DispatchMessage( &msg );
 	}
@@ -341,6 +359,31 @@ void cConsole::stop()
 
 void cConsole::send(const QString &sMessage)
 {
+	unsigned int ctrlLength = GetWindowTextLength( logWindow );
+	unsigned int textLength = sMessage.length();
+
+	// Check for the caret
+	CHARRANGE range;
+	SendMessage( logWindow, EM_EXGETSEL, 0, (LPARAM)&range );
+
+	// Delete lines from the beginning if we exceed the maximum limit.
+	if( ctrlLength + textLength > logLimit )
+	{
+		unsigned int linecount = 0;
+		unsigned int textcount = 0;
+
+		do
+		{
+			char buffer[1024] = { 0, };
+			((short*)buffer)[0] = 1024;
+			textcount += SendMessage( logWindow, EM_GETLINE, linecount++, (WPARAM)buffer );
+		}
+		while( textcount < ( ctrlLength + textLength ) - logLimit );
+
+		SendMessage( logWindow, EM_SETSEL, 0, textcount );
+		SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)"" );
+	}
+
 	// process \b properly
 	if ( sMessage.contains("\b") )
 	{
@@ -359,15 +402,19 @@ void cConsole::send(const QString &sMessage)
 			return;
 		}
 	}
-	// Make sure we append, so move to last character.
-	int nLines = SendMessage(logWindow, EM_GETLINECOUNT, 0, 0);
-	LONG nLastChar = SendMessage(logWindow, EM_LINEINDEX, nLines, 0);
-	CHARRANGE range;
-	range.cpMin = nLastChar;
-	range.cpMax = nLastChar;
-	SendMessage( logWindow, EM_EXSETSEL, 0, (LPARAM) &range);
+
+	range.cpMin = GetWindowTextLength( logWindow );
+	range.cpMax = GetWindowTextLength( logWindow );
+	SendMessage( logWindow, EM_EXSETSEL, 0, (LPARAM)&range );
+
 	// Now it will get right, even if the user had selected sth.
 	SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1() );
+
+	// And ofcourse if not some control is currently capturing the input
+	if( !GetCapture() )
+	{
+		SendMessage( logWindow, EM_LINESCROLL, 0, SendMessage( logWindow, EM_LINEFROMCHAR, ( ctrlLength + textLength ) - 1, 0 ) );
+	}
 }
 
 void cConsole::ChangeColor( WPC_ColorKeys color )
