@@ -28,8 +28,16 @@
 //
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
+// Qt Includes
+#include <qthread.h>
 
+// Wolfpack includes
 #include "console.h"
+#include "globals.h"
+
+#include <iostream>
+
+using namespace std;
 
 class cConsoleThread : public QThread
 {
@@ -40,7 +48,7 @@ protected:
 		{
 			while( serverState < SHUTDOWN )
 			{
-				char c = getch();
+				char c = cin.peek();
 				
 				if( c > 0 && serverState == RUNNING )
 				{
@@ -48,7 +56,7 @@ protected:
 				}
 				else
 				{	
-					Sleep( 100 );
+					msleep( 100 );
 				}
 			}
 		}
@@ -178,6 +186,7 @@ void cConsole::send(const QString &sMessage)
 	}
 }
 
-void cConsole::setAttributes( bool bold, bool italic, unsigned char r, unsigned char g, unsigned char b, unsigned char size )
+void cConsole::setAttributes( bool bold, bool italic, bool, unsigned char r, unsigned char g, unsigned char b, unsigned char, eFontType )
 {
 }
+

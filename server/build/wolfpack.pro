@@ -12,17 +12,32 @@ INCLUDEPATH	+= lib/Python/include
 
 unix {
 
-# Common unix settings
-	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite /usr/include/mysql /usr/local/lib/mysql/include/mysql lib/Python/Include network
+	# Common unix settings
+	# Lets try to figure some paths
+
+	# MySQL includes first
+	exists(/usr/include/mysql/mysql.h) {
+		message("MySQL files found, support enabled")
+		INCLUDEPATH += /usr/include/mysql
+		DEFINES += MYSQL_DRIVER
+	} exists(/usr/local/lib/mysql/include/mysql/mysql.h) {
+		message("MySQL files found, support enabled")
+		INCLUDEPATH += /usr/local/lib/mysql/include/mysql
+		DEFINES += MYSQL_DRIVER
+	}
+	
+	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite lib/Python/Include network
 	LIBS  += -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.2 -lmysqlclient -lutil
+	# we dont use those.
+	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 	
 	# Optional compile modes	
-	release:debug:error(You can't have release and debug at the same time!)
+	release:debug:error(You cant have release and debug at the same time!)
 	
 	release {
 		CONFIG += warn_off
 		linux {
-			QMAKE_CXXFLAGS -= -O2
+			QMAKE_CFLAGS_RELEASE = -O3
 			QMAKE_CXXFLAGS += -march=athlon-xp -O3 -pipe -fomit-frame-pointer -falign-functions=16 -falign-labels=8 -falign-loops=8 -falign-jumps=8 -fsched-spec-load -frerun-loop-opt -finline-limit=800 -funroll-loops -fprefetch-loop-arrays -ffast-math -mfpmath=sse -msse -m3dnow -fschedule-insns2 -fexpensive-optimizations -fmove-all-movables -fdelete-null-pointer-checks
 			
 		}
@@ -49,8 +64,6 @@ win32-msvc:LIBS      = kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.l
 win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
 win32-borland:LIBS += ws2_32.lib 
-
-DEFINES += MYSQL_DRIVER
 
 # Common files
 
@@ -134,6 +147,7 @@ SOURCES         = \
 		chars.cpp \
 		combat.cpp \
 		commands.cpp \
+		console.cpp \
 		contextmenu.cpp \		  		  
 		coord.cpp \
 		corpse.cpp \
