@@ -41,6 +41,7 @@
 #include "gumps.h"
 #include "basechar.h"
 #include "player.h"
+#include "basedef.h"
 
 class cRefreshTracking: public cTempEffect
 {
@@ -163,7 +164,11 @@ public:
 				}
 			}
 
-			addTilePic( (pAmount*100)+20, 20, creatures[ pChar->bodyID() ].icon );
+			cCharBaseDef *def = BaseDefManager::instance()->getCharBaseDef( pChar->bodyID() );
+
+			if( def && def->shrinked() != 0 )
+				addTilePic( (pAmount*100)+20, 20, def->shrinked() );
+
 			addButton( (pAmount*100)+20, 110, 0xFA5, 0xFA7, pChar->serial() );
 			addCroppedText( (pAmount*100)+20, 90, 100, 40, pChar->name() );
 

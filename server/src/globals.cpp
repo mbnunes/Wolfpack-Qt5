@@ -53,10 +53,6 @@ enServerState serverState;
 //	Instantiate our console object
 WPConsole_cl clConsole;
 
-unsigned short int doorbase[DOORTYPES]={
-0x0675, 0x0685, 0x0695, 0x06A5, 0x06B5, 0x06C5, 0x06D5, 0x06E5, 0x0839, 0x084C, 
-0x0866, 0x00E8, 0x0314, 0x0324, 0x0334, 0x0344, 0x0354};
-
 time_t	oldtime, newtime;
 
 unsigned int polyduration=90;
@@ -138,11 +134,7 @@ list<SERIAL> guilds;
 ///////////////////////////////////////////
 ///   and the rest                        /
 ///////////////////////////////////////////
- creat_st creatures[2048];
-
- int npcshape[5]; //Stores the coords of the bouding shape for the NPC
-
- std::vector<std::string> clientsAllowed; // client version controll system
+std::vector<std::string> clientsAllowed; // client version controll system
 
 /////////////////////////////////////////
 ///////////// global string vars /////////

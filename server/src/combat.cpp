@@ -52,6 +52,7 @@
 #include "player.h"
 #include "npc.h"
 #include "chars.h"
+#include "basedef.h"
 
 #include "debug.h"
 
@@ -82,7 +83,10 @@ namespace Combat
 		case WRESTLING:
 			if( !pChar->isHuman() )
 			{
-				id = creatures[ pChar->bodyID() ].basesound + RandomNum( 0, 1 );
+				cCharBaseDef *def = BaseDefManager::instance()->getCharBaseDef( pChar->bodyID() );
+
+				if( def != 0 )
+					id = def->basesound() + RandomNum( 0, 1 );
 				break;
 			}
 
@@ -102,7 +106,8 @@ namespace Combat
 			break;
 		}
 
-		pChar->soundEffect( id );
+		if( id != 0 )
+			pChar->soundEffect( id );
 	}
 
 	/*!
@@ -1091,7 +1096,9 @@ namespace Combat
 		if( id < 0x0190 )
 		{
 			UINT8 action = 4 + RandomNum( 0, 2 ); // some creatures dont have animation #4
-			if( creatures[id].who_am_i & 0x2 ) // anti blink bit set ?
+			cCharBaseDef *def = BaseDefManager::instance()->getCharBaseDef( id );
+
+			if( def && def->flags() & 0x2 ) // anti blink bit set ?
 			{
 				action++;
 

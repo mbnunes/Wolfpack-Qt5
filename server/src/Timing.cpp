@@ -344,17 +344,6 @@ void checkPC( P_PLAYER pc, unsigned int currenttime )
 		}
 	}
 */
-
-	if( SrvParams->bgSound() >= 1 )
-	{
-		timer = SrvParams->bgSound() * 100;
-		if( timer == 0 )
-			timer = 1;
-
-		if( socket && !pc->isDead() && ( (rand()%(timer) ) == (timer/2))) 
-			bgsound( pc );
-	}
-
 /*
 	// Reset spirit-speak
 	if( pc->spiritspeaktimer() > 0 && pc->spiritspeaktimer() <= uiCurrentTime )

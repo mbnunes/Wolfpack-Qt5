@@ -45,7 +45,6 @@ class Coord_cl;
 //
 
 QString hex2dec( const QString& value );
-extern void init_creatures(void);
 void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
 void savelog(const char *msg, char *logfile);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
@@ -60,18 +59,11 @@ void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );
 int getamount(P_CHAR pc, short id);
 void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
 void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
-void sellaction(int s);
-
-void clearalltrades();
-void trademsg(int s);
-void dotrade(P_ITEM cont1, P_ITEM cont2);
 
 bool inVisRange(int x1, int y1, int x2, int y2);
 
 int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int amt );
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
-void bgsound(P_CHAR pc);
-int hexnumber(int countx);
 int lineOfSight( const Coord_cl&, const Coord_cl&, int checkfor );
 void reloadScripts();
 

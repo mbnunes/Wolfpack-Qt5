@@ -38,6 +38,7 @@
 #include "resources.h"
 #include "srvparams.h"
 #include "python/utilities.h"
+#include "basedef.h"
 
 #include "debug.h"
 
@@ -1083,7 +1084,10 @@ void cMakeAction::processNode( const cElement *Tag )
 		model_ = Value.toUShort();
 
 	else if( TagName == "bodymodel" )
-		model_ = creatures[ Value.toUShort() ].icon;
+	{
+		cCharBaseDef *bdef = BaseDefManager::instance()->getCharBaseDef( Value.toUShort() );
+		model_ = bdef != 0 ? bdef->shrinked() : 0;
+	}
 }
 
 void cMakeAction::execute( cUOSocket* socket, UINT32 makesection )
@@ -1953,7 +1957,10 @@ void cAllMakeMenus::load()
 								else // last item means name
 								{
 									// generate cMakeAction object for the npc definition...
-									cMakeAction* pNpc = new cMakeAction( current, creatures[model].icon, description, cMakeAction::NPC_SECTION, currentBaseMenu );
+									cCharBaseDef *bdef = BaseDefManager::instance()->getCharBaseDef( model );
+									model = bdef != 0 ? bdef->shrinked() : 0;
+
+									cMakeAction* pNpc = new cMakeAction( current, model, description, cMakeAction::NPC_SECTION, currentBaseMenu );
 									if( pNpc )
 									{
 										currentBaseMenu->addAction( pNpc );

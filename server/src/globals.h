@@ -116,16 +116,6 @@ extern std::list<SERIAL> guilds;
 
 /******************************************************/
 
-///////////////////////////////////////////
-///   and the rest                        /
-///////////////////////////////////////////
-
-extern unsigned short int doorbase[DOORTYPES];
-
-extern creat_st creatures[2048]; //LB, stores the base-sound+sound flags of monsters, animals
-
-extern int npcshape[5]; //Stores the coords of the bouding shape for the NPC
-
 /////////////////////////////////////////
 ///////////// global string vars /////////
 /////////////////////////////////////////

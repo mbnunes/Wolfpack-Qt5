@@ -37,6 +37,7 @@
 #include "wpconsole.h"
 #include "commands.h"
 #include "encryption.h"
+#include "basedef.h"
 
 // Library Includes
 #include <qdom.h>
@@ -78,6 +79,7 @@ stCategory categories[] =
 	{ "resource",		WPDT_RESOURCE },
 	{ "contextmenu",	WPDT_CONTEXTMENU },
 	{ "ai",				WPDT_AI },
+	{ "charbase",		WPDT_CHARBASE },
 	{ 0,				WPDT_COUNT },
 };
 
@@ -262,6 +264,8 @@ void WPDefManager::unload( void )
 	}
 	
 	impl->imports.clear();
+
+	BaseDefManager::instance()->unload();
 }
 
 void WPDefManager::reload( void )
@@ -288,6 +292,7 @@ void WPDefManager::load( void )
 	clConsole.ProgressDone();
 
 	cCommands::instance()->loadACLs();
+	BaseDefManager::instance()->load();
 }
 
 // Returns a list of section-names found

@@ -58,6 +58,7 @@
 #include "../npc.h"
 #include "../targetrequests.h"
 #include "../utilsys.h"
+#include "../basedef.h"
 
 #include "pypacket.h"
 #include "regioniterator.h"
@@ -1037,6 +1038,34 @@ static PyObject* wpTickcount( PyObject* self, PyObject* args )
 	return PyInt_FromLong( getNormalizedTime() );
 }
 
+static PyObject* wpCharBase( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	unsigned short id;
+
+	if( !PyArg_ParseTuple( args, "h:wolfpack.charbase( id )", &id ) )
+		return 0;
+
+	cCharBaseDef *def = BaseDefManager::instance()->getCharBaseDef( id );
+
+	if( !def )
+	{
+		Py_XINCREF( Py_None );
+		return Py_None;
+	}
+
+	// Create a Dictionary
+	PyObject *dict = PyDict_New();
+
+	PyDict_SetItemString( dict, "basesound", PyInt_FromLong( def->basesound() ) );
+	PyDict_SetItemString( dict, "soundmode", PyInt_FromLong( def->soundmode() ) );
+	PyDict_SetItemString( dict, "shrinked", PyInt_FromLong( def->shrinked() ) );
+	PyDict_SetItemString( dict, "flags", PyInt_FromLong( def->flags() ) );
+	PyDict_SetItemString( dict, "type", PyInt_FromLong( def->type() ) );
+
+	return dict;
+}
+
 static PyObject* wpPacket( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
@@ -1093,6 +1122,7 @@ static PyMethodDef wpGlobal[] =
 	{ "isreloading",		wpIsReloading,					METH_NOARGS, "Returns if the server is in reload state" },
 	{ "isclosing",			wpIsClosing,					METH_NOARGS, "Returns if the server is in closing state" },
 	{ "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" },
+	{ "charbase",			wpCharBase,						METH_VARARGS, NULL },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 

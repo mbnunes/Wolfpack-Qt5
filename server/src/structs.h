@@ -63,15 +63,6 @@ struct sound_st
 	int effect[2];
 };
 
-struct creat_st
-{
-	int basesound;
-	unsigned char soundflag;
-	unsigned char who_am_i;
-	int icon;
-	unsigned char type;
-};
-
 struct location_st
 {
 	int x1;

@@ -58,6 +58,7 @@ HEADERS         = \
 		  accounts.h \
 		  basics.h \
 		  basechar.h \
+		  basedef.h \
 		  boats.h \
 		  coord.h \
 		  combat.h \
@@ -125,6 +126,7 @@ SOURCES         = \
 		ai_monsters.cpp \
 		ai_vendors.cpp \
 		basechar.cpp \
+		basedef.cpp \
 		basics.cpp \
 		boats.cpp \
 		chars.cpp \
