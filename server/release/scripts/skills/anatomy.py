@@ -49,7 +49,7 @@ def response( char, args, target ):
 	char.turnto( target.char )
 	
 	# Invulnerable Characters cannot be examined
-	if target.char.priv & 0x04:
+	if target.char.priv & 0x04 or target.char.dead:
 		socket.clilocmessage( 0x7A266, "", 0x3b2, 3, target.char ) # That cannot be inspected.
 		return
 
