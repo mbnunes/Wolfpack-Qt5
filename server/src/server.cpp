@@ -315,12 +315,13 @@ bool cServer::run( int argc, char** argv )
 #if !defined( QT_NO_TRANSLATION )
 	// Start the QT translator
 	QString languageFile = Config::instance()->getString( "General", "Language File", QString("wolfpack_") + QTextCodec::locale(), true );
-	if ( !languageFile.isEmpty() )
+	if ( !languageFile.isEmpty() && QFile::exists( languageFile ) )
 	{
 		QTranslator* translator = new QTranslator( qApp );
 		if ( !translator->load( languageFile, "." ) )
 		{
 			Console::instance()->log( LOG_WARNING, "Couldn't load translator.\n" );
+			delete translator;
 			// return false;
 		}
 		else
