@@ -84,7 +84,7 @@ public:
 class cTrackingList: public cGump
 {
 public:
-	virtual void handleResponse( cUOSocket *socket, gumpChoice_st choice )
+	virtual void handleResponse( cUOSocket *socket, const gumpChoice_st& choice )
 	{
 		P_PLAYER player = socket->player();
 		
@@ -212,7 +212,7 @@ public:
 		addXmfHtmlGump( 320, 90, 100, 20, 0xF88EA );
 	}
 
-	virtual void handleResponse( cUOSocket *socket, gumpChoice_st choice )
+	virtual void handleResponse( cUOSocket *socket, const gumpChoice_st& choice )
 	{
 		if( choice.button > 4 || choice.button < 1 )
 			return;

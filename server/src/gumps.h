@@ -91,7 +91,7 @@ public:
 	void addRawLayout( const QString &data ) { layout_.push_back( data ); }
 	Q_UINT32 addRawText( const QString &data );
 
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 	
 	// Comfort Setters
 	void startPage( Q_UINT32 pageId = 0 ) { layout_.push_back( QString( "{page %1}" ).arg( pageId ) ); }
@@ -220,7 +220,7 @@ protected:
 public:
 	cSpawnRegionInfoGump( cSpawnRegion* region );
 	
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 class cTagsInfoGump : public cGump
@@ -231,7 +231,7 @@ protected:
 public:
 	cTagsInfoGump( const cUObject* object_ );
 
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 class cWhoMenuGump : public cGump
@@ -243,7 +243,7 @@ private:
 public:
 	cWhoMenuGump( UINT32 page );
 
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 class cSocketInfoGump : public cGump
@@ -254,7 +254,7 @@ private:
 public:
 	cSocketInfoGump( cUOSocket* socket_ );
 
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 class cPagesGump : public cGump
@@ -268,7 +268,7 @@ private:
 public:
 	cPagesGump( UINT32 page, WPPAGE_TYPE ptype );
 
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 class cPageInfoGump : public cGump
@@ -279,7 +279,7 @@ private:
 public:
 	cPageInfoGump( cPage* page_ );
 
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 class cHelpGump : public cGump
@@ -290,7 +290,7 @@ private:
 public:
 	cHelpGump( SERIAL charSerial );
 
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 #endif

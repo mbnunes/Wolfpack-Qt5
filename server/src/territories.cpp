@@ -328,14 +328,14 @@ void cAllTerritories::check( P_CHAR pc )
 				if( currRegion->isGuarded() )
 				{
 					if( currRegion->guardOwner().isEmpty() )
-						socket->sysMessage( tr( "You have a safe feeling." ), 0x37 );
+						socket->clilocMessage( 500112 ); // You are now under the protection of the town guards
 					else
 						socket->sysMessage( tr( "You are now under the protection of %1 guards." ).arg( currRegion->guardOwner() ), 0x37 );
 				}
 				else
 				{
 					if( lastRegion->guardOwner().isEmpty() )
-						socket->sysMessage( tr( "You no longer have a safe feeling." ), 0x37 );
+						socket->clilocMessage( 500113 ); // You have left the protection of the town guards.
 					else
 						socket->sysMessage( tr( "You are no longer under the protection of %1 guards." ).arg( lastRegion->guardOwner() ), 0x37 );
 				}

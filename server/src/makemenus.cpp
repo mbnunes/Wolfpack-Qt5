@@ -761,6 +761,8 @@ void cDoCodeAction::processNode( const cElement *Tag )
 {
 	QString TagName = Tag->name();
 	QString Value = Tag->getValue();
+	if ( TagName == "params" )
+		params = Value;
 
 	cMakeSection::processNode( Tag );
 }
@@ -779,6 +781,11 @@ void cDoCodeAction::execute( cUOSocket* const socket )
 		cSkRepairItem* pTargetRequest = new cSkRepairItem( this );
 		socket->attachTarget( pTargetRequest );
 		return;
+	}
+	else if ( name_ == "go" )
+	{
+		void commandGo( cUOSocket *socket, const QString &command, QStringList &args ) throw();
+		commandGo( socket, "go", QStringList::split(" ", params) );
 	}
 }
 
@@ -1466,7 +1473,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	}
 }
 
-void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+void cMakeMenuGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 || !socket || !menu_ )
 		return;
@@ -1565,13 +1572,12 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		if( !pChar )
 			return;
 		cMakeAction* action = actions[ choice.button - submenus.size() - 4 - 1000 ];
-		std::vector< UINT32 > switches = choice.switches;
-		std::vector< UINT32 >::iterator it = switches.begin();
+		std::vector< UINT32 >::const_iterator it = choice.switches.begin();
 		if( !action->makesections().empty() )
 		{
 			cMakeMenu* basemenu = menu_->baseMenu();
 			cMakeSection* section = action->makesections()[0];
-			while( it != switches.end() )
+			while( it != choice.switches.end() )
 			{
 				if( (*it) == 1 )
 					pChar->setLastSection( basemenu, section );
@@ -1631,7 +1637,7 @@ cLastTenGump::cLastTenGump( QPtrList< cMakeSection > sections, cMakeMenu* prev, 
 	startPage( 1 );
 	UINT32 yoffset = 60;
 	UINT32 i = 1;
-	while( it.current() )
+	for ( ; it.current(); ++it )
 	{
 		if( it.current()->baseAction() && it.current()->baseAction()->baseMenu() )
 		{
@@ -1646,11 +1652,10 @@ cLastTenGump::cLastTenGump( QPtrList< cMakeSection > sections, cMakeMenu* prev, 
 		addHtmlGump( 255, yoffset+3, 295, 18, htmlmask.arg( QString("%1 %2").arg(it.current()->baseAction()->name()).arg(it.current()->name()) ) );
 		yoffset += 20;
 		++i;
-		++it;
 	}
 }
 
-void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+void cLastTenGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 || !socket )
 		return;
@@ -1698,14 +1703,7 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 
 cAllMakeMenus::~cAllMakeMenus()
 {
-	std::map< QString, cMakeMenu* >::iterator iter(menus_.begin());
-	std::map< QString, cMakeMenu* >::iterator end (menus_.end());
-	while( iter != end )
-	{
-		delete iter->second;
-		++iter;
-	}
-	menus_.clear();
+	unload();
 }
 
 UINT16 cAllMakeMenus::getModel( const cElement *Tag )
@@ -1727,18 +1725,87 @@ void cAllMakeMenus::load()
 {
 	QStringList sections = DefManager->getSections( WPDT_MENU );
 	QStringList::const_iterator it = sections.begin();
-	while( it != sections.end() )
+	for ( ; it != sections.end(); ++it )
 	{
 		const cElement* DefSection = DefManager->getDefinition( WPDT_MENU, (*it) );
 		if( DefSection )
 		{
 			cMakeMenu* pMakeMenu = new cMakeMenu( DefSection );
-			if( pMakeMenu && !( (*it) == "ADD_MENU" && SrvParams->addMenuByCategoryTag() ) )
+			if( pMakeMenu && !( ((*it) == "ADD_MENU" || (*it) == "GO_MENU") && SrvParams->addMenuByCategoryTag() ) )
 			{
 				menus_.insert( make_pair< QString, cMakeMenu* >( (*it), pMakeMenu ) );
 			}
 		}
-		++it;
+	}
+
+	// build gomenu by category tags
+	if( SrvParams->addMenuByCategoryTag() )
+	{
+		cMakeMenu* pGoMenu = new cMakeMenu( tr("Go Menu") );
+		menus_.insert( make_pair< QString, cMakeMenu* >( "GO_MENU", pGoMenu ) );
+		QStringList sections = DefManager->getSections( WPDT_LOCATION );
+		QStringList::const_iterator it = sections.begin();
+		for (; it != sections.end(); ++it )
+		{
+			const cElement *defSection = DefManager->getDefinition( WPDT_LOCATION, (*it) );
+			
+			if( defSection )
+			{
+				QString category    = defSection->getAttribute("category");
+				QString description = defSection->getAttribute("category");
+				
+				if( !category.isEmpty() )
+				{
+					cMakeMenu* currentBaseMenu = pGoMenu;
+					
+					QStringList categorization = QStringList::split( "\\", category );
+					QStringList::const_iterator cit = categorization.begin();
+					while( cit != categorization.end() )
+					{
+						QString current = (*cit);
+						++cit;
+						if( cit != categorization.end() )
+						{
+							bool menuExists = false;
+							cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
+							cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
+							for ( ; sit != submenus.end(); ++sit )
+							{
+								if( (*sit)->name() == current )
+								{
+									menuExists = true;
+									currentBaseMenu = (*sit);
+									break;
+								}
+							}
+							
+							if( !menuExists )
+							{
+								// generate submenu, set current basemenu and continue
+								cMakeMenu* pNewMenu = new cMakeMenu( current, currentBaseMenu );
+								currentBaseMenu->addSubMenu( pNewMenu );
+								currentBaseMenu = pNewMenu;
+							}
+						}
+						else // last item means name
+						{
+							// generate cMakeAction object for the item definition...
+							cMakeAction* pItem = new cMakeAction( current, 0, description, cMakeAction::CODE_ACTION, currentBaseMenu );
+							if( pItem )
+							{
+								currentBaseMenu->addAction( pItem );
+								cDoCodeAction* pMakeSection = new cDoCodeAction( "go", pItem );
+								if( pMakeSection )
+								{
+									pItem->appendSection( pMakeSection );
+									pMakeSection->setParams( defSection->text() );
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	// build addmenu by category tags
@@ -1760,7 +1827,7 @@ void cAllMakeMenus::load()
 			QStringList sections = DefManager->getSections( WPDT_ITEM );
 			
 			QStringList::const_iterator it = sections.begin();
-			while( it != sections.end() )
+			for ( ; it != sections.end(); ++it )
 			{
 				const cElement *defSection = DefManager->getDefinition( WPDT_ITEM, (*it) );
 				
@@ -1821,7 +1888,7 @@ void cAllMakeMenus::load()
 									bool menuExists = false;
 									cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
 									cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
-									while( sit != submenus.end() )
+									for ( ; sit != submenus.end(); ++sit )
 									{
 										if( (*sit)->name() == current )
 										{
@@ -1829,7 +1896,6 @@ void cAllMakeMenus::load()
 											currentBaseMenu = (*sit);
 											break;
 										}
-										++sit;
 									}
 	
 									if( !menuExists )
@@ -1861,7 +1927,6 @@ void cAllMakeMenus::load()
 						}
 					}
 				}
-				++it;
 			}
 		}
 
@@ -1874,7 +1939,7 @@ void cAllMakeMenus::load()
 			QStringList sections = DefManager->getSections( WPDT_NPC );
 			
 			QStringList::const_iterator it = sections.begin();
-			while( it != sections.end() )
+			for ( ; it != sections.end(); ++it )
 			{
 				const cElement *defSection = DefManager->getDefinition( WPDT_NPC, (*it) );
 				
@@ -1935,7 +2000,7 @@ void cAllMakeMenus::load()
 									bool menuExists = false;
 									cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
 									cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
-									while( sit != submenus.end() )
+									for ( ; sit != submenus.end(); ++sit )
 									{
 										if( (*sit)->name() == current )
 										{
@@ -1943,7 +2008,6 @@ void cAllMakeMenus::load()
 											currentBaseMenu = (*sit);
 											break;
 										}
-											++sit;
 									}
 	
 									if( !menuExists )
@@ -1976,7 +2040,6 @@ void cAllMakeMenus::load()
 						}
 					}
 				}
-				++it;
 			}
 		}
 
@@ -1987,7 +2050,7 @@ void cAllMakeMenus::load()
 		if( pResMenu )
 		{
 			cAllResources::iterator it = Resources::instance()->begin();
-			while( it != Resources::instance()->end() )
+			for (; it != Resources::instance()->end(); ++it )
 			{
 				cResource* pResource = it->second;
 				if( pResource )
@@ -1998,7 +2061,7 @@ void cAllMakeMenus::load()
 						pResMenu->addSubMenu( pMakeMenu );
 						QValueVector< cResource::resourcespec_st > resourcespecs = pResource->resourceSpecs();
 						QValueVector< cResource::resourcespec_st >::iterator rit = resourcespecs.begin();
-						while( rit != resourcespecs.end() )
+						for (; rit != resourcespecs.end(); ++rit )
 						{
 							cResource::resourcespec_st item = (*rit);
 							cMakeAction* pMakeAction = new cMakeAction( item.name + " " + pResource->name(), item.ids[0], "", cMakeAction::CUSTOM_SECTIONS, pMakeMenu ); 
@@ -2017,7 +2080,7 @@ void cAllMakeMenus::load()
 								amounts[9] = 1000;
 
 								QValueVector< UINT16 >::iterator ait = amounts.begin();
-								while( ait != amounts.end() )
+								for (; ait != amounts.end(); ++ait )
 								{
 									cMakeCustomSection* pMakeSection = new cMakeCustomSection( "("+QString::number( (*ait) )+")", pMakeAction );
 									if( pMakeSection )
@@ -2027,29 +2090,28 @@ void cAllMakeMenus::load()
 										if( pMakeItem )
 											pMakeSection->appendMakeItem( pMakeItem );
 									}
-									++ait;
 								}
 							}
-							++rit;
 						}
 					}
 				}
-				++it;
 			}
 		}
 	}
 }
 
+void cAllMakeMenus::unload()
+{
+	std::map< QString, cMakeMenu* >::iterator it = menus_.begin();
+	std::map< QString, cMakeMenu* >::iterator end = menus_.end();
+	for (; it != end; ++it )
+		delete it->second;
+	menus_.clear();
+}
+
 void cAllMakeMenus::reload()
 {
-	std::map< QString, cMakeMenu* >::iterator iter = menus_.begin();
-	while( iter != menus_.end() )
-	{
-		delete iter->second;
-		++iter;
-	}
-	menus_.clear();
-
+	unload();
 	for ( cUOSocket* mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next()	)
 	{
 		mSock->player()->clearLastSelections();

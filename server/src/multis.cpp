@@ -662,7 +662,7 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 	}
 }
 
-void cMultiGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+void cMultiGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 ) // canceled
 		return;
@@ -680,7 +680,7 @@ void cMultiGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 
 	if( choice.button == 1 || choice.button == 2 ) // ok
 	{
-		std::map< UINT16, QString >::iterator it = choice.textentries.begin();
+		std::map< UINT16, QString >::const_iterator it = choice.textentries.begin();
 		while( it != choice.textentries.end() )
 		{
 			switch( it->first )

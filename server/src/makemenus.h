@@ -248,6 +248,10 @@ public:
 	virtual void processNode( const cElement *Tag );
 
 	virtual void	execute( cUOSocket* const socket );
+	void setParams( const QString& a ) { params = a; }
+
+protected:
+	QString params;
 };
 
 class cDoScriptAction : public cMakeSection
@@ -364,7 +368,7 @@ public:
 
 	// Getters
 	SubMenuContainer	subMenus() const		{ return submenus_; }
-	ActionContainer		actions() const		{ return actions_; }
+	ActionContainer		actions() const			{ return actions_; }
 	QString				name() const			{ return name_; }
 	QString				link() const			{ return link_; }
 	cMakeMenu*			prevMenu() const		{ return prev_; }
@@ -427,7 +431,7 @@ public:
 	cMakeMenuGump( cMakeAction* action, cUOSocket* socket );
 	
 	// implements cGump
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 class cLastTenGump : public cGump
@@ -439,7 +443,7 @@ public:
 	cLastTenGump( QPtrList< cMakeSection >, cMakeMenu* prev, QString notices = "" );
 
 	// implements cGump
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 class cAllMakeMenus
@@ -482,6 +486,7 @@ public:
 
 private:
 	std::map< QString, cMakeMenu* >		menus_;
+	void unload();
 };
 
 typedef SingletonHolder<cAllMakeMenus> MakeMenus;

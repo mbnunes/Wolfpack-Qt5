@@ -212,6 +212,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args ) t
 	if( args.isEmpty() )
 	{
 		socket->sysMessage( "Bringin up travel gump" );
+		MakeMenus::instance()->callMakeMenu( socket, "GO_MENU" );
 		return;
 	}
 	else

@@ -117,7 +117,7 @@ void cGump::addCroppedText( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT
 }
 
 
-void cGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+void cGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(choice);
@@ -189,7 +189,7 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 	}
 }
 
-void cSpawnRegionInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+void cSpawnRegionInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 )
 		return;
@@ -259,7 +259,7 @@ cTagsInfoGump::cTagsInfoGump( const cUObject* object ) : object_( const_cast<cUO
 	}
 }
 
-void cTagsInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+void cTagsInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 )
 		return;
@@ -335,7 +335,7 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 		addButton( 260, 320, 0x0FA, 0x0FA, 2 );
 }
   
-void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
+void cWhoMenuGump::handleResponse( cUOSocket *socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 )
 		return;
@@ -426,7 +426,7 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 	}
 }
 
-void cSocketInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	if( !socket_ )
 		return;
@@ -496,7 +496,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			break;
 		case 6:
 			{
-				std::map< UINT16, QString >::iterator it = choice.textentries.find( 1 );
+				std::map< UINT16, QString >::const_iterator it = choice.textentries.find( 1 );
 				if( it != choice.textentries.end() )
 					socket_->sysMessage( it->second );
 
@@ -586,7 +586,7 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 		addButton( 260, 320, 0x0FA, 0x0FA, 2 );
 }
   
-void cPagesGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
+void cPagesGump::handleResponse( cUOSocket *socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 )
 		return;
@@ -690,7 +690,7 @@ cPageInfoGump::cPageInfoGump( cPage* page )
 	}
 }
 
-void cPageInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+void cPageInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 )
 		return;
@@ -756,7 +756,7 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			break;
 		case 4:
 			{
-				std::map< UINT16, QString >::iterator it = choice.textentries.find( 1 );
+				std::map< UINT16, QString >::const_iterator it = choice.textentries.find( 1 );
 				if( it != choice.textentries.end() )
 					socket_->sysMessage( it->second );
 
@@ -877,7 +877,7 @@ cHelpGump::cHelpGump( SERIAL charSerial )
 	startPage(1);
 }
 
-void cHelpGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+void cHelpGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	if( choice.button == 0 ) // canceled
 		return;
@@ -900,7 +900,7 @@ void cHelpGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			return;
 
 		QStringList lines;
-		std::map< UINT16, QString >::iterator it = choice.textentries.begin();
+		std::map< UINT16, QString >::const_iterator it = choice.textentries.begin();
 		while( it != choice.textentries.end() )
 		{
 			lines.push_back( it->second );

@@ -137,7 +137,7 @@ private:
 public:
 	cMultiGump( SERIAL charSerial, SERIAL multiSerial );
 
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
 #endif
