@@ -3,7 +3,7 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from magic.utilities import *
 import random
 import wolfpack
-from wolfpack.utilities import tobackpack, energydamage, mayAreaBenefit
+from wolfpack.utilities import tobackpack, energydamage, mayAreaBenefit, isMapAvailableTo
 from system import poison
 from combat.specialmoves import ismortallywounded
 
@@ -165,6 +165,10 @@ class Recall (Spell):
 		else:
 			location = args[0]
 			char.log(LOG_MESSAGE, 'Tries to recall to %s using runebook.\n' % str(location))
+
+		# Check if we can go there.
+		if not isMapAvailableTo(char, location.map):
+			return
 
 		if not self.consumerequirements(char, mode, args, target, item):
 			return

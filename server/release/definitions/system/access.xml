@@ -94,6 +94,7 @@
 			<action name="EFFECT" permit="true" />
 			<action name="FIX" permit="true" />
 			<action name="FOLLOWERS" permit="true" />
+			<action name="FORGIVE" permit="true" />
 			<action name="FREEZE" permit="true" />
 			<action name="GETTAG" permit="true" />
 			<action name="GMTALK" permit="true" />
@@ -104,7 +105,9 @@
 			<action name="INFO" permit="true" />
 			<action name="INVIS" permit="true" />
 			<action name="INVUL" permit="true" />
+			<action name="JAIL" permit="true" />
 			<action name="MOVE" permit="true" />
+			<action name="MUTE" permit="true" />
 			<action name="NIGHTSIGHT" permit="true" />
 			<action name="NUDGEDOWN" permit="true" />
 			<action name="NUDGEUP" permit="true" />
@@ -132,6 +135,7 @@
 			<action name="TAGINFO" permit="true" />
 			<action name="TELE" permit="true" />
 			<action name="TELEM" permit="true" />
+			<action name="UNMUTE" permit="true" />
 			<action name="WHERE" permit="true" />
 			<action name="WHO" permit="true" />
 			<action name="TURNITEM" permit="true" />

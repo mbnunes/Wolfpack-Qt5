@@ -64,7 +64,10 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added playervendors from Ancient-Realms.org
   - Added isValidPosition to wolfpack.utilities to check if a coord is valid.
   - Applied isValidPosition to moongates and go menu.
-  - Extended the who menu.
+  - Added the client version and installation version to the who gump.
+  - Connected the who gump with the jail system.
+  - Added mute, unmute, jail and forgive commands.
+  - Added checks to the gate and to recall so players cannot travel to facets their client does not support.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

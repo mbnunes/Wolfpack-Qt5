@@ -122,6 +122,8 @@
 	<script>commands.kickban</script>
 	<script>commands.kill</script>
 	<script>commands.move</script>
+	<script>commands.mute</script>
+	<script>commands.jail</script>
 	<script>commands.password</script>
 	<script>commands.remove</script>
 	<script>commands.removedupes</script>

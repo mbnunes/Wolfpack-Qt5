@@ -35,6 +35,9 @@ def onCollide(player, item):
 	if len(target) > 3:
 		pos.map = target[3]
 
+	if not utilities.isMapAvailableTo(player, pos.map):
+		return False
+
 	# Move his pets if he has any
 	if player.player:
 		for follower in player.followers:

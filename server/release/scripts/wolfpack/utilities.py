@@ -14,7 +14,7 @@
 
 # Calculates the Magic Damage (Base Damage + Base + Source)
 import wolfpack
-from wolfpack import properties
+from wolfpack import properties, tr
 import random
 import string
 from types import *
@@ -856,19 +856,6 @@ def mayAreaBenefit(player, char, excludeself = False, includeinnocents = False):
 	# If we're neutral, it depends on the excludeneutrals flag
 	return includeinnocents
 
-def testenemy(socket, c, a):
-	pos = socket.player.pos
-	it = wolfpack.charregion(pos.x - 12, pos.y - 12, pos.x + 12, pos.y + 12, pos.map)
-	char = it.first
-	while char:
-		if mayAreaBenefit(socket.player, char):
-			char.say('MAY BENEFIT')
-
-		if mayAreaHarm(socket.player, char):
-			char.say('MAY HARM')
-
-		char = it.next
-
 """
 	\function wolfpack.utilities.isValidPosition
 	\param pos The wolfpack coord object to check.
@@ -911,5 +898,24 @@ def isValidPosition( pos ):
 
 	return True
 
-def onLoad():
-	wolfpack.registercommand('testenemy', testenemy)
+"""
+	\function wolfpack.utilities.isMapAvailableTo
+	\param player The player that this should be checked for.
+	\param mapid The mapid that is being checked.
+	\return Returns a boolean value if the map is available.
+	\description Checks to see if a given map id is available to the connected client.
+"""
+def isMapAvailableTo(player, mapid):
+	# Check if the player can move there based on his socket
+	if player.socket:
+		if mapid == 2 and player.socket.flags & 0x02 == 0:
+			player.socket.sysmessage( tr('You have to install Ultima Online Third Dawn or above to use this gate.') )
+			return False
+		elif mapid == 3 and player.socket.flags & 0x08 == 0:
+			player.socket.sysmessage( tr('You have to install Age of Shadows or above to use this gate.') )
+			return False
+		elif mapid == 4 and player.socket.flags & 0x10 == 0:
+			player.socket.sysmessage( tr('You have to install Samurai Empire or above to use this gate.') )
+			return False
+
+	return True

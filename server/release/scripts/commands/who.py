@@ -13,6 +13,7 @@ import wolfpack
 import wolfpack.sockets
 import wolfpack.accounts
 import commands.info
+import commands.jail
 from wolfpack import tr
 import math
 from wolfpack.gumps import cGump
@@ -137,12 +138,15 @@ def details(char, player):
 	# Bring Char
 	gump.addButton( 20, 200, 0xFA5, 0xFA7, 2 )
 	gump.addText( 50, 200, unicode( "Bring char" ), 0x834 )
-	# Jail Char
-	gump.addButton( 20, 220, 0xFA5, 0xFA7, 3 )
-	gump.addText( 50, 220, unicode( "Jail char" ), 0x834 )
-	# Forgive Char
-	gump.addButton( 220, 220, 0xFA5, 0xFA7, 4 )
-	gump.addText( 250, 220, unicode( "Forgive char" ), 0x834 )
+	
+	if not player.jailed:
+		# Jail Char
+		gump.addButton( 20, 220, 0xFA5, 0xFA7, 3 )
+		gump.addText( 50, 220, unicode( "Jail char" ), 0x834 )
+	else:
+		# Forgive Char
+		gump.addButton( 20, 220, 0xFA5, 0xFA7, 4 )
+		gump.addText( 50, 220, unicode( "Forgive char" ), 0x834 )
 	# Show Char Info Gump
 	gump.addButton( 220, 180, 0xFAB, 0xFAD, 5 )
 	gump.addText( 250, 180, unicode( "Show char info gump" ), 0x834 )
@@ -153,6 +157,25 @@ def details(char, player):
 	# Disconnect
 	gump.addButton( 220, 200, 0xFA5, 0xFA7, 7 )
 	gump.addText( 250, 200, unicode( "Disconnect" ), 0x834 )
+	
+	# Get the installation from the client flags
+	flags = player.socket.flags
+	if flags & 0x10:
+		installation = 'Samurai Empire'
+	elif flags & 0x08:
+		installation = 'Age of Shadows'
+	elif flags & 0x04:
+		installation = 'Blackthornes Revenge'
+	elif flags & 0x02:
+		installation = 'Third Dawn'
+	elif flags & 0x01:
+		installation = 'Renaissance'
+	else:
+		installation = 'The Second Age'
+	
+	# Client Version and Installation
+	gump.addText( 150, 300, unicode( "Client: %s (%s)" % (player.socket.version, installation) ), 0x834 )
+		
 	# Stuff and Send
 	gump.setCallback( callbackSocket )
 	gump.setArgs( [ player.serial ] )
@@ -174,7 +197,8 @@ def callbackSocket( char, args, choice ):
 	elif choice.button == 6:
 		if 1 in keys:
 			if player.socket:
-				player.socket.sysmessage( 'A message from %s: %s' % (char.name, textentries[ key ]), char.saycolor )
+				player.socket.sysmessage( tr('A private message from %s: %s') % (char.name, textentries[ 1 ]), char.saycolor )
+				socket.sysmessage( 'You sent the following message: %s' % textentries[ 1 ], char.saycolor )
 			else:
 				socket.sysmessage( "The Player has left. Message not sent." )
 		return True
@@ -184,11 +208,11 @@ def callbackSocket( char, args, choice ):
 		return True
 	# Forgive player
 	elif choice.button == 4:
-		socket.sysmessage( "Jailing system is not yet complete." )
+		commands.jail.jailPlayer(char, player, False)
 		return True
 	# Jail player
 	elif choice.button == 3:
-		socket.sysmessage( "Jailing system is not yet complete." )
+		commands.jail.jailPlayer(char, player, True)
 		return True
 	# Bring player
 	elif choice.button == 2:

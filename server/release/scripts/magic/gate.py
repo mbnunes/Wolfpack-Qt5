@@ -19,6 +19,9 @@ def onCollide(player, item):
 	pos.y = target[1]
 	pos.z = target[2]
 	pos.map = target[3]
+	
+	if not utilities.isMapAvailableTo(player, pos.map):
+		return False
 
 	if not pos.validspawnspot():
 		if player.socket:
