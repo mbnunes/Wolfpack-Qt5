@@ -15,51 +15,51 @@ SKILL = 3
 WEAPON_INFORMATION = {
 	# 1001: Sword Weapons (Swordsmanship)
 	1001: {
-		ONEHANDED_SWING: [0x09, 0x0A, 0x0D],
-		TWOHANDED_SWING: [0x0C, 0x0D, 0x0E],
-		SKILL: SWORDSMANSHIP,
+		ONEHANDED_SWING: [0x9],
+		TWOHANDED_SWING: [0xc, 0xd],
+		SKILL: SWORDSMANSHIP
 	},
 
 	# 1002: Axe Weapons (Swordsmanship + Lumberjacking)
 	1002: {
-		ONEHANDED_SWING: [0xC, 0xD],
-		TWOHANDED_SWING: [0xC, 0xD],
-		SKILL: SWORDSMANSHIP,
+		ONEHANDED_SWING: [0xc, 0xd],
+		TWOHANDED_SWING: [0xc, 0xd],
+		SKILL: SWORDSMANSHIP
 	},
 
 	# 1003: Macefighting (Staffs)
 	1003: {
-		ONEHANDED_SWING: [0xC, 0xD, 0xE],
-		TWOHANDED_SWING: [0xC, 0xD, 0xE],
-		SKILL: MACEFIGHTING,
+		ONEHANDED_SWING: [0xc],
+		TWOHANDED_SWING: [0xc],
+		SKILL: MACEFIGHTING
 	},
 
 	# 1004: Macefighting (Maces/WarHammer)
 	1004: {
-		ONEHANDED_SWING: [0x9, 0xD],
-		TWOHANDED_SWING: [0xC, 0xD, 0xE],
-		SKILL: MACEFIGHTING,
+		ONEHANDED_SWING: [0x9],
+		TWOHANDED_SWING: [0xc],
+		SKILL: MACEFIGHTING
 	},
 
 	# 1005: Fencing
 	1005: {
-		ONEHANDED_SWING: [0x09, 0x0A, 0x0D],
-		TWOHANDED_SWING: [0x0D, 0x0E],
-		SKILL: FENCING,
+		ONEHANDED_SWING: [0xa],
+		TWOHANDED_SWING: [0xe],
+		SKILL: FENCING
 	},
 
 	# 1006: Bows
 	1006: {
 		ONEHANDED_SWING: [0x12],
 		TWOHANDED_SWING: [0x12],
-		SKILL: ARCHERY,
+		SKILL: ARCHERY
 	},
 
 	# 1007: Crossbows
 	1007: {
 		ONEHANDED_SWING: [0x13],
 		TWOHANDED_SWING: [0x12],
-		SKILL: ARCHERY,
+		SKILL: ARCHERY
 	},
 }
 
@@ -70,7 +70,7 @@ def getbestskill(char):
 	archery = char.skill[ARCHERY]
 	macefighting = char.skill[MACEFIGHTING]
 	wrestling = char.skill[WRESTLING]
-	
+
 	if fencing > value:
 		skill = FENCING
 		value = fencing
@@ -83,7 +83,7 @@ def getbestskill(char):
 	if wrestling > value:
 		skill = WRESTLING
 		value = wrestling
-		
+
 	return skill
 
 #
@@ -97,7 +97,7 @@ def weaponskill(char, weapon, bestskill = 0):
 	else:
 		if bestskill and weapon.hastag('bestskill'):
 			return getbestskill(char)
-	
+
 		if not WEAPON_INFORMATION.has_key(weapon.type):
 			return WRESTLING
 		else:
