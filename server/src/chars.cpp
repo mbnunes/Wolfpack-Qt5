@@ -2990,12 +2990,12 @@ void cChar::toggleCombat()
 
 P_ITEM cChar::rightHandItem()
 {
-	return GetItemOnLayer( 1 );
+	return GetItemOnLayer( SingleHandedWeapon );
 }
 
 P_ITEM cChar::leftHandItem()
 {
-	return GetItemOnLayer( 2 );
+	return atLayer( DualHandedWeapon );
 }
 
 void cChar::applyPoison( P_CHAR defender )

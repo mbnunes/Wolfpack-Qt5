@@ -177,7 +177,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						continue;
 
 					// If the distance is below the minimal distance we found
-					if( ( ( Victim == NULL ) || ( minDist > d ) ) && !pc->isGMorCounselor() )
+					if( ( ( Victim == NULL ) || ( minDist > d ) ) )
 					{
 						Victim = pc;
 						minDist = d;

@@ -2250,7 +2250,7 @@ bool cItem::wearOut()
 
 		if( pOwner )
 		{
-			pOwner->message( tr( "*You destroy your %1*" ).arg( getName() ), 0x23 );
+			pOwner->message( tr( "*You destroy your %1*" ).arg( getName( true ) ), 0x23 );
 
 			// Send it to the people in range
 			cUOSocket *mSock = 0;
@@ -2260,7 +2260,7 @@ bool cItem::wearOut()
 					continue;
 
 				if( mSock->player() && mSock->player()->inRange( pOwner, mSock->player()->VisRange() ) )
-					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name ).arg( getName() ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
+					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name ).arg( getName( true ) ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
 			}
 		}
 

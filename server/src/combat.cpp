@@ -146,12 +146,8 @@ namespace Combat
 			
 			// damage the item with a 50% change, but not spellbooks
 			if( pItem && RandomNum( 0, 1 ) == 1 && pItem->type() != 9 )
-			{
 				if( pItem->wearOut() )
-				{
 					fightskill = WRESTLING;
-				}
-			}
 
 			if( ( pAttacker->pos.distance( pDefender->pos ) > 1 && fightskill != ARCHERY ) || !los )
 			{

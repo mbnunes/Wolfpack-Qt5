@@ -136,7 +136,7 @@ struct compareTiles : public std::binary_function<stBlockItem, stBlockItem, bool
 {
 	bool operator()(stBlockItem a, stBlockItem b)
 	{
-		return ( (a.height+a.z) > (b.height+b.z) );
+		return ( (a.height+a.z) < (b.height+b.z) );
 	}
 };
 
@@ -167,9 +167,12 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	push_heap( blockList.begin(), blockList.end(), compareTiles() );
 
     // Now for the static-items
-	StaticsIterator staIter = Map->staticsIterator( pos );
+	StaticsIterator staIter = Map->staticsIterator( pos, false );
 	for( ; !staIter.atEnd(); ++staIter )
 	{
+		if( ( staIter->xoff != pos.x % 8 ) || ( staIter->yoff != pos.y % 8 ) )
+			continue;
+
 		tile_st tTile = cTileCache::instance()->getTile( staIter->itemid );
 
 		// Here is decided if the tile is needed
@@ -289,8 +292,12 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 		if( !item.walkable && ( itemTop < pos.z ) )
 			return false;
 
-		// Item is within reachable tile
-		if( item.walkable && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) )
+		// If the top of the item is within our max-climb reach
+		// then the first check passed. in addition we need to 
+		// check if the "bottom" of the item is reachable
+		// I would say 2 is a good "reach" value for the bottom
+		// of any item
+		if( item.walkable && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) && ( item.z <= pos.z + 2 ) )
 		{
 			pos.z = itemTop;
 			found = true;
@@ -1354,6 +1361,8 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 
         if( pc_attacker )
         {
+			// Only move in the direction of the target
+			// No special pathfinding
 			if( pc_attacker->pos.distance( pc_i->pos ) > 1 && ( pc_attacker->socket() || pc_attacker->isNpc() ) )
             {
 				//PathFind( pc_i, pc_attacker->pos.x, pc_attacker->pos.y );
