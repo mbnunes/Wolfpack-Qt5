@@ -1144,7 +1144,7 @@ PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 		if( checkArgStr( 2 ) )
 			dispelid = getArgStr( 2 );
 
-		if( PyList_Check( PyTuple_GetItem( args, 3 ) ) )
+		if( PyTuple_Size( args ) > 3 && PyList_Check( PyTuple_GetItem( args, 3 ) ) )
 			dispelargs = PyList_AsTuple( PyTuple_GetItem( args, 3 ) );
 		
 		if( !dispelargs )

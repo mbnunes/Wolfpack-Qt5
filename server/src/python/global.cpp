@@ -57,6 +57,7 @@
 #include "../player.h"
 #include "../npc.h"
 #include "../targetrequests.h"
+#include "../utilsys.h"
 
 #include "regioniterator.h"
 #include "utilities.h"
@@ -959,11 +960,7 @@ static PyObject* wpNewPlayer( PyObject *self, PyObject *args )
 static PyObject* wpTickcount( PyObject* self )
 {
 	Q_UNUSED(self);
-#if defined( Q_OS_WIN32 )
-	return PyInt_FromLong( GetTickCount() );
-#else
-	return PyInt_FromLong( 0 );
-#endif
+	return PyInt_FromLong( getNormalizedTime() );
 }
 
 /*!

@@ -1385,13 +1385,15 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 
 	_player->setAtWar( packet->warmode() );
 
-	// Stop fighting immedeately
+	// Stop fighting
 	if( !_player->isAtWar() )
 	{
 		_player->setCombatTarget( INVALID_SERIAL );
 		_player->setSwingTarget( INVALID_SERIAL );
 		_player->setNextHitTime( 0 );
 	}
+
+	_player->onWarModeToggle( packet->warmode() );
 
 	cUOTxWarmode warmode;
 	warmode.setStatus( packet->warmode() ? 1 : 0 );
