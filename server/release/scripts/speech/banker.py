@@ -129,3 +129,18 @@ def onSpeech( listener, speaker, text, keywords ):
 			break
 			
 	return 1
+
+# An item has been dropped on us
+def onDropOnChar( char, item ):
+
+	# Let's deposit the item in the users bankbox
+	dropper = item.container
+	bankbox = dropper.getbankbox()
+
+	if bankbox:
+		char.say( "I've put the item into your bankbox." )
+		item.container = bankbox
+		item.update()
+		return 1
+
+	return 0
