@@ -21,11 +21,11 @@
 		<hidamage>28</hidamage>
 		<!-- Resists -->
 		<defense><random min="30" max="40"/></defense>
-		<coldresist><random min="40" max="50"/></coldresist>
-		<energyresist><random min="10" max="20"/></energyresist>
-		<fireresist><random min="40" max="50"/></fireresist>
-		<physicalresist><random min="30" max="40"/></physicalresist>
-		<poisonresist><random min="30" max="40"/></poisonresist>
+		<tag name="coldresist" value="40,50" />
+		<tag name="energyresist" value="10,20" />
+		<tag name="fireresist" value="40,50" />
+		<tag name="physicalresist" value="30,40" />
+		<tag name="poisonresist" value="30,40" />
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Agapite Elemental</category>
 	</npc>

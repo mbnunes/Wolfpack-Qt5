@@ -21,15 +21,15 @@
 		<!-- Damage -->
 		<lodamage>10</lodamage>
 		<hidamage>21</hidamage>
-		<colddamage>75</colddamage>
-		<physicaldamage>25</physicaldamage>
+		<tag name="colddamage" value="75" />
+		<tag name="physicaldamage" value="25" />
 		<!-- Resists -->
 		<defense><random min="35" max="45"/></defense>
-		<coldresist><random min="50" max="60"/></coldresist>
-		<energyresist><random min="20" max="30"/></energyresist>
-		<fireresist><random min="5" max="10"/></fireresist>
-		<physicalresist><random min="35" max="45"/></physicalresist>
-		<poisonresist><random min="20" max="30"/></poisonresist>
+		<tag name="coldresist" value="50,60" />
+		<tag name="energyresist" value="20,30" />
+		<tag name="fireresist" value="5,10" />
+		<tag name="physicalresist" value="35,45" />
+		<tag name="poisonresist" value="20,30" />
 		<!-- Misc. -->
 		<desc>The motives and desires of elementals are their own. What is known of the Ice Elemental is that they desire the return of the Ice. Working toward one sinister purpose, the Elementals composed of permafrost desire a time when glaciers cover the world. Make no mistake; these demons of cold are an invading force.</desc>
 		<category>Monsters\Elementals\Ice Elemental</category>

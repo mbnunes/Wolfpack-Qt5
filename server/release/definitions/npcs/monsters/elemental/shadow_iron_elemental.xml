@@ -21,11 +21,11 @@
 		<hidamage>16</hidamage>
 		<!-- Resists -->
 		<defense><random min="30" max="40"/></defense>
-		<coldresist><random min="20" max="30"/></coldresist>
-		<energyresist><random min="30" max="40"/></energyresist>
-		<fireresist><random min="30" max="40"/></fireresist>
-		<physicalresist><random min="30" max="40"/></physicalresist>
-		<poisonresist><random min="10" max="20"/></poisonresist>
+		<tag name="coldresist" value="20,30" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="30,40" />
+		<tag name="poisonresist" value="10,20" />
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Shadow Iron Elemental</category>
 	</npc>

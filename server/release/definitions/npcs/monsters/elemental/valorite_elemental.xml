@@ -19,17 +19,17 @@
 		<!-- Damage -->
 		<lodamage>28</lodamage>
 		<hidamage>25</hidamage>
-		<colddamage>25</colddamage>
-		<energydamage>25</energydamage>
-		<firedamage>25</firedamage>
-		<physicaldamage>25</physicaldamage>
+		<tag name="colddamage" value="25" />
+		<tag name="energydamage" value="25" />
+		<tag name="firedamage" value="25" />
+		<tag name="physicaldamage" value="25" />
 		<!-- Resists -->
 		<defense><random min="65" max="75"/></defense>
-		<coldresist><random min="50" max="60"/></coldresist>
-		<energyresist><random min="40" max="50"/></energyresist>
-		<fireresist><random min="50" max="60"/></fireresist>
-		<physicalresist><random min="65" max="75"/></physicalresist>
-		<poisonresist><random min="50" max="60"/></poisonresist>
+		<tag name="coldresist" value="50,60" />
+		<tag name="energyresist" value="40,50" />
+		<tag name="fireresist" value="50,60" />
+		<tag name="physicalresist" value="65,75" />
+		<tag name="poisonresist" value="50,60" />
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Valorite Elemental</category>
 	</npc>

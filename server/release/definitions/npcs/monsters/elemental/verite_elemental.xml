@@ -19,15 +19,15 @@
 		<!-- Damage -->
 		<lodamage>9</lodamage>
 		<hidamage>16</hidamage>
-		<energydamage>50</energydamage>
-		<physicaldamage>50</physicaldamage>
+		<tag name="energydamage" value="50" />
+		<tag name="physicaldamage" value="50" />
 		<!-- Resists -->
 		<defense><random min="30" max="40"/></defense>
-		<coldresist><random min="50" max="60"/></coldresist>
-		<energyresist><random min="50" max="60"/></energyresist>
-		<fireresist><random min="10" max="20"/></fireresist>
-		<physicalresist><random min="30" max="40"/></physicalresist>
-		<poisonresist><random min="50" max="60"/></poisonresist>
+		<tag name="coldresist" value="50,60" />
+		<tag name="energyresist" value="50,60" />
+		<tag name="fireresist" value="10,20" />
+		<tag name="physicalresist" value="30,40" />
+		<tag name="poisonresist" value="50,60" />
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Verite Elemental</category>
 	</npc>

@@ -22,15 +22,15 @@
 		<!-- Damage -->
 		<lodamage>17</lodamage>
 		<hidamage>27</hidamage>
-		<energydamage>50</energydamage>
-		<poisondamage>50</poisondamage>
+		<tag name="energydamage" value="50" />
+		<tag name="poisondamage" value="50" />
 		<!-- Resists -->
 		<defense><random min="55" max="65"/></defense>
-		<coldresist><random min="40" max="50"/></coldresist>
-		<energyresist><random min="30" max="40"/></energyresist>
-		<fireresist><random min="20" max="30"/></fireresist>
-		<physicalresist><random min="55" max="65"/></physicalresist>
-		<poisonresist><random min="50" max="60"/></poisonresist>
+		<tag name="coldresist" value="40,50" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="55,65" />
+		<tag name="poisonresist" value="50,60" />
 		<!-- Misc -->
 		<desc>Formed from the blood of the dead, blood elementals are strongmagic-users, and an aggressive and formidable foe. You have blood, andthey want it.</desc>
 		<category>Monsters\Elementals\Blood Elemental</category>

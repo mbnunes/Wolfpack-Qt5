@@ -19,15 +19,15 @@
 		<!-- Damage -->
 		<lodamage>9</lodamage>
 		<hidamage>16</hidamage>
-		<firedamage>70</firedamage>
-		<physicaldamage>30</physicaldamage>
+		<tag name="firedamage" value="70" />
+		<tag name="physicaldamage" value="30" />
 		<!-- Resists -->
 		<defense><random min="30" max="40"/></defense>
-		<coldresist><random min="10" max="20"/></coldresist>
-		<energyresist><random min="20" max="30"/></energyresist>
-		<fireresist><random min="30" max="40"/></fireresist>
-		<physicalresist><random min="30" max="40"/></physicalresist>
-		<poisonresist><random min="70" max="80"/></poisonresist>
+		<tag name="coldresist" value="10,20" />
+		<tag name="energyresist" value="20,30" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="30,40" />
+		<tag name="poisonresist" value="70,80" />
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Bronze Elemental</category>
 	</npc>

@@ -23,15 +23,15 @@
 		<!-- Damage -->
 		<lodamage>12</lodamage>
 		<hidamage>18</hidamage>
-		<physicaldamage>10</physicaldamage>
-		<poisondamage>90</poisondamage>
+		<tag name="physicaldamage" value="10" />
+		<tag name="poisondamage" value="90" />
 		<!-- Resists -->
 		<defense><random min="60" max="70"/></defense>
-		<coldresist><random min="20" max="30"/></coldresist>
-		<energyresist><random min="40" max="50"/></energyresist>
-		<fireresist><random min="20" max="30"/></fireresist>
-		<physicalresist><random min="60" max="70"/></physicalresist>
-		<poisonresist>100</poisonresist>
+		<tag name="coldresist" value="20,30" />
+		<tag name="energyresist" value="40,50" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="60,70" />
+		<tag name="poisonresist" value="100" />
 		<!-- Misc. -->
 		<desc>Poison Elementals are the result of corruption of Air Elementals by horrific magic. It is believed that air elementals that disobey an evil summoner are sometimes punished in this fashion. If such is thecase, poison elementals hate their very existence, as it is anabomination of everything they were as an air elemental. Those unluckyenough to see a poison elemental should immediately turn tail lest they become an outlet for the revenge of the cursed elemental.</desc>
 		<category>Monsters\Elementals\Poison Elemental</category>

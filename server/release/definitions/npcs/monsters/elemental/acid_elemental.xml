@@ -22,16 +22,16 @@
 		<!-- Damage -->
 		<lodamage>9</lodamage>
 		<hidamage>15</hidamage>
-		<energydamage>25</energydamage>
-		<firedamage>50</firedamage>
-		<physicaldamage>25</physicaldamage>
+		<tag name="energydamage" value="25" />
+		<tag name="firedamage" value="50" />
+		<tag name="physicaldamage" value="25" />
 		<!-- Resists -->
 		<defense><random min="45" max="55"/></defense>
-		<coldresist><random min="20" max="30"/></coldresist>
-		<energyresist><random min="30" max="40"/></energyresist>
-		<fireresist><random min="40" max="50"/></fireresist>
-		<physicalresist><random min="45" max="55"/></physicalresist>
-		<poisonresist><random min="10" max="20"/></poisonresist>
+		<tag name="coldresist" value="20,30" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="40,50" />
+		<tag name="physicalresist" value="45,55" />
+		<tag name="poisonresist" value="10,20" />
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Acid Elemental</category>
 	</npc>
