@@ -244,7 +244,7 @@ bool cSkItemID::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	P_CHAR pc_currchar = socket->player();
 	const P_ITEM pi = FindItemBySerial( target->serial() );
-	if ( !pi )
+	if( !pi )
 	{
 		socket->sysMessage( tr("Unable to identify that.") );
 		return true;
@@ -252,9 +252,9 @@ bool cSkItemID::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	if ( !pi->isLockedDown() ) // Ripper
 	{
-		if (!pc_currchar->checkSkill( ITEMID, 0, 250))
+		if( !pc_currchar->checkSkill( ITEMID, 0, 250 ) )
 		{
-			socket->sysMessage( tr("You can't quite tell what this item is...") );
+			socket->clilocMessage( 0x7A281 ); // You are not certain...
 		}
 		else
 		{
