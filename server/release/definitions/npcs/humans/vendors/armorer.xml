@@ -8,85 +8,32 @@
 -->
 <definitions>
 
-	<!-- A armorer vendor -->
-	<npc id="armorer_male">
-		<inherit>vendor_male</inherit>
+	<npc id="armorer_inventory">
 		<title context="Vendor Male Titles">the Armorer</title>
-		<!-- The Equipment -->
-		<equipped>
-			<item id="153b" > <!-- Half Apron -->
-				<color><random min="1701" max="1755" /></color>
-			</item>
-			<item id="140d" /> <!-- Bascinet -->
-		</equipped>
 		<shopkeeper>
 			<restockable>
-				<item id="13bb">
-					<amount>10</amount>
-				</item>
-				<item id="13c3">
-					<amount>10</amount>
-				</item>
-				<item id="13c4">
-					<amount>10</amount>
-				</item>
-				<item id="140d">
-					<amount>10</amount>
-				</item>
-				<item id="140f">
-					<amount>10</amount>
-				</item>
-				<item id="140b">
-					<amount>10</amount>
-				</item>
-				<item id="1408">
-					<amount>10</amount>
-				</item>
-				<item id="1c04">
-					<amount>10</amount>
-				</item>
-				<item id="1416">
-					<amount>10</amount>
-				</item>
-				<item id="1410">
-					<amount>10</amount>
-				</item>
-				<item id="1414">
-					<amount>10</amount>
-				</item>
-				<item id="1413">
-					<amount>10</amount>
-				</item>
-				<item id="1412">
-					<amount>10</amount>
-				</item>
-				<item id="141a">
-					<amount>10</amount>
-				</item>
-				<item id="13f2">
-					<amount>10</amount>
-				</item>
-				<item id="13f1">
-					<amount>10</amount>
-				</item>
-				<item id="13ef">
-					<amount>10</amount>
-				</item>
-				<item id="13ed">
-					<amount>10</amount>
-				</item>
-				<item id="1b73">
-					<amount>10</amount>
-				</item>
-				<item id="1b76">
-					<amount>10</amount>
-				</item>
-				<item id="1b7b">
-					<amount>10</amount>
-				</item>
-				<item id="1b74">
-					<amount>10</amount>
-				</item>
+				<item id="13bb"><amount>10</amount></item>
+				<item id="13c3"><amount>10</amount></item>
+				<item id="13c4"><amount>10</amount></item>
+				<item id="140d"><amount>10</amount></item>
+				<item id="140f"><amount>10</amount></item>
+				<item id="140b"><amount>10</amount></item>
+				<item id="1408"><amount>10</amount></item>
+				<item id="1c04"><amount>10</amount></item>
+				<item id="1416"><amount>10</amount></item>
+				<item id="1410"><amount>10</amount></item>
+				<item id="1414"><amount>10</amount></item>
+				<item id="1413"><amount>10</amount></item>
+				<item id="1412"><amount>10</amount></item>
+				<item id="141a"><amount>10</amount></item>
+				<item id="13f2"><amount>10</amount></item>
+				<item id="13f1"><amount>10</amount></item>
+				<item id="13ef"><amount>10</amount></item>
+				<item id="13ed"><amount>10</amount></item>
+				<item id="1b73"><amount>10</amount></item>
+				<item id="1b76"><amount>10</amount></item>
+				<item id="1b7b"><amount>10</amount></item>
+				<item id="1b74"><amount>10</amount></item>
 			</restockable>
 			<sellable>
 				<item id="13bb"/>
@@ -113,116 +60,24 @@
 				<item id="1b74"/>
 			</sellable>
 		</shopkeeper>
-		<armslore><random min="640" max="1000" /></armslore>
-		<blacksmithing><random min="600" max="830" /></blacksmithing>
+		<equipped>
+			<item id="153b" > <!-- Half Apron -->
+				<color><random min="1701" max="1755" /></color>
+			</item>
+			<item id="140d" /> <!-- Bascinet -->
+		</equipped>
+		<skill id="armslore"><random min="640" max="1000" /></skill>
+		<skill id="blacksmithing"><random min="600" max="830" /></skill>
+	</npc>
+
+	<!-- A armorer vendor -->
+	<npc id="armorer_male" inherit="vendor_male">
+		<inherit id="armorer_inventory" />
 		<category>Vendors\Armorer (Male)</category>
 	</npc>
-	
-	<npc id="armorer_female">
-		<inherit>vendor_female</inherit>
-		<title context="Vendor Female Titles">the Armorer</title>
-		<equipped>
-			<item id="153b" > <!-- Half Apron -->
-				<color><random min="1701" max="1755" /></color>
-			</item>
-			<item id="140d" /> <!-- Bascinet -->
-		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="13bb">
-					<amount>10</amount>
-				</item>
-				<item id="13c3">
-					<amount>10</amount>
-				</item>
-				<item id="13c4">
-					<amount>10</amount>
-				</item>
-				<item id="140d">
-					<amount>10</amount>
-				</item>
-				<item id="140f">
-					<amount>10</amount>
-				</item>
-				<item id="140b">
-					<amount>10</amount>
-				</item>
-				<item id="1408">
-					<amount>10</amount>
-				</item>
-				<item id="1c04">
-					<amount>10</amount>
-				</item>
-				<item id="1416">
-					<amount>10</amount>
-				</item>
-				<item id="1410">
-					<amount>10</amount>
-				</item>
-				<item id="1414">
-					<amount>10</amount>
-				</item>
-				<item id="1413">
-					<amount>10</amount>
-				</item>
-				<item id="1412">
-					<amount>10</amount>
-				</item>
-				<item id="141a">
-					<amount>10</amount>
-				</item>
-				<item id="13f2">
-					<amount>10</amount>
-				</item>
-				<item id="13f1">
-					<amount>10</amount>
-				</item>
-				<item id="13ef">
-					<amount>10</amount>
-				</item>
-				<item id="13ed">
-					<amount>10</amount>
-				</item>
-				<item id="1b73">
-					<amount>10</amount>
-				</item>
-				<item id="1b76">
-					<amount>10</amount>
-				</item>
-				<item id="1b7b">
-					<amount>10</amount>
-				</item>
-				<item id="1b74">
-					<amount>10</amount>
-				</item>
-			</restockable>
-			<sellable>
-				<item id="13bb"/>
-				<item id="13c3"/>
-				<item id="13c4"/>
-				<item id="140d"/>
-				<item id="140f"/>
-				<item id="140b"/>
-				<item id="1408"/>
-				<item id="1c04"/>
-				<item id="1416"/>
-				<item id="1410"/>
-				<item id="1414"/>
-				<item id="1413"/>
-				<item id="1412"/>
-				<item id="141a"/>
-				<item id="13f2"/>
-				<item id="13f1"/>
-				<item id="13ef"/>
-				<item id="13ed"/>
-				<item id="1b73"/>
-				<item id="1b76"/>
-				<item id="1b7b"/>
-				<item id="1b74"/>
-			</sellable>
-		</shopkeeper>
-		<armslore><random min="640" max="1000" /></armslore>
-		<blacksmithing><random min="600" max="830" /></blacksmithing>
+
+	<npc id="armorer_female" inherit="vendor_female">
+		<inherit id="armorer_inventory" />
 		<category>Vendors\Armorer (Female)</category>
 	</npc>
 

@@ -8,22 +8,21 @@
 -->
 <definitions>
 
-	<!-- A architect vendor -->
-	<npc id="architect_male">
-		<inherit>vendor_male</inherit>
-		<title context="Vendor Male Titles">the Architect</title>
-		<shopkeeper>
-			<restockable/>
-		</shopkeeper>
-		<category>Vendors\Architect (Male)</category>
-	</npc>
-	
-	<npc id="architect_female">
-		<inherit>vendor_female</inherit>
+	<npc id="architect_inventory">
 		<title context="Vendor Female Titles">the Architect</title>
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+	</npc>
+
+	<!-- A architect vendor -->
+	<npc id="architect_male" inherit="vendor_male">
+		<inherit id="architect_inventory" />
+		<category>Vendors\Architect (Male)</category>
+	</npc>
+
+	<npc id="architect_female" inherit="vendor_female">
+		<inherit id="architect_inventory" />
 		<category>Vendors\Architect (Female)</category>
 	</npc>
 

@@ -8,9 +8,7 @@
 -->
 <definitions>
 
-	<!-- A blacksmith vendor -->
-	<npc id="blacksmith_male">
-		<inherit>vendor_male</inherit>
+	<npc id="blacksmith_inventory">
 		<title context="Vendor Male Titles">the Blacksmith</title>
 		<equipped>
 			<item id="153d" /> <!-- Full Apron -->
@@ -19,42 +17,18 @@
 		</equipped>
 		<shopkeeper>
 			<restockable>
-				<item id="fbb">
-					<amount>10</amount>
-				</item>
-				<item id="fbc">
-					<amount>10</amount>
-				</item>
-				<item id="13e4">
-					<amount>10</amount>
-				</item>
-				<item id="13e3">
-					<amount>10</amount>
-				</item>
-				<item id="fb4">
-					<amount>10</amount>
-				</item>
-				<item id="fb5">
-					<amount>10</amount>
-				</item>
-				<item id="iron_ingot">
-					<amount>10</amount>
-				</item>
-				<item id="e85">
-					<amount>10</amount>
-				</item>
-				<item id="f39">
-					<amount>10</amount>
-				</item>
-				<item id="13bb">
-					<amount>10</amount>
-				</item>
-				<item id="13c3">
-					<amount>10</amount>
-				</item>
-				<item id="13c4">
-					<amount>10</amount>
-				</item>
+				<item id="fbb"><amount>10</amount></item>
+				<item id="fbc"><amount>10</amount></item>
+				<item id="13e4"><amount>10</amount></item>
+				<item id="13e3"><amount>10</amount></item>
+				<item id="fb4"><amount>10</amount></item>
+				<item id="fb5"><amount>10</amount></item>
+				<item id="iron_ingot"><amount>10</amount></item>
+				<item id="e85"><amount>10</amount></item>
+				<item id="f39"><amount>10</amount></item>
+				<item id="13bb"><amount>10</amount></item>
+				<item id="13c3"><amount>10</amount></item>
+				<item id="13c4"><amount>10</amount></item>
 				<item id="140d">
 					<amount>10</amount>
 				</item>
@@ -148,162 +122,23 @@
 				<item id="1b74"/>
 			</sellable>
 		</shopkeeper>
-		<armslore><random min="360" max="680" /></armslore>
-		<blacksmithing><random min="650" max="880" /></blacksmithing>
-		<fencing><random min="600" max="830" /></fencing>
-		<macefighting><random min="610" max="930" /></macefighting>
-		<tactics><random min="600" max="830" /></tactics>
-		<swordsmanship><random min="600" max="830" /></swordsmanship>
-		<parrying><random min="610" max="930" /></parrying>
+		<skill id="armslore"><random min="360" max="680" /></skill>
+		<skill id="blacksmithing"><random min="650" max="880" /></skill>
+		<skill id="fencing"><random min="600" max="830" /></skill>
+		<skill id="macefighting"><random min="610" max="930" /></skill>
+		<skill id="tactics"><random min="600" max="830" /></skill>
+		<skill id="swordsmanship"><random min="600" max="830" /></skill>
+		<skill id="parrying"><random min="610" max="930" /></skill>
+	</npc>
+
+	<!-- A blacksmith vendor -->
+	<npc id="blacksmith_male" inherit="vendor_male">
+		<inherit id="blacksmith_inventory" />
 		<category>Vendors\Blacksmith (Male)</category>
 	</npc>
-	
-	<npc id="blacksmith_female">
-		<inherit>vendor_female</inherit>
-		<title context="Vendor Female Titles">the Blacksmith</title>
-		<equipped>
-			<item id="153d" /> <!-- Full Apron -->
-			<item id="140d" /> <!-- Bascinet -->
-			<item id="13e3" /> <!-- Smith's Hammer -->
-		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="fbb">
-					<amount>10</amount>
-				</item>
-				<item id="fbc">
-					<amount>10</amount>
-				</item>
-				<item id="13e4">
-					<amount>10</amount>
-				</item>
-				<item id="13e3">
-					<amount>10</amount>
-				</item>
-				<item id="fb4">
-					<amount>10</amount>
-				</item>
-				<item id="fb5">
-					<amount>10</amount>
-				</item>
-				<item id="iron_ingot">
-					<amount>10</amount>
-				</item>
-				<item id="e85">
-					<amount>10</amount>
-				</item>
-				<item id="f39">
-					<amount>10</amount>
-				</item>
-				<item id="13bb">
-					<amount>10</amount>
-				</item>
-				<item id="13c3">
-					<amount>10</amount>
-				</item>
-				<item id="13c4">
-					<amount>10</amount>
-				</item>
-				<item id="140d">
-					<amount>10</amount>
-				</item>
-				<item id="140f">
-					<amount>10</amount>
-				</item>
-				<item id="140b">
-					<amount>10</amount>
-				</item>
-				<item id="1408">
-					<amount>10</amount>
-				</item>
-				<item id="1c04">
-					<amount>10</amount>
-				</item>
-				<item id="1416">
-					<amount>10</amount>
-				</item>
-				<item id="1410">
-					<amount>10</amount>
-				</item>
-				<item id="1414">
-					<amount>10</amount>
-				</item>
-				<item id="1413">
-					<amount>10</amount>
-				</item>
-				<item id="1412">
-					<amount>10</amount>
-				</item>
-				<item id="141a">
-					<amount>10</amount>
-				</item>
-				<item id="13f2">
-					<amount>10</amount>
-				</item>
-				<item id="13f1">
-					<amount>10</amount>
-				</item>
-				<item id="13ef">
-					<amount>10</amount>
-				</item>
-				<item id="13ed">
-					<amount>10</amount>
-				</item>
-				<item id="1b73">
-					<amount>10</amount>
-				</item>
-				<item id="1b76">
-					<amount>10</amount>
-				</item>
-				<item id="1b7b">
-					<amount>10</amount>
-				</item>
-				<item id="1b74">
-					<amount>10</amount>
-				</item>
-			</restockable>
-			<sellable>
-				<item id="fbb"/>
-				<item id="fbc"/>
-				<item id="13e4"/>
-				<item id="13e3"/>
-				<item id="fb4"/>
-				<item id="fb5"/>
-				<item id="1bf2"/>
-				<item id="iron_ingot"/>
-				<item id="e85"/>
-				<item id="f39"/>
-				<item id="13bb"/>
-				<item id="13c3"/>
-				<item id="13c4"/>
-				<item id="140d"/>
-				<item id="140f"/>
-				<item id="140b"/>
-				<item id="1408"/>
-				<item id="1c04"/>
-				<item id="1416"/>
-				<item id="1410"/>
-				<item id="1414"/>
-				<item id="1413"/>
-				<item id="1412"/>
-				<item id="141a"/>
-				<item id="13f2"/>
-				<item id="13f1"/>
-				<item id="13ef"/>
-				<item id="13ed"/>
-				<item id="1b73"/>
-				<item id="1b76"/>
-				<item id="1b7b"/>
-				<item id="1b74"/>
-			</sellable>
-		</shopkeeper>
-		<armslore><random min="360" max="680" /></armslore>
-		<blacksmithing><random min="650" max="880" /></blacksmithing>
-		<fencing><random min="600" max="830" /></fencing>
-		<macefighting><random min="610" max="930" /></macefighting>
-		<tactics><random min="600" max="830" /></tactics>
-		<swordsmanship><random min="600" max="830" /></swordsmanship>
-		<parrying><random min="610" max="930" /></parrying>
+
+	<npc id="blacksmith_female" inherit="vendor_female">
+		<inherit id="blacksmith_inventory" />
 		<category>Vendors\Blacksmith (Female)</category>
 	</npc>
 

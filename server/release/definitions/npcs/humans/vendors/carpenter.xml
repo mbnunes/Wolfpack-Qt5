@@ -69,30 +69,22 @@
 				<item id="1028" />
 			</sellable>
 		</shopkeeper>
-	</npc>
-
-	<!-- A carpenter vendor -->
-	<npc id="carpenter_male">
-		<inherit>vendor_male</inherit>
 		<title context="Vendor Male Titles">the Carpenter</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>
+		<skill id="carpentry"><random min="850" max="1000" /></skill>
+		<skill id="lumberjacking"><random min="600" max="830" /></skill>
+	</npc>
+
+	<!-- A carpenter vendor -->
+	<npc id="carpenter_male" inherit="vendor_male">
 		<inherit id="carpenter_inventory" />
-		<carpentry><random min="850" max="1000" /></carpentry>
-		<lumberjacking><random min="600" max="830" /></lumberjacking>
 		<category>Vendors\Carpenter (Male)</category>
 	</npc>
-	
-	<npc id="carpenter_female">
-		<inherit>vendor_female</inherit>
-		<title context="Vendor Female Titles">the Carpenter</title>
-		<equipped>
-			<item id="153b" /> <!-- Half Apron -->
-		</equipped>
+
+	<npc id="carpenter_female" inherit="vendor_female">
 		<inherit id="carpenter_inventory" />
-		<carpentry><random min="850" max="1000" /></carpentry>
-		<lumberjacking><random min="600" max="830" /></lumberjacking>
 		<category>Vendors\Carpenter (Female)</category>
 	</npc>
 

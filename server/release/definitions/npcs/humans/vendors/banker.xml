@@ -8,12 +8,11 @@
 -->
 <definitions>
 
-	<!-- Banker -->
-	<npc id="banker_male">
-		<inherit>base_male</inherit>
+	<npc id="banker_inventory">
 		<ai>Human_Vendor</ai>
 		<bindmenu>banker_menu,vendor_menu</bindmenu>
 		<invulnerable />
+		<wandertype>0</wandertype>
 		<title context="Vendor Male Titles">the Banker</title>
 		<basescript>speech.banker</basescript>
 		<equipped>
@@ -25,30 +24,17 @@
 				<item id="commodity_deed"><amount>20</amount></item>
 			</restockable>
 		</shopkeeper>
+	</npc>
+
+	<!-- Banker -->
+	<npc id="banker_male" inherit="base_male">
+		<inherit id="banker_inventory" />
 		<category>Vendors\Banker (Male)</category>
-		<invulnerable />
-		<wandertype>0</wandertype>
 	</npc>
-	
-	<npc id="banker_female">
-		<inherit>base_female</inherit>
-		<ai>Human_Vendor</ai>
-		<bindmenu>banker_menu,vendor_menu</bindmenu>
-		<invulnerable />
-		<title context="Vendor Female Titles">the Banker</title>
-		<basescript>speech.banker</basescript>
-		<equipped>
-			<item id="1515" /> <!-- Cloak -->
-			<item id="1719" /> <!-- Bonnet -->
-		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="commodity_deed"><amount>20</amount></item>
-			</restockable>
-		</shopkeeper>
+
+	<npc id="banker_female" inherit="base_female">
+		<inherit id="banker_inventory" />
 		<category>Vendors\Banker (Female)</category>
-		<invulnerable />
-		<wandertype>0</wandertype>
 	</npc>
-	
+
 </definitions>

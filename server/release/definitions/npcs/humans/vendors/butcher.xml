@@ -8,9 +8,7 @@
 -->
 <definitions>
 
-	<!-- A butcher vendor -->
-	<npc id="butcher_male">
-		<inherit>vendor_male</inherit>
+	<npc id="butcher_inventory">
 		<title context="Vendor Male Titles">the butcher</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
@@ -40,42 +38,17 @@
 				<item id="ec4" />
 			</sellable>
 		</shopkeeper>
-		<anatomy><random min="450" max="680" /></anatomy>
+		<skill id="anatomy"><random min="450" max="680" /></skill>
+	</npc>
+
+	<!-- A butcher vendor -->
+	<npc id="butcher_male" inherit="vendor_male">
+		<inherit id="butcher_inventory" />
 		<category>Vendors\Butcher (Male)</category>
 	</npc>
-	
-	<npc id="butcher_female">
-		<inherit>vendor_female</inherit>
-		<title context="Vendor Female Titles">the butcher</title>
-		<equipped>
-			<item id="153b" /> <!-- Half Apron -->
-			<item id="ec3" /> <!-- Cleaver -->
-		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="9f1"><amount>20</amount></item>
-				<item id="1609"><amount>20</amount></item>
-				<item id="1607"><amount>20</amount></item>
-				<item id="9b9"><amount>20</amount></item>
-				<item id="979"><amount>20</amount></item>
-				<item id="9c0"><amount>20</amount></item>
-				<item id="13f6"><amount>20</amount></item>
-				<item id="ec3"><amount>20</amount></item>
-				<item id="ec4"><amount>20</amount></item>
-			</restockable>
-			<sellable>
-				<item id="9f1" />
-				<item id="1609" />
-				<item id="1607" />
-				<item id="9b9" />
-				<item id="979" />
-				<item id="9c0" />
-				<item id="13f6" />
-				<item id="ec3" />
-				<item id="ec4" />
-			</sellable>
-		</shopkeeper>
-		<anatomy><random min="450" max="680" /></anatomy>
+
+	<npc id="butcher_female" inherit="vendor_female">
+		<inherit id="butcher_inventory" />
 		<category>Vendors\Butcher (Female)</category>
 	</npc>
 

@@ -8,9 +8,7 @@
 -->
 <definitions>
 
-	<!-- A bard vendor -->
-	<npc id="bard_male">
-		<inherit>vendor_male</inherit>
+	<npc id="bard_inventory">
 		<title context="Vendor Male Titles">the Bard</title>
 		<shopkeeper>
 			<restockable>
@@ -28,40 +26,22 @@
 				<item id="e9e" />
 			</sellable>
 		</shopkeeper>
-		<discordance><random min="640" max="1000" /></discordance>
-		<musicianship><random min="640" max="1000" /></musicianship>
-		<peacemaking><random min="650" max="880" /></peacemaking>
-		<provocation><random min="600" max="830" /></provocation>
-		<archery><random min="360" max="680" /></archery>
-		<swordsmanship><random min="360" max="680" /></swordsmanship>
+		<skill id="discordance"><random min="640" max="1000" /></skill>
+		<skill id="musicianship"><random min="640" max="1000" /></skill>
+		<skill id="peacemaking"><random min="650" max="880" /></skill>
+		<skill id="provocation"><random min="600" max="830" /></skill>
+		<skill id="archery"><random min="360" max="680" /></skill>
+		<skill id="swordsmanship"><random min="360" max="680" /></skill>
+	</npc>
+
+	<!-- A bard vendor -->
+	<npc id="bard_male" inherit="vendor_male">
+		<inherit id="bard_inventory" />
 		<category>Vendors\Bard (Male)</category>
 	</npc>
-	
-	<npc id="bard_female">
-		<inherit>vendor_female</inherit>
-		<title context="Vendor Female Titles">the Bard</title>
-		<shopkeeper>
-			<restockable>
-				<item id="eb2"><amount>10</amount></item>
-				<item id="eb3"><amount>10</amount></item>
-				<item id="e9c"><amount>10</amount></item>
-				<item id="eb1"><amount>10</amount></item>
-				<item id="e9e"><amount>10</amount></item>
-			</restockable>
-			<sellable>
-				<item id="eb2" />
-				<item id="eb3" />
-				<item id="e9c" />
-				<item id="eb1" />
-				<item id="e9e" />
-			</sellable>
-		</shopkeeper>
-		<discordance><random min="640" max="1000" /></discordance>
-		<musicianship><random min="640" max="1000" /></musicianship>
-		<peacemaking><random min="650" max="880" /></peacemaking>
-		<provocation><random min="600" max="830" /></provocation>
-		<archery><random min="360" max="680" /></archery>
-		<swordsmanship><random min="360" max="680" /></swordsmanship>
+
+	<npc id="bard_female" inherit="vendor_female">
+		<inherit id="bard_inventory" />
 		<category>Vendors\Bard (Female)</category>
 	</npc>
 

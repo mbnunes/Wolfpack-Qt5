@@ -8,6 +8,7 @@
 -->
 <definitions>
 	<npc id="alchemist_inventory">
+		<title context="Vendor Male Titles">the Alchemist</title>
 		<shopkeeper>
 			<restockable>
 				<!-- Reagents -->
@@ -19,11 +20,9 @@
 				<item id="f88"><amount>999</amount></item>
 				<item id="f8c"><amount>999</amount></item>
 				<item id="f8d"><amount>999</amount></item>
-								
-				<item id="f0e"><amount>100</amount></item> <!-- Bottle -->								
+				<item id="f0e"><amount>100</amount></item> <!-- Bottle -->
 				<item id="eff"><amount>10</amount></item> <!-- Hair Dye -->
 				<item id="e9b"><amount>10</amount></item> <!-- Mortar and Pestle -->
-				
 				<!-- Potions -->
 				<item id="potion_nightsight"><amount>10</amount></item>
 				<item id="potion_agility"><amount>10</amount></item>
@@ -44,11 +43,9 @@
 				<item id="f88" />
 				<item id="f8c" />
 				<item id="f8d" />
-								
 				<item id="f0e" /> <!-- Bottles -->
 				<item id="eff" /> <!-- Hair Dyes -->
 				<item id="e9b" /> <!-- Mortar and Peste -->
-				
 				<!-- Sellable Potions -->
 				<item id="potion_nightsight" />
 				<item id="potion_agility" />
@@ -60,36 +57,23 @@
 				<item id="potion_lesserexplosion" />
 			</sellable>
 		</shopkeeper>
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
+		<skill id="alchemy"><random min="850" max="1000" /></skill>
+		<skill id="tasteidentification"><random min="650" max="880" /></skill>
 	</npc>
 
 	<!-- A alchemist vendor -->
-	<npc id="alchemist_male">
-		<inherit>vendor_male</inherit>
-		<title context="Vendor Male Titles">the Alchemist</title>
-		<!-- The Equipment -->
-		<equipped>
-			<item id="1f03" > <!-- Robe -->
-				<color><random min="1201" max="1255" /></color>
-			</item>
-		</equipped>
+	<npc id="alchemist_male" inherit="vendor_male">
 		<inherit id="alchemist_inventory" />
-		<alchemy><random min="850" max="1000" /></alchemy>
-		<tasteidentification><random min="650" max="880" /></tasteidentification>
 		<category>Vendors\Alchemist (Male)</category>
 	</npc>
-	
-	<npc id="alchemist_female">
-		<inherit>vendor_female</inherit>
-		<title context="Vendor Female Titles">the Alchemist</title>
-		<!-- The Equipment -->
-		<equipped>
-			<item id="1f03" > <!-- Robe -->
-				<color><random min="1201" max="1255" /></color>
-			</item>
-		</equipped>
+
+	<npc id="alchemist_female" inherit="vendor_female">
 		<inherit id="alchemist_inventory" />
-		<alchemy><random min="850" max="1000" /></alchemy>
-		<tasteidentification><random min="650" max="880" /></tasteidentification>
 		<category>Vendors\Alchemist (Female)</category>
 	</npc>
 

@@ -8,51 +8,25 @@
 -->
 <definitions>
 
-	<!-- A baker vendor -->
-	<npc id="baker_male">
-		<inherit>vendor_male</inherit>
+	<npc id="baker_inventory">
 		<title context="Vendor Male Titles">the Baker</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>
 		<shopkeeper>
 			<restockable>
-				<item id="98c">
-					<amount>10</amount>
-				</item>
-				<item id="9e9">
-					<amount>10</amount>
-				</item>
-				<item id="9ea">
-					<amount>10</amount>
-				</item>
-				<item id="9eb">
-					<amount>10</amount>
-				</item>
-				<item id="9ec">
-					<amount>10</amount>
-				</item>
-				<item id="103b">
-					<amount>10</amount>
-				</item>
-				<item id="103c">
-					<amount>10</amount>
-				</item>
-				<item id="1039">
-					<amount>10</amount>
-				</item>
-				<item id="ff8">
-					<amount>10</amount>
-				</item>
-				<item id="ff9">
-					<amount>10</amount>
-				</item>
-				<item id="9f0">
-					<amount>10</amount>
-				</item>
-				<item id="9d6">
-					<amount>10</amount>
-				</item>
+				<item id="98c"><amount>10</amount></item>
+				<item id="9e9"><amount>10</amount></item>
+				<item id="9ea"><amount>10</amount></item>
+				<item id="9eb"><amount>10</amount></item>
+				<item id="9ec"><amount>10</amount></item>
+				<item id="103b"><amount>10</amount></item>
+				<item id="103c"><amount>10</amount></item>
+				<item id="1039"><amount>10</amount></item>
+				<item id="ff8"><amount>10</amount></item>
+				<item id="ff9"><amount>10</amount></item>
+				<item id="9f0"><amount>10</amount></item>
+				<item id="9d6"><amount>10</amount></item>
 			</restockable>
 			<sellable>
 				<item id="98c"/>
@@ -69,73 +43,18 @@
 				<item id="9d6"/>
 			</sellable>
 		</shopkeeper>
-		<cooking><random min="750" max="980" /></cooking>
-		<tasteidentification><random min="360" max="680" /></tasteidentification>
+		<skill id="cooking"><random min="750" max="980" /></skill>
+		<skill id="tasteidentification"><random min="360" max="680" /></skill>
+	</npc>
+
+	<!-- A baker vendor -->
+	<npc id="baker_male" inherit="vendor_male">
+		<inherit id="baker_inventory" />
 		<category>Vendors\Baker (Male)</category>
 	</npc>
-	
-	<npc id="baker_female">
-		<inherit>vendor_female</inherit>
-		<title context="Vendor Female Titles">the Baker</title>
-		<equipped>
-			<item id="153b" /> <!-- Half Apron -->
-		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="98c">
-					<amount>10</amount>
-				</item>
-				<item id="9e9">
-					<amount>10</amount>
-				</item>
-				<item id="9ea">
-					<amount>10</amount>
-				</item>
-				<item id="9eb">
-					<amount>10</amount>
-				</item>
-				<item id="9ec">
-					<amount>10</amount>
-				</item>
-				<item id="103b">
-					<amount>10</amount>
-				</item>
-				<item id="103c">
-					<amount>10</amount>
-				</item>
-				<item id="1039">
-					<amount>10</amount>
-				</item>
-				<item id="ff8">
-					<amount>10</amount>
-				</item>
-				<item id="ff9">
-					<amount>10</amount>
-				</item>
-				<item id="9f0">
-					<amount>10</amount>
-				</item>
-				<item id="9d6">
-					<amount>10</amount>
-				</item>
-			</restockable>
-			<sellable>
-				<item id="98c"/>
-				<item id="9e9"/>
-				<item id="9ea"/>
-				<item id="9eb"/>
-				<item id="9ec"/>
-				<item id="103b"/>
-				<item id="103c"/>
-				<item id="1039"/>
-				<item id="ff8"/>
-				<item id="ff9"/>
-				<item id="9f0"/>
-				<item id="9d6"/>
-			</sellable>
-		</shopkeeper>
-		<cooking><random min="750" max="980" /></cooking>
-		<tasteidentification><random min="360" max="680" /></tasteidentification>
+
+	<npc id="baker_female" inherit="vendor_female">
+		<inherit id="baker_inventory" />
 		<category>Vendors\Baker (Female)</category>
 	</npc>
 

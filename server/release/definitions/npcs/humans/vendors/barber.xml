@@ -7,20 +7,21 @@
 =================================================================
 -->
 <definitions>
-	<!-- Barber (no real vendor) -->
-	<npc id="barber_male">
-		<inherit>base_male</inherit>
-		<title context="Vendor Male Titles">the Hairstylist</title>
-		<basescript>speech.barber</basescript>
-		<category>Vendors\Barber (Male)</category>
-		<invulnerable />
-	</npc>
-	
-	<npc id="barber_female">
-		<inherit>base_female</inherit>
+
+	<npc id="barber_inventory">
 		<title context="Vendor Female Titles">the Hairstylist</title>
 		<basescript>speech.barber</basescript>
-		<category>Vendors\Barber (Female)</category>
-		<invulnerable />
 	</npc>
+
+	<!-- Barber (no real vendor) -->
+	<npc id="barber_male" inherit="vendor_male">
+		<inherit id="barber_inventory" />
+		<category>Vendors\Barber (Male)</category>
+	</npc>
+
+	<npc id="barber_female" inherit="vendor_female">
+		<inherit id="barber_inventory" />
+		<category>Vendors\Barber (Female)</category>
+	</npc>
+
 </definitions>
