@@ -1495,16 +1495,24 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						if (pj != NULL && Magic->CheckBook(((book-1)/8)+1, (book-1)%8, pj)) 
 							if (pc_currchar->priv2&2) // REAL cant cast while frozen bugfix, lord binary
 							{
-								if (pc_currchar->casting)
-									sysmessage(s, "You are already casting a spell.");
-								else
-									sysmessage(s, "You cannot cast spells while frozen.");
+								sysmessage(s, "You cannot cast spells while frozen.");
 							}
-							else {currentSpellType[s]=0; Magic->newSelectSpell2Cast( s, book );}
-						else sysmessage(s, "You don't have that spell.");
-					} 
+							if (pc_currchar->casting)
+							{
+								sysmessage(s, "You are already casting a spell.");
+							}
+							else
+							{
+								currentSpellType[s]=0;
+								Magic->newSelectSpell2Cast( s, book );
+							}
+					}
+					else 
+					{
+						sysmessage(s, "You don't have that spell."); 
+					}
 
-					else if ((buffer[s][2]=='\x05')&&(buffer[s][3]=='\x43'))  // Open spell book
+					if ((buffer[s][2]=='\x05')&&(buffer[s][3]=='\x43'))  // Open spell book
 					{
 						P_ITEM pi = FindItemBySerPtr(buffer[s]+1);
 						Magic->SpellBook(s, pi);

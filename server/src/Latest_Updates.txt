@@ -77,3 +77,5 @@ collect,get,look,view,browse and packup. A little code change for them also. (Ri
 64) Fixed: 3d clients 3.0.6g and above crashing when logging in. (LB)
 65) Added: Check for if you are paralized, you cant attack. (Ripper)
 66) Added: You cant evaluate int on yourself. (Ripper)
+67) Fixed: you get message "You don`t have that spell" when you do have the spell.
+Needs more testing.(Ripper)
