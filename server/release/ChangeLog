@@ -22,6 +22,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added wolfpack.definitionsiterator(type) for fast iteration of definitions of a certain type.
   - Fixed several major memory leaks.
   - Fixed all crashes related to iterating over non existing maps.
+  - Fixed a bug related to pets not being teleported along with you.
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
