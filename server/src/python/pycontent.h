@@ -89,6 +89,7 @@ static PyObject* wpContent_get( wpContent* self, int id )
 			goto error;
 
 		ContainerIterator it(container);
+		it.seek(id);
 
 		if (!it.atEnd())
 			return (*it)->getPyObject();

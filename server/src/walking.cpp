@@ -639,7 +639,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			continue;
 
 		bool wasVisible = observer->pos().distance(oldpos) <= VISRANGE; // We were previously in range
-		bool isVisible = player->dist(observer) <= VISRANGE; // We are now in range
+		bool isVisible = pChar->dist(observer) <= VISRANGE; // We are now in range
 
 		// If we are a player, send us new characters
 		if( player && player->socket() ) {

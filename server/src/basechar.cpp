@@ -825,7 +825,7 @@ bool cBaseChar::resurrect( cUObject* source )
 	{
 		// Move all items from the corpse to the backpack and then look for
 		// previous equipment
-		for (ContainerIterator it(corpse); !it.atEnd(); ++it)
+		for (ContainerCopyIterator it(corpse); !it.atEnd(); ++it)
 		{
 			backpack->addItem( *it, false );
 			( *it )->update();
@@ -2870,7 +2870,7 @@ bool cBaseChar::kill( cUObject* source )
 	}
 
 	// Create Loot - Either on the corpse or on the ground
-	for (ContainerIterator it(backpack); !it.atEnd(); ++it)
+	for (ContainerCopyIterator it(backpack); !it.atEnd(); ++it)
 	{
 		P_ITEM item = *it;
 		if ( !item->newbie() )
