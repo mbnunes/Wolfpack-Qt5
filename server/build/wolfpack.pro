@@ -62,6 +62,7 @@ HEADERS         = Client.h \
 		  items.h \
                   itemsmgr.h \
 		  junk.h \
+		  magic.h
 		  mapstuff.h \
 		  msgboard.h \
 		  netsys.h \
@@ -82,6 +83,7 @@ HEADERS         = Client.h \
 		  stream.h \
 		  structs.h \
 		  targeting.h \
+		  targetrequests.h
 		  telport.h \
 		  trigger.h \
 		  typedefs.h \
@@ -103,7 +105,8 @@ HEADERS         = Client.h \
 		  wppythonscript.h \
 		  wpscriptmanager.h \
 		  menuactions.h \
-		  wptargetrequests.h
+		  wptargetrequests.h \
+		  wpxmlparser.h
 
 SOURCES         = Client.cpp \
 		  LoS.cpp \
@@ -164,6 +167,7 @@ SOURCES         = Client.cpp \
                   srvparams.cpp \
 		  storage.cpp \
 		  targeting.cpp \
+		  targetrequests.cpp \
 		  telport.cpp \
 		  trigger.cpp \
 		  uobject.cpp \
@@ -180,7 +184,8 @@ SOURCES         = Client.cpp \
 		  wppythonscript.cpp \
 		  wpscriptmanager.cpp \
 		  menuactions.cpp \
-		  wptargetrequests.cpp
+		  wptargetrequests.cpp \
+		  wpxmlparser.cpp 
 
 INTERFACES	=
 TRANSLATIONS    = \
