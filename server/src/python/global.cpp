@@ -917,14 +917,62 @@ static PyObject* wpItemRegion( PyObject* self, PyObject* args )
 	return PyGetRegionIterator( x1, y1, x2, y2, map );
 }
 
+static PyObject* wpNewItem( PyObject *self, PyObject *args )
+{
+	char createSerial = 1;
+
+	if( !PyArg_ParseTuple( args, "|b:wolfpack.newitem", &createSerial ) )
+		return 0;
+
+	P_ITEM pItem = new cItem;
+	
+	if( createSerial )
+		pItem->Init( true );
+
+	return PyGetItemObject( pItem );
+}
+
+static PyObject* wpNewNpc( PyObject *self, PyObject *args )
+{
+	char createSerial = 1;
+
+	if( !PyArg_ParseTuple( args, "|b:wolfpack.newnpc", &createSerial ) )
+		return 0;
+
+	P_NPC pNpc = new cNPC;
+	
+	if( createSerial )
+		pNpc->Init( true );
+
+	return PyGetCharObject( pNpc );
+}
+
+static PyObject* wpNewPlayer( PyObject *self, PyObject *args )
+{
+	char createSerial = 1;
+
+	if( !PyArg_ParseTuple( args, "|b:wolfpack.newplayer", &createSerial ) )
+		return 0;
+
+	P_PLAYER pPlayer = new cPlayer;
+	
+	if( createSerial )
+		pPlayer->Init( true );
+
+	return PyGetCharObject( pPlayer );
+}
+
 /*!
 	wolfpack
 	Initializes wolfpack
 */
 static PyMethodDef wpGlobal[] = 
 {
-	{ "itemregion",		wpItemRegion,				METH_VARARGS, NULL },
+	{ "itemregion",			wpItemRegion,				METH_VARARGS, NULL },
 	{ "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" },
+	{ "newnpc",				wpNewNpc,						METH_VARARGS, "Creates an entirely new npc." },
+	{ "newitem",			wpNewItem,						METH_VARARGS, "Creates an entirely new item." },
+	{ "newplayer",			wpNewPlayer,					METH_VARARGS, "Creates an entirely new player." },
 	{ "addnpc",				wpAddnpc,						METH_VARARGS, "Adds a npc with the specified script-section" },
 	{ "finditem",			wpFinditem,						METH_VARARGS, "Tries to find an item based on it's serial" },
 	{ "findchar",			wpFindchar,						METH_VARARGS, "Tries to find a char based on it's serial" },
