@@ -1,7 +1,7 @@
 #!/bin/sh
 CONFIG_FILE="setup.cf";
 SETUP_BASEDIR="setup.d";
-NECESSARY_COMMANDS="bash seq run-parts expr grep sed cut head tail chmod";
+NECESSARY_COMMANDS="bash seq run-parts expr grep sed cut head tail chmod dirname basename";
 
 #
 # old sh didn't support functions. so don't use them at first!
