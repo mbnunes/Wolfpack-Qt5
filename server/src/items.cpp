@@ -565,7 +565,7 @@ void cItem::save()
 		addField("disabled",		disabled_);
 		addStrField("spawnregion",	spawnregion_);
 		addField("good",			good_);
-		addStrField("desc",			desc_);
+		addStrField("description",	desc_);
 		addStrField("carve",			carve_);
 		addField("accuracy",		accuracy_);
 		
@@ -2470,7 +2470,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.price,items.restock,items.disabled,items.spawnregion,items.good,items.desc,items.carve,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.price,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.carve,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
