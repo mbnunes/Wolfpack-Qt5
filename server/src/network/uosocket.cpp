@@ -748,7 +748,7 @@ void cUOSocket::allowMove( Q_UINT8 sequence )
 	acceptMove.setSequence( sequence );
 	send( &acceptMove );
 
-	_walkSequence = ( sequence < 255 ) ? sequence : 1;
+	_walkSequence = ( sequence < 255 ) ? sequence : 0;
 }
 
 void cUOSocket::denyMove( Q_UINT8 sequence )
@@ -769,14 +769,14 @@ void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 
 void cUOSocket::updateChar( P_CHAR pChar )
 {
-	cUOTxUpdatePlayer updatePlayer;
-	updatePlayer.fromChar( pChar );
-	send( &updatePlayer );
+	//cUOTxUpdatePlayer updatePlayer;
+	//updatePlayer.fromChar( pChar );
+	//send( &updatePlayer );
 }
 
 void cUOSocket::sendChar( P_CHAR pChar )
 {
-	cUOTxDrawObject drawObject;
+	// cUOTxDrawObject drawObject;
 	// ADD FROM CHAR
-	send( &drawObject );
+	// send( &drawObject );
 }

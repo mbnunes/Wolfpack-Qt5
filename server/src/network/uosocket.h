@@ -63,12 +63,11 @@ private:
 	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
 
 public:
-
 	Q_UINT8 walkSequence( void ) { return _walkSequence; }
 	void setWalkSequence( Q_UINT8 data ) { _walkSequence = data; }
 
 	cUOSocket( QSocketDevice *sDevice ): 
-		_walkSequence( 0 ), lastPacket( 0xFF ), _state( LoggingIn ), 
+		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), 
 		_account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
 	virtual ~cUOSocket( void ) { delete _socket; }
 

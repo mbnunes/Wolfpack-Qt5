@@ -38,36 +38,19 @@ class cUOSocket;
 
 class cMovement
 {
-
-	// Variable/Type definitions
 private:
-
 	signed char z, dispz;
-	
-	// Function declarations
 
 public:
-
-	void Walking( P_CHAR pc, UI08 dir, int seq );
+	void Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence );
 	void CombatWalk( P_CHAR pc );
-	bool CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z);
-	bool CanCharMove(P_CHAR pc, short int x, short int y, signed char &z, UI08 dir);
+	bool CanCharWalk( P_CHAR pc, Coord_cl &coord );
+	bool CanCharMove( P_CHAR pc, Coord_cl &coord, UI08 dir );
 	void NpcMovement( unsigned int currenttime, P_CHAR pc_i );
-//	int validNPCMove(P_CHAR pc, short int x, short int y, signed char &z, int dir);
-
 	int validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s );
-	
-	int  calc_walk( P_CHAR pc, unsigned int x, unsigned int y, unsigned int oldx, unsigned int oldy, bool justask );
-	bool calc_move( P_CHAR pc, short int x, short int y, signed char &z, UI08 dir );
-
-	// Static members
-	static void getXYfromDir(UI08 dir, int *x, int *y);
-
 private:
-
-	bool MoveHeightAdjustment( int MoveType, unitile_st *thisblock, int &ontype, signed int &nItemTop, signed int &nNewZ );
-	bool isValidDirection(UI08 dir);
-	bool isOverloaded( P_CHAR );
+	inline bool isValidDirection( Q_UINT8 dir );
+	inline bool isOverloaded( P_CHAR );
 
 	bool CanGMWalk(unitile_st xyb);
 	bool CanPlayerWalk(unitile_st xyb);
@@ -80,16 +63,13 @@ private:
 	void GetBlockingStatics(const Coord_cl, unitile_st *xyblock, int &xycount);
 	void GetBlockingDynamics(const Coord_cl, unitile_st *xyblock, int &xycount);
 
-	short int Distance(short int sx, short int sy, short int dx, short int dy);
 	short int Direction(short int sx, short int sy, short int dx, short int dy);
 
 	short int CheckMovementType(P_CHAR pc);
-	bool CheckForCharacterAtXY(P_CHAR pc);
 	bool CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz);
 
-	void NpcWalk( P_CHAR pc_i, int j, int type );
-	unsigned short GetXfromDir( UI08 dir, unsigned short x );
-	unsigned short GetYfromDir( UI08 dir, unsigned short y );
+	void randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type );
+	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl oldCoords );
 	void PathFind( P_CHAR pc, unsigned short gx, unsigned short gy );
 
 	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
@@ -97,18 +77,14 @@ private:
 	void checkStealth( P_CHAR );
 	void sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& oldpos );
 
+	void handleItemCollision( P_CHAR pChar );
 	void outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord_cl& oldpos );
-	void HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning);
 	void HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos);
 	void HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket);
 	void HandleGlowItems(P_CHAR pc, UOXSOCKET socket);
-	bool IsGMBody(P_CHAR pc);
-	signed char CheckWalkable( P_CHAR pc, unitile_st *xyblock, int xycount );
-
-	bool CrazyXYBlockStuff(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy, int sequence);
+	
 	void FillXYBlockStuff(P_CHAR pc, unitile_st *xyblock, int &xycount, unsigned short oldx, unsigned short oldy );
 
-	void deny(UOXSOCKET k, P_CHAR pc, int sequence);
 	static bool checkBoundingBox(const Coord_cl pos, int fx1, int fy1, int fx2, int fy2);
 	static bool checkBoundingCircle(const Coord_cl pos, int fx1, int fy1, int radius);
 

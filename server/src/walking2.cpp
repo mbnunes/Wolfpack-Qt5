@@ -110,7 +110,6 @@
 // Thyme 2000.09.21
 // This is my attempt to rewriting the walking code. I'm going to take the code and documentation
 // that others before me have used and incorporate my little (big?) fixes and comments.
-
 // Many thanks to all of the previous contributors, and I hope these changes help out.
 // Lord Binary
 // Morrolan
@@ -119,46 +118,11 @@
 //                : 1999.10.27 - ripped apart walking into smaller functions
 // Tauriel        : 1999.03.06 - For all of the region stuff
 // knoxos         : 2000.08.?? - For finally making use of the flags, and height blocking
+// DarkStorm	  : 2002.06.19 - Cleaning up the mess
 
-
-// Now, off to the races. If you see a function somewhere, and don't know what it is, a
-// description of what the function does will be located right before it in the code... with
-// the logic, if possible.
-
-/*
-** Walking() This function is called whenever we get a message from the client
-** to walk/run somewhere.   It is also called by the NPC movement functions in this
-** class to make the NPCs move.  The arguments are fairly fixed because we don't
-** have a lot of control about what the client gives us.
-**
-** CHARACTER s - Obviously the character index of the character trying to move.
-**
-** dir - Which direction the character is trying to move. The first nibble holds
-** the cardinal direction.      If the bit 0x80 is set, it means the character is
-** running instead of walking.
-**              0: // North
-**              1: // Northeast
-**              2: // East
-**              3: // Southeast
-**              4: // South
-**              5: // Southwest
-**              6: // West
-**              7: // Northwest
-**
-** sequence - This is what point in the walking sequence we are at, this seems to
-**            roll over once it hits 256
-**
-*/
-
-void cMovement::Walking( P_CHAR pChar, UI08 dir, int sequence )
+// This handles if a character actually tries to walk (NPC & Player)
+void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 {
-	// Here it used to check if dir was -1 and return. We need to make sure that we
-	// don't have any unexpected values, otherwise how can we eliminate dir as a potential
-	// walking bug. If value is invalid, don't allow the walk. -1 falls in that range.
-	
-	// sometimes the NPC movement code comes up with -1, for example, if we are following someone
-	// and we are directly on top of them
-
 	// Scripting
 	if( pChar->onWalk( dir, sequence ) )
 		return;
@@ -204,13 +168,11 @@ void cMovement::Walking( P_CHAR pChar, UI08 dir, int sequence )
 		checkRunning( pChar, dir ); // Reduces Stamina and does other things related to running
 		checkStealth( pChar ); // Reveals the user if neccesary
 
-		Coord_cl newCoord( pChar->pos );
-		newCoord.z = illegal_z;
-		newCoord.x = GetXfromDir( dir, pChar->pos.x );
-		newCoord.y = GetYfromDir( dir, pChar->pos.y );
+		Coord_cl newCoord = pChar->pos; // Note: Do NOT use the copy constructor as it'll create a reference
 
 		// Check if the char can move to those new coordinates
-		if( !CanCharMove( pChar, pChar->pos.x, pChar->pos.y, newCoord.z, dir ) )
+		// It is going to automatically calculate the new coords (!)
+		if( !CanCharMove( pChar, newCoord, dir ) )
 		{
 			if( socket )
 				socket->denyMove( sequence );
@@ -220,8 +182,6 @@ void cMovement::Walking( P_CHAR pChar, UI08 dir, int sequence )
 			return;
 		}
         
-		dispz = z = newCoord.z;
-
 		// Check if we're going to collide with characters
 		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord.x, newCoord.y, newCoord.z ) )
 		{
@@ -278,59 +238,7 @@ void cMovement::Walking( P_CHAR pChar, UI08 dir, int sequence )
 */
 }
 
-// Function      : cMovement::isValidDirection()
-// Written by    : Unknown
-// Revised by    : Thyme
-// Revision Date : 2000.09.21
-// Purpose       : Check if a given direction is valid
-// Method        : Return true on the below values:
-//
-// Direction   Walking Value   Running Value
-// North          0 0x00         128 0x80
-// Northeast      1 0x01         129 0x81
-// East           2 0x02         130 0x82
-// Southeast      3 0x03         131 0x83
-// South          4 0x04         132 0x84
-// Southwest      5 0x05         133 0x85
-// West           6 0x06         134 0x86
-// Northwest      7 0x07         135 0x87
-
-bool cMovement::isValidDirection(UI08 dir)
-{
-	return ( dir == ( dir & 0x87 ) );
-}
-
 // Thyme 07/28/00
-
-// return TRUE is character is overloaded (with weight)
-// return FALSE otherwise
-
-// CheckForWeight was confusing...
-
-// Old code called check weight first then checked socket... I changed it the other way.
-// Why, well odds are (I may be wrong) if you don't have a socket, you're an NPC and if you
-// have one, you're a character. We said in the first line that we didn't want to restrict
-// based upon NPC, so if you're an NPC, the socket/checkweight will never be called anyway.
-
-// Rewrote to deny the client... We'll see if it works.
-
-bool cMovement::isOverloaded( P_CHAR pc )
-{
-	// Who are we going to check for weight restrictions?
-	if ( !pc->dead &&							// If they're not dead
-		 !pc->isNpc() &&							// they're not an npc
-		 !pc->isGMorCounselor())			// they're not a GM
-	{
-		if( !Weight->CheckWeight( pc ) || ( pc->stm < 3 ) )
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-// Thyme 07/28/00
-
 // Here's how I'm going to use it for now.  Movement Type may be used for races, that's why
 // I put it as an integer.  Here are the values I'm going to use:
 // GM Body  0x01
@@ -340,11 +248,10 @@ bool cMovement::isOverloaded( P_CHAR pc )
 // Fish     0x80 (So they can swim!)
 // I left a gap between Player and NPC because someone may want to implement race
 // restrictions...
-
 short int cMovement::CheckMovementType(P_CHAR pc)
 {
 	// Am I a GM Body?
-	if ( IsGMBody(pc) )
+	if( pc->isGMorCounselor() || pc->dead )
 		return P_C_IS_GM_BODY;
 
 	// Am I a player?
@@ -553,17 +460,16 @@ bool cMovement::CanBirdWalk(unitile_st xyb)
 	return ( CanNPCWalk(xyb) || CanFishWalk(xyb) );
 }
 
-// All of the stuff below this point is old, unmodified code
-
 // if we have a valid socket, see if we need to deny the movement request because of
 // something to do with the walk sequence being out of sync.
 bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw()
 {
-	if ( ( socket->walkSequence() + 1 != sequence ) && ( sequence != 0xFF ) )
+	if ( ( socket->walkSequence() + 1 != sequence ) && ( sequence != 0xFF ) && ( socket->walkSequence() != 0xFF ) )
 	{
 		socket->denyMove( sequence );
 		return false;
 	}
+
 	return true;
 }
 
@@ -831,24 +737,11 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 	}
 }
 
-// handle item collisions, make items that appear on the edge of our sight because
-// visible, buildings when they get in range, and if the character steps on something
-// that might cause damage
-
-// Umm... we need to split this up...
-
-void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
+// This is called whenever a char *HAS* already moved
+// It will handle Collisions with items and sending them as well
+void cMovement::handleItemCollision( P_CHAR pChar )
 {
-	// apparently we don't want NPCs to be affected by any of this stuff,
-	// i'm not sure i agree with that yet
-	// It's not the fact that we don't want them to be affected by it, it's just the fact that this also updates
-	// the display of the char... So what we need to do is handle the collision stuff for everyone, and only send
-	// the stuff to actual characters.
-
-	if (socket == INVALID_UOXSOCKET)
-		return;
-
-	// lets cache these vars in advance
+/*	// lets cache these vars in advance
 	const int visibleRange = VISRANGE;
 	const short int newx = pc->pos.x;
 	const short int newy = pc->pos.y;
@@ -873,9 +766,6 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 				mapitem = FindItemBySerial(*it);
 				if (mapitem != NULL)
 				{
-					// Send the item if it's "new"
-					// moved that here so we FIRST send the items and THEN handle their
-					// Behaviour
 					if (!amTurning)
 					{
 						// is the item a building on the BUILDRANGE?
@@ -886,14 +776,8 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 								senditem(socket, mapitem);
 							}
 						}
-						// otherwise if the item has just now become visible, inform the client about it
 						else
 						{
-							// Thyme
-							// Code Addition for Ab
-							// PLUS reduction in senditems for out of range objects!
-							// Stuff commented out is original code between BEGIN and END
-							// Thyme BEGIN
 							signed int oldd = Distance(oldx, oldy, mapitem->pos.x, mapitem->pos.y);
 							signed int newd = Distance(newx, newy, mapitem->pos.x, mapitem->pos.y);
 							
@@ -907,7 +791,6 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 							{
 								// item out of range for trigger
 							}
-						// Thyme END
 						}
 					}
 
@@ -995,7 +878,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 				}
 			}
 		}
-	}
+	}*/
 }
 
 void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos)
@@ -1066,24 +949,10 @@ void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 	}
 }
 
-// return whether someone is a GM Body
-bool cMovement::IsGMBody(P_CHAR pc)
-{
-	if (
-		((pc->isGM())) || // I got GM privs
-        ((pc->id1==0x03)&&(pc->id2==0xDB)) ||//Gm
-        ((pc->id1==0x01)&&(pc->id2==0x92)) ||//Ghosts
-        ((pc->id1==0x01)&&(pc->id2==0x93))
-        )
-        return true;
-    return false;
-}
-
 void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 {
     for (int i=0;i<now;i++)
     {
-		// moved perm[i] first since its much faster
         if ((perm[i]) && (inrange1p(pc, currchar[i])))
         {
 			P_CHAR pc_check = currchar[i];
@@ -1136,99 +1005,36 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
     }
 }
 
-void cMovement::NpcWalk(P_CHAR pc_i, int j, int type)   //type is npcwalk mode (0 for normal, 1 for box, 2 for circle)
+// type is npcwalk mode ( 0 for normal, 1 for box, 2 for circle )
+void cMovement::randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type )   
 {
-	// sometimes the NPC movement code comes up with -1, for example, if we are following someone
-	// and we are directly on top of them
-	if (-1 == j) return;
+	// If we're not moving at all that could be -1
+	if( !isValidDirection( dir ) )
+		return;
 
-    const short int x = pc_i->pos.x;
-    const short int y = pc_i->pos.y;
-//    const signed char z = pc_i->pos.z;
+	// We will precheck that here
+	if( pChar->isFrozen() )
+		return;
 
-    // if we are walking in an area, and the area is not properly defined, just don't bother with the area anymore
-    if( ((1 == type) && ( pc_i->fx1 == -1 || pc_i->fx2 == -1 || pc_i->fy1 == -1 || pc_i->fy2 == -1 ) ) ||
-        ((2 == type) && ( pc_i->fx1 == -1 || pc_i->fx2 == -1 || pc_i->fy1 == -1)))
-        // circle's don't use fy2, so don't require them! fur 10/30/1999
-    {
-        //printf("Rect/circle error!\n" );
-        pc_i->npcWander = 2; // Wander freely from now on
-        type = 0;
-    }
+	Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos );
 
-    //Bug Fix -- Zippy
-    if (pc_i->priv2&2)
-		return;//Frozen - Don't send them al the way to walking to check this, just do it here.
-
-// Thyme New Stuff 2000.09.21
-
-//	if ( ( pc_i->dir & 0x07 ) == ( j & 0x07 ) )
-//	{
-		short int newx = GetXfromDir(j, x);
-		short int newy = GetYfromDir(j, y);
-// Take out the validNPCMove here... Not needed...If I fail, I don't try to walk somewhere else, so why should I
-// check it twice? Just walk! Normal walking code will do the rest.
-		if (
-		    (!type)||
-		    ((type==1)&&(checkBoundingBox(Coord_cl(newx, newy, pc_i->fz1, pc_i->pos.map), pc_i->fx1, pc_i->fy1,  pc_i->fx2, pc_i->fy2)))||
-		    ((type==2)&&(checkBoundingCircle(Coord_cl(newx, newy, pc_i->fz1, pc_i->pos.map), pc_i->fx1, pc_i->fy1, pc_i->fx2)))
-		   )
-			Walking(pc_i, j & 0x07, 256); // arm code
-//	}
-
-// need to add diagonal move checks to CanCharWalk...
-
-// Thyme don't see the point in this... same as above
-// else if (j<8)
-//		Walking(i, j, 256);
-}
-
-// Function      : cMovement::GetYfromDir
-// Written by    : Unknown
-// Revised by    : Thyme
-// Revision Date : 2000.09.15
-// Purpose       : Return the new y from given dir
-
-unsigned short cMovement::GetYfromDir(UI08 dir, unsigned short y)
-{
-	switch ( dir & 0x07 )
+	// When the circle or box is not set yet reset the npcwalking setting
+    if(	( ( type == 1 ) && ( pChar->fx1 == -1 ) || ( pChar->fx2 == -1 ) || ( pChar->fy1 == -1 ) || ( pChar->fy2 == -1 ) ) ||
+		( ( type == 2 ) && ( pChar->fx1 == -1 ) || ( pChar->fx2 == -1 ) || ( pChar->fy1 == -1 ) ) )
 	{
-	case 0x00 :
-	case 0x01 :
-	case 0x07 :
-		y--; break;
-	case 0x03 :
-	case 0x04 :
-	case 0x05 :
-		y++; break;
+		pChar->npcWander = 2;
+		type = 0;
 	}
+    
+	// If we either have to walk in a box or a circle we'll check if the new direction
+	// is outside of our bounds
+	if( ( type == 1 ) && !checkBoundingBox( newCoord, pChar->fx1, pChar->fy1, pChar->fx2, pChar->fy2 ) )
+		return;
 
-    return y;
-}
+	if( ( type == 2 ) && !checkBoundingCircle( newCoord, pChar->fx1, pChar->fy1, pChar->fx2 ) )
+		return;
 
-// Function      : cMovement::GetXfromDir
-// Written by    : Unknown
-// Revised by    : Thyme
-// Revision Date : 2000.09.15
-// Purpose       : Return the new x from given dir
-
-unsigned short cMovement::GetXfromDir(UI08 dir, unsigned short x)
-{
-
-   	switch ( dir & 0x07 )
-	{
-	case 0x01 :
-	case 0x02 :
-	case 0x03 :
-		x++; break;
-	case 0x05 :
-	case 0x06 :
-	case 0x07 :
-		x--; break;
-	}
-
-    return x;
-
+	Walking( pChar, dir&0x07, 0xFF );
 }
 
 // Ok, I'm going to babble here, but here's my thinking process...
@@ -1250,43 +1056,35 @@ unsigned short cMovement::GetXfromDir(UI08 dir, unsigned short x)
 // save memory.
 void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 {
-
 	// Make sure this is a valid character before proceeding
-	if ( pc == NULL ) return;
+	if ( !pc )
+		return;
 
 	// Make sure the character has taken used all of their previously saved steps
-	if ( pc->pathnum < P_PF_MRV ) return;
+	if ( pc->pathnum < P_PF_MRV ) 
+		return;
 
-
-	// Thyme 2000.09.21
-	// initial rewrite of pathfinding...
-
-//	const signed char z = pc->pos.z;
-	signed int newx, newy;
-	signed char newz;
-	signed int oldx = pc->pos.x;
-	signed int oldy = pc->pos.y;
 	path_st newpath[P_PF_MIR];
-	pc->pathnum=0;
+	pc->pathnum = 0;
 
 	for ( int pn = 0 ; pn < P_PF_MRV ; pn++ )
 	{
 		newpath[pn].x = newpath[pn].y = 0;
 		int pf_neg = ( ( rand() % 2 ) ? 1 : -1 );
-		int pf_dir = Direction(oldx, oldy, gx, gy);
+		int pf_dir = Direction( pc->pos.x, pc->pos.y, gx, gy );
 		for ( int i = 0 ; i < 8 ; i++ )
 		{
 			pf_neg *= -1;
 			pf_dir += ( i * pf_neg );
-			newx = GetXfromDir(pf_dir, oldx);
-			newy = GetYfromDir(pf_dir, oldy);
-			if (CanCharMove(pc, oldx, oldy, newz, pf_dir))
+			Coord_cl newCoord = pc->pos;
+
+			if( CanCharMove( pc, newCoord, pf_dir ) )
 			{
-				if ( ( pn < P_PF_MRV ) && CheckForCharacterAtXYZ(pc, newx, newy, newz) )
+				if ( ( pn < P_PF_MRV ) && CheckForCharacterAtXYZ( pc, newCoord.x, newCoord.y, newCoord.z ) )
 					continue;
 
-				newpath[pn].x = oldx = newx;
-				newpath[pn].y = oldy = newy;
+				newpath[pn].x = newCoord.x;
+				newpath[pn].y = newCoord.y;
 				break;
 			}
 		}
@@ -1294,9 +1092,6 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 		{
 			pc->pathnum = P_PF_MRV;
 			break;
-#if DEBUG_PATHFIND
-printf("Character stuck!\n");
-#endif
 		}
 	}
 
@@ -1304,18 +1099,12 @@ printf("Character stuck!\n");
 	{
 		pc->path[i].x = newpath[i].x;
 		pc->path[i].y = newpath[i].y;
-#if DEBUG_PATHFIND
-		printf("PFDump: %s - %i) %ix, %iy\n",pc->name.c_str(), i+1, pc->path[i].pos.x, pc->path[i].pos.y);
-#endif
 	}
-
 }
 
-//NEW NPCMOVEMENT ZIPPY CODE STARTS HERE -- AntiChrist meging codes --
-void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
+// This processes a NPC movement poll
+void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 {
-//    register int k;
-
 	int j = rand() % 40;
 
     int dnpctime=0;
@@ -1379,20 +1168,20 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
                 if (j<8 || j>32) dnpctime=5;
                 if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
                     j=pc_i->dir;
-                NpcWalk(pc_i,j,0);
+                randomNpcWalk(pc_i,j,0);
                 break;
             case 3: // Wander freely, within a defined box
                 if (j<8 || j>32) dnpctime=5;
                 if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
                     j=pc_i->dir;
 
-                NpcWalk(pc_i,j,1);
+                randomNpcWalk(pc_i,j,1);
                 break;
             case 4: // Wander freely, within a defined circle
                 if (j<8 || j>32) dnpctime=5;
                 if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
                     j=pc_i->dir;
-                NpcWalk(pc_i,j,2);
+                randomNpcWalk(pc_i,j,2);
                 break;
             case 5: //FLEE!!!!!!
 				{
@@ -1403,34 +1192,32 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 					{
 						// calculate a x,y to flee towards
 						int mydist = P_PF_MFD - chardist( pc_i, pc_k) + 1;
-						j=chardirxyz(pc_i, pc_k->pos.x, pc_k->pos.y);
-						short int myx = GetXfromDir(j, pc_i->pos.x);
-						short int myy = GetYfromDir(j, pc_i->pos.y);
-						
-						short int xfactor = 0;
-						short int yfactor = 0;
-						
-						if ( myx != pc_i->pos.x )
-							if ( myx < pc_i->pos.x )
+						j = chardirxyz( pc_i, pc_k->pos.x, pc_k->pos.y );
+						Coord_cl fleeCoord = calcCoordFromDir( j, pc_i->pos );
+		
+						if ( fleeCoord != pc_i->pos )
+						{
+							Q_INT8 xfactor = 0;
+							Q_INT8 yfactor = 0;
+
+							if( fleeCoord.x < pc_i->pos.x )
 								xfactor = -1;
 							else
 								xfactor = 1;
-							
-							if ( myy != pc_i->pos.y )
-								if ( myy < pc_i->pos.y )
-									yfactor = -1;
-								else
-									yfactor = 1;
-								
-								myx += ( xfactor * mydist );
-								myy += ( yfactor * mydist );
-								
-								// now, got myx, myy... lets go.
-								
-								PathFind(pc_i, myx, myy);
-								j=chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
-								pc_i->pathnum++;
-								Walking(pc_i,j,256);
+
+							if( fleeCoord.y < pc_i->pos.y )
+								xfactor = -1;
+							else
+								xfactor = 1;
+
+							fleeCoord.x += ( xfactor * mydist );
+							fleeCoord.y += ( yfactor * mydist );
+						}
+					
+						PathFind( pc_i, fleeCoord.x, fleeCoord.y );
+						j = chardirxyz(pc_i, pc_i->path[ pc_i->pathnum ].x, pc_i->path[ pc_i->pathnum ].y);
+						pc_i->pathnum++;
+						Walking( pc_i, j, 256 );
 					}
 					else
 					{ // wander freely... don't just stop because I'm out of range.
@@ -1438,7 +1225,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 						if (j<8 || j>32) dnpctime=5;
 						if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
 							j=pc_i->dir;
-						NpcWalk(pc_i,j,0);
+						randomNpcWalk(pc_i,j,0);
 					}
 				}
 				break;
@@ -1451,25 +1238,6 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
     }
 }
 
-
-// This is my attempt at the writing a more effective pathfinding algorithm/sequence
-
-// Function      : cMovement::Distance
-// Written by    : Thyme
-// Revision Date : 2000.09.08
-// Purpose       : Calculate the shortest walkable distance between two points.
-// Method        : The methodology behind this is pretty simple actually. The shortest distance
-// between two walkable points would be to walk a diagonal line until sx=dx or sy=dy
-// and then follow the line until the goal is reached. Since a diagonal step is
-// the same distance as a lateral step, there's no need to use the Pythagorean theorem
-// in the calculation. This calculation does not take into account any blocking objects.
-// It will be used as a heuristic in determining priority of movement.
-
-short int cMovement::Distance(short int sx, short int sy, short int dx, short int dy)
-{
-	return ( ( abs(sx-dx) < abs(sy-dy) ) ? abs(sy-dy) : abs(sx-dx) );
-}
-
 // Function      : cMovement::CanCharWalk()
 // Written by    : Dupois
 // Revised by    : Thyme
@@ -1480,7 +1248,6 @@ short int cMovement::Distance(short int sx, short int sy, short int dx, short in
 // is the fix, plus more.
 short int cMovement::Direction(short int sx, short int sy, short int dx, short int dy)
 {
-	
 	int dir,xdif,ydif;
 	
 	xdif = dx - sx;
@@ -1499,120 +1266,101 @@ short int cMovement::Direction(short int sx, short int sy, short int dx, short i
 	return dir;
 }
 
-bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
+bool cMovement::CanCharWalk(P_CHAR pc, Coord_cl &coord )
 {
+	Q_INT8 moveType = CheckMovementType( pc );
+	Q_INT8 oldZ = coord.z;
+	coord.z = illegal_z; // This is needed
 
-	const signed char oldZ = pc->pos.z;
-	signed char nNewZ = illegal_z;
-	short int MoveType = CheckMovementType(pc);
 	bool blocked = false;
 
-	for ( int cnt = 0; cnt < 3 ; cnt++ )
+	// This is a three pass process,
+	// In the first pass we check for a blocking map (mountain etc.)
+	// In the second pass we check for blocking statics
+	// And THEN we check for blocking dynamics
+	for( Q_INT32 cnt = 0; cnt < 3 ; ++cnt )
 	{
-		int xycount = 0;
+		Q_INT32 xycount = 0;
 		unitile_st xyblock[XYMAX];
 
-		switch (cnt)
+		switch( cnt )
 		{
 		case 0:
-			GetBlockingMap( Coord_cl(x, y, z, pc->pos.map), xyblock, xycount);
+			GetBlockingMap( coord, xyblock, xycount );
 			break;
 		case 1:
-			GetBlockingStatics( Coord_cl(x, y, z, pc->pos.map), xyblock, xycount);
+			GetBlockingStatics( coord, xyblock, xycount );
 			break;
 		case 2:
-			GetBlockingDynamics( Coord_cl(x, y, z, pc->pos.map), xyblock, xycount);
-			break;
-		default:
-#if DEBUG_WALK_ERROR
-			printf("IMPOSSIBLE!\n");
-#endif
+			GetBlockingDynamics( coord, xyblock, xycount );
 			break;
 		}
 
-// Insert Knoxos code
-// Thyme: Shortened up and modified to my needs
-	// knoxos
-	// Work our way through the blockables item array
-		int i;
-		for(  i = 0; i < xycount; i++ )
+		// This loop calculates the new Z Value of the walking creature
+		Q_INT32 i;
+		for( i = 0; i < xycount; ++i )
 		{
 		    unitile_st *thisblock = &xyblock[i]; // this is a easy/little tricky, to save a little calculation
 		                                     // since the [i] is calclated several times below
 			                                 // if it doesn't help, it doesn't hurt either.
-			signed char nItemTop = thisblock->basez + thisblock->height; // Calculate the items total height
 
-			if ( thisblock->flag2 & 4 ) 
-				nItemTop -= thisblock->height/2; 
+			Q_INT8 nItemTop = thisblock->basez + thisblock->height; // Calculate the items total height
 
-	    // check if the creature is floating on a static (keeping Z or falling)
-			if ( ( nItemTop >= nNewZ ) &&
-				 ( ( ( nItemTop <= oldZ ) && ( abs(oldZ - nItemTop) <= P_M_MAX_Z_FALL ) ) ||
-				 ( ( nItemTop >= oldZ ) && ( nItemTop < oldZ + P_M_MAX_Z_CLIMB ) ) ) )
+			if ( thisblock->flag2 & 4 ) // Stair -> cut down z height for movement ?
+				nItemTop -= thisblock->height / 2; 
+
+			// check if the creature is floating on a static (keeping Z or falling)
+			if ( ( nItemTop >= coord.z ) &&  ( ( ( nItemTop <= oldZ ) && ( abs(oldZ - nItemTop) <= P_M_MAX_Z_FALL ) ) || ( ( nItemTop >= oldZ ) && ( nItemTop < oldZ + P_M_MAX_Z_CLIMB ) ) ) )
 			{
-				if ( ( MoveType & P_C_IS_GM_BODY ) && ( CanGMWalk(xyblock[i]) ) )
-					nNewZ = nItemTop;
-				if ( ( MoveType & P_C_IS_PLAYER ) && ( CanPlayerWalk(xyblock[i]) ) )
-					nNewZ = nItemTop;
-				if ( ( MoveType & P_C_IS_FISH ) && ( CanFishWalk(xyblock[i]) ) )
-					nNewZ = nItemTop;
-				if ( ( MoveType & P_C_IS_NPC ) && ( CanNPCWalk(xyblock[i]) ) )
-					nNewZ = nItemTop;
-				if ( ( MoveType & P_C_IS_BIRD ) && ( CanBirdWalk(xyblock[i]) ) )
-					nNewZ = nItemTop;
+				if ( ( moveType & P_C_IS_GM_BODY ) && ( CanGMWalk(xyblock[i]) ) )
+					coord.z = nItemTop;
+
+				if ( ( moveType & P_C_IS_PLAYER ) && ( CanPlayerWalk(xyblock[i]) ) )
+					coord.z = nItemTop;
+
+				if ( ( moveType & P_C_IS_FISH ) && ( CanFishWalk(xyblock[i]) ) )
+					coord.z = nItemTop;
+
+				if ( ( moveType & P_C_IS_NPC ) && ( CanNPCWalk(xyblock[i]) ) )
+					coord.z = nItemTop;
+
+				if ( ( moveType & P_C_IS_BIRD ) && ( CanBirdWalk(xyblock[i]) ) )
+					coord.z = nItemTop;
 			}
 		}
-
-#if DEBUG_WALK
-		printf( "CheckWalkable calculate Z=%s %d\n", pc->name.c_str(), nNewZ );
-#endif
 
 		// now the new Z-cordinate of creature is known,
 		// check if it hits it's head against something (blocking in other words)
-		for(i = 0; i < xycount; i++)
+		for( i = 0; i < xycount; ++i )
 		{
 			unitile_st *thisblock = &xyblock[i];
 			signed char nItemTop = thisblock->basez + thisblock->height; // Calculate the items total height
-			if ((nItemTop >= nNewZ) && (thisblock->basez <= nNewZ + P_M_MAX_Z_INFLUENCE))
-			{ // in effact radius?
-				if ( MoveType & P_C_IS_GM_BODY )
+			
+			// If something is above us in the new location and it's less than 15 height-units above us
+			// Check if it's blocking or if we can pass
+			if( ( nItemTop >= coord.z ) && ( thisblock->basez <= coord.z + P_M_MAX_Z_INFLUENCE ) )
+			{
+				// GMs can ALWAYS move there
+				if ( moveType & P_C_IS_GM_BODY )
 					continue;
-				if ( ( MoveType & P_C_IS_FISH ) && ( CanFishWalk(xyblock[i]) ) )
+
+				// Check if a fish can walk here (special handling)
+				if ( ( moveType & P_C_IS_FISH ) && ( CanFishWalk( xyblock[ i ] ) ) )
 					continue;
-				if ( ( MoveType & P_C_IS_BIRD ) && ( CanBirdWalk(xyblock[i]) ) )
+
+				// Check if the char is a bird and if he can fly here
+				if ( ( moveType & P_C_IS_BIRD ) && ( CanBirdWalk( xyblock[ i ] ) ) )
 					continue;
+
+				// Otherwise check if it's a blocking tile
+				// If so just deny the move
 				if ( thisblock->flag1 & 0x40 )
-				{   // blocking
-					nNewZ = illegal_z;
-#if DEBUG_WALK
-			printf( "CheckWalkable blocked due to tile=%d at height=%d.\n", xyblock[i].id, xyblock[i].basez);
-#endif
-					blocked = true;
-					break;
-				}
+					return false;
 			}
-    // knoxos: MAX_ITEM_Z_INFLUENCE is nice, but not truely correct,
-    //         since the creature height should be the effect radius, if you are i.e.
-    //         polymorphed to a "slime", you could go through things you normally
-    //         wouldn't get under. (Just leaves the question what happens if you
-    //         unpolymorph in a place where you can't fit, lucky there are no
-    //         such gaps or tunnels in Britannia).
-    //         (Well UO isn't ment to really think in 3d)
-    // Thyme : He's right... Should be based of character's height.
-		}
-
-		if (blocked)
-			break;
-	
+ 		}
 	}
-// end knoxos code
-	z = nNewZ;
 
-#if DEBUG_WALK
-	printf("CanCharWalk: %dx %dy %dz\n", x, y, z);
-#endif
-
-	if ( nNewZ == illegal_z )
+	if ( coord.z == illegal_z )
 		return false;
 	else
 		return true;
@@ -1623,234 +1371,29 @@ bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 // Revision Date : 2000.09.17
 // Purpose       : Check if a character can walk to a from x,y to dir direction
 // Method        : This handles the funky diagonal moves.
-bool cMovement::CanCharMove(P_CHAR pc, short int x, short int y, signed char &z, UI08 dir)
+bool cMovement::CanCharMove( P_CHAR pc, Coord_cl &coord, UI08 dir )
 {
-	z = illegal_z;
+	// We're interested in the Z Value we are moving to
+	// So we need to calculate the new location and maintain
+	// the reference
+	Coord_cl newCoord = calcCoordFromDir( dir, coord );
 
 	if ( ( dir & 0x07 ) % 2 )
-	{ // check three ways.
-		if ( ! CanCharWalk(pc, GetXfromDir(dir - 1, x), GetYfromDir(dir - 1, y), z) )
-			return false;
-		if ( ! CanCharWalk(pc, GetXfromDir(dir + 1, x), GetYfromDir(dir + 1, y), z) )
-			return false;
-	}
-
-	return CanCharWalk(pc, GetXfromDir(dir, x), GetYfromDir(dir, y), z);
-}
-
-
-//o-------------------------------------------------------------o
-//| Function : calcTileHeight
-//| Author   : knoxos
-//o-------------------------------------------------------------o
-//| Description :
-//|   Out of some strange reason the tile height seems
-//|   to be an absolute value of a two's complement of
-//|   the last four bit. Don't know if it has a special
-//|   meaning if the tile is height is "negative"
-//|
-//|   (stairs in despise blocking bug)
-//| Arguments :
-//|   int h   orignial height as safed in mul file
-//|
-//| Return code:
-//|   The absoulte value of the two's complement if the
-//|   the value was "negative"
-//o-------------------------------------------------------------o
-
-#define MAX_ITEM_Z_INFLUENCE 10 // Any item above this height is discarded as being too far away to effect the char
-#define MAX_Z_LEVITATE 10			// Maximum total height to reach a tile marked as 'LEVITATABLE'
-												// Items with a mark as climbable have no height limit
-
-
-inline signed int higher( signed int a, signed int b )
-{
-	if( a < b )
-		return b;
-	else
-		return a;
-}
-inline signed int LOWER( signed int a, signed int b )
-{
-	if( a < b )
-		return a;
-	else
-		return b;
-}
-inline unsigned int turn_clock_wise( unsigned int dir ) throw()
-{
-	unsigned int t = (dir - 1) & 7;
-	return (dir & 0x80) ? ( t | 0x80) : t;
-}
-
-/*inline unsigned int turn_counter_clock_wise( unsigned int dir )
-{
-	return ( dir & 0x80 ) | ( ( dir - 1 ) & 7 );*/
-
-inline int calcTileHeight( int h ) throw()
-{
-  ///return ((h & 0x8) ? (((h & 0xF) ^ 0xF) + 1) : h & 0xF);
-	//return (h & 0x7);
-	//return ((h & 0x8) ? (((h & 0xF) ^ 0xF) + 1) : h & 0xF);
-	return ((h & 0x8) ? ((h & 0xF) >> 1) : h & 0xF);
-}
-
-
-/********************************************************
-  Function: cMovement::CheckWalkable
-
-  Description: (knoxos)
-    Rewritten checkwalk-function, it calculates new z-position
-    for a walking creature (PC or NPC) walks, and checks if
-    movement is blocked.
-
-    This function takes a little more calculation time, than the
-    last one, since it walks two times through the static-tile set.
-    However at least this one is (more) correct, and these VERy guys
-    now hit their noses on the walls.
-
-    In principle it is the same as the World-kernel in UMelange.
-
-  Parameters:
-    CHARACTER c           Character's index in chars[]
-	int x, y			  new cords.
-	int oldx, oldy		  old cords.
-	bool justask		  don't make any changes, the func. is just asked
-						  "what if"..
-
-  Return code:
-    new z-value        if not blocked
-    invalid_z == -128, if walk is blocked
-
-********************************************************/
-int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int oldx, unsigned int oldy, bool justask )
-{
-	const signed int oldz = pc->pos.z;
-	bool may_levitate = pc->may_levitate;
-	bool on_ladder = false;
-//	bool climbing = false;
-	signed int newz = illegal_z;
-//	short int MoveType = CheckMovementType( pc );
-	bool blocked = false;
-	int ontype = 0;
-
-	int xycount = 0;
-	unitile_st xyblock[XYMAX];
-	GetBlockingMap( Coord_cl(x, y, pc->pos.z, pc->pos.map), xyblock, xycount );
-	GetBlockingStatics( Coord_cl(x, y, pc->pos.z, pc->pos.map), xyblock, xycount );
-	GetBlockingDynamics( Coord_cl(x, y,pc->pos.z, pc->pos.map), xyblock, xycount );
-
-	int i;
-	// first calculate newZ value
-	for( i = 0; i < xycount; i++ )
 	{
-		unitile_st *thisblock = &xyblock[i]; // this is a easy/little tricky, to save a little calculation
-		                                 // since the [i] is calclated several times below
-			                             // if it doesn't help, it doesn't hurt either.
-		signed int nItemTop = thisblock->basez + ((xyblock[i].type == 0) ? xyblock[i].height : calcTileHeight(xyblock[i].height)); // Calculate the items total height
+		if( !CanCharWalk( pc, calcCoordFromDir( dir - 1, coord ) ) )
+			return false;
 
-		// check if the creature is floating on a static (keeping Z or falling)
-		if( ( nItemTop >= newz ) && ( nItemTop <= oldz ) )
-		{
-			if( thisblock->flag2 & 0x02 )
-			{ // walkable tile
-				newz = nItemTop;
-				ontype = thisblock->type;
-				if( thisblock->flag4 == 0x80 ) { // if it was ladder the char is allowed to `levitate´ next move
-					on_ladder = true;
-				}
-				continue;
-			}
-		}
-
-		// So now comes next step, levitation :o)
-		// you can gain Z to a limited amount if yo uwere climbing on last move on a ladder
-		if( ( nItemTop >= newz ) && ( may_levitate ) && ( nItemTop <= oldz + MAX_Z_LEVITATE ) &&
-			( thisblock->flag2 & 0x02 )
-			)
-		{
-			ontype = thisblock->type;
-			newz = nItemTop;
-			if( thisblock->flag4 == 0x80 ) { // if it was ladder the char is allowed to `levitate´ next move
-				on_ladder = true;
-			}
-		}
-		// check if the creature is climbing on a climbable Z
-		// (gaining Z through stairs, ladders, etc)
-		// This form has no height limit, and the tile bottom must start lower or
-		// equal current height + levitateable limit
-		if( ( nItemTop >= newz ) && ( thisblock->basez <= oldz + MAX_Z_LEVITATE ) )
-		{
-			if( (thisblock->flag2 & 0x04) || ( thisblock->type == 0 ) || // Climbable tile, map tiles are also climbable
-			( (thisblock->flag1 == 0) && (thisblock->flag2 == 0x22) ) || // These are a special kind of tiles where OSI forgot
-																		 // to set the climbable flag
-			( (nItemTop >= oldz && nItemTop <= oldz + 3) && (thisblock->flag2 & 0x02) )		 // Allow to climb a height of 1 even if the climbable flag is not set
-																		 // so you can walkupon mushrooms, grasses or so with height of 1
-																		 // if it is a walkable tile of course
-			)
-			{
-				ontype = thisblock->type;
-				newz = nItemTop;
-				if( thisblock->flag4 == 0x80 ) 	{ // if it was ladder the char is allowed to `levitate´ next move
-					on_ladder = true;
-				}
-			}
-		}
+		if( !CanCharWalk( pc, calcCoordFromDir( dir + 1, coord ) ) )
+			return false;
 	}
 
-#if DEBUG_WALKING
-		ConOut( "CheckWalkable calculate Z=%d\n", newz );
-#endif
-        int item_influence = higher( newz + MAX_ITEM_Z_INFLUENCE, oldz );
-		// also take care to look on all tiles the creature has fallen through
-		// (npc's walking on ocean bug)
-		// now the new Z-cordinate of creature is known,
-		// check if it hits it's head against something (blocking in other words)
-		bool isGM = IsGMBody( pc );
-		for(i = 0; i < xycount; i++)
-		{
-			unitile_st *thisblock = &xyblock[i];
-			signed int nItemTop = thisblock->basez + ((xyblock[i].type == 0) ? xyblock[i].height : calcTileHeight(xyblock[i].height)); // Calculate the items total height
-			unsigned char flag1 = thisblock->flag1;
-			unsigned char flag2 = thisblock->flag2;
-			unsigned char flag4 = thisblock->flag4;
-		// yeah,yeah,  this if has grown more ugly than the devil hismelf...
-		if( ( (flag1 & 0x40) ||                                                  // a normal blocking tile
-			((flag2 & 0x02) && (nItemTop > newz))                                // staircases don't have blocking set, so very guy's could walk into them without this check.
-			) &&                                                                 //   but one can walk upon them!
-			!( ( isGM || pc->dead ) && ((flag2 & 0x10) || (flag4 & 0x20))   // ghosts can walk through doors
-			)
-			) {                                                                    // blocking
-				if ((nItemTop > newz) && (thisblock->basez <= item_influence ) ||
-				((nItemTop == newz) && (ontype == 0))
-				)
-					{ // in effact radius?
-                        newz = illegal_z;
-#if DEBUG_WALKING
-						ConOut( "CheckWalkable blocked due to tile=%d at height=%d.\n", xyblock[i].id, xyblock[i].basez );
-#endif
-						blocked = true;
-                        break;
-                    }
-			}
-    // knoxos: MAX_ITEM_Z_INFLUENCE is nice, but not truely correct,
-    //         since the creature height should be the effect radius, if you are i.e.
-    //         polymorphed to a "slime", you could go through things you normally
-    //         wouldn't get under. (Just leaves the question what happens if you
-    //         unpolymorph in a place where you can't fit, lucky there are no
-    //         such gaps or tunnels in Britannia).
-    //         (Well UO isn't ment to really think in 3d)
-		}
-		//}
-// end knoxos code
-#if DEBUG_WALK
-	clConsole.send("CanCharWalk: %dx %dy %dz\n", x, y, z);
-#endif
-	if( (newz > illegal_z) && (!justask)) {
-		// save information if we have climbed on last move.
-		pc->may_levitate = on_ladder;
-	}
-	return newz;
+	// This call has two functions
+	// a) it sets the new Z value for newCoord
+	// b) it returns if we can even walk there
+	bool canWalk = CanCharWalk( pc, newCoord );
+	coord = newCoord;
+
+	return canWalk;
 }
 
 // knox, reinserted it since some other files access it,
@@ -1907,8 +1450,6 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
 			return 0;
 		if ( mapid >= 0x0A8 && mapid <= 0x0AB) 	// water (ocean ?)
 			return 0;
-//		land_st land;
-//		Map->SeekLand(mapid, &land);
 	}
 		
     // see if the map says its ok to move here
@@ -1918,22 +1459,6 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
 		return 1;
     }
     return 0;
-}
-
-// Static Members
-void cMovement::getXYfromDir(UI08 dir, int *x, int *y)
-{
-	switch(dir&0x07)
-	{
-	case 0: (*y)--;				break;
-	case 1: (*x)++; (*y)--;		break;
-	case 2: (*x)++;				break;
-	case 3: (*x)++; (*y)++;		break;
-	case 4: (*y)++;				break;
-	case 5: (*x)--; (*y)++;		break;
-	case 6: (*x)--;				break;
-	case 7: (*x)--; (*y)--;		break;
-	}
 }
 
 bool cMovement::checkBoundingBox(const Coord_cl pos, int fx1, int fy1, int fx2, int fy2)
@@ -1951,4 +1476,47 @@ bool cMovement::checkBoundingCircle(const Coord_cl pos, int fx1, int fy1, int ra
 		if (pos.z == -1 || abs(pos.z-Map->Height(pos))<=5)
 			return true;
 		return false;
+}
+
+inline bool cMovement::isValidDirection( Q_UINT8 dir ) 
+{
+	return ( dir == ( dir & 0x87 ) );
+}
+
+inline bool cMovement::isOverloaded( P_CHAR pc )
+{
+	if ( !pc->dead && !pc->isNpc() && !pc->isGMorCounselor() )
+		if( !Weight->CheckWeight( pc ) || ( pc->stm < 3 ) )
+			return true;
+
+	return false;	
+}
+
+// Does what getxfromdir and getyfromdir did before
+Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl oldCoords )
+{
+	Coord_cl newCoords = oldCoords;
+
+	// We're not switching the running flag
+	switch( dir&0x07 )
+	{
+	case 0x00:
+		newCoords.y--; break;
+	case 0x01:
+		newCoords.y--; newCoords.x++; break;
+	case 0x02:
+		newCoords.x++; break;
+	case 0x03:
+		newCoords.x++; newCoords.y++; break;
+	case 0x04:
+		newCoords.y++; break;
+	case 0x05:
+		newCoords.y--; newCoords.x--; break;
+	case 0x06:
+		newCoords.x--; break;
+	case 0x07:
+		newCoords.x--; newCoords.y--; break;
+	};
+
+	return newCoords;
 }
