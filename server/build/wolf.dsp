@@ -94,19 +94,19 @@ SOURCE=.\accounts.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai.cpp
+SOURCE=.\ai\ai.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai_animals.cpp
+SOURCE=.\ai\ai_animals.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai_humans.cpp
+SOURCE=.\ai\ai_humans.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai_monsters.cpp
+SOURCE=.\ai\ai_monsters.cpp
 # End Source File
 # Begin Source File
 
@@ -350,7 +350,7 @@ SOURCE=.\accounts.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai.h
+SOURCE=.\ai\ai.h
 # End Source File
 # Begin Source File
 
