@@ -28,7 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "../itemsmgr.h"
 #include "../globals.h"
 #include "../network/uosocket.h"
 #include "../network/uotxpackets.h"
