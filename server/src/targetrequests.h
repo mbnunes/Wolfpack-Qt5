@@ -260,7 +260,8 @@ public:
 			return true;
 		}
 
-		pChar->damage( DAMAGE_GODLY, pChar->hitpoints(), socket->player() );
+		pChar->kill( socket->player() );
+		//pChar->damage( DAMAGE_GODLY, pChar->hitpoints(), socket->player() );
 		return true;
 	}
 };

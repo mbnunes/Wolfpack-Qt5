@@ -1058,6 +1058,10 @@ void cItem::processNode( const cElement *Tag )
 		setType2( Value.toUInt() );
 	}
 
+	// <amount>10</amount>
+	else if ( TagName == "amount" )
+		this->setAmount( Value.toUShort() );
+
 	// <weight>10</weight>
 	else if( TagName == "weight" )
 		this->setWeight( Value.toFloat() );
@@ -1317,6 +1321,8 @@ void cItem::processContainerNode( const cElement *tag )
 				addItem( nItem, true, false );
 				for ( unsigned int j = 0; j < element->childCount(); ++j )
 					nItem->processNode( element->getChild( j ) );
+				if ( this->layer() == cBaseChar::BuyRestockContainer )
+					nItem->setRestock( nItem->amount() );
 			}
 			else if( element->hasAttribute( "list" ) )
 			{

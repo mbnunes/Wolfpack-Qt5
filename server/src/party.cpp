@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -35,16 +34,20 @@
 #include "world.h"
 #include "network/uosocket.h"
 
-cParty::cParty(P_PLAYER leader) {
+cParty::cParty (P_PLAYER leader) 
+{
 	leader_ = leader;
 	addMember(leader);
 }
 
-cParty::~cParty() {
-	for (P_PLAYER member = members_.first(); member; member = members_.next()) {
+cParty::~cParty() 
+{
+	for (P_PLAYER member = members_.first(); member; member = members_.next()) 
+	{
 		member->setParty(0);
 
-		if (member->socket()) {
+		if (member->socket()) 
+		{
 			cUOTxPartyRemoveMember updateparty;
 			updateparty.setSerial(member->serial());
 			member->socket()->send(&updateparty);
@@ -52,8 +55,10 @@ cParty::~cParty() {
 		}
 	}
 	
-	while (canidates_.count() > 0) {
-		if (canidates_.first()->socket()) {
+	while (canidates_.count() > 0) 
+	{
+		if (canidates_.first()->socket()) 
+		{
 			cUOTxPartyRemoveMember updateparty;
 			updateparty.setSerial(canidates_.first()->serial());
 			canidates_.first()->socket()->send(&updateparty);

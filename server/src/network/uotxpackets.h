@@ -757,7 +757,7 @@ class cUOTxSendItem: public cUOPacket
 {
 public:
 	cUOTxSendItem(): cUOPacket( 0x1A, 20 )	{ setShort( 1, 20 ); }
-	void setSerial( uint data )			{ setInt( 3, data | 0x80000000 ); }
+	void setSerial( uint data )				{ setInt( 3, data | 0x80000000 ); }
 	void setId( UINT16 data )				{ setShort( 7, data ); }
 	void setAmount( UINT16 data )			{ setShort( 9, data ); }
 	void setCoord( const Coord_cl &coord );

@@ -2357,14 +2357,18 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	{
 		P_ITEM mItem = *it;
 
-		if( mItem )
+		if( mItem && mItem->amount() )
 		{
-			// For Layer 0x1A restock is the amount currently in stock
-			if( pItem->layer() == 0x1A && mItem->restock() <= 0 )
-				continue;
+			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, i, mItem->amount(), pItem->serial() );
+			
+			// change how the name is displayed
+			QString name = mItem->getName(true);
+			name[0] = name[0].upper();
+			for ( uint i = 1; i < name.length() - 1; ++i )
+				if ( name.at(i).isSpace() )
+					name.at(i+1) = name.at(i+1).upper();
 
-			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, i, ( pItem->layer() == 0x1A ) ? mItem->restock() : mItem->amount(), pItem->serial() );
-			buyitems.push_front( buyitem_st( mItem->buyprice(), mItem->getName() ) );
+			buyitems.push_front( buyitem_st( mItem->buyprice(), name ) );
 		}
 	}
 

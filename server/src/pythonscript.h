@@ -192,6 +192,9 @@ struct stError {
 */
 class cPythonScriptable {
 public:
+
+	virtual ~cPythonScriptable() {}
+	
 	/*!
 		\brief Used to identify a specific object type.
 		\returns A pointer to the name of this class.
