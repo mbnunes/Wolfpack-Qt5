@@ -286,8 +286,8 @@ bool cServer::run( int argc, char** argv )
 		QTranslator* translator = new QTranslator( qApp );
 		if ( !translator->load( languageFile, "." ) )
 		{
-			Console::instance()->log( LOG_ERROR, "Couldn't load translator.\n" );
-			return false;
+			Console::instance()->log( LOG_WARNING, "Couldn't load translator.\n" );
+			// return false;
 		}
 		else
 		{
