@@ -2354,7 +2354,8 @@ static void CorpseTarget(const P_CLIENT pC)
 						case 0x0306: 
 							break;     // Dawn Girl (NPC)
 							// case 0x0307: break;     //Plague Beast (not working yet)
-							// case 0x0308: break;     //Horde Demon (smallest)(not working yet)
+						case 0x0308: 
+							break;     //Horde Demon (smallest)
 							// case 0x0309: break;     //Doppleganger (not working yet)
 							// case 0x030A: break;     //Swarm (not working yet)
 							// case 0x030B: break;     //Bogling (not working yet)
@@ -2373,8 +2374,10 @@ static void CorpseTarget(const P_CLIENT pC)
 							// case 0x0318: break;     //Chaos Demon (not working yet)
 							// case 0x0319: break;     //Skeletal Mount (not working yet)
 							// case 0x031A: break;     //Swamp Dragon (not working yet)
-							// case 0x031B: break;     //Horde Demon (not working yet)
-							// case 0x031C: break;     //Horde Demon (biggest) (not working yet)
+						case 0x031B: 
+							break;     //Horde Demon
+						case 0x031C: 
+							break;     //Horde Demon (biggest)
 						case 0x031D: 
 							break;     // Fire Dragon (buggy model)
 						case 0x031E: 
