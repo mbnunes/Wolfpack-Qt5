@@ -92,9 +92,9 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			Items->DeleItem(pi_bolts); //-Fraz- delete the bolts when ready 
 			const P_ITEM npi = Items->SpawnItem(s, pc_currchar, 1, "cut cloth", 0, 0x17, 0x66, col1, 1, 1);
 			if(npi == NULL) return;// crash check
-			npi->weight = 10;
+			npi->setWeight( 10 );
 			npi->setAmount( amt1 );
-			npi->pileable = true;
+			npi->setPileable( true );
 			RefreshItem(npi);
 			Items->DeleItem(pi_bolts);
 			Weight->NewCalc(pc_currchar);
@@ -998,7 +998,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 		cItem* Ingot = Items->SpawnItem(pc_currchar, numore, tmp, 1, id, color, 1);
 		if (Ingot)
 		{
-			Ingot->weight = 20;	// that's 0.2 stone
+			Ingot->setWeight( 20 ); // Thats 0.2 stone
 			RefreshItem(Ingot);
 		}
 
@@ -1567,8 +1567,8 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,amt,"#",0,0x0E,0x21,col1,1,1);
 			if(pi_c == NULL) return;
 			// need to set amount and weight and pileable, note: cannot set pilable while spawning item -Fraz-
-			pi_c->weight=10;
-			pi_c->pileable=true;
+			pi_c->setWeight( 10 );
+			pi_c->setPileable( true );
 			pi_c->att=9;
 			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
@@ -1586,8 +1586,8 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			soundeffect(s,0x02,0x48);
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"cut cloth",0,0x17,0x66,col1,1,1);
 			if(pi_c == NULL) return;
-			pi_c->weight=10;
-			pi_c->pileable=true;
+			pi_c->setWeight( 10 );
+			pi_c->setPileable( true );
 			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
@@ -1601,8 +1601,8 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			soundeffect(s,0x02,0x48);
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"leather piece",0,0x10,0x67,col1,1,1);
 			if(pi_c == NULL) return;
-			pi_c->weight=100;
-			pi_c->pileable=true;
+			pi_c->setWeight( 100 );
+			pi_c->setPileable( true );
 			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
@@ -1753,7 +1753,7 @@ void cSkills::ArmsLoreTarget(int s)
 	const PC_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (!pi) return;
 
-	if ( (pi->def==0 || pi->pileable)
+	if ( (pi->def == 0 || pi->pileable() )
 		&& ((pi->lodamage() == 0 && pi->hidamage() == 0) && (pi->rank<1 || pi->rank>9)))
 	{
 		sysmessage(s, tr("That does not appear to be a weapon.") );
@@ -2144,7 +2144,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 		sysmessage(s, tr("You cannot steal that.") );
 		return;
 	}
-	if (pi->weight>cansteal) // LB, bugfix, (no weight check)
+	if( pi->weight() > cansteal ) // LB, bugfix, (no weight check)
 	{
 		sysmessage(s, tr("That is too heavy.") );
 		return;
@@ -2455,7 +2455,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		pPoi->Init(0);
 		pPoi->SetSerial(kser);
 		pPoi->setId(0x0F0E);
-		pPoi->pileable=true;
+		pPoi->setPileable( true );
 		pPoi->moveTo(pc->pos);
 		pPoi->priv|=0x01;
 		RefreshItem(pPoi);
@@ -2874,7 +2874,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 	if (!pi) return; 
 	if (!CheckInPack(s,pi)) return;
 
-	int a=1+pi->weight/100;	// number of ingots you get depends on the weight (Duke)
+	int a = 1 + pi->weight() / 100;	// number of ingots you get depends on the weight (Duke)
 
 	if (pi->isLockedDown() || pi->rank!=30 || (pi->smelt < 1 || pi->smelt > 10 ))
 	{
@@ -2914,7 +2914,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 		cItem* Ingot = Items->SpawnItem(pc, a, Name, 1, 0x1BF2, Color, 1);
 		if (Ingot)
 		{
-			Ingot->weight = 20;	// that is 0.2 stone
+			Ingot->setWeight( 20 );	// that is 0.2 stone
 			RefreshItem(Ingot);
 			sysmessage(s, tr("you smelt the item and place some ingots in your pack.") );
 			Items->DeleItem(pi);

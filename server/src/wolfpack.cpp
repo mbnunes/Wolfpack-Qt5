@@ -4230,7 +4230,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		{
 			pi->setId(0x183d);
 		}
-		pi->pileable = true;
+		pi->setPileable( true );
 		pi->moveTo(pc_p->pos);
 		pi->priv|=0x01;
 	}

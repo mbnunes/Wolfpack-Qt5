@@ -322,7 +322,7 @@ void cGump::Input(int s)
 					pj->moreb3 = (unsigned char)(k>>8);
 					pj->moreb4 = (unsigned char)(k%256);
 					break;
-		case 14: 	k = str2num( text );	pj->pileable = k;	break;	// Pileable
+		case 14: 	k = str2num( text );	pj->setPileable(k);	break;	// Pileable
 		case 15:	k = str2num( text );	pj->dye = k;		break;	// Dye
 		case 16:	k = str2num( text );	pj->corpse = k;		break;	// Corpse
 		case 17:	k = str2num( text );	pj->setLodamage(k); break;	// LoDamage
@@ -1139,7 +1139,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "MoreB");
 		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x", (pj->moreb1<<24)+(pj->moreb2<<16)+(pj->moreb3<<8)+pj->moreb4);
 		line--; if( line == 0 ) strcpy( (char*)script1, "Stackable");
-		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->pileable);
+		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->pileable() ? 1 : 0 );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Dyeable");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->dye );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Corpse");

@@ -59,27 +59,32 @@ private:
 	UI16 type2_;
 	UI08 offspell_; // Whats that for ?!
 	SI16 speed_;
+	SI16 racehate_; 
+	SI16 weight_;
 
 public:
 	// Getters
-	UI16			id()		const { return id_; };
-	UI16			color()		const { return color_; };
-	UI16			amount()	const { return amount_; }; // Amount of items in pile
-	UI16			amount2()	const { return amount2_; }; //Used to track things like number of yards left in a roll of cloth
-	const QString	&name2()	const { return name2_; };
-	const QString	&name()		const { return name_; };
-	UI08			layer()		const { return layer_; }; // Layer if equipped on paperdoll
+	UI16			id()		const { return id_; };		 // The graphical id of the item
+	UI16			color()		const { return color_; };	 // The Color of the item
+	UI16			amount()	const { return amount_; };	 // Amount of items in pile
+	UI16			amount2()	const { return amount2_; };  // Used to track things like number of yards left in a roll of cloth
+	const QString	&name2()	const { return name2_; };	 // The identified name of the item
+	const QString	&name()		const { return name_; };	 // Returns the item's name
+	UI08			layer()		const { return layer_; };	 // Layer if equipped on paperdoll
 	UI08			itemhand()	const { return itemhand_; }; // ITEMHAND system - AntiChrist
-	const QString	&murderer() const { return murderer_; }; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
-	UI32			type()		const { return type_; }; // Used for hardcoded behaviour
+	const QString	&murderer() const { return murderer_; }; // If it's a corpse, this holds the name of the murderer
+	UI32			type()		const { return type_; };	 // Used for hardcoded behaviour
 	UI32			type2()		const { return type2_; };
-	UI08			offspell()	const { return offspell_; };
-	bool			secured()	const { return priv&0x08; };
-	SI16			speed()		const { return speed_; }; // Weapon speed
+	UI08			offspell()	const { return offspell_; }; 
+	bool			secured()	const { return priv&0x08; }; // Is the container secured (houses)
+	SI16			speed()		const { return speed_; };	 // Weapon speed
 	SI16			lodamage()	const { return lodamage_; }; // Minimum damage weapon inflicts
 	SI16			hidamage()	const { return hidamage_; }; // Maximum damage weapon inflicts
 	bool			wipe()		const { return priv&0x10; }; // Should the item be wiped when affected by /WIPE
-	
+	bool			pileable()	const { return priv&0x20; }; // Can Item be piled
+	SI16			racehate()	const { return racehate_; }; // Race ID this weapon does double damage to
+	SI16			weight()	const { return weight_; };
+
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
 	void	setColor( UI16 nValue ) { color_ = nValue; };
@@ -99,6 +104,9 @@ public:
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; };
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; };
 	void	setWipe( bool nValue ) { ( nValue ) ? priv &= 0x10 : priv |= 0xEF; };
+	void	setPileable( bool nValue ) { ( nValue ) ? priv &= 0x20 : priv |= 0xDF; };
+	void	setRacehate( SI16 nValue ) { racehate_ = nValue; };
+	void	setWeight( SI16 nValue ) { weight_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -111,8 +119,7 @@ public:
 	Coord_cl oldpos; //Old position - used for bouncing bugfix - AntiChrist
 	SERIAL oldcontserial; //Old contserial - used for bouncing bugfix - Antichrist
 	signed char oldlayer; // Old layer - used for bouncing bugfix - AntiChrist
-	
-	int weight;
+
 	unsigned char more1; // For various stuff
 	unsigned char more2;
 	unsigned char more3;
@@ -126,14 +133,10 @@ public:
 	unsigned int morez;
 	unsigned char doordir; // Reserved for doors
 	unsigned char dooropen;
-	bool pileable; // Can item be piled
-	// NUTS - move to priv
-
 	unsigned char dye; // Reserved: Can item be dyed by dye kit
 	unsigned char corpse; // Is item a corpse
 	unsigned int att; // Item attack
 	unsigned int def; // Item defense
-	int racehate; //Race # that weapon does x2 damage to -Fraz-
 	signed short hp; //Number of hit points an item has.
 	signed short maxhp; // Max number of hit points an item can have.
 	signed short st; // The strength needed to equip the item
@@ -161,6 +164,7 @@ public:
 	//   2 | Dispellable
 	//   3 | Secured (Chests)
 	//   4 | Wipeable (/WIPE affects the item)
+	//   5 | Pileable
 	UI08 priv;
 	
 	int value; // Price shopkeeper sells item at.

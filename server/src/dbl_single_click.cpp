@@ -1547,7 +1547,7 @@ void singleclick(UOXSOCKET s)
 	
 	// From now on, we will build the message into temp, and let itemname with just the name info
 	// Add amount info.
-	if (!pi->pileable || pi->amount() == 1)
+	if (!pi->pileable() || pi->amount() == 1)
 		strncpy((char*)temp, itemname, 100);
 	else 
 		if (itemname[strlen(itemname) - 1] != 's') // avoid iron ingotss : x

@@ -1336,7 +1336,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	}
 	
 	// player run vendors
-	if (!(pCont->pileable && pItem->pileable && pCont->id()==pItem->id()
+	if (!(pCont->pileable() && pItem->pileable() && pCont->id()==pItem->id()
 		|| (pCont->type()!=1 && pCont->type()!=9)))
 	{
 		P_CHAR pc_j = GetPackOwner(pCont);
@@ -1378,7 +1378,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			soundeffect2( pc_currchar, 0x57 );			
 		}
 		else  // - Pileable
-			if (pCont->pileable && pItem->pileable && pCont->id()==pItem->id())
+			if (pCont->pileable() && pItem->pileable() && pCont->id()==pItem->id())
 			{		
 				if ( pCont->amount()+pItem->amount() > 65535 )
 				{

@@ -74,7 +74,7 @@ cItem::cItem( cItem &src )
 	this->type_ = src.type_;
 	this->type2_ = src.type2_;
 	this->offspell_ = src.offspell_;
-	this->weight = src.weight;
+	this->weight_ = src.weight_;
 	this->more1 = src.more1;
 	this->more2 = src.more2;
 	this->more3 = src.more3;
@@ -90,7 +90,6 @@ cItem::cItem( cItem &src )
 	this->amount2_ = src.amount2_;
 	this->doordir = src.doordir;
 	this->dooropen = src.dooropen;
-	this->pileable = src.pileable;
 	this->dye = src.dye;
 	this->corpse = src.corpse;
 	this->carve = src.carve;
@@ -98,7 +97,7 @@ cItem::cItem( cItem &src )
 	this->def = src.def;
 	this->lodamage_=src.lodamage_;
 	this->hidamage_=src.hidamage_;
-	this->racehate=src.racehate;
+	this->racehate_ = src.racehate_;
 	this->smelt=src.smelt;
 	this->hp=src.hp;
 	this->maxhp=src.maxhp;
@@ -326,7 +325,7 @@ bool cItem::AddItem(cItem* pItem, short xx, short yy)	// Add Item to container
 
 bool cItem::PileItem(cItem* pItem)	// pile two items
 {
-	if (!(this->pileable && pItem->pileable &&
+	if (!(this->pileable() && pItem->pileable() &&
 		this->serial!=pItem->serial &&
 		this->id()==pItem->id() &&
 		this->color() == pItem->color() ))
@@ -452,7 +451,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("morey",		morey);
 		archive.read("morez",		morez);
 		archive.read("amount",		amount_);
-		archive.read("pileable",	pileable);
 		archive.read("doordir",		doordir);
 		archive.read("dye",			dye);
 		archive.read("decaytime",	decaytime);
@@ -463,10 +461,10 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("def",			def);
 		archive.read("hidamage",	hidamage_);
 		archive.read("lodamage",	lodamage_);
-		archive.read("racehate",	racehate);
+		archive.read("racehate",	racehate_);
 		archive.read("st",			st);
 		archive.read("time_unused",	time_unused);
-		archive.read("weight",		weight);
+		archive.read("weight",		weight_);
 		archive.read("hp",			hp);
 		archive.read("maxhp",		maxhp);
 		archive.read("rank",		rank);
@@ -523,7 +521,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("morey",		morey);
 		archive.write("morez",		morez);
 		archive.write("amount",		amount_);
-		archive.write("pileable",	pileable);
 		archive.write("doordir",	doordir);
 		archive.write("dye",		dye);
 		archive.write("decaytime",	decaytime > 0 ? decaytime - uiCurrentTime : 0);
@@ -532,10 +529,10 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("def",		def);
 		archive.write("hidamage",	hidamage_);
 		archive.write("lodamage",	lodamage_);
-		archive.write("racehate",	racehate);
+		archive.write("racehate",	racehate_);
 		archive.write("st",			st);
 		archive.write("time_unused",time_unused);
-		archive.write("weight",		weight);
+		archive.write("weight",		weight_);
 		archive.write("hp",			hp);
 		archive.write("maxhp",		maxhp);
 		archive.write("rank",		rank);
@@ -625,8 +622,8 @@ int cItem::getWeight()
 {
 	unsigned int itemweight=0;
 
-	if (this->weight>0) //weight is defined in scripts for this item
-		itemweight=this->weight;
+	if( this->weight_ > 0 ) //weight is defined in scripts for this item
+		itemweight = this->weight_;
 	else
 	{
 		tile_st tile;
@@ -640,8 +637,8 @@ int cItem::getWeight()
 		}
 		else //found the weight from the tile, set it for next time
 		{			
-			itemweight = tile.weight*100;
-			this->weight=itemweight; // set weight so next time don't have to search
+			itemweight = tile.weight * 100;
+			this->weight_ = itemweight; // set weight so next time don't have to search
 		}
 	}
 	return itemweight;
@@ -694,7 +691,7 @@ void cItem::Init(bool mkser)
 	this->type_=0; // For things that do special things on doubleclicking
 	this->type2_=0;
 	this->offspell_ = 0;
-	this->weight=0;
+	this->weight_ = 0;
 	this->more1=0; // For various stuff
 	this->more2=0;
 	this->more3=0;
@@ -710,7 +707,6 @@ void cItem::Init(bool mkser)
 	this->amount2_ = 0; //Used to track things like number of yards left in a roll of cloth
 	this->doordir=0; // Reserved for doors
 	this->dooropen=0;
-	this->pileable=false; // Can item be piled
 	this->dye=0; // Reserved: Can item be dyed by dye kit
 	this->corpse=0; // Is item a corpse
 	this->carve=-1;//AntiChrist-for new carving system
@@ -718,7 +714,7 @@ void cItem::Init(bool mkser)
 	this->def=0; // Item defense
 	this->lodamage_=0; //Minimum Damage weapon inflicts
 	this->hidamage_=0; //Maximum damage weapon inflicts
-	this->racehate=-1; //race hating weapon -Fraz-
+	this->racehate_=-1; //race hating weapon -Fraz-
 	this->smelt=0; // for smelting items
 	this->hp=0; //Number of hit points an item has.
 	this->maxhp=0; // Max number of hit points an item can have.
@@ -1013,7 +1009,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 				case 'R':
 				case 'r':
 					if (!strcmp("RACEHATE", (char*)script1))
-						pi->racehate = str2num(script2);				
+						pi->setRacehate( str2num(script2) );
 					else if (!strcmp("RANK", (char*)script1))
 					{
 						pi->rank = str2num(script2); // By Magius(CHE)
@@ -1072,7 +1068,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 						//int anum = 3;
 						// anum=4;
 						int anum = str2num(script2); // Ison 2-20-99
-						pi->weight = anum;
+						pi->setWeight( anum );
 					}
 					break;
 			}
@@ -1085,8 +1081,8 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 	if (pi)	// checking pi is needed here because ITEMLIST can set it to NULL (Duke, 4.9.01)
 	{
 		Map->SeekTile(pi->id(), &tile);
-		if (tile.flag2&0x08)
-			pi->pileable = true;
+		if( tile.flag2&0x08 )
+			pi->setPileable( true );
 		
 		if (!pi->maxhp && pi->hp)
 			pi->maxhp = pi->hp; // Magius(CHE)
@@ -1340,7 +1336,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 	pi->setId(id);
 	pi->setColor( color );
 	pi->setAmount( nAmount );
-	pi->pileable=pile;
+	pi->setPileable( pile );
 	pi->att=5;
 	pi->priv |= 0x01;
 	if (IsCutCloth(pi->id())) pi->dye=1;// -Fraz- fix for cut cloth not dying
@@ -1499,7 +1495,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				case 'R':
 				case 'r':
 					if (!strcmp("POISONED",(char*)script1)) pi->poisoned=str2num(script2);
-					else if (!strcmp("RACEHATE",(char*)script1)) pi->racehate=str2num(script2);
+					else if (!strcmp("RACEHATE",(char*)script1)) pi->setRacehate( str2num(script2) );
 					else if (!strcmp("RESTOCK",(char*)script1)) pi->restock=str2num(script2);
 					else if (!strcmp("RANK",(char*)script1))
 					{
@@ -1537,8 +1533,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 						//int anum=3;
 						//anum=4;
 						int anum=str2num(script2); // Ison 2-20-99
-						pi->weight=anum;
-						//clConsole.send("SETTING WEIGTH TO %i\n",pi->weight);
+						pi->setWeight( anum );
 					}
 					//Added by Krozy on 7-Sep-98
 				break;
@@ -1999,7 +1994,7 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 
 		// <weight>10</weight>
 		else if( TagName == "weight" )
-			Item->weight = Value.toUInt();
+			Item->setWeight( Value.toUInt() );
 
 		// <value>10</value>
 		else if( TagName == "value" )
@@ -2088,10 +2083,10 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 		// <pile />
 		// <nopile />
 		else if( TagName == "pile" )
-			Item->pileable = true;
+			Item->setPileable( true );
 
 		else if( TagName == "nopile" )
-			Item->pileable = false;
+			Item->setPileable( false );
 
 		// <dispellable />
 		// <notdispellable />
@@ -2110,6 +2105,10 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 		// <itemhand>2</itemhand>
 		else if( TagName == "itemhand" )
 			Item->setItemhand( Value.toInt() );
+
+		// <racehate>2</racehate>
+		else if( TagName == "racehate" )
+			Item->setRacehate( Value.toInt() );
 
 		// <restock>2</restock>
 		else if( TagName == "restock" )

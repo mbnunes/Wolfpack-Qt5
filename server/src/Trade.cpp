@@ -153,7 +153,7 @@ void cTrade::buyaction(int s)
 				{
 					if (pi->amount()>amount[i])
 					{
-						if (pi->pileable)
+						if( pi->pileable() )
 						{
 							Commands->DupeItem(s, buyit[i], amount[i]);
 						}
@@ -172,7 +172,7 @@ void cTrade::buyaction(int s)
 						switch(layer[i])
 						{
 						case 0x1A:
-							if (pi->pileable)
+							if( pi->pileable() )
 							{
 								Commands->DupeItem(s, buyit[i], amount[i]);
 							}
@@ -187,7 +187,7 @@ void cTrade::buyaction(int s)
 							pi->restock += amount[i];
 							break;
 						case 0x1B:
-							if (pi->pileable)
+							if( pi->pileable() )
 							{
 								pi->setContSerial(pi_pack->serial);
 								RefreshItem(buyit[i]);//AntiChrist

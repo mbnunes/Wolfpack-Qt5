@@ -770,7 +770,8 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "oldz", Item->oldpos.z )
 	else getIntProperty( "oldplane", Item->oldpos.plane )
 	else getIntProperty( "oldlayer", Item->oldlayer )
-	else getIntProperty( "weight", Item->weight )
+	else getIntProperty( "weight", Item->weight() )
+	else getIntProperty( "racehate", Item->racehate() )
 	else getIntProperty( "more1", Item->more1 )
 	else getIntProperty( "more2", Item->more2 )
 	else getIntProperty( "more3", Item->more3 )
@@ -869,13 +870,18 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else if( !strcmp( name, "type2" ) )
 		self->Item->setType2( PyInt_AS_LONG( value ) );
 
+	else if( !strcmp( name, "racehate" ) )
+		self->Item->setRacehate( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "weight" ) )
+		self->Item->setWeight( PyInt_AS_LONG( value ) );
+
 	// CONTAINER!!
 	else setIntProperty( "oldx", Item->oldpos.x )
 	else setIntProperty( "oldy", Item->oldpos.y )
 	else setIntProperty( "oldz", Item->oldpos.z )
 	else setIntProperty( "oldplane", Item->oldpos.plane )
 	else setIntProperty( "oldlayer", Item->oldlayer )
-	else setIntProperty( "weight", Item->weight )
 	else setIntProperty( "more1", Item->more1 )
 	else setIntProperty( "more2", Item->more2 )
 	else setIntProperty( "more3", Item->more3 )

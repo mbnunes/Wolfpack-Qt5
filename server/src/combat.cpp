@@ -248,9 +248,9 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 
 			if((pc_attacker->isPlayer()) && (fightskill!=WRESTLING))
 			{ 
-				if (pWeapon->racehate != 0 && pc_deffender->race != 0)//-Fraz- Racehating combat
+				if (pWeapon->racehate() != 0 && pc_deffender->race != 0)//-Fraz- Racehating combat
 				{
-					if (pWeapon->racehate==pc_deffender->race)
+					if (pWeapon->racehate() == pc_deffender->race)
 					{
 						basedamage *=2;
 							if(pc_deffender->isPlayer())

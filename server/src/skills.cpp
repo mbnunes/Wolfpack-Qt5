@@ -1615,7 +1615,7 @@ void cSkills::RandomSteal(int s)
 	sysmessage(s, (char*)temp);
 	if (npcinrange(s, pc_npc, 1))
 	{
-		if ((item->weight>cansteal) && (item->type()!=1 && item->type()!=63 &&
+		if ((item->weight()>cansteal) && (item->type()!=1 && item->type()!=63 &&
 			item->type()!=65 && item->type()!=87))//Containers
 		{
 			sysmessage(s,"That is too heavy.");

@@ -850,11 +850,12 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 
 
 		//add item weight if item doesn't have it yet
-		if (pi->weight<=0) // LB, changed from 29 to 0
+		if( pi->weight() <= 0 ) // LB, changed from 29 to 0
 		{
-			pi->weight=0;
-			pi->weight=pi->getWeight();
+			pi->setWeight( 0 );
+			pi->setWeight( pi->getWeight() );
 		}
+
 		if (pi->maxhp==0) pi->maxhp=pi->hp;
 		// Tauriel adding region pointers
 		if (pi->isInWorld())
