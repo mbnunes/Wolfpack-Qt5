@@ -59,6 +59,7 @@
 
 	<!-- Bow -->
 	<item id="13b1">
+		<bindmenu id="ITEM_MENU"/>	
 		<id>0x13b1</id>
 		<twohanded />
 		<decay />
@@ -100,6 +101,7 @@
 
 	<!-- Gold -->
 	<item id="eed">
+		<name>gold</name>
 		<id>0xeed</id>
 	</item>
 

@@ -1,0 +1,14 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                         |
+|   )).-' {{ ;'`   | Revised by: 	                        |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!--  default -->
+	<startitems id="default">
+		<gold>100</gold>
+	</startitems>	
+</definitions>
