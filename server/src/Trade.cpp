@@ -37,6 +37,7 @@
 //
 
 #include "Trade.h"
+#include "inlines.h"
 
 #undef  DBGFILE
 #define DBGFILE "Trade.cpp"
