@@ -66,6 +66,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Making runebooks now allows to use all 4 types of runes.
 		- Implemented item enhancement via tailoring and blacksmithing.
 		- Fixed hunger for players.
+		- Fixed a bug in trainmenus (training above skillcap)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

@@ -12,50 +12,51 @@ from wolfpack.consts import *
 MAX_TEACHING = 300
 MIN_TEACHING = 20
 
-#	  onContextCheckVisible
 def onContextCheckVisible( char, target, tag ):
 	if (target.skill[tag - 1] >= 300):
-		return 1 # visible
+		return True # visible
 
-	return 0 # not visible
+	return False # not visible
 
 def onContextCheckEnabled( char, target, tag ):
 	skill = tag - 1
 	if ( skill == STEALTH and char.skill[ HIDING ] < 800 ):
-		return 0 # disabled
+		return False # disabled
 	if ( skill == REMOVETRAPS and ( char.skill[ LOCKPICKING ] < 500 or char.skill[ DETECTINGHIDDEN ] < 500 ) ):
-		return 0 # disabled
+		return False # disabled
 	if ( char.skill[ skill ] >= MAX_TEACHING ):
-		return 0 # disabled
+		return False # disabled
+	if ( char.skill[ skill ] >= char.skillcap[ skill ] ):
+		return False # disabled
 	else:
-		return 1 #enabled
+		return True #enabled
 
 def onContextEntry( char, target, tag  ):
-
 	skill = tag - 1
 	if ( char.dead or skill < 0 ):
-		return 1
+		return True
 
 	baseToSet = target.skill[ skill ] / ( 1000 / MAX_TEACHING )
 	if ( baseToSet > MAX_TEACHING ):
 		baseToSet = MAX_TEACHING
 	elif ( baseToSet < MIN_TEACHING ):
-		target.say( str( baseToSet ) )
-		return 1
+		#target.say( str( baseToSet ) )
+		return True
 	pointsToLearn = baseToSet - char.skill[ skill ]
-	if ( pointsToLearn < 0 ): # Player knows more than me
-		return 1
+	#it shouldn't be able to teach a skill above the chars skillcap
+	pointsToLearn = min( pointsToLearn, char.skillcap[ skill ] - char.skill[ skill ] )
+	if ( pointsToLearn <= 0 ): # Player knows more than me
+		return True
 
 	target.say( 1019077, args = "", affix = " " + str( pointsToLearn*10 ), prepend = 0, socket = char.socket ) # I will teach thee all I know, if paid the amount in full.  The price is:
 	target.say( 1043108, socket = char.socket ) #For less I shall teach thee less.
 	char.settag("npctrainer", str( target.serial ) )
 	char.settag("trainningskill", str( skill ) )
-	return 1
+	return True
 
 def onDropOnChar( char, item ):
-
-	if ( item.id != 0xeed ):
-		return 0 # not what we expected :(
+	if ( item.baseid != 'eed' ):
+		return False # not what we expected :(
 
 	dropper = item.container
 	if ( dropper.gettag("npctrainer") == str( char.serial ) and dropper.hastag("trainningskill") ):
@@ -63,6 +64,10 @@ def onDropOnChar( char, item ):
 		dropper.deltag("npctrainer")
 		dropper.deltag("trainningskill")
 		amount = item.amount / 10
+
+		if ( amount == 0 ):
+			#we will be nice and give him his gold back
+			return False
 
 		if ( amount > MAX_TEACHING ):
 			amount = MAX_TEACHING
@@ -76,21 +81,23 @@ def onDropOnChar( char, item ):
 			sum += skills[i]
 
 		if ( sum >= cap ):
-			return 0
+			return False
 
 		baseToSet = char.skill[ skill ] / ( 1000 / MAX_TEACHING )
 		if ( baseToSet > MAX_TEACHING ):
 			baseToSet = MAX_TEACHING
 		elif ( baseToSet < MIN_TEACHING ):
-			char.say( str( baseToSet ) )
-			return 0
+			#char.say( str( baseToSet ) )
+			return False
 
 		if ( baseToSet + sum > cap ):
 			baseToSet = cap - sum
 
 		pointsToLearn = baseToSet - dropper.skill[ skill ]
-		if ( pointsToLearn < 0 ): # Player knows more than me
-			return 0
+		#it shouldn't be able to teach a skill above the chars skillcap
+		pointsToLearn = min( pointsToLearn, dropper.skillcap[ skill ] - dropper.skill[ skill ] )
+		if ( pointsToLearn <= 0 ): # Player knows more than me
+			return False
 
 		if ( amount > pointsToLearn ):
 			amount = pointsToLearn
@@ -101,7 +108,7 @@ def onDropOnChar( char, item ):
 		dropper.skill[skill] = dropper.skill[skill] + amount
 
 		char.say( 501539 ) # Let me show thee something of how this is done.
-		return 1
-	return 0
+		return True
+	return False
 
 
