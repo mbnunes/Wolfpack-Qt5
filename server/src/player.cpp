@@ -1339,25 +1339,27 @@ bool cPlayer::canSeeChar(P_CHAR character) {
 
 		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 
-		// Disconnected players are invisible unless allShow is active for the current account
-		if (!player->socket() && !player->logoutTime() && (!account_ || !account_->isAllShow())) {
-			return false;
-		}
-
 		// By default we are mor privileged than our target if we are a gm
 		bool privileged = isGM();
 
-		if (privileged && player) {
-			// Determine if we are more privileged than the target
-			if (player->account()) {
-				if (!account_ || player->account()->rank() > account_->rank()) {
-					privileged = false;
+		// Disconnected players are invisible unless allShow is active for the current account
+		if (player) {
+			if (!player->socket() && !player->logoutTime() && (!account_ || !account_->isAllShow())) {
+				return false;
+			}
+
+			if (privileged) {
+				// Determine if we are more privileged than the target
+				if (player->account()) {
+					if (!account_ || player->account()->rank() > account_->rank()) {
+						privileged = false;
+					}
 				}
 			}
-		}
-		
-		if (party_ && player && party_ == player->party()) {
-			privileged = true;
+			
+			if (party_ && party_ == player->party()) {
+				privileged = true;
+			}
 		}
 
 		// Hidden and invisible characters are invisible unless we are more privileged than them
