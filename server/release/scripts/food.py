@@ -6,7 +6,9 @@ from wolfpack.utilities import tobackpack
 from system import poison
 
 farm_food = [  'c7c', 'c70', 'c7b', 'c78', 'c71', 'c64', 'c65' ]
-farm_eaters = [ 'rabbit' ]
+farm_eaters = [ 'rabbit', 'goat', 'hind', 'pack_horse', 'pack_llama', 'cow', 'bull',
+	'sheep_unsheered', 'sheep_sheered', 'llama', 'horse', 'great_hart',
+	'ostard_desert', 'ostard_forest', 'ostard_frinzied' ]
 #
 # Feed the food
 #
@@ -65,7 +67,7 @@ def onUse(player, item):
 	player.socket.clilocmessage(min(500872, 500868 + player.hunger))
 
 	# Fidget animation and munch munch sound
-	player.soundeffect(random.choice([0x03a, 0x03b, 0x03c]))
+	player.soundeffect( random.choice([0x03a, 0x03b, 0x03c]), 1 )
 	player.action(ANIM_FIDGET3)
 
 	player.hunger += 1
@@ -88,8 +90,11 @@ def onCollide( char, item ):
 	if char.npc and item.baseid in farm_food and char.baseid in farm_eaters:
 		if 'food' in char.events:
 			return True
-		if char.baseid in farm_food:
+		if char.baseid in farm_eaters:
 			char.events = ['food'] + char.events
+			char.say( "*nibbles*" )
+			item.magic = 3
+			item.update()
 			return True
 		else:
 			return False
@@ -105,11 +110,17 @@ def onWalk(char, dir, sequence):
 				break
 		if food:
 			food.delete()
-			char.sound( random.choice( [ 0x03a, 0x03b, 0x03c ] ) )
+			char.soundeffect( random.choice( [ 0x03a, 0x03b, 0x03c ] ), 1 )
 			char.say( "*munch*" )
 			if char.hitpoints < char.maxhitpoints:
 				char.hitpoints += 1
 				char.update()
+		events = char.events
+		while 'food' in events:
+			events.remove('food')
+		char.events = events
+		return True
+	else:
 		events = char.events
 		while 'food' in events:
 			events.remove('food')
