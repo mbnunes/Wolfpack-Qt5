@@ -40,7 +40,6 @@
 
 //========================================================================================
 /// Constructor
-//##ModelId=3C5D92E20105
 MapCache_cl::MapCache_cl()
 {
 	clear();
@@ -48,14 +47,12 @@ MapCache_cl::MapCache_cl()
 }
 //========================================================================================
 /// Constructor of itself
-//##ModelId=3C5D92E2010F
 MapCache_cl::MapCache_cl(const MapCache_cl& clData)
 {
 	(*this) = clData ;
 }
 
 //========================================================================================
-//##ModelId=3C5D92E20123
 MapCache_cl::MapCache_cl(string sDirectory)
 {
 	setDirectory(sDirectory);
@@ -65,13 +62,11 @@ MapCache_cl::MapCache_cl(string sDirectory)
 
 //========================================================================================
 /// Desctructor
-//##ModelId=3C5D92E2012E
 MapCache_cl::~MapCache_cl()
 {
   clear() ;
 }
 
-//##ModelId=3C5D92E20141
 void MapCache_cl::initMapSize(void)
 {
 	mapsize_st temp;
@@ -91,7 +86,6 @@ void MapCache_cl::initMapSize(void)
 
 //========================================================================================
 /// Clear out any that we have
-//##ModelId=3C5D92E20137
 bool MapCache_cl::clear()
 {
 	bool bReturn = true ;
@@ -108,7 +102,6 @@ bool MapCache_cl::clear()
 
 //========================================================================================
 // Set our directory
-//##ModelId=3C5D92E20173
 void MapCache_cl::setDirectory(string sDirectory)
 {
 
@@ -121,7 +114,6 @@ void MapCache_cl::setDirectory(string sDirectory)
 
 //========================================================================================
 // Cache the tiles
-//##ModelId=3C5D92E201A5
 bool MapCache_cl::cacheData()
 {
 	clear() ;
@@ -147,7 +139,6 @@ bool MapCache_cl::cacheData()
 
 }
 //========================================================================================
-//##ModelId=3C5D92E2017E
 void MapCache_cl::getMapSize(UI16 uiMapID, UI16 &uiWidth, UI16 &uiHeight)
 {
 	if ((iterSize = mapSize.find(uiMapID)) != mapSize.end())
@@ -161,7 +152,6 @@ void MapCache_cl::getMapSize(UI16 uiMapID, UI16 &uiWidth, UI16 &uiHeight)
 
 //========================================================================================
 // get a land tile data
-//##ModelId=3C5D92E201AF
 vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
 {
 	vector<mapcache_st> vecReturn ;
@@ -367,7 +357,6 @@ vector<mapcache_st> MapCache_cl::get(UI16 uiX, UI16 uiY)
 
 
 //========================================================================================
-//##ModelId=3C5D92E201C4
 MapCache_cl&  MapCache_cl::operator=(const MapCache_cl& clData)
 {
 	mapX = clData.mapX ;
@@ -385,7 +374,6 @@ MapCache_cl&  MapCache_cl::operator=(const MapCache_cl& clData)
 }
 
 //========================================================================================
-//##ModelId=3C5D92E201D7
 bool MapCache_cl::processVerdata()
 {
 	bool bReturn = false ;
@@ -450,7 +438,6 @@ bool MapCache_cl::processVerdata()
 //========================================================================================
 
 //========================================================================================
-//##ModelId=3C5D92E201EB
 bool MapCache_cl::processMap()
 {
 	bool bReturn = false ;

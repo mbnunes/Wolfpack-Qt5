@@ -69,7 +69,6 @@
 // History:	AntiChrist, 11 September 1999
 // Purpose:	Initialize magery system. Parse spells.scp and store spells data.
 //
-//##ModelId=3C5D930E02E8
 int cMagic::InitSpells(void)
 {
 	int curspell = 0; // current spell
@@ -118,7 +117,6 @@ int cMagic::InitSpells(void)
 // Purpose:	Sends the spellbook item (with all the
 //			memorized spells) to player when doubleclicked.
 
-//##ModelId=3C5D930E02FD
 void cMagic::SpellBook(UOXSOCKET s)
 {
 	SpellBook(s,FindItemBySerPtr(buffer[s])) ;
@@ -248,7 +246,6 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 // Purpose:	Used when a PLAYER passes throu a gate. Takes the player
 //			to the other side of the gate-link.
 //
-//##ModelId=3C5D930E0339
 char cMagic::GateCollision(P_CHAR pc_player)
 {
 	unsigned int n;
@@ -515,7 +512,6 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 // History:	Unknown
 // Purpose:	Check if the spell is memorized into the spellbook.
 //
-//##ModelId=3C5D93100165
 bool cMagic::CheckBook(int circle, int spell, P_ITEM pi)
 {
 	bool raflag = false;
@@ -540,7 +536,6 @@ bool cMagic::CheckBook(int circle, int spell, P_ITEM pi)
 	return true;
 }
 
-//##ModelId=3C5D930E031B
 int cMagic::SpellsInBook(P_ITEM pi)
 {
 	int spellcount = 0;
@@ -588,7 +583,6 @@ void cMagic::SbOpenContainer(UOXSOCKET s)
 // History:	Unknown, Modified by AntiChrist to use spells[] array.
 // Purpose:	Check if character has enought mana to cast a spell of that circle.
 //
-//##ModelId=3C5D931001AB
 char cMagic::CheckMana(P_CHAR pc, int num)
 {
 
@@ -613,7 +607,6 @@ char cMagic::CheckMana(P_CHAR pc, int num)
 // History:	Unknown
 // Purpose:	Substract the required mana from character's mana reserve.
 //
-//##ModelId=3C5D931002A5
 char cMagic::SubtractMana(P_CHAR pc, int mana)
 {
 	if (pc->priv2&0x10)
@@ -634,7 +627,6 @@ char cMagic::SubtractMana(P_CHAR pc, int mana)
 // Purpose:	Check if character is protected by MagicReflect;
 //			if yes, remove the protection and do visual effect.
 //
-//##ModelId=3C5D93100223
 bool cMagic::CheckMagicReflect(P_CHAR pc)
 {
 	if (pc->priv2&0x40)
@@ -646,7 +638,6 @@ bool cMagic::CheckMagicReflect(P_CHAR pc)
 	return false;
 }
 
-//##ModelId=3C5D93100237
 P_CHAR cMagic::CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender)
 {
 	if (defender->priv2&0x40)
@@ -664,7 +655,6 @@ P_CHAR cMagic::CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender)
 // History:	Unknown, Modified by AntiChrist to add EV.INT. check
 // Purpose:	Check character's magic resistance.
 //
-//##ModelId=3C5D930E0284
 char cMagic::CheckResist(P_CHAR pc_attacker, P_CHAR pc_defender, int circle)
 {
 	char i=Skills->CheckSkill(pc_defender, MAGICRESISTANCE, 80*circle, 800+(80*circle));
@@ -698,7 +688,6 @@ char cMagic::CheckResist(P_CHAR pc_attacker, P_CHAR pc_defender, int circle)
 // History:	Unknown
 // Purpose:	Calculate and inflict magic damage.
 //
-//##ModelId=3C5D93100255
 void cMagic::MagicDamage(P_CHAR pc, int amount)
 {
 	if ( pc->priv2&0x02  &&  pc->effDex() > 0 )
@@ -725,7 +714,6 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 // History:	Unknown
 // Purpose:	Apply the poison to the character.
 //
-//##ModelId=3C5D930E02AC
 void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 {
 
@@ -763,8 +751,6 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 // we could add the fieldeffect check time the server.scp but i think this solution is better.
 // LB October 99
 //
-
-//##ModelId=3C5D930E02C0
 void cMagic::CheckFieldEffects2(unsigned int currenttime, P_CHAR pc, char timecheck)//c=character (Not socket) //Lag fix -- Zippy
 
 {
@@ -851,7 +837,6 @@ void cMagic::BoxSpell(UOXSOCKET s, int& x1, int& x2, int& y1, int& y2, int& z1, 
 // History:	Unknown
 // Purpose:	Do the visual effect and apply magic damage when a player opens a trapped container.
 //
-//##ModelId=3C5D931002C3
 void cMagic::MagicTrap(P_CHAR pc, P_ITEM pTrap)
 {
 	if (!pTrap) return;
@@ -871,7 +856,6 @@ void cMagic::MagicTrap(P_CHAR pc, P_ITEM pTrap)
 // History:	Unknown, Modified by AntiChrist to use reag_st
 // Purpose:	Check for required reagents in player's backpack.
 //
-//##ModelId=3C5D9310018D
 char cMagic::CheckReagents(P_CHAR pc, reag_st reagents)
 {
 	reag_st failmsg = {0,};
@@ -907,7 +891,6 @@ char cMagic::CheckReagents(P_CHAR pc, reag_st reagents)
 // History:	Unknown, Reprogrammed by AntiChrist to display missing reagents types.
 // Purpose:	Display an error message if character has no enougth resgs.
 //
-//##ModelId=3C5D93110044
 int cMagic::RegMsg(P_CHAR pc, reag_st failmsg)
 {
 	bool display = false;
@@ -943,7 +926,6 @@ int cMagic::RegMsg(P_CHAR pc, reag_st failmsg)
 // History:	Unknown
 // Purpose:	Calculate and inflict a magic damage.
 //
-//##ModelId=3C5D930F01FA
 void cMagic::PFireballTarget(P_CHAR pc_i, P_CHAR pc, int j) //j = % dammage
 {
 	int dmg;
@@ -992,7 +974,6 @@ void cMagic::SpellFail(UOXSOCKET s)
 // History:	Unknown
 // Purpose:	Used for NPC; cast a lightning spell.
 //
-//##ModelId=3C5D930F0222
 void cMagic::LightningSpell(P_CHAR pc_Attacker, P_CHAR pc_Defender, bool usemana)
 {
 	if ( pc_Attacker == NULL || pc_Defender == NULL)
@@ -1017,7 +998,6 @@ void cMagic::LightningSpell(P_CHAR pc_Attacker, P_CHAR pc_Defender, bool usemana
 	return;
 }
 
-//##ModelId=3C5D930F0268
 void cMagic::NPCHeal(P_CHAR pc)
 {
     int loskill=spells[10].loskill;
@@ -1043,7 +1023,6 @@ void cMagic::NPCHeal(P_CHAR pc)
 	}
 }
 
-//##ModelId=3C5D930F036C
 void cMagic::NPCCure(P_CHAR pc)
 {
     int loskill=spells[11].loskill;
@@ -1071,7 +1050,6 @@ void cMagic::NPCCure(P_CHAR pc)
 
 }
 
-//##ModelId=3C5D930F0380
 void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 {
 	int loskill=spells[41].loskill;
@@ -1107,7 +1085,6 @@ void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 // History:	Unknown
 // Purpose:	Used for NPC; cast a energy bolt spell.
 //
-//##ModelId=3C5D930F0240
 void cMagic::EnergyBoltSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	if ( pc_attacker == NULL || pc_defender == NULL)
@@ -1137,7 +1114,6 @@ void cMagic::EnergyBoltSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool useman
 // History:	Unknown
 // Purpose:	Check player's parrying skill (for cannonblast).
 //
-//##ModelId=3C5D930F039E
 char cMagic::CheckParry(P_CHAR pc_player, int circle)
 {
 	char i=Skills->CheckSkill(pc_player, PARRYING, 80*circle, 800+(80*circle));
@@ -1164,7 +1140,6 @@ char cMagic::CheckParry(P_CHAR pc_player, int circle)
 // History:	Modifyed by Correa to be used by both Items and Players
 // Purpose:	Cast magic arrow
 //
-//##ModelId=3C5D930F03BC
 void cMagic::MagicArrow(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	if ( pc_attacker == NULL || pc_defender == NULL)
@@ -1191,7 +1166,6 @@ void cMagic::MagicArrow(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 // History:	Modifyed by Correa to be used by both Items and Chars
 // Purpose:	cast a clumsy spell.
 //
-//##ModelId=3C5D930F03E4
 void cMagic::ClumsySpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	
@@ -1215,7 +1189,6 @@ void cMagic::ClumsySpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 // History:	Unknown
 // Purpose:	Used for ITEMS; cast a feeblemind spell.
 //
-//##ModelId=3C5D9310001A
 void cMagic::FeebleMindSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 
@@ -1239,7 +1212,6 @@ void cMagic::FeebleMindSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool useman
 // History:	Unknown
 // Purpose:	Used for ITEMS; cast a weaken spell.
 //
-//##ModelId=3C5D93100042
 void cMagic::WeakenSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	if ( pc_attacker == NULL || pc_defender == NULL)
@@ -1261,7 +1233,6 @@ void cMagic::WeakenSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 // History:	Unknown
 // Purpose:	Used for ITEMS; cast a harm spell.
 //
-//##ModelId=3C5D93100074
 void cMagic::HarmSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	if ( pc_attacker == NULL || pc_defender == NULL)
@@ -1290,7 +1261,6 @@ void cMagic::HarmSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 // History:	Unknown
 // Purpose:	Used for ITEMS; cast a fireball spell.
 //
-//##ModelId=3C5D93100092
 void cMagic::FireballSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	if ( pc_attacker == NULL || pc_defender == NULL)
@@ -1314,7 +1284,6 @@ void cMagic::FireballSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 // History:	Unknown
 // Purpose:	Used for ITEMS; cast a curse spell.
 //
-//##ModelId=3C5D931000BB
 void cMagic::CurseSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	int j;
@@ -1340,7 +1309,6 @@ void cMagic::CurseSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 // History:	Unknown
 // Purpose:	Used for ITEMS; cast a mindblast spell.
 //
-//##ModelId=3C5D931000D9
 void cMagic::MindBlastSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	if ( pc_attacker == NULL || pc_defender == NULL)
@@ -1383,7 +1351,6 @@ void cMagic::MindBlastSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana
 // History:	Unknown
 // Purpose:	Used for ITEMS; cast a paralyze spell.
 //
-//##ModelId=3C5D93100101
 void cMagic::ParalyzeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	if ( pc_attacker == NULL || pc_defender == NULL)
@@ -1406,7 +1373,6 @@ void cMagic::ParalyzeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 // History:	Modified by Correa to be used by both Items and Chars
 // Purpose:	Used for ITEMS; cast a explosion spell.
 //
-//##ModelId=3C5D9310011F
 void cMagic::ExplosionSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	if ( pc_attacker == NULL || pc_defender == NULL)
@@ -1435,7 +1401,6 @@ void cMagic::ExplosionSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana
 // History:	Unknown
 // Purpose:	Used for ITEMS; cast a flamestrike spell.
 //
-//##ModelId=3C5D93100147
 void cMagic::FlameStrikeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana)
 {
 	if ( pc_attacker == NULL || pc_defender == NULL)
@@ -1613,7 +1578,6 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	return false;
 }
 
-//##ModelId=3C5D930F005F
 void cMagic::preParticles(int num, P_CHAR pc)
 {
     stat_st t;
@@ -1622,7 +1586,6 @@ void cMagic::preParticles(int num, P_CHAR pc)
 	staticeffect(pc, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true); 			 			  		
 }
 
-//##ModelId=3C5D930F007D
 void cMagic::afterParticles(int num, P_CHAR pc)
 {
     stat_st t;
@@ -1631,7 +1594,6 @@ void cMagic::afterParticles(int num, P_CHAR pc)
 	staticeffect(pc, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true);
 }
 
-//##ModelId=3C5D930F0091
 void cMagic::itemParticles(int num, P_ITEM pi)
 {
     stat_st t;
@@ -1640,7 +1602,6 @@ void cMagic::itemParticles(int num, P_ITEM pi)
 	staticeffect2(pi, NOTUSED, NOTUSED, NOTUSED, NOTUSED, NOTUSED, true, &t, true);
 }
 
-//##ModelId=3C5D930F01D2
 void cMagic::NewCastSpell( UOXSOCKET s )
 {
 	// for LocationTarget spell like ArchCure, ArchProtection etc...
@@ -2925,7 +2886,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	
 }
 
-//##ModelId=3C5D930E03E3
 bool cMagic::townTarget( unsigned char num )
 {
 	switch( num )
@@ -2964,7 +2924,6 @@ bool cMagic::townTarget( unsigned char num )
 	return true;
 }
 
-//##ModelId=3C5D930E0361
 bool cMagic::requireTarget( unsigned char num )
 {
 
@@ -3042,7 +3001,6 @@ bool cMagic::requireTarget( unsigned char num )
 	return false;
 }
 
-//##ModelId=3C5D930F01B4
 void cMagic::DelReagents( P_CHAR pc, reag_st reags )
 {
 	if (pc->priv2&0x80) return;
@@ -3056,7 +3014,6 @@ void cMagic::DelReagents( P_CHAR pc, reag_st reags )
 	delequan(pc, 0x0F8D, reags.silk);
 }
 
-//##ModelId=3C5D930E03BC
 bool cMagic::spellReflectable( int num )
 {
 
@@ -3066,8 +3023,6 @@ bool cMagic::spellReflectable( int num )
 	else return false;
 }
 
-
-//##ModelId=3C5D930E03CF
 bool cMagic::travelSpell( int num )
 {
 	switch( num )
@@ -3082,7 +3037,6 @@ bool cMagic::travelSpell( int num )
 	return false;
 }
 
-//##ModelId=3C5D930E039D
 bool cMagic::reqCharTarget( int num )
 {
 	switch( num )
@@ -3125,7 +3079,6 @@ bool cMagic::reqCharTarget( int num )
 	return false;
 }
 
-//##ModelId=3C5D930E0389
 bool cMagic::reqLocTarget( int num )
 {
 	switch( num )
@@ -3153,7 +3106,6 @@ bool cMagic::reqLocTarget( int num )
 	return false;
 }
 
-//##ModelId=3C5D930E0375
 bool cMagic::reqItemTarget( int num )
 {
 	switch( num )
@@ -3169,7 +3121,6 @@ bool cMagic::reqItemTarget( int num )
 	return false;
 }
 
-//##ModelId=3C5D930F00E1
 move_st cMagic::getMoveEffects( int num )
 {
 	move_st temp;
@@ -3219,7 +3170,6 @@ move_st cMagic::getMoveEffects( int num )
 	return temp;
 }
 
-//##ModelId=3C5D930F000F
 stat_st cMagic::getStatEffects( int num )
 {
 	stat_st temp;
@@ -3432,8 +3382,6 @@ stat_st cMagic::getStatEffects( int num )
 	return temp;
 }
 
-
-//##ModelId=3C5D930F0023
 stat_st cMagic::getStatEffects_pre( int num)
 {
     stat_st temp = {-1,};
@@ -3521,7 +3469,6 @@ stat_st cMagic::getStatEffects_pre( int num)
 	return temp;
 }
 
-//##ModelId=3C5D930F0037
 stat_st cMagic::getStatEffects_after( int num)
 {
     stat_st temp;
@@ -3550,8 +3497,6 @@ stat_st cMagic::getStatEffects_after( int num)
 	return temp;
 }
 
-
-//##ModelId=3C5D930F004B
 stat_st cMagic::getStatEffects_item( int num)
 {
     stat_st temp;
@@ -3590,8 +3535,6 @@ stat_st cMagic::getStatEffects_item( int num)
 	return temp;
 }
 
-
-//##ModelId=3C5D930F00AF
 void cMagic::invisibleItemParticles(P_CHAR pc, int spellNum, short x, short y, signed char z)
 {
 	P_ITEM it;
@@ -3610,7 +3553,6 @@ void cMagic::invisibleItemParticles(P_CHAR pc, int spellNum, short x, short y, s
 	delete it;	
 }
 
-//##ModelId=3C5D930F00F5
 sound_st cMagic::getSoundEffects( int num )
 {
 	sound_st temp;
@@ -3688,7 +3630,6 @@ sound_st cMagic::getSoundEffects( int num )
 	return temp;
 }
 
-//##ModelId=3C5D930F0163
 void cMagic::playSound( P_CHAR pc_source, int num )
 {
 	sound_st temp;
@@ -3700,7 +3641,6 @@ void cMagic::playSound( P_CHAR pc_source, int num )
 		soundeffect2( pc_source, ((short)(temp.effect[0] << 8) | temp.effect[1]) );
 }
 
-//##ModelId=3C5D930F0145
 void cMagic::doStaticEffect( P_CHAR source, int num )
 {
 	stat_st temp;
@@ -3716,7 +3656,6 @@ void cMagic::doStaticEffect( P_CHAR source, int num )
 	}
 }
 
-//##ModelId=3C5D930F0127
 void cMagic::doMoveEffect( int num, P_CHAR target, P_CHAR source )
 {
 	move_st temp;
@@ -3728,7 +3667,6 @@ void cMagic::doMoveEffect( int num, P_CHAR target, P_CHAR source )
 		movingeffect(source, target, temp.effect[0], temp.effect[1], temp.effect[2], temp.effect[3], temp.effect[4], true, &temp );
 }
 
-//##ModelId=3C5D930F0100
 bool cMagic::aggressiveSpell( int num )
 {
 	switch( num )
@@ -3760,7 +3698,6 @@ bool cMagic::aggressiveSpell( int num )
 	return false;
 }
 
-//##ModelId=3C5D930F0113
 bool cMagic::fieldSpell( int num )
 {
 	switch( num )
@@ -3777,7 +3714,6 @@ bool cMagic::fieldSpell( int num )
 }
 
 // added by AntiChrist (9/99)
-//##ModelId=3C5D93110062
 void cMagic::PolymorphMenu(int s,int gmindex)
 {
 	int total, i, loopexit=0;
@@ -3857,7 +3793,6 @@ void cMagic::PolymorphMenu(int s,int gmindex)
 }
 
 // added by AntiChrist (9/99)
-//##ModelId=3C5D931002E1
 void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 {
 	int i,k,loopexit=0;
@@ -3900,7 +3835,6 @@ void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 
 // only used for the /heal command
 // LB
-//##ModelId=3C5D93100205
 void cMagic::Heal(UOXSOCKET s)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -3919,7 +3853,6 @@ void cMagic::Heal(UOXSOCKET s)
 
 // only used for the /recall command
 // AntiChrist
-//##ModelId=3C5D931001C9
 void cMagic::Recall(UOXSOCKET s)
 {
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);	//Targeted item
@@ -3942,7 +3875,6 @@ void cMagic::Recall(UOXSOCKET s)
 
 // only used for the /mark command
 // AntiChrist
-//##ModelId=3C5D931001DD
 void cMagic::Mark(UOXSOCKET s)
 {
 	//Targeted item
@@ -3989,7 +3921,6 @@ void cMagic::CannonTarget(int s)
 	}
 }
 */
-//##ModelId=3C5D93100210
 void cMagic::BuildCannon(int s)
 {
 	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
@@ -4013,7 +3944,6 @@ void cMagic::BuildCannon(int s)
 
 // only used for the /gate command
 // AntiChrist
-//##ModelId=3C5D931001F1
 void cMagic::Gate(UOXSOCKET s)
 {
 	int n;
@@ -4071,7 +4001,6 @@ void cMagic::Gate(UOXSOCKET s)
 // Purpose:	Encapsulates the conversion of spell numbers from UO to WP
 //			'reactive armor' is #1 in UO, but #7 in WP. So we must shift scrolls 2-7.
 //
-//##ModelId=3C5D931002FF
 short cMagic::SpellNumFromScrollID(short id)
 {
 	if (id==0x1F2D)					return 7;			// Reactive Armor
