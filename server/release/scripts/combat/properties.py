@@ -1,8 +1,8 @@
 
 from wolfpack.consts import *
 from math import floor
-from combat.weaponinfo import WEAPONINFO
-from combat.armorinfo import ARMORINFO
+from combat.weaponinfo import WEAPONINFO, WEAPON_RESNAME_BONI
+from combat.armorinfo import ARMORINFO, ARMOR_RESNAME_BONI
 
 #
 # Get the delay for the next swing from this attacker and his weapon.
@@ -82,15 +82,15 @@ def fromitem(item, property):
     if itemcheck(item, ITEM_WEAPON):
       if WEAPONINFO.has_key(item.baseid):
         weaponinfo = WEAPONINFO[item.baseid]
-  
+
         if weaponinfo.has_key(property):
           return weaponinfo[property]
     elif itemcheck(item, ITEM_ARMOR) or itemcheck(item, ITEM_SHIELD):
       if ARMORINFO.has_key(item.baseid):
         armorinfo = ARMORINFO[item.baseid]
-  
+
         if armorinfo.has_key(property):
-          return armorinfo[property]      
+          return armorinfo[property]
 
     return info[1]
 
