@@ -1936,6 +1936,7 @@ bool cBaseChar::onDeath(cUObject *source, P_ITEM corpse)
 
 	return result;
 }
+
 bool cBaseChar::onCHLevelChange( unsigned int level )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CHLEVELCHANGE );
@@ -2016,10 +2017,12 @@ bool cBaseChar::onStatGain( unsigned char stat )
 	return result;
 }
 
-bool cBaseChar::kill(cUObject *source) {
-	if (free || isDead()) {
+bool cBaseChar::kill(cUObject *source) 
+{
+	
+	if (free || isDead()) 
 		return false;
-	}
+
 
 	changed(TOOLTIP);
 	changed_ = true;
@@ -2028,7 +2031,8 @@ bool cBaseChar::kill(cUObject *source) {
 	setPoisoned(0);
 	setPoison(0);
 
-	if (isPolymorphed()) {
+	if (isPolymorphed()) 
+	{
 		setBodyID(orgBodyID_);
 		setSkin(orgSkin_);
 		setPolymorphed(false);
@@ -2038,21 +2042,23 @@ bool cBaseChar::kill(cUObject *source) {
 	P_ITEM pTool = 0;
 
 	// Were we killed by some sort of item?
-	if (source && !pKiller) {
+	if (source && !pKiller) 
+	{
 		pTool = dynamic_cast<P_ITEM>(source);
 
 		// If we were killed by some sort of tool (explosion potions)
 		// the owner is responsible for the murder
-		if (pTool && pTool->owner()) {
+		if (pTool && pTool->owner()) 
 			pKiller = pTool->owner();
-		}
 	}
 
 	// Only trigger the reputation system if we can find someone responsible 
 	// for the murder
-	if (pKiller && pKiller != this) {
+	if (pKiller && pKiller != this)
+	{
 		// Only award karma and fame in unguarded areas
-		if (!pKiller->inGuardedArea()) {
+		if (!pKiller->inGuardedArea()) 
+		{
 			pKiller->awardFame(fame_);
 			pKiller->awardKarma(this, 0 - karma_);
 		}
@@ -2060,14 +2066,19 @@ bool cBaseChar::kill(cUObject *source) {
 		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pKiller);
 
 		// Only players can become criminal
-		if (pPlayer) {
+		if (pPlayer) 
+		{
 			// Award fame and karma to the party members of this player if they can see the victim
-			if (pPlayer->party()) {
+			if (pPlayer->party()) 
+			{
 				QPtrList<cPlayer> members = pPlayer->party()->members();
 
-				for (P_PLAYER member = members.first(); member; member = members.next()) {
-					if (member != pPlayer && member->canSeeChar(this)) {
-						if (!member->inGuardedArea()) {
+				for (P_PLAYER member = members.first(); member; member = members.next()) 
+				{
+					if (member != pPlayer && member->canSeeChar(this)) 
+					{
+						if (!member->inGuardedArea()) 
+						{
 							member->awardFame(fame_);
 							member->awardKarma(this, 0 - karma_);
 						}
@@ -2075,23 +2086,23 @@ bool cBaseChar::kill(cUObject *source) {
 				}
 			}
 
-			if (isInnocent()) {
+			if (isInnocent()) 
+			{
 				pPlayer->makeCriminal();
 				pPlayer->setKills(pPlayer->kills() + 1);
 				setMurdererSerial(pPlayer->serial());
 
 				// Report the number of slain people to the player
-				if (pPlayer->socket()) {
+				if (pPlayer->socket()) 
 					pPlayer->socket()->sysMessage(tr("You have killed %1 innocent people.").arg(pPlayer->kills()));
-				}
 
 				// The player became a murderer
-				if (pPlayer->kills() >= SrvParams->maxkills()) {
+				if (pPlayer->kills() >= SrvParams->maxkills()) 
+				{
 					pPlayer->setMurdererTime(getNormalizedTime() + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
 	
-					if (pPlayer->socket()) {
+					if (pPlayer->socket()) 
 						pPlayer->socket()->clilocMessage(502134);
-					}			
 				}
 			}
 		}
@@ -2108,21 +2119,20 @@ bool cBaseChar::kill(cUObject *source) {
 
 	bool summoned = npc && npc->summoned();
 
-	if (player) {
+	if (player) 
 		player->unmount();
-	}
 	
 	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef(bodyID_);
 
 	// If we are a creature type with a corpse and if we are not summoned
 	// we create a corpse
-	if (!summoned && basedef && !basedef->noCorpse()) {
+	if (!summoned && basedef && !basedef->noCorpse()) 
+	{
 		corpse = new cCorpse(true);
 		
 		const cElement *elem = DefManager->getDefinition(WPDT_ITEM, "2006");
-		if (elem) {
+		if (elem) 
 			corpse->applyDefinition(elem);
-		}
 
 		corpse->setName(name_);
 		corpse->setColor(skin_);
@@ -2135,41 +2145,49 @@ bool cBaseChar::kill(cUObject *source) {
 		// Will display the right color
 		corpse->setTag("notoriety", cVariant(notoriety(this)));
 
-		if (npc) {
+		if (npc) 
 			corpse->setCarve(npc->carve());
-		}
 
         corpse->setOwner(this);
 		corpse->moveTo(pos_);
 		corpse->setDirection(direction());
 
 		// stores the time and the murderer's name
-		if (pKiller) {
+		if (pKiller) 
+		{
 			corpse->setMurderer(pKiller->name());
 			corpse->setMurderTime(uiCurrentTime);
 		}
 
 		// Move possible equipment to the corpse
-		for (unsigned char layer = SingleHandedWeapon; layer <= InnerLegs; ++layer) {
+		for (unsigned char layer = SingleHandedWeapon; layer <= InnerLegs; ++layer) 
+		{
 			P_ITEM item = GetItemOnLayer(layer);
 
-			if (item) {
+			if (item) 
+			{
 				if (layer != Backpack && layer != Hair && layer != FacialHair) {
 					// Put into the backpack
-					if (item->newbie()) {
+					if (item->newbie()) 
+					{
 						backpack->addItem(item);
 
-						if (player && player->socket()) {
+						if (player && player->socket()) 
 							item->update(player->socket());
-						}
-					} else {
+					} 
+					else 
+					{
 						corpse->addItem(item);
 						corpse->addEquipment(layer, item->serial());
 					}
-				} else if (layer == Hair) {
+				} 
+				else if (layer == Hair) 
+				{
 					corpse->setHairStyle(item->id());
 					corpse->setHairColor(item->color());
-				} else if (layer == FacialHair) {
+				}
+				else if (layer == FacialHair) 
+				{
 					corpse->setBeardStyle(item->id());
 					corpse->setBeardColor(item->color());
 				}
@@ -2183,11 +2201,14 @@ bool cBaseChar::kill(cUObject *source) {
 	// Create Loot - Either on the corpse or on the ground
 	QPtrList<cItem> posessions = backpack->getContainment();
 
-	for (P_ITEM item = posessions.first(); item; item = posessions.next()) {
-		if (!item->newbie()) {
-			if (corpse) {
+	for (P_ITEM item = posessions.first(); item; item = posessions.next()) 
+	{
+		if (!item->newbie()) 
+		{
+			if (corpse) 
 				corpse->addItem(item);
-			} else {
+			else 
+			{
 				item->moveTo(pos_);
 				item->update();
 			}
@@ -2195,17 +2216,21 @@ bool cBaseChar::kill(cUObject *source) {
 	}
 
 	// Create Loot for NPcs
-	if (npc && !npc->lootList().isEmpty()) {
+	if (npc && !npc->lootList().isEmpty()) 
+	{
 		QStringList lootlist = DefManager->getList(npc->lootList());
 
 		QStringList::const_iterator it;
-		for (it = lootlist.begin(); it != lootlist.end(); ++it) {
+		for (it = lootlist.begin(); it != lootlist.end(); ++it) 
+		{
 			P_ITEM loot = cItem::createFromScript(*it);
 
-			if (loot) {
-				if (corpse) {
+			if (loot) 
+			{
+				if (corpse) 
 					corpse->addItem(loot);
-				} else {
+				else
+				{
 					loot->moveTo(pos_);
 					loot->update();
 				}
@@ -2214,7 +2239,8 @@ bool cBaseChar::kill(cUObject *source) {
 	}
 
 	// Summoned monsters simply disappear
-	if (summoned) {		
+	if (summoned) 
+	{		
 		soundEffect(0x1fe);
 		pos_.effect(0x3735, 10, 30);
 
@@ -2228,16 +2254,18 @@ bool cBaseChar::kill(cUObject *source) {
 	cUOTxDeathAction dAction;
 	dAction.setSerial(serial_);
 
-	if (corpse) {
+	if (corpse) 
 		dAction.setCorpse(corpse->serial());
-	}
 
 	cUOTxRemoveObject rObject;
 	rObject.setSerial(serial_);
 	
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() ) {
-		if (mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange())) {
-			if (mSock->player() != this) {
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() ) 
+	{
+		if (mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange())) 
+		{
+			if (mSock->player() != this) 
+			{
 				mSock->send(&dAction);
 				mSock->send(&rObject);
 			}
@@ -2246,21 +2274,23 @@ bool cBaseChar::kill(cUObject *source) {
 
 	onDeath(source, corpse);
 
-	if (npc) {
+	if (npc)
 		cCharStuff::DeleteChar(this);
-	}
 
-	if (player) {
+	if (player) 
+	{
 		// Create a death shroud for the player
 		P_ITEM shroud = cItem::createFromScript("204e");
-		if (shroud) {
+		if (shroud) 
+		{
 			addItem(OuterTorso, shroud);
 			shroud->update();
 		}
 
 		player->resend(false, true);
 
-		if (player->socket()) {
+		if (player->socket()) 
+		{
 			player->socket()->resendPlayer(true);
 			
 			// Notify the player of his death
@@ -2269,16 +2299,16 @@ bool cBaseChar::kill(cUObject *source) {
 		}
 
 		// Notify the party that we died.
-		if (player->party()) {
+		if (player->party()) 
+		{
 			QString message;
 
-			if (source == player) {
+			if (source == player) 
 				message = tr("I comitted suicide.");
-			} else if (pKiller) {
+			else if (pKiller) 
 				message = tr("I was killed by %1.").arg(pKiller->name());
-			} else {
+			else 
 				message = tr("I was killed.");
-			}
 
 			player->party()->send(player, message);		
 		}
@@ -2287,18 +2317,17 @@ bool cBaseChar::kill(cUObject *source) {
 	return true;
 }
 
-bool cBaseChar::canSee(cUObject *object, bool lineOfSight) {
+bool cBaseChar::canSee(cUObject *object, bool lineOfSight) 
+{
 	P_ITEM item = dynamic_cast<P_ITEM>(object);
 
-	if (item) {
+	if (item) 
 		return canSeeItem(item, lineOfSight);
-	}
 
 	P_CHAR character = dynamic_cast<P_CHAR>(object);
 
-	if (character) {
+	if (character) 
 		return canSeeChar(character, lineOfSight);
-	}
 
 	return false;
 }
@@ -2308,85 +2337,78 @@ bool cBaseChar::canSeeChar(P_CHAR character, bool lineOfSight)
 	if (character != this) 
 	{
 		if (!character || character->free)
-		{
 			return false;
-		}
 
 		if (character->isInvisible() || character->isHidden())
-		{
 			return false;
-		}
 
 		if (character->isDead())
 		{
 			// Only NPCs with spiritspeak >= 1000 can see dead people
 			// or if the AI overrides it
 			if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000)
-			{
 				return false;
-			}
 		}
 
 		// Check distance
 		if (pos_.distance(character->pos()) > VISRANGE) 
-		{
 			return false;
-		}
 	}
 
 	return true;
 }
 
-bool cBaseChar::canSeeItem(P_ITEM item, bool lineOfSight) {
-	if (!item) {
+bool cBaseChar::canSeeItem(P_ITEM item, bool lineOfSight) 
+{
+	if (!item) 
 		return false;
-	}
 
-	if (item->visible() == 2) {
+	if (item->visible() == 2) 
 		return false;
-	} else if (item->visible() == 1 && item->owner() != this) {
+	else if (item->visible() == 1 && item->owner() != this) 
 		return false;
-	}
 
 	// Check for container
-	if (item->container()) {
+	if (item->container()) 
 		return canSee(item->container(), lineOfSight);
-	} else {
-		if (pos_.distance(item->pos()) > VISRANGE) {
+	else 
+	{
+		if (pos_.distance(item->pos()) > VISRANGE) 
 			return false;
-		}
 
-		if (lineOfSight && !pos_.lineOfSight(item->pos())) {
+		if (lineOfSight && !pos_.lineOfSight(item->pos())) 
 			return false;
-		}
 	}
 
 	return true;
 }
 
-cFightInfo *cBaseChar::findFight(P_CHAR enemy) {
-	if (enemy) {
-		for (cFightInfo *fight = fights_.first(); fight; fight = fights_.next()) {
+cFightInfo *cBaseChar::findFight(P_CHAR enemy) 
+{
+	if (enemy)
+	{
+		for (cFightInfo *fight = fights_.first(); fight; fight = fights_.next()) 
+		{
 			// We are only searching the fights we participate in, thats why we only
 			// have to check for our enemy
-			if (fight->attacker() == enemy || fight->victim() == enemy) {
+			if (fight->attacker() == enemy || fight->victim() == enemy) 
 				return fight;
-			}
 		}
 	}
 
 	return 0;
 }
 
-cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy) {
+cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy) 
+{
 	FightStatus result = FightDenied;
 
-	if (!inWorld()) {
+	if (!inWorld()) 
 		return result;
-	}
 
 	// Ghosts can't fight
-	if (isDead()) {
+	if (isDead()) 
+	{
 		sysmessage(500949);
 		return result;
 	}
@@ -2395,15 +2417,21 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy) {
 	cUOTxAttackResponse attack;
 	attack.setSerial(INVALID_SERIAL);
 
-	if (enemy) {
+	if (enemy) 
+	{
 		// Invisible or hidden creatures cannot be fought
-		if (!canSeeChar(enemy)) {
+		if (!canSeeChar(enemy)) 
+		{
 			sysmessage(500950);
 			enemy = 0;
-		} else if (enemy->isDead()) {
+		}
+		else if (enemy->isDead()) 
+		{
 			sysmessage("You cannot fight dead creatures.");
 			enemy = 0;
-		} else if (enemy->isInvulnerable()) {
+		}
+		else if (enemy->isInvulnerable()) 
+		{
 			sysmessage(1061621);
 			enemy = 0;
 		}
@@ -2411,9 +2439,11 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy) {
 	
 	// If we are fighting someone and our target is null,
 	// stop fighting.
-	if (!enemy) {
+	if (!enemy) 
+	{
 		// Update only if neccesary
-		if (attackTarget_) {
+		if (attackTarget_) 
+		{
 			attackTarget_ = 0;
 			send(&attack);
 		}
@@ -2424,21 +2454,24 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy) {
 	// simply return. Otherwise create the structure and fill it.
 	cFightInfo *fight = findFight(enemy);
 	
-	if (fight) {
+	if (fight) 
+	{
 		// There certainly is a reason to renew this fight
 		fight->refresh();
 		result = FightContinued;
-	} else {
+	}
+	else 
+	{
 		// Check if it is legitimate to attack the enemy
 		bool legitimate = enemy->notoriety(this) != 0x01;
 		fight = new cFightInfo(this, enemy, legitimate);
 		
 		// Display a message to the victim if our target changed to him
-		if (attackTarget() != enemy) {
+		if (attackTarget() != enemy) 
+		{
 			P_PLAYER player = dynamic_cast<P_PLAYER>(enemy);
-			if (player && player->socket()) {
+			if (player && player->socket())
 				player->socket()->showSpeech(this, tr("*You see %1 attacking you.*").arg(name()), 0x26, 3, cUOTxUnicodeSpeech::Emote);
-			}
 		}
 		result = FightStarted;
 	}
@@ -2455,7 +2488,8 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy) {
 	turnTo(enemy);
 
 	// See if we need to change our warmode status
-	if (!isAtWar()) {
+	if (!isAtWar()) 
+	{
 		cUOTxWarmode warmode;
 		warmode.setStatus(1);
 		send(&warmode);
@@ -2588,25 +2622,32 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy) {
 	}*/
 //}
 
-bool cBaseChar::sysmessage(const QString &message, unsigned short color, unsigned short font) {
+bool cBaseChar::sysmessage(const QString &message, unsigned short color, unsigned short font) 
+{
 	return false;
 }
 
-bool cBaseChar::sysmessage(unsigned int message, const QString &params, unsigned short color, unsigned short font) {
+bool cBaseChar::sysmessage(unsigned int message, const QString &params, unsigned short color, unsigned short font) 
+{
 	return false;
 }
 
-bool cBaseChar::message(const QString &message, unsigned short color, cUObject *source, unsigned short font, unsigned char mode) {
+bool cBaseChar::message(const QString &message, unsigned short color, cUObject *source, unsigned short font, unsigned char mode) 
+{
 	return false;
 }
 
-bool cBaseChar::send(cUOPacket *packet) {
+bool cBaseChar::send(cUOPacket *packet) 
+{
 	return false;
 }
 
-void cBaseChar::poll(unsigned int time, unsigned int events) {
-	if (events & EventCombat) {
-		if (attackTarget_ && nextSwing_ <= time) {
+void cBaseChar::poll(unsigned int time, unsigned int events) 
+{
+	if (events & EventCombat) 
+	{
+		if (attackTarget_ && nextSwing_ <= time) 
+		{
 			P_CHAR target = attackTarget_;
 
 			// Invulnerable or Dead target. Stop fighting.
@@ -2619,23 +2660,21 @@ void cBaseChar::poll(unsigned int time, unsigned int events) {
 			unsigned char range = 1;
 			P_ITEM weapon = getWeapon();
 
-			if (weapon && weapon->hasTag("range")) {
+			if (weapon && weapon->hasTag("range"))
 				range = weapon->getTag("range").toInt();
-			}
 
 			// We are out of range
-			if (pos().distance(target->pos()) > range) {
+			if (pos().distance(target->pos()) > range)
 				return;
-			}
 
 			// Can we see our target?
-			if (!canSee(attackTarget_, true)) {
+			if (!canSee(attackTarget_, true))
 				return;
-			}
 	
 			cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SWING);
 
-			if (global) {
+			if (global)
+			{
 				PyObject *args = Py_BuildValue("O&O&i", PyGetCharObject, this, PyGetCharObject, attackTarget_, time);
 				global->callEvent(EVENT_SWING, args);
 				Py_DECREF(args);
@@ -2644,11 +2683,11 @@ void cBaseChar::poll(unsigned int time, unsigned int events) {
 	}
 }
 
-void cBaseChar::refreshMaximumValues() {
-	if (objectType() == enPlayer) {
-		maxHitpoints_ = std::max(1, ((strength_ - strengthMod_) / 2) + strengthMod_ + hitpointsBonus_ + 50);
-	}
+void cBaseChar::refreshMaximumValues() 
+{
+	if (objectType() == enPlayer) 
+		maxHitpoints_ = QMAX(1, ((strength_ - strengthMod_) / 2) + strengthMod_ + hitpointsBonus_ + 50);
 
-	maxStamina_ = std::max(1, dexterity_ + dexterityMod_ + staminaBonus_);
-	maxMana_ = std::max(1, intelligence_ + intelligenceMod_ + manaBonus_);
+	maxStamina_ = QMAX(1, dexterity_ + dexterityMod_ + staminaBonus_);
+	maxMana_ = QMAX(1, intelligence_ + intelligenceMod_ + manaBonus_);
 }

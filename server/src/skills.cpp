@@ -284,12 +284,12 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 				pn->callGuards();
 		}
 		
-		if (pVictim->notoriety(pChar) == 0x01) {
+		if (pVictim->notoriety(pChar) == 0x01) 
 			pChar->makeCriminal();
-		}
 
 		// Our Victim always notices it.
-		if (pVictim->objectType() == enPlayer) {
+		if (pVictim->objectType() == enPlayer) 
+		{
 			P_PLAYER pp = dynamic_cast<P_PLAYER>(pVictim);
 			if( pp->socket() )
 				pp->socket()->showSpeech( pChar, tr( "You notice %1 trying to steal %2 from you." ).arg( pChar->name() ).arg( pToSteal->getName( true ) ) );
@@ -457,24 +457,24 @@ void cSkills::load()
 	// Try to get all skills first
 	UINT32 i;
 	
-	for (i = 0; i < ALLSKILLS; ++i) {
+	for (i = 0; i < ALLSKILLS; ++i) 
+	{
 		const cElement *skill = DefManager->getDefinition(WPDT_SKILL, QString::number(i));
 
-		if (!skill) {
+		if (!skill) 
 			continue;
-		}
 
 		stSkill nSkill;
 
-		for (unsigned int j = 0; j < skill->childCount(); ++j) {
+		for (unsigned int j = 0; j < skill->childCount(); ++j) 
+		{
 			const cElement *node = skill->getChild( j );
-			if( node->name() == "name" ) {
+			if( node->name() == "name" ) 
 				nSkill.name = node->text();
-			} else if( node->name() == "defname" ) {
+			else if( node->name() == "defname" ) 
 				nSkill.defname = node->text();
-			} else if( node->name() == "title" ) {
+			else if( node->name() == "title" ) 
 				nSkill.title = node->text();
-			}
 		}
 
 		skills.push_back( nSkill );
@@ -484,9 +484,8 @@ void cSkills::load()
 	skillRanks = DefManager->getList("SKILL_RANKS");
 
 	// Fill it up to 10 Ranks
-	while (skillRanks.count() < 10) {
+	while (skillRanks.count() < 10) 
 		skillRanks.push_back("");
-	}
 }
 
 void cSkills::unload()
@@ -495,16 +494,20 @@ void cSkills::unload()
 }
 
 // For the Paperdoll
-QString cSkills::getSkillTitle(P_CHAR pChar) const {
-	QString skillTitle("");
+QString cSkills::getSkillTitle(P_CHAR pChar) const
+{
+	QString skillTitle;
 	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
 
-	if (SrvParams->showSkillTitles() && player && !player->isGM()) {
+	if (SrvParams->showSkillTitles() && player && !player->isGM()) 
+	{
 		unsigned short skill = 0;
 		unsigned short skillValue = 0;
 		
-		for (int i = 0; i < ALLSKILLS; ++i) {
-			if (pChar->skillValue(i) > skillValue) {
+		for (int i = 0; i < ALLSKILLS; ++i) 
+		{
+			if (pChar->skillValue(i) > skillValue) 
+			{
                 skill = i;
 				skillValue = pChar->skillValue(i);
 			}
@@ -512,13 +515,15 @@ QString cSkills::getSkillTitle(P_CHAR pChar) const {
 		
 		unsigned char title = QMAX(1, ((int)pChar->skillValue(skill) - 300) / 100);
 
-		if (title >= skillRanks.size()) {
+		if (title >= skillRanks.size()) 
+		{
 			pChar->log(LOG_ERROR, "Invalid skill rank information.\n");
 			return skillTitle;
 		}
 
 		// Skill not found
-		if (skill >= skills.size()) {
+		if (skill >= skills.size()) 
+		{
 			pChar->log(LOG_ERROR, QString("Skill id out of range: %u.\n").arg(skill));
 			return skillTitle;
 		}

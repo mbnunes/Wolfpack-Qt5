@@ -336,7 +336,8 @@ public:
 /*!
 	\brief This class manages all guilds.
 */
-class cGuilds {
+class cGuilds
+{
 private:
 	QMap<unsigned int, cGuild*> guilds;
 
@@ -351,14 +352,16 @@ public:
 	/*!
 		\returns An iterator to the beginning of the internal guild mapping.
 	*/
-	inline iterator begin() {
+	inline iterator begin() 
+	{
 		return guilds.begin();
 	}
 
 	/*!
 		\returns An iterator to the end of the internal guild mapping.
 	*/
-	inline iterator end() {
+	inline iterator end() 
+	{
 		return guilds.end();
 	}
 

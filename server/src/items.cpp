@@ -536,35 +536,37 @@ void cItem::remove()
 
 	// Check if this item is registered as a guildstone and remove it
 	// from the container if neccesary.
-	for (cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it) {
+	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it ) 
+	{
 		cGuild *guild = it.data();
-		if (guild->guildstone() == this) {
+		if (guild->guildstone() == this) 
 			guild->setGuildstone(0);
-		}
 	}
 
 	// Remove from the sector map if its a world item
 	// Otherwise check if there is a top container
-	if (container() && !container()->free) {
+	if (container() && !container()->free) 
+	{
 		removeFromCont();
-	} else {
+	} 
+	else
+	{
 		SectorMaps::instance()->remove(this);
 	}
 
 	// Create a copy of the content so we don't accidently change our working copy
 	ContainerContent container(content()); 
 	ContainerContent::const_iterator it2;
-	for (it2 = container.begin(); it2 != container.end(); ++it2) {
+	for (it2 = container.begin(); it2 != container.end(); ++it2) 
 		(*it2)->remove();
-	}
 
 	// Remove us from a multi container
-	if (multis() != INVALID_SERIAL) {
+	if ( multis() != INVALID_SERIAL )
+	{
 		cMulti *pMulti = dynamic_cast<cMulti*>(World::instance()->findItem(multis()));
 
-		if (pMulti) {
+		if (pMulti)
 			pMulti->removeItem(this);
-		}
 	}
 
 	// Queue up for deletion from worldfile
@@ -596,9 +598,8 @@ void cItem::decay( unsigned int currenttime )
 	// Locked Down Items, NoDecay Items and Items in Containers can never decay
 	// And ofcourse items in multis cannot
 	// Static/Nevermovable items can't decay too
-	if (container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL || magic_ >= 2) {
+	if (container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL || magic_ >= 2) 
 		return;
-	}
 
 	// Start decaying
 	if( !decaytime() )
@@ -1066,24 +1067,35 @@ void cItem::processContainerNode( const cElement *tag )
 	}
 }
 
-void cItem::showName(cUOSocket *socket) {
-	if (!onSingleClick(socket->player())) {
+void cItem::showName(cUOSocket *socket) 
+{
+	if (!onSingleClick(socket->player())) 
+	{
 		unsigned int message;
 		QString params = QString::null;
 
-		if (amount_ > 1) {
-			if (name_.isEmpty()) {
+		if (amount_ > 1) 
+		{
+			if (name_.isEmpty()) 
+			{
 				message = 1050039;
 				params = QString("%1\t#%2").arg(amount_).arg(1020000 + id_);
-			} else {
+			}
+			else
+			{
 				message = 1050039;
 				params = QString("%1\t%2").arg(amount_).arg(name_);
 			}
-		} else {
-			if (name_.isEmpty()) {
+		} 
+		else
+		{
+			if (name_.isEmpty()) 
+			{
 				message = 1042971;
 				params = QString("#%2").arg(1020000 + id_);
-			} else {
+			}
+			else 
+			{
 				message = 1042971;
 				params = name_;
 			}
@@ -1096,12 +1108,12 @@ void cItem::showName(cUOSocket *socket) {
 // This either sends a ground-item or a backpack item
 void cItem::update(cUOSocket *singlesocket)
 {
-	if (free) {
+	if (free)
 		return;
-	}
 
 	// Items on Ground
-	if (!container_) {
+	if (!container_) 
+	{
 		// we change the packet during iteration, so we have to
 		// recompress it
 		cUOTxSendItem sendItem;
@@ -1113,23 +1125,32 @@ void cItem::update(cUOSocket *singlesocket)
 		sendItem.setDirection(dir_);
 
 		// Send to one person only
-		if (!singlesocket) {
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
-				if (socket->canSee(this)) {
+		if (!singlesocket) 
+		{
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) 
+			{
+				if (socket->canSee(this)) 
+				{
 					P_PLAYER player = socket->player();
 					unsigned char flags = 0;
 					cUOTxSendItem packetCopy(sendItem);
 
 					// Always Movable Flag
-					if (isAllMovable()) {
+					if (isAllMovable()) 
+					{
 						flags |= 0x20;
-					} else if (player->account()->isAllMove()) {
+					}
+					else if (player->account()->isAllMove()) 
+					{
 						flags |= 0x20;
-					} else if (isOwnerMovable() && player->Owns(this)) {
+					}
+					else if (isOwnerMovable() && player->Owns(this)) 
+					{
 						flags |= 0x20;
 					}
 
-					if (visible_ != 0) {
+					if (visible_ != 0) 
+					{
 						flags |= 0x80;
 					}
 
@@ -1139,20 +1160,28 @@ void cItem::update(cUOSocket *singlesocket)
 					sendTooltip(socket);
 				}
 			}
-		} else if (singlesocket && singlesocket->canSee(this)) {
+		} 
+		else if (singlesocket && singlesocket->canSee(this)) 
+		{
 			P_PLAYER player = singlesocket->player();
 			unsigned char flags = 0;
 
 			// Always Movable Flag
-			if (isAllMovable()) {
+			if (isAllMovable()) 
+			{
 				flags |= 0x20;
-			} else if (player->account()->isAllMove()) {
+			}
+			else if (player->account()->isAllMove()) 
+			{
 				flags |= 0x20;
-			} else if (isOwnerMovable() && player->Owns(this)) {
+			}
+			else if (isOwnerMovable() && player->Owns(this)) 
+			{
 				flags |= 0x20;
 			}
 
-			if (visible_ != 0) {
+			if (visible_ != 0)
+			{
 				flags |= 0x80;
 			}
 
@@ -1171,9 +1200,13 @@ void cItem::update(cUOSocket *singlesocket)
 		if (singlesocket) {
 			singlesocket->send(&equipItem);
 			sendTooltip(singlesocket);
-		} else {
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
-				if (socket->canSee(this)) {
+		}
+		else 
+		{
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) 
+			{
+				if (socket->canSee(this)) 
+				{
 					socket->send(&equipItem);
 					sendTooltip(socket);
 				}
@@ -1181,16 +1214,23 @@ void cItem::update(cUOSocket *singlesocket)
 		}
 	
 	// items in containers
-	} else if (container_ && container_->isItem()) {
+	} 
+	else if (container_ && container_->isItem()) 
+	{
 		cUOTxAddContainerItem contItem;
 		contItem.fromItem(this);
 
-		if (singlesocket) {
+		if (singlesocket) 
+		{
 			singlesocket->send(&contItem);
 			sendTooltip(singlesocket);
-		} else {
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
-				if (socket->canSee(this)) {
+		} 
+		else
+		{
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) 
+			{
+				if (socket->canSee(this)) 
+				{
 					socket->send(&contItem);
 					sendTooltip(socket);
 				}
@@ -1204,20 +1244,25 @@ P_ITEM cItem::dupe()
 	P_ITEM nItem = new cItem(*this);
 	nItem->setSerial(World::instance()->findItemSerial());
 
-	if (container_) {
+	if (container_) 
+	{
 		P_CHAR pchar = dynamic_cast<P_CHAR>(container_);
 
-		if (pchar) {
+		if (pchar) 
+		{
 			nItem->container_ = 0;
 			nItem->moveTo(pchar->pos(), true);
-		} else {
+		}
+		else 
+		{
 			P_ITEM item = dynamic_cast<P_ITEM>(container_);
 	
-			if (item) {
+			if (item) 
 				item->addItem(nItem, false, true, true);
-			}
 		}
-	} else {
+	}
+	else 
+	{
 		nItem->moveTo(pos_);
 	}
 
@@ -1339,28 +1384,36 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	}
 }
 
-bool cItem::wearOut() {
-	if (RandomNum(1, 4) == 4) {
+bool cItem::wearOut() 
+{
+	if (RandomNum(1, 4) == 4) 
 		setHp(hp() - 1);
-	}
 
-	if (hp() <= 0) {
+	if (hp() <= 0) 
+	{
 		// Get the owner of the item
 		P_CHAR owner = getOutmostChar();
 		P_PLAYER pOwner = dynamic_cast<P_PLAYER>(owner);
 
-		if(pOwner && pOwner->socket()) {
-			if (!name_.isEmpty()) {
+		if(pOwner && pOwner->socket()) 
+		{
+			if (!name_.isEmpty()) 
+			{
 				pOwner->socket()->clilocMessageAffix(1008129, QString::null, name_);
-			} else {
+			}
+			else
+			{
 				pOwner->socket()->clilocMessageAffix(1008129, QString::null, getName());
 			}
 		}
 
 		// Show to all characters in range that the item has been destroyed and not just unequipped
-		if (owner) {
-			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
-				if (owner != socket->player() && socket->canSee(owner)) {
+		if (owner) 
+		{
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) 
+			{
+				if (owner != socket->player() && socket->canSee(owner)) 
+				{
 					socket->clilocMessageAffix(0xf9060 + id_, "", tr("You see %1 destroy his ").arg(owner->name()), 0x23, 3, owner, false, true);
 				}
 			}
@@ -1447,7 +1500,8 @@ void cItem::load( char **result, UINT16 &offset )
 	//  as it should be.
 	SERIAL containerSerial = atoi( result[offset++] );
 
-	if (containerSerial != INVALID_SERIAL) {
+	if (containerSerial != INVALID_SERIAL) 
+	{
 		container_ = reinterpret_cast<cUObject*>(containerSerial);
 		free = true; // Abuse free for lingering items
 	}
@@ -1518,16 +1572,19 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 			pItem->SetRandPosInCont( this ); // not piled, random pos
 	}
 
-	if (handleWeight) {
+	if (handleWeight) 
+	{
 		setTotalweight( this->totalweight() + pItem->totalweight() );
 	}
 
 	// If the Server is running and this happens, resend the tooltip of us and
 	// all our parent containers.
-	if (serverState == RUNNING) {
+	if (serverState == RUNNING) 
+	{
 		P_ITEM cont = this;
 
-		while (cont) {
+		while (cont) 
+		{
 			cont->resendTooltip();
 			cont = dynamic_cast<P_ITEM>(cont->container());
 		}
@@ -1538,10 +1595,13 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 {
 	//ContainerContent::iterator it = std::find(content_.begin(), content_.end(), pItem);
 	ContainerContent::iterator it = content_.begin();
-	while (it != content_.end()) {
-		if ((*it) == pItem) {
+	while (it != content_.end()) 
+	{
+		if ((*it) == pItem) 
+		{
 			content_.erase(it);
-			if (handleWeight) {
+			if (handleWeight) 
+			{
 				setTotalweight(this->totalweight() - pItem->totalweight());
 			}
 			break;
@@ -1555,10 +1615,12 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 
 	// If the Server is running and this happens, resend the tooltip of us and
 	// all our parent containers.
-	if (serverState == RUNNING) {
+	if (serverState == RUNNING) 
+	{
 		P_ITEM cont = this;
 
-		while (cont) {
+		while (cont) 
+		{
 			cont->resendTooltip();
 			cont = dynamic_cast<P_ITEM>(cont->container());
 		}
@@ -1618,13 +1680,16 @@ P_CHAR cItem::getOutmostChar()
 {
 	P_CHAR result = 0;
 
-	if (container_) {
+	if (container_) 
+	{
 		result = dynamic_cast<P_CHAR>(container_);
 
-		if (!result) {
+		if (!result) 
+		{
 			P_ITEM container = dynamic_cast<P_ITEM>(container_);
 
-			if (container) {
+			if (container) 
+			{
 				result = container->getOutmostChar();
 			}
 		}
@@ -1898,7 +1963,8 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else return cUObject::getProperty( name, value );
 }
 
-void cItem::sendTooltip(cUOSocket* mSock) {
+void cItem::sendTooltip(cUOSocket* mSock) 
+{
 	// There is a list of statically overridden items in the client (@50A1C0 for 4.0.0o)
 	unsigned short id = this->id();
 
@@ -1921,10 +1987,10 @@ void cItem::sendTooltip(cUOSocket* mSock) {
 
 	// If the item is not movable for the client, the item should not have a tooltip
 	// Exceptions are noted above and containers
-	if (tile.weight == 255 && !isAllMovable()) {
-		if (tile.flag3 & 0x20 == 0) {
+	if (tile.weight == 255 && !isAllMovable()) 
+	{
+		if (tile.flag3 & 0x20 == 0) 
 			return;
-		}
 	}
 
 	cUObject::sendTooltip(mSock);
