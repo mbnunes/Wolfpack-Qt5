@@ -455,7 +455,10 @@ PACKS = {
 #
 # Move item to corpse or to ground (and stack if neccesary)
 #
-def dropitem(item, char, container):
+def dropitem(item, char, container):	
+	item.decay = True # Make SURE the item decays
+	item.movable = 1 # Also make sure the item is movable
+
 	if container:
 		if not utilities.tocontainer(item, container):
 			item.update()
@@ -548,7 +551,7 @@ def createpack(char, killer, corpse, pack):
 						properties.applyRandom(citem, maxproperties, minintensity, maxintensity, luckChance)
 					else:
 						citem = wolfpack.additem(itemid)
-					
+										
 					dropitem(citem, char, corpse)
 
 #
