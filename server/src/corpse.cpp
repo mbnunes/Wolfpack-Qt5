@@ -81,11 +81,10 @@ void cCorpse::load( char **result, UINT16 &offset )
 	// Get the corpse equipment
 	QString sql = "SELECT corpses_equipment.layer,corpses_equipment.item FROM corpses_equipment WHERE serial = '" + QString::number( serial() ) + "'";
 	
-	cDBDriver driver;
-	cDBResult res = driver.query( sql );
+	cDBResult res = persistentBroker->query( sql );
 
 	if( !res.isValid() )
-		throw driver.error();
+		throw persistentBroker->lastError();
 
 	// Fetch row-by-row
 	while( res.fetchrow() )

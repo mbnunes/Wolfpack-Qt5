@@ -91,8 +91,7 @@ void cBook::load( char **result, UINT16 &offset )
 	pages_ = atoi( result[offset++] );
 
 	// Load the pages
-	cDBDriver driver;
-	cDBResult res = driver.query( QString( "SELECT page,text FROM bookpages WHERE serial = '%1'" ).arg( serial() ) );
+	cDBResult res = persistentBroker->query( QString( "SELECT page,text FROM bookpages WHERE serial = '%1'" ).arg( serial() ) );
 
 	while( res.fetchrow() )
 		content_.insert( res.getInt( 0 ), res.getString( 1 ) );

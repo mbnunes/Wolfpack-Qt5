@@ -680,6 +680,8 @@ void cCustomTags::save( SERIAL key )
 	persistentBroker->executeQuery( QString( "DELETE FROM tags WHERE serial = '%1'" ).arg( key ) );
 
 	QMap< QString, cVariant >::const_iterator it( tags_.begin() );
+	if ( tags_.count() > 6 )
+		persistentBroker->lockTable("tags");
 	for( ; it != tags_.end(); ++it )
 	{
 		// Erase invalid tags.
@@ -695,6 +697,8 @@ void cCustomTags::save( SERIAL key )
 
 		persistentBroker->executeQuery( QString( "INSERT INTO tags SET serial = '%1', type = '%2', value = '%3', name = '%4'" ).arg( key ).arg( type ).arg( __escapeReservedCharacters( value ) ).arg( __escapeReservedCharacters( name ) ) );
 	}
+	if ( tags_.count() > 6 )
+		persistentBroker->unlockTable("tags");
 
 	changed = false;
 }
@@ -703,8 +707,7 @@ void cCustomTags::load( SERIAL key )
 {
 	tags_.clear();
 
-	cDBDriver driver;
-	cDBResult result = driver.query( QString( "SELECT serial,name,type,value FROM tags WHERE serial = '%1'" ).arg( key ) );
+	cDBResult result = persistentBroker->query( QString( "SELECT serial,name,type,value FROM tags WHERE serial = '%1'" ).arg( key ) );
 
 	while( result.fetchrow() )
 	{

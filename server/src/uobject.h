@@ -46,10 +46,9 @@
 #include <map>
 
 // Library includes
-#include "qstring.h"
-#include "qstringlist.h"
-//#include "qdom.h"
-#include "qmap.h"
+#include <qstring.h>
+#include <qstringlist.h>
+#include <qmap.h>
 
 // Forward class declarations
 class QDomElement;
@@ -58,55 +57,7 @@ class WPDefaultScript;
 class cUOSocket;
 class QSqlQuery;
 class cItem;
-
-struct stError 
-{
-	INT8 code;
-	QString text;
-};
-
-#define PROPERTY_ERROR( errno, data ) { stError *errRet = new stError; errRet->code = errno; errRet->text = data; return errRet; }
-
-#define GET_PROPERTY( id, getter ) if( name == id ) {\
-	value = cVariant( getter ); \
-	return 0; \
-}
-
-#define SET_STR_PROPERTY( id, setter ) if( name == id ) {\
-	QString text = value.toString(); \
-	if( text == QString::null )	\
-		PROPERTY_ERROR( -2, "String expected" ) \
-	setter = text; \
-	return 0; \
-	}
-
-#define SET_INT_PROPERTY( id, setter ) if( name == id ) {\
-	bool ok; \
-	INT32 data = value.toInt( &ok ); \
-	if( !ok ) \
-		PROPERTY_ERROR( -2, "Integer expected" ) \
-	setter = data; \
-	return 0; \
-	}
-
-#define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
-	bool ok; \
-	INT32 data = value.toInt( &ok ); \
-	if( !ok ) \
-		PROPERTY_ERROR( -2, "Boolean expected" ) \
-	setter = data == 0 ? false : true; \
-	return 0; \
-	}
-
-#define SET_CHAR_PROPERTY( id, setter ) if( name == id ) {\
-	setter = value.toChar(); \
-	return 0; \
-	}
-
-#define SET_ITEM_PROPERTY( id, setter ) if( name == id ) {\
-	setter = value.toItem(); \
-	return 0; \
-	}
+struct stError;
 
 class cUObject : public PersistentObject, public cDefinable
 {
@@ -247,5 +198,56 @@ private:
 	std::map< QString, QString > sql_queries;
 	QStringList sql_keys;
 };
+
+
+struct stError 
+{
+	INT8 code;
+	QString text;
+};
+
+#define PROPERTY_ERROR( errno, data ) { stError *errRet = new stError; errRet->code = errno; errRet->text = data; return errRet; }
+
+#define GET_PROPERTY( id, getter ) if( name == id ) {\
+	value = cVariant( getter ); \
+	return 0; \
+}
+
+#define SET_STR_PROPERTY( id, setter ) if( name == id ) {\
+	QString text = value.toString(); \
+	if( text == QString::null )	\
+		PROPERTY_ERROR( -2, "String expected" ) \
+	setter = text; \
+	return 0; \
+	}
+
+#define SET_INT_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	INT32 data = value.toInt( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Integer expected" ) \
+	setter = data; \
+	return 0; \
+	}
+
+#define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	INT32 data = value.toInt( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Boolean expected" ) \
+	setter = data == 0 ? false : true; \
+	return 0; \
+	}
+
+#define SET_CHAR_PROPERTY( id, setter ) if( name == id ) {\
+	setter = value.toChar(); \
+	return 0; \
+	}
+
+#define SET_ITEM_PROPERTY( id, setter ) if( name == id ) {\
+	setter = value.toItem(); \
+	return 0; \
+	}
+
 
 #endif // __UOBJECT_H__

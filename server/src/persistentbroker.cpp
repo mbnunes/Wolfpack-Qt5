@@ -65,11 +65,20 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 	clConsole.PrepareProgress( "Starting up database connection" );
 
 	// This does nothing but a little test-connection
-	connection->setDBName( db );
-	connection->setUsername( username );
+	connection->setDatabaseName( db );
+	connection->setUserName( username );
 	connection->setPassword( password );
-	connection->setHost( host );
-
+	connection->setHostName( host );
+	try
+	{
+		connection->open();
+	}
+	catch( QString& e )
+	{
+		clConsole.ProgressFail();
+		clConsole.error( e );
+		return false;
+	}
 	clConsole.ProgressDone();
 	return true;
 }
@@ -108,7 +117,7 @@ bool PersistentBroker::deleteObject( PersistentObject* object )
 
 bool PersistentBroker::executeQuery( const QString& query )
 {
-	bool result = connection->execute(query);
+	bool result = connection->exec(query);
 	if( !result )
 	{
 		qWarning( query );
@@ -153,4 +162,19 @@ void PersistentBroker::addToDeleteQueue( const QString &tables, const QString &c
 	dItem.tables = tables;
 	dItem.conditions = conditions;
 	deleteQueue.push_back( dItem );
+}
+
+QString PersistentBroker::lastError() const
+{
+	return connection->error();
+}
+
+void PersistentBroker::lockTable( const QString& table ) const
+{
+	connection->lockTable( table );
+}
+
+void PersistentBroker::unlockTable( const QString& table ) const
+{
+	connection->unlockTable( table );
 }

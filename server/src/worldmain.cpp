@@ -121,11 +121,9 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 	ISerialization* archive = cPluginFactory::serializationArchiver(module);
 
 	QString objectID;
-	register unsigned int i = 0;
+	unsigned int i = 0;
 
 	clConsole.send( tr("Loading World...\n") );
-
-	cDBDriver driver;
 
 	QStringList types = UObjectFactory::instance()->objectTypes();
 
@@ -133,23 +131,23 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 	{
 		QString type = types[j];
 		
-		cDBResult res = driver.query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
+		cDBResult res = persistentBroker->query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
 
 		// Find out how many objects of this type are available		
 		if( !res.isValid() )
-			throw driver.error();			
+			throw persistentBroker->lastError();			
 
 		res.fetchrow();
 		UINT32 count = res.getInt( 0 );
 		res.free();
 
-		clConsole.send( tr("Loading ") + QString::number( count ) + tr(" objects of type ") + type + "\n" );
+		clConsole.send( tr("Loading ") + QString::number( count ) + tr(" objects of type ") + type );
 
-		res = driver.query( UObjectFactory::instance()->findSqlQuery( type ) );
+		res = persistentBroker->query( UObjectFactory::instance()->findSqlQuery( type ) );
 
 		// Error Checking		
 		if( !res.isValid() )
-			throw driver.error();
+			throw persistentBroker->lastError();
 
 		UINT32 sTime = getNormalizedTime();
 		UINT16 offset;
@@ -172,7 +170,7 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 
 		res.free();
 
-		clConsole.send( tr("Loaded %1 objects in %2 msecs\n").arg(progress.count()).arg(getNormalizedTime() - sTime) );
+		clConsole.send( tr("Loaded %1 objects in %2 msecs\n\n").arg(progress.count()).arg(getNormalizedTime() - sTime) );
 	}
 
 	// Load Pages
@@ -213,8 +211,6 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 	archive->close();
 
 	delete archive;
-
-	driver.garbageCollect();
 }
 
 //o---------------------------------------------------------------------------o
@@ -241,10 +237,6 @@ void CWorldMain::savenewworld(QString module)
 
 	SrvParams->flush();
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
-
-	// Check out queued connections
-	cDBDriver driver;
-	driver.ping(); // Keep Alive or reestablish broken connections.
 
 	// Flush old items
 	persistentBroker->flushDeleteQueue();
@@ -301,8 +293,6 @@ void CWorldMain::savenewworld(QString module)
 	}
 
 	uiCurrentTime = getNormalizedTime();
-
-	driver.garbageCollect();
 }
 
 int CWorldMain::announce()

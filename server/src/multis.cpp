@@ -79,8 +79,7 @@ void cMulti::load( char **result, UINT16 &offset )
 	// Load from two additional tables here
 	QString sql = "SELECT multis_bans.serial,multis_bans.ban FROM multis_bans WHERE multis_bans.serial = '" + QString::number( serial() ) + "'";
 
-	cDBDriver driver;
-	cDBResult res = driver.query( sql );	
+	cDBResult res = persistentBroker->query( sql );	
 
 	while( res.fetchrow() )
 	{
@@ -96,7 +95,7 @@ void cMulti::load( char **result, UINT16 &offset )
 
 	sql = "SELECT multis_friends.serial,multis_friends.friend FROM multis_friends WHERE multis_friends.serial = '" + QString::number( serial() ) + "'";
 
-	res = driver.query( sql );
+	res = persistentBroker->query( sql );
 
 	while( res.fetchrow() )
 	{

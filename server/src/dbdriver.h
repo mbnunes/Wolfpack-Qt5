@@ -43,32 +43,32 @@ class cDBDriver
 {
 	friend class cDBResult;
 private:
-	st_mysql *getConnection();
-	void putConnection( st_mysql* );
-	
-	static QString _host, _dbname, _username, _password;
+	st_mysql *connection;
+	QString _host, _dbname, _username, _password;
+	QString lasterror_;
+
+	void setLastError( const QString& d ) { lasterror_ = d; }
+
 public:
-	cDBDriver() {}
+	cDBDriver() : connection(0) {}
 	virtual ~cDBDriver();
 
-	bool execute( const QString &query ); // Just execute some SQL code, no return!	
+	bool open();
+	void close();
+	bool exec( const QString &query ) const; // Just execute some SQL code, no return!	
 	cDBResult query( const QString &query ); // Executes a query
+	void lockTable( const QString& table ) const;
+	void unlockTable( const QString& table ) const;
 	QString error(); // Returns an error (if there is one), uses the current connection
-	void ping();
 	
-	// We are using a multiple connection model
-	// So we may have to clean up a connection when
-	// it's no longer used
-	void garbageCollect();
-
 	// Setters + Getters
-	void setUsername( const QString &data ) { _username = data; }
+	void setUserName( const QString &data ) { _username = data; }
 	void setPassword( const QString &data ) { _password = data; }
-	void setHost( const QString &data ) { _host = data; }
-	void setDBName( const QString &data ) { _dbname = data; }
+	void setHostName( const QString &data ) { _host = data; }
+	void setDatabaseName( const QString &data ) { _dbname = data; }
 	QString host() const { return _host; }
-	QString dbname() const { return _dbname; }
-	QString username() const { return _username; }
+	QString databaseName() const { return _dbname; }
+	QString userName() const { return _username; }
 	QString password() const { return _password; }
 };
 
@@ -84,12 +84,12 @@ public:
 	virtual ~cDBResult() {}
 
 	void free(); // Call this to free the query
-	char** data(); // Get the data for the current row
+	char** data() const; // Get the data for the current row
 	bool fetchrow(); // Fetchs a new row, returns false if there is no new row
-	INT32 getInt( UINT32 offset ); // Get an integer with a specific offset
-	QString getString( UINT32 offset ); // Get a string with a specific offset
+	INT32 getInt( UINT32 offset ) const; // Get an integer with a specific offset
+	QString getString( UINT32 offset ) const; // Get a string with a specific offset
 
-	bool isValid() { return ( _result != 0 ); }
+	bool isValid() const { return ( _result != 0 ); }
 };
 
 #undef MYSQL_RES

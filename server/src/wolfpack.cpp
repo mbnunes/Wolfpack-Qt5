@@ -951,7 +951,7 @@ int main( int argc, char *argv[] )
 
 	clConsole.send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
 	clConsole.send( "Copyright (C) 2000-2003 Wolfpack Development Team\n");
-	clConsole.send( "Wolfpack Homepage: http://www.wpdev.org/");
+	clConsole.send( "Wolfpack Homepage: http://www.wpdev.org/\n");
 	clConsole.send( "By using this software you agree to the license accompanying this release.\n");
 	clConsole.send( "Compiled on %s (%s %s)\n",__DATE__,__TIME__, wp_version.timezonestring.c_str() );
 	clConsole.send( "\n" );

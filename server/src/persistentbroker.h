@@ -62,8 +62,12 @@ public:
 	void flushDeleteQueue();
 	void addToDeleteQueue( const QString &tables, const QString &conditions );
 
+	void lockTable( const QString& table ) const;
+	void unlockTable( const QString& table ) const;
+
 	bool saveObject( PersistentObject* );
 	bool deleteObject( PersistentObject* );
+	QString lastError() const;
 	cDBDriver* driver() const;
 };
 

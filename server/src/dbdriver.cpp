@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -33,8 +32,10 @@
 #include "dbdriver.h"
 
 // Library Includes
-#ifdef WIN32
-#include <winsock.h>
+#include <qglobal.h>
+
+#if defined(Q_OS_WIN32) // Required by mysql.h
+# include <winsock.h>
 #endif
 
 #include <qstring.h>
@@ -43,90 +44,87 @@
 #include <errmsg.h>
 #include <stdlib.h>
 
-QPtrList< MYSQL > connections; // A connection pool
+/*****************************************************************************
+  cDBDriver member functions
+ *****************************************************************************/
 
-// Keep Alive Connections
-void cDBDriver::ping()
+/*!
+	\class cDBDriver dbdriver.h
+
+	\brief The cDBDriver class provides an abstraction for the different DBMS
+	supported by Wolfpack.
+
+	\ingroup database
+	\ingroup mainclass
+*/
+
+/*!
+	Destructs the Database Driver instance
+*/
+cDBDriver::~cDBDriver()
 {
-	for( st_mysql* mysql = connections.first(); mysql; mysql = connections.next() )
-	{
-		if( !mysql_ping( mysql ) )
-			connections.remove(); // Remove Current Connection
-	}
+	close();
 }
 
-// Closes unused connections
-void cDBDriver::garbageCollect()
+/*!
+	Opens the connection between wolfpack and the database
+*/
+bool cDBDriver::open() 
 {
-	while( connections.count() > 1 )
-	{
-		mysql_close( connections.last() );
-		connections.remove();
-	}
-}
+	if ( connection )
+		return true;
 
-// Checks if there is a free connection available
-// If yes, remove it from the pool
-// Otherwise connect
-st_mysql *cDBDriver::getConnection()
-{
-	// Connection available
-	if( connections.count() >= 1 )
-	{
-		MYSQL *mysql = connections.first();
-		connections.remove();
-		return mysql;
-	}
-
-	MYSQL *mysql = mysql_init( 0 );
-	if ( !mysql )
+	connection = mysql_init( 0 );
+	if ( !connection )
 		throw QString("mysql_init(): insufficient memory to allocate a new object");
-	mysql->reconnect = 1;
+	connection->reconnect = 1;
 	
-	if( !mysql_real_connect( mysql, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, "wolfpack_db_pipe", CLIENT_COMPRESS ) )
+	if( !mysql_real_connect( connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, "wolfpack_db_pipe", CLIENT_COMPRESS ) )
 	{
-		switch ( mysql_errno(mysql) )
+		switch ( mysql_errno(connection) )
 		{
 		case CR_NAMEDPIPEOPEN_ERROR:
 		case CR_NAMEDPIPEWAIT_ERROR:
 		case CR_NAMEDPIPESETSTATE_ERROR:
-			if ( mysql_real_connect(mysql, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
+			if ( mysql_real_connect(connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
 			{
 				qWarning("Named Pipe connection to database failed, falling back to slower TCP/IP connection to database");
 				break; 
-			} // let it fall
+			} 
+			else
+				throw QString( "Connection to DB failed: %1" ).arg( mysql_error( connection ) );
 		default:
-			if ( !mysql_real_connect(mysql, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
+			if ( !mysql_real_connect(connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
 			{ // for *nix users who's mysql does not have the named pipe option
-				throw QString( "Connection to DB failed: %1" ).arg( mysql_error( mysql ) );
+				throw QString( "Connection to DB failed: %1" ).arg( mysql_error( connection ) );
 			}
 		}
 	}
 
-	return mysql;
+	return true;
 }
 
-void cDBDriver::putConnection( st_mysql *data )
+/*!
+	Closes database handler and frees used memory
+*/
+void cDBDriver::close()
 {
-	// Put a connection back to the pool
-	connections.append( data );
+	mysql_close( connection );
 }
 
-cDBDriver::~cDBDriver()
-{
-}
-
-// Executes a query
+/*!
+	Executes a \a query and returns it's result
+	\sa cDBResult
+*/
 cDBResult cDBDriver::query( const QString &query )
 {
-	MYSQL *mysql = getConnection();
+	MYSQL *mysql = connection;
 
 	if( !mysql )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
 
 	if( mysql_query( mysql, query.latin1() ) )
 	{
-		putConnection( mysql );
 		return cDBResult(); // Return invalid result
 	}
 	
@@ -134,24 +132,33 @@ cDBResult cDBDriver::query( const QString &query )
 	return cDBResult( result, mysql );
 }
 
-// Just execute some SQL code, no result!
-bool cDBDriver::execute( const QString &query )
+/*!
+	Executes a SQL command string without returning from the database.
+	Returns true if executed successfully.
+*/
+bool cDBDriver::exec( const QString &query ) const
 {
-	MYSQL *mysql = getConnection();
-
-	if( !mysql )
+	if( !connection )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
 
-	bool ok = !mysql_query( mysql, query.latin1() );
-	putConnection( mysql );
+	bool ok = !mysql_query( connection, query.latin1() );
 	return ok;
+}
+
+void cDBDriver::lockTable( const QString& table ) const
+{
+	exec( QString("LOCK TABLES %1 WRITE;").arg(table) );
+}
+
+void cDBDriver::unlockTable( const QString& table ) const
+{
+	exec( QString("UNLOCK TABLES") );
 }
 
 // Returns an error (if there is one)
 QString cDBDriver::error()
 {
-	MYSQL *mysql = getConnection();
-	const char *error = mysql_error( mysql );
+	const char *error = mysql_error( connection );
 
 	if( error != 0 )
 	{
@@ -162,6 +169,10 @@ QString cDBDriver::error()
 		return QString::null;
 	}
 }
+
+/*****************************************************************************
+  cDBResult member functions
+ *****************************************************************************/
 
 // Fetchs a new row, returns false if there is no new row
 bool cDBResult::fetchrow()
@@ -179,23 +190,17 @@ void cDBResult::free()
 	mysql_free_result( _result );
 	_result = 0;
 	_row = 0;
-
-	if( _connection )
-	{
-		cDBDriver driver;
-		driver.putConnection( _connection );
-		_connection = 0;
-	}
+	_connection = 0;
 }
 
 // Get the data for the current row
-char** cDBResult::data()
+char** cDBResult::data() const
 {
 	return _row;
 }
 
 // Get an integer with a specific offset
-INT32 cDBResult::getInt( UINT32 offset )
+INT32 cDBResult::getInt( UINT32 offset ) const
 {
 	if( !_row )
 		throw QString( "Trying to access a non valid result!" );
@@ -204,16 +209,10 @@ INT32 cDBResult::getInt( UINT32 offset )
 }
 
 // Get a string with a specific offset
-QString cDBResult::getString( UINT32 offset )
+QString cDBResult::getString( UINT32 offset ) const
 {
 	if( !_row )
 		throw QString( "Trying to access a non valid result!" );
 
 	return _row[offset];
 }
-
-// Static Member Declarations...
-QString cDBDriver::_host;
-QString cDBDriver::_dbname;
-QString cDBDriver::_username;
-QString cDBDriver::_password;

@@ -1281,13 +1281,12 @@ void cBoat::load( char **result, UINT16 &offset )
 
 	// Load the other tables
 	QString sql = "SELECT boats_itemids.a,boats_itemids.b,boats_itemids.id FROM boats_itemids WHERE serial = '" + QString::number( serial() ) + "'";
-	cDBDriver driver;
-	cDBResult res = driver.query( sql );
+	cDBResult res = persistentBroker->query( sql );
 
 	if( !res.isValid() )
 	{
 		res.free();
-		throw driver.error();
+		throw persistentBroker->lastError();
 	}
 
 	// Fetch row-by-row
@@ -1306,11 +1305,11 @@ void cBoat::load( char **result, UINT16 &offset )
 	res.free();
 
 	sql = "SELECT boats_itemoffsets.a,boats_itemoffsets.b,boats_itemoffsets.c,boats_itemoffsets.offset FROM boats_itemoffsets WHERE serial = '" + QString::number( serial() ) + "'";
-	res = driver.query( sql );
+	res = persistentBroker->query( sql );
 
 	// Error Checking		
 	if( !res.isValid() )
-		throw driver.error();
+		throw persistentBroker->lastError();
 
 	// Fetch row-by-row
 	while( res.fetchrow() )
