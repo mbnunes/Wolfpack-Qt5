@@ -8,7 +8,7 @@
 -->
 <definitions>
 	<!-- Default Player privs -->
-	<acl id="player" plevel="1">
+	<acl id="player" rank="1">
 		<group name="command">
 			<action name="WHERE" permit="true" />
 			<action name="TRAVEL" permit="true" />
@@ -19,7 +19,7 @@
 	</acl>
 
 	<!-- Admin privs -->
-	<acl id="admin" plevel="100">
+	<acl id="admin" rank="100">
 		<group name="command">
 			<action name="any" permit="true" />
 		</group>
@@ -32,7 +32,7 @@
 	</acl>
 
 	<!-- GameMaster privs -->
-	<acl id="gm" plevel="50">
+	<acl id="gm" rank="50">
 		<group name="command">
 			<action name="any" permit="true" />
 		</group>
@@ -42,7 +42,7 @@
 	</acl>
 
 	<!-- Counselor privs -->
-	<acl id="counselor" plevel="25">
+	<acl id="counselor" rank="25">
 		<group name="command">
 			<action name="any" permit="true" />
 		</group>
