@@ -16,31 +16,30 @@
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="77" max="111" /></str>
-		<dex><random min="56" max="75" /></dex>
-		<int><random min="47" max="75" /></int>
+		<str min="77" max="111" />
+		<dex min="56" max="75" />
+		<int min="47" max="75" />
 		<!-- Status -->
-		<maxhitpoints><random min="50" max="64" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="50" max="64" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>7</mindamage>
-		<maxdamage>17</maxdamage>
+		<mindamage value="7" />
+		<maxdamage value="17" />
 		<!-- Defense -->
 		<tag name="res_physical" value="25,30" type="int" />
 		<tag name="res_cold" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="401" max="575" /></wrestling>
-		<tactics><random min="676" max="850" /></tactics>
-		<magicresistance><random min="176" max="250" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="401" max="575" />
+		<skill id="tactics" min="676" max="850" />
+		<skill id="magicresist" min="176" max="250" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>2</controlslots>
-		<mintaming>711</mintaming>
-		<food>6</food>
+		<controlslots value="2" />
+		<mintaming value="711" />
+		<food value="6" />
 		<carve>carve_bull_black</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Bull (Random)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="15" />
 		<intproperty name="carve_meat" value="10" />
@@ -48,13 +47,13 @@
 
 	<!-- Bull (black & white) -->
 	<npc id="bull_black" inherit="bull">
-		<id>233</id>
+		<id value="233" />
 		<category>Animals\Land\Bull (Black)</category>
 	</npc>
 
 	<!-- Bull brown -->
 	<npc id="bull_brown" inherit="bull">
-		<id>232</id>
+		<id value="232" />
 		<category>Animals\Land\Bull (Brown)</category>
 	</npc>
 

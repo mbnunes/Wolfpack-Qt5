@@ -11,36 +11,35 @@
 	<!-- Bullfrog -->
 	<npc id="bullfrog" inherit="animal_base">
 		<name>bullfrog</name>
-		<id>81</id>
+		<id value="81" />
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_SNAKE" /></skin>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="46" max="70" /></str>
-		<dex><random min="6" max="25" /></dex>
-		<int><random min="11" max="20" /></int>
+		<str min="46" max="70" />
+		<dex min="6" max="25" />
+		<int min="11" max="20" />
 		<!-- Status -->
-		<maxhitpoints><random min="28" max="42" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="28" max="42" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>1</mindamage>
-		<maxdamage>3</maxdamage>
+		<mindamage value="1" />
+		<maxdamage value="3" />
 		<!-- Defense -->
 		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="401" max="600" /></wrestling>
-		<tactics><random min="401" max="600" /></tactics>
-		<magicresistance><random min="251" max="400" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="401" max="600" />
+		<skill id="tactics" min="401" max="600" />
+		<skill id="magicresist" min="251" max="400" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>231</mintaming>
-		<food>0</food>
+		<controlslots value="1" />
+		<mintaming value="231" />
+		<food value="0" />
 		<carve>carve_bullfrog</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Bullfrog</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="4" />
 		<intproperty name="carve_meat" value="1" />

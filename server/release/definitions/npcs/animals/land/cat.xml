@@ -11,32 +11,32 @@
 	<!-- Cat -->
 	<npc id="cat" inherit="animal_base">
 		<name>cat</name>
-		<id>201</id>
+		<id value="201" />
 		<ai>Animal_Domestic</ai>
 		<skin><random list="SKINS_ANIMAL" /></skin>
 		<inherit id="KARMA_NL0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str>9</str>
-		<dex>35</dex>
-		<int>5</int>
+		<str value="9" />
+		<dex value="35" />
+		<int value="5" />
 		<!-- Status -->
-		<maxhitpoints>6</maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints value="6" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>1</mindamage>
-		<maxdamage>1</maxdamage>
+		<mindamage value="1" />
+		<maxdamage value="1" />
 		<!-- Defense -->
 		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling>50</wrestling>
-		<tactics>40</tactics>
-		<magicresistance>50</magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" value="50" />
+		<skill id="tactics" value="40" />
+		<skill id="magicresist" value="50" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>0</mintaming>
-		<food>0</food>
+		<controlslots value="1" />
+		<mintaming value="0" />
+		<food value="0" />
 		<carve>carve_cat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Feline\Cat</category>

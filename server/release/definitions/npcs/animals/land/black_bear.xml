@@ -12,36 +12,35 @@
 	<npc id="black_bear" inherit="animal_base">
 		<name>black bear</name>
 		<ai>Animal_Wild</ai>
-		<id>211</id>
+		<id value="211" />
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="76" max="100" /></str>
-		<dex><random min="56" max="75" /></dex>
-		<int><random min="11" max="14" /></int>
+		<str min="76" max="100" />
+		<dex min="56" max="75" />
+		<int min="11" max="14" />
 		<!-- Status -->
-		<maxhitpoints><random min="46" max="60" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="46" max="60" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>6</mindamage>
-		<maxdamage>16</maxdamage>
+		<mindamage value="6" />
+		<maxdamage value="16" />
 		<!-- Defense -->
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_cold" value="10,15" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="401" max="600" /></wrestling>
-		<tactics><random min="401" max="600" /></tactics>
-		<magicresistance><random min="201" max="400" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="401" max="600" />
+		<skill id="tactics" min="401" max="600" />
+		<skill id="magicresist" min="201" max="400" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>351</mintaming>
-		<food>1</food>
+		<controlslots value="1" />
+		<mintaming value="351" />
+		<food value="1" />
 		<carve>carve_black_bear</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Bears\Black Bear</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
 		<intproperty name="carve_meat" value="1" />

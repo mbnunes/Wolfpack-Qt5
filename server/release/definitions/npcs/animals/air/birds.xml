@@ -36,7 +36,7 @@
 		<!-- Misc. -->
 		<controlslots value="1" />
 		<mintaming value="0" />
-		<food>3</food>
+		<food value="3" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Random Bird</category>
 		<!-- Carve -->

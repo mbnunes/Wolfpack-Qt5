@@ -38,7 +38,7 @@
 		<!-- Misc -->
 		<controlslots value="1" />
 		<mintaming value="171" />
-		<food>1</food>
+		<food value="1" />
 		<carve>carve_eagle</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Eagle</category>
