@@ -30,13 +30,6 @@ inline void cSysMessage::setCreated(unsigned int data) {
 	created_ = data;
 }
 
-static Uint32 callback(Uint32 interval, void *param) {
-	Client->lock();
-	WorldView->cleanSysMessages();
-	Client->unlock();
-	return 250;
-}
-
 void cWorldView::cleanSysMessages() {
 	QValueList<cControl*> toremove;
 	unsigned int currentTime = SDL_GetTicks();
@@ -60,9 +53,6 @@ void cWorldView::cleanSysMessages() {
 }
 
 cWorldView::cWorldView(unsigned short width, unsigned short height) {
-	// Start the Timer that runs the sysmessage decay check
-	timer = SDL_AddTimer(1000, callback, 0);
-
 	top = new cTiledGumpImage(0xa8c);
 	top->setHeight(4);
 	top->setAlign(CA_TOP);
@@ -90,12 +80,11 @@ cWorldView::cWorldView(unsigned short width, unsigned short height) {
 	setBounds(x_, y_, width, height);
 
 	ismoving = false;
+	nextSysmessageCleanup = SDL_GetTicks() + 250;
 }
 
 cWorldView::~cWorldView() {
-	SDL_RemoveTimer(timer);
 }
-
 
 cControl *cWorldView::getControl(int x, int y) {
 	if (x >= 0 && y >= 0 && x < width_ && y < height_) {
@@ -345,6 +334,16 @@ void cWorldView::getWorldRect(int &x, int &y, int &width, int &height) {
 	y = y_ + top->height();
 	width = width_ - left->width() - right->width();
 	height = height_ - top->height() - bottom->height();
+}
+
+void cWorldView::draw(int xoffset, int yoffset) {
+	// Remove outdated sysmessages
+	if (nextSysmessageCleanup < SDL_GetTicks()) {
+		cleanSysMessages();
+		nextSysmessageCleanup = SDL_GetTicks() + 250;	
+	}
+
+	cWindow::draw(xoffset, yoffset);
 }
 
 cWorldView *WorldView = 0;

@@ -15,7 +15,7 @@ protected:
 	void moveContent(int yoffset);
 
 	bool ismoving;
-	SDL_TimerID timer;
+	unsigned int nextSysmessageCleanup;
 
 	enCursorType getCursorType();
 public:
@@ -38,6 +38,8 @@ public:
 	void addSysMessage(const QString &message, unsigned short hue = 0x3b2, unsigned char font = 0);
 
 	void getWorldRect(int &x, int &y, int &width, int &height);
+
+	void draw(int xoffset, int yoffset);
 
 	void moveTick();
 };
