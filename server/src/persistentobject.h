@@ -35,9 +35,9 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
-class PersistentObject //: public QObject
+class PersistentObject : public QObject
 {
-//	Q_OBJECT
+	Q_OBJECT
 protected:
 	bool isPersistent;
 public:

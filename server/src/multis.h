@@ -50,6 +50,7 @@ class cChar;
 // Beware! This is abstract (more or less)
 class cMulti : public cItem
 {
+	Q_OBJECT
 protected:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 
@@ -114,6 +115,7 @@ protected:
 
 class cMultiGump : public cGump
 {
+	Q_OBJECT
 private:
 	SERIAL char_;
 	SERIAL multi_;

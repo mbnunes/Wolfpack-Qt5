@@ -108,13 +108,5 @@ public:
 };
 
 // Repair Item
-class cSkRepairItem : public cTargetRequest
-{
-private:
-	cMakeSection* makesection_;
-public:
-	cSkRepairItem( cMakeSection* makesection = NULL ) : cTargetRequest(), makesection_( makesection ) {}
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
 
 #endif

@@ -36,6 +36,8 @@
 
 #include <map>
 
+#include <qobject.h>
+
 struct good_st
 {
 	UI32	sellable;
@@ -106,8 +108,9 @@ public:
 	std::map< UI32, good_st >		tradesystem_;
 };
 
-class cAllTerritories : public cAllBaseRegions
+class cAllTerritories : public QObject, public cAllBaseRegions
 {
+	Q_OBJECT
 private:
 	static cAllTerritories instance;
 	cAllTerritories() {}

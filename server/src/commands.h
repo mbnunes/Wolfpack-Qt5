@@ -32,9 +32,10 @@
 #define __COMMANDS_H__
 
 // Library Includes
-#include "qmap.h"
-#include "qstring.h"
-#include "qstringlist.h"
+#include <qmap.h>
+#include <qstring.h>
+#include <qstringlist.h>
+#include <qobject.h>
 
 class cUOSocket;
 
@@ -55,8 +56,9 @@ typedef stAcl cAcl;
 // ACL:
 // Group -> Command -> Permitted
 
-class cCommands
+class cCommands : public QObject
 {
+	Q_OBJECT
 private:
 	QMap< QString, stAcl* > _acls;
 	static stCommand commands[];

@@ -438,6 +438,35 @@ SOURCE=.\basics.h
 # Begin Source File
 
 SOURCE=.\boats.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing boats.h...
+InputDir=.
+InputPath=.\boats.h
+InputName=boats
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing boats.h...
+InputDir=.
+InputPath=.\boats.h
+InputName=boats
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -450,6 +479,35 @@ SOURCE=.\bounty.h
 # Begin Source File
 
 SOURCE=.\chars.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing chars.h...
+InputDir=.
+InputPath=.\chars.h
+InputName=chars
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing chars.h...
+InputDir=.
+InputPath=.\chars.h
+InputName=chars
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -466,6 +524,39 @@ SOURCE=.\cmdtable.h
 # Begin Source File
 
 SOURCE=.\combat.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\commands.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing commands.h...
+InputDir=.
+InputPath=.\commands.h
+InputName=commands
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing commands.h...
+InputDir=.
+InputPath=.\commands.h
+InputName=commands
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -498,6 +589,35 @@ SOURCE=.\debug.h
 # Begin Source File
 
 SOURCE=.\definable.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing definable.h...
+InputDir=.
+InputPath=.\definable.h
+InputName=definable
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing definable.h...
+InputDir=.
+InputPath=.\definable.h
+InputName=definable
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -522,6 +642,35 @@ SOURCE=.\guildstones.h
 # Begin Source File
 
 SOURCE=.\gumps.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing gumps.h...
+InputDir=.
+InputPath=.\gumps.h
+InputName=gumps
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing gumps.h...
+InputDir=.
+InputPath=.\gumps.h
+InputName=gumps
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -534,6 +683,35 @@ SOURCE=.\inlines.h
 # Begin Source File
 
 SOURCE=.\iserialization.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing iserialization.h...
+InputDir=.
+InputPath=.\iserialization.h
+InputName=iserialization
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing iserialization.h...
+InputDir=.
+InputPath=.\iserialization.h
+InputName=iserialization
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -542,6 +720,35 @@ SOURCE=.\itemid.h
 # Begin Source File
 
 SOURCE=.\items.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing items.h...
+InputDir=.
+InputPath=.\items.h
+InputName=items
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing items.h...
+InputDir=.
+InputPath=.\items.h
+InputName=items
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -558,6 +765,35 @@ SOURCE=.\magic.h
 # Begin Source File
 
 SOURCE=.\makemenus.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing makemenus.h...
+InputDir=.
+InputPath=.\makemenus.h
+InputName=makemenus
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing makemenus.h...
+InputDir=.
+InputPath=.\makemenus.h
+InputName=makemenus
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -582,6 +818,35 @@ SOURCE=.\multicache.h
 # Begin Source File
 
 SOURCE=.\multis.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing multis.h...
+InputDir=.
+InputPath=.\multis.h
+InputName=multis
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing multis.h...
+InputDir=.
+InputPath=.\multis.h
+InputName=multis
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -651,6 +916,15 @@ InputName=persistentobject
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
 
 # PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing persistentobject.h...
+InputDir=.
+InputPath=.\persistentobject.h
+InputName=persistentobject
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ENDIF 
 
@@ -682,6 +956,35 @@ SOURCE=.\resource.h
 # Begin Source File
 
 SOURCE=.\resources.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing resources.h...
+InputDir=.
+InputPath=.\resources.h
+InputName=resources
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing resources.h...
+InputDir=.
+InputPath=.\resources.h
+InputName=resources
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -714,6 +1017,35 @@ SOURCE=.\speech.h
 # Begin Source File
 
 SOURCE=.\spellbook.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing spellbook.h...
+InputDir=.
+InputPath=.\spellbook.h
+InputName=spellbook
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing spellbook.h...
+InputDir=.
+InputPath=.\spellbook.h
+InputName=spellbook
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -742,6 +1074,35 @@ SOURCE=.\targeting.h
 # Begin Source File
 
 SOURCE=.\targetrequests.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing targetrequests.h...
+InputDir=.
+InputPath=.\targetrequests.h
+InputName=targetrequests
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing targetrequests.h...
+InputDir=.
+InputPath=.\targetrequests.h
+InputName=targetrequests
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -750,6 +1111,35 @@ SOURCE=.\telport.h
 # Begin Source File
 
 SOURCE=.\territories.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing territories.h...
+InputDir=.
+InputPath=.\territories.h
+InputName=territories
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing territories.h...
+InputDir=.
+InputPath=.\territories.h
+InputName=territories
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -766,6 +1156,35 @@ SOURCE=.\Timing.h
 # Begin Source File
 
 SOURCE=.\TmpEff.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing TmpEff.h...
+InputDir=.
+InputPath=.\TmpEff.h
+InputName=TmpEff
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing TmpEff.h...
+InputDir=.
+InputPath=.\TmpEff.h
+InputName=TmpEff
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -778,6 +1197,35 @@ SOURCE=.\typedefs.h
 # Begin Source File
 
 SOURCE=.\uobject.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing uobject.h...
+InputDir=.
+InputPath=.\uobject.h
+InputName=uobject
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing uobject.h...
+InputDir=.
+InputPath=.\uobject.h
+InputName=uobject
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -826,6 +1274,35 @@ SOURCE=.\wpscriptmanager.h
 # Begin Source File
 
 SOURCE=.\wptargetrequests.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing wptargetrequests.h...
+InputDir=.
+InputPath=.\wptargetrequests.h
+InputName=wptargetrequests
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing wptargetrequests.h...
+InputDir=.
+InputPath=.\wptargetrequests.h
+InputName=wptargetrequests
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # End Group
 # Begin Group "Resource Files"
@@ -882,6 +1359,35 @@ SOURCE=.\network\uosocket.cpp
 # Begin Source File
 
 SOURCE=.\network\uosocket.h
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing uosocket.h...
+InputDir=.\network
+InputPath=.\network\uosocket.h
+InputName=uosocket
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing uosocket.h...
+InputDir=.\network
+InputPath=.\network\uosocket.h
+InputName=uosocket
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -962,6 +1468,82 @@ SOURCE=.\python\wppythonscript.cpp
 # Begin Source File
 
 SOURCE=.\python\wppythonscript.h
+# End Source File
+# End Group
+# Begin Group "Generated"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\moc_boats.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_chars.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_commands.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_definable.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_gumps.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_iserialization.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_items.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_makemenus.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_multis.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_persistentobject.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_resources.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_spellbook.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_targetrequests.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_territories.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_TmpEff.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_uobject.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\network\moc_uosocket.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_wptargetrequests.cpp
 # End Source File
 # End Group
 # End Target

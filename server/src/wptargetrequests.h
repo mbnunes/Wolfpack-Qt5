@@ -36,9 +36,13 @@
 #include "network/uosocket.h"
 #include "targeting.h"
 
+// Library includes
+#include <qobject.h>
+
 // Abstract base-class for target requests
-class cTargetRequest
+class cTargetRequest : public QObject
 {
+	Q_OBJECT
 protected:
 	UI32 timeout_; // Timeout in MS
 	UI32 targetId_; // Target id so no overlapping targets are processed

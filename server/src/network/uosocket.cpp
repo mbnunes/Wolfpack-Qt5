@@ -61,6 +61,7 @@
 #include "../contextmenu.h"
 #include "../TmpEff.h"
 #include "../newmagic.h"
+#include "../targetrequests.h"
 
 //#include <conio.h>
 #include <iostream>
@@ -103,11 +104,11 @@ cUOSocket::~cUOSocket(void)
 	delete _socket;
 	delete targetRequest;
 
-	QMap< SERIAL, cGump* >::iterator it = gumps.begin();
+	QMap< SERIAL, cGump* >::iterator it( gumps.begin() );
 	while( it != gumps.end() )
 	{
 		delete it.data();
-		it++;
+		++it;
 	}
 }
 
@@ -135,19 +136,15 @@ void cUOSocket::send( cGump *gump )
 {
 	if( gump->serial() == INVALID_SERIAL )
 	{
-		while( gump->serial() == INVALID_SERIAL || ( gumps.find( gump->serial() ) != gumps.end() ) )
+		while( gump->serial() == INVALID_SERIAL || ( gumps.contains( gump->serial() ) ) )
 			gump->setSerial( RandomNum( 0x10000000, 0x1000FFFF ) ); 
-		// I changed this, everything between 0x10000000 and 0x1000FFFF is randomly generated)
+		// I changed this, everything between 0x10000000 and 0x1000FFFF is randomly generated
 	}
-	// Remove/Timeout the old one first
-	else if( gumps.find( gump->serial() ) != gumps.end() )
+	else if( gumps.contains( gump->serial() ) ) // Remove/Timeout the old one first
 	{
-		cGump *pGump = gumps.find( gump->serial() ).data();
-		if( pGump )
-		{
-			gumps.erase( gumps.find( pGump->serial() ) );
-			delete pGump;
-		}
+		QMap< SERIAL, cGump* >::iterator it( gumps.find( gump->serial() ) );
+		delete it.data();
+		gumps.erase( it );
 	}
 
 	gumps.insert( gump->serial(), gump );
@@ -159,7 +156,7 @@ void cUOSocket::send( cGump *gump )
 	while( it != text.end() )
 	{
 		gumpsize += (*it).length() * 2 + 2;
-		it++;
+		++it;
 	}
 	cUOTxGumpDialog uoPacket( gumpsize );
 
@@ -187,7 +184,7 @@ void cUOSocket::recieve()
 	// After two pings we idle-disconnect
 	if( lastPacket == 0x73 && packetId == 0x73 )
 	{
-		clConsole.send( QString( "[%1] Idle Disconnected" ).arg( _socket->peerAddress().toString() ) );
+		clConsole.send( tr( "[%1] Idle Disconnected" ).arg( _socket->peerAddress().toString() ) );
 		disconnect();
 		return;
 	}
@@ -195,7 +192,7 @@ void cUOSocket::recieve()
 	// Disconnect harmful clients
 	if( ( _account < 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
 	{
-		clConsole.send( QString( "Communication Error [%1 instead of 0x80|0x91] [%2]\n" ).arg( packetId, 2, 16 ).arg( _socket->peerAddress().toString() ) );
+		clConsole.send( tr( "Communication Error [%1 instead of 0x80|0x91] [%2]\n" ).arg( packetId, 2, 16 ).arg( _socket->peerAddress().toString() ) );
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( DL_BADCOMMUNICATION );
 		send( &denyLogin );
@@ -286,7 +283,6 @@ void cUOSocket::recieve()
 	case 0x95:
 		handleDye( dynamic_cast< cUORxDye* >( packet ) ); break;
 	default:
-		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
 		break;
 	}
@@ -591,7 +587,7 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 				authRet = Accounts::instance()->createAccount( username, password );
 				_account = authRet;
 				
-				clConsole.send( QString( "[%2] Account autocreated: '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
+				clConsole.send( tr( "[%2] Account autocreated: '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
 				return true;
 			}
 			else
@@ -606,12 +602,12 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			denyPacket.setReason( DL_INUSE ); break;
 		};
 
-		clConsole.send( QString( "[%2] Failed to log in as '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
+		clConsole.send( tr( "[%2] Failed to log in as '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
 		send( &denyPacket );
 	}
 	else if( error == cAccounts::NoError )
 	{
-		clConsole.send( QString( "[%2] Identified as '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
+		clConsole.send( tr( "[%2] Identified as '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
 	}
 
 	_account = authRet;
@@ -2228,45 +2224,6 @@ void cUOSocket::updateLightLevel( UINT8 level )
 		send( &pLight );
 	}
 }
-
-/*!
-	Class for handling a dye request (for dying dye-tubs).
-*/
-class cDyeTubDyeTarget: public cTargetRequest
-{
-private:
-	UINT16 _color;
-public:
-	cDyeTubDyeTarget( UINT16 color ) { _color = color; }
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		if( !socket->player() )
-			return true;
-
-		P_ITEM pItem = FindItemBySerial( target->serial() );
-
-		if( !pItem )
-			return true;
-
-		if( pItem->getOutmostChar() != socket->player() && !( pItem->isInWorld() && pItem->inRange( socket->player(), 4 ) ) )
-		{
-			socket->sysMessage( tr( "You can't reach this object to dye it." ) );
-			return true;
-		}
-
-		if( pItem->type() != 406 )
-		{
-			socket->sysMessage( tr( "You can only dye dye tubs with this." ) );
-			return true;
-		}
-
-		pItem->setColor( _color );
-		pItem->update();
-
-		return true;
-	}
-};
 
 void cUOSocket::handleDye( cUORxDye* packet )
 {

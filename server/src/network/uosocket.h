@@ -34,9 +34,8 @@
 #define __UOSOCKET__
 
 // Library Includes
-#include "qcstring.h"
-#include "qsocketdevice.h"
-#include <stack>
+#include <qcstring.h>
+#include <qsocketdevice.h>
 
 // Forward Declarations
 class cUOPacket;
@@ -50,8 +49,9 @@ class cGump;
 #include "../typedefs.h"
 #include "../wptargetrequests.h"
 
-class cUOSocket
+class cUOSocket : public QObject
 {
+	Q_OBJECT
 public:
 	enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
 private:

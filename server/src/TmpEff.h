@@ -58,6 +58,7 @@ class cTempEffects;
 
 class cTempEffect : public cSerializable
 {
+	Q_OBJECT
 protected:
 	SERIAL		sourSer;
 	SERIAL		destSer;
@@ -115,6 +116,7 @@ public:
 
 class cTmpEff : public cTempEffect
 {
+	Q_OBJECT
 public:
 	unsigned char num;
 	unsigned short more1;
@@ -133,6 +135,7 @@ public:
 
 class cDelayedHideChar : public cTempEffect
 {
+	Q_OBJECT
 public:
 	cDelayedHideChar( SERIAL serial );
 	virtual void Expire();
@@ -143,6 +146,7 @@ public:
 
 class cTimedSpellAction : public cTempEffect
 {
+	Q_OBJECT
 private:
 	SERIAL character;
 	UI08 action;
@@ -155,9 +159,8 @@ public:
 class cTmpEffFibHeap
 {
 public:
-	cTmpEffFibHeap()						{ head = NULL; }
+	cTmpEffFibHeap() : head(0) {}
 	cTmpEffFibHeap( cTempEffect* head_ )	{ head = head_; }
-	~cTmpEffFibHeap()	{}
 
 	// methods
 	cTempEffect*	accessMin();
@@ -212,6 +215,7 @@ typedef SingletonHolder<cTempEffects> TempEffects;
 // cRepeatAction
 class cRepeatAction: public cTempEffect
 {
+	Q_OBJECT
 private:
 	SERIAL _mage;
 	UINT8 _anim;

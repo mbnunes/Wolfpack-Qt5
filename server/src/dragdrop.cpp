@@ -628,7 +628,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 		return;
 	}
 
-	socket->sysMessage( "The character does not seem to want the item." );
+	socket->sysMessage( tr("The character does not seem to want the item.") );
 	socket->bounceItem( pItem, BR_NO_REASON );
 	return;
 }
@@ -725,7 +725,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 
 		if( !packOwner->isNpc() || ( packOwner->npcaitype() != 17 ) || packOwner->owner() != pChar )
 		{
-			socket->sysMessage( "You cannot put that into the belongings of another player" );
+			socket->sysMessage( tr("You cannot put that into the belongings of another player") );
 			socket->bounceItem( pItem, BR_NO_REASON );
 			return;
 		}
@@ -908,8 +908,7 @@ void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 
 	// *You see Snowwhite eating some poisoned apples*
 	// Color: 0x0026
-	QString emote = QString( "*You see %1 eating %2*" ).arg( pChar->name.latin1() ).arg( pItem->getName() );
-	pChar->emote( emote );
+	pChar->emote( tr( "*You see %1 eating %2*" ).arg( pChar->name.latin1() ).arg( pItem->getName() ) );
 
 	// We try to feed it more than it needs
 	if( pChar->hunger() + pItem->amount() > 6 )
@@ -969,7 +968,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 	
 	if( ( pBeggar->hunger() < 6 ) && pItem->type() == 14 )
 	{
-		pBeggar->talk( "*cough* Thank thee!" );
+		pBeggar->talk( tr("*cough* Thank thee!") );
 		pBeggar->soundEffect( 0x3A + RandomNum( 1, 3 ) );
 
 		// If you want to poison a pet... Why not
@@ -991,8 +990,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 
 		// *You see Snowwhite eating some poisoned apples*
 		// Color: 0x0026
-		QString emote = QString( "*You see %1 eating %2*" ).arg( pBeggar->name.latin1() ).arg( pItem->getName() );
-		pBeggar->emote( emote );
+		pBeggar->emote( tr( "*You see %1 eating %2*" ).arg( pBeggar->name.latin1() ).arg( pItem->getName() ) );
 
 		// We try to feed it more than it needs
 		if( pBeggar->hunger() + pItem->amount() > 6 )
@@ -1028,7 +1026,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 	}
 
 	pBeggar->talk( tr( "Thank you %1 for the %2 gold!" ).arg( socket->player()->name.latin1() ).arg( pItem->amount() ) );
-	socket->sysMessage( "You have gained some karma!" );
+	socket->sysMessage( tr("You have gained some karma!") );
 	
 	if( pItem->amount() <= 100 )
 		socket->player()->setKarma( socket->player()->karma() + 10 );

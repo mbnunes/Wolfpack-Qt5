@@ -119,8 +119,9 @@ private:
 	UINT16		max_;
 };
 
-class cMakeSection : public cDefinable
+class cMakeSection : public QObject, public cDefinable
 {
+	Q_OBJECT
 public:
 	cMakeSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
 	~cMakeSection();
@@ -308,6 +309,7 @@ private:
 
 class cMakeMenuGump : public cGump
 {
+	Q_OBJECT
 private:
 	cMakeMenu* menu_;
 	cMakeMenu* prev_;
@@ -322,6 +324,7 @@ public:
 
 class cLastTenGump : public cGump
 {
+	Q_OBJECT
 private:
 	cMakeMenu* prev_;
 	QPtrList< cMakeSection > sections_;

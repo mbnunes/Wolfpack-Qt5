@@ -59,8 +59,9 @@ class cUOSocket;
 class QSqlQuery;
 class cItem;
 
-class cUObject : public PersistentObject, public cDefinable
+class cUObject : public virtual PersistentObject, public virtual cDefinable
 {
+	Q_OBJECT
 // Data Members
 private:
 	QString bindmenu_;

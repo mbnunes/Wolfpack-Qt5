@@ -89,7 +89,19 @@
 <context>
     <name>@default</name>
     <message>
+        <source>You can&apos;t combine these.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>You can&apos;t use material outside your backpack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You aren&apos;t skilled enough to even try that!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You combined the parts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -101,11 +113,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>You are no longer muted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are no longer criminal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>You are no longer a murderer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Your jail time is over!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 [0x%2] is automatically released from jail.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have been released.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -130,42 +158,6 @@
     </message>
     <message>
         <source>You must eat very soon or you will die!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The poison has worn off.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You have been poisoned!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can&apos;t combine these.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You aren&apos;t skilled enough to even try that!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You combined the parts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are no longer muted.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are no longer criminal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 [0x%2] is automatically released from jail.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You have been released.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -199,6 +191,10 @@
     </message>
     <message>
         <source>The poison killed you.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The poison has worn off.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -502,6 +498,62 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Invalid event: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select a target to add event &apos;%1&apos; to.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select a target to remove event &apos;%1&apos; from.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select a target to &apos;move %1,%2,%3&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select first corner of the box you want to nuke.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item definition &apos;%1&apos; is undefined.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select the first corner.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AllShow = &apos;1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AllShow = &apos;0&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AllMove = &apos;1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AllMove = &apos;0&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ShowSerials = &apos;1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ShowSerials = &apos;0&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select the vendor you want to restock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>If you wish to use this, it must be equipped or in your backpack.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -530,10 +582,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>What do you want to use this on?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You have been resurrected.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -550,11 +598,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>You can&apos;t see this.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have to unlock it before taking a look.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can&apos;t reach this.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>*%1 loots the body of %2*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are too far away!</source>
+        <source>You must stand nearer to snoop!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can&apos;t open this container.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -587,6 +651,10 @@
     </message>
     <message>
         <source>You are nearly stuffed, but manage to eat the food.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have been poisoned!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -682,7 +750,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>What do you want to dye?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>To cash this, you need to drop it on a banker.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What do you want to use this on?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -691,6 +767,10 @@
     </message>
     <message>
         <source>Where do you want to dig?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Casting from scrolls is currently not supported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -831,10 +911,6 @@
     </message>
     <message>
         <source>You are in the wilderness</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>I&apos;m a little busy now! Leave me be!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -996,6 +1072,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Your attack has been parried!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You parried the blow!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Halt, scoundrel!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1029,6 +1113,21 @@
     </message>
     <message>
         <source>Parsing %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cAddEventTarget</name>
+    <message>
+        <source>You have to target a character or an item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This object already has the event &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid event: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1157,6 +1256,10 @@
 <context>
     <name>cChar</name>
     <message>
+        <source>%1&apos;s bank box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>You loose your concentration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1262,6 +1365,14 @@
     </message>
     <message>
         <source>You dont own that creature.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*You see %1 attacking %2*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*You see %1 attacking you*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1538,9 +1649,6 @@
     </message>
 </context>
 <context>
-    <name>cCombat</name>
-</context>
-<context>
     <name>cCommands</name>
     <message>
         <source>Access to command &apos;%1&apos; was denied</source>
@@ -1681,23 +1789,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The %1 is now in thy bank box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This cheque does not have any value!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 I have cashed thy cheque and deposited %2 gold.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You need to give me gold if you want me to train you!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>I thank thee for thy payment. That should give thee a good start on thy way. Farewell!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The character does not seem to want the item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot put that into the belongings of another player</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*You see %1 eating %2*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*cough* Thank thee!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have gained some karma!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1709,6 +1825,17 @@
     </message>
     <message>
         <source>You can only dye cloth with this.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cDyeTubDyeTarget</name>
+    <message>
+        <source>You can&apos;t reach this object to dye it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can only dye dye tubs with this.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2144,53 +2271,6 @@
     </message>
 </context>
 <context>
-    <name>cMagic</name>
-    <message>
-        <source> You cant cast in town!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You successfully untrap this item!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You miss to untrap this item!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This item doesn&apos;t seem to be trapped!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This item cannot be trapped!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You cannot lock this!!!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>That is not locked.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>That does not have a lock.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There is something in the way!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>That is not a valid item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t cope with this spell, requires a target but it doesn&apos;t specify what type</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>cMakeMenuGump</name>
     <message>
         <source>CATEGORIES</source>
@@ -2348,6 +2428,13 @@
     </message>
 </context>
 <context>
+    <name>cMoveTarget</name>
+    <message>
+        <source>You have to target a character or an item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>cMovement</name>
     <message>
         <source>You have been revealed.</source>
@@ -2480,19 +2567,6 @@
     </message>
 </context>
 <context>
-    <name>cNetwork</name>
-    <message>
-        <source>Socket connected [%1]
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Socket disconnected [%1]
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>cNewMagic</name>
     <message>
         <source>Your spell fizzles.</source>
@@ -2535,7 +2609,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You dont have enough reagents</source>
+        <source>You don&apos;t have enough reagents.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2544,6 +2618,10 @@
     </message>
     <message>
         <source>This spell is either not implemented or invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You don&apos;t know this spell.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2559,6 +2637,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>You can&apos;t reach this.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>You can&apos;t see the target.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2568,6 +2650,21 @@
     </message>
     <message>
         <source>You can&apos;t see this item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cNukeTarget</name>
+    <message>
+        <source>Please select the second corner of the box you want to nuke.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuking from %1,%2 to %3,%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleted %1 items.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2670,6 +2767,17 @@
     </message>
 </context>
 <context>
+    <name>cRemoveEventTarget</name>
+    <message>
+        <source>You have to target a character or an item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This object doesn&apos;t have the event &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>cRemoveTagTarget</name>
     <message>
         <source>All tags removed.</source>
@@ -2677,6 +2785,13 @@
     </message>
     <message>
         <source>Tag &quot;%1&quot; removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cRemoveTarget</name>
+    <message>
+        <source>You cannot delete logged in characters</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2709,8 +2824,15 @@
         <source>resitem: %1</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>cRestockTarget</name>
     <message>
-        <source>#</source>
+        <source>This vendor&apos;s inventar has been restocked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please target a valid vendor.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2765,6 +2887,10 @@
 </context>
 <context>
     <name>cShowTarget</name>
+    <message>
+        <source>Unknown tag &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>Unknown key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
@@ -3384,14 +3510,6 @@
         <source>This item is enchanted with a spell, but you cannot determine which</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>It is enchanted with the spell %1, but you cannot determine how many charges remain.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>It is enchanted with the spell %1, and has %2 charges remaining.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>cSkLockpicking</name>
@@ -3641,43 +3759,11 @@
 <context>
     <name>cSkills</name>
     <message>
-        <source>You do not have an instrument to play on!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You cut some cloth into bandages, and put it in your backpack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You cannot cut anything from that item.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You cannot steal that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>That is too heavy.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You catch yourself red handed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You successfully steal that item.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You failed to steal that item.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You have been cought!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are too far away to steal that item.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3706,6 +3792,10 @@
     </message>
     <message>
         <source>You can move %1 steps unseen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You do not have an instrument to play on!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3825,7 +3915,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>You catch yourself red handed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot steal that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>your victim doesnt have posessions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You reach into %1&apos;s pack and try to take something...%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>That is too heavy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3837,11 +3943,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>You successfully steal that item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Ops, you don&apos;t seam to have a backpack!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>You failed to steal that item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have been cought!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Guards!! A thief is amoung us!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are too far away to steal that item.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4075,7 +4197,19 @@
     </message>
 </context>
 <context>
-    <name>cTinkerCombine</name>
+    <name>cTileTarget</name>
+    <message>
+        <source>Please select the second corner.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tiling from %1,%2 to %3,%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Created %1 items.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cTmpEff</name>
@@ -4084,15 +4218,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>*%1 continues grinding.*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>You have hidden yourself well.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You are now visible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>*%1 continues grinding.*</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4122,11 +4256,39 @@
 <context>
     <name>cUOSocket</name>
     <message>
+        <source>[%1] Idle Disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Communication Error [%1 instead of 0x80|0x91] [%2]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 left the world!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1 entered the world!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[%2] Account autocreated: &apos;%1&apos;
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[%2] Failed to log in as &apos;%1&apos;
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[%2] Identified as &apos;%1&apos;
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 sent cUORxCreateChar without being authenticated, disconnecting. Probably a crypt client</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4218,19 +4380,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>*You see %1 attacking %2*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*You see %1 attacking you*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Help! Guards! Tis a murder being commited!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>*You see %1 attacking %2!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You see %1 attacking you</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unexpected button input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid gump response packet received from %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can&apos;t dye in this kind of color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can only change your own profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can&apos;t rename yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This name was too long, i truncated it to 29 characters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can&apos;t rename this.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

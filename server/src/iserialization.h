@@ -34,7 +34,9 @@
 
 #include <string>
 
-#include "qstring.h"
+// Library includes
+#include <qobject.h>
+#include <qstring.h>
 
 // Forward class declarations
 class ISerialization;
@@ -50,8 +52,9 @@ USAGE
 	Classes who require persistance should inherit off from cSerializable and reimplement
 	\sa objectID and \sa Serializable methods.
 */
-class cSerializable
+class cSerializable : public QObject
 {
+	Q_OBJECT
 public:
 	virtual ~cSerializable() {}
 

@@ -38,6 +38,7 @@
 #include "multiscache.h"
 #include "dbdriver.h"
 #include "persistentbroker.h"
+#include "targetrequests.h"
 
 // System Includes
 #include <math.h>
@@ -463,133 +464,6 @@ void cMulti::setName( const QString nValue )
 		++it;
 	}
 }
-
-class cSetMultiOwnerTarget: public cTargetRequest
-{
-private:
-	bool coowner_;
-	SERIAL multi_;
-public:
-	cSetMultiOwnerTarget( SERIAL multiserial, bool coowner = false ) 
-	{ 
-		multi_ = multiserial;
-		coowner_ = coowner; 
-	}
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
-		if( !pMulti || !socket->player() )
-		{
-			socket->sysMessage( tr( "An error occured! Send a bug report to the staff, please!" ) );
-			return true;
-		}
-
-		if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
-			return true;
-
-		P_CHAR pc = FindCharBySerial( target->serial() );
-		if( !pc || !pc->socket() )
-		{
-			socket->sysMessage( tr( "This is not a valid target!" ) );
-			return false;
-		}
-		
-		if( coowner_ )
-		{
-			pMulti->setCoOwner( pc );
-			socket->sysMessage( tr("You have made %1 to the new co-owner of %2").arg( pc->name.latin1() ).arg( pMulti->name() ) );
-			pc->socket()->sysMessage( tr("%1 has made you to the new co-owner of %2").arg( socket->player()->name.latin1() ).arg( pMulti->name() ) );
-		}
-		else
-		{
-			pMulti->setOwner( pc );
-			socket->sysMessage( tr("You have made %1 to the new owner of %2").arg( pc->name.latin1() ).arg( pMulti->name() ) );
-			pc->socket()->sysMessage( tr("%1 has made you to the new owner of %2").arg( socket->player()->name.latin1() ).arg( pMulti->name() ) );
-		}
-		return true;
-	}
-};
-
-class cMultiAddToListTarget: public cTargetRequest
-{
-private:
-	SERIAL	multi_;
-	bool	banlist_;
-public:
-	cMultiAddToListTarget( SERIAL multiserial, bool banlist = false ) 
-	{ 
-		multi_ = multiserial;
-		banlist_ = banlist; 
-	}
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
-		if( !pMulti || !socket->player() )
-		{
-			socket->sysMessage( tr( "An error occured! Send a bug report to the staff, please!" ) );
-			return true;
-		}
-
-		if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
-			return true;
-
-		P_CHAR pc = FindCharBySerial( target->serial() );
-		if( !pc || !pc->socket() )
-		{
-			socket->sysMessage( tr( "This is not a valid target!" ) );
-			return false;
-		}
-		
-		if( banlist_ )
-		{
-			pMulti->addBan( pc );
-		}
-		else
-		{
-			pMulti->addFriend( pc );
-		}
-		socket->sysMessage( tr("Select another char to add to the %1!").arg( banlist_ ? tr("list of banned") : tr("list of friends") ) );
-		return false;
-	}
-};
-
-class cMultiChangeLockTarget: public cTargetRequest
-{
-private:
-	SERIAL multi_;
-public:
-	cMultiChangeLockTarget( SERIAL multiserial ) { multi_ = multiserial; }
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );
-		if( !pMulti || !socket->player() )
-		{
-			socket->sysMessage( tr( "An error occured! Send a bug report to the staff, please!" ) );
-			return true;
-		}
-
-		if( target->x() == 0xFFFF && target->y() == 0xFFFF && target->z() == (INT8)0xFF )
-			return true;
-
-		P_ITEM pi = FindItemBySerial( target->serial() );
-		if( !pi )
-		{
-			socket->sysMessage( tr( "This is not a valid target!" ) );
-			return false;
-		}
-		
-		if( pi->multis == pMulti->serial && pi->type() != 117 )
-		{
-			pi->setMagic((pi->magic() == 4 && pi->type() != 222) ? 0 : 4);
-			pi->update();
-		}
-		socket->sysMessage( tr("Select another item to lock/unlock!") );
-		return false;
-	}
-};
 
 cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 {

@@ -67,6 +67,7 @@ class QStringList;
 
 class cBoat : public cMulti
 {
+	Q_OBJECT
 private:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 
