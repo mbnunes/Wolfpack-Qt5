@@ -424,6 +424,15 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 */
 void cUOSocket::sendCharList()
 {
+	// NOTE:
+	// Send the server/account features here as well
+	// AoS needs it most likely for account creation
+	cUOTxClientFeatures clientFeatures;
+	clientFeatures.setLbr( true );
+	clientFeatures.setT2a( true );
+	clientFeatures.setShort( 1, 0x8013 ); // AoS TEST
+	send( &clientFeatures );
+
 	cUOTxCharTownList charList;
 	QValueVector< cChar* > characters = _account->caracterList();
 
@@ -511,16 +520,9 @@ void cUOSocket::playChar( P_CHAR pChar )
 
 	// Minimum Requirements for log in
 	// a) Set the map the user is on
-	// b) Set the client features
-	// c) Confirm the Login
-	// d) Start the Game
-	// e) Set the Game Time
-
-	cUOTxClientFeatures clientFeatures;
-	clientFeatures.setLbr( true );
-	clientFeatures.setT2a( true );
-	clientFeatures.setShort( 1, 0x8003 ); // AoS TEST
-	send( &clientFeatures );
+	// b) Confirm the Login
+	// c) Start the Game
+	// d) Set the Game Time
 
 	// We're now playing this char
 	pChar->setHidden( 0 ); // Unhide us (logged out)
