@@ -212,6 +212,8 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 	if( !pChar )
 		return;
 
+	UI08 map = pChar->pos().map;
+
 	if( args.isEmpty() )
 	{
 		socket->sysMessage( "Bringin up travel gump" );
@@ -219,6 +221,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 	}
 	else
 	{
+
 		Coord_cl newPos = pChar->pos();
 		QString argument = args.join(" ");
 		if( parseCoordinates( argument, newPos ) )
@@ -230,7 +233,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false, true );
-			socket->resendPlayer( newPos.map == pChar->pos().map );
+			socket->resendPlayer( map == pChar->pos().map );
 			socket->resendWorld();
 			return;
 		}
@@ -243,7 +246,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false, true );
-			socket->resendPlayer( newPos.map == pChar->pos().map );
+			socket->resendPlayer( map == pChar->pos().map );
 			socket->resendWorld();
 			return;
 		}			
