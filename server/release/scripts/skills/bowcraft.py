@@ -93,6 +93,8 @@ class FletchItemAction(CraftItemAction):
 
   #
   # For bowcraft we simply consume the maximum material available.
+  # Here we try to consume extra material to add to the amount of our
+  # items.
   #
   def applyproperties(self, player, arguments, item, exceptional):
     # Use all available resources if the item we make is
