@@ -124,7 +124,10 @@ def endheal(char, arguments):
 		socket.clilocmessage(500962) # Died before finishing his work
 		return
 	
-	slipped = int(socket.gettag('bandage_slipped')) # How many times the fingers slipped
+	if socket.hastag('bandage_slipped'):
+		slipped = int(socket.gettag('bandage_slipped')) # How many times the fingers slipped
+	else:
+		slipped = 0
 	socket.deltag('bandage_slipped')
 
 	# Retrieve arguments
