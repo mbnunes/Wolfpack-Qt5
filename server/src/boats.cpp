@@ -1289,11 +1289,15 @@ void cBoat::save()
 
 	INT32 i, j, k;
 
-	for( i = 0; i < 4; ++i )
-		addField( QString( "itemserial%1" ).arg( i ), itemserials[i] );
+	addField( "itemserial0", itemserials[0] );
+	addField( "itemserial1", itemserials[1] );
+	addField( "itemserial2", itemserials[2] );
+	addField( "itemserial3", itemserials[3] );
 
-	for( i = 0; i < 4; ++i )
-		addField( QString( "multi%1" ).arg( i ), multiids_[i] );
+	addField( "multi0", multiids_[0] );
+	addField( "multi1", multiids_[1] );
+	addField( "multi2", multiids_[2] );
+	addField( "multi3", multiids_[3] );
 
 	addCondition( "serial", serial() );
 	saveFields;

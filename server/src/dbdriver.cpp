@@ -183,6 +183,12 @@ bool cSQLiteDriver::open( int id )
 		}
 	}
 
+	exec( "PRAGMA synchronous = OFF;" );
+	exec( "PRAGMA default_synchronous = OFF;" );
+	exec( "PRAGMA full_column_names = OFF;" );
+	exec( "PRAGMA show_datatypes = OFF;" );
+	exec( "PRAGMA parser_trace = OFF;" );
+
 	return true;
 }
 

@@ -46,6 +46,7 @@
 #include <qstring.h>
 #include <qglobal.h>
 #include <qthread.h>
+#include <qmutex.h>
 
 #if defined(Q_OS_WIN32) 
 # include <windows.h>
@@ -239,8 +240,7 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 
 void cConsole::queueCommand( const QString &command )
 {
-	commandMutex.lock();
+	QMutexLocker lock(&commandMutex);
 	commandQueue.push_back( command );
-	commandMutex.unlock();
 }
 

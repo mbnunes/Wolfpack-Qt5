@@ -40,41 +40,59 @@
 // Qt Includes
 #include <qstring.h>
 
+#include <list>
 
-PersistentBroker::PersistentBroker() : connection(0)
+struct stDeleteItem
+{
+	QString tables;
+	QString conditions;
+};
+
+class PersistentBrokerPrivate
+{
+public:
+	PersistentBrokerPrivate() : connection(0) {}
+	~PersistentBrokerPrivate() { delete connection; }
+
+	cDBDriver* connection;
+	bool sqlite;
+	std::list< stDeleteItem > deleteQueue;
+};
+
+PersistentBroker::PersistentBroker() : d( new PersistentBrokerPrivate )
 {
 }
 
 PersistentBroker::~PersistentBroker()
 {
-	delete connection;
+	delete d;
 }
 
 bool PersistentBroker::openDriver( const QString& driver )
 {
-	if( connection != 0 )
+	if( d->connection != 0 )
 	{
-		connection->close();
-		delete connection;
-		connection = 0;
+		d->connection->close();
+		delete d->connection;
+		d->connection = 0;
 	}
 
 	if( driver == "sqlite" )
 	{
-		connection = new cSQLiteDriver();
-		sqlite = true;
+		d->connection = new cSQLiteDriver();
+		d->sqlite = true;
 	}
 	else if( driver == "mysql" )
 	{
 #ifdef MYSQL_DRIVER
-		connection = new cMySQLDriver;
-		sqlite = false;
+		d->connection = new cMySQLDriver;
+		d->sqlite = false;
 #else
 		throw QString( "Sorry, you have to define MYSQL_DRIVER to make wolfpack work with MySQL.\n" );
 #endif
 	}
 
-	if ( !connection )
+	if ( !d->connection )
 		return false;
 
 	return true;
@@ -82,35 +100,25 @@ bool PersistentBroker::openDriver( const QString& driver )
 
 bool PersistentBroker::connect( const QString& host, const QString& db, const QString& username, const QString& password )
 {
-	if (!connection)
+	if (!d->connection)
 		return false;
 
 	// This does nothing but a little test-connection
-	connection->setDatabaseName( db );
-	connection->setUserName( username );
-	connection->setPassword( password );
-	connection->setHostName( host );
+	d->connection->setDatabaseName( db );
+	d->connection->setUserName( username );
+	d->connection->setPassword( password );
+	d->connection->setHostName( host );
 	
-	if( !connection->open() )
+	if( !d->connection->open() )
 		return false;
-
-	// Disable fsynch for sqlite
-	if( this->sqlite )
-	{
-		connection->exec( "PRAGMA synchronous = OFF;" );
-		connection->exec( "PRAGMA default_synchronous = OFF;" );
-		connection->exec( "PRAGMA full_column_names = OFF;" );
-		connection->exec( "PRAGMA show_datatypes = OFF;" );
-		connection->exec( "PRAGMA parser_trace = OFF;" );
-	}
 
 	return true;
 }
 
 void PersistentBroker::disconnect()
 {
-	if( connection )
-		connection->close();
+	if( d->connection )
+		d->connection->close();
 }
 
 bool PersistentBroker::saveObject( PersistentObject* object )
@@ -143,48 +151,45 @@ bool PersistentBroker::deleteObject( PersistentObject* object )
 
 bool PersistentBroker::executeQuery( const QString& query )
 {
-	if( !connection )
+	if( !d->connection )
 		throw QString( "PersistentBroker not connected to database." );
 
 	//qWarning( query );
-	bool result = connection->exec(query);
+	bool result = d->connection->exec(query);
 	if( !result )
 	{
-		Console::instance()->log( LOG_ERROR, connection->error() );
+		Console::instance()->log( LOG_ERROR, d->connection->error() );
 	}
 	return result;
 }
 
 cDBDriver* PersistentBroker::driver() const
 {
-	return connection;
+	return d->connection;
 }
 
 cDBResult PersistentBroker::query( const QString& query )
 {
-	if( !connection )
+	if( !d->connection )
 		throw QString( "PersistentBroker not connected to database." );
 
-	return connection->query( query );
+	return d->connection->query( query );
 }
 
 void PersistentBroker::clearDeleteQueue()
 {
-	deleteQueue.clear();
+	d->deleteQueue.clear();
 }
 
 void PersistentBroker::flushDeleteQueue()
 {
-	std::vector< stDeleteItem >::iterator iter;
-	for( iter = deleteQueue.begin(); iter != deleteQueue.end(); ++iter )
+	std::list< stDeleteItem >::iterator iter;
+	for( iter = d->deleteQueue.begin(); iter != d->deleteQueue.end(); ++iter )
 	{
-		QString tables = (*iter).tables;
-		QString conditions = (*iter).conditions;
-		QString sql = QString( "DELETE FROM %1 WHERE %2" ).arg( tables ).arg( conditions );
-		executeQuery( sql );
+		executeQuery( "DELETE FROM " + (*iter).tables + " WHERE " + (*iter).conditions );
 	}
 
-	deleteQueue.clear();
+	d->deleteQueue.clear();
 }
 
 void PersistentBroker::addToDeleteQueue( const QString &tables, const QString &conditions )
@@ -192,43 +197,48 @@ void PersistentBroker::addToDeleteQueue( const QString &tables, const QString &c
 	stDeleteItem dItem;
 	dItem.tables = tables;
 	dItem.conditions = conditions;
-	deleteQueue.push_back( dItem );
+	d->deleteQueue.push_back( dItem );
 }
 
 QString PersistentBroker::lastError() const
 {
-	return connection->error();
+	return d->connection->error();
 }
 
 void PersistentBroker::lockTable( const QString& table ) const
 {
-	connection->lockTable( table );
+	d->connection->lockTable( table );
 }
 
 void PersistentBroker::unlockTable( const QString& table ) const
 {
-	connection->unlockTable( table );
+	d->connection->unlockTable( table );
 }
 
 void PersistentBroker::startTransaction()
 {
-	if( sqlite )
-		executeQuery( "BEGIN;" );
+	executeQuery( "BEGIN;" );
 }
 
 void PersistentBroker::commitTransaction()
 {
-	if( sqlite )
-		executeQuery( "END;" );
+	executeQuery( "COMMIT;" );
 }
 
 void PersistentBroker::rollbackTransaction()
 {
-	if( sqlite )
-		executeQuery( "ROLLBACK;" );
+	executeQuery( "ROLLBACK;" );
 }
 
 bool PersistentBroker::tableExists( const QString &table )
 {
-	return connection->tableExists( table );
+	return d->connection->tableExists( table );
+}
+
+QString PersistentBroker::quoteString( QString s )
+{
+	if( d->sqlite )
+		return s.replace( QRegExp("'"), "''" );
+	else
+		return s.replace( QRegExp("'"), "\\'" );
 }

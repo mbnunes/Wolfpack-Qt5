@@ -32,27 +32,17 @@
 #if !defined(__PERSISTENTBROKER_H__)
 #define __PERSISTENTBROKER_H__
 
-#include <qsqldatabase.h>
-#include <typeinfo>
 #include <qregexp.h>
-#include <vector>
 
 class PersistentObject;
 class cDBDriver;
 class cDBResult;
 
-struct stDeleteItem
-{
-	QString tables;
-	QString conditions;
-};
+class PersistentBrokerPrivate;
 
 class PersistentBroker
 {
-	cDBDriver* connection;
-	bool sqlite;
-	std::vector< stDeleteItem > deleteQueue;
-
+	PersistentBrokerPrivate* d;
 public:
 	PersistentBroker();
 	~PersistentBroker();
@@ -67,13 +57,7 @@ public:
 	void clearDeleteQueue();
 	void addToDeleteQueue( const QString &tables, const QString &conditions );
 	
-	QString quoteString( QString d )
-	{
-		if( sqlite )
-			return d.replace( QRegExp("'"), "''" );
-		else
-			return d.replace( QRegExp("'"), "\\'" );
-	}
+	QString quoteString( QString d );
 
 	void lockTable( const QString& table ) const;
 	void unlockTable( const QString& table ) const;
@@ -98,7 +82,7 @@ public:
 
 #define addField( name, value ) \
 	if( isPersistent ) \
-		fields.push_back( QString( "%1='%2'" ).arg( name ).arg( QString::number( value ) ) ); \
+		fields.push_back( name "='" + QString::number(value) + "'" ); \
 	else \
 	{ \
 		/* fields.push_back( name ); */ \
@@ -107,7 +91,7 @@ public:
 
 #define addStrField( name, value ) \
 	if( isPersistent ) \
-		fields.push_back( QString( "%1='%2'" ).arg( name ).arg( persistentBroker->quoteString( value ) ) ); \
+		fields.push_back( name "='" + persistentBroker->quoteString( value ) + "'" ); \
 	else \
 	{ \
 		/* fields.push_back( name ); */ \
@@ -119,11 +103,11 @@ public:
 #define saveFields \
 	if( isPersistent ) \
 	{ \
-		persistentBroker->executeQuery( QString( "UPDATE %1 SET %2 WHERE %3" ).arg( table ).arg( fields.join( "," ) ).arg( conditions.join( " AND " ) ) ); \
+		persistentBroker->executeQuery( "UPDATE " + table + " SET " + fields.join( "," ) + " WHERE " + conditions.join( " AND " ) ); \
 	} \
 	else \
 	{ \
-		persistentBroker->executeQuery( QString( "REPLACE INTO %1 VALUES(%3)" ).arg( table )/*.arg( fields.join( "," ) )*/.arg( values.join( "," ) ) ); \
+		persistentBroker->executeQuery( "REPLACE INTO " + table + " VALUES(" + values.join( "," ) + ")" ); \
 	}
 
 #endif // __PERSISTENTBROKER_H__

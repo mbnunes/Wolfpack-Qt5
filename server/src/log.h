@@ -43,7 +43,7 @@ class cUOSocket;
 
 class cLog
 {
-protected:
+private:
 	eLogLevel loglevel;
 	QFile logfile;
 	bool checkLogFile();

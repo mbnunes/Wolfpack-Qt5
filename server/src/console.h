@@ -36,17 +36,11 @@
 #include "platform.h"
 
 // System Includes
-#include <iosfwd>
-#include <cstdarg>
-#include <cstdio>
 #include <qstringlist.h>
 #include <qstring.h>
 #include <qmutex.h>
 
 // Third Party includes
-
-// Forward class declaration
-class cPythonScript;
 
 // Wolfpack Includes
 #include "singleton.h"
