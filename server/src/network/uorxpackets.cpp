@@ -45,6 +45,8 @@ cUOPacket *getUOPacket( const QByteArray &data )
 		return new cUORxCreateChar( data );
 	case 0x01:
 		return new cUORxNotifyDisconnect( data );
+	case 0x02:
+		return new cUORxWalkRequest( data );
 	case 0x80:
 		return new cUORxLoginRequest( data );
 	case 0xA4:

@@ -103,6 +103,7 @@ public:
 	void handleRequestUse( cUORxRequestUse *packet );
 	void handleMultiPurpose( cUORxMultiPurpose *packet );
 	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
+	void handleWalkRequest( cUORxWalkRequest* packet );
 
 	// Utilities
 	void sysMessage( const QString &message, Q_UINT16 color = 0x0037 );

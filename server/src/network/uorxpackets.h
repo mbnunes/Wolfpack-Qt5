@@ -60,32 +60,32 @@ class cUORxCreateChar: public cUOPacket
 {
 public:
 	cUORxCreateChar( const QByteArray &data ): cUOPacket( data ) {}
-	Q_UINT32 pattern1( void ) { return getInt( 1 ); }
-	Q_UINT32 pattern2( void ) { return getInt( 5 ); }
-	Q_UINT8 pattern3( void ) { return rawPacket[ 9 ]; }
-	QString name( void ) { return &rawPacket.data()[10]; }
-	QString password( void ) { return &rawPacket.data()[40]; }
-	Q_UINT8 gender( void ) { return rawPacket[70]; } // 0 = male, 1 = female
-	Q_UINT8 strength( void ) { return rawPacket[71]; }
-	Q_UINT8 dexterity( void ) { return rawPacket[72]; }
-	Q_UINT8 intelligence( void ) { return rawPacket[73]; }
-	Q_UINT8 skillId1( void ) { return rawPacket[74]; }
-	Q_UINT8 skillValue1( void ) { return rawPacket[75]; }
-	Q_UINT8 skillId2( void ) { return rawPacket[76]; }
-	Q_UINT8 skillValue2( void ) { return rawPacket[77]; }
-	Q_UINT8 skillId3( void ) { return rawPacket[78]; }
-	Q_UINT8 skillValue3( void ) { return rawPacket[79]; }
-	Q_INT16 skinColor( void ) { return getShort( 80 ); }
-	Q_INT16 hairStyle( void ) { return getShort( 82 ); }
-	Q_INT16 hairColor( void ) { return getShort( 84 ); }
-	Q_INT16 beardStyle( void ) { return getShort( 86 ); }
-	Q_INT16 beardColor( void ) { return getShort( 88 ); }
-	Q_UINT16 startTown( void ) { return getShort( 90 ); }
-	Q_UINT16 unknown1( void ) { return getShort( 92 ); }
-	Q_UINT16 slot( void ) { return getShort( 94 ); }
-	Q_UINT32 ip( void ) { return getInt( 96 ); }
-	Q_INT16 shirtColor( void ) { return getShort( 100 ); }
-	Q_INT16 pantsColor( void ) { return getShort( 102 ); }
+	Q_UINT32 pattern1( void )		{ return getInt( 1 ); }
+	Q_UINT32 pattern2( void )		{ return getInt( 5 ); }
+	Q_UINT8 pattern3( void )		{ return rawPacket[ 9 ]; }
+	QString name( void )			{ return &rawPacket.data()[10]; }
+	QString password( void )		{ return &rawPacket.data()[40]; }
+	Q_UINT8 gender( void )			{ return rawPacket[70]; } // 0 = male, 1 = female
+	Q_UINT8 strength( void )		{ return rawPacket[71]; }
+	Q_UINT8 dexterity( void )		{ return rawPacket[72]; }
+	Q_UINT8 intelligence( void )	{ return rawPacket[73]; }
+	Q_UINT8 skillId1( void )		{ return rawPacket[74]; }
+	Q_UINT8 skillValue1( void )		{ return rawPacket[75]; }
+	Q_UINT8 skillId2( void )		{ return rawPacket[76]; }
+	Q_UINT8 skillValue2( void )		{ return rawPacket[77]; }
+	Q_UINT8 skillId3( void )		{ return rawPacket[78]; }
+	Q_UINT8 skillValue3( void )		{ return rawPacket[79]; }
+	Q_INT16 skinColor( void )		{ return getShort( 80 ); }
+	Q_INT16 hairStyle( void )		{ return getShort( 82 ); }
+	Q_INT16 hairColor( void )		{ return getShort( 84 ); }
+	Q_INT16 beardStyle( void )		{ return getShort( 86 ); }
+	Q_INT16 beardColor( void )		{ return getShort( 88 ); }
+	Q_UINT16 startTown( void )		{ return getShort( 90 ); }
+	Q_UINT16 unknown1( void )		{ return getShort( 92 ); }
+	Q_UINT16 slot( void )			{ return getShort( 94 ); }
+	Q_UINT32 ip( void )				{ return getInt( 96 ); }
+	Q_INT16 shirtColor( void )		{ return getShort( 100 ); }
+	Q_INT16 pantsColor( void )		{ return getShort( 102 ); }
 };
 
 // 0xC8: UpdateRange
@@ -257,6 +257,15 @@ public:
 		rVal.setLatin1( temp );
 		return rVal;
 	}
+};
+
+class cUORxWalkRequest : public cUOPacket
+{
+public:
+	cUORxWalkRequest( const QByteArray& data ) : cUOPacket( data ) {}
+	UINT8 key()			{ return (*this)[2]; }
+	UINT8 direction()	{ return (*this)[1]; }
+	UINT32 fastWalkKey(){ return getInt(3);	 }
 };
 
 #endif
