@@ -59,8 +59,8 @@ cItemArray::~cItemArray()
 P_ITEM cItemArray::MakeItemref(ITEM i)
 {
   error=0; // clear previous state, 0=no error
-
-  if ( i<0 || i>=itemcount)
+// itemcount is somewhat bogus, seams to be at least 1 less than actual.
+  if ( i<0 || i > (itemcount+I_W_O_1) )
   {
   	
 	  error=1;

@@ -464,7 +464,6 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		// - AntiChrist (4) - checks for new ITEMHAND system
 		// - now you can't equip 2 hnd weapons with 1hnd weapons nor shields!!
 		serial=pc_currchar->serial;
-		serhash=serial%HASHMAX;
 		vector<SERIAL> vecContainer = contsp.getData(serial);
 		for (ci=0;ci<vecContainer.size();ci++)
 		{

@@ -37,6 +37,7 @@
 
 // System Headers
 #include <string>
+#include <map>
 
 
 // Wolfpack Headers
@@ -46,12 +47,12 @@
 
 using namespace std;
 
-struct lookuptr_st // Tauriel  used to create pointers to the items dynamically allocated
-{               //         so don't mess with it unless you know what you are doing!
+typedef map<int, int> lookuptr_st; // Tauriel  used to create pointers to the items dynamically allocated
+/*{               //         so don't mess with it unless you know what you are doing!
 	int max;
 	int *pointer;
 };
-
+*/
 struct move_st
 {
 	int effect[18];

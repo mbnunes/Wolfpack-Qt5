@@ -573,7 +573,7 @@ void cItem::SetSerial(long ser)
 	this->ser4=(unsigned char) ((ser&0x000000FF));
 	this->serial=ser;
 	if (ser > -1)
-		setptr(&itemsp[ser%HASHMAX], DEREF_P_ITEM(this));
+		setptr(itemsp, ser, DEREF_P_ITEM(this));
 }
 
 // -- Initialize an Item in the items array
@@ -742,7 +742,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 			if (pContent != NULL)
 				DeleItem(pContent);
 		}
-		removefromptr(&itemsp[pi->serial%HASHMAX], DEREF_P_ITEM(pi));
+		removefromptr(itemsp, pi->serial);
 		pi->free=1;
 		pi->pos.x=20+(xcounter++);
 		pi->pos.y=50+(ycounter);

@@ -1,0 +1,28 @@
+
+#include "itemsmgr.h"
+
+#include <algorithm>
+
+struct max_serialPred : binary_function<pair<SERIAL, cItem*>, pair<SERIAL, cItem*>, bool>
+{
+	bool operator()(pair<SERIAL,cItem*> a, pair<SERIAL,cItem*> b)
+	{
+		return a.first < b.first;
+	}
+};
+
+void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::bad_ptr)
+{
+	if ( pi != NULL)
+		insert(make_pair(pi->serial, pi));
+	else
+	{
+		throw wp_exceptions::bad_ptr("Invalid argument PI at cItemsManager::registerItem");
+	}
+}
+
+SERIAL cItemsManager::getUnusedSerial() const
+{
+	map<SERIAL, cItem*>::const_iterator temp = std::max_element(this->begin(), this->end(), max_serialPred());
+	return max(0x40000000, temp->first);
+}

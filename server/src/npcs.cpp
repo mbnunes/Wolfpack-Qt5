@@ -226,7 +226,7 @@ void cChar::Init(bool ser)
 		this->ser3 = static_cast<unsigned char>(charcount2>>8);
 		this->ser4 = static_cast<unsigned char>(charcount2%256);
 		this->serial = charcount2;
-		setptr(&charsp[charcount2%HASHMAX], DEREF_P_CHAR(this));
+		setptr(charsp, charcount2, DEREF_P_CHAR(this));
 		charcount2++;
 	}
 	else
@@ -464,7 +464,7 @@ void cCharStuff::DeleteChar (int k) // Delete character
 	}
 
 
-	removefromptr(&charsp[pc_k->serial%HASHMAX], DEREF_P_CHAR(pc_k));
+	removefromptr(charsp, pc_k->serial);
 	
 	if (pc_k->spawnserial != INVALID_SERIAL) 
 		cspawnsp.remove(pc_k->spawnserial, pc_k->serial);
@@ -2041,13 +2041,11 @@ void cChar::SetMultiSerial(long mulser)
 {
 	if (multis!=-1)	// if it was set, remove the old one
 		cmultisp.remove(multis, this->serial);
-//		removefromptr(&cmultisp[multis%HASHMAX], DEREF_P_CHAR(this));
 
 	this->multis = mulser;
 
 	if (mulser!=-1)		// if there is multi, add it
 		cmultisp.insert(multis, this->serial);
-//		setptr(&cmultisp[multis%HASHMAX], DEREF_P_CHAR(this));
 }
 
 void cChar::MoveToXY(short newx, short newy)

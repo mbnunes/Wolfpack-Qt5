@@ -269,9 +269,9 @@ inline int calcserial(unsigned char a1,unsigned char a2,unsigned char a3,unsigne
 
 // Pointer.cpp functions
 // - set item in pointer array
-void setptr(lookuptr_st *ptr, int item);
-void removefromptr(lookuptr_st *ptr, int nItem);// - remove item from pointer array
-int findbyserial(lookuptr_st *ptr, int nSerial, int nType);// - find item in a pointer array
+void setptr(lookuptr_st &ptr, SERIAL nSerial, int item);
+void removefromptr(lookuptr_st &ptr, SERIAL nSerial);// - remove item from pointer array
+int findbyserial(lookuptr_st &ptr, int nSerial, int nType);// - find item in a pointer array
 
 //void possess(int s); //Not done
 int line_of_sight(int s, Coord_cl&, Coord_cl&, int checkfor);

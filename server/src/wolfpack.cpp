@@ -2075,7 +2075,6 @@ int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new hors
 				// clConsole.send("Pet found loop\n"); 
 				// remove from hash table 
 				stablesp.remove(stablemaster_serial, p_pet->serial);
-//				removefromptr(&stablesp[stablemaster_serial%HASHMAX], DEREF_P_CHAR(p_pet)); 
 				
 				p_pet->stablemaster_serial = 0; // actual unstabling 
 				p_pet->timeused_last = getNormalizedTime(); 
@@ -2554,7 +2553,6 @@ void mounthorse(int s, int x) // Remove horse char and give player a horse item
 		pc_mount->timeused_last = getNormalizedTime(); 
 		
 		stablesp.insert(stablemaster_serial, pc_mount->serial);
-//		setptr(&stablesp[stablemaster_serial%HASHMAX], x); 
 		// 
 		// 
 		// Aldur 
@@ -3091,20 +3089,6 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	if (argc > 1)
 		if (!strcmp(argv[1],"import") && argc>2)
 			qsfLoad(argv[2],0);
-#endif
-#if 0 // Duke, experimental stuff
-	{
-	int ipsmax=0;
-	int cpsmax=0;
-	int spsmax=0;
-	int opsmax=0;
-	for (int i=0;i<HASHMAX;i++)
-	{
-		if(itemsp[i].max > ipsmax) ipsmax=itemsp[i].max;
-		if(spawnsp[i].max > spsmax) spsmax=spawnsp[i].max;
-	}
-	clConsole.send("i:%i  c: %i  s: %i  o: %i \n",	ipsmax,cpsmax,spsmax,opsmax);
-	}
 #endif
 //#if 1 // Duke, experimental stuff
 //	clConsole.send("sizeof cItem: %i\n", sizeof(cItem) );
@@ -3743,7 +3727,6 @@ void openbank(int s, int i)
 {
 	int serhash,ci;
 	int serial=chars[i].serial;
-	serhash=serial%HASHMAX;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
 	for (ci=0;ci<vecOwn.size();ci++)
 	{
@@ -3806,7 +3789,6 @@ void openspecialbank(int s, int i)
 	int serial,serhash,ci;
 	int cc=currchar[s];
 	serial=chars[i].serial;
-	serhash=serial%HASHMAX;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
 	for (ci=0;ci<vecOwn.size();ci++)
 	{
@@ -5498,26 +5480,6 @@ void SetGlobalVars()
 
 void BuildPointerArray()
 {
-	int memerrflg=0;
-	for (int i=0;i<HASHMAX;i++)
-	{
-		// null them first
-		itemsp[i].pointer = NULL;
-		charsp[i].pointer = NULL;
-
-		// init them
-			if(( itemsp[i].pointer = new int[25]) == NULL) memerrflg=1;
-			if(( charsp[i].pointer = new int[25]) == NULL) memerrflg=1;
-
-		if (memerrflg)
-		{
-			clConsole.send("\nFatal Error: Couldn't allocate pointer memory!\n");
-			Network->kr=0;
-			return;
-		}
-		itemsp[i].max=charsp[i].max=25;
-		for (int j=0;j<25;j++) itemsp[i].pointer[j]=charsp[i].pointer[j]=-1;
-	}
 }
 
 void InitMultis()

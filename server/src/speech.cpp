@@ -209,7 +209,6 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	p_pet->timeused_last = getNormalizedTime();
 
 	stablesp.insert(pMaster->serial, p_pet->serial);
-//    setptr(&stablesp[stablemaster_serial%HASHMAX], pet);
 
 	sprintf(temp,"Your pet is now stabled, say retrieve or claim %s to claim your pet",p_pet->name);
 	npctalk(s,pMaster,temp,0);
@@ -286,7 +285,6 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	
 	// remove from hash table
 	stablesp.remove(pMaster->serial, p_pet->serial);
-	//	  removefromptr(&stablesp[stablemaster_serial%HASHMAX], pet);
 	
 	p_pet->stablemaster_serial=0; // actual unstabling
 	

@@ -99,6 +99,7 @@ float cWeight::RecursePacks(P_ITEM bp)
 	vector<SERIAL> vecContainer = contsp.getData(bp->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
+		int debug = vecContainer[ci];
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		int itemsweight=pi->getWeight();
 		if (pi->type==1) //item is another container

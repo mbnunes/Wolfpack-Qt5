@@ -45,103 +45,31 @@
 //   Usage: setptr(&itemsp[serial%256], item#);
 //          setptr(&charsp[serial%256], char#);
 //   NOTE: can be used to set other pointer arrays too (like regions)
-void setptr(lookuptr_st *ptr, int item) //set item in pointer array
+void setptr(lookuptr_st &ptr, int serial, int item) //set item in pointer array
 {
-	int i;
-	if (ptr->max == 0)	// allow for deferred memory allocation ie. just when needed (Duke, 18.12.01)
-	{
-		if (ptr->pointer)
-		{
-			LogCritical("Corrupted pointer memory!");
-			return;
-		}
-		else	// both are zero, so allocate
-		{
-			int* ti = (int *)malloc(25*sizeof(int));
-			if (!ti)
-			{
-				LogCritical("Error allocating pointer memory!");
-				return;
-			}
-			else
-			{
-				ptr->pointer = ti;
-				ptr->max = 25;
-				memset(ptr->pointer,0xFF,25*sizeof(int));	// initialize to -1
-			}
-		}
-	}
-	for (i=0;i<(ptr->max);i++)
-	{
-		if (ptr->pointer[i]==-1)
-		{
-			ptr->pointer[i]=item;
-			return;
-		} else if (ptr->pointer[i]==item) return;
-	}
-
-	//resize(ptr->pointer, ptr->max, ptr->max+25);
-	// Must be out of slots, so reallocate some and set item
-	//if ((ptr->pointer = (int *)realloc(ptr->pointer, (ptr->max+25)*sizeof(int)))==NULL)
-	int* ti = (int *)realloc(ptr->pointer, (ptr->max+25)*sizeof(int));
-	if (!ti)
-	{
-		LogCritical("Error reallocating pointer memory!");
-		error=1;
-		//keeprun=0;  //shutdown
-		return;
-	}
-	else
-		ptr->pointer = ti;
-
-	for (i=ptr->max;i<(ptr->max+25);i++) ptr->pointer[i]=-1;
-	ptr->pointer[ptr->max]=item;
-	ptr->max+=25;
-	return;
+	ptr.insert(make_pair(serial, item));
 }
 
 // - Find a specific item/char by serial number.
 //   Usage: item=findbyserial(&itemsp[serial%HASHMAX], serial, 0);
 //          char=findbyserial(&charsp[serial%HASHMAX], serial, 1);
 //          if (item==-1) clConsole.send("Couldn't find by serial: %d\n", serial);
-int findbyserial(lookuptr_st *ptr, int nSerial, int nType)
+int findbyserial(lookuptr_st &ptr, SERIAL nSerial, int nType)
 { 
   if (nSerial < 0) return -1;  //prevent errors from some clients being slower than the server clicking on nolonger valid items
 
-  if (ptr == NULL || ptr->pointer == NULL) // Blackwind / Crashfix 
-	  return -1;
-  for (int i=0;i<(ptr->max);i++)
-  { 
-    //cnt++; //ubncommentt if you use the debugging print
-    if ((nType==0) && (ptr->pointer[i]> -1 && ptr->pointer[i]<imem) && 
-        (items[ptr->pointer[i]].serial==nSerial))
-    {
-      //clConsole.send("Found item %d out of %d in %d hits. max: %i\n",ptr->pointer[i],itemcount,cnt,ptr->max);
-      return ptr->pointer[i];
-    }
-    if ((nType==1) && (ptr->pointer[i]>-1 && ptr->pointer[i]<cmem) && 
-        (chars[ptr->pointer[i]].serial==nSerial))
-    {
-     // clConsole.send("Found char %d out of %d in %d hits.\n",ptr->pointer[i],charcount,cnt);
-      return ptr->pointer[i];
-    }
-  }
-  return -1;
+  lookuptr_st::iterator it = ptr.find(nSerial);
+  if (it != ptr.end())
+	  return it->second;
+  else
+	  return INVALID_SERIAL;
 }
 
 // - Remove an item/char from a pointer array
 //   (Ok, just mark it as a free slot ;P )
-void removefromptr(lookuptr_st *ptr, int nItem)
+void removefromptr(lookuptr_st &ptr, SERIAL nSerial)
 {
-	int i;
-	for (i=0;i<(ptr->max);i++)
-	{
-		if (ptr->pointer[i]==nItem)
-		{
-			ptr->pointer[i]=-1;
-		//	return;		// don't return here, let's remove ALL the occurences (Duke)
-		}
-	}
+	ptr.erase(nSerial);
 }
 
 /* Deprecated stuff
@@ -240,7 +168,7 @@ P_ITEM FindItemBySerial(int serial)
 {
 	if (!isItemSerial(serial))
 		return NULL;
-	int i=findbyserial(&itemsp[serial%HASHMAX], serial, 0);
+	int i = findbyserial(itemsp, serial, 0);
 	if (i==-1) return NULL;		// legal rc from findbyserial, don't log
 	else return MAKE_ITEMREF_LRV(i,NULL);
 }
@@ -262,7 +190,7 @@ P_CHAR FindCharBySerial(int serial)
 {
 	if (!isCharSerial(serial))
 		return NULL;
-	int i=findbyserial(&charsp[serial%HASHMAX], serial, 1);
+	int i = findbyserial(charsp, serial, 1);
 	if (i==-1) return NULL;		// legal rc from findbyserial, don't log
 	else return MAKE_CHARREF_LRV(i,NULL);
 }

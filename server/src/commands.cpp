@@ -822,7 +822,6 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 	k=buttonnum;
 	
 	serial=whomenudata[buttonnum];
-	serhash=serial%HASHMAX;
 	c = calcCharFromSer( serial ); // find selected char ...
 	if (c==-1) 
 	{

@@ -283,7 +283,7 @@ void loadchar(int x) // Load a character from WSC
 				pc->ser3=i>>8;
 				pc->ser4=i%256;
 				pc->serial=i;
-				setptr(&charsp[i%HASHMAX], DEREF_P_CHAR(pc)); //Load into charsp array
+				setptr(charsp, i, DEREF_P_CHAR(pc)); //Load into charsp array
 			}
 			else if (!strcmp((char*)script1, "SAY"))				pc->saycolor = static_cast<UI16>(str2num(script2));
 			else if (!strcmp((char*)script1, "STRENGTH"))			pc->st=str2num(script2);
@@ -331,7 +331,6 @@ void loadchar(int x) // Load a character from WSC
 				pc->stablemaster_serial=str2num(script2);
 				if (pc->stablemaster_serial>0)
 					stablesp.insert(pc->stablemaster_serial, pc->serial);
-				//setptr(&stablesp[pc->stablemaster_serial%HASHMAX], DEREF_P_CHAR(pc));
 			}
 		break;
 
@@ -668,7 +667,7 @@ void loaditem (int x) // Load an item from WSC
 				pi->ser3=(unsigned char)(i>>8);
 				pi->ser4=(unsigned char)(i%256);
 				pi->serial=i; //Tauriel
-				setptr(&itemsp[i%HASHMAX], x); //set item in pointer array
+				setptr(itemsp, i, x); //set item in pointer array
 			}
 			else if (!(strcmp((char*)script1, "SMELT"))) { pi->smelt=str2num(script2); }
 			else if (!(strcmp((char*)script1, "SECUREIT"))) { pi->secureIt=str2num(script2); }
