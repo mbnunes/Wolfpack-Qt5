@@ -146,12 +146,12 @@ void CheckPoisoning( cUOSocket *socket, P_CHAR pc_attacker, P_CHAR pc_defender)
 	}
 }
 
-// This checks LineOfSight before calling CombatHit (Duke, 10.7.2001)
-void cCombat::CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime)
+// This checks LineOfSight before calling CombatHit
+void cCombat::CombatHitCheckLoS( P_CHAR pAttacker, UINT32 currenttime )
 {
-	P_CHAR pDefender = FindCharBySerial(pAttacker->swingtarg());
-	if ( pDefender == NULL ) return;
-	UOXSOCKET s1=calcSocketFromChar(pAttacker);
+	P_CHAR pDefender = FindCharBySerial( pAttacker->swingtarg() );
+	if( !pDefender ) 
+		return;
 
 	UINT16 los = lineOfSight( pAttacker->pos, pDefender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
 
@@ -709,29 +709,29 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 {
 	short id = pc_attacker->id();
 	int cc,aa;
-	if (id<0x0190)
+	if( id < 0x0190 )
 	{
-		aa=4+(rand()%3); // bugfix, LB, some creatures dont have animation #4
-		cc=(creatures[id].who_am_i)&0x2; // anti blink bit set ?
+		aa = 4 + RandomNum( 0, 3 ); // bugfix, LB, some creatures dont have animation #4
+		cc = ( creatures[id].who_am_i ) & 0x2; // anti blink bit set ?
 		if (cc==2)
 		{
 			aa++;
-			if (id==5) // eagles need special treatment
+			if( id == 5 ) // eagles need special treatment
 			{
-				switch (RandomNum(0, 2))
+				switch( RandomNum( 0, 2 ) )
 				{
-				case 0: aa=0x1;  break;
-				case 1: aa=0x14; break;
-				case 2: aa=0x4;  break;
+				case 0: aa = 0x1;  break;
+				case 1: aa = 0x14; break;
+				case 2: aa = 0x4;  break;
 				}
 			}
 		}
-		npcaction(pc_attacker,aa); 
-		playmonstersound(pc_attacker, pc_attacker->id(), SND_ATTACK);
+		pc_attacker->action( aa );
+		playmonstersound( pc_attacker, pc_attacker->id(), SND_ATTACK );
 	}
 	else if (pc_attacker->onHorse())
 	{
-		CombatOnHorse(pc_attacker);	// determines weapon in hand and runs animation kolours (09/19/98)
+		CombatOnHorse( pc_attacker ); // determines weapon in hand and runs animation kolours (09/19/98)
 	}
 	else
 	{
@@ -756,7 +756,7 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 	}
 }
 
-void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
+void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 {
 	int x, bowtype=0; // spamanachecking, tmp;
 
@@ -765,11 +765,11 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 	if (pc_attacker->free) return;
 	P_ITEM pWeapon=pc_attacker->getWeapon();
 
-	P_CHAR pc_defender = FindCharBySerial(pc_attacker->targ);
+	P_CHAR pc_defender = FindCharBySerial( pc_attacker->targ );
 
 	// Several sanity checks (no defender, defender offline etc.)
 	// It automatically fails if we went out of warmode
-	if( ( !pc_defender || pc_defender->free || ( pc_defender->isPlayer() && !pc_defender->socket() ) || pc_defender->isHidden() ) && pc_attacker->war )
+	if( !pc_defender || pc_defender->free || ( pc_defender->isPlayer() && !pc_defender->socket() ) || pc_defender->isHidden() || !pc_attacker->war )
 	{
 		pc_attacker->war = false;
 		pc_attacker->timeout = 0;
@@ -1261,67 +1261,67 @@ void cCombat::CombatOnFoot(P_CHAR pc)
 	{
 		short id = pWeapon->id();
 
-		if (IsBow(id))
+		if( IsBow( id ) )
 		{
-			npcaction(pc, 0x12); //bow
+			pc->action( 0x12 ); // bow
 			return;
 		}
 		if (IsCrossbow(id) || IsHeavyCrossbow(id))
 		{
-			npcaction(pc, 0x13); //crossbow - regular
+			pc->action( 0x13 ); //crossbow - regular
 			return;
 		}
-		if (IsSword(id))
+		if( IsSword( id ) )
 		{
-			switch (m) //swords
+			switch( m ) //swords
 			{
-			case 0:		npcaction(pc, 0x0D);	return; //side swing
-			case 1:		npcaction(pc, 0x0A);	return; //poke
-			default:	npcaction(pc, 0x09);	return; //top-down swing
+			case 0:		pc->action( 0x0D );	return; //side swing
+			case 1:		pc->action( 0x0A );	return; //poke
+			default:	pc->action( 0x09 );	return; //top-down swing
 			}
 		}
-		if (IsMace1H(id))
+		if( IsMace1H( id ) )
 		{
 			switch (m) //maces
 			{
-			case 0:		npcaction(pc, 0x0D);	return;	//side swing
-			default:	npcaction(pc, 0x09);	return; //top-down swing
+			case 0:		pc->action( 0x0D );	return;	//side swing
+			default:	pc->action( 0x09 );	return; //top-down swing
 			}
 		}
 		if (IsMace2H(id) || IsAxe(id))
 		{
 			switch (m)
 			{
-			case 0:		npcaction(pc, 0x0D);	return; //2H top-down
-			case 1:		npcaction(pc, 0x0C);	return; //2H swing
-			default:	npcaction(pc, 0x0D);	return; //2H top-down
+			case 0:		pc->action( 0x0D );	return; //2H top-down
+			case 1:		pc->action( 0x0C );	return; //2H swing
+			default:	pc->action( 0x0D );	return; //2H top-down
 			}
 		}
 		if (IsFencing1H(id))	// one handed fencing
 		{
 			switch (m) //fencing
 			{
-			case 0:		npcaction(pc, 0x09);	return; //top-down
-			case 1:		npcaction(pc, 0x0D);	return; //side-swipe
-			default:	npcaction(pc, 0x0A);	return; //default: poke
+			case 0:		pc->action( 0x09 );	return; //top-down
+			case 1:		pc->action( 0x0D );	return; //side-swipe
+			default:	pc->action( 0x0A );	return; //default: poke
 			}
 		}
 		if (IsFencing2H(id))	//pitchfork & spear
 		{
 			switch (m) //pitchfork
 			{
-			case 0:		npcaction(pc, 0x0D);	return; //top-down
-			default:	npcaction(pc, 0x0E);	return; //default: 2-handed poke
+			case 0:		pc->action( 0x0D );	return; //top-down
+			default:	pc->action( 0x0E );	return; //default: 2-handed poke
 			}
 		}
-	} // end of !=-1
+	}
 	else
 	{
 		switch (m) //fist fighting
 		{
-		case 0:		npcaction(pc, 0x0A);	return; //fist straight-punch
-		case 1:		npcaction(pc, 0x09);	return; //fist top-down
-		default:	npcaction(pc, 0x1F);	return; //default: //fist over-head
+		case 0:		pc->action( 0x0A );	return; //fist straight-punch
+		case 1:		pc->action( 0x09 );	return; //fist top-down
+		default:	pc->action( 0x1F );	return; //fist over-head
 		}
 	}
 }
@@ -1348,10 +1348,7 @@ void cCombat::SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, const Coord_cl &
 	
 	if (SrvParams->guardsActive() && !pc_offender->isInvul())
 	{
-		guardSect = Region->getGuardSect();
-		
-		P_CHAR pc_guard = Npcs->createScriptNpc( calcSocketFromChar(pc_offender), NULL, guardSect, 0, 0, 0 );
-		pc_guard->moveTo( pos );
+		P_CHAR pc_guard = Npcs->createScriptNpc( Region->getGuardSect(), pos );
 		
 		if ( !pc_guard ) 
 			return;
@@ -1367,22 +1364,24 @@ void cCombat::SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, const Coord_cl &
 		
 		pc_guard->soundEffect( 0x1FE );
 		staticeffect( pc_guard, 0x37, 0x2A, 0x09, 0x06 );
-		
-		pc_guard->resend( false ); // Newly created
 
-		switch (RandomNum(0,1))
+		pc_guard->update(); // Update warmode status to other players
+
+		// 50% talk chance
+		switch( RandomNum( 0, 4 ) )
 		{
-		case 0:		npctalkall(pc_guard, "Thou shalt regret thine actions, swine!", 1);	break;
-		case 1:		npctalkall(pc_guard, "Death to all Evil!", 1);							break;
+			case 0:		pc_guard->talk( tr( "Thou shalt regret thine actions, swine!" ) ); break;
+			case 1:		pc_guard->talk( tr( "Death to all Evil!" ) ); break;
 		}
 	}
 }
 
 void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 {
-	if (Attacker->npc)			// npcs can't use casting weapons right now (Duke)
+	// Check this when magic is done
+	/*if( Attacker->npc ) // npcs can't use casting weapons right now (Duke)
 		return;
-	currentSpellType[calcSocketFromChar(Attacker)]=2;
+	currentSpellType[ calcSocketFromChar( Attacker ) ]=2;
 	unsigned int ci;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(Attacker->serial);
@@ -1421,7 +1420,7 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 			}
 			return;
 		}
-    }
+    }*/
 }
 
 //AntiChrist - do the sound effect ( only if HITTEN! )

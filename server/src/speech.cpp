@@ -291,7 +291,7 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 
 	mapRegions->Remove( pPet );
 	mapRegions->Add( pPet );
-	pPet->update(); // Resend
+	pPet->resend( false ); // Resend
 		
 	pMaster->talk( tr( "Here's your pet. Treat it well." ) );
 	return true;

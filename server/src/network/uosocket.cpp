@@ -1055,26 +1055,20 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 
 	if( _player->dead ) 
 	{
-		_player->update();
+		_player->resend( false );
 	}
 	else
 	{
-		// Update warmode status to other players
-		cUOTxUpdatePlayer updatePlayer;
-		updatePlayer.fromChar( _player );
-
-		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		{
-			if( mSock->player() && ( mSock->player()->pos.distance( _player->pos ) < mSock->player()->VisRange ) )
-			{
-				// TODO: Check for visible/invisible status here.
-				mSock->send( &updatePlayer );
-			}
-		}
+		_player->update();
 	}
-    	
+
+	cUOTxWarmode warmode;
+	warmode.setStatus( packet->warmode() );
+	send( &warmode );
+
 	playMusic();
 	_player->disturbMed();
+	_player->update();
 }
 
 void cUOSocket::playMusic()

@@ -453,7 +453,7 @@ void cTmpEff::Expire()
 		{
 			pc_s->setId( pc_s->xid );
 			pc_s->setPolymorph( false );
-			pc_s->update();
+			pc_s->resend( false );
 		}
 		break;
 	case 19: //Incognito spell wearoff
@@ -473,7 +473,7 @@ void cTmpEff::Expire()
 		if( socket )
 			socket->sysMessage( tr( "You have hidden yourself well." ) );
 		pc_s->setHidden( 1 );
-		pc_s->update();
+		pc_s->resend();
 		break;
 		
 	case 34: // delayed unhide for gms
@@ -481,7 +481,7 @@ void cTmpEff::Expire()
 		if( socket )
 			socket->sysMessage( tr( "You are now visible." ) );
 		pc_s->setHidden( 0 ); 
-		pc_s->update();
+		pc_s->resend();
 		break;
 		
 	case 35: // heals some hp (??)

@@ -790,4 +790,19 @@ public:
 	void setStatus( UINT8 data ) { rawPacket[1] = data; }
 };
 
+// 0x6E Action
+class cUOTxAction: public cUOPacket
+{
+public:
+	cUOTxAction(): cUOPacket( 0x6E, 14 ) {}
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setAction( UINT16 data ) { setShort( 5, data ); }
+	void setUnknown1( UINT8 data ) { rawPacket[7] = data; }
+	void setDirection( UINT8 data ) { rawPacket[8] = data; }
+	void setRepeat( UINT16 data ) { setShort( 9, data ); }
+	void setBackwards( UINT8 data ) { rawPacket[11] = data; }
+	void setRepeatFlag( UINT8 data ) { rawPacket[12] = data; }
+	void setSpeed( UINT8 data ) { rawPacket[13] = data; }
+};
+
 #endif

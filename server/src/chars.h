@@ -301,6 +301,7 @@ public:
 	void resend( bool clean = true ); // this is called when the char is being created or anything like that
 	void makeShop( void );
 	void updateHealth( void );
+	void action( UINT8 id ); // Do an action
 	QString fullName( void );
 
 	// Getters
@@ -631,6 +632,7 @@ public:
 	P_CHAR MemCharFree();
 	void Split(P_CHAR pc_k);
 	void CheckAI(unsigned int currenttime, P_CHAR pc_i);
+	P_CHAR createScriptNpc( const QString &section, const Coord_cl &pos );
 	P_CHAR createScriptNpc( int s, P_ITEM pi_i, QString Section, int posx = 0, int posy = 0, signed char posz = 0 );
 	// Sky's AI Stuff
 	class cDragonAI

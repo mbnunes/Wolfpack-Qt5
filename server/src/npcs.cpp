@@ -115,6 +115,43 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 	updatechar(pc_c);
 }
 
+P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )
+{
+	if( section.isNull() || section.isEmpty() )
+		return NULL;
+
+	QDomElement* DefSection = DefManager->getSection( WPDT_NPC, section );
+
+	if( !DefSection || DefSection->isNull() )
+	{
+		clConsole.log( QString( "Unable to create unscripted npc: %1\n" ).arg( section ).latin1() );
+		return NULL;
+	}
+
+	P_CHAR pChar = new cChar;
+	pChar->Init();
+	cCharsManager::getInstance()->registerChar( pChar );
+
+	pChar->setPriv( 0x10 );
+	pChar->npc = 1;
+	pChar->att = 1;
+	pChar->def = 1;
+	pChar->setSpawnSerial( INVALID_SERIAL );
+
+	pChar->moveTo( pos );
+
+	cTerritory* Region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+	if( Region != NULL )
+		pChar->region = Region->name();
+	else
+		pChar->region = QString();
+
+	pChar->applyDefinition( *DefSection );
+	pChar->resend( false );
+
+	return pChar;
+}
+
 P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int posx, int posy, signed char posz )
 {
 	if( Section.length() == 0 )
@@ -124,7 +161,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 
 	if( DefSection->isNull() )
 	{
-		clConsole.log( QString("Unable to create unscripted npc: %1\n").arg(Section).latin1() );
+		clConsole.log( QString( "Unable to create unscripted npc: %1\n" ).arg( Section ).latin1() );
 		return NULL;
 	}
 
@@ -246,14 +283,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 
 	nChar->applyDefinition( *DefSection );
 	mapRegions->Add( nChar );
-
-	cRegion::RegionIterator4Chars ri(nChar->pos);
-	for (ri.Begin(); !ri.atEnd(); ri++)
-	{
-		P_CHAR pc = ri.GetData();
-		if ( pc != NULL && calcSocketFromChar( pc ) != -1 && pc->dist( nChar ) <= VISRANGE )
-			impowncreate( s, nChar, 1 );
-	}
+	nChar->resend( false );
 
 	return nChar;
 }

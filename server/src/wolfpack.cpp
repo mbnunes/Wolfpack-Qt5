@@ -3104,9 +3104,9 @@ void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
 		
 			break;
 		}
-		basesound=basesound+offset;
+		basesound += offset;
 		if (offset!=-1)
-			soundeffect2(monster, basesound);
+			monster->soundEffect( basesound );
 		return;
 	}
 }

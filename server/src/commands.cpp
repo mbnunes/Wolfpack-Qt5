@@ -433,7 +433,7 @@ public:
 		}
 
 		if( pChar )
-			pChar->update();
+			pChar->resend();
 		else if( pItem )
 			pItem->update();
 	}

@@ -1762,29 +1762,32 @@ void cChar::giveItemBonus(cItem* pi)
 
 void cChar::showName( cUOSocket *socket )
 {
+	if( !socket->player() )
+		return;
+
 	if( onShowCharName( socket->player() ) )
 		return;
 
 	QString charName = name.c_str();
 
 	// For NPCs we can apply titles
-	if( !isPlayer() && SrvParams->showNpcTitles() )
+	if( !isPlayer() && SrvParams->showNpcTitles() && !title_.isEmpty() )
 		charName.append( ", " + title_ );
 
 	// Lord & Lady Title
 	if( fame == 10000 )
-		charName.prepend( ( id() == 0x191 ) ? "Lady " : "Lord " );
+		charName.prepend( ( id() == 0x191 ) ? tr( "Lady " ) : tr( "Lord " ) );
 
 	// Are we squelched ?
 	if( squelched() )
-		charName.append( tr(" [squelched]") );
+		charName.append( tr(" [squelched]" ) );
 
 	// Append serial for GMs
 	if( socket->player()->canSeeSerials() )
 		charName.append( QString( " [0x%1]" ).arg( serial, 4, 16 ) );
 
 	// Append offline flag
-	if( !socket_ )
+	if( !isNpc() && !socket_ )
 		charName.append( tr(" [offline]") );
 
 	// Invulnerability
@@ -1870,26 +1873,16 @@ void cChar::showName( cUOSocket *socket )
 void cChar::update( void )
 {
 	cRegion::RegionIterator4Chars ri( pos );
-	
-	cUOTxRemoveObject removeSelf;
-	removeSelf.setSerial( serial );
 
-	cUOTxDrawChar drawChar;
-	drawChar.fromChar( this );
+	cUOTxUpdatePlayer updatePlayer;
+	updatePlayer.fromChar( this );
 
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pChar = ri.GetData();
 
-		if( !pChar || !pChar->socket() )
-			continue;
-
-		// Resend if in range
-		if( pChar->pos.distance( pos ) <= pChar->VisRange )
-		{
-			pChar->socket()->send( &removeSelf );
-			pChar->socket()->send( &drawChar );
-		}
+		if( pChar && pChar->socket() && pChar->inRange( this, pChar->VisRange ) )
+			pChar->socket()->send( &updatePlayer );	
 	}
 }
 
@@ -2007,5 +2000,22 @@ void cChar::updateHealth( void )
 			continue;
 	
 		pChar->socket()->updateHealth( this );
+	}
+}
+
+void cChar::action( UINT8 id )
+{
+	cUOTxAction action;
+	action.setAction( id );
+	action.setSerial( serial );
+	action.setDirection( dir );
+	action.setRepeat( 1 );
+	action.setRepeatFlag( 0 );
+	action.setSpeed( 1 );
+
+	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
+	{
+		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange ) && ( !isHidden() || socket->player()->isGM() ) )
+			socket->send( &action );
 	}
 }

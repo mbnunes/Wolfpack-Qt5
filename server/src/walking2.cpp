@@ -616,7 +616,7 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 	{
 		pChar->setStealth( -1 );
 		pChar->setHidden( 0 );
-		pChar->update();
+		pChar->resend( false );
 	}
 
 	// Don't regenerate stamina while running
