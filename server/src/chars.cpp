@@ -1535,7 +1535,7 @@ void cChar::processNode( const QDomElement &Tag )
 			}
 				
 			// Recheck
-			if( !nItem->layer() )
+			if( !mLayer )
 				Items->DeleItem( nItem );
 			else
 				this->addItem( static_cast<cChar::enLayer>(mLayer), nItem ); // not sure about this one.

@@ -33,12 +33,16 @@
 #include "utilities.h"
 #include "../territories.h"
 
+#include <vector>
+
 /*!
 	The object for Wolfpack Python items
 */
 typedef struct {
     PyObject_HEAD;
 	cTerritory *pRegion;
+	bool frozen; // unused yet
+	Coord_cl pos; // unused yet
 } wpRegion;
 
 // Forward Declarations
@@ -51,7 +55,7 @@ int wpRegion_setAttr( wpRegion *self, char *name, PyObject *value );
 static PyTypeObject wpRegionType = {
     PyObject_HEAD_INIT(NULL)
     0,
-    "WPRegion",
+    "wpregion",
     sizeof(wpRegionType),
     0,
     wpDealloc,				
@@ -67,11 +71,81 @@ static PyMethodDef wpRegionMethods[] =
 
 PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 {
+	if( !strcmp( name, "parent" ) )
+	{
+		// Check if valid region
+		cTerritory *pRegion = dynamic_cast< cTerritory* >( self->pRegion->parent() );
+		return PyGetRegionObject( pRegion );
+	}
+	else if( !strcmp( name, "children" ) )
+	{
+		std::vector< cBaseRegion* > children = self->pRegion->children();
+		PyObject *tuple = PyTuple_New( children.size() );
+		for( INT32 i = 0; i < children.size(); ++i )
+		{
+			cTerritory *pRegion = dynamic_cast< cTerritory* >( children[i] );
+			PyTuple_SetItem( tuple, i, PyGetRegionObject( pRegion ) );
+		}
+		return tuple;
+	}
+	// Return a Tuple of Tuples
+	else if( !strcmp( name, "rectangles" ) )
+	{
+		std::vector< cBaseRegion::rect_st > rectangles = self->pRegion->rectangles();
+		PyObject *tuple = PyTuple_New( rectangles.size() );
+		for( INT32 i = 0; i < rectangles.size(); ++i )
+		{
+			PyObject *subtuple = PyTuple_New( 4 );
+			PyTuple_SetItem( subtuple, 0, PyInt_FromLong( rectangles[i].x1 ) );
+			PyTuple_SetItem( subtuple, 1, PyInt_FromLong( rectangles[i].y1 ) );
+			PyTuple_SetItem( subtuple, 2, PyInt_FromLong( rectangles[i].x2 ) );
+			PyTuple_SetItem( subtuple, 3, PyInt_FromLong( rectangles[i].y2 ) );
+
+			PyTuple_SetItem( tuple, i, subtuple );
+		}
+		return tuple;
+	}
+	else if( !strcmp( name, "name" ) )
+		return PyString_FromString( self->pRegion->name().latin1() );
+	else if( !strcmp( name, "midilist" ) )
+		return PyString_FromString( self->pRegion->midilist().latin1() );
+	else if( !strcmp( name, "guardowner" ) )
+		return PyString_FromString( self->pRegion->guardOwner().latin1() );
+	else if( !strcmp( name, "rainchance" ) )
+		return PyInt_FromLong( self->pRegion->rainChance() );
+	else if( !strcmp( name, "snowchance" ) )
+		return PyInt_FromLong( self->pRegion->snowChance() );
+
+	// Flags
+	else if( !strcmp( name, "guarded" ) )
+		return PyInt_FromLong( self->pRegion->isGuarded() ? 1 : 0 );
+	else if( !strcmp( name, "nomark" ) )
+		return PyInt_FromLong( self->pRegion->isNoMark() ? 1 : 0 );
+	else if( !strcmp( name, "nogate" ) )
+		return PyInt_FromLong( self->pRegion->isNoGate() ? 1 : 0 );
+	else if( !strcmp( name, "norecallout" ) )
+		return PyInt_FromLong( self->pRegion->isNoRecallOut() ? 1 : 0 );
+	else if( !strcmp( name, "norecallin" ) )
+		return PyInt_FromLong( self->pRegion->isNoRecallIn() ? 1 : 0 );
+	else if( !strcmp( name, "recallshield" ) )
+		return PyInt_FromLong( self->pRegion->isRecallShield() ? 1 : 0 );
+	else if( !strcmp( name, "noagressivemagic" ) )
+		return PyInt_FromLong( self->pRegion->isNoAgressiveMagic() ? 1 : 0 );
+	else if( !strcmp( name, "antimagic" ) )
+		return PyInt_FromLong( self->pRegion->isAntiMagic() ? 1 : 0 );
+	else if( !strcmp( name, "validescortregion" ) )
+		return PyInt_FromLong( self->pRegion->isValidEscortRegion() ? 1 : 0 );
+	else if( !strcmp( name, "cave" ) )
+		return PyInt_FromLong( self->pRegion->isCave() ? 1 : 0 );
+	else if( !strcmp( name, "nomusic" ) )
+		return PyInt_FromLong( self->pRegion->isNoMusic() ? 1 : 0 );
+
 	return Py_FindMethod( wpRegionMethods, (PyObject*)self, name );
 }
 
 int wpRegion_setAttr( wpRegion *self, char *name, PyObject *value )
 {
+	// Regions have no changeable attributes yet
 	return 0;
 }
 

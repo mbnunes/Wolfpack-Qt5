@@ -6,7 +6,7 @@
 #################################################################
 
 import wolfpack
-from wolfpack import ARCHERY
+from wolfpack.consts import *
 from random import choice, randrange
 
 # failure texts

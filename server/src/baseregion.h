@@ -143,9 +143,6 @@ public:
 		return result;
 	}
 
-	// Only getters, no setters
-	cBaseRegion *parent() const { return parent_; }
-	std::vector< cBaseRegion* > children() const { return subregions_; }
 protected:
 	virtual void processNode( const QDomElement &Tag )
 	{
@@ -180,6 +177,11 @@ protected:
 	std::vector< rect_st >			rectangles_;	// vector of rectangles
 	std::vector< cBaseRegion* >		subregions_;	// list of region object references of included regions
 	cBaseRegion*					parent_;		// the region directly above this region
+public:
+	// Only getters, no setters
+	cBaseRegion *parent() const { return parent_; }
+	std::vector< cBaseRegion* > children() const { return subregions_; }
+	std::vector< rect_st > rectangles() const { return rectangles_; }
 };
 
 class cAllBaseRegions

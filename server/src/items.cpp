@@ -1435,10 +1435,6 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "restock" )
 		this->restock = Value.toInt();
 
-	// <layer>10</layer>
-	else if( TagName == "layer" )
-		this->setLayer( Value.toShort() );
-
 	// <durability>10</durabilty>
 	else if( TagName == "durability" )
 	{
