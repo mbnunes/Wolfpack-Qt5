@@ -3,6 +3,7 @@
 	<!-- Dolphin -->
 	<npc id="dolphin">
 		<name>dolphin</name>
+                <ai>Animal_Wild</ai>
 		<id>0x0097</id>
 		<category>Animals\Water\dolphin</category>
 		<skin>0</skin>

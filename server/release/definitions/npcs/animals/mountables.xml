@@ -66,6 +66,7 @@
 		<name>a horse</name>
 		<id>0x00e2</id>
 		<category>Animals\Ridables\Gray Horse (Weak)</category>
+                <ai>Animal_Wild</ai>
 		<inherit id="animal_base" />
 		<karma>300</karma>
 		<fame>300</fame>
@@ -110,6 +111,7 @@
 	<npc id="seahorse">
 		<name>seahorse</name>
 		<id>0x0090</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Seahorse</category>
 		<inherit id="animal_base" />
 		<karma><random min="0" max="625" /></karma>
@@ -132,6 +134,7 @@
 		<name>ki-rin</name>
 		<id>0x84</id>
 		<category>Animals\Ridables\Kirin</category>
+                <ai>Animal_Wild</ai>
 		<inherit id="animal_base" />
 		<karma>9000</karma>
 		<fame>9000</fame>
@@ -155,6 +158,7 @@
 	<npc id="ridablellama">
 		<name>a ridable llama</name>
 		<id>0x00dc</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Llama</category>
 		<inherit id="animal_base" />
 		<karma>0</karma>
@@ -240,6 +244,7 @@
 	<npc id="ostard_desert">
 		<name>a desert ostard</name>
 		<id>0x00d2</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Desert Ostard </category>
 		<inherit id="animal_base" />
 		<karma>0</karma>
@@ -261,6 +266,7 @@
 	<npc id="ostard_forest">
 		<name>a forest ostard</name>
 		<id>0x00db</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Forest Ostard (Weak)</category>
 		<inherit id="animal_base" />
 		<karma>0</karma>
@@ -303,6 +309,7 @@
 	<npc id="ridgeback">
 		<name>a ridgeback</name>
 		<id>0x187</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Ridgeback</category>
 		<inherit id="animal_base" />
 		<karma>0</karma>
@@ -325,6 +332,7 @@
 	<npc id="ridgeback_savage">
 		<name>a savage ridgeback</name>
 		<id>188</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Savage Ridgeback</category>
 		<inherit id="animal_base" />
 		<karma>0</karma>
@@ -345,6 +353,7 @@
 	<!-- Dark Steeds -->
 	<npc id="steed_dark">
 		<name>a dark steed</name>
+                <ai>Animal_Wild</ai>
 		<id>0x0074</id>
 		<category>Animals\Ridables\Dark Steed</category>
 		<inherit id="nightmare_1" />
@@ -375,6 +384,7 @@
 	<!-- Silver Steeds -->
 	<npc id="steed_silver">
 		<name>silver steed</name>
+                <ai>Animal_Wild</ai>
 		<id>0x0075</id>
 		<category>Animals\Ridables\Silver Steed (Weak)</category>
 		<inherit id="nightmare_1" />
@@ -385,6 +395,7 @@
 	<npc id="unicorn">
 		<name>a unicorn</name>
 		<id>0x007a</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Unicorn</category>
 		<inherit id="animal_base" />
 		<karma>9000</karma>
@@ -408,6 +419,7 @@
 	<!-- Ethereal Beetle -->
 	<npc id="ethereal_beetle">
 		<name>an ethereal giant beetle</name>
+                <ai>Animal_Wild</ai>
 		<id>0xC3</id>
 		<category>Animals\Ridables\Ethereal Beetle</category>
 		<skin>0</skin>
@@ -430,6 +442,7 @@
 	<!-- Ethereal Horse -->
 	<npc id="ethereal_horse">
 		<name>an ethereal horse</name>
+                <ai>Animal_Wild</ai>
 		<id>0x73</id>
 		<category>Animals\Ridables\Ethereal Horse</category>
 		<skin>0</skin>
@@ -452,6 +465,7 @@
 	<!-- Ethereal Ki-rin -->
 	<npc id="ethereal_kirin">
 		<name>an ethereal ki-rin</name>
+                <ai>Animal_Wild</ai>
 		<id>0x0317</id>
 		<category>Animals\Ridables\Ethereal Ki-rin</category>
 		<skin>0</skin>
@@ -474,6 +488,7 @@
 	<!-- Ethereal Llama -->
 	<npc id="ethereal_llama">
 		<name>an ethereal llama</name>
+                <ai>Animal_Wild</ai>
 		<id>0xAA</id>
 		<category>Animals\Ridables\Ethereal Llama</category>
 		<skin>0</skin>
@@ -496,6 +511,7 @@
 	<!-- Ethereal Ostard -->
 	<npc id="ethereal_ostard">
 		<name>an ethereal ostard</name>
+                <ai>Animal_Wild</ai>
 		<id>0xAB</id>
 		<category>Animals\Ridables\Ethereal Ostard</category>
 		<skin>0</skin>
@@ -519,6 +535,7 @@
 	<npc id="ethereal_ridgeback">
 		<name>an ethereal ridgeback</name>
 		<id>0xC1</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Ethereal Ridgeback</category>
 		<skin>0</skin>
 		<inherit id="animal_base" />
@@ -541,6 +558,7 @@
 	<npc id="ethereal_swamp_dragon">
 		<name>an ethereal swamp dragon</name>
 		<id>0xC2</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Ethereal Swamp Dragon</category>
 		<skin>0</skin>
 		<inherit id="animal_base" />
@@ -563,6 +581,7 @@
 	<npc id="ethereal_unicorn">
 		<name>an ethereal unicorn</name>
 		<id>0xC0</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Ethereal Unicorn</category>
 		<skin>0</skin>
 		<inherit id="animal_base" />
@@ -585,6 +604,7 @@
 	<npc id="britannian_warhorse">
 		<name>a war horse</name>
 		<id>0x76</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Britannian Warhorse</category>
 		<skin>0</skin>
 		<inherit id="animal_base" />
@@ -607,6 +627,7 @@
 	<npc id="magecouncil_warhorse">
 		<name>a war horse</name>
 		<id>0x77</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Council of Mages Warhorse</category>
 		<skin>0</skin>
 		<inherit id="animal_base" />
@@ -629,6 +650,7 @@
 	<npc id="shadowlord_warhorse">
 		<name>a war horse</name>
 		<id>0x78</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Shadowlord Warhorse</category>
 		<skin>0</skin>
 		<inherit id="animal_base" />
@@ -651,6 +673,7 @@
 	<npc id="minax_warhorse">
 		<name>a war horse</name>
 		<id>0x76</id>
+                <ai>Animal_Wild</ai>
 		<category>Animals\Ridables\Minax Warhorse</category>
 		<skin>0</skin>
 		<inherit id="animal_base" />

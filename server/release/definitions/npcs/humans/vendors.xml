@@ -2103,7 +2103,7 @@
 	<npc id="stablemaster_male">
 		<inherit>base_male</inherit>
 		<title>the Stablemaster</title>
-		<events>speech_stablemaster</events>
+		<ai>Human_Stablemaster</ai>
 		<fencing>
 			<random min="150" max="380"/>
 		</fencing>
@@ -2130,7 +2130,7 @@
 	<npc id="stablemaster_female">
 		<inherit>base_female</inherit>
 		<title>the Stablemaster</title>
-		<events>speech_stablemaster</events>
+		<ai>Human_Stablemaster</ai>
 		<fencing>
 			<random min="150" max="380"/>
 		</fencing>

@@ -2,6 +2,7 @@
         <!-- Chicken -->
         <npc id="chicken">
                 <name>a chicken</name>
+                <ai>Animal_Wild</ai>
                 <id>0x00D0</id>
                 <category>Animals\Air\Chicken</category>
                 <skin>0</skin>
@@ -27,6 +28,7 @@
         <!-- bird -->
         <npc id="bird">
                 <name><random list="NAMES_BIRD" /></name>
+                <ai>Animal_Wild</ai>
                 <id>0x0006</id>
                 <category>Animals\Air\Bird</category>
                 <skin>0</skin>
@@ -52,6 +54,7 @@
         <!-- eagle -->
         <npc id="eagle">
                 <name>an eagle</name>
+                <ai>Animal_Wild</ai>
                 <id>0x5</id>
                 <category>Animals\Air\Eagle</category>
                 <skin>0</skin>

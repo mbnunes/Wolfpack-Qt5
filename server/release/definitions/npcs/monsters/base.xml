@@ -10,7 +10,7 @@
 <definitions>
 	<!-- monster base -->
 	<npc id="monster_base">
-		<ai>2</ai>
+		<ai>Monster_Aggressive_L1</ai>
 		<totame>1100</totame>
 		<npcwander type="circle" radius="20"/>
 		<direction>
