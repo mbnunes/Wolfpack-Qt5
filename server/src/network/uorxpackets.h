@@ -540,7 +540,7 @@ public:
 	UINT32 elementId() const { return getInt( 10 ); }
 	UINT32 x() const { return getInt( 15 ); }
 	UINT32 y() const { return getInt( 20 ); }
-	// z is == level z
+	UINT32 z() const { return getInt( 25 );
 };
 // 0xD7 0x06 Build wall or other element when customizing house
 class cUORxCHBuild : public cUORxAosMultiPurpose
