@@ -9,42 +9,42 @@
 =================================================================
 -->
 <definitions>
-        <item id="C3B">
+        <item id="c3b">
                 <id>0xC3B</id>
                 <category>Vegetation\Dried Vegetation\Dried Flowers 1</category>
         </item>
 
-        <item id="C3C">
+        <item id="c3c">
                 <id>0xC3C</id>
                 <category>Vegetation\Dried Vegetation\Dried Flowers 2</category>
         </item>
 
-        <item id="C3D">
+        <item id="c3d">
                 <id>0xC3D</id>
                 <category>Vegetation\Dried Vegetation\Dried Flowers 3</category>
         </item>
 
-        <item id="C3E">
+        <item id="c3e">
                 <id>0xC3E</id>
                 <category>Vegetation\Dried Vegetation\Dried Flowers 4</category>
         </item>
 
-        <item id="C3F">
+        <item id="c3f">
                 <id>0xC3F</id>
                 <category>Vegetation\Dried Vegetation\Dried Onions 1</category>
         </item>
 
-        <item id="C40">
+        <item id="c40">
                 <id>0xC40</id>
                 <category>Vegetation\Dried Vegetation\Dried Onions 2</category>
         </item>
 
-        <item id="C41">
+        <item id="c41">
                 <id>0xC41</id>
                 <category>Vegetation\Dried Vegetation\Dried Herbs 1</category>
         </item>
 
-        <item id="C42">
+        <item id="c42">
                 <id>0xC42</id>
                 <category>Vegetation\Dried Vegetation\Dried Herbs 2</category>
         </item>

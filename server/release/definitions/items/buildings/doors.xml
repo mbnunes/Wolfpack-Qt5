@@ -28,19 +28,19 @@
 		<category>Buildings\Doors\Metal Door 1\Metal Door (S/NW)</category>
 	</item>
 
-	<item id="67B">
+	<item id="67b">
 		<id>0x67B</id>
 		<type>12</type>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (S/NE)</category>
 	</item>
 
-	<item id="67D">
+	<item id="67d">
 		<id>0x67D</id>
 		<type>12</type>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (W/SE)</category>
 	</item>
 
-	<item id="67F">
+	<item id="67f">
 		<id>0x67F</id>
 		<type>12</type>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (W/NE)</category>

@@ -8,15 +8,6 @@
 | Ship Parts                                                    |
 =================================================================
 -->
-<!-- Aus der base.xml müssen folgende Items (insgesamt 163) gelöscht werden:
-3e3f bis 3e81
-3e83 bis 3e98
-3e9a bis 3ea1
-3ea3 bis 3ec6
-3ec8 bis 3ed5
-3edc bis 3ee7
-3ee9 bis 3eec
--->
 <definitions>
         <!-- Deck -->
         <item id="3e61">

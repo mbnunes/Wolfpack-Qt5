@@ -582,57 +582,57 @@
 	</item>
 
 	<!-- Wall Cracks -->
-        <item id="1B01"> 
+        <item id="1b01"> 
                 <id>0x1B01</id> 
                 <category>Buildings\Cracks\Floor Cracks 1</category> 
         </item> 
  
-        <item id="1B02"> 
+        <item id="1b02"> 
                 <id>0x1B02</id> 
                 <category>Buildings\Cracks\Floor Cracks 2</category> 
         </item> 
  
-        <item id="1B03"> 
+        <item id="1b03"> 
                 <id>0x1B03</id> 
                 <category>Buildings\Cracks\Floor Cracks 3</category> 
         </item> 
  
-        <item id="1B04"> 
+        <item id="1b04"> 
                 <id>0x1B04</id> 
                 <category>Buildings\Cracks\Floor Cracks 4</category> 
         </item> 
  
-        <item id="1B05"> 
+        <item id="1b05"> 
                 <id>0x1B05</id> 
                 <category>Buildings\Cracks\Floor Cracks 5</category> 
         </item> 
  
-        <item id="1B06"> 
+        <item id="1b06"> 
                 <id>0x1B06</id> 
                 <category>Buildings\Cracks\Floor Cracks 6</category> 
         </item> 
  
-        <item id="1B07"> 
+        <item id="1b07"> 
                 <id>0x1B07</id> 
                 <category>Buildings\Cracks\Floor Cracks 7</category> 
         </item> 
  
-        <item id="1B08"> 
+        <item id="1b08"> 
                 <id>0x1B08</id> 
                 <category>Buildings\Cracks\Floor Cracks 8</category> 
         </item> 
 
-        <item id="1B6C"> 
+        <item id="1b6c"> 
                 <id>0x1B6C</id> 
                 <category>Buildings\Cracks\Wall Cracks 1</category> 
         </item> 
  
-        <item id="1B6D"> 
+        <item id="1b6d"> 
                 <id>0x1B6D</id> 
                 <category>Buildings\Cracks\Wall Cracks 2</category> 
         </item> 
  
-        <item id="1B6E"> 
+        <item id="1b6e"> 
                 <id>0x1B6E</id> 
                 <category>Buildings\Cracks\Wall Cracks 3</category> 
         </item>
@@ -733,7 +733,7 @@
 		<category>Decoration\Paintings &amp; Tapestry\Painting 12</category> 
 	</item>
 
-   <item id="EE7">
+   <item id="ee7">
         <id>0xEE7</id>
 		<category>Decoration\Paintings &amp; Tapestry\Painting 12</category> 
     </item>

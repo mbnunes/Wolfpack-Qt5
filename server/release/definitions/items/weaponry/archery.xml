@@ -9,7 +9,7 @@
 <definitions>
 	<!-- Bow left -->
 	<item id="13b1">
-		<bindmenu id="ITEM_MENU"/>
+		<bindmenu id="item_menu"/>
 		<id>0x13b1</id>
 		<twohanded />
 		<decay />
@@ -32,7 +32,7 @@
 
 	<!-- Cross Bow left -->
 	<item id="f4f">
-		<bindmenu id="ITEM_MENU"/>
+		<bindmenu id="item_menu"/>
 		<id>0xf4f</id>
 		<decay />
 		<value>70</value>
@@ -55,7 +55,7 @@
 	<!-- Heavy Cross Bow left -->
 	<item id="13fc">
 		<name>crossbow</name>
-		<bindmenu id="ITEM_MENU"/>
+		<bindmenu id="item_menu"/>
 		<id>0x13fc</id>
 		<decay />
 		<value>80</value>

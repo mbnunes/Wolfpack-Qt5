@@ -13,154 +13,154 @@
 -->
 <definitions>
         <!-- Wood -->
-        <item id="1B81">
+        <item id="1b81">
                 <id>0x1B81</id>
                 <category>Vegetation\Wood\Wood 1</category>
         </item>
 
-        <item id="1B82">
+        <item id="1b82">
                 <id>0x1B82</id>
                 <category>Vegetation\Wood\Wood 2</category>
         </item>
 
-        <item id="1B83">
+        <item id="1b83">
                 <id>0x1B83</id>
                 <category>Vegetation\Wood\Wood 3</category>
         </item>
 
-        <item id="1B84">
+        <item id="1b84">
                 <id>0x1B84</id>
                 <category>Vegetation\Wood\Wood 4</category>
         </item>
 
-        <item id="1B85">
+        <item id="1b85">
                 <id>0x1B85</id>
                 <category>Vegetation\Wood\Wood 5</category>
         </item>
 
-        <item id="1B86">
+        <item id="1b86">
                 <id>0x1B86</id>
                 <category>Vegetation\Wood\Wood 6</category>
         </item>
 
-        <item id="1B87">
+        <item id="1b87">
                 <id>0x1B87</id>
                 <category>Vegetation\Wood\Wood 7</category>
         </item>
 
-        <item id="1B88">
+        <item id="1b88">
                 <id>0x1B88</id>
                 <category>Vegetation\Wood\Wood 8</category>
         </item>
 
-        <item id="1B89">
+        <item id="1b89">
                 <id>0x1B89</id>
                 <category>Vegetation\Wood\Wood 9</category>
         </item>
 
-        <item id="1B8A">
+        <item id="1b8a">
                 <id>0x1B8A</id>
                 <category>Vegetation\Wood\Wood 10</category>
         </item>
 
-        <item id="1B8B">
+        <item id="1b8b">
                 <id>0x1B8B</id>
                 <category>Vegetation\Wood\Wood 11</category>
         </item>
 
-        <item id="1B8C">
+        <item id="1b8c">
                 <id>0x1B8C</id>
                 <category>Vegetation\Wood\Wood 12</category>
         </item>
 
-        <item id="1B8D">
+        <item id="1b8d">
                 <id>0x1B8D</id>
                 <category>Vegetation\Wood\Wood 13</category>
         </item>
 
-        <item id="1B8E">
+        <item id="1b8e">
                 <id>0x1B8E</id>
                 <category>Vegetation\Wood\Wood 14</category>
         </item>
 
-        <item id="1B8F">
+        <item id="1b8f">
                 <id>0x1B8F</id>
                 <category>Vegetation\Wood\Wood 15</category>
         </item>
 
-        <item id="1B90">
+        <item id="1b90">
                 <id>0x1B90</id>
                 <category>Vegetation\Wood\Wood 16</category>
         </item>
 
-        <item id="1B91">
+        <item id="1b91">
                 <id>0x1B91</id>
                 <category>Vegetation\Wood\Wood 17</category>
         </item>
 
-        <item id="1B92">
+        <item id="1b92">
                 <id>0x1B92</id>
                 <category>Vegetation\Wood\Wood 18</category>
         </item>
 
-        <item id="1B93">
+        <item id="1b93">
                 <id>0x1B93</id>
                 <category>Vegetation\Wood\Wood 19</category>
         </item>
 
-        <item id="1B94">
+        <item id="1b94">
                 <id>0x1B94</id>
                 <category>Vegetation\Wood\Wood 20</category>
         </item>
 
-        <item id="1B95">
+        <item id="1b95">
                 <id>0x1B95</id>
                 <category>Vegetation\Wood\Wood 21</category>
         </item>
 
-        <item id="1B96">
+        <item id="1b96">
                 <id>0x1B96</id>
                 <category>Vegetation\Wood\Wood 22</category>
         </item>
 
-        <item id="1B97">
+        <item id="1b97">
                 <id>0x1B97</id>
                 <category>Vegetation\Wood\Wood 23</category>
         </item>
 
-        <item id="1B98">
+        <item id="1b98">
                 <id>0x1B98</id>
                 <category>Vegetation\Wood\Wood 24</category>
         </item>
 
-        <item id="1B99">
+        <item id="1b99">
                 <id>0x1B99</id>
                 <category>Vegetation\Wood\Wood 25</category>
         </item>
 
-        <item id="1B9A">
+        <item id="1b9a">
                 <id>0x1B9A</id>
                 <category>Vegetation\Wood\Wood 26</category>
         </item>
 
         <!-- Sticks -->
-        <item id="1B9B">
+        <item id="1b9b">
                 <id>0x1B9B</id>
                 <category>Vegetation\Wood\Sticks </category>
         </item>
 
         <!-- Twigs -->
-        <item id="1B9C">
+        <item id="1b9c">
                 <id>0x1B9C</id>
                 <category>Vegetation\Wood\Twigs 1</category>
         </item>
 
-        <item id="1B9D">
+        <item id="1b9d">
                 <id>0x1B9D</id>
                 <category>Vegetation\Wood\Twigs 2</category>
         </item>
 
-        <item id="1B9E">
+        <item id="1b9e">
                 <id>0x1B9E</id>
                 <category>Vegetation\Wood\Twigs 3</category>
         </item>

@@ -10,62 +10,62 @@
 -->
 <definitions>
         <!-- Cannon -->
-        <item id="E8B">
+        <item id="e8b">
                 <id>0xE8B</id>
                 <category>Misc\Cannon\Long Cannon (S/N) (1/3)</category>
         </item>
 
-        <item id="E8C">
+        <item id="e8c">
                 <id>0xE8C</id>
                 <category>Misc\Cannon\Long Cannon (S/N) (2/3)</category>
         </item>
 
-        <item id="E8D">
+        <item id="e8d">
                 <id>0xE8D</id>
                 <category>Misc\Cannon\Long Cannon (S/N) (3/3)</category>
         </item>
 
-        <item id="E8E">
+        <item id="e8e">
                 <id>0xE8E</id>
                 <category>Misc\Cannon\Long Cannon (E/W) (1/3)</category>
         </item>
 
-        <item id="E8F">
+        <item id="e8f">
                 <id>0xE8F</id>
                 <category>Misc\Cannon\Long Cannon (E/W) (2/3)</category>
         </item>
 
-        <item id="E90">
+        <item id="e90">
                 <id>0xE90</id>
                 <category>Misc\Cannon\Long Cannon (E/W) (3/3)</category>
         </item>
 
-        <item id="E91">
+        <item id="e91">
                 <id>0xE91</id>
                 <category>Misc\Cannon\Long Cannon (N/S) (1/3)</category>
         </item>
 
-        <item id="E92">
+        <item id="e92">
                 <id>0xE92</id>
                 <category>Misc\Cannon\Long Cannon (N/S) (2/3)</category>
         </item>
 
-        <item id="E93">
+        <item id="e93">
                 <id>0xE93</id>
                 <category>Misc\Cannon\Long Cannon (N/S) (3/3)</category>
         </item>
 
-        <item id="E94">
+        <item id="e94">
                 <id>0xE94</id>
                 <category>Misc\Cannon\Long Cannon (W/E) (1/3)</category>
         </item>
 
-        <item id="E95">
+        <item id="e95">
                 <id>0xE95</id>
                 <category>Misc\Cannon\Long Cannon (W/E) (2/3)</category>
         </item>
 
-        <item id="E96">
+        <item id="e96">
                 <id>0xE96</id>
                 <category>Misc\Cannon\Long Cannon (W/E) (3/3)</category>
         </item>
@@ -81,32 +81,32 @@
                 <category>Misc\Catapult\Catapult 2</category>
         </item>
 
-        <item id="164A">
+        <item id="164a">
                 <id>0x164A</id>
                 <category>Misc\Catapult\Catapult 3</category>
         </item>
 
-        <item id="164B">
+        <item id="164b">
                 <id>0x164B</id>
                 <category>Misc\Catapult\Catapult 4</category>
         </item>
 
-        <item id="164C">
+        <item id="164c">
                 <id>0x164C</id>
                 <category>Misc\Catapult\Catapult 5</category>
         </item>
 
-        <item id="164D">
+        <item id="164d">
                 <id>0x164D</id>
                 <category>Misc\Catapult\Catapult 6</category>
         </item>
 
-        <item id="164E">
+        <item id="164e">
                 <id>0x164E</id>
                 <category>Misc\Catapult\Catapult 7</category>
         </item>
 
-        <item id="164F">
+        <item id="164f">
                 <id>0x164F</id>
                 <category>Misc\Catapult\Catapult 8</category>
         </item>
@@ -161,32 +161,32 @@
                 <category>Misc\Catapult\Catapult 18</category>
         </item>
 
-        <item id="165A">
+        <item id="165a">
                 <id>0x165A</id>
                 <category>Misc\Catapult\Catapult 19</category>
         </item>
 
-        <item id="165B">
+        <item id="165b">
                 <id>0x165B</id>
                 <category>Misc\Catapult\Catapult 20</category>
         </item>
 
-        <item id="165C">
+        <item id="165c">
                 <id>0x165C</id>
                 <category>Misc\Catapult\Catapult 21</category>
         </item>
 
-        <item id="165D">
+        <item id="165d">
                 <id>0x165D</id>
                 <category>Misc\Catapult\Catapult 22</category>
         </item>
 
-        <item id="165E">
+        <item id="165e">
                 <id>0x165E</id>
                 <category>Misc\Catapult\Catapult 23</category>
         </item>
 
-        <item id="165F">
+        <item id="165f">
                 <id>0x165F</id>
                 <category>Misc\Catapult\Catapult 24</category>
         </item>
@@ -266,32 +266,32 @@
                 <category>Misc\Catapult\Catapult 39</category>
         </item>
 
-        <item id="167A">
+        <item id="167a">
                 <id>0x167A</id>
                 <category>Misc\Catapult\Catapult 40</category>
         </item>
 
-        <item id="167B">
+        <item id="167b">
                 <id>0x167B</id>
                 <category>Misc\Catapult\Catapult 41</category>
         </item>
 
-        <item id="167C">
+        <item id="167c">
                 <id>0x167C</id>
                 <category>Misc\Catapult\Catapult 42</category>
         </item>
 
-        <item id="167D">
+        <item id="167d">
                 <id>0x167D</id>
                 <category>Misc\Catapult\Catapult 43</category>
         </item>
 
-        <item id="167E">
+        <item id="167e">
                 <id>0x167E</id>
                 <category>Misc\Catapult\Catapult 44</category>
         </item>
 
-        <item id="167F">
+        <item id="167f">
                 <id>0x167F</id>
                 <category>Misc\Catapult\Catapult 45</category>
         </item>
@@ -346,32 +346,32 @@
                 <category>Misc\Catapult\Catapult 55</category>
         </item>
 
-        <item id="168A">
+        <item id="168a">
                 <id>0x168A</id>
                 <category>Misc\Catapult\Catapult 56</category>
         </item>
 
-        <item id="168B">
+        <item id="168b">
                 <id>0x168B</id>
                 <category>Misc\Catapult\Catapult 57</category>
         </item>
 
-        <item id="168C">
+        <item id="168c">
                 <id>0x168C</id>
                 <category>Misc\Catapult\Catapult 58</category>
         </item>
 
-        <item id="168D">
+        <item id="168d">
                 <id>0x168D</id>
                 <category>Misc\Catapult\Catapult 59</category>
         </item>
 
-        <item id="168E">
+        <item id="168e">
                 <id>0x168E</id>
                 <category>Misc\Catapult\Catapult 60</category>
         </item>
 
-        <item id="168F">
+        <item id="168f">
                 <id>0x168F</id>
                 <category>Misc\Catapult\Catapult 61</category>
         </item>
@@ -426,668 +426,668 @@
                 <category>Misc\Catapult\Catapult 71</category>
         </item>
 
-        <item id="169A">
+        <item id="169a">
                 <id>0x169A</id>
                 <category>Misc\Catapult\Catapult 72</category>
         </item>
 
-        <item id="169B">
+        <item id="169b">
                 <id>0x169B</id>
                 <category>Misc\Catapult\Catapult 73</category>
         </item>
 
-        <item id="169C">
+        <item id="169c">
                 <id>0x169C</id>
                 <category>Misc\Catapult\Catapult 74</category>
         </item>
 
-        <item id="169D">
+        <item id="169d">
                 <id>0x169D</id>
                 <category>Misc\Catapult\Catapult 75</category>
         </item>
 
-        <item id="169E">
+        <item id="169e">
                 <id>0x169E</id>
                 <category>Misc\Catapult\Catapult 76</category>
         </item>
 
-        <item id="169F">
+        <item id="169f">
                 <id>0x169F</id>
                 <category>Misc\Catapult\Catapult 77</category>
         </item>
 
-        <item id="16A0">
+        <item id="16a0">
                 <id>0x16A0</id>
                 <category>Misc\Catapult\Catapult 78</category>
         </item>
 
-        <item id="16A1">
+        <item id="16a1">
                 <id>0x16A1</id>
                 <category>Misc\Catapult\Catapult 79</category>
         </item>
 
-        <item id="16A2">
+        <item id="16a2">
                 <id>0x16A2</id>
                 <category>Misc\Catapult\Catapult 80</category>
         </item>
 
-        <item id="16A3">
+        <item id="16a3">
                 <id>0x16A3</id>
                 <category>Misc\Catapult\Catapult 81</category>
         </item>
 
-        <item id="16A4">
+        <item id="16a4">
                 <id>0x16A4</id>
                 <category>Misc\Catapult\Catapult 82</category>
         </item>
 
-        <item id="16A5">
+        <item id="16a5">
                 <id>0x16A5</id>
                 <category>Misc\Catapult\Catapult 83</category>
         </item>
 
-        <item id="16A6">
+        <item id="16a6">
                 <id>0x16A6</id>
                 <category>Misc\Catapult\Catapult 84</category>
         </item>
 
-        <item id="16A7">
+        <item id="16a7">
                 <id>0x16A7</id>
                 <category>Misc\Catapult\Catapult 85</category>
         </item>
 
-        <item id="16A8">
+        <item id="16a8">
                 <id>0x16A8</id>
                 <category>Misc\Catapult\Catapult 86</category>
         </item>
 
-        <item id="16A9">
+        <item id="16a9">
                 <id>0x16A9</id>
                 <category>Misc\Catapult\Catapult 87</category>
         </item>
 
-        <item id="16AA">
+        <item id="16aa">
                 <id>0x16AA</id>
                 <category>Misc\Catapult\Catapult 88</category>
         </item>
 
-        <item id="16AB">
+        <item id="16ab">
                 <id>0x16AB</id>
                 <category>Misc\Catapult\Catapult 89</category>
         </item>
 
-        <item id="16AC">
+        <item id="16ac">
                 <id>0x16AC</id>
                 <category>Misc\Catapult\Catapult 90</category>
         </item>
 
-        <item id="16AD">
+        <item id="16ad">
                 <id>0x16AD</id>
                 <category>Misc\Catapult\Catapult 91</category>
         </item>
 
-        <item id="16AE">
+        <item id="16ae">
                 <id>0x16AE</id>
                 <category>Misc\Catapult\Catapult 92</category>
         </item>
 
-        <item id="16AF">
+        <item id="16af">
                 <id>0x16AF</id>
                 <category>Misc\Catapult\Catapult 93</category>
         </item>
 
-        <item id="16B0">
+        <item id="16b0">
                 <id>0x16B0</id>
                 <category>Misc\Catapult\Catapult 94</category>
         </item>
 
-        <item id="16B1">
+        <item id="16b1">
                 <id>0x16B1</id>
                 <category>Misc\Catapult\Catapult 95</category>
         </item>
 
-        <item id="16B2">
+        <item id="16b2">
                 <id>0x16B2</id>
                 <category>Misc\Catapult\Catapult 96</category>
         </item>
 
-        <item id="16B3">
+        <item id="16b3">
                 <id>0x16B3</id>
                 <category>Misc\Catapult\Catapult 97</category>
         </item>
 
-        <item id="16B4">
+        <item id="16b4">
                 <id>0x16B4</id>
                 <category>Misc\Catapult\Catapult 98</category>
         </item>
 
-        <item id="16B5">
+        <item id="16b5">
                 <id>0x16B5</id>
                 <category>Misc\Catapult\Catapult 99</category>
         </item>
 
-        <item id="16B6">
+        <item id="16b6">
                 <id>0x16B6</id>
                 <category>Misc\Catapult\Catapult 100</category>
         </item>
 
-        <item id="16B7">
+        <item id="16b7">
                 <id>0x16B7</id>
                 <category>Misc\Catapult\Catapult 101</category>
         </item>
 
-        <item id="16B8">
+        <item id="16b8">
                 <id>0x16B8</id>
                 <category>Misc\Catapult\Catapult 102</category>
         </item>
 
-        <item id="16B9">
+        <item id="16b9">
                 <id>0x16B9</id>
                 <category>Misc\Catapult\Catapult 103</category>
         </item>
 
-        <item id="16BA">
+        <item id="16ba">
                 <id>0x16BA</id>
                 <category>Misc\Catapult\Catapult 104</category>
         </item>
 
-        <item id="16BB">
+        <item id="16bb">
                 <id>0x16BB</id>
                 <category>Misc\Catapult\Catapult 105</category>
         </item>
 
-        <item id="16BC">
+        <item id="16bc">
                 <id>0x16BC</id>
                 <category>Misc\Catapult\Catapult 106</category>
         </item>
 
-        <item id="16BD">
+        <item id="16bd">
                 <id>0x16BD</id>
                 <category>Misc\Catapult\Catapult 107</category>
         </item>
 
-        <item id="16BE">
+        <item id="16be">
                 <id>0x16BE</id>
                 <category>Misc\Catapult\Catapult 108</category>
         </item>
 
-        <item id="16BF">
+        <item id="16bf">
                 <id>0x16BF</id>
                 <category>Misc\Catapult\Catapult 109</category>
         </item>
 
-        <item id="16C0">
+        <item id="16c0">
                 <id>0x16C0</id>
                 <category>Misc\Catapult\Catapult 110</category>
         </item>
 
-        <item id="16C1">
+        <item id="16c1">
                 <id>0x16C1</id>
                 <category>Misc\Catapult\Catapult 111</category>
         </item>
 
-        <item id="16C2">
+        <item id="16c2">
                 <id>0x16C2</id>
                 <category>Misc\Catapult\Catapult 112</category>
         </item>
 
-        <item id="16C3">
+        <item id="16c3">
                 <id>0x16C3</id>
                 <category>Misc\Catapult\Catapult 113</category>
         </item>
 
-        <item id="16C4">
+        <item id="16c4">
                 <id>0x16C4</id>
                 <category>Misc\Catapult\Catapult 114</category>
         </item>
 
-        <item id="16C5">
+        <item id="16c5">
                 <id>0x16C5</id>
                 <category>Misc\Catapult\Catapult 115</category>
         </item>
 
-        <item id="16C6">
+        <item id="16c6">
                 <id>0x16C6</id>
                 <category>Misc\Catapult\Catapult 116</category>
         </item>
 
-        <item id="16C7">
+        <item id="16c7">
                 <id>0x16C7</id>
                 <category>Misc\Catapult\Catapult 117</category>
         </item>
 
-        <item id="16C8">
+        <item id="16c8">
                 <id>0x16C8</id>
                 <category>Misc\Catapult\Catapult 118</category>
         </item>
 
-        <item id="16C9">
+        <item id="16c9">
                 <id>0x16C9</id>
                 <category>Misc\Catapult\Catapult 119</category>
         </item>
 
-        <item id="16CA">
+        <item id="16ca">
                 <id>0x16CA</id>
                 <category>Misc\Catapult\Catapult 120</category>
         </item>
 
-        <item id="16CB">
+        <item id="16cb">
                 <id>0x16CB</id>
                 <category>Misc\Catapult\Catapult 121</category>
         </item>
 
-        <item id="16CC">
+        <item id="16cc">
                 <id>0x16CC</id>
                 <category>Misc\Catapult\Catapult 122</category>
         </item>
 
-        <item id="16CD">
+        <item id="16cd">
                 <id>0x16CD</id>
                 <category>Misc\Catapult\Catapult 123</category>
         </item>
 
-        <item id="16CE">
+        <item id="16ce">
                 <id>0x16CE</id>
                 <category>Misc\Catapult\Catapult 124</category>
         </item>
 
-        <item id="16CF">
+        <item id="16cf">
                 <id>0x16CF</id>
                 <category>Misc\Catapult\Catapult 125</category>
         </item>
 
-        <item id="16D0">
+        <item id="16d0">
                 <id>0x16D0</id>
                 <category>Misc\Catapult\Catapult 126</category>
         </item>
 
-        <item id="16D1">
+        <item id="16d1">
                 <id>0x16D1</id>
                 <category>Misc\Catapult\Catapult 127</category>
         </item>
 
-        <item id="16D2">
+        <item id="16d2">
                 <id>0x16D2</id>
                 <category>Misc\Catapult\Catapult 128</category>
         </item>
 
-        <item id="16D3">
+        <item id="16d3">
                 <id>0x16D3</id>
                 <category>Misc\Catapult\Catapult 129</category>
         </item>
 
-        <item id="16D4">
+        <item id="16d4">
                 <id>0x16D4</id>
                 <category>Misc\Catapult\Catapult 130</category>
         </item>
 
-        <item id="16D5">
+        <item id="16d5">
                 <id>0x16D5</id>
                 <category>Misc\Catapult\Catapult 131</category>
         </item>
 
-        <item id="16D6">
+        <item id="16d6">
                 <id>0x16D6</id>
                 <category>Misc\Catapult\Catapult 132</category>
         </item>
 
-        <item id="16D7">
+        <item id="16d7">
                 <id>0x16D7</id>
                 <category>Misc\Catapult\Catapult 133</category>
         </item>
 
-        <item id="16D8">
+        <item id="16d8">
                 <id>0x16D8</id>
                 <category>Misc\Catapult\Catapult 134</category>
         </item>
 
-        <item id="16D9">
+        <item id="16d9">
                 <id>0x16D9</id>
                 <category>Misc\Catapult\Catapult 135</category>
         </item>
 
         <!-- Balista -->
-        <item id="189F">
+        <item id="189f">
                 <id>0x189F</id>
                 <category>Misc\Balista\Balista 1</category>
         </item>
 
-        <item id="18A0">
+        <item id="18a0">
                 <id>0x18A0</id>
                 <category>Misc\Balista\Balista 2</category>
         </item>
 
-        <item id="18A1">
+        <item id="18a1">
                 <id>0x18A1</id>
                 <category>Misc\Balista\Balista 3</category>
         </item>
 
-        <item id="18A2">
+        <item id="18a2">
                 <id>0x18A2</id>
                 <category>Misc\Balista\Balista 4</category>
         </item>
 
-        <item id="18A3">
+        <item id="18a3">
                 <id>0x18A3</id>
                 <category>Misc\Balista\Balista 5</category>
         </item>
 
-        <item id="18A4">
+        <item id="18a4">
                 <id>0x18A4</id>
                 <category>Misc\Balista\Balista 6</category>
         </item>
 
-        <item id="18A5">
+        <item id="18a5">
                 <id>0x18A5</id>
                 <category>Misc\Balista\Balista 7</category>
         </item>
 
-        <item id="18A6">
+        <item id="18a6">
                 <id>0x18A6</id>
                 <category>Misc\Balista\Balista 8</category>
         </item>
 
-        <item id="18A7">
+        <item id="18a7">
                 <id>0x18A7</id>
                 <category>Misc\Balista\Balista 9</category>
         </item>
 
-        <item id="18A8">
+        <item id="18a8">
                 <id>0x18A8</id>
                 <category>Misc\Balista\Balista 10</category>
         </item>
 
-        <item id="18A9">
+        <item id="18a9">
                 <id>0x18A9</id>
                 <category>Misc\Balista\Balista 11</category>
         </item>
 
-        <item id="18AA">
+        <item id="18aa">
                 <id>0x18AA</id>
                 <category>Misc\Balista\Balista 12</category>
         </item>
 
-        <item id="18AB">
+        <item id="18ab">
                 <id>0x18AB</id>
                 <category>Misc\Balista\Balista 13</category>
         </item>
 
-        <item id="18AC">
+        <item id="18ac">
                 <id>0x18AC</id>
                 <category>Misc\Balista\Balista 14</category>
         </item>
 
-        <item id="18AD">
+        <item id="18ad">
                 <id>0x18AD</id>
                 <category>Misc\Balista\Balista 15</category>
         </item>
 
-        <item id="18AE">
+        <item id="18ae">
                 <id>0x18AE</id>
                 <category>Misc\Balista\Balista 16</category>
         </item>
 
-        <item id="18AF">
+        <item id="18af">
                 <id>0x18AF</id>
                 <category>Misc\Balista\Balista 17</category>
         </item>
 
-        <item id="18B0">
+        <item id="18b0">
                 <id>0x18B0</id>
                 <category>Misc\Balista\Balista 18</category>
         </item>
 
-        <item id="18B1">
+        <item id="18b1">
                 <id>0x18B1</id>
                 <category>Misc\Balista\Balista 19</category>
         </item>
 
-        <item id="18B2">
+        <item id="18b2">
                 <id>0x18B2</id>
                 <category>Misc\Balista\Balista 20</category>
         </item>
 
-        <item id="18B3">
+        <item id="18b3">
                 <id>0x18B3</id>
                 <category>Misc\Balista\Balista 21</category>
         </item>
 
-        <item id="18B4">
+        <item id="18b4">
                 <id>0x18B4</id>
                 <category>Misc\Balista\Balista 22</category>
         </item>
 
-        <item id="18B5">
+        <item id="18b5">
                 <id>0x18B5</id>
                 <category>Misc\Balista\Balista 23</category>
         </item>
 
-        <item id="18B6">
+        <item id="18b6">
                 <id>0x18B6</id>
                 <category>Misc\Balista\Balista 24</category>
         </item>
 
-        <item id="18B7">
+        <item id="18b7">
                 <id>0x18B7</id>
                 <category>Misc\Balista\Balista 25</category>
         </item>
 
-        <item id="18B8">
+        <item id="18b8">
                 <id>0x18B8</id>
                 <category>Misc\Balista\Balista 26</category>
         </item>
 
-        <item id="18B9">
+        <item id="18b9">
                 <id>0x18B9</id>
                 <category>Misc\Balista\Balista 27</category>
         </item>
 
-        <item id="18BA">
+        <item id="18ba">
                 <id>0x18BA</id>
                 <category>Misc\Balista\Balista 28</category>
         </item>
 
-        <item id="18BB">
+        <item id="18bb">
                 <id>0x18BB</id>
                 <category>Misc\Balista\Balista 29</category>
         </item>
 
-        <item id="18BC">
+        <item id="18bc">
                 <id>0x18BC</id>
                 <category>Misc\Balista\Balista 30</category>
         </item>
 
-        <item id="18BD">
+        <item id="18bd">
                 <id>0x18BD</id>
                 <category>Misc\Balista\Balista 31</category>
         </item>
 
-        <item id="18BE">
+        <item id="18be">
                 <id>0x18BE</id>
                 <category>Misc\Balista\Balista 32</category>
         </item>
 
-        <item id="18BF">
+        <item id="18bf">
                 <id>0x18BF</id>
                 <category>Misc\Balista\Balista 33</category>
         </item>
 
-        <item id="18C0">
+        <item id="18c0">
                 <id>0x18C0</id>
                 <category>Misc\Balista\Balista 34</category>
         </item>
 
-        <item id="18C1">
+        <item id="18c1">
                 <id>0x18C1</id>
                 <category>Misc\Balista\Balista 35</category>
         </item>
 
-        <item id="18C2">
+        <item id="18c2">
                 <id>0x18C2</id>
                 <category>Misc\Balista\Balista 36</category>
         </item>
 
-        <item id="18C3">
+        <item id="18c3">
                 <id>0x18C3</id>
                 <category>Misc\Balista\Balista 37</category>
         </item>
 
-        <item id="18C4">
+        <item id="18c4">
                 <id>0x18C4</id>
                 <category>Misc\Balista\Balista 38</category>
         </item>
 
-        <item id="18C5">
+        <item id="18c5">
                 <id>0x18C5</id>
                 <category>Misc\Balista\Balista 39</category>
         </item>
 
-        <item id="18C6">
+        <item id="18c6">
                 <id>0x18C6</id>
                 <category>Misc\Balista\Balista 40</category>
         </item>
 
-        <item id="18C7">
+        <item id="18c7">
                 <id>0x18C7</id>
                 <category>Misc\Balista\Balista 41</category>
         </item>
 
-        <item id="18C8">
+        <item id="18c8">
                 <id>0x18C8</id>
                 <category>Misc\Balista\Balista 42</category>
         </item>
 
-        <item id="18C9">
+        <item id="18c9">
                 <id>0x18C9</id>
                 <category>Misc\Balista\Balista 43</category>
         </item>
 
-        <item id="18CA">
+        <item id="18ca">
                 <id>0x18CA</id>
                 <category>Misc\Balista\Balista 44</category>
         </item>
 
-        <item id="18CB">
+        <item id="18cb">
                 <id>0x18CB</id>
                 <category>Misc\Balista\Balista 45</category>
         </item>
 
-        <item id="18CC">
+        <item id="18cc">
                 <id>0x18CC</id>
                 <category>Misc\Balista\Balista 46</category>
         </item>
 
-        <item id="18CD">
+        <item id="18cd">
                 <id>0x18CD</id>
                 <category>Misc\Balista\Balista 47</category>
         </item>
 
-        <item id="18CE">
+        <item id="18ce">
                 <id>0x18CE</id>
                 <category>Misc\Balista\Balista 48</category>
         </item>
 
-        <item id="18CF">
+        <item id="18cf">
                 <id>0x18CF</id>
                 <category>Misc\Balista\Balista 49</category>
         </item>
 
-        <item id="18D0">
+        <item id="18d0">
                 <id>0x18D0</id>
                 <category>Misc\Balista\Balista 50</category>
         </item>
 
-        <item id="18D1">
+        <item id="18d1">
                 <id>0x18D1</id>
                 <category>Misc\Balista\Balista 51</category>
         </item>
 
-        <item id="18D2">
+        <item id="18d2">
                 <id>0x18D2</id>
                 <category>Misc\Balista\Balista 52</category>
         </item>
 
-        <item id="18D3">
+        <item id="18d3">
                 <id>0x18D3</id>
                 <category>Misc\Balista\Balista 53</category>
         </item>
 
-        <item id="18F0">
+        <item id="18f0">
                 <id>0x18F0</id>
                 <category>Misc\Balista\Balista 54</category>
         </item>
 
-        <item id="18F1">
+        <item id="18f1">
                 <id>0x18F1</id>
                 <category>Misc\Balista\Balista 55</category>
         </item>
 
-        <item id="18F2">
+        <item id="18f2">
                 <id>0x18F2</id>
                 <category>Misc\Balista\Balista 56</category>
         </item>
 
-        <item id="18F3">
+        <item id="18f3">
                 <id>0x18F3</id>
                 <category>Misc\Balista\Balista 57</category>
         </item>
 
-        <item id="18F4">
+        <item id="18f4">
                 <id>0x18F4</id>
                 <category>Misc\Balista\Balista 58</category>
         </item>
 
-        <item id="18F5">
+        <item id="18f5">
                 <id>0x18F5</id>
                 <category>Misc\Balista\Balista 59</category>
         </item>
 
-        <item id="18F6">
+        <item id="18f6">
                 <id>0x18F6</id>
                 <category>Misc\Balista\Balista 60</category>
         </item>
 
-        <item id="18F7">
+        <item id="18f7">
                 <id>0x18F7</id>
                 <category>Misc\Balista\Balista 61</category>
         </item>
 
-        <item id="18F8">
+        <item id="18f8">
                 <id>0x18F8</id>
                 <category>Misc\Balista\Balista 62</category>
         </item>
 
-        <item id="18F9">
+        <item id="18f9">
                 <id>0x18F9</id>
                 <category>Misc\Balista\Balista 63</category>
         </item>
 
-        <item id="18FA">
+        <item id="18fa">
                 <id>0x18FA</id>
                 <category>Misc\Balista\Balista 64</category>
         </item>
 
-        <item id="18FB">
+        <item id="18fb">
                 <id>0x18FB</id>
                 <category>Misc\Balista\Balista 65</category>
         </item>
 
-        <item id="18FC">
+        <item id="18fc">
                 <id>0x18FC</id>
                 <category>Misc\Balista\Balista 66</category>
         </item>
 
-        <item id="18FD">
+        <item id="18fd">
                 <id>0x18FD</id>
                 <category>Misc\Balista\Balista 67</category>
         </item>
 
-        <item id="18FE">
+        <item id="18fe">
                 <id>0x18FE</id>
                 <category>Misc\Balista\Balista 68</category>
         </item>
 
-        <item id="18FF">
+        <item id="18ff">
                 <id>0x18FF</id>
                 <category>Misc\Balista\Balista 69</category>
         </item>
@@ -1142,852 +1142,852 @@
                 <category>Misc\Balista\Balista 79</category>
         </item>
 
-        <item id="190A">
+        <item id="190a">
                 <id>0x190A</id>
                 <category>Misc\Balista\Balista 80</category>
         </item>
 
-        <item id="190B">
+        <item id="190b">
                 <id>0x190B</id>
                 <category>Misc\Balista\Balista 81</category>
         </item>
 
-        <item id="190C">
+        <item id="190c">
                 <id>0x190C</id>
                 <category>Misc\Balista\Balista 82</category>
         </item>
 
-        <item id="190D">
+        <item id="190d">
                 <id>0x190D</id>
                 <category>Misc\Balista\Balista 83</category>
         </item>
 
-        <item id="3F3F">
+        <item id="3f3f">
                 <id>0x3F3F</id>
                 <category>Misc\Balista\Balista 84</category>
         </item>
 
-        <item id="3F40">
+        <item id="3f40">
                 <id>0x3F40</id>
                 <category>Misc\Balista\Balista 85</category>
         </item>
 
-        <item id="3F41">
+        <item id="3f41">
                 <id>0x3F41</id>
                 <category>Misc\Balista\Balista 86</category>
         </item>
 
-        <item id="3F42">
+        <item id="3f42">
                 <id>0x3F42</id>
                 <category>Misc\Balista\Balista 87</category>
         </item>
 
-        <item id="3F43">
+        <item id="3f43">
                 <id>0x3F43</id>
                 <category>Misc\Balista\Balista 88</category>
         </item>
 
-        <item id="3F44">
+        <item id="3f44">
                 <id>0x3F44</id>
                 <category>Misc\Balista\Balista 89</category>
         </item>
 
-        <item id="3F45">
+        <item id="3f45">
                 <id>0x3F45</id>
                 <category>Misc\Balista\Balista 90</category>
         </item>
 
-        <item id="3F46">
+        <item id="3f46">
                 <id>0x3F46</id>
                 <category>Misc\Balista\Balista 91</category>
         </item>
 
-        <item id="3F47">
+        <item id="3f47">
                 <id>0x3F47</id>
                 <category>Misc\Balista\Balista 92</category>
         </item>
 
-        <item id="3F48">
+        <item id="3f48">
                 <id>0x3F48</id>
                 <category>Misc\Balista\Balista 93</category>
         </item>
 
-        <item id="3F49">
+        <item id="3f49">
                 <id>0x3F49</id>
                 <category>Misc\Balista\Balista 94</category>
         </item>
 
-        <item id="3F4A">
+        <item id="3f4a">
                 <id>0x3F4A</id>
                 <category>Misc\Balista\Balista 95</category>
         </item>
 
-        <item id="3F4B">
+        <item id="3f4b">
                 <id>0x3F4B</id>
                 <category>Misc\Balista\Balista 96</category>
         </item>
 
-        <item id="3F4C">
+        <item id="3f4c">
                 <id>0x3F4C</id>
                 <category>Misc\Balista\Balista 97</category>
         </item>
 
-        <item id="3F4D">
+        <item id="3f4d">
                 <id>0x3F4D</id>
                 <category>Misc\Balista\Balista 98</category>
         </item>
 
-        <item id="3F4E">
+        <item id="3f4e">
                 <id>0x3F4E</id>
                 <category>Misc\Balista\Balista 99</category>
         </item>
 
-        <item id="3F4F">
+        <item id="3f4f">
                 <id>0x3F4F</id>
                 <category>Misc\Balista\Balista 100</category>
         </item>
 
-        <item id="3F50">
+        <item id="3f50">
                 <id>0x3F50</id>
                 <category>Misc\Balista\Balista 101</category>
         </item>
 
-        <item id="3F51">
+        <item id="3f51">
                 <id>0x3F51</id>
                 <category>Misc\Balista\Balista 102</category>
         </item>
 
-        <item id="3F52">
+        <item id="3f52">
                 <id>0x3F52</id>
                 <category>Misc\Balista\Balista 103</category>
         </item>
 
-        <item id="3F53">
+        <item id="3f53">
                 <id>0x3F53</id>
                 <category>Misc\Balista\Balista 104</category>
         </item>
 
-        <item id="3F54">
+        <item id="3f54">
                 <id>0x3F54</id>
                 <category>Misc\Balista\Balista 105</category>
         </item>
 
-        <item id="3F55">
+        <item id="3f55">
                 <id>0x3F55</id>
                 <category>Misc\Balista\Balista 106</category>
         </item>
 
-        <item id="3F56">
+        <item id="3f56">
                 <id>0x3F56</id>
                 <category>Misc\Balista\Balista 107</category>
         </item>
 
-        <item id="3F57">
+        <item id="3f57">
                 <id>0x3F57</id>
                 <category>Misc\Balista\Balista 108</category>
         </item>
 
-        <item id="3F58">
+        <item id="3f58">
                 <id>0x3F58</id>
                 <category>Misc\Balista\Balista 109</category>
         </item>
 
-        <item id="3F59">
+        <item id="3f59">
                 <id>0x3F59</id>
                 <category>Misc\Balista\Balista 110</category>
         </item>
 
-        <item id="3F5A">
+        <item id="3f5a">
                 <id>0x3F5A</id>
                 <category>Misc\Balista\Balista 111</category>
         </item>
 
-        <item id="3F5B">
+        <item id="3f5b">
                 <id>0x3F5B</id>
                 <category>Misc\Balista\Balista 112</category>
         </item>
 
-        <item id="3F5C">
+        <item id="3f5c">
                 <id>0x3F5C</id>
                 <category>Misc\Balista\Balista 113</category>
         </item>
 
-        <item id="3F5D">
+        <item id="3f5d">
                 <id>0x3F5D</id>
                 <category>Misc\Balista\Balista 114</category>
         </item>
 
-        <item id="3F5E">
+        <item id="3f5e">
                 <id>0x3F5E</id>
                 <category>Misc\Balista\Balista 115</category>
         </item>
 
-        <item id="3F5F">
+        <item id="3f5f">
                 <id>0x3F5F</id>
                 <category>Misc\Balista\Balista 116</category>
         </item>
 
-        <item id="3F60">
+        <item id="3f60">
                 <id>0x3F60</id>
                 <category>Misc\Balista\Balista 117</category>
         </item>
 
-        <item id="3F61">
+        <item id="3f61">
                 <id>0x3F61</id>
                 <category>Misc\Balista\Balista 118</category>
         </item>
 
-        <item id="3F62">
+        <item id="3f62">
                 <id>0x3F62</id>
                 <category>Misc\Balista\Balista 119</category>
         </item>
 
-        <item id="3F63">
+        <item id="3f63">
                 <id>0x3F63</id>
                 <category>Misc\Balista\Balista 120</category>
         </item>
 
-        <item id="3F64">
+        <item id="3f64">
                 <id>0x3F64</id>
                 <category>Misc\Balista\Balista 121</category>
         </item>
 
-        <item id="3F65">
+        <item id="3f65">
                 <id>0x3F65</id>
                 <category>Misc\Balista\Balista 122</category>
         </item>
 
-        <item id="3F66">
+        <item id="3f66">
                 <id>0x3F66</id>
                 <category>Misc\Balista\Balista 123</category>
         </item>
 
-        <item id="3F67">
+        <item id="3f67">
                 <id>0x3F67</id>
                 <category>Misc\Balista\Balista 124</category>
         </item>
 
-        <item id="3F68">
+        <item id="3f68">
                 <id>0x3F68</id>
                 <category>Misc\Balista\Balista 125</category>
         </item>
 
-        <item id="3F69">
+        <item id="3f69">
                 <id>0x3F69</id>
                 <category>Misc\Balista\Balista 126</category>
         </item>
 
-        <item id="3F6A">
+        <item id="3f6a">
                 <id>0x3F6A</id>
                 <category>Misc\Balista\Balista 127</category>
         </item>
 
-        <item id="3F6B">
+        <item id="3f6b">
                 <id>0x3F6B</id>
                 <category>Misc\Balista\Balista 128</category>
         </item>
 
-        <item id="3F6C">
+        <item id="3f6c">
                 <id>0x3F6C</id>
                 <category>Misc\Balista\Balista 129</category>
         </item>
 
-        <item id="3F6D">
+        <item id="3f6d">
                 <id>0x3F6D</id>
                 <category>Misc\Balista\Balista 130</category>
         </item>
 
-        <item id="3F6E">
+        <item id="3f6e">
                 <id>0x3F6E</id>
                 <category>Misc\Balista\Balista 131</category>
         </item>
 
-        <item id="3F6F">
+        <item id="3f6f">
                 <id>0x3F6F</id>
                 <category>Misc\Balista\Balista 132</category>
         </item>
 
-        <item id="3F70">
+        <item id="3f70">
                 <id>0x3F70</id>
                 <category>Misc\Balista\Balista 133</category>
         </item>
 
-        <item id="3F71">
+        <item id="3f71">
                 <id>0x3F71</id>
                 <category>Misc\Balista\Balista 134</category>
         </item>
 
-        <item id="3F72">
+        <item id="3f72">
                 <id>0x3F72</id>
                 <category>Misc\Balista\Balista 135</category>
         </item>
 
-        <item id="3F73">
+        <item id="3f73">
                 <id>0x3F73</id>
                 <category>Misc\Balista\Balista 136</category>
         </item>
 
-        <item id="3F74">
+        <item id="3f74">
                 <id>0x3F74</id>
                 <category>Misc\Balista\Balista 137</category>
         </item>
 
-        <item id="3F75">
+        <item id="3f75">
                 <id>0x3F75</id>
                 <category>Misc\Balista\Balista 138</category>
         </item>
 
-        <item id="3F76">
+        <item id="3f76">
                 <id>0x3F76</id>
                 <category>Misc\Balista\Balista 139</category>
         </item>
 
-        <item id="3F77">
+        <item id="3f77">
                 <id>0x3F77</id>
                 <category>Misc\Balista\Balista 140</category>
         </item>
 
-        <item id="3F78">
+        <item id="3f78">
                 <id>0x3F78</id>
                 <category>Misc\Balista\Balista 141</category>
         </item>
 
-        <item id="3F79">
+        <item id="3f79">
                 <id>0x3F79</id>
                 <category>Misc\Balista\Balista 142</category>
         </item>
 
-        <item id="3F7A">
+        <item id="3f7a">
                 <id>0x3F7A</id>
                 <category>Misc\Balista\Balista 143</category>
         </item>
 
-        <item id="3F7B">
+        <item id="3f7b">
                 <id>0x3F7B</id>
                 <category>Misc\Balista\Balista 144</category>
         </item>
 
-        <item id="3F7C">
+        <item id="3f7c">
                 <id>0x3F7C</id>
                 <category>Misc\Balista\Balista 145</category>
         </item>
 
-        <item id="3F7D">
+        <item id="3f7d">
                 <id>0x3F7D</id>
                 <category>Misc\Balista\Balista 146</category>
         </item>
 
-        <item id="3F7E">
+        <item id="3f7e">
                 <id>0x3F7E</id>
                 <category>Misc\Balista\Balista 147</category>
         </item>
 
-        <item id="3F7F">
+        <item id="3f7f">
                 <id>0x3F7F</id>
                 <category>Misc\Balista\Balista 148</category>
         </item>
 
-        <item id="3F80">
+        <item id="3f80">
                 <id>0x3F80</id>
                 <category>Misc\Balista\Balista 149</category>
         </item>
 
-        <item id="3F81">
+        <item id="3f81">
                 <id>0x3F81</id>
                 <category>Misc\Balista\Balista 150</category>
         </item>
 
-        <item id="3F82">
+        <item id="3f82">
                 <id>0x3F82</id>
                 <category>Misc\Balista\Balista 151</category>
         </item>
 
-        <item id="3F83">
+        <item id="3f83">
                 <id>0x3F83</id>
                 <category>Misc\Balista\Balista 152</category>
         </item>
 
-        <item id="3F84">
+        <item id="3f84">
                 <id>0x3F84</id>
                 <category>Misc\Balista\Balista 153</category>
         </item>
 
-        <item id="3F85">
+        <item id="3f85">
                 <id>0x3F85</id>
                 <category>Misc\Balista\Balista 154</category>
         </item>
 
-        <item id="3F86">
+        <item id="3f86">
                 <id>0x3F86</id>
                 <category>Misc\Balista\Balista 155</category>
         </item>
 
-        <item id="3F87">
+        <item id="3f87">
                 <id>0x3F87</id>
                 <category>Misc\Balista\Balista 156</category>
         </item>
 
-        <item id="3F88">
+        <item id="3f88">
                 <id>0x3F88</id>
                 <category>Misc\Balista\Balista 157</category>
         </item>
 
-        <item id="3F89">
+        <item id="3f89">
                 <id>0x3F89</id>
                 <category>Misc\Balista\Balista 158</category>
         </item>
 
-        <item id="3F8A">
+        <item id="3f8a">
                 <id>0x3F8A</id>
                 <category>Misc\Balista\Balista 159</category>
         </item>
 
-        <item id="3F8B">
+        <item id="3f8b">
                 <id>0x3F8B</id>
                 <category>Misc\Balista\Balista 160</category>
         </item>
 
-        <item id="3F8C">
+        <item id="3f8c">
                 <id>0x3F8C</id>
                 <category>Misc\Balista\Balista 161</category>
         </item>
 
-        <item id="3F8D">
+        <item id="3f8d">
                 <id>0x3F8D</id>
                 <category>Misc\Balista\Balista 162</category>
         </item>
 
-        <item id="3F8E">
+        <item id="3f8e">
                 <id>0x3F8E</id>
                 <category>Misc\Balista\Balista 163</category>
         </item>
 
-        <item id="3F8F">
+        <item id="3f8f">
                 <id>0x3F8F</id>
                 <category>Misc\Balista\Balista 164</category>
         </item>
 
-        <item id="3F90">
+        <item id="3f90">
                 <id>0x3F90</id>
                 <category>Misc\Balista\Balista 165</category>
         </item>
 
-        <item id="3F91">
+        <item id="3f91">
                 <id>0x3F91</id>
                 <category>Misc\Balista\Balista 166</category>
         </item>
 
-        <item id="3F92">
+        <item id="3f92">
                 <id>0x3F92</id>
                 <category>Misc\Balista\Balista 167</category>
         </item>
 
-        <item id="3F93">
+        <item id="3f93">
                 <id>0x3F93</id>
                 <category>Misc\Balista\Balista 168</category>
         </item>
 
-        <item id="3F94">
+        <item id="3f94">
                 <id>0x3F94</id>
                 <category>Misc\Balista\Balista 169</category>
         </item>
 
-        <item id="3F95">
+        <item id="3f95">
                 <id>0x3F95</id>
                 <category>Misc\Balista\Balista 170</category>
         </item>
 
-        <item id="3F96">
+        <item id="3f96">
                 <id>0x3F96</id>
                 <category>Misc\Balista\Balista 171</category>
         </item>
 
-        <item id="3F97">
+        <item id="3f97">
                 <id>0x3F97</id>
                 <category>Misc\Balista\Balista 172</category>
         </item>
 
-        <item id="3F98">
+        <item id="3f98">
                 <id>0x3F98</id>
                 <category>Misc\Balista\Balista 173</category>
         </item>
 
-        <item id="3F99">
+        <item id="3f99">
                 <id>0x3F99</id>
                 <category>Misc\Balista\Balista 174</category>
         </item>
 
-        <item id="3F9A">
+        <item id="3f9a">
                 <id>0x3F9A</id>
                 <category>Misc\Balista\Balista 175</category>
         </item>
 
-        <item id="3F9B">
+        <item id="3f9b">
                 <id>0x3F9B</id>
                 <category>Misc\Balista\Balista 176</category>
         </item>
 
-        <item id="3F9C">
+        <item id="3f9c">
                 <id>0x3F9C</id>
                 <category>Misc\Balista\Balista 177</category>
         </item>
 
-        <item id="3F9D">
+        <item id="3f9d">
                 <id>0x3F9D</id>
                 <category>Misc\Balista\Balista 178</category>
         </item>
 
-        <item id="3F9E">
+        <item id="3f9e">
                 <id>0x3F9E</id>
                 <category>Misc\Balista\Balista 179</category>
         </item>
 
-        <item id="3F9F">
+        <item id="3f9f">
                 <id>0x3F9F</id>
                 <category>Misc\Balista\Balista 180</category>
         </item>
 
-        <item id="3FA0">
+        <item id="3fa0">
                 <id>0x3FA0</id>
                 <category>Misc\Balista\Balista 181</category>
         </item>
 
-        <item id="3FA1">
+        <item id="3fa1">
                 <id>0x3FA1</id>
                 <category>Misc\Balista\Balista 182</category>
         </item>
 
-        <item id="3FA2">
+        <item id="3fa2">
                 <id>0x3FA2</id>
                 <category>Misc\Balista\Balista 183</category>
         </item>
 
-        <item id="3FA3">
+        <item id="3fa3">
                 <id>0x3FA3</id>
                 <category>Misc\Balista\Balista 184</category>
         </item>
 
-        <item id="3FA4">
+        <item id="3fa4">
                 <id>0x3FA4</id>
                 <category>Misc\Balista\Balista 185</category>
         </item>
 
-        <item id="3FA5">
+        <item id="3fa5">
                 <id>0x3FA5</id>
                 <category>Misc\Balista\Balista 186</category>
         </item>
 
-        <item id="3FA6">
+        <item id="3fa6">
                 <id>0x3FA6</id>
                 <category>Misc\Balista\Balista 187</category>
         </item>
 
-        <item id="3FA7">
+        <item id="3fa7">
                 <id>0x3FA7</id>
                 <category>Misc\Balista\Balista 188</category>
         </item>
 
-        <item id="3FA8">
+        <item id="3fa8">
                 <id>0x3FA8</id>
                 <category>Misc\Balista\Balista 189</category>
         </item>
 
-        <item id="3FA9">
+        <item id="3fa9">
                 <id>0x3FA9</id>
                 <category>Misc\Balista\Balista 190</category>
         </item>
 
-        <item id="3FAA">
+        <item id="3faa">
                 <id>0x3FAA</id>
                 <category>Misc\Balista\Balista 191</category>
         </item>
 
-        <item id="3FAB">
+        <item id="3fab">
                 <id>0x3FAB</id>
                 <category>Misc\Balista\Balista 192</category>
         </item>
 
-        <item id="3FAC">
+        <item id="3fac">
                 <id>0x3FAC</id>
                 <category>Misc\Balista\Balista 193</category>
         </item>
 
-        <item id="3FAD">
+        <item id="3fad">
                 <id>0x3FAD</id>
                 <category>Misc\Balista\Balista 194</category>
         </item>
 
-        <item id="3FAE">
+        <item id="3fae">
                 <id>0x3FAE</id>
                 <category>Misc\Balista\Balista 195</category>
         </item>
 
-        <item id="3FAF">
+        <item id="3faf">
                 <id>0x3FAF</id>
                 <category>Misc\Balista\Balista 196</category>
         </item>
 
-        <item id="3FB0">
+        <item id="3fb0">
                 <id>0x3FB0</id>
                 <category>Misc\Balista\Balista 197</category>
         </item>
 
-        <item id="3FB1">
+        <item id="3fb1">
                 <id>0x3FB1</id>
                 <category>Misc\Balista\Balista 198</category>
         </item>
 
-        <item id="3FB2">
+        <item id="3fb2">
                 <id>0x3FB2</id>
                 <category>Misc\Balista\Balista 199</category>
         </item>
 
-        <item id="3FB3">
+        <item id="3fb3">
                 <id>0x3FB3</id>
                 <category>Misc\Balista\Balista 200</category>
         </item>
 
-        <item id="3FB4">
+        <item id="3fb4">
                 <id>0x3FB4</id>
                 <category>Misc\Balista\Balista 201</category>
         </item>
 
-        <item id="3FB5">
+        <item id="3fb5">
                 <id>0x3FB5</id>
                 <category>Misc\Balista\Balista 202</category>
         </item>
 
-        <item id="3FB6">
+        <item id="3fb6">
                 <id>0x3FB6</id>
                 <category>Misc\Balista\Balista 203</category>
         </item>
 
-        <item id="3FB7">
+        <item id="3fb7">
                 <id>0x3FB7</id>
                 <category>Misc\Balista\Balista 204</category>
         </item>
 
-        <item id="3FB8">
+        <item id="3fb8">
                 <id>0x3FB8</id>
                 <category>Misc\Balista\Balista 205</category>
         </item>
 
-        <item id="3FB9">
+        <item id="3fb9">
                 <id>0x3FB9</id>
                 <category>Misc\Balista\Balista 206</category>
         </item>
 
-        <item id="3FBA">
+        <item id="3fba">
                 <id>0x3FBA</id>
                 <category>Misc\Balista\Balista 207</category>
         </item>
 
-        <item id="3FBB">
+        <item id="3fbb">
                 <id>0x3FBB</id>
                 <category>Misc\Balista\Balista 208</category>
         </item>
 
-        <item id="3FBC">
+        <item id="3fbc">
                 <id>0x3FBC</id>
                 <category>Misc\Balista\Balista 209</category>
         </item>
 
-        <item id="3FBD">
+        <item id="3fbd">
                 <id>0x3FBD</id>
                 <category>Misc\Balista\Balista 210</category>
         </item>
 
-        <item id="3FBE">
+        <item id="3fbe">
                 <id>0x3FBE</id>
                 <category>Misc\Balista\Balista 211</category>
         </item>
 
-        <item id="3FBF">
+        <item id="3fbf">
                 <id>0x3FBF</id>
                 <category>Misc\Balista\Balista 212</category>
         </item>
 
-        <item id="3FC0">
+        <item id="3fc0">
                 <id>0x3FC0</id>
                 <category>Misc\Balista\Balista 213</category>
         </item>
 
-        <item id="3FC1">
+        <item id="3fc1">
                 <id>0x3FC1</id>
                 <category>Misc\Balista\Balista 214</category>
         </item>
 
-        <item id="3FC2">
+        <item id="3fc2">
                 <id>0x3FC2</id>
                 <category>Misc\Balista\Balista 215</category>
         </item>
 
-        <item id="3FC3">
+        <item id="3fc3">
                 <id>0x3FC3</id>
                 <category>Misc\Balista\Balista 216</category>
         </item>
 
-        <item id="3FC4">
+        <item id="3fc4">
                 <id>0x3FC4</id>
                 <category>Misc\Balista\Balista 217</category>
         </item>
 
-        <item id="3FC5">
+        <item id="3fc5">
                 <id>0x3FC5</id>
                 <category>Misc\Balista\Balista 218</category>
         </item>
 
-        <item id="3FC6">
+        <item id="3fc6">
                 <id>0x3FC6</id>
                 <category>Misc\Balista\Balista 219</category>
         </item>
 
-        <item id="3FC7">
+        <item id="3fc7">
                 <id>0x3FC7</id>
                 <category>Misc\Balista\Balista 220</category>
         </item>
 
-        <item id="3FC8">
+        <item id="3fc8">
                 <id>0x3FC8</id>
                 <category>Misc\Balista\Balista 221</category>
         </item>
 
-        <item id="3FC9">
+        <item id="3fc9">
                 <id>0x3FC9</id>
                 <category>Misc\Balista\Balista 222</category>
         </item>
 
-        <item id="3FCA">
+        <item id="3fca">
                 <id>0x3FCA</id>
                 <category>Misc\Balista\Balista 223</category>
         </item>
 
-        <item id="3FCB">
+        <item id="3fcb">
                 <id>0x3FCB</id>
                 <category>Misc\Balista\Balista 224</category>
         </item>
 
-        <item id="3FCC">
+        <item id="3fcc">
                 <id>0x3FCC</id>
                 <category>Misc\Balista\Balista 225</category>
         </item>
 
-        <item id="3FCD">
+        <item id="3fcd">
                 <id>0x3FCD</id>
                 <category>Misc\Balista\Balista 226</category>
         </item>
 
-        <item id="3FCE">
+        <item id="3fce">
                 <id>0x3FCE</id>
                 <category>Misc\Balista\Balista 227</category>
         </item>
 
-        <item id="3FCF">
+        <item id="3fcf">
                 <id>0x3FCF</id>
                 <category>Misc\Balista\Balista 228</category>
         </item>
 
-        <item id="3FD0">
+        <item id="3fd0">
                 <id>0x3FD0</id>
                 <category>Misc\Balista\Balista 229</category>
         </item>
 
-        <item id="3FD1">
+        <item id="3fd1">
                 <id>0x3FD1</id>
                 <category>Misc\Balista\Balista 230</category>
         </item>
 
-        <item id="3FD2">
+        <item id="3fd2">
                 <id>0x3FD2</id>
                 <category>Misc\Balista\Balista 231</category>
         </item>
 
-        <item id="3FD3">
+        <item id="3fd3">
                 <id>0x3FD3</id>
                 <category>Misc\Balista\Balista 232</category>
         </item>
 
-        <item id="3FD4">
+        <item id="3fd4">
                 <id>0x3FD4</id>
                 <category>Misc\Balista\Balista 233</category>
         </item>
 
-        <item id="3FD5">
+        <item id="3fd5">
                 <id>0x3FD5</id>
                 <category>Misc\Balista\Balista 234</category>
         </item>
 
-        <item id="3FD6">
+        <item id="3fd6">
                 <id>0x3FD6</id>
                 <category>Misc\Balista\Balista 235</category>
         </item>
 
-        <item id="3FD7">
+        <item id="3fd7">
                 <id>0x3FD7</id>
                 <category>Misc\Balista\Balista 236</category>
         </item>
 
-        <item id="3FD8">
+        <item id="3fd8">
                 <id>0x3FD8</id>
                 <category>Misc\Balista\Balista 237</category>
         </item>
 
-        <item id="3FD9">
+        <item id="3fd9">
                 <id>0x3FD9</id>
                 <category>Misc\Balista\Balista 238</category>
         </item>
 
-        <item id="3FDA">
+        <item id="3fda">
                 <id>0x3FDA</id>
                 <category>Misc\Balista\Balista 239</category>
         </item>
 
-        <item id="3FDB">
+        <item id="3fdb">
                 <id>0x3FDB</id>
                 <category>Misc\Balista\Balista 240</category>
         </item>
 
-        <item id="3FDC">
+        <item id="3fdc">
                 <id>0x3FDC</id>
                 <category>Misc\Balista\Balista 241</category>
         </item>
 
-        <item id="3FDD">
+        <item id="3fdd">
                 <id>0x3FDD</id>
                 <category>Misc\Balista\Balista 242</category>
         </item>
 
-        <item id="3FDE">
+        <item id="3fde">
                 <id>0x3FDE</id>
                 <category>Misc\Balista\Balista 243</category>
         </item>
 
-        <item id="3FDF">
+        <item id="3fdf">
                 <id>0x3FDF</id>
                 <category>Misc\Balista\Balista 244</category>
         </item>
 
-        <item id="3FE0">
+        <item id="3fe0">
                 <id>0x3FE0</id>
                 <category>Misc\Balista\Balista 245</category>
         </item>
 
-        <item id="3FE1">
+        <item id="3fe1">
                 <id>0x3FE1</id>
                 <category>Misc\Balista\Balista 246</category>
         </item>
 
-        <item id="3FE2">
+        <item id="3fe2">
                 <id>0x3FE2</id>
                 <category>Misc\Balista\Balista 247</category>
         </item>
 
-        <item id="3FE3">
+        <item id="3fe3">
                 <id>0x3FE3</id>
                 <category>Misc\Balista\Balista 248</category>
         </item>
 
-        <item id="3FE4">
+        <item id="3fe4">
                 <id>0x3FE4</id>
                 <category>Misc\Balista\Balista 249</category>
         </item>
