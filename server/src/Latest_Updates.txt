@@ -86,3 +86,4 @@ item type 187 and it will be a slotmachine. On singleclick it will show " 5 gold
 if amount is set to 5gp. else it shows whatever the slotamount is set to. NOTE:
 Right now it will also showthe items real name.(Ripper)
 70) Changed: bank checks on singleclick now show "value : #" instead of "# gold". (Ripper)
+71) Fixed: Logic error at criminal(). (

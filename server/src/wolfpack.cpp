@@ -5233,7 +5233,7 @@ void criminal(P_CHAR pc)//Repsys ....Ripper
 {
 	if (pc == NULL)
 		return;
-	if ((pc->isPlayer())&&(!pc->isCriminal() || !pc->isMurderer()))
+	if ((pc->isPlayer())&&!(pc->isCriminal() || pc->isMurderer()))
 	{//Not an npc, not grey, not red
 		
 		 pc->crimflag=(repsys.crimtime*MY_CLOCKS_PER_SEC)+uiCurrentTime;
