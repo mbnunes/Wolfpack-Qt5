@@ -1396,6 +1396,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 	}// PolyMorph spell menu (scriptable) by AntiChrist (9/99)
 	else if(main>=POLYMORPHMENUOFFSET && main<POLYMORPHMENUOFFSET+50)
 	{
+		if(sub != 0)
 		Magic->Polymorph(s,POLYMORPHMENUOFFSET,sub);
 		return;
 	}
