@@ -56,6 +56,7 @@
 #include "skills.h"
 #include "wpdefmanager.h"
 #include "guildstones.h"
+#include "network/asyncnetio.h"
 
 #undef  DBGFILE
 #define DBGFILE "chars.cpp"
@@ -2552,6 +2553,77 @@ UINT32 cChar::takeGold( UINT32 amount, bool useBank )
 		goldsfx( socket_, dAmount, false );
 
 	return dAmount;
+}
+
+/*!
+  Updates everyone in range with the character's equipped items, including
+  himself.
+  \warning This could generate a lot of network trafic, always prefer using
+  \a wear()
+*/
+void cChar::updateWornItems()
+{
+	this->setOnHorse( false );
+	unsigned int ci = 0;
+	P_ITEM pi;
+	vector<SERIAL> vecContainer(contsp.getData(this->serial));
+	for ( ci = 0; ci < vecContainer.size(); ++ci)
+	{
+		pi = FindItemBySerial(vecContainer[ci]);
+		if (pi != NULL && !pi->free)
+		{
+			if (pi->layer() == 0x19)
+				this->setOnHorse( true );
+			cUOTxCharEquipment packet;
+			packet.setWearer( this->serial );
+			packet.setSerial( pi->serial );
+			packet.fromItem( pi );
+			for ( cUOSocket* socket = cNetwork::instance()->first(); socket != 0; socket = cNetwork::instance()->next() )
+				if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange ) ) 
+					socket->send( &packet );
+		}
+	}
+}
+
+/*!
+  \overloaded
+  Just like the above, but updates only the given socket with the worn items
+*/
+void cChar::updateWornItems( cUOSocket* socket )
+{
+	this->setOnHorse( false );
+	unsigned int ci=0;
+	P_ITEM pi;
+	vector<SERIAL> vecContainer(contsp.getData(this->serial));
+	for ( ci = 0; ci < vecContainer.size(); ++ci)
+	{
+		pi = FindItemBySerial(vecContainer[ci]);
+		if (pi != NULL && !pi->free)
+		{
+			if (pi->layer()==0x19)
+				this->setOnHorse( true );
+			cUOTxCharEquipment packet;
+			packet.setWearer( this->serial );
+			packet.setSerial( pi->serial );
+			packet.fromItem( pi );
+			socket->send( &packet );
+		}
+	}
+}
+
+/*!
+  Wears the given item and sends an update to those in range.
+*/
+void cChar::wear( P_ITEM pi )
+{
+	pi->setContSerial( this->serial );
+	cUOTxCharEquipment packet;
+	packet.setWearer( this->serial );
+	packet.setSerial( pi->serial );
+	packet.fromItem( pi );
+	for ( cUOSocket* socket = cNetwork::instance()->first(); socket != 0; socket = cNetwork::instance()->next() )
+		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange ) ) 
+			socket->send( &packet );
 }
 
 // Needs implementation

@@ -1380,11 +1380,11 @@ void callguards( P_CHAR pc_player )
 	}
 }
 
-void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give player a horse item
+void mounthorse(cUOSocket* socket, P_CHAR pc_mount) // Remove horse char and give player a horse item
 {
 	int j;
 	if ( pc_mount == NULL ) return;
-	P_CHAR pc_currchar = currchar[s];
+	P_CHAR pc_currchar = socket->player();
 	
 	if( pc_currchar->inRange( pc_mount, 2 ) && !pc_currchar->isGM() )
 		return;
@@ -1393,7 +1393,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 	{
 		if (pc_currchar->onHorse())
 		{
-			sysmessage(s, "You are already on a mount.");
+			socket->sysMessage( tr("You are already on a mount.") );
 			return;
 		}
 		strcpy((char*)temp, pc_mount->name.c_str());
@@ -1459,14 +1459,10 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		pi->poisoned = pc_mount->poisoned();
 		if (pc_mount->summontimer != 0)
 			pi->decaytime = pc_mount->summontimer;
-		
-		wornitems(s, pc_currchar);// send update to current socket
-		
-		for (j = 0; j < now; j++)// and to all inrange sockets (without re-sending to current socket)
-		{
-			if (inrange1(s, j) && perm[j] &&(s != j))
-				wornitems(j, pc_currchar);
-		}
+	
+		// Sends update.
+		pc_currchar->wear( pi );
+
 		//////////////////////////////////
 		// Gonna stable instead of delete a mount.
 		// This will keep their original and earned
@@ -1522,7 +1518,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		//////////////////////////////////
 	}
 	else
-		sysmessage(s, "You dont own that creature.");
+		socket->sysMessage( tr("You dont own that creature.") );
 }
 
 void endScrn()

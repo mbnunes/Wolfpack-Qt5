@@ -1390,7 +1390,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		socket->sysMessage(tr("You can't think of a way to use that item."));
 }
 
-//Handles Double clicks over PC/NPCs
+/*!
+  Handles Double clicks over PC/NPCs
+ */
 void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 {
 	if( !socket )
@@ -1400,8 +1402,6 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 
 	if( !pChar || !pTarget )
 		return;
-
-	UOXSOCKET s = calcSocketFromChar( pChar ); // for legacy :(
 
 	// For players we'll always show the Paperdoll
 	if( pTarget->isHuman() || !pTarget->isNpc() )
@@ -1480,7 +1480,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 			if( pTarget->war )
 				socket->sysMessage( tr("Your pet is in battle right now!" ) );
 			else
-				mounthorse( s, pTarget );
+				mounthorse( socket, pTarget );
 		}
 		else
 			socket->sysMessage( tr( "This is too far away" ) );

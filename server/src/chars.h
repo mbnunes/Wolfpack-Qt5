@@ -579,6 +579,7 @@ public:
 	{
 		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator mit = lastselections_.find( basemenu );
 		QPtrList< cMakeSection > lastsections_;
+		lastsections_.setAutoDelete( true );
 		if( mit != lastselections_.end() )
 			lastsections_ = mit->second;
 		else
@@ -607,6 +608,10 @@ public:
 	{
 		lastselections_.clear();
 	}
+
+	void wear( P_ITEM );
+	void updateWornItems();
+	void updateWornItems( cUOSocket* );
 
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity
