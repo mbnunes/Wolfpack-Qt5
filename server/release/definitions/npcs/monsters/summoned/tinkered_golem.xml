@@ -13,7 +13,6 @@
 		<name>a golem</name>
 		<id>0x2f0</id>
 		<category>Monsters\Summoned\Golem (Tinkered)</category>
-		<inherit id="monster_base" />
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<defense><random min="35" max="55" /></defense>
