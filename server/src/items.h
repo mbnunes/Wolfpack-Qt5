@@ -326,7 +326,7 @@ public:
 	virtual bool onSingleClick( P_CHAR Viewer );
 	virtual bool onTalkToItem( P_CHAR Talker, const QString &Text );
 	
-	QPtrList< cItem > getContainment();
+	QPtrList< cItem > getContainment() const;
 private:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 };

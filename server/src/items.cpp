@@ -2480,15 +2480,15 @@ bool cItem::wearOut()
 	return false;
 }
 
-QPtrList< cItem > cItem::getContainment()
+QPtrList< cItem > cItem::getContainment() const
 {
-	std::vector< SERIAL > containment = contsp.getData( serial );
-	std::vector< SERIAL >::iterator it = containment.begin();
+	ContainerContent containment = content();
+	ContainerContent::iterator it = containment.begin();
 	QPtrList< cItem > itemlist;
 
 	while( it != containment.end() )
 	{
-		P_ITEM pItem = FindItemBySerial( *it );
+		P_ITEM pItem = *it;
 
 		// we'v got a container
 		if( pItem->type() == 1 || pItem->type() == 63 )
@@ -2698,6 +2698,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight )
 	}
 	if ( handleWeight )
 		setTotalweight( this->totalweight() + pItem->totalweight() );
+	pItem->container_ = this;
 }
 
 void cItem::removeItem( cItem* pItem, bool handleWeight )
@@ -2709,6 +2710,7 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 		if (handleWeight)
 			setTotalweight(	this->totalweight() - pItem->totalweight() );
 	}
+	pItem->container_ = this;
 }
 
 cItem::ContainerContent cItem::content() const
