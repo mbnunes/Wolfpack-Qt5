@@ -50,7 +50,7 @@
 
 	<npc name="wraith" inherit="shade">
 		<name>wraith</name>
-		<category>Monsters\Undead\Spectre</category>
+		<category>Monsters\Undead\Wraith</category>
 	</npc>
 
 </definitions>
