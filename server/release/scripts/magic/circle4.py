@@ -170,6 +170,14 @@ class Recall (Spell):
 			fizzle(char)
 			return
 
+		# Move his pets if he has any
+		if char.char:
+			for follower in char.followers:
+				if follower.wandertype == 4 and follower.distanceto(char) < 5:
+					follower.removefromview()
+					follower.moveto(location)
+					follower.update(0)
+
 		char.soundeffect(0x1fc)
 		char.removefromview()
 		char.moveto(location)
