@@ -10,7 +10,7 @@
 
 	<!-- Bone Armor, Body North-South -->
 	<item id="144f">
-		<id id="0x144f" />
+		<id value="0x144f" />
 		<decay />
 		<nodye />
 		<weight value="6.0" />
