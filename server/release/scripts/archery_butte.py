@@ -133,6 +133,9 @@ def onUse( char, item ):
 			char.socket.clilocmessage(500595)
 			return True
 
+	#reveal the char if an array is fired
+	char.reveal()
+	
 	char.movingeffect( movingeff, item, 1, 1, 1, 0, 1 )
 
 	# Display the char-action

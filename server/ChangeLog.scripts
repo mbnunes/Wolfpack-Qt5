@@ -5,6 +5,7 @@ Wolfpack 12.9.13 Beta (CVS)
 	* Python Script Changes:
 		- Fixed bug #0000361. (Pets don't follow trough gate)
 		- Added xoffset, yoffset and zoffset to socket.attachmultitarget. (housing.deed)
+		- Chars will now get revealed when using training dummy or archery butte.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

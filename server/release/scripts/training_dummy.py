@@ -54,6 +54,9 @@ def onUse( char, item ):
 		char.message( "You can learn much from a dummy but you have already learned it all." )
 		return True
 
+	# We'll get revealed if successfully punching the dummy
+	char.reveal()
+	
 	# This increases the users skill
 	char.checkskill( skill, 0, 1000 )
 
