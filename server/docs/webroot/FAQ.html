@@ -176,11 +176,11 @@
 						<div class="bash">
 							tar xvfj wolfpack.tar.bz2 -C ./<br />
 							cd wolfpack_source_dir/<br />
-							chmod +x configure<br />
-							./configure --help<br />
+							chmod +x configure.py<br />
+							./configure.py --help<br />
 							# Please read the options and use those that apply to you.<br />
-							# Running configure should auto detect most options. <br />
-							./configure --enable-debug --enable-mysql<br />
+							# Running configure.py should auto detect most options. <br />
+							./configure.py --enable-debug --enable-mysql<br />
 							# At this point you can edit Makefile and add optional CFLAGS<br />
 							# I personally add -march=athlon -03<br />
 							make<br />
@@ -196,11 +196,11 @@
 						<div class="bash">
 							tar xvfj wolfpack.tar.bz2 -C ./<br />
 							cd wolfpack_source_dir/<br />
-							chmod +x configure<br />
-							./configure --help<br />
+							chmod +x configure.py<br />
+							./configure.py --help<br />
 							# Please read the options and use those that apply to you.<br />
-							# Running configure should auto detect most options. <br />
-							./configure --enable-debug --enable-mysql<br />
+							# Running configure.py should auto detect most options. <br />
+							./configure.py --enable-debug --enable-mysql<br />
 							# At this point you can edit Makefile and add optional CFLAGS<br />
 							# I, Dreoth, personally add -march=athlon -03<br />
 							make<br />
@@ -244,7 +244,7 @@
 						Unicode. If this is the case, you will need to download and manually compile Python-2.3 and add the
 						`--enable-unicode=ucs2 --enable-shared` to the ./configure arguments. After this you can install this
 						Python-2.3 to your /usr/local/ directory or anywhere else. Please be sure to put this new python path
-						in the Wolfpack configure arguments!<br />
+						in the Wolfpack configure.py arguments!<br />
 						<br />
 						Python Fix / Compiling Instructions:<br />
 						<div class="bash">
