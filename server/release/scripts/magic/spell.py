@@ -330,9 +330,9 @@ class Spell:
 		# Check Skill
 		if self.skill != None:
 			if mode == MODE_BOOK:
-				circle = self.circle
+				circle = self.circle - 1
 			else:
-				circle = self.circle - 2
+				circle = self.circle - 3
 			minskill = max(0, int((1000 / 7) * circle - 200))
 			maxskill = min(1200, int((1000 / 7) * circle + 200))
 
