@@ -146,7 +146,7 @@ CREATE TABLE `items` (
 	`sellprice` int(11) NOT NULL default '0',
 	`buyprice` int(11) NOT NULL default '0',
 	`restock` smallint(5)  NOT NULL default '0',
-	`baseid` varchar(32) NOT NULL default '',
+	`baseid` varchar(64) NOT NULL default '',
 	PRIMARY KEY (`serial`)
 );
 
@@ -267,9 +267,9 @@ CREATE TABLE `effects_properties` (
 CREATE TABLE `guilds` (
 	`serial` int(11) NOT NULL default '0',
 	`name` varchar(255) NOT NULL default '',
-	`abbreviation` varchar(255) NOT NULL default '',
+	`abbreviation` char(3) NOT NULL default '',
 	`charta` LONGTEXT NOT NULL,
-	`website` varchar(255) NOT NULL default '',
+	`website` varchar(255) NOT NULL default 'http://www.wpdev.org',
 	`alignment` int(2) NOT NULL default '0',
 	`leader` int(11) NOT NULL default '-1',
 	`founded` int(11) NOT NULL default '0',
