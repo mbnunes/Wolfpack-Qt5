@@ -19,6 +19,12 @@
 		<category>Resources\Resource Ore</category>
 	</item>
 
+	<item id="sand_gem" inherit="gem">
+		<tag name="resource" value="sand" type="string" />
+		<name>Sand gem</name>
+		<category>Resources\Resource Sand</category>
+	</item>
+
 	<item id="wood_gem" inherit="gem">
 		<tag name="resource" value="wood" type="string" />
 		<name>Wood gem</name>
