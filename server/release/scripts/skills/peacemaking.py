@@ -7,6 +7,7 @@
 
 import wolfpack
 from wolfpack.consts import *
+from wolfpack.utilities import *
 
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.peacemaking" )
@@ -57,6 +58,7 @@ def response( char, args, target ):
 	instrument = wolfpack.finditem( char.gettag( 'peacemaking_instrument' ) )
 	if not instrument:
 		return 0
+	char.deltag( 'peacemaking_instrument' )
 	# you can only target chars
 	# if target him/her self : standard (regional) mode
 	# anyone including npcs can re-target and start fight

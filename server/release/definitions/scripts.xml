@@ -62,6 +62,7 @@
 	<script id="skills.detectinghidden" type="python" module="skills.detectinghidden" />
 	<script id="skills.musicianship" type="python" module="skills.musicianship" />
 	<script id="skills.peacemaking" type="python" module="skills.peacemaking" />
+	<script id="skills.provocation" type="python" module="skills.provocation" />
 
 	<!-- Load *LAST* thats important -->
 	<script id="errorhandler"	type="python" module="errorhandler" />
