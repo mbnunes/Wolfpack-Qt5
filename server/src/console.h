@@ -83,6 +83,9 @@ private:
 	*/
 	bool handleCommand(const QString &command, bool silent = false);
 
+public:
+
+
 	/*!
 		\brief Construct a new console object. Only available to
 			the \s SingletonHolder class.
@@ -93,8 +96,6 @@ private:
 		\brief Destructor for an instance of the console object.
 	*/
 	~cConsole();
-public:
-
 
 	// Send a message to the console
 	void send(const QString &sMessage);
