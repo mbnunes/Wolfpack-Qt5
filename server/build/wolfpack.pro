@@ -123,6 +123,7 @@ SOURCES         = \
                   charsmgr.cpp \
 		  combat.cpp \
 		  commands.cpp \
+		  contextmenu.cpp \
 		  coord.cpp \
 		  tilecache.cpp \
 		  customtags.cpp \
@@ -145,6 +146,7 @@ SOURCES         = \
 		  maps.cpp \
 		  mapobjects.cpp \
 		  multis.cpp \
+		  multiscache.cpp \
 		  msgboard.cpp \
 		  necro.cpp \
 		  netsys.cpp \
