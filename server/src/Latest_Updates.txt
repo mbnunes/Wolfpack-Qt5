@@ -75,3 +75,5 @@ collect,get,look,view,browse and packup. A little code change for them also. (Ri
 62) Fixed: Fighting thru floors in houses & performance boost. (Fraz)
 63) Fixed: guards with AI 11/B attacking logged out players (Duke)
 64) Fixed: 3d clients 3.0.6g and above crashing when logging in. (LB)
+65) Added: Check for if you are paralized, you cant attack. (Ripper)
+66) Added: You cant evaluate int on yourself. (Ripper)

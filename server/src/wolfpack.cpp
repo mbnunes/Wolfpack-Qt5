@@ -3031,11 +3031,11 @@ int main(int argc, char *argv[])
 
 	cwmWorldState->announce(SrvParms->announceworldsaves);
 
-	clConsole.send("Initialising sounds... ");
+	clConsole.send("Initializing sounds... ");
 	init_creatures(); //lb, initilises the creatures array (with soudfiles and other creatures infos)
 	clConsole.send("Done.\n");
 
-	clConsole.send("Initializing new Sosaria Magery System... ");
+	clConsole.send("Initializing Magery System... ");
 	Magic->InitSpells();
 	clConsole.send("Done.\n");
 

@@ -734,6 +734,11 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 
 	int d = pc_attacker->targ;
 	P_CHAR pc_defender = MAKE_CHAR_REF(d);
+	if (pc_attacker->priv2&2) //The char is paralyzed 
+	{ 
+        sysmessage(calcSocketFromChar(a), "You are frozen and cannot attack."); 
+        return; 
+	}
 	if ((d==-1) || (pc_defender->isPlayer() && !online(d) || pc_defender->isHidden()) && pc_attacker->war)
 	{
 		pc_attacker->war=0; // LB

@@ -1935,6 +1935,13 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 	if(pc == NULL || pc_currchar == NULL) 
 		return;
 
+	if (currchar[s] == DEREF_P_CHAR(pc_currchar))
+	{ 
+        sysmessage(s, "You cannot analyze yourself!"); 
+        return; 
+	}
+
+
 	// blackwind distance fix 
 	if( pc->pos.distance(pc_currchar->pos) >= 10 ) 
 	{ 
