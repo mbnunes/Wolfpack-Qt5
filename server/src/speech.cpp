@@ -796,8 +796,8 @@ bool VendorChkName(cChar* pVendor, char* comm)
 	}
 	else
 	{
-		char vntmp[90];
-		strcpy(vntmp,pVendor->name.c_str());
+		char vntmp[90] = {0,};
+		strncpy(vntmp, pVendor->name.c_str(), 89);
 		strupr(vntmp);
 		if (strstr( comm, vntmp))
 			return true;
