@@ -797,9 +797,9 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				{
 					pc->ftarg = INVALID_SERIAL;
 					pc->npcWander=2;
+					pc->tamed = false;
 					if(pc->ownserial!=-1) 
 						pc->SetOwnSerial(-1);
-					pc->tamed = 0;
 					sprintf((char*)temp, "* %s appears to have decided that it is better off without a master *", pc->name.c_str());
 					npctalkall(pc, (char*)temp,0);
 					{
