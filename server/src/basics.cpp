@@ -48,15 +48,20 @@
 */
 int RandomNum(int nLowNum, int nHighNum)
 {
-/*	if( nLowNum > nHighNum )
-	{
-		nHighNum += nLowNum; // a = a+b
-		nLowNum = nHighNum - nLowNum; // b = a+b - b = a
-		nHighNum -= nLowNum; // a = a+b - a = b		
-	}*/
-
 	if (nHighNum - nLowNum + 1)
 		return ((rand() % (nHighNum - nLowNum + 1)) + nLowNum);
+	else
+		return nLowNum;
+}
+
+/*!
+	Returns a random number between \a nLowNum
+	and \a nHighNum.
+*/
+float RandomNum(float nLowNum, float nHighNum)
+{
+	if (nHighNum - nLowNum + 1)
+		return ((rand() % (nHighNum - nLowNum + 1.0)) + nLowNum);
 	else
 		return nLowNum;
 }
