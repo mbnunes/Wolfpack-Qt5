@@ -298,6 +298,7 @@ public:
 	bool ContainerPileItem(cItem* pItem);	// try to find an item in the container to stack with
 	void addItem(cItem* pItem, bool randomPos = true, bool handleWeight = true );	// Add Item to container
 	void removeItem(cItem*, bool handleWeight = true );
+	void removeFromCont( bool handleWeight = true );
 	ContainerContent content() const;
 	bool contains( const cItem* ) const;
 	int  CountItems(short ID, short col= -1) const;

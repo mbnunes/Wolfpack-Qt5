@@ -3417,18 +3417,28 @@ bool cChar::onShowContext( cUObject *object )
 	return false;
 }
 
-void cChar::addItem( cChar::enLayer layer, cItem* pi )
+void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight )
 {
+	// DoubleEquip is *NOT* allowed
 	if ( content_.contains(layer) )
 	{
-		
+		clConsole.send( "WARNING: Trying to put an item on layer %i which is already occupied", layer );
+		return;
 	}
+
+	// Remove from Old Container
+	pi->removeFromCont( handleWeight );
+
 	content_.insert( (ushort)(layer), pi );
+	pi->setLayer( layer );
 	pi->contserial = this->serial;
 	pi->container_ = this;
+
+	if( handleWeight )
+		weight_ += pi->totalweight();
 }
 
-void cChar::removeItem( cChar::enLayer layer)
+void cChar::removeItem( cChar::enLayer layer, bool handleWeight )
 {
 	P_ITEM pi = atLayer(layer);
 	if ( pi )
@@ -3436,6 +3446,9 @@ void cChar::removeItem( cChar::enLayer layer)
 		pi->contserial = INVALID_SERIAL;
 		pi->container_ = 0;
 		content_.remove((ushort)(layer));
+
+		if( handleWeight )
+			weight_ -= pi->totalweight();
 	}
 }
 

@@ -2463,6 +2463,26 @@ void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 
 void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight )
 {
+	if( pItem == this || !pItem )
+		return;
+
+	// Remove from Old Container
+	if( pItem->container() )
+	{
+		if( pItem->container()->isChar() )
+		{
+			P_CHAR pChar = dynamic_cast< P_CHAR >( pItem->container() );
+			if( pChar )
+				pChar->removeItem( (cChar::enLayer)pItem->layer() );
+		}
+		else if( pItem->container()->isItem() )
+		{
+			P_ITEM pCont = dynamic_cast< P_ITEM >( pItem->container() );
+			if( pCont )
+				pCont->removeItem( pItem );
+		}
+	}
+
 	content_.push_back( pItem );
 	if( randomPos && !this->ContainerPileItem( pItem ) ) // try to pile
 	{
@@ -2497,5 +2517,27 @@ bool cItem::contains( const cItem* pItem ) const
 {
 	ContainerContent::const_iterator it = std::find(content_.begin(), content_.end(), pItem);
 	return it != content_.end();
+}
+
+void cItem::removeFromCont( bool handleWeight )
+{
+	if( !container_ )
+		return;
+
+	if( container_->isChar() )
+	{
+		P_CHAR pChar = dynamic_cast< P_CHAR >( container_ );
+		if( pChar )
+			pChar->removeItem( this, handleWeight );
+	}
+	else if( container->isItem() )
+	{
+		P_ITEM pCont = dynamic_cast< P_ITEM >( pCont );
+		if( pCont )
+			pCont->removeItem( this, handleWeight );
+	}
+
+	contserial = INVALID_SERIAL;
+	container_ = 0;
 }
 

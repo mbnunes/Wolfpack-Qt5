@@ -29,10 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// dragdrop.cpp: implementation of dragging and dropping
-// cut from wolfpack.cpp by Duke, 23.9.2000
-//////////////////////////////////////////////////////////////////////
-
 #include "debug.h"
 #include "basics.h"
 #include "wolfpack.h"
@@ -234,10 +230,8 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 			pMulti->removeItem( pItem );
 		}
 	}
-	pItem->setLayer( 0x1E );
 
-//	pItem->removeFromView( true );
-//	pItem->update();
+	pChar->addItem( cChar::Dragging, pItem );
 }
 
 // Tries to equip an item

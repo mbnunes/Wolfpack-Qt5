@@ -74,7 +74,7 @@ public:
 	enum enLayer { TradeWindow, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
 	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso, 
 	Earrings, Arms, Back, Backpack, OuterTorso, OuterLegs, InnerLegs, Mount, BuyRestockContainer,
-	ByNoRestockContainer, SellContainer, BankBox };
+	ByNoRestockContainer, SellContainer, BankBox, Dragging };
 
 
 	// Protected Data Members	
@@ -775,8 +775,8 @@ public:
 	void startRepeatedAction( UINT8 action, UINT16 delay );
 	void stopRepeatedAction();
 
-	void addItem( enLayer layer, cItem* );
-	void removeItem( enLayer layer);
+	void addItem( enLayer layer, cItem*, bool handleWeight = true );
+	void removeItem( enLayer layer, bool handleWeight = true );
 	ContainerContent content() const;
 	cItem* atLayer( enLayer layer ) const;
 
