@@ -190,7 +190,7 @@ cBufferedWriter::cBufferedWriter( const QCString& magic, unsigned int version )
 	d = new cBufferedWriterPrivate;	
 	d->version = version;
 	d->magic = magic;
-	d->buffer.resize( 4096 );
+	d->buffer.resize( buffersize );
 	d->bufferpos = 0;
 	d->lastStringId = 0;
 	d->objectCount = 0;

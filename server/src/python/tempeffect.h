@@ -195,17 +195,23 @@ public:
 			PyObject *object = PyTuple_GetItem(args, i);
 
 			if ( PyInt_Check( object ) ) {
-				cVariant((int)PyInt_AsLong(object)).serialize(writer, version);
+				int value = PyInt_AsLong(object);
+				cVariant(value).serialize(writer, version);
 			} else if ( PyString_Check( object ) || PyUnicode_Check( object ) ) {
-				cVariant((QString)Python2QString(object)).serialize(writer, version);
+				QString value = Python2QString(object);
+				cVariant(value).serialize(writer, version);
 			} else if ( PyFloat_Check( object ) ) {
-				cVariant(PyFloat_AsDouble(object)).serialize(writer, version);
+				double value = PyFloat_AsDouble(object);
+				cVariant(value).serialize(writer, version);
 			} else if ( checkWpChar( object ) ) {
-				cVariant(getWpChar(object)).serialize(writer, version);
+				P_CHAR pChar = getWpChar(object);
+				cVariant(pChar).serialize(writer, version);
 			} else if ( checkWpItem( object ) ) {
-				cVariant(getWpItem(object)).serialize(writer, version);
+				P_ITEM pItem = getWpItem(object);
+				cVariant(pItem).serialize(writer, version);
 			} else if ( checkWpCoord( object ) ) {
-				cVariant(getWpCoord(object)).serialize(writer, version);
+				Coord_cl coord = getWpCoord(object);
+				cVariant(coord).serialize(writer, version);
 			}
 		}
 	}

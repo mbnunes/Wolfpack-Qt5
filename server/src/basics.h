@@ -97,6 +97,7 @@ class cBufferedWriter
 {
 private:
 	class cBufferedWriterPrivate *d;
+	static const int buffersize = 4096;
 
 public:
 	cBufferedWriter( const QCString& magic, unsigned int version );
@@ -201,7 +202,7 @@ inline void cBufferedWriter::writeByte( unsigned char data, bool unbuffered )
 	}
 	else
 	{
-		if ( d->bufferpos + sizeof( data ) >= 4096 )
+		if ( d->bufferpos + sizeof( data ) >= buffersize )
 		{
 			flush(); // Flush buffer to file
 		}
@@ -245,15 +246,15 @@ inline void cBufferedWriter::writeRaw( const void* data, unsigned int size, bool
 		// overflow the buffer anymore, then just append
 		unsigned int pos = 0;
 
-		while ( d->bufferpos + size >= 4096 )
+		while ( d->bufferpos + size >= buffersize )
 		{
-			unsigned int bspace = 4096 - d->bufferpos;
+			unsigned int bspace = buffersize - d->bufferpos;
 
 			// Try putting in some bytes of the remaining data
 			if ( bspace != 0 )
 			{
 				memcpy( d->buffer.data() + d->bufferpos, ( unsigned char * ) data + pos, bspace );
-				d->bufferpos = 4096;
+				d->bufferpos = buffersize;
 				pos += bspace;
 				size -= bspace;
 			}
