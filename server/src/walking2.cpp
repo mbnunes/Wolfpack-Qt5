@@ -43,6 +43,7 @@
 #include "network.h"
 #include "classes.h"
 #include "mapstuff.h"
+#include "tilecache.h"
 #include "territories.h"
 #include "network/uosocket.h"
 
@@ -150,8 +151,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	mapBlock.z = Map->MapElevation( pos );
 
 	map_st mapCell = Map->SeekMap( pos );
-	land_st mapTile;	
-	Map->SeekLand( mapId, &mapTile );
+	land_st mapTile = cTileCache::instance()->getLand( mapCell.id );
 
 	// If it's not impassable it's automatically walkable
 	if( !(mapTile.flag1 & 0x40) )
@@ -166,8 +166,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	MapStaticIterator staIter( pos );
 	for( staticrecord *sTile = staIter.First(); sTile; sTile = staIter.Next() )
 	{
-		tile_st tTile;
-		Map->SeekTile( sTile->itemid, &tTile );
+		tile_st tTile = cTileCache::instance()->getTile( sTile->itemid );
 
 		// Here is decided if the tile is needed
 		// It's uninteresting if it's NOT blocking
@@ -479,75 +478,17 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, si
 	return false;
 }
 
-// check if GM Body
-bool cMovement::CanGMWalk(unitile_st xyb)
+// GMs can go *EVERYWHERE*
+bool cMovement::CanGMWalk( unitile_st xyb )
 {
-	unsigned short int blockid = xyb.id;
-
-	tile_st newTile;
-	Map->SeekTile( blockid, &newTile );
-
-	if ( Map->IsRoofOrFloorTile(&newTile) )
-		return true;
-	
-	if ( xyb.type == 0 )
-		return true;
-
-	if ( xyb.flag1 & 0x40 )
-		return true;
-
-	if ( xyb.flag2 & 0x16 )
-		return true;
-
-	if ( xyb.flag4 & 0x20 )
-		return true;
-
-	if ( Map->IsTileWet(blockid) )
-		return true;
-
-// Can they walk/swim on water tiles?
-	if ( blockid > 0x00A7 && blockid < 0x00AC )
-		return true;
-	if ( blockid > 0x1796 && blockid < 0x179D )
-		return true;
-	if ( blockid > 0x346D && blockid < 0x3486 )
-		return true;
-	if ( blockid > 0x3493 && blockid < 0x34AC )
-		return true;
-	if ( blockid > 0x34B7 && blockid < 0x34CB )
-		return true;
-
-	// Can they walk/swim on water ripples and splashes?
-	if ( blockid > 0x34D0 && blockid < 0x34D6 )
-		return true;
-	if ( blockid > 0x352C && blockid < 0x3531 )
-		return true;
-
-	// Can they walk/swim on whirlpools?
-	if ( blockid > 0x348F && blockid < 0x3494 )
-		return true;
-	if ( blockid > 0x34B4 && blockid < 0x34B8 )
-		return true;
-
-	// Can they walk/swim on/up waterfalls?
-	if ( blockid > 0x34EC && blockid < 0x3529 )
-		return true;
-
-	//Can they walk/swim on the coastlines?
-	if ( blockid > 0x179C && blockid < 0x17B3 )
-		return true;
-	if ( blockid == 0x1796 )
-		return true;
-
-	return false;
+	return true;
 }
 
 bool cMovement::CanNPCWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
 
-	tile_st newTile;
-	Map->SeekTile( blockid, &newTile );
+	tile_st newTile = cTileCache::instance()->getTile( blockid );
 
 	if ( Map->IsRoofOrFloorTile(&newTile) )
 		return true;
@@ -565,8 +506,7 @@ bool cMovement::CanPlayerWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
 
-	tile_st newTile;
-	Map->SeekTile( blockid, &newTile );
+	tile_st newTile = cTileCache::instance()->getTile( blockid );
 
 	if ( Map->IsRoofOrFloorTile(&newTile) )
 		return true;
@@ -605,21 +545,9 @@ bool cMovement::CanFishWalk(unitile_st xyb)
 	if ( blockid > 0x352C && blockid < 0x3531 )
 		return true;
 
-	// Can they walk/swim on whirlpools?
-//	if ( blockid > 0x348F && blockid < 0x3494 )
-//		return true;
-//	if ( blockid > 0x34B4 && blockid < 0x34B8 )
-//		return true;
-
 	// Can they walk/swim on/up waterfalls?
 	if ( blockid > 0x34EC && blockid < 0x3529 )
 		return true;
-
-	// Can they walk/swim on the coastlines?
-	//if ( blockid > 0x179C && blockid < 0x17B3 )
-		//return true;
-	//if ( blockid == 0x1796 )
-		//return true;
 
 	return false;
 }
@@ -703,8 +631,7 @@ void cMovement::GetBlockingMap( const Coord_cl pos, unitile_st *xyblock, int &xy
 	signed char mapz = Map->MapElevation(pos);  //Map->AverageMapElevation(x, y, mapid);
 	if (mapz != illegal_z)
 	{
-		land_st land;
-		Map->SeekLand(mapid, &land);
+		land_st land = cTileCache::instance()->getLand( mapid );
 	
 		xyblock[xycount].type=0;
 		xyblock[xycount].basez = mapz;
@@ -752,8 +679,7 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 			{
 				if ((mapitem->pos.x == position.x) && (mapitem->pos.y == position.y))
 				{
-					tile_st tile;
-					Map->SeekTile(mapitem->id(), &tile);
+					tile_st tile = cTileCache::instance()->getTile( mapitem->id() );
 					xyblock[xycount].type=1;
 					xyblock[xycount].basez=mapitem->pos.z;
 					xyblock[xycount].id=mapitem->id();
@@ -776,7 +702,6 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 				Map->SeekMulti(mapitem->id()-0x4000, &mfile, &length);
 				length=length/MultiRecordSize;
 				if (length == -1 || length>=17000000)//Too big... bug fix hopefully (Abaddon 13 Sept 1999)
-					//              if (length == -1)
 				{
 					printf("walking() - Bad length in multi file. Avoiding stall.\n");
 					length = 0;
@@ -787,8 +712,7 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 					mfile->get_st_multi(&multi);
 					if (multi.visible && (mapitem->pos.x+multi.x == position.x) && (mapitem->pos.y+multi.y == position.y))
 					{
-						tile_st tile;
-						Map->SeekTile(multi.tile, &tile);
+						tile_st tile = cTileCache::instance()->getTile( multi.tile );
 						xyblock[xycount].type=2;
 						xyblock[xycount].basez = multi.z + mapitem->pos.z;
 						xyblock[xycount].id=multi.tile;
@@ -1578,8 +1502,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
 		P_ITEM mapitem = FindItemBySerial(*it);
         if (mapitem != NULL)
         {
-		    tile_st tile;
-            Map->SeekTile(mapitem->id(), &tile);
+			tile_st tile = cTileCache::instance()->getTile( mapitem->id() );
             if (mapitem->pos.x==x && mapitem->pos.y==y && mapitem->pos.z+tile.height>z+1 && mapitem->pos.z<z+MaxZstep)
             {
                 // bugfix found by JustMichael, moved by crackerjack

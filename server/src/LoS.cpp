@@ -39,6 +39,7 @@
 #include "debug.h"
 #include "regions.h"
 #include "mapstuff.h"
+#include "tilecache.h"
 
 #undef  DBGFILE
 #define DBGFILE "LoS.cpp"
@@ -394,7 +395,7 @@ the line of sight.
 				{ // Dynamic items
 					if ( (pi->pos.x==xcheck) && (pi->pos.y==ycheck) && (zcheck >= pi->pos.z) && (pi->visible==0)) // Seek file only when necessary
 					{
-						Map->SeekTile(pi->id(), &tile);
+						tile = cTileCache::instance()->getTile( pi->id() );
 						if ( ( zcheck <= ( pi->pos.z + tile.height ) ) )
 						{
 #ifdef CORREA_LOS_OPTIMIZATION
@@ -431,7 +432,7 @@ the line of sight.
 								(pi->pos.y+multi.y == ycheck))
 							{
 								//pos=mfile->tell();
-								Map->SeekTile(multi.tile, &tile);
+								tile = cTileCache::instance()->getTile( multi.tile );
 								//mfile->seek(pos, SEEK_SET);
 								if ((zcheck>=pi->pos.z+multi.z)&&
 									(zcheck<=(pi->pos.z+multi.z + tile.height)))

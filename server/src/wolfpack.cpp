@@ -65,6 +65,7 @@
 #include "spawnregions.h"
 #include "Timing.h"
 #include "scriptc.h"
+#include "tilecache.h"
 
 // new-style includes
 #include "wpdefmanager.h"
@@ -2215,6 +2216,14 @@ int main( int argc, char *argv[] )
 	// has to here and not at the cal cause it would get overriten later
 
 	CIAO_IF_ERROR;
+
+	// Try to cache the tiledata.mul
+	if( !cTileCache::instance()->load( SrvParams->mulPath() ) )
+	{
+		error = 1;
+		CIAO_IF_ERROR;
+	}
+
 
 	Map->Cache = SrvParams->cacheMulFiles();
 	cAllTerritories::getInstance()->load();

@@ -35,118 +35,49 @@
 // Platform specifics
 #include "platform.h"
 
-
 // System Includes
-#include <iostream>
-#include <string>
+#include "qstring.h"
+#include "qfile.h"
+#include "qdatastream.h"
 #include <vector>
 #include <map>
-#include <fstream>
 
 using namespace std ;
 
-
 // Third Party includes
 
-
-
-//Forward class declaration
-
-class TileCache_cl ;
-
-//Wolfpack Includes
-
-
+// Wolfpack Includes
 #include "wpconsole.h"
-
-#include "mulstructs.h"
+#include "structs.h"
 #include "tileflags.h"
-//Any externals we need
 
 extern WPConsole_cl clConsole ;
 
-// Any specific structures
-
-struct statictile_st
+class cTileCache
 {
-	string sName ;
-	UI32	uiFlag ;
-	SI08	siLayer ;
-	SI16	siHeight ;
-	SI32	siGump;
-} ;
+private:
+	QString path;
+	map< UINT16, tile_st > staticTiles;
+	tile_st emptyStaticTile;
 
-struct landtile_st
-{
-	string sName ;
-	UI32 uiFlag ;
-};
-
-
-
-
-
-// A macro to check the flag is true
-
-#define isTileSet(attribute,flag) ( {attribute & flag) )
-
-
-
-//Class definitions
-class TileCache_cl
-{
+	map< UINT16, land_st > landTiles;
+	land_st emptyLandTile;
 public:
-        /// Constructor
-        TileCache_cl()   ;
-        /// Cosntructor of itself
-        TileCache_cl(const TileCache_cl& clData) ;
-		TileCache_cl(string sDirectory) ;
-        /// Desctructor
-        ~TileCache_cl() ;
+	cTileCache() {}
+	virtual ~cTileCache() {};
 
-        /// Clear out any that we have
-		bool clear( );
+	land_st getLand( UINT16 tileId );
+	tile_st getTile( UINT16 tileId );
 
+    bool load( const QString &nPath );
+	bool unload();
+	bool reload() { unload(); load( path ); }
 
-		// Set our directory
-		void setDirectory(string sDirectory) ;
-
-		// Cache the tiles
-		bool cacheData() ;
-
-
-		// get a land tile data
-		landtile_st getLandTile(UI16 uiId) ;
-		statictile_st getStaticTile(UI16 uiID) ;
-		TileCache_cl&  operator=(const TileCache_cl& clData) ;
-
-private:
-		bool processVerdata() ;
-		bool processLand() ;
-		bool processStatic() ;
-
-private:
-		vector<landtile_st> vecLand ;
-		vector<statictile_st> vecStatic ;
-		string sFile ;
-		string sVerdata ;
-
-
-
-		// We read in the verdatamul for each file type, a great room for speed improvment on startup later
-
-		map<SI32,verdata_st>  mapVerdata ;
-		map<SI32,verdata_st>::iterator iterVerdata ;
-
-
-
-
-
-
+	static cTileCache *instance()
+	{
+		static cTileCache instance;
+		return &instance;
+	}
 };
-//==========================================================================================
 
 #endif
-
-
-

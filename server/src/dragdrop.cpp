@@ -37,6 +37,7 @@
 #include "basics.h"
 #include "wolfpack.h"
 #include "SndPkg.h"
+#include "tilecache.h"
 #include "speech.h"
 #include "itemid.h"
 #include "bounty.h"
@@ -246,9 +247,7 @@ void cDragItems::grabItem( P_CLIENT client )
 // That works for NPCs as well
 void equipItem( P_CHAR wearer, P_ITEM item )
 {
-	tile_st tile;
-
-	Map->SeekTile( item->id(), &tile );
+	tile_st tile = cTileCache::instance()->getTile( item->id() );
 
 	// User cannot wear the item
 	if( tile.layer == 0 )
@@ -337,8 +336,7 @@ void cDragItems::equipItem( P_CLIENT client )
 	}
 
 	// Get our tile-information
-	tile_st pTile;
-	Map->SeekTile( pItem->id(), &pTile );
+	tile_st pTile = cTileCache::instance()->getTile( pItem->id() );
 
 	// Is the item wearable ? ( layer == 0 | equip-flag not set )
 	// Multis are not wearable are they :o)

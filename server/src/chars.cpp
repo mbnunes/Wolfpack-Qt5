@@ -43,6 +43,7 @@
 #include "charsmgr.h"
 #include "items.h"
 #include "debug.h"
+#include "tilecache.h"
 #include "globals.h"
 #include "wolfpack.h"
 #include "iserialization.h"
@@ -758,8 +759,7 @@ bool cChar::canPickUp(cItem* pi)
 	if ( (pi->isOwnerMovable() || pi->isLockedDown()) && !this->Owns(pi) )	// owner movable or locked down ?
 		return false;
 
-	tile_st tile;
-	Map->SeekTile(pi->id(), &tile);
+	tile_st tile = cTileCache::instance()->getTile( pi->id() );
 	if ( pi->isGMMovable() || (tile.weight == 255 && !pi->isAllMovable()))
 		return false;
 	return true;

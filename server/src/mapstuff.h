@@ -38,11 +38,11 @@
 
 
 #if ILSHENAR == 1
-  const int MapTileWidth  = 288;
-  const int MapTileHeight = 200;
+  const INT32 MapTileWidth  = 288;
+  const INT32 MapTileHeight = 200;
 #else
-  const int MapTileWidth  = 768;
-  const int MapTileHeight = 512;
+  const INT32 MapTileWidth  = 768;
+  const INT32 MapTileHeight = 512;
 #endif
 
 class cMapStuff
@@ -52,23 +52,18 @@ private:
 	friend class MapStaticIterator;
 	friend class cMovement;
 
-    // moved from global vars into here - fur 11/3/1999
-    UOXFile *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
-
-	// tile caching items
-//	tile_st tilecache[0x4000];
+    // moved from global vars INT32o here - fur 11/3/1999
+    UOXFile *mapfile, *sidxfile, *statfile, *verfile, *multifile, *midxfile;
 
 	// static caching items
 	unsigned long StaticBlocks;
 	struct StaCache_st
 	{
 		staticrecord* Cache;
-		unsigned short CacheLen;   // i've seen this goto to at least 273 - fur 10/29/1999
+		INT16 CacheLen;   // i've seen this goto to at least 273 - fur 10/29/1999
 	};
 
 	QIntCache<map_st>* MapCache;
-	QIntCache<tile_st>* TileCache;
-//	QIntCache<StaCache_st>* StaticCache;
 
 	// version caching items
 	versionrecord *versionCache;
@@ -78,28 +73,20 @@ private:
 	void CacheStatics( void );
 
 public:
-	// these used to be [512], thats a little excessive for a filename.. - fur
-	char mapname[80], sidxname[80], statname[80], vername[80],
-	  tilename[80], multiname[80], midxname[80];
-	unsigned long StaMem, TileMem, versionMemory;
-	unsigned int Map0CacheHit, Map0CacheMiss;
-	// ok this is rather silly, allocating all the memory for the cache, even if
-	// they haven't chosen to cache?? - fur
+	char mapname[80], sidxname[80], statname[80], vername[80], multiname[80], midxname[80];
+	unsigned long StaMem, versionMemory;
+	UINT32 Map0CacheHit, Map0CacheMiss;
 	StaCache_st StaticCache[MapTileWidth][MapTileHeight];
 	bool Cache;
 	
 // Functions
 private:
-	char VerLand(int landnum, land_st *land);
-	signed char MultiHeight(P_ITEM pi, const Coord_cl&);
-	int MultiTile(P_ITEM pi, short int x, short int y, signed char oldz);
+	INT8 MultiHeight( P_ITEM pi, const Coord_cl& );
+	UINT16 MultiTile( P_ITEM pi, const Coord_cl& );
 	SI32 VerSeek(SI32 file, SI32 block);
-	char VerTile(int tilenum, tile_st *tile);
-	bool IsTileWet(int tilenum);
-	bool TileWalk(int tilenum);
+	bool IsTileWet( UINT16 tilenum);
 	void CacheVersion();
-
-	int DynTile( short int x, short int y, signed char oldz );
+	UINT16 DynTile( const Coord_cl &pos );
 	bool DoesStaticBlock( const Coord_cl& pos );
 
 public:
@@ -109,32 +96,30 @@ public:
 	void Load();
 
 	// height functions
-	bool IsUnderRoof(const Coord_cl&);
-	signed char StaticTop(const Coord_cl&);
-	signed char DynamicElevation(const Coord_cl&);
-	signed char MapElevation(const Coord_cl&);
-	signed char AverageMapElevation(const Coord_cl&, int &id);
-	signed char TileHeight( int tilenum );
-	signed char Height(const Coord_cl&);
+	bool IsUnderRoof( const Coord_cl& );
+	INT8 StaticTop( const Coord_cl& );
+	INT8 DynamicElevation( const Coord_cl& );
+	INT8 MapElevation( const Coord_cl& );
+	INT8 AverageMapElevation( const Coord_cl&, INT32 &id );
+	INT8 TileHeight( UINT16 tileId );
+	INT8 Height( const Coord_cl& );
 
 	// look at tile functions
-	void MultiArea(P_ITEM pi, int *x1, int *y1, int *x2, int *y2);
-	void SeekTile(int tilenum, tile_st *tile);
-	void SeekMulti(int multinum, UOXFile **mfile, SI32 *length);
-	void SeekLand(int landnum, land_st *land);
+	void MultiArea( P_ITEM pi, INT32 *x1, INT32 *y1, INT32 *x2, INT32 *y2 );
+	void SeekMulti( INT32 multinum, UOXFile **mfile, SI32 *length );
 	map_st SeekMap( const Coord_cl& );
 	bool IsRoofOrFloorTile( tile_st *tile );
 	bool IsRoofOrFloorTile( unitile_st *tile );
-	bool DoesTileBlock(int tilenum);
+	bool DoesTileBlock( UINT16 tilenum);
 
 	// misc functions
 	bool CanMonsterMoveHere( const Coord_cl& );
 
 	// Map size related
-	static unsigned int mapTileWidth( const Coord_cl& );
-	static unsigned int mapTileHeight( const Coord_cl& );
-	static unsigned int mapTileWidth( unsigned int );
-	static unsigned int mapTileHeight( unsigned int );
+	static UINT32 mapTileWidth( const Coord_cl& );
+	static UINT32 mapTileHeight( const Coord_cl& );
+	static UINT32 mapTileWidth( UINT32 );
+	static UINT32 mapTileHeight( UINT32 );
 
 	// static members
 	static bool DoesTileBlock( tile_st &tile );
@@ -146,7 +131,7 @@ private:
 	staticrecord staticArray;
 	SI32 baseX, baseY, pos;
 	Coord_cl position;
-	unsigned char remainX, remainY;
+	UINT8 remainX, remainY;
 	UI32 index, length, tileid;
 	bool exactCoords;
 

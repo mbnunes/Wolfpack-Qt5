@@ -127,6 +127,7 @@ SOURCES         = client.cpp \
 		  combat.cpp \
 		  commands.cpp \
 		  coord.cpp \
+		  tilecache.cpp \
 		  customtags.cpp \
 		  cWeather.cpp \
 		  dbl_single_click.cpp \
@@ -180,7 +181,6 @@ SOURCES         = client.cpp \
 		  wolfpack.cpp \
 		  worldmain.cpp \
 		  wpconsole.cpp \
-		  tilecache.cpp \
 		  walking2.cpp \
 		  packlen.cpp \
 		  wpdefmanager.cpp \

@@ -279,34 +279,10 @@ void weather(int s, char bolt) // Send new weather to player
 		}
 }
 */
-void sysbroadcast(const char *txt) // System broadcast in bold text
+void sysbroadcast( const char *txt ) // System broadcast in bold text
 {
-	int tl, i;
-
-	tl=44+strlen(txt)+1;
-	talk[1]=tl>>8;
-	talk[2]=tl%256;
-	talk[3]=1;
-	talk[4]=1;
-	talk[5]=1;
-	talk[6]=1;
-	talk[7]=1;
-	talk[8]=1;
-	talk[9]=0;
-	talk[10]=0x08;
-	talk[11]=0x4d;
-	talk[12]=0;
-	talk[13]=0;
-	for (i=0;i<now;i++)
-	{
-		if (perm[i])
-		{
-			Xsend(i, talk, 14);
-			Xsend(i, sysname, 30);
-			Xsend(i, (char*)txt, strlen(txt)+1);
-		}
-	}
-//	cNetwork::instance()->ClearBuffers();
+	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
+		socket->sysMessage( txt, 0x84d, 1 );
 }
 
 void sysmessage(UOXSOCKET s, const QString& txt)

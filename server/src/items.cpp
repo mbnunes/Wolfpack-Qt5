@@ -43,6 +43,7 @@
 #include "trigger.h"
 #include "books.h"
 #include "regions.h"
+#include "tilecache.h"
 #include "srvparams.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
@@ -67,9 +68,7 @@ void cItem::setOwner( P_CHAR nOwner )
 // Is the Item pileable?
 bool cItem::isPileable()
 {
-	tile_st tile;
-	Map->SeekTile( id_, &tile );
-
+	tile_st tile = cTileCache::instance()->getTile( id_ );
 	return tile.flag2&0x08;
 }
 
@@ -636,7 +635,6 @@ void cItem::Serialize(ISerialization &archive)
 
 static int getname(P_ITEM pi, char* itemname)
 {
-	tile_st tile;
 	int j, len, mode, used, ok, namLen;
 	if (pi == NULL)
 		return 1;
@@ -645,7 +643,9 @@ static int getname(P_ITEM pi, char* itemname)
 		strcpy((char*)itemname, pi->name().ascii());
 		return strlen((char*)itemname)+1;
 	}
-	Map->SeekTile(pi->id(), &tile);
+
+	tile_st tile = cTileCache::instance()->getTile( pi->id() );
+
 	if (tile.flag2&0x80) strcpy((char*)itemname, "an ");
 	else if (tile.flag2&0x40) strcpy((char*)itemname, "a ");
 	else itemname[0]=0;
@@ -696,8 +696,7 @@ int cItem::getWeight()
 		itemweight = this->weight_;
 	else
 	{
-		tile_st tile;
-		Map->SeekTile(this->id(), &tile);
+		tile_st tile = cTileCache::instance()->getTile( id_ );
 		if (tile.weight==0) // can't find weight
 		{
 			if( this->type_ != 14 )
@@ -949,11 +948,11 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 	bool pile = false;
 	
 	if (pileable)
-	{					// make sure it's REALLY pileable ! (Duke)
-		tile_st tile;
-		Map->SeekTile(id, &tile);
-		if (tile.flag2&0x08)
-			pile=true;
+	{
+		// make sure it's REALLY pileable ! (Duke)
+		tile_st tile = cTileCache::instance()->getTile( id );
+		if( tile.flag2 & 0x08 )
+			pile = true;
 		else
 		{
 			// some calls to this functions (eg. IDADD) *allways* try to spawn pileable :/

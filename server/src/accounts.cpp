@@ -59,14 +59,14 @@ void AccountRecord::Serialize( ISerialization& archive )
 	}
 	else // Writting
 	{
-		archive.write("login", login_);
-		archive.write("password", password_);
-		archive.write("blocked", blocked_);
-		if ( cCommands::instance()->isValidACL(acl_) && !acl_.key().isNull() )
-			archive.write("acl", acl_.key());
+		archive.write( "login", login_ );
+		archive.write( "password", password_ );
+		archive.write( "blocked", blocked_ );
+		if ( cCommands::instance()->isValidACL( acl_ ) && !acl_.key().isNull() )
+			archive.write( "acl", QString( acl_.key() ) );
 		else
-			archive.write("acl", QString(""));
-		archive.write("lastlogin", lastLogin_.toString(Qt::ISODate));
+			archive.write( "acl", QString( "" ) );
+		archive.write( "lastlogin", lastLogin_.toString( Qt::ISODate ) );
 	}
 	cSerializable::Serialize( archive );
 }

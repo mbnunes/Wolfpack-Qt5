@@ -244,23 +244,27 @@ struct ServerList_st
 	UI16 uiPort;
 };
 
-#include "start_pack.h"
+//#include "start_pack.h"
 struct tile_st
 {
-	SI32 unknown1;  // longs must go at top to avoid bus errors - fur
-	SI32 animation;
-	unsigned char flag1;
-	unsigned char flag2;
-	unsigned char flag3;
-	unsigned char flag4;
-	unsigned char weight;
-	signed char layer;
-	signed char unknown2;
-	signed char unknown3;
-	signed char height;
-	signed char name[23];	// manually padded to long to avoid bus errors - fur | There is no negative letter.
-} PACK ;
-#include "end_pack.h"
+	char flag1;
+	char flag2;
+	char flag3;
+	char flag4;
+	char weight;
+	char layer;
+	short unknown1;
+	char unknown2;
+	char quantity;
+	short animation;
+	char unknown3;
+	char hue;
+	char unknown4;
+	char unknown5;
+	char height;
+	char name[20];
+};
+//#include "end_pack.h"
 
 struct land_st
 {

@@ -77,8 +77,6 @@ class UOXFile
   void getLong(SI32 *, unsigned int = 1);
   void get_versionrecord(struct versionrecord *, unsigned int = 1);
   void get_st_multi(struct st_multi *, unsigned int = 1);
-  void get_land_st(struct land_st *, unsigned int = 1);
-  void get_tile_st(struct tile_st *, unsigned int = 1);
   void get_map_st(struct map_st *, unsigned int = 1);
   void get_st_multiidx(struct st_multiidx *, unsigned int = 1);
   void get_staticrecord(struct staticrecord *, unsigned int = 1);

@@ -315,39 +315,6 @@ void UOXFile::get_st_multi(struct st_multi *buff, unsigned int number)
 	}
 }
 
-void UOXFile::get_land_st(struct land_st *buff, unsigned int number)
-{
-	for (unsigned int i = 0; i < number; i++)
-	{
-		getChar((signed char *) &(buff[i].flag1));
-		getChar((signed char *) &(buff[i].flag2));
-		getChar((signed char *) &(buff[i].flag3));
-		getChar((signed char *) &(buff[i].flag4));
-		getChar((signed char *) &(buff[i].unknown1));
-		getChar((signed char *) &(buff[i].unknown2));
-		getChar((signed char *) buff[i].name, 20);
-	}
-}
-
-void UOXFile::get_tile_st(struct tile_st *buff, unsigned int number)
-{
-	for (unsigned int i = 0; i < number; i++)
-	{
-		getUChar(&(buff[i].flag1));
-		getUChar(&(buff[i].flag2));
-		getUChar(&(buff[i].flag3));
-		getUChar(&(buff[i].flag4));
-		getUChar(&(buff[i].weight));
-		getChar(&(buff[i].layer));
-		getLong(&(buff[i].unknown1));
-		getLong(&(buff[i].animation));
-		getChar(&(buff[i].unknown2));
-		getChar(&(buff[i].unknown3));
-		getChar(&(buff[i].height));
-		getChar(buff[i].name, 20);
-	}
-}
-
 void UOXFile::get_map_st(struct map_st *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)

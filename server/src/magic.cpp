@@ -43,6 +43,7 @@
 #include "items.h"
 #include "SndPkg.h"
 #include "itemid.h"
+#include "tilecache.h"
 #include "debug.h"
 #include "guildstones.h"
 #include "regions.h"
@@ -555,8 +556,7 @@ bool cMagic::checkReagents( P_CHAR caster, cSpell *spell )
 
 short cMagic::calcSpellId( UI16 model )
 {
-	tile_st tile;
-	Map->SeekTile( model, &tile);
+	tile_st tile = cTileCache::instance()->getTile( model );
 	
 	if( tile.unknown1 == 0 )
 		return -1;
@@ -2590,8 +2590,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								sysmessage( s, "You can't teleport here!" );
 								return;
 							}
-							tile_st tile;
-							Map->SeekTile(((buffer[s][0x11]<<8)+buffer[s][0x12]), &tile);
+							tile_st tile = cTileCache::instance()->getTile( ((buffer[s][0x11]<<8)+buffer[s][0x12]) );
 							if( (!strcmp((char *)tile.name, "water")) || (tile.flag1&0x80) )
 							{
 								sysmessage(s,"Give up wanabe Jesus !");

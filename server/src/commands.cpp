@@ -33,6 +33,8 @@
 #include "globals.h"
 #include "wpconsole.h"
 #include "wpdefmanager.h"
+#include "worldmain.h"
+#include "srvparams.h"
 #include "territories.h"
 #include "targetrequests.h"
 #include "network/uosocket.h"
@@ -150,7 +152,7 @@ void cCommands::loadACLs( void )
 
 // COMMAND IMPLEMENTATION
 // Purpose:
-// .go >> Target Cursor and select a teleport target
+// .go >> Gump with possible targets
 // .go x,y,z,[plane] >> Go to those coordinates
 // .go placename >> Go to that specific place
 void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
@@ -162,7 +164,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 
 	if( args.isEmpty() )
 	{
-		socket->sysMessage( "Bringin up target cursor" );
+		socket->sysMessage( "Bringin up travel gump" );
 		return;
 	}
 	else
@@ -592,14 +594,49 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 	}
 }
 
+class cTeleTarget: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		// This is a GM command so we do not check anything but send the 
+		// char where he wants to move
+		if( !socket->player() )
+			return;
+	
+		socket->player()->removeFromView( false );
+
+		Coord_cl newPos = socket->player()->pos;
+		newPos.x = target->x();
+		newPos.y = target->y();
+		newPos.z = target->z();
+		socket->player()->moveTo( newPos );
+
+		socket->player()->resend( false );
+        socket->updatePlayer();
+	}
+};
+
+void commandTele( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	socket->attachTarget( new cTeleTarget );
+}
+
+void commandSave( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
 	{ "ADD", commandAdd },
 	{ "ACCOUNT", commandAccount },
+	{ "TELE", commandTele },
 	{ "REMOVE", commandRemove },
 	{ "RESEND", commandResend },
 	{ "ADDITEM", commandAddItem },
+	{ "SAVE", commandSave },
 	{ "ADDNPC", commandAddNpc },
 	{ "GO", commandGo },
 	{ "WHERE", commandWhere },

@@ -135,8 +135,6 @@ void goldsfx(int s, int goldtotal);
 
 void gcollect();
 
-//signed char mapheight(int x, int y);
-//void seekland(int landnum, land_st *land);
 void weather(int s, unsigned char bolt);
 unsigned char npcinrange (UOXSOCKET s, P_CHAR i, int distance);  //check for horse distance...
 int getamount(P_CHAR pc, short id);

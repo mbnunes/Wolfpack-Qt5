@@ -63,40 +63,6 @@
 #define dSTAIRBACK		0x40000000
 #define dSTAIRRIGHT		0x80000000
 
-/*
-#define	FLOOR			0x00000001
-#define	EQUIPABLEA		0x00000002
-#define	NONBLOCKING		0x00000004
-#define	LIQUID			0x00000008
-#define	WALL			0x00000010
-#define DAMAGEING		0x00000020
-#define	BLOCKING		0x00000040
-#define	WATER			0x00000080
-#define	UNKNOWNA		0x00000100
-#define	PLATFORM		0x00000200
-#define	CLIMBABLE		0x00000400
-#define	STACKABLE		0x00000800
-#define	WALL_WINDOW		0x00001000
-#define	BREAK_LOS		0x00002000
-#define	INDEFINITE		0x00004000
-#define	UNKNOWNB		0x00008000
-#define	DESCRIPTION		0x00010000
-#define	SEE_THROUGH		0x00020000
-#define	MATERIAL		0x00040000
-#define	UNKNOWNC		0x00080000
-#define	ISAMAP			0x00100000
-#define	CONTAINER		0x00200000
-#define	EQUIPABLEB		0x00400000
-#define	LIGHTSOURCE		0x00800000
-#define	ANIMATION		0x01000000
-#define	UNKNOWND		0x02000000
-#define	UNKNOWNE		0x04000000
-#define	BODYITEM		0x08000000
-#define	ROOF			0x10000000
-#define	DOOR			0x20000000
-#define	STAIRS			0x40000000
-#define	WALKABLE		0x80000000
-*/
 //========================================================================
 //========================================================================
 //=====================  End of tileflags.h  =============================

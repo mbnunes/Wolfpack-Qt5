@@ -360,6 +360,10 @@ SOURCE=.\utilsys.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\tilecache.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\walking2.cpp
 # End Source File
 # Begin Source File

@@ -663,13 +663,13 @@ void cUOSocket::giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill )
   This method sends a system \a message at the botton of the screen
   \sa cUOTxUnicodeSpeech
 */
-void cUOSocket::sysMessage( const QString &message, Q_UINT16 color )
+void cUOSocket::sysMessage( const QString &message, Q_UINT16 color, UINT16 font )
 {
 	// Color: 0x0037
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( 0xFFFFFFFF );
 	speech.setModel( 0xFFFF );
-	speech.setFont( 3 );
+	speech.setFont( font );
 	speech.setLanguage( "ENU" ); // Standard server language >> Change later
 	speech.setColor( color );
 	speech.setType( cUOTxUnicodeSpeech::System );

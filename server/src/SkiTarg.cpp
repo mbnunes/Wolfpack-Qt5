@@ -41,6 +41,7 @@
 #include "combat.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "tilecache.h"
 #include "classes.h"
 #include "mapstuff.h"
 #include "network.h"
@@ -502,7 +503,6 @@ void cSkills::Mine(int s)
 	signed char z;
 
 	map_st map;
-	land_st land;
 
 	if (s<0) return;
 	P_CHAR pc = currchar[s];
@@ -584,8 +584,9 @@ void cSkills::Mine(int s)
 			// sorry, had to correct this because it cant and didnt work, LB 4'th JULY 2000
 			// mountains are "map0's" and no statics !!!
 
-			map=Map->SeekMap(Coord_cl(x,y, pc->pos.map));
-			Map->SeekLand(map.id, &land);
+			map = Map->SeekMap(Coord_cl(x,y, pc->pos.map));
+
+			land_st land = cTileCache::instance()->getLand( map.id );
 			if ( !strcmp(land.name,"rock") || !(strcmp(land.name, "mountain"))) mountain=1; else mountain=0;
 		}
 	}
@@ -2238,7 +2239,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 					sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg(pi->name()).arg(pc_npc->name.c_str()) );
 				} else
 				{
-					Map->SeekTile(pi->id(),&tile);
+					tile = cTileCache::instance()->getTile( pi->id() );
 					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg((char*)tile.name) );
 					sprintf((char*)temp2,tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg((char*)tile.name).arg(pc_npc->name.c_str()) );
 				}

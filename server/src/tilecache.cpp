@@ -33,334 +33,157 @@
 
 #include "tilecache.h"
 
-
-//========================================================================================
-
-//Class Method definitions
-
-//========================================================================================
-/// Constructor
-TileCache_cl::TileCache_cl()
+bool cTileCache::load( const QString &nPath )
 {
-	vecStatic.clear() ;
-	vecLand.clear() ;
-	mapVerdata.clear() ;
-}
-//========================================================================================
-/// Constructor of itself
-TileCache_cl::TileCache_cl(const TileCache_cl& clData)
-{
-	(*this) = clData ;
+	clConsole.PrepareProgress( "Preloading Tiledata.mul" );
 
-}
+	path = nPath;
 
-//========================================================================================
-TileCache_cl::TileCache_cl(string sDirectory)
-{
-	setDirectory(sDirectory) ;
+	// Null out our placeholder tiles first
+	memset( &emptyLandTile, 0, sizeof( land_st ) );
+	memset( &emptyStaticTile, 0, sizeof( tile_st ) );
 
-	cacheData() ;
-
-
-}
-
-//========================================================================================
-/// Desctructor
-TileCache_cl::~TileCache_cl()
-{
-  clear() ;
-}
-
-
-//========================================================================================
-/// Clear out any that we have
-bool TileCache_cl::clear()
-{
-	bool bReturn = true ;
-	vecStatic.clear() ;
-	vecLand.clear() ;
-	mapVerdata.clear() ;
-
-	return bReturn ;
-}
-
-//========================================================================================
-// Set our directory
-void TileCache_cl::setDirectory(string sDirectory)
-{
-
-	sFile = sDirectory + "tiledata.mul"    ;
-	sVerdata = sDirectory + "verdata.mul" ;
-
-}
-
-//========================================================================================
-// Cache the tiles
-bool TileCache_cl::cacheData()
-{
-	bool bReturn ;
-
-	bReturn = processVerdata() ;
-	if (bReturn)
+	if( !QFile::exists( path + "tiledata.mul" ) )
 	{
-		bReturn = processLand() ;
-		if (bReturn)
-		{
-			bReturn = processStatic() ;
-   		}
-     }
-	 // we dont need our verdata info anuymore
-	 mapVerdata.clear() ;
-
-	 return bReturn ;
-
-
-}
-
-//========================================================================================
-// get a land tile data
-landtile_st TileCache_cl::getLandTile(UI16 uiId)
-{
-	landtile_st stLand ;
-	if (uiId < vecLand.size() )
-	{
-		stLand = vecLand[uiId] ;
-  	}
-	return stLand ;
-}
-
-//========================================================================================
-statictile_st TileCache_cl::getStaticTile(UI16 uiId)
-{
-	statictile_st stStatic ;
-	if (uiId < vecStatic.size() )
-	{
-		stStatic = vecStatic[uiId]  ;
-  	}
-	return stStatic ;
-}
-
-//========================================================================================
-TileCache_cl&  TileCache_cl::operator=(const TileCache_cl& clData)
-{
-	vecLand = clData.vecLand ;
-	vecStatic = clData.vecStatic ;
-
-	sFile = clData.sFile ;
-	sVerdata = clData.sVerdata ;
-
-	return (*this) ;
-}
-
-//========================================================================================
-bool TileCache_cl::processVerdata()
-{
-	bool bReturn = false ;
-
-	fstream fVerdata ;
-
-	fVerdata.open(sVerdata.c_str(),ios::in|ios::binary) ;
-	if (fVerdata.is_open())
-	{
-		bReturn = true ;
-		UI32  uiHeader ;
-
-		fVerdata.read((char*)(&uiHeader),4) ;
-
-        #include "start_pack.h"
-		struct temp_st
-		{
-			UI32 uiFileID ;
-			SI32 siBlock ;
-			SI32 siOffset ;
-			SI32 siSize ;
-			SI32 siExtra;
-   		} PACK ;
-		#include "end_pack.h"
-
-		temp_st stData ;
-
-		for (UI32 uiIndex=0;uiIndex < uiHeader; uiIndex++)
-		{
-			 fVerdata.read((char*)(&stData),sizeof(stData)) ;
-			 if (stData.uiFileID == 0x1E)
-			 {
-			 	// It is our file type
-				verdata_st stStore ;
-
-				stStore.siOffset = stData.siOffset ;
-				stStore.siSize = stData.siSize ;
-				stStore.siExtra = stData.siExtra ;
-
-				mapVerdata.insert(make_pair(stData.siBlock,  stStore)) ;
-    		}
-    	}
-
-		fVerdata.close() ;
-
+		clConsole.ProgressFail();
+		clConsole.send( "Couldn't find tiledata.mul, this file is required!" );
+		return false;
 	}
 
-	return bReturn ;
-}
-//========================================================================================
-bool TileCache_cl::processLand()
-{
-	bool bReturn = false ;
-
-	#include "start_pack.h"
-	struct temp_st
+	QFile input( path + "tiledata.mul"  );
+	
+	if( !input.open( IO_ReadOnly ) )
 	{
-		UI32 uiFlag ;
-		UI16 uiUnknown ;
-		char szName[20] ;
-	} PACK ;
-	#include "end_pack.h"
+		clConsole.ProgressFail();
+		clConsole.send( "Couldn't open tiledata.mul!" );
+		return false;
+	}
 
-	temp_st stInput ;
+	// Begin reading in the Land-Tiles
+	UINT32 i, j;
 
-	// Data we are going to save
-
-	landtile_st stLand ;
-
-	fstream fTile ;
-	fstream fVerdata ;
-
-	bool bVerdata ;
-
-	fVerdata.open(sVerdata.c_str(),ios::in | ios::binary)  ;
-
-	fTile.open(sFile.c_str(),ios::in|ios::binary) ;
-	if (fTile.is_open() && fVerdata.is_open())
+	for( i = 0; i < 512; ++i )
 	{
-		bReturn = true ;
-		// Lets size our vector
-		vecLand.reserve(512*32) ;
+		// Skip the header (Use unknown)
+		input.at( ( i * ( 4 + ( 32 * 26 ) ) ) + 4 );
 
-		for (SI32 siIndex=0; siIndex< 512;siIndex++)
+		// Read all 32 blocks
+		for( j = 0; j < 32; ++j )
 		{
-			// For every block, we decide if we need to
-			// get teh verdata one
+			UINT16 tileId = ( i * 32 ) + j;
+			land_st landTile;
+			input.readBlock( (char*)&landTile, 26 );
 
-			if ((iterVerdata=mapVerdata.find(siIndex)) != mapVerdata.end())
+			// It's not an empty tile, so let's save it
+			// We only compare until the first char of the name as
+			// the junk behind the 00 doesnt interest us
+			if( memcmp( &emptyLandTile, &landTile, ( 26 - 19 ) ) )
+				landTiles.insert( make_pair( tileId, landTile ) );
+		}
+	}
+
+	// Repeat the same procedure for static tiles
+	// NOTE: We are only interested in the REAL static tiles, nothing of
+	// that ALHPA crap above it
+	UINT32 skipLand = 512 * ( 4 + ( 32 * 26	 ) );
+
+	for( i = 0; i < 512; ++i )
+	{
+		// Skip the header (Use unknown)
+		input.at( skipLand + ( i * ( 4 + ( 32 * 37 ) ) ) + 4 );
+
+		// Read all 32 blocks
+		for( j = 0; j < 32; ++j )
+		{
+			UINT16 tileId = ( i * 32 ) + j;
+			tile_st staticTile;
+			input.readBlock( (char*)&staticTile, 37 ); // Length of one record: 37
+
+			// It's not an empty tile, so let's save it
+			// We only compare until the first char of the name as
+			// the junk behind the 00 doesnt interest us
+			if( memcmp( &emptyStaticTile, &staticTile, 18 ) )
+				staticTiles.insert( make_pair( tileId, staticTile ) );
+		}
+	}
+	input.close();
+
+	// Now we got to check for verdata blocks
+	input.setName( path + "verdata.mul" );
+	if( input.open( IO_ReadOnly ) )
+	{
+		UINT32 patches;
+		QDataStream verdata( &input );
+		verdata.setByteOrder( QDataStream::LittleEndian );
+
+		verdata >> patches;
+
+		// Seek trough all patches
+		for( UINT32 patchId = 0; patchId < patches; ++patchId )
+		{
+			verdata.device()->at( 4 + ( patchId * 21 ) );
+
+			// Read the patch
+			UINT32 fileId, blockId, offset, length, extra;
+			verdata >> fileId >> blockId >> offset >> length >> extra;
+
+			if( fileId != VERFILE_TILEDATA )
+				continue;
+
+			verdata.device()->at( offset + 4 ); // Skip the 4 byte header
+
+			if( blockId >= 512 )
 			{
-				// verdata had this one
-				bVerdata = true ;
-				fVerdata.seekg(  (iterVerdata->second).siOffset + 4,ios::beg) ;
-    		}
+				blockId -= 512;
+				for( i = 0; i < 32; ++i )
+				{
+					UINT16 tileId = ( blockId * 32 ) + i;
+					tile_st tile;
+					verdata.device()->readBlock( (char*)&tile, sizeof( tile_st ) );
+
+					if( staticTiles.find( tileId ) != staticTiles.end() )
+						staticTiles.erase( staticTiles.find( tileId ) );
+	
+					staticTiles.insert( make_pair( tileId, tile ) );
+				}
+			}
 			else
 			{
-				bVerdata=false ;
-				fTile.seekg( (siIndex * ((sizeof(stInput) * 32)+4)) + 4, ios::beg) ;
-    		}
-			// Ok, now we read in the 32 tiles
-			for (UI16 uiTile=0 ; uiTile < 32 ; uiTile++)
-			{
-				if (bVerdata)
-					fVerdata.read( (char*)&stInput,sizeof(stInput) ) ;
-     			else
-					fTile.read((char*)&stInput,sizeof(stInput) )  ;
+				for( i = 0; i < 32; ++i )
+				{
+					UINT16 tileId = ( blockId * 32 ) + i;
+					land_st tile;
+					verdata.device()->readBlock( (char*)&tile, sizeof( land_st ) );
 
-				stLand.uiFlag = stInput.uiFlag ;
-				stLand.sName = stInput.szName ;
-
-				vecLand.push_back(stLand) ;
-    		}
-
+					if( landTiles.find( tileId ) != landTiles.end() )
+						landTiles.erase( landTiles.find( tileId ) );
+	
+					landTiles.insert( make_pair( tileId, tile ) );
+				}
+			}
 		}
-		fTile.close() ;
-
-		fVerdata.close() ;
 	}
+	input.close();
 
-	return bReturn ;
+	clConsole.ProgressDone();
+
+	return true;
 }
 
-//========================================================================================
-bool TileCache_cl::processStatic()
+// Get's a land-tile out of the cache
+land_st cTileCache::getLand( UINT16 tileId )
 {
-	bool bReturn = false ;
-
-	#include "start_pack.h"
-	struct temp_st
-	{
-
-		UI32 uiFlag;
-        SI08 siWeight;
-        SI08 siLayer;
-        SI32 siUnknownA;
-        SI32 siAnim;
-        SI08 siUnknownB;
-        SI08 siUnknownC;
-        SI08 siHeight;
-        char szName[20];
-	} PACK ;
-	#include "end_pack.h"
-
-	temp_st stInput ;
-
-	// Data we are going to save
-
-	statictile_st stStatic ;
-
-	fstream fTile ;
-	fstream fVerdata ;
-
-	bool bVerdata ;
-
-	fVerdata.open(sVerdata.c_str(),ios::in | ios::binary)  ;
-
-	fTile.open(sFile.c_str(),ios::in|ios::binary) ;
-	if (fTile.is_open() && fVerdata.is_open())
-	{
-		bReturn = true ;
-		vecStatic.reserve(0xFFFF) ;
-		// A tad differnt from land tiles, we index past all of the tiles
-		SI32 siIndex = 0 ;
-
-		while(!fTile.eof())
-		{
-			// For every block, we decide if we need to
-			// get teh verdata one
-
-			if ((iterVerdata=mapVerdata.find( siIndex + 512)) != mapVerdata.end())
-			{
-				// verdata had this one
-				bVerdata = true ;
-				fVerdata.seekg(  (iterVerdata->second).siOffset + 4,ios::beg) ;
-    		}
-			else
-			{
-				bVerdata=false ;
-				fTile.seekg( (siIndex * ((sizeof(stInput) * 32)+4)) + 4 + (512 * (4 + (32*26))), ios::beg) ;
-    		}
-			// Ok, now we read in the 32 tiles
-			for (UI16 uiTile=0 ; uiTile < 32 ; uiTile++)
-			{
-				if (bVerdata)
-					fVerdata.read( (char*)&stInput,sizeof(stInput) ) ;
-     			else
-					fTile.read((char*)&stInput,sizeof(stInput) )  ;
-
-				stStatic.uiFlag = stInput.uiFlag ;
-				stStatic.sName = stInput.szName ;
-				stStatic.siHeight = stInput.siHeight ;
-				stStatic.siLayer = stInput.siLayer ;
-				stStatic.siGump = stInput.siAnim ;
-
-				vecStatic.push_back(stStatic) ;
-    		}
-			siIndex++ ;
-
-		}
-
-	}
+	if( landTiles.find( tileId ) == landTiles.end() )
+		return emptyLandTile;
 	else
-	{
-		cerr << "Error opening tile data " <<endl;
-	}
-	fTile.close() ;
-
-	fVerdata.close() ;
-	return bReturn ;
+		return landTiles.find( tileId )->second;
 }
 
+// The same for static-tiles
+tile_st cTileCache::getTile( UINT16 tileId )
+{
+	if( staticTiles.find( tileId ) == staticTiles.end() )
+		return emptyStaticTile;
+	else
+		return staticTiles.find( tileId )->second;
+}

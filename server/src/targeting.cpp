@@ -40,6 +40,7 @@
 #include "regions.h"
 #include "srvparams.h"
 #include "wpdefmanager.h"
+#include "tilecache.h"
 #include "wpscriptmanager.h"
 #include "targetrequests.h"
 #include "mapstuff.h"
@@ -259,8 +260,7 @@ static void AddTarget(int s, PKGx6C *pp)
 	}
 	bool pileable = false;
 	short id=(addid1[s]<<8)+addid2[s];
-	tile_st tile;
-	Map->SeekTile(id, &tile);
+	tile_st tile = cTileCache::instance()->getTile( id );
 	if (tile.flag2&0x08) pileable=true;
 
 	P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0,0);
@@ -589,12 +589,11 @@ void cTargets::IstatsTarget(int s)
 {
 	if ((buffer[s][7]==0)&&(buffer[s][8]==0)&&(buffer[s][9]==0)&&(buffer[s][10]==0))
 	{
-		tile_st tile;
-		Map->SeekTile(((buffer[s][0x11]<<8)+buffer[s][0x12]), &tile);
+		/*Map->SeekTile(((buffer[s][0x11]<<8)+buffer[s][0x12]), &tile);
 		sprintf((char*)temp, "Item [Static] ID [%x %x]",buffer[s][0x11], buffer[s][0x12]);
 		sysmessage(s, (char*)temp);
 		sprintf((char*)temp, "ID2 [%i], Height [%i]",((buffer[s][0x11]<<8)+buffer[s][0x12]), tile.height);
-		sysmessage(s, (char*)temp);
+		sysmessage(s, (char*)temp);*/
 	}
 	else
 	{
@@ -1178,7 +1177,7 @@ static void InfoTarget(int s, PKGx6C *pp) // rewritten to work also with map-til
 
 	if (pp->model==0)	// damn osi not me why the tilenum is only send for static tiles, LB
 	{	// manually calculating the ID's if it's a maptype
-		x1=x/8;
+		/*x1=x/8;
 		y1=y/8;
 		x2=(x-(x1*8));
 		y2=(y-(y1*8));
@@ -1194,11 +1193,11 @@ static void InfoTarget(int s, PKGx6C *pp) // rewritten to work also with map-til
 		clConsole.send("Flag4:%x\n", land.flag4);
 		clConsole.send("Unknown1:%lx\n", land.unknown1);
 		clConsole.send("Unknown2:%x\n", land.unknown2);
-		clConsole.send("Name:%s\n", land.name);
+		clConsole.send("Name:%s\n", land.name);*/
 	}
 	else
 	{
-		tilenum=pp->model; // lb, bugfix
+		/*tilenum=pp->model; // lb, bugfix
 		Map->SeekTile(tilenum, &tile);
 		clConsole.send("type: static-tile\n");
 		clConsole.send("tilenum: %i\n",tilenum);
@@ -1213,7 +1212,7 @@ static void InfoTarget(int s, PKGx6C *pp) // rewritten to work also with map-til
 		clConsole.send("Unknown2:%x\n", tile.unknown2);
 		clConsole.send("Unknown3:%x\n", tile.unknown3);
 		clConsole.send("Height:%x\n", tile.height);
-		clConsole.send("Name:%s\n", tile.name);
+		clConsole.send("Name:%s\n", tile.name);*/
 	}
 	sysmessage(s, "Item info has been dumped to the console.");
 	clConsole.send("\n");
@@ -1248,7 +1247,7 @@ static void SetInvulFlag(P_CLIENT ps, P_CHAR pc)
 
 static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls this function - Crwth 01/11/1999
 {
-	if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
+	/*if(pp->TxLoc==-1 || pp->TyLoc==-1) return;
 	if (clickx[s]==-1 && clicky[s]==-1)
 	{
 		clickx[s]=pp->TxLoc;
@@ -1307,7 +1306,7 @@ static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls th
 		}
 
 	addid1[s]=0;
-	addid2[s]=0;
+	addid2[s]=0;*/
 }
 
 //public !!

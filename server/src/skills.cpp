@@ -39,6 +39,7 @@
 #include "im.h"
 #include "SndPkg.h"
 #include "guildstones.h"
+#include "tilecache.h"
 #include "combat.h"
 #include "regions.h"
 #include "srvparams.h"
@@ -1669,7 +1670,7 @@ void cSkills::RandomSteal(int s)
 				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(),item->name().ascii());
 				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(), item->name().ascii(), pc_npc->name.c_str());
 			} else {
-				Map->SeekTile(item->id(),&tile);
+				tile = cTileCache::instance()->getTile( item->id() );
 				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(), tile.name);
 				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(),tile.name, pc_npc->name.c_str());
 			}

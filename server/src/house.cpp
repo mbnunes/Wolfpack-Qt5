@@ -38,6 +38,7 @@
 #include "srvparams.h"
 #include "mapstuff.h"
 #include "debug.h"
+#include "tilecache.h"
 #include "utilsys.h"
 #include "network.h"
 
@@ -130,7 +131,7 @@ bool cHouse::onValidPlace()
 			P_ITEM pi = ri.GetData();
 			if( pi != NULL )
 			{
-				Map->SeekTile( pi->id(), &tile );
+				tile = cTileCache::instance()->getTile( pi->id() );
 				if( multi.z > pi->pos.z && multi.z < ( pi->pos.z + tile.height ) )
 					return false;
 			}

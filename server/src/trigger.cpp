@@ -58,6 +58,7 @@
 #include "mapstuff.h"
 #include "classes.h"
 #include "network.h"
+#include "tilecache.h"
 #include "gumps.h"
 #include "scriptc.h"
 
@@ -231,7 +232,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 			strcpy(tempname, pi->name().ascii() );
 		else
 		{
-			Map->SeekTile(pi->id(), &tile);
+			tile = cTileCache::instance()->getTile( pi->id() );
 			strcpy(tempname,(char*)tile.name);
 		}
 		
@@ -1283,7 +1284,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 												strcpy(tempname3, pi->name().ascii());
 											else 
 											{
-												Map->SeekTile(pi->id(), &tile);
+												tile = cTileCache::instance()->getTile( pi->id() );
 												strcpy(tempname3, (char*)tile.name);
 											}
 											// End Get Temporany Name of the NEED Item - Magius(CHE) §
@@ -1802,7 +1803,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 									}
 									else
 									{
-										Map->SeekTile(pi_evti->id(), &tile);
+										tile = cTileCache::instance()->getTile( pi_evti->id() );
 										strcpy(tempname2, (char*)tile.name);
 									}
 								}
@@ -2850,7 +2851,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 									strcpy(tempname3, pi_needitem->name().ascii());
 								else 
 								{
-									Map->SeekTile(pi_needitem->id(), &tile);
+									tile = cTileCache::instance()->getTile( pi_needitem->id() );
 									strcpy(tempname3, (char*)tile.name);
 								}
 								// End Get Temporany Name of the NEED Item - Magius(CHE) §
@@ -2980,7 +2981,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
  									strcpy(tempname2, pi_evti->name().ascii() );
 								else 
 								{
-									Map->SeekTile(pi_evti->id(), &tile);
+									tile = cTileCache::instance()->getTile( pi_evti->id() );
 									strcpy(tempname2, (char*)tile.name);
 								}
 							} // End Addon

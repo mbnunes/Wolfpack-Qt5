@@ -33,6 +33,7 @@
 #include "boats.h"
 #include "network.h"
 #include "regions.h"
+#include "tilecache.h"
 #include "mapstuff.h"
 #include "srvparams.h"
 
@@ -449,7 +450,7 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 	{
 		mfile->get_st_multi(&multi);
 		map = Map->SeekMap( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
-		Map->SeekLand (map.id, &land);
+		land = cTileCache::instance()->getLand( map.id );
 		MapStaticIterator msi( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
 		mapblocks = !(land.flag1 & 0x80);
 
