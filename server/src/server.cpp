@@ -210,7 +210,7 @@ cServer::cServer() {
 
 	// Accounts come before world
 	registerComponent(Accounts::instance(), "accounts", true, false);
-	registerComponent(World::instance(), "world", false, false);
+	registerComponent(World::instance(), "world", false, true);
 
 	registerComponent(Network::instance(), "network", true, false);
 }

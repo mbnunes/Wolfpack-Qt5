@@ -492,19 +492,18 @@ void cBaseChar::action(unsigned char id, unsigned char speed, bool reverse)
 	}
 }
 
-P_ITEM cBaseChar::getWeapon() const
-{
+P_ITEM cBaseChar::getWeapon() const {
 	// Check if we have something on our right hand
 	P_ITEM rightHand = rightHandItem();
-	if( rightHand && Combat::instance()->weaponSkill( rightHand ) != WRESTLING )
+	if (rightHand && rightHand->type() >= 1001 && rightHand->type() <= 1007)
 		return rightHand;
 
 	// Check for two-handed weapons
 	P_ITEM leftHand = leftHandItem();
-	if( leftHand && Combat::instance()->weaponSkill( leftHand ) != WRESTLING )
+	if (leftHand && leftHand->type() >= 1001 && leftHand->type() <= 1007)
 		return leftHand;
 
-	return NULL;
+	return 0;
 }
 
 P_ITEM cBaseChar::getShield() const
@@ -2298,27 +2297,7 @@ bool cBaseChar::onCHLevelChange( unsigned int level )
 
 	return result;
 }
-/*
-bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
-{
-	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
-	bool result = false;
 
-	if( scriptChain || global )
-	{
-		PyObject *args = Py_BuildValue( "O&O&O&", PyGetCharObject, sender, PyGetCharObject, this, PyGetTooltipObject, tooltip );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
-
-		if( !result && global )
-			result = global->callEventHandler( EVENT_SHOWTOOLTIP, args );
-
-		Py_DECREF( args );
-	}
-
-	return result;
-}
-*/
 bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLGAIN );
@@ -2836,128 +2815,6 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 
 	return result;
 }
-
-//void cPlayer::fight(P_CHAR enemy) {
-/*
-	// The person being attacked is guarded by pets ?
-	cBaseChar::CharContainer guards = pc_i->guardedby();
-	for( cBaseChar::CharContainer::iterator iter = guards.begin(); iter != guards.end(); ++iter )
-	{
-		P_NPC pPet = dynamic_cast<P_NPC>(*iter);
-		if( pPet->combatTarget() == INVALID_SERIAL && pPet->inRange( _player, Config::instance()->attack_distance() ) ) // is it on screen?
-		{
-			pPet->fight( pc_i );
-
-			// Show the You see XXX attacking YYY messages
-			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( pc_i->name() );
-			for( cUOSocket *mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
-				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->visualRange() ) )
-					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-
-			if( pc_i->objectType() == enPlayer )
-			{
-				P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
-				if( pp->socket() )
-					pp->socket()->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
-			}
-		}
-	}
-
-	if( pc_i->inGuardedArea() && Config::instance()->guardsActive() )
-	{
-		if( pc_i->objectType() == enPlayer && pc_i->isInnocent() ) //REPSYS
-		{
-			_player->makeCriminal();
-			Combat::instance()->spawnGuard( _player, pc_i, _player->pos() );
-		}
-		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && !pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
-		{
-			_player->makeCriminal();
-			Combat::instance()->spawnGuard( _player, pc_i, _player->pos() );
-		}
-		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
-		{
-			pc_i->talk( tr("Help! Guards! I've been attacked!") );
-			_player->makeCriminal();
-			pc_i->callGuards();
-		}
-		else if ((pc_i->objectType() == enNPC || pc_i->isTamed()) && !pc_i->isAtWar() )//&& pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
-		{
-			P_NPC pn = dynamic_cast<P_NPC>(pc_i);
-			pn->setNextMoveTime();
-		}
-		else if( pc_i->objectType() == enNPC )
-		{
-			dynamic_cast<P_NPC>(pc_i)->setNextMoveTime();
-		}
-	}
-	else // not a guarded area
-	{
-		if( pc_i->isInnocent() )
-		{
-			if( pc_i->objectType() == enPlayer )
-			{
-				_player->makeCriminal();
-			}
-			else if( pc_i->objectType() == enNPC )
-			{
-				_player->makeCriminal();
-
-				if( pc_i->combatTarget() == INVALID_SERIAL )
-					pc_i->fight( _player );
-
-				if( !pc_i->isTamed() && pc_i->isHuman() )
-					pc_i->talk( tr( "Help! Guards! Tis a murder being commited!" ) );
-			}
-		}
-	}
-
-	// Send the "You see %1 attacking %2" string to all surrounding sockets
-	// Except the one being attacked
-	QString message = tr( "*You see %1 attacking %2*" ).arg(_player->name()).arg(pc_i->name());
-	for( cUOSocket *s = Network::instance()->first(); s; s = Network::instance()->next() )
-		if( s->player() && s != this && s->player()->inRange( _player, s->player()->visualRange() ) && s->player() != pc_i )
-			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-
-	// Send an extra message to the victim
-	if( pc_i->objectType() == enPlayer )
-	{
-		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
-		if( pp->socket() )
-			pp->socket()->showSpeech( _player, tr( "*You see %1 attacking you*" ).arg( _player->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
-	}*/
-
-	// I am already fighting this character.
-/*	if( isAtWar() && combatTarget() == other->serial() )
-		return;
-
-	// Store the current Warmode
-	bool oldwar = isAtWar();
-
-	this->combatTarget_ = other->serial();
-	this->unhide();
-	this->disturbMed();	// Meditation
-	this->attackerSerial_ = other->serial();
-	this->setAtWar( true );
-
-	if( socket_ )
-	{
-		// Send warmode status
-		cUOTxWarmode warmode;
-		warmode.setStatus( true );
-		socket_->send( &warmode );
-
-		// Send Attack target
-		cUOTxAttackResponse attack;
-		attack.setSerial( other->serial() );
-		socket_->send( &attack );
-
-		// Resend the Character (a changed warmode results in not walking but really just updating)
-		if (oldwar != isAtWar()) {
-			update( true );
-		}
-	}*/
-//}
 
 bool cBaseChar::sysmessage(const QString &message, unsigned short color, unsigned short font)
 {

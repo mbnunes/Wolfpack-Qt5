@@ -513,23 +513,6 @@ static PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 }
 
 /*
-	\method char.combatskill
-	\description Get the id of the combat skill the character would use in a fight.
-*/
-static PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
-{
-	Q_UNUSED(args);
-	if( !self->pChar || self->pChar->free )
-		return PyFalse();
-
-	P_ITEM pi = self->pChar->rightHandItem();
-	if( !pi )
-		pi = self->pChar->leftHandItem();
-
-	return PyInt_FromLong( Combat::instance()->weaponSkill( pi ) );
-}
-
-/*
 	\method char.useresource
 	\description Remove items from the characters backpack recursively.
 	\param amount The amount if items that should be deleted.
@@ -2242,7 +2225,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "resurrect",		(getattrofunc)wpChar_resurrect,			METH_VARARGS, "Resurrects the character." },
 	{ "kill",			(getattrofunc)wpChar_kill,				METH_VARARGS, "This kills the character." },
 	{ "damage",			(getattrofunc)wpChar_damage,			METH_VARARGS, "This damages the current character." },
-  { "update",			(getattrofunc)wpChar_update,			METH_VARARGS, "Resends the char to all clients in range." },
+	{ "update",			(getattrofunc)wpChar_update,			METH_VARARGS, "Resends the char to all clients in range." },
 	{ "resendtooltip",	(getattrofunc)wpChar_resendtooltip,		METH_VARARGS, "Resends the tooltip for this character." },
 	{ "updateflags",	(getattrofunc)wpChar_updateflags,		METH_VARARGS, "Resends the character if flags have changed (take care, this might look like a move)." },
 	{ "removefromview", (getattrofunc)wpChar_removefromview,	METH_VARARGS, "Removes the char from all surrounding clients." },
@@ -2253,7 +2236,6 @@ static PyMethodDef wpCharMethods[] =
 	{ "directionto",	(getattrofunc)wpChar_directionto,		METH_VARARGS, "Distance to another object or a given position." },
 	{ "checkskill",		(getattrofunc)wpChar_checkskill,		METH_VARARGS, "Performs a skillcheck for the character." },
 	{ "itemonlayer",	(getattrofunc)wpChar_itemonlayer,		METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
-	{ "combatskill",	(getattrofunc)wpChar_combatskill,		METH_VARARGS, "Returns the combat skill the character would currently use." },
 	{ "getweapon",		(getattrofunc)wpChar_getweapon,			METH_VARARGS, "What weapon does the character currently wear." },
 	{ "useresource",	(getattrofunc)wpChar_useresource,		METH_VARARGS, "Consumes a resource posessed by the char." },
 	{ "countresource",	(getattrofunc)wpChar_countresource,		METH_VARARGS, "Counts the amount of a certain resource the user has." },

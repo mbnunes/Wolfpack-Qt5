@@ -155,38 +155,9 @@ public:
 		return fights_;
 	}
 
-	/*!
-		\brief This enumeration contains all available types of ranged weapons.
-	*/
-	enum enBowTypes
-	{
-		INVALID_BOWTYPE = 0xFF,
-		BOW = 0,
-		XBOW,
-		HEAVYXBOW
-	};
-
-	void playMissedSoundEffect( P_CHAR pChar, UINT16 skill );
-	void playMissedSoundEffect( P_CHAR pChar );
-	void playSoundEffect( P_CHAR pChar, UINT16 skill, P_ITEM pWeapon );
-	UI16 weaponSkill( P_ITEM pi );
-	enBowTypes bowType( P_ITEM pi );
-	void checkandhit( P_CHAR pAttacker );
-	void hit( P_CHAR pAttacker, P_CHAR pDefender, bool los );
-	void combat( P_CHAR pAttacker );
-	void setWeaponTimeout( P_CHAR pAttacker, P_ITEM pWeapon );
-	bool isTimerOk( P_CHAR pc );
-	void doFootCombatAnimation( P_CHAR pc );
-	void doHorseCombatAnimation( P_CHAR pc );
-
 	// Sounds + Animations
-	void playMissedSoundEffect( P_CHAR pChar, P_ITEM pWeapon );
-	void playSoundEffect( P_CHAR pChar, P_ITEM pWeapon );
 	void playGetHitSoundEffect( P_CHAR pChar );
 	void playGetHitAnimation( P_CHAR pChar );
-
-	void doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pWeapon );
-
 	void spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos );
 };
 

@@ -123,38 +123,6 @@ struct {
 	PRIMARY KEY (option) \
 	);" },
 
-	{ "boats", "CREATE TABLE boats ( \
-	serial int(11) NOT NULL default '0', \
-	autosail tinyint(1) NOT NULL default '0', \
-	boatdir tinyint(1) NOT NULL default '0', \
-	itemserial1 int(11) NOT NULL default '-1', \
-	itemserial2 int(11) NOT NULL default '-1', \
-	itemserial3 int(11) NOT NULL default '-1', \
-	itemserial4 int(11) NOT NULL default '-1', \
-	multi1 smallint(6) default '0', \
-	multi2 smallint(6) default '0', \
-	multi3 smallint(6) default '0', \
-	multi4 smallint(6) default '0', \
-	PRIMARY KEY (serial) \
-	);" },
-
-	{ "boats_itemids", "CREATE TABLE boats_itemids ( \
-	serial int(11) NOT NULL default '0', \
-	a tinyint(1)  NOT NULL default '0', \
-	b tinyint(1)  NOT NULL default '0', \
-	id smallint(6)  default '0', \
-	PRIMARY KEY (serial) \
-	);" },
-
-	{ "boats_itemoffsets", "CREATE TABLE boats_itemoffsets (\
-	serial int(11) NOT NULL default '0',\
-	a tinyint(1)  NOT NULL default '0',\
-	b tinyint(1)  NOT NULL default '0',\
-	c tinyint(1)  NOT NULL default '0',\
-	offset smallint(6) default '0',\
-	PRIMARY KEY (serial)\
-	);" },
-
 	{ "characters", "CREATE TABLE characters (\
 	serial int(11) NOT NULL default '0',\
 	name varchar(255) default NULL,\
@@ -217,15 +185,6 @@ struct {
 	PRIMARY KEY (serial,layer)\
 	);" },
 
-	{ "houses", "CREATE TABLE houses (\
-	serial int(11) NOT NULL default '0',\
-	nokey tinyint(1) NOT NULL default '0',\
-	charpos_x smallint(6) NOT NULL default '0',\
-	charpos_y smallint(6) NOT NULL default '0',\
-	charpos_z smallint(6) NOT NULL default '0',\
-	PRIMARY KEY (serial)\
-	);" },
-
 	{ "items", "CREATE TABLE items (\
 	serial int(11) NOT NULL default '0',\
 	id smallint(5)  NOT NULL default '0',\
@@ -248,25 +207,6 @@ struct {
 	restock smallint(5)  NOT NULL default '0',\
 	baseid varchar(32) NOT NULL default '',\
 	PRIMARY KEY (serial)\
-	);" },
-
-	{ "multis", "CREATE TABLE multis (\
-	serial int(11) NOT NULL default '0',\
-	coowner int(11) NOT NULL default '-1',\
-	deedsection varchar(255) NOT NULL default '',\
-	PRIMARY KEY (serial)\
-	);" },
-
-	{ "multis_bans", "CREATE TABLE multis_bans (\
-	serial int(11) NOT NULL default '0',\
-	ban int(11) NOT NULL default '-1',\
-	PRIMARY KEY (serial,ban)\
-	);" },
-
-	{ "multis_friends", "CREATE TABLE multis_friends (\
-	serial int(11) NOT NULL default '0',\
-	friend int(11) NOT NULL default '-1',\
-	PRIMARY KEY (serial,friend)\
 	);" },
 
 	{ "npcs", "CREATE TABLE npcs (\
@@ -545,12 +485,7 @@ void cWorld::load() {
 
 		res.free();
 		PersistentBroker::instance()->driver()->setActiveConnection();
-
-		//Console::instance()->send( "Loaded %i objects in %i msecs\n", progress.count(), getNormalizedTime() - sTime );
 	}
-
-	// Load Pages
-	// cPagesManager::getInstance()->load();
 
 	// Load Temporary Effects
 	Timers::instance()->load();
@@ -680,6 +615,8 @@ void cWorld::load() {
 	UoTime::instance()->setMinutes(db_time.toInt());
 
 	PersistentBroker::instance()->disconnect();
+
+	Console::instance()->send("Finished loading the world.\n");
 
 	cComponent::load();
 }
