@@ -22,10 +22,10 @@
 		<int><random min="61" max="85"/></int>
 		<maxhitpoints><random min="97" max="139"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="601" max="850"/></magicresistance>
-		<swordsmanship><random min="601" max="850"/></swordsmanship>
-		<tactics><random min="751" max="900"/></tactics>
-		<wrestling><random min="601" max="850"/></wrestling>
+		<skill id="magicresistance"><random min="601" max="850"/></skill>
+		<skill id="swordsmanship"><random min="601" max="850"/></skill>
+		<skill id="tactics"><random min="751" max="900"/></skill>
+		<skill id="wrestling"><random min="601" max="850"/></skill>
 		<!-- Damage -->
 		<mindamage>32</mindamage>
 		<maxdamage>37</maxdamage>

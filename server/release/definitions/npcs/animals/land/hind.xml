@@ -31,7 +31,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="260" max="260" /></skill>
 		<skill id="tactics">190</skill>
-		<skill id="magicresist">150</skill>
+		<skill id="magicresistance">150</skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>231</mintaming>

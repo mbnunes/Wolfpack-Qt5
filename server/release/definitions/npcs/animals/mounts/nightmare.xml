@@ -32,7 +32,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="805" max="925" /></skill>
 		<skill id="tactics"><random min="976" max="1000" /></skill>
-		<skill id="magicresist"><random min="853" max="1000" /></skill>
+		<skill id="magicresistance"><random min="853" max="1000" /></skill>
 		<skill id="magery"><random min="104" max="500" /></skill>
 		<skill id="evaluatingintelligence"><random min="104" max="500" /></skill>
 		<skill id="meditation">0</skill>

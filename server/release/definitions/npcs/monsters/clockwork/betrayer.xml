@@ -20,13 +20,13 @@
 		<int><random min="151" max="200"/></int>
 		<maxhitpoints><random min="241" max="300" /></maxhitpoints>
 		<!-- Skills -->
-		<anatomy><random min="901" max="1000"/></anatomy>
-		<evaluatingintelligence><random min="901" max="1000"/></evaluatingintelligence>
-		<magery><random min="501" max="1000"/></magery>
-		<meditation><random min="901" max="1000"/></meditation>
-		<magicresistance><random min="1201" max="1300"/></magicresistance>
-		<tactics><random min="901" max="1000"/></tactics>
-		<wrestling><random min="901" max="1000"/></wrestling>
+		<skill id="anatomy"><random min="901" max="1000"/></skill>
+		<skill id="evaluatingintelligence"><random min="901" max="1000"/></skill>
+		<skill id="magery"><random min="501" max="1000"/></skill>
+		<skill id="meditation"><random min="901" max="1000"/></skill>
+		<skill id="magicresistance"><random min="1201" max="1300"/></skill>
+		<skill id="tactics"><random min="901" max="1000"/></skill>
+		<skill id="wrestling"><random min="901" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>54</mindamage>
 		<maxdamage>81</maxdamage>
@@ -40,7 +40,6 @@
 		<!-- Missing: Power Crystal, Book -->
 		<lootpacks>lootpack_rich;gems</lootpacks>
 		<category>Monsters\Clockwork\Betrayer</category>
-		
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

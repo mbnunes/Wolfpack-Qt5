@@ -20,12 +20,12 @@
 		<int><random min="488" max="620"/></int>
 		<maxhitpoints><random min="558" max="599" /></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="801" max="1000"/></evaluatingintelligence>
-		<magery><random min="801" max="1000"/></magery>
-		<meditation><random min="525" max="750"/></meditation>
-		<magicresistance><random min="1003" max="1300"/></magicresistance>
-		<tactics><random min="976" max="1000"/></tactics>
-		<wrestling><random min="976" max="1000"/></wrestling>
+		<skill id="evaluatingintelligence"><random min="801" max="1000"/></skill>
+		<skill id="magery"><random min="801" max="1000"/></skill>
+		<skill id="meditation"><random min="525" max="750"/></skill>
+		<skill id="magicresistance"><random min="1003" max="1300"/></skill>
+		<skill id="tactics"><random min="976" max="1000"/></skill>
+		<skill id="wrestling"><random min="976" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>130</mindamage>
 		<maxdamage>165</maxdamage>
@@ -49,7 +49,7 @@
 		<strproperty name="carve_hides_type" value="barbed" />
 		<intproperty name="carve_meat" value="19" />
 		<ai>Monster_Mage</ai>
-		
+
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="3" />
 	</npc>

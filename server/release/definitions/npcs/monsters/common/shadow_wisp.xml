@@ -23,13 +23,13 @@
 		<mindamage>5</mindamage>
 		<maxdamage>13</maxdamage>
 		<!-- Skills -->
-		<evaluatingintelligence>400</evaluatingintelligence>
-		<magery>500</magery>
-		<meditation>400</meditation>
-		<magicresistance>100</magicresistance>
-		<tactics><random min="1" max="150"/></tactics>
-		<wrestling><random min="251" max="400"/></wrestling>
-		<anatomy>0</anatomy>
+		<skill id="evaluatingintelligence">400</skill>
+		<skill id="magery">500</skill>
+		<skill id="meditation">400</skill>
+		<skill id="magicresistance">100</skill>
+		<skill id="tactics"><random min="1" max="150"/></skill>
+		<skill id="wrestling"><random min="251" max="400"/></skill>
+		<skill id="anatomy">0</skill>
 		<!-- Resists -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />
@@ -40,10 +40,10 @@
 		<!--<lootpacks></lootpacks>-->
 		<category>Monsters\Common\Shadow Wisp</category>
 		<ai>Monster_Mage</ai>
-		
+
 		<equipped>
 			<item id="1647"><newbie /></item>
-		</equipped>		
+		</equipped>
 	</npc>
 
 </definitions>

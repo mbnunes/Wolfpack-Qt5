@@ -19,9 +19,9 @@
 		<dex><random min="46" max="65"/></dex>
 		<int><random min="16" max="30"/></int>
 		<!-- Skills -->
-		<magicresistance><random min="251" max="300"/></magicresistance>
-		<tactics><random min="293" max="440"/></tactics>
-		<wrestling><random min="293" max="440"/></wrestling>
+		<skill id="magicresistance"><random min="251" max="300"/></skill>
+		<skill id="tactics"><random min="293" max="440"/></skill>
+		<skill id="wrestling"><random min="293" max="440"/></skill>
 		<!-- Damage -->
 		<mindamage>4</mindamage>
 		<maxdamage>8</maxdamage>
@@ -35,7 +35,6 @@
 		<lootpacks>lootpack_poor</lootpacks>
 		<mintaming>291</mintaming>
 		<category>Monsters\Common\Giant Rat</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />

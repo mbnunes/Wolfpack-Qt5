@@ -20,13 +20,13 @@
 		<int><random min="361" max="435"/></int>
 		<maxhitpoints><random min="256" max="309"/></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="801" max="950"/></evaluatingintelligence>
-		<magery><random min="801" max="950"/></magery>
-		<meditation><random min="802" max="1200"/></meditation>
-		<poisoning><random min="901" max="1000"/></poisoning>
-		<magicresistance><random min="852" max="1150"/></magicresistance>
-		<tactics><random min="801" max="1000"/></tactics>
-		<wrestling><random min="701" max="900"/></wrestling>
+		<skill id="evaluatingintelligence"><random min="801" max="950"/></skill>
+		<skill id="magery"><random min="801" max="950"/></skill>
+		<skill id="meditation"><random min="802" max="1200"/></skill>
+		<skill id="poisoning"><random min="901" max="1000"/></skill>
+		<skill id="magicresistance"><random min="852" max="1150"/></skill>
+		<skill id="tactics"><random min="801" max="1000"/></skill>
+		<skill id="wrestling"><random min="701" max="900"/></skill>
 		<!-- Damage -->
 		<mindamage>36</mindamage>
 		<maxdamage>57</maxdamage>
@@ -45,7 +45,6 @@
 		<strproperty name="slayer_group" value="poisonelementals" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
-		
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
 		<intproperty name="hit_poison_chance" value="75" />

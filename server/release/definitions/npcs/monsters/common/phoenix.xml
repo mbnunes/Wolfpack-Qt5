@@ -21,12 +21,12 @@
 		<int><random min="902" max="1000"/></int>
 		<maxhitpoints><random min="340" max="383" /></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="902" max="1000"/></evaluatingintelligence>
-		<magery><random min="902" max="1000"/></magery>
-		<meditation><random min="751" max="1000"/></meditation>
-		<magicresistance><random min="860" max="1350"/></magicresistance>
-		<tactics><random min="801" max="900"/></tactics>
-		<wrestling><random min="901" max="1000"/></wrestling>
+		<skill id="evaluatingintelligence"><random min="902" max="1000"/></skill>
+		<skill id="magery"><random min="902" max="1000"/></skill>
+		<skill id="meditation"><random min="751" max="1000"/></skill>
+		<skill id="magicresistance"><random min="860" max="1350"/></skill>
+		<skill id="tactics"><random min="801" max="900"/></skill>
+		<skill id="wrestling"><random min="901" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>77</mindamage>
 		<maxdamage>92</maxdamage>
@@ -41,7 +41,7 @@
 		<!-- Missing: Accessory -->
 		<lootpacks>lootpack_filthy_rich;lootpack_rich</lootpacks>
 		<category>Monsters\Common\Phoenix</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_feathers" value="36" />
 		<intproperty name="carve_meat" value="1" />

@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<npc id="war_horse" inherit="animal_base">		
+	<npc id="war_horse" inherit="animal_base">
 		<name>war horse</name>
 		<id><random list="NPCIDS_WARHORSE" /></id>
 		<ai>Animal_Wild</ai>
@@ -29,7 +29,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="393" max="463" /></skill>
 		<skill id="tactics"><random min="259" max="422" /></skill>
-		<skill id="magicresist"><random min="255" max="297" /></skill>
+		<skill id="magicresistance"><random min="255" max="297" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>

@@ -21,9 +21,9 @@
 		<int><random min="36" max="60"/></int>
 		<maxhitpoints><random min="151" max="162" /></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance>700</magicresistance>
-		<tactics>900</tactics>
-		<wrestling>900</wrestling>
+		<skill id="magicresistance">700</skill>
+		<skill id="tactics">900</skill>
+		<skill id="wrestling">900</skill>
 		<!-- Damage -->
 		<mindamage>21</mindamage>
 		<maxdamage>54</maxdamage>
@@ -37,7 +37,7 @@
 		<!-- Misc. -->
 		<!-- Missing: Fertile Dirt, 3 Bone, Dull Copper or Shadow or Copper or Bronze Ore  -->
 		<lootpacks>gold_average;gems;</lootpacks>
-		<category>Monsters\Insects\Ant Lion</category>		
+		<category>Monsters\Insects\Ant Lion</category>
 	</npc>
 
 </definitions>

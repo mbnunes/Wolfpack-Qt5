@@ -33,7 +33,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="192" max="290" /></skill>
 		<skill id="tactics"><random min="192" max="290" /></skill>
-		<skill id="magicresist"><random min="151" max="200" /></skill>
+		<skill id="magicresistance"><random min="151" max="200" /></skill>
 		<!-- Misc. -->
 		<category>Animals\Sea\Dolphin</category>
 		<intproperty name="carve_meat" value="1" />

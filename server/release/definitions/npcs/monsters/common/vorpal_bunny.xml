@@ -22,9 +22,9 @@
 		<maxstamina>500</maxstamina>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<wrestling>50</wrestling>
-		<tactics>50</tactics>
-		<magicresistance>2000</magicresistance>
+		<skill id="wrestling">50</skill>
+		<skill id="tactics">50</skill>
+		<skill id="magicresistance">2000</skill>
 		<!-- Damage -->
 		<mindamage>1</mindamage>
 		<maxdamage>1</maxdamage>
@@ -33,7 +33,7 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_rich;lootpack_rich;lootpack_rich;vorpal_bunny</lootpacks>
 		<category>Monsters\Common\Vorpal Bunny</category>
 		<inherit id="speed_veryfast" />
-		
+
 		<backpack>
 			<content>
 				<item id="c77"><amount><random min="6" max="10" /></amount></item>

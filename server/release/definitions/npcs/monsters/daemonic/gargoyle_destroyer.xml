@@ -20,16 +20,16 @@
 		<int><random min="102" max="200"/></int>
 		<maxhitpoints><random min="482" max="485" /></maxhitpoints>
 		<!-- Skills -->
-		<anatomy><random min="505" max="1000"/></anatomy>
-		<evaluatingintelligence><random min="910" max="1000"/></evaluatingintelligence>
-		<macefighting><random min="901" max="1000"/></macefighting>
-		<magery><random min="910" max="1000"/></magery>
-		<meditation><random min="910" max="1000"/></meditation>
-		<magicresistance><random min="1204" max="1600"/></magicresistance>
-		<swordsmanship><random min="901" max="1000"/></swordsmanship>
-		<tactics><random min="901" max="1000"/></tactics>
-		<wrestling><random min="901" max="1000"/></wrestling>
-		<fencing><random min="901" max="1000"/></fencing>
+		<skill id="anatomy"><random min="505" max="1000"/></skill>
+		<skill id="evaluatingintelligence"><random min="910" max="1000"/></skill>
+		<skill id="macefighting"><random min="901" max="1000"/></skill>
+		<skill id="magery"><random min="910" max="1000"/></skill>
+		<skill id="meditation"><random min="910" max="1000"/></skill>
+		<skill id="magicresistance"><random min="1204" max="1600"/></skill>
+		<skill id="swordsmanship"><random min="901" max="1000"/></skill>
+		<skill id="tactics"><random min="901" max="1000"/></skill>
+		<skill id="wrestling"><random min="901" max="1000"/></skill>
+		<skill id="fencing"><random min="901" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>31</mindamage>
 		<maxdamage>64</maxdamage>

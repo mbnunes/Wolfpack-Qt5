@@ -21,10 +21,10 @@
 		<int><random min="16" max="20"/></int>
 		<maxhitpoints><random min="15" max="19"/></maxhitpoints>
 		<!-- Skills -->
-		<poisoning><random min="301" max="500"/></poisoning>
-		<magicresistance><random min="151" max="200"/></magicresistance>
-		<tactics><random min="193" max="340"/></tactics>
-		<wrestling><random min="193" max="340"/></wrestling>
+		<skill id="poisoning"><random min="301" max="500"/></skill>
+		<skill id="magicresistance"><random min="151" max="200"/></skill>
+		<skill id="tactics"><random min="193" max="340"/></skill>
+		<skill id="wrestling"><random min="193" max="340"/></skill>
 		<!-- Damage -->
 		<mindamage>1</mindamage>
 		<maxdamage>6</maxdamage>
@@ -40,7 +40,6 @@
 		<mintaming>231</mintaming>
 		<category>Monsters\Common\Slime</category>
 		<inherit id="speed_slow" />
-		
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="0" />
 	</npc>

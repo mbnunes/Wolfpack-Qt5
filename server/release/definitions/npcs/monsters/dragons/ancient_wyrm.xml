@@ -20,12 +20,12 @@
 		<int><random min="686" max="775"/></int>
 		<maxhitpoints><random min="658" max="711" /></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="801" max="1000"/></evaluatingintelligence>
-		<magery><random min="801" max="1000"/></magery>
-		<meditation><random min="525" max="750"/></meditation>
-		<magicresistance><random min="1005" max="1500"/></magicresistance>
-		<tactics><random min="976" max="1000"/></tactics>
-		<wrestling><random min="976" max="1000"/></wrestling>
+		<skill id="evaluatingintelligence"><random min="801" max="1000"/></skill>
+		<skill id="magery"><random min="801" max="1000"/></skill>
+		<skill id="meditation"><random min="525" max="750"/></skill>
+		<skill id="magicresistance"><random min="1005" max="1500"/></skill>
+		<skill id="tactics"><random min="976" max="1000"/></skill>
+		<skill id="wrestling"><random min="976" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>146</mindamage>
 		<maxdamage>182</maxdamage>
@@ -48,7 +48,7 @@
 		<intproperty name="carve_meat" value="19" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
-		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;gems;gems;gems;gems;gems</lootpacks>		
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;gems;gems;gems;gems;gems</lootpacks>
 		<intproperty name="poison_immunity" value="2" />
 	</npc>
 

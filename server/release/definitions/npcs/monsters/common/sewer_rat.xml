@@ -21,9 +21,9 @@
 		<maxhitpoints>6</maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<wrestling>50</wrestling>
-		<tactics>50</tactics>
-		<magicresistance>50</magicresistance>
+		<skill id="wrestling">50</skill>
+		<skill id="tactics">50</skill>
+		<skill id="magicresistance">50</skill>
 		<mintaming>0</mintaming>
 		<food>1</food>
 		<!-- Damage -->
@@ -33,7 +33,6 @@
 		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Common\Sewer Rat</category>
-		
 		<intproperty name="carve_meat" value="1" />
 		<inherit id="speed_slow" />
 	</npc>

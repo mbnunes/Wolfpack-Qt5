@@ -18,9 +18,9 @@
 		<int><random min="26" max="50"/></int>
 		<maxhitpoints><random min="34" max="48" /></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="151" max="300"/></magicresistance>
-		<tactics><random min="351" max="500"/></tactics>
-		<wrestling><random min="201" max="350"/></wrestling>
+		<skill id="magicresistance"><random min="151" max="300"/></skill>
+		<skill id="tactics"><random min="351" max="500"/></skill>
+		<skill id="wrestling"><random min="201" max="350"/></skill>
 		<mintaming>771</mintaming>
 		<!-- Damage -->
 		<mindamage>7</mindamage>
@@ -31,7 +31,6 @@
 		<!-- Missing: -->
 		<lootpacks>lootpack_poor</lootpacks>
 		<category>Monsters\Daemonic\Mongbat (Strong)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />

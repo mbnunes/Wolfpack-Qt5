@@ -20,9 +20,9 @@
 		<int><random min="31" max="55"/></int>
 		<maxhitpoints><random min="202" max="231"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="603" max="1050"/></magicresistance>
-		<tactics><random min="801" max="1000"/></tactics>
-		<wrestling><random min="801" max="900"/></wrestling>
+		<skill id="magicresistance"><random min="603" max="1050"/></skill>
+		<skill id="tactics"><random min="801" max="1000"/></skill>
+		<skill id="wrestling"><random min="801" max="900"/></skill>
 		<!-- Damage -->
 		<mindamage>21</mindamage>
 		<maxdamage>63</maxdamage>
@@ -37,7 +37,7 @@
 		<!-- Missing: Potion, Level 3 Map -->
 		<lootpacks>lootpack_rich;lootpack_rich</lootpacks>
 		<category>Monsters\Giants\Cyclopian Warrior</category>
-		
+
 		<intproperty name="carve_meat" value="4" />
 	</npc>
 

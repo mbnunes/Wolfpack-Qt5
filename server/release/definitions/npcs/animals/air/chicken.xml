@@ -25,7 +25,7 @@
 		<!-- Skills -->
 		<skill id="wrestling">50</skill>
 		<skill id="tactics">50</skill>
-		<skill id="magicresist">40</skill>
+		<skill id="magicresistance">40</skill>
 		<!-- Damage -->
 		<mindamage>1</mindamage>
 		<maxdamage>1</maxdamage>
@@ -62,7 +62,7 @@
 		<!-- Skills -->
 		<skill id="wrestling">350</skill>
 		<skill id="tactics">350</skill>
-		<skill id="magicresist">400</skill>
+		<skill id="magicresistance">400</skill>
 		<skill id="anatomy">0</skill>
 		<!-- Misc -->
 		<controlslots>2</controlslots>

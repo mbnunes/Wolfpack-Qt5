@@ -20,13 +20,13 @@
 		<int><random min="271" max="295"/></int>
 		<maxhitpoints><random min="196" max="213" /></maxhitpoints>
 		<!-- Skills -->
-		<anatomy><random min="303" max="600"/></anatomy>
-		<evaluatingintelligence><random min="701" max="850"/></evaluatingintelligence>
-		<magery><random min="701" max="850"/></magery>
-		<magicresistance><random min="601" max="750"/></magicresistance>
-		<tactics><random min="801" max="900"/></tactics>
-		<wrestling><random min="701" max="900"/></wrestling>
-		<meditation>0</meditation>
+		<skill id="anatomy"><random min="303" max="600"/></skill>
+		<skill id="evaluatingintelligence"><random min="701" max="850"/></skill>
+		<skill id="magery"><random min="701" max="850"/></skill>
+		<skill id="magicresistance"><random min="601" max="750"/></skill>
+		<skill id="tactics"><random min="801" max="900"/></skill>
+		<skill id="wrestling"><random min="701" max="900"/></skill>
+		<skill id="meditation">0</skill>
 		<!-- Damage -->
 		<mindamage>26</mindamage>
 		<maxdamage>42</maxdamage>
@@ -43,7 +43,7 @@
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Acid Elemental</category>
 		<ai>Monster_Mage</ai>
-		
+
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
 		<intproperty name="hit_poison_chance" value="60" />

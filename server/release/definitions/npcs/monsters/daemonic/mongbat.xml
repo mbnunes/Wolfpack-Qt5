@@ -21,9 +21,9 @@
 		<maxmana>0</maxmana>
 		<maxhitpoints><random min="4" max="6" /></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="51" max="140"/></magicresistance>
-		<tactics><random min="51" max="100"/></tactics>
-		<wrestling><random min="51" max="100"/></wrestling>
+		<skill id="magicresistance"><random min="51" max="140"/></skill>
+		<skill id="tactics"><random min="51" max="100"/></skill>
+		<skill id="wrestling"><random min="51" max="100"/></skill>
 		<mintaming>771</mintaming>
 		<!-- Damage -->
 		<mindamage>1</mindamage>
@@ -35,7 +35,6 @@
 		<!-- Missing: -->
 		<lootpacks>lootpack_poor</lootpacks>
 		<category>Monsters\Daemonic\Mongbat</category>
-		
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

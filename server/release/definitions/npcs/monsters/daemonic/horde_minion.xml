@@ -20,9 +20,9 @@
 		<int><random min="11" max="25"/></int>
 		<maxhitpoints><random min="10" max="24" /></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance>100</magicresistance>
-		<tactics><random min="01" max="150"/></tactics>
-		<wrestling><random min="251" max="400"/></wrestling>
+		<skill id="magicresistance">100</skill>
+		<skill id="tactics"><random min="01" max="150"/></skill>
+		<skill id="wrestling"><random min="251" max="400"/></skill>
 		<!-- Damage -->
 		<mindamage>6</mindamage>
 		<maxdamage>11</maxdamage>
@@ -33,7 +33,6 @@
 		<desc>These creatures are only two to three feet tall with extremely large heads. The lower jaw of the creature is enormous, nearly half the size of the entire head, with a small, piggish nose that perches between two bulbous, yellow eyes. Short, sturdy arms and legs sprout from the shaggy torso, but convey surprising speed as it scuttles about. Cowardly as individuals, the Horde Demon will always prefer to run than to fight. However, in numbers, they gain courage and thrive on the confusion their appearance creates.</desc>
 		<strproperty name="slayer_group" value="daemons" />
 		<lootpacks>bodypart</lootpacks>
-		
 		<!-- This is strange stuff, They glow in the dark :) -->
 		<equipped>
 			<item id="1647"><newbie /></item>

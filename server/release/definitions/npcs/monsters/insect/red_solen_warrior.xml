@@ -20,9 +20,9 @@
 		<int><random min="36" max="60"/></int>
 		<maxhitpoints><random min="96" max="107"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance>600</magicresistance>
-		<tactics>800</tactics>
-		<wrestling>800</wrestling>
+		<skill id="magicresistance">600</skill>
+		<skill id="tactics">800</skill>
+		<skill id="wrestling">800</skill>
 		<!-- Damage -->
 		<mindamage>11</mindamage>
 		<maxdamage>33</maxdamage>

@@ -20,10 +20,10 @@
 		<int><random min="56" max="80"/></int>
 		<maxhitpoints><random min="36" max="47"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance>700</magicresistance>
-		<tactics>700</tactics>
-		<wrestling>700</wrestling>
-		<anatomy>0</anatomy>
+		<skill id="magicresistance">700</skill>
+		<skill id="tactics">700</skill>
+		<skill id="wrestling">700</skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>3</mindamage>
 		<maxdamage>15</maxdamage>
@@ -34,7 +34,7 @@
 		<lootpacks>gold_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Common\Gazer Larva</category>
-		
+
 		<intproperty name="carve_meat" value="1" />
 		<inherit id="speed_slow" />
 	</npc>

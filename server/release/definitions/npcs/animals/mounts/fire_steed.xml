@@ -33,7 +33,7 @@
 		<!-- Skills -->
 		<skill id="wrestling">1000</skill>
 		<skill id="tactics">1000</skill>
-		<skill id="magicresist"><random min="1000" max="1200" /></skill>
+		<skill id="magicresistance"><random min="1000" max="1200" /></skill>
 		<!-- Misc. -->
 		<!-- Missing: Sulfurous Ash -->
 		<controlslots>2</controlslots>

@@ -20,12 +20,12 @@
 		<int><random min="501" max="650"/></int>
 		<maxhitpoints><random min="58" max="75" /></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="501" max="650"/></evaluatingintelligence>
-		<magery><random min="501" max="650"/></magery>
-		<magicresistance><random min="601" max="750"/></magicresistance>
-		<tactics><random min="501" max="700"/></tactics>
-		<wrestling><random min="501" max="700"/></wrestling>
-		<anatomy>0</anatomy>
+		<skill id="evaluatingintelligence"><random min="501" max="650"/></skill>
+		<skill id="magery"><random min="501" max="650"/></skill>
+		<skill id="magicresistance"><random min="601" max="750"/></skill>
+		<skill id="tactics"><random min="501" max="700"/></skill>
+		<skill id="wrestling"><random min="501" max="700"/></skill>
+		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>9</mindamage>
 		<maxdamage>19</maxdamage>
@@ -40,7 +40,7 @@
 		<!-- Missing: Potion, 4 Nightshade, Level 1 Map -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Common\Gazer</category>
-		
+
 		<intproperty name="carve_meat" value="1" />
 		<ai>Monster_Mage</ai>
 	</npc>

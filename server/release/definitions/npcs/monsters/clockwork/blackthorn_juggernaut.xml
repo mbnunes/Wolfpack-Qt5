@@ -20,10 +20,10 @@
 		<int><random min="51" max="100"/></int>
 		<maxhitpoints><random min="181" max="240" /></maxhitpoints>
 		<!-- Skills -->
-		<anatomy><random min="901" max="1000"/></anatomy>
-		<magicresistance><random min="1401" max="1500"/></magicresistance>
-		<tactics><random min="901" max="1000"/></tactics>
-		<wrestling><random min="901" max="1000"/></wrestling>
+		<skill id="anatomy"><random min="901" max="1000"/></skill>
+		<skill id="magicresistance"><random min="1401" max="1500"/></skill>
+		<skill id="tactics"><random min="901" max="1000"/></skill>
+		<skill id="wrestling"><random min="901" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>37</mindamage>
 		<maxdamage>64</maxdamage>

@@ -23,7 +23,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="0" max="0"/></skill>
 		<skill id="tactics"><random min="1000" max="1000"/></skill>
-		<skill id="magicresist"><random min="1402" max="1600"/></skill>
+		<skill id="magicresistance"><random min="1402" max="1600"/></skill>
 		<skill id="anatomy"><random min="1000" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>124</mindamage>

@@ -20,9 +20,9 @@
 		<int><random min="51" max="75"/></int>
 		<maxhitpoints><random min="58" max="72" /></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="501" max="650"/></magicresistance>
-		<tactics><random min="701" max="1000"/></tactics>
-		<wrestling><random min="601" max="900"/></wrestling>
+		<skill id="magicresistance"><random min="501" max="650"/></skill>
+		<skill id="tactics"><random min="701" max="1000"/></skill>
+		<skill id="wrestling"><random min="601" max="900"/></skill>
 		<!-- Damage -->
 		<mindamage>9</mindamage>
 		<maxdamage>13</maxdamage>
@@ -37,7 +37,7 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_meager;lootpack_meager</lootpacks>
 		<category>Monsters\Daemonic\Harpy</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_feathers" value="50" />
 		<intproperty name="carve_meat" value="4" />

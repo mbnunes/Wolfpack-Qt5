@@ -20,10 +20,10 @@
 		<int><random min="16" max="30"/></int>
 		<maxhitpoints><random min="50" max="63"/></maxhitpoints>
 		<!-- Skills -->
-		<poisoning><random min="801" max="1000"/></poisoning>
-		<magicresistance><random min="301" max="350"/></magicresistance>
-		<tactics><random min="603" max="750"/></tactics>
-		<wrestling><random min="503" max="650"/></wrestling>
+		<skill id="poisoning"><random min="801" max="1000"/></skill>
+		<skill id="magicresistance"><random min="301" max="350"/></skill>
+		<skill id="tactics"><random min="603" max="750"/></skill>
+		<skill id="wrestling"><random min="503" max="650"/></skill>
 		<!-- Damage -->
 		<mindamage>8</mindamage>
 		<maxdamage>17</maxdamage>
@@ -44,10 +44,10 @@
 		<category>Monsters\Insects\Giant Scorpion</category>
 		<strproperty name="slayer_group" value="scorpions" />
 		<intproperty name="carve_meat" value="1" />
-		
+
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="5" />
-		
+
 		<backpack>
 			<item id="potion_lesserpoison" />
 		</backpack>

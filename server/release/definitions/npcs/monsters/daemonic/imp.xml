@@ -20,12 +20,12 @@
 		<int><random min="86" max="110"/></int>
 		<maxhitpoints><random min="55" max="69" /></maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="401" max="440"/></wrestling>
-		<tactics><random min="421" max="500"/></tactics>
-		<magicresistance><random min="301" max="500"/></magicresistance>
-		<magery><random min="901" max="1000"/></magery>
-		<evaluatingintelligence><random min="201" max="300"/></evaluatingintelligence>
-		<meditation>0</meditation>
+		<skill id="wrestling"><random min="401" max="440"/></skill>
+		<skill id="tactics"><random min="421" max="500"/></skill>
+		<skill id="magicresistance"><random min="301" max="500"/></skill>
+		<skill id="magery"><random min="901" max="1000"/></skill>
+		<skill id="evaluatingintelligence"><random min="201" max="300"/></skill>
+		<skill id="meditation">0</skill>
 		<mintaming>831</mintaming>
 		<!-- Damage -->
 		<mindamage>15</mindamage>

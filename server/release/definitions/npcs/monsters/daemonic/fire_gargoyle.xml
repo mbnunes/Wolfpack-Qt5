@@ -20,13 +20,13 @@
 		<int><random min="226" max="250"/></int>
 		<maxhitpoints><random min="211" max="240" /></maxhitpoints>
 		<!-- Skills -->
-		<anatomy><random min="751" max="850"/></anatomy>
-		<evaluatingintelligence><random min="901" max="1050"/></evaluatingintelligence>
-		<magery><random min="901" max="1050"/></magery>
-		<meditation><random min="901" max="1050"/></meditation>
-		<magicresistance><random min="901" max="1050"/></magicresistance>
-		<tactics><random min="801" max="1000"/></tactics>
-		<wrestling><random min="401" max="800"/></wrestling>
+		<skill id="anatomy"><random min="751" max="850"/></skill>
+		<skill id="evaluatingintelligence"><random min="901" max="1050"/></skill>
+		<skill id="magery"><random min="901" max="1050"/></skill>
+		<skill id="meditation"><random min="901" max="1050"/></skill>
+		<skill id="magicresistance"><random min="901" max="1050"/></skill>
+		<skill id="tactics"><random min="801" max="1000"/></skill>
+		<skill id="wrestling"><random min="401" max="800"/></skill>
 		<!-- Damage -->
 		<mindamage>22</mindamage>
 		<maxdamage>45</maxdamage>
@@ -41,7 +41,7 @@
 		<!-- Missing: Level 1 Map -->
 		<lootpacks>lootpack_rich;gems</lootpacks>
 		<category>Monsters\Daemonic\Fire Gargoyle</category>
-		
+
 		<intproperty name="carve_meat" value="1" />
 		<ai>Monster_Mage</ai>
 	</npc>

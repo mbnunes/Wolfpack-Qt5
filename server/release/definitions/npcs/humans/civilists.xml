@@ -51,7 +51,7 @@
 		<skill id="magery">0</skill>
 		<skill id="evaluatingintelligence">0</skill>
 		<skill id="meditation">0</skill>
-		<skill id="magicresist">0</skill>
+		<skill id="magicresistance">0</skill>
 		<skill id="tactics">0</skill>
 		<skill id="wrestling">0</skill>
 		<skill id="swordsmanship">0</skill>
@@ -93,7 +93,7 @@
 		<skill id="magery">0</skill>
 		<skill id="evaluatingintelligence">0</skill>
 		<skill id="meditation">0</skill>
-		<skill id="magicresist">0</skill>
+		<skill id="magicresistance">0</skill>
 		<skill id="tactics">0</skill>
 		<skill id="wrestling">0</skill>
 		<skill id="swordsmanship">0</skill>

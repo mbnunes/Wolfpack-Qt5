@@ -55,7 +55,7 @@
 		<tag name="res_energy" value="100" type="int" />
 		<!-- Skills -->
 		<skill id="parrying">1200</skill>
-		<skill id="magicresist">1200</skill>
+		<skill id="magicresistance">1200</skill>
 		<skill id="tactics">1200</skill>
 		<skill id="wrestling">1200</skill>
 		<skill id="swordsmanship">1200</skill>
@@ -98,7 +98,7 @@
 		<tag name="res_energy" value="100" type="int" />
 		<!-- Skills -->
 		<skill id="parrying">1200</skill>
-		<skill id="magicresist">1200</skill>
+		<skill id="magicresistance">1200</skill>
 		<skill id="tactics">1200</skill>
 		<skill id="wrestling">1200</skill>
 		<skill id="swordsmanship">1200</skill>

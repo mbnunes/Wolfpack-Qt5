@@ -22,9 +22,9 @@
 		<int><random min="86" max="110"/></int>
 		<maxhitpoints><random min="67" max="87"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="701" max="850"/></magicresistance>
-		<swordsmanship><random min="701" max="950"/></swordsmanship>
-		<tactics><random min="851" max="1000"/></tactics>
+		<skill id="magicresistance"><random min="701" max="850"/></skill>
+		<skill id="swordsmanship"><random min="701" max="950"/></skill>
+		<skill id="tactics"><random min="851" max="1000"/></skill>
 		<!-- Damage -->
 		<mindamage>11</mindamage>
 		<maxdamage>31</maxdamage>

@@ -305,7 +305,7 @@
 		<dexchance>0.25</dexchance>
 		<intchance>0.5</intchance>
 		<gainchance>1.0</gainchance>
-		<defname>MAGICRESIST</defname>
+		<defname>MAGICRESISTANCE</defname>
 		<name>Magic Resist</name>
 		<title>Mage</title>
 	</skill>

@@ -21,9 +21,9 @@
 		<int><random min="13" max="85"/></int>
 		<maxhitpoints><random min="48" max="67" /></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="451" max="600"/></magicresistance>
-		<tactics><random min="401" max="550"/></tactics>
-		<wrestling><random min="301" max="400"/></wrestling>
+		<skill id="magicresistance"><random min="451" max="600"/></skill>
+		<skill id="tactics"><random min="401" max="550"/></skill>
+		<skill id="wrestling"><random min="301" max="400"/></skill>
 		<mintaming>711</mintaming>
 		<!-- Damage -->
 		<mindamage>9</mindamage>
@@ -38,7 +38,7 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Daemonic\Hellcat (Small)</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<intproperty name="carve_hides_type" value="spined" />

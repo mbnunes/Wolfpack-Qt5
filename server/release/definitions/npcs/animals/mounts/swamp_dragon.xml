@@ -34,7 +34,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="451" max="550" /></skill>
 		<skill id="tactics"><random min="451" max="550" /></skill>
-		<skill id="magicresist"><random min="451" max="550" /></skill>
+		<skill id="magicresistance"><random min="451" max="550" /></skill>
 		<skill id="anatomy"><random min="451" max="550" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
@@ -90,7 +90,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="751" max="950" /></skill>
 		<skill id="tactics"><random min="751" max="950" /></skill>
-		<skill id="magicresist"><random min="751" max="950" /></skill>
+		<skill id="magicresistance"><random min="751" max="950" /></skill>
 		<skill id="anatomy"><random min="751" max="950" /></skill>
 		<!-- Misc. -->
 		<category>Animals\Mounts\Armored Swamp Dragon (Strong)</category>

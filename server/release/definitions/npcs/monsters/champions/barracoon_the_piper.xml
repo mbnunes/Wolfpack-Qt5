@@ -22,7 +22,7 @@
 		<maxhitpoints>42000</maxhitpoints>
 		<maxstamina><random min="102" max="300" /></maxstamina>
 		<!-- Skills -->
-		<skill id="magicresist">1000</skill>
+		<skill id="magicresistance">1000</skill>
 		<skill id="tactics"><random min="976" max="1000"/></skill>
 		<skill id="wrestling"><random min="976" max="1000"/></skill>
 		<!-- Damage -->

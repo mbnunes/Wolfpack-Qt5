@@ -20,13 +20,13 @@
 		<int><random min="201" max="250" /></int>
 		<maxhitpoints><random min="13" max="18" /></maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="101" max="125"/></wrestling>
-		<tactics><random min="101" max="200"/></tactics>
-		<magicresistance><random min="1005" max="1500"/></magicresistance>
-		<anatomy>0</anatomy>
-		<magery><random min="901" max="1000"/></magery>
-		<evaluatingintelligence><random min="901" max="1000"/></evaluatingintelligence>
-		<meditation><random min="901" max="1000" /></meditation>
+		<skill id="wrestling"><random min="101" max="125"/></skill>
+		<skill id="tactics"><random min="101" max="200"/></skill>
+		<skill id="magicresistance"><random min="1005" max="1500"/></skill>
+		<skill id="anatomy">0</skill>
+		<skill id="magery"><random min="901" max="1000"/></skill>
+		<skill id="evaluatingintelligence"><random min="901" max="1000"/></skill>
+		<skill id="meditation"><random min="901" max="1000" /></skill>
 		<!-- Damage -->
 		<mindamage>11</mindamage>
 		<maxdamage>17</maxdamage>
@@ -42,7 +42,7 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
 		<category>Monsters\Common\Pixie</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="5" />
 		<strproperty name="carve_hides_type" value="spined" />

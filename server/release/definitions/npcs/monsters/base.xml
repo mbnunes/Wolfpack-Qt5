@@ -24,7 +24,7 @@
 		<!-- Skills -->
 		<skill id="wrestling">0</skill>
 		<skill id="tactics">0</skill>
-		<skill id="magicresist">0</skill>
+		<skill id="magicresistance">0</skill>
 		<skill id="anatomy">0</skill>
 		<!-- Misc -->
 		<wandertype>1</wandertype>

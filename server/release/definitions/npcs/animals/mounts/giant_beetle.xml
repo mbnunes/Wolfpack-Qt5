@@ -32,7 +32,7 @@
 		<!-- Skills -->
 		<skill id="wrestling">1000</skill>
 		<skill id="tactics">1000</skill>
-		<skill id="magicresist">800</skill>
+		<skill id="magicresistance">800</skill>
 		<!-- Misc. -->
 		<controlslots>3</controlslots>
 		<mintaming>291</mintaming>

@@ -22,7 +22,7 @@
 		<!-- Animals should at least have 0 skill and be able to gain. -->
 		<skill id="wrestling">0</skill>
 		<skill id="tactics">0</skill>
-		<skill id="magicresist">0</skill>
+		<skill id="magicresistance">0</skill>
 		<skill id="anatomy">0</skill>
 	</npc>
 

@@ -31,7 +31,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="293" max="440" /></skill>
 		<skill id="tactics"><random min="253" max="400" /></skill>
-		<skill id="magicresist"><random min="251" max="300" /></skill>
+		<skill id="magicresistance"><random min="251" max="300" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
@@ -65,7 +65,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="293" max="440" /></skill>
 		<skill id="tactics"><random min="293" max="440" /></skill>
-		<skill id="magicresist"><random min="271" max="320" /></skill>
+		<skill id="magicresistance"><random min="271" max="320" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
@@ -101,7 +101,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="793" max="940" /></skill>
 		<skill id="tactics"><random min="793" max="940" /></skill>
-		<skill id="magicresist"><random min="751" max="800" /></skill>
+		<skill id="magicresistance"><random min="751" max="800" /></skill>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>771</mintaming>

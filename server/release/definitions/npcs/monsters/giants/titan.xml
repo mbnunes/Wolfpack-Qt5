@@ -20,12 +20,12 @@
 		<int><random min="281" max="305"/></int>
 		<maxhitpoints><random min="322" max="351"/></maxhitpoints>
 		<!-- Skills -->
-		<evaluatingintelligence><random min="851" max="1000"/></evaluatingintelligence>
-		<magery><random min="851" max="1000"/></magery>
-		<magicresistance><random min="802" max="1100"/></magicresistance>
-		<tactics><random min="601" max="800"/></tactics>
-		<wrestling><random min="401" max="500"/></wrestling>
-		<meditation>0</meditation>
+		<skill id="evaluatingintelligence"><random min="851" max="1000"/></skill>
+		<skill id="magery"><random min="851" max="1000"/></skill>
+		<skill id="magicresistance"><random min="802" max="1100"/></skill>
+		<skill id="tactics"><random min="601" max="800"/></skill>
+		<skill id="wrestling"><random min="401" max="500"/></skill>
+		<skill id="meditation">0</skill>
 		<!-- Damage -->
 		<mindamage>41</mindamage>
 		<maxdamage>50</maxdamage>
@@ -40,7 +40,6 @@
 		<!-- Missing: 1-7CS, Food -->
 		<lootpacks>lootpack_filthy_rich;gems</lootpacks>
 		<category>Monsters\Giants\Titan</category>
-		
 		<intproperty name="carve_meat" value="4" />
 		<ai>Monster_Mage</ai>
 	</npc>

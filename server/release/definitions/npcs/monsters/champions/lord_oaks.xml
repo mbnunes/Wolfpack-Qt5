@@ -22,7 +22,7 @@
 		<!-- Skills -->
 		<skill id="wrestling"><random min="1000" max="1000"/></skill>
 		<skill id="tactics"><random min="1000" max="1000"/></skill>
-		<skill id="magicresist"><random min="1005" max="1500"/></skill>
+		<skill id="magicresistance"><random min="1005" max="1500"/></skill>
 		<skill id="anatomy"><random min="751" max="1000"/></skill>
 		<skill id="magery"><random min="1200" max="1200"/></skill>
 		<skill id="evaluatingintelligence"><random min="1201" max="1300"/></skill>

@@ -20,14 +20,13 @@
 		<int><random min="301" max="350"/></int>
 		<maxhitpoints><random min="101" max="115"/></maxhitpoints>
 		<!-- Skills -->
-		<magicresistance><random min="851" max="950"/></magicresistance>
-		<tactics><random min="701" max="800"/></tactics>
-		<wrestling><random min="601" max="800"/></wrestling>
-		<magery><random min="801" max="900"/></magery>
-		<evaluatingintelligence><random min="701" max="800"/></evaluatingintelligence>
-		<meditation><random min="701" max="800"/></meditation>
+		<skill id="magicresistance"><random min="851" max="950"/></skill>
+		<skill id="tactics"><random min="701" max="800"/></skill>
+		<skill id="wrestling"><random min="601" max="800"/></skill>
+		<skill id="magery"><random min="801" max="900"/></skill>
+		<skill id="evaluatingintelligence"><random min="701" max="800"/></skill>
+		<skill id="meditation"><random min="701" max="800"/></skill>
 		<ai>Monster_Mage</ai>
-		
 		<!-- Damage -->
 		<mindamage>23</mindamage>
 		<maxdamage>31</maxdamage>
