@@ -40,6 +40,7 @@
 		<!-- Misc. -->
 		<carve>carve_demon_with_sword</carve>
 		<category>Monsters\Daemonic\Exodus Daemon</category>
+		<lootpacks>lootpack_filthy_rich;gold_super_boss;gold_super_boss</lootpacks>
 	</npc>
 
 </definitions>

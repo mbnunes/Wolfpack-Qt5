@@ -10,185 +10,222 @@
 	<multi id="4064">
 		<name>Small Stone and Plaster House</name>
 		<id>0x4064</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4065">
 		<name>Small Stone and Plaster House</name>
 		<id>0x4065</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4066">
 		<name>Small Fieldstone House</name>
 		<id>0x4066</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4067">
 		<name>Small Fieldstone House</name>
 		<id>0x4067</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4068">
 		<name>Small Brick House</name>
 		<id>0x4068</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4069">
 		<name>Small Brick House</name>
 		<id>0x4069</id>
+		<nodecay />
 	</multi>
 
 	<multi id="406a">
 		<name>Small Wood House</name>
 		<id>0x406a</id>
+		<nodecay />
 	</multi>
 
 	<multi id="406c">
 		<name>Small Wood and Plaster House</name>
 		<id>0x406c</id>
+		<nodecay />
 	</multi>
 
 	<multi id="406d">
 		<name>Small Wood and Plaster House</name>
 		<id>0x406d</id>
+		<nodecay />
 	</multi>
 
 	<multi id="406e">
 		<name>Small Thatched Roof Cottage</name>
 		<id>0x406e</id>
+		<nodecay />
 	</multi>
 
 	<multi id="406f">
 		<name>Small Thatched Roof Cottage</name>
 		<id>0x406f</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4070">
 		<name>Blue Tent</name>
 		<id>0x4070</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4071">
 		<name>Blue Tent</name>
 		<id>0x4071</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4072">
 		<name>Green Tent</name>
 		<id>0x4072</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4073">
 		<name>Blue Tent</name>
 		<id>0x4073</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4074">
 		<name>Large Brick House</name>
 		<id>0x4074</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4075">
 		<name>Large Brick House</name>
 		<id>0x4075</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4076">
 		<name>Two Story Wood and Plaster House</name>
 		<id>0x4076</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4077">
 		<name>Two Story Wood and Plaster House</name>
 		<id>0x4077</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4078">
 		<name>Two Story Stone and Plaster House</name>
 		<id>0x4078</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4079">
 		<name>Two Story Stone and Plaster House</name>
 		<id>0x4079</id>
+		<nodecay />
 	</multi>
 
 	<multi id="407a">
 		<name>Large Tower</name>
 		<id>0x407a</id>
+		<nodecay />
 	</multi>
 
 	<multi id="407b">
 		<name>Large Tower</name>
 		<id>0x407b</id>
+		<nodecay />
 	</multi>
 
 	<multi id="407c">
 		<name>Stone Keep</name>
 		<id>0x407c</id>
+		<nodecay />
 	</multi>
 
 	<multi id="407d">
 		<name>Stone Keep</name>
 		<id>0x407d</id>
+		<nodecay />
 	</multi>
 
 	<multi id="407e">
 		<name>Castle</name>
 		<id>0x407e</id>
+		<nodecay />
 	</multi>
 
 	<multi id="407f">
 		<name>Castle</name>
 		<id>0x407f</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4096">
 		<name>Large Marbel Patio House</name>
 		<id>0x4096</id>
+		<nodecay />
 	</multi>
 
 	<multi id="4098">
 		<name>Small Tower</name>
 		<id>0x4098</id>
+		<nodecay />
 	</multi>
 
 	<multi id="409a">
 		<name>Log Cabin</name>
 		<id>0x409a</id>
+		<nodecay />
 	</multi>
 
 	<multi id="409c">
 		<name>Sandstone Patio House</name>
 		<id>0x409c</id>
+		<nodecay />
 	</multi>
 
 	<multi id="409e">
 		<name>Two-Story Villa</name>
 		<id>0x409e</id>
+		<nodecay />
 	</multi>
 
 	<multi id="40a0">
 		<name>Small Stone Workshop</name>
 		<id>0x40a0</id>
+		<nodecay />
 	</multi>
 
 	<multi id="40a2">
 		<name>Small Marble Workshop</name>
 		<id>0x40a2</id>
+		<nodecay />
 	</multi>
 
 	<multi id="41f4">
 		<name>Wandering Healer Camp</name>
 		<id>0x41f4</id>
+		<nodecay />
 	</multi>
 
 	<multi id="41f5">
 		<name>Wandering Mage Camp</name>
 		<id>0x41f5</id>
+		<nodecay />
 	</multi>
 
 	<multi id="41f6">
 		<name>Wandering Bank Camp</name>
 		<id>0x41f6</id>
+		<nodecay />
 	</multi>
 </definitions>

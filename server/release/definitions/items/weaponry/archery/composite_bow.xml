@@ -11,14 +11,14 @@
 	<!-- Composite Bow -->
 	<item id="26c2">
 		<id>0x26c2</id>
-		<bindmenu id="item_menu"/>
+		<bindmenu>item_menu</bindmenu>
 		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>28</sellprice>
 		<buyprice>56</buyprice>
 		<durability><random min="30" max="70" /></durability>
-		<weight>7.0</weight>
+		<weight>5.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1006</type>
 		<category>Weapons\Bows\Composite Bow (N/S)</category>
