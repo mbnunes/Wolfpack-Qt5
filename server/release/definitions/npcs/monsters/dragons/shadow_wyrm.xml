@@ -4,27 +4,37 @@
 	<!-- shadow wyrm -->
 	<npc id="shadow_wyrm">
 		<name>a shadow wyrm</name>
-		<id>0x6A</id>
-		<category>Monsters\Dragons\Shadow Wyrm</category>
-		<skin>0</skin>
+		<id>0x6a</id>
 		<inherit id="monster_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense><random min="65" max="75" /></defense>
-		<lodamage>130</lodamage>
-		<hidamage>165</hidamage>
+		<karma>-22500</karma>
+		<fame>22500</fame>
 		<gold><random min="800" max="1100"/></gold>
 		<!-- Stats -->
-		<str><random min="898" max="1030" /></str>
-		<dex><random min="68" max="200" /></dex>
-		<int><random min="488" max="620" /></int>
+		<str><random min="898" max="1030"/></str>
+		<dex><random min="68" max="200"/></dex>
+		<int><random min="801" max="1000"/></int>
 		<!-- Skills -->
-		<wrestling><random min="976" max="1000" /></wrestling>
-		<tactics><random min="976" max="1000" /></tactics>
-		<magicresistance><random min="1003" max="1300" /></magicresistance>
-		<magery><random min="801" max="1000" /></magery>
-		<evaluatingintel><random min="801" max="1000" /></evaluatingintel>
-		<meditation><random min="525" max="750" /></meditation>
+		<evaluatingintel><random min="801" max="1000"/></evaluatingintel>
+		<magery><random min="801" max="1000"/></magery>
+		<meditation><random min="525" max="750"/></meditation>
+		<magicresistance><random min="1003" max="1300"/></magicresistance>
+		<tactics><random min="976" max="1000"/></tactics>
+		<wrestling><random min="976" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>29</lodamage>
+		<hidamage>35</hidamage>
+		<colddamage>25</colddamage>
+		<physicaldamage>75</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="65" max="75" /></defense>
+		<coldresist><random min="45" max="55"/></coldresist>
+		<energyresist><random min="50" max="60"/></energyresist>
+		<fireresist><random min="50" max="60"/></fireresist>
+		<physicalresist><random min="65" max="75"/></physicalresist>
+		<poisonresist><random min="20" max="30"/></poisonresist>
+		<!-- Misc. -->
+		<desc>Much like the other members of its species, the Shadow Wyrm is an extraordinarily intelligent creature with an incredible fighting ability and a wicked arsenal of magic spells at its disposal. Many believe that these mighty draconic creatures once practiced a dark and evil magic in Britannia, but were banished to the realm of shadows for their misdeeds. Banished, but not defeated, they remain forever bound to the world in shadow-form.</desc>
+		<category>Monsters\Dragons\Shadow Wyrm</category>
 	</npc>
 
 </definitions>

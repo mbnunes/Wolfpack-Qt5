@@ -4,27 +4,36 @@
 	<!-- serpentine dragon -->
 	<npc id="serpentine_dragon">
 		<name>a serpentine dragon</name>
-		<id>0x67</id>
-		<category>Monsters\Dragons\Serpentine Dragon</category>
-		<skin>0</skin>
+		<id>0xac</id>
 		<inherit id="monster_base" />
-		<karma><random min="5000" max="9999" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense><random min="35" max="40" /></defense>
-		<lodamage>9</lodamage>
-		<hidamage>20</hidamage>
+		<karma>15000</karma>
+		<fame>15000</fame>
 		<gold><random min="700" max="900"/></gold>
 		<!-- Stats -->
-		<str><random min="111" max="140" /></str>
-		<dex><random min="201" max="220" /></dex>
-		<int><random min="1001" max="1040" /></int>
+		<str><random min="111" max="140"/></str>
+		<dex><random min="201" max="220"/></dex>
+		<int><random min="1001" max="1100"/></int>
 		<!-- Skills -->
-		<wrestling><random min="301" max="1000" /></wrestling>
-		<tactics><random min="501" max="600" /></tactics>
-		<magicresistance>1000</magicresistance>
-		<magery><random min="1101" max="1200" /></magery>
-		<evaluatingintel><random min="1001" max="1100" /></evaluatingintel>
+		<evaluatingintel><random min="1001" max="1100"/></evaluatingintel>
+		<magery><random min="1101" max="1200"/></magery>
 		<meditation>1000</meditation>
+		<magicresistance>1000</magicresistance>
+		<tactics><random min="501" max="600"/></tactics>
+		<wrestling><random min="301" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>12</hidamage>
+		<physicaldamage>75</physicaldamage>
+		<poisondamage>25</poisondamage>
+		<!-- Resists -->
+		<defense><random min="35" max="40" /></defense>
+		<coldresist><random min="25" max="35"/></coldresist>
+		<energyresist><random min="25" max="35"/></energyresist>
+		<fireresist><random min="25" max="35"/></fireresist>
+		<physicalresist><random min="35" max="40"/></physicalresist>
+		<poisonresist><random min="25" max="35"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Dragons\Serpentine Dragon</category>
 	</npc>
 
 </definitions>

@@ -4,27 +4,37 @@
 	<!-- an ancient wyrm -->
 	<npc id="ancient_wyrm">
 		<name>an ancient wyrm</name>
-		<id>0x2e</id>
-		<category>Monsters\Dragons\Ancient Wyrm </category>
+		<id>0x69</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-10000" max="-15000"/></karma>
-		<fame><random min="10000" max="15000"/></fame>
-		<defense><random min="65" max="75"/></defense>
-		<lodamage>146</lodamage>
-		<hidamage>182</hidamage>
+		<karma>-22500</karma>
+		<fame>22500</fame>
 		<gold><random min="700" max="1100"/></gold>
 		<!-- Stats -->
 		<str><random min="1096" max="1185"/></str>
 		<dex><random min="86" max="175"/></dex>
-		<int><random min="686" max="775"/></int>
+		<int><random min="801" max="1000"/></int>
 		<!-- Skills -->
-		<wrestling><random min="976" max="1000"/></wrestling>
-		<tactics><random min="976" max="1000"/></tactics>
+		<evaluatingintel><random min="801" max="1000"/></evaluatingintel>
+		<magery><random min="801" max="1000"/></magery>
+		<meditation><random min="525" max="750"/></meditation>
 		<magicresistance><random min="1005" max="1500"/></magicresistance>
-		<magery><random min="801" max="1000" /></magery>
-		<meditation><random min="801" max="1000" /></meditation>
-		<evaluatingintel><random min="525" max="750" /></evaluatingintel>
-		<carve></carve>
+		<tactics><random min="976" max="1000"/></tactics>
+		<wrestling><random min="976" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>29</lodamage>
+		<hidamage>35</hidamage>
+		<firedamage>25</firedamage>
+		<physicaldamage>75</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="65" max="75"/></defense>
+		<coldresist><random min="70" max="80"/></coldresist>
+		<energyresist><random min="60" max="70"/></energyresist>
+		<fireresist><random min="80" max="90"/></fireresist>
+		<physicalresist><random min="65" max="75"/></physicalresist>
+		<poisonresist><random min="60" max="70"/></poisonresist>
+		<!-- Misc. -->
+		<desc>The eldest of the Draconian race are rarely seen by any other than drake eyes. Ancient in origin, the wizened Elder is said to long forthe days when the reptile was the guardian of the land now known as Britannia. Patience is not a virtue of the Elder Wyrm, and disturbing one may lead to a quick death. Death, of course, being the quickest way for these ancient ones to be rid of the intruder and get back to their studies.</desc>
+		<category>Monsters\Dragons\Ancient Wyrm</category>
 	</npc>
 
 </definitions>

@@ -4,25 +4,35 @@
 	<!-- wyvern -->
 	<npc id="wyvern">
 		<name>a wyvern</name>
-		<id>0x3E</id>
-		<category>Monsters\Dragons\Wyrvern</category>
-		<skin>0</skin>
+		<id>0x3e</id>
 		<inherit id="monster_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="35" max="45" /></defense>
-		<lodamage>20</lodamage>
-		<hidamage>43</hidamage>
-		<!-- Stats -->
-		<str><random min="202" max="240" /></str>
-		<dex><random min="153" max="172" /></dex>
-		<int><random min="51" max="90" /></int>
+		<karma>-4000</karma>
+		<fame>4000</fame>
 		<gold><random min="100" max="130"/></gold>
+		<!-- Stats -->
+		<str><random min="202" max="240"/></str>
+		<dex><random min="153" max="172"/></dex>
+		<int><random min="51" max="90"/></int>
 		<!-- Skills -->
 		<wrestling><random min="651" max="800" /></wrestling>
 		<tactics><random min="651" max="900" /></tactics>
 		<magicresistance><random min="651" max="800" /></magicresistance>
 		<poisoning><random min="601" max="800" /></poisoning>
+		<!-- Damage -->
+		<lodamage>8</lodamage>
+		<hidamage>19</hidamage>
+		<physicaldamage>50</physicaldamage>
+		<poisondamage>50</poisondamage>
+		<!-- Resists -->
+		<defense><random min="35" max="45" /></defense>
+		<coldresist><random min="20" max="30"/></coldresist>
+		<energyresist><random min="30" max="40"/></energyresist>
+		<fireresist><random min="30" max="40"/></fireresist>
+		<physicalresist><random min="35" max="45"/></physicalresist>
+		<poisonresist><random min="90" max="100"/></poisonresist>
+		<!-- Misc. -->
+		<desc>The dragon scorpion, as it is known to humans, is more than a scorpion, but less than a dragon. Lacking the spells and fearsome fire hurling abilities of the dragon, a wyvern retains the power of flight and adds a scorpion sting. Their poison can kill a hearty person inminutes.</desc>
+		<category>Monsters\Dragons\Wyrvern</category>
 	</npc>
 
 </definitions>
