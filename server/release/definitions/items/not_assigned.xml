@@ -2,6 +2,23 @@
 	These items are not available ingame.
 -->
 <definitions>
+	<!-- Duplicate ("Nightstand") -->
+	<item id="b36">
+		<id>0x0b36</id>
+	</item>
+
+	<item id="b39">
+		<id>0x0b39</id>
+	</item>
+
+	<item id="b3a">
+		<id>0x0b3a</id>
+	</item>
+
+	<item id="b3c">
+		<id>0x0b3c</id>
+	</item>
+
 	<!-- Duplicate Item -->
 	<item id="a64">
 		<id>0x0a64</id>

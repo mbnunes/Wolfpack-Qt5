@@ -1,0 +1,32 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Decoration for specific professions                           |
+=================================================================
+-->
+<definitions>
+	<!-- Water Trough -->
+	<item id="b41">
+		<id>0x0b41</id>
+		<category>Decoration\Professions\Stablemaster\Water Trough (N/S) (1/2)</category>
+	</item>
+
+	<item id="b42">
+		<id>0x0b42</id>
+		<category>Decoration\Professions\Stablemaster\Water Trough (N/S) (2/2)</category>
+	</item>
+
+	<item id="b43">
+		<id>0x0b43</id>
+		<category>Decoration\Professions\Stablemaster\Water Trough (W/E) (1/2)</category>
+	</item>
+
+	<item id="b44">
+		<id>0x0b44</id>
+		<category>Decoration\Professions\Stablemaster\Water Trough (W/E) (2/2)</category>
+	</item>
+</definitions>

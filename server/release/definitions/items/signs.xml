@@ -1,0 +1,575 @@
+f<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Signs and Sign Posts                                          |
+=================================================================
+-->
+<definitions>
+	<item id="b95">
+		<id>0x0b95</id>
+		<category>Signs\Vendor Signs\Library (N/S)</category>
+	</item>
+
+	<item id="b96">
+		<id>0x0b96</id>
+		<category>Signs\Vendor Signs\Library (W/E)</category>
+	</item>
+
+	<item id="b97">
+		<id>0x0b97</id>
+		<category>Signs\Sign Posts\Wooden Signpost 1 (N/S)</category>
+	</item>
+
+	<item id="b98">
+		<id>0x0b98</id>
+		<category>Signs\Sign Posts\Wooden Signpost 1 (W/E)</category>
+	</item>
+
+	<item id="b99">
+		<id>0x0b99</id>
+		<category>Signs\Sign Posts\Wooden Signpost 2 (N/S)</category>
+	</item>
+
+	<item id="b9a">
+		<id>0x0b9a</id>
+		<category>Signs\Sign Posts\Wooden Signpost 2 (W/E)</category>
+	</item>
+
+	<item id="b9b">
+		<id>0x0b9b</id>
+		<category>Signs\Sign Posts\Metal Signpost 1 (N/S)</category>
+	</item>
+
+	<item id="b9c">
+		<id>0x0b9c</id>
+		<category>Signs\Sign Posts\Metal Signpost 1 (W/E)</category>
+	</item>
+
+	<item id="b9d">
+		<id>0x0b9d</id>
+		<category>Signs\Sign Posts\Metal Signpost 2 (N/S)</category>
+	</item>
+
+	<item id="b9e">
+		<id>0x0b9e</id>
+		<category>Signs\Sign Posts\Metal Signpost 2 (W/E)</category>
+	</item>
+
+	<item id="b9f">
+		<id>0x0b9f</id>
+		<category>Signs\Sign Posts\Metal Signpost 3 (N/S)</category>
+	</item>
+
+	<item id="ba0">
+		<id>0x0ba0</id>
+		<category>Signs\Sign Posts\Metal Signpost 3 (W/E)</category>
+	</item>
+
+	<item id="ba1">
+		<id>0x0ba1</id>
+		<category>Signs\Sign Posts\Metal Signpost 4 (N/S)</category>
+	</item>
+
+	<item id="ba2">
+		<id>0x0ba2</id>
+		<category>Signs\Sign Posts\Metal Signpost 4 (W/E)</category>
+	</item>
+
+	<item id="ba3">
+		<id>0x0ba3</id>
+		<category>Signs\Vendor Signs\Bakery (N/S)</category>
+	</item>
+
+	<item id="ba4">
+		<id>0x0ba4</id>
+		<category>Signs\Vendor Signs\Bakery (W/E)</category>
+	</item>
+
+	<item id="ba5">
+		<id>0x0ba5</id>
+		<category>Signs\Vendor Signs\Tailor (N/S)</category>
+	</item>
+
+	<item id="ba6">
+		<id>0x0ba6</id>
+		<category>Signs\Vendor Signs\Tailor (W/E)</category>
+	</item>
+
+	<item id="ba7">
+		<id>0x0ba7</id>
+		<category>Signs\Vendor Signs\Tinker (N/S)</category>
+	</item>
+
+	<item id="ba8">
+		<id>0x0ba8</id>
+		<category>Signs\Vendor Signs\Tinker (W/E)</category>
+	</item>
+
+	<item id="ba9">
+		<id>0x0ba9</id>
+		<category>Signs\Vendor Signs\Butcher (N/S)</category>
+	</item>
+
+	<item id="baa">
+		<id>0x0baa</id>
+		<category>Signs\Vendor Signs\Butcher (W/E)</category>
+	</item>
+
+	<item id="bab">
+		<id>0x0bab</id>
+		<category>Signs\Vendor Signs\Healer (N/S)</category>
+	</item>
+
+	<item id="bac">
+		<id>0x0bac</id>
+		<category>Signs\Vendor Signs\Healer (W/E)</category>
+	</item>
+
+	<item id="bad">
+		<id>0x0bad</id>
+		<category>Signs\Vendor Signs\Mage (N/S)</category>
+	</item>
+
+	<item id="bae">
+		<id>0x0bae</id>
+		<category>Signs\Vendor Signs\Healer (W/E)</category>
+	</item>
+
+	<item id="baf">
+		<id>0x0baf</id>
+		<category>Signs\Vendor Signs\Woodworker (N/S)</category>
+	</item>
+
+	<item id="bb0">
+		<id>0x0bb0</id>
+		<category>Signs\Vendor Signs\Woodworker (W/E)</category>
+	</item>
+
+	<item id="bb1">
+		<id>0x0bb1</id>
+		<category>Signs\Vendor Signs\Customs (N/S)</category>
+	</item>
+
+	<item id="bb2">
+		<id>0x0bb2</id>
+		<category>Signs\Vendor Signs\Customs (W/E)</category>
+	</item>
+
+	<item id="bb3">
+		<id>0x0bb3</id>
+		<category>Signs\Vendor Signs\Inn (N/S)</category>
+	</item>
+
+	<item id="bb4">
+		<id>0x0bb4</id>
+		<category>Signs\Vendor Signs\Inn (W/E)</category>
+	</item>
+
+	<item id="bb5">
+		<id>0x0bb5</id>
+		<category>Signs\Vendor Signs\Shipwright (N/S)</category>
+	</item>
+
+	<item id="bb6">
+		<id>0x0bb6</id>
+		<category>Signs\Vendor Signs\Shipwright (W/E)</category>
+	</item>
+
+	<item id="bb7">
+		<id>0x0bb7</id>
+		<category>Signs\Vendor Signs\Stables (N/S)</category>
+	</item>
+
+	<item id="bb8">
+		<id>0x0bb8</id>
+		<category>Signs\Vendor Signs\Stables (W/E)</category>
+	</item>
+
+	<item id="bb9">
+		<id>0x0bb9</id>
+		<category>Signs\Vendor Signs\Barber Shop (N/S)</category>
+	</item>
+
+	<item id="bba">
+		<id>0x0bba</id>
+		<category>Signs\Vendor Signs\Barber Shop (W/E)</category>
+	</item>
+
+	<item id="bbb">
+		<id>0x0bbb</id>
+		<category>Signs\Vendor Signs\Bard (N/S)</category>
+	</item>
+
+	<item id="bbc">
+		<id>0x0bbc</id>
+		<category>Signs\Vendor Signs\Bard (W/E)</category>
+	</item>
+
+	<item id="bbd">
+		<id>0x0bbd</id>
+		<category>Signs\Vendor Signs\Fletcher (N/S)</category>
+	</item>
+
+	<item id="bbe">
+		<id>0x0bbe</id>
+		<category>Signs\Vendor Signs\Fletcher (W/E)</category>
+	</item>
+
+	<item id="bbf">
+		<id>0x0bbf</id>
+		<category>Signs\Vendor Signs\Armourer (N/S)</category>
+	</item>
+
+	<item id="bc0">
+		<id>0x0bc0</id>
+		<category>Signs\Vendor Signs\Armourer (W/E)</category>
+	</item>
+
+	<item id="bc1">
+		<id>0x0bc1</id>
+		<category>Signs\Vendor Signs\Jeweler (N/S)</category>
+	</item>
+
+	<item id="bc2">
+		<id>0x0bc2</id>
+		<category>Signs\Vendor Signs\Jeweler (W/E)</category>
+	</item>
+
+	<item id="bc3">
+		<id>0x0bc3</id>
+		<category>Signs\Vendor Signs\Tavern (N/S)</category>
+	</item>
+
+	<item id="bc4">
+		<id>0x0bc4</id>
+		<category>Signs\Vendor Signs\Tavern (W/E)</category>
+	</item>
+
+	<item id="bc5">
+		<id>0x0bc5</id>
+		<category>Signs\Vendor Signs\Reagent Shop (N/S)</category>
+	</item>
+
+	<item id="bc6">
+		<id>0x0bc6</id>
+		<category>Signs\Vendor Signs\Reagent Shop (W/E)</category>
+	</item>
+
+	<item id="bc7">
+		<id>0x0bc7</id>
+		<category>Signs\Vendor Signs\Blacksmith (N/S)</category>
+	</item>
+
+	<item id="bc8">
+		<id>0x0bc8</id>
+		<category>Signs\Vendor Signs\Blacksmith (W/E)</category>
+	</item>
+
+	<item id="bc9">
+		<id>0x0bc9</id>
+		<category>Signs\Vendor Signs\Painter (N/S)</category>
+	</item>
+
+	<item id="bca">
+		<id>0x0bca</id>
+		<category>Signs\Vendor Signs\Painter (W/E)</category>
+	</item>
+
+	<item id="bcb">
+		<id>0x0bcb</id>
+		<category>Signs\Vendor Signs\Provisioner (N/S)</category>
+	</item>
+
+	<item id="bcc">
+		<id>0x0bcc</id>
+		<category>Signs\Vendor Signs\Provisioner (W/E)</category>
+	</item>
+
+	<item id="bcd">
+		<id>0x0bcd</id>
+		<category>Signs\Vendor Signs\Bowyer (N/S)</category>
+	</item>
+
+	<item id="bce">
+		<id>0x0bce</id>
+		<category>Signs\Vendor Signs\Bowyer (W/E)</category>
+	</item>
+
+	<item id="bcf">
+		<id>0x0bcf</id>
+		<category>Signs\Blank Signs\Wooden Sign (N/S)</category>
+	</item>
+
+	<item id="bd0">
+		<id>0x0bd0</id>
+		<category>Signs\Blank Signs\Wooden Sign (W/E)</category>
+	</item>
+
+	<item id="bd1">
+		<id>0x0bd1</id>
+		<category>Signs\Blank Signs\Brass Sign (N/S)</category>
+	</item>
+
+	<item id="bd2">
+		<id>0x0bd2</id>
+		<category>Signs\Blank Signs\Brass Sign (W/E)</category>
+	</item>
+
+	<item id="bd3">
+		<id>0x0bd3</id>
+	</item>
+
+	<item id="bd4">
+		<id>0x0bd4</id>
+	</item>
+
+	<item id="bd5">
+		<id>0x0bd5</id>
+	</item>
+
+	<item id="bd6">
+		<id>0x0bd6</id>
+	</item>
+
+	<item id="bd7">
+		<id>0x0bd7</id>
+	</item>
+
+	<item id="bd8">
+		<id>0x0bd8</id>
+	</item>
+
+	<item id="bd9">
+		<id>0x0bd9</id>
+	</item>
+
+	<item id="bda">
+		<id>0x0bda</id>
+	</item>
+
+	<item id="bdb">
+		<id>0x0bdb</id>
+	</item>
+
+	<item id="bdc">
+		<id>0x0bdc</id>
+	</item>
+
+	<item id="bdd">
+		<id>0x0bdd</id>
+	</item>
+
+	<item id="bde">
+		<id>0x0bde</id>
+	</item>
+
+	<item id="bdf">
+		<id>0x0bdf</id>
+	</item>
+
+	<item id="be0">
+		<id>0x0be0</id>
+	</item>
+
+	<item id="be1">
+		<id>0x0be1</id>
+	</item>
+
+	<item id="be2">
+		<id>0x0be2</id>
+	</item>
+
+	<item id="be3">
+		<id>0x0be3</id>
+	</item>
+
+	<item id="be4">
+		<id>0x0be4</id>
+	</item>
+
+	<item id="be5">
+		<id>0x0be5</id>
+	</item>
+
+	<item id="be6">
+		<id>0x0be6</id>
+	</item>
+
+	<item id="be7">
+		<id>0x0be7</id>
+	</item>
+
+	<item id="be8">
+		<id>0x0be8</id>
+	</item>
+
+	<item id="be9">
+		<id>0x0be9</id>
+	</item>
+
+	<item id="bea">
+		<id>0x0bea</id>
+	</item>
+
+	<item id="beb">
+		<id>0x0beb</id>
+	</item>
+
+	<item id="bec">
+		<id>0x0bec</id>
+	</item>
+
+	<item id="bed">
+		<id>0x0bed</id>
+	</item>
+
+	<item id="bee">
+		<id>0x0bee</id>
+	</item>
+
+	<item id="bef">
+		<id>0x0bef</id>
+	</item>
+
+	<item id="bf0">
+		<id>0x0bf0</id>
+	</item>
+
+	<item id="bf1">
+		<id>0x0bf1</id>
+	</item>
+
+	<item id="bf2">
+		<id>0x0bf2</id>
+	</item>
+
+	<item id="bf3">
+		<id>0x0bf3</id>
+	</item>
+
+	<item id="bf4">
+		<id>0x0bf4</id>
+	</item>
+
+	<item id="bf5">
+		<id>0x0bf5</id>
+	</item>
+
+	<item id="bf6">
+		<id>0x0bf6</id>
+	</item>
+
+	<item id="bf7">
+		<id>0x0bf7</id>
+	</item>
+
+	<item id="bf8">
+		<id>0x0bf8</id>
+	</item>
+
+	<item id="bf9">
+		<id>0x0bf9</id>
+	</item>
+
+	<item id="bfa">
+		<id>0x0bfa</id>
+	</item>
+
+	<item id="bfb">
+		<id>0x0bfb</id>
+	</item>
+
+	<item id="bfc">
+		<id>0x0bfc</id>
+	</item>
+
+	<item id="bfd">
+		<id>0x0bfd</id>
+	</item>
+
+	<item id="bfe">
+		<id>0x0bfe</id>
+	</item>
+
+	<item id="bff">
+		<id>0x0bff</id>
+	</item>
+
+	<item id="c00">
+		<id>0x0c00</id>
+	</item>
+
+	<item id="c01">
+		<id>0x0c01</id>
+	</item>
+
+	<item id="c02">
+		<id>0x0c02</id>
+	</item>
+
+	<item id="c03">
+		<id>0x0c03</id>
+	</item>
+
+	<item id="c04">
+		<id>0x0c04</id>
+	</item>
+
+	<item id="c05">
+		<id>0x0c05</id>
+	</item>
+
+	<item id="c06">
+		<id>0x0c06</id>
+	</item>
+
+	<item id="c07">
+		<id>0x0c07</id>
+	</item>
+
+	<item id="c08">
+		<id>0x0c08</id>
+	</item>
+
+	<item id="c09">
+		<id>0x0c09</id>
+	</item>
+
+	<item id="c0a">
+		<id>0x0c0a</id>
+	</item>
+
+	<item id="c0b">
+		<id>0x0c0b</id>
+		<category>Signs\Vendor Signs\Bank (N/S)</category>
+	</item>
+
+	<item id="c0c">
+		<id>0x0c0c</id>
+		<category>Signs\Vendor Signs\Bank (W/E)</category>
+	</item>
+
+	<item id="c0d">
+		<id>0x0c0d</id>
+		<category>Signs\Vendor Signs\Theatre (N/S)</category>
+	</item>
+
+	<item id="c0e">
+		<id>0x0c0e</id>
+		<category>Signs\Vendor Signs\Theatre (W/E)</category>
+	</item>
+
+	<item id="c43">
+		<id>0x0c43</id>
+		<category>Signs\Vendor Signs\Beekeper (N/S)</category>
+	</item>
+
+	<item id="c44">
+		<id>0x0c44</id>
+		<category>Signs\Vendor Signs\Beekeper (W/E)</category>
+	</item>
+</definitions>

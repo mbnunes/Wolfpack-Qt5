@@ -417,4 +417,25 @@
 		<id>0x08ea</id>
 		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 7</category>
 	</item>
+
+	<!-- Vases -->
+	<item id="b45">
+		<id>0x0b45</id>
+		<category>Decoration\Vases\Vase 1</category>
+	</item>
+
+	<item id="b46">
+		<id>0x0b46</id>
+		<category>Decoration\Vases\Vase 2</category>
+	</item>
+
+	<item id="b47">
+		<id>0x0b47</id>
+		<category>Decoration\Vases\Vase 3</category>
+	</item>
+
+	<item id="b48">
+		<id>0x0b48</id>
+		<category>Decoration\Vases\Vase 4</category>
+	</item>	
 </definitions>
