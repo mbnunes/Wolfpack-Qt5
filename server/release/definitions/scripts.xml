@@ -13,50 +13,55 @@
 	other scripts or eventlists).
 -->
 <definitions>
-	<script>npc.healer</script>
-	<script>training_dummy</script>
-	<script>pickpocket_dip</script>
+
 	<script>archery_butte</script>
-	<script>wall_clock</script>
-	<script>slotmachine</script>
-	<script>kindling</script>
-	<script>check</script>
-	<script>lightsource</script>
-	<script>gate</script>
+	<script>bandages</script>
 	<script>blades</script>
-	<script>scissors</script>
-	<script>dyes</script>
+	<script>book</script>
+	<script>bulletinboard</script>
+	<script>check</script>
 	<script>cooking</script>
+	<script>daggermenu</script>
+	<script>door</script>
+	<script>dyes</script>
+	<script>environment</script>
+	<script>equipment</script>
+	<script>figurine</script>
+	<script>food</script>
+	<script>gate</script>
+	<script>guillotine</script>
+	<script>ingot</script>
+	<script>key</script>
+	<script>keyring</script>
+	<script>kindling</script>
+	<script>lightsource</script>
+	<script>lock</script>
+	<script>lockpick</script>
+	<script>moongate</script>
+	<script>ore</script>
+	<script>pickaxe</script>
+	<script>pickpocket_dip</script>
+	<script>potionkeg</script>
+	<script>potions</script>
+	<script>scissors</script>
+	<script>shrine</script>
+	<script>shrink</script>
+	<script>signpost</script>
+	<script>slotmachine</script>
+	<script>spawngem</script>
+	<script>spiderweb</script>
+	<script>training_dummy</script>
+	<script>wall_clock</script>
 	<script>wool</script>
 	<script>yarn</script>
-	<script>potions</script>
-	<script>spawngem</script>
-	<script>shrink</script>
-	<script>environment</script>
-	<script>door</script>
-	<script>lock</script>
-	<script>book</script>
-	<script>equipment</script>
-	<script>bandages</script>
-	<script>key</script>
-	<script>potionkeg</script>
-	<script>ingot</script>
-	<script>keyring</script>
-	<script>ore</script>
-	<script>lockpick</script>
-	<script>bulletinboard</script>
-	<script>food</script>
-	<script>shrine</script>
-	<script>spiderweb</script>
-	<script>figurine</script>
-	<script>pickaxe</script>
 
 	<!-- Deeds -->
-	<script>deeds.hairstyle</script>
-	<script>deeds.commoditydeed</script>
-	<script>deeds.clothing_bless_deed</script>
-	<script>deeds.item_bless_deed</script>
 	<script>deeds.carpentry_deed</script>
+	<script>deeds.clothing_bless_deed</script>
+	<script>deeds.commoditydeed</script>
+	<script>deeds.hairstyle</script>
+	<script>deeds.item_bless_deed</script>
+	<script>deeds.multideed</script>
 
 	<!-- Combat -->
 	<script>combat</script>
@@ -70,45 +75,39 @@
 
 	<!-- Commands -->
 	<script>commands</script>
-	<script>commands.effect</script>
-	<script>commands.eval</script>
-	<script>commands.edit</script>
-	<script>commands.disconnect</script>
-	<script>commands.skillinfo</script>
-	<script>commands.tags</script>
-	<script>commands.tile</script>
 	<script>commands.action</script>
 	<script>commands.add</script>
 	<script>commands.addtree</script>
 	<script>commands.bank</script>
 	<script>commands.cast</script>
 	<script>commands.decoration</script>
+	<script>commands.disconnect</script>
 	<script>commands.dupe</script>
 	<script>commands.dye</script>
+	<script>commands.edit</script>
+	<script>commands.effect</script>
+	<script>commands.eval</script>
 	<script>commands.export</script>
+	<script>commands.freeze</script>
 	<script>commands.go</script>
 	<script>commands.import</script>
 	<script>commands.info</script>
 	<script>commands.invul</script>
+	<script>commands.restore</script>
+	<script>commands.serverinfo</script>
+	<script>commands.skillinfo</script>
+	<script>commands.skill</script>
+	<script>commands.sound</script>
+	<script>commands.stat</script>
+	<script>commands.tags</script>
+	<script>commands.tile</script>
+	<script>commands.travel</script>
+	<script>commands.turnitem</script>
 	<script>commands.where</script>
 	<script>commands.wipe</script>
-	<script>commands.skill</script>
-	<script>commands.stat</script>
-	<script>commands.sound</script>
-	<script>commands.travel</script>
-	<script>commands.serverinfo</script>
-	<script>commands.restore</script>
-	<script>commands.turnitem</script>
 
 	<!-- Magic -->
 	<script>magic</script>
-	<script>magic.spellbook</script>
-	<script>magic.gate</script>
-	<script>magic.nightsight</script>
-	<script>magic.rune</script>
-	<script>magic.runebook</script>
-	<script>magic.scroll</script>
-	<script>magic.spell</script>
 	<script>magic.circle1</script>
 	<script>magic.circle2</script>
 	<script>magic.circle3</script>
@@ -118,79 +117,82 @@
 	<script>magic.circle7</script>
 	<script>magic.circle8</script>
 	<script>magic.firefield</script>
-	<script>magic.poisonfield</script>
-	<script>magic.paralyzefield</script>
-	<script>magic.trap</script>
-
+	<script>magic.gate</script>
 	<script>magic.necromancy</script>
 	<script>magic.necrospells</script>
 	<script>magic.necrospellbook</script>
+	<script>magic.nightsight</script>
+	<script>magic.paralyzefield</script>
+	<script>magic.poisonfield</script>
+	<script>magic.rune</script>
+	<script>magic.runebook</script>
+	<script>magic.scroll</script>
+	<script>magic.spell</script>
+	<script>magic.spellbook</script>
+	<script>magic.trap</script>
 
-	<!-- Multis -->
-	<script>deeds.multideed</script>
-	<script>signpost</script>
-
-	<!-- Moongate -->
-	<script>moongate</script>
+	<!-- NPC -->
+	<script>npc.healer</script>
 
 	<!-- Context menu scripts -->
-	<script>daggermenu</script>
 	<script>contextmenus.bankermenu</script>
-	<script>contextmenus.trainmenu</script>
 	<script>contextmenus.paperdollmenu</script>
-	<script>contextmenus.vendormenu</script>
-	<script>contextmenus.tamemenu</script>
 	<script>contextmenus.petmenu</script>
+	<script>contextmenus.tamemenu</script>
+	<script>contextmenus.trainmenu</script>
+	<script>contextmenus.vendormenu</script>
 
 	<!-- Speech Scripts -->
-	<script>speech.pets</script>
 	<script>speech.barber</script>
 	<script>speech.banker</script>
+	<script>speech.pets</script>
 	<script>speech.stablemaster</script>
 
 	<!-- System Scripts -->
-	<script>system.makemenus</script>
-	<script>system.loot</script>
-	<script>system.mysql_optimize_db</script>
-	<script>system.mysql_backup_db</script>
-	<script>system.skillgain</script>
 	<script>system.hardwareinfo</script>
-	<script>system.spawns</script>
+	<script>system.loot</script>
+	<script>system.makemenus</script>
+	<script>system.mysql_backup_db</script>
+	<script>system.mysql_optimize_db</script>
 	<script>system.poison</script>
+	<script>system.skillgain</script>
+	<script>system.spawns</script>
 	<script>system.trading</script>
 	<script>system.uogstatus</script>
 	<script>system.webadmin</script>
 
 	<!-- Skills -->
 	<script>skills</script>
+	<script>skills.alchemy</script>
 	<script>skills.anatomy</script>
 	<script>skills.animallore</script>
+	<script>skills.animaltaming</script>
+	<script>skills.armslore</script>
+	<script>skills.begging</script>
+	<script>skills.blacksmithing</script>
+	<script>skills.bowcraft</script>
+	<script>skills.carpentry</script>
+	<script>skills.cooking</script>
+	<script>skills.detectinghidden</script>
 	<script>skills.evaluatingintel</script>
 	<script>skills.fishing</script>
-	<script>skills.armslore</script>
-	<script>skills.animaltaming</script>
-	<script>skills.begging</script>
-	<script>skills.bowcraft</script>
-	<script>skills.cooking</script>
-	<script>skills.alchemy</script>
-	<script>skills.tinkering</script>
-	<script>skills.carpentry</script>
-	<script>skills.stealth</script>
-	<script>skills.blacksmithing</script>
 	<script>skills.healing</script>
 	<script>skills.hiding</script>
 	<script>skills.inscription</script>
-	<script>skills.detectinghidden</script>
+	<script>skills.itemid</script>
+	<script>skills.lumberjacking</script>
+	<script>skills.mining</script>
 	<script>skills.musicianship</script>
 	<script>skills.peacemaking</script>
 	<script>skills.provocation</script>
-	<script>skills.mining</script>
-	<script>skills.lumberjacking</script>
-	<script>skills.tailoring</script>
 	<script>skills.spiritspeak</script>
-	<script>skills.itemid</script>
+	<script>skills.stealth</script>
+	<script>skills.tailoring</script>
 	<script>skills.tasteid</script>
+	<script>skills.tinkering</script>
+	<script>skills.tracking</script>
 
 	<!-- Testing Scripts -->
 	<script>testing.multibag</script>
+
 </definitions>
