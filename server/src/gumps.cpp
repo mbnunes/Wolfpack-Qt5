@@ -248,6 +248,9 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				return;
 			case 0:
 				return;
+			case 1:  // change house name
+				target(s, 0, 1, 0, 11, "Select the house sign to rename it.");
+				return;
 			case 2:  // Bestow ownership upon someone else
 				target(s, 0, 1, 0, 227, "Select person to transfer ownership to.");
 				return;

@@ -74,7 +74,7 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 			pPlayer->inputmode=0;
 			pPlayer->inputitem=-1;
 			return true;
-		case 6: // Morrolan key rename stuff
+		case 6: // house sign rename
 			strcpy(items[pPlayer->inputitem].name, comm);
 			sysmessage(s, "Renamed to: %s", comm);
 			pPlayer->inputmode=0;
