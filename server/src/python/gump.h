@@ -143,11 +143,8 @@ public:
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
 					PyTuple_SetItem( p_args, 1, args );
 					PyTuple_SetItem( p_args, 2, PyGetGumpResponse( choice ) );
-
 					PyEval_CallObject( pFunc, p_args );
-
-					if( PyErr_Occurred() )
-						PyErr_Print();
+					reportPythonError( sModule );
 				}
 			}
 		}
