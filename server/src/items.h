@@ -122,7 +122,7 @@ public:
 	void	setOffspell( UI08 nValue ) { offspell_ = nValue; };
 	void	setSecured( bool nValue ) { ( nValue ) ? priv &= 0x08 : priv |= 0xF7; };
 	void	setSpeed( SI16 nValue ) { speed_ = nValue; };
-	void	setContSerial( UI32 nValue ); // Defined in items.cpp
+	void	setContSerial( SERIAL nValue ); // Defined in items.cpp
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; };
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; };
 	void	setWipe( bool nValue ) { ( nValue ) ? priv &= 0x10 : priv |= 0xEF; };
