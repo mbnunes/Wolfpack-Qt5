@@ -1,10 +1,15 @@
 import wolfpack
 from random import randint, random
 from wolfpack import time
-from wolfpack.consts import *
 from wolfpack.utilities import hex2dec, throwobject, energydamage, checkLoS
 import math
 from system import poison
+from wolfpack.consts import RED, ALCHEMY, STRENGTH_TIME, ANIM_FIDGET3, \
+	SOUND_DRINK1, SOUND_AGILITY_UP, AGILITY_TIME, POTION_GREATERHEAL_RANGE, \
+	POTION_HEAL_RANGE, POTION_LESSERHEAL_RANGE, MAGERY, \
+	POTION_LESSEREXPLOSION_RANGE, POTION_GREATEREXPLOSION_RANGE, \
+	POTION_EXPLOSION_RANGE, SOUND_STRENGTH_UP
+
 
 # potion [ return_bottle, aggressive, target, name ]
 potions = \
@@ -64,7 +69,7 @@ def onUse( char, item ):
 			return False
 
 		# Do we throw this thing?
-		if potions[ potiontype ][ POT_TARGET ] == TRUE:
+		if potions[ potiontype ][ POT_TARGET ] == True:
 			# Explosion Potion
 			if potiontype in [ 11, 12, 13 ]:
 				# char, potion, counter value
@@ -349,7 +354,7 @@ def consumePotion( char, potion, givebottle ):
 		potion.amount -= 1
 		potion.update()
 
-	if givebottle == TRUE: # Lets add an empty bottle!
+	if givebottle == True: # Lets add an empty bottle!
 		bottle = wolfpack.additem( 'f0e' ) # Empty Bottle Definition
 		if not wolfpack.utilities.tocontainer( bottle, char.getbackpack() ):
 			bottle.update()

@@ -1,9 +1,8 @@
 
 import wolfpack
-from wolfpack.consts import *
+import wolfpack.gumps
 from wolfpack import console
 from system import spawns
-import wolfpack.gumps
 
 #
 # Register the spawngem with the spawning system.
@@ -58,7 +57,7 @@ def response(player, arguments, response):
 #
 def onUse(player, item):
 	if not player.gm:
-		return 1
+		return True
 
 	dialog = wolfpack.gumps.cGump()
 	dialog.setCallback("spawngem.response")
@@ -138,4 +137,4 @@ def onUse(player, item):
 	dialog.addInputField(84, 404, 63, 20, 2100, 3, unicode(maxinterval))
 	dialog.send(player)
 
-	return 1
+	return True

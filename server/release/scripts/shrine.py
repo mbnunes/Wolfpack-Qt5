@@ -4,7 +4,7 @@
 #
 def onCollide(player, item):
 	if not player.dead or not player.player or not player.socket:
-		return
+		return False
 
 	player.resurrect()
-	return 1
+	return True

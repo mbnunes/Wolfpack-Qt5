@@ -2,11 +2,10 @@
 # http://uo.stratics.com/alchemy/potions/potionkegs.shtml
 
 import wolfpack
-from random import randint
-from wolfpack.time import *
-from wolfpack.consts import *
-from wolfpack.utilities import hex2dec, tobackpack
+import wolfpack.time
+import wolfpack.utilities
 from potions import potions # Imports the potion table.
+#from wolfpack.consts import *
 
 POT_RETURN_BOTTLE = 0
 POT_AGGRESSIVE = 1

@@ -1,9 +1,10 @@
-from xml.dom.minidom import *
+
 
 import sys
 sys.path[:0] = ['../python-lib/']
 import Pmw
 import Tkinter
+from xml.dom.minidom import *
 
 class Option:
 	def __init__(self,name,defvalue, choices):

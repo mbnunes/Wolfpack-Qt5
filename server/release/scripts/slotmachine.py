@@ -6,7 +6,7 @@
 #################################################################
 
 import wolfpack
-from random import randrange, choice
+import random
 
 # Define prizes here
 # Format: <message>, <item-def>
@@ -40,12 +40,12 @@ def onUse( char, item ):
 	item.soundeffect( 0x57 )
 
 	# 5% Win chance
-	chance = randrange( 1, 100 )
+	chance = random.randrange( 1, 100 )
 
 	# We won!
 	if( chance <= 5 ):
 		# Select a price randomly
-		prize = choice( prizes )
+		prize = random.choice( prizes )
 		char.message( prize[0] )
 
 		item = wolfpack.additem( prize[1] )

@@ -1,6 +1,7 @@
+
 import wolfpack
-from wolfpack.consts import *
 from wolfpack.gumps import cGump
+from wolfpack.consts import EVENT_CHLEVELCHANGE
 
 # Register as a global script
 def onLoad():

@@ -1,7 +1,7 @@
 
 import wolfpack
-from wolfpack.consts import *
 from math import ceil
+from wolfpack.consts import DAMAGE_MAGICAL, DAMAGE_PHYSICAL
 
 #
 # Tie the colliding character to the new until he breaks it.
@@ -48,7 +48,7 @@ def onWalk(char, dir, sequence):
 				packet.setbyte(7, char.pos.z)
 				packet.send(char.socket)
 				char.socket.walksequence = 0
-			return 1
+			return True
 
 	events = char.events
 	while 'spiderweb' in events:
@@ -56,7 +56,7 @@ def onWalk(char, dir, sequence):
 	char.events = events
 
 	char.socket.sysmessage('You manage to break free of the spiderweb.')
-	return 0
+	return False
 
 #
 # Pass the damage on to the spiderweb * 4 if physical damage

@@ -16,16 +16,16 @@ def onUse( char, item ):
 	# If we've already learned all we can > cancel.
 	if( char.skill[ STEALING ] >= 600 ):
 		char.message( "Go search for real people." )
-		return 1
+		return True
 
 	# Either the dummy is swinging or we aren't assigned to a dummy
 	if( item.id != 0x1EC0 and item.id != 0x1EC3 ):
-		return 1
+		return True
 
 	# Distance & Direction checks
 	if( char.distanceto( item ) > 1 ):
 		char.message( 'You must be standing in front of or behind the dummy to use it.' )
-		return 1
+		return True
 
 	# Calculates the direction we'll have to look
 	# to focus the dummy
@@ -34,7 +34,7 @@ def onUse( char, item ):
 	# We only have E/W facing Pickpocket dips
 	if( direction != 2 and direction != 6 ):
 		char.message( 'You must be standing in front of or behind the dummy to use it.' )
-		return 1
+		return True
 
 	# Turn to the correct direction if not already
 	if( char.direction != direction ):
@@ -44,7 +44,7 @@ def onUse( char, item ):
 	# Only swing the dip if the check failed
 	if( char.checkskill( STEALING, 0, 1000 ) ):
 		char.message( "You succeed in your try to pickpocket the dip" )
-		return 1
+		return True
 
 	if( item.id == 0x1EC0 ):
 		item.id = 0x1EC1
@@ -64,7 +64,7 @@ def onUse( char, item ):
 	# Add a timer to reset the id
 	addtimer( "pickpocket_dip.resetid", 3000, (item.serial,) )
 
-	return 1
+	return True
 
 # Reset the id of a swinging dummy
 def resetid( iSerial ):

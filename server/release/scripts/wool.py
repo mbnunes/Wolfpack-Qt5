@@ -7,8 +7,8 @@
 
 # wool
 import wolfpack
-from wolfpack.utilities import *
-from wolfpack.consts import *
+import wolfpack.utilities
+from wolfpack.consts import GRAY
 
 ids = [ 0x10a4, 0x1015, 0x101c, 0x1019 ]
 animids = [ 0x10a5, 0x1016, 0x101d, 0x101a ]

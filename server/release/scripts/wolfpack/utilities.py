@@ -15,10 +15,10 @@
 # Calculates the Magic Damage (Base Damage + Base + Source)
 import wolfpack
 from wolfpack import properties
-from wolfpack.consts import *
 import random
 import string
 from types import *
+from wolfpack.consts import *
 
 """
 	\function wolfpack.utilities.rolldice

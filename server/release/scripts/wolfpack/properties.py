@@ -1,8 +1,18 @@
 
-from wolfpack.consts import *
 from math import floor
 from wolfpack import weaponinfo
 from wolfpack import armorinfo
+from wolfpack.consts import RESISTANCE_PHYSICAL, RESISTANCE_ENERGY, \
+	RESISTANCE_COLD, RESISTANCE_POISON, RESISTANCE_FIRE, DAMAGE_PHYSICAL, \
+	DAMAGE_ENERGY, DAMAGE_COLD, DAMAGE_POISON, DAMAGE_FIRE, DAMAGEBONUS, \
+	SPEEDBONUS, HITBONUS, DEFENSEBONUS, MINDAMAGE, MAXDAMAGE, SPEED, MISSSOUND, \
+	HITSOUND, PROJECTILE, PROJECTILEHUE, AMMUNITION, REQSTR, REQDEX, REQINT, \
+	LUCK, GOLDINCREASE, LOWERREQS, HITPOINTRATE, STAMINARATE, MANARATE, \
+	SPELLDAMAGEBONUS, MATERIALPREFIX, SWING, REFLECTPHYSICAL, \
+	DURABILITYBONUS, WEIGHTBONUS, \
+	MAGICRESISTANCE, INSCRIPTION, LAYER_RIGHTHAND, LAYER_MOUNT, \
+	ITEM_ARMOR, ITEM_WEAPON, ITEM_SHIELD, ITEM_MELEE, ITEM_RANGED, \
+	ITEM_PIERCING, ITEM_SLASHING, ITEM_BASHING
 
 #
 # Get the delay for the next swing from this attacker and his weapon.
@@ -220,13 +230,13 @@ def getdamage(char):
 			mindamage = int(char.gettag('mindamage'))
 			maxdamage = int(char.gettag('maxdamage'))
 			return (mindamage, maxdamage)
-			
+
 		# Special treatment for fists.
 		if not weapon:
 			# Use the basedef values.
 			if char.maxdamage != 0:
 				return (char.mindamage, char.maxdamage)
-		
+
 			mindamage = char.strength / 28
 			maxdamage = mindamage + 7
 		else:
@@ -235,7 +245,7 @@ def getdamage(char):
 	else:
 		if not weapon and char.maxdamage != 0:
 			return (char.mindamage, char.maxdamage)
-	
+
 		mindamage = fromitem(weapon, MINDAMAGE)
 		maxdamage = fromitem(weapon, MAXDAMAGE)
 

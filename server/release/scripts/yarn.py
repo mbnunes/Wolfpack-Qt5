@@ -8,7 +8,7 @@
 # yarn
 import wolfpack
 import wolfpack.utilities
-from wolfpack.consts import *
+from wolfpack.consts import GRAY
 
 ids = [ 0x1063, 0x1066, 0x105f, 0x1061 ]
 
@@ -16,11 +16,11 @@ def onUse( char, item ):
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage( 500312, '', GRAY ) # You cannot reach that.
-		return 1
+		return True
 
 	char.socket.clilocmessage( 500366, '', GRAY ) # Select a loom to use that on.
 	char.socket.attachtarget( "yarn.response", [ item.serial ] )
-	return 1
+	return True
 
 
 def response( char, args, target ):
@@ -32,16 +32,16 @@ def response( char, args, target ):
 
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
 		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
-		return 1
+		return True
 
 	if abs( char.pos.z - target.pos.z ) > 5:
 		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
-		return 1
+		return True
 
 	# Check target (only item targets valid)
 	if not target.item:
 		char.socket.clilocmessage( 500367, '', GRAY ) # Try using that on a loom.
-		return 1
+		return True
 
 	if target.item.id in ids:
 		color = item.color
