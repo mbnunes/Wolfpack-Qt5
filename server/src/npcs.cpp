@@ -389,7 +389,10 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	cWPXMLParser Parser( WPDT_NPC );
 
 	if( !Parser.prepareParsing( Section ) )
+	{
+		clConsole.log( "Unable to create unscripted Npc: %s", Section.latin1() );
 		return NULL;
+	}
 
 	int k=0, xos=0, yos=0, lb;
 	short postype;				// determines how xyz of the new NPC are set, see below

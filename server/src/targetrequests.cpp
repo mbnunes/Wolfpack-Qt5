@@ -53,7 +53,7 @@ void cAddNpcTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 
 	QStringList arguments = QStringList::split( " ", npc_ );
 
-	if( !npc_.contains( " " ) ) // script section string
+	if( arguments.size() == 1 ) // script section string
 		Npcs->createScriptNpc( socket, NULL, npc_, targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc + Map->TileHeight( targetInfo.model ) );
 	else if( arguments.size() == 2 ) // 2 partial hex numbers for art-id ?
 	{

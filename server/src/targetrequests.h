@@ -39,7 +39,7 @@ class cSetPrivLvlTarget: public cTargetRequest
 protected:
 	QString plevel_;
 public:
-	cSetPrivLvlTarget( const QString &plevel ) {};
+	cSetPrivLvlTarget( const QString &plevel ) { plevel_ = plevel; };
 
 	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
 };
@@ -49,7 +49,7 @@ class cAddNpcTarget: public cTargetRequest
 protected:
 	QString npc_;
 public:
-	cAddNpcTarget( const QString &npc_ ) {};
+	cAddNpcTarget( const QString &npc ) { npc_ = npc; };
 
 	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
 };

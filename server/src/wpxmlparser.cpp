@@ -341,28 +341,28 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 	else
 		Section = *Node;
 
-	QDomNodeList Tags = Section.childNodes();
-
-	UI16 i, j;
-
-	for( i = 0; i < Tags.count(); i++ )
+	QDomNode TagNode;
+	for( TagNode = Section.firstChild(); !TagNode.isNull(); TagNode = Section.nextSibling() )
 	{
-		if( !Tags.item( i ).isElement() )
+		if( !TagNode.isElement() )
 			continue;
 
-		QDomElement Tag = Tags.item( i ).toElement();
+		QDomElement Tag = TagNode.toElement();
 		QString TagName = Tag.nodeName();
 		QString Value;
 		QDomNodeList ChildTags;
 
-		if( Tag.hasChildNodes() && TagName != "backpack" && TagName != "equipped" && TagName != "shopkeeper" )
-			for( j = 0; j < Tag.childNodes().count(); j++ )
+		if( TagName != "backpack" && TagName != "equipped" && TagName != "shopkeeper" )
+		{
+			for( QDomNode childNode = Tag.firstChild(); !childNode.isNull(); childNode = childNode.nextSibling() )
 			{
-				if( Tag.childNodes().item( j ).isText() )
-					Value += Tag.childNodes().item( j ).toText().data();
-				else if( Tag.childNodes().item( j ).isElement() )
-					Value += processNode( Tag.childNodes().item( j ).toElement() );
+				QDomElement childTag = childNode.toElement();
+				if( childTag.isText() )
+					Value += childTag.toText().data();
+				else if( childTag.isElement() )
+					Value += processNode( childTag );
 			}
+		}
 
 		//<name>my char</name>
 		if( TagName == "name" )
@@ -375,6 +375,7 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 		//	<item id="z">
 		//</backpack>
 		else if( TagName == "backpack" )
+		{
 			if( Char->packitem == INVALID_SERIAL )
 			{
 				P_ITEM pBackpack = Items->SpawnItem( -1, Char, 1, "Backpack", 0, 0x0E,0x75,0,0,0);
@@ -397,6 +398,7 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 				if( Tag.hasChildNodes() )
 					this->applyNodes( pBackpack, &Tag );
 			}
+		}
 
 		//<carve>3</carve>
 		else if( TagName == "carve" ) 
@@ -408,6 +410,7 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 
 		//<direction>SE</direction>
 		else if( TagName == "direction" )
+		{
 			if( Value == "NE" )
 				Char->dir=1;
 			else if( Value == "E" )
@@ -424,9 +427,11 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 				Char->dir=7;
 			else if( Value == "N" )
 				Char->dir=0;
+		}
 
 		//<stat type="str">100</stats>
 		else if( TagName == "stat" )
+		{
 			if( Tag.attributes().contains("type") )
 			{
 				QString statType = Tag.attributeNode("type").nodeValue();
@@ -448,6 +453,7 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 					Char->mn = Char->in;
 				}
 			}
+		}
 
 		//<defense>10</defense>
 		else if( TagName == "defense" )
@@ -471,6 +477,7 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 
 		//<gold>100</gold>
 		else if( TagName == "gold" )
+		{
 			if( Char->packitem != INVALID_SERIAL )
 			{
 				P_ITEM pGold = Items->SpawnItem(Char,1,"#",1,0x0EED,0,1);
@@ -485,6 +492,7 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 			}
 			else
 				clConsole.send((char*)QString("Warning: Bad NPC Script %1: no backpack for gold.\n").arg( Section.attributeNode( "id" ).nodeValue() ).latin1());
+		}
 
 		//<hidamage>10</hidamage>
 		else if( TagName == "hidamage" )
@@ -514,10 +522,12 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 
 		//<loot>3</loot>
 		else if( TagName == "loot" )
+		{
 			if( Char->packitem != INVALID_SERIAL )
 				Npcs->AddRandomLoot( FindItemBySerial(Char->packitem), (char*)Value.latin1() );
 			else
 				clConsole.send((char*)QString("Warning: Bad NPC Script %1: no backpack for loot.\n").arg( Section.attributeNode( "id" ).nodeValue() ).latin1());
+		}
 
 		//<lodamage>10</lodamage>
 		else if( TagName == "lodamage" )
@@ -535,6 +545,7 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 		//<......... type="free" (or "1") />
 		//<......... type="none" (or "0") />
 		else if( TagName == "npcwander" )
+		{
 			if( Tag.attributes().contains("type") )
 			{
 				QString wanderType = Tag.attributeNode("type").nodeValue();
@@ -567,6 +578,7 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 				else
 					Char->npcWander = 0; //default
 			}
+		}
 		//<ai>2</ai>
 		else if( TagName == "ai" )
 			Char->setNpcAIType( Value.toInt() );
@@ -600,12 +612,13 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 		//	<shopitems>...see above...</shopitems>
 		//	<rshopitems>...see above...</rshopitems>
 		//</shopkeeper>
-		else if( TagName == "shopkeeper" && Tag.hasChildNodes() )
+		else if( TagName == "shopkeeper" )
 		{
 			Commands->MakeShop( Char );
-			for( j = 0; j < Tag.childNodes().count(); j++ )
+			QDomNode childNode;
+			for( childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
 			{
-				QDomElement currNode = Tag.childNodes().item( j ).toElement();
+				QDomElement currNode = childNode.toElement();
 				
 				if( !currNode.hasChildNodes() )
 					continue;
@@ -680,7 +693,7 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 				Tag.attributeNode("type").nodeValue().toInt() <= ALLSKILLS )
 				Char->setBaseSkill((Tag.attributeNode("type").nodeValue().toInt() - 1), Value.toInt());
 			else
-				for( j = 0; j < ALLSKILLS; j++ )
+				for( UI32 j = 0; j < ALLSKILLS; j++ )
 					if( Tag.attributeNode("type").nodeValue().contains( QString(skillname[j]), false ) )
 						Char->setBaseSkill(j, Value.toInt());
 		}
@@ -690,11 +703,12 @@ void cWPXMLParser::applyNodes( P_CHAR Char, QDomElement* Node )
 		//	<item id="b" />
 		//	...
 		//</epuipped>
-		else if( TagName == "equipped" && Tag.hasChildNodes() )
+		else if( TagName == "equipped" )
 		{
-			for( j = 0; j < Tag.childNodes().count(); j++ )
+			QDomNode childNode;
+			for( childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
 			{
-				QDomElement currChild = Tag.childNodes().item( j ).toElement();
+				QDomElement currChild = childNode.toElement();
 				if( currChild.nodeName() == "item" && currChild.attributes().contains("id") )
 				{
 					P_ITEM nItem = Items->createScriptItem( currChild.attributeNode("id").nodeValue() );
