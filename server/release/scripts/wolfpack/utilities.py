@@ -154,7 +154,6 @@ def isclothing( item ):
 
 	if item.id in clothes:
 		return 1
-
 	else:
 		return 0
 
@@ -166,7 +165,6 @@ def ishat ( item ):
 
 	if item.id in hats:
 		return 1
-
 	else:
 		return 0
 
@@ -187,7 +185,6 @@ def isarmor( item ):
 
 	if item.id in armors:
 		return 1
-
 	else:
 		return 0
 
@@ -197,7 +194,6 @@ def isweapon( item ):
 
 	if item.type in weapontypes:
 		return 1
-
 	else:
 		return 0
 
@@ -207,7 +203,6 @@ def isshield( item ):
 
 	if item.id in shields:
 		return 1
-
 	else: 
 		return 0
 
@@ -216,9 +211,9 @@ def isspellbook( item ):
 	sbids = [ 0xe3b, 0xefa, 0x2252, 0x2253 ]
 	if item.id in sbids and item.type in sbtypes:
 		return 1
-		
 	else:
-	        return 0
+		return 0
 	        
 def isinstrument( item ):
 	return item.id in [ 0xE9C, 0xE9D, 0xE9E, 0xEB1, 0xEB2, 0xEB3, 0xEB4 ]
+
