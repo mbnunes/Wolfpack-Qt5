@@ -48,6 +48,7 @@ def tileResponse(player, arguments, target):
 			item = wolfpack.additem(random.choice(ids))
 			item.moveto(pos)
 			item.decay = 0
+			item.movable = 2 # Not Movable
 			item.update()
 
 #
