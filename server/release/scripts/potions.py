@@ -179,7 +179,8 @@ def potioncountdown( time, args ):
 			bonus = 1
 		if counter >= 0:
 			if counter > 0:
-				potion.say("%u" % (counter - 1))
+				if (counter - 1) > 0:
+					potion.say("%u" % (counter - 1))
 				counter -= 1
 			potionexplosion([char.serial, potion.serial, counter, bonus])
 		return
