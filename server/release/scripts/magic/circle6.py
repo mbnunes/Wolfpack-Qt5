@@ -79,7 +79,14 @@ class Invisibility (CharEffectSpell):
 		# Clean previous removal timers
 		target.dispel(None, 1, "invisibility_reveal")
 
-		# Hide the target
+		# Remove the targets attacktarget
+		if target.war:
+			target.war = False
+ 			if target.socket:
+ 				target.socket.resendplayer()
+		target.attacktarget = None
+		
+		# Hide the attack target
 		target.removefromview()
 		target.hidden = 1
 		target.update()

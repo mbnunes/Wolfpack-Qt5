@@ -218,17 +218,18 @@ class ManaVampire (DelayedDamageSpell):
 
 		drain = min(target.mana, int((char.skill[self.damageskill] - target.skill[MAGICRESISTANCE]) / 10.0))
 
-		if drain > char.maxmana - char.mana:
-			drain = char.maxmana - char.mana
-
 		if target.player:
 			drain /= 2
 
 		if drain > 0:
-			char.mana += drain
-			char.updatemana()
 			target.mana -= drain
 			target.updatemana()
+		
+			if drain > char.maxmana - char.mana:
+				drain = char.maxmana - char.mana
+		
+			char.mana += drain
+			char.updatemana()
 
 		target.effect(0x374a, 1, 15)
 		target.soundeffect(0x1f9)
