@@ -479,9 +479,9 @@ void loaditem (int x) // Load an item from WSC
 	int loops=0;
 	char bad=0;
 
-	x=Items->MemItemFree();
-	if (x==-1) return;
-	const P_ITEM pi=MAKE_ITEMREF_LR(x);	// on error return
+	const P_ITEM pi = Items->MemItemFree();
+	if (pi == NULL) return;
+
 	pi->Init(0);
 	pi->ser1=0x40;
 

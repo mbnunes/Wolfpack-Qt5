@@ -2492,10 +2492,12 @@ void command_deltype( UOXSOCKET s )
 	}
 
 	unsigned int type = makenumber( 1 );
-	for( unsigned int i = 0; i < itemcount; i++ )
+	AllItemsIterator iter_items;
+	for( iter_items.Begin(); iter_items.GetData() != iter_items.End(); iter_items++ )
 	{
-		if( items[i].type == type )
-			Items->DeleItem( i );
+		P_ITEM pi = iter_items.GetData();
+		if( pi->type == type )
+			Items->DeleItem( pi );
 	}
 }
 

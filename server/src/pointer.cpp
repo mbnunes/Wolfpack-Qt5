@@ -121,7 +121,7 @@ void removefromptr(lookuptr_st *ptr, int nItem)
 	}
 }
 
-
+/* Deprecated stuff
 void setserial(int nChild, int nParent, int nType)
 { // Sets the serial #'s and adds to pointer arrays
   // types: 1-item container, 2-item spawn, 3-Item's owner 4-container is PC/NPC
@@ -139,8 +139,9 @@ void setserial(int nChild, int nParent, int nType)
 		setptr(&spawnsp[items[nChild].spawnserial%HASHMAX], nChild);
 		break;
 	case 3:				// Set the Item's Owner
-	    items[nChild].setOwnSerialOnly(chars[nParent].serial);
-		setptr(&ownsp[items[nChild].ownserial%HASHMAX], nChild);
+//	    items[nChild].setOwnSerialOnly(chars[nParent].serial);
+//		setptr(&ownsp[items[nChild].ownserial%HASHMAX], nChild);
+		clConsole.send("Warning: Item ownserial being set by setserial!, this is WRONG - will do nothing.\n");
 		break;
 	case 4:
 //	    items[nChild].setContSerialOnly(chars[nParent].serial);
@@ -175,6 +176,7 @@ void setserial(int nChild, int nParent, int nType)
 		break;
 	}
 }
+*/
 
 ///////////////////////////
 // Name:	ContainerCountItems
@@ -220,6 +222,7 @@ P_ITEM FindItemBySerial(int serial)
 	if (i==-1) return NULL;		// legal rc from findbyserial, don't log
 	else return MAKE_ITEMREF_LRV(i,NULL);
 }
+
 P_ITEM FindItemBySerPtr(unsigned char *p)
 {
 	int serial=LongFromCharPtr(p);
@@ -241,6 +244,7 @@ P_CHAR FindCharBySerial(int serial)
 	if (i==-1) return NULL;		// legal rc from findbyserial, don't log
 	else return MAKE_CHARREF_LRV(i,NULL);
 }
+
 P_CHAR FindCharBySerPtr(unsigned char *p)
 {
 	int serial=LongFromCharPtr(p);

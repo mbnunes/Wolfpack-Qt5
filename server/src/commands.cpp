@@ -964,24 +964,25 @@ void cCommands::MakePlace(int s, int i) // Decode a teleport location number int
 
 void cCommands::DupeItem(int s, int i, int amount)
 {
-	int p, c;
+	int p;
 	if (items[i].corpse) return;
-	p=packitem(currchar[s]);
+	p = packitem(currchar[s]);
 	if(p==-1) return;//AntiChrist
 
-	c=Items->MemItemFree();
-	items[c].Init(0);
-	memcpy(&items[c], &items[i], sizeof(cItem));
-	items[c].SetSerial(itemcount2);
+	P_ITEM pi_c=Items->MemItemFree();
+	pi_c->Init(0);
+#pragma note("Replace by a copy constructor before finishing items[]")
+	memcpy(pi_c, &items[i], sizeof(cItem));
+	pi_c->SetSerial(itemcount2);
 	itemcount2++;
 	
-	items[c].SetContSerial(items[p].serial);
-	items[c].SetOwnSerial(items[i].ownserial);
-	items[c].SetSpawnSerial(items[i].spawnserial);
-	items[c].layer=0;	// it's created in a backpack
-	items[c].amount=amount;
+	pi_c->SetContSerial(items[p].serial);
+	pi_c->SetOwnSerial(items[i].ownserial);
+	pi_c->SetSpawnSerial(items[i].spawnserial);
+	pi_c->layer=0;	// it's created in a backpack
+	pi_c->amount=amount;
 	
-	RefreshItem(c);//AntiChrist
+	RefreshItem(pi_c);//AntiChrist
 }
 
 void cCommands::ShowGMQue(int s, int type) // Shows next unhandled call in the GM queue

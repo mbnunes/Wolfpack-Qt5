@@ -775,8 +775,8 @@ int cCharStuff::MemCharFree()
 int cCharStuff::AddRandomLoot(int s, char * lootlist)
 {
 	char sect[512];
-	int i,j,retitem, storeval,loopexit=0;
-	retitem=-1;
+	int i,j, storeval,loopexit=0;
+	P_ITEM retitem = NULL;
 	storeval=-1;
 	i=0; j=0;
 
@@ -813,15 +813,15 @@ int cCharStuff::AddRandomLoot(int s, char * lootlist)
 					storeval=str2num(script1);	//script1 = ITEM#
 
 					scpMark m=pScp->Suspend();
-					retitem=Targ->AddMenuTarget(-1, 0, storeval);
+					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
 					pScp->Resume(m);
 
-					if(retitem!=-1)
+					if(retitem!=NULL)
 					{
-						items[retitem].pos.x=50+(rand()%80);
-						items[retitem].pos.y=50+(rand()%80);
-						items[retitem].pos.z=9;
-						items[retitem].SetContSerial(items[s].serial);
+						retitem->pos.x=50+(rand()%80);
+						retitem->pos.y=50+(rand()%80);
+						retitem->pos.z=9;
+						retitem->SetContSerial(items[s].serial);
 					}
 					break;;    
 				}
@@ -830,7 +830,7 @@ int cCharStuff::AddRandomLoot(int s, char * lootlist)
 		}	while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
 		pScp->Close();
 	}
-	return retitem;
+	return DEREF_P_ITEM(retitem);
 }
 
 /*** s: socket ***/
@@ -912,7 +912,7 @@ int cCharStuff::AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed ch
 
 int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 {
-	int tmp, z,c,n, lovalue, hivalue, mypack, retitem;
+	int tmp, z,c,n, lovalue, hivalue, mypack;
 	int storeval, shoppack1, shoppack2, shoppack3;
 	int k=0, xos=0, yos=0, lb;
 	char sect[512];
@@ -935,7 +935,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 	}
 
 	mypack=-1;
-	retitem=-1;
+	P_ITEM retitem = NULL;
 	storeval=-1;
 	shoppack1=-1;
 	shoppack2=-1;
@@ -1032,22 +1032,22 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 				if (mypack==-1)
 				{
 					scpMark m=pScp->Suspend();
-					pc_c->packitem=n=Items->SpawnItem(-1,c,1,"Backpack",0,0x0E,0x75,0,0,0,0);
+					pc_c->packitem=n=Items->SpawnItem(-1,DEREF_P_CHAR(pc_c),1,"Backpack",0,0x0E,0x75,0,0,0,0);
 					if(n==-1)
 					{
-						Npcs->DeleteChar(c);
+						Npcs->DeleteChar(DEREF_P_CHAR(pc_c));
 						return -1;
 					}
 					items[n].pos.x=0;
 					items[n].pos.y=0;
 					items[n].pos.z=0;
-					items[n].SetContSerial(chars[c].serial);
+					items[n].SetContSerial(pc_c->serial);
 					items[n].layer=0x15;
 					items[n].type=1;
 					items[n].dye=1;
 					mypack=n;
 					
-					retitem=n;
+					retitem = MAKE_ITEM_REF(n);
 					pScp->Resume(m);
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				}
@@ -1061,10 +1061,10 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			case 'c':
 
 			if (!strcmp("COLOR",(char*)script1)) {
-				if (retitem>-1)
+				if (retitem != NULL)
 				{
-					items[retitem].color1=(hex2num(script2))>>8;
-					items[retitem].color2=(hex2num(script2))%256;
+					retitem->color1=(hex2num(script2))>>8;
+					retitem->color2=(hex2num(script2))%256;
 				}
 			}
 			else if (!strcmp("CARVE",(char*)script1)) pc_c->carve=str2num(script2);
@@ -1075,20 +1075,20 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			else if (!strcmp("COOKING",(char*)script1)) pc_c->baseskill[COOKING] = getstatskillvalue((char*)script2);
 			else if (!strcmp("COLORMATCHHAIR",(char*)script1))
 			{
-				if (retitem>-1 && haircolor!=-1)
+				if (retitem != NULL && haircolor!=-1)
 				{
-					items[retitem].color1=(haircolor)>>8;
-					items[retitem].color2=(haircolor)%256;
+					retitem->color1=(haircolor)>>8;
+					retitem->color2=(haircolor)%256;
 				}
 			}
 			else if (!strcmp("COLORLIST",(char*)script1))
 			{
 				scpMark m=pScp->Suspend();
-				storeval=addrandomcolor(c,(char*)script2);
-				if (retitem>-1)
+				storeval=addrandomcolor(DEREF_P_CHAR(pc_c), (char*)script2);
+				if (retitem != NULL)
 				{
-					items[retitem].color1=(storeval)>>8;
-					items[retitem].color2=(storeval)%256;
+					retitem->color1=(storeval)>>8;
+					retitem->color2=(storeval)%256;
 				}
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
@@ -1162,10 +1162,10 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 				if (mypack!=-1)
 				{ 
 					scpMark m=pScp->Suspend();
-					P_ITEM pGold=Items->SpawnItem(c,1,"#",1,0x0EED,0,1);
+					P_ITEM pGold=Items->SpawnItem(DEREF_P_CHAR(pc_c),1,"#",1,0x0EED,0,1);
 					if(!pGold)
 					{
-						Npcs->DeleteChar(c);
+						Npcs->DeleteChar(DEREF_P_CHAR(pc_c));
 						return -1;
 					}
 					pScp->Resume(m);
@@ -1201,13 +1201,13 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			{
 				scpMark m=pScp->Suspend();
 				
-				if (retitem >-1) // LB, ouple of bugfixes
+				if (retitem != NULL) // LB, ouple of bugfixes
 				{
-					haircolor=addrandomhaircolor(c,(char*)script2);
+					haircolor=addrandomhaircolor(DEREF_P_CHAR(pc_c),(char*)script2);
 					if (haircolor!=-1)
 					{
-						items[retitem].color1=(haircolor)>>8;
-						items[retitem].color2=(haircolor)%256;
+						retitem->color1=(haircolor)>>8;
+						retitem->color2=(haircolor)%256;
 					}
 				}
 				pScp->Resume(m);
@@ -1229,13 +1229,13 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 				storeval=str2num(script2);
 
 				scpMark m=pScp->Suspend();
-				retitem=Targ->AddMenuTarget(-1, 0, storeval);
+				retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
 				pScp->Resume(m);
 
-				if (retitem!=-1)
+				if ( retitem != NULL )
 				{
-					items[retitem].SetContSerial(chars[c].serial);
-					if (items[retitem].layer==0) {
+					retitem->SetContSerial(pc_c->serial);
+					if (retitem->layer==0) {
 						clConsole.send("Warning: Bad NPC Script %d with problem item %d executed!\n", npcNum, storeval);
 					}
 				}
@@ -1265,7 +1265,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 				if (mypack!=-1)
 				{
 					scpMark m=pScp->Suspend();
-					retitem=Npcs->AddRandomLoot(mypack, script2);
+					retitem = MAKE_ITEM_REF(Npcs->AddRandomLoot(mypack, script2));
 					pScp->Resume(m);
 
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
@@ -1295,7 +1295,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			if (!(strcmp("NAME",(char*)script1))) strcpy(pc_c->name, (char*)script2);
 			else if (!(strcmp("NAMELIST", (char*)script1))) {
 				scpMark m=pScp->Suspend();
-				setrandomname(c,(char*)script2);
+				setrandomname(DEREF_P_CHAR(pc_c),(char*)script2);
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
 			}
@@ -1325,15 +1325,15 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 					storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
-					retitem=Targ->AddMenuTarget(-1, 0, storeval);
+					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
 					pScp->Resume(m);
 
-					if (retitem!=-1)
+					if (retitem != NULL)
 					{
-						items[retitem].SetContSerial(items[mypack].serial);
-						items[retitem].pos.x=50+(rand()%80);
-						items[retitem].pos.y=50+(rand()%80);
-						items[retitem].pos.z=9;
+						retitem->SetContSerial(items[mypack].serial);
+						retitem->pos.x=50+(rand()%80);
+						retitem->pos.y=50+(rand()%80);
+						retitem->pos.z=9;
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -1372,16 +1372,16 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 					storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
-					retitem=Targ->AddMenuTarget(-1, 0, storeval);
+					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
 					pScp->Resume(m);
 
-					if (retitem!=-1)
+					if (retitem != NULL)
 					{
-						items[retitem].SetContSerial(items[shoppack1].serial);
-						items[retitem].pos.x=50+(rand()%80);
-						items[retitem].pos.y=50+(rand()%80);
-						items[retitem].pos.z=9;
-						if (items[retitem].name2 && (strcmp(items[retitem].name2,"#"))) strcpy(items[retitem].name,items[retitem].name2); // Item identified! -- by Magius(CHE)					}
+						retitem->SetContSerial(items[shoppack1].serial);
+						retitem->pos.x=50+(rand()%80);
+						retitem->pos.y=50+(rand()%80);
+						retitem->pos.z=9;
+						if (retitem->name2 && (strcmp(retitem->name2,"#"))) strcpy(retitem->name,retitem->name2); // Item identified! -- by Magius(CHE)					}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -1399,7 +1399,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			}
 			else if (!(strcmp("SHOPKEEPER", (char*)script1))) {
 				scpMark m=pScp->Suspend();
-				Commands->MakeShop(c); 
+				Commands->MakeShop(DEREF_P_CHAR(pc_c)); 
 				pScp->Resume(m);
 			}
 			else if (!(strcmp("SELLITEM",(char*)script1))) {
@@ -1420,17 +1420,17 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 					storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
-					retitem=Targ->AddMenuTarget(-1, 0, storeval);
+					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
 					pScp->Resume(m);
 
-					if (retitem!=-1)
+					if (retitem != NULL)
 					{
-						items[retitem].SetContSerial(items[shoppack3].serial);
-						items[retitem].value=items[retitem].value/2;
-						items[retitem].pos.x=50+(rand()%80);
-						items[retitem].pos.y=50+(rand()%80);
-						items[retitem].pos.z=9;
-						if (items[retitem].name2 && (strcmp(items[retitem].name2,"#"))) strcpy(items[retitem].name,items[retitem].name2); // Item identified! -- by Magius(CHE)					}
+						retitem->SetContSerial(items[shoppack3].serial);
+						retitem->value=retitem->value/2;
+						retitem->pos.x=50+(rand()%80);
+						retitem->pos.y=50+(rand()%80);
+						retitem->pos.z=9;
+						if (retitem->name2 && (strcmp(retitem->name2,"#"))) strcpy(retitem->name,retitem->name2); // Item identified! -- by Magius(CHE)					}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -1459,16 +1459,16 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 					storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
-					retitem=Targ->AddMenuTarget(-1, 0, storeval);
+					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
 					pScp->Resume(m);
 
-					if (retitem!=-1)
+					if ( retitem != NULL)
 					{
-						items[retitem].SetContSerial(items[shoppack2].serial);
-						items[retitem].pos.x=50+(rand()%80);
-						items[retitem].pos.y=50+(rand()%80);
-						items[retitem].pos.z=9;
-						if (items[retitem].name2 && (strcmp(items[retitem].name2,"#"))) strcpy(items[retitem].name,items[retitem].name2); // Item identified! -- by Magius(CHE)					}
+						retitem->SetContSerial(items[shoppack2].serial);
+						retitem->pos.x=50+(rand()%80);
+						retitem->pos.y=50+(rand()%80);
+						retitem->pos.z=9;
+						if (retitem->name2 && (strcmp(retitem->name2,"#"))) strcpy(retitem->name,retitem->name2); // Item identified! -- by Magius(CHE)					}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -1495,7 +1495,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 			else if (!(strcmp("SKINLIST",(char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
-				pc_c->xskin = pc_c->skin = addrandomcolor(c,(char*)script2);
+				pc_c->xskin = pc_c->skin = addrandomcolor(DEREF_P_CHAR(pc_c),(char*)script2);
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
 			}
@@ -1526,7 +1526,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 
 			case 'V':
 			case 'v':
-			if (!(strcmp("VALUE",(char*)script1))) if (retitem!=-1) items[retitem].value=(str2num(script2));
+			if (!(strcmp("VALUE",(char*)script1))) if (retitem != NULL) retitem->value=(str2num(script2));
 			else if (!strcmp("VETERINARY",(char*)script1)) pc_c->baseskill[VETERINARY] = getstatskillvalue((char*)script2);
 			break;
 			
@@ -1558,7 +1558,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 		   pc_c->pos.x=triggerx;
 		   pc_c->pos.y=triggery;
 		   pc_c->dispz=pc_c->pos.z=triggerz;
-		   triggerx=c;
+		   triggerx=DEREF_P_CHAR(pc_c);
 	   } else
 	   {
 	   /*Zippy's Code chages for area spawns --> (Type 69) xos and yos (X OffSet, Y OffSet) 
@@ -1590,7 +1590,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 				   // clConsole.send("Spawning at Offset %i,%i (%i,%i,%i) [-%i,%i <-> -%i,%i]. [Loop #: %i]\n",xos,yos,items[i].x+xos,items[i].y+yos,items[i].z,items[i].more3,items[i].more3,items[i].more4,items[i].more4,k); /** lord binary, changed %s to %i, crash when uncommented ! **/
 				   k++;
 				   if ((items[i].pos.x+xos<1) || (items[i].pos.y+yos<1)) lb=0; /* lord binary, fixes crash when calling npcvalid with negative coordiantes */
-				   else lb=Movement->validNPCMove(items[i].pos.x+xos,items[i].pos.y+yos,items[i].pos.z,c);				 
+				   else lb=Movement->validNPCMove(items[i].pos.x+xos,items[i].pos.y+yos,items[i].pos.z,DEREF_P_CHAR(pc_c));				 
 				   
 				   //Bug fix Monsters spawning on water:
 				   MapStaticIterator msi(items[i].pos.x + xos, items[i].pos.y + yos);
@@ -1676,7 +1676,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
    //Char mapRegions
    mapRegions->Remove(pc_c);
    mapRegions->Add(pc_c);
-   return c;
+   return DEREF_P_CHAR(pc_c);
 }
 
 void cCharStuff::Split(int k) // For NPCs That Split during combat

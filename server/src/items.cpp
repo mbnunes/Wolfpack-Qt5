@@ -94,13 +94,13 @@ void cItem::setOwnSerialOnly(long ownser)
 
 void cItem::SetOwnSerial(long ownser)
 {
-	if (ownserial!=-1)	// if it was set, remove the old one
-		removefromptr(&ownsp[ownserial%HASHMAX], DEREF_P_ITEM(this));
+	if (ownserial != INVALID_SERIAL)	// if it was set, remove the old one
+		ownsp.remove(ownserial, serial);
 	
 	setOwnSerialOnly(ownser);
 
-	if (ownser!=-1)		// if there is an owner, add it
-		setptr(&ownsp[ownserial%HASHMAX], DEREF_P_ITEM(this));
+	if (ownser != INVALID_SERIAL)		// if there is an owner, add it
+		ownsp.insert(ownserial, serial);
 }
 
 void cItem::SetSpawnSerial(long spawnser)
@@ -550,7 +550,7 @@ int cAllItems::GetReusableSlot()
 	return -1;
 }
 
-int cAllItems::MemItemFree()// -- Find a free item slot, checking freeitemmem[] first
+P_ITEM cAllItems::MemItemFree()// -- Find a free item slot, checking freeitemmem[] first
 {
 	if (itemcount+ITEM_RESERVE >= imem-I_W_O_1)	//less than 'Reserve' free slots left, so get more memory
 		moreItemMemoryRequested=true;
@@ -561,12 +561,12 @@ int cAllItems::MemItemFree()// -- Find a free item slot, checking freeitemmem[] 
 		if (itemcount+1>=imem-I_W_O_1)	//theres no more free sluts.. er slots
 		{
 			LogCritical("couldn't resize item memory in time");
-			return -1;
+			return NULL;
 		}
 		nItem=itemcount;
 		itemcount++;
 	}
-	return nItem;
+	return &items[nItem];
 }
 
 void cItem::SetSerial(long ser)
@@ -797,10 +797,12 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 	} else 
 		strcpy(sect, "items.scp");
 	
-	int i = Items->MemItemFree();
-	if (i<0)
+	P_ITEM pi = Items->MemItemFree();
+	if (pi == NULL)
+	{
 		closescript();	// make sure script is closed before make_itemref might exit (Duke, 27.4.01)
-	P_ITEM pi = MAKE_ITEMREF_LRV(i, NULL);
+		return NULL;
+	}
 	pi->Init();
 	
 	pi->setId(0x0915);
@@ -1291,10 +1293,9 @@ P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable
 		}
 	}
 	// no such item found, so let's create it
-	int i=Items->MemItemFree();
-	if (i==-1) return NULL;
+	P_ITEM pi = Items->MemItemFree();
+	if (pi == NULL) return NULL;
 
-	P_ITEM pi=MAKE_ITEMREF_LRV(i,NULL);
 	pi->Init();
 	if(cName!=NULL)
 		strcpy(pi->name,cName);
@@ -1323,7 +1324,7 @@ P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable
 	
 	//clConsole.send("Adding Harditems settings in items.cpp:spawnitem\n");
 	GetScriptItemSetting(pi); // Added by Magius(CHE) (2)
-	pc_ch->making=i;
+	pc_ch->making = DEREF_P_ITEM(pi);
 	RefreshItem(pi);
 	return pi;
 }

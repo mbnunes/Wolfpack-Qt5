@@ -1126,41 +1126,40 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 		checkgrid = StartGrid + (increment * mapRegions->GetColSize());
 		for (int i=0;i<3;i++)
 		{
-			int mapitemptr=-1;
-			int mapitem=-1;
+			P_ITEM mapitem = NULL;
 			vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+i);
 			for ( unsigned int k = 0; k < vecEntries.size(); k++)
 			{
-				ITEM mapitem = calcItemFromSer(vecEntries[k]);
-				if (mapitem!=-1 && mapitem<1000000)
+				mapitem = FindItemBySerial(vecEntries[k]);
+				if (mapitem != NULL)
 				{
 #if DEBUG_WALKING
-				  //printf("Checking against Item %s, ID1:%d, ID2:%d\n", items[mapitem].name, items[mapitem].id1, items[mapitem].id2);
+				  //printf("Checking against Item %s, ID1:%d, ID2:%d\n", mapitem->name, mapitem->id1, mapitem->id2);
 #endif
 					// split out the x,y,z check so we can use else ifs for faster item id checking
-					if ((items[mapitem].id1==0x39 && (items[mapitem].id2==0x96 || items[mapitem].id2==0x8C)))
+					if ((mapitem->id1==0x39 && (mapitem->id2==0x96 || mapitem->id2==0x8C)))
 					{//Fire Field
 // Thyme 2000.09.15
 // At the request of Abaddon
 // Thyme BEGIN
 //						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==pc->pos.z))
-						if ( ( items[mapitem].pos.x == newx ) &&
-							 ( items[mapitem].pos.y == newy ) &&
-							 ( pc->pos.z >= items[mapitem].pos.z ) &&
-							 ( pc->pos.z <= ( items[mapitem].pos.z + 5 ) ) )
+						if ( ( mapitem->pos.x == newx ) &&
+							 ( mapitem->pos.y == newy ) &&
+							 ( pc->pos.z >= mapitem->pos.z ) &&
+							 ( pc->pos.z <= ( mapitem->pos.z + 5 ) ) )
 // Thyme END
 						{
 							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 4))
 							{                                               
-								Magic->MagicDamage(DEREF_P_CHAR(pc), items[mapitem].morex/300);
+								Magic->MagicDamage(DEREF_P_CHAR(pc), mapitem->morex/300);
 							}
 							soundeffect2(DEREF_P_CHAR(pc), 2, 8);
 						}
 					}
 					
-					if ((items[mapitem].id1==0x39 && (items[mapitem].id2==0x15 || items[mapitem].id2==0x20)))
+					if ((mapitem->id1==0x39 && (mapitem->id2==0x15 || mapitem->id2==0x20)))
 					{//Poison field
-						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==pc->pos.z))
+						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
 						{
 							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 5))
 							{                                               
@@ -1170,9 +1169,9 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						}
 					}
 					
-					else if ((items[mapitem].id1==0x39 && (items[mapitem].id2==0x79 || items[mapitem].id2==0x67)))
+					else if ((mapitem->id1==0x39 && (mapitem->id2==0x79 || mapitem->id2==0x67)))
 					{//Para Field
-						if ((items[mapitem].pos.x == newx) && (items[mapitem].pos.y == newy) && (items[mapitem].pos.z==pc->pos.z))
+						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
 						{
 							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 6))
 							{
@@ -1181,25 +1180,25 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 							soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x04);
 						}
 					}
-					else if (items[mapitem].id1<0x40)
+					else if (mapitem->id1<0x40)
 					{
 						// look for item triggers, this was moved from CrazyXYBlockStuff()
-						if ((items[mapitem].pos.x== newx) && (items[mapitem].pos.y == newy))
+						if ((mapitem->pos.x== newx) && (mapitem->pos.y == newy))
 						{
-							if (items[mapitem].trigger!=0)
+							if (mapitem->trigger!=0)
 							{
-								if ((items[mapitem].trigtype==1)&&(!pc->dead))
+								if ((mapitem->trigtype==1)&&(!pc->dead))
 								{
-									if (!items[mapitem].disabled)
+									if (!mapitem->disabled)
 									{
-										triggerwitem(socket,mapitem,1);  //When player steps on a trigger
+										triggerwitem(socket,DEREF_P_ITEM(mapitem),1);  //When player steps on a trigger
 									}
 									else // see if disabled trigger can be re-enabled
 									{
-										if( ( items[mapitem].disabled != 0 ) && ( ( items[mapitem].disabled <= uiCurrentTime ) || (overflow)))
+										if( ( mapitem->disabled != 0 ) && ( ( mapitem->disabled <= uiCurrentTime ) || (overflow)))
 										{
-											items[mapitem].disabled = 0;	// re-enable it
-											triggerwitem( socket, mapitem, 1 );
+											mapitem->disabled = 0;	// re-enable it
+											triggerwitem( socket, DEREF_P_ITEM(mapitem), 1 );
 										}
 									}
 								}
@@ -1211,11 +1210,11 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 					if (!amTurning)
 					{
 						// is the item a building on the BUILDRANGE?
-						if ((items[mapitem].id1==0x40)&&(items[mapitem].id2>=0x7C)&&(items[mapitem].id2<=0x7E))
+						if ((mapitem->id1==0x40)&&(mapitem->id2>=0x7C)&&(mapitem->id2<=0x7E))
 						{
-							if ((abs(newx-items[mapitem].pos.x)==BUILDRANGE)||(abs(newy-items[mapitem].pos.y)==BUILDRANGE))
+							if ((abs(newx-mapitem->pos.x)==BUILDRANGE)||(abs(newy-mapitem->pos.y)==BUILDRANGE))
 							{
-								senditem(socket, mapitem);
+								senditem(socket, DEREF_P_ITEM(mapitem));
 							}
 						}
 						// otherwise if the item has just now become visible, inform the client about it
@@ -1226,13 +1225,13 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 // PLUS reduction in senditems for out of range objects!
 // Stuff commented out is original code between BEGIN and END
 // Thyme BEGIN
-							signed int oldd = Distance(oldx, oldy, items[mapitem].pos.x, items[mapitem].pos.y);
-							signed int newd = Distance(newx, newy, items[mapitem].pos.x, items[mapitem].pos.y);
+							signed int oldd = Distance(oldx, oldy, mapitem->pos.x, mapitem->pos.y);
+							signed int newd = Distance(newx, newy, mapitem->pos.x, mapitem->pos.y);
 							
-//							if ((abs(newx-items[mapitem].pos.x) == visibleRange ) || (abs(newy-items[mapitem].pos.y) == visibleRange ))
+//							if ((abs(newx-mapitem->pos.x) == visibleRange ) || (abs(newy-mapitem->pos.y) == visibleRange ))
 							if (newd == visibleRange)
 							{
-								if( ( !items[mapitem].visible ) || ( ( items[mapitem].visible ) && ( chars[currchar[socket]].isGM() ) ) )// we're a GM, or not hidden
+								if( ( !mapitem->visible ) || ( ( mapitem->visible ) && ( chars[currchar[socket]].isGM() ) ) )// we're a GM, or not hidden
 									senditem(socket, mapitem);
 							}
 							if ( ( oldd == visibleRange ) && ( newd == ( visibleRange + 1 ) ) )
@@ -1243,7 +1242,8 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						}
 					}
 				}
-			} while (mapitem!=-1);
+			} while (mapitem != NULL);
+#pragma note("This while is strange, need some further investigation")
 		}
 	}
 }

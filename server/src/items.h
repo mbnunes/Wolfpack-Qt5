@@ -225,7 +225,7 @@ public:
 	cAllItems() {moreItemMemoryRequested=false;}
 	void SetOwnSerial(ITEM i, long ownserial);
 	void SetPos(ITEM nItem, short x,short y, signed char z);
-	int  MemItemFree();
+	P_ITEM  MemItemFree();
 	void DeleItem(P_ITEM pi);
 	void DeleItem(int i);
 	char isFieldSpellItem(int i);

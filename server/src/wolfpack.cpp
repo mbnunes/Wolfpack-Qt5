@@ -1294,9 +1294,10 @@ int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color )
 	long int goldCount = 0;
 	int counter2 = 0;
 	int j, i, ci;
-	for( ci = 0; ci < ownsp[serhash].max; ci++ )
+	vector<SERIAL> vecOwn = ownsp.getData(serial);
+	for( ci = 0; ci < vecOwn.size(); ci++ )
 	{
-		j = ownsp[serhash].pointer[ci];
+		j = calcItemFromSer(vecOwn[ci]);
 		if( j != -1 )
 		{
 			if( items[j].ownserial == serial && items[j].type == 1 && items[j].morex == 1 )
@@ -1336,35 +1337,36 @@ int DeleBankItem( CHARACTER p, unsigned short itemid, unsigned short color, int 
 	int j, i;
 	int total = amt;
 	int ci;
-	for( ci = 0; ci < ownsp[serhash].max && total > 0; ci++ )
+	vector<SERIAL> vecOwn = ownsp.getData(serial);
+	for( ci = 0; ci < vecOwn.size() && total > 0; ci++ )
 	{
-		j = ownsp[serhash].pointer[ci];
-		if( j != -1 )
+		P_ITEM pj = FindItemBySerial(vecOwn[ci]);
+		if( pj != NULL )
 		{
-			if( items[j].ownserial == serial && items[j].type == 1 && items[j].morex == 1 )
+			if( pj->ownserial == serial && pj->type == 1 && pj->morex == 1 )
 			{
-				vector<SERIAL> vecContainer = contsp.getData(items[j].serial);
+				vector<SERIAL> vecContainer = contsp.getData(pj->serial);
 				for( counter2 = 0; counter2 < vecContainer.size() && total > 0; counter2++ )
 				{
-					i = calcItemFromSer(vecContainer[counter2]);
-					if( i != -1 )
+					P_ITEM pi = FindItemBySerial(vecContainer[counter2]);
+					if( pi != NULL )
 					{
-						if( items[i].contserial == items[j].serial )
+						if( pi->contserial == pj->serial )
 						{
-							if( items[i].id() == itemid )
+							if( pi->id() == itemid )
 							{
-								if( items[i].color1 == cid1 && items[i].color2 == cid2 )
+								if( pi->color1 == cid1 && pi->color2 == cid2 )
 								{
-									if( total >= items[i].amount )
+									if( total >= pi->amount )
 									{
-										total -= items[i].amount;
-										Items->DeleItem( i );
+										total -= pi->amount;
+										Items->DeleItem( pi );
 									}
 									else
 									{
-										items[i].amount -= total;
+										pi->amount -= total;
 										total = 0;
-										RefreshItem( i );
+										RefreshItem( pi );
 									}
 
 								}
@@ -3123,7 +3125,6 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	{
 		if(itemsp[i].max > ipsmax) ipsmax=itemsp[i].max;
 		if(spawnsp[i].max > spsmax) spsmax=spawnsp[i].max;
-		if(ownsp[i].max > opsmax) opsmax=ownsp[i].max;
 	}
 	clConsole.send("i:%i  c: %i  s: %i  o: %i \n",	ipsmax,cpsmax,spsmax,opsmax);
 	}
@@ -3764,12 +3765,12 @@ void openbank(int s, int i)
 	int j,c,serhash,ci;
 	int serial=chars[i].serial;
 	serhash=serial%HASHMAX;
-	for (ci=0;ci<ownsp[serhash].max;ci++)
+	vector<SERIAL> vecOwn = ownsp.getData(serial);
+	for (ci=0;ci<vecOwn.size();ci++)
 	{
-		j=ownsp[serhash].pointer[ci];
-		if (j!=-1)
+		P_ITEM pj = FindItemBySerial(vecOwn[ci]);
+		if (pj != NULL)
 		{
-			const P_ITEM pj=MAKE_ITEMREF_LR(j);	// on error return
 			if (pj->GetOwnSerial()==serial &&
 				pj->type==1 && pj->morex==1)
 			{
@@ -3828,12 +3829,12 @@ void openspecialbank(int s, int i)
 	int cc=currchar[s];
 	serial=chars[i].serial;
 	serhash=serial%HASHMAX;
-	for (ci=0;ci<ownsp[serhash].max;ci++)
+	vector<SERIAL> vecOwn = ownsp.getData(serial);
+	for (ci=0;ci<vecOwn.size();ci++)
 	{
-		j=ownsp[serhash].pointer[ci];
-		if (j!=-1)
+		P_ITEM pj = FindItemBySerial(vecOwn[ci]);
+		if (pj != NULL)
 		{
-			const P_ITEM pj=MAKE_ITEMREF_LR(j);	// on error return
 			if (pj->GetOwnSerial()==serial &&
 				pj->type==1 && pj->morex==1 &&
 				pj->morey!=123 )//specialbank and the current region - AntiChrist
@@ -5537,7 +5538,6 @@ void BuildPointerArray()
 		cownsp[i].pointer = NULL;
 		spawnsp[i].pointer = NULL;
 		cspawnsp[i].pointer = NULL;
-		ownsp[i].pointer = NULL;
 		glowsp[i].pointer = NULL;
 
 		// init them
@@ -5546,7 +5546,6 @@ void BuildPointerArray()
 			if(( cownsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( spawnsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( cspawnsp[i].pointer = new int[25]) == NULL) memerrflg=1;
-			if(( ownsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( glowsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 
 		if (memerrflg)
@@ -5555,8 +5554,8 @@ void BuildPointerArray()
 			Network->kr=0;
 			return;
 		}
-		itemsp[i].max=ownsp[i].max=spawnsp[i].max=cownsp[i].max=cspawnsp[i].max=charsp[i].max=glowsp[i].max=25;
-		for (int j=0;j<25;j++) itemsp[i].pointer[j]=ownsp[i].pointer[j]=cownsp[i].pointer[j]=spawnsp[i].pointer[j]=cspawnsp[i].pointer[j]=charsp[i].pointer[j]=glowsp[i].pointer[j]=-1;
+		itemsp[i].max=spawnsp[i].max=cownsp[i].max=cspawnsp[i].max=charsp[i].max=glowsp[i].max=25;
+		for (int j=0;j<25;j++) itemsp[i].pointer[j]=cownsp[i].pointer[j]=spawnsp[i].pointer[j]=cspawnsp[i].pointer[j]=charsp[i].pointer[j]=glowsp[i].pointer[j]=-1;
 	}
 }
 

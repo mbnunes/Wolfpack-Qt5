@@ -3189,28 +3189,29 @@ void sendtradestatus(int cont1, int cont2)
 
 void endtrade(int b1, int b2, int b3, int b4)
 {
-	int cont1, cont2, p1, p2, bp1, bp2, s1, s2, i;
-	int serial,serhash,ci;
+	int i;
 	unsigned char msg[30];
+	P_ITEM pi_cont1 = NULL, pi_cont2 = NULL;
 
-	cont1=calcItemFromSer(b1, b2, b3, b4);
-	if (cont1<0) return; // LB, crashfix
-	cont2=calcItemFromSer(items[cont1].moreb1, items[cont1].moreb2, items[cont1].moreb3, items[cont1].moreb4);
-	if (cont2<0) return; // LB, crashfix
-	p1=calcCharFromSer(items[cont1].contserial);
-	p2=calcCharFromSer(items[cont2].contserial);
-	bp1=packitem(p1);
-	if (bp1<0) return;
-	bp2=packitem(p2);
-	if (bp2<0) return;
-	s1=calcSocketFromChar(p1);
-	s2=calcSocketFromChar(p2);
+	pi_cont1 = FindItemBySerial(calcserial(b1, b2, b3, b4));
+	if (pi_cont1 == NULL) 
+		return; // LB, crashfix
+	pi_cont2 = FindItemBySerial(calcserial(pi_cont1->moreb1, pi_cont1->moreb2, pi_cont1->moreb3, pi_cont1->moreb4));
+	if (pi_cont2 == NULL) return; // LB, crashfix
+	P_CHAR pc1 = FindCharBySerial(pi_cont1->contserial);
+	P_CHAR pc2 = FindCharBySerial(pi_cont2->contserial);
+	P_ITEM pi_bp1 = Packitem(pc1);
+	if (pi_bp1 == NULL) return;
+	P_ITEM pi_bp2 = Packitem(pc2);
+	if (pi_bp2 == NULL) return;
+	UOXSOCKET s1 = calcSocketFromChar(DEREF_P_CHAR(pc1));
+	UOXSOCKET s2 = calcSocketFromChar(DEREF_P_CHAR(pc2));
 
 	msg[0]=0x6F;//Header Byte
 	msg[1]=0x00;//Size
 	msg[2]=0x11;//Size
 	msg[3]=0x01;//State byte
-	LongToCharPtr(items[cont1].serial,msg+4);
+	LongToCharPtr(pi_cont1->serial,msg+4);
 	msg[8]=0;
 	msg[9]=0;
 	msg[10]=0;
@@ -3227,7 +3228,7 @@ void endtrade(int b1, int b2, int b3, int b4)
 	msg[1]=0x00;//Size
 	msg[2]=0x11;//Size
 	msg[3]=0x01;//State byte
-	LongToCharPtr(items[cont2].serial,msg+4);
+	LongToCharPtr(pi_cont2->serial,msg+4);
 	msg[8]=0;
 	msg[9]=0;
 	msg[10]=0;
@@ -3240,47 +3241,44 @@ void endtrade(int b1, int b2, int b3, int b4)
 	if (s2 > -1)	// player may have been disconnected (Duke)
 		Xsend(s2, msg, 17);
 
-	serial=items[cont1].serial;
-	serhash=serial%HASHMAX;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
+	vector<SERIAL> vecContainer = contsp.getData(pi_cont1->serial);
+	unsigned int ci;
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
-		i = calcItemFromSer(vecContainer[ci]);
-		if (i!=-1)
-			if ((items[i].contserial==serial))
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+		if (pi != NULL)
+			if ((pi->contserial==pi_cont1->serial))
 			{
-				if (items[i].glow>0) removefromptr(&glowsp[chars[currchar[s2]].serial%HASHMAX],i); // lb, glowing stuff
-				items[i].SetContSerial(items[bp1].serial);
-				if (items[i].glow>0) setptr(&glowsp[chars[currchar[s1]].serial%HASHMAX],i);
-				items[i].pos.x = RandomNum(50, 130);
-				items[i].pos.y = RandomNum(50, 130);
-				items[i].pos.z=9;
-				if (s1!=-1)
-					RefreshItem(i);//AntiChrist
+				if (pi->glow > 0) removefromptr(&glowsp[pc2->serial%HASHMAX],DEREF_P_ITEM(pi)); // lb, glowing stuff
+				pi->SetContSerial(pi_bp1->serial);
+				if (pi->glow > 0) setptr(&glowsp[pc1->serial%HASHMAX],DEREF_P_ITEM(pi));
+				pi->pos.x = RandomNum(50, 130);
+				pi->pos.y = RandomNum(50, 130);
+				pi->pos.z=9;
+				if (s1 != -1)
+					RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
 			}
 	}
-	serial=items[cont2].serial;
-	serhash=serial%HASHMAX;
 	vecContainer.clear();
-	vecContainer = contsp.getData(serial);
+	vecContainer = contsp.getData(pi_cont2->serial);
 	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
-		i = calcItemFromSer(vecContainer[ci]);
-		if (i!=-1)
-			if ((items[i].contserial==serial))
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+		if (pi != NULL)
+			if ((pi->contserial==pi_cont2->serial))
 			{
-				if (items[i].glow>0) removefromptr(&glowsp[chars[currchar[s2]].serial%HASHMAX],i); // lb, glowing stuff
-				items[i].SetContSerial(items[bp2].serial);
-				if (items[i].glow>0) setptr(&glowsp[chars[currchar[s1]].serial%HASHMAX],i);
-				items[i].pos.x=50+(rand()%80);
-				items[i].pos.y=50+(rand()%80);
-				items[i].pos.z=9;
-				if (s2!=-1)
-					RefreshItem(i);//AntiChrist
+				if (pi->glow>0) removefromptr(&glowsp[pc2->serial%HASHMAX],DEREF_P_ITEM(pi)); // lb, glowing stuff
+				pi->SetContSerial(pi_bp2->serial);
+				if (pi->glow>0) setptr(&glowsp[pc1->serial%HASHMAX],DEREF_P_ITEM(pi));
+				pi->pos.x=50+(rand()%80);
+				pi->pos.y=50+(rand()%80);
+				pi->pos.z=9;
+				if (s2 != -1)
+					RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
 			}
 	}
-	Items->DeleItem(cont1);
-	Items->DeleItem(cont2);
+	Items->DeleItem(pi_cont1);
+	Items->DeleItem(pi_cont2);
 }
 
 void tellmessage(int i, int s, char *txt)

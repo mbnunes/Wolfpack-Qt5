@@ -190,7 +190,8 @@ void cBoat::PlankStuff(UOXSOCKET s, ITEM p)//If the plank is opened, double clic
 {
 	P_CHAR pc_cs,pc_b;
 
-	pc_cs=MAKE_CHARREF_LR(currchar[s]);	
+	pc_cs=MAKE_CHARREF_LR(currchar[s]);
+	P_ITEM pi_plank = MAKE_ITEM_REF(p);
 
 	int a,b,serhash=pc_cs->serial%HASHMAX;
 	P_ITEM boat = GetBoat(pc_cs);
@@ -201,7 +202,7 @@ void cBoat::PlankStuff(UOXSOCKET s, ITEM p)//If the plank is opened, double clic
 		// we need to get the boat again after beaming the character to the boat's plank
 		// otherweise only -1's will be added to the boat hash-table 
         
-		pc_cs->MoveTo(items[p].pos.x,items[p].pos.y,items[p].pos.z+5);
+		pc_cs->MoveTo(pi_plank->pos.x,pi_plank->pos.y,pi_plank->pos.z+5);
 
 		pc_cs->multis=-3; // we have to trick getboat to start the search !!!
 		                              // will be corrected automatically by setserial...
@@ -249,11 +250,12 @@ void cBoat::LeaveBoat(UOXSOCKET s, ITEM p)//Get off a boat (dbl clicked an open 
 	P_CHAR pc_cs,pc_b;
 	
 	pc_cs=MAKE_CHARREF_LR(currchar[s]);
+	P_ITEM pi_plank = MAKE_ITEM_REF(p);
 
 	//long int pos, pos2, length;
-	int x,x2=items[p].pos.x;
-	int y,y2=items[p].pos.y;
-	signed char z=items[p].pos.z,mz,sz,typ;
+	int x,x2=pi_plank->pos.x;
+	int y,y2=pi_plank->pos.y;
+	signed char z=pi_plank->pos.z,mz,sz,typ;
 	P_ITEM pBoat = GetBoat(pc_cs);
 	int a,b,serhash=pc_cs->serial%HASHMAX;
 	// char o;
@@ -321,20 +323,21 @@ void cBoat::LeaveBoat(UOXSOCKET s, ITEM p)//Get off a boat (dbl clicked an open 
 
 void cBoat::OpenPlank(ITEM p)//Open, or close the plank (called from keytarget() )
 {
-	switch(items[p].id2)
+	P_ITEM pi_p = MAKE_ITEM_REF(p);
+	switch(pi_p->id2)
 	{
 		//Open plank->
-		case (unsigned char)0xE9: items[p].id2=(unsigned char)0x84; break;
-		case (unsigned char)0xB1: items[p].id2=(unsigned char)0xD5; break;
-		case (unsigned char)0xB2: items[p].id2=(unsigned char)0xD4; break;
-		case (unsigned char)0x8A: items[p].id2=(unsigned char)0x89; break;
-		case (unsigned char)0x85: items[p].id2=(unsigned char)0x84; break;
+		case (unsigned char)0xE9: pi_p->id2=(unsigned char)0x84; break;
+		case (unsigned char)0xB1: pi_p->id2=(unsigned char)0xD5; break;
+		case (unsigned char)0xB2: pi_p->id2=(unsigned char)0xD4; break;
+		case (unsigned char)0x8A: pi_p->id2=(unsigned char)0x89; break;
+		case (unsigned char)0x85: pi_p->id2=(unsigned char)0x84; break;
 		//Close Plank->
-		case (unsigned char)0x84: items[p].id2=(unsigned char)0xE9; break;
-		case (unsigned char)0xD5: items[p].id2=(unsigned char)0xB1; break;
-		case (unsigned char)0xD4: items[p].id2=(unsigned char)0xB2; break;
-		case (unsigned char)0x89: items[p].id2=(unsigned char)0x8A; break;
-		default: { sprintf((char*)temp,"WARNING: Invalid plank ID called! Plank %i '%s' [%x %x]\n",p,items[p].name,items[p].id1,items[p].id2); LogWarning( (char*)temp ); break; }
+		case (unsigned char)0x84: pi_p->id2=(unsigned char)0xE9; break;
+		case (unsigned char)0xD5: pi_p->id2=(unsigned char)0xB1; break;
+		case (unsigned char)0xD4: pi_p->id2=(unsigned char)0xB2; break;
+		case (unsigned char)0x89: pi_p->id2=(unsigned char)0x8A; break;
+		default: { sprintf((char*)temp,"WARNING: Invalid plank ID called! Plank %i '%s' [%x %x]\n",p,pi_p->name,pi_p->id1,pi_p->id2); LogWarning( (char*)temp ); break; }
 	}
 }
 

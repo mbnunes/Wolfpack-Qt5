@@ -296,19 +296,20 @@ void get_item(P_CLIENT ps) // Client grabs an item
 						amount = pi->amount;
 					if (amount < pi->amount)
 					{
-						c=Items->MemItemFree();
-						//	items[c].Init(0);
-						memcpy(&items[c], pi, sizeof(cItem));  // Tauriel reduce code faster too
-						items[c].SetSerial(itemcount2);
+						P_ITEM pi_c = Items->MemItemFree();
+						//	pi_c->Init(0);
+#pragma note("Replace by a copy constructor before finishing items[]")
+						memcpy(pi_c, pi, sizeof(cItem));  // Tauriel reduce code faster too
+						pi_c->SetSerial(itemcount2);
 						itemcount2++;
 
-						items[c].amount = pi->amount - amount;
-						items[c].SetContSerial(items[c].contserial);
-						items[c].SetOwnSerial(items[c].ownserial);
-						items[c].SetSpawnSerial(items[c].spawnserial);
+						pi_c->amount = pi->amount - amount;
+						pi_c->SetContSerial(pi_c->contserial);
+						pi_c->SetOwnSerial(pi_c->ownserial);
+						pi_c->SetSpawnSerial(pi_c->spawnserial);
 						
 						statwindow(s,cc);
-						RefreshItem(c);//AntiChrist
+						RefreshItem(pi_c);//AntiChrist
 					}
 					
 					if (pi->id() == 0x0EED) // gold coin
@@ -383,7 +384,7 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 {
 	int j, k;
 	tile_st tile;
-	int serial, serhash, ci, i2, letsbounce=0; // AntiChrist (5) - new ITEMHAND system
+	int serial, serhash, ci, letsbounce=0; // AntiChrist (5) - new ITEMHAND system
 	UOXSOCKET s=ps->GetSocket();
 	int cc=ps->GetCurrChar();
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
@@ -469,40 +470,40 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		vector<SERIAL> vecContainer = contsp.getData(serial);
 		for (ci=0;ci<vecContainer.size();ci++)
 		{
-			i2=calcItemFromSer(vecContainer[ci]);
-			if (i2!=-1 && items[i2].contserial==serial)
+			P_ITEM pi2 = FindItemBySerial(vecContainer[ci]);
+			if (pi2 != NULL && pi2->contserial == serial)
 			{
-				if (items[i2].itmhand==1 && pi->itmhand==1)
+				if (pi2->itmhand==1 && pi->itmhand==1)
 				{
 					sysmessage(s,"You already have a weapon equipped!");
 					letsbounce=1;
 				}
-				else if (items[i2].itmhand==2 && pi->itmhand==1)
+				else if (pi2->itmhand==2 && pi->itmhand==1)
 				{
 					sysmessage(s,"Your hands are both occupied!");
 					letsbounce=1;
 				}
-				else if (items[i2].itmhand==1 && pi->itmhand==2)
+				else if (pi2->itmhand==1 && pi->itmhand==2)
 				{
 					sysmessage(s,"You cannot equip a two handed weapon with a weapon equipped!");
 					letsbounce=1;
 				}
-				else if (items[i2].itmhand==2 && pi->itmhand==2)
+				else if (pi2->itmhand==2 && pi->itmhand==2)
 				{
 					sysmessage(s,"You cannot equip a two handed weapon with a two handed weapon equipped!");
 					letsbounce=1;
 				}
-				else if (items[i2].itmhand==2 && pi->itmhand==3)
+				else if (pi2->itmhand==2 && pi->itmhand==3)
 				{
 					sysmessage(s,"You cannot equip a shield with a two handed weapon equipped!");
 					letsbounce=1;
 				}
-				else if (items[i2].itmhand==3 && pi->itmhand==2)
+				else if (pi2->itmhand==3 && pi->itmhand==2)
 				{
 					sysmessage(s,"You cannot equip a two handed weapon with a shield equipped!");
 					letsbounce=1;
 				}
-				else if (items[i2].layer == tile.layer) 
+				else if (pi2->layer == tile.layer) 
 				{
  					sysmessage(s, "You already have an armor equipped!");
 					letsbounce = 1;
