@@ -149,9 +149,9 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 		QString message = getArgStr( 0 );
 
 		if( ( player->bodyID() == 0x3DB ) && message.startsWith( SrvParams->commandPrefix() ) )
-			cCommands::instance()->process( player->socket(), message.right( message.length()-1 ) );
+			Commands::instance()->process( player->socket(), message.right( message.length()-1 ) );
 		else if( message.startsWith( SrvParams->commandPrefix() ) )
-			cCommands::instance()->process( player->socket(), message.right( message.length()-1 ) );
+			Commands::instance()->process( player->socket(), message.right( message.length()-1 ) );
 		else if( PyTuple_Size( args ) == 2 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 			player->message( message, PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) );
 		else

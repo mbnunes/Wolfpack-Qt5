@@ -32,6 +32,8 @@
 #if !defined( __COMMANDS_H__ )
 #define __COMMANDS_H__
 
+#include "singleton.h"
+
 // Library Includes
 #include <qmap.h>
 #include <qstring.h>
@@ -56,9 +58,8 @@ public:
 // ACL:
 // Group -> Command -> Permitted
 
-class cCommands : public QObject
+class cCommands
 {
-	Q_OBJECT
 private:
 	QMap< QString, cAcl* > _acls;
 	static stCommand commands[];
@@ -66,12 +67,6 @@ public:
 	// Command processing system
 	void process( cUOSocket *socket, const QString &command );
 	void dispatch( cUOSocket *socket, const QString &command, QStringList &arguments );
-
-	static cCommands *instance()
-	{
-		static cCommands instance_;
-		return &instance_;
-	}
 
 	QMap< QString, cAcl* >::const_iterator aclbegin() const { return _acls.begin(); }
 	QMap< QString, cAcl* >::const_iterator aclend() const { return _acls.end(); }
@@ -83,12 +78,15 @@ public:
 
 inline cAcl *cCommands::getACL( const QString& key )
 {
-	if( _acls.find( key ) == _acls.end() )
-		return 0;
+	QMap< QString, cAcl* >::iterator it = _acls.find( key );
+
+	if( it != _acls.end() )
+		return it.data();
 	else
-		return _acls.find( key ).data();
+		return 0;
 }
 
+typedef SingletonHolder< cCommands > Commands;
 
 #endif
 

@@ -99,21 +99,24 @@ bool cAccount::removeCharacter( P_PLAYER d )
 	return false;
 }
 
+//#include "console.h"
+
 bool cAccount::authorized( const QString& group, const QString& value ) const
 {
 	// No Valid ACL specified
 	if( !acl_ )
 	{// Let's try harder get one.
-		acl_ = cCommands::instance()->getACL( aclName_ ); // loads if there was any specified.
+		acl_ = Commands::instance()->getACL( aclName_ ); // loads if there was any specified.
 		if ( !acl_ )
 		{
-			acl_ = cCommands::instance()->getACL( "player" );
+			acl_ = Commands::instance()->getACL( "player" );
 			if ( acl_ )
 				aclName_ = "player";
 			else
 				return false;
 		}
 	}
+
 	// No group? No Access!
 	QMap< QString, QMap< QString, bool > >::iterator groupIter = acl_->groups.find( group );
 	if( groupIter == acl_->groups.end() )
@@ -146,7 +149,7 @@ void cAccounts::remove( cAccount *record )
 
 void cAccount::refreshAcl()
 {
-	acl_ = cCommands::instance()->getACL( aclName_ ); 
+	acl_ = Commands::instance()->getACL( aclName_ ); 
 }
 
 bool cAccount::isAllMove() const

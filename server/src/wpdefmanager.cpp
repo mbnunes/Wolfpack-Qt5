@@ -292,7 +292,7 @@ void WPDefManager::load( void )
 
 	Console::instance()->ProgressDone();
 
-	cCommands::instance()->loadACLs();
+	Commands::instance()->loadACLs();
 	BaseDefManager::instance()->load();
 }
 

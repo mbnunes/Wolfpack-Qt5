@@ -178,6 +178,7 @@ void cCommands::loadACLs( void )
 				}
 			}
 		}
+
 		_acls.insert( ACLname, acl );	
 	}
 }
@@ -472,7 +473,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 			}
 			else if( key == "acl" )
 			{
-				if( !cCommands::instance()->getACL( value ) )
+				if( !Commands::instance()->getACL( value ) )
 				{
 					socket->sysMessage( tr( "You tried to specify an unknown acl '%1'" ).arg( value ) );
 				}

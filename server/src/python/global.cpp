@@ -1303,8 +1303,8 @@ static PyObject *wpAccountsAcls( PyObject* self, PyObject* args )
 	Q_UNUSED(args);
 	PyObject *list = PyList_New( 0 );
 
-	QMap< QString, cAcl* >::const_iterator it = cCommands::instance()->aclbegin();
-	while( it != cCommands::instance()->aclend() )
+	QMap< QString, cAcl* >::const_iterator it = Commands::instance()->aclbegin();
+	while( it != Commands::instance()->aclend() )
 	{
 		QString name = it.key();
 		if( name != QString::null )
@@ -1327,7 +1327,7 @@ static PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
 		return Py_None;
 	}
 
-	cAcl *acl = cCommands::instance()->getACL( getArgStr( 0 ) );
+	cAcl *acl = Commands::instance()->getACL( getArgStr( 0 ) );
 	if( !acl )
 	{
 		Py_INCREF( Py_None );

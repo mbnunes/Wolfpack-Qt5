@@ -735,6 +735,9 @@ void cWorld::save()
 		Console::instance()->ChangeColor( WPC_NORMAL );
 
 		Console::instance()->log( LOG_ERROR, "Saving failed: " + e );
+
+		persistentBroker->disconnect();
+
 		return;
 	}
 
@@ -747,10 +750,9 @@ void cWorld::save()
 	Console::instance()->send( " Done" );
 	Console::instance()->ChangeColor( WPC_NORMAL );
 
-	persistentBroker->disconnect();
-
 	Console::instance()->send( QString( " [%1ms]\n" ).arg( uiCurrentTime - startTime ) );
 
+	persistentBroker->disconnect();
 }
 
 void cWorld::registerObject( cUObject *object )

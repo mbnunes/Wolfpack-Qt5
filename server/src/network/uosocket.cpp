@@ -1294,9 +1294,9 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	// There is one special case. if the user has the body 0x3db and the first char
 	// of the speech is = then it's always a command
 	if( ( _player->bodyID() == 0x3DB ) && speech.startsWith( SrvParams->commandPrefix() ) )
-		cCommands::instance()->process( this, speech.right( speech.length()-1 ) );
+		Commands::instance()->process( this, speech.right( speech.length()-1 ) );
 	else if( speech.startsWith( SrvParams->commandPrefix() ) )
-		cCommands::instance()->process( this, speech.right( speech.length()-1 ) );
+		Commands::instance()->process( this, speech.right( speech.length()-1 ) );
 	else
 		Speech->talking( _player, packet->language(), speech, keywords, color, font, type );
 }
