@@ -42,7 +42,7 @@
 #include "player.h"
 #include "npc.h"
 #include "log.h"
-#include "Timing.h"
+#include "timing.h"
 #include "basics.h"
 #include <sqlite.h>
 

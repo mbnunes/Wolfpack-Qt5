@@ -28,7 +28,7 @@
 // Platform Includes
 #include "platform.h"
 
-#include "Timing.h"
+#include "timing.h"
 
 #include "basics.h"
 #include "timers.h"

@@ -115,7 +115,7 @@ HEADERS = \
 	territories.h \
 	tilecache.h \
 	tileflags.h \
-	Timing.h \
+	timing.h \
 	timers.h \
 	tracking.h \
 	trade.h \
@@ -170,7 +170,7 @@ SOURCES = \
 	targetrequests.cpp \
 	territories.cpp \
 	tilecache.cpp \
-	Timing.cpp \
+	timing.cpp \
 	timers.cpp \
 	tracking.cpp \
 	trade.cpp \

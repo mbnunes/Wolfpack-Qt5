@@ -22,7 +22,7 @@
 #include "config.h"
 #include "territories.h"
 #include "tilecache.h"
-#include "Timing.h"
+#include "timing.h"
 #include "verinfo.h"
 #include "world.h"
 #include "definitions.h"
