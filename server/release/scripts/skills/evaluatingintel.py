@@ -9,6 +9,8 @@ import wolfpack
 from wolfpack.consts import *
 from math import floor
 
+EVALINT_DELAY = 5000
+
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.evaluatingintel" )
 
@@ -18,8 +20,12 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-		return 1
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 0x7A4AA, "", 0x3b2, 3 ) # What would you like to evaluate
 	char.socket.attachtarget( "skills.evaluatingintel.response" )
@@ -34,6 +40,9 @@ def response( char, args, target ):
 
 	if not char.canreach( target.char, 8 ):
 		return 0
+
+	cur_time = wolfpack.servertime()
+	char.settag( 'skill_delay', cur_time + EVALINT_DELAY )
 
 	#if target.char == char:
 		# Hmm, that person looks really silly.

@@ -9,6 +9,8 @@ from wolfpack.consts import *
 import wolfpack
 from math import floor
 
+ANATOMY_DELAY = 5000
+
 # Register as a global script
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.anatomy" )
@@ -22,8 +24,12 @@ def onSkillUse( char, skill ):
 	socket = char.socket
 
 	if char.hastag( 'skill_delay' ):
-		socket.clilocmessage( 500118, "", 0x3b2, 3 )
-		return 1
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
 
 	# Assign the target request
 	socket.clilocmessage( 0x7A261, "", 0x3b2, 3 ) # Whom shall I examine?
@@ -57,6 +63,9 @@ def response( char, args, target ):
 		socket.clilocmessage( 0x7A266, "", 0x3b2, 3, target.char ) # That cannot be inspected.
 		return
 
+	cur_time = wolfpack.servertime()
+	char.settag( 'skill_delay', cur_time + ANATOMY_DELAY )
+
 	# Make a skillcheck and display the fail or success message above the targets head
 	if not char.checkskill( ANATOMY, 0, 1000 ):
 		socket.clilocmessage( 0xFE8EA, "", 0x3b2, 3, target.char ) # You cannot quite get a sense of their physical characteristics.
@@ -72,3 +81,4 @@ def response( char, args, target ):
 
 	socket.clilocmessage( msgId, "", 0x3b2, 3, target.char )
 	socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char )
+	

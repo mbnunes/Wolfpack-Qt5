@@ -19,6 +19,7 @@ dungeon_traps = range( 0x119a, 0x11b5 )
 # faction trap reveal duration 1 min
 FACTION_TRAP_REVEAL_DURATION = 1*60*1000
 
+DETECTHIDDEN_DELAY = 5000
 
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.detectinghidden" )
@@ -29,8 +30,12 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-		return 1
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 500819, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.detectinghidden.response" )
@@ -55,6 +60,9 @@ def response( char, args, target ):
 				char.update()
 		# do we need to checkskill ?
 		return
+
+	cur_time = wolfpack.servertime()
+	char.settag( 'skill_delay', cur_time + DETECTHIDDEN_DELAY )
 
 	success = char.checkskill( DETECTINGHIDDEN, 0, 1000 )
 	# You can see nothing hidden there
@@ -120,3 +128,4 @@ def hide_trap( self, args ):
 		return
 	self.visible = args[ 0 ]
 	self.update()
+

@@ -9,6 +9,8 @@ import wolfpack
 from wolfpack.consts import *
 from wolfpack.utilities import *
 
+PEACE_DELAY = 5000
+
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.peacemaking" )
 
@@ -17,8 +19,12 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-		return 1
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
 
 	# check instrument in backpack
 	backpack = char.getbackpack()
@@ -57,13 +63,17 @@ def onSkillUse( char, skill ):
 def response( char, args, target ):
 	if not char.hastag( 'peacemaking_instrument' ):
 		return 0
+	# you can only target chars
 	if not target.char:
 		return 1
 	instrument = wolfpack.finditem( char.gettag( 'peacemaking_instrument' ) )
 	if not instrument:
 		return 0
+
 	char.deltag( 'peacemaking_instrument' )
-	# you can only target chars
+	cur_time = wolfpack.servertime()
+	char.settag( 'skill_delay', cur_time + PEACE_DELAY )
+
 	# if target him/her self : standard (regional) mode
 	# anyone including npcs can re-target and start fight
 	peace_range = musicianship.bard_range( char )
@@ -111,9 +121,10 @@ def response( char, args, target ):
 		# stop combat
 		# if npc, do not start combat for the duration while not attacked
 		creature.settag( 'peacemaking', 1 )
-		creature.addtimer( duration, "skills.peacemaking.restore", [] )
+		creature.addtimer( duration, "skills.peacemaking.release", [] )
 	return 1
 
-def restore( char, args ):
+def release( char, args ):
 	if char.hastag( 'peacemaking' ):
 		char.deltag( 'peacemaking' )
+

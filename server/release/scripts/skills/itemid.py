@@ -9,6 +9,8 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 import wolfpack
 
+ITEMID_DELAY = 5000
+
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.itemid" )
 
@@ -17,8 +19,12 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-		return 1
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 0x7A277, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.itemid.response" )
@@ -36,6 +42,9 @@ def response( char, args, target ):
 				char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
 				return 0
  
+ 		cur_time = wolfpack.servertime()
+ 		char.settag( 'skill_delay', cur_time + ITEMID_DELAY )
+
 		if not char.checkskill( ITEMID, 0, 1000 ):
 			char.socket.clilocmessage( 0xFE3C8, "", 0x3b2, 3, char )
 			return 0
@@ -58,3 +67,4 @@ def response( char, args, target ):
 		name = str( target.char.name )
 		char.socket.clilocmessage( 0xFE3C5, "", 0x3b2, 3, char, " %s" %name )
 		return 1
+

@@ -20,6 +20,8 @@ TAMING_MSGS = [ 502790, 502791, 502792, 502793, 502805 ]
 # FIXME : duration between taming msgs
 TAMING_DURATION = 1500
 
+TAMING_DELAY = 10000
+
 # Register as a global script
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.animaltaming" )
@@ -32,8 +34,12 @@ def onSkillUse( char, skill ):
 
 	socket = char.socket
 	if char.hastag( 'skill_delay' ):
-		socket.clilocmessage( 500118, "", 0x3b2, 3 )
-		return 1
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
 
 	# Assign the target request
 	socket.clilocmessage( 502789, "", 0x3b2, 3 )
@@ -120,6 +126,9 @@ def response( char, args, target ):
 	
 	# start taming
 	socket.clilocmessage( 1010598, "", 0x3b2, 3, totame )
+
+	cur_time = wolfpack.servertime()
+	char.settag( 'skill_delay', cur_time + TAMING_DELAY )
 
 	# set timer
 	char.addtimer( TAMING_DURATION, "skills.animaltaming.callback", [ havetamed, totame.serial, 0 ] )

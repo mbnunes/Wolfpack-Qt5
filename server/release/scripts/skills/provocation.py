@@ -13,6 +13,8 @@ import whrandom
 # % it will attack you when you fail to provocate
 ATTACK_IF_FAIL	= 20
 
+PROVO_DELAY = 5000
+
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.provocation" )
 
@@ -21,8 +23,12 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-		return 1
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
 
 	# check instrument in backpack
 	backpack = char.getbackpack()
@@ -119,6 +125,8 @@ def response( char, args, target ):
 		return 1
 
 	clear_tags( char )
+	cur_time = wolfpack.servertime()
+	char.settag( 'skill_delay', cur_time + PROVO_DELAY )
 
 	# skill check : we should get the bard difficulty from xml definition
 	loskill = 0

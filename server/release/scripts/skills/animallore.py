@@ -9,6 +9,8 @@ from wolfpack.consts import *
 import wolfpack
 from wolfpack.gumps import cGump
 
+ANIMALLORE_DELAY = 5000
+
 # Register as a global script
 def onLoad():
     wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.animallore" )
@@ -18,8 +20,12 @@ def onSkillUse( char, skill ):
             return 0
 
 	if char.hastag( 'skill_delay' ):
-		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-		return 1
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 0x7A268, "", 0x3b2, 3 ) # What animal should I look at?
 	char.socket.attachtarget( "skills.animallore.response" )    
@@ -213,3 +219,7 @@ def sendGump( char, args, target ):
     loreGump.setArgs( [target] )
     loreGump.setType( 0x10101010 )
     loreGump.send( char )
+
+	cur_time = wolfpack.servertime()
+	char.settag( 'skill_delay', cur_time + ANIMALLORE_DELAY )
+

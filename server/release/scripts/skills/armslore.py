@@ -9,6 +9,8 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 import wolfpack
 
+ARMSLORE_DELAY = 5000
+
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.armslore" )
 
@@ -18,8 +20,12 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-		return 1
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 0x7A27D, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.armslore.response" )
@@ -42,6 +48,8 @@ def response( char, args, target ):
 				return 0
 
 		if isweapon( item ) or isarmor( item ) or isshield( item ):	
+			cur_time = wolfpack.servertime()
+			char.settag( 'skill_delay', cur_time + ARMSLORE_DELAY )
 			if not char.checkskill( ARMSLORE, 0, 1000 ):
 				char.socket.clilocmessage( 0x7A281, "", 0x3b2, 3 )
 				return 0
@@ -64,5 +72,3 @@ def response( char, args, target ):
 		char.socket.clilocmessage( 0x7A280, "", 0x3b2, 3 )
 		return 0
 
-
-	

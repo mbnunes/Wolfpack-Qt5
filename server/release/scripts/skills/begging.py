@@ -21,6 +21,8 @@ GOLD_COIN1 = "eee"
 GOLD_COIN2 = "eef"
 BEGGING_RANGE = 3
 
+BEGGING_DELAY = 5000
+
 def onLoad():
 	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.begging" )
 
@@ -28,7 +30,16 @@ def onSkillUse( char, skill ):
 	if skill != BEGGING:
 		return 0
 
+	if char.hastag( 'skill_delay' ):
+		cur_time = wolfpack.servertime()
+		if cur_time < char.gettag( 'skill_delay' ):
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			return 1
+		else:
+			char.deltag( 'skill_delay' )
+
 	char.socket.clilocmessage( 500397, "", 0x3b2, 3 )
+
 	# decrease karma
 
 	char.socket.attachtarget( "skills.begging.response" )
@@ -63,6 +74,8 @@ def response( char, args, target ):
 		return
 
 	success = char.checkskill( BEGGING, 0, 1200 )
+	cur_time = wolfpack.servertime()
+	char.settag( 'skill_delay', cur_time + BEGGING_DELAY )
 
 	# npc who has more than 100gp will give you 10gp
 	if gold < 100:
