@@ -84,7 +84,7 @@ QString cOnlineStatus::getCpu()
 	Q_UINT32	cur_uptime = uptime_.elapsed();
 	QString		percents;
 	
-	percents = QString( "%1.%2%" ).arg( ( 100 * ( cur_cpu - prv_cpu_ ) ) / ( cur_uptime - prv_uptime_ ) ).arg( (( 100 * ( cur_cpu - prv_cpu_ ) ) % ( cur_uptime - prv_uptime_ )),4 );
+	percents = QString( "%1.%2%" ).arg( ( 100 * ( cur_cpu - prv_cpu_ ) ) / ( cur_uptime - prv_uptime_ ) ).arg( (( 100 * ( cur_cpu - prv_cpu_ ) ) % ( cur_uptime - prv_uptime_ )) );
 	
 	prv_cpu_ = cur_cpu;
 	prv_uptime_ = cur_uptime;
@@ -100,7 +100,7 @@ QString cOnlineStatus::getCpu()
 
 bool cStatFile::refresh() {
     if ( stat_file_.open( IO_ReadOnly ) ) {
-	QString tmp(stat_file_.readAll());
+	QString tmp( stat_file_.readAll() );
 	stat_fields_ = tmp;    
 	stat_file_.close();
 	return true;
@@ -126,6 +126,80 @@ Q_UINT32 cStatFile::getRSS() {
 cStatFile::cStatFile( QString filename) {
     stat_file_.setName( filename );
 }
+#else  // Windows classes
 
+cQuery::cQuery()
+{ 
+	PDH_STATUS status;	
+	handler_ = new HQUERY; 
+	status = PdhOpenQuery( 0, 0, handler_ );
+}
+cQuery::~cQuery()
+{
+	PdhCloseQuery( *handler_ );
+	delete handler_;
+}
 
-#endif //linux classes
+cCounter::cCounter( cQuery *q, unsigned long obj, unsigned long cnt, QString i )
+{
+	counter_ = new HCOUNTER;
+	query_ = q;
+	addCounter( obj, cnt, i );
+}
+cCounter::~cCounter()
+{
+	delete counter_;
+}
+long cCounter::getLong()
+{
+	PDH_FMT_COUNTERVALUE fmtValue;
+	DWORD type;
+
+	PdhCollectQueryData( *(query_->getHandler()) );
+	PdhGetFormattedCounterValue( *( counter_ ), PDH_FMT_LONG, &type, &fmtValue );
+	return fmtValue.longValue;
+
+}
+bool cCounter::addCounter( unsigned long o, unsigned long c, QString t  )
+{
+	typedef unsigned short us;
+	DWORD						length;
+	PDH_STATUS					status;
+	QString						obj, cnt, fullpath;
+	PDH_COUNTER_PATH_ELEMENTS_W elements;
+	LPDWORD						dd = new DWORD( 1024 );
+
+	obj.setLength( 1024  );
+	cnt.setLength( 1024 );
+	fullpath.setLength( 1024 );
+	
+	length = obj.length();
+	status = PdhLookupPerfNameByIndexW( NULL, o, ( us* )obj.ucs2(), &length );	
+	if( status != ERROR_SUCCESS ) return false;
+
+	length = cnt.length();
+	status = PdhLookupPerfNameByIndexW( NULL, c, ( us* )cnt.ucs2(), &length );
+	if( status != ERROR_SUCCESS ) return false;
+	
+	elements.szObjectName = ( us* ) obj.ucs2();
+	elements.szCounterName = ( us* ) cnt.ucs2();
+	elements.szInstanceName = ( us* ) t.ucs2();
+	elements.dwInstanceIndex = 0;
+	elements.szParentInstance = NULL;
+	elements.szMachineName = NULL;
+
+	length = 1024;
+	status = PdhMakeCounterPathW ( &elements, (us*)fullpath.ucs2(), &length, 0 );
+	
+	delete dd;
+	
+	if( status != ERROR_SUCCESS ) return false;
+	
+	status = PdhAddCounterW( *( query_->getHandler() ), ( us* )fullpath.ucs2(), 0, counter_ );
+	if( status != ERROR_SUCCESS ) return false;
+	
+	return true;
+
+}
+
+#endif

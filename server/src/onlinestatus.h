@@ -37,6 +37,10 @@
 #include "qdatetime.h"
 #include "qfile.h"
 
+#if !defined (__unix__)
+#include <pdh.h>
+#endif
+
 /*	Online status class
 	contains global performance data, timings etc
 */
@@ -77,7 +81,34 @@ private:
     QFile 		stat_file_;
 
 };
+#else // Windows classes
 
-#endif // linux classes
+class cQuery
+{
+public:
+					cQuery(); 
+					~cQuery();
+	HQUERY*			getHandler() { return handler_; }
 
-#endif // __ONLINESTATUS_H__
+private:
+	HQUERY			*handler_;
+
+};
+
+class cCounter
+{
+public:
+					cCounter( cQuery*, unsigned long, unsigned long, QString );
+					~cCounter();
+					bool			addCounter( unsigned long, unsigned long, QString );
+	HCOUNTER*		getCounter() { return counter_; }
+	long			getLong();
+private:
+	HCOUNTER		*counter_;
+	cQuery			*query_;
+
+};
+
+#endif
+
+#endif // __ONLINESTATUS_H___
