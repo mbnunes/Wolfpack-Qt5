@@ -1628,13 +1628,9 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 	if( lockState )
 		return false;
 
-	// We should not gain above the skill cap
-	if( SrvParams->skillcap() && pChar->getSkillSum() > SrvParams->skillcap() * 10 )
-		return false;
-
 	// Is the skill at it's single cap already ?
 	// NOTE: Later on we need to provide support for power scrolls
-	if( pChar->skillValue( skill ) >= 1000 )
+	if( pChar->skillValue( skill ) >= pChar->skillCap() )
 		return false;
 
 	// If our skillsum is at the serverset skill cap we need
@@ -1693,8 +1689,8 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 			pChar->socket()->sendSkill( skill );
 	}
 
-	// Let a skill fall if we really gained
-	if( gained && atrophySkills.size() < 0 )
+	// Let a skill fall if we really gained and statcap is reached
+	if( gained && atrophySkills.size() > 0 )
 	{
 		// Which skill do we want to lower
 		UINT16 skill = atrophySkills[ RandomNum( 0, atrophySkills.size() ) ];
