@@ -56,9 +56,6 @@ class cTempEffects;
 #include "iserialization.h"
 #include "singleton.h"
 
-// Library includes
-#include "Python.h"
-
 class cTempEffect : public cSerializable
 {
 protected:
@@ -153,21 +150,6 @@ public:
 	// Do that as long as we're casting
 	cTimedSpellAction( SERIAL serial, UI08 nAction );
 	virtual void Expire();
-};
-
-class cPythonEffect : public cTempEffect
-{
-protected:
-	QString functionName;
-	PyObject *args;
-public:
-	void setFunctionName( const QString &data ) { functionName = data; }
-	void setArgs( PyObject *data ) { args = data; Py_INCREF( data ); }
-
-	cPythonEffect() { objectid = "PythonEffect"; }
-	virtual ~cPythonEffect() {;}
-	virtual void Expire();
-	virtual void Serialize( ISerialization &archive );
 };
 
 class cTmpEffFibHeap

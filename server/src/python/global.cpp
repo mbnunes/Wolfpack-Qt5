@@ -29,21 +29,16 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if defined (__unix__)
-#include <limits.h>  //compatability issue. GCC 2.96 doesn't have limits include
-#else
-#include <limits> // Python tries to redefine some of this stuff, so include first
-#endif
-
-
-#include "utilities.h"
+#include "../itemsmgr.h"
 #include "../globals.h"
 #include "../network/uosocket.h"
 #include "../network/uotxpackets.h"
-#include "../junk.h"
 #include "../wpconsole.h"
 #include "../TmpEff.h"
 #include "../mapobjects.h"
+
+#include "utilities.h"
+#include "tempeffect.h"
 
 /*!
 	Sends a string to the wolfpack console.
@@ -266,45 +261,33 @@ PyObject* wpFindchar( PyObject* self, PyObject* args )
 }
 
 /*!
-	Adds a tempeffect with the following arguments:
-	wolfpack.addtimer( "callback.function", Timeout in Secs (could be float..), ( subtuple with args ) );
+	Adds a tempeffect
 */
 PyObject* wpAddtimer( PyObject* self, PyObject* args )
 {
-	if( PyTuple_Size( args ) < 3 )
+	// Three arguments
+	if( PyTuple_Size( args ) != 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
-		clConsole.send( "Minimum argument count for wolfpack.addtimer is 2\n" );
+		clConsole.send( "Minimum argument count for addtimer is 3" );
 		return PyFalse;
 	}
 
-	if( !PyString_Check( PyTuple_GetItem( args, 0 ) ) || 
-		( !PyInt_Check( PyTuple_GetItem( args, 1 ) ) && 
-		PyFloat_Check( PyTuple_GetItem( args, 1 ) ) ) ||
-		!PyTuple_Check( PyTuple_GetItem( args, 2 ) ) )
-	{
-		clConsole.send( "Wrong arguments passed to addTimer, needed: string, int/float, tuple\n");
-		return PyFalse;
-	}
+	UINT32 expiretime = getArgInt( 0 );
+	QString function = getArgStr( 1 );
+	PyObject *py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
 
-	QString funcName = PyString_AsString( PyTuple_GetItem( args, 0 ) );
-	UINT32 expireTime;
-
-	if( PyFloat_Check( PyTuple_GetItem( args, 1 ) ) )
-		expireTime = PyFloat_AsDouble( PyTuple_GetItem( args, 1 ) ) * 1000;
+	cPythonEffect *effect = new cPythonEffect( function, py_args );
+	
+	// Should we save this effect?
+	if( checkArgInt( 3 ) && getArgInt( 3 ) != 0 ) 
+		effect->setSerializable( true );
 	else
-		expireTime = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+		effect->setSerializable( false );
+	
+	effect->setExpiretime_ms( expiretime );
+	TempEffects::instance()->insert( effect );
 
-	PyObject *sArgs = PyTuple_GetItem( args, 2 );
-	Py_INCREF( sArgs );
-
-	cPythonEffect *tmpEff = new cPythonEffect;
-	tmpEff->setFunctionName( funcName );
-	tmpEff->setArgs( sArgs );
-	tmpEff->setExpiretime_ms( expireTime );
-
-	TempEffects::instance()->insert( tmpEff );
-
-	return PyTrue;
+	return PyFalse;
 }
 
 /*!

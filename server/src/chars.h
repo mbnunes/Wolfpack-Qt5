@@ -745,7 +745,9 @@ public:
 	virtual bool onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
 	virtual bool onTalkToNPC( P_CHAR Talker, const QString &Text ); // Someone talks to the NPC
 	virtual bool onWarModeToggle( bool War ); // The character switches warmode
-	virtual bool onEnterWorld( void ); // The character enters the world
+	virtual bool onLogin( void ); // The character enters the world
+	virtual bool onLogout( void ); // The character enters the world
+	
 	virtual bool onHelp( void ); // The character wants help
 	virtual bool onChat( void ); // The character wants to chat
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill

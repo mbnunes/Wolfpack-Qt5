@@ -941,6 +941,10 @@ SOURCE=.\python\target.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\tempeffect.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\python\utilities.h
 # End Source File
 # Begin Source File

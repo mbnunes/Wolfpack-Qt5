@@ -173,8 +173,8 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 		if( objectID == "TmpEff" )
 			pTE = new cTmpEff;
 
-		else if( objectID == "PythonEffect" )
-			pTE = new cPythonEffect;
+//		else if( objectID == "PythonEffect" )
+//			pTE = new cPythonEffect;
 
 		else if( objectID == "HIDECHAR" )
 			pTE = new cDelayedHideChar( INVALID_SERIAL );

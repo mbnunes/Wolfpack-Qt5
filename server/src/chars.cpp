@@ -62,6 +62,9 @@
 #include "dbdriver.h"
 #include "combat.h"
 
+// Libary Includes
+#include <math.h>
+
 #undef  DBGFILE
 #define DBGFILE "chars.cpp"
 
@@ -1031,15 +1034,25 @@ bool cChar::onWarModeToggle( bool War )
 	return false;
 }
 
-// The character enters the world
-bool cChar::onEnterWorld( void )
+bool cChar::onLogin( void )
 {
 	if( scriptChain.empty() )
 		return false;
  
-	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onEnterWorld( this ) )
+		if( scriptChain[ i ]->onLogin( this ) )
+			return true;
+
+	return false;
+}
+
+bool cChar::onLogout( void )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onLogout( this ) )
 			return true;
 
 	return false;

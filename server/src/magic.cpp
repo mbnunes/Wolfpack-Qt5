@@ -51,6 +51,9 @@
 #include "tilecache.h"
 #include "walking.h"
 
+// Library Includes
+#include <math.h>
+
 using namespace std;
 
 #undef DBGFILE

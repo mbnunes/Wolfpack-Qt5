@@ -48,6 +48,7 @@
 
 // Library Includes
 #include "qdatetime.h"
+#include <math.h>
 
 #undef  DBGFILE
 #define DBGFILE "Timing.cpp"

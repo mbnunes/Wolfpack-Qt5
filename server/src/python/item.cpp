@@ -29,21 +29,16 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if defined (__unix__)
-#include <limits.h>  //compatability issue. GCC 2.96 doesn't have limits include
-#else
-#include <limits> // Python tries to redefine some of this stuff, so include first
-#endif
-
-
-#include "utilities.h"
-#include "content.h"
 #include "../items.h"
 #include "../tilecache.h"
 #include "../prototypes.h"
 #include "../junk.h"
 
 extern cAllItems *Items;
+
+#include "utilities.h"
+#include "content.h"
+#include "tempeffect.h"
 
 /*!
 	The object for Wolfpack Python items
@@ -480,6 +475,37 @@ PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Adds a temp effect to this item.
+*/
+PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
+{
+	// Three arguments
+	if( PyTuple_Size( args ) != 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
+	{
+		clConsole.send( "Minimum argument count for char.addtimer is 3" );
+		return PyFalse;
+	}
+
+	UINT32 expiretime = getArgInt( 0 );
+	QString function = getArgStr( 1 );
+	PyObject *py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
+
+	cPythonEffect *effect = new cPythonEffect( function, py_args );
+	
+	// Should we save this effect?
+	if( checkArgInt( 3 ) && getArgInt( 3 ) != 0 ) 
+		effect->setSerializable( true );
+	else
+		effect->setSerializable( false );
+	
+	effect->setDest( self->pItem->serial );
+	effect->setExpiretime_ms( expiretime );
+	TempEffects::instance()->insert( effect );
+
+	return PyFalse;
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
@@ -491,6 +517,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "weaponskill",		(getattrofunc)wpItem_weaponskill, METH_VARARGS, "Returns the skill used with this weapon. -1 if it isn't a weapon." },
 	{ "useresource",		(getattrofunc)wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
 	{ "countresource",		(getattrofunc)wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
+	{ "addtimer",			(getattrofunc)wpItem_addtimer, METH_VARARGS, "Attaches a timer to this object." },
 	
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },

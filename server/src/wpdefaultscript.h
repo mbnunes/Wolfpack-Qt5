@@ -79,30 +79,17 @@ public:
 	virtual bool onWalk( P_CHAR Character, UI08 Direction, UI08 onSequence ) { return false; }
 
 	// if this events returns true (handeled) then we should not display the text
+	virtual bool onLogin( P_CHAR pChar ) { return false; }
+	virtual bool onLogout( P_CHAR pChar ) { return false; }
 	virtual bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ) { return false; }
-
 	virtual bool onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text ) { return false; }
 	virtual bool onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text ) { return false; }
-
 	virtual bool onWarModeToggle( P_CHAR Character, bool War ) { return false; }
-
-	// Is the Client version already known to us here ???
-	virtual bool onConnect( UOXSOCKET Socket, const QString &IP, const QString &Username, const QString &Password ) { return false; }
-
-	virtual bool onDisconnect( UOXSOCKET Socket, QString IP ) { return false; }
-
-	virtual bool onEnterWorld( P_CHAR Character ) { return false; }
-
 	virtual bool onHelp( P_CHAR Character ) { return false; }
-
 	virtual bool onChat( P_CHAR Character ) { return false; }
-
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { return false; }
-
 	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { return false; }
-
 	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { return false; }
-	
 	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }
 	virtual bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }
 	virtual bool onSpellTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model ) { return false; }

@@ -51,37 +51,33 @@ public:
 	virtual void unload( void );
 
 	// Normal Events
-	virtual bool onUse( P_CHAR User, P_ITEM Used );
+	bool onUse( P_CHAR User, P_ITEM Used );
+	bool onSingleClick( P_ITEM Item, P_CHAR Viewer );
+	bool onSingleClick( P_CHAR Character, P_CHAR Viewer );
 
-	virtual bool onSingleClick( P_ITEM Item, P_CHAR Viewer );
-	virtual bool onSingleClick( P_CHAR Character, P_CHAR Viewer );
-
-	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle );
-	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle );
-	virtual bool onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence );
+	bool onCollideItem( P_CHAR Character, P_ITEM Obstacle );
+	bool onCollideChar( P_CHAR Character, P_CHAR Obstacle );
+	bool onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence );
 
 	// if this events returns true (handeled) then we should not display the text
-	virtual bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang );
-	virtual bool onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text );
-	virtual bool onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text );
-	virtual bool onWarModeToggle( P_CHAR Character, bool War );
+	bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang );
+	bool onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text );
+	bool onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text );
+	bool onWarModeToggle( P_CHAR Character, bool War );
+	bool onLogin( P_CHAR pChar );
+	bool onLogout( P_CHAR pChar );
+	bool onHelp( P_CHAR Character );
+	bool onChat( P_CHAR Character );
+	bool onSkillUse( P_CHAR Character, UI08 Skill );
 
-	// Is the Client version already known to us here ???
-	//virtual bool onConnect( cUOSocket *Socket, const QString &IP, const QString &Username, const QString &Password );
-	//virtual bool onDisconnect( cUOSocket *Socket, QString IP );
-	//virtual bool onEnterWorld( P_CHAR Character );
-	virtual bool onHelp( P_CHAR Character );
-	virtual bool onChat( P_CHAR Character );
-	virtual bool onSkillUse( P_CHAR Character, UI08 Skill );
+	bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );
+	bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );
 
-	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );
-	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );
-
-	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type );
-	virtual bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type );
-	virtual bool onSpellTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
-	virtual bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
-	virtual bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
+	bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type );
+	bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type );
+	bool onSpellTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
+	bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
+	bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
 };
 
 #endif // __WPPYTHONSCRIPT_H__

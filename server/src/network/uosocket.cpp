@@ -882,6 +882,9 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 */
 void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 {
+	if( !_player )
+		return;
+
 	// Check if it's a singleclick on items or chars
 	if( isCharSerial( packet->serial() ) )
 	{
@@ -890,7 +893,8 @@ void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 		if( !pChar )
 			return;
 
-		pChar->showName( this );
+		if( !pChar->onSingleClick( _player ) )
+			pChar->showName( this );
 	}
 	else
 	{
@@ -898,7 +902,9 @@ void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 
 		if( !pItem )
 			return;
-		pItem->showName( this );
+
+		if( !pItem->onSingleClick( _player ) )
+			pItem->showName( this );
 	}
 }
 

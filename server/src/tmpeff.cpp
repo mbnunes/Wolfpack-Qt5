@@ -35,12 +35,6 @@
 
 #define RANK_ARRAY_SIZE 65535
 
-#if defined (__unix__)
-#include <limits.h>  //compatability issue. GCC 2.96 doesn't have limits include
-#else
-#include <limits> // Python tries to redefine some of this stuff, so include first
-#endif
-
 #include "platform.h"
 
 // Wolfpack Includes
@@ -60,7 +54,7 @@
 
 #include <algorithm>
 #include <typeinfo>
-
+#include <math.h>
 
 #undef  DBGFILE
 #define DBGFILE "tmpeff.cpp"
@@ -72,6 +66,7 @@
 // History: by AntiChrist
 //			isolated from two functions by Duke, 10.6.2001
 //
+
 static void reverseIncognito(P_CHAR pc)
 {
 
@@ -557,131 +552,6 @@ void cTmpEff::Serialize(ISerialization &archive)
 	cTempEffect::Serialize(archive);
 }
 
-void cPythonEffect::Expire()
-{
-	// Get everything before the last dot
-	if( functionName.contains( "." ) )
-	{
-		// Find the last dot
-		INT32 position = functionName.findRev( "." );
-		QString sModule = functionName.left( position );
-		QString sFunction = functionName.right( functionName.length() - (position+1) );
-
-		PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
-
-		if( pModule )
-		{
-			PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
-			if( pFunc && PyCallable_Check( pFunc ) )
-			{
-				PyEval_CallObject( pFunc, args );
-				
-				if( PyErr_Occurred() )
-					PyErr_Print();
-			}
-		}
-	}
-
-	Py_DECREF( args );
-}
-
-void cPythonEffect::Serialize( ISerialization &archive )
-{
-	if( archive.isReading() )
-	{
-		archive.read( "functionname",	functionName );
-
-		UINT32 pCount;
-		QString type;
-		archive.read( "pcount", pCount );
-		args = PyTuple_New( pCount );
-
-		for( UINT32 i = 0; i < pCount; ++i )
-		{
-			archive.read( QString( "pt%1" ).arg( i ), type );
-
-			// Read an integer
-			if( type == "i" )
-			{
-				INT32 data;
-				archive.read( QString( "pv%1" ).arg( i ), data );
-				PyTuple_SetItem( args, i, PyInt_FromLong( data ) );
-			}
-			// Read a string
-			else if( type == "s" )
-			{
-				QString data;
-				archive.read( QString( "pv%1" ).arg( i ), data );
-				PyTuple_SetItem( args, i, PyString_FromString( data.latin1() ) );
-			}
-			else
-				PyTuple_SetItem( args, i, Py_None );
-		}		
-	}
-	else if( archive.isWritting() )
-	{
-		archive.write( "functionname",	functionName );
-
-		archive.write( "pcount", PyTuple_Size( args ) );
-
-		// Serialize the py object
-		for( UINT32 i = 0; i < PyTuple_Size( args ); ++i )
-		{
-			if( PyInt_Check( PyTuple_GetItem( args, i ) ) )
-			{
-				archive.write( QString( "pt%1" ).arg( i ), QString( "i" ) );
-				archive.write( QString( "pv%1" ).arg( i ), (int)PyInt_AsLong( PyTuple_GetItem( args, i ) ) );
-			}
-			else if( PyString_Check( PyTuple_GetItem( args, i ) ) )
-			{
-				archive.write( QString( "pt%1" ).arg( i ), QString( "s" ) );
-				archive.write( QString( "pv%1" ).arg( i ), PyString_AsString( PyTuple_GetItem( args, i ) ) );
-			}
-			// Something we can't save -> Py_None on load
-			else
-				archive.write( QString( "pt%1" ).arg( i ), QString( "n" ) );
-		}
-	}
-
-	cTempEffect::Serialize( archive );
-}
-
-/*
-void cTempEffects::Off()
-{
-	register unsigned int i;
-	for ( i = 0; i < teffects.size(); ++i)
-	{
-		cTempEffects *pTEs = teffects[i];
-		if( typeid(*pTEs) == typeid(cTmpEff) ) // is it a "normal" temp effect
-		{
-			cTmpEff *pTE = dynamic_cast<cTmpEff *>(pTEs);
-			
-			P_CHAR pc = FindCharBySerial(pTE->getDest());
-			if (pc)
-				pTE->Off(pc);
-		}
-	}
-}
-
-void cTempEffects::On()
-{
-	register unsigned int i;
-	for ( i = 0; i < teffects.size(); ++i)
-	{
-		cTempEffects *pTEs = teffects[i];
-		if( typeid(*pTEs) == typeid(cTmpEff) ) // is it a "normal" temp effect
-		{
-			cTmpEff *pTE = dynamic_cast<cTmpEff *>(pTEs);
-	
-			P_CHAR pc = FindCharBySerial(pTE->getDest());
-			if (pc)
-				pTE->On(pc);
-		}
-	}
-}
-*/
-
 void cTempEffects::check()
 {
 	cTempEffect *tEffect;
@@ -701,41 +571,7 @@ void cTempEffects::check()
 		teffects.deleteMin();
 	}
 
-/*	for debugging
-	if( RandomNum(0,100) > 95 )
-	{
-		cScriptEffect* pTE = new cScriptEffect();
-		pTE->expiretime = uiCurrentTime + 10000;
-		teffects.insert( pTE );
-
-		pTE = new cScriptEffect();
-		pTE->expiretime = uiCurrentTime + 50000;
-		teffects.insert( pTE );
-
-		pTE = new cScriptEffect();
-		pTE->expiretime = uiCurrentTime + 100000;
-		teffects.insert( pTE );
-	} */
 }
-
-/*
-bool cTempEffects::Exists( P_CHAR pc_source, P_CHAR pc_dest, int num )
-{
-	cTmpEff *pTE;
-	for( register int i = 0; i < teffects.size(); i++ )
-	{
-		if( teffects[i] != NULL && typeid( teffects[i] ) == typeid( cTmpEff ) )
-		{
-			pTE = dynamic_cast<cTmpEff *>(teffects[i]);
-			if( pTE->getSour() == pc_source->serial &&
-				pTE->getDest() == pc_dest->serial &&
-				pTE->num == num )
-				return true;
-		}
-	}
-	return false;
-}
-*/
 
 bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {

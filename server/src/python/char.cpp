@@ -38,6 +38,8 @@
 #include "utilities.h"
 #include "skills.h"
 #include "content.h"
+#include "tempeffect.h"
+
 #include "../chars.h"
 #include "../territories.h"
 #include "../prototypes.h"
@@ -974,6 +976,29 @@ PyObject* wpChar_effect( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 {
+	// Three arguments
+	if( PyTuple_Size( args ) != 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
+	{
+		clConsole.send( "Minimum argument count for char.addtimer is 3" );
+		return PyFalse;
+	}
+
+	UINT32 expiretime = getArgInt( 0 );
+	QString function = getArgStr( 1 );
+	PyObject *py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
+
+	cPythonEffect *effect = new cPythonEffect( function, py_args );
+	
+	// Should we save this effect?
+	if( checkArgInt( 3 ) && getArgInt( 3 ) != 0 ) 
+		effect->setSerializable( true );
+	else
+		effect->setSerializable( false );
+	
+	effect->setDest( self->pChar->serial );
+	effect->setExpiretime_ms( expiretime );
+	TempEffects::instance()->insert( effect );
+
 	return PyFalse;
 }
 
