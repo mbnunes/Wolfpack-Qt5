@@ -43,11 +43,11 @@ typedef struct {
 class cTooltipCache : public cObjectCache<wpTooltip, 50> {
 } tooltipCache;
 
-void clearTooltipCache() {
+static void clearTooltipCache() {
 	tooltipCache.clear();
 }
 
-static CleanupAutoRegister reg(clearTooltipCache);
+static CleanupAutoRegister reg(&clearTooltipCache);
 
 // Forward Declarations
 static PyObject *wpTooltip_getAttr( wpTooltip *self, char *name );

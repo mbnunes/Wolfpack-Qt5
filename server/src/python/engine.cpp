@@ -34,14 +34,31 @@
 
 #include <qvaluevector.h>
 
-QValueVector<fnCleanupHandler> cleanupHandler;
+class cCleanupHandlers {
+private:
+	QValueVector<fnCleanupHandler> cleanupHandler;
+
+public:
+	void call() {
+		QValueVector<fnCleanupHandler>::iterator it;
+		for (it = cleanupHandler.begin(); it != cleanupHandler.end(); ++it) {
+			(*it)();
+		}
+	}
+
+	void reg(fnCleanupHandler handler) {
+		cleanupHandler.append(handler);
+	}
+};
+
+typedef SingletonHolder<cCleanupHandlers> CleanupHandlers;
+
+void registerCleanupHandler(fnCleanupHandler handler) {
+	CleanupHandlers::instance()->reg(handler);
+}
 
 CleanupAutoRegister::CleanupAutoRegister(fnCleanupHandler handler) {
 	registerCleanupHandler(handler);
-}
-
-void registerCleanupHandler(fnCleanupHandler handler) {
-	cleanupHandler.append(handler);
 }
 
 // Library includes
@@ -66,10 +83,7 @@ void stopPython() {
 	// We have to be sure that all memory
 	// is freed here.
 	// Call all cleanup handlers
-	QValueVector<fnCleanupHandler>::iterator it;
-	for (it = cleanupHandler.begin(); it != cleanupHandler.end(); ++it) {
-		(*it)();
-	}
+	CleanupHandlers::instance()->call();
 
 	Py_Finalize();
 }
