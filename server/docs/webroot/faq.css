@@ -87,7 +87,7 @@ div.toc, div.faq {
 	font-size: 16px;
 	font-weight: bold;
 }
-div.faq {
+div.faq, div.content {
 	margin-bottom: 3em;
 }
 
@@ -104,7 +104,7 @@ ul.toc {
 	list-style-type: decimal-leading-zero;
 	font-weight: normal;
 }
-ul.faq {
+ul.faq, ul.content {
 	font-weight: normal;
 	list-style-type: decimal-leading-zero;
 }
