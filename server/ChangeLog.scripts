@@ -7,7 +7,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Floating point tags are now saved correctly.
 		- Removed commands: tags, addevent, removeevent, account,
 			resurrect, password, tele, invis, kill, fix, resend,
-			allskills, remove, move
+			allskills, remove, move, who
 		- Region Updates/Fixes.
 			Added flags: noentermessage and noguardmessage
 			Fixed guardowner messages
@@ -31,7 +31,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- New Function: wolfpack.charbase(baseid)
 		- New commands: taginfo, addevent, removeevent, account,
 			resurrect, password, tele, invis, kill, fix, resend,
-			allskills, remove, move
+			allskills, remove, move, who
 		- Fixed carving
 		- Fixed sheering of sheeps and wool regrowing
 		- Rudimentarily Implemented Map Plotting
