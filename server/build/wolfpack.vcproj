@@ -950,6 +950,12 @@
 				RelativePath="..\src\ai\ai_bladespirit.h">
 			</File>
 			<File
+				RelativePath="..\src\ai\ai_commoner.cpp">
+			</File>
+			<File
+				RelativePath="..\src\ai\ai_commoner.h">
+			</File>
+			<File
 				RelativePath="..\src\ai\ai_energyvortex.cpp">
 			</File>
 			<File
