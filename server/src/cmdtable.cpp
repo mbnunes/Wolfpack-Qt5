@@ -1623,19 +1623,7 @@ void command_temp(UOXSOCKET s)
 void command_addnpc(UOXSOCKET s)
 // (d or h h) Add the specified NPC from NPC.SCP or by hex ID code.
 {
-	if (tnum==3)
-	{
-		addid1[s]=hexnumber(1);
-		addid2[s]=hexnumber(2);
-		target(s, 0, 1, 0, 33, "Select location for the NPC.");
-	}
-	else if (tnum==2)
-	{
-		addmitem[s]=makenumber(1);
-		target(s, 0, 1, 0, 27, "Select location for the NPC.");
-	}
-	return;
-	
+	attachTargetRequest( s, new cAddNpcTarget( Commands->GetAllParams() ) );
 }
 
 void command_readini(UOXSOCKET s)

@@ -44,4 +44,14 @@ public:
 	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
 };
 
+class cAddNpcTarget: public cTargetRequest
+{
+protected:
+	QString npc_;
+public:
+	cAddNpcTarget( const QString &npc_ ) {};
+
+	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
+};
+
 #endif

@@ -1928,9 +1928,9 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 	P_ITEM nItem = NULL;
 
 	// Get an Item and assign a serial to it
-	cWPXMLParser* Parser = new cWPXMLParser( WPDT_ITEM );
+	cWPXMLParser Parser( WPDT_ITEM );
 	
-	if( !Parser->prepareParsing( Section ) ) // section not found i.e.
+	if( !Parser.prepareParsing( Section ) ) // section not found i.e.
 		clConsole.log( "Unable to create unscripted Item: %s", Section.latin1() );
 	else
 	{
@@ -1938,10 +1938,8 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 		nItem->Init( true );
 		cItemsManager::getInstance()->registerItem( nItem );
 		
-		Parser->applyNodes( nItem );
+		Parser.applyNodes( nItem );
 	}
-
-	delete Parser;
 
 	return nItem;
 }

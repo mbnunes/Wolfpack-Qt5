@@ -1134,18 +1134,25 @@ void cCommands::rmvCmdFromPrivLvl( QString privlvl, QString command )
 // explains itself :)
 bool cCommands::containsCmd( QString privlvl, QString command )
 {
-	return privlvl_commands[ privlvl ].commands.contains( command );
+	return ( ( privlvl_commands[ privlvl ].commands.contains( command ) && privlvl_commands[ privlvl ].implicit ) ||
+		   ( !privlvl_commands[ privlvl ].commands.contains( command ) && !privlvl_commands[ privlvl ].implicit ) );
 }
 
 void cCommands::loadPrivLvlCmds( void )
 {
-	clConsole.PrepareProgress( "Loading Meta GM Privs." );
+	clConsole.PrepareProgress( "Loading PrivLvl Command Lists." );
 
 	QStringList ScriptSections = DefManager->getSections( WPDT_PRIVLEVEL );
 	
 	if( ScriptSections.isEmpty() )
+	{
+		clConsole.ProgressFail();
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send("WARNING: Privlvls for admins, gms, counselors and players undefined!\n");
+		clConsole.ChangeColor( WPC_NORMAL );
 		return;
-
+	}
+	
 	cWPXMLParser Parser( WPDT_PRIVLEVEL );
 
 	for(QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )

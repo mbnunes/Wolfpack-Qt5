@@ -386,13 +386,10 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	if( Section.length() == 0 )
 		return NULL;
 
-	cWPXMLParser* Parser = new cWPXMLParser( WPDT_NPC );
+	cWPXMLParser Parser( WPDT_NPC );
 
-	if( !Parser->prepareParsing( Section ) )
-	{
-		delete Parser;
+	if( !Parser.prepareParsing( Section ) )
 		return NULL;
-	}
 
 	int k=0, xos=0, yos=0, lb;
 	short postype;				// determines how xyz of the new NPC are set, see below
@@ -506,9 +503,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
    
 	nChar->region = calcRegionFromXY(nChar->pos.x, nChar->pos.y);
 
-	Parser->applyNodes( nChar );
-
-	delete Parser;
+	Parser.applyNodes( nChar );
 
 	return nChar;
 }

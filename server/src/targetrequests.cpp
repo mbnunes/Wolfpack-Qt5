@@ -30,6 +30,8 @@
 //========================================================================================
 
 #include "targetrequests.h"
+#include "mapstuff.h"
+#include "regions.h"
 
 void cSetPrivLvlTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 {
@@ -42,3 +44,36 @@ void cSetPrivLvlTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 
 	pc->setPrivLvl( plevel_ );
 };
+
+void cAddNpcTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
+{
+	if( targetInfo.TxLoc == -1 || targetInfo.TyLoc == -1 || targetInfo.TzLoc == -1 )
+		return;
+
+	QStringList arguments = QStringList::split( " ", npc_ );
+
+	if( arguments.size() == 1 ) // script section string
+		Npcs->createScriptNpc( socket, NULL, arguments[0], targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc + Map->TileHeight( targetInfo.model ) );
+	else if( arguments.size() == 2 ) // 2 partial hex numbers for art-id
+	{
+		P_CHAR pc = Npcs->MemCharFree ();
+		if ( pc == NULL )
+			return;
+		pc->Init();
+		pc->name = "Dummy";
+		pc->id1=(unsigned char)arguments[0].toShort();
+		pc->id2=(unsigned char)arguments[1].toShort();
+		pc->xid = pc->id();
+		pc->setSkin(0);
+		pc->setXSkin(0);
+		pc->setPriv(0x10);
+		pc->pos.x=targetInfo.TxLoc;
+		pc->pos.y=targetInfo.TyLoc;
+		pc->dispz = pc->pos.z = targetInfo.TzLoc + Map->TileHeight(targetInfo.model);
+		mapRegions->Add(pc); // add it to da regions ...
+		pc->isNpc();
+		updatechar(pc);
+	}
+};
+
+
