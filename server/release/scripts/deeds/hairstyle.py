@@ -1,17 +1,64 @@
 
 from wolfpack.gumps import cGump
+from wolfpack.consts import *
 import wolfpack
 
 def onShowTooltip(char, item, tooltip):
   tooltip.add(1041061, '')
   return 1
 
+def response(char, args, response):
+  if response.button == 0:
+    return
+
+  deed = wolfpack.finditem(args[0])
+
+  if not deed or deed.container != char.getbackpack():
+    char.socket.clilocmessage(1042001)
+  else:
+    oldhair = char.itemonlayer(LAYER_HAIR)
+    oldcolor = 0
+
+    if oldhair:
+      oldcolor = oldhair.color
+      oldhair.delete()
+
+    newhair = None
+
+    if response.button == 2:
+      newhair = wolfpack.additem("203b")
+    elif response.button == 3:
+      newhair = wolfpack.additem("203c")
+    elif response.button == 4:
+      newhair = wolfpack.additem("203d")
+    elif response.button == 5:
+      newhair = wolfpack.additem("2044")
+    elif response.button == 6:
+      newhair = wolfpack.additem("2045")
+    elif response.button == 7:
+      newhair = wolfpack.additem("2048")
+    elif response.button == 8:
+      newhair = wolfpack.additem("2049")
+    elif response.button == 9:
+      newhair = wolfpack.additem("204a")
+
+    if newhair:
+      newhair.color = oldcolor
+      char.additem(LAYER_HAIR, newhair)
+      newhair.update()
+
+    deed.delete()
+
 def onUse(char, deed):
 
   if not deed.container == char.getbackpack():
     char.socket.clilocmessage(1042001)
   else:
-    gump = cGump(x=50, y=50)
+    char.socket.closegump(0x12feab08)
+
+    gump = cGump(x=50, y=50, callback="deeds.hairstyle.response")
+    gump.typeid = 0x12feab08
+    gump.setArgs([deed.serial])
     
     gump.addResizeGump(100, 10, 0xA28, 400, 385)
     

@@ -9,8 +9,6 @@
 
 from types import *
 
-
-
 class cGump:
 	def __init__(self, noclose=0, nomove=0, nodispose=0, x=0, y=0, callback="", args = [], type = 0, serial = 0):
 		self.layout = []
