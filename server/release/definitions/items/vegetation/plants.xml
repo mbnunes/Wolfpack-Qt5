@@ -185,606 +185,568 @@
                 <category>Vegetation\Flowers\Morning Glory 6</category>
         </item>
 
-        <!-- Plants -->
+        <!-- Cotton -->
         <item id="c4f">
                 <id>0xC4F</id> <nodecay />
-                <category>Vegetation\Plants\Cotton 1</category>
+                <category>Vegetation\Plants\Cotton\Cotton 1</category>
                 <events>environment</events>
         </item>
 
         <item id="c50">
                 <id>0xC50</id> <nodecay />
-                <category>Vegetation\Plants\Cotton 2</category>
+                <category>Vegetation\Plants\Cotton\Cotton 2</category>
                 <events>environment</events>
         </item>
 
         <item id="c51">
                 <id>0xC51</id> <nodecay />
-                <category>Vegetation\Plants\Cotton 3</category>
+                <category>Vegetation\Plants\Cotton\Cotton 3</category>
                 <events>environment</events>
         </item>
 
         <item id="c52">
                 <id>0xC52</id> <nodecay />
-                <category>Vegetation\Plants\Cotton 4</category>
+                <category>Vegetation\Plants\Cotton\Cotton 4</category>
                 <events>environment</events>
         </item>
 
         <item id="c53">
                 <id>0xC53</id> <nodecay />
-                <category>Vegetation\Plants\Cotton 5</category>
+                <category>Vegetation\Plants\Cotton\Cotton 5</category>
                 <events>environment</events>
         </item>
 
         <item id="c54">
                 <id>0xC54</id> <nodecay />
-                <category>Vegetation\Plants\Cotton 6</category>
+                <category>Vegetation\Plants\Cotton\Cotton 6</category>
                 <events>environment</events>
         </item>
 
+	<!-- Wheat -->
         <item id="c55">
                 <id>0xC55</id> <nodecay />
-                <category>Vegetation\Plants\Wheat 1</category>
+                <category>Vegetation\Plants\Wheat\Wheat 1</category>
         </item>
 
         <item id="c56">
                 <id>0xC56</id> <nodecay />
-                <category>Vegetation\Plants\Wheat 2</category>
+                <category>Vegetation\Plants\Wheat\Wheat 2</category>
         </item>
 
         <item id="c57">
                 <id>0xC57</id> <nodecay />
-                <category>Vegetation\Plants\Wheat 3</category>
+                <category>Vegetation\Plants\Wheat\Wheat 3</category>
         </item>
 
         <item id="c58">
                 <id>0xC58</id> <nodecay />
-                <category>Vegetation\Plants\Wheat 4</category>
+                <category>Vegetation\Plants\Wheat\Wheat 4</category>
         </item>
 
         <item id="c59">
                 <id>0xC59</id> <nodecay />
-                <category>Vegetation\Plants\Wheat 5</category>
+                <category>Vegetation\Plants\Wheat\Wheat 5</category>
         </item>
 
         <item id="c5a">
                 <id>0xC5A</id> <nodecay />
-                <category>Vegetation\Plants\Wheat 6</category>
+                <category>Vegetation\Plants\Wheat\Wheat 6</category>
         </item>
 
         <item id="c5b">
                 <id>0xC5B</id> <nodecay />
-                <category>Vegetation\Plants\Wheat 7</category>
+                <category>Vegetation\Plants\Wheat\Wheat 7</category>
         </item>
 
+	<!-- Vines -->
         <item id="c5e">
                 <id>0xC5E</id> <nodecay />
-                <category>Vegetation\Plants\Vines 1</category>
+                <category>Vegetation\Plants\Vines\Vines 1</category>
         </item>
 
         <item id="c5f">
                 <id>0xC5F</id> <nodecay />
-                <category>Vegetation\Plants\Vines 2</category>
+                <category>Vegetation\Plants\Vines\Vines 2</category>
         </item>
 
         <item id="c60">
                 <id>0xC60</id> <nodecay />
-                <category>Vegetation\Plants\Vines 3</category>
+                <category>Vegetation\Plants\Vines\Vines 3</category>
         </item>
 
         <item id="ceb">
                 <id>0xCEB</id> <nodecay />
-                <category>Vegetation\Plants\Vines 4</category>
+                <category>Vegetation\Plants\Vines\Vines 4</category>
         </item>
 
         <item id="cec">
                 <id>0xCEC</id> <nodecay />
-                <category>Vegetation\Plants\Vines 5</category>
+                <category>Vegetation\Plants\Vines\Vines 5</category>
         </item>
 
         <item id="ced">
                 <id>0xCED</id> <nodecay />
-                <category>Vegetation\Plants\Vines 6</category>
+                <category>Vegetation\Plants\Vines\Vines 6</category>
         </item>
 
         <item id="cee">
                 <id>0xCEE</id> <nodecay />
-                <category>Vegetation\Plants\Vines 7</category>
+                <category>Vegetation\Plants\Vines\Vines 7</category>
         </item>
 
         <item id="cef">
                 <id>0xCEF</id> <nodecay />
-                <category>Vegetation\Plants\Vines 8</category>
+                <category>Vegetation\Plants\Vines\Vines 8</category>
         </item>
 
         <item id="cf0">
                 <id>0xCF0</id> <nodecay />
-                <category>Vegetation\Plants\Vines 9</category>
+                <category>Vegetation\Plants\Vines\Vines 9</category>
         </item>
 
         <item id="cf1">
                 <id>0xCF1</id> <nodecay />
-                <category>Vegetation\Plants\Vines 10</category>
+                <category>Vegetation\Plants\Vines\Vines 10</category>
         </item>
 
         <item id="cf2">
                 <id>0xCF2</id> <nodecay />
-                <category>Vegetation\Plants\Vines 11</category>
+                <category>Vegetation\Plants\Vines\Vines 11</category>
         </item>
 
+	<!-- Hedges -->
         <item id="c8f">
                 <id>0xC8F</id> <nodecay />
-                <category>Vegetation\Plants\Hedge 1</category>
+                <category>Vegetation\Plants\Hedges\Hedge 1</category>
         </item>
 
         <item id="c90">
                 <id>0xC90</id> <nodecay />
-                <category>Vegetation\Plants\Hedge 2</category>
+                <category>Vegetation\Plants\Hedges\Hedge 2</category>
         </item>
 
         <item id="c91">
                 <id>0xC91</id> <nodecay />
-                <category>Vegetation\Plants\Hedge (untrimmed) 1</category>
+                <category>Vegetation\Plants\Hedges\Hedge (untrimmed) 1</category>
         </item>
 
         <item id="c92">
                 <id>0xC92</id> <nodecay />
-                <category>Vegetation\Plants\Hedge (untrimmed) 2</category>
+                <category>Vegetation\Plants\Hedges\Hedge (untrimmed) 2</category>
         </item>
 
-        <item id="c93">
-                <id>0xC93</id> <nodecay />
-                <category>Vegetation\Plants\Blade Plant</category>
-        </item>
-
-        <item id="c94">
-                <id>0xC94</id> <nodecay />
-                <category>Vegetation\Plants\Bulrushes</category>
-        </item>
-
-        <item id="c97">
-                <id>0xC97</id> <nodecay />
-                <category>Vegetation\Plants\Elephant Ear Plant</category>
-        </item>
-
-        <item id="c98">
-                <id>0xC98</id> <nodecay />
-                <category>Vegetation\Plants\Fan Plant</category>
-        </item>
-
+	<!-- Fern -->
         <item id="c9f">
                 <id>0xC9F</id> <nodecay />
-                <category>Vegetation\Plants\Fern 1</category>
+                <category>Vegetation\Plants\Fern\Fern 1</category>
         </item>
 
         <item id="ca0">
                 <id>0xCA0</id> <nodecay />
-                <category>Vegetation\Plants\Fern 2</category>
+                <category>Vegetation\Plants\Fern\Fern 2</category>
         </item>
 
         <item id="ca2">
                 <id>0xCA2</id> <nodecay />
-                <category>Vegetation\Plants\Fern 3</category>
+                <category>Vegetation\Plants\Fern\Fern 3</category>
         </item>
 
         <item id="ca3">
                 <id>0xCA3</id> <nodecay />
-                <category>Vegetation\Plants\Fern 4</category>
+                <category>Vegetation\Plants\Fern\Fern 4</category>
         </item>
 
         <item id="ca4">
                 <id>0xCA4</id> <nodecay />
-                <category>Vegetation\Plants\Fern 5</category>
+                <category>Vegetation\Plants\Fern\Fern 5</category>
         </item>
 
         <item id="ca1">
                 <id>0xCA1</id> <nodecay />
-                <category>Vegetation\Plants\Fern - large</category>
+                <category>Vegetation\Plants\Fern\Fern - large</category>
         </item>
 
+	<!-- Grass -->
         <item id="ca5">
                 <id>0xCA5</id> <nodecay />
-                <category>Vegetation\Plants\Pampass Grass 1</category>
+                <category>Vegetation\Plants\Grass\Pampass Grass 1</category>
         </item>
 
         <item id="cc4">
                 <id>0xCC4</id> <nodecay />
-                <category>Vegetation\Plants\Pampass Grass 2</category>
+                <category>Vegetation\Plants\Grass\Pampass Grass 2</category>
         </item>
 
-        <item id="ca7">
-                <id>0xCA7</id> <nodecay />
-                <category>Vegetation\Plants\Rushes</category>
-        </item>
-
-        <item id="ca9">
-                <id>0xCA9</id> <nodecay />
-                <category>Vegetation\Plants\Snake Plant</category>
-        </item>
-
+	<!-- Grass -->
         <item id="cac">
                 <id>0xCAC</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 1</category>
+                <category>Vegetation\Plants\Grass\Grasses 1</category>
         </item>
 
         <item id="cad">
                 <id>0xCAD</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 2</category>
+                <category>Vegetation\Plants\Grass\Grasses 2</category>
         </item>
 
         <item id="cae">
                 <id>0xCAE</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 3</category>
+                <category>Vegetation\Plants\Grass\Grasses 3</category>
         </item>
 
         <item id="caf">
                 <id>0xCAF</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 4</category>
+                <category>Vegetation\Plants\Grass\Grasses 4</category>
         </item>
 
         <item id="cb0">
                 <id>0xCB0</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 5</category>
+                <category>Vegetation\Plants\Grass\Grasses 5</category>
         </item>
 
         <item id="cb1">
                 <id>0xCB1</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 6</category>
+                <category>Vegetation\Plants\Grass\Grasses 6</category>
         </item>
 
         <item id="cb2">
                 <id>0xCB2</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 7</category>
+                <category>Vegetation\Plants\Grass\Grasses 7</category>
         </item>
 
         <item id="cb3">
                 <id>0xCB3</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 8</category>
+                <category>Vegetation\Plants\Grass\Grasses 8</category>
         </item>
 
         <item id="cb4">
                 <id>0xCB4</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 9</category>
+                <category>Vegetation\Plants\Grass\Grasses 9</category>
         </item>
 
         <item id="cb5">
                 <id>0xCB5</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 10</category>
+                <category>Vegetation\Plants\Grass\Grasses 10</category>
         </item>
 
         <item id="cb6">
                 <id>0xCB6</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 11</category>
+                <category>Vegetation\Plants\Grass\Grasses 11</category>
         </item>
 
         <item id="cb9">
                 <id>0xCB9</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 12</category>
+                <category>Vegetation\Plants\Grass\Grasses 12</category>
         </item>
 
         <item id="cba">
                 <id>0xCBA</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 13</category>
+                <category>Vegetation\Plants\Grass\Grasses 13</category>
         </item>
 
         <item id="cbb">
                 <id>0xCBB</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 14</category>
+                <category>Vegetation\Plants\Grass\Grasses 14</category>
         </item>
 
         <item id="cbc">
                 <id>0xCBC</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 15</category>
+                <category>Vegetation\Plants\Grass\Grasses 15</category>
         </item>
 
         <item id="cbd">
                 <id>0xCBD</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 16</category>
+                <category>Vegetation\Plants\Grass\Grasses 16</category>
         </item>
 
         <item id="cc5">
                 <id>0xCC5</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 17</category>
+                <category>Vegetation\Plants\Grass\Grasses 17</category>
         </item>
 
         <item id="cc6">
                 <id>0xCC6</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 18</category>
+                <category>Vegetation\Plants\Grass\Grasses 18</category>
         </item>
 
         <item id="d32">
                 <id>0xD32</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 19</category>
+                <category>Vegetation\Plants\Grass\Grasses 19</category>
         </item>
 
         <item id="d33">
                 <id>0xD33</id> <nodecay />
-                <category>Vegetation\Plants\Grasses 20</category>
+                <category>Vegetation\Plants\Grass\Grasses 20</category>
         </item>
 
+	<!-- Cattails -->
         <item id="cb7">
                 <id>0xCB7</id> <nodecay />
-                <category>Vegetation\Plants\Cattails 1</category>
+                <category>Vegetation\Plants\Cattails\Cattails 1</category>
         </item>
 
         <item id="cb8">
                 <id>0xCB8</id> <nodecay />
-                <category>Vegetation\Plants\Cattails 2</category>
+                <category>Vegetation\Plants\Cattails\Cattails 2</category>
         </item>
 
-        <item id="cc3">
-                <id>0xCC3</id> <nodecay />
-                <category>Vegetation\Plants\Muck</category>
-        </item>
-
-        <item id="cc7">
-                <id>0xCC7</id> <nodecay />
-                <category>Vegetation\Plants\Weed</category>
-        </item>
-
-        <item id="cc8">
-                <id>0xCC8</id> <nodecay />
-                <category>Vegetation\Plants\Juniper Bush</category>
-        </item>
-
-        <item id="d04">
-                <id>0xD04</id> <nodecay />
-                <category>Vegetation\Plants\Water Plants</category>
-        </item>
-
-        <item id="d05">
-                <id>0xD05</id> <nodecay />
-                <category>Vegetation\Plants\Reeds</category>
-        </item>
-
+	<!-- Lilypads -->
         <item id="d06">
                 <id>0xD06</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 1</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 1</category>
         </item>
 
         <item id="d07">
                 <id>0xD07</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 2</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 2</category>
         </item>
 
         <item id="d08">
                 <id>0xD08</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 3</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 3</category>
         </item>
 
         <item id="d09">
                 <id>0xD09</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 4</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 4</category>
         </item>
 
         <item id="d0a">
                 <id>0xD0A</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 5</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 5</category>
         </item>
 
         <item id="dbc">
                 <id>0xDBC</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 6</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 6</category>
         </item>
 
         <item id="dbd">
                 <id>0xDBD</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 7</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 7</category>
         </item>
 
         <item id="dc1">
                 <id>0xDC1</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 8</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 8</category>
         </item>
 
         <item id="dc2">
                 <id>0xDC2</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 9</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 9</category>
         </item>
 
         <item id="dc3">
                 <id>0xDC3</id> <nodecay />
-                <category>Vegetation\Plants\Lilypad 10</category>
+                <category>Vegetation\Plants\Lilypads\Lilypad 10</category>
         </item>
 
         <item id="d0b">
                 <id>0xD0B</id> <nodecay />
-                <category>Vegetation\Plants\Lilypads 1</category>
+                <category>Vegetation\Plants\Lilypads\Lilypads 1</category>
         </item>
 
         <item id="dbe">
                 <id>0xDBE</id> <nodecay />
-                <category>Vegetation\Plants\Lilypads 2</category>
+                <category>Vegetation\Plants\Lilypads\Lilypads 2</category>
         </item>
 
+	<!-- Cactus -->
         <item id="d25">
                 <id>0xD25</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 1</category>
+                <category>Vegetation\Plants\Cactus\Cactus 1</category>
         </item>
 
         <item id="d26">
                 <id>0xD26</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 2</category>
+                <category>Vegetation\Plants\Cactus\Cactus 2</category>
         </item>
 
         <item id="d27">
                 <id>0xD27</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 3</category>
+                <category>Vegetation\Plants\Cactus\Cactus 3</category>
         </item>
 
         <item id="d28">
                 <id>0xD28</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 4</category>
+                <category>Vegetation\Plants\Cactus\Cactus 4</category>
         </item>
 
         <item id="d29">
                 <id>0xD29</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 4 (Flowers)</category>
+                <category>Vegetation\Plants\Cactus\Cactus 4 (Flowers)</category>
         </item>
 
         <item id="d2a">
                 <id>0xD2A</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 5</category>
+                <category>Vegetation\Plants\Cactus\Cactus 5</category>
         </item>
 
         <item id="d2b">
                 <id>0xD2B</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 5 (Flowers)</category>
+                <category>Vegetation\Plants\Cactus\Cactus 5 (Flowers)</category>
         </item>
 
         <item id="d2c">
                 <id>0xD2C</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 6</category>
+                <category>Vegetation\Plants\Cactus\Cactus 6</category>
         </item>
 
         <item id="d2d">
                 <id>0xD2D</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 6 (Flowers)</category>
+                <category>Vegetation\Plants\Cactus\Cactus 6 (Flowers)</category>
         </item>
 
         <item id="d2e">
                 <id>0xD2E</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 7</category>
+                <category>Vegetation\Plants\Cactus\Cactus 7</category>
         </item>
 
         <item id="d2f">
                 <id>0xD2F</id> <nodecay />
-                <category>Vegetation\Plants\Cactus 7 (Flowers)</category>
-        </item>
-
-        <item id="d30">
-                <id>0xD30</id> <nodecay />
-                <category>Vegetation\Plants\Century Plant 1</category>
-        </item>
-
-        <item id="d31">
-                <id>0xD31</id> <nodecay />
-                <category>Vegetation\Plants\Century Plant 2</category>
+                <category>Vegetation\Plants\Cactus\Cactus 7 (Flowers)</category>
         </item>
 
         <item id="d35">
                 <id>0xD35</id> <nodecay />
-                <category>Vegetation\Plants\Pipe Cactus</category>
+                <category>Vegetation\Plants\Cactus\Pipe Cactus</category>
         </item>
 
         <item id="d36">
                 <id>0xD36</id> <nodecay />
-                <category>Vegetation\Plants\Pipe Cactus (Flowers)</category>
+                <category>Vegetation\Plants\Cactus\Pipe Cactus (Flowers)</category>
         </item>
 
+	<!-- Century -->
+        <item id="d30">
+                <id>0xD30</id> <nodecay />
+                <category>Vegetation\Plants\Century\Century Plant 1</category>
+        </item>
+
+        <item id="d31">
+                <id>0xD31</id> <nodecay />
+                <category>Vegetation\Plants\Century\Century Plant 2</category>
+        </item>
+
+	<!-- Brambles -->
         <item id="d3f">
                 <id>0xD3F</id> <nodecay />
-                <category>Vegetation\Plants\Brambles 1</category>
+                <category>Vegetation\Plants\Brambles\Brambles 1</category>
         </item>
 
         <item id="d40">
                 <id>0xD40</id> <nodecay />
-                <category>Vegetation\Plants\Brambles 2</category>
+                <category>Vegetation\Plants\Brambles\Brambles 2</category>
         </item>
 
+	<!-- Wheat -->
         <item id="dae">
                 <id>0xDAE</id> <nodecay />
-                <category>Vegetation\Plants\Wheat 8</category>
+                <category>Vegetation\Plants\Wheat\Wheat 8</category>
         </item>
 
         <item id="daf">
                 <id>0xDAF</id> <nodecay />
-                <category>Vegetation\Plants\Wheat 9</category>
+                <category>Vegetation\Plants\Wheat\Wheat 9</category>
         </item>
 
+	<!-- Hedges -->
         <item id="db8">
                 <id>0xDB8</id> <nodecay />
-                <category>Vegetation\Plants\Hedge 3</category>
+                <category>Vegetation\Plants\Hedges\Hedge 3</category>
         </item>
 
         <item id="db9">
                 <id>0xDB9</id> <nodecay />
-                <category>Vegetation\Plants\Hedge 4</category>
+                <category>Vegetation\Plants\Hedges\Hedge 4</category>
         </item>
 
+	<!-- Seaweed -->
         <item id="dba">
                 <id>0xDBA</id> <nodecay />
-                <category>Vegetation\Plants\Seaweed 1</category>
+                <category>Vegetation\Plants\Seaweed\Seaweed 1</category>
         </item>
 
         <item id="dbb">
                 <id>0xDBB</id> <nodecay />
-                <category>Vegetation\Plants\Seaweed 2</category>
+                <category>Vegetation\Plants\Seaweed\Seaweed 2</category>
         </item>
 
+	<!-- Flax -->
         <item id="1a99">
                 <id>0x1A99</id> <nodecay />
-                <category>Vegetation\Plants\Flax 1</category>
+                <category>Vegetation\Plants\Flax\Flax 1</category>
         </item>
 
         <item id="1a9a">
                 <id>0x1A9A</id> <nodecay />
-                <category>Vegetation\Plants\Flax 2</category>
+                <category>Vegetation\Plants\Flax\Flax 2</category>
         </item>
 
         <item id="1a9b">
                 <id>0x1A9B</id> <nodecay />
-                <category>Vegetation\Plants\Flax 3</category>
+                <category>Vegetation\Plants\Flax\Flax 3</category>
         </item>
 
         <item id="1a9c">
                 <id>0x1A9C</id> <nodecay />
-                <category>Vegetation\Plants\Flax 4</category>
+                <category>Vegetation\Plants\Flax\Flax 4</category>
         </item>
 
         <item id="1a9d">
                 <id>0x1A9D</id> <nodecay />
-                <category>Vegetation\Plants\Flax 5</category>
+                <category>Vegetation\Plants\Flax\Flax 5</category>
         </item>
 
+	<!-- Hops -->
         <item id="1a9e">
                 <id>0x1A9E</id> <nodecay />
-                <category>Vegetation\Plants\Hops 1</category>
+                <category>Vegetation\Plants\Hops\Hops 1</category>
         </item>
 
         <item id="1a9f">
                 <id>0x1A9F</id> <nodecay />
-                <category>Vegetation\Plants\Hops 2</category>
+                <category>Vegetation\Plants\Hops\Hops 2</category>
         </item>
 
         <item id="1aa0">
                 <id>0x1AA0</id> <nodecay />
-                <category>Vegetation\Plants\Hops 3</category>
+                <category>Vegetation\Plants\Hops\Hops 3</category>
         </item>
 
         <item id="1aa1">
                 <id>0x1AA1</id> <nodecay />
-                <category>Vegetation\Plants\Hops 4</category>
+                <category>Vegetation\Plants\Hops\Hops 4</category>
         </item>
 
         <item id="1aa2">
                 <id>0x1AA2</id> <nodecay />
-                <category>Vegetation\Plants\Hops cones</category>
+                <category>Vegetation\Plants\Hops\Hops cones</category>
         </item>
 
+	<!-- Hay -->
 	<item id="1a92">
 		<id>0x1a92</id> <nodecay />
-        <category>Vegetation\Plants\Hay 1</category>
+	        <category>Vegetation\Plants\Hay\Hay 1</category>
 	</item>
 
 	<item id="1a93">
 		<id>0x1a93</id> <nodecay />
-        <category>Vegetation\Plants\Hay 2</category>
+	        <category>Vegetation\Plants\Hay\Hay 2</category>
 	</item>
 
 	<item id="1a94">
 		<id>0x1a94</id> <nodecay />
-        <category>Vegetation\Plants\Hay 3</category>
+		<category>Vegetation\Plants\Hay\Hay 3</category>
 	</item>
 
 	<item id="1a95">
 		<id>0x1a95</id> <nodecay />
-        <category>Vegetation\Plants\Hay 4</category>
+        	<category>Vegetation\Plants\Hay\Hay 4</category>
 	</item>
 
 	<item id="1a96">
 		<id>0x1a96</id> <nodecay />
-        <category>Vegetation\Plants\Hay 5</category>
+        	<category>Vegetation\Plants\Hay\Hay 5</category>
 	</item>
 
 	<!-- Growing Plants -->
@@ -963,4 +925,60 @@
 		<id>0x1e14</id> <nodecay />
                 <category>Vegetation\Flowers\Potted Cactus 6</category>
 	</item>
+
+	<!-- misc -->
+        <item id="c93">
+                <id>0xC93</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Blade Plant</category>
+        </item>
+
+        <item id="c94">
+                <id>0xC94</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Bulrushes</category>
+        </item>
+
+        <item id="c97">
+                <id>0xC97</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Elephant Ear Plant</category>
+        </item>
+
+        <item id="c98">
+                <id>0xC98</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Fan Plant</category>
+        </item>
+
+        <item id="ca7">
+                <id>0xCA7</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Rushes</category>
+        </item>
+
+        <item id="ca9">
+                <id>0xCA9</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Snake Plant</category>
+        </item>
+
+        <item id="cc3">
+                <id>0xCC3</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Muck</category>
+        </item>
+
+        <item id="cc7">
+                <id>0xCC7</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Weed</category>
+        </item>
+
+        <item id="cc8">
+                <id>0xCC8</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Juniper Bush</category>
+        </item>
+
+        <item id="d04">
+                <id>0xD04</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Water Plants</category>
+        </item>
+
+        <item id="d05">
+                <id>0xD05</id> <nodecay />
+                <category>Vegetation\Plants\Misc\Reeds</category>
+        </item>
 </definitions>
