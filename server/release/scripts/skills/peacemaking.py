@@ -15,19 +15,19 @@ PEACE_DELAY = 5000
 
 def peacemaking( char, skill ):
 	if skill != PEACEMAKING:
-		return 0
+		return False
 
 	if char.socket.hastag( 'skill_delay' ):
 		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-			return 1
+			return True
 		else:
 			char.socket.deltag( 'skill_delay' )
 
 	# check instrument in backpack
 	backpack = char.getbackpack()
 	if not backpack:
-		return 0
+		return False
 	contents = backpack.content
 	items = []
 	for item in contents:
@@ -36,10 +36,12 @@ def peacemaking( char, skill ):
 
 	# if we don't have an instrument in backpack, send target cursor to select an item - will be added
 	if not len( items ):
-		#char.socket.clilocmessage( 500617, "" 0x3b2, 3 )
-		#char.socket.attachtarget( "skills.peacemaking.selectinstrument" )
-		return 1
+		char.socket.clilocmessage( 500617, "", 0x3b2, 3 )
+		char.socket.attachtarget( "skills.peacemaking.selectinstrument", [items] )
+		return True
+	selecttarget( char, items )
 
+def selecttarget( char, items ):
 	# if there are more than one instruments, select last used one
 	last_time = 0
 	if len( items ) > 1:
@@ -56,17 +58,17 @@ def peacemaking( char, skill ):
 	char.socket.settag( 'peacemaking_instrument', instrument.serial )
 	char.socket.clilocmessage( 1049525, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.peacemaking.response" )
-	return 1
+	return True
 
 def response( char, args, target ):
 	if not char.socket.hastag( 'peacemaking_instrument' ):
-		return 0
+		return False
 	# you can only target chars
 	if not target.char:
-		return 1
+		return True
 	instrument = wolfpack.finditem( char.socket.gettag( 'peacemaking_instrument' ) )
 	if not instrument:
-		return 0
+		return False
 
 	if skills.skilltable[ PEACEMAKING ][ skills.UNHIDE ] and char.hidden:
 		char.removefromview()
@@ -81,16 +83,16 @@ def response( char, args, target ):
 	peace_range = skills.musicianship.bard_range( char )
 	if char == target.char:
 		result = char.checkskill( MUSICIANSHIP, 0, 1000 )
-		musicianship.play_instrument( char, instrument, result )
+		skills.musicianship.play_instrument( char, instrument, result )
 		# fail to play well
 		if not result:
 			char.socket.clilocmessage( 500612, "", 0x3b2, 3 )
-			return 1
+			return True
 		result = char.checkskill( PEACEMAKING, 0, 1000 )
 		# fail on peacemaking
 		if not result:
 			char.socket.clilocmessage( 500613, "", 0x3b2, 3 )
-			return 1
+			return True
 		char.socket.clilocmessage( 500615, "", 0x3b2, 3 )
 		creatures = wolfpack.chars( char.pos.x, char.pos.y, char.pos.map, peace_range )
 		for creature in creatures:
@@ -103,29 +105,44 @@ def response( char, args, target ):
 	else:
 		if char.canreach( target.char, peace_range ):
 			char.socket.clilocmessage( 500618, "", 0x3b2, 3 )
-			return 1
+			return True
 		if not target.char.npc:
-			return 1
+			return True
 		# bard difficulty - later, we should get these from the xml defs.
 		loskill = 0
 		hiskill = 1000
 		result = char.checkskill( MUSICIANSHIP, loskill, hiskill )
-		musicianship.play_instrument( char, instrument, result )
+		skills.musicianship.play_instrument( char, instrument, result )
 		if not result:
 			char.socket.clilocmessage( 500612, "", 0x3b2, 3 )
-			return 1
+			return True
 		result = char.checkskill( PEACEMAKING, loskill, hiskill )
 		if not result:
 			char.socket.clilocmessage( 500613, "", 0x3b2, 3 )
-			return 1
+			return True
 		# FIXME : duration ( 5 sec ~ 65 sec )
 		duration = 5000 + char.skill[ PEACEMAKING ] * 60
 		# stop combat
 		# if npc, do not start combat for the duration while not attacked
 		creature.settag( 'peacemaking', 1 )
 		creature.addtimer( duration, release, [] )
-	return 1
+	return True
 
+def selectinstrument( char, args, target ):
+	items = args[0]
+	if target.item:
+		if not char.gm and not char.canreach( target.item, 2 ):
+			char.socket.clilocmessage( 500295 )
+			return True
+		if isinstrument( target.item ):
+			items.append( target.item )
+			selecttarget( char, items )
+		else:
+			char.socket.sysmessage( "You need an instrument." )
+	else:
+		char.socket.sysmessage( "You need an instrument." )
+	return True
+	
 def release( char, args ):
 	if char.socket.hastag( 'peacemaking' ):
 		char.socket.deltag( 'peacemaking' )
