@@ -276,7 +276,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	SendWalkToPlayer(pc, socket, sequence);
 
 	cRegion::RegionIterator4Chars ri(pc->pos);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc_vis = ri.GetData();
 		if ((pc_vis != NULL)&& (pc_vis != pc))
@@ -1142,7 +1142,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 		const int newy=pc->pos.y;
 
 		cRegion::RegionIterator4Chars ri(pc->pos);
-		for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_CHAR mapchar = ri.GetData();
 			if (mapchar != NULL)

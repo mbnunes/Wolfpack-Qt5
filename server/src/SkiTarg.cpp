@@ -1305,7 +1305,7 @@ void cSkills::DetectHidden(UOXSOCKET s)
 	range = (j*j/1.0E6)*Races[pc_currchar->race]->VisRange;	// this seems like an ok formula
 	
 	cRegion::RegionIterator4Chars ri(pc_currchar->pos);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)

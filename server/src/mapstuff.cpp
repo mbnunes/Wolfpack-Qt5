@@ -1002,7 +1002,6 @@ void MapStaticIterator::GetTile(tile_st *tile) const
 ** some clean up to the caching and it wasn't reporting all the memory actually
 ** used by the StaticCache[][] in cMapStuff
 */
-//##ModelId=3C5D92DE020D
 void cMapStuff::CacheStatics( void )
 {
 	StaticBlocks = ( MapTileWidth * MapTileHeight );
@@ -1237,4 +1236,30 @@ bool cMapStuff::IsRoofOrFloorTile( unitile_st *tile )
 	tile_st newTile;
 	SeekTile( tile->id, &newTile );
 	return IsRoofOrFloorTile( &newTile );
+}
+
+unsigned int cMapStuff::mapTileWidth( const Coord_cl& pos )
+{
+	return mapTileWidth( pos.map );
+}
+
+unsigned int cMapStuff::mapTileHeight( const Coord_cl& pos )
+{
+	return mapTileHeight( pos.map );
+}
+
+unsigned int cMapStuff::mapTileWidth( unsigned int mapId )
+{
+	static unsigned int widthTable[] =  { 768, 768, 288, 288, 0 };
+	if ( mapId > 4 )
+		mapId = 4;
+	return widthTable[mapId];
+}
+
+unsigned int cMapStuff::mapTileHeight( unsigned int mapId )
+{
+	static unsigned int heightTable[] = { 512, 512, 200, 200, 0 };
+	if ( mapId > 4 )
+		mapId = 4;
+	return heightTable[mapId];
 }

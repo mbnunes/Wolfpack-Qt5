@@ -778,7 +778,7 @@ void cSkills::PeaceMaking(int s)
 		
 		//Char mapRegions
 		cRegion::RegionIterator4Chars ri(pc_currchar->pos);
-		for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_CHAR mapchar = ri.GetData();
 			if (mapchar !=NULL)
@@ -1734,7 +1734,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 	//Char mapRegions
 	
 	cRegion::RegionIterator4Chars ri(pc_currchar->pos);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR mapchar = ri.GetData();
 		if (mapchar != NULL)

@@ -490,7 +490,7 @@ void RemoveKeys(SERIAL serial) // Crackerjack 8/11/99
 void RemoveHouse(P_ITEM pHouse)
 {
 	cRegion::RegionIterator4Chars ri(pHouse->pos);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
 		if(pc->npcaitype == 17 && pc->multis == pHouse->serial)

@@ -168,8 +168,9 @@ bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 	bool found = false;
 	P_CHAR p_pet = NULL;
 	cRegion::RegionIterator4Chars ri(pPlayer->pos);
-	for (ri.Begin(); (p_pet=ri.GetData()) != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
+		p_pet = ri.GetData();
 		if (pPlayer->dist(p_pet) <= 8)
 		{
 			if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial==0) //owner of the pet ? and not already stabled ?
@@ -967,8 +968,9 @@ int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr)
 
 	P_CHAR pc;
 	cRegion::RegionIterator4Chars ri(pPlayer->pos);
-	for (ri.Begin(); (pc=ri.GetData()) != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
+		pc = ri.GetData();
 		if (pc->isPlayer())		// only npcs will respond automagically, players still have to do that themselves ;)
 			continue;
 		if (pPlayer->dist(pc) > 16)	// at least they should be on the screen
@@ -1216,8 +1218,9 @@ void cSpeech::talking(int s, string& speech) // PC speech
 	cChar* pc=NULL;
 	cChar* pNpc=NULL;
 	cRegion::RegionIterator4Chars ri(pc_currchar->pos);
-	for (ri.Begin(); (pc=ri.GetData()) != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{	
+		pc = ri.GetData();
 		if (!pc->isSameAs(pc_currchar) 
 			&& pc->isNpc()
 			&& pc->dist(pc_currchar) <= 2)

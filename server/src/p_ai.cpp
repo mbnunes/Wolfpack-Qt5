@@ -63,7 +63,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (server_data.VendorGreet == 1 && pc_i->isNpc() && pc_i->shop && pc_i->isHuman())
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -85,7 +85,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (!pc_i->war)
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -136,7 +136,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (!pc_i->war)
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -184,7 +184,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (!pc_i->war)
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -222,7 +222,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				P_CHAR Victim=NULL;
 			    int closest=999;
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -254,7 +254,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (!pc_i->war)
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -298,7 +298,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				&& pc_i->inGuardedArea())	// this region is guarded
 			{	// this bracket just to keep compiler happy
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -342,7 +342,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (pc_i->isNpc() && pc_i->tamed)
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -361,7 +361,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (!pc_i->war)
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -385,7 +385,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 		if (!pc_i->war && pc_i->questType == ESCORTQUEST)
 		{
 			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+			for (ri.Begin(); !ri.atEnd(); ri++)
 			{
 				P_CHAR pc = ri.GetData();
 				if (pc != NULL)
@@ -409,7 +409,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (pc_i->isNpc() && pc_i->tamed)
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -432,7 +432,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			if (!pc_i->war)
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
@@ -472,7 +472,7 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 	{
 		npctalkall(pc_i, "Who dares disturbe me?!?!", 1);
 		cRegion::RegionIterator4Chars ri(pc_i->pos);
-		for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_CHAR pc = ri.GetData();
 			if (pc != NULL)

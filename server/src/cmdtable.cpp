@@ -2602,7 +2602,7 @@ void command_debug( UOXSOCKET s )
 {
 	int temppunt = 0;
 	cRegion::RegionIterator4Chars ri(currchar[s]->pos);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc_vis = ri.GetData();
 		++temppunt;

@@ -295,7 +295,7 @@ char cMagic::GateCollision(P_CHAR pc_player)
 					{
 						// Look for an NPC
 						cRegion::RegionIterator4Chars rg(pc_player->pos);
-						for ( rg.Begin(); rg.GetData() != rg.End(); rg++ )
+						for ( rg.Begin(); !rg.atEnd(); rg++ )
 						{
 							P_CHAR pc = rg.GetData();
 							// That is following this player character
@@ -2229,7 +2229,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						//Char mapRegions
 						ri = pc_currchar->pos;
-						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
@@ -2262,7 +2262,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						x1 = x2 = y1 = y2 = z1 = z2 = 0;
 						BoxSpell( s, x1, x2, y1, y2, z1, z2 );
-						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
 							P_CHAR mapchar = ri.GetData();
 							if( mapchar != NULL )
@@ -2353,7 +2353,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						//Char mapRegions
 						ri = pc_currchar->pos;
-						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
@@ -2421,7 +2421,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							
 							increment=0;
 							cRegion::RegionIterator4Chars ri(pc_currchar->pos);
-							for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+							for (ri.Begin(); !ri.atEnd(); ri++)
 							{
 								P_CHAR mapchar = ri.GetData();
 								if (mapchar != NULL)
@@ -2457,7 +2457,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						//Char mapRegions
 						ri = pc_currchar->pos;
-						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
@@ -2532,7 +2532,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						//Char mapRegions
 						ri = pc_currchar->pos;
-						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
@@ -2568,7 +2568,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						//Char mapRegions
 						ri = pc_currchar->pos;
-						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+						for (ri.Begin(); !ri.atEnd(); ri++)
 						{
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)

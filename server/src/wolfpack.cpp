@@ -1427,7 +1427,7 @@ void explodeitem(int s, P_ITEM pi)
 
 	unsigned long loopexit=0;
 	cRegion::RegionIterator4Chars ri(pi->pos);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)
@@ -2320,7 +2320,7 @@ void callguards( P_CHAR pc_player )
 		return;
 
 	cRegion::RegionIterator4Chars ri(pc_player->pos);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)
@@ -4864,7 +4864,7 @@ void bgsound(P_CHAR pc)
 
 	int y=0;
 	cRegion::RegionIterator4Chars ri(pc->pos);
-	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)

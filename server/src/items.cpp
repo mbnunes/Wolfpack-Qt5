@@ -480,8 +480,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("doordir",		doordir);
 		archive.read("dye",			dye);
 		archive.read("decaytime",	decaytime);
-		if (decaytime>0)  // Adjust decay time
-			decaytime += uiCurrentTime;
 		archive.read("corpse",		corpse);
 		archive.read("att",			att);
 		archive.read("def",			def);
@@ -552,7 +550,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("pileable",	pileable);
 		archive.write("doordir",	doordir);
 		archive.write("dye",		dye);
-		archive.write("decaytime",	decaytime > 0 ? decaytime - uiCurrentTime : 0);
+		archive.write("decaytime",	decaytime);
 		archive.write("corpse",		corpse);
 		archive.write("att",		att);
 		archive.write("def",		def);

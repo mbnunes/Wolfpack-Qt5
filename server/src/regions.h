@@ -74,15 +74,16 @@ public:
 	protected:
 		P_CHAR currentCharacter;
 		UI32 cell;
+		UI32 endCell;
 		UI32 currentCell;
 		UI32 currentIndex;
 		vector<SERIAL> vecEntries;
-
-		P_CHAR NextCell(void);
+		Coord_cl position;
+		bool NextCell(void);
 	public:
 		RegionIterator4Chars(const Coord_cl&); 
-		P_CHAR Begin(void);
-		P_CHAR End(void);
+		void Begin(void);
+		bool atEnd(void) const;
 		P_CHAR GetData(void);
 		// Operators
 		RegionIterator4Chars& operator++(int);
@@ -119,7 +120,7 @@ public:
 	bool Remove(P_ITEM);
 	bool Remove(P_CHAR);
 	vector<SERIAL> GetCellEntries(UI32 cell, enDomain type = enAll);
-	unsigned int GetColSize() const {return ColSize;};
+	static unsigned int GetColSize() {return ColSize;};
 
 };
 

@@ -187,7 +187,7 @@ void loadserverdefaults(void)
 	server_data.tamed_disappear=1; // Ripper
 	server_data.houseintown=0; // Ripper
 	server_data.shoprestock=1; //Ripper
-	server_data.commandPrefix = '\''; //Ripper
+	server_data.commandPrefix = '#'; //Ripper
 
 	server_data.CheckBank = 2000; // Ripper..2000 default
 	server_data.VendorGreet = 1; // Ripper..do greet by default.
