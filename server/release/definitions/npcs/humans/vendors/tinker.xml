@@ -46,6 +46,28 @@
 				<item id="13e3"><amount>20</amount></item> <!-- Smith Hammer -->
 				<item id="13f6"><amount>20</amount></item> <!-- Butcher Knife -->
 			</restockable>
+			<sellable>
+				<item id="f39" /> <!-- Shovel -->
+				<item id="f9d" /> <!-- Sewing Kit -->
+				<item id="f9f" /> <!-- Scissors -->
+				<item id="fbb" /> <!-- Tongs -->
+				<item id="1028" /> <!-- Dovetail Saw -->
+				<item id="102c" /> <!-- Moulding Plane -->
+				<item id="102e" /> <!-- Nails -->
+				<item id="1030" /> <!-- Jointing Plane -->
+				<item id="1032" /> <!-- Smoothing Plane -->
+				<item id="1034" /> <!-- Saw -->
+				<item id="10e4" /> <!-- Draw Knife -->
+				<item id="10e5" /> <!-- Froe -->
+				<item id="10e6" /> <!-- Inshave -->
+				<item id="10e7" /> <!-- Scorp -->
+				<item id="14fc" /> <!-- Lockpick -->
+				<item id="1eb8" /> <!-- Tinker Tools -->
+				<item id="e86" /> <!-- Pickaxe -->
+				<item id="102a" /> <!-- Hammer -->
+				<item id="13e3" /> <!-- Smith Hammer -->
+				<item id="13f6" /> <!-- Butcher Knife -->
+			</sellable>
 		</shopkeeper>
 		<skill id="alchemy"><random min="600" max="830"/></skill>
 		<skill id="tinkering"><random min="640" max="1000"/></skill>
