@@ -5915,7 +5915,6 @@ void StartClasses(void)
 	Boats			= NULL;
 	Combat			= NULL;
 	Commands		= NULL;
-	Gumps			= NULL;
 	Items			= NULL;
 	Map				= NULL;
 	Npcs			= NULL;
@@ -5941,7 +5940,6 @@ void StartClasses(void)
 	Boats			= new cBoat;
 	Combat			= new cCombat;
 	Commands		= new cCommands;
-	Gumps			= new cGump;
 	Items			= new cAllItems;
 	Map				= new cMapStuff ( SrvParams->mulPath());
 	Npcs			= new cCharStuff;
@@ -5975,7 +5973,6 @@ void DeleteClasses(void)
 	delete Boats;
 	delete Combat;
 	delete Commands;
-	delete Gumps;
 	delete Items;
 	delete Map;
 	delete Npcs;

@@ -47,7 +47,6 @@ struct statcap_st
 #include "chars.h"
 //#include "classes.h"
 //#include "guildstones.h"
-//#include "gumps.h"
 //#include "network.h"
 //#include "TmpEff.h"
 //#include "walking2.h"
@@ -71,7 +70,6 @@ class cBoat;
 class cAccount;
 class cCombat;
 class cCommands;
-class cGump;
 class cAllItems;
 class cMapStuff;
 class cCharStuff;
@@ -96,7 +94,6 @@ extern CWorldMain		*cwmWorldState;
 extern cAccount			*Accounts;
 extern cCombat			*Combat;
 extern cCommands		*Commands;
-extern cGump			*Gumps;
 extern cAllItems		*Items;
 extern cMapStuff		*Map;
 extern cCharStuff		*Npcs;

@@ -820,7 +820,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
 				addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
 				addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
-				Gumps->Menu(s, pi->morex, pi);						
+
+				cGumps::instance()->Menu( s, pi->morex, pi );
 				return;
 		// Cannon Ball
 		case 204:

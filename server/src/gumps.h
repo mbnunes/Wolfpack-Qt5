@@ -34,14 +34,21 @@
 
 #include "typedefs.h"
 
-class cGump
+class cGumps
 {
 public:
 	void Button(int s, int button, SERIAL serial, char type);
 	void Input(int s);
 	void Menu(UOXSOCKET s, int m, P_ITEM it);
 	void Open(int s, P_CHAR pc, int num, int num2);
+
+	static cGumps *instance( void )
+	{
+		static cGumps instance;
+		return &instance;
+	}
 };
+
 
 void entrygump(int s, SERIAL serial, unsigned char type, char index, short int maxlength, char *text1);
 

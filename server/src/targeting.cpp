@@ -697,7 +697,7 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target Serial [%x] Carve[%i]", //Changed by Magius(CHE)
 		pc->poisoned(),pc->poison(),pc->hunger(),pc->attacker,pc->targ,pc->carve()); //Changed by Magius(CHE)
 	sysmessage(s, (char*)temp);
-	Gumps->Open(s, pc, 0, 8);
+	cGumps::instance()->Open(s, pc, 0, 8);
 	statwindow(s, pc);
 }
 

@@ -1591,7 +1591,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 						}
 						else if (!strcmp("OPENGUMP", (char*)script1))
-							Gumps->Menu(ts, str2num(script2), NULL);
+							cGumps::instance()->Menu( ts, str2num( script2 ), NULL );
 						
 						break;
 					case 'P':
@@ -2900,7 +2900,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						break;
 					case 'O':
 						if (!strcmp("OPENGUMP", (char*)script1))
-							Gumps->Menu(ts, str2num(script2), NULL);
+							cGumps::instance()->Menu( ts, str2num( script2 ), NULL );
 						break;
 						
 					case 'P':

@@ -49,7 +49,7 @@
 #undef  DBGFILE
 #define DBGFILE "gumps.cpp"
 
-void cGump::Button(int s, int button, SERIAL serial, char type)
+void cGumps::Button(int s, int button, SERIAL serial, char type)
 {
 	int i;
 	P_CHAR pc_currchar = currchar[s];
@@ -269,7 +269,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 	}
 }
 
-void cGump::Input(int s)
+void cGumps::Input(int s)
 {
 	char type, index ;
 	char *text;
@@ -417,7 +417,7 @@ void cGump::Input(int s)
 
 }
 
-void cGump::Menu(UOXSOCKET s, int m, P_ITEM it)
+void cGumps::Menu(UOXSOCKET s, int m, P_ITEM it)
 {
 	char sect[512];
 	unsigned long loopexit=0;
@@ -1653,7 +1653,7 @@ void ShowMenu( UOXSOCKET Socket, UI16 Menu ) // Menus for item creation
 	Xsend( Socket, ByteArray.data(), ByteArray.count() );
 }
 
-void cGump::Open(int s, P_CHAR pc, int num1, int num2)
+void cGumps::Open(int s, P_CHAR pc, int num1, int num2)
 {
 	unsigned char shopgumpopen[8]="\x24\x00\x00\x00\x01\x00\x30";
 	LongToCharPtr(pc->serial, &shopgumpopen[1]);

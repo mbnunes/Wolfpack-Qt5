@@ -263,7 +263,6 @@ cRegion			*mapRegions;
 cBoat			*Boats;//Boats ! --Zippy
 cCombat			*Combat;
 cCommands		*Commands;
-cGump			*Gumps;
 cAllItems		*Items;
 cMapStuff		*Map;
 cCharStuff		*Npcs;

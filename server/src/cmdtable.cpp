@@ -1638,7 +1638,7 @@ void command_gumpmenu(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		Gumps->Menu(s, makenumber(1), NULL);
+		cGumps::instance()->Menu( s, makenumber( 1 ), NULL );
 	}
 	return;
 	
@@ -1799,8 +1799,9 @@ void command_midi(UOXSOCKET s)
 void command_gumpopen(UOXSOCKET s)
 // (h h) Opens the specified GUMP menu.
 {
-	if (tnum==3) 
-		Gumps->Open(s, currchar[s], hexnumber(1), hexnumber(2));
+	if( tnum == 3 ) 
+		cGumps::instance()->Open( s, currchar[ s ], makenumber( 1 ), makenumber( 2 ) );
+
 	return;
 	
 }

@@ -1205,7 +1205,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					Relay(s);
 					break;
 
-				case 0x91:// Second Login			
+				case 0x91:// Second Login
 					firstpacket[s]=0;
 					cryptclient[s]=1;
 					CharList(s);
@@ -1539,12 +1539,12 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 				case 0x05:// Attack				
 					RcvAttack(ps);
 					break;
-				case 0xB1:// Gumpmenu choice		
-					Gumps->Button(s, (buffer[s][13]<<8)+buffer[s][14], LongFromCharPtr(buffer[s]+3), buffer[s][10]);
+				case 0xB1:// Gumpmenu choice
+					cGumps::instance()->Button(s, (buffer[s][13]<<8)+buffer[s][14], LongFromCharPtr(buffer[s]+3), buffer[s][10]);
 					break;
 
 				case 0xAC:// Textentry input			
-						Gumps->Input(s);
+					cGumps::instance()->Input(s);
 					break;
 
 				case 0x2C:// Resurrect menu choice			
