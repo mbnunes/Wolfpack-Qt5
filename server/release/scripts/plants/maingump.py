@@ -222,9 +222,8 @@ def response(player, arguments, response):
 		
 	# Water
 	elif response.button == 6:
-		player.socket.clilocmessage(1060808, "#%u" % plants.plant.getStatusCliloc(plant)) # Target the container you wish to use to water the ~1_val~.
-		player.socket.attachtarget('plants.plant.pour_target', [plant.serial])
-
+		addWater(player, plant)
+		
 	# Poison Potion
 	elif response.button == 7:
 		addPotion(player, plant, [16, 17])
@@ -250,6 +249,30 @@ def response(player, arguments, response):
 	elif response.button == 12:
 		plants.emptybowlgump.send(player, plant)
 		pass
+
+#
+# This is an addition to the normal osi plant system
+# it allows adding water just like potions
+#
+def addWater(player, plant):
+	# Try to find an item to pour into the plant
+	potion = None
+	backpack = player.getbackpack()
+	for item in backpack.content:
+		# Beverage -> Water
+		if item.hasscript('beverage'):
+			# It's not water or doesn't have enough content
+			if item.gettag('fluid') == 'water' and item.gettag('quantity'):
+				potion = item
+				break
+
+	if not potion:
+		player.socket.clilocmessage(1060808, "#%u" % plants.plant.getStatusCliloc(plant)) # Target the container you wish to use to water the ~1_val~.
+		player.socket.attachtarget('plants.plant.pour_target', [plant.serial])
+	else:
+		plants.plant.pour(player, plant, potion)
+		
+	send(player, plant) # Resend the main gump		
 
 def addPotion(player, plant, potiontypes):
 	# Try to find an item to pour into the plant

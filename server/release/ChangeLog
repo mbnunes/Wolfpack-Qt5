@@ -78,6 +78,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Updated the add menu to the new definition iteration system.
   - Updated the decoration script.
   - Updated the allskills command to account for the ALLSKILLS constant.
+  - Tweaked the plant system a little so pressing the water button searches for water in the backpack.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

@@ -236,7 +236,7 @@ def response(player, arguments, response):
 def pollinate_target(player, arguments, target):
 	plant = wolfpack.finditem(arguments[0])
 	
-	if not plant or plants.plant.getStatus(plant) >= STATUS_DECORATIVE or not player.canreach(plant, 3):
+	if not plant or plants.plant.getStatus(plant) >= STATUS_DECORATIVE:
 		return # Cancel
 	
 	if not plants.plant.checkAccess(player, plant):
