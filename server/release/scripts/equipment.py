@@ -9,9 +9,9 @@ from math import ceil
 #
 # Table for miscellaneous resource prefixes
 #
-RESNAME2PREFIX = {
-	'sapphire': 
-}
+#RESNAME2PREFIX = {
+#	'sapphire':
+#}
 
 #
 # Show certain modifiers stored in tags.
@@ -27,19 +27,19 @@ def modifiers(object, tooltip):
 		"regenstamina": 1060443,
 		"regenmana": 1060440,
 	}
-	
+
 	for (tag, cliloc) in modifiers.items():
 		if object.hastag(tag):
 			tooltip.add(cliloc, str(object.gettag(tag)))
 
 	reflectphysical = properties.fromitem(object, REFLECTPHYSICAL)
-	
+
 	if reflectphysical:
 		tooltip.add(1060442, str(reflectphysical))
 
 	if object.hastag("bestskill"):
 		tooltip.add(1060400, "")
-			
+
 	if object.hastag('magearmor'):
 		tooltip.add(1060437, "")
 
@@ -65,7 +65,7 @@ def onShowTooltip(viewer, object, tooltip):
 				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix1 = resinfo[MATERIALPREFIX]
-		
+
 		prefix2 = None
 		if object.hastag('resname2'):
 			resname2 = str(object.gettag('resname2'))
@@ -82,21 +82,21 @@ def onShowTooltip(viewer, object, tooltip):
 			itemname = '#' + str(1020000 + object.id)
 		else:
 			itemname = object.name
-	
+
 		if prefix1 and prefix2:
 			tooltip.reset()
 			tooltip.add(1053099, "%s %s\t%s" % (prefix1, prefix2, itemname))
 		elif prefix1 and not prefix2:
 			tooltip.reset()
 			tooltip.add(1053099, "%s\t%s" % (prefix1, itemname))
-		elif not prefix1 and prefix2:	
+		elif not prefix1 and prefix2:
 			tooltip.reset()
 			tooltip.add(1053099, "%s\t%s" % (prefix2, itemname))
 
 	# Exceptional item?
 	if object.hastag('exceptional'):
 		tooltip.add(1060636, '')
-		
+
 		# 1050043: Crafted by ~param~
 		serial = int(object.gettag('exceptional'))
 		crafter = wolfpack.findchar(serial)
@@ -106,18 +106,18 @@ def onShowTooltip(viewer, object, tooltip):
 	# Only Armors and Weapons have durability
 	if weapon or armor or shield:
 		tooltip.add(1060639, "%u\t%u" % (object.health, object.maxhealth))
-		
+
 		durabilitybonus = properties.fromitem(object, DURABILITYBONUS)
 		if durabilitybonus:
 			if durabilitybonus > 0:
 				tooltip.add(1060410, '+' + str(durabilitybonus))
 			else:
 				tooltip.add(1060410, str(durabilitybonus))
-	
+
 	# Weapon specific properties
 	if weapon:
 		# One or twohanded weapon
-		if object.twohanded:			
+		if object.twohanded:
 			tooltip.add(1061171, '')
 		else:
 			tooltip.add(1061824, '')
@@ -142,13 +142,13 @@ def onShowTooltip(viewer, object, tooltip):
 		# Max-Mindamage
 		mindamage = properties.fromitem(object, MINDAMAGE)
 		maxdamage = properties.fromitem(object, MAXDAMAGE)
-		tooltip.add(1061168, "%u\t%u" % (mindamage, maxdamage))		
+		tooltip.add(1061168, "%u\t%u" % (mindamage, maxdamage))
 
 		# Speed
 		speed = properties.fromitem(object, SPEED)
 		tooltip.add(1061167, str(speed))
 
-		# Physical Damage Distribution		
+		# Physical Damage Distribution
 		fire = properties.fromitem(object, DAMAGE_FIRE)
 		cold = properties.fromitem(object, DAMAGE_COLD)
 		poison = properties.fromitem(object, DAMAGE_POISON)
@@ -192,7 +192,7 @@ def onShowTooltip(viewer, object, tooltip):
 		tooltip.add(1060446, str(energy))
 
 	modifiers(object, tooltip)
-	
+
 	lower = properties.fromitem(object, LOWERREQS)
 	if lower:
 		tooltip.add(1060435, str(lower))
@@ -213,11 +213,11 @@ def onWearItem(player, wearer, item, layer):
 	req_str = properties.fromitem(item, REQSTR)
 	if lower:
 		req_str = int(ceil(req_str) * (1.0 - lower))
-		
+
 	req_dex = properties.fromitem(item, REQDEX)
 	if lower:
 		req_dex = int(ceil(req_dex) * (1.0 - lower))
-		
+
 	req_int = properties.fromitem(item, REQINT)
 	if lower:
 		req_int = int(ceil(req_int) * (1.0 - lower))
@@ -228,7 +228,7 @@ def onWearItem(player, wearer, item, layer):
 		else:
 			player.socket.clilocmessage(500213)
 		return 1
-			
+
 	if wearer.dexterity < req_dex:
 		if player != wearer:
 			player.socket.sysmessage('This person can\'t wear that item, seems not agile enough.')
@@ -251,7 +251,7 @@ def onWearItem(player, wearer, item, layer):
 
 	if (armor or weapon or shield) and item.health < 1:
 		player.socket.sysmessage('You need to repair this before using it again.')
-		return 1		
+		return 1
 
 	return 0
 
@@ -284,7 +284,7 @@ def onEquip(char, item, layer):
 			regenhitpoints = int(item.gettag('regenhitpoints'))
 
 		char.settag('regenhitpoints', regenhitpoints)
-		
+
 	# Add stamina regeneration rate bonus
 	if item.hastag('regenstamina'):
 		if char.hastag('regenstamina'):
@@ -292,7 +292,7 @@ def onEquip(char, item, layer):
 		else:
 			regenstamina = int(item.gettag('regenstamina'))
 
-		char.settag('regenstamina', regenstamina)		
+		char.settag('regenstamina', regenstamina)
 
 	# Update Stats
 	if changed:
@@ -327,7 +327,7 @@ def onUnequip(char, item, layer):
 			char.deltag('regenhitpoints')
 		else:
 			char.settag('regenhitpoints', regenhitpoints)
-			
+
 	# Remove the stamina regeneration rate bonus
 	if item.hastag('regenstamina') and char.hastag('regenstamina'):
 		regenstamina = int(char.gettag('regenstamina'))
@@ -335,7 +335,7 @@ def onUnequip(char, item, layer):
 		if regenstamina <= 0:
 			char.deltag('regenstamina')
 		else:
-			char.settag('regenstamina', regenstamina)			
+			char.settag('regenstamina', regenstamina)
 
 	# Update Stats
 	if changed:
