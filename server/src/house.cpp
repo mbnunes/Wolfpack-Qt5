@@ -261,15 +261,14 @@ void BuildHouse(UOXSOCKET s, int i)
 		
 		if (othername) 
 			strcpy((char*)temp, name);
-
-		pMulti->name = temp;
-
+		
 		P_ITEM pMulti = NULL;
 		if (!boat)
 		{
 			pMulti = dynamic_cast<P_ITEM>( new cHouse );
 			pMulti->Init();
 			pMulti->setId(id);
+			pMulti->name = pc_currchar->name + "'s house";
 			Items->GetScriptItemSetting(pMulti);
 			//pMulti->setId(id);
 			RefreshItem( pMulti );
