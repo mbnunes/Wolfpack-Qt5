@@ -329,7 +329,7 @@ static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 	UINT16 avail = 0;
 	avail = self->pItem->CountItems( id, color );
 
-	return PyInt_FromLong( avail );
+	return PyLong_FromLong( avail );
 }
 
 /*!
