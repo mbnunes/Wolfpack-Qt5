@@ -47,7 +47,7 @@
 #include "../wpdefmanager.h"
 #include "../walking2.h"
 
-#include <conio.h>
+//#include <conio.h>
 #include <iostream>
 #include <stdlib.h>
 
