@@ -101,9 +101,9 @@ private:
 	UOXSOCKET getuoSocketsIndex( cUOSocket* );
 	friend UOXSOCKET calcSocketFromChar(P_CHAR);
 	friend UOXSOCKET toOldSocket( cUOSocket* );
+	friend cUOSocket* fromOldSocket(UOXSOCKET);
 };
 
 // Helper Function
 UOXSOCKET calcSocketFromChar(P_CHAR pc);
-
 #endif

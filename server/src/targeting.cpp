@@ -4066,7 +4066,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 39: Magic->Mark(s); break;
 		case 40: Skills->ItemIdTarget(s); break;
 		case 41: Skills->Evaluate_int_Target(s); break;
-		case 42: Skills->TameTarget(s); break;
+		//case 42: Skills->TameTarget(s); break;
 		case 43: Magic->Gate(s); break;
 		case 44: Magic->Heal(s); break; // we need this for /heal command
 		case 45: Fishing->FishTarget(ps); break;
@@ -4144,7 +4144,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 
 		case 150: SetSpAttackTarget(s); break;
 		case 151: Targ->FullStatsTarget(s); break;
-		case 152: Skills->BeggingTarget(s); break;
+//		case 152: Skills->BeggingTarget(s); break;
 		case 153: Skills->AnimalLoreTarget(s); break;
 		case 154: Skills->ForensicsTarget(s); break;
 		case 155:

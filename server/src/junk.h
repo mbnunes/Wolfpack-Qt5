@@ -147,6 +147,12 @@ inline UOXSOCKET toOldSocket(cUOSocket* s)
 {
 	return cNetwork::instance()->getuoSocketsIndex(s);
 }
+
+inline cUOSocket* fromOldSocket(UOXSOCKET s)
+{
+	return currchar[s]->socket();
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 #endif

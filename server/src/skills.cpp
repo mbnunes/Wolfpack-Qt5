@@ -507,6 +507,200 @@ public:
 };
 
 
+// Tame
+class cSkTame: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		
+		P_CHAR pc = FindCharBySerial(target->serial());
+		if ( pc == NULL ) 
+			return;
+		P_CHAR pc_currchar = socket->player();
+		
+		if( !lineOfSight( pc_currchar->pos, pc->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
+			return;
+		
+		bool tamed = false;
+		if ((pc->isNpc() && (chardist(pc_currchar, pc) <= 3))) //Ripper
+		{
+			if (pc->taming>1000||pc->taming==0)//Morrolan default is now no tame
+			{
+				socket->sysMessage( tr("You can't tame that creature.") );
+				return;
+			}
+			// Below... can't tame if you already have!
+			if( (pc->tamed()) && pc_currchar->Owns(pc) )
+			{
+				socket->sysMessage( tr("You already control that creature!" ) );
+				return;
+			}
+			if( pc->tamed() )
+			{
+				socket->sysMessage( tr("That creature looks tame already." ) );
+				return;
+			}
+			sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name.c_str(),pc->name.c_str());
+			for(int a=0;a<3;a++)
+			{
+				switch(rand()%4)
+				{
+				case 0: npctalkall(pc_currchar, "I've always wanted a pet like you.",0); break;
+				case 1: npctalkall(pc_currchar, "Will you be my friend?",0); break;
+				case 2: sprintf((char*)temp, "Here %s.",pc->name.c_str()); npctalkall(pc_currchar, (char*)temp,0); break;
+				case 3: sprintf((char*)temp, "Good %s.",pc->name.c_str()); npctalkall(pc_currchar, (char*)temp,0); break;
+				default: 
+					LogError("switch reached default");
+				}
+			}
+			if ((!Skills->CheckSkill(pc_currchar,TAMING, 0, 1000))||
+				(pc_currchar->skill(TAMING)<pc->taming)) 
+			{
+				socket->sysMessage( tr("You were unable to tame it.") );
+				return;
+			}
+			pc_currchar->talk(tr("It seems to accept you as it's master!"));
+			tamed = true;
+			pc->SetOwnSerial(pc_currchar->serial);
+			pc->npcWander = 0;
+			if( pc->id() == 0x000C || pc->id() == 0x003B )
+			{
+				if(pc->skin() != 0x0481)
+				{
+					pc->setNpcAIType( 10 );
+					pc->setTamed(true);
+					updatechar(pc);
+				}
+				else
+				{
+					pc->setNpcAIType( 0 );
+					pc->setTamed(true);
+					updatechar(pc);
+				}
+			}
+		}
+		if (!tamed) 
+			socket->sysMessage( tr("You can't tame that!") );
+	}
+};
+
+
+// Begging
+class cSkBegging: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		int gold,x,y,realgold;
+		char abort;
+		P_CHAR pc_currchar = socket->player();
+		
+		P_CHAR pc = FindCharBySerial( target->serial() );
+		if (!pc)
+			return;
+		
+		if(online(pc))
+		{
+			socket->sysMessage( tr("Maybe you should just ask.") );
+			return;
+		}
+		
+		if(chardist(pc, pc_currchar)>=5)
+		{
+			socket->sysMessage( tr("You are not close enough to beg.") );
+			return;
+		}
+		
+		if(pc->isHuman() && (pc->in != 0)) //Used on human
+		{
+			if (pc->begging_timer()>=uiCurrentTime)
+			{
+				pc->talk(tr("Annoy someone else !"));
+				return;
+			}
+			
+			switch ( RandomNum(0, 2))
+			{
+			case 0:		npctalkall(pc_currchar, (char*)tr("Could thou spare a few coins?").latin1(),0); break;
+			case 1:		npctalkall(pc_currchar, (char*)tr("Hey buddy can you spare some gold?").latin1(),0); break;
+			case 2:		npctalkall(pc_currchar, (char*)tr("I have a family to feed, think of the children.").latin1(),0); break;
+			}
+			
+			if (!Skills->CheckSkill(pc_currchar, BEGGING, 0, 1000))
+			{
+				socket->sysMessage( tr("They seem to ignore your begging plees.") );
+			}
+			else
+			{
+				pc->setBegging_timer( SrvParams->beggingTime() * MY_CLOCKS_PER_SEC + uiCurrentTime); 
+				x=pc->skill(BEGGING)/50;
+				
+				if (x<1) x=1; 
+				y=rand()%x;
+				y+=RandomNum(1,4); 
+				if (y>25) y=25;
+				// pre-calculate the random amout of gold that is "targeted"
+				
+				P_ITEM pi_p = Packitem(pc);
+				gold=0;
+				realgold=0;
+				abort=0;
+				
+				// check for gold in target-npc pack
+				
+				if (pi_p != NULL)				
+				{
+					unsigned int ci;
+					vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
+					for (ci = 0; ci < vecContainer.size(); ci++)
+					{
+						P_ITEM pi_j =  FindItemBySerial(vecContainer[ci]);
+						if (pi_j != NULL)
+						{
+							if (pi_j->id()==0x0EED )
+							{
+								gold += pi_j->amount(); // calc total gold in pack
+								
+								int k = pi_j->amount();
+								if(k>=y) // enough money in that pile in pack to satisfy pre-aclculated amount
+								{
+									pi_j->ReduceAmount( y );
+									realgold += y; // calc gold actually given to player
+									
+									// This does not end in a crash !??
+									//if( pi_j != NULL ) // Only if we still have an item
+									RefreshItem(pi_j); // resend new amount
+									
+									abort = 1;
+								}
+								else // not enough money in this pile -> only delete it
+								{
+									Items->DeleItem( pi_j );
+									RefreshItem( pi_j ); // Refresh a deleted item?
+									realgold += pi_j->amount();
+								}
+							}
+						} // end of if j!=-1
+						if (abort) break;
+					} 
+				}
+				
+				if (gold<=0)
+				{				
+					pc->talk( tr("Thou dost not look trustworthy... no gold for thee today! ") );
+					return;
+				}
+				npctalkall(pc, (char*)tr("I feel sorry for thee... here have a gold coin .").latin1(), 0);
+				addgold(toOldSocket(socket), realgold);
+				socket->sysMessage( tr("Some gold is placed in your pack.") );
+			}
+		}
+		else
+			socket->sysMessage( tr("That would be foolish.") );
+	}
+};
+
 
 //////////////////////////
 // Function:	CalcRank
@@ -1202,22 +1396,22 @@ void cSkills::Stealth( cUOSocket *socket )
 	pChar->setStealth( 0 );
 }
 
-void cSkills::PeaceMaking(int s)
+void cSkills::PeaceMaking(cUOSocket* socket)
 {
 	int res1, res2, j;
-	P_ITEM p_inst = Skills->GetInstrument(s);
+	P_ITEM p_inst = Skills->GetInstrument(socket);
 	if (p_inst == NULL) 
 	{
-		sysmessage(s, "You do not have an instrument to play on!");
+		socket->sysMessage( tr( "You do not have an instrument to play on!" ) );
 		return;
 	}
-	P_CHAR pc_currchar = currchar[s];
+	P_CHAR pc_currchar = socket->player();
 	res1=Skills->CheckSkill(pc_currchar, PEACEMAKING, 0, 1000);
 	res2=Skills->CheckSkill(pc_currchar, MUSICIANSHIP, 0, 1000);
 	if (res1 && res2)
 	{
-		Skills->PlayInstrumentWell(s, p_inst);
-		sysmessage(s, "You play your hypnotic music, stopping the battle.");
+		Skills->PlayInstrumentWell(socket, p_inst);
+		socket->sysMessage( tr( "You play your hypnotic music, stopping the battle.") );
 		
 		//Char mapRegions
 		cRegion::RegionIterator4Chars ri(pc_currchar->pos);
@@ -1229,9 +1423,8 @@ void cSkills::PeaceMaking(int s)
 				if (inrange1p(mapchar, pc_currchar) && mapchar->war)
 				{
 					j = calcSocketFromChar(mapchar);
-					if ( j != INVALID_UOXSOCKET )
-						if (perm[j]) 
-							sysmessage(j, "You hear some lovely music, and forget about fighting.");
+					if ( mapchar->socket() )
+						mapchar->socket()->sysMessage( tr("You hear some lovely music, and forget about fighting.") );
 					if (mapchar->war) 
 						npcToggleCombat(mapchar);
 					mapchar->targ = INVALID_SERIAL;
@@ -1243,50 +1436,52 @@ void cSkills::PeaceMaking(int s)
 	} 
 	else 
 	{
-		Skills->PlayInstrumentPoor(s, p_inst);
-		sysmessage(s, "You attempt to calm everyone, but fail.");
+		Skills->PlayInstrumentPoor(socket, p_inst);
+		socket->sysMessage( tr("You attempt to calm everyone, but fail.") );
 	}
 }
 
-void cSkills::PlayInstrumentWell(int s, P_ITEM pi)
+void cSkills::PlayInstrumentWell(cUOSocket* socket, P_ITEM pi)
 {
+	P_CHAR pc_currchar = socket->player();
 	switch(pi->id())
 	{
-	case 0x0E9C:	soundeffect2(currchar[s], 0x0038);	break;
+	case 0x0E9C:	soundeffect2(pc_currchar, 0x0038);	break;
 	case 0x0E9D:
-	case 0x0E9E:	soundeffect2(currchar[s], 0x0052);	break;
+	case 0x0E9E:	soundeffect2(pc_currchar, 0x0052);	break;
 	case 0x0EB1:
-	case 0x0EB2:	soundeffect2(currchar[s], 0x0045);	break;
+	case 0x0EB2:	soundeffect2(pc_currchar, 0x0045);	break;
 	case 0x0EB3:
-	case 0x0EB4:	soundeffect2(currchar[s], 0x004C);	break;
+	case 0x0EB4:	soundeffect2(pc_currchar, 0x004C);	break;
 	default:
 		LogError("switch reached default");
 	}
 }
 
-void cSkills::PlayInstrumentPoor(int s, P_ITEM pi)
+void cSkills::PlayInstrumentPoor(cUOSocket* socket, P_ITEM pi)
 {
+	P_CHAR pc_currchar = socket->player();
 	switch(pi->id())
 	{
-	case 0x0E9C:	soundeffect2(currchar[s], 0x0039);	break;
+	case 0x0E9C:	soundeffect2(pc_currchar, 0x0039);	break;
 	case 0x0E9D:
-	case 0x0E9E:	soundeffect2(currchar[s], 0x0053);	break;
+	case 0x0E9E:	soundeffect2(pc_currchar, 0x0053);	break;
 	case 0x0EB1:
-	case 0x0EB2:	soundeffect2(currchar[s], 0x0046);	break;
+	case 0x0EB2:	soundeffect2(pc_currchar, 0x0046);	break;
 	case 0x0EB3:
-	case 0x0EB4:	soundeffect2(currchar[s], 0x004D);	break;
+	case 0x0EB4:	soundeffect2(pc_currchar, 0x004D);	break;
 	default:
 		LogError("switch reached default");
 	}
 }
 
-P_ITEM cSkills::GetInstrument(int s)
+P_ITEM cSkills::GetInstrument(cUOSocket* socket)
 {
-	P_CHAR pc_currchar = currchar[s];
+	P_CHAR pc_currchar = socket->player();
 
-	unsigned int ci;
+	unsigned int ci = 0;
 	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	for (; ci < vecContainer.size(); ++ci)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if ( IsInstrument(pi->id()) )
@@ -1295,6 +1490,11 @@ P_ITEM cSkills::GetInstrument(int s)
 		}
 	}
 	return NULL;
+}
+
+P_ITEM cSkills::GetInstrument( UOXSOCKET s )
+{
+	return GetInstrument(currchar[s]->socket());
 }
 
 //////////////////////////////
@@ -1895,24 +2095,24 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	switch( id )
 	{
 	case ARMSLORE:
-		message = "What item do you wish to get information about?";
+		message = tr("What item do you wish to get information about?");
 		targetRequest = new cSkArmsLore;
 		break;
 	case ANATOMY:
-		message = "Whom shall I examine?";
+		message = tr("Whom shall I examine?");
 		targetRequest = new cSkAnatomy;
 		break;
 	case ITEMID:
-		message = "What do you wish to appraise and identify?";
+		message = tr("What do you wish to appraise and identify?");
 		targetRequest = new cSkItemID;
 		break;
 	case EVALUATINGINTEL:
-		message = "What would you like to evaluate?";
+		message = tr("What would you like to evaluate?");
 		targetRequest = new cSkIntEval;
 		break;
 	case TAMING:
-		message = "Tame which animal?";
-		//target(s, 0, 1, 0, 42, );
+		message = tr("Tame which animal?");
+		targetRequest = new cSkTame;
 		break;
 	case HIDING:
 		Skills->Hide( socket );
@@ -1921,18 +2121,18 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		Skills->Stealth( socket );
 		break;
 	case DETECTINGHIDDEN:
-		message = "Where do you wish to search for hidden characters?";
+		message = tr("Where do you wish to search for hidden characters?");
 		targetRequest = new cSkDetectHidden;
 		break;
 	case PEACEMAKING:
-		Skills->PeaceMaking(s);
+		Skills->PeaceMaking(socket);
 		break;
 	case PROVOCATION:
-		message = "Whom do you wish to incite?";
+		message = tr("Whom do you wish to incite?");
 		//target(s, 0, 1, 0, 79, );
 		break;
 	case ENTICEMENT:
-		message = "Whom do you wish to entice?";
+		message = tr("Whom do you wish to entice?");
 		//target(s, 0, 1, 0, 81, );
 		break;
 	case SPIRITSPEAK:
@@ -1945,35 +2145,35 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 			return;
 		}
 		
-		message = "What do you wish to steal?";
+		message = tr("What do you wish to steal?");
 		//target(s,0,1,0,205, );
 		break;
 	case INSCRIPTION:
-		message = "What do you wish to place a spell on?";
+		message = tr("What do you wish to place a spell on?");
 		//target(s, 0, 1, 0, 160, );
 		break;
 	case TRACKING:
 		Skills->TrackingMenu(s,TRACKINGMENUOFFSET);
 		break;
 	case BEGGING:
-		message = "Whom do you wish to annoy?";
-		//target(s, 0, 1, 0, 152, );
+		message = tr("Whom do you wish to annoy?");
+		targetRequest = new cSkBegging;
 		break;
 	case ANIMALLORE:
-		message = "What animal do you wish to get information about?";
+		message = tr("What animal do you wish to get information about?");
 		//target(s, 0, 1, 0, 153, );
 		break;
 	case FORENSICS:
-		message = "What corpse do you want to examine?";
+		message = tr("What corpse do you want to examine?");
 		//target(s, 0, 1, 0, 154, );
 		break;
 	case POISONING:
-		message = "What poison do you want to apply?";
+		message = tr("What poison do you want to apply?");
 		//target(s, 0, 1, 0, 155, );
 		break;
 
 	case TASTEID:
-		message = "What do you want to taste?";
+		message = tr("What do you want to taste?");
         //target(s, 0, 1, 0, 70, );
         break;
 

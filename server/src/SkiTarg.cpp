@@ -1340,10 +1340,11 @@ void cSkills::DetectHidden(UOXSOCKET s)
 void cSkills::ProvocationTarget1(UOXSOCKET s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	P_CHAR pc_currchar = currchar[s];
 
 	if( pc == NULL ) return;
 
-	P_ITEM inst = GetInstrument(s);
+	P_ITEM inst = GetInstrument(pc_currchar->socket());
 	if (inst == NULL) 
 	{
 		sysmessage(s, tr("You do not have an instrument to play on!") );
@@ -1374,7 +1375,7 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 	else
 	{
 		target(s, 0, 1, 0, 80, "You play your music, inciting anger, and your target begins to look furious. Whom do you wish it to attack?");
-		PlayInstrumentWell(s, inst);
+		PlayInstrumentWell(pc_currchar->socket(), inst);
 	}
 }
 
@@ -1383,6 +1384,7 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
 	if( pc == NULL ) return;
 
+	P_CHAR pc_currchar = currchar[s];
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
@@ -1414,7 +1416,7 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 	else
 	{
 		target(s, 0, 1, 0, 82, (char*)tr("You play your music, luring them near. Whom do you wish them to follow?").latin1() );
-		PlayInstrumentWell(s, inst);
+		PlayInstrumentWell(pc_currchar->socket(), inst);
 	}
 }
 
@@ -1438,12 +1440,12 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 		pc_target->ftarg = pc->serial;
 		pc_target->npcWander = 1;
 		sysmessage(s, tr("You play your hypnotic music, luring them near your target.") );
-		PlayInstrumentWell(s, inst);
+		PlayInstrumentWell(pc_currchar->socket(), inst);
 	}
 	else 
 	{
 		sysmessage(s, tr("Your music fails to attract them.") );
-		PlayInstrumentPoor(s, inst);
+		PlayInstrumentPoor(pc_currchar->socket(), inst);
 	}
 }
 
@@ -1476,7 +1478,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 	}
 	if (CheckSkill((Player), MUSICIANSHIP, 0, 1000))
 	{
-		PlayInstrumentWell(s, inst);
+		PlayInstrumentWell(Player->socket(), inst);
 		if (CheckSkill((Player), PROVOCATION, 0, 1000))
 		{
 			if( Player->inGuardedArea() )
@@ -1512,7 +1514,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 	}
 	else
 	{
-		PlayInstrumentPoor(s, inst);
+		PlayInstrumentPoor(Player->socket(), inst);
 		sysmessage(s, tr("You play rather poorly and to no effect.") );
 	}
 }
@@ -1900,78 +1902,6 @@ void cSkills::AnatomyTarget(int s)
 }
 
 //taken from 6904t2(5/10/99) - AntiChrist
-void cSkills::TameTarget(int s)
-{
-	int tamed=0;
-	
-	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
-	if ( pc == NULL ) return;
-	P_CHAR pc_currchar = currchar[s];
-
-	if( !lineOfSight( pc_currchar->pos, pc->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
-	return;
-
-	if(buffer[s][7]==0xFF) return;
-	if (pc != NULL)
-		if ((pc->isNpc() && (chardist(pc_currchar, pc) <= 3))) //Ripper
-		{
-			if (pc->taming>1000||pc->taming==0)//Morrolan default is now no tame
-			{
-				sysmessage(s, tr("You can't tame that creature.") );
-				return;
-			}
-			// Below... can't tame if you already have!
-			if( (pc->tamed()) && pc_currchar->Owns(pc) )
-			{
-				sysmessage( s, tr("You already control that creature!" ) );
-				return;
-			}
-			if( pc->tamed() )
-			{
-				sysmessage( s, tr("That creature looks tame already." ) );
-				return;
-			}
-			sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name.c_str(),pc->name.c_str());
-			for(int a=0;a<3;a++)
-			{
-				switch(rand()%4)
-				{
-				case 0: npctalkall(pc_currchar, "I've always wanted a pet like you.",0); break;
-				case 1: npctalkall(pc_currchar, "Will you be my friend?",0); break;
-				case 2: sprintf((char*)temp, "Here %s.",pc->name.c_str()); npctalkall(pc_currchar, (char*)temp,0); break;
-				case 3: sprintf((char*)temp, "Good %s.",pc->name.c_str()); npctalkall(pc_currchar, (char*)temp,0); break;
-				default: 
-					LogError("switch reached default");
-				}
-			}
-			if ((!Skills->CheckSkill(pc_currchar,TAMING, 0, 1000))||
-				(pc_currchar->skill(TAMING)<pc->taming)) 
-			{
-				sysmessage(s, tr("You were unable to tame it.") );
-				return;
-			}
-			npctalk(s, pc_currchar, (char*)tr("It seems to accept you as it's master!").latin1() , 0);
-			tamed = 1;
-			pc->SetOwnSerial(pc_currchar->serial);
-			pc->npcWander = 0;
-			if( pc->id() == 0x000C || pc->id() == 0x003B )
-			{
-				if(pc->skin() != 0x0481)
-				{
-				    pc->setNpcAIType( 10 );
-					pc->setTamed(true);
-					updatechar(pc);
-				}
-				else
-				{
-			        pc->setNpcAIType( 0 );
-			        pc->setTamed(true);
-					updatechar(pc);
-				}
-			}
-		}
-		if (tamed==0) sysmessage(s, tr("You can't tame that!") );
-}
 
 void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 {
@@ -2076,120 +2006,6 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 		}
 	} else sysmessage(s, tr("You are too far away to steal that item.") );
-}
-
-void cSkills::BeggingTarget(int s)
-{
-	int gold,x,y,realgold;
-	char abort;
-	P_CHAR pc_currchar = currchar[s];
-
-	addid1[s]=buffer[s][7];
-	addid2[s]=buffer[s][8];
-	addid3[s]=buffer[s][9];
-	addid4[s]=buffer[s][10];
-	SERIAL serial = calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-	P_CHAR pc = FindCharBySerial( serial );
-
-	if(online(pc))
-	{
-		sysmessage(s, tr("Maybe you should just ask.") );
-		return;
-	}
-
-	if (pc != NULL)
-	{
-		if(chardist(pc, pc_currchar)>=5)
-		{
-			sysmessage(s, tr("You are not close enough to beg.") );
-			return;
-		}
-
-		if(pc->isHuman() && (pc->in != 0)) //Used on human
-		{
-			if (pc->begging_timer()>=uiCurrentTime)
-			{
-				npctalk(s,pc, (char*)tr("Annoy someone else !").latin1() , 1);
-				return;
-			}
-
-			switch ( RandomNum(0, 2))
-			{
-			case 0:		npctalkall(pc_currchar, (char*)tr("Could thou spare a few coins?").latin1(),0); break;
-			case 1:		npctalkall(pc_currchar, (char*)tr("Hey buddy can you spare some gold?").latin1(),0); break;
-			case 2:		npctalkall(pc_currchar, (char*)tr("I have a family to feed, think of the children.").latin1(),0); break;
-			}
-
-			if (!Skills->CheckSkill(pc_currchar, BEGGING, 0, 1000))
-				sysmessage(s, tr("They seem to ignore your begging plees.") );
-			else
-			{
-				pc->setBegging_timer( SrvParams->beggingTime() * MY_CLOCKS_PER_SEC + uiCurrentTime); 
-				x=pc->skill(BEGGING)/50;
-
-				if (x<1) x=1; 
-				y=rand()%x;
-				y+=RandomNum(1,4); 
-				if (y>25) y=25;
-				// pre-calculate the random amout of gold that is "targeted"
-
-				P_ITEM pi_p = Packitem(pc);
-				gold=0;
-				realgold=0;
-				abort=0;
-
-				// check for gold in target-npc pack
-			
-				if (pi_p != NULL)				
-				{
-					unsigned int ci;
-					vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
-					for (ci = 0; ci < vecContainer.size(); ci++)
-					{
-						P_ITEM pi_j =  FindItemBySerial(vecContainer[ci]);
-						if (pi_j != NULL)
-						{
-							if (pi_j->id()==0x0EED )
-							{
-								gold += pi_j->amount(); // calc total gold in pack
-								
-								int k = pi_j->amount();
-								if(k>=y) // enough money in that pile in pack to satisfy pre-aclculated amount
-								{
-									pi_j->ReduceAmount( y );
-									realgold += y; // calc gold actually given to player
-
-									// This does not end in a crash !??
-									//if( pi_j != NULL ) // Only if we still have an item
-										RefreshItem(pi_j); // resend new amount
-
-									abort = 1;
-								}
-								else // not enough money in this pile -> only delete it
-								{
-									Items->DeleItem( pi_j );
-									RefreshItem( pi_j ); // Refresh a deleted item?
-									realgold += pi_j->amount();
-								}
-							}
-						} // end of if j!=-1
-						if (abort) break;
-					} 
-				}
-								
-				if (gold<=0)
-				{				
-					npctalk(s,pc, (char*)tr("Thou dost not look trustworthy... no gold for thee today! ").latin1() , 1);
-					return;
-				}
-				npctalkall(pc, (char*)tr("I feel sorry for thee... here have a gold coin .").latin1(), 0);
-				addgold(s,realgold);
-				sysmessage(s, tr("Some gold is placed in your pack.") );
-			}
-		}
-		else
-			sysmessage(s, tr("That would be foolish.") );
-	}
 }
 
 void cSkills::AnimalLoreTarget(int s)
