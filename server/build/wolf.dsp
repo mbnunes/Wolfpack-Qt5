@@ -263,10 +263,6 @@ SOURCE=.\pointer.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\qsf.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\regions.cpp
 # End Source File
 # Begin Source File
@@ -363,7 +359,7 @@ SOURCE=.\utilsys.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\walking2.cpp
+SOURCE=.\walking.cpp
 # End Source File
 # Begin Source File
 
@@ -691,7 +687,7 @@ SOURCE=.\verinfo.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\walking2.h
+SOURCE=.\walking.h
 # End Source File
 # Begin Source File
 

@@ -51,7 +51,7 @@
 #include "../classes.h"
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
-#include "../walking2.h"
+#include "../walking.h"
 #include "../speech.h"
 #include "../guildstones.h"
 #include "../combat.h"

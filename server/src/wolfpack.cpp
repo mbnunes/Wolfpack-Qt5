@@ -51,7 +51,7 @@
 #include "utilsys.h"
 #include "worldmain.h"
 #include "trigger.h"
-#include "walking2.h"
+#include "walking.h"
 #include "books.h"
 #include "TmpEff.h"
 #include "guildstones.h"

@@ -45,7 +45,7 @@ II. make sure to hold the map up to date !
 #include "itemsmgr.h"
 #include "defines.h"
 #include "mapstuff.h"
-#include "walking2.h"
+#include "walking.h"
 #include "utilsys.h"
 
 #include "junk.h" // needed for objects Npcs and Items

@@ -39,7 +39,7 @@
 #include "SndPkg.h"
 #include "debug.h"
 #include "utilsys.h"
-#include "walking2.h"
+#include "walking.h"
 #include "regions.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"

@@ -33,7 +33,7 @@
 
 #include "wolfpack.h"
 #include "verinfo.h"
-#include "walking2.h"
+#include "walking.h"
 #include "wpscriptmanager.h"
 #include "wpdefmanager.h"
 #include "wptargetrequests.h"

@@ -26,31 +26,69 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(__WALKING_H__)
-#define __WALKING_H__
-
-// Platform specifics
-#include "platform.h"
-
-//system includes
-
-#include <iostream>
-
-using namespace std ;
-
-// Forward class declarations/prototypes
-
-
-//wolfpack includes
+#if !defined(__WALKING2_H__)
+#define __WALKING2_H__
 
 #include "wolfpack.h"
-#include "SndPkg.h"
-#include "debug.h"
 
+class cUOSocket;
 
+class cMovement
+{
+private:
+	signed char z, dispz;
 
-#endif 
+public:
+	void Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence );
+	void CombatWalk( P_CHAR pc );
+	void NpcMovement( unsigned int currenttime, P_CHAR pc_i );
+	int validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s );
+private:
+	inline bool isValidDirection( Q_UINT8 dir );
+	inline bool isOverloaded( P_CHAR );
+
+	bool CanGMWalk(unitile_st xyb);
+	bool CanPlayerWalk(unitile_st xyb);
+	bool CanNPCWalk(unitile_st xyb);
+	bool CanFishWalk(unitile_st xyb);
+	bool CanBirdWalk(unitile_st xyb);
+
+	void FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, int &xycount);
+	void GetBlockingMap(const Coord_cl, unitile_st *xyblock, int &xycount);
+	void GetBlockingStatics(const Coord_cl, unitile_st *xyblock, int &xycount);
+	void GetBlockingDynamics(const Coord_cl, unitile_st *xyblock, int &xycount);
+
+	short int Direction(short int sx, short int sy, short int dx, short int dy);
+
+	short int CheckMovementType(P_CHAR pc);
+	bool CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz);
+
+	void randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type );
+	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
+	void PathFind( P_CHAR pc, unsigned short gx, unsigned short gy );
+
+	bool consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running );
+	bool checkObstacles( cUOSocket *socket, P_CHAR pChar, const Coord_cl &newPos, bool running );
+	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
+	void checkRunning( cUOSocket*, P_CHAR, Q_UINT8 );
+	void checkStealth( P_CHAR );
+	void sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& oldpos );
+
+	void handleItemCollision( P_CHAR pChar );
+	void outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord_cl& oldpos );
+	void HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos);
+	void HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket);
+	void HandleGlowItems(P_CHAR pc, UOXSOCKET socket);
+	
+	void FillXYBlockStuff(P_CHAR pc, unitile_st *xyblock, int &xycount, unsigned short oldx, unsigned short oldy );
+
+	static bool checkBoundingBox(const Coord_cl pos, int fx1, int fy1, int fx2, int fy2);
+	static bool checkBoundingCircle(const Coord_cl pos, int fx1, int fy1, int radius);
+
+};
+
+#endif // __WALKING2_H__
 

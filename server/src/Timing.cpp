@@ -34,7 +34,7 @@
 
 #include "Timing.h"
 #include "worldmain.h"
-#include "walking2.h"
+#include "walking.h"
 #include "TmpEff.h"
 #include "combat.h"
 #include "regions.h"
