@@ -349,9 +349,7 @@ def onUse(char, item, norange=0):
 	if not char.cansee( item ):
 		char.socket.sysmessage( "You cannot see the door from here." )
 		return True
-	elif ( not char.canreach( item, 2 ) or char.distanceto( item ) > 2 ) and not \
-		( ( char.pos.z == item.pos.z ) or ( char.pos.z < item.pos.z and char.pos.z >= ( item.pos.z - 5) ) or \
-		( char.pos.z > item.pos.z and char.pos.z <= ( item.pos.z + 5) ) ):
+	elif not char.canreach(item, 2):
 		char.socket.sysmessage( "You cannot reach the handle from here." )
 		return True
 
