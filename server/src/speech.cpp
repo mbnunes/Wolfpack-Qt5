@@ -982,7 +982,7 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, 
 	return false;
 }
 
-void cSpeech::talking( P_CHAR pChar, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT8 type ) // PC speech
+void cSpeech::talking( P_CHAR pChar, const QString &lang, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT16 font, UINT8 type ) // PC speech
 {	
 	// handle things like renaming or describing an item
 	if( !pChar->socket() )
@@ -1006,12 +1006,6 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, QValueVector< UINT16
 	if( !isNormalColor( color ) )
 		color = 0x2;
 
-	if( ( type == 0x09 ) && ( pChar->canBroadcast() ) )
-	{
-		pChar->talk( speech, color, type );
-		return;
-	}
-
 	if( type == 0 || type == 2)
 		pChar->setSayColor( color );
 
@@ -1028,14 +1022,17 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, QValueVector< UINT16
 		}
 	}
 
-	pChar->talk( speech, color, type );
-	
-	// >> LEGACY
-	/*if( speechUpr == "I RESIGN FROM MY GUILD" )
+	if( pChar->onTalk( type, color, font, speech, lang ) )
+		return;
+
+	if( ( type == 0x09 ) && ( pChar->canBroadcast() ) )
 	{
-		GuildResign(s);
-	}*/
-	
+		pChar->talk( speech, color, type );
+		return;
+	}
+
+	pChar->talk( speech, color, type );
+		
 	QString speechUpr = speech.upper();
 	if( response( socket, pChar, speech, keywords ) )
 		return;  // Vendor responded already

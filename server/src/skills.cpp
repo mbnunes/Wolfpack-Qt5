@@ -730,6 +730,9 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		return;
 	}
 
+	if( pChar->onSkillUse( id ) )
+		return;
+
 	cTargetRequest *targetRequest = NULL;
 	QString message;
 	int s = -1;

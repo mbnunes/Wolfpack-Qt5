@@ -57,7 +57,7 @@ class cSpeech
 {
 public:
 	bool response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, QValueVector< UINT16 > &keywords );
-    void talking( P_CHAR pChar, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT8 type );
+    void talking( P_CHAR pChar, const QString &lang, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT16 font, UINT8 type );
 };
 
 extern cSpeech	*Speech;

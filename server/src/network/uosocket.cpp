@@ -49,7 +49,6 @@
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
 #include "../walking.h"
-#include "../speech.h"
 #include "../guildstones.h"
 #include "../combat.h"
 #include "../books.h"
@@ -1222,7 +1221,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	else if( speech.startsWith( SrvParams->commandPrefix() ) )
 		cCommands::instance()->process( this, speech.right( speech.length()-1 ) );
 	else
-		Speech->talking( _player, speech, keywords, color, type );
+		Speech->talking( _player, packet->language(), speech, keywords, color, font, type );
 }
 	
 /*!

@@ -305,6 +305,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				}
 				
 				socket->sendContainer( pi );
+				return;
 			}
 			else if( pi->container()->isItem() )
 			{
@@ -351,6 +352,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				}
 				else if( pChar == pc_currchar )
 					socket->sendContainer( pi );
+
+				return;
 			}
 
 			socket->sysMessage( tr( "You can't open this container." ) );
