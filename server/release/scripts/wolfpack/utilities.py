@@ -28,7 +28,7 @@ from types import *
 	\return Integer
 	\description Rolls some dice and returns a result.
 """
-def rolldice(dice, sides, bonus):
+def rolldice(dice, sides, bonus=0):
 	result = 0
 	for i in range(0, dice):
 		result += random.randint(1, sides)

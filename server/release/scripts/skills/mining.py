@@ -269,7 +269,10 @@ def successmining( char, gem, table, resname, amount, ore ):
 		resourceitem.update()
 
 	# You dig some %s and put it in your backpack.
-	socket.clilocmessage( message, "", GRAY )
+	if type(message) == int:
+		socket.clilocmessage( message, "", GRAY )
+	else:
+		socket.systemmessage(unicode(message))
 	return OK
 
 def respawnvein( time, args ):

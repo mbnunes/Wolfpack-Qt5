@@ -148,6 +148,60 @@ def statmodifier_expire(char, args):
 	char.updatestats()
 
 #
+# Statmodifier including given percentage
+#
+def statmodifier_raw(target, stat, curse, percent, duration):
+	amount1 = int((target.strength - target.strength2) * percent)
+	amount2 = int((target.dexterity - target.dexterity2) * percent)
+	amount3 = int((target.intelligence - target.intelligence2) * percent)
+	
+	# Reverse if it's a curse
+	if curse:
+		amount1 *= -1	
+		amount2 *= -1	
+		amount3 *= -1	
+
+	if stat == 0 or stat == 3:
+		target.dispel(None, 0, "magic_statmodifier_0", ["silent"])
+
+		# Adjust amount
+		if target.strength + amount1 < 1:
+			amount1 = -(target.strength - 1)
+		target.strength2 += amount1
+		target.strength += amount1
+		target.hitpoints = min(target.hitpoints, target.maxhitpoints)
+		target.updatehealth()
+		
+		target.addtimer(duration, "magic.utilities.statmodifier_expire", [0, amount1], \
+			1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel")
+		
+	if stat == 1 or stat == 3:
+		target.dispel(None, 0, "magic_statmodifier_1", ["silent"])
+
+		if target.dexterity + amount2 < 1:
+			amount2 = -(target.dexterity - 1)
+		target.dexterity2 += amount2
+		target.dexterity += amount2
+		target.stamina = min(target.stamina, target.maxstamina)
+		
+		target.addtimer(duration, "magic.utilities.statmodifier_expire", [1, amount2], \
+			1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel")
+		
+	if stat == 2 or stat == 3:
+		target.dispel(None, 0, "magic_statmodifier_2", ["silent"])
+
+		if target.intelligence + amount3 < 1:
+			amount3 = -(target.intelligence - 1)
+		target.intelligence2 += amount3
+		target.intelligence += amount3
+		target.mana = min(target.mana, target.maxmana)
+
+		target.addtimer(duration, "magic.utilities.statmodifier_expire", [2, amount3], \
+			1, 1, "magic_statmodifier_2", "magic.utilities.statmodifier_dispel")
+
+	target.updatestats()
+
+#
 # Apply a stat modifying spell
 #
 def statmodifier(char, target, stat, curse):
@@ -166,55 +220,7 @@ def statmodifier(char, target, stat, curse):
 	# Calculate the duration
 	duration = (char.skill[EVALUATINGINTEL] / 50 + 1) * 6000
 
-	amount1 = int((target.strength - target.strength2) * percent)
-	amount2 = int((target.dexterity - target.dexterity2) * percent)
-	amount3 = int((target.intelligence - target.intelligence2) * percent)
-	
-	# Reverse if it's a curse
-	if curse:
-		amount1 *= -1	
-		amount2 *= -1	
-		amount3 *= -1	
-
-	if stat == 0 or stat == 3:
-		target.dispel(char, 0, "magic_statmodifier_0", ["silent"])
-
-		# Adjust amount
-		if target.strength + amount1 < 1:
-			amount1 = -(target.strength - 1)
-		target.strength2 += amount1
-		target.strength += amount1
-		target.hitpoints = min(target.hitpoints, target.maxhitpoints)
-		target.updatehealth()
-		
-		target.addtimer(duration, "magic.utilities.statmodifier_expire", [0, amount1], \
-			1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel")
-		
-	if stat == 1 or stat == 3:
-		target.dispel(char, 0, "magic_statmodifier_1", ["silent"])
-
-		if target.dexterity + amount2 < 1:
-			amount2 = -(target.dexterity - 1)
-		target.dexterity2 += amount2
-		target.dexterity += amount2
-		target.stamina = min(target.stamina, target.maxstamina)
-		
-		target.addtimer(duration, "magic.utilities.statmodifier_expire", [1, amount2], \
-			1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel")
-		
-	if stat == 2 or stat == 3:
-		target.dispel(char, 0, "magic_statmodifier_2", ["silent"])
-
-		if target.intelligence + amount3 < 1:
-			amount3 = -(target.intelligence - 1)
-		target.intelligence2 += amount3
-		target.intelligence += amount3
-		target.mana = min(target.mana, target.maxmana)
-
-		target.addtimer(duration, "magic.utilities.statmodifier_expire", [2, amount3], \
-			1, 1, "magic_statmodifier_2", "magic.utilities.statmodifier_dispel")
-
-	target.updatestats()
+	statmodifier_raw(target, stat, curse, percent, duration)
 
 #
 # When a fieldeffect spell expires.

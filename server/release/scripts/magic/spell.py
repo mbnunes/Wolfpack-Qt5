@@ -37,6 +37,13 @@ def consumeReagents(item, items):
 		
 	return items
 
+def callback(char, args):
+	eventlist = char.events
+	eventlist.remove('magic')
+	char.events = eventlist
+
+	args[0].cast(char, args[1], args[2])
+
 # Basic Spell Class
 class Spell:
 	# We affect another character
@@ -62,8 +69,47 @@ class Spell:
 		self.damageskill = EVALUATINGINTEL
 		self.circle = circle
 		self.reflectable = 0
+		self.inherent = 0
 		mana_table = [ 4, 6, 9, 11, 14, 20, 40, 50 ]
 		self.mana = mana_table[ self.circle - 1 ]
+
+	#
+	# Prepare the casting of this spell.
+	#
+	def precast(self, char, mode=0, args=[]):
+		eventlist = char.events
+		socket = char.socket
+
+		# We are frozen
+		if char.frozen:
+			char.socket.clilocmessage(502643)
+			return 0
+	
+		# We are already casting a spell
+		if 'magic' in eventlist or (socket and socket.hastag('cast_target')):
+			char.socket.clilocmessage(502642)
+			return 0
+
+		# If we are using a spellbook to cast, check if we do have
+		# the spell in our spellbook (0-based index)
+		if not self.inherent and mode == 0 and not hasSpell(char, self.spellid - 1):
+			char.message("You don't know the spell you want to cast.")
+			return 0
+
+		if not self.checkrequirements(char, mode, args):
+			return 0
+		
+		# Unhide the Caster
+		char.reveal()
+		
+		if self.mantra:
+			char.say(self.mantra)
+		
+		# Precasting
+		char.events = ['magic'] + eventlist
+		char.action(ANIM_CASTAREA)
+		char.addtimer(self.calcdelay(), 'magic.spell.callback', [self, mode, args], 0, 0, "cast_delay")	
+		return 1
 
 	def calcdelay(self):
 		return 250 + (250 * self.circle)
@@ -104,15 +150,16 @@ class Spell:
 			# Consume Reagents
 			if len(self.reagents) > 0:
 				consumeReagents(char.getbackpack(), self.reagents.copy())
-				
+
 		# Check Skill
-		minskill = max(0, int((1000 / 7) * self.circle - 200))
-		maxskill = min(1200, int((1000 / 7) * self.circle + 200))
-		
-		if not char.checkskill(self.skill, minskill, maxskill):
-			char.message(502632)
-			fizzle(char)			
-			return 0
+		if self.skill != None:
+			minskill = max(0, int((1000 / 7) * self.circle - 200))
+			maxskill = min(1200, int((1000 / 7) * self.circle + 200))
+
+			if not char.checkskill(self.skill, minskill, maxskill):
+				char.message(502632)
+				fizzle(char)
+				return 0
 			
 		return 1
 		
@@ -176,7 +223,7 @@ class Spell:
 	def cast(self, char, mode, args=[]):
 		if char.socket:	
 			char.socket.settag('cast_target', 1)
-			char.socket.attachtarget('magic.target_response', [ self.spellid, mode, args ], 'magic.target_cancel', 'magic.target_timeout', 8000) # Don't forget the timeout later on
+			char.socket.attachtarget('magic.target_response', [ self, mode, args ], 'magic.target_cancel', 'magic.target_timeout', 8000) # Don't forget the timeout later on
 		else:
 			# Callback to the NPC AI ??
 			wolfpack.console.log(LOG_ERROR, "A NPC is trying to cast a spell.")

@@ -18,10 +18,62 @@ def uotime(socket, command, arguments):
 	socket.sysmessage('Elapsed Minutes: %u. Elapsed Days: %u.' % (time.minutes(), time.days()))
 	socket.sysmessage('Current Lightlevel: %u' % (time.currentlightlevel()))
 
+def nudgetarget(player, arguments, target):
+	if target.item:
+		pos = target.item.pos
+		pos.z += arguments[0]
+		target.item.moveto(pos)
+		target.item.update()
+
+	elif target.char:
+		pos = target.char.pos
+		pos.z += arguments[0]
+		target.char.moveto(pos)
+		target.char.update()
+
+	else:
+		player.socket.sysmessage('You have to target an item or character.')	
+
+"""
+	\command nudgedown
+	\usage - <code>nudgedown</code>
+	- <code>nudgedown amount</code>
+	\description Decreases the targetted objects z level. If no amount is given, 
+	an amount of 1 is assumed.
+"""
+
+def nudgedown(socket, command, arguments):
+	amount = 1
+	try:
+		amount = int(arguments)
+	except:
+		pass
+		
+	socket.attachtarget('commands.nudgetarget', [- amount])
+	
+"""
+	\command nudgeup
+	\usage - <code>nudgeup</code>
+	- <code>nudgeup amount</code>
+	\description Increases the targetted objects z level. If no amount is given, 
+	an amount of 1 is assumed.
+"""
+	
+def nudgeup(socket, command, arguments):
+	amount = 1
+	try:
+		amount = int(arguments)
+	except:
+		pass
+		
+	socket.attachtarget('commands.nudgetarget', [amount])
+
 def onLoad():
 	wolfpack.registercommand("season", season)
 	wolfpack.registercommand("updateplayer", updateplayer)
 	wolfpack.registercommand("time", uotime)
+	wolfpack.registercommand("nudgeup", nudgeup)
+	wolfpack.registercommand("nudgedown", nudgedown)
 
 """
 	\command time

@@ -42,56 +42,14 @@ def castSpell( char, spell, mode = 0, args = [] ):
 		return
 		
 	socket = char.socket
-	eventlist = char.events
-
+	
 	if not spells.has_key(spell):
 		if socket:
 			socket.log(LOG_ERROR, "Trying to cast unknown spell: %d\n" % spell)
-			socket.sysmessage( 'ERROR: Unknown Spell' )
-		return
-
-	# We are frozen
-	if char.frozen:
-		char.socket.clilocmessage(502643)
-		return
-
-	# We are already casting a spell
-	if 'magic' in eventlist or ( socket and socket.hastag( 'cast_target' ) ):
-		char.socket.clilocmessage(502642)
-		return
-
-	# If we are using a spellbook to cast, check if we do have
-	# the spell in our spellbook (0-based index)
-	if mode == 0 and not hasSpell( char, spell - 1 ):
-		char.message( "You don't know the spell you want to cast." )
-		return
-
-	# Are the requirements met?
-	spell = spells[ spell ]
+			socket.sysmessage('ERROR: Unknown Spell')
+		return	
 	
-	if not spell.checkrequirements(char, mode, args):
-		return
-	
-	# Unhide the Caster
-	if char.hidden:
-		char.hidden = 0
-		char.update()
-	
-	if spell.mantra:
-		char.say( spell.mantra )
-	
-	# Precasting
-	char.events = ['magic'] + eventlist
-	char.action(ANIM_CASTAREA)	
-	char.addtimer(spell.calcdelay(), 'magic.callback', [spell.spellid, mode, args], 0, 0, "cast_delay")
-
-def callback( char, args ):
-	eventlist = char.events
-	eventlist.remove('magic')
-	char.events = eventlist
-
-	spell = spells[args[0]]
-	spell.cast(char, args[1], args[2])
+	spells[spell].precast(char, mode, args)
 
 # Target Cancel
 def target_cancel(char):
@@ -109,7 +67,7 @@ def target_response( char, args, target ):
 	# No more npc saftey from here
 	char.socket.deltag('cast_target')
 	
-	spell = spells[args[0]]
+	spell = args[0]
 	mode = args[1]
 	
 	# Char Targets

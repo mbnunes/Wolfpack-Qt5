@@ -8,7 +8,7 @@ import random
 def onUse( char, item ):
 	# Bandages have to be in backpack
 	if item.getoutmostchar() != char:
-		char.message( 'You have to have these bandages in your belongings in order to use them.' )
+		char.socket.clilocmessage(500295)
 		return 1
 
 	# Already Bandaging ??
@@ -18,8 +18,8 @@ def onUse( char, item ):
 
 	# Display Target
 	if item.id == 0xe21 or item.id == 0xee9:
-		char.message( 'What do you want to use these bandages on?' )
-		char.socket.attachtarget( 'bandages.bandage_response', [ item.serial ]  )
+		char.socket.clilocmessage(500948)
+		char.socket.attachtarget('bandages.bandage_response', [item.serial])
 
 	elif item.id == 0xe20 or item.id == 0xe22:
 		char.message( 'Where do you want to wash these bandages?' )
@@ -89,6 +89,9 @@ def validCharTarget( char, target ):
 	if target.dead:
 		char.message( 'You can''t heal a ghost.' )
 		return 0
+
+	if target.poison != -1:
+		char.socket.clilocmessage(1010060)
 
 	# Already at full health
 	if target.health >= target.strength:
