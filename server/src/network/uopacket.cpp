@@ -245,9 +245,9 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength )
 	for ( uint i = pos; i < pos + fieldLength; i += 2 )
 	{
 		QChar ch(getShort(i) );
-		result.append(ch);
 		if ( ch.isNull() )
 			break;
+		result.append(ch);
 	}
 	return result;
 }
