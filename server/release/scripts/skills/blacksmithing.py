@@ -45,6 +45,9 @@ SCALES = [
 # Check for anvil and forge
 #
 def checkanvilandforge(char):
+	if char.gm:
+		return True
+	
 	# Check dynamic items.
 	# We should later check for statics too
 	forge = 0
@@ -52,12 +55,27 @@ def checkanvilandforge(char):
 	items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 5)
 	for item in items:
 		if item.id == 0xFAF or item.id == 0xFB0:
-			anvil = 1
+			anvil = True
 		elif item.id == 0xFB1 or (item.id >= 0x197A and item.id <= 0x19A9):
-			forge = 1
+			forge = True
 
 		if anvil and forge:
 			return True
+			
+	# Check for static items
+	for x in range(-2, 3):
+		for y in range(-2, 3):
+			statics = wolfpack.statics(char.pos.x + x, char.pos.y + y, char.pos.map, True)
+			
+			for tile in statics:
+				dispid = tile['id']
+				if dispid == 0xFAF or dispid == 0xFB0:
+					anvil = True
+				elif dispid == 0xFB1 or (dispid >= 0x197A and dispid <= 0x19A9):
+					forge = True
+
+				if anvil and forge:
+					return True
 
 	return False
 
@@ -293,17 +311,20 @@ class BlacksmithingMenu(MakeMenu):
 
 			if item.maxhealth <= weaken:
 				player.socket.clilocmessage(500424)
+				player.log("Tries to repair item %s (0x%x) and destroys it.\n" % (item.baseid, item.serial))
 				item.delete()
 			elif player.checkskill(BLACKSMITHING, 0, 1000):
 				player.socket.clilocmessage(1044279)
 				item.maxhealth -= weaken
-				item.health = item.maxhealth
+				item.health = item.maxhealth				
 				item.resendtooltip()
+				player.log("Repairs item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
 			else:
 				player.socket.clilocmessage(1044280)
 				item.maxhealth -= weaken
 				item.health = max(0, item.health - weaken)
 				item.resendtooltip()
+				player.log("Fails to repair item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
 
 			# Warn the user if we'll break the item next time
 			if item.maxhealth <= weaken:
