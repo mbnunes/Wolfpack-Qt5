@@ -83,7 +83,7 @@
 		<id>0x8d</id>
 		<category>Buildings\Walls\Stone Wall 3\Window 3</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x1c</lightsource>
 	</item>
 
 	<item id="8f">
