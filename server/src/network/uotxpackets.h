@@ -58,11 +58,8 @@ enum eDenyLogin
 class cUOTxDenyLogin: public cUOPacket
 {
 public:
-	cUOTxDenyLogin( eDenyLogin reason ): cUOPacket( 2 )
-	{
-		rawPacket[0] = (Q_UINT8)0x82;
-		rawPacket[1] = reason;
-	}
+	cUOTxDenyLogin(): cUOPacket( 0x82, 2 ) {}
+	void setReason( eDenyLogin data ) { rawPacket[1] = data; }
 };
 
 // 0x81: Accept Login ( Sends Serverlist )

@@ -103,8 +103,9 @@ void cUOSocket::recieve()
 	if( ( _account < 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
 	{
 		clConsole.send( QString( "Communication Error [%1 instead of 0x80|0x91] [%2]\n" ).arg( packetId, 2, 16 ).arg( _socket->address().toString() ) );
-		cUOTxDenyLogin *denyLogin = new cUOTxDenyLogin( DL_BADCOMMUNICATION );
-		send( denyLogin );
+		cUOTxDenyLogin denyLogin;
+		denyLogin.setReason( DL_BADCOMMUNICATION );
+		send( &denyLogin );
 		disconnect();
 		return;
 	}
@@ -222,19 +223,10 @@ void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 {
 	// Re-Authenticate the user !!
-	if( _account < 0 )
-	{
-		if( !authenticate( packet->username(), packet->password() ) )
-		{
-			disconnect();
-			return;
-		}
-	}
-
-	// We either have to recheck our login here or 
-	// use the auth-id (not safe!!)
-	// but for testing/debugging we'll assume that it's safe to continue
-	sendCharList();
+	if( !_account && !authenticate( packet->username(), packet->password() ) )
+		disconnect();
+	else
+		sendCharList();
 }
 
 void cUOSocket::sendCharList()
@@ -271,7 +263,8 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 
 	if( packet->slot() >= characters.size() )
 	{
-		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		cUOTxDenyLogin denyLogin;
+		denyLogin.setReason( DL_BADCOMMUNICATION );
 		send( &denyLogin );
 		return;
 	}
@@ -330,46 +323,43 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 	// Log
 	clConsole.send( QString( "Trying to log in as %1 using password %2 [%3]\n" ).arg( username ).arg( password ).arg( _socket->address().toString() ) );
 
-	cAccounts::enErrorCode error;
+	cAccounts::enErrorCode error = cAccounts::NoError;
 	AccountRecord* authRet = Accounts->authenticate( username, password, &error );
 
-	cUOPacket *denyPacket = 0;
-
-	switch( error )
-	{
-	case cAccounts::LoginNotFound:
-		if ( SrvParams->autoAccountCreate() )
-			authRet = Accounts->createAccount( username, password );
-		else
-			denyPacket = new cUOTxDenyLogin( DL_NOACCOUNT );	
-		break;
-	case cAccounts::BadPassword:
-		denyPacket = new cUOTxDenyLogin( DL_BADPASSWORD );	break;
-	case cAccounts::Wipped:
-	case cAccounts::Banned:
-		denyPacket = new cUOTxDenyLogin( DL_BLOCKED );		break;
-	};
-
-	if( !denyPacket && !authRet )
-		denyPacket = new cUOTxDenyLogin( DL_BADCOMMUNICATION );
-
 	// Reject login
-	if( denyPacket )
+	if( error != cAccounts::NoError )
 	{
-		clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->address().toString() ) );
-		send( denyPacket );
-		delete denyPacket;
-		disconnect();
-		return false;
-	}	
+		cUOTxDenyLogin denyPacket;
 
-	_account = authRet;
-	return true;
+		switch( error )
+		{
+		case cAccounts::LoginNotFound:
+			if ( SrvParams->autoAccountCreate() )
+				authRet = Accounts->createAccount( username, password );
+			else
+				denyPacket.setReason( DL_NOACCOUNT );
+			break;
+		case cAccounts::BadPassword:
+			denyPacket.setReason( DL_BADPASSWORD ); break;
+		case cAccounts::Wipped:
+		case cAccounts::Banned:
+			denyPacket.setReason( DL_BLOCKED ); break;
+		};
+
+		clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->address().toString() ) );
+		send( &denyPacket );
+	}
+	else
+	{
+		_account = authRet;
+	}
+
+	return ( error == cAccounts::NoError );
 }
 
 // Processes a create character request
 // Notes from Lord Binaries packet documentation:
-#define cancelCreate( message ) cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION ); send( &denyLogin ); sysMessage( message ); disconnect(); return;
+#define cancelCreate( message ) cUOTxDenyLogin denyLogin; denyLogin.setReason( DL_BADCOMMUNICATION ); send( &denyLogin ); sysMessage( message ); disconnect(); return;
 
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 {

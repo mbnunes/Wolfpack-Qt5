@@ -431,7 +431,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 	// Account Show User Pass
 	if( args.count() == 0 )
 	{
-		socket->sysMessage( tr( "Usage: account <Create|Remove|Password|Show>" ) );
+		socket->sysMessage( tr( "Usage: account <create|remove|password|show>" ) );
 		return;
 	}
 
@@ -443,7 +443,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 		// Create a new account
 		if( args.count() < 3 )
 		{
-			socket->sysMessage( tr( "Usage: account create <Username> <Password>" ) );
+			socket->sysMessage( tr( "Usage: account create <username> <password>" ) );
 		} 
 		else if( Accounts->getRecord( args[1].left( 30 ) ) )
 		{
@@ -461,7 +461,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 	{
 		if( args.count() < 2 )
 		{
-			socket->sysMessage( tr( "Usage: account remove <Username>" ) );
+			socket->sysMessage( tr( "Usage: account remove <username>" ) );
 		} 
 		else if( !Accounts->getRecord( args[1].left( 30 ) ) )
 		{
@@ -486,20 +486,105 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 	{
 		if( args.count() < 4 )
 		{
-			socket->sysMessage( tr( "Usage: account set <Username> <Key> <Value>" ) );
+			socket->sysMessage( tr( "Usage: account set <username> <key> <value>" ) );
 		}
-		else if( !Accounts->getRecord( args[1] ) )
+		else if( !Accounts->getRecord( args[1].left( 30 ) ) )
 		{
-				socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1] ) );
+				socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) ); 
+		}
+		else
+		{
+			AccountRecord *account = Accounts->getRecord( args[1].left( 30 ) );
+			QString key = args[2];
+			QString value = args[3];
+
+			if( key == "password" )
+			{
+				account->setPassword( value.left( 30 ) ); // Maximum of 30 Chars allowed
+				socket->sysMessage( tr( "The password of account '%1' has been set to '%2'" ).arg( account->login() ).arg( value.left( 30 ) ) );
+			}
+			else if( key == "block" )
+			{
+				if( value.lower() == "on" )
+				{
+					account->block();
+					socket->sysMessage( tr( "Account '%1' has been blocked" ).arg( account->login() ) );
+				}
+				else if( value.lower() == "off" )
+				{
+					account->unBlock();
+					socket->sysMessage( tr( "Account '%1' has been unblocked" ).arg( account->login() ) );
+				}
+				else
+				{
+					bool ok = false;
+					UINT32 blockTime = hex2dec( value ).toUInt( &ok );
+
+					if( ok )
+					{
+						account->block( blockTime );
+						socket->sysMessage( tr( "Account '%1' will be blocked for %2 seconds" ).arg( account->login() ).arg( blockTime ) );
+					}
+					else
+					{
+						socket->sysMessage( tr( "Usage: account set <username> block <on|off>" ) );
+					}
+				}
+			}
 		}
 	}
-
 	// Show properties of accounts
 	else if( subCommand == "show" )
 	{
 		if( args.count() < 3 )
 		{
-			socket->sysMessage( tr( "Usage: account set <Username> <Key>" ) );
+			socket->sysMessage( tr( "Usage: account set <username> <key>" ) );
+		}
+		else if( !Accounts->getRecord( args[1].left( 30 ) ) )
+		{
+			socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) );
+		}
+		else
+		{
+			AccountRecord *account = Accounts->getRecord( args[1].left( 30 ) );
+			QString key = args[2];
+
+			if( key == "password" )
+			{
+				socket->sysMessage( tr( "The password of account '%1' is '%2'" ).arg( account->login() ).arg( account->password() ) );
+			}
+			else if( key == "block" )
+			{
+				// TODO: Check for block until xx here
+				if( account->isBlocked() )
+					socket->sysMessage( tr( "Account '%1' is currently blocked" ).arg( account->login() ) );
+				else
+					socket->sysMessage( tr( "Account '%1' is currently not blocked" ).arg( account->login() ) );
+			}
+			else if( key == "loginattempts" )
+			{
+				socket->sysMessage( tr( "There were %1 unsuccesul login attempts for account '%2'" ).arg( account->loginAttempts() ).arg( account->login() ) );
+			}
+			else if( key == "lastlogin" )
+			{
+				// TODO: Expose last login here
+				// socket->sysMessage( tr( "The last login of account '%1' was on %2" ).arg( account->login() ).arg( account->lastLogin.toString( Qt::DateFormat::ISODate ) ) );
+			}
+			else if( key == "chars" )
+			{
+				QStringList sCharList;
+				QValueVector< P_CHAR > pCharList = account->caracterList();
+
+				for( UINT32 i = 0; i < pCharList.size(); ++i )
+					if( pCharList[i] )
+						sCharList.push_back( QString( "0x%1" ).arg( pCharList[i]->serial, 8, 16 ) );
+
+				socket->sysMessage( tr( "Account '%1' has the following characters: %2" ).arg( account->login() ).arg( sCharList.join( ", " ) ) );
+			}
+			else
+			{
+				socket->sysMessage( tr( "Unknown field '%1' for account '%2'" ).arg( args[2] ).arg( account->login() ) );
+			}
 		}
 	}
 }
@@ -519,4 +604,3 @@ stCommand cCommands::commands[] =
 	{ "SET", commandSet },
 	{ NULL, NULL }
 };
-
