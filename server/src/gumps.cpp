@@ -252,7 +252,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				target(s, 0, 1, 0, 227, "Select person to transfer ownership to.");
 				return;
 			case 3:  // Turn house into a deed
-				deedhouse(s, j);
+				//deedhouse(s, j);
 				return;
 			case 4:  // Kick someone out of house
 				target(s, 0, 1, 0, 228, "Select person to eject from house.");
