@@ -23,6 +23,7 @@
 	<include file="definitions/lists/names/ratmen.xml"/>
 	<include file="definitions/lists/names/savage_female.xml"/>
 	<include file="definitions/lists/names/savage_male.xml"/>
+	<include file="definitions/lists/names/snakes.xml"/>
 	<include file="definitions/lists/names/undead.xml"/>
 
 </definitions>

@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<list id="UNDEADS_WEAK">
 		<item>headless</item>
 		<item>skeleton</item>

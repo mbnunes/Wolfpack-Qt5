@@ -1,0 +1,26 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<list id="NAMES_SNAKE">
+		<item>snake</item>
+		<item>poisonous snake</item>
+		<item>copperhead</item>
+		<item>rattlesnake</item>
+		<item>cottonmouth</item>
+		<item>coral snake</item>
+		<item>water moccasin</item>
+		<item>viper</item>
+		<item>cobra</item>
+		<item>puffadder</item>
+		<item>rinkhals</item>
+		<item>boomslang</item>
+	</list>
+
+</definitions>
