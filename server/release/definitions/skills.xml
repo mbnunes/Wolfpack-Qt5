@@ -12,6 +12,8 @@
 		<str>0</str>
 		<dex>50</dex>
 		<int>50</int>
+		<name>Alchemy</name>
+		<title>Alchemist</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -31,6 +33,8 @@
 		<str>10</str>
 		<dex>10</dex>
 		<int>80</int>
+		<name>Anatomy</name>
+		<title>Physician</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -50,6 +54,8 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>100</int>
+		<name>Animal Lore</name>
+		<title>Beast Master</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -69,6 +75,8 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>100</int>
+		<name>Item Identification</name>
+		<title>Artificer</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -88,6 +96,8 @@
 		<str>80</str>
 		<dex>10</dex>
 		<int>10</int>
+		<name>Arms Lore</name>
+		<title>Appraiser</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -107,6 +117,8 @@
 		<str>75</str>
 		<dex>25</dex>
 		<int>0</int>
+		<name>Parrying</name>
+		<title>Warrior</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -126,6 +138,8 @@
 		<str>0</str>
 		<dex>0</dex>
 		<int>0</int>
+		<name>Begging</name>
+		<title>Beggar</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -145,6 +159,8 @@
 		<str>100</str>
 		<dex>0</dex>
 		<int>0</int>
+		<name>Blacksmithing</name>
+		<title>Blacksmith</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -164,6 +180,8 @@
 		<str>40</str>
 		<dex>60</dex>
 		<int>0</int>
+		<name>Bowcrafting</name>
+		<title>Bowyer</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -183,6 +201,8 @@
 		<str>0</str>
 		<dex>50</dex>
 		<int>50</int>
+		<name>Peacemaking</name>
+		<title>Minstrel</title>
 		<advancement base="0" failure="50" success="75" />
 		<advancement base="100" failure="30" success="70" />
 		<advancement base="200" failure="25" success="65" />
@@ -938,8 +958,65 @@
 		<advancement base="1000" failure="0" success="0" />
 	</skill>
 
-	<!--  Strength -->
+	<!-- Necromancy -->
 	<skill id="49">
+		<str>0</str>
+		<dex>0</dex>
+		<int>150</int>
+		<advancement base="0" failure="50" success="75" />
+		<advancement base="100" failure="30" success="70" />
+		<advancement base="200" failure="25" success="65" />
+		<advancement base="300" failure="20" success="60" />
+		<advancement base="400" failure="15" success="55" />
+		<advancement base="500" failure="10" success="50" />
+		<advancement base="600" failure="5" success="30" />
+		<advancement base="700" failure="2" success="25" />
+		<advancement base="800" failure="1" success="20" />
+		<advancement base="900" failure="0" success="15" />
+		<advancement base="990" failure="0" success="10" />
+		<advancement base="1000" failure="0" success="0" />
+	</skill>
+
+	<!-- Focus -->
+	<skill id="50">
+		<str>0</str>
+		<dex>0</dex>
+		<int>100</int>
+		<advancement base="0" failure="50" success="75" />
+		<advancement base="100" failure="30" success="70" />
+		<advancement base="200" failure="25" success="65" />
+		<advancement base="300" failure="20" success="60" />
+		<advancement base="400" failure="15" success="55" />
+		<advancement base="500" failure="10" success="50" />
+		<advancement base="600" failure="5" success="30" />
+		<advancement base="700" failure="2" success="25" />
+		<advancement base="800" failure="1" success="20" />
+		<advancement base="900" failure="0" success="15" />
+		<advancement base="990" failure="0" success="10" />
+		<advancement base="1000" failure="0" success="0" />
+	</skill>
+
+	<!-- Chivalry -->
+	<skill id="51">
+		<str>0</str>
+		<dex>0</dex>
+		<int>150</int>
+		<advancement base="0" failure="50" success="75" />
+		<advancement base="100" failure="30" success="70" />
+		<advancement base="200" failure="25" success="65" />
+		<advancement base="300" failure="20" success="60" />
+		<advancement base="400" failure="15" success="55" />
+		<advancement base="500" failure="10" success="50" />
+		<advancement base="600" failure="5" success="30" />
+		<advancement base="700" failure="2" success="25" />
+		<advancement base="800" failure="1" success="20" />
+		<advancement base="900" failure="0" success="15" />
+		<advancement base="990" failure="0" success="10" />
+		<advancement base="1000" failure="0" success="0" />
+	</skill>
+
+	<!--  Strength -->
+	<skill id="strength">
 		<advancement base="0" failure="5" success="20" />
 		<advancement base="50" failure="5" success="10" />
 		<advancement base="90" failure="0" success="10" />
@@ -948,7 +1025,7 @@
 	</skill>
 
 	<!--  Dexterity -->
-	<skill id="50">
+	<skill id="dexterity">
 		<advancement base="0" failure="5" success="20" />
 		<advancement base="50" failure="5" success="10" />
 		<advancement base="90" failure="0" success="10" />
@@ -957,7 +1034,7 @@
 	</skill>
 
 	<!--  Intelligence -->
-	<skill id="51">
+	<skill id="intelligence">
 		<advancement base="0" failure="5" success="20" />
 		<advancement base="50" failure="5" success="10" />
 		<advancement base="90" failure="0" success="10" />
