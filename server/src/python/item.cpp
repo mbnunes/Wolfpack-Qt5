@@ -587,7 +587,16 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	\method item.addtimer
 	\description Set a delayed timer for a script function to execute.
 	\param expiretime The INT value of the time.
-	\param function The function to be executed. String.
+	\param expirecallback The full name of the function (preceding the name of the script and modules it is in) that should be called
+	when the effect expires. The prototype for this function is:
+	<code>def expire_callback(item, args):
+		&nbsp;&nbsp;pass</code>
+	Item is the item the effect was applied to. Args is the list of custom arguments you passed to addtimer.
+	\param arguments A list of arguments that should be passed on to the effect.
+		Please note that you should only pass on strings, integers and floats because
+		they are the only objects that can be saved to the worldfile. If you want to
+		pass on items or characters, please pass the serial instead and use the
+		findchar and finditem functions in the wolfpack library.
 	\param serialize Saves the timer. Useful if you crash.
 	\return Returns true or false if the tag exists.
 */
@@ -1268,7 +1277,7 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 			val = cVariant( getWpCoord( value ) );
 		else if ( PyFloat_Check( value ) )
 			val = cVariant( PyFloat_AsDouble( value ) );
-		else if ( value == Py_True ) 
+		else if ( value == Py_True )
 			val = cVariant( 1 ); // True
 		else if ( value == Py_False )
 			val = cVariant( 0 ); // false
