@@ -62,7 +62,6 @@ cUOPacket *getUORxPacket( const QByteArray &data )
 	case 0x3A:		return new cUORxSkillLock( data );
 	case 0x3B:		return new cUORxBuy( data );
 	case 0x5D:		return new cUORxPlayCharacter( data );
-	case 0x66:		return new cUORxBookPage( data );
 	case 0x6C:		return new cUORxTarget( data );
 	case 0x6F:		return new cUORxSecureTrading( data );
 	case 0x72:		return new cUORxChangeWarmode( data );
@@ -83,7 +82,6 @@ cUOPacket *getUORxPacket( const QByteArray &data )
 	case 0xC8:		return new cUORxUpdateRange( data );
 	case 0xB8:		return new cUORxProfile( data );
 	case 0xD7:		return cUORxAosMultiPurpose::packet( data );
-	case 0xD4:		return new cUORxBookInfo( data );
 	default:		return new cUOPacket( data );
 	};	
 }
@@ -153,28 +151,6 @@ QString cUORxSpeechRequest::message()
 	}
 	else
 		return getUnicodeString( 12, getShort( 1 ) - 12 );
-}
-
-QStringList cUORxBookPage::lines()
-{
-	if( this->numOfLines() == (UINT16)-1 )
-		return QStringList();
-	
-	UINT16 i = 13;
-
-	if( i >= size() )
-		return QStringList();
-
-	QStringList lines_ = QStringList();
-	UINT16 currLine = 0;
-	while( currLine < numOfLines() )
-	{
-		QString line = QString( getAsciiString(i) );
-		i += (line.length()+1);
-		lines_.push_back( line );
-		currLine++; // next line!
-	}
-	return lines_;
 }
 
 gumpChoice_st cUORxGumpResponse::choice()

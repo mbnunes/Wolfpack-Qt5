@@ -710,48 +710,6 @@ bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 	return result;
 }
 
-bool cItem::onBookUpdateInfo( P_CHAR pChar, const QString &author, const QString &title )
-{
-	bool result = false;
-
-	if( scriptChain )
-	{
-		PyObject *args = Py_BuildValue( "O&O&uu", PyGetCharObject, pChar, PyGetItemObject, this, author.ucs2(), title.ucs2() );
-		result = cPythonScript::callChainedEventHandler( EVENT_BOOKUPDATEINFO, scriptChain, args );
-		Py_DECREF( args );
-	}
-
-	return result;
-}
-
-bool cItem::onBookRequestPage( P_CHAR pChar, unsigned short page )
-{
-	bool result = false;
-
-	if( scriptChain )
-	{
-		PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, pChar, PyGetItemObject, this, page );
-		result = cPythonScript::callChainedEventHandler( EVENT_BOOKREQUESTPAGE, scriptChain, args );
-		Py_DECREF( args );
-	}
-
-	return result;
-}
-
-bool cItem::onBookUpdatePage( P_CHAR pChar, unsigned short page, const QString &content )
-{
-	bool result = false;
-
-	if( scriptChain )
-	{
-		PyObject *args = Py_BuildValue( "O&O&hu", PyGetCharObject, pChar, PyGetItemObject, this, page, content.ucs2() );
-		result = cPythonScript::callChainedEventHandler( EVENT_BOOKUPDATEPAGE, scriptChain, args );
-		Py_DECREF( args );
-	}
-
-	return result;
-}
-
 bool cItem::onUnequip( P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;

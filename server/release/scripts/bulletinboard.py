@@ -5,10 +5,9 @@ from struct import unpack
 import time
 from math import floor
 
-def onLoad():
-	wolfpack.registerglobal(EVENT_BULLETINBOARD, "bulletinboard")
+def bulletinboard(socket, packet):
+	char = socket.player
 
-def onBulletinBoard(char, packet):
 	try:
 		subcommand = packet.getbyte(3)
 		board = wolfpack.finditem(packet.getint(4))
@@ -261,10 +260,10 @@ def onBulletinBoard(char, packet):
 				packet.send(char.socket)
 
 			else:
-				char.socket.sysmessage("You can't read this message.")
+				socket.sysmessage("You can't read this message.")
 
 	except:
-		char.socket.sysmessage('Invalid bulletin board packet.')
+		socket.sysmessage('Invalid bulletin board packet.')
 		raise
 
 def findMessages(parent, messages):
@@ -337,3 +336,6 @@ def onUse(char, board):
 	packet.send(char.socket)
 
 	return 1
+
+def onLoad():
+	wolfpack.registerpackethook(0x77, bulletinboard)

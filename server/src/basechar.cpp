@@ -1981,7 +1981,10 @@ bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 
 bool cBaseChar::onShowSkillGump()
 {
-	return cPythonScript::callChainedEventHandler( EVENT_SHOWSKILLGUMP, scriptChain );
+	PyObject *args = Py_BuildValue("(N)", getPyObject());
+	bool result = cPythonScript::callChainedEventHandler(EVENT_SHOWSKILLGUMP, scriptChain);
+	Py_DECREF(args);
+	return result;
 }
 
 bool cBaseChar::onSkillUse( unsigned char skill )
@@ -2113,26 +2116,6 @@ bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned s
 
 		if( !result && global )
 			result = global->callEventHandler( EVENT_SKILLGAIN, args );
-
-		Py_DECREF( args );
-	}
-
-	return result;
-}
-
-bool cBaseChar::onStatGain( unsigned char stat )
-{
-	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_STATGAIN );
-	bool result = false;
-
-	if( scriptChain || global )
-	{
-		PyObject *args = Py_BuildValue( "O&b", PyGetCharObject, this, stat );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_STATGAIN, scriptChain, args );
-
-		if( !result && global )
-			result = global->callEventHandler( EVENT_STATGAIN, args );
 
 		Py_DECREF( args );
 	}

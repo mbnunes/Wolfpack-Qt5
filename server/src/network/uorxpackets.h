@@ -419,17 +419,6 @@ public:
 	bool   isNotice() const	{ return (*this)[3] == 1;	}
 };
 
-// 0x93 UpdateBook
-class cUORxUpdateBook: public cUOPacket
-{
-public:
-	cUORxUpdateBook( const QByteArray &data ): cUOPacket( data ) {}
-	uint serial() const	{ return getInt( 1 ); }
-	uint unknown() const	{ return getInt( 5 ); }
-	QString title() const	{ return this->getAsciiString(9, 60); }
-	QString author() const	{ return this->getAsciiString(69, 30); }
-};
-
 // 0x75 Rename Character
 class cUORxRename: public cUOPacket
 {
@@ -511,20 +500,6 @@ public:
 	uchar layer() const		{ return (*this)[5]; }
 	uint wearer() const	{ return getInt( 6 ); }
 };
-
-// 0x66 Book Page
-class cUORxBookPage: public cUOPacket
-{
-public:
-	cUORxBookPage( const QByteArray &data ): cUOPacket( data ) {}
-	ushort size() const			{ return getShort( 1 ); }
-	uint serial() const		{ return getInt( 3 ); }
-	ushort page() const			{ return getShort( 9 ); }
-	ushort numOfLines() const	{ return getShort( 11 ); }
-
-	QStringList lines();
-};
-
 
 // 0xB1 Gump Response
 class cUORxGumpResponse : public cUOPacket
@@ -649,26 +624,6 @@ public:
 	ushort itemCount() const			{ return getShort( 7 ); }
 	uint iSerial( ushort item ) const	{ return getInt( 9 + ( item * 6 ) ); }
 	ushort iAmount( ushort item ) const	{ return getShort( 13 + ( item * 6 ) ); }
-};
-
-// 0xD4
-class cUORxBookInfo : public cUOPacket
-{
-public:
-	cUORxBookInfo( const QByteArray &data ): cUOPacket( data ) {}
-	unsigned int serial() const			{ return getInt( 3 ); }
-	QString author() const
-	{ 
-		unsigned short length = getShort( 11 );
-		return this->getAsciiString( 13, length );
-	}
-	
-	QString title() const
-	{ 
-		unsigned short length1 = getShort( 11 );
-		unsigned short length2 = getShort( 13 + length1 );
-		return this->getAsciiString( 15 + length1, length2 );
-	}
 };
 
 #endif // __UO_RXPACKETS__

@@ -36,22 +36,22 @@
 #include "../network/uosocket.h"
 
 // Object Information
-struct wpPacket
-{
+struct wpPacket {
     PyObject_HEAD;
 	cUOPacket *packet;
 	bool borrowed;
 };
 
-static PyObject *wpPacket_getattr( PyObject *self, char *name );
+static PyObject *wpPacket_getattr(PyObject *self, char *name);
 
 // Object Destructor
-static void wpPacketDestructor( PyObject *obj )
-{
-	if (!((wpPacket*)obj)->borrowed) {
-		delete ( (wpPacket*)obj )->packet;
+static void wpPacketDestructor(PyObject *obj) {
+	wpPacket *ppacket = (wpPacket*)obj;
+	// Delete the packet if the pointer wasn't borrowed
+	if (!ppacket->borrowed) {
+		delete ppacket->packet;
 	}
-	PyObject_Del( obj );
+	PyObject_Del(obj);
 }
 
 // Static Type Information
@@ -60,7 +60,7 @@ static PyTypeObject wpPacketType =
     PyObject_HEAD_INIT( &PyType_Type )
     0,
     "wppacket",
-    sizeof( wpPacketType ),
+    sizeof(wpPacketType),
     0,
 	wpPacketDestructor,
 	0,
@@ -158,19 +158,25 @@ static PyObject *wpPacket_getint( PyObject *self, PyObject *args )
 
 
 // Set raw data in the packet buffer
-static PyObject *wpPacket_setascii( PyObject *self, PyObject *args )
+static PyObject *wpPacket_setascii(PyObject *self, PyObject *args)
 {
-	int pos;
+	unsigned short pos;
 	char *buffer;
 		
-	if( !PyArg_ParseTuple( args, "ies:wppacket.setbuffer( position, value )", &pos, "utf-8", &buffer ) )
+	if (!PyArg_ParseTuple(args, "Hs:wppacket.setbuffer(position, value)", &pos, &buffer))
 		return 0;
 
-	( (wpPacket*)self )->packet->setAsciiString( (unsigned short)pos, buffer, strlen( buffer ) + 1 );
+	cUOPacket *packet = ((wpPacket*)self)->packet;
+	unsigned int length = strlen(buffer) + 1;
 
-	PyMem_Free(buffer);
-
-	Py_INCREF( Py_None );
+	if (pos + length > packet->size()) {
+		PyErr_SetString(PyExc_IOError, "String longer than packet size.");
+		return 0;
+	} else {
+		packet->setAsciiString(pos, buffer, length);
+	}
+	
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -191,6 +197,38 @@ static PyObject *wpPacket_setunicode( PyObject *self, PyObject *args )
 
 	Py_INCREF( Py_None );
 	return Py_None;
+}
+
+static PyObject *wpPacket_getunicode(PyObject *self, PyObject *args) {
+	int pos;
+	int length;
+		
+	if (!PyArg_ParseTuple(args, "ii:wppacket.getunicode(position, length)", &pos, &length)) {
+		return 0;
+	}
+	
+	cUOPacket *packet = ((wpPacket*)self)->packet;
+	QString string = packet->getUnicodeString(pos, length);
+
+	return QString2Python(string);
+}
+
+static PyObject *wpPacket_getascii(PyObject *self, PyObject *args) {
+	int pos;
+	int length;
+		
+	if (!PyArg_ParseTuple(args, "ii:wppacket.getascii(position, length)", &pos, &length)) {
+		return 0;
+	}
+	
+	cUOPacket *packet = ((wpPacket*)self)->packet;
+	QCString string = packet->getAsciiString(pos, length);
+
+	if (string.isEmpty()) {
+		return PyString_FromString("");
+	} else {
+		return PyString_FromString(string.data());
+	}
 }
 
 // Send the packet
@@ -219,18 +257,20 @@ static PyObject *wpPacket_dump( PyObject *self, PyObject *args )
 // List of Methods
 PyMethodDef wpPacketMethods[] = 
 {
-	{ "resize",		wpPacket_resize,			METH_VARARGS,	NULL },
-	{ "setbyte",	wpPacket_setbyte,			METH_VARARGS,	NULL },
-	{ "setshort",	wpPacket_setshort,			METH_VARARGS,	NULL },
-	{ "setint",		wpPacket_setint,			METH_VARARGS,	NULL },
-	{ "setascii",	wpPacket_setascii,			METH_VARARGS,	NULL },
-	{ "setunicode",	wpPacket_setunicode,		METH_VARARGS,	NULL },
-	{ "send",		wpPacket_send,				METH_VARARGS,	NULL },
-	{ "dump",		wpPacket_dump,				METH_VARARGS,	NULL },
-	{ "getbyte",	wpPacket_getbyte,			METH_VARARGS,	NULL },
-	{ "getshort",	wpPacket_getshort,			METH_VARARGS,	NULL },
-	{ "getint",		wpPacket_getint,			METH_VARARGS,	NULL },
-	{ NULL, NULL, 0, NULL }
+	{"resize",		wpPacket_resize,		METH_VARARGS,	NULL},
+	{"setbyte",		wpPacket_setbyte,		METH_VARARGS,	NULL},
+	{"setshort",	wpPacket_setshort,		METH_VARARGS,	NULL},
+	{"setint",		wpPacket_setint,		METH_VARARGS,	NULL},
+	{"getascii",	wpPacket_getascii,		METH_VARARGS,   NULL},
+	{"getunicode",	wpPacket_getunicode,	METH_VARARGS,   NULL},
+	{"setascii",	wpPacket_setascii,		METH_VARARGS,	NULL},
+	{"setunicode",	wpPacket_setunicode,	METH_VARARGS,	NULL},
+	{"send",		wpPacket_send,			METH_VARARGS,	NULL},
+	{"dump",		wpPacket_dump,			METH_VARARGS,	NULL},
+	{"getbyte",		wpPacket_getbyte,		METH_VARARGS,	NULL},
+	{"getshort",	wpPacket_getshort,		METH_VARARGS,	NULL},
+	{"getint",		wpPacket_getint,		METH_VARARGS,	NULL},
+	{NULL, NULL, 0, NULL}
 };
 
 static PyObject* wpPacket_getattr( PyObject* self, char* name )

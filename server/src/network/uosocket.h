@@ -182,8 +182,6 @@ public:
 	void handleChangeWarmode( cUORxChangeWarmode* packet );
 	void handleTarget( cUORxTarget *packet );
 	void handleRequestAttack( cUORxRequestAttack* packet );
-	void handleBookPage( cUORxBookPage* packet );
-	void handleUpdateBook( cUORxBookInfo* packet );
 	void handleExtendedStats( cUORxExtendedStats* packet);
 	void handleAction( cUORxAction* packet );
 	void handleGumpResponse( cUORxGumpResponse* packet );

@@ -1018,20 +1018,6 @@ bool cPlayer::onChat( void )
 	return result;
 }
 
-bool cPlayer::onShowContext( cUObject *object )
-{
-	bool result = false;
-
-	if( scriptChain )
-	{
-		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetObjectObject, object );
-		result = cPythonScript::callChainedEventHandler( EVENT_SHOWCONTEXTMENU, scriptChain, args );
-		Py_DECREF( args );
-	}
-
-	return result;
-}
-
 bool cPlayer::onUse( P_ITEM pItem )
 {
 	bool result = false;

@@ -310,24 +310,11 @@ void cUOSocket::recieve()
 	case 0x3B:
 		handleBuy( dynamic_cast< cUORxBuy* >( packet ) ); break;
 	case 0x5D:
-		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;
-	case 0x66:
-		handleBookPage( dynamic_cast< cUORxBookPage* >( packet ) ); break;
+		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;	
 	case 0x6c:
 		handleTarget( dynamic_cast< cUORxTarget* >( packet ) ); break;
 	case 0x6F:
  		handleSecureTrading( dynamic_cast< cUORxSecureTrading* >( packet ) ); break;
-	case 0x71:
-		// Call a global packet handler
-		{
-			cPythonScript *script = ScriptManager::instance()->getGlobalHook(EVENT_BULLETINBOARD);
-			if (script) {
-				PyObject *args = Py_BuildValue("NN", _player->getPyObject(), CreatePyPacket(packet));
-				script->callEventHandler(EVENT_BULLETINBOARD, args);
-				Py_DECREF(args);
-			}
-		}
-		break;
 	case 0x72:
 		handleChangeWarmode( dynamic_cast< cUORxChangeWarmode* >( packet ) ); break;
 	case 0x73:
@@ -363,8 +350,6 @@ void cUOSocket::recieve()
 		handleUpdateRange( dynamic_cast< cUORxUpdateRange* >( packet ) ); break;
 	case 0xD7:
 		handleAosMultiPurpose( dynamic_cast< cUORxAosMultiPurpose* >( packet ) ); break;
-	case 0xD4:
-		handleUpdateBook( dynamic_cast< cUORxBookInfo* >( packet ) ); break;
 	case 0xB6:
 		break; // Completely ignore the packet.
 	default:
@@ -2212,33 +2197,6 @@ void cUOSocket::handleSecureTrading( cUORxSecureTrading *packet )
 {
 //	Trade::trademsg( this, packet );
 	this->player()->onTrade( packet->type(), packet->buttonstate(), packet->itemserial() );
-}
-
-void cUOSocket::handleBookPage( cUORxBookPage* packet )
-{
-	P_ITEM pBook = FindItemBySerial( packet->serial() );
-	
-	if( pBook )
-	{
-		if( packet->numOfLines() == (UINT16)-1 )
-		{
-			// simple page request
-			pBook->onBookRequestPage( _player, packet->page() );
-		}
-		else
-		{
-			pBook->onBookUpdatePage( _player, packet->page(), packet->lines().join( "\n" ) );
-		}
-	}	
-}
-
-void cUOSocket::handleUpdateBook( cUORxBookInfo* packet )
-{
-	P_ITEM pBook = FindItemBySerial( packet->serial() );
-	if( pBook )
-	{
-		pBook->onBookUpdateInfo( _player, packet->author(), packet->title() );
-	}
 }
 
 void cUOSocket::sendSkill( UINT16 skill )

@@ -547,31 +547,6 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 		setFlag( flag() | 0x04 );
 }
 
-void cUOTxBookPage::setPage( unsigned short page, unsigned short numLines, const QStringList &lines )
-{
-	setShort(  9 + currPageOffset, page );
-
-	if( numLines == 0 )
-	{
-		setShort( 11 + currPageOffset, (unsigned short)-1 ); // -1 if no lines!
-		currPageOffset += 4;
-	}
-	else
-	{
-		setShort( 11 + currPageOffset, numLines );
-		
-		unsigned int currLineOffset = 0;
-		QStringList::const_iterator it = lines.begin();
-		while( it != lines.end() )
-		{
-			setAsciiString( 13 + currPageOffset + currLineOffset, (*it).latin1(), (*it).length()+1 );
-			currLineOffset += (*it).length() + 1;
-			it++;
-		}
-		currPageOffset += 4 + currLineOffset;
-	}
-}
-
 void cUOTxCorpseEquipment::addItem( unsigned char layer, unsigned int serial )
 {
 	int offset = count()-1;

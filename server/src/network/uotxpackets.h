@@ -711,39 +711,6 @@ public:
 	void fromChar(P_CHAR pChar, P_CHAR pOrigin = NULL);
 };
 
-// 0x93 Book Title
-class cUOTxBookTitle: public cUOPacket
-{
-public:
-	cUOTxBookTitle(): cUOPacket(0x93, 99) {}
-
-	void setSerial(unsigned int data)	{ setInt(1, data); }
-	void setWriteable(bool data)	{ (*this)[5] = data ? 1 : 0; }
-	void setFlag(unsigned char data)		{ (*this)[6] = data; }
-	void setPages(unsigned short data)	{ setShort(7, data); }
-	void setTitle(const QString &title) { setAsciiString(9, title.left(59).latin1(), QMIN(title.length()+1, 60)); }
-	void setAuthor(const QString &author) { setAsciiString(69, author.left(29).latin1(), QMIN(author.length()+1, 30)); }
-};
-
-// 0x66 Book Page
-class cUOTxBookPage: public cUOPacket
-{
-public:
-	// the size of this packet is variable...
-	cUOTxBookPage(unsigned int size): cUOPacket(0x66, size) 
-	{
-		currPageOffset = 0;
-	}
-
-	void setBlockSize(unsigned short data)	{ setShort(1, data); }
-	void setSerial(unsigned int data)		{ setInt(3, data); }
-	void setPages(unsigned short data)		{ setShort(7, data); }
-
-	void setPage(unsigned short page, unsigned short numLines, const QStringList &lines);
-protected:
-	unsigned short currPageOffset;
-};
-
 // 0x6D Play Music
 class cUOTxPlayMusic: public cUOPacket
 {

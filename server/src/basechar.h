@@ -278,7 +278,6 @@ public:
 //	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual bool onCHLevelChange( uint level ); // Fired when player moving trough levels
 	virtual bool onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success );
-	virtual bool onStatGain( unsigned char stat );
 
 	// Combat
 	inline P_CHAR attackTarget() const {

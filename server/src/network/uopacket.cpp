@@ -69,6 +69,9 @@ cUOPacket::cUOPacket( const QByteArray& d ) : haveCompressed(false)
 	rawPacket = d.copy();
 }
 
+cUOPacket::~cUOPacket() {
+}
+
 /*!
   Constructs a packet that is a deep copy of \a p.
 */

@@ -114,7 +114,6 @@ public:
 	virtual bool onLogout( void ); // The character enters the world
 	virtual bool onHelp( void ); // The character wants help
 	virtual bool onChat( void ); // The character wants to chat
-	virtual bool onShowContext( cUObject *object ); // Shows a context menu for a specific item
 	virtual bool onCastSpell( unsigned int spell );
 	bool onUse( P_ITEM pItem );
 	bool onPickup( P_ITEM pItem );

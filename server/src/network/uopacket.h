@@ -57,10 +57,10 @@ public:
 	cUOPacket( Q_UINT32 );
 	cUOPacket( cUOPacket& );
 	cUOPacket( Q_UINT8, Q_UINT32 );
-	virtual ~cUOPacket() {}
 	uint	size() const;
 	uint    count() const;
-	
+	virtual ~cUOPacket();
+
 	virtual  QByteArray compressed();
 	virtual  QByteArray uncompressed() { return rawPacket; }
 	void	 resize( uint );
