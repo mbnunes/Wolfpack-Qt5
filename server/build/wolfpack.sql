@@ -350,6 +350,7 @@ CREATE TABLE npcs (
   spawnregion varchar(255) default NULL,
   stablemaster int(11) unsigned NOT NULL default '0',
   lootlist varchar(255) default NULL,
+  ai varchar(255) default NULL,
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cNPC';
