@@ -139,7 +139,7 @@ void cNetworkStuff::ClearBuffers() // Sends ALL buffered data
 	}
 }
 
-void cNetworkStuff::xSend(int s, void *point, int length, int test) // Buffering send function
+void cNetworkStuff::xSend(int s, const void *point, int length, int test) // Buffering send function
 {
 
 	cNetworkStuff::SendUOX3(s, point, length, test);
@@ -1374,7 +1374,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x12:// Ext. Command
-					unsigned int i ;
+					unsigned int i;
 					
 					// Switch on the sub commands
 					switch (static_cast<unsigned char>(buffer[s][3]))
@@ -1397,79 +1397,37 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						Skills->SkillUse(s, str2num((char*)&buffer[s][4]));
 						break;
 					
-					case 0x56:
-					case 0x27:
-					// Spell
+					case 0x56: // Casted a macro'd spell
+					case 0x27: // Casted a spell out of a spellbook
 						{
-						P_ITEM pj = NULL;
-						P_ITEM pBackpack = Packitem(pc_currchar);
-				
-						if (pBackpack != NULL) //lb
-						{
-							serial = pBackpack->serial;
-							vector<SERIAL> vecContainer = contsp.getData(serial);
-							for (i = 0; i < vecContainer.size(); i++)
+							if( pc_currchar->priv2 & 2 )
 							{
-								P_ITEM ci = FindItemBySerial(vecContainer[i]);
-								if (ci != NULL) //lb
-									if ((ci->contserial==serial) && (ci->type() == 9))
-									{
-										pj = ci;
-										break;
-									}
+								sysmessage( s, "You cannot cast spells while frozen." );
+								break;
+							}
+
+							if( pc_currchar->casting() )
+							{
+								sysmessage( s, "You are already casting a spell." );
+								break;
+							}
+
+							QStringList parts = QStringList::split( " ", (char*)&buffer[s][4] );
+
+							if( parts.count() == 1 )
+								Magic->prepare( pc_currchar, parts[0].toInt(), 0 );
+							else if( parts.count() == 2 )
+							{
+								// Try to retrieve the SpellBook selected
+								P_ITEM spellBook = FindItemBySerial( parts[1].toUInt() );
+								if( spellBook != NULL )
+									Magic->prepare( pc_currchar, parts[0].toInt(), 0, spellBook );
 							}
 						}
-						if (pj == NULL)
-						{
-							serial = pc_currchar->serial;
-							vector<SERIAL> vecContainer = contsp.getData(serial);
-							for (i = 0; i < vecContainer.size(); i++)
-							{
-								P_ITEM ci = FindItemBySerial(vecContainer[i]);
-								if ( ci != NULL ) //lb
-									if ((ci->contserial==serial) && (ci->layer()==1))
-									{
-										pj = ci;
-									}
-							}
-						}
-						int book = 0;
-						if (pj != NULL)
-						{
-							book=buffer[s][4]-0x30;
-							if (buffer[s][5]>0x20)
-							{
-								book=(book*10)+(buffer[s][5]-0x30);
-							}
-						}
-						if (pj != NULL && Magic->CheckBook(((book-1)/8)+1, (book-1)%8, pj))
-						
-						
-							if (pc_currchar->priv2&2) // REAL cant cast while frozen bugfix, lord binary
-							{
-								sysmessage(s, "You cannot cast spells while frozen.");
-							}
-							if (pc_currchar->casting())
-							{
-								sysmessage(s, "You are already casting a spell.");
-							}
-							else
-							{
-								currentSpellType[s]=0;
-								Magic->newSelectSpell2Cast( s, book );
-							}
-					
-					//	else
-					//	{
-					//		sysmessage(s, "You don't have that spell.");
-					//	}
-					}
 						break;
-					
 					case 0x43:
-					// Open Spell Book
-						
-						Magic->SpellBook(s );
+						// Open Spell Books
+						Magic->openSpellBook( pc_currchar, NULL );						
 						break;
 					case 0x58:
 					// door Macro
@@ -1686,19 +1644,35 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					}
            			break;
 
-				case 0xbf:
+				case 0xBF:
 				
 				// can't beleive this mega multipurpose packet isn't used :)
 				// thought it's about time to change this , LB 30-March 2001
 				// note: bf packet is used server and client side, here are only the client side ones
-                		// I have encountered
-
+                // I have encountered
 					subcommand = static_cast<int> ( (static_cast<int> (buffer[s][3]) << 8 ) + buffer[s][4] );			
 
 				// please don't remove the // unknowns ... want to have them as dokumentation
 					switch (subcommand)
 					{
-						case 5: break; // unknown, sent once on login
+						case 5:
+							// Sub Sub
+							subsubcommand = static_cast<int> ( (static_cast<int> (buffer[s][3]) << 8 ) + buffer[s][4] );
+
+							switch( subsubcommand )
+							{
+							case 0x09: // Wrestling Disarm
+								sysmessage( s, QString( "Wrestling Disarm is unsupported" ) );
+								break;
+							case 0x0A: // Wrestling Stun
+								sysmessage( s, QString( "Wrestling Stun is unsupported" ) );
+								break;
+							default:
+								sysmessage( s, QString( "Unsupported extended Macro message: %1" ).arg( subsubcommand ) );
+								break;
+							};
+							
+							break; // unknown, sent once on login
 
 				   		case 6:
 					
@@ -1828,7 +1802,7 @@ bool cNetworkStuff::CheckForBlockedIP(sockaddr_in ip_address)
 	return false;
 }
 
-void cNetworkStuff::SendUOX3(UOXSOCKET s, void *point, int length, int test)
+void cNetworkStuff::SendUOX3(UOXSOCKET s, const void *point, int length, int test)
 {
 	// clConsole.send("xSend [%i] with %i -> ", s, length);
 

@@ -38,14 +38,19 @@
 *   UO:3D particle System implementation [and packet hacking]: Lord Binary 4/2001
 */
 
-#include "wolfpack.h"
+#include "magic.h"
 #include "sregions.h"
+#include "chars.h"
+#include "items.h"
+#include "scriptc.h"
 #include "SndPkg.h"
 #include "itemid.h"
 #include "debug.h"
 #include "guildstones.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "globals.h"
+#include "wpdefmanager.h"
 #include "classes.h"
 #include "mapstuff.h"
 #include "network.h"
@@ -67,6 +72,494 @@
 /////// MISC MAGIC FUNCTIONS ////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
+// NEW IMPLEMENTATION BY DARKSTORM
+cSpell::cSpell( void ):
+bitfield_( 1 ), mana_( 0 ), stamina_( 0 ), health_( 0 ),
+reqGinseng_( 0 ), reqMoss_( 0 ), reqDrake_( 0 ), 
+reqPearl_( 0 ), reqSilk_( 0 ), reqAsh_( 0 ),
+reqShade_( 0 ), reqGarlic_( 0 ), lowSkill_( 0 ),
+highSkill_( 1000 ), scrollLowSkill_( 0 ),
+scrollHighSkill_( 1000 ), action_( 0x10 ), delay_( 0 )
+{
+}
+
+void cSpell::load( QDomElement &node )
+{
+	id_ = node.attribute( "id", "1" ).toInt();
+
+	// Read the spell properties
+	QDomNodeList nodes = node.childNodes();
+
+	for( UI16 i = 0; i < nodes.count(); i++ )
+	{
+		if( !nodes.item( 1 ).isElement() )
+			continue;
+
+		QDomElement property = nodes.item( i ).toElement();
+
+		if( property.nodeName() == "mantra" )
+			mantra_ = property.toElement().text();
+		else if( property.nodeName() == "circle" )
+			circle_ = property.toElement().text().toInt();
+		else if( property.nodeName() == "lowskill" )
+			lowSkill_ = property.toElement().text().toInt();
+		else if( property.nodeName() == "highskill" )
+			highSkill_ = property.toElement().text().toInt();
+		else if( property.nodeName() == "scrolllowskill" )
+			scrollLowSkill_ = property.toElement().text().toInt();
+		else if( property.nodeName() == "scrollhighskill" )
+			scrollHighSkill_ = property.toElement().text().toInt();
+		else if( property.nodeName() == "action" )
+			action_ = property.toElement().text().toInt( 0, 16 );
+		else if( property.nodeName() == "target" )
+			target_ = property.toElement().text();
+		
+		// <reflect />, <noreflect />
+		else if( property.nodeName() == "reflect" )
+			setReflect( true );
+		else if( property.nodeName() == "noreflect" )
+			setReflect( false );
+
+		// <agressive />, <notagressive />
+		else if( property.nodeName() == "agressive" )
+			setAgressive( true );
+		else if( property.nodeName() == "notagressive" )
+			setAgressive( false );
+
+		// <enabled />, <disabled />
+		else if( property.nodeName() == "enabled" )
+			setEnabled( true );
+		else if( property.nodeName() == "disabled" )
+			setEnabled( false );
+
+		// <runic />, <notrunic />
+		else if( property.nodeName() == "runic" )
+			setRunic( true );
+		else if( property.nodeName() == "notrunic" )
+			setRunic( false );
+
+		// Parse requirements:
+		else if( property.nodeName() == "requirements" )
+		{
+			QDomNodeList requirements = property.childNodes();
+
+			for( UI16 j = 0; j < requirements.count(); j++ )
+			{
+				if( !requirements.item( j ).isElement() )
+					continue;
+
+				QDomElement requirement = requirements.item( j ).toElement();
+				
+				// <health>, <mana>, <stamina>
+				if( requirement.nodeName() == "mana" )
+					mana_ = requirement.text().toInt();
+				else if( requirement.nodeName() == "stamina" )
+					stamina_ = requirement.text().toInt();
+				else if( requirement.nodeName() == "health" )
+					health_ = requirement.text().toInt();
+
+				// Reagents
+				else if( requirement.nodeName() == "ginseng" )
+					reqGinseng_ = requirement.text().toInt();
+				else if( requirement.nodeName() == "moss" )
+					reqMoss_ = requirement.text().toInt();
+				else if( requirement.nodeName() == "drake" )
+					reqDrake_ = requirement.text().toInt();
+				else if( requirement.nodeName() == "pearl" )
+					reqPearl_ = requirement.text().toInt();
+				else if( requirement.nodeName() == "silk" )
+					reqSilk_ = requirement.text().toInt();
+				else if( requirement.nodeName() == "ash" )
+					reqAsh_ = requirement.text().toInt();
+				else if( requirement.nodeName() == "shade" )
+					reqShade_ = requirement.text().toInt();
+				else if( requirement.nodeName() == "garlic" )
+					reqGarlic_ = requirement.text().toInt();
+			}
+		}
+	}
+}
+
+bool cSpell::prepare( P_CHAR character, UI08 source )
+{
+	return false;
+}
+
+void cSpell::cast( P_CHAR character, UI08 source )
+{
+}
+
+// Magic "container" class
+void cMagic::load( void )
+{
+	clConsole.PrepareProgress( "Loading spells" );
+
+	QStringList sections = DefManager->getSections( WPDT_SPELL );
+
+	for( UI08 i = 0; i < sections.count(); i++ )
+	{
+		// Check if it's a valid spell-id
+		bool ok = true;
+		UI32 spellID = sections[ i ].toInt( &ok );
+
+		if( !ok || spellID > 255 )
+			continue;
+
+		QDomElement *node = DefManager->getSection( WPDT_SPELL, sections[ i ] );
+
+		loadedSpells[ spellID ] = new cSpell;
+		loadedSpells[ spellID ]->load( (*node) );
+	}
+
+	clConsole.ProgressDone();
+}
+
+void cMagic::reload( void )
+{
+	unload();
+	load();
+}
+
+void cMagic::unload( void )
+{
+	map< UI08, cSpell* >::iterator iterator;
+
+	for( iterator = loadedSpells.begin(); iterator != loadedSpells.end(); ++iterator )
+		delete iterator->second;
+}
+
+// Checks for sufficient Mana/Stamina/Health
+bool cMagic::checkStats( P_CHAR caster, cSpell *spell )
+{
+	if( caster->isGM() )
+		return true;
+
+	if( ( caster->mn < spell->mana() ) && !( caster->priv2 & 0x10 ) )
+	{
+		sysmessage( calcSocketFromChar( caster ), "You have insufficient mana to cast that spell.");
+		return false;
+	}
+
+	if( caster->stm < spell->stamina() )
+	{
+		sysmessage( calcSocketFromChar( caster ), "You have insufficient stamina to cast that spell.");
+		return false;
+	}
+
+	if( caster->hp < spell->health() )
+	{
+		sysmessage( calcSocketFromChar( caster ), "You have insufficient health to cast that spell.");
+		return false;
+	}
+
+	return true;
+}
+
+void cMagic::speakMantra( P_CHAR caster, cSpell *spell )
+{
+	if( spell->runic() || caster->skill( MAGERY ) >= 1000 )
+		npctalkall_runic( caster, spell->mantra().upper().ascii(), 0 );
+	else
+		npctalkall( caster, spell->mantra().ascii(), 0 );
+}
+
+cSpell *cMagic::getSpell( UI08 spellId )
+{
+	if( loadedSpells.find( spellId ) != loadedSpells.end() )
+		return loadedSpells[ spellId ];
+
+	return NULL;
+}
+	
+void cMagic::openSpellBook( P_CHAR mage, P_ITEM spellbook )
+{
+	UI16 i;
+
+	// Sends a spellbook to the client
+	UOXSOCKET socket = calcSocketFromChar( mage );
+
+	// We *need* to send the spellbook to a connected client
+	if( socket == -1 )
+		return;
+
+	// Draw Container (GumpID: 0xFFFF, Serial: SpellBook );
+	cPDrawContainer drawContainer( 0xFFFF, spellbook->serial );
+	drawContainer.send( socket );
+	
+	// Get the spells
+	vector< UI08 > spells;
+
+	vector< SERIAL > scrolls = contsp.getData( spellbook->serial );
+
+	for( i = 0; i < scrolls.size(); i++ )
+	{
+		P_ITEM scroll = FindItemBySerial( scrolls[ i ] );
+		SI16 spellId = calcSpellId( scroll->id() );
+		
+		if( spellId > 0 )
+			spells.push_back( spellId );
+	}
+
+	// No spells to send so quit
+	if( spells.size() == 0 )
+		return;
+
+	cPContainerItems containerItems;
+
+	// Send the spells
+	// Amount: spellId
+	// Serial: Unique id per spell (just use the default)
+	// Hue: Irrelevant
+	for( i = 0; i < spells.size(); i++ )
+		containerItems.addItem( 0x41000000 + spells[ i ], 0, spells[ i ], 0, 0, spellbook->serial, 0x450 );
+
+	containerItems.send( socket );
+}
+
+// This should get one spellbook
+P_ITEM cMagic::findSpellBook( P_CHAR mage )
+{
+	if( !mage )
+		return NULL;
+
+	// We'll only handle Spellbooks in the mainpack or on the characters body
+	vector< SERIAL > equipment = contsp.getData( mage->serial );
+
+	UI16 i;
+	P_ITEM backpack;
+
+	for( i = 0; i < equipment.size(); i++ )
+	{
+		P_ITEM item = FindItemBySerial( equipment[ i ] );
+		
+		if( ( item->layer() == 1 ) && ( item->type() == 9 ) )
+			return item;
+
+		// While we're at it get the packitem
+		if( item->layer() == 0x15 ) 
+			backpack = item;
+	}
+
+	// The character doesn't have any spellbooks equipped so check his backpack
+	if( backpack != NULL )
+	{
+		vector< SERIAL > content = contsp.getData( backpack->serial );
+
+		for( i = 0; i < content.size(); i++ )
+		{
+			P_ITEM item = FindItemBySerial( content[ i ] );
+
+			if( item->type() == 9 )
+				return item;
+		}
+	}
+
+	return NULL;
+}
+
+// TO DO: Check for spells in the book if sourceType == 0
+bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourceItem )
+{
+	// Prepares to cast a spell
+	if( caster == NULL )
+		return false;
+
+	if( loadedSpells.find( spellId ) == loadedSpells.end() )
+	{
+		sysmessage( calcSocketFromChar( caster ), QString( "There is no such spell (%1)" ).arg( spellId ) );
+		return false;
+	}
+
+	// Get the spell
+	cSpell *spell = loadedSpells.find( spellId )->second;
+
+	// Casting in jail is not allowed
+	if( caster->cell != 0 && !caster->isGM() )
+	{
+		sysmessage( calcSocketFromChar( caster ), "You may not cast spells while you are in jail." );
+		return false;
+	}
+
+	// Casting agressive spells is not allowed in guarded towns
+	if( spell->agressive() && !caster->isGM() )
+		if( ( region[ caster->region ].priv & 0x80 ) && caster->inGuardedArea() )
+		{
+			sysmessage( calcSocketFromChar( caster ), "You may not cast agressive spells in a guarded area." );
+			return false;
+		}
+
+	if( !spell->enabled() )
+	{
+		sysmessage( calcSocketFromChar( caster ), "This spell is currently disabled." );
+		return false;
+	}
+
+	// Casting with Weapons or Shields equipped is not allowed for players
+	// For Wands it's ignored
+	if( ( !caster->isGMorCounselor() ) && ( sourceType != 2 ) )
+	{
+		P_ITEM item;
+		vector< SERIAL > equipment = contsp.getData( caster->serial );
+		
+		for( UI32 i = 0; i < equipment.size(); i++ )
+		{
+			item = FindItemBySerial( equipment[ i ] );
+
+			if( item == NULL )
+				continue;
+
+			// If it's on layer 1 it has to be a spellbook
+			if( ( ( item->layer() == 1 ) && ( item->type() == 9 ) ) || ( item->layer() == 2 ) )
+			{
+				// Allowed are: 
+				// Gnarled Staffs (0x13F9), 
+				// Black Staffs and Wands (0x0DF0 - 0x0DF5), 
+				// Quarter Staffs ( 0xE89+0xE8A ),
+				// Order+Chaos Shields
+
+				UI16 id = item->id();
+
+				if( ( id == 0x13f9 ) || ( id >= 0xDF0 && id <= 0xDF5 ) || ( id == 0xE89 ) || ( id == 0xE8A ) )
+					continue;
+
+				sysmessage( calcSocketFromChar( caster ), "You cannot cast without free hands." );
+				return false;
+			}
+		}
+	}
+
+	// Unhide the caster for agressive spells only? (later)
+	caster->unhide();
+	
+	// We can't meditade while we're casting
+	caster->disturbMed( calcSocketFromChar( caster ) );
+
+	// Check for sufficient mana if we're not casting from a wand
+	if( sourceType != 2 )
+		if( !checkStats( caster, spell ) )
+			return false;
+
+	// If we're casting out of a spellbook we'll consume reagents
+	if( sourceType == 0 && !( caster->priv2 & 0x80 ) )
+		if( !checkReagents( caster, spell ) )
+			return false;
+
+	// Display the mantra *only* if we're not casting from a wand
+	if( sourceType != 2 )
+		speakMantra( caster, spell );
+	// Here once was a imp-action but what has that to do with mantras ?
+	
+	caster->setSpell( spellId ); // Remember our current spell-id - should rather be a pointer to a cSpell
+	caster->setCasting( true ); // we're casting ! :o)
+	
+	// "Enduring" animation
+	caster->setSpellaction( spell->action() );
+	caster->setNextact( 75 );
+
+	// Measure the delay until our targetting cursor is shown
+	// Spellbooks have the full delay, i'll half it for scrolls
+	caster->setSpelltime( 0 );
+
+	if( !caster->isGM() )
+	{
+		UI32 delay = ( spell->delay() * MY_CLOCKS_PER_SEC );
+
+		if( sourceType == 1 )
+			delay /= 2;
+
+		caster->setSpelltime( uiCurrentTime + delay );
+
+		caster->priv2 |= 2; // Freezed while casting
+	}
+
+	// I think it's not neccesary to check for scroll-success here as
+	// scrolls have a casting time as well
+	
+	// If we're using a wand don't display effects
+	if( sourceType == 2 )
+		return false;
+
+	impaction( calcSocketFromChar( caster ), spell->action() );
+	cMagic::preParticles( spellId, caster );
+
+	if( sourceType == 1 )
+		return true;
+	else
+		return false;
+
+	/*if (!SrvParams->cutScrollReq())
+	{
+		if (type==1 && !(pc_currchar->isGM()) && !Skills->CheckSkill(pc_currchar, MAGERY, loskill, hiskill))
+		{
+				SpellFail(s);
+				pc_currchar->setSpell( 0 );
+				pc_currchar->setCasting(false);
+				return false;
+		}
+	}*/
+}
+
+///////////////////
+// Name:	checkReagents
+// History:	DarkStorm, 30. May 2002
+// Purpose:	Check for needed Reagents and display a message
+//
+bool cMagic::checkReagents( P_CHAR caster, cSpell *spell )
+{
+		QStringList missing;
+
+		// Check for every reagent
+		if( spell->reqAsh() && ( getamount( caster, 0x0F8C ) < spell->reqAsh() ) )
+			missing.push_back( "Sa" );
+	
+		if( spell->reqDrake() && ( getamount( caster, 0xF86 ) < spell->reqDrake() ) )
+			missing.push_back( "Mr" );
+
+		if( spell->reqGarlic() && ( getamount( caster, 0xF84 ) < spell->reqGarlic() ) )
+			missing.push_back( "Ga" );
+
+		if( spell->reqGinseng() && ( getamount( caster, 0xF85 ) < spell->reqGinseng() ) )
+			missing.push_back( "Gi" );
+
+		if( spell->reqMoss() && ( getamount( caster, 0xF7B ) < spell->reqMoss() ) )
+			missing.push_back( "Bm" );
+
+		if( spell->reqPearl() && ( getamount( caster, 0xF7A ) < spell->reqPearl() ) )
+			missing.push_back( "Bp" );
+		
+		if( spell->reqShade() && ( getamount( caster, 0xF88 ) < spell->reqShade() ) )
+			missing.push_back( "Ns" );
+
+		if( spell->reqSilk() && ( getamount( caster, 0xF8D ) < spell->reqSilk() ) )
+			missing.push_back( "Ss" );
+
+		if( missing.count() > 0 )
+		{
+			sysmessage( calcSocketFromChar( caster ), QString( "You don't have enough reagents to cast that spell [%1]" ).arg( missing.join( "," ) ) );
+			return false;
+		}
+		else		
+			return true;
+}
+
+short cMagic::calcSpellId( UI16 model )
+{
+	tile_st tile;
+	Map->SeekTile( model, &tile);
+	
+	if( tile.unknown1 == 0 )
+		return -1;
+	else
+		return tile.unknown1;
+	
+	// I don't know who did that before me but i do know
+	// that the spell id for each scroll is stored in
+	// the unknown 1 value - DarkStorm
+	/*if (id==0x1F2D)					return 7;			// Reactive Armor
+	if (id>=0x1F2E && id<=0x1F33)	return (short) (id-0x1F2D);	// first circle without weaken
+	if (id>=0x1F34 && id<=0x1F6C)	return (short)(id-0x1F2D+1);	// 2 to 8 circle spell scrolls plus weaken*/
+}
+
 
 ///////////////////
 // Name:	InitSpells
@@ -76,24 +569,24 @@
 struct spell_st
 {
 	int enabled;		// spell enabled?
-	int circle;		// circle number
+	int circle;			// circle number
 	int mana;			// mana requirements
 	int loskill;		// low magery skill req.
 	int hiskill;		// high magery skill req.
 	int sclo;			// low magery skill req. if using scroll
 	int schi;			// high magery skill req. if using scroll
 	char mantra[25];	// words of power
-	int action;		// character action
+	int action;			// character action
 	int delay;			// spell delay
 	reag_st reagents;	// reagents req.
-	char strToSay[100];// string visualized with targ. system
+	char strToSay[100];	// string visualized with targ. system
 	int reflect;		// 1=spell reflectable, 0=spell not reflectable
 	unsigned char runic;
 };
 
 spell_st spells[100];
 
-int cMagic::InitSpells(void)
+/*int cMagic::InitSpells(void)
 {
 	int curspell = 0; // current spell
 	
@@ -135,7 +628,7 @@ int cMagic::InitSpells(void)
 	while ((strcmp((char*)script1, "EOF")) &&(++loopexit < MAXLOOPS));
 	closescript();
 	return true;
-}
+}*/
 
 // Spellbook
 // Purpose:	Sends the spellbook item (with all the
@@ -896,7 +1389,7 @@ void cMagic::MagicTrap(P_CHAR pc, P_ITEM pTrap)
 // History:	Unknown, Modified by AntiChrist to use reag_st
 // Purpose:	Check for required reagents in player's backpack.
 //
-char cMagic::CheckReagents(P_CHAR pc, int num)
+/*char cMagic::CheckReagents(P_CHAR pc, int num)
 {
 	reag_st reagents = spells[num].reagents;
 	reag_st failmsg = {0,};
@@ -959,7 +1452,7 @@ int cMagic::RegMsg(P_CHAR pc, reag_st failmsg)
 	}
 
 	return 1;
-}
+}*/
 
 
 ///////////////////
@@ -1470,154 +1963,6 @@ void cMagic::FlameStrikeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usema
 /////////////////////////////////////////////////////////////////
 /////// PCs CASTING SPELLS RELATED FUNCTIONS ////////////////////
 /////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////
-// Name:	newSelectSpell2Cast                         //
-// History:	Abaddon, 28 August 1999                     //
-//			AntiChrist 10 September 1999                //
-//			Frazurbluu July 2001 -cleaning this mess up-//
-// Purpose:	Execute the selected spell to cast.         //
-//////////////////////////////////////////////////////////
-bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
-{
-	/*
-	char mantra[25];
-	char sect[512];
-	char strToSay[100];
-	int action = 0,
-	*/
-	// Much reordering follows -Fraz-
-	int loskill = 0, hiskill = 0;
-	int type = currentSpellType[s];
-	P_CHAR pc_currchar = currchar[s];
-//	int cc=currchar[s];
-	pc_currchar->setSpell(num);
-	int curSpell = pc_currchar->spell();
-
-	if ((pc_currchar->cell !=0) && (!pc_currchar->isGM()))
-	{
-		sysmessage(s,"You are in jail and cannot cast spells");
-		pc_currchar->setSpell(0);
-		pc_currchar->setCasting(false);
-		return false;
-	}
-	if (!townTarget( curSpell ) && !pc_currchar->isGM())
-	{
-		if (region[pc_currchar->region].priv&0x80)
-		{
-			//if (region[pc_currchar->region].guardowner)
-			if (pc_currchar->inGuardedArea())
-			{
-			sysmessage(s,"you can't cast spells here");
-			pc_currchar->setSpell(0);
-			pc_currchar->setCasting(false);
-			return false;
-			}
-		}
-	}
-	if( spells[num].enabled != 1 )
-	{
-		sysmessage( s, "That spell is currently not enabled" );
-		pc_currchar->setSpell(0);
-		pc_currchar->setCasting(false);
-		return false;
-	}
-
-	// The following loop checks to see if any item is currently equipped (if not a GM)
-	if (!pc_currchar->isGM())
-	{
-		unsigned int ci=0;
-		P_ITEM pj;
-		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
-		for ( ci = 0; ci < vecContainer.size(); ci++)
-		{
-			pj = FindItemBySerial(vecContainer[ci]);
-			if (type!=2 && (pj->layer()==2||(pj->layer()==1 && pj->type()!=9 )))
-			{
-				if (!(pj->id()==0x13F9 || pj->id()==0x0E8A || pj->id()==0x0DF0 || pj->id()==0x0DF2
-					|| IsChaosOrOrderShield(pj->id()) ))
-				{
-					sysmessage(s,"You cannot cast with a weapon equipped.");
-					pc_currchar->setSpell(0);
-					pc_currchar->setCasting(false);
-					return false;
-				}
-			}
-		}
-	}
-
-	pc_currchar->unhide();
-	pc_currchar->disturbMed(s); // Meditation
-
-	//Check for enough reagents
-	if (type==0 && (!CheckReagents(pc_currchar, num)))
-	{
-		pc_currchar->setSpell(0);
-		pc_currchar->setCasting(false);
-		return false;
-	}
-	if (type != 2)// -Fraz-
-	{
-		if ((pc_currchar->mn < spells[num].mana) && !(pc_currchar->priv2&0x10)) // was 0x01, thats allmove !!!
-		{
-			//success=0;
-			sysmessage(s, "You have insufficient mana to cast that spell.");
-			pc_currchar->setSpell(0);
-			pc_currchar->setCasting(false);
-			return false;
-		}
-	}
-	//Only speak if not a rod/staff/wand -Fraz-
-	if (type!=2)
-	{
-		if (spells[num].runic || pc_currchar->skill(MAGERY)/10 > 99 )	// Add runic talk to gm mages (Blackwind)
-			npctalkall_runic(pc_currchar,strupr(spells[num].mantra),0);
-		else
-			npctalkall(pc_currchar, spells[num].mantra,0);
-		impaction(s, spells[num].action);
-	}
-	//spell section for implementation specific stuff to get the spell to work
-	//AntiChrist - 26/10/99
-	//LET'S USE SCRIPT-CONFIGURABLE DELAYS!!!
-	pc_currchar->setCasting(true);
-	if(pc_currchar->spell()!=999) pc_currchar->setSpell(num);
-	pc_currchar->setSpellaction(spells[num].action);
-	pc_currchar->setNextact(75);
-	if (type==0 && (!(pc_currchar->isGM())))//if they are a gm they don't have a delay :-)
-	{
-		pc_currchar->setSpelltime((spells[num].delay*MY_CLOCKS_PER_SEC)+uiCurrentTime);
-		pc_currchar->priv2 |= 2;//freeze
-	}
-	else
-	{
-		pc_currchar->setSpelltime(0);
-	}
-	if (type==1)
-	{
-		loskill=spells[curSpell].sclo;
-		hiskill=spells[curSpell].schi;
-	}
-	if (!SrvParams->cutScrollReq())
-	{
-		if (type==1 && !(pc_currchar->isGM()) && !Skills->CheckSkill(pc_currchar, MAGERY, loskill, hiskill))
-		{
-				SpellFail(s);
-				pc_currchar->setSpell( 0 );
-				pc_currchar->setCasting(false);
-				return false;
-		}
-	}
-	if (type != 2) // if it's not a wand -Fraz-
-	{
-		impaction(s, spells[num].action);//do the action
-		cMagic::preParticles(num, pc_currchar); // show the beautiful casting particles for UO:3D clients
-		if (type==1)
-		{
-			return true;
-		}
-	}
-	return false;
-}
 
 void cMagic::preParticles(int num, P_CHAR pc)
 {
@@ -2940,7 +3285,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	
 }
 
-bool cMagic::townTarget( unsigned char num )
+/*bool cMagic::townTarget( unsigned char num )
 {
 	switch( num )
 	{
@@ -2976,7 +3321,7 @@ bool cMagic::townTarget( unsigned char num )
 			return false;
 	}
 	return true;
-}
+}*/
 
 bool cMagic::requireTarget( unsigned char num )
 {
@@ -3072,7 +3417,6 @@ void cMagic::DelReagents( P_CHAR pc, int num )
 
 bool cMagic::spellReflectable( int num )
 {
-
 	//AntiChrist - customizable in spells.scp
 	if(spells[num].reflect)
 		return true;
@@ -4051,29 +4395,10 @@ void cMagic::Gate(UOXSOCKET s)
 	} else sysmessage(s,"Not a valid gate target");//AntiChrist
 }
 
-///////////////////
-// Name:	SpellNumFromScrollID
-// History:	by Duke, 18.3.2001
-// Purpose:	Encapsulates the conversion of spell numbers from UO to WP
-//			'reactive armor' is #1 in UO, but #7 in WP. So we must shift scrolls 2-7.
-//
-short cMagic::SpellNumFromScrollID(short id)
-{
-	if (id==0x1F2D)					return 7;			// Reactive Armor
-	if (id>=0x1F2E && id<=0x1F33)	return (short) (id-0x1F2D);	// first circle without weaken
-	if (id>=0x1F34 && id<=0x1F6C)	return (short)(id-0x1F2D+1);	// 2 to 8 circle spell scrolls plus weaken
-	return -1;						// not a scroll
-}
-
 void cMagic::Action4Spell(UOXSOCKET s, int num)
 {
 	if (spells[num].action)
 		impaction(s, spells[num].action);
-}
-
-void cMagic::SpeakMantra4Spell(P_CHAR Caster, int num)
-{
-	npctalkall(Caster, spells[num].mantra,0);
 }
 
 void cMagic::AfterSpellDelay(UOXSOCKET s, P_CHAR pc)

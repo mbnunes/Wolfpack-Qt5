@@ -39,7 +39,6 @@ class cTargetRequest
 protected:
 	UI32 timeout_; // Timeout in MS
 
-
 public:
 	cTargetRequest( void ) { timeout_ = 0; }; // Never times out
 	virtual ~cTargetRequest( void ) { };

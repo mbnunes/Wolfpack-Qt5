@@ -73,7 +73,7 @@ void monstergate(P_CHAR pc_s, int x);
 //void npcMovement2(unsigned int, int);//Lag fix -- Zippy
 //void npcMovement(unsigned int);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
-void npctalkall_runic(P_CHAR npc, char *txt,char antispam);
+void npctalkall_runic(P_CHAR npc, const char *txt,char antispam);
 void Fame(P_CHAR pc_toChange, int nFame);
 void charstartup(int s);
 void checkdumpdata(unsigned int currenttime); // This dumps data for Ridcully's UOXBot 0.02 (jluebbe@hannover.aball.de)

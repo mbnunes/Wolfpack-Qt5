@@ -52,11 +52,42 @@ class QString;
 #include "defines.h"
 #include "structs.h"
 #include "typedefs.h"		// UOXSOCKET and others
-/*
-#if _MSC_VER >= 1000
-#pragma once
-#endif
-*/
+
+// New Style Packet classes:
+class cPacket {
+protected:
+	QByteArray data;
+public:
+	cPacket( void ) {};
+	virtual ~cPacket( void ) {};
+
+	virtual void send( UOXSOCKET socket );
+};
+
+class cVariablePacket: public cPacket {
+public:
+	virtual void send( UOXSOCKET socket );
+};
+
+// Class for sending a container gump
+class cPDrawContainer: public cPacket
+{
+protected:
+	UI16 gumpId;
+	SERIAL serial;
+public:
+	cPDrawContainer( UI16 gumpId, SERIAL serial );
+};
+
+class cPContainerItems: public cVariablePacket
+{
+public:
+	cPContainerItems( void );
+
+	virtual void addItem( P_ITEM item );
+	virtual void addItem( SERIAL serial, UI16 model, UI16 amount, UI16 x, UI16 y, SERIAL contserial, UI16 hue = 0 );
+};
+
 void SndAttackOK(UOXSOCKET s, int serial);
 void SndDyevat(UOXSOCKET s, int serial, short id);
 void SndUpdscroll(UOXSOCKET s, short txtlen, char* txt);
@@ -95,9 +126,9 @@ void tips(int s, int i); // Tip of the day window
 void weblaunch(int s, char *txt); // Direct client to a web page
 void broadcast(int s); // GM Broadcast (Done if a GM yells something);
 void itemtalk(int s, P_ITEM pi, char *txt); // Item "speech"
-void npctalk(int s, cChar* pNpc, char *txt,char antispam); // NPC speech
-void npctalkall(cChar* pNpc, char *txt,char antispam); // NPC speech to all in range.
-void npctalk_runic(int s, P_CHAR pc_npc, char *txt,char antispam); // NPC speech
+void npctalk(int s, cChar* pNpc, const char *txt,char antispam); // NPC speech
+void npctalkall(cChar* pNpc, const char *txt,char antispam); // NPC speech to all in range.
+void npctalk_runic(int s, P_CHAR pc_npc, const char *txt,char antispam); // NPC speech
 void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam); // NPC speech
 
 

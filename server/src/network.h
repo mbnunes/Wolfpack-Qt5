@@ -89,7 +89,7 @@ public:
 
 	void startchar(UOXSOCKET s);
 	void LoginMain(UOXSOCKET s);
-	void xSend(UOXSOCKET s, void *point, int length, int test);
+	void xSend(UOXSOCKET s, const void *point, int length, int test);
 	void Disconnect(UOXSOCKET s);
 	void ClearBuffers();
 	void CheckConn();
@@ -106,7 +106,7 @@ private:
 	char pass1[256];
 	char pass2[256];
 
-	void SendUOX3(UOXSOCKET s, void *point, int length, int test);
+	void SendUOX3(UOXSOCKET s, const void *point, int length, int test);
 	void SendOSI(UOXSOCKET s, void *point, int length, int test);
 	void SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test);
 //	void CountPackets(UOXSOCKET s, int &numpackets, long int & offsetlastfullpacket, bool & dataerror);

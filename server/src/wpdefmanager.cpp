@@ -76,8 +76,8 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		NPCs[ NodeID ] = Node;
 	else if( NodeName == "menu" )
 		Menus[ NodeID ] = Node;
-	else if( NodeName == "resource" )
-		Resources[ NodeID ] = Node;
+	else if( NodeName == "spell" )
+		Spells[ NodeID ] = Node;
 	else if( NodeName == "itemlist" )
 		ItemLists[ NodeID ] = Node;
 	else if( NodeName == "privlevel" )
@@ -152,7 +152,7 @@ void WPDefManager::unload( void )
 	clearNodes( NPCs );
 	clearNodes( ItemLists );
 	clearNodes( Menus );
-	clearNodes( Resources );
+	clearNodes( Spells );
 	clearNodes( PrivLevels );
 }
 
@@ -203,8 +203,8 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &Menus;
 		break;
 
-	case WPDT_RESOURCE:
-		ListPointer = &Resources;
+	case WPDT_SPELL:
+		ListPointer = &Spells;
 		break;
 
 	case WPDT_PRIVLEVEL:
@@ -240,8 +240,8 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 		ListPointer = &Menus;
 		break;
 
-	case WPDT_RESOURCE:
-		ListPointer = &Resources;
+	case WPDT_SPELL:
+		ListPointer = &Spells;
 		break;
 
 	case WPDT_ITEMLIST:

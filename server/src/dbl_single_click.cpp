@@ -44,6 +44,51 @@
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
 
+void useSpellBook( UOXSOCKET socket, P_CHAR mage, P_ITEM spellbook )
+{
+	mage->objectdelay = 0;
+
+	if( ( spellbook->contserial != mage->serial ) && ( GetPackOwner( spellbook, 10 ) != mage  ) )
+	{
+		sysmessage( socket, "The spellbook needs to be in your hands or in your backpack." );
+		return;
+	}
+
+	Magic->openSpellBook( mage, spellbook );
+}
+
+// Use a wand
+void useWand( UOXSOCKET socket, P_CHAR mage, P_ITEM wand )
+{
+	// Is it in our backpack or on our body ?
+	if( ( wand->contserial != mage->serial )  && ( GetPackOwner( wand, 10 ) != mage ) )
+	{
+		sysmessage( socket, "If you wish to use this, it must be equipped or in your backpack." );
+		return;
+	}
+
+	// Here it is either in our backpack or on our body
+	if( wand->morez == 0 )
+	{
+		sysmessage( socket, "This Items magic is depleted." );
+		return;
+	}
+
+	// morex: circle, morey: spell
+	UI16 spellId = ( (wand->morex-1) * 8 ) + wand->morey;
+	
+	Magic->prepare( mage, spellId, 2 );
+
+	wand->morex--; // Reduce our charges
+
+	if( wand->morex == 0 )
+	{
+		wand->setType( wand->type2() );
+		wand->morex = 0;
+		wand->morey = 0;
+		wand->setOffspell( 0 );
+	}
+}
 
 //////////////////
 // name:	Item_ToolWearOut (2 interfaces)
@@ -238,28 +283,21 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			return;
 		}
 	}
-	// modified by AntiChrist for use with newSelectSpell2Cast
-	// rewritten (Duke 18.3.2001)
-		// Attempting to fix many problems -moved here- 7/2001 -Frazurbluu-
-	// SWEET, since I have the inBACKPACK working I should make a trigger function detailing object location for firing -Fraz-
+	// Spell Scroll
 	else if ((IsSpellScroll(pi->id())) && (!pi->isLockedDown()))
 	{
-		const P_ITEM pi_k = Packitem(pc_currchar);
-		if ( pi_k == NULL)
-			return;
-		if ((pi->contserial == pi_k->serial))
+		P_CHAR owner = GetPackOwner( pi, 10 ); // 10 Packs up
+
+		if( owner != pc_currchar )
 		{
-			currentSpellType[s] = 1;							// a scroll spell, so cut mana req
-			short spn = Magic->SpellNumFromScrollID(pi->id());	// avoid reactive armor glitch
-			if (Magic->newSelectSpell2Cast(s, spn))				// check cast !
-				pi->ReduceAmount(1);							// remove scroll if successful
-			// return;  -Fraz- removong return here, and moving up should also allow for triggers on the scrolls
-			// after they are used-- effect --cursed scrolls ect..
+			sysmessage( s, "The scroll must be in your backpack to envoke its magic." );
 		}
-		else
-		{
-			sysmessage(s, "The scroll must be in your backpack to envoke its magic.");
-		}
+
+		UI16 model = Magic->calcSpellId( pi->id() );
+		
+		if( Magic->prepare( pc_currchar, model, 1 ) )
+			pi->ReduceAmount( 1 );
+
 		return;
 	}
 	// Begin checking objects that we force an object delay for (std objects)
@@ -463,16 +501,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		sysmessage(s, "This item is locked.");
 		return;// case 8/64 (locked container)
 	case 9: // spellbook
-		pc_currchar->objectdelay = 0;
-		if ((pi->contserial == pc_currchar->packitem) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
-		{
-			Magic->SpellBook(s, pi);
-		}
-		else
-		{
-			sysmessage(s, "If you wish to open a spellbook, it must be equipped or in your main backpack.");
-		}
-			return;// spellbook
+		useSpellBook( s, pc_currchar, pi );
+		return;
 	case 10: // map?
 		LongToCharPtr(pi->serial, &map1[1]);
 		LongToCharPtr(pi->serial, &map2[1]);
@@ -583,31 +613,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			pc_currchar->setHunger( pc_currchar->hunger()+1 );
 		}// else
 		return; // case 14 (food)
-	case 15: // -Fraz- Modified and tuned up, Wands must now be equipped or in pack
-		{
-			if ((pi->contserial == pc_currchar->packitem) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
-			{
-				if (pi->morez != 0)
-				{
-					pi->morez--;
-					currentSpellType[s] = 2;
-					if (Magic->newSelectSpell2Cast(s, (8*(pi->morex - 1)) + pi->morey))
-					{ 
-						if (pi->morez == 0)
-						{
-							pi->setType( pi->type2() );
-							pi->morex = 0;
-							pi->morey = 0;
-							pi->setOffspell( 0 );
-						}
-					}
-				}
-			}
-			else
-			{
-				sysmessage(s, "If you wish to use this, it must be equipped or in your backpack.");
-			}
-		}
+	// Wands
+	case 15:
+		useWand( s, pc_currchar, pi );
 		return; // case 15 (magic items)
 	case 18: // crystal ball?
 		switch (RandomNum(0, 9))

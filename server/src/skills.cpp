@@ -1986,7 +1986,7 @@ static int CheckThreeSkills(int s, int low, int high)
 //
 void TellScroll( char *menu_name, int s, long snum )
 {
-	P_CHAR pc_currchar = currchar[s];
+/*	P_CHAR pc_currchar = currchar[s];
 	unsigned cir,spl;
 	int part;
 
@@ -2105,7 +2105,7 @@ void TellScroll( char *menu_name, int s, long snum )
 				sysmessage(s,"Item successfully Engraved");
 			}
 		}
-	}//else if
+	}//else if*/
 }
 
 /////////////////////////////

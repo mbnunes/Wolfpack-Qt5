@@ -266,7 +266,7 @@ QString cCommands::GetAllParams(void)
 	if( !command_line.contains( " " ) )
 		return "";
 
-	return command_line.right( command_line.length() - command_line.find( " " ) );
+	return command_line.right( command_line.length() - command_line.find( " " ) ).stripWhiteSpace();
 }
 
 void cCommands::MakeShop(P_CHAR pc_c)

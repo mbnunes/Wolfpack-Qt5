@@ -47,7 +47,7 @@ enum WPDEF_TYPE
 	WPDT_NPC,
 	WPDT_ITEMLIST,
 	WPDT_MENU,
-	WPDT_RESOURCE,
+	WPDT_SPELL,
 	WPDT_PRIVLEVEL,
 	WPDT_INVALID
 };
@@ -61,7 +61,7 @@ private:
 	DefSections NPCs;
 	DefSections ItemLists;
 	DefSections Menus;
-	DefSections Resources;
+	DefSections Spells;
 	DefSections PrivLevels;
 
 	bool ImportSections( const QString& FileName );

@@ -2279,7 +2279,7 @@ void batchcheck(int s) // Do we have to run a batch file
 	executebatch=0;
 }
 
-void npctalkall_runic(P_CHAR npc, char *txt,char antispam)
+void npctalkall_runic(P_CHAR npc, const char *txt,char antispam)
 {
 	if (npc == NULL) return;
 
@@ -2958,9 +2958,10 @@ int main( int argc, char *argv[] )
 	clConsole.send(" Done.\n");
 	//End Boats --^
 
-	clConsole.send("Loading IM Menus...");
+	// Should be handeled by the normal make menu system
+	/*clConsole.send("Loading IM Menus...");
 	im_loadmenus( "inscribe.gmp", TellScroll ); //loading gump for inscribe()
-	clConsole.send(" Done.\n");
+	clConsole.send(" Done.\n");*/
 
 	gcollect();
 
@@ -2988,9 +2989,7 @@ int main( int argc, char *argv[] )
 	init_creatures(); //lb, initilises the creatures array (with soudfiles and other creatures infos)
 	clConsole.send("Done.\n");
 
-	clConsole.send("Initializing Magery System... ");
-	Magic->InitSpells();
-	clConsole.send("Done.\n");
+	Magic->load(); // Load the new magic system
 
 	clConsole.send("Loading IP Blocking rules...");
 	Network->LoadHosts_deny();
@@ -3205,6 +3204,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	}
 
 	sysbroadcast("The server is shutting down.");
+
 	if (SrvParams->html()>0)
 	{
 		clConsole.send("Writing offline HTML page...");
@@ -3213,6 +3213,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	}
 
 	// No need for progress bar
+	Magic->unload();
 	im_clearmenus();
 	
 	clConsole.PrepareProgress( "Closing sockets" );

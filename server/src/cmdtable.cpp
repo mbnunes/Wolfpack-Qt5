@@ -54,6 +54,8 @@
 #include "classes.h"
 #include "gumps.h"
 #include "mapstuff.h"
+#include "wpdefmanager.h"
+#include "wpscriptmanager.h"
 
 // Library Includes
 #include "qdatetime.h"
@@ -511,11 +513,13 @@ void command_serversleep(UOXSOCKET s)
 
 void command_reloadcachedscripts(UOXSOCKET s)
 {
-	
+	DefManager->reload();
+	ScriptManager->reload();
+	Magic->reload();
+
 	loadcustomtitle();
 	loadregions();
 	loadspawnregions();
-	Magic->InitSpells();
 	Commands->loadPrivLvlCmds();
 	loadskills();
 	read_in_teleport(); // hope i've cought all  ...
@@ -1428,15 +1432,7 @@ void command_itemmenu(UOXSOCKET s)
 void command_additem(UOXSOCKET s)
 // (d) Adds the specified item from ITEMS.SCP.
 {
-	/*if (tnum==2)
-	{
-		addmitem[s] = makenumber(1); // Anthracks' fix
-		sprintf((char*)temp, "Select location for item. [Number: %i]", addmitem[s]);
-		target(s, 0, 1, 0, 26, (char*)temp);
-	}*/
-
-	// This sucks so bad *argh*
-	if( tnum == 2 )
+	if( tnum >= 2 )
 	{
 		strcpy(xtext[s], Commands->GetAllParams().latin1());
 		sprintf( (char*)temp, "Select location for item %s", xtext[ s ] );

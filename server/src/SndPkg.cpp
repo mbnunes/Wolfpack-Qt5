@@ -1928,7 +1928,7 @@ void itemtalk(int s, P_ITEM pi, char *txt) // Item "speech"
 	Xsend(s, txt, strlen(txt)+1);
 }
 
-void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
+void npctalk(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC speech
 {
 	int tl;
 	char machwas;
@@ -1979,7 +1979,7 @@ void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 	}
 }
 
-void npctalkall(P_CHAR npc, char *txt,char antispam) // NPC speech to all in range.
+void npctalkall(P_CHAR npc, const char *txt,char antispam) // NPC speech to all in range.
 {
 	if (npc==NULL) return;
 
@@ -1990,7 +1990,7 @@ void npctalkall(P_CHAR npc, char *txt,char antispam) // NPC speech to all in ran
 			npctalk(i, npc, txt,antispam);
 }
 
-void npctalk_runic(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
+void npctalk_runic(int s, P_CHAR pc_npc, const char *txt,char antispam) // NPC speech
 {
 	int tl;
 	char machwas;
@@ -3398,3 +3398,104 @@ void PlayDeathSound( P_CHAR pc )
 	}
 }
 
+// NEW STYLE CLASSES
+void cPacket::send( UOXSOCKET socket )
+{
+	if( socket == -1 )
+		return;
+
+	Xsend( socket, data.data(), data.size() );
+}
+
+void cVariablePacket::send( UOXSOCKET socket )
+{
+	// Check the packet length
+	if( data.size() >= 3 )
+	{
+		data[ 1 ] = static_cast< UI08 >( data.size() >> 8 );
+		data[ 2 ] = static_cast< UI08 >( data.size() );
+	}
+
+	// Call the normal send routine
+	cPacket::send( socket );
+}
+
+// 0x24 Draw Container (7 bytes) 
+// BYTE cmd 
+// BYTE[4] item id 
+// BYTE[2] model-Gump 
+cPDrawContainer::cPDrawContainer( UI16 gumpId, SERIAL serial )
+{
+	data.resize( 7 ); // 7 Pyte packet
+	data[ 0 ] = 0x24;
+	
+	// Container Serial
+	data[ 1 ] = static_cast< UI08 >( ( serial ) >> 24 );
+	data[ 2 ] = static_cast< UI08 >( ( serial ) >> 16 );
+	data[ 3 ] = static_cast< UI08 >( ( serial ) >> 8 );
+	data[ 4 ] = static_cast< UI08 >( serial );
+
+	// Gump ID
+	data[ 5 ] = static_cast< UI08 >( gumpId >> 8 );
+	data[ 6 ] = static_cast< UI08 >( gumpId );
+}
+
+// Add Items to Container
+cPContainerItems::cPContainerItems( void )
+{
+	data.resize( 5 );
+
+	data.fill( 0, 5 );
+	data[ 0 ] = 0x3C;
+}
+
+void cPContainerItems::addItem( P_ITEM item )
+{
+	addItem( item->serial, item->id(), item->amount(), item->pos.x, item->pos.y, item->contserial, item->color() );
+}
+
+// Add an Item to the container
+void cPContainerItems::addItem( SERIAL serial, UI16 model, UI16 amount, UI16 x, UI16 y, SERIAL contserial, UI16 hue )
+{
+	SI32 offset = data.size();
+
+	data.resize( data.size() + 19 );
+
+	// Item serial
+	data[ offset + 0 ] = static_cast< UI08 >( serial >> 24 );
+	data[ offset + 1 ] = static_cast< UI08 >( serial >> 16 );
+	data[ offset + 2 ] = static_cast< UI08 >( serial >> 8 );
+	data[ offset + 3 ] = static_cast< UI08 >( serial );
+
+	// Item model
+	data[ offset + 4 ] = static_cast< UI08 >( model >> 8 );
+	data[ offset + 5 ] = static_cast< UI08 >( model );	
+
+	// Unknown ?
+	data[ offset + 6 ] = 0x00;
+
+	// Amount
+	data[ offset + 7 ] = static_cast< UI08 >( amount >> 8 );
+	data[ offset + 8 ] = static_cast< UI08 >( amount );	
+
+	// X + Y
+	data[ offset + 9 ]  = static_cast< UI08 >( x >> 8 );
+	data[ offset + 10 ] = static_cast< UI08 >( x );	
+	data[ offset + 11 ] = static_cast< UI08 >( y >> 8 );
+	data[ offset + 12 ] = static_cast< UI08 >( y );
+
+	// Contserial
+	data[ offset + 13 ] = static_cast< UI08 >( contserial >> 24 );
+	data[ offset + 14 ] = static_cast< UI08 >( contserial >> 16 );
+	data[ offset + 15 ] = static_cast< UI08 >( contserial >> 8 );
+	data[ offset + 16 ] = static_cast< UI08 >( contserial );
+
+	// Hue
+	data[ offset + 17 ] = static_cast< UI08 >( hue >> 8 );
+	data[ offset + 18 ] = static_cast< UI08 >( hue );	
+
+	// Increase the itemcount:
+	UI16 itemCount = ( data[ 3 ] << 8 ) | ( data[ 4 ] ) + 1;
+	data[ 3 ] = static_cast< UI08 >( itemCount >> 8 );
+	data[ 4 ] = static_cast< UI08 >( itemCount );
+}

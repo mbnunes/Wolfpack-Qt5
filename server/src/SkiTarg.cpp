@@ -2508,20 +2508,8 @@ void cSkills::LockPick(int s)
 		{
 			if(pi->more1==0 && pi->more2==0 && pi->more3==0 && pi->more4==0)
 			{ //Make sure it isn't an item that has a key (i.e. player house, chest..etc)
-				//if(addmitem[s]==-1) 
-				
-				// How should that work?!?!!
-				if( piPick->amount() == 0xFFFFFFFF )
+				if(Skills->CheckSkill(pc_currchar, LOCKPICKING, 0, 1000))
 				{
-					if (currentSpellType[s] !=2)			// not a wand cast
-					{
-						success=Magic->SubtractMana(pc_currchar, 5);  // subtract mana on scroll or spell
-						if (currentSpellType[s] == 0)	// del regs on normal spell
-						{
-							Magic->DelReagents(pc_currchar, 23); // 23 = magic unlock
-						}
-
-					}
 					switch(pi->type())
 					{
 					case 8:  pi->setType( 1 );  break;
@@ -2531,41 +2519,18 @@ void cSkills::LockPick(int s)
 						LogError("switch reached default");
 						return;
 					}
-					soundeffect3(pi, 0x01FF);
+					soundeffect3(pi, 0x0241);
 					sysmessage(s, tr("You manage to pick the lock.") );
-				} else
-					if(Skills->CheckSkill(pc_currchar, LOCKPICKING, 0, 1000))
+				} 
+				else
+				{
+					if((rand()%100)>50) 
 					{
-						switch(pi->type())
-						{
-						case 8:  pi->setType( 1 );  break;
-						case 13: pi->setType( 12 ); break;
-						case 64: pi->setType( 63 ); break;
-						default:
-							LogError("switch reached default");
-							return;
-						}
-						soundeffect3(pi, 0x0241);
-						sysmessage(s, tr("You manage to pick the lock.") );
+						sysmessage(s, tr("You broke your lockpick!") );
+						piPick->ReduceAmount( 1 );
 					} else
-					{
-						if((rand()%100)>50) 
-						{
-							sysmessage(s, tr("You broke your lockpick!") );
-							if( piPick->amount() > 1 )
-							{
-								piPick->ReduceAmount(1);
-							}
-							else
-							{
-								P_ITEM pi = FindItemBySerial(addmitem[s]);
-							    Items->DeleItem(pi);
-							}
-						} else
-						{
-							sysmessage(s, tr("You fail to open the lock."));
-						}
-					}
+						sysmessage(s, tr("You fail to open the lock."));
+				}
 			} else
 			{
 				sysmessage(s, tr("That cannot be unlocked without a key."));
