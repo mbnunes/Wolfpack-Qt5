@@ -781,7 +781,7 @@ static PyObject* wpElement_getattribute(wpElement *self, PyObject *args) {
 	QString result = self->element->getAttribute(name, defvalue);
 
 	if (result == QString::null) {
-		return PyUnicode_FromUnicode(L"", 0);
+		return PyUnicode_FromUnicode((Py_UNICODE*)L"", 0);
 	} else {
 		return PyUnicode_FromUnicode((Py_UNICODE*)result.ucs2(), result.length());
 	}
@@ -846,7 +846,7 @@ static PyObject *wpElement_getAttr(wpElement *self, char *name) {
 		QString value = element->value();
 
 		if (value == QString::null) {
-			return PyUnicode_FromUnicode(L"", 0);
+			return PyUnicode_FromUnicode((Py_UNICODE*)L"", 0);
 		} else {
 			return PyUnicode_FromUnicode((Py_UNICODE*)value.ucs2(), value.length());
 		}
@@ -854,7 +854,7 @@ static PyObject *wpElement_getAttr(wpElement *self, char *name) {
 		QString value = element->text();
 
 		if (value == QString::null) {
-			return PyUnicode_FromUnicode(L"", 0);
+			return PyUnicode_FromUnicode((Py_UNICODE*)L"", 0);
 		} else {
 			return PyUnicode_FromUnicode((Py_UNICODE*)value.ucs2(), value.length());
 		}
