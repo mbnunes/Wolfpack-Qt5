@@ -576,7 +576,7 @@ void cUObject::processNode( const cElement* Tag )
 			if ( Tag->hasAttribute( "value" ) ) 
 				Value = hex2dec( Tag->getAttribute( "value", "1" ) );
 			else
-				Value = 1;
+				Value = "1";
 		}
 
 		cVariant variant( Value );
