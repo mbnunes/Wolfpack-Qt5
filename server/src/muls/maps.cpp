@@ -31,6 +31,8 @@
 #include "multiscache.h"
 #include "../defines.h"
 #include "../items.h"
+#include "../console.h"
+#include "../log.h"
 #include "../serverconfig.h"
 
 // Library Includes
@@ -114,6 +116,7 @@ MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QStrin
 	staticsfile.setName( statics );
 	if ( !staticsfile.open( IO_ReadOnly ) )
 		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( statics ) );
+
 	staticsCache.setAutoDelete( true );
 	mapCache.setAutoDelete( true );
 }
@@ -318,10 +321,8 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 		p->loadDiffs( basePath, id );
 		d.insert( id, p );
 		return true;
-	}
-	catch ( wpFileNotFoundException& e )
-	{
-		qWarning( e.error() );
+	} catch ( wpFileNotFoundException& e ) {
+		Console::instance()->log(LOG_WARNING, e.error());
 		return false;
 	}
 }
@@ -567,8 +568,10 @@ signed char cMaps::height( const Coord_cl& pos )
 StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact /* = true */ ) const throw( wpException )
 {
 	const_iterator it = d.find( id );
-	if ( it == d.end() )
-		throw wpException( QString( "[cMaps::staticsIterator line %1] map id(%2) not registered!" ).arg( __LINE__ ).arg( id ) );
+	if ( it == d.end() ) {
+		Console::instance()->log(LOG_ERROR, QString( "[cMaps::staticsIterator line %1] map id(%2) not registered!\n" ).arg( __LINE__ ).arg( id ) );
+		return StaticsIterator( x, y, 0, true );
+	}		
 	return StaticsIterator( x, y, it.data(), exact );
 }
 
@@ -605,8 +608,8 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 	baseX = x / 8;
 	baseY = y / 8;
 	pos = 0;
-
-	if ( baseX < d->width && baseY < d->height )
+	
+	if ( d && baseX < d->width && baseY < d->height )
 		load( d, x, y, exact );
 }
 

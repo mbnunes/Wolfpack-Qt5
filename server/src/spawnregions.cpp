@@ -209,9 +209,8 @@ void cSpawnRegion::processNode( const cElement* Tag )
 
 bool cSpawnRegion::findValidSpot( Coord_cl& pos )
 {
-	// Try up to 100 times.
-	for ( unsigned int i = 0; i < 100; ++i )
-	{
+	// Try up to 25 times.
+	for ( unsigned int i = 0; i < 25; ++i ) {
 		int rndRectNum = RandomNum( 0, this->rectangles_.size() - 1 );
 		pos.x = RandomNum( this->rectangles_[rndRectNum].x1, this->rectangles_[rndRectNum].x2 );
 		pos.y = RandomNum( this->rectangles_[rndRectNum].y1, this->rectangles_[rndRectNum].y2 );

@@ -79,7 +79,7 @@ using namespace std;
 #define P_M_MAX_Z_CLIMB		14
 #define P_M_MAX_Z_INFLUENCE	15
 #define P_M_MAX_Z_FALL		20 // You can fall 20 tiles ofcourse !!
-#define P_M_MAX_Z_BLOCKS	15
+#define P_M_MAX_Z_BLOCKS	14
 
 // These are the debugging defines
 
@@ -110,8 +110,9 @@ struct stBlockItem
 	Q_INT8 z;
 	Q_UINT8 height;
 	bool walkable;
+	bool maptile;
 
-	stBlockItem() : z( -128 ), height( 0 ), walkable( false )
+	stBlockItem() : z( -128 ), height( 0 ), walkable( false ), maptile( false )
 	{
 	}
 };
@@ -142,12 +143,13 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 
 	// Process the map at that position
 	stBlockItem mapBlock;
+	mapBlock.maptile = true;
 	mapBlock.z = Maps::instance()->mapAverageElevation( pos );
 	mapBlock.height = 0;
 
 	// TODO: Calculate the REAL average Z Value of that Map Tile here! Otherwise clients will have minor walking problems.
 	map_st mapCell = Maps::instance()->seekMap( pos );
-	mapBlock.z = mapCell.z;
+	//mapBlock.z = mapCell.z;*/
 	land_st mapTile = TileCache::instance()->getLand( mapCell.id );
 
 	// If it's not impassable it's automatically walkable
@@ -186,7 +188,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 
 		// If we are a stair only the half height counts (round up)
 		if ( tTile.flag2 & 0x04 )
-			staticBlock.height = ( Q_UINT8 ) ( tTile.height + 1 / 2 );
+			staticBlock.height = ( Q_UINT8 ) ( ( tTile.height + 1 ) / 2 );
 		else
 			staticBlock.height = tTile.height;
 
@@ -282,6 +284,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 	bool found = false;
 	Q_UINT32 i;
 	bool priviledged = false;
+	Q_INT32 oldz = pos.z;
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
@@ -298,16 +301,22 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 		if ( !item.walkable && !priviledged && itemTop < pos.z )
 			return false;
 
-		// If the top of the item is within our max-climb reach
-		// then the first check passed. in addition we need to
-		// check if the "bottom" of the item is reachable
-		// I would say 2 is a good "reach" value for the bottom
-		// of any item
-		if ( ( item.walkable || priviledged ) && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) /*&& ( item.z <= pos.z + 2 )*/ )
-		{
-			pos.z = itemTop;
-			found = true;
-			break;
+		if ( item.walkable || priviledged ) {
+			// If the top of the item is within our max-climb reach
+			// then the first check passed. in addition we need to
+			// check if the "bottom" of the item is reachable
+			// I would say 2 is a good "reach" value for the bottom
+			// of any item
+			if ( itemTop < pos.z + P_M_MAX_Z_CLIMB && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+				pos.z = itemTop;
+				found = true;
+				break;
+			// Climbing maptiles is 5 tiles easier
+			} else if ( item.maptile && itemTop < pos.z + P_M_MAX_Z_CLIMB + 5 && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+				pos.z = itemTop;
+				found = true;
+				break;
+			}
 		}
 	}
 
@@ -330,23 +339,24 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 		stBlockItem item = blockList[i];
 		Q_INT8 itemTop = ( item.z + item.height );
 
+		// If the item is below what we step on, ignore it
+		if (itemTop <= pos.z) {
+			continue;
+		}
+
 		// Does the top of the item looms into our space
 		// Like before 15 is the assumed height of ourself
+		// Use the new position here.
 		if ( ( itemTop > pos.z ) && ( itemTop < pos.z + P_M_MAX_Z_BLOCKS ) )
 			return false;
 
 		// Or the bottom ?
-		if ( ( item.z > pos.z ) && ( item.z < pos.z + P_M_MAX_Z_BLOCKS ) )
+		if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS ) )
 			return false;
 
 		// Or does it spread the whole range ?
-		if ( ( item.z <= pos.z ) && ( itemTop >= pos.z + P_M_MAX_Z_BLOCKS ) )
+		if ( ( item.z <= oldz ) && ( itemTop >= oldz + P_M_MAX_Z_BLOCKS ) )
 			return false;
-
-		// If the Item Tops are already below our current position exit the
-		// loop, we're sorted by those !
-		if ( itemTop <= pos.z )
-			break;
 	}
 
 	// All Checks passed

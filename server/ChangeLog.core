@@ -22,6 +22,9 @@ Wolfpack 12.9.9 Beta (CVS)
 	- onDetach and onAttach are not called for those scripts.
 	- hasscript(a) will return true if a is in the basescripts.
 	- addscript now prepends a new script rather than appending it.
+	- the python .scripts property includes all script names, including the scripts in basescripts.
+	- added a new property .basescripts to get a comma separated list of all scripts in the
+	  basescripts list.
 	  
 
 Wolfpack 12.9.8 Beta (19. August 2004)
