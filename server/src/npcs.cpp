@@ -325,7 +325,7 @@ void cChar::Init(bool ser)
 	this->regen3=0;//Regeneration times for mana, stamin, and str
 	this->inputmode=0;
 	this->inputitem=-1;
-	this->attacker=-1; // Character who attacked this character
+	this->attacker = INVALID_SERIAL; // Character's serial who attacked this character
 	this->npcmovetime=0; // Next time npc will walk
 	this->npcWander=0; // NPC Wander Mode
 	this->oldnpcWander=0; // Used for fleeing npcs
@@ -1842,11 +1842,10 @@ void cChar::setNextMoveTime(short tamediv)
 //
 void cChar::fight(P_CHAR other)
 {
-	CHARACTER opp=DEREF_P_CHAR(other);
-	this->targ=opp;
+	this->targ=DEREF_P_CHAR(other);
 	this->unhide();
 	this->disturbMed();	// Meditation
-	this->attacker=opp;
+	this->attacker = other->serial;
 	if (this->isNpc())
 	{
 		if (!this->war)

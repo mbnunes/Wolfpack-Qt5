@@ -1600,24 +1600,25 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 // name:	HealingSkillTarget
 // history: unknown, revamped by Duke, 4.06.2000
 //
-void cSkills::HealingSkillTarget(int s)
+void cSkills::HealingSkillTarget(UOXSOCKET s)
 {
-	int i,j;
-	P_ITEM pib=MAKE_ITEMREF_LR(addx[s]);	// item index of bandage
+	int j;
+	P_ITEM pib = MAKE_ITEMREF_LR(addx[s]);	// item index of bandage
 	
-	i=calcCharFromPtr(buffer[s]+7);
-	if (i!=-1)
+	P_CHAR pp = FindCharBySerPtr(buffer[s]+7); // pointer to patient
+	if (pp != NULL)
 	{
 		P_CHAR ph = MAKE_CHARREF_LR(currchar[s]);	// points to the healer
-		P_CHAR pp = MAKE_CHARREF_LR(i);	// pointer to patient
-		int attacker=ph->attacker; // Ripper...cant heal while in a fight
-		if (!SrvParms->bandageincombat
-			&& (pp->war || ph->war || (attacker>=0 && chars[attacker].war)))
+		if (!SrvParms->bandageincombat && (pp->war || ph->war))
 		{
-			sysmessage(s, "You can`t heal while in a fight!");
-			return;
+			P_CHAR pc_attacker = FindCharBySerial(ph->attacker); // Ripper...cant heal while in a fight
+			if ( (pc_attacker != NULL) && pc_attacker->war)
+			{
+				sysmessage(s, "You can`t heal while in a fight!");
+				return;
+			}
 		}
-		if(!(npcinrange(s,i,1)))
+		if(!(npcinrange(s,DEREF_P_CHAR(ph),1)))
 		{
 			sysmessage(s,"You are not close enough to apply the bandages.");
 			return;
@@ -1641,7 +1642,7 @@ void cSkills::HealingSkillTarget(int s)
 					sysmessage(s,"You failed to resurrect the ghost");
 				else
 				{
-					Targ->NpcResurrectTarget(i);
+					Targ->NpcResurrectTarget(DEREF_P_CHAR(ph));
 					sysmessage(s,"Because of your skill, you were able to resurrect the ghost.");
 				}
 			}
@@ -1693,9 +1694,9 @@ void cSkills::HealingSkillTarget(int s)
 				//sysmessage(s,"You apply the bandages and the patient looks a bit healthier.");
 				int iMore1 = min(pp->st, j+pp->hp)-pp->hp;
 				if(pp->serial==ph->serial)
-					tempeffect(i,i,35,iMore1/2,0,10,0);//allow a delay
+					tempeffect(DEREF_P_CHAR(ph),DEREF_P_CHAR(ph),35,iMore1/2,0,10,0);//allow a delay
 				else 
-					tempeffect(i,i,35,iMore1/2,0,4,0);// added suggestion by Ramases //-Fraz- must be checked
+					tempeffect(DEREF_P_CHAR(ph),DEREF_P_CHAR(ph),35,iMore1/2,0,4,0);// added suggestion by Ramases //-Fraz- must be checked
 			}
 		}
 		else //Bandages used on a non-human
@@ -1706,7 +1707,7 @@ void cSkills::HealingSkillTarget(int s)
 			{
 				j=((3*ph->skill[VETERINARY])/100) + rand()%6;
 				pp->hp=min(pp->st, j+pp->hp);
-				updatestats(i, 0);
+				updatestats(DEREF_P_CHAR(ph), 0);
 				sysmessage(s,"You apply the bandages and the creature looks a bit healthier.");
 			}
 		}
@@ -2149,7 +2150,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 				criminal( DEREF_P_CHAR(pc_currchar) );
 
-				if (pc_npc->isInnocent() && pc_currchar->attacker != npc && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
+				if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
 					criminal(DEREF_P_CHAR(pc_currchar));//Blue and not attacker and not guild
 			
 				if (pi->name!="#")

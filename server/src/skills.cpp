@@ -666,10 +666,14 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 void cSkills::Hide(int s) 
 { 
 	int c = currchar[s]; 
-	if (chars[c].attacker!=-1 && inrange1p(c, chars[c].attacker)) 
+	if (chars[c].attacker != INVALID_SERIAL)
 	{ 
-		sysmessage(s, "You cannot hide while fighting."); 
-		return; 
+		P_CHAR pc_attacker = FindCharBySerial(chars[c].attacker);
+		if (inrange1p(c, DEREF_P_CHAR(pc_attacker)))
+		{
+			sysmessage(s, "You cannot hide while fighting."); 
+			return; 
+		}
 	} 
 	
 	if (chars[c].hidden == 1) 
@@ -744,10 +748,9 @@ void cSkills::PeaceMaking(int s)
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
 	}
-	int c=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
-	res1=Skills->CheckSkill(c, PEACEMAKING, 0, 1000);
-	res2=Skills->CheckSkill(c, MUSICIANSHIP, 0, 1000);
+	res1=Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), PEACEMAKING, 0, 1000);
+	res2=Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MUSICIANSHIP, 0, 1000);
 	if (res1 && res2)
 	{
 		Skills->PlayInstrumentWell(s, inst);
@@ -760,16 +763,17 @@ void cSkills::PeaceMaking(int s)
 			P_CHAR mapchar = ri.GetData();
 			if (mapchar !=NULL)
 			{
-				i = DEREF_P_CHAR(mapchar);
-				if (inrange1p(i, c) && chars[i].war)
+				if (inrange1p(DEREF_P_CHAR(mapchar), DEREF_P_CHAR(pc_currchar)) && mapchar->war)
 				{
-					j=calcSocketFromChar(i);
-					if (j!=-1)
-						if (perm[j]) sysmessage(j, "You hear some lovely music, and forget about fighting.");
-					if (chars[i].war) npcToggleCombat(i);
-					chars[i].targ=-1;
-					chars[i].attacker=-1;
-					chars[i].resetAttackFirst();
+					j = calcSocketFromChar(DEREF_P_CHAR(mapchar));
+					if ( j != INVALID_UOXSOCKET )
+						if (perm[j]) 
+							sysmessage(j, "You hear some lovely music, and forget about fighting.");
+					if (mapchar->war) 
+						npcToggleCombat(DEREF_P_CHAR(mapchar));
+					mapchar->targ = -1;
+					mapchar->attacker = INVALID_SERIAL;
+					mapchar->resetAttackFirst();
 				}
 			}//mapitem
 		}
@@ -1607,7 +1611,7 @@ void cSkills::RandomSteal(int s)
 			
 			if (pc_npc->isNpc()) npctalkall(DEREF_P_CHAR(pc_npc), "Guards!! A thief is amoung us!",0);
 			
-			if (pc_npc->isInnocent() && pc_currchar->attacker != DEREF_P_CHAR(pc_npc) && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
+			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
 				criminal(DEREF_P_CHAR(pc_currchar));//Blue and not attacker and not guild
 			
 			if (items[item].name[0] != '#')

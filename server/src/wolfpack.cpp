@@ -1003,7 +1003,7 @@ void deathstuff(int i)
 		pc_player->id1=pc_player->xid1;
 		pc_player->id2=pc_player->xid2;
 		pc_player->polymorph=false;
-		teleport(i);
+		teleport(DEREF_P_CHAR(pc_player));
 	}
 
 	pc_player->xid1=pc_player->id1; // lb bugfix
@@ -1011,15 +1011,18 @@ void deathstuff(int i)
 	pc_player->xskin = pc_player->skin;
 	pc_player->murdererSer = 0;	// Reset previous murderer serial # to zero
 
-	if (pc_player->attacker > -1) 
-		strcpy(murderername,chars[pc_player->attacker].name); 
+	if (pc_player->attacker != INVALID_SERIAL)
+	{
+		P_CHAR pc_attacker = FindCharBySerial(pc_player->serial);
+		strcpy(murderername, pc_attacker->name); 
+	}
 	else 
 		murderername[0]=0;
 	AllCharsIterator iter_char;
 	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
 	{
 		P_CHAR pc_t = iter_char.GetData();
-		if (pc_t->targ == i && !pc_t->free)
+		if (pc_t->targ == DEREF_P_CHAR(pc_player) && !pc_t->free)
 		{
 			if (pc_t->npcaitype==4) //LB change from 0x40 to 4
 			{
@@ -1030,28 +1033,29 @@ void deathstuff(int i)
 			}
 			pc_t->targ=-1;
 			pc_t->timeout=0;
-			if (pc_t->attacker>-1 && pc_t->attacker<cmem)
+			if (pc_t->attacker != INVALID_SERIAL)
 			{
-				chars[pc_t->attacker].resetAttackFirst();
-				chars[pc_t->attacker].attacker=-1; // lb crashfix
+				P_CHAR pc_attacker = FindCharBySerial(pc_t->attacker);
+				pc_attacker->resetAttackFirst();
+				pc_attacker->attacker = INVALID_SERIAL; // lb crashfix
 			}
-			pc_t->attacker=-1;
+			pc_t->attacker = INVALID_SERIAL;
 			pc_t->resetAttackFirst();
 
 			if (pc_t->npcaitype==4 || pc_t->npcaitype==9) // Ripper...so non human npcs disapear if killed by guards.
 			{
 				if (pc_player->isNpc() && !pc_player->isHuman())
-					Npcs->DeleteChar(i);
+					Npcs->DeleteChar(DEREF_P_CHAR(pc_player));
 			}
 
 			if(pc_t->isPlayer() && !pc_t->inGuardedArea())
 			{//AntiChrist
-				Karma(DEREF_P_CHAR(pc_t),i,(0-(pc_player->karma)));
+				Karma(DEREF_P_CHAR(pc_t),DEREF_P_CHAR(pc_player),(0-(pc_player->karma)));
 				Fame(DEREF_P_CHAR(pc_t),pc_player->fame);
 				//murder count \/
 				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
 				{
-					if(pc_player->isInnocent() && Guilds->Compare(DEREF_P_CHAR(pc_t),i)==0 && pc_t->attackfirst == 1)
+					if(pc_player->isInnocent() && Guilds->Compare(DEREF_P_CHAR(pc_t),DEREF_P_CHAR(pc_player))==0 && pc_t->attackfirst == 1)
 					{
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
@@ -1078,8 +1082,8 @@ void deathstuff(int i)
 		}
 	}
 
-	p=packitem(i);
-	z=calcSocketFromChar(i);
+	p=packitem(DEREF_P_CHAR(pc_player));
+	z=calcSocketFromChar(DEREF_P_CHAR(pc_player));
 	if (z!=-1) j=unmounthorse(z);
 	int ci=0,loopexit=0;
 	P_ITEM pi_j;
@@ -1104,18 +1108,15 @@ void deathstuff(int i)
 		pc_player->id2=0x92;
 	}
 
-	PlayDeathSound(i);
+	PlayDeathSound(DEREF_P_CHAR(pc_player));
 	pc_player->skin = 0x0000; // Undyed
 	pc_player->dead = true;	// Dead
 	pc_player->hp = 0;		// With no hp left
 	pc_player->poisoned = 0;
 	pc_player->poison = 0;	//AntiChrist
-#ifdef DEBUG
-	clConsole.send("%s killed by %s.\n",pc_player->name,chars[pc_player->attacker].name);
-#endif
 	// Make the corpse
 	sprintf((char*)temp,"corpse of %s",pc_player->name);
-	const P_ITEM pi_c = Items->SpawnItem(i, 1, (char*)temp, 0, 0x2006, pc_player->xskin, 0);
+	const P_ITEM pi_c = Items->SpawnItem(DEREF_P_CHAR(pc_player), 1, (char*)temp, 0, 0x2006, pc_player->xskin, 0);
 	if(pi_c==NULL) return;//AntiChrist to preview crashes
 	// Corpse highlighting.. Ripper
 	if(pc_player->isPlayer())
@@ -1129,7 +1130,7 @@ void deathstuff(int i)
     if(pc_player->isNpc() || pc_player->isPlayer())
 
 	ele=pi_c->amount=(pc_player->xid1<<8)+pc_player->xid2; // Amount == corpse type
-	pi_c->morey=ishuman(i);//is human?? - AntiChrist
+	pi_c->morey=ishuman(DEREF_P_CHAR(pc_player));//is human?? - AntiChrist
 	pi_c->carve=pc_player->carve;//store carve section - AntiChrist
 	strcpy(pi_c->name2,pc_player->name);
 
@@ -1173,8 +1174,8 @@ void deathstuff(int i)
 			// Ripper...so order/chaos shields disappear when on corpse backpack.
 			if( pi_j->id1 == 0x1B && ( pi_j->id2 == 0xC3 || pi_j->id2 == 0xC4 ) )
 			{
-				soundeffect2(i, 0x01, 0xFE);
-				staticeffect(i, 0x37, 0x2A, 0x09, 0x06);
+				soundeffect2(DEREF_P_CHAR(pc_player), 0x01, 0xFE);
+				staticeffect(DEREF_P_CHAR(pc_player), 0x37, 0x2A, 0x09, 0x06);
 				Items->DeleItem( pi_j );
 			}
 			if (pi_j->type==1 && pi_j->layer!=0x1A && pi_j->layer!=0x1B &&
@@ -1196,8 +1197,8 @@ void deathstuff(int i)
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id1 == 0x1B && ( pi_k->id2 == 0xC3 || pi_k->id2 == 0xC4 ) )
 						{
-							soundeffect2(i, 0x01, 0xFE);
-							staticeffect(i, 0x37, 0x2A, 0x09, 0x06);
+							soundeffect2(DEREF_P_CHAR(pc_player), 0x01, 0xFE);
+							staticeffect(DEREF_P_CHAR(pc_player), 0x37, 0x2A, 0x09, 0x06);
 							Items->DeleItem( pi_k );
 						}
 						RefreshItem(pi_k);//AntiChrist
@@ -1215,7 +1216,7 @@ void deathstuff(int i)
 				clearmsg[6]=pc_player->ser4;
 				clearmsg[7]=0x00;
 				for (l=0;l<now;l++)
-					if (perm[l] && inrange1p(i, currchar[l])) Xsend(l, clearmsg, 8);
+					if (perm[l] && inrange1p(DEREF_P_CHAR(pc_player), currchar[l])) Xsend(l, clearmsg, 8);
 			}//else if it's a normal item but ( not newbie and not bank items )
 			else if ((!(pi_j->priv&0x02)) && pi_j->layer!=0x1D)
 			{
@@ -1250,21 +1251,21 @@ void deathstuff(int i)
 	if (pc_player->isPlayer())
 	{
 		strcpy((char*)temp,"a Death Shroud");
-		c=Items->SpawnItem(z, i, 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0, 0);
+		c=Items->SpawnItem(z, DEREF_P_CHAR(pc_player), 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0, 0);
 		if(c==-1) return;//AntiChrist to preview crashes
 		const P_ITEM pi_c=MAKE_ITEMREF_LR(c);	// on error return
 		pc_player->robe = pi_c->serial; 
-		pi_c->SetContSerial(chars[i].serial);
+		pi_c->SetContSerial(pc_player->serial);
 		pi_c->layer=0x16;
 		pi_c->def=1;
 	}
-	if (SrvParms->showdeathanim) deathaction(i, corpsenum);
+	if (SrvParms->showdeathanim) deathaction(DEREF_P_CHAR(pc_player), corpsenum);
 	if (pc_player->account!=-1) // LB
 	{
 		
-		teleport(i);
+		teleport(DEREF_P_CHAR(pc_player));
 	
-		q = calcSocketFromChar(i);
+		q = calcSocketFromChar(DEREF_P_CHAR(pc_player));
 		if (q>-1) deathmenu(q);
 	}
 //	if ((ele==13)||(ele==15)||(ele==16)||(ele==574))//-Frazurbluu, we're gonna remove this strange little function :)
@@ -1278,7 +1279,7 @@ void deathstuff(int i)
 //		pi_c->corpse=0; 
 //	}
 	RefreshItem(corpsenum);//AntiChrist
-	if (pc_player->isNpc()) Npcs->DeleteChar(i);
+	if (pc_player->isNpc()) Npcs->DeleteChar(DEREF_P_CHAR(pc_player));
 	if(ele==65535) Items->DeleItem(corpsenum);
 }
 
@@ -2564,7 +2565,7 @@ void mounthorse(int s, int x) // Remove horse char and give player a horse item
 		pc_mount->id1 = id1; 
 		pc_mount->id2 = id2; 
 		pc_mount->war = 0; 
-		pc_mount->attacker=-1; 
+		pc_mount->attacker = INVALID_SERIAL; 
 		pc_mount->pos = Coord_cl(xx, yy, zz);
 		
 		mapRegions->Remove(pc_mount); 
@@ -3607,32 +3608,32 @@ void npcattacktarget(int target2, int target)
 	P_CHAR pc_target  = MAKE_CHARREF_LR(target);
 	P_CHAR pc_target2 = MAKE_CHARREF_LR(target2);
 	if (!(line_of_sight(-1,pc_target2->pos, pc_target->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) return; //From Leviathan - Morrolan
-	playmonstersound(target, pc_target->id1, pc_target->id2, SND_STARTATTACK);
+	playmonstersound(DEREF_P_CHAR(pc_target), pc_target->id1, pc_target->id2, SND_STARTATTACK);
 	int i;
 	unsigned int cdist=0 ;
 
 	if (pc_target->dead || pc_target2->dead) return;
 
 	if (pc_target->targ!=-1)
-		cdist=chardist(target, pc_target->targ);
+		cdist=chardist(DEREF_P_CHAR(pc_target), pc_target->targ);
 	else cdist=30;
 
-	if (cdist>chardist(target, target2))
+	if (cdist>chardist(DEREF_P_CHAR(pc_target), DEREF_P_CHAR(pc_target2)))
 	{
-		pc_target->targ=target2;
-		pc_target->attacker=target2;
+		pc_target->targ = DEREF_P_CHAR(pc_target2);
+		pc_target->attacker = pc_target2->serial;
 		pc_target->setAttackFirst();
 	}
 
 	if (pc_target2->targ!=-1)
-		cdist=chardist(target2, pc_target2->targ);
+		cdist=chardist(DEREF_P_CHAR(pc_target2), pc_target2->targ);
 	else cdist=30;
 
-	if ((cdist>chardist(target, target2))&&
+	if ((cdist>chardist(DEREF_P_CHAR(pc_target), DEREF_P_CHAR(pc_target2)))&&
 		((!(pc_target2->npcaitype==4)||(!((pc_target2->targ==-1)))))) // changed from 0x40 to 4, LB
 	{
-		pc_target2->targ=target;
-		pc_target2->attacker=target;
+		pc_target2->targ=DEREF_P_CHAR(pc_target);
+		pc_target2->attacker = pc_target->serial;
 		pc_target2->resetAttackFirst();
 	}
 
@@ -3644,12 +3645,12 @@ void npcattacktarget(int target2, int target)
 
 	if (pc_target->isNpc())
 	{
-		if (!(pc_target->war)) npcToggleCombat(target);
+		if (!(pc_target->war)) npcToggleCombat(DEREF_P_CHAR(pc_target));
 		pc_target->setNextMoveTime();
 	}
 	if ((pc_target2->isNpc())&&!(pc_target2->npcaitype==4)) // changed from 0x40 to 4, LB
 	{
-		if (!(pc_target2->war)) npcToggleCombat(target2);
+		if (!(pc_target2->war)) npcToggleCombat(DEREF_P_CHAR(pc_target2));
 		pc_target2->setNextMoveTime();
 	}
 	 
@@ -3657,7 +3658,7 @@ void npcattacktarget(int target2, int target)
 
 	for (i=0;i<now;i++)
 		{
-		 if (inrange1p(currchar[i], target)&&perm[i])
+		 if (inrange1p(currchar[i], DEREF_P_CHAR(pc_target))&&perm[i])
 		 {
 			pc_target->emotecolor1=0x00;
 			pc_target->emotecolor2=0x26;

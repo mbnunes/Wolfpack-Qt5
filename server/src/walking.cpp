@@ -1368,7 +1368,7 @@ void walking2(CHARACTER s) // Only for switching to combat mode
 					
 					if (!pc_s->war) // we have to execute this no matter if invisble or not LB
 					{
-						pc_s->attacker=-1;
+						pc_s->attacker = INVALID_SERIAL;
 						pc_s->targ=-1;
 					}
 					
@@ -1565,13 +1565,12 @@ void npcMovement2(unsigned int currenttime, int i)//Lag fix
 	
 		if (pc_i->war && pc_i->npcWander != 5) 
 		{ // a very simple pathfinding algorithm
-			l=pc_i->attacker;					
-			if (l>-1)
+			P_CHAR pAtttacker = FindCharBySerial(pc_i->attacker);					
+			if (pAttacker != NULL)
 			{
-				P_CHAR pAttacker = MAKE_CHARREF_LR(l);
 				if ((chardist(DEREF_P_CHAR(pc_i), l)>1 || chardir(DEREF_P_CHAR(pc_i), l)!=pc_i->dir))
 				{
-					if (online(l)||chars[l].isNpc()) // LB bugkilling, was online(calcsocket(l)
+					if (online(DEREF_P_CHAR(pAttacker)||pAttacker->isNpc()) // LB bugkilling, was online(calcsocket(l)
 					{
 						j=chardir(DEREF_P_CHAR(pc_i), pc_i->attacker);
 #if 0

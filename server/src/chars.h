@@ -184,7 +184,7 @@ public:
 	unsigned int regen, regen2, regen3;//Regeneration times for mana, stamin, and str
 	short inputmode;	// Used for entering text; 0= none, 4=rename rune
 	int inputitem;		// index of item the text is referring to
-	int attacker; // Character who attacked this character
+	SERIAL attacker; // Character's serial who attacked this character
 	unsigned int npcmovetime; // Next time npc will walk
 	char npcWander; // NPC Wander Mode
 	char oldnpcWander; // Used for fleeing npcs

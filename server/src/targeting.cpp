@@ -690,7 +690,7 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 		pc->fame,pc->karma,pc->deaths,pc->kills,
 		pc->npcaitype, pc->npcWander, pc->weight);
 	sysmessage(s, (char*)temp);
-	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker [%i] Target [%i] Carve[%i]", //Changed by Magius(CHE)
+	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target [%i] Carve[%i]", //Changed by Magius(CHE)
 		pc->poisoned,pc->poison,pc->hunger,pc->attacker,pc->targ,pc->carve); //Changed by Magius(CHE)
 	sysmessage(s, (char*)temp);
 	Gumps->Open(s, c, 0, 8);
@@ -849,17 +849,16 @@ static void KillTarget(P_CHAR pc, int ly)
 
 void cTargets::GhostTarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if(i!=-1)
+	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+	if(pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if(!pc->dead)
 		{
-			pc->attacker=currchar[s]; //AntiChrist -- for forensics ev
-			bolteffect(i, true);
-			soundeffect2(i, 0x00, 0x29);
-			deathstuff(i);
+			P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+			pc->attacker=pc_currchar->serial; //AntiChrist -- for forensics ev
+			bolteffect(DEREF_P_CHAR(pc), true);
+			soundeffect2(DEREF_P_CHAR(pc), 0x00, 0x29);
+			deathstuff(DEREF_P_CHAR(pc));
 		}
 		else
 			sysmessage(s,"That player is already dead.");
@@ -2526,7 +2525,7 @@ bool cTargets::NpcResurrectTarget(CHARACTER i)
 		pc->hp=pc->st;// /10;
 		pc->stm=pc->effDex();// /10;
 		pc->mn=pc->in; ///10;
-		pc->attacker=-1;
+		pc->attacker = INVALID_SERIAL;
 		pc->resetAttackFirst();
 		pc->war=0;
 

@@ -40,7 +40,7 @@
 void RcvAttack(P_CLIENT ps)
 {
 	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
+	CHARACTER cc = ps->GetCurrChar();
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
 	int j;
 
@@ -93,11 +93,11 @@ void RcvAttack(P_CLIENT ps)
 		SndAttackOK(s, pc_i->serial);	//keep the target highlighted       
 		if (!(pc_i->targ==-1))
 		{
-			pc_i->attacker=cc;
+			pc_i->attacker = pc_currchar->serial;
 			pc_i->resetAttackFirst();
 		}
 		pc_currchar->setAttackFirst();
-		pc_currchar->attacker = DEREF_P_CHAR(pc_i);
+		pc_currchar->attacker = pc_i->serial;
  
 		pc_currchar->dir = chardir(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_i));	// turn to attacker, LB (& Duke)
 

@@ -740,7 +740,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 	{
 		pc_attacker->war=0; // LB
 		pc_attacker->timeout=0;
-		pc_attacker->attacker=-1;
+		pc_attacker->attacker = INVALID_SERIAL;
 		pc_attacker->resetAttackFirst();
 		return;
 	}
@@ -766,12 +766,13 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 				{ // else -> npcaityes != 4
 					pc_attacker->targ=-1;
 					pc_attacker->timeout=0;
-					if (pc_attacker->attacker>=0 && pc_attacker->attacker<cmem)
+					P_CHAR pc = FindCharBySerial(pc_attacker->attacker);
+					if (pc != NULL)
 					{
-						chars[pc_attacker->attacker].resetAttackFirst();
-						chars[pc_attacker->attacker].attacker=-1; // lb crashfix
+						pc->resetAttackFirst();
+						pc->attacker = INVALID_SERIAL; // lb crashfix
 					}
-					pc_attacker->attacker=-1;
+					pc_attacker->attacker=INVALID_SERIAL;
 					pc_attacker->resetAttackFirst();
 					if (pc_attacker->isNpc() && pc_attacker->npcaitype!=17 && !pc_attacker->dead && pc_attacker->war)
 						npcToggleCombat(a); // ripper
@@ -1218,7 +1219,7 @@ void cCombat::SpawnGuard(CHARACTER s, CHARACTER i, int x, int y, signed char z)
 		
 		pc_guard->npcaitype = 4; // CITY GUARD, LB, bugfix, was 0x40 -> not existing
 		pc_guard->setAttackFirst();
-		pc_guard->attacker = s;
+		pc_guard->attacker = pc_offender->serial;
 		pc_guard->targ = s;
 		pc_guard->npcWander = 2;  // set wander mode Tauriel
 		npcToggleCombat(DEREF_P_CHAR(pc_guard));

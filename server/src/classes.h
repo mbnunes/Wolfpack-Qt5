@@ -385,7 +385,7 @@ public:
 	void PotionToBottle(CHARACTER s, int mortar);
 	char CheckSkill(int s,unsigned short int sk, int low, int high);
 	void CreateBandageTarget(int s);
-	void HealingSkillTarget(int s);
+	void HealingSkillTarget(UOXSOCKET s);
 	void SpiritSpeak(int s);
 	void ArmsLoreTarget(int s);
 	void ItemIdTarget(int s);

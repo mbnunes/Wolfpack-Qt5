@@ -193,7 +193,7 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 
 	p_pet->setId(id); 
 	p_pet->war=0;
-	p_pet->attacker=-1;
+	p_pet->attacker = INVALID_SERIAL;
 	pPlayer->war=0;
 	pPlayer->targ=-1;
 	p_pet->pos.x=xx;

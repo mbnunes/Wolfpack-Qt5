@@ -1640,17 +1640,17 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 				case 0xB8:// T2A Profile request			
 					if (buffer[s][3] == 0) //Read request
 					{
-						CHARACTER i = calcCharFromSer(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
-						if (chars[i].isPlayer())
+						P_CHAR pc = FindCharBySerial(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
+						if (pc->isPlayer())
 						{
 							unsigned char PACKET0xB8[100] = {'\xB8','\x00',};
 							unsigned int tlen = 7;
-							PACKET0xB8[4] = chars[i].ser1;
-							PACKET0xB8[5] = chars[i].ser2;
-							PACKET0xB8[6] = chars[i].ser3;
-							PACKET0xB8[7] = chars[i].ser4;
-							strcpy((char*)&PACKET0xB8[8], complete_title(i));
-							tlen += strlen(complete_title(i))+1;
+							PACKET0xB8[4] = pc->ser1;
+							PACKET0xB8[5] = pc->ser2;
+							PACKET0xB8[6] = pc->ser3;
+							PACKET0xB8[7] = pc->ser4;
+							strcpy((char*)&PACKET0xB8[8], complete_title(DEREF_P_CHAR(pc)));
+							tlen += strlen(complete_title(DEREF_P_CHAR(pc)))+1;
 							PACKET0xB8[tlen] = 0;
 							tlen++;
 							//strcpy((char*)&PACKET0xB8[tlen], "Can not determine this account's age.");

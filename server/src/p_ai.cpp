@@ -376,12 +376,13 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) //Lag Fix -- Zippy
 				if (pc != NULL)
 				{
 					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
+					d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
 					if (d > 10 || pc->isNpc() || pc->dead || !pc->guarded || !onl)
 						continue;
 						if(pc->Owns(pc_i))
 						{
-							npcattacktarget(i,pc->attacker);
+							P_CHAR pc_target = FindCharBySerial(pc->attacker);
+							npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_target));
 							return;
 						}
 				}
@@ -422,7 +423,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) //Lag Fix -- Zippy
 					d = chardist(i, DEREF_P_CHAR(pc));
 					if (pc->isNpc() || pc->dead || !onl)
 						continue;
-						if (d > 4 && pc_i->attacker==DEREF_P_CHAR(pc))
+						if (d > 4 && pc_i->attacker == pc->serial)
 						{
 							if (Combat->GetBowType(DEREF_P_CHAR(pc))!=0)
 							{

@@ -1346,7 +1346,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             
             if (!pc->war)
             {
-                //                              pc->attacker=-1;
+                //                              pc->attacker=INVALID_SERIAL;
                 pc->targ=-1;
             }
             Network->xSend(i, extmove, 17, 0);
@@ -1553,14 +1553,14 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 #endif
 		if (pc_i->war && pc_i->npcWander != 5)
         {
-            l=pc_i->attacker;
-            if (l!=-1)
+            P_CHAR pc_attacker = FindCharBySerial(pc_i->attacker);
+            if (pc_attacker != NULL)
             {
-                if ( chardist(DEREF_P_CHAR(pc_i), l) > 1 /* || chardir(i, l)!=chars[i].dir // by Thyme: causes problems, will fix */)
+                if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_attacker)) > 1 /* || chardir(i, l)!=chars[i].dir // by Thyme: causes problems, will fix */)
                 {
-                    if ( online( l ) || chars[l].npc )
+                    if ( online( DEREF_P_CHAR(pc_attacker) ) || pc_attacker->npc )
                     {
-						PathFind(pc_i, chars[l].pos.x, chars[l].pos.y);
+						PathFind(pc_i, pc_attacker->pos.x, pc_attacker->pos.y);
                         j = chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
                         if ( ( pc_i->dir & 0x07 ) == ( j & 0x07 ) ) pc_i->pathnum++;
                         Walking(pc_i, j, 256);
@@ -1579,26 +1579,28 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
             case 0: // No movement
                 break;
             case 1: // Follow the follow target
-                k=(pc_i->ftarg);
-                if (k < 0 || k>=(int)cmem) return;
-                if ( online(k) || chars[k].npc )
-                {
-                    if ( chardist(DEREF_P_CHAR(pc_i), k) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
-                    {
-                        PathFind(pc_i,chars[k].pos.x,chars[k].pos.y);
-                        j=chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
-                        pc_i->pathnum++;
-                        Walking(pc_i,j,256);
-                    }
-					// Dupois - Added April 4, 1999
-					// Has the Escortee reached the destination ??
-					if( ( pc_i->ftarg != -1 ) && ( !chars[k].dead ) && ( pc_i->questDestRegion == pc_i->region ) )
-					{
-						// Pay the Escortee and free the NPC
-						MsgBoardQuestEscortArrive( DEREF_P_CHAR(pc_i), calcSocketFromChar( k ) );
-					}
+				{
+					P_CHAR pc_target = MAKE_CHAR_REF(pc_i->ftarg);
+	                if (pc_target == NULL) return;
+		            if ( online(DEREF_P_CHAR(pc_target)) || pc_target->npc )
+			        {
+				        if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_target)) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
+					    {
+						    PathFind(pc_i, pc_target->pos.x, pc_target->pos.y);
+	                        j=chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+		                    pc_i->pathnum++;
+			                Walking(pc_i,j,256);
+				        }
+						// Dupois - Added April 4, 1999
+						// Has the Escortee reached the destination ??
+						if( ( !pc_target->dead ) && ( pc_i->questDestRegion == pc_i->region ) )
+						{
+							// Pay the Escortee and free the NPC
+							MsgBoardQuestEscortArrive( DEREF_P_CHAR(pc_i), calcSocketFromChar( DEREF_P_CHAR(pc_target) ) );
+						}
 					// End - Dupois
-                }
+	                }
+				}
                 break;
             case 2: // Wander freely, avoiding obstacles.
                 if (j<8 || j>32) dnpctime=5;
