@@ -6,8 +6,8 @@
 #################################################################
 
 import wolfpack
-from wolfpack.consts import *
-from random import choice, randrange
+import random
+from wolfpack.consts import ARCHERY
 from combat.utilities import weaponskill
 
 # failure texts
@@ -133,12 +133,12 @@ def onUse( char, item ):
 	# This increases the users skill
 	# 10% of destroying the ammo on failure
 	if( ( not char.checkskill( ARCHERY, 0, 1000 ) ) ):
-		if( not randrange( 0, 9 ) ):
+		if( not random.randrange( 0, 9 ) ):
 			char.emote( "You see " + char.name + "'s poor shot destroys the " + ammoname )
 		else:
-			char.emote( "You see " + char.name + "'s " + choice( failureText ) )
+			char.emote( "You see " + char.name + "'s " + random.choice( failureText ) )
 	else:
-		char.emote( "You see " + char.name + "'s " + choice( successText ) )
+		char.emote( "You see " + char.name + "'s " + random.choice( successText ) )
 
 		# Increase the ammo we have in the butte
 		if( ammo == 0xf3f ):

@@ -7,6 +7,8 @@
 # Handles lightsource related stuff                             #
 #===============================================================#
 
+import wolfpack
+
 # List of "burning" lightsources
 burning = [ 0x9fd, 0xa02, 0xa07, 0xa0c, 0xa0f, 0xa12, 0xa15, 0xa1a, 0xa22, 0xb1a, 0xb1d, 0xb20, 0xb22, 0xb24, 0xb26, 0x142c, 0x1430, 0x1434 ]
 
@@ -94,9 +96,9 @@ def onUse( char, item ):
 
 	# This is no Light Source
 	else:
-		return 0
+		return False
 
-	return 1
+	return True
 
 def onDropOnItem( container, item ):
 	dropper = item.container
@@ -107,7 +109,7 @@ def onDropOnItem( container, item ):
 		item.update()
 		dropper.soundeffect( 0x226, 0 )
 
-	return 0
+	return False
 
 def onDropOnChar( char, item ):
 
@@ -119,4 +121,4 @@ def onDropOnChar( char, item ):
 		item.update()
 		dropper.soundeffect( 0x226, 0 )
 
-	return 0
+	return False

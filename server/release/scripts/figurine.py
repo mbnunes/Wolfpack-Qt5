@@ -1,6 +1,6 @@
 import wolfpack
 from wolfpack import console
-from wolfpack.consts import *
+from wolfpack.consts import SND_IDLE, ANIM_CASTDIRECTED
 
 #
 # Unstable the NPC, re-tame it and

@@ -33,8 +33,8 @@ def onUse( char, item ):
 			gold = wolfpack.additem( "eed" )
 			gold.amount = min( [ value, 60000 ] )
 			gold.container = bankbox
-
 			value -= min( [ value, 60000 ] )
+
 		amount = str( value )
 		char.soundeffect( 0x37, 0 )
 		char.socket.sendcontainer( bankbox )

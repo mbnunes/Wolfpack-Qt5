@@ -1,13 +1,15 @@
 # Several ID based Actions for environmental objects
 # like plants and oters
 
-from wolfpack.consts import *
-from wolfpack.utilities import tobackpack
-from wolfpack.gumps import cGump
-from math import floor
 import wolfpack
 import time
 import random
+from wolfpack.consts import COTTONPLANTS_REGROW, ANIM_ATTACK5, TINKERING, \
+	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD
+from wolfpack.utilities import tobackpack
+from wolfpack.gumps import cGump
+from math import floor
+
 
 def cotton( char, item ):
 	currenttime = int( time.time() )

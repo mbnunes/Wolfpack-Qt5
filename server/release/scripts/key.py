@@ -1,8 +1,8 @@
 
-from wolfpack.consts import *
 import wolfpack
-from wolfpack.gumps import cGump
 import random
+from wolfpack.gumps import cGump
+from wolfpack.consts import TINKERING
 
 def gump_response(char, args, response):
   if len(args) < 1 or response.button != 1:

@@ -1,8 +1,8 @@
 
 import wolfpack
-from wolfpack.consts import *
-from struct import unpack
 import time
+from wolfpack.consts import LAYER_NPCRESTOCK
+from struct import unpack
 from math import floor
 
 def bulletinboard(socket, packet):

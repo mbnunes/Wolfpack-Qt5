@@ -6,6 +6,7 @@
 #################################################################
 
 import wolfpack
+from wolfpack.consts import ITEMID
 
 def onUse( char, item ):
 	if( not char.socket ):
@@ -15,7 +16,7 @@ def onUse( char, item ):
 		char.socket.sysmessage( "You are too far away to use this" )
 		return 1
 
-	if( char.checkskill( wolfpack.ITEMID, 0, 100 ) ):
+	if( char.checkskill( ITEMID, 0, 100 ) ):
 		# Not animated
 		if( item.id == 0x1230 ):
 			item.soundeffect( 0x56 )

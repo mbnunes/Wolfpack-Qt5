@@ -1,9 +1,9 @@
 
 import wolfpack
-from wolfpack import additem
-from wolfpack.utilities import tobackpack
-from wolfpack.consts import *
 import random
+import wolfpack.utilities
+from wolfpack.consts import HEALING, ANATOMY
+
 
 def onUse( char, item ):
 	# Bandages have to be in backpack
@@ -32,7 +32,7 @@ def wash_response( char, args, target ):
 
 	if not bandages:
 		return
-		
+
 	if (target.item and target.item.getoutmostchar() and target.item.getoutmostchar() != char) or not char.canreach(target.pos, 5):
 		char.socket.sysmessage("You can't reach that.")
 		return
@@ -201,7 +201,7 @@ def bandage_timer( char, args ):
 			for item in target.content:
 				# Random Position (for now, maybe storing the original position in a tag would be good)
 				# Handle Weight but no Auto Stacking
-				backpack.additem( item, 1, 1, 0 )
+				backpack.wolfpack.additem( item, 1, 1, 0 )
 				item.update()
 
 			target.delete()
@@ -249,11 +249,11 @@ def bandage_timer( char, args ):
 	# Create bloody bandages
 	# This is target independent
 	if baseid == 0xe21:
-		item = additem( 'e20' )
-		if not tobackpack( item, char ):
+		item = wolfpack.additem( 'e20' )
+		if not wolfpack.utilities.tobackpack( item, char ):
 			item.update()
 
 	elif baseid == 0xee9:
-		item = additem( 'e22' )
-		if not tobackpack( item, char ):
+		item = wolfpack.additem( 'e22' )
+		if not wolfpack.utilities.tobackpack( item, char ):
 			item.update()

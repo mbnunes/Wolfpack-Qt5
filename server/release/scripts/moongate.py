@@ -5,6 +5,7 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
+import wolfpack
 from wolfpack.gumps import cGump
 
 def onUse( char, item ):

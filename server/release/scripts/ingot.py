@@ -1,4 +1,5 @@
 
+import wolfpack
 from skills import mining
 
 # ingot script

@@ -1,8 +1,8 @@
 
-from wolfpack.consts import *
-from wolfpack import console
-from wolfpack.gumps import *
 import wolfpack
+from wolfpack.consts import LOG_ERROR
+from wolfpack import console
+from wolfpack.gumps import cGump
 
 #
 # Teleport someone trough

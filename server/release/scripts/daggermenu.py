@@ -1,3 +1,5 @@
+
+import wolfpack
 from wolfpack.gumps import cGump
 
 scrLength = 800

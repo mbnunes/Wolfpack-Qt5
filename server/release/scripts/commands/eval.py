@@ -16,4 +16,4 @@ def evalcommand(socket, command, arguments):
 	socket.sysmessage('Executed the python scriptlet.')
 
 def onLoad():
-	registercommand('eval', evalcommand)
+	wolfpack.registercommand('eval', evalcommand)

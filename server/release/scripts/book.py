@@ -1,7 +1,7 @@
 
 import wolfpack
 from wolfpack import console
-from wolfpack.consts import *
+from wolfpack.consts import LOG_ERROR
 
 def sendPage(socket, serial, page, lines):
 	packetlength = 13

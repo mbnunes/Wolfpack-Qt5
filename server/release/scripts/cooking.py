@@ -8,7 +8,7 @@
 # Cooking
 import wolfpack
 import wolfpack.utilities
-from wolfpack.consts import *
+from wolfpack.consts import COOKING
 import random
 
 # Ids of items we can cook on

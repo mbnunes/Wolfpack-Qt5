@@ -2,13 +2,13 @@
 # Fear the wrath of the miners!
 # ~ Dreoth
 
-from wolfpack.consts import *
-import whrandom
 import wolfpack
 import skills
+import whrandom
+import wolfpack.utilities
+from wolfpack.consts import GRAY, MINING, SOUND_HAMMER_1
 from skills import mining
 from wolfpack.time import *
-from wolfpack.utilities import *
 from random import randrange, randint
 from system.lootlists import DEF_ORES # Gets BaseIDs
 

@@ -5,13 +5,13 @@
 #  ( (  ;._ \\ ctr # Last Modification: Sep, 27 '03	        #
 #################################################################
 
-from wolfpack.consts import *
-import whrandom
 import wolfpack
 import skills
-from skills.mining import *
+import whrandom
+import wolfpack.utilities
+from wolfpack.consts import GRAY, LAYER_MOUNT
 from wolfpack.time import *
-from wolfpack.utilities import *
+
 
 def onUse( char, tool ):
 	#Already digging ?
@@ -33,7 +33,7 @@ def onUse( char, tool ):
 		return True
 
 	# Is that mining tool ?
-	if isminingtool( tool ):
+	if wolfpack.utilities.isminingtool( tool ):
 		# Where do you wish to dig?
 		char.socket.clilocmessage( 503033, "", GRAY)
 		char.socket.attachtarget( "skills.mining.response", [ tool ] )

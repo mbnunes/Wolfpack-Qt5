@@ -5,7 +5,8 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
-from wolfpack import *
+import wolfpack
+from wolfpack.consts import STEALING
 
 # Pickpocket dips
 # Version 1: 0x1EC0 (Animated: 0x1EC0), Facing E/W
@@ -67,7 +68,7 @@ def onUse( char, item ):
 
 # Reset the id of a swinging dummy
 def resetid( iSerial ):
-	item = finditem( iSerial )
+	item = wolfpack.finditem( iSerial )
 
 	if( item ):
 		if( item.id == 0x1EC1 or item.id == 0x1EC4 ):

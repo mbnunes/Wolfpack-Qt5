@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolfpack.consts import *
+from wolfpack.consts import LOCKPICKING
 import random
 
 def response(char, args, target):

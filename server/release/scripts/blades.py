@@ -8,13 +8,12 @@
 # Script for bladed weapons
 
 import wolfpack
-import wolfpack.time
-from wolfpack.consts import *
-from wolfpack.utilities import *
-from skills.lumberjacking import *
-import wolfpack.utilities
-from wolfpack import settings
 import whrandom
+import skills.lumberjacking
+from wolfpack import utilities
+from wolfpack import settings
+from wolfpack.consts import *
+
 #import weapons.blades
 
 # Lists of IDs
@@ -70,16 +69,16 @@ def response( char, args, target ):
 			target.char.id = 223
 			target.char.baseid = 'sheep_sheered'
 			target.char.update()
-			
+
 			# Create Wool
 			wool = wolfpack.additem("df8")
 			wool.amount = 2
-	
-			if not wolfpack.utilities.tobackpack(wool, char):
+
+			if not utilities.tobackpack(wool, char):
 				wool.update()
 
 			char.socket.clilocmessage( 0x7A2E4 ) # You place the gathered wool into your backpack.
-			
+
 			# Let the wool regrow (minutes)
 			delay = settings.getnumber('Game Speed', 'Regrow Wool Minutes', 180, 1)
 			delay *= 60000 # Miliseconds per Minute
@@ -101,7 +100,7 @@ def response( char, args, target ):
 	elif target.model != 0:
 		treeid = target.model
 
-	if istree(treeid):
+	if utilities.istree(treeid):
 		# Axes/Polearms get Logs, Swords get kindling.
 		# Also allows a mace's war axe to be use. 0x13af and 0x13b0
 		if item.type == 1002 or item.id == 0x13af or item.id == 0x13b0:
@@ -140,7 +139,7 @@ def carve_corpse( char, corpse ):
 	except:
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 		return
-		
+
 	if corpse.hastag('carved') or carve == '':
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 		return
@@ -158,7 +157,7 @@ def carve_corpse( char, corpse ):
 
 		item = wolfpack.additem( id )
 		item.amount = amount
-		if not wolfpack.utilities.tocontainer( item, corpse ):
+		if not utilities.tocontainer( item, corpse ):
 			item.update()
 
 	# Create Random Blood
@@ -175,6 +174,6 @@ def carve_corpse( char, corpse ):
 def cut_fish( char, item ):
 		item_new = wolfpack.additem( "97a" )
 		item_new.amount = item.amount * 2
-		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
+		if not utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 		item.delete()

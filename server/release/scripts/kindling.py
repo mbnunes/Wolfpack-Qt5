@@ -12,7 +12,7 @@
 
 import wolfpack
 import wolfpack.time
-from wolfpack.consts import *
+from wolfpack.consts import CAMPING
 
 def onUse( char, item ):
 	if( not char.socket ):
@@ -55,4 +55,4 @@ def onUse( char, item ):
 	# Delete the kindlings
 	item.delete()
 
-	return 1
+	return True

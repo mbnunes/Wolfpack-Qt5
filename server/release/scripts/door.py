@@ -8,17 +8,16 @@
 #===============================================================#
 
 import wolfpack
-from wolfpack.utilities import *
 
 # Sound constants for opening and closing a door
-SOUND_OPENWOOD = 0x00EA
-SOUND_OPENGATE = 0x00EB
-SOUND_OPENSTEEL = 0x00EC
-SOUND_OPENSECRET = 0x00ED
-SOUND_CLOSEWOOD = 0x00F1
-SOUND_CLOSEGATE = 0x00F2
-SOUND_CLOSESTEEL = 0x00F3
-SOUND_CLOSESECRET = 0x00F4
+SOUND_OPENWOOD = 0xEA
+SOUND_OPENGATE = 0xEB
+SOUND_OPENSTEEL = 0xEC
+SOUND_OPENSECRET = 0xED
+SOUND_CLOSEWOOD = 0xF1
+SOUND_CLOSEGATE = 0xF2
+SOUND_CLOSESTEEL = 0xF3
+SOUND_CLOSESECRET = 0xF4
 
 # How long does it take to close a door automatically (in ms)
 CLOSEDOOR_DELAY = 5000

@@ -1,6 +1,6 @@
 
 import random
-from wolfpack.consts import *
+from wolfpack.consts import ANIM_FIDGET3
 from wolfpack.utilities import tobackpack
 from system import poison
 
