@@ -27,6 +27,7 @@
 
 #include "accounts.h"
 #include "ai/ai.h"
+#include "ai/ai_commoner.h"
 #include "ai/ai_mage.h"
 #include "ai/ai_bladespirit.h"
 #include "ai/ai_energyvortex.h"
@@ -510,6 +511,7 @@ void cServer::load()
 	Monster_Aggressive_L0::registerInFactory();
 	Monster_Aggressive_L1::registerInFactory();
 	Monster_Mage::registerInFactory();
+	Commoner::registerInFactory();
 	Monster_BladeSpirit::registerInFactory();
 	Monster_EnergyVortex::registerInFactory();
 	Monster_Berserk::registerInFactory();
