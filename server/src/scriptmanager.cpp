@@ -157,6 +157,10 @@ void cScriptManager::load()
 	cComponent::load();
 }
 
+/*
+\event onServerStart
+\condition Triggered when the server startup is complete.
+*/
 void cScriptManager::onServerStart()
 {
 	cScriptManager::iterator it;
