@@ -238,20 +238,30 @@ static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 	return list;
 }
 
+static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);	
+	Q_UNUSED(args);
+	keeprun = 0;
+
+	return PyTrue;
+}
+
 /*!
 	wolfpack.console
 	Initializes wolfpack.console
 */
 static PyMethodDef wpConsole[] = 
 {
-    { "send",			wpConsole_send,				METH_VARARGS,	"Prints something to the wolfpack console" },
-	{ "progress",		wpConsole_progress,			METH_VARARGS,	"Prints a .....[xxxx] block" },
+	{ "send",		wpConsole_send,			METH_VARARGS,	"Prints something to the wolfpack console" },
+	{ "progress",		wpConsole_progress,		METH_VARARGS,	"Prints a .....[xxxx] block" },
 	{ "progressDone",	wpConsole_progressDone,		METH_NOARGS,	"Prints a [done] block" },
 	{ "progressFail",	wpConsole_progressFail,		METH_NOARGS,	"Prints a [fail] block" },
 	{ "progressSkip",	wpConsole_progressSkip,		METH_NOARGS,	"Prints a [skip] block" },
 	{ "getbuffer",		wpConsole_getbuffer,		METH_NOARGS,	"Gets the linebuffer of the console" },
-	{ "log",			wpConsole_log,				METH_VARARGS,	NULL },
-    { NULL, NULL, 0, NULL } // Terminator
+	{ "log",		wpConsole_log,			METH_VARARGS,	NULL },
+	{ "shutdown",		wpConsole_shutdown,		METH_NOARGS,	"Shut the server down" },
+	{ NULL, NULL, 0, NULL } // Terminator
 };
 
 /*!
