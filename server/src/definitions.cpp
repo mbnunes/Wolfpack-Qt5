@@ -716,9 +716,10 @@ QString cElement::value() const
 	for ( unsigned int i = 0; i < childCount(); ++i )
 	{
 		const cElement* childTag = getChild( i );
-
+		// <random />
 		if ( childTag->name() == "random" )
 		{
+			// <random min="" max="" />
 			if ( childTag->hasAttribute( "min" ) && childTag->hasAttribute( "max" ) )
 			{
 				QString min = childTag->getAttribute( "min" );
@@ -729,19 +730,29 @@ QString cElement::value() const
 				else
 					Value += QString::number( RandomNum( min.toInt(), max.toInt() ) );
 			}
+			// <random valuelist="value1,value2,value3" />
 			else if ( childTag->hasAttribute( "valuelist" ) )
 			{
 				QStringList RandValues = QStringList::split( ",", childTag->getAttribute( "valuelist" ) );
 				Value += RandValues[RandomNum( 0, RandValues.size() - 1 )];
 			}
+			// <random list="listname" />
 			else if ( childTag->hasAttribute( "list" ) )
 			{
 				Value += Definitions::instance()->getRandomListEntry( childTag->getAttribute( "list" ) );
 			}
+			// <random randomlist="listname1,listname2,listname3" />
+			else if ( childTag->hasAttribute( "randomlist" ) )
+			{
+				QStringList RandValues = QStringList::split( ",", childTag->getAttribute( "randomlist" ) );
+				Value += Definitions::instance()->getRandomListEntry( RandValues[RandomNum( 0, RandValues.size() - 1 )] );
+			}
+			// <random dice="1d6+2" />
 			else if ( childTag->hasAttribute( "dice" ) )
 			{
 				Value += QString::number( rollDice( childTag->getAttribute( "dice" ) ) );
 			}
+			// <random value="10-20" />
 			else if ( childTag->hasAttribute( "value" ) )
 			{
 				QStringList parts = QStringList::split( "-", childTag->getAttribute( "value", "0-0" ) );

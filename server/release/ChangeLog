@@ -39,28 +39,30 @@ Wolfpack 12.9.13 Beta (SVN)
   - Fixed an exploit (dropping without dragging first)
   - Changed the semantics of onLogin/onLogout (character entering/leaving the world).
   - Added onConnect/onDisconnect (socket attaching/detaching to/from a player).
-  - It's no longer possible to login with a char if another char in the same account is still online.
+  - It's no longer possible to login with a char if another char in
+    the same account is still online.
   - Fixed a bug that would cause onLogout not to be called.
-  - A skill of 100% or more in Spirit Speaking now allows you to talk freely as a ghost and hear
-    everything dead players have to say.
-  - All geometrical bodies for spawnregions now support the except="true" tag that makes the rectangle, circle or
-    point not be included in finding a random position within the region.
+  - A skill of 100% or more in Spirit Speaking now allows you to talk
+    freely as a ghost and hear everything dead players have to say.
+  - All geometrical bodies for spawnregions now support the except="true"
+    tag that makes the rectangle, circle or point not be included in finding
+    a random position within the region.
   - Fix with spawnregion data. UShort != UInt
   - Added socket.denymove to send packets to deny movement
   - Fixed a crashbug with invalid function names passed to .addtimer()
   - Added the ability to make yourself visible to other players.
   - Guildbutton now triggers onGuildButton(player) python event.
   - Fixed bug #0000376. (Stablemasters don't take money from the bank)
-  - Added "Refresh Characters Maximum Values" setting. Setting this to "false" will disable the automatic
-    recalculation of Maxhitpoints/Maxmana/Maxstamina.
+  - Added "Refresh Characters Maximum Values" setting. Setting this to "false"
+    will disable the automatic recalculation of Maxhitpoints/Maxmana/Maxstamina.
   - Added a warning in the console if translation file could not be found.
   - Fixed monsters not attacking players pets.
   - Fixed bug #0000363. (Pets don't attack a target if it's already fighting)
   - More tag documentation in the code.
   - Definition Tag Cleanups.
   - Using skills no longer unhides by default, unhide moved to python.
-  - Fixed a nasty bug in the map sector code which caused objects not to be in the map objects when moved
-    between maps.
+  - Fixed a nasty bug in the map sector code which caused objects not
+    to be in the map objects when moved between maps.
   - Fixed a walking bug that caused monsters to walk trough certain objects.
   - type="3" in bodyinfo.XML is now correctly interpreted by the core.
   - Exploit bugfix for locked containers.
@@ -68,6 +70,8 @@ Wolfpack 12.9.13 Beta (SVN)
   - Fixed a vision range bug with walking.
   - Fixed many compiler warnings for GCC 3.4 versions, and general warnings.
   - Updated SQLite to 2.8.15 and defaulted SQLite to encode data with UTF-8.
+  - Added a new feature to random: <random randomlist="list1,list2" />
+    This will select a random value from a random list.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheep.
