@@ -1,0 +1,17 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- Bandages -->
+	<item id="e21">
+		<id>0xe21</id>
+		<decay/>
+		<value>6</value>
+	</item>
+
+</definitions>

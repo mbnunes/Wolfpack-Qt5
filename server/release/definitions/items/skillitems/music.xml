@@ -1,0 +1,59 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- Drum -->
+	<item id="e9c">
+		<id>0xe9c</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Tamberine -->
+	<item id="e9d">
+		<id>0xe9d</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Tamberine with Ribbon -->
+	<item id="e9e">
+		<id>0xe9e</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Standing Harp -->
+	<item id="eb1">
+		<id>0xeb1</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Harp -->
+	<item id="eb2">
+		<id>0xeb2</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Lute -->
+	<item id="eb3">
+		<id>0xeb3</id>
+		<decay/>
+		<value>25</value>
+	</item>
+	
+	<!-- Lute -->
+	<item id="eb4">
+		<id>0xeb4</id>
+		<decay/>
+		<value>25</value>
+	</item>
+
+</definitions>

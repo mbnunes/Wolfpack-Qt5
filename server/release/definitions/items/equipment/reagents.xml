@@ -1,0 +1,74 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- Black Pearl -->
+	<item id="f7a">
+		<id>0xf7a</id>
+		<decay/>
+		<value>12</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Bloodmoss -->
+	<item id="f7b">
+		<id>0xf7b</id>
+		<decay/>
+		<value>6</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Garlic -->
+	<item id="f84">
+		<id>0xf84</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Gensing -->
+	<item id="f85">
+		<id>0xf7a</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Mandrake Root -->
+	<item id="f86">
+		<id>0xf86</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Nightshade -->
+	<item id="f88">
+		<id>0xf88</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Sulfurous Ash -->
+	<item id="f8c">
+		<id>0xf8c</id>
+		<decay/>
+		<value>4</value>
+		<weight>.02</weight>
+	</item>
+
+	<!-- Spider Silk -->
+	<item id="f8d">
+		<id>0xf8d</id>
+		<decay/>
+		<value>3</value>
+		<weight>.02</weight>
+	</item>
+
+</definitions>

@@ -1,0 +1,25 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- Hair -->
+	<item id="203b">
+		<id>0x203b</id>
+		<color><random list="HAIRCOLOR" /></color>
+	</item>
+
+	<item id="203c">
+		<id>0x203c</id>
+		<color><random list="HAIRCOLOR" /></color>
+	</item>
+
+	<item id="203d">
+		<id>0x203d</id>
+		<color><random list="HAIRCOLOR" /></color>
+	</item>
+</definitions>

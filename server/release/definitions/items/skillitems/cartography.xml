@@ -8,6 +8,20 @@
 =================================================================
 -->
 <definitions>
+	<!-- Map -->
+	<item id="14eb">
+		<id>0x14eb</id>
+		<value>40</value>
+		<type>300</type>
+	</item>
+	
+	<!-- Sextant -->
+	<item id="1057">
+		<id>0x1057</id>
+		<value>30</value>
+		<weight>2.0</weight>
+	</item>
+
 	<item id="map_empty_e">
 		<name>empty map</name>
 		<category>map\empty</category>

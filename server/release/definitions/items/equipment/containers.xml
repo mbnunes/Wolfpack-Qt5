@@ -1,0 +1,27 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- trade container -->
+	<item id="2af8">
+		<name>shop container</name>
+		<id>0x2af8</id>
+		<weight>0</weight>
+	</item>
+
+	<!-- Backpack -->
+	<item id="e75">
+		<id>0xE75</id>
+	</item>
+
+	<!-- Bottle -->
+	<item id="f0e">
+		<id>0xf0e</id>
+	</item>
+
+</definitions>

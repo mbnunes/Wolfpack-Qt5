@@ -1,0 +1,17 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- door -->
+	<item id="6c5">
+		<name>door</name>
+		<id>0x6c5</id>
+		<type>12</type> <!-- Door type -->
+	</item>
+
+</definitions>

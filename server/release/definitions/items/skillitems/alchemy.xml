@@ -1,0 +1,117 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- Mortar & pestle -->
+	<item id="e9b">
+		<id>0xe9b</id>
+	</item>
+
+	<!-- Black potion -->
+	<item id="f06">
+		<id>0xf06</id>
+		<type>19</type>
+		<name>black potion</name>
+		<name2>nightsight potion</name2>
+		<decay/>
+		<morex>2</morex>
+		<morey>5</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Orange potion -->
+	<item id="f07">
+		<id>0xf07</id>
+		<type>19</type>
+		<name>orange potion</name>
+		<name2>cure potion</name2>
+		<decay/>
+		<morex>2</morex>
+		<morey>2</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Blue potion -->
+	<item id="f08">
+		<id>0xf08</id>
+		<type>19</type>
+		<name>blue potion</name>
+		<name2>agility potion</name2>
+		<decay/>
+		<morex>2</morex>
+		<morey>1</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- White potion -->
+	<item id="f09">
+		<id>0xf09</id>
+		<type>19</type>
+		<name>white potion</name>
+		<name2>strength potion</name2>
+		<decay/>
+		<morex>2</morex>
+		<morey>8</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- poison potion -->
+	<item id="f0a">
+		<id>0xf0a</id>
+		<type>19</type>
+		<name>poison potion</name>
+		<decay/>
+		<morex>4</morex>
+		<morey>6</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Energy potion -->
+	<item id="f0b">
+		<id>0xf0b</id>
+		<type>19</type>
+		<name>energy potion</name>
+		<decay/>
+		<morex>3</morex>
+		<morey>7</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Yellow potion -->
+	<item id="f0c">
+		<id>0xf0c</id>
+		<type>19</type>
+		<name>yellow potion</name>
+		<name2>lesser heal potion</name2>
+		<decay/>
+		<morex>1</morex>
+		<morey>4</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+	<!-- Purple potion -->
+	<item id="f0d">
+		<id>0xf0d</id>
+		<type>19</type>
+		<name>purple potion</name>
+		<name2>lesser explosion potion</name2>
+		<decay/>
+		<morex>300</morex>
+		<morey>3</morey>
+		<morez>1</morez>
+		<value>15</value>
+	</item>
+
+</definitions>

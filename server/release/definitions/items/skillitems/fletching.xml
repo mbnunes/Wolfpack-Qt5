@@ -7,6 +7,22 @@
 =================================================================
 -->
 <definitions>
+	<!-- Feather -->
+	<item id="1bd1">
+		<id>0x1bd1</id>
+		<decay/>
+		<value>2</value>
+		<weight>.02</weight>
+	</item>
+	
+	<!-- Shaft -->
+	<item id="1bd4">
+		<id>0x1bd4</id>
+		<decay/>
+		<value>2</value>
+		<weight>.02</weight>
+	</item>
+	
 	<!-- arrows -->
 	<item id="f3f">
 		<id>0xf3f</id>
