@@ -268,7 +268,7 @@ void signal_handler(int signal)
 // Initialize deamon
 void init_deamon()
 {
-/*
+
 #if defined(__unix__)
 	
 	int i ;
@@ -307,7 +307,6 @@ void init_deamon()
 #endif
 	
 #endif
-*/
 }
 
 
