@@ -20,14 +20,16 @@ unix {
 		message("MySQL files found, support enabled")
 		INCLUDEPATH += /usr/include/mysql
 		DEFINES += MYSQL_DRIVER
+		LIBS += -lmysqlclient
 	} exists(/usr/local/lib/mysql/include/mysql/mysql.h) {
 		message("MySQL files found, support enabled")
 		INCLUDEPATH += /usr/local/lib/mysql/include/mysql
 		DEFINES += MYSQL_DRIVER
+		LIBS += -lmysqlclient
 	}
 	
 	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite lib/Python/Include network
-	LIBS  += -L. -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.3 -lmysqlclient -lutil
+	LIBS  += -L. -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.3 -lutil
 	# we dont use those.
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 	
