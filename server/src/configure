@@ -29,7 +29,7 @@ ask_path()
 		echo -en "\nor just press enter to skip.";
 		echo -en "\e[A\rPlease enter the correct include directory: ";
 		read SUPPLIED_PATH;
-		if [ ! "$SUPPLIED_PATH" = "" ]; then
+		if [ ! "$SUPPLIED_PATH" ]; then
 			break;
 		fi
 	done;
