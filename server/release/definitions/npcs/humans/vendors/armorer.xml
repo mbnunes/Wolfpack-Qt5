@@ -60,12 +60,6 @@
 				<item id="1b74"/>
 			</sellable>
 		</shopkeeper>
-		<equipped>
-			<item id="153b" > <!-- Half Apron -->
-				<color><random min="1701" max="1755" /></color>
-			</item>
-			<item id="140d" /> <!-- Bascinet -->
-		</equipped>
 		<skill id="armslore"><random min="640" max="1000" /></skill>
 		<skill id="blacksmithing"><random min="600" max="830" /></skill>
 	</npc>
@@ -74,11 +68,25 @@
 	<npc id="armorer_male" inherit="vendor_male">
 		<inherit id="armorer_inventory" />
 		<category>Vendors\Armorer (Male)</category>
+		<equipped>
+			<item id="153b" > <!-- Half Apron -->
+				<color><random min="1701" max="1755" /></color>
+			</item>
+			<item id="140d" /> <!-- Bascinet -->
+		</equipped>
+
 	</npc>
 
 	<npc id="armorer_female" inherit="vendor_female">
 		<inherit id="armorer_inventory" />
 		<category>Vendors\Armorer (Female)</category>
+		<equipped>
+			<item id="153b" > <!-- Half Apron -->
+				<color><random min="1701" max="1755" /></color>
+			</item>
+			<item id="140d" /> <!-- Bascinet -->
+		</equipped>
+
 	</npc>
 
 </definitions>

@@ -10,10 +10,6 @@
 
 	<npc id="butcher_inventory">
 		<title context="Vendor Male Titles">the butcher</title>
-		<equipped>
-			<item id="153b" /> <!-- Half Apron -->
-			<item id="ec3" /> <!-- Cleaver -->
-		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="9f1"><amount>20</amount></item>
@@ -45,11 +41,19 @@
 	<npc id="butcher_male" inherit="vendor_male">
 		<inherit id="butcher_inventory" />
 		<category>Vendors\Butcher (Male)</category>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+			<item id="ec3" /> <!-- Cleaver -->
+		</equipped>
 	</npc>
 
 	<npc id="butcher_female" inherit="vendor_female">
 		<inherit id="butcher_inventory" />
 		<category>Vendors\Butcher (Female)</category>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+			<item id="ec3" /> <!-- Cleaver -->
+		</equipped>
 	</npc>
 
 </definitions>

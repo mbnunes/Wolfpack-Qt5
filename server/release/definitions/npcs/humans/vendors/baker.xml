@@ -10,9 +10,6 @@
 
 	<npc id="baker_inventory">
 		<title context="Vendor Male Titles">the Baker</title>
-		<equipped>
-			<item id="153b" /> <!-- Half Apron -->
-		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="98c"><amount>10</amount></item>
@@ -51,11 +48,17 @@
 	<npc id="baker_male" inherit="vendor_male">
 		<inherit id="baker_inventory" />
 		<category>Vendors\Baker (Male)</category>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
 	</npc>
 
 	<npc id="baker_female" inherit="vendor_female">
 		<inherit id="baker_inventory" />
 		<category>Vendors\Baker (Female)</category>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
 	</npc>
 
 </definitions>

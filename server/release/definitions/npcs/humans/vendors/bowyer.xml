@@ -32,10 +32,6 @@
 				<item id="f50" />
 			</sellable>
 		</shopkeeper>
-		<equipped>
-			<item id="13b1" /> <!-- Bow -->
-			<item id="13c7" /> <!-- Leather Gorget -->
-		</equipped>
 		<skill id="archery"><random min="600" max="830" /></skill>
 		<skill id="bowcrafting"><random min="900" max="1000" /></skill>
 	</npc>
@@ -44,11 +40,19 @@
 	<npc id="bowyer_male" inherit="vendor_male">
 		<inherit id="bowyer_inventory" />
 		<category>Vendors\Bowyer (Male)</category>
+		<equipped>
+			<item id="13b1" /> <!-- Bow -->
+			<item id="13c7" /> <!-- Leather Gorget -->
+		</equipped>
 	</npc>
 
 	<npc id="bowyer_female" inherit="vendor_female">
 		<inherit id="bowyer_inventory" />
 		<category>Vendors\Bowyer (Female)</category>
+		<equipped>
+			<item id="13b1" /> <!-- Bow -->
+			<item id="13c7" /> <!-- Leather Gorget -->
+		</equipped>
 	</npc>
 
 </definitions>

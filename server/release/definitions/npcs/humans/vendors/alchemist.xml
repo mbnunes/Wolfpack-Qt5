@@ -57,11 +57,6 @@
 				<item id="potion_lesserexplosion" />
 			</sellable>
 		</shopkeeper>
-		<equipped>
-			<item id="1f03" > <!-- Robe -->
-				<color><random min="1201" max="1255" /></color>
-			</item>
-		</equipped>
 		<skill id="alchemy"><random min="850" max="1000" /></skill>
 		<skill id="tasteidentification"><random min="650" max="880" /></skill>
 	</npc>
@@ -70,16 +65,31 @@
 	<npc id="alchemist_male" inherit="vendor_male">
 		<inherit id="alchemist_inventory" />
 		<category>Vendors\Alchemist (Male)</category>
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
 	</npc>
 
 	<npc id="alchemist_female" inherit="vendor_female">
 		<inherit id="alchemist_inventory" />
 		<category>Vendors\Alchemist (Female)</category>
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
 	</npc>
 
 	<npc id="alchemist">
 		<inherit><random valuelist="alchemist_male,alchemist_female" /></inherit>
 		<category>Vendors\Alchemist (Random)</category>
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
 	</npc>
 
 </definitions>
