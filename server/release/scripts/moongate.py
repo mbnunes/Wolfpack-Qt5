@@ -211,6 +211,7 @@ def gateCallback( char, args, target ):
 		coord = [ 528, 219, -42, 2 ]
 	elif( button == 29 ):
 		coord = [ 1721, 218, 96, 2 ]
+	char.removefromview()
 	char.moveto( coord[0], coord[1], coord[2], coord[3] )
 	char.update()
 	char.soundeffect( 0x1fc )
