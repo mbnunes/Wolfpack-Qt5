@@ -282,10 +282,10 @@ public:
 class cUOTxDrawContainer: public cUOPacket
 {
 public:
-        cUOTxDrawContainer(): cUOPacket( 0x24, 7 ) {}
-                                
-        void setSerial( Q_UINT32 serial )	{ setInt( 1, serial ); }
-        void setGump( Q_UINT16 gump )		{ setShort( 5, gump ); }
+	cUOTxDrawContainer(): cUOPacket( 0x24, 7 ) {}
+                               
+	void setSerial( Q_UINT32 serial )	{ setInt( 1, serial ); }
+	void setGump( Q_UINT16 gump )		{ setShort( 5, gump ); }
 };
                                            
 // 0x25 AddContainerItem
@@ -669,7 +669,7 @@ public:
 	cUOTxTipWindow() : cUOPacket( 0xA6, 10 ) {}
 	void setType( WindowType t )	{ (*this)[3] = t;	}
 	void setNumber( ushort n )		{ setShort(6, n);	}
-	void setMessage(QString m);
+	void setMessage( const QCString& m );
 };
 
 // 0x88 Open Paperdoll

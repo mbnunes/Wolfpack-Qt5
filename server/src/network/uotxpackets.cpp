@@ -207,6 +207,7 @@ void cUOTxSendSkills::fromChar( P_CHAR pChar )
 		addSkill( i+1, pChar->skillValue( i ), pChar->skillValue( i ), status, pChar->skillCap( i ) );
 	}
 }
+
 void cUOTxMapDiffs::addEntry( UINT32 mappatches, UINT32 staticpatches )
 {
 	UINT16 size = count();
@@ -246,9 +247,9 @@ void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 FileID, Q_UINT16 Tex
 
 void cUOTxDenyMove::setCoord( Coord_cl coord )
 {
-		setShort( 2, coord.x );
-		setShort( 4, coord.y );
-		(*this)[7] = coord.z;
+	setShort( 2, coord.x );
+	setShort( 4, coord.y );
+	(*this)[7] = coord.z;
 }
 
 void cUOTxDenyMove::fromChar( P_CHAR pChar )
@@ -371,13 +372,13 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
 }
 
-void cUOTxTipWindow::setMessage( QString m )
+void cUOTxTipWindow::setMessage( const QCString& m )
 {
 	ushort length = m.length();
 	resize( length + 11 );
 	setShort(1, length + 11 );
 	setShort(8, length );
-	setAsciiString(10, m.latin1(), length+1);
+	setAsciiString(10, m.data(), length+1);
 }
 
 void cUOTxAddContainerItem::fromItem( P_ITEM pItem )

@@ -114,6 +114,7 @@ cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
 		}
 	}; 
 } 
+
 cUOPacket *cUORxAosMultiPurpose::packet( const QByteArray& data )
 {
 	cUOPacket temp( data );
@@ -128,6 +129,7 @@ cUOPacket *cUORxAosMultiPurpose::packet( const QByteArray& data )
 		}
 	}
 }
+
 QString cUORxSpeechRequest::message()
 {
 	// 0x0c -> tokenized ascii speech

@@ -1343,20 +1343,6 @@ void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
 */
 void cUOSocket::handleGetTip( cUORxGetTip* packet )
 {
-/*	UI32 y;
-
-	QString motdText = DefManager->getText( "MOTD" );
-	y = motdText.length() + 10;
-	
-	updscroll[1]=y>>8;
-	updscroll[2]=y%256;
-	updscroll[3]=2;
-	updscroll[8]=(y-10)>>8;
-	updscroll[9]=(y-10)%256;
-	Xsend(s, updscroll, 10);
-	
-	Xsend(s, (char*)motdText.latin1(), motdText.length() );*/
-
 	if ( packet->isTip() )
 	{
 		UI32 tip = packet->lastTip();
@@ -1374,7 +1360,7 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 		cUOTxTipWindow packet;
 		packet.setType( cUOTxTipWindow::Tip );
 		packet.setNumber( tip );
-		packet.setMessage( tipText );
+		packet.setMessage( tipText.latin1() );
 		send( &packet );	
 	}
 }
