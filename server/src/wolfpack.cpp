@@ -148,6 +148,8 @@ int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on
 #if defined(__unix__)
 void signal_handler(int signal)
 {
+	AllCharsIterator iter;
+
 	switch (signal)
 	{
 	case SIGHUP:
@@ -161,6 +163,18 @@ void signal_handler(int signal)
                 ContextMenus::instance()->reload();
                 cCommands::instance()->loadACLs();
                 ScriptManager->reload();
+
+				// Update the Regions
+				for( iter.Begin(); !iter.atEnd(); iter++ )
+				{
+					P_CHAR pChar = iter.GetData();
+
+					if( pChar )
+					{
+						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+						pChar->setRegion( region );
+					}
+				}
 		break ;
 		
 	case SIGUSR1:
