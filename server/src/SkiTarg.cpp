@@ -912,8 +912,8 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		else
 		{ // Create between 1 and 15 goldpieces and place directly in backpack
 			nAmount=1+(rand()%15);
-			addgold(s,nAmount);
-			goldsfx(s,nAmount);
+			//addgold(s,nAmount);
+			//goldsfx(s,nAmount);
 			if (nAmount==1)
 				sysmessage(s, tr("You unearthed %1 gold coin.").arg(nAmount) );
 			else

@@ -90,8 +90,8 @@ void cChar::giveGold( Q_UINT32 amount, bool inBank )
 		total -= pile->amount();
 	}
 
-	if( socket() )
-		goldsfx( calcSocketFromChar( this ), amount );
+	if( socket_ )
+		goldsfx( socket_, amount, false );
 }
 
 void cChar::setSerial(SERIAL ser)
@@ -2195,7 +2195,7 @@ void cChar::kill()
 	P_ITEM pi_backpack = getBackpack();
 	
 	// TODO: Unmount the user	
-	//	unmounthorse(z);
+	unmount();
 
 	P_ITEM pi_j;
 	vector<SERIAL> vecContainer( contsp.getData( serial ) );
@@ -2545,5 +2545,18 @@ UINT32 cChar::takeGold( UINT32 amount, bool useBank )
 			dAmount += pBank->DeleteAmount( (amount-dAmount), 0xEED, 0 );
 	}
 
+	if( socket_ )
+		goldsfx( socket_, dAmount, false );
+
 	return dAmount;
+}
+
+// Needs implementation
+P_CHAR cChar::unmount()
+{
+	return NULL;
+}
+
+void cChar::mount( P_CHAR pMount )
+{
 }

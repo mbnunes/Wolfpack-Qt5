@@ -130,7 +130,7 @@ void addhere(int s, signed char z);
 //void playermenu(int s, int type);
 void endmessage(int x);
 
-void goldsfx(int s, int goldtotal);
+void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );
 
 void gcollect();
 

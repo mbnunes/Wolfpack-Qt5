@@ -286,6 +286,7 @@ void cItem::setContSerial( SERIAL nValue )
 		}
 
 		contsp.insert( this->contserial, this->serial );
+		mapRegions->Remove( this );
 	}
 
 	// There was an owner change
@@ -1825,18 +1826,18 @@ void cItem::processContainerNode( const QDomElement &Tag )
 	</contains>
 	*/
 	QDomNode childNode = Tag.firstChild();
-	vector< QDomElement* > equipment;
+	vector< QDomElement > equipment;
 		
 	while( !childNode.isNull() )
 	{		
 		if( childNode.nodeName() == "item" )
-			equipment.push_back( &childNode.toElement() );
+			equipment.push_back( childNode.toElement() );
 		else if( childNode.nodeName() == "getlist" && childNode.attributes().contains( "id" ) )
 		{
 			QStringList list = DefManager->getList( childNode.toElement().attribute( "id" ) );
 			for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
 				if( DefManager->getSection( WPDT_ITEM, *it ) )
-					equipment.push_back( DefManager->getSection( WPDT_ITEM, *it ) );
+					equipment.push_back( *DefManager->getSection( WPDT_ITEM, *it ) );
 		}
 
 		childNode = childNode.nextSibling();
@@ -1852,7 +1853,7 @@ void cItem::processContainerNode( const QDomElement &Tag )
 			nItem->Init( true );
 			cItemsManager::getInstance()->registerItem( nItem );
 
-			nItem->applyDefinition( *equipment[ i ] );
+			nItem->applyDefinition( equipment[ i ] );
 
 			nItem->setContSerial( this->serial );
 	}

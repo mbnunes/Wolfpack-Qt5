@@ -63,6 +63,8 @@ public:
 	void kill();
 	void resurrect();
 	void turnTo( cUObject *object );
+	P_CHAR unmount();
+	void mount( P_CHAR pMount );
 
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper

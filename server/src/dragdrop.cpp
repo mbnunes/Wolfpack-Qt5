@@ -193,9 +193,9 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	
 	// If we're picking up a specific amount of what we got
 	// Take that into account
-	if( pItem->amount() > 1 )
+	if( amount < pItem->amount() )
 	{
-		UI32 pickedAmount = QMAX( amount, pItem->amount() );
+		UI32 pickedAmount = QMIN( amount, pItem->amount() );
 
 		// We only have to split if we're not taking it all
 		if( pickedAmount != pItem->amount() )
@@ -497,6 +497,10 @@ void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 	// Item dropped on char
 	else if( cCont )
 		dropOnChar( socket, pItem, cCont );
+
+	// Handle the sound-effect
+	if( pItem->id() == 0xEED )
+		goldsfx( socket, pItem->amount(), true );
 }
 
 void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar )
@@ -914,7 +918,7 @@ void cDragItems::dropOnGuard( P_CLIENT client, P_ITEM pItem, P_CHAR pGuard )
 	}
 
 	addgold( client->socket(), pVictim->questBountyReward() );
-	goldsfx( client->socket(), pVictim->questBountyReward() );
+	//goldsfx( client->socket(), pVictim->questBountyReward() );
 	Bounty->BountyDelete( pVictim->serial );
 	
 	// Thank them for their work
@@ -1064,7 +1068,7 @@ void cDragItems::dropOnTrainer( P_CLIENT client, P_ITEM pItem, P_CHAR pTrainer )
 	Q_INT32 skillSum = pChar->getSkillSum();
 	Q_INT32 skillDelta = pTrainer->getTeachingDelta( pChar, skill, skillSum );
 
-	goldsfx( client->socket(), pItem->amount() );
+	//goldsfx( client->socket(), pItem->amount() );
 
 	if( pItem->amount() > skillDelta )
 	{

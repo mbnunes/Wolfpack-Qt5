@@ -1042,13 +1042,17 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 		return;  // Vendor responded already
 	
 	// >> LEGACY
-	/*if( SpeechUpr.contains( "GUARDS" ) )
-		callguards(currchar[s]); */
+	if( speech.contains( "guards", false ) )
+		callguards( pChar );
 
 	cRegion::RegionIterator4Items rj( pChar->pos );
 	for( rj.Begin(); !rj.atEnd(); rj++ )
 	{
 		P_ITEM pi = rj.GetData();
+
+		if( !pi )
+			continue;
+
 		if( pi->type() == 117 && pi->tags.get( "tiller" ).toInt() == 1 )
 		{
 			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toUInt() ));

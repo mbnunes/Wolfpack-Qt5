@@ -1497,7 +1497,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 
         // If we're mounted (item on layer 25) and *not* using a hotkey
 		// We're trying to unmount ourself
-		if( !hotkey && ( pTarget == pChar ) && ( unmounthorse( s ) == 0 )  )
+		if( !hotkey && ( pTarget == pChar ) && pChar->unmount() )
 			return; // We have been unmounted
 
 		socket->sendPaperdoll( pTarget );

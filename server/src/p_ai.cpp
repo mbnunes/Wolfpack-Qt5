@@ -693,7 +693,7 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, const string& comm)
 	{
 		int goldcount = value;
 		addgold(c, goldcount);
-		goldsfx(c, goldcount);
+		//goldsfx(c, goldcount);
 		DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
 		sprintf(temp, "%s here is your withdraw of %i.", pc_currchar->name.c_str(), goldcount);
 		npctalk(c, pBanker, temp, 1);

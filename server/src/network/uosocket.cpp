@@ -1720,7 +1720,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 
 bool cUOSocket::inRange( cUOSocket* socket ) const
 {
-	if ( !socket || !socket->player() )
+	if ( !socket || !socket->player() || !_player )
 		return false;
 	return ( socket->player()->pos.distance( _player->pos ) < socket->player()->VisRange );
 }
@@ -1808,15 +1808,17 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	vendorBuy.setSerial( pItem->serial );
 
 	vector< SERIAL > content = contsp.getData( pItem->serial );
-	UINT32 i;
 
-	for( i = 0; i < content.size(); ++i )
+	for( UINT32 i = 0; i < content.size(); ++i )
 	{
 		P_ITEM mItem = FindItemBySerial( content[i] );
 
-		if( pItem )
+		if( mItem )
 		{
-			itemContent.addItem( mItem->serial, mItem->id(), mItem->color(), i, i, mItem->amount(), pItem->serial );
+			if( mItem->restock <= 0 )
+				continue;
+
+			itemContent.addItem( mItem->serial, mItem->id(), mItem->color(), i, i, mItem->restock, pItem->serial );
 			vendorBuy.addItem( mItem->value, mItem->getName() );
 		}
 	}

@@ -2289,7 +2289,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 		// Less than 75 gold for a escort is pretty cheesey, so if its between 1 and 75, add a randum amount of between 75 to 100 gold
 		if ( servicePay < 75 ) servicePay += RandomNum(75, 100);
 		addgold( k, servicePay );
-		goldsfx( k, servicePay );
+		//goldsfx( k, servicePay );
 		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name.c_str(), QString("%1").arg(pc_npc->questDestRegion()).latin1() );
 		npctalk( k, pc_npc, (char*)temp, 0 );
 	}

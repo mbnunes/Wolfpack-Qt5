@@ -2731,12 +2731,26 @@ P_CHAR GetPackOwner(P_ITEM pItem, short rec)
 	return FindCharBySerial(pio->contserial);
 }
 
-void goldsfx(int s, int goldtotal)
+void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall )
 {
-	if (goldtotal==1) soundeffect(s, 0x00, 0x35);
-	if ((goldtotal>1)&&(goldtotal<6)) soundeffect(s, 0x00, 0x36);
-	else soundeffect(s, 0x00, 0x37);
-	return;
+	if( !socket || !socket->player() )
+		return;
+
+	UINT16 sEffect = 0x37;
+
+	if( amount == 1 )
+		sEffect = 0x35;
+	else if( amount > 1 && amount < 6 )
+		sEffect = 0x36;
+
+	if( !hearall )
+		socket->soundEffect( sEffect );
+	else
+	{
+		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+			if( mSock->inRange( socket ) )
+				mSock->soundEffect( sEffect );
+	}
 }
 
 void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
@@ -3190,7 +3204,7 @@ void itemsfx(UOXSOCKET s, short item)
 {
 	if (item==0x0EED)
 	{
-		goldsfx(s, 2);
+		//goldsfx(s, 2);
 	}
 	else if ((item>=0x0F0F)&&(item<=0x0F20))	// Any gem stone (typically smaller)
 	{

@@ -49,8 +49,6 @@
 
 void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 {
-	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
-
 	P_CHAR pChar = socket->player();
 	P_CHAR pVendor = FindCharBySerial( packet->serial() );
 
@@ -317,8 +315,8 @@ void cTrade::sellaction(int s)
 				}
 			}
 		}
-		addgold(s, totgold);
-		goldsfx(s, totgold);	// Dupois, SFX for gold movement	// Added Oct 08, 1998
+		//addgold(s, totgold);
+		//goldsfx(s, totgold);	// Dupois, SFX for gold movement	// Added Oct 08, 1998
 	}
 
 	char clearmsg[9];
