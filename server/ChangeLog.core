@@ -5,6 +5,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	  This will slow AI down a little but crash prevention is well worth it.
 	- Fixed a crashbug with the delayed onCreate call.
 	- Fixed a bug with configure.py and static libs.
+	- Added a bodytype property.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.

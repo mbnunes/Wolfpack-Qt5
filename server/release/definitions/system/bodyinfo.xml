@@ -23,259 +23,340 @@
 
 		FIGURINE:
 			Item id for the animal in shrinked form (numeric!)
+			
+		TYPE:
+			0: Unknown
+			1: Monster
+			2: Sea
+			3: Animal
+			4: Human
 	-->
-	<body id="0x1" basesound="0x1ab" figurine="0x20df" />
-	<body id="0x2" basesound="0x16f" figurine="0x20d8" />
-	<body id="0x3" basesound="0x1d7" figurine="0x20ec" />
-	<body id="0x4" basesound="0x174" figurine="0x20d9" flags="0x1" />
-	<body id="0x5" basesound="0x8f" figurine="0x20f2" flags="0x3" />
-	<body id="0x6" basesound="0x7d" figurine="0x20ee" soundmode="1" flags="0x1" />
-	<body id="0x7" basesound="0x1b0" figurine="0x20e0" />
-	<body id="0x8" basesound="0x1ba" figurine="0x20d2" soundmode="3" />
-	<body id="0x9" basesound="0x165" figurine="0x20d3" flags="0x1" />
-	<body id="0xa" basesound="0x165" figurine="0x20d3" flags="0x1" />
-	<body id="0xb" basesound="0x183" figurine="0x20fd" />
-	<body id="0xc" basesound="0x16a" figurine="0x20d6" flags="0x1" />
-	<body id="0xd" basesound="0x107" figurine="0x20ed" flags="0x04"/>
-	<body id="0xe" basesound="0x10c" figurine="0x20d7"/>
-	<body id="0xf" basesound="0x111" figurine="0x20f3" flags="0x04"/>
-	<body id="0x10" basesound="0x116" figurine="0x210b" flags="0x04"/>
-	<body id="0x11" basesound="0x1b0" figurine="0x20e0" />
-	<body id="0x12" basesound="0x16f" figurine="0x20d8" />
-	<body id="0x13" basesound="0x183" figurine="0x20fd" />
-	<body id="0x14" basesound="0x388" figurine="0x20fd" />
-	<body id="0x15" basesound="0xdb" figurine="0x20fe" />
-	<body id="0x16" basesound="0x179" figurine="0x20ea" />
-	<body id="0x17" basesound="0xe5" figurine="0x211c" />
-	<body id="0x18" basesound="0x19c" figurine="0x20f8" />
-	<body id="0x19" basesound="0xe5" figurine="0x211c" />
-	<body id="0x1a" basesound="0x17e" figurine="0x2109" />
-	<body id="0x1b" basesound="0xe5" figurine="0x211c" />
-	<body id="0x1c" basesound="0x183" figurine="0x20fd" />
-	<body id="0x1d" basesound="0x9e" figurine="0x20f5" />
-	<body id="0x1e" basesound="0x192" figurine="0x20dc" />
-	<body id="0x1f" basesound="0x197" figurine="0x210a" />
-	<body id="0x21" basesound="0x1a1" figurine="0x20de" />
-	<body id="0x22" basesound="0xe5" figurine="0x211c" />
-	<body id="0x23" basesound="0x1a1" figurine="0x20de" />
-	<body id="0x24" basesound="0x1a1" figurine="0x20de" />
-	<body id="0x25" basesound="0xe5" figurine="0x211c" />
-	<body id="0x26" basesound="0x2b8" figurine="0x2585" flags="0x1" />
-	<body id="0x27" basesound="0x1a6" figurine="0x20f9" flags="0x1" />
-	<body id="0x28" basesound="0x2b8" figurine="0x2586" flags="0x1" />
-	<body id="0x29" basesound="0x1b0" figurine="0x20e0" />
-	<body id="0x2a" basesound="0x1b5" figurine="0x20e3" />
-	<body id="0x2b" basesound="0x2b8" figurine="0x2587" flags="0x1" />
-	<body id="0x2c" basesound="0x1b5" figurine="0x20e3" />
-	<body id="0x2d" basesound="0x1b5" figurine="0x20e3" />
-	<body id="0x2e" basesound="0x16a" figurine="0x2104" flags="0x1" />
-	<body id="0x2f" basesound="0x1ba" figurine="0x20fa" />
-	<body id="0x30" basesound="0x18d" figurine="0x20e4" />
-	<body id="0x31" basesound="0x16a" figurine="0x2104" flags="0x1" />
-	<body id="0x32" basesound="0x1c4" figurine="0x20e7" />
-	<body id="0x33" basesound="0x1c8" figurine="0x20e8" />
-	<body id="0x34" basesound="0xdb" figurine="0x20fc" />
-	<body id="0x35" basesound="0x1cd" figurine="0x20e9" />
-	<body id="0x36" basesound="0x1cd" figurine="0x20e9" />
-	<body id="0x37" basesound="0x1cd" figurine="0x20e9" />
-	<body id="0x38" basesound="0x1c4" figurine="0x20e7" />
-	<body id="0x39" basesound="0x1c4" figurine="0x20e7" />
-	<body id="0x3a" basesound="0x1d2" figurine="0x2100" />
-	<body id="0x3b" basesound="0x16a" figurine="0x20d6" flags="0x1" />
-	<body id="0x3c" basesound="0x16a" figurine="0x20d6" flags="0x1" />
-	<body id="0x3d" basesound="0x16a" figurine="0x20d6" flags="0x1" />
-	<body id="0x3e" basesound="0x16a" figurine="0x25d4" flags="0x1" />
-	<body id="0x3f" basesound="0x73" figurine="0x2583" />
-	<body id="0x40" basesound="0x73" figurine="0x25a3" />
-	<body id="0x41" basesound="0x73" figurine="0x25a3" />
-	<body id="0x42" basesound="0x27f" figurine="0x25c8" />
-	<body id="0x43" basesound="0x174" figurine="0x258e" />
-	<body id="0x44" basesound="0x179" figurine="0x258f" />
-	<body id="0x45" basesound="0x36b" figurine="0x20f4" />
-	<body id="0x46" basesound="0x24e" figurine="0x25c9" />
-	<body id="0x47" basesound="0x24e" figurine="0x25ca" />
-	<body id="0x48" basesound="0x258" figurine="0x25cb" />
-	<body id="0x49" basesound="0x192" figurine="0x2594" flags="0x1" />
-	<body id="0x4a" basesound="0x3bf" figurine="0x259f" flags="0x1" />
-	<body id="0x4b" basesound="0x25c" figurine="0x212d" />
-	<body id="0x4c" basesound="0x261" figurine="0x25cd" />
-	<body id="0x4d" basesound="0x44c" figurine="0x25a2" />
-	<body id="0x4e" basesound="0x19c" figurine="0x20f8" />
-	<body id="0x4f" basesound="0x1a1" figurine="0x20f8" />
-	<body id="0x50" basesound="0x35a" figurine="0x212f" />
-	<body id="0x51" basesound="0x35f" figurine="0x2130" />
-	<body id="0x52" basesound="0x1a1" figurine="0x20f8" />
-	<body id="0x53" basesound="0x1ab" figurine="0x20cb" />
-	<body id="0x54" basesound="0x1ab" figurine="0x20cb" />
-	<body id="0x55" basesound="0x280" figurine="0x25ab" />
-	<body id="0x56" basesound="0x27b" figurine="0x25ac" />
-	<body id="0x57" basesound="0x285" figurine="0x25ad" />
-	<body id="0x58" basesound="0x99" figurine="0x2580" />
-	<body id="0x59" basesound="0x183" figurine="0x25c0" />
-	<body id="0x5a" basesound="0x183" figurine="0x25c1" />
-	<body id="0x5b" basesound="0x388" figurine="0x25c2" />
-	<body id="0x5c" basesound="0x388" figurine="0x25c2" />
-	<body id="0x5d" basesound="0x388" figurine="0x25c2" />
-	<body id="0x5e" basesound="0x1c8" figurine="0x20e8" />
-	<body id="0x60" basesound="0x1c8" figurine="0x20e8" />
-	<body id="0x61" basesound="0x85" figurine="0x2596" />
-	<body id="0x62" basesound="0x85" figurine="0x2596" />
-	<body id="0x63" basesound="0xe5" figurine="0x25cf" />
-	<body id="0x64" basesound="0xe5" figurine="0x25cf" />
-	<body id="0x65" basesound="0x2a7" figurine="0x2581" />
-	<body id="0x66" basesound="0x300" figurine="0x2105" flags="0x1" />
-	<body id="0x67" basesound="0x2c0" figurine="0x2593" flags="0x1" />
-	<body id="0x68" basesound="0x488" figurine="0x20d6" flags="0x1" />
-	<body id="0x69" basesound="0x2d2" figurine="0x20d6" flags="0x1" />
-	<body id="0x6a" basesound="0x2cd" figurine="0x20d6" flags="0x1" />
-	<body id="0x6b" basesound="0x10c" figurine="0x25d9" />
-	<body id="0x6c" basesound="0x10c" figurine="0x25d9" />
-	<body id="0x6d" basesound="0x10c" figurine="0x25d9" />
-	<body id="0x6e" basesound="0x10c" figurine="0x20d7" />
-	<body id="0x6f" basesound="0x10c" figurine="0x20d7" />
-	<body id="0x70" basesound="0x10c" figurine="0x20d7" />
-	<body id="0x71" basesound="0xa8" figurine="0x2121" />
-	<body id="0x72" basesound="0xa8" figurine="0x2120" />
-	<body id="0x73" basesound="0xa8" figurine="0x259c" />
-	<body id="0x74" basesound="0xa8" figurine="0x259d" />
-	<body id="0x75" basesound="0xa8" figurine="0x2121" />
-	<body id="0x76" basesound="0xa8" figurine="0x2121" />
-	<body id="0x77" basesound="0xa8" figurine="0x2121" />
-	<body id="0x78" basesound="0xa8" figurine="0x2121" />
-	<body id="0x79" basesound="0xa8" figurine="0x2121" />
-	<body id="0x7a" basesound="0x4bc" figurine="0x25ce" />
-	<body id="0x7b" basesound="0x2f5" figurine="0x2589" flags="0x1" />
-	<body id="0x7c" basesound="0x24d" figurine="0x258a" />
-	<body id="0x7d" basesound="0x27f" figurine="0x258b" />
-	<body id="0x7e" basesound="0x257" figurine="0x258b" />
-	<body id="0x7f" basesound="0x69" figurine="0x2597" />
-	<body id="0x80" basesound="0x46d" figurine="0x25b6" />
-	<body id="0x81" basesound="0x34e" figurine="0x25c8" />
-	<body id="0x82" basesound="0x174" figurine="0x20d9" />
-	<body id="0x83" basesound="0x370" figurine="0x2590" />
-	<body id="0x84" basesound="0x3c5" figurine="0x25a0" />
-	<body id="0x85" basesound="0x5a" figurine="0x211f" />
-	<body id="0x86" basesound="0x2c7" figurine="0x25a1" flags="0x1" />
-	<body id="0x87" basesound="0x1ab" figurine="0x25a8" />
-	<body id="0x88" basesound="0x280" figurine="0x25a9" />
-	<body id="0x89" basesound="0x27b" figurine="0x25aa" />
-	<body id="0x8a" basesound="0x459" figurine="0x25b0" />
-	<body id="0x8b" basesound="0x459" figurine="0x25b0" />
-	<body id="0x8c" basesound="0x1ab" figurine="0x25b1" />
-	<body id="0x8d" basesound="0x447" figurine="0x2106" />
-	<body id="0x8e" basesound="0x1b5" figurine="0x25b7" />
-	<body id="0x8f" basesound="0x1b5" figurine="0x25b7" />
-	<body id="0x90" basesound="0x478" figurine="0x25ba" />
-	<body id="0x91" basesound="0x3" figurine="0x20fb" />
-	<body id="0x92" basesound="0x47d" figurine="0x258a" />
-	<body id="0x93" basesound="0x48d" figurine="0x25bd" />
-	<body id="0x94" basesound="0x48d" figurine="0x25be" />
-	<body id="0x95" basesound="0x4b0" figurine="0x259f" />
-	<body id="0x96" basesound="0x3" figurine="0x20fb" />
-	<body id="0x97" basesound="0x8a" figurine="0x20f1" />
-	<body id="0x98" basesound="0x492" figurine="0x25ca" />
-	<body id="0x99" basesound="0x379" figurine="0x25c7" />
-	<body id="0x9a" basesound="0x1d7" figurine="0x25bb" />
-	<body id="0x9b" basesound="0x1d7" figurine="0x25a7" />
-	<body id="0x9d" basesound="0x388" figurine="0x25c3" />
-	<body id="0x9e" basesound="0x205" figurine="0x25d6" soundmode="2" />
-	<body id="0x9f" basesound="0x205" figurine="0x25d8" soundmode="2" />
-	<body id="0xa0" basesound="0x205" figurine="0x25d8" soundmode="2" />
-	<body id="0xa1" basesound="0x107" figurine="0x25da" />
-	<body id="0xa2" basesound="0x205" figurine="0x25db" soundmode="2" />
-	<body id="0xa3" basesound="0x10c" figurine="0x25dc" />
-	<body id="0xa4" basesound="0x107" figurine="0x25d8" />
-	<body id="0xa5" basesound="0x1d2" figurine="0x2100" />
-	<body id="0xa6" basesound="0x10c" figurine="0x25d9" />
-	<body id="0xa7" basesound="0x4c2" figurine="0x211e" />
-	<body id="0xa8" basesound="0x3bf" figurine="0x259f" />
-	<body id="0xaa" basesound="0x3f3" figurine="0x20f6" />
-	<body id="0xab" basesound="0xb7" figurine="0x25b4" soundmode="2" />
-	<body id="0xac" basesound="0x16a" figurine="0x20d6" flags="0x1" />
-	<body id="0xad" basesound="0x388" figurine="0x25c3" />
-	<body id="0xae" basesound="0x4b0" figurine="0x259f" flags="0x1" />
-	<body id="0xaf" basesound="0x2fa" figurine="0x2589" />
-	<body id="0xb0" basesound="0x46c" figurine="0x25b6" flags="0x1" />
-	<body id="0xb2" basesound="0xa8" figurine="0x259c" />
-	<body id="0xb3" basesound="0xa8" figurine="0x259c" />
-	<body id="0xb4" basesound="0x2c0" figurine="0x20d6" flags="0x1" />
-	<body id="0xb5" basesound="0x1b0" figurine="0x25af" />
-	<body id="0xb6" basesound="0x1b0" figurine="0x25b0" />
-	<body id="0xbb" basesound="0x365" figurine="0x25b2" />
-	<body id="0xbc" basesound="0x365" figurine="0x25b2" />
-	<body id="0xbd" basesound="0x45a" figurine="0x25b0" />
-	<body id="0xc8" basesound="0xa8" figurine="0x211f" />
-	<body id="0xc9" basesound="0x69" figurine="0x211b" flags="0x2" />
-	<body id="0xca" basesound="0x5a" figurine="0x20da" />
-	<body id="0xcb" basesound="0xc4" figurine="0x2101" />
-	<body id="0xcc" basesound="0xa8" figurine="0x2121" />
-	<body id="0xcd" basesound="0xc9" figurine="0x2125" soundmode="2" />
-	<body id="0xcf" basesound="0xd6" figurine="0x20eb" />
-	<body id="0xd0" basesound="0x6e" figurine="0x20d1" />
-	<body id="0xd1" basesound="0x99" figurine="0x20e6" />
-	<body id="0xd3" basesound="0x5f" figurine="0x20cf" />
-	<body id="0xd4" basesound="0x5f" figurine="0x20db" />
-	<body id="0xd5" basesound="0x5f" figurine="0x20e1" />
-	<body id="0xd6" basesound="0xba" figurine="0x2119" flags="0x2" />
-	<body id="0xd7" basesound="0x188" figurine="0x20d0" />
-	<body id="0xd8" basesound="0x78" figurine="0x20f0" />
-	<body id="0xd9" basesound="0x85" figurine="0x20d5" />
-	<body id="0xda" basesound="0x3f5" figurine="0x25b3" />
-	<body id="0xdb" basesound="0x3f5" figurine="0x25b4" />
-	<body id="0xdc" basesound="0xb7" figurine="0x20f6" soundmode="2" />
-	<body id="0xdd" basesound="0xe0" figurine="0x20ff" />
-	<body id="0xdf" basesound="0xd8" figurine="0x20e6" soundmode="2" />
-	<body id="0xe1" basesound="0xe5" figurine="0x20ea" flags="0x2" />
-	<body id="0xe2" basesound="0xa8" figurine="0x2124" />
-	<body id="0xe4" basesound="0xa8" figurine="0x2120" />
-	<body id="0xe7" basesound="0x78" figurine="0x20f0" flags="0x2" />
-	<body id="0xe8" basesound="0x64" figurine="0x20ef" flags="0x2" />
-	<body id="0xe9" basesound="0x78" figurine="0x2103" flags="0x2" />
-	<body id="0xea" basesound="0x82" figurine="0x20d4" soundmode="2" />
-	<body id="0xed" basesound="0x82" figurine="0x20d4" soundmode="2" />
-	<body id="0xee" basesound="0xcc" figurine="0x2123" />
-	<body id="0x122" basesound="0xc4" figurine="0x2101" />
-	<body id="0x123" basesound="0xa8" figurine="0x2126" />
-	<body id="0x124" basesound="0xb7" figurine="0x2127" soundmode="2" />
-	<body id="0x190" basesound="0x0" figurine="0x2106" />
-	<body id="0x191" basesound="0x0" figurine="0x2107" />
-	<body id="0x192" basesound="0x0" figurine="0x25f0" />
-	<body id="0x193" basesound="0x0" figurine="0x25f1" />
-	<body id="0x23d" basesound="0x107" flags="0x04"/>
-	<body id="0x23e" basesound="0x200" soundmode="4" flags="0x04"/>
-	<body id="0x2f0" basesound="0x10c" figurine="0x25b1" />
-	<body id="0x2f1" basesound="0x174" figurine="0x258d" flags="0x1" />
-	<body id="0x2f2" basesound="0x174" figurine="0x258d" flags="0x1" />
-	<body id="0x2f3" basesound="0x174" figurine="0x258d" flags="0x1" />
-	<body id="0x2f4" basesound="0x36d" figurine="0x258f" />
-	<body id="0x2f5" basesound="0x36d" figurine="0x258f" />
-	<body id="0x2f6" basesound="0x174" figurine="0x258d" flags="0x1" />
-	<body id="0x2fb" basesound="0x36d" figurine="0x258f" />
-	<body id="0x307" basesound="0x351" figurine="0x20e8" />
-	<body id="0x308" basesound="0x35f" figurine="0x212f" />
-	<body id="0x309" basesound="0x456" figurine="0x25d5" />
-	<body id="0x30a" basesound="0x36d" figurine="0x258f" />
-	<body id="0x30b" basesound="0x2f8" figurine="0x20d7" />
-	<body id="0x30c" basesound="0x300" figurine="0x2582" />
-	<body id="0x30d" basesound="0x346" figurine="0x25c9" />
-	<body id="0x30e" basesound="0x346" figurine="0x25ca" />
-	<body id="0x30f" basesound="0x346" figurine="0x25cb" />
-	<body id="0x310" basesound="0x165" figurine="0x2585" />
-	<body id="0x311" basesound="0x2b8" figurine="0x2586" />
-	<body id="0x312" basesound="0x388" figurine="0x25c3" />
-	<body id="0x313" basesound="0x18d" figurine="0x25b9" />
-	<body id="0x314" basesound="0x3ee" figurine="0x25cf" />
-	<body id="0x315" basesound="0x451" figurine="0x25c4" />
-	<body id="0x316" basesound="0x28f" figurine="0x25d9" />
-	<body id="0x317" basesound="0x2bd" figurine="0x25c3" />
-	<body id="0x318" basesound="0x165" figurine="0x2584" />
-	<body id="0x319" basesound="0xa8" figurine="0x259b" />
-	<body id="0x31a" basesound="0x16a" figurine="0x2593" flags="0x1" />
-	<body id="0x31b" basesound="0x2b9" figurine="0x2584" />
-	<body id="0x31c" basesound="0x2b9" figurine="0x2584" />
-	<body id="0x31d" basesound="0x111" figurine="0x20d6" flags="0x1" />
-	<body id="0x31e" basesound="0x16a" figurine="0x20d6" flags="0x1" />
-	<body id="0x31f" basesound="0x16a" figurine="0x20d6" flags="0x1" />
+	<body id="0x1" basesound="0x1ab" figurine="0x20df" type="1" />
+	<body id="0x2" basesound="0x16f" figurine="0x20d8" type="1" />
+	<body id="0x3" basesound="0x1d7" figurine="0x20ec" type="1" />
+	<body id="0x4" basesound="0x174" figurine="0x20d9" flags="0x1" type="1" />
+	<body id="0x5" basesound="0x8f" figurine="0x20f2" flags="0x3" type="3" />
+	<body id="0x6" basesound="0x7d" figurine="0x20ee" soundmode="1" flags="0x1" type="3" />
+	<body id="0x7" basesound="0x1b0" figurine="0x20e0" type="1" />
+	<body id="0x8" basesound="0x1ba" figurine="0x20d2" soundmode="3" type="1" />
+	<body id="0x9" basesound="0x165" figurine="0x20d3" flags="0x1" type="1" />
+	<body id="0xa" basesound="0x165" figurine="0x20d3" flags="0x1" type="1" />
+	<body id="0xb" basesound="0x183" figurine="0x20fd" type="1" />
+	<body id="0xc" basesound="0x16a" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0xd" basesound="0x107" figurine="0x20ed" flags="0x04" type="1" />
+	<body id="0xe" basesound="0x10c" figurine="0x20d7" type="1" />
+	<body id="0xf" basesound="0x111" figurine="0x20f3" flags="0x04" type="1" />
+	<body id="0x10" basesound="0x116" figurine="0x210b" flags="0x04" type="1" />
+	<body id="0x11" basesound="0x1b0" figurine="0x20e0" type="1" />
+	<body id="0x12" basesound="0x16f" figurine="0x20d8" type="1" />
+	<body id="0x13" basesound="0x183" figurine="0x20fd" type="1" />
+	<body id="0x14" basesound="0x388" figurine="0x20fd" type="1" />
+	<body id="0x15" basesound="0xdb" figurine="0x20fe" type="1" />
+	<body id="0x16" basesound="0x179" figurine="0x20ea" type="1" />
+	<body id="0x17" basesound="0xe5" figurine="0x211c" type="3" />
+	<body id="0x18" basesound="0x19c" figurine="0x20f8" type="1" />
+	<body id="0x19" basesound="0xe5" figurine="0x211c" type="3" />
+	<body id="0x1a" basesound="0x17e" figurine="0x2109" type="1" />
+	<body id="0x1b" basesound="0xe5" figurine="0x211c" type="3" />
+	<body id="0x1c" basesound="0x183" figurine="0x20fd" type="1" />
+	<body id="0x1d" basesound="0x9e" figurine="0x20f5" type="3" />
+	<body id="0x1e" basesound="0x192" figurine="0x20dc" type="1" />
+	<body id="0x1f" basesound="0x197" figurine="0x210a" type="1" />
+	<body id="0x21" basesound="0x1a1" figurine="0x20de" type="1" />
+	<body id="0x22" basesound="0xe5" figurine="0x211c" type="3" />
+	<body id="0x23" basesound="0x1a1" figurine="0x20de" type="1" />
+	<body id="0x24" basesound="0x1a1" figurine="0x20de" type="1" />
+	<body id="0x25" basesound="0xe5" figurine="0x211c" type="3" />
+	<body id="0x26" basesound="0x2b8" figurine="0x2585" flags="0x1" type="1" />
+	<body id="0x27" basesound="0x1a6" figurine="0x20f9" flags="0x1" type="1" />
+	<body id="0x28" basesound="0x2b8" figurine="0x2586" flags="0x1" type="1" />
+	<body id="0x29" basesound="0x1b0" figurine="0x20e0" type="1" />
+	<body id="0x2a" basesound="0x1b5" figurine="0x20e3" type="1" />
+	<body id="0x2b" basesound="0x2b8" figurine="0x2587" flags="0x1" type="1" />
+	<body id="0x2c" basesound="0x1b5" figurine="0x20e3" type="1" />
+	<body id="0x2d" basesound="0x1b5" figurine="0x20e3" type="1" />
+	<body id="0x2e" basesound="0x16a" figurine="0x2104" flags="0x1" type="1" />
+	<body id="0x2f" basesound="0x1ba" figurine="0x20fa" type="1" />
+	<body id="0x30" basesound="0x18d" figurine="0x20e4" type="1" />
+	<body id="0x31" basesound="0x16a" figurine="0x2104" flags="0x1" type="1" />
+	<body id="0x32" basesound="0x1c4" figurine="0x20e7" type="1" />
+	<body id="0x33" basesound="0x1c8" figurine="0x20e8" flags="0x2" type="1" />
+	<body id="0x34" basesound="0xdb" figurine="0x20fc" type="3" />
+	<body id="0x35" basesound="0x1cd" figurine="0x20e9" type="1" />
+	<body id="0x36" basesound="0x1cd" figurine="0x20e9" type="1" />
+	<body id="0x37" basesound="0x1cd" figurine="0x20e9" type="1" />
+	<body id="0x38" basesound="0x1c4" figurine="0x20e7" type="1" />
+	<body id="0x39" basesound="0x1c4" figurine="0x20e7" type="1" />
+	<body id="0x3a" basesound="0x1d2" figurine="0x2100" type="1" />
+	<body id="0x3b" basesound="0x16a" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0x3c" basesound="0x16a" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0x3d" basesound="0x16a" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0x3e" basesound="0x16a" figurine="0x25d4" flags="0x1" type="1" />
+	<body id="0x3f" basesound="0x73" figurine="0x2583" type="3" />
+	<body id="0x40" basesound="0x73" figurine="0x25a3" type="3" />
+	<body id="0x41" basesound="0x73" figurine="0x25a3" type="3" />
+	<body id="0x42" basesound="0x27f" figurine="0x25c8" type="1" />
+	<body id="0x43" basesound="0x174" figurine="0x258e" type="1" />
+	<body id="0x44" basesound="0x179" figurine="0x258f" type="1" />
+	<body id="0x45" basesound="0x36b" figurine="0x20f4" type="1" />
+	<body id="0x46" basesound="0x24e" figurine="0x25c9" type="1" />
+	<body id="0x47" basesound="0x24e" figurine="0x25ca" type="1" />
+	<body id="0x48" basesound="0x258" figurine="0x25cb" type="1" />
+	<body id="0x49" basesound="0x192" figurine="0x2594" flags="0x1" type="1" />
+	<body id="0x4a" basesound="0x3bf" figurine="0x259f" flags="0x1" type="1" />
+	<body id="0x4b" basesound="0x25c" figurine="0x212d" type="1" />
+	<body id="0x4c" basesound="0x261" figurine="0x25cd" type="1" />
+	<body id="0x4d" basesound="0x44c" figurine="0x25a2" type="1" />
+	<body id="0x4e" basesound="0x19c" figurine="0x20f8" type="1" />
+	<body id="0x4f" basesound="0x1a1" figurine="0x20f8" type="1" />
+	<body id="0x50" basesound="0x35a" figurine="0x212f" type="1" />
+	<body id="0x51" basesound="0x35f" figurine="0x2130" type="3" />
+	<body id="0x52" basesound="0x1a1" figurine="0x20f8" type="1" />
+	<body id="0x53" basesound="0x1ab" figurine="0x20cb" type="1" />
+	<body id="0x54" basesound="0x1ab" figurine="0x20cb" type="1" />
+	<body id="0x55" basesound="0x280" figurine="0x25ab" type="1" />
+	<body id="0x56" basesound="0x27b" figurine="0x25ac" type="1" />
+	<body id="0x57" basesound="0x285" figurine="0x25ad" type="1" />
+	<body id="0x58" basesound="0x99" figurine="0x2580" type="3" />
+	<body id="0x59" basesound="0x183" figurine="0x25c0" type="1" />
+	<body id="0x5a" basesound="0x183" figurine="0x25c1" type="1" />
+	<body id="0x5b" basesound="0x388" figurine="0x25c2" type="1" />
+	<body id="0x5c" basesound="0x388" figurine="0x25c2" type="1" />
+	<body id="0x5d" basesound="0x388" figurine="0x25c2" type="1" />
+	<body id="0x5e" basesound="0x1c8" figurine="0x20e8" type="1" />
+	<body id="0x60" basesound="0x1c8" figurine="0x20e8" type="1" />
+	<body id="0x61" basesound="0x85" figurine="0x2596" type="3" />
+	<body id="0x62" basesound="0x85" figurine="0x2596" type="3" />
+	<body id="0x63" basesound="0xe5" figurine="0x25cf" type="3" />
+	<body id="0x64" basesound="0xe5" figurine="0x25cf" type="3" />
+	<body id="0x65" basesound="0x2a7" figurine="0x2581" type="1" />
+	<body id="0x66" basesound="0x300" figurine="0x2105" flags="0x1" type="1" />
+	<body id="0x67" basesound="0x2c0" figurine="0x2593" flags="0x1" type="1" />
+	<body id="0x68" basesound="0x488" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0x69" basesound="0x2d2" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0x6a" basesound="0x2cd" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0x6b" basesound="0x10c" figurine="0x25d9" type="1" />
+	<body id="0x6c" basesound="0x10c" figurine="0x25d9" type="1" />
+	<body id="0x6d" basesound="0x10c" figurine="0x25d9" type="1" />
+	<body id="0x6e" basesound="0x10c" figurine="0x20d7" type="1" />
+	<body id="0x6f" basesound="0x10c" figurine="0x20d7" type="1" />
+	<body id="0x70" basesound="0x10c" figurine="0x20d7" type="1" />
+	<body id="0x71" basesound="0xa8" figurine="0x2121" type="1" />
+	<body id="0x72" basesound="0xa8" figurine="0x2120" type="3" />
+	<body id="0x73" basesound="0xa8" figurine="0x259c" type="3" />
+	<body id="0x74" basesound="0xa8" figurine="0x259d" type="3" />
+	<body id="0x75" basesound="0xa8" figurine="0x2121" type="3" />
+	<body id="0x76" basesound="0xa8" figurine="0x2121" type="3" />
+	<body id="0x77" basesound="0xa8" figurine="0x2121" type="3" />
+	<body id="0x78" basesound="0xa8" figurine="0x2121" type="3" />
+	<body id="0x79" basesound="0xa8" figurine="0x2121" type="3" />
+	<body id="0x7a" basesound="0x4bc" figurine="0x25ce" type="3" />
+	<body id="0x7b" basesound="0x2f5" figurine="0x2589" flags="0x1" type="1" />
+	<body id="0x7c" basesound="0x24d" figurine="0x258a" type="1" />
+	<body id="0x7d" basesound="0x27f" figurine="0x258b" type="1" />
+	<body id="0x7e" basesound="0x257" figurine="0x258b" type="1" />
+	<body id="0x7f" basesound="0x69" figurine="0x2597" type="3" />
+	<body id="0x80" basesound="0x46d" figurine="0x25b6" type="1" />
+	<body id="0x81" basesound="0x34e" figurine="0x25c8" type="1" />
+	<body id="0x82" basesound="0x174" figurine="0x20d9" type="1" />
+	<body id="0x83" basesound="0x370" figurine="0x2590" type="1" />
+	<body id="0x84" basesound="0x3c5" figurine="0x25a0" type="3" />
+	<body id="0x85" basesound="0x5a" figurine="0x211f" type="3" />
+	<body id="0x86" basesound="0x2c7" figurine="0x25a1" flags="0x1" type="3" />
+	<body id="0x87" basesound="0x1ab" figurine="0x25a8" type="1" />
+	<body id="0x88" basesound="0x280" figurine="0x25a9" type="1" />
+	<body id="0x89" basesound="0x27b" figurine="0x25aa" type="1" />
+	<body id="0x8a" basesound="0x459" figurine="0x25b0" type="1" />
+	<body id="0x8b" basesound="0x459" figurine="0x25b0" type="1" />
+	<body id="0x8c" basesound="0x1ab" figurine="0x25b1" type="1" />
+	<body id="0x8d" basesound="0x447" figurine="0x2106" type="1" />
+	<body id="0x8e" basesound="0x1b5" figurine="0x25b7" type="1" />
+	<body id="0x8f" basesound="0x1b5" figurine="0x25b7" type="1" />
+	<body id="0x90" basesound="0x478" figurine="0x25ba" type="2" />
+	<body id="0x91" basesound="0x3" figurine="0x20fb" type="2" />
+	<body id="0x92" basesound="0x47d" figurine="0x258a" type="1" />
+	<body id="0x93" basesound="0x48d" figurine="0x25bd" type="1" />
+	<body id="0x94" basesound="0x48d" figurine="0x25be" type="1" />
+	<body id="0x95" basesound="0x4b0" figurine="0x259f" type="1" />
+	<body id="0x96" basesound="0x3" figurine="0x20fb" type="2" />
+	<body id="0x97" basesound="0x8a" figurine="0x20f1" type="2" />
+	<body id="0x98" basesound="0x492" figurine="0x25ca" type="1" />
+	<body id="0x99" basesound="0x379" figurine="0x25c7" type="1" />
+	<body id="0x9a" basesound="0x1d7" figurine="0x25bb" type="1" />
+	<body id="0x9b" basesound="0x1d7" figurine="0x25a7" type="1" />
+	<body id="0x9d" basesound="0x388" figurine="0x25c3" type="1" />
+	<body id="0x9e" basesound="0x205" figurine="0x25d6" soundmode="2" type="1" />
+	<body id="0x9f" basesound="0x205" figurine="0x25d8" soundmode="2" type="1" />
+	<body id="0xa0" basesound="0x205" figurine="0x25d8" soundmode="2" type="1" />
+	<body id="0xa1" basesound="0x107" figurine="0x25da" type="1" />
+	<body id="0xa2" basesound="0x205" figurine="0x25db" soundmode="2" type="1" />
+	<body id="0xa3" basesound="0x10c" figurine="0x25dc" type="1" />
+	<body id="0xa4" basesound="0x107" figurine="0x25d8" type="1" />
+	<body id="0xa5" basesound="0x1d2" figurine="0x2100" type="1" />
+	<body id="0xa6" basesound="0x10c" figurine="0x25d9" type="1" />
+	<body id="0xa7" basesound="0x4c2" figurine="0x211e" type="3" />
+	<body id="0xa8" basesound="0x3bf" figurine="0x259f" type="1" />
+	<body id="0xaa" basesound="0x3f3" figurine="0x20f6" type="3" />
+	<body id="0xab" basesound="0xb7" figurine="0x25b4" soundmode="2" type="3" />
+	<body id="0xac" basesound="0x16a" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0xad" basesound="0x388" figurine="0x25c3" type="1" />
+	<body id="0xae" basesound="0x4b0" figurine="0x259f" flags="0x1" type="1" />
+	<body id="0xaf" basesound="0x2fa" figurine="0x2589" type="1" />
+	<body id="0xb0" basesound="0x46c" figurine="0x25b6" flags="0x1" type="1" />
+	<body id="0xb2" basesound="0xa8" figurine="0x259c" type="3" />
+	<body id="0xb3" basesound="0xa8" figurine="0x259c" type="3" />
+	<body id="0xb4" basesound="0x2c0" figurine="0x20d6" flags="0x1" type="3" />
+	<body id="0xb5" basesound="0x1b0" figurine="0x25af" type="1" />
+	<body id="0xb6" basesound="0x1b0" figurine="0x25b0" type="1" />
+	
+	<!-- b7 type=4 -->
+	<!-- b8 type=4 -->
+	<!-- b9 type=4 -->
+	<!-- ba type=4 -->
+	
+	<body id="0xbb" basesound="0x365" figurine="0x25b2" type="1" />
+	<body id="0xbc" basesound="0x365" figurine="0x25b2" type="3" />
+	<body id="0xbd" basesound="0x45a" figurine="0x25b0" type="1" />
+	
+	<!-- be type=3 -->
+	<!-- bf type=3 -->
+	<!-- c0 type=3 -->
+	<!-- c1 type=3 -->
+	<!-- c2 type=3 -->
+	<!-- c3 type=3 -->
+	
+	<body id="0xc8" basesound="0xa8" figurine="0x211f" type="3" />
+	<body id="0xc9" basesound="0x69" figurine="0x211b" flags="0x2" type="3" />
+	<body id="0xca" basesound="0x5a" figurine="0x20da" type="3" />
+	<body id="0xcb" basesound="0xc4" figurine="0x2101" type="3" />
+	<body id="0xcc" basesound="0xa8" figurine="0x2121" type="3" />
+	<body id="0xcd" basesound="0xc9" figurine="0x2125" soundmode="2" type="3" />
+	
+	<!-- ce type=1 -->
+	
+	<body id="0xcf" basesound="0xd6" figurine="0x20eb" type="3" />
+	<body id="0xd0" basesound="0x6e" figurine="0x20d1" type="3" />
+	<body id="0xd1" basesound="0x99" figurine="0x20e6" type="3" />
+	
+	<!-- d2 type=3 -->
+	
+	<body id="0xd3" basesound="0x5f" figurine="0x20cf" type="3" />
+	<body id="0xd4" basesound="0x5f" figurine="0x20db" type="3" />
+	<body id="0xd5" basesound="0x5f" figurine="0x20e1" type="3" />
+	<body id="0xd6" basesound="0xba" figurine="0x2119" flags="0x2" type="3" />
+	<body id="0xd7" basesound="0x188" figurine="0x20d0" type="1" />
+	<body id="0xd8" basesound="0x78" figurine="0x20f0" type="3" />
+	<body id="0xd9" basesound="0x85" figurine="0x20d5" type="3" />
+	<body id="0xda" basesound="0x3f5" figurine="0x25b3" type="3" />
+	<body id="0xdb" basesound="0x3f5" figurine="0x25b4" type="3" />
+	<body id="0xdc" basesound="0xb7" figurine="0x20f6" soundmode="2" type="3" />
+	<body id="0xdd" basesound="0xe0" figurine="0x20ff" type="3" />
+	<body id="0xdf" basesound="0xd8" figurine="0x20e6" soundmode="2" type="3" />
+	<body id="0xe1" basesound="0xe5" figurine="0x20ea" flags="0x2" type="3" />
+	<body id="0xe2" basesound="0xa8" figurine="0x2124" type="3" />
+	<body id="0xe4" basesound="0xa8" figurine="0x2120" type="3" />
+	<body id="0xe7" basesound="0x78" figurine="0x20f0" flags="0x2" type="3" />
+	<body id="0xe8" basesound="0x64" figurine="0x20ef" flags="0x2" type="3" />
+	<body id="0xe9" basesound="0x78" figurine="0x2103" flags="0x2" type="3" />
+	<body id="0xea" basesound="0x82" figurine="0x20d4" soundmode="2" type="3" />
+	<body id="0xed" basesound="0x82" figurine="0x20d4" soundmode="2" type="3" />
+	<body id="0xee" basesound="0xcc" figurine="0x2123" type="3" />
+	<body id="0x122" basesound="0xc4" figurine="0x2101" type="3" />
+	<body id="0x123" basesound="0xa8" figurine="0x2126" type="3" />
+	<body id="0x124" basesound="0xb7" figurine="0x2127" soundmode="2" type="3" />
+	
+	<!-- 12c type=1 -->
+	<!-- 12d type=1 -->
+	<!-- 12e type=1 -->
+	<!-- 12f type=1 -->
+	<!-- 130 type=1 -->
+	<!-- 131 type=1 -->
+	<!-- 132 type=1 -->
+	<!-- 133 type=1 -->
+	<!-- 134 type=1 -->
+	<!-- 135 type=1 -->
+	<!-- 136 type=1 -->
+	<!-- 137 type=1 -->
+	<!-- 138 type=1 -->
+	<!-- 139 type=1 -->
+	<!-- 13a type=1 -->
+	<!-- 13b type=1 -->
+	<!-- 13c type=1 -->
+	<!-- 13d type=1 -->
+	<!-- 13e type=1 -->
+	<!-- 13f type=1 -->
+		
+	<!-- Human + Equipment -->	
+	<body id="0x190" basesound="0x0" figurine="0x2106" type="4" />
+	<body id="0x191" basesound="0x0" figurine="0x2107" type="4" />
+	<body id="0x192" basesound="0x0" figurine="0x25f0" type="4" />
+	<body id="0x193" basesound="0x0" figurine="0x25f1" type="4" />
+	<body id="0x23d" basesound="0x107" flags="0x04" />
+	<body id="0x23e" basesound="0x200" soundmode="4" flags="0x04" type="1" />
+	
+	<!-- 2e8 type="4" -->
+	<!-- 2e9 type="4" -->
+	
+	<!-- 2ea type=1 -->
+	<!-- 2eb type=1 -->
+	<!-- 2ec type=1 -->
+	<!-- 2ed type=1 -->
+	
+	<!-- 2ee type=4 -->
+	<!-- 2ef type=4 -->
+	
+	<body id="0x2f0" basesound="0x10c" figurine="0x25b1" type="1" />
+	<body id="0x2f1" basesound="0x174" figurine="0x258d" flags="0x1" type="1" />
+	<body id="0x2f2" basesound="0x174" figurine="0x258d" flags="0x1" type="1" />
+	<body id="0x2f3" basesound="0x174" figurine="0x258d" flags="0x1" type="1" />
+	<body id="0x2f4" basesound="0x36d" figurine="0x258f" type="1" />
+	<body id="0x2f5" basesound="0x36d" figurine="0x258f" type="1" />
+	<body id="0x2f6" basesound="0x174" figurine="0x258d" flags="0x1" type="1" />
+	<body id="0x2fb" basesound="0x36d" figurine="0x258f" type="1" />
+	<!-- 2fc type=1 -->
+	<!-- 2fd type=1 -->
+	<!-- 2fe type=1 -->
+	<!-- 2ff type=1 -->
+	<!-- 300 type=1 -->
+	<!-- 301 type=1 -->
+	<!-- 302 type=1 -->
+	<!-- 303 type=1 -->
+	<!-- 304 type=1 -->
+	<!-- 305 type=1 -->
+	<!-- 306 type=1 -->
+	
+	<body id="0x307" basesound="0x351" figurine="0x20e8" type="1" />
+	<body id="0x308" basesound="0x35f" figurine="0x212f" type="1" />
+	<body id="0x309" basesound="0x456" figurine="0x25d5" type="1" />
+	<body id="0x30a" basesound="0x36d" figurine="0x258f" type="1" />
+	<body id="0x30b" basesound="0x2f8" figurine="0x20d7" type="1" />
+	<body id="0x30c" basesound="0x300" figurine="0x2582" type="1" />
+	<body id="0x30d" basesound="0x346" figurine="0x25c9" type="1" />
+	<body id="0x30e" basesound="0x346" figurine="0x25ca" type="1" />
+	<body id="0x30f" basesound="0x346" figurine="0x25cb" type="1" />
+	<body id="0x310" basesound="0x165" figurine="0x2585" type="1" />
+	<body id="0x311" basesound="0x2b8" figurine="0x2586" type="1" />
+	<body id="0x312" basesound="0x388" figurine="0x25c3" type="1" />
+	<body id="0x313" basesound="0x18d" figurine="0x25b9" type="1" />
+	<body id="0x314" basesound="0x3ee" figurine="0x25cf" type="1" />
+	<body id="0x315" basesound="0x451" figurine="0x25c4" type="1" />
+	<body id="0x316" basesound="0x28f" figurine="0x25d9" type="1" />
+	<body id="0x317" basesound="0x2bd" figurine="0x25c3" type="3" />
+	<body id="0x318" basesound="0x165" figurine="0x2584" type="1" />
+	<body id="0x319" basesound="0xa8" figurine="0x259b" type="3" />
+	<body id="0x31a" basesound="0x16a" figurine="0x2593" flags="0x1" type="3" />
+	<body id="0x31b" basesound="0x2b9" figurine="0x2584" type="1" />
+	<body id="0x31c" basesound="0x2b9" figurine="0x2584" type="1" />
+	<body id="0x31d" basesound="0x111" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0x31e" basesound="0x16a" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="0x31f" basesound="0x16a" figurine="0x20d6" flags="0x1" type="3" />
+	
+	<!-- 324 type=1 -->
+	<!-- 325 type=1 -->
+	<!-- 326 type=1 -->
+	<!-- 327 type=1 -->
+	<!-- 328 type=1 -->
+	
 	<body id="0x334" basesound="0xa8" figurine="0x2598" />
 	<body id="0x338" basesound="0xa8" figurine="0x259a" />
 	<body id="0x339" basesound="0x3f5" figurine="0x25b2" />
@@ -296,5 +377,16 @@
 	<body id="0x34b" basesound="0xcc" figurine="0x2123" />
 	<body id="0x34e" basesound="0xa8" figurine="0x2599" />
 	<body id="0x350" basesound="0xa8" figurine="0x259e" />
+	
+	<!-- 3db type=4 -->
+	<!-- 3dc type=4 -->
+	<!-- 3de type=4 -->
+	<!-- 3df type=4 -->
+	
+	<!-- 3e2 type=4 -->
+	
+	<!-- 3e6 type=1 -->
+	<!-- 3e7 type=1 -->
+	
 	<body id="0x3e6" basesound="0xa8" figurine="0x25a0" />
 </bodyinfo>
