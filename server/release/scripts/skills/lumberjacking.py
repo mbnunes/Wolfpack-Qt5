@@ -58,9 +58,6 @@ def response( args ):
 	if not veingem:
 		veingem = createwoodgem( target, pos )
 
-	if not veingem:
-		veingem = createwoodgem( target, pos )
-
 	if not veingem.hastag( 'resname' ) or not veingem.hastag( 'resourcecount' ):
 		return False
 
@@ -127,7 +124,15 @@ def hack_logs( char, target, tool, resource ):
 	resourcecount = int(resource.gettag( 'resourcecount' ))
 
 	# No resource left to harvest?
-	if resourcecount <= 0:
+	# So start to respawn
+	if resourcecount <= 0 and not resource.hastag( 'resource_empty' ):
+		resource.settag( 'resource_empty', 'true' )
+		resource.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [], True )
+		socket.clilocmessage( 500488, '', GRAY )
+		return False
+	
+	# Check if there's already a timer
+	elif resource.hastag( 'resource_empty' ):
 		socket.clilocmessage( 500488, '', GRAY )
 		return False
 
@@ -242,13 +247,20 @@ def successlumberjacking( char, args ):
 
 		if resource.gettag( 'resourcecount' ) >= 1:
 			resource.settag( 'resourcecount', int( amount - 1 ) )
-		elif resource.gettag( 'resourcecount' ) == 0:
-			if not resource.hastag ('resource_empty') and int( resource.gettag( 'resourcecount' ) ) == 0:
-				resource.settag( 'resource_empty', 'true' )
-				resource.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [], True )
+		
+		#
+		# you don't get so far, look lines 127 ff.
+		#
+		#elif resource.gettag( 'resourcecount' ) == 0:
+		#	if not resource.hastag ('resource_empty') and int( resource.gettag( 'resourcecount' ) ) == 0:
+		#		resource.settag( 'resource_empty', 'true' )
+		#		resource.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [], True )
+		
 		return True
 
 def respawnvein( vein, args ):
+	if not vein:
+		return True
 	if vein.hastag ('resource_empty') and int(vein.gettag( 'resourcecount' )) == 0:
 		vein.settag( 'resourcecount', int( woodspawnamount ) )
 		vein.deltag( 'resource_empty' )
