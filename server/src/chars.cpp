@@ -2865,9 +2865,11 @@ void cChar::turnTo( const Coord_cl &pos )
 		// Send a different packet for ourself
 		if( socket_ )
 		{
-			cUOTxForceWalk forceWalk;
+			socket_->resendPlayer( true );
+
+			/*cUOTxForceWalk forceWalk;
 			forceWalk.setDirection( dir_ );
-			socket_->send( &forceWalk );
+			socket_->send( &forceWalk );*/
 		}
 	}
 }

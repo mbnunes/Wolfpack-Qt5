@@ -494,6 +494,39 @@ PyObject *wpChars( PyObject* self, PyObject* args )
 }
 
 /*!
+	Shows a graphical effect at a certain position
+*/
+PyObject *wpEffect( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	
+	// effect-id, position, speed, duration
+	if( !checkArgInt( 0 ) || !checkArgCoord( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}	
+
+	cUOTxEffect effect;
+	effect.setType( ET_STAYSOURCEPOS );
+	effect.setId( getArgInt( 0 ) );
+	effect.setSourcePos( getArgCoord( 1 ) );
+	effect.setDuration( getArgInt( 3 ) );
+	effect.setSpeed( getArgInt( 2 ) );
+
+	Coord_cl displaypos = getArgCoord( 1 );
+
+	cUOSocket *mSock;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock->player() && mSock->player()->pos().distance( displaypos ) <= mSock->player()->VisRange() )
+			mSock->send( &effect );
+	}
+
+	return PyTrue;
+}
+
+/*!
 	Returns information about a given map cell.
 */
 PyObject *wpMap( PyObject* self, PyObject* args )
@@ -714,6 +747,7 @@ static PyMethodDef wpGlobal[] =
 	{ "finditem",			wpFinditem,			METH_VARARGS, "Tries to find an item based on it's serial" },
 	{ "findchar",			wpFindchar,			METH_VARARGS, "Tries to find a char based on it's serial" },
 	{ "addtimer",			wpAddtimer,			METH_VARARGS, "Adds a timed effect" },
+	{ "effect",				wpEffect,			METH_VARARGS, "Shows a graphical effect." },
 	{ "region",				wpRegion,			METH_VARARGS, "Gets the region at a specific position" },
 	{ "currenttime",		wpCurrenttime,		METH_VARARGS, "Time in ms since server-start" },
 	{ "statics",			wpStatics,			METH_VARARGS, "Returns a list of static-item at a given position" },

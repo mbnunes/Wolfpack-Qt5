@@ -1092,13 +1092,13 @@ void cUOSocket::resendPlayer( bool quick )
 		return;
 
 	// Pause
-	cUOTxPause pause;
-	pause.pause();
-	send( &pause );
-
-	// Make sure we switch client when this changes
 	if( !quick )
 	{
+		cUOTxPause pause;
+		pause.pause();
+		send( &pause );
+
+		// Make sure we switch client when this changes
 		cUOTxChangeMap changeMap; 
 		changeMap.setMap( _player->pos().map );
 		send( &changeMap );
@@ -1135,19 +1135,22 @@ void cUOSocket::resendPlayer( bool quick )
 		cUOTxWarmode warmode;
 		warmode.setStatus( _player->war() );
 		send( &warmode );
+	
+		// Resume
+		cUOTxPause resume;
+		resume.resume();
+		send( &resume );
 	}
 
-	// Resume
-	cUOTxPause resume;
-	resume.resume();
-	send( &resume );
-
 	// Start the game!
-	cUOTxStartGame startGame;
-	send( &startGame );
+	if( !quick )
+	{
+		cUOTxStartGame startGame;
+		send( &startGame );
 
-	// Reset the walking sequence
-	_walkSequence = 0xFF;
+		// Reset the walking sequence
+		_walkSequence = 0xFF;
+	}
 }
 
 void cUOSocket::updateChar( P_CHAR pChar )
