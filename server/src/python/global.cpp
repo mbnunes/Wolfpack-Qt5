@@ -683,6 +683,17 @@ static PyObject *wpMap( PyObject* self, PyObject* args )
 	return dict;
 }
 
+static PyObject* wpHasMap( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	if ( !checkArgInt(0) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+	return Map->hasMap( getArgInt(0) ) ? PyTrue : PyFalse;
+}
+
 /*!
 	Returns the tiledata information for a item id.
 */
@@ -1068,9 +1079,10 @@ static PyMethodDef wpGlobal[] =
 	{ "addtimer",			wpAddtimer,						METH_VARARGS, "Adds a timed effect" },
 	{ "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." },
 	{ "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
-	{ "currenttime",		(PyCFunction)wpCurrenttime,		METH_NOARGS, "Time in ms since server-start" },
+	{ "currenttime",		wpCurrenttime,					METH_NOARGS, "Time in ms since server-start" },
 	{ "statics",			wpStatics,						METH_VARARGS, "Returns a list of static-item at a given position" },
-	{ "map",				wpMap,							METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
+	{ "map",				wpMap,							METH_VARARGS, "Returns a dictionary with information about a given map tile" },
+	{ "hasmap",				wpHasMap,						METH_VARARGS, "Returns true if the map specified is present"	},
 	{ "items",				wpItems,						METH_VARARGS, "Returns a list of items in a specific sector." },
 	{ "chars",				wpChars,						METH_VARARGS, "Returns a list of chars in a specific sector." },
 	{ "allcharsserials",	wpAllCharsSerials,				METH_VARARGS, "Returns a list of all chars serials" },
