@@ -50,6 +50,8 @@ private:
 
 protected:
 	bool haveCompressed;
+	bool noswap;
+	void init();
 	void compress();
 	void assign( cUOPacket& );
 	void resize( uint );

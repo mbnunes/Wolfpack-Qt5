@@ -375,7 +375,7 @@ QString title3(P_CHAR pc) // Paperdoll title for character p (3)
 		else if (f>=2500) titlenum=44;
 		else if (f>=1250) titlenum=43;
 	}
-	sprintf(thetitle,"%s ",title[titlenum].fame);
+	sprintf(thetitle,"%s ",title[titlenum].fame.latin1());
 	if (titlenum==24) thetitle [0] = 0;
 
 	QString fametitle;

@@ -53,8 +53,13 @@
   cUOPacket is the base class for all incomming and outgoing application level
   packets from Ultima Online. It provides methods for accessing basic type fields
   inside the package given an start offset.
+  This class will also handle BigEndian/LittleEndian differences and do the proper
+  conversions if necessary.
 
 */
+
+static int  systemWordSize = 0;
+static bool systemBigEndian;
 
 /*!
   Constructs a packet that is a deep copy of \a d interpreted as
@@ -62,6 +67,7 @@
 */
 cUOPacket::cUOPacket( QByteArray d ) : haveCompressed(false)
 {
+	init();
 	rawPacket = d.copy();
 }
 
@@ -70,6 +76,7 @@ cUOPacket::cUOPacket( QByteArray d ) : haveCompressed(false)
 */
 cUOPacket::cUOPacket( cUOPacket& p ) : haveCompressed(false)
 {
+	init();
 	assign(p);
 }
 
@@ -78,7 +85,20 @@ cUOPacket::cUOPacket( cUOPacket& p ) : haveCompressed(false)
 */
 cUOPacket::cUOPacket( Q_UINT32 size ) : rawPacket( size ), haveCompressed(false)
 {
+	init();
 	rawPacket.fill( (char)0 );
+}
+
+/*!
+	\internal
+	Internal initialize function. Should be called from all constructors.
+*/
+void cUOPacket::init()
+{
+	haveCompressed = false;
+	if ( systemWordSize == 0 )			// get system features
+		qSysInfo( &systemWordSize, &systemBigEndian );
+	noswap = !systemBigEndian;
 }
 
 /*!
@@ -311,10 +331,21 @@ QByteArray cUOPacket::compressed()
 */
 int cUOPacket::getInt( uint pos ) const
 {
-	int value = rawPacket.at(pos+3) & 0x000000FF;
-	value |= rawPacket.at(pos+2) << 8;
-	value |= rawPacket.at(pos+1) << 16;
-	value |= rawPacket.at(pos)   << 24;
+	int value;
+	if (noswap)
+	{
+		value = rawPacket.at(pos+3) & 0x000000FF;
+		value |= rawPacket.at(pos+2) << 8;
+		value |= rawPacket.at(pos+1) << 16;
+		value |= rawPacket.at(pos)   << 24;
+	}
+	else
+	{
+		value = rawPacket.at(pos) & 0x000000FF;
+		value |= rawPacket.at(pos+1) << 8;
+		value |= rawPacket.at(pos+2) << 16;
+		value |= rawPacket.at(pos+3)   << 24;
+	}
 	return value;
 }
 
@@ -323,8 +354,17 @@ int cUOPacket::getInt( uint pos ) const
 */
 short cUOPacket::getShort( uint pos ) const
 {
-	short value = (Q_INT16)(rawPacket.at(pos+1)) & 0x00FF;
-	value |= ((Q_INT16)(rawPacket.at(pos)) << 8) & 0xFF00;
+	short value;
+	if ( noswap )
+	{
+		value = (Q_INT16)(rawPacket.at(pos+1)) & 0x00FF;
+		value |= ((Q_INT16)(rawPacket.at(pos)) << 8) & 0xFF00;
+	}
+	else
+	{
+		value = (Q_INT16)(rawPacket.at(pos)) & 0x00FF;
+		value |= ((Q_INT16)(rawPacket.at(pos+)) << 8) & 0xFF00;
+	}
 	return value;
 }
 
@@ -383,10 +423,20 @@ QString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 void  cUOPacket::setInt( unsigned int pos, unsigned int value )
 {
 	haveCompressed = false; // changed
-	rawPacket.at(pos++) = static_cast<char>((value >> 24) & 0x000000FF);
-	rawPacket.at(pos++) = static_cast<char>((value >> 16) & 0x000000FF);
-	rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
-	rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
+	if ( noswap )
+	{
+		rawPacket.at(pos++) = static_cast<char>((value >> 24) & 0x000000FF);
+		rawPacket.at(pos++) = static_cast<char>((value >> 16) & 0x000000FF);
+		rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
+		rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
+	}
+	else
+	{
+		rawPacket.at(pos++) = static_cast<char>((value      ) & 0x000000FF);
+		rawPacket.at(pos++) = static_cast<char>((value >>  8) & 0x000000FF);
+		rawPacket.at(pos++) = static_cast<char>((value >> 16) & 0x000000FF);
+		rawPacket.at(pos)   = static_cast<char>((value >> 24) & 0x000000FF);
+	}
 }
 
 /*!
@@ -395,8 +445,16 @@ void  cUOPacket::setInt( unsigned int pos, unsigned int value )
 void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 {
 	haveCompressed = false; // changed
-	rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
-	rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
+	if ( noswap )
+	{
+		rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
+		rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
+	}
+	else
+	{
+		rawPacket.at(pos++) = static_cast<char>((value     ) & 0x000000FF);
+		rawPacket.at(pos)   = static_cast<char>((value >> 8) & 0x000000FF);
+	}
 }
 
 /*!

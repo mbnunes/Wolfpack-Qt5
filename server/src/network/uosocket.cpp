@@ -59,7 +59,7 @@
 #include "../gumps.h"
 #include "../skills.h"
 #include "../contextmenu.h"
-#include "../tmpeff.h"
+#include "../TmpEff.h"
 
 //#include <conio.h>
 #include <iostream>
