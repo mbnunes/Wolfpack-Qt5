@@ -177,12 +177,12 @@ def onUse( char, item ):
 			return 0
 	
 		# Search for a key in the users backpack
-		backpack = char.getbackpack()
+		#backpack = char.getbackpack()
 				
-		if searchkey(backpack, lock):
-			if 'door' in events:
-				char.message(501282) # quickly open / relock
-			return 0
+		#if searchkey(backpack, lock):
+		#	if 'door' in events:
+		#		char.message(501282) # quickly open / relock
+		#	return 0
 	
 	char.message(502503) # Thats locked
 	return 1

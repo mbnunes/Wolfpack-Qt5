@@ -10,6 +10,34 @@ def onLoad():
   pass
 
 def lock_response(char, args, target):
+  if len(args) != 1:
+    return    
+
+  key = wolfpack.finditem(args[0])
+  if not key or not char.canreach(key,5):
+    char.socket.clilocmessage(501661)
+    return
+
+  # Check for an item target.
+  if not target.item or not char.canreach(target.item,5):
+    char.socket.clilocmessage(501666)
+    return
+
+  # a) Targetted a lockable item
+  if target.item == key:
+    char.socket.sysmessage('rename key')
+    # Gump...
+
+  elif 'lock' in target.item.events:
+    if target.item.hastag('locked') and int(target.item.gettag('locked')) == 1:
+      target.item.deltag('locked')
+    else:
+      target.item.settag('locked','1')
+    char.soundeffect(0x241)
+
+  else:
+    char.socket.clilocmessage(501666)
+
   return
 
 def copy_response(char, args, target):
