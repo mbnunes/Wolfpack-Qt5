@@ -45,11 +45,15 @@ prices = {
 
 def onSpeech( listener, speaker, text, keywords ):
 	# Check if our name is in the beginning of the string
-	#if not text.lower().startswith( listener.name.lower() ):
-	#	return 0
+	if not text.lower().startswith( listener.name.lower() ) and not text.lower.startswith( 'vendor' ):
+		return 0
+		
+	if 369 not in keywords and 60 not in keywords:
+		return 0
 
 	if ( speaker.distanceto( listener ) > 4 ):
 		return 0
+
 	if ( abs( speaker.pos.z - listener.pos.z ) > 5 ):
 		return 0
 
