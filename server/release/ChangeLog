@@ -45,6 +45,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Converted NPC skill tags to <skill id="skillname">value</skill>
   - Fix for skills.xml and NPCs: magicresist is now magicresistance.
   - Fixed weaponsmith not buying weapons.
+  - Adjusted light radius of some items.
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
   - Added an follow button to who menu.

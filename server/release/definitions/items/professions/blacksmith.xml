@@ -125,6 +125,7 @@
 
 	<item id="197e" inherit="ITEM_NO_DECAY">
 		<id>0x197e</id>
+		<lightsource>0x2</lightsource>
 		<category>Professions\Blacksmith\Forge (W/E) (2/3)</category>
 	</item>
 
@@ -176,6 +177,7 @@
 
 	<item id="198a" inherit="ITEM_NO_DECAY">
 		<id>0x198a</id>
+		<lightsource>0x2</lightsource>
 		<category>Professions\Blacksmith\Forge (N/S) (2/3)</category>
 	</item>
 

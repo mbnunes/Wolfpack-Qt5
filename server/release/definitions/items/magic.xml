@@ -13,6 +13,7 @@
 	<!-- Red Moongate -->
 	<item id="dda">
 		<id>0xdda</id>
+		<lightsource>0x2</lightsource>
 		<category>Misc\Moongates\Red Moongate</category>
 	</item>
 
@@ -21,26 +22,25 @@
 		<id>0xf6c</id>
 		<nodecay />
 		<basescripts>moongate</basescripts>
+		<lightsource>0x2</lightsource>
 		<category>Misc\Moongates\Blue Moongate</category>
 	</item>
 
 	<item id="1ae5">
 		<id>0x1ae5</id>
+		<lightsource>0x2</lightsource>
 		<category>Misc\Moongates\Summon Red Moongate 1</category>
 	</item>
 
 	<item id="1ae9">
 		<id>0x1ae9</id>
+		<lightsource>0x2</lightsource>
 		<category>Misc\Moongates\Summon Red Moongate 2</category>
-	</item>
-
-	<item id="1af3">
-		<id>0x1af3</id>
-		<category>Misc\Moongates\Summon Blue Moongate 1</category>
 	</item>
 
 	<item id="1af7">
 		<id>0x1af7</id>
+		<lightsource>0x2</lightsource>
 		<category>Misc\Moongates\Summon Blue Moongate 2</category>
 	</item>
 
