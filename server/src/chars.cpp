@@ -46,15 +46,13 @@
 #include "wpdefmanager.h"
 #include "console.h"
 #include "log.h"
+#include "combat.h"
 
 // Qt Includes
 #include <qstringlist.h>
 
 // Libary Includes
 #include <math.h>
-
-#undef  DBGFILE
-#define DBGFILE "chars.cpp"
 
 void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 {
