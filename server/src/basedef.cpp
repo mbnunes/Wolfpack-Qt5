@@ -153,10 +153,16 @@ void cCharBaseDef::reset()
 
 void cCharBaseDef::processNode( const cElement* node )
 {
+	// <basesound value="0x12" />
+	// <basesound>0x12</basesound>
 	if ( node->name() == "basesound" )
 	{
-		basesound_ = node->value().toInt();
+		if ( node->hasAttribute( "value" ) )
+			basesound_ = node->getAttribute( "value" ).toInt();
+		else
+			basesound_ = node->value().toInt();
 	}
+	// <attacksound>0x123,0x124</attacksound>
 	else if ( node->name() == "attacksound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
@@ -166,6 +172,7 @@ void cCharBaseDef::processNode( const cElement* node )
 			attackSound_.append( value );
 		}
 	}
+	// <idlesound>0x123,0x124</idlesound>
 	else if ( node->name() == "idlesound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
@@ -175,6 +182,7 @@ void cCharBaseDef::processNode( const cElement* node )
 			idleSound_.append( value );
 		}
 	}
+	// <hitsound>0x123,0x124</hitsound>
 	else if ( node->name() == "hitsound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
@@ -184,6 +192,7 @@ void cCharBaseDef::processNode( const cElement* node )
 			hitSound_.append( value );
 		}
 	}
+	// <gethitsound>0x12,0x13</gethitsound>
 	else if ( node->name() == "gethitsound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
@@ -193,6 +202,7 @@ void cCharBaseDef::processNode( const cElement* node )
 			gethitSound_.append( value );
 		}
 	}
+	// <deathsound>0x12,0x13</deathsound>
 	else if ( node->name() == "deathsound" )
 	{
 		QStringList parts = QStringList::split( ",", node->text() );
@@ -204,36 +214,68 @@ void cCharBaseDef::processNode( const cElement* node )
 	}
 	else if ( node->name() == "figurine" )
 	{
-		figurine_ = node->value().toInt();
+		if ( node->hasAttribute( "value" ) )
+			figurine_ = node->getAttribute( "value" ).toInt();
+		else
+			figurine_ = node->value().toInt();
 	}
+	// <mindamage value="3" />
+	// <mindamage>3</mindamage>
 	else if ( node->name() == "mindamage" )
 	{
-		minDamage_ = node->value().toInt();
+		if ( node->hasAttribute( "value" ) )
+			minDamage_ = node->getAttribute( "value" ).toInt();
+		else
+			minDamage_ = node->value().toInt();
 	}
+	// <maxdamage value="10" />
+	// <maxdamage>10</maxdamage>
 	else if ( node->name() == "maxdamage" )
 	{
-		maxDamage_ = node->value().toInt();
+		if ( node->hasAttribute( "value" ) )
+			maxDamage_ = node->getAttribute( "value" ).toInt();
+		else
+			maxDamage_ = node->value().toInt();
 	}
+	// <mintaming value="555" />
+	// <mintaming>555</mintaming>
 	else if ( node->name() == "mintaming" )
 	{
-		minTaming_ = node->value().toInt();
+		if ( node->hasAttribute( "value" ) )
+			minTaming_ = node->getAttribute( "value" ).toInt();
+		else
+			minTaming_ = node->value().toInt();
 	}
+	// <controlslots value="3" />
+	// <controlslots>3</controlslots>
 	else if ( node->name() == "controlslots" )
 	{
-		controlSlots_ = node->value().toInt();
+		if ( node->hasAttribute( "value" ) )
+			controlSlots_ = node->getAttribute( "value" ).toInt();
+		else
+			controlSlots_ = node->value().toInt();
 	}
+	// <criticalhealth value="12" />
+	// <criticalhealth>12</criticalhealth>
 	else if ( node->name() == "criticalhealth" )
 	{
-		criticalHealth_ = node->value().toInt();
+		if ( node->hasAttribute( "value" ) )
+			criticalHealth_ = node->getAttribute( "value" ).toInt();
+		else
+			criticalHealth_ = node->value().toInt();
 	}
+	// <carve></carve>
 	else if ( node->name() == "carve" )
 	{
 		carve_ = node->text();
 	}
+	// <lootpacks></lootpacks>
 	else if ( node->name() == "lootpacks" )
 	{
 		lootPacks_ = node->text();
 	}
+	// <inherit id="orc" />
+	// <inherit>orc</inherit>
 	else if ( node->name() == "inherit" )
 	{
 		QString inheritID;
@@ -246,6 +288,7 @@ void cCharBaseDef::processNode( const cElement* node )
 		if ( element )
 			applyDefinition( element );
 	}
+	// <speed wander="12" action="10" />
 	else if ( node->name() == "speed" && node->hasAttribute( "wander" ) && node->hasAttribute( "action" ) )
 	{
 		bool ok1, ok2;
@@ -586,27 +629,45 @@ void cItemBaseDef::processNode( const cElement* node )
 	}
 	else if ( node->name() == "buyprice" )
 	{
-		buyprice_ = node->value().toUInt();
+		if ( node->hasAttribute( "value" ) )
+			buyprice_ = node->getAttribute( "value" ).toUInt();
+		else
+			buyprice_ = node->value().toUInt();
 	}
 	else if ( node->name() == "sellprice" )
 	{
-		sellprice_ = node->value().toUInt();
+		if ( node->hasAttribute( "value" ) )
+			sellprice_ = node->getAttribute( "value" ).toUInt();
+		else
+			sellprice_ = node->value().toUInt();
 	}
 	else if ( node->name() == "type" )
 	{
-		type_ = node->value().toUShort();
+		if ( node->hasAttribute( "value" ) )
+			type_ = node->getAttribute( "value" ).toUShort();
+		else
+			type_ = node->value().toUShort();
 	}
 	else if ( node->name() == "lightsource" )
 	{
-		lightsource_ = node->value().toUShort();
+		if ( node->hasAttribute( "value" ) )
+			lightsource_ = node->getAttribute( "value" ).toUShort();
+		else
+			lightsource_ = node->value().toUShort();
 	}
 	else if ( node->name() == "decaydelay" )
 	{
-		decaydelay_ = node->value().toUInt();
+		if ( node->hasAttribute( "value" ) )
+			decaydelay_ = node->getAttribute( "value" ).toUInt();
+		else
+			decaydelay_ = node->value().toUInt();
 	}
 	else if ( node->name() == "watersource" )
 	{
-		setWaterSource( node->value().toUInt() != 0 );
+		if ( node->hasAttribute( "value" ) )
+			setWaterSource( node->getAttribute( "value" ).toUInt() != 0 );
+		else
+			setWaterSource( node->value().toUInt() != 0 );
 	}
 	else if ( node->name() == "inherit" )
 	{

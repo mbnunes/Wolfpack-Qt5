@@ -99,7 +99,7 @@ cItem::cItem( const cItem& src ) : cUObject( src ), totalweight_( 0 ), container
 	this->multi_ = 0;
 	this->isPersistent = false;
 	pos_ = src.pos_; // Copy position
-	pos_.setInternalMap(); // Make absolutly sure that we're not flagged as being in the sector maps yet	
+	pos_.setInternalMap(); // Make absolutly sure that we're not flagged as being in the sector maps yet
 }
 
 P_CHAR cItem::owner( void ) const
@@ -745,15 +745,29 @@ void cItem::processNode( const cElement* Tag )
 
 	const cElement* section = Definitions::instance()->getDefinition( WPDT_DEFINE, TagName );
 
+	// <amount value="10" />
 	// <amount>10</amount>
 	if ( TagName == "amount" )
-		this->setAmount( Value.toUShort() );
-
+	{
+		if ( Tag->hasAttribute( "value" ) )
+			this->setAmount( Tag->getAttribute( "value" ).toUShort() );
+		else
+			this->setAmount( Value.toUShort() );
+	}
+	// <durability value="10" />
 	// <durability>10</durabilty>
 	else if ( TagName == "durability" )
 	{
-		this->setMaxhp( Value.toLong() );
-		this->setHp( this->maxhp() );
+		if ( Tag->hasAttribute( "value" ) )
+		{
+			this->setMaxhp( Tag->getAttribute( "value" ).toUShort() );
+			this->setHp( Tag->getAttribute( "value" ).toUShort() );
+		}
+		else
+		{
+			this->setMaxhp( Value.toLong() );
+			this->setHp( this->maxhp() );
+		}
 	}
 
 	// <movable />
@@ -812,10 +826,14 @@ void cItem::processNode( const cElement* Tag )
 	else if ( TagName == "nodye" )
 		this->setDye( false );
 
+	//<id value="0x12f9" />
 	// <id>0x12f9</id>
 	else if ( TagName == "id" )
 	{
-		this->setId( Value.toUShort() );
+		if ( Tag->hasAttribute( "value" ) )
+			this->setId( Tag->getAttribute( "value" ).toUShort() );
+		else
+			this->setId( Value.toUShort() );
 	}
 
 	// <content><item id="a" />...<item id="z" /></content> (sereg)
