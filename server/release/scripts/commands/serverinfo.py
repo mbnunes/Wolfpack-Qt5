@@ -32,7 +32,7 @@ uphours = 0
 def serverinfo( socket, command, arguments ):
 	char = socket.player
 	version = wolfpack.serverversion()
-	uptime = wolfpack.serveruptime()
+	uptime = wolfpack.currenttime() / 1000
 	upseconds = uptime
 	upminutes = ( uptime / 60 )
 	upseconds -= ( upminutes * 60 )

@@ -278,8 +278,10 @@ static PyMethodDef wpConsole[] =
 
 };
 
-/*!
-	Gets the minutes of the current uo time
+/*
+	\function wolfpack.time.minute
+	\return Integer value ranging from 0 to 59.
+	\description Returns the current minute of the hour in ingame time.
 */
 static PyObject* wpTime_minute( PyObject* self, PyObject* args )
 {
@@ -288,8 +290,10 @@ static PyObject* wpTime_minute( PyObject* self, PyObject* args )
 	return PyInt_FromLong( UoTime::instance()->minute() );
 }
 
-/*!
-	Gets the hours of the current uo time
+/*
+	\function wolfpack.time.hour
+	\return Integer value ranging from 0 to 23.
+	\description Returns the current hour of the day in ingame time.
 */
 static PyObject* wpTime_hour( PyObject* self, PyObject* args )
 {
@@ -298,6 +302,12 @@ static PyObject* wpTime_hour( PyObject* self, PyObject* args )
 	return PyInt_FromLong( UoTime::instance()->hour() );
 }
 
+/*
+	\function wolfpack.time.days
+	\return Integer value.
+	\description Returns the current day in ingame time. There are no years in ingame time but
+	you are free to implement them yourself in custom calendar and clock items.
+*/
 static PyObject* wpTime_days( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -305,8 +315,10 @@ static PyObject* wpTime_days( PyObject* self, PyObject* args )
 	return PyInt_FromLong( UoTime::instance()->days() );
 }
 
-/*!
-	Gets the elapsed minutes since initialization of the game time.
+/*
+	\function wolfpack.time.minutes
+	\return Integer value.
+	\description Returns the minutes since the world was initialized.
 */
 static PyObject* wpTime_minutes( PyObject* self, PyObject* args )
 {
@@ -315,6 +327,11 @@ static PyObject* wpTime_minutes( PyObject* self, PyObject* args )
 	return PyInt_FromLong( UoTime::instance()->getMinutes() );
 }
 
+/*
+	\function wolfpack.time.currentlightlevel
+	\return Integer value.
+	\description Returns the current global lightlevel of the world.
+*/
 static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -322,9 +339,6 @@ static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
 	return PyInt_FromLong( Config::instance()->worldCurrentLevel() );
 }
 
-/*!
-	Methods for handling UO Time from within python
-*/
 static PyMethodDef wpTime[] =
 {
 	{ "minute",				wpTime_minute,				METH_NOARGS, "Returns the current time-minutes" },
@@ -336,15 +350,11 @@ static PyMethodDef wpTime[] =
 
 };
 
-////////////////////////////////////////////////////////////////////////////
-// GLOBALS
-// Global methods found in wolfpack.
-// Examples: wolfpack.additem() wolfpack.addnpc()
-////////////////////////////////////////////////////////////////////////////
-
-/*!
-	Adds an item
-	Argument is just the def-section
+/*
+	\function wolfpack.additem
+	\param definition The id of the item definition to create the item from.
+	\return An <object id="item">item</object> object or None.
+	\description Creates a new item from a given definition id and assigns a new serial to it.	
 */
 static PyObject* wpAdditem( PyObject* self, PyObject* args )
 {
@@ -359,8 +369,13 @@ static PyObject* wpAdditem( PyObject* self, PyObject* args )
 	return PyGetItemObject( pItem );
 }
 
-/*!
-	Adds a npc
+/*
+	\function wolfpack.addnpc
+	\param definition The id of the npc definition to create the npc from.
+	\param pos A <object id="COORD">coord</object> object representing the coordinate where
+	the new npc should be created. This has to be a valid location on a valid map.
+	\return A <object id="char">char</object> object for the newly created npc.
+	\description Creates a new npc from the given definition and moves it to the given position.
 */
 static PyObject* wpAddnpc( PyObject* self, PyObject* args )
 {
@@ -377,9 +392,12 @@ static PyObject* wpAddnpc( PyObject* self, PyObject* args )
 	return PyGetCharObject( pChar );
 }
 
-/*!
-	Creates an item object based on the
-	passed serial
+/*
+	\function wolfpack.finditem
+	\param serial The item serial, an integer value.
+	\return An <object id="item">item</object> object if the item was found, None otherwise.
+	\description Tries to find an item with the given serial and returns an item object for it. If
+	no item with the given serial is found, None is silently returned.
 */
 static PyObject* wpFinditem( PyObject* self, PyObject* args )
 {
@@ -392,8 +410,10 @@ static PyObject* wpFinditem( PyObject* self, PyObject* args )
 	return PyGetItemObject( FindItemBySerial( serial ) );
 }
 
-/*!
-	Returns a list of guilds.
+/*
+	\function wolfpack.guilds
+	\return A list of <object id="guild">guild</object> objects.
+	\description Returns a list of all registered guilds in the world.
 */
 static PyObject* wpGuilds( PyObject* self, PyObject* args )
 {
@@ -406,8 +426,12 @@ static PyObject* wpGuilds( PyObject* self, PyObject* args )
 	return list;
 }
 
-/*!
-	Returns the guild registered under the given serial.
+/*
+	\function wolfpack.findguild
+	\param id The guild id to look for, an integer value.
+	\return A <object id="guild">guild</object> object or None.
+	\description Tries to find a guild with the given id and returns a guild object for it. 
+	Returns None if no guild could be found.
 */
 static PyObject* wpFindguild( PyObject* self, PyObject* args )
 {
@@ -431,9 +455,12 @@ static PyObject* wpFindguild( PyObject* self, PyObject* args )
 	}
 }
 
-/*!
-	Creates a char object based on the
-	passed serial
+/*
+	\function wolfpack.findchar
+	\param serial The character serial.
+	\return A <object id="char">char</object> object or None.
+	\description Tries to find a player or npc with the given serial and returns a character
+	object. If no character with the given serial could be found it returns None.
 */
 static PyObject* wpFindchar( PyObject* self, PyObject* args )
 {
@@ -445,9 +472,12 @@ static PyObject* wpFindchar( PyObject* self, PyObject* args )
 	return PyGetCharObject( FindCharBySerial( serial ) );
 }
 
-/*!
-	Find a multi based on its position.
- */
+/*
+	\function wolfpack.findmulti
+	\param pos A coordinate object representing the location to look for a multi.
+	\return An <object id="item">item</object> object or None.
+	\description Tries to find a multi at the given position. Returns None if none can be found.
+*/
 static PyObject* wpFindmulti( PyObject* self, PyObject* args )
 {
 	Coord_cl coord;
@@ -470,8 +500,26 @@ static PyObject* wpFindmulti( PyObject* self, PyObject* args )
 	}
 }
 
-/*!
-	Adds a tempeffect
+/*
+	\function wolfpack.addtimer
+	\param expiretime The delay in miliseconds after which this timer should be triggered.
+	\param function The name of the function that should be called when this timer is triggered.
+	Please note that this is a string containing the full name of the function including the full
+	module name (i.e. <code>"mymodule.mytimer"</code> if the <code>mytimer</code> function is in the 
+	<code>mymodule.py</code> file). 
+	
+	The function should have the following prototype:
+	<code>def expire(object, args):
+	&nbsp;&nbsp;pass</code>
+	Although you can choose any name you want. The object parameter for the trigger function is always
+	None when you use <code>wolfpack.addtimer</code> to add the timer.
+	\param args This should be a list of custom arguments that will be passed on to the timer expire function.
+	If you don't want the timer to be saved you can pass on any type of obejcts. However. You should not pass
+	character, item or guild objects directly but their serials instead. Use finditem, findguild and findchar to 
+	get a new object in the expirefunction afterwards.
+	\param serializable Defaults to false. If this boolean parameter is true, the timer will be saved on worldsaves
+	and will be triggered even if the server is restarted in between.
+	\description This function will schedule a function to be executed later.
 */
 static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 {
@@ -510,7 +558,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	1 - Trammel
 	2 - Ilshenar
 	3 - Malas</code>
-	\return A region object or None if there is no region at the given coordinates.
+	\return A <object id="region">region</object> object or None if there is no region at the given coordinates.
 	\description Finds a region at the given coordinates.
 */
 static PyObject* wpRegion( PyObject* self, PyObject* args )
@@ -526,9 +574,10 @@ static PyObject* wpRegion( PyObject* self, PyObject* args )
 	return PyGetRegionObject( Territories::instance()->region( x, y, map ) );
 }
 
-/*!
-	Returns the time in ms since the last server-start
-	used for object-delays and others
+/*
+	\function wolfpack.currenttime
+	\return An interger value.
+	\description This function returns the current time since the server start in miliseconds.
 */
 static PyObject* wpCurrenttime( PyObject* self, PyObject* args )
 {
@@ -537,8 +586,24 @@ static PyObject* wpCurrenttime( PyObject* self, PyObject* args )
 	return PyInt_FromLong( Server::instance()->time() );
 }
 
-/*!
-	Returns a list of Static item at a given position
+/*
+	\function wolfpack.statics
+	\param x The x component of the coordinate.
+	\param y The y component of the coordinate.
+	\param map The map of the coordinate.
+	\param exact Defaults to false. If this boolean parameter is true, 
+	not the entire 8x8 static block matching the coordinate is returned, 
+	but only the tiles that are exactly at the given coordinate.
+	\return A list of dictionaries. Each dictionary included in the list has the 
+	following keys:
+	- <code>id</code> The art tile id of the static item as an integer value.
+	- <code>x</code> The absolute x component of the coordinate of the static tile. (Not relative to the
+	upper left block corner).
+	- <code>y</code> The absolute y component of the coordinate of the static tile. (Not relative to the 
+	upper left block corner).
+	- <code>z</code> The z position of the static tile.
+	\description This function searches for static tiles at the given coordinate and returns
+	a list of dictionaries describing the properties of the static tiles found.
 */
 static PyObject* wpStatics( PyObject* self, PyObject* args )
 {
@@ -574,60 +639,41 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 	return list;
 }
 
-/*!
-	Returns a list of all items serials
+/*
+	\function wolfpack.allitemsiterator
+	\return An <object id="ITEMITERATOR">itemiterator</object> object.
+	\description This function creates an itemiterator object to allow iteration
+	over all items registered in the world.
 */
-static PyObject* wpAllItemsSerials( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( args );
-	Q_UNUSED( self );
-
-	cItemIterator iter;
-	PyObject* list = PyList_New( 0 );
-	for ( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )
-		PyList_Append( list, PyInt_FromLong( pItem->serial() ) );
-
-	return list;
-}
-
-/*!
-	Returns an iterator for all items in the world
-*/
-static PyObject* wpAllItemsIterator( PyObject* self, PyObject* args )
-{
+static PyObject* wpAllItemsIterator(PyObject* self, PyObject* args) {
 	Q_UNUSED( args );
 	Q_UNUSED( self );
 	return PyGetItemIterator();
 }
 
-/*!
-	Returns an iterator for all items in the world
+/*
+	\function wolfpack.allcharsiterator
+	\return A <object id="CHARITERATOR">chariterator</object> object.
+	\description This function creates a chariterator object to allow iteration
+	over all characters registered in the world.
 */
-static PyObject* wpAllCharsIterator( PyObject* self, PyObject* args )
-{
+static PyObject* wpAllCharsIterator(PyObject* self, PyObject* args) {
 	Q_UNUSED( args );
 	Q_UNUSED( self );
 	return PyGetCharIterator();
 }
 
-/*!
-	Returns a list of all chars serials
-*/
-static PyObject* wpAllCharsSerials( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( args );
-	Q_UNUSED( self );
-
-	cCharIterator iter;
-	PyObject* list = PyList_New( 0 );
-
-	for ( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
-		PyList_Append( list, PyInt_FromLong( pChar->serial() ) );
-
-	return list;
-}
-/*!
-	Returns a list of items at a given position (sector)
+/*
+	\function wolfpack.items
+	\param x The x component of the coordinate.
+	\param y The y component of the coordinate.
+	\param map The map to look on.
+	\param range Defaults to 1. 
+	This is the range in which the server should search for items. Please remember that this is not 
+	a circle.
+	\return A list of <object id="item">item</object> objects.
+	\description This function searches for dynamic items (no static items) at the given 
+	coordinate and in the given range and returns a list of found item objects.
 */
 static PyObject* wpItems( PyObject* self, PyObject* args )
 {
@@ -655,8 +701,17 @@ static PyObject* wpItems( PyObject* self, PyObject* args )
 	return list;
 }
 
-/*!
-	Returns a list of chars at a given position (sector)
+/*
+	\function wolfpack.chars
+	\param x The x component of the coordinate.
+	\param y The y component of the coordinate.
+	\param map The map to look on.
+	\param range Defaults to 1. 
+	This is the range in which the server should search for characters. Please remember that this is not 
+	a circle.
+	\return A list of <object id="char">char</object> objects.
+	\description This function searches for characters at the given 
+	coordinate and in the given range and returns a list of found objects.
 */
 static PyObject* wpChars( PyObject* self, PyObject* args )
 {
@@ -684,8 +739,15 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 	return list;
 }
 
-/*!
-	Shows a graphical effect at a certain position
+/*
+	\function wolfpack.effect
+	\param id The art id of the effect that should be shown.
+	\param pos A <object id="coord">coord</object> object representing the position where the effect should be shown.
+	\param duration The duration of the effect. This is an integer value.
+	\param speed This integer value indicates the animation speed that should be used.
+	\description This function shows a graphical effect at a given position to all players in range.
+	The exact scale of the duration and speed parameters are unknown and passed on directly to the client. 
+	You'll have to experiment to find suitable values.
 */
 static PyObject* wpEffect( PyObject* self, PyObject* args )
 {
@@ -714,11 +776,22 @@ static PyObject* wpEffect( PyObject* self, PyObject* args )
 			mSock->send( &effect );
 	}
 
-	return PyTrue();
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Returns information about a given map cell.
+/*
+	\function wolfpack.map
+	\param x The x component of the coordinate.
+	\param y The y component of the coordinate.
+	\param map The map to look on.
+	\return A dictionary with the following keys:
+	- <code>id</code> The landtile art id for the maptile.
+	- <code>z</code> The height of the map at the given position. Please note that this
+	is the height stored in the datafile and not the real height which is also influenced by 
+	the surrounding maptiles.
+	\description This function returns a dictionary with information about a tile of the map
+	at the given coordinate.
 */
 static PyObject* wpMap( PyObject* self, PyObject* args )
 {
@@ -738,6 +811,12 @@ static PyObject* wpMap( PyObject* self, PyObject* args )
 	return dict;
 }
 
+/*
+	\function wolfpack.hasmap
+	\param map The map id.
+	\return True or False.
+	\description This function returns true if the given map id is available and valid.
+*/
 static PyObject* wpHasMap( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -748,6 +827,22 @@ static PyObject* wpHasMap( PyObject* self, PyObject* args )
 	return Maps::instance()->hasMap( map ) ? PyTrue() : PyFalse();
 }
 
+/*
+	\function wolfpack.landdata
+	\param id The landtile id.
+	\return A dictionary with the following keys:
+	- <code>name</code> The name of the tile.
+	- <code>unknown1</code>
+	- <code>unknown2</code>
+	- <code>flag1</code>
+	- <code>flag2</code>
+	- <code>flag3</code>
+	- <code>flag4</code>
+	- <code>wet</code> This value is true if the tile contains water.
+	- <code>blocking</code> This value is true if the tile is not walkable.
+	- <code>floor</code> This value is true if the landtile is a walkable roof or floor.
+	\description This function retrieves information about a given landtile id from the tiledata.
+*/
 static PyObject* wpLanddata( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -785,8 +880,30 @@ static PyObject* wpLanddata( PyObject* self, PyObject* args )
 	return dict;
 }
 
-/*!
-	Returns the tiledata information for a item id.
+/*
+	\function wolfpack.tiledata
+	\param id The item id.
+	\return A dictionary with the following keys:
+	- <code>name</code> The name of the tile.
+	- <code>height</code> The height of the tile.
+	- <code>weight</code> The weight of the tile. This value is not used internally but can be used to check if the item is movable by the client. 
+	Items with a weight of 255 are not movable by default.
+	- <code>layer</code> The layer this item will be equipped on if equippable.
+	- <code>animation</code> The id of the animation that will be shown when this item is equipped.
+	- <code>quantity</code>
+	- <code>unknown1</code>
+	- <code>unknown2</code>
+	- <code>unknown3</code>
+	- <code>unknown4</code>
+	- <code>unknown5</code>
+	- <code>flag1</code>
+	- <code>flag2</code>
+	- <code>flag3</code>
+	- <code>flag4</code>
+	- <code>wet</code> This value is true if the tile contains water.
+	- <code>blocking</code> This value is true if the tile is not walkable.
+	- <code>floor</code> This value is true if the tile is a walkable roof or floor.
+	\description This function retrieves information about a given art tile from the tiledata.
 */
 static PyObject* wpTiledata( PyObject* self, PyObject* args )
 {
@@ -843,8 +960,11 @@ static PyObject* wpTiledata( PyObject* self, PyObject* args )
 	return dict;
 }
 
-/*!
-	Returns a stringlist out of the definitions.
+/*
+	\function wolfpack.list
+	\param id The id of the list in the definitions.
+	\return A list of strings.
+	\description This function retrives a list from the definitions and returns it as a list of strings.
 */
 static PyObject* wpList( PyObject* self, PyObject* args )
 {
@@ -864,8 +984,14 @@ static PyObject* wpList( PyObject* self, PyObject* args )
 	return pylist;
 }
 
-/*!
-	Registers a global script hook.
+/*
+	\function wolfpack.registerglobal
+	\param event An integer constant for the event that should be hooked.
+	Take a look at the EVENT constants in <module id="wolfpack.consts">wolfpack.consts</module> for details.
+	\param script The name of a script that should be notified about the given event.
+	\description This function registers a script as a global hook for one given event type. Whenever the
+	event is triggered, the given script will be called first. Please note that there can only be one 
+	hook per event at a time, but a script can hook more than one event to itself.
 */
 static PyObject* wpRegisterGlobal( PyObject* self, PyObject* args )
 {
@@ -890,11 +1016,26 @@ static PyObject* wpRegisterGlobal( PyObject* self, PyObject* args )
 	}
 
 	ScriptManager::instance()->setGlobalHook( ( ePythonEvent ) event, script );
-	return PyTrue();
+
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Registers a global command hook.
+/*
+	\function wolfpack.registercommand
+	\param command The name of the command as a string.
+	\param function The function that should handle the command. This is not a string but a callable
+	python function object. The function should have the following prototype:	
+	<code>
+	def mycommand(socket, command, arguments):
+	&nbsp;&nbsp;pass
+	</code>
+	Where socket is the <object id="socket">socket</object> object the command was issued from,
+	command is the name of the command that has been issued if you want to use a single function
+	for multiple commands and arguments is a string containing the full list of arguments passed
+	to the command.		
+	\description This function registers a python handler for the given command name. Using this function
+	you can implement custom ingame commands.
 */
 static PyObject* wpRegisterCommand( PyObject* self, PyObject* args )
 {
@@ -912,11 +1053,25 @@ static PyObject* wpRegisterCommand( PyObject* self, PyObject* args )
 
 	Py_INCREF( function );
 	ScriptManager::instance()->setCommandHook( command, function );
-	return PyTrue();
+	
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Registers a global packet hook.
+/*
+	\function wolfpack.registerpackethook
+	\param packetid The id of the packet you want to hook.
+	\param handler The function that should handle the packet. This is not a string but a callable
+	python function object. The function should have the following prototype:
+	<code>
+	def mycommand(socket, packet):
+	&nbsp;&nbsp;pass	
+	</code>
+	Where socket is the <object id="socket">socket</object> object the packet was sent from,
+	packet is a <object id="packet">packet</object> object representing the received packet.
+	\description This function registers a python handler for a given packet id. If you don't
+	want the core to handle the packet after your handling function was called, you have to return
+	True in your function, otherwise return False.
 */
 static PyObject* wpRegisterPacketHook( PyObject* self, PyObject* args )
 {
@@ -938,8 +1093,15 @@ static PyObject* wpRegisterPacketHook( PyObject* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	Coord object creation
+/*
+	\function wolfpack.coord
+	\param x The x component of the coordinate.
+	\param y The y component of the coordinate.
+	\param z The z component of the coordinate.
+	\param map The map component of the coordinate.
+	\return A <object id="coord">coord</object> object.
+	\description This function creates a new coord object from the
+	given coordinate components.
 */
 static PyObject* wpCoord( PyObject* self, PyObject* args )
 {
@@ -957,6 +1119,13 @@ static PyObject* wpCoord( PyObject* self, PyObject* args )
 	return PyGetCoordObject( pos );
 }
 
+/*
+	\function wolfpack.addmulti
+	\param definition The id of the multi definition.
+	\return An <object id="item">item</object> object or None.
+	\description Creates a new multi from a given definition id and assigns a new serial to it.	
+	Please note that multis are represented by the item object.
+*/
 static PyObject* wpAddMulti( PyObject* self, PyObject* args )
 {
 	char* definition;
@@ -979,18 +1148,10 @@ static PyObject* wpAddMulti( PyObject* self, PyObject* args )
 	}
 }
 
-/*!
-	Returns uptime of server in seconds
-*/
-static PyObject* wpServerUptime( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	return PyInt_FromLong( Server::instance()->time() / MY_CLOCKS_PER_SEC );
-}
-
-/*!
-	Returns the server version string
+/*
+	\function wolfpack.serverversion
+	\return A string.
+	\description Returns the server version.
 */
 static PyObject* wpServerVersion( PyObject* self, PyObject* args )
 {
@@ -999,18 +1160,9 @@ static PyObject* wpServerVersion( PyObject* self, PyObject* args )
 	return PyString_FromString( QString( "%1 %2 %3" ).arg( productString() ).arg( productBeta() ).arg( productVersion() ).latin1() );
 }
 
-/*!
-	Returns the current real date/time
-*/
-static PyObject* wpCurrentdatetime( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	return PyString_FromString( QDateTime::currentDateTime().toString() );
-}
-
-/*!
-	Returns if the server is in starting state
+/*
+	\function wolfpack.isstarting
+	\return True if the server is in startup phase, false otherwise.
 */
 static PyObject* wpIsStarting( PyObject* self, PyObject* args )
 {
@@ -1022,8 +1174,9 @@ static PyObject* wpIsStarting( PyObject* self, PyObject* args )
 		return PyFalse();
 }
 
-/*!
-	Returns if the server is in running state
+/*
+	\function wolfpack.isrunning
+	\return True if the server is in running phase, false otherwise.
 */
 static PyObject* wpIsRunning( PyObject* self, PyObject* args )
 {
@@ -1035,8 +1188,9 @@ static PyObject* wpIsRunning( PyObject* self, PyObject* args )
 		return PyFalse();
 }
 
-/*!
-	Returns if the server is in reload state
+/*
+	\function wolfpack.isreloading
+	\return True if the server is reloading, false otherwise.
 */
 static PyObject* wpIsReloading( PyObject* self, PyObject* args )
 {
@@ -1048,8 +1202,9 @@ static PyObject* wpIsReloading( PyObject* self, PyObject* args )
 		return PyFalse();
 }
 
-/*!
-	Returns if the server is in closing state
+/*
+	\function wolfpack.isclosing
+	\return True if the server is shutting down, false otherwise.
 */
 static PyObject* wpIsClosing( PyObject* self, PyObject* args )
 {
@@ -1061,32 +1216,17 @@ static PyObject* wpIsClosing( PyObject* self, PyObject* args )
 		return PyFalse();
 }
 
-static PyObject* wpCharBlock( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self );
-
-	unsigned int xBlock, yBlock;
-	unsigned char map;
-
-	if ( !PyArg_ParseTuple( args, "iib:wolfpack.charblock", &xBlock, &yBlock, &map ) )
-		return 0;
-
-	return PyGetCharRegionIterator( xBlock, yBlock, map );
-}
-
-static PyObject* wpItemBlock( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self );
-
-	unsigned int xBlock, yBlock;
-	unsigned char map;
-
-	if ( !PyArg_ParseTuple( args, "iib:wolfpack.itemblock", &xBlock, &yBlock, &map ) )
-		return 0;
-
-	return PyGetItemRegionIterator( xBlock, yBlock, map );
-}
-
+/*
+	\function wolfpack.charregion
+	\param x1 The left edge of the rectangle.
+	\param y1 The upper edge of the rectangle.
+	\param x2 The right edge of the rectangle.
+	\param y2 The bottom edge of the rectangle.
+	\param map The map to search on.
+	\return A <object id="charregioniterator">charregioniterator</object> oject.
+	\description This function returns an object that will allow you to iterate over characters
+	in the given rectangle on the given map.
+*/
 static PyObject* wpCharRegion( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1100,6 +1240,17 @@ static PyObject* wpCharRegion( PyObject* self, PyObject* args )
 	return PyGetCharRegionIterator( x1, y1, x2, y2, map );
 }
 
+/*
+	\function wolfpack.itemregion
+	\param x1 The left edge of the rectangle.
+	\param y1 The upper edge of the rectangle.
+	\param x2 The right edge of the rectangle.
+	\param y2 The bottom edge of the rectangle.
+	\param map The map to search on.
+	\return A <object id="itemregioniterator">itemregioniterator</object> oject.
+	\description This function returns an object that will allow you to iterate over items
+	in the given rectangle on the given map.
+*/
 static PyObject* wpItemRegion( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1113,6 +1264,15 @@ static PyObject* wpItemRegion( PyObject* self, PyObject* args )
 	return PyGetItemRegionIterator( x1, y1, x2, y2, map );
 }
 
+/*
+	\function wolfpack.newitem
+	\param createserial Defaults to true. This boolean value will indicate whether a serial
+	will be assigned to the item. If you plan to reset the serial of the item anyway, you
+	can set this parameter to false.
+	\return An <object id="item">item</object> object for the newly created item.
+	\description This function will create a new item object without using a definition.
+	Please use this function wisely. It is better to use the additem function whenever possible instead.
+*/
 static PyObject* wpNewItem( PyObject* self, PyObject* args )
 {
 	char createSerial = 1;
@@ -1128,6 +1288,15 @@ static PyObject* wpNewItem( PyObject* self, PyObject* args )
 	return PyGetItemObject( pItem );
 }
 
+/*
+	\function wolfpack.newnpc
+	\param createserial Defaults to true. This boolean value will indicate whether a serial
+	will be assigned to the npc. If you plan to reset the serial of the npc anyway, you
+	can set this parameter to false.
+	\return A <object id="char">char</object> object for the newly created npc.
+	\description This function will create a new npc without using a definition.
+	Please use this function wisely. It is better to use the addnpc function whenever possible instead.
+*/
 static PyObject* wpNewNpc( PyObject* self, PyObject* args )
 {
 	char createSerial = 1;
@@ -1143,6 +1312,11 @@ static PyObject* wpNewNpc( PyObject* self, PyObject* args )
 	return PyGetCharObject( pNpc );
 }
 
+/*
+	\function wolfpack.newguild
+	\return A <object id="guild">guild</object> object.
+	\description This function will create a new guild.
+*/
 static PyObject* wpNewguild( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( args );
@@ -1151,6 +1325,16 @@ static PyObject* wpNewguild( PyObject* self, PyObject* args )
 	return guild->getPyObject();
 }
 
+/*
+	\function wolfpack.newnpc
+	\param createserial Defaults to true. This boolean value will indicate whether a serial
+	will be assigned to the player. If you plan to reset the serial of the player anyway, you
+	can set this parameter to false.
+	\return A <object id="char">char</object> object for the newly created player.
+	\description This function will create a new player.
+	Please use this function wisely, it is better to let the server handle the creation of new player
+	characters.
+*/
 static PyObject* wpNewPlayer( PyObject* self, PyObject* args )
 {
 	char createSerial = 1;
@@ -1166,6 +1350,13 @@ static PyObject* wpNewPlayer( PyObject* self, PyObject* args )
 	return PyGetCharObject( pPlayer );
 }
 
+/*
+	\function wolfpack.tickcount
+	\return An integer value.
+	\description This function calculates the current normalized time and returns it.
+	It is often faster to use the currenttime function instead, but if you need
+	an accurate value for timing or similar tasks, use this function instead.
+*/ 
 static PyObject* wpTickcount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1173,6 +1364,11 @@ static PyObject* wpTickcount( PyObject* self, PyObject* args )
 	return PyInt_FromLong( getNormalizedTime() );
 }
 
+/*
+	\function wolfpack.charcount
+	\return An integer value.
+	\description This function returns the number of registered characters in the world.
+*/ 
 static PyObject* wpCharCount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1180,6 +1376,11 @@ static PyObject* wpCharCount( PyObject* self, PyObject* args )
 	return PyLong_FromLong( World::instance()->charCount() );
 }
 
+/*
+	\function wolfpack.itemcount
+	\return An integer value.
+	\description This function returns the number of registered items in the world.
+*/ 
 static PyObject* wpItemCount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1187,6 +1388,13 @@ static PyObject* wpItemCount( PyObject* self, PyObject* args )
 	return PyLong_FromLong( World::instance()->itemCount() );
 }
 
+/*
+	\function wolfpack.packet
+	\param id The packet id.
+	\param size The packet size in byte.
+	\return A <object id="packet">packet</object> object.
+	\description This function creates a new packet object with the given size and sets the first byte of the packet to the given packet id.
+*/ 
 static PyObject* wpPacket( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1199,6 +1407,18 @@ static PyObject* wpPacket( PyObject* self, PyObject* args )
 	return CreatePyPacket( ( unsigned char ) id, ( unsigned short ) size );
 }
 
+/*
+	\function wolfpack.queueaction
+	\param action The action you want to queue.
+	One of these constants in <module>wolfpack.consts</module>:
+	<code>RELOAD_SCRIPTS
+	RELOAD_PYTHON
+	RELOAD_ACCOUNTS
+	RELOAD_CONFIGURATION
+	SAVE_WORLD
+	SAVE_ACCOUNTS</code>
+	\description This function queues an action to be executed in the next iteration of the mainloop.
+*/ 
 static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1213,6 +1433,15 @@ static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 	return PyInt_FromLong( 1 );
 }
 
+/*
+	\function wolfpack.getdefinition
+	\param type The definition type. 
+	Use one of the WPDT constants from <module id="wolfpack.consts">wolfpack.consts</module>.
+	\param id A string representing the id of the desired definition section.
+	\return None if the section could not be found or an <object id="element">element</object> object otherwise.
+	\description This function tries to find a section with the given type and id in the definitions and returns
+	an element object to access its data.
+*/
 static PyObject* wpGetDefinition( PyObject* self, PyObject* args )
 {
 	unsigned int type;
@@ -1238,6 +1467,13 @@ static PyObject* wpGetDefinition( PyObject* self, PyObject* args )
 	}
 }
 
+/*
+	\function wolfpack.getdefinitions
+	\param type The definition type. 
+	Use one of the WPDT constants from <module id="wolfpack.consts">wolfpack.consts</module>.
+	\return A tuple of strings.
+	\description This function will compile the ids of all sections of a given type.
+*/
 static PyObject* wpGetDefinitions( PyObject* self, PyObject* args )
 {
 	unsigned int type;
@@ -1267,6 +1503,15 @@ static PyObject* wpGetDefinitions( PyObject* self, PyObject* args )
 	return result;
 }
 
+/*
+	\function wolfpack.callevent
+	\param script The id of the script containing the event.
+	\param event The numeric constant for the event you want to call.
+	See the EVENT constants in wolfpack.consts for details.
+	\param args A tuple containing the arguments for the event handler.
+	\return The return value from the event handler is passed trough.
+	\description This function calls an event handler in the given script.
+*/
 static PyObject* wpCallEvent( PyObject* self, PyObject* args )
 {
 	char* script;
@@ -1297,6 +1542,14 @@ static PyObject* wpCallEvent( PyObject* self, PyObject* args )
 	return result;
 }
 
+/*
+	\function wolfpack.hasevent
+	\param script The id of the script containing the event.
+	\param event The numeric constant for the event you want to check for.
+	See the EVENT constants in wolfpack.consts for details.
+	\return True or false.
+	\description This function checks if the given script can handle an event of the given type and returns true if it can.
+*/
 static PyObject* wpHasEvent( PyObject* self, PyObject* args )
 {
 	char* script;
@@ -1329,6 +1582,14 @@ static PyObject* wpHasEvent( PyObject* self, PyObject* args )
 	}
 }
 
+/*
+	\function wolfpack.callnamedevent
+	\param script The id of the script containing the event.
+	\param event The name of the event handler function you want to call.
+	\param args A tuple containing the arguments for the event handler.
+	\return The return value from the event handler is passed trough.
+	\description This function calls an event handler in the given script.
+*/
 static PyObject* wpCallNamedEvent( PyObject* self, PyObject* args )
 {
 	char* script;
@@ -1359,6 +1620,13 @@ static PyObject* wpCallNamedEvent( PyObject* self, PyObject* args )
 	return result;
 }
 
+/*
+	\function wolfpack.hasnamedevent
+	\param script The id of the script containing the event.
+	\param event The name of the event handler you want to check for.
+	\return True or false.
+	\description This function checks if the given script can handle an event with the given name and returns true if it can.
+*/
 static PyObject* wpHasNamedEvent( PyObject* self, PyObject* args )
 {
 	char* script;
@@ -1391,10 +1659,6 @@ static PyObject* wpHasNamedEvent( PyObject* self, PyObject* args )
 	}
 }
 
-/*!
-	wolfpack
-	Initializes wolfpack
-*/
 static PyMethodDef wpGlobal[] =
 {
 	{ "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
@@ -1404,8 +1668,6 @@ static PyMethodDef wpGlobal[] =
 	{ "getdefinition",		wpGetDefinition,				METH_VARARGS, "Gets a certain definition by it's id." },
 	{ "getdefinitions",		wpGetDefinitions,				METH_VARARGS, "Gets all definitions by type." },
 	{ "packet",				wpPacket,						METH_VARARGS, NULL },
-	{ "charblock",			wpCharBlock,					METH_VARARGS, NULL },
-	{ "itemblock",			wpItemBlock,					METH_VARARGS, NULL },
 	{ "charregion",			wpCharRegion,					METH_VARARGS, NULL },
 	{ "itemregion",			wpItemRegion,					METH_VARARGS, NULL },
 	{ "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" },
@@ -1430,8 +1692,6 @@ static PyMethodDef wpGlobal[] =
 	{ "itemiterator",		wpAllItemsIterator,				METH_NOARGS,  "Returns an iterator for all items in the world."	},
 	{ "chariterator",		wpAllCharsIterator,				METH_NOARGS,  "Returns an iterator for all chars in the world."	},
 	{ "chars",				wpChars,						METH_VARARGS, "Returns a list of chars in a specific sector." },
-	{ "allcharsserials",	wpAllCharsSerials,				METH_VARARGS, "Returns a list of all chars serials" },
-	{ "allitemsserials",	wpAllItemsSerials,				METH_VARARGS, "Returns a list of all items serials" },
 	{ "landdata",			wpLanddata,						METH_VARARGS, "Returns the landdata information for a given tile stored on the server." },
 	{ "tiledata",			wpTiledata,						METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
 	{ "coord",				wpCoord,						METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
@@ -1440,9 +1700,7 @@ static PyMethodDef wpGlobal[] =
 	{ "registerglobal",		wpRegisterGlobal,				METH_VARARGS, "Registers a global script hook." },
 	{ "registerpackethook", wpRegisterPacketHook,			METH_VARARGS, "Registers a packet hook." },
 	{ "registercommand",	wpRegisterCommand,				METH_VARARGS, "Registers a global command hook." },
-	{ "serveruptime",		wpServerUptime,					METH_NOARGS, "Returns uptime of server in seconds." },
 	{ "serverversion",		wpServerVersion,				METH_NOARGS, "Returns the server version string." },
-	{ "currentdatetime",	wpCurrentdatetime,				METH_NOARGS, "Returns the current real date/time" },
 	{ "isstarting",			wpIsStarting,					METH_NOARGS, "Returns if the server is in starting state" },
 	{ "isrunning",			wpIsRunning,					METH_NOARGS, "Returns if the server is in running state" },
 	{ "isreloading",		wpIsReloading,					METH_NOARGS, "Returns if the server is in reload state" },

@@ -505,11 +505,13 @@ GROWLOCK = 2
 #Stat gain delay = 15 minutes ( 900 seconds )
 STATGAINDELAY = 900
 
+# Constants for wolfpack.queueaction
 RELOAD_SCRIPTS = 0
 RELOAD_PYTHON = 1
 RELOAD_ACCOUNTS = 2
 RELOAD_CONFIGURATION = 3
 SAVE_WORLD = 4
+SAVE_ACCOUNTS = 5
 
 #5 minutes
 ANTIMACRODELAY = 300000

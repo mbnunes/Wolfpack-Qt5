@@ -451,6 +451,8 @@ for module in modules:
 	cols = 7
 	rows = int(math.ceil(len(localfunctions) / 7.0))
 	
+	localfunctions.sort(namesort)
+	
 	for row in range(0, rows):
 		overview += "<tr>\n"
 	
@@ -465,7 +467,7 @@ for module in modules:
 		overview += "</tr>\n"
 		
 	text = text.replace('{FUNCTIONOVERVIEW}', overview)
-	
+		
 	# Generate a list of methods
 	overview = ''
 	for i in range(0, len(localfunctions)):

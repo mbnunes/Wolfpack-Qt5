@@ -15,6 +15,7 @@ EVENT_NAME_PATTERN = re.compile("\\\\event\s(\w+)", re.S)
 PARAM_PATTERN = re.compile('\\\\param\s+(\w+)\s+([^\\\\]*?)\s*(?=\Z|[\s\n]+\\\\\w)', re.S)
 INHERIT_PATTERN = re.compile('\\\\inherit\s+(\w+)\s*(?=\Z|[\s\n]+\\\\\w)', re.S)
 FUNCTION_NAME_PATTERN = re.compile("\\\\function\s([\w\.]+)", re.S)
+LINK_OBJECT_PATTERN = re.compile("<object\\s+id=\"([^\\\"]+)\">(.*?)<\\/object>", re.S)
 
 VERSION = "Unknown"
 BETA = ""
@@ -29,7 +30,20 @@ def getVersion():
 # <object id="item">....</object>
 
 def processtext(text):
-	return text.strip().replace("\\", "\\\\").replace("\n", "<br>\n")
+	text = text.strip().replace("\\", "\\\\").replace("\n", "<br>\n")
+
+	# Replace the <object tags
+	while 1:
+		link = LINK_OBJECT_PATTERN.search(text)
+		
+		if not link:
+			break
+		
+		# Replace
+		replacement = '<a href="object_%s.html">%s</a>' % (link.group(1).lower(), link.group(2))
+		text = text[0:link.start()] + replacement + text[link.end():]
+	
+	return text
 
 #
 # Parse a command comment

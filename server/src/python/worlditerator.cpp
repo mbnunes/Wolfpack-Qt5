@@ -28,14 +28,12 @@
 #include "worlditerator.h"
 #include "../world.h"
 
-typedef struct
-{
+typedef struct {
 	PyObject_HEAD;
 	cItemIterator* iter;
 } wpItemIterator;
 
-static void wpItemIteratorDealloc( PyObject* self )
-{
+static void wpItemIteratorDealloc( PyObject* self) {
 	delete ( ( wpItemIterator * ) self )->iter;
 	PyObject_Del( self );
 }
