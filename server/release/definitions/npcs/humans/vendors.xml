@@ -32,7 +32,7 @@
 		</shopkeeper>
 	</npc>
 	
-	<!-- A baker vendor --->
+	<!-- A baker vendor -->
 	<npc id="baker">
 		<inherit>base_male</inherit>
 		<title>the Baker</title>
