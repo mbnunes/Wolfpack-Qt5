@@ -35,12 +35,14 @@
 	<script>equipment</script>
 	<script>bandages</script>
 	<script>key</script>
+	<script>ingot</script>
 	<script>keyring</script>
 	<script>ore</script>
 	<script>lockpick</script>
 	<script>bulletinboard</script>
 	<script>food</script>
 	<script>shrine</script>
+	<script>spiderweb</script>
 	<script>figurine</script>
 	<script>pickaxe</script>
 

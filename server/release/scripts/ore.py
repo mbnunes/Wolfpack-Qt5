@@ -6,6 +6,7 @@ from wolfpack.consts import *
 import whrandom
 import wolfpack
 import skills
+from skills import mining
 from wolfpack.time import *
 from wolfpack.utilities import *
 from random import randrange, randint
@@ -13,7 +14,6 @@ from random import randrange, randint
 # 0x19b7, 0x19b8, 0x19ba give 1 ingot.
 # 0x19b9 gives 2 ingots.
 oreids = [ 0x19b7, 0x19b8, 0x19ba, 0x19b9 ]
-oredefsufx = [ '_ore_1', '_ore_2', '_ore_3', '_ore_4']
 
 forgeids = [ 0xfb1, 0x197a, 0x197b, 0x197c, 0x197d, 0x197e, 0x197f, 0x1980,
 				0x1981, 0x1982, 0x1983, 0x1984, 0x1985, 0x1986, 0x1987, 0x1988,
@@ -23,24 +23,16 @@ forgeids = [ 0xfb1, 0x197a, 0x197b, 0x197c, 0x197d, 0x197e, 0x197f, 0x1980,
 				0x19a1, 0x19a2, 0x19a3, 0x19a4, 0x19a5, 0x19a6, 0x19a7, 0x19a8,
 				0x19a9 ]
 
-# Name, reqSkill, minSkill, color, item name
-ingottable = \
-{
-	'iron':			[ 0, -250, 0x0, 'iron ingot' ],
-	'dullcopper':	[ 650, 325, 0x973, 'dull copper ingot' ],
-	'shadowiron':	[ 700, 350, 0x966, 'shadow iron ingot' ],
-	'copper':		[ 750, 375, 0x96d, 'copper ingot' ],
-	'bronze':		[ 800, 400, 0x972, 'bronze ingot' ],
-	'gold':			[ 850, 425, 0x8a5, 'gold ingot' ],
-	'agapite':		[ 900, 450, 0x979, 'agapite ingot' ],
-	'verite':			[ 950, 475, 0x89f, 'verite ingot' ],
-	'valorite':		[ 990, 495, 0x8ab, 'valorite ingot' ]
-}
+def onShowTooltip(player, object, tooltip):
+	name = 'Unknown Ore'
+	
+	if object.hastag('resname'):
+		resname = str(object.gettag('resname'))
+		if mining.oretable.has_key(resname):
+			name = mining.oretable[resname][mining.ORENAME]
 
-REQSKILL = 0
-MINSKILL = 1
-COLORID = 2
-NAME = 3
+	tooltip.reset()
+	tooltip.add(1050039, "%u\t%s" % (object.amount, name))
 
 def onUse( char, ore ):
 	if ore.id in oreids:
@@ -262,17 +254,21 @@ def response( char, args, target ):
 					char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
 				return OK
 
-def dosmelt ( char, args ):
+def dosmelt(char, args):
 	ore = args[0]
 	forge = args[1]
 	resname = args[2]
+	
+	if not mining.oretable.has_key(resname):
+		char.socket.sysmessage('You cannot smelt that kind of ore.')
+		return 0
+	
 	success = 0
-	reqskill = ingottable[ resname ][ REQSKILL ]
-	chance = max(0, char.skill[MINING] - ingottable[resname][MINSKILL]) / 1000.0
+	reqskill = mining.oretable[resname][mining.REQSKILL]
+	chance = max(0, char.skill[MINING] - mining.oretable[resname][mining.MINSKILL]) / 1000.0
 
-	if not char.skill[ MINING ] >= reqskill:
-		# You have no idea how to smelt this strange ore!
-		char.socket.clilocmessage( 501986, '', GRAY )
+	if not char.skill[MINING] >= reqskill:		
+		char.socket.clilocmessage(501986, '', GRAY) # You have no idea how to smelt this strange ore!
 		return OOPS
 
 	if ore.amount >= 1 and char.skill[ MINING ] >= reqskill:
@@ -281,20 +277,20 @@ def dosmelt ( char, args ):
 		else:
 			if ore.id == oreids[3]:
 				amount = (ore.amount * 2)
-				successsmelt( char, ingottable, resname, amount )
+				successsmelt(char, resname, amount)
 				ore.delete()
 			elif ore.id == oreids[2] or ore.id == oreids[1]:
 				amount = ore.amount
-				successsmelt( char, ingottable, resname, amount )
+				successsmelt(char, resname, amount)
 				ore.delete()
 			elif ore.id == oreids[0]:
 				if evenorodd( ore.amount ) == "even":
 					amount = ( ore.amount / 2 )
-					successsmelt( char, ingottable, resname, amount )
+					successsmelt(char, resname, amount)
 					ore.delete()
 				elif evenorodd( ore.amount ) == "odd" and ore.amount > 1:
 					amount = ( ( ore.amount - 1 ) / 2 )
-					successsmelt( char, ingottable, resname, amount )
+					successsmelt(char, resname, amount)
 					ore.amount = 1
 					ore.update()
 				elif ore.amount == 1:
@@ -316,21 +312,19 @@ def dosmelt ( char, args ):
 
 	return OK
 
-def successsmelt( char, table, resname, amount ):
-	socket = char.socket
-	backpack = char.getbackpack()
-	if not backpack:
-		return OOPS
-	resingot = "%s_ingot" % ( resname )
-	resourceitem = wolfpack.additem( str(resingot) )
-	resourceitem.decay = 1
-	resourceitem.amount = amount
+def successsmelt(char, resname, amount):
+	item = wolfpack.additem('1bf2')
+	item.amount = amount
+	
+	ore = mining.oretable[resname]
+	
+	item.color = ore[mining.COLORID]
+	item.settag('resname', resname)
 
-	if not wolfpack.utilities.tocontainer( resourceitem, char.getbackpack() ):
-		resourceitem.update()
+	if not wolfpack.utilities.tobackpack(item, char):
+		item.update()
 
 	# You smelt the ore removing the impurities and put the metal in your backpack.
-	char.socket.clilocmessage( 501988, '', GRAY )
-	char.soundeffect( SOUND_HAMMER_1 )
-
+	char.socket.clilocmessage(501988, '', GRAY)
+	char.soundeffect(SOUND_HAMMER_1)
 	return OK

@@ -11,7 +11,6 @@
 <definitions>
 
 	<item id="iron_ingot">
-		<name>#1042692</name>
 		<id>0x1bf2</id>
 		<color>0x0</color>
 		<tag name="resname" value="iron" />
@@ -19,7 +18,6 @@
 	</item>
 
 	<item id="dullcopper_ingot">
-		<name>#1042684</name>
 		<id>0x1bf2</id>
 		<color>0x973</color>
 		<tag name="resname" value="dullcopper" />
@@ -27,7 +25,6 @@
 	</item>
 
 	<item id="shadowiron_ingot">
-		<name>#1042685</name>
 		<id>0x1bf2</id>
 		<color>0x966</color>
 		<tag name="resname" value="shadowiron" />
@@ -35,7 +32,6 @@
 	</item>
 
 	<item id="copper_ingot">
-		<name>#1042686</name>
 		<id>0x1bf2</id>
 		<color>0x96d</color>
 		<tag name="resname" value="copper" />
@@ -43,7 +39,6 @@
 	</item>
 
 	<item id="bronze_ingot">
-		<name>#1042687</name>
 		<id>0x1bf2</id>
 		<color>0x972</color>
 		<tag name="resname" value="bronze" />
@@ -51,7 +46,6 @@
 	</item>
 
 	<item id="gold_ingot">
-		<name>#1042688</name>
 		<id>0x1bf2</id>
 		<color>0x8a5</color>
 		<tag name="resname" value="gold" />
@@ -69,7 +63,6 @@
 	-->
 
 	<item id="agapite_ingot">
-		<name>#1042689</name>
 		<id>0x1bf2</id>
 		<color>0x979</color>
 		<tag name="resname" value="agapite" />
@@ -77,7 +70,6 @@
 	</item>
 
 	<item id="verite_ingot">
-		<name>#1042690</name>
 		<id>0x1bf2</id>
 		<color>0x89f</color>
 		<tag name="resname" value="verite" />
@@ -85,7 +77,6 @@
 	</item>
 
 	<item id="valorite_ingot">
-		<name>#1042691</name>
 		<id>0x1bf2</id>
 		<color>0x8ab</color>
 		<tag name="resname" value="valorite" />
@@ -110,8 +101,7 @@
 	</item>
 	-->
 
-	<item id="iron_ore_1">
-		<name>#1042853</name>
+	<item id="iron_ore">
 		<id>0x19b7</id>
 		<color>0x0</color>
 		<category>Professions\Miner\Ore\Iron\Iron Ore 1</category>
@@ -120,23 +110,22 @@
 		<type>1102</type>
 	</item>
 
-	<item id="iron_ore_2" inherit="iron_ore_1">
+	<item id="iron_ore_2" inherit="iron_ore">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Iron\Iron Ore 2</category>
 	</item>
 
-	<item id="iron_ore_3" inherit="iron_ore_1">
+	<item id="iron_ore_3" inherit="iron_ore">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Iron\Iron Ore 3</category>
 	</item>
 
-	<item id="iron_ore_4" inherit="iron_ore_1">
+	<item id="iron_ore_4" inherit="iron_ore">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Iron\Iron Ore 3</category>
 	</item>
 
-	<item id="dullcopper_ore_1">
-		<name>#1042845</name>
+	<item id="dullcopper_ore">
 		<id>0x19b7</id>
 		<color>0x973</color>
 		<category>Professions\Miner\Ore\Dull Copper\Dull Copper Ore 1</category>
@@ -145,23 +134,22 @@
 		<type>1102</type>
 	</item>
 
-	<item id="dullcopper_ore_2" inherit="dullcopper_ore_1">
+	<item id="dullcopper_ore_2" inherit="dullcopper_ore">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Dull Copper\Dull Copper Ore 2</category>
 	</item>
 
-	<item id="dullcopper_ore_3" inherit="dullcopper_ore_1">
+	<item id="dullcopper_ore_3" inherit="dullcopper_ore">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Dull Copper\Dull Copper Ore 3</category>
 	</item>
 
-	<item id="dullcopper_ore_4" inherit="dullcopper_ore_1">
+	<item id="dullcopper_ore_4" inherit="dullcopper_ore">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Dull Copper\Dull Copper Ore 4</category>
 	</item>
 
-	<item id="shadowiron_ore_1">
-		<name>#1042846</name>
+	<item id="shadowiron_ore">
 		<id>0x19b7</id>
 		<color>0x966</color>
 		<category>Professions\Miner\Ore\Shadow Iron\Shadow Iron Ore 1</category>
@@ -170,23 +158,22 @@
 		<type>1102</type>
 	</item>
 
-	<item id="shadowiron_ore_2" inherit="shadowiron_ore_1">
+	<item id="shadowiron_ore_2" inherit="shadowiron_ore">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Shadow Iron\Shadow Iron Ore 2</category>
 	</item>
 
-	<item id="shadowiron_ore_3" inherit="shadowiron_ore_1">
+	<item id="shadowiron_ore_3" inherit="shadowiron_ore">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Shadow Iron\Shadow Iron Ore 3</category>
 	</item>
 
-	<item id="shadowiron_ore_4" inherit="shadowiron_ore_1">
+	<item id="shadowiron_ore_4" inherit="shadowiron_ore">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Shadow Iron\Shadow Iron Ore 4</category>
 	</item>
 
-	<item id="copper_ore_1">
-		<name>#1042847</name>
+	<item id="copper_ore">
 		<id>0x19b7</id>
 		<color>0x96d</color>
 		<category>Professions\Miner\Ore\Copper\Copper Ore 1</category>
@@ -195,23 +182,22 @@
 		<type>1102</type>
 	</item>
 
-	<item id="copper_ore_2" inherit="copper_ore_1">
+	<item id="copper_ore_2" inherit="copper_ore">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Copper\Copper Ore 2</category>
 	</item>
 
-	<item id="copper_ore_3" inherit="copper_ore_1">
+	<item id="copper_ore_3" inherit="copper_ore">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Copper\Copper Ore 3</category>
 	</item>
 
-	<item id="copper_ore_4" inherit="copper_ore_1">
+	<item id="copper_ore_4" inherit="copper_ore">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Copper\Copper Ore 4</category>
 	</item>
 
-	<item id="bronze_ore_1">
-		<name>#1042848</name>
+	<item id="bronze_ore">
 		<id>0x19b7</id>
 		<color>0x972</color>
 		<category>Professions\Miner\Ore\Bronze\Bronze Ore 1</category>
@@ -220,22 +206,21 @@
 		<type>1102</type>
 	</item>
 
-	<item id="bronze_ore_2" inherit="bronze_ore_1">
+	<item id="bronze_ore_2" inherit="bronze_ore">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Bronze\Bronze Ore 2</category>
 	</item>
-	<item id="bronze_ore_3" inherit="bronze_ore_1">
+	<item id="bronze_ore_3" inherit="bronze_ore">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Bronze\Bronze Ore 3</category>
 	</item>
 
-	<item id="bronze_ore_4" inherit="bronze_ore_1">
+	<item id="bronze_ore_4" inherit="bronze_ore">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Bronze\Bronze Ore 4</category>
 	</item>
 
-	<item id="gold_ore_1">
-		<name>#1042849</name>
+	<item id="gold_ore">
 		<id>0x19b7</id>
 		<color>0x8a5</color>
 		<category>Professions\Miner\Ore\Gold\Gold Ore 1</category>
@@ -244,23 +229,22 @@
 		<type>1102</type>
 	</item>
 
-	<item id="gold_ore_2" inherit="gold_ore_1">
+	<item id="gold_ore_2" inherit="gold_ore">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Gold\Gold Ore 2</category>
 	</item>
 
-	<item id="gold_ore_3" inherit="gold_ore_1">
+	<item id="gold_ore_3" inherit="gold_ore">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Gold\Gold Ore 3</category>
 	</item>
 
-	<item id="gold_ore_4" inherit="gold_ore_1">
+	<item id="gold_ore_4" inherit="gold_ore">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Gold\Gold Ore 4</category>
 	</item>
 
-	<item id="agapite_ore_1">
-		<name>#1042850</name>
+	<item id="agapite_ore">
 		<id>0x19b7</id>
 		<color>0x979</color>
 		<category>Professions\Miner\Ore\Agapite\Agapite Ore 1</category>
@@ -269,23 +253,22 @@
 		<type>1102</type>
 	</item>
 
-	<item id="agapite_ore_2" inherit="agapite_ore_1">
+	<item id="agapite_ore_2" inherit="agapite_ore">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Agapite\Agapite Ore 2</category>
 	</item>
 
-	<item id="agapite_ore_3" inherit="agapite_ore_1">
+	<item id="agapite_ore_3" inherit="agapite_ore">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Agapite\Agapite Ore 3</category>
 	</item>
 
-	<item id="agapite_ore_4" inherit="agapite_ore_1">
+	<item id="agapite_ore_4" inherit="agapite_ore">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Agapite\Agapite Ore 4</category>
 	</item>
 
-	<item id="verite_ore_1">
-		<name>#1042851</name>
+	<item id="verite_ore">
 		<id>0x19b7</id>
 		<color>0x89f</color>
 		<category>Professions\Miner\Ore\Verite\Verite Ore 1</category>
@@ -294,23 +277,22 @@
 		<type>1102</type>
 	</item>
 
-	<item id="verite_ore_2" inherit="verite_ore_1">
+	<item id="verite_ore_2" inherit="verite_ore">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Verite\Verite Ore 2</category>
 	</item>
 
-	<item id="verite_ore_3" inherit="verite_ore_1">
+	<item id="verite_ore_3" inherit="verite_ore">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Verite\Verite Ore 3</category>
 	</item>
 
-	<item id="verite_ore_4" inherit="verite_ore_1">
+	<item id="verite_ore_4" inherit="verite_ore">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Verite\Verite Ore 4</category>
 	</item>
 
-	<item id="valorite_ore_1">
-		<name>#1042852</name>
+	<item id="valorite_ore">
 		<id>0x19b7</id>
 		<color>0x8ab</color>
 		<category>Professions\Miner\Ore\Valorite\Valorite Ore 1</category>
@@ -319,23 +301,23 @@
 		<type>1102</type>
 	</item>
 
-	<item id="valorite_ore_2" inherit="valorite_ore_1">
+	<item id="valorite_ore_2" inherit="valorite_ore">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Valorite\Valorite Ore 2</category>
 	</item>
 
-	<item id="valorite_ore_3" inherit="valorite_ore_1">
+	<item id="valorite_ore_3" inherit="valorite_ore">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Valorite\Valorite Ore 3</category>
 	</item>
 
-	<item id="valorite_ore_4" inherit="valorite_ore_1">
+	<item id="valorite_ore_4" inherit="valorite_ore">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Valorite\Valorite Ore 4</category>
 	</item>
 
 	<!--
-	<item id="silver_ore_1">
+	<item id="silver_ore">
 		<name>silver ore</name>
 		<id>0x19b7</id>
 		<color>0x430</color>
@@ -345,7 +327,7 @@
 		<type>1102</type>
 	</item>
 
-	<item id="merkite_ore_1">
+	<item id="merkite_ore">
 		<name>merkite ore</name>
 		<id>0x19b7</id>
 		<color>0x8b0</color>
@@ -355,7 +337,7 @@
 		<type>1102</type>
 	</item>
 
-	<item id="mythril_ore_1">
+	<item id="mythril_ore">
 		<name>mythril ore</name>
 		<id>0x19b7</id>
 		<color>0x84c</color>
@@ -483,36 +465,36 @@
 		<id>0x1bef</id>
 		<category>Professions\Miner\Ingots\Iron Ingot (W/E)</category>
 		<tag name="resname" value="iron" />
+		<events>ingot</events>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1bf0">
 		<id>0x1bf0</id>
 		<category>Professions\Miner\Ingots\Iron Ingots 1 (W/E)</category>
-		<tag name="resname" value="iron" />
-	</item>
+  </item>
 
 	<item id="1bf1">
 		<id>0x1bf1</id>
 		<category>Professions\Miner\Ingots\Iron Ingots 2 (W/E)</category>
-		<tag name="resname" value="iron" />
 	</item>
 
 	<item id="1bf2">
 		<id>0x1bf2</id>
 		<category>Professions\Miner\Ingots\Iron Ingot (N/S)</category>
 		<tag name="resname" value="iron" />
+		<events>ingot</events>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1bf3">
 		<id>0x1bf3</id>
 		<category>Professions\Miner\Ingots\Iron Ingots 1 (N/S)</category>
-		<tag name="resname" value="iron" />
 	</item>
 
 	<item id="1bf4">
 		<id>0x1bf4</id>
 		<category>Professions\Miner\Ingots\Iron Ingots 2 (N/S)</category>
-		<tag name="resname" value="iron" />
 	</item>
 
 	<item id="1bf5">

@@ -19,29 +19,27 @@ from random import randint
 #in seconds
 miningdelay = 1000
 
-# 0x19b7, 0x19b8, 0x19ba give 1 ingot.
-# 0x19b9 gives 2 ingots.
-oreids = [ 0x19b7, 0x19b8, 0x19ba, 0x19b9 ]
-oredefs = [ '_ore_1', '_ore_2', '_ore_4', '_ore_3' ]
-
 # Mining Harvest Table Items
 REQSKILL = 0
 MINSKILL = 1
-SUCCESSCLILOC = 2
+SUCCESSMESSAGE = 2
 COLORID = 3
 FINDCHANCE = 4
+ORENAME = 5
+INGOTNAME = 6
 
-# resname, reqSkill, minSkill, successClilocId, color, find rate (will make a percentage of the total amount)
+# resname, reqSkill, minSkill, sucessmessage, color, find rate (will make a percentage of the total amount), 
+# name of ore, name of ingot
 oretable = {
-	'iron': 			[0, -250, 1007072, 0x0, 49],
-	'dullcopper': [650, 325, 1007073, 0x973, 11],
-	'shadowiron': [700, 350, 1007074, 0x966, 10],
-	'copper': 		[750, 375, 1007075, 0x96d, 8],
-	'bronze': 		[800, 400, 1007076, 0x972, 7],
-	'gold': 			[850, 425, 1007077, 0x8a5, 6],
-	'agapite': 		[900, 450, 1007078, 0x979, 4],
-	'verite': 		[950, 475, 1007079, 0x89f, 3],
-	'valorite': 	[990, 495, 1007080, 0x8ab, 2]
+	'iron': 			[0, 	-250, 1007072, 0x0, 	49, '#1042853', '#1042692'],
+	'dullcopper': [650, 325, 	1007073, 0x973, 11, '#1042845', '#1042684'],
+	'shadowiron': [700, 350, 	1007074, 0x966, 10, '#1042846', '#1042685'],
+	'copper': 		[750, 375, 	1007075, 0x96d, 8, 	'#1042847', '#1042686'],
+	'bronze': 		[800, 400, 	1007076, 0x972, 7, 	'#1042848', '#1042687'],
+	'gold': 			[850, 425, 	1007077, 0x8a5, 6, 	'#1042849', '#1042688'],
+	'agapite': 		[900, 450, 	1007078, 0x979, 4, 	'#1042850', '#1042689'],
+	'verite': 		[950, 475, 	1007079, 0x89f, 3, 	'#1042851', '#1042690'],
+	'valorite': 	[990, 495, 	1007080, 0x8ab, 2, 	'#1042852', '#1042691'],
 }
 
 def mining( char, pos, tool ):
@@ -189,15 +187,15 @@ def domining(time, args):
 	
 	# Digs up the large ore.
 	if resourcecount >= 5:
-		successmining(char, veingem, oretable, resname, 1, oredefs[3])
+		successmining(char, veingem, resname, 3)
 	
 	# Picks one of the smaller ore types
 	elif resourcecount == 3 or resourcecount == 4:
-		successmining(char, veingem, oretable, resname, 1, oredefs[randint( 1, 2 )])
+		successmining(char, veingem, resname, 2)
 	
 	# Smallest ore only
 	elif resourcecount == 1 or resourcecount == 2:
-		successmining(char, veingem, oretable, resname, 1, oredefs[0])
+		successmining(char, veingem, resname, 1)
 
 	# Remaining Tool Uses
 	if not tool.hastag('remaining_uses'):
@@ -213,37 +211,43 @@ def domining(time, args):
 
 	return 1
 
-def successmining( char, gem, table, resname, amount, ore ):
-	socket = char.socket
-	message = table[ resname ][ SUCCESSCLILOC ]
-	backpack = char.getbackpack()
-	if not backpack:
-		return OOPS
-	resore = "%s%s" % ( resname, ore )
-	resourceitem = wolfpack.additem( str(resore) )
-	resourceitem.decay = 1
-	if (FELUCIA2XRESGAIN == TRUE) and (char.pos.map  == 0):
-		resourceitem.amount = amount * 2
+def successmining(char, gem, resname, size):
+	# Create the ore and put it into the players backpack
+	if size == 1:
+		item = wolfpack.additem("19b7")
+	elif size == 2:
+		item = wolfpack.additem(random.choice(["19b8", "19ba"]))
+	elif size == 3:
+		item = wolfpack.additem("19b9")
 	else:
-		resourceitem.amount = amount
+		raise RuntimeException, "Invalid ore size: %u" % size
 
-	if not gem.hastag('resourcecount'):
-		return OOPS
+	item.settag('resname', resname)
+	item.color = oretable[resname][COLORID]
 
-	gem.settag( 'resourcecount', ( gem.gettag( 'resourcecount' ) - amount ) )
+	if FELUCIA2XRESGAIN and char.pos.map == 0:
+		item.amount = 2
+	else:
+		item.amount = 1
 
-	if not gem.hastag('resource_empty') and gem.gettag('resourcecount') == 0:
+	if not wolfpack.utilities.tobackpack(item, char):
+		item.update()
+
+	resourcecount = max(1, int(gem.gettag('resourcecount')))
+	gem.settag('resourcecount', resourcecount - 1)
+
+	# Start respawning the ore
+	if not gem.hastag('resource_empty') and resourcecount <= 1:		
+		delay = randint(MINING_MIN_REFILLTIME, MINING_MAX_REFILLTIME)
+		wolfpack.addtimer(delay, "skills.mining.respawnvein", [gem], 1)
 		gem.settag('resource_empty', 1)
-		wolfpack.addtimer(randint(MINING_MIN_REFILLTIME, MINING_MAX_REFILLTIME), "skills.mining.respawnvein", [gem], 1)
 
-	if not wolfpack.utilities.tocontainer( resourceitem, backpack ):
-		resourceitem.update()
-
+	message = oretable[resname][SUCCESSMESSAGE]
 	# You dig some %s and put it in your backpack.
 	if type(message) == int:
-		socket.clilocmessage( message, "", GRAY )
+		char.socket.clilocmessage(message, "", GRAY)
 	else:
-		socket.sysmessage(unicode(message))
+		char.socket.sysmessage(unicode(message))
 	return OK
 
 def respawnvein( time, args ):

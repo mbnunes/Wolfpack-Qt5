@@ -68,6 +68,23 @@ def nudgeup(socket, command, arguments):
 		
 	socket.attachtarget('commands.nudgetarget', [amount])
 
+def resendtooltiptarget(player, arguments, target):
+	if target.item:
+		target.item.resendtooltip()
+	elif target.char:
+		target.char.resendtooltip()
+	else:
+		player.socket.sysmessage('You have to target either a character or item.')
+
+"""
+	\command resendtooltip
+	\description Resend the tooltip of an object. This is mainly for debugging purposes.
+"""
+	
+def resendtooltip(socket, command, arguments):
+	socket.sysmessage('Which objects tooltip do you want to resend?')		
+	socket.attachtarget('commands.resendtooltiptarget', [])
+
 def nightsight(socket, command, arguments):
 	player = socket.player
 	player.removeevent('magic.nightsight')
@@ -82,6 +99,7 @@ def nightsight(socket, command, arguments):
 	socket.updatelightlevel()
 
 def onLoad():
+	wolfpack.registercommand("resendtooltip", resendtooltip)
 	wolfpack.registercommand("season", season)
 	wolfpack.registercommand("updateplayer", updateplayer)
 	wolfpack.registercommand("time", uotime)
