@@ -2,7 +2,7 @@
 import magic
 import random
 import wolfpack.console
-from wolfpack import properties
+from wolfpack import properties, utilities
 from magic.utilities import *
 from wolfpack.consts import MAGICRESISTANCE, EVALUATINGINTEL, INSCRIPTION, \
 	MAGERY, ANIM_CASTDIRECTED, SPELLDAMAGEBONUS, LOG_WARNING, SPELLCHANNELING
@@ -202,7 +202,7 @@ class Spell:
 			
 		# Check if the spellchanneling property is true for this item
 		if not properties.fromitem(weapon, SPELLCHANNELING):
-			if not wolfpack.tobackpack(weapon, char):
+			if not utilities.tobackpack(weapon, char):
 				weapon.update()
 			
 			return True
