@@ -311,6 +311,7 @@ void cAsyncNetIO::run() throw()
 			{
 				char temp[4];
 				d->consumeReadBuf( 4, temp );
+				d->skipedUOHeader = true;
 			}
 
 			// Write all data in the buffer.
