@@ -3217,7 +3217,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	}
 
 	sysbroadcast("The server is shutting down.");
-	if (SrvParms->html>0)
+	if (SrvParams->html()>0)
 	{
 		clConsole.send("Writing offline HTML page...");
 		offlinehtml();//HTML	// lb, the if prevents a crash on shutdown if html deactivated ...

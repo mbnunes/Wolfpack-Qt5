@@ -251,7 +251,7 @@ void updatehtml()//HTML
 				fprintf(html,"%f" , (1000.0*(1.0/(float)((float)loopTime/(float)loopTimeCount))));
 			else fprintf(html,"too fast to be measured");
 		}
-		else if(!(strcmp((char*)script1,"UDTIME")))	fprintf(html,"%f",(float)(SrvParms->html/60));
+		else if(!(strcmp((char*)script1,"UDTIME")))	fprintf(html,"%f",(float)(SrvParams->html()/60));
 
 		#ifndef __unix__
 			if(!(strcmp((char*)script1,"VER"))) fprintf(html,"%s %s [WIN32]", wp_version.betareleasestring.c_str(), wp_version.verstring.c_str() );

@@ -73,9 +73,6 @@ struct server_st
 	unsigned int animals_guarded;
 	unsigned int npc_base_fleeat;
 	unsigned int npc_base_reattackat;
-	unsigned int tamed_disappear; // Ripper
-	unsigned int houseintown; // Ripper
-	unsigned int shoprestock; // Ripper 
 	char archivepath[256];
 	unsigned int maxabsorbtion; // Magius(CHE) --- Maximum Armour of the single pieces of armour (for player)!
 	unsigned int maxnohabsorbtion; // Magius(CHE) --- Maximum Armour of the total armour (for NPC)!
@@ -87,8 +84,6 @@ struct server_st
 	unsigned int rank_system; // Magius(CHE)
 	char armoraffectmana; // Should armor slow mana regen ?
 	unsigned short int quittime;//Instalog
-	int html;//HTML
-	float boatspeed;
 	int attackstamina;	// AntiChrist (6) - for ATTACKSTAMINA
 	char specialbanktrigger[50]; //special bank trigger - AntiChrist
 	int usespecialbank; //special bank - AntiChrist
@@ -96,8 +91,6 @@ struct server_st
 	unsigned int VendorGreet; // shop keepers greet - Ripper
 	unsigned int BadNpcsRed; // bad npcs red=1 or grey=0 - Ripper
 	unsigned int slotamount; // gold amount for slots Ripper
-	int cutscrollreq;//AntiChrist - cut skill requirements for scrolls
-	int persecute;//AntiChrist - persecute thing
 	char errors_to_console; // LB
 	unsigned long int housedecay_secs;
 	unsigned int ra_port;

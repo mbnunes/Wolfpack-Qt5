@@ -124,19 +124,7 @@ void loadserverdefaults(void)
 		
 	server_data.bountysactive=1;           // Dupois - Added July 18, 2000 for bountys (1-Active)
 	server_data.bountysexpire=0;           // Dupois - Added July 18, 2000 for bountys (0-Never - in days)
-	
-	
-	server_data.boatspeed=0.75;//Boats
 
-	server_data.cutscrollreq=1;//AntiChrist
-
-	server_data.persecute=1;//AntiChrist
-
-	server_data.html=-1;//HTML
-
-	server_data.tamed_disappear=1; // Ripper
-	server_data.houseintown=0; // Ripper
-	server_data.shoprestock=1; //Ripper
 
 	server_data.CheckBank = 2000; // Ripper..2000 default
 	server_data.VendorGreet = 1; // Ripper..do greet by default.
@@ -326,11 +314,6 @@ void loadserver()
 		else if(!(strcmp((char*)script1,"ARCHIVEPATH"))) strcpy(server_data.archivepath,(char*)script2);
 
 		else if(!(strcmp((char*)script1,"CHAR_TIME_OUT"))) server_data.quittime = str2num(script2);//Instalog
-        else if(!(strcmp((char*)script1,"BOAT_SPEED"))) server_data.boatspeed = atof((char*)script2);//Boats
-
-		else if(!(strcmp((char*)script1,"HTML"))) server_data.html=str2num(script2);//HTML
-        else if(!(strcmp((char*)script1,"CUT_SCROLL_REQUIREMENTS"))) server_data.cutscrollreq=str2num(script2);//AntiChrist
-        else if(!(strcmp((char*)script1,"PERSECUTION"))) server_data.persecute=str2num(script2);//AntiChrist
 	
 		else if(!(strcmp((char*)script1,"MSGBOARDPATH"))) strcpy(server_data.msgboardpath,(char*)script2);               // Dupois - Added Dec 20, 1999 for message boards
 		else if(!(strcmp((char*)script1,"MSGPOSTACCESS"))) server_data.msgpostaccess=str2num(script2);            // Dupois - Added Dec 20, 1999 for message boards
@@ -344,9 +327,6 @@ void loadserver()
 		else if(!(strcmp((char*)script1,"BOUNTYSACTIVE"))) server_data.bountysactive=str2num(script2);            // Dupois - Added July 18, 2000 for bountys
 		else if(!(strcmp((char*)script1,"BOUNTYSEXPIRE"))) server_data.bountysexpire=str2num(script2);            // Dupois - Added July 18, 2000 for bountys
 
-		else if(!(strcmp((char*)script1,"TAMED_DISAPPEAR"))) server_data.tamed_disappear=str2num(script2); // Ripper
-		else if(!(strcmp((char*)script1,"HOUSEINTOWN"))) server_data.houseintown=str2num(script2); // Ripper
-		else if(!(strcmp((char*)script1,"SHOPRESTOCK"))) server_data.shoprestock=str2num(script2); // Ripper
 	 
 		else if(!(strcmp((char*)script1,"LOOPSAVE"))) cwmWorldState->SetLoopSaveAmt( str2num( script2 ) );
 
@@ -529,11 +509,6 @@ void saveserverscript(void)
 	fprintf(file, "ARCHIVEPATH %s\n",server_data.archivepath);
 	
 	fprintf(file, "CHAR_TIME_OUT %i\n",server_data.quittime);//Instalog
-    fprintf(file, "BOAT_SPEED %f\n",server_data.boatspeed);//Boats
-
-    fprintf(file, "HTML %i\n",server_data.html);
-    fprintf(file, "CUT_SCROLL_REQUIREMENTS %i\n",server_data.cutscrollreq);//AntiChrist
-    fprintf(file, "PERSECUTION %i\n",server_data.persecute);//AntiChrist
     
 	fprintf(file, "MSGBOARDPATH %s\n",server_data.msgboardpath);              // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	fprintf(file, "MSGPOSTACCESS %i\n",server_data.msgpostaccess);            // Dupois - Added Dec 20, 1999 for msgboard.cpp
@@ -547,9 +522,6 @@ void saveserverscript(void)
 	fprintf(file, "BOUNTYSACTIVE %i\n",server_data.bountysactive);            // Dupois - Added July 18, 2000 for bountys
 	fprintf(file, "BOUNTYSEXPIRE %i\n",server_data.bountysexpire);            // Dupois - Added July 18, 2000 for bountys
 	
-	fprintf(file, "TAMED_DISAPPEAR %i\n",server_data.tamed_disappear); // Ripper
-	fprintf(file, "HOUSEINTOWN %i\n",server_data.houseintown); // Ripper
-	fprintf(file, "SHOPRESTOCK %i\n",server_data.shoprestock); // Ripper
 	fprintf(file, "LOOPSAVE %i\n",cwmWorldState->LoopSaveAmt());  
 	fprintf(file, "ERRORS_TO_CONSOLE %i\n",server_data.errors_to_console);
 	fprintf(file, "HOUSEDECAY_SECS %i\n",server_data.housedecay_secs);

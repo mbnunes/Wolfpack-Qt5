@@ -35,6 +35,7 @@
 #include "house.h"
 #include "iserialization.h"
 #include "regions.h"
+#include "srvparams.h"
 //#include "SndPkg.h"
 //#include "debug.h"
 //#include "utilsys.h"
@@ -222,7 +223,7 @@ void BuildHouse(UOXSOCKET s, int i)
 	if(looptimes)
 	{
 		looptimes=0;
-		if(!pc_currchar->isGM() && SrvParms->houseintown==0)
+		if(!pc_currchar->isGM() && SrvParams->houseInTown()==0)
 		{
 		    if (pc_currchar->inGuardedArea() && ishouse(id) ) // popy
 			{

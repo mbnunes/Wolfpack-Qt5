@@ -32,6 +32,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	runningStamSteps_		= getNumber("Game Speed", "Running Stamina Steps", 15, true);
 	hungerRate_				= getNumber("Game Speed", "Hunger Rate", 6000, true);
 	hungerDamageRate_		= getNumber("Game Speed", "Hunger Damage Rate", 10, true);
+	boatSpeed_              = getDouble("Game Speed", "Boat Speed", 0.750000, true);
     
 	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
@@ -63,6 +64,12 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	gmLog_		            = getBool("General",	"GM Log", false, true);
 	backupSaveRatio_		= getNumber("General",  "Backup Save Ratio", 1, true);
 	hungerDamage_			= getNumber("General",  "Hunger Damage", 0, true);
+	html_			        = getNumber("General",  "Html", -1, true);
+	cutScrollReq_			= getNumber("General",  "Cut Scroll Requirements.", 1, true);
+	persecute_              = getNumber("General",  "Persecution", 1, true);
+	tamedDisappear_         = getNumber("General",  "Tamed Disappear", 1, true);
+	houseInTown_            = getNumber("General",  "House In Town", 0, true);
+	shopRestock_            = getNumber("General",  "Shop Restock", 1, true);
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );

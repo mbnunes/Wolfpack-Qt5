@@ -1582,7 +1582,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 		loskill=spells[curSpell].sclo;
 		hiskill=spells[curSpell].schi;
 	}
-	if (!SrvParms->cutscrollreq)
+	if (!SrvParams->cutScrollReq())
 	{
 		if (type==1 && !(pc_currchar->isGM()) && !Skills->CheckSkill(pc_currchar, MAGERY, loskill, hiskill))
 		{

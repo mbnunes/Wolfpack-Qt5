@@ -138,7 +138,7 @@ void restockNPC(unsigned int currenttime, P_CHAR pc_i)
 {
 	unsigned int a, b;
 
-	if (SrvParms->shoprestock==1 && (shoprestocktime<=currenttime || overflow))
+	if (SrvParams->shopRestock()==1 && (shoprestocktime<=currenttime || overflow))
 	{
 		vector<SERIAL> vecContainer = contsp.getData(pc_i->serial);
 		for ( a = 0; a < vecContainer.size(); a++ )
@@ -795,7 +795,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					npctalkall(pc, (char*)temp,0);
 					{
 						soundeffect2(pc, 0x01FE);
-						if(SrvParms->tamed_disappear==1)
+						if(SrvParams->tamedDisappear()==1)
 						Npcs->DeleteChar(pc);
 					}
 				}
@@ -887,10 +887,10 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		checkspawnregions=uiCurrentTime+speed.srtime*MY_CLOCKS_PER_SEC;//Don't check them TOO often (Keep down the lag)
 	}
 
-	if(SrvParms->html>0 && (htmltime<=currenttime || overflow))
+	if(SrvParams->html()>0 && (htmltime<=currenttime || overflow))
 	{
 			updatehtml();
-			htmltime=currenttime+(SrvParms->html*MY_CLOCKS_PER_SEC);
+			htmltime=currenttime+(SrvParams->html()*MY_CLOCKS_PER_SEC);
 	}
 
 	if (saveinterval != 0)
@@ -1055,7 +1055,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 									if (dir>7) dir-=8; // LB, BUGKILLING !!!
 									Boats->Move(i, dir, mapitem);
 								}
-								mapitem->gatetime=(unsigned int)(currenttime + (double)(SrvParms->boatspeed*MY_CLOCKS_PER_SEC));
+								mapitem->gatetime=(unsigned int)(currenttime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
 							}	
 						}
 					}
@@ -1078,7 +1078,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	if(checknpcfollow<=currenttime) checknpcfollow=(unsigned int)((double) currenttime+(SrvParams->checkFollowTime()*MY_CLOCKS_PER_SEC)); //Ripper
 	if(checkitemstime<=currenttime) checkitemstime=(unsigned int)((double)(SrvParams->checkItemTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
 	//if(shoprestocktime<=currenttime) shoprestocktime=currenttime+(shoprestockrate*60*MY_CLOCKS_PER_SEC);
-	if(SrvParms->shoprestock==1 && shoprestocktime<=currenttime)
+	if(SrvParams->shopRestock()==1 && shoprestocktime<=currenttime)
 	{
 		shoprestocktime=currenttime+(shoprestockrate*60*MY_CLOCKS_PER_SEC);
 		Trade->restock(0);

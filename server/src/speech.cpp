@@ -784,7 +784,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 		npctalkall(pPet,temp,0);
 		{
 			soundeffect2(pPet, 0x01FE);
-			if(SrvParms->tamed_disappear==1)
+			if(SrvParams->tamedDisappear()==1)
 				Npcs->DeleteChar(pPet) ;
 		}
 		bReturn = true;

@@ -52,7 +52,7 @@ void RcvAttack(P_CLIENT ps)
 	
 	if(pc_currchar->dead)//AntiChrist stuff
 	{
-		if(SrvParms->persecute)
+		if(SrvParams->persecute())
 		{//start persecute stuff - AntiChrist
 			pc_currchar->targ = pc_i->serial;
 			if(pc_currchar->targ==INVALID_SERIAL) return;

@@ -79,6 +79,13 @@ protected:
 	unsigned int hungerRate_;
 	unsigned int hungerDamageRate_;
 	unsigned char hungerDamage_;
+	float boatSpeed_;
+	int html_;
+	int cutScrollReq_;
+	int persecute_;
+	unsigned int tamedDisappear_;
+	unsigned int houseInTown_;
+	unsigned int shopRestock_;
 
 	// Combat
 	bool combatHitMessage_;
@@ -138,6 +145,13 @@ public:
 	unsigned int hungerRate() const;
 	unsigned int hungerDamageRate() const;
 	unsigned char hungerDamage() const;
+	float boatSpeed() const;
+	int html() const;
+	int cutScrollReq() const;
+	int persecute() const;
+	unsigned int tamedDisappear() const;
+	unsigned int houseInTown() const;
+	unsigned int shopRestock() const;
 
 	// Combat
 	bool combatHitMessage() const;
@@ -399,6 +413,41 @@ inline unsigned char cSrvParams::hungerDamage() const
 inline bool cSrvParams::combatHitMessage() const
 {
 	return combatHitMessage_;
+}
+
+inline float cSrvParams::boatSpeed() const
+{
+	return boatSpeed_;
+}
+
+inline int cSrvParams::html() const
+{
+	return html_;
+}
+
+inline int cSrvParams::cutScrollReq() const
+{
+	return cutScrollReq_;
+}
+
+inline int cSrvParams::persecute() const
+{
+	return persecute_;
+}
+
+inline unsigned int cSrvParams::tamedDisappear() const
+{
+	return tamedDisappear_;
+}
+
+inline unsigned int cSrvParams::houseInTown() const
+{
+	return houseInTown_;
+}
+
+inline unsigned int cSrvParams::shopRestock() const
+{
+	return shopRestock_;
 }
 
 #endif __SRVPARAMS_H___
