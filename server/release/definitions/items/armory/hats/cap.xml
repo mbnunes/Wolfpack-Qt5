@@ -10,13 +10,13 @@
 
 	<!-- Cap -->
 	<item id="1715">
-		<id>0x1715</id>
+		<id value="0x1715" />
 		<dye />
-		<durability><random min="20" max="25" /></durability>
-		<buyprice>27</buyprice>
-		<sellprice>13</sellprice>
-		<weight>1.0</weight>
-		<type>1009</type>
+		<durability min="20" max="25" />
+		<buyprice value="27" />
+		<sellprice value="13" />
+		<weight value="1.0" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<allowmeditation />
 		<category>Clothes\Headwear\Cap</category>

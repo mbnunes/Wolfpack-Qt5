@@ -10,13 +10,13 @@
 
 	<!-- dragon leggings -->
 	<item id="2647">
-		<id>0x2647</id>
+		<id value="0x2647" />
 		<decay />
 		<nodye />
-		<durability><random min="60" max="100" /></durability>
-		<smelt>16</smelt>
-		<weight>7.0</weight>
-		<type>1009</type>
+		<durability min="60" max="100" />
+		<smelt value="16" />
+		<weight value="7.0" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Dragon\Dragon Leggings 1</category>
 		<!-- Properties -->
@@ -31,8 +31,8 @@
 
 	<!-- dragon leggings -->
 	<item id="2648" inherit="2647">
-		<id>0x2648</id>
-		<baseid>2647</baseid>
+		<id value="0x2648" />
+		<baseid value="2647" />
 		<category>Base Armor\Dragon\Dragon Leggings 2</category>
 	</item>
 

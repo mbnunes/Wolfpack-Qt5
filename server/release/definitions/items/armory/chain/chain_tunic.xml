@@ -10,16 +10,16 @@
 
 	<!--  Chainmail Tunic North-South -->
 	<item id="13bf">
-		<id>0x13bf</id>
+		<id value="0x13bf" />
 		<decay />
 		<nodye />
-		<durability><random min="45" max="60" /></durability>
-		<restock>10</restock>
-		<smelt>14</smelt>
-		<weight>7.0</weight>
-		<buyprice>103</buyprice>
-		<sellprice>100</sellprice>
-		<type>1009</type>
+		<durability min="45" max="60" />
+		<restock value="10" />
+		<smelt value="14" />
+		<weight value="7.0" />
+		<buyprice value="103" />
+		<sellprice value="100" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Chainmail\Tunic NS</category>
 		<!-- Properties -->
@@ -34,8 +34,8 @@
 
 	<!--  Chainmail Tunic East-West -->
 	<item id="13c4" inherit="13bf">
-		<id>0x13c4</id>
-		<baseid>13bf</baseid>
+		<id value="0x13c4" />
+		<baseid value="13bf" />
 		<category>Base Armor\Chainmail\Tunic EW</category>
 	</item>
 

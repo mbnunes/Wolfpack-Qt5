@@ -10,11 +10,11 @@
 
 	<!-- Deer Mask n/s -->
 	<item id="1547">
-		<id>0x1547</id>
+		<id value="0x1547" />
 		<nodye />
-		<durability><random min="20" max="25" /></durability>
-		<weight>4.0</weight>
-		<type>1009</type>
+		<durability min="20" max="25" />
+		<weight value="4.0" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />
@@ -31,8 +31,8 @@
 
 	<!-- Deer Mask w/e -->
 	<item id="1548" inherit="1547">
-		<id>0x1548</id>
-		<baseid>1547</baseid>
+		<id value="0x1548" />
+		<baseid value="1547" />
 		<category>Clothes\Headwear\Deer Mask (W/E)</category>
 		<category>Armor\Headwear\Deer Mask (W/E)</category>
 		<category>Base Armor\Headwear\Deer Mask (W/E)</category>

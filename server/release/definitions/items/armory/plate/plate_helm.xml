@@ -10,16 +10,16 @@
 
 	<!-- Plate Helmet NS -->
 	<item id="1412">
-		<id>0x1412</id>
+		<id value="0x1412" />
 		<decay />
 		<nodye />
-		<durability><random min="50" max="65" /></durability>
-		<restock>10</restock>
-		<smelt>12</smelt>
-		<weight>7.0</weight>
-		<buyprice>170</buyprice>
-		<sellprice>85</sellprice>
-		<type>1009</type>
+		<durability min="50" max="65" />
+		<restock value="10" />
+		<smelt value="12" />
+		<weight value="7.0" />
+		<buyprice value="170" />
+		<sellprice value="85" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Platemail\Helm (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +34,8 @@
 
 	<!-- Plate Helmet EW -->
 	<item id="1419" inherit="1412">
-		<id>0x1419</id>
-		<baseid>1412</baseid>
+		<id value="0x1419" />
+		<baseid value="1412" />
 		<category>Base Armor\Platemail\Helm (E/W)</category>
 	</item>
 

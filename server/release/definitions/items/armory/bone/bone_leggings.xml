@@ -10,17 +10,15 @@
 
 	<!-- Bone Leggings North-South -->
 	<item id="1452">
-		<id>0x1452</id>
+		<id value="0x1452" />
 		<decay />
 		<nodye />
-		<durability><random min="25" max="30" /></durability>
-		<restock>10</restock>
-		<weight>3.0</weight>
-		<value>0</value>
-		<sellprice>15</sellprice>
-		<type>1009</type>
-		<basescripts>equipment</basescripts>
-		<category>Base Armor\Bone\Leggings (N/S)</category>
+		<durability min="25" max="30" />
+		<restock value="10" />
+		<weight value="3.0" />
+		<value value="0" />
+		<sellprice value="15" />
+		<type value="1009" />
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="55" />
@@ -29,12 +27,15 @@
 		<intproperty name="res_cold" value="4" />
 		<intproperty name="res_poison" value="2" />
 		<intproperty name="res_energy" value="4" />
+		<!-- Misc. -->
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Bone\Leggings (N/S)</category>
 	</item>
 
 	<!-- Bone Leggings East-West -->
 	<item id="1457" inherit="1452">
-		<id>0x1457</id>
-		<baseid>1452</baseid>
+		<id value="0x1457" />
+		<baseid value="1452" />
 		<category>Base Armor\Bone\Leggings (E/W)</category>
 	</item>
 

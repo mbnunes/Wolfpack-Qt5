@@ -10,16 +10,16 @@
 
 	<!-- Helmet North-South -->
 	<item id="140b">
-		<id>0x140b</id>
+		<id value="0x140b" />
 		<decay />
 		<nodye />
-		<durability><random min="45" max="60" /></durability>
-		<restock>10</restock>
-		<smelt>12</smelt>
-		<weight>5.0</weight>
-		<buyprice>116</buyprice>
-		<sellprice>58</sellprice>
-		<type>1009</type>
+		<durability min="45" max="60" />
+		<restock value="10" />
+		<smelt value="12" />
+		<weight value="5.0" />
+		<buyprice value="116" />
+		<sellprice value="58" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Helmets\Normal Helm (N/S)</category>
 		<!-- Properties -->
@@ -34,8 +34,8 @@
 
 	<!-- Helmet East-West -->
 	<item id="140a" inherit="140b">
-		<id>0x140a</id>
-		<baseid>140b</baseid>
+		<id value="0x140a" />
+		<baseid value="140b" />
 		<category>Base Armor\Helmets\Normal Helm (E/W)</category>
 	</item>
 

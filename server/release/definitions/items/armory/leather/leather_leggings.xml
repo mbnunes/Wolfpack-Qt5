@@ -10,15 +10,15 @@
 
 	<!-- Leather Leggings -->
 	<item id="13cb">
-		<id>0x13cb</id>
+		<id value="0x13cb" />
 		<decay />
 		<nodye />
-		<durability><random min="31" max="37" /></durability>
-		<restock>10</restock>
-		<weight>4.0</weight>
-		<buyprice>80</buyprice>
-		<sellprice>40</sellprice>
-		<type>1009</type>
+		<durability min="31" max="37" />
+		<restock value="10" />
+		<weight value="4.0" />
+		<buyprice value="80" />
+		<sellprice value="40" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Leather\Leggings (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="13d2" inherit="13cb">
-		<id>0x13d2</id>
-		<baseid>13cb</baseid>
+		<id value="0x13d2" />
+		<baseid value="13cb" />
 		<category>Base Armor\Leather\Leggings (E/W)</category>
 	</item>
 

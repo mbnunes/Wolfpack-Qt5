@@ -10,17 +10,16 @@
 
 	<!-- Kabuto North-South -->
 	<item id="236d">
-		<name>kabuto</name>
-		<id>0x236d</id>
+		<id value="0x236d" />
 		<decay />
 		<nodye />
-		<durability><random min="40" max="50" /></durability>
-		<restock>10</restock>
-		<smelt>12</smelt>
-		<weight>5.0</weight>
-		<buyprice>127</buyprice>
-		<sellprice>63</sellprice>
-		<type>1009</type>
+		<durability min="40" max="50" />
+		<restock value="10" />
+		<smelt value="12" />
+		<weight value="5.0" />
+		<buyprice value="127" />
+		<sellprice value="63" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Helmets\Kabuto (N/S)</category>
 		<!-- Properties -->
@@ -35,8 +34,8 @@
 
 	<!-- Kabuto East-West-->
 	<item id="236c" inherit="236d">
-		<id>0x236c</id>
-		<baseid>236d</baseid>
+		<id value="0x236c" />
+		<baseid value="236d" />
 		<category>Base Armor\Helmets\Kabuto (E/W)</category>
 	</item>
 

@@ -10,15 +10,15 @@
 
 	<!-- Leather Skirt -->
 	<item id="1c08">
-		<id>0x1c08</id>
+		<id value="0x1c08" />
 		<decay />
 		<nodye />
-		<durability><random min="31" max="37" /></durability>
-		<restock>10</restock>
-		<weight>1.0</weight>
-		<buyprice>87</buyprice>
-		<sellprice>43</sellprice>
-		<type>1009</type>
+		<durability min="31" max="37" />
+		<restock value="10" />
+		<weight value="1.0" />
+		<buyprice value="87" />
+		<sellprice value="43" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Leather\Skirt (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="1c09" inherit="1c08">
-		<id>0x1c09</id>
-		<baseid>1c08</baseid>
+		<id value="0x1c09" />
+		<baseid value="1c08" />
 		<category>Base Armor\Leather\Skirt (E/W)</category>
 	</item>
 

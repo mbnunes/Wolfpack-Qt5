@@ -10,15 +10,15 @@
 
 	<!-- Leather Gloves -->
 	<item id="13c6">
-		<id>0x13c6</id>
+		<id value="0x13c6" />
 		<decay />
 		<nodye />
-		<durability><random min="31" max="37" /></durability>
-		<restock>10</restock>
-		<weight>1.0</weight>
-		<buyprice>60</buyprice>
-		<sellprice>30</sellprice>
-		<type>1009</type>
+		<durability min="31" max="37" />
+		<restock value="10" />
+		<weight value="1.0" />
+		<buyprice value="60" />
+		<sellprice value="30" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Leather\Gloves (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="13ce" inherit="13c6">
-		<id>0x13ce</id>
-		<baseid>13c6</baseid>
+		<id value="0x13ce" />
+		<baseid value="13c6" />
 		<category>Base Armor\Leather\Gloves (E/W)</category>
 	</item>
 

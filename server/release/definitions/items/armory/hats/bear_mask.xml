@@ -10,12 +10,12 @@
 
 	<!-- Bear Mask n/s -->
 	<item id="1545">
-		<id>0x1545</id>
+		<id value="0x1545" />
 		<nodye />
-		<durability><random min="20" max="25" /></durability>
 		<decay />
-		<value>40</value>
-		<type>1009</type>
+		<durability min="20" max="25" />
+		<value value="40" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />
@@ -32,10 +32,11 @@
 
 	<!-- Bear Mask w/e -->
 	<item id="1546" inherit="1545">
-		<id>0x1546</id>
-		<baseid>1545</baseid>
+		<id value="0x1546" />
+		<baseid value="1545" />
 		<category>Clothes\Headwear\Bear Mask (W/E)</category>
 		<category>Armor\Headwear\Bear Mask (W/E)</category>
+		<category>Base Armor\Headwear\Bear Mask (W/E)</category>
 	</item>
 
 </definitions>

@@ -10,15 +10,15 @@
 
 	<!-- Leather Sleeves -->
 	<item id="13c5">
-		<id>0x13c5</id>
+		<id value="0x13c5" />
 		<decay />
 		<nodye />
-		<durability><random min="30" max="40" /></durability>
-		<restock>10</restock>
-		<weight>2.0</weight>
-		<buyprice>80</buyprice>
-		<sellprice>40</sellprice>
-		<type>1009</type>
+		<durability min="30" max="40" />
+		<restock value="10" />
+		<weight value="2.0" />
+		<buyprice value="80" />
+		<sellprice value="40" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Leather\Sleeves (N/S)</category>
 		<!-- Properties -->
@@ -33,8 +33,8 @@
 	</item>
 
 	<item id="13cd" inherit="13c5">
-		<id>0x13cd</id>
-		<baseid>13c5</baseid>
+		<id value="0x13cd" />
+		<baseid value="13c5" />
 		<category>Base Armor\Leather\Sleeves (E/W)</category>
 	</item>
 

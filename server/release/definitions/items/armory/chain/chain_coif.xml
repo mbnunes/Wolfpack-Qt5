@@ -10,18 +10,16 @@
 
 	<!--  Chainmail Coif North-South -->
 	<item id="13bb">
-		<id>0x13bb</id>
+		<id value="0x13bb" />
 		<decay />
 		<nodye />
-		<durability><random min="45" max="60" /></durability>
-		<restock>10</restock>
-		<smelt>8</smelt>
-		<weight>7.0</weight>
-		<buyprice>130</buyprice>
-		<sellprice>8</sellprice>
-		<type>1009</type>
-		<basescripts>equipment</basescripts>
-		<category>Base Armor\Chainmail\Coif NS</category>
+		<durability min="45" max="60" />
+		<restock value="10" />
+		<smelt value="8" />
+		<weight value="7.0" />
+		<buyprice value="130" />
+		<sellprice value="8" />
+		<type value="1009" />
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="60" />
@@ -30,12 +28,15 @@
 		<intproperty name="res_cold" value="4" />
 		<intproperty name="res_poison" value="1" />
 		<intproperty name="res_energy" value="2" />
+		<!-- Misc. -->
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Chainmail\Coif NS</category>
 	</item>
 
 	<!--  Chainmail Coif East-West -->
 	<item id="13c0" inherit="13bb">
-		<id>0x13c0</id>
-		<baseid>13bb</baseid>
+		<id value="0x13c0" />
+		<baseid value="13bb" />
 		<category>Base Armor\Chainmail\Coif (E/W)</category>
 	</item>
 

@@ -3,14 +3,14 @@
 
 	<!-- Skullcap n/s -->
 	<item id="1543">
-		<id>0x1543</id>
+		<id value="0x1543" />
 		<dye />
 		<color><random list="COLORS_RANDOM" /></color>
-		<durability><random min="6" max="10" /></durability>
-		<buyprice>12</buyprice>
-		<sellprice>6</sellprice>
-		<weight>1.0</weight>
-		<type>1009</type>
+		<durability min="6" max="10" />
+		<buyprice value="12" />
+		<sellprice value="6" />
+		<weight value="1.0" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />
@@ -26,8 +26,8 @@
 
 	<!-- Skullcap w/e -->
 	<item id="1544" inherit="1543">
-		<id>0x1544</id>
-		<baseid>1543</baseid>
+		<id value="0x1544" />
+		<baseid value="1543" />
 		<category>Clothes\Headwear\Skull Cap (W/E)</category>
 		<category>Armor\Headwear\Skull Cap (W/E)</category>
 		<category>Base Armor\Headwear\Skull Cap (W/E)</category>

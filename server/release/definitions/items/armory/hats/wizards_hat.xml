@@ -10,13 +10,13 @@
 
 	<!-- Wizard's Hat -->
 	<item id="1718">
-		<id>0x1718</id>
+		<id value="0x1718" />
 		<dye />
-		<durability><random min="20" max="25" /></durability>
-		<buyprice>30</buyprice>
-		<sellprice>15</sellprice>
-		<weight>1.0</weight>
-		<type>1009</type>
+		<durability min="20" max="25" />
+		<buyprice value="30" />
+		<sellprice value="15" />
+		<weight value="1.0" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="10" />

@@ -10,17 +10,16 @@
 
 	<!-- Plate Gorget -->
 	<item id="1413">
-		<id>0x1413</id>
+		<id value="0x1413" />
 		<decay />
 		<nodye />
-		<durability><random min="60" max="100" /></durability>
-		<tag name="resname" value="iron" />
-		<restock>10</restock>
-		<smelt>8</smelt>
-		<weight>2.0</weight>
-		<buyprice>124</buyprice>
-		<sellprice>62</sellprice>
-		<type>1009</type>
+		<durability min="60" max="100" />
+		<restock value="10" />
+		<smelt value="8" />
+		<weight value="2.0" />
+		<buyprice value="124" />
+		<sellprice value="62" />
+		<type value="1009" />
 		<basescripts>equipment</basescripts>
 		<category>Base Armor\Platemail\Gorget</category>
 		<!-- Properties -->
