@@ -104,7 +104,7 @@ void cLog::log( eLogLevel loglevel, cUOSocket *sock, const QString &string, bool
 	QCString utfdata = string.utf8();
 	QCString prelude;
 	
-	if( timestamp )
+	if( timestamp || loglevel == LOG_PYTHON )
 	{
 		prelude.sprintf( "%02u:%02u:", now.hour(), now.minute() );
 			
