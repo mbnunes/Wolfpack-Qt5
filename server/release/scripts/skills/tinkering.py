@@ -33,41 +33,41 @@ GEMS = [
 #
 def checktool(char, item, wearout = 0):
 	if not item:
-		return 0
+		return False
 
 	# Has to be in our posession
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage(500364)
-		return 0
+		return False
 
 	# We do not allow "invulnerable" tools.
 	if not item.hastag('remaining_uses'):
 		char.socket.clilocmessage(1044038)
 		item.delete()
-		return 0
+		return False
 
 	if wearout:
 		uses = int(item.gettag('remaining_uses'))
 		if uses <= 1:
 			char.socket.clilocmessage(1044038)
 			item.delete()
-			return 0
+			return False
 		else:
 			item.settag('remaining_uses', uses - 1)
 
-	return 1
+	return True
 
 #
 # Bring up the tinkering menu
 #
 def onUse(char, item):
 	if not checktool(char, item):
-		return 1
+		return True
 
 	menu = findmenu('TINKERING')
 	if menu:
 		menu.send(char, [item.serial])
-	return 1
+	return True
 
 class TinkerItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
@@ -80,10 +80,10 @@ class TinkerItemAction(CraftItemAction):
 	#
 	def getexceptionalchance(self, player, arguments):
 		if not self.markable:
-			return 0
+			return False
 
 		if not self.skills.has_key(TINKERING):
-			return 0
+			return False
 
 		minskill = self.skills[TINKERING][0]
 		maxskill = self.skills[TINKERING][1]
@@ -114,7 +114,7 @@ class TinkerItemAction(CraftItemAction):
 		item.decay = 1
 
 		# See if this item
-		if self.submaterial1 > 0:
+		if self.retaincolor and self.submaterial1 > 0:
 			material = self.parent.getsubmaterial1used(player, arguments)
 			material = self.parent.submaterials1[material]
 			item.color = material[4]
@@ -145,7 +145,7 @@ class TinkerItemAction(CraftItemAction):
 		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
 
 		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return 0
+			return False
 
 		return CraftItemAction.make(self, player, arguments, nodelay)
 
