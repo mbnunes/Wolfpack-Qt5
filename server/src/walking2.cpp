@@ -34,6 +34,8 @@
 #include "wolfpack.h"
 #include "debug.h"
 
+#undef  DBGFILE
+#define DBGFILE "SrvParms.cpp"
 
 
 // DEFINES (Some of these should probably be moved to typedefs.h in the future)
@@ -216,7 +218,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 			printf("%s (cMovement::Walking) dx (%d) dy (%d) dz (%d)\n", DBGFILE, myx, myy, myz);
 #endif
 			if ( socket != INVALID_UOXSOCKET )
-				deny(socket, DEREF_P_CHAR(pc), sequence);
+				deny(socket, pc, sequence);
 			if ( pc->npc )
 					pc->pathnum += P_PF_MRV;
 			return;
@@ -341,7 +343,7 @@ bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 		if ( socket != INVALID_UOXSOCKET )
 		{
 			sysmessage(socket, "You cannot move while casting.");
-			deny(socket, DEREF_P_CHAR(pc), sequence);  
+			deny(socket, pc, sequence);  
 		}
 #if DEBUG_WALK
 		printf("%s (cMovement::isFrozen) casting char %s\n", DBGFILE, pc->name);
@@ -353,7 +355,7 @@ bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 		if (socket != INVALID_UOXSOCKET)
 		{
 			sysmessage(socket, "You are frozen and cannot move.");
-			deny(socket, DEREF_P_CHAR(pc), sequence);  
+			deny(socket, pc, sequence);  
 		}
 #if DEBUG_WALK
 		printf("%s (cMovement::isFrozen) frozen char %s\n", DBGFILE, pc->name);
@@ -392,7 +394,7 @@ bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 			if (!Weight->CheckWeight(DEREF_P_CHAR(pc), socket) || (pc->stm<3))
 			{
 				sysmessage(socket, "You are too fatigued to move, you are carrying %d stones.", pc->weight);
-				deny(socket, DEREF_P_CHAR(pc), sequence);
+				deny(socket, pc, sequence);
 #if DEBUG_WALK
 				printf("%s (cMovement::Walking) overloaded char %s\n", DBGFILE, pc->name);
 #endif
@@ -641,7 +643,7 @@ bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence)
     {
         if ((walksequence[socket] + 1 != sequence) && (sequence != 256))
         {
-            deny(socket, DEREF_P_CHAR(pc), sequence);  
+            deny(socket, pc, sequence);  
             return false;
         }
     }
@@ -1885,17 +1887,17 @@ bool cMovement::CanCharMove(P_CHAR pc, short int x, short int y, signed char &z,
 }
 
 
-void cMovement::deny( int k, int s, int sequence )
+void cMovement::deny( UOXSOCKET k, P_CHAR pc, int sequence )
 {
 	char walkdeny[9] = "\x21\x00\x01\x02\x01\x02\x00\x01";
 	
 	walkdeny[1] = sequence;
-	walkdeny[2] = chars[s].pos.x>>8;
-	walkdeny[3] = chars[s].pos.x%256;
-	walkdeny[4] = chars[s].pos.y>>8;
-	walkdeny[5] = chars[s].pos.y%256;
-	walkdeny[6] = chars[s].dir;
-	walkdeny[7] = chars[s].dispz;
+	walkdeny[2] = pc->pos.x>>8;
+	walkdeny[3] = pc->pos.x%256;
+	walkdeny[4] = pc->pos.y>>8;
+	walkdeny[5] = pc->pos.y%256;
+	walkdeny[6] = pc->dir;
+	walkdeny[7] = pc->dispz;
 	Network->xSend( k, walkdeny, 8, 0 );
 	walksequence[k] = -1;
 }
@@ -1939,7 +1941,7 @@ inline signed int LOWER( signed int a, signed int b )
 	else
 		return b;
 }
-inline unsigned int turn_clock_wise( unsigned int dir )
+inline unsigned int turn_clock_wise( unsigned int dir ) throw()
 {
 	unsigned int t = (dir - 1) & 7;
 	return (dir & 0x80) ? ( t | 0x80) : t;
@@ -1949,7 +1951,7 @@ inline unsigned int turn_clock_wise( unsigned int dir )
 {
 	return ( dir & 0x80 ) | ( ( dir - 1 ) & 7 );*/
 
-inline int calcTileHeight( int h )
+inline int calcTileHeight( int h ) throw()
 {
   ///return ((h & 0x8) ? (((h & 0xF) ^ 0xF) + 1) : h & 0xF);
 	//return (h & 0x7);

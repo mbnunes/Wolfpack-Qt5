@@ -32,7 +32,11 @@
 #if !defined (__CWEATHER_H__)
 #define __CWEATHER_H__
 
-class cWeather
+#include <zthread/Thread.h>
+
+using namespace ZThread;
+
+class cWeather : public Thread
 {
 public:
 	cWeather()
@@ -57,10 +61,10 @@ public:
 		else
 			Active[reg]=true;
 	}
-	void InitWeathThread();
-	void TermWeathThread();
 	void WTimer();
 	void CTimer();
+	virtual void run() throw();
+	virtual void kill() throw();
 	int Type[256]; // 0 dry, 1 rain, 2 snow
 	int RainChance[256]; // chance of rain in this region
 	int SnowChance[256]; // chance of snow in this region
@@ -70,9 +74,6 @@ public:
 	unsigned int BoltTimer[256];
 	int CurrentRegions;
 	bool Active[256]; // weather it is active or not
-protected:
-	HANDLE WeathThread;
-	unsigned long WeathThreadID;
 };
 extern cWeather* Weather;
 

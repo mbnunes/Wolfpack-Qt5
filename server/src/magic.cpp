@@ -638,8 +638,6 @@ char cMagic::SubtractMana(P_CHAR pc, int mana)
 	return 1;
 }
 
-
-
 ///////////////////
 // Name:	CheckMagicReflect
 // History:	Unknown

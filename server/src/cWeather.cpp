@@ -129,26 +129,26 @@ void cWeather::CTimer()
 	}
 }
 
-void cWeather::InitWeathThread()
-{
-	WeathThread = CreateThread( NULL, 0, &WeatherThread, NULL, 0, &WeathThreadID);
-}
-
-void cWeather::TermWeathThread()
-{
-	WaitForSingleObject(WeathThread, INFINITE); 
-	CloseHandle( WeathThread );
-}
-
-unsigned long __stdcall WeatherThread( void *Arg )
-{
+void cWeather::run()
+{ 
 	while ( keeprun )
 	{
-		Sleep( 200 );
+		try
+		{
+			sleep( 200 );
 
-		Weather->WTimer();
-		Weather->CTimer();
+			WTimer();
+			CTimer();
+		}
+	    catch(Synchronization_Exception& e) {
+		}
 	}
 
-	return TRUE;
+//	return TRUE;
+}
+
+void cWeather::kill()
+{
+	keeprun = false;
+	Thread::kill();
 }

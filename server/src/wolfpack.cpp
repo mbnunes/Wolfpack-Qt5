@@ -3095,7 +3095,7 @@ int main(int argc, char *argv[])
 	item_char_test(); //LB
 	Guilds->CheckConsistancy(); // LB
 
-	Weather->InitWeathThread();
+	Weather->start();
 	//Network->InitConnThread();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

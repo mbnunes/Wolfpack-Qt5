@@ -1,3 +1,34 @@
+//==================================================================================
+//
+//      Wolfpack Emu (WP)
+//	UO Server Emulation Program
+//
+//	Copyright 1997, 98 by Marcus Rating (Cironian)
+//  Copyright 2001 by holders identified in authors.txt
+//	This program is free software; you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation; either version 2 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//	* In addition to that license, if you are running this program or modified
+//	* versions of it on a public system you HAVE TO make the complete source of
+//	* the version used by you available or provide people with a location to
+//	* download it.
+//
+//
+//
+//	Wolfpack Homepage: http://www.wpdev.sf.net/
+//========================================================================================
+
 #if !defined(__WALKING2_H__)
 #define __WALKING2_H__
 
@@ -60,7 +91,7 @@ private:
 	unsigned short GetYfromDir( int dir, unsigned short y );
 	void PathFind( P_CHAR pc, unsigned short gx, unsigned short gy );
 
-	bool VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence);
+	bool VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence) throw();
 	bool CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir);
 	bool CheckForStealth(P_CHAR pc, UOXSOCKET socket);
 	bool CheckForHouseBan(P_CHAR pc, UOXSOCKET socket);
@@ -79,7 +110,7 @@ private:
 	bool CrazyXYBlockStuff(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy, int sequence);
 	void FillXYBlockStuff(P_CHAR pc, unitile_st *xyblock, int &xycount, unsigned short oldx, unsigned short oldy );
 
-	void deny(int k, int s, int sequence);
+	void deny(UOXSOCKET k, P_CHAR pc, int sequence);
 };
 
 #endif // __WALKING2_H__

@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /G6 /MD /W4 /GX /Zi /O2 /Oy- /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /c
+# ADD CPP /nologo /G6 /MT /W3 /GX /O2 /Oy- /I "zthread151\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -50,8 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib Ws2_32.lib /nologo /subsystem:console /debug /machine:I386 /opt:ref
-# SUBTRACT LINK32 /pdb:none
+# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib /nologo /subsystem:console /machine:I386 /libpath:"zthread151\lib"
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
 
@@ -67,7 +66,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /G6 /MDd /W1 /GR /GX /ZI /Od /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /G6 /MTd /Gm /GX /ZI /Od /I "zthread151\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -75,8 +74,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib Ws2_32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# SUBTRACT LINK32 /pdb:none /incremental:no
+# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept /libpath:"zthread151\lib"
 
 !ENDIF 
 
@@ -90,860 +88,270 @@ LINK32=link.exe
 # Begin Source File
 
 SOURCE=.\accounts.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\admin.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\archive.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\basics.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\boats.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\books.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\bounty.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\cache.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\cFile.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\char_array.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\CharWrap.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\Client.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\cmdtable.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\combat.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\commands.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\coord.cpp
+# End Source File
+# Begin Source File
 
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
+SOURCE=.\cweather.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\dbl_single_click.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\debug.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\dragdrop.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\fishing.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\globals.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\guildstones.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\gumps.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\house.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\html.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\im.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\item_array.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\itemid.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\items.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\ItemWrap.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\LoS.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\magic.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\mapcache.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\mapstuff.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\msgboard.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\mstring.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\multicache.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\necro.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\netsys.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\network.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\newbie.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\npcs.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\p_ai.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\pointer.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\qsf.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\rcvpkg.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\regions.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\remadmin.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\scriptc.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\scripts.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\skills.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\SkiTarg.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\SndPkg.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\speech.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\sregions.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\SrvParms.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\storage.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\targeting.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\telport.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\tilecache.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\Timing.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\TmpEff.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\Trade.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\translate.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\trigger.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\utilsys.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -952,67 +360,22 @@ SOURCE=.\walking2.cpp
 # Begin Source File
 
 SOURCE=.\weight.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /G6 /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\wip.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\wolfpack.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\worldmain.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\wpconsole.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -1076,6 +439,10 @@ SOURCE=.\coord.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\cweather.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\dbl_single_click.h
 # End Source File
 # Begin Source File
@@ -1092,11 +459,11 @@ SOURCE=.\dragdrop.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\end_pack.h
+SOURCE=.\globals.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\globals.h
+SOURCE=.\guildstones.h
 # End Source File
 # Begin Source File
 
@@ -1216,7 +583,11 @@ SOURCE=.\SrvParms.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\start_pack.h
+SOURCE=.\stl_headers_end.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\stl_headers_start.h
 # End Source File
 # Begin Source File
 

@@ -33,6 +33,11 @@
 // Include files
 
 #include "coord.h"
+#include "debug.h"
+
+#undef  DBGFILE
+#define DBGFILE "coord.cpp"
+
 //========================================================================================
 
 

@@ -29,7 +29,12 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#include "storage.h" 
+#include "storage.h"
+#include "debug.h" 
+
+#undef  DBGFILE
+#define DBGFILE "storage.cpp"
+
 
 template<class T> Storage_cl<T>::Storage_cl()
 {

@@ -82,7 +82,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			else
 				amt1=50; 
 			Items->DeleItem(pi); //-Fraz- delete the bolts when ready 
-			int c=Items->SpawnItem(s,currchar[s],1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
+			int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
 			if(c==-1) return;// crash check
 			items[c].weight=10;
 			items[c].amount=amt1;
@@ -341,6 +341,7 @@ void cSkills::Smith(int s)
 void cSkills::TasteIDTarget(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	if (pi && pi->magic!=4) // Ripper
 	{
 		if(!( pi->type==19 || pi->type==14))
@@ -348,7 +349,7 @@ void cSkills::TasteIDTarget(int s)
 			sysmessage(s,"You cant taste that!");
 			return;
 		}
-		if (!CheckSkill(currchar[s], TASTEID, 0, 250))
+		if (!CheckSkill(DEREF_P_CHAR(pc_currchar), TASTEID, 0, 250))
 		{
 			sysmessage(s, "You can't quite tell what this item is...");
 		}
@@ -361,7 +362,7 @@ void cSkills::TasteIDTarget(int s)
 			}
 			
 			// Identify Item by Antichrist // Changed by MagiusCHE)
-			if (CheckSkill(currchar[s], TASTEID, 250, 500))
+			if (CheckSkill(DEREF_P_CHAR(pc_currchar), TASTEID, 250, 500))
 				if (pi->name2 && (strcmp(pi->name2,"#")))
 					strcpy(pi->name,pi->name2); // Item identified! -- by Magius(CHE)
 				
@@ -371,7 +372,7 @@ void cSkills::TasteIDTarget(int s)
 				sprintf((char*)temp, "You found that this item appears to be called: %s", temp2);
 				sysmessage(s, (char*)temp);
 				
-				if (CheckSkill(currchar[s], TASTEID, 250, 500))
+				if (CheckSkill(DEREF_P_CHAR(pc_currchar), TASTEID, 250, 500))
 				{
 					if((pi->poisoned>0) || (pi->morex==4 && pi->morey==6 && pi->morez==1))
 						sysmessage(s,"This item is poisoned!");
@@ -379,7 +380,7 @@ void cSkills::TasteIDTarget(int s)
 						sysmessage(s,"This item shows no poison.");
 					
 					// Show Creator by Magius(CHE)
-					if (CheckSkill(currchar[s], TASTEID, 250, 500))
+					if (CheckSkill(DEREF_P_CHAR(pc_currchar), TASTEID, 250, 500))
 					{
 						if (strlen(pi->creator)>0)
 						{
@@ -1042,8 +1043,8 @@ void cSkills::SmeltOre(int s)
 		}
 	}
 	pc_currchar->smeltitem=-1;
-	Weight->NewCalc(currchar[s]);	// Ison 2-20-99
-	statwindow(s,currchar[s]);		// Ison 2-20-99
+	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
+	statwindow(s, DEREF_P_CHAR(pc_currchar));		// Ison 2-20-99
 }
 
 void cSkills::Wheel(int s, int mat)//Spinning wheel
@@ -1535,6 +1536,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 {
 	const P_ITEM pi = FindItemBySerPtr(buffer[s]+7);
 	short int amt=0;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 
 	if (pi && pi->magic!=4) // Ripper
 	{
@@ -1546,7 +1548,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			amt=pi->amount;  //-Frazurbluu- changed to reflect current OSI 
 			soundeffect(s,0x02,0x48);
 			sysmessage(s,"You cut some cloth into bandages, and put it in your backpack");
-			int c=Items->SpawnItem(s,currchar[s],amt,"#",0,0x0E,0x21,col1,col2,1,1);
+			int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),amt,"#",0,0x0E,0x21,col1,col2,1,1);
 			if(c==-1) return;
 			// need to set amount and weight and pileable, note: cannot set pilable while spawning item -Fraz-
 			items[c].weight=10;
@@ -1555,8 +1557,8 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			items[c].amount=amt;
 			RefreshItem(c);
 			Items->DeleItem(pi);
-			Weight->NewCalc(currchar[s]);
-			statwindow(s,currchar[s]);
+			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			statwindow(s,DEREF_P_CHAR(pc_currchar));
 			return;
 		}	
 		if( IsBoltOfCloth(pi->id()) )
@@ -1566,30 +1568,30 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			else
 				amt=50;
 			soundeffect(s,0x02,0x48);
-			int c=Items->SpawnItem(s,currchar[s],1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
+			int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
 			if(c==-1) return;
 			items[c].weight=10;
 			items[c].pileable=1;
 			items[c].amount=amt;
 			RefreshItem(c);
 			Items->DeleItem(pi);
-			Weight->NewCalc(currchar[s]);
-			statwindow(s,currchar[s]);
+			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			statwindow(s,DEREF_P_CHAR(pc_currchar));
 			return;
 		}
 		if( IsHide(pi->id()) )
 		{
 			amt=pi->amount;
 			soundeffect(s,0x02,0x48);
-			int c=Items->SpawnItem(s,currchar[s],1,"leather piece",0,0x10,0x67,col1,col2,1,1);
+			int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"leather piece",0,0x10,0x67,col1,col2,1,1);
 			if(c==-1) return;
 			items[c].weight=100;
 			items[c].pileable=1;
 			items[c].amount=amt;
 			RefreshItem(c);
 			Items->DeleItem(pi);
-			Weight->NewCalc(currchar[s]);
-			statwindow(s,currchar[s]);
+			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+			statwindow(s,DEREF_P_CHAR(pc_currchar));
 			return;
 		}
 		sysmessage(s,"You cannot cut anything from that item.");
@@ -1739,7 +1741,7 @@ void cSkills::ArmsLoreTarget(int s)
 		return;
 	}
 	
-	if (!CheckSkill(currchar[s],ARMSLORE, 0, 250))
+	if (!CheckSkill(DEREF_P_CHAR(pc_currchar),ARMSLORE, 0, 250))
 		sysmessage(s,"You are not certain...");
 	else
 	{
@@ -1764,7 +1766,7 @@ void cSkills::ArmsLoreTarget(int s)
 			sprintf(temp2," [%.1f %%]",totalhp*100);
 			strcat((char*)temp,temp2);	// Magius(CHE) §
 		}
-		if (CheckSkill(currchar[s],ARMSLORE, 250, 510))
+		if (CheckSkill(DEREF_P_CHAR(pc_currchar),ARMSLORE, 250, 510))
 		{
 			if (pi->hidamage)
 			{
@@ -1778,7 +1780,7 @@ void cSkills::ArmsLoreTarget(int s)
 				else                  strcpy((char*)p2, " Might scratch your opponent slightly.");
 				strcat((char*)temp,p2);
 				
-				if (Skills->CheckSkill(currchar[s], ARMSLORE, 500, 1000))
+				if (Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), ARMSLORE, 500, 1000))
 				{
 					if      (pi->spd > 35) strcpy((char*)p2, " And is very fast.");
 					else if (pi->spd > 25) strcpy((char*)p2, " And is fast.");
@@ -1804,7 +1806,7 @@ void cSkills::ArmsLoreTarget(int s)
 
 		if (!(pi->rank<1 || pi->rank>10 || SrvParms->rank_system==0))
 		{
-			if (Skills->CheckSkill(currchar[s],ARMSLORE, 250, 500))
+			if (Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),ARMSLORE, 250, 500))
 			{
 				switch(pi->rank)
 				{
@@ -1831,7 +1833,7 @@ void cSkills::ItemIdTarget(int s)
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && pi->magic!=4) // Ripper
 	{
-		if (!CheckSkill(currchar[s], ITEMID, 0, 250))
+		if (!CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 0, 250))
 		{
 			sysmessage(s, "You can't quite tell what this item is...");
 		}
@@ -1844,7 +1846,7 @@ void cSkills::ItemIdTarget(int s)
 			}
 
 			// Identify Item by Antichrist // Changed by MagiusCHE)
-			if (CheckSkill(currchar[s], ITEMID, 250, 500))
+			if (CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 250, 500))
 				if (pi->name2 && (strcmp(pi->name2,"#"))) strcpy(pi->name,pi->name2); // Item identified! -- by Magius(CHE)
 
 			if(pi->name[0]=='#') pi->getName(temp2);
@@ -1853,7 +1855,7 @@ void cSkills::ItemIdTarget(int s)
 			sysmessage(s,(char*) temp);
 
 			// Show Creator by Magius(CHE)
-			if (CheckSkill(currchar[s], ITEMID, 250, 500))
+			if (CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 250, 500))
 			{
 				if (strlen(pi->creator)>0)
 				{
@@ -1865,7 +1867,7 @@ void cSkills::ItemIdTarget(int s)
 			sysmessage(s, (char*)temp2);
 			// End Show creator
 
-			if (!CheckSkill(currchar[s], ITEMID, 250, 500))
+			if (!CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 250, 500))
 			{
 				sysmessage(s, "You can't tell if it is magical or not.");
 			}
@@ -1877,13 +1879,13 @@ void cSkills::ItemIdTarget(int s)
 				}
 				else
 				{
-					if (!CheckSkill(currchar[s], ITEMID, 500, 1000))
+					if (!CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 500, 1000))
 					{
 						sysmessage(s,"This item is enchanted with a spell, but you cannot determine which");
 					}
 					else
 					{
-						if (!CheckSkill(currchar[s], ITEMID, 750, 1100))
+						if (!CheckSkill(DEREF_P_CHAR(pc_currchar), ITEMID, 750, 1100))
 						{
 							sprintf((char*)temp, "It is enchanted with the spell %s, but you cannot determine how many charges remain.",spellname[(8*(pi->morex-1))+pi->morey-1]);
 							sysmessage(s,(char*)temp);
@@ -1963,7 +1965,7 @@ void cSkills::AnatomyTarget(int s)
 		return;
 	}
 	
-	if (!Skills->CheckSkill(currchar[s],ANATOMY, 0, 1000)) 
+	if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),ANATOMY, 0, 1000)) 
 	{
 		sysmessage(s,"You are not certain..");
 		return;
@@ -2016,7 +2018,7 @@ void cSkills::TameTarget(int s)
 
 	if(buffer[s][7]==0xFF) return;
 	if (i!=-1)
-		if ((pc->isNpc() && (chardist(currchar[s], i) <= 3))) //Ripper
+		if ((pc->isNpc() && (chardist(DEREF_P_CHAR(pc_currchar), i) <= 3))) //Ripper
 		{
 			if (pc->taming>1000||pc->taming==0)//Morrolan default is now no tame
 			{
@@ -2039,21 +2041,21 @@ void cSkills::TameTarget(int s)
 			{
 				switch(rand()%4)
 				{
-				case 0: npctalkall(currchar[s], "I've always wanted a pet like you.",0); break;
-				case 1: npctalkall(currchar[s], "Will you be my friend?",0); break;
-				case 2: sprintf((char*)temp, "Here %s.",pc->name); npctalkall(currchar[s], (char*)temp,0); break;
-				case 3: sprintf((char*)temp, "Good %s.",pc->name); npctalkall(currchar[s], (char*)temp,0); break;
+				case 0: npctalkall(DEREF_P_CHAR(pc_currchar), "I've always wanted a pet like you.",0); break;
+				case 1: npctalkall(DEREF_P_CHAR(pc_currchar), "Will you be my friend?",0); break;
+				case 2: sprintf((char*)temp, "Here %s.",pc->name); npctalkall(DEREF_P_CHAR(pc_currchar), (char*)temp,0); break;
+				case 3: sprintf((char*)temp, "Good %s.",pc->name); npctalkall(DEREF_P_CHAR(pc_currchar), (char*)temp,0); break;
 				default: 
 					LogError("switch reached default");
 				}
 			}
-			if ((!Skills->CheckSkill(currchar[s],TAMING, 0, 1000))||
+			if ((!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),TAMING, 0, 1000))||
 				(pc_currchar->skill[TAMING]<pc->taming)) 
 			{
 				sysmessage(s,"You were unable to tame it.");
 				return;
 			}
-			npctalk(s, currchar[s], "It seems to accept you as it's master!",0);
+			npctalk(s, DEREF_P_CHAR(pc_currchar), "It seems to accept you as it's master!",0);
 			tamed=1;
 			pc->SetOwnSerial(pc_currchar->serial);
 			pc->npcWander=0;
@@ -2121,7 +2123,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 		return;
 	}
 	
-	if (npc==currchar[s])
+	if (npc==DEREF_P_CHAR(pc_currchar))
 	{
 		sysmessage(s,"You catch yourself red handed.");
 		return;
@@ -2287,9 +2289,10 @@ void cSkills::AnimalLoreTarget(int s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s] + 7);
 	if(pc == NULL) return;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 
 	// blackwind distance fix 
-	if( chardist( DEREF_P_CHAR(pc), currchar[s] ) >= 10 ) 
+	if( chardist( DEREF_P_CHAR(pc), DEREF_P_CHAR(pc_currchar) ) >= 10 ) 
 	{ 
 		sysmessage( s, "You need to be closer to find out more about them" ); 
 		return; 
@@ -2307,7 +2310,7 @@ void cSkills::AnimalLoreTarget(int s)
 	}
 	else // Lore used on a non-human
 	{
-		if (Skills->CheckSkill(currchar[s], ANIMALLORE, 0, 1000))
+		if (Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), ANIMALLORE, 0, 1000))
 		{
 			sprintf((char*)temp, "Attack [%i] Defense [%i] Taming [%i] Hit Points [%i]", pc->att, pc->def, pc->taming/10, pc->hp);
 			npcemote(s, DEREF_P_CHAR(pc), (char*)temp, 0);
@@ -2340,14 +2343,14 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 	}
 	else
 	{
-		if (!Skills->CheckSkill(currchar[s], FORENSICS, 0, 500)) sysmessage(s,"You are not certain about the corpse."); else
+		if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), FORENSICS, 0, 500)) sysmessage(s,"You are not certain about the corpse."); else
 		{
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) strcpy((char*)temp2,"few");
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) strcpy((char*)temp2,"many");
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2,"many many");
 			sprintf((char*)temp,"The %s is %s seconds old.", pi->name, temp2);
 			sysmessage(s,(char*)temp);
-			if (!Skills->CheckSkill(currchar[s], FORENSICS, 500, 1000) || *(pi->murderer)=='\0') sysmessage(s,"You can't say who was the killer."); else
+			if (!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), FORENSICS, 500, 1000) || *(pi->murderer)=='\0') sysmessage(s,"You can't say who was the killer."); else
 			{
 				sprintf((char*)temp,"The killer was %s.",pi->murderer);
 				sysmessage(s,(char*)temp);
@@ -2435,7 +2438,7 @@ void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper
 	if (pc_currchar->skill[STEALING] < 300)
 	// check if under 30 in stealing
 	{
-		Skills->CheckSkill(currchar[s],STEALING, 0, 1000);
+		Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),STEALING, 0, 1000);
 		// check their skill
 		soundeffect(s, 0x02, 0x49);
 		// rustling sound..dont know if right but it works :)
@@ -2449,6 +2452,7 @@ void cSkills::LockPick(int s)
 {
 	int success;
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	if (pi && pi->magic!=4) // Ripper
 	{
 		P_ITEM piPick=MAKE_ITEMREF_LR(addmitem[s]);
@@ -2468,13 +2472,12 @@ void cSkills::LockPick(int s)
 				{
 					if (currentSpellType[s] !=2)			// not a wand cast
 					{
-						P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 						success=Magic->SubtractMana(pc_currchar, 5);  // subtract mana on scroll or spell
 						if (currentSpellType[s] == 0)	// del regs on normal spell
 						{
 							reag_st regs = {0,};
 							regs.ash = regs.moss = 1;
-							Magic->DelReagents(currchar[s], regs);
+							Magic->DelReagents(DEREF_P_CHAR(pc_currchar), regs);
 						}
 
 					}
@@ -2490,7 +2493,7 @@ void cSkills::LockPick(int s)
 					soundeffect3(pi, 0x01FF);
 					sysmessage(s, "You manage to pick the lock.");
 				} else
-					if(Skills->CheckSkill(currchar[s], LOCKPICKING, 0, 1000))
+					if(Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), LOCKPICKING, 0, 1000))
 					{
 						switch(pi->type)
 						{
@@ -2647,7 +2650,7 @@ public:
 				sysmessage(s,"You aren't skilled enough to even try that!");
 				return;
 			}
-			if( !Skills->CheckSkill( currchar[s], TINKERING, minskill, 1000 ) )
+			if( !Skills->CheckSkill( DEREF_P_CHAR(pc_currchar), TINKERING, minskill, 1000 ) )
 			{
 				failmsg(s);
 				P_ITEM piLoser= rand()%2 ? piTarg : piClick;

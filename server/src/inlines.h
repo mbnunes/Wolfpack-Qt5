@@ -31,6 +31,10 @@
 
 #if !defined(_INLINES_H__)
 #define _INLINES_H__
+
+#undef  DBGFILE
+#define DBGFILE "inlines.h"
+
 inline int calcCharFromPtr(unsigned char *p)
 {
 	int serial;
