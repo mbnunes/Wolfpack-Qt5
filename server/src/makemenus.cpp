@@ -484,8 +484,8 @@ void cMakeMenu::processNode( const QDomElement &Tag )
 
 cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notices )
 {
-	QString htmlmask = "<body text=\"#FFFFFF\">%1</body>";
-	QString htmlmaskcenter = "<body text=\"#FFFFFF\"><div align=\"center\">%1</div></body>";
+	QString htmlmask = "<basefont color=\"#FFFFFF\">%1";
+	QString htmlmaskcenter = "<basefontn color=\"#FFFFFF\"><div align=\"center\">%1</div>";
 
 	action_ = NULL;
 	menu_ = menu;
@@ -497,26 +497,13 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notice
 	startPage();
 	addResizeGump( 0, 0, 0x13BE, 530, 417 );
 
-	if( socket->version().contains("3D") )
-	{
-		addTiledGump( 10, 32, 510, 5, 0xA40, -1 );
-		addTiledGump( 10, 287, 510, 5, 0xA40, -1 );
-		addTiledGump( 10, 337, 510, 5, 0xA40, -1 );
-		addTiledGump( 160, 292, 5, 45, 0xA40, -1 );
-		addTiledGump( 210, 37, 5, 250, 0xA40, -1 );
-		addTiledGump( 10, 37, 5, 305, 0xA40, -1 );
-		addTiledGump( 515, 37, 5, 305, 0xA40, -1 );
-	}
-	else
-	{
-		addTiledGump( 10, 10, 510, 22, 0xA40, -1 );
-		addTiledGump( 10,292, 150, 45, 0xA40, -1 );
-		addTiledGump( 165, 292, 355, 45, 0xA40, -1 );
-		addTiledGump( 10, 342, 510, 65, 0xA40, -1 );
-		addTiledGump( 10, 37, 200, 250, 0xA40, -1 );
-		addTiledGump( 215, 37, 305, 250, 0xA40, -1 );
-		addCheckertrans( 10, 10, 510, 397 );
-	}
+	addTiledGump( 10, 10, 510, 22, 0xA40, -1 );
+	addTiledGump( 10,292, 150, 45, 0xA40, -1 );
+	addTiledGump( 165, 292, 355, 45, 0xA40, -1 );
+	addTiledGump( 10, 342, 510, 65, 0xA40, -1 );
+	addTiledGump( 10, 37, 200, 250, 0xA40, -1 );
+	addTiledGump( 215, 37, 305, 250, 0xA40, -1 );
+	addCheckertrans( 10, 10, 510, 397 );
 
 	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( menu_->name() ) ); 
 	addHtmlGump( 10, 39, 200, 20, htmlmaskcenter.arg( tr("CATEGORIES") ) ); 
@@ -618,8 +605,8 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	setY( 50 );
 	setX( 50 );
 
-	QString htmlmask = "<body text=\"#FFFFFF\">%1</body>";
-	QString htmlmaskcenter = "<body text=\"#FFFFFF\"><div align=\"center\">%1</div></body>";
+	QString htmlmask = "<basefont color=\"#FFFFFF\">%1";
+	QString htmlmaskcenter = "<basefontn color=\"#FFFFFF\"><div align=\"center\">%1</div>";
 
 	startPage();
 	addResizeGump( 0, 0, 5054, 530, 417 );
@@ -815,8 +802,8 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 
 cLastTenGump::cLastTenGump( QPtrList< cMakeSection > sections, cMakeMenu* prev, QString notices )
 {
-	QString htmlmask = "<body text=\"#FFFFFF\">%1</body>";
-	QString htmlmaskcenter = "<body text=\"#FFFFFF\"><div align=\"center\">%1</div></body>";
+	QString htmlmask = "<basefont color=\"#FFFFFF\">%1";
+	QString htmlmaskcenter = "<basefontn color=\"#FFFFFF\"><div align=\"center\">%1</div>";
 
 	sections_ = sections;
 	prev_ = prev;
