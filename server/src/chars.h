@@ -237,7 +237,6 @@ protected:
 	bool					war_; // War Mode
 	SERIAL					targ_; // Current combat target
 	unsigned int			timeout_; // Combat timeout (For hitting)
-	unsigned int			timeout2_; // memory of last shot timeout
 	unsigned int			regen_, regen2_, regen3_;//Regeneration times for mana, stamin, and str
 	enInputMode				inputmode_;	// Used for entering text; 0= none, 4=rename rune
 	SERIAL					inputitem_;		// serial of item the text is referring to
@@ -435,7 +434,6 @@ public:
 	bool					war() const { return war_; }
 	SERIAL					targ() const { return targ_; }
 	unsigned int			timeout() const { return timeout_; }
-	unsigned int			timeout2() const { return timeout2_; }
 	unsigned int			regen() const { return regen_; }
 	unsigned int		    regen2() const { return regen2_; }
 	unsigned int			regen3() const { return regen3_; }
@@ -614,7 +612,6 @@ public:
 	void					setFood( unsigned int data ) { food_ = data; }
 	void					setTarg( SERIAL data ) { targ_ = data; }
 	void					setTimeOut( unsigned int data ) { timeout_ = data; }
-	void					setTimeOut2( unsigned int data ) { timeout2_ = data; }
 	void					setRegen( unsigned int data ) { regen_ = data; }
 	void					setRegen2( unsigned int data ) { regen2_ = data; }  
 	void					setRegen3( unsigned int data ) { regen3_ = data; }

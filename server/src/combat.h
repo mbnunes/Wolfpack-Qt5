@@ -51,13 +51,17 @@ namespace Combat
 	void checkandhit( P_CHAR pAttacker );
 	void hit( P_CHAR pAttacker, P_CHAR pDefender, bool los );
 	void combat( P_CHAR pAttacker );
-	void setWeaponTimeout( P_CHAR pAttacker, P_ITEM pWeapon );
-	void doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, UI16 fightskill, enBowTypes bowtype, bool los );
+	void setWeaponTimeout( P_CHAR pAttacker, P_ITEM pWeapon );	
 	bool isTimerOk( P_CHAR pc );
 	void doFootCombatAnimation( P_CHAR pc );
 	void doHorseCombatAnimation( P_CHAR pc );
-	void playMissedSoundEffect( P_CHAR pChar );
-	void playSoundEffect( P_CHAR pc, UI16 fightskill, P_ITEM pWeapon );
+
+	// Sounds + Animations
+	void playMissedSoundEffect( P_CHAR pChar, P_ITEM pWeapon );
+	void playSoundEffect( P_CHAR pChar, P_ITEM pWeapon );
+	void playGetHitSoundEffect( P_CHAR pChar, UINT16 damage );
+	void doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pWeapon );
+
 	void spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos );
 };
 

@@ -29,7 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// Platform INcludes
+// Platform Includes
 #include "platform.h"
 
 // Wolfpack Includes
@@ -58,6 +58,130 @@
 
 namespace Combat 
 {
+	/*!
+		Play the sound effect for a miss.
+	*/
+	void playMissedSoundEffect( P_CHAR pChar, UINT16 skill )
+	{
+		UINT16 id = 0;
+
+		switch( skill )
+		{
+		case ARCHERY:			
+			id = RandomNum( 0, 1 ) ? 0x233 : 0x238;
+			break;
+
+		// Wrestling Sounds are creature-dependant
+		case WRESTLING:
+			if( !pChar->isHuman() )
+			{
+				id = creatures[ pChar->id() ].basesound + RandomNum( 0, 1 );
+				break;
+			}
+
+		default:
+			switch( RandomNum( 0, 2 ) )
+			{
+			case 0:
+				id = 0x238;
+				break;
+			case 1:
+				id = 0x239;
+				break;
+			case 2:
+				id = 0x23a;
+				break;
+			}
+			break;
+		}
+
+		pChar->soundEffect( id );
+	}
+
+	/*!
+		Play the sound effect for a hit.
+	*/
+	void playSoundEffect( P_CHAR pChar, UINT16 skill, P_ITEM pWeapon )
+	{
+		UINT16 id = 0;
+
+		if( !pWeapon )
+			skill = WRESTLING;
+
+		switch( skill )
+		{
+		case SWORDSMANSHIP:
+			// Special 2 handed weapons
+			if( pWeapon->twohanded() )
+			{
+				id = RandomNum( 0, 1 ) ? 0x236 : 0x237;
+				break;
+			}
+		// We fall trough for normal swords here intentionally
+		case FENCING:
+			id = RandomNum( 0, 1 ) ? 0x23b : 0x23c;
+			break;
+
+		case ARCHERY:
+			id = 0x234;
+			break;
+
+		case MACEFIGHTING:
+			// This depends on the type of the mace
+			// Warhammers have different sounds than staffs
+
+			if( pWeapon->type() == 1003 ) // Staffs
+				id = 0x233;
+			else if( pWeapon->type() == 1004 ) // Maces/WarHammers
+				id = 0x232;
+			break;
+		}
+		
+		// Use Wrestling Sounds
+		if( !id )
+		{
+			switch( RandomNum( 0, 2 ) )
+			{
+				case 0:
+					id = 0x135;
+					break;
+				case 1:
+					id = 0x137;
+					break;
+				case 2:
+					id = 0x13b;
+					break;
+			}
+		}
+
+		pChar->soundEffect( id );
+	}
+
+	/*!
+		Play the soundeffect for getting hit.
+	*/
+	void playGetHitSoundEffect( P_CHAR pChar )
+	{
+		if( pChar->id() == 0x191 )
+		{
+			UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
+			if( sound > 0 )
+				pChar->soundEffect( sound );
+			else
+				pChar->soundEffect( 0x14b );
+		}
+		else if( pChar->id() == 0x190 )
+		{
+			UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
+			if( sound > 0 )
+				pChar->soundEffect( sound );
+			else
+				pChar->soundEffect( 0x156 );
+		}
+		else	
+			playmonstersound( pChar, pChar->id(), SND_DEFEND );
+	}
+
 	/*!
 
 		Check for the weaponskill required by this weapon by checking it's type.
@@ -157,7 +281,9 @@ namespace Combat
 	*/
 	void hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	{
-		SI32 totaldamage = 0;
+		UINT16 oldAttHp = pAttacker->hp();
+		UINT16 oldHp = pDefender->hp();
+		UINT16 oldStm = pDefender->stm();
 
 		// Get the weapon the attacker is wearing.
 		P_ITEM pWeapon = pAttacker->getWeapon();
@@ -261,8 +387,6 @@ namespace Combat
 		hitChance /= ( dEvasion + 50 ) * 2;
 		hitChance = floor( hitChance * 100 );
 
-		pAttacker->message( QString( "Your chance to hit %1 is %2" ).arg( pDefender->name ).arg( hitChance ) );
-
 		// Check if we missed
 		if( RandomNum( 1, 100 ) > hitChance )
 		{
@@ -289,6 +413,9 @@ namespace Combat
 					pAmmo->update();
 				}
 			}
+
+			// Play the Miss Soundeffect
+			playMissedSoundEffect( pAttacker, wSkill );
 
 			return;
 		}
@@ -354,276 +481,203 @@ namespace Combat
 			// Lumberjacking GM gives another +10%
 			if( pAttacker->baseSkill( LUMBERJACKING ) >= 1000 )
 				damage += damage * 0.10;
-		}
-
-		pAttacker->message( QString( "You deal %1 points of damage" ).arg( damage ) );
+		}		
 
 		// Parrying with shield
-		/*P_ITEM pShield = pDefender->leftHandItem();
-		if( pShield && IsShield( pShield->id() ) )
+		P_ITEM pShield = pDefender->leftHandItem();
+		if( pShield && pShield->type() == 1008 )
 		{
-			pDefender->checkSkill( PARRYING, (int)floor( ( (float)accuracy / 100.0f) * (float)pAttacker->skill( fightskill ) ), 1000 );
-			// % Chance of Blocking= Parrying Skill ÷ 2
+			// Do a parry check depending on the attackers skill
+			pDefender->checkSkill( PARRYING, 0, pAttacker->skill( wSkill ) );
+
+			// % Chance of Blocking = Parrying Skill ÷ 2
 			if( pDefender->skill( PARRYING ) / 2 >= RandomNum( 0, 1000 ) )
 			{
-				// damage absorbed by shield
-				if( pShield->def != 0 )
-					damage -= RandomNum( 0, pShield->def ); 
-					pShield->wearOut();
+				// We successfully parried the blow
+				if( pAttacker->socket() )
+					pAttacker->socket()->sysMessage( tr( "Your attack has been parried!" ) );
+
+				if( pDefender->socket() )
+					pDefender->socket()->sysMessage( tr( "You parried the blow!" ) );
+
+				if( wSkill != ARCHERY )
+					damage -= pShield->def;
+				else
+					damage -= pShield->def / 2;
 			}
-		}*/
+		}
 
-		/*SI32 bodyhit = RandomNum( 0, accuracy );
-		enBodyParts bodypart;
-		if( bodyhit > 100 )
-			bodyhit = 100;
+		// Determine the body part we hit
+		UINT32 bodyHit = RandomNum( 0, 100 );
 
-		if( bodyhit <= 14 )
-			bodypart = LEGS;
-		else if( bodyhit <= 58 )
-			bodypart = BODY;
-		else if( bodyhit <= 72 )
-			bodypart = ARMS;
-		else if( bodyhit <= 79 )
-			bodypart = HANDS;
-		else if( bodyhit <= 86 )
-			bodypart = NECK;
-		else if( bodyhit <= 100 )
-			bodypart = HEAD;
+		enBodyParts bodyPart;
 
-		// Damage Absorbed= Random value between of 1/2 AR to full AR of Hit Location's piece of armor.
-		SI32 ar = pDefender->calcDefense( bodypart, true );
+		if( bodyHit <= 14 )
+			bodyPart = LEGS;
+		else if( bodyHit <= 58 )
+			bodyPart = BODY;
+		else if( bodyHit <= 72 )
+			bodyPart = ARMS;
+		else if( bodyHit <= 79 )
+			bodyPart = HANDS;
+		else if( bodyHit <= 86 )
+			bodyPart = NECK;
+		else
+			bodyPart = HEAD;
+
+		// Damage Absorbed: Random value between of 1/2 AR to full AR of Hit Location's piece of armor.
+		// Calculate the AR rating for this spot of the body
+		UINT16 ar = pDefender->calcDefense( bodyPart, true );
 		damage -= RandomNum( ar / 2, ar );
 		
-		//When we reached this point, nothing will affect the damage anymore.
-		//If damage is <= 0, the defender was successful, so lets break this iteration here...
-		if( damage <= 0 )
+		// When we reached this point, nothing will affect the damage anymore.
+		// If Damage <= 0 that does NOT mean the defender parried the blow or
+		// did something else.. It just means our hit stopped at the armor of
+		// the defender. This does not mean we did a miss or something.
+
+		QString defMessage, attMessage;
+
+		// Define all messages for hit-areas
+
+		static const char* hitLegs[] = {
+			"%1 hits you in the left thigh!",		"You hit %1 in the left thigh!",
+			"%1 hits you in the right thigh!",	"You hit %1 in the right thigh!",
+			"%1 hits you in the groin!",			"You hit %1 in the groin!"
+		};
+
+		static const char* hitBody[] = {
+			"%1 hits you in your chest!",			"You hit %1 in the chest!",
+			"%1 lands a blow to your stomach!",		"You land a blow to %1's stomach!",
+			"%1 hits you in your ribs!",			"You hit %1 in the ribs!"
+		};
+
+		static const char* hitBodyHard[] = {
+			"%1 lands a terrible blow to your chest!",	"You land a terrible blow to %1's chest!",
+			"%1 knocks the wind out of you!",			"You knock the wind out of %1!",
+			"%1 has broken your rib!",					"It sounds as if you have broken one of %1's ribs!"
+		};
+
+		static const char* hitArms[] = {
+			"%1 hits you in your left arm!",	"You hit %1 in the left arm!",
+			"%1 hits you in your right arm!",	"You hit %1 in the right arm!"
+		};
+
+		static const char* hitHands[] = {
+			"%1 hits you at your left hand!",	"You hit %1 at the left hand!",
+			"%1 hits you at your right hand!",	"You hit %1 at the right hand!"
+		};
+
+		static const char* hitNeck[] = {
+			"%1 hits you at the throat!",	"You hit %1 at the throat!",
+		};
+
+		static const char* hitHead[] = {
+			"%1 hits you straight in the face!",	"You hit %1 straight in the face!",
+			"%1 hits you at the head!",				"You hit %1 at the head!",			
+			"%1 hits you square in the jaw!",	"You hit %1 square in the jaw!"
+		};
+
+		static const char* hitHeadHard[] = {
+			"%1 lands a stunning blow to your head!",	"You land a stunning blow to %1's head!",
+			"%1 smashed a blow across your face!",		"You smash a blow across %1's face!",
+			"%1 lands a terrible hit to your temple!",	"You land a terrible hit at %1's temple!"
+		};
+
+		// Check if it has been a "hard" hit
+		bool hardHit = ( pDefender->st() * 0.1 <= damage );
+
+		// Get the message for the defender and attacker
+		switch( bodyPart )
 		{
-				if( pAttacker->socket() )
-					pAttacker->socket()->sysMessage( tr("Your attack has been parried!") );
-				if( pDefender->socket() )
-					pDefender->socket()->sysMessage( tr("You parried the blow!") );
-				playMissedSoundEffect( pAttacker );
-				++it;
-				continue;
+		case BODY:
+			if( hardHit )
+			{				
+				defMessage = hitBody[ ( RandomNum( 0, 2 ) * 2 ) ];
+				attMessage = hitBody[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
 			}
-
-			QString defMessage = (char*)0;
-			QString attMessage = (char*)0;
-
-			// Generate the messages according to bodypart and damage
-			switch( bodypart )
+			else
 			{
-			case LEGS:
-				switch( RandomNum( 0, 2 ) )
-				{
-				case 0:
-					defMessage = tr( "%1 hits you in the left thigh!" );
-					attMessage = tr( "You hit %1 in the left thigh!" );
-					break;
-				case 1:
-					defMessage = tr( "%1 hits you in the right thigh!" );
-					attMessage = tr( "You hit %1 in the right thigh!" );
-					break;
-				case 2:
-					defMessage = tr( "%1 hits you in the groin!" );
-					attMessage = tr( "You hit %1 in the groin!" );
-					break;
-				}
-				break;
-			case BODY:
-				switch( RandomNum( 0, 2 ) )
-				{
-				case 0:
-					if( damage < 10 )
-					{
-						defMessage = tr( "%1 hits you in your chest!" );
-						attMessage = tr( "You hit %1 in the chest!" );
-					}
-					else
-					{
-						defMessage = tr( "%1 lands a terrible blow to your chest!" );
-						attMessage = tr( "You land a terrible blow to %1's chest!" );
-					}
-					break;
-				case 1:
-					if( damage < 10 )
-					{
-						defMessage = tr( "%1 lands a blow to your stomach!" );
-						attMessage = tr( "You land a blow to %1's stomach!" );
-					}
-					else
-					{
-						defMessage = tr( "%1 knocks the wind out of you!" );
-						attMessage = tr( "You knock the wind out of %1!" );
-					}
-					break;
-				case 2:
-					if( damage < 10 )
-					{
-						defMessage = tr( "%1 hits you in your ribs!" );
-						attMessage = tr( "You hit %1 in the ribs!" );
-					}
-					else
-					{
-						defMessage = tr( "%1 has broken your Rib?!" );
-						attMessage = tr( "It sounds as if you have broken one of %1's ribs!" );
-					}
-					break;
-				}
-				break;
-			case ARMS:
-				switch( RandomNum( 0, 1 ) )
-				{
-				case 0:
-					defMessage = tr( "%1 hits you in your left arm!" );
-					attMessage = tr( "You hit %1 in the left arm!" );
-					break;
-				case 1:
-					defMessage = tr( "%1 hits you in your right arm!" );
-					attMessage = tr( "You hit %1 in the right arm!" );
-					break;
-				}
-				break;
-			case HANDS:
-				switch( RandomNum( 0, 1 ) )
-				{
-				case 0:
-					defMessage = tr( "%1 hits you at your left hand!" );
-					attMessage = tr( "You hit %1 at the left hand!" );
-					break;
-				case 1:
-					defMessage = tr( "%1 hits you at your right hand!" );
-					attMessage = tr( "You hit %1 at the right hand!" );
-					break;
-				}
-				break;
-			case NECK:
-				defMessage = tr( "%1 hits you at the throat!" );
-				attMessage = tr( "You hit %1 at the throat!" );
-				break;
-			case HEAD:
-				if( fightskill == ARCHERY && accuracy >= 100 && pAttacker->skill( ARCHERY ) >= 1000 && RandomNum( 0, 4 ) == 0 )
-				{
-					// GM Archer head shot ...
-					damage = pDefender->st();
-					bodypart = DEADLY;
-					attMessage = tr( "Your shot hits %1 directly between the eyes!" );
-					defMessage = tr( "%1 hits you directly between the eyes!" );
-				}
-				else
-				{
-					switch( RandomNum( 0, 2 ) )
-					{
-					case 0:
-						if( damage < 10 )
-						{
-							defMessage = tr( "%1 hits you straight in the face!" );
-							attMessage = tr( "You hit %1 straight in the face!" );
-						}
-						else 
-						{
-							defMessage = tr( "%1 lands a stunning blow to your head!" );
-							attMessage = tr( "You land a stunning blow to %1's head!" );
-						}
-						break;
-					case 1:
-						if( damage < 10 )
-						{
-							defMessage = tr( "%1 hits you at the head!" );
-							attMessage = tr( "You hit %1 at the head!" );
-						}
-						else
-						{
-							defMessage = tr( "%1 smashed a blow across your face!" );
-							attMessage = tr( "You smash a blow across %1's face!" );
-						}
-						break;
-					case 2:
-						if( damage < 10 )
-						{
-							defMessage = tr( "%1 hits you square in the jaw!" );
-							attMessage = tr( "You hit %1 square in the jaw!" );
-						}
-						else
-						{
-							defMessage = tr( "%1 lands a terrible hit to your temple!" );
-							attMessage = tr( "You land a terrible hit at %1's temple!" );
-						}
-						break;
-					}
-				}
-				break;
+				defMessage = hitBodyHard[ ( RandomNum( 0, 2 ) * 2 ) ];
+				attMessage = hitBodyHard[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
 			}
+			break;
 
+		case ARMS:
+			defMessage = hitArms[ ( RandomNum( 0, 1 ) * 2 ) ];
+			attMessage = hitArms[ ( RandomNum( 0, 1 ) * 2 ) + 1 ];
+			break;
+
+		case NECK:
+			defMessage = hitNeck[0];
+			attMessage = hitNeck[1];
+			break;
+
+		case HEAD:
+			if( hardHit )
+			{				
+				defMessage = hitHead[ ( RandomNum( 0, 2 ) * 2 ) ];
+				attMessage = hitHead[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
+			}
+			else
+			{
+				defMessage = hitHeadHard[ ( RandomNum( 0, 2 ) * 2 ) ];
+				attMessage = hitHeadHard[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
+			}
+			break;
+
+		case HANDS:
+			defMessage = hitHands[ ( RandomNum( 0, 1 ) * 2 ) ];
+			attMessage = hitHands[ ( RandomNum( 0, 1 ) * 2 ) + 1 ];
+			break;
+
+		case LEGS:
+			defMessage = hitLegs[ ( RandomNum( 0, 2 ) * 2 ) ];
+			attMessage = hitLegs[ ( RandomNum( 0, 2 ) * 2 ) + 1 ];
+			break;
+		}
+
+		if( pAttacker->socket() )
+			pAttacker->socket()->sysMessage( attMessage.arg( pDefender->name ) );
+
+		if( pDefender->socket() )
+			pDefender->socket()->sysMessage( defMessage.arg( pAttacker->name ) );
+
+		// Macefighting Weapons (2handed only) 
+		// Deal Stamina loss
+		if( pWeapon && ( pWeapon->type() == 1003 || pWeapon->type() == 1004 ) && pWeapon->twohanded() )
+			pDefender->setStm( QMAX( 0, pDefender->stm() - RandomNum( 3, 6 ) ) );
+
+		// Paralyzing + Concussion Hit are disabled for now
+		/*
+		// Paralyzing
+		if( ( fightskill == FENCING ) && ( IsFencing2H( pItem->id() ) ) && pDefender->isPlayer() )
+		{ 
+			tempeffect( pAttacker, pDefender, 44, 0, 0, 0 );
 			if( pAttacker->socket() )
-				pAttacker->socket()->sysMessage( attMessage.arg( pDefender->name.latin1() ) );
-			if( pDefender->socket() )
-				pDefender->socket()->sysMessage( defMessage.arg( pAttacker->name.latin1() ) );
-
-			// Stamina Loss
-			if( ( fightskill == MACEFIGHTING ) && ( IsSpecialMace( pItem->id() ) ) && pDefender->isPlayer() )
-			{ 
-				pDefender->setStm( pDefender->stm() - RandomNum( 3, 6 ) );
-			}
-
-			// Paralyzing
-			if( ( fightskill == FENCING ) && ( IsFencing2H( pItem->id() ) ) && pDefender->isPlayer() )
-			{ 
-				tempeffect( pAttacker, pDefender, 44, 0, 0, 0 );
-				if( pAttacker->socket() )
-					pAttacker->socket()->sysMessage( tr( "You delivered a paralyzing blow" ) );
-			}
-
-			// Concussion Hit
-			if( ( fightskill == SWORDSMANSHIP ) && ( IsAxe( pItem->id() ) ) && pDefender->isPlayer() )
-			{ 
-				tempeffect( pAttacker, pDefender, 45, 0, 0, 0 );
-			}
-
-			//===== SOUNDEFFECTS
-			if( pAttacker->isPlayer() )
-				if( ( fightskill == ARCHERY && los) || fightskill != ARCHERY )
-					playSoundEffect( pAttacker, fightskill, pItem );
-
-			totaldamage += damage;
-
-			++it;
+				pAttacker->socket()->sysMessage( tr( "You delivered a paralyzing blow" ) );
 		}
 
-		// ==== HIT SOUNDS
-		if( pDefender->id() == 0x191 )
-		{
-			UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
-			if( sound > 0 )
-				pDefender->soundEffect( sound );
-			else
-				pDefender->soundEffect( 0x14b );
-		}
-		else if( pDefender->id() == 0x190 )
-		{
-			UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
-			if( sound > 0 )
-				pDefender->soundEffect( sound );
-			else
-				pDefender->soundEffect( 0x156 );
-		}
-		else	
-			playmonstersound( pDefender, pDefender->id(), SND_DEFEND );
+		// Concussion Hit
+		if( ( fightskill == SWORDSMANSHIP ) && ( IsAxe( pItem->id() ) ) && pDefender->isPlayer() )
+			tempeffect( pAttacker, pDefender, 45, 0, 0, 0 );
+		*/
+	
+		// We hit our target,
+		// So let's play a soundeffect for our hit
+		playSoundEffect( pAttacker, wSkill, pWeapon );
 
 		// attacker poisons defender
 		// and vice versa
 		pAttacker->applyPoison( pDefender );
 		pDefender->applyPoison( pAttacker );
 
-		// ==== UNFREEZE
+		// Cancel an eventual paralyze spell
 		if( ( pDefender->effDex() > 0 ) )
 			pDefender->setPriv2( pDefender->priv2() & 0xFD );
-			
 
 		// when hitten and damage >1, defender fails if casting a spell!
 		// Thats not really good, better make a check versus int+magic
-		if( totaldamage > 1 && pDefender->isPlayer() )//only if damage>1 and against a player
+		/*if( damage > 1 && pDefender->isPlayer() )//only if damage>1 and against a player
 		{
 			// TODO: Implement spell apruption
 			//if(pc_defender->casting() && currentSpellType[s2]==0 )
@@ -635,28 +689,30 @@ namespace Combat
 		//		pc_defender->setSpelltime(0);
 		//		pc_defender->priv2 &= 0xfd; // unfreeze, bugfix LB
 		//	}
-		}
+		}*/
 
-		//===== REACTIVE ARMOR
+		// Reactive Armor
 		if( pDefender->ra() )
 		{
 			// lets reflect (MAGERY/2)% of the damage
-			SI32 reflectdamage = (SI32)floor( (float)totaldamage * (float)pDefender->skill( MAGERY ) / 2000.0f );
-			totaldamage -= reflectdamage;
+			SI32 reflectdamage = (SI32)floor( (float)damage * (float)pDefender->skill( MAGERY ) / 2000.0f );
+			damage -= reflectdamage;
 
-			pAttacker->setHp( pAttacker->hp() - reflectdamage );
+			pAttacker->setHp( QMAX( 0, pAttacker->hp() - reflectdamage ) );
 			if( pAttacker->hp() <= 0 )
 				pAttacker->kill();
 
-			staticeffect( pDefender, 0x37, 0x4A, 0, 15 ); //RA effect
-			pAttacker->updateHealth();
+			staticeffect( pDefender, 0x37, 0x4A, 0, 15 ); // RA effect (update!)
 		}
 
-		//===== DEAL DAMAGE
-		pDefender->setHp( pDefender->hp() - totaldamage );
+		// Finally deal the damage
+		damage = QMAX( 0, damage );
+		pDefender->setHp( pDefender->hp() - damage );
+		pAttacker->message( QString( "You deal %1 points of damage" ).arg( damage ) );
 
-		//===== BLOOD ( This *needs* a blood-color check)
-		if( RandomNum( 1, 10 ) == 1 ) // 10% chance
+		// Create blood below the defender if severe
+		// damage has been dealt
+		/*if( RandomNum( 1, 10 ) == 1 ) // 10% chance
 		{
 	       UINT16 id = 0x122c;
 
@@ -685,7 +741,7 @@ namespace Combat
 			  pBlood->update();
 			  pBlood->decaytime = ( 8 * MY_CLOCKS_PER_SEC ) + uiCurrentTime; // Will stay 8 secs
 		   }
-		}
+		}*/
 
 		//===== SPLITTING NPCS
 		UI08 splitnum = 0;
@@ -703,34 +759,35 @@ namespace Combat
 			}
 		}
 
-		//	Concept note( Sebastian@hartte.de - darkstorm ):
-		//	We deal the damage in the moment the swing animation
-		//	starts, this is *bad* we shoudl determine a given
-		//	amount of time it will take for the swing animation 
-		//	to complete and *then* deal the damage if the user is 
-		//	still in range (srvparams option!)
-		pDefender->setHp( QMAX( 0, pDefender->hp() ) );
-		//===== RESEND HEALTH BAR(S)
-		pDefender->updateHealth();
+		// Resend the health bar of our defender to all surrounding characters
+		// ONLY if the hp really changed!
+		if( pDefender->hp() != oldHp )
+			pDefender->updateHealth();
 
-		//===== DAMAGE ANIMATION
-		// Only show it when damage has been dealt at all.
-		if( pDefender->id() >= 0x0190 && totaldamage > 0 )
-		{
-			if( pDefender->atLayer( cChar::Mount ) ) 
-				pDefender->action( 0x14 );
-		}*/
+		if( pDefender->stm() != oldStm && pDefender->socket() )
+			pDefender->socket()->sendStatWindow();
+
+		if( pAttacker->hp() != oldAttHp )
+			pAttacker->updateHealth();
+
+		// Get Hit sound + Animation
+		playGetHitSoundEffect( pDefender );
+		// pDefender->action( );
 	}
 
+	/*!
+		Prepare hitting an opponent. Do several checks for the target and
+		check if we can hit the target instantly.
+	*/
 	void combat( P_CHAR pAttacker )
 	{
 		// We are either not fighting or dont have a target
-		if( !pAttacker || pAttacker->free || !pAttacker->war() || ( pAttacker->targ() == INVALID_SERIAL ) )
+		if( !pAttacker || pAttacker->free || pAttacker->dead() || !pAttacker->war() || pAttacker->targ() == INVALID_SERIAL )
 			return;
 
 		P_CHAR pDefender = FindCharBySerial( pAttacker->targ() );
 
-		// We are at war but our target's gone out of range
+		// Check our Target
 		if( !pDefender || pDefender->free || ( pDefender->isPlayer() && !pDefender->socket() ) || pDefender->isHidden() )
 		{
 			pAttacker->setTimeOut(0);
@@ -739,213 +796,175 @@ namespace Combat
 			pAttacker->setTarg(INVALID_SERIAL);
 			pAttacker->resetAttackFirst();
 
-			// Send a warmode update
-			pAttacker->resend( false );
-			
-/*			// Update the little button on the paperdoll
-			pAttacker->setWar( false );
+			// Reset the target
 			if( pAttacker->socket() )
 			{
-				cUOTxWarmode warmode;
-				warmode.setStatus( 0 );
-				pAttacker->socket()->send( &warmode );
-			}*/
+				cUOTxAttackResponse aResponse;
+				aResponse.setSerial( INVALID_SERIAL );
+				pAttacker->socket()->send( &aResponse );
+			}
 
 			return;
 		}
 
-		// We can be sure here that pc_defender is a valid hit-target
-		if( pAttacker->isNpc() || pAttacker->socket() )
-		{	
-/*			// Too far above or below us
-			if( pAttacker->pos.z > ( pDefender->pos.z + 10 ) ) 
-				return;
-
-			if( pAttacker->pos.z < ( pDefender->pos.z - 10 ) ) 
-				return;
-			?? lets check lineofsight
-			*/
-			
-			if( ( pDefender->isNpc() && pDefender->npcaitype() != 17 ) || ( pDefender->socket() && !pDefender->dead() ) )
+		// Some special stuff for guards
+		if( pAttacker->isNpc() && !pAttacker->inRange( pDefender, SrvParams->attack_distance() ) )
+		{
+			// Guards beam to their target if they are out of range
+			if( pAttacker->npcaitype() == 4 && pDefender->inGuardedArea() )
 			{
-				if( !pAttacker->inRange( pDefender, SrvParams->attack_distance() ) )
-				{
-					// Guards to scotty-beam-me-up
-					if( pAttacker->npcaitype() == 4 && pAttacker->inGuardedArea() )
-					{
-						pAttacker->removeFromView( false );
-						pAttacker->moveTo( pDefender->pos );
-						pAttacker->resend( false );
-						
-						pAttacker->soundEffect( 0x1FE );
-						staticeffect( pAttacker, 0x37, 0x2A, 0x09, 0x06 );
-						pAttacker->talk( tr("Halt, scoundrel!"), -1, 0, true );
-					}
-					else if( pAttacker->isNpc() ) // Any other NPC
-					{
-						pAttacker->setTarg(INVALID_SERIAL);
-						pAttacker->setTimeOut(0);
-						
-						P_CHAR pc = FindCharBySerial( pAttacker->attacker() );
-						if( pc )
-						{
-							pc->resetAttackFirst();
-							pc->setAttacker(INVALID_SERIAL);
-						}
-						pAttacker->setAttacker(INVALID_SERIAL);
-						pAttacker->resetAttackFirst();
+					pAttacker->removeFromView( false );
+					pAttacker->moveTo( pDefender->pos );
+					pAttacker->resend( false );
+					
+					pAttacker->soundEffect( 0x1FE );
+					staticeffect( pAttacker, 0x37, 0x2A, 0x09, 0x06 );
 
-						if( pAttacker->isNpc() && pAttacker->npcaitype() != 17 && !pAttacker->dead() && pAttacker->war() )
-							pAttacker->toggleCombat();
+					if( RandomNum( 1, 4 ) == 1 )
+						pAttacker->talk( tr("Halt, scoundrel!"), -1, 0, true );
+			}
+			else if( pAttacker->npcaitype() != 4 )
+			{
+				pAttacker->setTarg( INVALID_SERIAL );
+				pAttacker->setTimeOut(0);
+				
+				P_CHAR pc = FindCharBySerial( pAttacker->attacker() );
+
+				if( pc )
+				{
+					pc->resetAttackFirst();
+					pc->setAttacker(INVALID_SERIAL);
+				}
+
+				pAttacker->setAttacker(INVALID_SERIAL);
+				pAttacker->resetAttackFirst();				
+				
+				pAttacker->setWar( false );
+				pAttacker->resend( false );
+
+				return;
+			}
+		}
+
+		// We have two delay-timers for attacking
+		// Timer for melee weapons and for 
+		// ranged weapons. If we cannot attack again yet, 
+		// we return from this function.
+		if( !isTimerOk( pAttacker ) )
+			return;
+		
+		P_ITEM pWeapon = pAttacker->getWeapon();
+		bool mayAttack = false;
+		
+		// We only need to do LOS checks for archery. Otherwise we'll "compute" a new 
+		// swing value. We only can hit them when we're standing right beside them either.
+		if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )		
+		{
+			// Only shot if our "head" can see the opponent
+			if( !lineOfSight( pAttacker->pos + Coord_cl( 0, 0, 13 ), pDefender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
+				mayAttack = false;
+		}
+		// For other Combat Skills it's enough to stand near the opponent
+		else if( pAttacker->inRange( pDefender, 1 ) )
+			mayAttack = true;
+
+		// If we cannot attack let us quit this function
+		if( !mayAttack )
+			return;
+
+		// Attacking costs a certain amount of stamina
+		if( abs( SrvParams->attackstamina() ) > 0 && !pAttacker->isGM() )
+		{
+			// We don't have enough Stamina
+			if( ( SrvParams->attackstamina() < 0 ) && ( pAttacker->stm() < abs( SrvParams->attackstamina() ) ) )
+			{
+				if( pAttacker->socket() )
+					pAttacker->socket()->sysMessage( tr( "You are too tired to attack." ) );
+				
+				// Only re-check for missing stamina the next time 
+				// we could try to hit them.
+				setWeaponTimeout( pAttacker, pAttacker->leftHandItem() );
+				setWeaponTimeout( pAttacker, pAttacker->rightHandItem() );
+				return;
+			}
+
+			// Reduce the Stamina
+			pAttacker->setStm( QMIN( pAttacker->effDex(), QMAX( 0, pAttacker->stm() + SrvParams->attackstamina() ) ) );
+			
+			// Send the changed stamina
+			if( pAttacker->socket() )
+				pAttacker->socket()->updateStamina();
+		}
+				
+		// Show the Combat Animations
+		doCombatAnimations( pAttacker, pDefender, pWeapon );
+
+		// If we are no guard, our target should re-attack us.
+		// (DarkStorm): But only if our Target is not fighting someone else
+		if( pAttacker->npcaitype() != 4 && pDefender->targ() == INVALID_SERIAL )
+		{
+			pDefender->fight( pAttacker );
+			pDefender->setAttackFirst();
+			pAttacker->fight( pDefender );
+			pAttacker->resetAttackFirst();
+		}
+
+		// A tempeffect is needed here eventually
+		// An Arrow doesnt hit its target immedeately..
+		if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )
+			hit( pAttacker, pDefender, true ); // We are positive that we can hit our target
+		else
+			pAttacker->setSwingTarg( pDefender->serial );
+
+		// Set the time for the next attack
+		setWeaponTimeout( pAttacker, pWeapon );
+
+		// No Spellcasting monsters right now
+		//if( !pDefender->isInvul() )
+		//{
+		//	NpcSpellAttack( pAttacker,pDefender,currenttime,los );
+		//}
+
+		// Our target finally died.
+		if( pDefender->hp() < 1 ) //Highlight //Repsys
+		{
+			if( ( pAttacker->npcaitype() == 4 || pAttacker->npcaitype() == 9 ) && pDefender->isNpc() )
+			{
+				pDefender->action( 0x15 );					
+				PlayDeathSound( pDefender );					
+				cCharStuff::DeleteChar( pDefender ); //Guards, don't give body
+			}
+			else
+			{
+				pDefender->kill();
+				pAttacker->setSwingTarg( -1 );
+			}
+				
+			//murder count \/				
+			if( ( pAttacker->isPlayer() ) && ( pDefender->isPlayer() ) ) //Player vs Player
+			{
+				if( pDefender->isInnocent() && GuildCompare( pAttacker, pDefender ) == 0 )
+				{
+					pAttacker->setKills( pAttacker->kills() + 1 );
+
+					if( pAttacker->socket() )
+					{
+						pAttacker->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pAttacker->kills() ) );
+
+						if( pAttacker->kills() == SrvParams->maxkills() + 1 )
+							pAttacker->socket()->sysMessage( tr("You are now a murderer!") );
 					}
 				}
-				else
+				
+				if( SrvParams->pvpLog() )
 				{
-					if( pAttacker->targ() == INVALID_SERIAL )
-					{
-						pDefender->fight( pAttacker );
-						pDefender->setAttackFirst();
-						pAttacker->fight( pDefender );
-						pAttacker->resetAttackFirst();
-						UI32 x = ( ( ( 100-pAttacker->effDex() ) * MY_CLOCKS_PER_SEC ) / 25 ) + ( 1 * MY_CLOCKS_PER_SEC ); //Yet another attempt.
-						pAttacker->setTimeOut(uiCurrentTime + x);
-						return;
-					}
-					if( isTimerOk( pAttacker ) )
-					{
-						bool los = lineOfSight( pAttacker->pos + Coord_cl( 0, 0, 13 ), pDefender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
-						// we only check for bows, so right hand is enough
-						P_ITEM pRightItem = pAttacker->rightHandItem();
-						UI16 fightskill = weaponSkill( pRightItem );
-						enBowTypes bowtype = bowType( pRightItem );
-						bool mayAttack = false;
-
-						if( fightskill == ARCHERY )
-						{
-							if( los )
-							{
-								int arrowsquant;
-
-								if( bowtype == BOW ) 
-									arrowsquant = pAttacker->CountItems( 0x0F3F );
-								else
-									arrowsquant = pAttacker->CountItems( 0x1BFB );
-
-								if( arrowsquant > 0 )
-									mayAttack = true;
-							}
-						}
-						else if( pAttacker->inRange( pDefender, 1 ) )
-							mayAttack = true;
-						
-						if( mayAttack )
-						{
-							// - Do stamina maths -
-							if( abs( SrvParams->attackstamina() ) > 0 && !pAttacker->isGM() )
-							{
-								if( ( SrvParams->attackstamina() < 0 ) && ( pAttacker->stm() < abs( SrvParams->attackstamina() ) ) )
-								{
-									if( pAttacker->socket() )
-										pAttacker->socket()->sysMessage( tr( "You are too tired to attack." ) );
-									
-									setWeaponTimeout( pAttacker, pAttacker->leftHandItem() );
-									setWeaponTimeout( pAttacker, pAttacker->rightHandItem() );
-									return;
-								}
-
-								pAttacker->setStm( pAttacker->stm() + SrvParams->attackstamina() );
-								if( pAttacker->stm() > pAttacker->effDex() )
-									pAttacker->setStm( pAttacker->effDex() );
-								
-								if( pAttacker->stm() < 0 )
-									pAttacker->setStm(0);
-
-								// Send the changed stamina
-								if( pAttacker->socket() )
-									pAttacker->socket()->updateStamina();
-							}
-							
-							doCombatAnimations( pAttacker, pDefender, fightskill, bowtype, los );
-
-							if( ( pAttacker->inRange( pDefender, 2 ) || ( fightskill == ARCHERY ) ) && !( pAttacker->npcaitype()==4) )
-							{
-								if( los )
-								{
-									pDefender->fight( pAttacker );
-									pDefender->setAttackFirst();
-									pAttacker->fight( pDefender );
-									pAttacker->resetAttackFirst();
-								}
-							}
-
-							if( pAttacker->timeout2() > uiCurrentTime )
-								return;
-
-							// A tempeffect is needed here eventually
-							// An Arrow doesnt hit its target immedeately..
-							if( fightskill == ARCHERY )
-								hit( pAttacker, pDefender, los );
-							else
-								pAttacker->setSwingTarg( pDefender->serial );
-						}
-
-						setWeaponTimeout( pAttacker, pRightItem );
-						setWeaponTimeout( pAttacker, pAttacker->leftHandItem() );
-						pAttacker->setTimeOut2(pAttacker->timeout()); // set shotclock memory
-
-						if( !pDefender->isInvul() )
-						{
-	//						NpcSpellAttack( pAttacker,pDefender,currenttime,los );
-						}
-
-/*						if( fightskill != ARCHERY)
-						{
-							hit( pAttacker, pDefender, los );
-						}*/
-					}
-				}			
-
-				// Our target finally died.
-				if( pDefender->hp() < 1 ) //Highlight //Repsys
-				{
-					if( ( pAttacker->npcaitype() == 4 || pAttacker->npcaitype() == 9 ) && pDefender->isNpc() )
-					{
-						pDefender->action( 0x15 );					
-						PlayDeathSound( pDefender );					
-						cCharStuff::DeleteChar( pDefender ); //Guards, don't give body
-					}
-					else
-					{
-						pDefender->kill();
-					}
-					
-					//murder count \/				
-					if( ( pAttacker->isPlayer() ) && ( pDefender->isPlayer() ) ) //Player vs Player
-					{
-						if( pDefender->isInnocent() && GuildCompare( pAttacker, pDefender ) == 0 )
-						{
-							pAttacker->setKills( pAttacker->kills() + 1 );
-
-							if( pAttacker->socket() )
-							{
-								pAttacker->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pAttacker->kills() ) );
-
-								if( pAttacker->kills() == SrvParams->maxkills() + 1 )
-									pAttacker->socket()->sysMessage( tr("You are now a murderer!") );
-							}
-						}
-						
-						if( SrvParams->pvpLog() )
-						{
-							sprintf((char*)temp,"%s was killed by %s!\n",pDefender->name.latin1(), pAttacker->name.latin1());
-							savelog((char*)temp,"PvP.log");
-						}
-					}
-
-					if( pAttacker->isNpc() )
-						pAttacker->toggleCombat();
+					sprintf((char*)temp,"%s was killed by %s!\n",pDefender->name.latin1(), pAttacker->name.latin1());
+					savelog((char*)temp,"PvP.log");
 				}
 			}
+
+			if( pAttacker->isNpc() && pAttacker->war() )
+				pAttacker->toggleCombat();
 		}
 	}
 
@@ -976,13 +995,12 @@ namespace Combat
 		pAttacker->setTimeOut(uiCurrentTime + x);
 	}
 
-	void doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, UI16 fightskill, enBowTypes bowtype, bool los )
+	void doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pWeapon )
 	{
 		// make sure attacker is facing the right direction
 		pAttacker->turnTo( pDefender );
 
 		UINT16 id = pAttacker->id();
-
 
 		// Monsters receive special treatment
 		if( id < 0x0190 )
@@ -1016,7 +1034,7 @@ namespace Combat
 		}
 
 		// Show flying arrows if archery was used
-		if( fightskill == ARCHERY )
+/*		if( fightskill == ARCHERY )
 		{
 			if( los )
 			{
@@ -1033,7 +1051,7 @@ namespace Combat
 					movingeffect3( pAttacker, pDefender, 0x1B, 0xFE, 0x08, 0x00, 0x00,0,0,0,0 );
 				}
 			}
-		}
+		}*/
 	}
 
 	bool isTimerOk( P_CHAR pc )
@@ -1041,7 +1059,7 @@ namespace Combat
 		if( !pc )
 			return false;
 
-		if( ( pc->timeout() < uiCurrentTime ) && ( pc->timeout2() < uiCurrentTime ) ) 
+		if( pc->timeout() < uiCurrentTime ) 
 			return true;
 	
 		return false;
@@ -1210,53 +1228,6 @@ namespace Combat
 		}
 
 		pChar->soundEffect( soundId );
-	}
-
-	void playSoundEffect( P_CHAR pc, UI16 fightskill, P_ITEM pWeapon )
-	{
-		bool heavy = false;
-		int a = RandomNum( 0, 3 );
-
-		//check if a heavy weapon
-		if( pWeapon && IsAxe( pWeapon->id() ) )
-			heavy = true;
-
-		if( heavy )
-		{
-			if (a==0 || a==1) pc->soundEffect( 0x236 );
-			else pc->soundEffect( 0x237 );
-			return;
-		}		
-
-		switch( fightskill )
-		{
-		case ARCHERY:
-			pc->soundEffect( 0x234);
-			break;
-		case FENCING:
-		case SWORDSMANSHIP:
-			if (a==0 || a==1) 
-				pc->soundEffect( 0x23B );
-			else 
-				pc->soundEffect( 0x23C );
-			break;
-		case MACEFIGHTING:
-			if ( a==0 || a==1 ) 
-				pc->soundEffect( 0x232 );
-			else if ( a==2 ) 
-				pc->soundEffect( 0x139 );
-			else 
-				pc->soundEffect( 0x233 );
-			break;
-		case WRESTLING:
-			if (a==0) pc->soundEffect( 0x135 );
-			else if (a==1) pc->soundEffect( 0x137 );
-			else if (a==2) pc->soundEffect( 0x13D );
-			else pc->soundEffect( 0x13B );
-			break;
-		default:
-			pc->soundEffect( 0x13D );
-		}
 	}
 
 	void spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos )

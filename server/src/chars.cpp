@@ -212,7 +212,6 @@ void cChar::Init(bool ser)
 	this->war_ = false; // War Mode
 	this->targ_=INVALID_SERIAL; // Current combat target
 	this->timeout_=0; // Combat timeout (For hitting)
-	this->timeout2_=0;
 	this->regen_=0;
 	this->regen2_=0;
 	this->regen3_=0;//Regeneration times for mana, stamin, and str
@@ -432,7 +431,6 @@ void cChar::fight(P_CHAR other)
 	this->attacker_ = other->serial;
 	if (this->isNpc())
 	{
-
 		if (!this->war_)
 			toggleCombat();
 
@@ -2081,9 +2079,9 @@ void cChar::kill()
 
 			if( pc_t->attacker() != INVALID_SERIAL )
 			{
-				P_CHAR pc_attacker = FindCharBySerial(pc_t->attacker());
+				P_CHAR pc_attacker = FindCharBySerial( pc_t->attacker() );
 				pc_attacker->resetAttackFirst();
-				pc_attacker->setAttacker(INVALID_SERIAL);
+				pc_attacker->setAttacker( INVALID_SERIAL );
 			}
 
 			pc_t->setAttacker(INVALID_SERIAL);
@@ -3031,6 +3029,7 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 	if( bodypart == ALLBODYPARTS )
 	{
 		P_ITEM pShield = leftHandItem();
+		
 		// Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
 		if( pShield && IsShield( pShield->id() ) )
 			total += ( (UI16)floor( (float)( skill( PARRYING ) * pShield->def ) / 200.0f ) + 1 );
@@ -3134,8 +3133,9 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 		}
 	}
 	
-	if( total < 2 && bodypart == ALLBODYPARTS ) 
-		total = 2;
+	// Base AR ?
+	/*if( total < 2 && bodypart == ALLBODYPARTS ) 
+		total = 2;*/
 
 	return total;
 }
