@@ -513,18 +513,18 @@ class  cUORxAosMultiPurpose : public cUOPacket
 public:
 	enum eSubCommands
 	{
-		CHBackup =		0x02, //Custom house backup
-		CHRestore =		0x03, //Custom house restore
-		CHCommit =		0x04, //Custom house commitment
-		CHDelete =		0x05, //Custom house delete
+		CHBackup =		0x02, //Custom house backup, no additional data in packet (nadip)
+		CHRestore =		0x03, //Custom house restore (nadip)
+		CHCommit =		0x04, //Custom house commitment (nadip)
+		CHDelete =		0x05, //Custom house delete element
 		CHAddElement =	0x06, //Build wall or other element when customizing house
-		CHClose	=		0x0C, //Close CH designer
+		CHClose	=		0x0C, //Close CH designer (nadip)
 		CHStairs =		0x0D, //Build stairs
-		CHSync =		0x0E, //Sync
-		CHClear =		0x10, //Clear
+		CHSync =		0x0E, //Sync (nadip)
+		CHClear =		0x10, //Clear (nadip)
 		CHLevel =		0x12, //Select house level
 		AbilitySelect =	0x19, //Ability select
-		CHRevert =		0x1A, //Revert
+		CHRevert =		0x1A, //Revert (nadip)
 	};
 
 	cUORxAosMultiPurpose( const QByteArray &data ): cUOPacket( data ) {}
@@ -533,6 +533,39 @@ public:
 	static cUOPacket *packet( const QByteArray& data );
 };
 
-#endif
+// 0xD7 0x05 Custom house delete element
+class cUORxCHDelete : public cUORxAosMultiPurpose
+{
+public:
+	UINT32 elementId() const { return getInt( 10 ); }
+	UINT32 x() const { return getInt( 15 ); }
+	UINT32 y() const { return getInt( 20 ); }
+	// z is == level z
+};
+// 0xD7 0x06 Build wall or other element when customizing house
+class cUORxCHBuild : public cUORxAosMultiPurpose
+{
+public:
+	UINT32 elementId() const { return getInt( 10 ); }
+	UINT32 x() const { return getInt( 15 ); }
+	UINT32 y() const { return getInt( 20 ); }
+	// z is == level z
+};
+// 0xD7 0x0D Build stairs
+class cUORxCHStairs : public cUORxAosMultiPurpose
+{
+public:
+	UINT32 multiId() const { return getInt( 10 ); }
+	UINT32 x() const { return getInt( 15 ); }
+	UINT32 y() const { return getInt( 20 ); }
+	// z is == level z
+};
+// 0xD7 0x12 Select house level
+class cUORxCHLevel : public cUORxAosMultiPurpose
+{
+public:
+	UINT32 level() const { return getInt( 10 ); }
+};
 
 
+#endif // __UO_RXPACKETS__
