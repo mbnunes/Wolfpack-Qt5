@@ -29,7 +29,7 @@
 //==================================================================================
 
 #include <qptrstack.h>
-#include <python.h>
+#include <Python.h>
 
 class cObjectCache
 {
