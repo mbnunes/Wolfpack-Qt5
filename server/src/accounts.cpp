@@ -42,7 +42,9 @@
 #include "globals.h"
 #include "world.h"
 
-// ===== AccountRecord Methods ===== //
+/*****************************************************************************
+  AccountRecord member functions
+ *****************************************************************************/
 
 AccountRecord::AccountRecord()
 : acl_(0), inUse_(false), flags_(0)
@@ -150,7 +152,86 @@ bool AccountRecord::authorized( const QString& group, const QString& value ) con
 	return false;
 }
 
-// ===== cAccounts ===== //
+void AccountRecord::remove()
+{
+	Accounts::instance()->remove( this );
+}
+
+void cAccounts::remove( AccountRecord *record )
+{
+	if( accounts.contains( record->login() ) )
+		accounts.remove( record->login() );
+	delete record;
+}
+
+void AccountRecord::refreshAcl()
+{
+	acl_ = cCommands::instance()->getACL( aclName_ ); 
+}
+
+bool AccountRecord::isAllMove() const
+{
+	return flags_&0x00000002;
+}
+
+bool AccountRecord::isAllShow() const
+{
+	return flags_&0x00000004;
+}
+
+bool AccountRecord::isShowSerials() const
+{
+	return flags_&0x00000008;
+}
+
+bool AccountRecord::isPageNotify() const
+{
+	return flags_&0x00000010;
+}
+
+void AccountRecord::setBlocked( bool data )
+{
+	if( data )
+		flags_ |= 0x00000001;
+	else
+		flags_ &= 0xFFFFFFFE;
+}
+
+void AccountRecord::setAllMove( bool data )
+{
+	if( data )
+		flags_ |= 0x00000002;
+	else
+		flags_ &= 0xFFFFFFFD;
+}
+
+void AccountRecord::setAllShow( bool data )
+{
+	if( data )
+		flags_ |= 0x00000004;
+	else
+		flags_ &= 0xFFFFFFFB;
+}
+
+void AccountRecord::setShowSerials( bool data )
+{
+	if( data )
+		flags_ |= 0x00000008;
+	else
+		flags_ &= 0xFFFFFFF7;
+}
+
+void AccountRecord::setPageNotify( bool data )
+{
+	if( data )
+		flags_ |= 0x00000010;
+	else
+		flags_ &= 0xFFFFFFEF;
+}
+
+/*****************************************************************************
+  cAccounts member functions
+ *****************************************************************************/
 
 cAccounts::~cAccounts()
 {
@@ -326,79 +407,3 @@ AccountRecord* cAccounts::getRecord( const QString& login )
 		return it.data();
 }
 
-void AccountRecord::remove()
-{
-	Accounts::instance()->remove( this );
-}
-
-void cAccounts::remove( AccountRecord *record )
-{
-	if( accounts.contains( record->login() ) )
-		accounts.remove( record->login() );
-	delete record;
-}
-
-void AccountRecord::refreshAcl()
-{
-	acl_ = cCommands::instance()->getACL( aclName_ ); 
-}
-
-bool AccountRecord::isAllMove() const
-{
-	return flags_&0x00000002;
-}
-
-bool AccountRecord::isAllShow() const
-{
-	return flags_&0x00000004;
-}
-
-bool AccountRecord::isShowSerials() const
-{
-	return flags_&0x00000008;
-}
-
-bool AccountRecord::isPageNotify() const
-{
-	return flags_&0x00000010;
-}
-
-void AccountRecord::setBlocked( bool data )
-{
-	if( data )
-		flags_ |= 0x00000001;
-	else
-		flags_ &= 0xFFFFFFFE;
-}
-
-void AccountRecord::setAllMove( bool data )
-{
-	if( data )
-		flags_ |= 0x00000002;
-	else
-		flags_ &= 0xFFFFFFFD;
-}
-
-void AccountRecord::setAllShow( bool data )
-{
-	if( data )
-		flags_ |= 0x00000004;
-	else
-		flags_ &= 0xFFFFFFFB;
-}
-
-void AccountRecord::setShowSerials( bool data )
-{
-	if( data )
-		flags_ |= 0x00000008;
-	else
-		flags_ &= 0xFFFFFFF7;
-}
-
-void AccountRecord::setPageNotify( bool data )
-{
-	if( data )
-		flags_ |= 0x00000010;
-	else
-		flags_ &= 0xFFFFFFEF;
-}

@@ -28,8 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "Python.h"
-
 // Wolfpack Includes
 #include "pfactory.h"
 #include "world.h"
@@ -208,6 +206,9 @@ void cWorld::loadSql()
 		res.fetchrow();
 		UINT32 count = res.getInt( 0 );
 		res.free();
+
+		if ( count == 0 )
+			continue; // Move on...
 
 		clConsole.send( "\n"+tr("Loading ") + QString::number( count ) + tr(" objects of type ") + type );
 

@@ -28,14 +28,15 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+#include "engine.h"
+
 #include "../wpconsole.h"
 #include "../globals.h"
 
 // Library includes
-#include "qdom.h"
-#include "qstring.h"
-#include "qfile.h"
-#include "Python.h"
+#include <qdom.h>
+#include <qstring.h>
+#include <qfile.h>
 #include <zthread/Thread.h>
 
 // Forward declaration for wolfpack extension function

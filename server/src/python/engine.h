@@ -33,6 +33,21 @@
 	which uses it for startup of the python engine
 */
 
+#if !defined(__PYTHON_ENGINE_H__)
+#define __PYTHON_ENGINE_H__
+
+#include <qglobal.h>
+
+#if defined(_DEBUG) && defined(Q_CC_MSVC)
+#	undef _DEBUG
+#	include <Python.h>
+#	define _DEBUG
+#else
+#	include <Python.h>
+#endif
+
 void reloadPython( void );
 void stopPython( void );
 void startPython( int argc, char* argv[], bool silent = false );
+
+#endif // __PYTHON_ENGINE_H__

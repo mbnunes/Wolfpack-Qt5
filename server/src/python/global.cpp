@@ -28,7 +28,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "Python.h"
+#include "engine.h"
 
 #include "../globals.h"
 #include "../network/uosocket.h"

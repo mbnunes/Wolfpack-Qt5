@@ -32,7 +32,7 @@
 #define __WPPYTHONSCRIPT_H__
 
 #include "../wpdefaultscript.h"
-#include "Python.h"
+#include "engine.h"
 
 class cUORxTarget;
 

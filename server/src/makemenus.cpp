@@ -28,8 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "Python.h"
-
 #include "makemenus.h"
 #include "wolfpack.h"
 #include "network/uosocket.h"
@@ -39,7 +37,6 @@
 #include "basechar.h"
 #include "resources.h"
 #include "srvparams.h"
-#include "Python.h"
 #include "python/utilities.h"
 
 #include "debug.h"

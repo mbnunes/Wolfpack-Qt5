@@ -27,7 +27,7 @@
 //
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
-#include "Python.h"
+#include "engine.h"
 #include "utilities.h"
 
 #include "../network/uotxpackets.h"

@@ -28,8 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "Python.h"
-
 #include "wolfpack.h"
 #include "wpscriptmanager.h"
 #include "wpdefmanager.h"

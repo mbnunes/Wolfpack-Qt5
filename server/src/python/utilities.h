@@ -31,7 +31,7 @@
 #if !defined( __UTILITIES_H__ )
 #define __UTILITIES_H__
 
-#include "Python.h"
+#include "engine.h"
 #include "pyerrors.h"
 
 #include "../typedefs.h"
