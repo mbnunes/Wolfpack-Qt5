@@ -53,10 +53,7 @@ def onShowTooltip(viewer, object, tooltip):
         tooltip.add(1050045, "%u\t#%u\t%s" % (object.amount, prefix, itemname))
       else:
         # orename\tname
-        if object.hastag('exceptional'):
-          tooltip.add(1053100, "#%u\t%s" % (prefix, itemname))
-        else:
-          tooltip.add(1053099, "#%u\t%s" % (prefix, itemname))
+        tooltip.add(1053099, "#%u\t%s" % (prefix, itemname))
 
   # Exceptional item?
   if object.hastag('exceptional'):
