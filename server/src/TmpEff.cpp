@@ -642,10 +642,11 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			{
 				pTE->Reverse();
 				teffects.erase( teffects.begin() + i ); // Should we continue searching?
-				make_heap( teffects.begin(), teffects.end(), ComparePredicate() );
 			}
 		}
 	}
+
+	make_heap( teffects.begin(), teffects.end(), ComparePredicate() );
 
 	pTE = new cTmpEff;
 	pTE->Init();
