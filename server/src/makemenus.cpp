@@ -1200,7 +1200,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			if( sections[0]->skilledEnough( pChar ) )
 			{
 				cMakeAction* action = actions[ choice.button - submenus.size() - 4 ];
-				std::vector< cMakeSection* > &makesections = action->makesections();
+				std::vector< cMakeSection* > makesections = action->makesections();
 				cMakeSection* section = makesections[0];
 				cMakeMenu* basemenu = menu_->baseMenu();
 				pChar->setLastSection( basemenu, section );
