@@ -16,6 +16,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Removed command: kill
 		- Removed command: fix
 		- Removed command: resend
+		- Removed command: allskills
 		- Region Updates/Fixes.
 			Added flags: noentermessage and noguardmessage
 			Fixed guardowner messages
@@ -40,6 +41,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- New command: kill
 		- New command: fix
 		- New command: resend
+		- New command: allskills
 		- Fixed carving
 		- Fixed sheering of sheeps and wool regrowing
 		- Rudimentarily Implemented Map Plotting
