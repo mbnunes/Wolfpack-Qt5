@@ -198,7 +198,7 @@ class BowcraftMenu(MakeMenu):
       if item.maxhealth <= weaken:
         player.socket.clilocmessage(500424)
         item.delete()
-      elif player.checkskill(TAILORING, 0, 1000):
+      elif player.checkskill(BOWCRAFT, 0, 1000):
         player.socket.clilocmessage(1044279)
         item.maxhealth -= weaken
         item.health = item.maxhealth
