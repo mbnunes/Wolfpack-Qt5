@@ -54,25 +54,20 @@ class cBounty;
 #include "wolfpack.h"
 #include "bounty.h"
 
-//##ModelId=3C5D932B0132
 class cBounty
 {
 public:
      // Ask victim if they want to post a bounty on the
      // murderer, and if so, then return the amount of the
      // reward they want to place on the murderers head.
-	//##ModelId=3C5D932B015A
      void BountyAskVictim  ( int nVictimSerial,
                              int nMurdererSerial );
      // Create the bounty on the murderer
-	//##ModelId=3C5D932B0178
      bool BountyCreate     ( int nMurdererSerial,
                              int nRewardAmount );
      // Remove the bounty from the murderer
-	//##ModelId=3C5D932B0218
      bool BountyDelete     ( int nMurdererSerial );
      // Check and then withdraw the bounty amount
-	//##ModelId=3C5D932B022C
      bool BountyWithdrawGold( P_CHAR pVictim, int nAmount );
 };
 

@@ -71,34 +71,21 @@ extern signed short int iMediumShipOffsets[4][4][2];
 extern signed short int iLargeShipOffsets[4][4][2];
 extern unsigned char cShipItems[4][6];
 
-
-//##ModelId=3C5D932D00BC
 class cBoat 
 {
 	private:
-	//##ModelId=3C5D932D00E4
 		void LeaveBoat(int, P_ITEM);		
-	//##ModelId=3C5D932D0102
 		bool Block(P_ITEM, short int, short int,int);
-	//##ModelId=3C5D932D0134
 		void TurnStuff(P_ITEM pBoat, P_CHAR pc_i, int dir);
-	//##ModelId=3C5D932D015C
 		void TurnStuff(P_ITEM pBoat, P_ITEM pi, int dir);
 
 	public:
-	//##ModelId=3C5D932D017B
 		P_ITEM GetBoat(P_CHAR);
-	//##ModelId=3C5D932D0379
 		char Speech(int, char *);
-	//##ModelId=3C5D932D0397
 		void OpenPlank(P_ITEM);
-	//##ModelId=3C5D932E0013
 		void PlankStuff(UOXSOCKET, P_ITEM);
-	//##ModelId=3C5D932E003C
 		bool Build(int, P_ITEM pBoat, char);
-	//##ModelId=3C5D932E0104
 		void Move(int, int, P_ITEM pBoat);
-	//##ModelId=3C5D932E0122
 		void Turn(P_ITEM pBoat, int);
 };
 #endif
