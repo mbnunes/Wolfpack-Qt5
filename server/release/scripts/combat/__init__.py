@@ -116,3 +116,7 @@ def onShowStatus(char, packet):
 	packet.setshort(78, properties.fromchar(char, LUCK)) # Luck
 	packet.setshort(80, mindamage) # Min. Damage
 	packet.setshort(82, maxdamage) # Max. Damage
+	if char.hastag('tithing_points'):
+		packet.setint(84, char.gettag('tithing_points')) # Tithing Points
+	else:
+		packet.setint(84, 0)
