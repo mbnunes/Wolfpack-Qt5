@@ -10,55 +10,55 @@
 
 	<!-- helmets -->
 	<!-- bascinet helmet -->
-	<item id="shadow_helmets_bascinet" inherit="140d">
+	<item id="140d_shadow" inherit="140d">
 		<shadow_armor />
 		<baseid>140d</baseid>
-		<category>Armor\Shadow Iron\Helmets\Bascinet (N/S)</category>
+		<category>Armor\Shadow\Helmets\Bascinet (N/S)</category>
 	</item>
 
-	<item id="shadow_helmets_bascinet_2" inherit="140c">
+	<item id="140c_shadow" inherit="140c">
 		<shadow_armor />
-		<baseid>140c</baseid>
-		<category>Armor\Shadow Iron\Helmets\Bascinet (E/W)</category>
+		<baseid>140d</baseid>
+		<category>Armor\Shadow\Helmets\Bascinet (E/W)</category>
 	</item>
 
 	<!-- nose helmet -->
-	<item id="shadow_helmets_nose" inherit="140f">
+	<item id="140f_shadow" inherit="140f">
 		<shadow_armor />
 		<baseid>140f</baseid>
-		<category>Armor\Shadow Iron\Helmets\Nose (N/S)</category>
+		<category>Armor\Shadow\Helmets\Nose (N/S)</category>
 	</item>
 
-	<item id="shadow_helmets_nose_2" inherit="140e">
+	<item id="140e_shadow" inherit="140e">
 		<shadow_armor />
-		<baseid>140e</baseid>
-		<category>Armor\Shadow Iron\Helmets\Nose (E/W)</category>
+		<baseid>140f</baseid>
+		<category>Armor\Shadow\Helmets\Nose (E/W)</category>
 	</item>
 
 	<!-- normal helmet -->
-	<item id="shadow_helmets_helmet" inherit="140b">
+	<item id="140b_shadow" inherit="140b">
 		<shadow_armor />
 		<baseid>140b</baseid>
-		<category>Armor\Shadow Iron\Helmets\Helmet (N/S)</category>
+		<category>Armor\Shadow\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="shadow_helmets_helmet_2" inherit="140a">
+	<item id="140a_shadow" inherit="140a">
 		<shadow_armor />
-		<baseid>140a</baseid>
-		<category>Armor\Shadow Iron\Helmets\Helmet (E/W)</category>
+		<baseid>140b</baseid>
+		<category>Armor\Shadow\Helmets\Helmet (E/W)</category>
 	</item>
 
 	<!-- close helmet -->
-	<item id="shadow_helmets_close" inherit="1409">
-		<shadow_armor />
-		<baseid>1409</baseid>
-		<category>Armor\Shadow Iron\Helmets\Close Helm (N/S)</category>
-	</item>
-
-	<item id="shadow_helmets_close_2" inherit="1408">
+	<item id="1408_shadow" inherit="1408">
 		<shadow_armor />
 		<baseid>1408</baseid>
-		<category>Armor\Shadow Iron\Helmets\Close Helm (E/W)</category>
+		<category>Armor\Shadow\Helmets\Close Helm (N/S)</category>
+	</item>
+
+	<item id="1409_shadow" inherit="1409">
+		<shadow_armor />
+		<baseid>1408</baseid>
+		<category>Armor\Shadow\Helmets\Close Helm (E/W)</category>
 	</item>
 
 </definitions>

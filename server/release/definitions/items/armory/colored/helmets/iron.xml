@@ -10,52 +10,52 @@
 
 	<!-- helmets -->
 	<!-- bascinet helmet -->
-	<item id="iron_helmets_bascinet" inherit="140d">
+	<item id="140d_iron" inherit="140d">
 		<iron_armor />
 		<baseid>140d</baseid>
 		<category>Armor\Iron\Helmets\Bascinet (N/S)</category>
 	</item>
 
-	<item id="iron_helmets_bascinet_2" inherit="140c">
+	<item id="140c_iron" inherit="140c">
 		<iron_armor />
-		<baseid>140c</baseid>
+		<baseid>140d</baseid>
 		<category>Armor\Iron\Helmets\Bascinet (E/W)</category>
 	</item>
 
 	<!-- nose helmet -->
-	<item id="iron_helmets_nose" inherit="140f">
+	<item id="140f_iron" inherit="140f">
 		<iron_armor />
 		<baseid>140f</baseid>
 		<category>Armor\Iron\Helmets\Nose (N/S)</category>
 	</item>
 
-	<item id="iron_helmets_nose_2" inherit="140e">
+	<item id="140e_iron" inherit="140e">
 		<iron_armor />
-		<baseid>140e</baseid>
+		<baseid>140f</baseid>
 		<category>Armor\Iron\Helmets\Nose (E/W)</category>
 	</item>
 
 	<!-- normal helmet -->
-	<item id="iron_helmets_helmet" inherit="140b">
+	<item id="140b_iron" inherit="140b">
 		<iron_armor />
 		<baseid>140b</baseid>
 		<category>Armor\Iron\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="iron_helmets_helmet_2" inherit="140a">
+	<item id="140a_iron" inherit="140a">
 		<iron_armor />
-		<baseid>140a</baseid>
+		<baseid>140b</baseid>
 		<category>Armor\Iron\Helmets\Helmet (E/W)</category>
 	</item>
 
 	<!-- close helmet -->
-	<item id="iron_helmets_close" inherit="1409">
+	<item id="1408_iron" inherit="1408">
 		<iron_armor />
-		<baseid>1409</baseid>
+		<baseid>1408</baseid>
 		<category>Armor\Iron\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="iron_helmets_close_2" inherit="1408">
+	<item id="1409_iron" inherit="1409">
 		<iron_armor />
 		<baseid>1408</baseid>
 		<category>Armor\Iron\Helmets\Close Helm (E/W)</category>

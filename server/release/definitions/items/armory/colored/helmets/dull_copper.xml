@@ -10,52 +10,52 @@
 
 	<!-- helmets -->
 	<!-- bascinet helmet -->
-	<item id="dull_copper_helmets_bascinet" inherit="140d">
+	<item id="140d_dull_copper" inherit="140d">
 		<dull_copper_armor />
 		<baseid>140d</baseid>
 		<category>Armor\Dull Copper\Helmets\Bascinet (N/S)</category>
 	</item>
 
-	<item id="dull_copper_helmets_bascinet_2" inherit="140c">
+	<item id="140c_dull_copper" inherit="140c">
 		<dull_copper_armor />
-		<baseid>140c</baseid>
+		<baseid>140d</baseid>
 		<category>Armor\Dull Copper\Helmets\Bascinet (E/W)</category>
 	</item>
 
 	<!-- nose helmet -->
-	<item id="dull_copper_helmets_nose" inherit="140f">
+	<item id="140f_dull_copper" inherit="140f">
 		<dull_copper_armor />
 		<baseid>140f</baseid>
 		<category>Armor\Dull Copper\Helmets\Nose (N/S)</category>
 	</item>
 
-	<item id="dull_copper_helmets_nose_2" inherit="140e">
+	<item id="140e_dull_copper" inherit="140e">
 		<dull_copper_armor />
-		<baseid>140e</baseid>
+		<baseid>140f</baseid>
 		<category>Armor\Dull Copper\Helmets\Nose (E/W)</category>
 	</item>
 
 	<!-- normal helmet -->
-	<item id="dull_copper_helmets_helmet" inherit="140b">
+	<item id="140b_dull_copper" inherit="140b">
 		<dull_copper_armor />
 		<baseid>140b</baseid>
 		<category>Armor\Dull Copper\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="dull_copper_helmets_helmet_2" inherit="140a">
+	<item id="140a_dull_copper" inherit="140a">
 		<dull_copper_armor />
-		<baseid>140a</baseid>
+		<baseid>140b</baseid>
 		<category>Armor\Dull Copper\Helmets\Helmet (E/W)</category>
 	</item>
 
 	<!-- close helmet -->
-	<item id="dull_copper_helmets_close" inherit="1409">
+	<item id="1408_dull_copper" inherit="1408">
 		<dull_copper_armor />
-		<baseid>1409</baseid>
+		<baseid>1408</baseid>
 		<category>Armor\Dull Copper\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="dull_copper_helmets_close_2" inherit="1408">
+	<item id="1409_dull_copper" inherit="1409">
 		<dull_copper_armor />
 		<baseid>1408</baseid>
 		<category>Armor\Dull Copper\Helmets\Close Helm (E/W)</category>

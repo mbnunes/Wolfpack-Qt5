@@ -10,52 +10,52 @@
 
 	<!-- helmets -->
 	<!-- bascinet helmet -->
-	<item id="silver_helmets_bascinet" inherit="140d">
+	<item id="140d_silver" inherit="140d">
 		<silver_armor />
 		<baseid>140d</baseid>
 		<category>Armor\Silver\Helmets\Bascinet (N/S)</category>
 	</item>
 
-	<item id="silver_helmets_bascinet_2" inherit="140c">
+	<item id="140c_silver" inherit="140c">
 		<silver_armor />
-		<baseid>140c</baseid>
+		<baseid>140d</baseid>
 		<category>Armor\Silver\Helmets\Bascinet (E/W)</category>
 	</item>
 
 	<!-- nose helmet -->
-	<item id="silver_helmets_nose" inherit="140f">
+	<item id="140f_silver" inherit="140f">
 		<silver_armor />
 		<baseid>140f</baseid>
 		<category>Armor\Silver\Helmets\Nose (N/S)</category>
 	</item>
 
-	<item id="silver_helmets_nose_2" inherit="140e">
+	<item id="140e_silver" inherit="140e">
 		<silver_armor />
-		<baseid>140e</baseid>
+		<baseid>140f</baseid>
 		<category>Armor\Silver\Helmets\Nose (E/W)</category>
 	</item>
 
 	<!-- normal helmet -->
-	<item id="silver_helmets_helmet" inherit="140b">
+	<item id="140b_silver" inherit="140b">
 		<silver_armor />
 		<baseid>140b</baseid>
 		<category>Armor\Silver\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="silver_helmets_helmet_2" inherit="140a">
+	<item id="140a_silver" inherit="140a">
 		<silver_armor />
-		<baseid>140a</baseid>
+		<baseid>140b</baseid>
 		<category>Armor\Silver\Helmets\Helmet (E/W)</category>
 	</item>
 
 	<!-- close helmet -->
-	<item id="silver_helmets_close" inherit="1409">
+	<item id="1408_silver" inherit="1408">
 		<silver_armor />
-		<baseid>1409</baseid>
+		<baseid>1408</baseid>
 		<category>Armor\Silver\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="silver_helmets_close_2" inherit="1408">
+	<item id="1409_silver" inherit="1409">
 		<silver_armor />
 		<baseid>1408</baseid>
 		<category>Armor\Silver\Helmets\Close Helm (E/W)</category>

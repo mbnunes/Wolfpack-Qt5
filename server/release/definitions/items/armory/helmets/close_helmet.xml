@@ -9,21 +9,12 @@
 <definitions>
 
 	<!-- Close Helmet North-South -->
-	<item id="1409">
-		<id>0x1409</id>
+	<item id="1408">
+		<id>0x1408</id>
 		<name>close helmet</name>
 		<decay />
 		<nodye />
 		<durability><random min="45" max="60" /></durability>
-		<!--<tag name="req_str" value="30" type="int" />-->
-		<tag name="req_str" value="55" type="int" />
-		<!--
-		<tag name="res_physical" value="3" type="int" />
-		<tag name="res_fire" value="3" type="int" />
-		<tag name="res_cold" value="3" type="int" />
-		<tag name="res_poison" value="3" type="int" />
-		<tag name="res_energy" value="3" type="int" />
-		-->
 		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>12</smelt>
@@ -36,8 +27,9 @@
 	</item>
 
 	<!-- Close Helmet East-West -->
-	<item id="1408" inherit="1409">
-		<id>0x1408</id>
+	<item id="1409" inherit="1408">
+		<id>0x1409</id>
+		<baseid>1408</baseid>
 		<category>Armor\Base\Helmets\Close Helm (E/W)</category>
 	</item>
 

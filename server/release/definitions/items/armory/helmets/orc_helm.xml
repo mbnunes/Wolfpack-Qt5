@@ -14,7 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="30" max="50" /></durability>
-		<tag name="req_str" value="30" type="int" />
 		<restock>10</restock>
 		<smelt>12</smelt>
 		<weight>5.0</weight>
@@ -28,6 +27,7 @@
 	<!-- Orc Helmet East-West -->
 	<item id="1f0c" inherit="1f0b">
 		<id>0x1f0c</id>
+		<baseid>1f0b</baseid>
 		<category>Armor\Base\Helmets\Orc Helm (E/W)</category>
 	</item>
 

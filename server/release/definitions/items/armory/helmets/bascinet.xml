@@ -14,15 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="40" max="50" /></durability>
-		<!--<tag name="req_str" value="30" type="int" />-->
-		<tag name="req_str" value="40" type="int" />
-		<!--
-		<tag name="res_physical" value="7" type="int" />
-		<tag name="res_fire" value="2" type="int" />
-		<tag name="res_cold" value="2" type="int" />
-		<tag name="res_poison" value="2" type="int" />
-		<tag name="res_energy" value="2" type="int" />
-		-->
 		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>12</smelt>
@@ -37,6 +28,7 @@
 	<!-- Bascinet Helmet East-West-->
 	<item id="140c" inherit="140d">
 		<id>0x140c</id>
+		<baseid>140d</baseid>
 		<category>Armor\Base\Helmets\Bascinet (E/W)</category>
 	</item>
 
