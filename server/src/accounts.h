@@ -56,6 +56,7 @@ private:
 	QValueVector<P_PLAYER> characters_;
 	QDateTime lastLogin_;
 	QDateTime blockUntil;
+	QCString email_;
 
 	// Flags for this Account
 	// 0x00000001 blocked
@@ -74,6 +75,7 @@ public:
 
 	QString login() const;
 	QString password() const;
+	const QCString &email() const;
 	unsigned int rank() const;
 	void remove();
 	QValueVector<P_PLAYER> caracterList() const;
@@ -99,6 +101,7 @@ public:
 	QString acl() const;
 	QDateTime lastLogin() const;
 	void setLastLogin( const QDateTime& );
+	void setEmail(const QCString &email );
 	void setBlockUntil( const QDateTime& d );
 	void refreshAcl();
 	void setInUse( bool data );
@@ -210,6 +213,14 @@ inline QDateTime cAccount::lastLogin() const
 inline Q_UINT32 cAccount::flags() const
 {
 	return flags_;
+}
+
+inline const QCString &cAccount::email() const {
+	return email_;
+}
+
+inline void cAccount::setEmail(const QCString &email ) {
+    email_ = email;
 }
 
 inline void cAccount::setLastLogin( const QDateTime& d )

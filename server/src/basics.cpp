@@ -187,6 +187,8 @@ unsigned int getNormalizedTime()
 
 cBufferedWriter::cBufferedWriter( const QCString& magic, unsigned int version )
 {
+	buffersize = 4096;
+
 	d = new cBufferedWriterPrivate;	
 	d->version = version;
 	d->magic = magic;

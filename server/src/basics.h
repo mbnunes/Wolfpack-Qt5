@@ -97,7 +97,7 @@ class cBufferedWriter
 {
 private:
 	class cBufferedWriterPrivate *d;
-	QT_STATIC_CONST int buffersize = 4096;
+	int buffersize;
 
 public:
 	Q_EXPLICIT cBufferedWriter( const QCString& magic, unsigned int version );

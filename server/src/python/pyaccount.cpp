@@ -247,6 +247,9 @@ static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
 
 	if ( !strcmp( name, "acl" ) )
 		return PyString_FromString( self->account->acl().latin1() );
+	else if ( !strcmp( name, "email" ) ) {
+		return QString2Python( self->account->email() );
+	}
 	/*
 		\rproperty account.name The name of this account.
 	*/
@@ -330,6 +333,12 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
 	*/
 	if ( !strcmp( name, "acl" ) && PyString_Check( value ) )
 		self->account->setAcl( PyString_AsString( value ) );
+	/*
+		\property account.email The E-Mail address associated with this account.
+	*/
+	else if ( !strcmp( name, "email" ) ) {
+		self->account->setEmail(Python2QString(value).latin1());
+	}
 	/*
 		\property account.multigems Indicates whether Multis should be sent as Worldgems to this account.
 	*/

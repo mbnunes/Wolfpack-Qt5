@@ -46,6 +46,7 @@ flags int NOT NULL default '0',\
 acl varchar(255) NOT NULL default 'player',\
 lastlogin int NOT NULL default '',\
 blockuntil int NOT NULL default '',\
+email varchar(255) NOT NULL default '',\
 PRIMARY KEY (login)\
 );";
 
@@ -363,9 +364,15 @@ void cAccounts::save()
 			// INSERT
 			cAccount* account = it.data();
 
-			QString sql( "REPLACE INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
+			QString sql( "REPLACE INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6, '%7' );" );
 
-			sql = sql.arg( account->login_.lower() ).arg( account->password_ ).arg( account->flags_ ).arg( account->aclName_ ).arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ).arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 );
+			sql = sql.arg( account->login_.lower() )
+				.arg( account->password_ )
+				.arg( account->flags_ )
+				.arg( account->aclName_ )
+				.arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 )
+				.arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 )
+				.arg( PersistentBroker::instance()->quoteString(account->email_) );
 
 			PersistentBroker::instance()->executeQuery( sql );
 		}
@@ -411,7 +418,7 @@ void cAccounts::load()
 		}
 
 		PersistentBroker::instance()->lockTable( "accounts" );
-		cDBResult result = PersistentBroker::instance()->query( "SELECT login,password,flags,acl,lastlogin,blockuntil FROM accounts;" );
+		cDBResult result = PersistentBroker::instance()->query( "SELECT login,password,flags,acl,lastlogin,blockuntil,email FROM accounts;" );
 
 		// Clear Accounts HERE
 		// Here we can be pretty sure that we have a valid datasource for accounts
@@ -430,6 +437,8 @@ void cAccounts::load()
 
 			if ( result.getInt( 5 ) != 0 )
 				account->blockUntil.setTime_t( result.getInt( 5 ) );
+
+			account->email_ = result.getString( 6 );
 
 			// See if the password can and should be hashed,
 			// Md5 hashes are 32 characters long.
