@@ -259,3 +259,48 @@ stError *cCorpse::getProperty( const QString &name, cVariant &value ) const
 
 	return cItem::getProperty( name, value );
 }
+
+void cCorpse::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
+	cUObject::createTooltip(tooltip, player);
+
+	unsigned int notoriety = 0;
+
+	if (tags_.has("notoriety")) {
+		notoriety = tags_.get("notoriety").toInt();
+	}
+
+	QString color;
+
+	switch (notoriety) {
+		case 1:
+			color = "#00FFFF";
+			break;
+
+		case 2:
+			color = "#10d010";
+			break;
+
+		case 3:
+		case 4:
+			color = "#d0d0d0";
+			break;
+
+		case 5:
+			color = "#ff9900";
+			break;
+
+		case 6:
+			color = "#d01010";
+			break;
+
+		default:
+			color = QString::null;
+			break;
+	};
+
+	if (color.isEmpty()) {
+		tooltip.addLine(1050045, QString(" \tThe Remains Of %1\t ").arg(name_));
+	} else {
+        tooltip.addLine(1050045, QString("<basefont color=\"%1\"> \tThe Remains Of %2\t ").arg(color).arg(name_));
+	}
+}

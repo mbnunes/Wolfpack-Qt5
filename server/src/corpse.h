@@ -109,6 +109,7 @@ public:
 
 	virtual stError *setProperty( const QString &name, const cVariant &value );
 	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 };
 
 // Inline members
