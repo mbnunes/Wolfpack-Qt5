@@ -202,7 +202,7 @@ CREATE TABLE items (
   glow int(11) NOT NULL default '0',
   glow_color smallint(5) unsigned NOT NULL default '0',
   glowtype int(11) NOT NULL default '0',
-  desc varchar(255) default NULL,
+  `desc` varchar(255) default NULL,
   carve varchar(255) default NULL,
   accuracy int(11) NOT NULL default '0',
   PRIMARY KEY  (serial),
