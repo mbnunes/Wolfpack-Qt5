@@ -807,9 +807,7 @@ void cNPC::giveGold( Q_UINT32 amount, bool inBank )
 
 	while( total > 0 )
 	{
-		P_ITEM pile = new cItem;
-		pile->Init();
-		pile->setId( 0xEED );
+		P_ITEM pile = cItem::createFromScript( "eed" );
 		pile->setAmount( QMIN( total, static_cast<Q_UINT32>(65535) ) );
 		pCont->addItem( pile );
 		total -= pile->amount();
@@ -1472,11 +1470,8 @@ void cNPC::makeShop()
 	P_ITEM currCont = GetItemOnLayer( BuyRestockContainer );
 	if( !currCont )
 	{
-		currCont = new cItem;
-		currCont->Init();
-		currCont->setId( 0xE75 );
+		currCont = cItem::createFromScript( "e75" );
 		currCont->setOwner( this );
-		currCont->setType( 1 );		
 		addItem( BuyRestockContainer, currCont );
 		currCont->update();
 	}
@@ -1484,11 +1479,8 @@ void cNPC::makeShop()
 	currCont = GetItemOnLayer( BuyNoRestockContainer );
 	if( !currCont )
 	{
-		currCont = new cItem;
-		currCont->Init();
-		currCont->setId( 0xE75 );
+		currCont = cItem::createFromScript( "e75" );
 		currCont->setOwner( this );
-		currCont->setType( 1 );		
 		addItem( BuyNoRestockContainer, currCont );
 		currCont->update();
 	}
@@ -1496,11 +1488,8 @@ void cNPC::makeShop()
 	currCont = GetItemOnLayer( SellContainer );
 	if( !currCont )
 	{
-		currCont = new cItem;
-		currCont->Init();
-		currCont->setId( 0xE75 );
+		currCont = cItem::createFromScript( "e75" );
 		currCont->setOwner( this );
-		currCont->setType( 1 );		
 		addItem( SellContainer, currCont );
 		currCont->update();
 	}

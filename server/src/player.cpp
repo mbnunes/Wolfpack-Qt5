@@ -981,16 +981,14 @@ P_ITEM cPlayer::getBankBox( void )
 {
 	P_ITEM pi = atLayer( BankBox );
 	
-	if ( pi )
-		return pi;
-
-	pi = new cItem;
-	pi->Init();
-	pi->setId( 0x9ab );
-	pi->SetOwnSerial( this->serial() );
-	pi->setType( 1 );
-	pi->setName( tr( "%1's bank box" ).arg( name() ) );
-	addItem( BankBox, pi, true, true );
+	if( !pi )
+	{
+		pi = cItem::createFromScript( "9ab" );
+		pi->setOwner( this );
+		pi->setType( 1 );
+		pi->setName( tr( "%1's bank box" ).arg( name() ) );
+		addItem( BankBox, pi, true, true );
+	}
 
 	return pi;
 }

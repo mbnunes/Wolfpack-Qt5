@@ -28,8 +28,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-/* House code for deed creation by Tal Strake, revised by Cironian */
-
+#include "console.h"
 #include "house.h"
 #include "persistentbroker.h"
 #include "sectors.h"
@@ -58,57 +57,66 @@ using namespace std;
 
 void cHouse::processHouseItemNode( const cElement *Tag )
 {
-	P_CHAR pOwner = FindCharBySerial( ownSerial() );
-	P_ITEM nItem = new cItem;
+	const QString &id = Tag->getAttribute( "id" );
+	P_ITEM nItem = 0;
 
-	if( !nItem )
-		return;
-	
-	nItem->Init( true );
-	nItem->applyDefinition( Tag );
-
-	if( nItem->type() == 222 )
-		nItem->setName( name() );
-
-	nItem->SetOwnSerial( this->ownSerial() );
-	addItem( nItem );
-	Coord_cl npos = this->pos();
-
-	for( unsigned int i = 0; i < Tag->childCount(); ++i )
+	if( id != QString::null )
 	{
-		const cElement *childTag = Tag->getChild( i );
-		
-		QString TagName = childTag->name();
-		QString Value = childTag->getValue();
+		nItem = cItem::createFromScript( id );
+	}	 
 
-		// <pack />
-		if( TagName == "pack" && pOwner )
+	if( nItem )
+	{
+		P_CHAR pOwner = FindCharBySerial( ownSerial() );
+		nItem->applyDefinition( Tag );
+
+		if( nItem->type() == 222 )
+			nItem->setName( name() );
+
+		nItem->SetOwnSerial( this->ownSerial() );
+		addItem( nItem );
+		Coord_cl npos = this->pos();
+
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			P_ITEM pBackpack = pOwner->getBackpack();
-			pBackpack->addItem( nItem );
+			const cElement *childTag = Tag->getChild( i );
+			
+			QString TagName = childTag->name();
+			QString Value = childTag->getValue();
+
+			// <pack />
+			if( TagName == "pack" && pOwner )
+			{
+				P_ITEM pBackpack = pOwner->getBackpack();
+				pBackpack->addItem( nItem );
+			}
+
+			// <lock />
+			else if( TagName == "lock" )
+			{
+				nItem->setMagic(4);
+			}
+
+			// <secure />
+			else if( TagName == "secure" )
+				nItem->setMagic(3);
+
+			// <position x="1" y="5" z="20" />
+			else if( TagName == "position" )
+			{
+				npos.x = npos.x + childTag->getAttribute( "x" ).toShort();
+				npos.y = npos.y + childTag->getAttribute( "y" ).toShort();
+				npos.z = npos.z + childTag->getAttribute( "z" ).toShort();
+			}
 		}
 
-		// <lock />
-		else if( TagName == "lock" )
-		{
-			nItem->setMagic(4);
-		}
-
-		// <secure />
-		else if( TagName == "secure" )
-			nItem->setMagic(3);
-
-		// <position x="1" y="5" z="20" />
-		else if( TagName == "position" )
-		{
-			npos.x = npos.x + childTag->getAttribute( "x" ).toShort();
-			npos.y = npos.y + childTag->getAttribute( "y" ).toShort();
-			npos.z = npos.z + childTag->getAttribute( "z" ).toShort();
-		}
+		nItem->moveTo( npos );
+		nItem->update();
 	}
-
-	nItem->moveTo( npos );
-	nItem->update();
+	else
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Invalid item node missing id attribute in multi '%1'." ).arg( Tag->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+	}
 }
 
 bool cHouse::onValidPlace()

@@ -76,7 +76,8 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 
 	// Otherwise create our item here
-	P_ITEM pItem = NULL;
+	P_ITEM pItem = 0;
+	
 	if( node )
 		pItem = cItem::createFromScript( item_ );
 	else
