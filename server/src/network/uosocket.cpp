@@ -2167,6 +2167,15 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 
 	send( &sendStats );
 
+	// Send Statlocks
+	if (pChar ==_player)
+	{
+		cUOTxExtendedStats stats;
+		stats.setSerial(_player->serial());
+		stats.setLocks(_player->strengthLock(), _player->dexterityLock(), _player->intelligenceLock());
+		send(&stats);
+	}
+
 	// Send the packet to our party members too
 	if (pChar == _player && _player->party()) {
 		QPtrList<cPlayer> members = _player->party()->members();

@@ -207,7 +207,7 @@ def onWearItem(player, wearer, item, layer):
   weapon = itemcheck(item, ITEM_WEAPON)
   shield = itemcheck(item, ITEM_SHIELD)
 
-  if item.health < 1:
+  if (armor or weapon or shield) and item.health < 1:
     player.socket.sysmessage('You need to repair this before using it again.')
     return 1    
 
@@ -217,36 +217,48 @@ def onWearItem(player, wearer, item, layer):
 # Grant certain stat or skill boni.
 #
 def onEquip(char, item, layer):
+  changed = 0
+
   # Bonus Strength
   if item.hastag('boni_str'):
     char.strength = char.strength + int(item.gettag('boni_str'))
+    changed = 1
 
   # Bonus Dex
   if item.hastag('boni_dex'):
     char.dexterity = char.dexterity + int(item.gettag('boni_dex'))
+    changed = 1
 
   # Bonus Int
   if item.hastag('boni_int'):
     char.intelligence = char.intelligence + int(item.gettag('boni_int'))
+    changed = 1
 
   # Update Stats
-  char.updatestats()
+  if changed:
+    char.updatestats()
 
 #
 # Remove certain stat or skill boni.
 #
 def onUnequip(char, item, layer):
+  changed = 0
+
   # Bonus Str
   if item.hastag('boni_str'):
     char.strength = char.strength - int(item.gettag('boni_str'))
+    changed = 1
 
   # Bonus Dex
   if item.hastag('boni_dex'):
     char.dexterity = char.dexterity - int(item.gettag('boni_dex'))
+    changed = 1
 
   # Bonus Int
   if item.hastag('boni_int'):
     char.intelligence = char.intelligence - int(item.gettag('boni_int'))
+    changed = 1
 
   # Update Stats
-  char.updatestats()
+  if changed:
+    char.updatestats()

@@ -712,6 +712,8 @@ static PyObject* wpItem_countitems(wpItem *self, PyObject *args) {
 		PyObject *item = PyList_GetItem(list, i);
 		if (PyString_Check(item)) {
 			baseids.append(PyString_AsString(item));
+		} else if (PyUnicode_Check(item)) {
+			baseids.append(QString::fromUcs2((ushort*)PyUnicode_AsUnicode(item)));
 		}
 	}
 
@@ -731,6 +733,8 @@ static PyObject* wpItem_removeitems(wpItem *self, PyObject *args) {
 		PyObject *item = PyList_GetItem(list, i);
 		if (PyString_Check(item)) {
 			baseids.append(PyString_AsString(item));
+		} else if (PyUnicode_Check(item)) {
+			baseids.append(QString::fromUcs2((ushort*)PyUnicode_AsUnicode(item)));
 		}
 	}
 
