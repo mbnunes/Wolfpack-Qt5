@@ -243,6 +243,7 @@
 
 	<item id="154d" inherit="e77">
 		<id>0x154d</id>
+		<watersource>1</watersource>
 		<category>Equipment\Containers\Barrel 3</category>
 	</item>
 

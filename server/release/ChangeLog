@@ -37,6 +37,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Removed carve tags (and related files) which are no longer used.
   - Support for client 4.0.8.
   - Added Samurai Empire craftables to the tailoring menu.
+  - Added watersource tags (bug #0000399)
  * Python Script Changes:
   - Added a follow command.
   - Tinkers can now choose a second material.

@@ -178,6 +178,7 @@
 	<!-- Glass Pitcher -->
 	<item id="9a7">
 		<id>0x9a7</id>
+		<basescripts>beverage</basescripts>
 		<category>Professions\Cook\Kitchen\Glass Pitcher (empty)</category>
 	</item>
 
