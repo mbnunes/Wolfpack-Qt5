@@ -131,7 +131,8 @@ private:
 	{
 		MT_CHARS,
 		MT_CHARSANDOFFLINE,
-		MT_ITEMS
+		MT_ITEMS,
+		MT_MULTIS
 	};
 
 	cSectorIterator* findObjects( MapType type, cSectorMap* map, uint x, uint y );
@@ -156,6 +157,9 @@ public:
 	cItemSectorIterator* findItems( unsigned char map, uint x, uint y ); // Find items in a specific block
 	cItemSectorIterator* findItems( unsigned char map, uint x1, uint y1, uint x2, uint y2 );
 	cItemSectorIterator* findItems( const Coord_cl& center, unsigned char distance );
+	
+	cItemSectorIterator* findMultis( const Coord_cl& center, unsigned char distance );
+	cItemSectorIterator* findMultis( unsigned char map, uint x1, uint y1, uint x2, uint y2 );
 
 	cCharSectorIterator* findChars( unsigned char map, uint x, uint y, bool includeoffline = false ); // Find items in a specific block
 	cCharSectorIterator* findChars( unsigned char map, uint x1, uint y1, uint x2, uint y2, bool includeoffline = false );

@@ -162,7 +162,7 @@ cMulti* cMulti::find( const Coord_cl& pos )
 	cMulti* multi = 0;
 
 	// Multi Range = BUILDRANGE
-	cItemSectorIterator* iter = SectorMaps::instance()->findItems( pos, BUILDRANGE );
+	cItemSectorIterator* iter = SectorMaps::instance()->findMultis( pos, BUILDRANGE );
 
 	for ( cItem*item = iter->first(); item; item = iter->next() )
 	{

@@ -33,6 +33,7 @@
 #include "items.h"
 #include "muls/multiscache.h"
 #include "muls/maps.h"
+#include "multi.h"
 
 #include "muls/tilecache.h"
 #include "network/uotxpackets.h"
@@ -198,11 +199,14 @@ inline bool checkBlockingTiles(const Coord_cl &pos, const Coord_cl &target) {
 			}
 		}
 
-		if (!found) {
+		delete items;
+
+		if (!found) {			
 			return true;
 		}
 	}
 
+	// Find blocking statics
 	for (; !statics.atEnd(); ++statics) {
 		const staticrecord &item = *statics;
 
@@ -215,7 +219,7 @@ inline bool checkBlockingTiles(const Coord_cl &pos, const Coord_cl &target) {
 		}
 
 		if (item.zoff <= pos.z && item.zoff + height >= pos.z) {
-			// Either a window or noshoot tile
+			// Window and noshoot tiles block
 			if (tile.flag2 & 0x30) {
 				// This will not block if it's "within" our target.
 				if (pos.x != target.x || pos.y != target.y || item.zoff > target.z || item.zoff + height < target.z) {
@@ -224,6 +228,81 @@ inline bool checkBlockingTiles(const Coord_cl &pos, const Coord_cl &target) {
 			}
 		}
 	}
+
+	// Search for items at the given location
+	cItemSectorIterator *items = SectorMaps::instance()->findItems(pos, 0);
+
+	for (P_ITEM item = items->first(); item; item = items->next()) {
+		// If the item is invisible or a multi, skip past it.
+		if (item->visible() != 0 || item->isMulti()) {
+			continue;
+		}
+
+		tile_st tile = TileCache::instance()->getTile(item->id());
+
+		// Window and noshoot tiles block
+		if (tile.flag2 & 0x30) {
+			// Calculate the correct height
+			int height = tile.height;
+			if (tile.flag2 & 0x04) {
+				height /= 2;
+			}
+
+            // See if the item intersects our current position
+			if (pos.z >= item->pos().z && pos.z <= item->pos().z + height) {
+				// This will not block if it's "within" our target.
+				if (pos.x != target.x || pos.y != target.y || item->pos().z > target.z || item->pos().z + height < target.z) {
+					delete items;
+					return true;
+				}
+			}
+		}
+	}
+
+	delete items;
+
+	// Check for multis around the area
+	cItemSectorIterator *multis = SectorMaps::instance()->findMultis(pos, BUILDRANGE);
+    
+	// Check if there is an intersecting item for this multi
+	for (P_MULTI multi = (P_MULTI)multis->first(); multi; multi = (P_MULTI)multis->next()) {
+		// Get all items for this multi
+		MultiDefinition *data = MultiCache::instance()->getMulti(multi->id() - 0x4000);
+		if (data) {
+			QValueVector<multiItem_st> items = data->getEntries();
+			QValueVector<multiItem_st>::iterator it;
+
+			for (it = items.begin(); it != items.end(); ++it) {
+				multiItem_st item = *it;
+				int itemz = item.z + multi->pos().z;
+
+				if (multi->pos().x + item.x != pos.x || multi->pos().y + item.y != pos.y) {
+					continue;
+				}
+
+				tile_st tile = TileCache::instance()->getTile(item.tile);
+
+				// Calculate the correct height
+				int height = tile.height;
+				if (tile.flag2 & 0x04) {
+					height /= 2;
+				}
+				
+				// Has to be visible and blocking
+				if (item.visible && tile.flag2 & 0x30) {
+					if (pos.z >= itemz && pos.z <= itemz + height) {
+						// This will not block if it's "within" our target.
+						if (pos.x != target.x || pos.y != target.y || itemz > target.z || itemz + height < target.z) {
+							delete multis;
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	delete multis;
 
 	return false;
 }

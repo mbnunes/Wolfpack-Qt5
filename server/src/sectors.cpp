@@ -498,6 +498,11 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 							if (!player || player->socket() || player->logoutTime()) {
 								items[offset++] = object;
 							}
+						} else if (type == MT_MULTIS) {
+							P_ITEM item = dynamic_cast<P_ITEM>(object);
+							if (item && item->isMulti()) {
+								items[offset++] = object;
+							}
 						} else {
 							items[offset++] = object;
 						}
@@ -516,6 +521,7 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 	switch ( type )
 	{
 	case MT_ITEMS:
+	case MT_MULTIS:
 		return new cItemSectorIterator( offset, items );
 
 	case MT_CHARS:
@@ -542,6 +548,7 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 	switch ( type )
 	{
 	case MT_ITEMS:
+	case MT_MULTIS:
 		return new cItemSectorIterator( count, items );
 
 	case MT_CHARS:
@@ -557,6 +564,11 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 cItemSectorIterator* cSectorMaps::findItems( const Coord_cl& center, unsigned char distance )
 {
 	return findItems( center.map, QMAX( ( int ) center.x - ( int ) distance, 0 ), QMAX( ( int ) center.y - ( int ) distance, 0 ), ( int ) center.x + distance, ( int ) center.y + distance );
+}
+
+cItemSectorIterator* cSectorMaps::findMultis( const Coord_cl& center, unsigned char distance )
+{
+	return findMultis( center.map, QMAX( ( int ) center.x - ( int ) distance, 0 ), QMAX( ( int ) center.y - ( int ) distance, 0 ), ( int ) center.x + distance, ( int ) center.y + distance );
 }
 
 cCharSectorIterator* cSectorMaps::findChars( const Coord_cl& center, unsigned char distance, bool includeoffline )
@@ -605,6 +617,19 @@ cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x1, uint y1
 	}
 
 	return static_cast<cItemSectorIterator*>( findObjects( MT_ITEMS, it->second, x1, y1, x2, y2 ) );
+}
+
+cItemSectorIterator* cSectorMaps::findMultis( unsigned char map, uint x1, uint y1, uint x2, uint y2 )
+{
+	std::map<unsigned char, cSectorMap*>::const_iterator it = itemmaps.find( map );
+
+	if ( it == itemmaps.end() )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Couldn't find a map with the id %1. (cSectorMaps::findMultis)" ).arg( map ) );
+		return new cItemSectorIterator( 0, 0 ); // Return an empty iterator
+	}
+
+	return static_cast<cItemSectorIterator*>( findObjects( MT_MULTIS, it->second, x1, y1, x2, y2 ) );
 }
 
 cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x1, uint y1, uint x2, uint y2, bool includeoffline )
