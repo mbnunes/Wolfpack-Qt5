@@ -66,7 +66,7 @@
                 <!-- Stats -->
                 <str><random min="22" max="334" /></str>
                 <dex><random min="16" max="25" /></dex>
-                <int><random min="16" max="25"/></int>
+                <int><random min="16" max="25" /></int>
                 <!-- Skills -->
                 <wrestling><random min="193" max="340" /></wrestling>
                 <tactics><random min="193" max="340" /></tactics>
@@ -501,35 +501,15 @@
                 <carve>carve_panther</carve>
         </npc>
 
-        <!-- Pig -->
-        <npc id="pig">
-                <inherit id="pig" />
-                <name>a pig</name>
+        <!-- boar -->
+        <npc id="boar">
+                <inherit id="boar" />
+                <name>a boar</name>
                 <id>0xCB</id>
-                <category>Animals\Land\Pig</category>
-                <skin>0</skin>
-                <inherit id="animal_base" />
-                <karma><random min="0" max="-624" /></karma>
-                <fame><random min="0" max="1249" /></fame>
-                <defense>12</defense>
-                <lodamage>2</lodamage>
-                <hidamage>10</hidamage>
-                <!-- Stats -->
-                <str>20</str>
-                <dex>20</dex>
-                <int>10</int>
-                <!-- Skills -->
-                <wrestling>69</wrestling>
-                <tactics>50</tactics>
-                <magicresistance>50</magicresistance>
-                <parrying><random min="370" max="380" /></parrying>
-		<totame>111</totame>
-                <food>6</food>
-                <carve>carve_pig</carve>
-        </npc>
-
-        <!-- rat -->
-        <npc id="rat">
+                <category>Animals\Land\Boar</category>
+       </npc>
+       <!-- rat -->
+       <npc id="rat">
                 <name>a rat</name>
                 <id>0xEE</id>
                 <category>Animals\Land\Town Rat</category>
@@ -543,7 +523,7 @@
                 <!-- Stats -->
                 <str>9</str>
                 <dex>25</dex>
-                <int><random min="6" max="25"/></int>
+                <int><random min="6" max="25" /></int>
                 <!-- Skills -->
                 <wrestling>50</wrestling>
                 <tactics>50</tactics>
@@ -843,4 +823,5 @@
                 <food>1</food>
                 <carve></carve>
         </npc>
-        </definitions>
+</definitions>
+
