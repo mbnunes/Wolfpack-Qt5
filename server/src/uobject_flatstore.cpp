@@ -22,7 +22,7 @@ enum eObjectKeys
 	OBJECT_EVENTS			// String
 };
 
-void cUObject::save( FlatStore::OutputFile *output, bool first )
+void cUObject::save( FlatStore::OutputFile *output, bool first ) throw()
 {
 	if( first )
 		output->startObject( serial(),  CHUNK_UOBJECT );
@@ -52,7 +52,7 @@ void cUObject::save( FlatStore::OutputFile *output, bool first )
 		output->finishObject();
 }
 
-bool cUObject::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* input )
+bool cUObject::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* input ) throw()
 {
 	// Unknown ChunkGroup
 	if( chunkGroup != CHUNK_UOBJECT )

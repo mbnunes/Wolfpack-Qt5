@@ -244,7 +244,7 @@ void cItem::save( FlatStore::OutputFile *output, bool first ) throw()
 		output->finishObject();
 }
 
-bool cItem::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile *input )
+bool cItem::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile *input ) throw()
 {
 	if( chunkGroup != CHUNK_ITEM )
 		return cUObject::load( chunkGroup, chunkType, input ); 

@@ -17,16 +17,20 @@ unix {
 		linux {
 			QMAKE_CXXFLAGS -= -O2
 			QMAKE_CXXFLAGS += -mcpu=athlon-xp -O3 -pipe -fomit-frame-pointer -fsched-spec-load -frerun-loop-opt -fprefetch-loop-arrays -ffast-math
+		}
 	}
 	debug {
 		CONFIG += warn_on
 	}
+	static {
+		QMAKE_LFLAGS += -static
+	}
 }
 
 RC_FILE = res.rc
+OBJECTS_DIR = obj
 
 win32:DEFINES  += WIN32 
-win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
 win32:INCLUDEPATH += lib/Python/PC
 win32-g++:TMAKE_CXXFLAGS = -funsigned-char
