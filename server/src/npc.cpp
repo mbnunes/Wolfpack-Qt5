@@ -204,13 +204,13 @@ static void npcRegisterAfterLoading( P_NPC pc )
 		stablesp.insert(pc->stablemasterSerial(), pc->serial());
 }
 
-void cNPC::setOwner(P_PLAYER data)
+void cNPC::setOwner(P_PLAYER data, bool nochecks)
 {
 	// We CANT be our own owner
 	if( data && ( data->serial() == this->serial() ) )
 		return;
 
-	if( owner_ )
+	if( !nochecks && owner_ )
 	{
 		owner_->removePet( this, true );
 		setTamed( false );
@@ -219,7 +219,7 @@ void cNPC::setOwner(P_PLAYER data)
 	owner_ = data;
 	changed( SAVE|TOOLTIP );
 
-	if( owner_ )
+	if( !nochecks && owner_ )
 	{
 		owner_->addPet( this, true );
 		setTamed( false );
@@ -323,14 +323,13 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 	textSpeech->setModel( bodyID_ );
 	textSpeech->setFont( 3 ); // Default Font
 	textSpeech->setType( speechType );
-	textSpeech->setLanguage( QString() );
+	textSpeech->setLanguage( "" );
 	textSpeech->setName( name() );
 	textSpeech->setColor( color );
 	textSpeech->setText( message );
 
 	if( socket )
 	{
-		textSpeech->setText( message );
 		socket->send( textSpeech );
 	}
 	else
@@ -340,7 +339,6 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 		{
 				if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 				{
-					textSpeech->setText( message );
 					mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
 				}
 		}

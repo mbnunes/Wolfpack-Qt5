@@ -2042,7 +2042,7 @@ void cUOSocket::updateMana( P_CHAR pChar )
 	
 	if( pChar == _player )
 	{
-		update.setMaximum( pChar->intelligence() );
+		update.setMaximum( pChar->maxMana() );
 		update.setCurrent( pChar->mana() );
 	}
 	else
@@ -2064,7 +2064,7 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 
 	cUOTxUpdateHealth update;
 	update.setSerial( pChar->serial() );
-	update.setMaximum( pChar->strength() );
+	update.setMaximum( pChar->maxHitpoints() );
 	update.setCurrent( pChar->hitpoints() );
 
 	send( &update );

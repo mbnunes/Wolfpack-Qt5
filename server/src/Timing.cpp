@@ -134,12 +134,15 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 			{
 				if (pc->regenStaminaTime() + (c*interval) <= currenttime && pc->stamina() <= pc->maxStamina())
 				{
-					pc->setStamina( pc->stamina() + 1 );
-					if( pc->stamina() > pc->maxStamina() )
+					if( pc->stamina() == pc->maxStamina() )
+						break;
+					else if( pc->stamina() > pc->maxStamina() )
 					{
 						pc->setStamina( pc->maxStamina() );
 						break;
 					}
+					else
+						pc->setStamina( pc->stamina() + 1 );
 				}
 			}
 			pc->setRegenStaminaTime( currenttime + interval );			
@@ -154,11 +157,7 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 			{
 				if (pc->regenManaTime() + (c*interval) <= currenttime && pc->mana() <= pc->maxMana())
 				{
-					pc->setMana( pc->mana() + 1 );
-/*					if( pc->isMeditating() )
-						pc->setMana( pc->mana() + 1 );*/
-
-					if (pc->mana()>pc->maxMana())
+					if (pc->mana()+1>pc->maxMana())
 					{
 						if ( pc->isMeditating() )
 						{
@@ -173,6 +172,8 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 						pc->setMana( pc->maxMana() );
 						break;
 					}
+					else
+						pc->setMana( pc->mana() + 1 );
 				}
 			}
 			if( SrvParams->armoraffectmana() )
@@ -227,6 +228,9 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
 		if( pp->socket() )
 		{
+			if( oldHealth != pp->hitpoints() )
+				pp->socket()->updateHealth(); // send it to the socket itself
+
 			if( oldStamina != pp->stamina() )
 				pp->socket()->updateStamina();
 

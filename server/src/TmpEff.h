@@ -233,17 +233,29 @@ private:
 	UINT16 amount;
 public:
 	cDelayedHeal( P_CHAR pSource, P_CHAR pTarget, UINT16 _amount );
-	void Expire();
+	virtual void Expire();
 };
+
+class cNPC_AI;
 
 class cAIRefreshTimer: public cTempEffect
 {
 private:
 	P_NPC m_npc;
+	cNPC_AI* m_interface;
 public:
-	cAIRefreshTimer( P_NPC m_npc, UINT32 time );
-	void Expire();
+	cAIRefreshTimer( P_NPC m_npc, cNPC_AI* m_interface, UINT32 time );
+	virtual void Expire();
 };
 
+class cFleeReset: public cTempEffect
+{
+private:
+	P_NPC m_npc;
+public:
+	cFleeReset( P_NPC m_npc, UINT32 time );
+	virtual void Serialize(ISerialization &archive);
+	virtual void Expire();
+};
 
 #endif

@@ -296,7 +296,7 @@ void Human_Vendor_SellQuery::selectionTimeOut()
 
 static cNPC_AI* productCreator_HS()
 {
-	return new Human_Vendor();
+	return new Human_Stablemaster();
 }
 
 void Human_Stablemaster::registerInFactory()
@@ -365,9 +365,14 @@ void Human_Stablemaster_Wander::attacked()
 	nextState = new Human_Stablemaster_Combat( m_interface, npc );
 }
 
-void Human_Stablemaster_Wander::init()
+void Human_Stablemaster_Wander::execute()
 {
-	TempEffects::instance()->insert( new cAIRefreshTimer( npc, SrvParams->stablemasterRefreshTime() ) );
+	if( !m_hasRefreshTimer )
+	{
+		TempEffects::instance()->insert( new cAIRefreshTimer( npc, m_interface, SrvParams->stablemasterRefreshTime() ) );
+		m_hasRefreshTimer = true;
+	}
+	AbstractState_Wander::execute();
 }
 
 void Human_Stablemaster_Wander::refresh()
@@ -389,7 +394,7 @@ void Human_Stablemaster_Wander::refresh()
 		}
 	}
 
-	TempEffects::instance()->insert( new cAIRefreshTimer( npc, 60 ) );
+	TempEffects::instance()->insert( new cAIRefreshTimer( npc, m_interface, SrvParams->stablemasterRefreshTime() ) );
 }
 
 void Human_Stablemaster_Wander::speechInput( P_PLAYER pTalker, const QString &message )
@@ -397,7 +402,7 @@ void Human_Stablemaster_Wander::speechInput( P_PLAYER pTalker, const QString &me
 	if( !pTalker->socket() )
 		return;
 
-	if( npc->inRange( pTalker, 4 ) && ( VendorChkName( npc, message ) || message.contains( tr(" VENDOR") ) ) )
+	if( npc->inRange( pTalker, 4 ) && ( VendorChkName( npc, message ) || message.contains( tr("STABLEMASTER") ) ) )
 	{
 		if( message.contains( tr(" STABLE") ) )
 		{
@@ -431,7 +436,6 @@ void Human_Stablemaster_Wander::speechInput( P_PLAYER pTalker, const QString &me
 					npc->talk( tr("You do not possess enough gold. Come later if you have more!") );
 					return;
 				}
-				pTalker->takeGold( topay, true );
 				cItem::ContainerContent::const_iterator it( stableitems.begin() );
 				while( it != stableitems.end() )
 				{
@@ -441,14 +445,21 @@ void Human_Stablemaster_Wander::speechInput( P_PLAYER pTalker, const QString &me
 						if( pPet )
 						{
 							pPet->free = false;
-							MapObjects::instance()->add( pPet );
+							pPet->moveTo( npc->pos() );
+							pPet->update();
 						}
 						Items->DeleItem( *it );
 					}
 					++it;
 				}
 				pPack->update();
-				npc->talk( tr("Here you are! That costs %1 gold. Farewell!").arg( topay ) );
+				if( topay > 0 )
+				{
+					pTalker->takeGold( topay, true );
+					npc->talk( tr("Here you are! That costs %1 gold. Farewell!").arg( topay ) );
+				}
+				else
+					npc->talk( tr("Here's your pet back!") );
 			}
 		}
 	}
@@ -490,11 +501,12 @@ void Human_Stablemaster_Wander::targetCursorInput( cUOSocket *socket, cUORxTarge
 	pGem->setName( tr("petitem: %1").arg(pPet->name()) );
 	pGem->setName2( socket->player()->name() );
 	pGem->setVisible( 2 ); // gm visible
-	pGem->setContainer( pPack );
+	pPack->addItem( pGem );
 	pGem->update();
 
 	pPet->free = true;
 	MapObjects::instance()->remove( pPet );
+	pPet->removeFromView();
 
 	npc->talk( tr("Say release to get your pet back!") );
 }

@@ -1566,6 +1566,15 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		return Py_None;
 	}*/
 
+	else if( !strcmp( "ai", name ) )
+	{
+		P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
+
+		if( !npc )
+			return Py_None;
+
+		return PyGetAIObject( npc->ai() );
+	}
 	else if( !strcmp( "socket", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );

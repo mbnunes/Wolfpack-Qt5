@@ -419,6 +419,10 @@ bool cSkTame::responsed( cUOSocket *socket, cUORxTarget *target )
 			(pc_currchar->skillValue(TAMING)<pn->tamingMinSkill())) 
 		{
 			socket->sysMessage( tr("You were unable to tame it.") );
+			
+			// let's trigger the npc ai event
+			if( pn->ai() && pn->ai()->currState() )
+				pn->ai()->currState()->tameAttempt();
 			return true;
 		}
 		socket->showSpeech( pc, tr("It seems to accept you as it's master!"));

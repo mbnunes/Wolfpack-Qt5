@@ -151,7 +151,7 @@ public:
     void setNextMsgTime(UINT32 data);
     void setSummonTime(UINT32 data);
     void setTamingMinSkill(INT16 data);
-	void setOwner(P_PLAYER data);
+	void setOwner(P_PLAYER data, bool nochecks = false);
 	void setCarve(const QString &data);
 	void setSpawnregion(const QString &data);
 	void setStablemasterSerial(SERIAL data);

@@ -79,7 +79,7 @@ cBaseChar::cBaseChar()
 	fame_				= 0;
 	kills_				= 0;
 	deaths_				= 0;
-	hunger_				= 0;
+	hunger_				= 6;
 	hungerTime_			= 0;
 	nutriment_			= 0;
 	flag_				= 0x02;
@@ -109,6 +109,10 @@ cBaseChar::cBaseChar()
 	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );
 	skills_.resize( ALLSKILLS );
 	setDead(false);  // we want to live ;)
+	regenHitpointsTime_	= uiCurrentTime + SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
+	regenStaminaTime_	= uiCurrentTime + SrvParams->staminarate() * MY_CLOCKS_PER_SEC;
+	regenManaTime_		= uiCurrentTime + SrvParams->manarate() * MY_CLOCKS_PER_SEC;
+	saycolor_			= 600;
 }
 
 cBaseChar::cBaseChar(const cBaseChar& right)

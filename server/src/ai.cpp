@@ -65,12 +65,11 @@ void cNPC_AI::setNPC( P_NPC npc )
 
 void cNPC_AI::updateState()
 {
-	if( currentState->nextState != currentState )
+	if( currentState->nextState && currentState->nextState != currentState )
 	{
 		AbstractState* temp = currentState->nextState;
 		delete currentState;
 		currentState = temp;
-		currentState->init();
 	}
 }
 
@@ -83,7 +82,6 @@ void cNPC_AI::updateState( AbstractState* newState )
 		currentState = newState;
 		currentState->setInterface( this );
 		currentState->npc = m_npc;
-		currentState->init();
 	}
 }
 

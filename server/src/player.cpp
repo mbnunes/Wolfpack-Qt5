@@ -1282,7 +1282,7 @@ void cPlayer::addPet( P_NPC pPet, bool noOwnerChange )
 	if( pPet->owner() && pPet->owner() != this )
 		pPet->owner()->removePet( pPet, true );
 
-	pPet->setOwner( this );
+	pPet->setOwner( this, true );
 
 	// Check if it already is our follower
 	CharContainer::iterator it = std::find(pets_.begin(), pets_.end(), pPet);
@@ -1303,7 +1303,7 @@ void cPlayer::removePet( P_NPC pPet, bool noOwnerChange )
 
 	if( !noOwnerChange )
 	{
-		pPet->setOwner( NULL );
+		pPet->setOwner( NULL, true );
 		pPet->setTamed( false );
 	}
 }

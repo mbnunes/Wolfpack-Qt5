@@ -613,9 +613,10 @@ cDelayedHeal::cDelayedHeal( P_CHAR pSource, P_CHAR pTarget, UINT16 _amount )
 	dispellable = false;
 }
 
-cAIRefreshTimer::cAIRefreshTimer( P_NPC pNPC, UINT32 time )
+cAIRefreshTimer::cAIRefreshTimer( P_NPC pNPC, cNPC_AI* interface_, UINT32 time )
 {
 	m_npc = pNPC;
+	m_interface = interface_;
 	objectid = "cAIRefreshTimer";
 	serializable = false;
 	dispellable = false;
@@ -624,10 +625,53 @@ cAIRefreshTimer::cAIRefreshTimer( P_NPC pNPC, UINT32 time )
 
 void cAIRefreshTimer::Expire()
 {
+	// lets check if the npc exists, and if the
+	// npc ai on the npc is the same like the one which set the timer
+	if( m_npc )
+	{
+		cNPC_AI* ai = m_npc->ai();
+		if( ai && ai == m_interface && ai->currState() )
+		{
+			ai->currState()->refresh();
+			ai->updateState();
+		}
+	}
+}
+
+cFleeReset::cFleeReset( P_NPC pNPC, UINT32 time )
+{
+	m_npc = pNPC;
+	objectid = "cFleeReset";
+	serializable = true;
+	dispellable = false;
+	expiretime = uiCurrentTime + time * MY_CLOCKS_PER_SEC;
+}
+
+void cFleeReset::Expire()
+{
 	if( m_npc )
 	{
 		cNPC_AI* ai = m_npc->ai();
 		if( ai && ai->currState() )
-			ai->currState()->refresh();
+		{
+			ai->currState()->ceaseFlee();
+			ai->updateState();
+		}
 	}
+}
+
+void cFleeReset::Serialize( ISerialization &archive )
+{
+	if( archive.isReading() )
+	{
+		SERIAL character = INVALID_SERIAL;
+		archive.read( "charserial", character );
+		m_npc = dynamic_cast<P_NPC>(World::instance()->findChar( character ));
+	}
+	else
+	{
+		archive.write( "charserial", m_npc ? m_npc->serial() : INVALID_SERIAL );
+	}
+
+	cTempEffect::Serialize( archive );
 }

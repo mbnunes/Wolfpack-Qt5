@@ -97,6 +97,10 @@ SOURCE=.\ai.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ai_animals.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\ai_monsters.cpp
 # End Source File
 # Begin Source File
@@ -1510,6 +1514,10 @@ SOURCE=.\python\item.cpp
 # Begin Source File
 
 SOURCE=.\python\multi.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\python\npcai.cpp
 # End Source File
 # Begin Source File
 
