@@ -131,6 +131,26 @@ PACKS = {
 	# Armor Packs
 
 	# Reagent Packs
+
+	# Monster Packs
+	'orcpack_low': [
+		[0.6, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0],
+		[0.52, DEF_DRINKS_ALCOHOL, 1, 0],
+		[0.15, DEF_WEAPONS_SWORDSMANSHIP, 1, 0],
+		[0.23, DEF_ORCHEADGEAR, 1, 0]
+	],
+	'orcpack_med': [
+		[0.8, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0],
+		[0.62, DEF_DRINKS_ALCOHOL, 1, 0],
+		[0.48, DEF_WEAPONS_SWORDSMANSHIP, 1, 0],
+		[0.5, DEF_ORCHEADGEAR, 1, 0]
+	],
+	'orcpack_high': [
+		[0.95, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0],
+		[0.85, DEF_DRINKS_ALCOHOL, 1, 0],
+		[0.65, DEF_WEAPONS_SWORDSMANSHIP, 1, 0],
+		[0.75, DEF_ORCHEADGEAR, 1, 0]
+	]
 }
 
 #

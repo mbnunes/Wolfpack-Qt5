@@ -14,15 +14,15 @@ DEF_WEAPONS_MACES = ['df0', 'df1', '13b3', '13b4', '13f8', '13f9', '143d', '143c
 DEF_WEAPONS_FENCING = ['f51', 'f52', '26c9', '26bf', '1400', '1401', '26c0', '26ca', '26c8', '26be', 'e87',
 	'e88', '1402', '1403', 'f62', 'f63', '1404', '1405']
 DEF_WEAPONS_BOWS = ['13b1', '13b2', '26c2', '26cc', 'f4f', 'f50', '13fd', '13fc', '26cd', '26c3']
-DEF_ALLWEAPONS = DEF_WEAPONS_SWORDS + DEF_WEAPONS_AXES + DEF_WEAPONS_MACES + DEF_WEAPONS_FENCING + DEF_WEAPONS_BOWS
+DEF_WEAPONS_SWORDSMANSHIP = DEF_WEAPONS_SWORDS + DEF_WEAPONS_AXES
+DEF_ALLWEAPONS = DEF_WEAPONS_SWORDSMANSHIP + DEF_WEAPONS_MACES + DEF_WEAPONS_FENCING + DEF_WEAPONS_BOWS
 
 # Armor Definition Lists
 DEF_ORCMASKS = ['141b', '141c']
-DEF_ORCHELMS = ['1f0b', '1f0c']
 DEF_TRIBALMASKS = ['1549', '154a', '154b', '154c']
-DEF_MAKS = ['1545', '1546', '1547', '1548', '141b', '141c']
-DEF_HATS = ['153f', '1540', '1545', '1546', '1715', '1719', '171a', '171c', '172e', '1713', '141b', '141c',
-	'1543', '1544', '1717', '1716', '1549', '154a', '154b', '154c', '171b', '1714', '1718']
+DEF_ALLMASKS = ['1545', '1546', '1547', '1548'] + DEF_ORCMASKS + DEF_TRIBALMASKS
+DEF_HATS = ['153f', '1540', '1715', '1719', '171a', '171c', '172e', '1713', '1543', '1544', '1717', '1716',
+	'171b', '1714', '1718'] + DEF_ALLMASKS
 DEF_LEATHER = ['1c06', '1c07', '1c0a', '1c0b', '1db9', '1dba', '13c6', '13ce', '13c7', '13cb', '13d2', '1c00', '1c01',
 	'1c08', '1c09', '13c5', '13cd', '13cc', '13d3']
 DEF_STUDDED = ['1c02', '1c03', '1c0c', '1c0d', '13d5', '13dd', '13d6', '13da', '13e1', '13d4', '13dc', '13db', '1322']
@@ -31,8 +31,10 @@ DEF_RINGMAIL = ['13eb', '13f2', '13f0', '13f1', '13ee', '13ef', '13ec', '13ed']
 DEF_BONEMAIL = ['1454', '144f', '1453', '144e', '1455', '1450', '1457', '1452', '1456', '1452']
 DEF_PLATEMAIL = ['1c04', '1c05', '1412', '1419', '1415', '1416', '1410', '1417', '1414', '1418', '1413', '1411', '141a']
 DEF_DRAGONMAIL = ['2641', '2642', '2643', '2644', '2645', '2646', '2647', '2648', '2657', '2658']
-DEF_HELMS = ['140c', '140d', '1408', '1409', '140a', '140b', '140e', '140f', '1f0b', '1f0c']
+DEF_ORCHELMS = ['1f0b', '1f0c']
+DEF_HELMS = ['140c', '140d', '1408', '1409', '140a', '140b', '140e', '140f'] + DEF_ORCHELMS
 DEF_SHIELDS = ['1b72', '1b73', '1bc3', '1b76', '1b77', '1b74', '1b75', '1b7b', '1bc4', '1bc5', '1b78', '1b79', '1b79']
+DEF_ORCHEADGEAR = DEF_ORCMASKS + DEF_ORCHELMS
 DEF_ALLARMOR = DEF_HATS + DEF_LEATHER + DEF_STUDDED + DEF_CHAINMAIL + DEF_RINGMAIL + DEF_BONEMAIL + DEF_PLATEMAIL + DEF_DRAGONMAIL + DEF_HELMS + DEF_SHIELDS + DEF_SHIELDS
 
 # Misc Equipment Lists
@@ -56,12 +58,16 @@ DEF_ALLDRINKS = DEF_DRINKS_NORMAL + DEF_DRINKS_ALCOHOL
 DEF_ALLFOOD = DEF_FOOD_MEATS + DEF_FOOD_GREENS + DEF_FOODS_MISC
 
 # Clothes
-DEF_SHIRTS = []
-DEF_SHOES = []
-DEF_PANTS = []
-DEF_FEMALE_PANTS = []
-DEF_ROBES = []
-DEF_DRESSES = []
+DEF_SHIRTS = ['230f', '2310', '1517', '1518', '1efd', '1efe', '1f9f', '1fa0', '1fa1', '1fa2', '1f7b', '1f7c', '1ffd', '1ffe']
+DEF_SHOES = ['170b', '170c', '170d', '170e', '2307', '2308', '170f', '1710', '1711', '1712', '2307', '2308']
+DEF_PANTS = ['152f', '152e', '1537', '1538', '1539', '153a']
+DEF_FEMALE_PANTS = ['1516', '1531']
+DEF_ROBES = ['1f03', '1f04']
+DEF_SPECIALROBES = ['2042', '2043', '204e', '204f', '2050']
+DEF_DRESSES = ['203d', '203e', '1eff', '1f00', '1f01', '1f02']
+DEF_CLOTHES_MISC = ['1515', '1530', '153b', '153c', '153d', '153e', '1541', '1542', '2305', '2306', '2309',
+	'230a', '230b', '230c']
+DEF_JEWELERY = ['1085', '1086', '1087', '1088', '1089', '108a', '1f05', '1f06', '1f07', '1f08', '1f09', '1f0a']
 DEF_CLOTHES_ALL = DEF_SHIRTS + DEF_SHOES + DEF_PANTS + DEF_FEMALE_PANTS + DEF_ROBES + DEF_DRESSES + DEF_HATS
 
 # Potions
