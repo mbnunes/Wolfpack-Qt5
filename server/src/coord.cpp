@@ -40,7 +40,7 @@
 
 Coord_cl::Coord_cl(void)
 {
-	x = y = z = map = plane = 0;
+	x = y = z = map = 0;
 }
 
 Coord_cl::Coord_cl(const Coord_cl& clCoord)
@@ -48,13 +48,13 @@ Coord_cl::Coord_cl(const Coord_cl& clCoord)
 	(*this) = clCoord ;
 }
 
-Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 uiPlane)
+Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08)
 {
 	x = uiX;
 	y = uiY;
 	z = siZ;
 	map = uiMap;
-	plane = uiPlane;
+	//plane = uiPlane;
 }
 
 
@@ -69,7 +69,7 @@ Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 uiPlane)
 UI32 Coord_cl::distance( const Coord_cl &src) const
 {
 	UI32 uiResult = ~0; // Initialize with *infinite*
-	if ((plane == src.plane || plane == COORD_ALL_PLANES || src.plane == COORD_ALL_PLANES) && map == src.map)
+	if ( map == src.map )
 	{
 		RF64 rfResult = sqrt(static_cast<RF64>((x - src.x)*(x - src.x) + (y - src.y)*(y - src.y)/* + (z - src.z)*(z - src.z)*/));
 		//		RF64 rfResult = sqrt(static_cast<RF64>((x * src.x + y * src.y + z * src.z)));
@@ -90,18 +90,17 @@ Coord_cl& Coord_cl::operator=(const Coord_cl& clCoord)
 	y = clCoord.y;
 	z = clCoord.z;
 	map = clCoord.map;
-	plane = clCoord.plane;
 	return (*this);
 }
 
 bool Coord_cl::operator== (const Coord_cl& src)
 {
-	return (x == src.x && y == src.y && z == src.z && map == src.map && plane == src.plane);
+	return (x == src.x && y == src.y && z == src.z && map == src.map);
 }
 
 bool Coord_cl::operator!= (const Coord_cl& src)
 {
-	return !(x == src.x && y == src.y && z == src.z && map == src.map && plane == src.plane);
+	return !(x == src.x && y == src.y && z == src.z && map == src.map);
 }
 
 Coord_cl Coord_cl::operator+ (const Coord_cl& src) const

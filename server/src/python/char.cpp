@@ -166,13 +166,13 @@ PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 		pos.z = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 	}
 
-	// PLANE
+	// MAP
 	if( PyTuple_Size( args ) >= 4 )
 	{
 		if( !PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
 			return PyFalse;
 
-		pos.plane = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
+		pos.map = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
 	}
 
 	self->pChar->moveTo( pos );
@@ -395,7 +395,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else getIntProperty( "x", pChar->pos.x )
 	else getIntProperty( "y", pChar->pos.y )
 	else getIntProperty( "z", pChar->pos.z )
-	else getIntProperty( "plane", pChar->pos.plane )
+	else getIntProperty( "map", pChar->pos.map )
 
 	else getIntProperty( "direction", pChar->dir )
 	else getIntProperty( "flags2", pChar->priv2 )

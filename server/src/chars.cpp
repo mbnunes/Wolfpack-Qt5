@@ -881,7 +881,6 @@ void cChar::Serialize(ISerialization &archive)
 		if (jailtimer != 0)
 			jailtimer += uiCurrentTime;
 		archive.read("jailsecs",		jailsecs); 
-		archive.read("gmrestrict",		gmrestrict_);
 		archive.read("lootlist",		loot_ );
 		SetOwnSerial(ownserial);
 		SetSpawnSerial(spawnserial_);
@@ -1023,7 +1022,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("questbountyreward", questBountyReward_);
 		archive.write("jailtimer",		jailtimer/MY_CLOCKS_PER_SEC); 
 		archive.write("jailsecs",		jailsecs); 
-		archive.write("gmrestrict",		gmrestrict_);
 		archive.write("lootlist",		loot_);
 	}
 	cUObject::Serialize(archive);

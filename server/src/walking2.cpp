@@ -207,7 +207,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 			continue;
 
 		// They need to be at the same x,y,plane coords
-		if( ( pItem->pos.x != pos.x ) || ( pItem->pos.y != pos.y ) || ( pItem->pos.plane != pos.plane ) )
+		if( ( pItem->pos.x != pos.x ) || ( pItem->pos.y != pos.y ) || ( pItem->pos.map != pos.map ) )
 			continue;
 
 		tile_st tTile = cTileCache::instance()->getTile( pItem->id() );

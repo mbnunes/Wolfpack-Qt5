@@ -106,7 +106,6 @@ void cUObject::Serialize(ISerialization &archive)
 		archive.read("pos.y", pos.y);
 		archive.read("pos.z", pos.z);
 		archive.read("pos.map", pos.map);
-		archive.read("pos.plane", pos.plane);
 		archive.read("events", events );
 		eventList_ = QStringList::split( ",", events );
 		recreateEvents();
@@ -125,7 +124,6 @@ void cUObject::Serialize(ISerialization &archive)
 		archive.write("pos.y", pos.y);
 		archive.write("pos.z", pos.z);
 		archive.write("pos.map", pos.map);
-		archive.write("pos.plane", pos.plane);
 
 		events = eventList_.join( "," );
 		archive.write( "events", events );

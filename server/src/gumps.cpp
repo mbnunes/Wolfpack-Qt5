@@ -1297,7 +1297,7 @@ cWhoChildGump::cWhoChildGump( cUOSocket* socket )
 		addText( 50, 80, tr( "IP:" ), 0x834 );
 		addText( 250, 80, QString( "%1" ).arg( socket->ip() ), 0x834 );
 		addText( 50, 100, tr( "Position:" ), 0x834 );
-		addText( 250, 100, QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ), 0x834 );
+		addText( 250, 100, QString("%1,%2,%3 map %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ), 0x834 );
 		addText( 50, 120, tr( "Region:" ), 0x834 );
 		addText( 250, 120, QString( "%1" ).arg( pChar->region ), 0x834 );
 		addText( 50, 140, tr( "Account / ACL:" ), 0x834 );
@@ -1536,9 +1536,9 @@ cPageInfoGump::cPageInfoGump( cPage* page )
 		addText( 50, 80, tr( "Account name:" ), hue );
 		addText( 200, 80, QString( "%1" ).arg( pChar->account()->login() ), hue );
 		addText( 50, 100, tr( "Char position:" ), hue );
-		addText( 200, 100, QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ), hue );
+		addText( 200, 100, QString("%1,%2,%3 map %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ), hue );
 		addText( 50, 120, tr( "Page sent from:" ), hue );
-		addText( 200, 120, QString("%1,%2,%3 plane %4").arg( page->pagePos().x ).arg( page->pagePos().y ).arg( page->pagePos().z ).arg( page->pagePos().plane ), hue );
+		addText( 200, 120, QString("%1,%2,%3 map %4").arg( page->pagePos().x ).arg( page->pagePos().y ).arg( page->pagePos().z ).arg( page->pagePos().map ), hue );
 		addText( 50, 140, tr( "Date/time:" ), hue );
 		addText( 200, 140, QString( "%1" ).arg( page->pageTime() ), hue );
 

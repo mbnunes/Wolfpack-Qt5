@@ -170,7 +170,7 @@ void cCommands::loadACLs( void )
 // COMMAND IMPLEMENTATION
 // Purpose:
 // .go >> Gump with possible targets
-// .go x,y,z,[plane] >> Go to those coordinates
+// .go x,y,z,[map] >> Go to those coordinates
 // .go placename >> Go to that specific place
 void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 {
@@ -217,7 +217,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 	}
 
 	// If we reached this end it's definetly an invalid command
-	socket->sysMessage( tr( "Usage: go [location|x,y,z,[plane]]" ) );
+	socket->sysMessage( tr( "Usage: go [location|x,y,z,[map]]" ) );
 }
 
 class cResurectTarget: public cTargetRequest
@@ -258,7 +258,7 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 	if( mRegion )
 		message.append( tr( "in %1 " ).arg( mRegion->name() ) );
 
-	message.append( tr( "at %1,%2,%3 on plane %4" ).arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ) );
+	message.append( tr( "at %1,%2,%3 on plane %4" ).arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ) );
 	pChar->message( message );
 }
 
@@ -1050,7 +1050,7 @@ public:
 				result = QString( "%1" ).arg( pItem->in );
 
 		else if( key == "pos" )
-			result = QString( "%1,%2,%3,%4" ).arg( pObject->pos.x ).arg( pObject->pos.y ).arg( pObject->pos.z ).arg( pObject->pos.plane );
+			result = QString( "%1,%2,%3,%4" ).arg( pObject->pos.x ).arg( pObject->pos.y ).arg( pObject->pos.z ).arg( pObject->pos.map );
 
 		else if( key == "color" )
 		{

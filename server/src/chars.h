@@ -185,7 +185,6 @@ protected:
 	unsigned short			orgskin_;	// skin color backup for incognito spell
 	UI16					xskin_; // Backup of skin color
 	unsigned int			creationday_;	// Day since EPOCH this character was created on
-	unsigned char			gmrestrict_;	// for restricting GMs to certain regions
 
 	int						stealth_; //AntiChrist - stealth ( steps already done, -1=not using )
 	unsigned int			running_; //AntiChrist - Stamina Loose while running
@@ -329,7 +328,6 @@ public:
 	unsigned short			orgskin() const	  { return orgskin_;	}
 	UI16					xskin() const     { return xskin_;		}
 	unsigned int			creationday() const{return creationday_;}
-	unsigned char			gmrestrict() const{ return gmrestrict_; }
 	int						stealth() const { return stealth_; }
 	unsigned int			running() const { return running_; }
 	unsigned int			logout() const {return logout_;} 
@@ -439,7 +437,6 @@ public:
 	void					setOrgSkin( unsigned short data) { orgskin_ = data;}
 	void					setXSkin( unsigned short data) { xskin_ = data; }
 	void					setCreationDay( unsigned int data ) { creationday_ = data; }
-	void					setGmRestrict( unsigned char data ) { gmrestrict_ = data; }
 	void					setStealth(int data) {stealth_ = data;}
 	void					setRunning(unsigned int data) {running_ = data;}
 	void					setLogout(unsigned int data) {logout_ = data;}
@@ -670,7 +667,7 @@ inline bool  cChar::isPlayer() const		{return (!this->npc);}
 inline bool  cChar::isNpc()	const			{return (this->npc);}
 inline bool  cChar::isHuman() const			{return (this->id() == 0x190 || this->id() == 0x191);} 
 inline bool  cChar::isTrueGM() const		{return (priv&0x01);} 
-inline bool  cChar::isGM() const			{return ((priv&0x01 && (!gmrestrict_ || region==gmrestrict_))) || account_ == 0 || account()->acl() == "admin" || account()->acl() == "gm";} 
+inline bool  cChar::isGM() const			{return  priv&0x01 || account_ == 0 || account()->acl() == "admin" || account()->acl() == "gm";} 
 inline bool  cChar::isCounselor() const		{return (priv&0x80 || account()->acl() == "counselor");} 
 inline bool  cChar::isGMorCounselor() const	{return (priv&0x81 || account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor");} 
 inline bool  cChar::isInvul() const			{return (priv&0x04 ?true:false);}

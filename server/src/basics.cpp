@@ -107,11 +107,11 @@ bool parseCoordinates( const QString &input, Coord_cl &coord )
 	if( !ok )
 		return false;
 
-	UINT8 plane = coord.plane; // Current by default
+	UINT8 map = coord.map; // Current by default
 
 	if( coords.size() > 3 )
 	{
-		plane = coords[3].toUShort( &ok );
+		map = coords[3].toUShort( &ok );
 
 		if( !ok )
 			return false;
@@ -122,7 +122,7 @@ bool parseCoordinates( const QString &input, Coord_cl &coord )
 	coord.x = x;
 	coord.y = y;
 	coord.z = z;
-	coord.plane = plane;
+	coord.map = map;
 
 	return true;
 }

@@ -53,11 +53,6 @@ class Coord_cl;
 
 #include "wpconsole.h"
 
-// Defines we need
-
-#define COORD_ALL_PLANES 255
-#define COORD_HIDDEN_PLANE 254
-
 // Any specific structures
 
 
@@ -88,8 +83,6 @@ public:
 	UI16 	y;
 	SI08 	z;
 	UI08    map;
-	UI08    plane;
-
 };
 
 #endif // __COORD_H__

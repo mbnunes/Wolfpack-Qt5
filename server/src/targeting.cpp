@@ -753,7 +753,6 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	pc->setXSkin(0x8021);
 	pc->setPriv(0xF7);
 	pc->priv2 = (unsigned char) (0xD9);
-	pc->setGmRestrict(0); // By default, let's not restrict them.
 	
 	pc->setMenupriv(-1); // LB, disabling menupriv stuff for gms per default
 	

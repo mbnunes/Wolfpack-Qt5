@@ -145,7 +145,7 @@ PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 		if( !PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
 			return PyFalse;
 
-		pos.plane = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
+		pos.map = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
 	}
 
 	self->pItem->moveTo( pos );
@@ -275,7 +275,7 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	else getIntProperty( "x", pItem->pos.x )
 	else getIntProperty( "y", pItem->pos.y )
 	else getIntProperty( "z", pItem->pos.z )
-	else getIntProperty( "plane", pItem->pos.plane )
+	else getIntProperty( "map", pItem->pos.map )
 	else getIntProperty( "layer", pItem->layer() )
 	else getIntProperty( "twohanded", pItem->twohanded() ? 1 : 0 )
 	else getIntProperty( "type", pItem->type() )

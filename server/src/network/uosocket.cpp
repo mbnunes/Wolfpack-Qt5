@@ -444,7 +444,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 
 	// Change the map after the client knows about the char
 	cUOTxChangeMap changeMap;
-	changeMap.setMap( pChar->pos.plane );
+	changeMap.setMap( pChar->pos.map );
 	send( &changeMap );
 
 	// Start the game!
