@@ -183,7 +183,8 @@ unsigned int cRegion::StartGrid(const Coord_cl& pos)
 
 cRegion::RegionIterator4Chars::RegionIterator4Chars(const Coord_cl& pos)
 {
-	cell = currentCell = ::cRegion::GetCell(pos);
+	SI32 tmp = (::cRegion::GetCell(pos) - ColSize - 3);
+	cell = currentCell = tmp > 0 ? tmp : 0; // they are centered.
 	currentIndex = 0;
 	currentCharacter = NULL;
 }
@@ -221,7 +222,7 @@ P_CHAR cRegion::RegionIterator4Chars::Begin(void)
 {
 	currentCell = cell;
 	currentIndex = 0;
-	vecEntries = mapRegions->GetCellEntries(currentCell);
+	vecEntries = mapRegions->GetCellEntries(currentCell, enCharsOnly);
 	return GetData();
 }
 
@@ -285,7 +286,7 @@ P_ITEM cRegion::RegionIterator4Items::Begin(void)
 {
 	currentCell = cell;
 	currentIndex = 0;
-	vecEntries = mapRegions->GetCellEntries(currentCell);
+	vecEntries = mapRegions->GetCellEntries(currentCell, enItemsOnly);
 	return GetData();
 }
 
