@@ -348,7 +348,7 @@
 				RelativePath=".\include\muls\maps.h">
 			</File>
 			<File
-				RelativePath=".\include\muls\textures.cpp">
+				RelativePath=".\src\muls\textures.cpp">
 			</File>
 			<File
 				RelativePath=".\include\muls\textures.h">
