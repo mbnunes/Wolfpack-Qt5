@@ -365,7 +365,7 @@ public:
 			return 0;
 	}
 
-	void	callMakeMenu( cUOSocket* socket, QString section );
+	void	callMakeMenu( cUOSocket* socket, const QString& section );
 
 private:
 	std::map< QString, cMakeMenu* >		menus_;

@@ -1420,8 +1420,8 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 
 cAllMakeMenus::~cAllMakeMenus()
 {
-	std::map< QString, cMakeMenu* >::iterator iter = menus_.begin();
-	std::map< QString, cMakeMenu* >::iterator end(menus_.end());
+	std::map< QString, cMakeMenu* >::iterator iter(menus_.begin());
+	std::map< QString, cMakeMenu* >::iterator end (menus_.end());
 	while( iter != end )
 	{
 		delete iter->second;
@@ -1469,7 +1469,7 @@ void cAllMakeMenus::reload()
 	load();
 }
 
-void cAllMakeMenus::callMakeMenu( cUOSocket* socket, QString section )
+void cAllMakeMenus::callMakeMenu( cUOSocket* socket, const QString& section )
 {
 	cMakeMenu* pMenu = getMenu( section );
 	if(	pMenu )

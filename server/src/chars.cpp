@@ -3360,6 +3360,8 @@ void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight, bool no
 	if ( atLayer( layer ) != 0 )
 	{
 		clConsole.send( "WARNING: Trying to put an item on layer %i which is already occupied\n", layer );
+		pi->contserial = INVALID_SERIAL; // Important to keep consistency after load.
+		pi->container_ = 0;
 		return;
 	}
 
