@@ -124,8 +124,8 @@ PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 
 	if( PyTuple_Size( args ) <= 1 )
 	{
-		clConsole.send( "Minimum argument count for item.moveto is 2" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	// X,Y
@@ -188,8 +188,8 @@ PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
-		clConsole.send( "Minimum argument count for item.soundeffect is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	self->pItem->soundEffect( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
@@ -235,8 +235,8 @@ PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 		return PyInt_FromLong( self->pItem->pos.distance( pos ) );
 	}
 
-	clConsole.send( "Minimum argment count for item.distance is 1\n" );
-	return PyInt_FromLong( -1 );
+		PyErr_BadArgument();
+		return NULL;
 }
 
 /*!
@@ -277,8 +277,8 @@ PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 	
 	if( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 	{
-		clConsole.send( "Minimum argument count for item.useresource is 2\n" );
-		return PyInt_FromLong( 0 );
+		PyErr_BadArgument();
+		return NULL;
 	}
 
     UINT16 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
@@ -307,8 +307,8 @@ PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 	
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
-		clConsole.send( "Minimum argument count for item.countresource is 1\n" );
-		return PyInt_FromLong( 0 );
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
@@ -333,8 +333,8 @@ PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for gettag is 1\n" );
-		return Py_None;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
@@ -358,8 +358,8 @@ PyObject* wpItem_settag( wpItem* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) || ( !checkArgStr( 1 ) && !checkArgInt( 1 )  ) )
 	{
-		clConsole.send( "Minimum argument count for settag is 2\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
@@ -384,8 +384,8 @@ PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for hastag is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
@@ -403,8 +403,8 @@ PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for deltag is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
@@ -433,8 +433,8 @@ PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 
 	if( ( !checkArgObject( 1 ) && !checkArgCoord( 1 ) ) || !checkArgInt( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for movingeffect is 2\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 	
 	UINT16 id = getArgInt( 0 );
@@ -486,8 +486,8 @@ PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 	// Three arguments
 	if( PyTuple_Size( args ) != 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
-		clConsole.send( "Minimum argument count for char.addtimer is 3" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	UINT32 expiretime = getArgInt( 0 );

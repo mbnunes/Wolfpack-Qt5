@@ -38,6 +38,7 @@ class cPythonEffect : public cTempEffect
 {
 protected:
 	QString functionName;
+	QString dispelId_, dispelFunc_;
 	PyObject *args;
 public:
 	cPythonEffect() { objectid = "cPythonEffect"; }
@@ -51,6 +52,63 @@ public:
 	
 	virtual ~cPythonEffect() {;}
 	
+	void setDispelId( const QString &data ) { dispelId_ = data; }
+	QString dispelId() { return dispelId_; }
+
+	void setDispelFunc( const QString &data ) { dispelFunc_ = data; }
+	QString dispelFunc() { return dispelFunc_; }
+
+	void Dispel( P_CHAR pSource, bool silent )
+	{
+		// We will ignore silent here.
+		Dispel( pSource, PyList_New( 0 ) );
+	}
+
+	// Dispel args: char, [args], source, [args] (while the last one is optional)
+	void Dispel( P_CHAR pSource, PyObject *disp_args )
+	{
+		if( dispelFunc_.isNull() )
+			return;
+
+		// Get everything before the last dot
+		if( dispelFunc_.contains( "." ) )
+		{
+			// Find the last dot
+			INT32 position = dispelFunc_.findRev( "." );
+			QString sModule = dispelFunc_.left( position );
+			QString sFunction = dispelFunc_.right( dispelFunc_.length() - (position+1) );
+
+			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+
+			if( pModule )
+			{
+				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+				if( pFunc && PyCallable_Check( pFunc ) )
+				{
+					// Create our Argument list
+					PyObject *p_args = PyTuple_New( 4 );
+					if( isItemSerial( destSer ) )
+						PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
+					else if( isCharSerial( destSer ) )
+						PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
+					else
+						PyTuple_SetItem( p_args, 0, PyFalse );
+
+					PyTuple_SetItem( p_args, 1, args );
+					PyTuple_SetItem( p_args, 2, PyGetCharObject( pSource ) );
+					PyTuple_SetItem( p_args, 3, disp_args );
+
+					PyEval_CallObject( pFunc, p_args );
+					
+					if( PyErr_Occurred() )
+						PyErr_Print();
+				}
+			}
+		}
+
+		tuple_decref( args );
+	}
+
 	void Expire()
 	{
 		// Get everything before the last dot
@@ -95,6 +153,8 @@ public:
 		if( archive.isReading() )
 		{
 			archive.read( "functionname",	functionName );
+			archive.read( "dispelfunc", dispelFunc_ );
+			archive.read( "dispelid", dispelId_ );
 
 			UINT32 pCount;
 			QString type;
@@ -126,6 +186,8 @@ public:
 		else if( archive.isWritting() )
 		{
 			archive.write( "functionname",	functionName );
+			archive.write( "dispelfunc", dispelFunc_ );
+			archive.write( "dispelid",	dispelId_ );
 
 			archive.write( "pcount", PyTuple_Size( args ) );
 

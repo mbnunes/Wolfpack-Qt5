@@ -315,8 +315,9 @@ P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 up
 // public !!!
 P_CHAR cTargets::NpcMenuTarget(int s)
 {
-	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return NULL;
-	return cCharStuff::createScriptNpc(s, NULL, QString("%1").arg(addmitem[s]));
+/*	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return NULL;
+	return cCharStuff::createScriptNpc(s, NULL, QString("%1").arg(addmitem[s]));*/
+	return 0;
 }
 
 void cTargets::VisibleTarget (int s)

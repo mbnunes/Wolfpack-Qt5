@@ -129,8 +129,8 @@ PyObject* wpChar_message( wpChar* self, PyObject* args )
 
 	if( ( PyTuple_Size( args ) < 1 ) || !PyString_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
-		clConsole.send( "Minimum argument count for char.message is 1" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString message = PyString_AsString( PyTuple_GetItem( args, 0 ) );
@@ -162,8 +162,8 @@ PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 
 	if( PyTuple_Size( args ) <= 1 )
 	{
-		clConsole.send( "Minimum argument count for item.moveto is 2" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	// X,Y
@@ -209,8 +209,8 @@ PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
-		clConsole.send( "Minimum argument count for char.soundeffect is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	if( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) && !PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) )
@@ -259,8 +259,8 @@ PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 		return PyInt_FromLong( self->pChar->pos.distance( pos ) );
 	}
 
-	clConsole.send( "Minimum argment count for char.distanceto is 1\n" );
-	return PyInt_FromLong( -1 );
+	PyErr_BadArgument();
+	return NULL;
 }
 
 /*!
@@ -270,8 +270,8 @@ PyObject* wpChar_action( wpChar* self, PyObject* args )
 {
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
-		clConsole.send( "Minimum argument count for char.action is 1" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	self->pChar->action( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
@@ -320,8 +320,8 @@ PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 		return PyInt_FromLong( chardirxyz( self->pChar, pos.x, pos.y ) );
 	}
 
-	clConsole.send( "Minimum argment count for char.directionto is 1\n" );
-	return PyInt_FromLong( -1 );
+	PyErr_BadArgument();
+	return NULL;
 }
 
 /*!
@@ -339,8 +339,8 @@ PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 		!PyInt_Check( PyTuple_GetItem( args, 1 ) ) ||
 		!PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
-		clConsole.send( "Minimum argument count for char.checkskill is 3\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	UINT16 skillId = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
@@ -364,8 +364,8 @@ PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
-		clConsole.send( "Miniumum argument count for char.itemonlayer is 1\n" );
-		return Py_None;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	return PyGetItemObject( self->pChar->GetItemOnLayer( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) ) );
@@ -400,8 +400,8 @@ PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 	
 	if( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 	{
-		clConsole.send( "Minimum argument count for char.useresource is 2\n" );
-		return PyInt_FromLong( 0 );
+		PyErr_BadArgument();
+		return NULL;
 	}
 
     UINT16 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
@@ -459,8 +459,8 @@ PyObject* wpChar_damage( wpChar* self, PyObject* args )
 
 	if( !checkArgInt( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for char.damage is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	if( getArgInt( 0 ) == 0 )
@@ -489,8 +489,8 @@ PyObject* wpChar_emote( wpChar* self, PyObject* args )
 
 	if( !PyTuple_Size( args ) || !PyString_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
-		clConsole.send( "Minimum argument count for char.emote is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString message = QString( "*%1*" ).arg( PyString_AsString( PyTuple_GetItem( args, 0 ) ) );
@@ -511,8 +511,8 @@ PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 	
 	if( PyTuple_Size( args ) < 1 || !checkArgInt( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for char.countresource is 1\n" );
-		return PyInt_FromLong( 0 );
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	UINT16 id = getArgInt( 0 );
@@ -550,8 +550,8 @@ PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for gettag is 1\n" );
-		return Py_None;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString key = getArgStr( 0 );
@@ -575,8 +575,8 @@ PyObject* wpChar_settag( wpChar* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) || ( !checkArgStr( 1 ) && !checkArgInt( 1 )  ) )
 	{
-		clConsole.send( "Minimum argument count for settag is 2\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString key = getArgStr( 0 );
@@ -601,8 +601,8 @@ PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for hastag is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString key = getArgStr( 0 );
@@ -620,8 +620,8 @@ PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for deltag is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString key = getArgStr( 0 );
@@ -640,8 +640,8 @@ PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
 
 	if( !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for addfollower is 1" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	P_CHAR pPet = getArgChar( 0 );
@@ -662,8 +662,8 @@ PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
 
 	if( !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for removefollower is 1" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
   
 	P_CHAR pPet = getArgChar( 0 );
@@ -684,8 +684,8 @@ PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 
 	if( !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for hasfollower is 1" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	P_CHAR pPet = getArgChar( 0 );
@@ -784,8 +784,8 @@ PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 
 	if( !checkArgObject( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for turnto: 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	cUObject *object = 0;
@@ -811,8 +811,8 @@ PyObject* wpChar_mount( wpChar* self, PyObject* args )
 
 	if( !checkArgChar( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for turnto: 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	P_CHAR pChar = getArgChar( 0 );
@@ -844,8 +844,8 @@ PyObject* wpChar_equip( wpChar* self, PyObject* args )
 
 	if( !checkArgItem( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for equip: 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	P_ITEM pItem = getArgItem( 0 );
@@ -888,8 +888,8 @@ PyObject* wpChar_movingeffect( wpChar* self, PyObject* args )
 
 	if( ( !checkArgObject( 1 ) && !checkArgCoord( 1 ) ) || !checkArgInt( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for movingeffect is 2\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 	
 	UINT16 id = getArgInt( 0 );
@@ -925,8 +925,6 @@ PyObject* wpChar_movingeffect( wpChar* self, PyObject* args )
 	if( checkArgInt( 6 ) )
 		renderMode = getArgInt( 6 );
 
-//void effect( UINT16 id, cUObject *target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
-
 	if( object )
 		self->pChar->effect( id, (cUObject*)object, fixedDirection, explodes, speed, hue, renderMode );
 	else 
@@ -945,8 +943,8 @@ PyObject* wpChar_effect( wpChar* self, PyObject* args )
 
 	if( !checkArgInt( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for effect is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 	
 	UINT16 id = getArgInt( 0 );
@@ -977,13 +975,22 @@ PyObject* wpChar_effect( wpChar* self, PyObject* args )
 /*!
 	Adds a temp effect to this character.
 */
+PyObject* wpChar_dispel( wpChar* self, PyObject* args )
+{
+	PyErr_SetString( PyExc_NotImplementedError, "Not implemented yet" );
+	return 0;
+}
+
+/*!
+	Adds a temp effect to this character.
+*/
 PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 {
 	// Three arguments
 	if( PyTuple_Size( args ) != 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
-		clConsole.send( "Minimum argument count for char.addtimer is 3" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	UINT32 expiretime = getArgInt( 0 );
@@ -998,6 +1005,20 @@ PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	else
 		effect->setSerializable( false );
 	
+	// dispellable
+	if( checkArgInt( 4 ) && getArgInt( 4 ) != 0 )
+		effect->dispellable = true;
+	else
+		effect->dispellable = false;
+
+	// dispelname
+	if( checkArgStr( 5 ) )
+		effect->setDispelId( getArgStr( 5 ) );
+
+	// dispelfunc
+	if( checkArgStr( 6 ) )
+		effect->setDispelFunc( getArgStr( 6 ) );
+
 	effect->setDest( self->pChar->serial );
 	effect->setExpiretime_ms( expiretime );
 	TempEffects::instance()->insert( effect );
@@ -1027,7 +1048,9 @@ static PyMethodDef wpCharMethods[] =
 	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Shows an emote above the character." },
 	{ "turnto",			(getattrofunc)wpChar_turnto, METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
 	{ "equip",			(getattrofunc)wpChar_equip, METH_VARARGS, "Equips a given item on this character." },
+	
 	{ "addtimer",		(getattrofunc)wpChar_addtimer, METH_VARARGS, "Adds a timer to this character." },
+	{ "dispel",			(getattrofunc)wpChar_dispel, METH_VARARGS, "Dispels this character (with special options)." },
 
 	// Update Stats
 	{ "updatestats",	(getattrofunc)wpChar_updatemana, METH_VARARGS, "Resends other stats to this character." },
@@ -1040,8 +1063,8 @@ static PyMethodDef wpCharMethods[] =
 	{ "mount",			(getattrofunc)wpChar_mount, METH_VARARGS, "Mounts this on a specific mount." },
 
 	// Effects
-	{ "movingeffect",			(getattrofunc)wpChar_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
-	{ "effect",					(getattrofunc)wpChar_effect, METH_VARARGS, "Shows an effect staying with this character." },
+	{ "movingeffect",	(getattrofunc)wpChar_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
+	{ "effect",			(getattrofunc)wpChar_effect, METH_VARARGS, "Shows an effect staying with this character." },
 
 	// Bank/Backpack
 	{ "getbankbox",		(getattrofunc)wpChar_getbankbox, METH_VARARGS,	"Gets and autocreates a bankbox for the character." },
@@ -1053,10 +1076,10 @@ static PyMethodDef wpCharMethods[] =
 	{ "hasfollower",	(getattrofunc)wpChar_hasfollower, METH_VARARGS, "Checks if a certain character is a follower of this." },
 
 	// Tag System
-	{ "gettag",				(getattrofunc)wpChar_gettag, METH_VARARGS, "Gets a tag assigned to a specific char." },
-	{ "settag",				(getattrofunc)wpChar_settag, METH_VARARGS, "Sets a tag assigned to a specific char." },
-	{ "hastag",				(getattrofunc)wpChar_hastag, METH_VARARGS, "Checks if a certain char has the specified tag." },
-	{ "deltag",				(getattrofunc)wpChar_deltag, METH_VARARGS, "Deletes the specified tag." },
+	{ "gettag",			(getattrofunc)wpChar_gettag, METH_VARARGS, "Gets a tag assigned to a specific char." },
+	{ "settag",			(getattrofunc)wpChar_settag, METH_VARARGS, "Sets a tag assigned to a specific char." },
+	{ "hastag",			(getattrofunc)wpChar_hastag, METH_VARARGS, "Checks if a certain char has the specified tag." },
+	{ "deltag",			(getattrofunc)wpChar_deltag, METH_VARARGS, "Deletes the specified tag." },
 
 	// Is*? Functions
 	{ "isitem",			(getattrofunc)wpChar_isitem, METH_VARARGS, "Is this an item." },
@@ -1215,6 +1238,17 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetInt( "serial", serial )
 
 	else pGetStr( "profile", profile() )
+
+	else if( !strcmp( name, "followers" ) )
+	{
+		cChar::Followers followers = self->pChar->followers();
+		PyObject *rVal = PyTuple_New( followers.size() );
+
+		for( INT32 i = 0; i < followers.size(); ++i )
+			PyTuple_SetItem( rVal, i, PyGetCharObject( followers[i] ) );
+
+		return rVal;
+	}
 
 	// If no property is found search for a method
 	return Py_FindMethod( wpCharMethods, (PyObject*)self, name );

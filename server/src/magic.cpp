@@ -882,7 +882,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 {
 	//CHARACTER c;
 //	CHARACTER cc = currchar[s];
-	P_CHAR pc_currchar = currchar[s];
+/*	P_CHAR pc_currchar = currchar[s];
 	P_CHAR pc_monster = NULL;
 	int id=(id1<<8)+id2;
 	UI16 color = (color1 << 8) + color2;
@@ -1071,7 +1071,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	P_CHAR pc_i = FindCharBySerial( serial );
 	if(pc_i == NULL) return;
 
-	pc_i->attackTarget( pc_monster );
+	pc_i->attackTarget( pc_monster );*/
 }
 
 ///////////////////

@@ -29,12 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if defined (__unix__)
-#include <limits.h>  //compatability issue. GCC 2.96 doesn't have limits include
-#else
-#include <limits> // Python tries to redefine some of this stuff, so include first
-#endif
-
 #include "utilities.h"
 #include "../network/uosocket.h"
 #include "target.h"
@@ -104,8 +98,8 @@ PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 
 	if( !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for socket.sysmessage is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	QString message = PyString_AsString( PyTuple_GetItem( args, 0 ) );
@@ -199,8 +193,8 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 
 	if( !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for socket.sysmessage is 1\n" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	// Collect Data
@@ -221,8 +215,8 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 
 	if( checkArgStr( 3 ) && checkArgInt( 4 ) )
 	{
-		timeout = getArgInt( 4 );
 		timeoutfunc = getArgStr( 3 );
+		timeout = getArgInt( 4 );
 	}
 
 	cPythonTarget *target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );

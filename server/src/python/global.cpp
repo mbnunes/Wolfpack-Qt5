@@ -202,8 +202,8 @@ PyObject* wpAdditem( PyObject* self, PyObject* args )
 {
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
-		clConsole.send( "Minimum argument count for wolfpack.additem is 1\n" );
-		return Py_None;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 
@@ -218,8 +218,8 @@ PyObject* wpAddnpc( PyObject* self, PyObject* args )
 {
 	if( PyTuple_Size( args ) < 2 || !checkArgStr( 0 ) || !checkWpCoord( PyTuple_GetItem( args, 1 ) ) )
 	{
-		clConsole.send( "Minimum argument count for wolfpack.addnpc is 2\n" );
-		return Py_None;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	Coord_cl pos = getWpCoord( PyTuple_GetItem( args, 1 ) );
@@ -236,8 +236,8 @@ PyObject* wpFinditem( PyObject* self, PyObject* args )
 {
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
-		clConsole.send( "Minimum argument count for wolfpack.finditem is 1\n" );
-		return Py_None;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	SERIAL serial = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
@@ -252,8 +252,8 @@ PyObject* wpFindchar( PyObject* self, PyObject* args )
 {
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
-		clConsole.send( "Minimum argument count for wolfpack.findchar is 1\n" );
-		return Py_None;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	SERIAL serial = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
@@ -268,8 +268,8 @@ PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	// Three arguments
 	if( PyTuple_Size( args ) != 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
-		clConsole.send( "Minimum argument count for addtimer is 3" );
-		return PyFalse;
+		PyErr_BadArgument();
+		return NULL;
 	}
 
 	UINT32 expiretime = getArgInt( 0 );
