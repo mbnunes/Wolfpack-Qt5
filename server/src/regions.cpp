@@ -233,7 +233,7 @@ P_CHAR cRegion::RegionIterator4Chars::End(void)
 cRegion::RegionIterator4Chars& cRegion::RegionIterator4Chars::operator++ (int)
 {
 	++currentIndex;
-	if (currentIndex > vecEntries.size())
+	if (currentIndex >= vecEntries.size())
 		NextCell();
 	return *this;
 }
@@ -297,7 +297,7 @@ P_ITEM cRegion::RegionIterator4Items::End(void)
 cRegion::RegionIterator4Items& cRegion::RegionIterator4Items::operator ++(int)
 {
 	++currentIndex;
-	if (currentIndex > vecEntries.size())
+	if (currentIndex >= vecEntries.size())
 		NextCell();
 	return *this;
 }
