@@ -11,7 +11,7 @@
 	<startitems id="default">
 		<!--Gold -->
 		<item id="eed">
-			<amount value="1000" />
+			<amount>1000</amount>
 		</item>
 		<!--Dagger -->
 		<item id="f51" />
@@ -31,23 +31,23 @@
 		<item id="e9b" />
 		<!--Bottle -->
 		<item id="f0e">
-			<amount value="4" />
+			<amount>4</amount>
 		</item>
 		<!--Random Reagents-->
 		<item list="REAGENTS">
-			<amount value="3" />
+			<amount>3</amount>
 		</item>
 		<!--Random Reagents-->
 		<item list="REAGENTS">
-			<amount value="3" />
+			<amount>3</amount>
 		</item>
 		<!--Random Reagents-->
 		<item list="REAGENTS">
-			<amount value="3" />
+			<amount>3</amount>
 		</item>
 		<!--Random Reagents-->
 		<item list="REAGENTS">
-			<amount value="3" />
+			<amount>3</amount>
 		</item>
 	</startitems>
 
@@ -57,7 +57,7 @@
 		<equipment id="1f03" />
 		<!--Bandages -->
 		<item id="e21">
-			<amount value="3" />
+			<amount>3" />
 		</item>
 	</startitems>
 
@@ -97,7 +97,7 @@
 		<equipment id="153b" />
 		<!--Ingots -->
 		<item id="iron_ingot">
-			<amount value="50" />
+			<amount>50</amount>
 		</item>
 		<!--Random Mining Tool-->
 		<item list="MININGTOOLS" />
@@ -109,15 +109,15 @@
 	<startitems id="bowcraft">
 		<!--Boards -->
 		<item id="1bd7">
-			<amount value="14" />
+			<amount>14</amount>
 		</item>
 		<!--Feathers -->
 		<item id="1bd1">
-			<amount value="5" />
+			<amount>5</amount>
 		</item>
 		<!--Shafts -->
 		<item id="1bd4">
-			<amount value="5" />
+			<amount>5</amount>
 		</item>
 	</startitems>
 
@@ -133,7 +133,7 @@
 		<item id="a58" />
 		<!--Kindling -->
 		<item id="de1">
-			<amount value="5" />
+			<amount>5</amount>
 		</item>
 	</startitems>
 
@@ -143,7 +143,7 @@
 		<equipment id="153b" />
 		<!--Boards -->
 		<item id="1bd7">
-			<amount value="10" />
+			<amount>10</amount>
 		</item>
 		<!--Random Carpentry Tool-->
 		<item list="CARPENTRYTOOLS" />
@@ -153,7 +153,7 @@
 	<startitems id="cartography">
 		<!--Maps -->
 		<item id="14eb">
-			<amount value="4" />
+			<amount>4</amount>
 		</item>
 		<!--Sextant -->
 		<item id="1057" />
@@ -163,7 +163,7 @@
 	<startitems id="cooking">
 		<!--Kindling -->
 		<item id="de1">
-			<amount value="2" />
+			<amount>2</amount>
 		</item>
 		<!--Raw Leg of Lamb -->
 		<item id="1609" />
@@ -197,7 +197,7 @@
 	<startitems id="healing">
 		<!--Bandages -->
 		<item id="e21">
-			<amount value="50" />
+			<amount>50</amount>
 		</item>
 		<!--Scissors -->
 		<item id="f9e" />
@@ -239,7 +239,7 @@
 		<item id="ff1" />
 		<!--Blank Scrolls -->
 		<item id="e34">
-			<amount value="2" />
+			<amount>2</amount>
 		</item>
 	</startitems>
 
@@ -247,7 +247,7 @@
 	<startitems id="lockpicking">
 		<!--Lockpicks -->
 		<item id="14fb">
-			<amount value="20" />
+			<amount>20</amount>
 		</item>
 	</startitems>
 
@@ -270,35 +270,35 @@
 			<content>
 				<!--Black Pearl -->
 				<item id="f7a">
-					<amount value="50" />
+					<amount>50</amount>
 				</item>
 				<!--Bloodmoss -->
 				<item id="f7b">
-					<amount value="50" />
+					<amount>50</amount>
 				</item>
 				<!--Garlic -->
 				<item id="f84">
-					<amount value="50" />
+					<amount>50</amount>
 				</item>
 				<!--Gensing -->
 				<item id="f85">
-					<amount value="50" />
+					<amount>50</amount>
 				</item>
 				<!--Mandrake Root -->
 				<item id="f86">
-					<amount value="50" />
+					<amount>50</amount>
 				</item>
 				<!--Nightshade -->
 				<item id="f88">
-					<amount value="50" />
+					<amount>50</amount>
 				</item>
 				<!--Sulfurous Ash -->
 				<item id="f8c">
-					<amount value="50" />
+					<amount>50</amount>
 				</item>
 				<!--Spider Silk -->
 				<item id="f8d">
-					<amount value="50" />
+					<amount>50</amount>
 				</item>
 			</content>
 		</item>
@@ -318,7 +318,7 @@
 	<startitems id="snooping">
 		<!--Lockpicks -->
 		<item id="14fb">
-			<amount value="20" />
+			<amount>20</amount>
 		</item>
 	</startitems>
 
@@ -332,7 +332,7 @@
 	<startitems id="poisoning">
 		<!--Poison Potion -->
 		<item id="f0a">
-			<amount value="2" />
+			<amount>2</amount>
 		</item>
 	</startitems>
 
@@ -350,7 +350,7 @@
 	<startitems id="stealing">
 		<!--Lockpicks -->
 		<item id="14fb">
-			<amount value="20" />
+			<amount>20</amount>
 		</item>
 	</startitems>
 
@@ -392,7 +392,7 @@
 	<startitems id="veterinary">
 		<!--Bandages -->
 		<item id="1f03">
-			<amount value="5" />
+			<amount>5</amount>
 		</item>
 		<!--Scissors -->
 		<item id="f9e" />
