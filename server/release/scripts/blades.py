@@ -73,7 +73,7 @@ def response( char, args, target ):
 	elif target.char and target.char.npc:
 		if target.char.baseid == 'sheep_unsheered':
 			target.char.id = 223
-			target.char.baseid = 'sheep_sheered'
+			target.char.baseid = 'sheep'
 			target.char.update()
 
 			# Create Wool
@@ -94,7 +94,7 @@ def response( char, args, target ):
 			target.char.dispel(None, 1, "regrow_wool", [])
 			target.char.addtimer(delay, "blades.regrow_wool", [], 1, 0, "regrow_wool")
 			return
-		elif target.char.id == 'sheep_sheered':
+		elif target.char.baseid == 'sheep':
 			char.socket.clilocmessage( 0x7A2E1 ) # This sheep is not yet ready to be shorn.
 			return
 		else:
