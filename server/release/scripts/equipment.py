@@ -29,6 +29,21 @@ def modifiers(object, tooltip):
 
 	if reflectphysical:
 		tooltip.add(1060442, str(reflectphysical))
+		
+	castrecovery = properties.fromitem(object, CASTRECOVERYBONUS)
+	
+	if castrecovery:
+		tooltip.add(1060412, str(castrecovery))
+		
+	castspeed = properties.fromitem(object, CASTSPEEDBONUS)
+	
+	if castspeed:
+		tooltip.add(1060413, str(castspeed))
+	
+	spelldamagebonus = properties.fromitem(object, SPELLDAMAGEBONUS)
+
+	if spelldamagebonus:
+		tooltip.add(1060483, str(spelldamagebonus))	
 
 	if object.hastag("bestskill"):
 		tooltip.add(1060400, "")

@@ -12,7 +12,8 @@ from wolfpack.consts import RESISTANCE_PHYSICAL, RESISTANCE_ENERGY, \
 	DURABILITYBONUS, WEIGHTBONUS, \
 	MAGICRESISTANCE, INSCRIPTION, LAYER_RIGHTHAND, LAYER_MOUNT, \
 	ITEM_ARMOR, ITEM_WEAPON, ITEM_SHIELD, ITEM_MELEE, ITEM_RANGED, \
-	ITEM_PIERCING, ITEM_SLASHING, ITEM_BASHING, SPELLCHANNELING
+	ITEM_PIERCING, ITEM_SLASHING, ITEM_BASHING, SPELLCHANNELING, \
+	CASTRECOVERYBONUS, CASTSPEEDBONUS
 
 #
 # Get the delay for the next swing from this attacker and his weapon.
@@ -53,7 +54,7 @@ PROPERTIES = {
 
 	# Flags (Weapons):
 	SPELLCHANNELING: ['spellchanneling', 0, 0],
-
+	
 	# % Boni
 	LOWERREQS: ['lower_reqs', 0, 1],
 	DAMAGEBONUS: ['aos_boni_damage', 0, 1],
@@ -61,6 +62,8 @@ PROPERTIES = {
 	HITBONUS: ['aos_boni_hit_chance', 0, 1],
 	DEFENSEBONUS: ['aos_defense_chance', 0, 1],
 	SPELLDAMAGEBONUS: ['spelldamagebonus', 0, 1],
+	CASTRECOVERYBONUS: ['castrecoverybonus', 0, 1],
+	CASTSPEEDBONUS: ['castspeedbonus', 0, 1],
 
 	# Requirements
 	REQSTR: ['req_strength', 0, 0],

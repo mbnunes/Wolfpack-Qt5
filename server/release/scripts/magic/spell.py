@@ -6,6 +6,7 @@ from wolfpack import properties
 from magic.utilities import *
 from wolfpack.consts import MAGICRESISTANCE, EVALUATINGINTEL, INSCRIPTION, \
 	MAGERY, ANIM_CASTDIRECTED, SPELLDAMAGEBONUS, LOG_WARNING, SPELLCHANNELING
+import time
 
 # Recursive Function for counting reagents
 def countReagents(item, items):
@@ -95,6 +96,9 @@ class Spell:
 		self.mana = mana_table[ self.circle - 1 ]
 		self.casttime = 500 + (250 * self.circle)
 		self.castaction = ANIM_CASTDIRECTED
+		
+		# Change this to 0 for AoS behaviour
+		self.castrecovery = 1 * circle
 
 	#
 	# Prepare the casting of this spell.
@@ -159,11 +163,33 @@ class Spell:
 		else:
 			char.log(LOG_MESSAGE, "Casting spell %s from %s.\n" % (self.__class__.__name__, source))
 			
-		char.addtimer(self.calcdelay(), 'magic.spell.callback', [self, mode, args, target, item], 0, 0, "cast_delay")
+		char.addtimer(self.calcdelay(char, mode), 'magic.spell.callback', [self, mode, args, target, item], 0, 0, "cast_delay")
 		return 1
 
-	def calcdelay(self):
-		return self.casttime
+	#
+	# Calculate the time required to cast this spell
+	#
+	def calcdelay(self, char, mode):
+		# Wands and commands don't have a delay
+		if mode == MODE_WAND or mode == MODE_CMD:
+			return 0
+			
+		# Get the AOS bonus from all items the character wears
+		castspeed = 3 - properties.fromchar(char, CASTSPEEDBONUS)
+		
+		# Under the influence of the protection spell
+		# spells are cast more slowly
+		if char.propertyflags & 0x20000:
+			castspeed += 2
+
+		castspeed += self.circle
+
+		if castspeed < 1:
+			castspeed = 1
+
+		# Was: floor((delay / 4.0) * 1000)
+		char.message(str(castspeed / 4.0))
+		return castspeed * 250
 		
 	def checkweapon(self, char):
 		weapon = char.itemonlayer(LAYER_RIGHTHAND)
@@ -175,10 +201,32 @@ class Spell:
 			return True
 			
 		# Check if the spellchanneling property is true for this item
-		if properties.fromitem(weapon, SPELLCHANNELING) == 0:
-			return False
+		if not properties.fromitem(weapon, SPELLCHANNELING):
+			if not wolfpack.tobackpack(weapon, char):
+				weapon.update()
+			
+			return True
 		else:
-			return True						
+			return True
+
+	#
+	# Set the delay for the next spell
+	#
+	def setspelldelay(self, char, mode):		
+		if char.npc:
+			pass
+		elif char.socket:
+			castrecovery = - properties.fromchar(char, CASTRECOVERYBONUS)
+			castrecovery += 6
+			castrecovery += self.castrecovery						
+			
+			if castrecovery < 0:
+				castrecovery = 0
+
+			delay = float(castrecovery) / 4.0
+			char.message(str(delay))
+
+			char.socket.settag('spell_delay', time.time() + delay)
 
 	def checkrequirements(self, char, mode, args=[], target=None, item=None):
 		if char.dead:
@@ -271,6 +319,9 @@ class Spell:
 				char.message(502632)
 				fizzle(char)
 				return 0
+				
+		# Set the next spell delay
+		self.setspelldelay(char, mode)
 
 		return 1
 

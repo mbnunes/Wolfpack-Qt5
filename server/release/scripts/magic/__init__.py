@@ -4,6 +4,7 @@ from wolfpack.consts import LOG_ERROR, EVENT_CASTSPELL
 from magic.utilities import *
 from magic.spell import *
 from wolfpack import console
+import time
 
 # Spell Registry
 spells = {}
@@ -38,11 +39,21 @@ def castSpell( char, spell, mode = 0, args = [], target = None, item = None ):
 	
 	if not spells.has_key(spell):
 		if socket:
-			socket.log(LOG_ERROR, "Trying to cast unknown spell: %d\n" % spell)
+			socket.log(LOG_ERROR, "Trying to cast unknown spell: %d.\n" % spell)
 			socket.sysmessage('ERROR: Unknown Spell')
 		return
 
+	# Deny casting if spell delay hasn't yet expired
+	if socket and socket.hastag('spell_delay'):
+		spell_delay = float(socket.gettag('spell_delay'))
+		if spell_delay > time.time():
+			socket.clilocmessage(502644)
+			return False
+		else:
+			socket.deltag('spell_delay')	
+
 	spells[spell].precast(char, mode, args, target, item)
+	return True
 
 # Target Cancel
 def target_cancel(char):

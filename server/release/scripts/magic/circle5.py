@@ -181,7 +181,7 @@ class MagicReflect(Spell):
 	def cast(self, char, mode, args=[], target=None, item=None):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
-
+						
 		# Toggle Magic Reflection
 		if char.propertyflags & 0x40000:
 			char.propertyflags &= ~ 0x40000
