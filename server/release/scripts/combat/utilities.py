@@ -199,3 +199,14 @@ def playhitsound(attacker, defender):
 		# Only play a sound if there are any
 		if len(sounds) != 0:
 			attacker.soundeffect(random.choice(sounds))
+
+#
+# Send the swing packet to the player
+# 
+def sendswing(attacker, defender):
+	if attacker.socket:
+		packet = wolfpack.packet(0x2f, 10)
+		packet.setbyte(1, 0)
+		packet.setint(2, attacker.serial)
+		packet.setint(6, defender.serial)
+		packet.send(attacker.socket)

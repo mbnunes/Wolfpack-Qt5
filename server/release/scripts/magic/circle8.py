@@ -65,6 +65,7 @@ class EnergyVortex(Spell):
 		self.reagents = {REAGENT_BLACKPEARL: 1, REAGENT_MANDRAKE: 1, REAGENT_BLOODMOSS: 1, REAGENT_NIGHTSHADE: 1}
 		self.mantra = 'Vas Corp Por'
 		self.validtarget = TARGET_GROUND
+		self.casttime *= 5
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)

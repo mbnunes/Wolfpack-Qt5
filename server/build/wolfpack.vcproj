@@ -22,7 +22,7 @@
 "
 				Optimization="0"
 				AdditionalIncludeDirectories="..\src\sqlite;."
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_DLL;QT_NO_STL;QT_THREAD_SUPPORT;CRASHHANDLER"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_DLL;QT_NO_STL;QT_THREAD_SUPPORT;CRASHHANDLER;DEBUG_PYTHON"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -942,6 +942,18 @@
 			</File>
 			<File
 				RelativePath="..\src\ai\ai_animals.cpp">
+			</File>
+			<File
+				RelativePath="..\src\ai\ai_bladespirit.cpp">
+			</File>
+			<File
+				RelativePath="..\src\ai\ai_bladespirit.h">
+			</File>
+			<File
+				RelativePath="..\src\ai\ai_energyvortex.cpp">
+			</File>
+			<File
+				RelativePath="..\src\ai\ai_energyvortex.h">
 			</File>
 			<File
 				RelativePath="..\src\ai\ai_humans.cpp">

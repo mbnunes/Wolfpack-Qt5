@@ -67,6 +67,7 @@ Wolfpack 12.9.13 Beta (SVN)
   - type="3" in bodyinfo.xml is now correctly interpreted by the core.
   - Exploit bugfix for locked containers.
   - The status only shows the gold directly in your backpack now. (performance issues)
+  - Added bladespirit and energyvortex ai.
   - Fixed a vision range bug with walking.
   - Fixed many compiler warnings for GCC 3.4 versions, and general warnings.
   - Updated SQLite to 2.8.15 and defaulted SQLite to encode data with UTF-8.
@@ -135,6 +136,7 @@ Wolfpack 12.9.13 Beta (SVN)
   - Added tilecolorz command. Same as tilecolor, but limited to one z coordinate.
   - Added nukez command. Same as nuke, but limited to one z coordinate.
   - Added tilemove command.
+  - Increased energyvortex and bladespirit casting time.
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:

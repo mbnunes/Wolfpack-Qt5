@@ -22,148 +22,148 @@
 	<menu id="TAILORING_HATS" name="Hats">
 		<tailor definition="1543" name="Skull Cap">
 			<tailoring min="0" max="250" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="2" name="Cloth" />
+			<cloth amount="2" />
 		</tailor>
 		<tailor definition="153f" name="Bandana">
 			<tailoring min="0" max="250" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="2" name="Cloth" />
+			<cloth amount="2" />
 		</tailor>
 		<tailor definition="1713" name="Floppy Hat">
 			<tailoring min="62" max="312" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="11" name="Cloth" />
+			<cloth amount="11" />
 		</tailor>
 		<tailor definition="1715" name="Cap">
 			<tailoring min="-188" max="62" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="11" name="Cloth" />
+			<cloth amount="11" />
 		</tailor>
 		<tailor definition="1714" name="Wide Brim Hat">
 			<tailoring min="62" max="312" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="12" name="Cloth" />
+			<cloth amount="12" />
 		</tailor>
 		<tailor definition="1717" name="Straw Hat">
 			<tailoring min="62" max="312" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="10" name="Cloth" />
+			<cloth amount="10" />
 		</tailor>
 		<tailor definition="1716" name="Tall Straw Hat">
 			<tailoring min="67" max="317" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="13" name="Cloth" />
+			<cloth amount="13" />
 		</tailor>
 		<tailor definition="1718" name="Wizards Hat">
 			<tailoring min="72" max="322" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="15" name="Cloth" />
+			<cloth amount="15" />
 		</tailor>
 		<tailor definition="1719" name="Bonnet">
 			<tailoring min="62" max="312" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="11" name="Cloth" />
+			<cloth amount="11" />
 		</tailor>
 		<tailor definition="171a" name="Feathered Hat">
 			<tailoring min="62" max="312" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="12" name="Cloth" />
+			<cloth amount="12" />
 		</tailor>
 		<tailor definition="171b" name="Tricorne Hat">
 			<tailoring min="62" max="312" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="12" name="Cloth" />
+			<cloth amount="12" />
 		</tailor>
 		<tailor definition="172e" name="Jesters Hat">
 			<tailoring min="72" max="322" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="15" name="Cloth" />
+			<cloth amount="15" />
 		</tailor>
 		<tailor definition="2305" name="Flower Garland">
 			<tailoring min="100" max="350" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="5" name="Cloth" />
+			<cloth amount="5" />
 		</tailor>
 	</menu>
 
 	<menu id="TAILORING_SHIRTS" name="Shirts">
 		<tailor definition="1f7b" name="Doublet">
 			<tailoring min="0" max="250" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="8" name="Cloth" />
+			<cloth amount="8" />
 		</tailor>
 		<tailor definition="1517" name="Shirt">
 			<tailoring min="207" max="457" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="8" name="Cloth" />
+			<cloth amount="8" />
 		</tailor>
 		<tailor definition="1efd" name="Fancy Shirt">
 			<tailoring min="248" max="498" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="12" name="Cloth" />
+			<cloth amount="12" />
 		</tailor>
 		<tailor definition="1fa1" name="Tunic">
 			<tailoring min="0" max="250" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="12" name="Cloth" />
+			<cloth amount="12" />
 		</tailor>
 		<tailor definition="1fa1" name="Surcoat">
 			<tailoring min="82" max="332" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="14" name="Cloth" />
+			<cloth amount="14" />
 		</tailor>
 		<tailor definition="1f01" name="Plain Dress">
 			<tailoring min="124" max="374" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="10" name="Cloth" />
+			<cloth amount="10" />
 		</tailor>
 		<tailor definition="1eff" name="Fancy Dress">
 			<tailoring min="331" max="581" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="12" name="Cloth" />
+			<cloth amount="12" />
 		</tailor>
 		<tailor definition="1515" name="Cloak">
 			<tailoring min="414" max="664" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="14" name="Cloth" />
+			<cloth amount="14" />
 		</tailor>
 		<tailor definition="1f03" name="Robe">
 			<tailoring min="539" max="789" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="16" name="Cloth" />
+			<cloth amount="16" />
 		</tailor>
 		<tailor definition="1f9f" name="Jester Suit">
 			<tailoring min="82" max="332" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="24" name="Cloth" />
+			<cloth amount="24" />
 		</tailor>
 		<tailor definition="2309" name="Fur Cape">
 			<tailoring min="350" max="600" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="13" name="Cloth" />
+			<cloth amount="13" />
 		</tailor>
 		<tailor definition="230d" name="Gilded Dress">
 			<tailoring min="375" max="625" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="16" name="Cloth" />
+			<cloth amount="16" />
 		</tailor>
 		<tailor definition="230f" name="Formal Shirt">
 			<tailoring min="260" max="510" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="16" name="Cloth" />
+			<cloth amount="16" />
 		</tailor>
 	</menu>
 
 	<menu id="TAILORING_PANTS" name="Pants">
 		<tailor definition="152e" name="Short Pants">
 			<tailoring min="248" max="498" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="6" name="Cloth" />
+			<cloth amount="6" />
 		</tailor>
 		<tailor definition="1539" name="Long Pants">
 			<tailoring min="248" max="498" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="8" name="Cloth" />
+			<cloth amount="8" />
 		</tailor>
 		<tailor definition="1537" name="Kilt">
 			<tailoring min="207" max="457" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="8" name="Cloth" />
+			<cloth amount="8" />
 		</tailor>
 		<tailor definition="1516" name="Skirt">
 			<tailoring min="290" max="540" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="10" name="Cloth" />
+			<cloth amount="10" />
 		</tailor>
 		<tailor definition="230b" name="Fur Sarong">
 			<tailoring min="350" max="600" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="12" name="Cloth" />
+			<cloth amount="12" />
 		</tailor>
 	</menu>
 
 	<menu id="TAILORING_MISC" name="Misc">
 		<tailor definition="1541" name="Body Sash">
 			<tailoring min="41" max="291" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="4" name="Cloth" />
+			<cloth amount="4" />
 		</tailor>
 		<tailor definition="153b" name="Half Apron">
 			<tailoring min="207" max="457" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="6" name="Cloth" />
+			<cloth amount="6" />
 		</tailor>
 		<tailor definition="153d" name="Full Apron">
 			<tailoring min="290" max="540" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="10" name="Cloth" />
+			<cloth amount="10" />
 		</tailor>
 		<!-- Oil Cloth -->
 	</menu>
@@ -171,7 +171,7 @@
 	<menu id="TAILORING_FOOTWEAR" name="Footwear">
 		<tailor definition="2307" name="Fur Boots">
 			<tailoring min="500" max="750" />
-			<material id="175d;175e;175f;1760;1761;1762;1763;1764;1765;1766;1767;1768" amount="12" name="Cloth" />
+			<cloth amount="12" />
 		</tailor>
 		<tailor definition="170d" name="Sandals">
 			<tailoring min="124" max="374" />

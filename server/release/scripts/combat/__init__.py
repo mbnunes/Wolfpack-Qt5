@@ -58,15 +58,20 @@ def onSwing(attacker, defender, time):
 
 				# See if we can fire the weapon.
 				# if not, wait until the next normal swing.
-				if combat.aos.fireweapon(attacker, defender, weapon):
+				if combat.aos.fireweapon(attacker, defender, weapon):					
+					combat.utilities.sendswing(attacker, defender) # Send Swing
+					
 					if combat.aos.checkhit(attacker, defender, time):
 						combat.aos.hit(attacker, defender, weapon, time)
 					else:
 						combat.aos.miss(attacker, defender, weapon, time)
+
 			elif combat.aos.checkhit(attacker, defender, time):
-					combat.aos.hit(attacker, defender, weapon, time)
+				combat.utilities.sendswing(attacker, defender) # Send Swing
+				combat.aos.hit(attacker, defender, weapon, time)
 			else:
-					combat.aos.miss(attacker, defender, weapon, time)
+				combat.utilities.sendswing(attacker, defender) # Send Swing
+				combat.aos.miss(attacker, defender, weapon, time)
 
 		except:
 			# Try again in 10 seconds

@@ -11,25 +11,65 @@
 	These can be used for convenience too.
 -->
 <definitions>
+	<!-- Toolbag -->
+	<item id="toolbag" inherit="e76">
+		<name>Tool Bag</name>
+		<color>0x480</color>
+		<newbie />
+		<content>
+			<item id="sledge_hammer"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Smithy -->
+			<item id="f9d"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Tailor -->
+			<item id="f9e" /> <!-- Scissors -->
+			<item id="102a"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Carpenter -->
+			<item id="1eb9"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Tinker -->
+			<item id="e9b"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Alchemist -->
+			<item id="1022"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Fletcher -->
+			<item id="sledge_hammer"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Scribe -->
+			<item id="scribes_pen"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Miner -->
+			<item id="mapmakers_pen"><tag name="remaining_uses" value="9999" type="int" /></item> <!-- Mapmakers Tool -->
+		</content>		
+		<category>GM Items\Tool Bag</category>
+	</item>
+
 	<!-- Reagent Bag -->
 	<item id="reagentbag" inherit="e76">
 		<name>Reagent Bag</name>
 		<color>0x8AB</color>
 		<newbie />
 		<content>
-		<!-- Weight set to 0 because of the insane amount of regs. -->
-		<item id="f7a"><amount>5000</amount><weight>0</weight></item>
-		<item id="f7b"><amount>5000</amount><weight>0</weight></item>
-		<item id="f84"><amount>5000</amount><weight>0</weight></item>
-		<item id="f85"><amount>5000</amount><weight>0</weight></item>
-		<item id="f86"><amount>5000</amount><weight>0</weight></item>
-		<item id="f88"><amount>5000</amount><weight>0</weight></item>
-		<item id="f8c"><amount>5000</amount><weight>0</weight></item>
-		<item id="f8d"><amount>5000</amount><weight>0</weight></item>
+			<item id="f7a"><amount>5000</amount></item>
+			<item id="f7b"><amount>5000</amount></item>
+			<item id="f84"><amount>5000</amount></item>
+			<item id="f85"><amount>5000</amount></item>
+			<item id="f86"><amount>5000</amount></item>
+			<item id="f88"><amount>5000</amount></item>
+			<item id="f8c"><amount>5000</amount></item>
+			<item id="f8d"><amount>5000</amount></item>
 		</content>
 		<category>GM Items\Reagent Bag (5000)</category>
 	</item>
 
+	<!-- Raw Materials Bag -->
+	<item id="rawmaterialsbag" inherit="e76">
+		<name>Raw Materials Bag</name>
+		<color>0x8AB</color>
+		<newbie />
+		<content>
+			<item id="f0e"><amount>1000</amount></item>
+			<item id="1bd1"><amount>1000</amount></item>
+			<item id="f95"><amount>1000</amount></item>
+			<item id="ef3"><amount>1000</amount></item>
+			<item id="leather_cut"><amount>1000</amount></item>
+			<item id="spined_leather_cut"><amount>1000</amount></item>
+			<item id="horned_leather_cut"><amount>1000</amount></item>
+			<item id="barbed_leather_cut"><amount>1000</amount></item>
+			<item id="e21"><amount>1000</amount></item>
+			<item id="1be0"><amount>1000</amount></item>
+			<item id="1bd7"><amount>1000</amount></item>
+		</content>
+		<category>GM Items\Raw Materials Bag (1000)</category>
+	</item>	
+	
 	<!-- Reagent Bag Small -->
 	<item id="reagentbag_small" inherit="e76">
 		<name>Small Reagent Bag</name>

@@ -12,7 +12,7 @@
 	<npc id="summoned_energy_vortex">
 		<name>energy vortex</name>
 		<wandertype>1</wandertype>
-		<ai>Monster_Berserk</ai>
+		<ai>Monster_EnergyVortex</ai>
 		<id>164</id>
 		<karma>0</karma>
 		<fame>0</fame>

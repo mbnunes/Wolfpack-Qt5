@@ -13,7 +13,7 @@
 		<name>blade spirit</name>
 		<mintaming>1100</mintaming>
 		<wandertype>1</wandertype>
-		<ai>Monster_Berserk</ai>
+		<ai>Monster_BladeSpirit</ai>
 		<id>574</id>
 		<karma>0</karma>
 		<fame>0</fame>

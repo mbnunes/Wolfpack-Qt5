@@ -165,7 +165,7 @@ def onSpeech(pet, char, text, keywords):
 	text = text.lower()
 
 	# Test Ownership / Allow GMs to control
-	if ( not pet.owner or pet.owner != char ) and not char.gm:
+	if (pet.owner != char or not pet.tamed) and not char.gm:
 		return 0
 
 	# Test All

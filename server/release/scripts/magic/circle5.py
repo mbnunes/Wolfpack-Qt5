@@ -13,6 +13,7 @@ class BladeSpirits (Spell):
 		self.reagents = {REAGENT_BLACKPEARL: 1, REAGENT_MANDRAKE: 1, REAGENT_NIGHTSHADE: 1}
 		self.mantra = 'In Jux Hur Ylem'
 		self.validtarget = TARGET_GROUND
+		self.casttime *= 5
 
 	def cast(self, char, mode, args=[], target=None, item=None):
 		if char.player and char.controlslots >= 5:

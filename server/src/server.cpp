@@ -28,6 +28,8 @@
 #include "accounts.h"
 #include "ai/ai.h"
 #include "ai/ai_mage.h"
+#include "ai/ai_bladespirit.h"
+#include "ai/ai_energyvortex.h"
 #include "basedef.h"
 #include "basics.h"
 #include "commands.h"
@@ -508,6 +510,8 @@ void cServer::load()
 	Monster_Aggressive_L0::registerInFactory();
 	Monster_Aggressive_L1::registerInFactory();
 	Monster_Mage::registerInFactory();
+	Monster_BladeSpirit::registerInFactory();
+	Monster_EnergyVortex::registerInFactory();
 	Monster_Berserk::registerInFactory();
 	Human_Vendor::registerInFactory();
 	Human_Stablemaster::registerInFactory();

@@ -56,7 +56,7 @@ bool invalidTarget( P_NPC npc, P_CHAR victim, int dist )
 		return true;
 	}
 
-	if ( npc->owner() == victim )
+	if ( npc->isTamed() && npc->owner() == victim )
 	{
 		return true;
 	}
