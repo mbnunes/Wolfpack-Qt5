@@ -20,6 +20,7 @@ import traceback
 import web.sessions
 import wolfpack
 import wolfpack.console
+from wolfpack import settings
 
 WEBADMIN_LOGGING = 1
 
@@ -231,7 +232,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 			print "Could not write to logfile: logs/web.log\n"
 
 class WebserverThread(Thread):
-	def __init__( self, port=REMOTEADMIN_PORT ):
+	def __init__( self, port ):
 		Thread.__init__( self )
 		self.port = port
 		self.stopped = Event()
@@ -269,17 +270,24 @@ thread = None
 def onServerStart():
 	web.sessions.clear_sessions()
 
+	# Get the remote admin port
+	port = settings.getnumber('Network', 'Remoteadmin Port', 2594, True)
+
 	global thread
-	thread = WebserverThread( REMOTEADMIN_PORT )
+	thread = WebserverThread( port )
 	thread.start()
 
 def onLoad():
 	# Not on ServerStart
 	if not wolfpack.isstarting():
 		web.sessions.clear_sessions()
+		
+		# Get the remote admin port
+		port = settings.getnumber('Network', 'Remoteadmin Port', 2594, True)
+		
 		# Start the Thread
 		global thread
-		thread = WebserverThread( REMOTEADMIN_PORT )
+		thread = WebserverThread( port )
 		thread.start()
 
 def onUnload():

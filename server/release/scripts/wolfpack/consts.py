@@ -12,9 +12,6 @@
 	\description Contains several constants for scripts.
 """
 
-# Which port should the remote admin run on
-REMOTEADMIN_PORT = 2594
-
 # Date Format
 FORMAT_DATE = '%d.%m.%Y' # European
 FORMAT_TIME = '%H:%M' # European

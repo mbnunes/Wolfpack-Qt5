@@ -45,6 +45,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed an encoding issue in bulletin boards.
   - Fixed an issue with pets and gate travel gates.
   - Fixed an issue with special moves on already killed characters. (Spamming the log)
+  - Remoteadmin port can now be set via wolfpack.xml
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
