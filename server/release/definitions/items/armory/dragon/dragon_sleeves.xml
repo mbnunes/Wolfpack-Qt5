@@ -1,0 +1,24 @@
+<definitions>
+
+	<!-- dragon sleeves -->
+	<item id="2657">
+		<id>0x2657</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<tag name="req_str" value="80" type="int" />
+		<tag name="resname" value="iron" />
+		<smelt>14</smelt>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+		<category>Armor\Base\Dragon\Dragon Sleeves 1</category>
+	</item>
+
+	<!-- dragon sleeves -->
+	<item id="2658" inherit="2657">
+		<id>0x2658</id>
+		<category>Armor\Base\Dragon\Dragon Sleeves 2</category>
+	</item>
+
+</definitions>

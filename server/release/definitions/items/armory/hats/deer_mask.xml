@@ -7,7 +7,6 @@
 		<category>Armor\Headwear\Deer Mask (N/S)</category>
 		<id>0x1547</id>
 		<nodye />
-		<defense>2</defense>
 		<tag name='req_str' type='int' value='10' />
 		<durability><random min="20" max="25" /></durability>
 		<weight>4.0</weight>

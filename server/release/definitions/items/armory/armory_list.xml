@@ -93,12 +93,17 @@
 	<include file="definitions/items/armory/studded/studded_sleeves.xml"/>
 	<include file="definitions/items/armory/studded/studded_tunic.xml"/>
 
+	<!-- Dragon Amor -->
+	<include file="definitions/items/armory/dragon/dragon_breastplate.xml"/>
+	<include file="definitions/items/armory/dragon/dragon_gloves.xml"/>
+	<include file="definitions/items/armory/dragon/dragon_helm.xml"/>
+	<include file="definitions/items/armory/dragon/dragon_leggings.xml"/>
+	<include file="definitions/items/armory/dragon/dragon_sleeves.xml"/>
+
 	<!-- Colored Armor -->
 	<include file="definitions/items/armory/colored/color_defines.xml"/>
 	<include file="definitions/items/armory/colored/colored_list.xml"/>
 
-	<!-- Magic Amor -->
 
-  <include file="definitions/items/armory/dragon.xml"/>
 
 </definitions>

@@ -1,0 +1,24 @@
+<definitions>
+
+	<!-- dragon leggings -->
+	<item id="2647">
+		<id>0x2647</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<tag name="req_str" value="90" type="int" />
+		<tag name="resname" value="iron" />
+		<smelt>16</smelt>
+		<weight>7.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+		<category>Armor\Base\Dragon\Dragon Leggings 1</category>
+	</item>
+
+	<!-- dragon leggings -->
+	<item id="2648" inherit="2647">
+		<id>0x2648</id>
+		<category>Armor\Base\Dragon\Dragon Leggings 2</category>
+	</item>
+
+</definitions>
