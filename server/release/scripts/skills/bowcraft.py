@@ -7,6 +7,7 @@
 
 import wolfpack
 import wolfpack.utilities
+from wolfpack.consts import *
 from math import *
 
 # tool : "1022", "1023"
@@ -16,6 +17,9 @@ from math import *
 # feather : ("dfa", "dfb",) "1bd1 - 1bd3"
 # arrow : "f3f - f41", 0x0f40, 0x0f41
 # bolt : "1bfb - 1bfd"
+
+def onLoad():
+	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.bowcraft" )
 
 def onUse( char, item ):
 	# Needs to be on ourself
