@@ -1733,9 +1733,9 @@ void cChar::message( const QString &message, UI16 color )
 	socket_->showSpeech( this, message, color, 3 );
 }
 
-void cChar::setAccount( AccountRecord* data )
+void cChar::setAccount( AccountRecord* data, bool moveFromAccToAcc )
 {
-	if( account_ != 0 )
+	if( moveFromAccToAcc && account_ != 0 )
 		account_->removeCharacter( this );
 
 	account_ = data;

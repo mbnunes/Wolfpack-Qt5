@@ -454,7 +454,7 @@ public:
 	void					setOrgname(const QString& data);//original name - for Incognito
 	void					setTitle( const QString& data);
 	void					setUnicode( bool data); // This is set to 1 if the player uses unicode speech, 0 if not
-	void					setAccount( AccountRecord* data); // changed to signed, lb
+	void					setAccount( AccountRecord* data, bool moveFromAccToAcc = true ); // changed to signed, lb
 	void					setIncognito ( bool data) { incognito_ = data; } 
 	void					setPolymorph ( bool data) { polymorph_ = data; }
 	void					setHairColor ( unsigned short data) { haircolor_ = data; }

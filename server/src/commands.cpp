@@ -629,11 +629,11 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 {
 	// Account Create User Pass
 	// Account Remove User
-	// Account Password User Pass
+	// Account Set User Pass
 	// Account Show User Pass
 	if( args.count() == 0 )
 	{
-		socket->sysMessage( tr( "Usage: account <create|remove|password|show>" ) );
+		socket->sysMessage( tr( "Usage: account <create|remove|set|show>" ) );
 		return;
 	}
 
@@ -756,7 +756,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 	{
 		if( args.count() < 3 )
 		{
-			socket->sysMessage( tr( "Usage: account set <username> <key>" ) );
+			socket->sysMessage( tr( "Usage: account show <username> <key>" ) );
 		}
 		else if( !Accounts->getRecord( args[1].left( 30 ) ) )
 		{
@@ -1626,6 +1626,61 @@ void commandShutDown( cUOSocket *socket, const QString &command, QStringList &ar
 		keeprun = 0;
 }
 
+void commandReload( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	// Reload accounts
+	// Reload scripts
+	// Reload all
+
+	if( args.count() == 0 )
+	{
+		socket->sysMessage( tr( "Usage: reload <accounts|scripts|all>" ) );
+		return;
+	}
+
+	QString subCommand = args[0].lower();
+
+	// accounts
+	if( subCommand == "accounts" )
+	{
+		Accounts->reload();
+		socket->sysMessage( tr("Accounts reloaded") );
+	}
+	if( subCommand == "scripts" )
+	{
+		clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
+
+		SrvParams->reload(); // Reload wolfpack.xml
+		DefManager->reload(); //Reload Definitions
+		cAllSpawnRegions::getInstance()->reload();
+		cAllTerritories::getInstance()->reload();
+		cAllMakeMenus::getInstance()->reload();
+		cCommands::instance()->loadACLs();
+
+		ScriptManager->reload(); // Reload Scripts
+
+		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
+		socket->sysMessage( tr("Definitions, scripts and wolfpack.xml reloaded") );
+	}
+	if( subCommand == "all" )
+	{
+		Accounts->reload();
+		clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
+
+		SrvParams->reload(); // Reload wolfpack.xml
+		DefManager->reload(); //Reload Definitions
+		cAllSpawnRegions::getInstance()->reload();
+		cAllTerritories::getInstance()->reload();
+		cAllMakeMenus::getInstance()->reload();
+		cCommands::instance()->loadACLs();
+
+		ScriptManager->reload(); // Reload Scripts
+
+		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
+		socket->sysMessage( tr("Accounts, definitions, scripts and wolfpack.xml reloaded") );
+	}
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1640,6 +1695,7 @@ stCommand cCommands::commands[] =
 	{ "INFO",			commandInfo },
 	{ "KILL",			commandKill },
 	{ "PAGES",			commandPages },
+	{ "RELOAD",			commandReload },
 	{ "REMOVE",			commandRemove },
 	{ "RESEND",			commandResend },
 	{ "RESURRECT",		commandResurrect },

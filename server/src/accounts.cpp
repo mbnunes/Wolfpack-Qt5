@@ -35,6 +35,7 @@
 #include "srvparams.h"
 #include "pfactory.h"
 #include "network/uosocket.h"
+#include "charsmgr.h"
 
 
 // ===== AccountRecord Methods ===== //
@@ -236,8 +237,28 @@ void cAccounts::load()
 
 void cAccounts::reload()
 {
+	QMap< SERIAL, QString > characcnames;
+
+	AllCharsIterator iterChars;
+	for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
+	{
+		P_CHAR pc = iterChars.GetData();
+		if( pc->account() )
+		{
+			characcnames.insert( pc->serial, pc->account()->login() );
+		}
+	}
 	clear();
 	load();
+
+	QMap< SERIAL, QString >::Iterator it = characcnames.begin();
+	while( it != characcnames.end() )
+	{
+		P_CHAR pc = FindCharBySerial( it.key() );
+		if( pc )
+			pc->setAccount( getRecord( it.data() ), false );
+		++it;
+	}
 }
 
 AccountRecord* cAccounts::createAccount( const QString& login, const QString& password )
