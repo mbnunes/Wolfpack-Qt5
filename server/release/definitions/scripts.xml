@@ -76,6 +76,7 @@
 
 	<!-- Commands -->
 	<script>commands</script>
+	<script>commands.account</script>
 	<script>commands.action</script>
 	<script>commands.add</script>
 	<script>commands.addtree</script>
@@ -96,6 +97,7 @@
 	<script>commands.info</script>
 	<script>commands.invul</script>
 	<script>commands.restore</script>
+	<script>commands.resurrect</script>
 	<script>commands.serverinfo</script>
 	<script>commands.skillinfo</script>
 	<script>commands.skill</script>
