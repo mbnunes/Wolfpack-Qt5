@@ -127,7 +127,7 @@ void cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	Coord_cl newPos = socket->player()->pos;
 	newPos.x = target->x();
 	newPos.y = target->y();
-	newPos.z = target->z() + Map->TileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
+	newPos.z = target->z() + Map->TileHeight( target->model() ); // Model Could be a NPC as well i dont like the idea...
 	pChar->moveTo( newPos );
 
 	cTerritory* Region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );

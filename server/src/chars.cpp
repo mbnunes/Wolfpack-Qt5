@@ -1253,20 +1253,51 @@ void cChar::processNode( const QDomElement &Tag )
 			QString statType = Tag.attribute( "type" );
 			if( statType == "str" )
 			{
-				this->st = Value.toShort();
+				this->st = Value.toLong();
 				this->hp = this->st;
 			}
 			else if( statType == "dex" )
 			{
-				this->setDex( Value.toShort() );
+				this->setDex( Value.toLong() );
 				this->stm = this->realDex();
 			}
 			else if( statType == "int" )
 			{
-				this->in = Value.toShort();
+				this->in = Value.toLong();
 				this->mn = this->in;
 			}
+
+			for( UINT8 i = 0; i < ALLSKILLS; ++i )
+				Skills->updateSkillLevel( this, i );
 		}
+	}
+
+	// Aliasses <str <dex <int
+	else if( TagName == "str" )
+	{
+		st = Value.toLong();
+		hp = st;
+		
+		for( UINT8 i = 0; i < ALLSKILLS; ++i )
+			Skills->updateSkillLevel( this, i );
+	}
+
+	else if( TagName == "dex" )
+	{
+		setDex( Value.toLong() );
+		stm = realDex();
+
+		for( UINT8 i = 0; i < ALLSKILLS; ++i )
+			Skills->updateSkillLevel( this, i );
+	}
+	
+	else if( TagName == "int" )
+	{
+		in = Value.toLong();
+		mn = in;
+
+		for( UINT8 i = 0; i < ALLSKILLS; ++i )
+			Skills->updateSkillLevel( this, i );
 	}
 
 	//<defense>10</defense>
@@ -1292,18 +1323,7 @@ void cChar::processNode( const QDomElement &Tag )
 	//<gold>100</gold>
 	else if( TagName == "gold" )
 	{
-		if( this->packitem != INVALID_SERIAL )
-		{
-			P_ITEM pGold = Items->SpawnItem(this,1,"#",1,0x0EED,0,1);
-			if(pGold == NULL)
-			{
-				Npcs->DeleteChar(this);
-				return;
-			}
-			pGold->priv |= 0x01;
-
-			pGold->setAmount( Value.toInt() );
-		}
+		giveGold( Value.toInt(), false );
 	}
 
 	//<hidamage>10</hidamage>
@@ -1495,13 +1515,13 @@ void cChar::processNode( const QDomElement &Tag )
 	{
 		if( Tag.attribute("type").toInt() > 0 &&
 			Tag.attribute("type").toInt() <= ALLSKILLS )
-			this->setBaseSkill((Tag.attribute("type").toInt() - 1), Value.toInt());
+			this->setBaseSkill( ( Tag.attribute( "type" ).toInt() - 1 ), Value.toInt() );
 		else
 		{
 			for( UI32 j = 0; j < ALLSKILLS; j++ )
 			{
 				if( Tag.attribute("type").contains( QString(skillname[j]), false ) )
-					this->setBaseSkill(j, Value.toInt());
+					this->setBaseSkill( j, Value.toInt() );
 			}
 		}
 	}
@@ -1578,7 +1598,24 @@ void cChar::processNode( const QDomElement &Tag )
 	}
 
 	else
-		cUObject::processNode( Tag );
+	{
+		bool found = false;
+
+		for( UINT8 i = 0; i < ALLSKILLS; ++i )
+		{
+			// It's a skillname
+			if( TagName.upper() == skillname[i] )
+			{
+				setBaseSkill( i, Value.toInt() );
+				Skills->updateSkillLevel( this, i );
+				found = true;
+				break;
+			}
+		}
+
+		if( !found )
+			cUObject::processNode( Tag );
+	}		
 }
 
 void cChar::soundEffect( UI16 soundId, bool hearAll )
@@ -2022,7 +2059,7 @@ UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
 	UINT8 guildStatus = GuildCompare( this, pChar );
 
 	if( npcaitype() == 0x02 )
-		result = 0x06; // 6 = Red -> Monster
+		return 0x06; // 6 = Red -> Monster
 	else
 		result = 0x01; // 1 = Blue -> Innocent
 
@@ -2192,8 +2229,7 @@ void cChar::kill()
 	setPoison(0);
 
 	// Create our Corpse
-	cCorpse *corpse = new cCorpse;
-	corpse->Init( true );
+	cCorpse *corpse = new cCorpse( true );
 	cItemsManager::getInstance()->registerItem( corpse );
 
 	QDomElement *elem = DefManager->getSection( WPDT_ITEM, "2006" );

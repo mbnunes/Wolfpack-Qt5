@@ -1251,7 +1251,7 @@ void cMovement::randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type )
     if(	( ( type == 1 ) && ( pChar->fx1 == -1 ) || ( pChar->fx2 == -1 ) || ( pChar->fy1 == -1 ) || ( pChar->fy2 == -1 ) ) ||
 		( ( type == 2 ) && ( pChar->fx1 == -1 ) || ( pChar->fx2 == -1 ) || ( pChar->fy1 == -1 ) ) )
 	{
-		pChar->npcWander = 2;
+		pChar->npcWander = 0;
 		type = 0;
 	}
     

@@ -46,7 +46,7 @@ private:
 	// The meaning of this is that even if the items are inside of the corpse
 	// they're displayed as equipment
 public:
-	cCorpse();
+	cCorpse( bool init = false );
 
 	void setBodyId( UINT16 data ) { bodyId_ = data; }
 	void setHairStyle( UINT16 data ) { hairStyle_ = data; }

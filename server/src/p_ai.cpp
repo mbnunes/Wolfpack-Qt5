@@ -39,15 +39,16 @@
 #undef  DBGFILE
 #define DBGFILE "p_ai.cpp"
 
-void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zippy
+void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 {
 	int d;
 	unsigned int chance;
 	if ( pc_i == NULL )
 		return;
 	
-	if (!(nextnpcaitime <= currenttime || (overflow)))
+	if ( nextnpcaitime > currenttime )
 		return;
+
     // in npc.scp add script # for npc`s ai
 	// case - script - case - script -   case - script -  case - script
 	//   0   -  0     -  4    -  4     -  8    -  8     -  12   -  C

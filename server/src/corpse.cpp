@@ -166,11 +166,17 @@ void cCorpse::addEquipment( UINT8 layer, SERIAL serial )
 	equipment_.insert( make_pair( layer, serial ) );
 }
 
-cCorpse::cCorpse()
+cCorpse::cCorpse( bool init )
 {
+	if( init )
+		cItem::Init( true );
+
 	bodyId_ = 0x190;
 	hairStyle_ = 0;
 	hairColor_ = 0;
 	beardStyle_ = 0;
 	beardColor_ = 0;
+	id_ = 0x2006;
+	setCorpse( 1 );
+	setType( 1 );
 }

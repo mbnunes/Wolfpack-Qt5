@@ -39,7 +39,14 @@ void cDefinable::applyDefinition( const QDomElement& sectionNode )
 {
 	if( sectionNode.hasAttribute( "inherit" ) )
 	{
-		QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, sectionNode.attribute( "inherit", "" ) );
+		WPDEF_TYPE wpType = WPDT_ITEM;
+
+		if( sectionNode.nodeName() == "item" )
+			wpType = WPDT_ITEM;
+		else if( sectionNode.nodeName() == "npc" )
+			wpType = WPDT_NPC;
+
+		QDomElement *tInherit = DefManager->getSection( wpType, sectionNode.attribute( "inherit", "" ) );
 		if( tInherit && !tInherit->isNull() )
 			applyDefinition( (*tInherit) );
 	}
@@ -47,8 +54,15 @@ void cDefinable::applyDefinition( const QDomElement& sectionNode )
 	// Check for random-inherit
 	if( sectionNode.hasAttribute( "inheritlist" ) )
 	{
+		WPDEF_TYPE wpType = WPDT_ITEM;
+
+		if( sectionNode.nodeName() == "item" )
+			wpType = WPDT_ITEM;
+		else if( sectionNode.nodeName() == "npc" )
+			wpType = WPDT_NPC;
+
 		QString iSection = DefManager->getRandomListEntry( sectionNode.attribute( "inheritlist", "" ) );
-		QDomElement *tInherit = DefManager->getSection( WPDT_ITEM, iSection );
+		QDomElement *tInherit = DefManager->getSection( wpType, iSection );
 		if( tInherit && !tInherit->isNull() )
 			applyDefinition( (*tInherit) );
 	}
@@ -85,7 +99,10 @@ QString cDefinable::getNodeValue( const QDomElement &Tag )
 			if( childTag.nodeName() == "random" )
 			{
 				if( childTag.attributes().contains("min") && childTag.attributes().contains("max") )
-					Value += QString("%1").arg( RandomNum( childTag.attributeNode("min").nodeValue().toInt(), childTag.attributeNode("max").nodeValue().toInt() ) );
+					if( childTag.attribute( "min", "0" ).contains( "." ) || childTag.attribute( "max", "0" ).contains( "." ) )
+						Value += QString("%1").arg( RandomNum( childTag.attributeNode("min").nodeValue().toFloat(), childTag.attributeNode("max").nodeValue().toFloat() ) );
+					else
+						Value += QString("%1").arg( RandomNum( childTag.attributeNode("min").nodeValue().toInt(), childTag.attributeNode("max").nodeValue().toInt() ) );
 				else if( childTag.attributes().contains("valuelist") )
 				{
 					QStringList RandValues = QStringList::split(",", childTag.attributeNode("list").nodeValue());
@@ -97,8 +114,23 @@ QString cDefinable::getNodeValue( const QDomElement &Tag )
 				}
 				else if( childTag.attributes().contains("dice") )
 					Value += QString("%1").arg(rollDice(childTag.attributeNode("dice").nodeValue()));
+				else if( childTag.attributes().contains( "value" ) )
+				{
+					QStringList parts = QStringList::split( "-", childTag.attribute( "value", "0-0" ) );
+					if( parts.count() >= 2 )
+					{
+						QString min = parts[0];
+						QString max = parts[1];
+
+						if( max.contains( "." ) || min.contains( "." ) )
+							Value += QString( "%1" ).arg( RandomNum( min.toFloat(), max.toFloat() ) );
+						else
+							Value += QString( "%1" ).arg( RandomNum( min.toInt(), max.toInt() ) );
+
+					}
+				}
 				else
-					Value += QString("0");
+					Value += QString( "0" );
 			}
 
 			// Process the childnodes

@@ -249,7 +249,7 @@ public:
 	unsigned int time_unused;     // LB -> used for house decay and possibly for more in future, gets saved
 	unsigned int timeused_last; // helper attribute for time_unused, doesnt get saved
 	
-	void Init(bool mkser = true);
+	virtual void Init( bool mkser = true );
 	void SetSerial(long ser);
 	bool isInWorld()			{ return (contserial == INVALID_SERIAL); }
 	bool isMulti()				{ return ( id_ >= 0x4000 ); }

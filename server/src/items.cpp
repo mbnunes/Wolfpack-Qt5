@@ -74,7 +74,7 @@ bool cItem::isPileable()
 
 void cItem::toBackpack( P_CHAR pChar )
 {
-	P_ITEM pPack = Packitem( pChar );
+	P_ITEM pPack = pChar->getBackpack();
 	
 	// Pack it to the ground
 	if( !pPack )
@@ -431,14 +431,16 @@ bool cItem::AddItem(cItem* pItem, short xx, short yy)	// Add Item to container
 		pItem->pos.x = xx;
 		pItem->pos.y = yy;
 		pItem->pos.z = 9;
+		pItem->update();
 	}	// no pos given
 	else		
 	{
 		if( !this->ContainerPileItem( pItem ) ) // try to pile
+		{
 			pItem->SetRandPosInCont( this ); // not piled, random pos
-	}
-
-	pItem->update();
+			pItem->update();
+		}
+	}	
 	return true;
 }
 
@@ -457,14 +459,15 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 		pItem->pos.z=9;
 		pItem->setAmount( (this->amount()+pItem->amount()) - 65535 );
 		this->setAmount( 65535 );
-		RefreshItem(pItem);
+		pItem->update();
 	}
 	else
 	{
 		this->setAmount( this->amount()  + pItem->amount() );
-		Items->DeleItem(pItem);
+		Items->DeleItem( pItem );
 	}
-	RefreshItem(this);
+	
+	update();
 	return true;
 }
 
@@ -481,7 +484,7 @@ bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the contai
 			continue; // skip to next.
 		}
 		if (pi->id() == pItem->id() && !pi->free && pi->color() == pItem->color())
-			if (pi->PileItem(pItem))
+			if( pi->PileItem( pItem ) )
 				return true;
 	}
 	return false;
@@ -1979,6 +1982,12 @@ void cItem::showName( cUOSocket *socket )
 // This either sends a ground-item or a backpack item
 void cItem::update( cUOSocket *mSock )
 {
+	if( free )
+	{
+		removeFromView( false );
+		return;
+	}
+
 	// Items on Ground
 	if( isInWorld() )
 	{

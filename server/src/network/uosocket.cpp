@@ -1425,9 +1425,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 
 	_player->setAttackFirst();
 	_player->attacker = pc_i->serial;
-
-	_player->dir = chardir( _player, pc_i ); // turn to attacker, LB (& Duke)
-	_player->update();
+	_player->turnTo( pc_i );
 
 	// The person being attacked is guarded by pets ?
 	if( pc_i->guarded() )

@@ -54,7 +54,6 @@
 void checktimers() // Check shutdown timers
 {
 	register unsigned int tclock = uiCurrentTime;
-	overflow = ( lclock > tclock );
 	if (endtime)
 	{
 		if (endtime <= tclock) keeprun = 0;
@@ -120,7 +119,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 		}
 
 		// Health regeneration
-		if( ( pc->regen <= currenttime ) || (overflow) )
+		if( pc->regen <= currenttime )
 		{
 			UINT32 interval = SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
 
@@ -152,7 +151,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 		}
 
 		// Stamina regeneration
-		if( ( pc->regen2 <= currenttime ) || overflow )
+		if( pc->regen2 <= currenttime )
 		{
 			UINT32 interval = SrvParams->staminarate()*MY_CLOCKS_PER_SEC;
 			for( UINT16 c = 0; c < pc->effDex() + 1; ++c )
@@ -173,7 +172,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 
 		// OSI Style Mana regeneration by blackwind
 		// if (pc->in>pc->mn)  this leads to the 'mana not subtracted' bug (Duke)
-		if ((pc->regen3 <= currenttime) || (overflow))
+		if( pc->regen3 <= currenttime )
 		{
 			unsigned int interval = SrvParams->manarate()*MY_CLOCKS_PER_SEC;
 			for( UINT16 c = 0; c < pc->in + 1 ; ++c )
@@ -215,8 +214,9 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 			}
 			// end Mana regeneration
 			
-			if ((pc->hidden() == 2) && ((pc->invistimeout() <= currenttime) || (overflow)) && (!(pc->priv2&8)))
-			{// only if not permanently hidden - AntiChrist
+			// only if not permanently hidden
+			if( ( pc->hidden() == 2 ) && ( pc->invistimeout() <= currenttime ) && !pc->isHiddenPermanently() )
+			{
 				pc->setHidden( 0 );
 				pc->setStealth(-1);
 				pc->resend( false );
@@ -262,20 +262,17 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 
 	if( pc->isPlayer() && pc->squelched() == 2 )
 	{
-		if( pc->mutetime() > 0 )
+		if( pc->mutetime() && ( pc->mutetime() <= currenttime ) )
 		{
-			if (pc->mutetime()<=currenttime||overflow)
-			{
-				pc->setSquelched(0);
-				pc->setMutetime(0);
-				socket->sysMessage( tr( "You are no longer muted." ) );
-			}
+			pc->setSquelched(0);
+			pc->setMutetime(0);
+			socket->sysMessage( tr( "You are no longer muted." ) );
 		}
 	}
 
 	if( pc->isPlayer() )
 	{
-		if ( pc->crimflag() > 0 && ( pc->crimflag() <= currenttime || overflow ) &&  pc->isCriminal() )//AntiChrist
+		if ( pc->crimflag() > 0 && ( pc->crimflag() <= currenttime  ) &&  pc->isCriminal() )//AntiChrist
 		{
 			socket->sysMessage( tr( "You are no longer criminal" ) );
 			pc->setCrimflag(0);
@@ -297,7 +294,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 	if( pc->isPlayer() && pc->casting() )//PC casting a spell
 	{
 		pc->setNextact( pc->nextact() - 1 );
-		if( pc->spelltime() <= currenttime || overflow )//Spell is complete target it
+		if( pc->spelltime() <= currenttime  )//Spell is complete target it
 		{
 			// TODO: Reactivate when spellcasting is redone
 			//Magic->AfterSpellDelay( s, pc );
@@ -382,7 +379,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 		}
 	}*/
 
-	if( SrvParams->hungerRate() > 1 && ( pc->hungertime() <= currenttime || overflow ) )
+	if( SrvParams->hungerRate() > 1 && ( pc->hungertime() <= currenttime  ) )
 	{
 		if( !pc->isGMorCounselor() && pc->hunger() ) 
 			pc->setHunger( pc->hunger() - 1 ); // GMs and Counselors don't get hungry
@@ -403,7 +400,8 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 		pc->setHungerTime( currenttime + ( SrvParams->hungerRate() * MY_CLOCKS_PER_SEC ) );
 	}
 
-	if (((hungerdamagetimer<=currenttime)||(overflow))&&(SrvParams->hungerDamage()>0)) // Damage them if they are very hungry
+	 // Damage them if they are very hungry
+	if( ( hungerdamagetimer <= currenttime ) && SrvParams->hungerDamage() )
 	{
 		hungerdamagetimer=currenttime+(SrvParams->hungerDamageRate()*MY_CLOCKS_PER_SEC); /** set new hungertime **/
 		if( pc->hp > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->dead )
@@ -422,7 +420,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 	// new math + poison wear off timer added by lord binary !
 	if( pc->poisoned() && !pc->isInvul() )
 	{
-		if( pc->poisontime() <= currenttime || ( overflow ) )
+		if( pc->poisontime() <= currenttime )
 		{
 			if( pc->poisonwearofftime() > currenttime ) // lb, makes poison wear off pc's
 			{
@@ -431,7 +429,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 				{
 				case 1:
 					pc->setPoisontime(currenttime+(5*MY_CLOCKS_PER_SEC));
-					if ( pc->poisontxt()<=currenttime || (overflow))
+					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						pc->emote( tr( "*%1 looks a bit nauseous!*" ).arg( pc->name.c_str() ), 0x26 );
@@ -443,7 +441,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 					break;
 				case 2:
 					pc->setPoisontime(currenttime+(4*MY_CLOCKS_PER_SEC));
-					if ((pc->poisontxt()<=currenttime)||(overflow))
+					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						pc->emote( tr( "*%1 looks disoriented and nauseous!*" ).arg( pc->name.c_str() ), 0x26 );
@@ -455,7 +453,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 				case 3:
 					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
 					
-					if( pc->poisontxt() <= currenttime ||(overflow))
+					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						pc->emote( tr( "*%1 is in severe pain!*" ).arg( pc->name.c_str() ), 0x26 );
@@ -467,7 +465,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 				case 4:
 					pc->setPoisontime( currenttime+(3*MY_CLOCKS_PER_SEC) );
 
-					if( pc->poisontxt() <= currenttime || (overflow) )
+					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						pc->emote( tr( "*%1 looks extremely sick*" ).arg( pc->name.c_str() ), 0x26 );
@@ -510,7 +508,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 		}
 		else
 		{
-			if( pHorse->decaytime != 0 && ( pHorse->decaytime <= uiCurrentTime || overflow ) )
+			if( pHorse->decaytime != 0 && ( pHorse->decaytime <= uiCurrentTime  ) )
 			{
 				pc->setOnHorse( false );
 				Items->DeleItem( pHorse );
@@ -519,7 +517,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 	}
 }
 
-void checkNPC(P_CHAR pc, unsigned int currenttime)
+void checkNPC( P_CHAR pc, unsigned int currenttime )
 {
 	if (pc == NULL)
 		return;
@@ -544,33 +542,31 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 
 	if( !pc->free )
 	{
-		if ((pc->disabled()>0)&&((pc->disabled()<=currenttime)||(overflow)))
+		if( pc->disabled() && ( pc->disabled() <= currenttime ) )
 		{
 			pc->setDisabled(0);
 		}
-		if (pc->summontimer<=currenttime||(overflow))
-		{
-			if(pc->summontimer>0)
-			{
-				// Dupois - Added Dec 20, 1999
-				// QUEST expire check - after an Escort quest is created a timer is set
-				// so that the NPC will be deleted and removed from the game if it hangs around
-				// too long without every having its quest accepted by a player so we have to remove
-				// its posting from the message board before icing the NPC
-				// Only need to remove the post if the NPC does not have a follow target set
-				if ( (pc->questType()==ESCORTQUEST) && (pc->ftarg == INVALID_SERIAL) )
-				{
-					MsgBoardQuestEscortRemovePost( pc );
-					MsgBoardQuestEscortDelete( pc );
-					return;
-				}
-				// Dupois - End
 
-				soundeffect2(pc, 0x01FE);
-				pc->dead=true;
-				Npcs->DeleteChar(pc);
+		if( pc->summontimer && ( pc->summontimer <= currenttime ) )
+		{
+			// Dupois - Added Dec 20, 1999
+			// QUEST expire check - after an Escort quest is created a timer is set
+			// so that the NPC will be deleted and removed from the game if it hangs around
+			// too long without every having its quest accepted by a player so we have to remove
+			// its posting from the message board before icing the NPC
+			// Only need to remove the post if the NPC does not have a follow target set
+			if ( (pc->questType()==ESCORTQUEST) && (pc->ftarg == INVALID_SERIAL) )
+			{
+				MsgBoardQuestEscortRemovePost( pc );
+				MsgBoardQuestEscortDelete( pc );
 				return;
 			}
+			// Dupois - End
+
+			soundeffect2(pc, 0x01FE);
+			pc->dead = true;
+			Npcs->DeleteChar(pc);
+			return;
 		}
 	}
 
@@ -593,7 +589,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 	// new poisoning code
 	if (pc->poisoned() && !(pc->isInvul()) )
 	{
-		if ((pc->poisontime()<=currenttime)||(overflow))
+		if( pc->poisontime() <= currenttime )
 		{
 			if (pc->poisonwearofftime()>currenttime) // lb, makes poison wear off pc's
 			{
@@ -601,7 +597,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 				{
 				case 1:
 					pc->setPoisontime(currenttime+(5*MY_CLOCKS_PER_SEC));
-					if ((pc->poisontxt()<=currenttime)||(overflow))
+					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks a bit nauseous *",pc->name.c_str());
@@ -613,7 +609,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 					break;
 				case 2:
 					pc->setPoisontime(currenttime+(4*MY_CLOCKS_PER_SEC));
-					if ((pc->poisontxt()<=currenttime)||(overflow))
+					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
@@ -627,7 +623,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 					break;
 				case 3:
 					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
-					if ((pc->poisontxt()<=currenttime)||(overflow))
+					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s is in severe pain! *",pc->name.c_str());
@@ -640,7 +636,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 					break; // lb !!!
 				case 4:
 					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
-					if ((pc->poisontxt()<=currenttime)||(overflow))
+					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *",pc->name.c_str());
@@ -675,7 +671,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 	}
 
 	//hunger code for npcs
-	if (SrvParams->hungerRate()>1 && (pc->hungertime()<=currenttime || overflow))
+	if( SrvParams->hungerRate() && (pc->hungertime() <= currenttime ) )
 	{
 		t[0] = '\0';
 
@@ -705,9 +701,9 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 					sprintf((char*)temp, "* %s appears to have decided that it is better off without a master *", pc->name.c_str());
 					npctalkall(pc, (char*)temp,0);
 					{
-						soundeffect2(pc, 0x01FE);
-						if(SrvParams->tamedDisappear()==1)
-						Npcs->DeleteChar(pc);
+						pc->soundEffect( 0x01FE );
+						if( SrvParams->tamedDisappear() == 1 )
+							Npcs->DeleteChar(pc);
 					}
 				}
 				//sprintf(t,"* %s must eat very soon or he will die! *",pc->name);
@@ -787,13 +783,13 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		checkspawnregions=uiCurrentTime+SrvParams->spawnRegionCheckTime()*MY_CLOCKS_PER_SEC;//Don't check them TOO often (Keep down the lag)
 	}
 
-	if(SrvParams->html()>0 && (htmltime<=currenttime || overflow))
+	if( ( SrvParams->html() > 0 ) && ( htmltime <= currenttime ) )
 	{
 			updatehtml();
-			htmltime=currenttime+(SrvParams->html()*MY_CLOCKS_PER_SEC);
+			htmltime = currenttime + ( SrvParams->html() * MY_CLOCKS_PER_SEC );
 	}
 
-	if (SrvParams->saveInterval() != 0)
+	if( SrvParams->saveInterval() != 0 )
 	{
 		if (autosaved == 0)
 		{
@@ -818,13 +814,13 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	}
 
 	//Time functions
-	if (uotickcount<=currenttime||(overflow))
+	if( uotickcount <= currenttime )
 	{
 		uoTime.addSecs(1);
 		uotickcount = currenttime + SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC;
 	}
 
-	if(lighttime<=currenttime || (overflow))
+	if( lighttime <= currenttime )
 	{
 		doworldlight(); //Changes lighting, if it is currently time to.
 		int i;
@@ -834,7 +830,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		lighttime=currenttime+30*MY_CLOCKS_PER_SEC;
 	}
 	static unsigned int itemlooptime = 0;
-    if(itemlooptime <=currenttime || (overflow))
+    if( itemlooptime <= currenttime )
 	{
        itemlooptime = currenttime+5*MY_CLOCKS_PER_SEC;
 	   AllItemsIterator iterItems;
@@ -862,7 +858,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		genericCheck( socket->player(), currenttime );
 		checkPC( socket->player(), currenttime );
 
-		// Check all Characters first
+		// Check all Characters first (Intersting. we seem to check characters more than once)
 		RegionIterator4Chars iterator( socket->player()->pos );
 		for( iterator.Begin(); !iterator.atEnd(); iterator++ )
 		{
@@ -875,8 +871,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			// untamed npcs so they can react faster
 			if( ( !pChar->tamed() && checknpcs <= currenttime ) ||
 				( pChar->tamed() && checktamednpcs <= currenttime ) ||
-				( ( pChar->npcWander == 1 ) && checknpcfollow <= currenttime ) ||
-				overflow )
+				( ( pChar->npcWander == 1 ) && checknpcfollow <= currenttime ) )
 			{
 				if( pChar->isNpc() )
 				{
@@ -887,10 +882,10 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 						checkNPC( pChar, currenttime );
 				}
 				// Timed for logout
-				else if( ( 
+				else if(
 						pChar->logout() && 
 						( pChar->logout() >= currenttime ) 
-					) || overflow )
+					 )
 				{
 					pChar->setLogout( 0 );
 					pChar->removeFromView( false );
@@ -900,7 +895,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		}
 
 		// Now for the items
-		if( ( checkitemstime <= currenttime ) || overflow )
+		if( checkitemstime <= currenttime  )
 		{
 			RegionIterator4Items itemIter( socket->player()->pos );
 			for( itemIter.Begin(); !itemIter.atEnd(); itemIter++ )
@@ -927,8 +922,8 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 							socket->soundEffect( pItem->morex, pItem );
 					break;
 				case 117:
-					if( ( pItem->tags.get( "tiller" ).isValid() && 
-						( pItem->gatetime <= currenttime ) ) || overflow )
+					if( pItem->tags.get( "tiller" ).isValid() && 
+						( pItem->gatetime <= currenttime ) )
 					{
 						cBoat* pBoat = dynamic_cast< cBoat* >( FindItemBySerial( pItem->tags.get( "boatserial" ).toUInt() ) );
 						if( pBoat )
@@ -954,15 +949,13 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		freeUnusedMemory = currenttime + MY_CLOCKS_PER_SEC*60*40; // check only each 40 minutes
 	}
 
-	if(checknpcs<=currenttime) checknpcs=(unsigned int)((double)(SrvParams->checkNPCTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
-	if(checktamednpcs<=currenttime) checktamednpcs=(unsigned int)((double) currenttime+(SrvParams->checkTammedTime()*MY_CLOCKS_PER_SEC)); //AntiChrist
-	if(checknpcfollow<=currenttime) checknpcfollow=(unsigned int)((double) currenttime+(SrvParams->checkFollowTime()*MY_CLOCKS_PER_SEC)); //Ripper
-	if(checkitemstime<=currenttime) checkitemstime=(unsigned int)((double)(SrvParams->checkItemTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
+	if( checknpcs <= currenttime ) checknpcs=(unsigned int)((double)(SrvParams->checkNPCTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
+	if( checktamednpcs <= currenttime ) checktamednpcs=(unsigned int)((double) currenttime+(SrvParams->checkTammedTime()*MY_CLOCKS_PER_SEC)); //AntiChrist
+	if( checknpcfollow <= currenttime ) checknpcfollow=(unsigned int)((double) currenttime+(SrvParams->checkFollowTime()*MY_CLOCKS_PER_SEC)); //Ripper
+	if( checkitemstime <= currenttime ) checkitemstime=(unsigned int)((double)(SrvParams->checkItemTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
 
-	if (nextnpcaitime <= currenttime)
-		nextnpcaitime = (unsigned int)((double) currenttime + (SrvParams->checkAITime()*MY_CLOCKS_PER_SEC)); // lb
 	if (nextfieldeffecttime <= currenttime)
 		nextfieldeffecttime = (unsigned int)((double) currenttime + (0.5*MY_CLOCKS_PER_SEC));
 	if (nextdecaytime <= currenttime)
-		nextdecaytime = currenttime + (15*MY_CLOCKS_PER_SEC); // lb ...
+		nextdecaytime = currenttime + (15*MY_CLOCKS_PER_SEC);
 }

@@ -208,7 +208,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 			splitItem->SetSpawnSerial( pItem->spawnserial );
 
 			// He needs to see the new item
-			RefreshItem( splitItem ); 
+			splitItem->update();
 
 			// If we're taking something out of a spawn-region it's spawning "flag" is removed isn't it?
 			pItem->SetSpawnSerial( INVALID_SERIAL );
@@ -506,7 +506,13 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 	// If we're dropping it on some other player: trade-window
 	// If we're dropping it on some NPC: checkBehaviours
 	// If not handeled: Equip the item if the NPC is owned by us
-	
+
+	// To prevent bad effects remove it from the clients view first
+	cUOTxRemoveObject rObject;
+	rObject.setSerial( pItem->serial );
+	socket->send( &rObject );
+
+
 	P_CHAR pChar = socket->player();
 
 	// Dropped on ourself
@@ -565,8 +571,8 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 		pItem->pos.y = rand() % 60;
 		pItem->pos.z = 9;
 		pItem->setLayer( 0 );
-		SndRemoveitem( pItem->serial );
-		RefreshItem( pItem );
+		pItem->removeFromView( false );
+		pItem->update();
 		return;
 	}
 
@@ -857,7 +863,7 @@ void cDragItems::dropOnPet( P_CLIENT client, P_ITEM pItem, P_CHAR pPet )
 		pPet->setPoisonwearofftime(pPet->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
 		
 		// Refresh the health-bar of our target
-		impowncreate( client->socket(), pPet, 1 );
+		pPet->resend( false );
 	}
 
 	// *You see Snowwhite eating some poisoned apples*
@@ -937,7 +943,7 @@ void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
 			pBeggar->setPoisonwearofftime( pBeggar->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
 			
 			// Refresh the health-bar of our target
-			impowncreate( client->socket(), pBeggar, 1 );
+			pBeggar->resend( false );
 		}
 
 
