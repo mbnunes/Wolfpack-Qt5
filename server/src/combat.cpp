@@ -269,7 +269,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 	
 		if( pc_attacker->isPlayer() && ( fightskill != WRESTLING ) )
 		{ 
-			if( pWeapon->racehate() != 0 && pc_defender->race != 0 ) //-Fraz- Racehating combat
+			if( pWeapon->racehate() != 0 && pc_defender->race() != 0 ) //-Fraz- Racehating combat
 			{
 				if (pWeapon->racehate() == pc_defender->race() )
 				{
