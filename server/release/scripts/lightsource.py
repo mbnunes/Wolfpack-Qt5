@@ -115,14 +115,18 @@ def onUse( char, item ):
 
 	return True
 
+def update_light(serial):
+	item = wolfpack.finditem(serial)
+	if item:
+		item.update()
+
 def onDropOnItem( container, item ):
 	dropper = item.container
 
 	# Turn off the lightsource
 	if item.id in burning and ids.has_key( item.id ):
 		item.id = ids[item.id]
-		#if not wolfpack.utilities.tocontainer(item, container):
-		#	item.update()
+		wolfpack.queuecode(update_light, (item.serial, ))
 		dropper.soundeffect(0x226)
 
 	return True
