@@ -43,6 +43,7 @@ struct sqlite_vm;
 
 class cDBResult;
 class cSQLiteResult;
+class cMySQLResult;
 
 class cDBDriver
 {
@@ -60,7 +61,7 @@ public:
 	cDBDriver() : connection(0) {}
 	virtual ~cDBDriver();
 
-	virtual const char *name() const { return "mysql"; }
+	virtual const char *name() const { return NULL; }
 
 	virtual bool open( int id = CONN_MAIN );
 	virtual void close();
@@ -96,6 +97,25 @@ public:
 	void lockTable( const QString &table ) {}
 	void unlockTable( const QString &table ) {}
 	QString error() { return QString::null; }
+
+	bool exec( const QString &query );
+	cDBResult query( const QString &query );
+};
+
+class cMySQLDriver : public cDBDriver
+{
+public:
+	const char *name() const { return "mysql"; }
+
+	cMySQLDriver() {}
+	virtual ~cMySQLDriver() {}
+
+	bool open( int id = CONN_MAIN );
+	void close();
+
+	void lockTable( const QString& table );
+	void unlockTable( const QString& table );
+	QString error();
 
 	bool exec( const QString &query );
 	cDBResult query( const QString &query );

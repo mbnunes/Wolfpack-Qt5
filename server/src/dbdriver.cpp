@@ -40,10 +40,16 @@
 
 #include <qstring.h>
 #include <qptrlist.h>
-#include <mysql.h>
-#include <errmsg.h>
 #include <stdlib.h>
 #include "sqlite/sqlite.h"
+
+#ifdef MYSQL_DRIVER
+# ifdef _MSC_VER
+#  pragma comment(lib,"libmysql.lib")
+# endif
+# include <mysql.h>
+# include <errmsg.h>
+#endif
 
 /*****************************************************************************
   cDBDriver member functions
@@ -59,103 +65,15 @@
 	\ingroup mainclass
 */
 
-/*!
-	Destructs the Database Driver instance
-*/
-cDBDriver::~cDBDriver()
-{
-	//close();
-}
-
-/*!
-	Opens the connection between wolfpack and the database
-*/
-bool cDBDriver::open( int id ) 
-{
-	if ( connection )
-		return true;
-
-	connection = mysql_init( 0 );
-	if ( !connection )
-		throw QString("mysql_init(): insufficient memory to allocate a new object");
-	
-	( (MYSQL*)connection )->reconnect = 1;
-	
-	if ( !mysql_real_connect((MYSQL*)connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
-	{ // Named pipes are acctually slower :(
-		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( (MYSQL*)connection ) );
-	}
-	connections[ id ] = (MYSQL*)connection;
-
-	return true;
-}
-
-/*!
-	Closes database handler and frees used memory
-*/
-void cDBDriver::close()
-{
-	mysql_close( (MYSQL*)connection );
-	connection = 0;
-}
-
-/*!
-	Executes a \a query and returns it's result
-	\sa cDBResult
-*/
-cDBResult cDBDriver::query( const QString &query )
-{
-	MYSQL *mysql = (MYSQL*)connection;
-
-	if( !mysql )
-		throw QString( "Not connected to mysql server. Unable to execute query." );
-
-	if( mysql_query( mysql, query.latin1() ) )
-	{
-		return cDBResult(); // Return invalid result
-	}
-	
-	MYSQL_RES *result = mysql_use_result( mysql );
-	return cDBResult( result, mysql );
-}
-
-/*!
-	Executes a SQL command string without returning from the database.
-	Returns true if executed successfully.
-*/
-bool cDBDriver::exec( const QString &query )
-{
-	if( !connection )
-		throw QString( "Not connected to mysql server. Unable to execute query." );
-
-	bool ok = !mysql_query( (MYSQL*)connection, query.latin1() );
-	return ok;
-}
-
-void cDBDriver::lockTable( const QString& table )
-{
-	exec( QString("LOCK TABLES %1 WRITE;").arg(table) );
-}
-
-void cDBDriver::unlockTable( const QString& table )
-{
-	exec( QString("UNLOCK TABLES") );
-}
-
-// Returns an error (if there is one)
-QString cDBDriver::error()
-{
-	const char *error = mysql_error( (MYSQL*)connection );
-
-	if( error != 0 )
-	{
-		return QString(error);
-	}
-	else
-	{
-		return QString::null;
-	}
-}
+/* dummy functions */
+cDBDriver::~cDBDriver() {}
+bool cDBDriver::open( int id ) { return true; }
+void cDBDriver::close() {}
+cDBResult cDBDriver::query( const QString &query ) { return cDBResult( NULL, NULL ); }
+bool cDBDriver::exec( const QString &query ) { return true; }
+void cDBDriver::lockTable( const QString& table ) {}
+void cDBDriver::unlockTable( const QString& table ) {}
+QString cDBDriver::error() { return QString::null; }
 
 void cDBDriver::setActiveConnection( int id )
 {
@@ -182,8 +100,10 @@ bool cDBResult::fetchrow()
 
 	if( mysql_type )
 	{
+#ifdef MYSQL_DRIVER
 		_row = mysql_fetch_row( (st_mysql_res*)_result );
 		return ( _row != 0 );
+#endif
 	}
 	else
 	{
@@ -199,7 +119,9 @@ void cDBResult::free()
 {
 	if( mysql_type )
 	{
+#ifdef MYSQL_DRIVER
 		mysql_free_result( (st_mysql_res*)_result );
+#endif
 	}
 	else
 	{
@@ -330,3 +252,86 @@ cDBResult cSQLiteDriver::query( const QString &query )
 
 	return cDBResult( result, connection, false ); 
 }
+
+/*****************************************************************************
+  cMySQLDriver member functions
+ *****************************************************************************/
+
+#ifdef MYSQL_DRIVER
+
+bool cMySQLDriver::open( int id ) 
+{
+	if ( connection )
+		return true;
+
+	connection = mysql_init( 0 );
+	if ( !connection )
+		throw QString("mysql_init(): insufficient memory to allocate a new object");
+	
+	( (MYSQL*)connection )->reconnect = 1;
+	
+	if ( !mysql_real_connect((MYSQL*)connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
+	{ // Named pipes are acctually slower :(
+		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( (MYSQL*)connection ) );
+	}
+	connections[ id ] = (MYSQL*)connection;
+
+	return true;
+}
+
+void cMySQLDriver::close()
+{
+	mysql_close( (MYSQL*)connection );
+	connection = 0;
+}
+
+cDBResult cMySQLDriver::query( const QString &query )
+{
+	MYSQL *mysql = (MYSQL*)connection;
+
+	if( !mysql )
+		throw QString( "Not connected to mysql server. Unable to execute query." );
+
+	if( mysql_query( mysql, query.latin1() ) )
+	{
+		return cDBResult(); // Return invalid result
+	}
+	
+	MYSQL_RES *result = mysql_use_result( mysql );
+	return cDBResult( result, mysql );
+}
+
+bool cMySQLDriver::exec( const QString &query )
+{
+	if( !connection )
+		throw QString( "Not connected to mysql server. Unable to execute query." );
+
+	bool ok = !mysql_query( (MYSQL*)connection, query.latin1() );
+	return ok;
+}
+
+void cMySQLDriver::lockTable( const QString& table )
+{
+	exec( QString("LOCK TABLES %1 WRITE;").arg(table) );
+}
+
+void cMySQLDriver::unlockTable( const QString& table )
+{
+	exec( QString("UNLOCK TABLES") );
+}
+
+QString cMySQLDriver::error()
+{
+	const char *error = mysql_error( (MYSQL*)connection );
+
+	if( error != 0 )
+	{
+		return QString(error);
+	}
+	else
+	{
+		return QString::null;
+	}
+}
+
+#endif
