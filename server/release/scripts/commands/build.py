@@ -132,6 +132,30 @@ def buildRoofN(x1, x2, y1, y2, z, mapid, args):
 		for y in range(y1, y2 + 1):
 			placeItem(x, y, tilez, mapid, itemid) # Roof			
 
+# Build a 3x3 field
+def build3x3(x1, x2, y1, y2, z, mapid, args):
+	if x2 != x1 or y2 != y1:
+		raise AssertionError, "You have to select a single coordinate."
+
+	for x in range(x1 - 1, x1 + 2):
+		for y in range(y1 - 1, y1 + 2):
+			xmod = (x - (x1 - 1)) % 3
+			ymod = (y - (y1 - 1)) % 3
+			itemid = args[(ymod * 3 + xmod)]
+			placeItem(x, y, z, mapid, itemid)
+			
+# Build a 4x4 field
+def build4x4(x1, x2, y1, y2, z, mapid, args):
+	if x2 != x1 or y2 != y1:
+		raise AssertionError, "You have to select a single coordinate."
+
+	for x in range(x1 - 1, x1 + 3):
+		for y in range(y1 - 1, y1 + 3):
+			xmod = (x - (x1 - 1)) % 4
+			ymod = (y - (y1 - 1)) % 4
+			itemid = args[(ymod * 4 + xmod)]
+			placeItem(x, y, z, mapid, itemid)			
+
 # string id: callback, extra arguments
 BUILD_TYPES = {
 	'woodenboardse': (buildFloor, ('4b4', '4b0', '4b3', '4ad', ['4a9', '4aa', '4ab', '4ac'], '4af', '4b2', '4ae', '4b1')),
@@ -145,6 +169,43 @@ BUILD_TYPES = {
 	
 	'woodenlogsn1': (buildFloor, ('4c3', '4c3', '4c3', '4c1', '4c1', '4c1', '4c2', '4c2', '4c2')),
 	'woodenlogsn2': (buildFloor, ('4c5', '4c5', '4c5', '4c1', '4c1', '4c1', '4c4', '4c4', '4c4')),
+	
+	# Carpets
+	'bluecarpet1a': (buildFloor, ('ac3', 'af7', 'ac5', 'af6', 'abe', 'af8', 'ac4', 'af9', 'ac2')),
+	'bluecarpet1b': (buildFloor, ('ac3', 'af7', 'ac5', 'af6', 'abd', 'af8', 'ac4', 'af9', 'ac2')),	
+	'bluecarpet1c': (buildFloor, ('ac3', 'af7', 'ac5', 'af6', 'abf', 'af8', 'ac4', 'af9', 'ac2')),	
+	'bluecarpet1d': (buildFloor, ('ac3', 'af7', 'ac5', 'af6', 'ac0', 'af8', 'ac4', 'af9', 'ac2')),	
+	'bluecarpet2': (buildFloor, ('ad3', 'ad7', 'ad5', 'ad6', 'ad1', 'ad8', 'ad4', 'ad9', 'ad2')),
+	'bluecarpet3a': (buildFloor, ('aef', 'af3', 'af1', 'af2', 'aec', 'af4', 'af0', 'af5', 'aee')),
+	'bluecarpet3b': (buildFloor, ('aef', 'af3', 'af1', 'af2', 'aed', 'af4', 'af0', 'af5', 'aee')),
+	'browncarpet': (buildFloor, ('adc', 'ae0', 'ade', 'adf', 'ada', 'ae1', 'add', 'ae2', 'adb')),
+	
+	'redcarpet1a': (buildFloor, ('aca', 'ace', 'acc', 'acd', 'ac8', 'acf', 'acb', 'ad0', 'ac9')),
+	'redcarpet1b': (buildFloor, ('aca', 'ace', 'acc', 'acd', 'ac6', 'acf', 'acb', 'ad0', 'ac9')),
+	'redcarpet1c': (buildFloor, ('aca', 'ace', 'acc', 'acd', 'ac7', 'acf', 'acb', 'ad0', 'ac9')),
+	'redcarpet2': (buildFloor, ('ae4', 'ae8', 'ae6', 'ae7', 'aeb', 'ae9', 'ae5', 'aea', 'ae3')),
+	'grayrug': (buildFloor, ('1df9', ['1df1', '1df2'], '1dfa', ['1df7', '1df8'], ['1def', '1df0'], ['1df3', '1df4'], '1dfc', ['1df5', '1df6'], '1dfb')),
+	'greenrug1': (buildFloor, ('ab8', 'ab4', 'ab9', 'ab7', 'ab3', 'ab5', 'abb', 'ab6', 'aba')),
+	'greenrug2': (buildFloor, ('1deb', ['1de3', '1de4'], '1dec', ['1de9', '1dea'], ['1de1', '1de2'], ['1de5', '1de6'], '1dee', ['1de7', '1de8'],  '1ded')),
+	'greenrug3': (buildFloor, (	['1deb', 'ab8'], ['1de3', '1de4', 'ab4'], ['1dec', 'ab9'], ['1de9', '1dea', 'ab7'], ['1de1', '1de2', 'ab3'], ['1de5', '1de6', 'ab5'], ['1dee', 'abb'], ['1de7', '1de8', 'ab6'],  ['1ded', 'aba'])),
+	
+	# 3x3 matrix
+	'bearskinn' : (build3x3, ('1e3e', '1e3d', '1e3c', '1e39', '1e3a', '1e3b', '1e38', '1e37', '1e36')),
+	'bearskine' : (build3x3, ('1e48', '1e43', '1e42', '1e47', '1e44', '1e41', '1e46', '1e45', '1e40')),
+	
+	'polarskinn' : (build3x3, ('1e51', '1e50', '1e4f', '1e4c', '1e4d', '1e4e', '1e4b', '1e4a', '1e49')),
+	'polarskine' : (build3x3, ('1e5b', '1e56', '1e55', '1e5a', '1e57', '1e54', '1e59', '1e58', '1e53')),
+	
+	# Fountains (4x4)
+	'stonefountain': (build4x4, ('1741', '173f', '1738', '1737', 
+								 '173d', '173e', '1739', '1736',
+								 '173c', '173b', '173a', '1735',
+								 '1731', '1732', '1733', '1734')),
+								 
+	'sandstonefountain': (build4x4, ('19d3', '19d1', '19ca', '19c9', 
+								 '19cf', '19d0', '19cb', '19c8',
+								 '19ce', '19cd', '19cc', '19c7',
+								 '19c3', '19c4', '19c5', '19c6')),								 
 	
 	'redfloor':	(redFloor, ()),
 	'bluefloor': (blueFloor, ()),
@@ -229,10 +290,14 @@ def buildResponse(player, arguments, target):
 		player.socket.sysmessage('You are not allowed to tile more than 250 items at once.')
 		return
 
-	player.log(LOG_MESSAGE, "Building %u items (%s) from %u,%u to %u,%u at z=%d.\n" % (count, id, x1, y1, x2, y2, z))
-	player.socket.sysmessage('Building %u items from %u,%u to %u,%u at z=%d.' % (count, x1, y1, x2, y2, z))
-
-	BUILD_TYPES[id][0](x1, x2, y1, y2, z, player.pos.map, BUILD_TYPES[id][1])	
+	try:
+		BUILD_TYPES[id][0](x1, x2, y1, y2, z, player.pos.map, BUILD_TYPES[id][1])	
+		player.log(LOG_MESSAGE, "Building %u items (%s) from %u,%u to %u,%u at z=%d.\n" % (count, id, x1, y1, x2, y2, z))
+		player.socket.sysmessage('Building %u items from %u,%u to %u,%u at z=%d.' % (count, x1, y1, x2, y2, z))		
+	except AssertionError, e:
+		player.socket.sysmessage(str(e))
+	except:
+		raise
 
 #
 # Gather arguments and validate id list.
