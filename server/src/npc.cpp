@@ -173,7 +173,7 @@ static void npcRegisterAfterLoading( P_NPC pc )
 void cNPC::setOwner(P_PLAYER data)
 {
 	// We CANT be our own owner
-	if( data->serial() == this->serial() )
+	if( data && ( data->serial() == this->serial() ) )
 		return;
 
 	if( owner_ )
