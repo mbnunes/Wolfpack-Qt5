@@ -245,7 +245,7 @@ def loadMenu(id, parent = None):
 					# Standard material
 					elif subchild.name == 'logs':
 						amount = hex2dec(subchild.getattribute('amount', '0'))
-						materialname = hex2dec(subchild.getattribute('name', '1'))
+						materialname = hex2dec(subchild.getattribute('name', 'Unknown'))
 						action.materials.append([['1bdd','1bde','1bdf','1be0','1be1','1be2','1bd7','1bd8','1bd9','1bda','1bdb','1bdc'], amount])
 						action.materials.append([ids, amount, materialname])
 
@@ -264,10 +264,11 @@ def loadMenu(id, parent = None):
 							ids = subchild.getattribute('id').split(';')
 							try:
 								amount = hex2dec(subchild.getattribute('amount', '1'))
+								materialname = hex2dec(subchild.getattribute('name', 'Unknown'))
 							except:
 								console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
 								break
-							action.materials.append([ids, amount])
+							action.materials.append([ids, amount, materialname])
 
 					# Skill requirement
 					elif subchild.name in skillnamesids:
