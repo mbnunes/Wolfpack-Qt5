@@ -10,72 +10,72 @@
 -->
 <definitions>
         <item id="d0c">
-                <id>0xD0C</id>
+                <id>0xD0C</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 1</category>
         </item>
 
         <item id="d0d">
-                <id>0xD0D</id>
+                <id>0xD0D</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 2</category>
         </item>
 
         <item id="d0e">
-                <id>0xD0E</id>
+                <id>0xD0E</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 3</category>
         </item>
 
         <item id="d0f">
-                <id>0xD0F</id>
+                <id>0xD0F</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 4</category>
         </item>
 
         <item id="d10">
-                <id>0xD10</id>
+                <id>0xD10</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 5</category>
         </item>
 
         <item id="d11">
-                <id>0xD11</id>
+                <id>0xD11</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 6</category>
         </item>
 
         <item id="d12">
-                <id>0xD12</id>
+                <id>0xD12</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 7</category>
         </item>
 
         <item id="d13">
-                <id>0xD13</id>
+                <id>0xD13</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 8</category>
         </item>
 
         <item id="d14">
-                <id>0xD14</id>
+                <id>0xD14</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 9</category>
         </item>
 
         <item id="d15">
-                <id>0xD15</id>
+                <id>0xD15</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 10</category>
         </item>
 
         <item id="d16">
-                <id>0xD16</id>
+                <id>0xD16</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 11</category>
         </item>
 
         <item id="d17">
-                <id>0xD17</id>
+                <id>0xD17</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 12</category>
         </item>
 
         <item id="d18">
-                <id>0xD18</id>
+                <id>0xD18</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 13</category>
         </item>
 
         <item id="d19">
-                <id>0xD19</id>
+                <id>0xD19</id> <nodecay />
                 <category>Vegetation\Mushrooms\Mushrooms 14</category>
         </item>
 </definitions>

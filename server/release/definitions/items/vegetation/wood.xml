@@ -11,154 +11,154 @@
 <definitions>
         <!-- Wood -->
         <item id="1b81">
-                <id>0x1B81</id>
+                <id>0x1B81</id> <nodecay />
                 <category>Vegetation\Wood\Wood 1</category>
         </item>
 
         <item id="1b82">
-                <id>0x1B82</id>
+                <id>0x1B82</id> <nodecay />
                 <category>Vegetation\Wood\Wood 2</category>
         </item>
 
         <item id="1b83">
-                <id>0x1B83</id>
+                <id>0x1B83</id> <nodecay />
                 <category>Vegetation\Wood\Wood 3</category>
         </item>
 
         <item id="1b84">
-                <id>0x1B84</id>
+                <id>0x1B84</id> <nodecay />
                 <category>Vegetation\Wood\Wood 4</category>
         </item>
 
         <item id="1b85">
-                <id>0x1B85</id>
+                <id>0x1B85</id> <nodecay />
                 <category>Vegetation\Wood\Wood 5</category>
         </item>
 
         <item id="1b86">
-                <id>0x1B86</id>
+                <id>0x1B86</id> <nodecay />
                 <category>Vegetation\Wood\Wood 6</category>
         </item>
 
         <item id="1b87">
-                <id>0x1B87</id>
+                <id>0x1B87</id> <nodecay />
                 <category>Vegetation\Wood\Wood 7</category>
         </item>
 
         <item id="1b88">
-                <id>0x1B88</id>
+                <id>0x1B88</id> <nodecay />
                 <category>Vegetation\Wood\Wood 8</category>
         </item>
 
         <item id="1b89">
-                <id>0x1B89</id>
+                <id>0x1B89</id> <nodecay />
                 <category>Vegetation\Wood\Wood 9</category>
         </item>
 
         <item id="1b8a">
-                <id>0x1B8A</id>
+                <id>0x1B8A</id> <nodecay />
                 <category>Vegetation\Wood\Wood 10</category>
         </item>
 
         <item id="1b8b">
-                <id>0x1B8B</id>
+                <id>0x1B8B</id> <nodecay />
                 <category>Vegetation\Wood\Wood 11</category>
         </item>
 
         <item id="1b8c">
-                <id>0x1B8C</id>
+                <id>0x1B8C</id> <nodecay />
                 <category>Vegetation\Wood\Wood 12</category>
         </item>
 
         <item id="1b8d">
-                <id>0x1B8D</id>
+                <id>0x1B8D</id> <nodecay />
                 <category>Vegetation\Wood\Wood 13</category>
         </item>
 
         <item id="1b8e">
-                <id>0x1B8E</id>
+                <id>0x1B8E</id> <nodecay />
                 <category>Vegetation\Wood\Wood 14</category>
         </item>
 
         <item id="1b8f">
-                <id>0x1B8F</id>
+                <id>0x1B8F</id> <nodecay />
                 <category>Vegetation\Wood\Wood 15</category>
         </item>
 
         <item id="1b90">
-                <id>0x1B90</id>
+                <id>0x1B90</id> <nodecay />
                 <category>Vegetation\Wood\Wood 16</category>
         </item>
 
         <item id="1b91">
-                <id>0x1B91</id>
+                <id>0x1B91</id> <nodecay />
                 <category>Vegetation\Wood\Wood 17</category>
         </item>
 
         <item id="1b92">
-                <id>0x1B92</id>
+                <id>0x1B92</id> <nodecay />
                 <category>Vegetation\Wood\Wood 18</category>
         </item>
 
         <item id="1b93">
-                <id>0x1B93</id>
+                <id>0x1B93</id> <nodecay />
                 <category>Vegetation\Wood\Wood 19</category>
         </item>
 
         <item id="1b94">
-                <id>0x1B94</id>
+                <id>0x1B94</id> <nodecay />
                 <category>Vegetation\Wood\Wood 20</category>
         </item>
 
         <item id="1b95">
-                <id>0x1B95</id>
+                <id>0x1B95</id> <nodecay />
                 <category>Vegetation\Wood\Wood 21</category>
         </item>
 
         <item id="1b96">
-                <id>0x1B96</id>
+                <id>0x1B96</id> <nodecay />
                 <category>Vegetation\Wood\Wood 22</category>
         </item>
 
         <item id="1b97">
-                <id>0x1B97</id>
+                <id>0x1B97</id> <nodecay />
                 <category>Vegetation\Wood\Wood 23</category>
         </item>
 
         <item id="1b98">
-                <id>0x1B98</id>
+                <id>0x1B98</id> <nodecay />
                 <category>Vegetation\Wood\Wood 24</category>
         </item>
 
         <item id="1b99">
-                <id>0x1B99</id>
+                <id>0x1B99</id> <nodecay />
                 <category>Vegetation\Wood\Wood 25</category>
         </item>
 
         <item id="1b9a">
-                <id>0x1B9A</id>
+                <id>0x1B9A</id> <nodecay />
                 <category>Vegetation\Wood\Wood 26</category>
         </item>
 
         <!-- Sticks -->
         <item id="1b9b">
-                <id>0x1B9B</id>
+                <id>0x1B9B</id> <nodecay />
                 <category>Vegetation\Wood\Sticks </category>
         </item>
 
         <!-- Twigs -->
         <item id="1b9c">
-                <id>0x1B9C</id>
+                <id>0x1B9C</id> <nodecay />
                 <category>Vegetation\Wood\Twigs 1</category>
         </item>
 
         <item id="1b9d">
-                <id>0x1B9D</id>
+                <id>0x1B9D</id> <nodecay />
                 <category>Vegetation\Wood\Twigs 2</category>
         </item>
 
         <item id="1b9e">
-                <id>0x1B9E</id>
+                <id>0x1B9E</id> <nodecay />
                 <category>Vegetation\Wood\Twigs 3</category>
         </item>
 </definitions>
