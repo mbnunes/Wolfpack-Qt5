@@ -118,6 +118,11 @@ unix {
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 }
 
+win32 {
+	INCLUDEPATH += $$PY_INCDIR $$MySQL_INCDIR $$SQLite_INCDIR
+	LIBS += $$PY_LIBDIR $$MySQL_LIBDIR $$SQLite_LIBDIR
+}
+
 RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
