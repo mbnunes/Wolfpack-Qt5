@@ -515,6 +515,10 @@ void MapObjects::add( cUObject* object )
 		Timing::instance()->addDecayItem( reinterpret_cast<P_ITEM>( object ) );
 	}
 
+	if (!validMap(object->pos().map)) {
+		return;
+	}
+
 	MapObjectsGrid *grid = resolveGrid( mMaps[object->pos().map], object );
 	if ( grid->validCoord( object->pos() ) )
 		grid->add( object );
@@ -571,6 +575,10 @@ void MapObjects::remove( cUObject* object )
 	if ( isItemSerial( object->serial() ) )
 	{
 		Timing::instance()->removeDecayItem( reinterpret_cast<P_ITEM>( object ) );
+	}
+
+	if (!validMap(object->pos().map)) {
+		return;
 	}
 
 	MapObjectsGrid *grid = resolveGrid( mMaps[object->pos().map], object );
