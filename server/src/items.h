@@ -134,7 +134,7 @@ public:
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; };
 	void	setWipe( bool nValue ) { ( nValue ) ? priv &= 0x10 : priv |= 0xEF; };
 	void	setRacehate( SI16 nValue ) { racehate_ = nValue; };
-	void	setWeight( SI16 nValue ) { weight_ = nValue; };
+	void	setWeight( SI16 nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; };
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; };
 	void	setSmelt( SI32 nValue ) { smelt_ = nValue; };
@@ -146,7 +146,7 @@ public:
 	void	setCorpse( bool nValue ) { ( nValue ) ? priv |= 0x40 : priv &= 0xBF; }
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv |= 0x02 : priv &= 0xFD; }
 	void	setOwner( P_CHAR nOwner );
-	void	setTotalweight( INT32 data ) { totalweight_ = data; }
+	void	setTotalweight( INT32 data );
 
 	cItem() {;};
 	cItem( cItem& src); // Copy constructor

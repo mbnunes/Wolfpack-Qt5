@@ -229,47 +229,72 @@ void cItem::setContSerial( SERIAL nValue )
 {
 	// If the item is in the bank or any sell-container it's NOT counted as char-weight
 	// bool inBank = ( outmostCont && 	( outmostCont->contserial == pChar->serial ) && ( outmostCont->layer() >= 0x1A ) );
-
 	P_CHAR oldOwner = 0;
 	P_CHAR newOwner = 0;
-	if( this->contserial != INVALID_SERIAL )
+
+	if( contserial != INVALID_SERIAL )
 	{
-		// Get the Old owner only if it's dropped to ground etc.
-		P_ITEM pCont = GetOutmostCont( this, 64 );
-		if( isCharSerial( pCont->contserial ) && ( ( pCont->layer() <= 0x19 ) || ( pCont->layer() == 0x1E ) ) )
-			oldOwner = FindCharBySerial( pCont->contserial );
+		if( isItemSerial( contserial ) )
+		{
+			P_ITEM pItem = FindItemBySerial( contserial );
+
+			if( pItem )
+			{
+				pItem->setTotalweight( pItem->totalweight() - totalweight_ );
+				oldOwner = GetPackOwner( pItem, 64 ); // Try to find it at least, otherwise its 0
+			}
+		}
+		else if( isCharSerial( contserial ) )
+		{
+			P_CHAR pChar = FindCharBySerial( contserial );
+
+			if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
+			{
+				pChar->setWeight( pChar->weight() - weight_ );
+				oldOwner = pChar;
+			}
+		}
 
 		contsp.remove( this->contserial, this->serial );
 	}
 
-	this->contserial = nValue;
+	contserial = nValue;
 
-	if( this->contserial != INVALID_SERIAL )
+	if( contserial != INVALID_SERIAL )
 	{
 		// Get the New owner only if we're taking an item along (no bank no sell conts. etc.)
-		P_ITEM pCont = GetOutmostCont( this, 64 );
-		if( isCharSerial( pCont->contserial ) && ( ( pCont->layer() <= 0x19 ) || ( pCont->layer() == 0x1E ) ) )
-			newOwner = FindCharBySerial( pCont->contserial );
+		if( isItemSerial( contserial ) )
+		{
+			P_ITEM pItem = FindItemBySerial( contserial );
+
+			if( pItem )
+			{
+				pItem->setTotalweight( pItem->totalweight() - totalweight_ );
+				newOwner = GetPackOwner( pItem, 64 );
+			}
+		}
+		else if( isCharSerial( contserial ) )
+		{
+			P_CHAR pChar = FindCharBySerial( contserial );
+
+			if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
+			{
+				pChar->setWeight( pChar->weight() - weight_ );
+				newOwner = pChar;
+			}
+		}
 
 		contsp.insert( this->contserial, this->serial );
 	}
 
-	// The owner has changed
-	if( newOwner != oldOwner )
+	// There was an owner change
+	if( oldOwner != newOwner )
 	{
-		if( newOwner )
-		{
-			newOwner->setWeight( newOwner->weight() + totalweight() );
-			if( newOwner->socket() )
-				newOwner->socket()->sendStatWindow();
-		}
+		if( oldOwner && oldOwner->socket() )
+			oldOwner->socket()->sendStatWindow();
 
-		if( oldOwner )
-		{
-			oldOwner->setWeight( oldOwner->weight() - totalweight() );
-			if( oldOwner->socket() )
-				oldOwner->socket()->sendStatWindow();
-		}
+		if( newOwner && newOwner->socket() )
+			newOwner->socket()->sendStatWindow();
 	}
 }
 
@@ -2062,3 +2087,49 @@ void cItem::soundEffect( UINT16 sound )
 		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) )
 			mSock->soundEffect( sound, this );
 }
+
+// Our weight has changed
+// Update the top-containers
+void cItem::setWeight( SI16 nValue )
+{
+	setTotalweight( totalweight_ - weight_ );
+	weight_ = nValue;
+	setTotalweight( totalweight_ + weight_ );
+}
+
+// This subtracts the weight of the top-container
+// And then readds the new weight
+void cItem::setTotalweight( INT32 data )
+{
+	//if( data < 0 )
+		// FixWeight!
+
+	if( isCharSerial( contserial ) )
+	{
+		P_CHAR pChar = FindCharBySerial( contserial );
+		if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
+			pChar->setWeight( pChar->weight() - totalweight_ );
+	}
+	else if( isItemSerial( contserial ) )
+	{
+		P_ITEM pItem = FindItemBySerial( contserial );
+		if( pItem )
+			pItem->setTotalweight( pItem->totalweight() - totalweight_ );
+	}
+
+	totalweight_ = data;
+
+	if( isCharSerial( contserial ) )
+	{
+		P_CHAR pChar = FindCharBySerial( contserial );
+		if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
+			pChar->setWeight( pChar->weight() + totalweight_ );
+	}
+	else if( isItemSerial( contserial ) )
+	{
+		P_ITEM pItem = FindItemBySerial( contserial );
+		if( pItem )
+			pItem->setTotalweight( pItem->totalweight() + totalweight_ );
+	}
+}
+
