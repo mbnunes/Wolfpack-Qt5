@@ -253,42 +253,9 @@ void cWorld::load()
 	// cPagesManager::getInstance()->load();
 
 	// Load Temporary Effects
-	archive = cPluginFactory::serializationArchiver( "xml" );
+	TempEffects::instance()->load();
 
-	archive->prepareReading( "effects" );
-	
-	if ( archive->size() )
-	{
-		Console::instance()->send( QString( "Loading %1 Temp. Effects...\n" ).arg( archive->size() ) );
-		progress_display progress( archive->size() );
-		
-		for ( i = 0; i < archive->size(); ++progress, ++i)
-		{
-			archive->readObjectID(objectID);
-			
-			cTempEffect* pTE = NULL;
-			
-			if( objectID == "HIDECHAR" )
-				pTE = new cDelayedHideChar( INVALID_SERIAL );
-			
-			else if( objectID == "cPythonEffect" )
-				pTE = new cPythonEffect;
-			
-			else
-			{
-				Console::instance()->log( LOG_ERROR, tr( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
-				continue; // Skip the class, not a good habit but at the moment the user couldn't really debug the error
-			}
-			
-			archive->readObject( pTE );
-			TempEffects::instance()->insert( pTE );
-		}
-	}
-
-	archive->close();
-	delete archive;
-
-	Console::instance()->PrepareProgress( tr("Postprocessing") );
+	Console::instance()->PrepareProgress( "Postprocessing" );
 
 	P_ITEM pi;	
 	QPtrList< cItem > deleteItems;
@@ -487,6 +454,8 @@ void cWorld::save()
 		for( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
 			persistentBroker->saveObject( pChar );
 
+		TempEffects::instance()->save();
+
 		persistentBroker->commitTransaction();
 	}
 	catch( QString &e )
@@ -494,18 +463,12 @@ void cWorld::save()
 		persistentBroker->rollbackTransaction();
 
 		Console::instance()->ChangeColor( WPC_RED );
-		Console::instance()->send( " Failed" );
+		Console::instance()->send( " Failed\n" );
 		Console::instance()->ChangeColor( WPC_NORMAL );
 
 		Console::instance()->log( LOG_ERROR, "Saving failed: " + e );
 		return;
 	}
-
-	ISerialization *archive = cPluginFactory::serializationArchiver( "xml" );
-	archive->prepareWritting( "effects" );
-	TempEffects::instance()->serialize( *archive );
-	archive->close();
-	delete archive;
 
 	// Save the accounts
 	Accounts::instance()->save();
@@ -518,7 +481,7 @@ void cWorld::save()
 
 	persistentBroker->disconnect();
 
-	Console::instance()->send( QString( " [%1ms]\n" ).arg( getNormalizedTime() - startTime ) );
+	Console::instance()->send( QString( " [%1ms]\n" ).arg( uiCurrentTime - startTime ) );
 
 }
 

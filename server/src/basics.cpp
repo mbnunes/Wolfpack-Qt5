@@ -162,10 +162,9 @@ static unsigned int getPlatformTime()
 static unsigned int getPlatformTime()
 {
 	timeval tTime;
-	timezone tZone;
 
 	// Error handling wouldn't have much sense here.
-	gettimeofday( &tTime, &tZone );
+	gettimeofday( &tTime, NULL );
 
 	return ( tTime.tv_sec * 1000 ) + (unsigned int)( tTime.tv_usec / 1000 );
 }

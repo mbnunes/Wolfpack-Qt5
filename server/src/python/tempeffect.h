@@ -31,8 +31,15 @@
 #if !defined(__TEMPEFFECT_H__)
 #define __TEMPEFFECT_H__
 
+#include "engine.h"
+#include "utilities.h"
+
 #include "../TmpEff.h"
+#include "../persistentbroker.h"
+#include "../globals.h"
+#include "../dbdriver.h"
 #include "../world.h"
+#include "../console.h"
 
 class cPythonEffect : public cTempEffect
 {
@@ -148,69 +155,72 @@ public:
 		Py_DECREF( args );
 	}
 
-	void Serialize( ISerialization &archive )
+	void save( unsigned int id )
 	{
-		if( archive.isReading() )
+		saveString( id, "functionname", functionName );
+		saveString( id, "dispelfunc", dispelFunc_ );
+		saveString( id, "dispelid", dispelId_ );
+		saveInt( id, "pycount", PyTuple_Size( args ) );
+
+		// Serialize the py object
+		for( int i = 0; i < PyTuple_Size( args ); ++i )
 		{
-			archive.read( "functionname",	functionName );
-			archive.read( "dispelfunc", dispelFunc_ );
-			archive.read( "dispelid", dispelId_ );
-
-			UINT32 pCount;
-			QString type;
-			archive.read( "pcount", pCount );
-			args = PyTuple_New( pCount );
-
-			for( UINT32 i = 0; i < pCount; ++i )
+			if( PyInt_Check( PyTuple_GetItem( args, i ) ) )
 			{
-				archive.read( QString( "pt%1" ).arg( i ), type );
-
-				// Read an integer
-				if( type == "i" )
-				{
-					INT32 data;
-					archive.read( QString( "pv%1" ).arg( i ), data );
-					PyObject *obj = PyInt_FromLong( data );
-					PyTuple_SetItem( args, i, PyInt_FromLong( data ) );
-				}
-				// Read a string
-				else if( type == "s" )
-				{
-					QString data;
-					archive.read( QString( "pv%1" ).arg( i ), data );
-					PyObject *obj = PyString_FromString( data.latin1() );
-					PyTuple_SetItem( args, i, obj );
-				}
-			}		
-		}
-		else if( archive.isWritting() )
-		{
-			archive.write( "functionname",	functionName );
-			archive.write( "dispelfunc", dispelFunc_ );
-			archive.write( "dispelid",	dispelId_ );
-
-			archive.write( "pcount", PyTuple_Size( args ) );
-
-			// Serialize the py object
-			for( UINT32 i = 0; i < PyTuple_Size( args ); ++i )
+				saveInt( id, "pyarg_" + QString::number( i ), (int)PyInt_AsLong( PyTuple_GetItem( args, i ) ) );
+			}
+			else if( PyString_Check( PyTuple_GetItem( args, i ) ) )
 			{
-				if( PyInt_Check( PyTuple_GetItem( args, i ) ) )
-				{
-					archive.write( QString( "pt%1" ).arg( i ), QString( "i" ) );
-					archive.write( QString( "pv%1" ).arg( i ), (int)PyInt_AsLong( PyTuple_GetItem( args, i ) ) );
-				}
-				else if( PyString_Check( PyTuple_GetItem( args, i ) ) )
-				{
-					archive.write( QString( "pt%1" ).arg( i ), QString( "s" ) );
-					archive.write( QString( "pv%1" ).arg( i ), PyString_AsString( PyTuple_GetItem( args, i ) ) );
-				}
-				// Something we can't save -> Py_None on load
-				else
-					archive.write( QString( "pt%1" ).arg( i ), QString( "n" ) );
+				saveString( id, "pyarg_" + QString::number( i ), PyString_AsString( PyTuple_GetItem( args, i ) ) );
+			}
+			else if( PyFloat_Check( PyTuple_GetItem( args, i ) ) )
+			{
+				saveFloat( id, "pyarg_" + QString::number( i ), PyFloat_AsDouble( PyTuple_GetItem( args, i ) ) );
 			}
 		}
 
-		cTempEffect::Serialize( archive );
+		cTempEffect::save( id );
+	}
+
+	void load( unsigned int id, const char **result )
+	{
+		// Load the Base Properties and then Select
+		loadString( id, "functionname", functionName );
+		loadString( id, "dispelfunc", dispelFunc_ );
+		loadString( id, "dispelid", dispelId_ );
+		
+		int count;
+		loadInt( id, "pycount", count );
+
+		args = PyTuple_New( count );
+
+		for( int i = 0; i < count; ++i )
+			PyTuple_SetItem( args, i, Py_None );
+
+		cDBResult res = persistentBroker->query( QString( "SELECT key,type,value FROM effects_properties WHERE id = %1 AND key LIKE 'pyarg_%'" ).arg( id ) );
+
+		while( res.fetchrow() )
+		{
+			QString key = res.getString( 0 );
+			QString type = res.getString( 1 );
+			QString value = res.getString( 2 );
+
+			int id = key.right( key.length() - 3 ).toInt();
+
+			if( id >= count )
+				continue;
+
+			if( type == "string" )
+				PyTuple_SetItem( args, id, PyString_FromString( value.latin1() ) );
+			else if( type == "int" )
+				PyTuple_SetItem( args, id, PyInt_FromLong( value.toInt() ) );
+			else if( type == "float" )
+				PyTuple_SetItem( args, id, PyFloat_FromDouble( value.toFloat() ) );
+		}
+
+		res.free();
+
+		cTempEffect::load( id, result );
 	}
 };
 

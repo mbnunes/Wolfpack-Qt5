@@ -29,9 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-//////////////////////////////////////////////////////////////////////
-// TmpEff.cpp: implementation of temporary effects
-//				cut from Wolfpack.cpp by Duke, 25.10.2000
+#include "python/tempeffect.h"
 
 #include "platform.h"
 
@@ -44,20 +42,21 @@
 #include "network.h"
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
+#include "dbdriver.h"
+#include "persistentbroker.h"
 #include "skills.h"
 #include "sectors.h"
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"
 #include "ai.h"
+#include "basics.h"
 #include "world.h"
+#include "inlines.h"
 
 #include <algorithm>
 #include <typeinfo>
 #include <math.h>
-
-#undef  DBGFILE
-#define DBGFILE "tmpeff.cpp"
 
 int cTempEffect::getDest()
 {
@@ -89,24 +88,105 @@ void cTempEffect::setExpiretime_ms(float milliseconds)
 	expiretime=uiCurrentTime+(int)floor(( milliseconds / 1000 )*MY_CLOCKS_PER_SEC);
 }
 
-void cTempEffect::Serialize(ISerialization &archive)
+/*
+	Save a float to the effects_properties table.
+ */
+void cTempEffect::saveFloat( unsigned int id, QString key, double value )
 {
-	if (archive.isReading())
+	persistentBroker->executeQuery( QString( "INSERT INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "float" ).arg( value ) );
+}
+
+/*
+	Save an integer to the effects_properties table.
+ */
+void cTempEffect::saveInt( unsigned int id, QString key, int value )
+{
+	persistentBroker->executeQuery( QString( "INSERT INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "int" ).arg( value ) );
+}
+
+/*
+	Save a string to the effects_properties table.
+ */
+void cTempEffect::saveString( unsigned int id, QString key, const QString &value )
+{
+	persistentBroker->executeQuery( QString( "INSERT INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "string" ).arg( persistentBroker->quoteString( value.utf8() ) ) );
+}
+
+/*
+	Load a float from the effects_properties table.
+ */
+bool cTempEffect::loadFloat( unsigned int id, QString key, double &value )
+{
+	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND key = '%2' AND type = 'float'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+
+	if( !result.fetchrow() )
 	{
-		archive.read( "expiretime",		this->expiretime ); // exptime must be subtracted from current server clock time, so it can be recalculated on next server startup
-		archive.read( "dispellable",	this->dispellable );
-		archive.read( "srcserial",		this->sourSer );
-		archive.read( "destserial",		this->destSer );
-		this->expiretime += uiCurrentTime;
+		result.free();
+		return false;
 	}
-	else if( archive.isWritting() )
+
+	value = result.getString( 0 ).toFloat();
+
+	result.free();
+
+	return true;
+}
+
+/*
+	Load an integer from the effects_properties table.
+ */
+bool cTempEffect::loadInt( unsigned int id, QString key, int &value )
+{
+	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND key = '%2' AND type = 'int'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+
+	if( !result.fetchrow() )
 	{
-		archive.write( "expiretime",	( this->expiretime - uiCurrentTime ) ); // exptime must be subtracted from current server clock time, so it can be recalculated on next server startup
-		archive.write( "dispellable",	this->dispellable );
-		archive.write( "srcserial",		this->getSour() );
-		archive.write( "destserial",	this->getDest() );
+		result.free();
+		return false;
 	}
-	cSerializable::Serialize( archive );
+
+	value = result.getString( 0 ).toInt();
+
+	result.free();
+
+	return true;
+}
+
+/*
+	Load a string from the effects_properties table.
+ */
+bool cTempEffect::loadString( unsigned int id, QString key, QString &value )
+{
+	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND key = '%2' AND type = 'string'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+
+	if( !result.fetchrow() )
+	{
+		result.free();
+		return false;
+	}
+
+	value = result.getString( 0 );
+
+	result.free();
+
+	return true;
+}
+
+#include "console.h"
+
+void cTempEffect::save( unsigned int id )
+{
+	persistentBroker->executeQuery( QString( "INSERT INTO effects VALUES(%1,'%2',%3,%4,%5,%6);" ).arg( id ).arg( persistentBroker->quoteString( objectID() ) ).arg( expiretime - uiCurrentTime ).arg( dispellable ? 1 : 0 ).arg( sourSer ).arg( destSer ) );
+}
+
+void cTempEffect::load( unsigned int id, const char **result )
+{
+	unsigned int offset = 2;
+
+	expiretime = atol( result[offset++] ) + uiCurrentTime;
+	dispellable = atol( result[offset++] ) == 0 ? false : true;
+	sourSer = atol( result[offset++] );
+	destSer = atol( result[offset++] );
 }
 
 void cTempEffects::check()
@@ -136,18 +216,6 @@ void cTempEffects::check()
 			tEffect = *teffects.begin();
 		else
 			break;
-	}
-
-}
-
-void cTempEffects::serialize(ISerialization &archive)
-{
-	std::vector< cTempEffect* >::iterator it = teffects.begin();
-	while( it != teffects.end() )
-	{
-		if( (*it)->isSerializable() )
-			archive.writeObject( (*it) );
-		++it;
 	}
 }
 
@@ -196,34 +264,70 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 		std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
 }
 
+void cTempEffects::load()
+{
+	// Query the Database
+
+	cDBResult result = persistentBroker->query( "SELECT id,objectid,expiretime,dispellable,source,destination FROM effects ORDER BY expiretime ASC;" );
+
+	while( result.fetchrow() )
+	{
+		unsigned int id = result.getInt( 0 );
+		QString objectId = result.getString( 1 );
+
+		cTempEffect *effect = 0;
+
+		if( objectId == "cPythonEffect" )
+		{
+			effect = new cPythonEffect;
+		}
+		else if( objectId == "cDelayedHideChar" ) 
+		{
+			effect = new cDelayedHideChar;
+		}
+		else
+		{
+			throw QString( "Unknown TempEffect Type: %1" ).arg( objectId );
+		}
+
+		const char **res = (const char**)result.data(); // Skip id, objectid
+		effect->load( id, res );
+
+		insert( effect );
+	}
+}
+
+void cTempEffects::save()
+{
+	persistentBroker->executeQuery( "DELETE FROM effects;" );
+	persistentBroker->executeQuery( "DELETE FROM effects_properties;" );
+
+	std::vector< cTempEffect* >::iterator it = teffects.begin();
+	unsigned int id = 0;
+
+	while( it != teffects.end() )
+	{
+		(*it)->save( id++ );
+		++it;
+	}
+}
+
 // cDelayedHideChar
 cDelayedHideChar::cDelayedHideChar( SERIAL serial )
 {
 	if( !isCharSerial( serial ) || !FindCharBySerial( serial ) )
 	{
-		character = INVALID_SERIAL;
+		destSer = INVALID_SERIAL;
 		return;
 	}
-	character = serial;
+	
+	destSer = serial;
 	setSerializable( true );
-}
-
-void cDelayedHideChar::Serialize( ISerialization &archive )
-{
-	if( archive.isReading() )
-	{
-		archive.read( "charserial", character );
-	}
-	else
-	{
-		archive.write( "charserial", character );
-	}
-	cTempEffect::Serialize( archive );
 }
 
 void cDelayedHideChar::Expire()
 {
-	P_PLAYER pc = dynamic_cast<P_PLAYER>(FindCharBySerial( character ));
+	P_PLAYER pc = dynamic_cast<P_PLAYER>(FindCharBySerial( destSer ));
 	if( !pc || pc->socket() ) // break if the char has relogged in the meantime
 		return;
 
@@ -262,270 +366,6 @@ void cTimedSpellAction::Expire()
 	if( character != INVALID_SERIAL )
 		TempEffects::instance()->insert( new cTimedSpellAction( character, action ) );
 }
-
-/*
-//  Fibonacci Heap implementation
-//
-//  18.07.2002, Joerg Stueckler (sereg)
-//  email: joe.di@gmx.de
-//
-//  based on "Algorithms and Data Structures", T.Ottmann/P.Widmayer, 4th Edition
-//  Ch. 6.1.5., page 410
-cTempEffect*	cTmpEffFibHeap::accessMin() // O(1)!
-{
-	return head;
-}
-
-void			cTmpEffFibHeap::insert( cTempEffect* pT )	// O(1) too!
-{
-	cTmpEffFibHeap toMeld = cTmpEffFibHeap( pT );
-	this->meld( toMeld );
-}
-
-cTempEffect*	cTmpEffFibHeap::meld( cTmpEffFibHeap &nFheap )	// O(1) !!!
-{
-	if( !this->head )
-	{
-		this->head = nFheap.head;
-	}
-	else if( this->head && nFheap.head )
-	{
-		cTempEffect* minHead = NULL;
-		cTempEffect* maxHead = NULL;
-		if( this->head->expiretime < nFheap.head->expiretime )
-		{
-			minHead = this->head;
-			maxHead = nFheap.head;
-		}
-		else
-		{
-			maxHead = this->head;
-			minHead = nFheap.head;
-		}
-		minHead->left->right = maxHead;
-		cTempEffect* rightElement = maxHead->left;
-		maxHead->left = minHead->left;
-		minHead->left = rightElement;
-		rightElement->right = minHead;
-
-		this->head = minHead;
-	}
-	
-	return this->head;
-}
-
-void			cTmpEffFibHeap::deleteMin()		// amortized O( lg N )
-{
-	if( this->head )
-	{
-		if( this->head->left == this->head ) // only one element in the heap
-		{
-			delete this->head;
-			this->head = NULL;
-			return;
-		}
-		else
-		{
-			if( this->head->son ) // min element has a son
-			{
-				// replace the head with its sons in the list
-				this->head->right->left = this->head->son->left;
-				this->head->son->left->right = this->head->right;
-				this->head->son->left = this->head->left;
-				this->head->left->right = this->head->son;
-
-				cTempEffect* newHead = this->head->son;
-				delete this->head;
-				this->head = newHead;
-			}
-			else
-			{
-				// unlink the head from the list
-				this->head->right->left = this->head->left;
-				this->head->left->right = this->head->right;
-
-				cTempEffect* newHead = this->head->right;
-				delete this->head;
-				this->head = newHead;
-			}
-
-			// now we have to iterate through the root list to find two trees with equal rank
-			// we use an array to find collisions.
-			cTempEffect* ranks[RANK_ARRAY_SIZE];
-			memset( &ranks, 0, sizeof( ranks ) );
-
-			cTempEffect* it = this->head;
-			cTempEffect* minNode = it;
-			cTempEffect* coll = NULL;
-
-			bool collision = false;
-			do
-			{
-				collision = false;
-				it->father = NULL; // reset the fathers of the inserted sons of head (see above)
-				if( it->expiretime < minNode->expiretime )
-					minNode = it; // find the min node by the way :)
-
-				if( ranks[ it->rank ] && ranks[ it->rank ] != it ) // there is already another address stored in the array!
-				{
-					coll = ranks[ it->rank ];
-					ranks[ it->rank ] = NULL;
-
-					if( coll->expiretime < it->expiretime )
-					{
-						cTempEffect* templeft = NULL;
-						cTempEffect* tempright = NULL;
-						if( coll->left == it )
-						{
-							if( coll->right != it )
-							{
-								templeft = it->left;
-								tempright = coll->right;
-
-								templeft->right = coll;
-								tempright->left = it;
-								it->left = coll;
-								it->right = tempright;
-								coll->left = templeft;
-								coll->right = it;
-							}
-						}
-						else if( coll->right == it )
-						{
-							templeft = coll->left;
-							tempright = it->right;
-
-							templeft->right = it;
-							tempright->left = coll;
-							it->left = templeft;
-							it->right = coll;
-							coll->left = it;
-							coll->right = tempright;
-						}
-						else
-						{
-							// swap the min element into it position
-							templeft = coll->left;
-							tempright = coll->right;
-
-							it->left->right = coll;
-							it->right->left = coll;
-							coll->right = it->right;
-							coll->left = it->left;
-						
-							templeft->right = it;
-							tempright->left = it;
-							it->right = tempright;
-							it->left = templeft;
-						}
-						templeft = it;
-						it = coll;
-						coll = templeft;
-					}
-
-					// delete max element (coll) out of the list
-					// if coll was head move the head one node right
-					if( coll == this->head )
-						this->head = coll->right;
-					coll->left->right = coll->right;
-					coll->right->left = coll->left;
-
-					// insert max into the list of sons of min
-					if( it->son )
-					{
-						cTempEffect* rightElement = it->son->left;
-						coll->left = rightElement;
-						it->son->left = coll;
-						rightElement->right = coll;
-						coll->right = it->son;
-					}
-					else
-					{
-						it->son = coll;
-						coll->left = coll;
-						coll->right = coll;
-					}
-					coll->father = it;
-
-					it->rank = it->rank + 1;
-
-					it->marker = false; // reset the marker cause the node got an additional son
-
-					it = it->left;
-					collision = true;
-				}
-				else
-				{
-					ranks[ it->rank ] = it;
-				}
-				it = it->right;
-			} while( it != this->head || collision);
-
-			this->head = minNode;
-		}
-	}
-}
-
-void			cTmpEffFibHeap::decrease( cTempEffect* pT, int diffTime ) // O( 1 )
-{
-	if( !pT )
-		return;
-
-	pT->expiretime -= diffTime;
-	if( pT->father )
-	{
-		// first cut pT out and insert it into the root list
-		// mark the father, if the father is already marked,
-		// run decrease(...) recursively with diffTime = 0
-		pT->left->right = pT->right;
-		pT->right->left = pT->left;
-
-		this->insert( pT );
-
-		if( pT->father->marker )
-			this->decrease( pT->father, 0 );
-		else
-			pT->father->marker = true;
-
-		pT->father = NULL;
-		pT->marker = false;
-	}
-}
-
-void			cTmpEffFibHeap::erase( cTempEffect *pT ) // O( lg N )
-{
-	this->decrease( pT, (pT->expiretime - this->head->expiretime) + 1 );
-	this->deleteMin();
-}
-
-std::vector< cTempEffect* > cTempEffect::asVector()
-{
-	std::vector< cTempEffect* > list_ = std::vector< cTempEffect* >();
-	
-	cTempEffect* iterNode = this;
-
-	do
-	{
-		list_.push_back( iterNode );
-		if( iterNode->son )
-		{
-			std::vector< cTempEffect* > sons_ = iterNode->son->asVector();
-			list_.insert( list_.end(), sons_.begin(), sons_.end() );
-		}
-		iterNode = iterNode->right;
-	} while( iterNode != this );
-
-	return list_;
-}
-
-std::vector< cTempEffect* >	cTmpEffFibHeap::asVector()
-{
-	if( this->head )
-		return this->head->asVector();
-	else
-		return std::vector< cTempEffect* >();
-}
-*/
 
 cRepeatAction::cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay )
 {
@@ -635,43 +475,3 @@ void cStablemasterRefreshTimer::Expire()
 		}
 	}
 }
-
-/*
-cFleeReset::cFleeReset( P_NPC pNPC, UINT32 time )
-{
-	m_npc = pNPC;
-	objectid = "cFleeReset";
-	serializable = true;
-	dispellable = false;
-	expiretime = uiCurrentTime + time * MY_CLOCKS_PER_SEC;
-}
-
-void cFleeReset::Expire()
-{
-	if( m_npc )
-	{
-		cNPC_AI* ai = m_npc->ai();
-		if( ai && ai->currState() )
-		{
-			ai->currState()->ceaseFlee();
-			ai->updateState();
-		}
-	}
-}
-
-void cFleeReset::Serialize( ISerialization &archive )
-{
-	if( archive.isReading() )
-	{
-		SERIAL character = INVALID_SERIAL;
-		archive.read( "charserial", character );
-		m_npc = dynamic_cast<P_NPC>(World::instance()->findChar( character ));
-	}
-	else
-	{
-		archive.write( "charserial", m_npc ? m_npc->serial() : INVALID_SERIAL );
-	}
-
-	cTempEffect::Serialize( archive );
-}
-*/

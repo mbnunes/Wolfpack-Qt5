@@ -47,7 +47,6 @@
 //Forward class declarations
 class cTempEffect;
 class cScriptEffect;
-class cTimedSpellAction;
 class cTempEffects;
 
 // Wolfpack includes
@@ -55,9 +54,10 @@ class cTempEffects;
 #include "iserialization.h"
 #include "singleton.h"
 
-class cTempEffect : public cSerializable
+class cDBResult;
+
+class cTempEffect
 {
-	Q_OBJECT
 protected:
 	SERIAL		sourSer;
 	SERIAL		destSer;
@@ -75,7 +75,17 @@ public:
 	cTempEffect*	son;
 	unsigned int	rank;
 	bool			marker;
-
+	
+	/*
+		Provided for subclasses to save additional information.
+	*/
+	void saveFloat( unsigned int id, QString key, double value );
+	void saveInt( unsigned int id, QString key, int value );
+	void saveString( unsigned int id, QString key, const QString &value );
+	bool loadFloat( unsigned int id, QString key, double &value );
+	bool loadInt( unsigned int id, QString key, int &value );
+	bool loadString( unsigned int id, QString key, QString &value );
+	
 public:
 //	cTempEffect() { serializable = true; }
 	cTempEffect( cTempEffect* left_ = NULL, cTempEffect* right_ = NULL, cTempEffect* father_ = NULL,
@@ -92,6 +102,7 @@ public:
 		son = son_;
 		rank = rank_;
 		marker = marker_;
+		dispellable = false;	// Most Effects are NOT dispellable by default
 	}
 
 	bool operator<( const cTempEffect &a ) const 
@@ -109,62 +120,24 @@ public:
 	void				On(P_CHAR pc)  { Q_UNUSED(pc); }
 	void				Off(P_CHAR pc) { Q_UNUSED(pc); }
 	virtual void		Expire() = 0;
-	virtual void		Serialize(ISerialization &archive);
 	virtual void		Dispel( P_CHAR pSource, bool silent = false ) { Q_UNUSED(pSource); Q_UNUSED(silent); }
 	virtual QString		objectID() const  { return objectid;}
 	bool				isSerializable( void ) { return serializable; }
 	void				setSerializable( bool data ) { serializable = data; }
+
+	virtual void load( unsigned int id, const char **result );
+	virtual void save( unsigned int id );
 
 	std::vector< cTempEffect* > asVector();
 };
 
 class cDelayedHideChar : public cTempEffect
 {
-	Q_OBJECT
 public:
 	cDelayedHideChar( SERIAL serial );
-	virtual void Expire();
-	virtual void Serialize(ISerialization &archive);
-	virtual QString		objectID() const  { return "HIDECHAR";}
-	SERIAL character;
+	void Expire();
+	QString objectID() const  { return "cDelayedHideChar"; }
 };
-
-class cTimedSpellAction : public cTempEffect
-{
-	Q_OBJECT
-private:
-	SERIAL character;
-	UI08 action;
-public:
-	// Do that as long as we're casting
-	cTimedSpellAction( SERIAL serial, UI08 nAction );
-	virtual void Expire();
-};
-
-/*
-class cTmpEffFibHeap
-{
-public:
-	cTmpEffFibHeap() : head(0) {}
-	cTmpEffFibHeap( cTempEffect* head_ )	{ head = head_; }
-
-	// methods
-	cTempEffect*	accessMin();
-	void			deleteMin();
-	void			erase( cTempEffect* pT );
-	void			insert( cTempEffect* pT );
-	cTempEffect*	meld( cTmpEffFibHeap &nFheap );
-
-	std::vector< cTempEffect* >		asVector();
-
-private:
-	void			decrease( cTempEffect* pT, int diffTime );
-
-public:
-	// variables
-	cTempEffect*	head;
-};
-*/
 
 class cTempEffects
 {
@@ -180,12 +153,12 @@ private:
 
 public:
 	cTempEffects()	{ std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() ); }  // No temp effects to start with
-//	cTmpEffFibHeap	teffects;
-//	QPtrVector< cTempEffect > vector;
 	std::vector< cTempEffect* > teffects;
 
+	void load();
+	void save();
+
 	void check();
-	void serialize(ISerialization &archive);
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent = false );
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent = false, bool onlyDispellable = true );
 
@@ -216,7 +189,6 @@ typedef SingletonHolder<cTempEffects> TempEffects;
 // cRepeatAction
 class cRepeatAction: public cTempEffect
 {
-	Q_OBJECT
 private:
 	SERIAL _mage;
 	UINT8 _anim;
@@ -224,7 +196,6 @@ private:
 public:
 	cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay );
 	virtual void Expire();
-	virtual QString objectID() const { return "repeataction"; }
 };
 
 class cDelayedHeal: public cTempEffect

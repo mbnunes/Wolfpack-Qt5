@@ -538,6 +538,9 @@ int main( int argc, char *argv[] )
 		// Python threading - end
 		PyEval_RestoreThread( _save );
 
+		// Update our currenttime
+		uiCurrentTime = getNormalizedTime();
+
 		Console::instance()->poll();
 
 		// Process any Network Events
