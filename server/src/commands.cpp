@@ -210,6 +210,13 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 			// This is a bandwith saving method
 			// Before we're moving the character anywhere we remove it
 			// only from the sockets in range and then resend it to only the new sockets in range
+			if( newPos.map != pChar->pos.map )
+			{
+				cUOTxChangeMap changemap;
+				changemap.setMap( newPos.map );
+				socket->send( &changemap );
+			}
+			
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false );
@@ -222,6 +229,13 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 
 		if( !node->isNull() && parseCoordinates( node->text(), newPos ) )
 		{
+			if( newPos.map != pChar->pos.map )
+			{
+				cUOTxChangeMap changemap;
+				changemap.setMap( newPos.map );
+				socket->send( &changemap );
+			}
+
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false );
