@@ -180,6 +180,7 @@
 
 	<!-- System Scripts -->
 	<script>system.dbupdate</script>
+	<script>system.input</script>
 	<script>system.slayer</script>
 	<script>system.hardwareinfo</script>
 	<script>system.status</script>
