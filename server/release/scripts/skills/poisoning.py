@@ -94,15 +94,16 @@ def poisonit( char, args ):
 	bottle.update()
 
 	# FIXME : success / fail chance
-	if skill < ( strength + 0.8 ) * 20:
+	if skill < ( strength + 0.8 ) * 200:
 		# failed to poison item
 		char.socket.clilocmessage( 1010518 )
 		return 1
 
 	# check skill advance
+	char.checkskill( POISONING, 0, 1000 )
 
 	# FIXME : less / strong chance
-	if random.randint( 0, 20 ) > ( skill - strength * 20 ):
+	if random.randint( 0, 20 ) > ( skill - strength * 200 ):
 		strength = strength - 1
 		if strength < 1:
 			# failed to poison
@@ -138,7 +139,7 @@ def hitEffect( char, weapon ):
 		skills.poisoning.wearoff( weapon )
 		return
 	skill = weapon.gettag( 'poisoning_skill' )
-	chance = int( skill / 4 )
+	chance = int( skill / 40 )
 	if chance > random.randint( 0, 100 ):
 		poison.poison( char, strength )
 		uses = uses - 1
