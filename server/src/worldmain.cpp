@@ -50,6 +50,7 @@
 #include "territories.h"
 #include "accounts.h"
 #include "books.h"
+#include "multis.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
@@ -445,8 +446,8 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 	{
 		if ( pi->multis == INVALID_SERIAL )
 		{
-			P_ITEM pi_multi = findmulti( pi->pos );
-			if( pi_multi == NULL )
+			cMulti* pi_multi = cMulti::findMulti( pi->pos );
+			if( !pi_multi )
 			{
 				Items->DeleItem(pItem);
 			}

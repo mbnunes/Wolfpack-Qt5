@@ -32,6 +32,7 @@
 #include "magic.h"
 #include "chars.h"
 #include "items.h"
+#include "multis.h"
 #include "SndPkg.h"
 #include "itemid.h"
 #include "tilecache.h"
@@ -2079,7 +2080,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		{
 			// mark, recall and gate go here
 			P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-			P_ITEM pi_multi = findmulti(pc_currchar->pos);		
+			cMulti* pi_multi = cMulti::findMulti( pc_currchar->pos );		
 			
 			if(pi)
 			{
@@ -2574,8 +2575,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (char_selected) { sysmessage(s, "You can't use that spell on characters");  return; }
 							if (item_selected) { sysmessage(s, "You can't teleport there.");  return; }
 							
-							P_ITEM pi_multi = findmulti( Coord_cl(x, y, z) );
-							if( pi_multi == NULL )
+							cMulti* pi_multi = cMulti::findMulti( Coord_cl(x, y, z) );
+							if( !pi_multi )
 							{
 								sysmessage( s, "You can't teleport here!" );
 								return;

@@ -250,7 +250,7 @@ extern char xoutbuffer[MAXBUFFER_REAL*3];
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
-extern Container_cl stablesp, cmultisp, imultisp, contsp, ownsp, cspawnsp, spawnsp, glowsp, cownsp;
+extern Container_cl stablesp, contsp, ownsp, cspawnsp, spawnsp, glowsp, cownsp;
 extern std::list<SERIAL> guilds;
 
 /******************************************************/

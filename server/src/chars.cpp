@@ -676,13 +676,7 @@ void cChar::SetSpawnSerial(long spawnser)
 
 void cChar::SetMultiSerial(long mulser)
 {
-	if (multis != INVALID_SERIAL)	// if it was set, remove the old one
-		cmultisp.remove(multis, this->serial);
-
 	this->multis = mulser;
-
-	if (mulser != INVALID_SERIAL)		// if there is multi, add it
-		cmultisp.insert(multis, this->serial);
 }
 
 void cChar::MoveToXY(short newx, short newy)

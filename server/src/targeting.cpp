@@ -48,6 +48,7 @@
 #include "gumps.h"
 #include "network.h"
 #include "skills.h"
+#include "multis.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"
@@ -3245,8 +3246,8 @@ void cTargets::HouseBanTarget(int s)
 	P_CHAR pc_home = currchar[s];
 	if (!pc)
 		return;
-	cHouse* pHouse = dynamic_cast<cHouse*>(findmulti(pc_home->pos));
-	if(pHouse != NULL)
+	cHouse* pHouse = dynamic_cast< cHouse* >( cMulti::findMulti( pc_home->pos ) );
+	if( pHouse )
 	{
 		if (pc->serial == pc_home->serial) return;
 		pHouse->addBan(pc);
@@ -3259,7 +3260,7 @@ void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to
 	P_CHAR Friend = FindCharBySerPtr(buffer[s]+7);
 	P_CHAR pc_home = currchar[s];
 
-	cHouse* pHouse = dynamic_cast<cHouse*>(findmulti(pc_home->pos));
+	cHouse* pHouse = dynamic_cast< cHouse* >( cMulti::findMulti( pc_home->pos ) );
 
 	if(Friend && pHouse)
 	{
@@ -3278,7 +3279,7 @@ void cTargets::HouseUnBanTarget(int s)
 	P_CHAR pc_banned = FindCharBySerPtr(buffer[s]+7);
 	P_CHAR pc_owner  = currchar[s];
 	
-	cHouse* pHouse = dynamic_cast<cHouse*>(findmulti(pc_owner->pos));
+	cHouse* pHouse = dynamic_cast< cHouse* >( cMulti::findMulti( pc_owner->pos ) );
 
 	if(pc_banned && pHouse)
 	{
@@ -3298,7 +3299,7 @@ void cTargets::HouseUnFriendTarget(int s)
 	P_CHAR pc_friend = FindCharBySerPtr(buffer[s]+7);
 	P_CHAR pc_owner  = currchar[s];
 	
-	cHouse* pHouse = dynamic_cast<cHouse*>(findmulti(pc_owner->pos));
+	cHouse* pHouse = dynamic_cast< cHouse* >( cMulti::findMulti( pc_owner->pos ) );
 
 	if(pc_friend && pHouse)
 	{
@@ -3351,8 +3352,8 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 			return;
 		}
 
-		P_ITEM pi_multi = findmulti( pi->pos );
-		if( pi_multi != NULL )
+		cMulti* pi_multi = cMulti::findMulti( pi->pos );
+		if( pi_multi )
 		{
 			if(pi->isLockedDown())
 			{
@@ -3402,8 +3403,8 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 			return;
 		}
 
-		P_ITEM pi_multi = findmulti( pi->pos );
-		if( pi_multi != NULL && pi->type() == 1 )
+		cMulti* pi_multi = cMulti::findMulti( pi->pos );
+		if( pi_multi && pi->type() == 1 )
 		{
 		    pi->setLockedDown();	// LOCKED DOWN!
 			pi->setSecured( true );
@@ -3459,8 +3460,8 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 		}
 
 		// time to unlock it!
-		P_ITEM pi_multi = findmulti( pi->pos );
-		if( pi_multi != NULL && pi->isLockedDown() || pi->type() == 1 )
+		cMulti* pi_multi = cMulti::findMulti( pi->pos );
+		if( pi_multi && pi->isLockedDown() || pi->type() == 1 )
 		{
 			pi->setAllMovable();	// Default as stored by the client, perhaps we should keep a backup?
 			pi->setSecured( false );

@@ -201,9 +201,43 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 		if( !pItem )
 			continue;
 
-		// TODO: Handle Multis
 		if( pItem->id() >= 0x4000 )
+		{
+			SI32 length;
+			st_multi multi;
+			UOXFile *mfile;
+			Map->SeekMulti( pItem->id() - 0x4000, &mfile, &length );
+			length = length / sizeof( st_multi );
+			if (length == -1 || length >= 17000000) // Too big...
+			{
+				LogError( (char*)QString( "getBlockingItems( ... ) - Bad length in multi file. Avoiding stall.\n").latin1() );
+				length = 0;
+			}
+			register int j;
+			for ( j = 0; j < length; ++j)
+			{
+				mfile->get_st_multi( &multi );
+				if ( multi.visible && ( pItem->pos.x + multi.x == pos.x) && ( pItem->pos.y + multi.y == pos.y ) )
+				{
+					tile_st tTile = cTileCache::instance()->getTile( multi.tile );
+					if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
+						continue;
+
+					stBlockItem blockItem;
+					blockItem.height = tTile.height;
+					blockItem.z = pItem->pos.z;
+
+					if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
+						blockItem.walkable = true;
+					else
+						blockItem.walkable = checkWalkable( pChar, pItem->id() );
+
+					blockList.push_back( blockItem );
+					push_heap( blockList.begin(), blockList.end(), compareTiles() );				
+				}
+			}
 			continue;
+		}
 
 		// They need to be at the same x,y,plane coords
 		if( ( pItem->pos.x != pos.x ) || ( pItem->pos.y != pos.y ) || ( pItem->pos.map != pos.map ) )

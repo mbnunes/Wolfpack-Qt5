@@ -237,6 +237,10 @@ SOURCE=.\msgboard.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\multis.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\necro.cpp
 # End Source File
 # Begin Source File
@@ -557,6 +561,10 @@ SOURCE=.\multicache.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\multis.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\netsys.h
 # End Source File
 # Begin Source File
@@ -746,6 +754,13 @@ SOURCE=.\icon2.ico
 # Begin Source File
 
 SOURCE=.\res.rc
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # End Group
 # Begin Group "Network"

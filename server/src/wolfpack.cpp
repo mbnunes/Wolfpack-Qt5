@@ -1228,7 +1228,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		if( !pChar )
 			return;
 		
-		cHouse* pHouse = dynamic_cast<cHouse*>( findmulti( pi->pos ) );
+		cHouse* pHouse = dynamic_cast<cHouse*>( cMulti::findMulti( pi->pos ) );
 		if( !pHouse )
 			return;
 
@@ -4572,7 +4572,7 @@ void SetGlobalVars()
 
 void InitMultis()
 {
-	P_ITEM pi_multi;
+	cMulti* pi_multi;
 
 	AllCharsIterator iter_char;
 	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
@@ -4580,7 +4580,7 @@ void InitMultis()
 		P_CHAR pc = iter_char.GetData();
 		if (!pc->free)
 		{
-			pi_multi = findmulti(pc->pos);
+			pi_multi = cMulti::findMulti( pc->pos );
 			if (pi_multi != NULL)
 			{
 				if (pi_multi->type()==117)
@@ -4597,7 +4597,7 @@ void InitMultis()
 		P_ITEM pi = iter_items.GetData();
 		if (!pi->free && !pi->isInWorld())
 		{
-			pi_multi = findmulti(pi->pos);
+			pi_multi = cMulti::findMulti( pi->pos );
 			if (pi_multi != NULL)
 				if (pi_multi != pi)
 					pi->SetMultiSerial(pi_multi->serial);

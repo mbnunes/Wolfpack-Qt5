@@ -648,6 +648,7 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	}
 
 	// Multi handling (Hm i don't like that...)
+	/* and i do not understand this crap :)
 	if( pChar->multis > 0 )
 	{
 		P_ITEM pMulti = FindItemBySerial( pChar->multis );
@@ -658,6 +659,7 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 				pItem->SetMultiSerial( pMulti->serial );
 		}
 	}
+	*/
 }
 
 void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )

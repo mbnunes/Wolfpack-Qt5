@@ -49,6 +49,7 @@
 #include "worldmain.h"
 #include "gumps.h"
 #include "network.h"
+#include "multis.h"
 
 #undef  DBGFILE
 #define DBGFILE "guildstones.cpp"
@@ -1224,10 +1225,10 @@ int CheckValidPlace(int s)
 {
 	int los = 0;
 	P_CHAR pc_currchar = currchar[s];
-	P_ITEM pi_multi = findmulti(pc_currchar->pos); 
-	if (pi_multi == NULL) 
+	cMulti* pi_multi = cMulti::findMulti( pc_currchar->pos ); 
+	if( !pi_multi ) 
 		return 0;
-	if (!IsHouse(pi_multi->id())) 
+	if( !IsHouse( pi_multi->id() ) ) 
 		return 0;
 	
 	if(pc_currchar->packitem != INVALID_SERIAL)

@@ -41,15 +41,12 @@
 #include "classes.h" // only for the illegal_z!
 
 #undef DBGFILE
-#define DBGFILE "boat.cpp" 
+#define DBGFILE "boats.cpp" 
 
-cBoat::cBoat()
+cBoat::cBoat() : cMulti()
 {
-	cItem::Init( false );
-
 	this->priv = 0;
 	this->contserial = INVALID_SERIAL;
-	//this->deedsection_ = (char*)0;
 	this->boatdir = 0;
 	this->autosail_ = 0;
 	this->moves_ = 0;
@@ -559,80 +556,88 @@ void cBoat::turn( SI08 turn )
 	this->boatdir = newboatdir;
 	
 	// turn all items and chars on the boat and send them
-	vector< SERIAL > vecItemEntries = imultisp.getData( this->serial );
-	vector< SERIAL > vecCharEntries = cmultisp.getData( this->serial );
-	vector< SERIAL >::iterator it = vecCharEntries.begin();
-	while( it != vecCharEntries.end() )
+	QValueList< SERIAL >::iterator it = chars_.begin();
+	while( it != chars_.end() )
 	{
 		SI08 dx = 0, dy = 0;
 		P_CHAR pc = FindCharBySerial( *it );
 		if( pc != NULL )
 		{
-			mapRegions->Remove( pc );
-			dx = pc->pos.x - this->pos.x;
-			dy = pc->pos.y - this->pos.y;
+			UI16 newx = pc->pos.x; 
+			UI16 newy = pc->pos.y;
+			dx = this->pos.x - newx;
+			dy = this->pos.y - newy;
 			if( turn > 0 )
 			{
-				pc->pos.x += dy * (-1);
-				pc->pos.y += dx;
+				newx = pos.x + dy;
+				newy = pos.y - dx;
 			}
 			else
 			{
-				pc->pos.x += dy;
-				pc->pos.y += dx * (-1);
+				newx = pos.x - dy;
+				newy = pos.y + dx;
 			}
-			mapRegions->Add( pc );
+			pc->MoveTo( newx, newy, pos.z );
 
-			cUOTxUpdatePlayer* uoPacket = new cUOTxUpdatePlayer();
-			uoPacket->setSerial( pc->serial );
-			uoPacket->setBody( pc->id() );
-			uoPacket->setX( pc->pos.x );
-			uoPacket->setY( pc->pos.y );
-			uoPacket->setZ( pc->pos.z );
-			uoPacket->setDirection( pc->dir|0x80 );
+			cUOTxDrawChar* drawChar = new cUOTxDrawChar();
+			drawChar->fromChar( pc );
 
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )
 			{
-				iter_sock.current()->send( new cUOTxUpdatePlayer( *uoPacket ) );
+				iter_sock.current()->removeObject( pc );
+				if( iter_sock.current() == pc->socket() )
+					iter_sock.current()->resendPlayer();
+				if( !( ( pc->isHidden() || ( pc->dead && !pc->war ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
+				{
+					drawChar->setHighlight( pc->notority( iter_sock.current()->player() ) );
+					iter_sock.current()->send( new cUOTxDrawChar( *drawChar ) );
+				}
 				++iter_sock;
 			}
 
-			delete uoPacket;
+			delete drawChar;
 		}
 		++it;
 	}
-	it = vecItemEntries.begin();
-	while( it != vecItemEntries.end() )
+
+	QPtrList< cItem > founditems;
+	cRegion::RegionIterator4Items rj( pos );
+	for( rj.Begin(); !rj.atEnd(); rj++ ) 
+	{
+		P_ITEM pi = rj.GetData();
+		if( pi && inMulti( pi->pos ) )
+			founditems.append( pi );
+	}
+
+	P_ITEM pi = NULL;
+	QPtrListIterator< cItem > cit( founditems );
+	while( pi = cit.current() )
 	{
 		SI08 dx = 0, dy = 0;
-		P_ITEM pi = FindItemBySerial( *it );
-		if( pi != NULL )
+		mapRegions->Remove( pi );
+		dx = pi->pos.x - this->pos.x;
+		dy = pi->pos.y - this->pos.y;
+
+		if( turn > 0 )
 		{
-			mapRegions->Remove( pi );
-			dx = pi->pos.x - this->pos.x;
-			dy = pi->pos.y - this->pos.y;
-
-			if( turn > 0 )
-			{
-				pi->pos.x += dy * (-1);
-				pi->pos.y += dx;
-			}
-			else
-			{
-				pi->pos.x += dy;
-				pi->pos.y += dx * (-1);
-			}
-			mapRegions->Add( pi );
-
-			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
-			while( iter_sock.current() )
-			{
-				pi->update( iter_sock.current() );
-				++iter_sock;
-			}
+			pi->pos.x += dy * (-1);
+			pi->pos.y += dx;
 		}
-		++it;
+		else
+		{
+			pi->pos.x += dy;
+			pi->pos.y += dx * (-1);
+		}
+		mapRegions->Add( pi );
+
+		QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
+		while( iter_sock.current() )
+		{
+			pi->update( iter_sock.current() );
+			++iter_sock;
+		}
+	++cit;
 	}
 
 	// change positions and ids of the special items
@@ -744,9 +749,6 @@ bool cBoat::move( void )
 	// Move all the special items
 	// first pause all clients in visrange
 	QPtrList< cUOSocket > socketsinrange; // sockets of the chars in visrange
-	vector< SERIAL > vecItemEntries = imultisp.getData( this->serial );
-	vector< SERIAL > vecCharEntries = cmultisp.getData( this->serial );
-	vector< SERIAL >::iterator it;
 
 	cRegion::RegionIterator4Chars ri( pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
@@ -780,51 +782,70 @@ bool cBoat::move( void )
 	pStarplank->moveTo( pStarplank->pos + desloc );
 	pHold->moveTo( pHold->pos + desloc );
 
-	it = vecItemEntries.begin();
-	while( it != vecItemEntries.end() )
-	{
-		P_ITEM pi = FindItemBySerial( *it );
-		if( pi != NULL )
-		{
-			pi->MoveTo( pi->pos.x + dx, pi->pos.y + dy, pi->pos.z );
-
-			QPtrListIterator< cUOSocket> iter_sock( socketsinrange );
-			while( iter_sock.current() )
-			{
-				pi->update( iter_sock.current() );
-				++iter_sock;
-			}
-		}
-		++it;
-	}
-
-	it = vecCharEntries.begin();
-	while( it != vecCharEntries.end() )
+	QValueList< SERIAL >::iterator it = chars_.begin();
+	while( it != chars_.end() )
 	{
 		P_CHAR pc = FindCharBySerial( *it );
-		if( pc != NULL )
+		if( pc )
 		{
 			pc->MoveTo( pc->pos.x + dx, pc->pos.y + dy, pc->pos.z );
-//			teleport( pc );
 
-			cUOTxUpdatePlayer* uoPacket = new cUOTxUpdatePlayer();
-			uoPacket->setSerial( pc->serial );
-			uoPacket->setBody( pc->id() );
-			uoPacket->setX( pc->pos.x );
-			uoPacket->setY( pc->pos.y );
-			uoPacket->setZ( pc->pos.z );
-			uoPacket->setDirection( pc->dir|0x80 );
-
+			cUOTxDrawChar* drawChar = new cUOTxDrawChar();
+			drawChar->fromChar( pc );
 
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )
 			{
-				iter_sock.current()->send( new cUOTxUpdatePlayer( *uoPacket ) );
+				iter_sock.current()->removeObject( pc );
+				if( iter_sock.current() == pc->socket() )
+					iter_sock.current()->resendPlayer();
+				if( !( ( pc->isHidden() || ( pc->dead && !pc->war ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
+				{
+					drawChar->setHighlight( pc->notority( iter_sock.current()->player() ) );
+					iter_sock.current()->send( new cUOTxDrawChar( *drawChar ) );
+				}
 				++iter_sock;
 			}
-			delete uoPacket;
+
+			delete drawChar;
 		}
 		++it;
+	}
+
+	QPtrList< cItem > founditems;
+	cRegion::RegionIterator4Items rj( pos );
+	for( rj.Begin(); !rj.atEnd(); rj++ ) 
+	{
+		P_ITEM pi = rj.GetData();
+		if( pi && inMulti( pi->pos ) )
+		{
+			bool boatitem = false;
+			for( int i = 0; i < 4; ++i )
+			{
+				if( itemserials[i] == pi->serial )
+				{
+					boatitem = true;
+					break;
+				}
+			}
+			if( !boatitem )
+				founditems.append( pi );
+		}
+	}
+
+	P_ITEM pi = NULL;
+	QPtrListIterator< cItem > cit( founditems );
+	while( pi = cit.current() )
+	{
+		pi->MoveTo( pi->pos.x + dx, pi->pos.y + dy, pi->pos.z );
+
+		QPtrListIterator< cUOSocket> iter_sock( socketsinrange );
+		while( iter_sock.current() )
+		{
+			pi->update( iter_sock.current() );
+			++iter_sock;
+		}
+		++cit;
 	}
 
 	QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
@@ -853,32 +874,32 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 
 	bool charonboat = false;
 
-	vector< SERIAL > vecEntries = cmultisp.getData( this->serial );
-	vector< SERIAL >::iterator it = vecEntries.begin();
-	while( it != vecEntries.end() )
+	QValueList< SERIAL >::iterator it = chars_.begin();
+	while( it != chars_.end() )
 	{
 		if( *it == pc_currchar->serial )
 			charonboat = true;
-		it++;
+		++it;
 	}
 
 	if( !charonboat )
 	{
 		vector< SERIAL > vecCown = cownsp.getData( pc_currchar->serial );
-		it = vecCown.begin();
-		while( it != vecCown.end() )
+		vector< SERIAL >::iterator vit = vecCown.begin();
+		while( vit != vecCown.end() )
 		{
-			P_CHAR pc = FindCharBySerial( *it );
+			P_CHAR pc = FindCharBySerial( *vit );
 			if( pc != NULL )
 			{
 				if( pc->isNpc() && pc_currchar->Owns( pc ) )
 				{
 					pc->moveTo( pos + Coord_cl( 1, 1, 2 ) );
 					pc->SetMultiSerial( this->serial );
-					teleport( pc );
+					this->chars_.append( pc->serial );
+					pc->update();
 				}
 			}
-			it++;
+			vit++;
 		}
 
 		// khpae
@@ -904,6 +925,7 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 		pc_currchar->MoveTo( x, y, z );
 		teleport( pc_currchar );
 		pc_currchar->SetMultiSerial( this->serial ); // set chars->multis value
+		this->chars_.append( pc_currchar->serial );
 		socket->sysMessage( tr("You entered a boat") );
 	}
 	else
@@ -1000,7 +1022,8 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 			{
 				pc->MoveTo( x, y, z );
 				pc->SetMultiSerial( INVALID_SERIAL );
-				teleport( pc );
+				this->chars_.remove( pc->serial );
+				pc->update();
 			}
 		}
 		it++;
@@ -1008,6 +1031,7 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 	pc_currchar->MoveTo( x, y, z );
 	teleport( pc_currchar );
 	pc_currchar->SetMultiSerial( INVALID_SERIAL );
+	this->chars_.remove( pc_currchar->serial );
 	return true;
 }
 
@@ -1211,13 +1235,11 @@ void cBoat::toDeed( cUOSocket* socket ) {
 		return;
 	}
 	// if any pcs / npcs / items are in the boat, it cannot be deed.
-	vector<SERIAL> vitem = imultisp.getData (this->serial);
-	if (vitem.size () > 0) {
+/*	if (items_.size () > 0) {
 		socket->sysMessage ( tr("You can only deed with empty boat (remove items).") );
 		return;
-	}
-	vector<SERIAL> vchar = cmultisp.getData (this->serial);
-	if (vchar.size () > 0) {
+	}*/
+	if (chars_.size () > 0) {
 		socket->sysMessage ( tr("You can only deed with empty boat (remove pc/npcs).") );
 		return;
 	}
@@ -1340,55 +1362,3 @@ void cBoat::Serialize( ISerialization &archive )
 }
 
 
-P_ITEM findmulti(Coord_cl pos) //Sortta like getboat() only more general... use this for other multi stuff!
-{
-	int lastdist = 30;
-	P_ITEM multi = NULL;
-	int ret;
-
-	cRegion::RegionIterator4Items ri(pos);
-	
-	for (ri.Begin(); !ri.atEnd(); ri++)
-	{
-		P_ITEM mapitem = ri.GetData();
-		if (mapitem != NULL)
-		{
-			if (mapitem->isMulti())
-			{
-				ret = pos.distance(mapitem->pos);
-				if (ret <= lastdist)
-				{
-					lastdist = ret;
-					if (inmulti(pos, mapitem))
-						multi = mapitem;
-				}
-			}
-		}
-	}
-
-	return multi;
-}
-
-bool inmulti(Coord_cl pos, P_ITEM pi)//see if they are in the multi at these chords (Z is NOT checked right now)
-{
-	int j;
-	SI32 length;			// signed long int on Intel
-	st_multi multi;
-	UOXFile *mfile;
-	Map->SeekMulti(pi->id()-0x4000, &mfile, &length);
-	length=length/sizeof(st_multi);
-	if (length == -1 || length>=17000000)//Too big...
-	{
-		LogError( (char*)QString("inmulti() - Bad length in multi file. Avoiding stall. (Item Name: %1)\n").arg(pi->name()).latin1() ); // changed by Magius(CHE) (1)
-		length = 0;
-	}
-	for (j=0;j<length;j++)
-	{
-		mfile->get_st_multi(&multi);
-		if ((multi.visible)&&(pi->pos.x+multi.x == pos.x) && (pi->pos.y+multi.y == pos.y))
-		{
-			return true;
-		}
-	}
-	return false;
-}

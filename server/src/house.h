@@ -33,8 +33,8 @@
 #define __HOUSE_H__
 
 #include "wolfpack.h"
-#include "globals.h"
 #include "items.h"
+#include "multis.h"
 //#include "typedefs.h"
 
 // System Headers
@@ -70,11 +70,8 @@ protected:
 	bool	locked_;
 };
 
-class cHouse : public cItem
+class cHouse : public cMulti
 {
-protected:
-	std::vector<SERIAL> friends;
-	std::vector<SERIAL> bans;
 public:
 
 	unsigned int last_used;

@@ -51,16 +51,6 @@ void offlinehtml();
 
 QString hex2dec( QString value );
 
-/*
-//Boats --Fucntions in Boats.cpp
-int dist(int,int,int);
-unsigned int dist(Coord_cl&, Coord_cl&); // Distance between position a and b
-//End Boat functions
-*/
-void sendinrange(P_ITEM pi);
-P_ITEM findmulti(Coord_cl);
-bool inmulti(Coord_cl, P_ITEM);
-
 extern void init_creatures(void);
 
 void TellScroll( char *menu_name, int player, long item_param );

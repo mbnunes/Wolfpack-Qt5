@@ -334,36 +334,36 @@ P_ITEM cHouse::toDeed( UOXSOCKET s )
 
 bool cHouse::isBanned(P_CHAR pc)
 {
-	return binary_search(bans.begin(), bans.end(), pc->serial);
+	return binary_search(bans_.begin(), bans_.end(), pc->serial);
 }
 
 bool cHouse::isFriend(P_CHAR pc)
 {
-	return binary_search(friends.begin(), friends.end(), pc->serial);
+	return binary_search(friends_.begin(), friends_.end(), pc->serial);
 }
 
 void cHouse::addBan(P_CHAR pc)
 {
-	bans.push_back(pc->serial);
-	sort(bans.begin(), bans.end());
+	bans_.push_back(pc->serial);
+	sort(bans_.begin(), bans_.end());
 }
 
 void cHouse::addFriend(P_CHAR pc)
 {	
-	friends.push_back(pc->serial);
-	sort(friends.begin(), friends.end());
+	friends_.push_back(pc->serial);
+	sort(friends_.begin(), friends_.end());
 }
 
 void cHouse::removeBan(P_CHAR pc)
 {
-	vector<SERIAL>::iterator it = find(bans.begin(), bans.end(), pc->serial);
-	bans.erase(it);
+	vector<SERIAL>::iterator it = find(bans_.begin(), bans_.end(), pc->serial);
+	bans_.erase(it);
 }
 
 void cHouse::removeFriend(P_CHAR pc)
 {
-	vector<SERIAL>::iterator it = find(friends.begin(), friends.end(), pc->serial);
-	friends.erase(it);
+	vector<SERIAL>::iterator it = find(friends_.begin(), friends_.end(), pc->serial);
+	friends_.erase(it);
 }
 
 void cHouse::Serialize(ISerialization &archive)
@@ -387,13 +387,13 @@ void cHouse::Serialize(ISerialization &archive)
 		for (i = 0; i < amount; ++i)
 		{
 			archive.read("ban", readData);
-			bans.push_back(readData);			
+			bans_.push_back(readData);			
 		}
 		archive.read("friendamount", amount);
 		for (i = 0; i < amount; ++i)
 		{
 			archive.read("friend", readData);
-			friends.push_back(readData);
+			friends_.push_back(readData);
 		}
 	}
 	else if ( archive.isWritting())
@@ -409,12 +409,12 @@ void cHouse::Serialize(ISerialization &archive)
 		archive.write( "charpos.z", charpos_.z );
 
 		register unsigned int i;
-		archive.write("banamount", bans.size());
-		for ( i = 0; i < bans.size(); ++i )
-			archive.write("ban", bans[i]);
-		archive.write("friendamount", friends.size());
-		for ( i = 0; i < friends.size(); ++i )
-			archive.write("friend", friends[i]);
+		archive.write("banamount", bans_.size());
+		for ( i = 0; i < bans_.size(); ++i )
+			archive.write("ban", bans_[i]);
+		archive.write("friendamount", friends_.size());
+		for ( i = 0; i < friends_.size(); ++i )
+			archive.write("friend", friends_[i]);
 	}
 	cItem::Serialize(archive); // Call base class method too.
 }

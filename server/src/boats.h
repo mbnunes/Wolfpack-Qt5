@@ -35,11 +35,9 @@
 // Platform specifics
 #include "platform.h"
 
-#include "uobject.h"
-#include "items.h"
+#include "multis.h"
 
 // Forward class Declaration
-class cBoat;
 class QString;
 
 #define X 0
@@ -65,7 +63,7 @@ class QString;
 // be aware when changing things in here!
 // - sereg
 
-class cBoat : public cItem
+class cBoat : public cMulti
 {
 public:
 	cBoat();
@@ -107,7 +105,6 @@ protected:
 	signed short itemoffsets[4][4][2];
 	unsigned short itemids[4][6];
 	SERIAL itemserials[4];
-	QString deedsection_;
 
 
 /*
@@ -125,10 +122,6 @@ itemoffsets :	3 dimensional array which holds the item's x/y offsets for each bo
 itemids :		2 dimension array which holds the item's ids for each boatdirection
 				[4] = boatdirection
 				[6] = Which Item (PT Plank Up,PT Plank Down, SB Plank Up, SB Plank Down, Hatch, TMan)
-				DEFINABLE in the xml definition of the boat multi
-
-deedsection_ :	the script section in one of the xml definition files for the deed
-				which will be created when turning the boat into a deed (toDeed)
 				DEFINABLE in the xml definition of the boat multi
 */
 };

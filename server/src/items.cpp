@@ -49,6 +49,7 @@
 #include "mapstuff.h"
 #include "network.h"
 #include "classes.h"
+#include "multis.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
@@ -328,13 +329,7 @@ void cItem::SetSpawnSerial(long spawnser)
 
 void cItem::SetMultiSerial(long mulser)
 {
-	if (this->multis != INVALID_SERIAL)	// if it was set, remove the old one
-		imultisp.remove(this->multis, this->serial);
-
 	this->multis = mulser;
-
-	if (this->multis != INVALID_SERIAL)		// if there is multi, add it
-		imultisp.insert(this->multis, this->serial);
 }
 
 void cItem::MoveTo(int newx, int newy, signed char newz)
@@ -1137,7 +1132,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 	int serial, preservebody;
 	if ( pi == NULL )
 		return;
-	P_ITEM pi_multi = NULL;
+	cMulti* pi_multi = NULL;
 
 	if(pi->isLockedDown()) {pi->decaytime=0; return;}
 	if( pi->decaytime <= currenttime || (overflow) )//fixed by JustMichael
@@ -1158,10 +1153,10 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 				  if (pi->multis<1 && !pi->corpse())
 				  {
 					// JustMichael -- Added a check to see if item is in a house
-					pi_multi = findmulti(pi->pos);
-					if (pi_multi != NULL)
+					pi_multi = cMulti::findMulti( pi->pos );
+					if ( pi_multi )
 					{
-						if( pi_multi->more4==0) //JustMichael -- set more to 1 and stuff can decay in the building
+						if( pi_multi->more4==0 ) //JustMichael -- set more to 1 and stuff can decay in the building
 						{
 							pi->startDecay();
 							pi->SetMultiSerial(pi_multi->serial);
@@ -1169,7 +1164,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						}
 					}
 				} 
-				  else if (pi->multis>0 && !pi->corpse()) 
+				else if (pi->multis>0 && !pi->corpse()) 
 				{					
 					  pi->startDecay();
 					  return;

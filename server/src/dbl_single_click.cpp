@@ -45,6 +45,7 @@
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
 #include "resources.h"
+#include "multis.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
@@ -674,15 +675,16 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				{
 					socket->sysMessage(tr("That item is locked down."));
 					return; 
-				} // added by ripper, bugfixed by LB
-				P_ITEM pi_multi = findmulti(pc_currchar->pos); // boats are also multis zippy, btw !!!		
-				if (pi_multi != NULL && pc_currchar->inRange( pi_multi, 18 ) )
+				}
+
+				cMulti* pi_multi = cMulti::findMulti( pc_currchar->pos );
+				if( pi_multi && pc_currchar->inRange( pi_multi, 18 ) )
 				{	
-					if (!IsHouse(pi_multi->id()))
-						return; // LB
+					if ( !IsHouse( pi_multi->id() ) )
+						return;
 					int los = 0;
 					const P_ITEM pi_p = Packitem(pc_currchar);
-					if (pi_p != NULL)
+					if( pi_p )
 					{
 						los = 0;
 						vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
