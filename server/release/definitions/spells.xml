@@ -52,7 +52,6 @@
 			<ginseng>1</ginseng>
 		</reagents>
 		<targets>
-			<ground />
 		</targets>
 		<script>spell_createfood</script>
 	</spell>

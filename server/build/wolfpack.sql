@@ -381,3 +381,18 @@ CREATE TABLE tags (
   type varchar(6) NOT NULL,
   value longtext NOT NULL
 ) TYPE=MyISAM COMMENT='class cCustomTags';
+
+#
+# Table structure for table 'pages'
+#
+
+CREATE TABLE `pages` (
+  `charserial` int(11) NOT NULL default '-1',
+  `pagetype` tinyint(4) NOT NULL default '0',
+  `pagetime` varchar(64) NOT NULL default '',
+  `pagepos` varchar(32) NOT NULL default '0,0,0,0',
+  `content` mediumtext NOT NULL,
+  `category` int(11) NOT NULL default '0',
+  `pageorder` int(11) NOT NULL default '0'
+) TYPE=MyISAM COMMENT='class cPage';
+
