@@ -16,7 +16,7 @@ def onTimeChange( player ):
 	if player.hastag('lasthunger'):
 		lasthunger = int(player.gettag('lasthunger'))
 		
-	if lasthunger + 2 < wolfpack.time.minutes():
+	if lasthunger + hungerrate < wolfpack.time.minutes():
 		if player.socket and not player.gm:
 			if player.hunger >= 1 and player.hunger <= 6:
 				player.hunger -= 1
@@ -24,4 +24,5 @@ def onTimeChange( player ):
 			elif player.hunger == 0:
 				player.damage( 3, random.randint( 0, hungerdamage ) )
 				player.socket.sysmessage( tr("Your stomach hurts from the lack of food...") )
+			playet.settag('lasthunger', wolfpack.time.minutes())
 	return False
