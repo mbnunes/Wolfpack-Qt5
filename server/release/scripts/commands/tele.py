@@ -3,16 +3,26 @@
 	\description Transports you directly to the targetted location.
 """
 
+"""
+	\command telem
+	\description Transports you directly to the targetted location.
+	In addition, the target cursor is displayed again once you choose
+	a new location to allow you consecutive teleportation.
+"""
+
 import wolfpack
 from wolfpack import utilities
 
 def onLoad():
 	wolfpack.registercommand( "tele", commandTele )
+	wolfpack.registercommand( "telem", commandTele )
 	return
 
 def commandTele( socket, cmd, args ):
+	multi = cmd == 'telem'
+	
 	socket.sysmessage( 'Select your teleport destination.' )
-	socket.attachtarget( "commands.tele.teleport", [] )
+	socket.attachtarget( "commands.tele.teleport", [multi] )
 	return True
 
 def teleport( char, args, target ):
@@ -30,4 +40,9 @@ def teleport( char, args, target ):
 		char.socket.resendworld()
 	utilities.smokepuff(char, source)
 	utilities.smokepuff(char, target)
+	
+	if args[0]:
+		socket.sysmessage( 'Select your teleport destination.' )
+		socket.attachtarget( "commands.tele.teleport", [multi] )		
+	
 	return True

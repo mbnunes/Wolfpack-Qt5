@@ -7,6 +7,7 @@ Wolfpack 12.9.13 Beta (CVS)
 		- Fixed leatherworkers and tanners not buying leather and hides.
 		- Male NPCs now have a 75% chance of getting a beard when created.
 		- Made shrink potions craftable.
+		- Changed the color of shrink potions.
 	* Python Script Changes:
 		- Fixed bug #0000369. (Equip possible although item.movable = 3)
 		- Fixed bug #0000361. (Pets don't follow trough gate)
@@ -22,7 +23,11 @@ Wolfpack 12.9.13 Beta (CVS)
 		- Fixed gainfactor for skills always beeing 1.0
 		- Fixed a skill check bug with lumberjacking.
 		- Implemented shrink potions.
+		- Fixed the tooltip of alchemy tools not being resend.
+		- Fixed the input system trying to call not existent scripts.
+		- Fixed the color of shrunken pets.
 		- Implemented shrink command.
+		- Implemented telem command.
 	* Misc. Changes:
 		- FAQ Updates.
 	* Known Issues, Bugs, and Missing Features:
