@@ -5,7 +5,7 @@ import wolfpack
 import wolfpack.time
 import random
 from wolfpack.consts import COTTONPLANTS_REGROW, ANIM_ATTACK5, TINKERING, \
-	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD, SYSLOCALE
+	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD, SYSLOCALE, LOG_MESSAGE
 from wolfpack.utilities import tobackpack
 from wolfpack.gumps import cGump
 from math import floor
