@@ -36,6 +36,7 @@
 	<script>keyring</script>
 	<script>ore</script>
   <script>lockpick</script>
+  <script>bulletinboard</script>
 
 	<!-- Deeds -->
 	<script>deeds.hairstyle</script>

@@ -1710,11 +1710,15 @@
 	<item id="1e5e">
 		<id>0x1e5e</id>
 		<category>Misc\Message Boards\Message Board (N/S)</category>
+    <events>bulletinboard</events>
+    <nodecay />
 	</item>
 
 	<item id="1e5f">
 		<id>0x1e5f</id>
 		<category>Misc\Message Boards\Message Board (W/E)</category>
+    <events>bulletinboard</events>
+    <nodecay />
 	</item>
 
 	<!-- Communication Crystal -->
