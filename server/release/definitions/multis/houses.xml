@@ -7,6 +7,14 @@
 =================================================================
 -->
 <definitions>
+	<!-- House Deed -->
+	<item id="house_deed">
+		<weight>1.0</weight>
+		<basescripts>housing.deed</basescripts>
+		<id>0x14F0</id>
+		<newbie />
+	</item>
+
 	<!-- Context Menu for securables -->
 	<contextmenu id="security_menu">
 		<scripts>housing.security</scripts>
@@ -45,6 +53,7 @@
 		<id>0x4064</id>
 		<nodecay />
 		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
+		<placement xoffset="0" yoffset="0" zoffset="0" />
 	</multi>
 
 	<multi id="4065">

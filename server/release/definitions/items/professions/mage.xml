@@ -37,14 +37,16 @@
 	<!-- Runebook -->
 	<item id="22c5">
 		<id>0x22c5</id>
+		<color>0x461</color>
 		<onehanded />
 		<decay />
 		<newbie />
-		<buyprice>2500</buyprice>
-		<sellprice>250</sellprice>
 		<category>Professions\Mage\Runebook </category>
-		<basescripts>magic.runebook</basescripts>
-		<weight>0.0</weight>
+		<basescripts>housing.security,magic.runebook</basescripts>
+		<weight>3.0</weight>
+		<bindmenu>security_menu</bindmenu>
+		<tag name="max_charges" value="6" type="int" />
+		<tag name="security_level" value="1" type="int" /> <!-- default: coowner -->
 	</item>
 
 	<!-- Recall Runes -->
