@@ -2466,6 +2466,7 @@ void cChar::resurrect()
 	this->addItem( cChar::OuterTorso, pRobe );
 	pRobe->update();
 
+	removeFromView( false );
 	resend( false );
 }
 

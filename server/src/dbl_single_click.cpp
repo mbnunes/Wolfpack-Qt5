@@ -111,7 +111,7 @@ bool isInLockedItem( P_ITEM pItem )
 			return isInLockedItem( pCont );
 	}
 	else
-		return true;
+		return false;
 }
 
 void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
