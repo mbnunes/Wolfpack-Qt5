@@ -48,6 +48,7 @@ HEADERS         = \
 		  commands.h \
 		  cmdline.h \
 		  dbl_single_click.h \
+		  dbdriver.h \
 		  debug.h \
 		  definable.h \
 		  defines.h \
@@ -135,6 +136,7 @@ SOURCES         = \
 		  tilecache.cpp \
 		  customtags.cpp \
 		  dbl_single_click.cpp \
+		  dbdriver.cpp \
 		  debug.cpp \
 		  definable.cpp \
 		  dragdrop.cpp \
