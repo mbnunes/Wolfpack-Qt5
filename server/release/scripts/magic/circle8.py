@@ -46,7 +46,11 @@ class Earthquake(Spell):
 			if target.player:
 				damage += random.randint(0, 15)
 
-			damage = min(100, max(15, damage))
+			if damage > 75:
+				damage = 75
+			elif damage < 15:
+				damage = 15
+
 			energydamage(target, char, damage, physical=100)
 
 class EnergyVortex(Spell):
