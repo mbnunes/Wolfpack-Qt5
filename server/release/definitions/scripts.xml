@@ -28,6 +28,7 @@
 	<script id="speech_pets" type="python" module="speech.pets" />
 	<script id="speech_banker" type="python" module="speech.banker" />
 	<script id="speech_barber" type="python" module="speech.barber" />
+	<script id="speech_stablemaster" type="python" module="speech.stablemaster" />
 
 	<!-- System Scripts -->
 	<script id="webadmin"		type="python" module="webadmin" />
