@@ -36,7 +36,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>231</mintaming>
 		<food>6</food>
-		<carve>carve_deer</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Forest\Hind</category>
 		<!-- Carve -->

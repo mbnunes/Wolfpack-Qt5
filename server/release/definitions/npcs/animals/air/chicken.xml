@@ -35,7 +35,6 @@
 		<mintaming>0</mintaming>
 		<controlslots>1</controlslots>
 		<food>3</food>
-		<carve>carve_chicken</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Chicken</category>
 		<!-- Carve -->

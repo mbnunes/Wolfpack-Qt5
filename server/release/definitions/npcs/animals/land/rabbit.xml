@@ -36,7 +36,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>0</mintaming>
 		<food>0</food>
-		<carve>carve_bunny</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Rabbits\Rabbit</category>
 		<!-- Carve -->

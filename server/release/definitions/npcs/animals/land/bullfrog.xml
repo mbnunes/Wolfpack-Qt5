@@ -36,7 +36,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>231</mintaming>
 		<food>0</food>
-		<carve>carve_bullfrog</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Bullfrog</category>
 		<!-- Carve -->

@@ -36,7 +36,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>591</mintaming>
 		<food>0</food>
-		<carve>carve_hart_great</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Great Hart</category>
 		<!-- Carve -->

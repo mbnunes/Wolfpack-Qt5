@@ -39,7 +39,6 @@
 		<lootpacks>lootpack_poor</lootpacks>
 		<mintaming>0</mintaming>
 		<food>1</food>
-		<carve>carve_rat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Rats\Rat</category>
 		<intproperty name="carve_meat" value="1" />

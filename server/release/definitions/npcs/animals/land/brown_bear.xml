@@ -37,7 +37,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>411</mintaming>
 		<food>1</food>
-		<carve>carve_brown_bear</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Bears\Brown Bear</category>
 		<!-- Carve -->

@@ -39,7 +39,6 @@
 		<tag name="res_physical" value="65,80" type="int" />
 		<tag name="res_poison" value="100" type="int" />
 		<!-- Misc. -->
-		<carve>carve_demon_with_sword</carve>
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;gold_super_boss;gold_super_boss</lootpacks>
 		<category>Monsters\Daemonic\Black Gate Daemon</category>
 	</npc>

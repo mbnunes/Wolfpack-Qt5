@@ -34,7 +34,6 @@
 		<desc>Like the harpies and the headless, the mongbat is a bestial perversion of the human form, being shaped like a bat with a monkey's head. Mongbats are cowardly creatures, of no great threat individually, but they are masters of the underground ambush, attacking in flocks from out of the concealing dark.</desc>
 		<!-- Missing: -->
 		<lootpacks>lootpack_poor</lootpacks>
-		<carve>carve_mong_bat</carve>
 		<category>Monsters\Daemonic\Mongbat</category>
 		
 		<intproperty name="carve_meat" value="1" />

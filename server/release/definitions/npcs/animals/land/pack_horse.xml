@@ -40,7 +40,6 @@
 		<controlslots>2</controlslots>
 		<mintaming>291</mintaming>
 		<food>3</food>
-		<carve>carve_horse_pack</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Pack\Pack Horse</category>
 		<!-- Carve -->

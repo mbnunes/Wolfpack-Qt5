@@ -38,7 +38,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>171</mintaming>
 		<food>1</food>
-		<carve>carve_eagle</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Eagle</category>
 		<!-- Carve -->

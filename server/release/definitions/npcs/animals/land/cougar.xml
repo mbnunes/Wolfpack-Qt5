@@ -38,7 +38,6 @@
 		<controlslots>2</controlslots>
 		<mintaming>411</mintaming>
 		<food>5</food>
-		<!--<carve></carve>-->
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Cougar</category>
 		<!-- Carve -->

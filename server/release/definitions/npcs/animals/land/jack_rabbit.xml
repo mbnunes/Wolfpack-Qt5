@@ -36,7 +36,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>0</mintaming>
 		<food>5</food>
-		<!--<carve></carve>-->
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Rabbits\Jack Rabbit</category>
 		<!-- Carve -->

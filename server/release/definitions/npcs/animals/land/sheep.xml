@@ -36,7 +36,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>111</mintaming>
 		<food>5</food>
-		<carve>carve_sheep_sheered</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Farm\Sheep (Sheered)</category>
 		<intproperty name="carve_meat" value="4" />
@@ -47,7 +46,6 @@
 	<npc id="sheep_unsheered" inherit="sheep_sheered">
 		<baseid>sheep_unsheered</baseid>
 		<id>207</id>
-		<carve>carve_sheep_unsheered</carve>
 		<category>Animals\Land\Sheep (Unsheered)</category>
 		<intproperty name="carve_meat" value="4" />
 		<strproperty name="carve_meat_type" value="lambleg" />

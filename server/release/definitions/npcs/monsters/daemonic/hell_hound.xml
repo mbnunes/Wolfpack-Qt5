@@ -37,7 +37,6 @@
 		<desc>What so ever raiment a daemon adorns, doubt not that their power remains beneath the garb. Truer words could not be spoken of the hounds from hell. Vicious and hungry, these hounds are pack animals whose sole desire is to relieve wanderers of their mortal coil.</desc>
 		<!-- Missing: 5 Sulfurous Ash, Rib -->
 		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
-		<carve>carve_hell_hound</carve>
 		<category>Monsters\Daemonic\Hell Hound</category>
 		
 		<intproperty name="carve_meat" value="1" />
