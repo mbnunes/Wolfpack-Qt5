@@ -36,6 +36,7 @@
 #include "qstring.h"
 #include "qfile.h"
 #include "Python.h"
+#include <zthread/Thread.h>
 
 // Forward declaration for wolfpack extension function
 void init_wolfpack_globals();
@@ -45,15 +46,21 @@ void init_wolfpack_globals();
 */
 void stopPython( void )
 {
+	// Give the Python Threads time to finalize
+	PyThreadState *save = PyEval_SaveThread();
+	ZThread::Thread::sleep( 100 );
+	PyEval_RestoreThread( save );
+
 	Py_Finalize();
 }
 
 /*!
 	Starts the python interpreter
 */
-void startPython( int argc, char* argv[] )
+void startPython( int argc, char* argv[], bool silent )
 {
-	clConsole.PrepareProgress( "Starting Python interpreter" );
+	if( !silent )
+		clConsole.PrepareProgress( "Starting Python interpreter" );
 	
 	Py_SetProgramName( argv[ 0 ] );
 	Py_SetPythonHome( "python" ); // Subdirectory "python" is the base path
@@ -73,8 +80,8 @@ void startPython( int argc, char* argv[] )
 
     if ( !File.open( IO_ReadOnly ) )
 	{
-		clConsole.ProgressSkip();
-	
+		if( !silent )
+			clConsole.ProgressSkip();
 		clConsole.send( "Unable to open python.xml!\n" );
 		return;
 	}
@@ -82,7 +89,8 @@ void startPython( int argc, char* argv[] )
     if ( !Document.setContent( &File ) ) {
         File.close();
         
-		clConsole.ProgressSkip();
+		if( !silent )
+			clConsole.ProgressSkip();
 		clConsole.send( "Unable to parse python.xml" );
 
 		return;
@@ -107,7 +115,7 @@ void startPython( int argc, char* argv[] )
 	}
 	
 	// Import site now
-	PyObject *m = PyImport_ImportModule("site");
+	PyObject *m = PyImport_ImportModule( "site" );
 	if( m == NULL )
 	{
 		clConsole.ProgressFail();
@@ -127,12 +135,14 @@ void startPython( int argc, char* argv[] )
 	}
 	catch( ... )
 	{
-		clConsole.ProgressFail();
+		if( !silent )
+			clConsole.ProgressFail();
 		clConsole.send( "Failed to initialize the python extension modules\n" );
 		return;
 	}
 
-	clConsole.ProgressDone();
+	if( !silent )
+		clConsole.ProgressDone();
 }
 
 void reloadPython()

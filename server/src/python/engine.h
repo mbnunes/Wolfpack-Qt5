@@ -35,4 +35,4 @@
 
 void reloadPython( void );
 void stopPython( void );
-void startPython( int argc, char* argv[] );
+void startPython( int argc, char* argv[], bool silent = false );

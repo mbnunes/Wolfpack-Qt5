@@ -439,9 +439,6 @@ PyObject *wpItems( PyObject* self, PyObject* args )
 	RegionIterator4Items iter( pos );
 
 	PyObject *list = PyList_New( 0 );
-	UINT32 xBlock = getArgInt( 0 ) / 8;
-	UINT32 yBlock = getArgInt( 1 ) / 8;
-
 	for( iter.Begin(); !iter.atEnd(); iter++ )
 	{
 		P_ITEM pItem = iter.GetData();
@@ -453,6 +450,44 @@ PyObject *wpItems( PyObject* self, PyObject* args )
 			continue;
 
 		PyList_Append( list, PyGetItemObject( pItem ) );
+	}
+
+	return list;
+}
+
+/*!
+	Returns a list of chars at a given position (sector)
+*/
+PyObject *wpChars( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	// Minimum is x, y, map
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+	
+	bool exact = true;
+	
+	if( checkArgInt( 3 ) && getArgInt( 3 ) == 0 )
+		exact = false;
+	
+	Coord_cl pos( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) );
+	RegionIterator4Chars iter( pos );
+
+	PyObject *list = PyList_New( 0 );
+	for( iter.Begin(); !iter.atEnd(); iter++ )
+	{
+		P_CHAR pChar = iter.GetData();
+
+		if( pChar->pos().map != pos.map )
+			continue;
+
+		if( exact && ( pChar->pos().x != pos.x && pChar->pos().y != pos.y ) )
+			continue;
+
+		PyList_Append( list, PyGetCharObject( pChar ) );
 	}
 
 	return list;
@@ -684,6 +719,7 @@ static PyMethodDef wpGlobal[] =
 	{ "statics",			wpStatics,			METH_VARARGS, "Returns a list of static-item at a given position" },
 	{ "map",				wpMap,				METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
 	{ "items",				wpItems,			METH_VARARGS, "Returns a list of items in a specific sector." },
+	{ "chars",				wpChars,			METH_VARARGS, "Returns a list of chars in a specific sector." },
 	{ "tiledata",			wpTiledata,			METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
 	{ "spell",				wpSpell,			METH_VARARGS, "Returns information about a certain spell." },
 	{ "list",				wpList,				METH_VARARGS, "Returns a list defined in the definitions as a Python List" },

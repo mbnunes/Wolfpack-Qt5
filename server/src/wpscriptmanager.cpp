@@ -85,7 +85,11 @@ void WPScriptManager::reload( void )
 {
 	// First unload, then reload
 	unload();
-	reloadPython();
+
+	// Stop + Restart Python
+	stopPython();	
+	startPython( qApp->argc(), qApp->argv(), true );
+
 	load();
 
 	// After reloading all scripts we *need* to recreate all script-pointers 
