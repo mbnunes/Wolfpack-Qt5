@@ -502,11 +502,11 @@
         </npc>
 
         <!-- boar -->
-        <npc id="boar">
+        <npc id="boar_2">
                 <inherit id="boar" />
                 <name>a boar</name>
                 <id>0xCB</id>
-                <category>Animals\Land\Boar</category>
+                <category>Animals\Land\Boar_2</category>
        </npc>
        <!-- rat -->
        <npc id="rat">
