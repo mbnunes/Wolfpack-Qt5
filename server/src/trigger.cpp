@@ -172,7 +172,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 	long int pos;
 	
 	// Addons by Magius(CHE)
-	int evti=-1;
+	P_ITEM pi_evti = NULL;
 	tile_st tile;
 	char tempname[512], tempname2[512], tempname3[512], tempstr[512];
 	tempname[0] = 0;
@@ -517,33 +517,33 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						p = makenumber(1);
 						if (p <= 0)
 							p = 100;
-						if (evti>-1)
+						if (pi_evti != NULL)
 						{
-							c = items[evti].hp;
-							if (items[evti].maxhp>0)
+							c = pi_evti->hp;
+							if (pi_evti->maxhp>0)
 							{
 								if ((rand()%(100)) + 1 <= p)
 								{
-									if ((c >= items[evti].maxhp) &&(j>0))
+									if ((c >= pi_evti->maxhp) &&(j>0))
 									{
 										sprintf(tempstr, "Your %s is already totally repaired!", tempname2);
 										sysmessage(ts, tempstr);
 									}
-									items[evti].hp += j;
-									if (items[evti].hp >= items[evti].maxhp)
-										items[evti].hp = items[evti].maxhp;
-									if (items[evti].hp - c>0)
+									pi_evti->hp += j;
+									if (pi_evti->hp >= pi_evti->maxhp)
+										pi_evti->hp = pi_evti->maxhp;
+									if (pi_evti->hp - c>0)
 									{
 										if (strlen(cmsg))
 											sysmessage(ts, cmsg);
 										else 
 										{
-											total = (float) items[evti].hp/items[evti].maxhp;
+											total = (float) pi_evti->hp/pi_evti->maxhp;
 											sprintf(tempstr, "Your %s is now repaired! [%.1f%%]", tempname2, total*100);
 											sysmessage(ts, tempstr);
 										}
 									}
-									else if (items[evti].hp - c < 0)
+									else if (pi_evti->hp - c < 0)
 									{
 										if (strlen(fmsg))
 											sysmessage(ts, fmsg);
@@ -553,14 +553,14 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 											sysmessage(ts, tempstr);
 										}
 									}
-									if (items[evti].hp <= 0)
+									if (pi_evti->hp <= 0)
 									{
 										sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname2);
 										sysmessage(ts, tempstr);
-										if (items[evti].amount>1)
-											items[evti].amount--;
+										if (pi_evti->amount>1)
+											pi_evti->amount--;
 										else 
-											Items->DeleItem(evti);
+											Items->DeleItem(DEREF_P_ITEM(pi_evti));
 									}
 								}
 							}
@@ -580,15 +580,15 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						p = makenumber(1);
 						if (p <= 0)
 							p = 100;
-						if (evti>-1)
+						if (pi_evti != NULL)
 						{
-							if (items[evti].maxhp>0)
+							if (pi_evti->maxhp>0)
 							{
 								if ((rand()%(100)) + 1 <= p)
 								{
-									items[evti].maxhp += j; // Magius(CHE) §
-									if (items[evti].hp >= items[evti].maxhp)
-										items[evti].hp = items[evti].maxhp;
+									pi_evti->maxhp += j; // Magius(CHE) §
+									if (pi_evti->hp >= pi_evti->maxhp)
+										pi_evti->hp = pi_evti->maxhp;
 									if (str2num(script2) >= 0)
 									{
 										if (strlen(cmsg))
@@ -609,14 +609,14 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 											sysmessage(ts, tempstr);
 										}
 									}
-									if (items[evti].maxhp <= 0)
+									if (pi_evti->maxhp <= 0)
 									{
 										sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname2);
 										sysmessage(ts, tempstr);
-										if (items[evti].amount>1)
-											items[evti].amount--;
+										if (pi_evti->amount>1)
+											pi_evti->amount--;
 										else 
-											Items->DeleItem(evti);
+											Items->DeleItem(DEREF_P_ITEM(pi_evti));
 									}
 								}
 							}
@@ -1181,7 +1181,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							}
 							p = ti;
 							if (!strcmp((char*)script2, "REQ"))
-								p = evti;
+								p = DEREF_P_ITEM(pi_evti);
 							if (!strcmp((char*)script2, "NEED"))
 								p = needitem;
 							if (p>-1)
@@ -1731,9 +1731,9 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							clr1 = hexnumber(0);
 							clr2 = hexnumber(1);
 							j = makenumber(2);
-							if (evti>-1)
+							if (pi_evti != NULL)
 							{// AntiChrist
-								if (clr1 != items[evti].color1 || clr2 != items[evti].color2)
+								if (clr1 != pi_evti->color1 || clr2 != pi_evti->color2)
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -1866,16 +1866,16 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							}
 							else
 							{ // Lines Added By Magius(CHE) to fix Targ trigger
-								evti = pc_ts->envokeitem;
-								if (evti>-1)// AntiChrist
+								pi_evti = MAKE_ITEM_REF(pc_ts->envokeitem);
+								if (pi_evti!= NULL)// AntiChrist
 								{
-									if (items[evti].name[0] != '#') // Get Temporany Name of the REQUIRED Item - Magius(CHE)
+									if (pi_evti->name[0] != '#') // Get Temporany Name of the REQUIRED Item - Magius(CHE)
 									{
-										strcpy(tempname2, items[evti].name);
+										strcpy(tempname2, pi_evti->name);
 									}
 									else
 									{
-										Map->SeekTile(items[evti].id(), &tile);
+										Map->SeekTile(pi_evti->id(), &tile);
 										strcpy(tempname2, (char*)tile.name);
 									}
 								}
@@ -2135,7 +2135,8 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 	char fmsg[512];
 	
 	// Added by Magius(CHE) §
-	int evti=-1, tl;
+	int tl;
+	P_ITEM pi_evti = NULL;
 	tile_st tile;
 	char tempname2[512], tempname3[512], buff[512], dismsg[512], tempstr[512], cmsg[512];
 	float total;
@@ -2278,31 +2279,31 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						p = makenumber(1);
 						if (p <= 0)
 							p = 100;
-						if (evti>-1)
+						if (pi_evti != NULL)
 						{
-							c = items[evti].hp;
-							if (items[evti].maxhp>0)
+							c = pi_evti->hp;
+							if (pi_evti->maxhp>0)
 							{
 								if ((rand()%(100)) + 1 <= p)
 								{
-									if ((c >= items[evti].maxhp) &&(j>0))
+									if ((c >= pi_evti->maxhp) &&(j>0))
 									{
 										sysmessage(ts, "Your %s is already totally repaired!", tempname2);
 									}
-									items[evti].hp += j;
-									if (items[evti].hp >= items[evti].maxhp)
-										items[evti].hp = items[evti].maxhp;
-									if (items[evti].hp - c>0)
+									pi_evti->hp += j;
+									if (pi_evti->hp >= pi_evti->maxhp)
+										pi_evti->hp = pi_evti->maxhp;
+									if (pi_evti->hp - c>0)
 									{
 										if (strlen(cmsg))
 											sysmessage(ts, cmsg);
 										else 
 										{
-											total = (float) items[evti].hp/items[evti].maxhp;
+											total = (float) pi_evti->hp/pi_evti->maxhp;
 											sysmessage(ts, "Your %s is now repaired! [%.1f%%]", tempname2, total*100);
 										}
 									}
-									else if (items[evti].hp - c < 0)
+									else if (pi_evti->hp - c < 0)
 									{
 										if (strlen(fmsg))
 											sysmessage(ts, fmsg);
@@ -2311,13 +2312,13 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 											sysmessage(ts, "Your %s appears to be more ruined than before!", tempname2);
 										}
 									}
-									if (items[evti].hp <= 0)
+									if (pi_evti->hp <= 0)
 									{
 										sysmessage(ts, "Your %s was too old and it has been destroyed!", tempname2);
-										if (items[evti].amount>1)
-											items[evti].amount--;
+										if (pi_evti->amount>1)
+											pi_evti->amount--;
 										else 
-											Items->DeleItem(evti);
+											Items->DeleItem(DEREF_P_ITEM(pi_evti));
 									}
 								}
 							}
@@ -2361,15 +2362,15 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						p = makenumber(1);
 						if (p <= 0)
 							p = 100;
-						if (evti>-1)
+						if (pi_evti != NULL)
 						{
-							if (items[evti].maxhp>0)
+							if (pi_evti->maxhp>0)
 							{
 								if ((rand()%(100)) + 1 <= p)
 								{
-									items[evti].maxhp += j; // Magius(CHE) §
-									if (items[evti].hp >= items[evti].maxhp)
-										items[evti].hp = items[evti].maxhp;
+									pi_evti->maxhp += j; // Magius(CHE) §
+									if (pi_evti->hp >= pi_evti->maxhp)
+										pi_evti->hp = pi_evti->maxhp;
 									if (str2num(script2) >= 0)
 									{
 										if (strlen(cmsg))
@@ -2388,13 +2389,13 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 											sysmessage(ts, "Your %s appears to be not resistant as before!", tempname2);
 										}
 									}
-									if (items[evti].maxhp <= 0)
+									if (pi_evti->maxhp <= 0)
 									{
 										sysmessage(ts, "Your %s was too old and it has been destroyed!", tempname2);
-										if (items[evti].amount>1)
-											items[evti].amount--;
+										if (pi_evti->amount>1)
+											pi_evti->amount--;
 										else 
-											Items->DeleItem(evti);
+											Items->DeleItem(DEREF_P_ITEM(pi_evti));
 									}
 								}
 							}
@@ -2833,7 +2834,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 								return;
 							}
 							else if (!strcmp((char*)script2, "REQ"))
-								p = evti;
+								p = DEREF_P_ITEM(pi_evti);
 							else if (!strcmp((char*)script2, "NEED"))
 								p = needitem;
 							if (p>-1)
@@ -3040,12 +3041,12 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							clr1 = hexnumber(0);
 							clr2 = hexnumber(1);
 							j = makenumber(2);
-							if (evti==-1)
+							if (pi_evti == NULL)
 							{
 								closescript();
 								return;
 							}
-							if (clr1 != items[evti].color1 || clr2 != items[evti].color2)
+							if (clr1 != pi_evti->color1 || clr2 != pi_evti->color2)
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg);
@@ -3092,12 +3093,12 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							}
 							else 
 							{
-								evti = pc_ts->envokeitem;
+								pi_evti = MAKE_ITEM_REF(pc_ts->envokeitem);
 								if (items[pc_ts->envokeitem].name[0] != '#') // Get Temporany Name of the REQUIRED Item - Magius(CHE)
 									sprintf(tempname2, "%s", items[pc_ts->envokeitem].name);
 								else 
 								{
-									Map->SeekTile(items[evti].id(), &tile);
+									Map->SeekTile(pi_evti->id(), &tile);
 									strcpy(tempname2, (char*)tile.name);
 								}
 							} // End Addon

@@ -63,35 +63,35 @@ bool CheckInPack(UOXSOCKET s, PC_ITEM pi)
 
 void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 {
-	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	const P_ITEM pi_bolts = FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
-	if (!pi) return; 
+	if (pi_bolts == NULL) return; 
 	short int amt=0;
 	short int amt1=0;
-	short int col1=pi->color1; //-Frazurbluu- added color retention for tailoring from cloth
-	short int col2=pi->color2;
+	short int col1=pi_bolts->color1; //-Frazurbluu- added color retention for tailoring from cloth
+	short int col2=pi_bolts->color2;
 
-	if (pi && pi->magic!=4) // Ripper
+	if (pi_bolts && pi_bolts->magic!=4) // Ripper
 	{
-		if (IsBoltOfCloth(pi->id()))
+		if (IsBoltOfCloth(pi_bolts->id()))
 		{
-			if (CheckInPack(s,pi))
+			if (CheckInPack(s,pi_bolts))
 			{
-			if (pi->amount>1)
-				amt1=(pi->amount*50);//-Frazurbluu- changed to reflect current OSI 
+			if (pi_bolts->amount>1)
+				amt1=(pi_bolts->amount*50);//-Frazurbluu- changed to reflect current OSI 
 			else
 				amt1=50; 
-			Items->DeleItem(pi); //-Fraz- delete the bolts when ready 
+			Items->DeleItem(pi_bolts); //-Fraz- delete the bolts when ready 
 			int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
-			if(c==-1) return;// crash check
-			items[c].weight=10;
-			items[c].amount=amt1;
-			items[c].pileable=1;
-			RefreshItem(c);
-			Items->DeleItem(pi);
+			const P_ITEM npi=MAKE_ITEMREF_LR(c);	// on error return
+			if(npi == NULL) return;// crash check
+			npi->weight = 10;
+			npi->amount = amt1;
+			npi->pileable = 1;
+			RefreshItem(DEREF_P_ITEM(npi));
+			Items->DeleItem(pi_bolts);
 			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
 			statwindow(s,DEREF_P_CHAR(pc_currchar));
-			const P_ITEM npi=MAKE_ITEMREF_LR(c);	// on error return
 			if (!npi) return;
 			amt=itemmake[s].has=getamount(DEREF_P_CHAR(pc_currchar), npi->id());
 				if(amt<1)
@@ -106,20 +106,20 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			}
 			return;
 		}
-		else if ( IsCloth(pi->id()) || IsCutLeather(pi->id()) || IsCutCloth(pi->id()) || IsHide(pi->id()))  
+		else if ( IsCloth(pi_bolts->id()) || IsCutLeather(pi_bolts->id()) || IsCutCloth(pi_bolts->id()) || IsHide(pi_bolts->id()))  
 		{
-			if (CheckInPack(s,pi))
+			if (CheckInPack(s,pi_bolts))
 			{
-				int amt=itemmake[s].has = getamount(DEREF_P_CHAR(pc_currchar), pi->id());
+				int amt=itemmake[s].has = getamount(DEREF_P_CHAR(pc_currchar), pi_bolts->id());
 				if(amt<1)
 				{ 
 					sysmessage(s,"You don't have enough material to make anything.");
 					return;
 				}
-				itemmake[s].Mat1id=pi->id();
-				itemmake[s].newcolor1=pi->color1;
-				itemmake[s].newcolor2=pi->color2;
-				if ( IsCutLeather(pi->id()) || IsHide(pi->id()) )
+				itemmake[s].Mat1id=pi_bolts->id();
+				itemmake[s].newcolor1=pi_bolts->color1;
+				itemmake[s].newcolor2=pi_bolts->color2;
+				if ( IsCutLeather(pi_bolts->id()) || IsHide(pi_bolts->id()) )
 					MakeMenu(s,40,TAILORING);
 				else
 					MakeMenu(s,30,TAILORING);
