@@ -2620,8 +2620,7 @@ protected:
 	}
 };
 
-void cUOSocket::sendVendorCont( P_ITEM pItem )
-{
+void cUOSocket::sendVendorCont( P_ITEM pItem ) {
 	pItem->update( this ); // Make sure it's visible to the client
 
 	// Only allowed for pItem's contained by a character
@@ -2667,15 +2666,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 		unsigned short amount = pItem->layer() == cBaseChar::BuyRestockContainer ? mItem->restock() : mItem->amount();
 		if ( amount >= 1 && mItem->buyprice() > 0 )
 		{
-			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, 1, amount, pItem->serial() );
-
-			// change how the name is displayed
-			/*QString name = mItem->getName(true);
-									name[0] = name[0].upper();
-									for ( uint j = 1; j < name.length() - 1; ++j )
-										if ( name.at(j).isSpace() )
-											name.at(j+1) = name.at(j+1).upper();*/
-
+			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i + 1, 1, amount, pItem->serial() );
 			items.append( mItem );
 			++i;
 		}
@@ -2686,27 +2677,160 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	send( &itemContent );
 	for ( P_ITEM item = items.last(); item; item = items.prev() )
 	{
-		vendorBuy.addItem( item->buyprice(), " " );
+		vendorBuy.addItem( item->buyprice(), "" );
 		item->sendTooltip( this );
 	}
 	send( &vendorBuy );
 }
 
-void cUOSocket::sendBuyWindow( P_NPC pVendor )
-{
+void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 	P_ITEM pBought = pVendor->atLayer( cBaseChar::BuyNoRestockContainer );
 	P_ITEM pStock = pVendor->atLayer( cBaseChar::BuyRestockContainer );
+	P_ITEM pSell = pVendor->atLayer( cBaseChar::SellContainer );
 
-	if ( pBought )
-		sendVendorCont( pBought );
+	if (!pBought || !pStock || !pSell) {
+		return;
+	}
 
-	if ( pStock )
-		sendVendorCont( pStock );
+	unsigned int restockInterval = Config::instance()->shopRestock() * 60 * MY_CLOCKS_PER_SEC;
+	unsigned int inventoryDecay = 60 * 60 * MY_CLOCKS_PER_SEC;
+
+	// Perform maintaineance
+	int lastRestockTime = pStock->getTag("last_restock_time").toInt();
+
+	// If the next restock interval has been reached or if the last restock time is in the future (server restart)
+	// restock the vendor
+	if (lastRestockTime + restockInterval < Server::instance()->time() || lastRestockTime > Server::instance()->time()) {
+		pStock->setTag("last_restock_time", Server::instance()->time()); // Set the last restock time
+
+		cItem::ContainerContent::iterator it;
+		cItem::ContainerContent pStockContent = pStock->content(); // We need a copy since we are modifying the array
+		for (it = pStockContent.begin(); it != pStockContent.end(); ++it) {
+			P_ITEM pItem = *it;
+
+			// This increases the maximum amount of this item by a factor of 2 if
+			// it has been sold out
+			if (pItem->restock() <= 0) {
+				pItem->setAmount(pItem->amount() * 2);
+				if (pItem->amount() > 999) {
+					pItem->setAmount(999);
+				}
+			// If more than half of the items were still in stock when restocking
+			// was issued, half the amount
+			} else if (pItem->restock() >= pItem->amount() / 2) {
+				if (pItem->amount() == 999) {
+					pItem->setAmount(640);
+				} else if (pItem->amount() > 10) {
+					pItem->setAmount(pItem->amount() / 2);
+				}
+			}
+
+			pItem->setRestock(pItem->amount()); // Restock full
+		}
+	}
+
+	// Build the list of items to be sent.
+	SortedSerialList itemList;
+	cItem::ContainerContent::iterator it;
+	cItem::ContainerContent pStockContent = pStock->content(); // We need a copy since we are modifying the array
+	
+	// Process all items for sale first
+	for (it = pStockContent.begin(); it != pStockContent.end(); ++it) {
+		if (itemList.count() >= 250) {
+			break; // Only 250 items fit into the buy packet
+		}
+
+		if ((*it)->buyprice() <= 0 || (*it)->restock() <= 0) {
+			continue; // This item is not for sale
+		}
+
+        itemList.append(*it);
+	}
+
+	// Now process all items that have been bought by the vendor
+	cItem::ContainerContent pBoughtContent = pBought->content(); // We need a copy since we are modifying the array
+	for (it = pBoughtContent.begin(); it != pBoughtContent.end(); ++it) {
+		// Check all bought items if they decayed (one hour)
+		int buy_time = (*it)->getTag("buy_time").toInt();
+
+		// Remove the item from the vendors inventory if its there for more than one hour or if it has been
+		// bought in the future.
+		if (buy_time + inventoryDecay < Server::instance()->time() || buy_time > Server::instance()->time()) {
+			(*it)->remove();
+			continue;
+		}
+
+		// Only 250 items fit into the buy list
+		if (itemList.count() < 250) {
+			if ((*it)->buyprice() <= 0) {
+				continue; // This item is not for sale
+			}
+	
+			itemList.append(*it);
+		}
+	}
+    
+	// Process the items we found for sale
+	if (itemList.count() == 0) {
+		return; // Nothing for sale
+	}
+
+	// Send both containers to the client
+	pBought->update(this);
+	pStock->update(this);
+	pSell->update(this);
+
+	itemList.sort(); // Organize the container content by serial
+
+	// Create the container content
+	cUOTxItemContent containerContent;
+	containerContent.resize(5 + itemList.count() * 19);
+	containerContent.setShort(1, containerContent.size());
+	containerContent.setShort(3, itemList.count());
+	unsigned int pOffset = containerContent.size() - 19; // Start at the last item
+	unsigned int i = itemList.count();
+
+	// This packet has the pricing information
+	cUOTxVendorBuy vendorBuy;
+	vendorBuy.setSerial(pStock->serial());
+
+	// This is something i dont understand. Why does it have to be backwards??
+	SortedSerialList::const_iterator cit(itemList.begin());
+	while (cit != itemList.end()) {
+		P_ITEM pItem = *(cit++); // Get the current item and advance to the next
+		containerContent.setInt(pOffset, pItem->serial());
+		containerContent.setShort(pOffset + 4, pItem->id());
+		containerContent[pOffset + 6] = 0; // Unknown
+
+		if (pItem->hasTag("restock")) {
+			containerContent.setShort(pOffset + 7, pItem->restock());
+		} else {
+			containerContent.setShort(pOffset + 7, pItem->amount());
+		}
+		containerContent.setShort(pOffset + 9, i--); // Item Id in packet (1 to n)
+		containerContent.setShort(pOffset + 11, pItem->amount());
+		containerContent.setInt(pOffset + 13, pStock->serial());
+		containerContent.setShort(pOffset + 17, pItem->color());
+		pOffset -= 19; // Previous item
+
+		if (!pItem->name().isEmpty())
+			vendorBuy.addItem(pItem->buyprice(), pItem->name()); // add it to the other packet as well
+		else
+			vendorBuy.addItem(pItem->buyprice(), QString::number(1020000 + pItem->id()));
+	}
+
+	send(&containerContent); // Send container content
+	send(&vendorBuy); // Send pricing information
 
 	cUOTxDrawContainer drawContainer;
 	drawContainer.setSerial( pVendor->serial() );
 	drawContainer.setGump( 0x30 );
 	send( &drawContainer );
+
+	cit = itemList.begin();
+	while (cit != itemList.end()) {
+		(*(cit++))->sendTooltip(this);
+	}
 
 	// Send status gump with gold info
 	sendStatWindow();

@@ -126,7 +126,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		}
 
 		Q_UINT16 amount = packet->iAmount( i );
-		Q_UINT8 layer = packet->iLayer( i );
+		Q_UINT8 layer = pItem->getOutmostItem()->layer();
 
 		// First check: is the item on the vendor in the specified layer
 		if ( layer == 0x1A )
@@ -137,6 +137,8 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 				socket->send( &clearBuy );
 				return;
 			}
+
+			amount = QMIN(pItem->restock(), amount);
 		}
 		else if ( layer == 0x1B )
 		{
@@ -146,6 +148,9 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 				socket->send( &clearBuy );
 				return;
 			}
+
+			// Not enough of that item is left
+			amount = QMIN(pItem->amount(), amount);
 		}
 		else
 		{
@@ -154,22 +159,13 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 			return;
 		}
 
-		// Check amount
-		if ( pItem->restock() > pItem->amount() )
-			pItem->setRestock( pItem->amount() );
-
-		// Nothing of that item left
-		if ( pItem->restock() == 0 )
-			continue;
-
-		totalValue += amount * pItem->buyprice();
-
-		if ( amount )
+		if (amount) {
+			totalValue += amount * pItem->buyprice();
 			items.insert( make_pair( pItem->serial(), amount ) );
+		}
 	}
 
-	if ( !items.size() )
-	{
+	if ( !items.size() ) {
 		socket->send( &clearBuy );
 		pVendor->talk( 500190, 0, 0, false, 0xFFFF, pChar->socket() ); // Thou hast bought nothing!
 		return;
@@ -205,15 +201,14 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 	for ( map<SERIAL, Q_UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
 	{
 		P_ITEM pItem = FindItemBySerial( iter->first );
-		Q_UINT16 amount = QMIN( iter->second, pItem->restock() );
-
-		pItem->setRestock( pItem->restock() - amount ); // Reduce the items in stock
+		Q_UINT16 amount = iter->second; // we already checked if there is enough in stock
 		P_ITEM pSold;
 
 		if ( pItem->isPileable() )
 		{
 			pSold = pItem->dupe();
 			pSold->removeTag( "restock" ); // Remove the restock tag;
+			pSold->removeTag( "buy_time" );
 			pSold->setAmount( iter->second );
 			pPack->addItem( pSold );
 			pSold->update();
@@ -225,6 +220,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 			{
 				pSold = pItem->dupe();
 				pSold->removeTag( "restock" ); // Remove the restock tag;
+				pSold->removeTag( "buy_time" );
 				pSold->setAmount( 1 );
 				pPack->addItem( pSold );
 				pSold->update();
@@ -232,7 +228,12 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 			}
 		}
 
-		//socket->sysMessage( tr( "You put the %1 into your pack" ).arg( pItem->getName() ) );
+		P_ITEM pCont = (P_ITEM)pItem->container();
+		if (pCont->layer() == cBaseChar::BuyRestockContainer) {
+			pItem->setRestock( pItem->restock() - amount ); // Reduce the items in stock
+		} else {
+			pItem->reduceAmount( amount );			
+		}
 	}
 
 	socket->send( &clearBuy );
@@ -342,7 +343,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 
 		unsigned int sellprice = pItem->getSellPrice(pVendor);
 
-		if (!sellprice) {
+		if (!sellprice || !pItem->buyprice()) {
 			socket->sysMessage( tr( "Invalid item sold." ) );
 			socket->send( &clearBuy );
 			return;
@@ -360,20 +361,58 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 		for ( map<SERIAL, Q_UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
 		{
 			P_ITEM pItem = FindItemBySerial( iter->first );
-			Q_UINT16 amount = iter->second;
+			Q_UINT16 amount = QMIN(pItem->amount(), iter->second);
+
+			// If we can find something to stack with that is already in the vendors 
+			// no restock container, increase the amount of that item instead. 
+			// otherwise use the oldsytle handling.
+			/*if (pItem->isPileable()) {
+				bool processed = false;
+				cItem::ContainerContent packContent = pBought->content();
+				cItem::ContainerContent::const_iterator cit;
+				for (cit = packContent.begin(); cit != packContent.end(); ++cit) {
+					P_ITEM pOtherItem = *cit;
+					if (pItem->canStack(pOtherItem) && pOtherItem->amount() < 65000) {
+						unsigned int realAmount = QMIN(65000 - pOtherItem->amount(), amount);
+
+						pOtherItem->setAmount(pOtherItem->amount() + realAmount);
+						pOtherItem->setTag("buy_time", Server::instance()->time());						
+
+						if ( pItem->amount() <= realAmount ) {
+							pItem->remove();
+						} else {
+							pItem->setAmount( pItem->amount() - realAmount );
+							pItem->update();
+						}
+
+						if (realAmount == amount) {
+							processed = true;
+							break;
+						} else {
+							amount -= realAmount;
+						}						
+					}
+				}
+
+				if (processed) {
+					continue; // Next item
+				}
+			}*/
 
 			if ( pItem->isPileable() )
 			{
 				P_ITEM pSold = pItem->dupe();
 				pSold->removeTag( "restock" );
-				pSold->setAmount( iter->second );
+				pSold->setAmount( amount );
+				pSold->setTag("buy_time", Server::instance()->time());
 				pBought->addItem( pSold );
 				pSold->update();
-				if ( pItem->amount() <= iter->second )
+				if ( pItem->amount() <= amount ) {
 					pItem->remove();
-				else
-					pItem->setAmount( pItem->amount() - iter->second );
-				pItem->update();
+				} else {
+					pItem->setAmount( pItem->amount() - amount );
+					pItem->update();
+				}
 			}
 			else
 			{

@@ -2068,16 +2068,16 @@ bool cItem::canStack( cItem* pItem )
 
 	// Do some basic checks and see if the item is a
 	// container (they never stack).
-	if ( id() != pItem->id() || color() != pItem->color() || type() == 1 || type() != pItem->type() || bindmenu() != pItem->bindmenu() || scriptList() != pItem->scriptList() || baseid() != pItem->baseid() )
+	if ( name() != pItem->name() || id() != pItem->id() || color() != pItem->color() || type() == 1 || scriptList() != pItem->scriptList() || baseid() != pItem->baseid() )
 	{
 		return false;
 	}
 
 	// Check Tags (rather expensive)
-	if ( tags_ != pItem->tags_ )
+	/*if ( tags_ != pItem->tags_ )
 	{
 		return false;
-	}
+	}*/
 
 	return true;
 }

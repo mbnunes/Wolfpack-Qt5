@@ -159,7 +159,7 @@ void cConfig::readData()
 	hungerDamage_ = getNumber( "General", "Hunger Damage", 0, true );
 	tamedDisappear_ = getNumber( "General", "Tamed Disappear", 0, true );
 	houseInTown_ = getNumber( "General", "House In Town", 0, true );
-	shopRestock_ = getNumber( "General", "Shop Restock", 30, true );
+	shopRestock_ = getNumber( "General", "Shop Restock", 60, true );
 	quittime_ = getNumber( "General", "Char Time Out", 300, true );
 	cacheMulFiles_ = getBool( "General", "Cache Mul Files", true, true );
 	categoryTagAddMenu_ = getBool( "General", "Build AddMenu by Category Tags", true, true );
