@@ -78,7 +78,6 @@ HEADERS         = client.h \
 		  scriptc.h \
 		  spawnregions.h \
 		  speech.h \
-		  sregions.h \
                   srvparams.h \
                   serxmlfile.h \
                   serbinfile.h \
@@ -115,7 +114,7 @@ SOURCES         = client.cpp \
 		  SkiTarg.cpp \
 		  SndPkg.cpp \
 		  Timing.cpp \
-		  TmpEff.cpp \
+		  tmpeff.cpp \
 		  Trade.cpp \
 		  accounts.cpp \
 		  basics.cpp \
@@ -167,7 +166,6 @@ SOURCES         = client.cpp \
 		  skills.cpp \
 		  speech.cpp \
 		  spawnregions.cpp \
-		  sregions.cpp \
                   srvparams.cpp \
 		  storage.cpp \
 		  targeting.cpp \
