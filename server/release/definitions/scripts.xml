@@ -40,6 +40,7 @@
 	<script>moongate</script>
 	<script>ore</script>
 	<script>pickaxe</script>
+	<script>beverage</script>
 	<script>pickpocket_dip</script>
 	<script>potionkeg</script>
 	<script>potions</script>
@@ -212,6 +213,7 @@
 	<script>skills.tracking</script>
 
 	<!-- Testing Scripts -->
+	<script>testing</script>
 	<script>testing.multibag</script>
 
 </definitions>

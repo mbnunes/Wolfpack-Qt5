@@ -979,6 +979,8 @@
 		<name>#1044168</name>
 		<id>0xfbf</id>
 		<category>Professions\Mage\Pen &amp; Ink (N/S)</category>
+		<events>skills.inscription</events>
+		<weight>1.0</weight>
 	</item>
 
 </definitions>

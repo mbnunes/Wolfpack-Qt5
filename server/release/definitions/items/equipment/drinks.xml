@@ -12,142 +12,168 @@
 	<!-- Jugs of Cider (3) -->
 	<item id="98d">
 		<id>0x98d</id>
-		<type>105</type>
-		<weight>0.5</weight>
-		<buyprice>15</buyprice>
-		<sellprice>7</sellprice>
-		<category>Equipment\Drinks\Jug of Cider 3</category>
+		<category>Equipment\Drinks\Jug of Cider (3)</category>
 	</item>
 
 	<!-- Jugs of Cider (2) -->
-	<item id="98e" inherit="98d">
-		<baseid>98d</baseid>
+	<item id="98e">
 		<id>0x98e</id>
-		<category>Equipment\Drinks\Jug of Cider 2</category>
+		<category>Equipment\Drinks\Jug of Cider (2)</category>
 	</item>
 
-	<!-- Jug of Cider -->
-	<item id="9c8" inherit="98d">
-		<baseid>98d</baseid>
+	<item id="9c8">
 		<id>0x9c8</id>
-		<category>Equipment\Drinks\Jug of Cider 1</category>
+		<events>beverage</events>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Bottle of Liquor -->
 	<item id="99b">
 		<id>0x99b</id>
-		<type>105</type>
-		<weight>0.5</weight>
-		<buyprice>4</buyprice>
-		<sellprice>4</sellprice>
-		<category>Equipment\Drinks\Bottle of Liquor 1</category>
+		<events>beverage</events>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Bottle of Liquor (2) -->
-	<item id="99c" inherit="99b">
-		<baseid>99b</baseid>
+	<item id="99c">
 		<id>0x99c</id>
-		<category>Equipment\Drinks\Bottle of Liquor 2</category>
+		<category>Equipment\Drinks\Bottle of Liquor (2)</category>
 	</item>
 
 	<!-- Bottle of Liquor (3) -->
-	<item id="99d" inherit="99b">
-		<baseid>99b</baseid>
+	<item id="99d">
 		<id>0x99d</id>
-		<category>Equipment\Drinks\Bottle of Liquor 3</category>
+		<category>Equipment\Drinks\Bottle of Liquor (3)</category>
 	</item>
 
 	<!-- Bottle of Liquor (4) -->
-	<item id="99e" inherit="99b">
-		<baseid>99b</baseid>
+	<item id="99e">
 		<id>0x99e</id>
-		<category>Equipment\Drinks\Bottle of Liquor 4</category>
+		<category>Equipment\Drinks\Bottle of Liquor (4)</category>
 	</item>
 
 	<!-- Bottle of Ale -->
 	<item id="99f">
 		<id>0x99f</id>
-		<type>105</type>
-		<weight>0.5</weight>
-		<buyprice>8</buyprice>
-		<sellprice>4</sellprice>
-		<category>Equipment\Drinks\Bottle of Ale 1</category>
+		<events>beverage</events>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Bottles of Ale (2) -->
-	<item id="9a0" inherit="99f">
-		<baseid>99f</baseid>
+	<item id="9a0">
 		<id>0x9a0</id>
-		<category>Equipment\Drinks\Bottle of Ale 2</category>
+		<category>Equipment\Drinks\Bottle of Ale (2)</category>
 	</item>
 
 	<!-- Bottles of Ale (3) -->
-	<item id="9a1" inherit="99f">
-		<baseid>99f</baseid>
+	<item id="9a1">
 		<id>0x9a1</id>
-		<category>Equipment\Drinks\Bottle of Ale 3</category>
+		<category>Equipment\Drinks\Bottle of Ale (3)</category>
 	</item>
 
 	<!-- Bottles of Ale (4) -->
-	<item id="9a2" inherit="99f">
-		<baseid>99f</baseid>
+	<item id="9a2">
 		<id>0x9a2</id>
-		<category>Equipment\Drinks\Bottle of Ale 4</category>
+		<category>Equipment\Drinks\Bottle of Ale (4)</category>
+	</item>
+	
+	<!-- Bottles of Wine (4) -->
+	<item id="9c4">
+		<id>0x9c4</id>
+		<category>Equipment\Drinks\Bottle of Wine (4)</category>
+	</item>
+
+	<!-- Bottles of wine (3) -->
+	<item id="9c5">
+		<id>0x9c5</id>
+		<category>Equipment\Drinks\Bottle of Wine (3)</category>
+	</item>
+
+	<!-- Bottles of wine (2) -->
+	<item id="9c6">
+		<id>0x9c6</id>
+		<category>Equipment\Drinks\Bottle of Wine (2)</category>
+	</item>
+
+	<!-- Bottle of wine -->
+	<item id="9c7">
+		<id>0x9c7</id>
+		<events>beverage</events>
+		<weight>1.0</weight>
+	</item>
+	
+	<!-- Bottles -->
+	<item id="bottle_ale" inherit="99f">
+		<category>Equipment\Drinks\Bottle of Ale</category>
+		<tag name="fluid" value="ale" />
+		<tag name="quantity" value="5" />
+		<events>beverage</events>
+		<weight>1.0</weight>
+	</item>
+	
+	<item id="bottle_cider" inherit="99f">
+		<category>Equipment\Drinks\Bottle of Cider</category>
+		<tag name="fluid" value="cider" />
+		<tag name="quantity" value="5" />
+		<events>beverage</events>
+		<weight>1.0</weight>
+	</item>
+	
+	<item id="bottle_liquor" inherit="99b">
+		<category>Equipment\Drinks\Bottle of Liquor</category>
+		<tag name="fluid" value="liquor" />
+		<tag name="quantity" value="5" />
+		<events>beverage</events>
+		<weight>1.0</weight>
+	</item>
+	
+	<item id="bottle_milk" inherit="99b">
+		<category>Equipment\Drinks\Bottle of Milk</category>
+		<tag name="fluid" value="milk" />
+		<tag name="quantity" value="5" />
+		<events>beverage</events>
+		<weight>1.0</weight>
+	</item>
+	
+	<item id="bottle_wine" inherit="9c7">
+		<category>Equipment\Drinks\Bottle of Wine</category>
+		<tag name="fluid" value="wine" />
+		<tag name="quantity" value="5" />
+		<events>beverage</events>
+		<weight>1.0</weight>
+	</item>
+	
+	<item id="bottle_water" inherit="99b">
+		<category>Equipment\Drinks\Bottle of Water</category>
+		<tag name="fluid" value="water" />
+		<tag name="quantity" value="5" />
+		<events>beverage</events>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Pitcher of Milk -->
 	<!-- NOTE: Needs to create an empty pitcher when drunk -->
 	<item id="9ad">
 		<id>0x9ad</id>
-		<type>105</type>
+		<events>beverage</events>
 		<weight>0.5</weight>
 		<category>Equipment\Drinks\Pitcher of Milk 1</category>
-	</item>
-
-	<!-- Bottles of Wine (4) -->
-	<item id="9c4">
-		<id>0x9c4</id>
-		<type>105</type>
-		<weight>0.5</weight>
-		<buyprice>8</buyprice>
-		<sellprice>4</sellprice>
-		<category>Equipment\Drinks\Bottle of Wine 4</category>
-	</item>
-
-	<!-- Bottles of wine (3) -->
-	<item id="9c5" inherit="9c4">
-		<baseid>9c4</baseid>
-		<id>0x9c5</id>
-		<category>Equipment\Drinks\Bottle of Wine 3</category>
-	</item>
-
-	<!-- Bottles of wine (2) -->
-	<item id="9c6" inherit="9c4">
-		<baseid>9c4</baseid>
-		<id>0x9c6</id>
-		<category>Equipment\Drinks\Bottle of Wine 2</category>
-	</item>
-
-	<!-- Bottle of wine -->
-	<item id="9c7" inherit="9c4">
-		<baseid>9c4</baseid>
-		<id>0x9c7</id>
-		<category>Equipment\Drinks\Bottle of Wine 1</category>
 	</item>
 
 	<!-- Bucket of Water -->
 	<item id="ffa">
 		<id>0xffa</id>
-		<type>105</type>
 		<weight>1.5</weight>
 		<category>Equipment\Drinks\Bucket of Water</category>
 	</item>
 
 	<item id="1f7d">
 		<id>0x1f7d</id>
-		<weight>0.2</weight>
-		<type>105</type>
+		<weight>1.0</weight>
+		<events>beverage</events>
 		<category>Equipment\Drinks\Glass of Cider 1</category>
+		<tag name="fluid" value="cider" />
+		<tag name="quantity" value="5" type="int" />
 	</item>
 
 	<item id="1f7e" inherit="1f7d">
@@ -167,8 +193,11 @@
 
 	<item id="1f85">
 		<id>0x1f85</id>
-		<type>105</type>
+		<events>beverage</events>
 		<category>Equipment\Drinks\Glass of Liquor 1</category>
+		<weight>1.0</weight>
+		<tag name="fluid" value="liquor" />
+		<tag name="quantity" value="5" type="int" />
 	</item>
 
 	<item id="1f86" inherit="1f85">
@@ -188,8 +217,10 @@
 
 	<item id="1f89">
 		<id>0x1f89</id>
-		<weight>0.1</weight>
-		<type>105</type>
+		<weight>1.0</weight>
+		<tag name="fluid" value="milk" />
+		<tag name="quantity" value="5" type="int" />
+		<events>beverage</events>
 		<category>Equipment\Drinks\Glass of Milk 1</category>
 	</item>
 
@@ -210,8 +241,10 @@
 
 	<item id="1f8d">
 		<id>0x1f8d</id>
-		<weight>0.1</weight>
-		<type>105</type>
+		<weight>1.0</weight>
+		<tag name="fluid" value="wine" />
+		<tag name="quantity" value="5" type="int" />
+		<events>beverage</events>
 		<category>Equipment\Drinks\Glass of Wine 1</category>
 	</item>
 
@@ -230,10 +263,34 @@
 		<category>Equipment\Drinks\Glass of Wine 4</category>
 	</item>
 
+	<item id="1f81">
+		<category>Equipment\Drinks\Empty Glass 1</category>
+		<id>0x1f81</id>
+		<weight>1.0</weight>
+		<events>beverage</events>
+	</item>
+
+	<item id="1f82" inherit="1f81">
+		<id>0x1f82</id>
+		<category>Equipment\Drinks\Empty Glass 2</category>
+	</item>
+
+	<item id="1f83" inherit="1f81">
+		<id>0x1f83</id>
+		<category>Equipment\Drinks\Empty Glass 3</category>
+	</item>
+
+	<item id="1f84" inherit="1f81">
+		<id>0x1f84</id>
+		<category>Equipment\Drinks\Empty Glass 4</category>
+	</item>
+
 	<item id="1f91">
 		<id>0x1f91</id>
-		<weight>0.1</weight>
-		<type>105</type>
+		<weight>1.0</weight>
+		<tag name="fluid" value="water" />
+		<tag name="quantity" value="5" type="int" />
+		<events>beverage</events>
 		<category>Equipment\Drinks\Glass of Water 1</category>
 	</item>
 
@@ -256,8 +313,10 @@
 		<id>0x1f95</id>
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
-		<weight>2</weight>
-		<type>105</type>
+		<events>beverage</events>
+		<weight>1.0</weight>
+		<tag name="fluid" value="ale" />
+		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Drinks\Pitcher of Ale 1</category>
 	</item>
 
@@ -268,10 +327,12 @@
 
 	<item id="1f97">
 		<id>0x1f97</id>
-		<type>105</type>
+		<events>beverage</events>
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
-		<weight>2</weight>
+		<weight>1.0</weight>
+		<tag name="fluid" value="cider" />
+		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Drinks\Pitcher of Cider 1</category>
 	</item>
 
@@ -282,10 +343,12 @@
 
 	<item id="1f99">
 		<id>0x1f99</id>
-		<type>105</type>
+		<events>beverage</events>
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
-		<weight>2</weight>
+		<weight>1.0</weight>
+		<tag name="fluid" value="liquor" />
+		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Drinks\Pitcher of Liquor 1</category>
 	</item>
 
@@ -296,10 +359,12 @@
 
 	<item id="1f9b">
 		<id>0x1f9b</id>
-		<type>105</type>
+		<events>beverage</events>
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
-		<weight>2</weight>
+		<weight>1.0</weight>
+		<tag name="fluid" value="wine" />
+		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Drinks\Pitcher of Wine 1</category>
 	</item>
 
@@ -311,10 +376,12 @@
 	<!-- Pitcher of Water 1 -->
 	<item id="ff8">
 		<id>0xff8</id>
-		<type>105</type>
+		<events>beverage</events>
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
-		<weight>2</weight>
+		<weight>1.0</weight>
+		<tag name="fluid" value="water" />
+		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Food\Pitcher of Water 1</category>
 	</item>
 

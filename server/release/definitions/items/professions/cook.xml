@@ -533,26 +533,6 @@
 		<events>cooking</events>
 	</item>
 
-	<item id="1f81">
-		<category>Professions\Cook\Decoration\Kitchen\Glass 1</category>
-		<id>0x1f81</id>
-	</item>
-
-	<item id="1f82">
-		<id>0x1f82</id>
-		<category>Professions\Cook\Decoration\Kitchen\Glass 2</category>
-	</item>
-
-	<item id="1f83">
-		<id>0x1f83</id>
-		<category>Professions\Cook\Decoration\Kitchen\Glass 3</category>
-	</item>
-
-	<item id="1f84">
-		<id>0x1f84</id>
-		<category>Professions\Cook\Decoration\Kitchen\Glass 4</category>
-	</item>
-
 	<item id="10e8">
 		<id>0x10e8</id>
 		<category>Professions\Cook\Kitchen\Small Wooden Spoon</category>
