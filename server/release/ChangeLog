@@ -30,6 +30,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed an issue with skillgain in the low levels.
   - Its no longer possible to equip movable>=2 items with doubleclicks.
   - Added the tilepattern command.
+  - Fixed an issue with the magic property generator (splash damage and hit spell effects were happening far too often)
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

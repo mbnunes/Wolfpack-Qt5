@@ -642,16 +642,16 @@ def applyJuwelRandom(item, props, minintensity, maxintensity, luckchance):
 WEAPON_PROPERTIES = {
 	# PROPERT KEY, min value, max value, factor, accumulate
 	SPLASHPHYSICAL: [2, 50, 2, False],
-	SPLASHFIRE: [2, 50, 2, False],
-	SPLASHCOLD: [2, 50, 2, False],
-	SPLASHPOISON: [2, 50, 2, False],
-	SPLASHENERGY: [2, 50, 2, False],
+	#SPLASHFIRE: [2, 50, 2, False],
+	#SPLASHCOLD: [2, 50, 2, False],
+	#SPLASHPOISON: [2, 50, 2, False],
+	#SPLASHENERGY: [2, 50, 2, False],
 
 	HITMAGICARROW: [2, 50, 2, False],
-	HITHARM: [2, 50, 2, False],
-	HITFIREBALL: [2, 50, 2, False],
-	HITLIGHTNING: [2, 50, 2, False],
-	HITDISPEL: [2, 50, 2, False],
+	#HITHARM: [2, 50, 2, False],
+	#HITFIREBALL: [2, 50, 2, False],
+	#HITLIGHTNING: [2, 50, 2, False],
+	#HITDISPEL: [2, 50, 2, False],
 	#HIT_LOWERATTACK: [2, 50, 2, False],
 	#HIT_LOWERDEFEND: [2, 50, 2, False],
 	
@@ -704,6 +704,13 @@ def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 			continue
 
 		properties.remove(property)
+		
+		# Now that it's out of the array, correct the 
+		# property to be one of the different possibilities
+		if property == SPLASHPHYSICAL:
+			property = random.choice([SPLASHPHYSICAL, SPLASHFIRE, SPLASHCOLD, SPLASHPOISON, SPLASHENERGY])
+		elif property == HITMAGICARROW:
+			property = random.choice([HITMAGICARROW, HITHARM, HITFIREBALL, HITLIGHTNING, HITDISPEL])
 
 		# Scale the value for the property
 		info = WEAPON_PROPERTIES[property]
