@@ -3,7 +3,7 @@
 # http://www.phpmyadmin.net/ (download page)
 #
 # Servidor: localhost
-# Tempo de Generação: Out 22, 2002 at 03:42 PM
+# Tempo de Generação: Out 26, 2002 at 03:43 PM
 # Versão do Servidor: 4.00.01
 # Versão do PHP: 4.2.2
 # Banco de Dados : `wolfpack`
@@ -189,7 +189,7 @@ CREATE TABLE items (
   speed int(11) NOT NULL default '0',
   poisoned int(11) unsigned NOT NULL default '0',
   magic int(11) NOT NULL default '0',
-  owner int(11) NOT NULL default '0',
+  owner int(11) NOT NULL default '-1',
   visible int(11) NOT NULL default '0',
   spawn int(11) NOT NULL default '0',
   dir int(11) NOT NULL default '0',
