@@ -153,6 +153,7 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 							if( hostinfo )
 							{
 								UINT32 i = 0;
+
 								while( hostinfo->h_addr_list[i] )
 								{
 									// Check if it's an INTERNET ADDRESS
@@ -168,11 +169,16 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 										( ( part1 == 192 ) && ( part2 == 168 ) ) || 
 										( ( part1 == 172 ) && ( part2 == 16 ) ) 
 										)
+									{
+										server.ip = ip;
+										inetIp = ip;
 										continue;
+									}
 
 									// We are now certain that it's a valid INET ip
 									server.ip = ip;
 									inetIp = ip;
+									break;
 								}
 							}
 						}
