@@ -1111,6 +1111,10 @@ void cUOSocket::handleMultiPurpose(cUORxMultiPurpose *packet) {
 		handleCustomHouseRequest(dynamic_cast<cUORxCustomHouseRequest*>(packet));
 		return;
 
+	case cUORxMultiPurpose::extendedStats:
+		handleExtendedStats(dynamic_cast<cUORxExtendedStats*>(packet));
+		return;
+
 	case cUORxMultiPurpose::partySystem:
 		handleParty(packet);
 		return;		
@@ -2703,3 +2707,31 @@ bool cUOSocket::canSee(cUObject *object) {
 		return _player->canSee(object);
 	}
 }
+
+void cUOSocket::handleExtendedStats(cUORxExtendedStats *packet) { 	 
+	unsigned char lock = packet->lock(); 	 
+	unsigned char stat = packet->stat(); 	 
+
+	if (lock > 2) { 	 
+			log(LOG_WARNING, QString("Wrong lock value for extended stats packet: %1\n").arg(lock)); 	 
+			return; 	 
+	} 	 
+
+	switch (stat) { 	 
+			case 0: 	 
+					_player->setStrengthLock(lock); 	 
+					break; 	 
+
+			case 1: 	 
+					_player->setDexterityLock(lock); 	 
+					break; 	 
+
+			case 2: 	 
+					_player->setIntelligenceLock(lock); 	 
+					break; 	 
+
+			default: 	 
+					log(LOG_WARNING, QString("Wrong stat value for extended stats packet: %1\n").arg(stat)); 	 
+					break; 	 
+	} 	 
+} 	 
