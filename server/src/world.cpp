@@ -529,7 +529,7 @@ void cWorld::load()
 
 			if( pCont )
 			{
-				pCont->addItem( pi, false, true, true );
+				pCont->addItem( pi, false, isCharSerial( reinterpret_cast<SERIAL>( pCont->container() ) )?false:true, true );
 			}
 			else
 			{
