@@ -808,321 +808,6 @@ void cAllItems::DeleItem(P_ITEM pi)
 	}
 }
 
-// sockets
-P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
-{
-	char sect[512];
-	int tmp, loopexit = 0;
-	long int pos;
-	tile_st tile;
-	
-	openscript("items.scp");
-	sprintf(sect, "ITEM %i", itemnum);
-	if (!i_scripts[items_script]->find(sect))
-	{
-		closescript();
-		if (n_scripts[custom_item_script][0] != 0)
-		{
-			openscript(n_scripts[custom_item_script]);
-			if (!i_scripts[custom_item_script]->find(sect))
-			{
-				closescript(); // AntiChrist
-				return NULL;
-			}
-			else 
-				strcpy(sect, n_scripts[custom_item_script]);
-		} else 
-			return NULL;
-	} else 
-		strcpy(sect, "items.scp");
-	
-	P_ITEM pi = Items->MemItemFree();
-	if (pi == NULL)
-	{
-		closescript();	// make sure script is closed before make_itemref might exit (Duke, 27.4.01)
-		return NULL;
-	}
-	pi->Init();
-	
-	pi->setId(0x0915);
-	
-	do
-	{
-		read2();
-		if (script1[0] != '}')
-		{
-			switch (script1[0])
-			{
-				case 'A':
-				case 'a':
-					if (!strcmp("AMOUNT", (char*)script1))		pi->setAmount( str2num(script2) );
-					else if (!strcmp("ATT", (char*)script1)) 	pi->att = getstatskillvalue((char*)script2);
-					break;
-					
-				case 'C':
-				case 'c':
-					if (!strcmp("COLOR", (char*)script1))
-					{
-						tmp = hex2num(script2);
-						pi->setColor( tmp );
-					}
-					else if (!strcmp("CREATOR", (char*)script1))		pi->creator = (char*)script2; // by Magius(CHE)
-					else if (!strcmp("COLORLIST", (char*)script1))
-					{
-						pos = ftell(scpfile);
-						closescript();
-						tmp = addrandomcolor(currchar[so], (char*)script2);
-						{
-							pi->setColor( tmp );
-						}
-						openscript(sect);
-						fseek(scpfile, pos, SEEK_SET);
-						strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
-					}
-					break;
-					
-				case 'D':
-				case 'd':
-					if (!strcmp("DAMAGE", (char*)script1))		pi->att = getstatskillvalue((char*)script2);
-					else if (!strcmp("DEX", (char*)script1))
-						pi->dx = str2num(script2);
-					else if (!strcmp("DISABLED", (char*)script1))
-						pi->disabled = uiCurrentTime + (str2num(script2)*MY_CLOCKS_PER_SEC);// AntiChrist
-					else if (!strcmp("DISABLEMSG", (char*)script1))
-						pi->disabledmsg = (char*)script2;  
-					else if (!strcmp("DISPELLABLE", (char*)script1))
-						pi->priv |= 0x04;
-					else if (!strcmp("DECAY", (char*)script1))
-						pi->priv |= 0x01;
-					else if (!strcmp("DIR", (char*)script1))
-						pi->dir = str2num(script2);
-					else if (!strcmp("DYE", (char*)script1))
-						pi->dye = str2num(script2);
-					else if (!strcmp("DEXADD", (char*)script1))
-						pi->dx2 = str2num(script2);
-					else if (!strcmp("DEF", (char*)script1))
-						pi->def = str2num(script2);
-					break;
-					
-				case 'G':
-				case 'g':
-					if (!(strcmp("GOOD", (char*)script1)))
-						pi->good = str2num(script2); // Added by Magius(CHE)
-					break;
-					
-				case 'H':
-				case 'h':
-					if (!(strcmp("HIDAMAGE", (char*)script1)))
-						pi->setHidamage( str2num( script2 ) );
-					else if (!(strcmp("HP", (char*)script1)))
-						pi->setHp( str2num(script2) );
-					break;
-					
-				case 'I':
-				case 'i':
-					if (!(strcmp("ID", (char*)script1)))
-					{
-						tmp = hex2num(script2);
-						pi->setId(tmp);
-					}
-					else if (!strcmp("ITEMLIST", (char*)script1))
-					{
-						pos = ftell(scpfile);
-						closescript();
-						Items->DeleItem(pi);
-						pi=CreateScriptRandomItem(so, (char*)script2);
-						openscript(sect);
-						fseek(scpfile, pos, SEEK_SET);
-						strcpy((char*)script1, "DUMMY");
-					}
-					else if (!strcmp("INT", (char*)script1))
-						pi->in = str2num(script2);
-					else if (!strcmp("INTADD", (char*)script1))
-						pi->in2 = str2num(script2);
-					else if (!strcmp("ITEMHAND", (char*)script1))
-						pi->setItemhand( str2num(script2) );
-					break;
-					
-				case 'L':
-				case 'l':
-					if (!strcmp("LAYER", (char*)script1) && (so==-1))
-						pi->setLayer( str2num(script2) );
-					else if (!strcmp("LODAMAGE", (char*)script1))
-						pi->setLodamage( str2num( script2 ) );
-					break;
-					
-				case 'M':
-				case 'm':
-					if (!strcmp("MORE", (char*)script1))
-					{
-						tmp = str2num(script2);
-						pi->more1 = tmp >> 24;
-						pi->more2 = tmp >> 16;
-						pi->more3 = tmp >> 8;
-						pi->more4 = tmp%256;
-					}
-					// MORE2 may not be useful ?
-					else if (!strcmp("MORE2", (char*)script1))
-					{
-						tmp = str2num(script2);
-						pi->setMoreb1( tmp >> 24 );
-						pi->setMoreb1( tmp >> 16 );
-						pi->setMoreb1( tmp >> 8 );
-						pi->setMoreb1( tmp%256 );
-					}
-					else if (!strcmp("MOVABLE", (char*)script1))
-						pi->magic = str2num(script2);
-					else if (!strcmp("MAXHP", (char*)script1))
-						pi->setMaxhp( str2num(script2) ); // by Magius(CHE)
-					else if (!strcmp("MOREX", (char*)script1))
-						pi->morex = str2num(script2);
-					else if (!strcmp("MOREY", (char*)script1))
-						pi->morey = str2num(script2);
-					else if (!strcmp("MOREZ", (char*)script1))
-						pi->morez = str2num(script2);
-					break;
-					
-				case 'N':
-				case 'n':
-					if (!strcmp("NEWBIE", (char*)script1))
-						pi->priv = pi->priv | 0x02;
-					else if (!strcmp("NAME", (char*)script1))
-						pi->setName( (char*)script2 );
-					else if (!strcmp("NAME2", (char*)script1))
-						pi->setName2( (char*)script2 );
-					break;
-					
-				case 'O':
-				case 'o':
-					if (!strcmp("OFFSPELL", (char*)script1))
-						pi->setOffspell( str2num(script2) );
-					break;
-					
-				case 'P':
-				case 'p':
-					if (!strcmp("POISONED", (char*)script1))
-						pi->poisoned = str2num(script2);
-					break;
-					
-				case 'R':
-				case 'r':
-					if (!strcmp("RACEHATE", (char*)script1))
-						pi->setRacehate( str2num(script2) );
-					else if (!strcmp("RANK", (char*)script1))
-					{
-						pi->rank = str2num(script2); // By Magius(CHE)
-						if (pi->rank <= 0)
-							pi->rank = 10;
-					}
-					else if (!(strcmp("RESTOCK", (char*)script1)))
-						pi->restock = str2num(script2);
-					break;
-					
-					
-				case 'S':
-				case 's':
-					if (!strcmp("SK_MADE", (char*)script1))
-						pi->madewith = str2num(script2); // by Magius(CHE)
-					else if (!strcmp("SMELT", (char*)script1))
-						pi->setSmelt( str2num( script2 ) );
-					else if (!strcmp("STR", (char*)script1))
-						pi->st = str2num(script2);
-					else if (!strcmp("SPD", (char*)script1))
-						pi->setSpeed( str2num(script2) );
-					else if (!strcmp("STRADD", (char*)script1))
-						pi->st2 = str2num(script2);
-					break;
-					
-				case 'T':
-				case 't':
-					if (!strcmp("TYPE", (char*)script1))
-						pi->setType( str2num(script2) );
-					else if (!strcmp("TRIGGER", (char*)script1))
-						pi->trigger = str2num(script2);
-					else if (!strcmp("TRIGTYPE", (char*)script1))
-						pi->trigtype = str2num(script2);
-					else if (!strcmp("TRIGON", (char*)script1))
-						pi->trigon = str2num(script2);// New trigger type for items -Frazurbluu-
-					break;
-					
-				case 'U':
-				case 'u':
-					if (!strcmp("USES", (char*)script1))
-						pi->tuses = str2num(script2);
-					break;
-					
-				case 'V':
-				case 'v':
-					if (!strcmp("VISIBLE", (char*)script1))
-						pi->visible = str2num(script2);
-					else if (!strcmp("VALUE", (char*)script1))
-						pi->value = str2num(script2);
-					break;
-					
-				case 'W':
-				case 'w':
-					if (!strcmp("WEIGHT", (char*)script1))
-					{
-						//int anum = 3;
-						// anum=4;
-						int anum = str2num(script2); // Ison 2-20-99
-						pi->setWeight( anum );
-					}
-					break;
-			}
-		}
-	}
-	while ((script1[0] != '}') &&(++loopexit < MAXLOOPS));
-
-	closescript();
-
-	if (pi)	// checking pi is needed here because ITEMLIST can set it to NULL (Duke, 4.9.01)
-	{
-		Map->SeekTile(pi->id(), &tile);
-		if( tile.flag2&0x08 )
-			pi->setPileable( true );
-		
-		if( !pi->maxhp() && pi->hp() )
-			pi->setMaxhp( pi->hp() ); // Magius(CHE)
-	}
-	
-	return pi;	
-}
-
-P_ITEM cAllItems::CreateScriptItem(int s, int itemnum, int nSpawned)
-{
-	P_ITEM pi = Items->CreateFromScript(s,itemnum);
-	if (pi == NULL)
-	{
-		LogWarningVar("ITEM <%i> not found in the scripts",itemnum);
-		return NULL;
-	}
-
-	if ((s!=-1) && (!nSpawned))
-	{
-		if (triggerx)
-		{
-			pi->MoveTo(triggerx,triggery,triggerz);
-		}
-		else
-		{
-			short xx,yy;
-			signed char zz;
-			xx=(buffer[s][11]<<8)+buffer[s][12];
-			yy=(buffer[s][13]<<8)+buffer[s][14];
-			zz=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]);
-			pi->MoveTo(xx,yy,zz);
-		}
-	}
-	else
-	{
-		if (pi->isInWorld())
-			mapRegions->Add(pi);
-	}
-
-	return pi;
-}
-
 int cAllItems::CreateRandomItem(char * sItemList)//NEW FUNCTION -- 24/6/99 -- AntiChrist merging codes
 {
 	int i=0, loopexit=0, iList[256];  //-- no more than 256 items in a single item list
@@ -1196,7 +881,7 @@ cItem* cAllItems::CreateScriptRandomItem(int s, char * sItemList)
 
 	if (k!=0)
 	{
-		return CreateScriptItem(s, k, 1);  // -- Create Item
+		return createScriptItem(s, QString("%1").arg(k), 1);  // -- Create Item
 	}
 	return NULL;
 }
@@ -1258,7 +943,7 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 	return pi;
 }
 
-P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, int nItem)
+P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, QString nItem)
 {
 	if (pc_ch == NULL) 
 		return NULL;
@@ -1272,7 +957,7 @@ P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, int nItem)
 	}
 
 	UOXSOCKET s = calcSocketFromChar(pc_ch);          // Don't check if s == -1, it's ok if it is.
-	P_ITEM pi = CreateScriptItem(s, nItem, 1);
+	P_ITEM pi = createScriptItem(s, nItem, 1);
 	if (pi == NULL)
 		return NULL;
 	GetScriptItemSetting(pi); 
@@ -1551,12 +1236,12 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 
 }
 
-P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Added by Genesis 11-5-98
+P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging) // Added by Genesis 11-5-98
 {
 	P_CHAR pc_currchar = currchar[s];
 	P_ITEM backpack = Packitem(pc_currchar);
 	
-	P_ITEM pi = CreateScriptItem(s, nItem, 1);
+	P_ITEM pi = createScriptItem(s, nItem, 1);
 	if (pi == NULL || backpack == NULL)
 		return NULL;
 
@@ -1841,7 +1526,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, int x, int y)
 	if (pItem == NULL)
 		return;
 
-	P_ITEM pi = CreateScriptItem(-1, x, 1); // lb, bugfix
+	P_ITEM pi = createScriptItem(-1, QString("%1").arg(x), 1); // lb, bugfix
 	if (pi == NULL) return;
 	
 	if(y<=0)
@@ -1910,6 +1595,39 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 				}
 		}
 	}		
+}
+
+P_ITEM cAllItems::createScriptItem( UOXSOCKET s, QString Section, UI32 nSpawned )
+{
+	P_ITEM nItem = this->createScriptItem( Section );
+
+	if( nItem == NULL )
+		return NULL;
+
+	if( s != -1 && !nSpawned )
+	{
+		if (triggerx)
+		{
+			nItem->MoveTo(triggerx,triggery,triggerz);
+		}
+		else
+		{
+			short xx,yy;
+			signed char zz;
+			xx=(buffer[s][11]<<8)+buffer[s][12];
+			yy=(buffer[s][13]<<8)+buffer[s][14];
+			zz=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]);
+			nItem->MoveTo(xx,yy,zz);
+		}
+	}
+	else
+	{
+		if( nItem->isInWorld() )
+			mapRegions->Add( nItem );
+		sendinrange( nItem );
+	}
+
+	return nItem;
 }
 
 // Retrieves the Item Information stored in Section

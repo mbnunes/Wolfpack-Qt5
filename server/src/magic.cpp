@@ -3153,7 +3153,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			//////////// (2) CREATE FOOD ////////////////
         case 2: // Fallen/Ripper - Now random food from scripts (ITEMLIST 75)
 			{
-	           P_ITEM pj = Items->SpawnItemBackpack2(s,Items->CreateRandomItem("75"),1);
+	           P_ITEM pj = Items->SpawnItemBackpack2(s,QString("%1").arg(Items->CreateRandomItem("75")),1);
 			   {
 	              if (pj != NULL) // Ripper
 				  {

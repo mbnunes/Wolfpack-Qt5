@@ -1022,7 +1022,7 @@ void cGuildStone::SetType(enGuildType type)
 			if (holding != NULL) 
 			{
 				RemoveShields( holding );
-				Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 29, 1 );	// will not work for offline chars (Duke)
+				Items->SpawnItemBackpack2( calcSocketFromChar( holding ), "29", 1 );	// will not work for offline chars (Duke)
 			}
 		}
 		Broadcast( "Your guild is now an Order guild." );
@@ -1035,7 +1035,7 @@ void cGuildStone::SetType(enGuildType type)
 			if ( holding != NULL ) 
 			{
 				RemoveShields( holding );
-				Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 28, 1 );
+				Items->SpawnItemBackpack2( calcSocketFromChar( holding ), "28", 1 );
 			}
 		}
 		Broadcast( "Your guild is now a Chaos guild." );

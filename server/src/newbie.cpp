@@ -129,7 +129,7 @@ void newbieitems(UOXSOCKET s, P_CHAR pc)
 					pos = ftell(scpfile);
 					closescript();
 					
-					P_ITEM pi_n = Items->SpawnItemBackpack2(s, storeval, 0); // Tauriel 11-24-98
+					P_ITEM pi_n = Items->SpawnItemBackpack2(s, script2, 0); // Tauriel 11-24-98
 					if (pi_n != NULL)
 						pi_n->priv |= 0x02; // Mark as a newbie item
 					strcpy((char*)script1, "DUMMY");
@@ -142,7 +142,7 @@ void newbieitems(UOXSOCKET s, P_CHAR pc)
 					pos = ftell(scpfile);
 					closescript();
 				
-					P_ITEM pi = Items->SpawnItemBank(pc, storeval); // Tauriel 11-24-98
+					P_ITEM pi = Items->SpawnItemBank(pc, script2); // Tauriel 11-24-98
 					if (pi != NULL)
 						pi->priv |= 0x02; // Mark as a newbie item
 					strcpy((char*)script1, "DUMMY");

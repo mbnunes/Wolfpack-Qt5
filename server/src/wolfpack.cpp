@@ -3027,12 +3027,6 @@ int main( int argc, char *argv[] )
 	//Weather->run() ;
 	//Network->InitConnThread();
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// Removed by Dupois July 18, 2000!
-// - Crashes server during if '#' - Save World option is used and corrupts the world file
-//	quite nicely I might add. safer to just use the old checkkey() call in the main's while loop.
-//InitKbThread();
-////////////////////////////////////////////////////////////////////////////////////////////////////
 	clConsole.send("WOLFPACK: Startup Complete.\n\n");
 
 
@@ -5768,51 +5762,19 @@ void Fame(P_CHAR pc_toChange, int nFame)
 		}
 }
 
-void enlist(int s, int listnum) // listnum is stored in items morex
+void enlist(UOXSOCKET s, UI32 listnum) // listnum is stored in items morex
 {
-	int x,pos;
-	char sect[50];
+	QStringList itemSections = DefManager->getList( QString("%1").arg(listnum) );
 
-	openscript("items.scp");
-	sprintf(sect, "ITEMLIST %i", listnum);
-	if (!i_scripts[items_script]->find(sect))
+	if( !itemSections.isEmpty() )
 	{
-		closescript();
-		if (n_scripts[custom_item_script][0]!=0)
+		QStringList::iterator itemSect = itemSections.begin();
+		while( itemSect != itemSections.end() )
 		{
-			openscript(n_scripts[custom_item_script]);
-			if (!i_scripts[custom_item_script]->find(sect))
-			{
-				clConsole.send("WOLFPACK: ITEMLIST not found, aborting.\n");
-				closescript();//AntiChrist
-				return;
-			} else strcpy(sect,n_scripts[custom_item_script]);
-		} else {
-			clConsole.send("WOLFPACK: ITEMLIST not found, aborting.\n");
-			return;
-		}
-	} else strcpy(sect, "items.scp");
-
-	unsigned long loopexit=0;
-	do
-	{
-		read2();
-		if (script1[0]!='}')
-		{
-			x=str2num(script1);
-			pos=ftell(scpfile);
-			closescript();//AntiChrist
-			P_ITEM pi_j = Items->SpawnItemBackpack2(s, x, 0);
-			if(pi_j == NULL) return;//AntiChrist to preview crashes
-			openscript(sect);
-			fseek(scpfile, pos, SEEK_SET);
-			strcpy((char*)script1, "DUMMY");
-			RefreshItem(pi_j);//AntiChrist
+			Items->SpawnItemBackpack2( s, *itemSect, 0);
+			itemSect++;
 		}
 	}
-	while((strcmp((char*)script1,"}")) && (++loopexit < MAXLOOPS) );
-
-	closescript();//AntiChrist
 }
 
 void criminal(P_CHAR pc)//Repsys ....Ripper

@@ -175,21 +175,21 @@ void slotmachine(UOXSOCKET s, P_ITEM pi)
 	int spin=RandomNum( 0,100);	// now lets spin to win :)
 	switch(spin)
 	{
-	case 0: Items->SpawnItemBackpack2(s,3185,1);
+	case 0: Items->SpawnItemBackpack2(s,"3185",1);
 		sysmessage(s,"Single bars, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 1: Items->SpawnItemBackpack2(s,3186,1);
+	case 1: Items->SpawnItemBackpack2(s,"3186",1);
 		sysmessage(s,"Double bars, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 2: Items->SpawnItemBackpack2(s,3187,1);
+	case 2: Items->SpawnItemBackpack2(s,"3187",1);
 		sysmessage(s,"Triple bars, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 3: Items->SpawnItemBackpack2(s,2003,1);
+	case 3: Items->SpawnItemBackpack2(s,"2003",1);
 		sysmessage(s,"Any three 7`s, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 4: Items->SpawnItemBackpack2(s,2004,1);
+	case 4: Items->SpawnItemBackpack2(s,"2004",1);
 		sysmessage(s,"Three blue 7`s, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 5: Items->SpawnItemBackpack2(s,2005,1);
+	case 5: Items->SpawnItemBackpack2(s,"2005",1);
 		sysmessage(s,"Three white 7`s, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 6: Items->SpawnItemBackpack2(s,2006,1);
+	case 6: Items->SpawnItemBackpack2(s,"2006",1);
 		sysmessage(s,"Three red 7`s, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	case 7: Items->SpawnItemBackpack2(s,2007,1);
+	case 7: Items->SpawnItemBackpack2(s,"2007",1);
 		sysmessage(s,"Jackpot, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
 	default : itemmessage(s,"Sorry,not a winner,please insert coins.",pi->serial); break;
 	}

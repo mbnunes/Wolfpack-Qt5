@@ -684,9 +684,9 @@ bool makeItem( UOXSOCKET Socket, QDomElement& Action )
 	}
 
 	// Create the item in the users backpack
-	UI32 ItemNum = Action.attributeNode( "id" ).nodeValue().toUInt();
+	QString ItemID = Action.attributeNode( "id" ).nodeValue();
 
-	P_ITEM Item = Items->SpawnItemBackpack2( Socket, ItemNum, false );
+	P_ITEM Item = Items->SpawnItemBackpack2( Socket, ItemID, false );
 
 	applyRank( Socket, Item, Rank );
 

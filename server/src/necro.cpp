@@ -152,7 +152,7 @@ int SpawnRandomItem(int nCharID,int nInPack, char* cScript, char* cList, char* c
 		if(item[i]!=-1)
 		if(nInPack)
 		{
-			Items->SpawnItemBackpack2(nCharID,item[i],1);
+			Items->SpawnItemBackpack2(nCharID,QString("%1").arg(item[i]),1);
 			return item[i];
 		}
 	}

@@ -29,6 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+/* UNUSED CRAP (removed on 06/02/02sereg)
 #include "wolfpack.h"
 #include "mapstuff.h"
 #include "debug.h"
@@ -196,3 +197,4 @@ void qsfLoad(char *fn, short depth) // Load a quest script file
 	while (strcmp((char*)script1, "EOF") && !feof(fp) );
 	fclose(fp);
 }
+*/

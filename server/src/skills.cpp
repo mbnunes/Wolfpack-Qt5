@@ -350,7 +350,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			delequan(pc_currchar, itemmake[s].Mat1id, itemmake[s].needs);
 		}
 		itemmake[s].Mat1id=0;
-		const P_ITEM pi = Items->SpawnItemBackpack2(s, x, 0);
+		const P_ITEM pi = Items->SpawnItemBackpack2(s, QString("%1").arg(x), 0);
 		if (pi == NULL)
 		{
 			LogWarningVar("bad script item # %d(Item Not found).", x);
@@ -493,7 +493,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			pi->more2 = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
 			pi->more3 = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
 			pi->more4 = static_cast<unsigned char>((pi->serial&0x000000FF));
-			P_ITEM pik = Items->CreateScriptItem(-1, 339, 1);
+			P_ITEM pik = Items->createScriptItem(-1, "339", 1);
 			if (pik == NULL) return;
 			pik->setType( 7 );				// Item is a key
 			pik->more1 = pi->more1;		// Copy the lock-number to the keys more-variable
@@ -2856,7 +2856,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 	{
 		if (CheckSkill(pc_currchar, CARTOGRAPHY, tmap->morey * 10, 1000))	// Is the char skilled enaugh to decipher the map
 		{
-			P_ITEM nmap = Items->SpawnItemBackpack2(s, 70025, 0);
+			P_ITEM nmap = Items->SpawnItemBackpack2(s, "70025", 0);
 			if (nmap == NULL)
 			{
 				LogWarning("bad script item # 70025(Item Not found).");

@@ -115,7 +115,7 @@ int fielddir(P_CHAR pc, int x, int y, int z);
 void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target);
 void npcsimpleattacktarget(P_CHAR pc_target2, P_CHAR pc_target);
 int RandomNum(int nLowNum, int nHighNum);
-void enlist(int s, int listnum); // For enlisting in army
+void enlist(UOXSOCKET s, UI32 listnum); // For enlisting in army
 
 // Day and Night related prototypes
 void doworldlight(void);

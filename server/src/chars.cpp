@@ -1163,6 +1163,8 @@ void cChar::processNode( const QDomElement &Tag )
 			this->dir=7;
 		else if( Value == "N" )
 			this->dir=0;
+		else
+			this->dir=Value.toUShort();
 	}
 
 	//<stat type="str">100</stats>
@@ -1231,17 +1233,6 @@ void cChar::processNode( const QDomElement &Tag )
 	//<hidamage>10</hidamage>
 	else if( TagName == "hidamage" )
 		this->hidamage = Value.toInt();
-
-#pragma note("Hair color tag not yet implemented!")
-/*
-	//<haircolor>2</haircolor> (colorlist)
-	else if( TagName == "haircolor" )
-	{
-		unsigned short haircolor = addrandomhaircolor(this, (this*)Value.latin1());
-		if( haircolor != -1 )
-			this->setHairColor( haircolor );
-	}
-*/
 
 	//<id>0x11</id>
 	else if( TagName == "id" )

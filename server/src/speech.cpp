@@ -372,7 +372,7 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 				{
 					cwmWorldState->RemoveItemsFromCharBody(currchar[s]->serial,0x1B, 0xC3);
 					// if they are wearing a chaos shield lets just delete it.
-					Items->SpawnItemBackpack2( s,28,1 );	// lets give them a new chaos shield.
+					Items->SpawnItemBackpack2( s,"28",1 );	// lets give them a new chaos shield.
 					npctalk(s,pGuard,"Hi fellow guild member,here is your new shield.",1);
 				}
 			}
@@ -411,7 +411,7 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 				{
 					cwmWorldState->RemoveItemsFromCharBody(currchar[s]->serial,0x1B, 0xC4);
 					// if they are wearing an order shield lets just delete it.
-					Items->SpawnItemBackpack2( s, 29, 1 );	// lets give them a new chaos shield.
+					Items->SpawnItemBackpack2( s, "29", 1 );	// lets give them a new chaos shield.
 					npctalk(s,pGuard,"Hi fellow guild member, here is your new shield.",1);
 				}
 			}

@@ -290,14 +290,13 @@ private:
 public:
 	// Added by DarkStorm
 	P_ITEM createScriptItem( QString Section ); // Creates an item from an item-section
+	P_ITEM createScriptItem( UOXSOCKET s, QString Section, UI32 nSpawned ); // Creates an item from an item-section
 	P_ITEM createListItem( QString Section ); // Creates an Item from an item-list
 
 	cAllItems() {}
 	void DeleItem(P_ITEM pi);
 	P_ITEM  MemItemFree();
 	char isFieldSpellItem(P_ITEM pi);
-	P_ITEM CreateFromScript(UOXSOCKET s, int itemnum);
-	P_ITEM  CreateScriptItem(int s, int itemnum, int nSpawned);
 	int  CreateRandomItem(char *sItemList);
 	P_ITEM  SpawnItem(UOXSOCKET nSocket,
 				int nAmount, char* cName, int nStackable,
@@ -310,8 +309,8 @@ public:
 				unsigned short cColorId,
 				int nPack, int nSend);
 	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, char* cName, bool pileable, short id, short color, bool bPack);
-	P_ITEM SpawnItemBank(P_CHAR pc_ch, int nItem);
-	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging);
+	P_ITEM SpawnItemBank(P_CHAR pc_ch, QString nItem);
+	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging);
 	void DecayItem(unsigned int currenttime, P_ITEM pi);
 	void RespawnItem(unsigned int Currenttime, P_ITEM pi);
 	void AddRespawnItem(P_ITEM pItem, int x, int y);

@@ -160,7 +160,7 @@ int SpawnFishingItem(UOXSOCKET s,int nInPack, char* cScript, char* cList, char* 
 		if(item[i]!=-1)
 		if(nInPack)
 		{
-			Items->SpawnItemBackpack2(s,item[i],1);
+			Items->SpawnItemBackpack2(s,QString("%1").arg(item[i]),1);
 			return item[i];
 		}
 	}

@@ -904,7 +904,7 @@ P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 up
 	if (s>=0)
 		if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return NULL;
 
-	P_ITEM pi = Items->CreateScriptItem(s, addmitem, 0);
+	P_ITEM pi = Items->createScriptItem(s, QString("%1").arg(addmitem), 0);
 	if (pi == NULL) return NULL;
 	if (x)
 		RefreshItem(pi);
@@ -1650,7 +1650,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 					storeval=str2num(script2);
 					pos=ftell(scpfile);
 					closescript();
-					P_ITEM pi10 = Items->CreateScriptItem(s,storeval,0);
+					P_ITEM pi10 = Items->createScriptItem(s,script2,0);
 					if (pi10 == NULL)
 						return;
 					pi10->setLayer( 0x00 );
@@ -2758,7 +2758,7 @@ void cTargets::JailTarget(int s, int c)
 			sysmessage(prisoner, "You are jailed !"); 
 			sysmessage(prisoner, "You notice you just got something new at your backpack.."); 
 			sysmessage(s, "Player %s has been jailed in cell %i.", pc->name.c_str(), i); 
-			Items->SpawnItemBackpack2(prisoner, 50040, 0); // spawn crystall ball of justice to prisoner. 
+			Items->SpawnItemBackpack2(prisoner, "50040", 0); // spawn crystall ball of justice to prisoner. 
 			// end blackwinds jail 
 			
 			x++; 
