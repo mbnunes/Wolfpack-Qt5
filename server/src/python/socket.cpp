@@ -95,40 +95,17 @@ static PyObject* wpSocket_disconnect( wpSocket* self, PyObject* args )
 /*!
 	Sends a system message to the socket
 */
-static PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
-{
-	if( !self->pSock )
-		return PyFalse;
+static PyObject* wpSocket_sysmessage(wpSocket* self, PyObject* args) {
+	char *message;
+	unsigned short color = 0x3b2;
+	unsigned short font = 3;
 
-	QString message;
-	PyObject* param;
-	if( PyTuple_Size( args ) > 0 )
-		param = PyTuple_GetItem( args, 0 );
-
-	if( checkArgStr( 0 ) )
-	{
-		message = PyString_AsString( param );
-	}
-	else if( checkArgUnicode( 0 ) )
-	{
-		message.setUnicodeCodes( (unsigned short*)getArgUnicode( 0 ), getUnicodeSize( 0 ) ) ;
-	}
-	else
-	{
-		PyErr_BadArgument();
-		return NULL;
+	if (!PyArg_ParseTuple(args, "es|HH:socket.sysmessage(message, color, font)", "utf-8", message, color, font)) {
+		return 0;
 	}
 
-	UINT16 color = 0x3b2;
-	UINT16 font = 3;
-
-	if( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
-		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
-
-	if( PyTuple_Size( args ) > 2 && checkArgInt( 2 ) )
-		font = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
-
-	self->pSock->sysMessage( message, color, font );
+	self->pSock->sysMessage(QString::fromUtf8(message), color, font);
+	PyMem_Free(message);
 
 	return PyTrue;
 }
