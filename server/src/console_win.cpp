@@ -550,7 +550,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	ShowWindow( mainWindow, SW_NORMAL );
 
 	cServerThread serverThread(lpCmdLine);
-	//serverThread.start();
+	serverThread.start();
 
 	MSG msg;
 
