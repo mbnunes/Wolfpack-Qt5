@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "engine.h"
@@ -577,7 +577,7 @@ static PyObject* wpRegion( PyObject* self, PyObject* args )
 static PyObject* wpSpawnregion( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	
+
 	// Three arguments
 	char *name;
 	if ( !PyArg_ParseTuple( args, "s:wolfpack.spawnregion", &name) )
@@ -781,7 +781,7 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 static PyObject *wpCanPlace( PyObject* self, PyObject *args ) {
 	Coord pos;
 	unsigned short multiid;
-	unsigned short yard;	
+	unsigned short yard;
 	if (!PyArg_ParseTuple(args, "O&hh:wolfpack.canplace(id, yard)", &PyConvertCoord, &pos, &multiid, &yard)) {
 		return 0;
 	}
@@ -789,11 +789,11 @@ static PyObject *wpCanPlace( PyObject* self, PyObject *args ) {
 	QPtrList<cUObject> moveOut; // List of objects to move out
 
 	PyObject *result = PyTuple_New(2);
-    
+
 	if (cMulti::canPlace(pos, multiid, moveOut, yard)) {
 		Py_INCREF(Py_True);
 		PyTuple_SET_ITEM(result, 0, Py_True);
-		
+
 		PyObject *list = PyTuple_New(moveOut.count());
 		int i = 0;
 		for (cUObject *obj = moveOut.first(); obj; obj = moveOut.next()) {
@@ -1882,7 +1882,7 @@ static PyObject *wpItemBase(PyObject*, PyObject *args) {
 \return The translated message into the current server's language.
 \description Get a message in English and translates it into the current server's language.
 */
-static PyObject* wpTr(PyObject*, PyObject *args) 
+static PyObject* wpTr(PyObject*, PyObject *args)
 {
 	char* message = 0;
 	if ( !PyArg_ParseTuple( args, "s:wolfpack.tr(message)", &message ) )

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "python/tempeffect.h"
@@ -485,28 +485,28 @@ void cTimer::load(cBufferedReader &reader, unsigned int /*version*/)
 }
 
 void cTimer::save(cBufferedWriter &writer, unsigned int /*version*/)
-{	
+{
 	writer.writeInt(expiretime - Server::instance()->time());
 	writer.writeBool(dispellable);
 	writer.writeInt(sourSer);
 	writer.writeInt(destSer);
 }
 
-void cTimers::save(cBufferedWriter &writer) 
+void cTimers::save(cBufferedWriter &writer)
 {
 	std::vector<cTimer*>::iterator it;
-	for (it = teffects.begin(); it != teffects.end(); ++it) 
+	for (it = teffects.begin(); it != teffects.end(); ++it)
 	{
-		if ((*it)->isSerializable()) 
+		if ((*it)->isSerializable())
 		{
 			writer.writeByte(0xFC);
 			writer.writeAscii((*it)->objectID().latin1());
-			(*it)->save(writer, writer.version());			
+			(*it)->save(writer, writer.version());
 		}
 	}
 }
 
-void cTimers::load(cBufferedReader &reader) 
+void cTimers::load(cBufferedReader &reader)
 {
 	QCString objectId = reader.readAscii();
 

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "multiscache.h"
@@ -58,7 +58,7 @@ void MultiDefinition::setItems( const QValueVector<multiItem_st>& items )
 		if ( items[i].y < top )
 			top = items[i].y;
 		else if ( items[i].y > bottom )
-			bottom = items[i].y;		
+			bottom = items[i].y;
 	}
 
 	// by now we have the dimensions.

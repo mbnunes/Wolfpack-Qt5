@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #if !defined( __PLATFORM_H__ )
@@ -67,7 +67,7 @@
  * in all cases ( independent from e.g. user configuration ).
  *
  * \par
- * The WP_ISUNLIKELY macro tags an expression as unlikely evaluating to 'true'. 
+ * The WP_ISUNLIKELY macro tags an expression as unlikely evaluating to 'true'.
  *
  * \note
  * Do NOT use ( !WP_ISLIKELY(foo) ) as an replacement for WP_ISUNLIKELY !

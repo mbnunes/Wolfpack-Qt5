@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "utilities.h"
@@ -673,7 +673,7 @@ static PyObject* wpSocket_useitem( wpSocket* self, PyObject* args )
 /*
 	\method socket.gettag
 	\description Get a custom tag attached to the socket.
-	Please keep in mind these tags are temporary in nature. 
+	Please keep in mind these tags are temporary in nature.
 	When the socket disconnects, the tag will be gone.
 	\return None if there is no such tag, the tag value otherwise.
 	Possible return types are: unicode (string), float, integer.
@@ -704,7 +704,7 @@ static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 	\method socket.settag
 	\description Set a custom tag on the object.
 	\param name The name of the tag.
-	Please keep in mind these tags are temporary in nature. 
+	Please keep in mind these tags are temporary in nature.
 	When the socket disconnects, the tag will be gone.
 	\param value The value of the tag. Possible value types
 	are string, unicode, float and integer.
@@ -913,14 +913,14 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 		return PyGetCharObject( self->pSock->player() );
 	/*
 		\rproperty socket.screenwidth The width of the game window in pixels as sent by the client.
-	*/		
+	*/
 	else if ( !strcmp( name, "screenwidth" ) )
 	{
 		return PyInt_FromLong( self->pSock->screenWidth() );
 	}
 	/*
 		\rproperty socket.screenheight The height of the game window in pixels as sent by the client.
-	*/		
+	*/
 	else if ( !strcmp( name, "screenheight" ) )
 	{
 		return PyInt_FromLong( self->pSock->screenHeight() );
@@ -931,7 +931,7 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 	}
 	/*
 		\rproperty socket.account An <object id="account">account</object> object for the account used by this socket. Should not be None.
-	*/		
+	*/
 	else if ( !strcmp( name, "account" ) )
 	{
 		return PyGetAccountObject( self->pSock->account() );

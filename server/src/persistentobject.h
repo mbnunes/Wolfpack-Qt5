@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #if !defined(__PERSISTENTOBJECT_H__)
@@ -71,7 +71,7 @@ public:
 #pragma pack()
 
 /*
-	This class is used to assign 8-bit keys to all 
+	This class is used to assign 8-bit keys to all
 	classes that should be serialized by the binary
 	serialization system.
 */
@@ -92,7 +92,7 @@ public:
 	*/
 	unsigned int registerType(QCString type) {
 		// Find the largest typeid in use
-		int lastid = -1;        
+		int lastid = -1;
 		for (Iterator it = typemap.begin(); it != typemap.end(); ++it) {
 			if (it.key() > lastid) {
 				lastid = it.key();
@@ -136,7 +136,7 @@ public:
 typedef Singleton<cBinaryTypemap> BinaryTypemap;
 
 /*
-	This factory creates objects from type ids used in the 
+	This factory creates objects from type ids used in the
 	binary and database serialization process.
 */
 class cPersistentFactory : public Factory<PersistentObject, QString> {
@@ -190,7 +190,7 @@ private:
 typedef Singleton<cPersistentFactory> PersistentFactory;
 
 /*
-	A static and local instance of this class allows an automatic 
+	A static and local instance of this class allows an automatic
 	registration of a type in the factory at application startup.
 	The registration order isn't predictable though.
 */
@@ -224,7 +224,7 @@ public:
 		PersistentFactory::instance()->registerSqlQuery(className, sqlString, sqlCountString);
 
 		// Register the type for the 8-bit binary mapping
-		C::setClassid(BinaryTypemap::instance()->registerType(className));		
+		C::setClassid(BinaryTypemap::instance()->registerType(className));
 	}
 };
 

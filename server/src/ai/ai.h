@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #ifndef AI_H_HEADER_INCLUDED
@@ -648,7 +648,7 @@ public:
 	ScriptAI( P_NPC npc ) : AbstractAI( npc ), onspeech( ( char* ) 0 )
 	{
 	}
-	
+
 	static void registerInFactory( const QString& name );
 	virtual QString name()
 	{

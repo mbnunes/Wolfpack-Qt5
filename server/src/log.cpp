@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Wolfpack Includes
@@ -63,7 +63,7 @@ bool cLog::checkLogFile()
 	{
 		currentday = today.day();
 
-		logfile.close(); // Just to be sure		
+		logfile.close(); // Just to be sure
 
 		QString path = Config::instance()->logPath();
 
@@ -88,7 +88,7 @@ bool cLog::checkLogFile()
 		{
 			Console::instance()->send( tr( "Couldn't open logfile '%1'\n" ).arg( path + filename ) );
 			return false;
-		}		
+		}
 	}
 
 	return true;

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Platform Includes
@@ -143,7 +143,7 @@ void cFightInfo::clear()
 		if (victim_->attackTarget() == attacker_) {
 			victim_->setAttackTarget(0);
 		}
-		
+
 		victim_->fights().remove( this );
 	}
 
@@ -152,7 +152,7 @@ void cFightInfo::clear()
 		if (attacker_->attackTarget() == victim_) {
 			attacker_->setAttackTarget(0);
 		}
-		
+
 		attacker_->fights().remove( this );
 	}
 

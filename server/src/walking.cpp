@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Platform Includes
@@ -215,10 +215,10 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 	}
 
 	// We are only interested in items at pos
-	// todo: we could impliment blocking for items on the adjacent sides 
+	// todo: we could impliment blocking for items on the adjacent sides
 	// during a diagonal move here, but this has yet to be decided.
 
-	MapItemsIterator iIter = MapObjects::instance()->listItemsAtCoord( pos );  
+	MapItemsIterator iIter = MapObjects::instance()->listItemsAtCoord( pos );
 	for ( P_ITEM pItem = iIter.first(); pItem; pItem = iIter.next() )
 	{
 		if ( pChar && pChar->isDead() )
@@ -249,8 +249,8 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 		blockList.push_back( blockItem );
 		push_heap( blockList.begin(), blockList.end(), compareTiles() );
 	}
-	
-	
+
+
 	// deal with the multis now, or not.
 	// 18 has been tested with castle sides and corners...
 	MapMultisIterator iter = MapObjects::instance()->listMultisInCircle( pos, 18 );
@@ -261,7 +261,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 			continue;
 
 		QValueVector<multiItem_st> multi = def->getEntries();
-		
+
 		for( unsigned int j = 0; j < multi.size(); ++j )
 		{
 			if ( multi[j].visible && ( pMulti->pos().x + multi[j].x == pos.x ) && ( pMulti->pos().y + multi[j].y == pos.y ) )
@@ -285,7 +285,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 		}
 		continue;
 	}
-	
+
 	// Now we need to evaluate dynamic items [...] (later)  ??
 	sort_heap( blockList.begin(), blockList.end(), compareTiles() );
 
@@ -293,7 +293,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 
 };
 
-// May a character walk here ? 
+// May a character walk here ?
 // If yes we auto. set the new z value for pos
 bool mayWalk( P_CHAR pChar, Coord& pos )
 {

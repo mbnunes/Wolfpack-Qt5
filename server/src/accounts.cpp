@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Wolfpack Includes
@@ -662,8 +662,8 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value ) {
 		return 0;
 	}
 	/*
-		\property account.rawpassword If you use MD5 hashing this property is the hashed password and no 
-		conversions will be done automatically if you set this property. If you don't use MD5 hashing, 
+		\property account.rawpassword If you use MD5 hashing this property is the hashed password and no
+		conversions will be done automatically if you set this property. If you don't use MD5 hashing,
 		this property is equivalent to the password property.
 	*/
 	else if (name == "rawpassword") {
@@ -684,7 +684,7 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value ) {
 	SET_INT_PROPERTY("flags", flags_)
 	/*
 		\property account.blockuntil This is the date and time when this account will be unblocked.
-		The following format for the date and time is used (from the QT documentation): 
+		The following format for the date and time is used (from the QT documentation):
 		<code>
 		Qt::ISODate - ISO 8601 extended format (YYYY-MM-DD, or with time, YYYY-MM-DDTHH:MM:SS)
 		</code>

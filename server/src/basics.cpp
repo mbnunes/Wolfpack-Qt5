@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Wolfpack Includes
@@ -190,7 +190,7 @@ cBufferedWriter::cBufferedWriter( const QCString& magic, unsigned int version )
 {
 	buffersize = 4096;
 
-	d = new cBufferedWriterPrivate;	
+	d = new cBufferedWriterPrivate;
 	d->version = version;
 	d->magic = magic;
 	d->buffer = new char[buffersize];
@@ -352,7 +352,7 @@ public:
 cBufferedReader::cBufferedReader( const QCString& magic, unsigned int version )
 {
 	error_ = QString::null;
-	d = new cBufferedReaderPrivate;	
+	d = new cBufferedReaderPrivate;
 	d->buffer.resize( 4096 );
 	d->bufferpos = 0;
 	d->buffersize = 0; // Current amount of data in buffer
@@ -462,7 +462,7 @@ void cBufferedReader::open( const QString& filename )
 	{
 		unsigned char id = readByte();
 		unsigned int size = readInt();
-		QCString type = readAscii();		
+		QCString type = readAscii();
 
 		d->typemap.insert( id, type );
 		d->sizemap.insert( id, size );

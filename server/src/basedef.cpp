@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "console.h"
@@ -146,7 +146,7 @@ void cCharBaseDef::processNode( const cElement* node )
 		for (int i = 0; i < parts.size(); ++i) {
 			unsigned short value = hex2dec(hex2dec(parts[i])).toUShort();
 			attackSound_.append(value);
-		}		
+		}
 	}
 	else if ( node->name() == "idlesound" )
 	{
@@ -162,7 +162,7 @@ void cCharBaseDef::processNode( const cElement* node )
 		for (int i = 0; i < parts.size(); ++i) {
 			unsigned short value = hex2dec(hex2dec(parts[i])).toUShort();
 			hitSound_.append(value);
-		}		
+		}
 	}
 	else if ( node->name() == "gethitsound" )
 	{
@@ -170,7 +170,7 @@ void cCharBaseDef::processNode( const cElement* node )
 		for (int i = 0; i < parts.size(); ++i) {
 			unsigned short value = hex2dec(hex2dec(parts[i])).toUShort();
 			gethitSound_.append(value);
-		}		
+		}
 	}
 	else if ( node->name() == "deathsound" )
 	{
@@ -178,7 +178,7 @@ void cCharBaseDef::processNode( const cElement* node )
 		for (int i = 0; i < parts.size(); ++i) {
 			unsigned short value = hex2dec(hex2dec(parts[i])).toUShort();
 			deathSound_.append(value);
-		}		
+		}
 	}
 	else if ( node->name() == "figurine" )
 	{
@@ -232,7 +232,7 @@ void cCharBaseDef::processNode( const cElement* node )
 		unsigned int wanderSpeed = node->getAttribute("wander").toUInt(&ok1);
 		unsigned int actionSpeed = node->getAttribute("action").toUInt(&ok2);
 
-		if (!ok1 || !ok2) {			
+		if (!ok1 || !ok2) {
 			Console::instance()->log(LOG_WARNING, tr("Base definition '%1' has invalid speed tag.\n").arg(id_));
 		} else {
 			actionSpeed_ = actionSpeed;
@@ -652,14 +652,14 @@ static int wpBasedef_compare( PyObject* a, PyObject* b );
 PyTypeObject wpBasedefType =
 {
 PyObject_HEAD_INIT( NULL )
-0, 
-"basedef", 
-sizeof( wpBasedefType ), 
-0, 
-wpDealloc, 
-0, 
-( getattrfunc ) wpBasedef_getAttr, 
-0, 
+0,
+"basedef",
+sizeof( wpBasedefType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpBasedef_getAttr,
+0,
 wpBasedef_compare,
 0,
 };
@@ -773,7 +773,7 @@ static PyObject* wpBasedef_getAttr( wpBasedef* self, char* name ) {
 	if (result) {
 		return result;
 	}
-	
+
 	return Py_FindMethod( wpBasedefMethods, (PyObject*) self, name );
 }
 

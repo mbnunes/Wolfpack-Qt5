@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "multi.h"
@@ -205,7 +205,7 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 	int top = multi->getTop();
 	int height = multi->getHeight();
 	int width = multi->getWidth();
-    
+
 	QValueList<Coord> borderList; // a list of points around the foundation that need to be clear of impassables
 	QValueList<Coord> yardList; // a list of points in the yard (front/back of the house that needs to be clear)
 
@@ -216,11 +216,11 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 
 			// See if there are any tiles at that position
 			const QValueVector<multiItem_st> &multiItems = multi->itemsAt(x + left, y + top);
-            
+
 			if (multiItems.size() == 0) {
 				continue; // Skip this tile since there are no items here
 			}
-            
+
 			cTerritory *region = Territories::instance()->region(point);
 			if (region && region->isNoHousing()) {
 				return false; // No housing is allowed in this region
@@ -269,7 +269,7 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 					tile_st staticInfo = TileCache::instance()->getTile(staticTile.itemid);
 
 					int staticBottom = staticTile.zoff;
-					int staticTop = staticBottom + staticInfo.height;					
+					int staticTop = staticBottom + staticInfo.height;
 
 					// The tile intersects a static tile
 					if ((itemTop < staticTop && itemTop >= staticBottom)
@@ -286,7 +286,7 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 					}
 				}
 
-				// Do the same check (as above) with movable items, but make sure that movable items 
+				// Do the same check (as above) with movable items, but make sure that movable items
 				// are moved out of the house
 				for( P_ITEM pItem = items.first(); pItem; pItem = items.next() )
 				{
@@ -343,7 +343,7 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 				{
 					return false; // Road Blocked
 				}
-				
+
 				// For houses (they have a base you know...)
 				// we collect another list of points around the house that need to be checked
 				if (hasBase) {
@@ -354,7 +354,7 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 					for (xOffset = -1; xOffset <= 1; ++xOffset) {
 						for (yOffset = -yard; yOffset <= yard; ++yOffset) {
 							Coord pos = point + Coord(xOffset, yOffset);
-							
+
 							if (!yardList.contains(pos)) {
 								yardList.push_back(pos); // Put this point into the yard checklist if it's not there
 							}
@@ -365,7 +365,7 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 						for (yOffset = -1; yOffset <= 1; ++yOffset) {
 							Coord pos = point + Coord(xOffset, yOffset);
 
-							// Only do the following if the current tiles position differs from the 
+							// Only do the following if the current tiles position differs from the
 							// check position.
 							if (xOffset != 0 || yOffset != 0) {
 								// The border list should not contain tiles that are actually below the multis
@@ -377,12 +377,12 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 								bool found = false; // Assume there is no such tile
 
 								// Only do this check if the to-be-checked tile is really within the multi
-								// boundaries								
+								// boundaries
 								if (multiX >= 0 && multiY >= 0 && multiX < width && multiY < height) {
 									// Get the multi tiles at the to-check position
 									const QValueVector<multiItem_st> &tiles = multi->itemsAt(multiX + left, multiY + right);
 									QValueVector<multiItem_st>::const_iterator it;
-									for (it = tiles.begin(); it != tiles.end(); ++it) {										
+									for (it = tiles.begin(); it != tiles.end(); ++it) {
 										if (it->z > 8) {
 											continue; // Skip the tile if its above the base (2nd floor etc.)
 										}
@@ -438,7 +438,7 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 			bool impassable = (staticInfo.flag1 & 0x40) != 0;
 			bool background = (staticInfo.flag1 & 0x01) != 0;
 			bool surface = (staticInfo.flag2 & 0x02) != 0;
-			
+
 			// The tile is only of importance if it's not below the multi
 			if ((staticItem.zoff > ((*it).z + 2)) && (impassable || (!background && surface))) {
 				return false; // A normally blocking tile is intersecting our multi border
@@ -456,7 +456,7 @@ bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObjec
 			// Move the item out of the multi space if possible
 			if( ( pItem->movable() == 0 && itemInfo.weight != 255 ) || pItem->movable() == 1 )
 				continue;
-			
+
 			if( pItem->pos().z <= ((*it).z + 2) )
 				continue; // Does not interfere with the border
 

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // library includes
@@ -250,7 +250,7 @@ void cNPC::setNextMoveTime(bool changedDirection)
 	bool passive = true;
 	bool controlled = summoned() || (owner() != 0);
 
-	if (ai_ && ai_->currentAction()) {		
+	if (ai_ && ai_->currentAction()) {
 		passive = ai_->currentAction()->isPassive();
 	}
 
@@ -296,7 +296,7 @@ void cNPC::setNextMoveTime(bool changedDirection)
 
 	// This creature is not player or monster controlled. Thus slower.
 	if (isTamed()) {
-		// Creatures following their owner are a lot faster than usual 
+		// Creatures following their owner are a lot faster than usual
 		interval -= 75; // A little faster
 	} else if (!summoned()) {
 		interval += 100; // The creature is not summoned nor tamed, make it a little slower

@@ -4,10 +4,10 @@
 // Copyright (c) 2001, Wolfpack Developers (see authors.txt)
 // See the LICENSE file for the (BSD) license.
 //
-// Based on article written by: 
+// Based on article written by:
 //     John Robbins - Microsoft Systems Journal Bugslayer Column - August '98
 //
-// Wolfpack Website: http://wpdev.sf.net/
+// Wolfpack Website: http://developer.berlios.de/projects/wolfpack/
 //=========================================================================================
 
 #if !defined(__CRASHHANDLER_H__)

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "engine.h"
@@ -2468,7 +2468,7 @@ static PyObject* wpChar_getopponents( wpChar* self, PyObject* args )
 	QPtrList<cFightInfo> &fights = self->pChar->fights();
 	PyObject *list = PyList_New(fights.count());
 	unsigned int i = 0;
-	
+
 	for ( cFightInfo *fight = fights.first(); fight; fight = fights.next() )
 	{
 		if (fight->attacker() == self->pChar) {
@@ -2477,7 +2477,7 @@ static PyObject* wpChar_getopponents( wpChar* self, PyObject* args )
 			PyList_SetItem(list, i++, fight->attacker()->getPyObject());
 		}
 	}
-	
+
 	return list;
 }
 

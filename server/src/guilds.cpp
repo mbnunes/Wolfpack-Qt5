@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "basics.h"
@@ -363,14 +363,14 @@ static int wpGuild_compare( PyObject* a, PyObject* b );
 PyTypeObject wpGuildType =
 {
 PyObject_HEAD_INIT( NULL )
-0, 
-"guild", 
-sizeof( wpGuildType ), 
-0, 
-wpDealloc, 
-0, 
-( getattrfunc ) wpGuild_getAttr, 
-( setattrfunc ) wpGuild_setAttr, 
+0,
+"guild",
+sizeof( wpGuildType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpGuild_getAttr,
+( setattrfunc ) wpGuild_setAttr,
 wpGuild_compare,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };

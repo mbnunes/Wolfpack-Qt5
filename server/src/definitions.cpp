@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Library Includes
@@ -118,7 +118,7 @@ public:
 	{
 		this->impl = impl;
 	}
-	
+
 	virtual ~cXmlHandler()
 	{
 		while( !elements.isEmpty() )
@@ -844,7 +844,7 @@ static PyObject* wpElement_getattribute( wpElement* self, PyObject* args )
 	\method element.findchild
 	\param name The name of the child element.
 	\return An <object id="element">element</object> object for the child or None.
-	\description This method tries to find a child element with the given name. If 
+	\description This method tries to find a child element with the given name. If
 	none could be found, None is returned. Otherwise the child element is returned.
 */
 static PyObject* wpElement_findchild( wpElement* self, PyObject* args )
@@ -911,7 +911,7 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name )
 		return PyString_FromString( element->name().data() );
 	}
 	/*
-		\rproperty element.parent An <object id="element">element</object> object for the parent of this element. 
+		\rproperty element.parent An <object id="element">element</object> object for the parent of this element.
 		If there is no parent this property is None.
 	*/
 	else if ( !strcmp( name, "parent" ) )
@@ -931,7 +931,7 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name )
 		This converts hexadecimal numbers to decimal numers and
 		computes random values. The result still is a unicode string.
 	*/
-	else if ( !strcmp( name, "value" ) ) {		
+	else if ( !strcmp( name, "value" ) ) {
 		return QString2Python(element->value());
 	}
 	/*

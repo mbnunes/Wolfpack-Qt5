@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "asyncnetio.h"
@@ -276,7 +276,7 @@ bool cAsyncNetIOPrivate::consumeWriteBuf( Q_ULONG nbytes )
 		wsize = 0;
 		return false;
 	}
-	
+
 	if ( nbytes <= 0 || nbytes > wsize )
 		return false;
 	wsize -= nbytes;
@@ -693,15 +693,15 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 	d->wba.setAutoDelete(FALSE);
 	d->wba.clear();
 	d->wba.setAutoDelete(TRUE);
-	
+
 	while ( !osBufferFull && d->wsize > 0 )
 	{
 		QByteArray* a = d->ewba.first();
-		
+
 		if (!a) {
 			break;
 		}
-		
+
 		int nwritten;
 		int i = 0;
 		if ( ( int ) a->size() - d->windex < 1460 )

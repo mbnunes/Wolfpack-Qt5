@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #ifndef __GUMP_H__
@@ -47,13 +47,13 @@ typedef struct
 PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 {
 	/*
-		\rproperty gumpresponse.button This integer value is the id of the button that was pressed when the gump was closed. 
+		\rproperty gumpresponse.button This integer value is the id of the button that was pressed when the gump was closed.
 		If the gump was closed by rightclicking, the value of this property is 0.
 	*/
 	if ( !strcmp( name, "button" ) )
 		return PyInt_FromLong( self->response->button );
 	/*
-		\rproperty gumpresponse.text This is a python dictionary. There is one entry for every textinput field on the 
+		\rproperty gumpresponse.text This is a python dictionary. There is one entry for every textinput field on the
 		gump that was closed. The key for such an entry is the id of the corresponding textinput field. If your textinput
 		field had the id 5, you could access the text in that field when the gump was closed by using <code>response.text[5]</code>.
 	*/
@@ -75,7 +75,7 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 		\rproperty gumpresponse.switches Unlike the text property this property is a list of integers for every enabled radiobox and
 		checkbox on the closed gump. Each integer value is an id of a checkbox or radiobutton. You can easily check if a checkbox with the
 		id 321 was checked on the gump by using this statement:
-		
+
 		<code>if 321 in response.switches:
 		&nbsp;&nbsp;pass # Do something</code>
 	*/

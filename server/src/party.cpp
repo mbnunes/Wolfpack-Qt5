@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "party.h"
@@ -456,14 +456,14 @@ static int wpParty_compare( PyObject* a, PyObject* b );
 PyTypeObject wpPartyType =
 {
 PyObject_HEAD_INIT( NULL )
-0, 
-"party", 
-sizeof( wpPartyType ), 
-0, 
-wpDealloc, 
-0, 
-( getattrfunc ) wpParty_getAttr, 
-( setattrfunc ) wpParty_setAttr, 
+0,
+"party",
+sizeof( wpPartyType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpParty_getAttr,
+( setattrfunc ) wpParty_setAttr,
 wpParty_compare,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };

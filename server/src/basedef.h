@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #if !defined( __BASEDEF_H__ )
@@ -51,7 +51,7 @@ protected:
 	QPtrList<cPythonScript> baseScripts_;
 	QCString baseScriptList_;
 	QCString bindmenu_;
-	
+
 	bool loaded;
 	virtual void reset();
 	virtual void load() = 0;
@@ -81,7 +81,7 @@ public:
 		QMap<QString, QString>::const_iterator it = properties.find(name);
 		if (it == properties.end()) {
 			return def;
-		} else {			
+		} else {
 			return *it;
 		}
 	}
@@ -153,7 +153,7 @@ public:
 	cCharBaseDef( const QCString& id );
 	~cCharBaseDef();
 
-	void processNode( const cElement* node );	
+	void processNode( const cElement* node );
 
 	inline unsigned char controlSlots()
 	{

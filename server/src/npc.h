@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #ifndef CNPC_H_HEADER_INCLUDED
@@ -95,7 +95,7 @@ public:
 	void save( cBufferedWriter& writer, unsigned int version );
 	void postload( unsigned int version );
 	void load( cBufferedReader& reader );
-    
+
 	bool isOverloaded();
 	unsigned int maxWeight();
 	virtual enCharTypes objectType();

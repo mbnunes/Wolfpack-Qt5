@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #ifndef CBASECHAR_H_HEADER_INCLUDED
@@ -582,12 +582,12 @@ public:
 		return CharBaseDefs::instance()->getBodyInfo(body()).type;
 	}
 
-	inline unsigned int wanderSpeed() 
+	inline unsigned int wanderSpeed()
 	{
 		return basedef_ ? basedef_->wanderSpeed() : 400;
 	}
 
-	inline unsigned int actionSpeed() 
+	inline unsigned int actionSpeed()
 	{
 		return basedef_ ? basedef_->actionSpeed() : 200;
 	}

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #ifndef __REGIONITERATOR_H__
@@ -36,7 +36,7 @@
 	\object itemregioniterator
 	\description This object type allows you to iterate over a set of items in a memory efficient way.
 	A typical iteration could look like this:
-	
+
 	<code>item = iterator.first
 	while item:
 	&nbsp;&nbsp;# Access item properties here
@@ -57,15 +57,15 @@ static void wpItemIteratorDealloc( PyObject* self )
 static PyObject* wpRegionIteratorItems_getAttr( wpRegionIteratorItems* self, char* name )
 {
 	/*
-		\rproperty itemregioniterator.first Accessing this property will reset the iterator to the first item and return it. 
+		\rproperty itemregioniterator.first Accessing this property will reset the iterator to the first item and return it.
 		If there are no items to iterate over, None is returned.
 	*/
 	if ( !strcmp( name, "first" ) )
 		return PyGetItemObject( self->iter.first() );
 	/*
-		\rproperty itemregioniterator.next Accessing this property will advance the iterator to the next item and return it. 
+		\rproperty itemregioniterator.next Accessing this property will advance the iterator to the next item and return it.
 		At the end of the iteration, None is returned.
-	*/	
+	*/
 	else if ( !strcmp( name, "next" ) )
 		return PyGetItemObject( self->iter.next() );
 
@@ -119,7 +119,7 @@ static PyObject* PyGetItemRegionIterator( unsigned short xBlock, unsigned short 
 	\object charregioniterator
 	\description This object type allows you to iterate over a set of chars in a memory efficient way.
 	A typical iteration could look like this:
-	
+
 	<code>char = iterator.first
 	while char:
 	&nbsp;&nbsp;# Access char properties here
@@ -140,15 +140,15 @@ static void wpCharIteratorDealloc( PyObject* self )
 static PyObject* wpRegionIteratorChars_getAttr( wpRegionIteratorChars* self, char* name )
 {
 	/*
-		\rproperty charregioniterator.first Accessing this property will reset the iterator to the first character and return it. 
+		\rproperty charregioniterator.first Accessing this property will reset the iterator to the first character and return it.
 		If there are no characters to iterate over, None is returned.
-	*/	
+	*/
 	if ( !strcmp( name, "first" ) )
 		return PyGetCharObject( self->iter.first() );
 	/*
-		\rproperty charregioniterator.next Accessing this property will advance the iterator to the next character and return it. 
+		\rproperty charregioniterator.next Accessing this property will advance the iterator to the next character and return it.
 		At the end of the iteration, None is returned.
-	*/			
+	*/
 	else if ( !strcmp( name, "next" ) )
 		return PyGetCharObject( self->iter.next() );
 

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Platform Specifics
@@ -735,7 +735,7 @@ void cUObject::effect( Q_UINT16 id, Q_UINT8 speed, Q_UINT8 duration, Q_UINT16 hu
 stError* cUObject::setProperty( const QString& name, const cVariant& value )
 {
 	changed( TOOLTIP );
-	changed_ = true;	
+	changed_ = true;
 	// \rproperty object.serial This integer property contains the serial for this object.
 	if (name == "serial") {
 		if (!value.canCast(cVariant::IntType)) {
@@ -789,7 +789,7 @@ PyObject* cUObject::getProperty( const QString& name )
 	*/
 	PY_PROPERTY( "bindmenu", bindmenu() )
 	/*
-	\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string 
+	\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string
 	if the object wasn't spawned or removed from the spawnregion.
 	*/
 	PY_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->id() : QString() )
@@ -1011,7 +1011,7 @@ void cUObject::unfreezeScriptChain()
 	size_t count = reinterpret_cast<size_t>( scriptChain[0] ) & ~0x80000000;
 	size_t pos = 1;
 
-	scriptChain[0] = 0;	
+	scriptChain[0] = 0;
 	for ( size_t i = 1; i <= count; ++i )
 	{
 		QCString* name = reinterpret_cast<QCString*>( scriptChain[i] );
@@ -1120,4 +1120,3 @@ void cUObject::save(cBufferedWriter& writer) {
 	// Save tags for this object
 	tags_.save( serial_, writer );
 }
-

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "../python/utilities.h"
@@ -217,7 +217,7 @@ void AbstractAI::check()
 			m_npc->setAICheckTime(Server::instance()->time() + m_npc->actionSpeed());
 		}
 
-		m_currentAction->execute();		
+		m_currentAction->execute();
 
 		// We must check the postcondition now and set the current action to NULL
 		// if the action is finished (when it returns >= 1.0f)!
@@ -603,7 +603,7 @@ void Action_Wander::execute()
 					if ( !region->isValidSpot( newpos ) ) {
 						return;
 					}
-				}				
+				}
 
 				// Change our current heading first.
 				if (m_npc->direction() != dir) {
@@ -740,7 +740,7 @@ bool Action_Wander::moveTo( const Coord& pos, bool run )
 			}
 		}
 	}
-    
+
 	// If we're not facing the direction we're trying to walk to,
 	// call Movement once more.
 	if (m_npc->direction() != dir) {

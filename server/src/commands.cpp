@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "accounts.h"
@@ -901,9 +901,9 @@ static void ensureCategory( QMap<QString, unsigned int> &categories, unsigned in
 	\notes This command will export the definitions used by the WPGM utility to
 	a file called categories.db in your wolfpack directory.
 */
-void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/) throw() 
+void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/) throw()
 {
-	if ( QFile::exists( "categories.db" ) && !QFile::remove( "categories.db" ) ) 
+	if ( QFile::exists( "categories.db" ) && !QFile::remove( "categories.db" ) )
 	{
 		socket->sysMessage( "Unable to remove existing categories.db." );
 		return;

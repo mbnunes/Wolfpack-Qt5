@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #if !defined( __MAPOBJECTS_H__ )
@@ -135,7 +135,7 @@ public:
 	/*!
 		This must be called whenever a player's online status changes (as defined by
 		isOnline(), which takes lingering into consideration).
-		
+
 		If 'online' is true, the player's status is considered to have changed from
 		offline to online; or if it's false, from online to offline.
 	 */

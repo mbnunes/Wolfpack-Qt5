@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "accounts.h"
@@ -117,7 +117,7 @@ public:
 	unsigned int time;
 	QValueVector<cAction*> actionQueue;
 	QApplication *app;
-	
+
 	Private() : running( true ), state( STARTUP ), secure( true ), time( 0 )
 	{
 	}
@@ -169,10 +169,10 @@ void cServer::pollQueuedActions()
 		d->actionQueue.erase(d->actionQueue.begin());
 		d->actionMutex.unlock();
 
-		try 
+		try
 		{
 			action->execute();
-		} 
+		}
 		catch ( wpException& e )
 		{
 			Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
@@ -265,14 +265,14 @@ bool cServer::getSecure()
 }
 
 bool cServer::run( int argc, char** argv )
-{	
+{
 	// If have no idea where i should put this otherwise
 #if defined(Q_OS_UNIX)
 	signal(SIGPIPE, SIG_IGN);
 #endif
 
 	bool error = false;
-	
+
 	setState( STARTUP );
 
 	d->app = new QApplication ( argc, argv, false );
@@ -340,11 +340,11 @@ bool cServer::run( int argc, char** argv )
 	setupConsole();
 
 	// Load all subcomponents
-	try 
+	try
 	{
 		load();
-	} 
-	catch(wpException &e) 
+	}
+	catch(wpException &e)
 	{
 		Console::instance()->log(LOG_ERROR, e.error() + "\n");
 		return false;

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "territories.h"
@@ -304,8 +304,8 @@ bool cTerritory::findTeleporterSpot( Coord& d ) const
 void cTerritories::unload()
 {
 	// Delete old regions
-	
-	
+
+
 	topregions.clear();
 	cComponent::unload();
 }
@@ -372,13 +372,13 @@ void cTerritories::load()
 		}
 
 		// Convert into coordinates
-		Coord clSource, clDestination;		
+		Coord clSource, clDestination;
 		if (!parseCoordinates(source, clSource) || !parseCoordinates(destination, clDestination)) {
 			continue; // Skip broken coordinates
 		}
 
 		// Search the region for the source spot
-		cTerritory *rSource = region(clSource);		
+		cTerritory *rSource = region(clSource);
 		if (rSource) {
 			rSource->addTeleporter(clSource, clDestination); // Add the teleportation spot
 		} else if(Maps::instance()->hasMap(clSource.map)) {

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #if !defined(__TEMPEFFECT_H__)
@@ -243,11 +243,11 @@ public:
 				case cVariant::IntType:
 					object = PyInt_FromLong(variant.asInt());
 					break;
-                
+
 				case cVariant::StringType:
 					object = QString2Python(variant.asString());
 					break;
-                
+
 				case cVariant::DoubleType:
 					object = PyFloat_FromDouble(variant.asDouble());
 					break;

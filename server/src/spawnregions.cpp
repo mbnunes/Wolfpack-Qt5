@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "spawnregions.h"
@@ -276,28 +276,28 @@ void cSpawnRegion::processNode( const cElement *tag )
 	// <maxnpcamount value="10" />
 	else if ( name == "maxnpcamount" && tag->hasAttribute("value")  )
 		this->maxNpcAmt_ = tag->getAttribute("value").toUInt();
-		
+
 	else if ( name == "maxnpcamount" )
 		this->maxNpcAmt_ = value.toUShort();
 
 	// <maxitemamount value="5 " />
 	else if ( name == "maxitemamount" && tag->hasAttribute("value")  )
 		this->maxItemAmt_ = tag->getAttribute("value").toUInt();
-		
+
 	else if ( name == "maxitemamount" )
-		this->maxItemAmt_ = value.toUShort();		
+		this->maxItemAmt_ = value.toUShort();
 
 	// <npcspercycle value="3 " />
 	else if ( name == "npcspercycle" && tag->hasAttribute("value" ) )
 		this->npcsPerCycle_ = tag->getAttribute("value").toUInt();
-		
+
 	else if ( name == "npcspercycle" )
 		this->npcsPerCycle_ = value.toUShort();
 
 	// <itemspercycle value="3" />
 	else if ( name == "itemspercycle" && tag->hasAttribute("value" ) )
 		this->itemsPerCycle_ = tag->getAttribute("value").toUInt();
-		
+
 	else if ( name == "itemspercycle" )
 		this->itemsPerCycle_ = value.toUShort();
 
@@ -875,7 +875,7 @@ void cAllSpawnRegions::load()
 	this->clear(); // clear the std::map
 
 	// Don't load spawnregions if disabled
-	if (!Config::instance()->getBool("General", "Disable Spawnregions", false, true)) {	
+	if (!Config::instance()->getBool("General", "Disable Spawnregions", false, true)) {
 		QStringList DefSections = Definitions::instance()->getSections( WPDT_SPAWNREGION );
 
 		QStringList::iterator it = DefSections.begin();

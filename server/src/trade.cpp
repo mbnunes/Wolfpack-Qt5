@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "trade.h"
@@ -209,7 +209,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		if (pCont->layer() == cBaseChar::BuyRestockContainer) {
 			pItem->setRestock( pItem->restock() - amount ); // Reduce the items in stock
 		} else {
-			pItem->reduceAmount( amount );			
+			pItem->reduceAmount( amount );
 		}
 	}
 
@@ -336,8 +336,8 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 			P_ITEM pItem = FindItemBySerial( iter->first );
 			Q_UINT16 amount = wpMin<Q_UINT16>( pItem->amount(), iter->second );
 
-			// If we can find something to stack with that is already in the vendors 
-			// no restock container, increase the amount of that item instead. 
+			// If we can find something to stack with that is already in the vendors
+			// no restock container, increase the amount of that item instead.
 			// otherwise use the oldsytle handling.
 			/*if (pItem->isPileable()) {
 				bool processed = false;
@@ -349,7 +349,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 						unsigned int realAmount = QMIN(65000 - pOtherItem->amount(), amount);
 
 						pOtherItem->setAmount(pOtherItem->amount() + realAmount);
-						pOtherItem->setTag("buy_time", Server::instance()->time());						
+						pOtherItem->setTag("buy_time", Server::instance()->time());
 
 						if ( pItem->amount() <= realAmount ) {
 							pItem->remove();
@@ -363,7 +363,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 							break;
 						} else {
 							amount -= realAmount;
-						}						
+						}
 					}
 				}
 

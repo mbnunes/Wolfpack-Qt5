@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #if !defined(_INLINES_H__)
@@ -92,7 +92,7 @@ inline bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
 
 inline QString makeAscii(const QString &input) {
 	QString result;
-	
+
 	for( unsigned int i = 0; i < input.length(); ++i )
 	{
 		QChar c = input.at(i);

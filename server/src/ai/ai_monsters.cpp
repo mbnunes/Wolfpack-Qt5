@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "ai.h"
@@ -158,8 +158,8 @@ void Monster_Aggressive::check()
 		m_currentVictim = 0;
 		m_currentVictimSer = INVALID_SERIAL;
 		m_npc->fight(0);
-	}	
-	
+	}
+
 	if (nextVictimCheck < Server::instance()->time()) {
 		// Don't switch if we can hit it...
 		if (!m_currentVictim || m_currentVictim->dist(m_npc) > 1) {

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include <qstring.h>
@@ -263,7 +263,7 @@ static int wpAccount_setAttr(wpAccount* self, char* name, PyObject* value) {
 		val = cVariant( getWpCoord( value ) );
 	else if ( PyFloat_Check( value ) )
 		val = cVariant( PyFloat_AsDouble( value ) );
-	else if ( value == Py_True ) 
+	else if ( value == Py_True )
 		val = cVariant( 1 ); // True
 	else if ( value == Py_False )
 		val = cVariant( 0 ); // false

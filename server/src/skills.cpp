@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "definitions.h"
@@ -292,7 +292,7 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 
 	PyObject *args = Py_BuildValue("(NNN)", owner->getPyObject(), container->getPyObject(), player->getPyObject());
 
-	// Event prüfen
+	// Event prfen
 	if (player->canHandleEvent(EVENT_SNOOPING)) {
 		if (player->callEventHandler(EVENT_SNOOPING, args)) {
 			Py_DECREF(args);

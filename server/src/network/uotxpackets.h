@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #if !defined(__UO_TXPACKETS__)
@@ -137,17 +137,17 @@ public:
 		charLimit = limit;
 	}
 	virtual void compile();
-	
+
 	void setAgeOfShadows( bool data )
 	{
 		data ? flags |= 0x20 : flags &= ~0x20;
 	}
-	
+
 	void setLimitCharacters( bool data )
 	{
 		data ? flags |= 0x4 : flags &= ~0x4;
 	}
-	
+
 	void setContextMenus( bool data )
 	{
 		data ? flags |= 0x8 : flags &= ~0x8;
@@ -409,11 +409,11 @@ public:
 
 /*!
 	0xB9 ClientFeatures, server side packet.
-	This packet enables various client-side features, and should be sent 
+	This packet enables various client-side features, and should be sent
 	before the Character List packet.
 
-	Note that in order to create a Paladin or Necromancer or use the sixth 
-	character slot, the corresponding flags in the Character List packet 
+	Note that in order to create a Paladin or Necromancer or use the sixth
+	character slot, the corresponding flags in the Character List packet
 	must be set.
 */
 class cUOTxClientFeatures : public cUOPacket
@@ -442,14 +442,14 @@ public:
 	{
 		enable ? ( *this )[2] |= 0x20 : ( *this )[2] &= ~0x20;
 	}
-	
+
 	void setAllowPaladinNecromancer( bool enable )
 	{
 		enable ? ( *this )[2] |= 0x10 : ( *this )[2] &= ~0x10;
 	}
 
 	/*!
-		This flag must be present to enable Age of Shadows 
+		This flag must be present to enable Age of Shadows
 		features or the Sixth Character Slot
 	*/
 	void setAos( bool enable )

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // wolfpack includes
@@ -790,7 +790,7 @@ bool cBaseChar::resurrect( cUObject* source )
 	awardFame( 0 );
 	soundEffect( 0x0214 );
 	setBody( orgBody_ );
-	setSkin( orgSkin_ );	
+	setSkin( orgSkin_ );
 	setDead( false );
 	hitpoints_ = wpMax<short>( 1, static_cast<short>( 0.1 * maxHitpoints_ ) );
 	stamina_ = static_cast<short>( 0.5 * maxStamina_ );
@@ -1585,10 +1585,10 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		\property char.skin This integer property contains the skin color of the character.
 	*/
 	else if (name == "skin") {
-		skin_ = value.toInt();		
+		skin_ = value.toInt();
 		removeFromView(false);
 		return 0;
-	}		
+	}
 
 		// \property char.direction This is the direction this character is facing.
 	else
@@ -2340,7 +2340,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 			bloodColor = (int)basedef_->getIntProperty("bloodcolor", 0);
 
 			// If we have a strproperty with a custom list of colors,
-			// that is used instead	
+			// that is used instead
 			if (bloodColor != -1) {
 				// this property means: from,to
 				if (basedef_->hasStrProperty("bloodcolor")) {
@@ -2381,7 +2381,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 				blood = cItem::createFromList( "SMALL_BLOOD_PUDDLES" );
 			}
 
-			if ( blood )		
+			if ( blood )
 			{
 				blood->setColor(bloodColor);
 				blood->setNoDecay( false ); // Override the nodecay tag in the definitions
@@ -2444,7 +2444,7 @@ void cBaseChar::goldSound( unsigned short amount, bool hearall )
 		sound = 0x2e4;
 	else if (amount <= 5)
 		sound = 0x2e5;
-	else 
+	else
 		sound = 0x2e6;
 
 	soundEffect( sound, hearall );
@@ -2737,7 +2737,7 @@ bool cBaseChar::kill( cUObject* source )
 				}
 			}
 		}
-	} 
+	}
 
 	// Fame is reduced by 10% upon death
 	fame_ = ( int ) ( ( float ) fame_ * 0.90 );
@@ -3292,7 +3292,7 @@ bool cBaseChar::lineOfSight( P_ITEM target, bool debug )
 }
 
 bool cBaseChar::lineOfSight( const Coord& target, bool debug )
-{	
+{
 	return pos_.losCharPoint(true).lineOfSight(target.losMapPoint(), debug);
 }
 
@@ -3460,7 +3460,7 @@ PyObject *cBaseChar::callEvent(ePythonEvent event, PyObject *args, bool ignoreEr
 
 	if (scriptChain) {
 		result = cPythonScript::callChainedEvent(event, scriptChain, args);
-	
+
 		// Break if there has been a result already
 		if (result && PyObject_IsTrue(result)) {
 			return result;
@@ -3493,7 +3493,7 @@ PyObject *cBaseChar::callEvent(ePythonEvent event, PyObject *args, bool ignoreEr
 bool cBaseChar::canHandleEvent(ePythonEvent event) {
 	// Is there a global event?
 	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
-	
+
 	if (globalHook) {
 		return true;
 	}

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Wolfpack Includes
@@ -379,7 +379,7 @@ public:
 		// reuse iterators
 		if( !mAvailableIterators.isEmpty() )
 			return mAvailableIterators[mAvailableIterators.pop()];
-		
+
 		// all iterators are busy - we need a new one
 		IteratorState *it = new IteratorState();
 		it->map = this;
@@ -636,7 +636,7 @@ MapItemsIterator MapObjects::listItemsInBlock( UI08 map, UI16 x, UI16 y )
 }
 
 MapItemsIterator MapObjects::listItemsInRect( UI08 map, UI16 x1, UI16 y1, UI16 x2, UI16 y2 )
-{	
+{
 	return MapItemsIterator( initRectIterator( mMaps[map]->items.reserveIterator(), x1, y1, x2, y2 ) );
 }
 

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "worlditerator.h"
@@ -30,10 +30,10 @@
 
 /*
 	\object itemiterator
-	\description This object type allows you to iterate over all items 
+	\description This object type allows you to iterate over all items
 	registered in the world in a memory efficient way. A typical iteration could look
 	like this:
-	
+
 	<code>iterator = wolfpack.allitemsiterator()
 	item = iterator.first
 	while item:
@@ -55,15 +55,15 @@ static void wpItemIteratorDealloc( PyObject* self )
 static PyObject* wpItemIterator_getAttr( wpItemIterator* self, char* name )
 {
 	/*
-		\rproperty itemiterator.first Accessing this property will reset the iterator to the first item and return it. 
+		\rproperty itemiterator.first Accessing this property will reset the iterator to the first item and return it.
 		If there are no items to iterate over, None is returned.
 	*/
 	if ( !strcmp( name, "first" ) )
 		return PyGetItemObject( self->iter->first() );
 	/*
-		\rproperty itemiterator.next Accessing this property will advance the iterator to the next item and return it. 
+		\rproperty itemiterator.next Accessing this property will advance the iterator to the next item and return it.
 		At the end of the iteration, None is returned.
-	*/		
+	*/
 	else if ( !strcmp( name, "next" ) )
 		return PyGetItemObject( self->iter->next() );
 
@@ -105,7 +105,7 @@ PyObject* PyGetItemIterator()
 	\description This object type allows you to iterate over all characters
 	registered in the world in a memory efficient way. A typical iteration could look
 	like this:
-	
+
 	<code>iterator = wolfpack.allcharsiterator()
 	char = iterator.first
 	while char:
@@ -127,15 +127,15 @@ static void wpCharIteratorDealloc( PyObject* self )
 static PyObject* wpCharIterator_getAttr( wpCharIterator* self, char* name )
 {
 	/*
-		\rproperty chariterator.first Accessing this property will reset the iterator to the first character and return it. 
+		\rproperty chariterator.first Accessing this property will reset the iterator to the first character and return it.
 		If there are no characters to iterate over, None is returned.
-	*/	
+	*/
 	if ( !strcmp( name, "first" ) )
 		return PyGetCharObject( self->iter->first() );
 	/*
-		\rproperty chariterator.next Accessing this property will advance the iterator to the next character and return it. 
+		\rproperty chariterator.next Accessing this property will advance the iterator to the next character and return it.
 		At the end of the iteration, None is returned.
-	*/	
+	*/
 	else if ( !strcmp( name, "next" ) )
 		return PyGetCharObject( self->iter->next() );
 
@@ -167,4 +167,3 @@ PyObject* PyGetCharIterator()
 
 	return ( PyObject * ) returnVal;
 }
-

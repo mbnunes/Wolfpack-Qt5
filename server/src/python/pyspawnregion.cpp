@@ -22,7 +22,7 @@
 * the version used by you available or provide people with a location to
 * download it.
 *
-* Wolfpack Homepage: http://wpdev.sf.net/
+* Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
 */
 
 #include "engine.h"
@@ -223,7 +223,7 @@ static int wpSpawnRegion_setAttr( wpSpawnRegion* self, char* name, PyObject* val
 	Q_UNUSED( self );
 	Q_UNUSED( name );
 	Q_UNUSED( value );
-	
+
 	if (!strcmp(name, "active")) {
 		if (PyObject_IsTrue(value)) {
 			self->pRegion->setActive(true);

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Platform Includes
@@ -161,7 +161,7 @@ long cItem::reduceAmount( unsigned int amt )
 	else
 	{
 		rest = amt - amount_;
-		this->remove();		
+		this->remove();
 	}
 	return rest;
 }
@@ -2209,7 +2209,7 @@ void cItem::save( cBufferedWriter& writer )
 {
 	cUObject::save(writer);
 
-	// Save container content	
+	// Save container content
 	for (ContainerIterator it(this); !it.atEnd(); ++it) {
 		(*it)->save(writer);
 	}
@@ -2241,7 +2241,7 @@ PyObject *cItem::callEvent(ePythonEvent event, PyObject *args, bool ignoreErrors
 
 	if (scriptChain) {
 		result = cPythonScript::callChainedEvent(event, scriptChain, args);
-	
+
 		// Break if there has been a result already
 		if (result && PyObject_IsTrue(result)) {
 			return result;
@@ -2274,7 +2274,7 @@ PyObject *cItem::callEvent(ePythonEvent event, PyObject *args, bool ignoreErrors
 bool cItem::canHandleEvent(ePythonEvent event) {
 	// Is there a global event?
 	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
-	
+
 	if (globalHook) {
 		return true;
 	}

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "pythonscript.h"
@@ -434,7 +434,7 @@ event is not called for characters but only called as a global hook.
 /*
 \event onAttach
 \param object The object.
-\condition Triggered when a script is attached to an object. 
+\condition Triggered when a script is attached to an object.
 \notes This is even triggered when the item is loaded from a worldfile, but not
 for scripts in the objects basescripts list.
 */

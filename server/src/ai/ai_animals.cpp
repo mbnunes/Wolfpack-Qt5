@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "ai.h"
@@ -88,7 +88,7 @@ float Animal_Wild_Flee::preCondition()
 		if ( pPlayer && m_npc->owner() == pPlayer )
 			return 0.0f;
 	}
-	
+
 	if ( pFleeFromSer != INVALID_SERIAL )
 		return 1.0f;
 

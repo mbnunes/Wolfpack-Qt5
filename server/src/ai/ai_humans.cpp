@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "ai.h"
@@ -111,10 +111,10 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 		else if ( message.contains( " CLAIM" ) )
 		{
 			P_ITEM pPack = m_npc->getBankbox();
-			
+
 			QPtrList<cItem> stableitems;
 			if ( pPack )
-			{				
+			{
 				for (ContainerIterator it(pPack); !it.atEnd(); ++it) {
 					if ( !( *it )->hasTag( "player" ) || !( *it )->hasTag( "pet" ) )
 						continue;
@@ -188,7 +188,7 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 	{
 		m_npc->talk( 1042564 ); // I'm sorry.  Your pet seems to be busy.
 	}
-	else 
+	else
 	{
 		if ( player->takeGold( 30, true ) == 30 )
 		{

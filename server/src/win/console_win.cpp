@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // System Includes
@@ -61,7 +61,7 @@
 
 #if !defined(CFM_WEIGHT)
 # define CFM_WEIGHT 0x00400000
-#endif 
+#endif
 
 /*
 	This file includes the Windows GUI implementation of our Console.
@@ -775,7 +775,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			{
 				char command[512] =
 				{
-				0, 
+				0,
 				};
 				GetWindowText( inputWindow, command, 512 );
 				SetWindowText( inputWindow, "" );
@@ -855,7 +855,7 @@ void cConsole::stop()
 }
 
 void cConsole::rollbackChars(unsigned int count) {
-	int ctrlLength = GetWindowTextLength(logWindow);	
+	int ctrlLength = GetWindowTextLength(logWindow);
 	SendMessage( logWindow, EM_SETSEL, ctrlLength, ctrlLength );
 
 	// Select the rest
@@ -896,7 +896,7 @@ void cConsole::send( const QString& sMessage )
 		{
 			char buffer[1024] =
 			{
-			0, 
+			0,
 			};
 			( ( short * ) buffer )[0] = 1024;
 			textcount += SendMessage( logWindow, EM_GETLINE, linecount++, ( WPARAM ) buffer );	// We have to wait here.

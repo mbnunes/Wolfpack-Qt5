@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "utilities.h"
@@ -106,7 +106,7 @@ static int wpCoord_compare( PyObject* a, PyObject* b )
 	\param pos A <object id="coord">coord</object> object.
 	\return An integer value.
 	\description This method measures the distance between this coordinate
-	and the given <object id="coord">coord</object> coord object. 
+	and the given <object id="coord">coord</object> coord object.
 	The return value is -1 if the distance is infinite, otherwise the distance
 	in tiles is returned.
 */
@@ -230,7 +230,7 @@ static PyObject* wpCoord_soundeffect( wpCoord* self, PyObject* args )
 	cUOTxSoundEffect effect;
 	effect.setSound(id);
 	effect.setCoord(self->coord);
-	
+
 	cUOSocket* mSock;
 	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 	{

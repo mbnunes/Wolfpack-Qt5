@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 // Include files
@@ -56,7 +56,7 @@ inline QValueList<Coord> getPointList(const Coord &origin, const Coord &target) 
 
 	// Calculate the length of the X,Y diagonal
 	double xyDiagonal = sqrt( (double)( xDiff * xDiff + yDiff * yDiff ) );
-		
+
 	// Calculate the length of the second diagonal
 	double lineLength;
 	if (zDiff != 0) {
@@ -131,7 +131,7 @@ void getBlockingTiles( const Coord &pos, QValueList<stBlockingItem> &items )
 	// Find blocking statics
 	for (; !statics.atEnd(); ++statics) {
 		const staticrecord &sitem = *statics;
-		
+
 		tile_st tile = TileCache::instance()->getTile(sitem.itemid);
 
 		if (tile.flag2 & 0x30) {
@@ -211,7 +211,7 @@ inline bool checkBlockingTiles( const QValueList<stBlockingItem> &items, const C
 	{
 		stBlockingItem item = *it;
 
-		// 0x244 tiles are handled differently. If they're the only 
+		// 0x244 tiles are handled differently. If they're the only
 		// tile at the xy position, they're blocking.
 		if (item.maptile && item.id == 0x244 && items.count() != 1) {
 			continue;
@@ -426,7 +426,7 @@ Coord Coord::losMapPoint() const {
 	Maps::instance()->mapTileSpan(result, id, bottom, top);
 
 	// Use the top
-	if (result.z >= bottom && result.z <= top) {		
+	if (result.z >= bottom && result.z <= top) {
 		result.z = top;
 	}
 

@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #if !defined (__UOBJECT_H__)
@@ -74,7 +74,7 @@ protected:
 	QString name_;
 	Coord pos_;
 	SERIAL serial_;
-	cMulti* multi_; // If we're in a Multi	
+	cMulti* multi_; // If we're in a Multi
 	cPythonScript** scriptChain; // NULL Terminated Array
 	cSpawnRegion *spawnregion_;
 
@@ -111,7 +111,7 @@ public:
 	void addScript( cPythonScript * script, bool append = false );
 	void removeScript( const QCString &name );
 	virtual bool hasScript(const QCString &name);
-	
+
 	void freezeScriptChain();
 	void unfreezeScriptChain();
 	bool isScriptChainFrozen();
@@ -235,12 +235,12 @@ public:
 	stError* setProperty( const QString& name, const cVariant& value );
 	PyObject* getProperty( const QString& name );
 
-	// Call an event handler for this object and take both the normal 
-	// and the base script chain into account. This will also call the 
+	// Call an event handler for this object and take both the normal
+	// and the base script chain into account. This will also call the
 	// global handler.
 	virtual PyObject *callEvent(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false) = 0;
 
-	// Call a python event handler and return true if any of the 
+	// Call a python event handler and return true if any of the
 	// events in the call chain returns an object that evaluates
 	// to true.
 	virtual bool callEventHandler(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false) = 0;

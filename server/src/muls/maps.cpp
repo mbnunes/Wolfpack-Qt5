@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "maps.h"
@@ -148,7 +148,7 @@ void MapsPrivate::loadDiffs( const QString& basePath, unsigned int id )
 
 	QFile mapdiflist( basePath + mapDiffListName );
 	mapdifdata.setName( basePath + mapDiffFileName );
-	
+
 	// Try to read a list of ids
 	if ( mapdifdata.open( IO_ReadOnly ) && mapdiflist.open( IO_ReadOnly ) )
 	{
@@ -349,7 +349,7 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 				mapFileName = *it;
 			if ( ( *it ).lower() == staticsfile.lower() )
 				staticsFileName = *it;
-		}		
+		}
 
 		try {
 			p = new MapsPrivate( basePath + staticsIdxName, basePath + mapFileName, basePath + staticsFileName );
@@ -462,7 +462,7 @@ void cMaps::mapTileSpan( const Coord &pos, unsigned short &id, int &bottom, int 
 
 	// Get the smallest of the z values
 	bottom = wpMin<int>( wpMin<int>( wpMin<int>( topZ, leftZ ), rightZ ), bottomZ );
-    
+
 	// Get the highest of the z values
 	top = wpMax<int>( wpMax<int>( wpMax<int>( topZ, leftZ ), rightZ ), bottomZ );
 }
@@ -637,7 +637,7 @@ StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact 
 	if ( it == d.end() ) {
 		Console::instance()->log(LOG_ERROR, tr( "[cMaps::staticsIterator line %1] map id(%2) not registered!\n" ).arg( __LINE__ ).arg( id ) );
 		return StaticsIterator( x, y, 0, true );
-	}		
+	}
 	return StaticsIterator( x, y, it.data(), exact );
 }
 
@@ -674,7 +674,7 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 	baseX = x / 8;
 	baseY = y / 8;
 	pos = 0;
-	
+
 	if ( d && baseX < d->width && baseY < d->height )
 		load( d, x, y, exact );
 }

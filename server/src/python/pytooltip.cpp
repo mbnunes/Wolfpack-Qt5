@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "engine.h"
@@ -36,7 +36,7 @@
 
 /*
 	\object tooltip
-	\description This object represents a tooltip for an object. It allows you to modify the tooltip sent to 
+	\description This object represents a tooltip for an object. It allows you to modify the tooltip sent to
 	the client.
 */
 typedef struct
@@ -86,7 +86,7 @@ wpDealloc,
 	\description This method adds a line to the tooltip. The text is
 	determined by the given cliloc id and the parameters for it.
 	Please note that the first line is automatically colored by the
-	client. HTML is also allowed in tooltips. A cliloc id can only be used once 
+	client. HTML is also allowed in tooltips. A cliloc id can only be used once
 	in a tooltip.
 */
 static PyObject* wpTooltip_add( wpTooltip* self, PyObject* args )

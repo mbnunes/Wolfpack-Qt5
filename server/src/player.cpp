@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "player.h"
@@ -482,7 +482,7 @@ bool cPlayer::mount( P_NPC pMount )
 		if ( isGM() ) {
 			pMount->setOwner( this );
 		}
-		
+
 		// remove it from screen!
 		pMount->bark( Bark_Idle );
 		pMount->removeFromView( false );

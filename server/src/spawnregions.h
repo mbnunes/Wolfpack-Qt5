@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #if !defined(__SPAWNREGIONS_H__)
@@ -45,7 +45,7 @@ public:
 	}
 
 	virtual Coord findSpot() = 0;
-	virtual bool inBounds(const Coord &pos) = 0;	
+	virtual bool inBounds(const Coord &pos) = 0;
 };
 
 class cSpawnRegion : public cDefinable {
@@ -142,7 +142,7 @@ private:
 
 	QPtrList<cUObject> items_; // List of spawned items
 	QPtrList<cUObject> npcs_; // List of spawned npcs
-    
+
 	QPtrList<cElement> itemNodes_; // Pointers to definition elements for NPCs
 	QPtrList<cElement> npcNodes_; // Pointers to definition elements for Items
 	QValueList<unsigned int> itemNodeFrequencies_; // Frequencies for item nodes

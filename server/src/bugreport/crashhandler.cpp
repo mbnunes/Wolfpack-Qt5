@@ -4,10 +4,10 @@
 // Copyright (c) 2001, Wolfpack Developers (see authors.txt)
 // See the LICENSE file for the (BSD) license.
 //
-// Based on article written by: 
+// Based on article written by:
 //     John Robbins - Microsoft Systems Journal Bugslayer Column - August '98
 //
-// Wolfpack Website: http://wpdev.sf.net/
+// Wolfpack Website: http://developer.berlios.de/projects/wolfpack/
 //=========================================================================================
 
 
@@ -68,7 +68,7 @@ static PFNCHFILTFN g_pfnCallBack = NULL;	// The filter function.
 static LPTOP_LEVEL_EXCEPTION_FILTER g_pfnOrigFilt = NULL; // The original exception filter.
 static HMODULE* g_ahMod = NULL;			// The array of modules to limit Crash Handler to.
 static UINT g_uiModCount = 0;				// The size, in items, of g_ahMod.
-#define BUFF_SIZE 1024						
+#define BUFF_SIZE 1024
 static TCHAR g_szBuff[BUFF_SIZE];		// The static buffer returned by various functions.  This avoids putting things on the stack.
 #define SYM_BUFF_SIZE 512
 static BYTE g_stSymbol[SYM_BUFF_SIZE];	// The static symbol lookup buffer.  This gets casted to make it work.
@@ -133,7 +133,7 @@ static CleanUpHandler cleanUp;
 
 /*!
 	Sets the filter function that will be called when there is a fatal
-	crash. The \a pFn function will only be called if the crash occur 
+	crash. The \a pFn function will only be called if the crash occur
 	in one of the modules passed to AddCrashHandlerLimitModule. If no
 	modules have been defined to narrow down the interested modules, the
 	the callback filter function \a pFn will always be called.

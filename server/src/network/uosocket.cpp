@@ -22,7 +22,7 @@
  * the version used by you available or provide people with a location to
  * download it.
  *
- * Wolfpack Homepage: http://wpdev.sf.net/
+ * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
 #include "uosocket.h"
@@ -736,7 +736,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 			if (Maps::instance()->hasMap(3)) {
 				diffs.addEntry( Maps::instance()->mapPatches( 3 ), Maps::instance()->staticPatches( 3 ) );
 			}
-		}		
+		}
 	}
 	send( &diffs );
 
@@ -2081,7 +2081,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	Q_INT32 count = 0;
 
 	QPtrList<cItem> tooltipItems;
-	
+
 	for (ContainerIterator it(pCont); !it.atEnd(); ++it) {
 		P_ITEM pItem = *it;
 
@@ -2289,7 +2289,7 @@ void cUOSocket::resendWorld( bool clean )
 	if ( !_player )
 		return;
 
-	// resend items	
+	// resend items
 	MapItemsIterator itemIt = MapObjects::instance()->listItemsInCircle( _player->pos(), _player->visualRange() );
 	for( P_ITEM item = itemIt.first(); item; item = itemIt.next() )
 	{
@@ -2756,7 +2756,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 
 	// Build the list of items to be sent.
 	SortedSerialList itemList;
-	
+
 	// Process all items for sale first
 	for ( ContainerIterator it(pStock); !it.atEnd(); ++it) {
 		if (itemList.count() >= 250) {
@@ -2787,11 +2787,11 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 			if ((*it)->buyprice() <= 0) {
 				continue; // This item is not for sale
 			}
-	
+
 			itemList.append(*it);
 		}
 	}
-    
+
 	// Process the items we found for sale
 	if (itemList.count() == 0) {
 		return; // Nothing for sale
