@@ -148,7 +148,6 @@ protected:
 	UINT32					trackingTimer_;
 	unsigned int			murderrate_; //#of ticks until one murder decays //REPSYS 
 	long int				crimflag_; //Time when No longer criminal -1=Not Criminal
-	SERIAL					poisonserial_; //AntiChrist -- poisoning skill
 	int						squelched_; // zippy  - squelching
 	unsigned int			mutetime_; //Time till they are UN-Squelched.
 	bool					med_; // 0=not meditating, 1=meditating //Morrolan - Meditation 
@@ -306,7 +305,6 @@ public:
 	char					flag() const { return flag_;}
 	unsigned int			murderrate() const { return murderrate_;}
 	long int				crimflag() const { return crimflag_;}
-	SERIAL					poisonserial() const { return poisonserial_;}
 	int						squelched() const { return squelched_;}
 	int						mutetime() const { return mutetime_; }
 	bool					med() const { return med_;}
@@ -419,7 +417,6 @@ public:
 	void					setFlag( char d ) { flag_ = d; changed( SAVE );}
 	void					setMurderrate( unsigned int d ) { murderrate_ = d; changed( SAVE );}
 	void					setCrimflag( unsigned int d ) { crimflag_ = d; changed( SAVE );}
-	void					setPoisonserial( SERIAL d ) {poisonserial_ = d; changed( SAVE );}
 	void					setSquelched( int d) { squelched_ = d; changed( SAVE );}
 	void					setMutetime( int d ) { mutetime_ = d; changed( SAVE );}
 	void					setMed( bool d ) { med_ = d; changed( SAVE );}

@@ -142,7 +142,6 @@ cChar::cChar( const P_CHAR mob )
 	this->trackingTimer_ = mob->trackingTimer();
 	this->murderrate_ = mob->murderrate();
 	this->crimflag_ = mob->crimflag();
-	this->poisonserial_ = mob->poisonserial();
 	this->squelched_ = mob->squelched();
 	this->mutetime_ = mob->mutetime();
 	this->med_ = mob->med();
@@ -357,7 +356,6 @@ void cChar::Init( bool createSerial )
 	this->setMurderrate(0); //# of ticks till murder decays.
 	this->setCrimflag(0); // time when no longer criminal -1 = not criminal
 	this->setCasting(false); // 0/1 is the cast casting a spell?
-	this->setPoisonserial(INVALID_SERIAL); //AntiChrist -- poisoning skill
 	
 	this->setSquelched(0); // zippy  - squelching
 	this->setMutetime(0); //Time till they are UN-Squelched.
