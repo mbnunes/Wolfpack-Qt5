@@ -4033,6 +4033,39 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	SET_CHAR_PROPERTY( "owner", owner_ )
 	SET_STR_PROPERTY( "profile", profile_ )
 	SET_INT_PROPERTY( "id", id_ )
+
+	// baseskill.
+	if( name.left( 10 ) == "baseskill." )
+	{
+		QString skill = name.right( name.length() - 10 );
+		for( int i = 0; i < ALLSKILLS; ++i )
+		{
+			if( skillname[i] == skill.upper() )
+			{
+				setBaseSkill( i, value.toInt() );
+				if( socket_ )
+					socket_->sendSkill( i );
+				return 0;
+			}
+		}
+	}
+
+	// skill.
+	if( name.left( 6 ) == "skill." )
+	{
+		QString skill = name.right( name.length() - 6 );
+		for( int i = 0; i < ALLSKILLS; ++i )
+		{
+			if( skillname[i] == skill.upper() )
+			{
+				setSkill( i, value.toInt() );
+				if( socket_ )
+					socket_->sendSkill( i );
+				return 0;
+			}
+		}
+	}
+	
 	return cUObject::setProperty( name, value );
 }
 
@@ -4184,6 +4217,34 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "owner", owner_ )
 	GET_PROPERTY( "profile", profile_ )
 	GET_PROPERTY( "id", id_ )
+
+	// baseskill.
+	if( name.left( 10 ) == "baseskill." )
+	{
+		QString skill = name.right( name.length() - 10 );
+		for( int i = 0; i < ALLSKILLS; ++i )
+		{
+			if( skillname[i] == skill.upper() )
+			{
+				value = cVariant( baseSkill( i ) );
+				return 0;
+			}
+		}
+	}
+
+	// skill.
+	if( name.left( 6 ) == "skill." )
+	{
+		QString skill = name.right( name.length() - 6 );
+		for( int i = 0; i < ALLSKILLS; ++i )
+		{
+			if( skillname[i] == skill.upper() )
+			{
+				value = cVariant( this->skill( i ) );
+				return 0;
+			}
+		}
+	}
 
 	return cUObject::getProperty( name, value );
 }

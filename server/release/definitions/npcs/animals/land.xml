@@ -211,7 +211,7 @@
         <npc id="bull_black">
                 <name>bull</name>
                 <id>0xE9</id>
-                <category>Animals\Land\Bull (black & white)</category>
+                <category>Animals\Land\Bull (black &amp; white)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
                 <karma>0</karma>
@@ -315,7 +315,7 @@
         <npc id="cow_black">
                 <name>cow</name>
                 <id>0xD8</id>
-                <category>Animals\Land\Cow (black & white)</category>
+                <category>Animals\Land\Cow (black &amp; white)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
                 <karma>0</karma>
