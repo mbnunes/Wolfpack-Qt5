@@ -15,6 +15,7 @@
 		<speed>33</speed>
 		<weight>3.0</weight>
 		<tag name="req_str" value="35" type="int" />
+		<tag name="resname" value="iron" />
 		<events>equipment,weapons.blades</events>
 		<type>1004</type>
 		<category>Weapons\Axes\War Axe (N/S)</category>

@@ -15,6 +15,7 @@
 		<speed>30</speed>
 		<weight>7.0</weight>
 		<tag name="req_str" value="40" type="int" />
+		<tag name="resname" value="iron" />
 		<events>equipment</events>
 		<type>1004</type>
 		<category>Weapons\Maces\Scepter (N/S)</category>

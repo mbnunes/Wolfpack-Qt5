@@ -15,6 +15,7 @@
 		<speed>31</speed>
 		<weight>8.0</weight>
 		<tag name="req_str" value="40" type="int" />
+		<tag name="resname" value="iron" />
 		<events>equipment</events>
 		<category>Weapons\Axes\Two Handed Axe (N/S)</category>
 		<type>1002</type>

@@ -15,6 +15,7 @@
 		<speed>36</speed>
 		<weight>5.0</weight>
 		<tag name="req_str" value="25" type="int" />
+		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Bone Harvester (N/S)</category>

@@ -15,6 +15,7 @@
 		<speed>28</speed>
 		<weight>9.0</weight>
 		<tag name="req_str" value="45" type="int" />
+		<tag name="resname" value="iron" />
 		<events>equipment</events>
 		<type>1004</type>
 		<category>Weapons\Maces\Hammer Pick (N/S)</category>

@@ -15,6 +15,7 @@
 		<speed>49</speed>
 		<weight>1.0</weight>
 		<tag name="req_str" value="5" type="int" />
+		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Butcher Knife (N/S)</category>

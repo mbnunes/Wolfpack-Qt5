@@ -16,6 +16,7 @@
 		<speed>24</speed>
 		<weight>7.0</weight>
 		<tag name="req_str" value="35" type="int" />
+		<tag name="resname" value="plainwood" />
 		<events>equipment</events>
 		<type>1007</type>
 		<category>Weapons\Bows\Crossbow (N/S)</category>

@@ -15,6 +15,7 @@
 		<speed>29</speed>
 		<weight>6.0</weight>
 		<tag name="req_str" value="80" type="int" />
+		<tag name="resname" value="iron" />
 		<events>equipment</events>
 		<category>Weapons\Axes\Large Battle Axe (N/S)</category>
 		<type>1002</type>

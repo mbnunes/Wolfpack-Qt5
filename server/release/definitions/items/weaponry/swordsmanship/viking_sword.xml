@@ -15,6 +15,7 @@
 		<speed>28</speed>
 		<weight>6.0</weight>
 		<tag name="req_str" value="40" type="int" />
+		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Viking Sword (N/S)</category>

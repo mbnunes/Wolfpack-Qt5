@@ -15,6 +15,7 @@
 		<speed>44</speed>
 		<weight>14.0</weight>
 		<tag name="req_str" value="40" type="int" />
+		<tag name="resname" value="plainwood" />
 		<events>equipment</events>
 		<type>1004</type>
 		<category>Weapons\Maces\Club (N/S)</category>

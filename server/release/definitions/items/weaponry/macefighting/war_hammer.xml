@@ -15,6 +15,7 @@
 		<speed>28</speed>
 		<weight>10.0</weight>
 		<tag name="req_str" value="95" type="int" />
+		<tag name="resname" value="iron" />
 		<events>equipment</events>
 		<type>1004</type>
 		<category>Weapons\Maces\War Hammer (N/S)</category>

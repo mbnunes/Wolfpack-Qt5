@@ -25,6 +25,7 @@
 		<tag name="res_cold" value="4" type="int" />
 		<tag name="res_poison" value="1" type="int" />
 		<tag name="res_energy" value="2" type="int" />
+		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>14</smelt>
 		<weight>7.0</weight>

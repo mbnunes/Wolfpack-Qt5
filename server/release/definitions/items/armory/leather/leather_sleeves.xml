@@ -23,6 +23,7 @@
 		<tag name="res_cold" value="3" type="int" />
 		<tag name="res_poison" value="3" type="int" />
 		<tag name="res_energy" value="3" type="int" />
+		<tag name="resname" value="leather" />
 		<restock>10</restock>
 		<weight>2.0</weight>
 		<buyprice>80</buyprice>

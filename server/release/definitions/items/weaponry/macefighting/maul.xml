@@ -15,6 +15,7 @@
 		<speed>32</speed>
 		<weight>14.0</weight>
 		<tag name="req_str" value="45" type="int" />
+		<tag name="resname" value="iron" />
 		<events>equipment</events>
 		<type>1004</type>
 		<category>Weapons\Maces\Maul (N/S)</category>

@@ -18,6 +18,7 @@
 		<events>equipment</events>
 		<type>1002</type>
 		<category>Weapons\Axes\Axe (N/S)</category>
+		<tag name="resname" value="iron" />
 	</item>
 
 	<item id="f4a">

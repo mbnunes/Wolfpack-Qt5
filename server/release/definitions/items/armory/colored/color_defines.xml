@@ -11,6 +11,7 @@
 	<!-- the following define sections are for application on all types of armor -->
 	<define id="iron_armor">
 		<name>iron %1</name>
+		<tag name="resname" value="iron" />
 	</define>
 
 	<define id="dull_copper_armor">
@@ -32,6 +33,7 @@
 		<tag name="weapon_durability" value="100" type="int" />
 		<tag name="armor_reqs" value="20" type="int" />
 		<tag name="weapon_reqs" value="50" type="int" />
+		<tag name="resname" value="dullcopper" />
 	</define>
 
 	<define id="shadow_armor">
@@ -51,6 +53,7 @@
 		<tag name="weapon_energy" value="0" type="int" />
 		<tag name="armor_durability" value="100" type="int" />
 		<tag name="weapon_durability" value="50" type="int" />
+		<tag name="resname" value="shadowiron" />
 	</define>
 
 	<define id="copper_armor">
@@ -68,6 +71,7 @@
 		<tag name="weapon_cold" value="0" type="int" />
 		<tag name="weapon_poison" value="10" type="int" />
 		<tag name="weapon_energy" value="20" type="int" />
+		<tag name="resname" value="copper" />
 	</define>
 
 	<define id="bronze_armor">
@@ -85,6 +89,7 @@
 		<tag name="weapon_cold" value="0" type="int" />
 		<tag name="weapon_poison" value="0" type="int" />
 		<tag name="weapon_energy" value="0" type="int" />
+		<tag name="resname" value="bronze" />
 	</define>
 
 	<define id="golden_armor">
@@ -105,6 +110,7 @@
 		<tag name="luck" value="40" type="int" />
 		<tag name="armor_reqs" value="30" type="int" />
 		<tag name="weapon_reqs" value="50" type="int" />
+		<tag name="resname" value="gold" />
 	</define>
 
 	<define id="silver_armor">
@@ -125,6 +131,7 @@
 		<tag name="luck" value="40" type="int" />
 		<tag name="armor_reqs" value="30" type="int" />
 		<tag name="weapon_reqs" value="50" type="int" />
+		<tag name="resname" value="silver" />
 	</define>
 
 	<define id="agapite_armor">
@@ -142,6 +149,7 @@
 		<tag name="weapon_cold" value="30" type="int" />
 		<tag name="weapon_poison" value="0" type="int" />
 		<tag name="weapon_energy" value="20" type="int" />
+		<tag name="resname" value="agapite" />
 	</define>
 
 	<define id="verite_armor">
@@ -159,6 +167,7 @@
 		<tag name="weapon_cold" value="0" type="int" />
 		<tag name="weapon_poison" value="40" type="int" />
 		<tag name="weapon_energy" value="20" type="int" />
+		<tag name="resname" value="verite" />
 	</define>
 
 	<define id="valorite_armor">
@@ -178,6 +187,7 @@
 		<tag name="weapon_energy" value="20" type="int" />
 		<tag name="armor_durability" value="50" type="int" />
 		<tag name="weapon_durability" value="0" type="int" />
+		<tag name="resname" value="valorite" />
 	</define>
 	
 	<define id="merkite_armor">
@@ -197,6 +207,7 @@
 		<tag name="weapon_energy" value="20" type="int" />
 		<tag name="armor_durability" value="50" type="int" />
 		<tag name="weapon_durability" value="50" type="int" />
+		<tag name="resname" value="merkite" />
 	</define>
 	
 	<define id="mythril_armor">
@@ -216,6 +227,7 @@
 		<tag name="weapon_energy" value="20" type="int" />
 		<tag name="armor_durability" value="50" type="int" />
 		<tag name="weapon_durability" value="50" type="int" />
+		<tag name="resname" value="mythril" />
 	</define>
 
 </definitions>

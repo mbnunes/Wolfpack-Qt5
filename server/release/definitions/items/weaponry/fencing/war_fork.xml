@@ -15,6 +15,7 @@
 		<speed>43</speed>
 		<weight>1.0</weight>
 		<tag name="req_str" value="35" type="int" />
+		<tag name="resname" value="iron" />
 		<events>equipment</events>
 		<type>1005</type>
 		<category>Weapons\Fencing\War Fork (N/S)</category>

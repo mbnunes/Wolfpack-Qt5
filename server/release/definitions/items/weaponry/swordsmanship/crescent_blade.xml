@@ -15,6 +15,7 @@
 		<speed>47</speed>
 		<weight>8.0</weight>
 		<tag name="req_str" value="55" type="int" />
+		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Crescent Blade (N/S)</category>

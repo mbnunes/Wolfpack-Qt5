@@ -15,6 +15,7 @@
 		<speed>25</speed>
 		<weight>7.0</weight>
 		<tag name="req_str" value="30" type="int" />
+		<tag name="resname" value="plainwood" />
 		<events>equipment</events>
 		<type>1006</type>
 		<category>Weapons\Bows\Bow (N/S)</category>

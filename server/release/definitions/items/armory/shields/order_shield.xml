@@ -23,6 +23,7 @@
 		<tag name="res_cold" value="0" type="int" />
 		<tag name="res_poison" value="0" type="int" />
 		<tag name="res_energy" value="0" type="int" />
+		<tag name="resname" value="iron" />
 		<restock>0</restock>
 		<weight>7</weight>
 		<buyprice>0</buyprice>

@@ -15,6 +15,7 @@
 		<speed>41</speed>
 		<weight>4.0</weight>
 		<tag name="req_str" value="20" type="int" />
+		<tag name="resname" value="iron" />
 		<events>equipment</events>
 		<category>Weapons\Axes\Hatchet (N/S)</category>
 		<type>1002</type>
