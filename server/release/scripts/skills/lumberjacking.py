@@ -207,7 +207,7 @@ def successlumberjacking( char, args ):
 			socket.clilocmessage(500495)
 			success = 0
 			return False
-		elif chance >= randint(1, 100):
+		else:
 			char.socket.clilocmessage( 500498 ) # You put some logs into your backpack
 			if tool.gettag( 'remaining_uses' ) > 1:
 				tool.settag( 'remaining_uses', int( int( tool.gettag( 'remaining_uses' ) ) - 1 ) )
@@ -218,10 +218,6 @@ def successlumberjacking( char, args ):
 				socket.clilocmessage( 500499, '', GRAY )
 			char.socket.deltag( 'is_lumberjacking' )
 			success = 1
-		else:
-			char.socket.clilocmessage( 500495 ) # You hack at the tree for a while but fail to produce...
-			success = 0
-			return False
 
 	if success == 1:
 		# Check for a backpack

@@ -90,10 +90,12 @@ def onSkillUse( char, skill ):
 def checkskill(char, skill, chance):
   # Normalize
   chance = min(1.0, max(0.02, chance))
+  
   minskill = (1.0 - chance) * 1200
   maxskill = 1200
   char.checkskill(skill, minskill, maxskill)
-  return chance >= random.random()
+  result = chance >= random.random()
+  return result
 
 def totalstats( char ):
 	return char.strength + char.dexterity + char.intelligence
