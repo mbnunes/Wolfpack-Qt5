@@ -125,7 +125,7 @@ INT8 cNewMagic::calcSpellId( UINT16 scroll )
 	if( tile.unknown1 == 0 )
 		return -1;
 	else
-		return tile.unknown1;
+		return tile.unknown1 - 1;
 }
 
 /*!
@@ -141,7 +141,7 @@ UINT16 cNewMagic::calcScrollId( UINT8 spell )
 		return 0x1F35 + ( spell - 8 );
 	
 	// Decided this would be fastest
-	else switch( spell -1 )
+	else switch( spell )
 		{
 		case 0:
 			return 0x1F2E;

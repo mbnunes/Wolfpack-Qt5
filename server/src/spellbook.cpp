@@ -141,16 +141,14 @@ bool cSpellBook::onUse( cUObject *Target )
 	if( !pChar || !pChar->socket() )
 		return true;
 
-	SERIAL sSerial = 0xFFFFFFFF;
+	SERIAL sSerial = 0x70000000; // Just some unused ID
 
 	// First we send a multi-object-to-container packet and then open the gump
 	cUOTxItemContent content;
 
 	for( UINT8 i = 0; i < 64; ++i )
-	{
-		sSerial--;		
-		content.addItem( sSerial, NewMagic->calcScrollId( i ), 0, 0, 0, 1, serial );
-	}
+		if( hasSpell( i ) )
+			content.addItem( --sSerial, 0x1, 0, 0, 0, 1+i, serial );
 
 	pChar->socket()->send( &content );
 	

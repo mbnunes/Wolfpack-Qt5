@@ -1760,7 +1760,6 @@ void cUOSocket::bounceItem( P_ITEM pItem, eBounceReason reason )
 		}
 		else
 			soundEffect( 0x57, pItem );
-
 	}
 }
 
