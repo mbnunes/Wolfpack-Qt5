@@ -1,0 +1,23 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Naddel
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<!-- Civilists -->
+	<include file="definitions/npcs/humans/civilists.xml"/>
+
+	<!-- Evil NPCs -->
+	<include file="definitions/npcs/humans/evilnpcs.xml"/>
+
+	<!-- Guards -->
+	<include file="definitions/npcs/humans/guards.xml"/>
+	
+	<!-- Vendors -->
+	<include file="definitions/npcs/humans/vendors/index.xml"/>
+
+</definitions>
