@@ -11,12 +11,15 @@
 		<nodye />
 		<sellprice>26</sellprice>
 		<buyprice>53</buyprice>
-		<attack min="19" max="20" />
-		<durability><random min="30" max="55" /></durability>
-		<speed>22</speed>
-		<weight>9.0</weight>
+		<tag name="dmg_physical" type="int" value="100" />
+		<tag name="mindamage" type="int" value="19" />
+		<tag name="maxdamage" type="int" value="20" />
+		<tag name="speed" type="int" value="22" />
 		<tag name="req_str" value="80" type="int" />
 		<tag name="resname" value="plainwood" />
+		<durability><random min="30" max="55" /></durability>
+		<weight>9.0</weight>
+
 		<events>equipment</events>
 		<type>1007</type>
 		<category>Weapons\Bows\Heavy Crossbow (N/S)</category>

@@ -11,12 +11,14 @@
 		<nodye />
 		<sellprice>28</sellprice>
 		<buyprice>56</buyprice>
-		<attack min="15" max="17" />
-		<durability><random min="30" max="70" /></durability>
-		<speed>25</speed>
-		<weight>7.0</weight>
+		<tag name="dmg_physical" type="int" value="100" />
+		<tag name="mindamage" type="int" value="15" />
+		<tag name="maxdamage" type="int" value="17" />
+		<tag name="speed" type="int" value="25" />
 		<tag name="req_str" value="45" type="int" />
 		<tag name="resname" value="plainwood" />
+		<durability><random min="30" max="70" /></durability>
+		<weight>7.0</weight>
 		<events>equipment</events>
 		<type>1006</type>
 		<category>Weapons\Bows\Composite Bow (N/S)</category>

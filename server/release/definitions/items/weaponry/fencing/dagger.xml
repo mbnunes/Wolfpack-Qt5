@@ -3,19 +3,21 @@
 
 	<!-- Dagger -->
 	<item id="f51">
-		<id>0x0f51</id>
+		<id>0xf51</id>
 		<name>dagger</name>
 		<onehanded />
 		<decay />
 		<nodye />
 		<sellprice>10</sellprice>
 		<buyprice>21</buyprice>
-		<attack min="10" max="11" />
-		<durability><random min="30" max="39" /></durability>
-		<speed>49</speed>
-		<weight>1.0</weight>
+		<tag name="dmg_physical" type="int" value="100" />
+		<tag name="mindamage" type="int" value="10" />
+		<tag name="maxdamage" type="int" value="11" />
+		<tag name="speed" type="int" value="49" />
 		<tag name="req_str" value="10" type="int" />
 		<tag name="resname" value="iron" />
+		<durability><random min="30" max="39" /></durability>
+		<weight>1.0</weight>
 		<events>equipment,weapons.blades</events>
 		<type>1005</type>
 		<category>Weapons\Fencing\Dagger (N/S)</category>
@@ -23,7 +25,7 @@
 
 	<item id="f52">
 		<inherit id="f51" />
-		<id>0x0f52</id>
+		<id>0xf52</id>
 		<category>Weapons\Fencing\Dagger (E/W)</category>
 	</item>
 
