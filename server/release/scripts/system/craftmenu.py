@@ -112,9 +112,6 @@ class CraftItemAction2(CraftAction):
 		self.itemid = itemid
 		self.definition = str(definition)
 		self.amount = amount
-		self.otherhtml = ''
-		self.materialshtml = ''
-		self.skillshtml = ''
 		self.hasdetails = 1
 
 	#
@@ -203,8 +200,12 @@ class CraftItemAction2(CraftAction):
 			k += 1
 
 		# Scrollable Material List
-		# FIXME : Client-side Localized Msg ID
-		gump.addHtmlGump(170, 217, 345, 76, whitehtml % self.materialshtml, 0, self.materialshtml.count('<br>') > 4)
+		k = 0
+		for material in self.materials:
+			(baseid, amount, clilocid) = material
+			gump.addXmfHtmlGump(170, 217 + k*20, 345, 18, clilocid, color=0x7FFF)
+			gump.addText(430, 217 + k*20, '%d' % amount, 0x480)
+			k += 1
 
 		gump.send(player)
 
@@ -367,42 +368,10 @@ class CraftItemAction(CraftItemAction2):
 		pass
 
 	#
-	# Generate the HTML used on the skills field on the details gump
-	#
-	#def getskillshtml(self, player, arguments):
-	#	skillshtml = ''
-	#	for (skill, values) in self.skills.items():
-			#skillshtml += '%s: %.1f%%<br>' % (skillnames[skill].capitalize(), max(0, values[0] / 10.0))
-	#		skillshtml += ': %.1f%%<br>' % (max(0, values[0] / 10.0))
-	#	return skillshtml
-
-	#
-	# Generates the HTML used on the materials field of the details gump
-	#
-	def getmaterialshtml(self, player, arguments):
-		materialshtml = ''
-		if self.submaterial1 > 0:
-			materials = self.parent.submaterials1
-			material = self.parent.getsubmaterial1used(player, arguments)
-			materialshtml += "%s: %u<br>" % (materials[material][0], self.submaterial1)
-
-		if self.submaterial2 > 0:
-			materials = self.parent.submaterials2
-			material = self.parent.getsubmaterial2used(player, arguments)
-			materialshtml += "%s: %u<br>" % (materials[material][0], self.submaterial2)
-
-		for material in self.materials:
-			materialshtml += "%s: %u<br>" % (material[2], material[1])
-
-		return materialshtml
-
-	#
 	# Generate the list of skills and materials required
 	# to make this item and then process it normally.
 	#
 	def details(self, player, arguments):
-		self.materialshtml = self.getmaterialshtml(player, arguments)
-		#self.skillshtml = self.getskillshtml(player, arguments)
 		CraftItemAction2.details(self, player, arguments)
 
 	#
