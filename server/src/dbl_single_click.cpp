@@ -1470,20 +1470,29 @@ void singleclick(UOXSOCKET s)
 	if (isCharSerial(serial))
 	{
 		P_CHAR pc = FindCharBySerial(serial);
-		if (pc != NULL)		
-		{
-			showcname(s, pc, 0);
-			return;
-		}
+
+        if( pc == NULL )
+        {
+            clConsole.send( "WOLFPACK.CPP: singleclick couldn't find char serial: %x\n", serial );
+            return;
+        }
+
+        if( !pc->onShowCharName( pc_currchar ) )	
+            showcname(s, pc, 0);
+            
+        return;
 	}
 	// End chars/npcs section
 	
 	P_ITEM pi = FindItemBySerial(serial);
 	if (pi == NULL)
 	{
-		clConsole.send("WOLFPACK.CPP: singleclick couldn't find item serial: %d\n", serial);
+		clConsole.send( "WOLFPACK.CPP: singleclick couldn't find item serial: %x\n", serial );
 		return;
 	}
+	
+    if( pi->onShowItemName( pc_currchar ) )
+        return;        
 	
 	pi->getName(itemname);
 
