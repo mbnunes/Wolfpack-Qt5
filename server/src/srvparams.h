@@ -905,6 +905,6 @@ inline unsigned int cSrvParams::spawnRegionCheckTime() const
 	return spawnRegionCheckTime_;
 }
 
-#endif __SRVPARAMS_H___
+#endif //__SRVPARAMS_H___
 
 

@@ -7,7 +7,7 @@
 PROJECT         = Wolfpack Emu
 TARGET          = wolfpack
 TEMPLATE        = app
-CONFIG          = console release thread
+CONFIG          = console debug thread
 INCLUDEPATH     = lib/ZThread/include lib/wrl/include
 DEFINES         = REENTRANT ZTHREAD_STATIC NDEBUG
 win32:DEFINES += WIN32 
