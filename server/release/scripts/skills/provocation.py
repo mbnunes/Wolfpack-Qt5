@@ -4,10 +4,11 @@
 #   )).-" {{ ;"`   # Revised by:                                #
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
+# to do: karma and fame for the provocateur
 
 import wolfpack
 import wolfpack.utilities
-from wolfpack.consts import PROVOCATION, MUSICIANSHIP, ALLSKILLS, MAGERY
+from wolfpack.consts import PROVOCATION, MUSICIANSHIP, ALLSKILLS, MAGERY, LOG_MESSAGE
 from math import floor
 import skills
 
@@ -47,7 +48,7 @@ def response1( char, args, target ):
 		return False
 
 	if target.char:
-		if target.char.socket:
+		if target.char.player:
 			socket.clilocmessage( 0x7A754, "", 0x3b2, 3 ) # Verbal taunts might be more effective!
 			return False
 
@@ -55,7 +56,7 @@ def response1( char, args, target ):
 			socket.clilocmessage( 0x7A756, "", 0x3b2, 3 ) # They are too loyal to their master to be provoked.
 			return False
 
-		if target.char.priv or target.char.dead: #if target.char.priv & 0x04 or target.char.dead:
+		if target.char.invulnerable or target.char.dead: #if target.char.priv & 0x04 or target.char.dead:
 			socket.clilocmessage( 0x7A755, "", 0x3b2, 3 ) # You can't incite that!
 			return False
 
@@ -127,14 +128,32 @@ def response2( char, args, target ):
 		char.hidden = False
 		char.update()
 
+	# Remaining Instrument Uses
+	if not instrument.hastag('remaining_uses'):
+		instrument.settag('remaining_uses', instrument.health )
+	else:
+		remaining_uses = int(instrument.gettag('remaining_uses'))
+		if remaining_uses > 1:
+			instrument.settag('remaining_uses', remaining_uses - 1 )
+			instrument.resendtooltip()
+		else:
+			instrument.delete()
+			socket.clilocmessage(502079) # The instrument played its last tune.
+	
+	
 	playinstrument( char, instrument, "success" )
 	creature1.war = 1
-	creature1.target = target.char
+	creature1.attacktarget = target.char
+	creature1.fight(target.char)
 	target.char.war = 1
-	target.char.target = creature1
+	target.char.attacktarget = creature1
+	target.char.fight(creature1)
 	creature1.update()
 	target.char.update()
 	socket.clilocmessage( 0x7A762, "", 0x3b2, 3 ) # Your music succeeds, as you start a fight.
+	
+	char.log(LOG_MESSAGE,"Provocating Fight beetween %s (%s,%d) and %s (%s,%d)" % (creature1.name, creature1.baseid, creature1.serial, target.char.name, target.char.baseid, target.char.serial) )
+	
 	return True
 
 def findinstrument( char, args, target ):
