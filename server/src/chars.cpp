@@ -561,19 +561,14 @@ void cChar::glowHalo(P_ITEM pi)
 
 P_ITEM cChar::getWeapon()
 {
-	unsigned int ci=0;
-	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	for( UINT32 ci = 0; ci < vecContainer.size(); ++ci )
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi != NULL)
-		if ( ( pi->layer() == 1 && pi->type() != 9 )		// not a spellbook (hozonko)
-			|| (pi->layer() == 2 && !getShield()) ) //Morrolan don't check for shields
-		{
+		P_ITEM pi = FindItemBySerial( vecContainer[ci] );
+		if( pi && ( ( pi->layer() == 1 && pi->type() != 9 ) || ( pi->layer() == 2 && !IsShield( pi->id() ) ) ) )
 			return pi;
-		}
 	}
+
 	return NULL;
 }
 
@@ -1637,21 +1632,21 @@ void cChar::processNode( const QDomElement &Tag )
 
 void cChar::soundEffect( UI16 soundId, bool hearAll )
 {
-	cSoundEffect pSoundEffect( soundId, pos );
+	cUOTxSoundEffect pSoundEffect;
+	pSoundEffect.setSound( soundId );
+	pSoundEffect.setCoord( pos );
 
 	if( !hearAll )
 	{
-		if( !online( this ) )
-			return;
-		
-		pSoundEffect.send( calcSocketFromChar( this ) );
+		if( socket_ )
+			socket_->send( &pSoundEffect );
 	}
 	else 
 	{
 		// Send the sound to all sockets in range
-		for( UOXSOCKET s = 0; s < now; s++ )
-			if( perm[ s ] && inrange1p( this, currchar[ s ] ) )
-				pSoundEffect.send( s );
+		for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
+			if( s->player() && s->player()->inRange( this, s->player()->VisRange ) )
+				s->send( &pSoundEffect );
 	}
 }
 
@@ -1885,7 +1880,10 @@ void cChar::update( void )
 		P_CHAR pChar = ri.GetData();
 
 		if( pChar && pChar->socket() && pChar->inRange( this, pChar->VisRange ) )
+		{
+			updatePlayer.setHighlight( notority( pChar ) );
 			pChar->socket()->send( &updatePlayer );	
+		}
 	}
 }
 
@@ -1914,6 +1912,8 @@ void cChar::resend( bool clean )
 
 		if( isHidden() && !pChar->isGMorCounselor() )
 			continue;
+
+		drawChar.setHighlight( notority( pChar ) );
 
 		// Resend if in range
 		if( pChar->pos.distance( pos ) <= pChar->VisRange )
@@ -1999,10 +1999,10 @@ void cChar::updateHealth( void )
 		P_CHAR pChar = cIter.GetData();
 
 		// Send only if target can see us
-		if( !pChar || !pChar->socket() || !pChar->inRange( this, pChar->VisRange ) || ( isHidden() && pChar->isGM() ) )
+		if( !pChar || !pChar->socket() || !pChar->inRange( this, pChar->VisRange ) || ( isHidden() && !pChar->isGM() && this != pChar ) )
 			continue;
 	
-		pChar->socket()->updateHealth( this );
+		pChar->socket()->sendStatWindow( this );
 	}
 }
 
@@ -2021,4 +2021,34 @@ void cChar::action( UINT8 id )
 		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange ) && ( !isHidden() || socket->player()->isGM() ) )
 			socket->send( &action );
 	}
+}
+
+UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
+{
+	UINT8 result;
+
+	// Check for Guild status + Highlight
+	UINT8 guildStatus = GuildCompare( this, pChar );
+
+	if( npcaitype() == 0x02 )
+		result = 0x06; // 6 = Red -> Monster
+	else
+		result = 0x01; // 1 = Blue -> Innocent
+
+	if( pChar->kills > SrvParams->maxkills() )
+		result = 0x06; // 6 = Red -> Murderer
+	else if( guildStatus == 1 )
+		result = 0x02; // 2 = Green -> Same Guild
+	else if( guildStatus == 2 )
+		result = 0x05; // 5 = Orange -> Enemy Guild
+	else switch( flag() )
+	{	//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
+		case 0x01: result = 0x06; break; // If a bad, show as red.
+		case 0x04: result = 0x01; break; // If a good, show as blue.
+		case 0x08: result = 0x02; break; // green (guilds)
+		case 0x10: result = 0x05; break; // orange (guilds)
+		default:   result = 0x03; break; // grey
+	}
+
+	return result;
 }

@@ -244,28 +244,6 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 
 	if( pChar->poisoned() )
 		setFlag( flag() | 0x04 );
-	// Set Flag and Highlight color
-	/*
-	//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
-			int guild;
-			//chars[i].flag=0x04;       // everyone should be blue on default
-			guild = GuildCompare( pc, us );
-			if( us->kills > SrvParams->maxkills() ) extmove[16]=6;
-			else if (guild==1)//Same guild (Green)
-				extmove[16]=2;
-			else if (guild==2) // Enemy guild.. set to orange
-				extmove[16]=5;
-			else
-			{
-				switch(us->flag())
-				{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
-				case 0x01: extmove[16]=6; break;// If a bad, show as red.
-				case 0x04: extmove[16]=1; break;// If a good, show as blue.
-				case 0x08: extmove[16]=2; break; //green (guilds)
-				case 0x10: extmove[16]=5; break;//orange (guilds)
-				default:extmove[16]=3; break;//grey
-				}
-		}*/
 }
 
 void cUOTxDrawChar::fromChar( P_CHAR pChar )
@@ -289,8 +267,6 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 
 	if( pChar->poisoned() )
 		setFlag( flag() | 0x04 );
-	
-	setHightlight( 0 ); // NEED TO SET HIGHLIGHT
 
 	// Add our equipment - This does not seem to work !?
 	vector< SERIAL > equipment = contsp.getData( pChar->serial );

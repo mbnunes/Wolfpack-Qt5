@@ -73,13 +73,13 @@ public:
 	QString		getGuardSect( void );
 private:
 	// Setters to ease up the flag meanings
-	void		setGuarded( bool data )		{ (data) ? flags_ &= 0xFE : flags_ |= 0x01; }
-	void		setMark( bool data )		{ (data) ? flags_ &= 0xFD : flags_ |= 0x02; }
-	void		setGate( bool data )		{ (data) ? flags_ &= 0xFB : flags_ |= 0x04; }
-	void		setRecall( bool data )		{ (data) ? flags_ &= 0xF7 : flags_ |= 0x08; }
-	void		setMagicDamage( bool data ) { (data) ? flags_ &= 0xEF : flags_ |= 0x10; }
-	void		setEscortRegion( bool data) { (data) ? flags_ &= 0xDF : flags_ |= 0x20; }
-	void		setMagic( bool data )		{ (data) ? flags_ &= 0xBF : flags_ |= 0x40; }
+	void		setGuarded( bool data )		{ (data) ? flags_ |= 0x01 : flags_ &= 0xFE;  }
+	void		setMark( bool data )		{ (data) ? flags_ |= 0x02 : flags_ &= 0xFD; }
+	void		setGate( bool data )		{ (data) ? flags_ |= 0x04 : flags_ &= 0xFB; }
+	void		setRecall( bool data )		{ (data) ? flags_ |= 0x08 : flags_ &= 0xF7; }
+	void		setMagicDamage( bool data ) { (data) ? flags_ |= 0x10 : flags_ &= 0xEF; }
+	void		setEscortRegion( bool data) { (data) ? flags_ |= 0x20 : flags_ &= 0xDF; }
+	void		setMagic( bool data )		{ (data) ? flags_ |= 0x40 : flags_ &= 0xBF; }
 
 	virtual void processNode( const QDomElement &Tag );
 

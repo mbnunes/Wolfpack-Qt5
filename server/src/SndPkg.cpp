@@ -2886,29 +2886,29 @@ void PlayDeathSound( P_CHAR pc )
 	{
 		switch(RandomNum(0, 3)) // AntiChrist - uses all the sound effects
 		{
-		case 0:		soundeffect2( pc, 0x0150 );	break;// Female Death
-		case 1:		soundeffect2( pc, 0x0151 );	break;// Female Death
-		case 2:		soundeffect2( pc, 0x0152 );	break;// Female Death
-		case 3:		soundeffect2( pc, 0x0153 );	break;// Female Death
+		case 0:		pc->soundEffect( 0x0150 );	break;// Female Death
+		case 1:		pc->soundEffect( 0x0151 );	break;// Female Death
+		case 2:		pc->soundEffect( 0x0152 );	break;// Female Death
+		case 3:		pc->soundEffect( 0x0153 );	break;// Female Death
 		}
 	}
 	else if (pc->xid==0x0190)
 	{
 		switch( RandomNum(0, 3) ) // AntiChrist - uses all the sound effects
 		{
-		case 0:		soundeffect2( pc, 0x015A );	break;// Male Death
-		case 1:		soundeffect2( pc, 0x015B );	break;// Male Death
-		case 2:		soundeffect2( pc, 0x015C );	break;// Male Death
-		case 3:		soundeffect2( pc, 0x015D );	break;// Male Death
+		case 0:		pc->soundEffect( 0x015A );	break;// Male Death
+		case 1:		pc->soundEffect( 0x015B );	break;// Male Death
+		case 2:		pc->soundEffect( 0x015C );	break;// Male Death
+		case 3:		pc->soundEffect( 0x015D );	break;// Male Death
 		}
 	}
 	else
 	{
-		playmonstersound(pc, pc->xid, SND_DIE);
+		playmonstersound( pc, pc->xid, SND_DIE );
 	}
 }
 
-// NEW STYLE CLASSES
+// NEW STYLE CLASSES (and deprecated again :o)
 void cPacket::send( UOXSOCKET socket )
 {
 	if( socket == -1 )

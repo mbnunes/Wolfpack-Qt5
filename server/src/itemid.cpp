@@ -116,23 +116,24 @@ bool IsSwordType(short id)
 
 bool IsMace1H(short id)
 {
-	return ((id>=0x0DF0 && id<=0x0DF5) ||
+	return ((id>=0x0DF2 && id<=0x0DF5) ||
 			(id==0x13B3 || id==0x13B4) ||
 			(id==0x0F5C || id==0x0F5D) ||
 			(id==0x0FB4 || id==0x0FB5) || 
 			(id==0x13AF || id==0x13B0) ||
 			(id==0x13E3 || id==0x13E4) ||
 			(id==0x13F4 || id==0x13F5) ||
-			(id==0x13F8 || id==0x13F9) ||
 			(id==0x143A || id==0x143B) ||	// maul -Fraz-
-			(id==0x1406 || id==0x1407) ||
-			(id==0x0E89 || id==0x0E8A) ||
-			(id==0x0E81 || id==0x0E82) );
+			(id==0x1406 || id==0x1407));
 }
 
 bool IsMace2H(short id)
 {
-	return ( id>=0x1438 && id<=0x143C );	// war hammer & hammerpick -Fraz- so says OSI
+	return ( (id==0x13F8 || id==0x13F9) ||  // gnarled staff
+			 (id==0x0E89 || id==0x0E8A) ||  // quarterstaff
+			 (id==0x0E81 || id==0x0E82) ||  // crook
+			 (id==0x0DF0 || id==0x0DF1) ||  // black staff
+			 (id>=0x1438 && id<=0x143C ) );	// war hammer & hammerpick -Fraz- so says OSI
 }
 
 bool IsMaceType(short id)

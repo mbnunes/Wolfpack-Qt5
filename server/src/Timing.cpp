@@ -186,58 +186,65 @@ void restockNPC(unsigned int currenttime, P_CHAR pc_i)
 
 void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 {
-	int c;
-	
-	if (pc == NULL)
+	if( !pc )
 		return;
 	
-	if (!(pc->dead))
+	if( !pc->dead )
 	{
-		if (pc->hp>pc->st)
+		if( pc->hp > pc->st )
 		{
 			pc->hp = pc->st;
-			updatestats(pc, 0);
+			pc->updateHealth();
 		}
-		if (pc->stm>pc->effDex())
+
+		if( pc->stm > pc->effDex() )
 		{
 			pc->stm = pc->effDex();
-			updatestats(pc, 2);
+			pc->socket()->updateStamina();
 		}
 		if (pc->mn>pc->in)
 		{
 			pc->mn = pc->in;
-			updatestats(pc, 1);
+			pc->socket()->updateMana();
 		}
-		if ((pc->regen <= currenttime) || (overflow))
+
+		// Health regeneration
+		if( ( pc->regen <= currenttime ) || (overflow) )
 		{
-			unsigned int interval = SrvParams->hitpointrate()*MY_CLOCKS_PER_SEC;
-			if (pc->hp < pc->st && pc->hunger()>3 || SrvParams->hungerRate() == 0)
+			UINT32 interval = SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
+
+			// If it's not disabled hunger affects our health regeneration
+			if( pc->hp < pc->st && pc->hunger() > 3 || SrvParams->hungerRate() == 0 )
 			{
-				for (c = 0; c < pc->st + 1; c++)
+				for( UINT16 c = 0; c < pc->st + 1; ++c )
 				{
-					if (pc->regen + (c*interval) <= currenttime && pc->hp <= pc->st)
+					if( pc->regen + ( c * interval ) <= currenttime && pc->hp <= pc->st )
 					{
-						if (pc->skill(17) < 500)
+						if( pc->skill( HEALING ) < 500 )
 							pc->hp++;
-						else if (pc->skill(17) < 800)
+						else if (pc->skill( HEALING ) < 800)
 							pc->hp += 2;
 						else 
 							pc->hp += 3;
-						if (pc->hp>pc->st)
+
+						if( pc->hp > pc->st )
 						{
 							pc->hp = pc->st;
 							break;
 						}
-						updatestats(pc, 0);
 					}
 				}
+				pc->updateHealth();
 			}
+
 			pc->regen = currenttime + interval;
 		}
-		if ((pc->regen2 <= currenttime) || (overflow))
+
+		// Stamina regeneration
+		if( ( pc->regen2 <= currenttime ) || overflow )
 		{
-			unsigned int interval = SrvParams->staminarate()*MY_CLOCKS_PER_SEC;
-			for (c = 0; c < pc->effDex() + 1; c++)
+			UINT32 interval = SrvParams->staminarate()*MY_CLOCKS_PER_SEC;
+			for( UINT16 c = 0; c < pc->effDex() + 1; ++c )
 			{
 				if (pc->regen2 + (c*interval) <= currenttime && pc->stm <= pc->effDex())
 				{
@@ -247,77 +254,81 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 						pc->stm = pc->effDex();
 						break;
 					}
-					updatestats(pc, 2);
+					pc->socket()->updateStamina();
 				}
 			}
-			pc->regen2 = currenttime + interval;
+			pc->regen2 = currenttime + interval;			
 		}
+
 		// OSI Style Mana regeneration by blackwind
 		// if (pc->in>pc->mn)  this leads to the 'mana not subtracted' bug (Duke)
-			if ((pc->regen3 <= currenttime) || (overflow))
+		if ((pc->regen3 <= currenttime) || (overflow))
+		{
+			unsigned int interval = SrvParams->manarate()*MY_CLOCKS_PER_SEC;
+			for( UINT16 c = 0; c < pc->in + 1 ; ++c )
 			{
-				unsigned int interval = SrvParams->manarate()*MY_CLOCKS_PER_SEC;
-				for(c=0;c<pc->in+1;c++)
+				if (pc->regen3 + (c*interval) <= currenttime && pc->mn <= pc->in)
 				{
-					if (pc->regen3 + (c*interval) <= currenttime && pc->mn <= pc->in)
+				pc->mn++;
+				if (pc->med() && pc->mn <= pc->mn2)
+						pc->mn += 5;
+					if (pc->mn>pc->in)
 					{
-						pc->mn++;
-						if (pc->med() && pc->mn <= pc->mn2)
-							pc->mn += 5;
-						if (pc->mn>pc->in)
+						if (pc->med())
 						{
-							if (pc->med())
-							{
-								int s = calcSocketFromChar(pc);
-								sysmessage(s, tr("You are at peace.") );
-								pc->setMed(false);
-							}
-							pc->mn = pc->in;
-							break;
+							pc->socket()->sysMessage( tr("You are at peace." ) );
+							pc->setMed( false );
 						}
-						updatestats(pc, 1);
+						pc->mn = pc->in;
+						break;
 					}
+					pc->socket()->updateMana();
 				}
-				if (SrvParams->armoraffectmana())
+			}
+			if (SrvParams->armoraffectmana())
+			{
+				int ratio = ( ( 100 + 50 ) / SrvParams->manarate() );
+				// 100 = Maximum skill (GM)
+				// 50 = int affects mana regen (%50)
+				int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParams->manarate());
+				int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill(MEDITATION) + 1)/10) + ((pc->in + 1) / 2)) / ratio));
+				if (pc->med())
 				{
-					// blackwind's osi style mana regeneration formula
-					int ratio = ((100 + 50)/SrvParams->manarate());
-					// 100 = Maximum skill (GM)
-					// 50 = int affects mana regen (%50)
-					int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParams->manarate());
-					int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill(MEDITATION) + 1)/10) + ((pc->in + 1) / 2)) / ratio));
-					if (pc->med())
-					{
-						pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC);
-					}
-					else
-						pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs)* MY_CLOCKS_PER_SEC);
+					pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC);
 				}
-				else 
-					pc->regen3 = currenttime + interval;
+				else
+					pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs)* MY_CLOCKS_PER_SEC);
+			}
+			else 
+				pc->regen3 = currenttime + interval;
 			}
 			// end Mana regeneration
+			
 			if ((pc->hidden() == 2) && ((pc->invistimeout() <= currenttime) || (overflow)) && (!(pc->priv2&8)))
 			{// only if not permanently hidden - AntiChrist
 				pc->setHidden( 0 );
 				pc->setStealth(-1);
-				updatechar(pc);
+				pc->resend( false );
 			}
 	}
-	if (pc->hp <= 0 && !pc->dead)
+
+	// Check if the character died
+	if( pc->hp <= 0 && !pc->dead )
 		deathstuff(pc);
 }
 
-void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
+void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 {
 	int y,x, timer;//, valid=0;
 	char t[120];
 
 	if ( pc == NULL ) return;
 
-	UOXSOCKET s = calcSocketFromChar(pc);//Only calc socket once!
+	UOXSOCKET s = calcSocketFromChar(pc); //Only calc socket once!
 
-	Magic->CheckFieldEffects2(currenttime, pc, 1);//Lag fix
+	// Check if the character is in a field which affects him
+	Magic->CheckFieldEffects2( currenttime, pc, 1 ); 
+	
 	if( !pc->dead && pc->swingtarg() == -1 )
 		Combat->DoCombat( pc, currenttime );
 	else if( !pc->dead && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
@@ -635,8 +646,8 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 	Movement->NpcMovement( currenttime, pc );
     setcharflag( pc );
 
-	if (!pc->dead && pc->swingtarg()==-1 )
-		Combat->DoCombat(pc, currenttime);
+	if( !pc->dead && pc->swingtarg() == -1 )
+		Combat->DoCombat( pc, currenttime );
 	else if(!pc->dead && (pc->swingtarg()>=0 && pc->timeout<=currenttime))
 		Combat->CombatHitCheckLoS(pc,currenttime);
 
@@ -857,10 +868,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 		unsigned long int diff;
 
-		//char * t;
-		//t[-1000000]=0;
-		//strcpy(0, "lala"); // x-wolf test :)
-
+		// TODO: BAD !! We do that twice a loop
 		AllCharsIterator iter_char;
 		   
 		for (iter_char.Begin(); !iter_char.atEnd(); ++iter_char)

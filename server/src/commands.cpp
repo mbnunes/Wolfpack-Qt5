@@ -945,16 +945,32 @@ public:
 			result = QString( "%1,%2,%3,%4" ).arg( pObject->pos.x ).arg( pObject->pos.y ).arg( pObject->pos.z ).arg( pObject->pos.plane );
 
 		else if( key == "color" )
+		{
 			if( pItem )
 				result = QString( "0x%1" ).arg( pItem->color(), 0, 16 );
 			else if( pChar )
 				result = QString( "0x%1" ).arg( pChar->skin(), 0, 16 );
+		}
 
 		else if( key == "skin" )
 		{
 			if( pChar )
 				result = QString( "0x%1" ).arg( pChar->skin(), 0, 16 );
 		}
+
+		else if( key == "hp" || key == "health" || key == "hitpoints" )
+		{
+			if( pChar )
+				result = QString( "%1" ).arg( pChar->hp );
+			else 
+				result = QString( "%1" ).arg( pItem->hp() );
+		}
+
+		else if( key = "stamina" && pChar )
+			result = QString( "%1" ).arg( pChar->stm );
+
+		else if( key = "mana" && pChar )
+			result = QString( "%1" ).arg( pChar->mn );
 
 		// Check if key was a skillname
 		else 
@@ -987,6 +1003,24 @@ void commandShow( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->attachTarget( new cShowTarget( args.join( " " ) ) );
 }
 
+void commandAction( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	bool ok = false;
+	UINT32 action = hex2dec( args.join( " " ) ).toInt( &ok );
+
+	if( ok )
+	{
+		if( socket->player() )
+		{
+			socket->player()->action( action );
+		}
+	}
+	else
+	{
+		socket->sysMessage( tr( "Invalid parameter: '%1'" ).arg( args.join( " " ) ) );
+	}
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1004,6 +1038,7 @@ stCommand cCommands::commands[] =
 	{ "INFO", commandInfo },
 	{ "SHOW", commandShow },
 	{ "SET", commandSet },
+	{ "ACTION", commandAction },
 	{ NULL, NULL }
 };
 

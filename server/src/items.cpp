@@ -919,7 +919,7 @@ void cAllItems::DeleItem(P_ITEM pi)
         // what fur said about the assert only partially applies to this version. Duke
        
 P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
-					int nAmount, char* cName, int nStackable,
+					int nAmount, const char* cName, int nStackable,
 					unsigned char cItemId1, unsigned char cItemId2,
 					unsigned short cColorId,
 					int nPack, int nSend)
@@ -936,7 +936,7 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
 }
 
 P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
-					int nAmount, char* cName, int nStackable,
+					int nAmount, const char* cName, int nStackable,
 					unsigned char cItemId1, unsigned char cItemId2,
 					unsigned short cColorId,
 					int nPack, int nSend)
@@ -960,7 +960,7 @@ P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, QString nItem)
 	return pi;
 }
 
-P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileable, short id, short color, bool bPack)
+P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool pileable, short id, short color, bool bPack)
 {
 	if (pc_ch == NULL) 
 		return NULL;
@@ -1747,6 +1747,13 @@ void cItem::processNode( const QDomElement& Tag )
 		this->dye = 1;
 	else if( TagName == "nodye" )
 		this->dye = 0;
+
+	// <corpse />
+	// <nocorpse />
+	else if( TagName == "corpse" )
+		this->setCorpse( true );
+	else if( TagName == "nocorpse" )
+		this->setCorpse( false );
 
 	// <id>12f9</id>
 	else if( TagName == "id" )

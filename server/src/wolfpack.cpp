@@ -806,183 +806,211 @@ void all_items(int s) // Send ALL items to player
 // History:	by UnKnown (Touched tabstops by Tauriel Dec 28, 1998)
 // Purpose:	creates a corpse, moves items to it, take out of war mode, does animation and sound, etc.
 //
-void deathstuff(P_CHAR pc_player)
+void deathstuff( P_CHAR pChar )
 {
-	int z, l, q, ele;
-	char murderername[50]; //AntiChrist
-	unsigned char clearmsg[8];
+	int l, q, ele;
 	int nType=0;
 
-	if ( pc_player == NULL )
+	if( !pChar )
 		return;
 
-
-	if (pc_player->dead || pc_player->npcaitype() == 17 || pc_player->isInvul())
+	if(pChar->dead || pChar->npcaitype() == 17 || pChar->isInvul())
 		return;
 
-	if(pc_player->polymorph())
+	if( pChar->polymorph() )
 	{
-		pc_player->setId(pc_player->xid);
-		pc_player->setPolymorph( false );
-		teleport(pc_player);
+		pChar->setId( pChar->xid );
+		pChar->setPolymorph( false );
+		pChar->resend( false );
 	}
 
-	pc_player->xid = pc_player->id(); // lb bugfix
-	pc_player->setXSkin(pc_player->skin());
-	pc_player->setMurdererSer(INVALID_SERIAL);	// Reset previous murderer serial # to zero
+	pChar->xid = pChar->id(); // lb bugfix
+	pChar->setXSkin( pChar->skin() );
+	pChar->setMurdererSer( INVALID_SERIAL ); // Reset previous murderer serial # to zero
 
-	if (pc_player->attacker != INVALID_SERIAL)
+	QString murderer( "" );
+
+	P_CHAR pAttacker = NULL;
+	if( pChar->attacker != INVALID_SERIAL )
 	{
-		P_CHAR pc_attacker = FindCharBySerial(pc_player->serial);
-		strcpy(murderername, pc_attacker->name.c_str());
-	}
-	else
-		murderername[0]=0;
+		pAttacker = FindCharBySerial( pChar->attacker );
 
+		if( pAttacker )
+			murderer = pAttacker->name.c_str();
+	}
+
+	// We do know our murderer here (or if there is none it's null)
+	// So here it's time to kall onKilled && onKill
+	// And give them a chance to return true
+	// But take care. You would need to create the corpse etc. etc.
+	// Which is *hard* work
+	// TODO: Call onKilled/onKill events
+
+	// Reputation system ( I dont like the idea of this loop )
 	AllCharsIterator iter_char;
-	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
+	for( iter_char.Begin(); !iter_char.atEnd(); iter_char++ )
 	{
 		P_CHAR pc_t = iter_char.GetData();
-		if (pc_t->targ == pc_player->serial && !pc_t->free)
+		if( pc_t->targ == pChar->serial && !pc_t->free )
 		{
-			if (pc_t->npcaitype()==4) //LB change from 0x40 to 4
+			if( pc_t->npcaitype() == 4 )
 			{
 				pc_t->summontimer=(uiCurrentTime+(MY_CLOCKS_PER_SEC*20));
 				pc_t->npcWander=2;
 				pc_t->setNextMoveTime();
-				npctalkall(pc_t,"Thou have suffered thy punishment, scoundrel.",0);
+				pc_t->talk( tr( "Thou have suffered thy punishment, scoundrel." ) );
 			}
-			pc_t->targ=INVALID_SERIAL;
-			pc_t->timeout=0;
-			if (pc_t->attacker != INVALID_SERIAL)
+
+			pc_t->targ = INVALID_SERIAL;
+			pc_t->timeout = 0;
+
+			if( pc_t->attacker != INVALID_SERIAL )
 			{
 				P_CHAR pc_attacker = FindCharBySerial(pc_t->attacker);
 				pc_attacker->resetAttackFirst();
-				pc_attacker->attacker = INVALID_SERIAL; // lb crashfix
+				pc_attacker->attacker = INVALID_SERIAL;
 			}
+
 			pc_t->attacker = INVALID_SERIAL;
 			pc_t->resetAttackFirst();
 
-			if(pc_t->isPlayer() && !pc_t->inGuardedArea())
-			{//AntiChrist
-				Karma(pc_t, pc_player, (0-(pc_player->karma)));
-				Fame(pc_t,pc_player->fame);
-				//murder count \/
-				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
+			if( pc_t->isPlayer() && !pc_t->inGuardedArea() )
+			{
+				Karma( pc_t, pChar, ( 0 - ( pChar->karma ) ) );
+				Fame( pc_t, pChar->fame );
+
+				if( ( pChar->isPlayer() ) && ( pc_t->isPlayer() ) ) //Player vs Player
 				{
-					if(pc_player->isInnocent() && GuildCompare( pc_t, pc_player ) == 0 && pc_t->attackfirst())
+					if( pChar->isInnocent() && GuildCompare( pc_t, pChar ) == 0 && pc_t->attackfirst() )
 					{
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
-						// BountyAskVictim( pc_player->serial, pc_t->serial );
-						pc_player->setMurdererSer( pc_t->serial );
-
+						// BountyAskVictim( pChar->serial, pc_t->serial );
+						pChar->setMurdererSer( pc_t->serial );
 						pc_t->kills++;
-						sprintf((char*)temp, "You have killed %i innocent people.", pc_t->kills);
-						UOXSOCKET sock = calcSocketFromChar(pc_t);
-						sysmessage(sock, (char*)temp);
-						if (pc_t->kills==(unsigned)SrvParams->maxkills())
-							sysmessage(sock, "You are now a murderer!");
-						setcharflag(pc_t);//AntiChrist
+
+						// Notify the user of reputation changes
+						if( pc_t->socket() )
+						{
+							pc_t->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pc_t->kills ) );
+
+							if( pc_t->kills >= SrvParams->maxkills() )
+								pc_t->socket()->sysMessage( tr( "You are now a murderer!" ) );
+						}
+
+						setcharflag( pc_t );
 					}
 
-					if (SrvParams->pvpLog())
+					if( SrvParams->pvpLog() )
 					{
-						sprintf((char*)temp,"%s was killed by %s!\n",pc_player->name.c_str(),pc_t->name.c_str());
+						sprintf((char*)temp,"%s was killed by %s!\n",pChar->name.c_str(),pc_t->name.c_str());
 						savelog((char*)temp,"PvP.log");
 					}
 				}
-			}//if !npc
-			if (pc_t->isNpc() && pc_t->war)
-				npcToggleCombat(pc_t); // ripper
+			}
+
+			if( pc_t->isNpc() && pc_t->war )
+				npcToggleCombat( pc_t ); // ripper
 		}
 	}
 
-	P_ITEM pi_backpack = Packitem(pc_player);
-	z=calcSocketFromChar(pc_player);
-	if (z != -1)
-		unmounthorse(z);
+	// Now for the corpse
+	P_ITEM pi_backpack = pChar->getBackpack();
+	
+	// TODO: Unmount the user	
+	//	unmounthorse(z);
 
-	unsigned int ci=0;
 	P_ITEM pi_j;
-	vector<SERIAL> vecContainer(contsp.getData(pc_player->serial));
-	for ( ci = 0; ci < vecContainer.size(); ++ci)
+	vector<SERIAL> vecContainer( contsp.getData( pChar->serial ) );
+	for( UINT32 ci = 0; ci < vecContainer.size(); ++ci )
 	{
 		pi_j = FindItemBySerial(vecContainer[ci]);
-		if (pi_j && pi_j->type()==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
+		if(pi_j && pi_j->type()==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
 			pi_j->pos.z==0 && pi_j->id()==0x1E5E )
 		{
-			endtrade(pi_j->serial);
+			endtrade( pi_j->serial );
 		}
 	}
-	ele=0;
+	ele = 0;
 
-	if (pc_player->xid == 0x0191)
-	{
-		pc_player->setId(0x0193);	// Male or Female
-	}
+	// I would *NOT* do that but instead replace several *send* things
+	// We have ->dead already so there shouldn't be any checks regarding
+	// 0x192-0x193 to see if the char is dead or not
+	if( pChar->xid == 0x0191 )
+		pChar->setId( 0x0193 );	// Male or Female
 	else
+		pChar->setId( 0x0192 );
+
+	PlayDeathSound( pChar );
+
+	pChar->setSkin( 0x0000 ); // Undyed
+	pChar->dead = true; // Dead
+	pChar->hp = 0; // With no hp left
+	
+	// Reset poison
+	pChar->setPoisoned(0);
+	pChar->setPoison(0);
+		
+#pragma note( "A corpse has to be present with the script-id 2006 in the defs" )
+	// Create our Corpse
+	P_ITEM pi_c = Items->createScriptItem( "2006" );
+	
+	if( !pi_c )
+		return;
+
+	pi_c->setName( tr( "corpse of %1" ).arg( pChar->name.c_str() ) );
+	pi_c->setColor( pChar->skin() );
+
+	// Storing the player's notority
+	// So a singleclick on the corpse
+	// Will display the right color
+	if( pChar->isPlayer() )
 	{
-		pc_player->setId(0x0192);
+	    if( pChar->isInnocent() )
+			pi_c->more2 = 1;
+	    else if( pChar->isCriminal() )
+			pi_c->more2 = 2;
+	    else if( pChar->isMurderer() )
+			pi_c->more2 = 3;
+
+        pi_c->ownserial=pChar->serial;
 	}
 
-	PlayDeathSound(pc_player);
-	pc_player->setSkin(0x0000); // Undyed
-	pc_player->dead = true;	// Dead
-	pc_player->hp = 0;		// With no hp left
-	pc_player->setPoisoned(0);
-	pc_player->setPoison(0);	//AntiChrist
-	// Make the corpse
-	sprintf((char*)temp,"corpse of %s",pc_player->name.c_str());
-	const P_ITEM pi_c = Items->SpawnItem(pc_player, 1, (char*)temp, 0, 0x2006, pc_player->xskin(), 0);
-	if(pi_c==NULL) return;//AntiChrist to preview crashes
-	// Corpse highlighting.. Ripper
-	if(pc_player->isPlayer())
-	{
-	    if (pc_player->isInnocent()) pi_c->more2=1;
-	    else if (pc_player->isCriminal()) pi_c->more2=2;
-	    else if (pc_player->isMurderer()) pi_c->more2=3;
-        pi_c->ownserial=pc_player->serial;
-	}// end corpse highlighting.
-
-//    if(pc_player->isNpc() || pc_player->isPlayer())
-
-	ele = pc_player->xid; // Amount == corpse type
+	ele = pChar->xid; // Amount == corpse type
 	pi_c->setAmount( ele );
-	pi_c->morey = ishuman(pc_player);//is human?? - AntiChrist
-	pi_c->setCarve( pc_player->carve() );//store carve section
-	pi_c->setName2( pc_player->name.c_str() );
+	pi_c->morey = ishuman( pChar ); //is human??
+	pi_c->setCarve( pChar->carve() ); //store carve section
+	pi_c->setName2( pChar->name.c_str() );
 
-	pi_c->setType( 1 );
-	pi_c->moveTo(pc_player->pos);
+	pi_c->moveTo( pChar->pos );
 
-	pi_c->more1=nType;
-	pi_c->dir=pc_player->dir;
-	pi_c->setCorpse( 1 );
+	pi_c->more1 = nType;
+	pi_c->dir = pChar->dir;
 	pi_c->startDecay();
 	
-	//JustMichael -- If it was a player set the ownerserial to the player's
-	if( pc_player->isPlayer() )
+	// If it was a player set the ownerserial to the player's
+	if( pChar->isPlayer() )
 	{
-		pi_c->SetOwnSerial(pc_player->serial);
+		pi_c->SetOwnSerial(pChar->serial);
+		// This is.... stupid...
 		pi_c->more4 = char( SrvParams->playercorpsedecaymultiplier()&0xff ); // how many times longer for the player's corpse to decay
 	}
 
-	//AntiChrist -- stores the time and the murderer's name
-	pi_c->setMurderer( murderername );
+	// stores the time and the murderer's name
+	pi_c->setMurderer( murderer );
 	pi_c->murdertime = uiCurrentTime;
 
 	// create loot
-	if( pc_player->isNpc() )
+	if( pChar->isNpc() )
 	{
-		QStringList lootItemSections = DefManager->getList( pc_player->lootList() );
+		QStringList lootItemSections = DefManager->getList( pChar->lootList() );
 		QStringList::const_iterator it = lootItemSections.begin();
 
 		while( it != lootItemSections.end() )
 		{
 			P_ITEM pi_loot = Items->createScriptItem( (*it) );
 			if( pi_loot )
-				pi_loot->setContSerial( pc_player->serial );
+				pi_loot->setContSerial( pChar->serial );
 
 			it++;
 		}
@@ -990,23 +1018,24 @@ void deathstuff(P_CHAR pc_player)
 	
 	// Put objects on corpse
 	vecContainer.clear();
-	vecContainer = contsp.getData(pc_player->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	vecContainer = contsp.getData(pChar->serial);
+	bool resetShop = false;
+
+	for ( UINT32 ci = 0; ci < vecContainer.size(); ci++)
 	{
-		pi_j = FindItemBySerial(vecContainer[ci]);
+		pi_j = FindItemBySerial( vecContainer[ci] );
 		// for BONUS ITEMS - remove bonus
-		pc_player->removeItemBonus(pi_j);
-		if ((pi_j->trigon==1) && (pi_j->layer() >0) && (pi_j->layer()!=15) && (pi_j->layer()<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
-		{
-			Trig->triggerwitem(z, pi_j, 1); // trigger is fired when item destroyed
-		}
-		if ((pi_j->contserial== pc_player->serial) && (pi_j->layer()!=0x0B) && (pi_j->layer()!=0x10))
-		{//Let's check all items, except HAIRS and BEARD
+		pChar->removeItemBonus( pi_j );
+
+		// unequip trigger...
+
+		if( ( pi_j->contserial == pChar->serial ) && ( pi_j->layer() != 0x0B ) && ( pi_j->layer() != 0x10 ) )
+		{	// Let's check all items, except HAIRS and BEARD
 			// Ripper...so order/chaos shields disappear when on corpse backpack.
 			if( pi_j->id() == 0x1BC3 || pi_j->id() == 0x1BC4 )
 			{
-				soundeffect2(pc_player, 0x01FE);
-				staticeffect(pc_player, 0x37, 0x2A, 0x09, 0x06);
+				pChar->soundEffect( 0x01FE );
+				staticeffect( pChar, 0x37, 0x2A, 0x09, 0x06 );
 				Items->DeleItem( pi_j );
 			}
 			if (pi_j->type()==1 && pi_j->layer()!=0x1A && pi_j->layer()!=0x1B &&
@@ -1018,40 +1047,35 @@ void deathstuff(P_CHAR pc_player)
 				{
 					P_ITEM pi_k = FindItemBySerial(vecContainer[ci1]);
 
-					//put the item in the corpse only of we're sure it's not a newbie item or a spellbook
+					// put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 					if ( !pi_k->newbie() && ( pi_k->type() != 9 ) )
 					{
-						pi_k->setLayer( 0 );
-						pi_k->setContSerial(pi_c->serial);
-						pi_k->SetRandPosInCont(pi_c);
+						pi_c->AddItem( pi_k );
+						
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
 						{
-							soundeffect2(pc_player, 0x01FE);
-							staticeffect(pc_player, 0x37, 0x2A, 0x09, 0x06);
+							pChar->soundEffect( 0x01FE );
+							staticeffect(pChar, 0x37, 0x2A, 0x09, 0x06);
 							Items->DeleItem( pi_k );
 						}
-						RefreshItem(pi_k);//AntiChrist
+
+						pi_k->update();
 					}
 				}
 			}
-			else if (pi_j->layer()==0x1A)
-			{//else if it's a NPC vendor special container
-				clearmsg[0]=0x3B;
-				clearmsg[1]=0x00;
-				clearmsg[2]=0x08;
-				LongToCharPtr(pc_player->serial, &clearmsg[3]);
-				clearmsg[7]=0x00;
-				for (l=0;l<now;l++)
-					if (perm[l] && inrange1p(pc_player, currchar[l]))
-						Xsend(l, clearmsg, 8);
-			}//else if it's a normal item but ( not newbie and not bank items )
+			// if it's a NPC vendor special container
+			else if( pi_j->layer() == 0x1A )
+			{
+				// This seems odd to me
+				// but i converted it from the old version
+				resetShop = true;
+			}
+			// if it's a normal item but ( not newbie and not bank items )
 			else if ((!(pi_j->priv&0x02)) && pi_j->layer()!=0x1D)
 			{
 				if (pi_j != pi_backpack)
-				{
-					pi_j->setContSerial(pi_c->serial);
-				}
+					pi_j->setContSerial( pi_c->serial );
 			}
 			else if(pi_backpack != NULL && pi_j->layer()!=0x1D)
 			{//else if the item is newbie put it into char's backpack
@@ -1061,43 +1085,57 @@ void deathstuff(P_CHAR pc_player)
 					pi_j->setContSerial(pi_backpack->serial);
 				}
 			}
-			if ((pi_j->layer()==0x15)&&(pc_player->shop==0)) 
+
+			if( ( pi_j->layer() == 0x15 ) && ( pChar->shop == 0 ) ) 
 				pi_j->setLayer( 0x1A );
 
 			pi_j->pos.x = RandomNum(20, 70);
 			pi_j->pos.y = RandomNum(85, 160);
 			pi_j->pos.z=9;
-			SndRemoveitem(pi_j->serial);
-			RefreshItem(pi_j);//AntiChrist
+
+			pi_j->removeFromView( false ); // Check if this is neccesary!
+			pi_j->update();
 		}
-		if ((pi_j->contserial == pc_player->serial)&& ((pi_j->layer()==0x0B)||(pi_j->layer()==0x10)))
+		if ((pi_j->contserial == pChar->serial)&& ((pi_j->layer()==0x0B)||(pi_j->layer()==0x10)))
 		{
 			pi_j->setName( "Hair/Beard" );
-			pi_j->pos.x=0x47;
-			pi_j->pos.y=0x93;
-			pi_j->pos.z=0;
+			// Seems a stupid idea
+			pi_j->pos.x = 0x47;
+			pi_j->pos.y = 0x93;
+			pi_j->pos.z = 0;
 		}
 	}
-	if (pc_player->isPlayer())
+	if (pChar->isPlayer())
 	{
-		strcpy((char*)temp,"a Death Shroud");
-		const P_ITEM pi_c = Items->SpawnItem(z, pc_player, 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0);
-		if(pi_c == NULL) return;
-		pc_player->robe = pi_c->serial;
-		pi_c->setContSerial(pc_player->serial);
-		pi_c->setLayer( 0x16 );
-		pi_c->def=1;
+#pragma note( "Deathshroud has to be defined as 204E in the scripts" )
+		P_ITEM pItem = Items->createScriptItem( "204E" );
+		if( pi_c )
+		{
+			pChar->robe = pi_c->serial;
+			pi_c->setContSerial( pChar->serial );
+			pi_c->setLayer( 0x16 );
+		}
 	}
-	if (SrvParams->showDeathAnim())
-		deathaction(pc_player, pi_c);
-	if (pc_player->account() != 0) // LB
-	{
-		
-		teleport(pc_player);
-	
-		q = calcSocketFromChar(pc_player);
-		if (q>-1) deathmenu(q);
-	}
+
+	cUOTxDeathAction dAction;
+	dAction.setSerial( pChar->serial );
+	dAction.setCorpse( pi_c->serial );
+
+	cUOTxClearBuy rShop;
+	rShop.setSerial( pChar->serial );
+
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; cNetwork::instance()->next() )
+		if( mSock->player() && mSock->player()->inRange( pChar, mSock->player()->VisRange ) )
+		{
+			if( SrvParams->showDeathAnim() )
+				mSock->send( &dAction );
+
+			if( resetShop )
+				mSock->send( &rShop );
+		}
+
+	if( pChar->socket() )
+		pChar->socket()->resendPlayer();
 
 //	if ((ele==13)||(ele==15)||(ele==16)||(ele==574))//-Frazurbluu, we're gonna remove this strange little function :)
 // it becomes OSI exact with it removed! -Fraz- I DO NEED TO CHECK ENERGY VORTEXS!!!!!!!!!!!!!!!!!!!!!!
@@ -1109,10 +1147,17 @@ void deathstuff(P_CHAR pc_player)
 //		pi_c->setId(0x09B2);
 //		pi_c->corpse=0;
 //	}
-	RefreshItem(pi_c);//AntiChrist
-	if (pc_player->isNpc())
-		Npcs->DeleteChar(pc_player);
-	if(ele==65535) Items->DeleItem(pi_c);
+
+	pi_c->update();
+
+	// St00pid -> spawned chars shoudl become invis so they keep their stats
+	// and information
+	if( pChar->isNpc() )
+		Npcs->DeleteChar(pChar );
+
+	// Wtf ?? Summoned Creatures -> should be flag
+	if( ele == 65535 )
+		Items->DeleItem( pi_c );
 }
 
 int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
@@ -2750,11 +2795,11 @@ void npcattacktarget( P_CHAR attacker, P_CHAR defender )
 	int i;
 	unsigned int cdist=0 ;
 
-	if (defender->targ != INVALID_SERIAL)
+	if( defender->targ != INVALID_SERIAL )
 		cdist = chardist( defender, FindCharBySerial(defender->targ));
 	else cdist=30;
 
-	if (cdist>chardist(defender, attacker))
+	if( cdist>chardist( defender, attacker ) )
 	{
 		defender->targ = attacker->serial;
 		defender->attacker = attacker->serial;
@@ -2808,7 +2853,7 @@ void npcattacktarget( P_CHAR attacker, P_CHAR defender )
 	{
 		P_CHAR pChar = cIter.GetData();
 
-		if( pChar && pChar->socket() && pChar->inRange( attacker, pChar->VisRange ) )
+		if( pChar && ( pChar != defender ) && pChar->socket() && pChar->inRange( attacker, pChar->VisRange ) )
 			pChar->socket()->showSpeech( attacker, emote, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 	}
 }

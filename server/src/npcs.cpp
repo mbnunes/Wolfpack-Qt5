@@ -298,7 +298,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 bool cChar::inGuardedArea()
 {
 	cTerritory* Region = cAllTerritories::getInstance()->region( this->pos.x, this->pos.y );
-	if( Region != NULL )
+	if( Region )
 		return Region->isGuarded();
 	else
 		return false;

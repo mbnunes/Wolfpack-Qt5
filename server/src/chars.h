@@ -59,6 +59,8 @@ class cChar : public cUObject
 {
 // Public Data Members
 public:
+	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char
+
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
 	RACE					race; // -Fraz- Race AddOn

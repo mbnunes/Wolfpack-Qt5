@@ -473,7 +473,7 @@ public:
 	void setColor( Q_UINT16 data ) { setShort( 15, data ); }
     void setFlag( Q_UINT8 data ) { rawPacket[17] = data; }
 	UINT8 flag() { return rawPacket[17]; }
-	void setHightlight( Q_UINT8 data ) { rawPacket[18] = data; }
+	void setHighlight( Q_UINT8 data ) { rawPacket[18] = data; }
 	void fromChar( P_CHAR pChar );
 	
 	// The last 4 bytes are the terminator
@@ -803,6 +803,24 @@ public:
 	void setBackwards( UINT8 data ) { rawPacket[11] = data; }
 	void setRepeatFlag( UINT8 data ) { rawPacket[12] = data; }
 	void setSpeed( UINT8 data ) { rawPacket[13] = data; }
+};
+
+// 0xAF DeathAction
+class cUOTxDeathAction: public cUOPacket
+{
+public:
+	cUOTxDeathAction(): cUOPacket( 0xAF, 13 ) {}
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setCorpse( UINT32 data ) { setInt( 5, data ); }
+	void setUnknown1( UINT32 data ) { setInt( 9, data ); }
+};
+
+// 0x3B ClearBuy
+class cUOTxClearBuy: public cUOPacket
+{
+public:
+	cUOTxClearBuy(): cUOPacket( 0x3B, 8 ) { setShort( 1, 8 ); }
+	void setSerial( UINT32 data ) { setInt( 3, data ); }
 };
 
 #endif

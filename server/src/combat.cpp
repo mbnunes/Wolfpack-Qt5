@@ -165,8 +165,8 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 		return;
 
 	unsigned short fightskill = Skills->GetCombatSkill(pc_attacker), bowtype = Combat->GetBowType(pc_attacker),splitnum,splitcount,hitin;
-	unsigned int basedamage;
-	int damage; // removed from unsigne by Magius(CHE)
+	INT32 basedamage = 0;
+	INT32 damage = 0;
 	signed int x;
 	// Magius(CHE) - For armour absorbtion system
 	int maxabs, maxnohabs, tmpj;
@@ -245,14 +245,15 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 			pc_defender->priv2 &= 0xFD;
 
 		// ==== ENCHANTED ITEMS
-		if( ( fightskill != WRESTLING ) && los)
+		if( ( fightskill != WRESTLING ) && los )
 				Combat->ItemSpell( pc_attacker, pc_defender );
 			
+		// Calc base damage
 		if( ( fightskill != WRESTLING ) || pc_attacker->isNpc() )
-			basedamage=Combat->CalcAtt(pc_attacker); // Calc base damage
+			basedamage = Combat->CalcAtt( pc_attacker ); 
 		else if( ( pc_attacker->skill( WRESTLING ) / 100 ) > 0 )
 		{
-			basedamage = rand()%(pc_attacker->skill(WRESTLING)/100);
+			basedamage = rand() % ( pc_attacker->skill( WRESTLING ) / 100 );
 		}
 		else 
 			basedamage = rand() % 2;
@@ -260,11 +261,11 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 
 		if( pc_attacker->isPlayer() && ( fightskill != WRESTLING ) )
 		{ 
-			if (pWeapon->racehate() != 0 && pc_defender->race != 0)	//-Fraz- Racehating combat
+			if( pWeapon->racehate() != 0 && pc_defender->race != 0 ) //-Fraz- Racehating combat
 			{
 				if (pWeapon->racehate() == pc_defender->race)
 				{
-					basedamage *=2;
+					basedamage *= 2;
 					if( pc_defender->isPlayer() )
 					{
 						if( pc_defender->socket() )
@@ -284,23 +285,28 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 		damage=(int)(basedamage*((pc_attacker->skill(TACTICS)+500.0)/1000.0)); // Add Tactical bonus
 		damage=damage+(int)((basedamage*(pc_attacker->st/500.0))); // Add Strength bonus
 
-			//Adds a BONUS DAMAGE for ANATOMY
-			//Anatomy=100 -> Bonus +20% Damage - AntiChrist (11/10/99)
+			//===== BONUS DAMAGE FOR ANATOMY
+			//Anatomy = 100 -> Bonus +20% Damage
 			if (Skills->CheckSkill(pc_attacker, ANATOMY, 0, 1000))
 			{
 				float multiplier=(((pc_attacker->skill(ANATOMY)*20)/1000.0f)/100.0f)+1;
 				damage=(int)  (damage * multiplier);
 			}
-			//Adds a BONUS DEFENCE for TACTICS
-			//Tactics=100 -> Bonus -20% Damage - AntiChrist (11/10/99)
+
+			//===== BONUS DEFENSE FOR TACTICS
+			// Tactics = 100 -> Bonus -20% Damage
 			float multiplier=1-(((pc_defender->skill(TACTICS)*20)/1000.0f)/100.0f);
-			damage=(int)  (damage * multiplier);
-			P_ITEM pShield=pc_defender->getShield();
-			if(pShield)
+			damage = (int)(damage * multiplier);
+
+			//===== BONUS DEFENSE FOR PARRY+SHIELD
+			P_ITEM pShield = pc_defender->getShield();
+			if( pShield )
 			{
-				if (Skills->CheckSkill(pc_defender, PARRYING, 0, 1000))// chance to block with shield
+				if (Skills->CheckSkill(pc_defender, PARRYING, 0, 1000)) // chance to block with shield
 				{
-					if (pShield->def!=0) damage-=rand()%(pShield->def);// damage absorbed by shield
+					if( pShield->def != 0 )
+						damage -= rand() % pShield->def; // damage absorbed by shield
+
 					if( rand() % 2 ) 
 						pShield->setHp( pShield->hp() - 1 ); //Take off a hit point
 
@@ -308,6 +314,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 					{
 						if( pc_defender->socket() )
 							pc_defender->socket()->sysMessage( tr( "Your shield has been destroyed" ) );
+
 						Items->DeleItem(pShield);
 					}
 				}
@@ -410,8 +417,14 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 					}
 				}
 
-				if( pc_defender->socket() )
-					pc_defender->socket()->sysMessage( QString( "%1 %2" ).arg( pc_defender->name.c_str() ).arg( cMessage ) );
+				if( !cMessage.isEmpty() )
+				{
+					if( pc_defender->socket() )
+						pc_defender->socket()->sysMessage( QString( "%1 %2" ).arg( pc_attacker->name.c_str() ).arg( cMessage ) );
+
+					//if( pc_attacker->socket() )
+					//	pc_attacker->socket()->sysMessage( QString( ou %2" ).arg( pc_attacker->name.c_str() ).arg( cMessage ) );
+				}
 			}
 
 			x = CalcDef( pc_defender, x );
@@ -431,11 +444,17 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 				maxnohabs = SrvParams->maxnohabsorbtion();
 			}		
 
-			if (!ishuman(pc_defender)) maxabs=maxnohabs;
-			tmpj=(int) (damage*x)/maxabs; // Absorbtion by Magius(CHE)
+			if( !ishuman( pc_defender ) ) 
+				maxabs = maxnohabs;
+
+			tmpj = (int)( damage * x ) / maxabs; // Absorbtion by Magius(CHE)
 			damage -= tmpj;
-			if (damage<0) damage=0;
-			if (pc_defender->isPlayer()) damage /= SrvParams->npcdamage(); // Rate damage against other players
+			if( damage < 0 )
+				damage=0;
+
+			if( pc_defender->isPlayer() )
+				damage /= SrvParams->npcdamage(); // Rate damage against other players
+			
 			// End Armour Absorbtion by Magius(CHE) (See alse reactive armour spell damage)
 
 			if( pc_attacker->isPlayer() )
@@ -444,7 +463,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 			// AntiChrist - 26/10/99
 			// when hitten and damage >1, defender fails if casting a spell!
 			// Thats not really good, better make a check versus int+magic
-			if(damage>1 && pc_defender->isPlayer())//only if damage>1 and against a player
+			if( damage>1 && pc_defender->isPlayer() )//only if damage>1 and against a player
 			{
 				// TODO: Implement spell apruption
 				/*if(pc_defender->casting() && currentSpellType[s2]==0 )
@@ -460,25 +479,29 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 
 			if( damage > 0 )
 			{
-				if (pc_defender->ra()) // For reactive armor spell
+				//===== REACTIVE ARMOR
+				if( pc_defender->ra() )
 				{
-					// -Frazurbluu- RA may need a rewrite to be more OSI standard here
+					// RA may need a rewrite to be more OSI standard here
 					// Its said 80% deflected 10% to attacker / 10% defender gotta check special effects
 					int damage1;
 					damage1=(int)( damage*(pc_defender->skill(MAGERY)/2000.0));
-					pc_defender->hp -= damage-damage1;
-					if (pc_defender->isNpc()) damage1 = damage1 * SrvParams->npcdamage(); // by Magius(CHE)
+					pc_defender->hp -= damage - damage1;
+					if (pc_defender->isNpc()) damage1 = damage1 * SrvParams->npcdamage();
 					pc_attacker->hp -= damage1;  // Remove damage from attacker
-					staticeffect(pc_defender, 0x37, 0x4A, 0, 15);//RA effect - AntiChrist (9/99)
-					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id())))// Stamina Loss -Fraz-
+					staticeffect(pc_defender, 0x37, 0x4A, 0, 15); //RA effect
+					
+					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id()))) // Stamina Loss
 					{ 
 						//pc_attacker->stm-=3+(rand()%4);
 					}
-					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())))// Paralyzing -Fraz-
+
+					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())))// Paralyzing
 					{ 
 						//will call the combat caused paralyzation **NEED TO DO**
 					}
-					if ((fightskill==SWORDSMANSHIP) && (IsAxe(pWeapon->id())))// Concussion Hit -Fraz-
+
+					if ((fightskill==SWORDSMANSHIP) && (IsAxe(pWeapon->id())))// Concussion Hit
 					{ 
 						//will call the combat caused concussion (loss of int for 30 secs) **NEED TO DO**
 						// for now make it subtract mana
@@ -488,26 +511,28 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 					pc_attacker->updateHealth();
 				}
 				else 
-				{	// -Fraz- Now needs adjusted to happen on a skill percentage 
-					pc_defender->hp-=damage; // Remove damage from defender only apply special hits to non-npc's
+				{	
+					//===== DEAL DAMAGE (!)
+					pc_defender->hp -= damage; // Remove damage from defender only apply special hits to non-npc's
+					
 					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id())) && (pc_defender->isPlayer()))// Stamina Loss -Fraz-
 					{ 
 						pc_defender->stm-=3+(rand()%3);
 					}
 
-					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())) && (pc_defender->isPlayer()))// Paralyzing -Fraz-
+					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())) && (pc_defender->isPlayer()))// Paralyzing
 					{ 
 						tempeffect(pc_attacker, pc_defender, 44, 0, 0, 0);
 						pc_attacker->message( tr( "You delivered a paralyzing blow" ) );
 					}
 
-					if( ( fightskill == SWORDSMANSHIP ) && ( IsAxe( pWeapon->id() ) ) && ( pc_defender->isPlayer() ) )// Concussion Hit -Fraz-
+					if( ( fightskill == SWORDSMANSHIP ) && ( IsAxe( pWeapon->id() ) ) && ( pc_defender->isPlayer() ) )// Concussion Hit
 					{ 
 						tempeffect(pc_attacker, pc_defender, 45, 0, 0, 0);
-						//pc_attacker->mn-=(pc_attacker->mn/2); //-Fraz- temp use of this for concussion
 					}
 				}
-				// blood shred by blackwind
+
+				//===== BLOOD
 				if( damage > 10 )
 				{
 	               short id = 0x122c;	
@@ -526,7 +551,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 				   }
 				}
 
-				/////////  For Splitting NPCs ///  McCleod
+				//===== SPLITTING NPCS
 				if ((pc_defender->split()>0)&&(pc_defender->hp>=1))
 				{
 					if (rand()%100<=pc_defender->splitchnc())
@@ -538,21 +563,23 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 							Npcs->Split(pc_defender);
 					}
 				}
-				////////      End of spliting NPCs
 			}
 
-		// Do soundeffects
+		pc_defender->hp = QMAX( 0, pc_defender->hp );
+
+		//===== SOUNDEFFECTS
 		if( pc_attacker->isPlayer() )
 			if( ( fightskill == ARCHERY && los) || fightskill != ARCHERY )
 				doSoundEffect( pc_attacker, fightskill, pWeapon );
-		
-		if (pc_defender->hp<0) pc_defender->hp=0;
+
+		//===== RESEND HEALTH BAR(S)
 		pc_defender->updateHealth();
-		x = pc_defender->id();
-		if( x >= 0x0190 )
+
+		//===== DAMAGE ANIMATION
+		if( pc_defender->id() >= 0x0190 )
 		{
 			if( !pc_defender->onHorse() ) 
-				npcaction( pc_defender, 0x14 );
+				pc_defender->action( 0x14 );
 		}
 }
 
@@ -707,7 +734,15 @@ static void SetWeaponTimeout( P_CHAR Attacker, P_ITEM Weapon )
 
 void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los)
 {
-	short id = pc_attacker->id();
+	// Check that pc_attacker is facing the right direction
+	UINT8 dir = chardir( pc_attacker, pc_defender );
+	if( dir != pc_attacker->dir )
+	{
+		pc_attacker->dir = dir;
+		pc_attacker->update();
+	}
+
+	UINT16 id = pc_attacker->id();
 	int cc,aa;
 	if( id < 0x0190 )
 	{
@@ -735,10 +770,10 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 	}
 	else
 	{
-		CombatOnFoot(pc_attacker);	// determines weapon in hand and runs animation kolours (09/19/98)
+		CombatOnFoot( pc_attacker );	// determines weapon in hand and runs animation kolours (09/19/98)
 	}
 
-	if (fightskill==ARCHERY)
+	if( fightskill == ARCHERY )
 	{
 		if (los)
 		{
@@ -758,18 +793,18 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 
 void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 {
-	int x, bowtype=0; // spamanachecking, tmp;
-
-	if ( pc_attacker == NULL )
+	// We are either not fighting or dont have a target
+	if( !pc_attacker || pc_attacker->free || !pc_attacker->war || ( pc_attacker->targ == INVALID_SERIAL ) )
 		return;
-	if (pc_attacker->free) return;
-	P_ITEM pWeapon=pc_attacker->getWeapon();
+
+	int x, bowtype=0; // spamanachecking,tmp;
+
+	P_ITEM pWeapon = pc_attacker->getWeapon();
 
 	P_CHAR pc_defender = FindCharBySerial( pc_attacker->targ );
 
-	// Several sanity checks (no defender, defender offline etc.)
-	// It automatically fails if we went out of warmode
-	if( !pc_defender || pc_defender->free || ( pc_defender->isPlayer() && !pc_defender->socket() ) || pc_defender->isHidden() || !pc_attacker->war )
+	// We are at war but our target's gone out of reach
+	if( !pc_defender || pc_defender->free || ( pc_defender->isPlayer() && !pc_defender->socket() ) || pc_defender->isHidden() )
 	{
 		pc_attacker->war = false;
 		pc_attacker->timeout = 0;
@@ -815,7 +850,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 		
 		if( ( pc_defender->isNpc() && pc_defender->npcaitype() !=17 ) || ( pc_defender->socket() && !pc_defender->dead ) )
 		{
-			if( pc_attacker->inRange( pc_defender, SrvParams->attack_distance() ) )
+			if( !pc_attacker->inRange( pc_defender, SrvParams->attack_distance() ) )
 			{
 				// Guards to scotty-beam-me-up
 				if( pc_attacker->npcaitype() == 4 && pc_attacker->inGuardedArea() )
@@ -828,7 +863,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 					staticeffect(pc_attacker, 0x37, 0x2A, 0x09, 0x06);
 					pc_attacker->talk( "Halt, scoundrel!" );
 				}
-				else // Any other NPC
+				else if( pc_attacker->isNpc() ) // Any other NPC
 				{
 					pc_attacker->targ = INVALID_SERIAL;
 					pc_attacker->timeout=0;
@@ -850,7 +885,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 				if( pc_attacker->targ == INVALID_SERIAL )
 				{
 					npcsimpleattacktarget( pc_attacker, pc_defender );
-					x=(((100-pc_attacker->effDex())*MY_CLOCKS_PER_SEC)/25)+(1*MY_CLOCKS_PER_SEC); //Yet another attempt.
+					x=( ( ( 100-pc_attacker->effDex() ) * MY_CLOCKS_PER_SEC ) / 25 ) + ( 1 * MY_CLOCKS_PER_SEC ); //Yet another attempt.
 					pc_attacker->timeout=currenttime+x;
 					return;
 				}
@@ -858,7 +893,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 				{
 					int los = lineOfSight( pc_attacker->pos, pc_defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
 					int fightskill = Skills->GetCombatSkill(pc_attacker);
-					bool mayAttack;
+					bool mayAttack = false;
 
 					if( fightskill == ARCHERY )
 					{
@@ -868,9 +903,9 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 							bowtype=Combat->GetBowType( pc_attacker );
 
 							if( bowtype == 1 ) 
-								arrowsquant=getamount( pc_attacker, 0x0F3F );
+								arrowsquant = getamount( pc_attacker, 0x0F3F );
 							else
-								arrowsquant=getamount( pc_attacker, 0x1BFB );
+								arrowsquant = getamount( pc_attacker, 0x1BFB );
 
 							if( arrowsquant > 0 )
 								mayAttack = true;
@@ -955,7 +990,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 				}
 				else
 				{
-					deathstuff(pc_defender);
+					deathstuff( pc_defender );
 				}
 				
 				//murder count \/				
@@ -987,13 +1022,13 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 	}
 }
 
-int cCombat::CalcAtt(P_CHAR pc_p) // Calculate total attack powerer
+int cCombat::CalcAtt( P_CHAR pc_p ) // Calculate total attack powerer
 {
 	int total = 0, j;
 	
 	if ( pc_p == NULL ) return 0;
 
-	if(pc_p->isNpc()) 
+	if( pc_p->isNpc() ) 
 	{
 		//Compatibility for use with older scripts
 		if((pc_p->lodamage==0)&&(pc_p->hidamage==0)) return(pc_p->att);
@@ -1005,7 +1040,7 @@ int cCombat::CalcAtt(P_CHAR pc_p) // Calculate total attack powerer
 		}
 		if(!(pc_p->hidamage<=2))
 		{
-			j=pc_p->hidamage-pc_p->lodamage; 
+			j = pc_p->hidamage - pc_p->lodamage; 
 			if (j!=0) total=(rand()%(j))+pc_p->lodamage; else total=pc_p->lodamage;
 		}
 		
@@ -1242,7 +1277,7 @@ void cCombat::CombatOnHorse(P_CHAR pc)
 			npcaction(pc, 0x1D); //2Handed
 			return;
 		}
-	} // end of !=-1
+	}
 	else
 	{
 		npcaction(pc, 0x1A); //fist fighting
@@ -1253,76 +1288,83 @@ void cCombat::CombatOnHorse(P_CHAR pc)
 //play animation for weapon in hand for combat on foot //kolours - (09/20/98)
 void cCombat::CombatOnFoot(P_CHAR pc)
 {
-	 if ( pc == NULL ) return;
-	 P_ITEM pWeapon=pc->getWeapon();
-	int m = rand()%4; //randomize the animation sequence
+	if( !pc )
+		return;
 
-	if (pWeapon)
+	P_ITEM pWeapon = pc->getWeapon();
+
+	if( pWeapon )
 	{
-		short id = pWeapon->id();
+		UINT16 id = pWeapon->id();
 
 		if( IsBow( id ) )
 		{
 			pc->action( 0x12 ); // bow
 			return;
-		}
-		if (IsCrossbow(id) || IsHeavyCrossbow(id))
+		} 
+		else if( IsCrossbow( id ) || IsHeavyCrossbow( id ) )
 		{
 			pc->action( 0x13 ); //crossbow - regular
 			return;
 		}
-		if( IsSword( id ) )
+		else if( IsSword( id ) )
 		{
-			switch( m ) //swords
+			switch( RandomNum( 1, 3 ) ) //swords
 			{
-			case 0:		pc->action( 0x0D );	return; //side swing
-			case 1:		pc->action( 0x0A );	return; //poke
-			default:	pc->action( 0x09 );	return; //top-down swing
+			case 1:		pc->action( 0x0D );	return; //side swing
+			case 2:		pc->action( 0x0A );	return; //poke
+			case 3:		pc->action( 0x09 );	return; //top-down swing
 			}
 		}
-		if( IsMace1H( id ) )
+		else if( IsMace1H( id ) )
 		{
-			switch (m) //maces
+			switch( RandomNum( 1,2 ) ) //maces
 			{
-			case 0:		pc->action( 0x0D );	return;	//side swing
-			default:	pc->action( 0x09 );	return; //top-down swing
+			case 1:		pc->action( 0x0D );	return;	// side swing
+			case 2:		pc->action( 0x09 );	return; // top-down swing
 			}
 		}
-		if (IsMace2H(id) || IsAxe(id))
+		else if( IsMace2H( id ) )
 		{
-			switch (m)
+			switch( RandomNum( 1, 3 ) )
 			{
-			case 0:		pc->action( 0x0D );	return; //2H top-down
-			case 1:		pc->action( 0x0C );	return; //2H swing
-			default:	pc->action( 0x0D );	return; //2H top-down
+			case 1:		pc->action( 0x0C );	return; // 2H top-down
+			case 2:		pc->action( 0x0D );	return; // 2H swing
+			case 3:		pc->action( 0x0E );	return; // 2H jab
 			}
 		}
-		if (IsFencing1H(id))	// one handed fencing
+		else if( IsAxe( id ) )
 		{
-			switch (m) //fencing
+			switch( RandomNum( 1, 2 ) )
 			{
-			case 0:		pc->action( 0x09 );	return; //top-down
-			case 1:		pc->action( 0x0D );	return; //side-swipe
-			default:	pc->action( 0x0A );	return; //default: poke
+			case 1:		pc->action( 0x0C );	return; // 2H top-down
+			case 2:		pc->action( 0x0D );	return; // 2H swing
 			}
 		}
-		if (IsFencing2H(id))	//pitchfork & spear
+		else if (IsFencing1H(id))	// one handed fencing
 		{
-			switch (m) //pitchfork
+			switch( RandomNum( 1, 3 ) ) //fencing
 			{
-			case 0:		pc->action( 0x0D );	return; //top-down
-			default:	pc->action( 0x0E );	return; //default: 2-handed poke
+			case 1:		pc->action( 0x09 );	return; //top-down
+			case 2:		pc->action( 0x0D );	return; //side-swipe
+			case 3:		pc->action( 0x0A );	return; //default: poke
+			}
+		}
+		else if( IsFencing2H( id ) ) // pitchfork & spear
+		{
+			switch( RandomNum( 1, 2) )	//pitchfork
+			{
+			case 1:		pc->action( 0x0D );	return; //top-down
+			case 2:		pc->action( 0x0E );	return; //default: 2-handed poke
 			}
 		}
 	}
-	else
+
+	switch( RandomNum( 1, 3 ) ) //fist fighting
 	{
-		switch (m) //fist fighting
-		{
-		case 0:		pc->action( 0x0A );	return; //fist straight-punch
-		case 1:		pc->action( 0x09 );	return; //fist top-down
-		default:	pc->action( 0x1F );	return; //fist over-head
-		}
+		case 1:		pc->action( 0x0A );	return; //fist straight-punch
+		case 2:		pc->action( 0x09 );	return; //fist top-down
+		case 3:		pc->action( 0x1F );	return; //fist over-head
 	}
 }
 
@@ -1424,16 +1466,16 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 }
 
 //AntiChrist - do the sound effect ( only if HITTEN! )
-void cCombat::doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon)
+void cCombat::doSoundEffect( P_CHAR pc, int fightskill, P_ITEM pWeapon )
 {
-	bool heavy=false;
-	int a=rand()%4;
+	bool heavy = false;
+	int a = RandomNum( 0, 3 );
 
 	//check if a heavy weapon
-	if (pWeapon && IsAxe(pWeapon->id()))
-		heavy=true;
+	if( pWeapon && IsAxe( pWeapon->id() ) )
+		heavy = true;
 
-	if(heavy)
+	if( heavy )
 	{
 		if (a==0 || a==1) pc->soundEffect( 0x236 );
 		else pc->soundEffect( 0x237 );
@@ -1448,22 +1490,22 @@ void cCombat::doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon)
 	case FENCING:
 	case SWORDSMANSHIP:
 		if (a==0 || a==1) 
-			pc->soundEffect( 0x23B);
+			pc->soundEffect( 0x23B );
 		else 
-			pc->soundEffect( 0x23C);
+			pc->soundEffect( 0x23C );
 		break;
 	case MACEFIGHTING:
-		if (a==0 || a==1) 
-			pc->soundEffect( 0x232);
-		else if (a==2) 
-			pc->soundEffect( 0x139);
+		if ( a==0 || a==1 ) 
+			pc->soundEffect( 0x232 );
+		else if ( a==2 ) 
+			pc->soundEffect( 0x139 );
 		else 
-			pc->soundEffect( 0x233);
+			pc->soundEffect( 0x233 );
 		break;
 	case WRESTLING:
-		if (a==0) pc->soundEffect( 0x135);
-		else if (a==1) pc->soundEffect( 0x137);
-		else if (a==2) pc->soundEffect( 0x13D);
+		if (a==0) pc->soundEffect( 0x135 );
+		else if (a==1) pc->soundEffect( 0x137 );
+		else if (a==2) pc->soundEffect( 0x13D );
 		else pc->soundEffect( 0x13B );
 		break;
 	default:

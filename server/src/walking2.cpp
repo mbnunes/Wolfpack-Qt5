@@ -1084,6 +1084,8 @@ void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 
 void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 {
+	pc->update();
+	/*
     for (int i=0;i<now;i++)
     {
         if ((perm[i]) && (inrange1p(pc, currchar[i])))
@@ -1135,7 +1137,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             }
             cNetwork::instance()->xSend(i, extmove, 17, 0);
         }
-    }
+    }*/
 }
 
 // type is npcwalk mode ( 0 for normal, 1 for box, 2 for circle )

@@ -934,9 +934,13 @@ void cUOSocket::updateChar( P_CHAR pChar )
 // Sends a foreign char including equipment
 void cUOSocket::sendChar( P_CHAR pChar )
 {
+	if( !_player )
+		return;
+
 	// Then completely resend it
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( pChar );
+	drawChar.setHighlight( 7 );
 	send( &drawChar );
 }
 
@@ -967,6 +971,11 @@ void cUOSocket::setPlayer( P_CHAR pChar )
 	}
 
 	resendPlayer(); // Set our location
+
+	// Set the warmode status
+	cUOTxWarmode warmode;
+	warmode.setStatus( _player->war );
+	send( &warmode );
 
 	// Send our equipment
 	vector< SERIAL > equipment = contsp.getData( _player->serial );
@@ -1053,22 +1062,17 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 	_player->targ = INVALID_SERIAL;
 	_player->war = packet->warmode();
 
-	if( _player->dead ) 
-	{
-		_player->resend( false );
-	}
-	else
-	{
-		_player->update();
-	}
-
 	cUOTxWarmode warmode;
-	warmode.setStatus( packet->warmode() );
+	warmode.setStatus( packet->warmode() ? 1 : 0 );
 	send( &warmode );
 
 	playMusic();
 	_player->disturbMed();
-	_player->update();
+
+	if( _player->dead ) 
+		_player->resend( false );
+	else
+		_player->update();
 }
 
 void cUOSocket::playMusic()
@@ -1371,9 +1375,8 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	_player->setAttackFirst();
 	_player->attacker = pc_i->serial;
 
-	_player->dir = chardir(_player, pc_i);	// turn to attacker, LB (& Duke)
-
-	updatechar(_player);
+	_player->dir = chardir( _player, pc_i ); // turn to attacker, LB (& Duke)
+	_player->update();
 
 	// The person being attacked is guarded by pets ?
 	if( pc_i->guarded() )
@@ -1413,22 +1416,12 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		}
 		else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war && pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
 		{
-			npcToggleCombat(pc_i);
+			npcToggleCombat( pc_i );
 			pc_i->setNextMoveTime();
 		}
 		else
 		{
 			pc_i->setNextMoveTime();
-		}
-		
-		QString message = tr("*You see %1 attacking %2!").arg(_player->name.c_str()).arg(pc_i->name.c_str());
-		for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
-		{
-			if(this->inRange(s) && s != this) 
-			{
-				pc_i->emotecolor = 0x0026;
-				npcemote(toOldSocket(s), _player, message.latin1(), 1);
-			}
 		}
 	}
 	else // not a guarded area
@@ -1442,13 +1435,24 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 			else if( pc_i->isNpc() )
 			{
 				criminal( _player );
-				npcattacktarget(pc_i, _player);
+				npcattacktarget( pc_i, _player );
 
 				if( !pc_i->tamed() && pc_i->isHuman() )
 					pc_i->talk( tr( "Help! Guards! Tis a murder being commited!" ) );
 			}
 		}
 	}
+
+	// Send the "You see %1 attacking %2" string to all surrounding sockets
+	// Except the one being attacked
+	QString message = tr( "*You see %1 attacking %2!" ).arg(_player->name.c_str()).arg(pc_i->name.c_str());
+	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
+		if( s->player() && s != this && s->player()->inRange( _player, s->player()->VisRange ) && s->player() != pc_i )
+			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+
+	// Send an extra message to the victim
+	if( pc_i->socket() )
+		pc_i->socket()->showSpeech( _player, tr( "You see %1 attacking you" ).arg( _player->name.c_str() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
 }
 
 void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
@@ -1619,7 +1623,7 @@ void cUOSocket::updateMana( P_CHAR pChar )
 	if( !pChar )
 		return;
 
-	cUOTxUpdateStamina update;
+	cUOTxUpdateMana update;
 	
 	if( pChar == _player )
 	{
@@ -1643,7 +1647,7 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 	if( !pChar )
 		return;
 
-	cUOTxUpdateStamina update;
+	cUOTxUpdateHealth update;
 	
 	if( pChar == _player )
 	{
@@ -1671,8 +1675,8 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	cUOTxSendStats sendStats;
 	sendStats.setAllowRename( _player->Owns( pChar ) || _player->isGM() );
 	
-	sendStats.setMaxHp( 100 );
-	sendStats.setHp( (pChar->hp/pChar->st)*100 );
+	sendStats.setMaxHp( pChar->st );
+	sendStats.setHp( pChar->hp );
 
 	sendStats.setName( pChar->name.c_str() );
 	sendStats.setSerial( pChar->serial );
@@ -1682,8 +1686,6 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	// Set the rest - and reset if nec.
 	if( pChar == _player )
 	{
-		sendStats.setHp( pChar->hp );
-		sendStats.setMaxHp( pChar->st );
 		sendStats.setStamina( pChar->stm );
 		sendStats.setMaxStamina( pChar->effDex() );
 		sendStats.setMana( pChar->mn );
