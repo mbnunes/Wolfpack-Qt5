@@ -10,9 +10,8 @@
 
 	<!-- A mage vendor -->
 	<npc id="mage_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Mage</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="efa">
@@ -124,13 +123,11 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Mage (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="mage_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Mage</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="efa">
@@ -242,7 +239,6 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Mage (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

@@ -10,9 +10,8 @@
 
 	<!-- A baker vendor -->
 	<npc id="baker_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Baker</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="98c">
@@ -68,13 +67,11 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Baker (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="baker_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Baker</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="98c">
@@ -130,7 +127,6 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Baker (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

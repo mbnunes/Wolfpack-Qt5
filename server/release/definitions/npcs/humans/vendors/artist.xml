@@ -10,19 +10,15 @@
 
 	<!-- A artist -->
 	<npc id="artist_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Artist</title>
-		<ai>Human_Vendor</ai>
 		<category>Vendors\Artist (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="artist_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Artist</title>
-		<ai>Human_Vendor</ai>
 		<category>Vendors\Artist (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

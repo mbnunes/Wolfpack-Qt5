@@ -10,9 +10,8 @@
 
 	<!-- A armorer vendor -->
 	<npc id="armorer_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Armorer</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="13bb">
@@ -108,13 +107,11 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Armorer (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="armorer_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Armorer</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="13bb">
@@ -210,7 +207,6 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Armorer (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

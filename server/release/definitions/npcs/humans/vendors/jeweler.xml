@@ -10,9 +10,8 @@
 
 	<!-- A jeweler vendor -->
 	<npc id="jeweler_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Jeweler</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="f1b">
@@ -180,13 +179,11 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Jeweler (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="jeweler_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Jeweler</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="f1b">
@@ -354,7 +351,6 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Jeweler (Femele)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

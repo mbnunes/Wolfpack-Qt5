@@ -10,9 +10,8 @@
 
 	<!-- A blacksmith vendor -->
 	<npc id="blacksmith_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Blacksmith</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="fbb">
@@ -144,13 +143,11 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\blacksmith (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="blacksmith_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Blacksmith</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="fbb">
@@ -282,7 +279,6 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Blacksmith (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

@@ -10,9 +10,8 @@
 
 	<!-- A Tailor vendor -->
 	<npc id="tailor_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Tailor</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="153f">
@@ -33,13 +32,11 @@
 			</restockable>
 		</shopkeeper>
 		<category>Vendors\Tailor (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="tailor_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Tailor</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="153f">
@@ -60,7 +57,6 @@
 			</restockable>
 		</shopkeeper>
 		<category>Vendors\Tailor (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

@@ -10,9 +10,8 @@
 
 	<!-- Stablemaster (no real vendor) -->
 	<npc id="stablemaster_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Stablemaster</title>
-		<ai>Human_Stablemaster</ai>
 		<fencing>
 			<random min="150" max="380"/>
 		</fencing>
@@ -35,13 +34,11 @@
 			<random min="450" max="680"/>
 		</tactics>
 		<category>Vendors\Stablemaster (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="stablemaster_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Stablemaster</title>
-		<ai>Human_Stablemaster</ai>
 		<fencing>
 			<random min="150" max="380"/>
 		</fencing>
@@ -64,7 +61,6 @@
 			<random min="450" max="680"/>
 		</tactics>
 		<category>Vendors\Stablemaster (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

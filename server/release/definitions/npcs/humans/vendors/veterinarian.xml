@@ -10,19 +10,15 @@
 
 	<!-- A veterinarian -->
 	<npc id="veterinarian_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Veterinarian</title>
-		<ai>Human_Vendor</ai>
 		<category>Vendors\Veterinarian (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="veterinarian_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Veterinarian</title>
-		<ai>Human_Vendor</ai>
 		<category>Vendors\Veterinarian (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

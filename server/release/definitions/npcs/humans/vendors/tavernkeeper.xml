@@ -10,9 +10,8 @@
 
 	<!-- A tavernkeeper vendor -->
 	<npc id="tavernkeeper_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Tavernkeeper</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 			</restockable>
@@ -20,13 +19,11 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Tavernkeeper (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="tavernkeeper_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Tavernkeeper</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 			</restockable>
@@ -34,7 +31,6 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Tavernkeeper (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

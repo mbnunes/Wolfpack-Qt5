@@ -10,25 +10,21 @@
 
 	<!-- A weaver vendor -->
 	<npc id="weaver_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Weaver</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Weaver (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="weaver_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Weaver</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
 		<category>Vendors\Weaver (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>
