@@ -56,16 +56,9 @@ Wolfpack 12.9.13 Beta (CVS)
   - Added a warning in the console if translation file could not be found.
   - Fixed monsters not attacking players pets.
   - Fixed bug #0000363. (Pets don't attack a target if it's already fighting)
-  - Added support for value="" in many simple definition tags.
-    Examples: <mintaming value="555" /> <controlslots value="3" />
-  - Added support for min="" max="" in many simple definition tags.
-    Examples: <amount min="1" max="4" /> <durability min="2" max="20" />
-  - Fixed animals not moving to target when attacked with ranged weapons.
   - More tag documentation in the code.
   - Definitoin Tag Cleanups.
   - Using skills no longer unhides by default, unhide moved to python.
-  - Further xml suppport for lists: <color list="COLORS_MISC" />
-    Only some xml tags can work properly with this.
   - Fixed a nasty bug in the map sector code which caused objects not to be in the map objects when moved
     between maps.
   - Fixed a walking bug that caused monsters to walk trough certain objects.
@@ -95,6 +88,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixed potion kegs.
   - Cleanups with equipment for the cleaner xml style.
   - Gave guards colored hair.
+  - NPC skill defines are now: <skill id="skilldef">value</skill>
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
