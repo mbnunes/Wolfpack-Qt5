@@ -68,7 +68,6 @@ bool cLog::checkLogFile()
 		QDir d;
 		if ( !d.exists(path) )
 		{
-			Console::instance()->log( LOG_WARNING, QString("log path (%1) doesn't exist, creating.\n").arg(path) );
 			d.mkdir( path );
 		}
 
@@ -79,7 +78,7 @@ bool cLog::checkLogFile()
 
 		if( !logfile.open( IO_WriteOnly | IO_Append | IO_Translate ) )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Couldn't open logfile '%1'\n" ).arg( path + filename ) );
+			Console::instance()->send( QString( "Couldn't open logfile '%1'\n" ).arg( path + filename ) );
 			return false;
 		}
 	}

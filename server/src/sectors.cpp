@@ -41,16 +41,6 @@ cSectorMap::~cSectorMap()
 	}
 }
 
-#undef realloc
-
-inline void *realloc( void *ptr, unsigned int size )
-{
-	void *newPtr = malloc( size );
-	memcpy( newPtr, ptr, size );
-	free( ptr );
-	return newPtr;
-}
-
 unsigned int cSectorMap::gridHeight() const
 {
 	return gridHeight_;
