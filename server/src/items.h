@@ -150,7 +150,7 @@ class cItem : public cUObject
 {
 	friend class cBaseChar;
 private:
-	bool changed_ : 1;
+	unsigned char changed_ : 1;
 	cItemBaseDef* basedef_;
 
 	void flagChanged()
