@@ -177,8 +177,8 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		{
 //			pChar->karma -= 5;
 			pChar->setKarma( pChar->karma() - 5 );
-			criminal( pChar );
-			socket->sysMessage( "You lost some karma." );
+			pChar->criminal();
+			socket->sysMessage( tr("You lost some karma.") );
 		}
 	}
 

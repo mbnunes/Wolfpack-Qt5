@@ -702,6 +702,7 @@ public:
 	void setMurderer();
 	void setInnocent();
 	void setCriminal();
+	void criminal();
 	void setAttackFirst()		{this->attackfirst_ = true;}
 	void resetAttackFirst()		{this->attackfirst_ = false;}
 	void fight(cChar* pOpponent);

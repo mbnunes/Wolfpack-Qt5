@@ -91,7 +91,6 @@ void clearalltrades();
 void trademsg(int s);
 void dotrade(P_ITEM cont1, P_ITEM cont2);
 
-void wornitems(UOXSOCKET s, P_CHAR pc);
 bool inVisRange(int x1, int y1, int x2, int y2);
 bool online(P_CHAR pc);
 unsigned int chardist (P_CHAR a, P_CHAR b);
@@ -101,7 +100,6 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
 int bestskill(P_CHAR pc);
 void loadskills();
-void itemsfx(UOXSOCKET s, short item);
 void bgsound(P_CHAR pc);
 int hexnumber(int countx);
 int makenumber(int countx);
@@ -110,7 +108,6 @@ int lineOfSight( const Coord_cl&, const Coord_cl&, int checkfor );
 
 // Guildstone related functions
 int chardirxyz(P_CHAR pc, int x, int y);	// direction from character a to char b
-void criminal(P_CHAR pc);
 void callguards( P_CHAR pc_player );
 
 #endif

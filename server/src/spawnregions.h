@@ -70,12 +70,12 @@ public:
 	QStringList	rectangles( void )
 	{
 		QStringList rectList;
-		std::vector< rect_st >::iterator it = this->rectangles_.begin();
+		QValueVector< rect_st >::iterator it = this->rectangles_.begin();
 		while( it != this->rectangles_.end() )
 		{
 			QString rect = QString( "%1,%2->%3,%4" ).arg( (*it).x1 ).arg( (*it).y1 ).arg( (*it).x2 ).arg( (*it).y2 );
 			rectList.push_back( rect );
-			it++;
+			++it;
 		}
 		return rectList;
 	}

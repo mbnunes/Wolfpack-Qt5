@@ -760,10 +760,10 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				if (pc_npc->isNpc()) 
 					pc_npc->talk( tr("Guards!! A thief is amoung us!"), -1, 0x09 );
 				
-				criminal( pc_currchar );
+				pc_currchar->criminal();
 				
 				if (pc_npc->isInnocent() && pc_currchar->attacker() != pc_npc->serial && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
-					criminal(pc_currchar);//Blue and not attacker and not guild
+					pc_currchar->criminal();//Blue and not attacker and not guild
 				
 				if (pi->name() != "#")
 				{

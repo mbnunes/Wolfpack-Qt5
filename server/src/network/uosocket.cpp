@@ -1716,23 +1716,23 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	{
 		if( pc_i->isPlayer() && pc_i->isInnocent() && GuildCompare( _player, pc_i ) == 0 ) //REPSYS
 		{
-			criminal( _player );
+			_player->criminal();
 			Combat::spawnGuard( _player, pc_i, _player->pos );
 		}
 		else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype() != 4 )
 		{
-			criminal( _player );
+			_player->criminal();
 			Combat::spawnGuard( _player, pc_i, _player->pos );
 		}
 		else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype() != 4 )
 		{
-			pc_i->talk( "Help! Guards! I've been attacked!" );
-			criminal( _player );
+			pc_i->talk( tr("Help! Guards! I've been attacked!") );
+			_player->criminal();
 			callguards(pc_i);
 		}
 		else if( pc_i->isNpc() && pc_i->npcaitype() == 4 )
 		{
-			criminal( _player );
+			_player->criminal();
 			pc_i->attackTarget( _player );
 		}
 		else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war() && pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
@@ -1751,11 +1751,11 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		{
 			if( pc_i->isPlayer() && GuildCompare( _player, pc_i ) == 0 )
 			{
-				criminal( _player );
+				_player->criminal();
 			}
 			else if( pc_i->isNpc() )
 			{
-				criminal( _player );
+				_player->criminal();
 
 				if( pc_i->targ() == INVALID_SERIAL )
 					pc_i->attackTarget( _player );

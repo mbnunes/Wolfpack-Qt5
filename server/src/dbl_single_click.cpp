@@ -200,7 +200,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		{
 			if( pi->more2() == 1 ) 
 			{
-				criminal( pc_currchar );
+				pc_currchar->criminal();
 			}
 		}
 	}

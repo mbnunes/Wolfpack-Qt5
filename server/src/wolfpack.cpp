@@ -405,7 +405,7 @@ QString title3(P_CHAR pc) // Paperdoll title for character p (3)
 	return fametitle;
 }
 
-void item_char_test()
+static void item_char_test()
 {
 	LogMessage( "Starting item consistancy check" );
 	
@@ -480,23 +480,6 @@ void savelog(const char *msg, char *logfile)
 #endif
 
 		fclose( file );
-}
-
-void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
-{
-	unsigned int ci=0;
-	P_ITEM pi;
-	cChar::ContainerContent container(pc->content());
-	cChar::ContainerContent::const_iterator it (container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
-	for (; it != end; ++it )
-	{
-		pi = *it;
-		if (pi != NULL && !pi->free)
-		{
-			wearIt(s,pi);
-		}
-	}
 }
 
 int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int amt )
@@ -1979,41 +1962,6 @@ void delequan(P_CHAR pc, short id, int amount, int *not_deleted)
 		*not_deleted = nd;
 }
 
-/*
-void initque() // Initilizes the gmpages[] and counspages[] arrays and also jails
-{
-	jails[1].pos = Coord_cl(5276, 1164, 0); // Jail1
-	jails[1].occupied = false;
-
-	jails[2].pos = Coord_cl(5286, 1164, 0); // Jail2
-	jails[2].occupied = false;
-
-	jails[3].pos = Coord_cl(5296, 1164, 0); // Jail3
-	jails[3].occupied = false;
-
-	jails[4].pos = Coord_cl(5306, 1164, 0); // Jail4
-	jails[4].occupied = false;
-
-	jails[5].pos = Coord_cl(5276, 1174, 0); // Jail5
-	jails[5].occupied = false;
-
-	jails[6].pos = Coord_cl(5286, 1174, 0); // Jail6
-	jails[6].occupied = false;
-
-	jails[7].pos = Coord_cl(5296, 1174, 0); // Jail7
-	jails[7].occupied = false;
-
-	jails[8].pos = Coord_cl(5306, 1174, 0); // Jail8
-	jails[8].occupied = false;
-
-	jails[9].pos = Coord_cl(5283, 1184, 0); // Jail9
-	jails[9].occupied = false;
-
-	jails[10].pos = Coord_cl(5304, 1184, 0); // Jail10
-	jails[10].occupied = false;
-}
-*/
-
 void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall )
 {
 	if( !socket || !socket->player() )
@@ -2440,37 +2388,6 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 	}
 }
 
-// Dupois - added to do easy item sound effects based on an
-//			items id1 and id2 fields in struct items. Then just define the CASE statement
-//			with the proper sound function to play for a certain item as shown.
-//			Use the DEFAULT case for ranges of items (like all ingots make the same thump).
-// Sounds - coins dropping (all the same no matter what amount because all id's equal 0x0EED
-//			ingot dropping (makes a big thump - used the heavy gem sound)
-//			gems dropping (two type broke them in half to make some sound different then others)
-// NOTE	  - I wasn't sure what the different soundeffect() func's did so I just used
-//			soundeffect() and it seemed to work fairly well.
-// Added Oct 09, 1998
-// new interface, Duke, 25.3.2001
-void itemsfx(UOXSOCKET s, short item)
-{
-	if (item==0x0EED)
-	{
-		//goldsfx(s, 2);
-	}
-	else if ((item>=0x0F0F)&&(item<=0x0F20))	// Any gem stone (typically smaller)
-	{
-		soundeffect(s, 0x00, 0x32);
-	}
-	else if ((item>=0x0F21)&&(item<=0x0F30))	// Any gem stone (typically larger)
-	{
-		soundeffect(s, 0x00, 0x34);
-	}
-	else if ((item>=0x1BE3)&&(item<=0x1BFA))	// Any Ingot
-	{
-		soundeffect(s, 0x00, 0x33);
-	}
-	soundeffect(s, 0x00, 0x42);					// play default item move sfx // 00 48
-}
 
 void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of all npcs
 // LB 9.8.99/17.9/20.9
@@ -3782,30 +3699,6 @@ void Fame( P_CHAR pc_toChange, int nFame )
 	}
 
 	pc_toChange->socket()->sysMessage( message );
-}
-
-/*!
-	Make someone criminal.
-*/
-void criminal( P_CHAR pc )
-{
-	if( !pc )
-		return;
-
-	if( pc->isGMorCounselor() )
-		return;
-
-	//Not an npc, not grey, not red	
-	if( pc->isPlayer() && !pc->isCriminal() || pc->isMurderer() )
-	{ 
-		 pc->setCrimflag((SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime);
-
-		 if( pc->socket() )
-			 pc->socket()->sysMessage( tr( "You are now a criminal!" ) );
-
-		 // Update the highlight flag.
-		 setcharflag( pc );
-	}
 }
 
 /*!

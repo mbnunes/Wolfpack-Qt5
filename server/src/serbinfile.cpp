@@ -29,8 +29,9 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#include "serbinfile.h"
 #include "platform.h"
+
+#include "serbinfile.h"
 
 // Save Path
 #include "junk.h"

@@ -34,7 +34,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 		{
 			if ((pp->crimflag()>0) ||(pp->isMurderer()))
 			{
-				criminal(ph);
+				ph->criminal();
 			}
 		}
 		

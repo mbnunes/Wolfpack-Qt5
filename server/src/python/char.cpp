@@ -1195,7 +1195,7 @@ PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	criminal( self->pChar );
+	self->pChar->criminal();
 
 	return PyTrue;
 }

@@ -3833,6 +3833,27 @@ void cChar::restock()
 	}
 }
 
+/*!
+	Make someone criminal.
+*/
+void cChar::criminal( )
+{
+	if( this->isGMorCounselor() )
+		return;
+
+	//Not an npc, not grey, not red	
+	if( this->isPlayer() && !this->isCriminal() || this->isMurderer() )
+	{ 
+		 this->setCrimflag((SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime);
+
+		 if( this->socket() )
+			 this->socket()->sysMessage( tr( "You are now a criminal!" ) );
+
+		 // Update the highlight flag.
+		 setcharflag( this );
+	}
+}
+
 // Simple setting and getting of properties for scripts and the set command.
 stError *cChar::setProperty( const QString &name, const cVariant &value )
 {
