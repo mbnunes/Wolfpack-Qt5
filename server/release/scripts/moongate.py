@@ -24,105 +24,113 @@ def onCollideItem( char, item ):
 	if( char.npc ):
 		return 1
 
+	char.socket.closegump( 0x87654321 )
+
 	sendGump( char, item )
 	return 1
 
 def sendGump( char, item ):
 	char.soundeffect( 0x58 )
 	# noclose, nomove gump
-	gateGump = cGump( 1, 1, 0, 30, 30 )
+	gateGump = cGump( 1, 1, 0, 100, 120 )
 	# trammel
 	gateGump.startPage( 1 )
-	gateGump.addBackground( 9200, 300, 255 )
-	gateGump.addText( 40, 40, "Pick your destination:" )
-	gateGump.addButton( 47, 207, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 80, 210, "CANCEL" )
+	gateGump.addBackground( 9200, 380, 280 )
+	gateGump.addText( 5, 10, "Pick your destination:" )
+	gateGump.addButton( 10, 210, 0xFA5, 0xFA7, 1 )
+	gateGump.addText( 45, 210, "OKAY", 0 )
+	gateGump.addButton( 10, 235, 0xFA5, 0xFA7, 0 )
+	gateGump.addText( 45, 235, "CANCEL" )
 	# facets
-	gateGump.addText( 70, 70, "Trammel", 12 )
-	gateGump.addPageButton( 48, 72, 0x4B9, 0x4BA, 1 )
-	gateGump.addText( 70, 90, "Felucca" )
-	gateGump.addPageButton( 48, 95, 0x4B9, 0x4BA, 2 )
-	gateGump.addText( 70, 110, "Ilshenar" )
-	gateGump.addPageButton( 48, 115, 0x4B9, 0x4BA, 3 )
+	gateGump.addText( 35, 35, "Trammel", 61 )
+	gateGump.addPageButton( 10, 35, 0x4B9, 0x4BA, 1 )
+	gateGump.addText( 35, 60, "Felucca" )
+	gateGump.addPageButton( 10, 60, 0x4B9, 0x4BA, 2 )
+	gateGump.addText( 35, 85, "Ilshenar" )
+	gateGump.addPageButton( 10, 85, 0x4B9, 0x4BA, 3 )
 	# gates
-	gateGump.addText( 170, 70, "Britain" )
-	gateGump.addButton( 150, 75, 0x837, 0x838, 5 )
-	gateGump.addText( 170, 90, "Magincia" )
-	gateGump.addButton( 150, 95, 0x837, 0x838, 6 )
-	gateGump.addText( 170, 110, "Moonglow" )
-	gateGump.addButton( 150, 115, 0x837, 0x838, 7 )
-	gateGump.addText( 170, 130, "Skara Brae" )
-	gateGump.addButton( 150, 135, 0x837, 0x838, 8 )
-	gateGump.addText( 170, 150, "Trinsic" )
-	gateGump.addButton( 150, 155, 0x837, 0x838, 9 )
-	gateGump.addText( 170, 170, "Vesper" )
-	gateGump.addButton( 150, 175, 0x837, 0x838, 10 )
-	gateGump.addText( 170, 190, "Yew" )
-	gateGump.addButton( 150, 195, 0x837, 0x838, 11 )
-	gateGump.addText( 170, 210, "Jhelom" )
-	gateGump.addButton( 150, 215, 0x837, 0x838, 12 )
+	gateGump.addText( 225, 40, "Britain" )
+	gateGump.addRadioButton(200, 40, 210, 211, 10 )
+	gateGump.addText( 225, 65, "Magincia" )
+	gateGump.addRadioButton(200, 65, 210, 211, 11 )
+	gateGump.addText( 225, 90, "Moonglow" )
+	gateGump.addRadioButton(200, 90, 210, 211, 12 )
+	gateGump.addText( 225, 115, "Skara Brae" )
+	gateGump.addRadioButton(200, 115, 210, 211, 13 )
+	gateGump.addText( 225, 140, "Trinsic" )
+	gateGump.addRadioButton(200, 140, 210, 211, 14 )
+	gateGump.addText( 225, 165, "Vesper" )
+	gateGump.addRadioButton(200, 165, 210, 211, 15 )
+	gateGump.addText( 225, 190, "Yew" )
+	gateGump.addRadioButton(200, 190, 210, 211, 16 )
+	gateGump.addText( 225, 215, "Jhelom" )
+	gateGump.addRadioButton(200, 215, 210, 211, 17 )
 	# felucca
 	gateGump.startPage( 2 )
-	gateGump.addBackground( 9200, 300, 255 )
-	gateGump.addText( 40, 40, "Pick your destination:" )
-	gateGump.addButton( 47, 207, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 80, 210, "CANCEL" )
+	gateGump.addBackground( 9200, 380, 280 )
+	gateGump.addText( 5, 10, "Pick your destination:" )
+	gateGump.addButton( 10, 210, 0xFA5, 0xFA7, 1 )
+	gateGump.addText( 45, 210, "OKAY", 0 )
+	gateGump.addButton( 10, 235, 0xFA5, 0xFA7, 0 )
+	gateGump.addText( 45, 235, "CANCEL" )
 	# facets
-	gateGump.addText( 70, 70, "Trammel" )
-	gateGump.addPageButton( 48, 72, 0x4B9, 0x4BA, 1 )
-	gateGump.addText( 70, 90, "Felucca", 12 )
-	gateGump.addPageButton( 48, 95, 0x4B9, 0x4BA, 2 )
-	gateGump.addText( 70, 110, "Ilshenar" )
-	gateGump.addPageButton( 48, 115, 0x4B9, 0x4BA, 3 )
+	gateGump.addText( 35, 35, "Trammel" )
+	gateGump.addPageButton( 10, 35, 0x4B9, 0x4BA, 1 )
+	gateGump.addText( 35, 60, "Felucca", 61 )
+	gateGump.addPageButton( 10, 60, 0x4B9, 0x4BA, 2 )
+	gateGump.addText( 35, 85, "Ilshenar" )
+	gateGump.addPageButton( 10, 85, 0x4B9, 0x4BA, 3 )
 	# gates
-	gateGump.addText( 170, 70, "Britain" )
-	gateGump.addButton( 150, 75, 0x837, 0x838, 13 )
-	gateGump.addText( 170, 90, "Magincia" )
-	gateGump.addButton( 150, 95, 0x837, 0x838, 14 )
-	gateGump.addText( 170, 110, "Moonglow" )
-	gateGump.addButton( 150, 115, 0x837, 0x838, 15 )
-	gateGump.addText( 170, 130, "Skara Brae" )
-	gateGump.addButton( 150, 135, 0x837, 0x838, 16 )
-	gateGump.addText( 170, 150, "Trinsic" )
-	gateGump.addButton( 150, 155, 0x837, 0x838, 17 )
-	gateGump.addText( 170, 170, "Vesper" )
-	gateGump.addButton( 150, 175, 0x837, 0x838, 18 )
-	gateGump.addText( 170, 190, "Yew" )
-	gateGump.addButton( 150, 195, 0x837, 0x838, 19 )
-	gateGump.addText( 170, 210, "Jhelom" )
-	gateGump.addButton( 150, 215, 0x837, 0x838, 20 )
+	gateGump.addText( 225, 40, "Britain" )
+	gateGump.addRadioButton(200, 40, 210, 211, 18 )
+	gateGump.addText( 225, 65, "Magincia" )
+	gateGump.addRadioButton(200, 65, 210, 211, 19 )
+	gateGump.addText( 225, 90, "Moonglow" )
+	gateGump.addRadioButton(200, 90, 210, 211, 20 )
+	gateGump.addText( 225, 115, "Skara Brae" ) 
+	gateGump.addRadioButton(200, 115, 210, 211, 21 )
+	gateGump.addText( 225, 140, "Trinsic" )
+	gateGump.addRadioButton(200, 140, 210, 211, 22 )
+	gateGump.addText( 225, 165, "Vesper" )
+	gateGump.addRadioButton(200, 165, 210, 211, 23 )
+	gateGump.addText( 225, 190, "Yew" )
+	gateGump.addRadioButton(200, 190, 210, 211, 24 )
+	gateGump.addText( 225, 215, "Jhelom" )
+	gateGump.addRadioButton(200, 215, 210, 211, 25 )
 	# ilshenar
 	gateGump.startPage( 3 )
-	gateGump.addBackground( 9200, 300, 255 )
-	gateGump.addText( 40, 40, "Pick your destination:" )
-	gateGump.addButton( 47, 207, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 80, 210, "CANCEL" )
+	gateGump.addBackground( 9200, 380, 280 )
+	gateGump.addText( 5, 10, "Pick your destination:" )
+	gateGump.addButton( 10, 210, 0xFA5, 0xFA7, 1 )
+	gateGump.addText( 45, 210, "OKAY", 0 )
+	gateGump.addButton( 10, 235, 0xFA5, 0xFA7, 0 )
+	gateGump.addText( 45, 235, "CANCEL" )
 	# facets
-	gateGump.addText( 70, 70, "Trammel" )
-	gateGump.addPageButton( 48, 72, 0x4B9, 0x4BA, 1 )
-	gateGump.addText( 70, 90, "Felucca" )
-	gateGump.addPageButton( 48, 95, 0x4B9, 0x4BA, 2 )
-	gateGump.addText( 70, 110, "Ilshenar", 12 ) 
-	gateGump.addPageButton( 48, 115, 0x4B9, 0x4BA, 3 )
+	gateGump.addText( 35, 35, "Trammel" )
+	gateGump.addPageButton( 10, 35, 0x4B9, 0x4BA, 1 )
+	gateGump.addText( 35, 60, "Felucca" )
+	gateGump.addPageButton( 10, 60, 0x4B9, 0x4BA, 2 )
+	gateGump.addText( 35, 85, "Ilshenar", 61 )
+	gateGump.addPageButton( 10, 85, 0x4B9, 0x4BA, 3 )
 	# #gates
-	gateGump.addText( 170, 70, "Compassion" )
-	gateGump.addButton( 150, 75, 0x837, 0x838, 21 )
-	gateGump.addText( 170, 90, "Honesty" )
-	gateGump.addButton( 150, 95, 0x837, 0x838, 22 )
-	gateGump.addText( 170, 110, "Honor" )
-	gateGump.addButton( 150, 115, 0x837, 0x838, 23 )
-	gateGump.addText( 170, 130, "Humility" )
-	gateGump.addButton( 150, 135, 0x837, 0x838, 24 )
-	gateGump.addText( 170, 150, "Justice" )
-	gateGump.addButton( 150, 155, 0x837, 0x838, 25 )
-	gateGump.addText( 170, 170, "Sacrifice" )
-	gateGump.addButton( 150, 175, 0x837, 0x838, 26 )
-	gateGump.addText( 170, 190, "Spirituality" )
-	gateGump.addButton( 150, 195, 0x837, 0x838, 27 )
-	gateGump.addText( 170, 210, "Valor" )
-	gateGump.addButton( 150, 215, 0x837, 0x838, 28 )
-	gateGump.addText( 170, 230, "Chaos" )
-	gateGump.addButton( 150, 235, 0x837, 0x838, 29 )
+	gateGump.addText( 225, 40, "Compassion" )
+	gateGump.addRadioButton( 200, 40, 210, 211, 26 )
+	gateGump.addText( 225, 65, "Honesty" )
+	gateGump.addRadioButton( 200, 65, 210, 211, 27 )
+	gateGump.addText( 225, 90, "Honor" )
+	gateGump.addRadioButton( 200, 90, 210, 211, 28 )
+	gateGump.addText( 225, 115, "Humility" )
+	gateGump.addRadioButton( 200, 115, 210, 211, 29 )
+	gateGump.addText( 225, 140, "Justice" )
+	gateGump.addRadioButton( 200, 140, 210, 211, 30 )
+	gateGump.addText( 225, 165, "Sacrifice" )
+	gateGump.addRadioButton( 200, 165, 210, 211, 31 )
+	gateGump.addText( 225, 190, "Spirituality" )
+	gateGump.addRadioButton( 200, 190, 210, 211, 32 )
+	gateGump.addText( 225, 215, "Valor" )
+	gateGump.addRadioButton( 200, 215, 210, 211, 33 )
+	gateGump.addText( 225, 240, "Chaos" )
+	gateGump.addRadioButton( 200, 240, 210, 211, 34 )
 	# set callback function and its arguments
 	gateGump.setCallback( "moongate.gateCallback" )
 	# send it
@@ -144,60 +152,62 @@ def gateCallback( char, args, target ):
 	if( char.distanceto( item ) > 3):
 		char.socket.sysmessage( "You are too far away to use it." )
 		return 1
-	button = target.button
-	if not button:
+
+	if( target.button != 1 ):
 		char.socket.sysmessage( "Canceled." )
 		return 1
-	elif( button > 29 ):
-		char.socket.sysmessage( "script error 3. contact GM." )
-		char.socket.sysmessage( "button = " + button )
-		return 1
+
+	button = int( target.switches[0] )
 
 	# set world number
 	numWorld = 0
-	if( ( button > 4 ) and ( button < 13 ) ):
+	if( ( button > 9 ) and ( button < 18 ) ):
 		numWorld = 0
-	elif ( ( button > 12 ) and ( button < 21 ) ):
+	elif ( ( button > 17 ) and ( button < 26 ) ):
 		numWorld = 1
-	elif( ( button > 20 ) and ( button < 30 ) ):
+	elif( ( button > 25 ) and ( button < 35 ) ):
 		numWorld = 2
+	else:
+		char.socket.sysmessage( "script error 4. contact GM." )
+		char.socket.sysmessage( "button = %i" % button )
+		return 1
+
 	# teleport
 	coord = []
 	oldcoord = [ char.pos.x, char.pos.y, char.pos.z ]
-	if( ( button == 5 ) or ( button == 13 ) ):
+	if( ( button == 10 ) or ( button == 18 ) ):
 		coord = [ 1336, 1998, 5, numWorld ]
-	elif( ( button == 6 ) or ( button == 14 ) ):
-		coord = [ 3564, 2141, 33, numWorld ]
-	elif( ( button == 7 ) or ( button == 15 ) ):
-		coord = [ 4467, 1284, 5, numWorld ]
-	elif( ( button == 8 ) or ( button == 16 ) ):
-		char.moveto( 643, 2068, 5, numWorld )
-		coord = [ 643, 2068, 5, numWorld ]
-	elif( ( button == 9 ) or ( button == 17 ) ):
-		coord = [ 1828, 2949, -20, numWorld ]
-	elif( ( button == 10 ) or ( button == 18 ) ):
-		coord = [ 2701, 694, 4, numWorld ]
 	elif( ( button == 11 ) or ( button == 19 ) ):
-		coord = [ 771, 754, 4, numWorld ]
+		coord = [ 3564, 2141, 33, numWorld ]
 	elif( ( button == 12 ) or ( button == 20 ) ):
+		coord = [ 4467, 1284, 5, numWorld ]
+	elif( ( button == 13 ) or ( button == 21 ) ):
+		coord = [ 643, 2068, 5, numWorld ]
+	elif( ( button == 14 ) or ( button == 22 ) ):
+		coord = [ 1828, 2949, -20, numWorld ]
+	elif( ( button == 15 ) or ( button == 23 ) ):
+		coord = [ 2701, 694, 4, numWorld ]
+	elif( ( button == 16 ) or ( button == 24 ) ):
 		coord = [ 771, 754, 4, numWorld ]
-	elif( button == 21 ):
-		coord = [ 1216, 468, -13, 2 ]
-	elif( button == 22 ):
-		coord = [ 722, 1364, -60, 2 ]
-	elif( button == 23 ):
-		coord = [ 750, 724, -28, 2 ]
-	elif( button == 24 ):
-		coord = [ 282, 1015, 0, 2 ]
-	elif( button == 25 ):
-		coord = [ 987, 1010, -32, 2 ]
+	elif( ( button == 17 ) or ( button == 25 ) ):
+		coord = [ 771, 754, 4, numWorld ]
 	elif( button == 26 ):
-		coord = [ 1174, 1286, -30, 2 ]
+		coord = [ 1216, 468, -13, 2 ]
 	elif( button == 27 ):
-		coord = [1532, 1340, -4, 2 ]
+		coord = [ 722, 1364, -60, 2 ]
 	elif( button == 28 ):
-		coord = [ 528, 219, -42, 2 ]
+		coord = [ 750, 724, -28, 2 ]
 	elif( button == 29 ):
+		coord = [ 282, 1015, 0, 2 ]
+	elif( button == 30 ):
+		coord = [ 987, 1010, -32, 2 ]
+	elif( button == 31 ):
+		coord = [ 1174, 1286, -30, 2 ]
+	elif( button == 32 ):
+		coord = [1532, 1340, -4, 2 ]
+	elif( button == 33 ):
+		coord = [ 528, 219, -42, 2 ]
+	elif( button == 34 ):
 		coord = [ 1721, 218, 96, 2 ]
 	char.soundeffect( 0x1fc )
 	char.removefromview()
