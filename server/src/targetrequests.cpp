@@ -1046,6 +1046,8 @@ bool cRemoveTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 			cCharStuff::DeleteChar( pChar );
 		}
+		else
+			cCharStuff::DeleteChar( pChar );
 	}
 	else if( pItem )
 	{

@@ -1264,30 +1264,36 @@ void cBaseChar::processNode( const QDomElement &Tag )
 				strength_ = Value.toLong();
 				if( maxHitpoints_ == 0 )
 					maxHitpoints_ = strength_;
+				hitpoints_ = maxHitpoints_;
 			}
 			else if( statType == "dex" )
 			{
 				dexterity_ = Value.toLong();
 				if( maxStamina_ == 0 )
 					maxStamina_ = dexterity_;
+				stamina_ = maxStamina_;
 			}
 			else if( statType == "int" )
 			{
 				intelligence_ = Value.toLong();
 				if( maxMana_ == 0 )
 					maxMana_ = intelligence_;
+				mana_ = maxMana_;
 			}
 			else if( statType == "maxhp" || statType == "maxhitpoints" )
 			{
 				maxHitpoints_ = Value.toLong();
+				hitpoints_ = maxHitpoints_;
 			}
 			else if( statType == "maxstm" || statType == "maxstamina" )
 			{
 				maxStamina_ = Value.toLong();
+				stamina_ = maxStamina_;
 			}
 			else if( statType == "maxmn" || statType == "maxmana" )
 			{
 				maxMana_ = Value.toLong();
+				mana_ = maxMana_;
 			}
 		}
 	}
@@ -1298,6 +1304,7 @@ void cBaseChar::processNode( const QDomElement &Tag )
 		strength_ = Value.toLong();
 		if( maxHitpoints_ == 0 )
 			maxHitpoints_ = strength_;
+		hitpoints_ = maxHitpoints_;
 	}
 
 	else if( TagName == "dex" )
@@ -1305,6 +1312,7 @@ void cBaseChar::processNode( const QDomElement &Tag )
 		dexterity_ = Value.toLong();
 		if( maxStamina_ == 0 )
 			maxStamina_ = dexterity_;
+		stamina_ = maxStamina_;
 	}
 	
 	else if( TagName == "int" )
@@ -1312,21 +1320,25 @@ void cBaseChar::processNode( const QDomElement &Tag )
 		intelligence_ = Value.toLong();
 		if( maxMana_ == 0 )
 			maxMana_ = intelligence_;
+		mana_ = maxMana_;
 	}
 
 	else if( TagName == "maxhp" || TagName == "maxhitpoints" )
 	{
 		maxHitpoints_ = Value.toLong();
+		hitpoints_ = maxHitpoints_;
 	}
 
 	else if( TagName == "maxstm" || TagName == "maxstamina" )
 	{
 		maxStamina_ = Value.toLong();
+		stamina_ = maxStamina_;
 	}
 
 	else if( TagName == "maxmn" || TagName == "maxmana" )
 	{
 		maxMana_ = Value.toLong();
+		mana_ = maxMana_;
 	}
 
 	//<defense>10</defense>
