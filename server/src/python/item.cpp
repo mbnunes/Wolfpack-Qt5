@@ -365,27 +365,22 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 {
-	if( !self->pItem || self->pItem->free )
+	if (self->pItem->free)
 		return PyFalse;
 
-	char* pKey = 0, *pTag = 0;
-	int iTag;
-	cVariant tag;
-	if( PyArg_ParseTuple( args, "ss:item.settag( key, tag )", &pKey, &pTag ) )
-	{
-		tag = cVariant( QString( pTag ) );
-	}
-	else if ( PyArg_ParseTuple( args, "si:item.settag( key, tag )", &pKey, &iTag ) )
-	{
-		tag = cVariant( iTag );
-	}else
+	char *key;
+	PyObject *object;
+
+	if (!PyArg_ParseTuple( args, "sO:char.settag( name, value )", &key, &object ))
 		return 0;
-	
-	QString key = pKey;
 
-	self->pItem->removeTag( key );
-
-	self->pItem->setTag( key, tag );
+	if (PyString_Check(object)) {
+		self->pItem->setTag(key, cVariant(PyString_AsString(object)));
+	} else if (PyInt_Check(object)) {
+		self->pItem->setTag(key, cVariant((int)PyInt_AsLong(object)));
+	} else if (PyFloat_Check(object)) {
+		self->pItem->setTag(key, cVariant((double)PyFloat_AsDouble(object)));
+	}
 
 	return PyTrue;
 }

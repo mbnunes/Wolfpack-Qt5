@@ -658,23 +658,15 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 	char *key;
 	PyObject *object;
 
-	if( !PyArg_ParseTuple( args, "sO:char.settag( name, value )", &key, &object ) )
+	if (!PyArg_ParseTuple( args, "sO:char.settag( name, value )", &key, &object ))
 		return 0;
 
-	if( PyString_Check( object ) )
-	{
-		self->pChar->removeTag( key );
-		self->pChar->setTag( key, cVariant( PyString_AsString( object ) ) );
-	}
-	else if( PyInt_Check( object ) )
-	{
-		self->pChar->removeTag( key );
-		self->pChar->setTag( key, cVariant( (int)PyInt_AsLong( object ) ) );
-	}
-	else if( PyFloat_Check( object ) )
-	{
-		self->pChar->removeTag( key );
-		self->pChar->setTag( key, cVariant( (double)PyFloat_AsDouble( object ) ) );
+	if (PyString_Check(object)) {
+		self->pChar->setTag(key, cVariant(PyString_AsString(object)));
+	} else if (PyInt_Check(object)) {
+		self->pChar->setTag(key, cVariant((int)PyInt_AsLong(object)));
+	} else if (PyFloat_Check(object)) {
+		self->pChar->setTag(key, cVariant((double)PyFloat_AsDouble(object)));
 	}
 
 	return PyTrue;
