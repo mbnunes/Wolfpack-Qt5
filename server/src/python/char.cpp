@@ -52,8 +52,11 @@
 #include "objectcache.h"
 #include "skills.h"
 
-/*!
-	Struct for WP Python Chars
+/*
+	\object char
+	\description This object type represents players and npcs in the world.
+	To determine whether the object instance is for a player or a npc, use the
+	<i>npc</i> and <i>player</i> properties.
 */
 typedef struct {
     PyObject_HEAD;
@@ -118,8 +121,13 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 
 // Methods
 
-/*!
-	Resends the character.
+/*
+	\method char.update
+	\description Resend the character.
+	\param clean Defaults to 0.
+	If true, the character will be removed from all connected sockets before resending him.
+	\param excludeself Defaults to 0.
+	If true, the player won't receive an update packet for himself.
 */
 static PyObject* wpChar_update(wpChar* self, PyObject* args)
 {
@@ -134,11 +142,16 @@ static PyObject* wpChar_update(wpChar* self, PyObject* args)
 
 	self->pChar->resend(clean != 0, excludeself != 0);
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Removes the character from view.
+/*
+	\method char.removefromview
+	\description Remove the character from all clients who can currently see it.
+	\param clean Defaults to 0.
+	If true, the character will be removed from all connected sockets, even if they
+	can't see him.
 */
 static PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 {
@@ -150,11 +163,25 @@ static PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 	else
 		self->pChar->removeFromView( true );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Displays a message to the character if connected.
+/*
+	\method char.message
+	\description Send an overhead message to a player. This method does nothing for NPCs.
+	\param message The message to be sent.
+	\param color Optional parameter.
+	The color of the overhead message.
+*/
+/*
+	\method char.message
+	\description Send an overhead localized message to a player. This method does nothing for NPCs.
+	\param message The numeric id of the localized message.
+	\param params Optional parameter. 
+	Parameters that should be parsed into the localized message.
+	\param affix Optional parameter.
+	If specified, the affix will be appended to the localized message.
 */
 static PyObject* wpChar_message( wpChar* self, PyObject* args )
 {
@@ -197,11 +224,24 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 		return NULL;
 	}
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Moves the char to the specified location
+/*
+	\method char.moveto
+	\description Change the position of this character.
+	\param pos The coord object representing the new position.
+*/
+/*
+	\method char.moveto
+	\description Change the position of this character.
+	\param x The new x coordinate of this character.
+	\param y The new y coordinate of this character.
+	\param z Defaults to the current z position of the character.
+	The new z coordinate of this character.
+	\param map Defaults to the current map the character is on.
+	The new map coordinate of this character.
 */
 static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 {
@@ -253,11 +293,19 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 
 	self->pChar->moveTo( pos );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Plays a creature specific sound.
+/*
+	\method char.sound
+	\description Play a creature dependant soundeffect.
+	\param sound One of the following constants from <library id="wolfpack.consts">wolfpack.consts</library>:
+	<code>SND_STARTATTACK = 0
+	SND_IDLE = 1
+	SND_ATTACK = 2
+	SND_DEFEND = 3
+	SND_DIE = 4</code>
 */
 static PyObject* wpChar_sound( wpChar* self, PyObject* args )
 {
@@ -276,11 +324,18 @@ static PyObject* wpChar_sound( wpChar* self, PyObject* args )
 		return PyFalse;
 
 	self->pChar->bark( (cBaseChar::enBark)arg );
-	return PyTrue;
+	
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Plays a soundeffect originating from the char
+/*
+	\method char.soundeffect
+	\description Play a soundeffect originating from the character.
+	\param sound The id of the soundeffect.
+	\param hearall Defaults to true.
+	If set to false, only the character can hear the sound. Has no 
+	effect for NPCs.
 */
 static PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
 {
@@ -298,11 +353,23 @@ static PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
 	else
 		self->pChar->soundEffect( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Returns the distance towards a given object or position
+/*
+	\method char.distanceto
+	\description Measure the distance between the character and another object.
+	\param object The target object. May be another character, item or a coord 
+	object.
+	\return The distance in tiles towards the given target.
+*/
+/*
+	\method char.distanceto
+	\description Measure the distance between the character and a coordinate.
+	\param x The x component of the target coordinate.
+	\param y The y component of the target coordinate.
+	\return The distance in tiles towards the given coordinate.
 */
 static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 {
@@ -343,8 +410,12 @@ static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 	return NULL;
 }
 
-/*!
-	Lets the character perform an action
+/*
+	\method char.action
+	\description Play an animation for the character.
+	The animation id is automatically translated if the character is on a horse or 
+	if the current body id of the character doesn't	support the animation.
+	\param id The id of the animation that should be played.
 */
 static PyObject* wpChar_action( wpChar* self, PyObject* args )
 {
@@ -355,12 +426,23 @@ static PyObject* wpChar_action( wpChar* self, PyObject* args )
 	}
 
 	self->pChar->action( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Returns the direction of a character 
-	toward some object or position
+/*
+	\method char.directionto
+	\description Return the direction from the character to another object.
+	\param object The target object. May be another character, item or a coord 
+	object.
+	\return The direction towards the target.
+*/
+/*
+	\method char.directionto
+	\description Return the direction from the character to a coordinate.
+	\param x The x component of the target coordinate.
+	\param y The y component of the target coordinate.
+	\return The direction towards the target.
 */
 static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 {
@@ -404,9 +486,14 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 	return NULL;
 }
 
-/*!
-	Performs a skillcheck using the given skill
-	and minimum and maximum arguments.
+/*
+	\method char.checkskill
+	\description Make a skillcheck with a given difficulty and allow the 
+	character to gain in that skill.
+	\param skill The id of the skill that should be checked.
+	\param min The lower boundary of the difficulty range.
+	\param max The upper boundary of the difficulty range.
+	\return True if the skillcheck succeeded, false otherwise.
 */
 static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 {
@@ -424,10 +511,11 @@ static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 	return success ? PyTrue : PyFalse;
 }
 
-/*!
-	Returns an item object for an item equipped
-	on the specified layer. If there is no item
-	it returns Py_None.
+/*
+	\method char.itemonlayer
+	\description Find an item on a given layer.
+	\param layer The layer id.
+	\return The item on the given layer or None.
 */
 static PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 {
@@ -443,8 +531,9 @@ static PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 	return PyGetItemObject( self->pChar->atLayer( (cBaseChar::enLayer)getArgInt( 0 ) ) );
 }
 
-/*!
-	Returns the combat skill currently used by the character
+/*
+	\method char.combatskill
+	\description Get the id of the combat skill the character would use in a fight.
 */
 static PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 {
@@ -459,12 +548,14 @@ static PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 	return PyInt_FromLong( Combat::instance()->weaponSkill( pi ) );
 }
 
-/*!
-	Takes at least two arguments (amount,item-id)
-	Optionally the color of the item we 
-	want to consume too.
-	It consumes the items and amount specified
-	and returns how much have been really consumed.
+/*
+	\method char.useresource	
+	\description Remove items from the characters backpack recursively.
+	\param amount The amount if items that should be deleted.
+	\param id The display id of the items that should be deleted.
+	\param color Defaults to 0.
+	The color of the items that should be deleted.
+	\return The amount of items that were deleted.
 */
 static PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 {
@@ -493,8 +584,9 @@ static PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 	return PyInt_FromLong( deleted );
 }
 
-/*!
-	Resurrects the current character
+/*
+	\method char.resurrect
+	\description Resurrect the character.
 */
 static PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 {
@@ -507,8 +599,10 @@ static PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
-/*!
-	Kills the current character
+/*
+	\method char.kill
+	\description Kill the character. This is not forced, but instead 
+	it tries to damage the character so he dies normally.
 */
 static PyObject* wpChar_kill( wpChar* self, PyObject* args )
 {
@@ -522,9 +616,18 @@ static PyObject* wpChar_kill( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
-/*!
-	Deals damage to the character
-	This cannot be used for healing!
+/*
+	\method char.damage
+	\description Deal damage to the character.
+	\param type The damage type. One of the following constants from <library id="wolfpack.consts">wolfpack.consts</library>:
+	DAMAGE_PHYSICAL = 0
+	DAMAGE_MAGICAL = 1
+	DAMAGE_GODLY = 2
+	DAMAGE_HUNGER = 3
+	\param amount The amount of damage that should be dealt.
+	\param source Defaults to None.
+	The source of the damage. May either be a character or an item.
+	\return The amount of damage really dealt.
 */
 static PyObject* wpChar_damage( wpChar* self, PyObject* args )
 {
@@ -545,9 +648,6 @@ static PyObject* wpChar_damage( wpChar* self, PyObject* args )
 	return PyInt_FromLong( self->pChar->damage( (eDamageType)type, amount, pSource ) );
 }
 
-/*!
-	Shows an emote above the chars head
-*/
 static PyObject* wpChar_emote( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )

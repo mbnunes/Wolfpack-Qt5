@@ -33,6 +33,10 @@ a:hover {
 a:active {
 	text-decoration: none;
 }
+.style2 {
+	color: #999999;
+	font-weight: bold;
+}
 -->
 </style></head>
 
@@ -70,14 +74,14 @@ a:active {
 		<?
 			}
 		?>
-        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
-		<tr>
-			<td colspan="7"><span class="sectiontitle">OBJECT METHODS</span></td>
-		</tr>
+        <br>
+        <strong>Methods:</strong>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="2">
         <?
-		$commands = array();
-		$result = mysql_query("SELECT `method` FROM documentation_objects_methods WHERE `object`= '$row[0]' ORDER BY `method` ASC;");
-		while ($row = mysql_fetch_array($result)) {
+		$commands = array();	
+		
+		$result = mysql_query("SELECT `method` FROM documentation_objects_methods WHERE `object` = '$name' ORDER BY `method` ASC;");
+		while ($row = mysql_fetch_array($result)) {	
 			array_push($commands, $row[0]);
 		}
 		mysql_free_result($result);
@@ -91,7 +95,7 @@ a:active {
 				$id = $col * $rows + $row;
 				if ($id < sizeof($commands)) {
 ?>
-  <td>- <a href="method.php?object=<?=$_REQUEST['object']?>&method=<?=$commands[$id]?>">
+  <td>- <a href="#<?=$commands[$id]?>">
       <?=$commands[$id]?>
     </a></td>
       <?
@@ -103,15 +107,58 @@ a:active {
 		}
 ?>
       </table>
-	  <span class="sectiontitle"><br>
-	  OBJECT PROPERTIES </span><br>
-		Nice little object properties<br>		<br>
+      <p>          <span class="sectiontitle">OBJECT METHODS</span><br>
+		  <br>
+          <?
+		  	// There could be multiple methods
+			$i = 0;
+			$result = mysql_query("SELECT `object`,`method`,`prototype`,`parameters`,`returnvalue`,`description` FROM documentation_objects_methods WHERE `object` = '$object' ORDER BY `method` ASC;");
+			$count = mysql_num_rows($result);
+			while ($row = mysql_fetch_array($result)) {
+		  ?>
+	      <a name="<?=$row[1]?>"></a>
+	      <b><code style="font-size: 12px">
+          <?=$row[2]?>
+                    </code></b><br>
+          <br>
+          <?
+		  	if (strlen($row[3]) > 0) {
+		  ?>
+          <?=$row[3]?>
+          <br>
+          <br>
+          <?
+	}
+	if (strlen($row[4]) > 0) { ?>
+          <span class="style2">Return Value: </span><br>
+          <?=$row[4]?>
+              <p>
+          <?
+		  	}
+		  	if (strlen($row[5]) > 0) {
+		  ?>
+          <span class="style2">Description:</span><br>
+          <?=$row[5]?>
+          <br>
+          <?
+		  	}
+
+		    if (++$i < $count) {
+        	  echo '<hr size="1" noshade>';
+			}
+		
+       }
+
+?>        <span class="sectiontitle"><br>
+        <br>
+	  OBJECT PROPERTIES </span><br>          
+		Nice little object properties<br>		<br>        
           <?
 	}  else {
 ?>
           <span class="sectiontitle">SCRIPTING OBJECTS</span><br>
           An object in Wolfpack has several methods (functions working with the object) and property (data assigned to the object). This section will serve as a reference to all available classes of objects in Wolfpack. <br>
-          Choose one of the object classes from the list at the bottom.      </p>      <table width="100%"  border="0" cellspacing="0" cellpadding="2">
+        Choose one of the object classes from the list at the bottom.      </p>      <table width="100%"  border="0" cellspacing="0" cellpadding="2">
         <?
 		$commands = array();
 		$result = mysql_query("SELECT `object` FROM documentation_objects ORDER BY `object` ASC;");

@@ -35,9 +35,11 @@
 #include "../gumps.h"
 #include "../console.h"
 
-/*!
-	Response object. 
-	This object is used to represent the users choice.
+/*
+	\object gumpresponse
+	\description This object represents the client response to a 
+	generic dialog (gump). It contains the switches and texts the 
+	client sent along with the id of the pressed button.
 */
 typedef struct {
     PyObject_HEAD;

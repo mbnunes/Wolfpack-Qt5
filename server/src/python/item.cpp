@@ -43,8 +43,9 @@
 #include "tempeffect.h"
 #include "objectcache.h"
 
-/*!
-	The object for Wolfpack Python items
+/*
+	\object item
+	\description This object represents an item in the wolfpack world.
 */
 struct wpItem
 {
