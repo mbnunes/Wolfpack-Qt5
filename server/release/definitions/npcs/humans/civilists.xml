@@ -86,27 +86,28 @@
 	</npc>
 
 	<!-- Pirate -->
-	<npc id="pirate_male">
-		<inherit>base_male</inherit>
+	<npc id="pirate_male" inherit="base_male">
+		<name><random list="NAMES_PIRATE_MALE" /></name>
 		<karma>500</karma>
 		<title>the Pirate</title>
 	</npc>
-	<npc id="pirate_female">
-		<inherit>base_female</inherit>
+
+	<npc id="pirate_female" inherit="base_female">
+		<name><random list="NAMES_PIRATE_FEMALE" /></name>
 		<karma>500</karma>
 		<title>the Pirate</title>
 	</npc>
+
 	<!-- Vendor -->
-	<npc id="vendor_male">
-		<inherit>base_male</inherit>
+	<npc id="vendor_male" inherit="base_male">
 		<ai>Human_Vendor</ai>
 		<bindmenu>paperdoll_menu,vendor_menu,train_menu</bindmenu>
 		<basescript>contextmenus.trainmenu</basescript>
 		<invulnerable />
 		<wandertype>0</wandertype>
 	</npc>
-	<npc id="vendor_female">
-		<inherit>base_female</inherit>
+
+	<npc id="vendor_female" inherit="base_female">
 		<ai>Human_Vendor</ai>
 		<bindmenu>paperdoll_menu,vendor_menu,train_menu</bindmenu>
 		<basescript>contextmenus.trainmenu</basescript>

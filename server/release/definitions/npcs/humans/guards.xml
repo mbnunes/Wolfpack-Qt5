@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Male Guard Base -->
-	<npc id="base_male_guard">
+	<npc id="base_male_guard" inherit="base_male">
 		<id>400</id>
 		<name><random list="NAMES_MALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
@@ -21,7 +21,7 @@
  	</npc>
 
  	<!-- Female Guard Base -->
-	<npc id="base_female_guard">
+	<npc id="base_female_guard" inherit="base_female">
 		<id>401</id>
 		<name><random list="NAMES_FEMALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
@@ -56,17 +56,17 @@
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="100" type="int" />
 		<!-- Skills -->
-		<parrying>1200</parrying>
-		<magicresistance>1200</magicresistance>
-		<tactics>1200</tactics>
-		<wrestling>1200</wrestling>
-		<swordsmanship>1200</swordsmanship>
-		<fencing>1200</fencing>
-		<macefighting>1200</macefighting>
-		<archery>1200</archery>
+		<skill id="parrying">1200</skill>
+		<skill id="magicresist">1200</skill>
+		<skill id="tactics">1200</skill>
+		<skill id="wrestling">1200</skill>
+		<skill id="swordsmanship">1200</skill>
+		<skill id="fencing">1200</skill>
+		<skill id="macefighting">1200</skill>
+		<skill id="archery">1200</skill>
+		<skill id="anatomy">1200</skill>
 		<!-- Equiped -->
 		<equipped>
-			<item list="HAIR" />
 			<item id="e75" /> <!-- Backpack -->
 			<item id="143f" /> <!-- Halberd -->
 			<item id="1f7b" /> <!-- Doublet -->
@@ -99,17 +99,17 @@
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="100" type="int" />
 		<!-- Skills -->
-		<parrying>1200</parrying>
-		<magicresistance>1200</magicresistance>
-		<tactics>1200</tactics>
-		<wrestling>1200</wrestling>
-		<swordsmanship>1200</swordsmanship>
-		<fencing>1200</fencing>
-		<macefighting>1200</macefighting>
-		<archery>1200</archery>
+		<skill id="parrying">1200</skill>
+		<skill id="magicresist">1200</skill>
+		<skill id="tactics">1200</skill>
+		<skill id="wrestling">1200</skill>
+		<skill id="swordsmanship">1200</skill>
+		<skill id="fencing">1200</skill>
+		<skill id="macefighting">1200</skill>
+		<skill id="archery">1200</skill>
+		<skill id="anatomy">1200</skill>
 		<!-- Equiped -->
 		<equipped>
-			<item list="HAIR_FEMALE" />
 			<item id="e75" /> <!-- Backpack -->
 			<item id="143f" /> <!-- Halberd -->
 			<item id="1c04" /> <!-- Female Plate -->
