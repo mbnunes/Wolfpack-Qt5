@@ -30,6 +30,7 @@
 			<!-- <action name="ALLSHOW" permit="false" /> -->
 			<action name="DECORATION" permit="false" />
 			<action name="DOORGEN" permit="false" />
+			<action name="EVAL" permit="false" />
 			<action name="EXPORT" permit="false" />
 			<action name="IMPORT" permit="false" />
 			<action name="OPTIMIZEDB" permit="false" />
@@ -47,10 +48,11 @@
 			<action name="any" permit="true" />
 			<action name="ACCOUNT" permit="false" />
 			<action name="ALLMOVE" permit="false" />
-			<action name="ALLSHOW" permit="false" />
+			<action name="ALLSHOW" permit="false" />			
 			<action name="DECORATION" permit="false" />
 			<action name="DOORGEN" permit="false" />
 			<action name="EDIT" permit="false" />
+			<action name="EVAL" permit="false" />
 			<action name="EXPORT" permit="false" />
 			<action name="GMTALK" permit="false" />
 			<action name="GUILDS" permit="false" />
@@ -99,6 +101,7 @@
 			<action name="any" permit="false" />
 			<action name="ACTION" permit="true" />
 			<action name="FIX" permit="true" />
+			<action name="EMAIL" permit="true" />
 			<action name="PASSWORD" permit="true" />
 			<action name="TIME" permit="true" />
 			<action name="UPDATEPLAYER" permit="true" />
