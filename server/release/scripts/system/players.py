@@ -1,5 +1,6 @@
 
 import wolfpack
+from wolfpack import tr
 
 def onLogin( player ):
 	socket = player.socket
