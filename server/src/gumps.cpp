@@ -43,7 +43,6 @@
 #undef  DBGFILE
 #define DBGFILE "gumps.cpp"
 
-//##ModelId=3C5D92F203BB
 void cGump::Button(int s, int button, SERIAL serial, char type)
 {
 	int i;
@@ -407,8 +406,6 @@ void cGump::Input(int s)
 
 }
 
-
-//##ModelId=3C5D92F3000F
 void cGump::Menu(UOXSOCKET s, int m, P_ITEM it)
 {
 	char sect[512];
@@ -1677,7 +1674,6 @@ void itemmenu(int s, int m) // Menus for item creation
 
 }
 
-//##ModelId=3C5D92F3002D
 void cGump::Open(int s, P_CHAR pc, int num1, int num2)
 {
 	unsigned char shopgumpopen[8]="\x24\x00\x00\x00\x01\x00\x30";

@@ -147,7 +147,6 @@ static void item_bounce6(const P_CLIENT ps, const P_ITEM pi)
 
 // this function SCREAMES for a rewrite !! LB !!
 
-//##ModelId=3C5D92F501C0
 void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 {
 	int amount, update = 0, serial;
@@ -378,7 +377,6 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 		statwindow(s, pc_currchar);
 }
 
-//##ModelId=3C5D92F501D4
 void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 {
 	int j;
@@ -1344,7 +1342,6 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			}	
 }
 
-//##ModelId=3C5D92F501E8
 void cDragdrop::drop_item(P_CLIENT ps) // Item is dropped
 {
 	UOXSOCKET s=ps->GetSocket();

@@ -135,14 +135,12 @@ void StonePlacement(UOXSOCKET s)
 */	}
 }
 
-//##ModelId=3C5D92F40146
 void cGuildStone::addMember(P_CHAR pc)
 {
 	member.push_back(pc->serial);
 	sort(member.begin(), member.end());
 }
 
-//##ModelId=3C5D92F40165
 bool cGuildStone::isMember(P_CHAR pc)
 {
 	return binary_search(member.begin(), member.end(), pc->serial);
