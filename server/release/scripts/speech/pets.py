@@ -183,7 +183,6 @@ def onSpeech(pet, char, text, keywords):
 	
 		# All Follow
 		elif 232 in keywords and 346 in keywords and 357 in keywords:
-			char.socket.sysmessage('zzz all follow')
 			follow(char, pet, 1)
 			return 1
 		
