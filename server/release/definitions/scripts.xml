@@ -105,6 +105,7 @@
 	<script>commands.move</script>
 	<script>commands.password</script>
 	<script>commands.remove</script>
+	<script>commands.removedupes</script>
 	<script>commands.restore</script>
 	<script>commands.resurrect</script>
 	<script>commands.serverinfo</script>
