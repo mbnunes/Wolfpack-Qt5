@@ -1,9 +1,0 @@
-<definitions>
-	<!-- GM Page - Main Menu -->
-	<menu id="4096" name="Help menu">
-		<submenu id="4097" name="Page GM" />
-		<actions id="4098" name="Server Status" >
-			<serverstatus />
-		</actions>
-	</menu>	
-</definitions>
