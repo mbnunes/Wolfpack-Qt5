@@ -54,8 +54,8 @@ void cUOTxShardList::addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT
 
 	setAsciiString( offset + 2, serverName.latin1(), serverName.length()+1 );
 
-	(*this)[ offset + 34 ] = serverFull;
-	(*this)[ offset + 35 ] = serverTimeZone;
+	(*this)[ offset + 34 ] = 0;
+	(*this)[ offset + 35 ] = 0;
 	setInt( offset + 36, serverIp );
 }
 
