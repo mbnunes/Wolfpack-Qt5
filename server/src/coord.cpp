@@ -48,6 +48,8 @@
 #include <math.h>
 #include <set>
 
+Coord_cl Coord_cl::null( 0xFFFF, 0xFFFF, 0xFF, 0xFF );
+
 Coord_cl::Coord_cl(void)
 {
 	x = y = z = map = 0;
@@ -121,24 +123,6 @@ Coord_cl Coord_cl::operator+ (const Coord_cl& src) const
 Coord_cl Coord_cl::operator- (const Coord_cl& src) const
 {
 	return Coord_cl(this->x - src.x, this->y - src.y, this->z - src.z, this->map );
-}
-
-void Coord_cl::lightning( UINT8 speed, UINT8 duration, UINT16 hue, UINT16 renderMode )
-{
-	cUOTxEffect effect;
-	effect.setType( ET_LIGHTNING );
-	effect.setSourcePos( (*this) );
-    effect.setSpeed( speed );
-	effect.setDuration( duration );
-	effect.setHue( hue );
-	effect.setRenderMode( renderMode );
-
-	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
-		if( mSock->player() && ( mSock->player()->pos().distance( (*this) ) <= mSock->player()->visualRange() ) )
-			mSock->send( &effect );
-	}
 }
 
 void Coord_cl::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT16 renderMode )

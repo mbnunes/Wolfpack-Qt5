@@ -1686,6 +1686,29 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 
 void cBaseChar::bark( enBark type )
 {
+	if( bodyID() == 0x190 || bodyID() == 0x192 )
+	{
+		if( type == Bark_GetHit )
+		{
+			unsigned short sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
+
+			if( sound > 0 )
+				soundEffect( sound );
+			else
+				soundEffect( 0x156 );
+
+			return;
+		}
+	}
+	else if( bodyID() == 0x191 || bodyID() == 0x193 )
+	{
+		unsigned short sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
+		if( sound > 0 )
+			soundEffect( sound );
+		else
+			soundEffect( 0x14b );
+	}
+
 	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef( bodyID_ );
 
 	if( !basedef || !basedef->basesound() )	// Nothing known about this creature

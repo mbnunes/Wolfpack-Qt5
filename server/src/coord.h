@@ -66,10 +66,7 @@ public:
 	*/
 	void effect( UI16 id, UI08 speed = 10, UI08 duration = 5, UI16 hue = 0, UI16 renderMode = 0 );
 	
-	/*!
-		Displays a lightning bolt at this position.
-	*/
-	void lightning( UI08 speed = 10, UI08 duration = 5, UI16 hue = 0, UI16 renderMode = 0 );
+	static Coord_cl null;
 
 public:
 	UI16 	x;

@@ -375,7 +375,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 		if( ( pChar->pos().x == pItem->pos().x ) && ( pChar->pos().y == pItem->pos().y ) && ( pItem->pos().z >= pChar->pos().z ) && ( pItem->pos().z <= pChar->pos().z + 5 ) )
 		{
 			if( handleItemCollision( pChar, pItem ) )
-			break;
+				break;
 		}
 
 		// If we are a connected player then send new items

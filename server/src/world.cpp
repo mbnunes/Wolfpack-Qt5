@@ -529,7 +529,7 @@ void cWorld::load()
 
 			if( pCont )
 			{
-				pCont->addItem( pi, false, false, true );
+				pCont->addItem( pi, false, true, true );
 			}
 			else
 			{
@@ -546,7 +546,7 @@ void cWorld::load()
 			{
 				// NoRemove is important. 
 				// It is faster *and* it prevents onEquip from being fired
-				pCont->addItem( (cBaseChar::enLayer)pi->layer(), pi, false, true );
+				pCont->addItem( (cBaseChar::enLayer)pi->layer(), pi, true, true );
 			}
 			else
 			{

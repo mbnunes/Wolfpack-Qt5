@@ -938,7 +938,7 @@ static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 	if( !checkArgObject( 0 ) )
 	{
 		PyErr_BadArgument();
-		return NULL;
+		return 0;
 	}
 
 	cUObject *object = 0;
@@ -946,9 +946,18 @@ static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 	if( checkArgChar( 0 ) )
 		object = getArgChar( 0 );
 	else if( checkArgItem( 0 ) )
-		object = getArgItem( 0 );
+	{
+		P_ITEM pItem = getArgItem( 0 );
+		
+		pItem = pItem->getOutmostItem();
 
-	if( object )
+		if( pItem->container() && pItem->container()->isChar() )
+			object = pItem->container();
+		else
+			object = pItem;
+	}
+
+	if( object && object != self->pChar )
 		self->pChar->turnTo( object );
 
 	return PyTrue;
@@ -1534,6 +1543,81 @@ static PyObject* wpChar_canpickup( wpChar* self, PyObject* args )
 	return pPlayer->canPickUp( pItem ) ? PyTrue : PyFalse;
 }
 
+static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
+{
+	if( self->pChar->free )
+		return PyFalse;
+
+	PyObject *object = 0;
+	unsigned int touch = 1;
+
+	if( !PyArg_ParseTuple( args, "O|i:char.cansee( [char,item,pos], [touch] )", &object, &touch ) )
+		return 0;
+
+	Coord_cl &pos = Coord_cl::null;
+
+	// Item
+	if( checkWpItem( object ) )
+	{
+		P_ITEM pItem = getWpItem( object );
+
+		// Invisibility Check
+		if( ( ( pItem->visible() == 1 && pItem->owner() != self->pChar ) || pItem->visible() == 2 ) )
+		{
+			P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
+			if( !pPlayer || !pPlayer->isGM() )
+				return PyFalse;
+		}
+
+		pos = pItem->pos();
+	}
+
+	// Char
+	else if( checkWpChar( object ) )
+	{
+		P_CHAR pChar = getWpChar( object );
+
+		if( pChar->isHidden() || pChar->isInvisible() )
+		{
+			P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
+			if( !pPlayer || !pPlayer->isGM() )
+				return PyFalse;
+		}
+
+		pos = pChar->pos();
+	}
+
+	// Position
+	else if( checkWpCoord( object ) )
+	{
+		pos = getWpCoord( object );
+	}
+	else
+	{
+		PyErr_SetString( PyExc_RuntimeError, "Incompatible Object for char.cansee()." );
+		return 0;
+	}
+
+	if( pos == Coord_cl::null )
+		return PyFalse;
+
+	bool result = self->pChar->pos().lineOfSight( pos, touch != 0 );
+
+	return result ? PyTrue : PyFalse;
+}
+
+static PyObject* wpChar_lightning( wpChar *self, PyObject *args )
+{
+	unsigned short hue = 0;
+	
+	if( !PyArg_ParseTuple( args, "|h:char.lightning( [hue] )", &hue ) )
+		return 0;
+
+	self->pChar->lightning( hue );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
@@ -1563,6 +1647,8 @@ static PyMethodDef wpCharMethods[] =
 	{ "disturb",		(getattrofunc)wpChar_disturb,			METH_VARARGS, "Disturbs whatever this character is doing right now." },
 	{ "canreach",		(getattrofunc)wpChar_canreach,			METH_VARARGS, "Checks if this character can reach a certain object." },
 	{ "canpickup",		(getattrofunc)wpChar_canpickup,			METH_VARARGS, NULL },
+	{ "cansee",			(getattrofunc)wpChar_cansee,			METH_VARARGS, NULL },
+	{ "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
 	
 	// Mostly NPC functions
 	{ "attack",			(getattrofunc)wpChar_attack,			METH_VARARGS, "Let's the character attack someone else." },

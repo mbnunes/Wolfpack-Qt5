@@ -20,21 +20,10 @@
 ***************************************************************************/
 
 /* use intrinsic rotate if possible */
-#define	ROL(x,n) (((x) << ((n) & 0x1F)) | ((x) >> (32-((n) & 0x1F))))
-#define	ROR(x,n) (((x) >> ((n) & 0x1F)) | ((x) << (32-((n) & 0x1F))))
+#define ROL( x, y ) ( ( (x) << (y) ) | ( (x) >> ( 32 - (y) ) ) )
+#define ROR( x, y ) ( ( (x) >> (y) ) | ( (x) << ( 32 - (y) ) ) )
 
-#if (0) && defined(__BORLANDC__) && (__BORLANDC__ >= 0x462)
-#error "!!!This does not work for some reason!!!"
-#include	<stdlib.h>					/* get prototype for _lrotl() , _lrotr() */
-#pragma inline __lrotl__
-#pragma inline __lrotr__
-#undef	ROL								/* get rid of inefficient definitions */
-#undef	ROR
-#define	ROL(x,n)	__lrotl__(x,n)		/* use compiler intrinsic rotations */
-#define	ROR(x,n)	__lrotr__(x,n)
-#endif
-
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 #include	<stdlib.h>					/* get prototypes for rotation functions */
 #undef	ROL
 #undef	ROR
@@ -43,19 +32,9 @@
 #define	ROR(x,n)	_lrotr(x,n)
 #endif
 
-#ifndef _M_IX86
-#ifdef	__BORLANDC__
-#define	_M_IX86					300		/* make sure this is defined for Intel CPUs */
-#endif
-#endif
-
-#ifdef _M_IX86
-#define		LittleEndian		1		/* e.g., 1 for Pentium, 0 for 68K */
-#define		ALIGN32				0		/* need dword alignment? (no for Pentium) */
-#else	/* non-Intel platforms */
-#define		LittleEndian		0		/* (assume big endian */
-#define		ALIGN32				1		/* (assume need alignment for non-Intel) */
-#endif
+// Change this to compile on a BigEndian machine
+#define LittleEndian 1
+#define ALIGN32 1
 
 #if LittleEndian
 #define		Bswap(x)			(x)		/* NOP for little-endian machines */

@@ -30,6 +30,7 @@
 
 #include "utilities.h"
 #include "../coord.h"
+#include "../walking.h"
 
 /*!
 	The object for Wolfpack Coord items
@@ -74,9 +75,33 @@ static PyObject *wpCoord_distance( wpCoord *self, PyObject *args )
 	}
 }
 
+static PyObject *wpCoord_direction( wpCoord *self, PyObject *args )
+{
+	// Check if the paramter is a coordinate
+	if( !checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
+	{
+		return PyInt_FromLong( -1 );
+	}
+	else
+	{
+		Coord_cl pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
+
+		// Calculate the distance
+		return PyInt_FromLong( self->coord.direction( pos ) );
+	}
+}
+
+static PyObject *wpCoord_validspawnspot( wpCoord *self, PyObject *args )
+{
+	return Movement::instance()->canLandMonsterMoveHere( self->coord ) ? PyTrue : PyFalse;
+}
+
 static PyMethodDef wpCoordMethods[] = 
 {
 	{ "distance",	(getattrofunc)wpCoord_distance, METH_VARARGS, "Whats the distance between Point A and Point B" },
+	{ "direction", (getattrofunc)wpCoord_direction, METH_VARARGS, NULL },
+	{ "validspawnspot",	(getattrofunc)wpCoord_validspawnspot, METH_VARARGS, NULL },
+	{ 0, 0, 0, 0 }
 };
 
 static PyObject *wpCoord_getAttr( wpCoord *self, char *name )

@@ -497,6 +497,23 @@ bool cUObject::inRange( const cUObject *object, UINT32 range ) const
 	return ( pos_.distance( object->pos_ ) <= range );
 }
 
+void cUObject::lightning( unsigned short hue )
+{
+	cUOTxEffect effect;
+	effect.setType( ET_LIGHTNING );
+	effect.setSource( serial_ );
+	effect.setSourcePos( pos_ );
+	effect.setTargetPos( pos_ );
+	effect.setHue( hue );
+
+	cUOSocket *mSock = 0;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock->player() && dist( mSock->player() ) < mSock->player()->visualRange() )
+			mSock->send( &effect );
+	}
+}
+
 /*!
 	Displays an effect emitting from this object toward another item or character
 */
@@ -713,3 +730,4 @@ QStringList cUObject::getTags() const
 {
 	return tags_.getKeys();
 }
+

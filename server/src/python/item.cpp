@@ -629,6 +629,18 @@ static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) );  
 }
 
+static PyObject* wpItem_lightning( wpItem *self, PyObject *args )
+{
+	unsigned short hue = 0;
+	
+	if( !PyArg_ParseTuple( args, "|h:item.lightning( [hue] )", &hue ) )
+		return 0;
+
+	self->pItem->lightning( hue );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
@@ -645,7 +657,8 @@ static PyMethodDef wpItemMethods[] =
 	{ "getoutmostchar",		(getattrofunc)wpItem_getoutmostchar, METH_VARARGS, "Get the outmost character." },
 	{ "getoutmostitem",		(getattrofunc)wpItem_getoutmostitem, METH_VARARGS, "Get the outmost item." },
 	{ "getname",			(getattrofunc)wpItem_getname, METH_VARARGS, "Get item name." },
-	{ "multi",				(getattrofunc)wpItem_multi,	METH_VARARGS, NULL },
+	{ "multi",				(getattrofunc)wpItem_multi,	METH_VARARGS, 0 },
+	{ "lightning",			(getattrofunc)wpItem_lightning, METH_VARARGS, 0 },
 
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
@@ -850,5 +863,3 @@ int wpItem_compare( PyObject *a, PyObject *b )
 
 	return !( pA == pB );
 }
-
-
