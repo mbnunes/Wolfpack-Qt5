@@ -126,8 +126,6 @@ enum eSkills
 	ALLSKILLS
 };
 
-#define WEIGHT_PER_STR 4
-
 #define DEFAULTWEBPAGE "http://www.wpdev.org/"
 
 #define MY_CLOCKS_PER_SEC 1000

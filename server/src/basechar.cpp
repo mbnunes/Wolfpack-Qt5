@@ -59,6 +59,7 @@ cBaseChar::cBaseChar()
 {
 	fights_.setAutoDelete( false );
 	basedef_ = 0;
+	stepsTaken_ = 0;
 	lastMovement_ = 0;
 	attackTarget_ = 0;
 	nextSwing_ = 0;
@@ -1964,6 +1965,14 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 
 PyObject* cBaseChar::getProperty( const QString& name )
 {
+	// \rproperty char.overloaded This boolean property indicates whether the character is overloaded or not.
+	PY_PROPERTY( "overloaded", isOverloaded() )
+	// \rproperty char.maxweight The maximum weight this character can carry with his current strength.
+	PY_PROPERTY( "maxweight", maxWeight() )
+	/* \rproperty char.stepstaken The number of steps this character walked since the server started.
+	This value is not saved between server downs.
+	*/
+	PY_PROPERTY( "stepstaken", stepsTaken() )
 	PY_PROPERTY( "orgname", orgName_ )
 	PY_PROPERTY( "direction", direction_ )
 	PY_PROPERTY( "baseid", baseid() )
@@ -2247,7 +2256,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 	// First of all, call onDamage with the damage-type, amount and source
 	// to modify the damage if needed
 	//
-	if ( scriptChain )
+	if ( canHandleEvent(EVENT_DAMAGE) )
 	{
 		PyObject* args = 0;
 		if ( dynamic_cast<P_CHAR>( source ) != 0 )
@@ -2257,7 +2266,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		else
 			args = Py_BuildValue( "O&iiO", PyGetCharObject, this, ( unsigned int ) type, amount, Py_None );
 
-		PyObject* result = cPythonScript::callChainedEvent( EVENT_DAMAGE, scriptChain, args );
+		PyObject* result = callEvent(EVENT_DAMAGE, args);
 
 		if ( result )
 		{

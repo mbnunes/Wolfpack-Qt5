@@ -96,6 +96,8 @@ public:
 	void log( const QString& string );
 	void awardFame( short amount );
 	void awardKarma( P_CHAR pKilled, short amount );
+	bool isOverloaded();
+	unsigned int maxWeight();
 
 	// other public methods
 	virtual stError* setProperty( const QString& name, const cVariant& value );
@@ -114,6 +116,7 @@ public:
 	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true ); // override
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	unsigned char controlslots() const;
+	unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );
 
 	// Wrapper events
 	virtual bool onLogin( void ); // The character enters the world

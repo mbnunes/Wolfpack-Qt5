@@ -520,6 +520,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		// We moved so let's update our location
 		pChar->moveTo( newCoord );
+		pChar->setStepsTaken( pChar->stepsTaken() + 1 );
 		pChar->setLastMovement( Server::instance()->time() );
 		checkStealth( pChar ); // Reveals the user if neccesary
 	}
@@ -721,38 +722,66 @@ Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
   Calculates the amount of Stamina needed for a move of the
   passed character.
 */
-bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
-{
-	// TODO: Stamina loss is disabled for now -- Weight system needs to be rediscussed
-	//	return true;
+bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
+	// Dead people and gms don't care about weight
+	if (pChar->isDead() || pChar->isGMorCounselor()) {
+		return true;
+	}
 
-	// Weight percent
-	float allowedWeight = ( pChar->strength() * WEIGHT_PER_STR ) + 30;
-	float load = ceilf( ( pChar->weight() / allowedWeight ) * 100 ) / 100;
+	// Calculate the stones we weight too much
+	int overWeight = pChar->weight() - pChar->maxWeight();
+	bool mounted = pChar->atLayer(cBaseChar::Mount) != 0;
+	bool update = false;
 
-	if ( running )
-		load = ceilf( load * 200 ) / 100;
+	// We carry too much
+	if (overWeight > 0) {
+		// How much stamina we loose
+		int amount = 5 + (overWeight / 25);
 
-	// 200% load is too much
-	if ( load >= 200 )
-	{
-		pChar->socket()->sysMessage( tr( "You are too overloaded to move." ) );
+		// Only one third loss if mounted
+		if (mounted) {
+			amount = amount / 3;
+		}
+
+		// Double loss if running
+		if (running) {
+			amount = amount * 2;
+		}
+
+		// Set the new stamina
+		pChar->setStamina(QMAX(0, pChar->stamina() - amount), false);
+		update = true;
+
+		// We are overloaded
+		if (pChar->stamina() == 0) {
+			pChar->socket()->updateStamina();
+			pChar->socket()->clilocMessage(500109);
+			return false;
+		}
+	}
+
+	// If we have less than 10% stamina left, we loose
+	// stamina more quickly
+	if ( (pChar->stamina() * 100) / QMAX(1, pChar->maxStamina()) < 10 ) {
+		pChar->setStamina(QMAX(0, pChar->stamina() - 1), false);
+		update = true;
+	}
+
+	// We can't move anymore because we are exhausted
+	if ( pChar->stamina() == 0 ) {
+		pChar->socket()->updateStamina();
+		pChar->socket()->clilocMessage( 500110 );
 		return false;
 	}
 
-	// 20% overweight = ( 0.20 * 0.10 ) * (Weight carrying) = Stamina needed to move
-	float overweight = load - 100;
+	// Normally reduce stamina every few steps
+	if ( pChar->stepsTaken() % ( mounted ? 48 : 16 ) == 0 ) {
+		pChar->setStamina( QMAX( 0, pChar->stamina() - 1 ) );
+		update = true;
+	}
 
-	// We're not overloaded so we dont need additional stamina
-	if ( overweight < 0 )
-		return true;
-
-	float requiredStamina = ceilf( ( float ) ( ( double ) ( ( double ) overweight * 0.10f ) * ( double ) pChar->weight() ) * 100 ) / 100;
-
-	if ( pChar->stamina() < requiredStamina )
-	{
-		pChar->sysmessage( tr( "You are too exhausted to move" ) );
-		return false;
+	if (update) {
+		pChar->socket()->updateStamina();
 	}
 
 	return true;

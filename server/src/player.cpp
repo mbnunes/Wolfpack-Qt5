@@ -1768,3 +1768,33 @@ void cPlayer::remove()
 
 	cBaseChar::remove();
 }
+
+unsigned int cPlayer::damage( eDamageType type, unsigned int amount, cUObject* source ) {
+	amount = cBaseChar::damage(type, amount, source);
+
+	if (amount != 0) {
+		// the more stamina we have, the more we loose
+		// the more hitpoints we have, the less we loose
+		int value = (int)(amount * (100.0 / hitpoints_) * (stamina_ / 100.0)) - 5;
+		if (value > 0) {
+			stamina_ = QMAX(0, stamina_ - value);
+			if (socket_) {
+				socket_->updateStamina();
+			}
+		}
+	}
+
+	return amount;
+}
+
+bool cPlayer::isOverloaded() {
+	if (isDead() || isGMorCounselor()) {
+		return false;
+	}
+
+	return weight_  > maxWeight();
+}
+
+unsigned int cPlayer::maxWeight() {
+	return 40 + strength_ * 3.5;
+}

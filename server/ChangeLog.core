@@ -25,7 +25,12 @@ Wolfpack 12.9.9 Beta (CVS)
 	- the python .scripts property includes all script names, including the scripts in basescripts.
 	- added a new property .basescripts to get a comma separated list of all scripts in the
 	  basescripts list.
-	  
+	- New property: char.overweight Returns true if the character is overloaded.
+	- New property: char.maxweight Returns the maximum stones a character can carry.
+	- Stamina loss while walking.
+	- Stamina loss when taking damage.
+	- Overweight prevents walking now.
+	- Walking is denied if stamina is 0.  
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes

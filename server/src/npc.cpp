@@ -1429,3 +1429,26 @@ void cNPC::remove()
 	setOwner( 0 );
 	cBaseChar::remove();
 }
+
+unsigned int cNPC::damage( eDamageType type, unsigned int amount, cUObject* source ) {
+	amount = cBaseChar::damage(type, amount, source);
+
+	if (amount != 0) {
+		// the more stamina we have, the more we loose
+		// the more hitpoints we have, the less we loose
+		int value = (int)(amount * (100.0 / hitpoints_) * (stamina_ / 100.0)) - 5;
+		if (value > 0) {
+			stamina_ = QMAX(0, stamina_ - value);
+		}
+	}
+
+	return amount;
+}
+
+bool cNPC::isOverloaded() {
+	return false;
+}
+
+unsigned int cNPC::maxWeight() {
+	return 0;
+}

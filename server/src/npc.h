@@ -93,7 +93,9 @@ public:
 	void save( cBufferedWriter& writer, unsigned int version );
 	void postload( unsigned int version );
 	void load( cBufferedReader& reader );
-
+    
+	bool isOverloaded();
+	unsigned int maxWeight();
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false );
 	virtual void resend( bool clean = true );
@@ -120,6 +122,7 @@ public:
 	void vendorSell( P_PLAYER player );
 	virtual bool isInnocent();
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
+	unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );
 
 	// other public methods
 	virtual stError* setProperty( const QString& name, const cVariant& value );

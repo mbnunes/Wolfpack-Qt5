@@ -1450,7 +1450,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 		if ( !dispelargs )
 			dispelargs = PyTuple_New( 0 );
 
-		if ( cPythonScript::canChainHandleEvent( EVENT_DISPEL, self->pChar->getScripts() ) )
+		if ( self->pChar->canHandleEvent(EVENT_DISPEL) )
 		{
 			PyObject* source;
 			if ( pSource )
@@ -1469,7 +1469,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 			}
 
 			PyObject* args = Py_BuildValue( "(NNBBsN", self->pChar->getPyObject(), source, 0, force ? 1 : 0, ptype, dispelargs );
-			bool result = cPythonScript::callChainedEventHandler( EVENT_DISPEL, self->pChar->getScripts(), args );
+			bool result = self->pChar->callEventHandler( EVENT_DISPEL, args );
 			Py_DECREF( args );
 
 			if ( result )

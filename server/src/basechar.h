@@ -237,13 +237,15 @@ public:
 	*/
 	virtual bool inWorld() = 0;
 
+	virtual unsigned int maxWeight() = 0;
+	virtual bool isOverloaded() = 0;
 	virtual void showName( cUOSocket* socket ) = 0;
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false ) = 0;
 	virtual uint takeGold( uint amount, bool inBank = false ) = 0;
 	virtual void log( eLogLevel, const QString& string ) = 0;
 	virtual void log( const QString& string ) = 0;
-	unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );
+	virtual unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );
 
 	// other public methods
 	// Simple Property setting and getting for script engines.
@@ -415,6 +417,7 @@ public:
 	bool isAtWar() const;
 	bool isInvulnerable() const;
 	unsigned char direction() const;
+	unsigned int stepsTaken() const;
 
 	// advanced getters for data structures
 	// skills
@@ -462,6 +465,7 @@ public:
 	void setOrgSkin( ushort data );
 	void setLastMovement( unsigned int data );
 	void setPoison( signed char data );
+	void setStepsTaken(unsigned int value);
 	void setPropertyFlags( uint data );
 	void setRegenHitpointsTime( uint data );
 	void setRegenStaminaTime( uint data );
@@ -769,6 +773,9 @@ protected:
 	// Saves the date of creation. cOldChar::creationday_
 	QDateTime creationDate_;
 
+	// Number of steps taken since login.
+	unsigned int stepsTaken_;
+
 	// Saves the number of steps that were stealthed. value -1 indicates that
 	// the char will be revealed
 	int stealthedSteps_;
@@ -893,6 +900,15 @@ inline void cBaseChar::setCreationDate( const QDateTime& data )
 {
 	creationDate_ = data;
 	changed_ = true;
+}
+
+inline unsigned int cBaseChar::stepsTaken() const
+{
+	return stepsTaken_;
+}
+
+inline void cBaseChar::setStepsTaken(unsigned int value) {
+	stepsTaken_ = value;
 }
 
 inline uint cBaseChar::criminalTime() const
