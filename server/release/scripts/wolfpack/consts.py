@@ -106,59 +106,59 @@ skillnames = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parryi
 	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry' ]
 
 skillnamesids = \
-{
-	'alchemy' : ALCHEMY,
-	'anatomy' : ANATOMY,
-	'animallore' : ANIMALLORE,
-	'itemid' : ITEMID,
-	'armslore' : ARMSLORE,
+{ 
+	'alchemy' : ALCHEMY, 
+	'anatomy' : ANATOMY, 
+	'animallore' : ANIMALLORE, 
+	'itemid' : ITEMID, 
+	'armslore' : ARMSLORE, 
 	'parrying' : PARRYING,
-	'begging' : BEGGING,
-	'blacksmithing' : BLACKSMITHING,
-	'bowcraft' : BOWCRAFT,
-	'peacemaking' : PEACEMAKING,
-	'camping' : CAMPING,
+	'begging' : BEGGING, 
+	'blacksmithing' : BLACKSMITHING, 
+	'bowcraft' : BOWCRAFT, 
+	'peacemaking' : PEACEMAKING, 
+	'camping' : CAMPING, 
 	'carpentry' : CARPENTRY,
-	'cartography' : CARTOGRAPHY,
-	'cooking' : COOKING,
-	'detectinghidden' : DETECTINGHIDDEN,
-	'enticement' : ENTICEMENT,
+	'cartography' : CARTOGRAPHY, 
+	'cooking' : COOKING, 
+	'detectinghidden' : DETECTINGHIDDEN, 
+	'enticement' : ENTICEMENT, 
 	'evaluatingintel' : EVALUATINGINTEL,
-	'healing' : HEALING,
-	'fishing' : FISHING,
-	'forensics' : FORENSICS,
-	'herding' : HERDING,
-	'hiding' : HIDING,
+	'healing' : HEALING, 
+	'fishing' : FISHING, 
+	'forensics' : FORENSICS, 
+	'herding' : HERDING, 
+	'hiding' : HIDING, 
 	'provocation' : PROVOCATION,
-	'inscription' : INSCRIPTION,
-	'lockpicking' : LOCKPICKING,
-	'magery' : MAGERY,
-	'magicresistance' : MAGICRESISTANCE,
-	'tactics' : TACTICS,
+	'inscription' : INSCRIPTION, 
+	'lockpicking' : LOCKPICKING, 
+	'magery' : MAGERY, 
+	'magicresistance' : MAGICRESISTANCE, 
+	'tactics' : TACTICS, 
 	'snooping' : SNOOPING,
-	'musicianship' : MUSICIANSHIP,
-	'poisoning' : POISONING,
-	'archery' : ARCHERY,
-	'spiritspeak' : SPIRITSPEAK,
-	'stealing' : STEALING,
+	'musicianship' : MUSICIANSHIP, 
+	'poisoning' : POISONING, 
+	'archery' : ARCHERY, 
+	'spiritspeak' : SPIRITSPEAK, 
+	'stealing' : STEALING, 
 	'tailoring' : TAILORING,
-	'taming' : TAMING,
-	'tasteid' : TASTEID,
-	'tinkering' : TINKERING,
-	'tracking' : TRACKING,
-	'veterinary' : VETERINARY,
+	'taming' : TAMING, 
+	'tasteid' : TASTEID, 
+	'tinkering' : TINKERING, 
+	'tracking' : TRACKING, 
+	'veterinary' : VETERINARY, 
 	'swordsmanship' : SWORDSMANSHIP,
-	'macefighting' : MACEFIGHTING,
-	'fencing' : FENCING,
-	'wrestling' : WRESTLING,
-	'lumberjacking' : LUMBERJACKING,
-	'mining' : MINING,
+	'macefighting' : MACEFIGHTING, 
+	'fencing' : FENCING, 
+	'wrestling' : WRESTLING, 
+	'lumberjacking' : LUMBERJACKING, 
+	'mining' : MINING, 
 	'meditation' : MEDITATION,
-	'stealth' : STEALTH,
-	'removetraps' : REMOVETRAPS,
-	'necromancy' : NECROMANCY,
-	'focus' : FOCUS,
-	'chivalry' : CHIVALRY
+	'stealth' : STEALTH, 
+	'removetraps' : REMOVETRAPS, 
+	'necromancy' : NECROMANCY, 
+	'focus' : FOCUS, 
+	'chivalry' : CHIVALRY 
 }
 
 statnames = [ 'str', 'int', 'dex' ]
@@ -343,12 +343,6 @@ ANIM_BOW=0x20
 ANIM_SALUTE=0x21
 ANIM_FIDGET3=0x22
 
-# Some Sounds
-SOUND_DRINK1 = 0x50
-SOUND_AGILITY_DOWN = 0x1ee
-SOUND_AGILITY_UP = 0x1ed
-SOUND_STRENGTH_UP = 0x1e7
-
 # Definitions for the Sextant
 SEXTANT_CENTER_X = 5936
 SEXTANT_CENTER_Y = 3112
@@ -409,3 +403,201 @@ SAVE_WORLD = 4
 ANTIMACRODELAY = 300000
 #3 uses of object
 ANTIMACROALLOWANCE = 3
+
+# A Huge Sound List!
+#
+# Notes: 0x4d4 appears to be the final sound ID
+
+SOUND_JUNGLE_BIRDS_1 = 0x0
+SOUND_JUNGLE_BIRDS_2 = 0x1
+SOUND_JUNGLE_BIRDS_3 = 0x2
+SOUND_FOREST_BIRDS_1 = 0x3
+SOUND_FOREST_BIRDS_2 = 0x4
+SOUND_FOREST_BIRDS_3 = 0x5
+SOUND_FOREST_BIRDS_4 = 0x6
+SOUND_SWAMP_BIRDS_1 = 0x7
+SOUND_SWAMP_BIRDS_2 = 0x8
+SOUND_SWAMP_BIRDS_3 = 0x9
+SOUND_SWAMP_BIRDS_4 = 0xa
+SOUND_SWAMP_BIRDS_5 = 0xc
+SOUND_SWAMP_BIRDS_6 = 0xd
+SOUND_SWAMP_BIRDS_7 = 0xe
+SOUND_SWAMP_BIRDS_8 = 0xf
+SOUND_RIVER_BIRDS = 0xb
+
+SOUND_RIVER = 0x10
+SOUND_STREAM = 0x11
+SOUND_BEACH = 0x12
+
+SOUND_BOAT_OCEAN = 0x13
+
+SOUND_STORM_1 = 0x14 # Light Wind
+SOUND_STORM_2 = 0x15 # Heavy Wind
+SOUND_STORM_3 = 0x16 # Moderate Wind
+
+SOUND_BIRDCALL_1 = 0x17
+SOUND_BIRDCALL_2 = 0x18
+SOUND_BIRDCALL_3 = 0x19
+SOUND_BIRDCALL_4 = 0x1a
+SOUND_BIRDCALL_5 = 0x1b
+SOUND_BIRDCALL_6 = 0x1c
+SOUND_BIRDCALL_7 = 0x1d
+SOUND_BIRDCALL_8 = 0x1e
+SOUND_BIRDCALL_9 = 0x1f
+
+SOUND_WATERBUBBLE_1 = 0x20 # Slow
+SOUND_WATERBUBBLE_2 = 0x21 # Fast
+
+SOUND_WATER_DROP_1 = 0x22 #
+SOUND_WATER_DROP_2 = 0x23 #
+SOUND_WATER_DROP_3 = 0x24 # Two drops
+SOUND_WATER_DROP_4 = 0x25 # Small object into water
+SOUND_WATER_DROP_5 = 0x26 # Large object into water
+SOUND_WATER_DROP_6 = 0x27 # Medium obj
+
+SOUND_THUNDER_1 = 0x28 # Shorter/Deeper thunder
+SOUND_THUNDER_1 = 0x29 # Long/Sharp thunder
+
+SOUND_HAMMER_1 = 0x2a # Blacksmith Sound
+
+SOUND_DRINK1 = 0x30
+SOUND_DRINK2 = 0x31
+SOUND_DRINK3 = 0x50
+
+SOUND_AGILITY_DOWN = 0x1ee
+SOUND_AGILITY_UP = 0x1ed
+SOUND_STRENGTH_UP = 0x1e7
+SOUND_FIZZLE_SPELL = 0x5c
+SOUND_FILL_BOTTLE = 0x240
+SOUND_INSCRIBE1 = 0x241
+SOUND_INSCRIBE2 = 0x4f
+SOUND_MOTAR = 0x242
+SOUND_MEDITATE = 0x24a
+SOUND_FELUCIA = 0x245
+
+SOUND_EXPLOSION_3 = 0x306
+SOUND_EXPLOSION_4 = 0x307
+SOUND_EXPLOSION_5 = 0x308
+SOUND_EXPLOSION_6 = 0x309
+
+SOUND_MAGICAL_01 = 0x3bd # A Summoning Sound
+SOUND_MAGICAL_02 = 0x3c4 # A Summoning Sound
+SOUND_MAGICAL_03 = 0x456 # Like an energy field...
+
+SOUND_WARP_01 = 0x474 # A more modern recall sound?
+
+SOUND_FIREBALL_01 = 0x44b # 
+
+SOUND_BREAKING_1 = 0x38d
+SOUND_BREAKING_2 = 0x38e
+SOUND_BREAKING_3 = 0x38f
+SOUND_BREAKING_4 = 0x390
+
+# I think this is the new lute sound anways...
+SOUND_LUTE_01 = 0x391 # Cool tune Battle Music
+SOUND_LUTE_02 = 0x392 # Cool tune Peace Music
+# I think this is the harp sounds...
+SOUND_HARP_01 = 0x403 # Cool tune Battle Music
+SOUND_HARP_02 = 0x40b # Cool tune Peace Music
+SOUND_HARP_03 = 0x418 # Cool tune
+
+SOUND_TAMBER_01 = 0x4b6 # Short tune
+SOUND_TAMBER_02 = 0x4b7 # Longer Tune, Battle?
+
+SOUND_MALE_01 = 0x419 # Ah!
+SOUND_MALE_02 = 0x41a # Aha!
+SOUND_MALE_03 = 0x41b # Clapping
+SOUND_MALE_04 = 0x41c # ??
+SOUND_MALE_05 = 0x41d # Burp
+SOUND_MALE_06 = 0x41e # Woo Hoo!
+SOUND_MALE_07 = 0x41f # *Attention cough*
+SOUND_MALE_08 = 0x420 # Cough
+SOUND_MALE_09 = 0x421 # Choking?
+SOUND_MALE_10 = 0x422 # Crying
+SOUND_MALE_11 = 0x423 # Dying
+SOUND_MALE_12 = 0x424 # Dying
+SOUND_MALE_13 = 0x425 # Dying
+SOUND_MALE_14 = 0x426 # Dying
+SOUND_MALE_15 = 0x427 # Dying
+SOUND_MALE_16 = 0x428 # Fart
+SOUND_MALE_17 = 0x429 # Gasp
+SOUND_MALE_18 = 0x42a # Laugh
+SOUND_MALE_19 = 0x42b # Groan
+SOUND_MALE_20 = 0x42c # Mean Groan
+SOUND_MALE_21 = 0x42d # Hey!
+SOUND_MALE_22 = 0x42e # Hicup
+SOUND_MALE_23 = 0x42f # Huh?
+SOUND_MALE_24 = 0x430 # Blowing a kiss
+SOUND_MALE_25 = 0x431 # Laughing
+SOUND_MALE_26 = 0x432 # No
+SOUND_MALE_27 = 0x433 # Oh!
+SOUND_MALE_28 = 0x434 # Groan
+SOUND_MALE_29 = 0x435 # Groan
+SOUND_MALE_30 = 0x436 # Groan
+SOUND_MALE_31 = 0x437 # Groan soft
+SOUND_MALE_32 = 0x438 # Groan gross sounding
+SOUND_MALE_33 = 0x439 # Oogh...
+SOUND_MALE_34 = 0x43a # Oohhhh...
+SOUND_MALE_35 = 0x43b # "Hoomph!"
+SOUND_MALE_36 = 0x43c # ugh
+SOUND_MALE_37 = 0x43d # ooooooooo!
+SOUND_MALE_38 = 0x43e # Oops
+SOUND_MALE_39 = 0x43f # Throwing up
+SOUND_MALE_40 = 0x440 # Ahhhhhhhhhhhh!
+SOUND_MALE_41 = 0x441 # Shhhhhhhh
+SOUND_MALE_42 = 0x442 # Yawning/Sighing
+SOUND_MALE_43 = 0x443 # Sneezing
+SOUND_MALE_44 = 0x444 # Sniffing
+SOUND_MALE_45 = 0x445 # Snoring
+SOUND_MALE_46 = 0x446 # Spitting Sound
+SOUND_MALE_47 = 0x447 # Whistles
+SOUND_MALE_48 = 0x448 # Yawning
+SOUND_MALE_49 = 0x449 # Yeah!
+SOUND_MALE_50 = 0x44a # Hoaghhh!
+
+SOUND_FEMALE_01 = 0x30a # Ooooh!
+SOUND_FEMALE_02 = 0x30b # Aha!
+SOUND_FEMALE_03 = 0x30c # Clap
+SOUND_FEMALE_04 = 0x30d # Sneeze?
+SOUND_FEMALE_05 = 0x30e # Burp
+SOUND_FEMALE_06 = 0x30f # Woohoo!
+SOUND_FEMALE_07 = 0x310 # Cough
+SOUND_FEMALE_08 = 0x311 # Cough 2
+SOUND_FEMALE_09 = 0x312 # Cough 3
+SOUND_FEMALE_10 = 0x313 # Cry
+SOUND_FEMALE_11 = 0x314 # Groan
+SOUND_FEMALE_12 = 0x315 # Groan 2
+SOUND_FEMALE_13 = 0x316 # Groan 3
+SOUND_FEMALE_14 = 0x317 # Groan 4
+SOUND_FEMALE_15 = 0x318 # Fart Sound
+SOUND_FEMALE_16 = 0x319 # Gasp
+SOUND_FEMALE_17 = 0x31a # Laugh
+SOUND_FEMALE_18 = 0x31b # Groan/Frustrated
+SOUND_FEMALE_19 = 0x31c # Aggitated
+SOUND_FEMALE_20 = 0x31d # "Hey!"
+SOUND_FEMALE_21 = 0x31f # "Huh?"
+SOUND_FEMALE_22 = 0x320 # Blowing Kiss
+SOUND_FEMALE_23 = 0x321 # Soft Laugh
+SOUND_FEMALE_24 = 0x322 # NO!
+SOUND_FEMALE_25 = 0x323 # "Oh!"
+SOUND_FEMALE_26 = 0x324 # "Ugh!"
+SOUND_FEMALE_27 = 0x325 # "Ugh!" 2
+SOUND_FEMALE_28 = 0x326 # "Ughhhh" 3
+SOUND_FEMALE_29 = 0x327 # "Ughhhhhh" 4
+SOUND_FEMALE_30 = 0x328 # "Urraghh!"
+SOUND_FEMALE_31 = 0x329 # "Uhh!"
+SOUND_FEMALE_32 = 0x32a # Ugh! 
+SOUND_FEMALE_33 = 0x32b # ooooooooo!
+SOUND_FEMALE_34 = 0x32c # Ooops!
+SOUND_FEMALE_35 = 0x32d # Gag sound
+SOUND_FEMALE_36 = 0x32e # Screaming
+SOUND_FEMALE_37 = 0x32f # Shhhhhh!
+SOUND_FEMALE_38 = 0x330 # *Sigh*
+SOUND_FEMALE_39 = 0x331 # Sneeze
+SOUND_FEMALE_40 = 0x332 # Sniffles
+SOUND_FEMALE_41 = 0x333 # Snores
+SOUND_FEMALE_42 = 0x334 # ???
+SOUND_FEMALE_43 = 0x335 # Whistles
+SOUND_FEMALE_44 = 0x336 # Yawns
+SOUND_FEMALE_45 = 0x337 # Yeah!
+SOUND_FEMALE_46 = 0x338 # Really frustrated

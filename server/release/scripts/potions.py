@@ -169,7 +169,7 @@ def checkHealTimer( char ):
 	# Compare 
 	elapsed = int( char.gettag( "heal_timer" ) )
 	if elapsed > wolfpack.time.servertime():
-		char.clilocmessage( 0x7A20B ) # You must wait 10 seconds before using another healing potion.
+		char.socket.clilocmessage( 0x7A20B, GRAY ) # You must wait 10 seconds before using another healing potion.
 		return OOPS
 	else:
 		char.settag( "heal_timer", wolfpack.time.servertime() + HEAL_POT_DELAY )
