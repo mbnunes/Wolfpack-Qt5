@@ -5,8 +5,367 @@
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
-| Figurines for NPCs                                            |
+| (Unused) Spellicons                                           |
 =================================================================
 -->
 <definitions>
+	<item id="2080">
+		<id>0x2080</id>
+		<category>Misc\Spellicons\Clumsy</category>
+	</item>
+
+	<item id="2081">
+		<id>0x2081</id>
+		<category>Misc\Spellicons\Create Food</category>
+	</item>
+
+	<item id="2082">
+		<id>0x2082</id>
+		<category>Misc\Spellicons\Feeblemind</category>
+	</item>
+
+	<item id="2083">
+		<id>0x2083</id>
+		<category>Misc\Spellicons\Heal</category>
+	</item>
+
+	<item id="2084">
+		<id>0x2084</id>
+		<category>Misc\Spellicons\Magic Arrow</category>
+	</item>
+
+	<item id="2085">
+		<id>0x2085</id>
+		<category>Misc\Spellicons\Night Sight</category>
+	</item>
+
+	<item id="2086">
+		<id>0x2086</id>
+		<category>Misc\Spellicons\Reactive Armor</category>
+	</item>
+
+	<item id="2087">
+		<id>0x2087</id>
+		<category>Misc\Spellicons\Weaken</category>
+	</item>
+
+	<item id="2088">
+		<id>0x2088</id>
+		<category>Misc\Spellicons\Agility</category>
+	</item>
+
+	<item id="2089">
+		<id>0x2089</id>
+		<category>Misc\Spellicons\Cunning</category>
+	</item>
+
+	<item id="208a">
+		<id>0x208a</id>
+		<category>Misc\Spellicons\Cure</category>
+	</item>
+
+	<item id="208b">
+		<id>0x208b</id>
+		<category>Misc\Spellicons\Harm</category>
+	</item>
+
+	<item id="208c">
+		<id>0x208c</id>
+		<category>Misc\Spellicons\Magic Trap</category>
+	</item>
+
+	<item id="208d">
+		<id>0x208d</id>
+		<category>Misc\Spellicons\Magic Untrap</category>
+	</item>
+
+	<item id="208e">
+		<id>0x208e</id>
+		<category>Misc\Spellicons\Protection</category>
+	</item>
+
+	<item id="208f">
+		<id>0x208f</id>
+		<category>Misc\Spellicons\Strength</category>
+	</item>
+
+	<item id="2090">
+		<id>0x2090</id>
+		<category>Misc\Spellicons\Bless</category>
+	</item>
+
+	<item id="2091">
+		<id>0x2091</id>
+		<category>Misc\Spellicons\Fireball</category>
+	</item>
+
+	<item id="2092">
+		<id>0x2092</id>
+		<category>Misc\Spellicons\Magic Lock</category>
+	</item>
+
+	<item id="2093">
+		<id>0x2093</id>
+		<category>Misc\Spellicons\Poison</category>
+	</item>
+
+	<item id="2094">
+		<id>0x2094</id>
+		<category>Misc\Spellicons\Telekinesis</category>
+	</item>
+
+	<item id="2095">
+		<id>0x2095</id>
+		<category>Misc\Spellicons\Teleport</category>
+	</item>
+
+	<item id="2096">
+		<id>0x2096</id>
+		<category>Misc\Spellicons\Magic Unlock</category>
+	</item>
+
+	<item id="2097">
+		<id>0x2097</id>
+		<category>Misc\Spellicons\Wall of Stone</category>
+	</item>
+
+	<item id="2098">
+		<id>0x2098</id>
+		<category>Misc\Spellicons\Archcure</category>
+	</item>
+
+	<item id="2099">
+		<id>0x2099</id>
+		<category>Misc\Spellicons\Archprotection</category>
+	</item>
+
+	<item id="209a">
+		<id>0x209a</id>
+		<category>Misc\Spellicons\Curse</category>
+	</item>
+
+	<item id="209b">
+		<id>0x209b</id>
+		<category>Misc\Spellicons\Fire Field</category>
+	</item>
+
+	<item id="209c">
+		<id>0x209c</id>
+		<category>Misc\Spellicons\Greater Heal</category>
+	</item>
+
+	<item id="209d">
+		<id>0x209d</id>
+		<category>Misc\Spellicons\Lightning</category>
+	</item>
+
+	<item id="209e">
+		<id>0x209e</id>
+		<category>Misc\Spellicons\Mana Drain</category>
+	</item>
+
+	<item id="209f">
+		<id>0x209f</id>
+		<category>Misc\Spellicons\Recall</category>
+	</item>
+
+	<item id="20a0">
+		<id>0x20a0</id>
+		<category>Misc\Spellicons\Blade Spirits</category>
+	</item>
+
+	<item id="20a1">
+		<id>0x20a1</id>
+		<category>Misc\Spellicons\Dispel Field</category>
+	</item>
+
+	<item id="20a2">
+		<id>0x20a2</id>
+		<category>Misc\Spellicons\Incognito</category>
+	</item>
+
+	<item id="20a3">
+		<id>0x20a3</id>
+		<category>Misc\Spellicons\Magic Reflection</category>
+	</item>
+
+	<item id="20a4">
+		<id>0x20a4</id>
+		<category>Misc\Spellicons\Mind Blast</category>
+	</item>
+
+	<item id="20a5">
+		<id>0x20a5</id>
+		<category>Misc\Spellicons\Paralyze</category>
+	</item>
+
+	<item id="20a6">
+		<id>0x20a6</id>
+		<category>Misc\Spellicons\Poison Field</category>
+	</item>
+
+	<item id="20a7">
+		<id>0x20a7</id>
+		<category>Misc\Spellicons\Summon Creature</category>
+	</item>
+
+	<item id="20a8">
+		<id>0x20a8</id>	
+		<category>Misc\Spellicons\Dispel</category>
+	</item>
+
+	<item id="20a9">
+		<id>0x20a9</id>
+		<category>Misc\Spellicons\Energy Bolt</category>
+	</item>
+
+	<item id="20aa">
+		<id>0x20aa</id>
+		<category>Misc\Spellicons\Explosion</category>
+	</item>
+
+	<item id="20ab">
+		<id>0x20ab</id>
+		<category>Misc\Spellicons\Invisibility</category>
+	</item>
+
+	<item id="20ac">
+		<id>0x20ac</id>
+		<category>Misc\Spellicons\Mark</category>
+	</item>
+
+	<item id="20ad">
+		<id>0x20ad</id>
+		<category>Misc\Spellicons\Mass Curse</category>
+	</item>
+
+	<item id="20ae">
+		<id>0x20ae</id>
+		<category>Misc\Spellicons\Paralyze Field</category>
+	</item>
+
+	<item id="20af">
+		<id>0x20af</id>
+		<category>Misc\Spellicons\Reveal</category>
+	</item>
+
+	<item id="20b0">
+		<id>0x20b0</id>
+		<category>Misc\Spellicons\Chain Lightning</category>
+	</item>
+
+	<item id="20b1">
+		<id>0x20b1</id>
+		<category>Misc\Spellicons\Energy Field</category>
+	</item>
+
+	<item id="20b2">
+		<id>0x20b2</id>
+		<category>Misc\Spellicons\Flamestrike</category>
+	</item>
+
+	<item id="20b3">
+		<id>0x20b3</id>
+		<category>Misc\Spellicons\Gate Travel</category>
+	</item>
+
+	<item id="20b4">
+		<id>0x20b4</id>
+		<category>Misc\Spellicons\Mana Vampire</category>
+	</item>
+
+	<item id="20b5">
+		<id>0x20b5</id>
+		<category>Misc\Spellicons\Mass Dispel</category>
+	</item>
+
+	<item id="20b6">
+		<id>0x20b6</id>
+		<category>Misc\Spellicons\Meteor Swarm</category>
+	</item>
+
+	<item id="20b7">
+		<id>0x20b7</id>
+		<category>Misc\Spellicons\Polymorph</category>
+	</item>
+
+	<item id="20b8">
+		<id>0x20b8</id>
+		<category>Misc\Spellicons\Earthquake</category>
+	</item>
+
+	<item id="20b9">
+		<id>0x20b9</id>
+		<category>Misc\Spellicons\Energy Vortex</category>
+	</item>
+
+	<item id="20ba">
+		<id>0x20ba</id>
+		<category>Misc\Spellicons\Resurrection</category>
+	</item>
+
+	<item id="20bb">
+		<id>0x20bb</id>
+		<category>Misc\Spellicons\Summon Air</category>
+	</item>
+
+	<item id="20bc">
+		<id>0x20bc</id>
+		<category>Misc\Spellicons\Summon Daemon</category>
+	</item>
+
+	<item id="20bd">
+		<id>0x20bd</id>
+		<category>Misc\Spellicons\Summon Earth</category>
+	</item>
+
+	<item id="20be">
+		<id>0x20be</id>
+		<category>Misc\Spellicons\Summon Fire</category>
+	</item>
+
+	<item id="20bf">
+		<id>0x20bf</id>
+		<category>Misc\Spellicons\Summon Water</category>
+	</item>
+
+	<item id="20c0">
+		<id>0x20c0</id>
+		<category>Misc\Spellicons\Circle 1</category>
+	</item>
+
+	<item id="20c1">
+		<id>0x20c1</id>
+		<category>Misc\Spellicons\Circle 2</category>
+	</item>
+
+	<item id="20c2">
+		<id>0x20c2</id>
+		<category>Misc\Spellicons\Circle 3</category>
+	</item>
+
+	<item id="20c3">
+		<id>0x20c3</id>
+		<category>Misc\Spellicons\Circle 4</category>
+	</item>
+
+	<item id="20c4">
+		<id>0x20c4</id>
+		<category>Misc\Spellicons\Circle 5</category>
+	</item>
+
+	<item id="20c5">
+		<id>0x20c5</id>
+		<category>Misc\Spellicons\Circle 6</category>
+	</item>
+
+	<item id="20c6">
+		<id>0x20c6</id>
+		<category>Misc\Spellicons\Circle 7</category>
+	</item>
+
+	<item id="20c7">
+		<id>0x20c7</id>
+		<category>Misc\Spellicons\Circle 8</category>
+	</item>
 </definitions>
