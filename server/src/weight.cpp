@@ -118,14 +118,16 @@ float cWeight::RecursePacks(P_ITEM bp)
 
 int cWeight::CheckWeight(int s, int k) // Check when player is walking if overloaded
 {
-	if ((chars[s].weight > (chars[s].st*WEIGHT_PER_STR)+30))
+	P_CHAR pc = FindCharBySerial(currchar[s]);
+	if (pc != NULL)
+	if ((pc->weight > (pc->st*WEIGHT_PER_STR)+30))
 	{
-		float res=float(chars[s].weight - ((chars[s].st*WEIGHT_PER_STR)+30))*2;
+		float res=float(pc->weight - ((pc->st*WEIGHT_PER_STR)+30))*2;
 
-		chars[s].stm -= (int)res;
-		if (chars[s].stm<=0)
+		pc->stm -= (int)res;
+		if (pc->stm<=0)
 		{
-			chars[s].stm=0;
+			pc->stm=0;
 			//AntiChrist - displays a message
 			sysmessage(calcSocketFromChar(s),"You are overloaded! You can't hold all this weight..");
 			return 0;
@@ -136,12 +138,14 @@ int cWeight::CheckWeight(int s, int k) // Check when player is walking if overlo
 
 int cWeight::CheckWeight2(int s) // Morrolan - Check when player is teleporting if overloaded
 {
-	if ((chars[s].weight > (chars[s].st*WEIGHT_PER_STR)+30))
+	P_CHAR pc = FindCharBySerial(currchar[s]);
+	if (pc != NULL)
+	if ((pc->weight > (pc->st*WEIGHT_PER_STR)+30))
 	{
-		chars[s].mn -= 30;
-		if (chars[s].mn<=0)
+		pc->mn -= 30;
+		if (pc->mn<=0)
 		{
-			chars[s].mn=0;
+			pc->mn=0;
 		}
 		return 1;
 	}
