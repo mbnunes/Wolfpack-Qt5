@@ -12,8 +12,6 @@ TEMPLATE = app
 CONFIG += qt thread exceptions rtti
 
 unix {
-	LIBS = -ldl -lutil
-
 	CONFIG += console
 
 	# We need to remove these, unnecessary dependency 

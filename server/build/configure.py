@@ -12,6 +12,7 @@ import glob
 import fnmatch
 import dircache
 import string
+import distutils.sysconfig
 from optparse import OptionParser
 
 # These are the variables we are trying to figure out
@@ -30,6 +31,7 @@ colorcodes["bold"] = "\x1b[01m"
 colorcodes["green"] = "\x1b[32;01m"
 colorcodes["red"] = "\x1b[31;01m"
 colorcodes["darkred"] = "\x1b[31;06m"
+colorcodes["yellow"] = "\x1b[33;01m"
 
 def nocolor():
 	for x in colorcodes.keys():
@@ -42,7 +44,8 @@ def darkred( text ):
 	return colorcodes["darkred"] + text + colorcodes["reset"]
 def green( text ):
 	return colorcodes["green"] + text + colorcodes["reset"]
-
+def yellow( text ):
+	return colorcodes["yellow"] + text + colorcodes["reset"]
 
 def buildLibLine( path, file ):
 	
@@ -161,43 +164,46 @@ def checkMySQL(options):
 	return True
 
 def checkPython(options):
+	PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() ]
+	PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] + os.path.sep + "libpython*" ]
+	PYTHONLIBSTATICSEARCHPATH = []
 	if sys.platform == "win32":
-		PYTHONLIBSEARCHPATH = [ sys.prefix + "\Libs\python*.lib" ]
-		PYTHONINCSEARCHPATH = [ sys.prefix + "\include\Python.h" ]
+		PYTHONLIBSEARCHPATH += [ sys.prefix + "\Libs\python*.lib" ]
+		PYTHONINCSEARCHPATH += [ sys.prefix + "\include\Python.h" ]
 	elif sys.platform == "linux2":
-		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython2.3*.so", \
+		PYTHONLIBSEARCHPATH += [ "/usr/local/lib/libpython2.3*.so", \
 					 "/usr/local/lib/[Pp]ython*/libpython2.3*.so", \
 					 "/usr/lib/libpython2.3*.so", \
 					 "/usr/lib/[Pp]ython*/libpython2.3*.so", \
 					 "/usr/lib/[Pp]ython*/config/libpython2.3*.so", \
 					 "/usr/local/lib/[Pp]ython*/config/libpython2.3*.so"]
-		PYTHONLIBSTATICSEARCHPATH = [ "/usr/local/lib/libpython2.3*.a", \
+		PYTHONLIBSTATICSEARCHPATH += [ "/usr/local/lib/libpython2.3*.a", \
 					 "/usr/local/lib/[Pp]ython2.3*/libpython2.3*.a", \
 					 "/usr/lib/libpython2.3*.a", \
 					 "/usr/lib/[Pp]ython2.3*/libpython2.3*.a", \
 					 "/usr/lib/[Pp]ython2.3*/config/libpython2.3*.a", \
 					 "/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.a"]
-		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython2.3*/Python.h", \
+		PYTHONINCSEARCHPATH += [ "/usr/local/include/[Pp]ython2.3*/Python.h", \
 					 "/usr/include/[Pp]ython2.3*/Python.h"]
 	elif sys.platform == "freebsd4" or sys.platform == "freebsd5":
-		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython2.3*.so", \
+		PYTHONLIBSEARCHPATH += [ "/usr/local/lib/libpython2.3*.so", \
 					 "/usr/local/lib/[Pp]ython2.3*/libpython2.3*.so", \
 					 "/usr/lib/libpython2.3*.so", \
 					 "/usr/lib/[Pp]ython2.3*/libpython2.3*.so", \
 					 "/usr/lib/[Pp]ython2.3*/config/libpython2.3*.so", \
 					 "/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.so"]
-		PYTHONLIBSTATICSEARCHPATH = [ "/usr/local/lib/libpython2.3*.a", \
+		PYTHONLIBSTATICSEARCHPATH += [ "/usr/local/lib/libpython2.3*.a", \
 					 "/usr/local/lib/[Pp]ython2.3*/libpython2.3*.a", \
 					 "/usr/lib/libpython2.3*.a", \
 					 "/usr/lib/[Pp]ython2.3*/libpython2.3*.a", \
 					 "/usr/lib/[Pp]ython2.3*/config/libpython2.3*.a", \
 					 "/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.a"]
-		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython2.3*/Python.h", \
+		PYTHONINCSEARCHPATH += [ "/usr/local/include/[Pp]ython2.3*/Python.h", \
 					 "/usr/include/[Pp]ython2.3*/Python.h"]
 	elif sys.platform == "darwin":
-		PYTHONINCSEARCHPATH = [ "/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h" ]
-		PYTHONLIBSEARCHPATH = [ ]
-		PYTHONLIBSTATICSEARCHPATH = ["/System/Library/Frameworks/Python.framework/Versions/Current/Python", \
+		PYTHONINCSEARCHPATH += [ "/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h" ]
+		PYTHONLIBSEARCHPATH += [ ]
+		PYTHONLIBSTATICSEARCHPATH += ["/System/Library/Frameworks/Python.framework/Versions/Current/Python", \
 					  "/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/libpython*.a", \
 					  "/usr/local/lib/[Pp]ython*/config/libpython*.a"]
 	else:
@@ -225,7 +231,7 @@ def checkPython(options):
 
 	sys.stdout.write( "Checking CPU byte order... %s\n" % sys.byteorder )
 	if sys.byteorder != 'little':
-		sys.stdout.write(red("Warning:") + " Wolfpack support for big endian systems is completely experimental and unlikey to work\n" )
+		sys.stdout.write(yellow("Warning:") + " Wolfpack support for big endian systems is completely experimental and unlikey to work\n" )
 
 	sys.stdout.write( "Searching for Python library... " )
 
