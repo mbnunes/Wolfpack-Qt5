@@ -11,6 +11,11 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Removed command: account
 		- Removed command: resurrect
 		- Removed command: password
+		- Removed command: tele
+		- Removed command: invis
+		- Removed command: kill
+		- Removed command: fix
+		- Removed command: resend
 	* Definition Changes:
 		- Fixed Sheep definitions
 		- Regions are split up facet/type/name.xml
@@ -24,6 +29,11 @@ Wolfpack 12.9.8 Beta (CVS)
 		- New command: account
 		- New command: resurrect
 		- New command: password
+		- New command: tele
+		- New command: invis
+		- New command: kill
+		- New command: fix
+		- New command: resend
 		- Fixed carving
 		- Fixed sheering of sheeps and wool regrowing
 		- Rudimentarily Implemented Map Plotting
