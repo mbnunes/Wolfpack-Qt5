@@ -47,6 +47,44 @@
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
 
+// Blade Target
+class cWeaponTarget: public cTargetRequest
+{
+protected:
+	void chopTree( P_CHAR pChar, const Coord_cl &pos )
+	{
+		// TODO: Check if there IS a tree at the given position
+		// If not we eiter have wrong statics clientside or a 
+		// cheater.
+
+
+	}
+
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pChar = socket->player();
+
+		if( !pChar )
+			return;
+
+		// Check what we targetted
+		Coord_cl pos = pChar->pos;
+		pos.x = target->x();
+		pos.y = target->y();
+		pos.z = target->z();
+
+		if( ( pChar->pos.distance( pos ) > 4 ) || !lineOfSight( pChar->pos, pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
+		{
+			socket->sysMessage( tr( "You can't reach this" ) );
+			return;
+		}
+
+		if( IsTree( target->model() ) )
+			chopTree( pChar, pos );
+	}
+};
+
 // Loads a Cannonball
 class cLoadCannon: public cTargetRequest
 {
@@ -326,6 +364,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	// Check item behaviour by it's tpye
 	switch (pi->type())
 	{
+	// Bladed Weapons (Swords, Axes)
+	case 3:
+		// Show a target-request
+		socket->attachTarget( new cWeaponTarget );
+		socket->sysMessage( tr( "What do you want to use this on?" ) );
+		return;
+
 	case 16:
 		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
 		if( pc_currchar->dead )
@@ -1024,29 +1069,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					else 
 						pc_currchar->soundEffect( 0x004D );
 					return;
-				case 0x0F43:// Axe, Double Axe and Bardiche
-				case 0x0F44:
-				case 0x0F45:
-				case 0x0F46:
-				case 0x0F47:
-				case 0x0F48:
-				case 0x0F49:
-				case 0x0F4A:
-				case 0x0F4B:
-				case 0x0F4C:
-				case 0x0F4D:
-				case 0x0F4E:// Axe, Double Axe and Bardiche
-				case 0x13AF:
-				case 0x13B0:
-				case 0x13FA:
-				case 0x13FB:// Large Battle Axe
-				case 0x1442:
-				case 0x1443:// Two Handed Axe
-				case 0x143E:// Halberd
-				case 0x143F:
-					addmitem[s] = pi->serial; // save the item number, AntiChrist
-					target(s, 0, 1, 0, 76, "What would you like to use that on ?");
-					return;// axes
 					
 				case 0x102A:// Hammer
 				case 0x102B:
