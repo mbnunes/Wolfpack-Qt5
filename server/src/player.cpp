@@ -1457,7 +1457,9 @@ bool cPlayer::canSeeChar( P_CHAR character )
 			// or if the AI overrides it
 			if ( !character->isAtWar() && skillValue( SPIRITSPEAK ) < 1000 )
 			{
-				if ( !privileged )
+				// It's not enough to be priviledged. You need allshow = 1 to
+				// 'see dead people'
+				if ( !privileged || ( account_ && account_->isAllShow() ) )
 				{
 					return false;
 				}
