@@ -66,11 +66,13 @@ def dotame(char, totame):
 		return
 
 	# You can't reach that (too far away, no los, wrong map)
-	if char.distanceto(totame) > TAMING_RANGE:
-		socket.clilocmessage( 502803, "", 0x3b2, 3, totame )
-		return
 	if not char.canreach(totame, TAMING_RANGE):
 		socket.clilocmessage( 502800, "", 0x3b2, 3, totame )
+		char.socket.sysmessage( "canreach" )
+		return
+	if not char.cansee(totame):
+		socket.clilocmessage( 502803, "", 0x3b2, 3, totame )
+		char.socket.sysmessage( "cansee" )
 		return
 
 	# Invulnerable Characters cannot be examined
@@ -153,13 +155,13 @@ def callback( char, args ):
 		return
 
 	# out of range : 502795
-	if char.distanceto( totame ) > TAMING_RANGE:
+	if not char.canreach( totame, TAMING_RANGE ):
 		removetags( totame )
 		char.socket.clilocmessage( 502795, "", 0x3b2, 3, totame )
 		return
 
 	# no los : 502800
-	if not char.canreach( totame, TAMING_RANGE ):
+	if not char.cansee( totame ):
 		removetags( totame )
 		char.socket.clilocmessage( 502800, "", 0x3b2, 3, totame )
 		return
