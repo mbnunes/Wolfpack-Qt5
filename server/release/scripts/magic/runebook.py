@@ -38,6 +38,9 @@ def onUse( char, item ):
 	return True
 
 def onDropOnItem( book, item ):
+	if book.layer != 0 or isrunebook(item):
+		return False # Don't handle if book is being dragged
+	
 	char = item.container
 	
 	if isrunebook( book ):		
