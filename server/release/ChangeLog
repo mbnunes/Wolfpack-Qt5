@@ -75,6 +75,8 @@ Wolfpack 12.9.13 Beta (SVN)
     This will select a random value from a random list.
   - Added new features to container items (made list work as well):
     <container><item list="list" /><item randomlist="list1,list2" /></container>
+  - Disabled verdata.mul support as this is no longer included in the latest
+    releases of Ultima Online. Note: Commented out the source code only.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheep.

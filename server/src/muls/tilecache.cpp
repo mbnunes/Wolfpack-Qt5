@@ -136,6 +136,10 @@ void cTileCache::load()
 	}
 	input.close();
 
+
+	/* File: verdata.mul
+	** This file is no longer included with the recent releases of Ultima Online.
+	** I'm commenting this out for now, since the client no longer uses it.
 	// Now we got to check for verdata blocks
 	input.setName( path + "verdata.mul" );
 	if ( input.open( IO_ReadOnly ) )
@@ -192,6 +196,8 @@ void cTileCache::load()
 		}
 	}
 	input.close();
+	// End verdata.mul
+	*/
 
 	cComponent::load();
 }
