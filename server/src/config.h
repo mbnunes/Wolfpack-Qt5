@@ -88,6 +88,7 @@ protected:
 	bool stealing_;
 	bool guardsActive_;
 	bool saveSpawns_;
+	bool dontStackSpawnedObjects_;
 	bool autoAccountCreate_;
 	float checkNPCTime_;
 	float checkFollowTime_;
@@ -220,6 +221,10 @@ public:
 	float boatSpeed() const;
 	unsigned int tamedDisappear() const;
 	unsigned int houseInTown() const;
+	inline bool dontStackSpawnedObjects() const {
+		return dontStackSpawnedObjects_;
+	}
+
 	unsigned int shopRestock() const;
 	unsigned int snoopdelay() const;
 	unsigned short int quittime() const;

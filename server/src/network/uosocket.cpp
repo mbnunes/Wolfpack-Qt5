@@ -1979,10 +1979,6 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		for ( P_ITEM pItem = tooltipItems.first(); pItem; pItem = tooltipItems.next() )
 		{
 			pItem->sendTooltip( this );
-
-#if defined( _DEBUG )
-			log( QString( "Sending Tooltip for 0x%1 (%2).\n" ).arg( pItem->serial(), 0, 16 ).arg( pItem->name() ) );
-#endif
 		}
 	}
 }

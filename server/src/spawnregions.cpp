@@ -37,6 +37,8 @@
 #include "world.h"
 #include "basics.h"
 #include "console.h"
+#include "sectors.h"
+#include "config.h"
 
 using namespace std;
 
@@ -200,11 +202,9 @@ void cSpawnRegion::processNode( const cElement* Tag )
 		cBaseRegion::processNode( Tag );
 }
 
-bool cSpawnRegion::findValidSpot( Coord_cl& pos )
-{
-	UI32 i = 0;
-	while ( i < 100 )
-	{
+bool cSpawnRegion::findValidSpot(Coord_cl& pos) {
+	// Try up to 100 times.
+	for(unsigned int i = 0; i < 100; ++i) {
 		int rndRectNum = RandomNum( 0, this->rectangles_.size() - 1 );
 		pos.x = RandomNum( this->rectangles_[rndRectNum].x1, this->rectangles_[rndRectNum].x2 );
 		pos.y = RandomNum( this->rectangles_[rndRectNum].y1, this->rectangles_[rndRectNum].y2 );
@@ -215,9 +215,30 @@ bool cSpawnRegion::findValidSpot( Coord_cl& pos )
 
 		pos.map = rectangles_[rndRectNum].map;
 
-		if ( Movement::instance()->canLandMonsterMoveHere( pos ) )
-			return true;
-		i++;
+		if (Movement::instance()->canLandMonsterMoveHere(pos)) {
+			if (!Config::instance()->dontStackSpawnedObjects()) {
+				return true;
+			}
+
+			// Check if there are spawned items or npcs at the position.
+			cCharSectorIterator *chariterator = SectorMaps::instance()->findChars(pos, 0);
+
+			P_CHAR pChar;
+			for (pChar = chariterator->first(); pChar; pChar = chariterator->next()) {
+				if (pChar->spawnregion()) {
+					continue;
+				}
+			}
+
+			cItemSectorIterator *itemiterator = SectorMaps::instance()->findItems(pos, 0);
+
+			P_ITEM pItem;
+			for (pItem = itemiterator->first(); pItem; pItem = itemiterator->next()) {
+				if (pItem->spawnregion()) {
+					continue;
+				}
+			}
+		}	
 	}
 
 	Console::instance()->log( LOG_WARNING, QString( "A problem has occured in spawnregion %1. Couldn't find valid spot." ).arg( this->name_ ) );

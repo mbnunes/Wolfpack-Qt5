@@ -337,18 +337,18 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 	if ( response( socket, pChar, speech, keywords ) )
 		return;  // Vendor responded already
 
+	// this makes it so npcs do not respond to isDead people - HEALERS ??
+	if ( pChar->isDead() )
+		return;
+
 	// 0x0007 -> Speech-id for "Guards"
 	for ( QValueVector<UINT16>::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
 	{
 		UINT16 keyword = *iter;
 
-		if ( keyword == 0x07 )
+		if (keyword == 0x07)
 			pChar->callGuards();
 	}
-
-	// this makes it so npcs do not respond to isDead people - HEALERS ??
-	if ( pChar->isDead() )
-		return;
 
 	/*	P_CHAR pc = NULL; ???
 		P_CHAR pNpc = NULL;

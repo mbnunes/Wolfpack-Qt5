@@ -163,6 +163,7 @@ void cConfig::readData()
 	showNpcTitles_ = getNumber( "General", "Show Npc Titles", 1, true );
 	logMask_ = getNumber( "General", "Logging Mask", LOG_ALL, true );
 	overwriteDefinitions_ = getBool( "General", "Overwrite Definitions", false, true );
+	dontStackSpawnedObjects_ = getBool("General", "Don't Stack Spawned Objects", true, true);
 
 	saveInterval_ = getNumber( "General", "Save Interval", 900, true );
 	mulPath_ = QDir::convertSeparators( getString( "General", "MulPath", "./muls/", true ) );
