@@ -373,7 +373,7 @@ def charinfo( socket, char ):
 		# 40
 		gump.addText( 113, 160, "Light Bonus:", 0x834 )
 		gump.addResizeGump( 280, 160, 0xBB8, 215, 20 )
-		gump.addInputField( 284, 160, 200, 16, 0x834, 40, unicode( char.fixedlight ) )
+		gump.addInputField( 284, 160, 200, 16, 0x834, 40, unicode( char.lightbonus ) )
 		# 41
 		gump.addText( 113, 180, "Profile:", 0x834 )
 		gump.addResizeGump( 280, 180, 0xBB8, 215, 20 )
@@ -649,7 +649,7 @@ def charinfo_response( player, args, choice ):
 				char.spawnregion = ( textentries[ key ] )
 		elif key == 40:
 			if not char.npc:
-				char.fixedlight = int( textentries[ key ] )
+				char.lightbonus = int( textentries[ key ] )
 			else:
 				char.carve = ( textentries[ key ] )
 		elif key == 41:
