@@ -303,11 +303,11 @@ extern char xoutbuffer[MAXBUFFER_REAL*3];
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
-extern lookuptr_st itemsp[HASHMAX], spawnsp[HASHMAX];
+extern lookuptr_st itemsp[HASHMAX];
 extern lookuptr_st charsp[HASHMAX], cownsp[HASHMAX];
 extern lookuptr_st glowsp[HASHMAX];
 
-extern Container_cl stablesp, cmultisp, imultisp, contsp, ownsp, cspawnsp;
+extern Container_cl stablesp, cmultisp, imultisp, contsp, ownsp, cspawnsp, spawnsp;
 
 
 /******************************************************/

@@ -379,21 +379,14 @@ void advancementobjects(int s, int x, int allways)
 
 void monstergate(int s, int x)
 {
-	int tmp, n, z, lovalue, hivalue, mypack, retitem;
-	int storeval, shoppack1, shoppack2, shoppack3;
+	int tmp, z, lovalue, hivalue;
 	char sect[512];
 
 	P_CHAR pc_s = MAKE_CHARREF_LR(s);
-
+	P_ITEM pBackpack = NULL;
+	P_ITEM pRetitem = NULL;
 
 	if (pc_s->isNpc()) return;
-
-	mypack=-1;
-	retitem=-1;
-	storeval=-1;
-	shoppack1=-1;
-	shoppack2=-1;
-	shoppack3=-1;
 
 	sprintf(sect, "NPC %i", x);
 	Script *pScpBase=i_scripts[npc_script];
@@ -401,47 +394,48 @@ void monstergate(int s, int x)
 	if (!pScp) return;
 
 	pc_s->title[0] = 0;
-	for(z=0;z<itemcount;z++)
+
+	AllItemsIterator iterItem;
+	for(iterItem.Begin(); iterItem.GetData() != iterItem.End(); iterItem++)
 	{
-		if (pc_s->Wears(&items[z]) &&
-			items[z].layer!=0x15 && items[z].layer!=0x1D &&
-			items[z].layer!=0x10 && items[z].layer!=0x0B && (items[z].free==0))
+		P_ITEM pi = iterItem.GetData();
+		if (pc_s->Wears(pi) &&
+			pi->layer!=0x15 && pi->layer!=0x1D &&
+			pi->layer!=0x10 && pi->layer!=0x0B && (pi->free==0))
 		{
-			if (mypack==-1)
+			if (pBackpack == NULL)
 			{
-				mypack=packitem(s);
+				pBackpack = Packitem(pc_s);
 				
 			}
-			if (mypack==-1)
+			if (pBackpack == NULL)
 			{
 				scpMark m=pScp->Suspend();
-				P_ITEM pPack = MAKE_ITEM_REF(Items->SpawnItem(calcSocketFromChar(s),s,1,"#",0,0x0E,0x75,0,0,0,0));
-				if (pPack == NULL)
+				pBackpack = MAKE_ITEM_REF(Items->SpawnItem(calcSocketFromChar(DEREF_P_CHAR(pc_s)),s,1,"#",0,0x0E,0x75,0,0,0,0));
+				if (pBackpack == NULL)
 					return;
-				pc_s->packitem = pPack->serial;
+				pc_s->packitem = pBackpack->serial;
 				pScp->Resume(m);
 
-				pPack->SetContSerial(chars[s].serial);
-				pPack->layer=0x15;
-				pPack->type=1;
-				pPack->dye=1;
-				mypack = DEREF_P_ITEM(pPack);
-				
-				retitem = DEREF_P_ITEM(pPack);
+				pBackpack->SetContSerial(pc_s->serial);
+				pBackpack->layer=0x15;
+				pBackpack->type=1;
+				pBackpack->dye=1;
+				pRetitem = pBackpack;
 			}
-			items[z].pos.x = RandomNum(50, 130);
-			items[z].pos.y = RandomNum(50, 130);
-			items[z].pos.z=9;
-			items[z].SetContSerial(items[mypack].serial);
-			items[z].layer=0x00;
+			pi->pos.x = RandomNum(50, 130);
+			pi->pos.y = RandomNum(50, 130);
+			pi->pos.z=9;
+			pi->SetContSerial(pBackpack->serial);
+			pi->layer=0x00;
 
-			SndRemoveitem(items[z].serial);
-			RefreshItem(z);//AntiChrist
+			SndRemoveitem(pi->serial);
+			RefreshItem(pi);//AntiChrist
 		}
-		else if (pc_s->Wears(&items[z]) &&
-			(items[z].layer==0x0B || items[z].layer==0x10))
+		else if (pc_s->Wears(pi) &&
+			(pi->layer == 0x0B || pi->layer == 0x10))
 		{
-			Items->DeleItem(z);
+			Items->DeleItem(pi);
 		}
 	}
 
@@ -483,8 +477,8 @@ void monstergate(int s, int x)
 			if (!(strcmp("GOLD", (char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
-				retitem=n=Items->SpawnItem(calcSocketFromChar(s),s,1,"#",1,0x0E,0xED,0,0,1,0);
-				if(n==-1) return;//AntiChrist to preview crashes
+				pRetitem = MAKE_ITEM_REF(Items->SpawnItem(calcSocketFromChar(s),s,1,"#",1,0x0E,0xED,0,0,1,0));
+				if(pRetitem == NULL) return;
 				pScp->Resume(m);
 
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
@@ -494,33 +488,33 @@ void monstergate(int s, int x)
 				hivalue=str2num(gettokenstr);
 				if (hivalue==0)
 				{
-					if (lovalue/2!=0) items[n].amount=lovalue/2 + (rand()%(lovalue/2));
-					else items[n].amount=lovalue/2;
+					if (lovalue/2!=0) pRetitem->amount=lovalue/2 + (rand()%(lovalue/2));
+					else pRetitem->amount=lovalue/2;
 				}
 				else
 				{
-					if ((hivalue-lovalue)!=0) items[n].amount=lovalue + (rand()%(hivalue-lovalue));
-					else items[n].amount=lovalue;
+					if ((hivalue-lovalue)!=0) pRetitem->amount=lovalue + (rand()%(hivalue-lovalue));
+					else pRetitem->amount=lovalue;
 				}
 
 			}
 			if (!(strcmp("LOOT",(char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
-				retitem=Npcs->AddRandomLoot(mypack, (char*)script2);
+				pRetitem = MAKE_ITEM_REF(Npcs->AddRandomLoot(DEREF_P_ITEM(pBackpack), (char*)script2));
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 			}
 			if (!(strcmp("ITEM",(char*)script1)))
 			{
-				storeval=str2num(script2);
+				int storeval=str2num(script2);
 				scpMark m=pScp->Suspend();
-				retitem=Targ->AddMenuTarget(-1, 0, storeval);
+				pRetitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
 				pScp->Resume(m);
-				if (retitem>-1)
+				if (pRetitem == NULL)
 				{
-					items[retitem].SetContSerial(chars[s].serial);
-					if (items[retitem].layer==0)
+					pRetitem->SetContSerial(pc_s->serial);
+					if (pRetitem->layer==0)
 					{
 						clConsole.send("Warning: Bad NPC Script %d with problem item %d executed!\n", x, storeval);
 					}
@@ -530,26 +524,26 @@ void monstergate(int s, int x)
 
 			if (!(strcmp("PACKITEM",(char*)script1)))
 			{
-				storeval=str2num(script2);
+				int storeval=str2num(script2);
 				scpMark m=pScp->Suspend();
-				retitem=Targ->AddMenuTarget(-1, 0, storeval);
+				pRetitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
 				pScp->Resume(m);
-				if (retitem >-1)
+				if (pRetitem == NULL)
 				{
-					items[retitem].SetContSerial(items[mypack].serial);
-					items[retitem].pos.x=50+(rand()%80);
-					items[retitem].pos.y=50+(rand()%80);
-					items[retitem].pos.z=9;
+					pRetitem->SetContSerial(pBackpack->serial);
+					pRetitem->pos.x=50+(rand()%80);
+					pRetitem->pos.y=50+(rand()%80);
+					pRetitem->pos.z=9;
 				}
 				strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 
 			}
 			if (!(strcmp("COLOR",(char*)script1)))
 			{
-				if (retitem>-1)
+				if (pRetitem == NULL)
 				{
-					items[retitem].color1=(hex2num(script2))>>8;
-					items[retitem].color2=(hex2num(script2))%256;
+					pRetitem->color1=(hex2num(script2))>>8;
+					pRetitem->color2=(hex2num(script2))%256;
 				}
 			}
 			if (!(strcmp("POISON",(char*)script1))) pc_s->poison=str2num(script2);

@@ -45,7 +45,7 @@ public:
 	unsigned char ser2;
 	unsigned char ser3;
 	unsigned char ser4;
-	int serial;
+	SERIAL serial;
 	
 	unsigned char id1; // Item visuals as stored in the client
 	unsigned char id2;
@@ -62,7 +62,7 @@ public:
 	
 	char name[50];
 	char name2[50];
-	long contserial;
+	SERIAL contserial;
 	int multis;//Multi serial
 	signed char layer; // Layer if equipped on paperdoll
 	int itmhand; // ITEMHAND system - AntiChrist
@@ -72,7 +72,7 @@ public:
 	int oldx; //Old x position - used for bouncing bugfix - AntiChrist
 	int oldy; //Old y position - used for bouncing bugfix - AntiChrist
 	signed char oldz; //Old z position - used for bouncing bugfix - AntiChrist
-	long oldcontserial; //Old contserial - used for bouncing bugfix - Antichrist
+	SERIAL oldcontserial; //Old contserial - used for bouncing bugfix - Antichrist
 	signed char oldlayer; // Old layer - used for bouncing bugfix - AntiChrist
 	
 	char offspell;

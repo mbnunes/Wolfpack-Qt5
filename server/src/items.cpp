@@ -105,13 +105,13 @@ void cItem::SetOwnSerial(long ownser)
 
 void cItem::SetSpawnSerial(long spawnser)
 {
-	if (spawnserial!=-1)	// if it was set, remove the old one
-		removefromptr(&spawnsp[spawnserial%HASHMAX], DEREF_P_ITEM(this));
+	if (spawnserial != INVALID_SERIAL)	// if it was set, remove the old one
+		spawnsp.remove(spawnserial, this->serial);
 
 	spawnserial=spawnser;
 
 	if (spawnser!=-1)		// if there is a spawner, add it
-		setptr(&spawnsp[spawnserial%HASHMAX], DEREF_P_ITEM(this));
+		spawnsp.insert(spawnserial, this->serial);
 }
 
 void cItem::SetMultiSerial(long mulser)
@@ -722,14 +722,12 @@ void cAllItems::DeleItem(int i)
 				Xsend(j, removeitem, 5);
 		}
 
-		if (pi->glow>0) 
+		if (pi->glow != INVALID_SERIAL) 
 		{  
-          int j = calcItemFromSer( pi->glow );
-          if (j!=-1) Items->DeleItem(j); // lb glow stuff, deletes the glower of an glowing stuff automatically
+			P_ITEM pj = FindItemBySerial( pi->glow );
+			if (pj != NULL) Items->DeleItem(pj); // lb glow stuff, deletes the glower of an glowing stuff automatically
 		}
 
-		// - remove from pointer arrays
-		removefromptr(&itemsp[pi->serial%HASHMAX], i);
 		pi->SetSpawnSerial(-1);
 		pi->SetOwnSerial(-1);
 		// - remove from mapRegions if a world item
@@ -744,6 +742,8 @@ void cAllItems::DeleItem(int i)
 		if (pi->type==11 && (pi->morex==666 || pi->morey==999)) Books->delete_bokfile(pi); 
         // if a new book gets deleted also delete the corresponding bok file
 
+		// - remove from pointer arrays
+		removefromptr(&itemsp[pi->serial%HASHMAX], i);
 		pi->free=1;
 		pi->pos.x=20+(xcounter++);
 		pi->pos.y=50+(ycounter);
@@ -1703,19 +1703,19 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 			{
 				k=0;
 				serial=pi->serial;
-				serhash=serial%HASHMAX;
-				for (j=0;j<spawnsp[serhash].max;j++)
+				vector<SERIAL> vecSpawn = spawnsp.getData(pi->serial);
+				for (j = 0; j < vecSpawn.size(); j++)
 				{
-					ci=spawnsp[serhash].pointer[j];
-					if (ci > -1) 
-					if(pi->serial==items[ci].spawnserial && (items[ci].free==0))
-					{
-						if (DEREF_P_ITEM(pi)!=ci && items[ci].pos.x==pi->pos.x && items[ci].pos.y==pi->pos.y && items[ci].pos.z==pi->pos.z)
+					P_ITEM pi_ci = FindItemBySerial(vecSpawn[j]);
+					if (pi_ci != NULL) 
+						if((pi_ci->free==0))
 						{
-							k=1;
-							break;
+							if (pi != pi_ci && pi_ci->pos.x == pi->pos.x && pi_ci->pos.y == pi->pos.y && pi_ci->pos.z == pi->pos.z)
+							{
+								k = 1;
+								break;
+							}
 						}
-					}
 				}
 
 				if (k==0)
@@ -1766,13 +1766,12 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 			else if ((pi->type==63)||(pi->type==64)||(pi->type==65)||(pi->type==66)||(pi->type==8))
 			{
 				serial=pi->serial;
-				serhash=serial%HASHMAX;
 				vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 				for (j=0;j<vecContainer.size();j++)
 				{
-					ci=calcItemFromSer(vecContainer[j]);
-					if (ci > -1)
-					if (items[ci].contserial==pi->serial && items[ci].free==0)
+					P_ITEM pi_ci = FindItemBySerial(vecContainer[j]);
+					if (pi_ci != NULL)
+					if (pi_ci->contserial == pi->serial && pi_ci->free==0)
 					{
 						m++;
 					}

@@ -734,78 +734,66 @@ void cBoat::Move(UOXSOCKET s, int dir, ITEM boat)
 	Xsend(s,restart,2);
 }
 
-void cBoat::TurnStuff(ITEM b, int i, int dir, int type)//Turn an item that was on the boat when the boat was turned.
+void cBoat::TurnStuff(P_ITEM pBoat, P_CHAR pc_i, int dir)//Turn an item that was on the boat when the boat was turned.
 {
-	int dx, dy;	
-    P_CHAR pc_i;
+	if (pc_i == NULL) 
+		return;
 
-    if (i<0 || i>=imem || b<0 || b>=imem) return;
+	int dx = pc_i->pos.x - pBoat->pos.x;
+	int dy = pc_i->pos.y - pBoat->pos.y;
 
-	if(type)//item
-	{
-		dx=items[i].pos.x-items[b].pos.x;//get their distance x
-		dy=items[i].pos.y-items[b].pos.y;//and distance Y
-
-        mapRegions->Remove(&items[i]);
-
-		items[i].pos.x=items[b].pos.x;
-		items[i].pos.y=items[b].pos.y;
-
-		if(dir)//turning right
-		{
-			items[i].pos.x+=dy*-1;
-			items[i].pos.y+=dx;
-		} else {//turning left
-			items[i].pos.x+=dy;
-			items[i].pos.y+=dx*-1;
-		}
-
-		
-		mapRegions->Add(&items[i]);
-
-		sendinrange(i);
-
-	} else {//Character
-
-
-        pc_i=MAKE_CHARREF_LOGGED(i,err);	
-		if (err) return;
-
-		dx=pc_i->pos.x-items[b].pos.x;
-		dy=pc_i->pos.y-items[b].pos.y;
-
-		mapRegions->Remove(pc_i);
+	mapRegions->Remove(pc_i);
         
-		pc_i->pos.x = items[b].pos.x;
-		pc_i->pos.y = items[b].pos.y;
+	pc_i->pos.x = pBoat->pos.x;
+	pc_i->pos.y = pBoat->pos.y;
 		
-		if(dir)
-		{
-			pc_i->pos.x+=dy*-1;
-			pc_i->pos.y+=dx;
-		} else {
-			pc_i->pos.x+=dy;
-			pc_i->pos.y+=dx*-1;
-		}
-		//Set then in their new cell
-
-		mapRegions->Add(pc_i);
-
-		teleport(i);
+	if(dir)
+	{
+		pc_i->pos.x+=dy*-1;
+		pc_i->pos.y+=dx;
+	} else {
+		pc_i->pos.x+=dy;
+		pc_i->pos.y+=dx*-1;
 	}
+	//Set then in their new cell
+
+	mapRegions->Add(pc_i);
+	teleport(DEREF_P_CHAR(pc_i));
+}
+
+void cBoat::TurnStuff(P_ITEM pBoat, P_ITEM pi, int dir)//Turn an item that was on the boat when the boat was turned.
+{
+	int dx = pi->pos.x - pBoat->pos.x;//get their distance x
+	int dy = pi->pos.y - pBoat->pos.y;//and distance Y
+    mapRegions->Remove(pi);
+
+	pi->pos.x = pBoat->pos.x;
+	pi->pos.y = pBoat->pos.y;
+	if(dir)//turning right
+	{
+		pi->pos.x+=dy*-1;
+		pi->pos.y+=dx;
+	} else {//turning left
+		pi->pos.x+=dy;
+		pi->pos.y+=dx*-1;
+	}
+	
+	mapRegions->Add(pi);
+	sendinrange(DEREF_P_ITEM(pi));
 }
 
 void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/items on the boat to turnboatstuff()
 {
-	int id2=items[b].id2 ,olddir = items[b].dir;
+	P_ITEM pBoat = MAKE_ITEM_REF(b);
+	if (pBoat == NULL) return; 
+
+	int id2 = pBoat->id2 ,olddir = pBoat->dir;
 	unsigned short int Send[MAXCLIENT];
-	int serial;
-	int tiller, p1, p2, hold;
+	SERIAL serial;
 	int a,dir, d=0;
 
-	if (b<0 || b>=imem) return; 
 
-	for (a=0;a<now;a++)
+	for (a = 0; a < now; a++)
 	{
 		if (iteminrange(a,b,BUILDRANGE) && perm[a])
 		{
@@ -817,64 +805,62 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 	}
 
 	//Of course we need the boat items!
-	serial=calcserial(items[b].moreb1,items[b].moreb2,items[b].moreb3,items[b].moreb4);
+	serial = calcserial(pBoat->moreb1,pBoat->moreb2,pBoat->moreb3,pBoat->moreb4);
 	if(serial == INVALID_SERIAL) return;
-	tiller = calcItemFromSer( serial );
-	if(tiller<0) return;
-	p1 = calcItemFromSer( items[b].morex );
-	if(p1<0) return;
-	p2 = calcItemFromSer( items[b].morey );
-	if(p2<0) return;
-	hold = calcItemFromSer( items[b].morez );
-	if(hold<0) return;
-
-    if (tiller<0 || tiller>=imem || p1<0 || p1>=imem || p2<0 || p2>imem || hold<0 || hold >=imem) return;
+	P_ITEM pTiller = FindItemBySerial( serial );
+	if(pTiller == NULL) return;
+	P_ITEM pi_p1 = FindItemBySerial( pBoat->morex );
+	if(pi_p1 == NULL) return;
+	P_ITEM pi_p2 = FindItemBySerial( pBoat->morey );
+	if(pi_p2 == NULL) return;
+	P_ITEM pi_hold = FindItemBySerial( pBoat->morez );
+	if(pi_hold == NULL) return;
 
 	if(turn)//Right
 	{
-		items[b].dir+=2;
+		pBoat->dir+=2;
 		id2++;
 	} else {//Left
-		items[b].dir-=2;
+		pBoat->dir-=2;
 		id2--;
 	}
-	if(items[b].dir>7) items[b].dir-=4;//Make sure we dont have any DIR errors
-	//if(items[b].dir<0) items[b].dir+=4;
-	if(id2<items[b].more1) id2+=4;//make sure we don't have any id errors either
-	if(id2>items[b].more2) id2-=4;//Now you know what the min/max id is for :-)
+	if(pBoat->dir>7) pBoat->dir-=4;//Make sure we dont have any DIR errors
+	//if(pBoat->dir<0) pBoat->dir+=4;
+	if(id2<pBoat->more1) id2+=4;//make sure we don't have any id errors either
+	if(id2>pBoat->more2) id2-=4;//Now you know what the min/max id is for :-)
 	
-	items[b].id2=id2;//set the id
+	pBoat->id2=id2;//set the id
 
-	if(items[b].id2==items[b].more1) items[b].dir=0;//extra DIR error checking
-	if(items[b].id2==items[b].more2) items[b].dir=6;
+	if(pBoat->id2==pBoat->more1) pBoat->dir=0;//extra DIR error checking
+	if(pBoat->id2==pBoat->more2) pBoat->dir=6;
 
 
-	if( Block( b, 0, 0, items[b].dir ) )
+	if( Block( b, 0, 0, pBoat->dir ) )
         {
-                items[b].dir = olddir;
+                pBoat->dir = olddir;
                 for( a = 0; a < d; a++ )
                 {
                         Xsend( Send[a], restart, 2 );
-                        itemtalk( Send[a], tiller, "Arr, something's in the way!" );
+                        itemtalk( Send[a], DEREF_P_ITEM(pTiller), "Arr, something's in the way!" );
                 }
                 return;
         }
-        items[b].id2=id2;//set the id
+        pBoat->id2=id2;//set the id
  
-        if(items[b].id2==items[b].more1) items[b].dir=0;//extra DIR error checking
-        if(items[b].id2==items[b].more2) items[b].dir=6;    
+        if(pBoat->id2==pBoat->more1) pBoat->dir=0;//extra DIR error checking
+        if(pBoat->id2==pBoat->more2) pBoat->dir=6;    
 	
 	    
 		
 		    
-    serial=items[b].serial; // lb !!!
+    serial=pBoat->serial; // lb !!!
 
 	vector<SERIAL> vecEntries = imultisp.getData(serial);
     for (a = 0; a < vecEntries.size(); a++)
 	{
 		P_ITEM pi = FindItemBySerial(vecEntries[a]);
 		if (pi != NULL)
-			TurnStuff(b,DEREF_P_ITEM(pi),turn,1);
+			TurnStuff(pBoat, pi, turn);
 	}
 
 	vecEntries.clear();
@@ -883,61 +869,61 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 	{
 		P_CHAR pc = FindCharBySerial(vecEntries[a]);
 		if (pc != NULL)
-			TurnStuff(b, DEREF_P_CHAR(pc), turn, 0);
+			TurnStuff(pBoat, pc, turn);
 	}
 	
 	//Set the DIR for use in the Offsets/IDs array
-	dir=(items[b].dir&0x0F)/2;
+	dir = (pBoat->dir&0x0F)/2;
 
 	//set it's Z to 0,0 inside the boat
 
-	items[p1].MoveTo(items[b].pos.x,items[b].pos.y,items[p1].pos.z);
-	items[p1].id2=cShipItems[dir][PORT_P_C];//change the ID
+	pi_p1->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_p1->pos.z);
+	pi_p1->id2=cShipItems[dir][PORT_P_C];//change the ID
 	
-	items[p2].MoveTo(items[b].pos.x,items[b].pos.y,items[p2].pos.z);
-	items[p2].id2=cShipItems[dir][STAR_P_C];
+	pi_p2->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_p2->pos.z);
+	pi_p2->id2=cShipItems[dir][STAR_P_C];
 	
-	items[tiller].MoveTo(items[b].pos.x,items[b].pos.y,items[tiller].pos.z);
-	items[tiller].id2=cShipItems[dir][TILLERID];
+	pTiller->MoveTo(pBoat->pos.x,pBoat->pos.y,pTiller->pos.z);
+	pTiller->id2=cShipItems[dir][TILLERID];
 	
-	items[hold].MoveTo(items[b].pos.x,items[b].pos.y,items[hold].pos.z);
-	items[hold].id2=cShipItems[dir][HOLDID];
+	pi_hold->MoveTo(pBoat->pos.x,pBoat->pos.y,pi_hold->pos.z);
+	pi_hold->id2=cShipItems[dir][HOLDID];
 
-	switch(items[b].more1)//Now set what size boat it is and move the specail items
+	switch(pBoat->more1)//Now set what size boat it is and move the specail items
 	{
 	case 0x00:
 	case 0x04:
-		items[p1].MoveTo(items[p1].pos.x + iSmallShipOffsets[dir][PORT_PLANK][X], items[p1].pos.y + iSmallShipOffsets[dir][PORT_PLANK][Y], items[p1].pos.z);
-		items[p2].MoveTo(items[p2].pos.x + iSmallShipOffsets[dir][STARB_PLANK][X], items[p2].pos.y + iSmallShipOffsets[dir][STARB_PLANK][Y], items[p2].pos.z);
-		items[tiller].MoveTo(items[tiller].pos.x + iSmallShipOffsets[dir][TILLER][X], items[tiller].pos.y + iSmallShipOffsets[dir][TILLER][Y], items[tiller].pos.z);
-		items[hold].MoveTo(items[hold].pos.x + iSmallShipOffsets[dir][HOLD][X], items[hold].pos.y + iSmallShipOffsets[dir][HOLD][Y], items[hold].pos.z);
+		pi_p1->MoveTo(pi_p1->pos.x + iSmallShipOffsets[dir][PORT_PLANK][X], pi_p1->pos.y + iSmallShipOffsets[dir][PORT_PLANK][Y], pi_p1->pos.z);
+		pi_p2->MoveTo(pi_p2->pos.x + iSmallShipOffsets[dir][STARB_PLANK][X], pi_p2->pos.y + iSmallShipOffsets[dir][STARB_PLANK][Y], pi_p2->pos.z);
+		pTiller->MoveTo(pTiller->pos.x + iSmallShipOffsets[dir][TILLER][X], pTiller->pos.y + iSmallShipOffsets[dir][TILLER][Y], pTiller->pos.z);
+		pi_hold->MoveTo(pi_hold->pos.x + iSmallShipOffsets[dir][HOLD][X], pi_hold->pos.y + iSmallShipOffsets[dir][HOLD][Y], pi_hold->pos.z);
 		break;
 	case 0x08:
 	case 0x0C:
-		items[p1].MoveTo(items[p1].pos.x + iMediumShipOffsets[dir][PORT_PLANK][X], items[p1].pos.y + iMediumShipOffsets[dir][PORT_PLANK][Y], items[p1].pos.z );
-		items[p2].MoveTo(items[p2].pos.x + iMediumShipOffsets[dir][STARB_PLANK][X], items[p2].pos.y + iMediumShipOffsets[dir][STARB_PLANK][Y], items[p2].pos.z);
-		items[tiller].MoveTo(items[tiller].pos.x + iMediumShipOffsets[dir][TILLER][X], items[tiller].pos.y + iMediumShipOffsets[dir][TILLER][Y], items[tiller].pos.z);
-		items[hold].MoveTo(items[hold].pos.x + iMediumShipOffsets[dir][HOLD][X], items[hold].pos.y + iMediumShipOffsets[dir][HOLD][Y], items[hold].pos.z);
+		pi_p1->MoveTo(pi_p1->pos.x + iMediumShipOffsets[dir][PORT_PLANK][X], pi_p1->pos.y + iMediumShipOffsets[dir][PORT_PLANK][Y], pi_p1->pos.z );
+		pi_p2->MoveTo(pi_p2->pos.x + iMediumShipOffsets[dir][STARB_PLANK][X], pi_p2->pos.y + iMediumShipOffsets[dir][STARB_PLANK][Y], pi_p2->pos.z);
+		pTiller->MoveTo(pTiller->pos.x + iMediumShipOffsets[dir][TILLER][X], pTiller->pos.y + iMediumShipOffsets[dir][TILLER][Y], pTiller->pos.z);
+		pi_hold->MoveTo(pi_hold->pos.x + iMediumShipOffsets[dir][HOLD][X], pi_hold->pos.y + iMediumShipOffsets[dir][HOLD][Y], pi_hold->pos.z);
 
 		break;
 	case 0x10:
 	case 0x14:
-		items[p1].MoveTo(items[p1].pos.x + iLargeShipOffsets[dir][PORT_PLANK][X], items[p1].pos.y + iLargeShipOffsets[dir][PORT_PLANK][Y], items[p1].pos.z);
-        items[p2].MoveTo(items[p2].pos.x + iLargeShipOffsets[dir][STARB_PLANK][X], items[p2].pos.y + iLargeShipOffsets[dir][STARB_PLANK][Y], items[p2].pos.z);
-		items[tiller].MoveTo(items[tiller].pos.x + iLargeShipOffsets[dir][TILLER][X], items[tiller].pos.y + iLargeShipOffsets[dir][TILLER][Y], items[tiller].pos.z);
-		items[hold].MoveTo(items[hold].pos.x + iLargeShipOffsets[dir][HOLD][X], items[hold].pos.y + iLargeShipOffsets[dir][HOLD][Y], items[hold].pos.z);
+		pi_p1->MoveTo(pi_p1->pos.x + iLargeShipOffsets[dir][PORT_PLANK][X], pi_p1->pos.y + iLargeShipOffsets[dir][PORT_PLANK][Y], pi_p1->pos.z);
+        pi_p2->MoveTo(pi_p2->pos.x + iLargeShipOffsets[dir][STARB_PLANK][X], pi_p2->pos.y + iLargeShipOffsets[dir][STARB_PLANK][Y], pi_p2->pos.z);
+		pTiller->MoveTo(pTiller->pos.x + iLargeShipOffsets[dir][TILLER][X], pTiller->pos.y + iLargeShipOffsets[dir][TILLER][Y], pTiller->pos.z);
+		pi_hold->MoveTo(pi_hold->pos.x + iLargeShipOffsets[dir][HOLD][X], pi_hold->pos.y + iLargeShipOffsets[dir][HOLD][Y], pi_hold->pos.z);
 
 		break;
 
-	default: { sprintf((char*)temp,"Turnboatstuff() more1 error! more1 = %c not found!\n",items[b].more1); 
+	default: { sprintf((char*)temp,"Turnboatstuff() more1 error! more1 = %c not found!\n",pBoat->more1); 
 		       LogWarning((char*)temp);
 			 }  
 	}
 
-	sendinrange(p1);
-	sendinrange(p2);
-	sendinrange(hold);
-	sendinrange(tiller);
+	sendinrange(DEREF_P_ITEM(pi_p1));
+	sendinrange(DEREF_P_ITEM(pi_p2));
+	sendinrange(DEREF_P_ITEM(pi_hold));
+	sendinrange(DEREF_P_ITEM(pTiller));
 
 	for (a=0;a<d;a++) 
 	{ 

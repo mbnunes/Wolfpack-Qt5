@@ -5536,14 +5536,12 @@ void BuildPointerArray()
 		itemsp[i].pointer = NULL;
 		charsp[i].pointer = NULL;
 		cownsp[i].pointer = NULL;
-		spawnsp[i].pointer = NULL;
 		glowsp[i].pointer = NULL;
 
 		// init them
 			if(( itemsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( charsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( cownsp[i].pointer = new int[25]) == NULL) memerrflg=1;
-			if(( spawnsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( glowsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 
 		if (memerrflg)
@@ -5552,8 +5550,8 @@ void BuildPointerArray()
 			Network->kr=0;
 			return;
 		}
-		itemsp[i].max=spawnsp[i].max=cownsp[i].max=charsp[i].max=glowsp[i].max=25;
-		for (int j=0;j<25;j++) itemsp[i].pointer[j]=cownsp[i].pointer[j]=spawnsp[i].pointer[j]=charsp[i].pointer[j]=glowsp[i].pointer[j]=-1;
+		itemsp[i].max=cownsp[i].max=charsp[i].max=glowsp[i].max=25;
+		for (int j=0;j<25;j++) itemsp[i].pointer[j]=cownsp[i].pointer[j]=charsp[i].pointer[j]=glowsp[i].pointer[j]=-1;
 	}
 }
 

@@ -748,36 +748,37 @@ void loaditem (int x) // Load an item from WSC
 		}
 
 		loops++;
- }
- while (strcmp((char*)script1, "}") && loops<=200);
-// StoreItemRandomValue(x,-1); // Magius(CHE) (2)
+	}
+	while (strcmp((char*)script1, "}") && loops<=200);
+	// StoreItemRandomValue(x,-1); // Magius(CHE) (2)
 
 
- pi->timeused_last=getNormalizedTime();
+	pi->timeused_last=getNormalizedTime();
 
 
- //add item weight if item doesn't have it yet
- if (pi->weight<=0) // LB, changed from 29 to 0
- {
-	 pi->weight=0;
-	 pi->weight=pi->getWeight();
- }
+	//add item weight if item doesn't have it yet
+	if (pi->weight<=0) // LB, changed from 29 to 0
+	{
+		pi->weight=0;
+		pi->weight=pi->getWeight();
+	}
 
- if (pi->maxhp==0) pi->maxhp=pi->hp;
- // Tauriel adding region pointers
+	if (pi->maxhp==0) pi->maxhp=pi->hp;
+	// Tauriel adding region pointers
 
- if (pi->isInWorld())
- {
-	 int max_x = MapTileWidth  * 8;
-     int max_y = MapTileHeight * 8;
-	 mapRegions->Add(pi); // it reurns 1 if inalid, if invalid it DOESNT get added !!!
-	if (pi->pos.x>max_x || pi->pos.y>max_y) 
-	//if (pi->pos.x<0 || pi->pos.y<0 || pi->pos.x>max_x || pi->pos.y>max_y)	// lord bianry
-	 {
-		 Items->DeleItem(x);	//these are invalid locations, delete them!
-	 }
- }
- if (bad) Items->DeleItem(x);
+	if (pi->isInWorld())
+	{
+		int max_x = MapTileWidth  * 8;
+		int max_y = MapTileHeight * 8;
+		mapRegions->Add(pi); // it reurns 1 if inalid, if invalid it DOESNT get added !!!
+		if (pi->pos.x>max_x || pi->pos.y>max_y) 
+		//if (pi->pos.x<0 || pi->pos.y<0 || pi->pos.x>max_x || pi->pos.y>max_y)	// lord bianry
+		{
+			Items->DeleItem(pi);	//these are invalid locations, delete them!
+		}
+	}
+	if (bad) 
+		Items->DeleItem(pi);
 }
 
 void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
@@ -1453,34 +1454,25 @@ static void decay1(P_ITEM pi, int i)
 	if (pi->corpse==1)
 	{
 		serial=pi->serial;
-		serhash=serial%HASHMAX;
-		vector<SERIAL> vecContainer = contsp.getData(serial);
+		vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 		for (ci=0;ci<vecContainer.size();ci++)
 		{
-			j=calcItemFromSer(vecContainer[ci]);
-			if( j != -1 )
+			P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
+			if( pi_j != NULL )
 			{
-				P_ITEM pi_j=MAKE_ITEMREF_LOGGED(i,err);
-				if (err) continue;
 				if ((pi_j->contserial==pi->serial) &&
 					(pi_j->layer!=0x0B)&&(pi_j->layer!=0x10))
 				{
 					pi_j->SetContSerial(-1);
 					pi_j->MoveTo(pi->pos.x, pi->pos.y, pi->pos.z);
-					for (k=0;k<now;k++)
-					{
-						if (perm[k] && inrange2(k, pi_j))
-						{
-							senditem(k,j);
-						}
-					}
+					Items->DeleItem(pi_j);
 				}
-				if ((pi_j->contserial==pi->serial) &&
+/*				if ((pi_j->contserial==pi->serial) &&
 					(pi_j->free==0)&&
 					((pi_j->layer==0x0B)||(pi_j->layer==0x10)))
 				{
-					Items->DeleItem(j);
-				}
+					Items->DeleItem(pi_j);
+				}*/
 			}
 		}
 	}
@@ -1565,7 +1557,7 @@ void CWorldMain::SaveItem( long i, P_ITEM pDefault)
 		if (pi->pos.y		!= pDefault->pos.y)			{save_int("Y",			pi->pos.y);}
 		if (pi->pos.z		!= pDefault->pos.z)			{save_int("Z",			pi->pos.z);}
 		if (pi->color()		!= pDefault->color())		{save_int("COLOR",		pi->color());}
-		if (pi->contserial	!= pDefault->contserial)	{save_int("CONT",		pi->contserial);}
+		if (pi->contserial	!= INVALID_SERIAL)			{save_int("CONT",		pi->contserial);}
 		if (pi->layer		!= pDefault->layer)			{save_int("LAYER",		pi->layer);}
 		if (pi->itmhand		!= pDefault->itmhand)		{save_int("ITEMHAND",	pi->itmhand);}
 		if (pi->type		!= pDefault->type)			{save_int("TYPE",		pi->type);}
@@ -1607,7 +1599,7 @@ void CWorldMain::SaveItem( long i, P_ITEM pDefault)
 		if (pi->magic		!= pDefault->magic)			{save_int("MOVABLE",	pi->magic);}
 		if (pi->ownserial	!= pDefault->ownserial)		{save_int("OWNER",		pi->ownserial);}
 		if (pi->visible		!= pDefault->visible)		{save_int("VISIBLE",	pi->visible);}
-		if (pi->spawnserial != -1)						{save_int("SPAWN",		pi->spawnserial);}
+		if (pi->spawnserial != INVALID_SERIAL)			{save_int("SPAWN",		pi->spawnserial);}
 		if (pi->dir			!= pDefault->dir)			{save_int("DIR",		pi->dir);}
 		if (pi->priv		!= pDefault->priv)			{save_int("PRIV",		pi->priv);}
 		if (pi->value		!= pDefault->value)			{save_int("VALUE",		pi->value);}
@@ -1647,28 +1639,23 @@ void CWorldMain::SaveItem( long i, P_ITEM pDefault)
 //o--------------------------------------------------------------------------
 bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 { 
-	int serial, serhash, ci, i;
+	int serial, ci, i;
 	if (charserial<=-1) return false;
  	serial=chars[charserial].serial;
- 	serhash=serial%HASHMAX;
  	bool foundMatch = false;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for (ci=0;ci<vecContainer.size();ci++)
  	{
-		i=calcItemFromSer(vecContainer[ci]);
+		P_ITEM pci = FindItemBySerial(vecContainer[ci]);
 
- 		if (i!=-1)
+ 		if (pci != NULL)
  		{
-	 		int err;
-			PC_ITEM pci=MAKE_ITEMREF_LOGGED(i,err);
-			if (err) continue;
-
 			if( ( pci->layer == 0x01 || pci->layer == 0x02 ) && ( pci->contserial == serial ) )
  			{
  				// in first hand, or second hand
  				if( pci->id1 == type1 && pci->id2 == type2 )
 				{
- 					Items->DeleItem( i );
+ 					Items->DeleItem( pci );
  					foundMatch = true;
  				}
  			}

@@ -1950,11 +1950,11 @@ void TellScroll( char *menu_name, int s, long snum )
 	CHARACTER cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	unsigned x,cir,spl;
-	int i,k,part;
+	int i,part;
 
 	if(snum<=0) return;				// bad spell selction
 
-	i=pc_currchar->making;	// lets re-grab the item they clicked on
+	i = pc_currchar->making;	// lets re-grab the item they clicked on
 	pc_currchar->making=0;	// clear it out now that we are done with it.
 	
 	P_ITEM pi = MAKE_ITEM_REF(i);
@@ -1962,16 +1962,17 @@ void TellScroll( char *menu_name, int s, long snum )
 	cir=(int)((snum-800)/10);		// snum holds the circle/spell as used in inscribe.gmp
 	spl=(((snum-800)-(cir*10))+1);	// i.e. 800 + 1-based circle*10 + zero-based spell
 									// snum is also equals the item # in items.scp of the scrool to be created !
-	k=packitem(DEREF_P_CHAR(pc_currchar));
-	if (k<0) return;
+	P_ITEM pBackpack = Packitem(pc_currchar);
+	if (pBackpack == NULL) return;
 	
-	for (x = 0; x < itemcount; x++)		// find the spellbook
+	AllItemsIterator iterItems;
+	for (iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)		// find the spellbook
 	{
-		P_ITEM pb = &items[x];
-		if (pb->type==9 && (pb->contserial==items[k].serial ||
+		P_ITEM pb = iterItems.GetData();
+		if (pb->type==9 && (pb->contserial==pBackpack->serial ||
 			(pb->layer==1 && pc_currchar->Wears(pb))))
 		{
-			if (!Magic->CheckBook( cir, spl-1, x))
+			if (!Magic->CheckBook( cir, spl-1, DEREF_P_ITEM(pb)))
 			{
 				sysmessage(s,"You don't have this spell in your spell book!");
 				return;
@@ -1979,7 +1980,7 @@ void TellScroll( char *menu_name, int s, long snum )
 		}
 	}
 	
-	int num=(8*(cir-1))+spl;	// circle & spell combined to a zero-based index
+	int num = (8*(cir-1)) + spl;	// circle & spell combined to a zero-based index
 	
 	if (spells[num].action)
 		impaction(s, spells[num].action);

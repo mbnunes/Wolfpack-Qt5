@@ -586,23 +586,22 @@ void cRespawn::Continue()
 	for( i = currentSpawnItem; i < itemcount; i++)	// Item Spawner
 	{
 		P_ITEM pi = MAKE_ITEMREF_LR(i);
-		int j, k, serial, serhash, ci;
+		int j, k, serial, ci;
 		if (pi->type==61)
 		{
 			k = 0;
 			serial = pi->serial;
-			serhash = serial%HASHMAX;
-			for (ci = 0; ci < spawnsp[serhash].max; ci++)
+			vector<SERIAL> vecSpawn = spawnsp.getData(pi->serial);
+			for (ci = 0; ci < vecSpawn.size(); ci++)
 			{
-				j=spawnsp[serhash].pointer[ci];
-				if (j!=-1)
+				P_ITEM pj = FindItemBySerial(vecSpawn[ci]);
+				if (pj != NULL)
 				{
-					P_ITEM pj = MAKE_ITEMREF_LR(j);
-					if (i!=j && pj->pos.x==pi->pos.x && pj->pos.y==pi->pos.y && pj->pos.z==pi->pos.z)
+					if (pi != pj && pj->pos.x == pi->pos.x && pj->pos.y == pi->pos.y && pj->pos.z == pi->pos.z)
 					{
-						if (pi->serial==pj->spawnserial)
+						if (pi->serial == pj->spawnserial)
 						{
-							k=1;
+							k = 1;
 							break;
 						}
 					}
@@ -610,22 +609,21 @@ void cRespawn::Continue()
 			}
 			if (k==0)
 			{
-				Items->AddRespawnItem(i,pi->morex,0);
+				Items->AddRespawnItem(i, pi->morex, 0);
 				currentSpawnItem++;
 				return;			// take a break
 			}
 		}
 
-		if (pi->type==62||pi->type==69||pi->type==125)	// NPC Spawner / Escort Quest spawner(125)
+		if ( pi->type == 62 || pi->type == 69 || pi->type == 125 )	// NPC Spawner / Escort Quest spawner(125)
 		{
 			k=0;
 			serial=pi->serial;
-			serhash=serial%HASHMAX;
 			vector<SERIAL> vecSpawned = cspawnsp.getData(pi->serial);
 			for (ci = 0; ci < vecSpawned.size(); ci++)
 			{
 				P_CHAR pc_j = FindCharBySerial(vecSpawned[ci]);
-				if (j!=-1)
+				if (pc_j != NULL)
 					if (pi->serial==pc_j->spawnserial)
 					{
 						k++;

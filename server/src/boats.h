@@ -77,7 +77,8 @@ class cBoat
 	private:
 		void LeaveBoat(int, P_ITEM);		
 		bool Block(int, short int, short int,int);
-		void TurnStuff(int, int, int, int);
+		void TurnStuff(P_ITEM pBoat, P_CHAR pc_i, int dir);
+		void TurnStuff(P_ITEM pBoat, P_ITEM pi, int dir);
 
 	public:
 		P_ITEM GetBoat(P_CHAR);
