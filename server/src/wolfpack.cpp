@@ -489,7 +489,9 @@ char *title1(P_CHAR pc) // Paperdoll title for character p (1)
 	else if (x>=500) titlenum=3;
 	else if (x>=400) titlenum=2;
 	else if (x>=300) titlenum=1;
-
+    if(pc->isNpc())
+    strcpy(prowesstitle," ");
+    else
 	strcpy(prowesstitle,title[titlenum].prowess);
 	return prowesstitle;
 }
@@ -500,7 +502,9 @@ char *title2(P_CHAR pc) // Paperdoll title for character p (2)
 	int titlenum=0;
 	int x=bestskill(DEREF_P_CHAR(pc));
 	titlenum=x+1;
-
+    if(pc->isNpc())
+    strcpy(skilltitle," ");
+    else
 	strcpy(skilltitle,title[titlenum].skill);
 
 	return skilltitle;
