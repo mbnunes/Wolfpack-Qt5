@@ -29,19 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined (__UOBJECT_H__)
-#define __UOBJECT_H__
-
-#include "platform.h"
-#include "typedefs.h"
-#include "coord.h"
-#include "iserialization.h"
-#include "definable.h"
-//#include "WPDefaultScript.h"
-
-// System includes
-#include <string>
-#include <vector>
+#if !defined (__DEFINABLE_H__)
+#define __DEFINABLE_H__
 
 // Library includes
 #include "qstring.h"
@@ -49,50 +38,13 @@
 #include "qdom.h"
 #include "qfile.h"
 
-// Forward class declarations
-//class ISerialization;
-class Coord_cl;
-class WPDefaultScript;
-
-class cUObject : public cSerializable, public cDefinable
+class cDefinable
 {
-// Data Members
 public:
-	const std::vector< WPDefaultScript* > &getEvents( void );
-	void setEvents( std::vector< WPDefaultScript* > List );
-	void clearEvents( void );
-	void addEvent( WPDefaultScript *Event );
-	void removeEvent( QString Name );
-	bool hasEvent( QString Name );
-
-	QString eventList( void ); // Returns the list of events
-	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object
-
-	// Events
-	bool onUse( cUObject *Target );
-	bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
-
-	SERIAL serial;
-	SERIAL multis;
-	bool free;
-
-	std::string name;
-	Coord_cl pos;
-// Methods
+	void applyDefinition( const QDomElement &sectionNode );
 protected:
 	virtual void processNode( const QDomElement &Tag ) = 0;
-
-	std::vector< WPDefaultScript* > scriptChain;
-	QStringList eventList_; // Important for recreating the scriptChain on reloading
-	void init();
-
-public:
-	cUObject();
-	cUObject( cUObject& ); // Copy constructor
-	virtual ~cUObject() = 0;
-	virtual void Serialize(ISerialization &archive);
-	virtual std::string objectID();
-	void moveTo( const Coord_cl& );
+	QString getNodeValue( const QDomElement &Tag );
 };
 
-#endif // __UOBJECT_H__
+#endif

@@ -152,6 +152,10 @@ SOURCE=.\debug.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\definable.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\dragdrop.cpp
 # End Source File
 # Begin Source File
@@ -297,6 +301,10 @@ SOURCE=.\SkiTarg.cpp
 # Begin Source File
 
 SOURCE=.\SndPkg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\spawnregions.cpp
 # End Source File
 # Begin Source File
 
@@ -456,6 +464,10 @@ SOURCE=.\debug.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\definable.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\defines.h
 # End Source File
 # Begin Source File
@@ -589,6 +601,10 @@ SOURCE=.\serxmlfile.h
 # Begin Source File
 
 SOURCE=.\SndPkg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\spawnregions.h
 # End Source File
 # Begin Source File
 

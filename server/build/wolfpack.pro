@@ -49,6 +49,7 @@ HEADERS         = Client.h \
 		  cweather.h \
 		  dbl_single_click.h \
 		  debug.h \
+		  definable.h \
 		  defines.h \
 		  dragdrop.h \
 		  globals.h \
@@ -75,6 +76,7 @@ HEADERS         = Client.h \
 		  remadmin.h \
 		  resource.h \
 		  scriptc.h \
+		  spawnregions.h \
 		  speech.h \
 		  sregions.h \
                   srvparams.h \
@@ -129,6 +131,7 @@ SOURCES         = Client.cpp \
 		  cWeather.cpp \
 		  dbl_single_click.cpp \
 		  debug.cpp \
+		  definable.cpp \
 		  dragdrop.cpp \
 		  fishing.cpp \
 		  globals.cpp \
@@ -162,6 +165,7 @@ SOURCES         = Client.cpp \
                   serbinfile.cpp \
 		  skills.cpp \
 		  speech.cpp \
+		  spawnregions.cpp \
 		  sregions.cpp \
                   srvparams.cpp \
 		  storage.cpp \
