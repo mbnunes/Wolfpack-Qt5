@@ -138,7 +138,6 @@
 	<script>commands.stat</script>
 	<script>commands.tags</script>
 	<script>commands.tele</script>
-	<script>commands.telex</script>
 	<script>commands.testlos</script>
 	<script>commands.tile</script>
 	<script>commands.tilecolor</script>
