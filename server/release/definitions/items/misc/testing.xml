@@ -149,7 +149,7 @@
 				<tag name="itemdef" value="potion_greaterexplosion" />
 				<tag name="itemamount" value="100" />
 				<events>testing.multibag</events>
-			</item>			
+			</item>
 			<item id="e76">
 				<color>0x44</color>
 				<name>Lesser Poison Potions</name>
@@ -283,5 +283,24 @@
 				</content>
 			</item>				
 		</content>
-	</item>	
+	</item>
+	
+	<!-- A small selection of food products -->
+	<item id="foodbag" inherit="e76">
+		<name>Foodbag</name>
+		<category>GM Items\Food Bag (100)</category>
+		<color>0xF6</color>
+		<content>
+			<item id="9d0"><amount>100</amount></item>
+			<item id="977"><amount>100</amount></item>
+			<item id="97b"><amount>100</amount></item>
+			<item id="97c"><amount>100</amount></item>
+			<item id="994"><amount>100</amount></item>
+			<item id="9b7"><amount>100</amount></item>
+			<item id="9c0"><amount>100</amount></item>
+			<item id="9d1"><amount>100</amount></item>
+			<item id="9d2"><amount>100</amount></item>
+			<item id="c77"><amount>100</amount></item>
+		</content>
+	</item>
 </definitions>
