@@ -172,7 +172,7 @@ void cCorpse::update( cUOSocket *mSock )
 	sendItem.setId( id() );
 	sendItem.setAmount( bodyId_ );
 	sendItem.setSerial( serial );
-	sendItem.setCoord( pos );
+	sendItem.setCoord( pos() );
 	sendItem.setDirection( dir );
 	sendItem.setColor( color() );
 

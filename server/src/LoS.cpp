@@ -257,7 +257,7 @@ the line of sight.
 			if( pi && pi->id() < 0x4000 )
 			{
 				tile = TileCache::instance()->getTile( pi->id() );
-				if(	( (*pit).z >= pi->pos.z ) && ( (*pit).z <= ( pi->pos.z + tile.height ) ) && ( pi->visible == 0 ) )
+				if(	( (*pit).z >= pi->pos().z ) && ( (*pit).z <= ( pi->pos().z + tile.height ) ) && ( pi->visible == 0 ) )
 					itemids.insert( pi->id() );
 			}
 		}
@@ -273,12 +273,12 @@ the line of sight.
 			QValueVector<multiItem_st> multi = def->getEntries();
 			for( j = 0; j < multi.size(); ++j )
 			{
-				if( ( multi[j].visible ) && ( pi->pos.x + multi[j].x == (*pit).x ) &&
-					( pi->pos.y + multi[j].y == (*pit).y ) )			
+				if( ( multi[j].visible ) && ( pi->pos().x + multi[j].x == (*pit).x ) &&
+					( pi->pos().y + multi[j].y == (*pit).y ) )			
 				{
 					tile = TileCache::instance()->getTile( multi[j].tile );
-					if( ( (*pit).z >= pi->pos.z + multi[j].z ) &&
-						( (*pit).z <= pi->pos.z + multi[j].z + tile.height ) )
+					if( ( (*pit).z >= pi->pos().z + multi[j].z ) &&
+						( (*pit).z <= pi->pos().z + multi[j].z + tile.height ) )
 						itemids.insert( multi[j].tile );
 				}
 			}

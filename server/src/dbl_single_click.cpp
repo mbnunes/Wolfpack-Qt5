@@ -341,7 +341,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				}
 
-				else if( !lineOfSight( pc_currchar->pos, pi->pos, WALLS_CHIMNEYS|DOORS|FLOORS_FLAT_ROOFING ) )
+				else if( !lineOfSight( pc_currchar->pos(), pi->pos(), WALLS_CHIMNEYS|DOORS|FLOORS_FLAT_ROOFING ) )
 				{
 					socket->sysMessage( tr( "You can't reach this." ) );
 					return;
@@ -352,7 +352,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					if( pc_currchar->isHuman() )
 						pc_currchar->action( 0x20 );
 
-					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name ).arg( pi->name2() ), 0x26 );
+					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name() ).arg( pi->name2() ), 0x26 );
 				}
 				
 				socket->sendContainer( pi );
@@ -407,72 +407,12 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		}
 		return;
 	case 2: // Order gates?
-		{
-			AllItemsIterator iterItems;
-			for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
-			{
-				P_ITEM pj = iterItems.GetData();
-				if (pj->type() == 3)
-				{
-					if (pj->morez() == 1)
-					{
-						pj->setMoreZ(2);
-						pj->pos.z = pj->pos.z + 17;
-						pj->update();// AntiChrist
-						w = 1;
-					}
-					else if (pj->morez() == 2)
-					{
-						pj->setMoreZ(1);
-						pj->pos.z = pj->pos.z - 17;
-						pj->update();// AntiChrist
-						w = 0;
-					}
-				}
-			}
-		}
 		return;// order gates
 	case 4: // Chaos gates?
-		{
-			AllItemsIterator iterItems;
-			for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
-			{
-				P_ITEM pj = iterItems.GetData();
-				if (pj->type() == 5)
-				{
-					if (pj->morez() == 3)
-					{
-						pj->setMoreZ(4);
-						pj->pos.z = pj->pos.z + 17;							
-						pj->update();// AntiChrist
-						w = 1;
-					}
-					else if (pj->morez() == 4)
-					{
-						pj->setMoreZ(3);
-						pj->pos.z = pj->pos.z - 17;							
-						pj->update();// AntiChrist
-						w = 0;
-					}
-				}
-			}
-			//						if (w==1) sysmessage(s, "Chaos Gate opened.");
-			//						else sysmessage(s, "Chaos Gate closed.");
-		}
 		return;// chaos gates
 	case 6: // teleport item (ring?)
-//		target(s, 0, 1, 0, 2, "Select teleport target.");
 		return;// case 6
 	case 7: // key
-//		addid1[s] = pi->more1();
-//		addid2[s] = pi->more2();
-//		addid3[s] = pi->more3();
-//		addid4[s] = pi->more4();
-		
-//		if (pi->more1() == 255)
-//			addid1[s] = 255;
-		
-//		target(s, 0, 1, 0, 11, "Select item to use the key on.");
 		return;// case 7 (keys)
 	case 8: // locked item spawner
 	case 64: // locked container //Morrolan traps?
@@ -718,7 +658,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return; 
 				}
 
-				cMulti* pi_multi = cMulti::findMulti( pc_currchar->pos );
+				cMulti* pi_multi = cMulti::findMulti( pc_currchar->pos() );
 				if( pi_multi && pc_currchar->inRange( pi_multi, 18 ) )
 				{	
 					if ( !IsHouse( pi_multi->id() ) )
@@ -744,7 +684,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				
 					if (los)
 					{
-						P_CHAR pc_vendor = cCharStuff::createScriptNpc( "2117", pc_currchar->pos );
+						P_CHAR pc_vendor = cCharStuff::createScriptNpc( "2117", pc_currchar->pos() );
 						
 						if (pc_vendor == NULL) 
 						{
@@ -762,7 +702,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						pc_vendor->setOwner( pc_currchar );
 						pc_vendor->setTamed(false);
 						Items->DeleItem(pi);
-						pc_vendor->talk( tr("Hello sir! My name is %1 and i will be working for you.").arg(pc_vendor->name), -1, 0 );
+						pc_vendor->talk( tr("Hello sir! My name is %1 and i will be working for you.").arg(pc_vendor->name()), -1, 0 );
 						pc_vendor->update();
 					}
 					else 
@@ -1137,7 +1077,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x1057:
 				case 0x1058: // sextants
-					getSextantCords(pc_currchar->pos.x, pc_currchar->pos.y, socket->isT2A(), temp);
+					getSextantCords(pc_currchar->pos().x, pc_currchar->pos().y, socket->isT2A(), temp);
 					socket->sysMessage( tr("You are at: %1").arg(temp) );
 					return;
 				case 0x0E27:

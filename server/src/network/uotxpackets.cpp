@@ -171,9 +171,9 @@ void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
 	setSerial( pChar->serial );
 	setBody( pChar->id() );
 	setDirection( pChar->dir() );
-	setX( pChar->pos.x );
-	setY( pChar->pos.y );
-	setZ( pChar->pos.z );
+	setX( pChar->pos().x );
+	setY( pChar->pos().y );
+	setZ( pChar->pos().z );
 }
 
 void cUOTxSendSkills::fromChar( P_CHAR pChar )
@@ -219,16 +219,16 @@ void cUOTxDenyMove::setCoord( Coord_cl coord )
 
 void cUOTxDenyMove::fromChar( P_CHAR pChar )
 {
-	setCoord( pChar->pos );
+	setCoord( pChar->pos() );
 	setDirection( pChar->dir() );
 }
 
 void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial );
-	setX( pChar->pos.x );
-	setY( pChar->pos.y );
-	setZ( pChar->pos.z );
+	setX( pChar->pos().x );
+	setY( pChar->pos().y );
+	setZ( pChar->pos().z );
 	setHue( pChar->skin() );
 	setBody( pChar->id() );
 	
@@ -253,9 +253,9 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial );
 	setModel( pChar->id() );
-	setX( pChar->pos.x );
-	setY( pChar->pos.y );
-	setZ( pChar->pos.z );
+	setX( pChar->pos().x );
+	setY( pChar->pos().y );
+	setZ( pChar->pos().z );
 	setDirection( pChar->dir() );
 	setColor( pChar->skin() );
 
@@ -330,9 +330,9 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	if( pChar->poisoned() )
 		setFlag( flag() | 0x04 );
 
-	setX( pChar->pos.x );
-	setY( pChar->pos.y );
-	setZ( pChar->pos.z );
+	setX( pChar->pos().x );
+	setY( pChar->pos().y );
+	setZ( pChar->pos().z );
 	setDirection( pChar->dir() );
 	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
 }
@@ -351,8 +351,8 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 	setSerial( pItem->serial );
 	setModel( pItem->id() );
 	setAmount( pItem->amount() );
-	setX( pItem->pos.x );
-	setY( pItem->pos.y );
+	setX( pItem->pos().x );
+	setY( pItem->pos().y );
 
 	if( pItem->container() )
 		setContainer( pItem->container()->serial );
@@ -365,7 +365,7 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial );
-	setName( pChar->name );
+	setName( pChar->name() );
 
 	if( pChar->war() )
 		setFlag( 0x40 );
@@ -421,7 +421,7 @@ void cUOTxItemContent::addItem( P_ITEM pItem )
 	if( !pItem )
 		return;
 
-	addItem( pItem->serial, pItem->id(), pItem->color(), pItem->pos.x, pItem->pos.y, pItem->amount(), pItem->contserial );
+	addItem( pItem->serial, pItem->id(), pItem->color(), pItem->pos().x, pItem->pos().y, pItem->amount(), pItem->contserial );
 }
 
 void cUOTxItemContent::addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, UINT32 container )
@@ -455,7 +455,7 @@ void cUOTxVendorBuy::addItem( UINT32 price, const QString &description )
 	++(*this)[7]; // Increase item count
 }
 
-void cUOTxGumpDialog::setContent( QString layout, QStringList text )
+void cUOTxGumpDialog::setContent( const QString& layout, const QStringList& text )
 {
 //	QString layout = gump->layout().join( "" );
 	setShort( 19, layout.length()+1 );

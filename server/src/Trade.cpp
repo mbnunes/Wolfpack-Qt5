@@ -207,7 +207,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 	}
 
 	socket->send( &clearBuy );
-	pVendor->talk( tr( "Thank you %1, this makes %2 gold" ).arg( pChar->name.latin1() ).arg( totalValue ) );
+	pVendor->talk( tr( "Thank you %1, this makes %2 gold" ).arg( pChar->name() ).arg( totalValue ) );
 
 	if( pChar->takeGold( totalValue, true ) < totalValue )
 		clConsole.send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial, 8, 16 ).arg( pVendor->serial, 8, 16 ) );

@@ -171,7 +171,7 @@ void cMulti::processNode( const QDomElement &Tag )
 
 bool cMulti::inMulti( const Coord_cl &srcpos )
 {
-	return inMulti( srcpos, this->pos, this->id() );
+	return inMulti( srcpos, this->pos(), this->id() );
 }
 
 bool cMulti::inMulti( const Coord_cl &srcpos, const Coord_cl &multipos, UI16 id )
@@ -196,7 +196,7 @@ cMulti* cMulti::findMulti( const Coord_cl &pos )
 		cMulti* pCurrMulti = dynamic_cast< cMulti* >(ri.GetData());
 		if( pCurrMulti )
 		{
-			currdistance = pos.distance( pCurrMulti->pos );
+			currdistance = pos.distance( pCurrMulti->pos() );
 			if( currdistance <= lastdistance )
 			{
 				lastdistance = currdistance;
@@ -234,7 +234,7 @@ void cMulti::checkItems()
 			toremove.append( *it );
 		else
 		{
-			if( !inMulti( pi->pos ) )
+			if( !inMulti( pi->pos() ) )
 				toremove.append( *it );
 		}
 		++it;
@@ -272,7 +272,7 @@ void cMulti::checkChars()
 			toremove.append( *it );
 		else
 		{
-			if( !inMulti( pc->pos ) )
+			if( !inMulti( pc->pos() ) )
 				toremove.append( *it );
 		}
 		++it;
@@ -483,12 +483,12 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 	P_CHAR pOwner = pMulti->owner();
 	QString ownername;
 	if( pOwner )
-		ownername = pOwner->name.latin1();
+		ownername = pOwner->name();
 
 	P_CHAR pCoOwner = pMulti->coOwner();
 	QString coownername;
 	if( pCoOwner )
-		coownername = pCoOwner->name.latin1();
+		coownername = pCoOwner->name();
 
 	char_ = charSerial;
 	multi_ = multiSerial;
@@ -627,7 +627,7 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 			while( i < (page_-1) * 10 && i < bans.size() )
 			{
 				UI32 offset = i - (page_-2) * 10;
-				addText( 60, 140+offset*20, QString(bans[ i ]->name.latin1()), 0x834 );
+				addText( 60, 140+offset*20, QString(bans[ i ]->name()), 0x834 );
 				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i ); 
 				++i;
 			}
@@ -642,7 +642,7 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 			while( i < (page_-banpages-1) * 10 && i < friends.size() )
 			{
 				UI32 offset = i - (page_-banpages-2) * 10;
-				addText( 60, 140+offset*20, QString(friends[ i ]->name.latin1()), 0x834 );
+				addText( 60, 140+offset*20, QString(friends[ i ]->name()), 0x834 );
 				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i+bans.size() ); 
 				++i;
 			}

@@ -621,11 +621,11 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 	}
 
 	// Several checks (Get the correct position of the target and do NOT trust the position transmitted by the client)
-	Coord_cl pos = socket->player()->pos;
+	Coord_cl pos = socket->player()->pos();
 	if( pChar )
-		pos = pChar->pos;
+		pos = pChar->pos();
 	else if( pItem )
-		pos = pItem->pos;
+		pos = pItem->pos();
 	else
 	{
 		pos.x = target->x();
@@ -649,14 +649,14 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 	else
 	{
 		// Distance check (VisRange + 5 for macros)
-		if( pos.distance( socket->player()->pos ) > ( socket->player()->VisRange() + 5 ) )
+		if( pos.distance( socket->player()->pos() ) > ( socket->player()->VisRange() + 5 ) )
 		{
 			socket->sysMessage( tr( "You can't see the target." ) );
 			return false;
 		}
 	
 		// Line of Sight check
-		if( !lineOfSight( pos, socket->player()->pos, WALLS_CHIMNEYS|TREES_BUSHES|ROOFING_SLANTED|LAVA_WATER|DOORS ) )
+		if( !lineOfSight( pos, socket->player()->pos(), WALLS_CHIMNEYS|TREES_BUSHES|ROOFING_SLANTED|LAVA_WATER|DOORS ) )
 		{
 			socket->sysMessage( tr( "You can't see the target." ) );
 			return false;

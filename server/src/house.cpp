@@ -73,7 +73,7 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 
 	nItem->SetOwnSerial( this->ownserial );
 	addItem( nItem );
-	Coord_cl npos = this->pos;
+	Coord_cl npos = this->pos();
 
 	QDomNode childNode = Tag.firstChild();
 	while( !childNode.isNull() )
@@ -120,7 +120,7 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 
 bool cHouse::onValidPlace()
 {
-    cTerritory* Region = cAllTerritories::getInstance()->region( pos.x, pos.y, pos.map );
+    cTerritory* Region = cAllTerritories::getInstance()->region( pos().x, pos().y, pos().map );
 	if( Region != NULL && Region->isGuarded() && SrvParams->houseInTown() == 0 )
 		return false;
 
@@ -136,10 +136,10 @@ bool cHouse::onValidPlace()
 	tile_st tile;
 	for( j = 0; j < multi.size(); j++ )
 	{
-		Coord_cl multipos = Coord_cl( multi[j].x + pos.x, multi[j].y + pos.y, pos.z, pos.map );
+		Coord_cl multipos = Coord_cl( multi[j].x + pos().x, multi[j].y + pos().y, pos().z, pos().map );
 
 		mapz = Map->mapElevation( multipos );
-		if( pos.z < mapz )
+		if( pos().z < mapz )
 			return false;
 
 		land_st mapTile = TileCache::instance()->getLand( Map->seekMap( multipos ).id );
@@ -162,7 +162,7 @@ bool cHouse::onValidPlace()
 			if( pi && pi->multis != serial )
 			{
 				tile = TileCache::instance()->getTile( pi->id() );
-				if( multi[j].z > pi->pos.z && multi[j].z < ( pi->pos.z + tile.height ) )
+				if( multi[j].z > pi->pos().z && multi[j].z < ( pi->pos().z + tile.height ) )
 					return false;
 			}
 		}
@@ -234,28 +234,28 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 		createKeys( pc_currchar, tr("house key") );
 	}
 
-	RegionIterator4Items ri(this->pos);
+	RegionIterator4Items ri(this->pos());
 	for(ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_ITEM si = ri.GetData();
 		si->update();
 	}
 		
-	pc_currchar->MoveTo( this->pos.x + charpos_.x, this->pos.y + charpos_.y, this->pos.z + charpos_.z );
+	pc_currchar->MoveTo( this->pos().x + charpos_.x, this->pos().y + charpos_.y, this->pos().z + charpos_.z );
 	pc_currchar->resend();
 }
 
 void cHouse::remove( void )
 {
 	removeKeys();
-	RegionIterator4Chars ri(this->pos);
+	RegionIterator4Chars ri(this->pos());
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
 		if(pc->npcaitype() == 17 && pc->multis == this->serial)
 			cCharStuff::DeleteChar(pc);
 	}
-	RegionIterator4Items rii(this->pos);
+	RegionIterator4Items rii(this->pos());
 	for(rii.Begin(); !rii.atEnd(); rii++)
 	{
 		P_ITEM pi = rii.GetData();
@@ -271,7 +271,7 @@ void cHouse::toDeed( cUOSocket* socket )
 		return;
 	P_ITEM pBackpack = pc_currchar->getBackpack();
 
-	RegionIterator4Chars ri(this->pos);
+	RegionIterator4Chars ri(this->pos());
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
@@ -280,12 +280,12 @@ void cHouse::toDeed( cUOSocket* socket )
 			P_ITEM pPvDeed = Items->createScriptItem( "14f0" );
 			if( pPvDeed )
 			{
-				pPvDeed->setName( tr("A vendor deed for %1").arg( pc->name ) );
+				pPvDeed->setName( tr("A vendor deed for %1").arg( pc->name() ) );
 				pPvDeed->setType( 217 );
 				pPvDeed->setBuyprice( 2000 );
 				pPvDeed->setSellprice( 1000 );
 				pPvDeed->update();
-				socket->sysMessage( tr("Packed up vendor %1.").arg(pc->name) );
+				socket->sysMessage( tr("Packed up vendor %1.").arg(pc->name()) );
 			}
 		}
 	}

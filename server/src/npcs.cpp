@@ -105,7 +105,7 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 //	pc_c->Init();
 	pc_c->setSerial(CharsManager::instance()->getUnusedSerial());
 	pc_c->setFtarg(INVALID_SERIAL);
-	pc_c->moveTo(pc_k->pos + Coord_cl(1, 0, 0) );
+	pc_c->moveTo(pc_k->pos() + Coord_cl(1, 0, 0) );
 	pc_c->setKills(0);
 	pc_c->setHp( pc_k->st() );
 	pc_c->setStm( pc_k->realDex() );
@@ -144,7 +144,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 
 	pChar->moveTo( pos );
 
-	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map ) );
+	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
 
 	pChar->applyDefinition( *DefSection );
 
@@ -165,7 +165,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 //
 bool cChar::inGuardedArea()
 {
-	cTerritory* Region = cAllTerritories::getInstance()->region( this->pos.x, this->pos.y, this->pos.map );
+	cTerritory* Region = cAllTerritories::getInstance()->region( this->pos().x, this->pos().y, this->pos().map );
 	if( Region )
 		return Region->isGuarded();
 	else

@@ -60,7 +60,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 0: // Shopkeepers greet players..Ripper
 			if (SrvParams->vendorGreet() == 1 && pc_i->isNpc() && pc_i->shop() && pc_i->isHuman())
 			{
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos());
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -73,7 +73,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (pc->isInvul() || pc->dead() || !pc->isInnocent())
 							continue;
-						pc_i->talk( tr("Hello %1, Welcome to my shop, How may i help thee?.").arg( pc->name.latin1() ), -1, 0, true );
+						pc_i->talk( tr("Hello %1, Welcome to my shop, How may i help thee?.").arg( pc->name() ), -1, 0, true );
 						pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 					}
 				}
@@ -82,7 +82,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 1: // good healers
 			if( !pc_i->war() )
 			{
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos());
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -140,7 +140,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				P_CHAR Victim = NULL;
 				UI32 minDist;
 
-				RegionIterator4Chars ri( pc_i->pos, SrvParams->attack_distance() );
+				RegionIterator4Chars ri( pc_i->pos(), SrvParams->attack_distance() );
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -149,7 +149,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						continue;
 
 					chance = RandomNum(1, 100);
-					UI32 d = pc_i->pos.distance( pc->pos );
+					UI32 d = pc_i->dist( pc );
 					
 					if( ( !pc->isNpc() ) && ( !online( pc ) ) )
 						continue;
@@ -204,7 +204,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 3 : // Evil Healers
 			if (!pc_i->war())
 			{
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos());
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -248,7 +248,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				P_CHAR Victim = NULL;
 				UI32 minDist;
 
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos());
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -270,12 +270,12 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						}
 						if (pc->isPlayer() && pc->crimflag() > 0 && d <= 3)
 						{
-							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg( pc->name.latin1() ), -1, 0, true );
+							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg( pc->name() ), -1, 0, true );
 							pc_i->setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*30 );
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
-							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg( pc->name.latin1() ).arg( pc->region()->name() ), -1, 0, true );
+							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg( pc->name() ).arg( pc->region()->name() ), -1, 0, true );
 							pc_i->setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*30 );
 						}
 						else if (d <= SrvParams->attack_distance() &&(
@@ -283,9 +283,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							||(pc->isPlayer() && pc->isMurderer() && !(pc->isInnocent()) || pc->isCriminal()))	// a player,is murderer & not grey or blue
 							||(pc->attackfirst()))	// any agressor
 						{
-							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
-							pc_i->pos.y = pc->pos.y;
-							pc_i->pos.z = pc->pos.z;
+							pc_i->moveTo( pc->pos() );
 							pc_i->soundEffect( 0x01FE );
 							pc_i->effect( 0x372A, 0x09, 0x06 );
 							// We found a victim
@@ -301,7 +299,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 5: // npc beggars
 			if (!pc_i->war())
 			{
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos());
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -339,7 +337,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				P_CHAR Victim = NULL;
 				UI32 minDist;
 
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos());
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -359,12 +357,12 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						}
 						if (pc->isPlayer() && pc->crimflag() > 0 && d <= 3)
 						{
-							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg(pc->name.latin1()), -1, 0, true );
+							pc_i->talk( tr("You better watch your step %1, I am watching thee!!").arg(pc->name()), -1, 0, true );
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
-							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg(pc->name.latin1()).arg(pc->region()->name()), -1, 0, true );
+							pc_i->talk( tr("%1 is an upstanding citizen, I will protect thee in %2.").arg(pc->name()).arg(pc->region()->name()), -1, 0, true );
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (d <= SrvParams->attack_distance() &&(
@@ -372,9 +370,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							||(pc->isPlayer() && pc->isMurderer() && !(pc->isInnocent()) || pc->isCriminal()))	// a player,is murderer & not grey or blue
 							||(pc->attackfirst()))	// any agressor
 						{
-							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
-							pc_i->pos.y = pc->pos.y;
-							pc_i->pos.z = pc->pos.z;
+							pc_i->moveTo( pc->pos() );
 							pc_i->soundEffect( 0x01FE );
 							pc_i->effect( 0x372A, 0x09, 0x06 );
 							// We found a victim
@@ -391,7 +387,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			// so regular dragons attack reds on sight while tamed.
 			if (pc_i->isNpc() && pc_i->tamed())
 			{
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos());
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -413,7 +409,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 11 : // add NPCAI B in scripts to make them attack reds. (Ripper)
 			if (!pc_i->war())
 			{
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos());
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
@@ -480,7 +476,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		   case 50:// EV/BS
 			if (!pc_i->war())
 			{
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri(pc_i->pos());
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();

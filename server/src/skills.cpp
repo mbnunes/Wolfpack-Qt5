@@ -151,7 +151,7 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 		Skills->PlayInstrumentWell(socket, p_inst);
 		socket->sysMessage( tr( "You play your hypnotic music, stopping the battle.") );
 		
-		RegionIterator4Chars ri(pc_currchar->pos, VISRANGE);
+		RegionIterator4Chars ri(pc_currchar->pos(), VISRANGE);
 		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_CHAR mapchar = ri.GetData();
@@ -239,7 +239,7 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 	if (getamount(currchar[s], regid) >= regamount)
 	{
 		success=true;
-		currchar[s]->emote( tr("*%s starts grinding some %s in the mortar.*").arg(currchar[s]->name).arg(regname) ); // LB, the 1 stops stupid alchemy spam
+		currchar[s]->emote( tr("*%s starts grinding some %s in the mortar.*").arg(currchar[s]->name()).arg(regname) ); // LB, the 1 stops stupid alchemy spam
 		delequan(currchar[s],regid,regamount);
 	}
 //	else
@@ -338,7 +338,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 
 	if (success==0 && !pc->isGM()) // AC bugfix
 	{
-		pc->emote( tr("*%1 tosses the failed mixture from the mortar, unable to create a potion from it.*").arg(pc->name) );
+		pc->emote( tr("*%1 tosses the failed mixture from the mortar, unable to create a potion from it.*").arg(pc->name()) );
 		return;
 	}
 	pi_mortar->setType( 17 );
@@ -353,7 +353,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 	else
 	{
 		pc->soundEffect( 0x0240 );
-		pc->emote( tr("*%1 pours the completed potion into a bottle.*").arg(pc->name));
+		pc->emote( tr("*%1 pours the completed potion into a bottle.*").arg(pc->name()));
 		delequan(pc, 0x0F0E, 1);
 		Skills->PotionToBottle(pc, pi_mortar);
 	} 
@@ -441,11 +441,11 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	// Addon for Storing creator NAME and SKILLUSED by Magius(CHE) §
 	if(!pc->isGM())
 	{
-		pi_potion->creator = pc->name; // Magius(CHE) - Memorize Name of the creator
+		pi_potion->creator = pc->name(); // Magius(CHE) - Memorize Name of the creator
 		if (pc->skill(ALCHEMY)>950) pi_potion->madewith=ALCHEMY+1; // Memorize Skill used - Magius(CHE)
 		else pi_potion->madewith=0-ALCHEMY-1; // Memorize Skill used - Magius(CHE)
 	} else {
-		pi_potion->creator[0]='\0';
+		pi_potion->creator = "";
 		pi_potion->madewith=0;
 	}
 	
@@ -939,7 +939,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		pItem = containment.next();
 	}
 
-	socket->sysMessage( tr( "You reach into %1's backpack and try to steal something..." ).arg( pVictim->name ) );
+	socket->sysMessage( tr( "You reach into %1's backpack and try to steal something..." ).arg( pVictim->name() ) );
 
 	// The success of our Theft depends on the weight of the stolen item
 	bool success = pChar->checkSkill( STEALING, 0, pToSteal->weight() * 10 );
@@ -982,9 +982,9 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 
 		// Our Victim always notices it.
 		if( pVictim->socket() )
-			pVictim->socket()->showSpeech( pChar, tr( "You notice %1 trying to steal %2 from you." ).arg( pChar->name ).arg( pToSteal->getName( true ) ) );
+			pVictim->socket()->showSpeech( pChar, tr( "You notice %1 trying to steal %2 from you." ).arg( pChar->name() ).arg( pToSteal->getName( true ) ) );
 
-		QString message = tr( "You notice %1 trying to steal %2 from %3." ).arg( pChar->name ).arg( pItem->getName() ).arg( pVictim->name );	
+		QString message = tr( "You notice %1 trying to steal %2 from %3." ).arg( pChar->name() ).arg( pItem->getName() ).arg( pVictim->name() );	
 
 		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 		{
@@ -1235,7 +1235,7 @@ void cSkills::Persecute ( cUOSocket* socket )
 
 			pc_currchar->setSkillDelay();
 
-			QString message = tr( "*You see %1 is being persecuted by a ghost*" ).arg( target->name );
+			QString message = tr( "*You see %1 is being persecuted by a ghost*" ).arg( target->name() );
 							
 			for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
 			{
@@ -1399,7 +1399,7 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 
 	if( pc_owner->isGMorCounselor() )
 	{
-		pc_owner->message( tr( "%1 is trying to snoop in your pack" ).arg( player->name.latin1() ) );
+		pc_owner->message( tr( "%1 is trying to snoop in your pack" ).arg( player->name() ) );
 		socket->sysMessage( tr( "You can't peek into that container or you'll be jailed." ) );
 		return;
 	}
@@ -1415,7 +1415,7 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 		if( pc_owner->isNpc() )
 			pc_owner->talk( tr( "Art thou attempting to disturb my privacy?" ) );
 		else
-			pc_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name.latin1() ) );
+			pc_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name() ) );
 	}
 
 	
@@ -1576,7 +1576,7 @@ void cSkills::Blacksmithing( cUOSocket* socket )
 	P_CHAR pc = socket->player();
 	bool foundAnvil = false;
 	
-	RegionIterator4Items rIter( pc->pos );
+	RegionIterator4Items rIter( pc->pos() );
 	for( rIter.Begin(); !rIter.atEnd(); rIter++ )
 	{
 		P_ITEM pi = rIter.GetData();
@@ -1590,7 +1590,7 @@ void cSkills::Blacksmithing( cUOSocket* socket )
 
 	if( !foundAnvil )
 	{
-		StaticsIterator sIter = Map->staticsIterator( pc->pos, false );
+		StaticsIterator sIter = Map->staticsIterator( pc->pos(), false );
 		while( !sIter.atEnd() )
 		{
 			if( IsAnvil( sIter->itemid ) )

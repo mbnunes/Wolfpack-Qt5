@@ -25,7 +25,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				return true;
 			}
 		}
-		if(ph->pos.distance(pp->pos)>5)
+		if(ph->dist(pp)>5)
 		{
 			socket->sysMessage( tr("You are not close enough to apply the bandages.") );
 			return true;

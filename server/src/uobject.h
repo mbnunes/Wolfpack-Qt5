@@ -114,6 +114,8 @@ class cUObject : public virtual PersistentObject, public virtual cDefinable
 // Data Members
 private:
 	QString bindmenu_;
+	QString name_;
+	Coord_cl pos_;
 
 protected:
 	// Things for building the SQL string
@@ -151,8 +153,6 @@ public:
 	SERIAL multis;
 	bool free;
 
-	QString name;
-	Coord_cl pos;
 	cCustomTags tags;
 
 // Methods
@@ -174,8 +174,12 @@ public:
 	virtual QString objectID() const = 0;
 	void moveTo( const Coord_cl& );
 	unsigned int dist(cUObject* d) const;
-	QString bindmenu() const { return bindmenu_; }
-	void setBindmenu( const QString& d ) { bindmenu_ = d; }
+	QString bindmenu() const	{ return bindmenu_; }
+	QString name() const		{ return name_;		}
+	Coord_cl pos() const		{ return pos_;		}
+	void setBindmenu( const QString& d )	{ bindmenu_ = d;	}
+	void setName( const QString& d )		{ name_ = d;		}	
+	void setPos( const Coord_cl& d )		{ pos_ = d;			}
 
 	bool isItem() { return (serial != INVALID_SERIAL && serial > 0 && serial >= 0x40000000); }
 	bool isChar() { return (serial != INVALID_SERIAL && serial > 0 && serial <  0x40000000); }

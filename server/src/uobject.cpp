@@ -67,7 +67,7 @@ cUObject::cUObject( cUObject &src )
 
 	this->serial = src.serial;
 	this->multis = src.multis;
-	this->name = src.name;
+	this->name_ = src.name_;
 	this->free = src.free;
 }
 
@@ -78,7 +78,7 @@ void cUObject::init()
 void cUObject::moveTo( const Coord_cl& newpos )
 {
 	MapObjects::instance()->remove( this );
-	pos = newpos;
+	pos_ = newpos;
 	MapObjects::instance()->add( this );
 }
 
@@ -86,7 +86,7 @@ unsigned int cUObject::dist(cUObject* d) const
 {	
 	if ( !d )
 		return ~0;
-	return pos.distance(d->pos);		
+	return pos_.distance(d->pos_);		
 }
 
 
@@ -95,13 +95,13 @@ unsigned int cUObject::dist(cUObject* d) const
 */
 void cUObject::load( char **result, UINT16 &offset )
 {
-	name = result[offset++];
+	name_ = result[offset++];
 	serial = atoi(result[offset++]);
 	multis = atoi(result[offset++]);
-	pos.x = atoi(result[offset++]);
-	pos.y = atoi(result[offset++]);
-	pos.z = atoi(result[offset++]);
-	pos.map = atoi(result[offset++]);
+	pos_.x = atoi(result[offset++]);
+	pos_.y = atoi(result[offset++]);
+	pos_.z = atoi(result[offset++]);
+	pos_.map = atoi(result[offset++]);
 	eventList_ = QStringList::split( ",", result[offset++] );
 	bindmenu_ = result[offset++];
 
@@ -136,13 +136,13 @@ void cUObject::save()
 	
 	// uobject fields
 	setTable( "uobject" );	
-	addStrField( "name", name );
+	addStrField( "name", name_ );
 	addField( "serial", serial );
 	addField( "multis", multis );
-	addField( "pos_x", pos.x );
-	addField( "pos_y", pos.y );
-	addField( "pos_z", pos.z );
-	addField( "pos_map", pos.map );
+	addField( "pos_x", pos_.x );
+	addField( "pos_y", pos_.y );
+	addField( "pos_z", pos_.z );
+	addField( "pos_map", pos_.map );
 	addStrField( "events", eventList_.join( "," ) );
 	addStrField( "bindmenu", bindmenu_ );
 	addCondition( "serial", serial );
@@ -410,7 +410,7 @@ void cUObject::processNode( const QDomElement &Tag )
 void cUObject::removeFromView( bool clean )
 {
 	// Get Real pos
-	Coord_cl mPos = pos;
+	Coord_cl mPos = pos_;
 
 	if( isItemSerial( serial ) )
 	{
@@ -418,15 +418,15 @@ void cUObject::removeFromView( bool clean )
 		P_ITEM pCont = pItem->getOutmostItem();
 		if( pCont )
 		{
-			mPos = pCont->pos;
+			mPos = pCont->pos();
 			P_CHAR pOwner = dynamic_cast<P_CHAR>( pCont->container() );
 			if( pOwner )
-				mPos = pOwner->pos;
+				mPos = pOwner->pos();
 		}
 	}
 
 	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
-		if( clean || ( socket->player() && ( socket->player()->pos.distance( mPos ) <= socket->player()->VisRange() ) ) )
+		if( clean || ( socket->player() && ( socket->player()->pos().distance( mPos ) <= socket->player()->VisRange() ) ) )
 			socket->removeObject( this );
 }
 
@@ -436,7 +436,7 @@ bool cUObject::inRange( const cUObject *object, UINT32 range ) const
 	if( !object ) 
 		return false;
 
-	return ( pos.distance( object->pos ) <= range );
+	return ( pos_.distance( object->pos_ ) <= range );
 }
 
 /*!
@@ -451,8 +451,8 @@ void cUObject::effect( UINT16 id, cUObject *target, bool fixedDirection, bool ex
 	effect.setType( ET_MOVING );
 	effect.setSource( serial );
 	effect.setTarget( target->serial );
-	effect.setSourcePos( pos );
-	effect.setTargetPos( target->pos );
+	effect.setSourcePos( pos_ );
+	effect.setTargetPos( target->pos_ );
 	effect.setId( id );
     effect.setSpeed( speed );
 	effect.setExplodes( explodes );
@@ -480,7 +480,7 @@ void cUObject::effect( UINT16 id, const Coord_cl &target, bool fixedDirection, b
 	cUOTxEffect effect;
 	effect.setType( ET_MOVING );
 	effect.setSource( serial );
-	effect.setSourcePos( pos );
+	effect.setSourcePos( pos_ );
 	effect.setTargetPos( target );
 	effect.setId( id );
     effect.setSpeed( speed );
@@ -496,7 +496,7 @@ void cUObject::effect( UINT16 id, const Coord_cl &target, bool fixedDirection, b
 			continue;
 
 		// The Socket has to be either in range of Source or Target
-		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || ( mSock->player()->pos.distance( target ) <= mSock->player()->VisRange() ) )
+		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || ( mSock->player()->pos().distance( target ) <= mSock->player()->VisRange() ) )
 			mSock->send( &effect );
 	}
 }
@@ -509,8 +509,8 @@ void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCESER );
 	effect.setSource( serial );
-	effect.setSourcePos( pos );
-	effect.setTargetPos( pos );
+	effect.setSourcePos( pos_ );
+	effect.setTargetPos( pos_ );
 	effect.setId( id );
     effect.setSpeed( speed );
 	effect.setDuration( duration );
@@ -534,7 +534,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "serial", serial )
 	else SET_INT_PROPERTY( "multi", multis )
 	else SET_BOOL_PROPERTY( "free", free )
-	else SET_STR_PROPERTY( "name", this->name )
+	else SET_STR_PROPERTY( "name", this->name_ )
 
 	else if( name == "pos" )
 	{
@@ -570,8 +570,8 @@ stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "serial", serial )
 	else GET_PROPERTY( "multi", FindItemBySerial( multis ) )
 	else GET_PROPERTY( "free", free ? 1 : 0 )
-	else GET_PROPERTY( "name", this->name )
-	else GET_PROPERTY( "pos", pos )
+	else GET_PROPERTY( "name", this->name() )
+	else GET_PROPERTY( "pos", pos() )
 	else GET_PROPERTY( "eventlist", eventList_.join(",") );
 
 	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )

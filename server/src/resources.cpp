@@ -671,7 +671,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	for (ri.Begin(); !ri.atEnd() && !pResItem; ri++)
 	{
 		P_ITEM pi = ri.GetData();
-		if( pi && pi->pos.x == pos.x && pi->pos.y == pos.y && pi->objectID() == "cResourceItem" )
+		if( pi && pi->pos().x == pos.x && pi->pos().y == pos.y && pi->objectID() == "cResourceItem" )
 		{
 			pResItem = dynamic_cast< cResourceItem* >(pi);
 			if( pResItem->resource() != section_ )
@@ -794,7 +794,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 			{
 				pResItem->serial = ItemsManager::instance()->getUnusedSerial();
 				ItemsManager::instance()->registerItem( pResItem );
-				pResItem->pos = pos;
+				pResItem->setPos( pos );
 				MapObjects::instance()->add( pResItem );
 				pResItem->update();
 			}
@@ -1390,7 +1390,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 
 	P_CHAR pc = socket->player();
-	Coord_cl pos = pc->pos;
+	Coord_cl pos = pc->pos();
 	pos.x = target->x();
 	pos.y = target->y();
 	pos.z = target->z();
@@ -1401,7 +1401,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	}
 	
-	if( ( pc->pos.distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos, pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
+	if( ( pc->pos().distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos(), pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
 	{
 		socket->sysMessage( tr( "You can't reach this" ) );
 		return false;
@@ -1413,7 +1413,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( target->serial() )
 	{
 		P_ITEM pTarget = FindItemBySerial( target->serial() );
-		if( !pTarget || pTarget->pos != pos )
+		if( !pTarget || pTarget->pos() != pos )
 			return true;
 	}
 	else if( target->model() )
@@ -1488,7 +1488,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 
 	P_CHAR pc = socket->player();
-	Coord_cl pos = pc->pos;
+	Coord_cl pos = pc->pos();
 	pos.x = target->x();
 	pos.y = target->y();
 	pos.z = target->z();
@@ -1499,7 +1499,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	}
 	
-	if( ( pc->pos.distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos, pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
+	if( ( pc->pos().distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos(), pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
 	{
 		socket->sysMessage( tr( "You can't reach this" ) );
 		return false;
@@ -1511,7 +1511,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( target->serial() )
 	{
 		P_ITEM pTarget = FindItemBySerial( target->serial() );
-		if( !pTarget || pTarget->pos != pos )
+		if( !pTarget || pTarget->pos() != pos )
 			return true;
 	}
 	else if( target->model() )

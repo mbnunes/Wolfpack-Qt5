@@ -346,16 +346,14 @@ void cChar::Init(bool ser)
 	this->animated = false;
 	this->multis=-1;//Multi serial
 	this->free = false;
-	this->name = "Man";
+	this->setName("Man");
 	this->setOrgname( "Man" );
 	this->title_ = "";
 	this->socket_ = 0;
 	this->setAntispamtimer(0);//LB - anti spam
 
 	this->setUnicode(true); // This is set to 1 if the player uses unicode speech, 0 if not
-	this->pos.x=100;
-	this->pos.y=100;
-	this->dispz_ = this->pos.z = 0;	
+	this->setPos( Coord_cl(100, 100, 0 ) );
 	this->dir_=0; //&0F=Direction
 	this->xid_ = 0x0190;
 	this->setId(0x0190);
@@ -557,7 +555,7 @@ P_ITEM cChar::getBankBox( void )
 	pi->SetOwnSerial(this->serial);
 	pi->setMoreX(1);
 	pi->setType( 1 );
-	pi->setName( tr( "%1's bank box" ).arg( name ) );
+	pi->setName( tr( "%1's bank box" ).arg( name() ) );
 	addItem( BankBox, pi, true, true );
 
 	return pi;
@@ -761,7 +759,7 @@ void cChar::SetMultiSerial(long mulser)
 
 void cChar::MoveToXY(short newx, short newy)
 {
-	this->MoveTo(newx,newy,pos.z);	// keep the old z value
+	this->MoveTo(newx,newy,pos().z);	// keep the old z value
 }
 
 void cChar::MoveTo(short newx, short newy, signed char newz)
@@ -769,13 +767,7 @@ void cChar::MoveTo(short newx, short newy, signed char newz)
 	// Avoid crash if go to 0,0
 	if (newx < 1 || newy < 1)
 		return;
-
-	MapObjects::instance()->remove(this);
-	pos.x = newx;
-	pos.y = newy;
-	setDispz( newz );
-	pos.z = dispz_;
-	MapObjects::instance()->add(this);
+	cUObject::moveTo( Coord_cl(newx, newy, newz, pos().map) );
 }
 
 unsigned int cChar::getSkillSum()
@@ -1020,7 +1012,7 @@ void cChar::save()
 	setTable( "characters" );
 
 	addField( "serial", serial );
-	addStrField( "name", incognito() ? name : orgname() );	
+	addStrField( "name", incognito() ? name() : orgname() );	
 	addStrField( "title", title_ );
 
 	if( account_ )
@@ -1326,7 +1318,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<name>my this</name>
 	if( TagName == "name" )
-		this->name = Value;
+		this->setName(Value);
 		
 	//<backpack>
 	//	<color>0x132</color>
@@ -1345,9 +1337,7 @@ void cChar::processNode( const QDomElement &Tag )
 				return;
 			}
 			
-			pBackpack->pos.x = 0;
-			pBackpack->pos.y = 0;
-			pBackpack->pos.z = 0;
+			pBackpack->setPos( Coord_cl(0, 0, 0) );
 			this->addItem( Backpack, pBackpack );
 			pBackpack->setType( 1 );
 			pBackpack->setDye(1);
@@ -1537,17 +1527,17 @@ void cChar::processNode( const QDomElement &Tag )
 					Tag.attributes().contains("y2") )
 				{
 					this->npcWander_ = 3;
-					this->fx1_ = this->pos.x + Tag.attribute("x1").toInt();
-					this->fx2_ = this->pos.x + Tag.attribute("x2").toInt();
-					this->fy1_ = this->pos.y + Tag.attribute("y1").toInt();
-					this->fy2_ = this->pos.y + Tag.attribute("y2").toInt();
+					this->fx1_ = this->pos().x + Tag.attribute("x1").toInt();
+					this->fx2_ = this->pos().x + Tag.attribute("x2").toInt();
+					this->fy1_ = this->pos().y + Tag.attribute("y1").toInt();
+					this->fy2_ = this->pos().y + Tag.attribute("y2").toInt();
 					this->fz1_ = -1 ;
 				}
 			else if( wanderType == "circle" || wanderType == "4" )
 			{
 				this->npcWander_ = 4;
-				this->fx1_ =  this->pos.x;
-				this->fy1_ = this->pos.y;
+				this->fx1_ =  this->pos().x;
+				this->fy1_ = this->pos().y;
 				if( Tag.attributes().contains("radius") )
 					this->fx2_ =  Tag.attribute("radius").toInt();
 				else
@@ -1777,7 +1767,7 @@ void cChar::soundEffect( UI16 soundId, bool hearAll )
 {
 	cUOTxSoundEffect pSoundEffect;
 	pSoundEffect.setSound( soundId );
-	pSoundEffect.setCoord( pos );
+	pSoundEffect.setCoord( pos() );
 
 	if( !hearAll )
 	{
@@ -1830,7 +1820,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	textSpeech->setFont( 3 ); // Default Font
 	textSpeech->setType( speechType );
 	textSpeech->setLanguage( lang );
-	textSpeech->setName( name.latin1() );
+	textSpeech->setName( name() );
 	textSpeech->setColor( color );
 	textSpeech->setText( message );
 
@@ -1865,7 +1855,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 		// Send to all clients in range
 		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
-				if( mSock->player() && ( mSock->player()->pos.distance( pos ) < 18 ) )
+				if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 				{
 					// Take the dead-status into account
 					if( dead_ && !isNpc() )
@@ -1891,7 +1881,7 @@ void cChar::emote( const QString &emote, UI16 color )
 	textSpeech.setModel( id() );
 	textSpeech.setFont( 3 ); // Default Font
 	textSpeech.setType( cUOTxUnicodeSpeech::Emote );
-	textSpeech.setName( name );
+	textSpeech.setName( name() );
 	textSpeech.setColor( color );
 	textSpeech.setText( emote );
 	
@@ -1934,7 +1924,7 @@ void cChar::showName( cUOSocket *socket )
 	if( onSingleClick( socket->player() ) )
 		return;
 
-	QString charName = name;
+	QString charName = name();
 
 	// For NPCs we can apply titles
 	if( !isPlayer() && SrvParams->showNpcTitles() && !title_.isEmpty() )
@@ -2073,7 +2063,7 @@ void cChar::resend( bool clean, bool excludeself )
 		if( !pChar || !pChar->account() )
 			continue;
 
-		if( pChar->pos.distance( pos ) > pChar->VisRange() )
+		if( pChar->dist( this ) > pChar->VisRange() )
 			continue;
         
 		if( clean )
@@ -2098,38 +2088,38 @@ QString cChar::fullName( void )
 	QString fName;
 
 	if( isGM() )
-		fName = QString( "%1 %2" ).arg( name.latin1() ).arg( title_ );
+		fName = QString( "%1 %2" ).arg( name() ).arg( title_ );
 
 	// Normal Criminal
 	else if( ( crimflag_ > 0 ) && !dead_ && ( kills_ < SrvParams->maxkills() ) )
-		fName = tr( "The Criminal %1, %2%3 %4" ).arg( name ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Criminal %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Serial Killer
 	else if( ( kills_ >= SrvParams->maxkills() ) && ( kills_ < 10 ) && !dead_ )
-		fName = tr( "The Serial Killer %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Serial Killer %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Murderer
 	else if( ( kills_ >= 10 ) && ( kills_ < 20 ) && !dead_ )
-		fName = tr( "The Murderer %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Murderer %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Mass Murderer
 	else if( ( kills_ >= 20 ) && ( kills_ < 50 ) && !dead_ )
-		fName = tr( "The Mass Murderer %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Mass Murderer %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Evil Dread Murderer
 	else if( ( kills_ >= 50 ) && ( kills_ < 100 ) && !dead_ )
-		fName = tr( "The Evil Dread Murderer %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Evil Dread Murderer %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Evil Emperor
 	else if( ( kills_ >= 100 ) && !dead_ )
-		fName = tr( "The Evil Emperor %1, %2%3 %4" ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Evil Emperor %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// Normal Player
 	else if( title_.isEmpty() )
-		fName = QString( "%1%2, %3 %4" ).arg( title3( this ) ).arg( name.latin1() ).arg( title1( this ) ).arg( title2( this ) );
+		fName = QString( "%1%2, %3 %4" ).arg( title3( this ) ).arg( name() ).arg( title1( this ) ).arg( title2( this ) );
 
 	else
-		fName = QString( "%1%2 %4, %4 %5" ).arg( title3( this ) ).arg( name.latin1() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = QString( "%1%2 %4, %4 %5" ).arg( title3( this ) ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	return fName;
 }
@@ -2164,7 +2154,7 @@ void cChar::makeShop( void )
 // Send the changed health-bar to all sockets in range
 void cChar::updateHealth( void )
 {
-	RegionIterator4Chars cIter( pos );
+	RegionIterator4Chars cIter( pos() );
 	for( cIter.Begin(); !cIter.atEnd(); cIter++ )
 	{
 		P_CHAR pChar = cIter.GetData();
@@ -2322,7 +2312,7 @@ void cChar::kill()
 	if( pAttacker )
 	{
 		pAttacker->setTarg(INVALID_SERIAL);
-		murderer = pAttacker->name;
+		murderer = pAttacker->name();
 	}
 
 	// We do know our murderer here (or if there is none it's null)
@@ -2390,7 +2380,7 @@ void cChar::kill()
 
 					if( SrvParams->pvpLog() )
 					{
-						sprintf((char*)temp,"%s was killed by %s!\n", name.latin1(),pc_t->name.latin1());
+						sprintf((char*)temp,"%s was killed by %s!\n", name().latin1(),pc_t->name().latin1());
 						savelog((char*)temp,"PvP.log");
 					}
 				}
@@ -2438,7 +2428,7 @@ void cChar::kill()
 	if( elem && !elem->isNull() )
 		corpse->applyDefinition( (*elem) );
 
-	corpse->setName( tr( "corpse of %1" ).arg( name.latin1() ) );
+	corpse->setName( tr( "corpse of %1" ).arg( name() ) );
 	corpse->setColor( xskin() );
 
 	// Check for the player hair/beard
@@ -2476,9 +2466,9 @@ void cChar::kill()
 	corpse->setBodyId( xid_ );
 	corpse->setMoreY( ishuman( this ) ); //is human??
 	corpse->setCarve( carve() ); //store carve section
-	corpse->setName2( name.latin1() );
+	corpse->setName2( name() );
 
-	corpse->moveTo( pos );
+	corpse->moveTo( pos() );
 
 	corpse->setMore1(nType);
 	corpse->dir = dir_;
@@ -2688,8 +2678,8 @@ void cChar::resurrect()
 
 void cChar::turnTo( cUObject *object )
 {
-	INT16 xdif = (INT16)( object->pos.x - pos.x );
-	INT16 ydif = (INT16)( object->pos.y - pos.y );
+	INT16 xdif = (INT16)( object->pos().x - pos().x );
+	INT16 ydif = (INT16)( object->pos().y - pos().y );
 	UINT8 nDir;
 
 	if( xdif == 0 && ydif < 0 ) 
@@ -2832,9 +2822,9 @@ P_CHAR cChar::unmount()
 		P_CHAR pMount = FindCharBySerial( pi->morex() );
 		if( pMount )
 		{
-			pMount->setFx1( pi->pos.x );
-			pMount->setFy1( pi->pos.y );
-			pMount->setFz1( pi->pos.z );
+			pMount->setFx1( pi->pos().x );
+			pMount->setFy1( pi->pos().y );
+			pMount->setFz1( pi->pos().z );
 			pMount->setId( pi->morey() );
 			pMount->setNpcWander(pi->moreb1());
 			pMount->setSt( pi->moreb2() );
@@ -2848,7 +2838,7 @@ P_CHAR cChar::unmount()
 			pMount->setPoisoned( pi->poisoned() );
 			pMount->setSummonTimer( pi->decaytime() );
 			
-			pMount->moveTo( pos );
+			pMount->moveTo( pos() );
 			pMount->resend( false );
 		}
 		Items->DeleItem( pi );
@@ -2879,7 +2869,7 @@ void cChar::mount( P_CHAR pMount )
 		P_ITEM pMountItem = new cItem;
 		pMountItem->Init();
 		pMountItem->setId( 0x915 );
-		pMountItem->setName( pMount->name );
+		pMountItem->setName( pMount->name() );
 		pMountItem->setColor( pMount->skin() );
 
 		if( !pMountItem )
@@ -2922,9 +2912,11 @@ void cChar::mount( P_CHAR pMount )
 		}
 		
 		this->addItem( cChar::Mount, pMountItem );
-		pMountItem->pos.x = pMount->fx1();
-		pMountItem->pos.y = pMount->fy1();
-		pMountItem->pos.z = pMount->fz1();
+		Coord_cl position = pMountItem->pos();
+		position.x = pMount->fx1();
+		position.y = pMount->fy1();
+		position.z = pMount->fz1();
+		pMountItem->setPos( position );
 		
 		pMountItem->setMoreX(pMount->serial);
 		pMountItem->setMoreY(pMount->id());
@@ -2956,7 +2948,7 @@ void cChar::mount( P_CHAR pMount )
 		
 		pMount->setId(0);
 		MapObjects::instance()->remove( pMount );
-		pMount->pos = Coord_cl(0, 0, 0);
+		pMount->setPos( Coord_cl(0, 0, 0) );
 		
 		pMount->setWar( false );
 		pMount->setAttacker(INVALID_SERIAL);
@@ -3178,13 +3170,13 @@ void cChar::attackTarget( P_CHAR defender )
 	if( this == defender || !defender || dead() || defender->dead() ) 
 		return;
 
-//	if (defender->pos.z > (attacker->pos.z +10)) return;//FRAZAI
-//	if (defender->pos.z < (attacker->pos.z -10)) return;//FRAZAI
+//	if (defender->pos().z > (attacker->pos().z +10)) return;//FRAZAI
+//	if (defender->pos().z < (attacker->pos().z -10)) return;//FRAZAI
 
 	//Coord_cl attpos( pos );
 	//Coord_cl defpos( defender->pos );
 
-	//attpos.z += 13; // eye height of attacker
+	//attpos().z += 13; // eye height of attacker
 
 	// I think this is nuts, it should be possible to go into combat even if 
 	// there is something between us
@@ -3196,11 +3188,11 @@ void cChar::attackTarget( P_CHAR defender )
 
 	P_CHAR target = FindCharBySerial( defender->targ() );
 	if( target )
-		cdist = defender->pos.distance( target->pos );
+		cdist = defender->dist( target );
 	else 
 		cdist = 30;
 
-	if( cdist > defender->pos.distance( pos ) )
+	if( cdist > defender->dist( this ) )
 	{
 		defender->setAttacker(serial);
 		defender->setAttackFirst();
@@ -3208,11 +3200,11 @@ void cChar::attackTarget( P_CHAR defender )
 
 	target = FindCharBySerial( targ_ );
 	if( target )
-		cdist = pos.distance( target->pos );
+		cdist = this->dist( target );
 	else 
 		cdist = 30;
 
-	if( ( cdist > defender->pos.distance( pos ) ) &&
+	if( ( cdist > defender->dist( this ) ) &&
 		( !(npcaitype() == 4) || target ) )
 	{
 		targ_ = defender->serial;
@@ -3250,24 +3242,24 @@ void cChar::attackTarget( P_CHAR defender )
 			pPet->fight( this );
 
 			// Show the You see XXX attacking YYY messages
-			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name ).arg( name );
+			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( name() );
 			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 				if( mSock->player() && mSock != socket_ && mSock->player()->inRange( pPet, mSock->player()->VisRange() ) )
 					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 			
 			if( socket_ )
-				socket_->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+				socket_->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
 		}
 	}
 
 	// Send a message to the defender
 	if( defender->socket() )
 	{
-		QString message = tr( "You see %1 attacking you!" ).arg( name.latin1() );
+		QString message = tr( "You see %1 attacking you!" ).arg( name() );
 		defender->socket()->showSpeech( this, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 	}
 
-	QString emote = tr( "You see %1 attacking %2" ).arg( name.latin1() ).arg( defender->name.latin1() );
+	QString emote = tr( "You see %1 attacking %2" ).arg( name() ).arg( defender->name() );
 
 	cUOSocket *mSock = 0;
 	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
@@ -3521,7 +3513,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 	pc->setStealth( -1 );
 	pc->SetSpawnSerial( pc->spawnSerial() );
 	
-	pc->setRegion( cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y, pc->pos.map ) );
+	pc->setRegion( cAllTerritories::getInstance()->region( pc->pos().x, pc->pos().y, pc->pos().map ) );
 	
 	pc->setAntispamtimer( 0 );   //LB - AntiSpam -
 	pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
@@ -3537,7 +3529,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 			{
 				pc->setSkin( 0xF000 );
 				pc->setXSkin( 0xF000 );
-				clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name.latin1(),pc->serial);
+				clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name().latin1(),pc->serial);
 			}
 		}
 	} 
@@ -3552,7 +3544,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 		else
 		{
 			pc->setId(0x0190);
-			clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name.latin1());
+			clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name().latin1());
 		}
 	}
 	
@@ -3563,11 +3555,11 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 	else
 		stablesp.insert(pc->stablemaster_serial(), pc->serial);
 	
-	UINT16 max_x = Map->mapTileWidth(pc->pos.map) * 8;
-	UINT16 max_y = Map->mapTileHeight(pc->pos.map) * 8;
+	UINT16 max_x = Map->mapTileWidth(pc->pos().map) * 8;
+	UINT16 max_y = Map->mapTileHeight(pc->pos().map) * 8;
 
 	// only > max_x and > max_y are invalid
-	if( pc->pos.x >= max_x || pc->pos.y >= max_y )
+	if( pc->pos().x >= max_x || pc->pos().y >= max_y )
 	{
 		cCharStuff::DeleteChar( pc );
 		return;

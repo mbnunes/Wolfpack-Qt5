@@ -310,7 +310,7 @@ void cAllTerritories::load( void )
 void cAllTerritories::check( P_CHAR pc )
 {
 	cUOSocket *socket = pc->socket();
-	cTerritory* currRegion = this->region( pc->pos.x, pc->pos.y, pc->pos.map );
+	cTerritory* currRegion = this->region( pc->pos().x, pc->pos().y, pc->pos().map );
 	cTerritory* lastRegion = pc->region();
 
 	if( !currRegion )

@@ -95,7 +95,7 @@ cItem::cItem( cItem &src )
 	this->multis = src.multis;
 	this->free = false;
 	this->setId(src.id());
-	this->pos = src.pos;
+	this->setPos(src.pos());
 	this->color_ = src.color_;
 	this->contserial = src.contserial;
 	this->layer_ = src.layer_;
@@ -187,7 +187,7 @@ void cItem::toBackpack( P_CHAR pChar )
 	if( !pPack )
 	{
 		removeFromCont();
-		moveTo( pChar->pos );
+		moveTo( pChar->pos() );
 	}
 	// Or to the backpack
 	else
@@ -275,11 +275,7 @@ void cItem::SetMultiSerial(long mulser)
 
 void cItem::MoveTo(int newx, int newy, signed char newz)
 {
-	MapObjects::instance()->remove(this);
-	pos.x=newx;
-	pos.y=newy;
-	pos.z=newz;
-	MapObjects::instance()->add(this);
+	cUObject::moveTo( Coord_cl(newx, newy, newz, pos().z, pos().map ) );
 }
 
 // author: LB purpose: returns the type of pack
@@ -364,9 +360,11 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 
 	if (this->amount() + pItem->amount() > 65535)
 	{
-		pItem->pos.x=this->pos.x;
-		pItem->pos.y=this->pos.y;
-		pItem->pos.z=9;
+		Coord_cl position = pItem->pos();
+		position.x = this->pos().x;
+		position.y = this->pos().y;
+		position.z = 9;
+		pItem->setPos( position );
 		pItem->setAmount( (this->amount()+pItem->amount()) - 65535 );
 		this->setAmount( 65535 );
 		pItem->update();
@@ -403,20 +401,22 @@ void cItem::SetRandPosInCont(cItem* pCont)
 		LogWarningVar("trying to put something INTO a non container, id=0x%X",pCont->id());
 		k=1;
 	}
-	pos.x = RandomNum(18, 118);
-	pos.z=9;
+	Coord_cl position = pos();
+	position.x = RandomNum(18, 118);
+	position.z=9;
 
 	switch (k) 
 	{
-	case 1: pos.y = RandomNum(50, 100);		break;
-	case 2: pos.y = RandomNum(30, 80);		break;
-	case 3: pos.y = RandomNum(100, 140);	break;
-	case 4: pos.y = RandomNum(60, 140);
-			pos.x = RandomNum(60, 140);		break;
-	case 5: pos.y = RandomNum(85, 160);
-			pos.x = RandomNum(20, 70);		break;
-	default: pos.y = RandomNum(30, 80);
+	case 1: position.y = RandomNum(50, 100);	break;
+	case 2: position.y = RandomNum(30, 80);		break;
+	case 3: position.y = RandomNum(100, 140);	break;
+	case 4: position.y = RandomNum(60, 140);
+			position.x = RandomNum(60, 140);	break;
+	case 5: position.y = RandomNum(85, 160);
+			position.x = RandomNum(20, 70);		break;
+	default: position.y = RandomNum(30, 80);
 	}
+	setPos( position );
 }
 
 /*!
@@ -637,7 +637,7 @@ void cItem::Init( bool mkser )
 	this->free = false;
 	this->setId(0x0001); // Item visuals as stored in the client
 	// this->name2[0]=0x00; Removed by Magius(CHE)
-	this->pos = Coord_cl(100, 100, 0);
+	this->setPos( Coord_cl(100, 100, 0) );
 	this->color_ = 0x00; // Hue
 	this->contserial = INVALID_SERIAL; // Container that this item is found in
 	this->layer_ = 0; // Layer if equipped on paperdoll
@@ -828,7 +828,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 		}
 		else
 		{// LB place it at players feet if he hasnt got backpack
-			pi->MoveTo(pc_ch->pos.x, pc_ch->pos.y, pc_ch->pos.z);
+			pi->moveTo(pc_ch->pos());
 		}
 	}
 	
@@ -910,7 +910,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 					if (pi->multis<1 && !pi->corpse())
 					{
 						// JustMichael -- Added a check to see if item is in a house
-						pi_multi = cMulti::findMulti( pi->pos );
+						pi_multi = cMulti::findMulti( pi->pos() );
 						if ( pi_multi )
 						{
 							if( pi_multi->itemsdecay() ) //JustMichael -- set more to 1 and stuff can decay in the building
@@ -953,7 +953,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 							if ( pi_j == pi->container() )
 							{
 								pi->removeItem(pi_j);
-								pi_j->MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
+								pi_j->moveTo(pi->pos());
 								
 								pi_j->startDecay();
 								pi_j->update();//AntiChrist
@@ -1027,11 +1027,11 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 
 				if( !pSpawned )
 				{
-					clConsole.send( QString( "Unable to spawn unscripted item: %1" ).arg( pItem->carve() ) );
+					clConsole.send( tr( "Unable to spawn unscripted item: %1" ).arg( pItem->carve() ) );
 					break;
 				}
 
-				pSpawned->moveTo( pItem->pos );
+				pSpawned->moveTo( pItem->pos() );
 				pSpawned->SetSpawnSerial( pItem->serial );
 				pSpawned->update();
 			}
@@ -1066,7 +1066,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 			// Is there anything to be spawned
 			if( amount < pItem->amount() )
 			{
-				P_CHAR pSpawned = cCharStuff::createScriptNpc( pItem->carve(), pItem->pos );
+				P_CHAR pSpawned = cCharStuff::createScriptNpc( pItem->carve(), pItem->pos() );
 				if( pSpawned )
 					pSpawned->SetSpawnSerial( pItem->serial );
 			}
@@ -1130,7 +1130,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 	
 	if( !spawnInItem )
 	{
-		pi->MoveTo(pItem->pos.x, pItem->pos.y, pItem->pos.z); //add spawned item to map cell if not in a container
+		pi->moveTo(pItem->pos()); //add spawned item to map cell if not in a container
 	}
 	else
 	{
@@ -1972,7 +1972,7 @@ void cItem::update( cUOSocket *mSock )
 		sendItem->setId( id() );
 		sendItem->setAmount( amount() );
 		sendItem->setColor( color() );
-		sendItem->setCoord( pos );
+		sendItem->setCoord( pos() );
 		sendItem->setDirection( dir );
 
 		if( mSock )
@@ -1980,7 +1980,7 @@ void cItem::update( cUOSocket *mSock )
 			P_CHAR pChar = mSock->player();
 
 			// Only send to sockets in range
-			if( !pChar || !pChar->account() || ( pChar->pos.distance( pos ) > pChar->VisRange() ) )
+			if( !pChar || !pChar->account() || ( pChar->dist( this ) > pChar->VisRange() ) )
 				return;
 
 			// Completely invisible
@@ -2014,7 +2014,7 @@ void cItem::update( cUOSocket *mSock )
 				P_CHAR pChar = mSock->player();
 	
 				// Only send to sockets in range
-				if( !pChar || !pChar->account() || ( pChar->pos.distance( pos ) > pChar->VisRange() ) )
+				if( !pChar || !pChar->account() || ( pChar->dist( this ) > pChar->VisRange() ) )
 					continue;
 	
 				// Completely invisible
@@ -2084,7 +2084,7 @@ void cItem::update( cUOSocket *mSock )
 		{
 			P_CHAR pChar = socket->player();
 
-			if( !pChar || ( pChar->pos.distance( oCont->pos ) > pChar->VisRange() ) )
+			if( !pChar || ( pChar->dist( oCont ) > pChar->VisRange() ) )
 				continue;
 
 			socket->send( &contItem );
@@ -2107,7 +2107,7 @@ P_ITEM cItem::dupe()
 	{
 		nItem->setLayer( 0 );
 //		nItem->setContSerial( INVALID_SERIAL );
-		nItem->moveTo( pWearer->pos );
+		nItem->moveTo( pWearer->pos() );
 	}
 
 	return nItem;
@@ -2240,7 +2240,7 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 		// Send to all clients in range
 		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
-				if( mSock->player() && ( mSock->player()->pos.distance( pos ) < 18 ) )
+				if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 				{
 					mSock->send( &textSpeech );
 				}
@@ -2270,7 +2270,7 @@ bool cItem::wearOut()
 					continue;
 
 				if( mSock->player() && mSock->player()->inRange( pOwner, mSock->player()->VisRange() ) )
-					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name ).arg( getName( true ) ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
+					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name() ).arg( getName( true ) ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
 			}
 		}
 
@@ -2664,9 +2664,9 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			P_CHAR pChar = pCont->getOutmostChar();
 
 			if( pChar )
-				pos = pChar->pos;
+				setPos( pChar->pos() );
 			else
-				pos = pCont->pos;
+				setPos( pCont->pos() );
 
 			removeFromCont();
 			MapObjects::instance()->add( this );

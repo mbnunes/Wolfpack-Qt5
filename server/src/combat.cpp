@@ -294,7 +294,7 @@ namespace Combat
 
 		// Can we see our target. 
 		// I don't know what the +z 13 means...
-		bool los = lineOfSight( pAttacker->pos + Coord_cl( 0, 0, 13 ), pDefender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
+		bool los = lineOfSight( pAttacker->pos() + Coord_cl( 0, 0, 13 ), pDefender->pos(), WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
 
 		hit( pAttacker, pDefender, los );
 	}
@@ -315,7 +315,7 @@ namespace Combat
 		enBowTypes bowtype = bowType( pWeapon );
 
 		// We simply can't see our target.
-		if( !los || ( wSkill != ARCHERY && pAttacker->pos.distance( pDefender->pos ) > 1 ) )
+		if( !los || ( wSkill != ARCHERY && pAttacker->dist( pDefender ) > 1 ) )
 			return;
 
 		// There is a 50% chance that
@@ -419,10 +419,10 @@ namespace Combat
 			// NOTE: There should be a random chance that this
 			// message appears *or* a flag to set
 			if( pAttacker->socket() )
-				pAttacker->socket()->sysMessage( tr( "You miss %1" ).arg( pDefender->name ) );
+				pAttacker->socket()->sysMessage( tr( "You miss %1" ).arg( pDefender->name() ) );
 
 			if( pDefender->socket() )
-				pDefender->socket()->sysMessage( tr( "%1 misses you" ).arg( pAttacker->name ) );
+				pDefender->socket()->sysMessage( tr( "%1 misses you" ).arg( pAttacker->name() ) );
 
 			// If we missed using a Bow or Crossbow we 
 			// could leave the ammunition at the feets of 
@@ -431,7 +431,7 @@ namespace Combat
 			{
 				if( pAmmo && RandomNum( 1, 3 ) == 1 ) // 1/3 chance
 				{
-					pAmmo->moveTo( pDefender->pos );
+					pAmmo->moveTo( pDefender->pos() );
 					pAmmo->priv = 1;
 					pAmmo->startDecay();
 					pAmmo->update();
@@ -661,10 +661,10 @@ namespace Combat
 		}
 
 		if( pAttacker->socket() )
-			pAttacker->socket()->sysMessage( attMessage.arg( pDefender->name ) );
+			pAttacker->socket()->sysMessage( attMessage.arg( pDefender->name() ) );
 
 		if( pDefender->socket() )
-			pDefender->socket()->sysMessage( defMessage.arg( pAttacker->name ) );
+			pDefender->socket()->sysMessage( defMessage.arg( pAttacker->name() ) );
 
 		// Macefighting Weapons (2handed only) 
 		// Deal Stamina loss
@@ -846,7 +846,7 @@ namespace Combat
 			if( pAttacker->npcaitype() == 4 && pDefender->inGuardedArea() )
 			{
 					pAttacker->removeFromView( false );
-					pAttacker->moveTo( pDefender->pos );
+					pAttacker->moveTo( pDefender->pos() );
 					pAttacker->resend( false );
 					
 					pAttacker->soundEffect( 0x1FE );
@@ -897,7 +897,7 @@ namespace Combat
 		if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )		
 		{
 			// Only shot if our "head" can see the opponent
-			if( !lineOfSight( pAttacker->pos + Coord_cl( 0, 0, 13 ), pDefender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
+			if( !lineOfSight( pAttacker->pos() + Coord_cl( 0, 0, 13 ), pDefender->pos(), WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
 				mayAttack = false;
 		}
 		// For other Combat Skills it's enough to stand near the opponent
@@ -1000,7 +1000,7 @@ namespace Combat
 				
 				if( SrvParams->pvpLog() )
 				{
-					sprintf((char*)temp,"%s was killed by %s!\n",pDefender->name.latin1(), pAttacker->name.latin1());
+					sprintf((char*)temp,"%s was killed by %s!\n",pDefender->name().latin1(), pAttacker->name().latin1());
 					savelog((char*)temp,"PvP.log");
 				}
 			}

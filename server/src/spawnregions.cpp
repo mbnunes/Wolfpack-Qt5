@@ -317,7 +317,7 @@ void cSpawnRegion::reSpawnToMax( void )
 			P_ITEM pi = Items->createScriptItem( ItemSect );
 			if( pi != NULL )
 			{
-				pi->pos = pos;
+				pi->setPos( pos );
 				this->itemSerials_.push_back( pi->serial );
 				pi->setSpawnRegion( this->name_ );
 			}

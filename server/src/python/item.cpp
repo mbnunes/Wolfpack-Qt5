@@ -124,7 +124,7 @@ PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 	}
 
 	// Gather parameters
-	Coord_cl pos = self->pItem->pos;
+	Coord_cl pos = self->pItem->pos();
 
 	if( PyTuple_Size( args ) <= 1 )
 	{
@@ -215,20 +215,20 @@ PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 		PyObject *pObj = PyTuple_GetItem( args, 0 );
 
 		if( checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
-			return PyInt_FromLong( self->pItem->pos.distance( getWpCoord( pObj ) ) );
+			return PyInt_FromLong( self->pItem->pos().distance( getWpCoord( pObj ) ) );
 
 		// Item
 		P_ITEM pItem = getWpItem( pObj );
 		if( pItem )
-			return PyInt_FromLong( pItem->pos.distance( self->pItem->pos ) );
+			return PyInt_FromLong( pItem->dist( self->pItem ) );
 
 		P_CHAR pChar = getWpChar( pObj );
         if( pChar )
-			return PyInt_FromLong( pChar->pos.distance( self->pItem->pos ) );
+			return PyInt_FromLong( pChar->dist( self->pItem ) );
 	}
 	else if( PyTuple_Size( args ) >= 2 ) // Min 2 
 	{
-		Coord_cl pos = self->pItem->pos;
+		Coord_cl pos = self->pItem->pos();
 
 		if( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 			return PyInt_FromLong( -1 );
@@ -236,7 +236,7 @@ PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );  
 
-		return PyInt_FromLong( self->pItem->pos.distance( pos ) );
+		return PyInt_FromLong( self->pItem->pos().distance( pos ) );
 	}
 
 		PyErr_BadArgument();
@@ -583,7 +583,7 @@ PyObject* wpItem_additem( wpItem* self, PyObject* args )
 	}
 	else if( !randomPos && autoStack )
 	{
-		Coord_cl pos = pItem->pos;
+		Coord_cl pos = pItem->pos();
 		self->pItem->addItem( pItem, true, handleWeight );
 		if( !pItem->free )
 			pItem->moveTo( pos );
@@ -746,7 +746,7 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 		else
 		{
 			self->pItem->removeFromCont();
-			self->pItem->moveTo( self->pItem->pos );
+			self->pItem->moveTo( self->pItem->pos() );
 		}
 	}
 	else

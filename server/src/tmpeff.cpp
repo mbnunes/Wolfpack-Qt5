@@ -353,7 +353,7 @@ void cTmpEff::Expire()
 		if( more1 == 0 )
 		{
 			if( more2 != 0 )
-				pc_s->emote( tr( "*%1 continues grinding.*" ).arg( pc_s->name ) );
+				pc_s->emote( tr( "*%1 continues grinding.*" ).arg( pc_s->name() ) );
 			
 			pc_s->soundEffect( 0x242 );
 		}

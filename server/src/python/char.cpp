@@ -163,7 +163,7 @@ PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	}
 
 	// Gather parameters
-	Coord_cl pos = self->pChar->pos;
+	Coord_cl pos = self->pChar->pos();
 
 	if( PyTuple_Size( args ) <= 1 )
 	{
@@ -258,20 +258,20 @@ PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 		PyObject *pObj = PyTuple_GetItem( args, 0 );
 
 		if( checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
-			return PyInt_FromLong( self->pChar->pos.distance( getWpCoord( pObj ) ) );
+			return PyInt_FromLong( self->pChar->pos().distance( getWpCoord( pObj ) ) );
 
 		// Item
 		P_ITEM pItem = getWpItem( pObj );
 		if( pItem )
-			return PyInt_FromLong( pItem->pos.distance( self->pChar->pos ) );
+			return PyInt_FromLong( pItem->dist( self->pChar ) );
 
 		P_CHAR pChar = getWpChar( pObj );
         if( pChar )
-			return PyInt_FromLong( pChar->pos.distance( self->pChar->pos ) );
+			return PyInt_FromLong( pChar->dist( self->pChar ) );
 	}
 	else if( PyTuple_Size( args ) >= 2 ) // Min 2 
 	{
-		Coord_cl pos = self->pChar->pos;
+		Coord_cl pos = self->pChar->pos();
 
 		if( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 			return PyInt_FromLong( -1 );
@@ -279,7 +279,7 @@ PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );  
 
-		return PyInt_FromLong( self->pChar->pos.distance( pos ) );
+		return PyInt_FromLong( self->pChar->pos().distance( pos ) );
 	}
 
 	PyErr_BadArgument();
@@ -324,7 +324,7 @@ PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 		// Item
 		P_ITEM pItem = getWpItem( pObj );
 		if( pItem )
-			return PyInt_FromLong( chardirxyz( self->pChar, pItem->pos.x, pItem->pos.y ) );
+			return PyInt_FromLong( chardirxyz( self->pChar, pItem->pos().x, pItem->pos().y ) );
 
 		P_CHAR pChar = getWpChar( pObj );
         if( pChar )
@@ -332,7 +332,7 @@ PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 	}
 	else if( PyTuple_Size( args ) >= 2 ) // Min 2 
 	{
-		Coord_cl pos = self->pChar->pos;
+		Coord_cl pos = self->pChar->pos();
 
 		if( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 			return PyInt_FromLong( -1 );
@@ -1280,7 +1280,7 @@ PyObject* wpChar_goto( wpChar* self, PyObject* args )
 
 	Coord_cl pos = getArgCoord( 0 );
 
-	if( pos.map != self->pChar->pos.map )
+	if( pos.map != self->pChar->pos().map )
 	{
 		PyErr_Warn( PyExc_Warning, "Cannot move to a different map using goto." );
 		return PyFalse;

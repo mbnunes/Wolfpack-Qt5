@@ -453,13 +453,13 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 
 	cUOTxSoundEffect soundEffect;
 	soundEffect.setSound( 0x57 );
-	soundEffect.setCoord( pWearer->pos );
+	soundEffect.setCoord( pWearer->pos() );
 
 	// Send to all sockets in range
 	// ONLY the new equipped item and the sound-effect
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock->player() && ( mSock->player()->pos.distance( pWearer->pos ) <= mSock->player()->VisRange() ) );
+		if( mSock->player() && ( mSock->player()->dist( pWearer ) <= mSock->player()->VisRange() ) );
 		{
 			mSock->send( &wearItem );
 			mSock->send( &soundEffect );
@@ -477,7 +477,7 @@ void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 	// Get the data
 	SERIAL contId = packet->cont();
 
-	Coord_cl dropPos = pChar->pos; // plane
+	Coord_cl dropPos = pChar->pos(); // plane
 	dropPos.x = packet->x();
 	dropPos.y = packet->y();
 	dropPos.z = packet->z();
@@ -571,7 +571,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 	}
 
 	// Can wee see our target
-	if( !lineOfSight( pChar->pos, pOtherChar->pos, TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
+	if( !lineOfSight( pChar->pos(), pOtherChar->pos(), TREES_BUSHES|WALLS_CHIMNEYS|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
 	{
 		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;
@@ -591,9 +591,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 		return;
 
 		tradeWindow->addItem( pItem, false, false );
-		pItem->pos.x = rand() % 60;
-		pItem->pos.y = rand() % 60;
-		pItem->pos.z = 9;
+		pItem->setPos( Coord_cl(rand() % 60, rand() % 60, 9) );
 		pItem->removeFromView( false );
 		pItem->update();
 		return;
@@ -640,7 +638,7 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	P_CHAR pChar = socket->player();
 
 	// Check if the destination is in line of sight
-	if( !lineOfSight( pChar->pos, pos, WALLS_CHIMNEYS|DOORS|LAVA_WATER ) )
+	if( !lineOfSight( pChar->pos(), pos, WALLS_CHIMNEYS|DOORS|LAVA_WATER ) )
 	{
 		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;
@@ -719,7 +717,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			if( !pChar->checkSkill( SNOOPING, 0, 1000 ) )
 			{
 
-				socket->sysMessage( tr( "You fail to put that into %1's pack" ).arg( packOwner->name.latin1() ) );
+				socket->sysMessage( tr( "You fail to put that into %1's pack" ).arg( packOwner->name() ) );
 				socket->bounceItem( pItem, BR_NO_REASON );
 				return;
 			}
@@ -824,15 +822,14 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	if( pCont->type() == 9 || pCont->type() == 1 || pCont->type() == 8 || pCont->type() == 63 || pCont->type() == 65 || pCont->type() == 66 )
 	{
 		// If we're dropping it onto the closed container
-		if( dropPos.distance( pCont->pos ) == 0 )
+		if( dropPos.distance( pCont->pos() ) == 0 )
 		{
 			pCont->addItem( pItem );
 		}
 		else
 		{
 			pCont->addItem( pItem, false );
-			pItem->pos.x = dropPos.x;
-			pItem->pos.y = dropPos.y;
+			pItem->setPos( dropPos );
 		}
 
 		// Dropped on another Container/in another Container
@@ -866,8 +863,8 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// We dropped the item NOT on a container
 	// And were *un*able to stack it (!)
 	// >> Set it to the location of the item we dropped it on and stack it up by 2
-	pItem->moveTo( pCont->pos );
-	pItem->pos.z += 2; // Increase z by 2	
+	pItem->moveTo( pCont->pos() );
+	pItem->setPos( pItem->pos() + Coord_cl(0, 0, 2) );
 	pItem->update();
 
 	// This needs to be checked
@@ -910,7 +907,7 @@ void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 
 	// *You see Snowwhite eating some poisoned apples*
 	// Color: 0x0026
-	pChar->emote( tr( "*You see %1 eating %2*" ).arg( pChar->name.latin1() ).arg( pItem->getName() ) );
+	pChar->emote( tr( "*You see %1 eating %2*" ).arg( pChar->name() ).arg( pItem->getName() ) );
 
 	// We try to feed it more than it needs
 	if( pChar->hunger() + pItem->amount() > 6 )
@@ -959,7 +956,7 @@ void cDragItems::dropOnGuard( cUOSocket* socket, P_ITEM pItem, P_CHAR pGuard )
 	Bounty->BountyDelete( pVictim->serial );
 	
 	// Thank them for their work
-	pGuard->talk( tr( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name.latin1() ).arg( pVictim->questBountyReward() ) );
+	pGuard->talk( tr( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name() ).arg( pVictim->questBountyReward() ) );
 
 	socket->player()->setKarma( socket->player()->karma() + 100 );
 }
@@ -992,7 +989,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 
 		// *You see Snowwhite eating some poisoned apples*
 		// Color: 0x0026
-		pBeggar->emote( tr( "*You see %1 eating %2*" ).arg( pBeggar->name.latin1() ).arg( pItem->getName() ) );
+		pBeggar->emote( tr( "*You see %1 eating %2*" ).arg( pBeggar->name() ).arg( pItem->getName() ) );
 
 		// We try to feed it more than it needs
 		if( pBeggar->hunger() + pItem->amount() > 6 )
@@ -1027,7 +1024,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 		return;
 	}
 
-	pBeggar->talk( tr( "Thank you %1 for the %2 gold!" ).arg( socket->player()->name.latin1() ).arg( pItem->amount() ) );
+	pBeggar->talk( tr( "Thank you %1 for the %2 gold!" ).arg( socket->player()->name() ).arg( pItem->amount() ) );
 	socket->sysMessage( tr("You have gained some karma!") );
 	
 	if( pItem->amount() <= 100 )
@@ -1051,7 +1048,7 @@ void cDragItems::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
 		}
 		
 		socket->player()->giveGold( pItem->sellprice(), true );
-		pBroker->talk( tr( "Here you have your %1 gold, %2" ).arg( pItem->sellprice() ).arg( socket->player()->name.latin1() ) );
+		pBroker->talk( tr( "Here you have your %1 gold, %2" ).arg( pItem->sellprice() ).arg( socket->player()->name() ) );
 		Items->DeleItem( pItem );
 		return;
 	}

@@ -222,7 +222,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 			unsigned int j;
 			for ( j = 0; j < multi.size(); ++j)
 			{
-				if ( multi[j].visible && ( pItem->pos.x + multi[j].x == pos.x) && ( pItem->pos.y + multi[j].y == pos.y ) )
+				if ( multi[j].visible && ( pItem->pos().x + multi[j].x == pos.x) && ( pItem->pos().y + multi[j].y == pos.y ) )
 				{
 					tile_st tTile = TileCache::instance()->getTile( multi[j].tile );
 					if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
@@ -230,7 +230,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 
 					stBlockItem blockItem;
 					blockItem.height = tTile.height;
-					blockItem.z = pItem->pos.z + multi[j].z;
+					blockItem.z = pItem->pos().z + multi[j].z;
 
 					if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
 						blockItem.walkable = true;
@@ -245,7 +245,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 		}
 
 		// They need to be at the same x,y,plane coords
-		if( ( pItem->pos.x != pos.x ) || ( pItem->pos.y != pos.y ) || ( pItem->pos.map != pos.map ) )
+		if( ( pItem->pos().x != pos.x ) || ( pItem->pos().y != pos.y ) || ( pItem->pos().map != pos.map ) )
 			continue;
 
 		tile_st tTile = TileCache::instance()->getTile( pItem->id() );
@@ -256,7 +256,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 
 		stBlockItem blockItem;
 		blockItem.height = tTile.height;
-		blockItem.z = pItem->pos.z;
+		blockItem.z = pItem->pos().z;
 
 		// Once again: see above for a description of this part
 		if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
@@ -353,7 +353,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 */
 bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 {
-	Coord_cl dPos = pChar->pos;
+	Coord_cl dPos = pChar->pos();
 
 	if( pItem->onCollide( pChar ) )
 		return true;
@@ -381,7 +381,7 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 		pChar->effect( 0x372A, 0x09, 0x06 );
 
 		// Teleport pets
-		RegionIterator4Chars iter( pChar->pos );
+		RegionIterator4Chars iter( pChar->pos() );
 		for( iter.Begin(); !iter.atEnd(); iter++ )
 		{
 			P_CHAR pPet = iter.GetData();
@@ -439,7 +439,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 
 //	teleporters( pChar );
 
-	RegionIterator4Items iter( pChar->pos );
+	RegionIterator4Items iter( pChar->pos() );
 	for( iter.Begin(); !iter.atEnd(); iter++ )
 	{
 		// Check if the item got newly in range
@@ -449,7 +449,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 			continue;
 
 		// Check for item collisions here.
-		if( ( pChar->pos.x == pItem->pos.x ) && ( pChar->pos.y == pItem->pos.y ) && ( pItem->pos.z >= pChar->pos.z ) && ( pItem->pos.z <= pChar->pos.z + 5 ) )
+		if( ( pChar->pos().x == pItem->pos().x ) && ( pChar->pos().y == pItem->pos().y ) && ( pItem->pos().z >= pChar->pos().z ) && ( pItem->pos().z <= pChar->pos().z + 5 ) )
 		{
 			if( handleItemCollision( pChar, pItem ) );
 			break;
@@ -458,8 +458,8 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 		// If we are a connected player then send new items
 		if( socket )
 		{
-			UI32 oldDist = oldpos.distance( pItem->pos );
-			UI32 newDist = pChar->pos.distance( pItem->pos );
+			UI32 oldDist = oldpos.distance( pItem->pos() );
+			UI32 newDist = pChar->pos().distance( pItem->pos() );
 
 			// Was out of range before and now is in range
 			if( ( oldDist >= pChar->VisRange() ) && ( newDist <= pChar->VisRange() ) )
@@ -504,7 +504,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	}
 
 	// save our original location before we even think about moving
-	const Coord_cl oldpos( pChar->pos );
+	const Coord_cl oldpos( pChar->pos() );
 	
 	// If the Direction we're moving to is different from our current direction
 	// We're turning and NOT moving into a specific direction
@@ -517,7 +517,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	if( dir == pChar->dir() )
 	{
 		// Note: Do NOT use the copy constructor as it'll create a reference
-		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos );
+		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos() );
 
 		// Check if the stamina parameters
 		if( !consumeStamina( socket, pChar, running ) )
@@ -584,7 +584,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	if( socket )
 		socket->allowMove( sequence );
 
-	RegionIterator4Chars ri( pChar->pos );
+	RegionIterator4Chars ri( pChar->pos() );
 
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
@@ -649,7 +649,7 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos )
 			if (pc_i != pc && (online(pc_i) || pc_i->isNpc()))
 			{
 				// x=x,y=y, and distance btw z's <= MAX STEP
-				if ((pc_i->pos.x == pos.x) && (pc_i->pos.y == pos.y) && (abs(pc_i->pos.z-pos.z) <= P_M_MAX_Z_CLIMB))
+				if ((pc_i->pos().x == pos.x) && (pc_i->pos().y == pos.y) && (abs(pc_i->pos().z-pos.z) <= P_M_MAX_Z_CLIMB))
 				{
 					return true;
 				}
@@ -868,11 +868,11 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 		{
 			if( !mapitem->isMulti() )
 			{
-				if ((mapitem->pos.x == position.x) && (mapitem->pos.y == position.y))
+				if ((mapitem->pos().x == position.x) && (mapitem->pos().y == position.y))
 				{
 					tile_st tile = TileCache::instance()->getTile( mapitem->id() );
 					xyblock[xycount].type=1;
-					xyblock[xycount].basez=mapitem->pos.z;
+					xyblock[xycount].basez=mapitem->pos().z;
 					xyblock[xycount].id=mapitem->id();
 					xyblock[xycount].flag1=tile.flag1;
 					xyblock[xycount].flag2=tile.flag2;
@@ -884,8 +884,8 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 				}
 			}
 			else if (
-				(abs(mapitem->pos.x - position.x)<=BUILDRANGE)&&
-				(abs(mapitem->pos.y - position.y)<=BUILDRANGE)
+				(abs(mapitem->pos().x - position.x)<=BUILDRANGE)&&
+				(abs(mapitem->pos().y - position.y)<=BUILDRANGE)
 				)
 			{
 				MultiDefinition* def = MultisCache->getMulti( mapitem->id() - 0x4000 );
@@ -894,11 +894,11 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 				QValueVector<multiItem_st> multi = def->getEntries();
 				for (int j = 0; j < multi.size(); ++j)
 				{
-					if (multi[j].visible && (mapitem->pos.x+multi[j].x == position.x) && (mapitem->pos.y+multi[j].y == position.y))
+					if (multi[j].visible && (mapitem->pos().x+multi[j].x == position.x) && (mapitem->pos().y+multi[j].y == position.y))
 					{
 						tile_st tile = TileCache::instance()->getTile( multi[j].tile );
 						xyblock[xycount].type = 2;
-						xyblock[xycount].basez = multi[j].z + mapitem->pos.z;
+						xyblock[xycount].basez = multi[j].z + mapitem->pos().z;
 						xyblock[xycount].id = multi[j].tile;
 						xyblock[xycount].flag1 = tile.flag1;
 						xyblock[xycount].flag2 = tile.flag2;
@@ -929,8 +929,8 @@ void cMovement::sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& o
 		return;
 
 	// We can see the target and didn't see it before
-	Q_UINT32 newDistance = pChar->pos.distance( pWalker->pos );
-	Q_UINT32 oldDistance = pChar->pos.distance( oldpos );
+	Q_UINT32 newDistance = pChar->pos().distance( pWalker->pos() );
+	Q_UINT32 oldDistance = pChar->pos().distance( oldpos );
 	
 	// We dont see him, he doesn't see us
 	if( ( newDistance > pChar->VisRange() ) && ( newDistance > pWalker->VisRange() ) )
@@ -963,7 +963,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 	const int visibleRange = VISRANGE;
 	signed short tempshort;
 
-	RegionIterator4Chars ri( pChar->pos );
+	RegionIterator4Chars ri( pChar->pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR mapChar = ri.GetData();
@@ -997,7 +997,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 		else if( !mapChar->isHidden() && !mapChar->dead() && (!(mapChar->isInvul())) &&(!(mapChar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
 		{
 			if( socket )
-				socket->sysMessage( tr( "Being perfectly rested, you shove %1 out of the way." ).arg( mapChar->name ) );
+				socket->sysMessage( tr( "Being perfectly rested, you shove %1 out of the way." ).arg( mapChar->name() ) );
 			
 			pChar->setStm( QMAX( ( tempshort = pChar->stm() ) - 4, 0 ) );
 			if ( pChar->socket() )
@@ -1021,8 +1021,8 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 {
 /*	// lets cache these vars in advance
 	const int visibleRange = VISRANGE;
-	const short int newx = pc->pos.x;
-	const short int newy = pc->pos.y;
+	const short int newx = pc->pos().x;
+	const short int newy = pc->pos().y;
 	const short int oldx = GetXfromDir(pc->dir + 4, newx);
 	const short int oldy = GetYfromDir(pc->dir + 4, newy);
 	
@@ -1049,17 +1049,17 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 						// is the item a building on the BUILDRANGE?
 						if( ( mapitem->id() == 0x407C ) || ( mapitem->id() == 0x407D ) || ( mapitem->id() == 0x407E ) )
 						{
-							if ((abs(newx-mapitem->pos.x)==BUILDRANGE)||(abs(newy-mapitem->pos.y)==BUILDRANGE))
+							if ((abs(newx-mapitem->pos().x)==BUILDRANGE)||(abs(newy-mapitem->pos().y)==BUILDRANGE))
 							{
 								senditem(socket, mapitem);
 							}
 						}
 						else
 						{
-							signed int oldd = Distance(oldx, oldy, mapitem->pos.x, mapitem->pos.y);
-							signed int newd = Distance(newx, newy, mapitem->pos.x, mapitem->pos.y);
+							signed int oldd = Distance(oldx, oldy, mapitem->pos().x, mapitem->pos().y);
+							signed int newd = Distance(newx, newy, mapitem->pos().x, mapitem->pos().y);
 							
-							//if ((abs(newx-mapitem->pos.x) == visibleRange ) || (abs(newy-mapitem->pos.y) == visibleRange ))
+							//if ((abs(newx-mapitem->pos().x) == visibleRange ) || (abs(newy-mapitem->pos().y) == visibleRange ))
 							if (newd == visibleRange)
 							{
 								if( ( !mapitem->visible ) || ( ( mapitem->visible ) && ( currchar[socket]->isGM() ) ) )// we're a GM, or not hidden
@@ -1087,11 +1087,11 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 // Thyme 2000.09.15
 // At the request of Abaddon
 // Thyme BEGIN
-//						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
-						if ( ( mapitem->pos.x == newx ) &&
-							 ( mapitem->pos.y == newy ) &&
-							 ( pc->pos.z >= mapitem->pos.z ) &&
-							 ( pc->pos.z <= ( mapitem->pos.z + 5 ) ) )
+//						if ((mapitem->pos().x == newx) && (mapitem->pos().y == newy) && (mapitem->pos().z==pc->pos().z))
+						if ( ( mapitem->pos().x == newx ) &&
+							 ( mapitem->pos().y == newy ) &&
+							 ( pc->pos().z >= mapitem->pos().z ) &&
+							 ( pc->pos().z <= ( mapitem->pos().z + 5 ) ) )
 // Thyme END
 						{
 							if (!Magic->CheckResist(NULL, pc, 4))
@@ -1104,7 +1104,7 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 					
 					else if( ( tileID == 0x3915 ) || ( tileID == 0x3920 ) )
 					{//Poison field
-						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
+						if ((mapitem->pos().x == newx) && (mapitem->pos().y == newy) && (mapitem->pos().z==pc->pos().z))
 						{
 							if (!Magic->CheckResist(NULL, pc, 5))
 							{
@@ -1116,7 +1116,7 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 					
 					else if( ( tileID == 0x3979 ) || ( tileID == 0x3967 ) )
 					{//Para Field
-						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
+						if ((mapitem->pos().x == newx) && (mapitem->pos().y == newy) && (mapitem->pos().z==pc->pos().z))
 						{
 							if (!Magic->CheckResist(NULL, pc, 6))
 							{
@@ -1128,7 +1128,7 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 					else if( !mapitem->isMulti() )
 					{
 						// look for item triggers, this was moved from CrazyXYBlockStuff()
-						if ((mapitem->pos.x== newx) && (mapitem->pos.y == newy))
+						if ((mapitem->pos().x== newx) && (mapitem->pos().y == newy))
 						{
 							if (mapitem->trigger!=0)
 							{
@@ -1162,11 +1162,11 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 void cMovement::HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 {	
 	cTerritory* territory = pc->region();
-	if ( pc->pos != oldpos )
+	if ( pc->pos() != oldpos )
 	{
 		if ( territory->haveTeleporters() )
 		{
-			Coord_cl destination = pc->pos;
+			Coord_cl destination = pc->pos();
 			if ( territory->findTeleporterSpot( destination ) )
 			{
 				pc->moveTo( destination );
@@ -1226,7 +1226,7 @@ void cMovement::randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type )
 	if( pChar->isFrozen() )
 		return;
 
-	Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos );
+	Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos() );
 
 	// When the circle or box is not set yet reset the npcwalking setting
     if(	
@@ -1241,8 +1241,8 @@ void cMovement::randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type )
 	// If we should wander around in a circle and the middle of our circle is not yet set, let's reset it to our current position
 	if( type == 2 && pChar->fx1() == -1 && pChar->fy1() == -1 )
 	{
-		pChar->setFx1( pChar->pos.x );
-		pChar->setFy1( pChar->pos.y );
+		pChar->setFx1( pChar->pos().x );
+		pChar->setFy1( pChar->pos().y );
 	}
     
 	// If we either have to walk in a box or a circle we'll check if the new direction
@@ -1290,12 +1290,12 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 	{
 		newpath[pn].x = newpath[pn].y = 0;
 		int pf_neg = ( ( rand() % 2 ) ? 1 : -1 );
-		int pf_dir = Direction( pc->pos.x, pc->pos.y, gx, gy );
+		int pf_dir = Direction( pc->pos().x, pc->pos().y, gx, gy );
 		for ( int i = 0 ; i < 8 ; i++ )
 		{
 			pf_neg *= -1;
 			pf_dir += ( i * pf_neg );
-			Coord_cl newCoord = pc->pos;
+			Coord_cl newCoord = pc->pos();
 
 			if( mayWalk( pc, newCoord ) )
 			{
@@ -1341,16 +1341,16 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
         {
 			// Only move in the direction of the target
 			// No special pathfinding
-			if( pc_attacker->pos.distance( pc_i->pos ) > 1 && ( pc_attacker->socket() || pc_attacker->isNpc() ) )
+			if( pc_attacker->dist( pc_i ) > 1 && ( pc_attacker->socket() || pc_attacker->isNpc() ) )
             {
-				//PathFind( pc_i, pc_attacker->pos.x, pc_attacker->pos.y );
+				//PathFind( pc_i, pc_attacker->pos().x, pc_attacker->pos().y );
                 //UINT8 dir = chardirxyz( pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y );
                 //if( ( pc_i->dir & 0x07 ) == ( dir & 0x07 ) )
 				//	pc_i->pathnum++;
                 
 				// This is a temporary fix. 
 				UINT8 dir = chardir( pc_i, pc_attacker );
-				Coord_cl newCoord = calcCoordFromDir( dir, pc_i->pos );
+				Coord_cl newCoord = calcCoordFromDir( dir, pc_i->pos() );
 				if( mayWalk( pc_i, newCoord ) )
 					Walking( pc_i, dir, 0xFF );
             }
@@ -1382,7 +1382,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				UINT8 dir = pc_target->dist( pc_i );
 				if ( dir > 1 )
 				{
-					//PathFind( pc_i, pc_target->pos.x, pc_target->pos.y );
+					//PathFind( pc_i, pc_target->pos().x, pc_target->pos().y );
 	                //UINT8 dir = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
 					//UINT8 dir = chardirxyz(pc_i, pc_i->pathX( pc_i->pathnum() ), pc_i->pathY(pc_i->pathnum()) );
 					//pc_i->pathnum++;
@@ -1429,20 +1429,20 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 			{
 				// calculate a x,y to flee towards
 				int mydist = P_PF_MFD - pc_k->dist( pc_i ) + 1;
-				j = chardirxyz( pc_i, pc_k->pos.x, pc_k->pos.y );
-				Coord_cl fleeCoord = calcCoordFromDir( j, pc_i->pos );
+				j = chardirxyz( pc_i, pc_k->pos().x, pc_k->pos().y );
+				Coord_cl fleeCoord = calcCoordFromDir( j, pc_i->pos() );
 
-				if ( fleeCoord != pc_i->pos )
+				if ( fleeCoord != pc_i->pos() )
 				{
 					Q_INT8 xfactor = 0;
 					Q_INT8 yfactor = 0;
 
-					if( fleeCoord.x < pc_i->pos.x )
+					if( fleeCoord.x < pc_i->pos().x )
 						xfactor = -1;
 					else
 						xfactor = 1;
 
-					if( fleeCoord.y < pc_i->pos.y )
+					if( fleeCoord.y < pc_i->pos().y )
 						xfactor = -1;
 					else
 						xfactor = 1;
@@ -1470,7 +1470,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 		break;
 	// Try to find your way to a specified position
 	case 6:
-		if( pc_i->pos.map != pc_i->ptarg().map )
+		if( pc_i->pos().map != pc_i->ptarg().map )
 		{
 			pc_i->setNpcWander( 0 );
 		}
@@ -1480,7 +1480,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 
 			if( dest.x == 0 && dest.y == 0  && dest.z == 0 )
 				pc_i->setNpcWander( 0 );
-			else if( dest.distance( pc_i->pos ) == 0 )
+			else if( dest.distance( pc_i->pos() ) == 0 )
 			{
 				pc_i->setNpcWander( 0 );
 			}
@@ -1658,14 +1658,14 @@ UINT16 DynTile( const Coord_cl &pos )
 				QValueVector<multiItem_st> multi = def->getEntries();
 				for( UINT32 j = 0; j < multi.size(); ++j )
 				{
-					if( ( multi[j].visible && ( mapitem->pos.x + multi[j].x == pos.x ) && ( mapitem->pos.y + multi[j].y == pos.y )
-						&& ( abs( mapitem->pos.z + multi[j].z - pos.z ) <= 1 ) ) )
+					if( ( multi[j].visible && ( mapitem->pos().x + multi[j].x == pos.x ) && ( mapitem->pos().y + multi[j].y == pos.y )
+						&& ( abs( mapitem->pos().z + multi[j].z - pos.z ) <= 1 ) ) )
 					{
 						return multi[j].tile;
 					}
 				}
 			}
-			else if ( mapitem->pos == pos )
+			else if ( mapitem->pos() == pos )
 				return mapitem->id();
         }    
 		

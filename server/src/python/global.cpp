@@ -413,10 +413,10 @@ PyObject *wpItems( PyObject* self, PyObject* args )
 	{
 		P_ITEM pItem = iter.GetData();
 
-		if( pItem->pos.map != pos.map )
+		if( pItem->pos().map != pos.map )
 			continue;
 
-		if( exact && pItem->pos.x != pos.x && pItem->pos.y != pos.y )
+		if( exact && pItem->pos().x != pos.x && pItem->pos().y != pos.y )
 			continue;
 
 		PyList_Append( list, PyGetItemObject( pItem ) );

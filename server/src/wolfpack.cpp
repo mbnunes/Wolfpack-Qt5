@@ -107,7 +107,7 @@ bool inrange1p (PC_CHAR pca, P_CHAR pcb) // Are characters a and b in visual ran
 {
 	if (pca == NULL || pcb == NULL) return false;
 
-	return inVisRange(pca->pos.x, pca->pos.y, pcb->pos.x, pcb->pos.y);
+	return inVisRange(pca->pos().x, pca->pos().y, pcb->pos().x, pcb->pos().y);
 }
 
 ///////////
@@ -150,7 +150,7 @@ void signal_handler(int signal)
 
 					if( pChar )
 					{
-						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
+						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 						pChar->setRegion( region );
 					}
 				}
@@ -479,7 +479,7 @@ void explodeitem(int s, P_ITEM pi)
 	// - send the effect (visual and sound)
 	if (!pi->isInWorld()) //bugfix LB
 	{
-		pi->moveTo( pc_currchar->pos );
+		pi->moveTo( pc_currchar->pos() );
 		pc_currchar->action( 0x15 );
 		pc_currchar->soundEffect( 0x0207 );
 	}
@@ -504,7 +504,7 @@ void explodeitem(int s, P_ITEM pi)
 	if (len<2) len=2;	// 2 square min damage range
 
 	unsigned long loopexit=0;
-	RegionIterator4Chars ri(pi->pos);
+	RegionIterator4Chars ri(pi->pos());
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
@@ -514,9 +514,9 @@ void explodeitem(int s, P_ITEM pi)
 				continue;
 			if(pc->isGM() || (pc->isPlayer() && !online(pc)))
 				continue;
-			dx=abs(pc->pos.x-pi->pos.x);
-			dy=abs(pc->pos.y-pi->pos.y);
-			dz=abs(pc->pos.z-pi->pos.z);
+			dx=abs(pc->pos().x-pi->pos().x);
+			dy=abs(pc->pos().y-pi->pos().y);
+			dz=abs(pc->pos().z-pi->pos().z);
 			if ((dx<=len)&&(dy<=len)&&(dz<=len))
 			{
 //				pc->hp-=dmg+(2-QMIN(dx,dy));
@@ -540,7 +540,7 @@ void explodeitem(int s, P_ITEM pi)
 	int chain=0;
 	loopexit=0;
 
-	RegionIterator4Items rj( pi->pos );
+	RegionIterator4Items rj( pi->pos() );
 	for( rj.Begin(); !rj.atEnd(); rj++ )
 	{
 		P_ITEM piMap = rj.GetData();
@@ -548,9 +548,9 @@ void explodeitem(int s, P_ITEM pi)
 		{
 			if( piMap->id() == 0x0F0D && piMap->type() == 19 ) // check for expl-potions
 			{
-				dx=abs(pi->pos.x - piMap->pos.x);
-				dy=abs(pi->pos.y - piMap->pos.y);
-				dz=abs(pi->pos.z - piMap->pos.z);
+				dx=abs(pi->pos().x - piMap->pos().x);
+				dy=abs(pi->pos().y - piMap->pos().y);
+				dz=abs(pi->pos().z - piMap->pos().z);
 
 				if (dx<=2 && dy<=2 && dz<=2 && chain==0) // only trigger if in 2*2*2 cube
 				{
@@ -638,7 +638,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		if( x == ( db + 0 ) )
 		{
 			pi->setId( pi->id() + 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x--;
 			pos.y++;
 			pi->moveTo( pos );
@@ -648,7 +648,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if( x == ( db + 1 ) )
 		{
 			pi->setId( pi->id() - 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x++;
 			pos.y--;
 			pi->moveTo( pos );
@@ -658,7 +658,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+2))
 		{
 			pi->setId( pi->id() + 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x++;
 			pos.y++;
 			pi->moveTo( pos );
@@ -668,7 +668,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+3))
 		{
 			pi->setId( pi->id() - 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x--;
 			pos.y--;
 			pi->moveTo( pos );
@@ -678,7 +678,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+4))
 		{
 			pi->setId( pi->id() + 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x--;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
@@ -687,7 +687,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+5))
 		{
 			pi->setId( pi->id() - 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x++;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
@@ -696,7 +696,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+6))
 		{
 			pi->setId( pi->id() + 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x++;
 			pos.y--;
 			pi->moveTo( pos );
@@ -706,7 +706,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+7))
 		{
 			pi->setId( pi->id() - 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x--;
 			pos.y++;
 			pi->moveTo( pos );
@@ -716,7 +716,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+8))
 		{
 			pi->setId( pi->id() + 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x++;
 			pos.y++;
 			pi->moveTo( pos );
@@ -726,7 +726,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+9))
 		{
 			pi->setId( pi->id() - 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x--;
 			pos.y--;
 			pi->moveTo( pos );
@@ -736,7 +736,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+10))
 		{
 			pi->setId( pi->id() + 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x++;
 			pos.y--;
 			pi->moveTo( pos );
@@ -746,7 +746,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if (x==(db+11))
 		{
 			pi->setId( pi->id() - 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.x--;
 			pos.y++;
 			pi->moveTo( pos );
@@ -768,7 +768,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if( x == ( db + 14 ) )
 		{
 			pi->setId( pi->id() + 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.y--;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 0);
@@ -777,7 +777,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		else if( x == ( db + 15 ) )
 		{
 			pi->setId( pi->id() - 1 );
-			Coord_cl pos( pi->pos );
+			Coord_cl pos( pi->pos() );
 			pos.y++;
 			pi->moveTo( pos );
 			doorsfx(pi, x, 1);
@@ -801,7 +801,7 @@ void dooruse( cUOSocket *socket, P_ITEM pi )
 		if( !pChar )
 			return;
 		
-		cHouse* pHouse = dynamic_cast<cHouse*>( cMulti::findMulti( pi->pos ) );
+		cHouse* pHouse = dynamic_cast<cHouse*>( cMulti::findMulti( pi->pos() ) );
 		if( !pHouse )
 			return;
 
@@ -854,7 +854,7 @@ void callguards( P_CHAR pc_player )
 	if (!pc_player->inGuardedArea() || !SrvParams->guardsActive() )
 		return;
 
-	RegionIterator4Chars ri(pc_player->pos);
+	RegionIterator4Chars ri(pc_player->pos());
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pc = ri.GetData();
@@ -862,7 +862,7 @@ void callguards( P_CHAR pc_player )
 		{
 			if( !pc->dead() && !pc->isInnocent() && pc_player->inRange( pc, 14 ) )
 			{
-				Combat::spawnGuard( pc, pc, pc->pos );
+				Combat::spawnGuard( pc, pc, pc->pos() );
 			}
 		}
 	}
@@ -1004,7 +1004,7 @@ void interpretCommand( const QString &command )
 				{
 					if( mSock->player() )
 					{
-						clConsole.send( "%i) %s [%x]\n", ++i, mSock->player()->name.latin1(), mSock->player()->serial );
+						clConsole.send( "%i) %s [%x]\n", ++i, mSock->player()->name(), mSock->player()->serial );
 					}
 				}
 
@@ -1036,7 +1036,7 @@ void interpretCommand( const QString &command )
 
 					if( pChar )
 					{
-						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
+						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 						pChar->setRegion( region );
 					}
 				}
@@ -1348,9 +1348,9 @@ int main( int argc, char *argv[] )
 		}
 		else // Add to Map Regions
 		{
-			int max_x = Map->mapTileWidth(pi->pos.map) * 8;
-			int max_y = Map->mapTileHeight(pi->pos.map) * 8;
-			if ( pi->pos.x > max_x || pi->pos.y > max_y ) 
+			int max_x = Map->mapTileWidth(pi->pos().map) * 8;
+			int max_y = Map->mapTileHeight(pi->pos().map) * 8;
+			if ( pi->pos().x > max_x || pi->pos().y > max_y ) 
 			{
 				// these are invalid locations, delete them!
 				deleteItems.append( pi );
@@ -1439,7 +1439,7 @@ int main( int argc, char *argv[] )
 					pMulti->addChar( pChar );
 			}
 
-			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
+			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 			pChar->setRegion( region );
 
 			// Now that we have our owner set correctly
@@ -1593,7 +1593,7 @@ int main( int argc, char *argv[] )
 			P_CHAR player = mSock->player();
 			if ( player && !player->isGM() && player->clientidletime() && player->clientidletime() < uiCurrentTime )
 			{
-				clConsole.send("Player %s disconnected due to inactivity !\n", player->name.latin1());
+				clConsole.send( tr("Player %1 disconnected due to inactivity !\n").arg( player->name() ) );
 				cUOTxMessageWarning packet;
 				packet.setReason( cUOTxMessageWarning::Idle );
 				mSock->send( &packet );
@@ -1709,8 +1709,8 @@ int chardir(P_CHAR a, P_CHAR b)	// direction from character a to char b
 {
 	int dir,xdif,ydif;
 
-	xdif = b->pos.x - a->pos.x;
-	ydif = b->pos.y - a->pos.y;
+	xdif = b->pos().x - a->pos().x;
+	ydif = b->pos().y - a->pos().y;
 
 	if ((xdif==0)&&(ydif<0)) dir=0;
 	else if ((xdif>0)&&(ydif<0)) dir=1;
@@ -1729,8 +1729,8 @@ int chardirxyz(P_CHAR pc, int x, int y)	// direction from character a to char b
 {
 	int dir, xdif, ydif;
 
-	xdif = x-pc->pos.x;
-	ydif = y-pc->pos.y;
+	xdif = x-pc->pos().x;
+	ydif = y-pc->pos().y;
 
 	if ((xdif==0)&&(ydif<0)) dir=0;
 	else if ((xdif>0)&&(ydif<0)) dir=1;
@@ -2031,7 +2031,7 @@ int calcValue(P_ITEM pi, int value)
 
 int calcGoodValue(P_CHAR npcnum2, P_ITEM pi, int value,int goodtype)
 { // Function Created by Magius(CHE) for trade System
-	cTerritory* Region = cAllTerritories::getInstance()->region( npcnum2->pos.x, npcnum2->pos.y, npcnum2->pos.map );
+	cTerritory* Region = cAllTerritories::getInstance()->region( npcnum2->pos().x, npcnum2->pos().y, npcnum2->pos().map );
 
 	int regvalue=0;
 	int x;
@@ -2070,7 +2070,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		cTerritory* Region;
 		if (pio->isInWorld())
 		{
-			Region = cAllTerritories::getInstance()->region( pio->pos.x, pio->pos.y, pio->pos.map );
+			Region = cAllTerritories::getInstance()->region( pio->pos().x, pio->pos().y, pio->pos().map );
 			if( Region != NULL )
 				tmpreg = Region->name();
 		}
@@ -2078,7 +2078,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		{
 			P_CHAR pc=FindCharBySerial(pio->contserial);
 			if (!pc) return;
-			Region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y, pc->pos.map );
+			Region = cAllTerritories::getInstance()->region( pc->pos().x, pc->pos().y, pc->pos().map );
 			if( Region != NULL )
 				tmpreg = Region->name();
 		}
@@ -3176,7 +3176,7 @@ void bgsound(P_CHAR pc)
 	if (pc == NULL) return;
 
 	int y=0;
-	RegionIterator4Chars ri(pc->pos);
+	RegionIterator4Chars ri(pc->pos());
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
@@ -3186,7 +3186,7 @@ void bgsound(P_CHAR pc)
 			{
 				if (!pc->free) // lb, bugfix !
 				{
-					if (inRange(pc->pos.x, pc->pos.y, pc->pos.x, pc->pos.y, distance))
+					if (inRange(pc->pos().x, pc->pos().y, pc->pos().x, pc->pos().y, distance))
 					{
 						inrange.push_back(pc);
 					}
@@ -3220,10 +3220,10 @@ void bgsound(P_CHAR pc)
 			{
 				/*sfx[2]=basesound>>8;
 				sfx[3]=basesound%256;
-				sfx[6]=inrange[sound]->pos.x>>8;
-				sfx[7]=inrange[sound]->pos.x%256;
-				sfx[8]=inrange[sound]->pos.y>>8;
-				sfx[9]=inrange[sound]->pos.y%256;
+				sfx[6]=inrange[sound]->pos().x>>8;
+				sfx[7]=inrange[sound]->pos().x%256;
+				sfx[8]=inrange[sound]->pos().y>>8;
+				sfx[9]=inrange[sound]->pos().y%256;
 				Xsend(calcSocketFromChar(pc), sfx, 12); //bugfix, LB*/
 			}
 		}
@@ -3251,10 +3251,10 @@ void bgsound(P_CHAR pc)
 		{
 			/*sfx[2] = (unsigned char) (basesound>>8);
 			sfx[3] = (unsigned char) (basesound%256);
-			sfx[6] = (unsigned char) (pc->pos.x>>8);
-			sfx[7] = (unsigned char) (pc->pos.x%256);
-			sfx[8] = (unsigned char) (pc->pos.y>>8);
-			sfx[9] = (unsigned char) (pc->pos.y%256);
+			sfx[6] = (unsigned char) (pc->pos().x>>8);
+			sfx[7] = (unsigned char) (pc->pos().x%256);
+			sfx[8] = (unsigned char) (pc->pos().y>>8);
+			sfx[9] = (unsigned char) (pc->pos().y%256);
 			Xsend(calcSocketFromChar(pc), sfx, 12); //bugfix LB*/
 		}
 	}

@@ -907,7 +907,7 @@ public:
 	void setType( UINT32 data )		{ setInt( 7, data ); }
 	void setX( UINT32 data )		{ setInt( 11, data ); }
 	void setY( UINT32 data )		{ setInt( 15, data ); }
-	void setContent( QString layout, QStringList text );
+	void setContent( const QString& layout, const QStringList& text );
 };
 
 // 0x95 Dye Tub

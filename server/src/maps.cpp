@@ -248,14 +248,14 @@ signed char Maps::dynamicElevation(const Coord_cl& pos) const
 				if ( def )
 				{
 					z = def->multiHeight( pos.x, pos.y, pos.z );
-					z += mapitem->pos.z + 1;
+					z += mapitem->pos().z + 1;
 				// this used to do a z++, but that doesn't take INT32o account the fact that
 				// the itemp[] the multi was based on has its own elevation
 				}
 			}
-			if ( ( mapitem->pos.x == pos.x ) && ( mapitem->pos.y == pos.y ) && ( !mapitem->isMulti() ) )
+			if ( ( mapitem->pos().x == pos.x ) && ( mapitem->pos().y == pos.y ) && ( !mapitem->isMulti() ) )
 			{
-				const INT8 ztemp = mapitem->pos.z + TileCache::instance()->tileHeight( mapitem->id() );
+				const INT8 ztemp = mapitem->pos().z + TileCache::instance()->tileHeight( mapitem->id() );
 				if ((ztemp <= pos.z + MaxZstep) && (ztemp > z))
 				{
 					z = ztemp;

@@ -358,7 +358,7 @@ void cUOSocket::disconnect( void )
 			++it;
 			if ( mSocket == this || !SrvParams->joinMsg() || !mSocket->player() || !mSocket->player()->isGMorCounselor() )
 				continue;
-			mSocket->sysMessage( tr("%1 left the world!").arg( _player->name.latin1() ), 0x25 );
+			mSocket->sysMessage( tr("%1 left the world!").arg( _player->name() ), 0x25 );
 		}		
 		_player->setSocket( NULL );
 	}
@@ -433,7 +433,7 @@ void cUOSocket::sendCharList()
 	// Add the characters
 	Q_UINT8 i = 0;
 	for(; i < characters.size(); ++i )
-		charList->addCharacter( characters.at(i)->name.latin1() );
+		charList->addCharacter( characters.at(i)->name() );
 
 	// Add the Starting Locations
 	vector< StartLocation_st > startLocations = SrvParams->startLocation();
@@ -537,7 +537,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 
 	// Which map are we on
 	cUOTxChangeMap changeMap;
-	changeMap.setMap( pChar->pos.map );
+	changeMap.setMap( pChar->pos().map );
 	send( &changeMap );
 
 	// Send us our player and send the rest to us as well.
@@ -566,7 +566,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )
-			mSock->sysMessage( tr("%1 entered the world!").arg( pChar->name.latin1() ), 0x48 );
+			mSock->sysMessage( tr("%1 entered the world!").arg( pChar->name() ), 0x48 );
 }
 
 /*!
@@ -715,7 +715,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setPriv( SrvParams->defaultpriv1() );
 	pChar->setPriv2( SrvParams->defaultpriv2() );
 
-	pChar->name = packet->name().latin1();
+	pChar->setName( packet->name() );
 	
 	pChar->setSkin( packet->skinColor() );
 	pChar->setXSkin( packet->skinColor() );
@@ -852,7 +852,7 @@ void cUOSocket::updateCharList()
 
 	// Add the characters
 	for( Q_UINT8 i = 0; i < characters.size(); ++i )
-		charList.setCharacter( i, characters.at(i)->name.latin1() );
+		charList.setCharacter( i, characters.at(i)->name() );
 
 	send( &charList );
 }
@@ -1035,7 +1035,7 @@ void cUOSocket::showSpeech( const cUObject *object, const QString &message, Q_UI
 {
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( object->serial );
-	speech.setName( object->name.latin1() );
+	speech.setName( object->name() );
 	speech.setFont( font );
 	speech.setColor( color );
 	speech.setText( message );
@@ -1093,7 +1093,7 @@ void cUOSocket::resendPlayer( bool quick )
 	if( !quick )
 	{
 		cUOTxChangeMap changeMap; 
-		changeMap.setMap( _player->pos.map );
+		changeMap.setMap( _player->pos().map );
 		send( &changeMap );
 	}
 
@@ -1671,7 +1671,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	// Playervendors are invulnerable
 	if( pc_i->npcaitype() == 17 ) 
 	{
-		sysMessage( tr( "%1 cannot be harmed." ).arg( pc_i->name ) );
+		sysMessage( tr( "%1 cannot be harmed." ).arg( pc_i->name() ) );
 		send( &attack );
 		return;
 	}
@@ -1706,13 +1706,13 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 			pPet->fight( pc_i );
 
 			// Show the You see XXX attacking YYY messages
-			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name ).arg( pc_i->name );
+			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( pc_i->name() );
 			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->VisRange() ) )
 					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 			
 			if( pc_i->socket() )
-				pc_i->socket()->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+				pc_i->socket()->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
 		}
 	}
 
@@ -1721,12 +1721,12 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		if( pc_i->isPlayer() && pc_i->isInnocent() && GuildCompare( _player, pc_i ) == 0 ) //REPSYS
 		{
 			_player->criminal();
-			Combat::spawnGuard( _player, pc_i, _player->pos );
+			Combat::spawnGuard( _player, pc_i, _player->pos() );
 		}
 		else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype() != 4 )
 		{
 			_player->criminal();
-			Combat::spawnGuard( _player, pc_i, _player->pos );
+			Combat::spawnGuard( _player, pc_i, _player->pos() );
 		}
 		else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype() != 4 )
 		{
@@ -1772,14 +1772,14 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 
 	// Send the "You see %1 attacking %2" string to all surrounding sockets
 	// Except the one being attacked
-	QString message = tr( "*You see %1 attacking %2*" ).arg(_player->name.latin1()).arg(pc_i->name.latin1());
+	QString message = tr( "*You see %1 attacking %2*" ).arg(_player->name()).arg(pc_i->name());
 	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
 		if( s->player() && s != this && s->player()->inRange( _player, s->player()->VisRange() ) && s->player() != pc_i )
 			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 
 	// Send an extra message to the victim
 	if( pc_i->socket() )
-		pc_i->socket()->showSpeech( _player, tr( "*You see %1 attacking you*" ).arg( _player->name.latin1() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+		pc_i->socket()->showSpeech( _player, tr( "*You see %1 attacking you*" ).arg( _player->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
 }
 
 void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
@@ -1791,9 +1791,9 @@ void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
 	sound.setSound( soundId );
 	
 	if( !source )
-		sound.setCoord( _player->pos );
+		sound.setCoord( _player->pos() );
 	else
-		sound.setCoord( source->pos );
+		sound.setCoord( source->pos() );
 
 	send( &sound );
 }
@@ -1803,14 +1803,14 @@ void cUOSocket::resendWorld( bool clean )
 	if( !_player )
 		return;
 
-	RegionIterator4Items itIterator( _player->pos );
+	RegionIterator4Items itIterator( _player->pos() );
 	for( itIterator.Begin(); !itIterator.atEnd(); itIterator++ )
 	{
 		P_ITEM pItem = itIterator.GetData();
 		pItem->update( this );
 	}
 
-	RegionIterator4Chars chIterator( _player->pos, _player->VisRange() );
+	RegionIterator4Chars chIterator( _player->pos(), _player->VisRange() );
 
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
@@ -1963,7 +1963,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	sendStats.setMaxHp( pChar->st() );
 	sendStats.setHp( pChar->hp() );
 
-	sendStats.setName( pChar->name.latin1() );
+	sendStats.setName( pChar->name() );
 	sendStats.setSerial( pChar->serial );
 		
 	// Set the rest - and reset if nec.
@@ -1996,7 +1996,7 @@ bool cUOSocket::inRange( cUOSocket* socket ) const
 {
 	if ( !socket || !socket->player() || !_player )
 		return false;
-	return ( socket->player()->pos.distance( _player->pos ) < socket->player()->VisRange() );
+	return ( socket->player()->dist( _player ) < socket->player()->VisRange() );
 }
 
 void cUOSocket::handleBookPage( cUORxBookPage* packet )
@@ -2175,7 +2175,7 @@ void cUOSocket::clilocMessage( const Q_INT16 TypeID, const Q_INT16 FileID, const
 		msg.setSerial( object->serial );
 		msg.setType( cUOTxClilocMsg::OnObject );
 		if( object->isChar() )
-			msg.setName( object->name.latin1() );
+			msg.setName( object->name() );
 		else
 			msg.setName( "Item" );
 	}
@@ -2204,7 +2204,7 @@ void cUOSocket::clilocMessageAffix( const Q_INT16 TypeID, const Q_INT16 FileID, 
 		msg.setSerial( object->serial );
 		msg.setType( cUOTxClilocMsg::OnObject );
 		if( object->isChar() )
-			msg.setName( object->name.latin1() );
+			msg.setName( object->name() );
 		else
 			msg.setName( "Item" );
 	}
@@ -2308,7 +2308,7 @@ void cUOSocket::handleProfile( cUORxProfile *packet )
 		{
 			cUOTxProfile profile;
 			profile.setSerial( packet->serial() );
-			profile.setInfo( pChar->name, pChar->title(), pChar->profile() );
+			profile.setInfo( pChar->name(), pChar->title(), pChar->profile() );
 			send( &profile );
 		}
 	}
@@ -2338,11 +2338,11 @@ void cUOSocket::handleRename( cUORxRename* packet )
 
 		if( pChar && pChar->owner() == _player && !pChar->isHuman() )
 		{
-			pChar->name = packet->name();
+			pChar->setName( packet->name() );
 
-			if( pChar->name.length() > 29 )
+			if( pChar->name().length() > 29 )
 			{
-				pChar->name = pChar->name.left( 29 );
+				pChar->setName( pChar->name().left( 29 ) );
 				sysMessage( tr( "This name was too long, i truncated it to 29 characters." ) );
 			}
 		}

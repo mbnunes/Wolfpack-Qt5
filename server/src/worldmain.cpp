@@ -334,7 +334,7 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 	{
 		if ( pi->multis == INVALID_SERIAL )
 		{
-			cMulti* pi_multi = cMulti::findMulti( pi->pos );
+			cMulti* pi_multi = cMulti::findMulti( pi->pos() );
 			if( !pi_multi )
 			{
 				Items->DeleItem(pItem);

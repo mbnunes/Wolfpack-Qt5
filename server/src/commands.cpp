@@ -206,14 +206,14 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 	}
 	else
 	{
-		Coord_cl newPos = pChar->pos;
+		Coord_cl newPos = pChar->pos();
 		QString argument = args.join(" ");
 		if( parseCoordinates( argument, newPos ) )
 		{
 			// This is a bandwith saving method
 			// Before we're moving the character anywhere we remove it
 			// only from the sockets in range and then resend it to only the new sockets in range
-			if( newPos.map != pChar->pos.map )
+			if( newPos.map != pChar->pos().map )
 			{
 				cUOTxChangeMap changemap;
 				changemap.setMap( newPos.map );
@@ -232,7 +232,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 
 		if( !node->isNull() && parseCoordinates( node->text(), newPos ) )
 		{
-			if( newPos.map != pChar->pos.map )
+			if( newPos.map != pChar->pos().map )
 			{
 				cUOTxChangeMap changemap;
 				changemap.setMap( newPos.map );
@@ -264,14 +264,14 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 	if( !pChar )
 		return;
 
-	cTerritory *mRegion = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
+	cTerritory *mRegion = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 
 	QString message = tr( "You are " );
 
 	if( mRegion )
 		message.append( tr( "in %1 " ).arg( mRegion->name() ) );
 
-	message.append( tr( "at %1,%2,%3 on map %4" ).arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ) );
+	message.append( tr( "at %1,%2,%3 on map %4" ).arg( pChar->pos().x ).arg( pChar->pos().y ).arg( pChar->pos().z ).arg( pChar->pos().map ) );
 	pChar->message( message );
 }
 
@@ -959,7 +959,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 
 			if( pChar )
 			{
-				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
+				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 				pChar->setRegion( region );
 			}
 		}
@@ -990,7 +990,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 
 			if( pChar )
 			{
-				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
+				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 				pChar->setRegion( region );
 			}
 		}
@@ -1305,7 +1305,7 @@ void commandGmtalk( cUOSocket *socket, const QString &command, QStringList &args
 		return;
 	}
 
-	QString message = "<" + socket->player()->name + ">: " + args.join( " " );
+	QString message = "<" + socket->player()->name() + ">: " + args.join( " " );
 
 	cUOSocket *mSock = 0;
 	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )

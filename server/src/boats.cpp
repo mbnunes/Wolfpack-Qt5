@@ -147,7 +147,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		siproblem = 1;
 	else
 	{
-		pTiller->MoveTo( this->pos.x + itemoffsets[0][ TILLER ][X], this->pos.y + itemoffsets[0][ TILLER ][Y], this->pos.z );
+		pTiller->MoveTo( this->pos().x + itemoffsets[0][ TILLER ][X], this->pos().y + itemoffsets[0][ TILLER ][Y], this->pos().z );
 		pTiller->priv = 0;
 		pTiller->setType( 117 );
 		pTiller->tags.set( "tiller", 1 );
@@ -163,7 +163,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	{
 		pPlankR->setType( 117 );
 		pPlankR->setType2( 2 );
-		pPlankR->MoveTo( this->pos.x + itemoffsets[0][ PORT_PLANK ][X], this->pos.y + itemoffsets[0][ PORT_PLANK ][Y], this->pos.z );
+		pPlankR->MoveTo( this->pos().x + itemoffsets[0][ PORT_PLANK ][X], this->pos().y + itemoffsets[0][ PORT_PLANK ][Y], this->pos().z );
 		pPlankR->priv=0;//Nodecay
 		pPlankR->tags.set( "boatserial", this->serial );
 		this->itemserials[ PORT_PLANK ] = pPlankR->serial;
@@ -176,7 +176,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	{
 		pPlankL->setType( 117 );//Boat type
 		pPlankL->setType2( 3 );//Plank sub type
-		pPlankL->MoveTo( this->pos.x + itemoffsets[0][ STARB_PLANK ][X], this->pos.y + itemoffsets[0][ STARB_PLANK ][Y], this->pos.z );
+		pPlankL->MoveTo( this->pos().x + itemoffsets[0][ STARB_PLANK ][X], this->pos().y + itemoffsets[0][ STARB_PLANK ][Y], this->pos().z );
 		pPlankL->priv=0;
 		pPlankL->tags.set( "boatserial", this->serial );
 		this->itemserials[ STARB_PLANK ] = pPlankL->serial;
@@ -188,7 +188,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	else
 	{
 		pHold->setType( 1 );//Conatiner
-		pHold->MoveTo( this->pos.x + itemoffsets[0][ HOLD ][X], this->pos.y + itemoffsets[0][ HOLD ][Y], this->pos.z );
+		pHold->MoveTo( this->pos().x + itemoffsets[0][ HOLD ][X], this->pos().y + itemoffsets[0][ HOLD ][Y], this->pos().z );
 		pHold->priv=0;
 		pHold->tags.set( "boatserial", this->serial );
 		this->itemserials[ HOLD ] = pHold->serial;
@@ -410,15 +410,15 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 	bool mapblocks = false;
 	for( j = 0; j < multi.size(); ++j )
 	{
-		map_st map = Map->seekMap( Coord_cl( multi[j].x + posx, multi[j].y + posy, pos.z, pos.map ) );
+		map_st map = Map->seekMap( Coord_cl( multi[j].x + posx, multi[j].y + posy, pos().z, pos().map ) );
 		land_st land = TileCache::instance()->getLand( map.id );
-		StaticsIterator msi = Map->staticsIterator( Coord_cl( multi[j].x + posx, multi[j].y + posy, pos.z, pos.map ) );
+		StaticsIterator msi = Map->staticsIterator( Coord_cl( multi[j].x + posx, multi[j].y + posy, pos().z, pos().map ) );
 		mapblocks = !(land.flag1 & 0x80);
 
 		while( !msi.atEnd() )
 		{
 			tile_st tile = TileCache::instance()->getTile( msi->itemid );
-			if( !(tile.flag1 & 0x80) && ( pos.z >= msi->zoff && pos.z <= (msi->zoff+70) ) )
+			if( !(tile.flag1 & 0x80) && ( pos().z >= msi->zoff && pos().z <= (msi->zoff+70) ) )
 				return false;
 			if( mapblocks )
 				mapblocks = false;
@@ -430,11 +430,11 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 			return false;
 		
 		/*
-		RegionIterator4Items ri( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
+		RegionIterator4Items ri( Coord_cl( multi.x + posx, multi.y + posy, pos().z, pos.map ) );
 		for( ri.Begin(); !ri.atEnd(); ri++ ) 
 		{
 			P_ITEM pi = ri.GetData();
-			if( ( pi != NULL ) && ( pi->serial != this->serial ) && ( pi->pos.x == (multi.x + posx) ) && ( pi->pos.y == (multi.y + posy) ) ) 
+			if( ( pi != NULL ) && ( pi->serial != this->serial ) && ( pi->pos().x == (multi.x + posx) ) && ( pi->pos().y == (multi.y + posy) ) ) 
 				return false;
 		}
 		*/
@@ -480,7 +480,7 @@ void cBoat::turn( SI08 turn )
 			newboatdir-=2;
 	}
 
-	if( !this->isValidPlace( pos.x, pos.y, pos.z, newboatdir ) )
+	if( !this->isValidPlace( pos().x, pos().y, pos().z, newboatdir ) )
 		errormsg = "Arr, something's in the way!";
 
 	// first pause all clients in visrange
@@ -488,7 +488,7 @@ void cBoat::turn( SI08 turn )
 
 	cUOTxPause uoPacket;
 	uoPacket.pause();
-	RegionIterator4Chars ri( pos );
+	RegionIterator4Chars ri( pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
 	{
 		P_CHAR pc = ri.GetData();
@@ -522,23 +522,23 @@ void cBoat::turn( SI08 turn )
 	{
 		SI08 dx = 0, dy = 0;
 		P_CHAR pc = FindCharBySerial( *it );
-		if( pc && pc->pos.x != 0 && pc->pos.y != 0 && pc->pos.z != 0 ) // dont move mounted animals, that were mounted when user was on boat
+		if( pc && pc->pos().x != 0 && pc->pos().y != 0 && pc->pos().z != 0 ) // dont move mounted animals, that were mounted when user was on boat
 		{
-			UI16 newx = pc->pos.x; 
-			UI16 newy = pc->pos.y;
-			dx = this->pos.x - newx;
-			dy = this->pos.y - newy;
+			UI16 newx = pc->pos().x; 
+			UI16 newy = pc->pos().y;
+			dx = this->pos().x - newx;
+			dy = this->pos().y - newy;
 			if( turn > 0 )
 			{
-				newx = pos.x + dy;
-				newy = pos.y - dx;
+				newx = pos().x + dy;
+				newy = pos().y - dx;
 			}
 			else
 			{
-				newx = pos.x - dy;
-				newy = pos.y + dx;
+				newx = pos().x - dy;
+				newy = pos().y + dx;
 			}
-			pc->MoveTo( newx, newy, pos.z );
+			pc->MoveTo( newx, newy, pos().z );
 
 			cAllTerritories::getInstance()->check( pc );
 
@@ -585,18 +585,16 @@ void cBoat::turn( SI08 turn )
 
 		SI08 dx = 0, dy = 0;
 		MapObjects::instance()->remove( pi );
-		dx = pi->pos.x - this->pos.x;
-		dy = pi->pos.y - this->pos.y;
+		dx = pi->pos().x - this->pos().x;
+		dy = pi->pos().y - this->pos().y;
 
 		if( turn > 0 )
 		{
-			pi->pos.x += dy * (-1);
-			pi->pos.y += dx;
+			pi->setPos( pi->pos() + Coord_cl( dy * (-1), dx, 0 ) );
 		}
 		else
 		{
-			pi->pos.x += dy;
-			pi->pos.y += dx * (-1);
+			pi->setPos( pi->pos() + Coord_cl( dy, dx * (-1), 0 ) );
 		}
 		MapObjects::instance()->add( pi );
 
@@ -616,24 +614,24 @@ void cBoat::turn( SI08 turn )
 	}
 
 	// change positions and ids of the special items
-	pPortplank->MoveTo( pos.x + itemoffsets[shortboatdir][PORT_PLANK][X],
-		pos.y + itemoffsets[shortboatdir][PORT_PLANK][Y],
-		pPortplank->pos.z );
+	pPortplank->MoveTo( pos().x + itemoffsets[shortboatdir][PORT_PLANK][X],
+		pos().y + itemoffsets[shortboatdir][PORT_PLANK][Y],
+		pPortplank->pos().z );
 	pPortplank->setId( itemids[shortboatdir][PORT_P_C] );
 	
-	pStarplank->MoveTo( pos.x + itemoffsets[shortboatdir][STARB_PLANK][X],
-		pos.y + itemoffsets[shortboatdir][STARB_PLANK][Y],
-		pStarplank->pos.z );
+	pStarplank->MoveTo( pos().x + itemoffsets[shortboatdir][STARB_PLANK][X],
+		pos().y + itemoffsets[shortboatdir][STARB_PLANK][Y],
+		pStarplank->pos().z );
 	pStarplank->setId( itemids[shortboatdir][STAR_P_C] );
 	
-	pTiller->MoveTo( pos.x + itemoffsets[shortboatdir][TILLER][X],
-		pos.y + itemoffsets[shortboatdir][TILLER][Y],
-		pTiller->pos.z );
+	pTiller->MoveTo( pos().x + itemoffsets[shortboatdir][TILLER][X],
+		pos().y + itemoffsets[shortboatdir][TILLER][Y],
+		pTiller->pos().z );
 	pTiller->setId( itemids[shortboatdir][TILLER_ID] );
 	
-	pHold->MoveTo( pos.x + itemoffsets[shortboatdir][HOLD][X],
-		pos.y + itemoffsets[shortboatdir][HOLD][Y],
-		pHold->pos.z );
+	pHold->MoveTo( pos().x + itemoffsets[shortboatdir][HOLD][X],
+		pos().y + itemoffsets[shortboatdir][HOLD][Y],
+		pHold->pos().z );
 	pHold->setId( itemids[shortboatdir][HOLD_ID] );
 
 	QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
@@ -708,13 +706,13 @@ bool cBoat::move( void )
 		break;
 	}
 
-	if( ( this->pos.x+dx<=200 || this->pos.x+dx>=6000) && (this->pos.y+dy<=200 || this->pos.y+dy>=4900)) //bugfix LB
+	if( ( this->pos().x+dx<=200 || this->pos().x+dx>=6000) && (this->pos().y+dy<=200 || this->pos().y+dy>=4900)) //bugfix LB
 	{
 		errormsg = "Arr, Sir, we've hit rough waters!";
 		moves_ = 0;
 		shift_ = 0;
 	}
-	else if( !this->isValidPlace( pos.x+dx, pos.y+dy, pos.z, boatdir ) )
+	else if( !this->isValidPlace( pos().x+dx, pos().y+dy, pos().z, boatdir ) )
 	{
 		errormsg = "Arr, somethings in the way!";
 		moves_ = 0;
@@ -727,7 +725,7 @@ bool cBoat::move( void )
 
 	cUOTxPause uoPacket;
 	uoPacket.pause();
-	RegionIterator4Chars ri( pos );
+	RegionIterator4Chars ri( pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
 	{
 		P_CHAR pc = ri.GetData();
@@ -751,20 +749,20 @@ bool cBoat::move( void )
 		return false;
 
 	Coord_cl desloc( dx, dy, 0 );
-	this->moveTo( pos + desloc );
-	pTiller->moveTo( pTiller->pos + desloc );
-	pPortplank->moveTo( pPortplank->pos + desloc );
-	pStarplank->moveTo( pStarplank->pos + desloc );
-	pHold->moveTo( pHold->pos + desloc );
+	this->moveTo( pos() + desloc );
+	pTiller->moveTo( pTiller->pos() + desloc );
+	pPortplank->moveTo( pPortplank->pos() + desloc );
+	pStarplank->moveTo( pStarplank->pos() + desloc );
+	pHold->moveTo( pHold->pos() + desloc );
 
 	QValueList< SERIAL > toremove;
 	QValueList< SERIAL >::iterator it = chars_.begin();
 	while( it != chars_.end() )
 	{
 		P_CHAR pc = FindCharBySerial( *it );
-		if( pc && pc->pos.x != 0 && pc->pos.y != 0 && pc->pos.z != 0 ) // dont move mounted animals, that were mounted when user was on boat
+		if( pc && pc->pos().x != 0 && pc->pos().y != 0 && pc->pos().z != 0 ) // dont move mounted animals, that were mounted when user was on boat
 		{
-			pc->MoveTo( pc->pos.x + dx, pc->pos.y + dy, pc->pos.z );
+			pc->MoveTo( pc->pos().x + dx, pc->pos().y + dy, pc->pos().z );
 
 			cAllTerritories::getInstance()->check( pc );
 
@@ -810,7 +808,7 @@ bool cBoat::move( void )
 			continue;
 		}
 
-		pi->MoveTo( pi->pos.x + dx, pi->pos.y + dy, pi->pos.z );
+		pi->MoveTo( pi->pos().x + dx, pi->pos().y + dy, pi->pos().z );
 
 		QPtrListIterator< cUOSocket> iter_sock( socketsinrange );
 		while( iter_sock.current() )
@@ -879,7 +877,7 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 			// Max 5 fields away
 			if( pChar && pChar->inRange( pc_currchar, 5 ) )
 			{
-				pChar->moveTo( pos + Coord_cl( 1, 1, 2 ) );
+				pChar->moveTo( pos() + Coord_cl( 1, 1, 2 ) );
 				addChar( pChar );
 				pChar->resend();
 			}
@@ -892,19 +890,19 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 		{
 		case 0:
 		case 4:
-			x = ( pos.x + pplank->pos.x ) / 2;
-			y = ( pos.y + pplank->pos.y ) / 2;
+			x = ( pos().x + pplank->pos().x ) / 2;
+			y = ( pos().y + pplank->pos().y ) / 2;
 			break;
 		case 2:
 		case 6:
-			x = ( pos.x + pplank->pos.x ) / 2;
-			y = ( pos.y + pplank->pos.y ) / 2;
+			x = ( pos().x + pplank->pos().x ) / 2;
+			y = ( pos().y + pplank->pos().y ) / 2;
 			break;
 		default:
 			return;
 		}
 		
-		z = pos.z + 3;
+		z = pos().z + 3;
 		pc_currchar->MoveTo( x, y, z );
 		pc_currchar->resend();
 		addChar( pc_currchar );
@@ -934,17 +932,17 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 	{
 	case 0:
 	case 4:
-		x0 = ( pos.x > pplank->pos.x ) ? pplank->pos.x - 1 : pplank->pos.x + 1;
-		y0 = pplank->pos.y - 2;
-		x1 = ( pos.x > pplank->pos.x ) ? pplank->pos.x - 2 : pplank->pos.x + 2;
+		x0 = ( pos().x > pplank->pos().x ) ? pplank->pos().x - 1 : pplank->pos().x + 1;
+		y0 = pplank->pos().y - 2;
+		x1 = ( pos().x > pplank->pos().x ) ? pplank->pos().x - 2 : pplank->pos().x + 2;
 		y1 = y0 + 5;
 		break;
 	case 2:
 	case 6:
-		x0 = pplank->pos.x - 2;
-		y0 = ( pos.y > pplank->pos.y ) ? pplank->pos.y - 1 : pplank->pos.y + 1;
+		x0 = pplank->pos().x - 2;
+		y0 = ( pos().y > pplank->pos().y ) ? pplank->pos().y - 1 : pplank->pos().y + 1;
 		x1 = x0 + 5;
-		y1 = ( pos.y > pplank->pos.y ) ? pplank->pos.y - 2 : pplank->pos.y + 2;
+		y1 = ( pos().y > pplank->pos().y ) ? pplank->pos().y - 2 : pplank->pos().y + 2;
 		break;
 	default:
 		return false;
@@ -1188,7 +1186,7 @@ void cBoat::toDeed( cUOSocket* socket )
 		return;
 
 	// if player is in boat
-	if ( inMulti( pc->pos ) ) 
+	if ( inMulti( pc->pos() ) ) 
 	{
 		socket->sysMessage ( tr("You must leave the boat to do this.") );
 		return;

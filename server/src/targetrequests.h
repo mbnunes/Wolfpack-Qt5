@@ -217,7 +217,7 @@ public:
 					{						
 						QString ownername = "nobody";
 						if( pc->owner() )
-							ownername = pc->owner()->name;
+							ownername = pc->owner()->name();
 						socket->showSpeech( pc, tr("It is loyal to %1!").arg( ownername ) );
 					}
 				}
@@ -339,7 +339,7 @@ public:
 		pPoison = new cItem;
 		pPoison->Init(true);
 		pPoison->setId(0x0F0E);
-		pPoison->moveTo(pc->pos);
+		pPoison->moveTo(pc->pos());
 		pPoison->priv |= 0x01;
 		pPoison->update();
 		return true;
@@ -525,7 +525,7 @@ public:
 	
 		socket->player()->removeFromView( false );
 
-		Coord_cl newPos = socket->player()->pos;
+		Coord_cl newPos = socket->player()->pos();
 		newPos.x = target->x();
 		newPos.y = target->y();
 		newPos.z = target->z();
@@ -847,7 +847,7 @@ public:
 
 		// Move the object relatively
 		pObject->removeFromView();
-		Coord_cl newPos = pObject->pos + Coord_cl( x, y, z );
+		Coord_cl newPos = pObject->pos() + Coord_cl( x, y, z );
 		pObject->moveTo( newPos );
 		
 		if( pObject->isChar() )
@@ -915,7 +915,7 @@ public:
 			{
 				P_ITEM pItem = iter.GetData();
 
-				if( pItem && pItem->isInWorld() && pItem->pos.x >= x1 && pItem->pos.x <= x2 && pItem->pos.y >= y1 && pItem->pos.y <= y2 )
+				if( pItem && pItem->isInWorld() && pItem->pos().x >= x1 && pItem->pos().x <= x2 && pItem->pos().y >= y1 && pItem->pos().y <= y2 )
 				{
 					// Delete the item
 					toDelete.push_back( pItem );

@@ -78,7 +78,7 @@ public:
 		}
 
 		qArrow.setActive( 1 );
-		qArrow.setPos( pTarget->pos );
+		qArrow.setPos( pTarget->pos() );
 		pChar->socket()->send( &qArrow );
 		TempEffects::instance()->insert( new cRefreshTracking( pChar->serial ) );
 	}
@@ -96,7 +96,7 @@ public:
 
 		P_CHAR pChar = FindCharBySerial( choice.button );
 
-		if( !pChar || pChar->pos.distance( player->pos ) > 32 )
+		if( !pChar || pChar->dist( player ) > 32 )
 			return;
 
 		// Add the tracking target
@@ -124,7 +124,7 @@ public:
 		// 2: Monsters
 		// 3: Humans
 		// 4: Players
-		RegionIterator4Chars iter( player->pos );
+		RegionIterator4Chars iter( player->pos() );
 		for( iter.Begin(); !iter.atEnd(); iter++ )
 		{
 			P_CHAR pChar = iter.GetData();
@@ -176,7 +176,7 @@ public:
 
 			addTilePic( (pAmount*100)+20, 20, creatures[ pChar->id() ].icon );
 			addButton( (pAmount*100)+20, 110, 0xFA5, 0xFA7, pChar->serial );
-			addCroppedText( (pAmount*100)+20, 90, 100, 40, pChar->name );
+			addCroppedText( (pAmount*100)+20, 90, 100, 40, pChar->name() );
 
 			++pAmount;
 		}

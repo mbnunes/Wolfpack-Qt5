@@ -327,7 +327,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 				pc->setJailTimer(0);
 				pc->setPriv2(0);					
 					
-				savelog( tr( "%1 [0x%2] is automatically released from jail." ).arg( pc->name.latin1() ).arg( pc->serial, 8, 16 ), "server.log" );
+				savelog( tr( "%1 [0x%2] is automatically released from jail." ).arg( pc->name() ).arg( pc->serial, 8, 16 ), "server.log" );
 				socket->sysMessage( tr( "You have been released." ) );
 			}		
 		}
@@ -393,7 +393,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr( "*%1 looks a bit nauseous!*" ).arg( pc->name.latin1() ), 0x26 );
+						pc->emote( tr( "*%1 looks a bit nauseous!*" ).arg( pc->name() ), 0x26 );
 					}
 				 
 //					pc->hp -= QMAX(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
@@ -407,7 +407,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr( "*%1 looks disoriented and nauseous!*" ).arg( pc->name.latin1() ), 0x26 );
+						pc->emote( tr( "*%1 looks disoriented and nauseous!*" ).arg( pc->name() ), 0x26 );
 					}
 					
 //					pc->hp -= QMAX(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
@@ -422,7 +422,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr( "*%1 is in severe pain!*" ).arg( pc->name.latin1() ), 0x26 );
+						pc->emote( tr( "*%1 is in severe pain!*" ).arg( pc->name() ), 0x26 );
 					}
 					
 //					pc->hp -= QMAX( ( pc->hp * RandomNum( 20, 30 ) ) / 100, RandomNum( 0, 1 ) ); // between 20% and 30% of player's hp 
@@ -437,7 +437,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr( "*%1 looks extremely sick*" ).arg( pc->name.latin1() ), 0x26 );
+						pc->emote( tr( "*%1 looks extremely sick*" ).arg( pc->name() ), 0x26 );
 					}
 				
 //					pc->hp -= QMAX( ( pc->hp * RandomNum( 30, 40 ) ) / 100, 1 ); //between 30% and 40% of player's hp
@@ -448,7 +448,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					break;
 
 				default:
-					clConsole.send( tr( "Unknown poison type for Character %1 [0x%2]\n" ).arg( pc->name.latin1() ).arg( pc->serial, 8, 16 ) );
+					clConsole.send( tr( "Unknown poison type for Character %1 [0x%2]\n" ).arg( pc->name() ).arg( pc->serial, 8, 16 ) );
 					pc->setPoisoned( 0 );
 					return;
 				}
@@ -556,7 +556,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr("* %1 looks a bit nauseous *").arg(pc->name.latin1()), 0x0026);
+						pc->emote( tr("* %1 looks a bit nauseous *").arg(pc->name()), 0x0026);
 					}
 //					pc->hp -= RandomNum(1,2);
 					pc->setHp( pc->hp() - RandomNum(1,2) );
@@ -567,7 +567,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr("* %1 looks disoriented and nauseous! *").arg(pc->name.latin1()), 0x0026);
+						pc->emote( tr("* %1 looks disoriented and nauseous! *").arg(pc->name()), 0x0026);
 					}
 
 					pcalc = ( ( pc->hp() * RandomNum(2,5) ) / 100) + RandomNum(0,2); // damage: 1..2..5% of hp's+ 1..2 constant
@@ -581,7 +581,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr("* %1 is in severe pain! *").arg(pc->name.latin1()), 0x0026 );
+						pc->emote( tr("* %1 is in severe pain! *").arg(pc->name()), 0x0026 );
 					}
 					pcalc=( ( pc->hp() * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
 //					pc->hp -= pcalc;
@@ -593,7 +593,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr("* %s looks extremely weak and is wrecked in pain! *").arg(pc->name.latin1()), 0x0026 );
+						pc->emote( tr("* %s looks extremely weak and is wrecked in pain! *").arg(pc->name()), 0x0026 );
 					}
 
 					pcalc=( (pc->hp() * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
@@ -637,10 +637,10 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			{
 			case 6:
 			case 5:	break;
-			case 4:	pc->emote( tr("* %1 looks a little hungry *").arg(pc->name.latin1()), 0x0026);		break;
-			case 3:	pc->emote( tr("* %1 looks fairly hungry *").arg(pc->name.latin1()), 0x0026);			break;
-			case 2:	pc->emote( tr("* %1 looks extremely hungry *").arg(pc->name.latin1()), 0x0026);		break;
-			case 1:	pc->emote( tr("* %1 looks weak from starvation *",pc->name.latin1()), 0x0026);		break;
+			case 4:	pc->emote( tr("* %1 looks a little hungry *").arg(pc->name()), 0x0026);		break;
+			case 3:	pc->emote( tr("* %1 looks fairly hungry *").arg(pc->name()), 0x0026);			break;
+			case 2:	pc->emote( tr("* %1 looks extremely hungry *").arg(pc->name()), 0x0026);		break;
+			case 1:	pc->emote( tr("* %1 looks weak from starvation *",pc->name()), 0x0026);		break;
 			case 0:
 				//maximum hunger - untame code
 				//pet release code here
@@ -653,7 +653,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					if( pc->owner() )
 						pc->setOwner( NULL );
 
-					pc->emote( tr("%1 appears to have decided that it is better off without a master").arg(pc->name.latin1()), 0x0026 );
+					pc->emote( tr("%1 appears to have decided that it is better off without a master").arg(pc->name()), 0x0026 );
 
 					pc->soundEffect( 0x01FE );
 					if( SrvParams->tamedDisappear() == 1 )
@@ -847,7 +847,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		checkPC( socket->player(), currenttime );
 
 		// Check all Characters first (Intersting. we seem to check characters more than once)
-		RegionIterator4Chars iterator( socket->player()->pos );
+		RegionIterator4Chars iterator( socket->player()->pos() );
 		for( iterator.Begin(); !iterator.atEnd(); iterator++ )
 		{
 			P_CHAR pChar = iterator.GetData();
@@ -867,7 +867,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 					checkRegeneration( pChar, currenttime );
 
 					// We only process the AI for NPCs who are in a used area
-					if( pChar->pos.distance( socket->player()->pos ) <= 24 )
+					if( pChar->dist( socket->player() ) <= 24 )
 						checkNPC( pChar, currenttime );
 				}
 				// Timed for logout
@@ -888,7 +888,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		// region.
 		if( checkitemstime <= currenttime  )
 		{
-			RegionIterator4Items itemIter( socket->player()->pos );
+			RegionIterator4Items itemIter( socket->player()->pos() );
 			for( itemIter.Begin(); !itemIter.atEnd(); itemIter++ )
 			{
 				P_ITEM pItem = itemIter.GetData();
@@ -913,7 +913,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				// This is a rather stupid method...
 				// Only one character is hearing the sound at once
 				case 88:
-					if( pItem->pos.distance( socket->player()->pos ) < pItem->morey() )
+					if( pItem->dist( socket->player() ) < pItem->morey() )
 						if( RandomNum( 1, 100 ) <= pItem->morez() )
 							socket->soundEffect( pItem->morex(), pItem );
 					break;

@@ -131,7 +131,7 @@ public:
 					PyObject *p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
 					PyTuple_SetItem( p_args, 1, args );
-					PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos.map ) );
+					PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos().map ) );
 
 					PyEval_CallObject( pFunc, p_args );
 

@@ -244,7 +244,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addResizeGump( 195, 300, 0xBB8, 215, 20 );
 
 		addText( 50, 120, tr( "Name:" ), 0x834 );
-		addInputField( 200, 120, 200, 16,  1, QString( "%1" ).arg( pChar->name ), 0x834 );
+		addInputField( 200, 120, 200, 16,  1, QString( "%1" ).arg( pChar->name() ), 0x834 );
 		addText( 50, 140, tr( "Title:" ), 0x834 );
 		addInputField( 200, 140, 200, 16,  2, QString( "%1" ).arg( pChar->title() ), 0x834 );
 		addText( 50, 160, tr( "Body:" ), 0x834 );
@@ -297,7 +297,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 240, tr( "Dead:" ), 0x834 );
 		addInputField( 200, 240, 200, 16, 17, QString( "%1" ).arg( pChar->dead() ), 0x834 );
 		addText( 50, 260, tr( "Position (x,y,z,map):" ), 0x834 );
-		addInputField( 200, 260, 200, 16, 18, QString("%1,%2,%3,%4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ), 0x834 );
+		addInputField( 200, 260, 200, 16, 18, QString("%1,%2,%3,%4").arg( pChar->pos().x ).arg( pChar->pos().y ).arg( pChar->pos().z ).arg( pChar->pos().map ), 0x834 );
 		addText( 50, 280, tr( "Serial:" ), 0x834 );
 		addText( 200, 280, QString( "%1" ).arg( pChar->serial ), 0x834 );
 		addText( 50, 300, tr( "Hunger:" ), 0x834 );
@@ -389,7 +389,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			switch( it->first )
 			{
 			case 1:
-				char_->name = it->second.latin1();
+				char_->setName( it->second );
 				break;
 			case 2:
 				char_->setTitle( it->second );
@@ -441,7 +441,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				break;
 			case 18:
 				{
-					Coord_cl npos( char_->pos );
+					Coord_cl npos( char_->pos() );
 					QStringList sects = QStringList::split( " ", it->second );
 					if( sects.count() > 0 )
 					{
@@ -575,7 +575,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 180, tr( "Serial:" ), 0x834 );
 		addText( 200, 180, QString( "%1" ).arg( pItem->serial ), 0x834 );
 		addText( 50, 200, tr( "Position (x,y,z,map):" ), 0x834 );
-		addInputField( 200, 200, 200, 16,  5, QString("%1,%2,%3,%4").arg( pItem->pos.x ).arg( pItem->pos.y ).arg( pItem->pos.z ).arg( pItem->pos.map ), 0x834 );
+		addInputField( 200, 200, 200, 16,  5, QString("%1,%2,%3,%4").arg( pItem->pos().x ).arg( pItem->pos().y ).arg( pItem->pos().z ).arg( pItem->pos().map ), 0x834 );
 		addText( 50, 220, tr( "Color:" ), 0x834 );
 		addInputField( 200, 220, 200, 16,  6, QString( "0x%1" ).arg( QString::number( pItem->color(), 16 ) ), 0x834 );
 		addText( 50, 240, tr( "Amount:" ), 0x834 );
@@ -765,7 +765,7 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				break;
 			case 5:
 				{
-					Coord_cl npos( item_->pos );
+					Coord_cl npos( item_->pos() );
 					QStringList sects = QStringList::split( " ", it->second );
 					if( sects.count() > 0 )
 					{
@@ -1021,7 +1021,7 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 		cChar* pChar = mSock->player();
 		if( pChar )
 		{
-			charNames.push_back( pChar->name );
+			charNames.push_back( pChar->name() );
 			accNames.push_back( pChar->account()->login() );
 			IPs.push_back( mSock->ip() );
 			sockets_.push_back( mSock );
@@ -1128,11 +1128,11 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 		startPage( 1 );
 
 		addText( 50, 60, tr( "Char name:" ), 0x834 );
-		addText( 250, 60, QString( "%1" ).arg( pChar->name ), 0x834 );
+		addText( 250, 60, QString( "%1" ).arg( pChar->name() ), 0x834 );
 		addText( 50, 80, tr( "IP:" ), 0x834 );
 		addText( 250, 80, QString( "%1" ).arg( socket->ip() ), 0x834 );
 		addText( 50, 100, tr( "Position:" ), 0x834 );
-		addText( 250, 100, QString("%1,%2,%3 map %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ), 0x834 );
+		addText( 250, 100, QString("%1,%2,%3 map %4").arg( pChar->pos().x ).arg( pChar->pos().y ).arg( pChar->pos().z ).arg( pChar->pos().map ), 0x834 );
 		addText( 50, 120, tr( "Region:" ), 0x834 );
 		addText( 250, 120, QString( "%1" ).arg( pChar->region() ? pChar->region()->name() : QString("") ), 0x834 );
 		addText( 50, 140, tr( "Account / ACL:" ), 0x834 );
@@ -1186,7 +1186,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			else if( mChar )
 			{
 				mChar->removeFromView( false );
-				mChar->moveTo( pChar->pos );
+				mChar->moveTo( pChar->pos() );
 				mChar->resend( false );
 				socket->resendPlayer();
 				socket->resendWorld();
@@ -1201,7 +1201,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			else if( mChar )
 			{
 				pChar->removeFromView( false );
-				pChar->moveTo( mChar->pos );
+				pChar->moveTo( mChar->pos() );
 				pChar->resend( false );
 				socket_->resendPlayer();
 				socket_->resendWorld();
@@ -1268,7 +1268,7 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 		cChar* pChar = FindCharBySerial( (*it)->charSerial() );
 		if( pChar && ptype <= (*it)->pageType() )
 		{
-			charNames.push_back( pChar->name );
+			charNames.push_back( pChar->name() );
 			pageTimes.push_back( (*it)->pageTime() );
 			pageCategories.push_back( categories[(*it)->pageCategory()-1] );
 			pageTypes.push_back( (*it)->pageType() );
@@ -1383,11 +1383,11 @@ cPageInfoGump::cPageInfoGump( cPage* page )
 		UINT16 hue = 0x834;
 
 		addText( 50, 60, tr( "Char name:" ), hue );
-		addText( 200, 60, QString( "%1" ).arg( pChar->name ), hue );
+		addText( 200, 60, QString( "%1" ).arg( pChar->name() ), hue );
 		addText( 50, 80, tr( "Account name:" ), hue );
 		addText( 200, 80, QString( "%1" ).arg( pChar->account()->login() ), hue );
 		addText( 50, 100, tr( "Char position:" ), hue );
-		addText( 200, 100, QString("%1,%2,%3 map %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ), hue );
+		addText( 200, 100, QString("%1,%2,%3 map %4").arg( pChar->pos().x ).arg( pChar->pos().y ).arg( pChar->pos().z ).arg( pChar->pos().map ), hue );
 		addText( 50, 120, tr( "Page sent from:" ), hue );
 		addText( 200, 120, QString("%1,%2,%3 map %4").arg( page->pagePos().x ).arg( page->pagePos().y ).arg( page->pagePos().z ).arg( page->pagePos().map ), hue );
 		addText( 50, 140, tr( "Date/time:" ), hue );
@@ -1443,7 +1443,7 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			else if( mChar )
 			{
 				mChar->removeFromView( false );
-				mChar->moveTo( pChar->pos );
+				mChar->moveTo( pChar->pos() );
 				mChar->resend( false );
 				socket->resendPlayer();
 				socket->resendWorld();
@@ -1458,7 +1458,7 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			else if( mChar )
 			{
 				pChar->removeFromView( false );
-				pChar->moveTo( mChar->pos );
+				pChar->moveTo( mChar->pos() );
 				pChar->resend( false );
 				socket_->resendPlayer();
 				socket_->resendWorld();
@@ -1637,11 +1637,11 @@ void cHelpGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		{
 			pPage->setPageTime();
 			pPage->setContent( content_ );
-			pPage->setPagePos( pChar->pos );
+			pPage->setPagePos( pChar->pos() );
 		}
 		else
 		{
-			pPage = new cPage( char_, PT_GM, content_, pChar->pos );
+			pPage = new cPage( char_, PT_GM, content_, pChar->pos() );
 			cPagesManager::getInstance()->push_back( pPage );
 		}
 
@@ -1660,7 +1660,7 @@ void cHelpGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		QString account = "";
 		if( pChar->account() )
 			account = pChar->account()->login();
-		QString message = tr( "%1 Page from %2 [%3]: %4" ).arg( choice.switches[0] == 1 ? "GM" : "Counselor" ).arg( pChar->name ).arg( account ).arg( lines.join( "\n" ) );
+		QString message = tr( "%1 Page from %2 [%3]: %4" ).arg( choice.switches[0] == 1 ? "GM" : "Counselor" ).arg( pChar->name() ).arg( account ).arg( lines.join( "\n" ) );
 
 		cUOSocket *mSock = 0;
 		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )

@@ -326,7 +326,7 @@ bool WPPythonScript::onSpellCheckTarget( P_CHAR pMage, UINT8 spell, UINT8 type, 
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
 	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
-	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos.map ) );
+	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos().map ) );
 
 	PyEvalMethod( "onSpellCheckTarget" )
 }
@@ -339,7 +339,7 @@ bool WPPythonScript::onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUOR
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
 	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
-	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos.map ) );
+	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos().map ) );
 
 	PyEvalMethod( "onSpellSuccess" )
 }
@@ -352,7 +352,7 @@ bool WPPythonScript::onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUOR
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
 	PyTuple_SetItem( tuple, 2, PyInt_FromLong( spell ) );
-	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos.map ) );
+	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos().map ) );
 	
 	PyEvalMethod( "onSpellFailure" )
 }

@@ -92,7 +92,7 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( !pItem )
 		return true;
 
-	Coord_cl newPos = socket->player()->pos;
+	Coord_cl newPos = socket->player()->pos();
 	newPos.x = target->x();
 	newPos.y = target->y();
 	newPos.z = target->z() + TileCache::instance()->tileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
@@ -136,20 +136,20 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 	pChar->setPriv( 0x10 ); // No skill titles
 	pChar->setNpc(1);
-	Coord_cl newPos = socket->player()->pos;
+	Coord_cl newPos = socket->player()->pos();
 	newPos.x = target->x();
 	newPos.y = target->y();
 	newPos.z = target->z() + TileCache::instance()->tileHeight( target->model() ); // Model Could be a NPC as well i dont like the idea...
 	pChar->moveTo( newPos );
 
-	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map ) );
+	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
 	if( node )
 	{
 		pChar->applyDefinition( (*node ) );
 	}
 	else
 	{
-		pChar->name = "Character";
+		pChar->setName("Character");
 		pChar->setId( hex2dec( npc_ ).toULong() );
 		pChar->setXid( pChar->id() );
 	}
@@ -192,13 +192,13 @@ bool cSkDetectHidden::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( !pChar )
 		return true;
 	
-	Coord_cl dPos = pChar->pos;
+	Coord_cl dPos = pChar->pos();
 	dPos.x = target->x();
 	dPos.y = target->y();
 	dPos.z = target->z();
 	
 	// If its out of the characters visrange cancel (How could he've clicked there??)
-	if( dPos.distance( pChar->pos ) > pChar->VisRange() )
+	if( dPos.distance( pChar->pos() ) > pChar->VisRange() )
 		return true;
 	
 	UINT16 dSkill = pChar->skill( DETECTINGHIDDEN );		
@@ -214,8 +214,8 @@ bool cSkDetectHidden::responsed( cUOSocket *socket, cUORxTarget *target )
 		{
 			if( hChar->hidden() && !hChar->isHiddenPermanently() ) // do not detect invis people only hidden ones
 			{
-				UINT16 dx = abs( hChar->pos.x - dPos.x );
-				UINT16 dy = abs( hChar->pos.y - dPos.y );
+				UINT16 dx = abs( hChar->pos().x - dPos.x );
+				UINT16 dy = abs( hChar->pos().y - dPos.y );
 				double c = hypot( dx, dy );
 				
 				INT16 low = (UINT16)( hChar->skill(HIDING) * hChar->skill(HIDING) / 1E3 - ( range * 50 / VISRANGE ) * ( range - c ) / range );
@@ -338,7 +338,7 @@ bool cSkIntEval::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	
 	// blackwind distance fix 
-	if( pc->pos.distance(pc_currchar->pos) >= 10 ) 
+	if( pc->dist(pc_currchar) >= 10 ) 
 	{ 
 		socket->sysMessage( tr("You need to be closer to find out") ); 
 		return true; 
@@ -376,7 +376,7 @@ bool cSkTame::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true; 
 	P_CHAR pc_currchar = socket->player();
 	
-	if( !lineOfSight( pc_currchar->pos, pc->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
+	if( !lineOfSight( pc_currchar->pos(), pc->pos(), WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
 		return true;
 	
 	bool tamed = false;
@@ -402,15 +402,15 @@ bool cSkTame::responsed( cUOSocket *socket, cUORxTarget *target )
 			return true;
 		}
 		
-		sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name.latin1(),pc->name.latin1());
+		sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name(),pc->name());
 		for(int a=0;a<3;a++)
 		{
 			switch( RandomNum( 0, 3 ) )
 			{
 			case 0: pc_currchar->talk( tr("I've always wanted a pet like you."), -1 ,0);		break;
 			case 1: pc_currchar->talk( tr("Will you be my friend?"), -1 ,0);					break;
-			case 2: pc_currchar->talk( tr("Here %1.").arg(pc->name), -1 ,0);			break;
-			case 3: pc_currchar->talk( tr("Good %1.").arg(pc->name), -1 ,0);			break;
+			case 2: pc_currchar->talk( tr("Here %1.").arg(pc->name()), -1 ,0);			break;
+			case 3: pc_currchar->talk( tr("Good %1.").arg(pc->name()), -1 ,0);			break;
 			}
 		}
 		if ((!pc_currchar->checkSkill(TAMING, 0, 1000))||
@@ -773,14 +773,14 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				
 				if (pi->name() != "#")
 				{
-					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.latin1()).arg(pi->name()) );
-					sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.latin1()).arg(pi->name()).arg(pc_npc->name.latin1()) );
+					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name()).arg(pi->name()) );
+					sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name()).arg(pi->name()).arg(pc_npc->name()) );
 				} 
 				else
 				{
 					tile = TileCache::instance()->getTile( pi->id() );
-					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.latin1()).arg((char*)tile.name) );
-					sprintf((char*)temp2,tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.latin1()).arg((char*)tile.name).arg(pc_npc->name.latin1()) );
+					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name()).arg((char*)tile.name) );
+					sprintf((char*)temp2,tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name()).arg((char*)tile.name).arg(pc_npc->name()) );
 				}
 				socket->sysMessage((char*)temp); //lb
 			}
@@ -871,7 +871,7 @@ bool cSkProvocation::selectVictim( cUOSocket* socket, cUORxTarget* target )
 		{
 			if( Player->inGuardedArea() )
 			{
-				Coord_cl cPos = Player->pos;
+				Coord_cl cPos = Player->pos();
 				cPos.x++;
 				Combat::spawnGuard( Player, Player, cPos );
 			}
@@ -890,7 +890,7 @@ bool cSkProvocation::selectVictim( cUOSocket* socket, cUORxTarget* target )
 		Victim->fight(attacker);
 		Victim->resetAttackFirst();
 		
-		QString temp(tr("* You see %1 attacking %2 *").arg(attacker->name).arg(Victim->name) );
+		QString temp(tr("* You see %1 attacking %2 *").arg(attacker->name()).arg(Victim->name()) );
 		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 		{
 			if( mSock != socket && inrange1p( attacker, mSock->player() ) ) 
@@ -938,7 +938,7 @@ bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
 	else
 	{
 		bool anvilinrange = false;
-		RegionIterator4Items ri( pc->pos, 2 );
+		RegionIterator4Items ri( pc->pos(), 2 );
 		for( ri.Begin(); !ri.atEnd(); ri++ )
 		{
 			P_ITEM pri = ri.GetData();
@@ -1107,7 +1107,7 @@ bool cInfoTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( !socket->player() )
 		return true;
 	
-	Coord_cl pos = socket->player()->pos;
+	Coord_cl pos = socket->player()->pos();
 	pos.x = target->x();
 	pos.y = target->y();
 	pos.z = target->z();
@@ -1345,13 +1345,11 @@ bool cTileTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 				
 				if( pItem )
 				{
-					pItem->pos.x = x;
-					pItem->pos.y = y;
-					pItem->pos.z = z;
-					pItem->pos.map = socket->player()->pos.map;
+					Coord_cl position( x, y, z, socket->player()->pos().map );
+					pItem->setPos( position );
 					MapObjects::instance()->add( pItem );
 					pItem->update();
-					dCount++;
+					++dCount;
 				}
 			}
 			
@@ -1382,14 +1380,14 @@ bool cSetMultiOwnerTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( coowner_ )
 	{
 		pMulti->setCoOwner( pc );
-		socket->sysMessage( tr("You have made %1 to the new co-owner of %2").arg( pc->name.latin1() ).arg( pMulti->name() ) );
-		pc->socket()->sysMessage( tr("%1 has made you to the new co-owner of %2").arg( socket->player()->name.latin1() ).arg( pMulti->name() ) );
+		socket->sysMessage( tr("You have made %1 to the new co-owner of %2").arg( pc->name() ).arg( pMulti->name() ) );
+		pc->socket()->sysMessage( tr("%1 has made you to the new co-owner of %2").arg( socket->player()->name() ).arg( pMulti->name() ) );
 	}
 	else
 	{
 		pMulti->setOwner( pc );
-		socket->sysMessage( tr("You have made %1 to the new owner of %2").arg( pc->name.latin1() ).arg( pMulti->name() ) );
-		pc->socket()->sysMessage( tr("%1 has made you to the new owner of %2").arg( socket->player()->name.latin1() ).arg( pMulti->name() ) );
+		socket->sysMessage( tr("You have made %1 to the new owner of %2").arg( pc->name() ).arg( pMulti->name() ) );
+		pc->socket()->sysMessage( tr("%1 has made you to the new owner of %2").arg( socket->player()->name() ).arg( pMulti->name() ) );
 	}
 	return true;
 }
