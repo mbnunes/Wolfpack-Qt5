@@ -66,8 +66,8 @@ def onShowStatus(char, packet):
   (mindamage, maxdamage) = combat.properties.getdamage(char)
 
   # Scale damage
-  mindamage = combat.aos.scaledamage(char, mindamage, 0)
-  maxdamage = combat.aos.scaledamage(char, maxdamage, 0)
+  mindamage = int(combat.aos.scaledamage(char, mindamage, 0))
+  maxdamage = int(combat.aos.scaledamage(char, maxdamage, 0))
   
   packet.setshort(62, combat.properties.fromchar(char, RESISTANCE_PHYSICAL)) # Physical resistance
   packet.setshort(70, combat.properties.fromchar(char, RESISTANCE_FIRE)) # Fire Resistance
