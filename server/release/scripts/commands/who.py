@@ -45,6 +45,8 @@ def cmdWho( socket, command, argstring ):
 	# Player list increases by 22 pixels
 	maxpages = (worldsocketcount + 9) / 10
 
+	socket.sysmessage('Sockets: %u' % worldsocketcount)
+
 	page = 0
 	serialcount = 0
 	while page <= maxpages:
