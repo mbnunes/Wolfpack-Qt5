@@ -71,18 +71,29 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	if( this->multiids_.size() < 4 || !this->isValidPlace( posx, posy, posz, 0 ) )
 	{
 		if( s != -1 )
+		{
+			Xsend( s, restart, 2 );
 			sysmessage( s, "Can not build boat at this location!" );
+		}
 		cItemsManager::getInstance()->unregisterItem( this );
 		cItemsManager::getInstance()->deleteItem( this );
 		return;
 	}
 
+	this->pos.x = posx;
+	this->pos.y = posy;
 	this->pos.z = Map->MapElevation( Coord_cl( pos.x, pos.y, pos.z ) );
 
 	for( int i = 0; i < 4; i++ )
+	{
 		for( int j = 0; j < 6; j++ )
+		{
 			if( this->itemids[i][j] == 0 )
+			{
 				siproblem = 1;
+			}
+		}
+	}
 
 	P_ITEM pTiller = Items->SpawnItem( pc_currchar, 1, "a tiller man", 0, this->itemids[0][ TILLER_ID ], 0, 0 );
 	if( !pTiller )
@@ -146,7 +157,10 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	if( siproblem > 0 )
 	{
 		if( s != -1 )
+		{
+			Xsend( s, restart, 2 );
 			sysmessage( s, "Can not build boat without itemid definitions for special items!" );
+		}
 		cItemsManager::getInstance()->unregisterItem( this );
 		cItemsManager::getInstance()->deleteItem( this );
 		Items->DeleItem( pTiller );
@@ -171,13 +185,31 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 
 	this->autosail_ = 0;	// khpae : not moving 0, 1-8 : moving boatdirection+1
 
-	if( s != -1 )
-		Xsend( s, restart, 2 ); // resume the client
-	
 	mapRegions->Add(pTiller);//Make sure everything is in da regions!
 	mapRegions->Add(pPlankL);
 	mapRegions->Add(pPlankR);
 	mapRegions->Add(pHold);
+	mapRegions->Add(this);
+
+	cRegion::RegionIterator4Chars ri( pos );
+	for (ri.Begin(); !ri.atEnd(); ri++)
+	{
+		P_CHAR pc = ri.GetData();
+		UOXSOCKET retr = calcSocketFromChar( pc );
+		if( retr != -1 )
+		{
+			senditem( retr, this );
+			senditem( retr, pTiller );
+			senditem( retr, pPlankL );
+			senditem( retr, pPlankR );
+			senditem( retr, pHold );
+		}
+	}
+
+	clConsole.send( QString("x: %1, y: %2, z: %3").arg(pos.x).arg(pos.y).arg(pos.z) );
+
+	if( s != -1 )
+		Xsend( s, restart, 2 ); // resume the client
 	
     pc_currchar->SetMultiSerial(this->serial);
 	this->SetOwnSerial( pc_currchar->serial );
@@ -353,7 +385,7 @@ void cBoat::processSpecialItemNode( const QDomElement &Tag, UI08 item )
 
 bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 {
-	UI32 multiid = this->multiids_[ ( boatdir + 1 ) / 2 - 1 ] - 0x4000;
+	UI32 multiid = this->multiids_[ boatdir / 2 ] - 0x4000;
 
 	int j;
 	SI32 length;
@@ -376,7 +408,7 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 		map = Map->SeekMap( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
 		Map->SeekLand (map.id, &land);
 		if (!(land.flag1 & 0x80))
-			return true;
+			return false;
 		
 		MapStaticIterator msi( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
 		staticrecord *stat = msi.Next();
@@ -384,7 +416,7 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 		{
 			msi.GetTile( &tile );
 			if( !(tile.flag1 & 0x80) && ( (stat->zoff + tile.height) <= 70 ) )
-				return true;
+				return false;
 /*			else if( strcmp( (char*)tile.name, "water" ) != 0 )
 				return true; ???????????? non-english users ?????*/
 			stat = msi.Next();
@@ -395,10 +427,10 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 		{
 			P_ITEM pi = ri.GetData();
 			if( ( pi != NULL ) && ( pi->pos.x == (multi.x + posx) ) && ( pi->pos.y == (multi.y + posy) ) ) 
-				return true;
+				return false;
 		}
 	}
-	return false;
+	return true;
 }
 
 void cBoat::turn( SI08 turn )
@@ -426,7 +458,7 @@ void cBoat::turn( SI08 turn )
 		return;
 	else if( turn > 0 ) // clockwise
 	{
-		if( this->boatdir >= 6 )
+		if( this->boatdir >= 7 )
 			newboatdir = 0;
 		else
 			newboatdir+=2;
@@ -469,7 +501,7 @@ void cBoat::turn( SI08 turn )
 	if( !errormsg.isNull() || !errormsg.isEmpty() )
 		return;
 
-	UI08 shortboatdir = ( ( newboatdir + 1 ) / 2 ) - 1;
+	UI08 shortboatdir = newboatdir / 2;
 	this->id_ = this->multiids_[ shortboatdir ];
 	this->boatdir = newboatdir;
 	
@@ -925,7 +957,7 @@ void cBoat::switchPlankState( P_ITEM pplank ) //Open, or close the plank (called
 	if( !pplank->tags.get( "boatserial" ).isValid() || pplank->tags.get( "boatserial" ).toUInt() != this->serial )
 		return;
 
-	UI08 shortboatdir = (this->boatdir + 1) / 2 - 1;
+	UI08 shortboatdir = this->boatdir / 2;
 	if( pplank->id() == this->itemids[ shortboatdir ][PORT_P_C] )
 		pplank->setId( this->itemids[ shortboatdir ][PORT_P_O] ); 
 	else if( pplank->id() == this->itemids[ shortboatdir ][PORT_P_O] )
