@@ -147,7 +147,7 @@ LUMBERJACKING_MAX_DISTANCE = 1 # Makes sure we are next to the tree
 
 # Mining Settings
 MINING_MAX_DISTANCE = 2
-MINING_REFILLTIME = [300000, 600000] # 5 to 10 Minutes Refresh time for trees
+MINING_REFILLTIME = [600000, 1200000] # 10 to 20 Minutes Refresh time for trees
 MINING_ORE = [10, 34]
 
 """

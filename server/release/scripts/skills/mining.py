@@ -10,7 +10,7 @@ import wolfpack.time
 import skills
 import random
 from wolfpack.consts import MINING, GRAY, MINING_REFILLTIME, MINING_ORE, \
-	MINING_MAX_DISTANCE, ANIM_ATTACK3, SOUND_MINING, FELUCIA2XRESGAIN
+	MINING_MAX_DISTANCE, ANIM_ATTACK3, FELUCIA2XRESGAIN
 from wolfpack import console
 from wolfpack.utilities import ismountainorcave, tobackpack
 
@@ -54,7 +54,7 @@ def mining( char, pos, tool ):
 
 def createoregem(pos):
 	gem = wolfpack.additem('ore_gem')
-	gem.settag('resourcecount', random.randint(MINING_ORE[0], MINING_ORE[1])) # 10 - 34 ore
+	gem.settag('resourcecount', random.randint(MINING_ORE[0], MINING_ORE[1])) # 10 - 34 ore			
 	gem.settag('resname', 'iron') # All veins should default to iron ore.
 
 	# This will give it a chance to be a random ore type, this can change later.
@@ -63,23 +63,37 @@ def createoregem(pos):
 		totalchance += ore[FINDCHANCE]
 	colorchance = random.randint(0, totalchance - 1)
 	offset = 0
+	maxreqskill = 0
 
 	for (resname, ore) in ORES.items():
 		if colorchance >= offset and colorchance < offset + ore[FINDCHANCE]:
 			gem.settag('resname2', resname)
+			maxreqskill = ore[REQSKILL]
 			gem.color = ore[COLORID]
 			break
 		offset += ore[FINDCHANCE]
-
+		
+	# Find the ore which has the maximum req skill less than ours
+	resname = 'iron'
+	reqskill = 0
+	
+	for (oreresname, ore) in ORES.items():
+		if ore[REQSKILL] > reqskill and ore[REQSKILL] < maxreqskill:
+			reqskill = ore[REQSKILL]
+			resname = oreresname
+			
+	gem.settag('resname', resname)
+			
+	gem.name = 'Ore Gem (%s,%s)' % (gem.gettag('resname2'), resname)
 	gem.moveto(pos)
 	gem.visible = 0
 	gem.update()
 	return gem
 
 def getvein(socket, pos):
-	# 4x4 resource grid
-	gem_x = (pos.x / 4) * 4
-	gem_y = (pos.y / 4) * 4
+	# 8x8 resource grid
+	gem_x = (pos.x / 8) * 8
+	gem_y = (pos.y / 8) * 8
 
 	gems = wolfpack.items(gem_x, gem_y, pos.map, 0)
 	for gem in gems:
@@ -139,7 +153,7 @@ def response( char, args, target ):
 
 #Sound effect
 def domining(char, args):
-	char.soundeffect( SOUND_MINING )
+	char.soundeffect( random.choice([0x125, 0x126]) )
 	tool = wolfpack.finditem(args[0])
 	pos = args[1]
 	socket = char.socket

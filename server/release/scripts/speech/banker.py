@@ -91,7 +91,7 @@ def onSpeech( listener, speaker, text, keywords ):
         listener.say(500895) # That sounded spooky.
         return 1
 
-      if speaker.iscriminal():
+      if listener.gettag('allowcriminals') != 1 and speaker.iscriminal():
         listener.say(500378) # Thou art a criminal and cannot access thy bank box.
         return 1
 
