@@ -10,7 +10,7 @@
 
 	<!-- horde minion -->
 	<npc id="horde_minion" inherit="monster_base">
-		<name>a horde minion</name>
+		<name>horde minion</name>
 		<id>776</id>
 		<karma>-500</karma>
 		<fame>500</fame>
@@ -23,23 +23,23 @@
 		<tactics><random min="01" max="150"/></tactics>
 		<wrestling><random min="251" max="400"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="10" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>10</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />
 		<!-- Misc. -->
-		<desc>These creatures are only two to three feet tall with extremely largeheads. The lower jaw of the creature is enormous, nearly half the sizeof the entire head, with a small, piggish nose that perches betweentwo bulbous, yellow eyes. Short, sturdy arms and legs sprout from theshaggy torso, but convey surprising speed as it scuttles about.Cowardly as individuals, the Horde Demon will always prefer to runthan to fight. However, in numbers, they gain courage and thrive onthe confusion their appearance creates.</desc>
+		<desc>These creatures are only two to three feet tall with extremely large heads. The lower jaw of the creature is enormous, nearly half the size of the entire head, with a small, piggish nose that perches between two bulbous, yellow eyes. Short, sturdy arms and legs sprout from the shaggy torso, but convey surprising speed as it scuttles about. Cowardly as individuals, the Horde Demon will always prefer to run than to fight. However, in numbers, they gain courage and thrive on the confusion their appearance creates.</desc>
 		<category>Monsters\Daemonic\Horde Minion</category>
 	</npc>
 
 	<npc id="horde_minion_2" inherit="horde_minion">
-		<name>a horde daemon</name>
+		<name>horde daemon</name>
 		<id>795</id>
 	</npc>
 
 	<npc id="horde_minion_3" inherit="horde_minion">
-		<name>a horde daemon</name>
+		<name>horde daemon</name>
 		<id>796</id>
 	</npc>
 

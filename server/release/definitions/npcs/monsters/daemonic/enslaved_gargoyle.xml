@@ -10,7 +10,7 @@
 
 	<!-- enslaved gargoyle -->
 	<npc id="enslaved_gargoyle" inherit="monster_base">
-		<name>an enslaved gargoyle</name>
+		<name>enslaved gargoyle</name>
 		<id>753</id>
 		<karma>0</karma>
 		<fame>3500</fame>
@@ -23,8 +23,8 @@
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="401" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="14" type="int" />
+		<mindamage>7</mindamage>
+		<maxdamage>14</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="30,40" type="int" />
 		<tag name="res_fire" value="50,70" type="int" />

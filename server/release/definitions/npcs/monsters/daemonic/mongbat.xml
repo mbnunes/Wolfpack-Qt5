@@ -10,11 +10,10 @@
 
 	<!-- a mongbat -->
 	<npc id="mongbat" inherit="monster_base">
-		<name>a mongbat</name>
+		<name>mongbat</name>
 		<id>39</id>
 		<karma>-150</karma>
 		<fame>150</fame>
-		<gold><random min="0" max="25"/></gold>
 		<!-- Stats -->
 		<str><random min="6" max="10"/></str>
 		<dex><random min="26" max="38"/></dex>
@@ -25,12 +24,12 @@
 		<wrestling><random min="51" max="100"/></wrestling>
 		<totame>771</totame>
 		<!-- Damage -->
-		<tag name="mindamage" value="1" type="int" />
-		<tag name="maxdamage" value="3" type="int" />
+		<mindamage>1</mindamage>
+		<maxdamage>3</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Misc. -->
-		<desc>Like the harpies and the headless, the mongbat is a bestial perversionof the human form, being shaped like a bat with a monkey's head.Mongbats are cowardly creatures, of no great threat individually, butthey are masters of the underground ambush, attacking in flocks fromout of the concealing dark.</desc>
+		<desc>Like the harpies and the headless, the mongbat is a bestial perversion of the human form, being shaped like a bat with a monkey's head. Mongbats are cowardly creatures, of no great threat individually, but they are masters of the underground ambush, attacking in flocks from out of the concealing dark.</desc>
 		<carve>carve_mong_bat</carve>
 		<category>Monsters\Daemonic\Mongbat</category>
 	</npc>

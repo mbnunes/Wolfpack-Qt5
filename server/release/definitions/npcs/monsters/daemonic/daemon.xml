@@ -14,7 +14,6 @@
 		<id>9</id>
 		<karma>-15000</karma>
 		<fame>15000</fame>
-		<gold><random min="300" max="400"/></gold>
 		<!-- Stats -->
 		<str><random min="476" max="505"/></str>
 		<dex><random min="76" max="95"/></dex>
@@ -26,8 +25,8 @@
 		<tactics><random min="701" max="800"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="14" type="int" />
+		<mindamage>7</mindamage>
+		<maxdamage>14</maxdamage>
 		<tag name="dmg_energy" value="25" type="int" />
 		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->
@@ -37,7 +36,7 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Misc -->
-		<desc>No purer manifestation of primal evil exists than the hideous daemon,a denizen of the dark and infernal planes brought to these shores bythe most vile wizardries. Only the greatest of heroes have evervanquished a daemon in single combat, and even a group of valiantwarriors must be mighty indeed to survive an encounter with such afiend.</desc>
+		<desc>No purer manifestation of primal evil exists than the hideous daemon, a denizen of the dark and infernal planes brought to these shores bythe most vile wizardries. Only the greatest of heroes have ever vanquished a daemon in single combat, and even a group of valiant warriors must be mighty indeed to survive an encounter with such a fiend.</desc>
 		<carve>carve_demon</carve>
 		<category>Monsters\Daemonic\Daemon</category>
 	</npc>

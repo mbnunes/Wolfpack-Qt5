@@ -10,11 +10,10 @@
 
 	<!-- an imp -->
 	<npc id="imp" inherit="monster_base">
-		<name>an imp</name>
+		<name>imp</name>
 		<id>74</id>
 		<karma>-2500</karma>
 		<fame>2500</fame>
-		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="91" max="115"/></str>
 		<dex><random min="61" max="80"/></dex>
@@ -27,8 +26,8 @@
 		<evaluatingintel><random min="201" max="300"/></evaluatingintel>
 		<totame>831</totame>
 		<!-- Damage -->
-		<tag name="mindamage" value="10" type="int" />
-		<tag name="maxdamage" value="14" type="int" />
+		<mindamage>10</mindamage>
+		<maxdamage>14</maxdamage>
 		<tag name="dmg_energy" value="20" type="int" />
 		<tag name="dmg_fire" value="30" type="int" />
 		<tag name="dmg_poison" value="50" type="int" />
@@ -39,7 +38,7 @@
 		<tag name="res_physical" value="15,25" type="int" />
 		<tag name="res_poison" value="45,55" type="int" />
 		<!-- Misc. -->
-		<desc>Whatever Fate granted the Imp wings was clearly not gifted withforesight. The Imp is quite capable of causing enough mischief on theground; being airborne only doubles the threat. Gifted with smallmagic and a temperament for causing trouble, these annoying beastsprey upon all who cross their path. It is rumored that Imps will stealfrom the strange (you) and give to the familiar (themselves). *Wareyour health and holdings should you cross the path of the Imp.</desc>
+		<desc>Whatever Fate granted the Imp wings was clearly not gifted with foresight. The Imp is quite capable of causing enough mischief on the ground; being airborne only doubles the threat. Gifted with small magic and a temperament for causing trouble, these annoying beasts prey upon all who cross their path. It is rumored that Imps will steal from the strange (you) and give to the familiar (themselves). *Ware your health and holdings should you cross the path of the Imp.</desc>
 		<carve>carve_imp</carve>
 		<category>Monsters\Daemonic\Imp</category>
 	</npc>

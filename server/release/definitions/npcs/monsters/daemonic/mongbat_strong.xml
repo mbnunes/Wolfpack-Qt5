@@ -9,12 +9,9 @@
 <definitions>
 
 	<!-- mongbat (strong) -->
-	<npc id="mongbat_strong" inherit="monster_base">
-		<name>a mongbat</name>
-		<id>39</id>
+	<npc id="mongbat_strong" inherit="mongbat">
 		<karma>-300</karma>
 		<fame>300</fame>
-		<gold><random min="0" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="12" max="20"/></str>
 		<dex><random min="52" max="76"/></dex>
@@ -25,14 +22,12 @@
 		<wrestling><random min="102" max="200"/></wrestling>
 		<totame>771</totame>
 		<!-- Damage -->
-		<tag name="mindamage" value="2" type="int" />
-		<tag name="maxdamage" value="5" type="int" />
+		<mindamage>2</mindamage>
+		<maxdamage>5</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="10,20" type="int" />
 		<!-- Misc. -->
-		<desc>Like the harpies and the headless, the mongbat is a bestial perversionof the human form, being shaped like a bat with a monkey's head.Mongbats are cowardly creatures, of no great threat individually, butthey are masters of the underground ambush, attacking in flocks fromout of the concealing dark.</desc>
-		<carve>carve_mong_bat</carve>
-		<category>Monsters\Daemonic\Mongbat</category>
+		<category>Monsters\Daemonic\Mongbat (Strong)</category>
 	</npc>
 
 </definitions>

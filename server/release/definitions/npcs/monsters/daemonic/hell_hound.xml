@@ -10,11 +10,10 @@
 
 	<!-- a hell hound -->
 	<npc id="hell_hound" inherit="monster_base">
-		<name>a hell hound</name>
+		<name>hell hound</name>
 		<id>97</id>
 		<karma>-3400</karma>
 		<fame>3400</fame>
-		<gold><random min="100" max="130"/></gold>
 		<!-- Stats -->
 		<str><random min="102" max="150"/></str>
 		<dex><random min="81" max="105"/></dex>
@@ -25,8 +24,8 @@
 		<wrestling><random min="601" max="800"/></wrestling>
 		<totame>855</totame>
 		<!-- Damage -->
-		<tag name="mindamage" value="21" type="int" />
-		<tag name="maxdamage" value="31" type="int" />
+		<mindamage>21</mindamage>
+		<maxdamage>31</maxdamage>
 		<tag name="dmg_fire" value="80" type="int" />
 		<!-- Resists -->
 		<tag name="res_physical" value="25,35" type="int" />
@@ -34,7 +33,7 @@
 		<tag name="res_poison" value="10,20" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />
 		<!-- Misc. -->
-		<desc>Whatsoever raiment a daemon adorns, doubt not that their power remainsbeneath the garb. Truer words could not be spoken of the hounds fromhell. Vicious and hungry, these hounds are pack animals whose soledesire is to relieve wanderers of their mortal coil.</desc>
+		<desc>What so ever raiment a daemon adorns, doubt not that their power remains beneath the garb. Truer words could not be spoken of the hounds from hell. Vicious and hungry, these hounds are pack animals whose sole desire is to relieve wanderers of their mortal coil.</desc>
 		<carve>carve_hell_hound</carve>
 		<category>Monsters\Daemonic\Hell Hound</category>
 	</npc>

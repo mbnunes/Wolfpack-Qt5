@@ -10,7 +10,7 @@
 
 	<!-- a gargoyle -->
 	<npc id="gargoyle" inherit="monster_base">
-		<name>a gargoyle</name>
+		<name>gargoyle</name>
 		<id>4</id>
 		<karma>-3500</karma>
 		<fame>3500</fame>
@@ -26,15 +26,15 @@
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="401" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="7" type="int" />
-		<tag name="maxdamage" value="14" type="int" />
+		<mindamage>7</mindamage>
+		<maxdamage>14</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="30,35" type="int" />
 		<tag name="res_fire" value="25,35" type="int" />
 		<tag name="res_cold" value="5,10" type="int" />
 		<tag name="res_poison" value="15,25" type="int" />
 		<!-- Misc. -->
-		<desc>These strange creatures are believed by many to be daemonic in nature,but in truth this is a slander. They are an Intelligent and civilizedrace. They have no love for humanity (nor is their mistrustunjustified) but they are honorable in their own, alien way. Theirways are mysterious, and it may be that they are too different from usto ever live in peace with humanity. If that proves to be so, somewould call it a great tragedy.</desc>
+		<desc>These strange creatures are believed by many to be daemonic in nature, but in truth this is a slander. They are an Intelligent and civilized race. They have no love for humanity (nor is their mistrust unjustified) but they are honorable in their own, alien way. Their ways are mysterious, and it may be that they are too different from us to ever live in peace with humanity. If that proves to be so, somewould call it a great tragedy.</desc>
 		<carve>carve_gargoyle</carve>
 		<category>Monsters\Daemonic\Gargoyle</category>
 	</npc>
