@@ -259,14 +259,143 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )
 	return;
 }
 
+class cSetTarget: public cTargetRequest
+{
+private:
+	QString key,value;
+public:
+	cSetTarget( const QString nKey, const QString nValue ) {
+		key = nKey;
+		value = nValue;
+	}
+
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pChar = FindCharBySerial( target->serial() );
+		P_ITEM pItem = FindItemBySerial( target->serial() );
+
+		cUObject *pObject = NULL;
+
+		if( pItem )
+			pObject = pItem;
+		else if( pChar )
+			pObject = pChar;
+
+		// Only characters and items
+		if( !pObject )
+		{
+			socket->sysMessage( tr( "Please select a valid character or item" ) );
+			return;
+		}
+
+		// Object name
+        if( key == "name" )
+			pObject->name = value.latin1();
+
+		// Object color
+		else if( ( key == "color" ) || ( key == "skin" ) )
+		{
+			if( pItem )
+				pItem->setColor( hex2dec( value ).toULong() );
+			else if( pChar )
+				pChar->setSkin( hex2dec( value ).toULong() );
+		}
+
+		// Object id
+		else if( ( key == "id" ) || ( key == "body" ) || ( key == "model" ) )
+		{
+			if( pItem )
+				pItem->setId( hex2dec( value ).toULong() );
+			else if( pChar )
+				pChar->setId( hex2dec( value ).toULong() );
+		}
+
+		// Object direction
+		else if( key == "dir" )
+		{
+			if( pItem )
+				pItem->dir = hex2dec( value ).toULong();
+			else if( pChar )
+				pChar->dir = hex2dec( value ).toULong();
+		}
+
+		// Object position
+		else if( ( key == "pos" ) || ( key == "p" ) )
+		{
+			Coord_cl newCoords = pObject->pos;
+			if( !parseCoordinates( value, newCoords ) )
+			{
+				socket->sysMessage( tr( "Invalid coordinates '%1'" ).arg( value ) );
+				return;
+			}
+			pObject->moveTo( newCoords );
+		}
+		
+		// Char title
+		else if( ( key == "title" ) && pChar )
+			pChar->setTitle( value );
+
+		// Item Amount
+		else if( ( key == "amount" ) && pItem && ( hex2dec( value ).toULong() > 0 ) )
+			pItem->setAmount( hex2dec( value ).toULong() );			
+
+		// Object tags
+		else if( key.left( 4 ) == "tag." )
+		{
+			QString tagName = key.right( key.length() - 4 );
+			bool ok = false;
+			hex2dec( value ).toInt( &ok );
+
+			if( !ok )
+				pObject->tags.set( tagName, cVariant( value ) );
+			else
+				pObject->tags.set( tagName, cVariant( hex2dec( value ).toInt() ) );
+		}
+		// Unknown Tag
+		else
+		{
+			socket->sysMessage( tr( "Unknown key '%1'" ).arg( key ) );
+			return;
+		}
+
+		if( pChar )
+			pChar->update();
+		else if( pItem )
+			pItem->update();
+	}
+};
+
+void commandSet( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( args.size() < 2 )
+	{
+		socket->sysMessage( "Usage: set <key> <value>" );
+		return;
+	}
+
+    QString key = args[0];
+	args.erase( args.begin() );
+    QString value = args.join( " " );
+
+	socket->sysMessage( tr( "Please select a target to 'set %1 %2' " ).arg( key ).arg( value ) );
+	socket->attachTarget( new cSetTarget( key, value ) );
+}
+
+void commandResend( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	socket->resendWorld();
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
 	{ "ADD", commandAdd },
+	{ "RESEND", commandResend },
 	{ "ADDITEM", commandAddItem },
 	{ "ADDNPC", commandAddNpc },
 	{ "GO", commandGo },
 	{ "WHERE", commandWhere },
 	{ "FIX", commandFix },
+	{ "SET", commandSet },
 	{ NULL, NULL }
 };

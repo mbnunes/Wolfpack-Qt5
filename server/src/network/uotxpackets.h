@@ -637,6 +637,26 @@ public:
 	void setSerial( UINT32 data ) { setInt( 1, data ); }
 };
 
+// 0x1A CharInfo
+class cUOTxCharInfo: public cUOPacket
+{
+public:
+	cUOTxCharInfo(): cUOPacket( 0x1A, 18 ) { setShort( 1, 18 ); }
+	void setSerial( UINT32 data ) { setInt( 3, data ); }
+	void setBody( UINT16 data ) { setShort( 7, data ); }
+	void setCoord( const Coord_cl &coord )
+	{
+		setShort( 9, coord.x | 0x8000 );
+		setShort( 11, coord.y | 0xC000 );
+		rawPacket[14] = coord.z;
+	}
+	void setDirection( UINT8 data ) { rawPacket[13] = data; }
+	void setColor( UINT16 data ) { setShort( 15, data ); }
+	void setFlags( UINT8 data ) { rawPacket[17] = data; }
+
+	void fromChar( P_CHAR pChar );
+};
+
 // 0x6C Target
 class cUOTxTarget: public cUOPacket
 {

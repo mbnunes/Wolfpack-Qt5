@@ -143,6 +143,7 @@ public:
 	void poll();
 	void soundEffect( UINT16 soundId, cUObject *source = NULL ); 
 	void attachTarget( cTargetRequest *request );
+	void resendWorld( bool clean = true );
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );

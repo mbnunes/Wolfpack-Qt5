@@ -1855,6 +1855,12 @@ void cChar::showName( cUOSocket *socket )
 void cChar::update( void )
 {
 	cRegion::RegionIterator4Chars ri( pos );
+	
+	cUOTxRemoveObject removeSelf;
+	removeSelf.setSerial( serial );
+
+	cUOTxDrawChar drawChar;
+	drawChar.fromChar( this );
 
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
@@ -1865,7 +1871,10 @@ void cChar::update( void )
 
 		// Resend if in range
 		if( pChar->pos.distance( pos ) <= pChar->VisRange )
-			pChar->socket()->updateChar( this );
+		{
+			pChar->socket()->send( &removeSelf );
+			pChar->socket()->send( &drawChar );
+		}
 	}
 
 	// Additionally resend ourself to ourself

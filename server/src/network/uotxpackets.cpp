@@ -326,3 +326,13 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 	setContainer( pItem->contserial );
 	setColor( pItem->color() );
 }
+
+void cUOTxCharInfo::fromChar( P_CHAR pChar )
+{
+	setSerial( pChar->serial );
+	setBody( pChar->id() );
+	setCoord( pChar->pos );
+	setDirection( pChar->dir );
+	setColor( pChar->skin() );
+	// Flags
+}

@@ -43,6 +43,7 @@
 #include "../globals.h"
 #include "../junk.h"
 #include "../territories.h"
+#include "../regions.h"
 #include "../structs.h"
 #include "../speech.h"
 #include "../commands.h"
@@ -315,7 +316,8 @@ void cUOSocket::playChar( P_CHAR pChar )
 
 	// We're now playing this char:
 	setPlayer( pChar );
-	pChar->update(); // Send us to others
+	resendWorld( false );
+	pChar->resend(); // Send us to others
 }
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
@@ -1116,6 +1118,7 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 
 	targetRequest->responsed( this, packet );
 	delete targetRequest;
+	targetRequest = 0;
 }
 
 void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
@@ -1132,4 +1135,33 @@ void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
 		sound.setCoord( source->pos );
 
 	send( &sound );
+}
+
+void cUOSocket::resendWorld( bool clean )
+{
+	if( !_player )
+		return;
+
+	cUOTxRemoveObject rObject;
+
+	RegionIterator4Chars chIterator( _player->pos );
+	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
+	{
+		P_CHAR pChar = chIterator.GetData();
+		if( !pChar )
+			continue;
+
+		if( pChar->pos.distance( _player->pos ) > _player->VisRange )
+			continue;
+
+		if( clean )
+		{
+			rObject.setSerial( pChar->serial );
+			send( &rObject );
+		}
+
+		cUOTxDrawChar drawChar;
+		drawChar.fromChar( pChar );
+		send( &drawChar );
+	}
 }
