@@ -12,21 +12,23 @@
 	<npc id="ophidian_justicar" inherit="monster_base">
 		<name>ophidian justicar</name>
 		<id>85</id>
-		<karma>-11500</karma>
-		<fame>11500</fame>
+		<karma><random list="KARMA_L4" /></karma>
+		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
 		<str><random min="281" max="305"/></str>
 		<dex><random min="191" max="215"/></dex>
-		<int><random min="951" max="1000"/></int>
+		<int><random min="64" max="160"/></int>
+		<maxhitpoints><random min="169" max="183"/></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="951" max="1000"/></evaluatingintel>
 		<magery><random min="951" max="1000"/></magery>
 		<magicresistance><random min="750" max="975"/></magicresistance>
 		<tactics><random min="650" max="875"/></tactics>
 		<wrestling><random min="202" max="600"/></wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>10</maxdamage>
+		<mindamage>12</mindamage>
+		<maxdamage>27</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />
 		<tag name="res_energy" value="25,35" type="int" />

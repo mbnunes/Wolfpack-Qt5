@@ -12,21 +12,23 @@
 	<npc id="ophidian_apprentice_mage" inherit="monster_base">
 		<name>ophidian apprentice mage</name>
 		<id>85</id>
-		<karma>-4000</karma>
-		<fame>4000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="181" max="205"/></str>
 		<dex><random min="193" max="215"/></dex>
 		<int><random min="96" max="120"/></int>
+		<maxhitpoints><random min="109" max="123"/></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="851" max="1000"/></evaluatingintel>
 		<magery><random min="851" max="1000"/></magery>
 		<magicresistance><random min="750" max="975"/></magicresistance>
 		<tactics><random min="650" max="875"/></tactics>
 		<wrestling><random min="202" max="600"/></wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>10</maxdamage>
+		<mindamage>10</mindamage>
+		<maxdamage>20</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="35,45" type="int" />
 		<tag name="res_energy" value="35,45" type="int" />

@@ -12,19 +12,21 @@
 	<npc id="ophidian_enforcer" inherit="monster_base">
 		<name>ophidian enforcer</name>
 		<id>86</id>
-		<karma>-4500</karma>
-		<fame>4500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="150" max="320"/></str>
 		<dex><random min="94" max="190"/></dex>
 		<int><random min="64" max="160"/></int>
+		<maxhitpoints><random min="128" max="155"/></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Skills -->
 		<magicresistance><random min="701" max="850"/></magicresistance>
 		<swordsmanship><random min="601" max="850"/></swordsmanship>
 		<tactics><random min="751" max="900"/></tactics>
 		<!-- Damage -->
-		<mindamage>4</mindamage>
-		<maxdamage>10</maxdamage>
+		<mindamage>11</mindamage>
+		<maxdamage>24</maxdamage>
 		<tag name="dmg_poison" value="30" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />
