@@ -110,6 +110,7 @@
 	<item id="1ad6">
 		<id>0x1ad6</id>
 		<category>Professions\Barkeeper\Keg (N/S)</category>
+		<weight>20.0</weight>
 	</item>
 
 	<item id="1ad7">

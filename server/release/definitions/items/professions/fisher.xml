@@ -173,6 +173,7 @@
 		<category>Professions\Fisher\Tools\Fishing Pole (N/S)</category>
 		<tag name="remaining_uses" type="int" value="50" />
 		<basescripts>skills.fishing</basescripts>
+		<weight>8.0</weight>
 	</item>
 
 	<item id="dc0" inherit="dbf">

@@ -357,21 +357,25 @@
 		<category>Professions\Miner\Ore\Ore 1</category>
 		<basescripts>ore</basescripts>
 		<type>1102</type>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="19b8" inherit="19b7">
 		<id>0x19b8</id>
 		<category>Professions\Miner\Ore\Ore 2</category>
+		<weight>7.0</weight>
 	</item>
 
 	<item id="19b9" inherit="19b7">
 		<id>0x19b9</id>
 		<category>Professions\Miner\Ore\Ore 3</category>
+		<weight>12.0</weight>
 	</item>
 
 	<item id="19ba" inherit="19b7">
 		<id>0x19ba</id>
 		<category>Professions\Miner\Ore\Ore 4</category>
+		<weight>7.0</weight>
 	</item>
 
 	<item id="1a82">
@@ -407,11 +411,13 @@
 	<item id="1be3">
 		<id>0x1be3</id>
 		<category>Professions\Miner\Ingots\Copper Ingot (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1be4">
 		<id>0x1be4</id>
 		<category>Professions\Miner\Ingots\Copper Ingots 1 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1be5">
@@ -422,46 +428,55 @@
 	<item id="1be6">
 		<id>0x1be6</id>
 		<category>Professions\Miner\Ingots\Copper Ingot (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1be7">
 		<id>0x1be7</id>
 		<category>Professions\Miner\Ingots\Copper Ingots 1 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1be8">
 		<id>0x1be8</id>
 		<category>Professions\Miner\Ingots\Copper Ingots 2 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1be9">
 		<id>0x1be9</id>
 		<category>Professions\Miner\Ingots\Gold Ingot (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bea">
 		<id>0x1bea</id>
 		<category>Professions\Miner\Ingots\Gold Ingots 1 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1beb">
 		<id>0x1beb</id>
 		<category>Professions\Miner\Ingots\Gold Ingots 2 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bec">
 		<id>0x1bec</id>
-		<category>Professions\Miner\Ingots\Gold Ingot (N/S)</category>
+		<category>Professions\Miner\Ingots\Gold Ingot(N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bed">
 		<id>0x1bed</id>
 		<category>Professions\Miner\Ingots\Gold Ingots 1 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bee">
 		<id>0x1bee</id>
 		<category>Professions\Miner\Ingots\Gold Ingots 2 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bf2">
@@ -469,66 +484,77 @@
 		<category>Professions\Miner\Ingots\Iron Ingot (N/S)</category>
 		<tag name="resname" value="iron" />
 		<basescripts>ingot</basescripts>
-		<weight>1.0</weight>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bef" inherit="1bf2">
 		<baseid>1bf2</baseid>
 		<id>0x1bef</id>
 		<category>Professions\Miner\Ingots\Iron Ingot (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bf0">
 		<id>0x1bf0</id>
 		<category>Professions\Miner\Ingots\Iron Ingots 1 (W/E)</category>
+		<weight>0.1</weight>
   </item>
 
 	<item id="1bf1">
 		<id>0x1bf1</id>
 		<category>Professions\Miner\Ingots\Iron Ingots 2 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bf3">
 		<id>0x1bf3</id>
 		<category>Professions\Miner\Ingots\Iron Ingots 1 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bf4">
 		<id>0x1bf4</id>
 		<category>Professions\Miner\Ingots\Iron Ingots 2 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bf5">
 		<id>0x1bf5</id>
 		<category>Professions\Miner\Ingots\Silver Ingot (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bf6">
 		<id>0x1bf6</id>
 		<category>Professions\Miner\Ingots\Silver Ingots 1 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bf7">
 		<id>0x1bf7</id>
 		<category>Professions\Miner\Ingots\Silver Ingots 2 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bf8">
 		<id>0x1bf8</id>
 		<category>Professions\Miner\Ingots\Silver Ingot (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bf9">
 		<id>0x1bf9</id>
 		<category>Professions\Miner\Ingots\Silver Ingots 1 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bfa">
 		<id>0x1bfa</id>
 		<category>Professions\Miner\Ingots\Silver Ingots 2 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
-    <!-- Shovel -->
+	<!-- Shovel -->
 	<item id="f39">
 		<id>0xf39</id>
 		<durability><random min="30" max="55" /></durability>
@@ -537,6 +563,7 @@
 		<basescripts>equipment,pickaxe</basescripts>
 		<category>Professions\Miner\Tools\Shovel (E/W)</category>
 		<buyprice>12</buyprice>
+		<weight>5.0</weight>
 	</item>
 
 	<item id="f3a" inherit="f39">

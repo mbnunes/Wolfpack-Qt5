@@ -14,6 +14,7 @@
 	<item id="f0f">
 		<id>0xf0f</id>
 		<category>Professions\Jeweler\Star Sapphire 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="f1b" inherit="f0f">
@@ -30,6 +31,7 @@
 	<item id="f11">
 		<id>0xf11</id>
 		<category>Professions\Jeweler\Sapphire 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="f12" inherit="f11">
@@ -51,6 +53,7 @@
 	<item id="f15">
 		<id>0xf15</id>
 		<category>Professions\Jeweler\Citrine 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="f23" inherit="f15">
@@ -72,6 +75,7 @@
 	<item id="f16">
 		<id>0xf16</id>
 		<category>Professions\Jeweler\Amethyst 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="f17" inherit="f16">
@@ -93,6 +97,7 @@
 	<item id="f18">
 		<id>0xf18</id>
 		<category>Professions\Jeweler\Tourmaline 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="f1e" inherit="f18">
@@ -114,6 +119,7 @@
 	<item id="f13">
 		<id>0xf13</id>
 		<category>Professions\Jeweler\Ruby 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="f14" inherit="f13">
@@ -150,6 +156,7 @@
 	<item id="f10">
 		<id>0xf10</id>
 		<category>Professions\Jeweler\Emerald 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="f2f" inherit="f10">
@@ -161,12 +168,15 @@
 	<item id="f25">
 		<id>0xf25</id>
 		<category>Professions\Jeweler\Amber</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Diamond -->
 	<item id="f26">
 		<id>0xf26</id>
 		<category>Professions\Jeweler\Diamond 1</category>
+		<weight>1.0</weight>
+		<buyprice>120</buyprice>
 	</item>
 
 	<item id="f27" inherit="f26">

@@ -46,6 +46,7 @@
 		<category>Professions\Blacksmith\Tongs (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<buyprice>3</buyprice>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="fbc" inherit="fbb">
@@ -313,6 +314,7 @@
 		<baseid>fb4</baseid>
 		<id>0xfb4</id>
 		<category>Professions\Blacksmith\Sledge Hammer (W/E)</category>
+		<weight>9.0</weight>
 	</item>
 
 	<!-- Sledge Hammer -->
@@ -327,6 +329,7 @@
 		<baseid>13e3</baseid>
 		<id>0x13e3</id>
 		<category>Professions\Blacksmith\Smith's Hammer (W/E)</category>
+		<weight>8.0</weight>
 	</item>
 
 	<item id="smiths_hammer_2" inherit="smiths_hammer">
@@ -341,6 +344,7 @@
 		<id>0x26b4</id>
 		<color>0x66D</color>
 		<category>Professions\Blacksmith\Scales\Red Scales</category>
+		<weight>0.2</weight>
 	</item>
 
 	<!-- Yellow Scales -->
@@ -349,6 +353,7 @@
 		<id>0x26b4</id>
 		<color>0x8A8</color>
 		<category>Professions\Blacksmith\Scales\Yellow Scales</category>
+		<weight>0.2</weight>
 	</item>
 
 	<!-- Black Scales -->
@@ -357,6 +362,7 @@
 		<id>0x26b4</id>
 		<color>0x455</color>
 		<category>Professions\Blacksmith\Scales\Black Scales</category>
+		<weight>0.2</weight>
 	</item>
 
 	<!-- Green Scales -->
@@ -365,6 +371,7 @@
 		<id>0x26b4</id>
 		<color>0x851</color>
 		<category>Professions\Blacksmith\Scales\Green Scales</category>
+		<weight>0.2</weight>
 	</item>
 
 	<!-- White Scales -->
@@ -373,6 +380,7 @@
 		<id>0x26b4</id>
 		<color>0x8FD</color>
 		<category>Professions\Blacksmith\Scales\White Scales</category>
+		<weight>0.2</weight>
 	</item>
 
 	<!-- Blue Scales -->
@@ -381,6 +389,7 @@
 		<id>0x26b4</id>
 		<color>0x8B0</color>
 		<category>Professions\Blacksmith\Scales\Blue Scales</category>
+		<weight>0.2</weight>
 	</item>
 
 </definitions>

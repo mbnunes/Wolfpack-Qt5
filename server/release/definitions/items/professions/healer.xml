@@ -12,26 +12,29 @@
 	<!-- Bandages -->
 	<item id="e20">
 		<id>0xe20</id>
-		<category>Professions\Healer\Bloody Bandages 2</category>
-		<basescripts>bandages</basescripts>
-		<buyprice>5</buyprice>
-	</item>
-
-	<item id="e21" inherit="e20">
-		<id>0xe21</id>
-		<category>Professions\Healer\Clean Bandages 2</category>
-	</item>
-
-	<item id="e22">
-		<id>0xe22</id>
 		<category>Professions\Healer\Bloody Bandages 1</category>
 		<basescripts>bandages</basescripts>
+		<buyprice>1</buyprice>
+		<weight>0.1</weight>
 	</item>
 
-	<item id="ee9">
-		<id>0xee9</id>
+	<item id="e22" inherit="e20">
+		<id>0xe22</id>
+		<category>Professions\Healer\Bloody Bandages 2</category>
+	</item>
+
+	<item id="e21">
+		<id>0xe21</id>
 		<category>Professions\Healer\Clean Bandages 1</category>
+		<weight>0.1</weight>
+		<buyprice>1</buyprice>
+		<sellprice>3</sellprice>
 		<basescripts>bandages</basescripts>
+	</item>
+
+	<item id="ee9" inherit="e21">
+		<id>0xee9</id>
+		<category>Professions\Healer\Clean Bandages 2</category>
 	</item>
 
 	<item id="e23">

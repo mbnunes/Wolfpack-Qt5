@@ -15,7 +15,7 @@
 		<nodye />
 		<durability><random min="25" max="30" /></durability>
 		<restock>10</restock>
-		<weight>3</weight>
+		<weight>3.0</weight>
 		<value>0</value>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>

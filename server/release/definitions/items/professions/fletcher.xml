@@ -23,9 +23,11 @@
 	<item id="f40">
 		<id>0xf40</id>
 		<category>Professions\Fletcher\Arrows 1</category>
+		<weight>0.1</weight>
 	</item>
 
-	<item id="f41">
+	<item id="f41" inherit="f40">
+		<baseid>f40</baseid>
 		<id>0xf41</id>
 		<category>Professions\Fletcher\Arrows 2</category>
 	</item>
@@ -58,18 +60,19 @@
 	<item id="1024">
 		<id>0x1024</id>
 		<category>Professions\Fletcher\Arrow Shafts 1</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1025">
 		<id>0x1025</id>
 		<category>Professions\Fletcher\Arrow Shafts 2</category>
+		<weight>0.1</weight>
 	</item>
-
 
 	<!-- arrows -->
 	<item id="f3f">
 		<id>0xf3f</id>
-	    <weight>0.1</weight>
+		<weight>0.1</weight>
 		<category>Professions\Fletcher\Arrow</category>
 		<buyprice>3</buyprice>
 	</item>
@@ -77,7 +80,7 @@
 	<!-- crossbow bolts -->
 	<item id="1bfb">
 		<id>0x1bfb</id>
-    	<weight>0.1</weight>
+		<weight>0.1</weight>
 		<category>Professions\Fletcher\Crossbow Bolt</category>
 		<buyprice>6</buyprice>
 	</item>
@@ -95,32 +98,37 @@
 	<item id="1bd1">
 		<id>0x1bd1</id>
 		<category>Professions\Fletcher\Feather</category>
-    <weight>0.1</weight>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bd2">
 		<id>0x1bd2</id>
 		<category>Professions\Fletcher\Feathers 1</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bd3">
 		<id>0x1bd3</id>
 		<category>Professions\Fletcher\Feathers 2</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bd4">
 		<id>0x1bd4</id>
 		<category>Professions\Fletcher\Shaft</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bd5">
 		<id>0x1bd5</id>
 		<category>Professions\Fletcher\Shafts 1</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1bd6">
 		<id>0x1bd6</id>
 		<category>Professions\Fletcher\Shafts 2</category>
+		<weight>0.1</weight>
 	</item>
 
 </definitions>

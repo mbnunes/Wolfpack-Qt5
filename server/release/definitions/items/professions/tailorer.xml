@@ -12,6 +12,7 @@
 	<item id="def">
 		<id>0xdef</id>
 		<category>Professions\Tailorer\Resources\Raw Cotton 1</category>
+		<weight>3.0</weight>
 	</item>
 
 	<item id="df6">
@@ -168,67 +169,80 @@
 	<item id="175d">
 		<id>0x175d</id>
 		<category>Professions\Tailorer\Supplies\Folded Cloth 1 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="175e">
 		<id>0x175e</id>
 		<category>Professions\Tailorer\Supplies\Folded Cloth 2 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="175f">
 		<id>0x175f</id>
 		<category>Professions\Tailorer\Supplies\Folded Cloth 3 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1760">
 		<id>0x1760</id>
 		<category>Professions\Tailorer\Supplies\Folded Cloth 4 (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1761">
 		<id>0x1761</id>
 		<category>Professions\Tailorer\Supplies\Folded Cloth 1 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1762">
 		<id>0x1762</id>
 		<category>Professions\Tailorer\Supplies\Folded Cloth 2 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1763">
 		<id>0x1763</id>
 		<category>Professions\Tailorer\Supplies\Folded Cloth 3 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1764">
 		<id>0x1764</id>
 		<category>Professions\Tailorer\Supplies\Folded Cloth 4 (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1765">
 		<id>0x1765</id>
 		<category>Professions\Tailorer\Cloth (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1766">
 		<id>0x1766</id>
 		<category>Professions\Tailorer\Cut Cloth (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1767">
 		<id>0x1767</id>
 		<category>Professions\Tailorer\Cloth (N/S)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1768">
 		<id>0x1768</id>
 		<category>Professions\Tailorer\Cut Cloth (W/E)</category>
+		<weight>0.1</weight>
 	</item>
 
 	<item id="1a9c">
 		<id>0x1a9c</id>
 		<category>Professions\Tailorer\Resources\Flax</category>
 		<buyprice>102</buyprice>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Raw Cotton -->
@@ -236,6 +250,7 @@
 		<id>0xdf9</id>
 		<category>Professions\Tailorer\Resources\Raw Cotton 2</category>
 		<buyprice>102</buyprice>
+		<weight>3.0</weight>
 	</item>
 
 	<!-- Pile of Wool -->
@@ -244,6 +259,7 @@
 		<category>Professions\Tailorer\Resources\Pile of Wool 1</category>
 		<basescripts>wool</basescripts>
 		<buyprice>62</buyprice>
+		<weight>3.0</weight>
 	</item>
 
 	<item id="101f" inherit="df8">
@@ -257,20 +273,17 @@
 		<category>Professions\Tailorer\Resources\Ball of Yarn 1</category>
 		<basescripts>yarn</basescripts>
 		<buyprice>18</buyprice>
+		<weight>1.0</weight>
 	</item>
 
-	<item id="e1e">
+	<item id="e1e" inherit="e1d">
 		<id>0xe1e</id>
 		<category>Professions\Tailorer\Resources\Ball of Yarn 2</category>
-		<basescripts>yarn</basescripts>
-		<buyprice>18</buyprice>
 	</item>
 
-	<item id="e1f">
+	<item id="e1f" inherit="e1d">
 		<id>0xe1f</id>
 		<category>Professions\Tailorer\Resources\Ball of Yarn 3</category>
-		<basescripts>yarn</basescripts>
-		<buyprice>18</buyprice>
 	</item>
 
 	<!-- Bolt of Cloth -->
@@ -278,6 +291,7 @@
 		<id>0xf95</id>
 		<category>Professions\Tailorer\Bolt of Cloth 1</category>
 		<buyprice>120</buyprice>
+		<weight>5.0</weight>
 	</item>
 
 	<item id="f96" inherit="f95">
@@ -319,8 +333,9 @@
 		<id>0xf9d</id>
 		<category>Professions\Tailorer\Sewing Kit</category>
 		<tag name="remaining_uses" type="int" value="35" />
-    	<basescripts>skills.tailoring,equipment</basescripts>
-    	<buyprice>3</buyprice>
+		<basescripts>skills.tailoring,equipment</basescripts>
+		<buyprice>3</buyprice>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="f9e">
@@ -328,6 +343,7 @@
 		<category>Professions\Tailorer\Scissors (N/S)</category>
 		<basescripts>scissors</basescripts>
 		<buyprice>13</buyprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="f9f" inherit="f9e">
@@ -340,6 +356,7 @@
 		<category>Professions\Tailorer\Resources\Spool of Thread (N/S)</category>
 		<basescripts>yarn</basescripts>
 		<buyprice>18</buyprice>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="fa1" inherit="fa0">
@@ -351,8 +368,9 @@
 		<id>0xfa9</id>
 		<category>Professions\Tailorer\Dyes</category>
 		<tag name="remaining_uses" type="int" value="10" />
-    	<basescripts>dyes</basescripts>
-    	<buyprice>8</buyprice>
+		<basescripts>dyes</basescripts>
+		<buyprice>8</buyprice>
+		<weight>3.0</weight>
 	</item>
 
 	<item id="fab">
@@ -360,6 +378,7 @@
 		<category>Professions\Tailorer\Dying Tub</category>
 		<basescripts>environment</basescripts>
 		<buyprice>9</buyprice>
+		<weight>10.0</weight>
 	</item>
 
 	<item id="1015">
@@ -450,12 +469,14 @@
 		<id>0x1067</id>
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Cut Up Leather (N/S)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1068">
 		<id>0x1068</id>
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Cut Up Leather (W/E)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1078">
@@ -463,12 +484,14 @@
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Pile of Hides 1 (W/E)</category>
 		<buyprice>4</buyprice>
+		<weight>5.0</weight>
 	</item>
 
 	<item id="1079">
 		<id>0x1079</id>
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Pile of Hides 1 (N/S)</category>
+		<weight>5.0</weight>
 	</item>
 
 	<item id="1081">
@@ -476,11 +499,13 @@
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Pile of Hides 2 (W/E)</category>
 		<buyprice>6</buyprice>
+		<weight>5.0</weight>
 	</item>
 
 	<item id="1082" inherit="1081">
-		<id>0x1082</id>		
+		<id>0x1082</id>
 		<category>Professions\Tailorer\Pile of Hides 2 (N/S)</category>
+		<weight>5.0</weight>
 	</item>
 
   <!-- Resources -->

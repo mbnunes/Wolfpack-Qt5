@@ -13,9 +13,10 @@
 	<item id="dfc">
 		<id>0x0dfc</id>
 		<category>Professions\Barber\Barber Scissors (W/E)</category>
+		<weight>1.0</weight>
 	</item>
 
-	<item id="dfd">
+	<item id="dfd" inherit="dfc">
 		<id>0x0dfd</id>
 		<category>Professions\Barber\Barber Scissors (N/S)</category>
 	</item>
@@ -109,6 +110,7 @@
 		<id>0x14f0</id>
 		<category>Professions\Barber\Hairstyle Deed</category>
 		<basescripts>deeds.hairstyle</basescripts>
+		<weight>2.0</weight>
 	</item>
 
 </definitions>

@@ -34,6 +34,7 @@
 		<category>Professions\Carpenter\Tools\Vise (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="19f8" inherit="19f4">
@@ -224,26 +225,31 @@
 	<item id="1eb1">
 		<id>0x1eb1</id>
 		<category>Professions\Carpenter\Barrel Staves 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1eb2">
 		<id>0x1eb2</id>
 		<category>Professions\Carpenter\Barrel Staves 2</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1eb3">
 		<id>0x1eb3</id>
 		<category>Professions\Carpenter\Barrel Staves 3</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1eb4">
 		<id>0x1eb4</id>
 		<category>Professions\Carpenter\Barrel Staves 4</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1eb5">
 		<id>0x1eb5</id>
 		<category>Professions\Carpenter\Unfinished Barrel</category>
+		<weight>5.0</weight>
 	</item>
 
 	<!-- Tools -->
@@ -252,6 +258,7 @@
 		<category>Professions\Carpenter\Tools\Chisels (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1027" inherit="1026">
@@ -271,6 +278,7 @@
 	<item id="1029" inherit="1028">
 		<id>0x1029</id>
 		<category>Professions\Carpenter\Tools\Dovetail Saw (W/E)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="102a">
@@ -280,6 +288,7 @@
 		<category>Professions\Carpenter\Tools\Hammer 1</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="102b" inherit="102a">
@@ -294,6 +303,7 @@
 		<category>Professions\Carpenter\Tools\Moulding Planes (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="102d" inherit="102c">
@@ -307,6 +317,7 @@
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
 		<buyprice>3</buyprice>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="102f" inherit="102e">
@@ -321,6 +332,7 @@
 		<category>Professions\Carpenter\Tools\Jointing Plane (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1031" inherit="1030">
@@ -335,6 +347,7 @@
 		<category>Professions\Carpenter\Tools\Smoothing Plane (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1033" inherit="1032">
@@ -349,6 +362,7 @@
 		<category>Professions\Carpenter\Tools\Saw (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="1035" inherit="1034">
@@ -363,6 +377,7 @@
 		<category>Professions\Carpenter\Draw Knife</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="10e5">
@@ -372,6 +387,7 @@
 		<category>Professions\Carpenter\Tools\Froe</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="10e6">
@@ -381,6 +397,7 @@
 		<category>Professions\Carpenter\Tools\Inshave</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="10e7">
@@ -390,67 +407,80 @@
 		<category>Professions\Carpenter\Tools\Scorp</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1bd7">
 		<id>0x1bd7</id>
 		<category>Professions\Carpenter\Board (N/S)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1bd8">
 		<id>0x1bd8</id>
 		<category>Professions\Carpenter\Boards 1 (N/S)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1bd9">
 		<id>0x1bd9</id>
 		<category>Professions\Carpenter\Boards 2 (N/S)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1bda">
 		<id>0x1bda</id>
 		<category>Professions\Carpenter\Board (W/E)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1bdb">
 		<id>0x1bdb</id>
 		<category>Professions\Carpenter\Boards 1 (W/E)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1bdc">
 		<id>0x1bdc</id>
 		<category>Professions\Carpenter\Boards 2 (W/E)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1bdd">
 		<id>0x1bdd</id>
 		<category>Professions\Carpenter\Log (W/E)</category>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="1bde">
 		<id>0x1bde</id>
 		<category>Professions\Carpenter\Logs 1 (W/E)</category>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="1bdf">
 		<id>0x1bdf</id>
 		<category>Professions\Carpenter\Logs 2 (W/E)</category>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="1be0">
 		<id>0x1be0</id>
 		<weight>2.0</weight>
 		<category>Professions\Carpenter\Log (N/S)</category>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="1be1">
 		<id>0x1be1</id>
 		<category>Professions\Carpenter\Logs 1 (N/S)</category>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="1be2">
 		<id>0x1be2</id>
 		<category>Professions\Carpenter\Logs 2 (N/S)</category>
+		<weight>2.0</weight>
 	</item>
 
 </definitions>
