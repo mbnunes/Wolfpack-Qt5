@@ -363,7 +363,7 @@ short cUOPacket::getShort( uint pos ) const
 	else
 	{
 		value = (Q_INT16)(rawPacket.at(pos)) & 0x00FF;
-		value |= ((Q_INT16)(rawPacket.at(pos+)) << 8) & 0xFF00;
+		value |= ((Q_INT16)(rawPacket.at(pos+1)) << 8) & 0xFF00;
 	}
 	return value;
 }
