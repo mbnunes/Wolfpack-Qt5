@@ -54,11 +54,8 @@
 // Library Includes
 #include <list>
 
-// UNCOMMENT THIS IF YOU WANT TO USE A HASHMAP 
-#define WP_USE_HASHMAP
-
 // Important compile switch
-#if !defined(WP_USE_HASHMAP)
+#if defined(WP_DONT_USE_HASH_MAP)
 #include <map>
 typedef std::map< SERIAL, P_ITEM > ItemMap;
 typedef std::map< SERIAL, P_CHAR > CharMap;

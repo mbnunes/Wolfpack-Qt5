@@ -1,5 +1,5 @@
 #
-# Wolfpack TMake project
+# Wolfpack qmake project
 #
 #
 #
@@ -25,7 +25,7 @@ win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 
 win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib
 
 unix:INCLUDEPATH += /usr/local/include/stlport lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
-unix:LIBS  = -L/usr/local/lib -Llib/ZThread/lib -Llib/Python -L/usr/lib/mysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil -lstlport_gcc
+unix:LIBS  = -L/usr/local/lib -Llib/ZThread/lib -Llib/Python -L/usr/lib/mysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil 
 unix:TMAKE_CXXFLAGS = -funsigned-char -w -O2
 
 HEADERS         = \
@@ -42,7 +42,6 @@ HEADERS         = \
 		  coord.h \
 		  combat.h \
 		  commands.h \
-		  cmdline.h \
 		  dbl_single_click.h \
 		  dbdriver.h \
 		  debug.h \
@@ -54,6 +53,7 @@ HEADERS         = \
 		  globals.h \
 		  guildstones.h \
 		  gumps.h \
+		  house.h \
 		  inlines.h \
                   iserialization.h \
 		  itemid.h \
@@ -99,7 +99,6 @@ HEADERS         = \
 		  wpscriptmanager.h \
 		  wptargetrequests.h \
 		  corpse.h \
-		  python/content.h \
 		  spellbook.h \
                   newmagic.h
 		  
@@ -120,7 +119,6 @@ SOURCES         = \
 		  commands.cpp \
 		  contextmenu.cpp \
 		  coord.cpp \
-		  cmdline.cpp \
 		  tilecache.cpp \
 		  customtags.cpp \
 		  dbl_single_click.cpp \
@@ -134,7 +132,7 @@ SOURCES         = \
 		  house.cpp \
 		  html.cpp \
                   iserialization.cpp \
-						item_flatstore.cpp \
+	   	  item_flatstore.cpp \
 		  itemid.cpp \
 		  items.cpp \
 		  magic.cpp \
@@ -184,7 +182,7 @@ SOURCES         = \
 HEADERS		+= twofish/twofish.h
 
 
-SOURCES		+=	twofish/twofish.cpp
+SOURCES		+= twofish/twofish.cpp
 
 # Network Module
 # THIS IS IMPORTANT FOR MOCING!
@@ -209,6 +207,8 @@ SOURCES		+= python/char.cpp \
 		   python/pytooltip.cpp \	
 		   python/socket.cpp \
 		   python/wppythonscript.cpp
+
+HEADERS		+= python/content.h
 
 # Flatstore Module
 HEADERS	+= flatstore/exceptions.h \

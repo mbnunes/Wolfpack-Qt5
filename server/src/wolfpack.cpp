@@ -662,7 +662,7 @@ void interpretCommand( const QString &command )
 				{
 					if( mSock->player() )
 					{
-						clConsole.send( "%i) %s [%x]\n", ++i, mSock->player()->name(), mSock->player()->serial() );
+						clConsole.send( "%i) %s [%x]\n", ++i, mSock->player()->name().latin1(), mSock->player()->serial() );
 					}
 				}
 

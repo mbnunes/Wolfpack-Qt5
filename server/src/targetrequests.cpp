@@ -403,7 +403,7 @@ bool cSkTame::responsed( cUOSocket *socket, cUORxTarget *target )
 			return true;
 		}
 		
-		sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name(),pc->name());
+		sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name().latin1(),pc->name().latin1());
 		for(int a=0;a<3;a++)
 		{
 			switch( RandomNum( 0, 3 ) )
