@@ -31,6 +31,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Fixed regions so they work properly again.
 		- Moved windows from walls. New file: windows.xml
 		- Changed direction to lightvalue in light objects.
+		- Cleanups to prevent add menu crashes/hangs.
 	* Python Script Changes:
 		- New Command: taginfo
 		- New Function: wolfpack.findobject(serial)
@@ -69,6 +70,8 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Fixed recalling to areas outside of a region.
 		- Fixed renaming runes
 		- Made runebooks function again.
+			Gate/Recall still not functional, charges work however.
+		- Fixed a bug with melting ore.
 	* Misc. Changes:
 		- New Features:
 			Farm animals will eat spawned crops!
