@@ -100,7 +100,7 @@ static PyObject* wpSocket_sysmessage(wpSocket* self, PyObject* args) {
 	unsigned short color = 0x3b2;
 	unsigned short font = 3;
 
-	if (!PyArg_ParseTuple(args, "es|HH:socket.sysmessage(message, color, font)", "utf-8", message, color, font)) {
+	if (!PyArg_ParseTuple(args, "es|HH:socket.sysmessage(message, color, font)", "utf-8", &message, &color, &font)) {
 		return 0;
 	}
 
