@@ -7,7 +7,35 @@
 =================================================================
 -->
 <definitions>
-	<!-- Hatchet -->
+
+	<!-- longsword -->
+	<item id="13b8">
+		<id>0x13B8</id>
+		<itemhand>1</itemhand>
+		<defense>5</defense>
+		<attack min="5" max="33" />
+		<durability>45</durability>
+		<speed>35</speed>
+		<weight>4.00</weight>
+		<value>70</value>
+		<decay />
+	</item>
+
+	<!-- broadsword -->
+	<item id="f5e">
+		<id>0xf5e</id>
+		<itemhand>1</itemhand>
+		<attack min="2" max="29" />
+		<durability>65</durability>
+		<defense>5</defense>
+		<decay />
+		<value>80</value>
+		<requires type="str">50</requires>
+		<speed>45</speed>
+		<weight>3.0</weight>
+	</item>
+
+	<!-- hatchet -->
 	<item id="f43">
 		<id>0xf43</id>
 		<itemhand>2</itemhand>
@@ -23,17 +51,6 @@
 	<!-- Gold -->
 	<item id="eed">
 		<id>0xeed</id>
-	</item>
-
-	<!-- LongSword -->
-	<item id="f60">
-		<id>0xf60</id>
-		<durability>10</durability>
-		<attack min="2" max="8" />
-		<decay />
-		<speed>48</speed>
-		<weight>40.0</weight>
-		<value>65</value>
 	</item>
 
 	<!-- Resurrection Robe -->
