@@ -26,32 +26,32 @@ PACKS = {
 	# Common Loot Packs
 	'lootpack_poor': [
 		[1.0, 'eed', [11, 20], 1], # Gold
-		[0.0002, 'DEF_INSTRUMENTS', 1, 0 ] # Slayer Instruments
+		[0.0002, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
 		#[0.0002, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [0% -> 90%] 5 max properties
 	],
 	'lootpack_meager': [
 		[1.0, 'eed', [11, 20], 1], # Gold
-		[0.001, 'DEF_INSTRUMENTS', 1, 0 ] # Slayer Instruments
+		[0.001, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
 		#[0.01, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 10%] 2 max properties
 		#[0.002, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [0% -> 90%] 5 max properties
 	],
 	'lootpack_average': [
 		[1.0, 'eed', [55, 100], 1], # Gold
-		[0.004, 'DEF_INSTRUMENTS', 1, 0 ] # Slayer Instruments
+		[0.004, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
 		#[0.05, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 20%] 4 max properties
 		#[0.02, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 50%] 3 max properties
 		#[0.005, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [0% -> 90%] 5 max properties
 	],
 	'lootpack_rich': [
 		[1.0, 'eed', [160, 250], 1], # Gold
-		[0.01, 'DEF_INSTRUMENTS', 1, 0 ] # Slayer Instruments
+		[0.01, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
 		#[0.2, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 40%] 4 max properties
 		#[0.1, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 60%] 5 max properties
 		#[0.01, 'RANDOM_MAGIC_ITEM', 1, 0 ] # [0% -> 90%] 5 max properties
 	],
 	'lootpack_filthy_rich': [
 		[1.0, 'eed', [202, 400], 1], # Gold
-		[0.02, 'DEF_INSTRUMENTS', 1, 0 ] # Slayer Instruments
+		[0.02, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
 		#[0.33, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 50%] 4 max properties
 		#[0.33, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 60%] 4 max properties
 		#[0.2, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [0% -> 75%] 5 max properties
@@ -59,7 +59,7 @@ PACKS = {
 	],
 	'lootpack_ultra_rich': [
 		[1.0, 'eed', [505, 1000], 1], # Gold
-		[0.02, 'DEF_INSTRUMENTS', 1, 0 ] # Slayer Instruments
+		[0.02, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
 		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
 		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
 		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
@@ -68,7 +68,7 @@ PACKS = {
 	],
 	'lootpack_super_boss': [
 		[1.0, 'eed', [505, 1000], 1], # Gold
-		[0.02, 'DEF_INSTRUMENTS', 1, 0 ] # Slayer Instruments
+		[0.02, DEF_INSTRUMENTS, 1, 0 ] # Slayer Instruments
 		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
 		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties
 		#[1.0, 'RANDOM_MAGIC_ITEM', 1, 0 ], # [25% -> 100%] 5 max properties

@@ -8,7 +8,7 @@
 # Script for bladed weapons
 
 import wolfpack
-import whrandom
+import random
 import skills.lumberjacking
 from wolfpack import utilities
 from wolfpack import settings
@@ -139,42 +139,114 @@ def carve_corpse( char, corpse ):
 		return
 
 	# Not carvable or already carved
-	try:
-		charbase = wolfpack.charbase(corpse.charbaseid)
-		carve = charbase['carve']
-	except:
+	if corpse.hastag('carved'):
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 		return
+	
+	basedef = wolfpack.charbase(corpse.charbaseid)
+	
+	if not basedef:
+		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 
-	if corpse.hastag('carved') or carve == '':
+	feathers = basedef.getintproperty('carve_feathers', 0)
+	wool = basedef.getintproperty('carve_wool', 0)
+	hides = basedef.getintproperty('carve_hides', 0)
+	hides_type = basedef.getstrproperty('carve_hides_type', 'leather')
+	scales = basedef.getintproperty('carve_scales', 0)
+	scales_type = basedef.getstrproperty('carve_scales_type', 'red')
+	meat = basedef.getintproperty('carve_meat', 0)
+	meat_type = basedef.getstrproperty('carve_meat_type', 'ribs')
+		
+	if feathers == 0 and wool == 0 and hides == 0 and scales == 0 and meat == 0:
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 		return
-
-	# Create all items in the carve list
-	carve = wolfpack.list(str(carve))
-
-	for id in carve:
-		amount = 1
-		# Is amount contained in it ?
-		if id.find( "," ) != -1:
-			parts = id.split( "," )
-			id = parts[0]
-			amount = int( parts[1] )
-
-		item = wolfpack.additem( id )
-		item.amount = amount
-		if not utilities.tocontainer( item, corpse ):
-			item.update()
 
 	# Create Random Blood
-	bloodid = whrandom.choice( blood )
+	bloodid = random.choice( blood )
 	blooditem = wolfpack.additem( bloodid )
 	blooditem.moveto( corpse.pos )
 	blooditem.decay = 1
 	blooditem.update()
 
-	char.socket.clilocmessage( 0x7A2F3, "", 0x3b2, 3, corpse ) # You carve away some meat which remains on the corpse
+	# Mark the corpse as carved
 	corpse.settag('carved', 1)
+	
+	# Feathers
+	if feathers != 0:
+		item = wolfpack.additem('1bd1')
+		item.amount = feathers
+		if not wolfpack.utilities.tocontainer(item, corpse):
+			item.update()
+			
+		char.socket.clilocmessage( 500479, "", 0x3b2, 3 )
+		
+	# Wool
+	if wool != 0:
+		item = wolfpack.additem('df8')
+		item.amount = wool
+		if not wolfpack.utilities.tocontainer(item, corpse):
+			item.update()
+			
+		char.socket.clilocmessage( 500483, "", 0x3b2, 3 )
+		
+	# Meat
+	if meat != 0:
+		if meat_type == 'bird':			
+			item = wolfpack.additem('9b9') # Raw Bird
+		elif meat_type == 'lambleg':
+			item = wolfpack.additem('1609') # Raw Lamb Leg
+		else:		
+			item = wolfpack.additem('9f1') # Raw Ribs
+			
+		item.amount = meat
+		if not wolfpack.utilities.tocontainer(item, corpse):
+			item.update()
+			
+		char.socket.clilocmessage( 500467, "", 0x3b2, 3 )
+		
+	# Hides
+	if hides != 0:
+		if hides_type == 'spined':
+			item = wolfpack.additem('spined_leather_hides')
+		elif hides_type == 'horned':
+			item = wolfpack.additem('horned_leather_hides')
+		elif hides_type == 'barbed':
+			item = wolfpack.additem('barbed_leather_hides')
+		else:
+			item = wolfpack.additem('leather_hides')
+			
+		item.amount = hides
+		if not wolfpack.utilities.tocontainer(item, corpse):
+			item.update()
+			
+		char.socket.clilocmessage( 500471, "", 0x3b2, 3 )
+		
+	# Scales
+	if scales != 0:
+		# Random scales type
+		if ',' in scales_type:
+			scales_type = random.choice(scales_type.split(','))
+	
+		items = []
+		if scales_type in ['blue', 'all']:
+			items.append(wolfpack.additem('blue_scales'))
+		if scales_type in ['green', 'all']:
+			items.append(wolfpack.additem('green_scales'))
+		if scales_type in ['yellow', 'all']:
+			items.append(wolfpack.additem('yellow_scales'))
+		if scales_type in ['black', 'all']:
+			items.append(wolfpack.additem('black_scales'))
+		if scales_type in ['white', 'all']:
+			items.append(wolfpack.additem('white_scales'))
+		if scales_type in ['red', 'all']:
+			items.append(wolfpack.additem('red_scales'))
+			
+		for item in items:
+			item.amount = scales
+			if not wolfpack.utilities.tocontainer(item, corpse):
+				item.update()
+				
+		char.socket.sysmessage("You cut away some scales, but they remain on the corpse.")
 
 # CUT FISH
 def cut_fish( char, item ):
