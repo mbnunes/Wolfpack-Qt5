@@ -66,16 +66,16 @@ def validCorpseTarget( char, target ):
 		return 0
 
 	if not char.gm and not char.canreach( target, 2 ):
-		char.socket.sysmessage( 'You can''t reach that.' )
+		char.socket.clilocmessage(500313)
 		return 0
 
 	if target.id != 0x2006:
-		char.socket.sysmessage( 'Try using these on a corpse.' )
+		char.socket.clilocmessage(500971)
 		return 0
 
 	# Check Owner
 	if not target.owner or not target.owner.dead:
-		char.socket.sysmessage( 'You can''t help them anymore.' )
+		char.socket.clilocmessage(500971)
 		return 0
 
 	return 1
@@ -93,9 +93,9 @@ def validCharTarget( char, target ):
 	# Already at full health
 	if not target.poison and target.health >= target.maxhitpoints:
 		if target == char:
-			char.socket.sysmessage( 'You are healthy.' )
+			char.socket.clilocmessage(1061289)
 		else:
-			char.socket.sysmessage( '%s does not require you to heal or cure them!' % target.name )
+			char.socket.clilocmessage(500956)
 		return 0
 
 	return 1
@@ -117,15 +117,15 @@ def bandage_response( char, args, target ):
 		return
 
 	if corpse and ( char.skill[ HEALING ] < 800 or char.skill[ ANATOMY ] < 800 ):
-		char.socket.sysmessage( 'You are not skilled enough to resurrect.' )
+		char.socket.clilocmessage(1002086)
 		return
 
 	if target.char and target.char.dead and ( char.skill[ HEALING ] < 800 or char.skill[ ANATOMY ] < 800 ):
-		char.socket.sysmessage( 'You are not skilled enough to resurrect.' )
+		char.socket.clilocmessage(1002086)
 		return
 
 	if target.char and target.char.poison and ( char.skill[ HEALING ] < 600 or char.skill[ ANATOMY ] < 600 ):
-		char.socket.sysmessage( 'You are not skilled enough to cure poison.' )
+		char.socket.clilocmessage(1002086)
 		return
 
 	# Consume Bandages
@@ -199,7 +199,7 @@ def bandage_timer( char, args ):
 			return
 
 		if not success:
-			char.socket.sysmessage( 'You fail to resurrect the target.' )
+			char.socket.clilocmessage(500967)
 			return
 
 		if target.owner:
@@ -218,7 +218,7 @@ def bandage_timer( char, args ):
 
 			target.delete()
 
-			char.socket.sysmessage( 'You successfully resurrect ' + owner.name )
+			char.socket.clilocmessage(500966)
 		else:
 			char.socket.sysmessage( 'You can''t help them anymore' )
 
@@ -232,13 +232,13 @@ def bandage_timer( char, args ):
 		
 		if target.dead:
 			if not success:
-				char.socket.sysmessage( 'You fail to resurrect the target.' )
+				char.socket.clilocmessage(500967)
 				return
 
 			target.resurrect()
 			target.update()
 
-			char.socket.sysmessage( 'You successfully resurrect ' + target.name )
+			char.socket.clilocmessage(500966)
 		elif target.poison:
 			if not success:
 				char.socket.sysmessage( 'You fail to cure the target.' )
@@ -252,9 +252,9 @@ def bandage_timer( char, args ):
 		else:
 			if not success:
 				if target != char:
-					char.socket.sysmessage( 'You fail applying bandages to %s.' % target.name )
+					char.socket.clilocmessage(500969)
 				else:
-					char.socket.sysmessage( 'You fail applying bandages to yourself.' )
+					char.socket.clilocmessage(500969)
 				return
 
 			# Human target ?
@@ -275,9 +275,9 @@ def bandage_timer( char, args ):
 			target.updatehealth()
 
 			if char == target:
-				char.socket.sysmessage( 'You successfully apply bandages on yourself.' )
+				char.socket.clilocmessage(500970)
 			else:
-				char.socket.sysmessage( 'You successfully apply bandages on %s' % target.name )
+				char.socket.clilocmessage(500970)
 
 	# Create bloody bandages
 	# This is target independent
