@@ -29,9 +29,12 @@
 	
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
-	<script>wolfpack.commands.info</script>
+	<script>wolfpack.commands.action</script>
+	<script>wolfpack.commands.bank</script>
 	<script>wolfpack.commands.export</script>
 	<script>wolfpack.commands.import</script>
+	<script>wolfpack.commands.info</script>
+	<script>wolfpack.commands.where</script>
 
 	<!-- Magic -->
 	<script>recall_rune</script>
