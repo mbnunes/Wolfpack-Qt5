@@ -959,10 +959,24 @@
 		<basescripts>door</basescripts>
 	</item>
 
+	<item id="84f">
+		<id>0x84f</id>
+		<nodecay />
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (E/NW)</category>
+		<basescripts>door</basescripts>
+	</item>
+
 	<item id="850">
 		<id>0x850</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (S/NW)</category>
+		<basescripts>door</basescripts>
+	</item>
+
+	<item id="851">
+		<id>0x851</id>
+		<nodecay />
+		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (W/SE)</category>
 		<basescripts>door</basescripts>
 	</item>
 
