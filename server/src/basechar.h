@@ -277,7 +277,7 @@ public:
     void setSaycolor(UINT16 data);
     void setSkillDelay(UINT32 data);
     void setSkin(UINT16 data);
-    void setStamina(INT16 data);
+    virtual void setStamina(INT16 data, bool notify = true );
     void setStealthedSteps(INT32 data);
     void setStrength(INT16 data);
     void setStrengthMod(INT16 data);
@@ -968,12 +968,6 @@ inline void cBaseChar::setSkillDelay(UINT32 data)
 inline INT16 cBaseChar::stamina() const
 {
     return stamina_;
-}
-
-inline void cBaseChar::setStamina(INT16 data)
-{
-    stamina_ = data;
-	changed( SAVE );
 }
 
 inline INT32 cBaseChar::stealthedSteps() const

@@ -1476,6 +1476,17 @@ void cPlayer::clearLastSelections( void )
 	lastSelections_.clear();
 }
 
+void cPlayer::setStamina( INT16 data, bool notify /* = true */ )
+{
+	bool update = false;
+	if ( data != stamina() && notify )
+		update = true;
+	cBaseChar::setStamina( data );
+	if ( update && socket() )
+		socket()->updateStamina( this );
+
+}
+
 // Simple setting and getting of properties for scripts and the set command.
 stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 {

@@ -154,6 +154,9 @@ public:
 	void setMaySnoop(bool data);
 	void setMayBroadcast(bool data);
 	void setShowSerials(bool data);
+
+	virtual void setStamina( INT16 data, bool notify = true );
+
 	// advanced setters for data structures
 	// makemenus
 	void setLastSection( cMakeMenu* basemenu, cMakeSection* data );

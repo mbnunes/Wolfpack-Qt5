@@ -1083,7 +1083,7 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 	if( !socket || !socket->player() ) 
 		return 0;
 
-	P_CHAR pc = socket->player();
+	P_PLAYER pc = socket->player();
 
 	//get the tiller man's item #
 	serial = this->itemserials[ TILLER ];
@@ -1190,7 +1190,7 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 // khpae - make deed from a boat
 void cBoat::toDeed( cUOSocket* socket ) 
 {
-	P_CHAR pc = socket->player();
+	P_PLAYER pc = socket->player();
 	if ( !pc ) 
 		return;
 

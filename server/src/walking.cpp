@@ -982,27 +982,21 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 			if( socket )
 				socket->sysMessage( tr( "Being perfectly rested, you shoved something invisible out of the way." ) );
 
-		    pChar->setStm( QMAX( pChar->stm() - 4, 0 ) );
-			if ( pChar->socket() )
-				pChar->socket()->updateStamina( pChar );
+		    pChar->setStamina( QMAX( pChar->stm() - 4, 0 ) );
 		}
 		else if( !mapChar->isHidden() && !mapChar->dead() && (!(mapChar->isInvul())) &&(!(mapChar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
 		{
 			if( socket )
 				socket->sysMessage( tr( "Being perfectly rested, you shove %1 out of the way." ).arg( mapChar->name() ) );
 			
-			pChar->setStm( QMAX( ( tempshort = pChar->stm() ) - 4, 0 ) );
-			if ( pChar->socket() )
-				pChar->socket()->updateStamina( pChar );
+			pChar->setStamina( QMAX( ( tempshort = pChar->stm() ) - 4, 0 ) );
 		}
 		else if( !mapChar->isGMorCounselor() && !mapChar->isInvul() ) //A normal player (No priv1(Not a gm))
 		{
 			if( socket )
 				socket->sysMessage( "Being perfectly rested, you shove something invisible out of the way." );
 
-			pChar->setStm( QMAX( pChar->stm() - 4, 0 ) );
-			if ( pChar->socket() )
-				pChar->socket()->updateStamina( pChar );
+			pChar->setStamina( QMAX( pChar->stm() - 4, 0 ) );
 		}
 	}
 }

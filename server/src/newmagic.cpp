@@ -184,7 +184,7 @@ cEndCasting::cEndCasting( P_CHAR _mage, UINT8 _spell, UINT8 _type, UINT32 _delay
 
 void cEndCasting::Expire()
 {
-	P_CHAR pMage = FindCharBySerial( destSer );
+	P_PLAYER pMage = dynamic_cast<P_PLAYER>( FindCharBySerial( destSer ) );
 	
 	if( !pMage )
 		return;
@@ -252,7 +252,7 @@ displays the fizzle animation and the fizzle sound.
 */
 void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 {
-	if( !pMage->casting() )
+	if( !pMage->isCasting() )
 		return;
 
 	pMage->setCasting( false );
@@ -560,7 +560,7 @@ void cNewMagic::execSpell( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* t
 	pMage->setCasting( false );
 }
 
-void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
+void cNewMagic::castSpell( P_PLAYER pMage, UINT8 spell )
 {
 	if( !pMage || !pMage->socket() )
 		return;
@@ -683,7 +683,7 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 	else
 	{
 		// Distance check (VisRange + 5 for macros)
-		if( pos.distance( socket->player()->pos() ) > ( socket->player()->VisRange() + 5 ) )
+		if( pos.distance( socket->player()->pos() ) > ( socket->player()->visualRange() + 5 ) )
 		{
 			socket->sysMessage( tr( "You can't see the target." ) );
 			return false;

@@ -1742,5 +1742,10 @@ UINT8 cBaseChar::skillLock( UINT16 skill ) const
 //		return 0;
 }
 
+void cBaseChar::setStamina(INT16 data, bool notify /* = true */ )
+{
+    stamina_ = data;
+	changed( SAVE );
+}
 
 

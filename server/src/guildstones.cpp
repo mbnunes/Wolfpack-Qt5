@@ -44,7 +44,7 @@
 #include "wolfpack.h"
 #include "iserialization.h"
 #include "dbdriver.h"
-
+#include "basechar.h"
 #include "gumps.h"
 #include "network.h"
 #include "multis.h"

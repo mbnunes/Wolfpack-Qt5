@@ -992,10 +992,6 @@ namespace Combat
 
 				// Reduce the Stamina
 				pp->setStamina( QMIN( pp->dexterity(), QMAX( 0, pp->stamina() + SrvParams->attackstamina() ) ) );
-				
-				// Send the changed stamina
-				if( pp->socket() )
-					pp->socket()->updateStamina();
 			}
 		}
 				
