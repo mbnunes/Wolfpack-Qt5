@@ -68,13 +68,15 @@ else:
 
 	print "Content-type: text/html\n\n"
 	print """
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/strict.dtd">
 <html>
 <head>
 	<title>You were logged in succesfully</title>
-	<meta http-equiv="refresh" content="1; URL=main.py?session=""" + session + """">
+	<meta http-equiv="refresh" content="1; URL=main.py?session=""" + session + """" />
 </head>
 <body>
-<h1>You were logged in successfully</h1><br>
+<h1>You were logged in successfully</h1><br />
 Click <a href="main.py?session=""" + session + """">here</a> to continue.
 </body>
 </html>
