@@ -1,11 +1,29 @@
 
 <definitions>
 
+	<list id="SKINS_SNOW_LEOPARD">
+		<item>0x835</item>
+		<item>0x836</item>
+		<item>0x837</item>
+		<item>0x838</item>
+		<item>0x839</item>
+		<item>0x83a</item>
+		<item>0x8fd</item>
+		<item>0x8fe</item>
+		<item>0x8ff</item>
+		<item>0x900</item>
+		<item>0x901</item>
+		<item>0x902</item>
+		<item>0x47e</item>
+		<item>0x481</item>
+	</list>
+
 	<!-- Snow Leopard -->
 	<npc id="snow_leopard">
 		<name>a snow leopard</name>
-		<id>0x1d</id>
+		<id>0xd6</id>
 		<ai>Animal_Wild</ai>
+		<skin><random list="SKINS_SNOW_LEOPARD" />
 		<category>Animals\Feline\Snow Leopard</category>
 		<inherit id="animal_base" />
 		<karma><random min="0" max="-624" /></karma>
