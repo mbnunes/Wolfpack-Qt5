@@ -31,7 +31,7 @@
 
 #include "iserialization.h"
 #include "uobject.h"
-#include "tmpeff.h"
+#include "TmpEff.h"
 
 /*!
  * Reads the entiere object out of the serialization stream.

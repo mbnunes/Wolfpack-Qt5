@@ -132,6 +132,7 @@ public:
 	void Serialize(ISerialization &archive);
 	bool Exists( P_CHAR pc_source, P_CHAR pc_dest, int num );
 	void Dispel( P_CHAR pc_dest );
+	unsigned int size( void );
 };
 
 #endif

@@ -45,6 +45,7 @@
 #include "wolfpack.h"
 #include "iserialization.h"
 #include <algorithm>
+#include <typeinfo>
 
 
 #undef  DBGFILE
@@ -142,7 +143,7 @@ void cTempEffects::setExpiretime_s(int seconds)
 
 void cTempEffects::setExpiretime_ms(float milliseconds)
 {
-	expiretime=uiCurrentTime+floor(( milliseconds / 1000 )*MY_CLOCKS_PER_SEC);
+	expiretime=uiCurrentTime+(int)floor(( milliseconds / 1000 )*MY_CLOCKS_PER_SEC);
 }
 
 void cTempEffects::Serialize(ISerialization &archive)
@@ -1161,6 +1162,11 @@ void cAllTmpEff::Dispel( P_CHAR pc_dest )
 			teffects.erase( i );
 		}
 	make_heap( teffects.begin(), teffects.end(), ComparePredicate() );
+}
+
+unsigned int cAllTmpEff::size( void )
+{
+	return teffects.size();
 }
 
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)

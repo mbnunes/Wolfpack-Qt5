@@ -43,10 +43,10 @@ class cSerializable
 {
 public:
 	//virtual cSerializable();
-	virtual ~cSerializable() = 0 {;}
+	virtual ~cSerializable() {;}
 
-	virtual void		Serialize( ISerialization &archive ) = 0;
-	virtual std::string objectID( void ) = 0;
+	virtual void		Serialize( ISerialization &archive );
+	virtual std::string objectID( void );
 };
 
 /*!

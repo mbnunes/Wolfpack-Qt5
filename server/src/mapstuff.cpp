@@ -32,6 +32,7 @@
 #include "mapstuff.h"
 
 #include "wolfpack.h"
+#include "progress.h"
 #include "debug.h"
 #include "regions.h"
 
@@ -901,17 +902,16 @@ void cMapStuff::CacheStatics( void )
 	/*clConsole.send("Blocks: %ld, Index: %ld, Table: %ld, Static File Size: %ld\n",
 	(long) StaticBlocks, (long)sizeof(StaCache_st), (long) sizeof(staticrecord),
 	(long) StaticBlocks * StaticRecordSize);*/
-	clConsole.send("Going to need %ld table bytes + %ld index bytes = %ld total bytes to cache statics...\n",
-		tableMemory, indexMemory, StaMem);
 	
-	clConsole.send( "Caching Statics0"); fflush(stdout);
+	clConsole.send( "Caching Statics0 (%ld bytes mul + %ld bytes idx = %ld bytes total)\n", 
+		tableMemory, indexMemory, StaMem );
 	
 	// we must be in caching mode, only turn it off for now because we are
 	// trying to fill the cache.
 	assert(Cache);
 	Cache = 0;
 	
-	const UI32 tenPercent = StaticBlocks / 9;
+	progress_display progress(StaticBlocks);
 	UI32 currentBlock = 0;
 	for( unsigned int x = 0; x < MapTileWidth; x++ )
     {
@@ -930,10 +930,7 @@ void cMapStuff::CacheStatics( void )
 				statfile->seek(msi.GetPos(), SEEK_SET);
 				statfile->get_staticrecord(StaticCache[x][y].Cache, length);
 			}
-			if (currentBlock++ % tenPercent == 0)
-			{
-				clConsole.send("...%d0%%", 1 + (currentBlock / tenPercent)); fflush(stdout);
-			}
+			++progress;
 		}
     } 
 	
