@@ -139,7 +139,7 @@ CREATE TABLE items (
   magic tinyint(3)  NOT NULL default '0',
   owner int(11) NOT NULL default '-1',
   visible tinyint(3)  NOT NULL default '0',
-  spawn int(11) NOT NULL default '-1',
+  spawnregion varchar(255) default NULL,
   priv tinyint(3)  NOT NULL default '0',
   sellprice int(11) NOT NULL default '0',
   buyprice int(11) NOT NULL default '0',
@@ -239,22 +239,22 @@ CREATE TABLE uobjectmap (
   PRIMARY KEY (serial)
 );
 
-CREATE TABLE `effects` (
-  `id` int(11) NOT NULL default '0',
-  `objectid` varchar(64) NOT NULL default '',
-  `expiretime` int(11) NOT NULL default '0',
-  `dispellable` tinyint(4) NOT NULL default '0',
-  `source` int(11) NOT NULL default '-1',
-  `destination` int(11) NOT NULL default '-1',
-  PRIMARY KEY  (`id`)
+CREATE TABLE effects (
+  id int(11) NOT NULL default '0',
+  objectid varchar(64) NOT NULL default '',
+  expiretime int(11) NOT NULL default '0',
+  dispellable tinyint(4) NOT NULL default '0',
+  source int(11) NOT NULL default '-1',
+  destination int(11) NOT NULL default '-1',
+  PRIMARY KEY  (id)
 );
 
-CREATE TABLE `effects_properties` (
-  `id` int(11) NOT NULL default '0',
-  `key` varchar(64) NOT NULL default '',
-  `type` varchar(64) NOT NULL default '',
-  `value` text NOT NULL,
-  PRIMARY KEY  (`id`,`key`)
+CREATE TABLE effects_properties (
+  id int(11) NOT NULL default '0',
+  key varchar(64) NOT NULL default '',
+  type varchar(64) NOT NULL default '',
+  value text NOT NULL,
+  PRIMARY KEY  (id,key)
 );
 
 

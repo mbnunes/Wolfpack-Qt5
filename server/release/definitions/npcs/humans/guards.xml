@@ -95,4 +95,14 @@
 		</equipped>
 	</npc>
 	
+	<npc id="male_teleguard">
+		<inherit>male_guard</inherit>
+		<ai>Human_Guard_Called</ai>
+	</npc>
+	
+	<npc id="female_teleguard">
+		<inherit>female_guard</inherit>
+		<ai>Human_Guard_Called</ai>
+	</npc>
+	
 </definitions>

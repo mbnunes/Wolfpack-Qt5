@@ -25,7 +25,7 @@
 				<noagressivemagic />
 			</flags>
 		    	<guards>
-	        		<getlist>standard_guards</getlist>
+	        		<list id="standard_guards" />
 	        	</guards>
 			<escortregion />
 			<guardowner>the city</guardowner>
@@ -47,7 +47,7 @@
 				<noagressivemagic />
 			</flags>
 			<guards>
-	            	<getlist>standard_guards</getlist>
+	            	<list id="standard_guards" />
 	        	</guards>
 		    	<guardowner>Lord British's</guardowner>
 	        	<rainchance><random min="30" max="40" /></rainchance>
@@ -66,7 +66,7 @@
 			</flags>
 		    	<escortregion />
 		    	<guards>
-				<getlist>standard_guards</getlist>
+				<list id="standard_guards" />
 			</guards>
 			<guardowner>Lord British's Personal</guardowner>
 			<rainchance><random min="30" max="40" /></rainchance>
@@ -82,7 +82,7 @@
 			</flags>
 			<escortregion />
 			<guards>
-				<getlist>standard_guards</getlist>
+				<list id="standard_guards" />
 			</guards>
 			<guardowner>Lord Blackthorne's Personal</guardowner>
 			<rainchance><random min="30" max="40" /></rainchance>
@@ -97,7 +97,7 @@
 				<noagressivemagic />
 			</flags>
 		    	<guards>
-			<getlist>standard_guards</getlist>
+			<list id="standard_guards" />
 			</guards>
 			<escortregion />
 			<guardowner>the city</guardowner>
@@ -114,7 +114,7 @@
 				<noagressivemagic />
 			</flags>
 			<guards>
-				<getlist>standard_guards</getlist>
+				<list id="standard_guards" />
 			</guards>
 			<escortregion />
 			<guardowner>the city</guardowner>
@@ -134,7 +134,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist>
+		   	<list id="standard_guards" />
 			<guardowner>the city</guardowner>
 		   	</guards> 
 		   	<rainchance><random min="45" max="50" /></rainchance>
@@ -157,7 +157,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist>
+		   	<list id="standard_guards" />
 		   	</guards>  
            		<guardowner>the city</guardowner> 
 		   	<rainchance><random min="40" max="60" /></rainchance>
@@ -172,7 +172,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist> 
+		   	<list id="standard_guards" /> 
            		<guardowner>the city</guardowner>
 		   	</guards> 
 		   	<rainchance><random min="35" max="50" /></rainchance>
@@ -189,7 +189,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist>
+		   	<list id="standard_guards" />
            		<guardowner>the city</guardowner>
 		   	</guards>
 		   	<snowchance><random min="45" max="70" /></snowchance>
@@ -209,7 +209,7 @@
 				<noagressivemagic />
 			</flags>
            		<guards>
-		   	<getlist>standard_guards</getlist>
+		   	<list id="standard_guards" />
 		   	<guardowner>the city</guardowner>
 		   	</guards> 
 		   	<snowchance><random min="5" max="15" /></snowchance>
@@ -225,7 +225,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist> 
+		   	<list id="standard_guards" /> 
            		<guardowner>the city</guardowner>
 		   	</guards>
 		   	<snowchance><random min="10" max="30" /></snowchance>
@@ -240,7 +240,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   		<getlist>standard_guards</getlist>
+		   		<list id="standard_guards" />
            			<guardowner>the city</guardowner>
 		   	</guards>
 		   	<snowchance><random min="1" max="10" /></snowchance>
@@ -291,7 +291,7 @@
 				<noagressivemagic />
 			</flags>
 		    	<guards>
-	        		<getlist>standard_guards</getlist>
+	        		<list id="standard_guards" />
 	        	</guards>
 			<escortregion />
 			<guardowner>the city</guardowner>
@@ -311,7 +311,7 @@
 				<noagressivemagic />
 			</flags>
 			<guards>
-	            	<getlist>standard_guards</getlist>
+	            	<list id="standard_guards" />
 	        	</guards>
 		    	<guardowner>Lord British's</guardowner>
 	        	<rainchance><random min="30" max="40" /></rainchance>
@@ -330,7 +330,7 @@
 			</flags>
 		    	<escortregion />
 		    	<guards>
-				<getlist>standard_guards</getlist>
+				<list id="standard_guards" />
 			</guards>
 			<guardowner>Lord British's Personal</guardowner>
 			<rainchance><random min="30" max="40" /></rainchance>
@@ -346,7 +346,7 @@
 			</flags>
 			<escortregion />
 			<guards>
-				<getlist>standard_guards</getlist>
+				<list id="standard_guards" />
 			</guards>
 			<guardowner>Lord Blackthorne's Personal</guardowner>
 			<rainchance><random min="30" max="40" /></rainchance>
@@ -361,7 +361,7 @@
 				<noagressivemagic />
 			</flags>
 		    	<guards>
-			<getlist>standard_guards</getlist>
+			<list id="standard_guards" />
 			</guards>
 			<escortregion />
 			<guardowner>the city</guardowner>
@@ -378,7 +378,7 @@
 				<noagressivemagic />
 			</flags>
 			<guards>
-			<getlist>standard_guards</getlist>
+			<list id="standard_guards" />
 			</guards>
 			<escortregion />
 			<guardowner>the city</guardowner>
@@ -398,7 +398,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist>
+		   	<list id="standard_guards" />
 			<guardowner>the city</guardowner>
 		   	</guards> 
 		   	<rainchance><random min="45" max="50" /></rainchance>
@@ -421,7 +421,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist>
+		   	<list id="standard_guards" />
 		   	</guards>  
            		<guardowner>the city</guardowner> 
 		   	<rainchance><random min="40" max="60" /></rainchance>
@@ -436,7 +436,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist> 
+		   	<list id="standard_guards" /> 
            		<guardowner>the city</guardowner>
 		   	</guards> 
 		   	<rainchance><random min="35" max="50" /></rainchance>
@@ -453,7 +453,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist>
+		   	<list id="standard_guards" />
            		<guardowner>the city</guardowner>
 		   	</guards>
 		   	<snowchance><random min="45" max="70" /></snowchance>
@@ -473,7 +473,7 @@
 				<noagressivemagic />
 			</flags>
            		<guards>
-		   	<getlist>standard_guards</getlist>
+		   	<list id="standard_guards" />
 		   	<guardowner>the city</guardowner>
 		   	</guards> 
 		   	<snowchance><random min="5" max="15" /></snowchance>
@@ -489,7 +489,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   	<getlist>standard_guards</getlist> 
+		   	<list id="standard_guards" /> 
            		<guardowner>the city</guardowner>
 		   	</guards>
 		   	<snowchance><random min="10" max="30" /></snowchance>
@@ -504,7 +504,7 @@
 				<noagressivemagic />
 			</flags>
 		   	<guards>
-		   		<getlist>standard_guards</getlist>
+		   		<list id="standard_guards" />
            			<guardowner>the city</guardowner>
 		   	</guards>
 		   	<snowchance><random min="1" max="10" /></snowchance>
