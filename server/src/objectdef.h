@@ -35,7 +35,7 @@
 
 /*!
 	Since we are not using QObject due to memory footprint, moc won't create some nice functions
-	either, we need some macro magic to get them ( or disabling some ) without doing too much 
+	either, we need some macro magic to get them ( or disabling some ) without doing too much
 	mess
 */
 
@@ -48,33 +48,33 @@ inline QString tr( const QString& text, const char* comment = 0, const char* con
 
 # ifndef QT_NO_TEXTCODEC
 // full set of tr functions
-#  define WP_TR_FUNCTIONS(classname)														\
-	static QString tr( const char* s, const char* c = 0 )									\
-	{																						\
-		if ( qApp )																			\
-		return qApp->translate( #classname, s, c, QApplication::DefaultCodec );				\
-		else																				\
-		return QString::fromLatin1( s );													\
-	}																						\
-																							\
-	static QString trUtf8( const char* s, const char* c = 0 )								\
-	{																						\
-		if ( qApp )																			\
-		return qApp->translate( #classname, s, c, QApplication::UnicodeUTF8 );				\
-		else																				\
-		return QString::fromUtf8( s );														\
-	}																						
+#  define WP_TR_FUNCTIONS(classname) \
+	static QString tr( const char* s, const char* c = 0 ) \
+	{ \
+		if ( qApp ) \
+			return qApp->translate( #classname, s, c, QApplication::DefaultCodec ); \
+		else \
+			return QString::fromLatin1( s ); \
+	} \
+	\
+	static QString trUtf8( const char* s, const char* c = 0 ) \
+	{ \
+		if ( qApp ) \
+			return qApp->translate( #classname, s, c, QApplication::UnicodeUTF8 ); \
+		else \
+			return QString::fromUtf8( s ); \
+	}
 
 # else
 // no QTextCodec, no utf8
 #  define WP_TR_FUNCTIONS \
-	static QString tr( const char* s, const char* c = 0 )									\
-	{																						\
-		if ( qApp )																			\
-		return qApp->translate( #classname, s, c, QApplication::DefaultCodec );				\
-		else																				\
-		return QString::fromLatin1( s );													\
-	}																						
+	static QString tr( const char* s, const char* c = 0 ) \
+	{ \
+		if ( qApp ) \
+			return qApp->translate( #classname, s, c, QApplication::DefaultCodec ); \
+		else \
+			return QString::fromLatin1( s ); \
+	}
 
 # endif
 #else
@@ -82,10 +82,10 @@ inline QString tr( const QString& text, const char* comment = 0, const char* con
 # define tr(x) QString(x)
 #endif
 
-#define OBJECTDEF(classname)																\
-public:																						\
-	/*virtual const char *className() const { return #classname; }*/						\
-	WP_TR_FUNCTIONS(classname)																\
+#define OBJECTDEF(classname) \
+public: \
+	/*virtual const char *className() const { return #classname; }*/ \
+	WP_TR_FUNCTIONS(classname) \
 private:
 
 #endif // __OBJECTDEF_H__
