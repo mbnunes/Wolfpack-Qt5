@@ -61,7 +61,7 @@
 	<!--  Blacksmithing -->
 	<startitems id="blacksmithing">
 		<!--Half Apron --><equipment id="153b" />
-		<!--Ingots --><item id="1bf2"><amount>50</amount></item>
+		<!--Ingots --><item id="iron_ingot"><amount>50</amount></item>
 		<!--Random Mining Tool--><item list="MININGTOOLS" />
 		<!--Random Blacksmith Tool--><item list="BLACKSMITHTOOLS"/>
 	</startitems>
