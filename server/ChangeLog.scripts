@@ -2,12 +2,18 @@ Wolfpack ChangeLog
 
 Wolfpack 12.9.13 Beta (CVS)
 	* Definition Changes:
+		- Added the mage AI to most creatures.
 		- Adjusted carving sheeps.
 		- Fixed leatherworkers and tanners not buying leather and hides.
 		- Male NPCs now have a 75% chance of getting a beard when created.
 	* Python Script Changes:
 		- Fixed bug #0000361. (Pets don't follow trough gate)
 		- Added xoffset, yoffset and zoffset to socket.attachmultitarget. (housing.deed)
+		- Fixed a runebook bug. (Refuses to work when full)
+		- Rewrote parts of the runebook.
+		- Added support for creature based poison immunity.
+		- Added support for hit based poisoning.
+		- Fixed several bugs in lumberjacking.
 		- Chars will now get revealed when using training dummy or archery butte.
 		- Fixed blood created at carving not decaying for a long time.
 		- Fixed fishing pole not wearing out.

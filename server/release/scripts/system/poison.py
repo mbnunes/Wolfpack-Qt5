@@ -86,6 +86,12 @@ def poison(char, level):
 	if level <= char.poison:
 		return
 
+	# Check for poison immunity
+	poison_immunity = char.getintproperty('poison_immunity', -1)
+	
+	if poison_immunity != -1 and level <= poison_immunity:
+		return # Do nothing. We're immune to that kind of poison
+
 	# Delete current poison
 	char.dispel(None, 1, "poison_timer", [])
 
