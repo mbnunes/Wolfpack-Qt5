@@ -21,6 +21,7 @@
 		</group>
 		<group name="Misc">
 			<action name="Unlimited Tile" permit="true" />
+			<action name="May Block Staff Accounts" permit="true" />
 		</group>
 	</acl>
 
@@ -41,10 +42,11 @@
 			<action name="SHUTDOWN" permit="false" />
 		</group>
 		<group name="multi">
-			<action name="any" permit="true" />			
+			<action name="any" permit="true" />
 		</group>
 		<group name="Misc">
 			<action name="Unlimited Tile" permit="false" />
+			<action name="May Block Staff Accounts" permit="true" />
 		</group>
 	</acl>
 
@@ -54,7 +56,7 @@
 			<action name="any" permit="true" />
 			<action name="ACCOUNT" permit="false" />
 			<action name="ALLMOVE" permit="false" />
-			<action name="ALLSHOW" permit="false" />			
+			<action name="ALLSHOW" permit="false" />
 			<action name="DECORATION" permit="false" />
 			<action name="DOORGEN" permit="false" />
 			<action name="EDIT" permit="false" />
