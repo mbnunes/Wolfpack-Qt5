@@ -633,7 +633,7 @@ void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), 
 				goxyz[17]=pc->dir()|0x80;
 				goxyz[18]=pc->pos.z;
 				Xsend(i, goxyz, 19);
-				walksequence[i]=-1;
+//				walksequence[i]=-1;
 			}
 			if (inrange1p(pc, currchar[i]))
 			{

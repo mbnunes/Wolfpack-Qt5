@@ -33,10 +33,9 @@
 #define __DEFINABLE_H__
 
 // Library includes
-#include "qstring.h"
-#include "qstringlist.h"
-#include "qdom.h"
-#include "qfile.h"
+class QDomElement;
+
+#include <qstring.h>
 
 class cDefinable
 {

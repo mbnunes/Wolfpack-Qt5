@@ -160,13 +160,6 @@ extern int loopTimeCount;
 extern unsigned long int serverstarttime;
 
 
-enum  enScripts { items_script = 0,npc_script,create_script,regions_script,misc_script,skills_script,
-			location_script,menus_script,spells_script,speech_script,tracking_script,
-			newbie_script,titles_script,advance_script,trigger_script,ntrigger_script,
-			wtrigger_script,necro_script,house_script,colors_script,spawn_script,
-			html_script,metagm_script,polymorph_script,hard_items,custom_npc_script,
-			custom_item_script,carve_script,msgboard_script,
-			fishing_script, gump_script, NUM_SCRIPTS} ;
 
 extern unsigned long initialserversec ;
 extern unsigned long initialservermill ;
@@ -180,12 +173,8 @@ extern unsigned long initialservermill ;
 //extern char firstpacket[MAXCLIENT+1];
 extern char noweather[MAXCLIENT+1]; //LB
 
-//extern int newclient[MAXCLIENT];
 extern unsigned char  buffer[MAXCLIENT][MAXBUFFER_REAL];
-extern char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
-extern short int walksequence[MAXCLIENT];
 extern signed char addid5[MAXCLIENT];
-extern int acctno[MAXCLIENT];
 extern P_CHAR currchar[MAXCLIENT];
 extern make_st itemmake[MAXCLIENT];
 extern int tempint[MAXCLIENT];
@@ -213,23 +202,6 @@ extern int clickx[MAXCLIENT];
 extern int clicky[MAXCLIENT];
 extern int currentSpellType[MAXCLIENT]; // 0=spellcast, 1=scrollcast, 2=wand cast
 extern unsigned char targetok[MAXCLIENT];
-
-//////////////////////////////////////////////
-//              MAxBuffer                  //
-/////////////////////////////////////////////
-
-extern char tbuffer[MAXBUFFER_REAL];
-extern char xoutbuffer[MAXBUFFER_REAL*3];
-
-/////////////////////////////////////////////
-///             maxaccount                ///
-/////////////////////////////////////////////
-
-
-/////////////////////////////////////////////
-///             hasmax                   ///
-/////////////////////////////////////////////
-
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial

@@ -35,6 +35,9 @@
 #include "basics.h"
 #include "prototypes.h"
 
+// Qt Includes
+#include <qdom.h>
+
 void cDefinable::applyDefinition( const QDomElement& sectionNode )
 {
 	if( sectionNode.hasAttribute( "inherit" ) )

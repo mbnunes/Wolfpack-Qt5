@@ -28,10 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// WorldMain.cpp: implementation of the CWorldMain class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "worldmain.h"
 #include "progress.h"
 #include "charsmgr.h"

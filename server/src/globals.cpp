@@ -238,12 +238,12 @@ cCharStuff::cBankerAI	*BankerAI;
 
 //char firstpacket[MAXCLIENT+1];
 
- int newclient[MAXCLIENT];
+// int newclient[MAXCLIENT];
  char unsigned buffer[MAXCLIENT][MAXBUFFER_REAL];
- char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
- short int walksequence[MAXCLIENT];
+// char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
+// short int walksequence[MAXCLIENT];
  signed char addid5[MAXCLIENT];
- int acctno[MAXCLIENT];
+// int acctno[MAXCLIENT];
  P_CHAR currchar[MAXCLIENT];
  make_st itemmake[MAXCLIENT];
  int tempint[MAXCLIENT];
@@ -271,7 +271,6 @@ cCharStuff::cBankerAI	*BankerAI;
 //              MAxBuffer                  //
 /////////////////////////////////////////////
 
- char tbuffer[MAXBUFFER_REAL];
  char xoutbuffer[MAXBUFFER_REAL*3];
 
 /////////////////////////////////////////////

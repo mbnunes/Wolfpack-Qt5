@@ -1187,12 +1187,6 @@ void checkkey ()
 				break;
 			case 'D':	// Disconnect account 0 (useful when client crashes)
 			case 'd':	
-				for (i=0;i<now;i++)
-					if (acctno[i]==0 && perm[i])
-					{
-						//cNetwork::instance()->Disconnect(i);
-						clConsole.send( "Account 0 disconnected\n");
-					}
 					break;
 			case 'P':
 			case 'p':				// Display profiling information
