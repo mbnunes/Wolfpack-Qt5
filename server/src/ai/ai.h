@@ -49,10 +49,6 @@ class AbstractAI;
 // Uncomment if you want AI debugging messages
 // #define AIDEBUG
 
-#if !defined(NDEBUG) && !defined(AIDEBUG)
-#define AIDEBUG
-#endif
-
 class AbstractAction
 {
 protected:
