@@ -196,12 +196,7 @@ the line of sight.
 		P_ITEM mapitem = ri.GetData();
 		if (mapitem != NULL)
 		{
-			if (
-				(mapitem->pos.x<= source.x +20)&&
-				(mapitem->pos.x>= source.x -20)&&
-				(mapitem->pos.y<= source.y +20)&&
-				(mapitem->pos.y>= source.y -20)
-				)
+			if ( mapitem->pos.distance( source ) < 20 )
 			{
 				loscache.push_back(mapitem);
 			}

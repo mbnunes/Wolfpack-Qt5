@@ -38,21 +38,15 @@
 #undef  DBGFILE
 #define DBGFILE "coord.cpp"
 
-//========================================================================================
-
 Coord_cl::Coord_cl(void)
 {
 	x = y = z = map = plane = 0;
 }
 
-//========================================================================================
-
 Coord_cl::Coord_cl(const Coord_cl& clCoord)
 {
 	(*this) = clCoord ;
 }
-
-//========================================================================================
 
 Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 uiPlane)
 {
@@ -63,8 +57,6 @@ Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 uiPlane)
 	plane = uiPlane;
 }
 
-//========================================================================================
-
 
 /*!
  * Calculates the distance between 2 coordinates. If they are in different planes and maps, the
@@ -74,8 +66,7 @@ Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 uiPlane)
  *
  * @return UI32  : distance result
  */
-
-UI32 Coord_cl::distance(Coord_cl &src)
+UI32 Coord_cl::distance( const Coord_cl &src) const
 {
 	UI32 uiResult = ~0; // Initialize with *infinite*
 	if ((plane == src.plane || plane == COORD_ALL_PLANES || src.plane == COORD_ALL_PLANES) && map == src.map)
@@ -85,6 +76,11 @@ UI32 Coord_cl::distance(Coord_cl &src)
 		uiResult = static_cast<UI32>(floor(rfResult)); // truncate
 	}
 	return uiResult;
+}
+
+UI32 Coord_cl::distance ( const Coord_cl &a, const Coord_cl &b )
+{
+	return a.distance( b );
 }
 
 // Operators
