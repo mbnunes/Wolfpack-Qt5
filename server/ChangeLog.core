@@ -34,6 +34,11 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed a stamina loss bug on damage.
 	- Changed the amount of recovered mana and stamina from 10% to 50% on resurrection.
 	- Fixed a bug related to NPCs not loosing their target even if the target is not valid anymore.
+	- Made mapdif*, stadi* and friends case insensitive, so under *nix
+              they don't have to be renamed.
+	- Fixed crash under windows when the server terminates unexpectedly
+	- Console will show which unicode format was compiled in Python UCS2 or UCS4
+	- Fixed compile error on FreeBSD.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.
