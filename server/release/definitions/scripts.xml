@@ -185,5 +185,6 @@
 	<script>skills.tailoring</script>
 	<script>skills.spiritspeak</script>
 	<script>skills.itemid</script>
+	<script>skills.tasteid</script>
 
 </definitions>
