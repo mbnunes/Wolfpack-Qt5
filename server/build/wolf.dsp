@@ -7,19 +7,19 @@
 CFG=wolf - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak" CFG="wolf - Win32 Debug"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 !MESSAGE "wolf - Win32 Release" (based on "Win32 (x86) Console Application")
 !MESSAGE "wolf - Win32 Debug" (based on "Win32 (x86) Console Application")
-!MESSAGE
+!MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "__VC6" /Fr /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /I "..\src\sqlite" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "__VC6" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409
@@ -64,27 +64,27 @@ LINK32=link.exe
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "Debug"
-# PROP Intermediate_Dir "Debug"
+# PROP Intermediate_Dir "Debug\Intermediate"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MD /W3 /Gm /GR /GX /Zi /Od /I "sqlite" /I "lib\bugreport" /I "$(QTDIR)\include" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "__VC6" /Fr /FD /GZ /c
+# ADD CPP /nologo /MD /W3 /Gm /GR /GX /ZI /Od /I "$(QTDIR)\include" /I "..\src\sqlite" /I "..\build" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "__VC6" /Fr /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
-# ADD RSC /l 0x409 /d "_DEBUG"
+# ADD RSC /l 0x409 /fo"debug\res.res" /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt331.lib shell32.lib /nologo /version:12.9 /subsystem:windows /incremental:no /debug /machine:I386 /out:"debug\wolfpack.exe" /pdbtype:sept /fixed:no
-# SUBTRACT LINK32 /pdb:none /map
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt331.lib shell32.lib /nologo /version:12.9 /subsystem:windows /pdb:none /debug /machine:I386 /out:".\debug\wolfpack.exe" /fixed:no
+# SUBTRACT LINK32 /map
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Desc=MoveIt
 PostBuild_Cmds=copy debug\wolfpack.exe d:\wolfpack\wolfpackEXE\WolfpackDebug\WolfpackCurrent\wolfpack.exe
 # End Special Build Tool
 
-!ENDIF
+!ENDIF 
 
 # Begin Target
 
@@ -92,540 +92,554 @@ PostBuild_Cmds=copy debug\wolfpack.exe d:\wolfpack\wolfpackEXE\WolfpackDebug\Wol
 # Name "wolf - Win32 Debug"
 # Begin Group "Source Files"
 
-# PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\accounts.cpp
+SOURCE=..\src\accounts.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\action.cpp
+SOURCE=..\src\action.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai\ai.cpp
+SOURCE=..\src\ai\ai.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai\ai_animals.cpp
+SOURCE=..\src\ai\ai_animals.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai\ai_humans.cpp
+SOURCE=..\src\ai\ai_humans.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai\ai_mage.cpp
+SOURCE=..\src\ai\ai_mage.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai\ai_monsters.cpp
+SOURCE=..\src\ai\ai_monsters.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\basechar.cpp
+SOURCE=..\src\basechar.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\basedef.cpp
+SOURCE=..\src\basedef.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\basics.cpp
+SOURCE=..\src\basics.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\combat.cpp
+SOURCE=..\src\combat.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\commands.cpp
+SOURCE=..\src\commands.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\win\config_win.cpp
+SOURCE=..\src\win\config_win.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\console.cpp
+SOURCE=..\src\console.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\win\console_win.cpp
+SOURCE=..\src\win\console_win.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\contextmenu.cpp
+SOURCE=..\src\content.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\coord.cpp
+SOURCE=..\src\contextmenu.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\corpse.cpp
+SOURCE=..\src\coord.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\customtags.cpp
+SOURCE=..\src\corpse.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\dbdriver.cpp
+SOURCE=..\src\customtags.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\definable.cpp
+SOURCE=..\src\dbdriver.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\definitions.cpp
+SOURCE=..\src\definable.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\dragdrop.cpp
+SOURCE=..\src\definitions.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\encryption.cpp
+SOURCE=..\src\dragdrop.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\getopts.cpp
+SOURCE=..\src\getopts.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\win\getopts_win.cpp
+SOURCE=..\src\win\getopts_win.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\guilds.cpp
+SOURCE=..\src\guilds.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\gumps.cpp
+SOURCE=..\src\gumps.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\items.cpp
+SOURCE=..\src\items.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\log.cpp
+SOURCE=..\src\log.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\muls\maps.cpp
+SOURCE=..\src\mapobjects.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\mapobjects.cpp
+SOURCE=..\src\muls\maps.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\md5.cpp
+SOURCE=..\src\md5.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\multi.cpp
+SOURCE=..\src\multi.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\muls\multiscache.cpp
+SOURCE=..\src\muls\multiscache.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\network.cpp
+SOURCE=..\src\npc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\npc.cpp
+SOURCE=..\src\party.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\party.cpp
+SOURCE=..\src\persistentbroker.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\persistentbroker.cpp
+SOURCE=..\src\persistentobject.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\persistentobject.cpp
+SOURCE=..\src\player.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\player.cpp
+SOURCE=..\src\preferences.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\preferences.cpp
+SOURCE=..\src\profile.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\pythonscript.cpp
+SOURCE=..\src\pythonscript.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\scriptmanager.cpp
+SOURCE=..\src\scriptmanager.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\server.cpp
+SOURCE=..\src\server.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\serverconfig.cpp
+SOURCE=..\src\serverconfig.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\skills.cpp
+SOURCE=..\src\skills.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\spawnregions.cpp
+SOURCE=..\src\spawnregions.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\speech.cpp
+SOURCE=..\src\speech.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\targetrequests.cpp
+SOURCE=..\src\targetrequests.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\territories.cpp
+SOURCE=..\src\territories.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\muls\tilecache.cpp
+SOURCE=..\src\muls\tilecache.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\timers.cpp
+SOURCE=..\src\timers.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\timing.cpp
+SOURCE=..\src\timing.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\tracking.cpp
+SOURCE=..\src\tracking.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\trade.cpp
+SOURCE=..\src\trade.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\twofish\twofish2.cpp
+SOURCE=..\src\twofish\twofish2.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\uobject.cpp
+SOURCE=..\src\uobject.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\walking.cpp
+SOURCE=..\src\walking.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\world.cpp
+SOURCE=..\src\world.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
 
-# PROP Default_Filter "h;hpp;hxx;hm;inl"
+# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\accounts.h
+SOURCE=..\src\accounts.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\action.h
+SOURCE=..\src\action.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai\ai.h
+SOURCE=..\src\twofish\aes.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ai\ai_mage.h
+SOURCE=..\src\ai\ai.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\basechar.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\ai\ai_mage.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\basedef.h
+SOURCE=..\src\basechar.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\baseregion.h
+SOURCE=..\src\basedef.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\basics.h
+SOURCE=..\src\baseregion.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\chars.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\basics.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\combat.h
+SOURCE=..\src\combat.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\commands.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\commands.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\console.h
+SOURCE=..\src\console.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\contextmenu.h
+SOURCE=..\src\content.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\coord.h
+SOURCE=..\src\contextmenu.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\corpse.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\coord.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\customtags.h
+SOURCE=..\src\corpse.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\dbdriver.h
+SOURCE=..\src\customtags.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\definable.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\dbdriver.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\defines.h
+SOURCE=..\src\twofish\debug.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\definitions.h
+SOURCE=..\src\definable.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\dragdrop.h
+SOURCE=..\src\defines.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\encryption.h
+SOURCE=..\src\definitions.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\exceptions.h
+SOURCE=..\src\dragdrop.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\factory.h
+SOURCE=..\src\exceptions.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\getopts.h
+SOURCE=..\src\factory.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\guilds.h
+SOURCE=..\src\getopts.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\gumps.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\guilds.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\inlines.h
+SOURCE=..\src\gumps.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\items.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\inlines.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\log.h
+SOURCE=..\src\items.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\mapobjects.h
+SOURCE=..\src\log.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\muls\maps.h
+SOURCE=..\src\mapobjects.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\multi.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\muls\maps.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\muls\multiscache.h
+SOURCE=..\src\md5.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\network.h
+SOURCE=..\src\mersennetwister.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\npc.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\multi.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\objectcache.h
+SOURCE=..\src\muls\multiscache.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\party.h
+SOURCE=..\src\npc.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\persistentbroker.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\objectdef.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\persistentobject.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\party.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\platform.h
+SOURCE=..\src\persistentbroker.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\player.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\persistentobject.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\preferences.h
+SOURCE=..\src\platform.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\pythonscript.h
+SOURCE=..\src\twofish\platform.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\resources.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\player.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\scriptmanager.h
+SOURCE=..\src\preferences.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\server.h
+SOURCE=..\src\profile.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\serverconfig.h
+SOURCE=..\src\progress.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\singleton.h
+SOURCE=..\src\pythonscript.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\skills.h
+SOURCE=.\resource.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\spawnregions.h
+SOURCE=..\src\scriptmanager.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\speech.h
+SOURCE=..\src\server.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\targetrequest.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\serverconfig.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\targetrequests.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\singleton.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\territories.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\skills.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\muls\tilecache.h
+SOURCE=..\src\spawnregions.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\timers.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\speech.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\timing.h
+SOURCE=..\src\twofish\table.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\tracking.h
+SOURCE=..\src\targetrequest.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\trade.h
+SOURCE=..\src\targetrequests.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\typedefs.h
+SOURCE=..\src\territories.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\uobject.h
-# PROP Ignore_Default_Tool 1
+SOURCE=..\src\muls\tilecache.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\verinfo.h
+SOURCE=..\src\timers.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\walking.h
+SOURCE=..\src\timing.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\world.h
+SOURCE=..\src\tracking.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\trade.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\typedefs.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\uobject.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\uotime.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\verinfo.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\walking.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\wolfpack_pch.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\world.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
 
-# PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\data\icon2.ico
+SOURCE=.\icon2.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\data\logo.bmp
+SOURCE=.\logo.bmp
 # End Source File
 # Begin Source File
 
@@ -637,71 +651,67 @@ SOURCE=.\res.rc
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\network\asyncnetio.cpp
+SOURCE=..\src\network\asyncnetio.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\asyncnetio.h
+SOURCE=..\src\network\asyncnetio.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\listener.cpp
+SOURCE=..\src\network\encryption.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\listener.h
+SOURCE=..\src\network\encryption.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\uopacket.cpp
+SOURCE=..\src\network\listener.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\uopacket.h
+SOURCE=..\src\network\listener.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\uorxpackets.cpp
+SOURCE=..\src\network\network.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\uorxpackets.h
+SOURCE=..\src\network\network.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\uosocket.cpp
+SOURCE=..\src\network\uopacket.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\uosocket.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing uosocket.h...
-InputDir=.\network
-InputPath=.\network\uosocket.h
-InputName=uosocket
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-
-!ENDIF
-
+SOURCE=..\src\network\uopacket.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\uotxpackets.cpp
+SOURCE=..\src\network\uorxpackets.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\network\uotxpackets.h
+SOURCE=..\src\network\uorxpackets.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\network\uosocket.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\network\uosocket.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\network\uotxpackets.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\network\uotxpackets.h
 # End Source File
 # End Group
 # Begin Group "Python"
@@ -709,283 +719,287 @@ SOURCE=.\network\uotxpackets.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\python\char.cpp
+SOURCE=..\src\python\char.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\content.h
+SOURCE=..\src\python\engine.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\engine.cpp
+SOURCE=..\src\python\engine.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\engine.h
+SOURCE=..\src\python\global.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\global.cpp
+SOURCE=..\src\python\gump.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\gump.h
+SOURCE=..\src\python\item.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\item.cpp
+SOURCE=..\src\python\objectcache.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pyaccount.cpp
+SOURCE=..\src\python\pyaccount.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pyaction.cpp
+SOURCE=..\src\python\pyaction.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pyaction.h
+SOURCE=..\src\python\pyaction.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pyai.cpp
+SOURCE=..\src\python\pyai.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pycoord.cpp
+SOURCE=..\src\python\pycontent.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pypacket.cpp
+SOURCE=..\src\python\pycoord.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pypacket.h
+SOURCE=..\src\python\pypacket.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pyregion.cpp
+SOURCE=..\src\python\pypacket.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pyspawnregion.cpp
+SOURCE=..\src\python\pyregion.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pyspawnregion.h
+SOURCE=..\src\python\pyspawnregion.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\pytooltip.cpp
+SOURCE=..\src\python\pyspawnregion.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\regioniterator.h
+SOURCE=..\src\python\pytooltip.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\skills.h
+SOURCE=..\src\python\region.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\socket.cpp
+SOURCE=..\src\python\regioniterator.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\target.cpp
+SOURCE=..\src\python\skills.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\target.h
+SOURCE=..\src\python\socket.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\tempeffect.h
+SOURCE=..\src\python\target.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\utilities.h
+SOURCE=..\src\python\target.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\worlditerator.cpp
+SOURCE=..\src\python\tempeffect.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\python\worlditerator.h
+SOURCE=..\src\python\utilities.h
 # End Source File
-# End Group
-# Begin Group "Generated"
+# Begin Source File
 
-# PROP Default_Filter ""
+SOURCE=..\src\python\worlditerator.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\python\worlditerator.h
+# End Source File
 # End Group
 # Begin Group "SQLite"
 
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\sqlite\attach.c
+SOURCE=..\src\sqlite\attach.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\auth.c
+SOURCE=..\src\sqlite\auth.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\btree.c
+SOURCE=..\src\sqlite\btree.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\btree.h
+SOURCE=..\src\sqlite\btree.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\btree_rb.c
+SOURCE=..\src\sqlite\btree_rb.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\build.c
+SOURCE=..\src\sqlite\build.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\config.h
+SOURCE=..\src\sqlite\config.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\copy.c
+SOURCE=..\src\sqlite\copy.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\date.c
+SOURCE=..\src\sqlite\date.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\delete.c
+SOURCE=..\src\sqlite\delete.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\expr.c
+SOURCE=..\src\sqlite\expr.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\func.c
+SOURCE=..\src\sqlite\func.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\hash.c
+SOURCE=..\src\sqlite\hash.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\hash.h
+SOURCE=..\src\sqlite\hash.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\insert.c
+SOURCE=..\src\sqlite\insert.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\main.c
+SOURCE=..\src\sqlite\main.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\opcodes.c
+SOURCE=..\src\sqlite\opcodes.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\opcodes.h
+SOURCE=..\src\sqlite\opcodes.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\os.c
+SOURCE=..\src\sqlite\os.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\os.h
+SOURCE=..\src\sqlite\os.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\pager.c
+SOURCE=..\src\sqlite\pager.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\pager.h
+SOURCE=..\src\sqlite\pager.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\parse.c
+SOURCE=..\src\sqlite\parse.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\parse.h
+SOURCE=..\src\sqlite\parse.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\pragma.c
+SOURCE=..\src\sqlite\pragma.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\printf.c
+SOURCE=..\src\sqlite\printf.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\random.c
+SOURCE=..\src\sqlite\random.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\select.c
+SOURCE=..\src\sqlite\select.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\sqlite.h
+SOURCE=..\src\sqlite\sqlite.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\sqliteInt.h
+SOURCE=..\src\sqlite\sqliteInt.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\table.c
+SOURCE=..\src\sqlite\table.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\tokenize.c
+SOURCE=..\src\sqlite\tokenize.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\trigger.c
+SOURCE=..\src\sqlite\trigger.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\update.c
+SOURCE=..\src\sqlite\update.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\util.c
+SOURCE=..\src\sqlite\util.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\vacuum.c
+SOURCE=..\src\sqlite\vacuum.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\vdbe.c
+SOURCE=..\src\sqlite\vdbe.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\vdbe.h
+SOURCE=..\src\sqlite\vdbe.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\vdbeaux.c
+SOURCE=..\src\sqlite\vdbeaux.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\vdbeInt.h
+SOURCE=..\src\sqlite\vdbeInt.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\sqlite\where.c
+SOURCE=..\src\sqlite\where.c
 # End Source File
 # End Group
 # End Target
