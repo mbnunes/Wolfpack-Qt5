@@ -26,5 +26,6 @@
 	<!-- Speech Scripts -->
 	<script id="speech_pets" type="python" module="speech.pets" />
 	<script id="speech_banker" type="python" module="speech.banker" />
+	<script id="speech_barber" type="python" module="speech.barber" />
 
 </definitions>
