@@ -1572,7 +1572,7 @@ void cItem::processNode( const QDomElement& Tag )
 	// we do this as we're going to modify the element
 	QString TagName = Tag.nodeName();
 	QString Value = this->getNodeValue( Tag );
-	QStringList defineSections = DefManager->getSections( WPDT_DEFINE );
+	QDomElement* DefSection = DefManager->getSection( WPDT_DEFINE, TagName );
 
 	// <name>my Item</name>
 	if( TagName == "name" )
@@ -1837,23 +1837,20 @@ void cItem::processNode( const QDomElement& Tag )
 			applyDefinition( *DefSection );
 	}
 
-	else if( defineSections.contains( TagName ) )
+	else if( !DefSection->isNull() )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_DEFINE, TagName );
-		if( !DefSection->isNull() )
+		QDomNode chNode = DefSection->firstChild();
+		while( !chNode.isNull() )
 		{
-			QDomNode chNode = Tag.firstChild();
-			while( !chNode.isNull() )
-			{
-				if( chNode.isElement() )
-					processModifierNode( chNode.toElement() );
-				chNode = chNode.nextSibling();
-			}
+			if( chNode.isElement() )
+				processModifierNode( chNode.toElement() );
+			chNode = chNode.nextSibling();
 		}
 	}
 
 	else
 		cUObject::processNode( Tag );
+
 }
 
 void cItem::processModifierNode( const QDomElement &Tag )
@@ -1870,15 +1867,6 @@ void cItem::processModifierNode( const QDomElement &Tag )
 	// <identified>%1 of Hardening</identified>
 	else if( TagName == "identified" )
 		name2_ = Value.arg( name2_ );
-
-	// <color>-10</color>
-	else if( TagName == "color" )
-	{
-		if( Value.contains(".") || Value.contains(",") )
-			color_ = (UINT16)ceil((float)color_ * Value.toFloat());
-		else
-			color_ += Value.toShort();
-	}
 
 	// <attack min="-1" max="+2"/>
 	else if( TagName == "attack" )
@@ -2014,10 +2002,18 @@ void cItem::processModifierNode( const QDomElement &Tag )
 		}
 	}
 
-	// <id>+3</id>
+	// <color>480</color>
+	else if( TagName == "color" )
+		this->setColor( Value.toUShort() );
+
+	// <id>12f9</id>
 	else if( TagName == "id" )
 	{
-		this->setId( id() + Value.toShort() );
+		this->setId( Value.toUShort() );
+
+		// In addition to the normal behaviour we retrieve the weight of the
+		// item here.
+		setWeight( cTileCache::instance()->getTile( id_ ).weight );
 	}
 }
 
