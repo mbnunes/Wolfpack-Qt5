@@ -121,6 +121,7 @@ public:
 	void handleChangeWarmode( cUORxChangeWarmode* packet );
 	void handleTarget( cUORxTarget *packet );
 	void handleRequestAttack( cUORxRequestAttack* packet );
+	void handleBookPage( cUORxBookPage* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

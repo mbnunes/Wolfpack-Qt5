@@ -105,3 +105,70 @@ QString cUORxSpeechRequest::message()
 	else
 		return getUnicodeString( 12, getShort( 1 ) - 12 );
 }
+
+UINT16 cUORxBookPage::numOfLinesOnPage( UINT16 page )
+{
+	UINT16 i = 9;
+	while( getShort( i ) != page && i < size() )
+	{
+		UINT16 currNumLines = getShort( i + 2 );
+		if( currNumLines != -1 )
+		{
+			i += 4;
+			UINT16 k = 0;
+			while( i < size() && k < currNumLines )
+			{
+				if( rawPacket.data()[i] == 0x00 )
+					k++;
+				i++;
+			}
+			// i should be the offset to the next page now
+		}
+	}
+	if( i >= size() )
+		return (UINT16)-1;
+	return getShort( i+2 );
+}
+
+QStringList cUORxBookPage::linesOnPage( UINT16 page )
+{
+	UINT16 i = 9;
+	while( getShort( i ) != page && i < size() )
+	{
+		UINT16 currNumLines = getShort( i + 2 );
+		if( currNumLines != -1 )
+		{
+			i += 4;
+			UINT16 k = 0;
+			while( i < size() && k < currNumLines )
+			{
+				if( rawPacket.data()[i] == 0x00 )
+					k++;
+				i++;
+			}
+			// i should be the offset to the next page now
+		}
+	}
+
+	if( i >= size() )
+		return QStringList();
+
+	QStringList lines = QStringList();
+	UINT16 numLines = getShort( i + 2 );
+	UINT16 currLine = 0;
+	UINT16 j = i + 4; // j iterates through the chars of each line
+	UINT16 start; // start marks the starting offset for the line
+	while( currLine < numLines )
+	{
+		start = j;
+		while( j < size() && rawPacket.data()[j] != 0x00 )
+		{
+			j++;
+		}
+		lines.push_back( getUnicodeString( start, j - start ) );
+
+		j++; // skip the null char
+		currLine++; // next line!
+	}
+	return lines;
+}

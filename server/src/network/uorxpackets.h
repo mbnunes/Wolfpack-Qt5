@@ -35,6 +35,7 @@
 #include "uopacket.h"
 #include "qcstring.h"
 #include "qstring.h"
+#include "qstringlist.h"
 
 // Wolfpack Includes
 #include "../typedefs.h"
@@ -377,6 +378,19 @@ public:
 	UINT32 serial() { return getInt( 1 ); }
 	UINT8 layer() { return rawPacket[5]; }
 	UINT32 wearer() { return getInt( 6 ); }
+};
+
+// 0x66 Book Page
+class cUORxBookPage: public cUOPacket
+{
+public:
+	cUORxBookPage( const QByteArray &data ): cUOPacket( data ) {}
+	UINT16 size() { return getShort( 1 ); }
+	UINT32 serial() { return getInt( 3 ); }
+	UINT16 pages() { return getShort( 7 ); }
+
+	UINT16 numOfLinesOnPage( UINT16 page );
+	QStringList linesOnPage( UINT16 page );
 };
 
 #endif

@@ -385,15 +385,24 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar )
 void cUOTxBookPage::setPage( UINT16 page, UINT16 numLines, const QStringList &lines )
 {
 	setShort(  9 + currPageOffset, page );
-	setShort( 11 + currPageOffset, numLines );
-		
-	UINT32 currLineOffset = 0;
-	QStringList::const_iterator it = lines.begin();
-	while( it != lines.end() )
+
+	if( numLines == 0 )
 	{
-		setAsciiString( 13 + currPageOffset + currLineOffset, (*it).latin1(), (*it).length()+1 );
-		currLineOffset += (*it).length() + 1;
-		it++;
+		setShort( 11 + currPageOffset, (UINT16)-1 ); // -1 if no lines!
+		currPageOffset += 4;
 	}
-	currPageOffset += 4 + currLineOffset;
+	else
+	{
+		setShort( 11 + currPageOffset, numLines );
+		
+		UINT32 currLineOffset = 0;
+		QStringList::const_iterator it = lines.begin();
+		while( it != lines.end() )
+		{
+			setAsciiString( 13 + currPageOffset + currLineOffset, (*it).latin1(), (*it).length()+1 );
+			currLineOffset += (*it).length() + 1;
+			it++;
+		}
+		currPageOffset += 4 + currLineOffset;
+	}
 }

@@ -230,7 +230,7 @@ void cBook::open( cUOSocket* socket )
 		UINT32 i, size = 9;
 		for( i = 0; i < content_.count(); i++ )
 		{
-#pragma note("does parsed text contain \n masks? probably we need another solutions (<br>'s?)")
+#pragma note("does parsed text contain \n masks? probably we need another solution (<br>'s?)")
 			QStringList tmpLines = QStringList::split( "\n", content_[i] );
 			size += 4;
 			QStringList::const_iterator it = tmpLines.begin();

@@ -54,6 +54,7 @@
 #include "../speech.h"
 #include "../guildstones.h"
 #include "../combat.h"
+#include "../books.h"
 
 //#include <conio.h>
 #include <iostream>
@@ -198,6 +199,8 @@ void cUOSocket::recieve()
 		cDragItems::getInstance()->equipItem( this, dynamic_cast< cUORxWearItem* >( packet ) ); break;
 	case 0x72:
 		handleChangeWarmode( dynamic_cast< cUORxChangeWarmode* >( packet ) ); break;
+	case 0x66:
+		handleBookPage( dynamic_cast< cUORxBookPage* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -1634,4 +1637,41 @@ bool cUOSocket::inRange( cUOSocket* socket ) const
 	if ( !socket || !socket->player() )
 		return false;
 	return ( socket->player()->pos.distance( _player->pos ) < socket->player()->VisRange );
+}
+
+void cUOSocket::handleBookPage( cUORxBookPage* packet )
+{
+	cBook* pBook = dynamic_cast< cBook* >(FindItemBySerial( packet->serial() ));
+	if( pBook )
+	{
+		UINT16 currPage = 1;
+		UINT16 currNumLines;
+		while( currPage <= packet->pages() )
+		{
+			currNumLines = packet->numOfLinesOnPage( currPage );
+			if( currNumLines == (UINT16)-1 )
+			{
+				// simple page request
+				pBook->readPage( this, currPage );
+			}
+			else
+			{
+				// page write request
+				QStringList content_ = pBook->content();
+				QStringList lines = packet->linesOnPage( currPage );
+				
+				QString toInsert = QString();
+				QStringList::const_iterator it = lines.begin();
+				while( it != lines.end() )
+				{
+					toInsert += (*it);
+					it++;
+				}
+
+				content_[currPage-1] = toInsert;
+				pBook->setContent( content_ );
+			}
+			currPage++;
+		}
+	}	
 }
