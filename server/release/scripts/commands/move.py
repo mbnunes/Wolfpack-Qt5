@@ -26,6 +26,13 @@ def commandMove( socket, cmd, args ):
 		return False
 	else:
 		args = args.split( "," )
+		for i in args:
+			try:
+				i = int(i)
+			except:
+				socket.sysmessage( "'%s' ist keine Zahl." % i )
+			return True
+			
 		if len( args ) >= 1 and len( args ) <= 4:
 			if len( args ) == 4:
 				xmod = int( args[0] )

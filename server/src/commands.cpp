@@ -615,18 +615,6 @@ void commandAllMove( cUOSocket* socket, const QString& command, const QStringLis
 }
 
 /*
-	\command restock
-	\description Restock the items sold by a vendor.
-*/
-void commandRestock( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( args );
-	Q_UNUSED( command );
-	socket->sysMessage( tr( "Please select the vendor you want to restock." ) );
-	socket->attachTarget( new cRestockTarget );
-}
-
-/*
 	\command broadcast
 	\description Broadcast a message to all connected clients.
 	\usage - <code>broadcast [message]</code>
@@ -1588,7 +1576,6 @@ stCommand cCommands::commands[] =
 { "GMTALK", commandGmtalk },
 { "PAGENOTIFY", commandPageNotify },
 { "RELOAD", commandReload },
-{ "RESTOCK", commandRestock },
 { "SAVE", commandSave },
 { "SERVERTIME", commandServerTime },
 { "SET", commandSet },

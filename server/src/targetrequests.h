@@ -360,27 +360,6 @@ public:
 	}
 };
 
-class cRestockTarget : public cTargetRequest
-{
-	OBJECTDEF( cRestockTarget )
-public:
-	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
-	{
-		P_CHAR pChar = FindCharBySerial( target->serial() );
-
-		if ( pChar )
-		{
-			//			pChar->restock();
-			socket->sysMessage( tr( "This vendor's inventar has been restocked." ) );
-		}
-		else
-		{
-			socket->sysMessage( tr( "Please target a valid vendor." ) );
-		}
-
-		return true;
-	}
-};
 
 class cStableTarget : public cTargetRequest
 {
