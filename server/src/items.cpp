@@ -1240,13 +1240,13 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 				// Item has been deleted
 				if( !pSpawned )
 				{
-					spawnsp.remove( pItem->serial, pSpawned->serial );
 					--amount;
+
 				}
 				// Item has been moved
-				else if( pSpawned->pos != pItem->pos )
+				else if( ( pSpawned->free ) || ( pSpawned->pos != pItem->pos ) )
 				{
-					spawnsp.remove( pItem->serial, pSpawned->serial );
+					pSpawned->SetSpawnSerial( INVALID_SERIAL );
 					--amount;
 				}
 			}
@@ -1268,93 +1268,52 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 
 				pSpawned->moveTo( pItem->pos );
 				pSpawned->SetSpawnSerial( pItem->serial );
-				pSpawned->update();				
+				pSpawned->update();
+			}
+		}
+		break;
+	// NPC Spawner
+	case 62:
+		{
+			// Check if it's worth respawning
+			vector< SERIAL > spawned = spawnsp.getData( pItem->serial );
+			UINT32 amount = spawned.size();
 
-				spawnsp.insert( pItem->serial, pSpawned->serial );				
-			}			
+			// Do a sanity check
+			for( UINT32 i = 0; i < spawned.size(); ++i )
+			{
+				P_CHAR pSpawned = FindCharBySerial( spawned[i] );
+
+				// Char has been deleted
+				if( !pSpawned )
+				{
+					spawnsp.remove( pItem->serial, pSpawned->serial );
+					--amount;
+				}
+				// Char has been tamed/changed owner
+				else if( pSpawned->tamed() || pSpawned->spawnSerial() != pItem->serial )
+				{
+					spawnsp.remove( pItem->serial, pSpawned->serial );
+					--amount;
+				}
+			}
+
+			// Is there anything to be spawned
+			if( amount < pItem->amount() )
+			{
+				P_CHAR pSpawned = Npcs->createScriptNpc( pItem->carve(), pItem->pos );
+				if( pSpawned )
+					pSpawned->SetSpawnSerial( pItem->serial );
+			}
 		}
 		break;
 	};
 
 	pItem->gatetime = currenttime + ( RandomNum( pItem->morex, pItem->morey ) * MY_CLOCKS_PER_SEC );
 
-	return;
+	/*
 
-	// Amount seems spawn-amount
-	/*for( UINT16 c = 0; c < pi->amount(); ++c )
-	{
-		if( pi->gatetime + ( c * pi->morez * MY_CLOCKS_PER_SEC) <= currenttime ) )
-		{
-			if( pi->disabled && ( pi->disabled <= currenttime ) )
-				pi->disabled = 0;
-
-			// Type 61: Item Spawner
-			if( pi->type() == 61 )
-			{
-				bool found = false;
-                vector<SERIAL> vecSpawn = spawnsp.getData( pi->serial );
-
-				for( UINT16 j = 0; j < vecSpawn.size(); ++j )
-				{
-					P_ITEM pSpawned = FindItemBySerial( vecSpawn[j] );
-					if( pSpawned && !pSpawned->free )
-					{
-						if( pi != pSpawned && pSpawned->inRange( pi, 0 ) )
-						{
-							found = true;
-							break;
-						}
-					}
-				}
-
-				if( found )
-				{
-					if( pi->gatetime == 0 )
-					{
-						pi->gatetime=(rand()%( (int)( 1 + ( ( pi->morez - pi->morey ) * ( MY_CLOCKS_PER_SEC * 60 ) ) ) ) ) + ( pi->morey * MY_CLOCKS_PER_SEC * 60 ) + currenttime;
-					}
-
-					if( ( pi->gatetime <= currenttime ) && pi->morex != 0 )
-					{
-						Items->AddRespawnItem(pi, QString("%1").arg(pi->morex), false);
-						pi->gatetime=0;
-					}
-				}
-			}
-			// Npc Spawner
-			else if( pi->type() == 62 || pi->type() == 69 || pi->type() == 125 )
-			{
-				k=0;
-				serial=pi->serial;
-				unsigned int j;
-				vector<SERIAL> vecSpawned = cspawnsp.getData(pi->serial);
-				for (j = 0; j < vecSpawned.size(); j++)
-				{
-					P_CHAR pc_ci = FindCharBySerial(vecSpawned[j]);
-					if (pc_ci != NULL)
-						if (pc_ci->spawnSerial() == pi->serial && !pc_ci->free)
-						{
-							++k;
-						}
-				}
-
-				if (k<pi->amount())
-				{
-					if (pi->gatetime==0)
-					{
-						pi->gatetime=(rand()%((int)(1+
-							((pi->morez-pi->morey)*(MY_CLOCKS_PER_SEC*60))))) +
-							
-							(pi->morey*MY_CLOCKS_PER_SEC*60)+currenttime;
-					}
-					if ((pi->gatetime<=currenttime || (overflow)) && pi->morex!=0)
-					{
-						Npcs->createScriptNpc(-1, pi, QString("%1").arg(pi->morex));
-						pi->gatetime=0;					
-					}
-				}
-			}
-			// Chest spawner
+	// Chest spawner
 			else if ((pi->type()==63)||(pi->type()==64)||(pi->type()==65)||(pi->type()==66)||(pi->type()==8))
 			{
 				serial=pi->serial;
