@@ -38,6 +38,11 @@ Wolfpack 12.9.10 Beta (CVS)
 	- Fixed item names for item.say
 	- The default worldsave driver is now binary.
 	- Improved the Python interface Unicode support.
+	- Pets should now no longer fight if their owners tell them to stay/stop.
+	- NPCs owned by GMs no longer suffer hunger effects.
+	- Added <basescript>a</basescript> which will prepend the script a to the basescripts list of
+	  a basedefinition.
+	- Moved several methods to a common baseclass for char and item base definitions.
 
 Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.

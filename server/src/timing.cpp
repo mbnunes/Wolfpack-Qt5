@@ -425,45 +425,48 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 	// This only applies to tamed creatures
 	if ( npc->isTamed() && Config::instance()->hungerRate() && npc->hungerTime() <= time )
 	{
-		if ( npc->hunger() )
-		{
-			npc->setHunger( npc->hunger() - 1 );
-		}
-
-		npc->setHungerTime( time + Config::instance()->hungerRate() * MY_CLOCKS_PER_SEC );
-
-		switch ( npc->hunger() )
-		{
-		case 4:
-			npc->emote( tr( "*%1 looks a little hungry*" ).arg( npc->name() ), 0x26 );
-			break;
-		case 3:
-			npc->emote( tr( "*%1 looks fairly hungry*" ).arg( npc->name() ), 0x26 );
-			break;
-		case 2:
-			npc->emote( tr( "*%1 looks extremely hungry*" ).arg( npc->name() ), 0x26 );
-			break;
-		case 1:
-			npc->emote( tr( "*%1 looks weak from starvation*" ).arg( npc->name() ), 0x26 );
-			break;
-		case 0:
-			npc->setWanderType( enFreely );
-			npc->setTamed( false );
-
-			if ( npc->owner() )
+		// Creatures owned by GMs won't hunger.
+		if (!npc->owner() || !npc->owner()->isGMorCounselor()) {
+			if ( npc->hunger() )
 			{
-				npc->setOwner( 0 );
+				npc->setHunger( npc->hunger() - 1 );
 			}
 
-			npc->bark( cBaseChar::Bark_Attacking );
-			npc->talk( 1043255, npc->name(), 0, false, 0x26 );
+			npc->setHungerTime( time + Config::instance()->hungerRate() * MY_CLOCKS_PER_SEC );
 
-			if ( Config::instance()->tamedDisappear() == 1 )
+			switch ( npc->hunger() )
 			{
-				npc->soundEffect( 0x1FE );
-				npc->remove();
+			case 4:
+				npc->emote( tr( "*%1 looks a little hungry*" ).arg( npc->name() ), 0x26 );
+				break;
+			case 3:
+				npc->emote( tr( "*%1 looks fairly hungry*" ).arg( npc->name() ), 0x26 );
+				break;
+			case 2:
+				npc->emote( tr( "*%1 looks extremely hungry*" ).arg( npc->name() ), 0x26 );
+				break;
+			case 1:
+				npc->emote( tr( "*%1 looks weak from starvation*" ).arg( npc->name() ), 0x26 );
+				break;
+			case 0:
+				npc->setWanderType( enFreely );
+				npc->setTamed( false );
+
+				if ( npc->owner() )
+				{
+					npc->setOwner( 0 );
+				}
+
+				npc->bark( cBaseChar::Bark_Attacking );
+				npc->talk( 1043255, npc->name(), 0, false, 0x26 );
+
+				if ( Config::instance()->tamedDisappear() == 1 )
+				{
+					npc->soundEffect( 0x1FE );
+					npc->remove();
+				}
+				break;
 			}
-			break;
 		}
 	}
 }

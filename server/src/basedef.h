@@ -45,9 +45,15 @@ protected:
 
 	QMap<QString, unsigned int> intproperties;
 	QMap<QString, QString> properties;
+
+	QPtrList<cPythonScript> baseScripts_;
+	QCString baseScriptList_;
+	QCString bindmenu_;
 	
 	bool loaded;
 	virtual void reset();
+	virtual void load() = 0;
+	void refreshScripts();
 public:
 	void processNode( const cElement* node );
 
@@ -55,7 +61,7 @@ public:
 		QMap<QString, unsigned int>::const_iterator it = intproperties.find(name);
 		if (it == intproperties.end()) {
 			return def;
-		} else {			
+		} else {
 			return *it;
 		}
 	}
@@ -81,6 +87,24 @@ public:
 	{
 		return id_;
 	}
+
+	inline const QCString& baseScriptList()
+	{
+		load();
+		return baseScriptList_;
+	}
+
+	inline const QPtrList<cPythonScript> &baseScripts()
+	{
+		load();
+		return baseScripts_;
+	}
+
+	inline const QCString& bindmenu()
+	{
+		load();
+		return bindmenu_;
+	}
 };
 
 class cCharBaseDef : public cBaseDef
@@ -98,33 +122,17 @@ protected:
 	short minTaming_;
 	QCString carve_;
 	QCString lootPacks_;
-	QCString bindmenu_;
 	unsigned char controlSlots_;
 	unsigned char criticalHealth_;
-	QPtrList<cPythonScript> baseScripts_;
-	QCString baseScriptList_;
 
 	// Misc Properties
 	void load();
-	void reset();
-	void refreshScripts();
+	void reset();	
 public:
 	cCharBaseDef( const QCString& id );
 	~cCharBaseDef();
 
 	void processNode( const cElement* node );	
-
-	inline const QCString& baseScriptList()
-	{
-		load();
-		return baseScriptList_;
-	}
-
-	inline const QPtrList<cPythonScript> &baseScripts()
-	{
-		load();
-		return baseScripts_;
-	}
 
 	inline unsigned char controlSlots()
 	{
@@ -209,12 +217,6 @@ public:
 		load();
 		return lootPacks_;
 	}
-
-	inline const QCString& bindmenu()
-	{
-		load();
-		return bindmenu_;
-	}
 };
 
 class cCharBaseDefs
@@ -250,17 +252,13 @@ protected:
 	unsigned int sellprice_;
 	unsigned int buyprice_;
 	unsigned short type_;
-	QCString bindmenu_;
 	unsigned char lightsource_;
 	unsigned int decaydelay_;
 	unsigned int flags_;
-	QPtrList<cPythonScript> baseScripts_;
-	QCString baseScriptList_;
 
 	// Misc Properties
 	void load();
 	void reset();
-	void refreshScripts();
 
 	inline void setWaterSource( bool data )
 	{
@@ -278,18 +276,6 @@ public:
 	~cItemBaseDef();
 
 	void processNode( const cElement* node );
-
-	inline const QCString& baseScriptList()
-	{
-		load();
-		return baseScriptList_;
-	}
-
-	inline const QPtrList<cPythonScript> & baseScripts()
-	{
-		load();
-		return baseScripts_;
-	}
 
 	inline unsigned int decaydelay()
 	{
@@ -319,12 +305,6 @@ public:
 	{
 		load();
 		return type_;
-	}
-
-	inline const QCString& bindmenu()
-	{
-		load();
-		return bindmenu_;
 	}
 
 	inline unsigned char lightsource()

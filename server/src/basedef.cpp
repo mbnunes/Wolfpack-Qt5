@@ -62,6 +62,38 @@ void cBaseDef::processNode( const cElement* node ) {
 			properties.insert(name.lower(), value, true);
 		}
 	}
+	else if ( node->name() == "bindmenu" )
+	{
+		bindmenu_ = node->text();
+	}
+	else if ( node->name() == "basescripts" )
+	{
+		baseScriptList_ = node->text();
+		refreshScripts();
+	}
+	else if ( node->name() == "basescript" )
+	{
+		if (baseScriptList_.isEmpty()) {
+			baseScriptList_.prepend(node->text());
+		} else {
+			baseScriptList_.prepend(node->text() + ",");
+		}
+		refreshScripts();
+	}
+}
+
+void cBaseDef::refreshScripts() {
+	if (loaded) {
+		QStringList scripts = QStringList::split(",", baseScriptList_);
+		QStringList::const_iterator it;
+		baseScripts_.clear();
+		for (it = scripts.begin(); it != scripts.end(); ++it) {
+			cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
+			if (script) {
+				baseScripts_.append(script);
+			}
+		}
+	}
 }
 
 void cBaseDef::reset() {
@@ -148,32 +180,9 @@ void cCharBaseDef::processNode( const cElement* node )
 	{
 		flags_ |= 0x04;
 	}
-	else if ( node->name() == "bindmenu" )
-	{
-		bindmenu_ = node->text();
-	}
-	else if ( node->name() == "basescripts" )
-	{
-		baseScriptList_ = node->text();
-		refreshScripts();
-	}
 	else
 	{
 		cBaseDef::processNode(node);
-	}
-}
-
-void cCharBaseDef::refreshScripts() {
-	if (loaded) {
-		QStringList scripts = QStringList::split(",", baseScriptList_);
-		QStringList::const_iterator it;
-		baseScripts_.clear();
-		for (it = scripts.begin(); it != scripts.end(); ++it) {
-			cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
-			if (script) {
-				baseScripts_.append(script);
-			}
-		}
 	}
 }
 
@@ -268,20 +277,6 @@ void cItemBaseDef::reset()
 	flags_ = 0;
 }
 
-void cItemBaseDef::refreshScripts() {
-	if (loaded) {
-		QStringList scripts = QStringList::split(",", baseScriptList_);
-		QStringList::const_iterator it;
-		baseScripts_.clear();
-		for (it = scripts.begin(); it != scripts.end(); ++it) {
-			cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
-			if (script) {
-				baseScripts_.append(script);
-			}
-		}
-	}
-}
-
 void cItemBaseDef::processNode( const cElement* node )
 {
 	if ( node->name() == "weight" )
@@ -300,10 +295,6 @@ void cItemBaseDef::processNode( const cElement* node )
 	{
 		type_ = node->value().toUShort();
 	}
-	else if ( node->name() == "bindmenu" )
-	{
-		bindmenu_ = node->text();
-	}
 	else if ( node->name() == "lightsource" )
 	{
 		lightsource_ = node->value().toUShort();
@@ -315,11 +306,6 @@ void cItemBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "watersource" )
 	{
 		setWaterSource( node->value().toUInt() != 0 );
-	}
-	else if ( node->name() == "basescripts" )
-	{
-		baseScriptList_ = node->text();
-		refreshScripts();
 	}
 	else 
 	{

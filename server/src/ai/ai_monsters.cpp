@@ -90,7 +90,9 @@ P_CHAR findBestTarget(P_NPC npc) {
 		}
 
 		// We don't already attack the target, right?
-		if (victim != target) {
+		// If we're tamed we only choose this target if
+		// it's fighting us.
+		if (victim != target && (!npc->isTamed() || victim->attackTarget() == npc)) {
 			// See if it's a target we want
 			unsigned int dist = npc->dist(victim);		
 			if (dist < distance && validTarget(npc, victim, dist)) {
@@ -101,7 +103,7 @@ P_CHAR findBestTarget(P_NPC npc) {
 	}
 
 	// If we're not tamed, we attack other players as well.
-	if (!npc->isTamed()) {	
+	if (!npc->isTamed()) {
 		RegionIterator4Chars ri(npc->pos(), VISRANGE);
 		for ( ri.Begin(); !ri.atEnd(); ri++ ) {
 			// We limit ourself to players here
@@ -129,6 +131,7 @@ void Monster_Aggressive::check()
 		m_npc->fight(0);
 	}
 
+	
 	if (nextVictimCheck < Server::instance()->time()) {
 		// Don't switch if we can hit it...
 		if (!m_currentVictim || m_currentVictim->dist(m_npc) > 1) {
