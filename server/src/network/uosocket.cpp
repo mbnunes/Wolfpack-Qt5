@@ -522,8 +522,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 	_account->setInUse( true );
 	playChar( characters.at(packet->slot()) );
 
-	if( _player )
-		_player->onLogin();
+	_player->onLogin();
 }
 
 // Set up the neccesary stuff to play
@@ -842,6 +841,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 
 	// Start the game with the newly created char -- OR RELAY HIM !!
     playChar( pChar );
+	pChar->onLogin();
 }
 
 /*!
