@@ -47,12 +47,12 @@
 #endif
 */
 #if defined(__unix__)
-#define BYTE unsigned char;
+#define BYTE unsigned char
 #define SOCKET_ERROR -1
 //#ifndef max
 //#define max(a,b)            (((a) > (b)) ? (a) : (b))
 //#endif
-
+	
 
 //#ifndef min
 //#define min(a,b)            (((a) < (b)) ? (a) : (b))
