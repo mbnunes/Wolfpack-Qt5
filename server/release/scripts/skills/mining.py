@@ -54,7 +54,7 @@ def mining( char, pos, tool ):
 
 def createoregem(pos):
 	gem = wolfpack.additem('ore_gem')
-	gem.settag('resourcecount', random.randint(MINING_ORE[0], MINING_ORE[1])) # 10 - 34 ore			
+	gem.settag('resourcecount', random.randint(MINING_ORE[0], MINING_ORE[1])) # 10 - 34 ore
 	gem.settag('resname', 'iron') # All veins should default to iron ore.
 
 	# This will give it a chance to be a random ore type, this can change later.
@@ -72,19 +72,19 @@ def createoregem(pos):
 			gem.color = ore[COLORID]
 			break
 		offset += ore[FINDCHANCE]
-		
+
 	# Find the ore which has the maximum req skill less than ours
 	resname = 'iron'
 	reqskill = 0
-	
-	for (oreresname, ore) in ORES.items():
-		if ore[REQSKILL] > reqskill and ore[REQSKILL] < maxreqskill:
-			reqskill = ore[REQSKILL]
-			resname = oreresname
-			
-	gem.settag('resname', resname)
-			
-	gem.name = 'Ore Gem (%s,%s)' % (gem.gettag('resname2'), resname)
+
+	#for (oreresname, ore) in ORES.items():
+	#	if ore[REQSKILL] > reqskill and ore[REQSKILL] < maxreqskill:
+	#		reqskill = ore[REQSKILL]
+	#		resname = oreresname
+
+	#gem.settag('resname2', resname)
+
+	gem.name = 'Ore Gem (%s,%s)' % (resname, gem.gettag('resname2'))
 	gem.moveto(pos)
 	gem.visible = 0
 	gem.update()
