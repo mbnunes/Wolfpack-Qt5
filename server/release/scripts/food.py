@@ -1,9 +1,12 @@
 
+import wolfpack
 import random
 from wolfpack.consts import ANIM_FIDGET3
 from wolfpack.utilities import tobackpack
 from system import poison
 
+farm_food = [  'c7c', 'c70', 'c7b', 'c78', 'c71', 'c64', 'c65' ]
+farm_eaters = [ 'rabbit' ]
 #
 # Feed the food
 #
@@ -80,3 +83,35 @@ def onUse(player, item):
 		item.delete()
 
 	return 1
+
+def onCollide( char, item ):
+	if char.npc and item.baseid in farm_food and char.baseid in farm_eaters:
+		if 'food' in char.events:
+			return True
+		if char.baseid in farm_food:
+			char.events = ['food'] + char.events
+			return True
+		else:
+			return False
+	else:
+		return False
+
+def onWalk(char, dir, sequence):
+	if char.baseid in farm_eaters:
+		items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 0)
+		for item in items:
+			if 'food' in item.events and item.baseid in farm_food:
+				food = item
+				break
+		if food:
+			food.delete()
+			char.sound( random.choice( [ 0x03a, 0x03b, 0x03c ] ) )
+			char.say( "*munch*" )
+			if char.hitpoints < char.maxhitpoints:
+				char.hitpoints += 1
+				char.update()
+		events = char.events
+		while 'food' in events:
+			events.remove('food')
+		char.events = events
+		return True
