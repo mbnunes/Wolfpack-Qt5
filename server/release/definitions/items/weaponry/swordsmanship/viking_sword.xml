@@ -29,9 +29,9 @@
 		<intproperty name="maxdamage" value="17" />
 	</item>
 
-	<item id="13ba" inherit="14b9">
+	<item id="13ba" inherit="13b9">
 		<id>0x13ba</id>
-		<baseid>14b9</baseid>
+		<baseid>13b9</baseid>
 		<category>Weapons\Swords\Viking Sword (E/W)</category>
 	</item>
 
