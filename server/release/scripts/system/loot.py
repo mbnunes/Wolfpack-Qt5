@@ -47,21 +47,21 @@ PACKS = {
 		[1.0, DEF_BASEGEMS, '1d2', 1] # 100%, 1 - 2
 	],
 	'gems_low': [
-		[1.0, DEF_BASEGEMS, '1d4+1', 1] # 100%, 2 - 5
+		[1.0, DEF_BASEGEMS, '1d4+1', 1], # 100%, 2 - 5
 		[0.5, DEF_BASEGEMS, '1d4', 1] # 50%, 1 - 4
 	],
 	'gems_medium': [
-		[1.0, DEF_BASEGEMS, '1d6+2', 1] # 100%, 3 - 8
+		[1.0, DEF_BASEGEMS, '1d6+2', 1], # 100%, 3 - 8
 		[0.5, DEF_BASEGEMS, '1d2', 1] # 50%, 1 - 2
 	],
 	'gems_high': [
-		[1.0, DEF_BASEGEMS, '1d8+5', 1] # 100%, 6 - 13
-		[0.66, DEF_BASEGEMS, '1d6+5', 1] # 66%, 6 - 11
+		[1.0, DEF_BASEGEMS, '1d8+5', 1], # 100%, 6 - 13
+		[0.66, DEF_BASEGEMS, '1d6+5', 1], # 66%, 6 - 11
 		[0.33, DEF_BASEGEMS, '1d4+5', 1] # 33%, 6 - 9
 	],
 	'gems_veryhigh': [
-		[1.0, DEF_BASEGEMS, '1d10+5', 1] # 100%, 6 - 15
-		[0.66, DEF_BASEGEMS, '1d10+8', 1] # 66%, 9 - 18
+		[1.0, DEF_BASEGEMS, '1d10+5', 1], # 100%, 6 - 15
+		[0.66, DEF_BASEGEMS, '1d10+8', 1], # 66%, 9 - 18
 		[0.33, DEF_BASEGEMS, '1d10+10', 1] # 33%, 11 - 20
 	],
 	# Instrument Packs
@@ -181,6 +181,114 @@ PACKS = {
 	'armor_platemail_high': [
 		[0.99, DEF_PLATEMAIL, 1, 0]
 	],
+	'armor_ringmail_low': [
+		[0.33, DEF_RINGMAIL, 1, 0]
+	],
+	'armor_ringmail_med': [
+		[0.66, DEF_RINGMAIL, 1, 0]
+	],
+	'armor_ringmail_high': [
+		[0.99, DEF_RINGMAIL, 1, 0]
+	],
+	'armor_chainmail_low': [
+		[0.33, DEF_CHAINMAIL, 1, 0]
+	],
+	'armor_chainmail_med': [
+		[0.66, DEF_CHAINMAIL, 1, 0]
+	],
+	'armor_chianmail_high': [
+		[0.99, DEF_CHAINMAIL, 1, 0]
+	],
+	'armor_bonemail_low': [
+		[0.33, DEF_BONEMAIL, 1, 0]
+	],
+	'armor_bonemail_med': [
+		[0.66, DEF_BONEMAIL, 1, 0]
+	],
+	'armor_bonemail_high': [
+		[0.99, DEF_BONEMAIL, 1, 0]
+	],
+	'armor_shields_low': [
+		[0.33, DEF_SHIELDS, 1, 0]
+	],
+	'armor_shields_med': [
+		[0.66, DEF_SHIELDS, 1, 0]
+	],
+	'armor_shields_high': [
+		[0.99, DEF_SHIELDS, 1, 0]
+	],
+	'armor_helms_low': [
+		[0.33, DEF_HELMS, 1, 0]
+	],
+	'armor_helms_med': [
+		[0.66, DEF_HELMS, 1, 0]
+	],
+	'armor_helms_high': [
+		[0.99, DEF_HELMS, 1, 0]
+	],
+	'armor_leather_low': [
+		[0.33, DEF_LEATHER, 1, 0]
+	],
+	'armor_leather_med': [
+		[0.66, DEF_LEATHER, 1, 0]
+	],
+	'armor_leather_high': [
+		[0.99, DEF_LEATHER, 1, 0]
+	],
+	'armor_studded_low': [
+		[0.33, DEF_STUDDED, 1, 0]
+	],
+	'armor_studded_med': [
+		[0.66, DEF_STUDDED, 1, 0]
+	],
+	'armor_studded_high': [
+		[0.99, DEF_STUDDED, 1, 0]
+	],
+	'armor_hats_low': [
+		[0.33, DEF_HATS, 1, 0]
+	],
+	'armor_hats_med': [
+		[0.66, DEF_HATS, 1, 0]
+	],
+	'armor_hats_high': [
+		[0.99, DEF_HATS, 1, 0]
+	],
+	'armor_masks_low': [
+		[0.33, DEF_ALLMASKS, 1, 0]
+	],
+	'armor_masks_med': [
+		[0.66, DEF_ALLMASKS, 1, 0]
+	],
+	'armor_masks_high': [
+		[0.99, DEF_ALLMASKS, 1, 0]
+	],
+	'armor_orcmasks_low': [
+		[0.33, DEF_ORCMASKS, 1, 0]
+	],
+	'armor_orcmasks_med': [
+		[0.66, DEF_ORCMASKS, 1, 0]
+	],
+	'armor_orcmasks_high': [
+		[0.99, DEF_ORCMASKS, 1, 0]
+	],
+	'armor_tribalmasks_low': [
+		[0.33, DEF_TRIBALMASKS, 1, 0]
+	],
+	'armor_tribalmasks_med': [
+		[0.66, DEF_TRIBALMASKS, 1, 0]
+	],
+	'armor_tribalmasks_high': [
+		[0.99, DEF_TRIBALMASKS, 1, 0]
+	],
+	'armor_orchelms_low': [
+		[0.33, DEF_ORCHELMS, 1, 0]
+	],
+	'armor_orchelms_med': [
+		[0.66, DEF_ORCHELMS, 1, 0]
+	],
+	'armor_orchelms_high': [
+		[0.99, DEF_ORCHELMS, 1, 0]
+	],
 	# Reagent Packs
 
 	# Monster Packs
@@ -204,23 +312,23 @@ PACKS = {
 	],
 	# Food Packs
 	'foodpack_low': [
-		[0.33, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0],
+		[0.33, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0]
 	],
 	'foodpack_med': [
-		[0.66, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0],
+		[0.66, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0]
 	],
 	'foodpack_high': [
-		[0.99, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0],
+		[0.99, DEF_FOOD_MEATS + DEF_FOOD_GREENS, 1, 0]
 	],
 	# Alcohol Drink Packs
 	'alcoholpack_low': [
-		[0.33, DEF_DRINKS_ALCOHOL, 1, 0],
+		[0.33, DEF_DRINKS_ALCOHOL, 1, 0]
 	],
 	'alcoholpack_med': [
-		[0.66, DEF_DRINKS_ALCOHOL, 1, 0],
+		[0.66, DEF_DRINKS_ALCOHOL, 1, 0]
 	],
 	'alcoholpack_high': [
-		[0.99, DEF_DRINKS_ALCOHOL, 1, 0],
+		[0.99, DEF_DRINKS_ALCOHOL, 1, 0]
 	]
 	#
 }
