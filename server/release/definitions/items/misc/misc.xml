@@ -911,12 +911,14 @@
 	<item id="1646">
 		<id>0x1646</id>
 		<category>Misc\Light &amp; Dark Source\Dark Source</category>
+		<lightsource>0x1d</lightsource>
 	</item>
 
 	<!-- LightSource -->
 	<item id="1647">
 		<id>0x1647</id>
 		<category>Misc\Light &amp; Dark Source\Light Source</category>
+		<lightsource>0x1d</lightsource>
 	</item>
 
 	<!-- Fountains -->

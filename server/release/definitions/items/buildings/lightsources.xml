@@ -385,7 +385,7 @@
 		<id>0xe31</id>
 		<nodecay />
 		<category>Decoration\Lightsources\Brazier 1</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>1</lightsource>
 	</item>
 
 	<item id="e32">
