@@ -275,7 +275,7 @@ void Preferences::readData()
     // iterate through the groups
     QDomNodeList options;
     for ( uint n = 0; n < nodes.count(); ++n ) {
-        if ( nodes.item(n).isElement() ) {
+        if ( nodes.item(n).isElement() && !nodes.item(n).isComment() ) {
             processGroup( nodes.item(n).toElement() );
         }
     }
@@ -290,8 +290,10 @@ void Preferences::processGroup( const QDomElement& group)
     options = group.elementsByTagName("option");
     for (unsigned n=0; n<options.count(); ++n) {
         if (options.item(n).isElement()) {
-            elem = options.item(n).toElement();
-            setString(currentgroup_, elem.attribute("key"), elem.attribute("value"));
+			if (!options.item(n).isComment()) {
+				elem = options.item(n).toElement();
+				setString(currentgroup_, elem.attribute("key"), elem.attribute("value"));
+			}
         }
     }
 }
