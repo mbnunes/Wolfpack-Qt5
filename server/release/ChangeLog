@@ -82,6 +82,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Added onConnect to system.players
   - Fixes for moongate.py
   - Guild button now opens guildstone menu by default.
+  - Fixed resistances for dragon scale armors.
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:
