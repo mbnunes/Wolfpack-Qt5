@@ -7,7 +7,9 @@ from potions.consts import *
 #
 # Shrink a char in range
 #
-def potion( player, potion, target ):
+def potion( player, arguments, target ):
+	potion = wolfpack.finditem(arguments[0])
+	
 	if not potion or not player.canreach( potion, -1 ):
 		player.socket.sysmessage( tr( 'The shrink potion has to be in your backpack to use it.' ) )
 		return False

@@ -53,12 +53,8 @@ def onUse( char, item ):
 				socket.sysmessage( tr('You can only throw one potion at a time!') )
 		# Shrink Potion
 		elif potiontype == 25:
-			if item.amount == 1:
-				socket.sysmessage( tr('What do you want to shrink?') )
-				potions.shrink.potion( char, item )
-				socket.attachtarget( 'potions.shrink.potion', [ item.serial ] )
-			else:
-				socket.sysmessage( tr('You can only throw one potion at a time!') )
+			socket.sysmessage( tr('What do you want to shrink?') )			
+			socket.attachtarget( 'potions.shrink.potion', [ item.serial ] )
 
 	# We just drink this potion...
 	else:
@@ -101,8 +97,8 @@ def onDropOnItem( keg, potion ):
 	if not char or not socket:
 		return False
 
-	socket.sysmessage( "Potion: %s" % potion.baseid )
-	socket.sysmessage( "Keg: %s" % keg.baseid )
+	#socket.sysmessage( "Potion: %s" % potion.baseid )
+	#socket.sysmessage( "Keg: %s" % keg.baseid )
 	if keg.baseid in [ 'potion_keg' ]:
 
 		if not potion.hasscript('potions') and not keg.hasscript('potionkeg'):
