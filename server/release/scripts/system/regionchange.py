@@ -28,50 +28,50 @@ def onChangeRegion( char, oldregion, newregion ):
 	# Both Enabled
 	if not newregion.noentermessage and not oldregion.noentermessage:
 		# Case 0
-		if newregion.parent == None or newregion.parent != oldregion or oldregion.parent != newregion:
+		if newregion.parent == None or oldregion.parent == None or newregion.parent != oldregion or oldregion.parent != newregion:
 			areaLeaveMessage( socket, oldregion.name )
 			areaEnterMessage( socket, newregion.name )
 		# Case 5
-		elif oldregion.parent == newregion:
+		elif oldregion.parent == newregion or oldregion.name in newregion.children:
 			areaEnterMessage( socket, newregion.name )
 		# Case 7
-		elif newregion.parent == oldregion:
+		elif newregion.parent == oldregion or newregion.name in oldregion.children:
 			areaLeaveMessage( socket, oldregion.name )
 	# Cases 1 8 10
 	# Both Disabled
 	elif newregion.noentermessage and oldregion.noentermessage:
 		# Case 1
-		if newregion.parent == None or newregion.parent != oldregion or oldregion.parent != newregion:
+		if newregion.parent == None or oldregion.parent == None or newregion.parent != oldregion or oldregion.parent != newregion:
 			pass
 		# Case 8
-		elif oldregion.parent == newregion:
+		elif oldregion.parent == newregion or oldregion.name in newregion.children:
 			pass
 		# Case 10
-		elif newregion.parent == oldregion:
+		elif newregion.parent == oldregion or newregion.name in oldregion.children:
 			pass
 	# Cases 2 9 11
 	# New Enabled, Old Disabled
 	elif not newregion.noentermessage and oldregion.noentermessage:
 		# Case 2
-		if newregion.parent == None or newregion.parent != oldregion or oldregion.parent != newregion:
+		if newregion.parent == None or oldregion.parent == None or newregion.parent != oldregion or oldregion.parent != newregion:
 			areaEnterMessage( socket, newregion.name )
 		# Case 9
-		elif oldregion.parent == newregion:
+		elif oldregion.parent == newregion or oldregion.name in newregion.children:
 			pass
 		# Case 11
-		elif newregion.parent == oldregion:
+		elif newregion.parent == oldregion or newregion.name in oldregion.children:
 			pass
 	# Cases 3 4 6
 	# New Disabled, Old Enabled
 	elif not newregion.noentermessage and oldregion.noentermessage:
 		# Case 3
-		if newregion.parent == None or newregion.parent != oldregion or oldregion.parent != newregion:
+		if newregion.parent == None or oldregion.parent == None or newregion.parent != oldregion or oldregion.parent != newregion:
 			areaLeaveMessage( socket, oldregion.name )
 		# Case 4
-		elif oldregion.parent == newregion:
+		elif oldregion.parent == newregion or oldregion.name in newregion.children:
 			pass
 		# Case 6
-		elif newregion.parent == oldregion:
+		elif newregion.parent == oldregion or newregion.name in oldregion.children:
 			pass
 
 	"""
