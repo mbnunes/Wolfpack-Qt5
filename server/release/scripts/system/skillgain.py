@@ -234,7 +234,7 @@ def onSkillGain(char, skill, lower, higher, success):
 # Register our hook and load the skills.xml data.
 #
 def onLoad():
-  wolfpack.registerglobal(EVENT_SKILLGAIN, "skillgain")
+  wolfpack.registerglobal(EVENT_SKILLGAIN, "system.skillgain")
   
   # Load all the neccesary data from the definitions
   for i in range(0, ALLSKILLS):
