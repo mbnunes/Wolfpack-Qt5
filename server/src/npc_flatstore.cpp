@@ -38,6 +38,7 @@
 #include "npc.h"
 #include "player.h"
 #include "world.h"
+#include "ai.h"
 
 static cUObject* productCreator()
 {
@@ -78,7 +79,8 @@ enum eNPCKeys
 	NPC_TAMING_MINSKILL,
 	NPC_SUMMONTIME,
 	NPC_LOOTLIST,
-	NPC_ADDFLAGS
+	NPC_ADDFLAGS,
+	NPC_AI,
 };
 
 //			addField( "value", (*it).value );
@@ -142,6 +144,16 @@ void cNPC::save( FlatStore::OutputFile *output, bool first ) throw()
 
 	if( additionalFlags() )
 		output->chunkData( NPC_ADDFLAGS, additionalFlags() );
+
+	if( ai() )
+	{
+		QString temp = ai()->AIType();
+		if( ai()->currState() )
+		{
+			temp += "," + ai()->currState()->stateType();
+		}
+		output->chunkData( NPC_AI, temp );
+	}
 
 	output->finishChunkGroup();
 
@@ -257,6 +269,10 @@ bool cNPC::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::I
 		input->readUInt( additionalFlags_ );
 		break;
 
+	case NPC_AI:
+		setAI( QString::fromUtf8( input->readString() ) );
+		break;
+	
 	default:
 		return false;
 	}

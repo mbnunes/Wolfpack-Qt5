@@ -155,6 +155,7 @@ public:
 	void setLootList(const QString &data);
     void setGuarding(P_PLAYER data);
 	void setAI( cNPC_AI* ai );
+	void setAI( const QString &data );
 	void setAICheckTime( UINT32 data );
 	// bit flag setters
 	// advanced setters for data structures

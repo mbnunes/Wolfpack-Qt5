@@ -274,8 +274,8 @@ void cBaseChar::save()
 		addField( "hunger", hunger_);
 		addField( "poison", poison_);
 		addField( "poisoned", poisoned_);
-		addField( "murderertime", murdererTime_ - uiCurrentTime);
-		addField( "criminaltime", criminalTime_ - uiCurrentTime);
+		addField( "murderertime", murdererTime_ ? murdererTime_ - uiCurrentTime : 0);
+		addField( "criminaltime", criminalTime_ ? criminalTime_ - uiCurrentTime : 0);
 		addField( "nutriment", nutriment_);
 		addField( "gender", gender_ );
 		addField( "propertyflags", propertyFlags_ );

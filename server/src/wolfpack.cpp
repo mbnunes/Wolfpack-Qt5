@@ -80,6 +80,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"
+#include "ai.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -954,6 +955,9 @@ int main( int argc, char *argv[] )
 	cBoat::registerInFactory();
 	cHouse::registerInFactory();
 	cResourceItem::registerInFactory();
+
+	// NPC AI types
+	Monster_Aggressive_L0::registerInFactory();
 
 	try
 	{

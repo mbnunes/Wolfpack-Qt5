@@ -71,7 +71,6 @@ cNPC::cNPC()
 //	lootList_			= (char*)0;
 	ai_					= new Monster_Aggressive_L0( this );
 	aiCheckTime_		= uiCurrentTime + SrvParams->checkAITime() * MY_CLOCKS_PER_SEC;
-#pragma note( "TODO: saving of ai and aichecktime!" )
 }
 
 cNPC::cNPC(const cNPC& right)
@@ -99,7 +98,9 @@ void cNPC::buildSqlString( QStringList &fields, QStringList &tables, QStringList
 	fields.push_back( "npcs.mindamage,npcs.maxdamage,npcs.tamingminskill" );
 	fields.push_back( "npcs.summontime,npcs.additionalflags,npcs.owner" );
 	fields.push_back( "npcs.carve,npcs.spawnregion,npcs.stablemaster" );
-	fields.push_back( "npcs.lootlist" );
+	fields.push_back( "npcs.lootlist,npcs.ai,npcs.wandertype" );
+	fields.push_back( "npcs.wanderx1,npcs.wanderx2,npcs.wandery1,npcs.wandery2" );
+	fields.push_back( "npcs.wanderradius" );
 	tables.push_back( "npcs" );
 	conditions.push_back( "uobjectmap.serial = npcs.serial" );
 }
@@ -124,6 +125,13 @@ void cNPC::load( char **result, UINT16 &offset )
 	spawnregion_ = result[offset++];
 	stablemasterSerial_ = atoi( result[offset++] );
 	lootList_ = result[offset++];
+	setAI( result[offset++] );
+	setWanderType( (enWanderTypes)atoi( result[offset++] ) );
+	setWanderX1( atoi( result[offset++] ) );
+	setWanderX2( atoi( result[offset++] ) );
+	setWanderY1( atoi( result[offset++] ) );
+	setWanderY2( atoi( result[offset++] ) );
+	setWanderRadius( atoi( result[offset++] ) );
 
 	npcRegisterAfterLoading( this );
 	changed_ = false;
@@ -140,13 +148,28 @@ void cNPC::save()
 		addField( "mindamage", minDamage_);
 		addField( "maxdamage", maxDamage_);
 		addField( "tamingminskill", tamingMinSkill_);
-		addField( "summontime", summonTime_ - uiCurrentTime );
+		addField( "summontime", summonTime_ ? summonTime_ - uiCurrentTime : 0 );
 		addField( "additionalflags", additionalFlags_ );
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
 		addStrField( "carve", carve_);
 		addStrField( "spawnregion", spawnregion_);
 		addField( "stablemaster", stablemasterSerial_ );
 		addStrField( "lootlist", lootList_);
+		if( ai_ )
+		{
+			QString temp = ai_->AIType();
+			if( ai_->currState() )
+			{
+				temp += "," + ai_->currState()->stateType();
+			}
+			addStrField( "ai", temp );
+		}
+		addField( "wandertype", (UINT8)wanderType() );
+		addField( "wanderx1", wanderX1() );
+		addField( "wanderx2", wanderX2() );
+		addField( "wandery1", wanderY1() );
+		addField( "wandery2", wanderY2() );
+		addField( "wanderradius", wanderRadius() );
 		
 		addCondition( "serial", serial() );
 		saveFields;
@@ -167,7 +190,7 @@ bool cNPC::del()
 
 static void npcRegisterAfterLoading( P_NPC pc )
 {
-	if( !FindCharBySerial( pc->stablemasterSerial() ) )
+	if( pc->stablemasterSerial() == INVALID_SERIAL )
 	{ 
 		MapObjects::instance()->add(pc); 
 	} 
@@ -1408,5 +1431,24 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 /*!
 	<<A*
 */
+
+void cNPC::setAI( const QString &data )
+{
+	QStringList temp = QStringList::split( ",", data );
+	cNPC_AI* ai = AIFactory::instance()->createObject( temp[0] );
+	ai->npc = this;
+
+	QString tempstate = temp[1];
+	if( !tempstate.isEmpty() )
+	{
+		AbstractState* state = StateFactory::instance()->createObject( tempstate );
+		ai->updateState( state );
+	}
+
+	setAI( ai );
+}
+
+
+
 
 

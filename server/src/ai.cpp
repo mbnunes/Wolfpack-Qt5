@@ -57,6 +57,17 @@ void cNPC_AI::updateState()
 	}
 }
 
+void cNPC_AI::updateState( AbstractState* newState )
+{
+	if( newState )
+	{
+		if( currentState )
+			delete currentState;
+		currentState = newState;
+		currentState->setInterface( this );
+	}
+}
+
 void Actions::reattack( P_NPC npc )
 {
 	P_CHAR pAttacker = World::instance()->findChar( npc->attackerSerial() );
@@ -192,6 +203,20 @@ void Actions::movePath( P_NPC npc, const Coord_cl &pos )
 	}
 }
 
+static cNPC_AI* productCreator_MAL0()
+{
+	return new Monster_Aggressive_L0();
+}
+
+void Monster_Aggressive_L0::registerInFactory()
+{
+	AIFactory::instance()->registerType("Monster_Aggressive_L0", productCreator_MAL0);
+
+	// register its states
+	Monster_Aggr_L0_Wander::registerInFactory();
+	Monster_Aggr_L0_Combat::registerInFactory();
+}
+
 Monster_Aggressive_L0::Monster_Aggressive_L0( P_NPC currnpc )
 { 
 	npc = currnpc; 
@@ -237,6 +262,16 @@ void Monster_Aggressive_L0::eventHandler()
 	}
 }
 
+static AbstractState* productCreator_MAL0_Wander()
+{
+	return new Monster_Aggr_L0_Wander();
+}
+
+void Monster_Aggr_L0_Wander::registerInFactory()
+{
+	StateFactory::instance()->registerType("Monster_Aggr_L0_Wander", productCreator_MAL0_Wander);
+}
+
 void Monster_Aggr_L0_Wander::attacked()
 {
 	reattack( m_interface->npc );
@@ -253,6 +288,16 @@ void Monster_Aggr_L0_Wander::execute()
 {
 	// wander freely
 	wanderFreely( m_interface->npc );
+}
+
+static AbstractState* productCreator_MAL0_Combat()
+{
+	return new Monster_Aggr_L0_Combat();
+}
+
+void Monster_Aggr_L0_Combat::registerInFactory()
+{
+	StateFactory::instance()->registerType("Monster_Aggr_L0_Combat", productCreator_MAL0_Combat);
 }
 
 void Monster_Aggr_L0_Combat::won()

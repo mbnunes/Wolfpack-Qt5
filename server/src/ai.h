@@ -43,6 +43,7 @@ This class builds a sample state machine for NPC AI
 
 // wolfpack includes
 #include "typedefs.h"
+#include "factory.h"
 
 class AbstractState;
 class Coord_cl;
@@ -50,11 +51,12 @@ class Coord_cl;
 class cNPC_AI
 {
 public:
-	cNPC_AI() {}
-	~cNPC_AI() { delete currentState; }
+	cNPC_AI() { currentState = NULL; }
+	~cNPC_AI() { if( currentState ) delete currentState; }
 	
 	virtual void eventHandler() = 0;
 	virtual void updateState();
+	virtual void updateState( AbstractState* newState );
 
 	virtual QString AIType() = 0;
 	P_NPC	npc;
@@ -64,14 +66,36 @@ protected:
 	AbstractState*	currentState;
 };
 
+class AIFactory : public Factory<cNPC_AI, QString>
+{
+public:
+	static AIFactory* instance()
+	{
+		static AIFactory factory;
+		return &factory;
+	}
+};
+
+class StateFactory : public Factory<AbstractState, QString>
+{
+public:
+	static StateFactory* instance()
+	{
+		static StateFactory factory;
+		return &factory;
+	}
+};
+
 class Monster_Aggressive_L0 : public cNPC_AI
 {
 public:
+	Monster_Aggressive_L0() { npc = NULL; }
 	Monster_Aggressive_L0( P_NPC currnpc );
 
 	virtual void eventHandler();
 
 	virtual QString AIType() { return "Monster_Aggressive_L0"; }
+	static void registerInFactory();
 };
 
 class Actions
@@ -125,21 +149,22 @@ public:
 	AbstractState* nextState;
 
 	virtual void execute() {}
+	void setInterface( cNPC_AI* newInterface ) { m_interface = newInterface; }
 
 protected:
 	cNPC_AI*	m_interface;
-	
-	virtual void setInterface( cNPC_AI* newInterface ) { m_interface = newInterface; }
 };
 
 class Monster_Aggr_L0_Wander : public AbstractState
 {
 public:
+	Monster_Aggr_L0_Wander() { m_interface = NULL; }
 	Monster_Aggr_L0_Wander( cNPC_AI* interface_ ) { m_interface = interface_; }
 	~Monster_Aggr_L0_Wander() {}
 
 	virtual QString stateType() { return "Monster_Aggr_L0_Wander"; }
 	virtual void execute();
+	static void registerInFactory();
 
 	// events handled
 	virtual void attacked();
@@ -149,11 +174,13 @@ public:
 class Monster_Aggr_L0_Combat : public AbstractState
 {
 public:
+	Monster_Aggr_L0_Combat() { m_interface = NULL; }
 	Monster_Aggr_L0_Combat( cNPC_AI* interface_ ) { m_interface = interface_; }
 	~Monster_Aggr_L0_Combat() {}
 
 	virtual QString stateType() { return "Monster_Aggr_L0_Combat"; }
 	virtual void execute();
+	static void registerInFactory();
 
 	// events handled
 	virtual void won();
