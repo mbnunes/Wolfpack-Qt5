@@ -5,11 +5,11 @@ import wolfpack
 import wolfpack.time
 import random
 from wolfpack.consts import COTTONPLANTS_REGROW, ANIM_ATTACK5, TINKERING, \
-	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD
+	MUSICIANSHIP, LAYER_HAIR, LAYER_BEARD, SYSLOCALE
 from wolfpack.utilities import tobackpack
 from wolfpack.gumps import cGump
 from math import floor
-
+from wolfpack.locales import localemsg
 
 def cotton( char, item ):
 
@@ -17,7 +17,7 @@ def cotton( char, item ):
 		lastpick = item.gettag( 'lastpick' )
 
 		if lastpick + COTTONPLANTS_REGROW > wolfpack.time.currenttime():
-			char.message( "You can't pick cotton here yet." )
+			char.message( localemsg( 4 ) )
 			return 1
 
 	char.action( ANIM_ATTACK5 )
@@ -28,7 +28,7 @@ def cotton( char, item ):
 	if cotton and not tobackpack( cotton, char ):
 		cotton.update()
 
-	char.message( "You reach down and pick some cotton." )
+	char.message( localemsg( 5 ) )
 
 	# Set a timer for the cotton plant
 	item.settag( 'lastpick', wolfpack.time.currenttime() )
@@ -37,7 +37,7 @@ def cotton( char, item ):
 def sextant_parts( char, item ):
 	if not char.checkskill( TINKERING, 0, 500 ):
 		if random.randint( 1, 100 ) <= 25:
-			additional = ' and break the parts'
+			additional = localemsg( 15 )
 
 			if item.amount > 1:
 				item.amount -= 1
@@ -45,9 +45,9 @@ def sextant_parts( char, item ):
 			else:
 				item.delete()
 		else:
-			additional = ''
+			additional = localemsg( 16 )
 
-		char.message( "You don't manage to create the sextant%s" % additional )
+		char.message( "%s%s" % ( localemsg( 14 ), additional ) )
 	else:
 		if item.amount > 1:
 			item.amount -= 1
@@ -62,12 +62,12 @@ def sextant_parts( char, item ):
 
 		char.getbackpack().additem( item, 1, 1, 0 )
 		item.update()
-		char.message( "You put the sextant into your backpack" )
+		char.message( localemsg( 17 ) )
 
 	return 1
 
 def sextant( char, item ):
-	char.message( 'Sorry but this feature is not implemented yet' )
+	char.message( localemsg( 0 ) )
 	return 1
 
 def drum( char, item ):
@@ -116,7 +116,7 @@ hairdye_groups = 	[
 
 def hairdye( char, item ):
 	if item.container != char.getbackpack():
-		char.message( 'This item has to be in your backpack to use it.' )
+		char.message( localemsg( 3 ) )
 		return 1
 
 	gump = cGump( x=50, y=50, callback="environment.hairdye_callback" )
@@ -166,12 +166,12 @@ def hairdye_callback( char, args, response ):
 	item = wolfpack.finditem( args[0] )
 
 	if not item or item.container != char.getbackpack():
-		char.message( 'The item has to be in your backpack to use it.' )
+		char.message( localemsg( 3 ) )
 		return
 
 	# Check if it's a valid color
 	if len( response.switches ) != 1:
-		char.message( 'You have to choose a hair color.' )
+		char.message( localemsg( 13 ) )
 		return
 
 	color = response.switches[0]
@@ -194,15 +194,15 @@ def hairdye_callback( char, args, response ):
 
 			return
 
-	char.message( 'Thats an invalid color' )
+	char.message( localemsg( 12 ) )
 
 # Dying Tub
 def dyingtub( char, item ):
 	if not char.canreach( item, 2 ):
-		char.socket.sysmessage( "You can't reach this." )
+		char.socket.sysmessage( localemsg( 6 ) )
 		return 1
 
-	char.socket.sysmessage( 'What do you want to use this on?' )
+	char.socket.sysmessage( localemsg( 18 ) )
 	char.socket.attachtarget( 'environment.dyingtub_response', [ item.serial ] )
 	return 1
 
@@ -210,21 +210,21 @@ def dyingtub_response( char, args, target ):
 	dyetub = wolfpack.finditem( args[0] )
 
 	if not dyetub or not char.canreach( dyetub, 2 ):
-		char.message( "You can't reach the dyetub from here." )
+		char.message( localemsg( 6 ) )
 		return
 
 	if not target.item:
-		char.message( 'You need to target an item.' )
+		char.message( localemsg( 8 ) )
 		return
 
 	# Valid Target?
 	if not char.gm:
 		if target.item.getoutmostchar() != char:
-			char.socket.sysmessage( "You have to have this in your belongings." )
+			char.socket.sysmessage( localemsg( 10 ) )
 			return
 
 		if not target.item.dye:
-			char.socket.sysmessage( "You cannot dye this." )
+			char.socket.sysmessage( localemsg( 11 ) )
 			return
 
 	char.socket.log( LOG_TRACE, "Dying item (%x,%x) using tub (%x,%x)\n" % ( target.item.serial, target.item.color, dyetub.serial, dyetub.color ) )
