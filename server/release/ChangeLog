@@ -69,6 +69,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Connected the who gump with the jail system.
   - Added mute, unmute, jail and forgive commands.
   - Added checks to the gate and to recall so players cannot travel to facets their client does not support.
+  - Its now possilbe to carve human corpses.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

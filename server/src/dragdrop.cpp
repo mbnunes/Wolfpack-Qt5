@@ -775,7 +775,11 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 		}
 
 		// Dropped on another Container/in another Container
-		pChar->soundEffect( 0x57 );
+		if ( pCont->corpse() ) {
+			pChar->soundEffect( 0x42 );
+		} else {
+			pChar->soundEffect( 0x57 );
+		}
 		pItem->update();
 
 		// If the logmask contains LOG_TRACE, log drops

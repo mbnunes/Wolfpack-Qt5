@@ -2087,6 +2087,15 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			gump = 0x44;
 			break;
 
+		case 0xeca: // Bones
+		case 0xecb: // Bones
+		case 0xecc: // Bones
+		case 0xecd: // Bones
+		case 0xece: // Bones
+		case 0xecf: // Bones
+		case 0xed0: // Bones
+		case 0xed1: // Bones
+		case 0xed2: // Bones
 		case 0x2006: // Coffin
 			gump = 0x09;
 			break;

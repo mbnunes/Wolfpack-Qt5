@@ -2280,9 +2280,9 @@
 		<category>Dungeon\Bodies and Body Parts\Arm 2</category>
 	</item>
 
+	<!-- This is used for human corpses -->
 	<item id="1da1">
 		<id>0x1DA1</id>
-		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Arm (left) 1</category>
 	</item>
 
@@ -2292,9 +2292,9 @@
 		<category>Dungeon\Bodies and Body Parts\Arm (left) 2</category>
 	</item>
 
+	<!-- This is used for human corpses -->
 	<item id="1da2">
 		<id>0x1DA2</id>
-		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Arm (right) 1</category>
 	</item>
 
@@ -2400,9 +2400,9 @@
 		<category>Dungeon\Bodies and Body Parts\Legs 4</category>
 	</item>
 
+	<!-- This is used for human corpses -->
 	<item id="1da3">
 		<id>0x1DA3</id>
-		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Leg (left) 1</category>
 	</item>
 
@@ -2412,9 +2412,9 @@
 		<category>Dungeon\Bodies and Body Parts\Leg (left) 2</category>
 	</item>
 
+	<!-- This is used for human corpses -->
 	<item id="1da4">
 		<id>0x1DA4</id>
-		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Leg (right) 1</category>
 	</item>
 
@@ -2442,10 +2442,11 @@
 		<category>Dungeon\Bodies and Body Parts\Torso 2</category>
 	</item>
 
+	<!-- This is used for human corpses -->
 	<item id="1d9f">
 		<id>0x1D9F</id>
-		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Torso 3</category>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="1ce1">
@@ -2460,10 +2461,11 @@
 		<category>Dungeon\Bodies and Body Parts\Head 2</category>
 	</item>
 
+	<!-- This is used for human Corpses -->
 	<item id="1da0">
 		<id>0x1DA0</id>
-		<nodecay />
 		<category>Dungeon\Bodies and Body Parts\Head 3</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="1dae">

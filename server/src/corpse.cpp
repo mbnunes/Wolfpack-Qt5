@@ -193,69 +193,73 @@ void cCorpse::processNode( const cElement* Tag )
 // override update
 void cCorpse::update( cUOSocket* mSock )
 {
-	cUOTxCorpseEquipment corpseEquip;
-	cUOTxItemContent corpseContent;
-	cUOTxSendItem sendItem;
+	if (id_ != 0x2006) {
+		cItem::update(mSock);
+	} else {
+		cUOTxCorpseEquipment corpseEquip;
+		cUOTxItemContent corpseContent;
+		cUOTxSendItem sendItem;
 
-	corpseEquip.setSerial( serial() );
+		corpseEquip.setSerial( serial() );
 
-	for ( QMap<Q_UINT8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
-	{
-		P_ITEM pItem = World::instance()->findItem( it.data() );
-
-		if ( pItem && pItem->container() == this )
+		for ( QMap<Q_UINT8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 		{
-			corpseEquip.addItem( it.key(), it.data() );
-			corpseContent.addItem( pItem );
-		}
-	}
+			P_ITEM pItem = World::instance()->findItem( it.data() );
 
-	if ( hairStyle_ )
-	{
-		corpseEquip.addItem( 11, 0x4FFFFFFE ); // Hair
-		corpseContent.addItem( 0x4FFFFFFE, hairStyle_, hairColor_, 0, 0, 1, serial() );
-	}
-
-	if ( beardStyle_ )
-	{
-		corpseEquip.addItem( 16, 0x4FFFFFFF ); // Beard
-		corpseContent.addItem( 0x4FFFFFFF, beardStyle_, beardColor_, 0, 0, 1, serial() );
-	}
-
-	sendItem.setId( id() );
-	sendItem.setAmount( bodyId_ );
-	sendItem.setSerial( serial() );
-	sendItem.setCoord( pos() );
-	sendItem.setDirection( direction() );
-	if ( bodyId_ >= 0x190 )
-	{
-		sendItem.setColor( color_ | 0x8000 );
-	}
-	else
-	{
-		sendItem.setColor( color_ );
-	}
-
-	if ( mSock )
-	{
-		sendTooltip( mSock );
-		mSock->send( &sendItem );
-		mSock->send( &corpseEquip );
-		mSock->send( &corpseContent );
-	}
-	else
-	{
-		for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
-		{
-			if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
+			if ( pItem && pItem->container() == this )
 			{
-				// Send item
-				// Send corpse clothing
-				// Send content
-				sendTooltip( mSock );
-				mSock->send( &sendItem );
-				mSock->send( &corpseEquip );
-				mSock->send( &corpseContent );
+				corpseEquip.addItem( it.key(), it.data() );
+				corpseContent.addItem( pItem );
+			}
+		}
+
+		if ( hairStyle_ )
+		{
+			corpseEquip.addItem( 11, 0x4FFFFFFE ); // Hair
+			corpseContent.addItem( 0x4FFFFFFE, hairStyle_, hairColor_, 0, 0, 1, serial() );
+		}
+
+		if ( beardStyle_ )
+		{
+			corpseEquip.addItem( 16, 0x4FFFFFFF ); // Beard
+			corpseContent.addItem( 0x4FFFFFFF, beardStyle_, beardColor_, 0, 0, 1, serial() );
+		}
+
+		sendItem.setId( id() );
+		sendItem.setAmount( bodyId_ );
+		sendItem.setSerial( serial() );
+		sendItem.setCoord( pos() );
+		sendItem.setDirection( direction() );
+		if ( bodyId_ >= 0x190 )
+		{
+			sendItem.setColor( color_ | 0x8000 );
+		}
+		else
+		{
+			sendItem.setColor( color_ );
+		}
+
+		if ( mSock )
+		{
+			sendTooltip( mSock );
+			mSock->send( &sendItem );
+			mSock->send( &corpseEquip );
+			mSock->send( &corpseContent );
+		}
+		else
+		{
+			for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+			{
+				if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
+				{
+					// Send item
+					// Send corpse clothing
+					// Send content
+					sendTooltip( mSock );
+					mSock->send( &sendItem );
+					mSock->send( &corpseEquip );
+					mSock->send( &corpseContent );
+				}
 			}
 		}
 	}

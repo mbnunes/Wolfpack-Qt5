@@ -10,8 +10,7 @@
 import wolfpack
 import random
 import skills.lumberjacking
-from wolfpack import utilities
-from wolfpack import settings
+from wolfpack import utilities, tr, settings
 from wolfpack.consts import *
 
 #import weapons.blades
@@ -138,7 +137,31 @@ def carve_corpse( char, corpse ):
 
 	# Human Bodies can always be carved
 	if corpse.bodyid == 0x190 or corpse.bodyid == 0x191:
-		char.message( "You can't carve a human body right now" )
+		if corpse.hastag('carved') or not corpse.owner:
+			char.socket.clilocmessage(500485) # You see nothing useful to carve from the corpse.
+		else:	
+			ITEMS = ['122d', '1d9f', '1da4', '1da2', '1da3', '1da1'] # Components of the carved body
+			for item in ITEMS:
+				item = wolfpack.additem(item)
+				item.moveto(corpse.pos)
+				item.decay = True # Make sure they decay
+				item.movable = 1 # Make sure they are movable
+				item.update()
+				
+			# Add the head
+			head = wolfpack.additem('1da0')
+			head.moveto(corpse.pos)
+			head.decay = True
+			head.movable = 3
+			head.name = tr("the head of %s") % (corpse.owner.orgname)
+			head.update()
+			
+			# Turn the corpse into a pile of bones
+			corpse.removefromview()
+			corpse.movable = 3 # The corpse is not movable
+			corpse.id = random.randrange(0xeca, 0xed3)
+			corpse.color = 0
+			corpse.update()
 		return
 
 	# Not carvable or already carved
