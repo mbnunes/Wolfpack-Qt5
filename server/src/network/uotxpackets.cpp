@@ -63,13 +63,10 @@ void cUOTxShardList::addServer( unsigned short serverIndex, QString serverName, 
 	setInt( offset + 36, serverIp );
 }
 
-void cUOTxCharTownList::addCharacter( QString name )
+void cUOTxCharTownList::addCharacter( const QString& name )
 {
 	// Trunace the name if needed
-	if( name.length() > 29 )
-		name = name.left( 29 );
-
-	characters.push_back( name );
+	characters.push_back( name.length() > 29 ? name.left(29) : name );
 }
 
 void cUOTxCharTownList::addTown( unsigned char index, const QString &name, const QString &area )

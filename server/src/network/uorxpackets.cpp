@@ -94,7 +94,8 @@ cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
 	cUOPacket temp(data);
 	
 	// Switch the Subcommand 
-	switch (temp.getShort(3)) { 
+	switch ( temp.getShort(3) ) 
+	{ 
 	case setLanguage: 
 		return new cUORxSetLanguage(data);
 	case contextMenuRequest: 

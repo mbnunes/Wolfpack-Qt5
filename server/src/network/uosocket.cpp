@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2004 by holders identified in authors.txt
+//  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -50,7 +50,6 @@
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
 #include "../scriptmanager.h"
-#include "../maps.h"
 #include "../walking.h"
 #include "../combat.h"
 #include "../gumps.h"
@@ -114,8 +113,7 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 // Initialize all packet handlers to zero
 PyObject *cUOSocket::handlers[255] = { 0, };
 
-void cUOSocket::registerPacketHandler(unsigned char packet, PyObject *handler) 
-{
+void cUOSocket::registerPacketHandler(unsigned char packet, PyObject *handler) {
 
 	if (handlers[packet])
 		Py_DECREF(handlers[packet]);
@@ -246,7 +244,7 @@ void cUOSocket::recieve()
 		log(QString("Communication error: 0x%1 instead of 0x80 or 0x91\n").arg(packetId, 2, 16));
 		
 		cUOTxDenyLogin denyLogin;
-		denyLogin.setReason( DL_BADCOMMUNICATION );
+		denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
 		send( &denyLogin );
 
 		disconnect();
@@ -406,25 +404,15 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 		return;
 	}
 
-	std::vector<ServerList_st> shards = SrvParams->serverList();
+	// Otherwise build the shard-list
+	cUOTxShardList shardList;
 
-	if (shards.size() == 1) {
-		cUOTxRelayServer relay;
-		relay.setServerIp(shards[0].ip);
-		relay.setServerPort(shards[0].uiPort);
-		relay.setAuthId(0xFFFFFFFF); // This is NO AUTH ID !!!
-		// This is the thing it sends next time it connects to 
-		// know whether it's gameserver or loginserver encryption
-		send(&relay);
-	} else {
-		// Otherwise build the shard-list
-		cUOTxShardList shardList;
-
-		for( Q_UINT8 i = 0; i < shards.size(); ++i )
-			shardList.addServer( i, shards[i].sServer, 0x00, shards[i].uiTime, shards[i].ip );
-		
-		send(&shardList);
-	}
+	vector< ServerList_st > shards = SrvParams->serverList();
+	
+	for( Q_UINT8 i = 0; i < shards.size(); ++i )
+		shardList.addServer( i, shards[i].sServer, 0x00, shards[i].uiTime, shards[i].ip );
+	
+	send( &shardList );
 }
 
 /*!
@@ -571,7 +559,7 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 	if( packet->index() >= charList.size() )
 	{
 		cUOTxDenyLogin dLogin;
-		dLogin.setReason( DL_BADCOMMUNICATION );
+		dLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
 		send( &dLogin );
 		return;
 	}
@@ -599,14 +587,14 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 	if( packet->slot() >= characters.size() )
 	{
 		cUOTxDenyLogin denyLogin;
-		denyLogin.setReason( DL_BADCOMMUNICATION );
+		denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
 		send( &denyLogin );
 		return;
 	}
 
 	if (_account->inUse()) {
 		cUOTxDenyLogin denyLogin;
-		denyLogin.setReason( DL_INUSE );
+		denyLogin.setReason( cUOTxDenyLogin::DL_INUSE );
 		send( &denyLogin );
 		return;
 	}
@@ -651,23 +639,6 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	season.setSeason( ST_SPRING );
 	send( &season );
 
-	// Tell the Client about mapdiffs.
-	// We don't use a special packet here
-	// because it's only used once.	
-	cUOPacket diffs(0xBF, 9);
-	diffs.setShort(3, 0x18);
-	int map = 0;
-	while (Map->hasMap(map)) {
-		unsigned int offset = diffs.size();
-		diffs.resize(offset + 8);
-		diffs.setInt(5, diffs.getInt(5) + 1);
-        diffs.setInt(offset, Map->mapPatches(map));
-		diffs.setInt(offset, Map->staticPatches(map));
-		++map;
-	}
-	diffs.setShort(1, diffs.size());
-	send(&diffs);
-    
 	// Send us our player and send the rest to us as well.
 	pChar->resend();
 	resendWorld( false );
@@ -711,9 +682,9 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	pChar->sendTooltip(this);
 
 	// Request a viewrange from the client
-	cUOPacket packet(0xc8, 2);
-	packet[1] = pChar->visualRange();
-	send(&packet);
+	cUOTxUpdateRange updateRange;
+	updateRange.setRange( pChar->visualRange() );
+	send( &updateRange );
 }
 
 /*!
@@ -744,20 +715,20 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 				return true;
 			}
 			else
-				denyPacket.setReason( DL_NOACCOUNT );
+				denyPacket.setReason( cUOTxDenyLogin::DL_NOACCOUNT );
 			break;
 		case cAccounts::BadPassword:
 			log( QString( "Failed to log in as '%1', wrong password\n" ).arg( username ) );
-			denyPacket.setReason( DL_BADPASSWORD ); 
+			denyPacket.setReason( cUOTxDenyLogin::DL_BADPASSWORD ); 
 			break;
 		case cAccounts::Wipped:
 		case cAccounts::Banned:
 			log( QString( "Failed to log in as '%1', Wipped/Banned account\n" ).arg( username ) );
-			denyPacket.setReason( DL_BLOCKED ); 
+			denyPacket.setReason( cUOTxDenyLogin::DL_BLOCKED ); 
 			break;
 		case cAccounts::AlreadyInUse:
 			log( QString( "Failed to log in as '%1', account is already in use\n" ).arg( username ) );
-			denyPacket.setReason( DL_INUSE ); 
+			denyPacket.setReason( cUOTxDenyLogin::DL_INUSE ); 
 			break;
 		};
 
@@ -774,16 +745,16 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 	return ( error == cAccounts::NoError );
 }
 
-// Processes a create character request
-// Notes from Lord Binaries packet documentation:
-#define cancelCreate( message ) cUOTxDenyLogin denyLogin; denyLogin.setReason( DL_BADCOMMUNICATION ); send( &denyLogin ); sysMessage( message ); disconnect(); return;
-
 /*!
   This method handles Character create request packet types.
   \sa cUORxCreateChar
 */
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 {
+// Processes a create character request
+// Notes from Lord Binaries packet documentation:
+#define cancelCreate( message ) cUOTxDenyLogin denyLogin; denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION ); send( &denyLogin ); sysMessage( message ); disconnect(); return;
+
 	// Several security checks
 	if ( !_account )
 	{
@@ -976,6 +947,10 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	// Start the game with the newly created char -- OR RELAY HIM !!
     playChar( pChar );
 	pChar->onLogin();
+// Processes a create character request
+// Notes from Lord Binaries packet documentation:
+#undef cancelCreate
+
 }
 
 /*!
@@ -1130,10 +1105,6 @@ void cUOSocket::handleMultiPurpose(cUORxMultiPurpose *packet) {
 
 	case cUORxMultiPurpose::toolTip:
 		handleToolTip(dynamic_cast<cUORxRequestToolTip*>(packet));
-		return;
-
-	case cUORxMultiPurpose::extendedStats:
-		handleExtendedStats(dynamic_cast<cUORxExtendedStats*>(packet));
 		return;
 
 	case cUORxMultiPurpose::customHouseRequest:
@@ -2177,7 +2148,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setSex( _player->gender() );
 		sendStats.setPets( _player->pets().size() );
 		sendStats.setMaxPets( 5 );
-		sendStats.setStatCap(_player->statCap());
+		sendStats.setStatCap( SrvParams->statcap() );
 
 		// Call the callback to insert additional aos combat related info
 		cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SHOWSTATUS);
@@ -2192,22 +2163,14 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	send( &sendStats );
 
 	// Send the packet to our party members too
-	if (pChar == _player) {
-		if (_player->party()) {
-			QPtrList<cPlayer> members = _player->party()->members();
+	if (pChar == _player && _player->party()) {
+		QPtrList<cPlayer> members = _player->party()->members();
 
-			for (P_PLAYER member = members.first(); member; member = members.next()) {
-				if (member->socket() && member != _player) {
-					member->socket()->send(&sendStats);
-				}
+		for (P_PLAYER member = members.first(); member; member = members.next()) {
+			if (member->socket() && member != _player) {
+				member->socket()->send(&sendStats);
 			}
 		}
-
-		// Send the extended stat information
-		cUOTxExtendedStats extended;
-		extended.setSerial(_player->serial());
-		extended.setLocks(_player->strengthLock(), _player->dexterityLock(), _player->intelligenceLock());
-		send(&extended);
 	}
 }
 
@@ -2724,33 +2687,5 @@ bool cUOSocket::canSee(cUObject *object, bool lineOfSight) {
 		return false;
 	} else {
 		return _player->canSee(object, lineOfSight);
-	}
-}
-
-void cUOSocket::handleExtendedStats(cUORxExtendedStats *packet) {
-	unsigned char lock = packet->lock();
-	unsigned char stat = packet->stat();
-
-	if (lock > 2) {
-		log(LOG_WARNING, QString("Wrong lock value for extended stats packet: %1\n").arg(lock));
-		return;
-	}
-
-	switch (stat) {
-		case 0:
-			_player->setStrengthLock(lock);
-			break;
-
-		case 1:
-			_player->setDexterityLock(lock);
-			break;
-
-		case 2:
-			_player->setIntelligenceLock(lock);
-			break;
-			
-		default:
-			log(LOG_WARNING, QString("Wrong stat value for extended stats packet: %1\n").arg(stat));
-			break;
 	}
 }

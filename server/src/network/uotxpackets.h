@@ -43,20 +43,20 @@
 
 class Coord_cl;
 
-enum eDenyLogin
-{
-	DL_NOACCOUNT = 0x00,
-	DL_INUSE,
-	DL_BLOCKED,
-	DL_BADPASSWORD,
-	DL_BADCOMMUNICATION,
-	DL_OTHER
-};
-
 // 0x82: DenyLogin
 class cUOTxDenyLogin: public cUOPacket
 {
 public:
+	enum eDenyLogin
+	{
+		DL_NOACCOUNT = 0x00,
+		DL_INUSE,
+		DL_BLOCKED,
+		DL_BADPASSWORD,
+		DL_BADCOMMUNICATION,
+		DL_OTHER
+	};
+
 	cUOTxDenyLogin(): cUOPacket(0x82, 2) {}
 	void setReason(eDenyLogin data) { (*this)[1] = data; }
 };
@@ -66,19 +66,15 @@ public:
 class cUOTxAcceptLogin: public cUOPacket
 {
 public:
-	cUOTxAcceptLogin(): cUOPacket(3)
-	{
-		(*this)[0] = (unsigned char)0x81;
-	}
+	cUOTxAcceptLogin(): cUOPacket(0x81, 3) {}
 };
 
 // 0xA8: Shard List
 class cUOTxShardList: public cUOPacket
 {
 public:
-	cUOTxShardList(): cUOPacket(6)
+	cUOTxShardList(): cUOPacket(0xA8, 6)
 	{
-		(*this)[0] = (unsigned char)0xA8;
 		(*this)[3] = (unsigned char)0x64;
 		setShort(1, 6); // Packet Size
 	}
@@ -91,30 +87,22 @@ public:
 class cUOTxRelayServer: public cUOPacket
 {
 public:
-	cUOTxRelayServer(): cUOPacket(11) {
-		(*this)[ 0 ] = (unsigned char)0x8C;
-	}
+	cUOTxRelayServer(): cUOPacket(0x8C, 11) { }
 
-	virtual void setServerIp(unsigned int data) { setInt(1, data); }
-	virtual void setServerPort(unsigned short port) { setShort(5, port); }
-	virtual void setAuthId(unsigned int authId) { setInt(7, authId); }
-};
-
-struct stTown
-{
-	unsigned char index;
-	QString town, area;
-};
-
-struct stChar
-{
-	QString name;
-	QString password;
+	void setServerIp(unsigned int data)		{ setInt(1, data); }
+	void setServerPort(unsigned short port) { setShort(5, port); }
+	void setAuthId(unsigned int authId)		{ setInt(7, authId); }
 };
 
 // 0xA9: CharTownList
 class cUOTxCharTownList: public cUOPacket
 {
+	struct stTown
+	{
+		unsigned char index;
+		QString town, area;
+	};
+
 protected:
 	QStringList characters;
 	std::vector< stTown > towns;
@@ -123,7 +111,7 @@ protected:
 public:
 	cUOTxCharTownList(): cUOPacket(9), flags(0x8), charLimit(-1) {}
 
-	virtual void addCharacter(QString name);
+	virtual void addCharacter(const QString& name);
 	virtual void addTown(unsigned char index, const QString &name, const QString &area);
 	virtual void setCharLimit(short limit = -1) { charLimit = limit; }
 	virtual void compile();
@@ -143,9 +131,7 @@ enum eCharChangeResult
 class cUOTxCharChangeResult: public cUOPacket
 {
 public:
-	cUOTxCharChangeResult(): cUOPacket(2) {
-		(*this)[ 0 ] = (unsigned char)0x85;
-	}
+	cUOTxCharChangeResult(): cUOPacket(0x85, 2) { }
 
 	void setResult(eCharChangeResult data) { (*this)[ 1 ] = data; }
 };
@@ -154,8 +140,8 @@ public:
 class cUOTxUpdateCharList: public cUOPacket
 {
 public:
-	cUOTxUpdateCharList(): cUOPacket(304) {
-		(*this)[ 0 ] = (unsigned char)0x86;
+	cUOTxUpdateCharList(): cUOPacket(0x86, 304) 
+	{
 		setShort(1, 304);
 	}
 
@@ -169,19 +155,19 @@ public:
 	cUOTxConfirmLogin(): cUOPacket(0x1B, 37) {}
 
 	// This is just here for convenience !! These values are basically unused
-	void setSerial(unsigned int serial)	{ setInt(1, serial); }
-	void setUnknown1(unsigned int data)	{ setInt(5, data); }
+	void setSerial(unsigned int serial)		{ setInt(1, serial); }
+	void setUnknown1(unsigned int data)		{ setInt(5, data); }
 	void setBody(unsigned short data)		{ setShort(9, data); }
 	void setX(unsigned short data)			{ setShort(11, data); }
 	void setY(unsigned short data)			{ setShort(13, data); }
-	void setZ(short data)			{ setShort(15, data); }
+	void setZ(short data)					{ setShort(15, data); }
 	void setDirection(unsigned char data)	{ (*this)[ 17 ] = data; }
 	void setUnknown2(unsigned short data)	{ setShort(18, data); }
-	void setUnknown3(unsigned int data)	{ setInt(20, data); }
-	void setUnknown4(unsigned int data)	{ setInt(24, data); }
+	void setUnknown3(unsigned int data)		{ setInt(20, data); }
+	void setUnknown4(unsigned int data)		{ setInt(24, data); }
 	void setFlags(unsigned char data)		{ (*this)[ 28 ] = data; }
 	void setHighlight(unsigned char data)	{ (*this)[ 29 ] = data; }
-	void setUnknown5(char data[7])	{ this->setRawData(30, (char*)data, 7); }
+	void setUnknown5(char data[7])			{ this->setRawData(30, (char*)data, 7); }
 	void fromChar(P_CHAR pChar);
 };
 
@@ -266,7 +252,7 @@ public:
 		(*this)[ 1 ] = static_cast<unsigned char>(0xFF);
 	}
 
-	void setType(eWeatherType data)	{ (*this)[ 1 ] = data; }
+	void setType(eWeatherType data)			{ (*this)[ 1 ] = data; }
 	void setAmount(unsigned char data)		{ (*this)[ 2 ] = data; }
 	void setTemperature(unsigned char data) { (*this)[ 3 ] = data; }
 };
@@ -284,7 +270,7 @@ class cUOTxQuestPointer: public cUOPacket
 public:
 	cUOTxQuestPointer(): cUOPacket(0xBA, 6) {}
 
-	void setActive(bool data)		{ (*this)[ 1 ] = data ? 1 : 0; }
+	void setActive(bool data)			{ (*this)[ 1 ] = data ? 1 : 0; }
 	void setX(unsigned short data)		{ setShort(2, data); }
 	void setY(unsigned short data)		{ setShort(4, data); }
 };
@@ -306,7 +292,7 @@ class cUOTxDrawContainer: public cUOPacket
 public:
 	cUOTxDrawContainer(): cUOPacket(0x24, 7) {}
                                
-	void setSerial(unsigned int serial)	{ setInt(1, serial); }
+	void setSerial(unsigned int serial)		{ setInt(1, serial); }
 	void setGump(unsigned short gump)		{ setShort(5, gump); }
 };
                                            
@@ -316,7 +302,7 @@ class cUOTxAddContainerItem: public cUOPacket
 public:
 	cUOTxAddContainerItem(): cUOPacket(0x25, 20) {}
 	
-	void setSerial(unsigned int serial)	{ setInt(1, serial); }
+	void setSerial(unsigned int serial)		{ setInt(1, serial); }
 	void setModel(unsigned short model)		{ setShort(5, model); }
 	void setUnknown1(unsigned char data)	{ (*this)[ 7 ] = data; }
 	void setAmount(unsigned short amount)	{ setShort(8, amount); }
@@ -371,7 +357,7 @@ public:
 	void setModel(unsigned short model)		{ setShort(5, model); }
 	void setUnknown1(unsigned char data)	{ (*this)[ 7 ] = data; }
 	void setLayer(unsigned char layer)		{ (*this)[ 8 ] = layer; }
-	void setWearer(unsigned int serial)	{ setInt(9, serial); }
+	void setWearer(unsigned int serial)		{ setInt(9, serial); }
 	void setColor(unsigned short data)		{ setShort(13, data); }
 	void fromItem(P_ITEM pItem);
 };
@@ -383,7 +369,7 @@ public:
 	cUOTxShowBattle(): cUOPacket(0x2F, 10) {}
 
 	void setUnknown1(unsigned char data)	{ (*this)[1] = data; }
-	void setAttacker(unsigned int data)	{ setInt(2, data); }
+	void setAttacker(unsigned int data)		{ setInt(2, data); }
 	void setVictim(unsigned int data)		{ setInt(6, data); }
 };
 
@@ -416,8 +402,8 @@ public:
 	void setId(unsigned short data)			{ setShort(4, data); }
 	void setValue(unsigned short data)		{ setShort(6, data) ; }
 	void setRealValue(unsigned short data)	{ setShort(8, data); }
-	void setStatus(eStatus data)		{ (*this)[10] = data; }
-	void setCap(unsigned short data)			{ setShort(11, data); }
+	void setStatus(eStatus data)			{ (*this)[10] = data; }
+	void setCap(unsigned short data)		{ setShort(11, data); }
 };
 
 // 0x3A SendSkills(multiple skills)
@@ -451,12 +437,12 @@ public:
 	void setUnknown1(unsigned char data)	{ (*this)[ 7 ] = data;	}
 	void setSkin(unsigned short data)		{ setShort(8, data);	}
 	void setFlag(unsigned char data)		{ (*this)[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
-	unsigned char flag() const					{ return (*this)[ 10 ]; }
+	unsigned char flag() const				{ return (*this)[ 10 ]; }
 	void setX(unsigned short x)				{ setShort(11, x);	}
 	void setY(unsigned short y)				{ setShort(13, y);	}
 	void setUnknown2(unsigned short data)	{ setShort(15, data); }
 	void setDirection(unsigned char data)	{ (*this)[ 17 ] = data; }
-	void setZ(char data)			{ (*this)[ 18 ] = data; }
+	void setZ(char data)					{ (*this)[ 18 ] = data; }
 
 	void fromChar(P_CHAR pChar);
 };
@@ -485,16 +471,16 @@ class cUOTxUpdatePlayer: public cUOPacket
 public:
 	cUOTxUpdatePlayer(): cUOPacket(0x77, 17) {}
 
-	void setSerial(unsigned int data) { setInt(1, data); }
-	void setBody(unsigned short data)	{ setShort(5, data); }
-	void setX(unsigned short data)		{ setShort(7, data); }
-	void setY(unsigned short data)		{ setShort(9, data); }
-	void setZ(char data)		{ (*this)[11] = data; }
-	void setDirection(unsigned char data) { (*this)[12] = data; }
-	void setHue(unsigned short data)	{ setShort(13, data); }
-	void setFlag(unsigned char data)	{ (*this)[15] = data; }
+	void setSerial(unsigned int data)		{ setInt(1, data); }
+	void setBody(unsigned short data)		{ setShort(5, data); }
+	void setX(unsigned short data)			{ setShort(7, data); }
+	void setY(unsigned short data)			{ setShort(9, data); }
+	void setZ(char data)					{ (*this)[11] = data; }
+	void setDirection(unsigned char data)	{ (*this)[12] = data; }
+	void setHue(unsigned short data)		{ setShort(13, data); }
+	void setFlag(unsigned char data)		{ (*this)[15] = data; }
 	unsigned char flag() const				{ return (*this)[15]; }
-	void setHighlight(unsigned char data) { (*this)[16] = data; }
+	void setHighlight(unsigned char data)	{ (*this)[16] = data; }
 
 	void fromChar(P_CHAR pChar);
 };
@@ -508,16 +494,16 @@ public:
 		setInt(19, 0);
 	}
 	
-	void setSerial(unsigned int data) { setInt(3, data); }
-	void setModel(unsigned short data)	{ setShort(7, data); }
-	void setX(unsigned short data)		{ setShort(9, data); }
-	void setY(unsigned short data)		{ setShort(11, data); }	
-	void setZ(char data)		{ (*this)[13] = data;  }
-	void setDirection(unsigned char data) { (*this)[14] = data; }
-	void setColor(unsigned short data)	{ setShort(15, data); }
-    void setFlag(unsigned char data)	{ (*this)[17] = data; }
+	void setSerial(unsigned int data)		{ setInt(3, data); }
+	void setModel(unsigned short data)		{ setShort(7, data); }
+	void setX(unsigned short data)			{ setShort(9, data); }
+	void setY(unsigned short data)			{ setShort(11, data); }	
+	void setZ(char data)					{ (*this)[13] = data;  }
+	void setDirection(unsigned char data)	{ (*this)[14] = data; }
+	void setColor(unsigned short data)		{ setShort(15, data); }
+    void setFlag(unsigned char data)		{ (*this)[17] = data; }
 	unsigned char flag() const				{ return (*this)[17]; }
-	void setHighlight(unsigned char data) { (*this)[18] = data; }
+	void setHighlight(unsigned char data)	{ (*this)[18] = data; }
 	void fromChar(P_CHAR pChar);
 	
 	// The last 4 bytes are the terminator
@@ -528,8 +514,8 @@ public:
 class cUOTxOptions: public cUOPacket
 {
 public:
-	cUOTxOptions(): cUOPacket(0x69, 5)	{ setShort(1, 5); }
-	void setOption(unsigned char data)			{ (*this)[3] = data; }
+	cUOTxOptions(): cUOPacket(0x69, 5)		{ setShort(1, 5); }
+	void setOption(unsigned char data)		{ (*this)[3] = data; }
 };
 
 // 0x5b GameTime
@@ -562,12 +548,12 @@ public:
 		Spell = 0x0a
 	};
 
-	void setSource(SERIAL data)	{ setInt(3, data); }
-	void setModel(unsigned short data)	{ setShort(7, data); }
-	void setType(eSpeechType data) { (*this)[ 9 ] = data; }
-	void setColor(unsigned short data)	{ setShort(10, data); }
-	void setFont(unsigned short font)	{ setShort(12, font); }
-	void setLanguage(const QString &data) { this->setAsciiString(14, data.left(3).latin1(), QMIN(data.length()+1, 4)); }
+	void setSource(SERIAL data)				{ setInt(3, data); }
+	void setModel(unsigned short data)		{ setShort(7, data); }
+	void setType(eSpeechType data)			{ (*this)[ 9 ] = data; }
+	void setColor(unsigned short data)		{ setShort(10, data); }
+	void setFont(unsigned short font)		{ setShort(12, font); }
+	void setLanguage(const QString &data)	{ this->setAsciiString(14, data.left(3).latin1(), QMIN(data.length()+1, 4)); }
 	void setName(const QString &data)		{ this->setAsciiString(18, data.left(29).latin1(), QMIN(data.length()+1, 30)); }
 	void setText(const QString &data);
 };
@@ -598,12 +584,12 @@ public:
 		}
 	}
 
-	void setAllowRename(bool mode)	{ (*this)[41] = mode ? 0x01 : 0x00; }
-	void setSerial(SERIAL serial)		{ setInt(3, serial); }
-	void setName(const QString &name) { setAsciiString(7, name.left(29).latin1(), QMIN(name.length()+1, 30)); }
+	void setAllowRename(bool mode)			{ (*this)[41] = mode ? 0x01 : 0x00; }
+	void setSerial(SERIAL serial)			{ setInt(3, serial); }
+	void setName(const QString &name)		{ setAsciiString(7, name.left(29).latin1(), QMIN(name.length()+1, 30)); }
 	void setHp(unsigned short data)			{ setShort(37, data); }
 	void setMaxHp(unsigned short data)		{ setShort(39, data); }
-	void setSex(bool male)			{ (*this)[43] = male ? 0 : 1; }
+	void setSex(bool male)					{ (*this)[43] = male ? 0 : 1; }
 	void setStrength(unsigned short data)	{ setShort(44, data); }
 	void setDexterity(unsigned short data)	{ setShort(46, data); }
 	void setIntelligence(unsigned short data) { setShort(48, data); }
@@ -611,7 +597,7 @@ public:
 	void setMaxStamina(unsigned short data) { setShort(52, data); }
 	void setMana(unsigned short data)		{ setShort(54, data); }
 	void setMaxMana(unsigned short data)	{ setShort(56, data); }
-	void setGold(unsigned int data)		{ setInt(58, data); }
+	void setGold(unsigned int data)			{ setInt(58, data); }
 	void setArmor(unsigned short data)		{ setShort(62, data); }
 	void setWeight(unsigned short data)		{ setShort(64, data); }
 	// extended for newer clients
@@ -779,22 +765,22 @@ class cUOTxSendItem: public cUOPacket
 {
 public:
 	cUOTxSendItem(): cUOPacket(0x1A, 20)	{ setShort(1, 20); }
-	void setSerial(unsigned int data)			{ setInt(3, data | 0x80000000); }
-	void setId(unsigned short data)				{ setShort(7, data); }
-	void setAmount(unsigned short data)			{ setShort(9, data); }
+	void setSerial(unsigned int data)		{ setInt(3, data | 0x80000000); }
+	void setId(unsigned short data)			{ setShort(7, data); }
+	void setAmount(unsigned short data)		{ setShort(9, data); }
 	void setCoord(const Coord_cl &coord);
-	void setDirection(unsigned char data)			{ (*this)[15] = data; }
-	void setColor(unsigned short data)			{ setShort(17, data); }
-	void setFlags(unsigned char data)				{ (*this)[19] = data; }
-	unsigned char flags() const						{ return (*this)[19]; }
+	void setDirection(unsigned char data)	{ (*this)[15] = data; }
+	void setColor(unsigned short data)		{ setShort(17, data); }
+	void setFlags(unsigned char data)		{ (*this)[19] = data; }
+	unsigned char flags() const				{ return (*this)[19]; }
 };
 
 // 0x6C Target
 class cUOTxTarget: public cUOPacket
 {
 public:
-	cUOTxTarget(): cUOPacket(0x6c, 19) {}
-	void setAllowGround(bool data)		{ (*this)[1] = data ? 1 : 0; }
+	cUOTxTarget(): cUOPacket(0x6c, 19)			{}
+	void setAllowGround(bool data)				{ (*this)[1] = data ? 1 : 0; }
 	void setTargSerial(unsigned int data)		{ setInt(2, data); }
 };
 
@@ -803,8 +789,8 @@ class cUOTxPlace: public cUOPacket
 {
 public:
 	cUOTxPlace(): cUOPacket(0x99, 26)		{ (*this)[1] = 0x01; }
-	void setTargSerial(unsigned int data)		{ setInt(2, data); }
-	void setModelID(unsigned short data)			{ setShort(18, data); }
+	void setTargSerial(unsigned int data)	{ setInt(2, data); }
+	void setModelID(unsigned short data)	{ setShort(18, data); }
 };
 
 // 0x54 SoundEffect
@@ -812,8 +798,8 @@ class cUOTxSoundEffect: public cUOPacket
 {
 public:
 	cUOTxSoundEffect(): cUOPacket(0x54, 12)	{ (*this)[1] = 1; }
-	void setSound(unsigned short data)				{ setShort(2, data); }
-	void setUnknown(unsigned short data)				{ setShort(4, data); }
+	void setSound(unsigned short data)		{ setShort(2, data); }
+	void setUnknown(unsigned short data)	{ setShort(4, data); }
 	void setCoord(const Coord_cl &coord);
 };
 
@@ -842,7 +828,7 @@ enum eBounceReason
 class cUOTxBounceItem: public cUOPacket
 {
 public:
-	cUOTxBounceItem(): cUOPacket(0x27, 2) { (*this)[1] = BR_NO_REASON; } // better safe than sorry
+	cUOTxBounceItem(): cUOPacket(0x27, 2)	{ (*this)[1] = BR_NO_REASON; } // better safe than sorry
 	void setReason(eBounceReason reason)	{ (*this)[1] = reason; }
 };
 
@@ -1237,6 +1223,15 @@ public:
 	void set3dSourceLayer(unsigned char data) { (*this)[ 46 ] = data; }
 	void set3dAdditional2Id(unsigned short data) { setShort(47, data); }
 };
+
+// 0xC8: UpdateRange
+class cUOTxUpdateRange: public cUOPacket
+{
+public:
+	cUOTxUpdateRange(): cUOPacket( 0xC8, 2 ) {}
+	void setRange( uchar d )  { (*this)[1] = d; }
+};
+
 
 // 0x4E Glow (May work for Items as well)
 class cUOTxGlow: public cUOPacket
