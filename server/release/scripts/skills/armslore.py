@@ -40,12 +40,11 @@ def response( char, args, target ):
 
 	if item:
 		if not item.getoutmostchar() == char:
-			if not char.canreach( item, 4 ):
+			top = item.getoutmostitem()
+			if top.container and top.container.ischar():
+				top = top.container
+			if not char.canreach(top, 4):
 				char.socket.clilocmessage( 0x7A27F, "", 0x3b2, 3 )
-				return False
-
-			if not char.distanceto( item ) < 5:
-				char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
 				return False
 
 		if isweapon( item ) or isarmor( item ) or isshield( item ):
