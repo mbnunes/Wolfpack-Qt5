@@ -61,12 +61,12 @@ protected:
 	}
 
 public:
-	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		P_CHAR pChar = socket->player();
 
 		if( !pChar )
-			return;
+			return false;
 
 		// Check what we targetted
 		Coord_cl pos = pChar->pos;
@@ -77,11 +77,13 @@ public:
 		if( ( pChar->pos.distance( pos ) > 4 ) || !lineOfSight( pChar->pos, pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
 		{
 			socket->sysMessage( tr( "You can't reach this" ) );
-			return;
+			return false;
 		}
 
 		if( IsTree( target->model() ) )
 			chopTree( pChar, pos );
+
+		return true;
 	}
 };
 

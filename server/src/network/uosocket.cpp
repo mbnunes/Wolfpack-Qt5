@@ -1378,7 +1378,7 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 		return;
 
 	// Check if there really was a response or if it just was canceled
-	if( !packet->serial() && ( ( packet->x() == 0xFFFF ) || ( packet->y() == 0xFFFF ) || ( packet->z() == 0xFF ) ) )
+	if( !packet->serial() && ( ( packet->x() == 0xFFFF ) || ( packet->y() == 0xFFFF ) || ( (UINT8)packet->z() == 0xFF ) ) )
 		targetRequest->timedout( this );
 	else
 	{
