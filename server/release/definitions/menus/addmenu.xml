@@ -5,6 +5,15 @@
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
+| The AddMenu can be built by category tags or manually this    |
+| way. If you want to use this script, change                   |
+|								|
+| wolfpack.xml:							|
+| <option key="Build AddMenu by Category Tags" value="true" />	|
+|								|
+| into:								|
+| <option key="Build AddMenu by Category Tags" value="false" />	|
+=================================================================
 -->
 <definitions>
 	<menu id="ADD_MENU">
