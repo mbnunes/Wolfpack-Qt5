@@ -87,6 +87,7 @@
 	<script>commands.edit</script>
 	<script>commands.effect</script>
 	<script>commands.eval</script>
+	<script>commands.events</script>
 	<script>commands.export</script>
 	<script>commands.freeze</script>
 	<script>commands.go</script>

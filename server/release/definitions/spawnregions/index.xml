@@ -10,6 +10,26 @@
 	Spawn Regions Index File
 -->
 <definitions>
+	<item id="100gold" inherit="eed">
+		<amount>100</amount>
+	</item>
+
+	<spawnregion id="test">
+		<maxnpcamount>10</maxnpcamount>
+		<maxitemamount>10</maxitemamount>
+		<mintime>2</mintime>
+		<maxtime>5</maxtime>
+		<npcs>
+			<npc>headless</npc>
+		</npcs>
+		<items>
+			<item>100gold</item>
+		</items>
+		<npcspercycle>1</npcspercycle>
+		<itemspercycle>1</itemspercycle>
+		<rectangle x1="1377" x2="1387" y1="3808" y2="3822" map="1" />
+	</spawnregion>
+
 	<include file="definitions/spawnregions/felucca/index.xml" />
 	<include file="definitions/spawnregions/trammel/index.xml" />
 	<include file="definitions/spawnregions/ilshenar/index.xml" />

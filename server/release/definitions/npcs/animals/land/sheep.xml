@@ -11,7 +11,7 @@
 	<!-- Sheep (sheered) -->
 	<npc id="sheep_sheered" inherit="animal_base">
 		<name>sheep</name>
-		<id>207</id>
+		<id>223</id>
 		<ai>Animal_Domestic</ai>
 		<karma><random list="KARMA_L0" /></karma>
 		<fame><random list="FAME_L1" /></fame>
@@ -42,7 +42,7 @@
 
 	<!-- Sheep (unsheered) -->
 	<npc id="sheep_unsheered" inherit="sheep_sheered">
-		<id>223</id>
+		<id>207</id>
 		<carve>carve_sheep_unsheered</carve>
 		<category>Animals\Land\Sheep (Unsheered)</category>
 	</npc>

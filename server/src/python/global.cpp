@@ -1689,10 +1689,58 @@ static PyObject* wpSetOption( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
+/*
+	\function wolfpack.charbase
+	\param baseid A string containing the character id.
+	\return A dictionary with the following keys:<code>
+	- basesound
+	- soundmode
+	- flags
+	- figurine
+	- mindamage
+	- maxdamage
+	- mintaming
+	- carve
+	- lootpacks
+	- bindmenu
+	- controlslots
+	- criticalhealth
+	</code>
+	\description Retrieve information about a given character baseid.
+*/
+static PyObject* wpCharBase(PyObject* self, PyObject* args) {
+	char *baseid;
+	if (!PyArg_ParseTuple(args, "s:wolfpack.charbase(baseid)", &baseid)) {
+		return 0;
+	}
+
+	cCharBaseDef *basedef = CharBaseDefs::instance()->get(baseid);	
+
+	if (!basedef) {
+		return PyErr_Format(PyExc_RuntimeError, "An error occured while retrieving the character basedefinition %s.", baseid);
+	}
+
+	PyObject *dict = PyDict_New();
+	PyDict_SetItemString(dict, "basesound", PyInt_FromLong(basedef->basesound()));
+	PyDict_SetItemString(dict, "soundmode", PyInt_FromLong(basedef->soundmode()));
+	PyDict_SetItemString(dict, "flags", PyInt_FromLong(basedef->flags()));
+	PyDict_SetItemString(dict, "figurine", PyInt_FromLong(basedef->figurine()));
+	PyDict_SetItemString(dict, "mindamage", PyInt_FromLong(basedef->minDamage()));
+	PyDict_SetItemString(dict, "maxdamage", PyInt_FromLong(basedef->maxDamage()));
+	PyDict_SetItemString(dict, "mintaming", PyInt_FromLong(basedef->minTaming()));
+	PyDict_SetItemString(dict, "carve", QString2Python(basedef->carve()));
+	PyDict_SetItemString(dict, "lootpacks", QString2Python(basedef->lootPacks()));
+	PyDict_SetItemString(dict, "bindmenu", QString2Python(basedef->bindmenu()));
+	PyDict_SetItemString(dict, "controlslots", PyInt_FromLong(basedef->controlSlots()));
+	PyDict_SetItemString(dict, "criticalhealth", PyInt_FromLong(basedef->criticalHealth()));
+	return dict;
+}
+
 static PyMethodDef wpGlobal[] =
 {
-	{ "getOption",			wpGetOption,		METH_VARARGS, "Reads a string value from the database." },
-	{ "setOption",			wpSetOption,		METH_VARARGS, "Sets a string value and a key to the database." },
+	{ "charbase",			wpCharBase,						METH_VARARGS, 0 },
+	{ "getoption",			wpGetOption,					METH_VARARGS, "Reads a string value from the database." },
+	{ "setoption",			wpSetOption,					METH_VARARGS, "Sets a string value and a key to the database." },
 	{ "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
 	{ "hasevent",			wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
 	{ "callnamedevent",		wpCallNamedEvent,				METH_VARARGS, "Call an event in a script and return the result." },
