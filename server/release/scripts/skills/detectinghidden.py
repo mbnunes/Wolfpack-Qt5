@@ -88,7 +88,7 @@ def response( char, args, target ):
 		# first, we test hidden chars
 		chars = wolfpack.chars( x, y, map, reveal_range )
 		for tchar in chars:
-			if not tchar.priv2 & 0x08:
+			if not tchar.gm:
 				# hidden using hiding skill
 				if tchar.hidden == 1:
 					# FIXME : only hidden with lower skill will be revealed

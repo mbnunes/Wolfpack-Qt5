@@ -182,7 +182,7 @@ class Telekinesis(Spell):
 		hasevent = 0
 
 		# Check if there is an event handling onUse but not onTelekinesis
-		scripts = item.scripts + item.basescripts.split(',')
+		scripts = target.scripts + target.basescripts.split(',')
 		for event in scripts:
 			if len(event) == 0:
 				continue
