@@ -800,10 +800,7 @@ void cWorld::getOption( const QString name, QString &value, const QString fallba
 
 	cDBResult res = persistentBroker->query( QString( "SELECT value FROM settings WHERE option = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
 
-	if( !res.isValid() )
-		throw persistentBroker->lastError();
-
-	if( !res.fetchrow() )
+	if( !res.isValid() || !res.fetchrow() )
 	{
 		res.free();
 		value = fallback;
