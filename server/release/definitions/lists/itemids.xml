@@ -7,37 +7,38 @@
 =================================================================
 -->
 <definitions>
-  <!-- List of small blood puddles (>=20% hitpoints) -->
-  <list id="SMALL_BLOOD_PUDDLES">
-    <item>1645</item>
-    <item>122c</item>
-    <item>122e</item>
-  </list>
 
-  <!-- List of medium blood puddles (>=35% hitpoints) -->
-  <list id="MEDIUM_BLOOD_PUDDLES">
-    <item>122b</item>
-    <item>122d</item>
-  </list>
+	<!-- List of small blood puddles (>=20% hitpoints) -->
+	<list id="SMALL_BLOOD_PUDDLES">
+		<item>1645</item>
+		<item>122c</item>
+		<item>122e</item>
+	</list>
 
-  <!-- List of big blood puddles (>=50% hitpoints) -->
-  <list id="BIG_BLOOD_PUDDLES">
-    <item>122a</item>
-  </list>
+	<!-- List of medium blood puddles (>=35% hitpoints) -->
+	<list id="MEDIUM_BLOOD_PUDDLES">
+		<item>122b</item>
+		<item>122d</item>
+	</list>
+
+	<!-- List of big blood puddles (>=50% hitpoints) -->
+	<list id="BIG_BLOOD_PUDDLES">
+		<item>122a</item>
+	</list>
 
 
-  <!-- IDs of Shirts -->
+	<!-- IDs of Shirts -->
 	<list id="SHIRTS">
 		<item>1efd</item> <!-- Fancy -->
 		<item>1517</item> <!-- Plain -->
 	</list>
-	
+
 	<!-- IDs of Dress`s -->
 	<list id="DRESS">
 		<item>1eff</item> <!-- Fancy -->
 		<item>1f01</item> <!-- Plain -->
 	</list>
-	
+
 	<!-- IDs of Pants -->
 	<list id="PANTS">
 		<item>152e</item> <!-- Short -->
@@ -80,7 +81,7 @@
 		<item>f0b</item>
 		<item>f0c</item>
 	</list>
-	
+
 	<!-- IDs of Reagents -->
 	<list id="REAGENTS">
 		<item>f7a</item>
@@ -92,7 +93,7 @@
 		<item>f8c</item>
 		<item>f8d</item>
 	</list>
-	
+
 	<!-- IDs of Instruments -->
 	<list id="INSTRUMENTS">
 		<item>e9c</item>
@@ -103,13 +104,13 @@
 		<item>eb3</item>
 		<item>eb4</item>
 	</list>
-	
+
 	<!-- IDs of Mining Tools -->
 	<list id="MININGTOOLS">
 		<item>e85</item>
 		<item>f39</item>
 	</list>
-	
+
 	<!-- IDs of Blacksmithing Tools -->
 	<list id="BLACKSMITHTOOLS">
 		<item>102a</item>
@@ -121,7 +122,7 @@
 		<item>fb4</item>
 		<item>fb5</item>
 	</list>
-	
+
 	<!-- IDs of Carpentry Tools -->
 	<list id="CARPENTRYTOOLS">
 		<item>10e4</item>
@@ -136,7 +137,7 @@
 		<item>102e</item>
 		<item>10e5</item>
 	</list>
-	
+
 	<!-- IDs of First Circle Scrolls -->
 	<list id="FIRSTCIRCLE">
 		<item>1f2e</item>
@@ -148,7 +149,7 @@
 		<item>1f2d</item>
 		<item>1f34</item>
 	</list>
-	
+
 	<!-- IDs of Second Circle Scrolls -->
 	<list id="SECONDCIRCLE">
 		<item>1f35</item>
@@ -160,7 +161,7 @@
 		<item>1f3b</item>
 		<item>1f3c</item>
 	</list>
-	
+
 	<!-- IDs of Third Circle Scrolls -->
 	<list id="THIRDCIRCLE">
 		<item>1f3d</item>
@@ -172,7 +173,7 @@
 		<item>1f43</item>
 		<item>1f44</item>
 	</list>
-	
+
 	<!-- IDs of Fourth Circle Scrolls -->
 	<list id="FOURTHCIRCLE">
 		<item>1f45</item>
@@ -184,7 +185,7 @@
 		<item>1f4b</item>
 		<item>1f4c</item>
 	</list>
-	
+
 	<!-- IDs of Fifth Circle Scrolls -->
 	<list id="FIFTHCIRCLE">
 		<item>1f4d</item>
@@ -196,7 +197,7 @@
 		<item>1f53</item>
 		<item>1f54</item>
 	</list>
-	
+
 	<!-- IDs of Sixth Circle Scrolls -->
 	<list id="SIXTHCIRCLE">
 		<item>1f55</item>
@@ -208,7 +209,7 @@
 		<item>1f5b</item>
 		<item>1f5c</item>
 	</list>
-	
+
 	<!-- IDs of Seventh Circle Scrolls -->
 	<list id="SEVENTHCIRCLE">
 		<item>1f5d</item>
@@ -220,7 +221,7 @@
 		<item>1f63</item>
 		<item>1f64</item>
 	</list>
-	
+
 	<!-- IDs of Eighth Circle Scrolls -->
 	<list id="EIGHTHCIRCLE">
 		<item>1f65</item>
@@ -232,7 +233,53 @@
 		<item>1f6b</item>
 		<item>1f6c</item>
 	</list>
-	
+
+	<list id="1_THRU_2_CIRCLE">
+		<item>1f2e</item>
+		<item>1f2f</item>
+		<item>1f30</item>
+		<item>1f31</item>
+		<item>1f32</item>
+		<item>1f33</item>
+		<item>1f2d</item>
+		<item>1f34</item>
+		<item>1f35</item>
+		<item>1f36</item>
+		<item>1f37</item>
+		<item>1f38</item>
+		<item>1f39</item>
+		<item>1f3a</item>
+		<item>1f3b</item>
+		<item>1f3c</item>
+	</list>
+
+	<list id="1_THRU_3_CIRCLE">
+		<item>1f2e</item>
+		<item>1f2f</item>
+		<item>1f30</item>
+		<item>1f31</item>
+		<item>1f32</item>
+		<item>1f33</item>
+		<item>1f2d</item>
+		<item>1f34</item>
+		<item>1f35</item>
+		<item>1f36</item>
+		<item>1f37</item>
+		<item>1f38</item>
+		<item>1f39</item>
+		<item>1f3a</item>
+		<item>1f3b</item>
+		<item>1f3c</item>
+		<item>1f3d</item>
+		<item>1f3e</item>
+		<item>1f3f</item>
+		<item>1f40</item>
+		<item>1f41</item>
+		<item>1f42</item>
+		<item>1f43</item>
+		<item>1f44</item>
+	</list>
+
 	<!-- IDs of 1 thru 4 Circle Scrolls -->
 	<list id="1_THRU_4_CIRCLE">
 		<item>1f2e</item>
@@ -268,4 +315,225 @@
 		<item>1f4b</item>
 		<item>1f4c</item>
 	</list>
+
+	<list id="1_THRU_5_CIRCLE">
+		<item>1f2e</item>
+		<item>1f2f</item>
+		<item>1f30</item>
+		<item>1f31</item>
+		<item>1f32</item>
+		<item>1f33</item>
+		<item>1f2d</item>
+		<item>1f34</item>
+		<item>1f35</item>
+		<item>1f36</item>
+		<item>1f37</item>
+		<item>1f38</item>
+		<item>1f39</item>
+		<item>1f3a</item>
+		<item>1f3b</item>
+		<item>1f3c</item>
+		<item>1f3d</item>
+		<item>1f3e</item>
+		<item>1f3f</item>
+		<item>1f40</item>
+		<item>1f41</item>
+		<item>1f42</item>
+		<item>1f43</item>
+		<item>1f44</item>
+		<item>1f45</item>
+		<item>1f46</item>
+		<item>1f47</item>
+		<item>1f48</item>
+		<item>1f49</item>
+		<item>1f4a</item>
+		<item>1f4b</item>
+		<item>1f4c</item>
+		<item>1f4d</item>
+		<item>1f4e</item>
+		<item>1f4f</item>
+		<item>1f50</item>
+		<item>1f51</item>
+		<item>1f52</item>
+		<item>1f53</item>
+		<item>1f54</item>
+	</list>
+
+	<list id="1_THRU_6_CIRCLE">
+		<item>1f2e</item>
+		<item>1f2f</item>
+		<item>1f30</item>
+		<item>1f31</item>
+		<item>1f32</item>
+		<item>1f33</item>
+		<item>1f2d</item>
+		<item>1f34</item>
+		<item>1f35</item>
+		<item>1f36</item>
+		<item>1f37</item>
+		<item>1f38</item>
+		<item>1f39</item>
+		<item>1f3a</item>
+		<item>1f3b</item>
+		<item>1f3c</item>
+		<item>1f3d</item>
+		<item>1f3e</item>
+		<item>1f3f</item>
+		<item>1f40</item>
+		<item>1f41</item>
+		<item>1f42</item>
+		<item>1f43</item>
+		<item>1f44</item>
+		<item>1f45</item>
+		<item>1f46</item>
+		<item>1f47</item>
+		<item>1f48</item>
+		<item>1f49</item>
+		<item>1f4a</item>
+		<item>1f4b</item>
+		<item>1f4c</item>
+		<item>1f4d</item>
+		<item>1f4e</item>
+		<item>1f4f</item>
+		<item>1f50</item>
+		<item>1f51</item>
+		<item>1f52</item>
+		<item>1f53</item>
+		<item>1f54</item>
+		<item>1f55</item>
+		<item>1f56</item>
+		<item>1f57</item>
+		<item>1f58</item>
+		<item>1f59</item>
+		<item>1f5a</item>
+		<item>1f5b</item>
+		<item>1f5c</item>
+	</list>
+
+	<list id="1_THRU_7_CIRCLE">
+		<item>1f2e</item>
+		<item>1f2f</item>
+		<item>1f30</item>
+		<item>1f31</item>
+		<item>1f32</item>
+		<item>1f33</item>
+		<item>1f2d</item>
+		<item>1f34</item>
+		<item>1f35</item>
+		<item>1f36</item>
+		<item>1f37</item>
+		<item>1f38</item>
+		<item>1f39</item>
+		<item>1f3a</item>
+		<item>1f3b</item>
+		<item>1f3c</item>
+		<item>1f3d</item>
+		<item>1f3e</item>
+		<item>1f3f</item>
+		<item>1f40</item>
+		<item>1f41</item>
+		<item>1f42</item>
+		<item>1f43</item>
+		<item>1f44</item>
+		<item>1f45</item>
+		<item>1f46</item>
+		<item>1f47</item>
+		<item>1f48</item>
+		<item>1f49</item>
+		<item>1f4a</item>
+		<item>1f4b</item>
+		<item>1f4c</item>
+		<item>1f4d</item>
+		<item>1f4e</item>
+		<item>1f4f</item>
+		<item>1f50</item>
+		<item>1f51</item>
+		<item>1f52</item>
+		<item>1f53</item>
+		<item>1f54</item>
+		<item>1f55</item>
+		<item>1f56</item>
+		<item>1f57</item>
+		<item>1f58</item>
+		<item>1f59</item>
+		<item>1f5a</item>
+		<item>1f5b</item>
+		<item>1f5c</item>
+		<item>1f5d</item>
+		<item>1f5e</item>
+		<item>1f5f</item>
+		<item>1f60</item>
+		<item>1f61</item>
+		<item>1f62</item>
+		<item>1f63</item>
+		<item>1f64</item>
+	</list>
+
+	<list id="1_THRU_8_CIRCLE">
+		<item>1f2e</item>
+		<item>1f2f</item>
+		<item>1f30</item>
+		<item>1f31</item>
+		<item>1f32</item>
+		<item>1f33</item>
+		<item>1f2d</item>
+		<item>1f34</item>
+		<item>1f35</item>
+		<item>1f36</item>
+		<item>1f37</item>
+		<item>1f38</item>
+		<item>1f39</item>
+		<item>1f3a</item>
+		<item>1f3b</item>
+		<item>1f3c</item>
+		<item>1f3d</item>
+		<item>1f3e</item>
+		<item>1f3f</item>
+		<item>1f40</item>
+		<item>1f41</item>
+		<item>1f42</item>
+		<item>1f43</item>
+		<item>1f44</item>
+		<item>1f45</item>
+		<item>1f46</item>
+		<item>1f47</item>
+		<item>1f48</item>
+		<item>1f49</item>
+		<item>1f4a</item>
+		<item>1f4b</item>
+		<item>1f4c</item>
+		<item>1f4d</item>
+		<item>1f4e</item>
+		<item>1f4f</item>
+		<item>1f50</item>
+		<item>1f51</item>
+		<item>1f52</item>
+		<item>1f53</item>
+		<item>1f54</item>
+		<item>1f55</item>
+		<item>1f56</item>
+		<item>1f57</item>
+		<item>1f58</item>
+		<item>1f59</item>
+		<item>1f5a</item>
+		<item>1f5b</item>
+		<item>1f5c</item>
+		<item>1f5d</item>
+		<item>1f5e</item>
+		<item>1f5f</item>
+		<item>1f60</item>
+		<item>1f61</item>
+		<item>1f62</item>
+		<item>1f63</item>
+		<item>1f64</item>
+		<item>1f65</item>
+		<item>1f66</item>
+		<item>1f67</item>
+		<item>1f68</item>
+		<item>1f69</item>
+		<item>1f6a</item>
+		<item>1f6b</item>
+		<item>1f6c</item>
+	</list>
+
 </definitions>
