@@ -57,6 +57,7 @@ class CarpItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
 		self.markable = 1 # All carpentry items are not markable
+		self.stackable = 0
 
 	#
 	# Check if we did an exceptional job.
@@ -68,11 +69,15 @@ class CarpItemAction(CraftItemAction):
 
 		minskill = self.skills[CARPENTRY][0]
 		maxskill = self.skills[CARPENTRY][1]
+
 		if self.skills.has_key(TINKERING):
 			minskill -= self.skills[TINKERING][0]
 			maxskill -= self.skills[TINKERING][1]
 
-		chance = ( (player.skill[CARPENTRY] - minskill) / (maxskill - minskill) ) / 5.0
+		if minskill == maxskill or maxskill == 0:
+			maxskill += 1
+
+		chance = ( (player.skill[CARPENTRY]) / (maxskill) ) / 5.0
 
 		return chance
 
@@ -80,6 +85,24 @@ class CarpItemAction(CraftItemAction):
 	# Apply resname and color to the item.
 	#
 	def applyproperties(self, player, arguments, item, exceptional):
+		# Stackable items consume all resources
+		if self.stackable:
+			backpack = player.getbackpack()
+			count = -1
+			for (materials, amount, name) in self.materials:
+				items = backpack.countitems(materials)
+				if count == -1:
+					count = items / amount
+				else:
+					count = min(count, items / amount)
+			for (materials, amount, name) in self.materials:
+				backpack.removeitems( materials, count )
+			if count != -1:
+				item.amount += count
+			else:
+				item.amount = 1 + count
+			item.update()
+		
 		# All carpentry items crafted out of ingots keep a resname
 		if self.submaterial1 > 0:
 			material = self.parent.getsubmaterial1used(player, arguments)
@@ -237,6 +260,11 @@ def loadMenu(id, parent = None):
 								console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
 								break
 							action.materials.append([ids, amount, materialname])
+
+					# Consume all available materials scaled by the
+					# amount of each submaterial
+					elif subchild.name == 'stackable':
+						action.stackable = 1
 
 					# Skill requirement
 					elif subchild.name in skillnamesids:
