@@ -29,7 +29,13 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Platform Includes
+#include "platform.h"
+
+// Wolfpack Includes
+#include "trigger.h"
 #include "dbl_single_click.h"
+#include "guildstones.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"

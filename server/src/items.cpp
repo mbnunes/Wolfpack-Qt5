@@ -29,6 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Platform Includes
+#include "platform.h"
 
 // Wolfpack Includes
 #include "wolfpack.h"
@@ -37,6 +39,8 @@
 #include "iserialization.h"
 #include "debug.h"
 #include "items.h"
+#include "trigger.h"
+#include "books.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
@@ -1597,7 +1601,6 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 
 }
 
-//##ModelId=3C5D92EF0045
 P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Added by Genesis 11-5-98
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -1628,7 +1631,6 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Ad
 	return pi;
 }
 
-//##ModelId=3C5D92EE013E
 char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
 {
 	int a=0;
@@ -1644,8 +1646,7 @@ char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
 	
 	return a;
 }
-//taken from 6904t2(5/10/99) - AntiChrist
-//##ModelId=3C5D92EF008B
+
 void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi) 
 {
 	int serial, preservebody;
@@ -1758,7 +1759,6 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 
 //NEW RESPAWNITEM FUNCTION STARTS HERE -- AntiChrist merging codes -- (24/6/99)
 
-//##ModelId=3C5D92EF00C7
 void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 {
 	int  k,m,serial,ci, c;
@@ -1882,7 +1882,6 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 	}//for 
 }
 
-//##ModelId=3C5D92EF00F9
 void cAllItems::AddRespawnItem(P_ITEM pItem, int x, int y)
 {
 	if (pItem == NULL)
@@ -1916,7 +1915,6 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, int x, int y)
 	RefreshItem(pi);//AntiChrist
 }
 
-//##ModelId=3C5D92EF0153
 void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 {
 	if (pc_p == NULL)

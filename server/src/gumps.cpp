@@ -36,6 +36,7 @@
 #include "globals.h"
 #include "SndPkg.h"
 #include "gumps.h"
+#include "guildstones.h"
 
 #include "debug.h"
 

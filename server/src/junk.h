@@ -47,22 +47,48 @@ struct statcap_st
 #include "items.h"
 #include "chars.h"
 #include "classes.h"
-#include "guildstones.h"
+//#include "guildstones.h"
 #include "gumps.h"
 #include "network.h"
-#include "TmpEff.h"
-#include "walking2.h"
+//#include "TmpEff.h"
+//#include "walking2.h"
 #include "mapstuff.h"
 
-#include "books.h"
-#include "speech.h"
-#include "trigger.h"
+//#include "books.h"
+//#include "speech.h"
+//#include "trigger.h"
 #include "dragdrop.h"
 #include "Trade.h"
 #include "bounty.h"
 
+#undef  DBGFILE
+#define DBGFILE "junk.h"
+
 // Forward declarations
 class CWorldMain;
+class cBoat;
+class cAccount;
+class cAdmin;
+class cCombat;
+class cCommands;
+class cGump;
+class cAllItems;
+class cMapStuff;
+class cCharStuff;
+class cSkills;
+class cFishing;
+class cWeight;
+class cTargets;
+class cNetworkStuff;
+class cMagic;
+class cBooks;
+class cAllTmpEff;
+class cMovement;
+class cSpeech;
+class cTrigger;
+class cDragdrop;
+class cTrade;
+class cBounty;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cBoat			*Boats;
@@ -129,28 +155,6 @@ extern cRegion			*mapRegions; //setup map regions Tauriel
 
 P_ITEM GetOutmostCont(P_ITEM pItem, short rec = 10);
 P_CHAR GetPackOwner(P_ITEM pItem, short rec = 10);
-
-
-//////////////////////////// INLINES /////////////////////
-
-////////////////////////////
-// name:	calcCharFromPtr, calcItemFromPtr
-// history: by Duke, 08.04.2000
-//			added calcCharFromPtr Duke, 02.10.2000
-// Purpose:	calculates the char/item index from 4 subsequent bytes pointed to by 'p',
-//			intended to replace calcserial() & findbyserial as follows
-//
-//				old: serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
-//				old: i=findbyserial(&charsp[serial%HASHMAX], serial, 1);
-//
-//				new: i=calcCharFromPtr(buffer[s]+7);
-//
-// Remarks: should be moved to WOLFPACK.cpp and declared in WOLFPACK.h
-//
-
-
-#undef  DBGFILE
-#define DBGFILE "wolfpack.h"
 
 #endif
 

@@ -29,15 +29,13 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-/////////////////////
-// Name:	Timing.cpp
-// Purpose: functions that handle the timer controlled stuff
-// History:	cut from wolfpack.cpp by Duke, 26.10.00
-// Remarks:	not necessarily ALL those functions
-//
+// Platform Includes
+#include "platform.h"
 
 #include "Timing.h"
 #include "worldmain.h"
+#include "walking2.h"
+#include "TmpEff.h"
 #undef  DBGFILE
 #define DBGFILE "Timing.cpp"
 

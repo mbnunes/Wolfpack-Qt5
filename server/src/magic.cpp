@@ -43,6 +43,7 @@
 #include "SndPkg.h"
 #include "itemid.h"
 #include "debug.h"
+#include "guildstones.h"
 
 #undef DBGFILE
 #define DBGFILE "magic.cpp"

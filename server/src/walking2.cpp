@@ -29,10 +29,15 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Platform Includes
+#include "platform.h"
 
+// Wolfpack Includes
 #include "walking2.h"
 #include "wolfpack.h"
+#include "trigger.h"
 #include "debug.h"
+#include "guildstones.h"
 
 #undef  DBGFILE
 #define DBGFILE "SrvParms.cpp"

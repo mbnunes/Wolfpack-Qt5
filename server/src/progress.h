@@ -19,15 +19,17 @@
 #if !defined(__PROGRESS_H__)
 #define __PROGRESS_H__
 
-#include <iostream>
+//#include <iostream>
+#include "wpconsole.h"
+
+extern WPConsole_cl clConsole;
 
 class progress_display
 {
 public:
-	explicit progress_display( unsigned long expected_count,
-                             std::ostream & os = std::cout )
+	explicit progress_display( unsigned long expected_count )
 	// os is hint; implementation may ignore
-	: _os(os) { restart(expected_count); }
+	{ restart(expected_count); }
 
 	void restart( unsigned long expected_count )
 	//  Effects: display appropriate scale
@@ -36,8 +38,8 @@ public:
 		_count = _next_tic_count = _tic = 0;
 		_expected_count = expected_count;
 
-		_os << "\n0%   10   20   30   40   50   60   70   80   90   100%\n"
-			     "|----|----|----|----|----|----|----|----|----|----|" << std::endl;
+		clConsole.send("\n0%   10   20   30   40   50   60   70   80   90   100%\n");
+		clConsole.send("|----|----|----|----|----|----|----|----|----|----|\n");
 		if ( !_expected_count ) 
 		_expected_count = 1;  // prevent divide by zero
 	} // restart
@@ -56,7 +58,7 @@ public:
 	unsigned long  expected_count() const { return _expected_count; }
 
 private:
-	std::ostream & _os; // may not be present in all imps
+//	std::ostream & _os; // may not be present in all imps
 	unsigned long _count, _expected_count, _next_tic_count;
 	unsigned int  _tic;
 	void display_tic()
@@ -64,15 +66,16 @@ private:
 		// use of floating point ensures that both large and small counts
 	    // work correctly.  static_cast<>() is also used several places
 		// to suppress spurious compiler warnings. 
-		unsigned int tics_needed =
-		static_cast<unsigned int>(
-			(static_cast<double>(_count)/_expected_count)*50.0 );
-		do { _os << '*' << std::flush; } while ( ++_tic < tics_needed );
-		_next_tic_count = 
-		static_cast<unsigned long>((_tic/50.0)*_expected_count);
+		unsigned int tics_needed = 	static_cast<unsigned int>( (static_cast<double>(_count)/_expected_count)*50.0 );
+		do 
+		{ 
+			clConsole.send("*");
+		} 
+		while ( ++_tic < tics_needed );
+		_next_tic_count = static_cast<unsigned long>((_tic/50.0)*_expected_count);
 		if ( _count == _expected_count ) {
-			if ( _tic < 51 ) _os << '*';
-			_os << std::endl;
+			if ( _tic < 51 ) 
+				clConsole.send("*\n");
 		}
 	} // display_tic
 };

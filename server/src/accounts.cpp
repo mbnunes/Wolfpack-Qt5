@@ -48,6 +48,22 @@ cAccount::~cAccount(void)
 		SaveAccounts();
 }
 
+bool cAccount::findByNumber( int number, account_st* retValue )
+{
+	map<int, string>::iterator it = acctnumbers_sp.find( number );
+	if ( it != acctnumbers_sp.end() )
+	{
+		map<string, account_st>::iterator it2 = acctlist.find( (*it).second );
+		if ( it2 != acctlist.end() )
+		{
+			retValue = &(*it2).second;
+			return true;
+		}
+	}
+
+	return false; // All other paths
+}
+
 void cAccount::LoadAccount( int acctnumb )
 {
 	unsigned long loopexit=0;
@@ -183,13 +199,13 @@ signed int cAccount::Authenticate(string username, string password)
 				return account.number;
 		} else
 			return BAD_PASSWORD;
-	} else
-		return LOGIN_NOT_FOUND;
+	}
+	return LOGIN_NOT_FOUND;
 }
 
-unsigned int cAccount::CreateAccount(string username, string password)
+unsigned int cAccount::CreateAccount(const string& username, const string& password)
 {
-	lastusedacctnum++;
+	++lastusedacctnum;
 	account_st account;
 	account.name = username;
 	account.pass = password;
@@ -197,7 +213,8 @@ unsigned int cAccount::CreateAccount(string username, string password)
 	account.remoteadmin = false;
 	account.number = lastusedacctnum;
 	acctlist.insert(make_pair(username, account));
-	unsavedaccounts++;
+	acctnumbers_sp.insert( make_pair( account.number, username ) );
+	++unsavedaccounts;
 	if (unsavedaccounts >= saveratio)
 		SaveAccounts();
 	return account.number;
@@ -272,23 +289,51 @@ void cAccount::SetOffline( int acctnum )
 
 bool cAccount::ChangePassword(unsigned int number, string password)
 {
-
-	account_st account;
-
-	map<string, account_st>::iterator iter_account;
-	iter_account = acctlist.begin();
-
-	for (iter_account = acctlist.begin(); iter_account != acctlist.end(); iter_account++)
+	account_st* account = NULL;
+	if ( findByNumber( number, account ) )
 	{
-		if (iter_account->second.number == number)
-		{
-			iter_account->second.pass = password;
-			unsavedaccounts++;
-			if (unsavedaccounts >= saveratio)
-				SaveAccounts();
-			return true;
-		}
+		account->pass = password;
+		++unsavedaccounts;
+		if (unsavedaccounts >= saveratio)
+			SaveAccounts();
+		return true;
 	}
 	return false;
+}
+
+vector<SERIAL> cAccount::characters( int number )
+{
+	account_st* account = NULL;
+	if ( findByNumber( number, account ) )
+	{
+		return account->characters;
+	}
+	return vector<SERIAL>();
+}
+
+void cAccount::addCharacter( int number, SERIAL serial )
+{
+	account_st* account = NULL;
+	if ( findByNumber( number, account ) )
+	{
+		account->characters.push_back( serial );
+	}
+}
+
+void cAccount::removeCharacter( int number, SERIAL serial )
+{
+	account_st* account = NULL;
+	if ( findByNumber( number, account ) )
+	{
+		register unsigned int i;
+		for ( i = 0; i < account->characters.size(); ++i )
+		{
+			if ( account->characters[i] == serial )
+			{
+				account->characters.erase( account->characters.begin() + i );
+				return;
+			}
+		}
+	}
 }
 

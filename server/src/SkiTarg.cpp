@@ -29,11 +29,16 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Platform Includes
+#include "platform.h"
+
+// Wolfpack Includes
 #include "wolfpack.h"
 #include "itemid.h"
-//#include "basics.h"
 #include "SndPkg.h"
-#include "platform.h"
+#include "trigger.h"
+#include "guildstones.h"
+
 #undef DBGFILE
 #define DBGFILE "skiTarg.cpp"
 #include "debug.h"

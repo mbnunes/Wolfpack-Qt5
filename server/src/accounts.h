@@ -74,6 +74,7 @@ struct account_st
 	string pass;
 	bool ban;
 	bool remoteadmin;
+	vector<SERIAL> characters;
 };
 
 class cAccount
@@ -91,6 +92,7 @@ private:
 	unsigned int unsavedaccounts;
 	unsigned int saveratio;
 	void LoadAccount ( int acctnumb );
+	bool findByNumber( int number, account_st* retValue );
 public:
 	unsigned int lasttimecheck;
 	cAccount( void );
@@ -106,8 +108,11 @@ public:
 	int Count();
 	bool RemoteAdmin(int acctnum);
 	signed int Authenticate(string username, string password);
-	unsigned int CreateAccount(string username, string password);
+	unsigned int CreateAccount(const string& username, const string& password);
 	bool ChangePassword(unsigned int number, string password);
+	vector<SERIAL> characters( int number );
+	void addCharacter( int number, SERIAL serial );
+	void removeCharacter( int number, SERIAL serial );
 };
 
 

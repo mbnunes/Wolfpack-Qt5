@@ -38,16 +38,16 @@
 
 #include "wolfpack.h"
 #include "utilsys.h"
-
-#undef  DBGFILE
-#define DBGFILE "SndPkg.cpp"
-
 #include "debug.h"
 #include "basics.h"
 #include "SndPkg.h"
 #include "sregions.h"
 #include "itemid.h"
 #include "oem.h"
+#include "guildstones.h"
+
+#undef  DBGFILE
+#define DBGFILE "SndPkg.cpp"
 
 //keep the target highlighted so that we know who we're attacking =)
 //26/10/99//new packet
@@ -1274,7 +1274,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 				}
 			}
 
-			memset(&login04b[0], 60, sizeof(unsigned char));
+			memset(&login04b[0], 0, 60*sizeof(unsigned char));
 			for (i=j;i<5;i++)
 			{
 				Xsend(s, login04b, 60);

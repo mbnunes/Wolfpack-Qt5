@@ -29,10 +29,17 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Platform INcludes
+#include "platform.h"
+
+// Wolfpack Includes
+
 #include "wolfpack.h"
 #include "itemid.h"
 #include "SndPkg.h"
+#include "trigger.h"
 #include "utilsys.h"
+#include "guildstones.h"
 
 #include "debug.h"
 #undef  DBGFILE

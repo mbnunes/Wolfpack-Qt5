@@ -30,8 +30,8 @@
 //========================================================================================
 
 #include "wolfpack.h"
-//#include "itemid.h"
 #include "SndPkg.h"
+#include "guildstones.h"
 
 #undef DBGFILE
 #define DBGFILE "rcvpkg.cpp"

@@ -40,13 +40,14 @@
 #include "speech.h"
 #include "itemid.h"
 #include "bounty.h"
+#include "trigger.h"
+#include "guildstones.h"
 
 #undef  DBGFILE
 #define DBGFILE "dragdrop.cpp"
 
 //#include "dragdrop.h"
 
-//##ModelId=3C5D9330021F
 typedef struct _PKGx08
 {
 //0x08 Packet

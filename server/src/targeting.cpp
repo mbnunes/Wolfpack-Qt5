@@ -29,13 +29,14 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-//#include "wolfpack.h"
-//#include "basics.h"
+// Platform Includes
+#include "platform.h"
 
+// Wolfpack Includes
 //#include "cmdtable.h" // who took this out and why?? cj 8/11/99
 #include "targeting.h"
-//#include "itemid.h"
-//#include "SndPkg.h"
+#include "trigger.h"
+#include "guildstones.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"

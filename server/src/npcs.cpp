@@ -29,12 +29,17 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Platform Includes
+#include "platform.h"
+
+// Wolfpack Includes
 #include "wolfpack.h"
 #include "itemid.h"
 #include "sregions.h"
 #include "SndPkg.h"
 #include "debug.h"
 #include "utilsys.h"
+#include "walking2.h"
 
 #include <string>
 

@@ -29,6 +29,9 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Platform Includes
+
+
 
 #ifndef __unix__
  
@@ -40,6 +43,7 @@
 #if defined(__unix__)
 #include <signal.h>
 #endif
+
 #include "verinfo.h"
 #include "cmdtable.h"
 #include "speech.h"
@@ -49,6 +53,11 @@
 #include "remadmin.h"
 #include "utilsys.h"
 #include "worldmain.h"
+#include "trigger.h"
+#include "walking2.h"
+#include "books.h"
+#include "TmpEff.h"
+#include "guildstones.h"
 
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"

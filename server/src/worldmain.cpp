@@ -37,6 +37,8 @@
 #include "progress.h"
 #include "charsmgr.h"
 #include "itemsmgr.h"
+#include "TmpEff.h"
+#include "guildstones.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"

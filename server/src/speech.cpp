@@ -29,8 +29,14 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Platform Includes
+#include "platform.h"
+
+// Wolfpack Includes
 #include "speech.h"
 #include "worldmain.h"
+#include "trigger.h"
+#include "guildstones.h"
 
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"

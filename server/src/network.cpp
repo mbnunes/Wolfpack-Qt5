@@ -29,8 +29,14 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#include "network.h"
+// Platform Includes
+#include "platform.h"
 
+
+//Wolfpack Includes
+#include "network.h"
+#include "walking2.h"
+#include "books.h"
 
 #define PACKET_LEN_DYNAMIC	0x0000
 #define PACKET_LEN_NONE		0xffff

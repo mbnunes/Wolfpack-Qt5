@@ -38,6 +38,7 @@
 #include "itemid.h"
 #include "im.h"
 #include "SndPkg.h"
+#include "guildstones.h"
 
 #undef DBGFILE
 #define DBGFILE "skills.cpp"
