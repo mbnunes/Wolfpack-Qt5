@@ -37,7 +37,7 @@
 #include "qdatetime.h"
 
 /*	Online status class
-	contains global performance data, timings and etc
+	contains global performance data, timings etc
 */
 
 class cOnlineStatus {
@@ -46,16 +46,34 @@ public:
 				cOnlineStatus() { tUptime_.start(); }
 		void	reload();
 		QString	getUptime();
-	
-	
+
 private:
 	QString		pCpuload_;		// in percents
-	QString		tMloop_;		//main loop timing in msecs
-	QTime		tUptime_;		// uptime hours:minutes:seconds
+	QTime		tUptime_;		// uptime days:hours:minutes:seconds.msecs
 	
 
 };
 
 typedef SingletonHolder<cOnlineStatus> OnlineStatus;
+
+#if defined(__unix__) //linux classes
+
+class cStatFile {
+
+public:
+		cStatFile( QString filename = "/proc/self/stat" );
+    Q_UINT32 	getCPUTime();
+    Q_UINT32	getVM();
+    Q_UINT32	getRSS();
+    bool	refresh();
+    
+private:
+    QString 	stat_fields_;
+    QFile 	stat_file_;
+    bool	stat_opened;
+
+};
+
+#endif // linux classes
 
 #endif // __ONLINESTATUS_H__

@@ -56,3 +56,38 @@ QString cOnlineStatus::getUptime()
 	
 }
 
+
+
+#if defined(__unix__) //linux classes
+
+bool cStatFile::refresh() {
+    if ( stat_file_.open( IO_ReadOnly ) ) {
+	QString tmp(stat_file_.readAll());
+	stat_fields_ = tmp;    
+	stat_file_.close();
+	return true;
+    }	 
+    else return false;
+
+}
+Q_UINT32 cStatFile::getCPUTime() {
+	refresh();
+        return stat_fields_.section( ' ', 13, 13 ).toULong();   	
+}
+
+Q_UINT32 cStatFile::getVM() {
+	refresh();
+        return stat_fields_.section( ' ', 22, 22 ).toULong();   	
+}
+
+Q_UINT32 cStatFile::getRSS() {
+	refresh();
+        return stat_fields_.section( ' ', 23, 23 ).toULong() * 4096;   	
+}
+
+cStatFile::cStatFile( QString filename) {
+    stat_file_.setName( filename );
+}
+
+
+#endif //linux classes
