@@ -6,22 +6,32 @@
 		<name>a kraken</name>
 		<id>0x8</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-5000" max="-9999"/></karma>
-		<fame><random min="5000" max="9999"/></fame>
-		<defense><random min="45" max="55"/></defense>
-		<lodamage>75</lodamage>
-		<hidamage>121</hidamage>
+		<karma>-11000</karma>
+		<fame>11000</fame>
 		<gold><random min="300" max="600"/></gold>
 		<!-- Stats -->
 		<str><random min="756" max="780"/></str>
 		<dex><random min="226" max="245"/></dex>
 		<int><random min="26" max="40"/></int>
 		<!-- Skills -->
-		<wrestling><random min="451" max="600"/></wrestling>
-		<tactics><random min="451" max="600"/></tactics>
 		<magicresistance><random min="151" max="200"/></magicresistance>
+		<tactics><random min="451" max="600"/></tactics>
+		<wrestling><random min="451" max="600"/></wrestling>
+		<!-- Damage -->
+		<lodamage>19</lodamage>
+		<hidamage>33</hidamage>
+		<tag name="colddamage" value="30" />
+		<tag name="physicaldamage" value="70" />
+		<!-- Resists -->
+		<defense><random min="45" max="55"/></defense>
+		<tag name="coldresist" value="30,40" />
+		<tag name="energyresist" value="10,20" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="45,55" />
+		<tag name="poisonresist" value="20,30" />
+		<!-- Misc. -->
+		<desc>In the swirling torrents and waves of the embroiled deep waters ofBritannia, a darkening of the water oft heralds the arrival of theKraken. The Kraken is related to the Sea Serpent, but the similarityends with the visual aspect, for the Kraken is a master of theelements. Able to hurl lightning and fire, the Kraken will call downthe full fury of nature upon the fairer of its demesne. If the sea isan unforgiving mistress, then surely the Kraken is the whip with whichshe metes out her punishment. Should your lookout scream the warningcry of the Kraken, turn thy ship with all haste and make for thenearest port.</desc>
 		<category>Monsters\Sea Monsters\Kraken</category>
-		<!-- Priv -->
 	</npc>
 
 </definitions>

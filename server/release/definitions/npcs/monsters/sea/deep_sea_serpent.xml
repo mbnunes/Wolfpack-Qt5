@@ -5,23 +5,29 @@
 	<npc id="deep_sea_serpent">
 		<name>a deep sea serpent</name>
 		<id>0x96</id>
-		<category>Monsters\Sea Monsters\Deep Sea Serpent</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-5000" max="-9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="30" max="40" /></defense>
-		<lodamage>15</lodamage>
-		<hidamage>37</hidamage>
+		<karma>-6000</karma>
+		<fame>6000</fame>
 		<!-- Stats -->
-		<str><random min="251" max="425" /></str>
-		<dex><random min="87" max="135" /></dex>
-		<int><random min="87" max="155" /></int>
+		<str><random min="251" max="425"/></str>
+		<dex><random min="87" max="135"/></dex>
+		<int><random min="87" max="155"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="700" /></wrestling>
-		<tactics><random min="601" max="700" /></tactics>
-		<magicresistance><random min="601" max="750" /></magicresistance>
-		<carve></carve>
+		<magicresistance><random min="601" max="750"/></magicresistance>
+		<tactics><random min="601" max="700"/></tactics>
+		<wrestling><random min="601" max="700"/></wrestling>
+		<!-- Damage -->
+		<lodamage>6</lodamage>
+		<hidamage>14</hidamage>
+		<!-- Resists -->
+		<defense><random min="30" max="40" /></defense>
+		<tag name="coldresist" value="40,50" />
+		<tag name="energyresist" value="15,20" />
+		<tag name="fireresist" value="70,80" />
+		<tag name="physicalresist" value="30,40" />
+		<tag name="poisonresist" value="30,40" />
+		<!-- Misc. -->
+		<category>Monsters\Sea Monsters\Deep Sea Serpent</category>
 	</npc>
 
 </definitions>

@@ -5,22 +5,30 @@
 	<npc id="sea_serpent">
 		<name>a sea serpent</name>
 		<id>0x91</id>
-		<category>Monsters\Sea Monsters\Sea Serpent</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-5000" max="-9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="25" max="35" /></defense>
-		<lodamage>16</lodamage>
-		<hidamage>26</hidamage>
+		<karma>-6000</karma>
+		<fame>6000</fame>
 		<!-- Stats -->
-		<str><random min="168" max="225" /></str>
-		<dex><random min="58" max="85" /></dex>
-		<int><random min="53" max="95" /></int>
+		<str><random min="168" max="225"/></str>
+		<dex><random min="58" max="85"/></dex>
+		<int><random min="53" max="95"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="700" /></wrestling>
-		<tactics><random min="601" max="700" /></tactics>
-		<magicresistance><random min="601" max="750" /></magicresistance>
+		<magicresistance><random min="601" max="750"/></magicresistance>
+		<tactics><random min="601" max="700"/></tactics>
+		<wrestling><random min="601" max="700"/></wrestling>
+		<!-- Damage -->
+		<lodamage>7</lodamage>
+		<hidamage>13</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="35" /></defense>
+		<tag name="coldresist" value="30,40" />
+		<tag name="energyresist" value="15,20" />
+		<tag name="fireresist" value="50,60" />
+		<tag name="physicalresist" value="25,35" />
+		<tag name="poisonresist" value="30,40" />
+		<!-- Misc. -->
+		<desc>Perhaps the greatest of all Britannia's creatures, the sea serpent canenwrap and crush a warship whole. Despite these serpents' terriblesize, they are actively hunted for their scales, which are needed inthe performance of certain Magical spells.</desc>
+		<category>Monsters\Sea Monsters\Sea Serpent</category>
 	</npc>
 
 </definitions>
