@@ -360,10 +360,10 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	if( !pPlankR ) return false;
 	pPlankR->type=117;
 	pPlankR->type2=3;
-	pPlankR->more1=pBoat->ser1;//Lock this item!
-	pPlankR->more2=pBoat->ser2;
-	pPlankR->more3=pBoat->ser3;
-	pPlankR->more4=pBoat->ser4;
+	pPlankR->more1 = static_cast<unsigned char>((pBoat->serial&0xFF000000)>>24);
+	pPlankR->more2 = static_cast<unsigned char>((pBoat->serial&0x00FF0000)>>16);
+	pPlankR->more3 = static_cast<unsigned char>((pBoat->serial&0x0000FF00)>>8);
+	pPlankR->more4 = static_cast<unsigned char>((pBoat->serial&0x000000FF));
 	pPlankR->pos.z=-5;
 	pPlankR->priv=0;//Nodecay
 
@@ -371,27 +371,27 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	if( !pPlankL ) return false;
 	pPlankL->type=117;//Boat type
 	pPlankL->type2=3;//Plank sub type
-	pPlankL->more1=pBoat->ser1;
-	pPlankL->more2=pBoat->ser2;//Lock this
-	pPlankL->more3=pBoat->ser3;
-	pPlankL->more4=pBoat->ser4;
+	pPlankL->more1 = static_cast<unsigned char>((pBoat->serial&0xFF000000)>>24);
+	pPlankL->more2 = static_cast<unsigned char>((pBoat->serial&0x00FF0000)>>16);
+	pPlankL->more3 = static_cast<unsigned char>((pBoat->serial&0x0000FF00)>>8);
+	pPlankL->more4 = static_cast<unsigned char>((pBoat->serial&0x000000FF));
 	pPlankL->pos.z=-5;
 	pPlankL->priv=0;
 
 	P_ITEM pHold=Items->SpawnItem(pc_cs,1,"#",0,0x3EAE,0,0);
 	if( !pHold ) return false;
-	pHold->more1=pBoat->ser1;//Lock this too :-)
-	pHold->more2=pBoat->ser2;
-	pHold->more3=pBoat->ser3;
-	pHold->more4=pBoat->ser4;
+	pHold->more1 = static_cast<unsigned char>((pBoat->serial&0xFF000000)>>24);
+	pHold->more2 = static_cast<unsigned char>((pBoat->serial&0x00FF0000)>>16);
+	pHold->more3 = static_cast<unsigned char>((pBoat->serial&0x0000FF00)>>8);
+	pHold->more4 = static_cast<unsigned char>((pBoat->serial&0x000000FF));
 	pHold->type=1;//Conatiner
 	pHold->pos.z=-5;
 	pHold->priv=0;
 	
-	pBoat->moreb1=pTiller->ser1;//Tiller ser stored in boat's Moreb
-	pBoat->moreb2=pTiller->ser2;
-	pBoat->moreb3=pTiller->ser3;
-	pBoat->moreb4=pTiller->ser4;
+	pBoat->moreb1 = static_cast<unsigned char>((pTiller->serial&0xFF000000)>>24);
+	pBoat->moreb2 = static_cast<unsigned char>((pTiller->serial&0x00FF0000)>>16);
+	pBoat->moreb3 = static_cast<unsigned char>((pTiller->serial&0x0000FF00)>>8);
+	pBoat->moreb4 = static_cast<unsigned char>((pTiller->serial&0x000000FF));
 	pBoat->morex=pPlankL->serial;//Store the other stuff anywhere it will fit :-)
 	pBoat->morey=pPlankR->serial;
 	pBoat->morez=pHold->serial;

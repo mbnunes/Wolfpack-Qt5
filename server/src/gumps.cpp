@@ -204,10 +204,10 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 			i = (buffer[s][21] << 8) + buffer[s][22];
 			if (button != 20 && button != 2)
 			{
-				addid1[s] = pj->ser1;
-				addid2[s] = pj->ser2;
-				addid3[s] = pj->ser3;
-				addid4[s] = pj->ser4;
+				addid1[s] = static_cast<unsigned char>((pj->serial&0xFF000000)>>24);
+				addid2[s] = static_cast<unsigned char>((pj->serial&0x00FF0000)>>16);
+				addid3[s] = static_cast<unsigned char>((pj->serial&0x0000FF00)>>8);
+				addid4[s] = static_cast<unsigned char>((pj->serial&0x000000FF));
 			}
 			switch (button)
 			{
@@ -288,8 +288,7 @@ void cGump::Input(int s)
 					pj->setId(k);
 					break;	 // ID
 		case 4:		k = hex2num( text );	
-					pj->color1 = (unsigned char)(k>>8);
-					pj->color2 = (unsigned char)(k%256); 
+					pj->color = k;
 					break;	// Hue
 		case 5:		k = str2num( text );	pj->pos.x = k;		break;	// X
 		case 6:		k = str2num( text );	pj->pos.y = k;		break;	// Y
@@ -470,10 +469,7 @@ void cGump::Menu(UOXSOCKET s, int m, P_ITEM it)
 
 	gump1[1]=length>>8; // total length
 	gump1[2]=length%256;
-	gump1[3]=pc_currchar->ser1;
-	gump1[4]=pc_currchar->ser2;
-	gump1[5]=pc_currchar->ser3;
-	gump1[6]=pc_currchar->ser4;
+	LongToCharPtr(pc_currchar->serial, &gump1[3]);
 	gump1[7]=0;
 	gump1[8]=0;
 	gump1[9]=0;
@@ -1109,7 +1105,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "ID");
 		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x (%i)", pj->id(), pj->id());
 		line--; if( line == 0 ) strcpy( (char*)script1, "Hue");
-		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x (%i)", pj->color(), pj->color());
+		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x (%i)", pj->color, pj->color);
 		line--; if( line == 0 ) strcpy( (char*)script1, "X");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i (0x%x)", pj->pos.x, pj->pos.x);
 		line--; if( line == 0 ) strcpy( (char*)script1, "Y");
@@ -1534,10 +1530,7 @@ void gmmenu(int s, int m) // Open one of the gray GM Call menus
 	}
 	gmprefix[1]=total>>8;
 	gmprefix[2]=total%256;
-	gmprefix[3]=pc_currchar->ser1;
-	gmprefix[4]=pc_currchar->ser2;
-	gmprefix[5]=pc_currchar->ser3;
-	gmprefix[6]=pc_currchar->ser4;
+	LongToCharPtr(pc_currchar->serial, &gmprefix[3]);
 	gmprefix[7]=gmindex>>8;
 	gmprefix[8]=gmindex%256;
 	Xsend(s, gmprefix, 9);
@@ -1650,10 +1643,7 @@ void itemmenu(int s, int m) // Menus for item creation
 
 	gmprefix[1]=total>>8;
 	gmprefix[2]=total%256;
-	gmprefix[3]=pc_currchar->ser1;
-	gmprefix[4]=pc_currchar->ser2;
-	gmprefix[5]=pc_currchar->ser3;
-	gmprefix[6]=pc_currchar->ser4;
+	LongToCharPtr(pc_currchar->serial, &gmprefix[3]);
 	gmprefix[7]=(gmindex+ITEMMENUOFFSET)>>8;
 	gmprefix[8]=(gmindex+ITEMMENUOFFSET)%256;
 	Xsend(s, gmprefix, 9);
@@ -1677,10 +1667,7 @@ void itemmenu(int s, int m) // Menus for item creation
 void cGump::Open(int s, P_CHAR pc, int num1, int num2)
 {
 	unsigned char shopgumpopen[8]="\x24\x00\x00\x00\x01\x00\x30";
-	shopgumpopen[1] = pc->ser1;
-	shopgumpopen[2] = pc->ser2;
-	shopgumpopen[3] = pc->ser3;
-	shopgumpopen[4] = pc->ser4;
+	LongToCharPtr(pc->serial, &shopgumpopen[1]);
 	shopgumpopen[5]=num1;
 	shopgumpopen[6]=num2;
 	Xsend(s, shopgumpopen, 7);

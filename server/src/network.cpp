@@ -240,10 +240,7 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 	   for (i=0;i<now;i++)
 	   if ((i!=s)&&(perm[i]))
 	   {
-	      removeitem[1]=currchar[s]->ser1;
-	      removeitem[2]=currchar[s]->ser2;
-	      removeitem[3]=currchar[s]->ser3;
-	      removeitem[4]=currchar[s]->ser4;
+		  LongToCharPtr(currchar[s]->serial, &removeitem[1]);
 	      Xsend(i, removeitem, 5);
 	   }
 	}
@@ -612,12 +609,8 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 
 	P_CHAR pc_currchar = currchar[s];
 
-	startup[1]=pc_currchar->ser1;
-	startup[2]=pc_currchar->ser2;
-	startup[3]=pc_currchar->ser3;
-	startup[4]=pc_currchar->ser4;
-	startup[9]=pc_currchar->id1;
-	startup[10]=pc_currchar->id2;
+	LongToCharPtr(pc_currchar->serial, &startup[1]);
+	ShortToCharPtr(pc_currchar->id(), &startup[9]);
 	startup[11]=pc_currchar->pos.x>>8;
 	startup[12]=pc_currchar->pos.x%256;
 	startup[13]=pc_currchar->pos.y>>8;
@@ -774,9 +767,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 			{
 				P_ITEM pi_ci = FindItemBySerial(vecContainer[a]);
 				if (pi_ci != NULL)
-				if (pi_ci->type==7 && (
-					pi_ci->more1 == pi_multi->ser1 && pi_ci->more2 == pi_multi->ser2 &&
-					pi_ci->more3 == pi_multi->ser3 && pi_ci->more4 == pi_multi->ser4))
+				if (pi_ci->type==7 && (calcserial(pi_ci->more1, pi_ci->more2, pi_ci->more3, pi_ci->more4) == pi_multi->serial))
 				{//a key to this multi
 					valid=1;//Log 'em out now!
 					break;
@@ -1682,12 +1673,10 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						P_CHAR pc = FindCharBySerial(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
 						if (pc->isPlayer())
 						{
-							unsigned char PACKET0xB8[100] = {'\xB8','\x00',};
+							unsigned char PACKET0xB8[100] = {0xB8, 0x00,};
 							unsigned int tlen = 7;
-							PACKET0xB8[4] = pc->ser1;
-							PACKET0xB8[5] = pc->ser2;
-							PACKET0xB8[6] = pc->ser3;
-							PACKET0xB8[7] = pc->ser4;
+							
+							LongToCharPtr(pc->serial, &PACKET0xB8[4]);
 							strcpy((char*)&PACKET0xB8[8], complete_title(pc));
 							tlen += strlen(complete_title(pc))+1;
 							PACKET0xB8[tlen] = 0;

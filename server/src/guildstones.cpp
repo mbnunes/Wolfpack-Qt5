@@ -475,10 +475,7 @@ void cGuilds::Menu(int s, int page)
 	}
 	gmprefix[1] = total>>8;
 	gmprefix[2] = total%256;
-	gmprefix[3] = pc->ser1;
-	gmprefix[4] = pc->ser2;
-	gmprefix[5] = pc->ser3;
-	gmprefix[6] = pc->ser4;
+	LongToCharPtr(pc->serial, &gmprefix[3]);
 	Xsend(s, gmprefix, 9);
 	Xsend(s, &lentext, 1);
 	Xsend(s, mygump[0], lentext);
@@ -774,7 +771,7 @@ void cGuilds::StoneMove(int s)
 
 	sprintf(stonename,"a guildstone teleporter for %s",guilds[guildnumber].name);
 															// Give it a name
-	newstone = Items->SpawnItem(s, currchar[s], 1, stonename, 0, 0x18, 0x69, 0, 0, 1, 1);	// Spawn the stone in the masters backpack
+	newstone = Items->SpawnItem(s, currchar[s], 1, stonename, 0, 0x18, 0x69, 0, 1, 1);	// Spawn the stone in the masters backpack
 	if (newstone == NULL) return; //AntiChrist
 	newstone->type=202;										// Set Guildstone to Type 'Guild Related'
 	guilds[guildnumber].stone=newstone->serial;				// Remember its serial number
@@ -1493,10 +1490,7 @@ void cGuilds::Title(int s, P_CHAR pc_player2)
 		tl=44+strlen(title)+1;
 		talk[1]=tl>>8;
 		talk[2]=tl%256;
-		talk[3]=pc_player2->ser1;
-		talk[4]=pc_player2->ser2;
-		talk[5]=pc_player2->ser3;
-		talk[6]=pc_player2->ser4;
+		LongToCharPtr(pc_player2->serial, &talk[3]);
 		talk[7]=1;
 		talk[8]=1;
 		talk[9]=0;

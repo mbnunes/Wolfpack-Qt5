@@ -409,8 +409,7 @@ void wearIt(const UOXSOCKET s, const P_ITEM pi)
 	ShortToCharPtr(pi->id(),wearitem+5);
 	wearitem[8]=pi->layer;
 	LongToCharPtr(pi->contserial,wearitem+9);
-	wearitem[13]=pi->color1;
-	wearitem[14]=pi->color2;
+	ShortToCharPtr(pi->color, &wearitem[13]);
 	Xsend(s, wearitem, 15);
 }
 
@@ -637,10 +636,7 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 		if (pi->pos.x>150) pi->pos.x=150;
 		if (pi->pos.y>140) pi->pos.y=140;
 		//end fix
-		bpitem[0]=pi->ser1;
-		bpitem[1]=pi->ser2;
-		bpitem[2]=pi->ser3;
-		bpitem[3]=pi->ser4;
+		LongToCharPtr(pi->serial, &bpitem[0]);
 		ShortToCharPtr(pi->id(),bpitem+4);
 		bpitem[7]=pi->amount>>8;
 		bpitem[8]=pi->amount%256;
@@ -649,51 +645,44 @@ void backpack(UOXSOCKET s, SERIAL serial) // Send Backpack (with items)
 		bpitem[11]=pi->pos.y>>8;
 		bpitem[12]=pi->pos.y%256;
 		LongToCharPtr(serial, &bpitem[13]);
-		bpitem[17]=pi->color1;
-		bpitem[18]=pi->color2;
+		ShortToCharPtr(pi->color, &bpitem[17]);
 		bpitem[19]=pi->decaytime=0;//HoneyJar // reseting the decaytimer in the backpack
 		Xsend(s, bpitem, 19);
 	}
 }
 
-void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
+void backpack2(int s, SERIAL serial) // Send corpse stuff
 {
 	int count=0, count2;
 	unsigned char bpopen2[6]="\x3C\x00\x05\x00\x00";
 	unsigned char display1[8]="\x89\x00\x0D\x40\x01\x02\x03";
 	unsigned char display2[6]="\x01\x40\x01\x02\x03";
 
-	SERIAL serial = calcserial(a1,a2,a3,a4);
-	unsigned int ci;
+	//SERIAL serial = calcserial(a1,a2,a3,a4);
+	register unsigned int ci;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	for ( ci = 0; ci < vecContainer.size(); ++ci)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer!=0)
 		{
-			count++;
+			++count;
 		}
 	}
 	count2=(count*5)+7 + 1 ; // 5 bytes per object, 7 for this header and 1 for terminator
 	display1[1]=count2>>8;
 	display1[2]=count2%256;
-	display1[3]=a1;
-	display1[4]=a2;
-	display1[5]=a3;
-	display1[6]=a4;
+	LongToCharPtr(serial, &display1[3]);
 	Xsend(s, display1, 7);
 
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	for ( ci = 0; ci < vecContainer.size(); ++ci)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer!=0)
 		{
 			display2[0]=pi->layer;
-			display2[1]=pi->ser1;
-			display2[2]=pi->ser2;
-			display2[3]=pi->ser3;
-			display2[4]=pi->ser4;
+			LongToCharPtr(pi->serial, &display2[1]);
 			Xsend(s, display2, 5);
 		}
 	}
@@ -707,15 +696,12 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 	bpopen2[2]=count2%256;
 	Xsend(s, bpopen2, 5);
 
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	for ( ci = 0; ci < vecContainer.size(); ++ci)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->layer!=0)
 		{
-			bpitem[0]=pi->ser1;
-			bpitem[1]=pi->ser2;
-			bpitem[2]=pi->ser3;
-			bpitem[3]=pi->ser4;
+			LongToCharPtr(pi->serial, &bpitem[0]);
 			ShortToCharPtr(pi->id(),bpitem+4);
 			bpitem[7]=pi->amount>>8;
 			bpitem[8]=pi->amount%256;
@@ -723,12 +709,8 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 			bpitem[10]=pi->pos.x%256;
 			bpitem[11]=pi->pos.y>>8;
 			bpitem[12]=pi->pos.y%256;
-			bpitem[13]=a1;
-			bpitem[14]=a2;
-			bpitem[15]=a3;
-			bpitem[16]=a4;
-			bpitem[17]=pi->color1;
-			bpitem[18]=pi->color2;
+			LongToCharPtr(serial, &bpitem[13]);
+			ShortToCharPtr(pi->color, &bpitem[17]);
 			bpitem[19]=pi->decaytime=0;// reseting the decaytimer in the backpack	//moroallan
 			Xsend(s, bpitem, 19);
 		}
@@ -743,10 +725,7 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 
 	P_CHAR pc_currchar = currchar[s];
 
-	bpitem[0]=pi->ser1;
-	bpitem[1]=pi->ser2;
-	bpitem[2]=pi->ser3;
-	bpitem[3]=pi->ser4;
+	LongToCharPtr(pi->serial, &bpitem[0]);
 	//AntiChrist - world light sources stuff
 	//if player is a gm, this item
 	//is shown like a candle (so that he can move it),
@@ -773,8 +752,7 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 		bpitem[18]='\xC6';
 	} else
 	{//else like a normal item
-		bpitem[17]=pi->color1;
-		bpitem[18]=pi->color2;
+		ShortToCharPtr(pi->color, &bpitem[17]);
 	}
 	bpitem[19]=pi->decaytime=0; // HoneyJar, array range is 0-19 ! //reseting the decaytimer in the backpack
 
@@ -881,10 +859,7 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 
 	if (pi->isInWorld() && inrange2(s,pi) )
 	{
-		itmput[3]=(pi->ser1)+0x80; // Enable Piles
-		itmput[4]=pi->ser2;
-		itmput[5]=pi->ser3;
-		itmput[6]=pi->ser4;
+		LongToCharPtr(pi->serial | 0x80000000, &itmput[3]); // Enable Piles
 
 		//if player is a gm, this item
 		//is shown like a candle (so that he can move it),
@@ -913,8 +888,7 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 			itmput[17]=0xC6;
 		} else
 		{
-			itmput[16]=pi->color1;
-			itmput[17]=pi->color2;
+			ShortToCharPtr(pi->color, &itmput[16]);
 		}
 
 		itmput[18]=0;
@@ -968,7 +942,7 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 
 		if (IsCorpse(pi->id()))
 		{
-			backpack2(s, pi->ser1, pi->ser2, pi->ser3, pi->ser4);
+			backpack2(s, pi->serial);
 		}
 	}
 }
@@ -987,10 +961,7 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 
 	if (pi->isInWorld())
 	{
-		itmput[3]=(pi->ser1)+0x80; // Enable Piles
-		itmput[4]=pi->ser2;
-		itmput[5]=pi->ser3;
-		itmput[6]=pi->ser4;
+		LongToCharPtr(pi->serial | 0x80000000, &itmput[3]);
 		ShortToCharPtr(pi->id(),itmput+7);
 		itmput[9]=pi->amount>>8;
 		itmput[10]=pi->amount%256;
@@ -1052,7 +1023,7 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 
 		if (IsCorpse(pi->id()) )
 		{
-			backpack2(s, pi->ser1, pi->ser2, pi->ser3, pi->ser4);
+			backpack2(s, pi->serial);
 		}
 	}
 
@@ -1078,22 +1049,15 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 	if (!online(pc) && (pc->isPlayer()) && (pc_currchar->isGM())==0 ) 
 	{
 		sendit=0;
-		removeitem[1]=pc->ser1;
-		removeitem[2]=pc->ser2;
-		removeitem[3]=pc->ser3;
-		removeitem[4]=pc->ser4;
+		LongToCharPtr(pc->serial, &removeitem[1]);
 		Xsend(s, removeitem, 5);
 	}
 
 	if (!sendit) return;
 
 	oc[0]=0x78; // Message type 78
-	oc[3]=pc->ser1; // Character serial number
-	oc[4]=pc->ser2; // Character serial number
-	oc[5]=pc->ser3; // Character serial number
-	oc[6]=pc->ser4; // Character serial number
-	oc[7]=pc->id1; // Character art id
-	oc[8]=pc->id2; // Character art id
+	LongToCharPtr(pc->serial, &oc[3]);
+	ShortToCharPtr(pc->id(),  &oc[7]);
 
 	int x=pc->pos.x; /* | 0x8000;*/ // LB bugfix
 
@@ -1200,22 +1164,15 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 
 	// without 0x1d client doesnt show 0x77 changes
 	removeitem[0]=0x1d;
-	removeitem[1]=pc->ser1;
-	removeitem[2]=pc->ser2;
-	removeitem[3]=pc->ser3;
-	removeitem[4]=pc->ser4;
+	LongToCharPtr(pc->serial, &removeitem[1]);
 
 	Xsend(s, removeitem, 5);
 
 	if (currchar[s]==pc)
 	{
 		goxyz[0]=0x20;
-		goxyz[1]=pc->ser1;
-		goxyz[2]=pc->ser2;
-		goxyz[3]=pc->ser3;
-		goxyz[4]=pc->ser4;
-		goxyz[5]=pc->id1;
-		goxyz[6]=pc->id2;
+		LongToCharPtr(pc->serial, &goxyz[1]);
+		ShortToCharPtr(pc->id(),  &goxyz[5]);
 
 		/*if (rand()%10==0)
 		{
@@ -1244,12 +1201,8 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 	Xsend(s, oc, k);
 
 	extmove[0]=0x77;
-	extmove[1]=pc->ser1;
-	extmove[2]=pc->ser2;
-	extmove[3]=pc->ser3;
-	extmove[4]=pc->ser4;
-	extmove[5]=pc->id1;
-	extmove[6]=pc->id2;
+	LongToCharPtr(pc->serial, &extmove[1]);
+	ShortToCharPtr(pc->id(),  &extmove[5]);
 	extmove[7]=pc->pos.x>>8;
 	extmove[8]=pc->pos.x%256;
 	extmove[9]=pc->pos.y>>8;
@@ -1343,18 +1296,12 @@ void chardel (UOXSOCKET s) // Deletion of character
 void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 {
 	int a1, a2, a3, a4;
-	char name2[150];
+	char name2[150] = {0,};
 
     if ( pc == NULL )
 		return;
 
-	a1=pc->ser1;
-	a2=pc->ser2;
-	a3=pc->ser3;
-	a4=pc->ser4;
 	P_CHAR pc_currchar = currchar[s];
-
-	*(name2)='\0';//AntiChrist
 
 	if( pc->isPlayer() && !pc->isGMorCounselor() && (pc->fame >= 10000 ) ) // Morollan, only normal players have titles now
 	{ // adding Lord/Lady to title overhead
@@ -1390,10 +1337,7 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 	tl=44+strlen(name2)+1;
 	talk[1]=tl>>8;//AntiChrist
 	talk[2]=tl%256;
-	talk[3]=a1;
-	talk[4]=a2;
-	talk[5]=a3;
-	talk[6]=a4;
+	LongToCharPtr(pc->serial, &talk[3]);
 	talk[7]=1;
 	talk[8]=1;
 	talk[9]=6; // Mode: "You see"
@@ -1519,22 +1463,15 @@ void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can fin
 	{
 		if ((perm[i])&&(i!=k))
 		{
-			removeitem[1]=pc->ser1;
-			removeitem[2]=pc->ser2;
-			removeitem[3]=pc->ser3;
-			removeitem[4]=pc->ser4;
+			LongToCharPtr(pc->serial, &removeitem[1]);
 			Xsend(i, removeitem, 5);
 		}
 	}
 	if (k!=-1)	// If a player, move them to the appropriate XYZ
 	{
-		goxyz[1]=pc->ser1;
-		goxyz[2]=pc->ser2;
-		goxyz[3]=pc->ser3;
-		goxyz[4]=pc->ser4;
-		goxyz[5]=pc->id1;
-		goxyz[6]=pc->id2;
-		ShortToCharPtr(pc->skin, &goxyz[8]);
+		LongToCharPtr(pc->serial, &goxyz[1]);
+		ShortToCharPtr(pc->id(),  &goxyz[5]);
+		ShortToCharPtr(pc->skin,  &goxyz[8]);
 		goxyz[10]=0;
 		if (pc->isHidden()) 
 			goxyz[10]=0x80;
@@ -1592,20 +1529,13 @@ void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), 
 	{
 		if (perm[i] && inrange1p(currchar[i], pc))
 		{
-			removeitem[1]=pc->ser1;
-			removeitem[2]=pc->ser2;
-			removeitem[3]=pc->ser3;
-			removeitem[4]=pc->ser4;
+			LongToCharPtr(pc->serial, &removeitem[1]);
 			Xsend(i, removeitem, 5);
 			if (currchar[i]==pc)
 			{
-				goxyz[1]=pc->ser1;
-				goxyz[2]=pc->ser2;
-				goxyz[3]=pc->ser3;
-				goxyz[4]=pc->ser4;
-				goxyz[5]=pc->id1;
-				goxyz[6]=pc->id2;
-				ShortToCharPtr(pc->skin, &goxyz[8]);
+				LongToCharPtr(pc->serial, &goxyz[1]);
+				ShortToCharPtr(pc->id(),  &goxyz[5]);
+				ShortToCharPtr(pc->skin,  &goxyz[8]);
 				if(pc->poisoned) 
 					goxyz[10]=0x04; 
 				else 
@@ -1675,7 +1605,7 @@ void skillwindow(int s) // Opens the skills list, updated for client 1.26.2b by 
 void updatestats( P_CHAR pc, char x )
 {
 	int i, a = 0, b = 0;
-	char updater[10]="\xA1\x01\x02\x03\x04\x01\x03\x01\x02";
+	unsigned char updater[10]="\xA1\x01\x02\x03\x04\x01\x03\x01\x02";
 	
 	if ( pc == NULL )
 		return;
@@ -1698,10 +1628,7 @@ void updatestats( P_CHAR pc, char x )
 	}
 	
 	updater[0]=0xA1+x;
-	updater[1]=pc->ser1;
-	updater[2]=pc->ser2;
-	updater[3]=pc->ser3;
-	updater[4]=pc->ser4;
+	LongToCharPtr(pc->serial, &updater[1]);
 	updater[5]=a>>8;
 	updater[6]=a%256;
 	updater[7]=b>>8;
@@ -1730,10 +1657,7 @@ void statwindow(int s, P_CHAR pc) // Opens the status window
 
 	if ((pc->id1==0x01 && pc->id2==0x92) || (pc->id1==0x01 && pc->id2==0x93)) ghost = true; else ghost = false;
 
-	statstring[3]=pc->ser1;
-	statstring[4]=pc->ser2;
-	statstring[5]=pc->ser3;
-	statstring[6]=pc->ser4;
+	LongToCharPtr(pc->serial, &statstring[3]);
 	strncpy((char*)&statstring[7],pc->name.c_str(), 30); // can not be more than 30 at least no without changing packet lenght
 
 	if (!ghost)
@@ -1946,12 +1870,8 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 			tl=44+strlen((char*)&buffer[s][8])+1;
 			talk[1]=tl>>8;
 			talk[2]=tl%256;
-			talk[3]=pc_currchar->ser1;
-			talk[4]=pc_currchar->ser2;
-			talk[5]=pc_currchar->ser3;
-			talk[6]=pc_currchar->ser4;
-			talk[7]=pc_currchar->id1;
-			talk[8]=pc_currchar->id2;
+			LongToCharPtr(pc_currchar->serial, &talk[3]);
+			ShortToCharPtr(pc_currchar->id(),  &talk[7]);
 			talk[9]=1;
 			talk[10]=buffer[s][4];
 			talk[11]=buffer[s][5];
@@ -1973,12 +1893,8 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 
 			talk[1]=tl>>8;
 			talk[2]=tl%256;
-			talk[3]=pc_currchar->ser1;
-			talk[4]=pc_currchar->ser2;
-			talk[5]=pc_currchar->ser3;
-			talk[6]=pc_currchar->ser4;
-			talk[7]=pc_currchar->id1;
-			talk[8]=pc_currchar->id2;
+			LongToCharPtr(pc_currchar->serial, &talk[3]);
+			ShortToCharPtr(pc_currchar->id(),  &talk[7]);
 			talk[9]=1;
 			talk[10]=buffer[s][4];
 			talk[11]=buffer[s][5];
@@ -2041,12 +1957,8 @@ void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 		tl=44+strlen(txt)+1;
 		talk[1]=tl>>8;
 		talk[2]=tl%256;
-		talk[3]=pc_npc->ser1;
-		talk[4]=pc_npc->ser2;
-		talk[5]=pc_npc->ser3;
-		talk[6]=pc_npc->ser4;
-		talk[7]=pc_npc->id1;
-		talk[8]=pc_npc->id2;
+		LongToCharPtr(pc_npc->serial, &talk[3]);
+		ShortToCharPtr(pc_npc->serial, &talk[7]);
 		talk[9]=0; // Type
 		pc_npc->saycolor = 0x0481;
 
@@ -2105,12 +2017,8 @@ void npctalk_runic(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 		tl=44+strlen(txt)+1;
 		talk[1]=tl>>8;
 		talk[2]=tl%256;
-		talk[3]=pc_npc->ser1;
-		talk[4]=pc_npc->ser2;
-		talk[5]=pc_npc->ser3;
-		talk[6]=pc_npc->ser4;
-		talk[7]=pc_npc->id1;
-		talk[8]=pc_npc->id2;
+		LongToCharPtr(pc_npc->serial,  &talk[3]);
+		ShortToCharPtr(pc_npc->serial, &talk[7]);
 		talk[9]=0;
 
 		// color here
@@ -2152,12 +2060,8 @@ void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam) // NPC speech
 		tl=44+strlen(txt)+1;
 		talk[1]=tl>>8;
 		talk[2]=tl%256;
-		talk[3]=pc_npc->ser1;
-		talk[4]=pc_npc->ser2;
-		talk[5]=pc_npc->ser3;
-		talk[6]=pc_npc->ser4;
-		talk[7]=pc_npc->id1;
-		talk[8]=pc_npc->id2;
+		LongToCharPtr(pc_npc->serial, &talk[3]);
+		ShortToCharPtr(pc_npc->id(),  &talk[7]);
 		talk[9]=2; // Type
 		ShortToCharPtr(pc_npc->emotecolor, &talk[10]);
 		talk[12]=0;
@@ -2179,7 +2083,7 @@ void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam) // NPC speech
 void staticeffect(P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop,  bool UO3DonlyEffekt, stat_st *sta, bool skip_old)
 {
 	int a0,a1,a2,a3,a4;
-	char effect[29] = {0,};
+	unsigned char effect[29] = {0,};
 	int j;
 	if ( pc_player == NULL ) return;
 
@@ -2188,10 +2092,7 @@ void staticeffect(P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsi
 //		memset(&effect[0], 0, 29);	
 	    effect[0]=0x70; // Effect message
 	    effect[1]=0x03; // Static effect
-	    effect[2]=pc_player->ser1;
-	    effect[3]=pc_player->ser2;
-	    effect[4]=pc_player->ser3;
-	    effect[5]=pc_player->ser4;
+		LongToCharPtr(pc_player->serial, &effect[2]);
 	    //[6] to [9] are the target ser, not applicable here.
 	    effect[10]=eff1;// Object id of the effect
 	    effect[11]=eff2;
@@ -2266,7 +2167,7 @@ void staticeffect(P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsi
 void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt, move_st *str, bool skip_old )
 {
 	
-	char effect[29];
+	unsigned char effect[29];
 	int j;
 
 	if ( pc_source == NULL || pc_dest == NULL) return;
@@ -2275,14 +2176,8 @@ void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned
 	{
 	   effect[0]=0x70; // Effect message
 	   effect[1]=0x00; // Moving effect
-	   effect[2]=pc_source->ser1;
-	   effect[3]=pc_source->ser2;
-	   effect[4]=pc_source->ser3;
-	   effect[5]=pc_source->ser4;
-	   effect[6]=pc_dest->ser1;
-	   effect[7]=pc_dest->ser2;
-	   effect[8]=pc_dest->ser3;
-	   effect[9]=pc_dest->ser4;
+	   LongToCharPtr(pc_source->serial, &effect[2]);
+	   LongToCharPtr(pc_dest->serial,   &effect[6]);
 	   effect[10]=eff1;// Object id of the effect
 	   effect[11]=eff2;
 	   effect[12]=pc_source->pos.x>>8;
@@ -2341,7 +2236,7 @@ void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned
 
 void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt, bool skip_old )
 {
-	char effect[29] = {0,};
+	unsigned char effect[29] = {0,};
 	int  j;
 
 	if ( pc_player == NULL )
@@ -2352,10 +2247,7 @@ void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt, bool skip_old )
 //	  memset(&effect[0], 0, 29);	
 	  effect[0]=0x70; // Effect message
 	  effect[1]=0x01; // Bolt effect
-	  effect[2]=pc_player->ser1;
-	  effect[3]=pc_player->ser2;
-	  effect[4]=pc_player->ser3;
-	  effect[5]=pc_player->ser4;
+	  LongToCharPtr(pc_player->serial, &effect[2]);
 	  //[6] to [11] are not applicable here.
 	  effect[12]=pc_player->pos.x>>8;
 	  effect[13]=pc_player->pos.x%256;
@@ -2406,22 +2298,15 @@ void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt, bool skip_old )
 // staticeffect2 is for effects on items
 void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt,  stat_st *str, bool skip_old )
 {
-	char effect[29] = {0,};
-	int j;
+	unsigned char effect[29] = {0,};
 	
 	if (!skip_old)
 	{
 //		memset(&effect[0], 0, 29);
 		effect[0]=0x70; // Effect message
 		effect[1]=0x02; // Static effect
-		effect[2]=pi->ser1;
-		effect[3]=pi->ser2;
-		effect[4]=pi->ser3;
-		effect[5]=pi->ser4;
-		effect[6]=pi->ser1;
-		effect[7]=pi->ser2;
-		effect[8]=pi->ser3;
-		effect[9]=pi->ser4;
+		LongToCharPtr(pi->serial, &effect[2]);
+		LongToCharPtr(pi->serial, &effect[6]);
 		//[6] to [9] are the target ser, not applicable here.
 		effect[10]=eff1;// Object id of the effect
 		effect[11]=eff2;
@@ -2446,6 +2331,7 @@ void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned c
 	
 	if (!UO3DonlyEffekt) // no UO3D effect ? lets send old effect to all clients
 	{
+		int j;
 		for (j=0;j<now;j++)
 		{
 			if (inrange2(j,pi) && perm[j])
@@ -2458,6 +2344,7 @@ void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned c
 	else
 	{
 		// UO3D effect -> let's check which client can see it
+		int j;
 		for (j=0;j<now;j++)
 		{
 			if (inrange2(j,pi) && perm[j])
@@ -2481,17 +2368,14 @@ void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned c
 
 void bolteffect2(P_CHAR pc_player,char a1,char a2)	// experimenatal, lb
 {
-	char effect[29] = {0,};
+	unsigned char effect[29] = {0,};
 	int j,x2,x,y2,y;
 	if ( pc_player == NULL )
 		return;
 
 	effect[0]=0x70; // Effect message
 	effect[1]=0x00; // effect from source to dest
-	effect[2]=pc_player->ser1;
-	effect[3]=pc_player->ser2;
-	effect[4]=pc_player->ser3;
-	effect[5]=pc_player->ser4;
+	LongToCharPtr(pc_player->serial, &effect[2]);
 
 	effect[10]=a1;
 	effect[11]=a2;
@@ -2540,17 +2424,14 @@ void bolteffect2(P_CHAR pc_player,char a1,char a2)	// experimenatal, lb
 //    to another object (like purple potions)
 void movingeffect3(P_CHAR pc_source, unsigned short x, unsigned short y, signed char z, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
 {
-	char effect[29] = {0,};
+	unsigned char effect[29] = {0,};
 	int j;
 
 	if ( pc_source == NULL ) return;
 
 	effect[0]=0x70; // Effect message
 	effect[1]=0x00; // Moving effect
-	effect[2]=pc_source->ser1;
-	effect[3]=pc_source->ser2;
-	effect[4]=pc_source->ser3;
-	effect[5]=pc_source->ser4;
+	LongToCharPtr(pc_source->serial, &effect[2]);
 	effect[6]=0;
 	effect[7]=0;
 	effect[8]=0;
@@ -2623,7 +2504,7 @@ void staticeffect3(UI16 x, UI16 y, SI08 z, unsigned char eff1, unsigned char eff
 void movingeffect3(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode,unsigned char unk1,unsigned char unk2,unsigned char ajust,unsigned char type)
 {
 	//0x0f 0x42 = arrow 0x1b 0xfe=bolt
-	char effect[29];
+	unsigned char effect[29];
 	int j;
 
 	if (pc_source == NULL || pc_dest == NULL)
@@ -2631,14 +2512,8 @@ void movingeffect3(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigne
 
 	effect[0]=0x70; // Effect message
 	effect[1]=type; // Moving effect
-	effect[2]=pc_source->ser1;
-	effect[3]=pc_source->ser2;
-	effect[4]=pc_source->ser3;
-	effect[5]=pc_source->ser4;
-	effect[6]=pc_dest->ser1;
-	effect[7]=pc_dest->ser2;
-	effect[8]=pc_dest->ser3;
-	effect[9]=pc_dest->ser4;
+	LongToCharPtr(pc_source->serial, &effect[2]);
+	LongToCharPtr(pc_dest->serial,   &effect[6]);
 	effect[10]=eff1;// Object id of the effect
 	effect[11]=eff2;
 	effect[12]=pc_source->pos.x>>8;
@@ -2673,7 +2548,7 @@ void movingeffect3(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigne
 void movingeffect2(P_CHAR pc_source, P_ITEM dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
 {
 	//0x0f 0x42 = arrow 0x1b 0xfe=bolt
-	char effect[29];
+	unsigned char effect[29] = {0,};
 	int j;
 	const P_ITEM pi = dest;	// on error return
 	if ( pc_source == NULL )
@@ -2681,14 +2556,8 @@ void movingeffect2(P_CHAR pc_source, P_ITEM dest, unsigned char eff1, unsigned c
 
 	effect[0]=0x70; // Effect message
 	effect[1]=0x00; // Moving effect
-	effect[2]=pc_source->ser1;
-	effect[3]=pc_source->ser2;
-	effect[4]=pc_source->ser3;
-	effect[5]=pc_source->ser4;
-	effect[6]=pi->ser1;
-	effect[7]=pi->ser2;
-	effect[8]=pi->ser3;
-	effect[9]=pi->ser4;
+	LongToCharPtr(pc_source->serial, &effect[2]);
+	LongToCharPtr(pi->serial,        &effect[6]);
 	effect[10]=eff1;// Object id of the effect
 	effect[11]=eff2;
 	effect[12]=pc_source->pos.x>>8;
@@ -2787,10 +2656,7 @@ void deathaction(P_CHAR pc, P_ITEM pi_x) // Character does a certain action
 	if (pi_x == NULL || pc == NULL)
 		return;
 
-	deathact[1]=pc->ser1;
-	deathact[2]=pc->ser2;
-	deathact[3]=pc->ser3;
-	deathact[4]=pc->ser4;
+	LongToCharPtr(pc->serial, &deathact[1]);
 	LongToCharPtr(pi_x->serial,deathact+5);
 	
 	for (i=0;i<now;i++) 
@@ -2824,10 +2690,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	if (!online(pc) && (pc->isPlayer()) && (pc_currchar->isGM())==0 ) 
 	{
 		sendit=0;
-		removeitem[1]=pc->ser1;
-		removeitem[2]=pc->ser2;
-		removeitem[3]=pc->ser3;
-		removeitem[4]=pc->ser4;
+		LongToCharPtr(pc->serial, &removeitem[1]);
 		Xsend(s, removeitem, 5);
 	}
 	// hidden chars can only be seen "grey" by themselves or by gm's
@@ -2836,12 +2699,8 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 
 	oc[0]=0x78; // Message type 78
 
-	oc[3]=pc->ser1; // Character serial number
-	oc[4]=pc->ser2; // Character serial number
-	oc[5]=pc->ser3; // Character serial number
-	oc[6]=pc->ser4; // Character serial number
-	oc[7]=pc->id1; // Character art id
-	oc[8]=pc->id2; // Character art id
+	LongToCharPtr(pc->serial, &oc[3]);
+	ShortToCharPtr(pc->id(),  &oc[7]);
 	oc[9]=pc->pos.x>>8;	// Character x position
 	oc[10]=pc->pos.x%256; // Character x position
 	oc[11]=pc->pos.y>>8; // Character y position
@@ -2888,11 +2747,10 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 					ShortToCharPtr(pi->id(),oc+k+4);
 					oc[k+6]=pi->layer;
 					k=k+7;
-					if (pi->color1!=0 || pi->color2!=0)
+					if ( pi->color != 0 )
 					{
 						oc[k-3] |= 0x80;
-						oc[k+0]=pi->color1;
-						oc[k+1]=pi->color2;
+						ShortToCharPtr(pi->color, &oc[k+0]);
 						k=k+2;
 					}
 					layers[pi->layer] = 1;
@@ -2965,8 +2823,7 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 				m1[m1t+11]=pi_j->pos.y>>8;//Item y position
 				m1[m1t+12]=pi_j->pos.y%256;//Item y position
 				LongToCharPtr(pi->serial,m1+m1t+13); //Container serial number
-				m1[m1t+17]=pi_j->color1;//Item color
-				m1[m1t+18]=pi_j->color2;//Item color
+				ShortToCharPtr(pi->color, &m1[m1t+17]);
 				m1[4]++; // Increase item count.
 				m1t=m1t+19;
 				value=pi_j->value;
@@ -3041,10 +2898,7 @@ int sellstuff(int s, P_CHAR pc)
 	m1[0]=0x9E; // Header
 	m1[1]=0; // Size
 	m1[2]=0; // Size
-	m1[3]=pc->ser1;
-	m1[4]=pc->ser2;
-	m1[5]=pc->ser3;
-	m1[6]=pc->ser4;
+	LongToCharPtr(pc->serial, &m1[3]);
 	m1[7]=0; // Num items
 	m1[8]=0; // Num items
 	m1t=9;
@@ -3079,7 +2933,7 @@ int sellstuff(int s, P_CHAR pc)
 						{
 							LongToCharPtr(pi_j->serial,m1+m1t+0);
 							ShortToCharPtr(pi_j->id(),m1+m1t+4);
-							ShortToCharPtr(pi_j->color(),m1+m1t+6);
+							ShortToCharPtr(pi_j->color,m1+m1t+6);
 							ShortToCharPtr(pi_j->amount,m1+m1t+8);
 							value=pi_q->value;
 							value=calcValue(pi_j, value);
@@ -3160,12 +3014,12 @@ void sendtradestatus(P_ITEM cont1, P_ITEM cont2)
 	Xsend(s2, msg, 17);
 }
 
-void endtrade(int b1, int b2, int b3, int b4)
+void endtrade(SERIAL serial)
 {
 	unsigned char msg[30];
 	P_ITEM pi_cont1 = NULL, pi_cont2 = NULL;
 
-	pi_cont1 = FindItemBySerial(calcserial(b1, b2, b3, b4));
+	pi_cont1 = FindItemBySerial(serial);
 	if (pi_cont1 == NULL) 
 		return; // LB, crashfix
 	pi_cont2 = FindItemBySerial(calcserial(pi_cont1->moreb1, pi_cont1->moreb2, pi_cont1->moreb3, pi_cont1->moreb4));
@@ -3312,70 +3166,64 @@ void staticeffectUO3D(P_CHAR pc_cs, stat_st *sta)
 
    // please no optimization of p[...]=0's yet :)
 
-   particleSystem[0]=0xc7;
-   particleSystem[1]=0x3;
+	particleSystem[0]=0xc7;
+	particleSystem[1]=0x3;
 
-   particleSystem[2]=pc_cs->ser1;
-   particleSystem[3]=pc_cs->ser2;
-   particleSystem[4]=pc_cs->ser3;
-   particleSystem[5]=pc_cs->ser4;
+	LongToCharPtr(pc_cs->serial, &particleSystem[2]);
 
-   particleSystem[6]=0x0; // always 0 for this type
-   particleSystem[7]=0x0;
-   particleSystem[8]=0x0;
-   particleSystem[9]=0x0;
+	particleSystem[6]=0x0; // always 0 for this type
+	particleSystem[7]=0x0;
+	particleSystem[8]=0x0;
+	particleSystem[9]=0x0;
 
-   particleSystem[10]=sta->effect[4]; // tileid1
-   particleSystem[11]=sta->effect[5]; // tileid2
+	particleSystem[10]=sta->effect[4]; // tileid1
+	particleSystem[11]=sta->effect[5]; // tileid2
 
-   particleSystem[12]=(pc_cs->pos.x)>>8;
-   particleSystem[13]=(pc_cs->pos.x)%256;
-   particleSystem[14]=(pc_cs->pos.y)>>8;
-   particleSystem[15]=(pc_cs->pos.y)%256;
-   particleSystem[16]=(pc_cs->pos.z);
+	particleSystem[12]=(pc_cs->pos.x)>>8;
+	particleSystem[13]=(pc_cs->pos.x)%256;
+	particleSystem[14]=(pc_cs->pos.y)>>8;
+	particleSystem[15]=(pc_cs->pos.y)%256;
+	particleSystem[16]=(pc_cs->pos.z);
 
-   particleSystem[17]=(pc_cs->pos.x)>>8; 
-   particleSystem[18]=(pc_cs->pos.x)%256;
-   particleSystem[19]=(pc_cs->pos.y)>>8;
-   particleSystem[20]=(pc_cs->pos.y)%256;
-   particleSystem[21]=(pc_cs->pos.z);
+	particleSystem[17]=(pc_cs->pos.x)>>8; 
+	particleSystem[18]=(pc_cs->pos.x)%256;
+	particleSystem[19]=(pc_cs->pos.y)>>8;
+	particleSystem[20]=(pc_cs->pos.y)%256;
+	particleSystem[21]=(pc_cs->pos.z);
 
-   particleSystem[22]= sta->effect[6]; // unkown1 
-   particleSystem[23]= sta->effect[7]; // unkown2
+	particleSystem[22]= sta->effect[6]; // unkown1 
+	particleSystem[23]= sta->effect[7]; // unkown2
 
-   particleSystem[24]=0x0; // only non zero for type 0
-   particleSystem[25]=0x0;
+	particleSystem[24]=0x0; // only non zero for type 0
+	particleSystem[25]=0x0;
 
-   particleSystem[26]=0x1;
-   particleSystem[27]=0x0;
+	particleSystem[26]=0x1;
+	particleSystem[27]=0x0;
 
-   particleSystem[28]=0x0;
-   particleSystem[29]=0x0;
-   particleSystem[30]=0x0;
-   particleSystem[31]=0x0;
-   particleSystem[32]=0x0;
-   particleSystem[33]=0x0;
-   particleSystem[34]=0x0;
-   particleSystem[35]=0x0;
+	particleSystem[28]=0x0;
+	particleSystem[29]=0x0;
+	particleSystem[30]=0x0;
+	particleSystem[31]=0x0;
+	particleSystem[32]=0x0;
+	particleSystem[33]=0x0;
+	particleSystem[34]=0x0;
+	particleSystem[35]=0x0;
 
-   particleSystem[36]=sta->effect[8]; // effekt #
-   particleSystem[37]=sta->effect[9];
+	particleSystem[36]=sta->effect[8]; // effekt #
+	particleSystem[37]=sta->effect[9];
 
-   particleSystem[38]=sta->effect[11];
-   particleSystem[39]=sta->effect[12];
-  
-   particleSystem[40]=0x00;
-   particleSystem[41]=0x00;
+	particleSystem[38]=sta->effect[11];
+	particleSystem[39]=sta->effect[12];
+	  
+	particleSystem[40]=0x00;
+	particleSystem[41]=0x00;
 
-   particleSystem[42]=pc_cs->ser1;
-   particleSystem[43]=pc_cs->ser2;
-   particleSystem[44]=pc_cs->ser3;
-   particleSystem[45]=pc_cs->ser4;
-   
-   particleSystem[46]=0; // layer, gets set afterwards for multi layering
+	LongToCharPtr(pc_cs->serial, &particleSystem[42]);
+	   
+	particleSystem[46]=0; // layer, gets set afterwards for multi layering
 
-   particleSystem[47]=0x0; // has to be always 0 for all types
-   particleSystem[48]=0x0;
+	particleSystem[47]=0x0; // has to be always 0 for all types
+	particleSystem[48]=0x0;
   	   	   
 }
 
@@ -3399,69 +3247,62 @@ void movingeffectUO3D(P_CHAR pc_cs, P_CHAR pc_cd, move_st *sta)
 {
    if (pc_cs == NULL || pc_cd == NULL) return;
 
-   particleSystem[0]=0xc7;
-   particleSystem[1]=0x0;
+	particleSystem[0]=0xc7;
+	particleSystem[1]=0x0;
 
-   particleSystem[2]=pc_cs->ser1;
-   particleSystem[3]=pc_cs->ser2;
-   particleSystem[4]=pc_cs->ser3;
-   particleSystem[5]=pc_cs->ser4;
+	LongToCharPtr(pc_cs->serial, &particleSystem[2]);
+	LongToCharPtr(pc_cd->serial, &particleSystem[6]);
 
-   particleSystem[6]=pc_cd->ser1;
-   particleSystem[7]=pc_cd->ser2;
-   particleSystem[8]=pc_cd->ser3;
-   particleSystem[9]=pc_cd->ser4;
+	particleSystem[10]=sta->effect[5]; // tileid1
+	particleSystem[11]=sta->effect[6]; // tileid2
 
-   particleSystem[10]=sta->effect[5]; // tileid1
-   particleSystem[11]=sta->effect[6]; // tileid2
+	particleSystem[12]=(pc_cs->pos.x)>>8;
+	particleSystem[13]=(pc_cs->pos.x)%256;
+	particleSystem[14]=(pc_cs->pos.y)>>8;
+	particleSystem[15]=(pc_cs->pos.y)%256;
+	particleSystem[16]=(pc_cs->pos.z);
 
-   particleSystem[12]=(pc_cs->pos.x)>>8;
-   particleSystem[13]=(pc_cs->pos.x)%256;
-   particleSystem[14]=(pc_cs->pos.y)>>8;
-   particleSystem[15]=(pc_cs->pos.y)%256;
-   particleSystem[16]=(pc_cs->pos.z);
+	particleSystem[17]=(pc_cd->pos.x)>>8; 
+	particleSystem[18]=(pc_cd->pos.x)%256;
+	particleSystem[19]=(pc_cd->pos.y)>>8;
+	particleSystem[20]=(pc_cd->pos.y)%256;
+	particleSystem[21]=(pc_cd->pos.z);
+	   
+	particleSystem[22]= sta->effect[7]; // speed1 
+	particleSystem[23]= sta->effect[8]; // speed2
 
-   particleSystem[17]=(pc_cd->pos.x)>>8; 
-   particleSystem[18]=(pc_cd->pos.x)%256;
-   particleSystem[19]=(pc_cd->pos.y)>>8;
-   particleSystem[20]=(pc_cd->pos.y)%256;
-   particleSystem[21]=(pc_cd->pos.z);
-   
-   particleSystem[22]= sta->effect[7]; // speed1 
-   particleSystem[23]= sta->effect[8]; // speed2
+	particleSystem[24]=0x0; 
+	particleSystem[25]=0x0;
 
-   particleSystem[24]=0x0; 
-   particleSystem[25]=0x0;
+	particleSystem[26]=sta->effect[15]; // adjust
+	particleSystem[27]=sta->effect[16]; // explode
 
-   particleSystem[26]=sta->effect[15]; // adjust
-   particleSystem[27]=sta->effect[16]; // explode
+	particleSystem[28]=0x0;
+	particleSystem[29]=0x0;
+	particleSystem[30]=0x0;
+	particleSystem[31]=0x0;
+	particleSystem[32]=0x0;
+	particleSystem[33]=0x0;
+	particleSystem[34]=0x0;
+	particleSystem[35]=0x0;
 
-   particleSystem[28]=0x0;
-   particleSystem[29]=0x0;
-   particleSystem[30]=0x0;
-   particleSystem[31]=0x0;
-   particleSystem[32]=0x0;
-   particleSystem[33]=0x0;
-   particleSystem[34]=0x0;
-   particleSystem[35]=0x0;
+	particleSystem[36]=sta->effect[9]; //  moving effekt 
+	particleSystem[37]=sta->effect[10];
+	particleSystem[38]=sta->effect[11]; // effect on explode
+	particleSystem[39]=sta->effect[12];
 
-   particleSystem[36]=sta->effect[9]; //  moving effekt 
-   particleSystem[37]=sta->effect[10];
-   particleSystem[38]=sta->effect[11]; // effect on explode
-   particleSystem[39]=sta->effect[12];
+	particleSystem[40]=sta->effect[13]; // ??
+	particleSystem[41]=sta->effect[14];
 
-   particleSystem[40]=sta->effect[13]; // ??
-   particleSystem[41]=sta->effect[14];
+	particleSystem[42]=0x00;
+	particleSystem[43]=0x00;
+	particleSystem[44]=0x00;
+	particleSystem[45]=0x00;
+	   
+	particleSystem[46]=0xff; // layer, has to be 0xff in that modus
 
-   particleSystem[42]=0x00;
-   particleSystem[43]=0x00;
-   particleSystem[44]=0x00;
-   particleSystem[45]=0x00;
-   
-   particleSystem[46]=0xff; // layer, has to be 0xff in that modus
-
-   particleSystem[47]=sta->effect[17];
-   particleSystem[48]=0x0;
+	particleSystem[47]=sta->effect[17];
+	particleSystem[48]=0x0;
 
 }
 
@@ -3475,17 +3316,11 @@ void itemeffectUO3D(P_ITEM pi, stat_st *sta)
 	
 	if ( !sta->effect[11] ) 
 	{
-		particleSystem[2]=pi->ser1;
-		particleSystem[3]=pi->ser2;
-		particleSystem[4]=pi->ser3;
-		particleSystem[5]=pi->ser4;
+		LongToCharPtr(pi->serial, &particleSystem[2]);
 	}
 	else
 	{
-		particleSystem[2]=0x00;
-		particleSystem[3]=0x00;
-		particleSystem[4]=0x00;
-		particleSystem[5]=0x00;
+		LongToCharPtr(0, &particleSystem[2]);
 	}
 	
 	particleSystem[6]=0x0; // always 0 for this type
@@ -3535,10 +3370,7 @@ void itemeffectUO3D(P_ITEM pi, stat_st *sta)
 	particleSystem[40]=0x00;
 	particleSystem[41]=0x00;
 	
-	particleSystem[42]=pi->ser1;
-	particleSystem[43]=pi->ser2;
-	particleSystem[44]=pi->ser3;
-	particleSystem[45]=pi->ser4;
+	LongToCharPtr(pi->serial, &particleSystem[42]);
 	
 	particleSystem[46]=0xff; 
 	

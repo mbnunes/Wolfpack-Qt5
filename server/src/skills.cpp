@@ -342,15 +342,15 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			&& SrvParms->rank_system==0)	// this would interfer with the rank system
 		{
 			pi->rank=30; // Ripper..used for item smelting
-			if(pi->color1==0x00 && pi->color2==0x00 && pi->smelt==2) pi->smelt=2; //Silver
-			else if(pi->color1==0x04 && pi->color2==0x66) pi->smelt=3; //Golden
-			else if(pi->color1==0x01 && pi->color2==0x50) pi->smelt=4; //Agapite
-			else if(pi->color1==0x03 && pi->color2==0x86) pi->smelt=5; //Shadow
-			else if(pi->color1==0x01 && pi->color2==0x91) pi->smelt=6; //Mythril
-			else if(pi->color1==0x02 && pi->color2==0xE7) pi->smelt=7; //Bronze
-			else if(pi->color1==0x02 && pi->color2==0x2F) pi->smelt=8; //Verite
-			else if(pi->color1==0x02 && pi->color2==0xC3) pi->smelt=9; //Merkite
-			else if(pi->color1==0x04 && pi->color2==0x6E) pi->smelt=10; //Copper
+			if(pi->color == 0x00 && pi->smelt == 2) pi->smelt=2; //Silver
+			else if(pi->color==0x0466) pi->smelt=3; //Golden
+			else if(pi->color==0x0150) pi->smelt=4; //Agapite
+			else if(pi->color==0x0386) pi->smelt=5; //Shadow
+			else if(pi->color==0x0191) pi->smelt=6; //Mythril
+			else if(pi->color==0x02E7) pi->smelt=7; //Bronze
+			else if(pi->color==0x022F) pi->smelt=8; //Verite
+			else if(pi->color==0x02C3) pi->smelt=9; //Merkite
+			else if(pi->color==0x046E) pi->smelt=10; //Copper
 			else
 			pi->smelt=1; //Iron
 
@@ -410,8 +410,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		
 		if (skill == TAILORING) // -Fraz- Implementing color remembrance for tailored items
 		{
-			pi->color1=itemmake[s].newcolor1;
-			pi->color2=itemmake[s].newcolor2;
+			pi->color = itemmake[s].newcolor;
 			RefreshItem(pi);
 		}
 		if(!pc_currchar->making) sysmessage(s,"You create the item and place it in your backpack.");
@@ -428,10 +427,10 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		short id = pi->id();
 		if( IsChest(id))
 		{
-			pi->more1 = pi->ser1;		// Store the serial number in the more-value
-			pi->more2 = pi->ser2;		// Needed as unique lock-ID
-			pi->more3 = pi->ser3;
-			pi->more4 = pi->ser4;
+			pi->more1 = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+			pi->more2 = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+			pi->more3 = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+			pi->more4 = static_cast<unsigned char>((pi->serial&0x000000FF));
 			P_ITEM pik = Items->CreateScriptItem(-1, 339, 1);
 			if (pik == NULL) return;
 			pik->type = 7;				// Item is a key
@@ -637,10 +636,7 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 	}
 	gmprefix[1]=total>>8;
 	gmprefix[2]=total%256;
-	gmprefix[3]=pc_currchar->ser1;
-	gmprefix[4]=pc_currchar->ser2;
-	gmprefix[5]=pc_currchar->ser3;
-	gmprefix[6]=pc_currchar->ser4;
+	LongToCharPtr(pc_currchar->serial, &gmprefix[3]);
 	gmprefix[7]=(gmindex+MAKEMENUOFFSET)>>8;
 	gmprefix[8]=(gmindex+MAKEMENUOFFSET)%256;
 	Xsend(s, gmprefix, 9);
@@ -1035,7 +1031,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 		return;
 	}
 	
-	P_ITEM pi_potion = Items->SpawnItem(calcSocketFromChar(pc), pc, 1,"#",0, id1, id2,0,0,1,0);
+	P_ITEM pi_potion = Items->SpawnItem(calcSocketFromChar(pc), pc, 1,"#",0, id1, id2,0,1,0);
 	if (pi_potion == NULL) 
 		return;
 	
@@ -1754,10 +1750,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 	for (i=1;i<=MaxTrackingTargets;i++) total+=4+1+strlen(gmtext[i]);
 	gmprefix[1]=total>>8;
 	gmprefix[2]=total%256;
-	gmprefix[3]=pc_currchar->ser1;
-	gmprefix[4]=pc_currchar->ser2;
-	gmprefix[5]=pc_currchar->ser3;
-	gmprefix[6]=pc_currchar->ser4;
+	LongToCharPtr(pc_currchar->serial, &gmprefix[3]);
 	gmprefix[7]=(m+TRACKINGMENUOFFSET)>>8;
 	gmprefix[8]=(m+TRACKINGMENUOFFSET)%256;
 	Xsend(s, gmprefix, 9);
@@ -1817,10 +1810,7 @@ void cSkills::TrackingMenu(int s,int gmindex)
 	for (i=1;i<=gmnumber;i++) total+=4+1+strlen(gmtext[i]);
 	gmprefix[1]=total>>8;
 	gmprefix[2]=total%256;
-	gmprefix[3]=currchar[s]->ser1;
-	gmprefix[4]=currchar[s]->ser2;
-	gmprefix[5]=currchar[s]->ser3;
-	gmprefix[6]=currchar[s]->ser4;
+	LongToCharPtr(currchar[s]->serial, &gmprefix[3]);
 	gmprefix[7]=(gmindex+TRACKINGMENUOFFSET)>>8;
 	gmprefix[8]=(gmindex+TRACKINGMENUOFFSET)%256;
 	Xsend(s, gmprefix, 9);
@@ -2298,7 +2288,7 @@ void CollectAmmo(int s, int a, int b)
 	
 	if (a)
 	{
-		P_ITEM pi = Items->SpawnItem(s, currchar[s],a,"#",1,0x0F,0x3F,0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s, currchar[s],a,"#",1,0x0F,0x3F,0,1,1);
 		if(pi == NULL) return;
 		pi->att=0;
 		sysmessage(s, "You collect the arrows.");
@@ -2306,7 +2296,7 @@ void CollectAmmo(int s, int a, int b)
 	
 	if (b)
 	{
-		P_ITEM pi = Items->SpawnItem(s, currchar[s], b,"#",1,'\x1B','\xFB',0,0,1,1);
+		P_ITEM pi = Items->SpawnItem(s, currchar[s], b,"#",1,'\x1B','\xFB',0,1,1);
 		if(pi == NULL) return;
 		pi->att=0;
 		sysmessage(s, "You collect the bolts.");
@@ -2336,14 +2326,14 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 	{
 		if(pButte->more1>0)
 		{
-			P_ITEM pi = Items->SpawnItem(s1, pc_currchar,pButte->more1/2,"#",1,0x0F,0x3F,0,0,1,0);
+			P_ITEM pi = Items->SpawnItem(s1, pc_currchar,pButte->more1/2,"#",1,0x0F,0x3F,0,1,0);
 			if(pi == NULL) return;
 			RefreshItem(pi);
 		}
 		
 		if(pButte->more2>0)
 		{
-			P_ITEM pi = Items->SpawnItem(s1,pc_currchar,pButte->more2/2,"#",1,0x1B,0xFB,0,0,1,0);
+			P_ITEM pi = Items->SpawnItem(s1,pc_currchar,pButte->more2/2,"#",1,0x1B,0xFB,0,1,0);
 			if(pi == NULL) return;
 			RefreshItem(pi);
 		}

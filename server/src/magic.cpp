@@ -167,11 +167,8 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 
 	if (pi->layer!=1) senditem(s,pi); // prevents crash if pack not open
 
-	char sbookstart[8]="\x24\x40\x01\x02\x03\xFF\xFF";
-	sbookstart[1]=pi->ser1;
-	sbookstart[2]=pi->ser2;
-	sbookstart[3]=pi->ser3;
-	sbookstart[4]=pi->ser4;
+	unsigned char sbookstart[8]="\x24\x40\x01\x02\x03\xFF\xFF";
+	LongToCharPtr(pi->serial, &sbookstart[1]);
 	Xsend(s, sbookstart, 7);
 
 	int spells[70] = {0,};
@@ -220,7 +217,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 	sbookinit[4]=scount%256;
 	if (scount>0) Xsend(s, sbookinit, 5);
 
-	char sbookspell[20]="\x40\x01\x02\x03\x1F\x2E\x00\x00\x01\x00\x48\x00\x7D\x40\x01\x02\x03\x00\x00";
+	unsigned char sbookspell[20]="\x40\x01\x02\x03\x1F\x2E\x00\x00\x01\x00\x48\x00\x7D\x40\x01\x02\x03\x00\x00";
 	for (i=0;i<70;i++)
 	{
 		if (spells[i])
@@ -230,10 +227,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 			sbookspell[2]=0x00;
 			sbookspell[3]=i+1;
 			sbookspell[8]=i+1;
-			sbookspell[13]=pi->ser1;
-			sbookspell[14]=pi->ser2;
-			sbookspell[15]=pi->ser3;
-			sbookspell[16]=pi->ser4;
+			LongToCharPtr(pi->serial, &sbookspell[13]);
 			Xsend(s, sbookspell, 19);
 		}
 	}
@@ -1729,7 +1723,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								for (n=0;n<2;n++)
 								{
 									strcpy((char*)temp,"a blue moongate");
-									P_ITEM pi_c = Items->SpawnItem(-1, pc_currchar, 1,"#",0,0x0f,0x6c,0,0,0,0);
+									P_ITEM pi_c = Items->SpawnItem(-1, pc_currchar, 1,"#",0,0x0f,0x6c,0,0,0);
 									if(pi_c != NULL)	//AntiChrist - to prevent crashes
 									{
 										pi_c->type=51+n;
@@ -2755,7 +2749,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			//////////// (2) CREATE FOOD ////////////////
 		case 2:
 			{
-				P_ITEM pi_j = Items->SpawnItem(s, pc_currchar, 1, "#", 1, 0x09, 0xD3, 0x00, 0x00, 1, 1 );
+				P_ITEM pi_j = Items->SpawnItem(s, pc_currchar, 1, "#", 1, 0x09, 0xD3, 0x00, 1, 1 );
 				if(pi_j != NULL)//AntiChrist - to prevent crashes
 				{
 					pi_j->type=14;
@@ -3776,10 +3770,7 @@ void cMagic::PolymorphMenu(int s,int gmindex)
 	for (i=1;i<=gmnumber;i++) total+=4+1+strlen(gmtext[i]);
 	gmprefix[1]=total>>8;
 	gmprefix[2]=total%256;
-	gmprefix[3]=pc_currchar->ser1;
-	gmprefix[4]=pc_currchar->ser2;
-	gmprefix[5]=pc_currchar->ser3;
-	gmprefix[6]=pc_currchar->ser4;
+	LongToCharPtr(pc_currchar->serial, &gmprefix[3]);
 	gmprefix[7]=gmindex>>8;
 	gmprefix[8]=gmindex%256;
 	Xsend(s, gmprefix, 9);
@@ -3934,7 +3925,7 @@ void cMagic::BuildCannon(int s)
 	soundeffect(s, 0x02, 0x45);
 	soundeffect(s, 0x02, 0x46);
 	
-	P_ITEM pi_k = Items->SpawnItem(-1, currchar[s] , 1,"#",0,0x0E,0x91,0,0,0,1);
+	P_ITEM pi_k = Items->SpawnItem(-1, currchar[s] , 1,"#",0,0x0E,0x91,0,0,1);
 	pi_k->type=15;
 	pi_k->morex=8;
 	pi_k->morey=10;
@@ -3975,7 +3966,7 @@ void cMagic::Gate(UOXSOCKET s)
 			for (n=0;n<2;n++)
 			{
 				strcpy((char*)temp,"a blue moongate");
-				P_ITEM pi_c = Items->SpawnItem(-1,currchar[s],1,"#",0,0x0f,0x6c,0,0,0,0);
+				P_ITEM pi_c = Items->SpawnItem(-1,currchar[s],1,"#",0,0x0f,0x6c,0,0,0);
 				if(pi_c != NULL)//AntiChrist - to prevent crashes
 				{
 					pi_c->type=51+n;

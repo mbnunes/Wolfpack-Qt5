@@ -39,8 +39,6 @@
 // Forward Class declarations
 class ISerialization;
 
-//using namespace std ;
-//typedef struct item_st_
 class cItem : public cUObject
 {
 public:
@@ -48,15 +46,10 @@ public:
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );
-	unsigned char ser1; // Item serial number
-	unsigned char ser2;
-	unsigned char ser3;
-	unsigned char ser4;
 	
 	unsigned char id1; // Item visuals as stored in the client
 	unsigned char id2;
-	unsigned char color1; // Hue
-	unsigned char color2;
+	unsigned short color; // Hue
 	unsigned short amount; // Amount of items in pile
 	unsigned short amount2; //Used to track things like number of yards left in a roll of cloth
 	struct						// Attention, this is a bit field
@@ -71,9 +64,7 @@ public:
 	unsigned int type; // For things that do special things on doubleclicking
 	unsigned int type2;
 	
-	int oldx; //Old x position - used for bouncing bugfix - AntiChrist
-	int oldy; //Old y position - used for bouncing bugfix - AntiChrist
-	signed char oldz; //Old z position - used for bouncing bugfix - AntiChrist
+	Coord_cl oldpos; //Old position - used for bouncing bugfix - AntiChrist
 	SERIAL oldcontserial; //Old contserial - used for bouncing bugfix - Antichrist
 	signed char oldlayer; // Old layer - used for bouncing bugfix - AntiChrist
 	
@@ -112,15 +103,15 @@ public:
 	int spd; //The speed of the weapon
 	int smelt; // for item smelting
 	int secureIt; // secured chests
-	int wipe; //Should this item be wiped with the /wipe command
+	bool wipe; //Should this item be wiped with the /wipe command
 	unsigned char magic; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
 	unsigned int gatetime;
 	int gatenumber;
 	unsigned int decaytime;
 	//signed int destroyTimer; // Ripper for chaos/order shields
-	int ownserial;
+	SERIAL ownserial;
 	unsigned char visible; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
-	int spawnserial;
+	SERIAL spawnserial;
 	unsigned char dir;
 	//char dir; // Direction, or light source type.
 	unsigned char priv; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
@@ -159,8 +150,7 @@ public:
 	//       skilled!
 	
 	int glow; // LB identifies glowing objects
-	unsigned char glow_c1; // for backup of old color
-	unsigned char glow_c2;
+	unsigned short glow_color; // for backup of old color
 	unsigned char glow_effect; 
 	
 	string desc;
@@ -188,9 +178,9 @@ public:
 	
 	void setId(unsigned short id);
 	void setColor(unsigned short color);
-	inline unsigned short id()			{return (unsigned short)((id1<<8)+id2);}
+	inline unsigned short id()	const		{return (unsigned short)((id1<<8)+id2);}
 	
-	inline unsigned short color()		{return (unsigned short)((color1<<8)+color2);}
+//	inline unsigned short color()		{return (unsigned short)((color1<<8)+color2);}
 	void MoveTo(int newx, int newy, signed char newz);
 	long ReduceAmount(const short amount);
 	short GetContGumpType();
@@ -235,12 +225,12 @@ public:
 	P_ITEM  SpawnItem(UOXSOCKET nSocket,
 				int nAmount, char* cName, int nStackable,
 				unsigned char cItemId1, unsigned char cItemId2,
-				unsigned char cColorId1, unsigned char cColorId2,
+				unsigned short cColorId, 
 				int nPack, int nSend);
     P_ITEM  SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 				int nAmount, char* cName, int nStackable,
 				unsigned char cItemId1, unsigned char cItemId2,
-				unsigned char cColorId1, unsigned char cColorId2,
+				unsigned short cColorId,
 				int nPack, int nSend);
 	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, char* cName, bool pileable, short id, short color, bool bPack);
 	P_ITEM SpawnItemBank(P_CHAR pc_ch, int nItem);

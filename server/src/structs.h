@@ -239,8 +239,7 @@ struct make_st
 	int needs;
 	int minskill;
 	int maxskill;
-	unsigned char newcolor1; // This color is setted if coloring>-1 // Magius(CHE) §
-	unsigned char newcolor2; // This color is setted if coloring>-1 // Magius(CHE) §
+	unsigned short newcolor; // This color is setted if coloring>-1 // Magius(CHE) §
 	int coloring; // Color modification activated by trigger token!  // Magius(CHE) §
 	short Mat1id;		// id of material 1 used to make item
 	short Mat1color;	// color of material 1 used to make item

@@ -455,7 +455,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 		case 61:// Skyfire - Banker AI
 			break;
 		default:
-			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc (%x %x %x %x) has invalid AI type %i\n", pc_i->ser1, pc_i->ser2, pc_i->ser3, pc_i->ser4, pc_i->npcaitype); // Morrolan
+			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc (%8x) has invalid AI type %i\n", pc_i->serial, pc_i->npcaitype); // Morrolan
 			return;
 	}// switch
 }// void checknpcai
@@ -692,12 +692,11 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, char *comm)
 		}
 		if (d >= goldcount)
 		{
-			const P_ITEM pi = Items->SpawnItem(c, pc_currchar, 1, "bank check", 0, 0x14, 0xF0, 0, 0, 0, 0); // bank check
+			const P_ITEM pi = Items->SpawnItem(c, pc_currchar, 1, "bank check", 0, 0x14, 0xF0, 0, 0, 0); // bank check
 			if (pi != NULL)
 			pi->type = 1000;
 			pi->setId(0x14F0);
-			pi->color1 = 0x00;
-			pi->color2 = 0x99;
+			pi->color = 0x0099;
 			pi->priv |= 0x02;
 			pi->value = goldcount;
 			DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);

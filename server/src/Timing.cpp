@@ -72,7 +72,7 @@ void do_lsd(UOXSOCKET s)
 					P_CHAR mapchar = FindCharBySerial(vecEntries[k]);
 					if (pi != NULL)
 					{
-						 color=(pi->color1<<8)+pi->color2; // fetch item's color and covert to 16 bit
+						 color = pi->color; // fetch item's color
 						 if (rand()%44==0) color+=pi->pos.x-pi->pos.y; else
 						 color+=pc_currchar->pos.x+pc_currchar->pos.y;
 						 color+=rand()%3; // add random "noise"

@@ -1336,12 +1336,8 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
         if ((perm[i]) && (inrange1p(pc, currchar[i])))
         {
 			P_CHAR pc_check = currchar[i];
-            extmove[1] = pc->ser1;
-            extmove[2] = pc->ser2;
-            extmove[3] = pc->ser3;
-            extmove[4] = pc->ser4;
-            extmove[5] = pc->id1;
-            extmove[6] = pc->id2;
+			LongToCharPtr(pc->serial, &extmove[1]);
+			ShortToCharPtr(pc->id(),  &extmove[5]);
             extmove[7] = (unsigned char)(pc->pos.x>>8);
             extmove[8] = (unsigned char)(pc->pos.x%256);
             extmove[9] = (unsigned char)(pc->pos.y>>8);

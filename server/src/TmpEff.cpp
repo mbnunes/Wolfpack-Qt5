@@ -65,8 +65,7 @@ static void reverseIncognito(P_CHAR pc)
 				if(pHair->incognito) //let's ensure it was marked as under incognito effect
 				{
 					//stores old hair values
-					pHair->color1=pHair->moreb1;
-					pHair->color2=pHair->moreb2;
+					pHair->color = static_cast<unsigned short>(pHair->moreb1 << 8) + pHair->moreb2;
 					pHair->id1=pHair->moreb3;
 					pHair->id2=pHair->moreb4;
 					pHair->incognito=false;
@@ -82,8 +81,7 @@ static void reverseIncognito(P_CHAR pc)
 				if(pBeard->incognito) //let's ensure it was marked as under incognito effect
 				{
 					//restores old beard values
-					pBeard->color1=pBeard->moreb1;
-					pBeard->color2=pBeard->moreb2;
+					pBeard->color = static_cast<unsigned short>(pBeard->moreb1<<8) + pBeard->moreb2;
 					pBeard->id1=pBeard->moreb3;
 					pBeard->id2=pBeard->moreb4;
 					pBeard->incognito=false;
@@ -829,8 +827,8 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			if(pHair)
 			{
 				//stores old hair values...
-				pHair->moreb1=pHair->color1;
-				pHair->moreb2=pHair->color2;
+				pHair->moreb1 = static_cast<unsigned char>(pHair->color>>8);
+				pHair->moreb2 = static_cast<unsigned char>(pHair->color%256);
 				pHair->moreb3=pHair->id1;
 				pHair->moreb4=pHair->id2;
 
@@ -851,17 +849,14 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 				}
 
 				//random color
-				pHair->color1=color>>8;
-				pHair->color2=color%256;
+				pHair->color = color;
 				//let's check for invalid values
-				if ((((pHair->color1<<8)+pHair->color2)<0x044E) ||
-					(((pHair->color1<<8)+pHair->color2)>0x04AD) )
+				if ( pHair->color < 0x044E || pHair->color > 0x04AD )
 				{
-					pHair->color1=0x04;
-					pHair->color2=0x4E;
+					pHair->color = 0x044E;
 				}
 
-				pHair->incognito=true;//AntiChrist
+				pHair->incognito = true;//AntiChrist
 			}//if j!=-1
 		}//if hairserial!=-1
 
@@ -875,10 +870,10 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			{
 				//clConsole.send("BEARD FOUND!!\n");
 				//stores old beard values
-				pBeard->moreb1=pBeard->color1;
-				pBeard->moreb2=pBeard->color2;
-				pBeard->moreb3=pBeard->id1;
-				pBeard->moreb4=pBeard->id2;
+				pBeard->moreb1 = static_cast<unsigned char>(pBeard->color>>8);
+				pBeard->moreb2 = static_cast<unsigned char>(pBeard->color%256);
+				pBeard->moreb3 = static_cast<unsigned char>(pBeard->id() >> 8);
+				pBeard->moreb4 = static_cast<unsigned char>(pBeard->id()%256);
 
 				//changes them with random ones
 				switch(rand()%7)
@@ -894,14 +889,11 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 				}
 
 				//random color
-				pBeard->color1=color>>8;
-				pBeard->color2=color%256;
+				pBeard->color = color;
 
-				if ((((pBeard->color1<<8)+pBeard->color2)<0x044E) ||
-					(((pBeard->color1<<8)+pBeard->color2)>0x04AD) )
+				if ( pBeard->color < 0x044E || pBeard->color > 0x04AD )
 				{
-					pBeard->color1=0x04;
-					pBeard->color2=0x4E;
+					pBeard->color = 0x044E;
 				}
 
 				pBeard->incognito=true;//AntiChrist

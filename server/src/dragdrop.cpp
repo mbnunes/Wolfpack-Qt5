@@ -98,9 +98,7 @@ static void Sndbounce5(UOXSOCKET s)
 static void item_bounce3(const P_ITEM pi)
 {
 	pi->SetContSerial(pi->oldcontserial);
-	pi->pos.x=pi->oldx;
-	pi->pos.y=pi->oldy;
-	pi->pos.z=pi->oldz;
+	pi->pos = pi->oldpos;
 	pi->layer=pi->oldlayer;
 	pi->flags.isBeeingDragged=false;
 	P_CHAR pc = FindCharBySerial(pi->oldcontserial);
@@ -278,9 +276,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 				// AntiChrist bugfix for the bad bouncing bug ( disappearing items when bouncing )
 				DRAGGED[s] = 1;
 				
-				pi->oldx = pi->pos.x;	// first let's save the position
-				pi->oldy = pi->pos.y;
-				pi->oldz = pi->pos.z;
+				pi->oldpos = pi->pos;	// first let's save the position
 				pi->oldcontserial = pi->contserial;	// then let's save the container
 				pi->oldlayer = pi->layer;	// then the layer
 				
@@ -546,8 +542,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		ShortToCharPtr(pi->id(),wearitem+5);
 		wearitem[8]=pi->layer;
 		LongToCharPtr(pi->contserial,wearitem+9);
-		wearitem[13]=pi->color1;
-		wearitem[14]=pi->color2;
+		ShortToCharPtr(pi->color, &wearitem[13]);
 		Xsend(s, wearitem, 15);
 		wornitems(s, pc_k);//send update to current socket
 		// -Frazurbluu- Worn item triggers will need code here
@@ -695,7 +690,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	
 	if (pi->id() == 0x14F0 && pi->type == 1000)
 	{
-		 const P_ITEM pi_n = Items->SpawnItem(s, pc_currchar, value, "#", 1, 0x0E, 0xED, 0, 0, 0, 0);
+		 const P_ITEM pi_n = Items->SpawnItem(s, pc_currchar, value, "#", 1, 0x0E, 0xED, 0, 0, 0);
 	     if(pi_n == NULL) return false;
 		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name.c_str(), value);
 		 npctalk(s,target,(char*)temp,0);

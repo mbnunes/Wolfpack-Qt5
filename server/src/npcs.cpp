@@ -42,7 +42,7 @@
 #define CHAR_RESERVE 100	// minimum of free slots that should be left in the array.
 							// otherwise, more memory will be allocated in the mainloop (Duke)
 
-int addrandomcolor(P_CHAR pc_s, char *colorlist)
+unsigned short addrandomcolor(P_CHAR pc_s, char *colorlist)
 {
 	char sect[512];
 	int i = 0,j = 0,storeval = 0;
@@ -214,10 +214,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	int j;//,serial; //Zippy lag
 	//int ptr,ci;
 
-	removeitem[1]=pc_k->ser1;
-	removeitem[2]=pc_k->ser2;
-	removeitem[3]=pc_k->ser3;
-	removeitem[4]=pc_k->ser4;
+	LongToCharPtr(pc_k->serial, &removeitem[1]);
 
 	if (pc_k->spawnregion>0 && pc_k->spawnregion<255)
 	{
@@ -475,7 +472,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 				if (pBackpack == NULL)
 				{
 					scpMark m=pScp->Suspend();
-					pBackpack = Items->SpawnItem(-1, pc_c,1,"Backpack",0,0x0E,0x75,0,0,0,0);
+					pBackpack = Items->SpawnItem(-1, pc_c,1,"Backpack",0,0x0E,0x75,0,0,0);
 					if(pBackpack == NULL)
 					{
 						Npcs->DeleteChar(pc_c);
@@ -506,8 +503,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			if (!strcmp("COLOR",(char*)script1)) {
 				if (retitem != NULL)
 				{
-					retitem->color1=(hex2num(script2))>>8;
-					retitem->color2=(hex2num(script2))%256;
+					retitem->color = hex2num(script2);
 				}
 			}
 			else if (!strcmp("CARVE",(char*)script1)) pc_c->carve=str2num(script2);
@@ -520,18 +516,16 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			{
 				if (retitem != NULL && haircolor!=-1)
 				{
-					retitem->color1=(haircolor)>>8;
-					retitem->color2=(haircolor)%256;
+					retitem->color = (haircolor);
 				}
 			}
 			else if (!strcmp("COLORLIST",(char*)script1))
 			{
 				scpMark m=pScp->Suspend();
-				int storeval = addrandomcolor(pc_c, (char*)script2);
+				unsigned short storeval = addrandomcolor(pc_c, (char*)script2);
 				if (retitem != NULL)
 				{
-					retitem->color1=(storeval)>>8;
-					retitem->color2=(storeval)%256;
+					retitem->color = storeval;
 				}
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
@@ -648,8 +642,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 					haircolor=addrandomhaircolor(pc_c,(char*)script2);
 					if (haircolor!=-1)
 					{
-						retitem->color1=(haircolor)>>8;
-						retitem->color2=(haircolor)%256;
+						retitem->color = (haircolor);
 					}
 				}
 				pScp->Resume(m);

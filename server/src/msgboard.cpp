@@ -2679,12 +2679,8 @@ void MsgBoardMaintenance( void )
 								P_CHAR pc_z = FindCharBySerial( calcserial(msg[13],msg[14],msg[15],msg[16]) );
 								if (pc_z != NULL)
 								{
-									if ( (pc_z->ser1    == msg[13]) &&
-										(pc_z->ser2     == msg[14]) &&
-										(pc_z->ser3     == msg[15]) &&
-										(pc_z->ser4     == msg[16]) &&
-										(pc_z->npc      == 1      ) &&
-										(pc_z->questType > 0      )    )
+									if ( pc_z->serial == calcserial(msg[13], msg[14], msg[15], msg[16]) &&
+										pc_z->isNpc()  &&	pc_z->questType > 0          )
 									{
 										// Now lets reset all of the escort timers after the server has reloaded the WSC file
 										// If this is an Escor Quest NPC 

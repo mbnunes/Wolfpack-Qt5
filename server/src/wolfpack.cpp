@@ -919,7 +919,6 @@ void all_items(int s) // Send ALL items to player
 
 void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a character
 {
-	int a1, a2, a3, a4;
 	int c;
 	int x;
 
@@ -928,10 +927,6 @@ void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a char
 	if (pc_i == NULL)
 		return;
 
-	a1=pc_i->ser1;
-	a2=pc_i->ser2;
-	a3=pc_i->ser3;
-	a4=pc_i->ser4;
 	if (pc_i->squelched)
 	{
 		sprintf((char*)temp," [%s]",title[7].other);
@@ -941,7 +936,7 @@ void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a char
 
 	if ((pc_currchar->canSeeSerials()) || b)
 	{
-		sprintf((char*)temp, "%s [%x %x %x %x]", pc_i->name.c_str(), a1, a2, a3, a4);
+		sprintf((char*)temp, "%s [%08x]", pc_i->name.c_str(), pc_i->serial);
 	}
 	else
 	{
@@ -949,7 +944,7 @@ void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a char
 		{
 			if (pc_currchar->isGM())
 			{
-				sprintf((char*)temp, "[%x %x %x %x]",a1,a2,a3,a4);
+				sprintf((char*)temp, "[%08x]", pc_i->serial);
 				itemmessage(s,(char*)temp, pc_i->serial);
 			}
 			if (!online(pc_i)) sprintf((char*)temp, "%s (%s)",title[8].other, pc_i->name.c_str());
@@ -988,7 +983,7 @@ void deathstuff(P_CHAR pc_player)
 {
 	int z, l, q, ele;
 	char murderername[50]; //AntiChrist
-	char clearmsg[8];
+	unsigned char clearmsg[8];
 	int nType=0;
 
 	if ( pc_player == NULL )
@@ -1096,7 +1091,7 @@ void deathstuff(P_CHAR pc_player)
 		if (pi_j->type==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
 			pi_j->pos.z==0 && pi_j->id()==0x1E5E )
 		{
-			endtrade(pi_j->ser1, pi_j->ser2, pi_j->ser3, pi_j->ser4);
+			endtrade(pi_j->serial);
 		}
 	}
 	ele=0;
@@ -1205,10 +1200,7 @@ void deathstuff(P_CHAR pc_player)
 				clearmsg[0]=0x3B;
 				clearmsg[1]=0x00;
 				clearmsg[2]=0x08;
-				clearmsg[3]=pc_player->ser1;
-				clearmsg[4]=pc_player->ser2;
-				clearmsg[5]=pc_player->ser3;
-				clearmsg[6]=pc_player->ser4;
+				LongToCharPtr(pc_player->serial, &clearmsg[3]);
 				clearmsg[7]=0x00;
 				for (l=0;l<now;l++)
 					if (perm[l] && inrange1p(pc_player, currchar[l])) 
@@ -1247,7 +1239,7 @@ void deathstuff(P_CHAR pc_player)
 	if (pc_player->isPlayer())
 	{
 		strcpy((char*)temp,"a Death Shroud");
-		const P_ITEM pi_c = Items->SpawnItem(z, pc_player, 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0, 0);
+		const P_ITEM pi_c = Items->SpawnItem(z, pc_player, 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0);
 		if(pi_c == NULL) return;
 		pc_player->robe = pi_c->serial; 
 		pi_c->SetContSerial(pc_player->serial);
@@ -1284,8 +1276,6 @@ int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
 {
 	if( pc == NULL )
 		return 0;
-	unsigned char cid1 = (char)(color>>8);
-	unsigned char cid2 = (char)(color%256);
 	SERIAL serial = pc->serial;
 	long int goldCount = 0;
 //	int counter2 = 0;
@@ -1309,7 +1299,7 @@ int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
 						{
 							if( pi->id() == itemid )
 							{
-								if( pi->color1 == cid1 && pi->color2 == cid2 )
+								if( pi->color == color )
 									goldCount += pi->amount;
 							}
 						}
@@ -1326,8 +1316,6 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 {
 	if( pc == NULL )
 		return amt;
-	unsigned char cid1 = (char)(color>>8);
-	unsigned char cid2 = (char)(color%256);
 	SERIAL serial = pc->serial;
 	//int counter2 = 0;
 	int total = amt;
@@ -1351,7 +1339,7 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 						{
 							if( pi->id() == itemid )
 							{
-								if( pi->color1 == cid1 && pi->color2 == cid2 )
+								if( pi->color == color )
 								{
 									if( total >= pi->amount )
 									{
@@ -1391,8 +1379,7 @@ void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object nu
 		pi = FindItemBySerial(vecContainer[ci]);
 		if(pi->layer==0x10 || pi->layer==0x0B)//beard(0x10) and hair
 		{
-			pi->color1=piDye->color1;	//Now change the color to the hair dye bottle color!
-			pi->color2=piDye->color2;
+			pi->color = piDye->color;	//Now change the color to the hair dye bottle color!
 			RefreshItem(pi);
 		}
 	}
@@ -1880,13 +1867,11 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	if (validhair(buffer[s][0x52],buffer[s][0x53]))
 	{
-		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x52], buffer[s][0x53], buffer[s][0x54], buffer[s][0x55],0,0);
+		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x52], buffer[s][0x53], static_cast<unsigned short>(buffer[s][0x54]<<8)+buffer[s][0x55],0,0);
 		if(pi == NULL) return;
-		if ((((pi->color1<<8)+pi->color2)<0x044E) ||
-			(((pi->color1<<8)+pi->color2)>0x04AD) )
+		if ( pi->color < 0x044E || pi->color > 0x04AD )
 		{
-			pi->color1=0x04;
-			pi->color2=0x4E;
+			pi->color = 0x044E;
 		}
 		pi->SetContSerial(pc->serial);
 		pi->layer=0x0B;
@@ -1894,13 +1879,11 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	if ( (validbeard(buffer[s][0x56],buffer[s][0x57])) && (pc->id2==0x90) )
 	{
-		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x56], buffer[s][0x57], buffer[s][0x58], buffer[s][0x59],0,0);
+		const P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, buffer[s][0x56], buffer[s][0x57], static_cast<unsigned short>(buffer[s][0x58]<<8) + buffer[s][0x59],0,0);
 		if(pi == NULL) return;//AntiChrist to preview crashes
-		if ((((pi->color1<<8)+pi->color2)<0x044E) ||
-			(((pi->color1<<8)+pi->color2)>0x04AD) )
+		if ( pi->color < 0x044E || pi->color > 0x04AD )
 		{
-			pi->color1=0x04;
-			pi->color2=0x4E;
+			pi->color = 0x044E;
 		}
 		pi->SetContSerial(pc->serial);
 		pi->layer=0x10;
@@ -1908,7 +1891,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	{	// just to limit the scope of pi
 	// - create the backpack
-	P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, 0x0E, 0x75, 0, 0,0,0);
+	P_ITEM pi = Items->SpawnItem(s,pc,1, "#", 0, 0x0E, 0x75, 0, 0,0);
 	if (pi == NULL)
 		return;
 	pc->packitem = pi->serial;
@@ -1919,7 +1902,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x09,0x15,0,0,0,0);
+	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x09,0x15,0,0,0);
 	if(pi == NULL) return;//AntiChrist to preview crashes
 
 	switch (RandomNum(0, 1))
@@ -1948,8 +1931,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		break;
 	}
 	// pant/skirt color -> old client code, random color
-	pi->color1=buffer[s][102];
-	pi->color2=buffer[s][103];
+	pi->color = static_cast<unsigned short>(buffer[s][102]<<8) + buffer[s][103];
 	pi->SetContSerial(pc->serial);
 	pi->type=0;
 	pi->dye=1;
@@ -1958,7 +1940,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x09,0x15,0,0,0,0); // spawn pants
+	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x09,0x15,0,0,0); // spawn pants
 	if(pi == NULL) return;//AntiChrist to preview crashes
 	if (!(rand()%2))
 	{
@@ -1968,8 +1950,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	{
 		pi->setId(0x1517);
 	}
-	pi->color1=buffer[s][100];
-	pi->color2=buffer[s][101];
+	pi->color = static_cast<unsigned short>(buffer[s][100]<<8) + buffer[s][101];
 
 	pi->SetContSerial(pc->serial);
 	pi->layer=0x05;
@@ -1980,7 +1961,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x17,0x0F,0x02,0x87,0,0); // shoes
+	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x17,0x0F,0x0287,0,0); // shoes
 	if(pi == NULL) return;//AntiChrist to preview crashes
 	pi->SetContSerial(pc->serial);
 	pi->layer=0x03;
@@ -1991,7 +1972,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	{	// limit the scope of pi
-	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x0F,0x51,0,0,0,0); // dagger
+	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x0F,0x51,0,0,0); // dagger
 	if(pi == NULL) return;
 	pi->SetContSerial(pc->serial);
 	pi->layer=0x01;
@@ -3683,7 +3664,7 @@ void openbank(int s, P_CHAR pc_i)
 	} // end of !=-1
 
 	sprintf((char*)temp, "%s's bank box.", pc_i->name.c_str());
-	const P_ITEM pic = Items->SpawnItem(s, pc_i, 1, (char*)temp,0,0x09,0xAB,0,0,0,0);
+	const P_ITEM pic = Items->SpawnItem(s, pc_i, 1, (char*)temp,0,0x09,0xAB,0,0,0);
 	if ( pic == NULL ) return;
 	pic->layer=0x1d;
 	pic->SetOwnSerial(pc_i->serial);
@@ -3739,7 +3720,7 @@ void openspecialbank(int s, P_CHAR pc)
 	} // end of !=-1
 
 	sprintf((char*)temp, "%s's items bank box.", pc->name.c_str());
-	const P_ITEM pic = Items->SpawnItem(s, pc,1,(char*)temp,0,0x09,0xAB,0,0,0,0);
+	const P_ITEM pic = Items->SpawnItem(s, pc,1,(char*)temp,0,0x09,0xAB,0,0,0);
 	if(pic == NULL) return;
 	pic->layer=0x1d;
 	pic->SetOwnSerial(pc->serial);
@@ -3958,7 +3939,7 @@ void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
 
 void addgold(UOXSOCKET s, int totgold)
 {
-	Items->SpawnItem(s, currchar[s], totgold,"#",1,0x0E,0xED,0,0,1,1);
+	Items->SpawnItem(s, currchar[s], totgold,"#",1,0x0E,0xED,0,1,1);
 }
 
 void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
@@ -4051,10 +4032,10 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 			sysmessage(s," You cant use that in town!");
 			return;
 		}
-		addid1[s]=pi->ser1;
-		addid2[s]=pi->ser2;
-		addid3[s]=pi->ser3;
-		addid4[s]=pi->ser4;
+		addid1[s] = static_cast<unsigned char>(pi->serial >> 24);
+		addid2[s] = static_cast<unsigned char>(pi->serial >> 16);
+		addid3[s] = static_cast<unsigned char>(pi->serial >> 8);
+		addid4[s] = static_cast<unsigned char>(pi->serial % 256);
 		sysmessage(s, "Now would be a good time to throw it!");
 		tempeffect(currchar[s], currchar[s], 16, 0, 1, 3);
 		tempeffect(currchar[s], currchar[s], 16, 0, 2, 2);
@@ -5302,7 +5283,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 		ShortToCharPtr(pi->id(),wearitem+5);
 		wearitem[8]=pi->layer;
 		LongToCharPtr(pi->contserial,wearitem+9);
-		ShortToCharPtr(pi->color(),wearitem+13);
+		ShortToCharPtr(pi->color, wearitem+13);
 		P_CHAR charcont = FindCharBySerial(pi->contserial);
 		for(a=0;a<(unsigned)now;a++)//send this item to all the sockets in range
 		{

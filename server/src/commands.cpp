@@ -532,16 +532,12 @@ void cCommands::KillAll(int s, int percent, const char* sysmsg)
 //o---------------------------------------------------------------------------o
 void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call Menus up)
 {
-	int i, a1, a2, a3, a4, x;
+	int i, x;
 	int x2=0;
 
 	P_CHAR pc_currchar = currchar[s];
 	
 	x=0;
-	a1=pc_currchar->ser1;
-	a2=pc_currchar->ser2;
-	a3=pc_currchar->ser3;
-	a4=pc_currchar->ser4;
 	
 	for(i=1;i<MAXPAGES;i++)
 	{
@@ -554,7 +550,7 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 			time_t current_time = time(0);
 			struct tm *local = localtime(&current_time);
 			sprintf(counspages[i].timeofcall, "%02d:%02d:%02d", local->tm_hour, local->tm_min, local->tm_sec);
-			sprintf((char*)temp,"%s [%d][%d][%d][%d] called at %s, %s",counspages[i].name.c_str(),a1,a2,a3,a4,counspages[i].timeofcall,counspages[i].reason.c_str());
+			sprintf((char*)temp,"%s [%8x] called at %s, %s",counspages[i].name.c_str(),pc_currchar->serial,counspages[i].timeofcall,counspages[i].reason.c_str());
 			if(heartbeat) Writeslot((char*)temp);
 			pc_currchar->playercallnum=i;
 			pc_currchar->inputmode = cChar::enPageCouns;
@@ -572,7 +568,7 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 		if(strcmp(reason,"OTHER"))
 		{
 			pc_currchar->inputmode = cChar::enNone;
-			sprintf((char*)temp, "Counselor Page from %s [%x %x %x %x]: %s", pc_currchar->name.c_str(), a1, a2, a3, a4, reason);
+			sprintf((char*)temp, "Counselor Page from %s [%8x]: %s", pc_currchar->name.c_str(), pc_currchar->serial, reason);
 			for (i=0;i<now;i++)
 				if (currchar[i]->isCounselor() && perm[i])
 				{
@@ -598,16 +594,11 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 //o---------------------------------------------------------------------------o
 void cCommands::GMPage(int s, char *reason)
 {
-	int i, a1, a2, a3, a4, x=0;
+	int i, x = 0;
 	int x2=0;
 	
 	P_CHAR pc_currchar = currchar[s];
 
-	a1=pc_currchar->ser1;
-	a2=pc_currchar->ser2;
-	a3=pc_currchar->ser3;
-	a4=pc_currchar->ser4;
-	
 	for(i=1;i<MAXPAGES;i++)
 	{
 		if(gmpages[i].handled==1)
@@ -619,7 +610,7 @@ void cCommands::GMPage(int s, char *reason)
 			time_t current_time = time(0);
 			struct tm *local = localtime(&current_time);
 			sprintf(gmpages[i].timeofcall, "%02d:%02d:%02d", local->tm_hour, local->tm_min, local->tm_sec);
-			sprintf((char*)temp,"%s [%d][%d][%d][%d] called at %s, %s",gmpages[i].name.c_str(),a1,a2,a3,a4,gmpages[i].timeofcall,gmpages[i].reason.c_str());
+			sprintf((char*)temp,"%s [%8x] called at %s, %s",gmpages[i].name.c_str(),pc_currchar->serial,gmpages[i].timeofcall,gmpages[i].reason.c_str());
 			if(heartbeat) Writeslot((char*)temp);
 			pc_currchar->playercallnum=i;
 			pc_currchar->inputmode = cChar::enPageCouns;
@@ -637,8 +628,8 @@ void cCommands::GMPage(int s, char *reason)
 		if(strcmp(reason,"OTHER"))
 		{
 			pc_currchar->inputmode = cChar::enNone;
-			sprintf((char*)temp, "Page from %s [%x %x %x %x]: %s",
-				pc_currchar->name.c_str(), a1, a2, a3, a4, reason);
+			sprintf((char*)temp, "Page from %s [%8x]: %s",
+				pc_currchar->name.c_str(), pc_currchar->serial, reason);
 			for (i=0;i<now;i++) if (currchar[i]->isGM() && perm[i])
 			{
 				x=1;
@@ -678,14 +669,12 @@ void cCommands::DyeItem(int s) // Rehue an item
            	b=((((c1<<8)+c2)&0x4000)>>14)+((((c1<<8)+c2)&0x8000)>>15);	       
 			if (!b)
             {
-              pi->color1=c1;
-			  pi->color2=c2;
+              pi->color = static_cast<unsigned short>(c1<<8) + c2;
 			}
 
 			if (((c1<<8)+c2)==17969)
 			{
-				pi->color1=c1;
-				pi->color2=c2;
+				pi->color = static_cast<unsigned short>(c1<<8) + c2;
 			}
 			RefreshItem(pi);//AntiChrist
 			
@@ -875,7 +864,7 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 	sprintf(menuarray1[linecount1++], "Jail Character:");
 	sprintf(menuarray1[linecount1++], "Release Character:");
 	sprintf(menuarray1[linecount1++], "Kick Character:");
-	sprintf(menuarray1[linecount1++], "Serial#[%i %i %i %i]",pc_c->ser1,pc_c->ser2, pc_c->ser3, pc_c->ser4);   
+	sprintf(menuarray1[linecount1++], "Serial#[%8x]",pc_c->serial);   
 	
 	
 	for(line=0;line<linecount1;line++)
@@ -1064,7 +1053,7 @@ void cCommands::Wipe(int s)
 	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 	{
 		pi = iterItems.GetData();
-		if(pi->isInWorld() && pi->wipe==0)
+		if(pi->isInWorld() && !pi->wipe)
 		{
 			iterItems--; // Iterator will became invalid when we delete it.
 			Items->DeleItem(pi);

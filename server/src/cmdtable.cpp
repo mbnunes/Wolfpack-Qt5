@@ -875,8 +875,7 @@ void command_gochar(UOXSOCKET s)
 			
 			if (pc_i != NULL) 
 			{ 
-				if ((pc_i->ser1 == hexnumber(1)) && (pc_i->ser2 == hexnumber(2))&& 
-					(pc_i->ser3 == hexnumber(3)) && (pc_i->ser4 == hexnumber(4))) 
+				if (pc_i->serial == calcserial(hexnumber(1), hexnumber(2), hexnumber(3), hexnumber(4))) 
 				{ 
 					////////////////////////////////// 
 					// Adding the gmmove effects ..Aldur
@@ -2101,12 +2100,8 @@ void command_gy(UOXSOCKET s)
 	tl=44+strlen(&xtext[s][0])+1;			
 	
 	ShortToCharPtr(tl, &talk[1]);
-	talk[3]=pc_currchar->ser1;
-	talk[4]=pc_currchar->ser2;
-	talk[5]=pc_currchar->ser3;
-	talk[6]=pc_currchar->ser4;
-	talk[7]=pc_currchar->id1;
-	talk[8]=pc_currchar->id2;
+	LongToCharPtr(pc_currchar->serial, &talk[3]);
+	ShortToCharPtr(pc_currchar->id(),  &talk[7]);
 	talk[9]=1;
 	talk[10]=buffer[s][4];
 	talk[11]=buffer[s][5];
@@ -2147,7 +2142,7 @@ void command_tilew(UOXSOCKET s)
 		{
 			for (int y=makenumber(5);y<=makenumber(6);y++)
 			{
-				P_ITEM pi_a = Items->SpawnItem(s, 1, "#", pile, addid1[s], addid2[s], 0, 0, 0,0);
+				P_ITEM pi_a = Items->SpawnItem(s, 1, "#", pile, addid1[s], addid2[s], 0, 0,0);
 				if(pi_a != NULL) //AntiChrist - to preview crashes
 				{
 					pi_a->priv=0; //Make them not decay
@@ -2308,7 +2303,7 @@ void command_who(UOXSOCKET s)
 		if(perm[i]) //Keeps NPC's from appearing on the list
 		{
 			j++;
-			sprintf((char*)temp, "%i) %s [%x %x %x %x]", (j-1), currchar[i]->name.c_str(), currchar[i]->ser1, currchar[i]->ser2, currchar[i]->ser3, currchar[i]->ser4);
+			sprintf((char*)temp, "%i) %s [%8x]", (j-1), currchar[i]->name.c_str(), currchar[i]->serial);
 			sysmessage(s, (char*)temp);
 		}
 	}

@@ -280,7 +280,7 @@ static bool items_match(P_ITEM pi1, P_ITEM pi2)
 		pi1->type==pi2->type &&
 		!(pi1->id()==0x14F0 && (pi1->morex!=pi2->morex)) &&			// house deeds only differ by morex
 		!(IsShield(pi1->id()) && pi1->name2 == pi2->name2) &&	// magic shields only differ by name2
-		!(IsMetalArmour(pi1->id()) && pi1->color()!=pi2->color()) )	// color checking for armour
+		!(IsMetalArmour(pi1->id()) && pi1->color != pi2->color) )	// color checking for armour
 		return true;
 	return false;
 }
@@ -421,7 +421,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 		return 0;
 	}
 
-	P_ITEM pi_ps = Items->SpawnItem(s2, pc_currchar, 1, "#", 0, 0x1E, 0x5E, 0, 0, 0, 0);
+	P_ITEM pi_ps = Items->SpawnItem(s2, pc_currchar, 1, "#", 0, 0x1E, 0x5E, 0, 0, 0);
 	if(pi_ps == NULL) 
 		return 0;
 	pi_ps->pos = Coord_cl(26, 0, 0);
@@ -433,7 +433,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	if (s2 != INVALID_UOXSOCKET) 
 		sendbpitem(s2, pi_ps);
 
-	P_ITEM pi_pi = Items->SpawnItem(s2,pc_i,1,"#",0,0x1E,0x5E,0,0,0,0);
+	P_ITEM pi_pi = Items->SpawnItem(s2,pc_i,1,"#",0,0x1E,0x5E,0,0,0);
 	if (pi_pi == NULL) 
 		return 0;
 	pi_pi->pos = Coord_cl(26, 0, 0);
@@ -445,14 +445,14 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	if (s2 != INVALID_UOXSOCKET) 
 		sendbpitem(s2, pi_pi);
 
-	pi_pi->moreb1 = pi_ps->ser1;
-	pi_pi->moreb2 = pi_ps->ser2;
-	pi_pi->moreb3 = pi_ps->ser3;
-	pi_pi->moreb4 = pi_ps->ser4;
-	pi_ps->moreb1 = pi_pi->ser1;
-	pi_ps->moreb2 = pi_pi->ser2;
-	pi_ps->moreb3 = pi_pi->ser3;
-	pi_ps->moreb4 = pi_pi->ser4;
+	pi_pi->moreb1 = static_cast<unsigned char>((pi_ps->serial&0xFF000000)>>24);
+	pi_pi->moreb2 = static_cast<unsigned char>((pi_ps->serial&0x00FF0000)>>16);
+	pi_pi->moreb3 = static_cast<unsigned char>((pi_ps->serial&0x0000FF00)>>8);
+	pi_pi->moreb4 = static_cast<unsigned char>((pi_ps->serial&0x000000FF));
+	pi_ps->more1 = static_cast<unsigned char>((pi_pi->serial&0xFF000000)>>24);
+	pi_ps->more2 = static_cast<unsigned char>((pi_pi->serial&0x00FF0000)>>16);
+	pi_ps->more3 = static_cast<unsigned char>((pi_pi->serial&0x0000FF00)>>8);
+	pi_ps->more4 = static_cast<unsigned char>((pi_pi->serial&0x000000FF));
 	pi_ps->morez  = 0;
 	pi_pi->morez  = 0;
 
@@ -536,12 +536,12 @@ void cTrade::trademsg(int s)
 			if (cont1->morez && cont2->morez)
 			{
 				dotrade(cont1, cont2);
-				endtrade(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
+				endtrade(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
 			}
 		}
 		break;
 	case 1://Cancel trade. Send each person cancel messages, move items.
-		endtrade(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
+		endtrade(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
 		break;
 	default:
 		clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, trademsg()\n"); //Morrolan

@@ -459,7 +459,7 @@ void loaditem (int x) // Load an item from WSC
 	if (pi == NULL) return;
 
 	pi->Init(0);
-	pi->ser1=0x40;
+	pi->serial = 0x40000000;
 
 	/*pi->id1='\x0F';
 	pi->id2='\xA6'; */
@@ -495,12 +495,10 @@ void loaditem (int x) // Load an item from WSC
 				} 
 				if (!b)
 				{
-					pi->color1 = static_cast<unsigned char>(i>>8);
-					pi->color2 = static_cast<unsigned char>(i%256);
+					pi->color = static_cast<unsigned short>(i);
 				} else
 				{
-					pi->color1=0; // bugged color found, leave it undyed
-					pi->color2=0;
+					pi->color=0;
 					clConsole.send("item# %i with problematic hue corrected\n",pi->serial);
 				}
 			}
@@ -535,8 +533,7 @@ void loaditem (int x) // Load an item from WSC
 			else if (!(strcmp((char*)script1, "GLOWBC")))
 			{
 				i=str2num(script2);
-				pi->glow_c1 = static_cast<unsigned char>(i>>8);
-				pi->glow_c2 = static_cast<unsigned char>(i%256);
+				pi->glow_color = static_cast<unsigned short>(i);
 			}
 			else if (!(strcmp((char*)script1, "GLOWTYPE"))) { pi->glow_effect=str2num(script2);  }
 			break;
@@ -700,7 +697,7 @@ void loaditem (int x) // Load an item from WSC
 		
 		case 'w':
 		case 'W':
-			if (!(strcmp((char*)script1, "WIPE"))) { pi->wipe=str2num(script2); }
+			if (!(strcmp((char*)script1, "WIPE"))) { pi->wipe = str2num(script2) != 0 ? true : false; }
 			else if (!(strcmp((char*)script1, "WEIGHT")))
 			{
 				i=str2num(script2);
@@ -1445,15 +1442,11 @@ void swapDragInfo(P_ITEM pi)
 	tmpSer=pi->contserial;
 	tmpLayer=pi->layer;
 
-	pi->pos.x=pi->oldx;
-	pi->pos.y=pi->oldy;
-	pi->pos.z=pi->oldz;
+	pi->pos = pi->oldpos;
 	pi->contserial=pi->oldcontserial;
 	pi->layer=pi->oldlayer;
 
-	pi->oldx=tmpPos.x;
-	pi->oldy=tmpPos.y;
-	pi->oldz=tmpPos.z;
+	pi->oldpos = tmpPos;
 	pi->oldcontserial=tmpSer;
 	pi->oldlayer=tmpLayer;
 }
@@ -1499,7 +1492,7 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 		if (pi->pos.x		!= pDefault->pos.x)			{save_int("X",			pi->pos.x);}
 		if (pi->pos.y		!= pDefault->pos.y)			{save_int("Y",			pi->pos.y);}
 		if (pi->pos.z		!= pDefault->pos.z)			{save_int("Z",			pi->pos.z);}
-		if (pi->color()		!= pDefault->color())		{save_int("COLOR",		pi->color());}
+		if (pi->color		!= pDefault->color)			{save_int("COLOR",		pi->color);}
 		if (pi->contserial	!= INVALID_SERIAL)			{save_int("CONT",		pi->contserial);}
 		if (pi->layer		!= pDefault->layer)			{save_int("LAYER",		pi->layer);}
 		if (pi->itmhand		!= pDefault->itmhand)		{save_int("ITEMHAND",	pi->itmhand);}
@@ -1556,8 +1549,8 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 		if (pi->secureIt	!= pDefault->secureIt)		{save_int("SECUREIT",	pi->secureIt);}
 		if (pi->smelt		!= pDefault->smelt)		    {save_int("SMELT",		pi->smelt);}
 		if (pi->glow		!= pDefault->glow)			{save_int("GLOW",		pi->glow);}
-		if ((pi->glow_c1<<8) + pi->glow_c2)
-			{save_int("GLOWBC", (pi->glow_c1<<8) + pi->glow_c2);}
+		if (pi->glow_color)
+			{save_int("GLOWBC", pi->glow_color);}
 		if (pi->glow_effect != pDefault->glow_effect)	{save_int("GLOWTYPE",	pi->glow_effect);}
 		if (!pi->desc.empty())							{save_str("DESC",		pi->desc.c_str());}	// save out our vendor description
 		

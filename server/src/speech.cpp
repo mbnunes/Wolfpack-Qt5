@@ -757,7 +757,7 @@ void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 			give=58981;
 		}
 		if (give)
-			Items->SpawnItem(s, currchar[s],give,"#",1,0x0E,0xED,0,0,1,1);
+			Items->SpawnItem(s, currchar[s],give,"#",1,0x0E,0xED,0,1,1);
 		sprintf((char*)temp, "Today's purchases total %i gold. I am keeping %i gold for my self. Here is the remaining %i gold. Have a nice day.",pVendor->holdg,pay,give);
 		npctalk(s,pVendor,(char*)temp,0);
 		pVendor->holdg=t;

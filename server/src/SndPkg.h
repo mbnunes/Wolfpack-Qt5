@@ -77,7 +77,7 @@ void sysmessage(UOXSOCKET s, short color, char *txt, ...);
 void itemmessage(UOXSOCKET s, char *txt, int serial, short color=0x0000);
 void wearIt(const UOXSOCKET s, const P_ITEM pi);
 void backpack(UOXSOCKET s, SERIAL serial); // Send Backpack (with items);
-void backpack2(int s, int a1, int a2, int a3, int a4); // Send corpse stuff
+void backpack2(int s, SERIAL serial); // Send corpse stuff
 void sendbpitem(UOXSOCKET s, P_ITEM pi); // Update single item in backpack
 void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop);
 void senditem(UOXSOCKET s, P_ITEM pi); // Send items (on ground);
@@ -128,7 +128,7 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi);
 int sellstuff(UOXSOCKET s, P_CHAR pc);
 void playmidi(int s, char num1, char num2);
 void sendtradestatus(P_ITEM cont1, P_ITEM cont2);
-void endtrade(int b1, int b2, int b3, int b4);
+void endtrade(SERIAL);
 void tellmessage(int i, int s, char *txt);
 void PlayDeathSound( P_CHAR pc );
 

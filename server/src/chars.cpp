@@ -56,10 +56,6 @@ unsigned int cChar::dist(cItem* pi)	{	return pos.distance(pi->pos);		}
 
 void cChar::setSerial(SERIAL ser)
 {
-	this->ser1 = static_cast<unsigned char>(ser>>24); // Character serial number
-	this->ser2 = static_cast<unsigned char>(ser>>16);
-	this->ser3 = static_cast<unsigned char>(ser>>8);
-	this->ser4 = static_cast<unsigned char>(ser%256);
 	this->serial = ser;
 	if ( this->serial != INVALID_SERIAL)
 		cCharsManager::getInstance()->registerChar(this);
@@ -75,10 +71,6 @@ void cChar::Init(bool ser)
 	}
 	else
 	{
-		this->ser1=0;
-		this->ser2=0;
-		this->ser3=0;
-		this->ser4=0;
 		this->serial = INVALID_SERIAL;
 	}
 	this->multis=-1;//Multi serial

@@ -429,7 +429,7 @@ void racProcessInput(int s)
 				if (perm[i]) // Keeps NPC's from appearing on the list
 				{
 					j++;
-					sprintf((char*)temp, "    %i) %s [%x %x %x %x]\r\n", (j - 1), currchar[i]->name.c_str(), currchar[i]->ser1, currchar[i]->ser2, currchar[i]->ser3, currchar[i]->ser4);
+					sprintf((char*)temp, "    %i) %s [%8x]\r\n", (j - 1), currchar[i]->name.c_str(), currchar[i]->serial);
 					racPrintf(s, (char*)temp);
 				}
 			}	

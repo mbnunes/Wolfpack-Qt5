@@ -68,8 +68,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 	if (pi_bolts == NULL) return; 
 	short int amt=0;
 	short int amt1=0;
-	short int col1=pi_bolts->color1; //-Frazurbluu- added color retention for tailoring from cloth
-	short int col2=pi_bolts->color2;
+	unsigned short col1 = pi_bolts->color; //-Frazurbluu- added color retention for tailoring from cloth
 
 	if (pi_bolts && !pi_bolts->isLockedDown()) // Ripper
 	{
@@ -82,7 +81,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			else
 				amt1=50; 
 			Items->DeleItem(pi_bolts); //-Fraz- delete the bolts when ready 
-			const P_ITEM npi = Items->SpawnItem(s, pc_currchar, 1, "cut cloth", 0, 0x17, 0x66, col1, col2, 1, 1);
+			const P_ITEM npi = Items->SpawnItem(s, pc_currchar, 1, "cut cloth", 0, 0x17, 0x66, col1, 1, 1);
 			if(npi == NULL) return;// crash check
 			npi->weight = 10;
 			npi->amount = amt1;
@@ -99,8 +98,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 					return;
 				}
 			itemmake[s].Mat1id=npi->id();
-			itemmake[s].newcolor1=npi->color1;
-			itemmake[s].newcolor2=npi->color2;
+			itemmake[s].newcolor = npi->color;
 			MakeMenu(s,30,TAILORING);
 			}
 			return;
@@ -116,8 +114,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 					return;
 				}
 				itemmake[s].Mat1id=pi_bolts->id();
-				itemmake[s].newcolor1=pi_bolts->color1;
-				itemmake[s].newcolor2=pi_bolts->color2;
+				itemmake[s].newcolor = pi_bolts->color;
 				if ( IsCutLeather(pi_bolts->id()) || IsHide(pi_bolts->id()) )
 					MakeMenu(s,40,TAILORING);
 				else
@@ -280,7 +277,7 @@ static void AnvilTarget2(int s,				// socket #
 		if (pi_pack == NULL) 
 			return;
 
-		int amt = pi_pack->CountItems( pi->id(), pi->color());
+		int amt = pi_pack->CountItems( pi->id(), pi->color);
 		if ((itemmake[s].has=amt) < ma)
 		{
 			char msg[100];
@@ -316,7 +313,7 @@ void cSkills::Smith(int s)
 
 		if (id==0x1BEF || id==0x1BF2)	// is it an ingot ?
 		{
-		switch(pi->color())		// AnvilTarget2 args: socket #, item, minimum amount, makemenu #, name of metal
+		switch(pi->color)		// AnvilTarget2 args: socket #, item, minimum amount, makemenu #, name of metal
 			{
 			case 0x0961:	ingottype=1;	AnvilTarget2(s, pi, 3,  1, "iron");		return;
 			case 0x0466:	ingottype=2;	AnvilTarget2(s, pi, 1, 50, "golden");	return;
@@ -673,9 +670,9 @@ void cSkills::Mine(int s)
 			|| rand()%5)			// only a 20% chance of finding colored ore
 		{
 			if (!(rand()%20))			// a 5% chance for 5 small ores
-				Items->SpawnItem(s, pc, 5,"Iron Ore",1,'\x19','\xba', 0, 0,1,1);
+				Items->SpawnItem(s, pc, 5,"Iron Ore",1,'\x19','\xba', 0, 1,1);
 			else
-				Items->SpawnItem(s, pc ,1,"Iron Ore",1,'\x19','\xb9', 0, 0,1,1);
+				Items->SpawnItem(s, pc ,1,"Iron Ore",1,'\x19','\xb9', 0, 1,1);
 			sysmessage(s,"You place some iron ore in your pack.");
 			return;
 		}
@@ -691,7 +688,7 @@ void cSkills::Mine(int s)
 
 			char tmp[100];
 			sprintf(tmp,"%s Ore",pOre->name);
-			Items->SpawnItem(s, pc, 1, tmp, 1, 0x19, 0xB9, pOre->color>>8, pOre->color&0x00FF,1,1);
+			Items->SpawnItem(s, pc, 1, tmp, 1, 0x19, 0xB9, pOre->color,1,1);
 
 			sysmessage(s,"You place some %s ore in your pack.", pOre->name);
 		}
@@ -820,7 +817,7 @@ void cSkills::TreeTarget(int s)
 		} else
 		{//normal mining skill
 			
-			P_ITEM pi_c = Items->SpawnItem(s, pc, 10, "#", 1, 0x1B, 0xE0, 0, 0, 1, 1);
+			P_ITEM pi_c = Items->SpawnItem(s, pc, 10, "#", 1, 0x1B, 0xE0, 0, 1, 1);
 			if(pi_c == NULL) return;//AntiChrist to prevent crashes
 			if (pi_c->amount > 10) sysmessage(s,"You place more logs in your pack.");
 			else sysmessage(s,"You place some logs in your pack.");
@@ -936,7 +933,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 					case 10: iID=0x1B; break;
 					case 11: iID=0x1C; break;
 				}
-				Items->SpawnItem(s, pc, 1, NULL, 0, 0x1b, iID, 0x00, 0x00, 1, 1);
+				Items->SpawnItem(s, pc, 1, NULL, 0, 0x1b, iID, 0x00, 1, 1);
 				sysmessage(s,"You have unearthed some old bones and placed them in your pack.");
 				break;
 			default: // found an empty grave
@@ -1032,7 +1029,7 @@ void cSkills::SmeltOre(int s)
 				P_ITEM pix = FindItemBySerial(pc_currchar->smeltitem);	// on error return
 				if ( pix == NULL)
 					return;
-				switch (pix->color())
+				switch (pix->color)
 				{
 					case 0x0000:	SmeltOre2(s,   0, 0x1BF2, 0x0961,"Iron");	break;
 					case 0x0466:	SmeltOre2(s, 850, 0x1BF2, 0x0466,"Golden");	break;
@@ -1186,7 +1183,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 					else
 					{
 						sprintf(tmpmsg,"You have cooked the %s,and it smells great.",matname);
-						P_ITEM pi_c = Items->SpawnItem(s, pc_currchar,piRaw->amount,"#",1,id1,id2,0,0,1,1);
+						P_ITEM pi_c = Items->SpawnItem(s, pc_currchar,piRaw->amount,"#",1,id1,id2,0,1,1);
 						if(pi_c == NULL) return;
 						pi_c->type = 14;
 						RefreshItem(pi_c);
@@ -1546,15 +1543,14 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 
 	if (pi && !pi->isLockedDown()) // Ripper
 	{
-		short int col1=pi->color1; //-Frazurbluu- added color retention for bandage cutting from cloth
-		short int col2=pi->color2;
+		unsigned short col1 = pi->color; //-Frazurbluu- added color retention for bandage cutting from cloth
 
 		if ((IsCloth(pi->id()) && (IsCutCloth(pi->id()))))
 		{
 			amt=pi->amount;  //-Frazurbluu- changed to reflect current OSI 
 			soundeffect(s,0x02,0x48);
 			sysmessage(s,"You cut some cloth into bandages, and put it in your backpack");
-			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,amt,"#",0,0x0E,0x21,col1,col2,1,1);
+			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,amt,"#",0,0x0E,0x21,col1,1,1);
 			if(pi_c == NULL) return;
 			// need to set amount and weight and pileable, note: cannot set pilable while spawning item -Fraz-
 			pi_c->weight=10;
@@ -1574,7 +1570,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			else
 				amt=50;
 			soundeffect(s,0x02,0x48);
-			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
+			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"cut cloth",0,0x17,0x66,col1,1,1);
 			if(pi_c == NULL) return;
 			pi_c->weight=10;
 			pi_c->pileable=true;
@@ -1589,7 +1585,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 		{
 			amt=pi->amount;
 			soundeffect(s,0x02,0x48);
-			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"leather piece",0,0x10,0x67,col1,col2,1,1);
+			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"leather piece",0,0x10,0x67,col1,1,1);
 			if(pi_c == NULL) return;
 			pi_c->weight=100;
 			pi_c->pileable=true;
@@ -2568,7 +2564,7 @@ void cSkills::Tinkering(int s)
 			if (CheckInPack(s,pi))
 			{
 				int amt;
-				itemmake[s].has=amt=pc_currchar->CountItems(pi->id(), pi->color());
+				itemmake[s].has = amt = pc_currchar->CountItems(pi->id(), pi->color);
 				if(amt<2)
 				{ 
 					sysmessage(s,"You don't have enough ingots to make anything.");
@@ -2586,7 +2582,7 @@ void cSkills::Tinkering(int s)
 				}
 				else
 				{
-					itemmake[s].Mat1color=pi->color();	// only if ingots are used
+					itemmake[s].Mat1color = pi->color;	// only if ingots are used
 					Skills->MakeMenu(s,80,TINKERING);
 				}
 			}
@@ -2705,7 +2701,7 @@ public:
 	}
 	virtual void createIt(int s)
 	{
-		Items->SpawnItem(s, currchar[s],1,"an axle with gears",1,0x10,0x51,0,0,1,1);
+		Items->SpawnItem(s, currchar[s],1,"an axle with gears",1,0x10,0x51,0,1,1);
 	}
 };
 
@@ -2736,7 +2732,7 @@ public:
 		//#else
 		//char *pn = (id2==0x4F) ? "clock parts" : "sextant parts";
 		//#endif
-		Items->SpawnItem(s, currchar[s],1,pn,1,0x10,id2,0,0,1,1);
+		Items->SpawnItem(s, currchar[s],1,pn,1,0x10,id2,0,1,1);
 	}
 };
 
@@ -2752,7 +2748,7 @@ public:
 	virtual bool decide()   {minskill=600; return cTinkerCombine::decide();}
 	virtual void createIt(int s)
 	{
-		Items->SpawnItem(s,currchar[s],1,"clock",0,0x10,0x4B,0,0,1,1);
+		Items->SpawnItem(s,currchar[s],1,"clock",0,0x10,0x4B,0,1,1);
 	}
 };
 
@@ -2882,7 +2878,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 	if (Skills->CheckSkill((pc),sk, 0, 1000))
 	{
 		char* Name = NULL;
-		short Color = pi->color();
+		unsigned short Color = pi->color;
 		switch(pi->smelt)
 		{
 		case 1:	Name="#";			 	Color=0x0961;	break;

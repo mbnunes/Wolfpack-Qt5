@@ -240,8 +240,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						if (pi_hair != NULL)
 						{
 							x=hex2num(script2);
-							pi_hair->color1=x>>8;
-							pi_hair->color2=x%256;
+							pi_hair->color = x;
 							RefreshItem(pi_hair);//AntiChrist
 							teleport(pc_s);
 						}
@@ -265,8 +264,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						if (pi_beard != NULL)
 						{
 							x=hex2num(script2);
-							pi_beard->color1=x>>8;
-							pi_beard->color2=x%256;
+							pi_beard->color = x;
 							RefreshItem(pi_beard);//AntiChrist
 							teleport(pc_s);
 						}
@@ -409,7 +407,7 @@ void monstergate(P_CHAR pc_s, int x)
 			if (pBackpack == NULL)
 			{
 				scpMark m=pScp->Suspend();
-				pBackpack = Items->SpawnItem(calcSocketFromChar(pc_s),pc_s,1,"#",0,0x0E,0x75,0,0,0,0);
+				pBackpack = Items->SpawnItem(calcSocketFromChar(pc_s),pc_s,1,"#",0,0x0E,0x75,0,0,0);
 				if (pBackpack == NULL)
 					return;
 				pc_s->packitem = pBackpack->serial;
@@ -473,7 +471,7 @@ void monstergate(P_CHAR pc_s, int x)
 			if (!(strcmp("GOLD", (char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
-				pRetitem = Items->SpawnItem(calcSocketFromChar(pc_s),pc_s,1,"#",1,0x0E,0xED,0,0,1,0);
+				pRetitem = Items->SpawnItem(calcSocketFromChar(pc_s),pc_s,1,"#",1,0x0E,0xED,0,1,0);
 				if(pRetitem == NULL) return;
 				pScp->Resume(m);
 				
@@ -538,8 +536,7 @@ void monstergate(P_CHAR pc_s, int x)
 			{
 				if (pRetitem == NULL)
 				{
-					pRetitem->color1=(hex2num(script2))>>8;
-					pRetitem->color2=(hex2num(script2))%256;
+					pRetitem->color = hex2num(script2);
 				}
 			}
 			if (!(strcmp("POISON",(char*)script1))) pc_s->poison=str2num(script2);
@@ -802,7 +799,7 @@ void objTeleporters(P_CHAR pc_s)
 						if ((pmi->type == 80)&&(pc_s->isPlayer()))
 							if (pmi->more1 != 0 || pmi->more2 != 0 || pmi->more3 != 0 || pmi->more4 != 0)
 							{
-								if (pc_s->ser1 == pmi->more1 && pc_s->ser2 == pmi->more2 && pc_s->ser3 == pmi->more3 && pc_s->ser4 == pmi->more4)
+								if (pc_s->serial == calcserial( pmi->more1, pmi->more2, pmi->more3, pmi->more4 ))
 									advancementobjects(pc_s, pmi->morex, 0);
 							}
 							else
@@ -811,7 +808,7 @@ void objTeleporters(P_CHAR pc_s)
 							if ((pmi->type == 81)&&(pc_s->isPlayer()))
 								if (pmi->more1 != 0 || pmi->more2 != 0 || pmi->more3 != 0 || pmi->more4 != 0)
 								{
-									if (pc_s->ser1 == pmi->more1 && pc_s->ser2 == pmi->more2 && pc_s->ser3 == pmi->more3 && pc_s->ser4 == pmi->more4)
+									if (pc_s->serial == calcserial(pmi->more1, pmi->more2, pmi->more3, pmi->more4))
 										advancementobjects(pc_s, pmi->morex, 1);
 								}
 								else

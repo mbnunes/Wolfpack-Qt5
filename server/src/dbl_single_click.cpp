@@ -450,14 +450,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		}
 			return;// spellbook
 	case 10: // map?
-		map1[1] = pi->ser1;
-		map1[2] = pi->ser2;
-		map1[3] = pi->ser3;
-		map1[4] = pi->ser4;
-		map2[1] = pi->ser1;
-		map2[2] = pi->ser2;
-		map2[3] = pi->ser3;
-		map2[4] = pi->ser4;
+		LongToCharPtr(pi->serial, &map1[1]);
+		LongToCharPtr(pi->serial, &map2[1]);
 /*
 		By Polygon:
 		Assign areas and map size before sending
@@ -761,10 +755,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						return;
 					}
 				}
-				addid1[s] = pi->ser1;
-				addid2[s] = pi->ser2;
-				addid3[s] = pi->ser3;
-				addid4[s] = pi->ser4;
+				addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+				addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+				addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+				addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 				Gumps->Menu(s, pi->morex, pi);						
 				return;
 		case 217:			// PlayerVendors deed
@@ -838,14 +832,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	Show a map-gump with the treasure location in it
 */
 		case 302:	// Deciphered treasure map?
-			map1[1] = pi->ser1;
-			map1[2] = pi->ser2;
-			map1[3] = pi->ser3;
-			map1[4] = pi->ser4;
-			map2[1] = pi->ser1;
-			map2[2] = pi->ser2;
-			map2[3] = pi->ser3;
-			map2[4] = pi->ser4;
+			LongToCharPtr(pi->serial, &map1[1]);
+			LongToCharPtr(pi->serial, &map2[1]);
 			map1[7] = pi->more1;	// Assign topleft x
 			map1[8] = pi->more2;
 			map1[9] = pi->more3;	// Assign topleft y
@@ -863,10 +851,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			Xsend(s, map2, 11);
 
 			// Generate message to add a map point
-			map3[1] = pi->ser1;
-			map3[2] = pi->ser2;
-			map3[3] = pi->ser3;
-			map3[4] = pi->ser4;
+			LongToCharPtr(pi->serial, &map3[1]);
 			int posx, posy;			// tempoary storage for map point
 			int tlx, tly, lrx, lry;	// tempoary storage for map extends
 			tlx = (pi->more1 << 8) + pi->more2;
@@ -973,8 +958,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					target(s, 0, 1, 0, 237, "What item would you like to Smelt?");
 					return; // Ripper..Smelting items.
 				case 0x0FAB:// dye vat
-					addid1[s] = pi->color1;
-					addid2[s] = pi->color2;
+					addid1[s] = static_cast<unsigned char>(pi->color>>8);
+					addid2[s] = static_cast<unsigned char>(pi->color%256);
 					target(s, 0, 1, 0, 32, "Select the clothing to use this on.");
 					return;// dye vat
 				case 0x14F0:// houses
@@ -1293,18 +1278,18 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x0E9B: // Mortar for Alchemy
 					if (pi->type == 17)
 					{
-						addid1[s] = pi->ser1;
-						addid2[s] = pi->ser2;
-						addid3[s] = pi->ser3;
-						addid4[s] = pi->ser4;
+						addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+						addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+						addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+						addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 						target(s, 0, 1, 0, 109, "Where is an empty bottle for your potion?");
 					}
 					else
 					{
-						addid1[s] = pi->ser1;
-						addid2[s] = pi->ser2;
-						addid3[s] = pi->ser3;
-						addid4[s] = pi->ser4;
+						addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+						addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+						addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+						addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 						target(s, 0, 1, 0, 108, "What do you wish to grind with your mortar and pestle?");
 					}
 					return; // alchemy
@@ -1369,7 +1354,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						else 
 							action(s, 0x1d);
 						soundeffect(s, 0x01, 0x3E);
-						P_ITEM p_cotton = Items->SpawnItem(-1, pc_currchar, 1, "#", 1, 0x0D, 0xF9, 0, 0, 1, 1);
+						P_ITEM p_cotton = Items->SpawnItem(-1, pc_currchar, 1, "#", 1, 0x0D, 0xF9, 0, 1, 1);
 						if ( p_cotton == NULL )
 							return;
 						p_cotton->SetContSerial(Packitem(pc_currchar)->serial);
@@ -1380,10 +1365,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x105C:
 				case 0x1053:
 				case 0x1054: // tinker axle
-					addid1[s] = pi->ser1;
-					addid2[s] = pi->ser2;
-					addid3[s] = pi->ser3;
-					addid4[s] = pi->ser4;
+					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 					target(s, 0, 1, 0, 183, "Select part to combine that with.");
 					return;
 				case 0x1051:
@@ -1392,10 +1377,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x1056:
 				case 0x105D:
 				case 0x105E:
-					addid1[s] = pi->ser1;
-					addid2[s] = pi->ser2;
-					addid3[s] = pi->ser3;
-					addid4[s] = pi->ser4;
+					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 					// itemmake[s].materialid1=pi->id1;
 					// itemmake[s].materialid2=pi->id2;
 					target(s, 0, 1, 0, 184, "Select part to combine it with.");
@@ -1404,10 +1389,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x1050:
 				case 0x104D:
 				case 0x104E:// tinker clock
-					addid1[s] = pi->ser1;
-					addid2[s] = pi->ser2;
-					addid3[s] = pi->ser3;
-					addid4[s] = pi->ser4;
+					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
+					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
+					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
+					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 					target(s, 0, 1, 0, 185, "Select part to combine with");
 					return;
 				case 0x1059:
@@ -1415,7 +1400,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if (Skills->CheckSkill(currchar[s], TINKERING, 500, 1000))
 					{
 						sysmessage(s, "You create the sextant.");
-						P_ITEM pi_sextant = Items->SpawnItem(s, currchar[s], 1, "a sextant", 0, 0x10, 0x57, 0, 0, 1, 1);
+						P_ITEM pi_sextant = Items->SpawnItem(s, currchar[s], 1, "a sextant", 0, 0x10, 0x57, 0, 1, 1);
 						if (pi_sextant != NULL)
 							pi_sextant->priv |= 0x01;
 						pi->ReduceAmount(1);
@@ -1705,10 +1690,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 			if ((!keyboard)&&(unmounthorse(s)==0)) return; //on horse
 			//if not on horse, treat ourselves as any other char
 		}//self
-		pdoll[1]=target->ser1;
-		pdoll[2]=target->ser2;
-		pdoll[3]=target->ser3;
-		pdoll[4]=target->ser4;
+		LongToCharPtr(target->serial, &pdoll[1]);
 		
 		completetitle = complete_title(target);
 		int l = strlen(completetitle);

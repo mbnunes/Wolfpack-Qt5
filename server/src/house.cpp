@@ -289,23 +289,23 @@ void cHouseManager::AddHome(int s, int i)
 		House[houseSize]->LockAmount=lockamount;
 		House[houseSize]->SecureAmount=secureamount;
 	
-		if (id2>=112&&id2<=115) pKey = Items->SpawnItem(s, pc_currchar, 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1);//iron key for tents
-		else if(id2<=0x18) pKey = Items->SpawnItem(s, pc_currchar, 1, "a ship key",0,0x10,0x13,0,0,1,1);//Boats -Rusty Iron Key
-		else pKey = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else;
+		if (id2>=112&&id2<=115) pKey = Items->SpawnItem(s, pc_currchar, 1, "a tent key", 0, 0x10, 0x10,0, 1,1);//iron key for tents
+		else if(id2<=0x18) pKey = Items->SpawnItem(s, pc_currchar, 1, "a ship key",0,0x10,0x13,0,1,1);//Boats -Rusty Iron Key
+		else pKey = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0, 1,1);//gold key for everything else;
 		
-		pKey->more1=pMulti->ser1;//use the house's serial for the more on the key to keep it unique
-		pKey->more2=pMulti->ser2;
-		pKey->more3=pMulti->ser3;
-		pKey->more4=pMulti->ser4;
+		pKey->more1 = static_cast<unsigned char>((pMulti->serial&0xFF000000)>>24);
+		pKey->more2 = static_cast<unsigned char>((pMulti->serial&0x00FF0000)>>16);
+		pKey->more3 = static_cast<unsigned char>((pMulti->serial&0x0000FF00)>>8);
+		pKey->more4 = static_cast<unsigned char>((pMulti->serial&0x000000FF));
 		pKey->type=7;
 		pKey->priv=2; // Newbify key..Ripper
         
-		P_ITEM pKey2 = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);
+		P_ITEM pKey2 = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0,1,1);
 		P_ITEM bankbox = pc_currchar->GetBankBox();
-		pKey2->more1=pMulti->ser1;
-		pKey2->more2=pMulti->ser2;
-		pKey2->more3=pMulti->ser3;
-		pKey2->more4=pMulti->ser4;
+		pKey2->more1 = static_cast<unsigned char>((pMulti->serial&0xFF000000)>>24);
+		pKey2->more2 = static_cast<unsigned char>((pMulti->serial&0x00FF0000)>>16);
+		pKey2->more3 = static_cast<unsigned char>((pMulti->serial&0x0000FF00)>>8);
+		pKey2->more4 = static_cast<unsigned char>((pMulti->serial&0x000000FF));
 		pKey2->type=7;
 		pKey2->priv=2;
 		bankbox->AddItem(pKey2);
@@ -368,10 +368,10 @@ void cHouseManager::AddHome(int s, int i)
 						}
 						else if (!(strcmp((char*)script1,"LOCK")))//lock it with the house key
 						{
-							pHouseItem->more1=pHouseItem->ser1;
-							pHouseItem->more2=pHouseItem->ser2;
-							pHouseItem->more3=pHouseItem->ser3;
-							pHouseItem->more4=pHouseItem->ser4;
+							pHouseItem->more1 = static_cast<unsigned char>((pHouseItem->serial&0xFF000000)>>24);
+							pHouseItem->more2 = static_cast<unsigned char>((pHouseItem->serial&0x00FF0000)>>16);
+							pHouseItem->more3 = static_cast<unsigned char>((pHouseItem->serial&0x0000FF00)>>8);
+							pHouseItem->more4 = static_cast<unsigned char>((pHouseItem->serial&0x000000FF));
 						}
 						else if (!(strcmp((char*)script1,"X")))//offset + or - from the center of the house:
 						{
@@ -420,7 +420,7 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 {
 	int loopexit=0;
 	int x1, y1, x2, y2;
-	unsigned char ser1, ser2, ser3, ser4;
+	//unsigned char ser1, ser2, ser3, ser4;
 	if( pHouse == NULL ) return;
 	P_CHAR pc = currchar[s];
 //	P_ITEM playerCont = Packitem( pc );
@@ -433,10 +433,10 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 		if( pDeed == NULL ) return;
 		sprintf((char*)temp, "Demolishing House %s", pHouse->name.c_str());
 		sysmessage( s, (char*)temp );
-		ser1 = pHouse->ser1;
-		ser2 = pHouse->ser2;
-		ser3 = pHouse->ser3;
-		ser4 = pHouse->ser4;
+//		ser1 = pHouse->ser1;
+//		ser2 = pHouse->ser2;
+//		ser3 = pHouse->ser3;
+//		ser4 = pHouse->ser4;
 		Items->DeleItem(pHouse);
 		sprintf((char*)temp, "Converted into a %s.", pDeed->name.c_str());
 		sysmessage(s, (char*)temp); 

@@ -59,8 +59,7 @@ cItem::cItem( cItem &src )
 	this->flags.isBeeingDragged = src.flags.isBeeingDragged;
 	this->setId(src.id());
 	this->pos = src.pos;
-	this->color1 = src.color1;
-	this->color2 = src.color2;
+	this->color = src.color;
 	this->SetContSerial(src.contserial);
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer = this->oldlayer = src.layer;
@@ -128,8 +127,7 @@ cItem::cItem( cItem &src )
  	this->murdertime=src.murdertime;
     this->glow=src.glow;
     this->glow_effect=src.glow_effect;
-    this->glow_c1=src.glow_c1;
-    this->glow_c2=src.glow_c2;
+    this->glow_color = src.glow_color;
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
 	this->spawnregion=src.spawnregion;
@@ -316,7 +314,7 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 	if (!(this->pileable && pItem->pileable &&
 		this->serial!=pItem->serial &&
 		this->id()==pItem->id() &&
-		this->color()==pItem->color() ))
+		this->color == pItem->color ))
 		return false;	//cannot stack.
 
 	if (this->amount+pItem->amount>65535)
@@ -344,7 +342,7 @@ bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the contai
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->id() == pItem->id() && !pi->free && pi->color() == pItem->color())
+		if (pi->id() == pItem->id() && !pi->free && pi->color == pItem->color)
 			if (pi->PileItem(pItem))
 				return true;
 	}
@@ -399,7 +397,7 @@ int cItem::DeleteAmount(int amount, short id, short color)
 		if (pi->type==1)
 			rest=pi->DeleteAmount(rest, id, color);
 		if (pi->id()==id
-			&& (color==-1 || (pi->color()==color)))
+			&& (color==-1 || (pi->color == color)))
 			rest=pi->ReduceAmount(rest);
 		if (rest<=0)
 			break;
@@ -415,8 +413,7 @@ void cItem::setId(unsigned short id)
 
 void cItem::setColor(unsigned short color)
 {
-	color1=color>>8;
-	color2=color&0x00FF;
+	color = color;
 }
 
 void cItem::Serialize(ISerialization &archive)
@@ -489,8 +486,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("secureit",	secureIt);
 		archive.read("smelt",		smelt);
 		archive.read("glow",		glow);
-		archive.read("glow_c1",		glow_c1);
-		archive.read("glow_c2",		glow_c2);
+		archive.read("glow_color",	glow_color);
 		archive.read("glowtype",	glow_effect);
 		archive.read("desc",		desc);
 	}
@@ -500,7 +496,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("name2",		name2);
 		archive.write("creator",	creator);
 		archive.write("sk_name",	madewith);
-		archive.write("color",		color());
+		archive.write("color",		color);
 		archive.write("cont",		contserial);
 		archive.write("layer",		layer);
 		archive.write("itemhand",	itmhand);
@@ -561,8 +557,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("secureit",	secureIt);
 		archive.write("smelt",		smelt);
 		archive.write("glow",		glow);
-		archive.write("glow_c1",	glow_c1);
-		archive.write("glow_c2",	glow_c2);
+		archive.write("glow_color",	glow_color);
 		archive.write("glowtype",	glow_effect);
 		archive.write("desc",		desc);
 	}
@@ -654,10 +649,6 @@ P_ITEM cAllItems::MemItemFree()// -- Find a free item slot, checking freeitemmem
 
 void cItem::SetSerial(long ser)
 {
-	this->ser1=(unsigned char) ((ser&0xFF000000)>>24); // Item serial number
-	this->ser2=(unsigned char) ((ser&0x00FF0000)>>16);
-	this->ser3=(unsigned char) ((ser&0x0000FF00)>>8);
-	this->ser4=(unsigned char) ((ser&0x000000FF));
 	this->serial=ser;
 	if (ser != INVALID_SERIAL)
 		cItemsManager::getInstance()->registerItem( this );
@@ -690,11 +681,8 @@ void cItem::Init(char mkser)
 	this->flags.isBeeingDragged=0;
 	this->setId(0x0001); // Item visuals as stored in the client
 	// this->name2[0]=0x00; Removed by Magius(CHE)
-	this->pos.x=this->oldx=100;
-	this->pos.y=this->oldy=100;
-	this->pos.z=this->oldz=0;
-	this->color1=0x00; // Hue
-	this->color2=0x00;
+	this->pos = this->oldpos = Coord_cl(100, 100, 0);
+	this->color = 0x00; // Hue
 	this->contserial = INVALID_SERIAL; // Container that this item is found in
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer=this->oldlayer=0; // Layer if equipped on paperdoll
@@ -739,7 +727,7 @@ void cItem::Init(char mkser)
 	this->in=0; // The intelligence needed to equip the item
 	this->in2=0; // The intelligence the item gives
 	this->spd=0; //The speed of the weapon
-	this->wipe=0; //Should this item be wiped with the /wipe command
+	this->wipe=false; //Should this item be wiped with the /wipe command
 	this->magic=0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
 	this->gatetime=0;
 	this->gatenumber=-1;
@@ -761,8 +749,7 @@ void cItem::Init(char mkser)
  	this->murdertime=0; //AntiChrist -- for corpse -- when the people has been killed
     this->glow=0;
     this->glow_effect=0;
-    this->glow_c1=0;
-    this->glow_c2=0;
+    this->glow_color = 0;
 	this->time_unused=0;
 	this->timeused_last=getNormalizedTime();
 	this->spawnregion=0;
@@ -779,10 +766,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 	if (!pi->free)
 	{
 		
-		removeitem[1]=pi->ser1;
-		removeitem[2]=pi->ser2;
-		removeitem[3]=pi->ser3;
-		removeitem[4]=pi->ser4;
+		LongToCharPtr(pi->serial, &removeitem[1]);
 
 		if (pi->spawnregion>0 && pi->spawnregion<255)
 		{
@@ -887,8 +871,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					if (!strcmp("COLOR", (char*)script1))
 					{
 						tmp = hex2num(script2);
-						pi->color1 = tmp >> 8;
-						pi->color2 = tmp%256;
+						pi->color = tmp;
 					}
 					else if (!strcmp("CREATOR", (char*)script1))		pi->creator = (char*)script2; // by Magius(CHE)
 					else if (!strcmp("COLORLIST", (char*)script1))
@@ -897,8 +880,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 						closescript();
 						tmp = addrandomcolor(currchar[so], (char*)script2);
 						{
-							pi->color1 = tmp >> 8;
-							pi->color2 = tmp%256;
+							pi->color = tmp;
 						}
 						openscript(sect);
 						fseek(scpfile, pos, SEEK_SET);
@@ -1255,7 +1237,7 @@ cItem* cAllItems::CreateScriptRandomItem(int s, char * sItemList)
 P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
 					int nAmount, char* cName, int nStackable,
 					unsigned char cItemId1, unsigned char cItemId2,
-					unsigned char cColorId1, unsigned char cColorId2,
+					unsigned short cColorId,
 					int nPack, int nSend)
 {
 	if (nSocket < 0)
@@ -1265,17 +1247,17 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
 	}
 	else
 	{
-		return SpawnItem(nSocket, currchar[nSocket], nAmount, cName, nStackable, cItemId1, cItemId2, cColorId1, cColorId2, nPack, nSend);
+		return SpawnItem(nSocket, currchar[nSocket], nAmount, cName, nStackable, cItemId1, cItemId2, cColorId, nPack, nSend);
 	}
 }
 
 P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 					int nAmount, char* cName, int nStackable,
 					unsigned char cItemId1, unsigned char cItemId2,
-					unsigned char cColorId1, unsigned char cColorId2,
+					unsigned short cColorId,
 					int nPack, int nSend)
 {
-	P_ITEM pi = SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), (short)((cColorId1<<8)+cColorId2), nPack);
+	P_ITEM pi = SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), cColorId, nPack);
 	if (pi == NULL) 
 		return NULL;
 	if (nSend && nSocket>=0)
@@ -1339,7 +1321,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			P_ITEM pSt = FindItemBySerial(vecContainer[ci]);
-			if (pSt->id()==id && !pSt->free && pSt->color()==color)
+			if (pSt->id()==id && !pSt->free && pSt->color == color)
 			{
 				if (pSt->amount+nAmount > 65535)	// if it would create an overflow (amount is ushort!),
 					continue;						// let's search for another pile to add to
@@ -1357,8 +1339,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 	if(cName!=NULL)
 		pi->name = cName;
 	pi->setId(id);
-	pi->color1=color>>8;
-	pi->color2=color&0x00FF;
+	pi->color = color;
 	pi->amount=nAmount;
 	pi->pileable=pile;
 	pi->att=5;
@@ -1438,8 +1419,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					else if (!(strcmp("COLOR",(char*)script1)))
 					{
 						tmp=hex2num(script2);
-						pi->color1=tmp>>8;
-						pi->color2=tmp%256;
+						pi->color = tmp;
 					}
 				break;
 				

@@ -54,9 +54,9 @@ cBooks::~cBooks()//Destructor
 // opens old (readonly) books == old, bugfixed readbook function
 void cBooks::openbook_old(UOXSOCKET s, P_ITEM pBook)
 {
-	char bookopen[10]="\x93\x40\x01\x02\x03\x00\x00\x00\x02"; //LB 7'th dec 1999, making it client 1.26 complaint
-	char booktitle[61]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-	char bookauthor[31]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+	unsigned char bookopen[10]="\x93\x40\x01\x02\x03\x00\x00\x00\x02"; //LB 7'th dec 1999, making it client 1.26 complaint
+	unsigned char booktitle[61]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+	unsigned char bookauthor[31]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 	unsigned long loopexit=0;
 	
 	openscript("misc.scp");
@@ -66,10 +66,7 @@ void cBooks::openbook_old(UOXSOCKET s, P_ITEM pBook)
 		closescript();
 		return;
 	}
-	bookopen[1]=pBook->ser1;
-	bookopen[2]=pBook->ser2;
-	bookopen[3]=pBook->ser3;
-	bookopen[4]=pBook->ser4;
+	LongToCharPtr(pBook->serial, &bookopen[1]);
 	do
 	{
 		read2();
@@ -84,7 +81,7 @@ void cBooks::openbook_old(UOXSOCKET s, P_ITEM pBook)
 	}
 	while ( (strcmp((char*)script1, "TITLE")) && (++loopexit < MAXLOOPS) );
 
-	strcpy(booktitle, script2);
+	strcpy((char*)(booktitle), script2);
 
 	loopexit=0;
 	do
@@ -93,7 +90,7 @@ void cBooks::openbook_old(UOXSOCKET s, P_ITEM pBook)
 	}
 	while ( (strcmp((char*)script1, "AUTHOR")) && (++loopexit < MAXLOOPS) );
 
-	strcpy(bookauthor, script2);
+	strcpy((char*)(bookauthor), script2);
 	Xsend(s, bookopen, 9); // LB, bugfixing of old code
 	Xsend(s, booktitle, 60);
 	Xsend(s, bookauthor, 30);
@@ -122,7 +119,7 @@ void cBooks::openbook_new(UOXSOCKET s, P_ITEM pBook, char writeable)
 	char booktitle[61]={0x00,};
 	char bookauthor[31]={0x00,};
 
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);
+	sprintf( fileName, "%8x.bok", pBook->serial);
     file = fopen( fileName, "r+b"); // open existing file for read/write
 
     bookexists = (file!=NULL);
@@ -215,14 +212,14 @@ void cBooks::openbook_new(UOXSOCKET s, P_ITEM pBook, char writeable)
 void cBooks::readbook_readonly(UOXSOCKET s, P_ITEM pBook, int p) 
 {
 
-    char bookpage[14]="\x66\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x08";
+    unsigned char bookpage[14]="\x66\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x08";
 	int bytes=0,a,c;
 	char seite[8][33];
 	char fileName[13];
 	char line[33];
 	FILE *file = NULL;
 	
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);
+	sprintf( fileName, "%8x.bok", pBook->serial);
     file = fopen( fileName, "r+b"); // open existing file for read/write
 
     if (file == NULL) 
@@ -245,10 +242,7 @@ void cBooks::readbook_readonly(UOXSOCKET s, P_ITEM pBook, int p)
 	bookpage[1]=bytes>>8;
 	bookpage[2]=bytes%256;
 
-	bookpage[3]=pBook->ser1;
-	bookpage[4]=pBook->ser2;
-	bookpage[5]=pBook->ser3;
-	bookpage[6]=pBook->ser4;
+	LongToCharPtr(pBook->serial, &bookpage[3]);
 
 	bookpage[9]=p>>8;
 	bookpage[10]=p%256;
@@ -267,7 +261,7 @@ void cBooks::readbook_readonly(UOXSOCKET s, P_ITEM pBook, int p)
 void cBooks::readbook_readonly_old(UOXSOCKET s, P_ITEM pBook, int p)
 {
 	int x, y, pos, j;
-	char bookpage[14]="\x66\x01\x02\x40\x01\x02\x03\x00\x01\x00\x01\x00\x01";
+	unsigned char bookpage[14]="\x66\x01\x02\x40\x01\x02\x03\x00\x01\x00\x01\x00\x01";
 	unsigned long loopexit=0,loopexit2=0;
 	
 	openscript("misc.scp");
@@ -314,10 +308,7 @@ void cBooks::readbook_readonly_old(UOXSOCKET s, P_ITEM pBook, int p)
 	fseek(scpfile, pos, SEEK_SET);
 	bookpage[1]=y>>8;
 	bookpage[2]=y%256;
-	bookpage[3]=pBook->ser1;
-	bookpage[4]=pBook->ser2;
-	bookpage[5]=pBook->ser3;
-	bookpage[6]=pBook->ser4;
+	LongToCharPtr(pBook->serial, &bookpage[3]);
 	bookpage[9]=p>>8;
 	bookpage[10]=p%256;
 	bookpage[11]=x>>8;
@@ -372,7 +363,7 @@ void cBooks::write_author(P_ITEM pBook,UOXSOCKET s)
 	char fileName[13];  // Standard 8.3 file name
 	int newbook=0,Offset;
 	
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);
+	sprintf( fileName, "%8x.bok", pBook->serial);
 	
 	file = fopen( fileName, "r+b"); // open existing file for read/write
 	
@@ -418,7 +409,7 @@ void cBooks::write_title(P_ITEM pBook,UOXSOCKET s)
 	char fileName[13];  // Standard 8.3 file name
 	int newbook=0,Offset;
 	
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);
+	sprintf( fileName, "%8x.bok", pBook->serial);
 	
 	file = fopen( fileName, "r+b"); // open existing file for read/write
 	
@@ -465,7 +456,7 @@ void cBooks::write_line(P_ITEM pBook, int page, int line, char linestr[34], UOXS
 	char fileName[13];  // Standard 8.3 file name
 	int newbook=0,Offset;
 	
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);
+	sprintf( fileName, "%8x.bok", pBook->serial);
 	
 	file = fopen( fileName, "r+b"); // open existing file for read/write
 	
@@ -512,7 +503,7 @@ void cBooks::read_author(P_ITEM pBook,char auth[31])
 	char fileName[13];  
 	int Offset;
 	
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);
+	sprintf( fileName, "%8x.bok", pBook->serial);
 	
 	file = fopen( fileName, "r+b"); // open existing file for read/write
 	
@@ -550,7 +541,7 @@ void cBooks::read_title(P_ITEM pBook,char title[61])
 	char fileName[13];  
 	int Offset;
 	
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);
+	sprintf( fileName, "%8x.bok", pBook->serial);
 	
 	file = fopen( fileName, "r+b"); // open existing file for read/write
 	
@@ -588,7 +579,7 @@ int cBooks::read_number_of_pages(P_ITEM pBook)
 	int Offset;
 	char num[5];
 	
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);
+	sprintf( fileName, "%8x.bok", pBook->serial);
 	
 	file = fopen( fileName, "r+b"); // open existing file for read/write
 	
@@ -632,7 +623,7 @@ void cBooks::read_line(P_ITEM pBook, int page,int linenumber, char line[33])
 	char fileName[13];  
 	int Offset;
 	
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);
+	sprintf( fileName, "%8x.bok", pBook->serial);
 	
 	file = fopen( fileName, "r+b"); // open existing file for read/write
 	
@@ -666,7 +657,7 @@ void cBooks::read_line(P_ITEM pBook, int page,int linenumber, char line[33])
 void cBooks::delete_bokfile(P_ITEM pBook)
 {
 	char fileName[13];    
-	sprintf( fileName, "%02x%02x%02x%02x.bok", pBook->ser1, pBook->ser2, pBook->ser3, pBook->ser4);  
+	sprintf( fileName, "%8x.bok", pBook->serial);  
 	remove(fileName);
 }
 

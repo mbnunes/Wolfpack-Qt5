@@ -64,9 +64,7 @@
 // history:	cut from both triggerwitem and triggernpcs because they were (almost) identical (duke, 8.4.2001)
 // remarks: many other tags seem to be identical...
 //
-static void handle_IADD(UOXSOCKET const ts, int const ttype, 
-						const int coloring,const unsigned char memcolor1,const unsigned char memcolor2,
-						char* scpname)
+static void handle_IADD(UOXSOCKET const ts, int const ttype, const int coloring,const unsigned short memcolor, char* scpname)
 {
 	cline = &script2[0];
 	splitline();
@@ -137,8 +135,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 	// Added colormem token here! by Magius(CHE) §
 	if (pi_i != NULL && coloring>-1)
 	{
-		pi_i->color1 = memcolor1;
-		pi_i->color2 = memcolor2;
+		pi_i->color = memcolor;
 		RefreshItem(pi_i);
 	}
 	// end addons
@@ -183,7 +180,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 	float total; // Magius(CHE) §
 	char dismsg[512]; // Magius(CHE) §
 	dismsg[0] = 0; // Magius(CHE) §
-	unsigned char memcolor1, memcolor2; // Magius(CHE) §
+	unsigned short memcolor; // Magius(CHE) §
 	int coloring=-1, loopexit = 0;  // Magius(CHE) §
 	// end declaretion for magius
 	
@@ -337,12 +334,11 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 					{
 						cline = &script2[0];
 						splitline();
-						clr1 = hexnumber(0);
-						clr2 = hexnumber(1);
+						unsigned short clr1 = static_cast<unsigned short>(hexnumber(0) << 8) + hexnumber(1);
 						j = makenumber(2);
 						if (pi != NULL)
 						{// AntiChrist
-							if (clr1 != pi->color1 || clr2 != pi->color2)
+							if (clr1 != pi->color)
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg);
@@ -632,12 +628,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								tl = 44 + strlen(sect) + 1;
 								talk[1] = tl >> 8;
 								talk[2] = tl%256;
-								talk[3] = pc_ts->ser1;
-								talk[4] = pc_ts->ser2;
-								talk[5] = pc_ts->ser3;
-								talk[6] = pc_ts->ser4;
-								talk[7] = pc_ts->id1;
-								talk[8] = pc_ts->id2;
+								LongToCharPtr(pc_ts->serial, &talk[3]);
+								ShortToCharPtr(pc_ts->id(),  &talk[7]);
 								talk[9] = 0; // Type
 								ShortToCharPtr(pc_ts->saycolor, &talk[10]);
 								talk[12] = 0;
@@ -811,7 +803,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							// AntiChrist
 							pos = ftell(scpfile);
 							closescript();
-							pi_itemnum = Items->SpawnItem(ts,currchar[ts], r, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
+							pi_itemnum = Items->SpawnItem(ts,currchar[ts], r, "#", 1, hexnumber(0), hexnumber(1), 0, 1, 1);
 							if (pi_itemnum == NULL)
 							{
 								closescript();
@@ -820,8 +812,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							// Added colormem token here! by Magius(CHE) §
 							if (coloring > -1)
 							{
-								pi_itemnum->color1 = memcolor1;
-								pi_itemnum->color2 = memcolor2;
+								pi_itemnum->color = memcolor;
 								RefreshItem(pi_itemnum);
 							}
 							// end addons	
@@ -833,10 +824,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						}
 						else if (!(strcmp("IDFX", (char*)script1)))  // Makes an effect at players by ID
 						{
-							for (i = 0; i < 29; i++)
-							{
-								effect[i] = 0;
-							}
+							unsigned char effect[29] = {0,};
 							if (pi!=NULL)
 							{
 								if (pc_ts->packitem != INVALID_SERIAL)
@@ -864,10 +852,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							splitline();
 							effect[0] = 0x70; // Effect message
 							effect[1] = 0x00; // Moving effect
-							effect[2] = pc_ts->ser1;
-							effect[3] = pc_ts->ser2;
-							effect[4] = pc_ts->ser3;
-							effect[5] = pc_ts->ser4;
+							LongToCharPtr(pc_ts->serial, &effect[2]);
 							//        effect[6]=pc_ts->ser1;
 							//        effect[7]=pc_ts->ser2;
 							//        effect[8]=pc_ts->ser3;
@@ -911,7 +896,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								pc_ts->in = 1;
 						}
 						else if (!(strcmp("IADD", (char*)script1)))  // Add item in front of player //if 2nd param. is 1, add item into player's backpack - AntiChrist (with autostack)
-							handle_IADD(ts, ttype, coloring, memcolor1, memcolor2, "triggers.scp");
+							handle_IADD(ts, ttype, coloring, memcolor, "triggers.scp");
 						else if (!(strcmp("IFOWNER", (char*)script1)))  // If item is owned by triggerer
 						{
 							if (pi!=NULL)
@@ -1124,8 +1109,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							itemmake[ts].coloring = coloring; // Magius(CHE) §
 							if (coloring>-1)
 							{
-								itemmake[ts].newcolor1 = memcolor1;  // Magius(CHE) §
-								itemmake[ts].newcolor2 = memcolor2;  // Magius(CHE) §
+								itemmake[ts].newcolor = memcolor;  // Magius(CHE) §
 							}
 							pos = ftell(scpfile);
 							closescript();
@@ -1162,8 +1146,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								p = pi_needitem;
 							if (p != NULL)
 							{
-								memcolor1 = p->color1;
-								memcolor2 = p->color2;
+								memcolor = p->color;
 								coloring = 1;
 							}
 							else
@@ -1316,12 +1299,11 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						{
 							cline = &script2[0];
 							splitline();
-							clr1 = hexnumber(0);
-							clr2 = hexnumber(1);
+							unsigned short clr1 = static_cast<unsigned short>(hexnumber(0)<<8);
 							j = makenumber(2);
 							if (pi_needitem != NULL)
 							{// AntiChrist
-								if (clr1 != pi_needitem->color1 || clr2 != pi_needitem->color2)
+								if (clr1 != pi_needitem->color)
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -1503,10 +1485,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										tl = 44 + strlen(sect) + 1;
 										talk[1] = tl >> 8;
 										talk[2] = tl%256;
-										talk[3] = pc_ts->ser1;
-										talk[4] = pc_ts->ser2;
-										talk[5] = pc_ts->ser3;
-										talk[6] = pc_ts->ser4;
+										LongToCharPtr(pc_ts->serial, &talk[3]);
 										talk[7] = pc_ts->id1;
 										talk[8] = pc_ts->id2;
 										talk[9] = 0; // Type
@@ -1532,10 +1511,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										tl = 44 + strlen(sect) + 1;
 										talk[1] = tl >> 8;
 										talk[2] = tl%256;
-										talk[3] = pc_ts->ser1;
-										talk[4] = pc_ts->ser2;
-										talk[5] = pc_ts->ser3;
-										talk[6] = pc_ts->ser4;
+										LongToCharPtr(pc_ts->serial, &talk[3]);
 										talk[7] = pc_ts->id1;
 										talk[8] = pc_ts->id2;
 										talk[9] = 0; // Type
@@ -1666,12 +1642,11 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						{
 							cline = &script2[0];
 							splitline();
-							clr1 = hexnumber(0);
-							clr2 = hexnumber(1);
+							unsigned short clr1 = static_cast<unsigned short>(hexnumber(0)<<8) + hexnumber(1);
 							j = makenumber(2);
 							if (pi_evti != NULL)
 							{// AntiChrist
-								if (clr1 != pi_evti->color1 || clr2 != pi_evti->color2)
+								if (clr1 != pi_evti->color)
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -2074,8 +2049,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 	tile_st tile;
 	char tempname2[512], tempname3[512], buff[512], dismsg[512], tempstr[512], cmsg[512];
 	float total;
-	char clr1, clr2;
-	char memcolor1, memcolor2;
+	//char clr1, clr2;
+	unsigned short memcolor;
 	int coloring=-1, trig=-1, loopexit = 0;
 	tempname2[0] = 0;
 	buff[0] = 0;
@@ -2272,12 +2247,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 								tl = 44 + strlen(sect) + 1;
 								talk[1] = tl >> 8;
 								talk[2] = tl%256;
-								talk[3] = pc_ts->ser1;
-								talk[4] = pc_ts->ser2;
-								talk[5] = pc_ts->ser3;
-								talk[6] = pc_ts->ser4;
-								talk[7] = pc_ts->id1;
-								talk[8] = pc_ts->id2;
+								LongToCharPtr(pc_ts->serial, &talk[3]);
+								ShortToCharPtr(pc_ts->id(),  &talk[7]);
 								talk[9] = 0; // Type
 								ShortToCharPtr(pc_ts->saycolor, &talk[10]);
 								talk[12] = 0;
@@ -2555,14 +2526,13 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							splitline();
 							pos = ftell(scpfile);
 							closescript();
-							P_ITEM pi_c = Items->SpawnItem(ts, pc_ts, 1, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
+							P_ITEM pi_c = Items->SpawnItem(ts, pc_ts, 1, "#", 1, hexnumber(0), hexnumber(1), 0, 1, 1);
 							if (pi_c == NULL)
 								return;// AntiChrist to preview crashes
 							// Added colormem token here! by Magius(CHE) §
 							if (coloring>-1)
 							{
-								pi_c->color1 = memcolor1;
-								pi_c->color2 = memcolor2;
+								pi_c->color = memcolor;
 								RefreshItem(pi_c);
 							}
 							// end addons	
@@ -2576,22 +2546,13 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						{
 							if (ti!=NULL)
 							{
-								for (i = 0; i < 29; i++)
-								{
-									effect[i] = 0;
-								}
+								unsigned char effect[29] = {0,};
 								cline = &script2[0];
 								splitline();
 								effect[0] = 0x70; // Effect message
 								effect[1] = 0x00; // Moving effect
-								effect[2] = ti->ser1;
-								effect[3] = ti->ser2;
-								effect[4] = ti->ser3;
-								effect[5] = ti->ser4;
-								effect[6] = pc_ts->ser1;
-								effect[7] = pc_ts->ser2;
-								effect[8] = pc_ts->ser3;
-								effect[9] = pc_ts->ser4;
+								LongToCharPtr(ti->serial, &effect[2]);
+								LongToCharPtr(pc_ts->serial, &effect[6]);
 								effect[10] = hexnumber(0);// Object id of the effect
 								effect[11] = hexnumber(1);
 								effect[12] = ti->pos.x >> 8;
@@ -2636,7 +2597,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						}
 						else if (!(strcmp("IADD", (char*)script1)))  // Add item in front of player //if 2nd param. is 1, add item into player's backpack - AntiChrist (with autostack)
 						{
-							handle_IADD(ts, ttype, coloring, memcolor1, memcolor2, "ntrigrs.scp");
+							handle_IADD(ts, ttype, coloring, memcolor, "ntrigrs.scp");
 						}
 						break;
 					case 'K':
@@ -2692,8 +2653,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							itemmake[ts].coloring = coloring; // Magius(CHE) §
 							if (coloring>-1)
 							{
-								itemmake[ts].newcolor1 = memcolor1; // Magius(CHE) §
-								itemmake[ts].newcolor2 = memcolor2; // Magius(CHE) §
+								itemmake[ts].newcolor = memcolor; // Magius(CHE) §
 							}
 							pos = ftell(scpfile);
 							closescript();
@@ -2754,8 +2714,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 								p = pi_needitem;
 							if (p != NULL)
 							{
-								memcolor1 = p->color1;
-								memcolor2 = p->color2;
+								memcolor = p->color;
 								coloring = 1;
 							}
 							else 
@@ -2821,15 +2780,14 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						{
 							cline = &script2[0];
 							splitline();
-							clr1 = hexnumber(0);
-							clr2 = hexnumber(1);
+							unsigned short clr1 = static_cast<unsigned short>(hexnumber(0)<<8) + hexnumber(1);
 							j = makenumber(2);
 							if (pi_needitem == NULL)
 							{
 								closescript();
 								return;
 							}
-							if (clr1 != pi_needitem->color1 || clr2 != pi_needitem->color2)
+							if (clr1 != pi_needitem->color)
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg);
@@ -2949,15 +2907,14 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						{
 							cline = &script2[0];
 							splitline();
-							clr1 = hexnumber(0);
-							clr2 = hexnumber(1);
+							unsigned short clr1 = static_cast<unsigned short>(hexnumber(0)<<8) + hexnumber(1);
 							j = makenumber(2);
 							if (pi_evti == NULL)
 							{
 								closescript();
 								return;
 							}
-							if (clr1 != pi_evti->color1 || clr2 != pi_evti->color2)
+							if (clr1 != pi_evti->color)
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg);

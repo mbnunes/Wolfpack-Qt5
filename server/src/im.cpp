@@ -190,10 +190,7 @@ int im_send( item_menu *menu, int player )
 		return -4;
 
 	/* Player's character's serial number */
-	menu->gump_message[3] = currchar[player]->ser1;
-	menu->gump_message[4] = currchar[player]->ser2;
-	menu->gump_message[5] = currchar[player]->ser3;
-	menu->gump_message[6] = currchar[player]->ser4;
+	LongToCharPtr(currchar[player]->serial, &menu->gump_message[3]);
 	/* Special code for IM_ menu, read by choice() */
 	menu->gump_message[7] = (unsigned char) ~ ( (WAIT_MAX-1) >> 8 ); 
 	/* Index for waiting table (internal) */

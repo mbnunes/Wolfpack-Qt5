@@ -63,10 +63,6 @@ public:
 	//Skyfire - End NPC's home/work/food vars'
 	unsigned char			pathnum;
 	path_st					path[PATHNUM];
-	unsigned char			ser1; // Character serial number
-	unsigned char			ser2;
-	unsigned char			ser3;
-	unsigned char			ser4;
 
 	string					orgname;//original name - for Incognito
 	string					title;
