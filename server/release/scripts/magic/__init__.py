@@ -1,9 +1,8 @@
 
 import wolfpack
 from wolfpack.consts import LOG_ERROR, EVENT_CASTSPELL
-from magic.utilities import *
 from magic.spell import *
-from wolfpack import console
+from magic.utilities import *
 import time
 
 # Spell Registry

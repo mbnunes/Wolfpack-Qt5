@@ -12,6 +12,7 @@ import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack
 from wolfpack.properties import itemcheck, fromitem
+import magic.utilities
 import random
 import magic
 from magic.utilities import *
@@ -103,8 +104,7 @@ class ScribeItemAction(CraftItemAction):
 				return False
 			
 			# Check for availability of spell
-			if self.spellid > 0 and not hasSpell(player, self.spellid - 1):
-				player.socket.clilocmessage(1042404) # You don't know that spell.
+			if self.spellid > 0 and not magic.utilities.hasSpell(player, self.spellid - 1, False):
 				return False
 		
 		return result

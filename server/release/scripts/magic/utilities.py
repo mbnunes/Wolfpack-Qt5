@@ -3,7 +3,7 @@ import magic.spellbook
 import wolfpack
 from wolfpack.utilities import *
 from wolfpack import properties
-from wolfpack.consts import EVALUATINGINTEL, MAGICRESISTANCE \
+from wolfpack.consts import EVALUATINGINTEL, MAGICRESISTANCE
 
 TARGET_CHAR = 1
 TARGET_ITEM = 2
@@ -61,18 +61,23 @@ def fizzle(char):
 		char.soundeffect(0x5c)
 
 # Check whether the spellbook's of a char have that specific spell
-def hasSpell(char, spell):
+# If silent is not true, the player will be notified, that he doesnt
+# know the spell he's trying to cast.
+def hasSpell(char, spell, silent = True):
 	if char.npc:
 		return True
 	
 	book = char.itemonlayer(1)
 
-	if magic.spellbook.hasspell(book, spell):
+	if magic.spellbook.hasspell(book, spell):		
 		return True
 
 	for book in char.getbackpack().content:
 		if magic.spellbook.hasspell(book, spell):
 			return True
+
+	if not silent and char.socket:
+		char.socket.clilocmessage(1042404) # You don't know that spell.	
 
 	return False
 

@@ -14,7 +14,8 @@ import system.input
 import magic
 from magic.rune import isrune
 import magic.scroll
-from magic.utilities import fizzle, MODE_BOOK, hasSpell
+from magic.utilities import fizzle, MODE_BOOK
+import magic.utilities
 import random
 import wolfpack.utilities
 
@@ -412,7 +413,7 @@ def callback(char, args, target):
 		if charges > 0:
 			char.say( "Kal Ort Por", 5 )
 			char.addtimer( 2000, recall0, [ item.serial, target ] )
-		elif hasSpell(char, 32):
+		elif magic.utilities.hasSpell(char, 32):
 			char.addtimer( 0, recall1, [item.serial, target] ) # Fall back to the Recall Spell
 		else:
 			char.socket.clilocmessage(502412) # No charges left

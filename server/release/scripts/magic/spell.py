@@ -2,8 +2,10 @@
 import magic
 import random
 import wolfpack.console
-from wolfpack import properties, utilities
+from wolfpack import properties
+import wolfpack.utilities
 from magic.utilities import *
+import magic.utilities
 from wolfpack.consts import *
 import time
 
@@ -148,11 +150,7 @@ class Spell:
 
 		# If we are using a spellbook to cast, check if we do have
 		# the spell in our spellbook (0-based index)
-		if not self.inherent and mode == MODE_BOOK and not hasSpell(char, self.spellid - 1):
-			if socket:
-				char.message("You don't know the spell you want to cast.")
-			else:
-				npc_debug(char, 'Trying to cast spell %s unknown to the npc.' % self.__class__.__name__)
+		if not self.inherent and mode == MODE_BOOK and not magic.utilities.hasSpell(char, self.spellid - 1, False):
 			return 0
 
 		if not self.checkrequirements(char, mode, args, target, item):
@@ -247,7 +245,7 @@ class Spell:
 
 		# Check if the spellchanneling property is true for this item
 		if not properties.fromitem(weapon, SPELLCHANNELING):
-			if not utilities.tobackpack(weapon, char):
+			if not wolfpack.utilities.tobackpack(weapon, char):
 				weapon.update()
 
 			return True
