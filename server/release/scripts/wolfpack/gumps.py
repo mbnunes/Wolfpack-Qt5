@@ -63,16 +63,11 @@ class cGump:
 	def addRawText( self, data ):
 		# Find the text
 		if data in self.texts:
-			i = 0
-			for text in self.texts:
-				if text == data:
-					return i
-				else:
-					i += 1
+      return self.texts.index(data)
 		else:
 			# Insert the text
-			self.texts.append( data )
-			return len( self.texts ) - 1
+			self.texts.append(data)
+			return len(self.texts) - 1
 
 	# Sets the Callback function which is going to be called whenever the user
 	# clicks something on the gump

@@ -382,7 +382,7 @@ static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 	PyObject *layout, *texts, *py_args;
 	char *callback;
 
-	if (!PyArg_ParseTuple(args, "iiBBBIIO!O!OsO!:socket.sendgump", &x, &y, &nomove, 
+	if (!PyArg_ParseTuple(args, "iiBBBIIO!O!sO!:socket.sendgump", &x, &y, &nomove, 
 		&noclose, &nodispose, &serial, &type, PyList_Type, &layout, PyList_Type, &texts, 
 		&callback, PyList_Type, &py_args)) {
 		return 0;
