@@ -1763,7 +1763,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 			}
 		}
 		else
-			dispelCall = new PythonFunction( expireFunction );
+			dispelCall = new PythonFunction( dispelFunction );
 	}
 
 	PyObject* py_args = PyList_AsTuple( arguments );
