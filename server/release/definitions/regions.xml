@@ -9,13 +9,13 @@
 -->
 <definitions>
 	<!-- Britain Graveyard -->
-	<region id="Britain Graveyard">
+	<region id="Felucca Britain Graveyard">
 		<rectangle x1="1336" y1="1443" x2="1391" y2="1494" map="0" />
 		<rectangle x1="1336" y1="1494" x2="1376" y2="1511" map="0" />
 	</region>
 
 	<!-- Britain -->
-	<region id="Britain">
+	<region id="Felucca Britain">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -37,7 +37,7 @@
 	</region>
 
 	<!-- Britain's Farmlands -->
-	<region id="Britain's farmlands">
+	<region id="Felucca Britain's farmlands">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -55,7 +55,7 @@
 	</region>
 
 	<!-- Lord British's castle -->
-	<region id="Lord British's castle">
+	<region id="Felucca Lord British's castle">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -71,7 +71,7 @@
 	</region>
 
 	<!-- Lord Blackthorne's castle -->
-	<region id="Lord Blackthorne's castle">
+	<region id="Felucca Lord Blackthorne's castle">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -87,7 +87,7 @@
 	</region>
 
 	<!-- Yew -->
-	<region id="the town of Yew">
+	<region id="Felucca the town of Yew">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -104,7 +104,7 @@
 	</region>
 
 	<!-- Skara Brae -->
-	<region id="the town of Skara Brae">
+	<region id="Felucca the town of Skara Brae">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -124,7 +124,7 @@
 	</region>
 
     	<!-- Trinsic -->
-	<region id="Trinsic">
+	<region id="Felucca Trinsic">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -147,7 +147,7 @@
       	</region>
 
 	<!-- Cove -->
-	<region id="Cove">
+	<region id="Felucca Cove">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -162,7 +162,7 @@
       	</region>
 
 	<!-- Vesper -->
-	<region id="Vesper">
+	<region id="Felucca Vesper">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -179,7 +179,7 @@
       	</region>
 
 	<!-- Minoc -->
-	<region id="Minoc">
+	<region id="Felucca Minoc">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -199,7 +199,7 @@
       	</region>
 
 	<!-- Moonglow -->
-	<region id="Moonglow">
+	<region id="Felucca Moonglow">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -215,7 +215,7 @@
       	</region>
 
 	<!-- Papua -->
-	<region id="Papua">
+	<region id="Felucca Papua">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -230,7 +230,7 @@
       	</region>
 
 	<!-- Delucia -->
-	<region id="Delucia">
+	<region id="Felucca Delucia">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -245,7 +245,7 @@
       	</region>
 
 	<!-- Fire Dungeon -->
-	<region id="Fire Dungeon">
+	<region id="Felucca Fire Dungeon">
 		<rectangle x1="5627" y1="1282" x2="5887" y2="1491" map="0" />
 		<rectangle x1="5726" y1="1489" x2="5887" y2="1521" map="0" />
 		<rectangle x1="5756" y1="2906" x2="5760" y2="2911" map="0" />
@@ -272,13 +272,13 @@
 	<!-- Map 1 -->
 
 	<!-- Britain Graveyard -->
-	<region id="Britain Graveyard">
+	<region id="Trammel Britain Graveyard">
 		<rectangle x1="1336" y1="1443" x2="1391" y2="1494" map="1" />
 		<rectangle x1="1336" y1="1494" x2="1376" y2="1511" map="1" />
 	</region>
 
 	<!-- Britain -->
-	<region id="Britain">
+	<region id="Trammel Britain">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -298,7 +298,7 @@
 	</region>
 
 	<!-- Britain's Farmlands -->
-	<region id="Britain's farmlands">
+	<region id="Trammel Britain's farmlands">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -316,7 +316,7 @@
 	</region>
 
 	<!-- Lord British's castle -->
-	<region id="Lord British's castle">
+	<region id="Trammel Lord British's castle">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -332,7 +332,7 @@
 	</region>
 
 	<!-- Lord Blackthorne's castle -->
-	<region id="Lord Blackthorne's castle">
+	<region id="Trammel Lord Blackthorne's castle">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -348,7 +348,7 @@
 	</region>
 
 	<!-- Yew -->
-	<region id="the town of Yew">
+	<region id="Trammel the town of Yew">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -365,7 +365,7 @@
 	</region>
 
 	<!-- Skara Brae -->
-	<region id="the town of Skara Brae">
+	<region id="Trammel the town of Skara Brae">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -385,7 +385,7 @@
 	</region>
 
     	<!-- Trinsic -->
-	<region id="Trinsic">
+	<region id="Trammel Trinsic">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -408,7 +408,7 @@
       	</region>
 
 	<!-- Cove -->
-	<region id="Cove">
+	<region id="Trammel Cove">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -423,7 +423,7 @@
       	</region>
 
 	<!-- Vesper -->
-	<region id="Vesper">
+	<region id="Trammel Vesper">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -440,7 +440,7 @@
       	</region>
 
 	<!-- Minoc -->
-	<region id="Minoc">
+	<region id="Trammel Minoc">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -460,7 +460,7 @@
       	</region>
 
 	<!-- Moonglow -->
-	<region id="Moonglow">
+	<region id="Trammel Moonglow">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -476,7 +476,7 @@
       	</region>
 
 	<!-- Papua -->
-	<region id="Papua">
+	<region id="Trammel Papua">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -491,7 +491,7 @@
       	</region>
 
 	<!-- Delucia -->
-	<region id="Delucia">
+	<region id="Trammel Delucia">
 		<flags>
 			<guarded />
 			<noagressivemagic />
@@ -507,12 +507,12 @@
 
 	<!-- Map 2 -->
 	<!-- Terort Skitas -->
-	<region id="Terort Skitas">
+	<region id="Ilshenar Terort Skitas">
 		<rectangle x1="528" y1="376" x2="624" y2="464" map="2" />
 	</region>
 
 	<!-- Gargoyle City -->
-	<region id="Gargoyle City">
+	<region id="Ilshenar Gargoyle City">
 		<rectangle x1="824" y1="552" x2="856" y2="728" map="2" />
 		<rectangle x1="752" y1="576" x2="824" y2="704" map="2" />
 		<rectangle x1="856" y1="576" x2="896" y2="704" map="2" />
@@ -520,7 +520,7 @@
 	</region>
 
 	<!-- Montor -->
-	<region id="Montor">
+	<region id="Ilshenar Montor">
 		<rectangle x1="1576" y1="272" x2="1720" y2="368" map="2" />
 		<rectangle x1="1616" y1="200" x2="1696" y2="272" map="2" />
 		<rectangle x1="1696" y1="144" x2="1736" y2="272" map="2" />
@@ -528,34 +528,34 @@
 	</region>
 
 	<!-- Termir Flam -->
-	<region id="Termir Flam">
+	<region id="Ilshenar Termir Flam">
 		<rectangle x1="1520" y1="368" x2="1752" y2="496" map="2" />
 		<rectangle x1="1520" y1="296" x2="1576" y2="368" map="2" />
 		<rectangle x1="1752" y1="440" x2="1776" y2="480" map="2" />
 	</region>
 
 	<!-- Ancient Citadel -->
-	<region id="Ancient Citadel">
+	<region id="Ilshenar Ancient Citadel">
 		<rectangle x1="1448" y1="496" x2="1552" y2="600" map="2" />
 	</region>
 
 	<!-- Twin Oaks -->
-	<region id="Twin Oaks">
+	<region id="Ilshenar Twin Oaks">
 		<rectangle x1="1536" y1="1032" x2="1584" y2="1072" map="2" />
 	</region>
 
 	<!-- Reg Volon -->
-	<region id="Reg Volon">
+	<region id="Ilshenar Reg Volon">
 		<rectangle x1="1328" y1="1008" x2="1408" y2="1120" map="2" />
 	</region>
 
 	<!-- Bet-Lem Reg -->
-	<region id="Bet-Lem Reg">
+	<region id="Ilshenar Bet-Lem Reg">
 		<rectangle x1="1232" y1="936" x2="1272" y2="984" map="2" />
 	</region>
 
 	<!-- Mistas -->
-	<region id="Mistas">
+	<region id="Ilshenar Mistas">
 		<rectangle x1="744" y1="984" x2="912" y2="1152" map="2" />
 		<rectangle x1="744" y1="1152" x2="792" y2="1176" map="2" />
 	</region>
