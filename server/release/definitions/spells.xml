@@ -681,11 +681,11 @@
 			<mandrake>1</mandrake>
 			<blackpearl>1</blackpearl>
 		</reagents>
-		<script>spell_lightening</script>
+		<script>spell_lightning</script>
 		<agressive />		
 	</spell>
 
-	<script id="spell_lightening" type="python" module="spells.circle4.lightening" />
+	<script id="spell_lightning" type="python" module="spells.circle4.lightning" />
 
 <!-- // Mana Drain -->
 	<spell id="31">
@@ -753,11 +753,11 @@
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
-		<script>spell_bladespirits</script>
+		<script>spell_bladespirit</script>
 		<agressive />		
 	</spell>
 
-	<script id="spell_bladespirits" type="python" module="spells.circle5.bladespirits" />
+	<script id="spell_bladespirit" type="python" module="spells.circle5.bladespirit" />
 
 <!-- // Dispel Field -->
 	<spell id="34">
@@ -818,10 +818,10 @@
 			<garlic>1</garlic>
 			<spidersilk>1</spidersilk>
 		</reagents>
-		<script>spell_magicreflection</script>
+		<script>spell_magicreflect</script>
 	</spell>
 
-	<script id="spell_magicreflection" type="python" module="spells.circle5.magicreflection" />
+	<script id="spell_magicreflect" type="python" module="spells.circle5.magicreflect" />
 
 <!-- // Mind Blast -->
 	<spell id="37">
@@ -1110,11 +1110,11 @@
 			<bloodmoss>1</bloodmoss>
 			<blackpearl>1</blackpearl>
 		</reagents>
-		<script>spell_chainlightening</script>
+		<script>spell_chainlightning</script>
 		<agressive />		
 	</spell>
 
-	<script id="spell_chainlightening" type="python" module="spells.circle7.chainlightening" />
+	<script id="spell_chainlightning" type="python" module="spells.circle7.chainlightning" />
 
 <!-- // Energy Field -->
 	<spell id="50">
