@@ -191,6 +191,40 @@ def hairdye_callback( char, args, response ):
 		
 	char.message( 'Thats an invalid color' )	
 
+# Dying Tub
+def dyingtub( char, item ):
+	if not char.canreach( item, 2 ):
+		char.socket.sysmessage( "You can't reach this." )
+		return 1
+
+	char.socket.sysmessage( 'What do you want to use this on?' )
+	char.socket.attachtarget( 'environment.dyingtub_response', [ item.serial ] )
+	return 1
+	
+def dyingtub_response( char, args, target ):
+	dyetub = wolfpack.finditem( args[0] )
+	
+	if not dyetub or not char.canreach( dyetub, 2 ):
+		char.message( "You can't reach the dyetub from here." )
+		return
+
+	if not target.item:
+		char.message( 'You need to target an item.' )
+		return
+		
+	# Valid Target?
+	if target.item.getoutmostchar() != char:
+		char.socket.sysmessage( "You have to have this in your belongings." )
+		return
+	
+	if not target.item.dye:
+		char.socket.sysmessage( "You cannot dye this." )
+		return
+	
+	target.item.color = dyetub.color
+	target.item.update()
+	char.soundeffect( 0x023e )
+
 # Table of IDs mapped to handler functions
 actions =  {
 			# Cotton Plants
@@ -220,7 +254,11 @@ actions =  {
 			
 			# Hair Dyes
 			0xe27: hairdye,
-			0xeff: hairdye
+			0xeff: hairdye,
+			
+			# Dye Tub
+			0xfab: dyingtub,
+			
 		   }
 
 def onUse( char, item ):
