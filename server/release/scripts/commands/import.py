@@ -211,13 +211,16 @@ def parseSphere51a(file, map):
 			 	else:
 			 		color = 0
 
-				item = wolfpack.newitem(1)
-				item.decay = 0
-				item.movable = 2
-				item.id = itemid
-				item.color = color
-				item.moveto( x, y, z, map )
-				item.update()
+				item = wolfpack.additem('%x' % itemid)
+
+				if item:
+					item.decay = 0
+					item.movable = 3
+					item.color = color
+					item.moveto( x, y, z, map )
+					item.update()
+				else:
+					warnings += "Found an invalid item id '%x' at %u,%u,%d,%u<br>" % (itemid, x, y, z, map)
 				count += 1
 
 			itemid = -1

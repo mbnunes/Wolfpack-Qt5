@@ -7,12 +7,43 @@
 
 import wolfpack
 import string
+import random
+
+def playmusic(socket, command, arguments):
+	packet = wolfpack.packet(0x6d, 3)
+	packet.setshort(1, int(arguments))
+	packet.send(socket)
+
+def onLoad():
+	wolfpack.registercommand('playmusic', playmusic)
+
+def changeMusic(char, oldregion, newregion):
+	oldMusic = oldregion.midilist
+	newMusic = newregion.midilist
+	
+	
+	if oldMusic != newMusic:
+		
+		try:
+			if len(newMusic) != 0:
+				id = int(random.choice(newMusic.split(','))) # Choose randomly
+			else:
+				id = 0
+			
+			packet = wolfpack.packet(0x6d, 3)
+			packet.setshort(1, id)
+			packet.send(char.socket)			
+		except:
+			raise
+			pass
 
 def onChangeRegion( char, oldregion, newregion ):
 	socket = char.socket
 	
 	if not socket:
 		return False
+		
+	changeMusic(char, oldregion, newregion)
 	
 	"""
 		 0. Both messages enabled == Show Messages Leave Old/Enter New *
