@@ -1614,14 +1614,35 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		return;
 
 
-	if (((target->isNpc())&&(target->id1==(unsigned char)'\x00'))&&
-		((target->id2==(unsigned char)'\xC8')||
-		(target->id2==(unsigned char)'\xE2') ||
-		(target->id2==(unsigned char)'\xE4') ||
-		(target->id2==(unsigned char)'\xCC') ||
-		(target->id2==(unsigned char)'\xDC') ||
-		(target->id2==(unsigned char)'\xD2') ||
-		(target->id2==(unsigned char)'\xDA') ||
+	if (((target->isNpc())&&((target->id1==(unsigned char)'\x00')||(target->id1==(unsigned char)'\x03')))&&
+		((target->id2==(unsigned char)'\x34')||
+		(target->id2==(unsigned char)'\x4E')||
+		(target->id2==(unsigned char)'\x38')||
+		(target->id2==(unsigned char)'\x50')||
+		(target->id2==(unsigned char)'\x3A')||
+		(target->id2==(unsigned char)'\x39')||
+		(target->id2==(unsigned char)'\x3B')||
+		(target->id2==(unsigned char)'\x74')||
+		(target->id2==(unsigned char)'\x75')||
+		(target->id2==(unsigned char)'\x72')||
+		(target->id2==(unsigned char)'\x7A')||
+		(target->id2==(unsigned char)'\x84')||
+		(target->id2==(unsigned char)'\x73')||
+		(target->id2==(unsigned char)'\x76')||
+		(target->id2==(unsigned char)'\x77')||
+		(target->id2==(unsigned char)'\x78')||
+        (target->id2==(unsigned char)'\x79')||
+		(target->id2==(unsigned char)'\xAA')||
+		(target->id2==(unsigned char)'\xAB')||
+		(target->id2==(unsigned char)'\xBB')||
+		(target->id2==(unsigned char)'\x90')||
+		(target->id2==(unsigned char)'\xC8')||
+		(target->id2==(unsigned char)'\xE2')||
+		(target->id2==(unsigned char)'\xE4')||
+		(target->id2==(unsigned char)'\xCC')||
+		(target->id2==(unsigned char)'\xDC')||
+		(target->id2==(unsigned char)'\xD2')||
+		(target->id2==(unsigned char)'\xDA')||
 		(target->id2==(unsigned char)'\xDB')))
 	{//if mount
 		if (chardist( pc_currchar, target )<2 || pc_currchar->isGM())

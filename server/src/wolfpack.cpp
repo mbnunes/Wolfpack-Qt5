@@ -2110,11 +2110,71 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 						break; 
 					case 0xA6:  
 						pc_pet = Npcs->AddNPCxyz(s, 54, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
-						break; 
-					case 0x9F: 
-						if (pi->color1 == 0x04 && pi->color2 == 0x55) 
-							pc_pet = Npcs->AddNPCxyz(s, 430, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z); 
-						else 
+						break;
+					case 0xA7:  
+						pc_pet = Npcs->AddNPCxyz(s, 5001, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xA8:  
+						pc_pet = Npcs->AddNPCxyz(s, 5002, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xA9:  
+						pc_pet = Npcs->AddNPCxyz(s, 5003, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB0:  
+						pc_pet = Npcs->AddNPCxyz(s, 5004, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB1:  
+						pc_pet = Npcs->AddNPCxyz(s, 5005, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB2:  
+						pc_pet = Npcs->AddNPCxyz(s, 5006, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB3:  
+						pc_pet = Npcs->AddNPCxyz(s, 5007, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB4:  
+						pc_pet = Npcs->AddNPCxyz(s, 5008, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB5:  
+						pc_pet = Npcs->AddNPCxyz(s, 5009, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB6:  
+						pc_pet = Npcs->AddNPCxyz(s, 5010, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB7:  
+						pc_pet = Npcs->AddNPCxyz(s, 5011, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB8:  
+						pc_pet = Npcs->AddNPCxyz(s, 5012, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xB9:  
+						pc_pet = Npcs->AddNPCxyz(s, 5013, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xC0:  
+						pc_pet = Npcs->AddNPCxyz(s, 5014, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xC1:  
+						pc_pet = Npcs->AddNPCxyz(s, 5015, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xC2:  
+						pc_pet = Npcs->AddNPCxyz(s, 5016, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xC3:  
+						pc_pet = Npcs->AddNPCxyz(s, 5017, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xC4:  
+						pc_pet = Npcs->AddNPCxyz(s, 5018, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xC5:  
+						pc_pet = Npcs->AddNPCxyz(s, 5019, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xC6:  
+						pc_pet = Npcs->AddNPCxyz(s, 5020, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0xC7:  
+						pc_pet = Npcs->AddNPCxyz(s, 5021, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						break;
+					case 0x9F:
 							pc_pet = Npcs->AddNPCxyz(s, 7, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z); 
 						break; 
 					default: 
@@ -2440,30 +2500,93 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		switch (pc_mount->id2) 
 		{ 
 			case 0xC8: 
-				pi->id2 = (unsigned char)'\x9F';
-				break; // Horse or Mare (based on color currently) 
+				pi->id2 = (unsigned char)'\x9F'; //works
+				break; // Horse
 			case 0xE2: 
-				pi->id2 = (unsigned char)'\xA0';
+				pi->id2 = (unsigned char)'\xA0'; //works
 				break; // Horse 
 			case 0xE4: 
-				pi->id2 = (unsigned char)'\xA1';
+				pi->id2 = (unsigned char)'\xA1'; //works
 				break; // Horse 
 			case 0xCC: 
-				pi->id2 = (unsigned char)'\xA2';
+				pi->id2 = (unsigned char)'\xA2'; //works
 				break; // Horse 
 			case 0xD2: 
-				pi->id2 = (unsigned char)'\xA3';
+				pi->id2 = (unsigned char)'\xA3'; //works
 				break; // Desert Ostard 
 			case 0xDA: 
-				pi->id2 = (unsigned char)'\xA4';
+				pi->id2 = (unsigned char)'\xA4'; //works
 				break; // Frenzied Ostard 
 			case 0xDB: 
-				pi->id2 = (unsigned char)'\xA5';
+				pi->id2 = (unsigned char)'\xA5'; //works
 				break; // Forest Ostard 
 			case 0xDC: 
-				pi->id2 = (unsigned char)'\xA6';
+				pi->id2 = (unsigned char)'\xA6'; //works
 				break; // llama 
-		} 
+			case 0x34: 
+				pi->id2 = (unsigned char)'\x9F'; //works
+				break; // brown
+			case 0x4E: 
+				pi->id2 = (unsigned char)'\xA0'; //works
+				break; // grey
+			case 0x38: 
+				pi->id2 = (unsigned char)'\xA2'; //works
+				break; // dark brown
+			case 0x50: 
+				pi->id2 = (unsigned char)'\xA1'; //works
+				break; // tan
+			case 0x74: 
+				pi->id2 = (unsigned char)'\xB5'; //works
+				break; // nightmare
+			case 0x75: 
+				pi->id2 = (unsigned char)'\xA8'; //works
+				break; // silver steed
+			case 0x72: 
+				pi->id2 = (unsigned char)'\xA9'; //works
+				break; // dark steed
+			case 0x7A: 
+				pi->id2 = (unsigned char)'\xB4'; //works
+				break; // unicorn
+			case 0x84: 
+				pi->id2 = (unsigned char)'\xAD'; //works
+				break; // kirin
+			case 0x73: 
+				pi->id2 = (unsigned char)'\xAA'; //works
+				break; // etheral
+			case 0x76: 
+				pi->id2 = (unsigned char)'\xB2'; //works
+				break; // war horse-brit
+			case 0x77: 
+				pi->id2 = (unsigned char)'\xB1'; //works
+				break; // war horse-mage council
+			case 0x78: 
+				pi->id2 = (unsigned char)'\xAF'; //works
+				break; // war horse-minax
+			case 0x79: 
+				pi->id2 = (unsigned char)'\xB0'; //works
+				break; // war horse-shadowlord
+			case 0xAA: 
+				pi->id2 = (unsigned char)'\xAB'; //works
+				break; // etheral llama
+			case 0x3A: 
+				pi->id2 = (unsigned char)'\xA4'; //works
+				break; // forest ostard
+			case 0x39: 
+				pi->id2 = (unsigned char)'\xA3'; //works
+				break; // desert ostard
+			case 0x3B: 
+				pi->id2 = (unsigned char)'\xA5'; //works
+				break; // frenzied ostard
+			case 0x90: 
+				pi->id2 = (unsigned char)'\xB3'; //works
+				break; // seahorse
+			case 0xAB: 
+				pi->id2 = (unsigned char)'\xAC'; //works
+				break; // etheral ostard
+			case 0xBB: 
+				pi->id2 = (unsigned char)'\xB8'; //works
+				break; // ridgeback
+		}
 		
 		pi->SetContSerial(pc_currchar->serial); 
 		pi->layer = 0x19; 
