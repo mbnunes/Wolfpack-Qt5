@@ -32,8 +32,7 @@
 		<category>Armor\Leather\Bustier (N/S)</category>
 	</item>
 
-	<item id="1c0b">
-		<inherit id="1c0a" />
+	<item id="1c0b" inherit="1c0a">
 		<id>0x1c0b</id>
 		<category>Armor\Leather\Bustier (E/W)</category>
 	</item>

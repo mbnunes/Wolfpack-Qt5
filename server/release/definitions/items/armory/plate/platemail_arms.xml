@@ -36,8 +36,7 @@
 	</item>
 
 	<!-- Plate Arms EW -->
-	<item id="1417">
-		<inherit id="1410" />
+	<item id="1417" inherit="1410">
 		<id>0x1417</id>
 		<category>Armor\Platemail\Arms (E/W)</category>
 	</item>

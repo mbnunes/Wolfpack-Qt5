@@ -35,8 +35,7 @@
 		<category>Armor\Ringmail\Tunic (N/S)</category>
 	</item>
 
-	<item id="13ed">
-		<inherit id="13ec" />
+	<item id="13ed" inherit="13ec">
 		<id>0x13ed</id>
 		<category>Armor\Ringmail\Tunic (E/W)</category>
 	</item>

@@ -32,8 +32,7 @@
 		<category>Armor\Shields\Order Shield (N/S)</category>
 	</item>
 
-	<item id="1bc5">
-		<inherit id="1bc4" />
+	<item id="1bc5" inherit="1bc4">
 		<id>0x1bc5</id>
 		<category>Armor\Shields\Order Shield (E/W)</category>
 	</item>

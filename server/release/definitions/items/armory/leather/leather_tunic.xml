@@ -32,8 +32,7 @@
 		<category>Armor\Leather\Tunic (N/S)</category>
 	</item>
 
-	<item id="13d3">
-		<inherit id="13cc" />
+	<item id="13d3" inherit="13cc">
 		<id>0x13d3</id>
 		<category>Armor\Leather\Tunic (E/W)</category>
 	</item>

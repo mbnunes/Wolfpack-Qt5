@@ -16,8 +16,7 @@
 	</item>
 
 	<!-- Deer Mask w/e -->
-	<item id="1548">
-		<inherit id="1547" />
+	<item id="1548" inherit="1547">
 		<category>Clothes\Headwear\Deer Mask (W/E)</category>
 		<category>Armor\Headwear\Deer Mask (W/E)</category>
 		<id>0x1548</id>

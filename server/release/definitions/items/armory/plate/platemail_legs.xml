@@ -36,8 +36,7 @@
 	</item>
 
 	<!-- Plate Leggings EW -->
-	<item id="141a">
-		<inherit id="1411" />
+	<item id="141a" inherit="1411">
 		<id>0x141a</id>
 		<category>Armor\Platemail\Legs (E/W)</category>
 	</item>

@@ -14,7 +14,6 @@
 		<name>studded sleeves</name>
 		<decay />
 		<nodye />
-		<defense>2</defense>
 		<durability><random min="35" max="44" /></durability>
 		<tag name="req_str" value="20" type="int" />
 		<tag name="aos_req_str" value="25" type="int" />
@@ -33,8 +32,7 @@
 		<category>Armor\Studded Leather\Sleeves (N/S)</category>
 	</item>
 
-	<item id="13dc">
-		<inherit id="13d4" />
+	<item id="13dc" inherit="13d4">
 		<id>0x13dc</id>
 		<category>Armor\Studded Leather\Sleeves (E/W)</category>
 	</item>

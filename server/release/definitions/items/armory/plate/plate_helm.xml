@@ -36,8 +36,7 @@
 	</item>
 
 	<!-- Plate Helmet EW -->
-	<item id="1419">
-		<inherit id="1412" />
+	<item id="1419" inherit="1412">
 		<id>0x1419</id>
 		<category>Armor\Platemail\Helm (E/W)</category>
 	</item>

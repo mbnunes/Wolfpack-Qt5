@@ -33,9 +33,8 @@
 	</item>
 
 	<!-- Bone Leggings East-West -->
-	<item id="1457">
-		<inherit id="1452" />
-		<id>0x1452</id>
+	<item id="1457" inherit="1452">
+		<id>0x1457</id>
 		<category>Armor\Bone\Leggings (E/W)</category>
 	</item>
 

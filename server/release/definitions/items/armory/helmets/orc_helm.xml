@@ -27,8 +27,7 @@
 	</item>
 
 	<!-- Orc Helmet East-West -->
-	<item id="1f0c">
-		<inherit id="1f0b" />
+	<item id="1f0c" inherit="1f0b">
 		<id>0x1f0c</id>
 		<category>Armor\Helmets\Orc Helm (E/W)</category>
 	</item>

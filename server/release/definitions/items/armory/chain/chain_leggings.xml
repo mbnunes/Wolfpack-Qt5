@@ -37,8 +37,7 @@
 	</item>
 
 	<!--  Chainmail Leggings East-West -->
-	<item id="13c3">
-		<inherit id="13be" />
+	<item id="13c3" inherit="13be">
 		<id>0x13c3</id>
 		<category>Armor\Chainmail\Leggings (E/W)</category>
 	</item>

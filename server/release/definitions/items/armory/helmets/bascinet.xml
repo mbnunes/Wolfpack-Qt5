@@ -34,8 +34,7 @@
 	</item>
 
 	<!-- Bascinet Helmet East-West-->
-	<item id="140c">
-		<inherit id="140d" />
+	<item id="140c" inherit="140d">
 		<id>0x140c</id>
 		<category>Armor\Helmets\Bascinet (E/W)</category>
 	</item>

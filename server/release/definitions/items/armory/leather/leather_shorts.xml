@@ -32,8 +32,7 @@
 		<category>Armor\Leather\Shorts (N/S)</category>
 	</item>
 
-	<item id="1c01">
-		<inherit id="1c00" />
+	<item id="1c01" inherit="1c00">
 		<id>0x1c01</id>
 		<category>Armor\Leather\Shorts (E/W)</category>
 	</item>

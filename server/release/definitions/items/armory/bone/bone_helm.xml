@@ -33,8 +33,7 @@
 	</item>
 
 	<!-- Bone Helm East-West -->
-	<item id="1456">
-		<inherit id="1451" />
+	<item id="1456" inherit="1451">
 		<id>0x1456</id>
 		<category>Armor\Bone\Bone Helmet (E/W)</category>
 	</item>

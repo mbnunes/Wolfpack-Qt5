@@ -14,7 +14,6 @@
 		<name>studded gorget</name>
 		<decay />
 		<nodye />
-		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
 		<tag name="req_str" value="20" type="int" />
 		<tag name="aos_req_str" value="25" type="int" />

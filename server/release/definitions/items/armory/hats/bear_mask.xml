@@ -16,8 +16,7 @@
 	</item>
 
 	<!-- Bear Mask w/e -->
-	<item id="1546">
-		<inherit id="1545" />
+	<item id="1546" inherit="1545">
 		<category>Clothes\Headwear\Bear Mask (W/E)</category>
 		<category>Armor\Headwear\Bear Mask (W/E)</category>
 		<id>0x1546</id>

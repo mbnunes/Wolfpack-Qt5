@@ -33,8 +33,7 @@
 		<category>Armor\Shields\Heater (N/S)</category>
 	</item>
 
-	<item id="1b77">
-		<inherit id="1b76" />
+	<item id="1b77" inherit="1b76">
 		<id>0x1b77</id>
 		<category>Armor\Shields\Heater (E/W)</category>
 	</item>

@@ -14,7 +14,6 @@
 		<name>studded armor</name>
 		<decay />
 		<nodye />
-		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
 		<tag name="req_str" value="30" type="int" />
 		<tag name="aos_req_str" value="35" type="int" />
@@ -33,8 +32,7 @@
 		<category>Armor\Studded Leather\Female Armor (N/S)</category>
 	</item>
 
-	<item id="1c03">
-		<inherit id="1c02" />
+	<item id="1c03" inherit="1c02">
 		<id>0x1c03</id>
 		<category>Armor\Studded Leather\Female Armor (E/W)</category>
 	</item>

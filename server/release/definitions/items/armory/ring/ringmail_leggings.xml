@@ -35,8 +35,7 @@
 		<category>Armor\Ringmail\Leggings (N/S)</category>
 	</item>
 
-	<item id="13f1">
-		<inherit id="13f0" />
+	<item id="13f1" inherit="13f0">
 		<id>0x13f1</id>
 		<category>Armor\Ringmail\Leggings (E/W)</category>
 	</item>

@@ -33,8 +33,7 @@
 		<category>Armor\Shields\Metal Kite (N/S)</category>
 	</item>
 
-	<item id="1b75">
-		<inherit id="1b74" />
+	<item id="1b75" inherit="1b74">
 		<id>0x1b75</id>
 		<category>Armor\Shields\Metal Kite (E/W)</category>
 	</item>

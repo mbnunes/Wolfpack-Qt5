@@ -35,8 +35,7 @@
 		<category>Armor\Ringmail\Gloves (N/S)</category>
 	</item>
 
-	<item id="13f2">
-		<inherit id="13eb" />
+	<item id="13f2" inherit="13eb">
 		<id>0x13f2</id>
 		<category>Armor\Ringmail\Gloves (E/W)</category>
 	</item>

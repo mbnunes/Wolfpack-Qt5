@@ -36,8 +36,7 @@
 	</item>
 
 	<!-- Male Plate Armor East-West -->
-	<item id="1416">
-		<inherit id="1415" />
+	<item id="1416" inherit="1415">
 		<id>0x1416</id>
 		<category>Armor\Platemail\Male Armor (E/W)</category>
 	</item>

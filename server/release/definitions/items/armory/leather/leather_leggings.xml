@@ -32,8 +32,7 @@
 		<category>Armor\Leather\Leggings (N/S)</category>
 	</item>
 
-	<item id="13d2">
-		<inherit id="13cb" />
+	<item id="13d2" inherit="13cb">
 		<id>0x13d2</id>
 		<category>Armor\Leather\Leggings (E/W)</category>
 	</item>

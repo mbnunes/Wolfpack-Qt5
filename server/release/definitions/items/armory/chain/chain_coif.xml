@@ -6,16 +6,7 @@
 |  ( (  ;._ \\ ctr | Last Modification:                               |
 =================================================================
 -->
-<!--
-Age of Shadows Values:
 
-Physical: 4
-Fire: 4
-Cold: 4
-Poison: 1
-Energy: 2
-req_str: 60
--->
  <definitions>
 
 	<!--  Chainmail Coif North-South -->
@@ -47,8 +38,7 @@ req_str: 60
 	</item>
 
 	<!--  Chainmail Coif East-West -->
-	<item id="13c0">
-		<inherit id="13bb" />
+	<item id="13c0" inherit="13bb">
 		<id>0x13c0</id>
 		<category>Armor\Chainmail\Coif (E/W)</category>
 	</item>

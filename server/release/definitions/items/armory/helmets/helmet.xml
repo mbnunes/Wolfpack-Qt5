@@ -34,8 +34,7 @@
 	</item>
 
 	<!-- Helmet East-West -->
-	<item id="140a">
-		<inherit id="140b" />
+	<item id="140a" inherit="140b">
 		<id>0x140a</id>
 		<category>Armor\Helmets\Normal Helm (E/W)</category>
 	</item>

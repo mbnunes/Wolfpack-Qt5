@@ -18,8 +18,7 @@
 	</item>
 
 	<!-- Skullcap w/e -->
-	<item id="1544">
-		<inherit id="1543" />
+	<item id="1544" inherit="1543">
 		<category>Clothes\Headwear\Skull Cap (W/E)</category>
 		<category>Armor\Headwear\Skull Cap (W/E)</category>
 		<id>0x1544</id>

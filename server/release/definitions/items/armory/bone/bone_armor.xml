@@ -10,8 +10,8 @@
 
 	<!-- Bone Armor, Body North-South -->
 	<item id="144f">
-		<id>0x144f</id>
 		<name>bone armor</name>
+		<id>0x144f</id>
 		<decay />
 		<nodye />
 		<defense>4</defense>
@@ -33,8 +33,7 @@
 	</item>
 
 	<!-- Bone Armor, Body East-West -->
-	<item id="1454">
-		<inherit id="144f" />
+	<item id="1454" inherit="144f">
 		<id>0x1454</id>
 		<category>Armor\Bone\Bone Armor (E/W)</category>
 	</item>

@@ -32,8 +32,7 @@
 		<category>Armor\Leather\Sleeves (N/S)</category>
 	</item>
 
-	<item id="13cd">
-		<inherit id="13c5" />
+	<item id="13cd" inherit="13c5">
 		<id>0x13cd</id>
 		<category>Armor\Leather\Sleeves (E/W)</category>
 	</item>

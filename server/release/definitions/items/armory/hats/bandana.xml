@@ -18,10 +18,8 @@
 	</item>
 
 	<!-- Bandana w/e -->
-	<item id="1540">
-		<inherit id="153f" />
+	<item id="1540" inherit="153f">
 		<id>0x1540</id>
-		<color><random list="COLORS_RANDOM" /></color>
 		<category>Clothes\Headwear\Bandana (W/E)</category>
 		<category>Armor\Headwear\Bandana (W/E)</category>
 	</item>

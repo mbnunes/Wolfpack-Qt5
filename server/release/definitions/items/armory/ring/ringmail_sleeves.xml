@@ -34,9 +34,8 @@
 		<category>Armor\Ringmail\Sleeves (N/S)</category>
 	</item>
 
-	<item id="13ef">
-		<inherit id="13ee" />
-		<id>0x13ff</id>
+	<item id="13ef" inherit="13ee">
+		<id>0x13ef</id>
 		<category>Armor\Ringmail\Sleeves (E/W)</category>
 	</item>
 

@@ -33,8 +33,7 @@
 	</item>
 
 	<!-- Bone Gloves East-West -->
-	<item id="1455">
-		<inherit id="1450" />
+	<item id="1455" inherit="1450">
 		<id>0x1455</id>
 		<category>Armor\Bone\Bone Gloves (E/W)</category>
 	</item>

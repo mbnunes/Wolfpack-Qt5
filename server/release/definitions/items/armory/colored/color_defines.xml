@@ -17,7 +17,6 @@
 	<define id="dull_copper_armor">
 		<name>dull copper %1</name>
 		<color>0x973</color>
-		<value>1.1</value>
 		<tag name="res_physical" value="6" type="int" />
 		<tag name="res_fire" value="0" type="int" />
 		<tag name="res_cold" value="0" type="int" />
@@ -31,7 +30,6 @@
 	<define id="shadow_armor">
 		<name>shadow iron %1</name>
 		<color>0x966</color>
-		<value>1.2</value>
 		<tag name="res_physical" value="2" type="int" />
 		<tag name="res_fire" value="1" type="int" />
 		<tag name="res_cold" value="0" type="int" />
@@ -44,7 +42,6 @@
 	<define id="copper_armor">
 		<name>copper %1</name>
 		<color>0x96d</color>
-		<value>1.3</value>
 		<tag name="res_physical" value="1" type="int" />
 		<tag name="res_fire" value="1" type="int" />
 		<tag name="res_cold" value="0" type="int" />
@@ -56,7 +53,6 @@
 	<define id="bronze_armor">
 		<name>bronze %1</name>
 		<color>0x972</color>
-		<value>1.4</value>
 		<tag name="res_physical" value="3" type="int" />
 		<tag name="res_fire" value="0" type="int" />
 		<tag name="res_cold" value="5" type="int" />
@@ -68,7 +64,6 @@
 	<define id="golden_armor">
 		<name>gold %1</name>
 		<color>0x8a5</color>
-		<value>1.5</value>
 		<tag name="res_physical" value="1" type="int" />
 		<tag name="res_fire" value="1" type="int" />
 		<tag name="res_cold" value="2" type="int" />
@@ -82,7 +77,6 @@
 	<define id="silver_armor">
 		<name>silver %1</name>
 		<color>0x430</color>
-		<value>1.5</value>
 		<tag name="res_physical" value="1" type="int" />
 		<tag name="res_fire" value="1" type="int" />
 		<tag name="res_cold" value="3" type="int" />
@@ -96,7 +90,6 @@
 	<define id="agapite_armor">
 		<name>agapite %1</name>
 		<color>0x979</color>
-		<value>1.6</value>
 		<tag name="res_physical" value="2" type="int" />
 		<tag name="res_fire" value="3" type="int" />
 		<tag name="res_cold" value="2" type="int" />
@@ -108,7 +101,6 @@
 	<define id="verite_armor">
 		<name>verite %1</name>
 		<color>0x89f</color>
-		<value>1.7</value>
 		<tag name="res_physical" value="3" type="int" />
 		<tag name="res_fire" value="3" type="int" />
 		<tag name="res_cold" value="2" type="int" />
@@ -120,7 +112,6 @@
 	<define id="valorite_armor">
 		<name>valorite %1</name>
 		<color>0x8ab</color>
-		<value>1.8</value>
 		<tag name="res_physical" value="4" type="int" />
 		<tag name="res_fire" value="0" type="int" />
 		<tag name="res_cold" value="3" type="int" />
@@ -133,7 +124,6 @@
 	<define id="merkite_armor">
 		<name>merkite %1</name>
 		<color>0x8b0</color>
-		<value>2.0</value>
 		<tag name="res_physical" value="3" type="int" />
 		<tag name="res_fire" value="3" type="int" />
 		<tag name="res_cold" value="3" type="int" />
@@ -146,7 +136,6 @@
 	<define id="mythril_armor">
 		<name>mythril %1</name>
 		<color>0x84c</color>
-		<value>2.2</value>
 		<tag name="res_physical" value="4" type="int" />
 		<tag name="res_fire" value="4" type="int" />
 		<tag name="res_cold" value="4" type="int" />

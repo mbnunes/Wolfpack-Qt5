@@ -33,8 +33,7 @@
 		<category>Armor\Shields\Wooden Kite (N/S)</category>
 	</item>
 
-	<item id="1b79">
-		<inherit id="1b78" />
+	<item id="1b79" inherit="1b78">
 		<id>0x1b79</id>
 		<category>Armor\Shields\Wooden Kite (E/W)</category>
 	</item>

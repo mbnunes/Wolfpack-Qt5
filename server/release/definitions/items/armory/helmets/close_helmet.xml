@@ -34,8 +34,7 @@
 	</item>
 
 	<!-- Close Helmet East-West -->
-	<item id="1408">
-		<inherit id="1409" />
+	<item id="1408" inherit="1409">
 		<id>0x1408</id>
 		<category>Armor\Helmets\Close Helm (E/W)</category>
 	</item>

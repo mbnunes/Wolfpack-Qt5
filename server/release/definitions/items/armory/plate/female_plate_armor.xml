@@ -36,8 +36,7 @@
 	</item>
 
 	<!-- Female Plate Armor -->
-	<item id="1c05">
-		<inherit id="1c04" />
+	<item id="1c05" inherit="1c04">
 		<id>0x1c05</id>
 		<category>Armor\Platemail\Female Armor (E/W)</category>
 	</item>

@@ -32,8 +32,7 @@
 		<category>Armor\Leather\Cap (N/S)</category>
 	</item>
 
-	<item id="1dba">
-		<inherit id="1db9" />
+	<item id="1dba" inherit="1db9">
 		<id>0x1dba</id>
 		<category>Armor\Leather\Cap (E/W)</category>
 	</item>

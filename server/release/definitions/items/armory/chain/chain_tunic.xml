@@ -36,8 +36,7 @@
 	</item>
 
 	<!--  Chainmail Tunic East-West -->
-	<item id="13c4">
-		<inherit id="13bf" />
+	<item id="13c4" inherit="13bf">
 		<id>0x13c4</id>
 		<category>Armor\Chainmail\Tunic EW</category>
 	</item>

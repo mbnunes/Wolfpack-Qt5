@@ -32,8 +32,7 @@
 		<category>Armor\Leather\Skirt (N/S)</category>
 	</item>
 
-	<item id="1c09">
-		<inherit id="1c08" />
+	<item id="1c09" inherit="1c08">
 		<id>0x1c09</id>
 		<category>Armor\Leather\Skirt (E/W)</category>
 	</item>
