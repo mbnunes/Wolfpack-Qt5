@@ -275,28 +275,28 @@ void cSpawnRegion::processNode( const cElement *tag )
 
 	// <maxnpcamount value="10" />
 	else if ( name == "maxnpcamount" && tag->hasAttribute("value")  )
-		this->maxNpcAmt_ = tag->getAttribute("value").toUInt();
+		this->maxNpcAmt_ = tag->getAttribute("value").toUShort();
 
 	else if ( name == "maxnpcamount" )
 		this->maxNpcAmt_ = value.toUShort();
 
-	// <maxitemamount value="5 " />
+	// <maxitemamount value="5" />
 	else if ( name == "maxitemamount" && tag->hasAttribute("value")  )
-		this->maxItemAmt_ = tag->getAttribute("value").toUInt();
+		this->maxItemAmt_ = tag->getAttribute("value").toUShort();
 
 	else if ( name == "maxitemamount" )
 		this->maxItemAmt_ = value.toUShort();
 
-	// <npcspercycle value="3 " />
+	// <npcspercycle value="3" />
 	else if ( name == "npcspercycle" && tag->hasAttribute("value" ) )
-		this->npcsPerCycle_ = tag->getAttribute("value").toUInt();
+		this->npcsPerCycle_ = tag->getAttribute("value").toUShort();
 
 	else if ( name == "npcspercycle" )
 		this->npcsPerCycle_ = value.toUShort();
 
 	// <itemspercycle value="3" />
 	else if ( name == "itemspercycle" && tag->hasAttribute("value" ) )
-		this->itemsPerCycle_ = tag->getAttribute("value").toUInt();
+		this->itemsPerCycle_ = tag->getAttribute("value").toUShort();
 
 	else if ( name == "itemspercycle" )
 		this->itemsPerCycle_ = value.toUShort();
