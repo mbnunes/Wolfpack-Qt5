@@ -58,7 +58,6 @@ class cSetAmountTarget ;
 #include "itemid.h"
 #include "SndPkg.h"
 
-#include "client.h"
 #include "debug.h"
 
 typedef struct _PKGx6C

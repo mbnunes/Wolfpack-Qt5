@@ -36,8 +36,6 @@
 #ifndef __DRAGDROP_H__
 #define __DRAGDROP_H__
 
-#include "client.h"
-
 class cUOSocket;
 class cUORxDropItem;
 class cUORxDragItem;
