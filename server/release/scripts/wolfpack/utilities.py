@@ -386,7 +386,7 @@ def iscrystal( tile ):
 	\description Returns if the tile is a tree object..
 """
 def istree( tile ):
-	return tile in range( 3221, 3223 ) + \
+	return tile in range( 3220, 3223 ) + \
 			range( 3230, 3231 ) + \
 			range( 3242, 3243 ) + \
 			range( 3274, 3278 ) + \
@@ -405,7 +405,7 @@ def istree( tile ):
 			range( 3323, 3324 ) + \
 			range( 3326, 3327 ) + \
 			range( 3329, 3330 ) + \
-			range( 3393, 3394 ) + \
+			range( 3393, 3397 ) + \
 			range( 3415, 3420 ) + \
 			range( 3438, 3443 ) + \
 			range( 3460, 3463 ) + \
