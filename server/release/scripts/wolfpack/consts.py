@@ -8,7 +8,7 @@
 #===============================================================#
 
 # Which port should the remote admin run on
-REMOTEADMIN_PORT = 2600
+REMOTEADMIN_PORT = 2594
 
 # Date Format
 FORMAT_DATE = '%d.%m.%Y' # European
@@ -19,7 +19,7 @@ FORMAT_DATETIME = FORMAT_DATE + ' ' + FORMAT_TIME
 # AGEOFSHADOWS, enable Age of Shadows features
 # FELUCIA2XRESGAIN, double gain resources
 # 1 = True || 0 = False
-AGEOFSHADOWS = 1 
+AGEOFSHADOWS = 1
 FELUCIA2XRESGAIN = 0
 
 # The dictionary keys for the dictionary returned by
@@ -149,59 +149,59 @@ skillnames = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parryi
 	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry' ]
 
 skillnamesids = \
-{ 
-	'alchemy' : ALCHEMY, 
-	'anatomy' : ANATOMY, 
-	'animallore' : ANIMALLORE, 
-	'itemid' : ITEMID, 
-	'armslore' : ARMSLORE, 
+{
+	'alchemy' : ALCHEMY,
+	'anatomy' : ANATOMY,
+	'animallore' : ANIMALLORE,
+	'itemid' : ITEMID,
+	'armslore' : ARMSLORE,
 	'parrying' : PARRYING,
-	'begging' : BEGGING, 
-	'blacksmithing' : BLACKSMITHING, 
-	'bowcraft' : BOWCRAFT, 
-	'peacemaking' : PEACEMAKING, 
-	'camping' : CAMPING, 
+	'begging' : BEGGING,
+	'blacksmithing' : BLACKSMITHING,
+	'bowcraft' : BOWCRAFT,
+	'peacemaking' : PEACEMAKING,
+	'camping' : CAMPING,
 	'carpentry' : CARPENTRY,
-	'cartography' : CARTOGRAPHY, 
-	'cooking' : COOKING, 
-	'detectinghidden' : DETECTINGHIDDEN, 
-	'enticement' : ENTICEMENT, 
+	'cartography' : CARTOGRAPHY,
+	'cooking' : COOKING,
+	'detectinghidden' : DETECTINGHIDDEN,
+	'enticement' : ENTICEMENT,
 	'evaluatingintel' : EVALUATINGINTEL,
-	'healing' : HEALING, 
-	'fishing' : FISHING, 
-	'forensics' : FORENSICS, 
-	'herding' : HERDING, 
-	'hiding' : HIDING, 
+	'healing' : HEALING,
+	'fishing' : FISHING,
+	'forensics' : FORENSICS,
+	'herding' : HERDING,
+	'hiding' : HIDING,
 	'provocation' : PROVOCATION,
-	'inscription' : INSCRIPTION, 
-	'lockpicking' : LOCKPICKING, 
-	'magery' : MAGERY, 
-	'magicresistance' : MAGICRESISTANCE, 
-	'tactics' : TACTICS, 
+	'inscription' : INSCRIPTION,
+	'lockpicking' : LOCKPICKING,
+	'magery' : MAGERY,
+	'magicresistance' : MAGICRESISTANCE,
+	'tactics' : TACTICS,
 	'snooping' : SNOOPING,
-	'musicianship' : MUSICIANSHIP, 
-	'poisoning' : POISONING, 
-	'archery' : ARCHERY, 
-	'spiritspeak' : SPIRITSPEAK, 
-	'stealing' : STEALING, 
+	'musicianship' : MUSICIANSHIP,
+	'poisoning' : POISONING,
+	'archery' : ARCHERY,
+	'spiritspeak' : SPIRITSPEAK,
+	'stealing' : STEALING,
 	'tailoring' : TAILORING,
-	'taming' : TAMING, 
-	'tasteid' : TASTEID, 
-	'tinkering' : TINKERING, 
-	'tracking' : TRACKING, 
-	'veterinary' : VETERINARY, 
+	'taming' : TAMING,
+	'tasteid' : TASTEID,
+	'tinkering' : TINKERING,
+	'tracking' : TRACKING,
+	'veterinary' : VETERINARY,
 	'swordsmanship' : SWORDSMANSHIP,
-	'macefighting' : MACEFIGHTING, 
-	'fencing' : FENCING, 
-	'wrestling' : WRESTLING, 
-	'lumberjacking' : LUMBERJACKING, 
-	'mining' : MINING, 
+	'macefighting' : MACEFIGHTING,
+	'fencing' : FENCING,
+	'wrestling' : WRESTLING,
+	'lumberjacking' : LUMBERJACKING,
+	'mining' : MINING,
 	'meditation' : MEDITATION,
-	'stealth' : STEALTH, 
-	'removetraps' : REMOVETRAPS, 
-	'necromancy' : NECROMANCY, 
-	'focus' : FOCUS, 
-	'chivalry' : CHIVALRY 
+	'stealth' : STEALTH,
+	'removetraps' : REMOVETRAPS,
+	'necromancy' : NECROMANCY,
+	'focus' : FOCUS,
+	'chivalry' : CHIVALRY
 }
 
 statnames = [ 'str', 'int', 'dex' ]
@@ -528,7 +528,7 @@ SOUND_MAGICAL_03 = 0x456 # Like an energy field...
 
 SOUND_WARP_01 = 0x474 # A more modern recall sound?
 
-SOUND_FIREBALL_01 = 0x44b # 
+SOUND_FIREBALL_01 = 0x44b #
 
 SOUND_BREAKING_1 = 0x38d
 SOUND_BREAKING_2 = 0x38e
@@ -628,7 +628,7 @@ SOUND_FEMALE_28 = 0x326 # "Ughhhh" 3
 SOUND_FEMALE_29 = 0x327 # "Ughhhhhh" 4
 SOUND_FEMALE_30 = 0x328 # "Urraghh!"
 SOUND_FEMALE_31 = 0x329 # "Uhh!"
-SOUND_FEMALE_32 = 0x32a # Ugh! 
+SOUND_FEMALE_32 = 0x32a # Ugh!
 SOUND_FEMALE_33 = 0x32b # ooooooooo!
 SOUND_FEMALE_34 = 0x32c # Ooops!
 SOUND_FEMALE_35 = 0x32d # Gag sound
