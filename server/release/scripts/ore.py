@@ -276,16 +276,16 @@ def dosmelt(char, args):
 				successsmelt(char, resname, amount)
 				ore.delete()
 			elif ore.baseid == DEF_ORES[0]:
-				if evenorodd( ore.amount ) == "even":
+				if ore.amount > 1 and ore.amount % 2 == 0:
 					amount = ( ore.amount / 2 )
 					successsmelt(char, resname, amount)
 					ore.delete()
-				elif evenorodd( ore.amount ) == "odd" and ore.amount > 1:
+				elif ore.amount > 1:
 					amount = ( ( ore.amount - 1 ) / 2 )
 					successsmelt(char, resname, amount)
 					ore.amount = 1
 					ore.update()
-				elif ore.amount == 1:
+				else:
 					# There is not enough metal-bearing ore in this pile to make an ingot.
 					char.socket.clilocmessage( 501987, '', GRAY )
 					return False

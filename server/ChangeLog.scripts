@@ -11,6 +11,9 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
 		- Fixed bug #0000287 (weaponinfo.py values not being used)
+		- Fixed healing potions.
+		- Fixed ore smelting.
+		- Fixed dye tubs.
 		- Fixed bug #0000295 (Missing MEDITATION cost import)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
