@@ -7,270 +7,133 @@
 =================================================================
 -->
 <definitions>
+	<!-- Mace Base -->
 	<item id="mace_base">
 		<type>1004</type>
 	</item>
-
-	<item id="staff_base">
-		<type>1003</type>
-	</item>
-
+	
 	<!-- Mace -->
 	<item id="f5c">
 		<inherit id="mace_base" />
+		<name>mace</name>
 		<id>0x0f5c</id>
-		<category>Weapons\Maces &amp; Hammers\Mace (W/E)</category>
-		<buyprice>38</buyprice>
-		<sellprice>30</sellprice>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>30</buyprice>
+		<attack min="12" max="14" />
+		<durability><random min="30" max="64" /></durability>
+		<speed>40</speed>
 		<weight>14.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">20</requires>
-		<attack min="8" max="32" />
-		<speed>30</speed>
-		<durability><random min="31" max="70" /></durability>
-	</item>
-
-	<item id="f5d">
-		<inherit id="f5c" />
-		<id>0x0f5d</id>
-		<category>Weapons\Maces &amp; Hammers\Mace (N/S)</category>
+		<requires type="str">45</requires>
+		<category>Weapons\Maces\Mace</category>
 	</item>
 
 	<!-- Club -->
-	<item id="13b3">
-		<inherit id="mace_base" />
-		<id>0x13b3</id>
-		<category>Weapons\Maces &amp; Hammers\Club (W/E)</category>
-		<buyprice>27</buyprice>
-		<sellprice>13</sellprice>
-		<weight>9.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">10</requires>
-		<attack min="8" max="24" />
-		<speed>40</speed>
-		<durability><random min="31" max="40" /></durability>
-	</item>
-
 	<item id="13b4">
+		<inherit id="mace_base" />
+		<name>club</name>
 		<id>0x13b4</id>
-		<category>Weapons\Maces &amp; Hammers\Club (N/S)</category>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>8</sellprice>
+		<buyprice>16</buyprice>
+		<attack min="11" max="13" />
+		<durability><random min="30" max="40" /></durability>
+		<speed>40</speed>
+		<weight>14.0</weight>
+		<requires type="str">40</requires>
+		<category>Weapons\Maces\Mace</category>
 	</item>
 
 	<!-- War Mace -->
-	<item id="1406">
-		<inherit id="mace_base" />
-		<id>0x1406</id>
-		<category>Weapons\Maces &amp; Hammers\War Mace (W/E)</category>
-		<buyprice>37</buyprice>
-		<sellprice>18</sellprice>
-		<weight>17.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">30</requires>
-		<attack min="10" max="30" />
-		<speed>32</speed>
-		<durability><random min="31" max="110" /></durability>
-	</item>
-
 	<item id="1407">
-		<inherit id="1406" />
+		<inherit id="mace_base" />
+		<name>mace</name>
 		<id>0x1407</id>
-		<category>Weapons\Maces &amp; Hammers\War Mace (N/S)</category>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>13</sellprice>
+		<buyprice>26</buyprice>
+		<attack min="16" max="17" />
+		<durability><random min="30" max="40" /></durability>
+		<speed>26</speed>
+		<weight>17.0</weight>
+		<requires type="str">80</requires>
+		<category>Weapons\Maces\War Mace</category>
 	</item>
 
 	<!-- War Hammer -->
-	<item id="1438">
-		<inherit id="mace_base" />
-		<id>0x1438</id>
-		<category>Weapons\Maces &amp; Hammers\War Hammer (W/E)</category>
-		<twohanded />
-		<buyprice>27</buyprice>
-		<sellprice>13</sellprice>
-		<weight>10.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">40</requires>
-		<attack min="8" max="36" />
-		<speed>31</speed>
-		<durability><random min="31" max="110" /></durability>
-	</item>
-
 	<item id="1439">
-		<inherit id="1438" />
+		<inherit id="mace_base" />
+		<name>war hammer</name>
 		<id>0x1439</id>
-		<category>Weapons\Maces &amp; Hammers\War Hammer (N/S)</category>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>12</sellprice>
+		<buyprice>23</buyprice>
+		<attack min="17" max="18" />
+		<durability><random min="30" max="59" /></durability>
+		<speed>26</speed>
+		<weight>10.0</weight>
+		<requires type="str">95</requires>
+		<category>Weapons\Maces\War Hammer</category>
 	</item>
 
 	<!-- Maul -->
-	<item id="143a">
-		<inherit id="mace_base" />
-		<id>0x143a</id>
-		<category>Weapons\Maces &amp; Hammers\Maul (W/E)</category>
-		<buyprice>31</buyprice>
-		<sellprice>15</sellprice>
-		<weight>14.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">20</requires>
-		<attack min="10" max="30" />
-		<speed>30</speed>
-		<durability><random min="31" max="70" /></durability>
-	</item>
-
 	<item id="143b">
-		<inherit id="143a" />
+		<inherit id="mace_base" />
+		<name>maul</name>
 		<id>0x143b</id>
-		<category>Weapons\Maces &amp; Hammers\Maul (N/S)</category>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>11</sellprice>
+		<buyprice>22</buyprice>
+		<attack min="14" max="16" />
+		<durability><random min="30" max="58" /></durability>
+		<speed>32</speed>
+		<weight>14.0</weight>
+		<requires type="str">45</requires>
+		<category>Weapons\Maces\Maul</category>
 	</item>
 
 	<!-- Hammer Pick -->
-	<item id="143c">
-		<inherit id="mace_base" />
-		<id>0x143c</id>
-		<category>Weapons\Maces &amp; Hammers\Hammer Pick (W/E)</category>
-		<buyprice>31</buyprice>
-		<sellprice>15</sellprice>
-		<weight>9.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">35</requires>
-		<attack min="6" max="33" />
-		<speed>30</speed>
-		<durability><random min="31" max="70" /></durability>
-	</item>
-
 	<item id="143d">
-		<inherit id="143c" />
-		<id>0x143d</id>
-		<category>Weapons\Maces &amp; Hammers\Hammer Pick (N/S)</category>
-	</item>
-
-	<!-- Black Staff -->
-	<item id="df0">
-		<inherit id="staff_base" />
-		<id>0x0df0</id>
-		<category>Weapons\Staves\Black Staff (W/E)</category>
-		<twohanded />
-		<buyprice>27</buyprice>
-		<sellprice>24</sellprice>
-		<weight>6.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">35</requires>
-		<attack min="8" max="33" />
-		<speed>35</speed>
-		<durability><random min="31" max="70" /></durability>
-	</item>
-
-	<item id="df1">
-		<inherit id="df0" />
-		<id>0x0df1</id>
-		<category>Weapons\Staves\Black Staff (N/S)</category>
-	</item>
-	
-	<!-- Quarter Staff -->
-	<item id="e89">
-		<inherit id="staff_base" />
-		<id>0x0e89</id>
-		<category>Weapons\Staves\Quarter Staff (N/S)</category>
-		<twohanded />
-		<buyprice>30</buyprice>
-		<sellprice>15</sellprice>
-		<weight>4.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">30</requires>
-		<attack min="8" max="28" />
-		<speed>48</speed>
-		<durability><random min="31" max="60" /></durability>
-	</item>
-
-	<item id="e8a">
-		<inherit id="e89" />
-		<id>0x0e8a</id>
-		<category>Weapons\Staves\Quarter Staff (W/E)</category>
-	</item>
-
-	<!-- Gnarled Staff -->
-	<item id="13f8">
-		<inherit id="staff_base" />
-		<id>0x13F8</id>
-		<category>Weapons\Staves\Gnarled Staff (N/S)</category>
-		<twohanded />
-		<buyprice>24</buyprice>
-		<sellprice>12</sellprice>
-		<weight>3.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">20</requires>
-		<attack min="8" max="30" />
-		<speed>33</speed>
-		<durability><random min="31" max="50" /></durability>
-	</item>
-	
-	<item id="13f9">
-		<inherit id="13f8" />
-		<id>0x13f9</id>
-		<category>Weapons\Staves\Gnarled Staff (W/E)</category>
-	</item>
-
-	<!-- Shepherds Crook -->
-	<item id="e81">
-		<inherit id="staff_base" />
-		<id>0x0e81</id>
-		<category>Weapons\Staves\Shepherds Crook (W/E)</category>
-		<twohanded />
-		<buyprice>33</buyprice>
-		<sellprice>24</sellprice>
-		<weight>2.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">10</requires>
-		<attack min="3" max="12" />
-		<speed>30</speed>
-		<durability><random min="31" max="50" /></durability>
-	</item>
-
-	<item id="e82">
-		<inherit id="e81" />
-		<id>0x0e82</id>
-		<category>Weapons\Staves\Shepherds Crook (W/E)</category>
-	</item>
-
-	<!-- Crook -->
-	<item id="13f4">
-		<inherit id="e81" /> <!-- Exactly the same values as the shepherds crook -->
-		<id>0x13f4</id>
-		<category>Weapons\Staves\Crook (W/E)</category>
-	</item>
-
-	<item id="13f5">
-		<inherit id="13f4" />
-		<id>0x13f5</id>
-		<category>Weapons\Staves\Crook (N/S)</category>
-	</item>
-
-	<!-- War Axe -->
-	<item id="13af">
 		<inherit id="mace_base" />
-		<id>0x13af</id>
-		<category>Weapons\Axes\War Axe (N/S)</category>
-		<buyprice>38</buyprice>
-		<sellprice>19</sellprice>
-		<weight>8.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">35</requires>
-		<attack min="9" max="27" />
-		<speed>40</speed>
-		<durability><random min="31" max="80" /></durability>
+		<name>mace</name>
+		<id>0x0f5c</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>10</sellprice>
+		<buyprice>21</buyprice>
+		<attack min="15" max="17" />
+		<durability><random min="30" max="35" /></durability>
+		<speed>28</speed>
+		<weight>9.0</weight>
+		<requires type="str">45</requires>
+		<category>Weapons\Maces\Hammer Pick</category>
 	</item>
 
-	<item id="13b0">
-		<inherit id="13af" />
-		<id>0x13b0</id>
-		<category>Weapons\Axes\War Axe (N/S)</category>
+	<item id="26bc">
+		<inherit id="mace_base" />
+		<name>scepter</name>
+		<id>0x26bc</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>30</buyprice>
+		<attack min="14" max="17" />
+		<durability><random min="50" max="98" /></durability>
+		<speed>30</speed>
+		<weight>7.0</weight>
+		<requires type="str">40</requires>
+		<category>Weapons\Maces\Scepter</category>
 	</item>
 </definitions>

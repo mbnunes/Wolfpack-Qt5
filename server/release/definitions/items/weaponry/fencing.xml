@@ -2,7 +2,7 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: sereg                          |
-|   )).-' {{ ;'`   | Revised by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
@@ -14,133 +14,139 @@
 
 	<!-- Dagger -->
 	<item id="f51">
+		<inherit id="fencing_base" />
+		<name>dagger</name>
 		<id>0x0f51</id>
-		<inherit id="fencing_base" />
-		<category>Weapons\Knives &amp; Daggers\Dagger (N/S)</category>
-		<buyprice>33</buyprice>
-		<sellprice>21</sellprice>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>10</sellprice>
+		<buyprice>21</buyprice>
+		<attack min="10" max="11" />
+		<durability><random min="30" max="39" /></durability>
+		<speed>56</speed>
 		<weight>1.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">1</requires>
-		<attack min="3" max="15" />
-		<speed>55</speed>
-		<durability><random min="31" max="50" /></durability>
-	</item>
-
-	<item id="f52">
-		<inherit id="f51" />
-		<id>0x0f52</id>
-		<category>Weapons\Knives &amp; Daggers\Dagger (W/E)</category>
-	</item>
-
-	<!-- Kryss -->
-	<item id="1400">
-		<inherit id="fencing_base" />
-		<id>0x1400</id>
-		<category>Weapons\Swords\Kryss (W/E)</category>
-		<buyprice>42</buyprice>
-		<sellprice>21</sellprice>
-		<weight>1.0</weight>
-
-		<!-- Weapon Properties -->
 		<requires type="str">10</requires>
-		<attack min="3" max="28" />
-		<speed>53</speed>
-		<durability><random min="31" max="90" /></durability>
+		<category>Weapons\Fencing\Dagger</category>
 	</item>
 
 	<item id="1401">
-		<inherit id="1400" />
-		<id>0x1401</id>
-		<category>Weapons\Swords\Kryss (N/S)</category>
-	</item>
-
-	<!-- Spear -->
-	<item id="f62">
-		<id>0x0f62</id>
 		<inherit id="fencing_base" />
-		<category>Weapons\Spears &amp; Forks\Spear (N/S)</category>
-		<twohanded />
-		<buyprice>38</buyprice>
-		<sellprice>36</sellprice>
-		<weight>7.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">30</requires>
-		<attack min="2" max="36" />
-		<speed>46</speed>
-		<durability><random min="31" max="80" /></durability>
+		<name>kryss</name>
+		<id>0x1401</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>16</sellprice>
+		<buyprice>37</buyprice>
+		<attack min="10" max="12" />
+		<durability><random min="50" max="85" /></durability>
+		<speed>53</speed>
+		<weight>1.0</weight>
+		<requires type="str">10</requires>
+		<category>Weapons\Fencing\Kryss</category>
 	</item>
 
-	<item id="f63">
-		<inherit id="f62" />
-		<id>0x0f63</id>
-		<category>Weapons\Spears &amp; Forks\Spear (W/E)</category>
-	</item>
-
-	<!-- Pitchfork -->
 	<item id="e87">
 		<inherit id="fencing_base" />
-		<id>0x0e87</id>
-		<category>Weapons\Spears &amp; Forks\Pitchfork (W/E)</category>
+		<name>pitchfork</name>
+		<id>0xe87</id>
 		<twohanded />
-		<buyprice>25</buyprice>
-		<sellprice>12</sellprice>
+		<decay />
+		<nodye />
+		<sellprice>9</sellprice>
+		<buyprice>18</buyprice>
+		<attack min="13" max="14" />
+		<durability><random min="30" max="41" /></durability>
+		<speed>43</speed>
 		<weight>10.0</weight>
-
-		<!-- Weapon Properties -->
-		<requires type="str">15</requires>
-		<attack min="4" max="16" />
-		<speed>45</speed>
-		<durability><random min="31" max="60" /></durability>
+		<requires type="str">50</requires>
+		<category>Weapons\Fencing\Pitchfork</category>
 	</item>
 
-	<item id="e88">
-		<inherit id="e87" />
-		<id>0x0e88</id>
-		<category>Weapons\Spears &amp; Forks\Pitchfork (N/S)</category>
-	</item>
-
-	<!-- Short Spear -->
-	<item id="1402">
-		<id>0x1402</id>
+	<item id="26bf">
 		<inherit id="fencing_base" />
-		<category>Weapons\Spears &amp; Forks\Short Spear (W/E)</category>
+		<name>double bladed staff</name>
+		<id>0x26bf</id>
 		<twohanded />
-		<buyprice>32</buyprice>
-		<sellprice>16</sellprice>
-		<weight>4.0</weight>
+		<decay />
+		<nodye />
+		<sellprice>9</sellprice>
+		<buyprice>18</buyprice>
+		<attack min="12" max="13" />
+		<durability><random min="30" max="40" /></durability>
+		<speed>49</speed>
+		<weight>7.0</weight>
+		<requires type="str">50</requires>
+		<category>Weapons\Fencing\Double Bladed Staff</category>
+	</item>
 
-		<!-- Weapon Properties -->
-		<requires type="str">15</requires>
-		<attack min="4" max="32" />
-		<speed>50</speed>
-		<durability><random min="31" max="70" /></durability>
+	<item id="26c0">
+		<inherit id="fencing_base" />
+		<name>lance</name>
+		<id>0x26c0</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>19</sellprice>
+		<buyprice>38</buyprice>
+		<attack min="17" max="18" />
+		<durability><random min="50" max="81" /></durability>
+		<speed>24</speed>
+		<weight>12.0</weight>
+		<requires type="str">95</requires>
+		<category>Weapons\Fencing\Lance</category>
+	</item>
+
+	<item id="26be">
+		<inherit id="fencing_base" />
+		<name>pike</name>
+		<id>0x26be</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>16</sellprice>
+		<buyprice>33</buyprice>
+		<attack min="14" max="16" />
+		<durability><random min="30" max="38" /></durability>
+		<speed>37</speed>
+		<weight>10.0</weight>
+		<requires type="str">50</requires>
+		<category>Weapons\Fencing\Pike</category>
 	</item>
 
 	<item id="1403">
-		<inherit id="1402" />
-		<id>0x1403</id>
-		<category>Weapons\Spears &amp; Forks\Short Spear (N/S)</category>
-	</item>
-
-	<!-- War Fork -->
-	<item id="1404">
-		<id>0x1404</id>
 		<inherit id="fencing_base" />
-		<category>Weapons\Spears &amp; Forks\War Fork (W/E)</category>
-
-		<!-- Weapon Properties -->
-		<requires type="str">35</requires>
-		<attack min="4" max="32" />
-		<speed>45</speed>
-		<durability><random min="31" max="110" /></durability>
+		<name>short spear</name>
+		<id>0x1403</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>10</sellprice>
+		<buyprice>21</buyprice>
+		<attack min="10" max="13" />
+		<durability><random min="30" max="40" /></durability>
+		<speed>55</speed>
+		<weight>4.0</weight>
+		<requires type="str">40</requires>
+		<category>Weapons\Fencing\Short Spear</category>
 	</item>
 
-	<item id="1405">
-		<inherit id="1404" />
-		<id>0x1405</id>
-		<category>Weapons\Spears &amp; Forks\War Fork (N/S)</category>
+	<item id="f62">
+		<inherit id="fencing_base" />
+		<name>spear</name>
+		<id>0xf62</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>31</buyprice>
+		<attack min="13" max="15" />
+		<durability><random min="30" max="47" /></durability>
+		<speed>42</speed>
+		<weight>7.0</weight>
+		<requires type="str">50</requires>
+		<category>Weapons\Fencing\Spear</category>
 	</item>
+
 </definitions>
