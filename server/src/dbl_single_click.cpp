@@ -1051,7 +1051,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 								childNode = childNode.nextSibling();
 							}
 							if( houseid != 0 )
-								attachPlaceRequest( s, new cBuildMultiTarget( pi->tags.get( "multisection" ).toString() , currchar[s]->serial, pi->serial ), houseid );
+								attachPlaceRequest( s, new cBuildMultiTarget( pi->tags.get( "multisection" ).toString() , currchar[s]->serial, pi->serial ), houseid - 0x4000 );
 						}
 					}
 					return;// deeds
