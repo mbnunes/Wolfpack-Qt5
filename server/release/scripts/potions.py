@@ -1,5 +1,5 @@
 import wolfpack
-from random import randint
+from random import randint, random
 from wolfpack import time
 from wolfpack.consts import *
 from wolfpack.utilities import hex2dec, throwobject, energydamage
@@ -82,50 +82,26 @@ def onUse( char, item ):
 			if potiontype == 0:
 				nightsightPotion( char, item )
 				return OK
-
 			# Heal Potions
 			elif potiontype in [1,2,3]:
-				if char.hastag('poisoned'):
-					# You can not heal yourself in your current state.
-					socket.clilocmessage(1005000)
-					return OOPS
-				if char.hitpoints >= char.maxhitpoints:
-					socket.clilocmessage(1049547)
-					if char.hitpoints > char.maxhitpoints:
-						char.hitpoints = char.maxhitpoints
-						char.updatehealth()
-				else:
-					healPotion(char, item, potiontype)
+				healPotion(char, item, potiontype)
 				return OK
-
 			# Cure Potions
 			elif potiontype in [4,5,6]:
-				socket.sysmessage('Drinking a cure potion.')
+				curePotion(char, item, potiontype)
 				return OK
-
 			# Agility Potions
 			elif potiontype in [7,8]:
-				if not char.hastag('agility_effect'):
-					agilityPotion( char, item, potiontype )
-				else:
-					# You are already under a similar effect.
-					socket.clilocmessage(502173)
+				agilityPotion( char, item, potiontype )
 				return OK
-
 			# Strength Potions
 			elif potiontype in [ 9, 10 ]:
-				if not char.hastag( 'strength_effect' ):
-					strengthPotion( char, item, potiontype )
-				else:
-					# You are already under a similar effect.
-					socket.clilocmessage( 502173, '', GRAY )
+				strengthPotion( char, item, potiontype )
 				return OK
-
 			# Poison Potions
 			elif potiontype in [ 14, 15, 16, 17 ]:
 				poisonPotion( char, item, potiontype )
 				return OK
-
 			# Refresh Potions
 			elif potiontype in [ 18, 19 ]:
 				refreshPotion( char, item, potiontype )
@@ -314,66 +290,6 @@ def consumePotion( char, potion, givebottle ):
 		if not wolfpack.utilities.tocontainer( bottle, char.getbackpack() ):
 			bottle.update()
 
-# 10 Second Delay
-def checkHealTimer( char ):
-
-	if not char.hastag( "heal_timer" ):
-		char.settag( "heal_timer", time.servertime() + HEAL_POT_DELAY )
-		return OK
-
-	# Compare
-	elapsed = int( char.gettag( "heal_timer" ) )
-	if elapsed > time.servertime():
-		char.socket.clilocmessage( 500235, '', GRAY ) # You must wait 10 seconds before using another healing potion.
-		return OOPS
-	else:
-		char.settag( "heal_timer", time.servertime() + HEAL_POT_DELAY )
-		return OK
-
-# Dexterity Effect Timer
-def effecttimer( time, args ):
-	char = args[0]
-	effecttype = args[1]
-	bonus = args[2]
-
-	if effecttype == 6 or effecttype == 7:
-		if not char.hastag( 'agility_effect' ):
-			return OOPS
-		char.dexterity2 -= bonus
-		char.dexterity -= bonus
-		if char.stamina > char.maxstamina:
-			char.stamina = char.maxstamina
-		char.deltag( 'agility_effect' )
-		char.updatestamina()
-		char.updatestats()
-		return OK
-
-	elif effecttype == 8 or effecttype == 9:
-		if not char.hastag( 'strength_effect' ):
-			return OOPS
-		char.strength2 -= bonus
-		char.strength -= bonus
-		if char.hitpoints > char.maxhitpoints:
-			char.hitpoints = char.maxhitpoints
-		char.deltag( 'strength_effect' )
-		char.updatehealth()
-		char.updatestats()
-		return OK
-
-	elif effecttype == 20 or effecttype == 21:
-		if not char.hastag( 'intelligence_effect' ):
-			return OOPS
-		char.intelligence2 -= bonus
-		char.intelligence -= bonus
-		if char.mana > char.maxmana:
-			char.mana = char.maxmana
-		char.deltag( 'intelligence_effect' )
-		char.updatemana()
-		char.updatestats()
-		return OK
-	else:
-		return OOPS
-
 """
 -----------------------------
 -- POTION FUNCTIONS --
@@ -382,6 +298,7 @@ def effecttimer( time, args ):
 
 # Nightsight potion
 def nightsightPotion( char, potion ):
+	socket = char.socket
 	# Remove an old bonus
 	if char.hastag('nightsight'):
 		bonus = char.gettag('nightsight')
@@ -396,7 +313,7 @@ def nightsightPotion( char, potion ):
 	char.lightbonus += bonus
 
 	if char.socket:
-		char.socket.updatelightlevel()
+		socket.updatelightlevel()
 
 	char.soundeffect(0x1e3)
 	char.effect(0x376a, 9, 32)
@@ -405,8 +322,31 @@ def nightsightPotion( char, potion ):
 
 # Heal Potions
 def healPotion( char, potion, healtype ):
-	if not canUsePotion( char, potion ) or not checkHealTimer( char ):
+	socket = char.socket
+	if not canUsePotion( char, potion ):
 		return OOPS
+
+	if char.poison > -1:
+		# You can not heal yourself in your current state.
+		socket.clilocmessage(1005000)
+		return OOPS
+	if char.hitpoints >= char.maxhitpoints:
+		socket.clilocmessage(1049547)
+		if char.hitpoints > char.maxhitpoints:
+			char.hitpoints = char.maxhitpoints
+			char.updatehealth()
+		return OOPS
+
+	if not char.hastag( "heal_pot_timer" ):
+		char.settag( "heal_pot_timer", (time.servertime() + HEAL_POT_DELAY) )
+
+	# Compare
+	elapsed = int( char.gettag( "heal_pot_timer" ) )
+	if elapsed > time.servertime():
+		socket.clilocmessage( 500235, '', GRAY ) # You must wait 10 seconds before using another healing potion.
+		return OOPS
+	else:
+		char.settag( "heal_pot_timer", (time.servertime() + HEAL_POT_DELAY) )
 
 	amount = 0
 
@@ -425,7 +365,7 @@ def healPotion( char, potion, healtype ):
 	# Resend Health
 	char.updatehealth()
 	#char.socket.clilocmessage( 1060203, str(amount) , GRAY, NORMAL ) # broken
-	char.socket.sysmessage( 'You have had ' + str( amount ) + ' hit points of damage healed.', GRAY )
+	socket.sysmessage( 'You have had ' + str( amount ) + ' hit points of damage healed.', GRAY )
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
@@ -433,9 +373,54 @@ def healPotion( char, potion, healtype ):
 
 	return OK
 
+# Cure Potions
+def curePotion( char, potion, curetype ):
+	socket = char.socket
+	if char.poison == -1:
+		socket.clilocmessage(1042000) # You are not poisoned.
+		return OOPS
+
+	if curetype == 4:
+		curelevel = 0
+	elif curetype == 5:
+		curelevel = 1
+	elif curetype == 6:
+		curelevel = 2
+
+	if curelevel >= char.poison:
+		poison.cure(char)
+		char.effect(0x373a, 10, 15)
+		char.soundeffect(0x1e0)
+	# curelevel now must be lower than char.poison
+	else:
+		if (char.poison - curelevel) == 1:
+			chance = 0.5
+		elif (char.poison - curelevel) == 2:
+			chance = 0.25
+		elif (char.poison - curelevel) == 3:
+			chance = 0.1
+
+		if chance > random():
+			poison.cure(char)
+			char.effect(0x373a, 10, 15)
+			char.soundeffect(0x1e0)
+
+	# Drinking and consume
+	char.action( ANIM_FIDGET3 )
+	char.soundeffect( SOUND_DRINK1 )
+	consumePotion( char, potion, potions[ curetype ][ POT_RETURN_BOTTLE ] )
+	# If we succeeded, special effects
+	if char.poison == -1:
+		char.effect(0x373a, 10, 15)
+		char.soundeffect(0x1e0)
+		socket.clilocmessage(500231) # You feel cured of poison!
+	else:
+		socket.clilocmessage(500232) # That potion was not strong enough to cure your ailment!
+	return OK
+
 # Agility Potion
 def agilityPotion( char, potion, agilitytype ):
-
+	socket = char.socket
 	bonus = 0
 
 	# Agility
@@ -448,12 +433,26 @@ def agilityPotion( char, potion, agilitytype ):
 	else:
 		return OOPS
 
-	char.dexterity2 = bonus
+	if not char.hastag( "dex_pot_timer" ):
+		char.settag( "dex_pot_timer", (time.servertime() + AGILITY_TIME) )
+
+	# Compare
+	elapsed = int( char.gettag( "dex_pot_timer" ) )
+	if elapsed > time.servertime():
+		socket.clilocmessage(502173) # You are already under a similar effect.
+		return OOPS
+	else:
+		char.settag( 'dex_pot_timer', (time.servertime() + AGILITY_TIME) )
+
+	if char.dexterity + bonus < 1:
+		bonus = -(char.strength - 1)
+	char.dexterity2 += bonus
 	char.dexterity += bonus
-	wolfpack.addtimer( AGILITY_TIME, "potions.effecttimer", [ char, agilitytype, bonus ], 1 )
-	char.settag( 'agility_effect', 'true' )
+	char.stamina = min(char.stamina, char.maxstamina)
 	char.updatestamina()
 	char.updatestats()
+
+	char.addtimer(AGILITY_TIME, "magic.utilities.statmodifier_expire", [1, bonus], 1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel")
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
@@ -461,10 +460,11 @@ def agilityPotion( char, potion, agilitytype ):
 	char.soundeffect( SOUND_AGILITY_UP )
 	consumePotion( char, potion, potions[ agilitytype ][ POT_RETURN_BOTTLE ] )
 
-	return
+	return OK
 
 # Strength Potion
 def strengthPotion( char, potion, strengthtype ):
+	socket = char.socket
 	if not canUsePotion( char, potion ):
 		return OOPS
 
@@ -480,12 +480,26 @@ def strengthPotion( char, potion, strengthtype ):
 	else:
 		return OOPS
 
-	char.strength2 = bonus
+	if not char.hastag( "str_pot_timer" ):
+		char.settag( "str_pot_timer", (time.servertime() + STRENGTH_TIME) )
+
+	# Compare
+	elapsed = int( char.gettag( "str_pot_timer" ) )
+	if elapsed > time.servertime():
+		socket.clilocmessage(502173) # You are already  under a similar effect
+		return OOPS
+	else:
+		char.settag( 'str_pot_timer', (time.servertime() + STRENGTH_TIME) )
+
+	if char.strength + bonus < 1:
+		bonus = -(char.strength - 1)
+	char.strength2 += bonus
 	char.strength += bonus
-	wolfpack.addtimer( STRENGTH_TIME, "potions.effecttimer", [ char, strengthtype, bonus ], 1 )
-	char.settag( 'strength_effect', 'true' )
+	char.hitpoints = min(char.hitpoints, char.maxhitpoints)
 	char.updatehealth()
 	char.updatestats()
+
+	char.addtimer(STRENGTH_TIME, "magic.utilities.statmodifier_expire", [0, bonus], 1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel")
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
@@ -493,10 +507,11 @@ def strengthPotion( char, potion, strengthtype ):
 	char.soundeffect( SOUND_STRENGTH_UP )
 	consumePotion( char, potion, potions[ strengthtype ][ POT_RETURN_BOTTLE ] )
 
-	return
+	return OK
 
 # Poison Potions
 def poisonPotion( char, potion, poisontype ):
+	socket = char.socket
 	levels = [14, 15, 16, 17]
 	if poisontype == levels[0]:
 		poison.poison(char, 0)
@@ -512,10 +527,10 @@ def poisonPotion( char, potion, poisontype ):
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
 	consumePotion( char, potion, potions[ poisontype ][ POT_RETURN_BOTTLE ] )
-	return
+	return OK
 
 def refreshPotion( char, potion, refreshtype ):
-
+	socket = char.socket
 	# refresh potion
 	if refreshtype == 18:
 		char.stamina += (char.maxstamina / 4)
@@ -535,7 +550,7 @@ def refreshPotion( char, potion, refreshtype ):
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
 	consumePotion( char, potion, potions[ refreshtype ][ POT_RETURN_BOTTLE ] )
-	return
+	return OK
 
 # INVIS POTION
 # 502179	Your skin becomes extremely sensitive to light, changing to mirror the colors of things around you.
