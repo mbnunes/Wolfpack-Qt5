@@ -4,6 +4,101 @@ from wolfpack import console
 from wolfpack.consts import *
 from wolfpack.utilities import hex2dec
 import housing
+from housing.consts import *
+
+#
+# CoOwner management
+# Get a list of character STRINGS(!) 
+# Serials that are coowners of the house
+#
+def getCoOwners(house):
+	if not house:
+		return []
+	
+	coowners = []
+	if house.hastag('coowners'):
+		coowners = str(house.gettag('coowners')).split(',')		
+
+	return coowners
+	
+#
+# Add a coowner to this house
+#
+def addCoOwner(house, coowner):
+	if not coowner or not house:
+		return
+
+	coowners = getCoOwner(house)
+	serial = str(coowner.serial)
+	
+	if serial not in coowners:
+		coowners.append(serial)
+		house.settag('coowners', ','.join(coowners))
+		
+#
+# Remove a co-owner from the house
+#
+def removeCoOwner(house, coowner):
+	if not house or not coowner:
+		return
+		
+	coowners = getCoOwners(house)
+	serial = str(coowner.serial)
+	changed = False
+
+	while serial in coowners:
+		coowners.remove(serial)
+		changed = True
+
+	if changed:
+		house.settag('coowners', ','.join(coowners))
+
+#
+# Friends management
+# Get a list of character STRINGS(!) 
+# Serials that are friends of the house
+#
+def getFriends(house):
+	if not house:
+		return []
+	
+	friends = []
+	if house.hastag('friends'):
+		friends = str(house.gettag('friends')).split(',')		
+
+	return friends
+	
+#
+# Add a friend to this house
+#
+def addFriend(house, friend):
+	if not friend or not house:
+		return
+
+	friends = getFriends(house)
+	serial = str(friend.serial)
+	
+	if serial not in friends:
+		friends.append(serial)
+		house.settag('friends', ','.join(friends))
+		
+#
+# Remove a friend from the house
+#
+def removeFriend(house, friend):
+	if not house or not friend:
+		return
+		
+	friends = getFriends(house)
+	serial = str(friend.serial)
+	changed = False
+
+	while serial in friends:
+		friends.remove(serial)
+		changed = True
+
+	if changed:
+		house.settag('friends', ','.join(friends))
 
 #
 # Is the given house public or private?
@@ -12,13 +107,13 @@ def isPublic(house):
 	return True # TODO: Public or Private
 
 #
-# Register house
+# Register house on load
 #
 def onAttach(house):
 	housing.registerHouse(house)
 
 #
-# Unregister house
+# Unregister house on unload/deletion
 #
 def onDetach(house):
 	housing.unregisterHouse(house)
@@ -128,14 +223,18 @@ def isOwner(player, house):
 # NOTE: This does not check higher access levels.
 #
 def isCoOwner(player, house):
-	return False
+	coowners = getCoOwners(house)
+	serial = str(player.serial)
+	return serial in coowners
 	
 #
 # Checks if the given player is a friend of the house.
 # NOTE: This does not check higher access levels.
 #
 def isFriend(player, house):
-	return False
+	friends = getFriends(house)
+	serial = str(player.serial)
+	return serial in friends
 
 #
 # Check the access level of the given char for this house

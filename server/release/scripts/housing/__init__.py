@@ -1,4 +1,6 @@
 
+import wolfpack
+
 #
 # Global house registry
 #
@@ -19,3 +21,13 @@ def unregisterHouse(house):
 		serial = house.owner.serial
 		if serial in HOUSES:
 			del HOUSES[serial]
+
+#
+# Find a house for the given character in the registry
+#
+def findHouse(player):
+	serial = player.serial
+	if serial in HOUSES:
+		return wolfpack.finditem(HOUSES[serial])
+	else:
+		return None

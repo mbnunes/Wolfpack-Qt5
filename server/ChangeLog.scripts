@@ -1,6 +1,21 @@
 Wolfpack ChangeLog
 
-Wolfpack 12.9.12 Beta (CVS)
+Wolfpack 12.9.13 Beta (CVS)
+	* Definition Changes:
+	* Python Script Changes:
+		- Fixed bug #0000361. (Pets don't follow trough gate)
+		- Added xoffset, yoffset and zoffset to socket.attachmultitarget. (housing.deed)
+	* Misc. Changes:
+	* Known Issues, Bugs, and Missing Features:
+		- Some skills are still incomplete.
+		- Spawn regions are incomplete.
+			We welcome donated OSI-like spawn scripts!
+		- Town/World regions are incomplete.
+			We welcome donated OSI-like region scripts!
+		- Possible that a few monsters are missing and/or incomplete.
+		- Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.12 Beta (18. October 2004)
 	* Definition Changes:
 		- Made leather armors and hats auto mage armors.
 		- Fixed a category error with some champions.
