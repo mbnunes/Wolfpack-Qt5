@@ -9,1080 +9,1315 @@
 =================================================================
 -->
 <definitions>
-        <!-- Palms -->
-        <item id="c95">
-                <id>0xC95</id> <nodecay />
-                <category>Vegetation\Palms\Coconut Palm</category>
-        </item>
+	<!-- Palms -->
+	<item id="c95">
+		<id>0xC95</id>
+		<nodecay />
+		<category>Vegetation\Palms\Coconut Palm</category>
+	</item>
 
-        <item id="c96">
-                <id>0xC96</id> <nodecay />
-                <category>Vegetation\Palms\Date Palm</category>
-        </item>
+	<item id="c96">
+		<id>0xC96</id>
+		<nodecay />
+		<category>Vegetation\Palms\Date Palm</category>
+	</item>
 
-        <item id="c99">
-                <id>0xC99</id> <nodecay />
-                <category>Vegetation\Palms\Small Palm 1</category>
-        </item>
+	<item id="c99">
+		<id>0xC99</id>
+		<nodecay />
+		<category>Vegetation\Palms\Small Palm 1</category>
+	</item>
 
-        <item id="c9a">
-                <id>0xC9A</id> <nodecay />
-                <category>Vegetation\Palms\Small Palm 2</category>
-        </item>
+	<item id="c9a">
+		<id>0xC9A</id>
+		<nodecay />
+		<category>Vegetation\Palms\Small Palm 2</category>
+	</item>
 
-        <item id="c9b">
-                <id>0xC9B</id> <nodecay />
-                <category>Vegetation\Palms\Small Palm 3</category>
-        </item>
+	<item id="c9b">
+		<id>0xC9B</id>
+		<nodecay />
+		<category>Vegetation\Palms\Small Palm 3</category>
+	</item>
 
-        <item id="c9c">
-                <id>0xC9C</id> <nodecay />
-                <category>Vegetation\Palms\Small Palm 4</category>
-        </item>
+	<item id="c9c">
+		<id>0xC9C</id>
+		<nodecay />
+		<category>Vegetation\Palms\Small Palm 4</category>
+	</item>
 
-        <item id="c9d">
-                <id>0xC9D</id> <nodecay />
-                <category>Vegetation\Palms\Small Palm 5</category>
-        </item>
+	<item id="c9d">
+		<id>0xC9D</id>
+		<nodecay />
+		<category>Vegetation\Palms\Small Palm 5</category>
+	</item>
 
-        <item id="ca6">
-                <id>0xCA6</id> <nodecay />
-                <category>Vegetation\Palms\Ponytail Palm</category>
-        </item>
+	<item id="ca6">
+		<id>0xCA6</id>
+		<nodecay />
+		<category>Vegetation\Palms\Ponytail Palm</category>
+	</item>
 
-        <!-- Leaves -->
-        <item id="1b1f">
-                <id>0x1B1F</id> <nodecay />
-                <category>Vegetation\Trees\Leaves\Leaves 1</category>
-        </item>
+	<!-- Leaves -->
+	<item id="1b1f">
+		<id>0x1B1F</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves\Leaves 1</category>
+	</item>
 
-        <item id="1b20">
-                <id>0x1B20</id> <nodecay />
-                <category>Vegetation\Trees\Leaves\Leaves 2</category>
-        </item>
+	<item id="1b20">
+		<id>0x1B20</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves\Leaves 2</category>
+	</item>
 
-        <item id="1b21">
-                <id>0x1B21</id> <nodecay />
-                <category>Vegetation\Trees\Leaves\Leaves 3</category>
-        </item>
+	<item id="1b21">
+		<id>0x1B21</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves\Leaves 3</category>
+	</item>
 
-        <item id="1b22">
-                <id>0x1B22</id> <nodecay />
-                <category>Vegetation\Trees\Leaves\Leaves 4</category>
-        </item>
+	<item id="1b22">
+		<id>0x1B22</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves\Leaves 4</category>
+	</item>
 
-        <item id="1b23">
-                <id>0x1B23</id> <nodecay />
-                <category>Vegetation\Trees\Leaves\Leaves 5</category>
-        </item>
+	<item id="1b23">
+		<id>0x1B23</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves\Leaves 5</category>
+	</item>
 
-        <item id="1b24">
-                <id>0x1B24</id> <nodecay />
-                <category>Vegetation\Trees\Leaves\Leaves 6</category>
-        </item>
+	<item id="1b24">
+		<id>0x1B24</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves\Leaves 6</category>
+	</item>
 
-        <item id="1b25">
-                <id>0x1B25</id> <nodecay />
-                <category>Vegetation\Trees\Leaves\Leaves 7</category>
-        </item>
+	<item id="1b25">
+		<id>0x1B25</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves\Leaves 7</category>
+	</item>
 
-        <item id="1b26">
-                <id>0x1B26</id> <nodecay />
-                <category>Vegetation\Trees\Leaves\Leaves 8</category>
-        </item>
+	<item id="1b26">
+		<id>0x1B26</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves\Leaves 8</category>
+	</item>
 
 	<!-- Banana -->
-        <item id="ca8">
-                <id>0xCA8</id> <nodecay />
-                <category>Vegetation\Trees\Banana\Banana Tree (small) </category>
-        </item>
+	<item id="ca8">
+		<id>0xCA8</id>
+		<nodecay />
+		<category>Vegetation\Trees\Banana\Banana Tree (small) </category>
+	</item>
 
-        <item id="caa">
-                <id>0xCAA</id> <nodecay />
-                <category>Vegetation\Trees\Banana\Banana Tree 1</category>
-        </item>
+	<item id="caa">
+		<id>0xCAA</id>
+		<nodecay />
+		<category>Vegetation\Trees\Banana\Banana Tree 1</category>
+	</item>
 
-        <item id="cab">
-                <id>0xCAB</id> <nodecay />
-                <category>Vegetation\Trees\Banana\Banana Tree 2</category>
-        </item>
+	<item id="cab">
+		<id>0xCAB</id>
+		<nodecay />
+		<category>Vegetation\Trees\Banana\Banana Tree 2</category>
+	</item>
 
-        <!-- Cedar -->
-        <item id="cd6">
-                <id>0xCD6</id> <nodecay />
-                <category>Vegetation\Trees\Cedar\Cedar Tree 1</category>
-        </item>
+	<!-- Cedar -->
+	<item id="cd6">
+		<id>0xCD6</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cedar\Cedar Tree 1</category>
+	</item>
 
-        <item id="cd7">
-                <id>0xCD7</id> <nodecay />
-                <category>Vegetation\Trees\Cedar\Cedar Needles 1</category>
-        </item>
+	<item id="cd7">
+		<id>0xCD7</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cedar\Cedar Needles 1</category>
+	</item>
 
-        <item id="cd8">
-                <id>0xCD8</id> <nodecay />
-                <category>Vegetation\Trees\Cedar\Cedar Tree 2</category>
-        </item>
+	<item id="cd8">
+		<id>0xCD8</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cedar\Cedar Tree 2</category>
+	</item>
 
-        <item id="cd9">
-                <id>0xCD9</id> <nodecay />
-                <category>Vegetation\Trees\Cedar\Cedar Needles 2</category>
-        </item>
+	<item id="cd9">
+		<id>0xCD9</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cedar\Cedar Needles 2</category>
+	</item>
 
 	<!-- Oak -->
-        <item id="cda">
-                <id>0xCDA</id> <nodecay />
-                <category>Vegetation\Trees\Oak\Oak Tree 1</category>
-        </item>
+	<item id="cda">
+		<id>0xCDA</id>
+		<nodecay />
+		<category>Vegetation\Trees\Oak\Oak Tree 1</category>
+	</item>
 
-        <item id="cdb">
-                <id>0xCDB</id> <nodecay />
-                <category>Vegetation\Trees\Oak\Oak Tree 1 Leaves 1</category>
-        </item>
+	<item id="cdb">
+		<id>0xCDB</id>
+		<nodecay />
+		<category>Vegetation\Trees\Oak\Oak Tree 1 Leaves 1</category>
+	</item>
 
-        <item id="cdc">
-                <id>0xCDC</id> <nodecay />
-                <category>Vegetation\Trees\Oak\Oak Tree 1 Leaves 2</category>
-        </item>
+	<item id="cdc">
+		<id>0xCDC</id>
+		<nodecay />
+		<category>Vegetation\Trees\Oak\Oak Tree 1 Leaves 2</category>
+	</item>
 
-        <item id="cdd">
-                <id>0xCDD</id> <nodecay />
-                <category>Vegetation\Trees\Oak\Oak Tree 2</category>
-        </item>
+	<item id="cdd">
+		<id>0xCDD</id>
+		<nodecay />
+		<category>Vegetation\Trees\Oak\Oak Tree 2</category>
+	</item>
 
-        <item id="cde">
-                <id>0xCDE</id> <nodecay />
-                <category>Vegetation\Trees\Oak\Oak Tree 2 Leaves 1</category>
-        </item>
+	<item id="cde">
+		<id>0xCDE</id>
+		<nodecay />
+		<category>Vegetation\Trees\Oak\Oak Tree 2 Leaves 1</category>
+	</item>
 
-        <item id="cdf">
-                <id>0xCDF</id> <nodecay />
-                <category>Vegetation\Trees\Oak\Oak Tree 2 Leaves 2</category>
-        </item>
+	<item id="cdf">
+		<id>0xCDF</id>
+		<nodecay />
+		<category>Vegetation\Trees\Oak\Oak Tree 2 Leaves 2</category>
+	</item>
 
 	<!-- Walnut -->
-        <item id="ce0">
-                <id>0xCE0</id> <nodecay />
-                <category>Vegetation\Trees\Walnut\Walnut Tree 1</category>
-        </item>
+	<item id="ce0">
+		<id>0xCE0</id>
+		<nodecay />
+		<category>Vegetation\Trees\Walnut\Walnut Tree 1</category>
+	</item>
 
-        <item id="ce1">
-                <id>0xCE1</id> <nodecay />
-                <category>Vegetation\Trees\Walnut\Walnut Tree 1 Leaves 1</category>
-        </item>
+	<item id="ce1">
+		<id>0xCE1</id>
+		<nodecay />
+		<category>Vegetation\Trees\Walnut\Walnut Tree 1 Leaves 1</category>
+	</item>
 
-        <item id="ce2">
-                <id>0xCE2</id> <nodecay />
-                <category>Vegetation\Trees\Walnut\Walnut Tree 1 Leaves 2</category>
-        </item>
+	<item id="ce2">
+		<id>0xCE2</id>
+		<nodecay />
+		<category>Vegetation\Trees\Walnut\Walnut Tree 1 Leaves 2</category>
+	</item>
 
-        <item id="ce3">
-                <id>0xCE3</id> <nodecay />
-                <category>Vegetation\Trees\Walnut\Walnut Tree 2</category>
-        </item>
+	<item id="ce3">
+		<id>0xCE3</id>
+		<nodecay />
+		<category>Vegetation\Trees\Walnut\Walnut Tree 2</category>
+	</item>
 
-        <item id="ce4">
-                <id>0xCE4</id> <nodecay />
-                <category>Vegetation\Trees\Walnut\Walnut Tree 2 Leaves 1</category>
-        </item>
+	<item id="ce4">
+		<id>0xCE4</id>
+		<nodecay />
+		<category>Vegetation\Trees\Walnut\Walnut Tree 2 Leaves 1</category>
+	</item>
 
-        <item id="ce5">
-                <id>0xCE5</id> <nodecay />
-                <category>Vegetation\Trees\Walnut\Walnut Tree 2 Leaves 2</category>
-        </item>
+	<item id="ce5">
+		<id>0xCE5</id>
+		<nodecay />
+		<category>Vegetation\Trees\Walnut\Walnut Tree 2 Leaves 2</category>
+	</item>
 
 	<!-- Willow -->
-        <item id="ce6">
-                <id>0xCE6</id> <nodecay />
-                <category>Vegetation\Trees\Willow\Willow Tree </category>
-        </item>
+	<item id="ce6">
+		<id>0xCE6</id>
+		<nodecay />
+		<category>Vegetation\Trees\Willow\Willow Tree </category>
+	</item>
 
-        <item id="ce7">
-                <id>0xCE7</id> <nodecay />
-                <category>Vegetation\Trees\Willow\Willow Leaves 1</category>
-        </item>
+	<item id="ce7">
+		<id>0xCE7</id>
+		<nodecay />
+		<category>Vegetation\Trees\Willow\Willow Leaves 1</category>
+	</item>
 
-        <item id="ce8">
-                <id>0xCE8</id> <nodecay />
-                <category>Vegetation\Trees\Willow\Willow Leaves 2</category>
-        </item>
+	<item id="ce8">
+		<id>0xCE8</id>
+		<nodecay />
+		<category>Vegetation\Trees\Willow\Willow Leaves 2</category>
+	</item>
 
 	<!-- Sapling -->
-        <item id="ce9">
-                <id>0xCE9</id> <nodecay />
-                <category>Vegetation\Trees\Sapling\Sapling 1</category>
-        </item>
+	<item id="ce9">
+		<id>0xCE9</id>
+		<nodecay />
+		<category>Vegetation\Trees\Sapling\Sapling 1</category>
+	</item>
 
-        <item id="cea">
-                <id>0xCEA</id> <nodecay />
-                <category>Vegetation\Trees\Sapling\Sapling 2</category>
-        </item>
+	<item id="cea">
+		<id>0xCEA</id>
+		<nodecay />
+		<category>Vegetation\Trees\Sapling\Sapling 2</category>
+	</item>
 
 	<!-- Fallen Log -->
-        <item id="cf3">
-                <id>0xCF3</id> <nodecay />
-                <category>Vegetation\Trees\Fallen Log\Fallen Log (N/S) 1</category>
-        </item>
+	<item id="cf3">
+		<id>0xCF3</id>
+		<nodecay />
+		<category>Vegetation\Trees\Fallen Log\Fallen Log (N/S) 1</category>
+	</item>
 
-        <item id="cf4">
-                <id>0xCF4</id> <nodecay />
-                <category>Vegetation\Trees\Fallen Log\Fallen Log (N/S) 2</category>
-        </item>
+	<item id="cf4">
+		<id>0xCF4</id>
+		<nodecay />
+		<category>Vegetation\Trees\Fallen Log\Fallen Log (N/S) 2</category>
+	</item>
 
-        <item id="cf5">
-                <id>0xCF5</id> <nodecay />
-                <category>Vegetation\Trees\Fallen Log\Fallen Log (W/E) 1</category>
-        </item>
+	<item id="cf5">
+		<id>0xCF5</id>
+		<nodecay />
+		<category>Vegetation\Trees\Fallen Log\Fallen Log (W/E) 1</category>
+	</item>
 
-        <item id="cf6">
-                <id>0xCF6</id> <nodecay />
-                <category>Vegetation\Trees\Fallen Log\Fallen Log (W/E) 2</category>
-        </item>
+	<item id="cf6">
+		<id>0xCF6</id>
+		<nodecay />
+		<category>Vegetation\Trees\Fallen Log\Fallen Log (W/E) 2</category>
+	</item>
 
-        <item id="cf7">
-                <id>0xCF7</id> <nodecay />
-                <category>Vegetation\Trees\Fallen Log\Fallen Log (W/E) 3</category>
-        </item>
+	<item id="cf7">
+		<id>0xCF7</id>
+		<nodecay />
+		<category>Vegetation\Trees\Fallen Log\Fallen Log (W/E) 3</category>
+	</item>
 
 	<!-- Cypress -->
-        <item id="cf8">
-                <id>0xCF8</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 1</category>
-        </item>
+	<item id="cf8">
+		<id>0xCF8</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 1</category>
+	</item>
 
-        <item id="cf9">
-                <id>0xCF9</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 1 Leaves 1</category>
-        </item>
+	<item id="cf9">
+		<id>0xCF9</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 1 Leaves 1</category>
+	</item>
 
-        <item id="cfa">
-                <id>0xCFA</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 1 Leaves 2</category>
-        </item>
+	<item id="cfa">
+		<id>0xCFA</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 1 Leaves 2</category>
+	</item>
 
-        <item id="cfb">
-                <id>0xCFB</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 2</category>
-        </item>
+	<item id="cfb">
+		<id>0xCFB</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 2</category>
+	</item>
 
-        <item id="cfc">
-                <id>0xCFC</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 2 Leaves 1</category>
-        </item>
+	<item id="cfc">
+		<id>0xCFC</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 2 Leaves 1</category>
+	</item>
 
-        <item id="cfd">
-                <id>0xCFD</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 2 Leaves 2</category>
-        </item>
+	<item id="cfd">
+		<id>0xCFD</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 2 Leaves 2</category>
+	</item>
 
-        <item id="cfe">
-                <id>0xCFE</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 3</category>
-        </item>
+	<item id="cfe">
+		<id>0xCFE</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 3</category>
+	</item>
 
-        <item id="cff">
-                <id>0xCFF</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 3 Leaves 1</category>
-        </item>
+	<item id="cff">
+		<id>0xCFF</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 3 Leaves 1</category>
+	</item>
 
-        <item id="d00">
-                <id>0xD00</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 3 Leaves 2</category>
-        </item>
+	<item id="d00">
+		<id>0xD00</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 3 Leaves 2</category>
+	</item>
 
-        <item id="d01">
-                <id>0xD01</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 4</category>
-        </item>
+	<item id="d01">
+		<id>0xD01</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 4</category>
+	</item>
 
-        <item id="d02">
-                <id>0xD02</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 4 Leaves 1</category>
-        </item>
+	<item id="d02">
+		<id>0xD02</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 4 Leaves 1</category>
+	</item>
 
-        <item id="d03">
-                <id>0xD03</id> <nodecay />
-                <category>Vegetation\Trees\Cypress\Cypress Tree 4 Leaves 2</category>
-        </item>
+	<item id="d03">
+		<id>0xD03</id>
+		<nodecay />
+		<category>Vegetation\Trees\Cypress\Cypress Tree 4 Leaves 2</category>
+	</item>
 
 	<!-- Yucca -->
-        <item id="d37">
-                <id>0xD37</id> <nodecay />
-                <category>Vegetation\Trees\Yucca\Yucca 1</category>
-        </item>
+	<item id="d37">
+		<id>0xD37</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yucca\Yucca 1</category>
+	</item>
 
-        <item id="d38">
-                <id>0xD38</id> <nodecay />
-                <category>Vegetation\Trees\Yucca\Yucca 2</category>
-        </item>
+	<item id="d38">
+		<id>0xD38</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yucca\Yucca 2</category>
+	</item>
 
 	<!-- Leaves 1 -->
-        <item id="d45">
-                <id>0xD45</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (1/15)</category>
-        </item>
+	<item id="d45">
+		<id>0xD45</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (1/15)</category>
+	</item>
 
-        <item id="d46">
-                <id>0xD46</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (2/15)</category>
-        </item>
+	<item id="d46">
+		<id>0xD46</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (2/15)</category>
+	</item>
 
-        <item id="d47">
-                <id>0xD47</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (3/15)</category>
-        </item>
+	<item id="d47">
+		<id>0xD47</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (3/15)</category>
+	</item>
 
-        <item id="d48">
-                <id>0xD48</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (4/15)</category>
-        </item>
+	<item id="d48">
+		<id>0xD48</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (4/15)</category>
+	</item>
 
-        <item id="d49">
-                <id>0xD49</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (5/15)</category>
-        </item>
+	<item id="d49">
+		<id>0xD49</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (5/15)</category>
+	</item>
 
-        <item id="d4a">
-                <id>0xD4A</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (6/15)</category>
-        </item>
+	<item id="d4a">
+		<id>0xD4A</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (6/15)</category>
+	</item>
 
-        <item id="d4b">
-                <id>0xD4B</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (7/15)</category>
-        </item>
+	<item id="d4b">
+		<id>0xD4B</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (7/15)</category>
+	</item>
 
-        <item id="d4c">
-                <id>0xD4C</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (8/15)</category>
-        </item>
+	<item id="d4c">
+		<id>0xD4C</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (8/15)</category>
+	</item>
 
-        <item id="d4d">
-                <id>0xD4D</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (9/15)</category>
-        </item>
+	<item id="d4d">
+		<id>0xD4D</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (9/15)</category>
+	</item>
 
-        <item id="d4e">
-                <id>0xD4E</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (10/15)</category>
-        </item>
+	<item id="d4e">
+		<id>0xD4E</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (10/15)</category>
+	</item>
 
-        <item id="d4f">
-                <id>0xD4F</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (11/15)</category>
-        </item>
+	<item id="d4f">
+		<id>0xD4F</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (11/15)</category>
+	</item>
 
-        <item id="d50">
-                <id>0xD50</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (12/15)</category>
-        </item>
+	<item id="d50">
+		<id>0xD50</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (12/15)</category>
+	</item>
 
-        <item id="d51">
-                <id>0xD51</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (13/15)</category>
-        </item>
+	<item id="d51">
+		<id>0xD51</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (13/15)</category>
+	</item>
 
-        <item id="d52">
-                <id>0xD52</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (14/15)</category>
-        </item>
+	<item id="d52">
+		<id>0xD52</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (14/15)</category>
+	</item>
 
-        <item id="d53">
-                <id>0xD53</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 1\Leaves 1 (15/15)</category>
-        </item>
+	<item id="d53">
+		<id>0xD53</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 1\Leaves 1 (15/15)</category>
+	</item>
 
 	<!-- Vines 1 -->
-        <item id="d54">
-                <id>0xD54</id> <nodecay />
-                <category>Vegetation\Trees\Vines 1\Vines 1 (1/3)</category>
-        </item>
+	<item id="d54">
+		<id>0xD54</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 1\Vines 1 (1/3)</category>
+	</item>
 
-        <item id="d55">
-                <id>0xD55</id> <nodecay />
-                <category>Vegetation\Trees\Vines 1\Vines 1 (2/3)</category>
-        </item>
+	<item id="d55">
+		<id>0xD55</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 1\Vines 1 (2/3)</category>
+	</item>
 
-        <item id="d56">
-                <id>0xD56</id> <nodecay />
-                <category>Vegetation\Trees\Vines 1\Vines 1 (3/3)</category>
-        </item>
+	<item id="d56">
+		<id>0xD56</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 1\Vines 1 (3/3)</category>
+	</item>
 
 	<!-- Pieces 1 -->
-        <item id="d57">
-                <id>0xD57</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (1/5)</category>
-        </item>
+	<item id="d57">
+		<id>0xD57</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (1/5)</category>
+	</item>
 
-        <item id="d58">
-                <id>0xD58</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (2/5)</category>
-        </item>
+	<item id="d58">
+		<id>0xD58</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (2/5)</category>
+	</item>
 
-        <item id="d59">
-                <id>0xD59</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (3/5)</category>
-        </item>
+	<item id="d59">
+		<id>0xD59</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (3/5)</category>
+	</item>
 
-        <item id="d5a">
-                <id>0xD5A</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (4/5)</category>
-        </item>
+	<item id="d5a">
+		<id>0xD5A</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (4/5)</category>
+	</item>
 
-        <item id="d5b">
-                <id>0xD5B</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (5/5)</category>
-        </item>
+	<item id="d5b">
+		<id>0xD5B</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 1\Tree Pieces 1 (5/5)</category>
+	</item>
 
 	<!-- Leaves 2 -->
-        <item id="d5c">
-                <id>0xD5C</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (1/14)</category>
-        </item>
+	<item id="d5c">
+		<id>0xD5C</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (1/14)</category>
+	</item>
 
-        <item id="d5d">
-                <id>0xD5D</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (2/14)</category>
-        </item>
+	<item id="d5d">
+		<id>0xD5D</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (2/14)</category>
+	</item>
 
-        <item id="d5e">
-                <id>0xD5E</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (3/14)</category>
-        </item>
+	<item id="d5e">
+		<id>0xD5E</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (3/14)</category>
+	</item>
 
-        <item id="d5f">
-                <id>0xD5F</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (4/14)</category>
-        </item>
+	<item id="d5f">
+		<id>0xD5F</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (4/14)</category>
+	</item>
 
-        <item id="d60">
-                <id>0xD60</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (5/14)</category>
-        </item>
+	<item id="d60">
+		<id>0xD60</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (5/14)</category>
+	</item>
 
-        <item id="d61">
-                <id>0xD61</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (6/14)</category>
-        </item>
+	<item id="d61">
+		<id>0xD61</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (6/14)</category>
+	</item>
 
-        <item id="d62">
-                <id>0xD62</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (7/14)</category>
-        </item>
+	<item id="d62">
+		<id>0xD62</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (7/14)</category>
+	</item>
 
-        <item id="d63">
-                <id>0xD63</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (8/14)</category>
-        </item>
+	<item id="d63">
+		<id>0xD63</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (8/14)</category>
+	</item>
 
-        <item id="d64">
-                <id>0xD64</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (9/14)</category>
-        </item>
+	<item id="d64">
+		<id>0xD64</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (9/14)</category>
+	</item>
 
-        <item id="d65">
-                <id>0xD65</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (10/14)</category>
-        </item>
+	<item id="d65">
+		<id>0xD65</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (10/14)</category>
+	</item>
 
-        <item id="d66">
-                <id>0xD66</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (11/14)</category>
-        </item>
+	<item id="d66">
+		<id>0xD66</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (11/14)</category>
+	</item>
 
-        <item id="d67">
-                <id>0xD67</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (12/14)</category>
-        </item>
+	<item id="d67">
+		<id>0xD67</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (12/14)</category>
+	</item>
 
-        <item id="d68">
-                <id>0xD68</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (13/14)</category>
-        </item>
+	<item id="d68">
+		<id>0xD68</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (13/14)</category>
+	</item>
 
-        <item id="d69">
-                <id>0xD69</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 2\Leaves 2 (14/14)</category>
-        </item>
+	<item id="d69">
+		<id>0xD69</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 2\Leaves 2 (14/14)</category>
+	</item>
 
 	<!-- Vines 2 -->
-        <item id="d6a">
-                <id>0xD6A</id> <nodecay />
-                <category>Vegetation\Trees\Vines 2\Vines 2 (1/4)</category>
-        </item>
+	<item id="d6a">
+		<id>0xD6A</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 2\Vines 2 (1/4)</category>
+	</item>
 
-        <item id="d6b">
-                <id>0xD6B</id> <nodecay />
-                <category>Vegetation\Trees\Vines 2\Vines 2 (2/4)</category>
-        </item>
+	<item id="d6b">
+		<id>0xD6B</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 2\Vines 2 (2/4)</category>
+	</item>
 
-        <item id="d6c">
-                <id>0xD6C</id> <nodecay />
-                <category>Vegetation\Trees\Vines 2\Vines 2 (3/4)</category>
-        </item>
+	<item id="d6c">
+		<id>0xD6C</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 2\Vines 2 (3/4)</category>
+	</item>
 
-        <item id="d6d">
-                <id>0xD6D</id> <nodecay />
-                <category>Vegetation\Trees\Vines 2\Vines 2 (4/4)</category>
-        </item>
+	<item id="d6d">
+		<id>0xD6D</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 2\Vines 2 (4/4)</category>
+	</item>
 
 	<!-- Pieces 2 -->
-        <item id="d6e">
-                <id>0xD6E</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (1/5)</category>
-        </item>
+	<item id="d6e">
+		<id>0xD6E</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (1/5)</category>
+	</item>
 
-        <item id="d6f">
-                <id>0xD6F</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (2/5)</category>
-        </item>
+	<item id="d6f">
+		<id>0xD6F</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (2/5)</category>
+	</item>
 
-        <item id="d70">
-                <id>0xD70</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (3/5)</category>
-        </item>
+	<item id="d70">
+		<id>0xD70</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (3/5)</category>
+	</item>
 
-        <item id="d71">
-                <id>0xD71</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (4/5)</category>
-        </item>
+	<item id="d71">
+		<id>0xD71</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (4/5)</category>
+	</item>
 
-        <item id="d72">
-                <id>0xD72</id> <nodecay />
-                <category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (5/5)</category>
-        </item>
+	<item id="d72">
+		<id>0xD72</id>
+		<nodecay />
+		<category>Vegetation\Trees\Pieces 2\Tree Pieces 2 (5/5)</category>
+	</item>
 
 	<!-- Leaves 3 -->
-        <item id="d73">
-                <id>0xD73</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (1/13)</category>
-        </item>
+	<item id="d73">
+		<id>0xD73</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (1/13)</category>
+	</item>
 
-        <item id="d74">
-                <id>0xD74</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (2/13)</category>
-        </item>
+	<item id="d74">
+		<id>0xD74</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (2/13)</category>
+	</item>
 
-        <item id="d75">
-                <id>0xD75</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (3/13)</category>
-        </item>
+	<item id="d75">
+		<id>0xD75</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (3/13)</category>
+	</item>
 
-        <item id="d76">
-                <id>0xD76</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (4/13)</category>
-        </item>
+	<item id="d76">
+		<id>0xD76</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (4/13)</category>
+	</item>
 
-        <item id="d77">
-                <id>0xD77</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (5/13)</category>
-        </item>
+	<item id="d77">
+		<id>0xD77</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (5/13)</category>
+	</item>
 
-        <item id="d78">
-                <id>0xD78</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (6/13)</category>
-        </item>
+	<item id="d78">
+		<id>0xD78</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (6/13)</category>
+	</item>
 
-        <item id="d79">
-                <id>0xD79</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (7/13)</category>
-        </item>
+	<item id="d79">
+		<id>0xD79</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (7/13)</category>
+	</item>
 
-        <item id="d7a">
-                <id>0xD7A</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (8/13)</category>
-        </item>
+	<item id="d7a">
+		<id>0xD7A</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (8/13)</category>
+	</item>
 
-        <item id="d7b">
-                <id>0xD7B</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (9/13)</category>
-        </item>
+	<item id="d7b">
+		<id>0xD7B</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (9/13)</category>
+	</item>
 
-        <item id="d7c">
-                <id>0xD7C</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (10/13)</category>
-        </item>
+	<item id="d7c">
+		<id>0xD7C</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (10/13)</category>
+	</item>
 
-        <item id="d7d">
-                <id>0xD7D</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (11/13)</category>
-        </item>
+	<item id="d7d">
+		<id>0xD7D</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (11/13)</category>
+	</item>
 
-        <item id="d7e">
-                <id>0xD7E</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (12/13)</category>
-        </item>
+	<item id="d7e">
+		<id>0xD7E</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (12/13)</category>
+	</item>
 
-        <item id="d7f">
-                <id>0xD7F</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 3\Leaves 3 (13/13)</category>
-        </item>
+	<item id="d7f">
+		<id>0xD7F</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 3\Leaves 3 (13/13)</category>
+	</item>
 
 	<!-- Vines 3 -->
-        <item id="d80">
-                <id>0xD80</id> <nodecay />
-                <category>Vegetation\Trees\Vines 3\Vines 3 (1/4)</category>
-        </item>
+	<item id="d80">
+		<id>0xD80</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 3\Vines 3 (1/4)</category>
+	</item>
 
-        <item id="d81">
-                <id>0xD81</id> <nodecay />
-                <category>Vegetation\Trees\Vines 3\Vines 3 (2/4)</category>
-        </item>
+	<item id="d81">
+		<id>0xD81</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 3\Vines 3 (2/4)</category>
+	</item>
 
-        <item id="d82">
-                <id>0xD82</id> <nodecay />
-                <category>Vegetation\Trees\Vines 3\Vines 3 (3/4)</category>
-        </item>
+	<item id="d82">
+		<id>0xD82</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 3\Vines 3 (3/4)</category>
+	</item>
 
-        <item id="d83">
-                <id>0xD83</id> <nodecay />
-                <category>Vegetation\Trees\Vines 3\Vines 3 (4/4)</category>
-        </item>
+	<item id="d83">
+		<id>0xD83</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 3\Vines 3 (4/4)</category>
+	</item>
 
 	<!-- Leaves 4 -->
-        <item id="d87">
-                <id>0xD87</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (1/10)</category>
-        </item>
+	<item id="d87">
+		<id>0xD87</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (1/10)</category>
+	</item>
 
-        <item id="d88">
-                <id>0xD88</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (2/10)</category>
-        </item>
+	<item id="d88">
+		<id>0xD88</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (2/10)</category>
+	</item>
 
-        <item id="d89">
-                <id>0xD89</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (3/10)</category>
-        </item>
+	<item id="d89">
+		<id>0xD89</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (3/10)</category>
+	</item>
 
-        <item id="d8a">
-                <id>0xD8A</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (4/10)</category>
-        </item>
+	<item id="d8a">
+		<id>0xD8A</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (4/10)</category>
+	</item>
 
-        <item id="d8b">
-                <id>0xD8B</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (5/10)</category>
-        </item>
+	<item id="d8b">
+		<id>0xD8B</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (5/10)</category>
+	</item>
 
-        <item id="d8c">
-                <id>0xD8C</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (6/10)</category>
-        </item>
+	<item id="d8c">
+		<id>0xD8C</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (6/10)</category>
+	</item>
 
-        <item id="d8d">
-                <id>0xD8D</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (7/10)</category>
-        </item>
+	<item id="d8d">
+		<id>0xD8D</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (7/10)</category>
+	</item>
 
-        <item id="d8e">
-                <id>0xD8E</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (8/10)</category>
-        </item>
+	<item id="d8e">
+		<id>0xD8E</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (8/10)</category>
+	</item>
 
-        <item id="d8f">
-                <id>0xD8F</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (9/10)</category>
-        </item>
+	<item id="d8f">
+		<id>0xD8F</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (9/10)</category>
+	</item>
 
-        <item id="d90">
-                <id>0xD90</id> <nodecay />
-                <category>Vegetation\Trees\Leaves 4\Leaves 4 (10/10)</category>
-        </item>
+	<item id="d90">
+		<id>0xD90</id>
+		<nodecay />
+		<category>Vegetation\Trees\Leaves 4\Leaves 4 (10/10)</category>
+	</item>
 
 	<!-- Vines 4 -->
-        <item id="d91">
-                <id>0xD91</id> <nodecay />
-                <category>Vegetation\Trees\Vines 4\Vines 4 (1/3)</category>
-        </item>
+	<item id="d91">
+		<id>0xD91</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 4\Vines 4 (1/3)</category>
+	</item>
 
-        <item id="d92">
-                <id>0xD92</id> <nodecay />
-                <category>Vegetation\Trees\Vines 4\Vines 4 (2/3)</category>
-        </item>
+	<item id="d92">
+		<id>0xD92</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 4\Vines 4 (2/3)</category>
+	</item>
 
-        <item id="d93">
-                <id>0xD93</id> <nodecay />
-                <category>Vegetation\Trees\Vines 4\Vines 4 (3/3)</category>
-        </item>
+	<item id="d93">
+		<id>0xD93</id>
+		<nodecay />
+		<category>Vegetation\Trees\Vines 4\Vines 4 (3/3)</category>
+	</item>
 
 	<!-- Stump -->
-        <item id="dac">
-                <id>0xDAC</id> <nodecay />
-                <category>Vegetation\Trees\Stump\Tree Stump 1</category>
-        </item>
+	<item id="dac">
+		<id>0xDAC</id>
+		<nodecay />
+		<category>Vegetation\Trees\Stump\Tree Stump 1</category>
+	</item>
 
-        <item id="dad">
-                <id>0xDAD</id> <nodecay />
-                <category>Vegetation\Trees\Stump\Tree Stump 2</category>
-        </item>
+	<item id="dad">
+		<id>0xDAD</id>
+		<nodecay />
+		<category>Vegetation\Trees\Stump\Tree Stump 2</category>
+	</item>
 
-        <item id="e56">
-                <id>0xE56</id> <nodecay />
-                <category>Vegetation\Trees\Stump\Tree Stump 3</category>
-        </item>
+	<item id="e56">
+		<id>0xE56</id>
+		<nodecay />
+		<category>Vegetation\Trees\Stump\Tree Stump 3</category>
+	</item>
 
-        <item id="e57">
-                <id>0xE57</id> <nodecay />
-                <category>Vegetation\Trees\Stump\Tree Stump 4</category>
-        </item>
+	<item id="e57">
+		<id>0xE57</id>
+		<nodecay />
+		<category>Vegetation\Trees\Stump\Tree Stump 4</category>
+	</item>
 
-        <item id="e58">
-                <id>0xE58</id> <nodecay />
-                <category>Vegetation\Trees\Stump\Tree Stump 5</category>
-        </item>
+	<item id="e58">
+		<id>0xE58</id>
+		<nodecay />
+		<category>Vegetation\Trees\Stump\Tree Stump 5</category>
+	</item>
 
-        <item id="e59">
-                <id>0xE59</id> <nodecay />
-                <category>Vegetation\Trees\Stump\Tree Stump 6</category>
-        </item>
+	<item id="e59">
+		<id>0xE59</id>
+		<nodecay />
+		<category>Vegetation\Trees\Stump\Tree Stump 6</category>
+	</item>
 
-        <!-- Fruit Trees -->
-        <item id="d94">
-                <id>0xD94</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Apple Tree 1</category>
-        </item>
+	<!-- Fruit Trees -->
+	<item id="d94">
+		<id>0xD94</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Apple Tree 1</category>
+	</item>
 
-        <item id="d95">
-                <id>0xD95</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 1</category>
-        </item>
+	<item id="d95">
+		<id>0xD95</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 1</category>
+	</item>
 
-        <item id="d96">
-                <id>0xD96</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 2</category>
-        </item>
+	<item id="d96">
+		<id>0xD96</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 2</category>
+	</item>
 
-        <item id="d97">
-                <id>0xD97</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 3</category>
-        </item>
+	<item id="d97">
+		<id>0xD97</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 3</category>
+	</item>
 
-        <item id="d98">
-                <id>0xD98</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Apple Tree 2</category>
-        </item>
+	<item id="d98">
+		<id>0xD98</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Apple Tree 2</category>
+	</item>
 
-        <item id="d99">
-                <id>0xD99</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 1</category>
-        </item>
+	<item id="d99">
+		<id>0xD99</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 1</category>
+	</item>
 
-        <item id="d9a">
-                <id>0xD9A</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 2</category>
-        </item>
+	<item id="d9a">
+		<id>0xD9A</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 2</category>
+	</item>
 
-        <item id="d9b">
-                <id>0xD9B</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 3</category>
-        </item>
+	<item id="d9b">
+		<id>0xD9B</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 3</category>
+	</item>
 
-        <item id="d9c">
-                <id>0xD9C</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Peach Tree 1</category>
-        </item>
+	<item id="d9c">
+		<id>0xD9C</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Peach Tree 1</category>
+	</item>
 
-        <item id="d9d">
-                <id>0xD9D</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 1</category>
-        </item>
+	<item id="d9d">
+		<id>0xD9D</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 1</category>
+	</item>
 
-        <item id="d9e">
-                <id>0xD9E</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 2</category>
-        </item>
+	<item id="d9e">
+		<id>0xD9E</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 2</category>
+	</item>
 
-        <item id="d9f">
-                <id>0xD9F</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 3</category>
-        </item>
+	<item id="d9f">
+		<id>0xD9F</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 3</category>
+	</item>
 
-        <item id="da0">
-                <id>0xDA0</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Peach Tree 2</category>
-        </item>
+	<item id="da0">
+		<id>0xDA0</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Peach Tree 2</category>
+	</item>
 
-        <item id="da1">
-                <id>0xDA1</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 1</category>
-        </item>
+	<item id="da1">
+		<id>0xDA1</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 1</category>
+	</item>
 
-        <item id="da2">
-                <id>0xDA2</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 2</category>
-        </item>
+	<item id="da2">
+		<id>0xDA2</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 2</category>
+	</item>
 
-        <item id="da3">
-                <id>0xDA3</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 3</category>
-        </item>
+	<item id="da3">
+		<id>0xDA3</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 3</category>
+	</item>
 
-        <item id="da4">
-                <id>0xDA4</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Pear Tree 1</category>
-        </item>
+	<item id="da4">
+		<id>0xDA4</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Pear Tree 1</category>
+	</item>
 
-        <item id="da5">
-                <id>0xDA5</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 1</category>
-        </item>
+	<item id="da5">
+		<id>0xDA5</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 1</category>
+	</item>
 
-        <item id="da6">
-                <id>0xDA6</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 2</category>
-        </item>
+	<item id="da6">
+		<id>0xDA6</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 2</category>
+	</item>
 
-        <item id="da7">
-                <id>0xDA7</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 3</category>
-        </item>
+	<item id="da7">
+		<id>0xDA7</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 3</category>
+	</item>
 
-        <item id="da8">
-                <id>0xDA8</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Pear Tree 2</category>
-        </item>
+	<item id="da8">
+		<id>0xDA8</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Pear Tree 2</category>
+	</item>
 
-        <item id="da9">
-                <id>0xDA9</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 1</category>
-        </item>
+	<item id="da9">
+		<id>0xDA9</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 1</category>
+	</item>
 
-        <item id="daa">
-                <id>0xDAA</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 2</category>
-        </item>
+	<item id="daa">
+		<id>0xDAA</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 2</category>
+	</item>
 
-        <item id="dab">
-                <id>0xDAB</id> <nodecay />
-                <category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 3</category>
-        </item>
+	<item id="dab">
+		<id>0xDAB</id>
+		<nodecay />
+		<category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 3</category>
+	</item>
 
-        <!-- Yew -->
-                <item id="12b6">
-                <id>0x12B6</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree 1</category>
-        </item>
+	<!-- Yew -->
+	<item id="12b6">
+		<id>0x12B6</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree 1</category>
+	</item>
 
-        <item id="12b7">
-                <id>0x12B7</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree 2</category>
-        </item>
+	<item id="12b7">
+		<id>0x12B7</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree 2</category>
+	</item>
 
-        <item id="12b8">
-                <id>0x12B8</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree 3</category>
-        </item>
+	<item id="12b8">
+		<id>0x12B8</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree 3</category>
+	</item>
 
-        <item id="12b9">
-                <id>0x12B9</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree 4</category>
-        </item>
+	<item id="12b9">
+		<id>0x12B9</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree 4</category>
+	</item>
 
-        <item id="12ba">
-                <id>0x12BA</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree 5</category>
-        </item>
+	<item id="12ba">
+		<id>0x12BA</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree 5</category>
+	</item>
 
-        <item id="12bb">
-                <id>0x12BB</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree 6</category>
-        </item>
+	<item id="12bb">
+		<id>0x12BB</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree 6</category>
+	</item>
 
-        <item id="12bc">
-                <id>0x12BC</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree 7</category>
-        </item>
+	<item id="12bc">
+		<id>0x12BC</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree 7</category>
+	</item>
 
-        <item id="12bd">
-                <id>0x12BD</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree 8</category>
-        </item>
+	<item id="12bd">
+		<id>0x12BD</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree 8</category>
+	</item>
 
-        <item id="12be">
-                <id>0x12BE</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 1</category>
-        </item>
+	<item id="12be">
+		<id>0x12BE</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 1</category>
+	</item>
 
-        <item id="12bf">
-                <id>0x12BF</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 2</category>
-        </item>
+	<item id="12bf">
+		<id>0x12BF</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 2</category>
+	</item>
 
-        <item id="12c0">
-                <id>0x12C0</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 3</category>
-        </item>
+	<item id="12c0">
+		<id>0x12C0</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 3</category>
+	</item>
 
-        <item id="12c1">
-                <id>0x12C1</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 4</category>
-        </item>
+	<item id="12c1">
+		<id>0x12C1</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 4</category>
+	</item>
 
-        <item id="12c2">
-                <id>0x12C2</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 5</category>
-        </item>
+	<item id="12c2">
+		<id>0x12C2</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 5</category>
+	</item>
 
-        <item id="12c3">
-                <id>0x12C3</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 6</category>
-        </item>
+	<item id="12c3">
+		<id>0x12C3</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 6</category>
+	</item>
 
-        <item id="12c4">
-                <id>0x12C4</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 7</category>
-        </item>
+	<item id="12c4">
+		<id>0x12C4</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 7</category>
+	</item>
 
-        <item id="12c5">
-                <id>0x12C5</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 8</category>
-        </item>
+	<item id="12c5">
+		<id>0x12C5</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 8</category>
+	</item>
 
-        <item id="12c6">
-                <id>0x12C6</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 9</category>
-        </item>
+	<item id="12c6">
+		<id>0x12C6</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 9</category>
+	</item>
 
-        <item id="12c7">
-                <id>0x12C7</id> <nodecay />
-                <category>Vegetation\Trees\Yew\Yew Tree Leaves 10</category>
-        </item>
+	<item id="12c7">
+		<id>0x12C7</id>
+		<nodecay />
+		<category>Vegetation\Trees\Yew\Yew Tree Leaves 10</category>
+	</item>
 
 	<!-- Fallen Branch -->
 	<item id="d3b">
-		<id>0x0d3b</id> <nodecay />
-                <category>Vegetation\Trees\Fallen Branch\Fallen Branch 1</category>
+		<id>0x0d3b</id>
+		<nodecay />
+		<category>Vegetation\Trees\Fallen Branch\Fallen Branch 1</category>
 	</item>
 
 	<item id="d3c">
-		<id>0x0d3c</id> <nodecay />
-                <category>Vegetation\Trees\Fallen Branch\Fallen Branch 2</category>
+		<id>0x0d3c</id>
+		<nodecay />
+		<category>Vegetation\Trees\Fallen Branch\Fallen Branch 2</category>
 	</item>
 
 	<item id="d3d">
-		<id>0x0d3d</id> <nodecay />
-                <category>Vegetation\Trees\Fallen Branch\Fallen Branch 3</category>
+		<id>0x0d3d</id>
+		<nodecay />
+		<category>Vegetation\Trees\Fallen Branch\Fallen Branch 3</category>
 	</item>
 
 	<!-- Potted -->
-        <item id="11c8">
-                <id>0x11C8</id> <nodecay />
-                <category>Vegetation\Trees\Potted\Potted Tree 1</category>
-        </item>
+	<item id="11c8">
+		<id>0x11C8</id>
+		<nodecay />
+		<category>Vegetation\Trees\Potted\Potted Tree 1</category>
+	</item>
 
-        <item id="11c9">
-                <id>0x11C9</id> <nodecay />
-                <category>Vegetation\Trees\Potted\Potted Tree 2</category>
-        </item>
+	<item id="11c9">
+		<id>0x11C9</id>
+		<nodecay />
+		<category>Vegetation\Trees\Potted\Potted Tree 2</category>
+	</item>
 
-        <!-- Misc -->
-        <item id="1b7e">
-                <id>0x1B7E</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tuscany Pine</category>
-        </item>
+	<!-- Misc -->
+	<item id="1b7e">
+		<id>0x1B7E</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tuscany Pine</category>
+	</item>
 
-        <item id="c9e">
-                <id>0xC9E</id> <nodecay />
-                <category>Vegetation\Trees\Misc\O'Hii Tree </category>
-        </item>
+	<item id="c9e">
+		<id>0xC9E</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\O'Hii Tree </category>
+	</item>
 
-        <item id="cc9">
-                <id>0xCC9</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Spider Tree</category>
-        </item>
+	<item id="cc9">
+		<id>0xCC9</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Spider Tree</category>
+	</item>
 
-        <item id="cca">
-                <id>0xCCA</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree (brown)</category>
-        </item>
+	<item id="cca">
+		<id>0xCCA</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree (brown)</category>
+	</item>
 
-        <item id="ccb">
-                <id>0xCCB</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree (dark brown)</category>
-        </item>
+	<item id="ccb">
+		<id>0xCCB</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree (dark brown)</category>
+	</item>
 
-        <item id="ccc">
-                <id>0xCCC</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree (light brown)</category>
-        </item>
+	<item id="ccc">
+		<id>0xCCC</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree (light brown)</category>
+	</item>
 
-        <item id="ccd">
-                <id>0xCCD</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree (gray)</category>
-        </item>
+	<item id="ccd">
+		<id>0xCCD</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree (gray)</category>
+	</item>
 
-        <item id="cce">
-                <id>0xCCE</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree (gray) Leaves 1</category>
-        </item>
+	<item id="cce">
+		<id>0xCCE</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree (gray) Leaves 1</category>
+	</item>
 
-        <item id="ccf">
-                <id>0xCCF</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree (gray) Leaves 2</category>
-        </item>
+	<item id="ccf">
+		<id>0xCCF</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree (gray) Leaves 2</category>
+	</item>
 
-        <item id="cd0">
-                <id>0xCD0</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree (brown)</category>
-        </item>
+	<item id="cd0">
+		<id>0xCD0</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree (brown)</category>
+	</item>
 
-        <item id="cd1">
-                <id>0xCD1</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree (brown) Leaves 1</category>
-        </item>
+	<item id="cd1">
+		<id>0xCD1</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree (brown) Leaves 1</category>
+	</item>
 
-        <item id="cd2">
-                <id>0xCD2</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree (brown) Leaves 2</category>
-        </item>
+	<item id="cd2">
+		<id>0xCD2</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree (brown) Leaves 2</category>
+	</item>
 
-        <item id="cd3">
-                <id>0xCD3</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 1</category>
-        </item>
+	<item id="cd3">
+		<id>0xCD3</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 1</category>
+	</item>
 
-        <item id="cd4">
-                <id>0xCD4</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 1 Leaves 1</category>
-        </item>
+	<item id="cd4">
+		<id>0xCD4</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 1 Leaves 1</category>
+	</item>
 
-        <item id="cd5">
-                <id>0xCD5</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 1 Leaves 2</category>
-        </item>
+	<item id="cd5">
+		<id>0xCD5</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 1 Leaves 2</category>
+	</item>
 
-        <item id="d41">
-                <id>0xD41</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 1 (1/4)</category>
-        </item>
+	<item id="d41">
+		<id>0xD41</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 1 (1/4)</category>
+	</item>
 
-        <item id="d42">
-                <id>0xD42</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 1 (2/4)</category>
-        </item>
+	<item id="d42">
+		<id>0xD42</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 1 (2/4)</category>
+	</item>
 
-        <item id="d43">
-                <id>0xD43</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 1 (3/4)</category>
-        </item>
+	<item id="d43">
+		<id>0xD43</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 1 (3/4)</category>
+	</item>
 
-        <item id="d44">
-                <id>0xD44</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 1 (4/4)</category>
-        </item>
+	<item id="d44">
+		<id>0xD44</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 1 (4/4)</category>
+	</item>
 
-        <item id="d84">
-                <id>0xD84</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 2 (1/3)</category>
-        </item>
+	<item id="d84">
+		<id>0xD84</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 2 (1/3)</category>
+	</item>
 
-        <item id="d85">
-                <id>0xD85</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 2 (2/3)</category>
-        </item>
+	<item id="d85">
+		<id>0xD85</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 2 (2/3)</category>
+	</item>
 
-        <item id="d86">
-                <id>0xD86</id> <nodecay />
-                <category>Vegetation\Trees\Misc\Tree 2 (3/3)</category>
-        </item>
+	<item id="d86">
+		<id>0xD86</id>
+		<nodecay />
+		<category>Vegetation\Trees\Misc\Tree 2 (3/3)</category>
+	</item>
+
+	<item id="224a">
+		<id>0x224a</id>
+		<nodecay />
+		<category>Vegetation\Trees\AoS\Willow Tree 1</category>
+	</item>
+
+	<item id="224b">
+		<id>0x224b</id>
+		<nodecay />
+		<category>Vegetation\Trees\AoS\Willow Tree 2</category>
+	</item>
+
+	<item id="224c">
+		<id>0x224c</id>
+		<nodecay />
+		<category>Vegetation\Trees\AoS\Oak Tree 1</category>
+	</item>
+
+	<item id="224d">
+		<id>0x224d</id>
+		<nodecay />
+		<category>Vegetation\Trees\AoS\Oak Tree 2</category>
+	</item>
+
 </definitions>
