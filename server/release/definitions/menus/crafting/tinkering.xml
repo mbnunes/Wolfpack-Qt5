@@ -222,6 +222,10 @@
 	</menu>
 
 	<menu id="TINKERING_MISC" name="Miscellaneous">
+		<tinker definition="1011" name="Key Ring">
+			<tinkering min="100" max="600" />
+			<ingots amount="2" />
+		</tinker>
 		<tinker definition="a27" name="Candelabra">
 			<tinkering min="550" max="1050" />
 			<ingots amount="4" />
@@ -231,6 +235,14 @@
 			<tinkering min="600" max="1100" />
 			<ingots amount="4" />
 			<retaincolor />
+		</tinker>
+		<tinker definition="1010" name="Iron Key">
+			<tinkering min="550" max="1050" />
+			<ingots amount="3" />
+		</tinker>
+		<tinker definition="1047" name="Globe">
+			<tinkering min="550" max="1050" />
+			<ingots amount="4" />
 		</tinker>
 		<tinker definition="14f5" name="Spyglass">
 			<tinkering min="600" max="1100" />

@@ -43,6 +43,10 @@
 			<carpentry min="473" max="973" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 		</craft>
+		<craft definition="bulletin_board_deed" name="Bulletin Board">
+			<carpentry min="850" max="1000" />
+			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="50" name="Logs" />
+		</craft>
 	</menu>
 
 	<menu id="CARPENTRY_OTHER" name="Other">
@@ -380,7 +384,7 @@
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="55" name="Boards" />
 			<cloth id="1765;1766;1767;1768" amount="60" name="Cloth" />
 		</craft>
-		<craft definition="pickpocket_dip_deed" name="Pickpocket Dip">
+		<craft definition="pickpocket_dip_e_deed" name="Pickpocket Dip">
 			<carpentry min="736" max="1200" />
 			<tailoring min="500" max="1000" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="65" name="Boards" />
