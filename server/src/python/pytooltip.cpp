@@ -69,7 +69,7 @@ static PyMethodDef wpTooltipMethods[] =
     { NULL, NULL, 0, NULL }
 };
 
-PyObject *wpTooltip_send( wpTooltip *self, PyObject *args )
+static PyObject *wpTooltip_send( wpTooltip *self, PyObject *args )
 {
 	if( !self->list )
 		return false;
@@ -87,7 +87,8 @@ PyObject *wpTooltip_send( wpTooltip *self, PyObject *args )
 
     return PyTrue;
 }
-PyObject *wpTooltip_add( wpTooltip *self, PyObject *args )
+
+static PyObject *wpTooltip_add( wpTooltip *self, PyObject *args )
 {
 	if( !self->list )
 		return false;
@@ -119,7 +120,7 @@ PyObject* PyGetTooltipObject( cUOTxTooltipList *tooltip )
     return (PyObject*)( cObject );	
 }
 
-PyObject *wpTooltip_getAttr( wpTooltip *self, char *name )
+static PyObject *wpTooltip_getAttr( wpTooltip *self, char *name )
 {
 	if( !strcmp( name, "id" ) )
 		return PyInt_FromLong( self->list->getInt( 11 ) );
@@ -129,7 +130,7 @@ PyObject *wpTooltip_getAttr( wpTooltip *self, char *name )
 		return Py_FindMethod( wpTooltipMethods, (PyObject*)self, name );
 }
 
-int wpTooltip_setAttr( wpTooltip *self, char *name, PyObject *value )
+static int wpTooltip_setAttr( wpTooltip *self, char *name, PyObject *value )
 {
 	if( !PyInt_Check( value ) )
 		return 1;

@@ -82,7 +82,7 @@ PyObject* PyGetSocketObject( cUOSocket *socket )
 /*!
 	Disconnects the socket.
 */
-PyObject* wpSocket_disconnect( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_disconnect( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pSock )
@@ -95,7 +95,7 @@ PyObject* wpSocket_disconnect( wpSocket* self, PyObject* args )
 /*!
 	Sends a system message to the socket
 */
-PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -124,7 +124,7 @@ PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 /*!
 	Sends a localized message to the socket
 */
-PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -183,7 +183,7 @@ PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
 /*!
 	Sends speech of a given object to the socket
 */
-PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
 {
 	// Needed/Allowed arugments:
 	// First Argument: Source
@@ -241,7 +241,7 @@ PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
 /*!
 	Attachs a target request to the socket.
 */
-PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -284,7 +284,7 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 /*!
 	Attachs a multi target request to the socket.
 */
-PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -329,7 +329,7 @@ PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
 /*!
 	Begins CH customization
 */
-PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pSock )
@@ -352,7 +352,7 @@ PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 /*!
 	Sends a gump to the socket. This function is used internally only.
 */
-PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -418,7 +418,7 @@ PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	Closes a gump that has been sent to the client using it's
 	serial.
 */
-PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -440,7 +440,7 @@ PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 /*!
 	Resends the world around this socket.
 */
-PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pSock )
@@ -452,7 +452,7 @@ PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
 /*!
 	Resends the player only.
 */
-PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pSock )
@@ -464,7 +464,7 @@ PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 /*!
 	Sends a container and it's content to a socket.
 */
-PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -486,7 +486,7 @@ PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 /*!
 	Sends a packet to this socket.
 */
-PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 {
 	if( PyTuple_Size( args ) != 1 )
 	{
@@ -519,7 +519,7 @@ PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 /*!
 	Returns the custom tag passed
 */
-PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 	{
@@ -548,7 +548,7 @@ PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 /*!
 	Sets a custom tag
 */
-PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -574,7 +574,7 @@ PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 /*!
 	Checks if a certain tag exists
 */
-PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -593,7 +593,7 @@ PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
 /*!
 	Deletes a given tag
 */
-PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
+static PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
 		return PyFalse;
@@ -613,14 +613,15 @@ PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 /*!
 	Resends the status window to this client.
 */
-PyObject *wpSocket_resendstatus( wpSocket *self, PyObject *args )
+static PyObject *wpSocket_resendstatus( wpSocket *self, PyObject *args )
 {
 	Q_UNUSED(args);
 	self->pSock->sendStatWindow();
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-PyObject *wpSocket_questarrow( wpSocket *self, PyObject *args )
+static PyObject *wpSocket_questarrow( wpSocket *self, PyObject *args )
 {
 	int show;
 	int x = 0;
@@ -659,7 +660,7 @@ static PyMethodDef wpSocketMethods[] =
 };
 
 // Getters & Setters
-PyObject *wpSocket_getAttr( wpSocket *self, char *name )
+static PyObject *wpSocket_getAttr( wpSocket *self, char *name )
 {
 	if( !strcmp( name, "player" ) )
 		return PyGetCharObject( self->pSock->player() );
@@ -667,7 +668,7 @@ PyObject *wpSocket_getAttr( wpSocket *self, char *name )
 		return Py_FindMethod( wpSocketMethods, (PyObject*)self, name );
 }
 
-int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value )
+static int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(name);

@@ -109,7 +109,7 @@ PyObject* PyGetItemObject( P_ITEM item )
 /*!
 	Resends the item to all clients in range
 */
-PyObject* wpItem_update( wpItem* self, PyObject* args )
+static PyObject* wpItem_update( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
@@ -123,7 +123,7 @@ PyObject* wpItem_update( wpItem* self, PyObject* args )
 /*!
 	Removes the item
 */
-PyObject* wpItem_delete( wpItem* self, PyObject* args )
+static PyObject* wpItem_delete( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
@@ -137,7 +137,7 @@ PyObject* wpItem_delete( wpItem* self, PyObject* args )
 /*!
 	Moves the item to the specified location
 */
-PyObject* wpItem_moveto( wpItem* self, PyObject* args )
+static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -172,23 +172,20 @@ PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 /*!
 	Removes the item from all clients in range
 */
-PyObject* wpItem_removefromview( wpItem* self, PyObject* args )
+static PyObject* wpItem_removefromview( wpItem* self, PyObject* args )
 {
-	if( !self->pItem || self->pItem->free )
-		return PyFalse;
-
-	if( !checkArgInt( 0 ) || getArgInt( 0 ) == 0 )
-		self->pItem->removeFromView( false );
-	else
-		self->pItem->removeFromView( true );
-
-	return PyTrue;
+	int k = 1;
+	if ( !PyArg_ParseTuple(args, "|i:item.removefromview( clean )", &k) )
+		return 0;
+	self->pItem->removeFromView( k != 0 ? true : false );
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
 	Plays a soundeffect originating from the item
 */
-PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
+static PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -207,7 +204,7 @@ PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 /*!
 	Returns the distance towards a given object or position
 */
-PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
+static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyInt_FromLong( -1 );
@@ -242,8 +239,8 @@ PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 		return PyInt_FromLong( self->pItem->pos().distance( pos ) );
 	}
 
-		PyErr_BadArgument();
-		return NULL;
+	PyErr_BadArgument();
+	return NULL;
 }
 
 /*!
@@ -251,7 +248,7 @@ PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 	weapon. It returns -1 if it is unable to
 	determine the weapon skill.
 */
-PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
+static PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
@@ -278,7 +275,7 @@ PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
 	It consumes the items and amount specified
 	and returns how much have been really consumed.
 */
-PyObject* wpItem_useresource( wpItem* self, PyObject* args )
+static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -308,7 +305,7 @@ PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 	It returns the amount of a resource
 	available
 */
-PyObject* wpItem_countresource( wpItem* self, PyObject* args )
+static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -334,7 +331,7 @@ PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 /*!
 	Returns the custom tag passed
 */
-PyObject* wpItem_gettag( wpItem* self, PyObject* args )
+static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 	{
@@ -370,7 +367,7 @@ PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 /*!
 	Sets a custom tag
 */
-PyObject* wpItem_settag( wpItem* self, PyObject* args )
+static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -396,7 +393,7 @@ PyObject* wpItem_settag( wpItem* self, PyObject* args )
 /*!
 	Checks if a certain tag exists
 */
-PyObject* wpItem_hastag( wpItem* self, PyObject* args )
+static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -415,7 +412,7 @@ PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 /*!
 	Deletes a given tag
 */
-PyObject* wpItem_deltag( wpItem* self, PyObject* args )
+static PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -432,14 +429,14 @@ PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 	return PyTrue;
 }
 
-PyObject* wpItem_ischar( wpItem* self, PyObject* args )
+static PyObject* wpItem_ischar( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	Q_UNUSED(self);	
 	return PyFalse;
 }
 
-PyObject* wpItem_isitem( wpItem* self, PyObject* args )
+static PyObject* wpItem_isitem( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	Q_UNUSED(self);	
@@ -449,7 +446,7 @@ PyObject* wpItem_isitem( wpItem* self, PyObject* args )
 /*!
 	Shows a moving effect moving toward a given object or coordinate.
 */
-PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
+static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -504,7 +501,7 @@ PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 /*!
 	Adds a temp effect to this item.
 */
-PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
+static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 {
 	// Three arguments
 	if( (PyTuple_Size( args ) < 3 && PyTuple_Size( args ) > 4) || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
@@ -535,7 +532,7 @@ PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 /*!
 	Gets the outmost item this item is contained in.
 */
-PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
+static PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
@@ -547,7 +544,7 @@ PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 /*!
 	Gets the outmost character this item is contained in.
 */
-PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
+static PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	if( !self->pItem || self->pItem->free )
@@ -556,8 +553,12 @@ PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 	return PyGetCharObject( self->pItem->getOutmostChar() );
 }
 
-PyObject* wpItem_getname( wpItem* self  )
+/*!
+	Returns the item's name
+*/
+static PyObject* wpItem_getname( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pItem )
 		return false;
 
@@ -568,7 +569,7 @@ PyObject* wpItem_getname( wpItem* self  )
 /*!
 	Adds an item to this container.
 */
-PyObject* wpItem_additem( wpItem* self, PyObject* args )
+static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -619,7 +620,7 @@ PyObject* wpItem_additem( wpItem* self, PyObject* args )
 	return PyTrue;
 }
 
-PyObject* wpItem_getadv( wpItem* self, PyObject* args )
+static PyObject* wpItem_getadv( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -658,7 +659,7 @@ PyObject* wpItem_getadv( wpItem* self, PyObject* args )
 	}
 }
 
-PyObject* wpItem_setadv( wpItem* self, PyObject* args )
+static PyObject* wpItem_setadv( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
@@ -737,7 +738,7 @@ static PyMethodDef wpItemMethods[] =
 
 // Getters + Setters
 
-PyObject *wpItem_getAttr( wpItem *self, char *name )
+static PyObject *wpItem_getAttr( wpItem *self, char *name )
 {
 	// Special Python things
 	if( !strcmp( "content", name ) )
@@ -822,7 +823,7 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	return Py_FindMethod( wpItemMethods, (PyObject*)self, name );
 }
 
-int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
+static int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 {
 	// Special Python things.
 	if( !strcmp( "events", name ) )

@@ -65,7 +65,10 @@ static PyTypeObject wpAccountType = {
     (setattrfunc)wpAccount_setAttr,
 };
 
-PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
+/*!
+	Removes this account
+*/
+static PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
 {
 	Q_UNUSED(args);
 	if( self->account == 0 )
@@ -81,7 +84,10 @@ PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
 	return PyTrue;
 }
 
-PyObject *wpAccount_block( wpAccount *self, PyObject *args )
+/*!
+	Blocks the account from logging into the system
+*/
+static PyObject *wpAccount_block( wpAccount *self, PyObject *args )
 {
 	Q_UNUSED(args);
 	if( self->account == 0 )
@@ -91,7 +97,10 @@ PyObject *wpAccount_block( wpAccount *self, PyObject *args )
 	return PyTrue;
 }
 
-PyObject *wpAccount_unblock( wpAccount *self, PyObject *args )
+/*!
+	unBlocks the account from logging into the system
+*/
+static PyObject *wpAccount_unblock( wpAccount *self, PyObject *args )
 {
 	Q_UNUSED(args);
 	if( self->account == 0 )
@@ -101,7 +110,7 @@ PyObject *wpAccount_unblock( wpAccount *self, PyObject *args )
 	return PyTrue;
 }
 
-PyObject *wpAccount_addcharacter( wpAccount *self, PyObject *args )
+static PyObject *wpAccount_addcharacter( wpAccount *self, PyObject *args )
 {
 	if( !self->account )
 		return PyFalse;
@@ -122,7 +131,7 @@ PyObject *wpAccount_addcharacter( wpAccount *self, PyObject *args )
 	return PyTrue;
 }
 
-PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args )
+static PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args )
 {
 	if( !self->account )
 		return PyFalse;
@@ -143,7 +152,7 @@ PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args )
 	return PyTrue;
 }
 
-PyObject *wpAccount_authorized( wpAccount *self, PyObject *args )
+static PyObject *wpAccount_authorized( wpAccount *self, PyObject *args )
 {
 	if( !self->account )
 		return PyFalse;
@@ -174,7 +183,7 @@ static PyMethodDef wpAccountMethods[] =
     { NULL, NULL, 0, NULL }
 };
 
-PyObject *wpAccount_getAttr( wpAccount *self, char *name )
+static PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 {
 	if( !strcmp( name, "acl" ) )
 		return PyString_FromString( self->account->acl().latin1() );
@@ -212,7 +221,7 @@ PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 		return Py_FindMethod( wpAccountMethods, (PyObject*)self, name );
 }
 
-int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value )
+static int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value )
 {
 	if( !strcmp( name, "acl" ) && PyString_Check( value ) )
 		self->account->setAcl( PyString_AsString( value ) );

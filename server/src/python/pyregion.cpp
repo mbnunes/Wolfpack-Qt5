@@ -68,7 +68,7 @@ static PyMethodDef wpRegionMethods[] =
     { NULL, NULL, 0, NULL }
 };
 
-PyObject *wpRegion_getAttr( wpRegion *self, char *name )
+static PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 {
 	if( !strcmp( name, "parent" ) )
 	{
@@ -142,7 +142,7 @@ PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 	return Py_FindMethod( wpRegionMethods, (PyObject*)self, name );
 }
 
-int wpRegion_setAttr( wpRegion *self, char *name, PyObject *value )
+static int wpRegion_setAttr( wpRegion *self, char *name, PyObject *value )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(name);

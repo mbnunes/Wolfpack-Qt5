@@ -94,7 +94,7 @@ PyObject* PyGetMultiObject( P_MULTI pMulti )
 /*!
 	Resends the multi to all clients in range
 */
-PyObject* wpMulti_update( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_update( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	if( !self->pMulti || self->pMulti->free )
@@ -108,7 +108,7 @@ PyObject* wpMulti_update( wpMulti* self, PyObject* args )
 /*!
 	Sends custom house to client
 */
-PyObject* wpMulti_sendcustomhouse( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_sendcustomhouse( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	if( !self->pMulti || self->pMulti->free || !self->pMulti->ishouse() )
@@ -137,33 +137,27 @@ PyObject* wpMulti_sendcustomhouse( wpMulti* self, PyObject* args )
 /*! 
 	Adds a tile to the custom house
 */
-PyObject* wpMulti_addchtile( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_addchtile( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	if( !self->pMulti || self->pMulti->free || !self->pMulti->ishouse() )
 		return PyFalse;
 	
-	if( PyTuple_Size( args ) < 4 || !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
 	UINT16 model;
 	Coord_cl pos;
 	
-	model = getArgInt( 0 );
-	pos.x = getArgInt( 1 );
-	pos.y = getArgInt( 2 );
-	pos.z = getArgInt( 3 );
-	
+	if ( !PyArg_ParseTuple( args, "iiii:addchtile( model, x, y, z )", &model, &pos.x, &pos.y, &pos.z ) )
+		return 0;
+
 	self->pMulti->addCHTile( model, pos );
 
 	return PyTrue;
 }
+
 /*!
 	Removes the multi
 */
-PyObject* wpMulti_delete( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_delete( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	if( !self->pMulti || self->pMulti->free )
@@ -178,7 +172,7 @@ PyObject* wpMulti_delete( wpMulti* self, PyObject* args )
 /*!
 	Moves the multi to the specified location
 */
-PyObject* wpMulti_moveto( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_moveto( wpMulti* self, PyObject* args )
 {
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
@@ -235,23 +229,21 @@ PyObject* wpMulti_moveto( wpMulti* self, PyObject* args )
 /*!
 	Removes the multi from all clients in range
 */
-PyObject* wpMulti_removefromview( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_removefromview( wpMulti* self, PyObject* args )
 {
-	if( !self->pMulti || self->pMulti->free )
-		return PyFalse;
+	int k = 1;
+	if ( !PyArg_ParseTuple(args, "|i:item.removefromview( clean )", &k) )
+		return 0;
+	self->pMulti->removeFromView( k != 0 ? true : false );
 
-	if( !checkArgInt( 0 ) || getArgInt( 0 ) == 0 )
-		self->pMulti->removeFromView( false );
-	else
-		self->pMulti->removeFromView( true );
-
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
 	Plays a soundeffect originating from the multi
 */
-PyObject* wpMulti_soundeffect( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_soundeffect( wpMulti* self, PyObject* args )
 {
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
@@ -270,7 +262,7 @@ PyObject* wpMulti_soundeffect( wpMulti* self, PyObject* args )
 /*
  * Adds a temp effect to this multi.
  */
-PyObject* wpMulti_addtimer( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_addtimer( wpMulti* self, PyObject* args )
 {
 	if( (PyTuple_Size( args ) < 3 && PyTuple_Size( args ) > 4) || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
@@ -294,7 +286,7 @@ PyObject* wpMulti_addtimer( wpMulti* self, PyObject* args )
 /*!
 	Returns the custom tag passed
 */
-PyObject* wpMulti_gettag( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_gettag( wpMulti* self, PyObject* args )
 {
 	if( !self->pMulti || self->pMulti->free )
 	{
@@ -330,7 +322,7 @@ PyObject* wpMulti_gettag( wpMulti* self, PyObject* args )
 /*!
 	Sets a custom tag
 */
-PyObject* wpMulti_settag( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_settag( wpMulti* self, PyObject* args )
 {
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
@@ -356,7 +348,7 @@ PyObject* wpMulti_settag( wpMulti* self, PyObject* args )
 /*!
 	Checks if a certain tag exists
 */
-PyObject* wpMulti_hastag( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_hastag( wpMulti* self, PyObject* args )
 {
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
@@ -375,7 +367,7 @@ PyObject* wpMulti_hastag( wpMulti* self, PyObject* args )
 /*!
 	Deletes a given tag
 */
-PyObject* wpMulti_deltag( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_deltag( wpMulti* self, PyObject* args )
 {
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
@@ -392,7 +384,7 @@ PyObject* wpMulti_deltag( wpMulti* self, PyObject* args )
 	return PyTrue;
 }
 
-PyObject* wpMulti_ismulti( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_ismulti( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);	
 	Q_UNUSED(self);	
@@ -402,7 +394,7 @@ PyObject* wpMulti_ismulti( wpMulti* self, PyObject* args )
 /*
  * is this multi a house ?
  */
-PyObject* wpMulti_ishouse( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_ishouse( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	Q_UNUSED(self);
@@ -412,7 +404,7 @@ PyObject* wpMulti_ishouse( wpMulti* self, PyObject* args )
 /*
  * is this multi a boat ?
  */
-PyObject* wpMulti_isboat( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_isboat( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	Q_UNUSED(self);
@@ -422,7 +414,7 @@ PyObject* wpMulti_isboat( wpMulti* self, PyObject* args )
 /*!
 	Adds an item to this multi.
 */
-PyObject* wpMulti_additem( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_additem( wpMulti* self, PyObject* args )
 {
 	if( !self->pMulti || self->pMulti->free )
 		return PyFalse;
@@ -443,7 +435,7 @@ PyObject* wpMulti_additem( wpMulti* self, PyObject* args )
 /*
  * Returns the list of the chars in this multi
  */
-PyObject* wpMulti_chars( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_chars( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pMulti || self->pMulti->free )
@@ -464,7 +456,7 @@ PyObject* wpMulti_chars( wpMulti* self, PyObject* args )
 /*
  * Returns the list of the items in this multi
  */
-PyObject* wpMulti_items( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_items( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pMulti || self->pMulti->free )
@@ -485,7 +477,7 @@ PyObject* wpMulti_items( wpMulti* self, PyObject* args )
 /*
  * Returns the friends list of this multi
  */
-PyObject* wpMulti_friends( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_friends( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pMulti || self->pMulti->free )
@@ -506,7 +498,7 @@ PyObject* wpMulti_friends( wpMulti* self, PyObject* args )
 /*
  * Returns the bans list of this multi
  */
-PyObject* wpMulti_bans( wpMulti* self, PyObject* args )
+static PyObject* wpMulti_bans( wpMulti* self, PyObject* args )
 {
 	Q_UNUSED(args);
 	if( !self->pMulti || self->pMulti->free )
@@ -527,8 +519,8 @@ PyObject* wpMulti_bans( wpMulti* self, PyObject* args )
 static PyMethodDef wpMultiMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpMulti_additem, METH_VARARGS, "Adds an item to this multi." },
-    { "update",			(getattrofunc)wpMulti_update, METH_VARARGS, "Sends the multi to all clients in range." },
-	{ "removefromview",	(getattrofunc)wpMulti_removefromview, METH_VARARGS, "Removes the multi from the view of all in-range clients." },
+    { "update",				(getattrofunc)wpMulti_update, METH_VARARGS, "Sends the multi to all clients in range." },
+	{ "removefromview",		(getattrofunc)wpMulti_removefromview, METH_VARARGS, "Removes the multi from the view of all in-range clients." },
 	{ "delete",				(getattrofunc)wpMulti_delete, METH_VARARGS, "Deletes the multi and the underlying reference." },
 	{ "moveto",				(getattrofunc)wpMulti_moveto, METH_VARARGS, "Moves the multi to the specified location." },
 	{ "soundeffect",		(getattrofunc)wpMulti_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." },
@@ -555,7 +547,7 @@ static PyMethodDef wpMultiMethods[] =
 
 // Getters + Setters
 
-PyObject *wpMulti_getAttr( wpMulti *self, char *name )
+static PyObject *wpMulti_getAttr( wpMulti *self, char *name )
 {
 	if( !strcmp( "events", name ) )
 	{
@@ -615,7 +607,7 @@ PyObject *wpMulti_getAttr( wpMulti *self, char *name )
 	return Py_FindMethod( wpMultiMethods, (PyObject*)self, name );
 }
 
-int wpMulti_setAttr( wpMulti *self, char *name, PyObject *value )
+static int wpMulti_setAttr( wpMulti *self, char *name, PyObject *value )
 {
 	if( !strcmp( "events", name ) )
 	{
