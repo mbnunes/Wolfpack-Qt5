@@ -746,28 +746,29 @@ void cItem::processNode( const cElement* Tag )
 	const cElement* section = Definitions::instance()->getDefinition( WPDT_DEFINE, TagName );
 
 	// <amount value="10" />
+	// <amount min="10" max="20" />
 	// <amount>10</amount>
 	if ( TagName == "amount" )
 	{
 		if ( Tag->hasAttribute( "value" ) )
 			this->setAmount( Tag->getAttribute( "value" ).toUShort() );
+		else if ( Tag->hasAttribute( "min" ) &&  Tag->hasAttribute( "max" ) )
+			this->setAmount( RandomNum( Tag->getAttribute( "min" ).toUShort(), Tag->getAttribute( "max" ).toUShort() ) );
 		else
 			this->setAmount( Value.toUShort() );
 	}
 	// <durability value="10" />
+	// <durability min="10" max="20" />
 	// <durability>10</durabilty>
 	else if ( TagName == "durability" )
 	{
 		if ( Tag->hasAttribute( "value" ) )
-		{
 			this->setMaxhp( Tag->getAttribute( "value" ).toUShort() );
-			this->setHp( Tag->getAttribute( "value" ).toUShort() );
-		}
+		else if ( Tag->hasAttribute( "min" ) &&  Tag->hasAttribute( "max" ) )
+			this->setMaxhp( RandomNum( Tag->getAttribute( "min" ).toUShort(), Tag->getAttribute( "max" ).toUShort() ) );
 		else
-		{
 			this->setMaxhp( Value.toLong() );
-			this->setHp( this->maxhp() );
-		}
+		this->setHp( this->maxhp() );
 	}
 
 	// <movable />
@@ -830,6 +831,7 @@ void cItem::processNode( const cElement* Tag )
 	else if ( TagName == "content" && Tag->childCount() > 0 )
 		this->processContainerNode( Tag );
 
+	// <inherit id="f23" />
 	// <inherit>f23</inherit>
 	else if ( TagName == "inherit" )
 	{
@@ -884,16 +886,6 @@ void cItem::processModifierNode( const cElement* Tag )
 			*/
 			name_ = Value.arg( name_ );
 		}
-	}
-
-	// <durability>-10</durabilty>
-	else if ( TagName == "durability" )
-	{
-		if ( Value.contains( "." ) || Value.contains( "," ) )
-			setMaxhp( ( Q_INT32 ) ceil( ( float ) maxhp() * Value.toFloat() ) );
-		else
-			setMaxhp( maxhp() + Value.toLong() );
-		setHp( maxhp() );
 	}
 	else
 		cUObject::processNode( Tag );
