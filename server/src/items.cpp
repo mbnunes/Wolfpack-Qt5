@@ -2532,7 +2532,7 @@ void cItem::removeFromCont( bool handleWeight )
 	}
 	else if( container_->isItem() )
 	{
-		P_ITEM pCont = dynamic_cast< P_ITEM >( pCont );
+		P_ITEM pCont = dynamic_cast< P_ITEM >( container_ );
 		if( pCont )
 			pCont->removeItem( this, handleWeight );
 	}
