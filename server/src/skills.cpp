@@ -2743,7 +2743,7 @@ bool cSkills::HasEmptyMap(P_CHAR pc)	// Check if the player carries an empty map
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM cand = FindItemBySerial(vecContainer[ci]);
-		if (cand->id() == 0x14ED && !cand->free)
+		if (cand->id() == 0x14EB && !cand->free)
 		{
 			if (cand->type == 300)	// Is it the right type
 				return true;	// Yay, go on with carto
@@ -2767,7 +2767,7 @@ bool cSkills::DelEmptyMap(P_CHAR pc)	// Delete an empty map from the player's ba
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM cand = FindItemBySerial(vecContainer[ci]);
-		if (cand->id()==0x14ED && !cand->free)
+		if (cand->id()==0x14EB && !cand->free)
 		{
 			if (cand->type == 300)	// Is it the right type
 			{
