@@ -46,7 +46,11 @@
 
 void Human_Vendor::registerInFactory()
 {
+#ifndef __VC6
 	AIFactory::instance()->registerType( "Human_Vendor", productCreatorFunctor<Human_Vendor> );
+#else
+	AIFactory::instance()->registerType( "Human_Vendor", productCreatorFunctor_Human_Vendor );
+#endif
 }
 
 void Human_Vendor::onSpeechInput( P_PLAYER pTalker, const QString& comm )
@@ -81,7 +85,11 @@ void Human_Stablemaster::init( P_NPC npc )
 
 void Human_Stablemaster::registerInFactory()
 {
+#ifndef __VC6
 	AIFactory::instance()->registerType( "Human_Stablemaster", productCreatorFunctor<Human_Stablemaster> );
+#else
+	AIFactory::instance()->registerType( "Human_Vendor", productCreatorFunctor_Human_Stablemaster );
+#endif
 }
 
 void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message )
@@ -216,7 +224,11 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 
 void Human_Guard_Called::registerInFactory()
 {
+#ifndef __VC6
 	AIFactory::instance()->registerType( "Human_Guard_Called", productCreatorFunctor<Human_Guard_Called> );
+#else
+	AIFactory::instance()->registerType( "Human_Guard_Called", productCreatorFunctor_Human_Guard_Called );
+#endif
 }
 
 Human_Guard_Called::Human_Guard_Called( P_NPC npc ) : AbstractAI( npc )
@@ -325,7 +337,11 @@ float Human_Guard_Called_Disappear::postCondition()
 
 void Human_Guard::registerInFactory()
 {
+#ifndef __VC6
 	AIFactory::instance()->registerType( "Human_Guard", productCreatorFunctor<Human_Guard> );
+#else
+	AIFactory::instance()->registerType( "Human_Guard", productCreatorFunctor_Human_Guard );
+#endif
 }
 
 Human_Guard::Human_Guard( P_NPC npc ) : AbstractAI( npc ), m_currentVictimSer( INVALID_SERIAL )

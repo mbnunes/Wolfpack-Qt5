@@ -50,6 +50,50 @@
   cAIFactory member functions
  *****************************************************************************/
 
+#ifdef __VC6
+
+AbstractAI* productCreatorFunctor_Animal_Domestic(  )
+{
+	return new Animal_Domestic(0);
+}
+
+AbstractAI* productCreatorFunctor_Animal_Wild(  )
+{
+	return new Animal_Wild(0);
+}
+
+AbstractAI* productCreatorFunctor_Human_Guard(  )
+{
+	return new Human_Guard(0);
+}
+
+AbstractAI* productCreatorFunctor_Human_Guard_Called(  )
+{
+	return new Human_Guard_Called(0);
+}
+
+AbstractAI* productCreatorFunctor_Human_Vendor(  )
+{
+	return new Human_Vendor(0);
+}
+
+AbstractAI* productCreatorFunctor_Human_Stablemaster(  )
+{
+	return new Human_Stablemaster(0);
+}
+AbstractAI* productCreatorFunctor_Monster_Aggressive_L0(  )
+{
+	return new Monster_Aggressive_L0(0);
+}
+AbstractAI* productCreatorFunctor_Monster_Berserk(  )
+{
+	return new Monster_Berserk(0);
+}
+AbstractAI* productCreatorFunctor_Monster_Aggressive_L1(  )
+{
+	return new Monster_Aggressive_L1(0);
+}
+#endif
 void cAIFactory::checkScriptAI( const QStringList& oldSections, const QStringList& newSections )
 {
 	QStringList::const_iterator aiit = oldSections.begin();

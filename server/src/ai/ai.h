@@ -852,10 +852,21 @@ protected:
 	SERIAL m_currentVictimSer;
 };
 
+#ifndef __VC6
 template< typename T >
 AbstractAI* productCreatorFunctor()
 {
 	return new T(0);
 }
-
+#else
+AbstractAI* productCreatorFunctor_Animal_Domestic(  );
+AbstractAI* productCreatorFunctor_Animal_Wild(  );
+AbstractAI* productCreatorFunctor_Human_Guard(  );
+AbstractAI* productCreatorFunctor_Human_Guard_Called(  );
+AbstractAI* productCreatorFunctor_Human_Vendor(  );
+AbstractAI* productCreatorFunctor_Human_Stablemaster(  );
+AbstractAI* productCreatorFunctor_Monster_Aggressive_L0(  );
+AbstractAI* productCreatorFunctor_Monster_Berserk(  );
+AbstractAI* productCreatorFunctor_Monster_Aggressive_L1(  );
+#endif
 #endif /* AI_H_HEADER_INCLUDED */

@@ -39,13 +39,22 @@
 
 void Animal_Wild::registerInFactory()
 {
+#ifndef __VC6
 	AIFactory::instance()->registerType( "Animal_Wild", productCreatorFunctor<Animal_Wild> );
 	AIFactory::instance()->registerType( "Animal_Aggressive", productCreatorFunctor<Animal_Wild> );
+#else
+	AIFactory::instance()->registerType( "Animal_Wild", productCreatorFunctor_Animal_Wild );
+	AIFactory::instance()->registerType( "Animal_Aggressive", productCreatorFunctor_Animal_Wild );
+#endif
 }
 
 void Animal_Domestic::registerInFactory()
 {
+#ifndef __VC6
 	AIFactory::instance()->registerType( "Animal_Domestic", productCreatorFunctor<Animal_Domestic> );
+#else
+	AIFactory::instance()->registerType( "Animal_Domestic", productCreatorFunctor_Animal_Domestic );
+#endif
 }
 
 void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )

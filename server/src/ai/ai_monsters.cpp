@@ -158,7 +158,11 @@ void Monster_Aggressive::check()
 
 void Monster_Aggressive_L0::registerInFactory()
 {
+#ifndef __VC6
 	AIFactory::instance()->registerType( "Monster_Aggressive_L0", productCreatorFunctor<Monster_Aggressive_L0> );
+#else
+	AIFactory::instance()->registerType( "Monster_Aggressive_L0", productCreatorFunctor_Monster_Aggressive_L0 );
+#endif
 }
 
 void Monster_Aggressive_L0::selectVictim()
@@ -167,7 +171,11 @@ void Monster_Aggressive_L0::selectVictim()
 
 void Monster_Berserk::registerInFactory()
 {
+#ifndef __VC6
 	AIFactory::instance()->registerType( "Monster_Berserk", productCreatorFunctor<Monster_Berserk> );
+#else
+	AIFactory::instance()->registerType( "Monster_Berserk", productCreatorFunctor_Monster_Berserk );
+#endif
 }
 
 void Monster_Berserk::selectVictim()
@@ -176,7 +184,11 @@ void Monster_Berserk::selectVictim()
 
 void Monster_Aggressive_L1::registerInFactory()
 {
+#ifndef __VC6
 	AIFactory::instance()->registerType( "Monster_Aggressive_L1", productCreatorFunctor<Monster_Aggressive_L1> );
+#else
+	AIFactory::instance()->registerType( "Monster_Aggressive_L1", productCreatorFunctor_Monster_Aggressive_L1 );
+#endif
 }
 
 void Monster_Aggressive_L1::selectVictim()
