@@ -533,14 +533,19 @@ void cUOSocket::playChar( P_CHAR pChar )
 	confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
 	send( &confirmLogin );
 
+	// Send us our player and send the rest to us as well.
+	pChar->resend();
+	resendWorld( false );
+
 	// Which map are we on
 	cUOTxChangeMap changeMap;
 	changeMap.setMap( pChar->pos().map );
 	send( &changeMap );
 
-	// Send us our player and send the rest to us as well.
-	pChar->resend();
-	resendWorld( false );
+	// Send the default season
+	cUOTxChangeSeason season;
+	season.setSeason( ST_SPRING );
+	send( &season );
 
 	cUOTxWarmode warmode;
 	warmode.setStatus( pChar->war() );
