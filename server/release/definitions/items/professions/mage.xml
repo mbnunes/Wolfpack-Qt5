@@ -30,7 +30,7 @@
 		<sellprice>9</sellprice>
 		<value>30</value>
 		<category>Professions\Mage\Spellbook (N/S)</category>
-		<scripts>magic.spellbook</scripts>
+		<basescripts>magic.spellbook</basescripts>
 	</item>
 
 	<!-- Runebook -->
@@ -43,7 +43,7 @@
 		<buyprice>2500</buyprice>
 		<sellprice>1250</sellprice>
 		<category>Professions\Mage\Runebook </category>
-		<scripts>magic.runebook</scripts>
+		<basescripts>magic.runebook</basescripts>
 	</item>
 
 	<!-- Recall Runes -->
@@ -54,7 +54,7 @@
 		<decay />
 		<buyprice>15</buyprice>
 		<sellprice>8</sellprice>
-		<scripts>magic.rune</scripts>
+		<basescripts>magic.rune</basescripts>
 	</item>
 
 	<item id="1f15">
@@ -81,7 +81,7 @@
 	<item id="1f2e">
 		<id>0x1f2e</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>15</value>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -93,7 +93,7 @@
 	<item id="1f2f">
 		<id>0x1f2f</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>15</value>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -105,7 +105,7 @@
 	<item id="1f30">
 		<id>0x1f30</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>15</value>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -117,7 +117,7 @@
 	<item id="1f31">
 		<id>0x1f31</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>15</value>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -129,7 +129,7 @@
 	<item id="1f32">
 		<id>0x1f32</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>15</value>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -141,7 +141,7 @@
 	<item id="1f33">
 		<id>0x1f33</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>15</value>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -153,7 +153,7 @@
 	<item id="1f2d">
 		<id>0x1f2d</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>15</value>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -165,7 +165,7 @@
 	<item id="1f34">
 		<id>0x1f34</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>15</value>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -177,7 +177,7 @@
 	<item id="1f35">
 		<id>0x1f35</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>30</value>
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
@@ -189,7 +189,7 @@
 	<item id="1f36">
 		<id>0x1f36</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>30</value>
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
@@ -201,7 +201,7 @@
 	<item id="1f37">
 		<id>0x1f37</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>30</value>
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
@@ -213,7 +213,7 @@
 	<item id="1f38">
 		<id>0x1f38</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>30</value>
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
@@ -225,7 +225,7 @@
 	<item id="1f39">
 		<id>0x1f39</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>30</value>
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
@@ -237,7 +237,7 @@
 	<item id="1f3a">
 		<id>0x1f3a</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>30</value>
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
@@ -249,7 +249,7 @@
 	<item id="1f3b">
 		<id>0x1f3b</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>30</value>
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
@@ -261,7 +261,7 @@
 	<item id="1f3c">
 		<id>0x1f3c</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>30</value>
 		<buyprice>22</buyprice>
 		<sellprice>11</sellprice>
@@ -273,7 +273,7 @@
 	<item id="1f3d">
 		<id>0x1f3d</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>45</value>
 		<buyprice>32</buyprice>
 		<sellprice>16</sellprice>
@@ -285,7 +285,7 @@
 	<item id="1f3e">
 		<id>0x1f3e</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>45</value>
 		<buyprice>32</buyprice>
 		<sellprice>16</sellprice>
@@ -297,7 +297,7 @@
 	<item id="1f3f">
 		<id>0x1f3f</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>45</value>
 		<buyprice>32</buyprice>
 		<sellprice>16</sellprice>
@@ -309,7 +309,7 @@
 	<item id="1f40">
 		<id>0x1f40</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>45</value>
 		<buyprice>32</buyprice>
 		<sellprice>16</sellprice>
@@ -321,7 +321,7 @@
 	<item id="1f41">
 		<id>0x1f41</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>45</value>
 		<buyprice>32</buyprice>
 		<sellprice>16</sellprice>
@@ -333,7 +333,7 @@
 	<item id="1f42">
 		<id>0x1f42</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>45</value>
 		<buyprice>32</buyprice>
 		<sellprice>16</sellprice>
@@ -345,7 +345,7 @@
 	<item id="1f43">
 		<id>0x1f43</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>45</value>
 		<buyprice>32</buyprice>
 		<sellprice>16</sellprice>
@@ -357,7 +357,7 @@
 	<item id="1f44">
 		<id>0x1f44</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>45</value>
 		<buyprice>32</buyprice>
 		<sellprice>16</sellprice>
@@ -369,7 +369,7 @@
 	<item id="1f45">
 		<id>0x1f45</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>60</value>
 		<buyprice>42</buyprice>
 		<sellprice>21</sellprice>
@@ -381,7 +381,7 @@
 	<item id="1f46">
 		<id>0x1f46</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>60</value>
 		<buyprice>42</buyprice>
 		<sellprice>21</sellprice>
@@ -393,7 +393,7 @@
 	<item id="1f47">
 		<id>0x1f47</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>60</value>
 		<buyprice>42</buyprice>
 		<sellprice>21</sellprice>
@@ -405,7 +405,7 @@
 	<item id="1f48">
 		<id>0x1f48</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>60</value>
 		<buyprice>42</buyprice>
 		<sellprice>21</sellprice>
@@ -417,7 +417,7 @@
 	<item id="1f49">
 		<id>0x1f49</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>60</value>
 		<buyprice>42</buyprice>
 		<sellprice>21</sellprice>
@@ -429,7 +429,7 @@
 	<item id="1f4a">
 		<id>0x1f4a</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>60</value>
 		<buyprice>42</buyprice>
 		<sellprice>21</sellprice>
@@ -441,7 +441,7 @@
 	<item id="1f4b">
 		<id>0x1f4b</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>60</value>
 		<buyprice>42</buyprice>
 		<sellprice>21</sellprice>
@@ -453,7 +453,7 @@
 	<item id="1f4c">
 		<id>0x1f4c</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>60</value>
 		<buyprice>42</buyprice>
 		<sellprice>21</sellprice>
@@ -465,7 +465,7 @@
 	<item id="1f4d">
 		<id>0x1f4d</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>75</value>
 		<buyprice>52</buyprice>
 		<sellprice>26</sellprice>
@@ -477,7 +477,7 @@
 	<item id="1f4e">
 		<id>0x1f4e</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>75</value>
 		<buyprice>52</buyprice>
 		<sellprice>26</sellprice>
@@ -489,7 +489,7 @@
 	<item id="1f4f">
 		<id>0x1f4f</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>75</value>
 		<buyprice>52</buyprice>
 		<sellprice>26</sellprice>
@@ -501,7 +501,7 @@
 	<item id="1f50">
 		<id>0x1f50</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>75</value>
 		<buyprice>52</buyprice>
 		<sellprice>26</sellprice>
@@ -513,7 +513,7 @@
 	<item id="1f51">
 		<id>0x1f51</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>75</value>
 		<buyprice>52</buyprice>
 		<sellprice>26</sellprice>
@@ -525,7 +525,7 @@
 	<item id="1f52">
 		<id>0x1f52</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>75</value>
 		<buyprice>52</buyprice>
 		<sellprice>26</sellprice>
@@ -537,7 +537,7 @@
 	<item id="1f53">
 		<id>0x1f53</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>75</value>
 		<buyprice>52</buyprice>
 		<sellprice>26</sellprice>
@@ -549,7 +549,7 @@
 	<item id="1f54">
 		<id>0x1f54</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>75</value>
 		<buyprice>52</buyprice>
 		<sellprice>26</sellprice>
@@ -561,7 +561,7 @@
 	<item id="1f55">
 		<id>0x1f55</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>90</value>
 		<buyprice>62</buyprice>
 		<sellprice>31</sellprice>
@@ -573,7 +573,7 @@
 	<item id="1f56">
 		<id>0x1f56</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>90</value>
 		<buyprice>62</buyprice>
 		<sellprice>31</sellprice>
@@ -585,7 +585,7 @@
 	<item id="1f57">
 		<id>0x1f57</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>90</value>
 		<buyprice>62</buyprice>
 		<sellprice>31</sellprice>
@@ -597,7 +597,7 @@
 	<item id="1f58">
 		<id>0x1f58</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>90</value>
 		<buyprice>62</buyprice>
 		<sellprice>31</sellprice>
@@ -609,7 +609,7 @@
 	<item id="1f59">
 		<id>0x1f59</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>90</value>
 		<buyprice>62</buyprice>
 		<sellprice>31</sellprice>
@@ -621,7 +621,7 @@
 	<item id="1f5a">
 		<id>0x1f5a</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>90</value>
 		<buyprice>62</buyprice>
 		<sellprice>31</sellprice>
@@ -633,7 +633,7 @@
 	<item id="1f5b">
 		<id>0x1f5b</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>90</value>
 		<buyprice>62</buyprice>
 		<sellprice>31</sellprice>
@@ -645,7 +645,7 @@
 	<item id="1f5c">
 		<id>0x1f5c</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>90</value>
 		<buyprice>62</buyprice>
 		<sellprice>31</sellprice>
@@ -657,7 +657,7 @@
 	<item id="1f5d">
 		<id>0x1f5d</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>105</value>
 		<buyprice>72</buyprice>
 		<sellprice>36</sellprice>
@@ -669,7 +669,7 @@
 	<item id="1f5e">
 		<id>0x1f5e</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>105</value>
 		<buyprice>72</buyprice>
 		<sellprice>36</sellprice>
@@ -681,7 +681,7 @@
 	<item id="1f5f">
 		<id>0x1f5f</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>105</value>
 		<buyprice>72</buyprice>
 		<sellprice>36</sellprice>
@@ -693,7 +693,7 @@
 	<item id="1f60">
 		<id>0x1f60</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>105</value>
 		<buyprice>72</buyprice>
 		<sellprice>36</sellprice>
@@ -705,7 +705,7 @@
 	<item id="1f61">
 		<id>0x1f61</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>105</value>
 		<buyprice>72</buyprice>
 		<sellprice>36</sellprice>
@@ -717,7 +717,7 @@
 	<item id="1f62">
 		<id>0x1f62</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>105</value>
 		<buyprice>72</buyprice>
 		<sellprice>36</sellprice>
@@ -729,7 +729,7 @@
 	<item id="1f63">
 		<id>0x1f63</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>105</value>
 		<buyprice>72</buyprice>
 		<sellprice>36</sellprice>
@@ -741,7 +741,7 @@
 	<item id="1f64">
 		<id>0x1f64</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>105</value>
 		<buyprice>72</buyprice>
 		<sellprice>36</sellprice>
@@ -753,7 +753,7 @@
 	<item id="1f65">
 		<id>0x1f65</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>120</value>
 		<buyprice>82</buyprice>
 		<sellprice>41</sellprice>
@@ -765,7 +765,7 @@
 	<item id="1f66">
 		<id>0x1f66</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>120</value>
 		<buyprice>82</buyprice>
 		<sellprice>41</sellprice>
@@ -777,7 +777,7 @@
 	<item id="1f67">
 		<id>0x1f67</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>120</value>
 		<buyprice>82</buyprice>
 		<sellprice>41</sellprice>
@@ -789,7 +789,7 @@
 	<item id="1f68">
 		<id>0x1f68</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>120</value>
 		<buyprice>82</buyprice>
 		<sellprice>41</sellprice>
@@ -801,7 +801,7 @@
 	<item id="1f69">
 		<id>0x1f69</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>120</value>
 		<buyprice>82</buyprice>
 		<sellprice>41</sellprice>
@@ -813,7 +813,7 @@
 	<item id="1f6a">
 		<id>0x1f6a</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>120</value>
 		<buyprice>82</buyprice>
 		<sellprice>41</sellprice>
@@ -825,7 +825,7 @@
 	<item id="1f6b">
 		<id>0x1f6b</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>120</value>
 		<buyprice>82</buyprice>
 		<sellprice>41</sellprice>
@@ -837,7 +837,7 @@
 	<item id="1f6c">
 		<id>0x1f6c</id>
 		<decay/>
-		<scripts>magic.scroll</scripts>
+		<basescripts>magic.scroll</basescripts>
 		<value>120</value>
 		<buyprice>82</buyprice>
 		<sellprice>41</sellprice>
@@ -979,7 +979,7 @@
 		<name>#1044168</name>
 		<id>0xfbf</id>
 		<category>Professions\Mage\Pen &amp; Ink (N/S)</category>
-		<scripts>skills.inscription</scripts>
+		<basescripts>skills.inscription</basescripts>
 		<weight>1.0</weight>
 	</item>
 

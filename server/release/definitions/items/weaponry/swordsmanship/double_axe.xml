@@ -19,7 +19,7 @@
 		<durability><random min="50" max="95" /></durability>
 		<weight>3.0</weight>
 		<tag name="resname" value="iron" />
-		<scripts>equipment,blades</scripts>
+		<basescripts>equipment,blades</basescripts>
 		<type>1002</type>
 		<category>Weapons\Axes\Double Axe (N/S)</category>
 	</item>

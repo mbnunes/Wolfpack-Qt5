@@ -21,7 +21,7 @@
 		<buyprice>166</buyprice>
 		<sellprice>83</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Chainmail\Leggings (N/S)</category>
 	</item>
 

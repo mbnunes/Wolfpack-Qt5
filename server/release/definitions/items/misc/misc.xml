@@ -147,7 +147,7 @@
 	<item id="100a">
 		<id>0x100a</id>
 		<nodecay />
-		<scripts>archery_butte</scripts>
+		<basescripts>archery_butte</basescripts>
 		<category>Misc\Archery Butte\Archery Butte (W/E)</category>
 	</item>
 
@@ -162,59 +162,59 @@
 		<id>0x100e</id>
 		<type>7</type>
 		<category>Misc\Keys\Copper Key</category>
-		<scripts>key</scripts>
+		<basescripts>key</basescripts>
 	</item>
 
 	<item id="100f">
 		<id>0x100f</id>
 		<type>7</type>
 		<category>Misc\Keys\Gold Key</category>
-		<scripts>key</scripts>
+		<basescripts>key</basescripts>
 	</item>
 
 	<item id="1010">
 		<id>0x1010</id>
 		<type>7</type>
 		<category>Misc\Keys\Iron Key</category>
-		<scripts>key</scripts>
+		<basescripts>key</basescripts>
 	</item>
 
 	<item id="1011">
 		<id>0x1011</id>
 		<category>Misc\Keys\Keyring 1</category>
-		<scripts>keyring</scripts>
+		<basescripts>keyring</basescripts>
 	</item>
 
 	<item id="1769">
 		<id>0x1769</id>
 		<category>Misc\Keys\Keyring 2</category>
-		<scripts>keyring</scripts>
+		<basescripts>keyring</basescripts>
 	</item>
 
 	<item id="176a">
 		<id>0x176a</id>
 		<category>Misc\Keys\Keyring 3</category>
-		<scripts>keyring</scripts>
+		<basescripts>keyring</basescripts>
 	</item>
 
 	<item id="176b">
 		<id>0x176b</id>
 		<category>Misc\Keys\Keyring 4</category>
-		<scripts>keyring</scripts>
+		<basescripts>keyring</basescripts>
 	</item>
 
 	<item id="1012">
 		<id>0x1012</id>
 		<type>7</type>
 		<category>Misc\Keys\Magic Key</category>
-		<scripts>key</scripts>
+		<basescripts>key</basescripts>
 	</item>
 
 	<item id="1013">
 		<id>0x1013</id>
 		<type>7</type>
 		<category>Misc\Keys\Rusty Iron Key</category>
-		<scripts>key</scripts>
+		<basescripts>key</basescripts>
 	</item>
 
 	<!-- Training Dummy -->
@@ -222,14 +222,14 @@
 		<id>0x1070</id>
 		<nodecay />
 		<category>Misc\Training Dummy\Training Dummy (N/S)</category>
-		<scripts>training_dummy</scripts>
+		<basescripts>training_dummy</basescripts>
 	</item>
 
 	<item id="1074">
 		<id>0x1074</id>
 		<nodecay />
 		<category>Misc\Training Dummy\Training Dummy (W/E)</category>
-		<scripts>training_dummy</scripts>
+		<basescripts>training_dummy</basescripts>
 	</item>
 
 	<!-- Levers & Switches -->
@@ -1992,14 +1992,14 @@
 	<item id="1e5e">
 		<id>0x1e5e</id>
 		<category>Misc\Message Boards\Message Board (N/S)</category>
-		<scripts>bulletinboard</scripts>
+		<basescripts>bulletinboard</basescripts>
 		<nodecay />
 	</item>
 
 	<item id="1e5f">
 		<id>0x1e5f</id>
 		<category>Misc\Message Boards\Message Board (W/E)</category>
-		<scripts>bulletinboard</scripts>
+		<basescripts>bulletinboard</basescripts>
 		<nodecay />
 	</item>
 
@@ -2120,7 +2120,7 @@
 		<name>Guildstone</name>
 		<id>0xedd</id>
 		<category>Misc\Guilds\Guildstone</category>
-		<scripts>guilds.stone</scripts>
+		<basescripts>guilds.stone</basescripts>
 	</item>
 
 	<!-- Plant Growing -->

@@ -431,15 +431,17 @@ event is not called for characters but only called as a global hook.
 /*
 \event onAttach
 \param object The object.
-\condition Triggered when a script is attached to an object.
-\notes This is even triggered when the item is loaded from a worldfile.
+\condition Triggered when a script is attached to an object. 
+\notes This is even triggered when the item is loaded from a worldfile, but not
+for scripts in the objects basescripts list.
 */
 "onAttach",
 
 /*
 \event onDetach
 \param object The object.
-\condition Triggered when a script is removed from an object.
+\condition Triggered when a script is removed from an object, but not
+for scripts in the objects basescripts list.
 */
 "onDetach",
 
@@ -557,7 +559,7 @@ void cPythonScript::unload( void )
 	\condition Triggered when the script is loaded.
 */
 // Find our module name
-bool cPythonScript::load( const QString& name )
+bool cPythonScript::load( const QCString& name )
 {
 	if ( name.isEmpty() )
 	{
@@ -566,7 +568,7 @@ bool cPythonScript::load( const QString& name )
 
 	setName( name );
 
-	codeModule = PyImport_ImportModule( const_cast<char*>( name.latin1() ) );
+	codeModule = PyImport_ImportModule( const_cast<char*>( name.data() ) );
 
 	if ( !codeModule )
 	{
@@ -751,7 +753,7 @@ PyObject* cPythonScript::callChainedEvent( ePythonEvent event, cPythonScript** c
 		{
 			result = copy[i]->callEvent( event, args );
 
-			if ( result )
+			if ( result && PyObject_IsTrue( result ) )
 				break;
 		}
 

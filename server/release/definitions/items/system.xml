@@ -38,7 +38,7 @@
 	<item id="trashcan">
 		<id>0xe77</id>
 		<name>trashcan</name>
-		<scripts>trashcan</scripts>
+		<basescripts>trashcan</basescripts>
 		<color>0x430</color>
 		<nodecay />
 		<movable>2</movable>

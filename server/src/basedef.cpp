@@ -29,6 +29,7 @@
 #include "log.h"
 #include "basedef.h"
 #include "definitions.h"
+#include "scriptmanager.h"
 #include "basics.h"
 #include <string.h>
 
@@ -114,6 +115,23 @@ void cCharBaseDef::processNode( const cElement* node )
 	{
 		bindmenu_ = node->text();
 	}
+	else if ( node->name() == "basescripts" )
+	{
+		baseScriptList_ = node->text();
+	}
+}
+
+void cCharBaseDef::refreshScripts() {
+	if (loaded) {
+		QStringList scripts = QStringList::split(",", baseScriptList_);
+		QStringList::const_iterator it;
+		for (it = scripts.begin(); it != scripts.end(); ++it) {
+			cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
+			if (script) {
+				baseScripts_.append(script);
+			}
+		}
+	}
 }
 
 // Load this definition from the scripts.
@@ -167,5 +185,157 @@ void cCharBaseDefs::reset()
 	for ( it = definitions.begin(); it != definitions.end(); ++it )
 	{
 		it.data()->reset();
+	}
+}
+
+void cCharBaseDefs::refreshScripts()
+{
+	Iterator it;
+	for ( it = definitions.begin(); it != definitions.end(); ++it )
+	{
+		it.data()->refreshScripts();
+	}
+}
+
+
+/*
+	cItemBaseDef and cItemBaseDefs
+*/
+cItemBaseDef::cItemBaseDef( const QCString& id )
+{
+	id_ = id;
+	reset();
+}
+
+cItemBaseDef::~cItemBaseDef()
+{
+}
+
+void cItemBaseDef::reset()
+{
+	loaded = false;
+	weight_ = 0.0f;
+	decaydelay_ = 0;
+	sellprice_ = 0;
+	buyprice_ = 0;
+	type_ = 0;
+	lightsource_ = 0;
+	flags_ = 0;
+}
+
+void cItemBaseDef::refreshScripts() {
+	if (loaded) {
+		QStringList scripts = QStringList::split(",", baseScriptList_);
+		QStringList::const_iterator it;
+		for (it = scripts.begin(); it != scripts.end(); ++it) {
+			cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
+			if (script) {
+				baseScripts_.append(script);
+			}
+		}
+	}
+}
+
+void cItemBaseDef::processNode( const cElement* node )
+{
+	if ( node->name() == "weight" )
+	{
+		weight_ = node->text().toFloat();
+	}
+	else if ( node->name() == "buyprice" )
+	{
+		buyprice_ = node->value().toUInt();
+	}
+	else if ( node->name() == "sellprice" )
+	{
+		sellprice_ = node->value().toUInt();
+	}
+	else if ( node->name() == "type" )
+	{
+		type_ = node->value().toUShort();
+	}
+	else if ( node->name() == "bindmenu" )
+	{
+		bindmenu_ = node->text();
+	}
+	else if ( node->name() == "lightsource" )
+	{
+		lightsource_ = node->value().toUShort();
+	}
+	else if ( node->name() == "decaydelay" )
+	{
+		decaydelay_ = node->value().toUInt();
+	}
+	else if ( node->name() == "watersource" )
+	{
+		setWaterSource( node->value().toUInt() != 0 );
+	}
+	else if ( node->name() == "basescripts" )
+	{
+		baseScriptList_ = node->text();
+		refreshScripts();
+	}
+}
+
+// Load this definition from the scripts.
+void cItemBaseDef::load()
+{
+	if ( !loaded )
+	{
+		loaded = true;
+		const cElement* element = Definitions::instance()->getDefinition( WPDT_ITEM, id_ );
+
+		if ( !element )
+		{
+			Console::instance()->log( LOG_WARNING, QString( "Missing item definition '%1'.\n" ).arg( id_ ) );
+			return;
+		}
+
+		applyDefinition( element );
+	}
+}
+
+cItemBaseDef* cItemBaseDefs::get( const QCString& id )
+{
+	Iterator it = definitions.find( id );
+
+	if ( it == definitions.end() )
+	{
+		cItemBaseDef* def = new cItemBaseDef( id );
+		it = definitions.insert( id, def );
+	}
+
+	return it.data();
+}
+
+cItemBaseDefs::cItemBaseDefs()
+{
+}
+
+cItemBaseDefs::~cItemBaseDefs()
+{
+	Iterator it;
+	for ( it = definitions.begin(); it != definitions.end(); ++it )
+	{
+		delete it.data();
+	}
+	definitions.clear();
+}
+
+void cItemBaseDefs::reset()
+{
+	Iterator it;
+	for ( it = definitions.begin(); it != definitions.end(); ++it )
+	{
+		it.data()->reset();
+	}
+}
+
+void cItemBaseDefs::refreshScripts()
+{
+	Iterator it;
+	for ( it = definitions.begin(); it != definitions.end(); ++it )
+	{
+		it.data()->refreshScripts();
 	}
 }

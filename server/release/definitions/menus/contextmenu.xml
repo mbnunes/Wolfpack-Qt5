@@ -7,7 +7,7 @@
 
 <definitions>
 	<contextmenu id="train_menu">
-		<scripts>contextmenus.trainmenu</scripts>
+		<basescripts>contextmenus.trainmenu</basescripts>
 		<option tag="1"  msgid="6000" checkvisible="true" checkenabled="true" /> <!-- Alchemy -->
 		<option tag="2"  msgid="6001" checkvisible="true" checkenabled="true" /> <!-- Anatomy -->
 		<option tag="3"  msgid="6002" checkvisible="true" checkenabled="true" /> <!-- AnimalLore -->
@@ -60,34 +60,34 @@
 	</contextmenu>
 
 	<contextmenu id="vendor_menu">
-		<scripts>contextmenus.vendormenu</scripts>
+		<basescripts>contextmenus.vendormenu</basescripts>
 		<option tag="1" msgid="6103" />
 		<option tag="2" msgid="6104" />
 	</contextmenu>
 
 	<contextmenu id="banker_menu">
-	    <scripts>contextmenus.bankermenu</scripts>
+	    <basescripts>contextmenus.bankermenu</basescripts>
 		<option tag="1" msgid="6105"/>
 		<option tag="2" msgid="6124"/>
 	</contextmenu>
 
 	<contextmenu id="paperdoll_menu">
-		<scripts>contextmenus.paperdollmenu</scripts>
+		<basescripts>contextmenus.paperdollmenu</basescripts>
 		<option tag="1" msgid="6123"/>
 	</contextmenu>
 
 	<contextmenu id="healer_menu">
-		<scripts>contextmenus.healermenu</scripts>
+		<basescripts>contextmenus.healermenu</basescripts>
 		<option tag="1" msgid="0489" checkvisible="true" />
 	</contextmenu>
 
 	<contextmenu id="tame_menu">
-		<scripts>contextmenus.tamemenu</scripts>
+		<basescripts>contextmenus.tamemenu</basescripts>
 		<option tag="1" msgid="6130" checkvisible="true" />
 	</contextmenu>
 
 	<contextmenu id="pet_menu">
-		<scripts>contextmenus.petmenu</scripts>
+		<basescripts>contextmenus.petmenu</basescripts>
 		<option tag="1" msgid="6111" checkvisible="true" />
 		<option tag="2" msgid="6108" checkvisible="true" />
 		<!--
@@ -108,7 +108,7 @@
 	</contextmenu>
 
 	<contextmenu id="ITEM_MENU">
-		<scripts>daggermenu</scripts>
+		<basescripts>daggermenu</basescripts>
 		<option tag="5" msgid="5121" />
 	</contextmenu>
 </definitions>

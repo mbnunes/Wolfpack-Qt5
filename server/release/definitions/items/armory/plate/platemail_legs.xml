@@ -21,7 +21,7 @@
 		<buyprice>218</buyprice>
 		<sellprice>109</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Platemail\Legs (N/S)</category>
 	</item>
 

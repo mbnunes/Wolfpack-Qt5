@@ -19,7 +19,7 @@
 		<durability><random min="50" max="81" /></durability>
 		<weight>12.0</weight>
 		<tag name="resname" value="iron" />
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Lance (N/S)</category>
 	</item>

@@ -16,7 +16,7 @@
 		<dye />
 		<durability><random min="20" max="25" /></durability>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 </definitions>

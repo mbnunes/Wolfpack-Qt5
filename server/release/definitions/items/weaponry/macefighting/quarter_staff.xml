@@ -17,7 +17,7 @@
 		<buyprice>22</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<type>1003</type>
 		<twohanded />
 		<category>Weapons\Staves\Quarter Staff (N/S)</category>

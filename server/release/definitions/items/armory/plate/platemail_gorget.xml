@@ -21,7 +21,7 @@
 		<buyprice>124</buyprice>
 		<sellprice>62</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Platemail\Gorget</category>
 	</item>
 

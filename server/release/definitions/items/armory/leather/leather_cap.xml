@@ -20,7 +20,7 @@
 		<buyprice>63</buyprice>
 		<sellprice>31</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Leather\Cap (N/S)</category>
 	</item>
 

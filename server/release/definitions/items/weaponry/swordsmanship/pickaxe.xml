@@ -21,7 +21,7 @@
 		<tag name="resname" value="iron" />
 		<tag name="remaining_uses" type="int" value="35" />
 		<type>1001</type>
-		<scripts>equipment,pickaxe</scripts>
+		<basescripts>equipment,pickaxe</basescripts>
 		<category>Weapons\Swords\Pickaxe (N/S)</category>
 		<category>Professions\Miner\Tools\Pickaxe (N/S)</category>
 	</item>

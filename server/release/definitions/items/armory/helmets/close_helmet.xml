@@ -22,7 +22,7 @@
 		<buyprice>145</buyprice>
 		<sellprice>72</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Helmets\Close Helm (N/S)</category>
 	</item>
 

@@ -30,6 +30,7 @@
 
 // Wolfpack Includes
 #include "uobject.h"
+#include "basedef.h"
 #include "defines.h"
 #include "network/uotxpackets.h"
 #include "singleton.h"
@@ -42,121 +43,6 @@
 // Forward Class declarations
 class ISerialization;
 class cUOSocket;
-
-/*
-	This class represents an item definition and it's
-	static properties.
-*/
-class cItemBaseDef : public cDefinable
-{
-	friend class cItemBaseDefs;
-protected:
-	// Our id
-	QCString id_;
-	float weight_;
-	unsigned int sellprice_;
-	unsigned int buyprice_;
-	unsigned short type_;
-	QCString bindmenu_;
-	unsigned char lightsource_;
-	unsigned int decaydelay_;
-	unsigned int flags_;
-
-	// Misc Properties
-	bool loaded;
-	void load();
-	void reset();
-
-	inline void setWaterSource( bool data )
-	{
-		if ( data )
-		{
-			flags_ |= 0x01;
-		}
-		else
-		{
-			flags_ &= ~0x01;
-		}
-	}
-public:
-	cItemBaseDef( const QCString& id );
-	~cItemBaseDef();
-
-	void processNode( const cElement* node );
-
-	inline const QCString& id() const
-	{
-		return id_;
-	}
-
-	inline unsigned int decaydelay()
-	{
-		load();
-		return decaydelay_;
-	}
-
-	inline float weight()
-	{
-		load();
-		return weight_;
-	}
-
-	inline unsigned int sellprice()
-	{
-		load();
-		return sellprice_;
-	}
-
-	inline unsigned int buyprice()
-	{
-		load();
-		return buyprice_;
-	}
-
-	inline unsigned short type()
-	{
-		load();
-		return type_;
-	}
-
-	inline const QCString& bindmenu()
-	{
-		load();
-		return bindmenu_;
-	}
-
-	inline unsigned char lightsource()
-	{
-		load();
-		return lightsource_;
-	}
-
-	inline bool isWaterSource()
-	{
-		load();
-		return ( flags_ & 0x01 ) != 0;
-	}
-};
-
-class cItemBaseDefs
-{
-protected:
-	typedef QMap<QCString, cItemBaseDef*> Container;
-	typedef Container::iterator Iterator;
-	Container definitions;
-public:
-	cItemBaseDefs();
-	~cItemBaseDefs();
-
-	// Get a base definition
-	// This is guaranteed to return a basedef. Even if uninitialized.
-	cItemBaseDef* get( const QCString& id );
-
-	// When reset is called, all loaded basedefs are unflagged.
-	void reset();
-};
-
-typedef SingletonHolder<cItemBaseDefs> ItemBaseDefs;
 
 /*
 	Notes for further memory footprint reduction:
@@ -179,6 +65,11 @@ private:
 	} // easier to debug, compiler should make it inline;
 
 public:
+	PyObject *callEvent(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false);
+	bool callEventHandler(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false);
+	bool canHandleEvent(ePythonEvent event);
+	bool hasScript(const QCString &name);
+
 	cItem();
 	cItem( const cItem& src ); // Copy constructor
 
@@ -304,6 +195,10 @@ public:
 	QCString baseid() const
 	{
 		return basedef_ ? basedef_->id() : 0;
+	}
+	inline cItemBaseDef *basedef() const
+	{
+		return basedef_;
 	}
 	inline void setBaseid( const QCString& id )
 	{

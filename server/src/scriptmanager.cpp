@@ -148,7 +148,7 @@ void cScriptManager::load()
 
 		cPythonScript* script = new cPythonScript;
 		scripts.replace( element->text().utf8(), script );
-		script->load( element->text() );
+		script->load( element->text().latin1() );
 		++loaded;
 	}
 	cComponent::load();

@@ -19,7 +19,7 @@
 		<durability><random min="30" max="35" /></durability>
 		<weight>9.0</weight>
 		<tag name="resname" value="iron" />
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<type>1004</type>
 		<category>Weapons\Maces\Hammer Pick (N/S)</category>
 	</item>

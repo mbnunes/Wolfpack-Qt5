@@ -309,6 +309,10 @@ public:
 	//	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual bool onCHLevelChange( uint level ); // Fired when player moving trough levels
 	virtual bool onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success );
+	PyObject *callEvent(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false);
+	bool callEventHandler(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false);
+	bool canHandleEvent(ePythonEvent event);
+	bool hasScript(const QCString &name);
 
 	// Combat
 	inline P_CHAR attackTarget() const
@@ -334,6 +338,11 @@ public:
 	inline QCString baseid() const
 	{
 		return basedef_ ? basedef_->id() : 0;
+	}
+
+	inline cCharBaseDef *basedef() const
+	{
+		return basedef_;
 	}
 
 	inline void setBaseid( const QCString& id )

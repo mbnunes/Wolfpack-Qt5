@@ -20,7 +20,7 @@
 		<weight>6.0</weight>
 		<tag name="resname" value="iron" />
 		<type>1001</type>
-		<scripts>equipment,blades</scripts>
+		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Scimitar (N/S)</category>
 	</item>
 

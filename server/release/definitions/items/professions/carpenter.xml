@@ -33,7 +33,7 @@
 		<id>0x19f4</id>
 		<category>Professions\Carpenter\Tools\Vise (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="19f8" inherit="19f4">
@@ -251,7 +251,7 @@
 		<id>0x1026</id>
 		<category>Professions\Carpenter\Tools\Chisels (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="1027" inherit="1026">
@@ -265,7 +265,7 @@
 		<sellprice>7</sellprice>
 		<category>Professions\Carpenter\Tools\Dovetail Saw (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="1029" inherit="1028">
@@ -279,7 +279,7 @@
 		<sellprice>14</sellprice>
 		<category>Professions\Carpenter\Tools\Hammer 1</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="102b" inherit="102a">
@@ -293,7 +293,7 @@
 		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Tools\Moulding Planes (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="102d" inherit="102c">
@@ -305,7 +305,7 @@
 		<id>0x102e</id>
 		<category>Professions\Carpenter\Tools\Nails (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="102f" inherit="102e">
@@ -319,7 +319,7 @@
 		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Tools\Jointing Plane (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="1031" inherit="1030">
@@ -333,7 +333,7 @@
 		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Tools\Smoothing Plane (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="1033" inherit="1032">
@@ -347,7 +347,7 @@
 		<sellprice>9</sellprice>
 		<category>Professions\Carpenter\Tools\Saw (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="1035" inherit="1034">
@@ -361,7 +361,7 @@
 		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Draw Knife</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="10e5">
@@ -370,7 +370,7 @@
 		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Tools\Froe</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="10e6">
@@ -379,7 +379,7 @@
 		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Tools\Inshave</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="10e7">
@@ -388,7 +388,7 @@
 		<sellprice>6</sellprice>
 		<category>Professions\Carpenter\Tools\Scorp</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,skills.carpentry</scripts>
+		<basescripts>equipment,skills.carpentry</basescripts>
 	</item>
 
 	<item id="1bd7">

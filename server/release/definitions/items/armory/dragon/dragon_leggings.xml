@@ -18,7 +18,7 @@
 		<smelt>16</smelt>
 		<weight>7.0</weight>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Dragon\Dragon Leggings 1</category>
 	</item>
 

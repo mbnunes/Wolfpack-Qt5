@@ -1038,19 +1038,14 @@ static PyObject* wpItem_callevent( wpItem* self, PyObject* args )
 		return 0;
 	}
 
-	if ( cPythonScript::canChainHandleEvent( ( ePythonEvent ) event, self->pItem->getScripts() ) )
-	{
-		bool result = cPythonScript::callChainedEventHandler( ( ePythonEvent ) event, self->pItem->getScripts(), eventargs );
+	PyObject *result = self->pItem->callEvent((ePythonEvent)event, eventargs);
 
-		if ( result )
-		{
-			Py_INCREF( Py_True );
-			return Py_True;
-		}
+	if (!result) {
+		result = Py_None;
+		Py_INCREF(result);
 	}
 
-	Py_INCREF( Py_False );
-	return Py_False;
+	return result;
 }
 
 /*
@@ -1198,7 +1193,16 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 	*/
 	else if ( !strcmp( "scripts", name ) )
 	{
-		QStringList events = QStringList::split( ",", self->pItem->scriptList() );
+		QStringList events = QStringList::split(",", self->pItem->scriptList());
+		if (self->pItem->basedef()) {
+			const QPtrList<cPythonScript> &list = self->pItem->basedef()->baseScripts();
+			QPtrList<cPythonScript>::const_iterator it(list.begin());
+			while (it != list.end()) {
+				events.append( (*it)->name() );
+				++it;
+			}
+		}
+
 		PyObject* list = PyList_New( events.count() );
 		for ( uint i = 0; i < events.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );

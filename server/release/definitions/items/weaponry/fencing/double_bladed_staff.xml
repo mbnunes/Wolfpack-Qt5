@@ -19,7 +19,7 @@
 		<durability><random min="30" max="40" /></durability>
 		<weight>7.0</weight>
 		<tag name="resname" value="iron" />
-		<scripts>equipment,blades</scripts>
+		<basescripts>equipment,blades</basescripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Double Bladed Staff (N/S)</category>
 	</item>

@@ -109,13 +109,14 @@ public:
 	// Event Management Methods
 	void clearScripts();
 	void addScript( cPythonScript * script, bool append = false );
-	void removeScript( const QString& Name );
-	bool hasScript( const QString& Name ) const;
+	void removeScript( const QCString &name );
+	virtual bool hasScript(const QCString &name);
+	
 	void freezeScriptChain();
 	void unfreezeScriptChain();
 	bool isScriptChainFrozen();
-	void setScriptList( const QString& scripts );
-	QString scriptList() const;
+	void setScriptList( const QCString &scripts );
+	QCString scriptList() const;
 	inline cPythonScript** getScripts()
 	{
 		return scriptChain;
@@ -233,6 +234,20 @@ public:
 	void processNode( const cElement* Tag );
 	stError* setProperty( const QString& name, const cVariant& value );
 	PyObject* getProperty( const QString& name );
+
+	// Call an event handler for this object and take both the normal 
+	// and the base script chain into account. This will also call the 
+	// global handler.
+	virtual PyObject *callEvent(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false) = 0;
+
+	// Call a python event handler and return true if any of the 
+	// events in the call chain returns an object that evaluates
+	// to true.
+	virtual bool callEventHandler(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false) = 0;
+
+	// Check if any of the scripts assigned to this object can handle the given event,
+	// this returns true even if there is a global handler for the event.
+	virtual bool canHandleEvent(ePythonEvent event) = 0;
 };
 #pragma pack()
 

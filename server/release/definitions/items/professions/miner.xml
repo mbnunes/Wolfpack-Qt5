@@ -339,7 +339,7 @@
 		<color>0x8b0</color>
 		<category>Professions\Miner\Ore\Merkite\Merkite Ore 1</category>
 		<tag name="resname" value="merkite" />
-		<scripts>ore</scripts>
+		<basescripts>ore</basescripts>
 		<type>1102</type>
 	</item>
 
@@ -355,7 +355,7 @@
 	<item id="19b7">
 		<id>0x19b7</id>
 		<category>Professions\Miner\Ore\Ore 1</category>
-		<scripts>ore</scripts>
+		<basescripts>ore</basescripts>
 		<type>1102</type>
 	</item>
 
@@ -468,7 +468,7 @@
 		<id>0x1bf2</id>
 		<category>Professions\Miner\Ingots\Iron Ingot (N/S)</category>
 		<tag name="resname" value="iron" />
-		<scripts>ingot</scripts>
+		<basescripts>ingot</basescripts>
 		<weight>1.0</weight>
 	</item>
 
@@ -534,7 +534,7 @@
 		<durability><random min="30" max="55" /></durability>
 		<tag name="remaining_uses" type="int" value="35" />
 		<decay/>
-		<scripts>equipment,pickaxe</scripts>
+		<basescripts>equipment,pickaxe</basescripts>
 		<category>Professions\Miner\Tools\Shovel (E/W)</category>
 	</item>
 

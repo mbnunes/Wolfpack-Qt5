@@ -61,121 +61,6 @@
 
 using namespace std;
 
-/*
-	cItemBaseDef and cItemBaseDefs
-*/
-cItemBaseDef::cItemBaseDef( const QCString& id )
-{
-	id_ = id;
-	reset();
-}
-
-cItemBaseDef::~cItemBaseDef()
-{
-}
-
-void cItemBaseDef::reset()
-{
-	loaded = false;
-	weight_ = 0.0f;
-	decaydelay_ = 0;
-	sellprice_ = 0;
-	buyprice_ = 0;
-	type_ = 0;
-	lightsource_ = 0;
-	flags_ = 0;
-}
-
-void cItemBaseDef::processNode( const cElement* node )
-{
-	if ( node->name() == "weight" )
-	{
-		weight_ = node->text().toFloat();
-	}
-	else if ( node->name() == "buyprice" )
-	{
-		buyprice_ = node->value().toUInt();
-	}
-	else if ( node->name() == "sellprice" )
-	{
-		sellprice_ = node->value().toUInt();
-	}
-	else if ( node->name() == "type" )
-	{
-		type_ = node->value().toUShort();
-	}
-	else if ( node->name() == "bindmenu" )
-	{
-		bindmenu_ = node->text();
-	}
-	else if ( node->name() == "lightsource" )
-	{
-		lightsource_ = node->value().toUShort();
-	}
-	else if ( node->name() == "decaydelay" )
-	{
-		decaydelay_ = node->value().toUInt();
-	}
-	else if ( node->name() == "watersource" )
-	{
-		setWaterSource( node->value().toUInt() != 0 );
-	}
-}
-
-// Load this definition from the scripts.
-void cItemBaseDef::load()
-{
-	if ( !loaded )
-	{
-		loaded = true;
-		const cElement* element = Definitions::instance()->getDefinition( WPDT_ITEM, id_ );
-
-		if ( !element )
-		{
-			Console::instance()->log( LOG_WARNING, QString( "Missing item definition '%1'.\n" ).arg( id_ ) );
-			return;
-		}
-
-		applyDefinition( element );
-	}
-}
-
-cItemBaseDef* cItemBaseDefs::get( const QCString& id )
-{
-	Iterator it = definitions.find( id );
-
-	if ( it == definitions.end() )
-	{
-		cItemBaseDef* def = new cItemBaseDef( id );
-		it = definitions.insert( id, def );
-	}
-
-	return it.data();
-}
-
-cItemBaseDefs::cItemBaseDefs()
-{
-}
-
-cItemBaseDefs::~cItemBaseDefs()
-{
-	Iterator it;
-	for ( it = definitions.begin(); it != definitions.end(); ++it )
-	{
-		delete it.data();
-	}
-	definitions.clear();
-}
-
-void cItemBaseDefs::reset()
-{
-	Iterator it;
-	for ( it = definitions.begin(); it != definitions.end(); ++it )
-	{
-		it.data()->reset();
-	}
-}
-
 /*****************************************************************************
  * cItem member functions
  *****************************************************************************/
@@ -687,45 +572,35 @@ void cItem::remove()
 	cUObject::remove();
 }
 
-bool cItem::onSingleClick( P_PLAYER Viewer )
-{
+bool cItem::onSingleClick( P_PLAYER Viewer ) {
 	bool result = false;
-
-	if ( scriptChain )
-	{
-		PyObject* args = Py_BuildValue( "O&O&", PyGetItemObject, this, PyGetCharObject, Viewer );
-		result = cPythonScript::callChainedEventHandler( EVENT_SINGLECLICK, scriptChain, args );
-		Py_DECREF( args );
+	if (canHandleEvent(EVENT_SINGLECLICK)) {
+		PyObject* args = Py_BuildValue("O&O&", PyGetItemObject, this, PyGetCharObject, Viewer);
+		result = callEventHandler(EVENT_SINGLECLICK, args);
+		Py_DECREF(args);
 	}
-
 	return result;
 }
 
 bool cItem::onDropOnItem( P_ITEM pItem )
 {
 	bool result = false;
-
-	if ( scriptChain )
-	{
+	if (canHandleEvent(EVENT_DROPONITEM)) {
 		PyObject* args = Py_BuildValue( "O&O&", PyGetItemObject, layer_ == 0x1E ? pItem : this, PyGetItemObject, layer_ == 0x1E ? this : pItem );
-		result = cPythonScript::callChainedEventHandler( EVENT_DROPONITEM, scriptChain, args );
-		Py_DECREF( args );
+		result = callEventHandler(EVENT_DROPONITEM, args);
+		Py_DECREF(args);
 	}
-
 	return result;
 }
 
 bool cItem::onDropOnGround( const Coord_cl& pos )
 {
 	bool result = false;
-
-	if ( scriptChain )
-	{
+	if (canHandleEvent(EVENT_DROPONGROUND)) {
 		PyObject* args = Py_BuildValue( "O&N", PyGetItemObject, this, PyGetCoordObject( pos ) );
-		result = cPythonScript::callChainedEventHandler( EVENT_DROPONGROUND, scriptChain, args );
-		Py_DECREF( args );
+		result = callEventHandler(EVENT_DROPONGROUND, args);
+		Py_DECREF(args);
 	}
-
 	return result;
 }
 
@@ -733,11 +608,11 @@ bool cItem::onPickup( P_CHAR pChar )
 {
 	bool result = false;
 
-	if ( scriptChain )
+	if (canHandleEvent(EVENT_PICKUP))
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
-		result = cPythonScript::callChainedEventHandler( EVENT_PICKUP, scriptChain, args );
-		Py_DECREF( args );
+		result = callEventHandler(EVENT_PICKUP, args);
+		Py_DECREF(args);
 	}
 
 	return result;
@@ -746,85 +621,65 @@ bool cItem::onPickup( P_CHAR pChar )
 bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;
-
-	if ( scriptChain )
-	{
+	if (canHandleEvent(EVENT_EQUIP)) {
 		PyObject* args = Py_BuildValue( "O&O&b", PyGetCharObject, pChar, PyGetItemObject, this, layer );
-		result = cPythonScript::callChainedEventHandler( EVENT_EQUIP, scriptChain, args );
-		Py_DECREF( args );
+		result = callEventHandler(EVENT_EQUIP, args);
+		Py_DECREF(args);
 	}
-
 	return result;
 }
 
 bool cItem::onUnequip( P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;
-
-	if ( scriptChain )
-	{
+	if (canHandleEvent(EVENT_UNEQUIP)) {
 		PyObject* args = Py_BuildValue( "O&O&b", PyGetCharObject, pChar, PyGetItemObject, this, layer );
-		result = cPythonScript::callChainedEventHandler( EVENT_UNEQUIP, scriptChain, args );
-		Py_DECREF( args );
+		result = callEventHandler(EVENT_UNEQUIP, args);
+		Py_DECREF(args);
 	}
-
 	return result;
 }
 
 bool cItem::onWearItem( P_PLAYER pPlayer, P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;
-
-	if ( scriptChain )
-	{
+	if (canHandleEvent(EVENT_WEARITEM)) {
 		PyObject* args = Py_BuildValue( "O&O&O&b", PyGetCharObject, pPlayer, PyGetCharObject, pChar, PyGetItemObject, this, layer );
-		result = cPythonScript::callChainedEventHandler( EVENT_WEARITEM, scriptChain, args );
-		Py_DECREF( args );
+		result = callEventHandler(EVENT_WEARITEM, args);
+		Py_DECREF(args);
 	}
-
 	return result;
 }
 
-bool cItem::onUse( P_CHAR pChar )
-{
+bool cItem::onUse(P_CHAR pChar) {
 	bool result = false;
-
-	if ( scriptChain )
-	{
+	if (canHandleEvent(EVENT_USE)) {
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
-		result = cPythonScript::callChainedEventHandler( EVENT_USE, scriptChain, args );
-		Py_DECREF( args );
+		result = callEventHandler(EVENT_USE, args);
+		Py_DECREF(args);
 	}
-
 	return result;
 }
 
-
-bool cItem::onCollide( P_CHAR pChar )
+bool cItem::onCollide(P_CHAR pChar)
 {
 	bool result = false;
-
-	if ( scriptChain )
-	{
+	if (canHandleEvent(EVENT_COLLIDE)) {
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
-		result = cPythonScript::callChainedEventHandler( EVENT_COLLIDE, scriptChain, args );
-		Py_DECREF( args );
+		result = callEventHandler(EVENT_COLLIDE, args);
+		Py_DECREF(args);
 	}
-
 	return result;
 }
 
 bool cItem::onDropOnChar( P_CHAR pChar )
 {
 	bool result = false;
-
-	if ( scriptChain )
-	{
+	if (canHandleEvent(EVENT_DROPONCHAR)) {
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
-		result = cPythonScript::callChainedEventHandler( EVENT_DROPONCHAR, scriptChain, args );
-		Py_DECREF( args );
+		result = callEventHandler(EVENT_DROPONCHAR, args);
+		Py_DECREF(args);
 	}
-
 	return result;
 }
 
@@ -2039,6 +1894,11 @@ PyObject* cItem::getProperty( const QString& name )
 	This property is inherited from the base id of this item.
 	*/
 	PY_PROPERTY( "watersource", isWaterSource() )
+	/*
+	\rproperty item.basescripts This is a comma separated list of scripts assigned to this item
+	via the baseid. They are called after the scripts assigned dynamically to the item.
+	*/
+	PY_PROPERTY( "basescripts", basedef_ ? basedef_->baseScriptList() : "" );
 
 	return cUObject::getProperty( name );
 }
@@ -2374,4 +2234,93 @@ void cItem::load( cBufferedReader& reader )
 	{
 		SectorMaps::instance()->add( this );
 	}
+}
+
+bool cItem::callEventHandler(ePythonEvent event, PyObject *args, bool ignoreErrors) {
+	PyObject *result = callEvent(event, args, ignoreErrors);
+
+	if (result) {
+		if (PyObject_IsTrue(result)) {
+			Py_DECREF(result);
+			return true;
+		} else {
+			Py_DECREF(result);
+		}
+	}
+	return false;
+}
+
+PyObject *cItem::callEvent(ePythonEvent event, PyObject *args, bool ignoreErrors) {
+	PyObject *result = 0;
+
+	if (scriptChain) {
+		result = cPythonScript::callChainedEvent(event, scriptChain, args);
+	
+		// Break if there has been a result already
+		if (result && PyObject_IsTrue(result)) {
+			return result;
+		}
+	}
+
+	// call the basescripts
+	if (basedef_) {
+		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
+		QPtrList<cPythonScript>::const_iterator it(list.begin());
+		for (; it != list.end(); ++it) {
+			result = (*it)->callEvent(event, args, ignoreErrors);
+
+			if (result && PyObject_IsTrue(result)) {
+				return result;
+			}
+		}
+	}
+
+	// check for a global handler
+	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
+
+	if (globalHook) {
+		result = globalHook->callEvent(event, args, ignoreErrors);
+	}
+
+	return result;
+}
+
+bool cItem::canHandleEvent(ePythonEvent event) {
+	// Is there a global event?
+	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
+	
+	if (globalHook) {
+		return true;
+	}
+
+	if (cPythonScript::canChainHandleEvent(event, scriptChain)) {
+		return true;
+	}
+
+	if (basedef_) {
+		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
+		QPtrList<cPythonScript>::const_iterator it(list.begin());
+		for (; it != list.end(); ++it) {
+			if ((*it)->canHandleEvent(event)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool cItem::hasScript( const QCString& name )
+{
+	if (basedef_) {
+		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
+		QPtrList<cPythonScript>::const_iterator it(list.begin());
+		for (; it != list.end(); ++it) {
+			if ((*it)->name() == name) {
+				return true;
+			}
+		}
+	}
+
+	return cUObject::hasScript(name);
 }

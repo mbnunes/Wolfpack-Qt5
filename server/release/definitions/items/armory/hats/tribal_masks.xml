@@ -16,7 +16,7 @@
 		<id>0x1549</id>
 		<weight>4.0</weight>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Tribal Mask Horned w/e -->
@@ -34,7 +34,7 @@
 		<id>0x154b</id>
 		<weight>4.0</weight>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Tribal Mask Red w/e -->

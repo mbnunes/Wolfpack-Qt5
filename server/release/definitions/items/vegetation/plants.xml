@@ -226,42 +226,42 @@
 		<id>0xC4F</id>
 		<nodecay />
 		<category>Vegetation\Plants\Cotton\Cotton 1</category>
-		<scripts>environment</scripts>
+		<basescripts>environment</basescripts>
 	</item>
 
 	<item id="c50">
 		<id>0xC50</id>
 		<nodecay />
 		<category>Vegetation\Plants\Cotton\Cotton 2</category>
-		<scripts>environment</scripts>
+		<basescripts>environment</basescripts>
 	</item>
 
 	<item id="c51">
 		<id>0xC51</id>
 		<nodecay />
 		<category>Vegetation\Plants\Cotton\Cotton 3</category>
-		<scripts>environment</scripts>
+		<basescripts>environment</basescripts>
 	</item>
 
 	<item id="c52">
 		<id>0xC52</id>
 		<nodecay />
 		<category>Vegetation\Plants\Cotton\Cotton 4</category>
-		<scripts>environment</scripts>
+		<basescripts>environment</basescripts>
 	</item>
 
 	<item id="c53">
 		<id>0xC53</id>
 		<nodecay />
 		<category>Vegetation\Plants\Cotton\Cotton 5</category>
-		<scripts>environment</scripts>
+		<basescripts>environment</basescripts>
 	</item>
 
 	<item id="c54">
 		<id>0xC54</id>
 		<nodecay />
 		<category>Vegetation\Plants\Cotton\Cotton 6</category>
-		<scripts>environment</scripts>
+		<basescripts>environment</basescripts>
 	</item>
 
 	<!-- Wheat -->

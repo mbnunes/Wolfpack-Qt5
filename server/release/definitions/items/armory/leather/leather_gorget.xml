@@ -20,7 +20,7 @@
 		<buyprice>74</buyprice>
 		<sellprice>37</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Leather\Gorget</category>
 	</item>
 

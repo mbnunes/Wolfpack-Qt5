@@ -16,6 +16,13 @@ Wolfpack 12.9.9 Beta (CVS)
 	- Backup functionality for the binary save driver.
 	- Binary backups can automatically be compressed using gzip.
 	- The number of backups kept can be limited.
+	- Allowed scripts to be attached to base definitions by using <basescripts>a,b,c</basescripts>.
+	  Those scripts are attached to objects by using their baseid property. If you change the <basescripts>
+	  tags in the definition, all objects using that definition will use the new scripts automatically.
+	- onDetach and onAttach are not called for those scripts.
+	- hasscript(a) will return true if a is in the basescripts.
+	- addscript now prepends a new script rather than appending it.
+	  
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes

@@ -22,7 +22,7 @@
 		<buyprice>127</buyprice>
 		<sellprice>63</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Helmets\Kabuto (N/S)</category>
 	</item>
 

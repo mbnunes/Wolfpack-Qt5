@@ -172,7 +172,7 @@
 		<value>120</value>
 		<category>Professions\Fisher\Tools\Fishing Pole (N/S)</category>
 		<tag name="remaining_uses" type="int" value="50" />
-		<scripts>skills.fishing</scripts>
+		<basescripts>skills.fishing</basescripts>
 	</item>
 
 	<item id="dc0" inherit="dbf">

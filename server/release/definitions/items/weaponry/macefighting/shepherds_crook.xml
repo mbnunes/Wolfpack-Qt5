@@ -17,7 +17,7 @@
 		<buyprice>18</buyprice>
 		<durability><random min="30" max="50" /></durability>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<type>1003</type>
 		<twohanded />
 		<category>Weapons\Staves\Crook (N/S)</category>

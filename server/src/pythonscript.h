@@ -94,7 +94,7 @@ class cAccount;
 class cPythonScript
 {
 protected:
-	QString name_; // Important!
+	QCString name_; // Important!
 	bool loaded;
 	PyObject* codeModule; // This object stores the compiled Python Module
 	PyObject* events[EVENT_COUNT];
@@ -104,16 +104,16 @@ public:
 	~cPythonScript();
 
 	// We need an identification value for the scripts
-	void setName( const QString& value )
+	void setName( const QCString& value )
 	{
 		name_ = value;
 	}
-	QString name() const
+	const QCString &name() const
 	{
 		return name_;
 	}
 
-	bool load( const QString& name );
+	bool load( const QCString& name );
 	void unload( void );
 	bool isLoaded() const;
 

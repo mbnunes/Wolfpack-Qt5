@@ -20,7 +20,7 @@
 		<weight>8.0</weight>
 		<tag name="resname" value="iron" />
 		<type>1001</type>
-		<scripts>equipment,blades</scripts>
+		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Cutlass (N/S)</category>
 	</item>
 

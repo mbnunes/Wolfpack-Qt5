@@ -156,7 +156,7 @@ void cUObject::load( char** result, Q_UINT16& offset )
 	pos_.y = atoi( result[offset++] );
 	pos_.z = atoi( result[offset++] );
 	pos_.map = atoi( result[offset++] );
-	QString scriptList = ( result[offset] == 0 ) ? QString::null : QString( result[offset] );
+	QCString scriptList = result[offset];
 	offset++;
 	bool havetags_ = atoi( result[offset++] );
 
@@ -226,7 +226,7 @@ void cUObject::save( cBufferedWriter& writer, unsigned int /*version*/ )
 	writer.writeShort( pos_.y );
 	writer.writeByte( pos_.z );
 	writer.writeByte( pos_.map );
-	writer.writeUtf8( scriptList() );
+	writer.writeAscii( scriptList() );
 }
 
 void cUObject::load( cBufferedReader& reader, unsigned int /*version*/ )
@@ -238,7 +238,7 @@ void cUObject::load( cBufferedReader& reader, unsigned int /*version*/ )
 	pos_.y = reader.readShort();
 	pos_.z = reader.readByte();
 	pos_.map = reader.readByte();
-	setScriptList( reader.readUtf8() );
+	setScriptList( reader.readAscii() );
 }
 
 /*!
@@ -311,7 +311,7 @@ void cUObject::clearScripts()
 	Checks if the object has a specific event \a name
 	\sa addEvent
 */
-bool cUObject::hasScript( const QString& name ) const
+bool cUObject::hasScript( const QCString &name )
 {
 	if ( scriptChain )
 	{
@@ -384,7 +384,7 @@ void cUObject::addScript( cPythonScript* event, bool append )
 /*!
 	Removes an event handler from the object
 */
-void cUObject::removeScript( const QString& name )
+void cUObject::removeScript( const QCString& name )
 {
 	if ( isScriptChainFrozen() )
 	{
@@ -519,7 +519,7 @@ void cUObject::processNode( const cElement* Tag )
 	// <scripts>a,b,c</scripts>
 	else if ( TagName == "scripts" )
 	{
-		setScriptList( Value );
+		setScriptList( Value.latin1() );
 	}
 	else
 	{
@@ -913,35 +913,23 @@ void cUObject::resendTooltip()
  ****************************/
 bool cUObject::onCreate( const QString& definition )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_CREATE );
 	bool result = false;
-
-	if ( scriptChain || global )
-	{
-		PyObject* args = Py_BuildValue( "(Ns)", getPyObject(), definition.latin1() );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_CREATE, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_CREATE, args );
-
+	if (canHandleEvent(EVENT_CREATE)) {
+		PyObject* args = Py_BuildValue("(Ns)", getPyObject(), definition.latin1());
+		result = callEventHandler(EVENT_CREATE, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 bool cUObject::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 	bool result = false;
-
-	if ( scriptChain )
-	{
-		PyObject* args = Py_BuildValue( "NNN", PyGetCharObject( sender ), getPyObject(), PyGetTooltipObject( tooltip ) );
-		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
+	if (canHandleEvent(EVENT_SHOWTOOLTIP)) {
+		PyObject* args = Py_BuildValue( "(NNN)", PyGetCharObject( sender ), getPyObject(), PyGetTooltipObject( tooltip ) );
+		result = callEventHandler(EVENT_SHOWTOOLTIP, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
@@ -974,7 +962,7 @@ void cUObject::freezeScriptChain()
 	unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
 	for ( unsigned int i = 1; i <= count; ++i )
 	{
-		QCString* name = new QCString( scriptChain[i]->name().latin1() );
+		QCString* name = new QCString( scriptChain[i]->name() );
 		scriptChain[i] = reinterpret_cast<cPythonScript*>( name );
 	}
 	scriptChain[0] = reinterpret_cast<cPythonScript*>( count | 0x80000000 );
@@ -1022,14 +1010,14 @@ bool cUObject::isScriptChainFrozen()
 	return ( count & 0x80000000 ) != 0;
 }
 
-QString cUObject::scriptList() const
+QCString cUObject::scriptList() const
 {
 	if ( !scriptChain )
 	{
-		return QString::null;
+		return QCString();
 	}
 
-	QString result;
+	QCString result;
 	unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
 	for ( unsigned int i = 1; i <= count; ++i )
 	{
@@ -1047,7 +1035,7 @@ QString cUObject::scriptList() const
 	return result;
 }
 
-void cUObject::setScriptList( const QString& eventlist )
+void cUObject::setScriptList( const QCString& eventlist )
 {
 	if ( isScriptChainFrozen() )
 	{
@@ -1093,3 +1081,4 @@ void cUObject::save(cBufferedWriter& writer) {
 	// Save tags for this object
 	tags_.save( serial_, writer );
 }
+

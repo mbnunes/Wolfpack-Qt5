@@ -13,25 +13,25 @@
 	<item id="e20">
 		<id>0xe20</id>
 		<category>Professions\Healer\Bloody Bandages 2</category>
-		<scripts>bandages</scripts>
+		<basescripts>bandages</basescripts>
 	</item>
 
 	<item id="e21">
 		<id>0xe21</id>
 		<category>Professions\Healer\Clean Bandages 2</category>
-		<scripts>bandages</scripts>
+		<basescripts>bandages</basescripts>
 	</item>
 
 	<item id="e22">
 		<id>0xe22</id>
 		<category>Professions\Healer\Bloody Bandages 1</category>
-		<scripts>bandages</scripts>
+		<basescripts>bandages</basescripts>
 	</item>
 
 	<item id="ee9">
 		<id>0xee9</id>
 		<category>Professions\Healer\Clean Bandages 1</category>
-		<scripts>bandages</scripts>
+		<basescripts>bandages</basescripts>
 	</item>
 
 	<item id="e23">

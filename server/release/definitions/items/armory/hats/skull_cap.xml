@@ -13,7 +13,7 @@
 		<sellprice>6</sellprice>
 		<weight>1.0</weight>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Skullcap w/e -->

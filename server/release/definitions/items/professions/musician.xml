@@ -78,7 +78,7 @@
 		<sellprice>25</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Drum</category>
-		<scripts>equipment,environment</scripts>
+		<basescripts>equipment,environment</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -88,7 +88,7 @@
 		<decay/>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Tambourine</category>
-		<scripts>equipment,environment</scripts>
+		<basescripts>equipment,environment</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -100,7 +100,7 @@
 		<sellprice>30</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Fancy Tambourine</category>
-		<scripts>equipment,environment</scripts>
+		<basescripts>equipment,environment</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -112,7 +112,7 @@
 		<sellprice>45</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Standing Harp</category>
-		<scripts>equipment,environment</scripts>
+		<basescripts>equipment,environment</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -124,7 +124,7 @@
 		<sellprice>15</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Harp</category>
-		<scripts>equipment,environment</scripts>
+		<basescripts>equipment,environment</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -136,7 +136,7 @@
 		<sellprice>20</sellprice>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Lute (N/S)</category>
-		<scripts>equipment,environment</scripts>
+		<basescripts>equipment,environment</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 
@@ -146,7 +146,7 @@
 		<decay/>
 		<value>25</value>
 		<category>Professions\Musician\Instruments\Lute (W/E)</category>
-		<scripts>equipment,environment</scripts>
+		<basescripts>equipment,environment</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
 

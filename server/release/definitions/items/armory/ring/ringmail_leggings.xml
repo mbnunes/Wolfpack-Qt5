@@ -21,7 +21,7 @@
 		<buyprice>147</buyprice>
 		<sellprice>73</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Ringmail\Leggings (N/S)</category>
 	</item>
 

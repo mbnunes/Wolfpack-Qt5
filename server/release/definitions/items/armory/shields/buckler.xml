@@ -21,7 +21,7 @@
 		<buyprice>66</buyprice>
 		<sellprice>33</sellprice>
 		<type>1008</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Shields\Buckler</category>
 	</item>
 

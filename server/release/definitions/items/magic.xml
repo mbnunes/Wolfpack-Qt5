@@ -20,7 +20,7 @@
 	<item id="moongate">
 		<id>0xf6c</id>
 		<nodecay />
-		<scripts>moongate</scripts>
+		<basescripts>moongate</basescripts>
 		<category>Misc\Moongates\Blue Moongate</category>
 	</item>
 

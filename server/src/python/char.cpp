@@ -2297,19 +2297,14 @@ static PyObject* wpChar_callevent( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	if ( cPythonScript::canChainHandleEvent( ( ePythonEvent ) event, self->pChar->getScripts() ) )
-	{
-		bool result = cPythonScript::callChainedEventHandler( ( ePythonEvent ) event, self->pChar->getScripts(), eventargs );
+	PyObject *result = self->pChar->callEvent((ePythonEvent)event, eventargs);
 
-		if ( result )
-		{
-			Py_INCREF( Py_True );
-			return Py_True;
-		}
+	if (!result) {
+		result = Py_None;
+		Py_INCREF(result);
 	}
 
-	Py_INCREF( Py_False );
-	return Py_False;
+	return result;
 }
 
 static PyMethodDef wpCharMethods[] =
@@ -2646,6 +2641,14 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 	else if ( !strcmp( "scripts", name ) )
 	{
 		QStringList scripts = QStringList::split( ",", self->pChar->scriptList() );
+		if (self->pChar->basedef()) {
+			const QPtrList<cPythonScript> &list = self->pChar->basedef()->baseScripts();
+			QPtrList<cPythonScript>::const_iterator it(list.begin());
+			while (it != list.end()) {
+				scripts.append( (*it)->name() );
+				++it;
+			}
+		}
 		PyObject* list = PyList_New( scripts.count() );
 		for ( uint i = 0; i < scripts.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( scripts[i].latin1() ) );

@@ -20,7 +20,7 @@
 		<weight>12.0</weight>
 		<tag name="resname" value="iron" />
 		<type>1001</type>
-		<scripts>equipment,blades</scripts>
+		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Bladed Staff (N/S)</category>
 	</item>
 

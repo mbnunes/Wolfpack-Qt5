@@ -400,7 +400,7 @@
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
 		<weight>0.4</weight>
-		<scripts>cooking</scripts>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Skull Mugs -->
@@ -455,21 +455,21 @@
 		<id>0x103f</id>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Cookie Mix</category>
-		<scripts>cooking</scripts>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<item id="1042">
 		<id>0x1042</id>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Unbaked Pie</category>
-		<scripts>cooking</scripts>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<item id="1083">
 		<id>0x1083</id>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Unbaked Pizza</category>
-		<scripts>cooking</scripts>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<item id="15f8">
@@ -520,7 +520,7 @@
 		<sellprice>2</sellprice>
 		<weight>0.2</weight>
 		<category>Professions\Cook\Supplies\Raw Leg of Lamb</category>
-		<scripts>cooking</scripts>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<!-- Raw Chicken Leg -->
@@ -530,7 +530,7 @@
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
 		<category>Professions\Cook\Supplies\Raw Chicken Leg</category>
-		<scripts>cooking</scripts>
+		<basescripts>cooking</basescripts>
 	</item>
 
 	<item id="10e8">

@@ -20,7 +20,7 @@
 		<buyprice>116</buyprice>
 		<sellprice>58</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Leather\Female Leather Armor (N/S)</category>
 	</item>
 

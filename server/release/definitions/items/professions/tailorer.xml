@@ -235,32 +235,32 @@
 	<item id="df8">
 		<id>0xdf8</id>
 		<category>Professions\Tailorer\Resources\Pile of Wool 1</category>
-		<scripts>wool</scripts>
+		<basescripts>wool</basescripts>
 	</item>
 
 	<item id="101f">
 		<id>0x101f</id>
 		<category>Professions\Tailorer\Resources\Pile of Wool 2</category>
-		<scripts>wool</scripts>
+		<basescripts>wool</basescripts>
 	</item>
 
 	<!-- Ball of Yarn -->
 	<item id="e1d">
 		<id>0xe1d</id>
 		<category>Professions\Tailorer\Resources\Ball of Yarn 1</category>
-		<scripts>yarn</scripts>
+		<basescripts>yarn</basescripts>
 	</item>
 
 	<item id="e1e">
 		<id>0xe1e</id>
 		<category>Professions\Tailorer\Resources\Ball of Yarn 2</category>
-		<scripts>yarn</scripts>
+		<basescripts>yarn</basescripts>
 	</item>
 
 	<item id="e1f">
 		<id>0xe1f</id>
 		<category>Professions\Tailorer\Resources\Ball of Yarn 3</category>
-		<scripts>yarn</scripts>
+		<basescripts>yarn</basescripts>
 	</item>
 
 	<!-- Bolt of Cloth -->
@@ -308,13 +308,13 @@
 		<id>0xf9d</id>
 		<category>Professions\Tailorer\Sewing Kit</category>
 		<tag name="remaining_uses" type="int" value="35" />
-    <scripts>skills.tailoring,equipment</scripts>
+    <basescripts>skills.tailoring,equipment</basescripts>
 	</item>
 
 	<item id="f9e">
 		<id>0xf9e</id>
 		<category>Professions\Tailorer\Scissors (N/S)</category>
-		<scripts>scissors</scripts>
+		<basescripts>scissors</basescripts>
 	</item>
 
 	<item id="f9f">
@@ -326,26 +326,26 @@
 	<item id="fa0">
 		<id>0xfa0</id>
 		<category>Professions\Tailorer\Resources\Spool of Thread (N/S)</category>
-		<scripts>yarn</scripts>
+		<basescripts>yarn</basescripts>
 	</item>
 
 	<item id="fa1">
 		<id>0xfa1</id>
 		<category>Professions\Tailorer\Resources\Spool of Thread (W/E)</category>
-		<scripts>yarn</scripts>
+		<basescripts>yarn</basescripts>
 	</item>
 
 	<item id="fa9">
 		<id>0xfa9</id>
 		<category>Professions\Tailorer\Dyes</category>
 		<tag name="remaining_uses" type="int" value="10" />
-    <scripts>dyes</scripts>
+    <basescripts>dyes</basescripts>
 	</item>
 
 	<item id="fab">
 		<id>0xfab</id>
 		<category>Professions\Tailorer\Dying Tub</category>
-		<scripts>environment</scripts>
+		<basescripts>environment</basescripts>
 	</item>
 
 	<item id="1015">

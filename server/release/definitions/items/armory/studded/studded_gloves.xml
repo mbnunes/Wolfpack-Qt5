@@ -20,7 +20,7 @@
 		<buyprice>79</buyprice>
 		<sellprice>39</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Studded Leather\Gloves (N/S)</category>
 	</item>
 

@@ -13,7 +13,7 @@
 		<id>0x2305</id>
 		<category>Clothes\Accessories\Flower Garland (N/S)</category>
 		<weight>1.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="2306" inherit="2305">
@@ -27,7 +27,7 @@
 		<id>0x230d</id>
 		<category>Clothes\Torso\Gilded Dress (W/E)</category>
 		<weight>3.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="230e" inherit="230d">
@@ -41,7 +41,7 @@
 		<id>0x2309</id>
 		<category>Clothes\Accessories\Fur Cape (W/E)</category>
 		<weight>4.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="230a" inherit="2309">
@@ -55,7 +55,7 @@
 		<id>0x230b</id>
 		<category>Clothes\Accessories\Fur Sarong (W/E)</category>
 		<weight>3.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="230c" inherit="230b">
@@ -69,7 +69,7 @@
 		<id>0x230F</id>
 		<category>Clothes\Torso\Formal Shirt (W/E)</category>
 		<weight>1.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="2310" inherit="230f">
@@ -87,7 +87,7 @@
 		<buyprice>43</buyprice>
 		<sellprice>21</sellprice>
 		<weight>5.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Cloak w/e-->
@@ -104,7 +104,7 @@
 		<sellprice>15</sellprice>
 		<weight>1.0</weight>
 		<category>Clothes\Accessories\Beads</category>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Skirt w/e -->
@@ -116,7 +116,7 @@
 		<buyprice>33</buyprice>
 		<sellprice>16</sellprice>
 		<weight>4.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Skirt n/s -->
@@ -135,7 +135,7 @@
 		<buyprice>37</buyprice>
 		<sellprice>18</sellprice>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Plain Shirt w/e -->
@@ -154,7 +154,7 @@
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Short Pants w/e -->
@@ -188,7 +188,7 @@
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Kilt w/e -->
@@ -207,7 +207,7 @@
 		<buyprice>34</buyprice>
 		<sellprice>17</sellprice>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Long Pants w/e -->
@@ -225,7 +225,7 @@
 		<buyprice>26</buyprice>
 		<sellprice>13</sellprice>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Half Apron w/e -->
@@ -243,7 +243,7 @@
 		<buyprice>26</buyprice>
 		<sellprice>13</sellprice>
 		<weight>4.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Full Apron w/e -->
@@ -259,7 +259,7 @@
 		<id>0x1541</id>
 		<color><random list="COLORS_RANDOM" /></color>
 		<dye />
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Body Sash w/e -->
@@ -276,7 +276,7 @@
 		<buyprice>38</buyprice>
 		<sellprice>19</sellprice>
 		<weight>1.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Bracelet -->
@@ -286,7 +286,7 @@
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
 		<weight>1</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Earrings -->
@@ -296,7 +296,7 @@
 		<buyprice>38</buyprice>
 		<sellprice>19</sellprice>
 		<weight>1.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Necklace -->
@@ -306,7 +306,7 @@
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
 		<weight>1.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Necklace -->
@@ -316,7 +316,7 @@
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
 		<weight>1.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Ring -->
@@ -326,43 +326,43 @@
 		<buyprice>38</buyprice>
 		<sellprice>19</sellprice>
 		<weight>1.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f05">
 		<id>0x1f05</id>
 		<category>Clothes\Accessories\Bead Necklace</category>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f06">
 		<id>0x1f06</id>
 		<category>Clothes\Accessories\Bracelet 2</category>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f07">
 		<id>0x1f07</id>
 		<category>Clothes\Accessories\Earrings 2</category>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f08">
 		<id>0x1f08</id>
 		<category>Clothes\Accessories\Necklace 4</category>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f09">
 		<id>0x1f09</id>
 		<category>Clothes\Accessories\Ring 2</category>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f0a">
 		<id>0x1f0a</id>
 		<category>Clothes\Accessories\Necklace 5</category>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Boots n/s -->
@@ -373,7 +373,7 @@
 		<buyprice>45</buyprice>
 		<sellprice>22</sellprice>
 		<weight>3.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Boots w/e -->
@@ -390,7 +390,7 @@
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
 		<weight>1.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Sandals w/e -->
@@ -405,7 +405,7 @@
 		<category>Clothes\Footwear\Fur Boots (W/E)</category>
 		<id>0x2307</id>
 		<weight>3.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="2308" inherit="2307">
@@ -422,7 +422,7 @@
 		<buyprice>27</buyprice>
 		<sellprice>13</sellprice>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Shoes (w/e)-->
@@ -440,7 +440,7 @@
 		<buyprice>56</buyprice>
 		<sellprice>28</sellprice>
 		<weight>4.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Thigh Boots (w/e) -->
@@ -459,7 +459,7 @@
 		<buyprice>55</buyprice>
 		<sellprice>27</sellprice>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Fancy Shirt w/e -->
@@ -478,7 +478,7 @@
 		<buyprice>25</buyprice>
 		<sellprice>12</sellprice>
 		<weight>3.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Fancy Dress n/s -->
@@ -497,7 +497,7 @@
 		<buyprice>56</buyprice>
 		<sellprice>28</sellprice>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Plain Dress w/e -->
@@ -516,7 +516,7 @@
 		<buyprice>68</buyprice>
 		<sellprice>34</sellprice>
 		<weight>3.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Robe w/e -->
@@ -534,7 +534,7 @@
 		<buyprice>51</buyprice>
 		<sellprice>25</sellprice>
 		<weight>4.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Jester Suit w/e -->
@@ -553,7 +553,7 @@
 		<buyprice>33</buyprice>
 		<sellprice>16</sellprice>
 		<weight>5.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Tunic w/e -->
@@ -572,7 +572,7 @@
 		<buyprice>25</buyprice>
 		<sellprice>12</sellprice>
 		<weight>2.0</weight>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Doublet w/e -->
@@ -588,7 +588,7 @@
 		<id>0x1ffd</id>
 		<dye />
 		<color><random list="COLORS_RANDOM" /></color>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Surcoat w/e -->

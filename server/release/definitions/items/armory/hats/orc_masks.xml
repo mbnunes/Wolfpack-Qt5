@@ -16,7 +16,7 @@
 		<category>Armor\Headwear\Orc Mask (N/S)</category>
 		<weight>4.0</weight>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 	</item>
 
 	<!-- Orc Mask 1 w/e -->

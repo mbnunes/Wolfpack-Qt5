@@ -20,7 +20,7 @@
 		<weight>4.0</weight>
 		<tag name="resname" value="iron" />
 		<tag name="remaining_uses" type="int" value="35" />
-		<scripts>equipment,blades</scripts>
+		<basescripts>equipment,blades</basescripts>
 		<type>1002</type>
 		<category>Weapons\Axes\Battle Axe (N/S)</category>
 	</item>

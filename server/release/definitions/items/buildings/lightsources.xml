@@ -13,7 +13,7 @@
 	<item id="9fb">
 		<id>0x9fb</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -28,7 +28,7 @@
 	<item id="9fd">
 		<id>0x9fd</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -36,7 +36,7 @@
 	<item id="a00">
 		<id>0xa00</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Sconce (N/S) (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -51,7 +51,7 @@
 	<item id="a02">
 		<id>0xa02</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -59,7 +59,7 @@
 	<item id="a05">
 		<id>0xa05</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Torch (W/E) (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -67,7 +67,7 @@
 	<item id="a06">
 		<id>0xa06</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Torch (W/E) (Empty)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -75,7 +75,7 @@
 	<item id="a07">
 		<id>0xa07</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Torch (W/E) (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -83,21 +83,21 @@
 	<item id="a08">
 		<id>0xa08</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a09">
 		<id>0xa09</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a0a">
 		<id>0xa0a</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Torch (N/S) (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -105,7 +105,7 @@
 	<item id="a0b">
 		<id>0xa0b</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Torch (N/S) (Empty)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -113,7 +113,7 @@
 	<item id="a0c">
 		<id>0xa0c</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Wall Torch (N/S) (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -121,14 +121,14 @@
 	<item id="a0d">
 		<id>0xa0d</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a0e">
 		<id>0xa0e</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
@@ -136,7 +136,7 @@
 	<item id="a18">
 		<id>0xa18</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Hanging Lantern 1 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -144,7 +144,7 @@
 	<item id="a15">
 		<id>0xa15</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Hanging Lantern 1 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -152,21 +152,21 @@
 	<item id="a16">
 		<id>0xa16</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a17">
 		<id>0xa17</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a1d">
 		<id>0xa1d</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Hanging Lantern 2 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -174,7 +174,7 @@
 	<item id="a1a">
 		<id>0xa1a</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Hanging Lantern 2 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -182,14 +182,14 @@
 	<item id="a1b">
 		<id>0xa1b</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a1c">
 		<id>0xa1c</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
@@ -208,7 +208,7 @@
 	<item id="a25">
 		<id>0xa25</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lantern (Off)</category>
 		<lightsource>29</lightsource>
 	</item>
@@ -216,7 +216,7 @@
 	<item id="a22">
 		<id>0xa22</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lantern (On)</category>
 		<lightsource>29</lightsource>
 	</item>
@@ -224,7 +224,7 @@
 	<item id="a28">
 		<id>0xa28</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 1 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -232,7 +232,7 @@
 	<item id="a0f">
 		<id>0xa0f</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 1 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -252,7 +252,7 @@
 	<item id="a26">
 		<id>0xa26</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 2 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -260,7 +260,7 @@
 	<item id="b1a">
 		<id>0xb1a</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 2 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -268,21 +268,21 @@
 	<item id="b1b">
 		<id>0xb1b</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
 	<item id="b1c">
 		<id>0xb1c</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>2</lightsource>
 	</item>
 
 	<item id="a27">
 		<id>0xa27</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Small Candelabra (Off)</category>
 		<lightsource>1</lightsource>
 		<weight>3.0</weight>
@@ -291,7 +291,7 @@
 	<item id="b1d">
 		<id>0xb1d</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Small Candelabra (On)</category>
 		<lightsource>1</lightsource>
 		<weight>3.0</weight>
@@ -300,7 +300,7 @@
 	<item id="b1e">
 		<id>0xb1e</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>1</lightsource>
 		<weight>3.0</weight>
 	</item>
@@ -308,7 +308,7 @@
 	<item id="b1f">
 		<id>0xb1f</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<lightsource>1</lightsource>
 		<weight>3.0</weight>
 	</item>
@@ -316,7 +316,7 @@
 	<item id="a29">
 		<id>0xa29</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Big Candlabra (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -324,7 +324,7 @@
 	<item id="b26">
 		<id>0xb26</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Big Candlabra (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -338,7 +338,7 @@
 	<item id="b21">
 		<id>0xb21</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 1 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -346,7 +346,7 @@
 	<item id="b20">
 		<id>0xb20</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 1 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -354,7 +354,7 @@
 	<item id="b22">
 		<id>0xb22</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 2 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -362,7 +362,7 @@
 	<item id="b23">
 		<id>0xb23</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 2 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -370,7 +370,7 @@
 	<item id="b24">
 		<id>0xb24</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 3 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -378,7 +378,7 @@
 	<item id="b25">
 		<id>0xb25</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 3 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -420,7 +420,7 @@
 	<item id="142c">
 		<id>0x142c</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 3 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -428,7 +428,7 @@
 	<item id="142f">
 		<id>0x142f</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 3 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -436,7 +436,7 @@
 	<item id="1430">
 		<id>0x1430</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 4 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -444,7 +444,7 @@
 	<item id="1433">
 		<id>0x1433</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 4 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -452,7 +452,7 @@
 	<item id="1434">
 		<id>0x1434</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 5 (On)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -460,7 +460,7 @@
 	<item id="1437">
 		<id>0x1437</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 5 (Off)</category>
 		<lightsource>2</lightsource>
 	</item>
@@ -469,14 +469,14 @@
 	<item id="1853">
 		<id>0x1853</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Skullcandle (W/E) (Off)</category>
 	</item>
 
 	<item id="1854">
 		<id>0x1854</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Skullcandle 1 (W/E) (On)</category>
 	</item>
 
@@ -495,14 +495,14 @@
 	<item id="1857">
 		<id>0x1857</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Skullcandle 1 (N/S) (Off)</category>
 	</item>
 
 	<item id="1858">
 		<id>0x1858</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Skullcandle 1 (N/S) (On)</category>
 	</item>
 
@@ -522,7 +522,7 @@
 	<item id="a12">
 		<id>0xa12</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Torch (On)</category>
 	</item>
 
@@ -539,14 +539,14 @@
 	<item id="f64">
 		<id>0xf64</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Torch (W/E) (Off)</category>
 	</item>
 
 	<item id="f6b">
 		<id>0xf6b</id>
 		<nodecay />
-		<scripts>lightsource</scripts>
+		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Torch (N/S) (Off)</category>
 	</item>
 

@@ -21,7 +21,7 @@
 		<buyprice>130</buyprice>
 		<sellprice>65</sellprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Chainmail\Coif NS</category>
 	</item>
 

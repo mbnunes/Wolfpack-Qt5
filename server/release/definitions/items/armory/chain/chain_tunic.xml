@@ -20,7 +20,7 @@
 		<weight>7.0</weight>
 		<buyprice>103</buyprice>
 		<type>1009</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Chainmail\Tunic NS</category>
 	</item>
 

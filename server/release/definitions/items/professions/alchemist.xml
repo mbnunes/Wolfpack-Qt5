@@ -29,7 +29,7 @@
 		<id>0xe27</id>
 		<name>hair dye</name>
 		<category>Professions\Alchemist\Hair Dye 1</category>
-		<scripts>environment</scripts>
+		<basescripts>environment</basescripts>
 	</item>
 
 	<item id="e28">
@@ -141,7 +141,7 @@
 		<id>0xeff</id>
 		<name>hair dye</name>
 		<category>Professions\Alchemist\Hair Dye 2</category>
-		<scripts>environment</scripts>
+		<basescripts>environment</basescripts>
 	</item>
 
 	<item id="f00">
@@ -494,7 +494,7 @@
 		<category>Professions\Alchemist\Mortar &amp; Pestle</category>
 		<tag name="remaining_uses" type="int" value="50" />
 		<type>1107</type>
-		<scripts>equipment,skills.alchemy</scripts>
+		<basescripts>equipment,skills.alchemy</basescripts>
 	</item>
 
 	<item id="f0e">
@@ -511,7 +511,7 @@
 		<tag name="potiontype" value="0" type="int" />
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
-		<scripts>potions</scripts>
+		<basescripts>potions</basescripts>
 		<weight>0.5</weight>
 	</item>
 
@@ -520,7 +520,7 @@
 		<id>0xf07</id>
 		<category>Professions\Alchemist\Potions\Orange Potion</category>
 		<tag name="potiontype" value="4,6" type="int" />
-		<scripts>potions</scripts>
+		<basescripts>potions</basescripts>
 		<weight>0.5</weight>
 	</item>
 
@@ -529,7 +529,7 @@
 		<id>0xf08</id>
 		<category>Professions\Alchemist\Potions\Blue Potion</category>
 		<tag name="potiontype" value="7,8" type="int" />
-		<scripts>potions</scripts>
+		<basescripts>potions</basescripts>
 		<weight>0.5</weight>
 	</item>
 
@@ -538,7 +538,7 @@
 		<id>0xf09</id>
 		<category>Professions\Alchemist\Potions\White Potion</category>
 		<tag name="potiontype" value="9,10" type="int" />
-		<scripts>potions</scripts>
+		<basescripts>potions</basescripts>
 		<weight>0.5</weight>
 	</item>
 
@@ -548,7 +548,7 @@
 		<category>Professions\Alchemist\Potions\Green Potion</category>
 		<tag name="potiontype" value="14,16" type="int" />
 		<!-- Lesser to greater, we don't want people buying deadly. -->
-		<scripts>potions</scripts>
+		<basescripts>potions</basescripts>
 		<weight>0.5</weight>
 	</item>
 
@@ -557,7 +557,7 @@
 		<id>0xf0b</id>
 		<category>Professions\Alchemist\Potions\Red Potion</category>
 		<tag name="potiontype" value="18,19" type="int" />
-		<scripts>potions</scripts>
+		<basescripts>potions</basescripts>
 		<weight>0.5</weight>
 	</item>
 
@@ -566,7 +566,7 @@
 		<id>0xf0c</id>
 		<category>Professions\Alchemist\Potions\Yellow Potion</category>
 		<tag name="potiontype" value="1,3" type="int" />
-		<scripts>potions</scripts>
+		<basescripts>potions</basescripts>
 		<weight>0.5</weight>
 	</item>
 
@@ -576,7 +576,7 @@
 		<category>Professions\Alchemist\Potions\Purple Potion</category>
 		<tag name="potiontype" value="11,12" type="int" />
 		<!-- Lesser to normal explosion, greater is craft only. -->
-		<scripts>potions</scripts>
+		<basescripts>potions</basescripts>
 		<weight>0.5</weight>
 	</item>
 
@@ -584,7 +584,7 @@
 	<item id="potionkeg">
 		<id>0x1940</id>
 		<weight>1.0</weight>
-		<scripts>potionkeg</scripts>
+		<basescripts>potionkeg</basescripts>
 		<movable /> <!-- Always movable -->
 	</item>
 

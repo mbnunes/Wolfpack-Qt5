@@ -19,7 +19,7 @@
 		<buyprice>64</buyprice>
 		<sellprice>32</sellprice>
 		<type>1008</type>
-		<scripts>equipment</scripts>
+		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Shields\Wooden Shield</category>
 	</item>
 

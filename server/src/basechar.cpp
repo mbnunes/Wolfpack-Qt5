@@ -2133,6 +2133,12 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	*/
 	PY_PROPERTY( "controlslots", controlSlots() )
 
+	/*
+	\rproperty char.basescripts This is a comma separated list of scripts assigned to this item
+	via the baseid. They are called after the scripts assigned dynamically to the item.
+	*/
+	PY_PROPERTY( "basescripts", basedef_ ? basedef_->baseScriptList() : "" );
+
 	if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
@@ -2501,108 +2507,87 @@ void cBaseChar::showPaperdoll( cUOSocket* source, bool hotkey )
 /*
 	Event Wrappers
  */
-
 bool cBaseChar::onWalk( unsigned char direction, unsigned char sequence )
 {
 	bool result = false;
-
-	if ( scriptChain )
+	if (canHandleEvent(EVENT_WALK))
 	{
 		PyObject* args = Py_BuildValue( "O&bb", PyGetCharObject, this, direction, sequence );
-		result = cPythonScript::callChainedEventHandler( EVENT_WALK, scriptChain, args );
+		result = callEventHandler(EVENT_WALK, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 bool cBaseChar::onTalk( unsigned char type, unsigned short color, unsigned short font, const QString& text, const QString& lang )
 {
 	bool result = false;
-
-	if ( scriptChain )
+	if (canHandleEvent(EVENT_TALK))
 	{
-		PyObject* args = Py_BuildValue( "O&bhhuu", PyGetCharObject, this, type, color, font, text.ucs2(), lang.ucs2() );
-		result = cPythonScript::callChainedEventHandler( EVENT_TALK, scriptChain, args );
+		PyObject* args = Py_BuildValue( "O&bhhNN", PyGetCharObject, this, type, color, font, QString2Python(text), QString2Python(lang) );
+		result = callEventHandler(EVENT_TALK, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 bool cBaseChar::onWarModeToggle( bool war )
 {
 	bool result = false;
-
-	if ( scriptChain )
+	if (canHandleEvent(EVENT_WARMODETOGGLE))
 	{
 		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, war ? 1 : 0 );
-		result = cPythonScript::callChainedEventHandler( EVENT_WARMODETOGGLE, scriptChain, args );
+		result = callEventHandler(EVENT_WARMODETOGGLE, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 {
 	bool result = false;
-
-	if ( scriptChain )
+	if (canHandleEvent(EVENT_SHOWPAPERDOLL))
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
-		result = cPythonScript::callChainedEventHandler( EVENT_SHOWPAPERDOLL, scriptChain, args );
+		result = callEventHandler(EVENT_SHOWPAPERDOLL, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 bool cBaseChar::onShowSkillGump()
 {
 	bool result = false;
-
-	if ( scriptChain )
+	if (canHandleEvent(EVENT_SHOWSKILLGUMP))
 	{
 		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
-		result = cPythonScript::callChainedEventHandler( EVENT_SHOWSKILLGUMP, scriptChain, args );
+		result = callEventHandler(EVENT_SHOWSKILLGUMP, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 bool cBaseChar::onSkillUse( unsigned char skill )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLUSE );
 	bool result = false;
-
-	if ( scriptChain || global )
+	if (canHandleEvent(EVENT_SKILLUSE))
 	{
 		PyObject* args = Py_BuildValue( "O&b", PyGetCharObject, this, skill );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_SKILLUSE, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_SKILLUSE, args );
-
+		result = callEventHandler(EVENT_SKILLUSE, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 bool cBaseChar::onDropOnChar( P_ITEM pItem )
 {
 	bool result = false;
-
-	if ( scriptChain )
+	if (canHandleEvent(EVENT_DROPONCHAR))
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
-		result = cPythonScript::callChainedEventHandler( EVENT_DROPONCHAR, scriptChain, args );
+		result = callEventHandler(EVENT_DROPONCHAR, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
@@ -2611,18 +2596,17 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 	// I hate this event by the way (DarkStorm)
 	QString name = QString::null;
 
-	if ( scriptChain )
+	if ( canHandleEvent(EVENT_SHOWPAPERDOLLNAME) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
 
-		PyObject* result = cPythonScript::callChainedEvent( EVENT_SHOWPAPERDOLLNAME, scriptChain, args );
+		PyObject* result = callEvent(EVENT_SHOWPAPERDOLLNAME, args);
 
-		if ( result )
-		{
-			name = Python2QString( result );
+		if (result) {
+			name = Python2QString(result);
 		}
 
-		Py_XDECREF( result );
+		Py_XDECREF(result);
 		Py_DECREF( args );
 	}
 
@@ -2632,62 +2616,36 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 bool cBaseChar::onDeath( cUObject* source, P_ITEM corpse )
 {
 	bool result = false;
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_DEATH );
-
-	if ( scriptChain || global )
+	if (canHandleEvent(EVENT_DEATH))
 	{
 		PyObject* args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetObjectObject, source, PyGetItemObject, corpse );
-		if ( global )
-		{
-			global->callEventHandler( EVENT_DEATH, args );
-		}
-		if ( scriptChain )
-		{
-			result = cPythonScript::callChainedEventHandler( EVENT_DEATH, scriptChain, args );
-		}
+		result = callEventHandler(EVENT_DEATH, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 bool cBaseChar::onCHLevelChange( unsigned int level )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_CHLEVELCHANGE );
 	bool result = false;
-
-	if ( scriptChain || global )
+	if (canHandleEvent(EVENT_CHLEVELCHANGE))
 	{
 		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, level );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_CHLEVELCHANGE, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_CHLEVELCHANGE, args );
-
+		result = callEventHandler(EVENT_CHLEVELCHANGE, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLGAIN );
 	bool result = false;
-
-	if ( scriptChain || global )
+	if (canHandleEvent(EVENT_SKILLGAIN))
 	{
 		PyObject* args = Py_BuildValue( "O&bhhi", PyGetCharObject, this, skill, min, max, success ? 1 : 0 );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_SKILLGAIN, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_SKILLGAIN, args );
-
+		result = callEventHandler(EVENT_SKILLGAIN, args);
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
@@ -3438,4 +3396,93 @@ void cBaseChar::load( cBufferedReader& reader )
 	load( reader, reader.version() );
 	World::instance()->registerObject( this );
 	SectorMaps::instance()->add( this );
+}
+
+PyObject *cBaseChar::callEvent(ePythonEvent event, PyObject *args, bool ignoreErrors) {
+	PyObject *result = 0;
+
+	if (scriptChain) {
+		result = cPythonScript::callChainedEvent(event, scriptChain, args);
+	
+		// Break if there has been a result already
+		if (result && PyObject_IsTrue(result)) {
+			return result;
+		}
+	}
+
+	// call the basescripts
+	if (basedef_) {
+		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
+		QPtrList<cPythonScript>::const_iterator it(list.begin());
+		for (; it != list.end(); ++it) {
+			result = (*it)->callEvent(event, args, ignoreErrors);
+
+			if (result && PyObject_IsTrue(result)) {
+				return result;
+			}
+		}
+	}
+
+	// check for a global handler
+	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
+
+	if (globalHook) {
+		result = globalHook->callEvent(event, args, ignoreErrors);
+	}
+
+	return result;
+}
+
+bool cBaseChar::canHandleEvent(ePythonEvent event) {
+	// Is there a global event?
+	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
+	
+	if (globalHook) {
+		return true;
+	}
+
+	if (cPythonScript::canChainHandleEvent(event, scriptChain)) {
+		return true;
+	}
+
+	if (basedef_) {
+		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
+		QPtrList<cPythonScript>::const_iterator it(list.begin());
+		for (; it != list.end(); ++it) {
+			if ((*it)->canHandleEvent(event)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool cBaseChar::callEventHandler(ePythonEvent event, PyObject *args, bool ignoreErrors) {
+	PyObject *result = callEvent(event, args, ignoreErrors);
+
+	if (result) {
+		if (PyObject_IsTrue(result)) {
+			Py_DECREF(result);
+			return true;
+		} else {
+			Py_DECREF(result);
+		}
+	}
+	return false;
+}
+
+bool cBaseChar::hasScript( const QCString& name )
+{
+	if (basedef_) {
+		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
+		QPtrList<cPythonScript>::const_iterator it(list.begin());
+		for (; it != list.end(); ++it) {
+			if ((*it)->name() == name) {
+				return true;
+			}
+		}
+	}
+
+	return cUObject::hasScript(name);
 }

@@ -14,56 +14,56 @@
 	<item id="675">
 		<id>0x675</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (S/SW)</category>
 	</item>
 
 	<item id="677">
 		<id>0x677</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (S/SE)</category>
 	</item>
 
 	<item id="679">
 		<id>0x679</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (S/NW)</category>
 	</item>
 
 	<item id="67b">
 		<id>0x67B</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (S/NE)</category>
 	</item>
 
 	<item id="67d">
 		<id>0x67D</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (W/SE)</category>
 	</item>
 
 	<item id="67f">
 		<id>0x67F</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (W/NE)</category>
 	</item>
 
 	<item id="681">
 		<id>0x681</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (W/SW)</category>
 	</item>
 
 	<item id="683">
 		<id>0x683</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 1\Metal Door (W/NW)</category>
 	</item>
 
@@ -71,693 +71,693 @@
 	<item id="685">
 		<id>0x685</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (S/SW)</category>
 	</item>
 
 	<item id="687">
 		<id>0x687</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (S/SE)</category>
 	</item>
 
 	<item id="689">
 		<id>0x689</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (S/NW)</category>
 	</item>
 
 	<item id="68b">
 		<id>0x68b</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (S/NE)</category>
 	</item>
 
 	<item id="68d">
 		<id>0x68d</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (W/SE)</category>
 	</item>
 
 	<item id="68f">
 		<id>0x68f</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (W/NE)</category>
 	</item>
 
 	<item id="691">
 		<id>0x691</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (W/SW)</category>
 	</item>
 
 	<item id="693">
 		<id>0x693</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (W/NW)</category>
 	</item>
 
 	<item id="694">
 		<id>0x694</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Rattan Door -->
 	<item id="695">
 		<id>0x695</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (S/SW)</category>
 	</item>
 
 	<item id="696">
 		<id>0x696</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="697">
 		<id>0x697</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (S/SE)</category>
 	</item>
 
 	<item id="698">
 		<id>0x698</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="699">
 		<id>0x699</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (S/NW)</category>
 	</item>
 
 	<item id="69a">
 		<id>0x69a</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="69b">
 		<id>0x69b</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (S/NE)</category>
 	</item>
 
 	<item id="69c">
 		<id>0x69c</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="69d">
 		<id>0x69d</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (W/SE)</category>
 	</item>
 
 	<item id="69e">
 		<id>0x69e</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="69f">
 		<id>0x69f</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (W/NE)</category>
 	</item>
 
 	<item id="6a0">
 		<id>0x6a0</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6a1">
 		<id>0x6a1</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (W/SW)</category>
 	</item>
 
 	<item id="6a2">
 		<id>0x6a2</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6a3">
 		<id>0x6a3</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (W/NW)</category>
 	</item>
 
 	<item id="6a4">
 		<id>0x6a4</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Wooden Door 1 -->
 	<item id="6a5">
 		<id>0x6a5</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/SW)</category>
 	</item>
 
 	<item id="6a6">
 		<id>0x6a6</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6a7">
 		<id>0x6a7</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/SE)</category>
 	</item>
 
 	<item id="6a8">
 		<id>0x6a8</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6a9">
 		<id>0x6a9</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/NW)</category>
 	</item>
 
 	<item id="6aa">
 		<id>0x6aa</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6ab">
 		<id>0x6ab</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/NE)</category>
 	</item>
 
 	<item id="6ac">
 		<id>0x6ac</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6ad">
 		<id>0x6ad</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/SE)</category>
 	</item>
 
 	<item id="6ae">
 		<id>0x6ae</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6af">
 		<id>0x6af</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/NE)</category>
 	</item>
 
 	<item id="6b0">
 		<id>0x6b0</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6b1">
 		<id>0x6b1</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/SW)</category>
 	</item>
 
 	<item id="6b2">
 		<id>0x6b2</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6b3">
 		<id>0x6b3</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/NW)</category>
 	</item>
 
 	<item id="6b4">
 		<id>0x6b4</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Wooden Door 2 -->
 	<item id="6b5">
 		<id>0x6b5</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/SW)</category>
 	</item>
 
 	<item id="6b6">
 		<id>0x6b6</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6b7">
 		<id>0x6b7</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/SE)</category>
 	</item>
 
 	<item id="6b8">
 		<id>0x6b8</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6b9">
 		<id>0x6b9</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/NW)</category>
 	</item>
 
 	<item id="6ba">
 		<id>0x6ba</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6bb">
 		<id>0x6bb</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/NE)</category>
 	</item>
 
 	<item id="6bc">
 		<id>0x6bc</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6bd">
 		<id>0x6bd</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/SE)</category>
 	</item>
 
 	<item id="6be">
 		<id>0x6be</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6bf">
 		<id>0x6bf</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/NE)</category>
 	</item>
 
 	<item id="6c0">
 		<id>0x6c0</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6c1">
 		<id>0x6c1</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/SW)</category>
 	</item>
 
 	<item id="6c2">
 		<id>0x6c2</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6c3">
 		<id>0x6c3</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/NW)</category>
 	</item>
 
 	<item id="6c4">
 		<id>0x6c4</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Metal Door 2 -->
 	<item id="6c5">
 		<id>0x6c5</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/SW)</category>
 	</item>
 
 	<item id="6c6">
 		<id>0x6c6</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6c7">
 		<id>0x6c7</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/SE)</category>
 	</item>
 
 	<item id="6c8">
 		<id>0x6c8</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6c9">
 		<id>0x6c9</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/NW)</category>
 	</item>
 
 	<item id="6ca">
 		<id>0x6ca</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6cb">
 		<id>0x6cb</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/NE)</category>
 	</item>
 
 	<item id="6cc">
 		<id>0x6cc</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6cd">
 		<id>0x6cd</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/SE)</category>
 	</item>
 
 	<item id="6ce">
 		<id>0x6ce</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6cf">
 		<id>0x6cf</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/NE)</category>
 	</item>
 
 	<item id="6d0">
 		<id>0x6d0</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6d1">
 		<id>0x6d1</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/SW)</category>
 	</item>
 
 	<item id="6d2">
 		<id>0x6d2</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6d3">
 		<id>0x6d3</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/NW)</category>
 	</item>
 
 	<item id="6d4">
 		<id>0x6d4</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Wooden Door 3 -->
 	<item id="6d5">
 		<id>0x6d5</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/SW)</category>
 	</item>
 
 	<item id="6d6">
 		<id>0x6d6</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6d7">
 		<id>0x6d7</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/SE)</category>
 	</item>
 
 	<item id="6d8">
 		<id>0x6d8</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6d9">
 		<id>0x6d9</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/NW)</category>
 	</item>
 
 	<item id="6da">
 		<id>0x6da</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6db">
 		<id>0x6db</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/NE)</category>
 	</item>
 
 	<item id="6dc">
 		<id>0x6dc</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6dd">
 		<id>0x6dd</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/SE)</category>
 	</item>
 
 	<item id="6de">
 		<id>0x6de</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6df">
 		<id>0x6df</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/NE)</category>
 	</item>
 
 	<item id="6e0">
 		<id>0x6e0</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6e1">
 		<id>0x6e1</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/SW)</category>
 	</item>
 
 	<item id="6e2">
 		<id>0x6e2</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6e3">
 		<id>0x6e3</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/NW)</category>
 	</item>
 
 	<item id="6e4">
 		<id>0x6e4</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Wooden Door 4 -->
 	<item id="6e5">
 		<id>0x6e5</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/SW)</category>
 	</item>
 
 	<item id="6e6">
 		<id>0x6e6</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6e7">
 		<id>0x6e7</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/SE)</category>
 	</item>
 
 	<item id="6e8">
 		<id>0x6e8</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6e9">
 		<id>0x6e9</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/NW)</category>
 	</item>
 
 	<item id="6ea">
 		<id>0x6ea</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6eb">
 		<id>0x6eb</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/NE)</category>
 	</item>
 
 	<item id="6ec">
 		<id>0x6ec</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6ed">
 		<id>0x6ed</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/SE)</category>
 	</item>
 
 	<item id="6ee">
 		<id>0x6ee</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6ef">
 		<id>0x6ef</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/NE)</category>
 	</item>
 
 	<item id="6f0">
 		<id>0x6f0</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6f1">
 		<id>0x6f1</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/SW)</category>
 	</item>
 
 	<item id="6f2">
 		<id>0x6f2</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="6f3">
 		<id>0x6f3</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/NW)</category>
 	</item>
 
 	<item id="6f4">
 		<id>0x6f4</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Portcullis -->
@@ -777,47 +777,47 @@
 	<item id="839">
 		<id>0x0839</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 1\Gate (S/SW)</category>
 	</item>
 
 	<item id="83b">
 		<id>0x083b</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 1\Gate (S/SE)</category>
 	</item>
 
 	<item id="83d">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x083d</id>
 		<nodecay />
 		<category>Buildings\Doors\Wooden Gate 1\Gate (S/NW)</category>
 	</item>
 
 	<item id="83f">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x083f</id>
 		<nodecay />
 		<category>Buildings\Doors\Wooden Gate 1\Gate (S/NE)</category>
 	</item>
 
 	<item id="841">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0841</id>
 		<nodecay />
 		<category>Buildings\Doors\Wooden Gate 1\Gate (W/SW)</category>
 	</item>
 
 	<item id="843">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0843</id>
 		<nodecay />
 		<category>Buildings\Doors\Wooden Gate 1\Gate (W/NW)</category>
 	</item>
 
 	<item id="845">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0845</id>
 		<nodecay />
 		<category>Buildings\Doors\Wooden Gate 1\Gate (W/SE)</category>
@@ -826,7 +826,7 @@
 	<item id="847">
 		<id>0x0847</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 1\Gate (W/NE)</category>
 	</item>
 
@@ -834,56 +834,56 @@
 	<item id="866">
 		<id>0x0866</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 2\Gate (S/SW)</category>
 	</item>
 
 	<item id="868">
 		<id>0x0868</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 2\Gate (S/SE)</category>
 	</item>
 
 	<item id="86a">
 		<id>0x086a</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 2\Gate (S/NW)</category>
 	</item>
 
 	<item id="86c">
 		<id>0x086c</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 2\Gate (S/NE)</category>
 	</item>
 
 	<item id="86e">
 		<id>0x086e</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 2\Gate (W/SW)</category>
 	</item>
 
 	<item id="870">
 		<id>0x0870</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 2\Gate (W/NW)</category>
 	</item>
 
 	<item id="872">
 		<id>0x0872</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 2\Gate (W/SE)</category>
 	</item>
 
 	<item id="874">
 		<id>0x0874</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<category>Buildings\Doors\Wooden Gate 2\Gate (W/NE)</category>
 	</item>
 
@@ -892,56 +892,56 @@
 		<id>0x0824</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (S/SW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="826">
 		<id>0x0826</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (S/SE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="828">
 		<id>0x0828</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (S/NW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="82a">
 		<id>0x082a</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (S/NE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="82c">
 		<id>0x082c</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (W/SE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="82e">
 		<id>0x082e</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (W/NE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="830">
 		<id>0x0830</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (W/SW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="832">
 		<id>0x0832</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 1\Iron Gate 1 (W/NW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Iron Gate 2 -->
@@ -949,56 +949,56 @@
 		<id>0x084c</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (S/SW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="84e">
 		<id>0x084e</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (S/SE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="850">
 		<id>0x0850</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (S/NW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="852">
 		<id>0x0852</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (S/NE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="854">
 		<id>0x0854</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (W/SE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="856">
 		<id>0x0856</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (W/NE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="858">
 		<id>0x0858</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (W/SW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="85a">
 		<id>0x085a</id>
 		<nodecay />
 		<category>Buildings\Doors\Iron Gate 2\Iron Gate 2 (W/NW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Barred Metal Door 2 -->
@@ -1006,238 +1006,238 @@
 		<id>0x1fed</id>
 		<nodecay />
 		<category>Buildings\Doors\Barred Metal Door 2 (S/SW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="1fef">
 		<id>0x1fef</id>
 		<nodecay />
 		<category>Buildings\Doors\Barred Metal Door 2 (S/SE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="1ff1">
 		<id>0x1ff1</id>
 		<nodecay />
 		<category>Buildings\Doors\Barred Metal Door 2 (S/NW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="1ff3">
 		<id>0x1ff3</id>
 		<nodecay />
 		<category>Buildings\Doors\Barred Metal Door 2 (S/NE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="1ff5">
 		<id>0x1ff5</id>
 		<nodecay />
 		<category>Buildings\Doors\Barred Metal Door 2 (W/SE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="1ff7">
 		<id>0x1ff7</id>
 		<nodecay />
 		<category>Buildings\Doors\Barred Metal Door 2 (W/NE)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="1ff9">
 		<id>0x1ff9</id>
 		<nodecay />
 		<category>Buildings\Doors\Barred Metal Door 2 (W/SW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="1ffb">
 		<id>0x1ffb</id>
 		<nodecay />
 		<category>Buildings\Doors\Barred Metal Door 2 (W/NW)</category>
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Secret Doors Stone 1 -->
 	<item id="e8">
 		<id>0x00e8</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="ea">
 		<id>0x00ea</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="ec">
 		<id>0x00ec</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="ee">
 		<id>0x00ee</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="f0">
 		<id>0x00f0</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="f2">
 		<id>0x00f2</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="f4">
 		<id>0x00f4</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="f6">
 		<id>0x00f6</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Secret Doors Dungeon -->
 	<item id="314">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0314</id>
 		<nodecay />
 	</item>
 
 	<item id="316">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0316</id>
 		<nodecay />
 	</item>
 
 	<item id="318">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0318</id>
 		<nodecay />
 	</item>
 
 	<item id="31a">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x031a</id>
 		<nodecay />
 	</item>
 
 	<item id="31c">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x031c</id>
 		<nodecay />
 	</item>
 
 	<item id="31e">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x031e</id>
 		<nodecay />
 	</item>
 
 	<item id="320">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0320</id>
 		<nodecay />
 	</item>
 
 	<item id="322">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0322</id>
 		<nodecay />
 	</item>
 
 	<!-- Secret Doors Stone 2 -->
 	<item id="324">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0324</id>
 		<nodecay />
 	</item>
 
 	<item id="326">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0326</id>
 		<nodecay />
 	</item>
 
 	<item id="328">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0328</id>
 		<nodecay />
 	</item>
 
 	<item id="32a">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x032a</id>
 		<nodecay />
 	</item>
 
 	<item id="32c">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x032c</id>
 		<nodecay />
 	</item>
 
 	<item id="32e">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x032e</id>
 		<nodecay />
 	</item>
 
 	<item id="330">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0330</id>
 		<nodecay />
 	</item>
 
 	<item id="332">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0332</id>
 		<nodecay />
 	</item>
 
 	<!-- Secret Doors Wooden 1 -->
 	<item id="333">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0333</id>
 		<nodecay />
 	</item>
 
 	<item id="335">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0335</id>
 		<nodecay />
 	</item>
 
 	<item id="337">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0337</id>
 		<nodecay />
 	</item>
 
 	<item id="339">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x0339</id>
 		<nodecay />
 	</item>
 
 	<item id="33b">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x033b</id>
 		<nodecay />
 	</item>
 
 	<item id="33d">
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 		<id>0x033d</id>
 		<nodecay />
 	</item>
@@ -1245,123 +1245,123 @@
 	<item id="33f">
 		<id>0x033f</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="341">
 		<id>0x0341</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="343">
 		<id>0x0343</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Secret Doors Wooden 2 -->
 	<item id="344">
 		<id>0x0344</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="346">
 		<id>0x0346</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="348">
 		<id>0x0348</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="34a">
 		<id>0x034a</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="34c">
 		<id>0x034c</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="34e">
 		<id>0x034e</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="350">
 		<id>0x0350</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="352">
 		<id>0x0352</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<!-- Secret Doors Stone 3 -->
 	<item id="354">
 		<id>0x0354</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="356">
 		<id>0x0356</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="358">
 		<id>0x0358</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="35a">
 		<id>0x035a</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="35c">
 		<id>0x035c</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="35e">
 		<id>0x035e</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="360">
 		<id>0x0360</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="362">
 		<id>0x0362</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 	<item id="364">
 		<id>0x0364</id>
 		<nodecay />
-		<scripts>door</scripts>
+		<basescripts>door</basescripts>
 	</item>
 
 </definitions>
