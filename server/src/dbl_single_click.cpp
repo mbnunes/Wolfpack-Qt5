@@ -189,7 +189,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		}
 	}
 	
-	if (pi->magic == 4 && pi->secureIt == 1)
+	if (pi->isLockedDown() && pi->secureIt == 1)
 	{
 		if (!pc_currchar->Owns(pi))
 		{
@@ -218,7 +218,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	// rewritten (Duke 18.3.2001)
 		// Attempting to fix many problems -moved here- 7/2001 -Frazurbluu-
 	// SWEET, since I have the inBACKPACK working I should make a trigger function detailing object location for firing -Fraz-
-	else if ((IsSpellScroll(pi->id())) && (pi->magic != 4))
+	else if ((IsSpellScroll(pi->id())) && (!pi->isLockedDown()))
 	{
 		const P_ITEM pi_k = Packitem(pc_currchar);
 		if ( pi_k == NULL)
@@ -524,7 +524,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		}
 	case 14: // For eating food
 		pc_currchar->objectdelay = 0;
-		if (pi->magic == 4)
+		if (pi->isLockedDown())
 			return; // Ripper..cant eat locked down food :)
 		
 		if (pc_currchar->hunger >= 6)
@@ -772,7 +772,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				return;
 		case 217:			// PlayerVendors deed
 			{	
-				if (pi->magic == 4)
+				if (pi->isLockedDown())
 				{
 					sysmessage(s, "That item is locked down.");
 					return; 
@@ -947,7 +947,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		// END Check items by type
 		
 		// Begin checking objects by ID
-		if (pi->magic != 4) // Ripper
+		if (!pi->isLockedDown()) // Ripper
 		{
 			switch (pi->id())
 			{	
@@ -1578,11 +1578,11 @@ void singleclick(UOXSOCKET s)
 			itemmessage(s,"[Murderer]",serial, 0x0026);
 	}  // end highlighting
 	// Let's handle secure/locked down stuff.
-	if (pi->magic == 4 && pi->type != 12 && pi->type != 203)
+	if (pi->isLockedDown() && pi->type != 12 && pi->type != 203)
 	{
 		if (pi->secureIt !=1)
 			itemmessage(s, "[locked down]", serial, 0x0481);
-		if (pi->secureIt == 1 && pi->magic == 4)
+		if (pi->secureIt == 1 && pi->isLockedDown())
 			itemmessage(s, "[locked down & secure]", serial, 0x0481);				
 	}
 	

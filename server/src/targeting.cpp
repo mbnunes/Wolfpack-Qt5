@@ -625,7 +625,7 @@ void cTargets::TargIdTarget(int s) // Fraz
 	{
 		if (buffer[s][7] >= 0x40)
 		{
-			if (pi && pi->magic != 4)
+			if (pi && !pi->isLockedDown())
 			{
 				if (pi->name2 &&(strcmp(pi->name2, "#")))
 					strcpy(pi->name, pi->name2);
@@ -1327,7 +1327,7 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 		{
 			pi->MoveTo(x, y, z);
 			pi->SetContSerial(-1);
-			pi->magic=2; //make item unmovable once thrown
+			pi->setGMMovable(); //make item unmovable once thrown
 			movingeffect2(DEREF_P_CHAR(pc_currchar), pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
 			RefreshItem(pi);
 		}
@@ -1443,7 +1443,7 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 	pi1->pos.x=pi2->pos.x;
 	pi1->pos.y=pi2->pos.y;
 	pi1->pos.z=pi2->pos.z;
-	pi1->magic=2;//AntiChrist - makes the item unmovable
+	pi1->setGMMovable();//AntiChrist - makes the item unmovable
 	pi1->startDecay();
 	RefreshItem(pi1);
 
@@ -1510,7 +1510,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		return;
 	if(!pi1) return;
 	pi1->MoveTo(pi2->pos.x,pi2->pos.y,pi2->pos.z);
-	pi1->magic=2;//AntiChrist - makes the item unmovable
+	pi1->setGMMovable();//AntiChrist - makes the item unmovable
 	pi1->startDecay();
 	RefreshItem(pi1);
 
@@ -2893,12 +2893,12 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 		P_ITEM pi_multi = findmulti( pi->pos );
 		if( pi_multi != NULL )
 		{
-			if(pi->magic==4)
+			if(pi->isLockedDown())
 			{
 				sysmessage(s,"That item is already locked down, release it first!");
 				return;
 			}
-			pi->magic = 4;	// LOCKED DOWN!
+			pi->setLockedDown();	// LOCKED DOWN!
 			DRAGGED[s]=0;
 			pi->setOwnSerialOnly(currchar[s]->serial);
 			RefreshItem(pi);
@@ -2936,7 +2936,7 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 			sysmessage(s, "You cant lockdown doors or signs!");
 			return;
 		}
-		if(pi->magic==4)
+		if(pi->isLockedDown())
 		{
 			sysmessage(s,"That item is already locked down, release it first!");
 			return;
@@ -2945,7 +2945,7 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 		P_ITEM pi_multi = findmulti( pi->pos );
 		if( pi_multi != NULL && pi->type==1)
 		{
-		    pi->magic = 4;	// LOCKED DOWN!
+		    pi->setLockedDown();	// LOCKED DOWN!
 			pi->secureIt = 1;
 			DRAGGED[s]=0;
 			pi->setOwnSerialOnly(currchar[s]->serial);
@@ -2993,11 +2993,11 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 			return;
 		}
 
-		// time to lock it down!
+		// time to unlock it!
 		P_ITEM pi_multi = findmulti( pi->pos );
-		if( pi_multi != NULL && pi->magic==4 || pi->type==1)
+		if( pi_multi != NULL && pi->isLockedDown() || pi->type==1)
 		{
-			pi->magic = 1;	// Default as stored by the client, perhaps we should keep a backup?
+			pi->setAllMovable();	// Default as stored by the client, perhaps we should keep a backup?
 			pi->secureIt = 0;
 			RefreshItem( pi );
 			return;
@@ -3076,7 +3076,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	pi2->dir=29; // set light radius maximal
 	pi2->visible=0;
 
-	pi2->magic=3;
+	pi2->setOwnerMovable();
 
 	mapRegions->Remove(pi2); // remove if add in spawnitem
 	pi2->layer=pi1->layer;

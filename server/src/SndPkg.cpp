@@ -939,9 +939,9 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 		}
 
 
-		if (pi->magic==1) itmput[18] |= 0x20;
+		if (pi->isAllMovable()) itmput[18] |= 0x20;
 		if (pc_currchar->priv2&1) itmput[18] |= 0x20;
-		if ((pi->magic==3 || pi->magic==4) && pc_currchar->Owns(pi))
+		if ((pi->isOwnerMovable() || pi->isLockedDown()) && pc_currchar->Owns(pi))
 			itmput[18] |= 0x20;
 		if (pc_currchar->priv2&4)
 		{
@@ -1023,10 +1023,10 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 				itmput[18]|=0x80;
 		}
 
-		if (pi->magic==1) itmput[18]+=0x20;
+		if (pi->isAllMovable()) itmput[18]+=0x20;
 
 		if (pc_currchar->priv2&1) itmput[18]+=0x20;
-		if ((pi->magic==3 || pi->magic==4) && pc_currchar->Owns(pi))
+		if ((pi->isOwnerMovable() || pi->isLockedDown()) && pc_currchar->Owns(pi))
 			itmput[18]+=0x20;
 		if (pc_currchar->priv2&4)
 		{

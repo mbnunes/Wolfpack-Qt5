@@ -1402,7 +1402,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 		return;
 	P_ITEM pi_multi = NULL;
 
-	if(pi->magic==4) {pi->decaytime=0; return;}
+	if(pi->isLockedDown()) {pi->decaytime=0; return;}
 	if( pi->decaytime <= currenttime || (overflow) )//fixed by JustMichael
 	{
 		if (pi->priv&0x01 && pi->isInWorld() && !pi->free)

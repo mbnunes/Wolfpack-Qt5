@@ -203,6 +203,14 @@ public:
 	string getName(void);
 	int getWeight();
 	void startDecay()			{this->decaytime=SrvParms->decaytimer*MY_CLOCKS_PER_SEC+uiCurrentTime;}
+	void setAllMovable()		{this->magic=1;}
+	bool isAllMovable()         {return (magic==1);}
+	void setGMMovable()		    {this->magic=2;}
+	bool isGMMovable()          {return (magic==2);}
+	void setOwnerMovable()		{this->magic=3;}
+	bool isOwnerMovable()       {return (magic==3);}
+	void setLockedDown()        {this->magic=4;}
+	bool isLockedDown()			{return (magic==4);}
 
 };
 

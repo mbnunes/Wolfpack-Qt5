@@ -103,7 +103,7 @@ void cGuilds::StonePlacement(int s)
 		pStone->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
 		pStone->type = 202;
 		pStone->priv = 0;
-		pStone->magic = 4;
+		pStone->setLockedDown();
 		pStone->setOwnSerialOnly(pc->serial);
 
 		RefreshItem(pStone);//AntiChrist

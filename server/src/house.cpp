@@ -339,7 +339,7 @@ void cHouseManager::AddHome(int s, int i)
 							openscript("house.scp");
 							fseek(scpfile, pos, SEEK_SET);
 							strcpy((char*)script1, "ITEM");
-							pHouseItem->magic=2;//Non-Movebale by default
+							pHouseItem->setGMMovable();//Non-Movebale by default
 							pHouseItem->priv=0;//since even things in houses decay, no-decay by default
 							pHouseItem->pos.x=x;
 							pHouseItem->pos.y=y;
@@ -361,7 +361,7 @@ void cHouseManager::AddHome(int s, int i)
 						}
 						else if (!(strcmp((char*)script1,"MOVEABLE")))
 						{
-							pHouseItem->magic=1;
+							pHouseItem->setAllMovable();
 						}
 						else if (!(strcmp((char*)script1,"LOCK")))//lock it with the house key
 						{

@@ -2121,12 +2121,12 @@ bool cChar::canPickUp(cItem* pi)
 	if (this->priv2&1)	// allmove
 		return true;
 
-	if ( (pi->magic == 3 || pi->magic == 4) && !this->Owns(pi) )	// owner movable or locked down ?
+	if ( (pi->isOwnerMovable() || pi->isLockedDown()) && !this->Owns(pi) )	// owner movable or locked down ?
 		return false;
 
 	tile_st tile;
 	Map->SeekTile(pi->id(), &tile);
-	if ( pi->magic == 2 || (tile.weight == 255 && pi->magic != 1))
+	if ( pi->isGMMovable() || (tile.weight == 255 && !pi->isAllMovable()))
 		return false;
 	return true;
 }

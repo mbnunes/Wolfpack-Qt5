@@ -333,7 +333,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		}
 		// End Rank System Addon
 
-		pi->magic=1; // JM's bugfix
+		pi->setAllMovable(); // JM's bugfix
 
 		if (skill == BLACKSMITHING			// let's see if we can make exceptional quality
 			&& SrvParms->rank_system==0)	// this would interfer with the rank system
@@ -974,7 +974,7 @@ void cSkills::BottleTarget(int s)
 {
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
-	if (!pi || pi->magic==4) return;	// Ripper
+	if (!pi || pi->isLockedDown()) return;	// Ripper
 
 	if (pi->id()==0x0F0E)	// an empty potion bottle ?
 	{

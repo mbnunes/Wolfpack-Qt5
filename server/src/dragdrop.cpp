@@ -233,7 +233,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 			{
 				ps->ResetDragging();
 				item_bounce3(pi);
-				pi->magic = 3;
+				pi->setOwnerMovable();
 			} 
 			return;
 		}
@@ -451,8 +451,8 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 			}
 
 //			if (clientDimension[s]==2) Map->SeekTile(pi->id(), &tile);
-			if ((((pi->magic==2)||((tile.weight==255)&&(pi->magic!=1)))&&((pc_currchar->priv2&1)==0)) ||
-				( (pi->magic==3|| pi->magic==4) && !pc_currchar->Owns(pi)))
+			if ((((pi->isGMMovable())||((tile.weight==255)&&(!pi->isAllMovable())))&&((pc_currchar->priv2&1)==0)) ||
+				( (pi->isOwnerMovable()|| pi->isLockedDown()) && !pc_currchar->Owns(pi)))
 			{
 				item_bounce6(ps,pi);
 				return;

@@ -71,7 +71,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 	short int col1=pi_bolts->color1; //-Frazurbluu- added color retention for tailoring from cloth
 	short int col2=pi_bolts->color2;
 
-	if (pi_bolts && pi_bolts->magic!=4) // Ripper
+	if (pi_bolts && !pi_bolts->isLockedDown()) // Ripper
 	{
 		if (IsBoltOfCloth(pi_bolts->id()))
 		{
@@ -133,7 +133,7 @@ void cSkills::Fletching(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		if (( IsShaft(itemmake[s].Mat1id) && IsFeather(pi->id()) ) ||	// first clicked shaft and now feather
 			( IsFeather(itemmake[s].Mat1id) && IsShaft(pi->id()) ))		// or vice versa
@@ -158,7 +158,7 @@ void cSkills::BowCraft(int s)
 	action(s,pc_currchar->onhorse ? 0x1C : 0x0D);
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		short id = pi->id();
 		if( IsLog(id) || IsBoard(id) )
@@ -190,7 +190,7 @@ void cSkills::Carpentry(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
-	if (pi && pi->magic!=4)
+	if (pi && !pi->isLockedDown())
 	{
 		short id = pi->id();
 		if( IsLog(id) || IsBoard(id) ) // logs or boards
@@ -306,7 +306,7 @@ extern int ingottype;
 void cSkills::Smith(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		itemmake[s].Mat1id = pi->id();
 
@@ -339,7 +339,7 @@ void cSkills::TasteIDTarget(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		if(!( pi->type==19 || pi->type==14))
 		{
@@ -1018,7 +1018,7 @@ void cSkills::SmeltOre(int s)
 	P_CHAR pc_currchar = currchar[s];
 
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		if(	IsForge(pi->id()) )
 		{
@@ -1102,7 +1102,7 @@ void cSkills::Loom(int s)
 	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		if ( pi->id() >= 0x105F && pi->id() <= 0x1066 )
 		{
@@ -1164,7 +1164,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		P_ITEM piRaw = FindItemBySerial(addmitem[s]);
 		if (CheckInPack(s,piRaw))
@@ -1202,7 +1202,7 @@ void cSkills::MakeDough(int s)
 	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		if(pi->id()==0x103A)
 		{
@@ -1239,7 +1239,7 @@ void cSkills::MakePizza(int s)
 	P_CHAR pc_currchar = currchar[s];
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		if(pi->id()==0x103D)
 		{
@@ -1541,7 +1541,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 	short int amt=0;
 	P_CHAR pc_currchar = currchar[s];
 
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		short int col1=pi->color1; //-Frazurbluu- added color retention for bandage cutting from cloth
 		short int col2=pi->color2;
@@ -1843,7 +1843,7 @@ void cSkills::ItemIdTarget(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		if (!CheckSkill(pc_currchar, ITEMID, 0, 250))
 		{
@@ -2475,7 +2475,7 @@ void cSkills::LockPick(int s)
 	int success;
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		P_ITEM piPick = FindItemBySerial(addmitem[s]);
 		if (piPick == NULL)
@@ -2561,7 +2561,7 @@ void cSkills::Tinkering(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic!=4) // Ripper
+	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		if(pi->id()==0x1BEF || pi->id()==0x1BF2 || IsLog(pi->id()) ) 
 		{
@@ -2645,7 +2645,7 @@ public:
 		}
 		
 		const P_ITEM piTarg=FindItemBySerPtr(buffer[s]+7);
-		if (piTarg==NULL || piTarg->magic==4)
+		if (piTarg==NULL || piTarg->isLockedDown())
 		{
 			sysmessage(s,"You can't combine these.");
 			return;
@@ -2804,7 +2804,7 @@ void cSkills::RepairTarget(UOXSOCKET s)
 	}
 
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic != 4)
+	if (pi && !pi->isLockedDown())
 	{
 		if (!CheckInPack(s,pi)) 
 			return;
@@ -2864,7 +2864,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 
 	int a=1+pi->weight/100;	// number of ingots you get depends on the weight (Duke)
 
-	if (pi->magic==4 || pi->rank!=30 || (pi->smelt < 1 || pi->smelt > 10 ))
+	if (pi->isLockedDown() || pi->rank!=30 || (pi->smelt < 1 || pi->smelt > 10 ))
 	{
 		sysmessage(s,"You cant smelt that item!");
 		return;

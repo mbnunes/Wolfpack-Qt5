@@ -489,7 +489,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 				   {
 					  pBlood->MoveTo(pc_deffender->pos.x, pc_deffender->pos.y, pc_deffender->pos.z);
 					  pBlood->priv = 1;
-					  pBlood->magic = 2; //Moveable by GM
+					  pBlood->setGMMovable(); //Moveable by GM
 					  RefreshItem(pBlood);
 					  pBlood->decaytime = (SrvParms->decaytimer/2)*MY_CLOCKS_PER_SEC+uiCurrentTime;
 				   }
