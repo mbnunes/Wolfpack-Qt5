@@ -554,10 +554,10 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 	if physical > 0:
 		physical = amount * (physical / 100.0)
 		resistance = properties.fromchar(target, RESISTANCE_PHYSICAL) / 100.0
-		
+
 		if ignorephysical:
 			resistance = 0 # Zero resistance
-		
+
 		damage = max(0, physical - (physical * resistance))
 
 		if source and not noreflect and damage > 0:
@@ -591,7 +591,7 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 
 	damage = max(1, damage)
 	return target.damage(damagetype, damage, source)
-	
+
 """
 	\function wolfpack.utilities.createlockandkey
 	\param container The container you want to make lockable.
@@ -751,14 +751,14 @@ def checkAllies(char1, char2):
 			char1 = char1.owner
 		else:
 			return False # Unowned NPCs are never allied with anyone
-	
+
 	# For NPCs, check the owner instead
 	if char2.npc:
 		if char2.owner:
 			char2 = char2.owner
 		else:
 			return False # Unowned NPCs are never allied with anyone
-	
+
 	# Check if they're the same first.
 	if char1 == char2:
 		return True
@@ -767,7 +767,7 @@ def checkAllies(char1, char2):
 	party = char1.party
 	if party and char2.party == party:
 		return True # Same Party -> Allies
-		
+
 	# Then check for their guilds
 	guild = char1.guild
 	if guild and char2.guild == guild:
@@ -787,21 +787,21 @@ def checkEnemies(char1, char2):
 	# Check the attacktarget first (quick)
 	if char1.attacktarget == char2 or char2.attacktarget == char1:
 		return True
-		
+
 	# Check the list of opponents (for char1, makes no sense otherwise)
 	opponents = char1.getopponents()
 	if char2 in opponents:
-		return True	
+		return True
 
 	# Do the same check for the owner of char1, if char1 is a npc.
 	if char1.npc and char1.owner and checkEnemies(char1.owner, char2):
 		return True
-		
+
 	# Do the same check for the owner of char2 if char2 is a npc.
 	if char2.npc and char2.owner and checkEnemies(char1, char2.owner):
 		return True
 
-	# Everyone being a murderer, a criminal or a npc with red karma 
+	# Everyone being a murderer, a criminal or a npc with red karma
 	# is an enemy.
 	if char2.ismurderer() or char2.iscriminal() or (char2.npc and char2.notoriety(char1) in [4, 5, 6] ):
 		return True
@@ -816,22 +816,22 @@ def mayAreaHarm(player, char, excludeself = True, includeinnocents = False):
 	# If we shouldn't be included, skip us ahead
 	if char == player and excludeself:
 		return False
-		
+
 	# Invulnerable, Invisible and Hidden creatures aren't affected
 	if char.dead or char.invulnerable or not player.cansee(char):
 		return False
-		
+
 	# If we're allied with the given character, Return right away
 	if checkAllies(player, char):
 		return False
-	
+
 	# If we're enemies, always include
 	if checkEnemies(player, char):
 		return True
-		
+
 	# If we're neutral, it depends on the excludeneutrals flag
 	return includeinnocents
-	
+
 #
 # Checks if the given character may benefit from the given players
 # area effect
@@ -840,21 +840,21 @@ def mayAreaBenefit(player, char, excludeself = False, includeinnocents = False):
 	# If we shouldn't be included, skip us ahead
 	if char == player and excludeself:
 		return False
-		
+
 	# Invulnerable, Invisible and Hidden creatures aren't affected
 	if char.invulnerable or not player.cansee(char):
 		return False
-		
+
 	# If we're allied with the given character, Return right away
 	if checkAllies(player, char):
 		return True
-	
+
 	# If we're enemies, always include
 	if checkEnemies(player, char):
 		return False
-		
+
 	# If we're neutral, it depends on the excludeneutrals flag
-	return includeinnocents	
+	return includeinnocents
 
 def testenemy(socket, c, a):
 	pos = socket.player.pos
@@ -868,6 +868,46 @@ def testenemy(socket, c, a):
 			char.say('MAY HARM')
 
 		char = it.next
+
+"""
+	\function wolfpack.utilities.isValidPosition
+	\param position The wolfpack coord object to check.
+	\return Returns a boolean value if the position is valid.
+	\description Checks to see if a given coord object is a valid map position.
+"""
+def isValidPosition( pos ):
+	# Check if the map is valid.
+	if wolfpack.hasmap( pos.map ):
+		# Felucca & Trammel
+		if pos.map == 0 or pos.map == 1:
+			if pos.x >= 6144 or pos.x < 0:
+				return False
+			if pos.y >= 4096 or pos.y < 0:
+				return False
+		# Ilshenar
+		elif pos.map == 2:
+			if pos.x >= 2304 or pos.x < 0:
+				return False
+			if pos.y >= 1600 or pos.y < 0:
+				return False
+		# Malas
+		elif pos.map == 3:
+			if pos.x >= 2560 or pos.x < 0:
+				return False
+			if pos.y >= 2048 or pos.y < 0:
+				return False
+		# Tokuno Islands
+		elif pos.map == 4:
+			if pos.x >= 1448 or pos.x < 0:
+				return False
+			if pos.y >= 1448 or pos.y < 0:
+				return False
+		if not ( pos.z < 128 and pos.z > -128 ):
+			return False
+	else:
+		return False
+
+	return True
 
 def onLoad():
 	wolfpack.registercommand('testenemy', testenemy)

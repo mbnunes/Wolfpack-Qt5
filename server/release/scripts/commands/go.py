@@ -31,6 +31,7 @@ import wolfpack
 from wolfpack.consts import *
 from system.makemenus import MakeMenu, MakeAction, findmenu
 from wolfpack.console import *
+from wolfpack.utilities import isValidPosition
 
 generated = 0
 
@@ -81,61 +82,17 @@ def sendresponse(player, arguments, target):
 		parts = arguments[0].split(',')
 		pos = player.pos
 		try:
-			if int(parts[0]) < 0:
-				player.socket.sysmessage( "X values must be >= 0!" )
-				return False
-			if int(parts[1]) < 0:
-				player.socket.sysmessage( "Y values must be >= 0!" )
-				return False
-			if len(parts) >= 3 and not ( int(parts[2]) < 128 and int(parts[2]) > -127 ):
-				player.socket.sysmessage( "Z value is out of range!" )
-				return False
-			if len(parts) >= 4 and not wolfpack.hasmap( int(parts[3]) ):
-				player.socket.sysmessage( "Map %u is an invalid map!" % int(parts[3]) )
-				return False
-
 			if len(parts) >= 3:
 				pos.z = int(parts[2])
 			if len(parts) >= 4:
 				pos.map = int(parts[3])
 
-			# Max X Checking
-			# Felucca/Trammel
-			if pos.map == 0 or pos.map == 1:
-				if int(parts[0]) >= 6144:
-					player.socket.sysmessage( "X values must be < 6144!" )
-					return False
-				if int(parts[1]) >= 4096:
-					player.socket.sysmessage( "Y values must be < 4096!" )
-					return False
-			# Ilshenar
-			elif pos.map == 2:
-				if int(parts[0]) >= 2304:
-					player.socket.sysmessage( "X values must be < 2304!" )
-					return False
-				if int(parts[1]) >= 1600:
-					player.socket.sysmessage( "Y values must be < 1600!" )
-					return False
-			# Malas
-			elif pos.map == 3:
-				if int(parts[0]) >= 2560:
-					player.socket.sysmessage( "X values must be < 2560!" )
-					return False
-				if int(parts[1]) >= 2048:
-					player.socket.sysmessage( "Y values must be < 2048!" )
-					return False
-			# Tokuno Islands
-			elif pos.map == 4:
-				if int(parts[0]) >= 1448:
-					player.socket.sysmessage( "X values must be < 1448!" )
-					return False
-				if int(parts[1]) >= 1448:
-					player.socket.sysmessage( "Y values must be < 1448!" )
-					return False
-
-			# All of the checks passed
 			pos.x = int(parts[0])
 			pos.y = int(parts[1])
+
+			if not isValidPosition( pos ):
+				player.socket.sysmessage( "Error: Destination invalid!" )
+				return False
 
 			object.removefromview()
 			object.moveto(pos)
@@ -154,6 +111,9 @@ def sendresponse(player, arguments, target):
 		if location:
 			(x,y,z,map) = location.text.split(',')
 			pos = wolfpack.coord(int(x), int(y), int(z), int(map))
+			if not isValidPosition( pos ):
+				player.socket.sysmessage( "Error: Destination invalid!" )
+				return False
 			object.removefromview()
 			object.moveto(pos)
 			object.update()
