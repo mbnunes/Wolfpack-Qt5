@@ -1948,6 +1948,9 @@ void cUOSocket::sendSkill( UINT16 skill )
 
 void cUOSocket::handleAction( cUORxAction *packet )
 {
+	if( !_player )
+		return;
+
 	switch( packet->type() )
 	{
 	// Skill use
@@ -1961,7 +1964,8 @@ void cUOSocket::handleAction( cUORxAction *packet )
 	// Cast Spell (out of spellbook)
 	case 0x39:
 		{
-			sysMessage( packet->action() );
+			// Convert the "Action"
+			NewMagic->castSpell( _player, packet->action().toInt()-1 );
 		}
 		break;
 	}

@@ -30,21 +30,6 @@ stNewSpell *cNewMagic::findSpell( UINT8 id )
 	return &spells[id];
 }
 
-/*!
-	Tries to find a spellstub based on the spell id
-*/
-stSpellStub *cNewMagic::findSpellStub( UINT8 id )
-{
-	UINT8 i = 0;
-	while( spellStubs[i].stub )
-	{
-		if( i == id )
-			return &spellStubs[i];
-	}
-
-	return 0;
-}
-
 void cNewMagic::load()
 {
 	// Get all spell definitions
@@ -307,10 +292,8 @@ public:
 					return true;
 				}
 
-				stSpellStub *sStub = NewMagic->findSpellStub( spell );
-
-				if( sStub )
-					sStub->stub( socket->player(), pos, target->model(), target->serial() );
+				/*if( sStub )
+					sStub->stub( socket->player(), pos, target->model(), target->serial() );*/
 			}
 			// We are not precasting, so let us now begin casting
 			else
@@ -362,10 +345,10 @@ void cEndCasting::Expire()
 	// If we are not precasting continue casting with the spelleffect
 	else
 	{
-		stSpellStub *sStub = NewMagic->findSpellStub( spell );
+		/*stSpellStub *sStub = NewMagic->findSpellStub( spell );
 		if( !sStub )
 			return;
-		sStub->stub( pChar, pos, model, target );
+		sStub->stub( pChar, pos, model, target );*/
 	}
 }
 
@@ -628,113 +611,4 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 	return true;
 }
 
-stSpellStub cNewMagic::spellStubs[] =
-{
-	{ spellClumsy },	// 0 = Clumsy
-	{ NULL } // Terminator
-};
-
 cNewMagic *NewMagic;
-
-/*!
-	Tempeffect for Bless
-*/
-class cBlessEffect: public cTempEffect
-{
-};
-
-class cCurseEffect: public cTempEffect
-{
-};
-
-class cDexModifier: public cTempEffect
-{
-private:
-	INT8 modifier_;
-public:
-	cDexModifier()	
-	{ 
-		objectid = "dexmodifier";
-		dispellable = true;
-		serializable = true;
-	}
-	virtual ~cDexModifier() {;}
-
-	void setModifier( INT8 data ) { modifier_ = data; }
-	INT8 modifier() { return modifier_; }
-
-	static cDexModifier *Create( P_CHAR pChar, INT8 modifier )
-	{
-		cDexModifier *dMod = new cDexModifier;
-		dMod->setDest( pChar->serial );
-		dMod->setModifier( modifier );
-
-		// Apply the stuff
-		pChar->setDex( pChar->effDex() + modifier );
-
-		if( pChar->socket() )
-			pChar->socket()->sendStatWindow();
-		
-		return dMod;
-	}
-	
-	void Off( P_CHAR pc ) { Expire(); }
-
-	// Reset the 
-	virtual void Expire()
-	{
-		P_CHAR pChar = FindCharBySerial( getDest() );
-		if( pChar )
-		{
-			pChar->setDex( pChar->effDex() - modifier_ );
-			
-			if( pChar->socket() )
-				pChar->socket()->sendStatWindow();
-		}
-	}
-
-	virtual void Serialize(ISerialization &archive)
-	{
-		// Save the modifier
-		if( archive.isReading() )
-			archive.read( "modifier", modifier_ );
-		else if( archive.isWritting() )
-			archive.write( "modifier", modifier_ );
-	}
-};
-
-/*!
-	Spell stub for Clumsy
-*/
-void cNewMagic::spellClumsy( P_CHAR pMage, Coord_cl tPos, UINT16 model, SERIAL tSerial, INT32 magery )
-{
-	P_CHAR pChar = FindCharBySerial( tSerial );
-
-	if( !pChar )
-		return;
-
-	// Check if the character alread has a clumsyness effect on 
-	vector< cTempEffect* > tEffects = cTempEffects::getInstance()->teffects.asVector();
-
-	// Do not stack with curse effect
-	std::vector< cTempEffect* >::iterator i;
-	for( i = tEffects.begin(); i != tEffects.end(); ++i )
-		if( i != NULL && (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pChar->serial )
-			if( (*i)->objectID() == "curse" )
-				return;
-			else if( (*i)->objectID() == "dexmodifier" )
-			{
-				(*i)->Expire();
-				cTempEffects::getInstance()->teffects.erase( (*i) );
-				break;
-			}
-
-	// Display an effect for the target
-	pChar->soundEffect( 0x1E1 );
-	pChar->effect( EFFECT_CURSE, 9 );
-
-    // Insert and Create our little effect
-	cDexModifier *dMod = cDexModifier::Create( pChar, -1  * RandomNum( 10, 20 ) );
-	dMod->setExpiretime_s( RandomNum( 60, 120 ) );
-	cTempEffects::getInstance()->insert( dMod );
-}

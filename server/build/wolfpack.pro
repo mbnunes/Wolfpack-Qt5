@@ -104,7 +104,9 @@ HEADERS         = \
 		  wpscriptmanager.h \
 		  wptargetrequests.h \
 		  corpse.h \
-		  python/content.h
+		  python/content.h \
+		  spellbook.h \
+		  newmagic.h 
 		  
 SOURCES         = \
 		  LoS.cpp \
@@ -179,7 +181,9 @@ SOURCES         = \
 		  packlen.cpp \
 		  wpdefmanager.cpp \
 		  wpscriptmanager.cpp \
-		  wptargetrequests.cpp 
+		  wptargetrequests.cpp \
+		  newmagic.cpp \
+		  spellbook.cpp
 
 # Network Module
 SOURCES		+= network/asyncnetio.cpp \
