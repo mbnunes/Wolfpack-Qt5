@@ -303,7 +303,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 						itemcount2++;
 
 						items[c].amount = pi->amount - amount;
-						items[c].SetContSerial(items[c].serial);
+						items[c].SetContSerial(items[c].contserial);
 						items[c].SetOwnSerial(items[c].ownserial);
 						items[c].SetSpawnSerial(items[c].spawnserial);
 						
