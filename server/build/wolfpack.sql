@@ -212,16 +212,16 @@ CREATE TABLE `uobjectmap` (
 	PRIMARY KEY  (`serial`)
 );
 
-CREATE TABLE guilds_enemies (
-	guild unsigned int(10) NOT NULL default '0',
-	enemy unsigned int(10) NOT NULL default '0',
-	PRIMARY KEY(guild,enemy)
+CREATE TABLE `guilds_enemies` (
+	`guild` unsigned int(10) NOT NULL default '0',
+	`enemy` unsigned int(10) NOT NULL default '0',
+	PRIMARY KEY(`guild`,`enemy`)
 );
 
-CREATE TABLE guilds_allies (
-	guild unsigned int(10) NOT NULL default '0',
-	ally unsigned int(10) NOT NULL default '0',
-	PRIMARY KEY(guild,ally)
+CREATE TABLE `guilds_allies` (
+	`guild` unsigned int(10) NOT NULL default '0',
+	`ally` unsigned int(10) NOT NULL default '0',
+	PRIMARY KEY(`guild`,`ally`)
 );
 
 INSERT INTO `settings` VALUES('db_version', '10');
