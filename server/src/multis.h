@@ -92,10 +92,10 @@ public:
 	std::vector<SERIAL>	bans()		const { return bans_; }
 
 	P_ITEM	findKey( P_CHAR pc );
-	void	createKeys( P_CHAR pc, const QString &name );
+	void	createKeys( P_PLAYER pc, const QString &name );
 	void	removeKeys( void );
 
-	bool	authorized( P_CHAR pc );
+	bool	authorized( P_PLAYER pc );
 
 	bool	inMulti( const Coord_cl &srcpos );
 
@@ -130,8 +130,8 @@ class cMultiGump : public cGump
 private:
 	SERIAL char_;
 	SERIAL multi_;
-	QPtrVector< cChar > friends;
-	QPtrVector< cChar > bans;
+	QPtrVector< cBaseChar > friends;
+	QPtrVector< cBaseChar > bans;
 
 public:
 	cMultiGump( SERIAL charSerial, SERIAL multiSerial );

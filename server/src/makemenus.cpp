@@ -36,7 +36,7 @@
 #include "skills.h"
 #include "targetrequests.h"
 #include "wpdefmanager.h"
-
+#include "basechar.h"
 #include "resources.h"
 #include "srvparams.h"
 #include "Python.h"
@@ -295,7 +295,7 @@ void cSkillCheck::processNode( const QDomElement &Tag )
 		max_ = Value.toUShort();
 }
 
-bool cSkillCheck::skilledEnough( cChar* pChar )
+bool cSkillCheck::skilledEnough( P_CHAR pChar )
 {
 	return ( pChar->skillValue( skillid() ) >= minimum() );
 }
@@ -460,7 +460,7 @@ void	cMakeCustomSection::useResources( cItem* pBackpack )
 }
 
 // if any of foreach(skill) : skill < min => false
-bool	cMakeCustomSection::skilledEnough( cChar* pChar )
+bool	cMakeCustomSection::skilledEnough( P_CHAR pChar )
 {
 	bool skilledEnough = true;
 	QPtrListIterator< cSkillCheck > skit( skillchecks_ );
@@ -473,7 +473,7 @@ bool	cMakeCustomSection::skilledEnough( cChar* pChar )
 }
 
 // calcRank checks the skill and may raise it! (==0) => failed, (>0) => success
-UINT32	cMakeCustomSection::calcRank( cChar* pChar )
+UINT32	cMakeCustomSection::calcRank( P_CHAR pChar )
 {
 	bool hasSuccess = true;
 	UINT32 ranksum = 1;
@@ -502,7 +502,7 @@ UINT32	cMakeCustomSection::calcRank( cChar* pChar )
 
 void cMakeCustomSection::execute( cUOSocket* const socket )
 {
-	P_CHAR pChar	 = socket->player();
+	P_PLAYER pChar	 = socket->player();
 	P_ITEM pBackpack = pChar->getBackpack();
 
 	if( !socket || !pChar || !baseaction_ )
@@ -667,7 +667,7 @@ void cMakeNpcSection::processNode( const QDomElement &Tag )
 
 void cMakeNpcSection::execute( cUOSocket* const socket )
 {
-	P_CHAR pChar	 = socket->player();
+	P_PLAYER pChar	 = socket->player();
 	P_ITEM pBackpack = pChar->getBackpack();
 
 	if( !socket || !pChar || !baseaction_ )
@@ -772,7 +772,7 @@ void cDoCodeAction::processNode( const QDomElement &Tag )
 
 void cDoCodeAction::execute( cUOSocket* const socket )
 {
-	P_CHAR pChar	 = socket->player();
+	P_PLAYER pChar	 = socket->player();
 	P_ITEM pBackpack = pChar->getBackpack();
 
 	if( !socket || !pChar || !baseaction_ )
@@ -815,7 +815,7 @@ void cDoScriptAction::processNode( const QDomElement &Tag )
 
 void cDoScriptAction::execute( cUOSocket* const socket )
 {
-	P_CHAR pChar	 = socket->player();
+	P_PLAYER pChar	 = socket->player();
 
 	if( !pChar || !baseaction_ )
 		return;
@@ -1297,7 +1297,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notice
 
 cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 {
-	cChar* pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 	action_ = action;
 	menu_ = action->baseMenu();
 	prev_ = action->baseMenu();
@@ -1501,7 +1501,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 	else if( choice.button == 1 )
 	{
-		cChar* pChar = socket->player();
+		P_PLAYER pChar = socket->player();
 		if( !pChar )
 			return;
 		QPtrList< cMakeSection > sections = pChar->lastSelections( menu_->baseMenu() );
@@ -1509,7 +1509,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 	else if( choice.button == 2 )
 	{
-		cChar* pChar = socket->player();
+		P_PLAYER pChar = socket->player();
 		if( !pChar )
 			return;
 		if( pChar->lastSection( menu_->baseMenu() ) )
@@ -1521,7 +1521,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 	else if( choice.button < (actions.size()+submenus.size()+4) )
 	{
-		cChar* pChar = socket->player();
+		P_PLAYER pChar = socket->player();
 		if( !pChar )
 			return;
 		cItem* pBackpack = pChar->getBackpack();
@@ -1566,7 +1566,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 	else if( choice.button < (actions.size()+submenus.size()+4+1000) )
 	{
-		cChar* pChar = socket->player();
+		P_PLAYER pChar = socket->player();
 		if( !pChar )
 			return;
 		cMakeAction* action = actions[ choice.button - submenus.size() - 4 - 1000 ];
@@ -1677,7 +1677,7 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	else if( choice.button > 10 && choice.button <= 20 )
 	{
 		cMakeSection* section = sections_.at( choice.button-11 );
-		cChar* pChar = socket->player();
+		P_PLAYER pChar = socket->player();
 		if( !pChar )
 			return;
 		cItem* pBackpack = pChar->getBackpack();
@@ -2144,9 +2144,10 @@ void cAllMakeMenus::reload()
 	}
 	menus_.clear();
 
-	cCharIterator iChars;
-	for( P_CHAR pc = iChars.first(); pc; pc = iChars.next() )
-			pc->clearLastSelections();
+	for ( cUOSocket* mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next()	)
+	{
+		mSock->player()->clearLastSelections();
+	}
 	load();
 }
 

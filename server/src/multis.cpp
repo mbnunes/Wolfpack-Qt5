@@ -338,7 +338,7 @@ void cMulti::removeFriend( SERIAL serial )
 	friends_.erase(it);
 }
 
-void cMulti::createKeys( P_CHAR pc, const QString &name )
+void cMulti::createKeys( P_PLAYER pc, const QString &name )
 {
 	if( !pc )
 		return;
@@ -437,7 +437,7 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 }
 
 
-bool cMulti::authorized( P_CHAR pc )
+bool cMulti::authorized( P_PLAYER pc )
 {
 	return ( pc->isGMorCounselor() || owner() == pc || findKey( pc ) || isFriend( pc ) );
 }
@@ -469,7 +469,7 @@ void cMulti::setName( const QString nValue )
 
 cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 {
-	P_CHAR pChar = FindCharBySerial( charSerial );
+	P_PLAYER pChar = dynamic_cast<P_PLAYER>(FindCharBySerial( charSerial ));
 	if( !pChar )
 		return;
 
@@ -667,7 +667,7 @@ void cMultiGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	if( choice.button == 0 ) // canceled
 		return;
 
-	P_CHAR pChar = FindCharBySerial( char_ );
+	P_PLAYER pChar = dynamic_cast<P_PLAYER>(FindCharBySerial( char_ ));
 	if( !pChar )
 		return;
 
