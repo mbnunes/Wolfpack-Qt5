@@ -245,7 +245,7 @@ public:
 	P_ITEM SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable, short id, short color, bool bPack);
 	P_ITEM SpawnItemBank(CHARACTER ch, int nItem);
 	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging);
-	void DecayItem(unsigned int currenttime, int i);
+	void DecayItem(unsigned int currenttime, P_ITEM pi);
 	void RespawnItem(unsigned int Currenttime, int i);
 	void AddRespawnItem(P_ITEM pItem, int x, int y);
 	void CheckEquipment(P_CHAR pc_p); //AntiChrist

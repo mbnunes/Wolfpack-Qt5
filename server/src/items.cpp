@@ -1557,10 +1557,11 @@ char cAllItems::isFieldSpellItem(int i) //LB
 	return a;
 }
 //taken from 6904t2(5/10/99) - AntiChrist
-void cAllItems::DecayItem(unsigned int currenttime, int i) 
+void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi) 
 {
 	int j, serial, serhash, ci, preservebody;
-	P_ITEM pi = MAKE_ITEMREF_LR(i);
+	if ( pi == NULL )
+		return;
 	P_ITEM pi_multi = NULL;
 
 	if(pi->magic==4) {pi->decaytime=0; return;}
@@ -1577,7 +1578,7 @@ void cAllItems::DecayItem(unsigned int currenttime, int i)
 			{
                 //Multis --Boats ->
 
-				if (!Items->isFieldSpellItem(i)) // Gives fieldspells a chance to decay in multis, LB
+				if (!Items->isFieldSpellItem(DEREF_P_ITEM(pi))) // Gives fieldspells a chance to decay in multis, LB
 				{
 				  if (pi->multis<1 && !pi->corpse)
 				  {

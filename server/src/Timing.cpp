@@ -1053,7 +1053,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 										Items->DeleItem(mapitem); // bugfix for items disappearing
 								}
 							}
-							Items->DecayItem(currenttime, DEREF_P_ITEM(mapitem));
+							Items->DecayItem(currenttime, mapitem);
 							if (mapitem->type==88 && mapitem->morey<25 )
 							{
 								if (itemdist(currchar[i], DEREF_P_ITEM(mapitem))<=mapitem->morey)

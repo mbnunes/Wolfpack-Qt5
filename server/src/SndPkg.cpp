@@ -2980,7 +2980,7 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 				m1t=m1t+19;
 				value=pi_j->value;
 				value=calcValue(DEREF_P_ITEM(pi_j), value);
-				if (SrvParms->trade_system==1) value=calcGoodValue(c,DEREF_P_ITEM(pi_j),value,0); // by Magius(CHE)
+				if (SrvParms->trade_system==1) value=calcGoodValue(c, DEREF_P_ITEM(pi_j), value, 0); // by Magius(CHE)
 				m2[m2t+0]=value>>24;// Item value/price
 				m2[m2t+1]=value>>16;//Item value/price
 				m2[m2t+2]=value>>8; // Item value/price
