@@ -816,10 +816,10 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 void DragAndDrop::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 {
 	// Feed our pets
-	if( pChar->hunger() >= 6 || pItem->type2() == 0 || !( pChar->nutriment() & ( 1 << (pItem->type2()-1) ) ) )
+	if( pChar->hunger() >= 6 || !(pChar->nutriment() & (1 << (pItem->type2() - 1))) )
 	{
-		socket->sysMessage( tr("It doesn't seem to want your item") );
-		bounceItem( socket, pItem );
+		socket->sysMessage(tr("It doesn't seem to want your item."));
+		bounceItem(socket, pItem);
 		return;
 	}
 
@@ -828,7 +828,7 @@ void DragAndDrop::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar 
 
 	// *You see Snowwhite eating some poisoned apples*
 	// Color: 0x0026
-	pChar->emote( tr( "*You see %1 eating %2*" ).arg( pChar->name() ).arg( pItem->getName() ) );
+	pChar->emote(tr("*You see %1 eating %2*").arg(pChar->name()).arg(pItem->getName()));
 
 	// We try to feed it more than it needs
 	if( pChar->hunger() + pItem->amount() > 6 )
