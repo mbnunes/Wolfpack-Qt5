@@ -52,6 +52,8 @@ class Coord_cl;
 class cVariant
 {
 public:
+	static cVariant null;
+
     enum Type
 	{
 		Invalid = 0,
@@ -151,18 +153,18 @@ public:
 	void save( SERIAL key );
 	void load( SERIAL key );
 
-	cVariant	get( const QString& key );
-	bool		has( const QString& key );
+	const cVariant	&get( const QString& key ) const;
+	bool		has( const QString& key ) const;
 	void		set( const QString& key, const cVariant& value );
 	void		remove( const QString& key );
 
 	UI32		size( void ) { return tags_ ? this->tags_->size() : 0; }
 
-	QStringList getKeys( void );
+	QStringList getKeys( void ) const;
 
 	QValueList< cVariant > getValues( void );
 
-	bool getChanged( void )
+	bool getChanged( void ) const
 	{
 		return changed;
 	}

@@ -156,10 +156,10 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		pTiller->MoveTo( this->pos().x + itemoffsets[0][ TILLER ][X], this->pos().y + itemoffsets[0][ TILLER ][Y], this->pos().z );
 		pTiller->setPriv( 0 );
 		pTiller->setType( 117 );
-		pTiller->tags().set( "tiller", 1 );
-		pTiller->tags().set( "boatserial", this->serial() );
+		pTiller->setTag( "tiller", 1 );
+		pTiller->setTag( "boatserial", this->serial() );
 		this->itemserials[ TILLER ] = pTiller->serial();
-		pTiller->tags().set("gatetime", (int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC)));
+		pTiller->setTag("gatetime", (int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC)));
 	}
 		
 	P_ITEM pPlankR = cItem::createFromId( this->itemids[0][ PORT_P_C ] );
@@ -171,7 +171,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		pPlankR->setType2( 2 );
 		pPlankR->MoveTo( this->pos().x + itemoffsets[0][ PORT_PLANK ][X], this->pos().y + itemoffsets[0][ PORT_PLANK ][Y], this->pos().z );
 		pPlankR->setPriv( 0 );
-		pPlankR->tags().set( "boatserial", this->serial() );
+		pPlankR->setTag( "boatserial", this->serial() );
 		this->itemserials[ PORT_PLANK ] = pPlankR->serial();
 	}
 
@@ -184,7 +184,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		pPlankL->setType2( 3 );//Plank sub type
 		pPlankL->MoveTo( this->pos().x + itemoffsets[0][ STARB_PLANK ][X], this->pos().y + itemoffsets[0][ STARB_PLANK ][Y], this->pos().z );
 		pPlankL->setPriv( 0 );
-		pPlankL->tags().set( "boatserial", this->serial() );
+		pPlankL->setTag( "boatserial", this->serial() );
 		this->itemserials[ STARB_PLANK ] = pPlankL->serial();
 	}
 
@@ -196,7 +196,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		pHold->setType( 1 );//Conatiner
 		pHold->MoveTo( this->pos().x + itemoffsets[0][ HOLD ][X], this->pos().y + itemoffsets[0][ HOLD ][Y], this->pos().z );
 		pHold->setPriv( 0 );
-		pHold->tags().set( "boatserial", this->serial() );
+		pHold->setTag( "boatserial", this->serial() );
 		this->itemserials[ HOLD ] = pHold->serial();
 	}
 

@@ -545,17 +545,17 @@ void cPlayer::kill()
 	// So a singleclick on the corpse
 	// Will display the right color
 	if( isInnocent() )
-		corpse->tags().set( "notority", cVariant( 1 ) );
+		corpse->setTag( "notority", cVariant( 1 ) );
 	else if( isCriminal() )
-		corpse->tags().set( "notority", cVariant( 2 ) );
+		corpse->setTag( "notority", cVariant( 2 ) );
 	else if( isMurderer() )
-		corpse->tags().set( "notority", cVariant( 3 ) );
+		corpse->setTag( "notority", cVariant( 3 ) );
 
     corpse->setOwner( this );
 
 	corpse->setBodyId( orgBodyID_ );
-	corpse->tags().set( "human", cVariant( isHuman() ? 1 : 0 ) );
-	corpse->tags().set( "name", cVariant( name() ) );
+	corpse->setTag( "human", cVariant( isHuman() ? 1 : 0 ) );
+	corpse->setTag( "name", cVariant( name() ) );
 
 	corpse->moveTo( pos() );
 
@@ -686,18 +686,18 @@ P_NPC cPlayer::unmount()
 	P_ITEM pi = atLayer(Mount);
 	if( pi && !pi->free )
 	{
-		P_NPC pMount = dynamic_cast<P_NPC>( FindCharBySerial( pi->tags().get( "pet" ).asInt() ) );
+		P_NPC pMount = dynamic_cast<P_NPC>( FindCharBySerial( pi->getTag( "pet" ).toInt() ) );
 		if( pMount )
 		{
 			pMount->setWanderType( enHalt );
 			pMount->setWanderX1( pi->pos().x );
 			pMount->setWanderY1( pi->pos().y );
 			pMount->setWanderRadius( pi->pos().z );
-			pMount->setBodyID( pi->tags().get( "body" ).asInt() );
+			pMount->setBodyID( pi->getTag( "body" ).toInt() );
 			pMount->setDirection( direction() );
-			pMount->setStrength( pi->tags().get( "strength" ).toInt() );
-			pMount->setDexterity( pi->tags().get( "dexterity" ).toInt() );
-			pMount->setIntelligence( pi->tags().get( "intelligence" ).toInt() );
+			pMount->setStrength( pi->getTag( "strength" ).toInt() );
+			pMount->setDexterity( pi->getTag( "dexterity" ).toInt() );
+			pMount->setIntelligence( pi->getTag( "intelligence" ).toInt() );
 			pMount->setHitpoints( pi->hp() );
 			pMount->setFame( pi->lodamage() );
 			pMount->setKarma( pi->hidamage() );
@@ -784,13 +784,13 @@ void cPlayer::mount( P_NPC pMount )
 		position.z = pMount->wanderRadius();
 		pMountItem->setPos( position );
 		
-		pMountItem->tags().set( "pet", cVariant( pMount->serial() ) );
-		pMountItem->tags().set( "body", cVariant( pMount->bodyID() ) );
+		pMountItem->setTag( "pet", cVariant( pMount->serial() ) );
+		pMountItem->setTag( "body", cVariant( pMount->bodyID() ) );
 
-		pMountItem->tags().set( "wanderType",	(int)pMount->wanderType() );
-		pMountItem->tags().set( "strength",		pMount->strength() );
-		pMountItem->tags().set( "dexterity",	pMount->dexterity() );
-		pMountItem->tags().set( "intelligence", pMount->intelligence() );
+		pMountItem->setTag( "wanderType",	(int)pMount->wanderType() );
+		pMountItem->setTag( "strength",		pMount->strength() );
+		pMountItem->setTag( "dexterity",	pMount->dexterity() );
+		pMountItem->setTag( "intelligence", pMount->intelligence() );
 
 		pMountItem->setHp( pMount->hitpoints() );
 		pMountItem->setLodamage( pMount->fame() );

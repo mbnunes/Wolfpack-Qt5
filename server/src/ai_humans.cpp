@@ -140,10 +140,10 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message
 				cItem::ContainerContent::const_iterator it( content.begin() );
 				while( it != content.end() )
 				{
-					if( !(*it)->tags().has( "player" ) || !(*it)->tags().has( "pet" ) )
+					if( !(*it)->hasTag( "player" ) || !(*it)->hasTag( "pet" ) )
 						continue;
 
-					if( (*it) && (*it)->id() == 0x1ea7 && (*it)->tags().get( "player" ).asInt() == pTalker->serial() )
+					if( (*it) && (*it)->id() == 0x1ea7 && (*it)->getTag( "player" ).toInt() == pTalker->serial() )
 						stableitems.push_back( (*it) );
 					++it;
 				}
@@ -156,7 +156,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message
 				{
 					if( (*it) )
 					{
-						P_NPC pPet = dynamic_cast<P_NPC>(World::instance()->findChar( (*it)->tags().get( "pet" ).asInt() ));
+						P_NPC pPet = dynamic_cast<P_NPC>(World::instance()->findChar( (*it)->getTag( "pet" ).toInt() ));
 						if( pPet )
 						{
 							pPet->free = false;
@@ -208,8 +208,8 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget *target
 	// but will still be saved.
 	P_ITEM pGem = new cItem();
 	pGem->Init( false );
-	pGem->tags().set( "player", cVariant( player->serial() ) );
-	pGem->tags().set( "pet", cVariant( pPet->serial() ) );
+	pGem->setTag( "player", cVariant( player->serial() ) );
+	pGem->setTag( "pet", cVariant( pPet->serial() ) );
 	pGem->setId( 0x1ea7 );
 	pGem->setName( tr("petitem: %1").arg(pPet->name()) );
 	pGem->setVisible( 2 ); // gm visible

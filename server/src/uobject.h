@@ -63,6 +63,7 @@ class cUObject : public PersistentObject, public cDefinable
 {
 private:
 	uchar changed_:1;
+	cCustomTags tags_;
 
 protected:
 	QString bindmenu_;
@@ -70,8 +71,7 @@ protected:
 	QString name_;
 	Coord_cl pos_;
 	SERIAL serial_;
-	SERIAL multis_;
-	cCustomTags tags_;
+	SERIAL multis_;	
 	uchar dir_:3;
 
 	// Things for building the SQL string
@@ -97,6 +97,14 @@ public:
 	{
 		return scriptChain; 
 	}
+
+	// Forwarder for the tags
+	const cVariant &getTag( const QString& key ) const;
+	bool hasTag( const QString& key );
+	void setTag( const QString& key, const cVariant& value );
+	void removeTag( const QString& key );
+	void clearTags();
+	QStringList getTags() const;
 
 	void clearEvents();
 	void addEvent( cPythonScript *Event );
@@ -141,8 +149,6 @@ public:
 	Coord_cl		pos()			const { return pos_;		}
 	SERIAL			serial()		const { return serial_;	}
 	SERIAL			multis()		const { return multis_;	}
-	cCustomTags		tags()			const { return tags_;		}
-	cCustomTags&	tags()				  { return tags_;		}
 	UINT32			getTooltip()	const { return tooltip_; }
 	uchar			direction()		const { return dir_;  }
 
@@ -150,7 +156,6 @@ public:
 	void setName( const QString& d )		{ name_ = d; changed_ = true; changed( TOOLTIP );		}	
 	void setPos( const Coord_cl& d )		{ pos_ = d;	changed_ = true;		}
 	void setMultis( const SERIAL d )		{ multis_ = d; changed_ = true;		}
-	void setTags( const cCustomTags& d )	{ tags_ = d; changed_ = true; changed( TOOLTIP );		}
 	virtual void setSerial( SERIAL d )		{ serial_ = d; changed_ = true;	}
 	void setTooltip( const UINT32 d )		{ tooltip_ = d; }
 	void	setDirection( uchar d )			{ dir_ = d; changed_ = true;}

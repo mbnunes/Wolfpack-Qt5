@@ -685,3 +685,31 @@ char cUObject::direction( cUObject* d ) const
 
 	return dir;
 }
+
+const cVariant &cUObject::getTag( const QString& key ) const
+{
+	return tags_.get( key );
+}
+
+bool cUObject::hasTag( const QString& key )
+{
+	changed_ = true;
+	return tags_.has( key );
+}
+
+void cUObject::setTag( const QString& key, const cVariant& value )
+{
+	tags_.set( key, value );
+	changed_ = true;
+}
+
+void cUObject::removeTag( const QString& key )
+{
+	changed_ = true;
+	tags_.remove( key );
+}
+
+QStringList cUObject::getTags() const
+{
+	return tags_.getKeys();
+}

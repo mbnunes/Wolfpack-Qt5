@@ -780,9 +780,9 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 		if( !pi )
 			continue;
 
-		if( pi->type() == 117 && pi->tags().get( "tiller" ).toInt() == 1 )
+		if( pi->type() == 117 && pi->getTag( "tiller" ).toInt() == 1 )
 		{
-			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags().get("boatserial").toInt() ));
+			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->getTag("boatserial").toInt() ));
 			if( pBoat )
 				pboats.append( pBoat );
 		}

@@ -657,7 +657,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		}
 	}
 
-	if( pResItem && !( pResItem->tags().has( "vein" ) || pResItem->tags().has( "amount" ) ) )
+	if( pResItem && !( pResItem->hasTag( "vein" ) || pResItem->hasTag( "amount" ) ) )
 		pResItem = 0;
 
 	resourcespec_st item;
@@ -780,7 +780,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		}
 	}
 
-	amount = pResItem->tags().get( "amount" ).asInt();
+	amount = pResItem->getTag( "amount" ).toInt();
 	if( amount == 0 )
 	{
 		pc->action( charaction_ );
@@ -794,7 +794,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 			socket->sysMessage( emptymsg_ );
 		return;
 	}
-	vein = pResItem->tags().get( "vein" ).asInt();
+	vein = pResItem->getTag( "vein" ).toInt();
 
 
 	if( vein > 0 && vein <= resourcespecs_.size() && possible_resspecs.find( vein-1 ) != possible_resspecs.end() )
@@ -879,7 +879,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	}
 	
 	amount -= spawnamount;
-	pResItem->tags().set( "amount", cVariant( (int)amount ) );
+	pResItem->setTag( "amount", cVariant( (int)amount ) );
 	if( amount == 0 )
 	{
 		pResItem->setDecayTime( uiCurrentTime + refreshtime_ * MY_CLOCKS_PER_SEC );
@@ -1187,8 +1187,8 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 		setDecayTime(uiCurrentTime + SrvParams->resitemdecaytime() * MY_CLOCKS_PER_SEC );
 	}
 
-	tags().set( "amount", cVariant( (int)amount ) );
-	tags().set( "vein", cVariant( (int)vein ) );
+	setTag( "amount", cVariant( (int)amount ) );
+	setTag( "vein", cVariant( (int)vein ) );
 
 	this->setId( 0x1ea7 );
 	this->amount_ = 1;

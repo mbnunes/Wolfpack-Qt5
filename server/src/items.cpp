@@ -116,9 +116,6 @@ cItem::cItem( const cItem &src )
 	this->poisoned_ = src.poisoned_;
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
-	// We're *NOT* copying the contents over
-	
-	this->setTags( src.tags() );
 	this->container_ = src.container_;
 	this->totalweight_ = src.totalweight_;
 	setTotalweight( amount_ * weight_ );
@@ -406,17 +403,6 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 
 void cItem::save()
 {
-/*	if( decaytime_ > 0 && !changed_ )
-	{
-		initSave;
-		setTable( "items" );
-
-		addField("decaytime",	(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
-
-		addCondition( "serial", serial() );
-		saveFields;
-	}
-*/
 	if ( changed_ )
 	{
 		initSave;
@@ -1418,9 +1404,9 @@ void cItem::showName( cUOSocket *socket )
 	}*/
 
 	// Show RepSys Settings of Victim when killed
-	if( corpse() && tags_.has( "notority" ) )
+	if( corpse() && hasTag( "notority" ) )
 	{
-		int notority = tags_.get( "notority" ).asInt();
+		int notority = getTag( "notority" ).toInt();
 
 		if( notority == 1 )
 			socket->showSpeech( this, tr( "[Innocent]" ), 0x005A );

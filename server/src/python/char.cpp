@@ -642,7 +642,7 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	}
 
 	QString key = getArgStr( 0 );
-	cVariant value = self->pChar->tags().get( key );
+	cVariant value = self->pChar->getTag( key );
 
 	if( value.type() == cVariant::String )
 		return PyString_FromString( value.asString().latin1() );
@@ -671,18 +671,18 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 
 	if( PyString_Check( object ) )
 	{
-		self->pChar->tags().remove( key );
-		self->pChar->tags().set( key, cVariant( PyString_AsString( object ) ) );
+		self->pChar->removeTag( key );
+		self->pChar->setTag( key, cVariant( PyString_AsString( object ) ) );
 	}
 	else if( PyInt_Check( object ) )
 	{
-		self->pChar->tags().remove( key );
-		self->pChar->tags().set( key, cVariant( (int)PyInt_AsLong( object ) ) );
+		self->pChar->removeTag( key );
+		self->pChar->setTag( key, cVariant( (int)PyInt_AsLong( object ) ) );
 	}
 	else if( PyFloat_Check( object ) )
 	{
-		self->pChar->tags().remove( key );
-		self->pChar->tags().set( key, cVariant( (double)PyFloat_AsDouble( object ) ) );
+		self->pChar->removeTag( key );
+		self->pChar->setTag( key, cVariant( (double)PyFloat_AsDouble( object ) ) );
 	}
 
 	return PyTrue;
@@ -704,7 +704,7 @@ static PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 
 	QString key = getArgStr( 0 );
 	
-	return self->pChar->tags().get( key ).isValid() ? PyTrue : PyFalse;
+	return self->pChar->getTag( key ).isValid() ? PyTrue : PyFalse;
 }
 
 /*!
@@ -722,7 +722,7 @@ static PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 	}
 
 	QString key = getArgStr( 0 );
-	self->pChar->tags().remove( key );
+	self->pChar->removeTag( key );
 
 	return PyTrue;
 }

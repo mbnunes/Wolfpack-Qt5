@@ -204,7 +204,7 @@ cTagsInfoGump::cTagsInfoGump( const cUObject* object ) : object_( const_cast<cUO
 {
 	if( object )
 	{
-		QStringList allkeys = object->tags().getKeys();
+		QStringList allkeys = object->getTags();
 
 		UINT32 page_ = 0;
 		UINT32 numkeys = allkeys.size();
@@ -244,7 +244,7 @@ cTagsInfoGump::cTagsInfoGump( const cUObject* object ) : object_( const_cast<cUO
 			
 			for( i = 0; i < thiskeys; i++ )
 			{
-				addText( 50, 120 + i * 20, tr( "Tag \"%1\": %2" ).arg( keys[i] ).arg( object->tags().get( keys[i] ).asString() ), 0x834 );
+				addText( 50, 120 + i * 20, tr( "Tag \"%1\": %2" ).arg( keys[i] ).arg( object->getTag( keys[i] ).toString() ), 0x834 );
 			}
 
 

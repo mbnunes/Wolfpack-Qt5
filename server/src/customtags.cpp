@@ -743,7 +743,7 @@ void cCustomTags::load( SERIAL key )
 	changed = false;
 }
 
-bool cCustomTags::has( const QString &key )
+bool cCustomTags::has( const QString &key ) const
 {
 	if( tags_ )
 	{
@@ -754,7 +754,7 @@ bool cCustomTags::has( const QString &key )
 	return false;
 }
 
-cVariant cCustomTags::get( const QString& key ) 
+const cVariant &cCustomTags::get( const QString& key ) const
 {
 	if( tags_ )
 	{
@@ -763,10 +763,10 @@ cVariant cCustomTags::get( const QString& key )
 			return it.data();
 	}
 
-	return cVariant();
+	return cVariant::null;
 }
 
-void cCustomTags::set( const QString& key, const cVariant& value ) 
+void cCustomTags::set( const QString& key, const cVariant& value )
 {
 	if( !tags_ )
 		tags_ = new QMap< QString, cVariant >;
@@ -813,7 +813,7 @@ void cCustomTags::remove( const QString& key )
 	}
 }
 
-QStringList cCustomTags::getKeys( void )
+QStringList cCustomTags::getKeys( void ) const
 {
 	if( tags_ )
 	{
@@ -838,3 +838,5 @@ cCustomTags::~cCustomTags()
 	if( tags_ )
 		delete tags_;
 }
+
+cVariant cVariant::null;

@@ -120,7 +120,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		if( !pc_currchar->Owns( pi ) && !pc_currchar->isGM() && pc_currchar->isInnocent() )
 		{
 			// Innocent Corpse?
-			if( pi->tags().has( "notority" ) && pi->tags().get( "notority" ).asInt() == 1 ) 
+			if( pi->hasTag( "notority" ) && pi->getTag( "notority" ).toInt() == 1 ) 
 			{
 				pc_currchar->makeCriminal();
 			}
@@ -207,7 +207,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 					if( pc_currchar->isHuman() )
 						pc_currchar->action( 0x20 );
 
-					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name() ).arg( pi->tags().get( "name" ).toString() ), 0x26 );
+					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name() ).arg( pi->getTag( "name" ).toString() ), 0x26 );
 				}
 				
 				socket->sendContainer( pi );
@@ -287,9 +287,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		{
 			if( pc_currchar->inRange( pi, 3 ) )
 			{
-				if (pi->tags().get("boatserial").isValid())
+				if (pi->getTag("boatserial").isValid())
 				{
-					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags().get("boatserial").toInt() ) );
+					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->getTag("boatserial").toInt() ) );
 					pBoat->handlePlankClick( socket, pi );
 				}
 				else 
@@ -506,7 +506,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				case 0x14F0:// deeds
 					if ((pi->type() != 103) &&(pi->type() != 202))
 					{  
-						const cElement *section = DefManager->getDefinition( WPDT_MULTI, pi->tags().get( "multisection" ).toString() );
+						const cElement *section = DefManager->getDefinition( WPDT_MULTI, pi->getTag( "multisection" ).toString() );
 						
 						if( section )
 						{
@@ -524,7 +524,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 							}
 
 							if( houseid != 0 )
-								socket->attachTarget( new cBuildMultiTarget( pi->tags().get( "multisection" ).toString() , pc_currchar->serial(), pi->serial() ), houseid );
+								socket->attachTarget( new cBuildMultiTarget( pi->getTag( "multisection" ).toString() , pc_currchar->serial(), pi->serial() ), houseid );
 						}
 					}
 					return;// deeds

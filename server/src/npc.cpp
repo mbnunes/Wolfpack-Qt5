@@ -548,8 +548,8 @@ void cNPC::kill()
 
 	corpse->setBodyId( orgBodyID_ );
 	corpse->setCarve( carve() ); //store carve section
-	corpse->tags().set( "human", cVariant( isHuman() ? 1 : 0 ) );
-	corpse->tags().set( "name", cVariant( name() ) );
+	corpse->setTag( "human", cVariant( isHuman() ? 1 : 0 ) );
+	corpse->setTag( "name", cVariant( name() ) );
 
 	corpse->moveTo( pos() );
 	corpse->setDirection( direction() );

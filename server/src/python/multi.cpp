@@ -298,7 +298,7 @@ static PyObject* wpMulti_gettag( wpMulti* self, PyObject* args )
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
-	cVariant value = self->pMulti->tags().get( key );
+	cVariant value = self->pMulti->getTag( key );
 
 	if( value.type() == cVariant::String )
 	{
@@ -332,12 +332,12 @@ static PyObject* wpMulti_settag( wpMulti* self, PyObject* args )
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 
-	self->pMulti->tags().remove( key );
+	self->pMulti->removeTag( key );
 
 	if( checkArgStr( 1 ) )
-		self->pMulti->tags().set( key, cVariant( QString( getArgStr( 1 ) ) ) );
+		self->pMulti->setTag( key, cVariant( QString( getArgStr( 1 ) ) ) );
 	else if( checkArgInt( 1 ) )
-		self->pMulti->tags().set( key, cVariant( (int)getArgInt( 1 ) ) );
+		self->pMulti->setTag( key, cVariant( (int)getArgInt( 1 ) ) );
 
 	return PyTrue;
 }
@@ -358,7 +358,7 @@ static PyObject* wpMulti_hastag( wpMulti* self, PyObject* args )
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 	
-	return self->pMulti->tags().get( key ).isValid() ? PyTrue : PyFalse;
+	return self->pMulti->getTag( key ).isValid() ? PyTrue : PyFalse;
 }
 
 /*!
@@ -376,7 +376,7 @@ static PyObject* wpMulti_deltag( wpMulti* self, PyObject* args )
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
-	self->pMulti->tags().remove( key );
+	self->pMulti->removeTag( key );
 
 	return PyTrue;
 }

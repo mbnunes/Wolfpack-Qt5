@@ -328,9 +328,9 @@ public:
 			if( pChar )
 			{
 				if( type_ )
-					pChar->tags().set( key_, cVariant( value_.toInt() ) );
+					pChar->setTag( key_, cVariant( value_.toInt() ) );
 				else
-					pChar->tags().set( key_, cVariant( value_ ) );
+					pChar->setTag( key_, cVariant( value_ ) );
 			}
 			return true;
 		}
@@ -340,9 +340,9 @@ public:
 			if( pItem )
 			{
 				if( type_ )
-					pItem->tags().set( key_, cVariant( value_.toInt() ) );
+					pItem->setTag( key_, cVariant( value_.toInt() ) );
 				else
-					pItem->tags().set( key_, cVariant( value_ ) );
+					pItem->setTag( key_, cVariant( value_ ) );
 			}
 			return true;
 		}
@@ -368,7 +368,7 @@ public:
 			P_CHAR pChar = FindCharBySerial( target->serial() );
 			if( pChar )
 			{
-				socket->sysMessage( tr("Tag \"%1\" has value \"%2\".").arg( key_ ).arg( pChar->tags().get( key_ ).asString() ) );
+				socket->sysMessage( tr("Tag \"%1\" has value \"%2\".").arg( key_ ).arg( pChar->getTag( key_ ).toString() ) );
 			}
 			return true;
 		}
@@ -377,7 +377,7 @@ public:
 			P_ITEM pItem = FindItemBySerial( target->serial() );
 			if( pItem )
 			{
-				socket->sysMessage( tr("Tag \"%1\" has value \"%2\".").arg( key_ ).arg( pItem->tags().get( key_ ).asString() ) );
+				socket->sysMessage( tr("Tag \"%1\" has value \"%2\".").arg( key_ ).arg( pItem->getTag( key_ ).toString() ) );
 			}
 			return true;
 		}
@@ -405,18 +405,18 @@ public:
 			{
 				if( key_.lower() == "all" )
 				{
-					QStringList keys = pChar->tags().getKeys();
+					QStringList keys = pChar->getTags();
 					QStringList::const_iterator it = keys.begin();
 					while( it != keys.end() )
 					{
-						pChar->tags().remove( (*it) );
+						pChar->removeTag( (*it) );
 						it++;
 					}
 					socket->sysMessage( tr("All tags removed.") );
 				}
 				else
 				{
-					pChar->tags().remove( key_ );
+					pChar->removeTag( key_ );
 					socket->sysMessage( tr("Tag \"%1\" removed.").arg( key_ ) );
 				}
 			}
@@ -429,18 +429,18 @@ public:
 			{
 				if( key_.lower() == "all" )
 				{
-					QStringList keys = pItem->tags().getKeys();
+					QStringList keys = pItem->getTags();
 					QStringList::const_iterator it = keys.begin();
 					while( it != keys.end() )
 					{
-						pItem->tags().remove( (*it) );
+						pItem->removeTag( (*it) );
 						it++;
 					}
 					socket->sysMessage( tr("All tags removed.") );
 				}
 				else
 				{
-					pItem->tags().remove( key_ );
+					pItem->removeTag( key_ );
 					socket->sysMessage( tr("Tag \"%1\" removed.").arg( key_ ) );
 				}
 			}

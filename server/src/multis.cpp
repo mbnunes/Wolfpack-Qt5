@@ -352,7 +352,7 @@ void cMulti::createKeys( P_PLAYER pc, const QString &name )
 	P_ITEM pKey = cItem::createFromScript( "100f" );
 	if( pKey )
 	{
-		pKey->tags().set( "linkserial", this->serial() );
+		pKey->setTag( "linkserial", this->serial() );
 		pKey->setType( 7 );
 		pKey->setNewbie( true );
 		pKey->setName( name );
@@ -368,7 +368,7 @@ void cMulti::createKeys( P_PLAYER pc, const QString &name )
 		pKey = cItem::createFromScript( "100f" );
 		if( pKey )
 		{
-			pKey->tags().set( "linkserial", this->serial() );
+			pKey->setTag( "linkserial", this->serial() );
 			pKey->setType( 7 );
 //			pKey->priv = 2; dont newbie these 3 bank box keys
 			pKey->setName( name );
@@ -387,7 +387,7 @@ void cMulti::removeKeys( void )
 	P_ITEM pi;
 	for( pi = iter_items.first(); pi; pi = iter_items.next() )
 	{
-		if( pi && pi->type() == 7 && pi->tags().get( "linkserial" ).isValid() && pi->tags().get( "linkserial" ).toInt() == this->serial() )
+		if( pi && pi->type() == 7 && pi->getTag( "linkserial" ).isValid() && pi->getTag( "linkserial" ).toInt() == this->serial() )
 			todelete.append( pi );
 	}
 	QPtrListIterator< cItem > it( todelete );
@@ -416,9 +416,9 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 		
 		if( pi->type() == 7 ) 
 		{
-			if( pi->tags().get( "linkserial" ).isValid() )
+			if( pi->getTag( "linkserial" ).isValid() )
 			{
-				SERIAL si = pi->tags().get( "linkserial" ).toInt();
+				SERIAL si = pi->getTag( "linkserial" ).toInt();
 				if( si == this->serial() ) 
 				{
 					found = true;

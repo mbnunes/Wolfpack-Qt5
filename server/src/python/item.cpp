@@ -342,7 +342,7 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
-	cVariant value = self->pItem->tags().get( key );
+	cVariant value = self->pItem->getTag( key );
 
 	if( value.type() == cVariant::String )
 	{
@@ -376,12 +376,12 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 
-	self->pItem->tags().remove( key );
+	self->pItem->removeTag( key );
 
 	if( checkArgStr( 1 ) )
-		self->pItem->tags().set( key, cVariant( QString( getArgStr( 1 ) ) ) );
+		self->pItem->setTag( key, cVariant( QString( getArgStr( 1 ) ) ) );
 	else if( checkArgInt( 1 ) )
-		self->pItem->tags().set( key, cVariant( (int)getArgInt( 1 ) ) );
+		self->pItem->setTag( key, cVariant( (int)getArgInt( 1 ) ) );
 
 	return PyTrue;
 }
@@ -402,7 +402,7 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 	
-	return self->pItem->tags().get( key ).isValid() ? PyTrue : PyFalse;
+	return self->pItem->getTag( key ).isValid() ? PyTrue : PyFalse;
 }
 
 /*!
@@ -420,7 +420,7 @@ static PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
-	self->pItem->tags().remove( key );
+	self->pItem->removeTag( key );
 
 	return PyTrue;
 }
