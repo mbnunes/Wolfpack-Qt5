@@ -1943,16 +1943,17 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 	cUOTxUpdateHealth update;
 	update.setSerial( pChar->serial() );
 	
-	if( pChar == _player )
-	{
+	//if( pChar == _player )
+	//{
 		update.setMaximum( pChar->st() );
 		update.setCurrent( pChar->hp() );
-	}
-	else
-	{
-		update.setMaximum( 100 );
-		update.setCurrent( (UINT16)((pChar->hp()/pChar->st())*100) );
-	}
+	//}
+	//else
+	//{
+	//	update.setMaximum( 100 );
+	//	UINT16 current = ( pChar->hp() / pChar->st() ) * 100;
+	//	update.setCurrent( current );
+	//}
 
 	send( &update );
 }

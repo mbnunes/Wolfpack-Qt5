@@ -3236,9 +3236,10 @@ void bgsound(P_CHAR pc)
 /*!
 	Give karma credit for killing someone.
 */
-void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
-{	// nEffect = 1 positive karma effect
-	int nCurKarma=0, nChange=0, nEffect=0;
+void Karma( P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma )
+{
+	// nEffect = 1 positive karma effect
+	int nCurKarma = 0, nChange = 0, nEffect = 0;
 
 	nCurKarma = pc_toChange->karma();
 
@@ -3248,7 +3249,7 @@ void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 		else
 			pc_toChange->setKarma(-10000);
 
-	if(nCurKarma<nKarma && nKarma>0)
+	if( nCurKarma < nKarma && nKarma > 0 )
 	{
 		nChange=((nKarma-nCurKarma)/75);
 		pc_toChange->setKarma(nCurKarma+nChange);
@@ -3265,7 +3266,7 @@ void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 		pc_toChange->setKarma( nCurKarma - nChange );
 		nEffect = 0;
 	}
-	else if( ( nCurKarma>nKarma ) && ( pc_Killed->karma() > 0 ) )
+	else if( ( nCurKarma > nKarma ) && ( pc_Killed->karma() > 0 ) )
 	{
 		nChange=((nCurKarma-nKarma)/50);
 		pc_toChange->setKarma(nCurKarma-nChange);
@@ -3277,38 +3278,38 @@ void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 	if( !nChange || !pc_toChange->socket() )
 		return;
 
-	QString message;
+	UINT32 message;
 
 	if( nChange <= 25 )
 	{
 		if( nEffect )
-			message = tr( "You have gained a little karma.", 0, "Karma Messages" );
+			message = 0xF8CB3; // You have gained a little karma.
 		else
-			message = tr( "You have lost a little karma.", 0, "Karma Messages" );
+			message = 0xF8CB7; // You have lost a little karma.
 	}
 	else if( nChange <= 75 )
 	{
 		if( nEffect )
-			message = tr( "You have gained some karma.", 0, "Karma Messages" );
+			message = 0xF8CB4; // You have gained some karma.
 		else
-			message = tr( "You have lost some karma.", 0, "Karma Messages" );
+			message = 0xF8CB8; // You have lost some karma.
 	}
 	else if( nChange <= 100 )
 	{
 		if( nEffect )
-			message = tr( "You have gained alot of karma.", 0, "Karma Messages" );
+			message = 0xF8CB5; // You have gained a good amount of karma.
 		else
-			message = tr( "You have lost alot of karma.", 0, "Karma Messages" );
+			message = 0xF8CB9; // You have lost a good amount of karma.
 	}
 	else if( nChange > 100 )
 	{
 		if( nEffect )
-			message = tr( "You have gained a huge amount of karma.", 0, "Karma Messages" );
+			message = 0xF8CB6; // You have gained a lot of karma.
 		else
-			message = tr( "You have lost a huge amount of karma.", 0, "Karma Messages" );
+			message = 0xF8CBA; // You have lost a lot of karma.
 	}
 
-	pc_toChange->socket()->sysMessage( message );
+	pc_toChange->socket()->clilocMessage( message );
 }
 
 /*!
