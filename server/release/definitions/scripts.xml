@@ -22,6 +22,7 @@
 	<!-- Commands -->
 	<script id="wolfpack.commands.info" type="python" module="wolfpack.commands.info" />
 	<script id="wolfpack.commands.export" type="python" module="wolfpack.commands.export" />
+	<script id="wolfpack.commands.import" type="python" module="wolfpack.commands.import" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
