@@ -51,5 +51,15 @@
 		<str><random min="71" max="85" /></str>
 		<dex><random min="66" max="80" /></dex>
 		<int><random min="66" max="80" /></int>
+	</npc>
+	
+	<!-- Pirate -->
+	<npc id="pirate_male">
+		<inherit>base_male</inherit>
+		<title>the Pirate</title>
+	</npc>
+	<npc id="pirate_female">
+		<inherit>base_female</inherit>
+		<title>the Pirate</title>
 	</npc>	
 </definitions>
