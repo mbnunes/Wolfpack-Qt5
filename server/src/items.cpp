@@ -1409,7 +1409,6 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 	return pi;
 }
 
-//##ModelId=3C5D92EF0167
 void cAllItems::GetScriptItemSetting(P_ITEM pi)
 {// by Magius(CHE) //bugfixed by AntiChrist
 	//clConsole.send("cAllItems::GetScriptItemSetting....");//debug

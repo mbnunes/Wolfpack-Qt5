@@ -266,7 +266,11 @@ void BuildHouse(UOXSOCKET s, int i)
 		if (!boat)
 		{
 			pMulti = dynamic_cast<P_ITEM>( new cHouse );
+			pMulti->Init();
+			pMulti->setId(id);
 			Items->GetScriptItemSetting(pMulti);
+			//pMulti->setId(id);
+			RefreshItem( pMulti );
 		}
 		else
 			pMulti = Items->SpawnItem(pc_currchar, 1,(char*)temp,0,id,0,0);
@@ -277,6 +281,7 @@ void BuildHouse(UOXSOCKET s, int i)
 		pMulti->more4 = itemsdecay; // set to 1 to make items in houses decay
 		pMulti->morex = hdeed; // crackerjack 8/9/99 - for converting back *into* deeds
 		pMulti->SetOwnSerial(pc_currchar->serial);
+		
 		if (houseItems.empty() && !boat)
 		{
 			teleport(pc_currchar);
