@@ -1,0 +1,44 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Misc Equipment                                                |
+=================================================================
+-->
+<definitions>
+	<!-- Kindling -->
+	<item id="de1">
+		<id>0xde1</id>
+		<value>1</value>
+		<weight>0.02</weight>
+		<category>Equipment\Misc\Kindling</category>
+	</item>
+
+	<!-- Fishing Pole -->
+	<item id="dbf">
+		<id>0x0dbf</id>
+		<decay />
+		<value>120</value>
+		<category>Equipment\Misc\Fishing Pole (N/S)</category>
+	</item>
+
+	<item id="dc0">
+		<inherit id="dbf" />
+		<id>0x0dc0</id>
+		<category>Equipment\Misc\Fishing Pole (W/E)</category>
+	</item>
+
+	<!-- Bandages -->
+	<item id="e20">
+		<id>0x0e20</id>
+		<category>Equipment\Misc\Bloody Bandages</category>
+	</item>
+
+	<item id="e21">
+		<id>0x0e21</id>
+		<category>Equipment\Misc\Clean Bandages</category>
+	</item>
+</definitions>
