@@ -20,6 +20,7 @@
 
 import wolfpack
 from wolfpack.utilities import hex2dec
+from wolfpack import tr
 import os
 import xml.sax
 from xml.sax.handler import *
@@ -129,48 +130,27 @@ def decoration( socket, command, arguments ):
 		args = str(arguments)
 		if args == 'save':
 			saveObject = DecorationSaveHandler(socket)
-			socket.sysmessage("Sorting items, please wait...")
+			socket.sysmessage(tr("Sorting items, please wait..."))
 			saveObject.sort()
-			socket.sysmessage("Writting file...")
+			socket.sysmessage(tr("Writting file..."))
 			saveObject.save()
 			return
 		
 	parser = xml.sax.make_parser()
 	handler = DecorationHandler()
 	parser.setContentHandler(handler)
-	
+	maps = []
 	try:
 		maponly = int(arguments)
-		
-		if maponly == 0 and wolfpack.hasmap(0):
-			socket.sysmessage("Decorating map 0, please wait...")
-			parser.parse("data/decoration.0.xml")
-		elif maponly == 1 and wolfpack.hasmap(1):
-			socket.sysmessage("Decorating map 1, please wait...")
-			parser.parse("data/decoration.1.xml")
-		elif maponly == 2 and wolfpack.hasmap(2):
-			socket.sysmessage("Decorating map 2, please wait...")
-			parser.parse("data/decoration.2.xml")
-		elif maponly == 3 and wolfpack.hasmap(3):
-			socket.sysmessage("Decorating map 3, please wait...")
-			parser.parse("data/decoration.3.xml")
-			
-		return
+		maps.append(maponly)
 	except ValueError:
+                maps = [0, 1, 2, 3]
 		pass
-	
-	if wolfpack.hasmap(0):
-		socket.sysmessage("Decorating map 0, please wait...")
-		parser.parse("data/decoration.0.xml")
-	if wolfpack.hasmap(1):
-		socket.sysmessage("Decorating map 1, please wait...")
-		parser.parse("data/decoration.1.xml")
-	if wolfpack.hasmap(2):
-		socket.sysmessage("Decorating map 2, please wait...")
-		parser.parse("data/decoration.2.xml")
-	if wolfpack.hasmap(3):
-		socket.sysmessage("Decorating map 2, please wait...")
-		parser.parse("data/decoration.3.xml")
+
+	for map in maps:
+            if wolfpack.hasmap(map):
+                socket.sysmessage(tr("Decorating map %i, please wait...") % map)
+                parser.parse("definitions/decoration/decoration.%i.xml" % map)
 
 def onLoad():
 	wolfpack.registercommand( "decoration", decoration )
