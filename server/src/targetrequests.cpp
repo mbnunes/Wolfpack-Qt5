@@ -702,7 +702,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	int cansteal = QMAX( 1, pc_currchar->baseSkill( STEALING ) / 10 );
 	cansteal = cansteal * 10;
 	
-	if (isCharSerial(target->serial()))
+	if( isCharSerial( target->serial() ) )
 	{
 		Skills->RandomSteal(socket, target->serial());
 		return true;

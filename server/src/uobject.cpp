@@ -62,7 +62,8 @@ cUObject::cUObject() :
 cUObject::cUObject( cUObject &src )
 {
 	// Copy Events
-	this->setEvents( src.getEvents() );
+	eventList_ = src.eventList_;
+	recreateEvents();
 
 	this->serial = src.serial;
 	this->multis = src.multis;

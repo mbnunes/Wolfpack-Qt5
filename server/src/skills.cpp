@@ -52,6 +52,7 @@
 #include "weight.h"
 #include "magic.h"
 #include "targetrequests.h"
+#include "territories.h"
 
 // System Includes
 #include <math.h>
@@ -858,117 +859,141 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	pChar->setSkillDelay();
 }
 
-void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
+void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 {
-	int i, skill;
-	char temp2[512];
-	tile_st tile;
-	P_CHAR pc_currchar = socket->player();	
-	int cansteal = QMAX(1, pc_currchar->baseSkill(STEALING)/10);
-	cansteal = cansteal * 10;
-	
-	P_CHAR pc_npc = FindCharBySerial(victim);
-	if (pc_npc == NULL) 
+	P_CHAR pChar = socket->player();
+	P_CHAR pVictim = FindCharBySerial( victim );
+
+	if( !pVictim || !pChar )
 		return;
 
-	P_ITEM pBackpack = pc_npc->getBackpack();
-	if (pBackpack == NULL) 
+	if( pVictim == pChar )
 	{
-		socket->sysMessage( tr("bad luck, your victim doesnt have a backpack") ); 
-		return; 
-	}
-	
-	i=0;
-	P_ITEM item = NULL;
-	cItem::ContainerContent vecContainer(pBackpack->content());
-	if (vecContainer.size() != 0)
-		item = vecContainer[RandomNum(0, vecContainer.size() - 1)];
-
-	if (pc_npc == pc_currchar) {
-		socket->sysMessage( tr("You catch yourself red handed.") );
+		socket->sysMessage( tr( "Why don't you simply take it?" ) );
 		return;
 	}
-	
-	if (pc_npc->npcaitype() == 17)
+
+	if( pVictim->npcaitype() == 17 )
 	{
-		socket->sysMessage( tr("You cannot steal that.") );
+		socket->sysMessage( tr( "You cannot steal from Playervendors." ) );
 		return;
 	}
 
-	// Lb, crashfix, happens if pack=empty i guess
-	if (item == NULL) 
-	{ 
-		socket->sysMessage( tr("your victim doesnt have posessions") );
-		return;
-	}
-
-	socket->sysMessage( tr("You reach into %1's pack and try to take something...%2").arg(pc_npc->name).arg(item->name()) );
-	if( pc_currchar->inRange( pc_npc, 1 ) )
+	if( pVictim->isGMorCounselor() )
 	{
-		if( ( (item->totalweight()/10) > cansteal ) && (item->type()!=1 && item->type()!=63 && item->type()!=65 && item->type()!=87))//Containers
+		socket->sysMessage( tr( "You can't steal from game masters." ) );
+		return;
+	}
+
+	if( !pChar->inRange( pVictim, 1 ) )
+	{
+		socket->sysMessage( tr( "You are too far away to steal from that person." ) );
+		return;
+	}
+
+	P_ITEM pBackpack = pVictim->getBackpack();
+
+	if( !pBackpack ) 
+	{
+		socket->sysMessage( tr( "Bad luck, your victim doesn't have a backpack." ) );
+		return;
+	}
+
+	UINT16 maxWeight = QMIN( 1, pChar->baseSkill( STEALING ) / 10 ); // We can steal max. 10 Stones when we are a GM
+	// 1000 Skill == 100 Weight == 10 Stones
+
+	QPtrList< cItem > containment = pBackpack->getContainment();
+	UINT32 chance = containment.count();
+
+	P_ITEM pItem = containment.first();
+	P_ITEM pToSteal = 0;
+	bool sawOkItem = false;
+
+	while( !pToSteal )
+	{
+		// We have nothing that could be stolen?
+		if( !pItem && !sawOkItem )
 		{
-			socket->sysMessage( tr("That is too heavy.") );
-			return;
-		} 
-		else if((item->type() == 1 || item->type() == 63 || item->type() == 65 || item->type() == 87) && (Weight->RecursePacks(item) > cansteal))
-		{
-			socket->sysMessage( tr("That is too heavy.") );
+			socket->sysMessage( tr( "Your victim posesses nothing you could steal." ) );
 			return;
 		}
-		if (pc_npc->isGMorCounselor())
+		// Jump back to the beginning
+		else if( !pItem && sawOkItem )
 		{
-			socket->sysMessage( tr("You can't steal from gods.") );
-			return;
+			pItem = containment.first();
 		}
-		if(item->priv & 0x02)//newbie
+
+		// Check if our chance becomes true (no spellbooks!)
+		if( pItem->totalweight() <= maxWeight && !pItem->isLockedDown() && !pItem->newbie() && pItem->type() != 9 )
 		{
-			socket->sysMessage( tr("That item has no value to you.") );
-			return;
+			sawOkItem = true; // We have items that could be stolen (just in case we reach the end of our list)
+
+			// We have the chance of 1/chance that we reached our desired item
+			if( RandomNum( 1, chance ) == chance )
+			{
+				pToSteal = pItem;
+				break;
+			}
+		}
+
+		pItem = containment.next();
+	}
+
+	socket->sysMessage( tr( "You reach into %1's backpack and try to steal something..." ).arg( pVictim->name ) );
+
+	// The success of our Theft depends on the weight of the stolen item
+	bool success = pChar->checkSkill( STEALING, 0, pToSteal->weight() * 10 );
+	bool caught = false;
+
+	if( success )
+	{
+		socket->sysMessage( tr( "You successfully steal %1." ).arg( pToSteal->getName() ) );
+		P_ITEM pPack = pChar->getBackpack();
+		pPack->addItem( pToSteal );
+		// Update item onyl if still existent
+		if( !pToSteal->free )
+			pToSteal->update();
+
+		caught = pChar->skill( STEALING ) < rand() % 1001;
+	}
+	else
+	{
+		socket->sysMessage( tr( "You fail to steal the item." ) );
+
+		// 1 in 5 Chance if we failed
+		caught = RandomNum( 1, 5 ) == 1;
+	}
+
+	// Did we get caught?
+	if( caught )
+	{
+		socket->sysMessage( tr( "You have been cought!" ) );
+
+		// Human non red NPCs need special handling
+		if( pVictim->isNpc() && pVictim->isInnocent() && pVictim->isHuman() )
+		{
+			pVictim->talk( tr( "Guards! A thief is amoung us!" ), -1, 0x09 );
+			if( pVictim->region() && pVictim->region()->isGuarded() )
+				callguards( pChar );
 		}
 		
-		skill = pc_currchar->checkSkill( STEALING, 0, 999);
-		if (skill)
+		if( pVictim->isInnocent() && pChar->attacker() != pVictim->serial && GuildCompare( pChar, pVictim ) == 0)
+			pChar->criminal(); // Blue and not attacker and not guild
+
+		// Our Victim always notices it.
+		if( pVictim->socket() )
+			pVictim->socket()->showSpeech( pChar, tr( "You notice %1 trying to steal %2 from you." ).arg( pChar->name ).arg( pToSteal->getName( true ) ) );
+
+		QString message = tr( "You notice %1 trying to steal %2 from %3." ).arg( pChar->name ).arg( pItem->getName() ).arg( pVictim->name );	
+
+		for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 		{
-			P_ITEM pBackpack = pc_currchar->atLayer(cChar::Backpack);
-			if ( pBackpack )
-			{
-				pBackpack->addItem(item);
-				socket->sysMessage( tr("You successfully steal that item.") );
-				item->update();
-			}
-			else
-				socket->sysMessage( tr("Ops, you don't seam to have a backpack!") );
-		} else 
-			socket->sysMessage( tr("You failed to steal that item.") );
-		
-		if ((!skill && rand()%5+15==17) || (pc_currchar->skill(STEALING)<rand()%1001))
-		{//Did they get cought? (If they fail 1 in 5 chance, other wise their skill away from 1000 out of 1000 chance)
-			socket->sysMessage( tr("You have been cought!") );
-			
-			if (pc_npc->isNpc()) 
-				pc_npc->talk( tr("Guards!! A thief is amoung us!"), -1, 0x09 );
-			
-			if (pc_npc->isInnocent() && pc_currchar->attacker() != pc_npc->serial && GuildCompare( pc_currchar, pc_npc )==0)//AntiChrist
-				pc_currchar->criminal();//Blue and not attacker and not guild
-			
-			if (item->name() != "#")
-			{
-				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.latin1(),item->name().ascii());
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.latin1(), item->name().ascii(), pc_npc->name.latin1());
-			} else {
-				tile = TileCache::instance()->getTile( item->id() );
-				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.latin1(), tile.name);
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.latin1(),tile.name, pc_npc->name.latin1());
-			}
-			socket->sysMessage( (char*)temp); // bugfix, LB
-			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
-			{
-				if( mSock != socket && inrange1p( pc_currchar, mSock->player() ) && (rand()%10+10==17|| (rand()%2==1 && mSock->player()->in() >= pc_currchar->in() ))) 
-					mSock->sysMessage(temp2);
-			}
+			// Everyone within 7 Tiles notices us
+			if( mSock != socket && mSock != pVictim->socket() && mSock->player() && mSock->player()->inRange( pChar, 7 ) ) 
+				mSock->showSpeech( pChar, message );
 		}
+		
 	} 
-	else socket->sysMessage( tr("You are too far away to steal that item.") );
 }
 
 // Redone by LB on dec 28'th 1999

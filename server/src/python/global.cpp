@@ -545,6 +545,34 @@ PyObject *wpList( PyObject* self, PyObject* args )
 	return pylist;
 }
 
+
+PyObject *wpSocketsFirst( PyObject* self, PyObject* args )
+{
+	return PyGetSocketObject( cNetwork::instance()->first() );
+}
+
+PyObject *wpSocketsNext( PyObject* self, PyObject* args )
+{
+	return PyGetSocketObject( cNetwork::instance()->next() );  
+}
+
+PyObject *wpSocketsCount( PyObject* self, PyObject* args )
+{
+	return PyInt_FromLong( cNetwork::instance()->count() );
+}
+
+/*!
+	wolfpack.sockets
+	Socket iteration
+*/
+static PyMethodDef wpSockets[] = 
+{
+	{ "first",			wpSocketsFirst,	METH_VARARGS, "Returns the first connected socket." },
+	{ "next",			wpSocketsNext,	METH_VARARGS, "Returns the next connected socket." },
+	{ "count",			wpSocketsCount,	METH_VARARGS, "Returns the next connected socket." },
+	{ NULL, NULL, 0, NULL } // Terminator
+};
+
 /*!
 	wolfpack
 	Initializes wolfpack
@@ -832,6 +860,9 @@ void init_wolfpack_globals()
 
 	PyObject *mAccounts = Py_InitModule( "_wolfpack.accounts", wpAccounts );
     PyObject_SetAttrString( wpNamespace, "accounts", mAccounts );
+
+	PyObject *mSockets = Py_InitModule( "_wolfpack.sockets", wpSockets );
+    PyObject_SetAttrString( wpNamespace, "sockets", mSockets );
 
 	PyObject *mTime = Py_InitModule( "_wolfpack.time", wpTime );
     PyObject_SetAttrString( wpNamespace, "time", mTime );

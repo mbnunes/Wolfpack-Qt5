@@ -31,9 +31,9 @@ def onLoad():
 	sys.excepthook = handle_error
 
 	# Clear the Python Logfile
-	file = open( 'python.log', 'w' )
+	log = open( 'python.log', 'w' )
 	log.write( "[%s] Errorhandler installed\n" % time.strftime( '%d.%m.%Y %H:%M:%S' ) )
-	file.close()
+	log.close()
 
 # Unregister the ErrorHandler
 def onUnload():

@@ -1558,9 +1558,9 @@ void cItem::processNode( const QDomElement& Tag )
 	// <newbie />
 	// <notnewbie />
 	else if( TagName == "newbie" )
-		this->priv |= 0x04;
+		this->priv |= 0x02;
 	else if( TagName == "notnewbie" )
-		this->priv &= 0xFB;
+		this->priv &= 0xFD;
 
 	// <twohanded />
 	else if( TagName == "twohanded" )
