@@ -353,7 +353,7 @@ class CraftItemAction(MakeItemAction):
 	def getskillshtml(self, player, arguments):
 		skillshtml = ''
 		for (skill, values) in self.skills.items():
-			skillshtml += '%s required: %0.01f%%<br>' % (skillnames[skill], values[0] / 10.0)
+			skillshtml += '%s: %.1f%%<br>' % (skillnames[skill].capitalize(), max(0, values[0] / 10.0))
 		return skillshtml
 
 	#
@@ -377,6 +377,9 @@ class CraftItemAction(MakeItemAction):
 			materials = self.parent.submaterials2
 			material = self.parent.getsubmaterial2used(player, arguments)
 			materialshtml += "%s: %u<br>" % (materials[material][0], self.submaterial2)
+			
+		for material in self.materials:
+			materialshtml += "%s: %u<br>" % (material[2], material[1])
 
 		return materialshtml
 

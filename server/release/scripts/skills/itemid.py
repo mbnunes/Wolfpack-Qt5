@@ -13,61 +13,60 @@ import skills
 
 ITEMID_DELAY = 1000
 
-def itemid( char, skill ):
-	if skill != ITEMID:
-		return 0
-
-	if char.socket.hastag( 'skill_delay' ):
-		cur_time = servertime()
-		if cur_time < char.socket.gettag( 'skill_delay' ):
-			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+def itemid(char, skill):
+	socket = char.socket
+	
+	if socket.hastag('skill_delay'):
+		if servertime() < socket.gettag('skill_delay'):
+			socket.clilocmessage(500118)
 			return 1
 		else:
-			char.socket.deltag( 'skill_delay' )
-
-	char.socket.clilocmessage( 0x7A277, "", 0x3b2, 3 )
-	char.socket.attachtarget( "skills.itemid.response" )
+			socket.deltag('skill_delay')
+	
+	socket.clilocmessage(500343)
+	socket.attachtarget("skills.itemid.response")
 	return 1
 
-def response( char, args, target ):
+def response(char, args, target):
+	socket = char.socket
 
+	# Identify an item and send the buy and sellprice.
 	if target.item:
-		if not target.item.getoutmostchar() == char:
-			if not char.canreach( target, 4 ):
-				char.socket.clilocmessage( 0x7A278, "", 0x3b2, 3 )
-				return 0
+		if not char.canreach(target.item, 4):
+			socket.clilocmessage(500344)
+			return
+			
+		if not char.checkskill(ITEMID, 0, 1200):
+			socket.clilocmessage(500353)
+			return
+			
+		# Identify the item
+		if target.item.hastag('unidentified'):
+			socket.sysmessage('You are able to identify the use of this item!')
+			target.item.deltag('unidentified')
+			target.item.resendtooltip()
 
-			if not char.distanceto( target ) < 5:
-				char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
-				return 0
+		# Display the buyprice
+		if target.item.buyprice != 0:
+			socket.sysmessage("You could probably buy this for %u gold." % target.item.buyprice)
+		else:
+			socket.sysmessage("You don't think that anyone would sell this.")
+			
+		# Display the sellprice
+		if target.item.sellprice != 0:
+			socket.sysmessage("You could probably sell this for %u gold." % target.item.sellprice)
+		else:
+			socket.sysmessage("You don't think anyone would buy this.")
 
-		cur_time = servertime()
-		char.socket.settag( 'skill_delay', cur_time + ITEMID_DELAY )
-
-		if not char.checkskill( ITEMID, 0, 1000 ):
-			char.socket.clilocmessage( 0xFE3C8, "", 0x3b2, 3, char )
-			return 0
-
-		name = str( target.item.getname() )
-		value = int( target.item.price )
-		char.socket.clilocmessage( 0xFE3C5, "", 0x3b2, 3, char, " %s" %name ) # It appears to be:
-		char.socket.clilocmessage( 0xFE3C7, "", 0x3b2, 3, char, " %i gold coins" %value )# You guess the value of that item...
-		return 1
-
+	elif target.char:
+		if not char.canreach(target.char, 4):
+			socket.clilocmessage(500344)
+			return
+			
+		char.showname(socket)
+		
 	else:
-		if not char.canreach( target.char, 4 ):
-			char.socket.clilocmessage( 0x7A278, "", 0x3b2, 3 )
-			return 0
-
-		if not char.distanceto( target.char ) < 5:
-			char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
-			return 0
-
-		name = str( target.char.name )
-		char.socket.clilocmessage( 0xFE3C5, "", 0x3b2, 3, char, " %s" %name )
-		return 1
-
+		socket.clilocmessage(500353)
 
 def onLoad():
-	skills.register( ITEMID, itemid )
-	
+	skills.register(ITEMID, itemid)

@@ -232,7 +232,7 @@ def loadMenu(id, parent = None):
 							ids = subchild.getattribute('id').split(';')
 							try:
 								amount = hex2dec(subchild.getattribute('amount', '1'))
-								materialname = hex2dec(subchild.getattribute('name', 'Unknown'))
+								materialname = subchild.getattribute('name', 'Unknown')
 							except:
 								console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
 								break
