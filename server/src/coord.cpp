@@ -341,8 +341,17 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, bool touch )
 		{
 			tile = TileCache::instance()->getTile( msi->itemid );
 			if(	( (*pit).z >= msi->zoff && (*pit).z <= ( msi->zoff + tile.height ) ) )
-//				||	( tile.height <= 2 && abs( (*pit).z - msi->zoff ) <= abs( dz ) ) )
-				itemids.insert( msi->itemid );
+			{
+				// dont take surfaces into account under certain circumstances
+				if( tile.flag2 & 0x02 )
+				{
+					if( !(z >= target.z && target.z >= (*pit).z) &&
+						!(z <= target.z && z >= (*pit).z) )
+						itemids.insert( msi->itemid );
+				}
+				else
+					itemids.insert( msi->itemid );
+			}
 
 			++msi;
 		}
@@ -399,7 +408,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, bool touch )
 			return false;
 
 		// Touch & Impassable
-		if( touch && tile.flag1 & 0x40 )
+		if( touch && ( tile.flag1 & 0x40 ) )
 			return false;
 
 		++sit;

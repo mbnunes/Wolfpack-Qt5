@@ -538,6 +538,8 @@ int main( int argc, char *argv[] )
 			default: niceLevel.wait(10); break;
 		}
 
+		uiCurrentTime = getNormalizedTime();
+
 		// Python threading - end
 		PyEval_RestoreThread( _save );
 

@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="wolf" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** NICHT BEARBEITEN **
+# ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=wolf - Win32 Debug
-!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
-!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak".
 !MESSAGE 
-!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
-!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak" CFG="wolf - Win32 Debug"
 !MESSAGE 
-!MESSAGE Für die Konfiguration stehen zur Auswahl:
+!MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "wolf - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
-!MESSAGE "wolf - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -51,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:"..\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:"Release\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
@@ -63,7 +63,7 @@ LINK32=link.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "D:\wolfpack\"
+# PROP Output_Dir "C:\Software Engineering\wolfpack\"
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
@@ -76,7 +76,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib shell32.lib /nologo /version:12.9 /subsystem:windows /map /debug /machine:I386 /out:"..\wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib shell32.lib /nologo /version:12.9 /subsystem:windows /map /debug /machine:I386 /out:"C:\Software Engineering\wolfpack\wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -436,10 +436,6 @@ InputName=commands
 # Begin Source File
 
 SOURCE=.\console.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\console_win.h
 # End Source File
 # Begin Source File
 

@@ -302,7 +302,6 @@ namespace Combat
 			return;
 
 		// Can we see our target. 
-		// I don't know what the +z 13 means...
 		bool los = pAttacker->pos().lineOfSight( pDefender->pos(), true );
 
 		hit( pAttacker, pDefender, los );
