@@ -86,8 +86,8 @@ then
 	echo -n "Searching for MySQL includes... ";
 
 	# backward compatibility for 3.xx.xx
-	MYSQL_INC="$(mysql_config --cflags|sed -e "s/^\([^-]*-\)*I['\"]\?\([^ '\"$]*\).*$/\2/")";
-	MYSQL_LIB="$(mysql_config --libs|sed -e "s/^\([^-]*-\)*L['\"]\?\([^ '\"$]*\).*$/\2/") -lmysqlclient";
+	MYSQL_INC="$(mysql_config --cflags|sed -e "s/^\([^-]*-I\)*['\"]\?\([^ '\"$]*\).*$/\2/")";
+	MYSQL_LIB="-L$(mysql_config --libs|sed -e "s/^\([^-]*-L\)*['\"]\?\([^ '\"$]*\).*$/\2/") -lmysqlclient";
 
 	if ! [ "$MYSQL_INC" ];
 	then
@@ -97,7 +97,7 @@ then
 			echo "MySQL support disabled ";
 		fi
 	else
-		echo " ( $MYSQL_INC )";
+		echo " ( $MYSQL_INC, $MYSQL_LIB )";
 		DEFINES="$DEFINES MYSQL_DRIVER";
 	fi;
 	# </mysql>
