@@ -82,9 +82,9 @@ static PyTypeObject wpItemType = {
     "wpitem",
     sizeof(wpItemType),
     0,
-    //FreeItemObject,				
+    //FreeItemObject,
 	wpDealloc,
-    0,								
+    0,
     (getattrfunc)wpItem_getAttr,
     (setattrfunc)wpItem_setAttr,
 	wpItem_compare,
@@ -114,33 +114,58 @@ PyObject* PyGetItemObject( P_ITEM item )
 /*!
 	Resends the item to all clients in range
 */
+/*
+	\method item.update
+	\description Resend the item.
+*/
 static PyObject* wpItem_update( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);	
+	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
 	self->pItem->update();
 
-	return PyTrue;
+	Py_INCREF( Py_None );
+	return Py_None;
 }
 
 /*!
 	Removes the item
 */
+/*
+	\method item.delete
+	\description Deletes the item.
+*/
 static PyObject* wpItem_delete( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);	
+	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
 	self->pItem->remove();
 
-	return PyTrue;
+	Py_INCREF( Py_None );
+	return Py_None;
 }
 
 /*!
 	Moves the item to the specified location
+*/
+/*
+	\method item.moveto
+	\description Change the position of this item.
+	\param pos The coord object representing the new position.
+*/
+/*
+	\method item.moveto
+	\description Change the position of this item.
+	\param x The new x coordinate of this item.
+	\param y The new y coordinate of this item.
+	\param z Defaults to the current z position of the item.
+	The new z coordinate of this item.
+	\param map Defaults to the current map the item is on.
+	The new map coordinate of this item.
 */
 static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 {
@@ -168,14 +193,19 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 			return 0;
 
 		self->pItem->moveTo( Coord_cl( (unsigned short)x, (unsigned short)y, (char)z, (unsigned char)map ), noRemove ? true : false );
-	}	
+	}
 
-	return PyTrue;
+	Py_INCREF( Py_None );
+	return Py_None;
 }
 
 
 /*!
 	Removes the item from all clients in range
+*/
+/*
+	\method item.removefromview
+	\description Remove the item from all clients who can currently see it.
 */
 static PyObject* wpItem_removefromview( wpItem* self, PyObject* args )
 {
@@ -190,6 +220,11 @@ static PyObject* wpItem_removefromview( wpItem* self, PyObject* args )
 /*!
 	Plays a soundeffect originating from the item
 */
+/*
+	\method item.soundeffect
+	\description Play a soundeffect originating from the item.
+	\param sound The id of the soundeffect.
+*/
 static PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
@@ -203,11 +238,26 @@ static PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 
 	self->pItem->soundEffect( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
 
-	return PyTrue;
+	Py_INCREF( Py_None );
+	return Py_None;
 }
 
 /*!
 	Returns the distance towards a given object or position
+*/
+/*
+	\method item.distanceto
+	\description Measure the distance between the item and another object.
+	\param object The target object. May be another character, item or a coord
+	object.
+	\return The distance in tiles towards the given target.
+*/
+/*
+	\method item.distanceto
+	\description Measure the distance between the item and a coordinate.
+	\param x The x component of the target coordinate.
+	\param y The y component of the target coordinate.
+	\return The distance in tiles towards the given coordinate.
 */
 static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 {
@@ -231,7 +281,7 @@ static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
         if( pChar )
 			return PyInt_FromLong( pChar->dist( self->pItem ) );
 	}
-	else if( PyTuple_Size( args ) >= 2 ) // Min 2 
+	else if( PyTuple_Size( args ) >= 2 ) // Min 2
 	{
 		Coord_cl pos = self->pItem->pos();
 
@@ -239,7 +289,7 @@ static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 			return PyInt_FromLong( -1 );
 
 		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );  
+		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
 
 		return PyInt_FromLong( self->pItem->pos().distance( pos ) );
 	}
@@ -249,13 +299,18 @@ static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 }
 
 /*!
-	Returns the weaponskill needed to use this 
+	Returns the weaponskill needed to use this
 	weapon. It returns -1 if it is unable to
 	determine the weapon skill.
 */
+/*
+	\method item.weaponskill
+	\description Return the skill id of a weapon's required combat skill.
+	\return SkillID or -1 if no weapon skill.
+*/
 static PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);	
+	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
 		return PyInt_FromLong( -1 );
 
@@ -275,16 +330,23 @@ static PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
 
 /*!
 	Takes at least two arguments (amount,item-id)
-	Optionally the color of the item we 
+	Optionally the color of the item we
 	want to consume too.
 	It consumes the items and amount specified
 	and returns how much have been really consumed.
+*/
+/*
+	\method item.useresource
+	\description Consumes a given amount of a resource.
+	\param amount The amount to consume.
+	\param item-id The item id of the object to consume.
+	\param color The color of the object to consume
 */
 static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
-	
+
 	if( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 	{
 		PyErr_BadArgument();
@@ -310,11 +372,17 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 	It returns the amount of a resource
 	available
 */
+/*
+	\method item.countresource
+	\description Returns the amount of a given resource.
+	\param item-id The item id of the resource to count.
+	\return The amount of item-id
+*/
 static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
-	
+
 	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
 		PyErr_BadArgument();
@@ -335,6 +403,12 @@ static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 
 /*!
 	Returns the custom tag passed
+*/
+/*
+	\method item.gettag
+	\description Returns the value of a custom tag. Three types of tag types: String, Int and Float.
+	\param name
+	\return Returns the value of the given tag name.
 */
 static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 {
@@ -367,6 +441,12 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 /*!
 	Sets a custom tag
 */
+/*
+	\method item.settag
+	\description Set a value for the given tag name. Three value types: String, Int and Float.
+	\param name The name of the tag
+	\param value The value of the tag.
+*/
 static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 {
 	if (self->pItem->free)
@@ -375,7 +455,7 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	char *key;
 	PyObject *object;
 
-	if (!PyArg_ParseTuple( args, "sO:char.settag( name, value )", &key, &object ))
+	if (!PyArg_ParseTuple( args, "sO:item.settag( name, value )", &key, &object ))
 		return 0;
 
 	if (PyString_Check(object)) {
@@ -388,11 +468,18 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 		self->pItem->setTag(key, cVariant((double)PyFloat_AsDouble(object)));
 	}
 
-	return PyTrue;
+	Py_INCREF( Py_None );
+	return Py_None;
 }
 
 /*!
 	Checks if a certain tag exists
+*/
+/*
+	\method item.hastag
+	\description Returns the given tag name exists.
+	\param name
+	\return Returns true or false if the tag exists.
 */
 static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 {
@@ -404,12 +491,17 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 		return 0;
 
 	QString key = pKey;
-	
+
 	return self->pItem->getTag( key ).isValid() ? PyTrue : PyFalse;
 }
 
 /*!
 	Deletes a given tag
+*/
+/*
+	\method item.deltag
+	\description Deletes the tag under a given name.
+	\param name
 */
 static PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 {
@@ -425,25 +517,45 @@ static PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 	self->pItem->removeTag( key );
 
-	return PyTrue;
+	Py_INCREF( Py_None );
+	return Py_None;
 }
-
+/*
+	\method item.ischar
+	\description Returns whether the item is a character.
+	\return Returns true or false.
+*/
 static PyObject* wpItem_ischar( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);	
-	Q_UNUSED(self);	
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	return PyFalse;
 }
-
+/*
+	\method item.isitem
+	\description Returns whether the item is an item.
+	\return Returns true or false.
+*/
 static PyObject* wpItem_isitem( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);	
-	Q_UNUSED(self);	
+	Q_UNUSED(args);
+	Q_UNUSED(self);
 	return PyTrue;
 }
 
 /*!
 	Shows a moving effect moving toward a given object or coordinate.
+*/
+/*
+	\method item.movingeffect
+	\description Shows a moving effect moving toward a given object or coordinate.
+	\param id The id of the moving object.
+	\param target Can be an item, character or pos.
+	\param fixedDirection Set a fixed direction of the moving id.
+	\param explodes True or false for exploding at the end, no damage.
+	\param speed Speed at which the id moves. Default is 10.
+	\param hue Hue of the moving id
+	\param renderMode Unknown
 */
 static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 {
@@ -455,7 +567,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 		PyErr_BadArgument();
 		return NULL;
 	}
-	
+
 	UINT16 id = getArgInt( 0 );
 
 	cUObject *object = getArgChar( 1 );
@@ -463,7 +575,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 		object = getArgItem( 1 );
 
 	Coord_cl pos;
-	
+
 	if( checkArgCoord( 1 ) )
 		pos = getArgCoord( 1 );
 
@@ -491,14 +603,23 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 
 	if( object )
 		self->pItem->effect( id, object, fixedDirection, explodes, speed, hue, renderMode );
-	else 
+	else
 		self->pItem->effect( id, pos, fixedDirection, explodes, speed, hue, renderMode );
 
-	return PyTrue;
+	Py_INCREF( Py_None );
+	return Py_None;
 }
 
 /*!
 	Adds a temp effect to this item.
+*/
+/*
+	\method item.addtimer
+	\description Set a delayed timer for a script function to execute.
+	\param expiretime The INT value of the time.
+	\param function The function to be executed. String.
+	\param serialize Saves the timer. Useful if you crash.
+	\return Returns true or false if the tag exists.
 */
 static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 {
@@ -514,18 +635,19 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 	PyObject *py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
 
 	cPythonEffect *effect = new cPythonEffect( function, py_args );
-	
+
 	// Should we save this effect?
-	if( checkArgInt( 3 ) && getArgInt( 3 ) != 0 ) 
+	if( checkArgInt( 3 ) && getArgInt( 3 ) != 0 )
 		effect->setSerializable( true );
 	else
 		effect->setSerializable( false );
-	
+
 	effect->setDest( self->pItem->serial() );
 	effect->setExpiretime_ms( expiretime );
 	TempEffects::instance()->insert( effect );
 
-	return PyTrue;
+	Py_INCREF( Py_None );
+	return Py_None;
 }
 
 /*!
@@ -533,7 +655,7 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);	
+	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
@@ -545,7 +667,7 @@ static PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);	
+	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
@@ -554,6 +676,11 @@ static PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 
 /*!
 	Returns the item's name
+*/
+/*
+	\method item.getname
+	\description Returns the name of the object.
+	\return Returns the object's name.
 */
 static PyObject* wpItem_getname( wpItem* self, PyObject* args )
 {
@@ -567,6 +694,13 @@ static PyObject* wpItem_getname( wpItem* self, PyObject* args )
 
 /*!
 	Adds an item to this container.
+*/
+/*
+	\method item.additem
+	\description Adds an item to the container.
+	\param item Item to add.
+	\param randomPos Gives the item a random position in the pack
+	\param serialize Saves the timer. Useful if you crash.
 */
 static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 {
@@ -616,11 +750,16 @@ static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 		self->pItem->addItem( pItem, randomPos, handleWeight );
 	}
 
-	return PyTrue;
+	Py_INCREF( Py_None );
+	return Py_None;
 }
 
 /*!
 	Amount of items inside this container
+*/
+/*
+	\method item.countitem
+	\return Returns the amount of items in a container.
 */
 static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 {
@@ -637,6 +776,11 @@ static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 
 // If we are in a multi, return the multi object for it
 // otherwise pynone
+/*
+	\method item.multi
+	\description Checks if the item is a multi object,
+	\return Returns true or false if a multi.
+*/
 static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);
@@ -646,35 +790,50 @@ static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 		return Py_None;
 	}
 
-	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) );  
+	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) );
 }
 
+/*
+	\method item.lightning
+	\description Zaps the object with a lightning bolt!
+	\param hue The hue value of the lightning.
+*/
 static PyObject* wpItem_lightning( wpItem *self, PyObject *args )
 {
 	Q_UNUSED(args);
 	unsigned short hue = 0;
-	
+
 	if( !PyArg_ParseTuple( args, "|h:item.lightning( [hue] )", &hue ) )
 		return 0;
 
 	self->pItem->lightning( hue );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
+/*
+	\method item.resendtooltip
+	\description Resends the tooltip of the object.
+*/
 static PyObject* wpItem_resendtooltip( wpItem *self, PyObject *args )
 {
 	Q_UNUSED(args);
 	if (!self->pItem->free)
 		self->pItem->resendTooltip();
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
+/*
+	\method item.dupe
+	\description Creatues a dupe of the item
+*/
 static PyObject* wpItem_dupe( wpItem *self, PyObject *args )
 {
 	Q_UNUSED(args);
-	if (!self->pItem->free) 
+	if (!self->pItem->free)
 	{
 		P_ITEM item = self->pItem->dupe();
 		return item->getPyObject();
@@ -684,6 +843,11 @@ static PyObject* wpItem_dupe( wpItem *self, PyObject *args )
 	return Py_None;
 }
 
+/*
+	\method item.isblessed
+	\description Determines if an item is blessed or not.
+	\return True, False
+*/
 static PyObject* wpItem_isblessed( wpItem *self, PyObject *args )
 {
 	if (self->pItem->free) {
@@ -692,6 +856,11 @@ static PyObject* wpItem_isblessed( wpItem *self, PyObject *args )
 	return self->pItem->newbie() ? PyTrue : PyFalse;
 }
 
+/*
+	\method item.canstack
+	\description Determines if the item is stackable.
+	\return True, False
+*/
 static PyObject* wpItem_canstack(wpItem *self, PyObject *args) {
 	P_ITEM other;
 	if (!PyArg_ParseTuple(args, "O&:item.canstack(other)", &PyConvertItem, &other)) {
@@ -701,6 +870,12 @@ static PyObject* wpItem_canstack(wpItem *self, PyObject *args) {
 	return self->pItem->canStack(other) ? PyTrue : PyFalse;
 }
 
+/*
+	\method item.countitems
+	\description Counts the amount of baseids in a container.
+	\param baseids
+	\return Amount of baseids
+*/
 static PyObject* wpItem_countitems(wpItem *self, PyObject *args) {
 	PyObject *list;
 	if (!PyArg_ParseTuple(args, "O!:item.countitems(baseids)", &PyList_Type, &list)) {
@@ -721,6 +896,13 @@ static PyObject* wpItem_countitems(wpItem *self, PyObject *args) {
 	return PyInt_FromLong(self->pItem->countItems(baseids));
 }
 
+/*
+	\method item.removeitems
+	\description Removes amount of baseids
+	\param baseids Baseids to remove
+	\param amount Amount to remove
+	\return Amount of baseids removed
+*/
 static PyObject* wpItem_removeitems(wpItem *self, PyObject *args) {
 	PyObject *list;
 	unsigned int amount;
@@ -742,7 +924,7 @@ static PyObject* wpItem_removeitems(wpItem *self, PyObject *args) {
 	return PyInt_FromLong(self->pItem->removeItems(baseids, amount));
 }
 
-static PyMethodDef wpItemMethods[] = 
+static PyMethodDef wpItemMethods[] =
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
 	{ "countitem",			(getattrofunc)wpItem_countItem, METH_VARARGS, "Counts how many items are inside this container." },
@@ -789,11 +971,11 @@ static PyObject *wpItem_getAttr( wpItem *self, char *name )
 {
 	// Special Python things
 	if( !strcmp( "content", name ) )
-	{	
+	{
 		cItem::ContainerContent content = self->pItem->content();
 		PyObject *list = PyList_New( content.size() );
 		for( uint i = 0; i < content.size(); ++i )
-			PyList_SetItem( list, i, PyGetItemObject( content[i] ) );		
+			PyList_SetItem( list, i, PyGetItemObject( content[i] ) );
 		return list;
 	} else if (!strcmp("tags", name)) {
 		// Return a list with the keynames
@@ -861,8 +1043,8 @@ static PyObject *wpItem_getAttr( wpItem *self, char *name )
 		}
 		else
 			delete error;
-	}	
-	
+	}
+
 	return Py_FindMethod( wpItemMethods, (PyObject*)self, name );
 }
 
@@ -977,7 +1159,7 @@ bool checkWpItem( PyObject *pObj )
 int wpItem_compare( PyObject *a, PyObject *b )
 {
 	// Both have to be characters
-	if( a->ob_type != &wpItemType || b->ob_type != &wpItemType ) 
+	if( a->ob_type != &wpItemType || b->ob_type != &wpItemType )
 		return -1;
 
 	P_ITEM pA = getWpItem( a );
