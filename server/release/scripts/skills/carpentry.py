@@ -1,358 +1,316 @@
-#################################################################
-#   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  # Created by: khpae                          #
-#   )).-' {{ ;'`   # Revised by:                                #
-#  ( (  ;._ \\ ctr # Last Modification: Created                 #
-#################################################################
-
+from wolfpack import console
 from wolfpack.consts import *
-from wolfpack.utilities import *
+import math
 import wolfpack
+from system.makemenus import CraftItemAction, MakeMenu, findmenu
+from wolfpack.utilities import hex2dec, tobackpack
+from combat.properties import itemcheck, fromitem
+import random
 
-# name:[ { skill:[ min, max ], .. }, { resource1:num1, ... } ]
-skills = { 'small_bed':[ { CARPENTRY:[ 947, 1000], TAILORING:[ 750, 900 ] }, { 0x1bd7:100, 0x175d:100 } ],
-	'large_bed':[ { CARPENTRY:[ 947, 1000], TAILORING:[ 750, 900 ] }, { 0x1bd7:150, 0x175d:150 } ],
-	'dart_board':[ { CARPENTRY:[ 157, 300 ] }, { 0x1bd7:5 } ],
-	'ballot_box':[ { CARPENTRY:[ 473, 600 ] }, { 0x1bd7:5 } ],
-	'pentagram':[ { CARPENTRY:[ 1000, 1200 ], MAGERY:[ 750, 850 ] }, { 0x1bd7:100, 0x1bf2:40 } ],
-	'abbatoir':[ { CARPENTRY:[ 1000, 1200 ], MAGERY:[ 500, 600 ] }, { 0x1bd7:100, 0x1bf2:40 } ],
-	'small_forge':[ { CARPENTRY:[ 736, 850 ], BLACKSMITHING:[ 750, 850 ] }, { 0x1bd7:5, 0x1bf2:75 } ],
-	'large_forge':[ { CARPENTRY:[ 789, 900 ], BLACKSMITHING:[ 800, 900 ] }, { 0x1bd7:5, 0x1bf2:100 } ],
-	'anvil':[ { CARPENTRY:[ 736, 850 ], BLACKSMITHING:[ 750, 850 ] }, { 0x1bd7:5, 0x1bf2:150 } ],
-	'trainingdummy':[ { CARPENTRY:[ 684, 800 ], TAILORING:[ 500, 600 ] }, { 0x1bd7:55, 0x175d:60 } ],
-	'pickpocketsdip':[ { CARPENTRY:[ 736, 850 ], TAILORING:[ 500, 600 ] }, { 0x1bd7:55, 0x175d:60 } ],
-	'spinningwheel':[ { CARPENTRY:[ 736, 850 ], TAILORING:[ 650, 750 ] }, { 0x1bd7:25, 0x175d:25 } ],
-	'loom':[ { CARPENTRY:[ 842, 950 ], TAILORING:[ 650, 750 ] }, { 0x1bd7:85, 0x175d:25 } ],
-	'stoneoven':[ { CARPENTRY:[ 684, 800 ], TINKERING:[ 500, 600 ] }, { 0x1bd7:85, 0x1bf2:125 } ],
-	'flourmill':[ { CARPENTRY:[ 947, 1200 ], TINKERING:[ 500, 600 ] }, { 0x1bd7:100, 0x1bf2:50 } ],
-	'watertrough':[ { CARPENTRY:[ 736, 850 ] }, { 0x1bd7:150 } ] }
+#
+# Check if the character is using the right tool
+#
+def checktool(char, item, wearout = 0):
+  if not item:
+    return 0
 
-#def onLoad():
-#	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.carpentry" )
+  # Has to be in our posession
+  if item.getoutmostchar() != char:
+    char.socket.clilocmessage(500364)
+    return 0
 
-# skill is used via a tool
-def onUse( char, item ):
-	if item.getoutmostchar() != char:
-		return 1
-	# send makemenu
-	char.sendmakemenu( "CRAFTMENU_CARPENTRY" )
-	return 1
+  # We do not allow "invulnerable" tools.
+  if not item.hastag('remaining_uses'):
+    char.socket.clilocmessage(1044038)
+    item.delete()
+    return 0
 
-def makesmallbeds( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Small Bed(S)" )
-	char.socket.settag( 'carpentry_type', "small_bed_s" )
-	char.socket.settag( 'skills', "small_bed" )
-	makedeed( char )
+  if wearout:
+    uses = int(item.gettag('remaining_uses'))
+    if uses <= 1:
+      char.socket.clilocmessage(1044038)
+      item.delete()
+      return 0
+    else:
+      item.settag('remaining_uses', uses - 1)
 
-def makesmallbede( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Small Bed(E)" )
-	char.socket.settag( 'carpentry_type', "small_bed_e" )
-	char.socket.settag( 'skills', "small_bed" )
-	makedeed( char )
+  return 1
 
-def makelargebeds( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Large Bed(S)" )
-	char.socket.settag( 'carpentry_type', "large_bed_s" )
-	char.socket.settag( 'skills', "large_bed" )
-	makedeed( char )
+#
+# Bring up the carpentry menu
+#
+def onUse(char, item):
+  if not checktool(char, item):
+    return 1
 
-def makelargebede( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Large Bed(E)" )
-	char.socket.settag( 'carpentry_type', "large_bed_e" )
-	char.socket.settag( 'skills', "large_bed" )
-	makedeed( char )
+  menu = findmenu('CARPENTRY')
+  if menu:
+    menu.send(char, [item.serial])
+  return 1
 
-def makedartboards( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Dart Board(S)" )
-	char.socket.settag( 'carpentry_type', "dart_board_s" )
-	char.socket.settag( 'skills', "dart_board" )
-	makedeed( char )
+#
+# Carp an item.
+# Used for scales + ingots
+#
+class CarpItemAction(CraftItemAction):
+  def __init__(self, parent, title, itemid, definition):
+    CraftItemAction.__init__(self, parent, title, itemid, definition)
+    self.markable = 0 # Most carpentry items are not markable
 
-def makedartboarde( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Dart Board(E)" )
-	char.socket.settag( 'carpentry_type', "dart_board_e" )
-	char.socket.settag( 'skills', "dart_board" )
-	makedeed( char )
+  #
+  # Check if we did an exceptional job.
+  #
+  def getexceptionalchance(self, player, arguments):
+    # Only works if this item requires blacksmithing
+    if not self.skills.has_key(CARPENTRY):
+      return 0
 
-def makeballotbox( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Ballot Box" )
-	char.socket.settag( 'carpentry_type', "ballot_box" )
-	char.socket.settag( 'skills', "ballot_box" )
-	makedeed( char )
+    minskill = self.skills[CARPENTRY][0]
+    maxskill = self.skills[CARPENTRY][1]
 
-def makepentagram( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Pentagram" )
-	char.socket.settag( 'carpentry_type', "pentagram" )
-	char.socket.settag( 'skills', "pentagram" )
-	makedeed( char )
+    if not penalty:
+      penalty = 250
 
-def makeabbatoir( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Abbatoir" )
-	char.socket.settag( 'carpentry_type', "abbatoir" )
-	char.socket.settag( 'skills', "abbatoir" )
-	makedeed( char )
+    minskill += penalty
+    maxskill += penalty
 
-def makesmallforge( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Small Forge" )
-	char.socket.settag( 'carpentry_type', "small_forge" )
-	char.socket.settag( 'skills', "small_forge" )
-	makedeed( char )
+    chance = ( player.skill[CARPENTRY] - minskill ) / 10
 
-def makelargeforgee( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Large Forge(E)" )
-	char.socket.settag( 'carpentry_type', "large_forge_e" )
-	char.socket.settag( 'skills', "large_forge" )
-	makedeed( char )
+    # chance = 0 - 100
+    if chance > 100:
+      chance = 100
+    elif chance < 0:
+      chance = chance * -1
 
-def makelargeforges( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Large Forge(S)" )
-	char.socket.settag( 'carpentry_type', "large_forge_s" )
-	char.socket.settag( 'skills', "large_forge" )
-	makedeed( char )
+    # chance range 0.00 - 1.00
+    chance = chance * .01
+    return chance
 
-def makeanvile( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Anvil(E)" )
-	char.socket.settag( 'carpentry_type', "anvil_e" )
-	char.socket.settag( 'skills', "anvil" )
-	makedeed( char )
+  #
+  # Apply resname and color to the item.
+  #
+  def applyproperties(self, player, arguments, item, exceptional):
+    # See if special ingots were used in the creation of
+    # this item. All items crafted by carpenterss gain the
+    # color!
+    if self.submaterial1 > 0:
+      material = self.parent.getsubmaterial1used(player, arguments)
+      material = self.parent.submaterials1[material]
+      item.color = material[4]
 
-def makeanvils( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Anvil(S)" )
-	char.socket.settag( 'carpentry_type', "anvil_s" )
-	char.socket.settag( 'skills', "anvil" )
-	makedeed( char )
 
-def maketrainingdummye( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Training Dummy(E)" )
-	char.socket.settag( 'carpentry_type', "training_dummy_e" )
-	char.socket.settag( 'skills', "training_dummy" )
-	makedeed( char )
+    # Reduce the uses remain count
+    checktool(player, wolfpack.finditem(arguments[0]), 1)
 
-def maketrainingdummys( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Training Dummy(S)" )
-	char.socket.settag( 'carpentry_type', "training_dummy_s" )
-	char.socket.settag( 'skills', "training_dummy" )
-	makedeed( char )
+  #
+  # First check if we are near an anvil and forge.
+  # Then play a carpentry sound.
+  #
+  def make(self, player, arguments):
+    assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
 
-def makepickpocketsdipe( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Pickpocket Dip(E)" )
-	char.socket.settag( 'carpentry_type', "pickpocket_dip_e" )
-	char.socket.settag( 'skills', "pickpocket_dip" )
-	makedeed( char )
-	
-def makepickpocketsdips( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Pickpocket Dip(S)" )
-	char.socket.settag( 'carpentry_type', "pickpocket_dip_s" )
-	char.socket.settag( 'skills', "pickpocket_dip" )
-	makedeed( char )
+    if not checktool(player, wolfpack.finditem(arguments[0])):
+      return 0
 
-def makespinningwheele( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Spinning Wheel(E)" )
-	char.socket.settag( 'carpentry_type', "spinning_wheel_e" )
-	char.socket.settag( 'skills', "spinning_wheel" )
-	makedeed( char )
+    return CraftItemAction.make(self, player, arguments)
 
-def makespinningwheels( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Spinning Wheel(S)" )
-	char.socket.settag( 'carpentry_type', "spinning_wheel_s" )
-	char.socket.settag( 'skills', "spinning_wheel" )
-	makedeed( char )
+  #
+  # Play a simple soundeffect
+  #
+  def playcrafteffect(self, player, arguments):
+    player.soundeffect(0x2a)
 
-def makeloome( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Loom(E)" )
-	char.socket.settag( 'carpentry_type', "loom_e" )
-	char.socket.settag( 'skills', "loom" )
-	makedeed( char )
+#
+# A blacksmith menu. The most notable difference is the
+# button for selecting another ore.
+#
+class CarpentryMenu(MakeMenu):
+  def __init__(self, id, parent, title):
+    MakeMenu.__init__(self, id, parent, title)
+    self.allowmark = 1
+    self.allowrepair = 1
+    #self.allowenhance = 1
+    #self.allowsmelt = 1
+    self.submaterial3missing = 1060884
+    self.submaterial2missing = 1060884
+    self.submaterial1missing = 1044037
+    self.submaterial1noskill = 1044268
+    self.gumptype = 0x4f1ba410 # This should be unique
 
-def makelooms( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Loom(S)" )
-	char.socket.settag( 'carpentry_type', "loom_s" )
-	char.socket.settag( 'skills', "loom" )
-	makedeed( char )
+  #
+  # Repair an item
+  #
+  def repair(self, player, arguments, target):
 
-def makestoneovene( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Stone Oven(E)" )
-	char.socket.settag( 'carpentry_type', "stone_oven_e" )
-	char.socket.settag( 'skills', "stone_oven" )
-	makedeed( char )
+    if not checktool(player, wolfpack.finditem(arguments[0])):
+      return
 
-def makestoneovens( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Stone Oven(S)" )
-	char.socket.settag( 'carpentry_type', "stone_oven_s" )
-	char.socket.settag( 'skills', "stone_oven" )
-	makedeed( char )
+    if not target.item:
+      player.socket.clilocmessage(500426)
+      return
 
-def makeflourmille( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Flour Mill(E)" )
-	char.socket.settag( 'carpentry_type', "flour_mill_e" )
-	char.socket.settag( 'skills', "flour_mill" )
-	makedeed( char )
+    if target.item.container != player.getbackpack():
+      player.socket.clilocmessage(1044275)
+      return
 
-def makeflourmills( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Flour Mill(S)" )
-	char.socket.settag( 'carpentry_type', "flour_mill_s" )
-	char.socket.settag( 'skills', "flour_mill" )
-	makedeed( char )
+    item = target.item
+    weapon = itemcheck(item, ITEM_WEAPON)
+    shield = itemcheck(item, ITEM_SHIELD)
 
-def makewatertroughe( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Water Trough(E)" )
-	char.socket.settag( 'carpentry_type', "water_trough_e" )
-	char.socket.settag( 'skills', "water_trough" )
-	makedeed( char )
+    if weapon or shield:
+      # Item in full repair
+      if item.maxhealth <= 0 or item.health >= item.maxhealth:
+        player.socket.clilocmessage(500423)
+        return
 
-def makewatertroughs( char ):
-	if not char:
-		return
-	rmcarpentrytags( char )
-	char.socket.settag( 'carpentry_name', "Water Trough(S)" )
-	char.socket.settag( 'carpentry_type', "water_trough_s" )
-	char.socket.settag( 'skills', "water_trough" )
-	makedeed( char )
+      skill = player.skill[CARPENTRY]
+      if skill >= 900:
+        weaken = 1
+      elif skill >= 700:
+        weaken = 2
+      else:
+        weaken = 3
 
-def rmcarpentrytags( char ):
-	if char.socket.hastag( 'carpentry_name' ):
-		char.socket.deltag( 'carpentry_name' )
-	if char.socket.hastag( 'carpentry_type' ):
-		char.socket.deltag( 'carpentry_type' )
-	if char.socket.hastag( 'skills' ):
-		char.socket.deltag( 'skills' )
+      action = self.findcraftitem(item.baseid)
 
-def makedeed( char ):
-	if not char.socket.hastag( 'carpentry_name' ) or not char.socket.hastag( 'carpentry_type') or not char.socket.hastag( 'skills' ):
-		rmcarpentrytags( char )
-		return
-	backpack = char.getbackpack()
-	if not backpack:
-		return
+      # We can't craft it, so we can't repair it.
+      if not action:
+        player.socket.clilocmessage(1044277)
+        return
 
-	# interpret the skill/resource data
-	item_name = char.socket.gettag( 'skills' )
-	if not skills.has_key( item_name ):
-		return
-	use_skills = skills[ item_name ][ 0 ].keys()
-	use_items = skills[ item_name ][ 1 ].keys()
-	num_items = [ 0 ] * len( use_items )
+      # We will either destroy or repair it from here on
+      # So we can play the craft effect.
+      player.soundeffect(0x2a)
 
-	# check if we have sufficient resources
-	success = 1
-	for i in range( 0, len( use_items ) ):
-		num_items[ i ] = skills[ item_name ][ 1 ][ use_items[ i ] ]
-		if use_items[ i ] == 0x1bf2:
-			color = 0x0961
-		else:
-			color = 0x0
-		res_count = char.countresource( use_items[ i ], color )
-		if res_count < num_res[ i ]:
-			success = 0
-	if not success:
-		return
+      if item.maxhealth <= weaken:
+        player.socket.clilocmessage(500424)
+        item.delete()
+      elif player.checkskill(CARPENTRY, 0, 1000):
+        player.socket.clilocmessage(1044279)
+        item.maxhealth -= weaken
+        item.health = item.maxhealth
+        item.resendtooltip()
+      else:
+        player.socket.clilocmessage(1044280)
+        item.maxhealth -= weaken
+        item.health = max(0, item.health - weaken)
+        item.resendtooltip()
 
-	# check if we have sufficient skills and luck ;)
-	success = 1
-	for i in range( 0, len( use_skills ) ):
-		skill_min = skills[ item_name ][ 0 ][ use_skills[ i ] ][ 0 ]
-		skill_max = skills[ item_name ][ 0 ][ use_skills[ i ] ][ 1 ]
-		success &= char.checkskill( use_skills[ i ], skill_min, skill_max )
-	if not success:
-		return
+      # Warn the user if we'll break the item next time
+      if item.maxhealth <= weaken:
+        player.socket.clilocmessage(1044278)
 
-	# useup resources
-	for i in range( 0, len( use_items ) ):
-		if use_items[ i ] == 0x1bf2:
-			color = 0x0961
-		else:
-			color = 0x0
-		char.useresource( num_items[ i ], use_items[ i ], color )
+      return
 
-	# now, create the deed
-	deed = wolfpack.additem( "14ef" )
-	if not deed:
-		return
-	deed.name = char.socket.gettag( 'carpentry_name' )
-	deed.settag( 'carpentry_type', char.socket.gettag( 'carpentry_type' ) )
-	deed.events = "carpentry_deed"
-	backpack.additem( deed )
-	deed.update()
-	rmcarpentrytags( char )
+    player.socket.clilocmessage(1044277)
 
+#
+# Load a menu with a given id and
+# append it to the parents submenus.
+#
+def loadMenu(id, parent = None):
+  definition = wolfpack.getdefinition(WPDT_MENU, id)
+  if not definition:
+    if parent:
+      console.log(LOG_ERROR, "Unknown submenu %s in menu %s.\n" % (id, parent.id))
+    else:
+      console.log(LOG_ERROR, "Unknown menu: %s.\n" % id)
+    return
+
+  name = definition.getattribute('name', '')
+  menu = CarpentryMenu(id, parent, name)
+
+  # See if we have any submenus
+  for i in range(0, definition.childcount):
+    child = definition.getchild(i)
+    # Submenu
+    if child.name == 'menu':
+      if not child.hasattribute('id'):
+        console.log(LOG_ERROR, "Submenu with missing id attribute in menu %s.\n" % menu.id)
+      else:
+        loadMenu(child.getattribute('id'), menu)
+
+    # Craft an item
+    elif child.name == 'craft':
+      if not child.hasattribute('definition') or not child.hasattribute('name'):
+        console.log(LOG_ERROR, "Carpentry action without definition or name in menu %s.\n" % menu.id)
+      else:
+        itemdef = child.getattribute('definition')
+        name = child.getattribute('name')
+        try:
+          # See if we can find an item id if it's not given
+          if not child.hasattribute('itemid'):
+            item = wolfpack.getdefinition(WPDT_ITEM, itemdef)
+            itemid = 0
+            if item:
+              itemchild = item.findchild('id')
+              if itemchild:
+                itemid = itemchild.value
+          else:
+            itemid = hex2dec(child.getattribute('itemid', '0'))
+          action = CarpItemAction(menu, name, int(itemid), itemdef)
+        except:
+          console.log(LOG_ERROR, "Carpentry action with invalid item id in menu %s.\n" % menu.id)
+
+        # Process subitems
+        for j in range(0, child.childcount):
+          subchild = child.getchild(j)
+
+          # How much of the primary resource should be consumed
+          if subchild.name == 'wood':
+            action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
+
+          # How much of the secondary resource should be consumed
+          elif subchild.name == 'ingots':
+            action.submaterial2 = hex2dec(subchild.getattribute('amount', '0'))
+
+          elif subchild.name == 'cloth':
+            action.submaterial3 = hex2dec(subchild.getattribute('amount', '0'))
+
+          # Normal Material
+          elif subchild.name == 'material':
+            if not subchild.hasattribute('id'):
+              console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
+              break
+            else:
+              try:
+                ids = subchild.getattribute('id').split(';')
+                for i in range(0, len(ids)):
+                  ids[i] = hex2dec(ids[i])
+              except:
+                console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
+                break
+
+              try:
+                amount = hex2dec(subchild.getattribute('amount', '1'))
+              except:
+                console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
+                break
+              action.materials.append([ids, amount])
+
+          # Skill requirement
+          elif subchild.name in skillnamesids:
+            skill = skillnamesids[subchild.name]
+            try:
+              minimum = hex2dec(subchild.getattribute('min', '0'))
+            except:
+              console.log(LOG_ERROR, "%s element with invalid min value in menu %s.\n" % (subchild.name, menu.id))
+
+            try:
+              maximum = hex2dec(subchild.getattribute('max', '1200'))
+            except:
+              console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
+
+            try:
+              penalty = hex2dec(subchild.getattribute('penalty','0'))
+            except:
+              console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
+
+            action.skills[skill] = [minimum, maximum, penalty]
+
+  # Sort the menu. This is important for the makehistory to make.
+  menu.sort()
+
+#
+# Load the blacksmithing menu.
+#
