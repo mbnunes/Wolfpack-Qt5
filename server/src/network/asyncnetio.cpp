@@ -40,7 +40,7 @@
 #include "qmap.h"
 
 // TEMPORARY
-#include <iostream>
+//#include <iostream>
 
 
 // Table of Packet lengths
@@ -86,9 +86,9 @@ const Q_UINT16 packetLengths[256] =
 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
 };
 
-//
-// cAsyncNetIOPrivate
-// =========================================================================================
+/*****************************************************************************
+  cAsyncNetIOPrivate member functions
+ *****************************************************************************/
 
 using namespace ZThread;
 
@@ -309,6 +309,10 @@ bool cAsyncNetIO::unregisterSocket( QSocketDevice* socket )
 	return true;
 }
 
+/*!
+  \internal
+  The thread's execution loop for AsyncNetIO
+*/
 void cAsyncNetIO::run() throw()
 {
 	while ( !canceled() )
@@ -390,7 +394,7 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 				{
 					QByteArray packetData( d->rsize );
 					d->readBlock( packetData.data(), d->rsize );
-					qWarning( cUOPacket::dump( packetData ).latin1() );
+					qWarning( cUOPacket::dump( packetData ) );
 					continue;
 				}
 

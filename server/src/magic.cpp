@@ -1618,7 +1618,7 @@ void cMagic::NPCCure(P_CHAR pc)
 		SubtractMana(pc,5);
 		pc->setPoisoned(0);
 		pc->setPoisonwearofftime(uiCurrentTime);
-		npcemoteall(pc, "Laughs at the poison attempt", 0);
+		pc->emote("Laughs at the poison attempt");
 	}
 
 }

@@ -1430,12 +1430,11 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 	if (getamount(currchar[s], regid) >= regamount)
 	{
 		success=true;
-		sprintf((char*)temp, "*%s starts grinding some %s in the mortar.*", currchar[s]->name.c_str(), regname);
-		npcemoteall(currchar[s], (char*)temp,1); // LB, the 1 stops stupid alchemy spam
+		currchar[s]->emote( tr("*%s starts grinding some %s in the mortar.*").arg(currchar[s]->name.c_str()).arg(regname) ); // LB, the 1 stops stupid alchemy spam
 		delequan(currchar[s],regid,regamount);
 	}
 	else
-		sysmessage(s, "You do not have enough reagents for that potion.");
+		sysmessage(s, tr("You do not have enough reagents for that potion."));
 	
 	return success;
 }
@@ -1530,8 +1529,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 
 	if (success==0 && !pc->isGM()) // AC bugfix
 	{
-		sprintf((char*)temp, "*%s tosses the failed mixture from the mortar, unable to create a potion from it.*", pc->name.c_str());
-		npcemoteall(pc, (char*)temp,0);
+		pc->emote( tr("*%1 tosses the failed mixture from the mortar, unable to create a potion from it.*").arg(pc->name.c_str()) );
 		return;
 	}
 	pi_mortar->setType( 17 );
@@ -1546,8 +1544,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 	else
 	{
 		pc->soundEffect( 0x0240 );
-		sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc->name.c_str());
-		npcemoteall(pc, (char*)temp,0);
+		pc->emote( tr("*%1 pours the completed potion into a bottle.*").arg(pc->name.c_str()));
 		delequan(pc, 0x0F0E, 1);
 		Skills->PotionToBottle(pc, pi_mortar);
 	} 
@@ -1573,8 +1570,7 @@ void cSkills::BottleTarget(int s)
 		if(mortar == NULL) return;
 		if (mortar->type() == 17) 
 		{
-			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc_currchar->name.c_str());
-			npcemoteall(pc_currchar, (char*)temp,0);
+			pc_currchar->emote( tr("*%1 pours the completed potion into a bottle.*").arg(pc_currchar->name.c_str()));
 			Skills->PotionToBottle(pc_currchar, mortar);
 		}
 	}

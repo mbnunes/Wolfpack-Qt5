@@ -77,26 +77,31 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0xA7:		return new cUORxGetTip( data );
 	case 0xAD:		return new cUORxSpeechRequest( data );
 	case 0xB1:		return new cUORxGumpResponse( data );
-	case 0xBF:		return new cUORxMultiPurpose( data );
+	case 0xBF:		return cUORxMultiPurpose::packet( data );
 	case 0xBD:		return new cUORxSetVersion( data );
 	case 0xC8:		return new cUORxUpdateRange( data );
 	default:		return new cUOPacket( data );
 	};	
 }
 
-cUOPacket *cUORxMultiPurpose::packet( void ) 
+cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data ) 
 { 
+	cUOPacket temp(data);
 	// Switch the Subcommand 
-	switch( getShort( 3 ) ) 
+	switch( temp.getShort( 3 ) ) 
 	{ 
-	case 0x0b: 
-		return new cUORxSetLanguage( rawPacket ); break; 
-	case 0x13: 
-		return new cUORxContextMenuRequest( rawPacket ); break; 
-	case 0x15: 
-		return new cUORxContextMenuSelection( rawPacket ); break; 
-	default: 
-		return new cUOPacket( (*this) ); 
+	case setLanguage: 
+		return new cUORxSetLanguage( data ); break; 
+	case contextMenuRequest: 
+		return new cUORxContextMenuRequest( data ); break; 
+	case contextMenuSelection: 
+		return new cUORxContextMenuSelection( data ); break; 
+	default:
+		{
+			qWarning("Unknown cUORxMultiPurpose subcommand");
+			qWarning( cUOPacket::dump( data ) );
+			return new cUOPacket( data ); 
+		}
 	}; 
 } 
 

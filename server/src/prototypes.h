@@ -147,7 +147,6 @@ void wipe(int s);
 void xteleport(int s,int x);
 void wornitems(UOXSOCKET s, P_CHAR pc);
 void RefreshItem(P_ITEM pi);
-void npcemoteall(P_CHAR npc, char *txt,unsigned char antispam);
 int findsection (unsigned char *s);
 void read1 ();
 void read2 ();

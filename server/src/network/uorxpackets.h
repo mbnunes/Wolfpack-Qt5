@@ -233,35 +233,40 @@ public:
 	{
 		unknown = 0,
 		initFastWalk,
+		contextMenuRequest = 0x13,
+		contextMenuSelection = 0x15,
+		setLanguage = 0x0B,
+		
 	};
 
 	cUORxMultiPurpose( const QByteArray &data ): cUOPacket( data ) {}
-	cUOPacket *packet( void );
 	eSubCommands subCommand( void ) const { return (eSubCommands)getShort( 3 ); }
+	static cUOPacket *packet( const QByteArray& data );
 };
 
 // 0xBF 0x13 PopUp Menu Request
-class cUORxContextMenuRequest: public cUOPacket
+class cUORxContextMenuRequest: public cUORxMultiPurpose
 {
 public:
-	cUORxContextMenuRequest( const QByteArray &data ): cUOPacket( data ) {}
+	cUORxContextMenuRequest( const QByteArray &data ): cUORxMultiPurpose( data ) {}
 	UINT32 serial( void ) const { return getInt( 5 ); }
 };
 
-class cUORxContextMenuSelection: public cUOPacket 
+// 0xBF 0x15 PopUp Menu Selection
+class cUORxContextMenuSelection: public cUORxMultiPurpose 
 { 
 public: 
-	cUORxContextMenuSelection( const QByteArray &data ): cUOPacket( data ) {} 
+	cUORxContextMenuSelection( const QByteArray &data ): cUORxMultiPurpose( data ) {} 
 	
 	Q_UINT32 CharID( void ) const { return getInt( 5 ); } 
 	Q_UINT16 EntryTag( void ) const { return getShort( 9 ); } 
 }; 
 
 // 0xBF 0x0B Set Client Language
-class cUORxSetLanguage: public cUOPacket
+class cUORxSetLanguage: public cUORxMultiPurpose
 {
 public:
-	cUORxSetLanguage( const QByteArray &data ): cUOPacket( data ) {}
+	cUORxSetLanguage( const QByteArray &data ): cUORxMultiPurpose( data ) {}
 	QString language( void ) const { return this->getAsciiString(5, 4); }
 };
 

@@ -610,9 +610,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						sprintf(t,"* %s looks a bit nauseous *",pc->name.c_str());
-						pc->setEmoteColor( 0x0026 );//buffer[s][4];
-						npcemoteall(pc,t,1);
+						pc->emote( tr("* %1 looks a bit nauseous *").arg(pc->name.c_str()), 0x0026);
 					}
 //					pc->hp -= RandomNum(1,2);
 					pc->setHp( pc->hp() - RandomNum(1,2) );
@@ -623,9 +621,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
-						pc->setEmoteColor( 0x0026 ); //buffer[s][4];
-						npcemoteall(pc,t,1);
+						pc->emote( tr("* %1 looks disoriented and nauseous! *").arg(pc->name.c_str()), 0x0026);
 					}
 
 					pcalc = ( ( pc->hp() * RandomNum(2,5) ) / 100) + RandomNum(0,2); // damage: 1..2..5% of hp's+ 1..2 constant
@@ -639,9 +635,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						sprintf(t,"* %s is in severe pain! *",pc->name.c_str());
-						pc->setEmoteColor( 0x0026 );//buffer[s][4];
-						npcemoteall(pc,t,1);
+						pc->emote( tr("* %1 is in severe pain! *").arg(pc->name.c_str()), 0x0026 );
 					}
 					pcalc=( ( pc->hp() * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
 //					pc->hp -= pcalc;
@@ -653,9 +647,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *",pc->name.c_str());
-						pc->setEmoteColor( 0x0026 );//buffer[s][4];
-						npcemoteall(pc,t,1);
+						pc->emote( tr("* %s looks extremely weak and is wrecked in pain! *").arg(pc->name.c_str()), 0x0026 );
 					}
 
 					pcalc=( (pc->hp() * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
@@ -699,34 +691,27 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			{
 			case 6:
 			case 5:	break;
-			case 4:	sprintf(t,"* %s looks a little hungry *",pc->name.c_str());			break;
-			case 3:	sprintf(t,"* %s looks fairly hungry *",pc->name.c_str());			break;
-			case 2:	sprintf(t,"* %s looks extremely hungry *",pc->name.c_str());		break;
-			case 1:	sprintf(t,"* %s looks weak from starvation *",pc->name.c_str());	break;
+			case 4:	pc->emote( tr("* %1 looks a little hungry *").arg(pc->name.c_str()), 0x0026);		break;
+			case 3:	pc->emote( tr("* %1 looks fairly hungry *").arg(pc->name.c_str()), 0x0026);			break;
+			case 2:	pc->emote( tr("* %1 looks extremely hungry *").arg(pc->name.c_str()), 0x0026);		break;
+			case 1:	pc->emote( tr("* %1 looks weak from starvation *",pc->name.c_str()), 0x0026);		break;
 			case 0:
 				//maximum hunger - untame code - AntiChrist
 				//pet release code here
 				if(pc->tamed())
 				{
 					pc->ftarg = INVALID_SERIAL;
-					pc->npcWander=2;
-					pc->setTamed(false);
-					if(pc->ownserial()!=-1) 
-						pc->SetOwnSerial(-1);
-					pc->emote( tr("%1 appears to have decided that it is better off without a master").arg(pc->name.c_str()) );
+					pc->npcWander = 2;
+					pc->setTamed( false );
+					if( pc->ownserial() != INVALID_SERIAL ) 
+						pc->SetOwnSerial(INVALID_SERIAL);
+					pc->emote( tr("%1 appears to have decided that it is better off without a master").arg(pc->name.c_str()), 0x0026 );
 
 					pc->soundEffect( 0x01FE );
 					if( SrvParams->tamedDisappear() == 1 )
 						Npcs->DeleteChar(pc);
 				}
-				//sprintf(t,"* %s must eat very soon or he will die! *",pc->name);
 				break;
-			}
-
-			if(strlen(t))
-			{//display message ( if there's one
-				pc->setEmoteColor( 0x0026 );//buffer[s][4];
-				npcemoteall(pc,t,1);
 			}
 		}//if tamed
 		pc->setHungerTime( currenttime+(SrvParams->hungerRate()*MY_CLOCKS_PER_SEC) );

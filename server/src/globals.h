@@ -87,9 +87,8 @@ extern int gatecount;
 //Time variables
 extern QDateTime uoTime;
 extern int uotickcount;
-extern int hbu;       // heartbeat update var
 
-extern int goldamount;
+//extern int goldamount;
 
 extern unsigned int nextfieldeffecttime;
 extern unsigned int nextnpcaitime;
@@ -105,10 +104,8 @@ extern int keeprun;
 extern int now;
 
 
-extern FILE *scpfile, *lstfile, *wscfile, *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
+extern FILE *lstfile, *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
 
-extern unsigned char xcounter;
-extern unsigned char ycounter;        //x&y counter used for placing deleted items and chars
 extern int secure; // Secure mode
 
 extern int xycount;
@@ -126,11 +123,6 @@ extern UI32 MapRecordSize;
 extern UI32 MultiIndexRecordSize;
 extern UI32 StaticRecordSize;
 
-extern int cmem ;
-
-extern int global_lis;
-
-extern char *cline;
 
 extern int tnum;
 extern unsigned int starttime, endtime, lclock;
@@ -141,12 +133,10 @@ extern unsigned char wtype;
 
 extern int executebatch;
 extern int showlayer;
-extern int ph1, ph2, ph3, ph4;
 extern int openings;
 
 extern unsigned char tempflag;
 
-//extern short wp_port;
 extern unsigned int shoprestocktime;
 extern int shoprestockrate;
 extern unsigned int respawntime;
@@ -178,8 +168,6 @@ enum  enScripts { items_script = 0,npc_script,create_script,regions_script,misc_
 			custom_item_script,carve_script,msgboard_script,
 			fishing_script, gump_script, NUM_SCRIPTS} ;
 
-extern char n_scripts[NUM_SCRIPTS][512] ; // array of script filenames
-
 extern unsigned long initialserversec ;
 extern unsigned long initialservermill ;
 
@@ -191,13 +179,11 @@ extern unsigned long initialservermill ;
 
 //extern char firstpacket[MAXCLIENT+1];
 extern char noweather[MAXCLIENT+1]; //LB
-extern unsigned char LSD[MAXCLIENT];
 
 //extern int newclient[MAXCLIENT];
 extern unsigned char  buffer[MAXCLIENT][MAXBUFFER_REAL];
 extern char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
 extern int whomenudata [(MAXCLIENT)*10]; // LB, for improved whomenu, ( is important !!!
-extern int client[MAXCLIENT];
 extern short int walksequence[MAXCLIENT];
 extern signed char addid5[MAXCLIENT];
 extern int acctno[MAXCLIENT];
@@ -267,7 +253,6 @@ extern unsigned short int doorbase[DOORTYPES];
 extern char skillname[SKILLS+1][20];
 extern  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here :(
 extern title_st title[ALLSKILLS+1];
-extern unsigned char *comm[CMAX];
 
 extern creat_st creatures[2048]; //LB, stores the base-sound+sound flags of monsters, animals
 extern location_st location[4000];

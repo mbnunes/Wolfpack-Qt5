@@ -890,14 +890,6 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 */
 void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 {
-	/*cUOTxPopupMenu popup;
-	popup.setSerial( packet->serial() );
-	popup.addEntry( 0, 1, true );
-	popup.addEntry( 1, 2, false );
-	popup.addEntry( 2, 3, false );
-	send( &popup );
-	return;*/
-
 	// Check if it's a singleclick on items or chars
 	if( isCharSerial( packet->serial() ) )
 	{
@@ -924,16 +916,17 @@ void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
 */
 void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet ) 
 { 
-	cUOPacket *mPacket = packet->packet(); 
-	
+	if ( !packet ) // Happens if it's not inherited from cUORxMultiPurpose
+		return;
+
 	switch( packet->subCommand() ) 
 	{ 
-	case 0x0B: 
-		handleSetLanguage( dynamic_cast< cUORxSetLanguage* >( mPacket ) ); break; 
-	case 0x13: 
-		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( mPacket ) ); break; 
-	case 0x15: 
-		handleContextMenuSelection( dynamic_cast< cUORxContextMenuSelection* >( mPacket ) ); break; 
+	case cUORxMultiPurpose::setLanguage: 
+		handleSetLanguage( dynamic_cast< cUORxSetLanguage* >( packet ) ); break; 
+	case cUORxMultiPurpose::contextMenuRequest: 
+		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( packet ) ); break; 
+	case cUORxMultiPurpose::contextMenuSelection: 
+		handleContextMenuSelection( dynamic_cast< cUORxContextMenuSelection* >( packet ) ); break; 
 	default: 
 		packet->print( &cout ); // Dump the packet 
 	}; 

@@ -719,46 +719,6 @@ void savelog(const char *msg, char *logfile)
 		fclose( file );
 }
 
-void splitline() // For putting single words of cline into comm array
-{
-	int i=0;
-	char *s;
-	char *d;
-
-	d=" ";
-	s=strtok((char*)cline,d);
-	unsigned long loopexit=0;
-	while ( (s!=NULL) && (++loopexit < MAXLOOPS) )
-	{
-		comm[i]=(unsigned char*)s;
-		i++;
-		s=strtok(NULL,d);
-	}
-	tnum=i;
-}
-
-int makenumber (int countx) // Converts decimal string comm[count] to int
-{
-	if (comm[countx] == NULL)
-		return 0;
-
-	int i;
-	sscanf((char*)comm[countx], "%i", &i);
-	return i;
-}
-
-int hexnumber(int countx) // Converts hex string comm[count] to int
-{
-	// sscanf is an ANSI function to read formated data from a string.
-	if (comm[countx] == NULL)
-		return 0;
-
-	int i;
-	sscanf((char*)comm[countx], "%x", &i);
-
-	return i;
-}
-
 void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 {
 	pc->setOnHorse( false );
@@ -1291,17 +1251,6 @@ void npctalkall_runic(P_CHAR npc, const char *txt,char antispam)
 	for (i=0;i<now;i++)
 		if (inrange1p(npc, currchar[i])&&perm[i])
 			npctalk_runic(i, npc, txt,antispam);
-}
-
-void npcemoteall(P_CHAR npc, char *txt,unsigned char antispam) // NPC speech to all in range.
-{
-	int i;
-
-	if (npc==NULL) return;
-
-	for (i=0;i<now;i++)
-		if (inrange1p(npc, currchar[i])&&perm[i])
-			npcemote(i, npc, txt,antispam);
 }
 
 //taken from 6904t2(5/10/99) - AntiChrist
@@ -4281,18 +4230,15 @@ void SetGlobalVars()
 
 	for (i=0; i>ALLSKILLS; i++) { strcpy(title[i].other, "old titles.scp error"); }
 	completetitle = new char[1024];
-	for (i=0;i<(MAXCLIENT);i++) { LSD[i]=0; clientDimension[i]=2; noweather[i]=1; } // LB	
+	for (i=0;i<(MAXCLIENT);i++) { clientDimension[i]=2; noweather[i]=1; } // LB	
 	//for (i=0;i<cmem;i++) talkingto[i]=0; // cmem isnt set here !
 	
 	save_counter=0;
-	cmem=0;
 	keeprun=1;
 	error=0;
 	now=0;
 	secure=1;
 	wtype=0;
-	xcounter=0;
-	ycounter=0;
 	globallight=0;
 	executebatch=0;
 	showlayer=0;

@@ -1176,17 +1176,6 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		}
 		break;
 
-	case 20: // LSD potions, LB 5'th nov 1999
-		k=calcSocketFromChar(pc_source);
-		if (k==-1) return 0;
-		sysmessage(k,"Hmmm, tasty, LSD");
-		LSD[k]=1;
-		pc_source->setHp( pc_source->st() );
-		pc_source->setMn( pc_source->in() );
-		impowncreate(k, pc_source, 0);
-		pTE->setExpiretime_s(90);
-		break;
-
 	case 21:		// protection
 		pTE->setExpiretime_s(12);
 		pTE->dispellable=1;

@@ -83,9 +83,6 @@ public:
 	char  operator []( uint ) const;
 	cUOPacket& operator=( cUOPacket& p );
 
-
-	// Temporary
-	friend cUORxMultiPurpose;
 };
 
 // Inline members

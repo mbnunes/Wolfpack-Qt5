@@ -117,21 +117,6 @@ unsigned char spc[2]="\x20";
 unsigned char extmove[18]="\x77\x01\x02\x03\x04\x01\x90\x01\x02\x01\x02\x0A\x00\xED\x00\x00\x00";
 unsigned char particleSystem[49];             
 time_t	oldtime, newtime;
-#ifndef __unix__
-
-#else
-      
-char *strlwr(char *str) {
-  for (unsigned int i=0;i<strlen(str);i++)
-    str[i]=tolower(str[i]);
-  return str;
-}
-char *strupr(char *str) {
-  for (unsigned int i=0;i<strlen(str);i++)
-    str[i]=toupper(str[i]);
-  return str;
-}
-#endif
 
 unsigned long int updatepctime=0;
 
@@ -142,11 +127,10 @@ int gatecount=0;
 QDateTime uoTime;
 int secondsperuominute=5; //Number of seconds for a WOLFPACK minute.
 int uotickcount=1;
-int hbu=0;       // heartbeat update var
 int openings=0;
 unsigned long initialserversec ;
 unsigned long initialservermill ;
-int goldamount;
+//int goldamount;
 int defaultpriv1;
 int defaultpriv2;
 unsigned int nextfieldeffecttime=0;
@@ -158,20 +142,13 @@ int autosaved, saveinterval;
 int dosavewarning=0;	
 bool heartbeat;
 
-//int len_connection_addr;
-//struct hostent *he;
 int err, error;
 int keeprun;
-//int a_socket;
 
-//int nfds;
-short wp_port=2593; //deafult!
 int now;
 
-FILE *scpfile, *lstfile, *wscfile, *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
+FILE *lstfile, *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
 
-unsigned char xcounter;
-unsigned char ycounter;
 int secure; // Secure mode
 
 int xycount;
@@ -192,8 +169,6 @@ int locationcount;
 unsigned int logoutcount;//Instalog
 
 //unsigned int cmem;
-int cmem ;
-char *cline;
 int tnum;
 
 unsigned int starttime, endtime, lclock;
@@ -202,7 +177,6 @@ unsigned char globallight;
 unsigned char wtype;
 int executebatch;
 int showlayer;
-int ph1, ph2, ph3, ph4;
 
 unsigned char tempflag;
 
@@ -225,8 +199,6 @@ int timerTimeCount = 1000;
 int autoTimeCount = 1000;
 int loopTimeCount = 1000;
 
-int global_lis=1;
-
 unsigned long int serverstarttime;
 
 int triggerx;
@@ -234,16 +206,6 @@ int triggery;
 signed char triggerz;
 // Script files that need to be cached
 // Crackerjack Jul 31/99
-char n_scripts[NUM_SCRIPTS][512] =
-{"items.scp","npc.scp","create.scp","regions.scp",
-	"misc.scp","skills.scp","location.scp","menus.scp",
-	"spells.scp", "speech.scp","tracking.scp", "newbie.scp",
-	"titles.scp", "advance.scp", "triggers.scp", "ntrigrs.scp",
-	"wtrigrs.scp", "necro.scp", "house.scp", "colors.scp",
-	"spawn.scp", "htmlstrm.scp", "metagm.scp", "polymorph.scp",
-	"harditems.scp", "", "", "carve.scp", 
-	"msgboard.scp", "fishing.scp", "gumps.scp"};//the two ""s are for custom scripts.
-
 
 int escortRegions = 0;
 
@@ -281,7 +243,6 @@ cCharStuff::cBankerAI	*BankerAI;
 // maximum too cause maxclient = maximum +1
 
  char noweather[MAXCLIENT+1]; //LB
- unsigned char LSD[MAXCLIENT];
 
 //char firstpacket[MAXCLIENT+1];
 
@@ -289,7 +250,6 @@ cCharStuff::cBankerAI	*BankerAI;
  char unsigned buffer[MAXCLIENT][MAXBUFFER_REAL];
  char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
  int whomenudata [(MAXCLIENT)*10]; // LB, for improved whomenu, ( is important !!!
- int client[MAXCLIENT];
  short int walksequence[MAXCLIENT];
  signed char addid5[MAXCLIENT];
  int acctno[MAXCLIENT];
@@ -353,7 +313,6 @@ list<SERIAL> guilds;
  unitile_st xyblock[XYMAX];
  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here, so using a multimap with x as the key :(
  title_st title[ALLSKILLS+1];
- unsigned char *comm[CMAX];
 
  location_st location[4000];
  logout_st logout[1024];//Instalog

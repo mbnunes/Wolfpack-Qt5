@@ -149,9 +149,15 @@ void cUOPacket::setRawData( uint pos, const char* data, uint dataSize )
 	memcpy( &rawPacket.data()[pos], data, dataSize );
 }
 
-// Compresses the packet
-// Author: Beosil
-static unsigned int bitTable[257][2] =
+/*!
+  static Huffman codes table used for packet compression
+*/
+struct 
+{
+	unsigned int size;
+	unsigned int code;
+} 
+static bitTable[257] =
 {
 	{0x02, 0x00}, 	{0x05, 0x1F}, 	{0x06, 0x22}, 	{0x07, 0x34}, 	{0x07, 0x75}, 	{0x06, 0x28}, 	{0x06, 0x3B}, 	{0x07, 0x32},
 	{0x08, 0xE0}, 	{0x08, 0x62}, 	{0x07, 0x56}, 	{0x08, 0x79}, 	{0x09, 0x19D},	{0x08, 0x97}, 	{0x06, 0x2A}, 	{0x07, 0x57},
@@ -198,6 +204,8 @@ static unsigned int bitTable[257][2] =
 void cUOPacket::compress( void )
 {
 	QByteArray temp( rawPacket.size()*2 ); // worst case scenario for memory size
+//#define OLDCOMPRESS
+#ifdef OLDCOMPRESS
 	unsigned char *pIn  = (unsigned char*)rawPacket.data();
 	unsigned char *pOut = (unsigned char*)temp.data();
 
@@ -242,7 +250,46 @@ void cUOPacket::compress( void )
 		}
 		++actByte;
 	}
+#else
+	int bufferSize   = 0; // 32 bits buffer size (bits)
+	Q_INT32 buffer32 = 0; // 32 bits buffer to store the compressed data until it's larger than 1 byte
+	int codeSize     = 0; // Size (in bits) of the Huffman code
+	int code		 = 0; // Huffman code that represents current byte being compressed
+	uint packetPos   = 0; // Current byte being compressed
+	int actByte      = 0; // Number of bytes in the compressed buffer (temp)
+
+	const uint packetSize = rawPacket.size(); // small optimization
+	while (packetPos < packetSize)
+	{
+		Q_UINT8 packetByte = static_cast<Q_UINT8>(rawPacket.at(packetPos++));
+		codeSize = bitTable[packetByte].size;
+		code	 = bitTable[packetByte].code;
+		buffer32 <<= codeSize;
+		buffer32 |= code;
+		bufferSize += codeSize;
+		while (bufferSize >= 8) // do we have 1 byte ready?
+		{
+			bufferSize -= 8;
+			temp[actByte++] = (unsigned char) (buffer32 >> bufferSize) & 0xFF;
+		}
+	}
+	codeSize = bitTable[256].size;
+	code     = bitTable[256].code;
+	buffer32 <<= codeSize;
+	buffer32 |= code;
+	bufferSize += codeSize;
+	while (bufferSize >= 8) 
+	{
+		bufferSize -= 8;
+		temp[actByte++] = (unsigned char) (buffer32 >> bufferSize) & 0xFF;//31;
+	}
+	if (bufferSize > 0) 
+	{
+		temp[actByte++] = (unsigned char) (buffer32 << 8 - bufferSize) & 0xFF;//& 31;
+	}
+#endif
 	compressedBuffer.duplicate( temp.data(), actByte);
+//	cout << cUOPacket::dump( compressedBuffer ).latin1();
 }
 
 /*!

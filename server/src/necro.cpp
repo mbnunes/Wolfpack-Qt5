@@ -141,10 +141,9 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 	P_ITEM pItem = NULL;
 	P_CHAR pc_currchar = currchar[nSocket];
 
-	if( id>=0x1B11 && id<=0x1B1C ) // Make bone powder.
+	if( id >= 0x1B11 && id <= 0x1B1C ) // Make bone powder.
 	{
-		sprintf((char*)temp,"%s is grinding some bone into powder.", pc_currchar->name.c_str());
-		npcemoteall(pc_currchar, (char*)temp,1);
+		pc_currchar->emote( tr("%s is grinding some bone into powder.").arg(pc_currchar->name.c_str()) );
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 0, 0);
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 3, 0);
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 6, 0);
@@ -152,7 +151,7 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 		pItem = Items->SpawnItem(nSocket, pc_currchar, 1, "bone powder", 1, 0x0F, 0x8F, 0, 1, 1);
 		if(pItem == NULL) return;//AntiChrist to preview crashes
 		pItem->morex = 666;
-		pItem->more1=1; // this will fill more with info to tell difference between ash and bone
+		pItem->more1 = 1; // this will fill more with info to tell difference between ash and bone
 		Items->DeleItem(pMat);
 		
 	}
