@@ -481,11 +481,6 @@ class CraftItemAction(MakeItemAction):
 
 			# Create the item
 			item = wolfpack.additem(self.definition)
-			item.decay = 1 # Should always decay
-			item.movable = 1 # Should always be movable
-
-			if self.amount > 0:
-				item.amount = self.amount
 
 			if not item:
 				console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % \
@@ -504,6 +499,12 @@ class CraftItemAction(MakeItemAction):
 				else:
 					player.log(LOG_MESSAGE, "Crafted item %s (0x%x). Amount: %u.\n" % (self.definition, item.serial, item.amount))
 					self.success(player, arguments, item, 0, 0)					
+
+			item.decay = 1 # Should always decay
+			item.movable = 1 # Should always be movable
+
+			if self.amount > 0:
+				item.amount = self.amount
 
 			if not tobackpack(item, player):
 				item.update()
