@@ -190,7 +190,7 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 		if( this->z_ != 255 )
 			pos.z = this->z_;
 		else
-			pos.z = Map->MapElevation( pos );
+			pos.z = Map->Height( pos );
 
 		if( Map->CanMonsterMoveHere( pos ) )
 			return true;
