@@ -28,6 +28,7 @@
 	<item id="eed">
 		<id>0xeed</id>
 		<category>Equipment\Coins\Gold Coin</category>
+		<weight>0.02</weight>
 	</item>
 
 	<item id="eee">

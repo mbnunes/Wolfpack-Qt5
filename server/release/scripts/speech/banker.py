@@ -20,6 +20,8 @@ import re
 #0x0002 "*bank*"
 #0x0003 "*check*"
 
+MIN_CHECK_AMOUNT = 5000
+
 amountre = re.compile( '(\d+)' )
 
 def onSpeech( listener, speaker, text, keywords ):
@@ -108,7 +110,7 @@ def onSpeech( listener, speaker, text, keywords ):
         amount = int( result.group( 1 ) )
 
       # Invalid Withdraw Amount
-      if amount < 5000:
+      if amount < MIN_CHECK_AMOUNT:
         speaker.socket.clilocmessage( 0x7A29F, "", 0x3b2, 3, listener )
         return
 
