@@ -35,6 +35,7 @@ class cChar;
 #include "../globals.h"
 #include "../network/uosocket.h"
 #include "../typedefs.h"
+#include "../basechar.h"
 #include "utilities.h"
 
 typedef struct {

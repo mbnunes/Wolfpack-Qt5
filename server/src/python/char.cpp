@@ -217,7 +217,7 @@ PyObject* wpChar_sound( wpChar* self, PyObject* args )
 		return NULL;
 	}
 
-	playmonstersound( self->pChar, self->pChar->id(), getArgInt( 0 ) );
+	playmonstersound( self->pChar, self->pChar->bodyID(), getArgInt( 0 ) );
 	return PyTrue;
 }
 
@@ -390,7 +390,7 @@ PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	return PyGetItemObject( self->pChar->atLayer( (cChar::enLayer)getArgInt( 0 ) ) );
+	return PyGetItemObject( self->pChar->atLayer( (cBaseChar::enLayer)getArgInt( 0 ) ) );
 }
 
 /*!
@@ -493,10 +493,10 @@ PyObject* wpChar_damage( wpChar* self, PyObject* args )
 	Combat::playGetHitSoundEffect( self->pChar );	
 	Combat::playGetHitAnimation( self->pChar );
 
-	self->pChar->setHp( self->pChar->hp() - getArgInt( 0 ) );
+	self->pChar->setHitpoints( self->pChar->hitpoints() - getArgInt( 0 ) );
 	self->pChar->updateHealth();
 
-	if( self->pChar->hp() <= 0 )
+	if( self->pChar->hitpoints() <= 0 )
 		self->pChar->kill();
 
 	return PyTrue;
