@@ -113,7 +113,8 @@ public:
 	bool isScriptChainFrozen();
 	void setEventList( const QString& events );
 	QString eventList() const;
-	inline cPythonScript** getEvents() {
+	inline cPythonScript** getEvents() 
+	{
 		return scriptChain;
 	}
 
@@ -182,6 +183,7 @@ public:
 	{
 		return multi_;
 	}
+
 	inline cSpawnRegion* spawnregion() const
 	{
 		return spawnregion_;
@@ -192,14 +194,17 @@ public:
 	{
 		name_ = d; changed_ = true; changed( TOOLTIP );
 	}
+	
 	void setPos( const Coord_cl& d )
 	{
 		pos_ = d;	changed_ = true;
 	}
+	
 	virtual void setSerial( SERIAL d )
 	{
 		serial_ = d; changed_ = true;
 	}
+	
 	void setTooltip( const UINT32 d )
 	{
 		tooltip_ = d;
@@ -208,20 +213,8 @@ public:
 	{
 		multi_ = multi; changed_ = true;
 	}
-	inline void setSpawnregion( cSpawnRegion* spawnregion )
-	{
-		if (spawnregion_ && spawnregion_ != spawnregion)
-		{
-			spawnregion_->remove(this);
-		}
-
-		spawnregion_ = spawnregion;
-
-		if (spawnregion)
-		{
-			spawnregion->add(this);
-		}
-	}
+	
+	void setSpawnregion( cSpawnRegion* spawnregion );
     
 	// Definable Methods
 	void processNode( const cElement* Tag );

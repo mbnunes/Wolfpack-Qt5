@@ -54,7 +54,9 @@
 
 // Library Includes
 
-cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), spawnregion_(0)
+cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), 
+changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), 
+spawnregion_(0)
 {
 }
 
@@ -794,6 +796,21 @@ unsigned char cUObject::direction( cUObject* d )
 		dir = 0;
 
 	return dir;
+}
+
+void cUObject::setSpawnregion( cSpawnRegion* spawnregion )
+{
+	if (spawnregion_ && spawnregion_ != spawnregion)
+	{
+		spawnregion_->remove(this);
+	}
+
+	spawnregion_ = spawnregion;
+
+	if (spawnregion)
+	{
+		spawnregion->add(this);
+	}
 }
 
 const cVariant& cUObject::getTag( const QString& key ) const

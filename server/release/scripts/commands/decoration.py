@@ -69,18 +69,71 @@ class DecorationHandler( ContentHandler ):
             item.decay = 0
 
 
+class DecorationSaveHandler:
+    def __init__(self, socket):
+        self.socket = socket
+        self.maps = {}
+
+    def sort( self ):
+        self.socket.sysmessage("In sort()")
+        it = wolfpack.itemiterator()
+        item = it.first
+        while item:
+            if not self.filter(item):
+                self.socket.sysmessage("Adding item")
+                if not self.maps.has_key(item.pos.map):
+                    self.maps[item.pos.map] = {}
+                if not self.maps[item.pos.map].has_key(item.id):
+                    self.maps[item.pos.map][item.id] = []
+                self.maps[item.pos.map][item.id].append(item)
+            item = it.next
+
+    def filter( self, item ):
+        if item.multi or item.newbie or item.free or item.spawnregion:
+            return True
+
+        return False
+
+    def save( self ):
+        for map in self.maps:
+            file = open( "save_decoration.%i.xml" % map, "w" )
+            file.write("<decoration>\n")
+            for id in self.maps[map]:
+                tiledata = wolfpack.tiledata(id)
+                file.write("""\t<!-- %s -->\n""" % tiledata["name"] )
+                file.write("""\t<item id="0x%x">\n""" % id )
+                for item in self.maps[map][id]:
+                    pos = item.pos
+                    file.write("""\t\t<pos x="%i" y="%i" z="%i" map="%i">\n""" % (pos.x, pos.y, pos.z, pos.map) )
+                file.write("\t</item>\n")
+            file.write("</decoration>\n")
+            file.close()
+                
+        
+        
+        
+
 def decoration( socket, command, arguments ):
-    parser = xml.sax.make_parser()
-    handler = DecorationHandler()
-    parser.setContentHandler(handler)
-    if wolfpack.hasmap(0):
-        parser.parse("data/decoration.0.xml")
-    if wolfpack.hasmap(1):
-        parser.parse("data/decoration.1.xml")
-    if wolfpack.hasmap(2):
-        parser.parse("data/decoration.2.xml")
-    if wolfpack.hasmap(3):
-        parser.parse("data/decoration.2.xml")
+    if len(arguments) > 0:
+        args = str(arguments)
+        if args == 'save':
+            saveObject = DecorationSaveHandler(socket)
+            socket.sysmessage("Sorting items")
+            saveObject.sort()
+            saveObject.save()
+            
+    else:
+        parser = xml.sax.make_parser()
+        handler = DecorationHandler()
+        parser.setContentHandler(handler)
+        if wolfpack.hasmap(0):
+            parser.parse("data/decoration.0.xml")
+        if wolfpack.hasmap(1):
+            parser.parse("data/decoration.1.xml")
+        if wolfpack.hasmap(2):
+            parser.parse("data/decoration.2.xml")
+        if wolfpack.hasmap(3):
+            parser.parse("data/decoration.2.xml")
 
 def onLoad():
 	wolfpack.registercommand( "decoration", decoration )
