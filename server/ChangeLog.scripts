@@ -6,6 +6,13 @@ Wolfpack 12.9.12 Beta (CVS)
 	* Python Script Changes:
 		- Fixed BONUS* properties.
 		- Fixed other property issues.
+		- Fixed spellchanneling property for shields.
+		- Added random property generation for shields and armors.
+		- Fixed bug #0000336. (Exploitation of stat bonuses)
+		- Fixed bug #0000333. (Implemented lower mana cost)
+		- Fixed bug #0000332. (Implemented lower reag cost)
+		- Fixed bug #0000334. (Implemented spell damage bonus)
+		- Random magic item loot.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
