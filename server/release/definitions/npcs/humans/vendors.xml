@@ -100,6 +100,7 @@
 	<npc id="tanner_male">
 		<inherit>base_male</inherit>
 		<title>the Tanner</title>
+		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item inherit="1711">
@@ -119,7 +120,8 @@
 	<npc id="tanner_female">
 		<inherit>base_female</inherit>
 		<title>the Tanner</title>
-		<shopkeeper>
+		<ai>Human_Vendor</ai>		
+		<shopkeeper>			
 			<restockable>
 				<item inherit="1711">
 					<amount>10</amount>
@@ -139,6 +141,7 @@
 	<npc id="blacksmith_male">
 		<inherit>base_male</inherit>
 		<title>the Blacksmith</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="fbb">
@@ -274,6 +277,7 @@
 	<npc id="blacksmith_female">
 		<inherit>base_female</inherit>
 		<title>the Blacksmith</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="fbb">
@@ -410,6 +414,7 @@
 	<npc id="baker_male">
 		<inherit>base_male</inherit>
 		<title>the Baker</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="98c">
@@ -469,6 +474,7 @@
 	<npc id="baker_female">
 		<inherit>base_female</inherit>
 		<title>the Baker</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="98c">
@@ -529,6 +535,7 @@
 	<npc id="healer_male">
 		<inherit>base_male</inherit>
 		<title>the Healer</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="e21">
@@ -568,6 +575,7 @@
 	<npc id="healer_female">
 		<inherit>base_female</inherit>
 		<title>the Healer</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="e21">
@@ -608,6 +616,7 @@
 	<npc id="armorer_male">
 		<inherit>base_male</inherit>
 		<title>the Armorer</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="13bb">
@@ -707,6 +716,7 @@
 	<npc id="armorer_female">
 		<inherit>base_female</inherit>
 		<title>the Armorer</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="13bb">
@@ -807,6 +817,7 @@
 	<npc id="provisioner_male">
 		<inherit>base_male</inherit>
 		<title>the Provisioner</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
@@ -815,6 +826,7 @@
 	<npc id="provisioner_female">
 		<inherit>base_female</inherit>
 		<title>the Provisioner</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
@@ -824,6 +836,7 @@
 	<npc id="jeweler_male">
 		<inherit>base_male</inherit>
 		<title>the Jeweler</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="f1b">
@@ -995,6 +1008,7 @@
 	<npc id="jeweler_female">
 		<inherit>base_female</inherit>
 		<title>the Jeweler</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="f1b">
@@ -1167,6 +1181,7 @@
 	<npc id="tailor_male">
 		<inherit>base_male</inherit>
 		<title>the Tailor</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="153f">
@@ -1191,6 +1206,7 @@
 	<npc id="tailor_female">
 		<inherit>base_female</inherit>
 		<title>the Tailor</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="153f">
@@ -1216,6 +1232,7 @@
 	<npc id="weaver">
 		<inherit>base_male</inherit>
 		<title>the Weaver</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
@@ -1225,6 +1242,7 @@
 	<npc id="cook">
 		<inherit>base_male</inherit>
 		<title>the Cook</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
@@ -1234,6 +1252,7 @@
 	<npc id="butcher">
 		<inherit>base_male</inherit>
 		<title>the butcher</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
@@ -1243,6 +1262,7 @@
 	<npc id="architect">
 		<inherit>base_male</inherit>
 		<title>the Architect</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
@@ -1252,6 +1272,7 @@
 	<npc id="carpenter">
 		<inherit>base_male</inherit>
 		<title>the Carpenter</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
@@ -1261,6 +1282,7 @@
 	<npc id="tinker">
 		<inherit>base_male</inherit>
 		<title>the Tinker</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
@@ -1270,6 +1292,7 @@
 	<npc id="mage_male">
 		<inherit>base_male</inherit>
 		<title>the Mage</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="efa">
@@ -1385,6 +1408,7 @@
 	<npc id="mage_female">
 		<inherit>base_female</inherit>
 		<title>the Mage</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="efa">
@@ -1501,6 +1525,7 @@
 	<npc id="alchemist_male">
 		<inherit>base_male</inherit>
 		<title>the Alchemist</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="e24">
@@ -1744,6 +1769,7 @@
 	<npc id="alchemist_female">
 		<inherit>base_female</inherit>
 		<title>the Alchemist</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="e24">
@@ -1988,6 +2014,7 @@
 	<npc id="herbalist_male">
 		<inherit>base_male</inherit>
 		<title>the Herbalist</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="f7a">
@@ -2031,6 +2058,7 @@
 	<npc id="herbalist_female">
 		<inherit>base_female</inherit>
 		<title>the Herbalist</title>
+		<ai>Human_Vendor</ai>		
 		<shopkeeper>
 			<restockable>
 				<item inherit="f7a">
