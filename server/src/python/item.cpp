@@ -700,7 +700,7 @@ static PyObject* wpItem_getname( wpItem* self, PyObject* args )
 	\description Adds an item to the container.
 	\param item Item to add.
 	\param randomPos Gives the item a random position in the pack
-	\param serialize Saves the timer. Useful if you crash.
+	\param autostack Autostacks the item
 */
 static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 {
@@ -873,7 +873,7 @@ static PyObject* wpItem_canstack(wpItem *self, PyObject *args) {
 /*
 	\method item.countitems
 	\description Counts the amount of baseids in a container.
-	\param baseids
+	\param baseids The baseids to count.
 	\return Amount of baseids
 */
 static PyObject* wpItem_countitems(wpItem *self, PyObject *args) {
