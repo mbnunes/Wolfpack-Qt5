@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Swamp Dragon -->
-	<npc id="swamp_dragon_1" inherit="monster_base">
+	<npc id="swamp_dragon" inherit="monster_base">
 		<name>swamp dragon</name>
 		<id><random list="NPCIDS_SWAMPDRAGON" /></id>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

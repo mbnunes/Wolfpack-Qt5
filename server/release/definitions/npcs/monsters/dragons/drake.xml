@@ -8,8 +8,8 @@
 -->
 <definitions>
 
-	<!-- a drake (gray) -->
-	<npc id="drake_gray" inherit="monster_base">
+	<!-- a drake -->
+	<npc id="drake" inherit="monster_base">
 		<name>drake</name>
 		<id><random list="NPCIDS_DRAKE" /></id>
 		<karma>-5500</karma>

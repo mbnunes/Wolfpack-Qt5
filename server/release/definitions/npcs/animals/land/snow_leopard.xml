@@ -43,7 +43,7 @@
 		<category>Animals\Feline\Snow Leopard (Random)</category>
 	</npc>
 
-	<npc id="snow_leopard_2" inherit="snow_leopard">
+	<npc id="snow_leopard_1" inherit="snow_leopard">
 		<id>64</id>
 		<category>Animals\Feline\Snow Leopard 1</category>
 	</npc>
