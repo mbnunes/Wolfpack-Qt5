@@ -55,7 +55,6 @@
 #include "../targetrequests.h"
 #include "../basedef.h"
 
-#include "pyaccounts.h"
 #include "pypacket.h"
 #include "regioniterator.h"
 #include "utilities.h"
@@ -2041,27 +2040,12 @@ static PyObject* wpAccountsSave( PyObject* self, PyObject* args )
 	Py_RETURN_TRUE;
 }
 
-/*
-	\function wolfpack.accounts.iterator
-	\description Return an iterator object to iterate trough all account objects.
-*/
-static PyObject* wpAccountsIterator( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	
-	wpAccountsIter *obj = PyObject_New(wpAccountsIter, &wpAccountsIterType);
-	obj->it = 0;
-	return (PyObject*)obj;
-}
-
 /*!
 	wolfpack.accounts
 	account related functions
 */
 static PyMethodDef wpAccounts[] =
 {
-{ "iterator",	wpAccountsIterator,	METH_VARARGS, "" },
 { "count",		wpAccountsCount,	METH_VARARGS, "" },
 { "find",		wpAccountsFind,		METH_VARARGS, "Finds an account object." },
 { "list",		wpAccountsList,		METH_NOARGS, "Gets a list of Account names." },
