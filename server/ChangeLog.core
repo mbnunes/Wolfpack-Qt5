@@ -4,6 +4,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.
 	  This will slow AI down a little but crash prevention is well worth it.
 	- Fixed a crashbug with the delayed onCreate call.
+	- Fixed a bug with configure.py and static libs.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.
@@ -15,7 +16,7 @@ Wolfpack 12.9.10 Beta (10. September 2004)
 	- Stablemasters now respond to stabling requests.  No charge yet!
 	- Fixed a bug where an error message for missing python gump
 	  callbacks led to a crash.
-	- Added a property system bound to the definitions. 
+	- Added a property system bound to the definitions.
 	  <intproperty name="..." value="..." /> and
 	  <strproperty name="..." value="..." /> define properties that can be
 	  accessed via the methods getstrproperty, getintproperty, hasstrproperty,
