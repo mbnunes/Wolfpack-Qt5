@@ -307,8 +307,13 @@ public:
 	}
 	void		set( QString key, cVariant value ) 
 	{
-		if( !value.isValid() )
-			this->tags_.erase( key );
+		if( tags_.find( key ) != tags_.end() )
+		{
+			if( !value.isValid() )
+				this->tags_.erase( tags_.find( key ) );
+			else
+				tags_.find( key )->second = value;
+		}
 		else
 			this->tags_.insert(std::make_pair(key, value)); 
 	}
