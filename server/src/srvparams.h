@@ -118,6 +118,10 @@ public:
 	unsigned int poisonTimer() const;
 	signed int maxStealthSteps() const;
 	unsigned int runningStamSteps() const;
+
+private:
+	void setDefaultStartLocation();
+	void setDefaultServerList();
 };
 
 // inline members
