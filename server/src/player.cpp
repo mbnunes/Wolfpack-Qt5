@@ -698,11 +698,7 @@ void cPlayer::giveNewbieItems( Q_UINT8 skill )
 
 	// No Items defined
 	if( !startItems )
-	{
-		startItems = DefManager->getDefinition( WPDT_STARTITEMS, "default" );
-		if( !startItems )
-			return;
-	}
+		return;
 
 	applyStartItemDefinition( startItems );
 }
