@@ -1049,51 +1049,6 @@ void cTargets::CanTrainTarget(int s)
 	}
 }
 
-void cTargets::SetSplitTarget(int s)
-{
-	SERIAL serial=LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->setSplit(tempint[s]);
-	}
-}
-
-void cTargets::SetSplitChanceTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->setSplitchnc(tempint[s]);
-	}
-}
-
-void cTargets::SetDirTarget(int s)
-{
-	SERIAL serial=LongFromCharPtr(buffer[s]+7);
-
-	if (isItemSerial(serial))
-	{
-		P_ITEM pi = FindItemBySerial(serial);
-		if (pi != NULL)
-		{
-			pi->dir=addx[s];
-			pi->update();
-			return;
-		}
-	}
-	else
-	{
-		P_CHAR pc = FindCharBySerial(serial);
-		if (pc != NULL)
-		{
-			pc->setDir(addx[s]);
-			updatechar(pc);
-			return;
-		}
-	}
-}
 
 ////////////////
 // name:		NpcResurrectTarget
@@ -1749,7 +1704,6 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 		case 64: //MoreYTarget
 		case 65: //MoreZTarget
 		case 87: Magic->SbOpenContainer(s); break;
-		case 88: Targ->SetDirTarget(s); break;
 
 		case 100: Magic->NewCastSpell( s ); break;	// we now have this as our new spell targeting location
 		case 109: Skills->BottleTarget(s); break;
@@ -1783,8 +1737,6 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 		case 199: Targ->Wiping(s); break;
 		case 206: Targ->CanTrainTarget(s); break;
 		case 207: ExpPotionTarget(s,pt); break;
-		case 209: Targ->SetSplitTarget(s); break;
-		case 210: Targ->SetSplitChanceTarget(s); break;
 
 		case 220: 
 			{
@@ -1796,7 +1748,7 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 		case 221:
 			{
 				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(currchar[s]->guildstone()));
-				if ( pStone != NULL )
+				//if ( pStone != NULL )
 			//		pStone->TargetWar(s);
 				sysmessage(s, "Sorry, currently disabled");
 			}

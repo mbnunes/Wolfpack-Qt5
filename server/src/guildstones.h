@@ -112,7 +112,7 @@ inline QString cGuildStone::objectID() const
 int CheckValidPlace(UOXSOCKET s);
 void GuildResign(UOXSOCKET s);
 int GuildCompare(P_CHAR player1, P_CHAR player2);
-void StonePlacement(UOXSOCKET s);
+void StonePlacement(const cUOSocket*);
 void GuildTitle(int s, P_CHAR pc_player2);
 
 #endif //__GUILDSTONES_H__

@@ -969,7 +969,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
   This method prints \a message on top of \a object using the given \a color and \a speechType
   \sa cUObject, cUOTxUnicodeSpeech, cUOTxUnicodeSpeech::eSpeechType
 */
-void cUOSocket::showSpeech( cUObject *object, const QString &message, Q_UINT16 color, Q_UINT16 font, cUOTxUnicodeSpeech::eSpeechType speechType )
+void cUOSocket::showSpeech( const cUObject *object, const QString &message, Q_UINT16 color, Q_UINT16 font, cUOTxUnicodeSpeech::eSpeechType speechType ) const
 {
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( object->serial );

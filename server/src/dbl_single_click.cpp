@@ -550,16 +550,16 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	case 18: // crystal ball?
 		switch (RandomNum(0, 9))
 		{
-		case 0: itemmessage(s, "Seek out the mystic llama herder.", pi->serial);									break;
-		case 1: itemmessage(s, "Wherever you go, there you are.", pi->serial);										break;
-		case 2: itemmessage(s, "Quick! Lord Binary is giving away gold at the castle!", pi->serial);				break;
-		case 3: itemmessage(s, "Ripper is watching you every move.", pi->serial);									break;
-		case 4: itemmessage(s, "The message appears to be too cloudy to make anything out of it.", pi->serial);		break;
-		case 5: itemmessage(s, "You have just lost five strength.. not!", pi->serial)			;					break;
-		case 6: itemmessage(s, "You're really playing a game you know", pi->serial);								break;
-		case 7: itemmessage(s, "You will be successful in all you do.", pi->serial);								break;
-		case 8: itemmessage(s, "You are a person of culture.", pi->serial);											break;
-		case 9: itemmessage(s, "Give me a break! How much good fortune do you expect!", pi->serial);				break;
+		case 0: socket->showSpeech(pi, tr("Seek out the mystic llama herder."));									break;
+		case 1: socket->showSpeech(pi, tr("Wherever you go, there you are."));										break;
+		case 2: socket->showSpeech(pi, tr("Quick! Lord Binary is giving away gold at the castle!"));				break;
+		case 3: socket->showSpeech(pi, tr("Ripper is watching you every move."));									break;
+		case 4: socket->showSpeech(pi, tr("The message appears to be too cloudy to make anything out of it."));		break;
+		case 5: socket->showSpeech(pi, tr("You have just lost five strength.. not!"));								break;
+		case 6: socket->showSpeech(pi, tr("You're really playing a game you know"));								break;
+		case 7: socket->showSpeech(pi, tr("You will be successful in all you do."));								break;
+		case 8: socket->showSpeech(pi, tr("You are a person of culture."));											break;
+		case 9: socket->showSpeech(pi, tr("Give me a break! How much good fortune do you expect!"));				break;
 		}// switch
 		//soundeffect(s, 0x01, 0xEC);
 		return;// case 18 (crystal ball?)
@@ -679,7 +679,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				if ( pi->id() == 0x14F0  ||  pi->id() == 0x1869 )	// Check for Deed/Teleporter + Guild Type
 				{
 					pc_currchar->setFx1( pi->serial );
-					StonePlacement(s);
+					StonePlacement(socket);
 					return;
 				}
 				else if (pi->id() == 0x0ED5)	// Check for Guildstone + Guild Type
@@ -749,7 +749,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						pc_vendor->setTamed(false);
 						Items->DeleItem(pi);
 						pc_vendor->talk( tr("Hello sir! My name is %1 and i will be working for you.").arg(pc_vendor->name), -1, 0 );
-						updatechar( pc_vendor );
 						pc_vendor->update();
 					}
 					else 
@@ -821,8 +820,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		case 401: // Blackwinds JAIL BALL 
             if (pc_currchar->jailsecs()>0) 
 			{ 
-	             sprintf((char*)temp, "You have %i seconds left in the jail", (pc_currchar->jailtimer() - uiCurrentTime) / MY_CLOCKS_PER_SEC); 
-	             itemmessage(s, (char*) temp, pi->serial); 
+				 socket->showSpeech(pi, tr("You have %1 seconds left in the jail").arg((pc_currchar->jailtimer() - uiCurrentTime) / MY_CLOCKS_PER_SEC));
 			} 
             else 
 			{ 

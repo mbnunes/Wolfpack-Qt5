@@ -49,6 +49,7 @@
 #include "gumps.h"
 #include "network.h"
 #include "multis.h"
+#include "network/uosocket.h"
 
 #undef  DBGFILE
 #define DBGFILE "guildstones.cpp"
@@ -56,15 +57,15 @@
 // placeguildstone() : spawns a renamed gravestone at players location and removes deed
 // Placer gets guildmaster, whatever he does ;)
 // Force placer to give that damn guild a damn name :)
-void StonePlacement(UOXSOCKET s)
+void StonePlacement(const cUOSocket* socket)
 {
-	P_CHAR pc = currchar[s];
+	P_CHAR pc = socket->player();
 	P_ITEM pDeed = FindItemBySerial(pc->fx1());
 	cGuildStone* pStone = NULL;
 
-	if (CheckValidPlace(s)!=1)
+	if ( CheckValidPlace(toOldSocket(socket)) != 1 )
 	{
-		sysmessage(s, "You cannot place guildstones at any other location than your house");
+		socket->sysMessage(tr("You cannot place guildstones at any other location than your house"));
 		return;
 	}
 	
@@ -72,24 +73,24 @@ void StonePlacement(UOXSOCKET s)
 	{
 		if (pc->guildstone() != INVALID_SERIAL)
 		{
-			itemmessage(s,"You are already in a guild.",pDeed->serial);
+			socket->showSpeech( pDeed, tr("You are already in a guild."));
 			return;
 		}
 		pStone = new cGuildStone;		
 		if (!pStone)
 		{//AntiChrist - to prevent crashes
-			sysmessage(s, "Cannot create guildstone");
+			socket->sysMessage(tr("Cannot create guildstone"));
 			return;
 		}
 		pStone->Init();
 		pStone->setId(0x0ED5);
-		pStone->setName( "Guildstone for an unnamed guild" );
+		pStone->setName( tr("Guildstone for an unnamed guild") );
 		Items->GetScriptItemSetting(pStone);
 		pc->setGuildstone( pStone->serial );
 		if (pc->id() == 0x0191)	
-			pc->setGuildtitle("Guildmistress");
+			pc->setGuildtitle(tr("Guildmistress"));
 		else
-			pc->setGuildtitle("Guildmaster");
+			pc->setGuildtitle(tr("Guildmaster"));
 
 		pStone->webpage = DEFAULTWEBPAGE;
 		pStone->charter = DEFAULTCHARTER;
@@ -103,7 +104,7 @@ void StonePlacement(UOXSOCKET s)
 
 		pStone->update();//AntiChrist
 		Items->DeleItem(pDeed);
-		entrygump(s, pc->serial,100,1,40,"Enter a name for the guild.");
+		entrygump(toOldSocket(socket), pc->serial,100,1,40,"Enter a name for the guild.");
 	}
 	else
 	{

@@ -177,7 +177,7 @@ void cNetwork::unload( void )
 
 // This is junk code to interface with the old junk code. Don't relay on that.
 // It's ugly and slower.
-UOXSOCKET cNetwork::getuoSocketsIndex( cUOSocket* data )
+UOXSOCKET cNetwork::getuoSocketsIndex( const cUOSocket* data )
 {
 	return uoSockets.findRef( data );	
 }

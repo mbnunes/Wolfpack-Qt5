@@ -76,9 +76,9 @@ private:
 	cListener *listener_;
 
 	// junk
-	UOXSOCKET getuoSocketsIndex( cUOSocket* );
+	UOXSOCKET getuoSocketsIndex( const cUOSocket* );
 	friend UOXSOCKET calcSocketFromChar(P_CHAR);
-	friend UOXSOCKET toOldSocket( cUOSocket* );
+	friend UOXSOCKET toOldSocket( const cUOSocket* );
 	friend cUOSocket* fromOldSocket(UOXSOCKET);
 
 public:

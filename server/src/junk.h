@@ -132,7 +132,7 @@ P_CHAR FindCharBySerPtr(unsigned char *p);
 #include "network.h"
 #include "globals.h"
 
-inline UOXSOCKET toOldSocket(cUOSocket* s)
+inline UOXSOCKET toOldSocket(const cUOSocket* s)
 {
 	return cNetwork::instance()->getuoSocketsIndex(s);
 }

@@ -130,15 +130,12 @@ private:
 	void SetPoisonedTarget(int s);
 	void FullStatsTarget(int s);
 	void CanTrainTarget(int s);
-	void SetSplitTarget(int s);
-	void SetSplitChanceTarget(int s);
 	void SetSpaDelayTarget(int s);
 	void NewXTarget(int s);
 	void NewYTarget(int s);
 	void IncXTarget(int s);
 	void IncYTarget(int s);
 	void BoltTarget(int s);
-	void SetDirTarget(int s);
 	void HouseOwnerTarget(int s);
 	void HouseEjectTarget(int s);
 	void HouseBanTarget(int s);

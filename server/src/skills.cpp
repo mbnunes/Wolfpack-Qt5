@@ -553,7 +553,7 @@ public:
 				{
 					pc->setNpcAIType( 0 );
 					pc->setTamed(true);
-					updatechar(pc);
+					pc->update();
 				}
 			}
 		}
@@ -1146,12 +1146,11 @@ public:
 			Victim->fight(attacker);
 			Victim->resetAttackFirst();
 			
-			strcpy(temp, tr("* You see %1 attacking %2 *").arg(attacker->name.latin1()).arg(Victim->name.latin1()) );
-			int i;
+			QString temp(tr("* You see %1 attacking %2 *").arg(attacker->name).arg(Victim->name) );
 			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
 			{
 				if( mSock != socket && inrange1p( attacker, mSock->player() ) ) 
-					itemmessage( toOldSocket(mSock), temp, Victim->serial );
+					mSock->showSpeech(Victim, temp);
 			}
 		}
 		else

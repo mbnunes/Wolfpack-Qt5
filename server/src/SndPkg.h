@@ -62,7 +62,6 @@ void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b);
 void action(int s, int x); // Character does a certain action
 void npcaction(P_CHAR pc_npc, int x); // NPC character does a certain action
 void sysbroadcast(const char *txt); // System broadcast in bold text
-void itemmessage(UOXSOCKET s, char *txt, int serial, short color=0x0000);
 void wearIt(const UOXSOCKET s, const P_ITEM pi);
 void backpack2(int s, SERIAL serial); // Send corpse stuff
 void sendbpitem(UOXSOCKET s, P_ITEM pi); // Update single item in backpack

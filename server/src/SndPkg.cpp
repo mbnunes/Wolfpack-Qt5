@@ -182,14 +182,12 @@ void sysmessage(UOXSOCKET s, short color, const QString& txt)
 
 void sysmessage(UOXSOCKET s, char *txt, ...) // System message (In lower left corner)
 {
+	qWarning("sendmessage disabled, use cUOSocket::sendMessage() instead");
 }
 
 void sysmessage(UOXSOCKET s, short color, char *txt, ...) // System message (In lower left corner)
 {
-}
-
-void itemmessage(UOXSOCKET s, char *txt, int serial, short color) 
-{// The message when an item is clicked (new interface, Duke)
+	qWarning("sendmessage disabled, use cUOSocket::sendMessage() instead");
 }
 
 void wearIt(const UOXSOCKET s, const P_ITEM pi)
