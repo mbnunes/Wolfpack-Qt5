@@ -6,10 +6,13 @@
 #################################################################
 
 import wolfpack
+import magic
+import magic.spell
 from wolfpack.gumps import cGump
 from magic.rune import isrune
-from magic.utilities import fizzle
+from magic.utilities import fizzle, MODE_BOOK
 import whrandom
+import wolfpack.utilities
 
 def onUse( char, item ):
 	# char does not have it and distance > 2
@@ -21,7 +24,7 @@ def onUse( char, item ):
 	# check use delay
 	if item.hastag( "dclickdelay" ):
 		# "This book needs time to recharge."
-		char.socket.clilomessage( 502403 )
+		char.socket.clilocmessage( 502403 )
 		return 1
 
 	sendGump( char, item )
@@ -29,15 +32,15 @@ def onUse( char, item ):
 	# set use delay 2 sec
 	item.settag( "dclickdelay", 1 )
 	wolfpack.addtimer( 2000, "magic.runebook.rmdelay", [ item.serial ] )
-	return 1
+	return True
 
 def onDropOnItem( book, item ):
 	if not isrunebook( book ):
-		return 0
+		return False
 	if not isrune( item ):
-		return 0
+		return False
 	if( item.hastag( "marked" ) != 1 ):
-		return 0
+		return False
 
 	# initialize rune serials to -1 if there's no rune
 	# should not occur - will be removed later
@@ -57,10 +60,13 @@ def onDropOnItem( book, item ):
 		# can we access the char.socket ?
 		# "This runebook is full."
 		#char.socket.clilocmessage( 502401 )
-		return 0
+		return False
 	book.settag( "rune %i" % i, int( item.serial ) )
 	# insert rune - is runebook a container ?
-	return 1
+	if book.type == 1:
+		wolfpack.utilities.tocontainer( item, book )
+		item.update()
+	return True
 
 def onCreate( item, defstr ):
 	if not item:
@@ -80,6 +86,21 @@ def isrunebook( item ):
 	if item.hastag( "runebook" ):
 		return 1
 	return 0
+
+def droprune( char, book, runenumber ):
+	if book.hastag( "rune %i" % runenumber ):
+		rune = wolfpack.finditem( book.gettag( "rune %i" % runenumber ) )
+		if rune:
+			wolfpack.utilities.tobackpack( rune, char )
+			rune.update()
+			book.settag( "rune %i" % runenumber, -1 )
+			book.update()
+			return True
+		#elif rune and rune.container != book.serial:
+		#	book.settag( "rune %i" % runenumber, -1 )
+		#	book.update()
+		#	return True
+	return False
 
 def rmdelay( self, args ):
 	if( len( args ) < 1 ):
@@ -230,16 +251,16 @@ def callback( char, args, target ):
 	# error checkings - will be removed later
 	if( len( args ) < 1 ):
 		char.socket.sysmessage( "script error 1. contact GM." )
-		return 1
+		return False
 	item = args[0]
 	if not item:
 		char.socket.sysmessage( "script error 2. contact GM." )
-		return 1
+		return False
 
 	# distance check
 	if( char.distanceto( item ) > 2 and item.getoutmostchar() != char ):
 		char.socket.clilocmessage( 502400 )
-		return 1
+		return False
 
 	button = int( target.button )
 
@@ -249,7 +270,7 @@ def callback( char, args, target ):
 		char.socket.clilocmessage( 502414 )
 		# how do we request input and catch the response ?
 		char.socket.sysmessage( "not implemented yet - will be added." )
-		return 1
+		return True
 	runes = [ -1 ] * 16
 	for i in range( 0, 16 ):
 		# should not occur - will be removed later
@@ -263,13 +284,13 @@ def callback( char, args, target ):
 	if( runenum < 0 or runenum > 15 ):
 		# "Request cancelled."
 		char.socket.clilocmessage( 502415 )
-		return 1
+		return True
 
 	# there's no rune
 	if( runes[ runenum ] < 0 ):
 		# "This place in the book is empty."
 		char.socket.clilocmessage( 502411 )
-		return 1
+		return True
 
 	# recall button - using charges : 1 - 16
 	if( button > 0 and button < 17 ):
@@ -277,30 +298,34 @@ def callback( char, args, target ):
 		if( charges < 1 ):
 			# "There are no charges left on that item."
 			char.socket.clilocmessage( 502412 )
+			return False
 		else:
 			# recall to the rune
 			char.say( "Kal Ort Por", 5 )
 			wolfpack.addtimer( 2000, "magic.runebook.recall0", [ char.serial, runes[ runenum ], item.serial, charges ] )
+			return True
 	# set default button : 101 - 116
 	elif( button > 100 and button < 117 ):
 		item.settag( "default", int( runenum ) )
+		return True
 	# drop button : 201 - 216
 	elif( button > 200 and button < 217 ):
 		# will be added
-		char.socket.sysmessage( "drop rune %i" % runenum )
-		char.socket.sysmessage( "not implemented yet" )
+		droprune( char, item, runenum )
+		return True
 	# recall button - spell : 301 - 316
 	elif( button > 300 and button < 317 ):
 		# char action / power word
-		char.say( "Kal Ort Por",5 )
-		wolfpack.addtimer( 2000, "magic.runebook.recall1", [ char.serial, runes[ runenum ] ] )
+		wolfpack.addtimer( 0, "magic.runebook.recall1", [ char.serial, runes[ runenum ] ] )
+		return True
 	# gate button : 401 - 416
 	elif( button > 400 and button < 417 ):
-		char.say( "Vas Rel Por",5 )
-		wolfpack.addtimer( 3500, "magic.runebook.gate", [ char.serial, runes[ runenum ] ] )
+		wolfpack.addtimer( 0, "magic.runebook.gate", [ char.serial, runes[ runenum ] ] )
+		return True
 	# button number error - should not occur
 	else:
 		char.socket.sysmessage( "script error 4. contact GM" )
+		return False
 
 	return True
 
@@ -351,18 +376,49 @@ def recall1( self, args ):
 		return 1
 	char = wolfpack.findchar( args[ 0 ] )
 	rune = wolfpack.finditem( args[ 1 ] )
+
 	if not char:
-		return 1
+		return False
 	if not rune:
 		char.socket.sysmessage( "runebook script error." )
-		return 1
+		return False
+	# Check for Recall
+	if not magic.utilities.hasSpell(char, 32):
+		return False
+
+	location = rune.gettag( 'location' )
+	location = location.split(",")
+	location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
+
+	region = None
+	region = wolfpack.region(char.pos.x, char.pos.y, char.pos.map)
+
+	if region and region.norecallout:
+		char.message(501802)
+		fizzle(char)
+		return False
+		region = None
+		region = wolfpack.region(location.x, location.y, location.map)
+
+	if not location.validspawnspot():
+			char.message(501942)
+			fizzle(char)
+			return False
+
+	if region and region.norecallin:
+			char.message(1019004)
+			fizzle(char)
+			return False
+
 	# cast spell
 	if( char.mana < 11 ):
 		char.socket.sysmessage( "You lack the mana to recall." )
-		return 1
+		return False
+
 	# Insert link to Recall Spell!
-	char.socket.sysmessage( "not implemented yet." )
-	return 1
+	char.socket.sysmessage( "not implemented yet" )
+
+	return True
 
 def gate( self, args ):
 	if( len( args ) < 2 ):

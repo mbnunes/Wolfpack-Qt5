@@ -208,7 +208,7 @@ def onUse( char, item ):
 	packet = wolfpack.packet( 0xbf, 23 )
 	packet.setshort( 1, 23 )	 # Packet length
 	packet.setshort( 3, 0x1b )	 # 0xbf subcommand
-	packet.setshort( 5, 1	 )	 # Unknown. Maybe it's a subsubcommand ?
+	packet.setshort( 5, 1 )	 # Unknown. Maybe it's a subsubcommand ?
 	packet.setint( 7, item.serial ) # Spellbook serial
 	packet.setshort( 11, item.id ) # Item id
 	packet.setshort( 13, 1 ) # Scroll offset (1 = regular, 101 = paladin, 201 = necro)

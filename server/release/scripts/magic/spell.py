@@ -5,7 +5,7 @@ import wolfpack.console
 from wolfpack import properties
 from magic.utilities import *
 from wolfpack.consts import MAGICRESISTANCE, EVALUATINGINTEL, INSCRIPTION, \
-	MAGERY, ANIM_CASTDIRECTED, SPELLDAMAGEBONUS, LOG_WARNING \
+	MAGERY, ANIM_CASTDIRECTED, SPELLDAMAGEBONUS, LOG_WARNING
 
 # Recursive Function for counting reagents
 def countReagents(item, items):

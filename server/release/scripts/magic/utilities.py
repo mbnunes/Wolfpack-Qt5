@@ -66,13 +66,13 @@ def hasSpell(char, spell):
 	book = char.itemonlayer(1)
 
 	if magic.spellbook.hasspell(book, spell):
-		return 1
+		return True
 
 	for book in char.getbackpack().content:
 		if magic.spellbook.hasspell(book, spell):
-			return 1
+			return True
 
-	return 0
+	return False
 
 #
 # A general purpose function for chaning some users stats
