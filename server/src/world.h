@@ -35,6 +35,7 @@
 // Library Includes
 #include <qvaluevector.h>
 #include <qmap.h>
+#include <qthread.h>
 #include "server.h"
 
 class cBufferedReader;
@@ -63,6 +64,17 @@ public:
 	P_ITEM next();
 };
 
+class cBackupThread : public QThread {
+private:
+	QString filename;
+public:
+	void run();
+
+	void setFilename(const QString &name) {
+		filename = name;
+	}
+};
+
 class cWorld : public cComponent
 {
 	friend class cCharIterator;
@@ -79,6 +91,8 @@ private:
 	unsigned int _playerCount, _npcCount;
 	void loadTag( cBufferedReader& reader, unsigned int version );
 	QMap<QString, QString> options;
+	void backupWorld( const QString &filename, unsigned int count, bool compress);
+	QPtrList<cBackupThread> backupThreads;
 
 public:
 	// Constructor/Destructor

@@ -45,6 +45,8 @@
 #include "timing.h"
 #include "basics.h"
 #include <sqlite.h>
+#include <qfileinfo.h>
+#include <qdir.h>
 
 // Postprocessing stuff, can be deleted later on
 #include "muls/maps.h"
@@ -344,6 +346,7 @@ cWorld::cWorld()
 	lastTooltip = 0;
 	_lastCharSerial = 0;
 	_lastItemSerial = ITEM_SPACE;
+	backupThreads.setAutoDelete(true);
 }
 
 /*!
@@ -351,6 +354,11 @@ cWorld::cWorld()
 */
 cWorld::~cWorld()
 {
+	cBackupThread *thread;
+	for (thread = backupThreads.first(); thread; thread = backupThreads.next()) {
+		thread->wait();
+	}
+
 	// Free pending objects
 	p->purgePendingObjects();
 
@@ -414,7 +422,7 @@ void cWorld::load()
 {
 	if ( Config::instance()->databaseDriver() == "binary" )
 	{
-		QString filename = "world.bin";
+		QString filename = Config::instance()->binarySavepath();
 
 		if ( QFile::exists( filename ) )
 		{
@@ -829,9 +837,12 @@ void cWorld::save() {
 		setOption("worldtime", QString::number( UoTime::instance()->getMinutes() ));
 
 		if (Config::instance()->databaseDriver() == "binary") {
+			// Make a backup of the old world.
+			backupWorld(Config::instance()->binarySavepath(), Config::instance()->binaryBackups(), Config::instance()->binaryCompressBackups());
+
 			// Save in binary format
 			cBufferedWriter writer( "WOLFPACK", DATABASE_VERSION );
-			writer.open( "world.bin" );
+			writer.open( Config::instance()->binarySavepath() );
 
 			cCharIterator charIterator;
 			P_CHAR character;
@@ -868,6 +879,9 @@ void cWorld::save() {
 
 			writer.writeByte( 0xFF ); // Terminator Type
 			writer.close();
+
+			Config::instance()->flush();
+			p->purgePendingObjects();
 		} else {
 			if (!PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver())) {
 				Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
@@ -1223,6 +1237,130 @@ void cWorld::deleteObject( cUObject* object )
 void cWorld::purge()
 {
 	p->purgePendingObjects();
+}
+
+QMap<QDateTime, QString> listBackups(const QString &filename) {
+	// Get the path the file is in
+	QString name = QFileInfo(filename).baseName(false);
+
+	QDir dir = QFileInfo(filename).dir();
+	QStringList entries = dir.entryList(name + "*", QDir::Files);
+	QMap<QDateTime, QString> backups;
+
+	QStringList::iterator sit;
+	for (sit = entries.begin(); sit != entries.end(); ++sit) {
+		QString backup = QFileInfo(*sit).baseName(false);
+		QString timestamp = backup.right(backup.length() - name.length());
+		QDate date;
+		QTime time;
+		
+		// Length has to be -YYYYMMDD-HHMM (14 Characters)
+		if (timestamp.length() != 14) {
+			continue;
+		}
+
+		bool ok[5];
+		int year = timestamp.mid(1, 4).toInt(&ok[0]);
+		int month = timestamp.mid(5, 2).toInt(&ok[1]);
+		int day = timestamp.mid(7, 2).toInt(&ok[2]);
+		int hour = timestamp.mid(10, 2).toInt(&ok[3]);
+		int minute = timestamp.mid(12, 2).toInt(&ok[4]);
+
+		if (!ok[0] || !ok[1] || !ok[2] || !ok[3] || !ok[4]) {
+			continue;
+		}
+
+		date.setYMD(year, month, day);
+		time.setHMS(hour, minute, 0);
+		
+		backups.insert(QDateTime(date, time), *sit);
+	}
+
+	return backups;
+}
+
+/*
+	Backup old worldfile
+*/
+void cWorld::backupWorld(const QString &filename, unsigned int count, bool compress) {
+	// Looks like there is nothing to backup
+	if (count == 0 || !QFile::exists(filename)) {
+		return;
+	}
+
+	// Check if we need to remove a previous backup
+	QMap<QDateTime, QString> backups = listBackups(filename);
+	
+	if (backups.count() >= count) {
+		// Remove the oldest backup
+		QDateTime current;
+		QString backup = QString::null;
+
+		QMap<QDateTime, QString>::iterator it;
+		for (it = backups.begin(); it != backups.end(); ++it) {
+			if (current.isNull() || it.key() < current) {
+				current = it.key();
+				backup = it.data();
+			}
+		}
+
+		if (!backup.isNull() && !QFile::remove(backup)) {
+			Console::instance()->log(LOG_ERROR, QString("Unable to remove backup %1. No new backup has been created.\n").arg(backup));
+			return;
+		}
+	}
+
+	// Rename the old worldfile to the new backup name
+	QString backupName = QFileInfo(filename).dirPath(true) + QDir::separator() + QFileInfo(filename).baseName(false);
+	QDateTime current = QDateTime::currentDateTime();
+	backupName.append(current.toString("-yyyyMMdd-hhmm")); // Append Timestamp
+	backupName.append(".");
+	backupName.append(QFileInfo(filename).extension(true)); // Append Extension
+
+	// Rename the old worldfile
+	QDir dir = QDir::current();
+	dir.rename(filename, backupName, true);
+
+	// Start the compression thread if requested by the user
+	cBackupThread *backupThread = new cBackupThread();
+	backupThread->setFilename(backupName);
+	backupThread->start(QThread::LowPriority);
+}
+
+extern "C" {
+	extern void *gzopen(const char *path, const char *mode);
+	extern int gzwrite(void *file, void *buf, unsigned len);
+	extern int gzclose(void *file);
+};
+
+/*
+	Pipe a backup trough
+*/
+void cBackupThread::run() {
+	// Open the backup input file and the backup output file and compress
+	QFile input(filename);
+	QString outputName = filename + ".gz";
+
+	if (!input.open(IO_ReadOnly)) {
+		return;
+	}
+
+	void *output = gzopen(outputName.latin1(), "wb");
+	if (!output) {
+		input.close();
+		return;
+	}
+
+	int readSize;
+	char buffer[4096];
+	while ((readSize = input.readBlock(buffer, 4096)) > 0) {
+		gzwrite(output, buffer, readSize);
+	}
+	
+	input.close();
+	gzclose(output);
+
+	input.remove();
 }
 
 /*****************************************************************************

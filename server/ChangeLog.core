@@ -13,6 +13,9 @@ Wolfpack 12.9.9 Beta (CVS)
 	  categories.db database.
 	- .exportdefinitions now exports data about multis to the
 	  categories.db database.
+	- Backup functionality for the binary save driver.
+	- Binary backups can automatically be compressed using gzip.
+	- The number of backups kept can be limited.
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes

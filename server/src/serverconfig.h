@@ -145,6 +145,11 @@ protected:
 	unsigned int showNpcTitles_;
 	unsigned char maxCharsPerAccount_;
 
+	// Binary Save Driver
+	unsigned int binaryBackups_;	
+	QString binarySavepath_;
+	bool binaryCompressBackups_;
+
 	// AI
 	float checkAITime_;
 	unsigned int animalWildFleeRange_;
@@ -231,7 +236,7 @@ public:
 	unsigned int poisonTimer() const;
 	signed int maxStealthSteps() const;
 	unsigned int runningStamSteps() const;
-	unsigned int hungerRate() const;
+    unsigned int hungerRate() const;
 	unsigned int hungerDamageRate() const;
 	unsigned char hungerDamage() const;
 	float boatSpeed() const;
@@ -240,6 +245,19 @@ public:
 	inline bool dontStackSpawnedObjects() const
 	{
 		return dontStackSpawnedObjects_;
+	}
+
+	inline unsigned int binaryBackups() const
+	{
+		return binaryBackups_;
+	}
+
+	inline const QString &binarySavepath() const {
+		return binarySavepath_;
+	}
+
+	inline bool binaryCompressBackups() const {
+		return binaryCompressBackups_;
 	}
 
 	unsigned int shopRestock() const;

@@ -203,6 +203,11 @@ void cConfig::readData()
 	pathfindFollowRadius_ = getNumber( "Path Finding", "Follow Radius", 10, true );
 	pathfindFollowMinCost_ = getDouble( "Path Finding", "Follow min. estimated Cost", 1.5, true );
 	pathfindFleeRadius_ = getNumber( "Path Finding", "Flee Radius", 10, true );
+
+	// Binary Saves
+	binarySavepath_ = getString( "Binary Save Driver", "Save Path", "world.bin", true);
+	binaryBackups_ = getNumber( "Binary Save Driver", "Number Of Backups", 5, true);
+	binaryCompressBackups_ = getBool( "Binary Save Driver", "Compress Backups", false, true);
 }
 
 void cConfig::load()
