@@ -244,20 +244,6 @@ public:
 	void	setMakeItemAmounts( UINT16 amount );
 };
 
-class cMakeDelayedSection : public cMakeSection
-{
-	Q_OBJECT
-public:
-	cMakeDelayedSection( const QString &name, cMakeAction* baseaction = NULL );
-	cMakeDelayedSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
-	~cMakeDelayedSection();
-
-	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
-
-	virtual void	execute( cUOSocket* const socket );
-};
-
 class cDoCodeAction : public cMakeSection
 {
 	Q_OBJECT
