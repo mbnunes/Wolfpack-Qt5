@@ -139,8 +139,29 @@ PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args )
 	return PyTrue;
 }
 
+PyObject *wpAccount_authorized( wpAccount *self, PyObject *args )
+{
+	if( !self->account )
+		return PyFalse;
+
+	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	QString group = getArgStr( 0 );
+	QString action = getArgStr( 1 );
+
+	if( self->account->authorized( group, action ) )
+		return PyTrue;
+	else
+		return PyFalse;
+}
+
 static PyMethodDef wpAccountMethods[] = 
 {
+	{ "authorized", (getattrofunc)wpAccount_authorized, METH_VARARGS, "Checks if the account is authorized to perform a given action." },
 	{ "delete", (getattrofunc)wpAccount_delete, METH_VARARGS, "Delete this account." },
 	{ "block", (getattrofunc)wpAccount_block, METH_VARARGS, "Shortcut for blocking the account." },
 	{ "unblock", (getattrofunc)wpAccount_unblock, METH_VARARGS, "Shortcut for unblocking the account." },
