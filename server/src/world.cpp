@@ -802,7 +802,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject>& objects )
 	for ( pChar = charIter.first(); pChar; pChar = charIter.next() )
 	{
 		P_NPC pNPC = dynamic_cast<P_NPC>( pChar );
-
+		Q_UNUSED( pNPC );
 		// Find Guarding
 		// this needs to move to postprocessing
 		if ( pChar->guarding() )
@@ -1427,6 +1427,7 @@ QMap<QDateTime, QString> listBackups( const QString& filename )
 */
 void cWorld::backupWorld( const QString& filename, unsigned int count, bool compress )
 {
+	Q_UNUSED( compress );
 	// Looks like there is nothing to backup
 	if ( count == 0 || !QFile::exists( filename ) )
 	{

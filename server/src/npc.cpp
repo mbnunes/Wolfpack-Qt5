@@ -74,6 +74,7 @@ cNPC::cNPC()
 
 cNPC::cNPC( const cNPC& right ) : cBaseChar( right )
 {
+	Q_UNUSED( right );
 }
 
 cNPC::~cNPC()
@@ -81,8 +82,9 @@ cNPC::~cNPC()
 	delete ai_;
 }
 
-cNPC& cNPC::operator=( const cNPC& /*right*/ )
+cNPC& cNPC::operator=( const cNPC& right )
 {
+	Q_UNUSED( right );
 	return *this;
 }
 
@@ -263,9 +265,10 @@ void cNPC::setOwner( P_PLAYER data, bool nochecks )
 
 void cNPC::setNextMoveTime( bool changedDirection )
 {
+	Q_UNUSED( changedDirection );
 	unsigned int interval;
 	bool passive = true;
-	bool controlled = summoned() || ( owner() != 0 );
+	//bool controlled = summoned() || ( owner() != 0 );
 
 	if ( ai_ && ai_->currentAction() )
 	{
@@ -285,26 +288,26 @@ void cNPC::setNextMoveTime( bool changedDirection )
 	// Transform certain standard intervals.
 	switch ( interval )
 	{
-	case 200:
-		interval = 300;
-		break;
-	case 250:
-		interval = 450;
-		break;
-	case 300:
-		interval = 600;
-		break;
-	case 400:
-		interval = 900;
-		break;
-	case 500:
-		interval = 1050;
-		break;
-	case 800:
-		interval = 1500;
-		break;
-	default:
-		break;
+		case 200:
+			interval = 300;
+			break;
+		case 250:
+			interval = 450;
+			break;
+		case 300:
+			interval = 600;
+			break;
+		case 400:
+			interval = 900;
+			break;
+		case 500:
+			interval = 1050;
+			break;
+		case 800:
+			interval = 1500;
+			break;
+		default:
+			break;
 	};
 
 	// Wandering creatures are even slower than usual
@@ -690,7 +693,7 @@ void cNPC::processNode( const cElement* Tag )
 	changed_ = true;
 	QString TagName = Tag->name();
 	QString Value = Tag->value();
-	
+
 	//<npcwander type="rectangle" x1="-10" x2="12" y1="5" y2="7" />
 	//<......... type="rect" ... />
 	//<......... type="3" ... />

@@ -1031,10 +1031,15 @@ static int fileBtreeRollbackCkpt(Btree *pBt){
 ** root page of a b-tree.  If it is not, then the cursor acquired
 ** will not work correctly.
 */
-static int fileBtreeCursor(Btree *pBt, int iTable, int wrFlag, BtCursor **ppCur){
+static 
+int fileBtreeCursor(Btree *pBt, int iTable, int wrFlag, BtCursor **ppCur){
   int rc;
   BtCursor *pCur, *pRing;
 
+  if( pBt->readOnly && wrFlag ){
+    *ppCur = 0;
+    return SQLITE_READONLY;
+  }
   if( pBt->page1==0 ){
     rc = lockBtree(pBt);
     if( rc!=SQLITE_OK ){

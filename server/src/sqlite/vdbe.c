@@ -62,7 +62,7 @@ int sqlite_search_count = 0;
 /*
 ** When this global variable is positive, it gets decremented once before
 ** each instruction in the VDBE.  When reaches zero, the SQLITE_Interrupt
-** of the db.flags field is set in order to simulate and interrupt.
+** of the db.flags field is set in order to simulate an interrupt.
 **
 ** This facility is used for testing purposes only.  It does not function
 ** in an ordinary build.
@@ -4695,8 +4695,9 @@ case OP_SetNext: {
       break;
     }
   }else{
-    assert( pSet->prev );
-    pSet->prev = sqliteHashNext(pSet->prev);
+    if( pSet->prev ){
+      pSet->prev = sqliteHashNext(pSet->prev);
+    }
     if( pSet->prev==0 ){
       break;
     }else{
@@ -4720,6 +4721,36 @@ case OP_Vacuum: {
   if( sqliteSafetyOff(db) ) goto abort_due_to_misuse; 
   rc = sqliteRunVacuum(&p->zErrMsg, db);
   if( sqliteSafetyOn(db) ) goto abort_due_to_misuse;
+  break;
+}
+
+/* Opcode: StackDepth * * *
+**
+** Push an integer onto the stack which is the depth of the stack prior
+** to that integer being pushed.
+*/
+case OP_StackDepth: {
+  int depth = (&pTos[1]) - p->aStack;
+  pTos++;
+  pTos->i = depth;
+  pTos->flags = MEM_Int;
+  break;
+}
+
+/* Opcode: StackReset * * *
+**
+** Pop a single integer off of the stack.  Then pop the stack
+** as many times as necessary to get the depth of the stack down
+** to the value of the integer that was popped.
+*/
+case OP_StackReset: {
+  int depth, goal;
+  assert( pTos>=p->aStack );
+  Integerify(pTos);
+  goal = pTos->i;
+  depth = (&pTos[1]) - p->aStack;
+  assert( goal<depth );
+  popStack(&pTos, depth-goal);
   break;
 }
 
@@ -4835,6 +4866,7 @@ default: {
   /* If we reach this point, it means that execution is finished.
   */
 vdbe_halt:
+  CHECK_FOR_INTERRUPT
   if( rc ){
     p->rc = rc;
     rc = SQLITE_ERROR;

@@ -209,6 +209,8 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObje
 	int height = multi->getHeight();
 	int width = multi->getWidth();
 
+	Q_UNUSED( bottom );
+
 	QValueList<Coord> borderList; // a list of points around the foundation that need to be clear of impassables
 	QValueList<Coord> yardList; // a list of points in the yard (front/back of the house that needs to be clear)
 
@@ -256,6 +258,7 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObje
 				bool baseTile = multiItem.z == 0 && ( tile.flag1 & 0x10 ) != 0;
 				bool isHovering = true; // This tile has not yet something to "stand" on
 
+				Q_UNUSED( isHovering );
 				if ( baseTile )
 					hasBase = true;
 

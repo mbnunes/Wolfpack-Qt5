@@ -68,45 +68,45 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 	if ( !pItem )
 		return false;
 
-	bool ok = false;
+	//bool ok = false;
 	//Q_INT32 num = speech.toInt( &ok ); // Generally try to convert it
 	QString notification;
 
 	switch ( pChar->inputMode() )
 	{
 		// Pricing an item - PlayerVendors
-	case cPlayer::enPricing:
-		socket->sysMessage( "Ops, sorry not implemented" );
-		pChar->setInputMode( cPlayer::enDescription );
-		socket->sysMessage( tr( "Enter a description for this item." ) );
-		break;
+		case cPlayer::enPricing:
+			socket->sysMessage( "Ops, sorry not implemented" );
+			pChar->setInputMode( cPlayer::enDescription );
+			socket->sysMessage( tr( "Enter a description for this item." ) );
+			break;
 
-		// Describing an item
-	case cPlayer::enDescription:
-		socket->sysMessage( "Description is not used anywhere :( not implemented right now" );
-		socket->sysMessage( tr( "This item is now described as %1." ).arg( speech ) );
-		pChar->setInputMode( cPlayer::enNone );
-		pChar->setInputItem( INVALID_SERIAL );
-		break;
+			// Describing an item
+		case cPlayer::enDescription:
+			socket->sysMessage( "Description is not used anywhere :( not implemented right now" );
+			socket->sysMessage( tr( "This item is now described as %1." ).arg( speech ) );
+			pChar->setInputMode( cPlayer::enNone );
+			pChar->setInputItem( INVALID_SERIAL );
+			break;
 
-		// Renaming ourself
-	case cPlayer::enNameDeed:
-		pChar->setName( speech );
-		socket->sysMessage( tr( "Your new name is: %1" ).arg( speech ) );
-		pChar->setInputMode( cPlayer::enNone );
-		pChar->setInputItem( INVALID_SERIAL );
-		break;
+			// Renaming ourself
+		case cPlayer::enNameDeed:
+			pChar->setName( speech );
+			socket->sysMessage( tr( "Your new name is: %1" ).arg( speech ) );
+			pChar->setInputMode( cPlayer::enNone );
+			pChar->setInputItem( INVALID_SERIAL );
+			break;
 
-		// Renaming a house sign
-	case cPlayer::enHouseSign:
-		pItem->setName( speech );
-		socket->sysMessage( tr( "Your house has been renamed to: %1" ).arg( speech ) );
-		pChar->setInputMode( cPlayer::enNone );
-		pChar->setInputItem( INVALID_SERIAL );
-		break;
+			// Renaming a house sign
+		case cPlayer::enHouseSign:
+			pItem->setName( speech );
+			socket->sysMessage( tr( "Your house has been renamed to: %1" ).arg( speech ) );
+			pChar->setInputMode( cPlayer::enNone );
+			pChar->setInputItem( INVALID_SERIAL );
+			break;
 
-	default:
-		break;	// do nothing
+		default:
+			break;	// do nothing
 	}
 
 	return true;
@@ -115,6 +115,11 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 // All this Stuff should be scripted
 bool QuestionSpeech( cUOSocket* socket, P_PLAYER pPlayer, P_NPC pChar, const QString& comm )
 {
+	if ( socket )
+	{
+		// Warning Fix
+	}
+
 	if ( !pChar->isHuman() || pPlayer->dist( pChar ) > 3 )
 		return false;
 

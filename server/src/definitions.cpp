@@ -128,10 +128,12 @@ public:
 			{
 				parent = elements.pop();
 			}
-
 			delete parent;
+
 			while ( elements.current() == NULL )
+			{
 				elements.pop();
+			}
 		}
 	}
 

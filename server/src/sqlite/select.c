@@ -365,6 +365,30 @@ void sqliteAddKeyType(Vdbe *v, ExprList *pEList){
 }
 
 /*
+** Add code to implement the OFFSET and LIMIT
+*/
+static void codeLimiter(
+  Vdbe *v,          /* Generate code into this VM */
+  Select *p,        /* The SELECT statement being coded */
+  int iContinue,    /* Jump here to skip the current record */
+  int iBreak,       /* Jump here to end the loop */
+  int nPop          /* Number of times to pop stack when jumping */
+){
+  if( p->iOffset>=0 ){
+    int addr = sqliteVdbeCurrentAddr(v) + 2;
+    if( nPop>0 ) addr++;
+    sqliteVdbeAddOp(v, OP_MemIncr, p->iOffset, addr);
+    if( nPop>0 ){
+      sqliteVdbeAddOp(v, OP_Pop, nPop, 0);
+    }
+    sqliteVdbeAddOp(v, OP_Goto, 0, iContinue);
+  }
+  if( p->iLimit>=0 ){
+    sqliteVdbeAddOp(v, OP_MemIncr, p->iLimit, iBreak);
+  }
+}
+
+/*
 ** This routine generates the code for the inside of the inner loop
 ** of a SELECT.
 **
@@ -388,6 +412,7 @@ static int selectInnerLoop(
 ){
   Vdbe *v = pParse->pVdbe;
   int i;
+  int hasDistinct;        /* True if the DISTINCT keyword is present */
 
   if( v==0 ) return 0;
   assert( pEList!=0 );
@@ -395,15 +420,9 @@ static int selectInnerLoop(
   /* If there was a LIMIT clause on the SELECT statement, then do the check
   ** to see if this row should be output.
   */
-  if( pOrderBy==0 ){
-    if( p->iOffset>=0 ){
-      int addr = sqliteVdbeCurrentAddr(v);
-      sqliteVdbeAddOp(v, OP_MemIncr, p->iOffset, addr+2);
-      sqliteVdbeAddOp(v, OP_Goto, 0, iContinue);
-    }
-    if( p->iLimit>=0 ){
-      sqliteVdbeAddOp(v, OP_MemIncr, p->iLimit, iBreak);
-    }
+  hasDistinct = distinct>=0 && pEList && pEList->nExpr>0;
+  if( pOrderBy==0 && !hasDistinct ){
+    codeLimiter(v, p, iContinue, iBreak, 0);
   }
 
   /* Pull the requested columns.
@@ -423,7 +442,7 @@ static int selectInnerLoop(
   ** and this row has been seen before, then do not make this row
   ** part of the result.
   */
-  if( distinct>=0 && pEList && pEList->nExpr>0 ){
+  if( hasDistinct ){
 #if NULL_ALWAYS_DISTINCT
     sqliteVdbeAddOp(v, OP_IsNull, -pEList->nExpr, sqliteVdbeCurrentAddr(v)+7);
 #endif
@@ -434,6 +453,9 @@ static int selectInnerLoop(
     sqliteVdbeAddOp(v, OP_Goto, 0, iContinue);
     sqliteVdbeAddOp(v, OP_String, 0, 0);
     sqliteVdbeAddOp(v, OP_PutStrKey, distinct, 0);
+    if( pOrderBy==0 ){
+      codeLimiter(v, p, iContinue, iBreak, nColumn);
+    }
   }
 
   switch( eDest ){
@@ -570,14 +592,7 @@ static void generateSortTail(
   if( eDest==SRT_Sorter ) return;
   sqliteVdbeAddOp(v, OP_Sort, 0, 0);
   addr = sqliteVdbeAddOp(v, OP_SortNext, 0, end1);
-  if( p->iOffset>=0 ){
-    sqliteVdbeAddOp(v, OP_MemIncr, p->iOffset, addr+4);
-    sqliteVdbeAddOp(v, OP_Pop, 1, 0);
-    sqliteVdbeAddOp(v, OP_Goto, 0, addr);
-  }
-  if( p->iLimit>=0 ){
-    sqliteVdbeAddOp(v, OP_MemIncr, p->iLimit, end2);
-  }
+  codeLimiter(v, p, addr, end2, 1);
   switch( eDest ){
     case SRT_Callback: {
       sqliteVdbeAddOp(v, OP_SortCallback, nColumn, 0);
@@ -810,8 +825,9 @@ Table *sqliteResultSetOfSelect(Parse *pParse, char *zTabName, Select *pSelect){
     }else{
       char zBuf[30];
       sprintf(zBuf, "column%d", i+1);
-      pTab->aCol[i].zName = sqliteStrDup(zBuf);
+      aCol[i].zName = sqliteStrDup(zBuf);
     }
+    sqliteDequote(aCol[i].zName);
   }
   pTab->iPKey = -1;
   return pTab;
@@ -943,11 +959,11 @@ static int fillInColumnList(Parse *pParse, Select *p){
         /* This expression is a "*" or a "TABLE.*" and needs to be
         ** expanded. */
         int tableSeen = 0;      /* Set to 1 when TABLE matches */
-        Token *pName;           /* text of name of TABLE */
+        char *zTName;           /* text of name of TABLE */
         if( pE->op==TK_DOT && pE->pLeft ){
-          pName = &pE->pLeft->token;
+          zTName = sqliteTableNameFromToken(&pE->pLeft->token);
         }else{
-          pName = 0;
+          zTName = 0;
         }
         for(i=0; i<pTabList->nSrc; i++){
           Table *pTab = pTabList->a[i].pTab;
@@ -955,9 +971,8 @@ static int fillInColumnList(Parse *pParse, Select *p){
           if( zTabName==0 || zTabName[0]==0 ){ 
             zTabName = pTab->zName;
           }
-          if( pName && (zTabName==0 || zTabName[0]==0 || 
-                 sqliteStrNICmp(pName->z, zTabName, pName->n)!=0 ||
-                 zTabName[pName->n]!=0) ){
+          if( zTName && (zTabName==0 || zTabName[0]==0 || 
+                 sqliteStrICmp(zTName, zTabName)!=0) ){
             continue;
           }
           tableSeen = 1;
@@ -1002,13 +1017,14 @@ static int fillInColumnList(Parse *pParse, Select *p){
           }
         }
         if( !tableSeen ){
-          if( pName ){
-            sqliteErrorMsg(pParse, "no such table: %T", pName);
+          if( zTName ){
+            sqliteErrorMsg(pParse, "no such table: %s", zTName);
           }else{
             sqliteErrorMsg(pParse, "no tables specified");
           }
           rc = 1;
         }
+        sqliteFree(zTName);
       }
     }
     sqliteExprListDelete(pEList);
@@ -1836,18 +1852,23 @@ static int simpleMinMaxQuery(Parse *pParse, Select *p, int eDest, int iParm){
   Vdbe *v;
   int seekOp;
   int cont;
-  ExprList eList;
+  ExprList *pEList, *pList, eList;
   struct ExprList_item eListItem;
+  SrcList *pSrc;
+  
 
   /* Check to see if this query is a simple min() or max() query.  Return
   ** zero if it is  not.
   */
   if( p->pGroupBy || p->pHaving || p->pWhere ) return 0;
-  if( p->pSrc->nSrc!=1 ) return 0;
-  if( p->pEList->nExpr!=1 ) return 0;
-  pExpr = p->pEList->a[0].pExpr;
+  pSrc = p->pSrc;
+  if( pSrc->nSrc!=1 ) return 0;
+  pEList = p->pEList;
+  if( pEList->nExpr!=1 ) return 0;
+  pExpr = pEList->a[0].pExpr;
   if( pExpr->op!=TK_AGG_FUNCTION ) return 0;
-  if( pExpr->pList==0 || pExpr->pList->nExpr!=1 ) return 0;
+  pList = pExpr->pList;
+  if( pList==0 || pList->nExpr!=1 ) return 0;
   if( pExpr->token.n!=3 ) return 0;
   if( sqliteStrNICmp(pExpr->token.z,"min",3)==0 ){
     seekOp = OP_Rewind;
@@ -1856,10 +1877,10 @@ static int simpleMinMaxQuery(Parse *pParse, Select *p, int eDest, int iParm){
   }else{
     return 0;
   }
-  pExpr = pExpr->pList->a[0].pExpr;
+  pExpr = pList->a[0].pExpr;
   if( pExpr->op!=TK_COLUMN ) return 0;
   iCol = pExpr->iColumn;
-  pTab = p->pSrc->a[0].pTab;
+  pTab = pSrc->a[0].pTab;
 
   /* If we get to here, it means the query is of the correct form.
   ** Check to make sure we have an index and make pIdx point to the
@@ -1899,16 +1920,24 @@ static int simpleMinMaxQuery(Parse *pParse, Select *p, int eDest, int iParm){
   ** or last entry in the main table.
   */
   sqliteCodeVerifySchema(pParse, pTab->iDb);
-  base = p->pSrc->a[0].iCursor;
+  base = pSrc->a[0].iCursor;
   computeLimitRegisters(pParse, p);
-  sqliteVdbeAddOp(v, OP_Integer, pTab->iDb, 0);
-  sqliteVdbeOp3(v, OP_OpenRead, base, pTab->tnum, pTab->zName, 0);
+  if( pSrc->a[0].pSelect==0 ){
+    sqliteVdbeAddOp(v, OP_Integer, pTab->iDb, 0);
+    sqliteVdbeOp3(v, OP_OpenRead, base, pTab->tnum, pTab->zName, 0);
+  }
   cont = sqliteVdbeMakeLabel(v);
   if( pIdx==0 ){
     sqliteVdbeAddOp(v, seekOp, base, 0);
   }else{
     sqliteVdbeAddOp(v, OP_Integer, pIdx->iDb, 0);
     sqliteVdbeOp3(v, OP_OpenRead, base+1, pIdx->tnum, pIdx->zName, P3_STATIC);
+    if( seekOp==OP_Rewind ){
+      sqliteVdbeAddOp(v, OP_String, 0, 0);
+      sqliteVdbeAddOp(v, OP_MakeKey, 1, 0);
+      sqliteVdbeAddOp(v, OP_IncrKey, 0, 0);
+      seekOp = OP_MoveTo;
+    }
     sqliteVdbeAddOp(v, seekOp, base+1, 0);
     sqliteVdbeAddOp(v, OP_IdxRecno, base+1, 0);
     sqliteVdbeAddOp(v, OP_Close, base+1, 0);
@@ -1921,6 +1950,7 @@ static int simpleMinMaxQuery(Parse *pParse, Select *p, int eDest, int iParm){
   selectInnerLoop(pParse, p, &eList, 0, 0, 0, -1, eDest, iParm, cont, cont);
   sqliteVdbeResolveLabel(v, cont);
   sqliteVdbeAddOp(v, OP_Close, base, 0);
+  
   return 1;
 }
 
@@ -2161,14 +2191,6 @@ int sqliteSelect(
     generateColumnNames(pParse, pTabList, pEList);
   }
 
-  /* Check for the special case of a min() or max() function by itself
-  ** in the result set.
-  */
-  if( simpleMinMaxQuery(pParse, p, eDest, iParm) ){
-    rc = 0;
-    goto select_end;
-  }
-
   /* Generate code for all sub-queries in the FROM clause
   */
   for(i=0; i<pTabList->nSrc; i++){
@@ -2196,6 +2218,14 @@ int sqliteSelect(
     pGroupBy = p->pGroupBy;
     pHaving = p->pHaving;
     isDistinct = p->isDistinct;
+  }
+
+  /* Check for the special case of a min() or max() function by itself
+  ** in the result set.
+  */
+  if( simpleMinMaxQuery(pParse, p, eDest, iParm) ){
+    rc = 0;
+    goto select_end;
   }
 
   /* Check to see if this is a subquery that can be "flattened" into its parent.

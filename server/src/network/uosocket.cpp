@@ -1424,7 +1424,7 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 			break;
 	};
 }
-#pragma message(Reminder "Implement Custom House subcommands here")
+//#pragma message(Reminder "Implement Custom House subcommands here")
 
 void cUOSocket::handleCHBackup( cUORxAosMultiPurpose* packet )
 {
@@ -1529,9 +1529,11 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection* packet )
 }
 void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest* packet )
 {
+	Q_UNUSED( packet );
 	/*	SERIAL serial = packet->serial();
 		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( serial ) );
 		pMulti->sendCH( this );*/
+	return;
 }
 
 void cUOSocket::handleToolTip( cUORxRequestToolTip* packet )
@@ -1668,6 +1670,7 @@ void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 
 void cUOSocket::resendPlayer( bool quick )
 {
+	Q_UNUSED( quick );
 	P_CHAR pChar = _player;
 
 	// Which map are we on
@@ -3344,6 +3347,7 @@ void cUOSocket::handleExtendedStats( cUORxExtendedStats* packet )
 
 void cUOSocket::handleChat( cUOPacket* packet )
 {
+	Q_UNUSED( packet );
 	_player->onChat();
 }
 

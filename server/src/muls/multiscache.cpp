@@ -70,7 +70,7 @@ void MultiDefinition::setItems( const QValueVector<multiItem_st>& items )
 	for ( i = 0; i < items.size(); ++i )
 	{
 		unsigned int index = ( items[i].y - top ) * width + ( items[i].x - left );
-		if ( index >= 0 && index < grid.size() )
+		if ( index < grid.size() )
 		{
 			grid[index].append( items[i] );
 		}
@@ -83,8 +83,7 @@ const QValueVector<multiItem_st>& MultiDefinition::itemsAt( int x, int y )
 {
 	unsigned int index = ( x - left ) + ( y - top ) * width;
 	static QValueVector<multiItem_st> emptyGrid;
-
-	if ( index < 0 || index >= grid.size() )
+	if ( index >= grid.size() )
 	{
 		return emptyGrid;
 	}

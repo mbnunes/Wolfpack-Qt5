@@ -122,12 +122,6 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 
 	if ( region )
 	{
-		/*QStringList allrectangles = region->rectangles();
-		*/
-		uint page_ = 0;
-		uint numrects = 0; /*allrectangles.size();*/
-		uint pages = ( ( uint ) ceil( ( double ) numrects / 10.0f ) );
-
 		startPage();
 		// Basic .INFO Header
 		addResizeGump( 0, 40, 0xA28, 450, 420 ); //Background
@@ -163,33 +157,6 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 
 		// OK button
 		addButton( 50, 410, 0xF9, 0xF8, 0 ); // Only Exit possible
-
-		/*for ( page_ = 1; page_ <= pages; page_++ )
-			{
-				startPage( page_ );
-				uint i;
-				uint right = page_ * 10 - 1;
-				uint left = page_ * 10 - 10;
-				if ( numrects <= right )
-					right = numrects - 1;
-				QStringList rectangles;
-				QStringList::const_iterator it = allrectangles.at( left );
-				while ( it != allrectangles.at( right + 1 ) )
-				{
-					rectangles.push_back( ( *it ) );
-					it++;
-				}
-				uint thisrects = rectangles.size();
-				for ( i = 0; i < thisrects; i++ )
-				{
-					addText( 50, 200 + i * 20, tr( "Rectangle %1: %2" ).arg( i + 1 + left ).arg( rectangles[i] ), 0x834 );
-				}
-				addText( 310, 410, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
-				if ( page_ > 1 ) // previous page
-					addPageButton( 270, 410, 0x0FC, 0x0FC, page_ - 1 );
-				if ( page_ < pages ) // next page
-					addPageButton( 290, 410, 0x0FA, 0x0FA, page_ + 1 );
-			}*/
 	}
 }
 

@@ -536,118 +536,119 @@ void cBaseChar::action( unsigned char id, unsigned char speed, bool reverse )
 	{
 		switch ( id )
 		{
-		case ANIM_WALK_UNARM:
-		case ANIM_WALK_ARM:
-		case ANIM_WALK_WAR:
-			id = ANIM_HORSE_RIDE_SLOW;
-			break;
-		case ANIM_RUN_UNARM:
-		case ANIM_RUN_ARMED:
-			id = ANIM_HORSE_RIDE_FAST;
-			break;
-		case ANIM_FIDGET1:
-		case ANIM_FIDGET_YAWN:
-		case ANIM_GET_HIT:
-		case ANIM_BLOCK:
-			id = ANIM_HORSE_SLAP;
-			break;
-		case ANIM_ATTACK_1H_WIDE:
-		case ANIM_ATTACK_1H_JAB:
-		case ANIM_ATTACK_1H_DOWN:
-		case ANIM_CAST_DIR:
-		case ANIM_ATTACK_UNARM:
-		case ANIM_ATTACK_2H_JAB:
-		case ANIM_ATTACK_2H_WIDE:
-		case ANIM_ATTACK_2H_DOWN:
-			id = ANIM_HORSE_ATTACK;
-			break;
-		case ANIM_CAST_AREA:
-		case ANIM_ATTACK_BOW:
-			id = ANIM_HORSE_ATTACK_BOW;
-			break;
-		case ANIM_ATTACK_XBOW:
-		case ANIM_BOW:
-		case ANIM_SALUTE:
-		case ANIM_EAT:
-			id = ANIM_HORSE_ATTACK_XBOW;
-			break;
-		case ANIM_STAND:
-		case ANIM_STAND_WAR_1H:
-		case ANIM_STAND_WAR_2H:
-		default:
-			id = ANIM_HORSE_STAND;
-			break;
+			case ANIM_WALK_UNARM:
+			case ANIM_WALK_ARM:
+			case ANIM_WALK_WAR:
+				id = ANIM_HORSE_RIDE_SLOW;
+				break;
+			case ANIM_RUN_UNARM:
+			case ANIM_RUN_ARMED:
+				id = ANIM_HORSE_RIDE_FAST;
+				break;
+			case ANIM_FIDGET1:
+			case ANIM_FIDGET_YAWN:
+			case ANIM_GET_HIT:
+			case ANIM_BLOCK:
+				id = ANIM_HORSE_SLAP;
+				break;
+			case ANIM_ATTACK_1H_WIDE:
+			case ANIM_ATTACK_1H_JAB:
+			case ANIM_ATTACK_1H_DOWN:
+			case ANIM_CAST_DIR:
+			case ANIM_ATTACK_UNARM:
+			case ANIM_ATTACK_2H_JAB:
+			case ANIM_ATTACK_2H_WIDE:
+			case ANIM_ATTACK_2H_DOWN:
+				id = ANIM_HORSE_ATTACK;
+				break;
+			case ANIM_CAST_AREA:
+			case ANIM_ATTACK_BOW:
+				id = ANIM_HORSE_ATTACK_BOW;
+				break;
+			case ANIM_ATTACK_XBOW:
+			case ANIM_BOW:
+			case ANIM_SALUTE:
+			case ANIM_EAT:
+				id = ANIM_HORSE_ATTACK_XBOW;
+				break;
+			case ANIM_STAND:
+			case ANIM_STAND_WAR_1H:
+			case ANIM_STAND_WAR_2H:
+			default:
+				id = ANIM_HORSE_STAND;
+				break;
 		}
 	}
 
 	// These translations are for animals.
-	if (bodytype() == 3) {
+	if ( bodytype() == 3 )
+	{
 		// Animal specific translation
 		switch ( id )
 		{
-		case ANIM_WALK_UNARM:
-		case ANIM_WALK_ARM:
-		case ANIM_WALK_WAR:
-			id = ANIM_ANI_WALK;
-			break;
-		case ANIM_RUN_UNARM:
-		case ANIM_RUN_ARMED:
-			id = ANIM_ANI_RUN;
-			break;
-		case ANIM_STAND:
-		case ANIM_STAND_WAR_1H:
-		case ANIM_STAND_WAR_2H:
-		default:
-			id = ANIM_ANI_STAND;
-			break;
-		case ANIM_FIDGET1:
-			id = ANIM_ANI_FIDGET1;
-			break;
-		case ANIM_FIDGET_YAWN:
-			id = ANIM_ANI_FIDGET2;
-			break;
-		case ANIM_CAST_DIR:
-			id = ANIM_ANI_ATTACK1;
-			break;
-		case ANIM_CAST_AREA:
-			id = ANIM_ANI_EAT;
-			break;
-		case ANIM_GET_HIT:
-			id = ANIM_ANI_GETHIT;
-			break;
-		case ANIM_ATTACK_1H_WIDE:
-		case ANIM_ATTACK_1H_JAB:
-		case ANIM_ATTACK_1H_DOWN:
-		case ANIM_ATTACK_2H_DOWN:
-		case ANIM_ATTACK_2H_JAB:
-		case ANIM_ATTACK_2H_WIDE:
-		case ANIM_ATTACK_BOW:
-		case ANIM_ATTACK_XBOW:
-		case ANIM_ATTACK_UNARM:
-			switch ( RandomNum( 0, 1 ) )
-			{
-			case 0:
+			case ANIM_WALK_UNARM:
+			case ANIM_WALK_ARM:
+			case ANIM_WALK_WAR:
+				id = ANIM_ANI_WALK;
+				break;
+			case ANIM_RUN_UNARM:
+			case ANIM_RUN_ARMED:
+				id = ANIM_ANI_RUN;
+				break;
+			case ANIM_STAND:
+			case ANIM_STAND_WAR_1H:
+			case ANIM_STAND_WAR_2H:
+			default:
+				id = ANIM_ANI_STAND;
+				break;
+			case ANIM_FIDGET1:
+				id = ANIM_ANI_FIDGET1;
+				break;
+			case ANIM_FIDGET_YAWN:
+				id = ANIM_ANI_FIDGET2;
+				break;
+			case ANIM_CAST_DIR:
 				id = ANIM_ANI_ATTACK1;
 				break;
-			case 1:
-				id = ANIM_ANI_ATTACK2;
+			case ANIM_CAST_AREA:
+				id = ANIM_ANI_EAT;
 				break;
-			}
-			break;
-		case ANIM_DIE_BACK:
-			id = ANIM_ANI_DIE1;
-			break;
-		case ANIM_DIE_FORWARD:
-			id = ANIM_ANI_DIE2;
-			break;
-		case ANIM_BLOCK:
-		case ANIM_BOW:
-		case ANIM_SALUTE:
-			id = ANIM_ANI_SLEEP;
-			break;
-		case ANIM_EAT:
-			id = ANIM_ANI_EAT;
-			break;
+			case ANIM_GET_HIT:
+				id = ANIM_ANI_GETHIT;
+				break;
+			case ANIM_ATTACK_1H_WIDE:
+			case ANIM_ATTACK_1H_JAB:
+			case ANIM_ATTACK_1H_DOWN:
+			case ANIM_ATTACK_2H_DOWN:
+			case ANIM_ATTACK_2H_JAB:
+			case ANIM_ATTACK_2H_WIDE:
+			case ANIM_ATTACK_BOW:
+			case ANIM_ATTACK_XBOW:
+			case ANIM_ATTACK_UNARM:
+				switch ( RandomNum( 0, 1 ) )
+				{
+					case 0:
+						id = ANIM_ANI_ATTACK1;
+						break;
+					case 1:
+						id = ANIM_ANI_ATTACK2;
+						break;
+				}
+				break;
+			case ANIM_DIE_BACK:
+				id = ANIM_ANI_DIE1;
+				break;
+			case ANIM_DIE_FORWARD:
+				id = ANIM_ANI_DIE2;
+				break;
+			case ANIM_BLOCK:
+			case ANIM_BOW:
+			case ANIM_SALUTE:
+				id = ANIM_ANI_SLEEP;
+				break;
+			case ANIM_EAT:
+				id = ANIM_ANI_EAT;
+				break;
 		}
 	}
 
@@ -754,7 +755,6 @@ void cBaseChar::setBeardStyle( Q_UINT16 d )
 	}
 	pBeard->update();
 }
-
 
 // This should check soon if we are standing above our
 // corpse and if so, merge with our corpse instead of
@@ -1057,7 +1057,7 @@ unsigned int cBaseChar::getSkillSum() const
 	for ( ; it != skills_.end(); ++it )
 		sum += ( *it ).value;
 
-	return sum;		// this *includes* the decimal digit ie. xxx.y
+	return sum; // this *includes* the decimal digit ie. xxx.y
 }
 
 void cBaseChar::Init( bool createSerial )

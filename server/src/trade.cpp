@@ -102,6 +102,8 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 
 	P_ITEM pStock = pVendor->getItemOnLayer( 0x1A );
 	P_ITEM pBought = pVendor->getItemOnLayer( 0x1B );
+	Q_UNUSED( pStock );
+	Q_UNUSED( pBought );
 
 	Q_UINT32 totalValue = 0;
 	Q_UINT32 i;

@@ -28,7 +28,7 @@ extern "C" {
 /*
 ** The version of the SQLite library.
 */
-#define SQLITE_VERSION         "2.8.13"
+#define SQLITE_VERSION         "2.8.15"
 
 /*
 ** The version string is also compiled into the library so that a program
@@ -42,7 +42,7 @@ extern const char sqlite_version[];
 ** UTF-8 encoded data.  The SQLITE_ISO8859 macro is defined if the
 ** iso8859 encoded should be used.
 */
-#define SQLITE_ISO8859 1
+#define SQLITE_UTF8 1
 
 /*
 ** The following constant holds one of two strings, "UTF-8" or "iso8859",
@@ -826,6 +826,40 @@ int sqlite_rekey(
   sqlite *db,                    /* Database to be rekeyed */
   const void *pKey, int nKey     /* The new key */
 );
+
+/*
+** Encode a binary buffer "in" of size n bytes so that it contains
+** no instances of characters '\'' or '\000'.  The output is 
+** null-terminated and can be used as a string value in an INSERT
+** or UPDATE statement.  Use sqlite_decode_binary() to convert the
+** string back into its original binary.
+**
+** The result is written into a preallocated output buffer "out".
+** "out" must be able to hold at least 2 +(257*n)/254 bytes.
+** In other words, the output will be expanded by as much as 3
+** bytes for every 254 bytes of input plus 2 bytes of fixed overhead.
+** (This is approximately 2 + 1.0118*n or about a 1.2% size increase.)
+**
+** The return value is the number of characters in the encoded
+** string, excluding the "\000" terminator.
+**
+** If out==NULL then no output is generated but the routine still returns
+** the number of characters that would have been generated if out had
+** not been NULL.
+*/
+int sqlite_encode_binary(const unsigned char *in, int n, unsigned char *out);
+
+/*
+** Decode the string "in" into binary data and write it into "out".
+** This routine reverses the encoding created by sqlite_encode_binary().
+** The output will always be a few bytes less than the input.  The number
+** of bytes of output is returned.  If the input is not a well-formed
+** encoding, -1 is returned.
+**
+** The "in" and "out" parameters may point to the same buffer in order
+** to decode a string in place.
+*/
+int sqlite_decode_binary(const unsigned char *in, unsigned char *out);
 
 #ifdef __cplusplus
 }  /* End of the 'extern "C"' block */

@@ -277,12 +277,8 @@ private:
 
 private:
 	QValueVector<cUORxWalkRequest> packetQueue;
-
 	unsigned int _uniqueId;
 	unsigned int _lastActivity;
-
-
-
 	Q_UINT8 _walkSequence;
 	Q_UINT8 lastPacket;
 	eSocketState _state;
@@ -290,17 +286,12 @@ private:
 	cTargetRequest* targetRequest;
 	cAccount* _account;
 	P_PLAYER _player;
-
 	unsigned int _rxBytes;
 	unsigned int _txBytes;
 	QSocketDevice* _socket;
 	unsigned short _screenWidth;
 	unsigned short _screenHeight;
-
-
-
 	Q_UINT8 _viewRange;
-
 	QString _version;
 	cCustomTags tags_;
 	QString _ip; // IP used to connect

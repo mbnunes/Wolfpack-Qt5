@@ -797,6 +797,7 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 */
 static PyObject* wpCanPlace( PyObject* self, PyObject* args )
 {
+	Q_UNUSED( self ); // Warning Fix
 	Coord pos;
 	unsigned short multiid;
 	unsigned short yard;

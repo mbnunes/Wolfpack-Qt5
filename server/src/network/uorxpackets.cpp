@@ -150,7 +150,7 @@ cUOPacket* cUORxMultiPurpose::packet( const QByteArray& data )
 
 cUOPacket* cUORxAosMultiPurpose::packet( const QByteArray& data )
 {
-#pragma message(Reminder "Add CH packets creation for all commands")
+//#pragma message(Reminder "Add CH packets creation for all commands")
 
 	cUOPacket temp( data );
 

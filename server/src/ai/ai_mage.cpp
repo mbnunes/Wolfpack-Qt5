@@ -89,6 +89,7 @@ public:
 				{
 					PyObject* args = Py_BuildValue( "(Nii[]N)", m_npc->getPyObject(), 29, 0, m_npc->getPyObject() );
 					bool result = m_npc->callEventHandler( EVENT_CASTSPELL, args );
+					Q_UNUSED( result );
 					Py_DECREF( args );
 				}
 			}
@@ -100,6 +101,7 @@ public:
 				{
 					PyObject* args = Py_BuildValue( "(Nii[]N)", m_npc->getPyObject(), 4, 0, m_npc->getPyObject() );
 					bool result = m_npc->callEventHandler( EVENT_CASTSPELL, args );
+					Q_UNUSED( result );
 					Py_DECREF( args );
 				}
 			}
@@ -261,6 +263,7 @@ public:
 	*/
 	void chooseSpell( int& spell, cUObject*& objTarget, Coord& posTarget, P_CHAR currentVictim )
 	{
+		Q_UNUSED( posTarget );
 		// If we are not summoned, try healing
 		if ( m_npc->hitpoints() < m_npc->maxHitpoints()  // Only try to heal if we're not at full health
 			&& !m_npc->summoned() // Summoned creatures dont heal
@@ -358,6 +361,7 @@ public:
 			PyObject *target = PyGetObjectObject( objTarget );
 			PyObject* args = Py_BuildValue( "(Nii[]N)", m_npc->getPyObject(), spell, 0, target );
 			bool result = m_npc->callEventHandler( EVENT_CASTSPELL, args );
+			Q_UNUSED( result );
 			Py_DECREF( args );
 		}
 

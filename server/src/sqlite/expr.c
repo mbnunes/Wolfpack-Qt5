@@ -155,7 +155,11 @@ ExprList *sqliteExprListDup(ExprList *p){
   if( pNew==0 ) return 0;
   pNew->nExpr = pNew->nAlloc = p->nExpr;
   pNew->a = pItem = sqliteMalloc( p->nExpr*sizeof(p->a[0]) );
-  for(i=0; pItem && i<p->nExpr; i++, pItem++){
+  if( pItem==0 ){
+    sqliteFree(pNew);
+    return 0;
+  }
+  for(i=0; i<p->nExpr; i++, pItem++){
     Expr *pNewExpr, *pOldExpr;
     pItem->pExpr = pNewExpr = sqliteExprDup(pOldExpr = p->a[i].pExpr);
     if( pOldExpr->span.z!=0 && pNewExpr ){
@@ -278,6 +282,8 @@ ExprList *sqliteExprListAppend(ExprList *pList, Expr *pExpr, Token *pName){
 void sqliteExprListDelete(ExprList *pList){
   int i;
   if( pList==0 ) return;
+  assert( pList->a!=0 || (pList->nExpr==0 && pList->nAlloc==0) );
+  assert( pList->nExpr<=pList->nAlloc );
   for(i=0; i<pList->nExpr; i++){
     sqliteExprDelete(pList->a[i].pExpr);
     sqliteFree(pList->a[i].zName);
@@ -1163,7 +1169,7 @@ void sqliteExprCode(Parse *pParse, Expr *pExpr){
       sqliteExprCode(pParse, pExpr->pLeft);
       addr = sqliteVdbeCurrentAddr(v);
       sqliteVdbeAddOp(v, OP_NotNull, -1, addr+4);
-      sqliteVdbeAddOp(v, OP_Pop, 1, 0);
+      sqliteVdbeAddOp(v, OP_Pop, 2, 0);
       sqliteVdbeAddOp(v, OP_String, 0, 0);
       sqliteVdbeAddOp(v, OP_Goto, 0, addr+6);
       if( pExpr->pSelect ){

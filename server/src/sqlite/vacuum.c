@@ -239,6 +239,9 @@ int sqliteRunVacuum(char **pzErrMsg, sqlite *db){
        (char*)0);
     return SQLITE_ERROR;
   }
+  if( db->flags & SQLITE_Interrupt ){
+    return SQLITE_INTERRUPT;
+  }
   memset(&sVac, 0, sizeof(sVac));
 
   /* Get the full pathname of the database file and create two
@@ -256,7 +259,7 @@ int sqliteRunVacuum(char **pzErrMsg, sqlite *db){
   strcpy(zTemp, zFilename);
   for(i=0; i<10; i++){
     zTemp[nFilename] = '-';
-    randomName(&zTemp[nFilename+1]);
+    randomName((unsigned char*)&zTemp[nFilename+1]);
     if( !sqliteOsFileExists(zTemp) ) break;
   }
   if( i>=10 ){
@@ -308,13 +311,17 @@ end_of_vacuum:
        zErrMsg, (char*)0);
   }
   sqlite_exec(db, "ROLLBACK", 0, 0, 0);
+  if( (dbNew && (dbNew->flags & SQLITE_Interrupt)) 
+         || (db->flags & SQLITE_Interrupt) ){
+    rc = SQLITE_INTERRUPT;
+  }
   if( dbNew ) sqlite_close(dbNew);
   sqliteOsDelete(zTemp);
   sqliteFree(zTemp);
   sqliteFree(sVac.s1.z);
   sqliteFree(sVac.s2.z);
   if( zErrMsg ) sqlite_freemem(zErrMsg);
-  if( rc==SQLITE_ABORT ) sVac.rc = SQLITE_ERROR;
+  if( rc==SQLITE_ABORT && sVac.rc!=SQLITE_INTERRUPT ) sVac.rc = SQLITE_ERROR;
   return sVac.rc;
 #endif
 }

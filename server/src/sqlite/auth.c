@@ -174,7 +174,7 @@ int sqliteAuthCheck(
   sqlite *db = pParse->db;
   int rc;
 
-  if( db->xAuth==0 ){
+  if( db->init.busy || db->xAuth==0 ){
     return SQLITE_OK;
   }
   rc = db->xAuth(db->pAuthArg, code, zArg1, zArg2, zArg3, pParse->zAuthContext);

@@ -59,6 +59,8 @@ void Animal_Domestic::registerInFactory()
 
 void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 {
+	Q_UNUSED( pTalker );
+	Q_UNUSED( comm );
 	return;
 }
 

@@ -66,7 +66,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Exploit bugfix for locked containers.
   - The status only shows the gold directly in your backpack now. (performance issues)
   - Fixed a vision range bug with walking.
-  - Fixed many compiler warnings for GCC 3.4 versions.
+  - Fixed many compiler warnings for GCC 3.4 versions, and general warnings.
+  - Updated SQLite to 2.8.15 and defaulted SQLite to encode data with UTF-8.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.

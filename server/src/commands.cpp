@@ -572,6 +572,7 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 void commandAllShow( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
 {
 	Q_UNUSED( command );
+	Q_UNUSED( args );
 
 	P_PLAYER player = socket->player();
 	if ( !player )

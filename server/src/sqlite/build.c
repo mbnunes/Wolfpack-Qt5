@@ -484,7 +484,6 @@ void sqliteStartTable(
       if( rc!=SQLITE_OK ){
         sqliteErrorMsg(pParse, "unable to get a write lock on "
           "the temporary database file");
-        pParse->nErr++;
         return;
       }
     }
@@ -1035,7 +1034,7 @@ void sqliteCreateView(
     sEnd.z += sEnd.n;
   }
   sEnd.n = 0;
-  n = ((int)sEnd.z) - (int)pBegin->z;
+  n = sEnd.z - pBegin->z;
   z = pBegin->z;
   while( n>0 && (z[n-1]==';' || isspace(z[n-1])) ){ n--; }
   sEnd.z = &z[n-1];
@@ -1538,7 +1537,7 @@ void sqliteCreateIndex(
   if( pName && !db->init.busy ){
     Index *pISameName;    /* Another index with the same name */
     Table *pTSameName;    /* A table with same name as the index */
-    zName = sqliteStrNDup(pName->z, pName->n);
+    zName = sqliteTableNameFromToken(pName);
     if( zName==0 ) goto exit_create_index;
     if( (pISameName = sqliteFindIndex(db, zName, 0))!=0 ){
       sqliteErrorMsg(pParse, "index %s already exists", zName);

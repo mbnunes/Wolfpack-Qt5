@@ -41,6 +41,8 @@
 
 void cUOTxShardList::addServer( unsigned short serverIndex, QString serverName, unsigned char serverFull, char serverTimeZone, unsigned int serverIp )
 {
+	Q_UNUSED( serverFull );
+	Q_UNUSED( serverTimeZone );
 	// Increase the server-count
 	// Offset: 4
 	setShort( 4, getShort( 4 ) + 1 );
@@ -83,13 +85,17 @@ void cUOTxCharTownList::compile( void )
 	( *this )[3] = characters.size(); // Char Count
 
 	for ( unsigned char c = 0; c < 5; ++c )
+	{
 		if ( c < characters.size() )
 		{
 			setAsciiString( 4 + ( c * 60 ), characters[c].left( 29 ).latin1(), 30 );
 			( *this )[4 + ( c * 60 ) + 30] = 0x00; // No Password (!)
 		}
 		else
+		{
 			( *this )[4 + ( c * 60 )] = 0x00; // "Pad-out" the char
+		}
+	}
 
 	// Town Count
 	int offset = 304;
@@ -284,11 +290,13 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	if ( pChar->isAtWar() )
 		setFlag( flag() | 0x40 );
 
+	/*
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-	/*if ( player && !player->socket() && !player->logoutTime() )
+	if ( player && !player->socket() && !player->logoutTime() )
 	{
 		setFlag( flag() | 0x80 );
-	}*/
+	}
+	*/
 
 	if ( pChar->isHidden() || pChar->isInvisible() )
 		setFlag( flag() | 0x80 );
@@ -347,11 +355,13 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	if ( pChar->isAtWar() && !pChar->isDead() )
 		setFlag( 0x40 );
 
+	/*
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-	/*if ( player && !player->socket() && !player->logoutTime() )
+	if ( player && !player->socket() && !player->logoutTime() )
 	{
 		setFlag( flag() | 0x80 );
-	}*/
+	}
+	*/
 
 	if ( pChar->isHidden() || pChar->isInvisible() )
 		setFlag( flag() | 0x80 );
@@ -434,11 +444,13 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	if ( pChar->isAtWar() )
 		setFlag( 0x40 );
 
+	/*
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-	/*if ( player && !player->socket() && !player->logoutTime() )
+	if ( player && !player->socket() && !player->logoutTime() )
 	{
 		setFlag( flag() | 0x80 );
-	}*/
+	}
+	*/
 
 	if ( pChar->isHidden() || pChar->isInvisible() )
 		setFlag( flag() | 0x80 );
@@ -581,15 +593,20 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	if ( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	/*if (pChar->isInvulnerable()) {
+	/*
+	if (pChar->isInvulnerable())
+	{
 		setFlag(flag() | 0x08);
-	}*/
+	}
+	*/
 
+	/*
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
-	/*if ( player && !player->socket() && !player->logoutTime() )
+	if ( player && !player->socket() && !player->logoutTime() )
 	{
 		setFlag( flag() | 0x80 );
-	}*/
+	}
+	*/
 
 	if ( pChar->isHidden() || pChar->isInvisible() )
 		setFlag( flag() | 0x80 );

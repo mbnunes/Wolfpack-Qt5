@@ -345,7 +345,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 
 		pos.map = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
 	}
-	
+
 	if (pos.isInternalMap()) {
 		PyErr_SetString( PyExc_RuntimeError, "Moving to the internal map using char.moveto() is not supported." );
 		return 0;
@@ -2533,6 +2533,7 @@ static PyObject* wpChar_callevent( wpChar* self, PyObject* args )
 */
 static PyObject* wpChar_getopponents( wpChar* self, PyObject* args )
 {
+	Q_UNUSED( args ); // Warning Fix
 	QPtrList<cFightInfo> &fights = self->pChar->fights();
 	PyObject *list = PyList_New( fights.count() );
 	unsigned int i = 0;

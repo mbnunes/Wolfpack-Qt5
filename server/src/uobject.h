@@ -63,32 +63,13 @@ class cBufferedReader;
 class cBufferedWriter;
 
 #pragma pack(1)
-class cUObject : public PersistentObject, public cDefinable, public cPythonScriptable
+class cUObject : public cDefinable, public cPythonScriptable, public PersistentObject
 {
-private:
-	uchar changed_ : 1;
-
 protected:
-	cCustomTags tags_;
-	uint tooltip_;
-	QString name_;
 	Coord pos_;
 	SERIAL serial_;
 	cMulti* multi_; // If we're in a Multi
-	cPythonScript** scriptChain; // NULL Terminated Array
-	cSpawnRegion *spawnregion_;
 
-	// Things for building the SQL string
-	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
-
-	enum eChanged
-	{
-		//		SAVE = 1,
-		TOOLTIP				= 2,
-		UNUSED				= 4,
-		UNUSED2				= 8
-	};
-	void changed( uint );
 public:
 	// Indicates whether the object was deleted already.
 	bool free : 1;
@@ -243,6 +224,25 @@ public:
 	// Check if any of the scripts assigned to this object can handle the given event,
 	// this returns true even if there is a global handler for the event.
 	virtual bool canHandleEvent( ePythonEvent event ) = 0;
+private:
+	uchar changed_ : 1;
+protected:
+	cCustomTags tags_;
+	uint tooltip_;
+	QString name_;
+	cPythonScript** scriptChain; // NULL Terminated Array
+	cSpawnRegion *spawnregion_;
+	// Things for building the SQL string
+	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
+
+	enum eChanged
+	{
+		//SAVE = 1,
+		TOOLTIP				= 2,
+		UNUSED				= 4,
+		UNUSED2				= 8
+	};
+	void changed( uint );
 };
 #pragma pack()
 

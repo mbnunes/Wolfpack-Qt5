@@ -74,6 +74,7 @@ cPlayer::cPlayer()
 
 cPlayer::cPlayer( const cPlayer& right )
 {
+	Q_UNUSED( right );
 }
 
 cPlayer::~cPlayer()
@@ -82,6 +83,7 @@ cPlayer::~cPlayer()
 
 cPlayer& cPlayer::operator=( const cPlayer& right )
 {
+	Q_UNUSED( right );
 	return *this;
 }
 
@@ -862,6 +864,11 @@ bool cPlayer::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 
 void cPlayer::addPet( P_NPC pPet, bool noOwnerChange )
 {
+	if ( noOwnerChange )
+	{
+		// Temp Warning Fix
+	}
+
 	if ( !pPet )
 		return;
 

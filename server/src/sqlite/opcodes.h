@@ -134,3 +134,5 @@
 #define OP_SetFirst                    133
 #define OP_SetNext                     134
 #define OP_Vacuum                      135
+#define OP_StackDepth                  136
+#define OP_StackReset                  137

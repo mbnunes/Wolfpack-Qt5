@@ -44,12 +44,6 @@ struct multiItem_st
 
 class MultiDefinition
 {
-protected:
-	QValueVector<multiItem_st> entries; // sorted list of items
-	int left, right, top, bottom;
-	unsigned int height, width;
-
-	QValueVector< QValueVector<multiItem_st> > grid;
 public:
 	MultiDefinition();
 
@@ -89,6 +83,17 @@ public:
 	bool inMulti( short x, short y );
 	signed char multiHeight( short x, short y, short z ) const;
 	QValueVector<multiItem_st> getEntries() const;
+protected:
+	unsigned int width;
+	unsigned int height;
+	int left;
+	int top;
+	int right;
+	int bottom;
+
+	QValueVector<multiItem_st> entries; // sorted list of items
+	QValueVector< QValueVector<multiItem_st> > grid;
+
 };
 
 class cMultiCache : public cComponent

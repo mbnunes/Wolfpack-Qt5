@@ -394,10 +394,13 @@ bool Preferences::formatState()
 
 QString Preferences::getGroupDoc( const QString& group )
 {
+	Q_UNUSED( group );
 	return QString::null;
 }
 
 QString Preferences::getEntryDoc( const QString& group, const QString& entry )
 {
+	Q_UNUSED( group );
+	Q_UNUSED( entry );
 	return QString::null;
 }

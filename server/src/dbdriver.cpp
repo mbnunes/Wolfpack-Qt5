@@ -473,6 +473,7 @@ void cMySQLDriver::lockTable( const QString& table )
 
 void cMySQLDriver::unlockTable( const QString& table )
 {
+	Q_UNUSED( table );
 	exec( QString( "UNLOCK TABLES;" ) );
 }
 
@@ -508,6 +509,7 @@ void cMySQLDriver::setActiveConnection( int id )
  */
 bool cMySQLDriver::tableExists( const QString& table )
 {
+	Q_UNUSED( table );
 	return true;
 }
 

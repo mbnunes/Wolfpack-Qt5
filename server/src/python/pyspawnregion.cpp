@@ -118,6 +118,7 @@ static PyObject* wpSpawnRegion_remove( wpSpawnRegion* self, PyObject* args )
 */
 static PyObject* wpSpawnRegion_respawn( wpSpawnRegion* self, PyObject* args )
 {
+	Q_UNUSED( args ); // Warning Fix
 	self->pRegion->reSpawn();
 	Py_RETURN_NONE;
 }
@@ -128,6 +129,7 @@ static PyObject* wpSpawnRegion_respawn( wpSpawnRegion* self, PyObject* args )
 */
 static PyObject* wpSpawnRegion_clear( wpSpawnRegion* self, PyObject* args )
 {
+	Q_UNUSED( args ); // Warning Fix
 	self->pRegion->deSpawn();
 	Py_RETURN_NONE;
 }

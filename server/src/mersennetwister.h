@@ -17,7 +17,7 @@
 
 // Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
 // Copyright (C) 2000 - 2003, Richard J. Wagner
-// All rights reserved. 						 
+// All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
@@ -30,8 +30,8 @@
 //  	notice, this list of conditions and the following disclaimer in the
 //  	documentation and/or other materials provided with the distribution.
 //
-//   3. The names of its contributors may not be used to endorse or promote 
-//  	products derived from this software without specific prior written 
+//   3. The names of its contributors may not be used to endorse or promote
+//  	products derived from this software without specific prior written
 //  	permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -269,7 +269,8 @@ inline void MTRand::seed( uint32 *const bigSeed, const uint32 seedLength )
 	initialize( 19650218UL );
 	register int i = 1;
 	register uint32 j = 0;
-	register int k = ( N > seedLength ? N : seedLength );
+	unsigned long int tempN = N;
+	register int k = ( tempN > seedLength ? tempN : seedLength );
 	for ( ; k; --k )
 	{
 		state[i] = state[i] ^ ( ( state[i - 1] ^ ( state[i - 1] >> 30 ) ) * 1664525UL );
