@@ -527,13 +527,9 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 bool BankerSpeech(cChar* pBanker, char* comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if( pBanker->npcaitype != 8 )	// not a banker
-	{
 		return 0;
-	}
 	if (pPlayer->dist(pBanker) > 12)
-	{
 		return 0;
-	}
 	if (strstr(comm,"BANK") || strstr(comm,"BALANCE") || strstr(comm,"WITHDRAW") || strstr(comm,"CHECK"))
 	{
 	    BankerAI->DoAI(s,DEREF_P_CHAR(pBanker),comm);
