@@ -349,14 +349,11 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 QString	WPDefManager::getRandomListEntry( QString ListSection )
 {
-	QDomElement* DefSection = this->getSection( WPDT_LIST, ListSection );
-
-	if( !DefSection->isNull() )
-	{
-		return DefSection->childNodes().item( RandomNum( 0, DefSection->childNodes().count()-1 ) ).nodeName();
-	}
+	QStringList list = this->getList( ListSection );
+	if( list.isEmpty() )
+		return QString();
 	else
-		return "";
+		return list[ RandomNum( 0, list.size()-1 ) ];
 }
 
 QStringList	WPDefManager::getList( QString ListSection )
@@ -369,7 +366,17 @@ QStringList	WPDefManager::getList( QString ListSection )
 		QDomNode childNode = DefSection->firstChild();
 		while( !childNode.isNull() )
 		{
-			list.push_back( childNode.nodeName() );
+			if( childNode.isElement() )
+			{
+				QDomElement childTag = childNode.toElement();
+				int mult = childTag.attribute( "mult" ).toInt();
+				int i = 0;
+				while( i <= mult )
+				{
+					list.push_back( childTag.nodeName() );
+					i++;
+				}
+			}
 			childNode = childNode.nextSibling();
 		}
 	}
