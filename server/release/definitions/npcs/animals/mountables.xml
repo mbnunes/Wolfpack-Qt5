@@ -521,7 +521,7 @@
 		<tactics><random min="188" max="225" /></tactics>
 		<magicresistance><random min="733" max="950" /></magicresistance>
 		<magery><random min="656" max="895" /></magery>
-		<evaluatingintel><random min="792 max="896" /></evaluatingintel>
+		<evaluatingintel><random min="792" max="896" /></evaluatingintel>
 		<meditation><random min="491" max="600" /></meditation>
 		<totame>951</totame>
 		<food>5</food>
