@@ -10,7 +10,7 @@
 
 	<!-- Towns -->
 	<!-- Britain -->
-	<location id="trammel trammel britain" category="Trammel\Towns\Britain\Center">1500,1630,10,1</location>
+	<location id="trammel britain" category="Trammel\Towns\Britain\Center">1500,1630,10,1</location>
 	<location id="trammel britain graveyard" category="Trammel\Towns\Britain\Graveyard">1384,1497,10,1</location>
 	<location id="trammel britain bank" category="Trammel\Towns\Britain\Bank">1430,1688,0,1</location>
 	<location id="trammel britain healer" category="Trammel\Towns\Britain\Healer">1474,1611,20,1</location>
