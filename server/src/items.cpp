@@ -173,7 +173,7 @@ void cItemBaseDefs::reset()
 }
 
 /*****************************************************************************
-  cItem member functions
+ * cItem member functions
  *****************************************************************************/
 
 // constructor
@@ -248,15 +248,15 @@ void cItem::toBackpack( P_CHAR pChar )
 	update();
 }
 
-///////////////
-// Name: ReduceAmount
-// history: by Duke, 4.06.2000
-//		added P_ITEM interface Duke, 3.10.2000
-//		made it the first member of cItem Duke, 23.12.2000
-// Purpose: reduces the given item's amount by 'amt' and deletes it if
-//		necessary and returns 0. If the request could not be fully satisfied,
-//		the remainder is returned
-//
+/*
+ * Name: ReduceAmount
+ * History: by Duke, 4.06.2000
+ * 		added P_ITEM interface Duke, 3.10.2000
+ * 		made it the first member of cItem Duke, 23.12.2000
+ * Purpose: reduces the given item's amount by 'amt' and deletes it if
+ * 		necessary and returns 0. If the request could not be fully satisfied,
+ * 		the remainder is returned
+ */
 long cItem::reduceAmount( const short amt )
 {
 	UINT16 rest = 0;
@@ -292,18 +292,19 @@ void cItem::MoveTo( int newx, int newy, signed char newz )
 	moveTo( Coord_cl( newx, newy, newz, pos().z, pos().map ) );
 }
 
-// author: LB purpose: returns the type of pack
-// to handle its x,y coord system corretly.
-// interpretation of the result:
-// valid x,y ranges depending on type:
-// type -1 : no pack
-// type  1 : y-range 50  .. 100
-// type  2 : y-range 30  .. 80
-// type  3 : y-range 100 .. 150
-// type  4 : y-range 40  .. 140
-// x-range 18 .. 118 for 1,2,3
-//  	   40 .. 140 for 4
-//
+/*
+ * Author: LB purpose: returns the type of pack
+ * to handle its x,y coord system corretly.
+ * interpretation of the result:
+ * valid x,y ranges depending on type:
+ * type -1 : no pack
+ * type  1 : y-range 50  .. 100
+ * type  2 : y-range 30  .. 80
+ * type  3 : y-range 100 .. 150
+ * type  4 : y-range 40  .. 140
+ * x-range 18 .. 118 for 1,2,3
+ *  	   40 .. 140 for 4
+ */
 short cItem::GetContGumpType()
 {
 	switch ( id() )
@@ -501,13 +502,13 @@ int cItem::CountItems( short ID, short col ) const
 	return ContainerCountItems( serial(), ID, col );
 }
 
-///////////////////////
-// Name: DeleteAmount
-// history: DeleQuan() by Duke, 16.11.2000
-//		moved to cItem (Duke,27.3.2001)
-// Purpose: recurses through the container given by serial and deletes items of
-//		the given id and color(if given) until the given amount is reached
-//
+/*
+ * Name: DeleteAmount
+ * History: DeleQuan() by Duke, 16.11.2000
+ * 		moved to cItem (Duke,27.3.2001)
+ * Purpose: recurses through the container given by serial and deletes items of
+ * 		the given id and color(if given) until the given amount is reached
+ */
 int cItem::DeleteAmount( int amount, unsigned short _id, unsigned short _color )
 {
 	int rest = amount;
@@ -1794,7 +1795,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 		return 0;
 	}
 	/*
-		\rproperty container The <object id="CHAR">CHAR</object> or
+		\property container The <object id="CHAR">CHAR</object> or
 			<object id="ITEM">ITEM</object> this item is contained in. See the layer property for
 			the layer this item is equipped on if this is a character. This property may also be None.
 	*/
@@ -2079,9 +2080,9 @@ stError* cItem::getProperty( const QString& name, cVariant& value )
 		GET_PROPERTY( "allowmeditation", priv_ & 0x10 ? 1 : 0 )
 	else
 		GET_PROPERTY( "twohanded", priv_ & 0x20 ? 1 : 0 )
-		/*
+	/*
 		\rproperty item.corpse Specifies whether this item is a corpse or not.
-		*/
+	*/
 	else
 		GET_PROPERTY( "corpse", corpse() )
 	else

@@ -734,13 +734,13 @@ static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 {
 	Q_UNUSED(args);
-	/*	
+	/*
 	if( self->pItem->free )
 	{
 		Py_INCREF( Py_None );
 		return Py_None;
 	}
-	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) 
+	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) )
 	*/
 	Py_INCREF( Py_None );
 	return Py_None;
@@ -1150,6 +1150,9 @@ static PyMethodDef wpItemMethods[] =
 static PyObject* wpItem_getAttr( wpItem* self, char* name )
 {
 	// Special Python things
+	/*
+		\rproperty item.content A list of all items inside of the container.
+	*/
 	if ( !strcmp( "content", name ) )
 	{
 		cItem::ContainerContent content = self->pItem->content();
@@ -1158,6 +1161,9 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 			PyList_SetItem( list, i, PyGetItemObject( content[i] ) );
 		return list;
 	}
+	/*
+		\property item.tags A list of all tag names the object currently has.
+	*/
 	else if ( !strcmp( "tags", name ) )
 	{
 		// Return a list with the keynames
@@ -1174,11 +1180,11 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 		}
 
 		return list;
-		/*
-				\rproperty item.objects If the item is a multi object, this is a list of objects that are within
-				the multi. If it's not a multi, this property is None.
-			*/
 	}
+	/*
+		\rproperty item.objects If the item is a multi object, this is a list of objects that are within
+		the multi. If it's not a multi, this property is None.
+	*/
 	else if ( !strcmp( "objects", name ) )
 	{
 		cMulti* multi = dynamic_cast<cMulti*>( self->pItem );
@@ -1199,6 +1205,9 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 		}
 		return tuple;
 	}
+	/*
+		\rproperty item.events Returns a list of all event names the object has.
+	*/
 	else if ( !strcmp( "events", name ) )
 	{
 		QStringList events = QStringList::split( ",", self->pItem->eventList() );
@@ -1280,6 +1289,9 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 				self->pItem->addEvent( script );
 		}
 	}
+	/*
+		\rproperty item.container Returns the serial of the container this item is in. Returns 0 if no container.
+	*/
 	else if ( !strcmp( "container", name ) )
 	{
 		if ( checkWpItem( value ) )
