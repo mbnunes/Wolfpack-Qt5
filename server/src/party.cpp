@@ -340,7 +340,7 @@ void cParty::handlePacket(cUOSocket *socket, cUOPacket *packet) {
 			if (player->party()) {				
 				P_PLAYER target = dynamic_cast<P_PLAYER>(World::instance()->findChar(packet->getInt(6)));
 				if (target) {
-					socket->log(LOG_TRACE, QString("Told '%1' in party '%2'.\n").arg(target->account()->login(), message));
+					socket->log(LOG_TRACE, QString("Told '%1' in party '%2'.\n").arg(target->account()->login()).arg(message));
 					QString message = packet->getUnicodeString(10, packet->size() - 10);
 					player->party()->send(player, target, message);
 				}
