@@ -29,7 +29,7 @@
 			1: Monster
 			2: Sea
 			3: Animal
-			4: Human
+			4: Human / Equipment
 			
 		MOUNTID:
 			The id of the item that should be equipped when this body is mounted.
@@ -201,7 +201,6 @@
 	<body id="166" basesound="268" figurine="0x25d9" type="1" /> <!-- Golden Elemental -->
 	<body id="167" basesound="163" figurine="0x211e" type="3" /> <!-- Brown Bear -->
 	<body id="168" basesound="0x3bf" figurine="0x259f" type="1" /> <!-- TODO: Unknown -->
-	<body id="169" mountid="16021" /> <!-- Beetle -->
 	<body id="170" basesound="0x3f3" figurine="0x20f6" type="3" mountid="16043" /> <!-- Etheral Llama -->
 	<body id="171" basesound="0xb7" figurine="0x25b4" soundmode="2" type="3" mountid="16044" /> <!-- Etheral Ostard -->
 	<body id="172" figurine="0x20d6" flags="0x1" type="1" /> <!-- Rikktor -->
@@ -273,28 +272,29 @@
 	<!-- <body id="210" mountid="16035" /> -->
 	
 	<!-- Samurai Empire -->
-	<body id="196" figurine="0x2769" /> <!-- Gouzen Ha -->
-	<body id="199" figurine="0x2766" /> <!-- Denkou Yajuu -->
-	<body id="240" figurine="0x276b" deathsound="0x508" hitsound="0x509" idlesound="0x50a" attacksound="0x50b" gethitsound="0x50c" /> <!-- Kappa -->
-	<body id="241" figurine="0x276d" deathsound="0x4e0" hitsound="0x4e1" idlesound="0x4e2" attacksound="0x4e3" gethitsound="0x4e4" /> <!-- Oni -->
-	<body id="242" figurine="0x2765" deathsound="0x4f0" hitsound="0x4f1" idlesound="0x4f2" attacksound="0x4f3" gethitsound="0x4f4" /> <!-- Deathwatch Beetle -->
-	<body id="243" figurine="0x276a" type="3" mountid="16020" deathsound="0x4fb" hitsound="0x4fc" idlesound="0x4fd" attacksound="0x4fe" gethitsound="0x4ff" /> <!-- Hiryu -->
-	<body id="244" figurine="0x276f" deathsound="0x4e5" hitsound="0x4e6" idlesound="0x4e7" attacksound="0x4e8" gethitsound="0x4e9" /> <!-- Rune Beetle -->
-	<body id="245" figurine="0x2772" /> <!-- Yomotsu -->
-	<body id="246" figurine="0x2763" deathsound="0x4db" hitsound="0x4dc" idlesound="0x4dd" attacksound="0x4de" gethitsound="0x4df" /> <!-- Bake Kitsune -->
-	<body id="247" figurine="0x2767" /> <!-- Fan Dancer -->
-	<body id="248" figurine="0x2768" deathsound="0x4f5" hitsound="0x4f6" idlesound="0x4f7" attacksound="0x4f9" gethitsound="0x4fa" /> <!-- Gamam -->
+	<body id="169" type="3" basesound="0x2bd" mountid="16021" figurine="0x281c" /> <!-- FireBeetle (color 1161) -->
+	<body id="196" type="1" figurine="0x2769" /> <!-- Gouzen Ha -->
+	<body id="199" type="1" figurine="0x2766" /> <!-- Denkou Yajuu -->
+	<body id="240" type="1" figurine="0x276b" deathsound="0x508" hitsound="0x509" idlesound="0x50a" attacksound="0x50b" gethitsound="0x50c" /> <!-- Kappa -->
+	<body id="241" type="1" figurine="0x276d" deathsound="0x4e0" hitsound="0x4e1" idlesound="0x4e2" attacksound="0x4e3" gethitsound="0x4e4" /> <!-- Oni -->
+	<body id="242" type="1" figurine="0x2765" deathsound="0x4f0" hitsound="0x4f1" idlesound="0x4f2" attacksound="0x4f3" gethitsound="0x4f4" /> <!-- Deathwatch Beetle -->
+	<body id="243" type="3" figurine="0x276a" type="1" mountid="16020" deathsound="0x4fb" hitsound="0x4fc" idlesound="0x4fd" attacksound="0x4fe" gethitsound="0x4ff" /> <!-- Hiryu -->
+	<body id="244" type="1" figurine="0x276f" deathsound="0x4e5" hitsound="0x4e6" idlesound="0x4e7" attacksound="0x4e8" gethitsound="0x4e9" /> <!-- Rune Beetle -->
+	<body id="245" type="1" figurine="0x281b" /> <!-- Yomotsu -->
+	<body id="246" type="3" figurine="0x2763" deathsound="0x4db" hitsound="0x4dc" idlesound="0x4dd" attacksound="0x4de" gethitsound="0x4df" /> <!-- Bake Kitsune -->
+	<body id="247" type="1" figurine="0x2767" /> <!-- Fan Dancer -->
+	<body id="248" type="3" figurine="0x2768" deathsound="0x4f5" hitsound="0x4f6" idlesound="0x4f7" attacksound="0x4f9" gethitsound="0x4fa" /> <!-- Gamam -->
 	<!-- Additional idle sound for the Gamam: 0x4f8 -->
 	
-	<body id="249" figurine="0x2771" deathsound="0x4ea" hitsound="0x4ec" idlesound="0x4ed" attacksound="0x4ee" gethitsound="0x4ef" /> <!-- Yamandon -->
+	<body id="249" type="1" figurine="0x2771" deathsound="0x4ea" hitsound="0x4ec" idlesound="0x4ed" attacksound="0x4ee" gethitsound="0x4ef" /> <!-- Yamandon -->
 	<!-- Additional death sound for the Yamandon: 0x4eb -->
 	
-	<body id="250" figurine="0x2770" deathsound="0x52a" hitsound="0x52b" idlesound="0x52c" attacksound="0x52d" gethitsound="0x52e" /> <!-- Tsuki Wolf -->
-	<body id="251" figurine="0x276e" deathsound="0x515" hitsound="0x516" idlesound="0x517" attacksound="0x518" gethitsound="0x519" /> <!-- Revenant Lion -->
-	<body id="252" figurine="0x276c" /> <!-- Lady of the Snow -->
-	<body id="253" figurine="0x2773" /> <!-- Yomotsu Priest -->
-	<body id="254" figurine="0x2764" deathsound="0x4d6" hitsound="0x4d7" idlesound="0x4d8" attacksound="0x4d9" gethitsound="0x4da" /> <!-- Crane -->
-	<body id="255" figurine="0x2772" /> <!-- Yomotsu Elder -->
+	<body id="250" type="1" figurine="0x2770" deathsound="0x52a" hitsound="0x52b" idlesound="0x52c" attacksound="0x52d" gethitsound="0x52e" /> <!-- Tsuki Wolf -->
+	<body id="251" type="1" figurine="0x276e" deathsound="0x515" hitsound="0x516" idlesound="0x517" attacksound="0x518" gethitsound="0x519" /> <!-- Revenant Lion -->
+	<body id="252" type="1" figurine="0x276c" /> <!-- Lady of the Snow -->
+	<body id="253" type="1" figurine="0x2773" /> <!-- Yomotsu Priest -->
+	<body id="254" type="3" figurine="0x2764" deathsound="0x4d6" hitsound="0x4d7" idlesound="0x4d8" attacksound="0x4d9" gethitsound="0x4da" /> <!-- Crane -->
+	<body id="255" type="1" figurine="0x2772" /> <!-- Yomotsu Elder -->
 		
 	<body id="290" basesound="0xc4" figurine="0x2101" type="3" /> <!-- TODO: Unknown -->
 	<body id="291" basesound="168" figurine="0x2126" type="3" /> <!-- Packhorse -->
@@ -353,14 +353,16 @@
 	<!-- 2fd type=1 -->
 	<!-- 2fe type=1 -->
 	<!-- 2ff type=1 -->
-	<!-- 300 type=1 -->
+
+	<body id="300" basesound="0x116 figurine="0x2620" type="1"  /> <!-- Crystal Elemental -->
+
 	<!-- 301 type=1 -->
 	<!-- 302 type=1 -->
 	<!-- 303 type=1 -->
 	<!-- 304 type=1 -->
 	<!-- 305 type=1 -->
 	<!-- 306 type=1 -->
-	
+		
 	<body id="775" figurine="0x20e8" type="1" deathsound="450" hitsound="448" gethitsound="449" idlesound="447" /> <!-- Plague Beast -->
 	<body id="776" basesound="925" figurine="0x212f" type="1" /> <!-- Horde Minion -->
 	<body id="777" basesound="0x456" figurine="0x25d5" type="1" /> <!-- Doppelganger -->
