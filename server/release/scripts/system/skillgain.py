@@ -304,7 +304,7 @@ def onLoad():
 					SKILLS[i][SKILL_TITLE] = child.value
 				elif child.name == 'defname':
 					SKILLS[i][SKILL_DEFNAME] = child.value
-				elif child.name == 'gainfactor':
+				elif child.name == 'gainchance':
 					SKILLS[i][SKILL_GAINFACTOR] = float(child.value)
 				elif child.name == 'strchance':
 					SKILLS[i][SKILL_STRCHANCE] = float(child.value)
