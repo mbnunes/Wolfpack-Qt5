@@ -486,6 +486,12 @@ class CraftItemAction(MakeItemAction):
 				console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % \
 					(self.parent.subactions.index(self), self.parent.id))
 			else:
+				item.decay = 1 # Should always decay
+				item.movable = 1 # Should always be movable
+	
+				if self.amount > 0:
+					item.amount = self.amount			
+			
 				self.applyproperties(player, arguments, item, exceptional)
 
 				if exceptional:
@@ -499,12 +505,6 @@ class CraftItemAction(MakeItemAction):
 				else:
 					player.log(LOG_MESSAGE, "Crafted item %s (0x%x). Amount: %u.\n" % (self.definition, item.serial, item.amount))
 					self.success(player, arguments, item, 0, 0)					
-
-			item.decay = 1 # Should always decay
-			item.movable = 1 # Should always be movable
-
-			if self.amount > 0:
-				item.amount = self.amount
 
 			if not tobackpack(item, player):
 				item.update()
