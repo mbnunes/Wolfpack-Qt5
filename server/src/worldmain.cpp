@@ -844,6 +844,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 			}
 		}
 	}
+	clConsole.send(" Done.\n");
 	archive.close();
 
 	// Load Chars
@@ -947,6 +948,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		}
 		setcharflag(pc);//AntiChrist
 	}
+	clConsole.send(" Done.\n");
 	archive.close();
 }
 
