@@ -41,24 +41,28 @@
 
 	<!-- Gray Horses -->
 	<npc id="horse_1" inherit="horse">
+		<baseid>horse</baseid>
 		<id>226</id>
 		<category>Animals\Mounts\Horse 1 (Gray)</category>
 	</npc>
 
 	<!-- Gray Brown Horses -->
 	<npc id="horse_2" inherit="horse">
+		<baseid>horse</baseid>
 		<id>200</id>
 		<category>Animals\Mounts\Horse 2 (Gray/Brown)</category>
 	</npc>
 
 	<!-- Light Brown Horses -->
 	<npc id="horse_3" inherit="horse">
+		<baseid>horse</baseid>
 		<id>228</id>
 		<category>Animals\Mounts\Horse 3 (Light Brown)</category>
 	</npc>
 
 	<!-- Brown Horses -->
 	<npc id="horse_4" inherit="horse">
+		<baseid>horse</baseid>
 		<id>204</id>
 		<category>Animals\Mounts\Horse 4 (Brown)</category>
 	</npc>
