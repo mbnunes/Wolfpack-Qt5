@@ -316,10 +316,6 @@ SOURCE=.\speech.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\sregions.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\srvparams.cpp
 # End Source File
 # Begin Source File
@@ -625,10 +621,6 @@ SOURCE=.\spawnregions.h
 # Begin Source File
 
 SOURCE=.\speech.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\sregions.h
 # End Source File
 # Begin Source File
 
