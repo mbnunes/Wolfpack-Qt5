@@ -574,8 +574,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			}
 			else
 			{
-				pc_currchar->inputmode = cChar::enRenameRune;
-				pc_currchar->inputitem = pi->serial;
+				pc_currchar->setInputMode(cChar::enRenameRune);
+				pc_currchar->setInputItem(pi->serial);
 				sysmessage(s, "Enter new rune name.");
 			}
 			return;// case 50 (rune)
@@ -612,7 +612,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			Items->DeleItem(pi);
 			return;
 		case 186: // rename deed! -- eagle 1/29/00
-			pc_currchar->inputitem = pi->serial;
+			pc_currchar->setInputItem(pi->serial);
 			sysmessage(s, "Enter your new name.");
 			Items->DeleItem(pi);
 			return;// rename deed! -- eagle 1/29/00

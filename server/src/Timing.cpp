@@ -125,7 +125,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 		}
 
 		// Health regeneration
-		if( pc->regen <= currenttime )
+		if( pc->regen() <= currenttime )
 		{
 			UINT32 interval = SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
 
@@ -134,7 +134,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 			{
 				for( UINT16 c = 0; c < pc->st() + 1; ++c )
 				{
-					if( pc->regen + ( c * interval ) <= currenttime && pc->hp() <= pc->st() )
+					if( pc->regen() + ( c * interval ) <= currenttime && pc->hp() <= pc->st() )
 					{
 						if( pc->skill( HEALING ) < 500 )
 //							pc->hp++;
@@ -161,16 +161,16 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 				pc->updateHealth();
 			}
 
-			pc->regen = currenttime + interval;
+			pc->setRegen( currenttime + interval );
 		}
 
 		// Stamina regeneration
-		if( pc->regen2 <= currenttime )
+		if( pc->regen2() <= currenttime )
 		{
 			UINT32 interval = SrvParams->staminarate()*MY_CLOCKS_PER_SEC;
 			for( UINT16 c = 0; c < pc->effDex() + 1; ++c )
 			{
-				if (pc->regen2 + (c*interval) <= currenttime && pc->stm() <= pc->effDex())
+				if (pc->regen2() + (c*interval) <= currenttime && pc->stm() <= pc->effDex())
 				{
 //					pc->stm++;
 					tempshort = pc->stm();
@@ -183,17 +183,17 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 					pc->socket()->updateStamina();
 				}
 			}
-			pc->regen2 = currenttime + interval;			
+			pc->setRegen2( currenttime + interval );			
 		}
 
 		// OSI Style Mana regeneration by blackwind
 		// if (pc->in>pc->mn)  this leads to the 'mana not subtracted' bug (Duke)
-		if( pc->regen3 <= currenttime )
+		if( pc->regen3() <= currenttime )
 		{
 			unsigned int interval = SrvParams->manarate()*MY_CLOCKS_PER_SEC;
 			for( UINT16 c = 0; c < pc->in() + 1 ; ++c )
 			{
-				if (pc->regen3 + (c*interval) <= currenttime && pc->mn() <= pc->in())
+				if (pc->regen3() + (c*interval) <= currenttime && pc->mn() <= pc->in())
 				{
 //				pc->mn++;
 				tempshort = pc->mn();
@@ -224,13 +224,13 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 				int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill(MEDITATION) + 1)/10) + ((pc->in() + 1) / 2)) / ratio));
 				if (pc->med())
 				{
-					pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC);
+					pc->setRegen3( currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC) );
 				}
 				else
-					pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs)* MY_CLOCKS_PER_SEC);
+					pc->setRegen3( currenttime + ((armorhandicap + charsmeditsecs)* MY_CLOCKS_PER_SEC) );
 			}
 			else 
-				pc->regen3 = currenttime + interval;
+				pc->setRegen3( currenttime + interval );
 			}
 			// end Mana regeneration
 			
@@ -267,8 +267,9 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	
 	if( !pc->dead() && pc->swingtarg() == -1 )
 		Combat::combat( pc );
-	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
+	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout() <= currenttime ) )
 		Combat::checkandhit( pc );
+
 
 	// Guess it was taken out because of traffic-concerns ?
 /*	if (wtype==1 && raindroptime<=currenttime && !noweather[s]) // implment. of xuri's raindrop idea, LB
@@ -540,10 +541,12 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	Movement->NpcMovement( currenttime, pc );
     setcharflag( pc );
 
+
 	if( !pc->dead() && pc->swingtarg() == -1 && pc->war() )
 		Combat::combat( pc );
-	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
+	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout() <= currenttime ) )
 		Combat::checkandhit( pc );
+
 
 	Magic->CheckFieldEffects2( currenttime, pc, 0 );
 

@@ -191,16 +191,16 @@ void cChar::Init(bool ser)
 	this->setWeight( 0 );
 	this->def_ = 0; // Intrinsic defense
 	this->war_ = false; // War Mode
-	this->targ=INVALID_SERIAL; // Current combat target
-	this->timeout=0; // Combat timeout (For hitting)
-	this->timeout2=0;
-	this->regen=0;
-	this->regen2=0;
-	this->regen3=0;//Regeneration times for mana, stamin, and str
-	this->inputmode = enNone;
-	this->inputitem = INVALID_SERIAL;
-	this->attacker = INVALID_SERIAL; // Character's serial who attacked this character
-	this->npcmovetime=0; // Next time npc will walk
+	this->targ_=INVALID_SERIAL; // Current combat target
+	this->timeout_=0; // Combat timeout (For hitting)
+	this->timeout2_=0;
+	this->regen_=0;
+	this->regen2_=0;
+	this->regen3_=0;//Regeneration times for mana, stamin, and str
+	this->inputmode_ = enNone;
+	this->inputitem_ = INVALID_SERIAL;
+	this->attacker_ = INVALID_SERIAL; // Character's serial who attacked this character
+	this->npcmovetime_ = 0; // Next time npc will walk
 	this->npcWander=0; // NPC Wander Mode
 	this->oldnpcWander=0; // Used for fleeing npcs
 	this->ftarg = INVALID_SERIAL; // NPC Follow Target
@@ -422,11 +422,11 @@ void cChar::setNextMoveTime(short tamediv)
 //	if ( && this->tamed) return;	// MUST be nonzero
 	// let's let them move once in a while ;)
 	if(this->tamed())
-		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
+		this->npcmovetime_=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
 	else if(this->war_)
-		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
+		this->npcmovetime_=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
 	else
-		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC)));
+		this->npcmovetime_=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC)));
 }
 
 ///////////////////////
@@ -436,10 +436,10 @@ void cChar::setNextMoveTime(short tamediv)
 //
 void cChar::fight(P_CHAR other)
 {
-	this->targ = other->serial;
+	this->targ_ = other->serial;
 	this->unhide();
 	this->disturbMed();	// Meditation
-	this->attacker = other->serial;
+	this->attacker_ = other->serial;
 	if (this->isNpc())
 	{
 
@@ -2130,11 +2130,13 @@ void cChar::kill()
 
 	QString murderer( "" );
 
-	P_CHAR pAttacker = FindCharBySerial( attacker );
+
+	P_CHAR pAttacker = FindCharBySerial( attacker_ );
 	if( pAttacker )
 	{
-		pAttacker->targ = INVALID_SERIAL;
+		pAttacker->setTarg(INVALID_SERIAL);
 		murderer = pAttacker->name.c_str();
+
 	}
 
 	// We do know our murderer here (or if there is none it's null)
@@ -2149,7 +2151,7 @@ void cChar::kill()
 	for( iter_char.Begin(); !iter_char.atEnd(); iter_char++ )
 	{
 		P_CHAR pc_t = iter_char.GetData();
-		if( pc_t->targ == serial && !pc_t->free )
+		if( pc_t->targ() == serial && !pc_t->free )
 		{
 			if( pc_t->npcaitype() == 4 )
 			{
@@ -2159,17 +2161,17 @@ void cChar::kill()
 				pc_t->talk( tr( "Thou have suffered thy punishment, scoundrel." ), -1, 0, true );
 			}
 
-			pc_t->targ = INVALID_SERIAL;
-			pc_t->timeout = 0;
+			pc_t->setTarg( INVALID_SERIAL );
+			pc_t->setTimeOut(0);
 
-			if( pc_t->attacker != INVALID_SERIAL )
+			if( pc_t->attacker() != INVALID_SERIAL )
 			{
-				P_CHAR pc_attacker = FindCharBySerial(pc_t->attacker);
+				P_CHAR pc_attacker = FindCharBySerial(pc_t->attacker());
 				pc_attacker->resetAttackFirst();
-				pc_attacker->attacker = INVALID_SERIAL;
+				pc_attacker->setAttacker(INVALID_SERIAL);
 			}
 
-			pc_t->attacker = INVALID_SERIAL;
+			pc_t->setAttacker(INVALID_SERIAL);
 			pc_t->resetAttackFirst();
 
 			if( pc_t->isPlayer() && !pc_t->inGuardedArea() )
@@ -2491,7 +2493,7 @@ void cChar::resurrect()
 	hp_ = QMAX( 1, (UINT16)( 0.1 * st_ ) );
 	stm_ = (UINT16)( 0.1 * effDex() );
 	mn_ = (UINT16)( 0.1 * in_ );
-	attacker = INVALID_SERIAL;
+	attacker_ = INVALID_SERIAL;
 	resetAttackFirst();
 	war_ = false;
 
@@ -2790,7 +2792,7 @@ void cChar::mount( P_CHAR pMount )
 		pMount->removeFromView( true );
 		
 		pMount->setWar( false );
-		pMount->attacker = INVALID_SERIAL;
+		pMount->setAttacker(INVALID_SERIAL);
 		
 		// set timer
 		pMount->setTime_unused( 0 );
@@ -3021,7 +3023,7 @@ void cChar::attackTarget( P_CHAR defender )
 	int i;
 	unsigned int cdist=0 ;
 
-	P_CHAR target = FindCharBySerial( defender->targ );
+	P_CHAR target = FindCharBySerial( defender->targ() );
 	if( target )
 		cdist = defender->pos.distance( target->pos );
 	else 
@@ -3029,12 +3031,12 @@ void cChar::attackTarget( P_CHAR defender )
 
 	if( cdist > defender->pos.distance( pos ) )
 	{
-		defender->targ = serial;
-		defender->attacker = serial;
+		defender->setTarg( serial );
+		defender->setAttacker(serial);
 		defender->setAttackFirst();
 	}
 
-	target = FindCharBySerial( targ );
+	target = FindCharBySerial( targ_ );
 	if( target )
 		cdist = pos.distance( target->pos );
 	else 
@@ -3043,8 +3045,8 @@ void cChar::attackTarget( P_CHAR defender )
 	if( ( cdist > defender->pos.distance( pos ) ) &&
 		( !(npcaitype() == 4) || target ) )
 	{
-		targ = defender->serial;
-		attacker = defender->serial;
+		targ_ = defender->serial;
+		attacker_ = defender->serial;
 		resetAttackFirst();
 	}
 

@@ -767,7 +767,7 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 	}
 
 	// Don't regenerate stamina while running
-	pChar->regen2 = uiCurrentTime + ( SrvParams->staminarate() * MY_CLOCKS_PER_SEC );
+	pChar->setRegen2( uiCurrentTime + ( SrvParams->staminarate() * MY_CLOCKS_PER_SEC ) );
 	pChar->setRunning( pChar->running() + 1 );
 	
 	// If we're running on our feet, check for stamina loss
@@ -783,8 +783,8 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 		socket->updateStamina();
 	}
 
-	if( pChar->war() && pChar->targ != INVALID_SERIAL )
-		pChar->timeout = uiCurrentTime + ( MY_CLOCKS_PER_SEC * 2 ); // 2 Second timeout
+	if( pChar->war() && pChar->targ() != INVALID_SERIAL )
+		pChar->setTimeOut(uiCurrentTime + ( MY_CLOCKS_PER_SEC * 2 ) ); // 2 Second timeout
 }
 
 void cMovement::checkStealth( P_CHAR pChar )
@@ -1385,13 +1385,13 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 {
     int dnpctime=0;
-    if( !pc_i->isNpc() || ( pc_i->npcmovetime > currenttime ) )
+    if( !pc_i->isNpc() || ( pc_i->npcmovetime() > currenttime ) )
 		return;
 
 	// If we are fighting and not fleeing move toward our target if neccesary
 	if( pc_i->war() && pc_i->npcWander != 5 )
     {
-        P_CHAR pc_attacker = FindCharBySerial( pc_i->targ ); // This was wrong - we want to move towards our target not our attacker
+        P_CHAR pc_attacker = FindCharBySerial( pc_i->targ() ); // This was wrong - we want to move towards our target not our attacker
 
         if( pc_attacker )
         {
@@ -1416,7 +1416,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 			}
 	    }
 		else
-			pc_i->targ = INVALID_SERIAL;
+			pc_i->setTarg( INVALID_SERIAL );
 		return;
     }
 
@@ -1477,7 +1477,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
         break;
     case 5: // Flee
 		{
-			P_CHAR pc_k = FindCharBySerial(pc_i->targ);
+			P_CHAR pc_k = FindCharBySerial(pc_i->targ());
 			if (pc_k == NULL) return;
 			
 			if ( chardist(pc_i, pc_k) < P_PF_MFD )

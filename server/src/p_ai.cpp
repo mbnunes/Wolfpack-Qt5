@@ -140,7 +140,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			}
 			break;
 		case 2 : // Monsters, PK's - (stupid NPCs)
-			if( pc_i->targ == INVALID_SERIAL && pc_i->war() )
+			if( pc_i->targ() == INVALID_SERIAL && pc_i->war() )
 			{
 				pc_i->toggleCombat();
 			}
@@ -491,7 +491,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (pc->Owns(pc_i))
 						{
-							P_CHAR pc_target = FindCharBySerial(pc->attacker);
+							P_CHAR pc_target = FindCharBySerial(pc->attacker());
 							pc_i->attackTarget( pc_target );
 							return;
 						}
@@ -575,7 +575,7 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 
 void cCharStuff::cDragonAI::Breath(P_CHAR pc_i, int currenttime)
 {
-	Magic->PFireballTarget(pc_i, FindCharBySerial(pc_i->targ), 20);
+	Magic->PFireballTarget(pc_i, FindCharBySerial(pc_i->targ()), 20);
 	DoneAI(pc_i, currenttime);
 	return; 
 }
@@ -615,8 +615,8 @@ void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 		{
 			Magic->NPCHeal(pc_i);
 		}
-		if (pc_i->targ != INVALID_SERIAL)
-			pc_i->attackTarget( FindCharBySerial(pc_i->targ) );
+		if (pc_i->targ() != INVALID_SERIAL)
+			pc_i->attackTarget( FindCharBySerial(pc_i->targ()) );
 	}
 	DoneAI(pc_i, currenttime);
 }

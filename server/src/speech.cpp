@@ -53,10 +53,10 @@
 
 bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 {
-	if( pChar->inputmode == cChar::enNone )
+	if( pChar->inputmode() == cChar::enNone )
 		return false;
 
-	P_ITEM pItem = FindItemBySerial( pChar->inputitem );
+	P_ITEM pItem = FindItemBySerial( pChar->inputitem() );
 
 	if( !pItem )
 		return false;
@@ -65,7 +65,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 	INT32 num = speech.toInt( &ok ); // Generally try to convert it
 	QString notification;
 
-	switch (pChar->inputmode)
+	switch (pChar->inputmode())
 	{
 	// Pricing an item - PlayerVendors
 	case cChar::enPricing:
@@ -77,7 +77,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 		else
 			socket->sysMessage( tr( "You have to enter a numeric price" ) );
 
-		pChar->inputmode = cChar::enDescription;
+		pChar->setInputMode(cChar::enDescription);
 		socket->sysMessage( tr( "Enter a description for this item." ) );
 		break;
 
@@ -85,32 +85,32 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 	case cChar::enDescription:
 		pItem->desc = speech.latin1();
 		socket->sysMessage( tr( "This item is now described as %1." ).arg( speech ) );
-		pChar->inputmode = cChar::enNone;
-		pChar->inputitem = INVALID_SERIAL;
+		pChar->setInputMode(cChar::enNone);
+		pChar->setInputItem(INVALID_SERIAL);
 		break;
 
 	// Renaming a rune
 	case cChar::enRenameRune:
 		pItem->setName( tr( "Rune to: %1" ).arg( speech ) );
 		socket->sysMessage( tr( "Rune renamed to: Rune to: %1" ).arg( speech ) );
-		pChar->inputmode = cChar::enNone;
-		pChar->inputitem = INVALID_SERIAL;
+		pChar->setInputMode(cChar::enNone);
+		pChar->setInputItem(INVALID_SERIAL);
 		break;
 
 	// Renaming ourself
 	case cChar::enNameDeed: 
 		pChar->name = speech.latin1();
 		socket->sysMessage( tr( "Your new name is: %1" ).arg( speech ) );
-		pChar->inputmode = cChar::enNone;
-		pChar->inputitem = INVALID_SERIAL;
+		pChar->setInputMode(cChar::enNone);
+		pChar->setInputItem(INVALID_SERIAL);
 		break;
 
 	// Renaming a house sign
 	case cChar::enHouseSign:
 		pItem->setName( speech ); 
 		socket->sysMessage( tr( "Your house has been renamed to: %1" ).arg( speech ) );
-		pChar->inputmode = cChar::enNone;
-		pChar->inputitem=INVALID_SERIAL;
+		pChar->setInputMode(cChar::enNone);
+		pChar->setInputItem(INVALID_SERIAL);
 		break;
 
 	// Paging a GM
@@ -129,7 +129,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 				else
 					socket->sysMessage( tr( "There was no Game Master available, page queued." ) );
 				
-				pChar->inputmode = cChar::enNone;
+				pChar->setInputMode(cChar::enNone);
 		}
 		break;
 		
@@ -149,7 +149,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 				else
 					socket->sysMessage( tr( "There was no Counselor available, page queued." ) );
 				
-				pChar->inputmode = cChar::enNone;
+				pChar->setInputMode(cChar::enNone);
 		}
 		break;
 
@@ -209,10 +209,10 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 	// remove it from screen!
 	p_pet->removeFromView(); // Remove it from view of all sockets
 	p_pet->setWar(false);
-	p_pet->attacker = INVALID_SERIAL;
+	p_pet->setAttacker(INVALID_SERIAL);
 
 	pPlayer->setWar(false);
-	pPlayer->targ = INVALID_SERIAL;
+	pPlayer->setTarg( INVALID_SERIAL );
 
 	cMapObjects::getInstance()->remove( p_pet );
 	p_pet->setStablemaster_serial( pMaster->serial );
@@ -673,7 +673,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	{
 		pPlayer->setGuarded( false );
 		pPet->ftarg = INVALID_SERIAL;
-		pPet->targ = INVALID_SERIAL;
+		pPet->setTarg( INVALID_SERIAL );
 
 		if (pPet->war()) 
 			pPet->toggleCombat();

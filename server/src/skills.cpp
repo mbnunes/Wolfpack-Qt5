@@ -833,7 +833,7 @@ public:
 					
 					criminal( pc_currchar );
 					
-					if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
+					if (pc_npc->isInnocent() && pc_currchar->attacker() != pc_npc->serial && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
 						criminal(pc_currchar);//Blue and not attacker and not guild
 					
 					if (pi->name() != "#")
@@ -1269,7 +1269,7 @@ void cSkills::Hide( cUOSocket *socket )
 	if( !pChar )
 		return;
 
-	P_CHAR aChar = FindCharBySerial( pChar->attacker );
+	P_CHAR aChar = FindCharBySerial( pChar->attacker() );
 	if( aChar && aChar->inRange( pChar, pChar->VisRange ) )
 	{
 		pChar->message( tr( "You cannot hide while fighting." ) );
@@ -1357,8 +1357,8 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 				if( mapchar->isNpc() ) 
 					mapchar->toggleCombat();
 
-				mapchar->targ = INVALID_SERIAL;
-				mapchar->attacker = INVALID_SERIAL;
+				mapchar->setTarg( INVALID_SERIAL );
+				mapchar->setAttacker(INVALID_SERIAL);
 				mapchar->resetAttackFirst();
 			}
 		}
@@ -2134,7 +2134,7 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 			if (pc_npc->isNpc()) 
 				pc_npc->talk( tr("Guards!! A thief is amoung us!"), -1, 0x09 );
 			
-			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && GuildCompare( pc_currchar, pc_npc )==0)//AntiChrist
+			if (pc_npc->isInnocent() && pc_currchar->attacker() != pc_npc->serial && GuildCompare( pc_currchar, pc_npc )==0)//AntiChrist
 				criminal( pc_currchar );//Blue and not attacker and not guild
 			
 			if (item->name() != "#")
@@ -2704,7 +2704,7 @@ void cSkills::Persecute ( cUOSocket* socket )
 	if( !pc_currchar )
 		return;
 
-	P_CHAR target = FindCharBySerial(pc_currchar->targ);
+	P_CHAR target = FindCharBySerial(pc_currchar->targ());
 
 	if( target->isGM() )
 		return;

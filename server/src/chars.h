@@ -85,14 +85,7 @@ public:
 	
 	
 	
-	SERIAL					targ; // Current combat target
-	unsigned int			timeout; // Combat timeout (For hitting)
-	unsigned int			timeout2; // memory of last shot timeout
-	unsigned int			regen, regen2, regen3;//Regeneration times for mana, stamin, and str
-	enInputMode				inputmode;	// Used for entering text; 0= none, 4=rename rune
-	SERIAL					inputitem;		// serial of item the text is referring to
-	SERIAL					attacker; // Character's serial who attacked this character
-	unsigned int			npcmovetime; // Next time npc will walk
+	
 	unsigned char			npcWander; // NPC Wander Mode
 	unsigned char			oldnpcWander; // Used for fleeing npcs
 	SERIAL					ftarg; // NPC Follow Target
@@ -300,6 +293,16 @@ protected:
 	unsigned char			speech_; // For NPCs: Number of the assigned speech block
 	unsigned int			def_; // Intrinsic defense
 	bool					war_; // War Mode
+
+	SERIAL					targ_; // Current combat target
+	unsigned int			timeout_; // Combat timeout (For hitting)
+	unsigned int			timeout2_; // memory of last shot timeout
+	unsigned int			regen_, regen2_, regen3_;//Regeneration times for mana, stamin, and str
+	
+	enInputMode				inputmode_;	// Used for entering text; 0= none, 4=rename rune
+	SERIAL					inputitem_;		// serial of item the text is referring to
+	SERIAL					attacker_; // Character's serial who attacked this character
+	unsigned int			npcmovetime_; // Next time npc will walk
 //END ADDED FROM PUBLIC ******************************************
 	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
@@ -473,6 +476,18 @@ public:
 	unsigned char			speech() const { return speech_; }
 	unsigned int			def() const { return def_; }
 	bool					war() const { return war_; }
+
+	SERIAL					targ() const { return targ_; }
+	unsigned int			timeout() const { return timeout_; }
+	unsigned int			timeout2() const { return timeout2_; }
+	unsigned int			regen() const { return regen_; }
+	unsigned int		    regen2() const { return regen2_; }
+	unsigned int			regen3() const { return regen3_; }
+
+	enInputMode				inputmode() const { return inputmode_; }
+	SERIAL					inputitem() const { return inputitem_; }
+	SERIAL					attacker() const { return attacker_; }
+	unsigned int			npcmovetime() const { return npcmovetime_; }
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
 	cMakeSection*			lastSection( cMakeMenu* basemenu );
@@ -627,7 +642,20 @@ public:
 	void					setSpeech( unsigned char data ) { speech_ = data; }
 	void					setDef( unsigned int data ) { def_ = data; }
 	void					setWar( bool data ) { war_ = data; }
+
 	void					setFood( unsigned int data ) { food_ = data; }
+
+	void					setTarg( SERIAL data ) { targ_ = data; }
+	void					setTimeOut( unsigned int data ) { timeout_ = data; }
+	void					setTimeOut2( unsigned int data ) { timeout2_ = data; }
+	void					setRegen( unsigned int data ) { regen_ = data; }
+	void					setRegen2( unsigned int data ) { regen2_ = data; }  
+	void					setRegen3( unsigned int data ) { regen3_ = data; }
+		
+	void					setInputMode( enInputMode data ) { inputmode_ = data; }
+	void					setInputItem( SERIAL data ) { inputitem_ = data; }
+	void					setAttacker( SERIAL data ) { attacker_ = data; }
+	void					setNpcMoveTime( unsigned int data ) { npcmovetime_ = data; }
 	//END SETTERS********************************************************
 
 	void					clearLastSelections( void );

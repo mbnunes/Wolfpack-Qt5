@@ -723,18 +723,18 @@ namespace Combat
 	void combat( P_CHAR pAttacker )
 	{
 		// We are either not fighting or dont have a target
-		if( !pAttacker || pAttacker->free || !pAttacker->war() || ( pAttacker->targ == INVALID_SERIAL ) )
+		if( !pAttacker || pAttacker->free || !pAttacker->war() || ( pAttacker->targ() == INVALID_SERIAL ) )
 			return;
 
-		P_CHAR pDefender = FindCharBySerial( pAttacker->targ );
+		P_CHAR pDefender = FindCharBySerial( pAttacker->targ() );
 
 		// We are at war but our target's gone out of range
 		if( !pDefender || pDefender->free || ( pDefender->isPlayer() && !pDefender->socket() ) || pDefender->isHidden() )
 		{
-			pAttacker->timeout = 0;
+			pAttacker->setTimeOut(0);
 			if( pDefender )
-				pDefender->attacker = INVALID_SERIAL;
-			pAttacker->targ = INVALID_SERIAL;
+				pDefender->setAttacker(INVALID_SERIAL);
+			pAttacker->setTarg(INVALID_SERIAL);
 			pAttacker->resetAttackFirst();
 
 			// Send a warmode update
@@ -781,16 +781,16 @@ namespace Combat
 					}
 					else if( pAttacker->isNpc() ) // Any other NPC
 					{
-						pAttacker->targ = INVALID_SERIAL;
-						pAttacker->timeout = 0;
+						pAttacker->setTarg(INVALID_SERIAL);
+						pAttacker->setTimeOut(0);
 						
-						P_CHAR pc = FindCharBySerial( pAttacker->attacker );
+						P_CHAR pc = FindCharBySerial( pAttacker->attacker() );
 						if( pc )
 						{
 							pc->resetAttackFirst();
-							pc->attacker = INVALID_SERIAL;
+							pc->setAttacker(INVALID_SERIAL);
 						}
-						pAttacker->attacker = INVALID_SERIAL;
+						pAttacker->setAttacker(INVALID_SERIAL);
 						pAttacker->resetAttackFirst();
 
 						if( pAttacker->isNpc() && pAttacker->npcaitype() != 17 && !pAttacker->dead() && pAttacker->war() )
@@ -799,14 +799,14 @@ namespace Combat
 				}
 				else
 				{
-					if( pAttacker->targ == INVALID_SERIAL )
+					if( pAttacker->targ() == INVALID_SERIAL )
 					{
 						pDefender->fight( pAttacker );
 						pDefender->setAttackFirst();
 						pAttacker->fight( pDefender );
 						pAttacker->resetAttackFirst();
 						UI32 x = ( ( ( 100-pAttacker->effDex() ) * MY_CLOCKS_PER_SEC ) / 25 ) + ( 1 * MY_CLOCKS_PER_SEC ); //Yet another attempt.
-						pAttacker->timeout = uiCurrentTime + x;
+						pAttacker->setTimeOut(uiCurrentTime + x);
 						return;
 					}
 					if( isTimerOk( pAttacker ) )
@@ -876,7 +876,7 @@ namespace Combat
 								}
 							}
 
-							if( pAttacker->timeout2 > uiCurrentTime )
+							if( pAttacker->timeout2() > uiCurrentTime )
 								return;
 
 							// A tempeffect is needed here eventually
@@ -889,7 +889,7 @@ namespace Combat
 
 						setWeaponTimeout( pAttacker, pRightItem );
 						setWeaponTimeout( pAttacker, pAttacker->leftHandItem() );
-						pAttacker->timeout2 = pAttacker->timeout; // set shotclock memory
+						pAttacker->setTimeOut2(pAttacker->timeout()); // set shotclock memory
 
 						if( !pDefender->isInvul() )
 						{
@@ -971,7 +971,7 @@ namespace Combat
 			else j = 30;
 			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->effDex()+100) * j);
 		}
-		pAttacker->timeout=uiCurrentTime + x;
+		pAttacker->setTimeOut(uiCurrentTime + x);
 	}
 
 	void doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, UI16 fightskill, enBowTypes bowtype, bool los )
@@ -980,6 +980,7 @@ namespace Combat
 		pAttacker->turnTo( pDefender );
 
 		UINT16 id = pAttacker->id();
+
 
 		// Monsters receive special treatment
 		if( id < 0x0190 )
@@ -1038,7 +1039,7 @@ namespace Combat
 		if( !pc )
 			return false;
 
-		if( ( pc->timeout < uiCurrentTime ) && ( pc->timeout2 < uiCurrentTime ) ) 
+		if( ( pc->timeout() < uiCurrentTime ) && ( pc->timeout2() < uiCurrentTime ) ) 
 			return true;
 		
 		if( overflow )
@@ -1073,19 +1074,17 @@ namespace Combat
 			case 0xac:
 				base = 0x35;
 				break;
-
 			case 0xad: // kirin
 				base = 0x3f;
 				break;
 
+
 			case 0xb3: // sea horse
 				base = 0x49;
 				break;
-
 			case 0xb8: //ridgeback
 				base = 0x53;
 				break;
-
 			default:
 				base = 0x17; // default (horse) base animation
 				break;
@@ -1093,6 +1092,7 @@ namespace Combat
 		if( pWeapon )
 		{
 			short id = pWeapon->id();
+
 
 			if( IsBow( id ) )
 				pc->action( 0x1B );
@@ -1282,8 +1282,8 @@ namespace Combat
 			
 			pGuard->setNpcAIType( 4 );
 			pGuard->setAttackFirst();
-			pGuard->attacker = pOffender->serial;
-			pGuard->targ = pOffender->serial;
+			pGuard->setAttacker(pOffender->serial);
+			pGuard->setTarg(pOffender->serial);
 			pGuard->npcWander = 2;  // set wander mode
 			pGuard->toggleCombat();
 			pGuard->setNextMoveTime();
@@ -1362,6 +1362,7 @@ static void NpcSpellAttack( P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int
 {
 	if( pc_attacker->spatimer <= currenttime )
 	{
+
 		int spattacks = numbitsset( pc_attacker->spattack );
 
 		if (!pc_defender->dead() && chardist(pc_attacker, pc_defender) < SrvParams->attack_distance() && spattacks > 0 )

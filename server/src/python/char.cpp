@@ -640,10 +640,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	// Target
 	else if( !strcmp( "target", name ) )
 	{
-		if( isItemSerial( self->pChar->targ ) )
-			return PyGetItemObject( FindItemBySerial( self->pChar->targ ) );
-		else if( isCharSerial( self->pChar->targ ) )
-			return PyGetCharObject( FindCharBySerial( self->pChar->targ ) );
+		if( isItemSerial( self->pChar->targ() ) )
+			return PyGetItemObject( FindItemBySerial( self->pChar->targ() ) );
+		else if( isCharSerial( self->pChar->targ() ) )
+			return PyGetCharObject( FindCharBySerial( self->pChar->targ() ) );
 	}
 
 	else pGetInt( "npcwander", npcWander )

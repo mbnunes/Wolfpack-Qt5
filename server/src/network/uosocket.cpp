@@ -1221,6 +1221,7 @@ void cUOSocket::sendPaperdoll( P_CHAR pChar )
 */
 void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 {
+
 //	_player->targ = INVALID_SERIAL;  
 	_player->setWar( packet->warmode() );
 
@@ -1537,8 +1538,8 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	{
 		if( SrvParams->persecute() )
 		{
-			_player->targ = pc_i->serial;
-			if( _player->targ != INVALID_SERIAL ) 
+			_player->setTarg( pc_i->serial );
+			if( _player->targ() != INVALID_SERIAL ) 
 				Skills->Persecute( this );
 		} 
 		else
@@ -1564,7 +1565,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		return;
 	}
 
-	_player->targ = pc_i->serial;
+	_player->setTarg( pc_i->serial );
 	_player->unhide();
 	_player->disturbMed();
 
@@ -1573,14 +1574,14 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	send( &attack );
 
 	// NPC already has a target
-	if( pc_i->targ != INVALID_SERIAL )
+	if( pc_i->targ() != INVALID_SERIAL )
 	{
-		pc_i->attacker = _player->serial;
+		pc_i->setAttacker( _player->serial );
 		pc_i->resetAttackFirst();
 	}
 
 	_player->setAttackFirst();
-	_player->attacker = pc_i->serial;
+	_player->setAttacker(pc_i->serial);
 	_player->turnTo( pc_i );
 
 	// The person being attacked is guarded by pets ?

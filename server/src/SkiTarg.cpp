@@ -573,7 +573,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		P_CHAR ph = currchar[s];	// points to the healer
 		if (!SrvParams->bandageInCombat() && (pp->war() || ph->war()))
 		{
-			P_CHAR pc_attacker = FindCharBySerial(ph->attacker); // Ripper...cant heal while in a fight
+			P_CHAR pc_attacker = FindCharBySerial(ph->attacker()); // Ripper...cant heal while in a fight
 			if ( (pc_attacker != NULL) && pc_attacker->war())
 			{
 				sysmessage(s, tr("You can`t heal while in a fight!") );
