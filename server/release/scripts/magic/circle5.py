@@ -321,7 +321,7 @@ class SummonCreature (Spell):
 		self.validtarget = TARGET_GROUND
 
 	def cast(self, char, mode, args=[], target=None, item=None):
-		if char.player and char.controlslots + 2 > 5:
+		if char.player and char.controlslots + 1 > 5:
 			if char.socket:
 				char.socket.clilocmessage(1049645)
 			return
@@ -330,7 +330,7 @@ class SummonCreature (Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if char.player and char.controlslots + 2 > 5:
+		if char.player and char.controlslots + 1 > 5:
 			if char.socket:
 				char.socket.clilocmessage(1049645)
 			return
@@ -343,19 +343,22 @@ class SummonCreature (Spell):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
-		npcid = random.choice(	['polar_bear', 'grizzly_bear', 'black_bear',
-														'brown_bear', 'horse_1', 'walrus', 'great_hart',
-														'hind', 'dog', 'boar', 'chicken', 'rabbit'] )
+		npcid = random.choice( ['polar_bear', 'grizzly_bear', 'black_bear',
+				'brown_bear', 'horse_1', 'walrus', 'great_hart',
+				'hind', 'dog', 'boar', 'chicken', 'rabbit'] )
 
 		creature = wolfpack.addnpc(npcid, target)
-		creature.tamed = 1
-		creature.addevent('speech.pets')
-		creature.controlslots = 2
-		creature.owner = char
-		creature.summontime = wolfpack.time.servertime() + int(char.skill[MAGERY] * 400)
-		creature.summoned = 1
-		creature.ai = "Animal_Domestic"
-		creature.soundeffect(0x215)
+		if creature.controlslots + char.controlslots > 5:
+			creature.delete()
+			char.socket.clilocmessage(1049645)
+		else:
+			creature.tamed = 1
+			creature.addevent('speech.pets')
+			creature.owner = char
+			creature.summontime = wolfpack.time.servertime() + int(char.skill[MAGERY] * 400)
+			creature.summoned = 1
+			creature.ai = "Animal_Domestic"
+			creature.soundeffect(0x215)
 
 def onLoad():
 	BladeSpirits().register(33)
