@@ -182,7 +182,11 @@ class Telekinesis(Spell):
 		hasevent = 0
 
 		# Check if there is an event handling onUse but not onTelekinesis
-		for event in target.scripts:
+		scripts = item.scripts + item.basescripts.split(',')
+		for event in scripts:
+			if len(event) == 0:
+				continue
+	
 			if wolfpack.hasevent(event, EVENT_TELEKINESIS):
 				hasevent = 1 # The object has at least one telekinesis handler
 				continue
@@ -205,7 +209,7 @@ class Telekinesis(Spell):
 
 		result = 0
 
-		for event in target.scripts:
+		for event in scripts:
 			# If the event can handle onTelekinesis, call it
 			if wolfpack.hasevent(event, EVENT_TELEKINESIS):
 				if wolfpack.callevent(event, EVENT_TELEKINESIS, (char, target)):
