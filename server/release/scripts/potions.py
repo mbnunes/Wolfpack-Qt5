@@ -139,7 +139,7 @@ def canUsePotion( char, item ):
 	if not firsthand and secondhand and not secondhand.twohanded:
 		return OK
 
-	char.socket.cilocmessage( 0x7A99C ) # You must have a free hand to drink a potion.
+	char.socket.clilocmessage( 0x7A99C ) # You must have a free hand to drink a potion.
 	return OOPS
 
 # Display the drink action
