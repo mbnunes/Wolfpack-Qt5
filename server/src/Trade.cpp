@@ -89,16 +89,16 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 	UINT32 totalGold = pChar->CountBankGold() + pChar->CountGold();
 
 	P_ITEM pStock = pVendor->GetItemOnLayer( 0x1A );
-	vector< SERIAL > sContent;
+	cItem::ContainerContent sContent;
 
 	if( pStock )
-		sContent = contsp.getData( pStock->serial );
+		sContent = pStock->content();
 
 	P_ITEM pBought = pVendor->GetItemOnLayer( 0x1B );
-	vector< SERIAL > bContent;
+	cItem::ContainerContent bContent;
 
 	if( pBought )
-		bContent = contsp.getData( pBought->serial );
+		bContent = pBought->content();
 
 	UINT32 totalValue = 0;
 	UINT32 i;
@@ -121,7 +121,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 		// First check: is the item on the vendor in the specified layer
 		if( layer == 0x1A )
 		{
-			if( find( sContent.begin(), sContent.end(), pItem->serial ) == sContent.end() )
+			if( find_if( sContent.begin(), sContent.end(), bind2nd(MatchItemAndSerial(), pItem->serial) ) == sContent.end() )
 			{
 				socket->sysMessage( tr( "Invalid item bought." ) );
 				socket->send( &clearBuy );
@@ -130,7 +130,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 		}
 		else if( layer == 0x1B )
 		{
-			if( find( bContent.begin(), bContent.end(), pItem->serial ) == bContent.end() )
+			if( find_if( bContent.begin(), bContent.end(), bind2nd(MatchItemAndSerial(), pItem->serial ) ) == bContent.end() )
 			{
 				socket->sysMessage( tr( "Invalid item bought." ) );
 				socket->send( &clearBuy );
@@ -214,7 +214,8 @@ static bool items_match(P_ITEM pi1, P_ITEM pi2)
 
 void cTrade::sellaction(int s)
 {
-	int i, amt, value=0, totgold=0;
+	qWarning("cTrade::sellaction() disabled");
+/*	int i, amt, value=0, totgold=0;
 
 	P_ITEM pRestock = NULL;
 	P_ITEM pNoRestock = NULL;
@@ -327,6 +328,7 @@ void cTrade::sellaction(int s)
 	clearmsg[6]=buffer[s][6];
 	clearmsg[7]=0x00;
 	Xsend(s, clearmsg, 8);
+*/
 }
 
 P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
@@ -466,7 +468,8 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 
 void cTrade::clearalltrades()
 {
-	AllItemsIterator iterItems;
+	qWarning("cTrade::clearalltrades() disabled");
+/*	AllItemsIterator iterItems;
 	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 	{
 		P_ITEM pi = iterItems.GetData();
@@ -494,6 +497,7 @@ void cTrade::clearalltrades()
 			clConsole.send("Trade cleared\n");
 		}
 	}
+*/
 }
 
 void cTrade::trademsg(int s)
@@ -531,7 +535,8 @@ void cTrade::trademsg(int s)
 
 void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 {
-	int serial;
+	qWarning("cTrade::dotrade() is disabled");
+/*	int serial;
 
 	P_CHAR p1 = FindCharBySerial(cont1->contserial);
 	if(p1 == NULL) return;
@@ -594,5 +599,6 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 					pi->update();//AntiChrist
 			}
 	}
+*/
 }
 

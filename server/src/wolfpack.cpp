@@ -535,10 +535,12 @@ void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 	pc->setOnHorse( false );
 	unsigned int ci=0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer(contsp.getData(pc->serial));
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	cChar::ContainerContent container(pc->content());
+	cChar::ContainerContent::const_iterator it (container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for (; it != end; ++it )
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
+		pi = *it;
 		if (pi != NULL && !pi->free)
 		{
 			if (pi->layer()==0x19)
@@ -575,11 +577,12 @@ int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
 		{
 			if( pj->ownserial == serial && pj->type() == 1 && pj->morex == 1 )
 			{
-				unsigned int counter2;
-				vector<SERIAL> vecContainer = contsp.getData(pj->serial);
-				for( counter2 = 0; counter2 < vecContainer.size(); counter2++ )
+				cItem::ContainerContent container(pj->content());
+				cItem::ContainerContent::const_iterator it (container.begin());
+				cItem::ContainerContent::const_iterator end(container.end());
+				for (; it != end; ++it )
 				{
-					P_ITEM pi = FindItemBySerial(vecContainer[counter2]);
+					P_ITEM pi = *it;
 					if( pi != NULL )
 					{
 						if( pi->contserial == pj->serial )
@@ -615,11 +618,12 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 		{
 			if( pj->ownserial == serial && pj->type() == 1 && pj->morex == 1 )
 			{
-				unsigned int counter2;
-				vector<SERIAL> vecContainer = contsp.getData(pj->serial);
-				for( counter2 = 0; counter2 < vecContainer.size() && total > 0; counter2++ )
+				cItem::ContainerContent container(pj->content());
+				cItem::ContainerContent::const_iterator it (container.begin());
+				cItem::ContainerContent::const_iterator end(container.end());
+				for (; it != end && total > 0; ++it )
 				{
-					P_ITEM pi = FindItemBySerial(vecContainer[counter2]);
+					P_ITEM pi = *it;
 					if( pi != NULL )
 					{
 						if( pi->contserial == pj->serial )
@@ -660,10 +664,12 @@ void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object nu
 	P_CHAR pc_currchar = currchar[s];
 
 	unsigned int ci = 0;
-	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	cChar::ContainerContent container(pc_currchar->content());
+	cChar::ContainerContent::const_iterator it (container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for (; it != end; ++it )
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
+		pi = *it;
 		if(pi->layer()==0x10 || pi->layer()==0x0B)//beard(0x10) and hair
 		{
 			pi->setColor( piDye->color() );	//Now change the color to the hair dye bottle color!
@@ -1984,10 +1990,13 @@ int getsubamount(int serial, short id)
 	unsigned long total=0;
 	unsigned int ci;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	P_ITEM pContainer = FindItemBySerial(serial);
+	cItem::ContainerContent container(pContainer->content());
+	cItem::ContainerContent::const_iterator it (container.begin());
+	cItem::ContainerContent::const_iterator end(container.end());
+	for (; it != end; ++it )
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
+		pi = *it;
 
 		if( pi->id() == id )
 			total += pi->amount();

@@ -256,12 +256,11 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 		return;
 	}
 
-	vector< SERIAL > equipment = contsp.getData( wearer->serial );	
-
-	// If n item on the same layer is already equipped, unequip it
-	for( UI08 i = 0; i < equipment.size(); i++ )
+	cChar::ContainerContent container = wearer->content();
+	cChar::ContainerContent::const_iterator it(container.begin());
+	for( ; it != container.end(); ++it )
 	{
-		P_ITEM equip = FindItemBySerial( equipment[ i ] ); 
+		P_ITEM equip = *it; 
 		
 		// Unequip the item and free the layer that way
 		if( equip && ( equip->layer() == tile.layer ) )
@@ -390,30 +389,10 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// we also need to check if there is a twohanded weapon if we want to equip another weapon.
 	UI08 layer = pTile.layer;
 
-	std::vector< SERIAL > equipment = contsp.getData( pWearer->serial );
-	std::vector< SERIAL >::iterator it = equipment.begin();
 	bool twohanded = false;
-	P_ITEM equippedLayerItem = NULL;
-
-	while( it != equipment.end() )
-	{
-		P_ITEM pEquip = FindItemBySerial( *it );
-
-		if( !pEquip )
-		{
-			++it;
-			continue;
-		}
-
-		if( pEquip->twohanded() )
-			twohanded = true;
-
-		if( pEquip->layer() == layer && pEquip != pItem )
-		{
-			equippedLayerItem = pEquip;
-		}
-		++it;
-	}
+	P_ITEM equippedLayerItem = pWearer->atLayer( static_cast<cChar::enLayer>(layer) );
+	if ( equippedLayerItem )
+		twohanded = equippedLayerItem->twohanded();
 
 	if( twohanded && ( layer == 1 || layer == 2 ) )
 	{
@@ -578,24 +557,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 	{
 		// Check if we're already trading, 
 		// if not create a new window
-		vector< SERIAL > equipment = contsp.getData( pChar->serial );
-		P_ITEM tradeWindow = NULL;
-
-		for( UI16 i = 0; i < equipment.size(); i++ )
-		{
-			P_ITEM pEquip = FindItemBySerial( equipment[ i ] );
-			
-			// Is it a trade-window ?
-			if( ( pEquip->layer() == 0 ) && ( pEquip->id() == 0x1E5E ) )
-			{
-				P_ITEM tradeWindow = FindItemBySerial( calcserial( pEquip->moreb1(), pEquip->moreb2(), pEquip->moreb3(), pEquip->moreb4() ) );
-				if( tradeWindow && ( tradeWindow->contserial == pOtherChar->serial ) )
-				{
-					tradeWindow = pEquip;
-					break;
-				}
-			}
-		}
+		P_ITEM tradeWindow = pChar->atLayer( cChar::TradeWindow );
 
 		//if( !tradeWindow )
 		//	tradeWindow = Trade->tradestart( client->socket(), pOtherChar );

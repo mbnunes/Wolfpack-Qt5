@@ -29,12 +29,10 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __ITEMS_H
+#if !defined( __ITEMS_H )
 #define __ITEMS_H
 
-//#include "wolfpack.h" //for now.
-
-//#include "WPDefaultScript.h"
+// Wolfpack Includes
 #include "uobject.h"
 #include "defines.h"
 
@@ -101,9 +99,6 @@ public:
 	void load( const QString& = QString::null );
 	virtual void load( char **, UINT16& );
 	bool del ( const QString& = QString::null );
-
-	static void* operator new( size_t size);
-	static void operator delete( void* p, size_t size);
 
 	void	processContainerNode( const QDomElement &Tag );
 	virtual void update( cUOSocket *mSock = NULL );

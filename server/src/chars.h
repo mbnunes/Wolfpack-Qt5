@@ -68,7 +68,7 @@ public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	typedef QMap<ushort, cItem*> ContainerContent;
 	//  Chaos/Order Guild Stuff for Ripper
-	enum enLayer { SingleHandedWeapon = 1, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
+	enum enLayer { TradeWindow, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
 	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso, 
 	Earrings, Arms, Back, Backpack, OuterTorso, OuterLegs, InnerLegs, Mount, BuyRestockContainer,
 	ByNoRestockContainer, SellContainer, BankBox };

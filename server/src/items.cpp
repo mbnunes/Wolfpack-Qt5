@@ -52,7 +52,6 @@
 #include "multis.h"
 #include "spellbook.h"
 #include "persistentbroker.h"
-#include "blockallocator.h"
 
 #include <qsqlcursor.h>
 
@@ -384,16 +383,11 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 
 bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the container to stack with
 {
-	unsigned int ci;
-	vector<SERIAL> vecContainer = contsp.getData(this->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	cItem::ContainerContent::const_iterator it(content_.begin());
+	cItem::ContainerContent::const_iterator end(content_.end());
+	for( ; it != end; ++it )
 	{
-		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if ( pi == NULL )
-		{
-			contsp.remove( this->serial, vecContainer[ci] ); // remove invalid entrie
-			continue; // skip to next.
-		}
+		P_ITEM pi = *it;
 		if (pi->id() == pItem->id() && !pi->free && pi->color() == pItem->color())
 			if( pi->PileItem( pItem ) )
 				return true;
@@ -433,24 +427,18 @@ void cItem::SetRandPosInCont(cItem* pCont)
 */
 static int ContainerCountItems(const int serial, short id, short color)
 {
-	unsigned int ci=0; 
-	int total=0;
-	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	int total = 0;
+	P_ITEM container = FindItemBySerial( serial );
+	QPtrList<cItem> content = container->getContainment();
+
+	for( P_ITEM pi = content.first(); pi; pi = content.next() )
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
 		if (!pi || pi->free)			// just to be sure ;-)
 			continue;
-		if( pi->type() == 1 )		// a subcontainer ?
-		{
-			total += ContainerCountItems(pi->serial, id, color);
-			continue;
-		}
-		if (pi->id()==id &&
-			(color==-1 || pi->color() == color))
+		if (pi->id() == id && ( color == -1 || pi->color() == color ) )
 			total += pi->amount();
 	}
+	
 	return total;
 }
 
@@ -471,13 +459,14 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 {
 	int rest=amount;
 	P_ITEM pi;
-	unsigned int ci=0;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	cItem::ContainerContent container(this->content());
+	cItem::ContainerContent::const_iterator it ( container.begin() );
+	cItem::ContainerContent::const_iterator end( container.end()   );
+	for ( ; it != end; ++it )
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->type()==1)
-			rest=pi->DeleteAmount(rest, _id, _color);
+		pi = *it;
+		if (pi->type() == 1)
+			rest = pi->DeleteAmount(rest, _id, _color);
 		if (pi->id() == _id && ( _color == 0 || ( pi->color() == _color ) ) )
 			rest=pi->ReduceAmount(rest);
 		if (rest<=0)
@@ -833,17 +822,26 @@ void cAllItems::DeleItem(P_ITEM pi)
 		}
 		else
 		{
-			pi->contserial = INVALID_SERIAL;
+			P_ITEM container = dynamic_cast<P_ITEM>(pi->container());
+			if ( container )
+				container->removeItem(pi);
+			else
+			{
+				P_CHAR pWearer = dynamic_cast<P_CHAR>(pi->container());
+				if ( pWearer )
+					pWearer->removeItem( static_cast<cChar::enLayer>( pi->layer() ) );
+			}
 		}
 
         // if a new book gets deleted also delete the corresponding bok file
 
 		// Also delete all items inside if it's a container.
-		vector<SERIAL> vecContainer = contsp.getData(pi->serial);
-		unsigned int i;
-		for (i = 0; i < vecContainer.size(); i++)
+		cItem::ContainerContent container(pi->content());
+		cItem::ContainerContent::const_iterator it ( container.begin() );
+		cItem::ContainerContent::const_iterator end( container.end()   );
+		for ( ; it != end; ++it )
 		{
-			P_ITEM pContent = FindItemBySerial(vecContainer[i]);
+			P_ITEM pContent = *it;
 			if (pContent != NULL)
 				DeleItem(pContent);
 		}
@@ -960,12 +958,12 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 	// we can simply spawn by increasing the amount of that item
 	if (bPack && pPack && pile==1)
 	{
-		
-		unsigned int ci;
-		vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
-		for ( ci = 0; ci < vecContainer.size(); ci++)
+		cItem::ContainerContent container = pPack->content();
+		cItem::ContainerContent::const_iterator it ( container.begin() );
+		cItem::ContainerContent::const_iterator end( container.end()   );
+		for ( ; it != end; ++it )
 		{
-			P_ITEM pSt = FindItemBySerial(vecContainer[ci]);
+			P_ITEM pSt = *it;
 			if (pSt->id() == id && !pSt->free && pSt->color() == color)
 			{
 				if (pSt->amount() + nAmount > 65535)	// if it would create an overflow (amount is ushort!),
@@ -1112,44 +1110,29 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 				}
 				//End Boats/Mutlis
 				
-				//JustMichael--Keep player's corpse as long as it has more than 1 item on it
+				//Keep player's corpse as long as it has more than 1 item on it
 				//up to playercorpsedecaymultiplier times the decay rate
 				if (pi->corpse() && pi->GetOwnSerial()!=-1)
 				{
-					preservebody=0;
-					serial=pi->serial;
-					unsigned int ci;
-					unsigned char tempchar;
-					vector<SERIAL> vecContainer = contsp.getData(serial);
-					for( ci=0; ci < vecContainer.size(); ci++ )
-					{
-						P_ITEM pj = FindItemBySerial(vecContainer[ci]);
-						if( pj != NULL )
-						{
-							preservebody++;
-						}
-						if(preservebody) break; //lagfix - AntiChrist - not necessary to check ALL the items!!!
-					}
-					
+					preservebody = pi->content().size();
 					if( preservebody > 1 && pi->more4() )
 					{
-						//	pi->more4--;
-						pi->setMore4( --(tempchar = pi->more4()) );
+						pi->setMore4( pi->more4() - 1 );
 						pi->startDecay();
 						return;
 					}
 				}
 				if( (pi->type() == 1 && !pi->corpse() ) || (pi->GetOwnSerial() != -1 && pi->corpse() ) || (!SrvParams->lootdecayswithcorpse() && pi->corpse() ))
 				{
-					serial=pi->serial;
-					vector<SERIAL> vecContainer = contsp.getData(serial);
-					unsigned int ci;
-					for (ci=0;ci<vecContainer.size();ci++)
+					cItem::ContainerContent container(pi->content());
+					cItem::ContainerContent::const_iterator it (container.begin());
+					cItem::ContainerContent::const_iterator end(container.end());
+					for (; it != end; ++it )
 					{
-						P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
+						P_ITEM pi_j = *it;
                         if (pi_j != NULL) //lb
 						{
-							if (pi_j->contserial==pi->serial)// && (items[j].layer!=0x0B)&&(items[j].layer!=0x10))
+							if ( pi_j == pi->container() )
 							{
 								pi->removeItem(pi_j);
 								pi_j->MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
@@ -1157,7 +1140,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 								pi_j->startDecay();
 								pi_j->update();//AntiChrist
 							}
-						} // enof of if j!=-1
+						}
 					}
 					Items->DeleItem(pi);
 				} 
@@ -2133,25 +2116,14 @@ void cItem::showName( cUOSocket *socket )
 	// Send the item/weight as the last line in case of containers
 	if( type() == 1 || type() == 63 || type() == 65 || type() == 87 )
 	{
-		vector< SERIAL > items = contsp.getData( serial );
 		UINT16 tWeight = totalweight_;
 		
 		if( weight_ == 255 )
 			tWeight -= 255;
 
-		QString message = tr( "[%1 items, %2 stones]" ).arg( items.size() ).arg( tWeight );
+		QString message = tr( "[%1 items, %2 stones]" ).arg( content_.size() ).arg( tWeight );
 
 		socket->showSpeech( this, message, 0x3B2 );
-
-		/*int amt = 0;
-		int wgt = (int) Weight->LockeddownWeight(this, &amt, 0); // get stones and item #
-		if( amt > 0 )
-		{
-			sprintf((char*)temp2, "[%i items, %i stones]", amt, wgt);
-			itemmessage(s, (char*)temp2, serial);
-		}
-		else
-			itemmessage(s, "[0 items, 0 stones]", serial);*/
 	}
 }
 
@@ -2725,12 +2697,3 @@ bool cItem::contains( const cItem* pItem ) const
 	return it != content_.end();
 }
 
-void* cItem::operator new( size_t size )
-{
-	return SingletonHolder<MyObjectAllocator< sizeof(cItem)*1000> , NoDestroy>::instance()->allocate(size);
-}
-
-void cItem::operator delete( void* p, size_t size )
-{
-	SingletonHolder<MyObjectAllocator< sizeof(cItem)*1000> , NoDestroy>::instance()->deallocate(p, size);
-}

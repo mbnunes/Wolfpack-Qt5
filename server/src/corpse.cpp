@@ -32,6 +32,8 @@
 #include "network/uotxpackets.h"
 #include "network/uosocket.h"
 
+#include <functional>
+
 // abstract cSerializable
 void cCorpse::Serialize( ISerialization &archive )
 {
@@ -93,7 +95,7 @@ void cCorpse::processNode( const QDomElement &Tag )
 void cCorpse::update( cUOSocket *mSock )
 {
 	// Do not send a normal item update here but something else instead
-	vector< SERIAL > content = contsp.getData( serial );
+	cItem::ContainerContent content = cItem::content();
 
 	cUOTxCorpseEquipment corpseEquip;
 	cUOTxItemContent corpseContent;
@@ -104,7 +106,7 @@ void cCorpse::update( cUOSocket *mSock )
 	for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 	{
 		// Only add it to the equipment if it's still in there
-		if( find( content.begin(), content.end(), it->second ) != content.end() )
+		if( find_if( content.begin(), content.end(), bind2nd(MatchItemAndSerial(), it->second) ) != content.end() )
 		{
 			P_ITEM pItem = FindItemBySerial( it->second );
 

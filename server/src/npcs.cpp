@@ -64,11 +64,12 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 		cownsp.remove( pc_k->ownserial(), pc_k->serial );
 	
 	// We need to remove the equipment here.
-	vector< SERIAL > equipment = contsp.getData( pc_k->serial );
-
-	for( UINT32 i = 0; i < equipment.size(); ++i )
+	cChar::ContainerContent container(pc_k->content());
+	cChar::ContainerContent::const_iterator it (container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for (; it != end; ++it )
 	{
-		P_ITEM pItem = FindItemBySerial( equipment[i] );
+		P_ITEM pItem = *it;
 		if( !pItem )
 			continue;
 

@@ -476,10 +476,11 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				P_ITEM pPack = pc_currchar->getBackpack();
 				if( pPack )
 				{
-					vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
-					for( UINT32 j = 0; j < vecContainer.size(); ++j )
+					cItem::ContainerContent container = pPack->content();
+					cItem::ContainerContent::const_iterator it(container.begin());
+					for( ; it != container.end(); ++it )
 					{
-						P_ITEM pj = FindItemBySerial(vecContainer[j]);
+						P_ITEM pj = *it;
 						if( pj && pj->type() == 7 && 
 							pj->tags.get( "linkserial" ).isValid() && pj->tags.get( "linkserial" ).toUInt() == pi->serial )
 						{
@@ -719,12 +720,12 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					if( pi_p )
 					{
 						los = 0;
-						vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
-						unsigned int j;
-						for (j = 0; j < vecContainer.size(); j++)
+						cItem::ContainerContent container = pi_p->content();
+						cItem::ContainerContent::const_iterator it(container.begin());
+						for( ; it != container.end(); ++it )
 						{
-							const P_ITEM pi_i = FindItemBySerial(vecContainer[j]);
-							if ((pi_i != NULL) && (pi_p != NULL)) // lb
+							const P_ITEM pi_i = *it;
+							if ( pi_i ) // lb
 								if (pi_i->type() == 7 && calcserial(pi_i->more1(), pi_i->more2(), pi_i->more3(), pi_i->more4()) == pi_multi->serial)
 								{
 									los = 1;

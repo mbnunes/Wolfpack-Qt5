@@ -1094,10 +1094,12 @@ void cUOSocket::setPlayer( P_CHAR pChar )
 	send( &warmode );
 
 	// Send our equipment
-	vector< SERIAL > equipment = contsp.getData( _player->serial );
-	for( Q_UINT32 i = 0; i < equipment.size(); ++i )
+	cChar::ContainerContent container = _player->content();
+	cChar::ContainerContent::const_iterator it(container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for( ; it != end; ++it )
 	{
-		P_ITEM pItem = FindItemBySerial( equipment[i] );
+		P_ITEM pItem = *it;
 		
 		if( !pItem )
 			continue;
@@ -1366,10 +1368,12 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	// Add all items to the container
 	cUOTxItemContent itemContent;
 
-	vector< SERIAL > content = contsp.getData( pCont->serial );
-	for( UINT32 i = 0; i < content.size(); ++i )
+	cChar::ContainerContent container = _player->content();
+	cChar::ContainerContent::const_iterator it(container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for( ; it != end; ++it )
 	{
-		P_ITEM pItem = FindItemBySerial( content[ i ] );
+		P_ITEM pItem = *it;
 		
 		if( !pItem )
 			continue;
@@ -1705,16 +1709,15 @@ void cUOSocket::resync()
 
 P_ITEM cUOSocket::dragging() const
 {
-	P_CHAR pChar = _player;
-
-	if( !pChar )
+	if( !_player )
 		return 0;
 
-	vector< SERIAL > equipment = contsp.getData( pChar->serial );
-
-	for( UI32 i = 0; i < equipment.size(); i++ )
+	cChar::ContainerContent container = _player->content();
+	cChar::ContainerContent::const_iterator it(container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for( ; it != end; ++it )
 	{
-		P_ITEM pItem = FindItemBySerial( equipment[ i ] );
+		P_ITEM pItem = *it;
 
 		if( pItem && ( pItem->layer() == 0x1E ) )
 			return pItem;
@@ -1975,11 +1978,12 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	cUOTxVendorBuy vendorBuy;
 	vendorBuy.setSerial( pItem->serial );
 
-	vector< SERIAL > content = contsp.getData( pItem->serial );
-
-	for( UINT32 i = 0; i < content.size(); ++i )
+	cChar::ContainerContent container = _player->content();
+	cChar::ContainerContent::const_iterator it(container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for( Q_INT32 i = 0; it != end; ++it, ++i )
 	{
-		P_ITEM mItem = FindItemBySerial( content[i] );
+		P_ITEM mItem = *it;
 
 		if( mItem )
 		{

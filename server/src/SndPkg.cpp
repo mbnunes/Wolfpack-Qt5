@@ -294,6 +294,8 @@ void wearIt(const UOXSOCKET s, const P_ITEM pi)
 
 void backpack2(int s, SERIAL serial) // Send corpse stuff
 {
+	qWarning("backpack2() function is disabled");
+/*
 	int count=0, count2;
 	unsigned char bpopen2[6]="\x3C\x00\x05\x00\x00";
 	unsigned char display1[8]="\x89\x00\x0D\x40\x01\x02\x03";
@@ -356,6 +358,7 @@ void backpack2(int s, SERIAL serial) // Send corpse stuff
 			Xsend(s, bpitem, 19);
 		}
 	}
+*/
 }
 
 void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
@@ -1484,7 +1487,8 @@ void deathmenu(int s) // Character sees death menu
 
 void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 {
-	int k;
+	qWarning("impowncreate() function is disabled, use cChar:: appropriate methods instead");
+/*	int k;
 	unsigned char oc[1024];
 
     if ( pc == NULL )
@@ -1581,6 +1585,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	oc[1]=k>>8;
 	oc[2]=k%256;
 	Xsend(s, oc, k);
+*/
 }
 
 void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
@@ -1604,11 +1609,12 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 	m1t=5;
 	m2t=8;
 	serial=pi->serial;
-	unsigned int ci;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for (ci = 0; ci < vecContainer.size(); ci++)
+	cItem::ContainerContent container(pi->content());
+	cItem::ContainerContent::const_iterator it (container.begin());
+	cItem::ContainerContent::const_iterator end(container.end());
+	for ( uint ci = 0; it != end; ++it, ++ci )
 	{
-		P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
+		P_ITEM pi_j = *it;
 		if (pi_j != NULL)
 			if ((pi_j->contserial==serial) &&
 				(m2[7]!=255) && (pi_j->amount()!=0) ) // 255 items max per shop container
@@ -1663,7 +1669,8 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 
 int sellstuff(int s, P_CHAR pc)
 {
-	char itemname[256];
+	qWarning("sellstuff() function is disabled");
+/*	char itemname[256];
 	int m1t, z, value;
 	int serial,serial1;
 	unsigned char m1[2048];
@@ -1676,18 +1683,8 @@ int sellstuff(int s, P_CHAR pc)
 	P_ITEM sellcont = NULL;
 
 	serial = pc->serial;
-	unsigned int ci;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (pi != NULL)
-			if ((pi->contserial==serial) && (pi->layer()==0x1C))
-			{
-				sellcont = pi;
-				break;
-			}
-	}
+	sellcont = pc->atLayer( cChar::SellContainer );
+
 	if (sellcont == NULL) return 0;
 
 	m2[0]=0x33;
@@ -1705,22 +1702,23 @@ int sellstuff(int s, P_CHAR pc)
 	m1[8]=0; // Num items
 	m1t=9;
 
-	serial = sellcont->serial;
-	vecContainer.clear();
-	vecContainer = contsp.getData(serial);
-	for (ci = 0; ci < vecContainer.size(); ci++)
+	cItem::ContainerContent container(sellcont->content());
+	cItem::ContainerContent::const_iterator it (container.begin());
+	cItem::ContainerContent::const_iterator end(container.end());
+	for (; it != end; ++it )
 	{
-		P_ITEM pi_q = FindItemBySerial(vecContainer[ci]);
+		P_ITEM pi_q = *it;
 		if (pi_q != NULL)
 		{
 			if ((pi_q->contserial==serial))
 			{
 				serial1 = pBackpack->serial;
-				unsigned int ci1;
-				vector<SERIAL> vecContainer2 = contsp.getData(serial1);
-				for ( ci1 = 0; ci1 < vecContainer2.size(); ci1++)
+				cItem::ContainerContent container2(pBackpack->content());
+				cItem::ContainerContent::const_iterator it2 (container2.begin());
+				cItem::ContainerContent::const_iterator end2(container2.end());
+				for (; it2 != end2; ++it )
 				{
-					P_ITEM pi_j = FindItemBySerial(vecContainer2[ci1]);
+					P_ITEM pi_j = *it2;
 					if (pi_j != NULL) // LB crashfix
 					{
 						sprintf(ciname,"'%s'",pi_j->name().upper().ascii()); // Added by Magius(CHE)
@@ -1770,6 +1768,8 @@ int sellstuff(int s, P_CHAR pc)
 	m2[1]=0x00;
 	Xsend(s, m2, 2);
 	return 1;
+*/
+	return 0;
 }
 
 void playmidi(int s, char num1, char num2)

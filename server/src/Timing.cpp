@@ -70,10 +70,12 @@ void restockNPC( UINT32 currenttime, P_CHAR pc_i )
 
 		if( pStock )
 		{
-			vector<SERIAL> content = contsp.getData( pStock->serial );
-			for( UINT32 i = 0; i < content.size(); ++i )
+			cItem::ContainerContent container(pStock->content());
+			cItem::ContainerContent::const_iterator it (container.begin());
+			cItem::ContainerContent::const_iterator end(container.end());
+			for (; it != end; ++it )
 			{
-				P_ITEM pItem = FindItemBySerial( content[i] );
+				P_ITEM pItem = *it;
 				if( pItem )
 				{
 					if( pItem->restock < pItem->amount() )

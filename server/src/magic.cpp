@@ -335,7 +335,7 @@ void cMagic::openSpellBook( P_CHAR mage, P_ITEM spellbook )
 // This should get one spellbook
 P_ITEM cMagic::findSpellBook( P_CHAR mage )
 {
-	if( !mage )
+/*	if( !mage )
 		return NULL;
 
 	// We'll only handle Spellbooks in the mainpack or on the characters body
@@ -369,8 +369,8 @@ P_ITEM cMagic::findSpellBook( P_CHAR mage )
 				return item;
 		}
 	}
-
-	return NULL;
+*/
+	return 0;
 }
 
 // TO DO: Check for spells in the book if sourceType == 0
@@ -418,11 +418,12 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 	if( ( !caster->isGMorCounselor() ) && ( sourceType != 2 ) )
 	{
 		P_ITEM item;
-		vector< SERIAL > equipment = contsp.getData( caster->serial );
-		
-		for( UI32 i = 0; i < equipment.size(); i++ )
+		cChar::ContainerContent container(caster->content());
+		cChar::ContainerContent::const_iterator it (container.begin());
+		cChar::ContainerContent::const_iterator end(container.end());
+		for (; it != end; ++it )
 		{
-			item = FindItemBySerial( equipment[ i ] );
+			item = *it;
 
 			if( item == NULL )
 				continue;
@@ -571,7 +572,7 @@ bool cMagic::hasSpell( P_CHAR mage, UI08 spellId )
 
 bool cMagic::hasSpell( P_ITEM spellbook, UI08 spellId )
 {
-	// No spellbook no spells!
+/*	// No spellbook no spells!
 	if( spellbook == NULL )
 		return false;
 
@@ -589,7 +590,7 @@ bool cMagic::hasSpell( P_ITEM spellbook, UI08 spellId )
 		if( calcSpellId( scroll->id() ) == spellId )
 			return true;
 	}
-
+*/
 	return false;
 }
 
@@ -1075,7 +1076,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 //
 bool cMagic::CheckBook(int circle, int spell, P_ITEM pi)
 {
-	bool raflag = false;
+/*	bool raflag = false;
 
 	int spellnum = spell+(circle-1)*8;
 	// Fix for OSI stupidity. :)
@@ -1094,13 +1095,14 @@ bool cMagic::CheckBook(int circle, int spell, P_ITEM pi)
 			return false;
 		}
 	}
+*/
 	return true;
 }
 
 int cMagic::SpellsInBook(P_ITEM pi)
 {
 	int spellcount = 0;
-	P_ITEM pj;
+/*	P_ITEM pj;
 	if (pi == NULL)
 		return -1;
 	unsigned int ci;
@@ -1115,7 +1117,7 @@ int cMagic::SpellsInBook(P_ITEM pi)
 	}
 	if (spellcount >= 64)
 		spellcount = 64;
-	return spellcount;
+*/	return spellcount;
 }
 
 

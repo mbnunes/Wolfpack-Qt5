@@ -373,10 +373,12 @@ bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
  	serial= pc->serial;
  	bool foundMatch = false;
 	unsigned int ci;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for (ci=0;ci<vecContainer.size();ci++)
- 	{
-		P_ITEM pci = FindItemBySerial(vecContainer[ci]);
+	cChar::ContainerContent container(pc->content());
+	cChar::ContainerContent::const_iterator it (container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for (; it != end; ++it )
+	{
+		P_ITEM pci = *it;
 
  		if (pci != NULL)
  		{

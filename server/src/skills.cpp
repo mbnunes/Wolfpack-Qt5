@@ -629,19 +629,20 @@ public:
 				
 				if (pi_p != NULL)				
 				{
-					unsigned int ci;
-					vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
-					for (ci = 0; ci < vecContainer.size(); ci++)
+					cItem::ContainerContent container(pi_p->content());
+					cItem::ContainerContent::const_iterator it (container.begin());
+					cItem::ContainerContent::const_iterator end(container.end());
+					for (; it != end; ++it )
 					{
-						P_ITEM pi_j =  FindItemBySerial(vecContainer[ci]);
+						P_ITEM pi_j =  *it;
 						if (pi_j != NULL)
 						{
-							if (pi_j->id()==0x0EED )
+							if (pi_j->id() == 0x0EED )
 							{
 								gold += pi_j->amount(); // calc total gold in pack
 								
 								int k = pi_j->amount();
-								if(k>=y) // enough money in that pile in pack to satisfy pre-aclculated amount
+								if(k >= y) // enough money in that pile in pack to satisfy pre-aclculated amount
 								{
 									pi_j->ReduceAmount( y );
 									realgold += y; // calc gold actually given to player
@@ -660,7 +661,8 @@ public:
 								}
 							}
 						} // end of if j!=-1
-						if (abort) break;
+						if (abort)
+							break;
 					} 
 				}
 				
@@ -957,16 +959,12 @@ public:
 			socket->sysMessage( tr("You fail to apply the poison.") );
 		
 		//empty bottle after poisoning
-		P_ITEM pi_poison = pPoison;
-		if (!pPoison->isInWorld()) 
-			contsp.remove(pPoison->contserial, pi_poison->serial);
-		SERIAL kser = pPoison->serial;
-		
-		pPoison->Init(0);
-		pPoison->SetSerial(kser);
+		Items->DeleItem( pPoison );
+		pPoison = new cItem;
+		pPoison->Init(true);
 		pPoison->setId(0x0F0E);
 		pPoison->moveTo(pc->pos);
-		pPoison->priv|=0x01;
+		pPoison->priv |= 0x01;
 		pPoison->update();
 		return true;
 	}
@@ -2076,9 +2074,9 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 	
 	i=0;
 	P_ITEM item = NULL;
-	vector<SERIAL> vecContainer = contsp.getData(pBackpack->serial);
+	cItem::ContainerContent vecContainer(pBackpack->content());
 	if (vecContainer.size() != 0)
-		item = FindItemBySerial(vecContainer[rand()%vecContainer.size()]);
+		item = vecContainer[RandomNum(0, vecContainer.size() - 1)];
 
 	if (pc_npc == pc_currchar) {
 		socket->sysMessage( tr("You catch yourself red handed.") );
@@ -2844,12 +2842,13 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 		
 		unsigned int ci = 0;
 		P_ITEM pi;
-		vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-		for ( ci = 0; ci < vecContainer.size(); ci++)
+		cChar::ContainerContent container(pc->content());
+		cChar::ContainerContent::const_iterator it (container.begin());
+		cChar::ContainerContent::const_iterator end(container.end());
+		for (; it != end; ++it )
 		{
-			pi = FindItemBySerial(vecContainer[ci]);
-			if (pi != NULL)
-			if (pi->layer()>1 && pi->layer() < 25)
+			pi = *it;
+			if (pi->layer() > 1 && pi->layer() < 25)
 			{
 				if (!(strstr(pi->name().ascii(), "leather") || strstr(pi->name().ascii(), "magic") ||
 					strstr(pi->name().ascii(), "boot")|| strstr(pi->name().ascii(), "mask")))

@@ -269,12 +269,14 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 		setFlag( flag() | 0x04 );
 
 	// Add our equipment - This does not seem to work !?
-	vector< SERIAL > equipment = contsp.getData( pChar->serial );
 	bool layers[0x20] = {0,};
 
-	for( Q_UINT32 i = 0; i < equipment.size(); ++i )
+	cChar::ContainerContent container(pChar->content());
+	cChar::ContainerContent::const_iterator it (container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for (; it != end; ++it )
 	{
-		P_ITEM pItem = FindItemBySerial( equipment[i] );
+		P_ITEM pItem = *it;
 		if( !pItem )
 			continue;
 

@@ -1009,11 +1009,12 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			pc_dest->setBeardSerial(INVALID_SERIAL);
 
 			P_ITEM pi;
-			unsigned int ci;
-			vector<SERIAL> vecContainer = contsp.getData(pc_dest->serial);
-			for ( ci = 0; ci < vecContainer.size(); ci++)
+			cChar::ContainerContent container(pc_dest->content());
+			cChar::ContainerContent::const_iterator it (container.begin());
+			cChar::ContainerContent::const_iterator end(container.end());
+			for (; it != end; ++it )
 			{
-				pi = FindItemBySerial(vecContainer[ci]);
+				pi = *it;
 				if(pi->layer()==0x10)//beard
 					pc_dest->setBeardSerial(pi->serial);
 				if(pi->layer()==0x0B)//hairs

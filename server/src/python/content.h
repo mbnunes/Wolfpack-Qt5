@@ -45,21 +45,50 @@ typedef struct {
 
 static int wpContent_length( wpContent *self )
 {
-	return contsp.getData( self->contserial ).size();
+	P_ITEM pi = FindItemBySerial(self->contserial);
+	if ( pi )
+		return pi->content().size();
+	else
+	{
+		P_CHAR pc = FindCharBySerial(self->contserial);
+		if ( pc )
+			return pc->content().size();
+	}
+	return 0;
 }
 
 static PyObject *wpContent_get( wpContent *self, int id )
 {
-	if( !FindItemBySerial( self->contserial ) && !FindCharBySerial( self->contserial ) )
-		return Py_None;
+	if ( isCharSerial(self->contserial) )
+	{
+		P_CHAR pc = FindCharBySerial( self->contserial );
+		if (!pc)
+			return Py_None;
+		cChar::ContainerContent container = pc->content();
+		if ( id >= container.size() || id < 0 )
+			return Py_None;
+		cChar::ContainerContent::const_iterator it(container.begin());
+		for ( uint i = 0; i < id && it != container.end(); ++i )	// Ask Correa before trying 
+			++it;													// to 'optimize' this, there 
+																	// isn't much standard complient options here
+		return it != container.end() ? PyGetItemObject( *it ) : Py_None;
 
-	vector< SERIAL > content = contsp.getData( self->contserial );
-
-	if( id >= content.size() || id < 0 )
-		return Py_None;
-
-	SERIAL serial = content[id];
-	return PyGetItemObject( FindItemBySerial( serial ) );
+	}
+	else
+	{
+		P_ITEM pi = FindItemBySerial( self->contserial );
+		if (!pi)
+			return Py_None;
+		cItem::ContainerContent container = pi->content();
+		if ( id >= container.size() || id < 0 )
+			return Py_None;
+		cItem::ContainerContent::const_iterator it(container.begin());
+		for ( uint i = 0; i < id && it != container.end(); ++i )	// Ask Correa before trying 
+			++it;													// to 'optimize' this, there 
+																	// isn't much standard complient options here
+		return it != container.end() ? PyGetItemObject( *it ) : Py_None;
+	}
+	return Py_None;
 }
 
 static PySequenceMethods wpContentSequence = {
