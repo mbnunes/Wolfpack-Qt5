@@ -7,17 +7,18 @@
 PROJECT = Wolfpack Emu
 
 INCLUDEPATH = ./ZThread/include
+DEFINES = REENTRANT
 win32:OBJECTS_DIR = obj
-win32-msvc:DEFINES  = WIN32 NDEBUG _CONSOLE _MBCS ZTHREAD_STATIC
+win32-msvc:DEFINES += WIN32 NDEBUG _CONSOLE _MBCS ZTHREAD_STATIC
 win32-g++:DEFINES = WIN32 ZTHREAD_STATIC
 
-unix:TMAKE_CXXFLAGS = -funsigned-char -I/usr/local/include 
-unix:LIBS= -LZThread/lib/ -lZThread 
+#unix:TMAKE_CXXFLAGS = -funsigned-char -I/usr/local/include 
+unix:LIBS= -LZThread/lib/ -lZThread -lpthread
 #unix:LIBS= -L/usr/local/lib/ -L/usr/local/lib/pth -lZThread -lpthread 
 
-unix:DEFINES   = ZTHREAD_STATIC
-unix:TMAKE_CXXFLAGS = -funsigned-char
-unix:LIBS= -LZThread/lib/ -lZThread 
+unix:DEFINES += ZTHREAD_STATIC _POSIX NDEBUG
+unix:TMAKE_CXXFLAGS = -IZthread/include -funsigned-char
+#unix:LIBS= -LZThread/lib/ -lZThread 
 
 win32-g++:TMAKE_CXXFLAGS = -funsigned-char
 win32-g++:LIBS= -LZThread/lib/ -lwsock32 -lZThread
@@ -26,7 +27,8 @@ win32-msvc:LIBS      = ws2_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib
 win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 win32-borland:DEFINES= WIN32 __borland__
 win32-borland:TMAKE_CXXFLAGS = -K -5 -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
-win32-borland:LIBS = ws2_32.lib
+win32-borland:LIBS = ws2_32.lib ZThread.lib
+
 TARGET          = wolfpack
 TEMPLATE        = app
 CONFIG          = console release
@@ -44,7 +46,7 @@ HEADERS         = Client.h \
 		  books.h \
 		  bounty.h \
 		  chars.h \
-                  charsmgr.h \
+              charsmgr.h \
 		  classes.h \
 		  cmdtable.h \
 		  coord.h \
@@ -122,7 +124,6 @@ SOURCES         = Client.cpp \
 		  boats.cpp \
 		  books.cpp \
 		  bounty.cpp \
-		  cFile.cpp \
 		  cache.cpp \
                   chars.cpp \
                   charsmgr.cpp \
