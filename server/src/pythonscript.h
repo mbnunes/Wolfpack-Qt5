@@ -136,6 +136,7 @@ class cPythonScript
 {
 protected:
 	QString name_; // Important!
+	bool loaded;
 	PyObject *codeModule; // This object stores the compiled Python Module
 	PyObject *events[EVENT_COUNT];
 
@@ -149,6 +150,7 @@ public:
 	
 	bool load( const cElement *element );
 	void unload( void );
+	bool isLoaded() const;
 
 	static bool canChainHandleEvent( ePythonEvent event, cPythonScript **chain );
 	static bool callChainedEventHandler( ePythonEvent, cPythonScript **chain, PyObject *args = 0 );

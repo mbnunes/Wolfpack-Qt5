@@ -28,14 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include <qglobal.h>
-
-#if defined (Q_OS_UNIX)
-#include <limits.h>  //compatability issue. GCC 2.96 doesn't have limits include
-#else
-#include <limits> // Python tries to redefine some of this stuff, so include first
-#endif
-
 #include "pythonscript.h"
 #include "globals.h"
 #include "maps.h"
@@ -44,12 +36,13 @@
 
 // Library Includes
 #include <qfile.h>
+#include <qglobal.h>
 
 // Extension includes
 #include "python/utilities.h"
 #include "python/target.h"
 
-cPythonScript::cPythonScript()
+cPythonScript::cPythonScript() : loaded(false)
 {
 	codeModule = 0;
 	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
@@ -58,10 +51,13 @@ cPythonScript::cPythonScript()
 
 cPythonScript::~cPythonScript()
 {
+	if ( loaded )
+		unload();
 }
 
 void cPythonScript::unload( void )
 {
+	loaded = false;
 	// Free Cached Events
 	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
 	{
@@ -126,11 +122,16 @@ bool cPythonScript::load( const cElement *element )
 			events[i] = 0;
 		}
 	}
-
+	loaded = true;
 	return true;
 }
 
-PyObject *cPythonScript::callEvent( ePythonEvent event, PyObject *args, bool ignoreErrors )
+bool cPythonScript::isLoaded() const
+{
+	return loaded;
+}
+
+PyObject* cPythonScript::callEvent( ePythonEvent event, PyObject *args, bool ignoreErrors )
 {
 	PyObject *result = 0;
 
@@ -145,7 +146,7 @@ PyObject *cPythonScript::callEvent( ePythonEvent event, PyObject *args, bool ign
 	return result;
 }
 
-PyObject *cPythonScript::callEvent( const QString &name, PyObject *args, bool ignoreErrors )
+PyObject* cPythonScript::callEvent( const QString &name, PyObject *args, bool ignoreErrors )
 {
 	PyObject *result = 0;
 
@@ -179,9 +180,9 @@ bool cPythonScript::callEventHandler( ePythonEvent event, PyObject *args, bool i
 	return handled;
 }
 
-bool cPythonScript::callEventHandler( const QString &name, PyObject *args, bool ignoreErrors )
+bool cPythonScript::callEventHandler( const QString &name, PyObject* args, bool ignoreErrors )
 {
-	PyObject *result = callEvent( name, args, ignoreErrors );
+	PyObject* result = callEvent( name, args, ignoreErrors );
 	bool handled = false;
 
 	if( result )
@@ -195,7 +196,7 @@ bool cPythonScript::callEventHandler( const QString &name, PyObject *args, bool 
 
 
 // Standard Handler for Python ScriptChains assigned to objects
-bool cPythonScript::callChainedEventHandler( ePythonEvent event, cPythonScript **chain, PyObject *args )
+bool cPythonScript::callChainedEventHandler( ePythonEvent event, cPythonScript** chain, PyObject* args )
 {
 	bool handled = false;
 
@@ -275,6 +276,5 @@ bool cPythonScript::canChainHandleEvent( ePythonEvent event, cPythonScript **cha
 			}
 		}
 	}
-
 	return result;
 }
