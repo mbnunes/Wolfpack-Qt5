@@ -946,6 +946,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 
 		SrvParams->reload(); // Reload wolfpack.xml
 		DefManager->reload(); //Reload Definitions
+		Accounts::instance()->reload();
 		SpawnRegions::instance()->reload();
 		cAllTerritories::getInstance()->reload();
 		Resources::instance()->reload();
@@ -972,12 +973,12 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		socket->sysMessage( tr("Definitions, scripts and wolfpack.xml reloaded") );
 	}
 	if( subCommand == "all" )
-	{
-		Accounts::instance()->reload();
+	{		
 		clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
 		SrvParams->reload(); // Reload wolfpack.xml
 		DefManager->reload(); //Reload Definitions
+		Accounts::instance()->reload();
 		SpawnRegions::instance()->reload();
 		cAllTerritories::getInstance()->reload();
 		Resources::instance()->reload();

@@ -142,6 +142,7 @@ void signal_handler(int signal)
                 SrvParams->reload();
                 cNetwork::instance()->reload();
                 DefManager->reload();
+				Accounts::instance()->reload();
                 SpawnRegions::instance()->reload();
                 cAllTerritories::getInstance()->reload();
                 Resources::instance()->reload();
@@ -1058,6 +1059,7 @@ void interpretCommand( const QString &command )
 
 				SrvParams->reload(); // Reload wolfpack.xml
 				DefManager->reload(); //Reload Definitions
+				Accounts::instance()->reload();
 				SpawnRegions::instance()->reload();
 				cAllTerritories::getInstance()->reload();
 				Resources::instance()->reload();
