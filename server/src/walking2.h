@@ -20,7 +20,7 @@ public:
 	bool CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z);
 	bool CanCharMove(P_CHAR pc, short int x, short int y, signed char &z, int dir);
 	void NpcMovement( unsigned int currenttime, P_CHAR pc_i );
-	int validNPCMove(P_CHAR pc, short int x, short int y, signed char &z, int dir);
+//	int validNPCMove(P_CHAR pc, short int x, short int y, signed char &z, int dir);
 
 	int validNPCMove( short int x, short int y, signed char z, CHARACTER s );
 	

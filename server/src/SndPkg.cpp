@@ -1056,8 +1056,6 @@ void senditem_lsd(UOXSOCKET s, ITEM i,char color1, char color2, int x, int y, si
 
 }
 
-
-
 // LB 3-JULY 2000
 void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2)
 {
@@ -1146,10 +1144,10 @@ void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2)
 					LongToCharPtr(pi_j->serial,oc+k+0);
 					ShortToCharPtr(pi_j->id(),oc+k+4);
 					oc[k+6]=pi_j->layer;
-					k=k+7;
+					k += 7;
 					if /*(pi_j->color1!=0 || pi_j->color2!=0)*/ (1==1)
 					{
-						oc[k-3]=oc[k-3]|0x80;
+						oc[k-3] |= 0x80;
 
 						if ( rand()%9<7 ) // send fake colors, 2/3 base color
 						{
