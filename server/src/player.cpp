@@ -634,7 +634,9 @@ void cPlayer::kill()
 			//if( ( pi_j->layer() == 0x15 ) && ( shop == 0 ) ) 
 			//	pi_j->setLayer( 0x1A );
 		}
-	}	
+	}
+
+	corpse->update();
 
 	cUOTxDeathAction dAction;
 	dAction.setSerial( serial() );
@@ -649,10 +651,9 @@ void cPlayer::kill()
 			mSock->send( &dAction );
 			mSock->send( &rObject );
 		}
-	
-	corpse->update();
 
-#pragma message( "Deathshroud has to be defined as 204e in the scripts" )
+	resend( false );
+
 	P_ITEM pItem = cItem::createFromScript( "204e" );
 	if( pItem )
 	{
@@ -660,13 +661,12 @@ void cPlayer::kill()
 		pItem->update();
 	}
 
-	resend( true );
-
 	if( socket_ )
 	{
 		cUOTxCharDeath cDeath;
 		socket_->send( &cDeath );
 	}
+
 	// trigger the event now
 	onDeath();
 }

@@ -2375,6 +2375,7 @@ void cItem::sendTooltip( cUOSocket* mSock )
 		( id >= 0x3e4a && id <= 0x3e55 ) ||	// Tillermen
 		( id >= 0xed4 && id <= 0xede ) ||	// Graves and Guildstones
 		( id >= 0x1165 && id <= 0x1184 ) ||	// More Gravestones
+		( id == 0x2006 ) ||
 		!name_.isNull()						// Non Default Name
 		)
 	{

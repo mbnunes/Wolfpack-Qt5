@@ -634,6 +634,8 @@ void cNPC::kill()
 		}
 	}	
 
+	corpse->update();
+
 	cUOTxDeathAction dAction;
 	dAction.setSerial( serial() );
 	dAction.setCorpse( corpse->serial() );
@@ -647,10 +649,6 @@ void cNPC::kill()
 			mSock->send( &dAction );
 			mSock->send( &rObject );
 		}
-	
-	corpse->update();
-
-	resend( true );
 
 	// trigger the event
 	onDeath();

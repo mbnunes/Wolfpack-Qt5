@@ -201,9 +201,10 @@ void cCorpse::update( cUOSocket *mSock )
 				// Send item
 				// Send corpse clothing
 				// Send content
+				sendTooltip( mSock );
 				mSock->send( &sendItem );
 				mSock->send( &corpseEquip );
-				mSock->send( &corpseContent );
+				mSock->send( &corpseContent );				
 			}
 		}
 	}

@@ -1028,8 +1028,13 @@ void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 
 		if( !pItem->onShowTooltip( this->player(), &tooltips ) ) // just for test if object haven't tooltip
 		{
-			if( pItem->name().isNull() )
-				tooltips.addLine( 0xF9060 + pItem->id(), "" );
+			if( pItem->name().isNull() || pItem->name().isEmpty() )
+			{
+				if( pItem->amount() > 1 )
+					tooltips.addLine( 0x1005bd, " \t#" + QString::number( 0xF9060 + pItem->id() ) + "\t: " + QString::number( pItem->amount() ) );
+				else
+					tooltips.addLine( 0xF9060 + pItem->id(), "" );
+			}
 			else
 				tooltips.addLine( 0x1005bd, " \t" + pItem->name() + "\t " );
 
@@ -1590,7 +1595,13 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		send( &itemContent );
 		
 		for( P_ITEM pItem = tooltipItems.first(); pItem; pItem = tooltipItems.next() )
+		{
 			pItem->sendTooltip( this );
+
+#if defined( _DEBUG )
+			log( QString( "Sending Tooltip for 0x%1 (%2).\n" ).arg( pItem->serial(), 0, 16 ).arg( pItem->name() ) );
+#endif
+		}
 	}
 }
 
