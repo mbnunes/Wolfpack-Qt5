@@ -9,3 +9,8 @@ vc70.idb
 wolfpack.suo
 wolfpack.ncb
 vc70.pdb
+wolfpack.exe
+wolfpack
+Makefile
+config.pri
+obj
