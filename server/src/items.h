@@ -69,7 +69,7 @@ public:
 	const QString	&name2()	const { return name2_; };
 	const QString	&name()		const { return name_; };
 	UI08			layer()		const { return layer_; }; // Layer if equipped on paperdoll
-	UI08			itemhand()	const { return itemhand_; };
+	UI08			itemhand()	const { return itemhand_; }; // ITEMHAND system - AntiChrist
 	const QString	&murderer() const { return murderer_; }; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
 	UI32			type()		const { return type_; }; // Used for hardcoded behaviour
 	UI32			type2()		const { return type2_; };
@@ -92,7 +92,7 @@ public:
 	void	setOffspell( UI08 nValue ) { offspell_ = nValue; };
 	void	setSecured( bool nValue ) { ( nValue ) ? priv &= 0x08 : priv |= 0xF7; };
 	void	setSpeed( SI16 nValue ) { speed_ = nValue; };
-	void	setContSerial( UI32 nValue ) { contserial = nValue; };
+	void	setContSerial( UI32 nValue ); // Defined in items.cpp
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -101,7 +101,6 @@ public:
 	virtual string objectID();
 	
 	SERIAL contserial;
-	//int itmhand; // ITEMHAND system - AntiChrist
 	
 	Coord_cl oldpos; //Old position - used for bouncing bugfix - AntiChrist
 	SERIAL oldcontserial; //Old contserial - used for bouncing bugfix - Antichrist

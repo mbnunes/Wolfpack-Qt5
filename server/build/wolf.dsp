@@ -224,10 +224,6 @@ SOURCE=.\msgboard.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\mstring.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\necro.cpp
 # End Source File
 # Begin Source File
@@ -529,10 +525,6 @@ SOURCE=.\MenuActions.h
 # Begin Source File
 
 SOURCE=.\msgboard.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\mstring.h
 # End Source File
 # Begin Source File
 
