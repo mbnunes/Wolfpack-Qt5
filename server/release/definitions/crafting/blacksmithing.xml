@@ -213,7 +213,7 @@
 			<description>a bascinet helmet</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="4" />
-				<makeitem section="armor_helmets_bascinet" amount="1" />
+				<makeitem section="helmets_bascinet" amount="1" />
 				<skillcheck skillid="7" min="350" max="850" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
@@ -225,7 +225,7 @@
 			<description>a nose helmet</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="4" />
-				<makeitem section="armor_helmets_nose" amount="1" />
+				<makeitem section="helmets_nose" amount="1" />
 				<skillcheck skillid="7" min="350" max="850" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
@@ -237,7 +237,7 @@
 			<description>a helmet</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="3" />
-				<makeitem section="armor_helmets_helmet" amount="1" />
+				<makeitem section="helmets_helmet" amount="1" />
 				<skillcheck skillid="7" min="350" max="850" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
@@ -249,7 +249,7 @@
 			<description>a close helmet</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="4" />
-				<makeitem section="armor_helmets_close" amount="1" />
+				<makeitem section="helmets_close" amount="1" />
 				<skillcheck skillid="7" min="350" max="850" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
@@ -265,7 +265,7 @@
 			<description>a buckler shield</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="6" />
-				<makeitem section="armor_shields_buckler" amount="1" />
+				<makeitem section="shields_buckler" amount="1" />
 				<skillcheck skillid="7" min="350" max="850" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
@@ -277,7 +277,7 @@
 			<description>a heater shield</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="11" />
-				<makeitem section="armor_shields_heater" amount="1" />
+				<makeitem section="shields_heater" amount="1" />
 				<skillcheck skillid="7" min="350" max="850" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
@@ -289,7 +289,7 @@
 			<description>a shield</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="5" />
-				<makeitem section="armor_shields_shield" amount="1" />
+				<makeitem section="shields_shield" amount="1" />
 				<skillcheck skillid="7" min="350" max="850" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
@@ -301,7 +301,7 @@
 			<description>a kite shield</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="8" />
-				<makeitem section="armor_shields_kite" amount="1" />
+				<makeitem section="shields_kite" amount="1" />
 				<skillcheck skillid="7" min="350" max="850" />
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>

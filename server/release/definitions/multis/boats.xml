@@ -7,8 +7,8 @@
 =================================================================
 -->
 <definitions>
-	<multi id="smallboat" type="boat">
-		<name>small test boat</name>
+	<multi id="boat_small" type="boat">
+		<name>boat</name>
 		<ids north="0x4000" east="0x4001" south="0x4002" west="0x4003" />
 		<special_items>
 			<tillerman>
@@ -38,16 +38,230 @@
 				</star_closed>
 			</planks>
 		</special_items>
-		<deedsection>deed_smallboat</deedsection>
+		<deedsection>boat_small</deedsection>
 	</multi>
 	
-	<item id="deed_smallboat">
+	<item id="boat_small">
 		<id>0x14F0</id>
-		<name>small boat deed</name>
+		<name>boat</name>
 		<tag type="string">
 			<key>multisection</key>
-			<value>smallboat</value>
+			<value>boat_small</value>
 		</tag>
 	</item>
 	
+	<multi id="dragonboat_small" type="boat">
+		<name>dragon boat</name>
+		<ids north="0x4004" east="0x4005" south="0x4006" west="0x4007" />
+		<special_items>
+			<tillerman>
+				<offsets>
+					<x north="1" east="-4" south="0" west="4" />
+					<y north="4" east="0" south="-4" west="0" />
+				</offsets>
+			</tillerman>
+			<hold>
+				<offsets>
+					<x north="0" east="4" south="0" west="-4" />
+					<y north="-4" east="0" south="4" west="0" />
+				</offsets>
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets>
+						<x north="-2" east="0" south="2" west="0" />
+						<y north="0" east="-2" south="0" west="2" />
+					</offsets>
+				</port_closed>
+				<star_closed>
+					<offsets>
+						<x north="2" east="0" south="-2" west="0" />
+						<y north="0" east="2" south="0" west="-2" />
+					</offsets>
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>dragonboat_small</deedsection>
+	</multi>
+	
+	<item id="dragonboat_small">
+		<id>0x14F0</id>
+		<name>dragon boat</name>
+		<tag type="string">
+			<key>multisection</key>
+			<value>dragonboat_small</value>
+		</tag>
+	</item>
+
+	<multi id="boat_medium" type="boat">
+		<name>ship</name>
+		<ids north="0x4008" east="0x4009" south="0x400A" west="0x400B" />
+		<special_items>
+			<tillerman>
+				<offsets>
+					<x north="1" east="-5" south="0" west="5" />
+					<y north="5" east="0" south="-5" west="0" />
+				</offsets>
+			</tillerman>
+			<hold>
+				<offsets>
+					<x north="0" east="4" south="0" west="-4" />
+					<y north="-4" east="0" south="4" west="0" />
+				</offsets>
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets>
+						<x north="-2" east="0" south="2" west="0" />
+						<y north="0" east="-2" south="0" west="2" />
+					</offsets>
+				</port_closed>
+				<star_closed>
+					<offsets>
+						<x north="2" east="0" south="-2" west="0" />
+						<y north="0" east="2" south="0" west="-2" />
+					</offsets>
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>boat_medium</deedsection>
+	</multi>
+	
+	<item id="boat_medium">
+		<id>0x14F0</id>
+		<name>ship</name>
+		<tag type="string">
+			<key>multisection</key>
+			<value>boat_medium</value>
+		</tag>
+	</item>
+	
+	<multi id="dragonboat_medium" type="boat">
+		<name>dragon ship</name>
+		<ids north="0x400C" east="0x400D" south="0x400E" west="0x400F" />
+		<special_items>
+			<tillerman>
+				<offsets>
+					<x north="1" east="-5" south="0" west="5" />
+					<y north="5" east="0" south="-5" west="0" />
+				</offsets>
+			</tillerman>
+			<hold>
+				<offsets>
+					<x north="0" east="4" south="0" west="-4" />
+					<y north="-4" east="0" south="4" west="0" />
+				</offsets>
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets>
+						<x north="-2" east="0" south="2" west="0" />
+						<y north="0" east="-2" south="0" west="2" />
+					</offsets>
+				</port_closed>
+				<star_closed>
+					<offsets>
+						<x north="2" east="0" south="-2" west="0" />
+						<y north="0" east="2" south="0" west="-2" />
+					</offsets>
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>dragonboat_medium</deedsection>
+	</multi>
+	
+	<item id="dragonboat_medium">
+		<id>0x14F0</id>
+		<name>dragon ship</name>
+		<tag type="string">
+			<key>multisection</key>
+			<value>dragonboat_medium</value>
+		</tag>
+	</item>
+
+	<multi id="boat_large" type="boat">
+		<name>galley</name>
+		<ids north="0x4010" east="0x4011" south="0x4012" west="0x4013" />
+		<special_items>
+			<tillerman>
+				<offsets>
+					<x north="1" east="-5" south="0" west="5" />
+					<y north="5" east="0" south="-5" west="0" />
+				</offsets>
+			</tillerman>
+			<hold>
+				<offsets>
+					<x north="0" east="5" south="0" west="-5" />
+					<y north="-5" east="0" south="5" west="0" />
+				</offsets>
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets>
+						<x north="-2" east="1" south="2" west="-1" />
+						<y north="-1" east="-2" south="1" west="2" />
+					</offsets>
+				</port_closed>
+				<star_closed>
+					<offsets>
+						<x north="2" east="1" south="-2" west="-1" />
+						<y north="-1" east="2" south="1" west="-2" />
+					</offsets>
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>boat_large</deedsection>
+	</multi>
+	
+	<item id="boat_large">
+		<id>0x14F0</id>
+		<name>galley</name>
+		<tag type="string">
+			<key>multisection</key>
+			<value>boat_large</value>
+		</tag>
+	</item>	
+	
+	<multi id="dragonboat_large" type="boat">
+		<name>dragon galley</name>
+		<ids north="0x4014" east="0x4015" south="0x4016" west="0x4017" />
+		<special_items>
+			<tillerman>
+				<offsets>
+					<x north="1" east="-5" south="0" west="5" />
+					<y north="5" east="0" south="-5" west="0" />
+				</offsets>
+			</tillerman>
+			<hold>
+				<offsets>
+					<x north="0" east="5" south="0" west="-5" />
+					<y north="-5" east="0" south="5" west="0" />
+				</offsets>
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets>
+						<x north="-2" east="1" south="2" west="-1" />
+						<y north="-1" east="-2" south="1" west="2" />
+					</offsets>
+				</port_closed>
+				<star_closed>
+					<offsets>
+						<x north="2" east="1" south="-2" west="-1" />
+						<y north="-1" east="2" south="1" west="-2" />
+					</offsets>
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>dragonboat_large</deedsection>
+	</multi>
+	
+	<item id="dragonboat_large">
+		<id>0x14F0</id>
+		<name>dragon galley</name>
+		<tag type="string">
+			<key>multisection</key>
+			<value>dragonboat_large</value>
+		</tag>
+	</item>	
 </definitions>

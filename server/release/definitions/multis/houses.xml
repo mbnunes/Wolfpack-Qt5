@@ -1,0 +1,24 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<multi id="house_small" type="house">
+		<id>0x4064</id>
+		<name>small test house</name>
+		<deedsection>house_small</deedsection>
+	</multi>
+	
+	<item id="house_small">
+		<id>0x14F0</id>
+		<name>small test house</name>
+		<tag type="string">
+			<key>multisection</key>
+			<value>house_small</value>
+		</tag>
+	</item>	
+</definitions>

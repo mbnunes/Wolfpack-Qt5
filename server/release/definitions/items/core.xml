@@ -7,9 +7,15 @@
 =================================================================
 -->
 <definitions>
+	<!-- key -->
+	<item id="100f">
+		<name>key</name>
+		<id>0x100F</id>
+	</item>
+
 	<!-- trade container -->
 	<item id="2af8">
-		<name>Shop container</name>
+		<name>shop container</name>
 		<id>0x2af8</id>
 		<weight>0</weight>
 	</item>
