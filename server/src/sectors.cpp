@@ -544,12 +544,12 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 // Object specific find methods
 cItemSectorIterator* cSectorMaps::findItems( const Coord_cl& center, unsigned char distance )
 {
-	return findItems( center.map, ( int ) center.x - ( int ) distance, ( int ) center.y - ( int ) distance, ( int ) center.x + distance, ( int ) center.y + distance );
+	return findItems( center.map, QMAX(( int ) center.x - ( int ) distance, 0), QMAX(( int ) center.y - ( int ) distance, 0), ( int ) center.x + distance, ( int ) center.y + distance );
 }
 
 cCharSectorIterator* cSectorMaps::findChars( const Coord_cl& center, unsigned char distance )
 {
-	return findChars( center.map, ( int ) center.x - distance, ( int ) center.y - distance, center.x + distance, center.y + distance );
+	return findChars( center.map, QMAX(( int ) center.x - distance, 0), QMAX(( int ) center.y - distance, 0), center.x + distance, center.y + distance );
 }
 
 cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x, uint y )
