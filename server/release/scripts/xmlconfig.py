@@ -57,7 +57,7 @@ class XMLConfig:
 		self.resutl = ''
 		self.parent = parent
 		self.groups = []
-		self.xmlname = 'wolfpack.xml'
+		self.xmlname = '../wolfpack.xml'
         	self.sc = Pmw.ScrolledCanvas(parent,
 	        borderframe = 1,
 	        usehullsize = 1,
