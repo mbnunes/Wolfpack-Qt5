@@ -10,8 +10,7 @@ import wolfpack.utilities
 from wolfpack.consts import *
 import re
 
-def onShowToolTip( sender, target, tooltip ):
-
+def onShowTooltip( sender, target, tooltip ):
 	if target.gettag( 'filled' ) == 1:
 		filled( target, tooltip )
 	else:
@@ -21,20 +20,17 @@ def onShowToolTip( sender, target, tooltip ):
 	return True
 
 def filled( target, tooltip ):
-
 	tooltip.add( 1047016, "" ) # Commodity Deed
 	tooltip.add( 1038021, "" ) # Blessed
 	tooltip.add( 1060747, "" ) # filled
 	tooltip.add( 1060659, str ( target.gettag("cname") )  + "\t" + str( target.gettag( "amount") ) )
 
 def unfilled( target, tooltip ):
-
 	tooltip.add( 1047016, "" ) # Commodity Deed
 	tooltip.add( 1038021, "" ) # Blessed
 	tooltip.add( 1060748, "" ) # unfilled
 
 def onUse ( char, item ):
-
 	bank = char.getbankbox()
 
 	if not item.getoutmostitem() == bank:
@@ -62,7 +58,6 @@ def onUse ( char, item ):
 	return True
 
 def response ( char, args, target ):
-
 	bank = char.getbankbox()
 	deed = wolfpack.finditem(args[0])
 
