@@ -269,7 +269,7 @@ void cSpawnRegion::reSpawn( void )
 				{
 					pi->moveTo( pos );
 					this->itemSerials_.push_back( pi->serial() );
-					pi->setSpawnRegion( this->name_ );
+//					pi->setSpawnRegion( this->name_ );
 				}
 			}
 		}
@@ -312,7 +312,7 @@ void cSpawnRegion::reSpawnToMax( void )
 			{
 				pi->setPos( pos );
 				this->itemSerials_.push_back( pi->serial() );
-				pi->setSpawnRegion( this->name_ );
+//				pi->setSpawnRegion( this->name_ );
 			}
 		}
 	}

@@ -96,7 +96,7 @@ bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 
 	// Describing an item
 	case cPlayer::enDescription:
-		pItem->setDescription( speech );
+		socket->sysMessage( "Description is not used anywhere :( not implemented right now" );
 		socket->sysMessage( tr( "This item is now described as %1." ).arg( speech ) );
 		pChar->setInputMode(cPlayer::enNone);
 		pChar->setInputItem(INVALID_SERIAL);

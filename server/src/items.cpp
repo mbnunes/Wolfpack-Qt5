@@ -73,8 +73,8 @@ using namespace std;
 
 // constructor
 cItem::cItem(): container_(0), totalweight_(0), incognito(false),
-rndvaluerate_(0), dooropen_(0),gatetime_(0),gatenumber_(-1),
-timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 )
+rndvaluerate_(0), dooropen_(0),timeused_last(0), sellprice_( 0 ), 
+buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 )
 {
 	Init( false );
 };
@@ -127,8 +127,6 @@ cItem::cItem( const cItem &src )
 	this->in2_ = src.in2_;
 	this->speed_=src.speed_;
 	this->magic_ = src.magic_;
-	this->gatetime_ = src.gatetime_;
-	this->gatenumber_ = src.gatenumber_;
 	this->decaytime_ = src.decaytime_;
 	this->setOwnSerialOnly(src.ownSerial());
 	this->visible_=src.visible_;
@@ -141,8 +139,6 @@ cItem::cItem( const cItem &src )
 	this->poisoned_ = src.poisoned_;
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
-	this->setSpawnRegion( src.spawnregion() );
-	this->desc_ = src.desc_;
 	// We're *NOT* copying the contents over
 	
 	this->setTags( src.tags() );
@@ -513,9 +509,7 @@ void cItem::save()
 		addField("buyprice",			buyprice_);
 		addField("restock",		restock_);
 		addField("disabled",		disabled_);
-		addStrField("spawnregion",	spawnregion_);
 		addField("good",			good_);
-		addStrField("description",	desc_);
 		addField("accuracy",		accuracy_);
 		
 		addCondition( "serial", serial() );
@@ -652,8 +646,6 @@ void cItem::Init( bool createSerial )
 	this->in2_ = 0; // The intelligence the item gives
 	this->speed_=0; //The speed of the weapon
 	this->magic_ = 0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
-	this->gatetime_= 0;
-	this->gatenumber_= -1;
 	this->decaytime_ = 0;
 	this->setOwnSerialOnly(-1);
 	this->visible_=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
@@ -664,7 +656,6 @@ void cItem::Init( bool createSerial )
 	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
 	this->time_unused = 0;
 	this->timeused_last=getNormalizedTime();
-	this->spawnregion_ = QString::null;
 	this->accuracy_ = 100;
 }
 
@@ -2079,9 +2070,7 @@ void cItem::load( char **result, UINT16 &offset )
 	buyprice_ = atoi( result[offset++] );
 	restock_ = atoi( result[offset++] );
 	disabled_ = atoi( result[offset++] );
-	spawnregion_ = result[offset++];
 	good_ = atoi( result[offset++] );
-	desc_ = result[offset++];
 	accuracy_ = atoi( result[offset++] );
 
 	// Their own weight should already be set.
@@ -2093,7 +2082,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.good,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2306,7 +2295,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	}
 	else SET_INT_PROPERTY( "health", hp_ )
 	else SET_INT_PROPERTY( "maxhealth", maxhp_ )
-	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
 	else SET_INT_PROPERTY( "owner", ownserial_ )
 
 	else if( name == "totalweight" )
@@ -2403,8 +2391,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 
 		return 0;
 	}
-	else SET_INT_PROPERTY( "gatetime", gatetime_ )
-	else SET_INT_PROPERTY( "gatenumber", gatenumber_ )
 	else SET_INT_PROPERTY( "decaytime", decaytime_ )
 
 	else if( name == "visible" )
@@ -2438,7 +2424,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "good", good_ )
 	else SET_INT_PROPERTY( "rndvaluerate", rndvaluerate_ )
 	else SET_INT_PROPERTY( "madewith", madewith_ )
-	else SET_STR_PROPERTY( "description", desc_ )
 	else SET_INT_PROPERTY( "incognito", incognito )
 	else SET_INT_PROPERTY( "timeunused", time_unused )
 	else SET_INT_PROPERTY( "timeusedlast", timeused_last )
@@ -2525,7 +2510,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "stones", weight_ / 10 )
 	else GET_PROPERTY( "health", hp_ )
 	else GET_PROPERTY( "maxhealth", maxhp_ )
-	else GET_PROPERTY( "spawnregion", spawnregion_ )
 	else GET_PROPERTY( "owner", owner() )
 	else GET_PROPERTY( "totalweight", totalweight_ )
 	else GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )
@@ -2562,8 +2546,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "dexterity2", dx2_ )
 	else GET_PROPERTY( "intelligence", in_ )
 	else GET_PROPERTY( "intelligence2", in2_ )
-	else GET_PROPERTY( "gatetime", (int)gatetime_ )
-	else GET_PROPERTY( "gatenumber", gatenumber_ )
 	else GET_PROPERTY( "decaytime", (int)decaytime_ )
 
 	// Visible
@@ -2581,7 +2563,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "good", good_ )
 	else GET_PROPERTY( "rndvaluerate", rndvaluerate_ )
 	else GET_PROPERTY( "madewith", madewith_ )
-	else GET_PROPERTY( "description", desc_ )
 	else GET_PROPERTY( "incognito", incognito ? 1 : 0 )
 	else GET_PROPERTY( "timeunused", (int)time_unused )
 	else GET_PROPERTY( "timeusedlast", (int)timeused_last )

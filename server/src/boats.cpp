@@ -157,7 +157,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		pTiller->tags().set( "tiller", 1 );
 		pTiller->tags().set( "boatserial", this->serial() );
 		this->itemserials[ TILLER ] = pTiller->serial();
-		pTiller->setGateTime((unsigned int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC)));
+		pTiller->tags().set("gatetime", (int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC)));
 	}
 		
 	P_ITEM pPlankR = cItem::createFromId( this->itemids[0][ PORT_P_C ] );

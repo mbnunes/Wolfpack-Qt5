@@ -53,7 +53,6 @@ class cItem : public cUObject
 	Q_PROPERTY ( ushort		amount		READ amount			WRITE setAmount			)
 	Q_PROPERTY ( ushort		restock		READ restock		WRITE setRestock		)
 	Q_PROPERTY ( uchar		layer		READ layer			WRITE setLayer			)
-	Q_PROPERTY ( QString	spawnregion	READ spawnregion	WRITE setSpawnRegion	)
 	Q_PROPERTY ( int		totalweight READ totalweight	WRITE setTotalweight	)
 	Q_PROPERTY ( ushort		accuracy	READ accuracy		WRITE setAccuracy		)
 	Q_PROPERTY ( int		sellprice	READ sellprice		WRITE setSellprice		)
@@ -77,13 +76,10 @@ class cItem : public cUObject
 	Q_PROPERTY ( short		intelligenceMod READ intelligenceMod	WRITE setIntelligenceMod	)
 	Q_PROPERTY ( short		intelligenceReq	READ intelligenceReq	WRITE setIntelligenceReq	)
 	Q_PROPERTY ( uchar		magic		READ magic			WRITE setMagic			)
-	Q_PROPERTY ( uint		gatetime	READ gatetime		WRITE setGateTime		)
-	Q_PROPERTY ( int		gatenumber	READ gatenumber		WRITE setGateNumber		)
 	Q_PROPERTY ( uint		decaytime	READ decaytime		WRITE setDecayTime		)
 	Q_PROPERTY ( uint		disabled	READ disabled		WRITE setDisabled		)
 	Q_PROPERTY ( uint		poisoned	READ poisoned		WRITE setPoisoned		)
 	Q_PROPERTY ( int		rank		READ rank			WRITE setRank			)
-	Q_PROPERTY ( QString	description	READ description	WRITE setDescription	)
 	Q_PROPERTY ( QString	creator		READ creator		WRITE setCreator		)
 	Q_PROPERTY ( int		ownserial	READ ownSerial		WRITE SetOwnSerial		)
 	Q_PROPERTY ( uchar		visible		READ visible		WRITE setVisible		)
@@ -135,7 +131,6 @@ public:
 	SI16			stones()		const { return (SI16)( weight_ / 10 ); } // Weight transformed to UO Stones
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
 	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
-	QString			spawnregion()	const { return spawnregion_; }
 	bool			corpse()		const { return priv_&0x40; }		// Is the item a corpse
 	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
 	bool			nodecay()		const { return priv_&0x01; }		// Is the item protected from decaying
@@ -166,13 +161,10 @@ public:
 	short			intelligenceReq()	const { return in_; }
 	short			intelligenceMod()	const { return in2_; }
 	uchar			magic()			const { return magic_; }
-	uint			gatetime()		const { return gatetime_; }
-	int				gatenumber()	const { return gatenumber_; }
 	uint			decaytime()		const { return decaytime_; }
 	uint			disabled()		const { return disabled_; } 
 	uint			poisoned()		const { return poisoned_; }
 	int				rank()			const { return rank_; } 
-	QString			description()	const { return desc_; }
 	QString			creator()		const { return creator_;}
 	uchar			visible()		const { return visible_;}
 	uchar			priv()			const { return priv_;	}
@@ -224,14 +216,12 @@ public:
 	void	setWeight( SI16 nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; flagChanged(); changed( TOOLTIP );};
-	void	setSpawnRegion( const QString& nValue ) { spawnregion_ = nValue; flagChanged();};
 	void	setCorpse( bool nValue ) { ( nValue ) ? priv_ |= 0x40 : priv_ &= 0xBF; flagChanged(); changed( TOOLTIP );}
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; flagChanged(); changed( TOOLTIP );}
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( int data );
 	void	setAntispamtimer ( uint data ) { antispamtimer_ = data; flagChanged();}
 	void	setAccuracy( ushort data ) { accuracy_ = data; flagChanged();}
-	void	setDescription( const QString& d ) { desc_ = d; flagChanged(); changed( TOOLTIP );}
 	void	setCreator( const QString& d )	{ creator_ = d;	flagChanged(); changed( TOOLTIP );}
 
 	cItem();
@@ -262,8 +252,6 @@ public:
 	void	setIntelligenceReq( short data ) { in_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setIntelligenceMod( short data ) { in2_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setMagic( uchar data ) { magic_ = data; flagChanged(); changed( TOOLTIP );}
-	void	setGateTime( uint data ) { gatetime_ = data; flagChanged();}
-	void	setGateNumber( int data ) { gatenumber_ = data; flagChanged();}
 	void	setDecayTime( uint data ) { decaytime_ = data; }
 	void	setBuyprice( int data ) { buyprice_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setSellprice( int data ) { sellprice_ = data; flagChanged(); changed( TOOLTIP );}
@@ -395,7 +383,6 @@ protected:
 	SI16		weight_;
 	SI16		hp_;
 	SI16		maxhp_;
-	QString		spawnregion_;
 	int			totalweight_;
 	uint		antispamtimer_;
 	ushort		accuracy_;	// for weapons, could be used for certain tools too.
@@ -424,8 +411,6 @@ protected:
 	short		in_; // The intelligence needed to equip the item
 	short		in2_; // The intelligence the item gives
 	uchar		magic_; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
-	uint		gatetime_;
-	int			gatenumber_;
 	uint		decaytime_;
 	uint		disabled_; //Item is disabled, cant trigger.
 	uint		poisoned_; //AntiChrist -- for poisoning skill
@@ -435,7 +420,6 @@ protected:
 	// RANK 1 ---> 1*10=10% this item has 90% of malus!
 	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
 	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-	QString		desc_;
 	QString		creator_; // Store the name of the player made this item
 	SERIAL		ownserial_;
 	uchar		visible_; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible

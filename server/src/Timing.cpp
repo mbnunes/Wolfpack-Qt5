@@ -707,17 +707,20 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 				// Move Boats
 				case 117:
-					if( pItem->tags().get( "tiller" ).isValid() && 
-						( pItem->gatetime() <= currenttime ) )
 					{
-						cBoat* pBoat = dynamic_cast< cBoat* >( FindItemBySerial( pItem->tags().get( "boatserial" ).toInt() ) );
-						if( pBoat )
+						bool ok = false;
+						if( pItem->tags().get( "tiller" ).isValid() && 
+							pItem->tags().get("gatetime").toInt(&ok) <= currenttime  && ok )
 						{
-							pBoat->move();
-							pItem->setGateTime((UINT32)( currenttime + (double)( SrvParams->boatSpeed() * MY_CLOCKS_PER_SEC ) ));
+							cBoat* pBoat = dynamic_cast< cBoat* >( FindItemBySerial( pItem->tags().get( "boatserial" ).toInt() ) );
+							if( pBoat )
+							{
+								pBoat->move();
+								pItem->tags().set("gatetime", (int)( currenttime + (double)( SrvParams->boatSpeed() * MY_CLOCKS_PER_SEC ) ) );
+							}
 						}
+						break;
 					}
-					break;
 				};				
 			}
 		}

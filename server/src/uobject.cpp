@@ -77,6 +77,7 @@ cUObject::cUObject( cUObject &src )
 	this->serial_ = src.serial_;
 	this->multis_ = src.multis_;
 	this->name_ = src.name_;
+	this->pos_  = src.pos_;
 	this->free = src.free;
 	this->changed( TOOLTIP );
 	tooltip_ = src.tooltip_;
