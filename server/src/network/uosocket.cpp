@@ -3064,13 +3064,15 @@ void cUOSocket::handleChat( cUOPacket* packet )
 
 bool cUOSocket::useItem( P_ITEM item )
 {
-	if ( !_player->isGM() && _player->objectDelay() >= Server::instance()->time() )
-	{
-		sysMessage( tr( "You must wait to perform another action." ) );
-		return false;
+	if (item->type() != 1 && !item->corpse()) {
+		if ( !_player->isGM() && _player->objectDelay() >= Server::instance()->time() )
+		{
+			sysMessage( tr( "You must wait to perform another action." ) );
+			return false;
+		}
+		else
+			_player->setObjectDelay( Config::instance()->objectDelay() * MY_CLOCKS_PER_SEC + Server::instance()->time() );
 	}
-	else
-		_player->setObjectDelay( Config::instance()->objectDelay() * MY_CLOCKS_PER_SEC + Server::instance()->time() );
 
 	// Cant use stuff that isn't in your pack.
 	if ( item->container() && item->container()->isItem() && item->type() != 1 && !item->isInWorld() )
