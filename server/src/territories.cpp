@@ -330,7 +330,7 @@ void cTerritories::load()
 
 		if ( territory->rectangles().empty() )
 		{
-			Console::instance()->send( tr( "Warning: Top level region %1 lacks rectangle tag, ignoring region" ).arg( territory->name() ) );
+			Console::instance()->log(LOG_WARNING, "Region %1 lacks rectangle tag, ignoring region.\n").arg(territory->name()));
 			delete territory;
 		}
 		else
