@@ -1097,11 +1097,8 @@ bool cChar::onCollideChar( P_CHAR Obstacle )
 void cChar::processNode( QDomElement &Tag )
 {
 	QString TagName = Tag.nodeName();
-	QString Value;
+	QString Value = this->getNodeValue( Tag );
 	QDomNodeList ChildTags;
-
-	if( Tag.hasChildNodes() )
-		Value = this->getNodeValue( Tag );
 
 	//<name>my this</name>
 	if( TagName == "name" )
@@ -1249,7 +1246,8 @@ void cChar::processNode( QDomElement &Tag )
 	//<id>0x11</id>
 	else if( TagName == "id" )
 	{
-		this->setId( Value.toUShort() );
+		bool* ok = false;
+		this->setId( Value.toInt( ok, 16 ) );
 		this->xid = this->id();
 	}
 

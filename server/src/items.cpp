@@ -1982,11 +1982,8 @@ void cItem::processNode( QDomElement& Tag )
 {
 	// we do this as we're going to modify the element
 	QString TagName = Tag.nodeName();
-	QString Value;
+	QString Value = this->getNodeValue( Tag );
 
-	if( Tag.hasChildNodes() )
-		Value = this->getNodeValue( Tag );
-	
 	// <name>my Item</name>
 	if( TagName == "name" )
 		this->setName( Value );

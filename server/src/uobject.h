@@ -82,7 +82,7 @@ public:
 // Methods
 protected:
 	virtual void processNode( QDomElement &Tag ) = 0;
-	QString getNodeValue( QDomNode &Node );
+	QString getNodeValue( QDomElement &Tag );
 
 	std::vector< WPDefaultScript* > scriptChain;
 	QStringList eventList_; // Important for recreating the scriptChain on reloading

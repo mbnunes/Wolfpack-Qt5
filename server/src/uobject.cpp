@@ -295,68 +295,74 @@ void cUObject::applyDefinition( QDomElement& sectionNode )
 	}
 }
 
-QString cUObject::getNodeValue( QDomNode &Node )
+QString cUObject::getNodeValue( QDomElement &Tag )
 {
-	QDomElement Tag = Node.toElement();
-
-	if( Tag.nodeName() == "namelist" )
-	{
-		// Get the namelist and select a random name!
-		// ...
-		QString selectedName = Tag.text();
-		return selectedName;
-	}
-	else if( Tag.nodeName() == "random" )
-	{
-		if( Tag.attributes().contains("min") && Tag.attributes().contains("max") )
-			return QString("%1").arg( RandomNum( Tag.attributeNode("min").nodeValue().toInt(), Tag.attributeNode("max").nodeValue().toInt() ) );
-		else if( Tag.attributes().contains("list") )
-		{
-			QStringList RandValues = QStringList::split(",", Tag.attributeNode("list").nodeValue());
-			return RandValues[ RandomNum(0,RandValues.size()-1) ];
-		}
-		else if( Tag.attributes().contains("dice") )
-			return QString("%1").arg(rollDice(Tag.attributeNode("dice").nodeValue()));
-		else
-			return QString("0");
-	}
-	else if( Tag.nodeName() == "colorlist" )
+	if( !Tag.hasChildNodes() )
+		return Tag.nodeValue();
+	else
 	{
 		QString Value = QString();
-		if( Tag.hasChildNodes() )
+		QDomNode childNode = Tag.firstChild();
+		while( !childNode.isNull() )
 		{
-			QDomNode childNode = Tag.firstChild();
-			while( !childNode.isNull() )
+			QDomElement childTag = childNode.toElement();
+			if( childTag.nodeName() == "namelist" )
 			{
-				if( childNode.isText() )
-					Value += childNode.toText().data();
-				else if( childNode.isElement() )
-					Value += this->getNodeValue( childNode );
-
-				childNode = childNode.nextSibling();
+				// Get the namelist and select a random name!
+				// ...
+				QString selectedName = Tag.text();
+				Value += selectedName;
 			}
-		}
-		else
-			Value = QString("%1").arg(addrandomcolor( NULL, (char*)Tag.nodeValue().latin1() ));
+			else if( childTag.nodeName() == "random" )
+			{
+				if( childTag.attributes().contains("min") && childTag.attributes().contains("max") )
+					Value += QString("%1").arg( RandomNum( childTag.attributeNode("min").nodeValue().toInt(), childTag.attributeNode("max").nodeValue().toInt() ) );
+				else if( childTag.attributes().contains("list") )
+				{
+					QStringList RandValues = QStringList::split(",", childTag.attributeNode("list").nodeValue());
+					Value += RandValues[ RandomNum(0,RandValues.size()-1) ];
+				}
+				else if( childTag.attributes().contains("dice") )
+					Value += QString("%1").arg(rollDice(childTag.attributeNode("dice").nodeValue()));
+				else
+					Value += QString("0");
+			}
+			else if( childTag.nodeName() == "colorlist" )
+			{
+				if( childTag.hasChildNodes() )
+				{
+					QDomNode childTag = childTag.firstChild();
+					while( !childTag.isNull() )
+					{
+						if( childTag.isText() )
+							Value += childTag.toText().data();
+						else if( childTag.isElement() )
+							Value += this->getNodeValue( childTag.toElement() );
 
+						childTag = childTag.nextSibling();
+					}
+				}
+				else
+					Value += QString("%1").arg(addrandomcolor( NULL, (char*)childTag.nodeValue().latin1() ));
+			}
+
+			if( !childTag.hasChildNodes() )
+				Value += childTag.text();
+
+			// Process the childnodes
+			QDomNodeList childNodes = childTag.childNodes();
+
+			for( int i = 0; i < childNodes.count(); i++ )
+			{
+				if( !childNodes.item( i ).isElement() )
+					continue;
+
+				Value += this->getNodeValue( childNodes.item( i ).toElement() );
+			}
+			childNode = childNode.nextSibling();
+		}
 		return Value;
 	}
-
-	if( !Tag.hasChildNodes() )
-		return Tag.text();
-
-	// Process the childnodes
-	QDomNodeList childNodes = Tag.childNodes();
-
-	for( int i = 0; i < childNodes.count(); i++ )
-	{
-		if( !childNodes.item( i ).isElement() )
-			continue;
-
-		return this->getNodeValue( childNodes.item( i ).toElement() );
-	}
-
-	return "";
 }
 
 void cUObject::processNode( QDomElement &Tag )
