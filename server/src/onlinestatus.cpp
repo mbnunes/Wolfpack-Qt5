@@ -42,11 +42,17 @@ void cOnlineStatus::reload()
 
 QString cOnlineStatus::getUptime()
 {
-	QString tmpUptime;
-	int		tmpElapsed;
+	int msecs, seconds, minutes, hours, days;
+	int		tmpElapsed, tmp;
 	tmpElapsed = tUptime_.elapsed();
-
-	return QString( "%4:%3:%2.%1" ).arg( tmpElapsed % 1000 ).arg( tmpElapsed / 1000 ).arg( tmpElapsed / 60000 ).arg( tmpElapsed / 3600000 );
+	
+	days = tmpElapsed / 86400000;
+	hours = (tmpElapsed % 86400000) / 3600000;
+	minutes = (( tmpElapsed % 86400000 ) % 3600000 ) / 60000;
+	seconds = ((( tmpElapsed % 86400000 ) % 3600000 ) % 60000 ) / 1000;
+	msecs = ((( tmpElapsed % 86400000 ) % 3600000 ) % 60000 ) % 1000;
+	
+	return QString( "%1:%2:%3:%4.%5" ).arg( days ).arg( hours ).arg( minutes ).arg( seconds ).arg( msecs );
 	
 }
 
