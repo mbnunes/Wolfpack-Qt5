@@ -271,18 +271,18 @@
 		<item>0x900</item>
 		<item>0x901</item>
 		<item>0x902</item>
-		<item>9x903</item>
-		<item>9x904</item>
-		<item>9x905</item>
-		<item>9x906</item>
-		<item>9x907</item>
-		<item>9x908</item>
-		<item>9x909</item>
-		<item>9x90a</item>
-		<item>9x90b</item>
-		<item>9x90c</item>
-		<item>9x90d</item>
-		<item>9x90e</item>
+		<item>0x903</item>
+		<item>0x904</item>
+		<item>0x905</item>
+		<item>0x906</item>
+		<item>0x907</item>
+		<item>0x908</item>
+		<item>0x909</item>
+		<item>0x90a</item>
+		<item>0x90b</item>
+		<item>0x90c</item>
+		<item>0x90d</item>
+		<item>0x90e</item>
 	</list>
 
 </definitions>
