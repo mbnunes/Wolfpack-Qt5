@@ -151,7 +151,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							continue;
 						if (onl &&(pc->isInvul() || pc->isHidden() || pc->dead || (Races.CheckRelation(pc_i,pc)==1)))
 							continue;
-						if (pc->isNpc() &&(pc->npcaitype == 2 || pc->npcaitype == 1 && (Races.CheckRelation(pc_i,pc)==1)))
+						if (pc->isNpc() &&(pc->npcaitype == 2 || pc->npcaitype == 1 || (Races.CheckRelation(pc_i,pc)==1)))
 							continue;
 						if (server_data.monsters_vs_animals == 0 &&(strlen(pc->title) <= 0 && !pc->isHuman()))
 							continue;
