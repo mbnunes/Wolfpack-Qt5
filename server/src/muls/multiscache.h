@@ -51,7 +51,7 @@ protected:
 public:
 	MultiDefinition();
 
-	void setItems( QValueVector<multiItem_st> items );
+	void setItems( const QValueVector<multiItem_st>& items );
 	bool inMulti( short x, short y );
 	signed char multiHeight( short x, short y, short z ) const;
 	QValueVector<multiItem_st> getEntries() const;

@@ -39,6 +39,7 @@ template <class product, typename keyType, typename productCreator = product* ( 
 class Factory
 {
 public:
+	virtual ~Factory() {}
 	bool registerType( const keyType& id, productCreator creator )
 	{
 		return associations_.insert( std::make_pair( id, creator ) ).second;

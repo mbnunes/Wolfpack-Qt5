@@ -51,7 +51,7 @@ private:
 	QString content_;
 	UINT32 pagecateg_;
 public:
-	cPage( SERIAL charserial, WPPAGE_TYPE pagetype, QString content, Coord_cl pagepos )
+	cPage( SERIAL charserial, WPPAGE_TYPE pagetype, const QString& content, const Coord_cl& pagepos )
 	{
 		charserial_ = charserial;
 		pagetype_ = pagetype;

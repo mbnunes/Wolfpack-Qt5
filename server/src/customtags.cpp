@@ -159,7 +159,7 @@ cVariant::cVariant( cItem* val )
 /*!
   Constructs a new variant with a Coord_cl value, \a val.
 */
-cVariant::cVariant( Coord_cl val )
+cVariant::cVariant( const Coord_cl& val )
 {
 	typ = Coord;
 	value.ptr = new Coord_cl( val );

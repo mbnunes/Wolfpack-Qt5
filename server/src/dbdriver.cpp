@@ -74,6 +74,7 @@ void cDBDriver::lockTable( const QString& table )
 void cDBDriver::unlockTable( const QString& table )
 {
 }
+
 QString cDBDriver::error()
 {
 	return QString::null;

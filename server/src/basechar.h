@@ -133,7 +133,7 @@ public:
 	virtual bool canSeeItem( P_ITEM item );
 	virtual void moveTo( const Coord_cl& pos, bool noremove = false );
 	bool lineOfSight( P_ITEM item, bool touch = false );
-	bool lineOfSight( Coord_cl position, bool touch = false );
+	bool lineOfSight( const Coord_cl& position, bool touch = false );
 	bool lineOfSight( P_CHAR character, bool touch = false );
 
 	/*!
@@ -276,7 +276,7 @@ public:
 	bool Wears( P_ITEM pi );
 	unsigned int getSkillSum() const;
 	void Init( bool ser = true );
-	bool isSameAs( P_CHAR pc );
+	bool isSameAs( P_CHAR pc ) const;
 	bool inGuardedArea();
 	void emote( const QString& emote, UI16 color = 0xFFFF );
 	P_ITEM rightHandItem() const;
@@ -1496,12 +1496,7 @@ inline bool cBaseChar::isHuman() const
 	return ( body_ == 0x190 || body_ == 0x191 );
 }
 
-inline bool cBaseChar::isInnocent()
-{
-	return !isMurderer() && !isCriminal();
-}
-
-inline bool cBaseChar::isSameAs( P_CHAR pc )
+inline bool cBaseChar::isSameAs( P_CHAR pc ) const
 {
 	return ( pc && pc->serial() == serial() );
 }

@@ -72,7 +72,7 @@ public:
 	cVariant( unsigned int);
 	cVariant( cBaseChar* );
 	cVariant( cItem* );
-	cVariant( Coord_cl );
+	cVariant( const Coord_cl& );
 	cVariant( double );
 	cVariant( long int );
 

@@ -42,7 +42,7 @@ MultiDefinition::MultiDefinition() : width( 0 ), height( 0 )
 {
 }
 
-void MultiDefinition::setItems( QValueVector<multiItem_st> items )
+void MultiDefinition::setItems( const QValueVector<multiItem_st>& items )
 {
 	// try to sort
 	if ( items.empty() )

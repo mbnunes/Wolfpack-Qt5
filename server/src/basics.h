@@ -35,42 +35,8 @@
 #include <functional>
 
 // Forward definitions
-
 class Coord_cl;
 class QString;
-
-//////////////////////////////////////////////////////////////////////
-// name: LongFromCharPtr, ShortFromCharPtr
-// history: init by Duke, 10.9.2000
-// purpose: calculates a long int from 4 subsequent bytes pointed to by 'p',
-//		assuming 'normal' byte order (NOT intel style)
-//		intended to replace calcserial() as follows
-//			serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
-//			serial=LongFromCharPtr(buffer[s]+7);
-
-inline long LongFromCharPtr( const unsigned char* p )
-{
-	return ( *p << 24 ) | ( *( p + 1 ) << 16 ) | ( *( p + 2 ) << 8 ) | *( p + 3 );
-}
-inline SI16 ShortFromCharPtr( const unsigned char* p )
-{
-	return static_cast<SI16>( ( *p << 8 ) | *( p + 1 ) );
-}
-
-//////////////////////////////////////////////////////////////////////
-// Name: LongToCharPtr, ShortToCharPtr
-// Purpose: stores a long int into 4 subsequent bytes pointed to by 'p',
-//		assuming 'normal' byte order (NOT intel style)
-// History: init Duke, 13.8.2000
-inline void LongToCharPtr( const unsigned long i, unsigned char* p )
-{
-	*p = static_cast<UI08>( i >> 24 ); *( p + 1 ) = static_cast<UI08>( i >> 16 ); *( p + 2 ) = static_cast<UI08>( i >> 8 ); *( p + 3 ) = static_cast<UI08>( i );
-}
-
-inline void ShortToCharPtr( const unsigned short i, unsigned char* p )
-{
-	*p = static_cast<UI08>( i >> 8 ); *( p + 1 ) = static_cast<UI08>( i );	// no %256 for 2nd byte, truncation will occur anyway
-}
 
 // sereg : roll dices d&d style
 int rollDice( const QString& dicePattern );

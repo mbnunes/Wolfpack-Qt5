@@ -77,6 +77,6 @@ void registerCleanupHandler( fnCleanupHandler );
 void reloadPython();
 void stopPython();
 void startPython( int argc, char* argv[] );
-void reportPythonError( QString moduleName = QString::null );
+void reportPythonError( const QString& moduleName = QString::null );
 
 #endif // __PYTHON_ENGINE_H__

@@ -111,7 +111,7 @@ struct stBlockItem
 	UINT8 height;
 	bool walkable;
 
-	stBlockItem() : walkable( false ), height( 0 ), z( -128 )
+	stBlockItem() : z( -128 ), height( 0 ), walkable( false )
 	{
 	}
 };

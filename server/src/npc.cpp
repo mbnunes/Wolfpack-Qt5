@@ -180,6 +180,11 @@ static void npcRegisterAfterLoading( P_NPC pc )
 	}
 }
 
+bool cNPC::isInnocent()
+{
+	return notoriety() == 1;
+}
+
 void cNPC::setOwner( P_PLAYER data, bool nochecks )
 {
 	// We CANT be our own owner
@@ -931,7 +936,7 @@ Coord_cl cNPC::pathDestination( void ) const
 class pathnode_cl
 {
 public:
-	pathnode_cl( UI16 x_, UI16 y_, SI08 z_, UI16 step_, float cost_ ) : prev( NULL ), x( x_ ), y( y_ ), z( z_ ), step( step_ ), cost( cost_ )
+	pathnode_cl( UI16 x_, UI16 y_, SI08 z_, UI16 step_, float cost_ ) : x( x_ ), y( y_ ), z( z_ ), step( step_ ), cost( cost_ ), prev( 0 )
 	{
 	}
 	pathnode_cl() : prev( NULL )

@@ -160,7 +160,7 @@ void reloadPython()
 		PyImport_ReloadModule( PyList_GetItem( mList, i ) );
 }
 
-void reportPythonError( QString moduleName )
+void reportPythonError( const QString& moduleName )
 {
 	// Print the Error
 	if ( PyErr_Occurred() )

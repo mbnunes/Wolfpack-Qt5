@@ -86,7 +86,7 @@ void cTimer::setExpiretime_ms( float milliseconds )
 /*
 	Save a float to the effects_properties table.
  */
-void cTimer::saveFloat( unsigned int id, QString key, double value )
+void cTimer::saveFloat( unsigned int id, const QString& key, double value )
 {
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "float" ).arg( value ) );
 }
@@ -94,7 +94,7 @@ void cTimer::saveFloat( unsigned int id, QString key, double value )
 /*
 	Save an integer to the effects_properties table.
  */
-void cTimer::saveInt( unsigned int id, QString key, int value )
+void cTimer::saveInt( unsigned int id, const QString& key, int value )
 {
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "int" ).arg( value ) );
 }
@@ -102,24 +102,24 @@ void cTimer::saveInt( unsigned int id, QString key, int value )
 /*
 	Save a string to the effects_properties table.
  */
-void cTimer::saveString( unsigned int id, QString key, const QString& value )
+void cTimer::saveString( unsigned int id, const QString& key, const QString& value )
 {
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "string" ).arg( PersistentBroker::instance()->quoteString( value.utf8() ) ) );
 }
 
-void cTimer::saveChar( unsigned int id, QString key, P_CHAR character )
+void cTimer::saveChar( unsigned int id, const QString& key, P_CHAR character )
 {
 	unsigned int value = character->serial();
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "char" ).arg( value ) );
 }
 
-void cTimer::saveItem( unsigned int id, QString key, P_ITEM item )
+void cTimer::saveItem( unsigned int id, const QString& key, P_ITEM item )
 {
 	unsigned int value = item->serial();
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "item" ).arg( value ) );
 }
 
-bool cTimer::loadChar( unsigned int id, QString key, P_CHAR& character )
+bool cTimer::loadChar( unsigned int id, const QString& key, P_CHAR& character )
 {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'char'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
@@ -135,7 +135,7 @@ bool cTimer::loadChar( unsigned int id, QString key, P_CHAR& character )
 	return true;
 }
 
-bool cTimer::loadItem( unsigned int id, QString key, P_ITEM& item )
+bool cTimer::loadItem( unsigned int id, const QString& key, P_ITEM& item )
 {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'item'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
@@ -154,7 +154,7 @@ bool cTimer::loadItem( unsigned int id, QString key, P_ITEM& item )
 /*
 	Load a float from the effects_properties table.
  */
-bool cTimer::loadFloat( unsigned int id, QString key, double& value )
+bool cTimer::loadFloat( unsigned int id, const QString& key, double& value )
 {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'float'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
@@ -174,7 +174,7 @@ bool cTimer::loadFloat( unsigned int id, QString key, double& value )
 /*
 	Load an integer from the effects_properties table.
  */
-bool cTimer::loadInt( unsigned int id, QString key, int& value )
+bool cTimer::loadInt( unsigned int id, const QString& key, int& value )
 {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'int'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
@@ -194,7 +194,7 @@ bool cTimer::loadInt( unsigned int id, QString key, int& value )
 /*
 	Load a string from the effects_properties table.
  */
-bool cTimer::loadString( unsigned int id, QString key, QString& value )
+bool cTimer::loadString( unsigned int id, const QString& key, QString& value )
 {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'string'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 

@@ -70,6 +70,8 @@ private:
 
 	// Protection
 	SingletonHolder();
+	SingletonHolder(SingletonHolder&);
+	SingletonHolder& operator=(SingletonHolder&);
 
 	// Data
 	typedef T* ptrInstanceType;

@@ -3227,6 +3227,11 @@ void cBaseChar::poll( unsigned int time, unsigned int events )
 	}
 }
 
+bool cBaseChar::isInnocent()
+{
+	return !isMurderer() && !isCriminal();
+}
+
 void cBaseChar::refreshMaximumValues()
 {
 	if ( objectType() == enPlayer )
@@ -3255,7 +3260,7 @@ bool cBaseChar::lineOfSight( P_ITEM target, bool touch )
 	return eyes.lineOfSight( target->pos(), tile.height, touch );
 }
 
-bool cBaseChar::lineOfSight( Coord_cl target, bool touch )
+bool cBaseChar::lineOfSight( const Coord_cl& target, bool touch )
 {
 	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
 

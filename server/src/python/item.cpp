@@ -164,7 +164,7 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 {
 	// Gather parameters
 	Coord_cl pos = self->pItem->pos();
-	char noRemove = 0;
+	uchar noRemove = 0;
 
 	if ( PyTuple_Size( args ) == 1 )
 	{
@@ -177,10 +177,12 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 	}
 	else
 	{
-		if ( !PyArg_ParseTuple( args, "HH|bBB:item.moveto(x, y, [z], [map])", &pos.x, &pos.y, &pos.z, &pos.map, &noRemove ) )
+		int z = 0;
+		if ( !PyArg_ParseTuple( args, "HH|iBB:item.moveto(x, y, [z], [map])", &pos.x, &pos.y, &z, &pos.map, &noRemove ) )
 		{
 			return 0;
 		}
+		pos.z = (signed char)z;
 		self->pItem->moveTo( pos, noRemove ? true : false );
 	}
 

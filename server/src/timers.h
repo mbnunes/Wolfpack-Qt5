@@ -72,16 +72,16 @@ public:
 	/*
 	 * Provided for subclasses to save additional information.
 	*/
-	void saveFloat( unsigned int id, QString key, double value );
-	void saveInt( unsigned int id, QString key, int value );
-	void saveString( unsigned int id, QString key, const QString& value );
-	void saveChar( unsigned int id, QString key, P_CHAR character );
-	void saveItem( unsigned int id, QString key, P_ITEM item );
-	bool loadFloat( unsigned int id, QString key, double& value );
-	bool loadInt( unsigned int id, QString key, int& value );
-	bool loadString( unsigned int id, QString key, QString& value );
-	bool loadChar( unsigned int id, QString key, P_CHAR& character );
-	bool loadItem( unsigned int id, QString key, P_ITEM& item );
+	void saveFloat( unsigned int id, const QString& key, double value );
+	void saveInt( unsigned int id, const QString& key, int value );
+	void saveString( unsigned int id, const QString& key, const QString& value );
+	void saveChar( unsigned int id, const QString& key, P_CHAR character );
+	void saveItem( unsigned int id, const QString& key, P_ITEM item );
+	bool loadFloat( unsigned int id, const QString& key, double& value );
+	bool loadInt( unsigned int id, const QString& key, int& value );
+	bool loadString( unsigned int id, const QString& key, QString& value );
+	bool loadChar( unsigned int id, const QString& key, P_CHAR& character );
+	bool loadItem( unsigned int id, const QString& key, P_ITEM& item );
 
 public:
 	//	cTimer() { serializable = true; }
@@ -101,14 +101,15 @@ public:
 		dispellable = false;	// Most Effects are NOT dispellable by default
 	}
 
+	virtual ~cTimer()
+	{
+	}
+
 	bool operator<( const cTimer& a ) const
 	{
 		return expiretime < a.expiretime;
 	}
 
-	virtual ~cTimer()
-	{
-	}
 	void setExpiretime_s( int seconds );
 	void setExpiretime_ms( float milliseconds );
 	void setDest( int ser );

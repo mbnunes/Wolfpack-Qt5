@@ -70,6 +70,7 @@ typedef SingletonHolder<cKeyManager> KeyManager;
 class cClientEncryption
 {
 public:
+	virtual ~cClientEncryption() {}
 	virtual void serverEncrypt( char* buffer, unsigned int length ) = 0;
 	virtual void clientDecrypt( char* buffer, unsigned int length ) = 0;
 };
