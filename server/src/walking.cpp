@@ -351,8 +351,8 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 			return false;
 
 		// Or the bottom ?
-		if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS ) )
-			return false;
+		// if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS ) )
+		//	return false;
 
 		// Or does it spread the whole range ?
 		if ( ( item.z <= oldz ) && ( itemTop >= oldz + P_M_MAX_Z_BLOCKS ) )

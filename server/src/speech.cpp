@@ -258,10 +258,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 		if ( pPlayer->dist( pNpc ) > 16 )
 			continue;
 
-		cPythonScript** events = pNpc->getScripts();
-
-		if ( events )
-		{
+		if (pNpc->canHandleEvent(EVENT_SPEECH)) {
 			PyObject* pkeywords = PyList_New( keywords.size() );
 
 			// Set Items
@@ -270,7 +267,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 
 			PyObject* args = Py_BuildValue( "(NNNO)", pNpc->getPyObject(), pPlayer->getPyObject(), QString2Python( comm ), pkeywords );
 
-			bool result = cPythonScript::callChainedEventHandler( EVENT_SPEECH, events, args );
+			bool result = pNpc->callEventHandler(EVENT_SPEECH, args);
 
 			Py_DECREF( args );
 			Py_DECREF( pkeywords );
