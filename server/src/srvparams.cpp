@@ -49,14 +49,22 @@
 
 const char preferencesFileVersion[] = "1.0";
 
+#ifdef __unix__
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h> 
+#endif
+
 Q_INT32 resolveName( const QString& data )
 {
 	if ( data.isEmpty() )
 		return INADDR_NONE;
 //	we do a dns lookup on this
 
-#ifndef __unix__
 	Q_INT32 uiValue = inet_addr((char*)data.latin1()) ;
+//#ifndef __unix__
 	if (uiValue == INADDR_NONE)
 	{
 		hostent* ptrHost = gethostbyname((char*)data.latin1());
@@ -71,6 +79,7 @@ Q_INT32 resolveName( const QString& data )
 		    }
 		}
 	}
+//#endif
 
 	// inet_addr returns the ip in reverse order
 	Q_INT32 part1 = 0, part2 = 0, part3 = 0, part4 = 0;
@@ -80,9 +89,6 @@ Q_INT32 resolveName( const QString& data )
 	part4 = ( (uiValue & 0xFF000000) >> 24 );
 
 	return (part1 + part2 + part3 + part4);
-#endif
-
-	return INADDR_NONE;
 }
 
 cSrvParams::cSrvParams( const QString& filename, const QString& format, const QString& version )  : Preferences(filename, format, version)
