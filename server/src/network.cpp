@@ -1474,8 +1474,8 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					
 					case 0x56:
 					case 0x27:
-					/*		
 					// Spell
+						{
 						P_ITEM pj = NULL;
 						P_ITEM pBackpack = Packitem(pc_currchar);
 				
@@ -1534,13 +1534,12 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 								Magic->newSelectSpell2Cast( s, book );
 							}
 						}
-						
 						else 
 						{
 							sysmessage(s, "You don't have that spell."); 
 						}
-						*/
-						break ;
+					}
+						break;
 					
 					case 0x43:
 					// Open Spell Book
