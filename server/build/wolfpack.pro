@@ -205,6 +205,7 @@ SOURCES		+= python/char.cpp \
 		   python/pyaccount.cpp \
 		   python/pycoord.cpp \
 		   python/pyregion.cpp \
+		   python/pytooltip.cpp \	
 		   python/socket.cpp \
 		   python/wppythonscript.cpp
 
