@@ -93,15 +93,35 @@ static PyObject *wpTooltip_add( wpTooltip *self, PyObject *args )
 	if( !self->list )
 		return false;
 
-	if( ( !checkArgInt( 0 ) ) || ( !checkArgStr( 1 ) ) )
+//	( !checkArgStr( 1 ) ) || ( !checkArgUnicode( 1 ) ) )
+
+	UINT32 listid;
+	QString params;
+
+	if( checkArgInt( 0 ) )
+	{
+		listid = getArgInt( 0 );
+	}
+	else
 	{
 		PyErr_BadArgument();
 		return NULL;
 	}
 
-	UINT32 listid = getArgInt( 0 );
-	QString params = getArgStr( 1 );
-	
+	if( checkArgUnicode( 1 ) )
+	{
+		params.setUnicodeCodes( (unsigned short*)getArgUnicode( 1 ), getUnicodeSize( 1 ) ) ;
+	}
+	else if( checkArgStr( 1 ) )
+	{
+		params = getArgStr( 1 );
+	}
+	else
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
 	self->list->addLine( listid, params );
 
 	return PyTrue;

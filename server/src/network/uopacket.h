@@ -70,7 +70,7 @@ public:
 	QString  getUnicodeString( uint, uint ) const;
 	void	 setInt( uint, uint );
 	void	 setShort( uint, ushort );
-	void	 setUnicodeString( uint, const QString&, uint );
+	void	 setUnicodeString( uint, const QString&, uint, bool swapbytes = false );
 	void	 setAsciiString( uint, const char*, uint );
 	static	 QCString dump( const QByteArray& );
 

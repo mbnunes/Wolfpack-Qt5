@@ -120,6 +120,8 @@ cNPC_AI* getWpAI( PyObject* );
 #define checkArgStr( id ) ( PyTuple_Size( args ) > id && PyString_Check( PyTuple_GetItem( args, id ) ) )
 #define checkArgUnicode( id ) ( PyTuple_Size( args ) > id && PyUnicode_Check( PyTuple_GetItem( args, id ) ) )
 #define getArgStr( id ) PyString_AsString( PyTuple_GetItem( args, id ) )
+#define getArgUnicode( id ) PyUnicode_AsUnicode( PyTuple_GetItem( args, id ) )
+#define getUnicodeSize( id ) PyUnicode_GetSize( PyTuple_GetItem( args, id ) )
 #define checkArgAccount( id ) ( PyTuple_Size( args ) > id && checkWpAccount( PyTuple_GetItem( args, id ) ) )
 #define checkArgRegion( id ) ( PyTuple_Size( args ) > id && checkWpRegion( PyTuple_GetItem( args, id ) ) )
 #define getArgRegion( id ) getWpRegion( PyTuple_GetItem( args, id ) )

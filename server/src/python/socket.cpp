@@ -111,7 +111,7 @@ static PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 	}
 	else if( checkArgUnicode( 0 ) )
 	{
-		message.setUnicodeCodes( (unsigned short*)( PyUnicode_AsUnicode( param ) ), PyUnicode_GetSize( param ) ) ;
+		message.setUnicodeCodes( (unsigned short*)getArgUnicode( 0 ), getUnicodeSize( 0 ) ) ;
 	}
 	else
 	{
@@ -153,7 +153,13 @@ static PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
 	QString params( "" );
 
 	if( checkArgStr( 1 ) )
+	{
 		params = getArgStr( 1 );
+	}
+	else if( checkArgUnicode( 1 ) )
+	{
+		params.setUnicodeCodes( (unsigned short*)getArgUnicode( 1 ), getUnicodeSize( 1 ) ) ;
+	}
 
 	if( checkArgInt( 2 ) )
 		color = getArgInt( 2 );

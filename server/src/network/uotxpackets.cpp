@@ -584,11 +584,7 @@ void cUOTxTooltipList::addLine( UINT32 id, const QString& params )
 	setInt( offset, id );
 	setShort( offset + 4, params.length() * 2 );
 	
-	for( UINT32 i = 0; i < params.length(); ++i )
-	{
-		(*this)[offset + 6 + i*2+1] = ( params.unicode()[i].unicode() >> 8 ) & 0xFF;
-		(*this)[offset + 6 + i*2] = ( params.unicode()[i].unicode() ) & 0xFF;
-	}
+	setUnicodeString( offset + 6, params, params.length() * 2, true );
 
 	// Terminator
 	setInt( size() - 4, 0 );
