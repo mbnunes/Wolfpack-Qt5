@@ -257,7 +257,9 @@ enum enEnh {
 	SwingSpeed,
 	Potions,
 	SelfRepair,
-	DefenceChance
+	DefenceChance,
+	CastSpeed,
+	CastRecovery
 };
 
 enum enDirection
