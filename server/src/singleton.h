@@ -76,7 +76,7 @@ private:
 	SingletonHolder();
 	
 	// Data
-	typedef typename T* ptrInstanceType;
+	typedef T* ptrInstanceType;
 	static ptrInstanceType ptrInstance;
 
 public:
@@ -94,7 +94,7 @@ public:
 template<typename T,class L>
 typename SingletonHolder<T, L>::ptrInstanceType SingletonHolder<T,L>::ptrInstance;
 template<typename T,class L>
-bool typename SingletonHolder<T,L>::destroyed_ = false;
+bool SingletonHolder<T,L>::destroyed_ = false;
 
 // Singleton Members
 #if defined(_DEBUG)
