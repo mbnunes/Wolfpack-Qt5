@@ -182,19 +182,11 @@ void cConsole::send(const QString &sMessage)
 
 	if( sMessage.contains( "\n" ) )
 	{
-#if defined(Q_OS_UNIX) && 0 
-		sMessage.replace("\e[0m", "");
-		sMessage.replace("\e[1;32m", "");
-	  	sMessage.replace("\e[1;32m", "");
-		sMessage.replace("\e[1;31m", "");
-		sMessage.replace("\e[1;33m", "");
-		sMessage.replace("\e[1;37m", "");
-#endif
 		incompleteLine_.append( sMessage ); // Split by \n
 		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
 
 		// Insert all except the last element
-		for( int i = 0; i < lines.count()-1; ++i )
+		for( uint i = 0; i < lines.count()-1; ++i )
 			linebuffer_.push_back( lines[i] );
 
 		incompleteLine_ = lines[ lines.count() - 1 ];
