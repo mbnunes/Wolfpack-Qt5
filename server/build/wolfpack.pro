@@ -7,14 +7,14 @@
 PROJECT         = Wolfpack Emu
 TARGET          = wolfpack
 TEMPLATE        = app
-CONFIG          = console release
+CONFIG          = console release thread
 INCLUDEPATH     = lib/ZThread/include lib/wrl/include
 DEFINES         = REENTRANT ZTHREAD_STATIC
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES += WIN32 NDEBUG _CONSOLE _MBCS
 win32-g++:DEFINES = WIN32
 
-unix:LIBS       = -Llib/ZThread/lib -Llib/wrl/lib -lpthread -lZThread -lwrl
+unix:LIBS       = -Llib/ZThread/lib -Llib/wrl/lib -lZThread -lwrl
 
 
 unix:DEFINES    += NDEBUG
