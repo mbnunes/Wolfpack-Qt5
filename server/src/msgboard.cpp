@@ -184,13 +184,12 @@ void MsgBoardOpen(int s)
 	
 	// Can place up to 20 customizable chars in Message Board header to give Message Board a unique name
 	// Might be able to do more, but why, it usually overruns the area designated for the name anyway
-	int msgBoardSerial;
-	msgBoardSerial = calcItemFromSer(buffer[s][1], buffer[s][2], buffer[s][3], buffer[s][4]);
+	P_ITEM pi_msgBoard = FindItemBySerPtr(&buffer[s][1]);
 	
 	// If the name the item (Bulletin Board) has been defined, display it
 	// instead of the default "Bulletin Board" title.
-	if ( strcmp(items[msgBoardSerial].name, "#") )
-		strncpy( (char*)&msgBoardHeader[8], items[msgBoardSerial].name, 20);
+	if ( strcmp(pi_msgBoard->name, "#") )
+		strncpy( (char*)&msgBoardHeader[8], pi_msgBoard->name, 20);
 	
 	// Send Message Board header to client
 	Xsend(s, msgBoardHeader, (sizeof(msgBoardHeader)-1) );
@@ -238,7 +237,7 @@ void MsgBoardOpen(int s)
 	
 	// REGIONAL post file
 	//sprintf( fileName2, "region%s.bbi", region[calcRegionFromXY(items[msgBoardSerial].x, items[msgBoardSerial].y)].name );
-	sprintf( fileName2, "region%d.bbi", calcRegionFromXY(items[msgBoardSerial].pos.x, items[msgBoardSerial].pos.y) );
+	sprintf( fileName2, "region%d.bbi", calcRegionFromXY(pi_msgBoard->pos.x, pi_msgBoard->pos.y) );
 	
 	// LOCAL post file
 	sprintf( fileName3, "%02x%02x%02x%02x.bbi", buffer[s][1], buffer[s][2], buffer[s][3], buffer[s][4]);

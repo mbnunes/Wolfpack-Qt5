@@ -2802,13 +2802,15 @@ void deathaction(int s, int x) // Character does a certain action
 {
 	int i;
 	unsigned char deathact[14]="\xAF\x01\x02\x03\x04\x01\x02\x00\x05\x00\x00\x00\x00";
-	P_CHAR pc = MAKE_CHARREF_LR(s)
+	P_CHAR pc = MAKE_CHARREF_LR(s);
+
+	P_ITEM pi_x = MAKE_ITEM_REF(x);
 
 	deathact[1]=pc->ser1;
 	deathact[2]=pc->ser2;
 	deathact[3]=pc->ser3;
 	deathact[4]=pc->ser4;
-	LongToCharPtr(items[x].serial,deathact+5);
+	LongToCharPtr(pi_x->serial,deathact+5);
 	
 	for (i=0;i<now;i++) 
 		if ((inrange1p(s, currchar[i]))&&(perm[i]) && (currchar[i]!=s)) 

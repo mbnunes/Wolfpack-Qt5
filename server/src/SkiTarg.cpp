@@ -817,9 +817,9 @@ void cSkills::TreeTarget(int s)
 		} else
 		{//normal mining skill
 			
-			c=Items->SpawnItem(s,DEREF_P_CHAR(pc),10,"#",1,0x1B,0xE0,0,0,1,1);
-			if(c==-1) return;//AntiChrist to prevent crashes
-			if (items[c].amount>10) sysmessage(s,"You place more logs in your pack.");
+			P_ITEM pi_c = MAKE_ITEM_REF(Items->SpawnItem(s,DEREF_P_CHAR(pc),10,"#",1,0x1B,0xE0,0,0,1,1));
+			if(pi_c == NULL) return;//AntiChrist to prevent crashes
+			if (pi_c->amount > 10) sysmessage(s,"You place more logs in your pack.");
 			else sysmessage(s,"You place some logs in your pack.");
 			
 			lumber=1;
@@ -1177,10 +1177,10 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 					else
 					{
 						sprintf(tmpmsg,"You have cooked the %s,and it smells great.",matname);
-						int c=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),piRaw->amount,"#",1,id1,id2,0,0,1,1);
-						if(c==-1) return;
-						items[c].type=14;
-						RefreshItem(c);
+						P_ITEM pi_c = MAKE_ITEM_REF(Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),piRaw->amount,"#",1,id1,id2,0,0,1,1));
+						if(pi_c == NULL) return;
+						pi_c->type = 14;
+						RefreshItem(DEREF_P_ITEM(pi_c));
 						Items->DeleItem(piRaw);
 					}
 					sysmessage(s,tmpmsg);
@@ -2263,26 +2263,27 @@ void cSkills::BeggingTarget(int s)
 					{
 						P_ITEM pi_j =  FindItemBySerial(vecContainer[ci]);
 						j = DEREF_P_ITEM(pi_j);
-						if (j!=-1)
+						if (pi_j != NULL)
 						{
-							if (items[j].id()==0x0EED && items[j].contserial==items[p].serial )
+							if (pi_j->id()==0x0EED )
 							{
-								gold+=items[j].amount; // calc total gold in pack
+								gold+=pi_j->amount; // calc total gold in pack
 								
-								int k=items[j].amount;
+								int k = pi_j->amount;
 								if(k>=y) // enough money in that pile in pack to satisfy pre-aclculated amount
 								{
-									items[j].amount-=y;
+									pi_j->amount-=y;
 									realgold+=y; // calc gold actually given to player
-									if (items[j].amount<=0) Items->DeleItem(j); // delete pile if its totaly gone afteer subtracting gold
-									RefreshItem(j); // resend new amount
-									abort=1;
+									if (pi_j->amount<=0) 
+										Items->DeleItem(pi_j); // delete pile if its totaly gone afteer subtracting gold
+									RefreshItem(pi_j); // resend new amount
+									abort = 1;
 								}
 								else // not enough money in this pile -> only delete it
 								{
-									Items->DeleItem(j);
-									RefreshItem(j);
-									realgold+=items[j].amount;
+									Items->DeleItem(pi_j);
+									RefreshItem(pi_j); // Refresh a deleted item?
+									realgold += pi_j->amount;
 								}
 							}
 						} // end of if j!=-1
