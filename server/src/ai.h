@@ -54,8 +54,8 @@ class cNPC_AI
 {
 public:
 	cNPC_AI() { currentState = NULL; }
-	~cNPC_AI() { if( currentState ) delete currentState; }
-	
+	~cNPC_AI();
+		
 	virtual void eventHandler() = 0;
 	virtual void updateState();
 	virtual void updateState( AbstractState* newState );

@@ -1189,7 +1189,7 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "summontime", (int)summonTime_) 
 	else GET_PROPERTY( "summontimer", (int)summonTime_) 
 	else GET_PROPERTY( "owner", owner_ )
-	else GET_PROPERTY( "ai", ai_ ? ai_->AIType() : "" )
+	else GET_PROPERTY( "ai", ai_ ? ai_->AIType() : QString( "" ) )
 	else GET_PROPERTY( "fleeat", criticalHealth_ )
 	else GET_PROPERTY( "criticalhealth", criticalHealth_ )
 	else GET_PROPERTY( "spellslow", (int)spellsLow_ )

@@ -46,7 +46,7 @@ class cUOSocket;
 struct stCommand
 {
 	const char *name;
-	void (*command)( cUOSocket*, const QString&, QStringList& ) throw();	
+	void (*command)( cUOSocket*, const QString&, QStringList& );
 };
 
 class cAcl

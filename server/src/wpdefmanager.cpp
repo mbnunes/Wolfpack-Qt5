@@ -157,7 +157,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	QString errorMessage;
 	int errorLine, errorColumn;
 	
-	clConsole.PrepareProgress( QString( "Parsing %1" ).arg( FileName ) );
+	//clConsole.PrepareProgress( QString( "Parsing %1" ).arg( FileName ) );
 
 	QByteArray data = File.readAll();
 
@@ -171,7 +171,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
 		return false;
 	}
 
-	clConsole.ProgressDone();
+	//clConsole.ProgressDone();
 
     File.close();
 

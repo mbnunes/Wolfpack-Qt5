@@ -47,6 +47,11 @@
 // library includes
 #include <math.h>
 
+cNPC_AI::~cNPC_AI()
+{
+	delete currentState;
+}
+
 void cNPC_AI::setNPC( P_NPC npc )
 {
 	m_npc = npc;

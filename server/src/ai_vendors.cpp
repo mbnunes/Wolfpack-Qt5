@@ -41,7 +41,7 @@
 #include "player.h"
 #include "network/uosocket.h"
 #include "network/uorxpackets.h"
-#include "trade.h"
+#include "Trade.h"
 
 #include <math.h>
 

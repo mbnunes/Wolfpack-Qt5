@@ -405,7 +405,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	if( !nameByScript.isNull() )
 		setName( nameByScript );
 	else
-		setName( pChar->name()+( pChar->title().isEmpty() ? "" : ", "+pChar->title() ) );
+		setName( pChar->name() + ( pChar->title().isEmpty() ? QString( "" ) : ", " + pChar->title() ) );
 
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );

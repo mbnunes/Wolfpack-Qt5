@@ -14,8 +14,8 @@ DEFINES        += REENTRANT ZTHREAD_STATIC WP_DONT_USE_HASH_MAP
 unix {
 
 # Common unix settings
-	INCLUDEPATH += /usr/local/include/stlport lib/Python /usr/include/mysql
-	LIBS  = -L/usr/local/lib -Llib/ZThread/lib -Llib/Python -L/usr/lib/mysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil
+	INCLUDEPATH += /usr/local/include/stlport lib/Python /usr/include/mysql /usr/local/lib/mysql/include/mysql lib/Python/Include
+	LIBS  = -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.2 -lmysqlclient -lutil
 	
 # Optional compile modes	
 	
@@ -23,11 +23,14 @@ unix {
 		CONFIG += warn_off
 		linux {
 			QMAKE_CXXFLAGS -= -O2
-			QMAKE_CXXFLAGS += -mcpu=athlon-xp -O3 -pipe -fomit-frame-pointer -fsched-spec-load -frerun-loop-opt -fprefetch-loop-arrays -ffast-math
+			QMAKE_CXXFLAGS += -march=pentium3 -O3 -pipe -fomit-frame-pointer -fsched-spec-load -frerun-loop-opt -fprefetch-loop-arrays -ffast-math
 		}
 	}
 	debug {
 		CONFIG += warn_on
+		linux {
+			QMAKE_CXXFLAGS += -g 
+		}
 	}
 	static {
 		QMAKE_LFLAGS += -static
@@ -162,8 +165,10 @@ SOURCES         = \
 		  network.cpp \
 		  npc.cpp \
 		  npc_flatstore.cpp \
-		  p_ai.cpp \
 		  encryption.cpp \
+		  ai.cpp \
+		  ai_vendors.cpp \
+		  ai_monsters.cpp \
                   pfactory.cpp \
   		  persistentbroker.cpp \
 		  persistentobject.cpp \

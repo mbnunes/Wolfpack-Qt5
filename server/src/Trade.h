@@ -44,6 +44,7 @@
 #include "debug.h"
 
 class cUORxBuy;
+class cUORxSell;
 
 namespace Trade
 {
