@@ -33,7 +33,6 @@
 #include "npc.h"
 #include "party.h"
 #include "player.h"
-#include "globals.h"
 #include "world.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
@@ -47,7 +46,6 @@
 #include "network.h"
 #include "combat.h"
 #include "items.h"
-#include "itemid.h"
 #include "basics.h"
 #include "tilecache.h"
 #include "pythonscript.h"
@@ -196,8 +194,8 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	deaths_ = atoi( result[offset++] );
 	hunger_ = atoi( result[offset++] );
 	poison_ = (char)atoi( result[offset++] );
-	murdererTime_ = atoi( result[offset++] ) + uiCurrentTime;
-	criminalTime_ = atoi( result[offset++] ) + uiCurrentTime;
+	murdererTime_ = atoi( result[offset++] ) + Server::instance()->time();
+	criminalTime_ = atoi( result[offset++] ) + Server::instance()->time();
 	gender_ = atoi( result[offset++] );
 	propertyFlags_ = atoi( result[offset++] );
 	murdererSerial_ = atoi( result[offset++] );
@@ -282,8 +280,8 @@ void cBaseChar::save()
 		addField( "deaths", deaths_);
 		addField( "hunger", hunger_);
 		addField( "poison", poison_);
-		addField( "murderertime", murdererTime_ ? murdererTime_ - uiCurrentTime : 0);
-		addField( "criminaltime", criminalTime_ ? criminalTime_ - uiCurrentTime : 0);
+		addField( "murderertime", murdererTime_ ? murdererTime_ - Server::instance()->time() : 0);
+		addField( "criminaltime", criminalTime_ ? criminalTime_ - Server::instance()->time() : 0);
 		addField( "gender", gender_ );
 		addField( "propertyflags", propertyFlags_ );
 		addField( "murderer", murdererSerial_ );
@@ -333,12 +331,12 @@ static void characterRegisterAfterLoading(P_CHAR pc) {
 
 bool cBaseChar::isMurderer() const
 {
-	return murdererTime_ > uiCurrentTime;
+	return murdererTime_ > Server::instance()->time();
 }
 
 bool cBaseChar::isCriminal() const
 {
-	return criminalTime_ > uiCurrentTime;
+	return criminalTime_ > Server::instance()->time();
 }
 
 // Send the changed health-bar to all sockets in range
@@ -1003,19 +1001,19 @@ void cBaseChar::removeGuard( P_CHAR pPet, bool noGuardingChange )
 		pPet->setGuarding( 0 );
 }
 
-void cBaseChar::addEffect( cTempEffect *effect )
+void cBaseChar::addTimer( cTimer *timer )
 {
-	effects_.push_back( effect );
+	timers_.push_back(timer);
 }
 
-void cBaseChar::removeEffect( cTempEffect *effect )
+void cBaseChar::removeTimer(cTimer *timer)
 {
-	EffectContainer::iterator iter = effects_.begin();
-	while( iter != effects_.end() )
+	TimerContainer::iterator iter = timers_.begin();
+	while( iter != timers_.end() )
 	{
-		if( (*iter) == effect )
+		if( (*iter) == timer)
 		{
-			effects_.erase( iter );
+			timers_.erase( iter );
 			break;
 		}
 		++iter;
@@ -1966,7 +1964,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 		if (blood) {
 			blood->moveTo(pos_); // Move it to the feet of the victim
 			blood->setNoDecay(false); // Override the nodecay tag in the definitions
-			blood->setDecayTime(uiCurrentTime + 20 * MY_CLOCKS_PER_SEC); // Let it decay in 20 seconds from now
+			blood->setDecayTime(Server::instance()->time() + 20 * MY_CLOCKS_PER_SEC); // Let it decay in 20 seconds from now
 			blood->update(); // Send it to all sockets in range
 		}
 	}
@@ -2481,7 +2479,7 @@ bool cBaseChar::kill(cUObject *source) {
 		if (pKiller)
 		{
 			corpse->setMurderer(pKiller->name());
-			corpse->setMurderTime(uiCurrentTime);
+			corpse->setMurderTime(Server::instance()->time());
 		}
 
 		// Move possible equipment to the corpse
@@ -2519,7 +2517,7 @@ bool cBaseChar::kill(cUObject *source) {
 			}
 		}
 
-		corpse->setDecayTime(uiCurrentTime + Config::instance()->corpseDecayTime() * MY_CLOCKS_PER_SEC);
+		corpse->setDecayTime(Server::instance()->time() + Config::instance()->corpseDecayTime() * MY_CLOCKS_PER_SEC);
 		corpse->update();
 	}
 

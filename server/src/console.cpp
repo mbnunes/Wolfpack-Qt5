@@ -29,14 +29,13 @@
 #include "console.h"
 #include "pythonscript.h"
 #include "log.h"
-#include "globals.h"
+
 #include "world.h"
 #include "network.h"
 #include "config.h"
 #include "player.h"
 #include "accounts.h"
 #include "inlines.h"
-#include "wolfpack.h"
 
 // Library Includes
 #include <qstring.h>

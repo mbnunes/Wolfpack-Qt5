@@ -166,10 +166,6 @@ SOURCE=.\dbdriver.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\dbl_single_click.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\definable.cpp
 # End Source File
 # Begin Source File
@@ -203,10 +199,6 @@ SOURCE=.\guilds.cpp
 # Begin Source File
 
 SOURCE=.\gumps.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\itemid.cpp
 # End Source File
 # Begin Source File
 
@@ -310,7 +302,7 @@ SOURCE=.\Timing.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\TmpEff.cpp
+SOURCE=.\timers.cpp
 # End Source File
 # Begin Source File
 
@@ -334,15 +326,7 @@ SOURCE=.\walking.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\wolfpack.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\world.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\wptargetrequests.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -418,10 +402,6 @@ SOURCE=.\dbdriver.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\dbl_single_click.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\definable.h
 # PROP Ignore_Default_Tool 1
 # End Source File
@@ -469,10 +449,6 @@ SOURCE=.\gumps.h
 # Begin Source File
 
 SOURCE=.\inlines.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\itemid.h
 # End Source File
 # Begin Source File
 
@@ -583,10 +559,6 @@ SOURCE=.\speech.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\structs.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\targetrequests.h
 # PROP Ignore_Default_Tool 1
 # End Source File
@@ -609,7 +581,7 @@ SOURCE=.\Timing.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\TmpEff.h
+SOURCE=.\timers.h
 # PROP Ignore_Default_Tool 1
 # End Source File
 # Begin Source File
@@ -639,15 +611,11 @@ SOURCE=.\walking.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\wolfpack.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\world.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\wptargetrequests.h
+SOURCE=.\targetrequest.h
 # PROP Ignore_Default_Tool 1
 # End Source File
 # End Group

@@ -28,7 +28,7 @@
 
 // Wolfpack Includes
 #include "log.h"
-#include "globals.h"
+
 #include "config.h"
 #include "network/uosocket.h"
 #include "console.h"

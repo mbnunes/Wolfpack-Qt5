@@ -26,7 +26,7 @@
  */
 
 #include "accounts.h"
-#include "globals.h"
+
 #include "gumps.h"
 #include "config.h"
 #include "definitions.h"

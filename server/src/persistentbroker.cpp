@@ -31,7 +31,7 @@
 #include "exceptions.h"
 #include "dbdriver.h"
 #include "console.h"
-#include "globals.h"
+
 #include "log.h"
 
 // Qt Includes

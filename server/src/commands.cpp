@@ -25,7 +25,7 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#include "globals.h"
+
 #include "accounts.h"
 #include "skills.h"
 #include "commands.h"
@@ -570,7 +570,7 @@ void commandServerTime( cUOSocket *socket, const QString &command, const QString
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
-	socket->sysMessage( tr( "Server time: %1" ).arg( uiCurrentTime ) );
+	socket->sysMessage( tr( "Server time: %1" ).arg( Server::instance()->time() ) );
 }
 
 /*

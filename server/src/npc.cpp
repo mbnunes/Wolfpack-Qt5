@@ -35,7 +35,7 @@
 #include "network/uosocket.h"
 #include "network.h"
 #include "player.h"
-#include "globals.h"
+
 #include "world.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
@@ -70,7 +70,7 @@ cNPC::cNPC()
 	aiid_				= "Monster_Aggressive_L1";
 	ai_					= new Monster_Aggressive_L1( this );
 	aiCheckInterval_	= (UINT16)floor(Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC);
-	aiCheckTime_		= uiCurrentTime + aiCheckInterval_;
+	aiCheckTime_		= Server::instance()->time() + aiCheckInterval_;
 	criticalHealth_		= 10; // 10% !
 	spellsLow_			= 0;
 	spellsHigh_			= 0;
@@ -128,9 +128,9 @@ void cNPC::load( char **result, UINT16 &offset )
 	minDamage_ = atoi( result[offset++] );
 	maxDamage_ = atoi( result[offset++] );
 	tamingMinSkill_ = atoi( result[offset++] );
-	summonTime_ = atoi( result[offset++] ) + uiCurrentTime;
+	summonTime_ = atoi( result[offset++] ) + Server::instance()->time();
 	if( summonTime_ )
-		summonTime_ += uiCurrentTime;
+		summonTime_ += Server::instance()->time();
 	additionalFlags_ = atoi( result[offset++] );
 	ser = atoi( result[offset++] );
 	owner_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
@@ -174,7 +174,7 @@ void cNPC::save()
 		addField( "mindamage", minDamage_);
 		addField( "maxdamage", maxDamage_);
 		addField( "tamingminskill", tamingMinSkill_);
-		addField( "summontime", summonTime_ ? summonTime_ - uiCurrentTime : 0 );
+		addField( "summontime", summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
 		addField( "additionalflags", additionalFlags_ );
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
 		addStrField( "carve", carve_);
@@ -252,7 +252,7 @@ void cNPC::setNextMoveTime()
 		interval *= 3;
 	}
 
-	setNextMoveTime(uiCurrentTime + interval);
+	setNextMoveTime(Server::instance()->time() + interval);
 }
 
 // Update flags etc.
@@ -301,8 +301,8 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 {
 	if( autospam )
 	{
-		if( nextMsgTime_ < uiCurrentTime )
-			nextMsgTime_ = uiCurrentTime + MY_CLOCKS_PER_SEC*10;
+		if( nextMsgTime_ < Server::instance()->time() )
+			nextMsgTime_ = Server::instance()->time() + MY_CLOCKS_PER_SEC*10;
 		else
 			return;
 	}
@@ -454,9 +454,9 @@ UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 */
 void cNPC::callGuards()
 {
-	if( nextGuardCallTime() < uiCurrentTime )
+	if( nextGuardCallTime() < Server::instance()->time() )
 	{
-		setNextGuardCallTime( uiCurrentTime + (MY_CLOCKS_PER_SEC*10) );
+		setNextGuardCallTime( Server::instance()->time() + (MY_CLOCKS_PER_SEC*10) );
 	} else
 		return;
 

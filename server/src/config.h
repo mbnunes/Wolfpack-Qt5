@@ -32,10 +32,10 @@
 #include <vector>
 
 // Our own headers
-#include "structs.h"
 #include "preferences.h"
 #include "server.h"
 #include "singleton.h"
+#include "coord.h"
 
 // Library Headers
 #include <qstring.h>
@@ -47,6 +47,17 @@ struct StartLocation_st
 {
 	QString name;
 	Coord_cl pos;
+};
+
+struct ServerList_st
+{
+	Q_UINT16 uiIndex;
+	QString sServer;
+	Q_UINT8 uiFull;
+	Q_UINT8 uiTime;
+	Q_UINT32 ip;
+	QCString sIP;
+	Q_UINT16 uiPort;
 };
 
 // Constants

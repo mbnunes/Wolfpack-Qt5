@@ -184,7 +184,7 @@ static PyObject* wpSocket_showspeech(wpSocket* self, PyObject* args) {
 
 	if (!PyArg_ParseTuple(args, "O&es|HHB:socket.showspeech"
 		"(source, message, [color], [font], [type])",
-		PyConvertObject, &object, "utf-8", &message, &color, &font, &type)) {
+		&PyConvertObject, &object, "utf-8", &message, &color, &font, &type)) {
 		return 0;
 	}
 
@@ -236,7 +236,7 @@ static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
 	cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);
 
 	if (timeout) {
-		target->setTimeout(uiCurrentTime + timeout);
+		target->setTimeout(Server::instance()->time() + timeout);
 	}
 
 	self->pSock->attachTarget(target);
@@ -299,7 +299,7 @@ static PyObject* wpSocket_attachitemtarget(wpSocket* self, PyObject* args) {
     cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);
 
 	if (timeout) {
-		target->setTimeout(uiCurrentTime + timeout);
+		target->setTimeout(Server::instance()->time() + timeout);
 	}
 
 	self->pSock->attachTarget(target, targetitems, xoffset, yoffset, zoffset);
@@ -326,7 +326,7 @@ static PyObject* wpSocket_attachmultitarget(wpSocket* self, PyObject* args) {
 	cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);
 
 	if (timeout) {
-		target->setTimeout(uiCurrentTime + timeout);
+		target->setTimeout(Server::instance()->time() + timeout);
 	}
 
 	self->pSock->attachTarget(target, 0x4000 + multiid);
@@ -562,6 +562,28 @@ static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
 	return Py_None;
 }
 
+/*
+	\method socket.useitem
+	\description Forces the player assigned to this socket to use a given item.
+	\param item The item that should be activated.
+
+*/
+static PyObject* wpSocket_useitem(wpSocket* self, PyObject* args) {
+	P_ITEM item;
+
+	if (!PyArg_ParseTuple(args, "O&:socket.useitem(item)", &PyConvertItem, &item)) {
+		return 0;
+	}
+
+	if (self->pSock->useItem(item)) {
+		Py_INCREF(Py_True);
+		return Py_True;
+	} else {
+		Py_INCREF(Py_False);
+		return Py_False;
+	}	
+}
+
 /*!
 	Returns the custom tag passed
 */
@@ -715,6 +737,7 @@ static PyObject *wpSocket_updateskill(wpSocket *self, PyObject *args) {
 
 static PyMethodDef wpSocketMethods[] =
 {
+	{ "useitem",			(getattrofunc)wpSocket_useitem, METH_VARARGS, NULL },
 	{ "updateskill",		(getattrofunc)wpSocket_updateskill, METH_VARARGS, NULL },
 	{ "updateplayer",		(getattrofunc)wpSocket_updateplayer, METH_VARARGS, NULL },
 	{ "questarrow",			(getattrofunc)wpSocket_questarrow, METH_VARARGS, NULL },

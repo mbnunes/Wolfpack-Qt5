@@ -29,8 +29,8 @@
 #include "network/uosocket.h"
 #include "items.h"
 #include "skills.h"
-#include "globals.h"
-#include "TmpEff.h"
+
+#include "timers.h"
 #include "sectors.h"
 #include "gumps.h"
 #include "basechar.h"
@@ -39,7 +39,7 @@
 #include "world.h"
 #include "inlines.h"
 
-class cRefreshTracking: public cTempEffect
+class cRefreshTracking: public cTimer
 {
 private:
 	SERIAL tracker_;
@@ -49,7 +49,7 @@ public:
 	{
 		tracker_ = tracker;
 		target_ = target;
-		expiretime = uiCurrentTime + ( 5 * MY_CLOCKS_PER_SEC );
+		expiretime = Server::instance()->time() + ( 5 * MY_CLOCKS_PER_SEC );
 		serializable = false;
 	}
 
@@ -65,14 +65,14 @@ public:
 		P_CHAR pTarget = FindCharBySerial( target_ );
 
 		// Disable the quest-arrow
-		if( !pTarget || pChar->trackingTime() <= uiCurrentTime )
+		if( !pTarget || pChar->trackingTime() <= Server::instance()->time() )
 		{
 			pChar->socket()->sendQuestArrow( false, 0, 0 );
 			return;
 		}
 
 		pChar->socket()->sendQuestArrow( true, pTarget->pos().x, pTarget->pos().y );
-		TempEffects::instance()->insert( new cRefreshTracking( tracker_, target_ ) );
+		Timers::instance()->insert( new cRefreshTracking( tracker_, target_ ) );
 	}
 };
 
@@ -93,8 +93,8 @@ public:
 
 		// Start the refresh-timer
 		// Start the wearoff-timer
-		player->setTrackingTime( uiCurrentTime + ( 30 * MY_CLOCKS_PER_SEC ) );
-		TempEffects::instance()->insert( new cRefreshTracking( player->serial(), choice.button ) );
+		player->setTrackingTime( Server::instance()->time() + ( 30 * MY_CLOCKS_PER_SEC ) );
+		Timers::instance()->insert( new cRefreshTracking( player->serial(), choice.button ) );
 	}
 
 	cTrackingList( P_CHAR player, UINT8 type )

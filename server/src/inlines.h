@@ -28,9 +28,6 @@
 #if !defined(_INLINES_H__)
 #define _INLINES_H__
 
-#undef  DBGFILE
-#define DBGFILE "inlines.h"
-
 // library Includes
 #include "qapplication.h"
 #include "qstring.h"
@@ -40,6 +37,30 @@ inline QString tr( const QString &text, const char* comment = 0, const char* con
 	return qApp->translate( context, text.latin1(), comment );
 }
 
+inline bool isHair( Q_UINT16 model )
+{
+	return	( ( ( model >= 0x203B ) && ( model <= 0x203D ) ) || ( ( model >= 0x2044 ) && ( model <= 0x204A ) ) ) ? true : false;
+}
+
+inline bool isBeard( Q_UINT16 model )
+{
+	return	( ( ( model >= 0x203E ) && ( model <= 0x2041 ) ) || ( ( model >= 0x204B ) && ( model <= 0x204D ) ) ) ? true : false;
+}
+
+inline bool isNormalColor( Q_UINT16 color )
+{
+	return ( ( color >= 2 ) && ( color < 0x3ea ) ) ? true : false;
+}
+
+inline bool isSkinColor( Q_UINT16 color )
+{
+	return ( ( color >= 0x3EA ) && ( color <= 0x422 ) ) ? true : false;
+}
+
+inline bool isHairColor( Q_UINT16 color )
+{
+	return ( ( color >= 0x44E ) && ( color <= 0x47D ) ) ? true : false;
+}
 
 #endif
 

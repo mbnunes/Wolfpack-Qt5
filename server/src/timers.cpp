@@ -30,9 +30,9 @@
 #include "platform.h"
 
 // Wolfpack Includes
-#include "TmpEff.h"
+#include "timers.h"
 #include "items.h"
-#include "globals.h"
+
 #include "config.h"
 #include "network.h"
 #include "definitions.h"
@@ -53,40 +53,40 @@
 #include <typeinfo>
 #include <math.h>
 
-int cTempEffect::getDest()
+int cTimer::getDest()
 {
 	return destSer;
 }
 
-void cTempEffect::setDest(int ser)
+void cTimer::setDest(int ser)
 {
 	destSer=ser;
 }
 
-int cTempEffect::getSour()
+int cTimer::getSour()
 {
 	return sourSer;
 }
 
-void cTempEffect::setSour(int ser)
+void cTimer::setSour(int ser)
 {
 	sourSer=ser;
 }
 
-void cTempEffect::setExpiretime_s(int seconds)
+void cTimer::setExpiretime_s(int seconds)
 {
-	expiretime=uiCurrentTime+(seconds*MY_CLOCKS_PER_SEC);
+	expiretime=Server::instance()->time()+(seconds*MY_CLOCKS_PER_SEC);
 }
 
-void cTempEffect::setExpiretime_ms(float milliseconds)
+void cTimer::setExpiretime_ms(float milliseconds)
 {
-	expiretime=uiCurrentTime+(int)floor(( milliseconds / 1000 )*MY_CLOCKS_PER_SEC);
+	expiretime=Server::instance()->time()+(int)floor(( milliseconds / 1000 )*MY_CLOCKS_PER_SEC);
 }
 
 /*
 	Save a float to the effects_properties table.
  */
-void cTempEffect::saveFloat( unsigned int id, QString key, double value )
+void cTimer::saveFloat( unsigned int id, QString key, double value )
 {
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "float" ).arg( value ) );
 }
@@ -94,7 +94,7 @@ void cTempEffect::saveFloat( unsigned int id, QString key, double value )
 /*
 	Save an integer to the effects_properties table.
  */
-void cTempEffect::saveInt( unsigned int id, QString key, int value )
+void cTimer::saveInt( unsigned int id, QString key, int value )
 {
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "int" ).arg( value ) );
 }
@@ -102,22 +102,22 @@ void cTempEffect::saveInt( unsigned int id, QString key, int value )
 /*
 	Save a string to the effects_properties table.
  */
-void cTempEffect::saveString( unsigned int id, QString key, const QString &value )
+void cTimer::saveString( unsigned int id, QString key, const QString &value )
 {
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "string" ).arg( PersistentBroker::instance()->quoteString( value.utf8() ) ) );
 }
 
-void cTempEffect::saveChar(unsigned int id, QString key, P_CHAR character ) {
+void cTimer::saveChar(unsigned int id, QString key, P_CHAR character ) {
 	unsigned int value = character->serial();
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "char" ).arg( value ) );
 }
 
-void cTempEffect::saveItem(unsigned int id, QString key, P_ITEM item ) {
+void cTimer::saveItem(unsigned int id, QString key, P_ITEM item ) {
 	unsigned int value = item->serial();
 	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "item" ).arg( value ) );
 }
 
-bool cTempEffect::loadChar(unsigned int id, QString key, P_CHAR &character ) {
+bool cTimer::loadChar(unsigned int id, QString key, P_CHAR &character ) {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'char'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
 	character = 0;
@@ -131,7 +131,7 @@ bool cTempEffect::loadChar(unsigned int id, QString key, P_CHAR &character ) {
 	return true;
 }
 
-bool cTempEffect::loadItem(unsigned int id, QString key, P_ITEM &item ) {
+bool cTimer::loadItem(unsigned int id, QString key, P_ITEM &item ) {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'item'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
 	item = 0;
@@ -148,7 +148,7 @@ bool cTempEffect::loadItem(unsigned int id, QString key, P_ITEM &item ) {
 /*
 	Load a float from the effects_properties table.
  */
-bool cTempEffect::loadFloat( unsigned int id, QString key, double &value )
+bool cTimer::loadFloat( unsigned int id, QString key, double &value )
 {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'float'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
@@ -168,7 +168,7 @@ bool cTempEffect::loadFloat( unsigned int id, QString key, double &value )
 /*
 	Load an integer from the effects_properties table.
  */
-bool cTempEffect::loadInt( unsigned int id, QString key, int &value )
+bool cTimer::loadInt( unsigned int id, QString key, int &value )
 {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'int'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
@@ -188,7 +188,7 @@ bool cTempEffect::loadInt( unsigned int id, QString key, int &value )
 /*
 	Load a string from the effects_properties table.
  */
-bool cTempEffect::loadString( unsigned int id, QString key, QString &value )
+bool cTimer::loadString( unsigned int id, QString key, QString &value )
 {
 	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'string'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
@@ -207,16 +207,16 @@ bool cTempEffect::loadString( unsigned int id, QString key, QString &value )
 
 #include "console.h"
 
-void cTempEffect::save( unsigned int id )
+void cTimer::save( unsigned int id )
 {
-	PersistentBroker::instance()->executeQuery( QString( "INSERT INTO effects VALUES(%1,'%2',%3,%4,%5,%6);" ).arg( id ).arg( PersistentBroker::instance()->quoteString( objectID() ) ).arg( expiretime - uiCurrentTime ).arg( dispellable ? 1 : 0 ).arg( sourSer ).arg( destSer ) );
+	PersistentBroker::instance()->executeQuery( QString( "INSERT INTO effects VALUES(%1,'%2',%3,%4,%5,%6);" ).arg( id ).arg( PersistentBroker::instance()->quoteString( objectID() ) ).arg( expiretime - Server::instance()->time() ).arg( dispellable ? 1 : 0 ).arg( sourSer ).arg( destSer ) );
 }
 
-void cTempEffect::load( unsigned int id, const char **result )
+void cTimer::load( unsigned int id, const char **result )
 {
 	unsigned int offset = 2;
 
-	expiretime = atol( result[offset++] ) + uiCurrentTime;
+	expiretime = atol( result[offset++] ) + Server::instance()->time();
 	dispellable = atol( result[offset++] ) == 0 ? false : true;
 	sourSer = atol( result[offset++] );
 	destSer = atol( result[offset++] );
@@ -224,32 +224,32 @@ void cTempEffect::load( unsigned int id, const char **result )
 	serializable = true;
 }
 
-cTempEffects::cTempEffects()
+cTimers::cTimers()
 {
-	std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() ); // No temp effects to start with
+	std::make_heap( teffects.begin(), teffects.end(), cTimers::ComparePredicate() ); // No temp effects to start with
 }
 
-void cTempEffects::check()
+void cTimers::check()
 {
-	cTempEffect *tEffect = NULL;
+	cTimer *tEffect = NULL;
 	if( !teffects.empty() )
 		tEffect = *teffects.begin();
 
 	if( !tEffect)
 		return;
 
-	while( tEffect && tEffect->expiretime <= uiCurrentTime )
+	while( tEffect && tEffect->expiretime <= Server::instance()->time() )
 	{
 		if( isCharSerial( tEffect->getDest() ) )
 		{
 			P_CHAR pChar = dynamic_cast< P_CHAR >( FindCharBySerial( tEffect->getDest() ) );
 			if (pChar) {
-				pChar->removeEffect( tEffect );
+				pChar->removeTimer( tEffect );
 			}
 		}
 
 		tEffect->Expire();
-		std::pop_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+		std::pop_heap( teffects.begin(), teffects.end(), cTimers::ComparePredicate() );
 		teffects.pop_back();
 		delete tEffect;
 
@@ -261,11 +261,11 @@ void cTempEffects::check()
 }
 
 /*!
-	Dispels all TempEffects lasting on pc_dest of a given type.
+	Dispels all Timers lasting on pc_dest of a given type.
 	If only Dispellable is false then all effects on this character
 	of the specified type are reverted.
 */
-void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent, bool onlyDispellable )
+void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent, bool onlyDispellable )
 {
 	/*if (cPythonScript::canChainHandleEvent(EVENT_DISPEL, pc_dest->getEvents())) {
 		PyObject *source;
@@ -291,28 +291,28 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, 
 		}
 	}*/
 
-	std::vector<cTempEffect*>::iterator it = teffects.begin();
-	QPtrList<cTempEffect> eraselist;
+	std::vector<cTimer*>::iterator it = teffects.begin();
+	QPtrList<cTimer> eraselist;
 
 	/*
 		Note: Erasing iterators would invalidate our iterator and crash.
 	*/
 	for (; it != teffects.end(); ++it) {
-		cTempEffect *effect = *it;
+		cTimer *effect = *it;
 
 		if ((!onlyDispellable || effect->dispellable) && effect->getDest() == pc_dest->serial() && effect->objectID() == type) {
-			pc_dest->removeEffect(effect);
+			pc_dest->removeTimer(effect);
 			effect->Dispel(pSource, silent);
 			eraselist.append(effect);
 		}
 	}
 
-	for (cTempEffect *effect = eraselist.first(); effect; effect = eraselist.next()) {
+	for (cTimer *effect = eraselist.first(); effect; effect = eraselist.next()) {
 		erase(effect);
 	}
 }
 
-void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
+void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 {
 	if (cPythonScript::canChainHandleEvent(EVENT_DISPEL, pc_dest->getEvents())) {
 		PyObject *source;
@@ -332,7 +332,7 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 		}
 	}
 
-	std::vector< cTempEffect* >::iterator i = teffects.begin();
+	std::vector< cTimer* >::iterator i = teffects.begin();
 	for( i = teffects.begin(); i != teffects.end(); i++ )
 		if( (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial() )
 		{
@@ -340,17 +340,17 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 			{
 				P_CHAR pChar = FindCharBySerial( (*i)->getDest() );
 				if( pChar )
-					pChar->removeEffect( (*i) );
+					pChar->removeTimer( (*i) );
 			}
 
 			(*i)->Dispel( pSource, silent );
 			teffects.erase( i );
 		}
 
-		std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+		std::make_heap( teffects.begin(), teffects.end(), cTimers::ComparePredicate() );
 }
 
-void cTempEffects::load()
+void cTimers::load()
 {
 	// Query the Database
 
@@ -363,7 +363,7 @@ void cTempEffects::load()
 		unsigned int id = result.getInt( 0 );
 		QString objectId = result.getString( 1 );
 
-		cTempEffect *effect = 0;
+		cTimer *effect = 0;
 
 		if( objectId == "cPythonEffect" )
 		{
@@ -388,12 +388,12 @@ void cTempEffects::load()
 	PersistentBroker::instance()->driver()->setActiveConnection();
 }
 
-void cTempEffects::save()
+void cTimers::save()
 {
 	PersistentBroker::instance()->executeQuery( "DELETE FROM effects;" );
 	PersistentBroker::instance()->executeQuery( "DELETE FROM effects_properties;" );
 
-	std::vector< cTempEffect* >::iterator it = teffects.begin();
+	std::vector< cTimer* >::iterator it = teffects.begin();
 	unsigned int id = 0;
 
 	while( it != teffects.end() )
@@ -405,12 +405,12 @@ void cTempEffects::save()
 	}
 }
 
-int cTempEffects::countSerializables()
+int cTimers::countSerializables()
 {
 	int count = 0;
 
-	std::vector< cTempEffect* >::iterator it  = teffects.begin();
-	std::vector< cTempEffect* >::iterator end = teffects.end();
+	std::vector< cTimer* >::iterator it  = teffects.begin();
+	std::vector< cTimer* >::iterator end = teffects.end();
 	for ( ; it != end; ++it )
 	{
 		if( (*it)->isSerializable() )
@@ -448,7 +448,7 @@ void cDelayedHideChar::Expire()
 	pc->resend( true );
 }
 
-void cTempEffects::insert( cTempEffect *pT )
+void cTimers::insert( cTimer *pT )
 {
 	// If the tempeffect has a char it affects,
 	// then don't forge to add it to his effects
@@ -456,27 +456,27 @@ void cTempEffects::insert( cTempEffect *pT )
 	{
 		P_CHAR pChar = FindCharBySerial( pT->getDest() );
 		if( pChar )
-			pChar->addEffect( pT );
+			pChar->addTimer( pT );
 	}
 
 	this->teffects.push_back( pT );
-	std::push_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+	std::push_heap( teffects.begin(), teffects.end(), cTimers::ComparePredicate() );
 }
 
-void cTempEffects::erase( cTempEffect *pT )
+void cTimers::erase( cTimer *pT )
 {
 	if( pT == (*teffects.begin()) )
 	{
-		std::pop_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+		std::pop_heap( teffects.begin(), teffects.end(), cTimers::ComparePredicate() );
 		teffects.pop_back();
 	}
 	else
 	{
-		std::vector< cTempEffect* >::iterator it = std::find( teffects.begin(), teffects.end(), pT );
+		std::vector< cTimer* >::iterator it = std::find( teffects.begin(), teffects.end(), pT );
 		if( it != teffects.end() )
 		{
 			teffects.erase( it );
-			std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+			std::make_heap( teffects.begin(), teffects.end(), cTimers::ComparePredicate() );
 		}
 	}
 }

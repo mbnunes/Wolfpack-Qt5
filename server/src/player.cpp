@@ -28,7 +28,7 @@
 #include "player.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
-#include "globals.h"
+
 #include "guilds.h"
 #include "console.h"
 #include "network.h"
@@ -563,7 +563,7 @@ void cPlayer::makeCriminal() {
 				socket_->clilocMessage(500167);
 			}
 
-			setCriminalTime(uiCurrentTime + Config::instance()->crimtime() * MY_CLOCKS_PER_SEC);
+			setCriminalTime(Server::instance()->time() + Config::instance()->crimtime() * MY_CLOCKS_PER_SEC);
 			changed_ = true;
 		}
 	}
@@ -1576,7 +1576,7 @@ void cPlayer::remove() {
 	if (party_) {
 		party_->removeMember(this);
 	} else {
-		TempEffects::instance()->dispel(this, 0, "cancelpartyinvitation", false, false);
+		Timers::instance()->dispel(this, 0, "cancelpartyinvitation", false, false);
 	}
 
 	if (guild_) {

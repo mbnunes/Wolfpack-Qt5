@@ -28,13 +28,13 @@
 #include "engine.h"
 
 #include "../basics.h"
-#include "../globals.h"
+
 #include "../network/uosocket.h"
 #include "../network/uotxpackets.h"
 #include "../console.h"
 #include "../guilds.h"
 #include "../uotime.h"
-#include "../TmpEff.h"
+#include "../timers.h"
 #include "../sectors.h"
 #include "../territories.h"
 #include "../maps.h"
@@ -46,7 +46,7 @@
 #include "../definitions.h"
 #include "../pythonscript.h"
 #include "../verinfo.h"
-#include "../globals.h"
+
 #include "../items.h"
 #include "../network.h"
 #include "../config.h"
@@ -55,7 +55,6 @@
 #include "../npc.h"
 #include "../targetrequests.h"
 #include "../basedef.h"
-#include "../wolfpack.h"
 
 #include "pypacket.h"
 #include "regioniterator.h"
@@ -470,7 +469,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 		effect->setSerializable( false );
 
 	effect->setExpiretime_ms( expiretime );
-	TempEffects::instance()->insert( effect );
+	Timers::instance()->insert( effect );
 
 	return PyFalse();
 }
@@ -497,7 +496,7 @@ static PyObject* wpCurrenttime( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	return PyInt_FromLong( uiCurrentTime );
+	return PyInt_FromLong( Server::instance()->time() );
 }
 
 /*!
@@ -922,7 +921,7 @@ static PyObject* wpServerUptime( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	return PyInt_FromLong( uiCurrentTime / MY_CLOCKS_PER_SEC );
+	return PyInt_FromLong( Server::instance()->time() / MY_CLOCKS_PER_SEC );
 }
 
 /*!
@@ -1220,22 +1219,6 @@ static PyObject *wpGetDefinitions(PyObject *self, PyObject *args) {
 	}
 
 	return result;
-}
-
-static PyObject *wpLock(PyObject *self, PyObject *args) {
-	Q_UNUSED(self);
-	Q_UNUSED(args);
-	lockDataMutex();
-	Py_INCREF(Py_None);
-	return Py_None;
-}
-
-static PyObject *wpUnlock(PyObject *self, PyObject *args) {
-	Q_UNUSED(self);
-	Q_UNUSED(args);
-	unlockDataMutex();
-	Py_INCREF(Py_None);
-	return Py_None;
 }
 
 static PyObject *wpCallEvent(PyObject *self, PyObject *args) {

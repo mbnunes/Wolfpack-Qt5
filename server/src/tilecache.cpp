@@ -29,7 +29,7 @@
 
 #include "tilecache.h"
 #include "console.h"
-#include "globals.h"
+#include "defines.h"
 #include "exceptions.h"
 #include "config.h"
 

@@ -25,10 +25,8 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-
-// TmpEff.h: interface for the TmpEff class.
-#if !defined(__TMPEFF_H__)
-#define __TMPEFF_H__
+#if !defined(__TIMERS_H__)
+#define __TIMERS_H__
 
 //Platform specifics
 #include "platform.h"
@@ -39,9 +37,9 @@
 #include <algorithm>
 
 //Forward class declarations
-class cTempEffect;
-class cScriptEffect;
-class cTempEffects;
+class cTimer;
+class cScriptTimer;
+class cTimers;
 
 // Wolfpack includes
 #include "typedefs.h"
@@ -51,7 +49,7 @@ class cTempEffects;
 
 class cDBResult;
 
-class cTempEffect
+class cTimer
 {
 protected:
 	SERIAL		sourSer;
@@ -64,10 +62,10 @@ public:
 	unsigned char dispellable;
 
 	// Fib Heap Node variables
-	cTempEffect*	left;
-	cTempEffect*	right;
-	cTempEffect*	father;
-	cTempEffect*	son;
+	cTimer*	left;
+	cTimer*	right;
+	cTimer*	father;
+	cTimer*	son;
 	unsigned int	rank;
 	bool			marker;
 
@@ -86,9 +84,9 @@ public:
 	bool loadItem(unsigned int id, QString key, P_ITEM &item );
 
 public:
-//	cTempEffect() { serializable = true; }
-	cTempEffect( cTempEffect* left_ = NULL, cTempEffect* right_ = NULL, cTempEffect* father_ = NULL,
-				cTempEffect* son_ = NULL, int rank_ = 0, bool marker_ = false )
+//	cTimer() { serializable = true; }
+	cTimer( cTimer* left_ = NULL, cTimer* right_ = NULL, cTimer* father_ = NULL,
+				cTimer* son_ = NULL, int rank_ = 0, bool marker_ = false )
 	{
 		serializable = true;
 		left = left_;
@@ -104,12 +102,12 @@ public:
 		dispellable = false;	// Most Effects are NOT dispellable by default
 	}
 
-	bool operator<( const cTempEffect &a ) const
+	bool operator<( const cTimer &a ) const
 	{
 		return expiretime < a.expiretime;
 	}
 
-	virtual				~cTempEffect() {}
+	virtual				~cTimer() {}
 	void				setExpiretime_s(int seconds);
 	void				setExpiretime_ms(float milliseconds);
 	void				setDest(int ser);
@@ -127,10 +125,10 @@ public:
 	virtual void load( unsigned int id, const char **result );
 	virtual void save( unsigned int id );
 
-	std::vector< cTempEffect* > asVector();
+	std::vector< cTimer* > asVector();
 };
 
-class cDelayedHideChar : public cTempEffect
+class cDelayedHideChar : public cTimer
 {
 public:
 	cDelayedHideChar( SERIAL serial );
@@ -139,21 +137,21 @@ public:
 	QString objectID() const  { return "cDelayedHideChar"; }
 };
 
-class cTempEffects
+class cTimers
 {
 private:
 
-	struct ComparePredicate : public std::binary_function<cTempEffect*, cTempEffect*, bool>
+	struct ComparePredicate : public std::binary_function<cTimer*, cTimer*, bool>
 	{
-		bool operator()(const cTempEffect *a, const cTempEffect *b)
+		bool operator()(const cTimer *a, const cTimer *b)
 		{
 			return a->expiretime > b->expiretime;
 		}
 	};
 
 public:
-	cTempEffects();
-	std::vector< cTempEffect* > teffects;
+	cTimers();
+	std::vector< cTimer* > teffects;
 
 	void load();
 	void save();
@@ -162,8 +160,8 @@ public:
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent = false );
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent = false, bool onlyDispellable = true );
 
-	void insert( cTempEffect* pT );
-	void erase( cTempEffect* pT );
+	void insert( cTimer* pT );
+	void erase( cTimer* pT );
 
 	int	 size()
 	{
@@ -174,6 +172,6 @@ public:
 
 };
 
-typedef SingletonHolder<cTempEffects> TempEffects;
+typedef SingletonHolder<cTimers> Timers;
 
 #endif

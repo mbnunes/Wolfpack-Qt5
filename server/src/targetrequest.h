@@ -25,59 +25,78 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#if !defined(__WPTARGETREQUEST_H__)
-#define __WPTARGETREQUEST_H__
+#if !defined(__TARGETREQUEST_H__)
+#define __TARGETREQUEST_H__
 
-#include "platform.h"
-#include "typedefs.h"
-
-// Library includes
-#include <qobject.h>
-
-// Forward Definitions
-class cUOSocket;
 class cUORxTarget;
+class cUOSocket;
 
-// Abstract base-class for target requests
-class cTargetRequest
-{
+/*!
+	\brief Abstract baseclass for target requests sent to the client.
+*/
+class cTargetRequest {
 protected:
-	UI32 timeout_; // Timeout in MS
-	UI32 targetId_; // Target id so no overlapping targets are processed
-
+	unsigned int timeout_; // Timeout in MS
+	unsigned int targetId_; // Target id so no overlapping targets are processed
 public:
-	cTargetRequest( void ) : timeout_(0) {} // Never times out
-	virtual ~cTargetRequest( void ) {}
+	cTargetRequest() : timeout_(0) {
+	}
 
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target ) = 0; // Request has been answered
-	virtual void timedout( cUOSocket *socket ) { Q_UNUSED(socket); }; // The user did not respond
-	virtual void canceled( cUOSocket *socket ) { Q_UNUSED(socket); }; // Request has been canceled
+	virtual ~cTargetRequest() {
+	}
 
-	UI32 targetId( void ) const;
-	void setTargetId( UI32 data );
+	/*!
+		The client selected a target.
+	*/
+	virtual bool responsed(cUOSocket *socket, cUORxTarget *target) = 0;
 
-	UI32 timeout( void ) const;
-	void setTimeout( UI32 data );
+	/*!
+		The target request timed out after the given timeout.
+	*/
+	virtual void timedout(cUOSocket *socket) {
+	}
+
+	/*!
+		The target request has been canceled by the client.
+	*/
+	virtual void canceled(cUOSocket *socket) {
+	}
+
+	/*!
+		Return the unique id for this target.
+	*/
+	unsigned int targetId() const;
+
+	/*!
+		Set the unique id for this target.
+	*/
+	void setTargetId(unsigned int data );
+
+	/*!
+		Return the timeout value for this target.
+	*/
+	unsigned int timeout() const;
+
+	/*!
+		Set the timeout value for this target.
+	*/
+	void setTimeout(unsigned int data);
 };
 
 // Inline members
-inline UI32 cTargetRequest::targetId( void ) const
-{
+inline unsigned int cTargetRequest::targetId() const {
 	return targetId_;
 }
 
-inline void cTargetRequest::setTargetId( UI32 data )
-{
+inline void cTargetRequest::setTargetId(unsigned int data) {
 	targetId_ = data;
 }
 
-inline UI32 cTargetRequest::timeout( void ) const
-{
+inline unsigned int cTargetRequest::timeout() const {
 	return timeout_;
 }
 
-inline void cTargetRequest::setTimeout( UI32 data )
-{
+inline void cTargetRequest::setTimeout(unsigned int data) {
 	timeout_ = data;
 }
 

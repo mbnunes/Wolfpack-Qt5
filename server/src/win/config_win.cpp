@@ -26,7 +26,7 @@
  */
 
 #include "../config.h"
-#include "../globals.h"
+#include "../defines.h"
 #include "../console.h"
 #include "../log.h"
 
@@ -116,7 +116,7 @@ std::vector<ServerList_st>& cConfig::serverList()
 {
 	static unsigned int lastIpCheck = 0;
 	static bool dynamicIP = false;
-	if ( serverList_.empty() || ( dynamicIP && lastIpCheck <= uiCurrentTime ) ) // Empty? Try to load
+	if ( serverList_.empty() || ( dynamicIP && lastIpCheck <= Server::instance()->time() ) ) // Empty? Try to load
 	{
 		bool bKeepLooping = true;
 		unsigned int i = 1;
@@ -145,7 +145,7 @@ std::vector<ServerList_st>& cConfig::serverList()
 					// This code will retrieve the first
 					// valid Internet IP it finds
 					// and replace a 0.0.0.0 with it
-					if( ( ( server.ip == 0 ) && ( lastIpCheck <= uiCurrentTime ) ) )
+					if( ( ( server.ip == 0 ) && ( lastIpCheck <= Server::instance()->time() ) ) )
 					{
 						dynamicIP = true;
 						hostent *hostinfo;
@@ -153,7 +153,7 @@ std::vector<ServerList_st>& cConfig::serverList()
 
 						// We check for a new IP max. every 30 minutes
 						// So we have a max. of 30 minutes downtime
-						lastIpCheck = uiCurrentTime + (MY_CLOCKS_PER_SEC*30*60);
+						lastIpCheck = Server::instance()->time() + (MY_CLOCKS_PER_SEC*30*60);
 
 						// WSA Is needed for this :/
 						if( !gethostname( name, sizeof( name ) ) )

@@ -39,7 +39,6 @@
 #include "scriptmanager.h"
 #include "pythonscript.h"
 #include "accounts.h"
-#include "itemid.h"
 #include "npc.h"
 #include "basics.h"
 #include "network.h"

@@ -39,7 +39,7 @@
 // wolfpack includes
 #include "typedefs.h"
 #include "uobject.h"
-#include "TmpEff.h"
+#include "timers.h"
 #include "territories.h"
 #include "log.h"
 
@@ -71,7 +71,7 @@ public:
 	// type definitions
 	typedef QMap<ushort, cItem*> ItemContainer;
 	typedef QValueVector< cBaseChar* > CharContainer;
-	typedef QValueVector< cTempEffect* > EffectContainer;
+	typedef QValueVector< cTimer* > TimerContainer;
 	enum enLayer { TradeWindow = 0, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
 	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso,
 	Earrings, Arms, Back, Backpack, OuterTorso, OuterLegs, InnerLegs, Mount, BuyRestockContainer,
@@ -363,8 +363,9 @@ public:
 	ushort			skillValue( ushort skill ) const;
 	ushort			skillCap( ushort skill ) const;
 	uchar			skillLock( ushort skill ) const;
+	
 	// effects
-	EffectContainer	effects() const;
+	TimerContainer	timers() const;
 	// guards
 	CharContainer	guardedby() const;
 	// content
@@ -452,9 +453,10 @@ public:
 	void setSkillValue( ushort skill, ushort value );
 	void setSkillCap( ushort skill, ushort cap );
 	void setSkillLock( ushort skill, uchar lock );
-	// effects
-	void addEffect( cTempEffect *effect );
-	void removeEffect( cTempEffect *effect );
+	
+	// Timers
+	void addTimer(cTimer *timer);
+	void removeTimer(cTimer *timer);
 	// guards
 	void addGuard( P_CHAR pPet, bool noGuardingChange = false );
 	void removeGuard( P_CHAR pPet, bool noGuardingChange = false );
@@ -658,8 +660,8 @@ protected:
     // Skin color hue of the char.
     ushort skin_;
 
-    // Temporal effects that affect this character.
-    EffectContainer effects_;
+    // Timers that affect this character.
+    TimerContainer timers_;
 
     // Item contents of the char (i.e. equipment).
     ItemContainer content_;
@@ -1350,9 +1352,9 @@ inline P_ITEM cBaseChar::leftHandItem() const
 	return atLayer( DualHandedWeapon );
 }
 
-inline cBaseChar::EffectContainer cBaseChar::effects() const
+inline cBaseChar::TimerContainer cBaseChar::timers() const
 {
-	return effects_;
+	return timers_;
 }
 
 inline unsigned int cBaseChar::lastMovement() const {

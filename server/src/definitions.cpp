@@ -46,7 +46,7 @@
 #include "network.h"
 
 #include "definitions.h"
-#include "globals.h"
+
 #include "basics.h"
 #include "inlines.h"
 #include "console.h"

@@ -26,7 +26,7 @@
  */
 
 #include "guilds.h"
-#include "globals.h"
+
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "world.h"

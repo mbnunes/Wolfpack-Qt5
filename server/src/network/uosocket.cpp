@@ -34,14 +34,12 @@
 // Wolfpack Includes
 #include "../corpse.h"
 #include "../party.h"
-#include "../dbl_single_click.h" // Deprecated
 #include "../accounts.h"
-#include "../globals.h"
+
 #include "../basics.h"
 #include "../console.h"
 #include "../territories.h"
 #include "../sectors.h"
-#include "../structs.h"
 #include "../multi.h"
 #include "../maps.h"
 #include "../speech.h"
@@ -54,7 +52,7 @@
 #include "../gumps.h"
 #include "../skills.h"
 #include "../contextmenu.h"
-#include "../TmpEff.h"
+#include "../timers.h"
 #include "../targetrequests.h"
 #include "../dragdrop.h"
 #include "../Trade.h"
@@ -430,7 +428,7 @@ void cUOSocket::disconnect( void )
 		if (_player->party()) {
 			_player->party()->removeMember(_player);
 		} else {
-			TempEffects::instance()->dispel(_player, 0, "cancelpartyinvitation", false, false);
+			Timers::instance()->dispel(_player, 0, "cancelpartyinvitation", false, false);
 		}
 	}
 
@@ -441,7 +439,7 @@ void cUOSocket::disconnect( void )
 	{
 		_player->removeFromView(false);
 		if (!_player->isGMorCounselor() && (!_player->region() || !_player->region()->isGuarded())) {
-			_player->setLogoutTime(uiCurrentTime + Config::instance()->quittime() * 1000);
+			_player->setLogoutTime(Server::instance()->time() + Config::instance()->quittime() * 1000);
 		} else {
 			SectorMaps::instance()->remove(_player);
 		}
@@ -1573,13 +1571,13 @@ void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
 {
 	P_CHAR pChar = World::instance()->findChar( packet->serial() );
 
-	if( pChar )
-	{
+	if( pChar) {
 		pChar->showPaperdoll( this, packet->keyboard() );
-	}
-	else
-	{
-		dbl_click_item(this, packet->serial() );
+	} else {
+		P_ITEM item = World::instance()->findItem(packet->serial());
+		if (item) {
+			useItem(item);
+		}
 	}
 }
 
@@ -1892,7 +1890,7 @@ void cUOSocket::updatePlayer()
 void cUOSocket::poll()
 {
 	// Check for timed out target requests
-	if( targetRequest && targetRequest->timeout() > 1 && targetRequest->timeout() < uiCurrentTime )
+	if( targetRequest && targetRequest->timeout() > 1 && targetRequest->timeout() < Server::instance()->time() )
 	{
 		targetRequest->timedout( this );
 		delete targetRequest;
@@ -1901,9 +1899,9 @@ void cUOSocket::poll()
 	}
 
 	// Check for idling/silent sockets
-	if( _lastActivity + 180 * MY_CLOCKS_PER_SEC < uiCurrentTime )
+	if( _lastActivity + 180 * MY_CLOCKS_PER_SEC < Server::instance()->time() )
 	{
-		log( QString( "Idle for %1 ms. Disconnecting.\n" ).arg( uiCurrentTime - _lastActivity ) );
+		log( QString( "Idle for %1 ms. Disconnecting.\n" ).arg( Server::instance()->time() - _lastActivity ) );
 		disconnect();
 	}
 }
@@ -2365,11 +2363,11 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	{
 		if ( pItem->hasTag("last_restock_time") )
 		{
-			if ( uint(pItem->getTag("last_restock_time").toInt()) + Config::instance()->shopRestock() * 60 * MY_CLOCKS_PER_SEC < uiCurrentTime )
+			if ( uint(pItem->getTag("last_restock_time").toInt()) + Config::instance()->shopRestock() * 60 * MY_CLOCKS_PER_SEC < Server::instance()->time() )
 				restockNow = true;
 		}
 		else
-			pItem->setTag("last_restock_time", cVariant( int(uiCurrentTime) ) );
+			pItem->setTag("last_restock_time", cVariant( int(Server::instance()->time()) ) );
 	}
 
 	unsigned int i = 0;
@@ -2767,4 +2765,215 @@ void cUOSocket::handleChat(cUOPacket *packet) {
 		PyObject *args = Py_BuildValue("(N)", _player->getPyObject());
 		Py_DECREF(args);
 	}
+}
+
+bool cUOSocket::useItem(P_ITEM item) {
+	if (!_player->isGM() && _player->objectDelay() >= Server::instance()->time()) {
+		sysMessage(tr("You must wait to perform another action."));
+		return false;
+	} else
+		_player->setObjectDelay(Config::instance()->objectDelay() * MY_CLOCKS_PER_SEC + Server::instance()->time());
+
+	 // Cant use stuff that isn't in your pack.
+	if (item->container() && item->container()->isItem() && item->type() != 1 && !item->isInWorld()) {
+		P_CHAR pc_p = item->getOutmostChar();
+		if( pc_p && _player != pc_p )
+				return false;
+	}
+	else if( item->container() && item->container()->isChar() && item->type() != 1 && !item->isInWorld() )
+	{	// in a character.
+		P_CHAR pc_p = dynamic_cast<P_CHAR>(item->container());
+		if (pc_p != NULL)
+			if( pc_p != _player && item->layer() != 15 && item->type() != 1 )
+				return false;
+	}
+
+	// Criminal for looting an innocent corpse & unhidden if not owner...
+	if( item->corpse() )
+	{
+		if (!_player->Owns(item) && !_player->isGM()) {
+			_player->unhide();
+		}
+
+		// TODO: Add a XML option for this
+		if(!_player->Owns(item) && !_player->isGM() && _player->isInnocent())
+		{
+			// Innocent Corpse and not in the same party && party allowance for looting?
+			if (item->hasTag("notoriety") && item->getTag("notoriety").toInt() == 0x01) {
+				P_PLAYER owner = dynamic_cast<P_PLAYER>(item->owner());
+				bool allowed = false;
+
+				if (owner && owner->party() && owner->party() == _player->party()) {
+					// Check if the player allowed looting his corpse by party members
+					if (owner->party()->lootingAllowed().contains(owner)) {
+						allowed = true;
+					}
+				}
+
+				if (!allowed) {
+					_player->makeCriminal();
+				}
+			}
+		}
+	}
+
+	// Secure containers
+	if( item->isLockedDown() && item->secured() )
+	{
+		if( !_player->Owns( item ) && !_player->isGM() )
+		{
+			sysMessage( tr( "That is a secured chest!" ) );
+			return true;
+		}
+	}
+
+	// Dead ppl can only use ankhs
+	if( _player->isDead() && item->type() != 16 )
+	{
+		sysMessage( tr( "Your ghostly hand passes trough the object." ) );
+		return false;
+	}
+
+	// You can only use equipment on your own char
+	if( !_player->isGM() && item->container() && item->container()->isChar() && item->container() != _player )
+	{
+		if( item->layer() != 15 || !Config::instance()->stealingEnabled() )
+		{
+			sysMessage( tr( "You cannot use items equipped by other players." ) );
+			return false;
+		}
+	}
+
+	// Call both events here
+	if( _player->onUse( item ) )
+		return true;
+
+	if( item->onUse( _player ) )
+		return true;
+
+	// Check item behaviour by it's tpye
+	switch (item->type())
+	{
+	case 1: // normal containers
+		{
+			_player->setObjectDelay( 0 );	// no delay for opening containers
+
+			if( _player->isGM() )
+			{
+				sendContainer( item );
+				return true;
+			}
+
+			if( item->layer() > 0x18 )
+			{
+				sysMessage( tr( "You can't see this." ) );
+				return false;
+			}
+
+			if (item->isInLockedItem()) {
+				sysMessage( tr( "You have to unlock it before taking a look." ) );
+				return false;
+			}
+
+			if( !item->container() )
+			{
+				if( !item->inRange( _player, 2 ) )
+				{
+					clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
+					return false;
+				} else if(!_player->lineOfSight(item, true)) {
+					clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
+					return false;
+				}
+
+				sendContainer( item );
+				return true;
+			}
+			else if( item->container()->isItem() )
+			{
+				P_ITEM pOCont = item->getOutmostItem();
+
+				// Check if we can reach the top-container
+				if( !pOCont->container() )
+				{
+					if( !pOCont->inRange( _player, 2 ) )
+					{
+						clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
+						return false;
+					}
+
+					sendContainer( item );
+				}
+				else
+				{
+					P_CHAR pChar = dynamic_cast< P_CHAR >( pOCont->container() );
+					if( pChar && pChar != _player )
+					{
+						if( !pChar->inRange( _player, 2 ) )
+							sysMessage( tr( "You must stand nearer to snoop!" ) );
+						else
+							Skills::instance()->Snooping( _player, item );
+					}
+					else if( pChar == _player )
+						sendContainer( item );
+				}
+
+				return true;
+			}
+			else if( item->container()->isChar() )
+			{
+				// Equipped on another character
+				P_CHAR pChar = dynamic_cast< P_CHAR >( item->container() );
+
+				if( pChar && pChar != _player )
+				{
+					if( !pChar->inRange( _player, 2 ) )
+						sysMessage( tr( "You must stand nearer to snoop!" ) );
+					else
+						Skills::instance()->Snooping( _player, item );
+				}
+				else if( pChar == _player )
+					sendContainer( item );
+
+				return true;
+			}
+
+			sysMessage( tr( "You can't open this container." ) );
+			return false;
+		}
+
+	case 16:
+		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
+		if (_player->isDead()) {
+			_player->resurrect();
+			sysMessage(tr( "You have been resurrected."));
+		} else {
+			sysMessage(tr("You are already living!"));
+		}
+		return true;
+
+	// 1001: Sword Weapons (Swordsmanship)
+	case 1001:
+	// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
+	case 1002:
+	// 1005: Fencing
+	case 1005:
+	// 1003: Macefighting (Staffs)
+	case 1003:
+	// 1004: Macefighting (Maces/WarHammer)
+	case 1004:
+	// 1006: Bows
+	case 1006:
+	// 1007: Crossbows
+	case 1007:
+	// 1008: Shields
+	case 1008:
+		break;
+
+	default:
+		break;
+	}
+
+	sysMessage( tr( "You can't think of a way to use that item." ) );
+	return false;
 }

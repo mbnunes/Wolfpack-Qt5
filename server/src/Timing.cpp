@@ -31,7 +31,7 @@
 #include "Timing.h"
 
 #include "basics.h"
-#include "TmpEff.h"
+#include "timers.h"
 #include "combat.h"
 #include "sectors.h"
 #include "config.h"
@@ -40,7 +40,6 @@
 #include "territories.h"
 #include "skills.h"
 #include "typedefs.h"
-#include "itemid.h"
 #include "items.h"
 #include "basechar.h"
 #include "npc.h"
@@ -244,8 +243,8 @@ void cTiming::poll() {
 			nextNpcCheck = time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC;
 	}
 
-	// Check the TempEffects
-	TempEffects::instance()->check();
+	// Check the Timers
+	Timers::instance()->check();
 
 	if (nextHungerCheck <= time)
 		nextHungerCheck = time + Config::instance()->hungerDamageRate() * MY_CLOCKS_PER_SEC;
@@ -267,7 +266,7 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time)
 			if (!Config::instance()->hungerRate() || character->hunger() > 3) {
 				character->setHitpoints(character->hitpoints() + 1);
 				character->updateHealth();
-				character->setRegenHitpointsTime(uiCurrentTime + floor(character->getHitpointRate() * 1000));
+				character->setRegenHitpointsTime(Server::instance()->time() + floor(character->getHitpointRate() * 1000));
 			}
 		}
 	}
@@ -275,7 +274,7 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time)
 	if (character->regenStaminaTime() <= time) {
 		if (character->stamina() < character->maxStamina()) {
 			character->setStamina(character->stamina() + 1);
-			character->setRegenStaminaTime(uiCurrentTime + floor(character->getStaminaRate() * 1000));
+			character->setRegenStaminaTime(Server::instance()->time() + floor(character->getStaminaRate() * 1000));
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 			if (player && player->socket()) {
@@ -287,7 +286,7 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time)
 	if (character->regenManaTime() <= time) {
 		if (character->mana() < character->maxMana()) {
 			character->setMana(character->mana() + 1);
-			character->setRegenManaTime(uiCurrentTime + floor(character->getManaRate() * 1000));
+			character->setRegenManaTime(Server::instance()->time() + floor(character->getManaRate() * 1000));
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 			if (player) {

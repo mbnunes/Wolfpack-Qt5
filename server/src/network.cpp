@@ -31,7 +31,7 @@
 //Wolfpack Includes
 #include "network.h"
 #include "config.h"
-#include "globals.h"
+
 #include "console.h"
 #include "inlines.h"
 #include "network/asyncnetio.h"
@@ -106,7 +106,7 @@ void cNetwork::poll( void )
 				try {
 					uoSocket->recieve();
 
-					if( uiCurrentTime % 500 == 0 ) // Once every 0.5 Seconds
+					if( Server::instance()->time() % 500 == 0 ) // Once every 0.5 Seconds
 						uoSocket->poll();
 				} catch(wpException e) {
 					uoSocket->log(LOG_PYTHON, e.error() + "\n");

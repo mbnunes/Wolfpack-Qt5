@@ -197,7 +197,7 @@ void cParty::setLootingAllowed(P_PLAYER player, bool allowed)
 /*!
 	\brief Temporary effect for canceling a party invitation after a given timeout.
 */
-class cPartyCancelInvitation : public cTempEffect
+class cPartyCancelInvitation : public cTimer
 {
 protected:
     SERIAL leader;
@@ -322,7 +322,7 @@ public:
 				player->socket()->send(&invitation);
 
 				// Attach a tempeffect that'll cancel the invitation after ten seconds
-				TempEffects::instance()->insert(new cPartyCancelInvitation(leader->serial(), player->serial()));
+				Timers::instance()->insert(new cPartyCancelInvitation(leader->serial(), player->serial()));
 			}
 		}
 
@@ -403,7 +403,7 @@ void cParty::handlePacket(cUOSocket *socket, cUOPacket *packet)
 
 		// Accept party invitation
 		case 8:
-			TempEffects::instance()->dispel(player, 0, "cancelpartyinvitation", true, false);
+			Timers::instance()->dispel(player, 0, "cancelpartyinvitation", true, false);
 
 			leader = dynamic_cast<P_PLAYER>(World::instance()->findChar(packet->getInt(6)));
 			if (leader && leader->party() && leader->party()->canidates().contains(player))
@@ -415,7 +415,7 @@ void cParty::handlePacket(cUOSocket *socket, cUOPacket *packet)
 
 		// Decline party invitation
 		case 9:
-			TempEffects::instance()->dispel(player, 0, "cancelpartyinvitation", true, false);
+			Timers::instance()->dispel(player, 0, "cancelpartyinvitation", true, false);
 
 			leader = dynamic_cast<P_PLAYER>(World::instance()->findChar(packet->getInt(6)));
 			if (leader && leader->party() && leader->party()->canidates().contains(player))

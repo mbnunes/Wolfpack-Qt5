@@ -28,14 +28,16 @@
 #include "ai.h"
 #include "../npc.h"
 #include "../player.h"
+#include "../items.h"
 #include "../network/uosocket.h"
 #include "../speech.h"
 #include "../targetrequests.h"
-#include "../TmpEff.h"
+#include "../timers.h"
 #include "../config.h"
-#include "../globals.h"
+
 #include "../sectors.h"
 #include "../world.h"
+#include "../inlines.h"
 #include "../basics.h"
 
 // library includes
@@ -217,7 +219,7 @@ Human_Guard_Called::Human_Guard_Called( P_NPC npc ) : AbstractAI( npc )
 
 void Human_Guard_Called::init( P_NPC npc )
 {
-	npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
+	npc->setSummonTime( Server::instance()->time() + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
 	npc->setSummoned(true);
 	AbstractAI::init( npc );
 }
@@ -231,7 +233,7 @@ void Human_Guard_Called_Fight::execute()
 		case 1:		m_npc->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
 	}
 
-	m_npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
+	m_npc->setSummonTime( Server::instance()->time() + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
 	m_npc->setSummoned(true);
 
 	// Fighting is handled within combat..
@@ -255,7 +257,7 @@ float Human_Guard_Called_Fight::postCondition()
 }
 
 void Human_Guard_Called_TeleToTarget::execute() {
-	m_npc->setSummonTime(uiCurrentTime + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime());
+	m_npc->setSummonTime(Server::instance()->time() + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime());
 	m_npc->setSummoned(true);
 
 	// Teleports the guard towards the target

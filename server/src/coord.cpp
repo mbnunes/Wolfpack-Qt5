@@ -33,7 +33,7 @@
 #include "items.h"
 #include "multiscache.h"
 #include "maps.h"
-#include "globals.h"
+
 #include "tilecache.h"
 #include "network/uotxpackets.h"
 #include "network/uosocket.h"

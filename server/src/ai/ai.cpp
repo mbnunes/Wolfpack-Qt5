@@ -32,10 +32,9 @@
 #include "../sectors.h"
 #include "../player.h"
 #include "../config.h"
-#include "../globals.h"
+
 #include "../basics.h"
 #include "../walking.h"
-#include "../itemid.h"
 #include "../items.h"
 #include "../console.h"
 #include "../world.h"
@@ -460,7 +459,7 @@ void Action_Wander::execute() {
 	m_npc->fight(0);
 
 	// If the next wandertype hasn't come yet.
-	if (m_npc->nextMoveTime() > uiCurrentTime) {
+	if (m_npc->nextMoveTime() > Server::instance()->time()) {
 		return;
 	}
 	m_npc->setNextMoveTime();
@@ -520,7 +519,7 @@ void Action_Wander::execute() {
 				movePath( pTarget->pos() );
 			}
 			if( pTarget->dist( m_npc ) > 3 )
-				m_npc->setAICheckTime( uiCurrentTime + (float)m_npc->aiCheckInterval() * 0.0005f * MY_CLOCKS_PER_SEC );
+				m_npc->setAICheckTime( Server::instance()->time() + (float)m_npc->aiCheckInterval() * 0.0005f * MY_CLOCKS_PER_SEC );
 		}
 		else
 		{
@@ -579,8 +578,13 @@ void Action_Wander::movePath( const Coord_cl &pos )
 	if( ( waitForPathCalculation <= 0 && !m_npc->hasPath() ) || pos != m_npc->pathDestination() )
 	{
 		UINT8 range = 1;
-		if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
-			range = ARCHERY_RANGE;
+		if (m_npc->rightHandItem()) {
+			unsigned int type = m_npc->rightHandItem()->type();
+
+			if (type == 1006 || type == 1007) {
+				range = ARCHERY_RANGE;
+			}
+		}
 
 		m_npc->findPath( pos, range == 1 ? 1.5f : (float)range );
 		// dont return here!
@@ -721,8 +725,13 @@ float Action_Defend::preCondition()
 		return 0.0f;
 
 	UINT8 range = 1;
-	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
-		range = ARCHERY_RANGE;
+	if (m_npc->rightHandItem()) {
+		unsigned int type = m_npc->rightHandItem()->type();
+
+		if (type == 1006 || type == 1007) {
+			range = ARCHERY_RANGE;
+		}
+	}
 
 	if( !m_npc->inRange( pAttacker, range ) )
 		return 0.0f;
@@ -755,8 +764,13 @@ float Action_Defend::postCondition()
 		return 1.0f;
 
 	UINT8 range = 1;
-	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
-		range = ARCHERY_RANGE;
+	if (m_npc->rightHandItem()) {
+		unsigned int type = m_npc->rightHandItem()->type();
+
+		if (type == 1006 || type == 1007) {
+			range = ARCHERY_RANGE;
+		}
+	}
 
 	if( !m_npc->inRange( pAttacker, range ) )
 		return 1.0f;
@@ -826,7 +840,7 @@ void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString &comm ) {
 	} else if (comm.contains(" RELEASE")) {
 		// Has it been summoned ? Let's dispel it
 		if (m_npc->summoned()) {
-			m_npc->setSummonTime(uiCurrentTime);
+			m_npc->setSummonTime(Server::instance()->time());
 		}
 
 		m_npc->setWanderType(enFreely);

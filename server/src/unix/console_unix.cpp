@@ -43,6 +43,11 @@
 
 using namespace std;
 
+int main(int argc, char **argv) {
+	Server::instance()->run(argc, argv);
+	return 0;
+}
+
 void resetNonBlockingIo()
 {
 	termios term_caps;

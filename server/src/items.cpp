@@ -48,12 +48,11 @@
 #include "world.h"
 #include "sectors.h"
 #include "scriptmanager.h"
-#include "itemid.h"
 #include "basechar.h"
 #include "player.h"
 #include "basics.h"
 #include "config.h"
-#include "globals.h"
+
 #include "inlines.h"
 #include "console.h"
 
@@ -383,7 +382,7 @@ void cItem::save()
 		addField("layer",			layer_);
 		addField("type",			type_);
 		addField("amount",			amount_);
-		addField("decaytime",		(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
+		addField("decaytime",		(decaytime_ > Server::instance()->time()) ? decaytime_ - Server::instance()->time() : 0	);
 		addField("weight",			weight_);
 		addField("hp",				hp_ );
 		addField("maxhp",			maxhp_ );
@@ -551,7 +550,7 @@ void cItem::startDecay()
 		return;
 	}
 
-	decaytime_ = uiCurrentTime;
+	decaytime_ = Server::instance()->time();
 
 	// Player corpses take longer to decay
 	if( !corpse() )
@@ -1411,7 +1410,7 @@ void cItem::load( char **result, UINT16 &offset )
 	amount_ = atoi( result[offset++] );
 	decaytime_ = atoi( result[offset++] );
 	if( decaytime_ > 0 )
-		decaytime_ += uiCurrentTime;
+		decaytime_ += Server::instance()->time();
 	weight_ = (float)atof( result[offset++] );
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
@@ -2228,4 +2227,18 @@ void cItem::moveTo(const Coord_cl &newpos, bool noremove) {
 	} else {
 		cUObject::moveTo(newpos, noremove);
 	}
+}
+
+bool cItem::isInLockedItem() {
+	if (container_ && container_->isItem()) {
+		P_ITEM pCont = dynamic_cast< P_ITEM >(container_);
+
+		if (pCont->hasEvent("lock")) {
+			return true;
+		}
+		
+        return pCont->isInLockedItem();
+	}
+	else
+		return false;
 }

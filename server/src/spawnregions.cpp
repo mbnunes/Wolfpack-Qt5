@@ -34,7 +34,7 @@ II. make sure to hold the map up to date !
 */
 #include "spawnregions.h"
 #include "definitions.h"
-#include "globals.h"
+
 #include "items.h"
 #include "defines.h"
 #include "maps.h"
@@ -272,7 +272,7 @@ void cSpawnRegion::reSpawn( void )
 		}
 	}
 
-	this->nextTime_ = uiCurrentTime + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
+	this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
 }
 
 void cSpawnRegion::reSpawnToMax( void )
@@ -315,7 +315,7 @@ void cSpawnRegion::reSpawnToMax( void )
 		}
 	}
 
-	this->nextTime_ = uiCurrentTime + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
+	this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
 }
 
 // delete all spawns and reset the timer
@@ -341,7 +341,7 @@ void cSpawnRegion::deSpawn( void )
 	}
 	itemSerials_.erase( itemSerials_.begin(), itemSerials_.end() );
 
-	this->nextTime_ = uiCurrentTime + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
+	this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
 }
 
 void cSpawnRegion::checkForDeleted( void )
@@ -371,7 +371,7 @@ void cSpawnRegion::checkForDeleted( void )
 // check the timer and if expired do reSpawn
 void cSpawnRegion::checkTimer( void )
 {
-	if( this->nextTime_ <= uiCurrentTime )
+	if( this->nextTime_ <= Server::instance()->time() )
 		this->reSpawn();
 }
 

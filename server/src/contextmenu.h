@@ -29,7 +29,7 @@
 #define __CONTEXTMENU_H__
 
 #include "definable.h"
-#include "globals.h"
+
 #include "singleton.h"
 #include "server.h"
 #include "typedefs.h"

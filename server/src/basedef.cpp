@@ -26,7 +26,7 @@
  */
 
 #include "basedef.h"
-#include "globals.h"
+
 #include "definitions.h"
 #include "basics.h"
 

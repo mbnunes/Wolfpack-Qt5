@@ -27,7 +27,7 @@
 
 #include "definable.h"
 #include "definitions.h"
-#include "globals.h"
+
 #include "basics.h"
 
 //#include "console.h"

@@ -31,9 +31,7 @@
 #include "../sectors.h"
 #include "../player.h"
 #include "../config.h"
-#include "../globals.h"
 #include "../basics.h"
-#include "../itemid.h"
 #include "../items.h"
 
 // library includes
@@ -124,7 +122,7 @@ void Monster_Berserk::selectVictim()
 		}
 	}
 
-	if (!m_currentVictim || lastVictimChange + 2000 <= uiCurrentTime) {
+	if (!m_currentVictim || lastVictimChange + 2000 <= Server::instance()->time()) {
 		// Get the first best character and attack it
 		RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
 		for (ri.Begin(); !ri.atEnd(); ri++) {
@@ -148,7 +146,7 @@ void Monster_Berserk::selectVictim()
 		if (victimChanged) {
 			m_npc->fight(m_currentVictim);
 		}
-		lastVictimChange = uiCurrentTime + 2000;
+		lastVictimChange = Server::instance()->time() + 2000;
 	}
 }
 

@@ -36,7 +36,7 @@
 #include "encryption.h"
 #include "definitions.h"
 #include "console.h"
-#include "globals.h"
+
 #include "log.h"
 #include "basics.h"
 

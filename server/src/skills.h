@@ -29,9 +29,9 @@
 #define __SKILLS_H
 
 #include "defines.h"
-#include "globals.h"
+
 #include "typedefs.h"
-#include "wptargetrequests.h"
+#include "targetrequests.h"
 
 // Library Includes
 #include <qmap.h>

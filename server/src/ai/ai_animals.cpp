@@ -29,7 +29,7 @@
 #include "../npc.h"
 #include "../player.h"
 #include "../config.h"
-#include "../globals.h"
+
 #include "../sectors.h"
 #include "../basics.h"
 #include "../targetrequests.h"

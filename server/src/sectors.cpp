@@ -32,7 +32,7 @@
 #include "sectors.h"
 #include "uobject.h"
 #include "console.h"
-#include "globals.h"
+
 #include "exceptions.h"
 #include "world.h"
 #include "items.h"

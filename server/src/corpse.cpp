@@ -31,7 +31,7 @@
 #include "dbdriver.h"
 #include "network/uosocket.h"
 #include "persistentbroker.h"
-#include "globals.h"
+
 #include "world.h"
 #include "player.h"
 

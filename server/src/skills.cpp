@@ -27,7 +27,6 @@
 
 #include "definitions.h"
 #include "basics.h"
-#include "itemid.h"
 #include "tracking.h"
 #include "tilecache.h"
 #include "combat.h"
@@ -81,7 +80,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		return;
 	}
 
-	if( pChar->skillDelay() > uiCurrentTime && !pChar->isGM() )
+	if( pChar->skillDelay() > Server::instance()->time() && !pChar->isGM() )
 	{
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return;
@@ -131,7 +130,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	if( message )
 		pChar->message( message );
 
-	pChar->setSkillDelay( uiCurrentTime + Config::instance()->skillDelay() * MY_CLOCKS_PER_SEC );
+	pChar->setSkillDelay( Server::instance()->time() + Config::instance()->skillDelay() * MY_CLOCKS_PER_SEC );
 }
 
 void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
@@ -330,7 +329,7 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 
 
 //	SetTimerSec(player->objectdelay(), Config::instance()->objectDelay()+Config::instance()->snoopdelay());
-	player->setObjectDelay(uiCurrentTime + (Config::instance()->objectDelay() + Config::instance()->snoopdelay()) * MY_CLOCKS_PER_SEC);
+	player->setObjectDelay(Server::instance()->time() + (Config::instance()->objectDelay() + Config::instance()->snoopdelay()) * MY_CLOCKS_PER_SEC);
 }
 
 void cSkills::load()

@@ -50,7 +50,7 @@ class cContextMenu;
 #include "../log.h"
 #include "../typedefs.h"
 #include "../python/engine.h"
-#include "../wptargetrequests.h"
+#include "../targetrequest.h"
 #include "../customtags.h"
 
 struct stTargetItem
@@ -104,6 +104,11 @@ public:
 		\brief This function clears all installed packet handlers.
 	*/
 	static void clearPacketHandlers();
+
+	/*!
+		\brief Let this socket use a given item.
+	*/
+	bool useItem(P_ITEM item);
 
 	inline unsigned short screenWidth() const {		return _screenWidth;	}
 

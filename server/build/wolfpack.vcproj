@@ -242,12 +242,6 @@
 				RelativePath=".\dbdriver.h">
 			</File>
 			<File
-				RelativePath=".\dbl_single_click.cpp">
-			</File>
-			<File
-				RelativePath=".\dbl_single_click.h">
-			</File>
-			<File
 				RelativePath=".\definable.cpp">
 			</File>
 			<File
@@ -284,12 +278,6 @@
 				RelativePath=".\win\getopts_win.cpp">
 			</File>
 			<File
-				RelativePath=".\globals.cpp">
-			</File>
-			<File
-				RelativePath=".\globals.h">
-			</File>
-			<File
 				RelativePath=".\guilds.cpp">
 			</File>
 			<File
@@ -303,12 +291,6 @@
 			</File>
 			<File
 				RelativePath=".\inlines.h">
-			</File>
-			<File
-				RelativePath=".\itemid.cpp">
-			</File>
-			<File
-				RelativePath=".\itemid.h">
 			</File>
 			<File
 				RelativePath=".\items.cpp">
@@ -446,7 +428,7 @@
 				RelativePath=".\speech.h">
 			</File>
 			<File
-				RelativePath=".\structs.h">
+				RelativePath=".\targetrequest.h">
 			</File>
 			<File
 				RelativePath=".\targetrequests.cpp">
@@ -461,16 +443,16 @@
 				RelativePath=".\territories.h">
 			</File>
 			<File
+				RelativePath=".\timers.cpp">
+			</File>
+			<File
+				RelativePath=".\timers.h">
+			</File>
+			<File
 				RelativePath=".\Timing.cpp">
 			</File>
 			<File
 				RelativePath=".\Timing.h">
-			</File>
-			<File
-				RelativePath=".\tmpeff.cpp">
-			</File>
-			<File
-				RelativePath=".\TmpEff.h">
 			</File>
 			<File
 				RelativePath=".\tracking.cpp">
@@ -506,22 +488,10 @@
 				RelativePath=".\walking.h">
 			</File>
 			<File
-				RelativePath=".\wolfpack.cpp">
-			</File>
-			<File
-				RelativePath=".\wolfpack.h">
-			</File>
-			<File
 				RelativePath=".\world.cpp">
 			</File>
 			<File
 				RelativePath=".\world.h">
-			</File>
-			<File
-				RelativePath=".\wptargetrequests.cpp">
-			</File>
-			<File
-				RelativePath=".\wptargetrequests.h">
 			</File>
 		</Filter>
 		<Filter

@@ -29,7 +29,7 @@
 #define __CONTENT_H__
 
 #include "../defines.h"
-#include "../globals.h"
+
 #include "../items.h"
 #include "../world.h"
 #include "../basechar.h"

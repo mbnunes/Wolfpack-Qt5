@@ -24,7 +24,6 @@
 #include "tilecache.h"
 #include "Timing.h"
 #include "verinfo.h"
-#include "wolfpack.h"
 #include "world.h"
 #include "definitions.h"
 #include "multi.h"
@@ -65,8 +64,9 @@ public:
 	enServerState state;
 	bool secure;
 	QMutex actionMutex;
+	unsigned int time;
 	QValueVector<enActionType> actionQueue;
-	Private() : running(true), secure(true), state(STARTUP) {}
+	Private() : running(true), secure(true), state(STARTUP), time(0) {}
 };
 
 void cServer::queueAction(enActionType type) {
@@ -278,7 +278,7 @@ bool cServer::run(int argc, char **argv) {
 
 		pollQueuedActions();
 
-		uiCurrentTime = getNormalizedTime(); // Update our currenttime
+		d->time = getNormalizedTime(); // Update our currenttime
 
 		try {			
 			Network::instance()->poll();
@@ -364,8 +364,8 @@ void cServer::load() {
 		load(component->getName());
 	}
 
-	uiCurrentTime = getNormalizedTime();
-	srand(uiCurrentTime);
+	d->time = getNormalizedTime();
+	srand(d->time);
 }
 
 void cServer::unload() {
@@ -509,6 +509,14 @@ void cServer::reload(const QString &name) {
 void cServer::setState(enServerState state) {
 	Console::instance()->notifyServerState(state);
 	d->state = state;
+}
+
+unsigned int cServer::time() {
+	return d->time;
+}
+
+void cServer::refreshTime() {
+	d->time = getNormalizedTime();
 }
 
 enServerState cServer::getState() {

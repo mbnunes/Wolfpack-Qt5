@@ -31,14 +31,14 @@
 #include "engine.h"
 #include "utilities.h"
 
-#include "../TmpEff.h"
+#include "../timers.h"
 #include "../persistentbroker.h"
-#include "../globals.h"
+
 #include "../dbdriver.h"
 #include "../world.h"
 #include "../console.h"
 
-class cPythonEffect : public cTempEffect
+class cPythonEffect : public cTimer
 {
 protected:
 	QString functionName;
@@ -186,7 +186,7 @@ public:
 			}
 		}
 
-		cTempEffect::save( id );
+		cTimer::save( id );
 	}
 
 	void load( unsigned int id, const char **result )
@@ -229,7 +229,7 @@ public:
 
 		res.free();
 
-		cTempEffect::load( id, result );
+		cTimer::load( id, result );
 	}
 };
 

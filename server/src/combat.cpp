@@ -29,7 +29,6 @@
 #include "platform.h"
 
 // Wolfpack Includes
-#include "itemid.h"
 #include "sectors.h"
 #include "combat.h"
 #include "config.h"
@@ -704,7 +703,7 @@ void cCombat::setWeaponTimeout( P_CHAR pAttacker, P_ITEM pWeapon )
 		else j = 30;
 		x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stamina()+100) * j);
 	}
-	pAttacker->setNextHitTime(uiCurrentTime + x);*/
+	pAttacker->setNextHitTime(Server::instance()->time() + x);*/
 }
 
 void cCombat::doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pWeapon )
@@ -754,7 +753,7 @@ bool cCombat::isTimerOk( P_CHAR pc )
 	/*if( !pc )
 		return false;
 
-	if( pc->nextHitTime() < uiCurrentTime )
+	if( pc->nextHitTime() < Server::instance()->time() )
 		return true;*/
 
 	return false;
@@ -987,5 +986,5 @@ cFightInfo::~cFightInfo() {
 }
 
 void cFightInfo::refresh() {
-	lastaction_ = uiCurrentTime;
+	lastaction_ = Server::instance()->time();
 }

@@ -28,7 +28,7 @@
 // Wolfpack Includes
 #include "world.h"
 #include "console.h"
-#include "globals.h"
+
 #include "config.h"
 #include "dbdriver.h"
 #include "progress.h"
@@ -553,7 +553,7 @@ void cWorld::load() {
 	// cPagesManager::getInstance()->load();
 
 	// Load Temporary Effects
-	TempEffects::instance()->load();
+	Timers::instance()->load();
 
 	// It's not possible to use cItemIterator during postprocessing because it skips lingering items
 	ItemMap::iterator iter;
@@ -764,7 +764,7 @@ void cWorld::save()
 		for( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
 			PersistentBroker::instance()->saveObject( pChar );
 
-		TempEffects::instance()->save();
+		Timers::instance()->save();
 
 		Guilds::instance()->save();
 
@@ -776,13 +776,13 @@ void cWorld::save()
 		// Save the accounts
 		Accounts::instance()->save();
 
-		uiCurrentTime = getNormalizedTime();
+		Server::instance()->refreshTime();
 
 		Console::instance()->changeColor( WPC_GREEN );
 		Console::instance()->send( " Done" );
 		Console::instance()->changeColor( WPC_NORMAL );
 
-		Console::instance()->send( QString( " [%1ms]\n" ).arg( uiCurrentTime - startTime ) );
+		Console::instance()->send( QString( " [%1ms]\n" ).arg( Server::instance()->time() - startTime ) );
 	} catch(QString &e) {
 		PersistentBroker::instance()->rollbackTransaction();
 

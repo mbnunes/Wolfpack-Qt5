@@ -29,7 +29,7 @@
 #include "uorxpackets.h"
 #include "uopacket.h"
 #include "../config.h"
-#include "../globals.h"
+
 #include "../basics.h"
 
 // Library Includes

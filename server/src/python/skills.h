@@ -29,7 +29,7 @@ class cBaseChar;
 
 #include "../defines.h"
 #include "../skills.h"
-#include "../globals.h"
+
 #include "../network/uosocket.h"
 #include "../typedefs.h"
 #include "../basechar.h"

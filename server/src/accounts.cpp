@@ -34,7 +34,6 @@
 #include "commands.h"
 #include "player.h"
 #include "network.h"
-#include "globals.h"
 #include "persistentbroker.h"
 #include "world.h"
 #include "md5.h"

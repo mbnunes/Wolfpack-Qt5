@@ -28,14 +28,13 @@
 #include "scriptmanager.h"
 #include "definitions.h"
 #include "basechar.h"
-#include "globals.h"
+
 #include "console.h"
 #include "world.h"
 #include "items.h"
 #include "pythonscript.h"
 #include "python/engine.h"
 #include "network/uosocket.h"
-#include "wolfpack.h"
 
 // Library Includes
 #include <qstring.h>

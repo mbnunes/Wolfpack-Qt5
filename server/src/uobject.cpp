@@ -31,7 +31,7 @@
 // Wolfpack includes
 #include "coord.h"
 #include "uobject.h"
-#include "globals.h"
+
 #include "network.h"
 #include "console.h"
 #include "defines.h"

@@ -31,7 +31,6 @@
 #include "../tilecache.h"
 #include "../scriptmanager.h"
 #include "../multi.h"
-#include "../itemid.h"
 #include "../basechar.h"
 #include "../singleton.h"
 
@@ -274,36 +273,6 @@ static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 
 	PyErr_BadArgument();
 	return NULL;
-}
-
-/*!
-	Returns the weaponskill needed to use this
-	weapon. It returns -1 if it is unable to
-	determine the weapon skill.
-*/
-/*
-	\method item.weaponskill
-	\description Return the skill id of a weapon's required combat skill.
-	\return SkillID or -1 if no weapon skill.
-*/
-static PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
-{
-	Q_UNUSED(args);
-	if( !self->pItem || self->pItem->free )
-		return PyInt_FromLong( -1 );
-
-	UINT16 id = self->pItem->id();
-
-	if( IsSwordType( id ) )
-		return PyInt_FromLong( SWORDSMANSHIP );
-	else if( IsMaceType( id ) )
-		return PyInt_FromLong( MACEFIGHTING );
-	else if( IsFencingType( id ) )
-		return PyInt_FromLong( FENCING );
-	else if( IsBowType( id ) )
-		return PyInt_FromLong( ARCHERY );
-
-	return PyInt_FromLong( -1 );
 }
 
 /*
@@ -609,7 +578,7 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 
 	effect->setDest( self->pItem->serial() );
 	effect->setExpiretime_ms( expiretime );
-	TempEffects::instance()->insert( effect );
+	Timers::instance()->insert( effect );
 
 	Py_INCREF( Py_None );
 	return Py_None;
@@ -1080,7 +1049,6 @@ static PyMethodDef wpItemMethods[] =
 	{ "soundeffect",		(getattrofunc)wpItem_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." },
 	{ "distanceto",			(getattrofunc)wpItem_distanceto, METH_VARARGS, "Distance to another object or a given position." },
 	{ "canstack",			(getattrofunc)wpItem_canstack, METH_VARARGS, "Sees if the item can be stacked on another item." },
-	{ "weaponskill",		(getattrofunc)wpItem_weaponskill, METH_VARARGS, "Returns the skill used with this weapon. -1 if it isn't a weapon." },
 	{ "useresource",		(getattrofunc)wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
 	{ "countresource",		(getattrofunc)wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
 	{ "addtimer",			(getattrofunc)wpItem_addtimer, METH_VARARGS, "Attaches a timer to this object." },

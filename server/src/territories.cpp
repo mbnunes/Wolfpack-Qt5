@@ -27,7 +27,7 @@
 
 #include "territories.h"
 #include "definitions.h"
-#include "globals.h"
+
 #include "network/uosocket.h"
 #include "defines.h"
 #include "config.h"
@@ -41,7 +41,7 @@
 #include "inlines.h"
 #include "maps.h"
 
-#include "globals.h" // needed for object Config
+ // needed for object Config
 #include "pythonscript.h"
 
 // cTerritories

@@ -42,7 +42,6 @@
 #include "skills.h"
 #include "pythonscript.h"
 #include "items.h"
-#include "itemid.h"
 #include "player.h"
 #include "npc.h"
 #include "ai/ai.h"

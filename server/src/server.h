@@ -113,6 +113,12 @@ public:
 	bool isRunning();
 	void cancel();
 
+	// Return current server time
+	unsigned int time();
+
+	// Refresh current server time
+	void refreshTime();
+
 	// Returns false if an error occured
 	bool run(int argc, char **argv);
 

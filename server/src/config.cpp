@@ -26,7 +26,7 @@
  */
 
 #include "config.h"
-#include "globals.h"
+
 #include "verinfo.h"
 #include "preferences.h"
 #include "log.h"

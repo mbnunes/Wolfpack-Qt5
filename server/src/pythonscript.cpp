@@ -26,7 +26,7 @@
  */
 
 #include "pythonscript.h"
-#include "globals.h"
+
 #include "maps.h"
 #include "network.h"
 #include "console.h"

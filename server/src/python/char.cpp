@@ -1367,12 +1367,12 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 	// Now check if we force dispelling and only have two arguments
 	if( PyTuple_Size( args ) == 0 )
 	{
-		TempEffects::instance()->dispel( self->pChar, 0, false );
+		Timers::instance()->dispel( self->pChar, 0, false );
 	}
 	else
 	{
 		// Iterate trough the list of tempeffects
-		cBaseChar::EffectContainer effects = self->pChar->effects();
+		cBaseChar::TimerContainer effects = self->pChar->timers();
 
 		P_CHAR pSource = getArgChar( 0 );
 		bool force = checkArgInt( 1 ) && ( getArgInt( 1 ) != 0 );
@@ -1419,8 +1419,8 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 			if( ( force || effects[i]->dispellable ) && dispelid.isNull() && effects[i]->objectID() != "cPythonEffect" )
 			{
 				effects[i]->Dispel( pSource, false );
-				self->pChar->removeEffect( effects[i] );
-				TempEffects::instance()->erase( effects[i] );
+				self->pChar->removeTimer( effects[i] );
+				Timers::instance()->erase( effects[i] );
 			}
 			// We are dispelling everything and this is a python effect
 			else if( ( force || effects[i]->dispellable ) && dispelid.isNull() && effects[i]->objectID() == "cPythonEffect" )
@@ -1430,8 +1430,8 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 				if( pEffect )
 				{
 					pEffect->Dispel( pSource, dispelargs );
-					self->pChar->removeEffect( effects[i] );
-					TempEffects::instance()->erase( effects[i] );
+					self->pChar->removeTimer( effects[i] );
+					Timers::instance()->erase( effects[i] );
 				}
 			}
 			// We are dispelling specific python effects
@@ -1441,8 +1441,8 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 				if( pEffect && pEffect->dispelId() == dispelid )
 				{
 					pEffect->Dispel( pSource, dispelargs );
-					self->pChar->removeEffect( effects[i] );
-					TempEffects::instance()->erase( effects[i] );
+					self->pChar->removeTimer( effects[i] );
+					Timers::instance()->erase( effects[i] );
 				}
 			}
 
@@ -1523,7 +1523,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 
 	effect->setDest( self->pChar->serial() );
 	effect->setExpiretime_ms( expiretime );
-	TempEffects::instance()->insert( effect );
+	Timers::instance()->insert( effect );
 
 	Py_INCREF(Py_None);
 	return Py_None;

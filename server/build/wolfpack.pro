@@ -74,7 +74,6 @@ HEADERS = \
 	corpse.h \
 	customtags.h \
 	dbdriver.h \
-	dbl_single_click.h \
 	definable.h \
 	defines.h \
 	definitions.h \
@@ -83,11 +82,9 @@ HEADERS = \
 	exceptions.h \
 	factory.h \
 	getopts.h \
-	globals.h \
 	guilds.h \
 	gumps.h \
 	inlines.h \
-	itemid.h \
 	items.h \
 	log.h \
 	maps.h \
@@ -114,13 +111,12 @@ HEADERS = \
 	skills.h \
 	spawnregions.h \
 	speech.h \
-	structs.h \
 	targetrequests.h \
 	territories.h \
 	tilecache.h \
 	tileflags.h \
 	Timing.h \
-	TmpEff.h \
+	timers.h \
 	tracking.h \
 	Trade.h \
 	typedefs.h \
@@ -128,9 +124,7 @@ HEADERS = \
 	uotime.h \
 	verinfo.h \
 	walking.h \
-	wolfpack.h \
-	world.h \
-	wptargetrequests.h
+	world.h
 
 SOURCES = \
 	accounts.cpp \
@@ -146,16 +140,13 @@ SOURCES = \
 	corpse.cpp \
 	customtags.cpp \
 	dbdriver.cpp \
-	dbl_single_click.cpp \
 	definable.cpp \
 	definitions.cpp \
 	dragdrop.cpp \
 	encryption.cpp \
 	getopts.cpp \
-	globals.cpp \
 	guilds.cpp \
 	gumps.cpp \
-	itemid.cpp \
 	items.cpp \
 	log.cpp \
 	maps.cpp \
@@ -180,15 +171,13 @@ SOURCES = \
 	territories.cpp \
 	tilecache.cpp \
 	Timing.cpp \
-	tmpeff.cpp \
+	timers.cpp \
 	tracking.cpp \
 	Trade.cpp \
 	uobject.cpp \
 	walking.cpp \
-	wolfpack.cpp \
-	world.cpp \
-	wptargetrequests.cpp
-
+	world.cpp
+	
 # Twofish Module
 SOURCES += twofish/twofish2.c
 

@@ -30,7 +30,7 @@
 
 // Wolfpack includes
 #include "typedefs.h"
-#include "globals.h"
+
 #include "definitions.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"

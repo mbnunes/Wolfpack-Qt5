@@ -25,13 +25,13 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#if !defined(__TARGETREQUEST_H__)
-#define __TARGETREQUEST_H__
+#if !defined(__TARGETREQUESTS_H__)
+#define __TARGETREQUESTS_H__
 
 #include "inlines.h"
 #include "network/uosocket.h"
 #include "network/uorxpackets.h"
-#include "wptargetrequests.h"
+#include "targetrequest.h"
 #include "items.h"
 #include "corpse.h"
 #include "gumps.h"
@@ -39,7 +39,7 @@
 #include "player.h"
 #include "tilecache.h"
 #include "npc.h"
-#include "globals.h"
+
 #include "ai/ai.h"
 
 // Stealing
@@ -58,7 +58,7 @@ class cSkForensics: public cTargetRequest
 public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
-		int curtim=uiCurrentTime;
+		int curtim = Server::instance()->time();
 		P_ITEM pi = FindItemBySerial(target->serial());
 		P_PLAYER pc_currchar = socket->player();
 

@@ -35,7 +35,7 @@
 #include "../basechar.h"
 #include "../md5.h"
 #include "../config.h"
-#include "../globals.h"
+
 #include "../player.h"
 
 /*!

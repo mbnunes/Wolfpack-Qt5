@@ -29,7 +29,7 @@
 
 #include "../config.h"
 #include "../console.h"
-#include "../globals.h"
+
 #include "../log.h"
 
 #include <qapplication.h>

@@ -32,7 +32,7 @@
 #include "../inlines.h"
 #include "../basechar.h"
 #include "../player.h"
-#include "../globals.h"
+
 #include "../definitions.h"
 #include "../skills.h"
 

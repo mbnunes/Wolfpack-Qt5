@@ -35,10 +35,9 @@
 #include "../accounts.h"
 #include "../console.h"
 #include "../resource.h"
-#include "../globals.h"
+
 #include "../network.h"
 #include "../player.h"
-#include "../wolfpack.h"
 #include "../server.h"
 
 #define _WIN32_IE 0x0500
@@ -692,10 +691,10 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			char message[512];
 
 			unsigned int msecs, seconds, minutes, hours, days;
-			days = uiCurrentTime / 86400000;
-			hours = (uiCurrentTime % 86400000) / 3600000;
-			minutes = (( uiCurrentTime % 86400000 ) % 3600000 ) / 60000;
-			seconds = ((( uiCurrentTime % 86400000 ) % 3600000 ) % 60000 ) / 1000;
+			days = Server::instance()->time() / 86400000;
+			hours = (Server::instance()->time() % 86400000) / 3600000;
+			minutes = (( Server::instance()->time() % 86400000 ) % 3600000 ) / 60000;
+			seconds = ((( Server::instance()->time() % 86400000 ) % 3600000 ) % 60000 ) / 1000;
 
 			sprintf( message, "Uptime: %u:%02u:%02u:%02u", days, hours, minutes, seconds );
 			SetWindowText( lblUptime, message );

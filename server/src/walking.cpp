@@ -44,7 +44,7 @@
 #include "basechar.h"
 #include "npc.h"
 #include "player.h"
-#include "globals.h"
+
 #include "inlines.h"
 #include "world.h"
 
@@ -489,7 +489,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		// We moved so let's update our location
 		pChar->moveTo(newCoord);
-		pChar->setLastMovement(uiCurrentTime);
+		pChar->setLastMovement(Server::instance()->time());
 		checkStealth( pChar ); // Reveals the user if neccesary
 	} else {
 		if( player && player->socket() )
@@ -580,7 +580,7 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 	signed short tempshort;
 
 	// Don't regenerate stamina while running
-	pChar->setRegenStaminaTime(uiCurrentTime + floor(pChar->getStaminaRate() * 1000));
+	pChar->setRegenStaminaTime(Server::instance()->time() + floor(pChar->getStaminaRate() * 1000));
 	pChar->setRunningSteps(pChar->runningSteps() + 1);
 
 	// If we're running on our feet, check for stamina loss
