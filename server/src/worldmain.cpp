@@ -49,7 +49,6 @@
 #include "multis.h"
 #include "spellbook.h"
 #include "persistentbroker.h"
-#include "network/uopacket.h"
 #include "dbdriver.h"
 
 // Library Includes

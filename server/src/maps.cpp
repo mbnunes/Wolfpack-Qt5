@@ -211,17 +211,17 @@ signed char Maps::mapAverageElevation( const Coord_cl& p ) const
 			else
 			{
 				testz = (INT8)((map1.z + map4z) >> 1);
-				if (testz%2<0) --testz;
-				// ^^^ Fix to make it round DOWN, not just in the direction of zero
+				if (testz%2<0) --testz; // make it round down, not just in the direction of 0
 			}
-		} else {
+		} 
+		else 
+		{
 			if (illegal_z == map2z || illegal_z == map3z)
 				testz = map1.z;
 			else
 			{
 				testz = (signed char)((map2z + map3z) >> 1);
-				if (testz%2<0) --testz;
-				// ^^^ Fix to make it round DOWN, not just in the direction of zero
+				if (testz%2<0) --testz; // make it round down, not just in the direction of 0
 			}
 		}
 		return testz;

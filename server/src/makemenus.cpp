@@ -1015,7 +1015,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notice
 		}
 
 		yoffset = 60;
-		i = (pages-1) * 10;
+		i = (page_-1) * 10;
 		if( i  <= actions.size() )
 		{
 			while( ait != actions.end() && i <= actions.size() && i < (page_ * 10) )
@@ -1107,7 +1107,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	it = sections.begin();
 	std::vector< UINT32 >::iterator button = offsets.begin();
 	cMakeAction::SectionContainer::iterator next = sections.begin();
-	next++;
+	++next;
 
 	while( it != sections.end() )
 	{
@@ -1166,7 +1166,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	if( page == 1 )
 	{
 		startPage( page );
-		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( QString("%1").arg(action->name()) ) );
+		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( action->name() ) );
 		if( makesections.size() > 0 )
 		{
 			QString content = "";

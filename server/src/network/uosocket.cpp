@@ -555,6 +555,12 @@ void cUOSocket::playChar( P_CHAR pChar )
 			mSock->sysMessage( tr("%1 entered the world!").arg( pChar->name.latin1() ), 0x48 );
 }
 
+/*!
+	Checks the \a username and \a password pair. If accepted, initializes this socket
+	to track that account, otherwise a proper cUOTxDenyLogin packet is sent. This method
+	will create the account if SrvParams->autoAccountCreate() evaluates to true
+	\sa cUOTxDenyLogin
+*/
 bool cUOSocket::authenticate( const QString &username, const QString &password )
 {
 	cAccounts::enErrorCode error = cAccounts::NoError;
@@ -606,7 +612,7 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 #define cancelCreate( message ) cUOTxDenyLogin denyLogin; denyLogin.setReason( DL_BADCOMMUNICATION ); send( &denyLogin ); sysMessage( message ); disconnect(); return;
 
 /*!
-  This method handles cUORxCreateChar packet types.
+  This method handles Character create request packet types.
   \sa cUORxCreateChar
 */
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
@@ -648,8 +654,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		( packet->skillId3() >= ALLSKILLS ) || ( packet->skillValue3() > 50 ) ||
 		( packet->skillValue1() + packet->skillValue2() + packet->skillValue3() > 100 ) )
 	{
-		QString failMessage = tr( "%1 is trying to create char with wrong skills: %1 [%2%] %3 [%4%] %5 [%6%]" ).arg( _account->login() ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() );
-		clConsole.send( failMessage );
+		clConsole.send( tr( "%1 is trying to create char with wrong skills: %1 [%2%] %3 [%4%] %5 [%6%]" ).arg( _account->login() ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() ) );
 		cancelCreate( tr("Invalid Character skills") )
 	}
 
@@ -963,9 +968,6 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 			return;
 		menu->onContextEntry( this->player(), pChar, Tag );
 	}
-	
-		
-
 } 
 
 // Show a context menu
@@ -975,10 +977,6 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 */
 void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet ) 
 { 
-	
-	cUOTxContextMenu menu; 
-	
-	
 	cUObject *clicked = FindItemBySerial( packet->serial() );
 	if ( clicked == 0 ) clicked = FindCharBySerial( packet->serial() );
 	
@@ -994,6 +992,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 	QString acl = this->account()->acl(); 
 	QString bindmenu = clicked->bindmenu();
 	
+	cUOTxContextMenu menu; 
 	menu.setSerial ( packet->serial() ); 
 	
 	const cConMenuOptions *tOptions = ContextMenus::instance()->getMenuOptions( bindmenu, acl );
@@ -2065,13 +2064,20 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 		return;
 	}
 
-	cGump* pGump = gumps.find( packet->serial() ).data();
+	QMap< SERIAL, cGump* >::iterator it( gumps.find( packet->serial() ) );
+	if ( it == gumps.end() )
+	{
+		clConsole.send( tr("Invalid gump response packet received from %1").arg(_account->login()) );
+		return;
+	}
+
+	cGump* pGump = it.data();
 	
 	if( pGump )
 	{
 		pGump->handleResponse( this, packet->choice() );
 		delete pGump;
-		gumps.erase( gumps.find( packet->serial() ) );
+		gumps.erase( it );
 	}
 }
 
