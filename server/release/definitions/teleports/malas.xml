@@ -7,14 +7,20 @@
 =================================================================
 -->
 <!--
-	<teleport source="x,y,z,map" destination="x,y,z,map" />
+	<teleporter source="x,y,z,map" destination="x,y,z,map" />
 -->
 <definitions>
-
-	<region name="malas_teleports">
-		<!-- The World -->
-		<rectangle x1="1" y1="1" x2="2560" y2="2048" map="3" />
-		<!-- Teleports -->
-	</region>
+	
+	<!-- Doom Dungeon -->
+	<teleporter source="2317,1269,-110,3" destination="381,132,33,3" />
+	<teleporter source="2317,1268,-110,3" destination="381,132,33,3" />
+	<teleporter source="2317,1267,-110,3" destination="381,132,33,3" />
+	<teleporter source="2317,1266,-110,3" destination="381,132,33,3" />
+	<teleporter source="2316,1269,-110,3" destination="381,132,33,3" />
+	<teleporter source="2315,1269,-110,3" destination="381,132,33,3" />
+	<teleporter source="2315,1268,-110,3" destination="381,132,33,3" />
+	<teleporter source="2315,1267,-109,3" destination="381,132,33,3" />
+	<teleporter source="2316,1267,-110,3" destination="381,132,33,3" />
+	<teleporter source="496,49,6,3" destination="2350,1270,-85,3" />
 
 </definitions>
