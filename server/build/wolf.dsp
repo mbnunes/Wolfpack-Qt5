@@ -51,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib flatstore.lib /nologo /subsystem:console /map /machine:I386 /nodefaultlib:"libcmt MSVCRTD" /out:"D:\wolfpack\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
+# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib /nologo /subsystem:console /map /machine:I386 /nodefaultlib:"libcmt MSVCRTD" /out:"D:\wolfpack\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
@@ -76,7 +76,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib flatstore.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"..\Wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
+# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"..\Wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -111,10 +111,6 @@ SOURCE=.\ai_vendors.cpp
 # Begin Source File
 
 SOURCE=.\basechar.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\basechar_flatstore.cpp
 # End Source File
 # Begin Source File
 
@@ -202,10 +198,6 @@ SOURCE=.\iserialization.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\item_flatstore.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\itemid.cpp
 # End Source File
 # Begin Source File
@@ -242,10 +234,6 @@ SOURCE=.\npc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\npc_flatstore.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\persistentbroker.cpp
 # End Source File
 # Begin Source File
@@ -259,10 +247,6 @@ SOURCE=.\pfactory.cpp
 # Begin Source File
 
 SOURCE=.\player.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\player_flatstore.cpp
 # End Source File
 # Begin Source File
 
@@ -355,10 +339,6 @@ SOURCE=.\twofish\TWOFISH2.C
 # Begin Source File
 
 SOURCE=.\uobject.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\uobject_flatstore.cpp
 # End Source File
 # Begin Source File
 

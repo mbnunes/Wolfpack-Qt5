@@ -710,7 +710,7 @@ int main( int argc, char *argv[] )
 
 	// Try to open our driver
 	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
-	{
+	{		
 		exit( -1 );
 	}
 

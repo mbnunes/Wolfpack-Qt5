@@ -181,15 +181,7 @@ void cWorld::load()
 {
 	clConsole.send( "Loading World...\n" );
 
-	try
-	{
-		persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
-	}
-	catch( QString &e )
-	{
-		clConsole.log( LOG_FATAL, QString( "An error occured while connecting to the database: %1\n" ).arg( e ) );
-		return;
-	}
+	persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
 
 	ISerialization* archive = cPluginFactory::serializationArchiver( "xml" );
 
