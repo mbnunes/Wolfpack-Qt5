@@ -222,7 +222,6 @@ public:
 	int spadelay;
 	unsigned int spatimer;
 	int taming; //Skill level required for taming
-	int provocation; //Skill level required for Provocation.
 	unsigned int summontimer; //Timer for summoned creatures.
 	unsigned long trackingtimer; // Timer used for the duration of tracking
 	SERIAL trackingtarget; // Tracking target ID

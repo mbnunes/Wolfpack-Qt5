@@ -1329,19 +1329,13 @@ void cSkills::DetectHidden(UOXSOCKET s)
 void cSkills::ProvocationTarget1(UOXSOCKET s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = currchar[s];
 
-	if( pc == NULL || pc_currchar == NULL) return;
+	if( pc == NULL ) return;
 
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
-		return;
-	}
-	if (pc->provocation > 1000 || pc->provocation==0)
-	{
-		sysmessage(s, "You can't entice that npc!");
 		return;
 	}
 	if ( pc->isInvul() || pc->shop==1 || // invul or shopkeeper

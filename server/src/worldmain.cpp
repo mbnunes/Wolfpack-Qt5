@@ -252,7 +252,6 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "PRIV3g"))			  pc->priv3[6]=str2num(script2);
 			else if (!strcmp((char*)script1, "POISON"))			  pc->poison=str2num(script2);
 			else if (!strcmp((char*)script1, "POISONED"))		  pc->poisoned=str2num(script2);
-			else if (!strcmp((char*)script1, "PROVOCATION"))			  pc->provocation=str2num(script2);
 		break;
 
 		case 'Q':
@@ -1345,8 +1344,6 @@ void CWorldMain::SaveChar( CHARACTER i )
 				fprintf(cWsc, "POISON %i\n", pc->poison);
 			if (pc->poisoned != pc_reference->poisoned)
 				fprintf(cWsc, "POISONED %i\n", pc->poisoned);
-			if (pc->provocation != pc_reference->provocation)
-				fprintf(cWsc, "PROVOCATION %i\n", pc->provocation);
 			if (pc->fleeat != pc_reference->fleeat)
 				fprintf(cWsc, "FLEEAT %i\n", pc->fleeat);
 			if (pc->reattackat != pc_reference->reattackat)
