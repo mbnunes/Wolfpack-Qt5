@@ -2103,7 +2103,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 		Py_RETURN_FALSE;
 	}
 
-	if (!pos.lineOfSight(targetPos, debug != 0)) {
+	if (!pos.lineOfSight(targetPos)) {
 		Py_RETURN_FALSE;
 	}
 
