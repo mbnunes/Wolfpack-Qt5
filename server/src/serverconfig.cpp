@@ -133,7 +133,7 @@ void cConfig::readData()
 	boatSpeed_ = getDouble( "Game Speed", "Boat Speed", 0.750000, true );
 	snoopdelay_ = getNumber( "Game Speed", "Snoop Delay", 7, true );
 	housedecay_secs_ = getNumber( "Game Speed", "House Decay-Sec.", 604800, true );
-	spawnRegionCheckTime_ = getNumber( "Game Speed", "SpawnRegion Check Time", 300, true );
+	spawnRegionCheckTime_ = getNumber( "Game Speed", "SpawnRegion Check Time", 5, true );
 	itemDecayTime_ = getNumber( "Game Speed", "Item Decay Time", 300, true );
 	corpseDecayTime_ = getNumber( "Game Speed", "Corpse Decay Time", 600, true );
 
