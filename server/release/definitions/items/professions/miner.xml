@@ -11,42 +11,36 @@
 <definitions>
 
 	<item id="iron_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<color>0x0</color>
 		<tag name="resname" value="iron" />
 		<category>Professions\Miner\Ingots\Colored\Iron Ingot</category>
 	</item>
 
 	<item id="dullcopper_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<color>0x973</color>
 		<tag name="resname" value="dullcopper" />
 		<category>Professions\Miner\Ingots\Colored\Dull Copper Ingot</category>
 	</item>
 
 	<item id="shadowiron_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<color>0x966</color>
 		<tag name="resname" value="shadowiron" />
 		<category>Professions\Miner\Ingots\Colored\Shadow Iron Ingot</category>
 	</item>
 
 	<item id="copper_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<color>0x96d</color>
 		<tag name="resname" value="copper" />
 		<category>Professions\Miner\Ingots\Colored\Copper Ingot</category>
 	</item>
 
 	<item id="bronze_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<color>0x972</color>
 		<tag name="resname" value="bronze" />
 		<category>Professions\Miner\Ingots\Colored\Bronze Ingot</category>
 	</item>
 
 	<item id="gold_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<color>0x8a5</color>
 		<tag name="resname" value="gold" />
 		<category>Professions\Miner\Ingots\Colored\Gold Ingot</category>
@@ -54,7 +48,6 @@
 
 	<!--
 	<item id="silver_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<name>silver ingot</name>
 		<color>0x430</color>
 		<tag name="resname" value="silver" />
@@ -63,21 +56,18 @@
 	-->
 
 	<item id="agapite_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<color>0x979</color>
 		<tag name="resname" value="agapite" />
 		<category>Professions\Miner\Ingots\Colored\Agapite Ingot</category>
 	</item>
 
 	<item id="verite_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<color>0x89f</color>
 		<tag name="resname" value="verite" />
 		<category>Professions\Miner\Ingots\Colored\Verite Ingot</category>
 	</item>
 
 	<item id="valorite_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<color>0x8ab</color>
 		<tag name="resname" value="valorite" />
 		<category>Professions\Miner\Ingots\Colored\Valorite Ingot</category>
@@ -85,7 +75,6 @@
 
 	<!--
 	<item id="merkite_ingot" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<name>merkite ingot</name>
 		<color>0x8b0</color>
 		<tag name="resname" value="merkite" />
@@ -488,7 +477,6 @@
 	</item>
 
 	<item id="1bef" inherit="1bf2">
-		<baseid>1bf2</baseid>
 		<id>0x1bef</id>
 		<category>Professions\Miner\Ingots\Iron Ingot (W/E)</category>
 		<weight>0.1</weight>
