@@ -569,15 +569,15 @@ void cItem::remove()
 		return;
 	}
 
-	removeFromView( false ); // Remove it from all clients in range
-	free = true;
-
 	if ( canHandleEvent( EVENT_DELETE ) )
 	{
 		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
 		callEventHandler( EVENT_DELETE, args );
 		Py_DECREF( args );
 	}
+
+	removeFromView( false ); // Remove it from all clients in range
+	free = true;
 
 	clearScripts();
 	SetOwnSerial( -1 );
