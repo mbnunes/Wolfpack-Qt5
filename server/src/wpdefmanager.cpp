@@ -231,21 +231,21 @@ public:
 	bool warning ( const QXmlParseException & exception )
 	{
 		Console::instance()->ProgressFail();
-		Console::instance()->log( LOG_WARNING, QString("%1 [File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
+		Console::instance()->log( LOG_WARNING, QString("%1\n[File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
 		Console::instance()->PrepareProgress( "Parsing Definitions" );
 		return true; // continue
 	}
 	bool error ( const QXmlParseException & exception )
 	{
 		Console::instance()->ProgressFail();
-		Console::instance()->log( LOG_ERROR, QString("%1 [File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
+		Console::instance()->log( LOG_ERROR, QString("%1\n[File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
 		Console::instance()->PrepareProgress( "Parsing Definitions" );
 		return true; // continue
 	}
 	bool fatalError ( const QXmlParseException & exception )
 	{
 		Console::instance()->ProgressFail();
-		Console::instance()->log( LOG_ERROR, QString("%1 [File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
+		Console::instance()->log( LOG_ERROR, QString("%1\n[File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
 		Console::instance()->PrepareProgress( "Parsing Definitions" );
 		return true; // continue
 	}
