@@ -70,7 +70,10 @@ def onDropOnChar( char, item ):
 		# check for skill cap
 		cap = wolfpack.settings.getnumber("General", "SkillCap", 700) * 10
 
-		sum = skills.totalskills( dropper )
+		sum = 0
+		skills = dropper.skills
+		for i in range(0, ALLSKILLS):
+			sum += skills[i]
 
 		if ( sum >= cap ):
 			return 0
