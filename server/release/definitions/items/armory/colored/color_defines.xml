@@ -10,12 +10,10 @@
 
 	<!-- the following define sections are for application on all types of armor -->
 	<define id="iron_armor">
-		<name>iron %1</name>
 		<tag name="resname" value="iron" />
 	</define>
 
 	<define id="dull_copper_armor">
-		<name>dull copper %1</name>
 		<color>0x973</color>
 		<!--
 		<tag name="res_physical" value="6" type="int" />
@@ -30,7 +28,6 @@
 	</define>
 
 	<define id="shadow_armor">
-		<name>shadow iron %1</name>
 		<color>0x966</color>
 		<!--
 		<tag name="res_physical" value="2" type="int" />
@@ -44,7 +41,6 @@
 	</define>
 
 	<define id="copper_armor">
-		<name>copper %1</name>
 		<color>0x96d</color>
 		<!--
 		<tag name="res_physical" value="1" type="int" />
@@ -57,7 +53,6 @@
 	</define>
 
 	<define id="bronze_armor">
-		<name>bronze %1</name>
 		<color>0x972</color>
 		<!--
 		<tag name="res_physical" value="3" type="int" />
@@ -70,7 +65,6 @@
 	</define>
 
 	<define id="gold_armor">
-		<name>gold %1</name>
 		<color>0x8a5</color>
 		<!--
 		<tag name="res_physical" value="1" type="int" />
@@ -85,7 +79,6 @@
 	</define>
 
 	<define id="silver_armor">
-		<name>silver %1</name>
 		<color>0x430</color>
 		<!--
 		<tag name="res_physical" value="1" type="int" />
@@ -100,7 +93,6 @@
 	</define>
 
 	<define id="agapite_armor">
-		<name>agapite %1</name>
 		<color>0x979</color>
 		<!--
 		<tag name="res_physical" value="2" type="int" />
@@ -113,7 +105,6 @@
 	</define>
 
 	<define id="verite_armor">
-		<name>verite %1</name>
 		<color>0x89f</color>
 		<!--
 		<tag name="res_physical" value="3" type="int" />
@@ -126,7 +117,6 @@
 	</define>
 
 	<define id="valorite_armor">
-		<name>valorite %1</name>
 		<color>0x8ab</color>
 		<!--
 		<tag name="res_physical" value="4" type="int" />
@@ -140,7 +130,6 @@
 	</define>
 
 	<define id="merkite_armor">
-		<name>merkite %1</name>
 		<color>0x8b0</color>
 		<!--
 		<tag name="res_physical" value="3" type="int" />
@@ -154,7 +143,6 @@
 	</define>
 
 	<define id="mythril_armor">
-		<name>mythril %1</name>
 		<color>0x84c</color>
 		<!--
 		<tag name="res_physical" value="4" type="int" />
@@ -173,7 +161,6 @@
 	</define>
 
 	<define id="spined_leather_armor">
-		<name>spined %1</name>
 		<color>0x8ad</color>
 		<!--
 		<tag name="res_physical" value="5" type="int" />
@@ -186,7 +173,6 @@
 	</define>
 
 	<define id="horned_leather_armor">
-		<name>horned %1</name>
 		<color>0x846</color>
 		<!--
 		<tag name="res_physical" value="2" type="int" />
@@ -199,7 +185,6 @@
 	</define>
 
 	<define id="barbed_leather_armor">
-		<name>barbed %1</name>
 		<color>0x8a4</color>
 		<!--
 		<tag name="res_physical" value="2" type="int" />

@@ -11,7 +11,6 @@
 	<!-- Orc Helmet North-South -->
 	<item id="1f0b">
 		<id>0x1f0b</id>
-		<name>orc helm</name>
 		<decay />
 		<nodye />
 		<durability><random min="30" max="50" /></durability>

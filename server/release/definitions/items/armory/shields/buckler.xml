@@ -11,17 +11,18 @@
 	<!-- Buckler -->
 	<item id="1b73">
 		<id>0x1b73</id>
-		<name>buckler</name>
 		<decay />
 		<nodye />
 		<durability><random min="40" max="50" /></durability>
+		<!--<tag name="req_str" value="20" type="int" />-->
 		<tag name="req_str" value="20" type="int" />
-		<tag name="aos_req_str" value="20" type="int" />
+		<!--
 		<tag name="res_physical" value="0" type="int" />
 		<tag name="res_fire" value="0" type="int" />
 		<tag name="res_cold" value="1" type="int" />
 		<tag name="res_poison" value="1" type="int" />
 		<tag name="res_energy" value="0" type="int" />
+		-->
 		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>8</smelt>
