@@ -8,6 +8,8 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Removed command: tags
 		- Removed command: addevent
 		- Removed command: removeevent
+		- Removed command: account
+		- Removed command: resurrect
 	* Definition Changes:
 		- Fixed Sheep definitions
 		- Regions are split up facet/type/name.xml
@@ -18,6 +20,8 @@ Wolfpack 12.9.8 Beta (CVS)
 		- New Function: wolfpack.charbase(baseid)
 		- New command: addevent
 		- New command: removeevent
+		- New command: account
+		- New command: resurrect
 		- Fixed carving
 		- Fixed sheering of sheeps and wool regrowing
 		- Rudimentarily Implemented Map Plotting
@@ -30,6 +34,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Possible that a few monsters are missing.
 		- Reloading python too many times crashes the server.
 		- There are still some memory leaks.
+		- Healers do not resurrect.
 
 Wolfpack 12.9.7 Beta
 	* Core Changes:
