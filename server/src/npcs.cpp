@@ -1273,32 +1273,24 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 				Char->dir=0;
 
 		//<stat type="str">100</stats>
-		//or
-		//<stat type="str" min="60" max="80" /> for random value between min and max
 		else if( TagName == "stat" )
 			if( Tag.attributes().contains("type") )
 			{
-				short statValue = 0;
-				if( Tag.attributes().contains("min") && Tag.attributes().contains("max") )
-					statValue = (short)RandomNum(Tag.attributeNode("min").nodeValue().toInt(), Tag.attributeNode("max").nodeValue().toInt());
-				else
-					statValue = Value.toShort();
-
 				QString statType = Tag.attributeNode("type").nodeValue();
 				if( statType == "str" )
 				{
-					Char->st = statValue;
+					Char->st = Value.toShort();
 					Char->st2 = Char->st;
 					Char->hp = Char->st;
 				}
 				else if( statType == "dex" )
 				{
-					Char->setDex( statValue );
+					Char->setDex( Value.toShort() );
 					Char->stm = Char->realDex();
 				}
 				else if( statType == "int" )
 				{
-					Char->in = statValue;
+					Char->in = Value.toShort();
 					Char->in2 = Char->in;
 					Char->mn = Char->in;
 				}
@@ -1325,8 +1317,6 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 			Char->fame = Value.toInt();
 
 		//<gold>100</gold>
-		//or
-		//<gold min="80" max="100" />
 		else if( TagName == "gold" )
 			if( Char->packitem != INVALID_SERIAL )
 			{
@@ -1338,10 +1328,7 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 				}
 				pGold->priv |= 0x01;
 
-				if( Tag.attributes().contains("min") && Tag.attributes().contains("max") )
-					pGold->setAmount( RandomNum( Tag.attributeNode("min").nodeValue().toInt(), Tag.attributeNode("max").nodeValue().toInt() ) );
-				else
-					pGold->setAmount( Value.toInt() );
+				pGold->setAmount( Value.toInt() );
 			}
 			else
 				clConsole.send((char*)QString("Warning: Bad NPC Script %1: no backpack for gold.\n").arg( Section ).latin1());
@@ -1542,23 +1529,15 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 
 		//<skill type="alchemy">100</skill>
 		//<skill type="1">100</skill>
-		//<skill type="alchemy" min="100" max="200" />
-		//<skill type="1" min="100" max="200" />
 		else if( TagName = "skill" && Tag.attributes().contains("type") )
 		{
-			int skillValue = 0;
-			if( Tag.attributes().contains("min") && Tag.attributes().contains("max") )
-				skillValue = RandomNum( Tag.attributeNode("min").nodeValue().toInt(), Tag.attributeNode("max").nodeValue().toInt() );
-			else
-				skillValue = Value.toInt();
-
 			if( Tag.attributeNode("type").nodeValue().toInt() > 0 &&
 				Tag.attributeNode("type").nodeValue().toInt() <= ALLSKILLS )
-				Char->baseskill[(Tag.attributeNode("type").nodeValue().toInt() - 1)] = skillValue;
+				Char->baseskill[(Tag.attributeNode("type").nodeValue().toInt() - 1)] = Value.toInt();
 			else
 				for( j = 0; j < ALLSKILLS; j++ )
 					if( Tag.attributeNode("type").nodeValue() == QString(skillname[j]) )
-						Char->baseskill[j] = skillValue;
+						Char->baseskill[j] = Value.toInt();
 		}
 	}
 }

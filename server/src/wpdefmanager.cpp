@@ -250,7 +250,7 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 	return SectionList;
 }
 
-const QString processNode( const QDomElement &Node )
+const QString processNode( QDomElement &Node )
 {
 	if( Node.nodeName() == "namelist" )
 	{
@@ -258,6 +258,20 @@ const QString processNode( const QDomElement &Node )
 		// ...
 		QString selectedName = Node.text();
 		return selectedName;
+	}
+
+	if( Node.nodeName() == "random" )
+	{
+		if( Node.attributes().contains("min") && Node.attributes().contains("max") )
+			return QString("%1").arg( RandomNum( Node.attributeNode("min").nodeValue().toInt(), Node.attributeNode("max").nodeValue().toInt() ) );
+		else if( Node.attributes().contains("list") )
+		{
+			QStringList RandValues = QStringList::split(",", Node.attributeNode("list").nodeValue());
+			return RandValues[ RandomNum(0,RandValues.size()) ];
+		}
+		else if( Node.attributes().contains("dice") )
+		{}
+		return QString("0");
 	}
 
 	if( !Node.hasChildNodes() )
