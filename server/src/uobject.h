@@ -60,6 +60,8 @@ class QSqlQuery;
 
 class cUObject : public PersistentObject, public cDefinable
 {
+	friend cItem;
+	
 //	Q_OBJECT
 // Data Members
 private:

@@ -653,7 +653,7 @@ void cItem::save( const QString& s/* = QString::null  */ )
 	cUObject::save(s);
 }
 
-void itemRegisterAfterLoading( P_ITEM pi );
+static void itemRegisterAfterLoading( P_ITEM pi );
 
 // s = serial (key)
 void cItem::load( const QString& s/* = QString::null  */ )
