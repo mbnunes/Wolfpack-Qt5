@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Jester Hat -->
@@ -8,7 +15,6 @@
 		<id>0x172e</id>
 		<dye />
 		<durability><random min="20" max="25" /></durability>
-		<tag name='req_str' value='10' type='int' />
 		<type>1009</type>
 		<events>equipment</events>
 	</item>

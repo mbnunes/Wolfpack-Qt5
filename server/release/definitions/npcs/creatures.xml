@@ -1,23 +1,31 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
 <definitions>
 	<!--
 		BASESOUND:
 			Offset of the sounds for the soundmode list below
-	
+
 		SOUNDMODES:
 			0: normal, 5 sounds (attack-started, idle, attack, defence, dying, see WOLFPACK.h)
 			1: birds .. only one "bird-shape" and zillions of sounds ...
 			2: only 3 sounds - /> (attack,defence,dying)
 			3: only 4 sounds - />	(attack-started,attack,defnce,dying)
 			4: only 1 sound !!
-			
+
 		FLAGS:
 			0x01: Creature can Fly
 			0x02: Anti-Blink (Creature is Missing Animation #4)
       0x04: Creature has no corpse
-			
+
 		SHRINK:
 			Item id for the animal in shrinked form (numeric!)
-			
+
 		TYPE:
 			4: Anything Else
 			3: NPC (?)
@@ -41,27 +49,27 @@
 	<charbase id="0xd" basesound="0x107" shrink="0x20ed" flags="0x04"/>
 	<charbase id="0xe" basesound="0x10c" shrink="0x20d7"/>
 	<charbase id="0xf" basesound="0x111" shrink="0x20f3" flags="0x04"/>
-	<charbase id="0x10" basesound="0x116" shrink="0x210b" flags="0x04"/> 
-	<charbase id="0x11" basesound="0x1b0" shrink="0x20e0" /> 
-	<charbase id="0x12" basesound="0x16f" shrink="0x20d8" /> 
-	<charbase id="0x13" basesound="0x183" shrink="0x20fd" />  
-	<charbase id="0x14" basesound="0x388" shrink="0x20fd" /> 
-	<charbase id="0x15" basesound="0xdb" shrink="0x20fe" /> 
+	<charbase id="0x10" basesound="0x116" shrink="0x210b" flags="0x04"/>
+	<charbase id="0x11" basesound="0x1b0" shrink="0x20e0" />
+	<charbase id="0x12" basesound="0x16f" shrink="0x20d8" />
+	<charbase id="0x13" basesound="0x183" shrink="0x20fd" />
+	<charbase id="0x14" basesound="0x388" shrink="0x20fd" />
+	<charbase id="0x15" basesound="0xdb" shrink="0x20fe" />
 	<charbase id="0x16" basesound="0x179" shrink="0x20ea" />
-	<charbase id="0x17" basesound="0xe5" shrink="0x211c" type="2" /> 
+	<charbase id="0x17" basesound="0xe5" shrink="0x211c" type="2" />
 	<charbase id="0x18" basesound="0x19c" shrink="0x20f8" />
-	<charbase id="0x19" basesound="0xe5" shrink="0x211c" type="2" /> 
-	<charbase id="0x1a" basesound="0x17e" shrink="0x2109" /> 
-	<charbase id="0x1b" basesound="0xe5" shrink="0x211c" type="2" /> 
-	<charbase id="0x1c" basesound="0x183" shrink="0x20fd" /> 
+	<charbase id="0x19" basesound="0xe5" shrink="0x211c" type="2" />
+	<charbase id="0x1a" basesound="0x17e" shrink="0x2109" />
+	<charbase id="0x1b" basesound="0xe5" shrink="0x211c" type="2" />
+	<charbase id="0x1c" basesound="0x183" shrink="0x20fd" />
 	<charbase id="0x1d" basesound="0x9e" shrink="0x20f5" type="2" />
 	<charbase id="0x1e" basesound="0x192" shrink="0x20dc" />
 	<charbase id="0x1f" basesound="0x197" shrink="0x210a" />
 	<charbase id="0x21" basesound="0x1a1" shrink="0x20de" />
 	<charbase id="0x22" basesound="0xe5" shrink="0x211c" type="2" />
-	<charbase id="0x23" basesound="0x1a1" shrink="0x20de" /> 
+	<charbase id="0x23" basesound="0x1a1" shrink="0x20de" />
 	<charbase id="0x24" basesound="0x1a1" shrink="0x20de" />
-	<charbase id="0x25" basesound="0xe5" shrink="0x211c" type="2" /> 
+	<charbase id="0x25" basesound="0xe5" shrink="0x211c" type="2" />
 	<charbase id="0x26" basesound="0x2b8" shrink="0x2585" flags="0x1" />
 	<charbase id="0x27" basesound="0x1a6" shrink="0x20f9" flags="0x1" />
 	<charbase id="0x28" basesound="0x2b8" shrink="0x2586" flags="0x1" />
@@ -299,5 +307,4 @@
 	<charbase id="0x34e" basesound="0xa8" shrink="0x2599" type="2" />
 	<charbase id="0x350" basesound="0xa8" shrink="0x259e" type="2" />
 	<charbase id="0x3e6" basesound="0xa8" shrink="0x25a0" type="2" />
-
 </definitions>

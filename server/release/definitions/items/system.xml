@@ -1,4 +1,12 @@
 <!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by:
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<!--
 	Stuff used internally
 -->
 <definitions>
@@ -16,10 +24,11 @@
 	<item id="2006">
 		<id>0x2006</id>
 	</item>
-	
+
 	<!-- Spawngem -->
 	<item id="spawngem" inherit="1f13">
 		<invisible />
 		<events>spawngem</events>
 	</item>
+
 </definitions>

@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Scythe -->
@@ -12,7 +19,6 @@
 		<durability><random min="30" max="89" /></durability>
 		<weight>10.0</weight>
 		<tag name="resname" value="iron" />
-		<tag name="remaining_uses" type="int" value="35" />
 		<type>1002</type>
 		<events>equipment,blades</events>
 		<category>Weapons\Swords\Scythe (N/S)</category>

@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Bandana n/s -->
@@ -8,7 +15,6 @@
 		<id>0x153f</id>
 		<dye />
 		<color><random list="COLORS_RANDOM" /></color>
-		<tag name='req_str' type='int' value='10' />
 		<durability><random min="20" max="25" /></durability>
 		<buyprice>14</buyprice>
 		<sellprice>6</sellprice>
@@ -20,6 +26,7 @@
 	<!-- Bandana w/e -->
 	<item id="1540" inherit="153f">
 		<id>0x1540</id>
+		<baseid>153f</baseid>
 		<category>Clothes\Headwear\Bandana (W/E)</category>
 		<category>Armor\Headwear\Bandana (W/E)</category>
 	</item>

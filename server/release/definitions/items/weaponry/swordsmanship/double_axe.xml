@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Double Axe -->
@@ -12,7 +19,6 @@
 		<durability><random min="50" max="95" /></durability>
 		<weight>3.0</weight>
 		<tag name="resname" value="iron" />
-		<tag name="remaining_uses" type="int" value="35" />
 		<events>equipment,blades</events>
 		<type>1002</type>
 		<category>Weapons\Axes\Double Axe (N/S)</category>

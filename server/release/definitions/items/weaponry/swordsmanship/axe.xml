@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Axe -->
@@ -11,7 +18,6 @@
 		<buyprice>40</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
-		<tag name="remaining_uses" type="int" value="35" />
 		<tag name="resname" value="iron" />
 		<events>equipment,blades</events>
 		<type>1002</type>

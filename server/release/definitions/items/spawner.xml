@@ -19,7 +19,8 @@
 		<morex>3</morex>
 		<morey>6</morey>
 		<amount>1</amount>
-		<carve>1000gold</carve> <!-- Carve is the item-section -->
+		<carve>1000gold</carve>
+		<!-- Carve is the item-section -->
 	</item>
 
 </definitions>

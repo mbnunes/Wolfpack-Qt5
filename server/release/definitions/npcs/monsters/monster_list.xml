@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Base Includes -->
@@ -184,6 +191,5 @@
 	<include file="definitions/npcs/monsters/undead/skeletal_mage.xml"/>
 	<include file="definitions/npcs/monsters/undead/skeletons.xml"/>
 	<include file="definitions/npcs/monsters/undead/zombie.xml"/>
-
 
 </definitions>

@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Two Handed Axe -->
@@ -11,9 +18,7 @@
 		<buyprice>31</buyprice>
 		<durability><random min="30" max="62" /></durability>
 		<weight>8.0</weight>
-		<tag name="req_str" value="40" type="int" />
 		<tag name="resname" value="iron" />
-		<tag name="remaining_uses" type="int" value="35" />
 		<events>equipment,blades</events>
 		<category>Weapons\Axes\Two Handed Axe (N/S)</category>
 		<type>1002</type>

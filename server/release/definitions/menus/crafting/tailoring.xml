@@ -1,3 +1,11 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: DarkStorm
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification: Created/Redone
+ *=======================================================*/
+-->
 <definitions>
   <menu id="TAILORING" name="Tailoring">
     <menu id="TAILORING_HATS" />

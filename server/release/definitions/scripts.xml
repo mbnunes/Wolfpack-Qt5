@@ -1,4 +1,12 @@
 <!--
+=================================================================
+|   )      (\_     |  WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Python Scripts
+|   )).-' {{ ;'`   |
+|  ( (  ;._ \\     |
+=================================================================
+-->
+<!--
 	This file contains a simple file-list of all scripts
 	you want to load on startup. The name between the tags
 	is automatically the script-name used internally (for

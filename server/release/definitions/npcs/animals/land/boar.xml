@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Boar -->
@@ -29,7 +36,7 @@
 		<food>5</food>
 		<carve>carve_boar</carve>
 	</npc>
-	
+
 	<npc id="pig" inherit="animal_base">
 		<name>a pig</name>
 		<id>203</id>
@@ -56,6 +63,6 @@
 		<totame>291</totame>
 		<food>5</food>
 		<carve>carve_boar</carve>
-	</npc>	
+	</npc>
 
 </definitions>

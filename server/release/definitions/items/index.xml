@@ -1,4 +1,12 @@
 <!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<!--
 	Items Base Index File
 -->
 <definitions>
@@ -12,5 +20,3 @@
 	<include file="definitions/items/system.xml"/>
 	<include file="definitions/items/unsorted.xml"/>
 </definitions>
-
-

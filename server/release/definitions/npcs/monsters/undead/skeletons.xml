@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<npc id="skeleton_base" inherit="undead_base">
@@ -40,7 +47,7 @@
 		<id>0x38</id>
 		<category>Monsters\Undead\Skeleton (with Axe)</category>
 	</npc>
-	
+
   <!-- skeleton (with sword) -->
 	<npc id="skeleton_sword">
 		<inherit id="skeleton_base" />

@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Bear Mask n/s -->
@@ -7,7 +14,6 @@
 		<category>Armor\Headwear\Bear Mask (N/S)</category>
 		<id>0x1545</id>
 		<nodye />
-		<tag name='req_str' value='10' type='int' />
 		<durability><random min="20" max="25" /></durability>
 		<decay />
 		<value>40</value>
@@ -17,9 +23,10 @@
 
 	<!-- Bear Mask w/e -->
 	<item id="1546" inherit="1545">
+		<id>0x1546</id>
+		<baseid>1545</baseid>
 		<category>Clothes\Headwear\Bear Mask (W/E)</category>
 		<category>Armor\Headwear\Bear Mask (W/E)</category>
-		<id>0x1546</id>
 	</item>
 
 </definitions>

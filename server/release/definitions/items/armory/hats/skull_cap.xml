@@ -8,7 +8,6 @@
 		<id>0x1543</id>
 		<dye />
 		<color><random list="COLORS_RANDOM" /></color>
-		<tag name='req_str' value='10' type='int' />
 		<durability><random min="6" max="10" /></durability>
 		<buyprice>12</buyprice>
 		<sellprice>6</sellprice>
@@ -22,6 +21,7 @@
 		<category>Clothes\Headwear\Skull Cap (W/E)</category>
 		<category>Armor\Headwear\Skull Cap (W/E)</category>
 		<id>0x1544</id>
+		<baseid>1543</baseid>
 	</item>
 
 </definitions>

@@ -1,4 +1,12 @@
 <!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<!--
 	This file will soon be obsolete.
 -->
 <definitions>
@@ -53,7 +61,7 @@
 		<script>spell_createfood</script>
 	</spell>
 
-	
+
 
 	<!-- Feeblemind -->
 	<spell id="3">
@@ -71,7 +79,7 @@
 			<agressive />
 			<reflectable />
 		</flags>
-		<reagents>			
+		<reagents>
 			<ginseng>1</ginseng>
 			<nightshade>1</nightshade>
 		</reagents>
@@ -81,7 +89,7 @@
 		<script>spell_feeblemind</script>
 	</spell>
 
-	
+
 
 	<!-- Heal -->
 	<spell id="4">
@@ -107,7 +115,7 @@
 		<script>spell_heal</script>
 	</spell>
 
-	
+
 
 	<!-- Magic Arrow -->
 	<spell id="5">
@@ -135,8 +143,8 @@
 		</targets>
 		<script>spell_magicarrow</script>
 	</spell>
-	
-	
+
+
 
 	<!-- Night Sight -->
 	<spell id="6">
@@ -160,7 +168,7 @@
 		<script>spell_nightsight</script>
 	</spell>
 
-	
+
 
 	<!--  Reactive Armor -->
 	<spell id="7">
@@ -185,7 +193,7 @@
 		<script>spell_reactivearmor</script>
 	</spell>
 
-	
+
 
 	<!-- Weaken -->
 	<spell id="8">
@@ -213,7 +221,7 @@
 		<script>spell_weaken</script>
 	</spell>
 
-	
+
 
 	<!-- Circle 2 -->
 
@@ -239,7 +247,7 @@
 		<script>spell_agility</script>
 	</spell>
 
-	
+
 
 <!-- // Cunning -->
 	<spell id="10">
@@ -262,10 +270,10 @@
 			<char />
 		</targets>
 		<script>spell_cunning</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Cure -->
 	<spell id="11">
@@ -289,7 +297,7 @@
 		<script>spell_cure</script>
 	</spell>
 
-	
+
 
 <!-- // Harm -->
 	<spell id="12">
@@ -312,10 +320,10 @@
 			<char />
 		</targets>
 		<script>spell_harm</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Magic Trap -->
 	<spell id="13">
@@ -338,10 +346,10 @@
 			<item />
 		</targets>
 		<script>spell_magictrap</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Magic Untrap -->
 	<spell id="14">
@@ -363,10 +371,10 @@
 			<item />
 		</targets>
 		<script>spell_magicuntrap</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Protection -->
 	<spell id="15">
@@ -391,7 +399,7 @@
 		<script>spell_protection</script>
 	</spell>
 
-	
+
 
 <!-- // Strength -->
 	<spell id="16">
@@ -415,7 +423,7 @@
 		<script>spell_strength</script>
 	</spell>
 
-	
+
 
 	<!-- Circle 3 -->
 
@@ -441,7 +449,7 @@
 		<script>spell_bless</script>
 	</spell>
 
-	
+
 
 <!-- // Fireball -->
 	<spell id="18">
@@ -464,10 +472,10 @@
 			<char />
 		</targets>
 		<script>spell_fireball</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Magic Lock -->
 	<spell id="19">
@@ -490,10 +498,10 @@
 			<item />
 		</targets>
 		<script>spell_magiclock</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Poison -->
 	<spell id="20">
@@ -515,10 +523,10 @@
 			<char />
 		</targets>
 		<script>spell_poison</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Telekinesis -->
 	<spell id="21">
@@ -541,10 +549,10 @@
 			<item />
 		</targets>
 		<script>spell_telekinesis</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Teleport -->
 	<spell id="22">
@@ -568,7 +576,7 @@
 		<script>spell_teleport</script>
 	</spell>
 
-	
+
 
 <!-- // Unlock -->
 	<spell id="23">
@@ -590,10 +598,10 @@
 			<item />
 		</targets>
 		<script>spell_unlock</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Wall of Stone -->
 	<spell id="24">
@@ -615,10 +623,10 @@
 			<ground />
 		</targets>
 		<script>spell_wallofstone</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 	<!-- Circle 4 -->
 
@@ -645,7 +653,7 @@
 		<script>spell_archcure</script>
 	</spell>
 
-	
+
 
 <!-- // Arch Protection -->
 	<spell id="26">
@@ -670,7 +678,7 @@
 		<script>spell_archprotection</script>
 	</spell>
 
-	
+
 
 <!-- // Curse -->
 	<spell id="27">
@@ -694,10 +702,10 @@
 			<char />
 		</targets>
 		<script>spell_curse</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Fire Field -->
 	<spell id="28">
@@ -720,10 +728,10 @@
 			<ground />
 		</targets>
 		<script>spell_firefield</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Greater Heal -->
 	<spell id="29">
@@ -749,7 +757,7 @@
 		<script>spell_greaterheal</script>
 	</spell>
 
-	
+
 
 <!-- // Lightning -->
 	<spell id="30">
@@ -773,10 +781,10 @@
 			<char />
 		</targets>
 		<script>spell_lightning</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Mana Drain -->
 	<spell id="31">
@@ -800,10 +808,10 @@
 			<char />
 		</targets>
 		<script>spell_manadrain</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 	<!-- Recall -->
 	<spell id="32">
@@ -829,7 +837,7 @@
 		<script>spell_recall</script>
 	</spell>
 
-	
+
 
 	<!-- Circle 5 -->
 
@@ -854,10 +862,10 @@
 			<ground />
 		</targets>
 		<script>spell_bladespirit</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Dispel Field -->
 	<spell id="34">
@@ -881,10 +889,10 @@
 			<ground />
 		</targets>
 		<script>spell_dispellfield</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Incognito -->
 	<spell id="35">
@@ -903,10 +911,10 @@
 			<nightshade>1</nightshade>
 		</reagents>
 		<script>spell_incognito</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Magic Reflection -->
 	<spell id="36">
@@ -930,7 +938,7 @@
 		<script>spell_magicreflect</script>
 	</spell>
 
-	
+
 
 <!-- // Mind Blast -->
 	<spell id="37">
@@ -955,10 +963,10 @@
 			<char />
 		</targets>
 		<script>spell_mindblast</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Paralyze -->
 	<spell id="38">
@@ -982,10 +990,10 @@
 			<char />
 		</targets>
 		<script>spell_paralyze</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Poison Field -->
 	<spell id="39">
@@ -1008,10 +1016,10 @@
 			<ground />
 		</targets>
 		<script>spell_poisonfield</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Summon Creature -->
 	<spell id="40">
@@ -1035,7 +1043,7 @@
 		<script>spell_summoncreature</script>
 	</spell>
 
-	
+
 
 	<!-- Circle 6 -->
 
@@ -1060,10 +1068,10 @@
 			<char />
 		</targets>
 		<script>spell_dispell</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Energy Bolt -->
 	<spell id="42">
@@ -1086,10 +1094,10 @@
 			<char />
 		</targets>
 		<script>spell_energybolt</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Explosion -->
 	<spell id="43">
@@ -1116,7 +1124,7 @@
 		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Invisibility -->
 	<spell id="44">
@@ -1140,7 +1148,7 @@
 		<script>spell_invisibility</script>
 	</spell>
 
-	
+
 
 	<!-- Mark -->
 	<spell id="45">
@@ -1155,7 +1163,7 @@
 		<delay>3000</delay>
 		<mana>20</mana>
 		<target>Select rune to mark.</target>
-		<reagents>			
+		<reagents>
 			<mandrake>1</mandrake>
 			<bloodmoss>1</bloodmoss>
 			<blackpearl>1</blackpearl>
@@ -1166,7 +1174,7 @@
 		<script>spell_mark</script>
 	</spell>
 
-	
+
 
 <!-- // Mass Curse -->
 	<spell id="46">
@@ -1190,10 +1198,10 @@
 			<char />
 		</targets>
 		<script>spell_masscurse</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Paralyze Field -->
 	<spell id="47">
@@ -1216,10 +1224,10 @@
 			<ground />
 		</targets>
 		<script>spell_paralyzefield</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Reveal -->
 	<spell id="48">
@@ -1243,7 +1251,7 @@
 		<script>spell_reveal</script>
 	</spell>
 
-	
+
 
 	<!-- Circle 7 -->
 
@@ -1269,10 +1277,10 @@
 			<char />
 		</targets>
 		<script>spell_chainlightning</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Energy Field -->
 	<spell id="50">
@@ -1296,10 +1304,10 @@
 			<ground />
 		</targets>
 		<script>spell_energyfield</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Flamestrike -->
 	<spell id="51">
@@ -1322,10 +1330,10 @@
 			<char />
 		</targets>
 		<script>spell_flamestrike</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Gate Travel -->
 	<spell id="52">
@@ -1350,7 +1358,7 @@
 		<script>spell_gatetravel</script>
 	</spell>
 
-	
+
 
 <!-- // Mana Vampire -->
 	<spell id="53">
@@ -1375,10 +1383,10 @@
 			<char />
 		</targets>
 		<script>spell_manavampire</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Mass Dispel -->
 	<spell id="54">
@@ -1403,10 +1411,10 @@
 			<ground />
 		</targets>
 		<script>spell_massdispell</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Meteor Swarm -->
 	<spell id="55">
@@ -1432,10 +1440,10 @@
 			<ground />
 		</targets>
 		<script>spell_meteorswarm</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Polymorph -->
 	<spell id="56">
@@ -1456,7 +1464,7 @@
 		<script>spell_polymorph</script>
 	</spell>
 
-	
+
 
 	<!-- Circle 8 -->
 
@@ -1478,10 +1486,10 @@
 			<bloodmoss>1</bloodmoss>
 		</reagents>
 		<script>spell_earthquake</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Energy Vortex -->
 	<spell id="58">
@@ -1505,10 +1513,10 @@
 			<ground />
 		</targets>
 		<script>spell_energyvortex</script>
-		<agressive />		
+		<agressive />
 	</spell>
 
-	
+
 
 <!-- // Resurrection -->
 	<spell id="59">
@@ -1533,7 +1541,7 @@
 		<script>spell_resurrection</script>
 	</spell>
 
-	
+
 
 <!-- // Summon Air Elemental -->
 	<spell id="60">
@@ -1557,7 +1565,7 @@
 		<script>spell_airelemental</script>
 	</spell>
 
-	
+
 
 <!-- // Summon Daemon -->
 	<spell id="61">
@@ -1582,7 +1590,7 @@
 		<script>spell_summondaemon</script>
 	</spell>
 
-	 
+
 
 <!-- // Summon Earth Elemental -->
 	<spell id="62">
@@ -1606,7 +1614,7 @@
 		<script>spell_earthelemental</script>
 	</spell>
 
-	
+
 
 <!-- // Summon Fire Elemental -->
 	<spell id="63">
@@ -1631,7 +1639,7 @@
 		<script>spell_fireelemental</script>
 	</spell>
 
-	
+
 
 <!-- // Summon Water Elemental -->
 	<spell id="64">
@@ -1655,7 +1663,7 @@
 		<script>spell_waterelemental</script>
 	</spell>
 
-	
+
 
 <!-- // Summon Hero (Dupre The Hero) -->
 	<spell id="65">
@@ -1670,7 +1678,7 @@
 		<reagents>
 			<mana>4</mana>
 		</reagents>
-		<agressive />		
+		<agressive />
 	</spell>
 
 <!-- // Cannon Firing (why this is in SPELLs, I have NO idea) -->
@@ -1687,7 +1695,7 @@
 		<reagents>
 			<mana>4</mana>
 		</reagents>
-		<agressive />		
+		<agressive />
 	</spell>
 
 <!-- // Summon Demon Beast -->
@@ -1703,7 +1711,7 @@
 		<reagents>
 			<mana>4</mana>
 		</reagents>
-		<agressive />		
+		<agressive />
 	</spell>
 
 </definitions>

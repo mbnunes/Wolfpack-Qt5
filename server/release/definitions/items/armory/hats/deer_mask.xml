@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Deer Mask n/s -->
@@ -7,7 +14,6 @@
 		<category>Armor\Headwear\Deer Mask (N/S)</category>
 		<id>0x1547</id>
 		<nodye />
-		<tag name='req_str' type='int' value='10' />
 		<durability><random min="20" max="25" /></durability>
 		<weight>4.0</weight>
 		<type>1009</type>
@@ -19,6 +25,7 @@
 		<category>Clothes\Headwear\Deer Mask (W/E)</category>
 		<category>Armor\Headwear\Deer Mask (W/E)</category>
 		<id>0x1548</id>
+		<baseid>1547</baseid>
 	</item>
 
 </definitions>

@@ -1,6 +1,14 @@
+<!--
+/*=========================================================
+ *   )      (\_       | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\      |
+ *=======================================================*/
+-->
 <definitions>
 	<list id="ENCRYPTION">
-			<!-- High priority first !! -->
+		<!-- High priority first !! -->
 
 		<!-- Client identification string (optional) ; Key1 ; Key2 -->
 		<item> Client 4.0.2 ; 0x2E63ADDD ; 0xA225227F </item>

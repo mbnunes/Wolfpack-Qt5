@@ -1,4 +1,11 @@
-
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
 	<!-- Executioners Axe -->
@@ -12,7 +19,6 @@
 		<durability><random min="30" max="46" /></durability>
 		<weight>3.0</weight>
 		<tag name="resname" value="iron" />
-		<tag name="remaining_uses" type="int" value="35" />
 		<events>equipment,blades</events>
 		<category>Weapons\Axes\Executioner's Axe (N/S)</category>
 		<type>1002</type>
