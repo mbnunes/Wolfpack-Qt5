@@ -1,6 +1,8 @@
 Wolfpack ChangeLog
 
-Wolfpack 12.9.11 Beta (CVS)
+Wolfpack 12.9.12 Beta (CVS)
+
+Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.
 	  This will slow AI down a little but crash prevention is well worth it.
 	- Fixed a crashbug with the delayed onCreate call.

@@ -245,7 +245,7 @@ void cConsole::send( const QString& sMessage )
 	{
 		QString temp = progress;
 		progress = QString::null;
-		rollbackChars(temp.length() + 4);
+		rollbackChars(temp.length());
 		progress = temp;
 	}
 
@@ -259,7 +259,8 @@ void cConsole::send( const QString& sMessage )
 	{
 		QString temp = progress;
 		progress = QString::null;
-		sendProgress( temp );
+		send( temp );
+		progress = temp;
 	}
 }
 
