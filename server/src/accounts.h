@@ -34,8 +34,6 @@
 #if !defined(__ACCOUNTS_H__)
 #define __ACCOUNTS_H__
 
-
-#include "iserialization.h"
 #include "typedefs.h"
 #include "singleton.h"
 

@@ -91,7 +91,6 @@ HEADERS         = \
 		  gumps.h \
 		  house.h \
 		  inlines.h \
-                  iserialization.h \
 		  itemid.h \
 		  items.h \
 		  log.h \
@@ -99,7 +98,6 @@ HEADERS         = \
 		  multis.h \
 		  network.h \
 		  npc.h \
-                  pfactory.h \
 		  platform.h \
 		  persistentbroker.h \
 		  persistentobject.h \
@@ -113,7 +111,6 @@ HEADERS         = \
 		  spawnregions.h \
 		  speech.h \
                   srvparams.h \
-                  serxmlfile.h \
                   skills.h \
 		  stream.h \
 		  structs.h \
@@ -157,7 +154,6 @@ SOURCES         = \
 		globals.cpp \
 		gumps.cpp \
 		house.cpp \
-		iserialization.cpp \
 		itemid.cpp \
 		items.cpp \
 		log.cpp \
@@ -168,7 +164,6 @@ SOURCES         = \
 		network.cpp \
 		npc.cpp \
 		encryption.cpp \
-		pfactory.cpp \
 		persistentbroker.cpp \
 		persistentobject.cpp \
 		preferences.cpp \
@@ -176,7 +171,6 @@ SOURCES         = \
 		pythonscript.cpp \
 		resources.cpp \
 		sectors.cpp \
-		serxmlfile.cpp \
 		scriptmanager.cpp \
 		skills.cpp \
 		speech.cpp \

@@ -194,10 +194,6 @@ SOURCE=.\house.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\iserialization.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\itemid.cpp
 # End Source File
 # Begin Source File
@@ -267,10 +263,6 @@ SOURCE=.\scriptmanager.cpp
 # Begin Source File
 
 SOURCE=.\sectors.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\serxmlfile.cpp
 # End Source File
 # Begin Source File
 
@@ -570,39 +562,6 @@ SOURCE=.\inlines.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\iserialization.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing iserialization.h...
-InputDir=.
-InputPath=.\iserialization.h
-InputName=iserialization
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing iserialization.h...
-InputDir=.
-InputPath=.\iserialization.h
-InputName=iserialization
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
 SOURCE=.\itemid.h
 # End Source File
 # Begin Source File
@@ -803,10 +762,6 @@ SOURCE=.\scriptmanager.h
 # Begin Source File
 
 SOURCE=.\sectors.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\serxmlfile.h
 # End Source File
 # Begin Source File
 
@@ -1234,10 +1189,6 @@ SOURCE=.\moc_commands.cpp
 # Begin Source File
 
 SOURCE=.\moc_gumps.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_iserialization.cpp
 # End Source File
 # Begin Source File
 

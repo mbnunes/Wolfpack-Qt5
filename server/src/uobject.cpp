@@ -35,7 +35,6 @@
 // Wolfpack includes
 #include "coord.h"
 #include "uobject.h"
-#include "iserialization.h"
 #include "globals.h"
 #include "network.h"
 #include "defines.h"

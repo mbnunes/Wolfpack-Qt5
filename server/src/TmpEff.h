@@ -51,7 +51,6 @@ class cTempEffects;
 
 // Wolfpack includes
 #include "typedefs.h"
-#include "iserialization.h"
 #include "singleton.h"
 
 class cDBResult;
@@ -135,6 +134,7 @@ class cDelayedHideChar : public cTempEffect
 {
 public:
 	cDelayedHideChar( SERIAL serial );
+	cDelayedHideChar();
 	void Expire();
 	QString objectID() const  { return "cDelayedHideChar"; }
 };

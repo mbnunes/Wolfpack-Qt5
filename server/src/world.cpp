@@ -36,7 +36,6 @@
 #include "srvparams.h"
 #include "dbdriver.h"
 #include "progress.h"
-#include "iserialization.h"
 #include "persistentbroker.h"
 #include "accounts.h"
 #include "inlines.h"
@@ -189,8 +188,6 @@ void cWorld::load()
 	}
 
 	persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
-
-	ISerialization* archive = cPluginFactory::serializationArchiver( "xml" );
 
 	QString objectID;
 	register unsigned int i = 0;

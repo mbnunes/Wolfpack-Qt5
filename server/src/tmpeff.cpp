@@ -38,7 +38,6 @@
 #include "items.h"
 #include "globals.h"
 #include "srvparams.h"
-#include "iserialization.h"
 #include "network.h"
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
@@ -187,6 +186,8 @@ void cTempEffect::load( unsigned int id, const char **result )
 	dispellable = atol( result[offset++] ) == 0 ? false : true;
 	sourSer = atol( result[offset++] );
 	destSer = atol( result[offset++] );
+
+	serializable = true;
 }
 
 void cTempEffects::check()
@@ -307,7 +308,9 @@ void cTempEffects::save()
 
 	while( it != teffects.end() )
 	{
-		(*it)->save( id++ );
+		if( (*it)->isSerializable() )
+			(*it)->save( id++ );
+
 		++it;
 	}
 }
@@ -325,6 +328,11 @@ cDelayedHideChar::cDelayedHideChar( SERIAL serial )
 	setSerializable( true );
 }
 
+cDelayedHideChar::cDelayedHideChar()
+{
+	setSerializable( true );
+}
+
 void cDelayedHideChar::Expire()
 {
 	P_PLAYER pc = dynamic_cast<P_PLAYER>(FindCharBySerial( destSer ));
@@ -333,38 +341,6 @@ void cDelayedHideChar::Expire()
 
 	pc->setHidden( 1 );
 	pc->resend( true );
-}
-
-// cTimedSpellAction
-cTimedSpellAction::cTimedSpellAction( SERIAL serial, UI08 nAction )
-{
-	if( !isCharSerial( serial ) )
-	{
-		character = INVALID_SERIAL;
-		return;
-	}
-
-	// Display the animation once
-	P_CHAR pc = FindCharBySerial( serial );
-	if( !pc )
-	{
-		character = INVALID_SERIAL;
-		return;
-	}
-	pc->action( nAction );
-
-	// Save our data
-	character = serial;
-	action = nAction;
-	serializable = false;
-	expiretime = uiCurrentTime + 750;
-}
-
-// Insert a new action if there are more than 75 ticks left
-void cTimedSpellAction::Expire()
-{
-	if( character != INVALID_SERIAL )
-		TempEffects::instance()->insert( new cTimedSpellAction( character, action ) );
 }
 
 cRepeatAction::cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay )

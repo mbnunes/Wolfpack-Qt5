@@ -33,7 +33,6 @@
 #define __RESOURCES_H
 
 #include "definable.h"
-#include "iserialization.h"
 #include "items.h"
 #include "wptargetrequests.h"
 #include "typedefs.h"
