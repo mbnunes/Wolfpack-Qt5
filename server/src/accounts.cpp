@@ -111,7 +111,6 @@ bool AccountRecord::removeCharacter( cChar* d )
 
 bool AccountRecord::authorized( const QString& group, const QString& value ) const
 {
-	return true;
 	// No Valid ACL specified
 	if( !acl_ )
 		return false;
@@ -176,6 +175,7 @@ AccountRecord* cAccounts::authenticate(const QString& login, const QString& pass
 		// Ok, let´s continue.
 		if (it.data()->password() == password)
 		{
+			it.data()->setLastLogin( QDateTime::currentDateTime() );
 			it.data()->resetLoginAttempts();		
 			return it.data();
 		}
