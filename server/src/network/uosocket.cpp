@@ -1737,7 +1737,7 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 			// simple page request
 			pBook->readPage( this, packet->page() );
 		}
-		else
+		else if( pBook->writeable() )
 		{
 			// page write request
 			QStringList content_ = pBook->content();
@@ -1751,7 +1751,11 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 				it++;
 			}
 
-			content_[packet->page() - 1] = toInsert;
+			UINT16 n = packet->page();
+			while( content_.size() < n )
+				content_.push_back( "" );
+
+			content_[ n - 1 ] = toInsert;
 			pBook->setContent( content_ );
 		}
 	}	
@@ -1760,7 +1764,7 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 void cUOSocket::handleUpdateBook( cUORxUpdateBook* packet )
 {
 	cBook* pBook = dynamic_cast< cBook* >(FindItemBySerial( packet->serial() ));
-	if( pBook )
+	if( pBook && pBook->writeable() )
 	{
 		pBook->setAuthor( packet->author() );
 		pBook->setTitle( packet->title() );

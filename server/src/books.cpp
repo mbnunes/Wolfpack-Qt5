@@ -62,6 +62,7 @@ void cBook::Serialize( ISerialization &archive )
 		archive.read( "book.readonly", readonly_ );
 		archive.read( "book.predefined", predefined_ );
 		archive.read( "book.section", section_ );
+		archive.read( "book.pages", pages_ );
 	}
 	else
 	{
@@ -75,6 +76,7 @@ void cBook::Serialize( ISerialization &archive )
 		archive.write( "book.readonly", readonly_ );
 		archive.write( "book.predefined", predefined_ );
 		archive.write( "book.section", section_ );
+		archive.write( "book.pages", pages_ );
 	}
 	cItem::Serialize( archive );
 }
@@ -88,14 +90,12 @@ void cBook::processNode( const QDomElement &Tag )
 	if( TagName == "title" )
 	{
 		setTitle( Value );
-		predefined_ = true;
 	}
 
 	//	<author>blabla</author>
 	else if( TagName == "author" )
 	{
 		setAuthor( Value );
-		predefined_ = true;
 	}
 
 	//	<content>
@@ -131,12 +131,19 @@ void cBook::processNode( const QDomElement &Tag )
 			}
 			childNode = childNode.nextSibling();
 		}
-		predefined_ = true;
 	}
 
 	//	<readonly />
 	else if( TagName == "readonly" )
 		readonly_ = true;
+
+	//	<predefined />
+	else if( TagName == "predefined" )
+		predefined_ = true;
+
+	//	<pages>16</pages>
+	else if( TagName == "pages" )
+		pages_ = Value.toShort();
 
 	else
 		cItem::processNode( Tag );
@@ -220,14 +227,15 @@ void cBook::open( cUOSocket* socket )
 	openBook.setWriteable( !this->readonly_ );
 	if( !this->readonly_ )
 		openBook.setFlag( 1 );
-	openBook.setPages( content_.size() );
+	openBook.setPages( pages() );
 	openBook.setTitle( title_ );
 	openBook.setAuthor( author_ );
 
 	socket->send( &openBook );
 
 	// for writeable books we have to send the entire book...
-	if( !readonly_ )
+#pragma note("sniff client server communication what readonly/writeable books are handled like")
+	if( true )//if( writeable() ) currently disabled
 	{
 		std::vector< QStringList > lines;
 		UINT32 i, size = 9;

@@ -57,6 +57,8 @@ public:
 		this->content_ = QStringList();
 
 		this->section_ = (char*)0;
+
+		this->pages_ = 0;
 	}
 
 	virtual ~cBook() {;}
@@ -72,35 +74,35 @@ public:
 	QString		title( void )			{ return title_; }
 	QString		author( void )			{ return author_; }
 	QStringList	content( void )			{ return content_; }
+	UINT16		pages( void )			
+	{ 
+		if( predefined_ )
+			return content_.size();
+		else
+			return pages_;
+	}
 
 	bool		predefined( void )		{ return predefined_; }
 	bool		readonly( void )		{ return readonly_; }
 
+	bool		writeable( void )		{ return !predefined_ && !readonly_; }
+
 	QString		section( void )		{ return section_; }
 
 
-	bool		setAuthor( QString data )
+	void		setAuthor( QString data )
 	{
-		if( !this->readonly_ )
-			this->author_ = data;
-
-		return this->readonly_ && !this->predefined_;
+		this->author_ = data;
 	}
 
-	bool		setTitle( QString data )
+	void		setTitle( QString data )
 	{
-		if( !this->readonly_ )
-			this->title_ = data;
-
-		return this->readonly_ && !this->predefined_;
+		this->title_ = data;
 	}
 
-	bool		setContent( QStringList data )
+	void		setContent( QStringList data )
 	{
-		if( !this->readonly_ )
-			this->content_ = data;
-
-		return this->readonly_ && !this->predefined_;
+		this->content_ = data;
 	}
 
 	void		setPredefined( bool data )
@@ -112,6 +114,12 @@ public:
 	{
 		this->section_ = data;
 	}
+
+	void		setPages( UINT16 data )
+	{
+		this->pages_ = data;
+	}
+
 
 	// networking
 	void		open( cUOSocket* socket );
@@ -129,6 +137,8 @@ private:
 	QString		title_;
 	QString		author_;
 	QStringList	content_;
+
+	UINT16		pages_;
 };
 
 /*
