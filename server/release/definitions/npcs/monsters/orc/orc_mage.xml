@@ -42,7 +42,7 @@
 		<category>Monsters\Orcs\Orc Mage</category>
 		<strproperty name="slayer_group" value="orcs" />
 		<intproperty name="carve_meat" value="1" />
-		<lootpacks>lootpack_average,scroll_medium</lootpacks>
+		<lootpacks>lootpack_average;scroll_medium</lootpacks>
 	</npc>
 
 </definitions>

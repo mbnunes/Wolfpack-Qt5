@@ -40,6 +40,10 @@
 		<!--<lootpacks></lootpacks>-->
 		<category>Monsters\Common\Shadow Wisp</category>
 		<ai>Monster_Mage</ai>
+		
+		<equipped>
+			<item id="1647"><newbie /></item>
+		</equipped>		
 	</npc>
 
 </definitions>

@@ -36,7 +36,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qt-mt331.lib ws2_32.lib comctl32.lib"
+				AdditionalDependencies="qt-mt333.lib ws2_32.lib comctl32.lib"
 				OutputFile="../release/wolfpackd.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -106,7 +106,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qt-mt331.lib ws2_32.lib comctl32.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
+				AdditionalDependencies="qt-mt333.lib ws2_32.lib comctl32.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
 				OutputFile="../release/wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"

@@ -256,24 +256,27 @@ void cTiming::poll()
 		cCharIterator chariter;
 		for ( P_CHAR character = chariter.first(); character; character = chariter.next() )
 		{
-			P_NPC npc = dynamic_cast<P_NPC>( character );
-			if ( npc && npc->stablemasterSerial() == INVALID_SERIAL )
-			{
-				// Check if we are anywhere near a player
-				// all other npcs are accounted as inactive
-				for ( QValueVector<Coord>::const_iterator it = positions.begin(); it != positions.end(); ++it )
+			P_NPC npc = dynamic_cast<P_NPC>(character);
+			if (npc) {
+				npc->poll(time, events); // Poll combat separately (Invalidate pointers!)
+
+				if ( npc->stablemasterSerial() == INVALID_SERIAL )
 				{
-					if ( ( *it ).distance( npc->pos() ) <= 24 )
+					// Check if we are anywhere near a player
+					// all other npcs are accounted as inactive
+					for ( QValueVector<Coord>::const_iterator it = positions.begin(); it != positions.end(); ++it )
 					{
-						checkRegeneration( npc, time );
-						checkNpc( npc, time );
-						startProfiling( PF_NPCCHECK );
-						npc->poll( time, events );
-						stopProfiling( PF_NPCCHECK );
-						break;
+						if ( ( *it ).distance( npc->pos() ) <= 24 && !npc->pos().isInternalMap() )
+						{
+							checkRegeneration( npc, time );
+							checkNpc( npc, time );
+							startProfiling( PF_NPCCHECK );
+							stopProfiling( PF_NPCCHECK );
+							break;
+						}
 					}
+					continue;
 				}
-				continue;
 			}
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>( character );
