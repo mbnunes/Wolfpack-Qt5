@@ -35,7 +35,6 @@
 #include "tilecache.h"
 #include "mapobjects.h"
 #include "multiscache.h"
-#include "win_registry.h"
 
 // Library Includes
 #include <qstring.h>
@@ -140,19 +139,7 @@ Maps::~Maps()
 
 bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
 {
-	MapsPrivate* p;
-
-	// File not Found
-	if( !QDir( basePath ).exists() )
-	{
-		// Try using UO Path
-		QString uoPath = getUOPath();
-
-		if( uoPath != QString::null )
-			basePath = uoPath;
-	}
-
-	p = new MapsPrivate( basePath + staticsidx, basePath + mapfile, basePath + staticsfile );
+	MapsPrivate* p = new MapsPrivate( basePath + staticsidx, basePath + mapfile, basePath + staticsfile );
 	p->height = mapheight;
 	p->width  = mapwidth;
 	d.insert( id, p );
