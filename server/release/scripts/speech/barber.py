@@ -97,7 +97,7 @@ def onSpeech( listener, speaker, text, keywords ):
 	gump.startPage( 0 )
 	gump.addButton( 350, 335, 2119, 2120, 0 ) # Cancel
 
-	gump.setCallback( "barber.gump_callback" )
+	gump.setCallback( "speech.barber.gump_callback" )
 	gump.setArgs( [ listener.serial ] )
 	gump.send( speaker )
 
@@ -356,11 +356,55 @@ def gump_callback( char, args, response ):
 		char.socket.sysmessage( "You can't reach the vendor." )
 		return
 
-	# Hair ? Beard ?
+	id = response.button & 0x3FFF
+	
+	if not prices.has_key( id ):
+		vendor.say( "I can't cut your hair like this!" )
+		return
+
+	price = prices[ id ]
+
+	if char.countresource( 0xeed, 0 ) < price:
+		vendor.say( "You don't have enoug gold!" )
+		return
+
+	char.useresource( price, 0xeed, 0 )
+	char.soundeffect( 0x37, 0 )
+	vendor.say( "That is %i gold." % price )
+
+	color = 0
+
+	# Hair
 	if response.button & 0x4000:
-		vendor.say( "HAIR" )
+		# Remove old hair
+		color = getHairColor( char )
+		hair = char.itemonlayer( LAYER_HAIR )
+		if hair:
+			hair.delete()
+
+	# Beard
 	elif response.button & 0x8000:
-		vendor.say( "BEARD" )
+		if char.id == 0x191:
+			char.socket.sysmessage( "You can't have a beard" )
+			return
+
+		# Remove old beard
+		color = getBeardColor( char )
+		beard = char.itemonlayer( LAYER_BEARD )
+		if beard:
+			beard.delete()		
+
 	else:
 		return
 
+	# None
+	if id == 0:
+		return
+
+	item = wolfpack.additem( "%x" % id )
+	if not item:
+		print "Invalid defintion: %x\n" % id
+		return
+
+	item.color = color
+	char.equip( item )
