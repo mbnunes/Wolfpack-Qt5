@@ -9,6 +9,11 @@ def onUse( char, item ):
 	if not char.canreach(item, 2):
 		char.socket.clilocmessage(500295)
 		return True
+		
+	# already healing?
+	if char.socket.hastag( 'bandage_slipped' ):
+		char.socket.sysmessage( 'You are already healing somebody.' )
+		return True
 	
 	char.reveal() # Reveal
 
@@ -105,7 +110,8 @@ def startheal(char, target):
 			else:
 				delay = 5000 + resurrection
 
-	char.dispel(None, 1, 'bandage_timer') # Display pending bandage timers
+	# what's the use of this dispel??
+	#char.dispel(None, 1, 'bandage_timer') # Display pending bandage timers
 	socket.settag('bandage_slipped', 0) # Clear the "slipping" property
 	socket.clilocmessage(500956) # Begin applying bandages
 	char.addtimer(delay, 'bandages.endheal', [primary, secondary, target.serial]) # Add a bandage timer
@@ -126,6 +132,7 @@ def endheal(char, arguments):
 	
 	if socket.hastag('bandage_slipped'):
 		slipped = int(socket.gettag('bandage_slipped')) # How many times the fingers slipped
+		socket.sysmessage( "hastag" )
 	else:
 		slipped = 0
 	socket.deltag('bandage_slipped')
