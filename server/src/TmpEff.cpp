@@ -257,7 +257,7 @@ void cTmpEff::Reverse()
 
 void cTmpEff::Expire()
 {
-	int k,ccc;
+	int k;
 
 	P_CHAR pc_s = FindCharBySerial(getDest());
 	if (   num != 9		// grinding

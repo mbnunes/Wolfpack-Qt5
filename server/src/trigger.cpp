@@ -160,7 +160,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 	char cmsg[512]; // completed trigger message
 	char clr1;
 	char clr2;
-	int serial, ci;
+	int serial;
 	unsigned int i, uiTempi, uiCompleted = 0;
 	int tl;
 	int j, c, r;
@@ -1276,6 +1276,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							if (pBackpack != NULL)
 							{
 								serial = pBackpack->serial;
+								unsigned int ci;
 								vector<SERIAL> vecContainer = contsp.getData(serial);
 								for (ci = 0; ci < vecContainer.size(); ci++)
 								{
@@ -2012,6 +2013,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						{
 							if (pi_needitem == NULL)
 							{
+								unsigned int ci;
 								vector<SERIAL> vecContainer = contsp.getData(pc_ts->packitem);
 								for (ci = 0; ci < vecContainer.size(); ci++)
 								{

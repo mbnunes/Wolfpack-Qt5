@@ -1286,7 +1286,6 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 	int c;
 	if (x1>x2) {c=x1;x1=x2;x2=c;}
 	if (y1>y2) {c=y1;y1=y2;y2=c;}
-	unsigned int i ;
 	if (addid1[s]==1)
 	{ // addid1[s]==1 means to inverse wipe
 		AllItemsIterator iterItems;

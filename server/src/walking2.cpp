@@ -1572,7 +1572,7 @@ printf("Character stuck!\n");
 //NEW NPCMOVEMENT ZIPPY CODE STARTS HERE -- AntiChrist meging codes --
 void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 {
-    register int k;
+//    register int k;
     
 	int j = rand() % 40;
 

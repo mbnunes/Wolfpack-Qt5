@@ -814,7 +814,7 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 	char menuarray1[7*(MAXCLIENT)+50][50]; /** the ( IS important !!! **/
 	unsigned int linecount=0;
 	unsigned int linecount1=0;
-	int serial,serhash;
+	int serial;
 	
 	
 	k=buttonnum;

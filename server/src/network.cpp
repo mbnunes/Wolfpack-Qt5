@@ -1493,7 +1493,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 									}
 							}
 						}
-						int book;
+						int book = 0;
 						if (pj != NULL)
 						{
 							book=buffer[s][4]-0x30;

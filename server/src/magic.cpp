@@ -540,11 +540,11 @@ bool cMagic::CheckBook(int circle, int spell, P_ITEM pi)
 
 int cMagic::SpellsInBook(P_ITEM pi)
 {
-	int ci = 0;
 	int spellcount = 0;
 	P_ITEM pj;
 	if (pi == NULL)
 		return -1;
+	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
@@ -1449,7 +1449,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	int action = 0,
 	*/
 	// Much reordering follows -Fraz-
-	int loskill, hiskill;
+	int loskill = 0, hiskill = 0;
 	int type = currentSpellType[s];
 	P_CHAR pc_currchar = currchar[s];
 //	int cc=currchar[s];
@@ -3387,97 +3387,87 @@ stat_st cMagic::getStatEffects( int num )
 
 stat_st cMagic::getStatEffects_pre( int num)
 {
-    stat_st temp;
-    memset( &temp, -1, sizeof ( stat_st ) );    	
-	int te4,te5,te6,te7,te8,te9,te10,te11,te12; // 3d particles
+    stat_st temp = {-1,};
 
-	te11=0; te12=1;
 	switch( num )
 	{
-	case 1:	   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;
-	case 2:	   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x33; te10=0xffff0102; break;
-	case 3:	   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;		        
-	case 4:	   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x65; te10=0xffff0102; break;		
-	case 5:	   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x51; te10=0xffff0102; break;
-	case 6:	   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;
-	case 7:	   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x33; te10=0xffff0102; break;		        
-	case 8:	   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;
+	case 1:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
+	case 2:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x33; temp.effect[10]=0xffff0102; break;
+	case 3:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;		        
+	case 4:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x65; temp.effect[10]=0xffff0102; break;		
+	case 5:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x51; temp.effect[10]=0xffff0102; break;
+	case 6:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
+	case 7:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x33; temp.effect[10]=0xffff0102; break;		        
+	case 8:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
 
-	case 9:	   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x65; te10=0xffff0102; break;
-	case 10:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x65; te10=0xffff0102; break;
-	case 11:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x65; te10=0xffff0102; break;
-	case 12:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x51; te10=0xffff0102; break;
-	case 13:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x29; te10=0xffff0102; break;
-	case 14:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x29; te10=0xffff0102; break;
-	case 15:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x33; te10=0xffff0102; break;
-	case 16:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x65; te10=0xffff0102; break;
+	case 9:	   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x65; temp.effect[10]=0xffff0102; break;
+	case 10:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x65; temp.effect[10]=0xffff0102; break;
+	case 11:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x65; temp.effect[10]=0xffff0102; break;
+	case 12:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x51; temp.effect[10]=0xffff0102; break;
+	case 13:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x29; temp.effect[10]=0xffff0102; break;
+	case 14:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x29; temp.effect[10]=0xffff0102; break;
+	case 15:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x33; temp.effect[10]=0xffff0102; break;
+	case 16:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x65; temp.effect[10]=0xffff0102; break;
 
-	case 17:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x51; te10=0xffff0102; break;
-	case 18:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x51; te10=0xffff0102; break;
-	case 19:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x29; te10=0xffff0102; break;
-	case 20:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x5b; te10=0xffff0102; break;
-	case 21:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;
-	case 22:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;
-	case 23:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x29; te10=0xffff0102; break;
-	case 24:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x33; te10=0xffff0102; break;
-	case 25:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x65; te10=0xffff0102; break;
+	case 17:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x51; temp.effect[10]=0xffff0102; break;
+	case 18:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x51; temp.effect[10]=0xffff0102; break;
+	case 19:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x29; temp.effect[10]=0xffff0102; break;
+	case 20:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x5b; temp.effect[10]=0xffff0102; break;
+	case 21:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
+	case 22:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
+	case 23:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x29; temp.effect[10]=0xffff0102; break;
+	case 24:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x33; temp.effect[10]=0xffff0102; break;
+	case 25:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x65; temp.effect[10]=0xffff0102; break;
 
-	case 26:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x33; te10=0xffff0102; break;
-	case 27:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;
-	case 28:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x51; te10=0xffff0102; break;
-	case 29:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x65; te10=0xffff0102; break;
-	case 30:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x3d; te10=0xffff0102; break;
-	case 31:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;
-	case 32:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;
+	case 26:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x33; temp.effect[10]=0xffff0102; break;
+	case 27:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
+	case 28:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x51; temp.effect[10]=0xffff0102; break;
+	case 29:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x65; temp.effect[10]=0xffff0102; break;
+	case 30:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x3d; temp.effect[10]=0xffff0102; break;
+	case 31:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
+	case 32:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
 
-	case 33:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x50; te10=0x02010102; break;
-	case 34:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x2a; te10=0xffff0102; break;
-	case 35:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x2a; te10=0xffff0102; break;
-	case 36:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x34; te10=0xffff0102; break;
-	case 37:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x48; te10=0xffff0102; break;
-	case 38:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x34; te10=0xffff0102; break;
-	case 39:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x5c; te10=0xffff0102; break;
-	case 40:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x50; te10=0xffff0102; break;
+	case 33:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x50; temp.effect[10]=0x02010102; break;
+	case 34:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x2a; temp.effect[10]=0xffff0102; break;
+	case 35:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x2a; temp.effect[10]=0xffff0102; break;
+	case 36:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x34; temp.effect[10]=0xffff0102; break;
+	case 37:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x48; temp.effect[10]=0xffff0102; break;
+	case 38:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x34; temp.effect[10]=0xffff0102; break;
+	case 39:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x5c; temp.effect[10]=0xffff0102; break;
+	case 40:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x50; temp.effect[10]=0xffff0102; break;
 
-	case 41:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x2a; te10=0xffff0102; break;
-	case 42:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x3e; te10=0xffff0102; break;
-	case 43:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x51; te10=0xffff0102; break;
-	case 44:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x2a; te10=0xffff0102; break;
-	case 45:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x2a; te10=0xffff0102; break;
-	case 46:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x47; te10=0xffff0102; break;
-	case 47:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x34; te10=0xffff0102; break;
-	case 48:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x2a; te10=0xffff0102; break;
+	case 41:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x2a; temp.effect[10]=0xffff0102; break;
+	case 42:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x3e; temp.effect[10]=0xffff0102; break;
+	case 43:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x51; temp.effect[10]=0xffff0102; break;
+	case 44:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x2a; temp.effect[10]=0xffff0102; break;
+	case 45:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x2a; temp.effect[10]=0xffff0102; break;
+	case 46:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x47; temp.effect[10]=0xffff0102; break;
+	case 47:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x34; temp.effect[10]=0xffff0102; break;
+	case 48:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x2a; temp.effect[10]=0xffff0102; break;
 
-	case 49:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x3e; te10=0xffff0102; break;
-	case 50:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x3e; te10=0xffff0102; break;
-	case 51:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x52; te10=0xffff0102; break;
-	case 52:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x48; te10=0xffff0102; break;
-	case 53:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x48; te10=0xffff0102; break;
-	case 54:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x2a; te10=0xffff0102; break;
-	case 55:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x52; te10=0xffff0102; break;
-	case 56:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x2a; te10=0xffff0102; break;
+	case 49:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x3e; temp.effect[10]=0xffff0102; break;
+	case 50:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x3e; temp.effect[10]=0xffff0102; break;
+	case 51:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x52; temp.effect[10]=0xffff0102; break;
+	case 52:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x48; temp.effect[10]=0xffff0102; break;
+	case 53:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x48; temp.effect[10]=0xffff0102; break;
+	case 54:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x2a; temp.effect[10]=0xffff0102; break;
+	case 55:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x52; temp.effect[10]=0xffff0102; break;
+	case 56:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x2a; temp.effect[10]=0xffff0102; break;
 
-	case 57:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x34; te10=0xffff0102; break;
-	case 58:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x48; te10=0xffff0102; break;
-	case 59:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x66; te10=0xffff0102; break;
-	case 60:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x32; te10=0xffff0102; break;
-	case 61:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x5a; te10=0xffff0102; break;
-	case 62:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x3c; te10=0xffff0102; break;
-	case 63:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x5a; te10=0xffff0102; break;
-	case 64:   te4=0x00; te5=0x00; te6=0x0a; te7=0x05; te8=0x23; te9=0x6e; te10=0xffff0102; break;
+	case 57:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x34; temp.effect[10]=0xffff0102; break;
+	case 58:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x48; temp.effect[10]=0xffff0102; break;
+	case 59:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x66; temp.effect[10]=0xffff0102; break;
+	case 60:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x32; temp.effect[10]=0xffff0102; break;
+	case 61:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x5a; temp.effect[10]=0xffff0102; break;
+	case 62:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x3c; temp.effect[10]=0xffff0102; break;
+	case 63:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x5a; temp.effect[10]=0xffff0102; break;
+	case 64:   temp.effect[4]=0x00; temp.effect[5]=0x00; temp.effect[6]=0x0a; temp.effect[7]=0x05; temp.effect[8]=0x23; temp.effect[9]=0x6e; temp.effect[10]=0xffff0102; break;
 
-	default:	te4=-1;	te5=-1;	te6=-1;	te7=-1; break;
+	default:   temp.effect[4] = -1; temp.effect[5] = -1; temp.effect[6] = -1; temp.effect[7]=-1; break;
 	}
 
-	temp.effect[4]=te4;
-	temp.effect[5]=te5;
-	temp.effect[6]=te6;
-	temp.effect[7]=te7;
-	temp.effect[8]=te8;
-	temp.effect[9]=te9;
-	temp.effect[10]=te10;
-	temp.effect[11]=te11;
-	temp.effect[12]=te12;
+	temp.effect[11]=0;
+	temp.effect[12]=1;
 	
 	return temp;
 }

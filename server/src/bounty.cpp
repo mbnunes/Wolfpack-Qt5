@@ -55,7 +55,6 @@ void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
   int nAmount     = 0;
   PC_CHAR pcc_nVictimIdx  = FindCharBySerial( nVictimSerial );
   PC_CHAR pcc_nMurderIdx  = FindCharBySerial( nMurdererSerial );
-  int err2;
  
   if (pcc_nVictimIdx == NULL || pcc_nMurderIdx == NULL) return;
 

@@ -316,7 +316,7 @@ void cChar::day(unsigned long CreateDay)
 P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 {
 	P_ITEM pi;
-	int ci;
+	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{

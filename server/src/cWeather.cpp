@@ -140,7 +140,6 @@ void cWeather::WTimer()
 void cWeather::CTimer()
 {	
 	unsigned char r;
-	int player_index;
 	unsigned char s=0,now_old=now;
 //	char dry[5]="\x65\x00\x00\x00"; //commented out - unused.
 	for(s=0;s<now_old;s++)

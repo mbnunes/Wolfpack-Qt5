@@ -152,7 +152,7 @@ void cGuilds::Menu(int s, int page)
 {
 	int total,i, counter,guild,recruit,war,member;
 	int lentext;
-	int gumpnum;
+	int gumpnum = 0;
 	char guildfealty[60],guildt[16],toggle[6];
 	static char mygump[MAXMEMRECWAR][257];
 
