@@ -1190,4 +1190,75 @@ public:
 	void addItem( UINT16 id, INT16 deltaX, INT16 deltaY, INT16 deltaZ, UINT16 hue );
 };
 
+// 0xD6 
+class cUOTxTooltipList : public cUOPacket
+{
+public:
+	cUOTxTooltipList(): cUOPacket( 0xD6, 19 )
+	{
+		setShort( 1, 19 );
+		setShort( 3, 1 );
+	}
+
+	void setSerial( UINT32 data ) { setInt( 5, data ); }
+	void setId( UINT32 data ) { setInt( 11, data ); }
+
+	void addLine( UINT32 id, QString params );
+};
+
+// 0xBF 0x10 Subpacket (Attach Tooltip)
+class cUOTxAttachTooltip : public cUOPacket
+{
+public:
+	cUOTxAttachTooltip(): cUOPacket( 0xBF, 13 ) 
+	{
+		setShort( 1, 13 );    // Packet Length
+		setShort( 3, 0x10 ); // Subcommand
+	}
+
+	void setSerial( UINT32 data ) { setInt( 5, data ); }
+	void setId( UINT32 data ) { setInt( 9, data ) ; }
+};
+
+/*
+	 packet = 0xD6;
+ short length;
+ short unk_1 = 1; // always 1 in my logs
+ int serial; // serial of item/mobile
+ byte unk_2 = 0; // always 0 in my logs
+ byte unk_3 = 0; // "
+ int number; // an identification number of this list
+
+ loop
+ {
+    int localizationnumber; // a localized string index, a value of 0 breaks the loop
+
+   short textlength;
+   byte[textlength] text; // little-endian unicode, not null terminated
+}
+
+	// Send a Tooltip
+	cUOTxTooltipList list;
+	list.setSerial( clicked->serial() );
+	list.setId( clicked->serial() );
+	list.addLine( 0x1005BD, " \t " + clicked->name() + " \t " );
+
+	cUOTxAttachTooltip attach;
+	attach.setSerial( clicked->serial() );
+	attach.setId( clicked->serial() );
+
+	send( &attach );
+	send( &list );
+
+*/
+
+// Serial
+/*
+00 36 37 94
+
+0000: d6 00 29 00 01 00 36 37 94 00 00 54 2b 4f 4b 00 : ..)...67...T+OK.
+0010: 10 05 bd 00 10 20 00 09 00 53 00 74 00 6f 00 72 : ..... ...S.t.o.r
+0020: 00 09 00 20 00 00 00 00 00 -- -- -- -- -- -- -- : ... .....
+*/
+
 #endif // __UO_TXPACKETS__

@@ -996,8 +996,11 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 { 
 	cUObject *clicked = FindItemBySerial( packet->serial() );
 	if ( clicked == 0 ) clicked = FindCharBySerial( packet->serial() );
-	
-	if (!clicked || clicked->bindmenu().isEmpty() )
+
+	if (!clicked )
+		return;
+
+	if( clicked->bindmenu().isEmpty() )
 		return;
 	
 	if( !ContextMenus::instance()->MenuExist( clicked->bindmenu() ) ) 

@@ -1154,9 +1154,6 @@ bool cChar::del()
 
 bool cChar::onPickup( P_ITEM pItem )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onPickup( this, pItem ) )
 			return true;
@@ -1176,9 +1173,6 @@ bool cChar::onPickup( P_ITEM pItem )
 // Shows the name of a character to someone else
 bool cChar::onSingleClick( P_CHAR Viewer ) 
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onSingleClick( (P_CHAR)this, (P_CHAR)Viewer ) )
@@ -1199,9 +1193,6 @@ bool cChar::onSingleClick( P_CHAR Viewer )
 // Walks in a specific Direction
 bool cChar::onWalk( UI08 Direction, UI08 Sequence )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onWalk( (P_CHAR)this, Direction, Sequence ) )
@@ -1213,9 +1204,6 @@ bool cChar::onWalk( UI08 Direction, UI08 Sequence )
 // The character says something
 bool cChar::onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onTalk( (P_CHAR)this, speechType, speechColor, speechFont, Text, Lang ) )
 			return true;
@@ -1226,9 +1214,6 @@ bool cChar::onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QS
 // The character switches warmode
 bool cChar::onWarModeToggle( bool War )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onWarModeToggle( this, War ) )
@@ -1239,9 +1224,6 @@ bool cChar::onWarModeToggle( bool War )
 
 bool cChar::onLogin( void )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onLogin( this ) )
 			return true;
@@ -1259,9 +1241,6 @@ bool cChar::onLogin( void )
 
 bool cChar::onLogout( void )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onLogout( this ) )
 			return true;
@@ -1280,9 +1259,6 @@ bool cChar::onLogout( void )
 // The character wants help
 bool cChar::onHelp( void )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onHelp( this ) )
@@ -1303,9 +1279,6 @@ bool cChar::onHelp( void )
 // The paperdoll of this character has been requested
 bool cChar::onShowPaperdoll( P_CHAR pOrigin )
 {
-	if( scriptChain.empty() )
-		return false;
-
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onShowPaperdoll( this, pOrigin ) )
 			return true;
@@ -1316,9 +1289,6 @@ bool cChar::onShowPaperdoll( P_CHAR pOrigin )
 // The character wants to chat
 bool cChar::onChat( void )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onChat( this ) )
@@ -1339,9 +1309,6 @@ bool cChar::onChat( void )
 // The character uses %Skill
 bool cChar::onSkillUse( UI08 Skill ) 
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onSkillUse( this, Skill ) )
@@ -1361,9 +1328,6 @@ bool cChar::onSkillUse( UI08 Skill )
 
 bool cChar::onCollideChar( P_CHAR Obstacle ) 
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onCollideChar( this, Obstacle ) )
@@ -1374,9 +1338,6 @@ bool cChar::onCollideChar( P_CHAR Obstacle )
 
 bool cChar::onDropOnChar( P_ITEM pItem )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onDropOnChar( this, pItem ) )
@@ -3765,9 +3726,6 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 
 bool cChar::onShowContext( cUObject *object )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onShowContextMenu( (P_CHAR)this, object ) )
 			return true;

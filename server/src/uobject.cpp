@@ -276,10 +276,6 @@ void cUObject::removeEvent( const QString& Name )
 
 bool cUObject::onUse( cUObject *Target )
 {
-	// If we dont have any events assigned just skip processing
-	if( scriptChain.empty() )
-		return false;
-
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
@@ -328,10 +324,6 @@ bool cUObject::onUse( cUObject *Target )
 
 bool cUObject::onCreate( const QString &definition )
 {
-	// If we dont have any events assigned just skip processing
-	if( scriptChain.empty() )
-		return false;
-
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
@@ -372,10 +364,6 @@ bool cUObject::onCreate( const QString &definition )
 
 bool cUObject::onCollide( cUObject* Obstacle )
 {
-	// If we dont have any events assigned just skip processing
-	if( scriptChain.empty() )
-		return false;
-
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{

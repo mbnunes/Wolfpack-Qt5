@@ -553,3 +553,24 @@ void cUOTxItemTarget::addItem( UINT16 id, INT16 deltaX, INT16 deltaY, INT16 delt
 	setShort( offset+6, deltaZ );
 	setShort( offset+8, hue );
 }
+
+void cUOTxTooltipList::addLine( UINT32 id, QString params )
+{
+	// 4 + 2 + length * 2
+	UINT32 offset = size() - 4;
+	resize( size() + ( 4 + 2 + params.length() * 2 ) );
+	setShort( 1, size() );
+
+	// Add our Line
+	setInt( offset, id );
+	setShort( offset + 4, params.length() * 2 );
+	
+	for( UINT32 i = 0; i < params.length(); ++i )
+	{
+		(*this)[offset + 6 + i*2+1] = ( params.unicode()[i].unicode() >> 8 ) & 0xFF;
+		(*this)[offset + 6 + i*2] = ( params.unicode()[i].unicode() ) & 0xFF;
+	}
+
+	// Terminator
+	setInt( size() - 4, 0 );
+}

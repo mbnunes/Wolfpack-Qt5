@@ -1275,9 +1275,7 @@ P_ITEM cAllItems::createListItem( QString Section )
 // Added by DarkStorm
 bool cItem::onSingleClick( P_CHAR Viewer )
 {
-	if( scriptChain.empty() )
-		return false;
- 
+
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onSingleClick( this, Viewer ) )
 			return true;
@@ -1287,9 +1285,6 @@ bool cItem::onSingleClick( P_CHAR Viewer )
 
 bool cItem::onDropOnItem( P_ITEM pItem )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
 		// we are the item being dragged
@@ -1310,9 +1305,6 @@ bool cItem::onDropOnItem( P_ITEM pItem )
 
 bool cItem::onDropOnGround( const Coord_cl &pos )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onDropOnGround( this, pos ) )
 			return true;
@@ -1322,9 +1314,7 @@ bool cItem::onDropOnGround( const Coord_cl &pos )
 
 bool cItem::onPickup( P_CHAR pChar )
 {
-	if( scriptChain.empty() )
-		return false;
- 
+
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onPickup( pChar, this ) )
 			return true;
@@ -1334,9 +1324,6 @@ bool cItem::onPickup( P_CHAR pChar )
 
 bool cItem::onDropOnChar( P_CHAR pChar )
 {
-	if( scriptChain.empty() )
-		return false;
- 
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onDropOnChar( pChar, this ) )
