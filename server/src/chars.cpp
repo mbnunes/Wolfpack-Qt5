@@ -1656,7 +1656,6 @@ void cChar::emote( const QString &emote, UI16 color )
 	textSpeech.setModel( id() );
 	textSpeech.setFont( 3 ); // Default Font
 	textSpeech.setType( cUOTxUnicodeSpeech::Emote );
-	textSpeech.setLanguage( "ENU" );
 	textSpeech.setName( name );
 	textSpeech.setColor( color );
 	textSpeech.setText( emote );
