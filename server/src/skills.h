@@ -116,14 +116,14 @@ public:
 	void RepairTarget(UOXSOCKET s); // Ripper
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
 	int TrackingDirection(UOXSOCKET s, P_CHAR pc_i);
-	void CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar);
+	void CreatePotion(P_PLAYER pc, char type, char sub, P_ITEM pi_mortar);
 	void TinkerAxel(int s);
 	void TinkerAwg(int s);
 	void TinkerClock(int s);
 	void Track(P_CHAR pc_i);
 	void CookOnFire(int s, short id1, short id2, char* matname);
 	void BottleTarget(int s);
-	void PotionToBottle(P_CHAR pc, P_ITEM pi_mortar);
+	void PotionToBottle(P_PLAYER pc, P_ITEM pi_mortar);
 	void CreateBandageTarget(int s);
 	void HealingSkillTarget(UOXSOCKET s);
 	void SpiritSpeak(int s);

@@ -49,6 +49,7 @@
 #include "network.h"
 #include "multis.h"
 #include "network/uosocket.h"
+#include "basechar.h"
 
 // System Includes
 #include <algorithm>

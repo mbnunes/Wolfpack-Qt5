@@ -35,6 +35,7 @@
 #include "wpconsole.h"
 #include "world.h"
 #include "mapobjects.h"
+#include "basechar.h"
 
 static cUObject* productCreator()
 {
@@ -555,7 +556,7 @@ bool cItem::postload() throw()
 			}
 
 			// Our weight should be correct so far, so it's safe to do it the "normal" way
-			pChar->addItem( (cChar::enLayer)layer_, this, true, true );
+			pChar->addItem( (cBaseChar::enLayer)layer_, this, true, true );
 		}
 		else
 		{

@@ -654,13 +654,15 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 							return;
 						}
 						
-						pc_vendor->setNpcAIType( 17 );
+//						pc_vendor->setNpcAIType( 17 );
 						pc_vendor->setInvulnerable( true );
-						pc_vendor->setHidden( 0 );
-						pc_vendor->setStealth(-1);
+						pc_vendor->setHidden( false );
+						pc_vendor->setInvisible( false );
+						pc_vendor->setStealthedSteps(-1);
 						pc_vendor->setDirection( pc_currchar->direction() );
-						pc_vendor->setNpcWander(0);
-						pc_vendor->setInnocent();
+						pc_vendor->setWanderType( enHalt );
+						pc_vendor->setMurdererTime( 0 );
+						pc_vendor->setCriminalTime( 0 );
 						pc_vendor->setOwner( pc_currchar );
 						pc_vendor->setTamed(false);
 						Items->DeleItem(pi);
@@ -1116,9 +1118,9 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 		return;
 
 	// For players we'll always show the Paperdoll
-	if( pTarget->isHuman() || !pTarget->isNpc() )
+	if( pTarget->isHuman() || pTarget->objectType() != enNPC )
 	{
-		// Theres one exception for player vendors, when you double click them
+/*		// Theres one exception for player vendors, when you double click them
 		// Their packs should open instead of their paperdoll
 		if( pTarget->npcaitype() == 17 )
 		{
@@ -1129,6 +1131,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 
 			return;
 		}
+		*/
 
         // If we're mounted (item on layer 25) and *not* using a hotkey
 		// We're trying to unmount ourself
@@ -1190,10 +1193,10 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 
 				return;
 			}
-			if( pTarget->war() )
+			if( pTarget->isAtWar() )
 				socket->sysMessage( tr("Your pet is in battle right now!" ) );
 			else
-				pChar->mount( pTarget );
+				pChar->mount( dynamic_cast<P_NPC>(pTarget) );
 		}
 		else
 			socket->sysMessage( tr( "This is too far away" ) );
@@ -1201,7 +1204,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 		break;
 	case 0x123:
 	case 0x124:
-		if( pTarget->owner() == pChar )
+		if( pTarget->objectType() == enNPC && dynamic_cast<P_NPC>(pTarget)->owner() == pChar )
 				socket->sendContainer( pTarget->getBackpack() );
 	};
 }

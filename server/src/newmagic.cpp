@@ -189,20 +189,21 @@ void cEndCasting::Expire()
 	if( !pMage )
 		return;
 
-	pMage->setPriv2( pMage->priv2() &~ 0x02 );
+	pMage->setCasting( false );
 	//pMage->stopRepeatedAction();
 
-	if( !pMage->socket() )
+	P_PLAYER pp = dynamic_cast<P_PLAYER>(pMage);
+	if( !pp->socket() )
 		return;
 
 	// Show a target cursor *or* cast directly
 	stNewSpell *sInfo = NewMagic->findSpell( spell );
 	if( !sInfo->targets )
 	{
-		NewMagic->execSpell( pMage, spell, type );
+		NewMagic->execSpell( pp, spell, type );
 	}
 	else
-		pMage->socket()->attachTarget( new cSpellTarget( pMage, spell, type ) );
+		pp->socket()->attachTarget( new cSpellTarget( pp, spell, type ) );
 }
 
 /*!
@@ -256,12 +257,12 @@ void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 		return;
 
 	pMage->setCasting( false );
-	pMage->setPriv2( pMage->priv2() & 0xEF ); // Unfreeze, NOTE: This could lead into problems with a normal "wanted" freeze
+	pMage->setFrozen( false );
 
 	// Stop the repeating animation and the endspell thing
 	//pMage->stopRepeatedAction();
 
-	cChar::Effects effects = pMage->effects();
+	cBaseChar::EffectContainer effects = pMage->effects();
 	for( INT32 i = 0; i < effects.size(); ++i )
 	{
 		if( effects[i]->objectID() == "endcasting" )
@@ -278,8 +279,12 @@ void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 		pMage->effect( 0x3735, 1, 30 );
 		pMage->soundEffect( 0x005C );
 
-		if( pMage->socket() )
-			pMage->socket()->sysMessage( tr( "Your spell fizzles." ) );
+		if( pMage->objectType() == enPlayer )
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pMage);
+			if( pp->socket() )
+				pp->socket()->sysMessage( tr( "Your spell fizzles." ) );
+		}
 	}
 }
 
@@ -290,22 +295,22 @@ void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 */
 bool cNewMagic::useMana( P_CHAR pMage, UINT8 spell )
 {
-	// The character does not need any mana
+/*	// The character does not need any mana
 	if( pMage->priv2() & 0x10 )
-		return true;
+		return true;*/
 
 	stNewSpell *sInfo = findSpell( spell );
 
 	if( !sInfo )
 		return false;
 
-	if( pMage->mn() < sInfo->mana )
+	if( pMage->mana() < sInfo->mana && pMage->objectType() == enPlayer )
 	{
-		pMage->message( tr( "You don't have enough mana to cast this spell." ) );
+		dynamic_cast<P_PLAYER>(pMage)->message( tr( "You don't have enough mana to cast this spell." ) );
 		return false;
 	}
 
-	pMage->setMn( pMage->mn() - sInfo->mana );
+	pMage->setMana( pMage->mana() - sInfo->mana );
 	return true;
 }
 
@@ -320,7 +325,7 @@ bool cNewMagic::checkMana( P_CHAR pMage, UINT8 spell )
 	stNewSpell *sInfo = findSpell( spell );
 	bool enoughMana = false;
 
-	if( sInfo && pMage->mn() >= sInfo->mana )
+	if( sInfo && pMage->mana() >= sInfo->mana )
 		enoughMana = true;
 
 	return enoughMana;
@@ -348,7 +353,7 @@ bool cNewMagic::checkMana( P_CHAR pMage, UINT8 spell )
 */
 bool cNewMagic::useReagents( P_CHAR pMage, UINT8 spell )
 {
-	if( pMage->isGM() )
+	if( pMage->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pMage)->isGM() )
 		return true;
 
 	// Check for each reagent.
@@ -405,10 +410,14 @@ bool cNewMagic::useReagents( P_CHAR pMage, UINT8 spell )
 
 	if( missing.count() > 0 )
 	{
-		if( pMage->socket() )
+		if( pMage->objectType() == enPlayer )
 		{
-			pMage->message( tr( "You don't have enough reagents." ) );
-			pMage->socket()->sysMessage( tr( "You lack the following reagents: %1" ).arg( missing.join( ", ") ) );
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pMage);
+			if( pp->socket() )
+			{
+				pp->message( tr( "You don't have enough reagents." ) );
+				pp->socket()->sysMessage( tr( "You lack the following reagents: %1" ).arg( missing.join( ", ") ) );
+			}
 		}
 		enoughReagents = false;
 	}
@@ -484,10 +493,14 @@ bool cNewMagic::checkReagents( P_CHAR pMage, UINT8 spell )
 
 	if( missing.count() > 0 )
 	{
-		if( pMage->socket() )
+		if( pMage->objectType() == enPlayer )
 		{
-			pMage->message( tr( "You don't have enough reagents." ) );
-			pMage->socket()->sysMessage( tr( "You lack the following reagents: %1" ).arg( missing.join( ", ") ) );
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pMage);
+			if( pp->socket() )
+			{
+				pp->message( tr( "You don't have enough reagents." ) );
+				pp->socket()->sysMessage( tr( "You lack the following reagents: %1" ).arg( missing.join( ", ") ) );
+			}
 		}
 		enoughReagents = false;
 	}
@@ -537,13 +550,14 @@ bool cNewMagic::checkSkill( P_CHAR pMage, UINT8 spell, bool scroll )
 void cNewMagic::execSpell( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* target )
 {
 	stNewSpell *sInfo = findSpell( spell );
+	P_PLAYER pp = dynamic_cast<P_PLAYER>(pMage);
 
-	if( ( !pMage->isGM() && !checkReagents( pMage, spell ) ) || !useMana( pMage, spell ) )
+	if( ( ( pp || !pp->isGM() ) && !checkReagents( pMage, spell ) ) || !useMana( pMage, spell ) )
 	{
 		pMage->setCasting( false );
 		return;
 	}
-	if( !pMage->isGM() )
+	if( !pp || !pp->isGM() )
 		useReagents( pMage, spell );
 	
 	if( !checkSkill( pMage, spell, false ) )
@@ -562,42 +576,44 @@ void cNewMagic::execSpell( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* t
 
 void cNewMagic::castSpell( P_PLAYER pMage, UINT8 spell )
 {
-	if( !pMage || !pMage->socket() )
+	P_PLAYER pp = dynamic_cast<P_PLAYER>(pMage);
+
+	if( !pp || !pp->socket() )
 		return;
 
 	stNewSpell *sInfo = findSpell( spell );
 
 	if( !sInfo )
 	{
-		pMage->socket()->sysMessage( tr( "This spell is either not implemented or invalid" ) );
+		pp->socket()->sysMessage( tr( "This spell is either not implemented or invalid" ) );
 		return;
 	}
 
 	// Check if we can cast this spell
 	if( !hasSpell( pMage, spell ) )
 	{
-		pMage->socket()->sysMessage( tr( "You don't know this spell." ) );
+		pp->socket()->sysMessage( tr( "You don't know this spell." ) );
 		return;
 	}
 
 	// Check for required mana and required reagents, if not present: cancel casting
 	if( !checkMana( pMage, spell ) )
 	{
-		pMage->message( tr( "You don't have enough mana to cast this spell." ) );
+		pp->message( tr( "You don't have enough mana to cast this spell." ) );
 		return;
 	}
 	
-	if( !pMage->isGM() && !checkReagents( pMage, spell ) )
+	if( !pp->isGM() && !checkReagents( pMage, spell ) )
 		return;
 
-	if( pMage->casting() )
+	if( pMage->isCasting() )
 		disturb( pMage, true );
 
 	// We start casting here
 	pMage->setCasting( true );
 
 	// We get frozen here too
-	pMage->setPriv2( pMage->priv2() | 0x02 );	
+	pMage->setFrozen( true );
 
 	// Say the mantra
 	// Type 0x0A : Spell
@@ -631,7 +647,9 @@ void cNewMagic::useScroll( P_CHAR pMage, P_ITEM pScroll )
 
 bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *target )
 {
-	cUOSocket *socket = pCaster->socket();
+	cUOSocket *socket;
+	if( pCaster->objectType() == enPlayer )
+		socket = dynamic_cast<P_PLAYER>(pCaster)->socket();
 
 	P_CHAR pChar = FindCharBySerial( target->serial() );
 	P_ITEM pItem = FindItemBySerial( target->serial() );

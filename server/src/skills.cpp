@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -53,6 +52,7 @@
 #include "targetrequests.h"
 #include "territories.h"
 #include "makemenus.h"
+#include "npc.h"
 
 // System Includes
 #include <math.h>
@@ -69,19 +69,19 @@ Arms Lore
 
 void cSkills::Hide( cUOSocket *socket ) 
 { 
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 
 	if( !pChar )
 		return;
 
-	P_CHAR aChar = FindCharBySerial( pChar->attacker() );
-	if( aChar && aChar->inRange( pChar, pChar->VisRange() ) )
+	P_CHAR aChar = FindCharBySerial( pChar->attackerSerial() );
+	if( aChar && aChar->inRange( pChar, pChar->visualRange() ) )
 	{
 		pChar->message( tr( "You cannot hide while fighting." ) );
 		return; 
 	}
 	
-	if( pChar->hidden() ) 
+	if( pChar->isHidden() ) 
 	{ 
 		pChar->message( tr( "You are already hidden." ) );
 		return; 
@@ -104,12 +104,12 @@ void cSkills::Hide( cUOSocket *socket )
 
 void cSkills::Stealth( cUOSocket *socket )
 {
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 
 	if( !pChar )
 		return;
 
-	if( !pChar->hidden() )
+	if( !pChar->isHidden() )
 	{
 		pChar->message( tr( "You must hide first." ) );
 		return;
@@ -129,7 +129,7 @@ void cSkills::Stealth( cUOSocket *socket )
 	}
 
 	socket->sysMessage( tr( "You can move %1 steps unseen" ).arg( SrvParams->maxStealthSteps() ) );
-	pChar->setStealth( 0 );
+	pChar->setStealthedSteps( 0 );
 }
 
 void cSkills::PeaceMaking(cUOSocket* socket)
@@ -153,18 +153,23 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_CHAR mapchar = ri.GetData();
-			if( mapchar && mapchar->war() )
+			if( mapchar && mapchar->isAtWar() )
 			{
 				j = calcSocketFromChar(mapchar);
-				if( mapchar->socket() )
-					mapchar->socket()->sysMessage( tr("You hear some lovely music, and forget about fighting.") );
+				if( mapchar->objectType() == enPlayer )
+				{
+					P_PLAYER pp = dynamic_cast<P_PLAYER>(mapchar);
+					if( pp->socket() )
+						pp->socket()->sysMessage( tr("You hear some lovely music, and forget about fighting.") );
+				}
+				else
+				{
+					dynamic_cast<P_NPC>(mapchar)->toggleCombat();
+				}
 
-				if( mapchar->isNpc() ) 
-					mapchar->toggleCombat();
-
-				mapchar->setTarg( INVALID_SERIAL );
-				mapchar->setAttacker(INVALID_SERIAL);
-				mapchar->resetAttackFirst();
+				mapchar->setCombatTarget( INVALID_SERIAL );
+				mapchar->setAttackerSerial(INVALID_SERIAL);
+				mapchar->setAttackFirst(false);
 			}
 		}
 	} 
@@ -236,7 +241,7 @@ P_ITEM cSkills::GetInstrument(cUOSocket* socket)
 // Purpose:	does the appropriate skillcheck for the potion, creates it
 //			in the mortar on success and tries to put it into a bottle
 //
-void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
+void cSkills::CreatePotion(P_PLAYER pc, char type, char sub, P_ITEM pi_mortar)
 {
 	int success=0;
 
@@ -325,7 +330,7 @@ void cSkills::BottleTarget(int s)
 // history: unknown, revamped by Duke,23.04.2000
 // Purpose: this really creates the potion
 //
-void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
+void cSkills::PotionToBottle(P_PLAYER pc, P_ITEM pi_mortar)
 {
 	unsigned char id1,id2;
 	char pn[50];
@@ -414,7 +419,7 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 
 void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the skill list
 {
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 
 	// No Char no Skill use
 	if( !pChar )
@@ -428,7 +433,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	}
 */
 
-	if( pChar->dead() )
+	if( pChar->isDead() )
 	{
 		socket->sysMessage( tr( "You cannot do that as a ghost." ) );
 		return;
@@ -439,13 +444,13 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 
 	pChar->disturbMed(); // Disturb meditation if we're using a skill
 
-	if( pChar->casting() )
+	if( pChar->isCasting() )
 	{
 		socket->sysMessage( tr( "You can't do that while you are casting." ) );
 		return;
 	}
 
-	if( pChar->skilldelay() > uiCurrentTime && !pChar->isGM() )
+	if( pChar->skillDelay() > uiCurrentTime && !pChar->isGM() )
 	{
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return;
@@ -573,29 +578,29 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	if( message )
 		pChar->message( message );
 
-	pChar->setSkillDelay();
+	pChar->setSkillDelay( uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC );
 }
 
 void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 {
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 	P_CHAR pVictim = FindCharBySerial( victim );
 
 	if( !pVictim || !pChar )
 		return;
 
-	if( pVictim == pChar )
+	if( pVictim->serial() == pChar->serial() )
 	{
 		socket->sysMessage( tr( "Why don't you simply take it?" ) );
 		return;
 	}
 
-	if( pVictim->npcaitype() == 17 )
+/*	if( pVictim->npcaitype() == 17 )
 	{
 		socket->sysMessage( tr( "You cannot steal from Playervendors." ) );
 		return;
 	}
-
+*/
 	if( pVictim->isGMorCounselor() )
 	{
 		socket->sysMessage( tr( "You can't steal from game masters." ) );
@@ -694,7 +699,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 				pChar->callGuards();
 		}
 		
-		if( pVictim->isInnocent() && pChar->attacker() != pVictim->serial() && GuildCompare( pChar, pVictim ) == 0)
+		if( pVictim->isInnocent() && pChar->attackerSerial() != pVictim->serial() && GuildCompare( pChar, pVictim ) == 0)
 			pChar->criminal(); // Blue and not attacker and not guild
 
 		// Our Victim always notices it.
@@ -849,7 +854,7 @@ void cSkills::Meditation( cUOSocket *socket )
 {
 	P_CHAR pc_currchar = socket->player();
 
-	if (pc_currchar->war())
+	if (pc_currchar->isAtWar())
 	{
 		socket->sysMessage( tr("Your mind is too busy with the war thoughts.") );
 		return;

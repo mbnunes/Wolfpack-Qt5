@@ -56,6 +56,8 @@
 #include "world.h"
 #include "wpscriptmanager.h"
 #include "itemid.h"
+#include "basechar.h"
+#include "player.h"
 
 // System Includes
 #include <math.h>
@@ -765,7 +767,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 	}
 }
 
-P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, QString nItem)
+P_ITEM cAllItems::SpawnItemBank(P_PLAYER pc_ch, QString nItem)
 {
 	if (pc_ch == NULL) 
 		return NULL;
@@ -1897,14 +1899,14 @@ void cItem::showName( cUOSocket *socket )
 	else
 		socket->showSpeech( this, itemname );
 	
-	// When we click on a player vendors item,
+/*	// When we click on a player vendors item,
 	// we show the price as well
 	if( container_ && container_->isItem() )
 	{
 		P_CHAR pc_j = getOutmostChar();
 		if( pc_j && pc_j->npcaitype() == 17 )
 			socket->showSpeech( this, tr( "at %1gp" ).arg( price_ ) );
-	}
+	}*/
 
 	// Show RepSys Settings of Victim when killed
 	if( corpse() )
@@ -1964,10 +1966,10 @@ void cItem::update( cUOSocket *mSock )
 
 		if( mSock )
 		{
-			P_CHAR pChar = mSock->player();
+			P_PLAYER pChar = mSock->player();
 
 			// Only send to sockets in range
-			if( !pChar || !pChar->account() || ( pChar->dist( this ) > pChar->VisRange() ) )
+			if( !pChar || !pChar->account() || ( pChar->dist( this ) > pChar->visualRange() ) )
 				return;
 
 			// Completely invisible
@@ -1999,10 +2001,10 @@ void cItem::update( cUOSocket *mSock )
 		{
 			for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 			{
-				P_CHAR pChar = mSock->player();
+				P_PLAYER pChar = mSock->player();
 	
 				// Only send to sockets in range
-				if( !pChar || !pChar->account() || ( pChar->dist( this ) > pChar->VisRange() ) )
+				if( !pChar || !pChar->account() || ( pChar->dist( this ) > pChar->visualRange() ) )
 					continue;
 	
 				// Completely invisible
@@ -2045,10 +2047,10 @@ void cItem::update( cUOSocket *mSock )
 
 		for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
 		{
-			P_CHAR pChar = socket->player();
+			P_PLAYER pChar = socket->player();
 
 			// Only send to sockets in range
-			if( !pChar || !pChar->inRange( pOwner, pChar->VisRange() ) )
+			if( !pChar || !pChar->inRange( pOwner, pChar->visualRange() ) )
 				continue;
 
 			socket->send( &equipItem );
@@ -2072,9 +2074,9 @@ void cItem::update( cUOSocket *mSock )
 
 		for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
 		{
-			P_CHAR pChar = socket->player();
+			P_PLAYER pChar = socket->player();
 
-			if( !pChar || ( pChar->dist( oCont ) > pChar->VisRange() ) )
+			if( !pChar || ( pChar->dist( oCont ) > pChar->visualRange() ) )
 				continue;
 
 			socket->send( &contItem );
@@ -2106,7 +2108,7 @@ P_ITEM cItem::dupe()
 void cItem::soundEffect( UINT16 sound )
 {
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->soundEffect( sound, this );
 }
 
@@ -2255,7 +2257,7 @@ bool cItem::wearOut()
 	if( hp() <= 0 )
 	{
 		// Get the owner of the item
-		P_CHAR pOwner = getOutmostChar();
+		P_PLAYER pOwner = dynamic_cast<P_PLAYER>(getOutmostChar());
 
 		if( pOwner )
 		{
@@ -2268,7 +2270,7 @@ bool cItem::wearOut()
 				if( !mSock || mSock == pOwner->socket() )
 					continue;
 
-				if( mSock->player() && mSock->player()->inRange( pOwner, mSock->player()->VisRange() ) )
+				if( mSock->player() && mSock->player()->inRange( pOwner, mSock->player()->visualRange() ) )
 					mSock->showSpeech( pOwner, tr( "You see %1 destroying his %2" ).arg( pOwner->name() ).arg( getName( true ) ), 0x23, 3, cUOTxUnicodeSpeech::Emote );
 			}
 		}
@@ -2498,7 +2500,7 @@ void cItem::removeFromCont( bool handleWeight )
 	{
 		P_CHAR pChar = dynamic_cast< P_CHAR >( container_ );
 		if( pChar )
-			pChar->removeItem( (cChar::enLayer)layer_, handleWeight );
+			pChar->removeItem( (cBaseChar::enLayer)layer_, handleWeight );
 	}
 	else if( container_->isItem() )
 	{
@@ -2664,7 +2666,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			// Get a valid layer
 			tile_st tInfo = TileCache::instance()->getTile( id_ );
 			if( tInfo.layer != 0 )
-				pChar->addItem( (cChar::enLayer)tInfo.layer, this );
+				pChar->addItem( (cBaseChar::enLayer)tInfo.layer, this );
 		}
 		else
 		{

@@ -41,6 +41,8 @@
 #include "network/asyncnetio.h"
 #include "network/uosocket.h"
 #include "network/listener.h"
+#include "basechar.h"
+#include "player.h"
 
 // Library Includes
 #include "qstringlist.h"
@@ -213,11 +215,11 @@ UOXSOCKET cNetwork::getuoSocketsIndex( const cUOSocket* data )
 
 UOXSOCKET calcSocketFromChar(P_CHAR pc)
 {
-	if ( !pc || !pc->socket() || pc->npc() )
+	if ( !pc || pc->objectType() == enNPC )
 	{
 		return -1;
 	}
-	return cNetwork::instance()->getuoSocketsIndex( pc->socket() );
+	return cNetwork::instance()->getuoSocketsIndex( dynamic_cast<P_PLAYER>(pc)->socket() );
 }
 
 void cNetwork::broadcast( const QString &message, UINT16 color, UINT16 font )

@@ -47,6 +47,7 @@
 #include "skills.h"
 #include "tilecache.h"
 #include "walking.h"
+#include "basechar.h"
 
 // Library Includes
 #include <math.h>
@@ -1463,7 +1464,7 @@ void cMagic::NPCCure(P_CHAR pc)
 		doStaticEffect(pc, 11);
 		SubtractMana(pc,5);
 		pc->setPoisoned(0);
-		pc->setPoisonwearofftime(uiCurrentTime);
+		pc->setPoisonWearOffTime(uiCurrentTime);
 		pc->emote("Laughs at the poison attempt");
 	}
 
@@ -1705,26 +1706,26 @@ void cMagic::MindBlastSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana
 
 	doStaticEffect(pc_target, 37);
 	pc_target->soundEffect( 0x0213 );
-	if (pc_attacker->in()>pc_target->in())
+	if (pc_attacker->intelligence()>pc_target->intelligence())
 	{
 		if (CheckResist(pc_attacker, pc_target, 5))
 		{
-			MagicDamage(pc_target, (pc_attacker->in()-pc_target->in())/4);
+			MagicDamage(pc_target, (pc_attacker->intelligence()-pc_target->intelligence())/4);
 		}
 		else
 		{
-			MagicDamage(pc_target, (pc_attacker->in()-pc_target->in())/2);
+			MagicDamage(pc_target, (pc_attacker->intelligence()-pc_target->intelligence())/2);
 		}
 	}
 	else
 	{
 		if (CheckResist(pc_defender, pc_target, 5))
 		{
-			MagicDamage(pc_attacker, (pc_target->in()-pc_attacker->in())/4);
+			MagicDamage(pc_attacker, (pc_target->intelligence()-pc_attacker->intelligence())/4);
 		}
 		else
 		{
-			MagicDamage(pc_attacker, (pc_target->in()-pc_attacker->in())/2);
+			MagicDamage(pc_attacker, (pc_target->intelligence()-pc_attacker->intelligence())/2);
 		}
 	}
 	return;
@@ -2208,19 +2209,19 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						break;
 						//////////// (37) MIND BLAST ////////////
 					case 37:
-						if (pc_currchar->in()>pc_defender->in())
+						if (pc_currchar->intelligence()>pc_defender->intelligence())
 						{
 							if (CheckResist(pc_currchar, pc_defender, 5))
-								MagicDamage(pc_defender, (pc_currchar->in()-pc_defender->in())/4);
+								MagicDamage(pc_defender, (pc_currchar->intelligence()-pc_defender->intelligence())/4);
 							else
-								MagicDamage(pc_defender, (pc_currchar->in()-pc_defender->in())/2);
+								MagicDamage(pc_defender, (pc_currchar->intelligence()-pc_defender->intelligence())/2);
 						}
 						else
 						{
 							if (CheckResist(pc_currchar, pc_currchar, 5))
-								MagicDamage(pc_currchar, (pc_defender->in()-pc_currchar->in())/4);
+								MagicDamage(pc_currchar, (pc_defender->intelligence()-pc_currchar->intelligence())/4);
 							else
-								MagicDamage(pc_currchar, (pc_defender->in()-pc_currchar->in())/2);
+								MagicDamage(pc_currchar, (pc_defender->intelligence()-pc_currchar->intelligence())/2);
 						}
 						cMagic::afterParticles(37, pc_currchar);
 						break;
@@ -3242,7 +3243,7 @@ bool cMagic::requireTarget( unsigned char num )
 void cMagic::DelReagents( P_CHAR pc, int num )
 {
 	if (!pc) return;
-	if (pc->priv2()&0x80) return;
+//	if (pc->priv2()&0x80) return;
 	reag_st& R = spells[num].reagents;
 	delequan(pc, 0x0F7A, R.pearl);
 	delequan(pc, 0x0F7B, R.moss);

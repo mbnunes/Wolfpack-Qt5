@@ -35,6 +35,8 @@
 #include "srvparams.h"
 #include "territories.h"
 #include "magic.h"
+#include "chars.h"
+#include "basechar.h"
 
 using namespace std;
 
@@ -43,7 +45,7 @@ using namespace std;
 
 void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 {
-	int d;
+/*	int d;
 	unsigned int chance;
 	if ( pc_i == NULL )
 		return;
@@ -501,5 +503,6 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc (%8x) has invalid AI type %i\n", pc_i->serial(), pc_i->npcaitype()); // Morrolan
 			return;
 	}// switch
+	*/
 }// void checknpcai
 

@@ -548,7 +548,7 @@ public:
 	void DeleItem(P_ITEM pi);
 	char isFieldSpellItem(P_ITEM pi);
 	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, const char* cName, bool pileable, short id, short color, bool bPack);
-	P_ITEM SpawnItemBank(P_CHAR pc_ch, QString nItem);
+	P_ITEM SpawnItemBank(P_PLAYER pc_ch, QString nItem);
 	void DecayItem(uint currenttime, P_ITEM pi);
 	void RespawnItem(uint Currenttime, P_ITEM pi);
 	void AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem);

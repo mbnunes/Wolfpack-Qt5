@@ -49,6 +49,7 @@
 #include "multis.h"
 #include "dragdrop.h"
 #include "player.h"
+#include "npc.h"
 
 
 #undef  DBGFILE
@@ -123,7 +124,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	P_CHAR itemOwner = pItem->getOutmostChar();
 
 	// Try to pick something out of another characters posessions
-	if( !pChar->isGM() && itemOwner && ( itemOwner != pChar ) && ( itemOwner->owner() != pChar ) )
+	if( !pChar->isGM() && itemOwner && ( itemOwner != pChar ) && ( itemOwner->objectType() == enNPC && dynamic_cast<P_NPC>(itemOwner)->owner() != pChar ) )
 	{
 		socket->bounceItem( pItem, BR_BELONGS_TO_SOMEONE_ELSE );
 		return;
@@ -175,7 +176,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		{
 //			pChar->karma -= 5;
 			pChar->setKarma( pChar->karma() - 5 );
-			pChar->criminal();
+			pChar->setCriminalTime( uiCurrentTime + SrvParams->crimtime() * MY_CLOCKS_PER_SEC );
 			socket->sysMessage( tr("You lost some karma.") );
 		}
 	}
@@ -196,8 +197,12 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 			wearer->removeItemBonus( pItem );
 
 		// resend the stat window
-		if( wearer && wearer->socket() )
-			wearer->socket()->sendStatWindow();
+		if( wearer && wearer->objectType() == enPlayer )
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(wearer);
+			if( pp->socket() )
+				pp->socket()->sendStatWindow();
+		}
 	}
 
 	// Send the user a pickup sound if we're picking it up
@@ -249,7 +254,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 			pMulti->removeItem( pItem );
 	}
 	
-	pChar->addItem( cChar::Dragging, pItem );
+	pChar->addItem( cBaseChar::Dragging, pItem );
 
 	if( weight != pChar->weight() )
 		socket->sendStatWindow();
@@ -266,15 +271,19 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	// User cannot wear the item
 	if( tile.layer == 0 )
 	{
-		if( wearer->online() )
-			wearer->socket()->sysMessage( tr( "You cannot wear that item.") );
+		if( wearer->objectType() == enPlayer )
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(wearer);
+			if( pp->socket() )
+				pp->socket()->sysMessage( tr( "You cannot wear that item.") );
+		}
 
 		item->toBackpack( wearer );
 		return;
 	}
 
-	cChar::ContainerContent container = wearer->content();
-	cChar::ContainerContent::const_iterator it(container.begin());
+	cBaseChar::ItemContainer container = wearer->content();
+	cBaseChar::ItemContainer::const_iterator it(container.begin());
 	for( ; it != container.end(); ++it )
 	{
 		P_ITEM equip = *it; 
@@ -287,7 +296,7 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	}
 
 	// *finally* equip the item
-	wearer->addItem( static_cast<cChar::enLayer>(item->layer()), item );
+	wearer->addItem( static_cast<cBaseChar::enLayer>(item->layer()), item );
 
 	// Add the item bonuses
 	wearer->giveItemBonus( item );
@@ -325,10 +334,10 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	if( !pItem || !pWearer )
 		return;
 
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 
 	// We're dead and can't do that
-	if( pChar->dead() )
+	if( pChar->isDead() )
 	{
 		socket->clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're dead.
 
@@ -337,7 +346,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Our target is dead
-	if( ( pWearer != pChar ) && pWearer->dead() )
+	if( ( pWearer != pChar ) && pWearer->isDead() )
 	{
 		socket->sysMessage( tr( "You can't equip dead players." ) );
 		socket->bounceItem( pItem, BR_NO_REASON );
@@ -357,7 +366,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Required Strength
-	if( pItem->st() > pWearer->st() )
+	if( pItem->st() > pWearer->strength() )
 	{
 		if( pWearer == pChar )
 			socket->sysMessage( tr( "You cannot wear that item, you seem not strong enough" ) );
@@ -369,7 +378,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Required Dexterity
-	if( pItem->dx() > pWearer->effDex() )
+	if( pItem->dx() > pWearer->dexterity() )
 	{
 		if( pWearer == pChar )
 			socket->sysMessage( tr( "You cannot wear that item, you seem not agile enough" ) );
@@ -381,7 +390,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 	
 	// Required Intelligence
-	if( pItem->in() > pWearer->in() )
+	if( pItem->in() > pWearer->intelligence() )
 	{
 		if( pWearer == pChar )
 			socket->sysMessage( tr( "You cannot wear that item, you seem not smart enough" ) );
@@ -393,7 +402,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Males can't wear female armor
-	if( ( pChar->id() == 0x0190 ) && ( pItem->id() >= 0x1C00 ) && ( pItem->id() <= 0x1C0D ) )
+	if( ( pChar->bodyID() == 0x0190 ) && ( pItem->id() >= 0x1C00 ) && ( pItem->id() <= 0x1C0D ) )
 	{
 		socket->sysMessage( tr( "You cannot wear female armor." ) );
 		socket->bounceItem( pItem, BR_NO_REASON );
@@ -408,7 +417,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	UI08 layer = pTile.layer;
 
 	bool twohanded = false;
-	P_ITEM equippedLayerItem = pWearer->atLayer( static_cast<cChar::enLayer>(layer) );
+	P_ITEM equippedLayerItem = pWearer->atLayer( static_cast<cBaseChar::enLayer>(layer) );
 	if ( equippedLayerItem )
 		twohanded = equippedLayerItem->twohanded();
 
@@ -435,13 +444,17 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// At this point we're certain that we can wear the item
-	pWearer->addItem( static_cast<cChar::enLayer>(pTile.layer), pItem );
+	pWearer->addItem( static_cast<cBaseChar::enLayer>(pTile.layer), pItem );
 
 	// Apply the bonuses
 	pWearer->giveItemBonus( pItem );
 
-	if( pWearer->socket() )
-		pWearer->socket()->sendStatWindow();
+	if( pWearer->objectType() == enPlayer )
+	{
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(pWearer);
+		if( pp->socket() )
+			pp->socket()->sendStatWindow();
+	}
 
 	// I don't think we need to remove the item
 	// as it's only visible to the current char
@@ -459,7 +472,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// ONLY the new equipped item and the sound-effect
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock->player() && ( mSock->player()->dist( pWearer ) <= mSock->player()->VisRange() ) )
+		if( mSock->player() && ( mSock->player()->dist( pWearer ) <= mSock->player()->visualRange() ) )
 		{
 			mSock->send( &wearItem );
 			mSock->send( &soundEffect );
@@ -469,7 +482,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 
 void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 {
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 
 	if( !pChar )
 		return;
@@ -578,11 +591,11 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 	}
 
 	// Open a secure trading window
-	if( !pOtherChar->isNpc() && pOtherChar->online() )
+	if( pOtherChar->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pOtherChar)->socket() )
 	{
 		// Check if we're already trading, 
 		// if not create a new window
-		P_ITEM tradeWindow = pChar->atLayer( cChar::TradeWindow );
+		P_ITEM tradeWindow = pChar->atLayer( cBaseChar::TradeWindow );
 
 		//if( !tradeWindow )
 		//	tradeWindow = Trade->tradestart( client->socket(), pOtherChar );
@@ -635,7 +648,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 
 void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &pos )
 {
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 
 	// Check if the destination is in line of sight
 	if( !lineOfSight( pChar->pos(), pos, WALLS_CHIMNEYS|DOORS|LAVA_WATER ) )
@@ -677,7 +690,7 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 
 void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )
 {
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 	
 	if( pItem->isMulti() )
 	{
@@ -712,7 +725,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	{
 		// For each item someone puts into there 
 		// He needs to do a snoop-check
-		if( pChar->canSnoop() )
+		if( pChar->maySnoop() )
 		{
 			if( !pChar->checkSkill( SNOOPING, 0, 1000 ) )
 			{
@@ -723,7 +736,8 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			}
 		}
 
-		if( !packOwner->isNpc() || ( packOwner->npcaitype() != 17 ) || packOwner->owner() != pChar )
+		if( packOwner->objectType() == enPlayer || 
+			( packOwner->objectType() == enNPC && dynamic_cast<P_NPC>(packOwner)->owner() != pChar ) )
 		{
 			socket->sysMessage( tr("You cannot put that into the belongings of another player") );
 			socket->bounceItem( pItem, BR_NO_REASON );
@@ -797,12 +811,12 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	}
 
 	// We drop something on the belongings of one of our playervendors
-	if( ( packOwner != NULL ) && ( packOwner->npcaitype() == 17 ) && packOwner->owner() == pChar )
+/*	if( ( packOwner != NULL ) && ( packOwner->npcaitype() == 17 ) && packOwner->owner() == pChar )
 	{
 		socket->sysMessage( tr( "You drop something into your playervendor (unimplemented)" ) );
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
-	}
+	}*/
 
 	// Playervendors (chest equipped by the vendor - opened to the client)
 
@@ -883,7 +897,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 {
 	// Feed our pets
-	if( pChar->hunger() >= 6 || pItem->type2() == 0 || !( pChar->food() & ( 1 << (pItem->type2()-1) ) ) )
+	if( pChar->hunger() >= 6 || pItem->type2() == 0 || !( pChar->nutriment() & ( 1 << (pItem->type2()-1) ) ) )
 	{
 		socket->sysMessage( tr("It doesn't seem to want your item") );
 		bounceItem( socket, pItem );
@@ -900,10 +914,10 @@ void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 		pChar->setPoisoned( pItem->poisoned() );
 		
 		// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-		pChar->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pChar->poisoned() ) ) );
+		pChar->setPoisonTime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pChar->poisoned() ) ) );
 		
 		//wear off starts after poison takes effect - AntiChrist
-		pChar->setPoisonwearofftime(pChar->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
+		pChar->setPoisonWearOffTime(pChar->poisonTime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
 		
 		// Refresh the health-bar of our target
 		pChar->resend( false );
@@ -944,10 +958,10 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 			pBeggar->setPoisoned( pItem->poisoned() );
 			
 			// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-			pBeggar->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pBeggar->poisoned() ) ) );
+			pBeggar->setPoisonTime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pBeggar->poisoned() ) ) );
 			
 			//wear off starts after poison takes effect - AntiChrist
-			pBeggar->setPoisonwearofftime( pBeggar->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
+			pBeggar->setPoisonWearOffTime( pBeggar->poisonTime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
 			
 			// Refresh the health-bar of our target
 			pBeggar->resend( false );

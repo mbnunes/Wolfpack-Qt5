@@ -251,7 +251,7 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 void cHouse::remove( void )
 {
 	removeKeys();
-	RegionIterator4Chars ri(this->pos());
+/*	RegionIterator4Chars ri(this->pos());
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_NPC pc = dynamic_cast<P_NPC>(ri.GetData());
@@ -260,7 +260,7 @@ void cHouse::remove( void )
 
 		if(pc->npcaitype() == 17 && pc->multis() == this->serial())
 			cCharStuff::DeleteChar(pc);
-	}
+	}*/
 	RegionIterator4Items rii(this->pos());
 	for(rii.Begin(); !rii.atEnd(); rii++)
 	{
@@ -277,7 +277,7 @@ void cHouse::toDeed( cUOSocket* socket )
 		return;
 	P_ITEM pBackpack = pc_currchar->getBackpack();
 
-	RegionIterator4Chars ri(this->pos());
+/*	RegionIterator4Chars ri(this->pos());
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_NPC pc = dynamic_cast<P_NPC>(ri.GetData());
@@ -296,7 +296,7 @@ void cHouse::toDeed( cUOSocket* socket )
 				socket->sysMessage( tr("Packed up vendor %1.").arg(pc->name()) );
 			}
 		}
-	}
+	}*/
 
 	this->remove();
 	

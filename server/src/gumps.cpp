@@ -283,7 +283,7 @@ cCharInfoGump::cCharInfoGump( cBaseChar* pChar )
 		addResizeGump( 195, 300, 0xBB8, 215, 20 );
 
 		addText( 50, 120, tr( "Spawnregion:" ), 0x834 );
-		addInputField( 200, 120, 200, 16, 11, QString( "%1" ).arg( pChar->spawnregion() ), 0x834 );
+//		addInputField( 200, 120, 200, 16, 11, QString( "%1" ).arg( pChar->spawnregion() ), 0x834 );
 		addText( 50, 140, tr( "Karma:" ), 0x834 );
 		addInputField( 200, 140, 200, 16, 12, QString( "%1" ).arg( pChar->karma() ), 0x834 );
 		addText( 50, 160, tr( "Fame:" ), 0x834 );
@@ -293,7 +293,7 @@ cCharInfoGump::cCharInfoGump( cBaseChar* pChar )
 		addText( 50, 200, tr( "Deaths:" ), 0x834 );
 		addInputField( 200, 200, 200, 16, 15, QString( "%1" ).arg( pChar->deaths() ), 0x834 );
 		addText( 50, 220, tr( "Defense:" ), 0x834 );
-		addInputField( 200, 220, 200, 16, 16, QString( "%1" ).arg( pChar->def() ), 0x834 );
+//		addInputField( 200, 220, 200, 16, 16, QString( "%1" ).arg( pChar->def() ), 0x834 );
 		addText( 50, 240, tr( "Dead:" ), 0x834 );
 		addInputField( 200, 240, 200, 16, 17, QString( "%1" ).arg( pChar->isDead() ), 0x834 );
 		addText( 50, 260, tr( "Position (x,y,z,map):" ), 0x834 );
@@ -324,17 +324,17 @@ cCharInfoGump::cCharInfoGump( cBaseChar* pChar )
 		addResizeGump( 195, 300, 0xBB8, 215, 20 );
 
 		addText( 50, 120, tr( "Npc Wander:" ), 0x834 );
-		addInputField( 200, 120, 200, 16, 21, QString( "%1" ).arg( pChar->npcWander() ), 0x834 );
+//		addInputField( 200, 120, 200, 16, 21, QString( "%1" ).arg( pChar->npcWander() ), 0x834 );
 		addText( 50, 140, tr( "fx1:" ), 0x834 );
-		addInputField( 200, 140, 200, 16, 22, QString( "%1" ).arg( pChar->fx1() ), 0x834 );
+//		addInputField( 200, 140, 200, 16, 22, QString( "%1" ).arg( pChar->fx1() ), 0x834 );
 		addText( 50, 160, tr( "fy1:" ), 0x834 );
-		addInputField( 200, 160, 200, 16, 23, QString( "%1" ).arg( pChar->fy1() ), 0x834 );
+//		addInputField( 200, 160, 200, 16, 23, QString( "%1" ).arg( pChar->fy1() ), 0x834 );
 		addText( 50, 180, tr( "fx2:" ), 0x834 );
-		addInputField( 200, 180, 200, 16, 24, QString( "%1" ).arg( pChar->fx2() ), 0x834 );
+//		addInputField( 200, 180, 200, 16, 24, QString( "%1" ).arg( pChar->fx2() ), 0x834 );
 		addText( 50, 200, tr( "fy2:" ), 0x834 );
-		addInputField( 200, 200, 200, 16, 25, QString( "%1" ).arg( pChar->fy2() ), 0x834 );
+//		addInputField( 200, 200, 200, 16, 25, QString( "%1" ).arg( pChar->fy2() ), 0x834 );
 		addText( 50, 220, tr( "fz:" ), 0x834 );
-		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pChar->fz1() ), 0x834 );
+//		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pChar->fz1() ), 0x834 );
 		addText( 50, 240, tr( "Direction:" ), 0x834 );
 		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pChar->direction() ), 0x834 );
 		addText( 50, 260, tr( "Strength modifier:" ), 0x834 );
@@ -362,11 +362,11 @@ cCharInfoGump::cCharInfoGump( cBaseChar* pChar )
 		addText( 50, 120, tr( "Speech color:" ), 0x834 );
 		addInputField( 200, 120, 200, 16, 31, QString( "0x%1" ).arg( QString::number( pChar->saycolor(), 16 ) ), 0x834 );
 		addText( 50, 140, tr( "Emote color:" ), 0x834 );
-		addInputField( 200, 140, 200, 16, 32, QString( "0x%1" ).arg( QString::number( pChar->emotecolor(), 16 ) ), 0x834 );
+//		addInputField( 200, 140, 200, 16, 32, QString( "0x%1" ).arg( QString::number( pChar->emotecolor(), 16 ) ), 0x834 );
 		addText( 50, 180, tr( "Carve:" ), 0x834 );
-		addInputField( 200, 260, 200, 16, 34, QString( "%1" ).arg( pChar->carve() ), 0x834 );
+//		addInputField( 200, 260, 200, 16, 34, QString( "%1" ).arg( pChar->carve() ), 0x834 );
 		addText( 50, 200, tr( "Loot:" ), 0x834 );
-		addInputField( 200, 280, 200, 16, 35, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
+//		addInputField( 200, 280, 200, 16, 35, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
 		addText( 50, 220, tr( "Gender:" ), 0x834 );
 		addInputField( 200, 280, 220, 16, 36, QString( "%1" ).arg( ( pChar->gender() ? tr("female") : tr("male") ) ), 0x834 );
 
@@ -419,7 +419,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setMana( hex2dec( it->second ).toShort() );
 				break;
 			case 11:
-				char_->setSpawnregion( it->second );
+//				char_->setSpawnregion( it->second );
 				break;
 			case 12:
 				char_->setKarma( hex2dec( it->second ).toInt() );
@@ -434,7 +434,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setDeaths( hex2dec( it->second ).toUInt() );
 				break;
 			case 16:
-				char_->setDef( hex2dec( it->second ).toUInt() );
+//				char_->setDef( hex2dec( it->second ).toUInt() );
 				break;
 			case 17:
 				char_->setDead( ( it->second == "true" || hex2dec( it->second ).toUInt() > 0 ) );
@@ -471,22 +471,22 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setHunger( hex2dec( it->second ).toInt() );
 				break;
 			case 21:
-				char_->setNpcWander( hex2dec( it->second ).toUShort() );
+//				char_->setNpcWander( hex2dec( it->second ).toUShort() );
 				break;
 			case 22:
-				char_->setFx1( hex2dec( it->second ).toInt() );
+//				char_->setFx1( hex2dec( it->second ).toInt() );
 				break;
 			case 23:
-				char_->setFy1( hex2dec( it->second ).toInt() );
+//				char_->setFy1( hex2dec( it->second ).toInt() );
 				break;
 			case 24:
-				char_->setFx2( hex2dec( it->second ).toInt() );
+//				char_->setFx2( hex2dec( it->second ).toInt() );
 				break;
 			case 25:
-				char_->setFy2( hex2dec( it->second ).toInt() );
+//				char_->setFy2( hex2dec( it->second ).toInt() );
 				break;
 			case 26:
-				char_->setFz1( hex2dec( it->second ).toInt() );
+//				char_->setFz1( hex2dec( it->second ).toInt() );
 				break;
 			case 27:
 				char_->setDirection( hex2dec( it->second ).toUShort() );
@@ -501,7 +501,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setIntelligenceMod( hex2dec( it->second ).toShort() );
 				break;
 			case 31:
-				char_->setSayColor( hex2dec( it->second ).toUShort() );
+//				char_->setSayColor( hex2dec( it->second ).toUShort() );
 				break;
 			case 32:
 				char_->setEmoteColor( hex2dec( it->second ).toUShort() );
@@ -509,10 +509,10 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			case 33:
 				break;
 			case 34:
-				char_->setCarve( it->second );
+//				char_->setCarve( it->second );
 				break;
 			case 35:
-				char_->setLootList( it->second );
+//				char_->setLootList( it->second );
 				break;
 			case 46:
 				char_->setGender( it->second == tr("female") );

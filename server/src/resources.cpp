@@ -44,6 +44,9 @@
 #include "wpconsole.h"
 #include "world.h"
 
+#include "basechar.h"
+#include "player.h"
+
 //System Includes
 #include <math.h>
 
@@ -666,7 +669,7 @@ bool cResource::hasMapId( UINT16 id )
 
 void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UINT16 artid )
 {
-	P_CHAR pc = socket->player();
+	P_PLAYER pc = socket->player();
 	if( !socket || !pc )
 		return;
 
@@ -854,11 +857,11 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		spawnamount = item.minamount_per_attempt;
 
 	if( staminamax_ > staminamin_ )
-		pc->setStm(pc->stm() - RandomNum( staminamin_, staminamax_ ) );
+		pc->setStamina(pc->stamina() - RandomNum( staminamin_, staminamax_ ) );
 	else
-		pc->setStm( pc->stm() - staminamin_ );	
-	if( pc->stm() < 0 )
-		pc->setStm(0);
+		pc->setStamina( pc->stamina() - staminamin_ );	
+	if( pc->stamina() < 0 )
+		pc->setStamina(0);
 
 	if( !pc->checkSkill( skillid_, item.minskill, item.maxskill ) )
 	{
@@ -1114,13 +1117,13 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	UINT32 spawnamount = (UINT32)ceil((float)pSource->amount() * item.conversion.rate);
 
 	if( staminamax_ > staminamin_ )
-//		pc->stm -= RandomNum( staminamin_, staminamax_ );
-		pc->setStm(pc->stm() - RandomNum( staminamin_, staminamax_ ) );
+//		pc->stamina -= RandomNum( staminamin_, staminamax_ );
+		pc->setStamina(pc->stamina() - RandomNum( staminamin_, staminamax_ ) );
 	else
-//		pc->stm -= staminamin_;
-		pc->setStm( pc->stm() - staminamin_ );
-	if( pc->stm() < 0 )
-		pc->setStm(0);
+//		pc->stamina -= staminamin_;
+		pc->setStamina( pc->stamina() - staminamin_ );
+	if( pc->stamina() < 0 )
+		pc->setStamina(0);
 
 	if( !pc->checkSkill( skillid_, item.minskill, item.maxskill ) )
 	{
@@ -1298,13 +1301,13 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( target->x() == 0xFFFF || target->y() == 0xFFFF || target->z() == 0xFF || !socket->player() )
 		return true;
 
-	P_CHAR pc = socket->player();
+	P_PLAYER pc = socket->player();
 	Coord_cl pos = pc->pos();
 	pos.x = target->x();
 	pos.y = target->y();
 	pos.z = target->z();
 
-	if( pc->skilldelay() > uiCurrentTime && !pc->isGM() )
+	if( pc->skillDelay() > uiCurrentTime && !pc->isGM() )
 	{
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return true;
@@ -1396,13 +1399,13 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( !pi )
 		return true;
 
-	P_CHAR pc = socket->player();
+	P_PLAYER pc = socket->player();
 	Coord_cl pos = pc->pos();
 	pos.x = target->x();
 	pos.y = target->y();
 	pos.z = target->z();
 
-	if( pc->skilldelay() > uiCurrentTime && !pc->isGM() )
+	if( pc->skillDelay() > uiCurrentTime && !pc->isGM() )
 	{
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return true;
