@@ -514,7 +514,7 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		}*/
 		if (!(pc_currchar->isGM())) //Ripper..players cant equip items on other players or npc`s paperdolls.
 		{
-			if ((k!=cc)&&(chars[s].isNpc()!=k))
+			if ((k != cc) && (!chars[k].isNpc()))
 			{
 				sysmessage(s, "You cant put items on other players!");
 				item_bounce6(ps,pi);
