@@ -390,24 +390,20 @@ void cPlayer::kill()
 	changed_ = true;
 	int ele;
 
-	if( free )
+	if (free || isDead() || isInvulnerable()) {
 		return;
-
-	if( isDead() || isInvulnerable() )
-		return;
-
-	// Do this in the beginning
-	setDead( true );
-	hitpoints_ = 0;
-
-	if( isPolymorphed() )
-	{
-		setBodyID( orgBodyID_ );
-		setPolymorphed( false );
 	}
 
-	orgBodyID_ = bodyID_;
-	setOrgSkin( skin() );
+	// Do this in the beginning
+	setDead(true);
+	hitpoints_ = 0;
+
+	if (isPolymorphed()) {
+		setBodyID(orgBodyID_);
+		setSkin(orgSkin_);
+		setPolymorphed(false);
+	}
+
 	setMurdererSerial( INVALID_SERIAL ); // Reset previous murderer serial # to zero
 
 	QString murderer( "" );
@@ -532,16 +528,14 @@ void cPlayer::kill()
 	// Check for the player hair/beard
 	P_ITEM pHair = GetItemOnLayer( 11 );
 
-	if( pHair )
-	{
-		corpse->setHairColor( pHair->color() );
-		corpse->setHairStyle( pHair->id() );
+	if (pHair) {
+		corpse->setHairColor(pHair->color());
+		corpse->setHairStyle(pHair->id());
 	}
 
 	P_ITEM pBeard = GetItemOnLayer( 16 );
 
-	if( pBeard )
-	{
+	if (pBeard) {
 		corpse->setBeardColor( pBeard->color() );
 		corpse->setBeardStyle( pBeard->id() );
 	}
@@ -550,39 +544,35 @@ void cPlayer::kill()
 	// So a singleclick on the corpse
 	// Will display the right color
 	if( isInnocent() )
-		corpse->setTag( "notority", cVariant( 1 ) );
+		corpse->setTag("notority", cVariant(1));
 	else if( isCriminal() )
-		corpse->setTag( "notority", cVariant( 2 ) );
+		corpse->setTag("notority", cVariant(2));
 	else if( isMurderer() )
-		corpse->setTag( "notority", cVariant( 3 ) );
+		corpse->setTag("notority", cVariant(3));
 
-    corpse->setOwner( this );
+    corpse->setOwner(this);
 
 	corpse->setBodyId( orgBodyID_ );
-	corpse->setTag( "human", cVariant( isHuman() ? 1 : 0 ) );
-	corpse->setTag( "name", cVariant( name() ) );
+	corpse->setTag("human", cVariant(isHuman() ? 1 : 0));
+	corpse->setTag("name", cVariant(name()));
 
-	corpse->moveTo( pos() );
+	corpse->moveTo(pos());
 
-	corpse->setDirection( direction() );
+	corpse->setDirection(direction());
 
 	// Set the ownerserial to the player's
-	corpse->SetOwnSerial( serial() );
+	corpse->SetOwnSerial(serial());
 
 	// stores the time and the murderer's name
-	corpse->setMurderer( murderer );
+	corpse->setMurderer(murderer);
 	corpse->setMurderTime(uiCurrentTime);
 
-	std::vector< P_ITEM > equipment;
-
+	std::vector<P_ITEM> equipment;
+	
 	// Check the Equipment and Unequip if neccesary
 	cBaseChar::ItemContainer::const_iterator iter;
-	for ( iter = content_.begin(); iter != content_.end(); iter++ )
-	{
-		P_ITEM pi_j = iter.data();
-
-		if( pi_j )
-			equipment.push_back( pi_j );
+	for (iter = content_.begin(); iter != content_.end(); iter++) {
+		equipment.push_back(iter.data());
 	}
 
 	for( std::vector< P_ITEM >::iterator iit = equipment.begin(); iit != equipment.end(); ++iit )
@@ -597,25 +587,12 @@ void cPlayer::kill()
 			{   // if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
 				cItem::ContainerContent container = pi_j->content();
 				cItem::ContainerContent::const_iterator it2 = container.begin();
-				for ( ; it2 != container.end(); ++it2 )
-				{
+				for ( ; it2 != container.end(); ++it2 ) {
 					P_ITEM pi_k = *it2;
 
-					if( !pi_k )
-						continue;
-
 					// put the item in the corpse only of we're sure it's not a newbie item or a spellbook
-					if( !pi_k->newbie() && ( pi_k->type() != 9 ) )
-					{
+					if (!pi_k->newbie() && (pi_k->type() != 9)) {
 						corpse->addItem( pi_k );
-
-						// Ripper...so order/chaos shields disappear when on corpse backpack.
-						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
-						{
-							soundEffect( 0x01FE );
-							this->effect( 0x372A, 0x09, 0x06 );
-							pi_k->remove();
-						}
 					}
 				}
 			}
@@ -644,8 +621,8 @@ void cPlayer::kill()
 	corpse->update();
 
 	cUOTxDeathAction dAction;
-	dAction.setSerial( serial() );
-	dAction.setCorpse( corpse->serial() );
+	dAction.setSerial(serial());
+	dAction.setCorpse(corpse->serial());
 
 	cUOTxRemoveObject rObject;
 	rObject.setSerial( serial() );
@@ -657,19 +634,17 @@ void cPlayer::kill()
 			mSock->send( &rObject );
 		}
 
-	resend( false );
+	resend(false);
 
-	P_ITEM pItem = cItem::createFromScript( "204e" );
-	if( pItem )
-	{
-		this->addItem( cBaseChar::OuterTorso, pItem );
+	P_ITEM pItem = cItem::createFromScript("204e");
+	if (pItem) {
+		this->addItem(cBaseChar::OuterTorso, pItem);
 		pItem->update();
 	}
 
-	if( socket_ )
-	{
+	if(socket_) {
 		cUOTxCharDeath cDeath;
-		socket_->send( &cDeath );
+		socket_->send(&cDeath);
 	}
 
 	// trigger the event now
