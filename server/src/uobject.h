@@ -59,6 +59,50 @@ class cUOSocket;
 class QSqlQuery;
 class cItem;
 
+struct stError 
+{
+	INT8 code;
+	QString text;
+};
+
+#define PROPERTY_ERROR( errno, data ) { stError *errRet = new stError; errRet->code = errno; errRet->text = data; return errRet; }
+
+#define GET_PROPERTY( id, getter ) if( name == id ) {\
+	value = cVariant( getter ); \
+	return 0; \
+}
+
+#define SET_STR_PROPERTY( id, setter ) if( name == id ) {\
+	QString text = value.toString(); \
+	if( text == QString::null )	\
+		PROPERTY_ERROR( -2, "String expected" ) \
+	setter = text; \
+	}
+
+#define SET_INT_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	INT32 data = value.toInt( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Integer expected" ) \
+	setter = data; \
+	}
+
+#define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	INT32 data = value.toInt( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Boolean expected" ) \
+		setter = data == 0 ? false : true; \
+	}
+
+#define SET_CHAR_PROPERTY( id, setter ) if( name == id ) {\
+	setter = value.toChar(); \
+	}
+
+#define SET_ITEM_PROPERTY( id, setter ) if( name == id ) {\
+	setter = value.toItem(); \
+	}
+
 class cUObject : public virtual PersistentObject, public virtual cDefinable
 {
 	Q_OBJECT
@@ -127,8 +171,11 @@ public:
 	QString bindmenu() const { return bindmenu_; }
 	void setBindmenu( const QString& d ) { bindmenu_ = d; }
 
-	bool isItem() { return (serial != INVALID_SERIAL && serial >= 0 && serial >= 0x40000000); }
-	bool isChar() { return (serial != INVALID_SERIAL && serial >= 0 && serial <  0x40000000); }
+	bool isItem() { return (serial != INVALID_SERIAL && serial > 0 && serial >= 0x40000000); }
+	bool isChar() { return (serial != INVALID_SERIAL && serial > 0 && serial <  0x40000000); }
+
+	virtual stError *setProperty( const QString &name, const cVariant &value );
+	virtual stError *getProperty( const QString &name, cVariant &value );
 };
 
 

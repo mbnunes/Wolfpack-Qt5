@@ -2731,12 +2731,9 @@ void cChar::mount( P_CHAR pMount )
 		}
 		
 		this->addItem( cChar::Mount, pMountItem );
-
-		Coord_cl npos( pos );
-		npos.x = pMount->fx1();
-		npos.y = pMount->fy1();
-		npos.z = pMount->fz1();
-		//pMountItem->moveTo(npos);
+		pMountItem->pos.x = pMount->fx1();
+		pMountItem->pos.y = pMount->fy1();
+		pMountItem->pos.z = pMount->fz1();
 		
 		pMountItem->setMoreX(pMount->serial);
 		pMountItem->setMoreY(pMount->id());
@@ -3632,4 +3629,15 @@ void cChar::restock()
 			}
 		}
 	}
+}
+
+// Simple setting and getting of properties for scripts and the set command.
+stError *cChar::setProperty( const QString &name, const cVariant &value )
+{
+	return 0;
+}
+
+stError *cChar::getProperty( const QString &name, cVariant &value )
+{
+	return 0;
 }

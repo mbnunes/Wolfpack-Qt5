@@ -314,7 +314,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 	vector< ServerList_st > shards = SrvParams->serverList();
 	
 	for( Q_UINT8 i = 0; i < shards.size(); ++i )
-		shardList->addServer( i, shards[i].sServer, 0, shards[i].uiTime, shards[i].ip );
+		shardList->addServer( i, shards[i].sServer, 0xFF, shards[i].uiTime, shards[i].ip );
 	
 	send( shardList );
 	delete shardList;
@@ -1970,7 +1970,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setStrength( pChar->st() );
 		sendStats.setDexterity( pChar->effDex() );
 		sendStats.setIntelligence( pChar->in() );
-		sendStats.setWeight( pChar->weight() / 10 );
+		sendStats.setWeight( pChar->stones() );
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( true );

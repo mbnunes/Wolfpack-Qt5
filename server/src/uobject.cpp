@@ -516,3 +516,52 @@ void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 			mSock->send( &effect );
 	}
 }
+
+// Simple setting and getting of properties for scripts and the set command.
+stError *cUObject::setProperty( const QString &name, const cVariant &value )
+{
+
+	SET_STR_PROPERTY( "bindmenu", bindmenu_ )
+	else SET_INT_PROPERTY( "serial", serial )
+	else SET_INT_PROPERTY( "multi", multis )
+	else SET_BOOL_PROPERTY( "free", free )
+		
+	else if( name == "pos" )
+	{
+		Coord_cl pos;
+		if( !parseCoordinates( value.toString(), pos ) )
+			PROPERTY_ERROR( -3, QString( "Invalid coordinate value: '%1'" ).arg( value.toString() ) )
+		moveTo( pos );
+	}
+
+	// Trying to set new Eventlist
+	else if( name == "eventlist" )
+	{
+		clearEvents();
+		QStringList list = QStringList::split( ",", value.toString() );
+		for( QStringList::const_iterator it = list.begin(); it != list.end(); ++it )
+		{
+			WPDefaultScript *script = ScriptManager->find( *it );
+			if( script )
+				addEvent( script );
+			else
+				PROPERTY_ERROR( -3, QString( "Script not found: '%1'" ).arg( *it ) )
+		}
+	}
+
+	return 0;
+//	return { -1, QString( "Property '%1' wasn't found" ).arg( name ) }; // Property not found
+}
+
+stError *cUObject::getProperty( const QString &name, cVariant &value )
+{
+	GET_PROPERTY( "bindmenu", bindmenu_ )
+	else GET_PROPERTY( "serial", serial )
+	else GET_PROPERTY( "multi", FindItemBySerial( multis ) )
+	else GET_PROPERTY( "free", free ? 1 : 0 )
+	else GET_PROPERTY( "name", name )
+	else GET_PROPERTY( "pos", pos )
+	else GET_PROPERTY( "eventlist", eventList_.join(",") );
+
+	return 0;
+}

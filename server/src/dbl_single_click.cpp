@@ -643,19 +643,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			usepotion(socket->player(), pi);
 			return; // case 19 (potions)					
 			
-		case 50: // rune
-			if (pi->morex() == 0 && pi->morey() == 0 && pi->morez() == 0)
-			{
-				socket->sysMessage(tr("That rune is not yet marked!"));
-			}
-			else
-			{
-				pc_currchar->setInputMode(cChar::enRenameRune);
-				pc_currchar->setInputItem(pi->serial);
-				sysmessage(s, "Enter new rune name.");
-			}
-			return;// case 50 (rune)
-			// taken from 6904t2(5/10/99) - AntiChrist
 		case 181: // Fireworks wands
 			int wx, wy, wi;
 			if (pi->morex() <= 0)
@@ -684,16 +671,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			}
 			return;
 			
-		case 185: // let's smoke! :)
-			pc_currchar->setSmokeTimer(pi->morex()*MY_CLOCKS_PER_SEC + getNormalizedTime());
-			Items->DeleItem(pi);
-			return;
-		case 186: // rename deed! -- eagle 1/29/00
-			pc_currchar->setInputItem(pi->serial);
-			sysmessage(s, "Enter your new name.");
-			Items->DeleItem(pi);
-			return;// rename deed! -- eagle 1/29/00
-
 		case 100:  // type 100?  this ain't in the docs...
 			{
 				AllItemsIterator it;

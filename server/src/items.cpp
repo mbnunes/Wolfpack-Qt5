@@ -2597,3 +2597,13 @@ UINT16 cItem::getWeaponSkill()
 	};
 }
 
+// Simple setting and getting of properties for scripts and the set command.
+stError *cItem::setProperty( const QString &name, const cVariant &value )
+{
+	return cUObject::setProperty( name, value );
+}
+
+stError *cItem::getProperty( const QString &name, cVariant &value )
+{
+	return cUObject::getProperty( name, value );
+}

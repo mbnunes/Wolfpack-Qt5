@@ -1000,233 +1000,21 @@ bool cSetTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		socket->sysMessage( tr( "Please select a valid character or item" ) );
 		return true;
 	}
-	
-	// Object name
-	if( key == "name" && pItem )
-		pItem->setName( value );
-	else if( key == "name" && pChar )
-		pChar->name = value;
-	
-	// Object color
-	else if( ( key == "color" ) || ( key == "skin" ) )
+
+	cVariant value( this->value );
+	stError *error = pObject->setProperty( key, value );
+
+	if( error )
 	{
-		if( pItem )
-			pItem->setColor( hex2dec( value ).toULong() );
-		else if( pChar )
-			pChar->setSkin( hex2dec( value ).toULong() );
+		socket->sysMessage( error->text );
+		delete error;
 	}
-	
-	// Events
-	else if( key == "events" ) 
-	{
-		pObject->clearEvents();
-		QStringList events = QStringList::split( ",", value );
-		QStringList::const_iterator it = events.begin();
-		while( it != events.end() )
-		{
-			WPDefaultScript *script = ScriptManager->find( *(it++) );
-			if( script )
-				pObject->addEvent( script );
-		}
-	}
-	
-	// Object id
-	else if( ( key == "id" ) || ( key == "body" ) || ( key == "model" ) )
-	{
-		if( pItem )
-			pItem->setId( hex2dec( value ).toULong() );
-		else if( pChar )
-			pChar->setId( hex2dec( value ).toULong() );
-	}
-	
-	// Object direction
-	else if( key == "dir" )
-	{
-		if( pItem )
-			pItem->dir = hex2dec( value ).toULong();
-		else if( pChar )
-			pChar->setDir( hex2dec( value ).toULong() );
-	}
-	
-	// Object position
-	else if( ( key == "pos" ) || ( key == "p" ) )
-	{
-		Coord_cl newCoords = pObject->pos;
-		if( !parseCoordinates( value, newCoords ) )
-		{
-			socket->sysMessage( tr( "Invalid coordinates '%1'" ).arg( value ) );
-			return true;
-		}
-		pObject->removeFromView();
-		pObject->moveTo( newCoords );
 		
-		if( pChar )
-			pChar->resend( false );
-		else if( pItem );
-		pItem->update();
-	}
-	
-	// Char title
-	else if( ( key == "title" ) && pChar )
-		pChar->setTitle( value );
-	
-	// Item Amount
-	else if( ( key == "amount" ) && pItem && ( hex2dec( value ).toULong() > 0 ) )
-		pItem->setAmount( hex2dec( value ).toULong() );			
-	
-	// LoDamage + HiDamage
-	else if( key == "lodamage" )
-	{
-		if( pItem )
-			pItem->setLodamage( hex2dec( value ).toInt() );
-		else if( pChar )
-			pChar->setLoDamage( hex2dec( value ).toInt() );
-	}
-	
-	else if( key == "hidamage" )
-	{
-		if( pItem )
-			pItem->setHidamage( hex2dec( value ).toInt() );
-		else if( pChar )
-			pChar->setHiDamage( hex2dec( value ).toInt() );
-	}
-	
-	// Str Dex Int
-	else if( key == "str" )
-	{
-		if( pChar )
-		{
-			pChar->setSt( hex2dec( value ).toInt() );
-			for( UINT8 i = 0; i < ALLSKILLS; ++i )
-				Skills->updateSkillLevel( pChar, i );
-		}
-		else
-			pItem->setSt( hex2dec( value ).toInt() );
-	}
-	else if( key == "dex" )
-	{
-		if( pChar )
-		{
-			pChar->setDex( hex2dec( value ).toInt() );
-			for( UINT8 i = 0; i < ALLSKILLS; ++i )
-				Skills->updateSkillLevel( pChar, i );
-		}
-		else
-			pItem->setDx( hex2dec( value ).toInt() );
-	}			
-	else if( key == "int" )
-	{
-		if( pChar )
-		{
-			pChar->setIn( hex2dec( value ).toInt() );
-			for( UINT8 i = 0; i < ALLSKILLS; ++i )
-				Skills->updateSkillLevel( pChar, i );
-		}
-		else
-			pItem->setIn( hex2dec( value ).toInt() );
-		
-		// Type
-	}
-	else if( key == "type" && pItem )
-		pItem->setType( hex2dec( value ).toInt() );
-				
-	// NPC Wander
-	else if( key == "npcwander" && pChar )
-		pChar->setNpcWander( hex2dec( value ).toInt() );
-	
-	// NPC AI Type
-	else if( key == "npcaitype" && pChar )
-		pChar->setNpcAIType( hex2dec( value ).toInt() );
-				
-	// Health + Stamina + Mana
-	else if( key == "hp" || key == "health" || key == "hitpoints" )
-	{
-		if( pChar )
-			pChar->setHp( hex2dec( value ).toInt() );
-		else 
-			pItem->setHp( hex2dec( value ).toInt() );
-	}
-	
-	else if( key == "stamina" && pChar )
-		pChar->setStm( hex2dec( value ).toInt() );
-				
-	else if( key == "mana" && pChar )
-		pChar->setMn( hex2dec( value ).toInt() );
-	else if( key == "movable" && pItem )
-		pItem->setMagic( hex2dec( value ).toInt() );
-	
-	else if( key == "more1" && pItem )
-		pItem->setMore1( hex2dec( value ).toInt() );
-				
-	else if( key == "more2" && pItem )
-		pItem->setMore2( hex2dec( value ).toInt() );
-				
-	else if( key == "more3" && pItem )
-		pItem->setMore3( hex2dec( value ).toInt() );
-				
-	else if( key == "more4" && pItem )
-		pItem->setMore4( hex2dec( value ).toInt() );
-				
-	else if( key == "morex" && pItem )
-		pItem->setMoreX( hex2dec( value ).toInt() );
-				
-	else if( key == "morey" && pItem )
-		pItem->setMoreY( hex2dec( value ).toInt() );
-				
-	else if( key == "morez" && pItem )
-		pItem->setMoreZ( hex2dec( value ).toInt() );
-				
-	else if( key == "map" && pChar )
-	{
-		pChar->removeFromView();
-		pChar->moveTo( Coord_cl( pChar->pos.x, pChar->pos.y, pChar->pos.z, value.toInt() ) );
-		pChar->resend( false );
-		
-		if ( pChar->socket() )
-			pChar->socket()->resendWorld();
-	}
-				
-	// Object tags
-	else if( key.left( 4 ) == "tag." )
-	{
-		QString tagName = key.right( key.length() - 4 );
-		bool ok = false;
-		hex2dec( value ).toInt( &ok );
-		
-		if( !ok )
-			pObject->tags.set( tagName, cVariant( value ) );
-		else
-			pObject->tags.set( tagName, cVariant( hex2dec( value ).toInt() ) );
-	}
-	// Unknown Tag
-	else
-	{
-		bool found = false;
-		
-		if( pChar )
-		{
-			for( UINT8 i = 0; i < ALLSKILLS; ++i )
-				if( key.upper() == skillname[i] )
-				{
-					pChar->setBaseSkill( i, hex2dec( value ).toInt() );
-					Skills->updateSkillLevel( pChar, i );
-					socket->sendSkill( i );
-					found = true;
-					break;
-				}
-		}				
-				
-		if( !found )
-		{
-			socket->sysMessage( tr( "Unknown key '%1'" ).arg( key ) );
-			return true;
-		}
-	}
-				
 	if( pChar )
 		pChar->resend();
 	else if( pItem )
 		pItem->update();
+
 	return true;
 }
 
@@ -1827,5 +1615,37 @@ bool cDyeTubDyeTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	pItem->setColor( _color );
 	pItem->update();
 	
+	return true;
+}
+
+bool cShowTarget::responsed( cUOSocket *socket, cUORxTarget *target )
+{
+	// Check for a valid target
+	cUObject *pObject;
+	P_ITEM pItem = FindItemBySerial( target->serial() );
+	P_CHAR pChar = FindCharBySerial( target->serial() );
+	if( !pChar && !pItem )
+	{
+		socket->sysMessage( tr( "You have to target a valid object." ) );
+		return true;
+	}
+
+	if( pChar )
+		pObject = pChar;
+	else
+		pObject = pItem;
+
+
+	cVariant result;
+	stError *error = pObject->getProperty( key, result );
+
+	if( error )
+	{
+		socket->sysMessage( error->text );
+		delete error;
+		return true;
+	}
+
+	socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( result.toString() ) );
 	return true;
 }

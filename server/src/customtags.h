@@ -49,6 +49,7 @@ class cItem;
 class cChar;
 class QString;
 class cVariant;
+class Coord_cl;
 
 class cVariant
 {
@@ -58,7 +59,10 @@ public:
 		Invalid = 0,
 		String,
 		Int,
-		Double
+		Double,
+		Char,
+		Item,
+		Coord
 	};
 
 	cVariant();
@@ -67,6 +71,9 @@ public:
 	cVariant( const cVariant& p );
     cVariant( const QString& );
 	cVariant( int );
+	cVariant( cChar* );
+	cVariant( cItem* );
+	cVariant( Coord_cl );
     cVariant( double );
 
     cVariant& operator= ( const cVariant& );
@@ -86,6 +93,9 @@ public:
     const QString toString() const;
     int toInt( bool * ok=0 ) const;
     double toDouble( bool * ok=0 ) const;
+	cChar *toChar() const;
+	cItem *toItem() const;
+	Coord_cl toCoord() const;
 
     QString& asString();
     int& asInt();
@@ -94,8 +104,7 @@ public:
     static const char* typeToName( Type typ );
     static Type nameToType( const char* name );
 
-	bool		isString( void );
-
+	bool		isString();
 private:
     void detach();
 

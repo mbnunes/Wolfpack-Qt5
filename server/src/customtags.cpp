@@ -36,6 +36,7 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 
+#include <math.h>
 #include "qstring.h"
 #include "qshared.h"
 
@@ -60,6 +61,12 @@ cVariant::Private::Private( Private* d )
 	case cVariant::Double:
 	    value.d = d->value.d;
 	    break;
+	case cVariant::Char:
+		value.ptr = d->value.ptr;
+	case cVariant::Item:
+		value.ptr = d->value.ptr;
+	case cVariant::Coord:
+		value.ptr = d->value.ptr;
 	default:
 	    Q_ASSERT( 0 );
 	}
@@ -82,6 +89,11 @@ void cVariant::Private::clear()
 	case cVariant::Invalid:
 	case cVariant::Int:
 	case cVariant::Double:
+	case cVariant::Char:
+	case cVariant::Item:
+		break;
+	case cVariant::Coord:
+		delete (Coord_cl*)value.ptr;
 	    break;
 	}
 
@@ -152,6 +164,36 @@ cVariant::cVariant( double val )
 }
 
 /*!
+  Constructs a new variant with a cChar* value, \a val.
+*/
+cVariant::cVariant( cChar *val )
+{
+    d = new Private;
+    d->typ = Char;
+    d->value.ptr = val;
+}
+
+/*!
+  Constructs a new variant with a cChar* value, \a val.
+*/
+cVariant::cVariant( cItem *val )
+{
+    d = new Private;
+    d->typ = Item;
+    d->value.ptr = val;
+}
+
+/*!
+  Constructs a new variant with a Coord_cl value, \a val.
+*/
+cVariant::cVariant( Coord_cl val )
+{
+    d = new Private;
+    d->typ = Coord;
+    d->value.ptr = new Coord_cl( val );
+}
+
+/*!
   Assigns the value of the variant \a variant to this variant.
 
   This is a deep copy of the variant, but note that if the variant
@@ -209,13 +251,16 @@ void cVariant::clear()
     d->clear();
 }
 
-static const int ntypes = 4;
+static const int ntypes = 7;
 static const char* const type_map[ntypes] =
 {
     0,
     "String",
     "Int",
     "Double",
+	"Char",
+	"Item",
+	"Coord"
 };
 
 /*!
@@ -270,8 +315,34 @@ const QString cVariant::toString() const
 {
     if ( d->typ == Int )
 		return QString::number( toInt() );
-    if ( d->typ == Double )
+    
+	if ( d->typ == Double )
 		return QString::number( toDouble() );
+
+	if ( d->typ == Char )
+	{
+		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
+		if( pChar )
+			return "0x" + QString::number( pChar->serial, 16 );
+		else
+			return "0x" + QString::number( INVALID_SERIAL, 16 );
+	}
+
+	if ( d->typ == Item )
+	{		
+		P_ITEM pItem = static_cast< P_ITEM >( d->value.ptr );
+		if( pItem )
+			return "0x" + QString::number( pItem->serial, 16 );
+		else
+			return "0x" + QString::number( INVALID_SERIAL, 16 );
+	}
+
+	if ( d->typ == Coord )
+	{
+		Coord_cl *pos = static_cast< Coord_cl* >( d->value.ptr );
+		return QString( "%1,%2,%3,%4" ).arg( pos->x ).arg( pos->y ).arg( pos->z ).arg( pos->map );
+	}
+
     if ( d->typ != String )
 		return QString::null;
     return *((QString*)d->value.ptr);
@@ -300,6 +371,18 @@ int cVariant::toInt( bool * ok ) const
     if ( d->typ == Double )
 		return (int)d->value.d;
 
+	if ( d->typ == Char )
+	{
+		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
+		return pChar ? pChar->serial : INVALID_SERIAL;
+	}
+
+	if ( d->typ == Item )
+	{		
+		P_ITEM pItem = static_cast< P_ITEM >( d->value.ptr );
+		return pItem ? pItem->serial : INVALID_SERIAL;
+	}
+
     return 0;
 }
 
@@ -322,10 +405,87 @@ double cVariant::toDouble( bool * ok ) const
 
     if ( d->typ == Double )
 		return d->value.d;
+
     if ( d->typ == Int )
 		return (double)d->value.i;
 
+	if ( d->typ == Char )
+	{
+		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
+		return pChar ? (double)pChar->serial : (double)INVALID_SERIAL;
+	}
+
+	if ( d->typ == Item )
+	{		
+		P_ITEM pItem = static_cast< P_ITEM >( d->value.ptr );
+		return pItem ? (double)pItem->serial : (double)INVALID_SERIAL;
+	}
+
     return 0.0;
+}
+
+/*!
+  Returns the variant as a Character if the variant has type()
+  String, Double, Int; or NULL otherwise.
+
+  \sa toChar()
+*/
+cChar *cVariant::toChar() const
+{
+	if( d->typ == Char )
+		return (P_CHAR)d->value.ptr;
+
+	if( d->typ == String )
+		return FindCharBySerial( hex2dec( *( (QString*)d->value.ptr ) ).toUInt() );
+
+	if( d->typ == Int )
+		return FindCharBySerial( d->value.i );
+
+	if( d->typ == Double )
+		return FindCharBySerial( floor( d->value.d ) );
+
+	return 0;
+}
+
+/*!
+  Returns the variant as an Item if the variant has type()
+  String, Double, Int; or NULL otherwise.
+*/
+cItem *cVariant::toItem() const
+{
+	if( d->typ == Item )
+		return (P_ITEM)d->value.ptr;
+
+	if( d->typ == String )
+		return FindItemBySerial( hex2dec( *( (QString*)d->value.ptr ) ).toUInt() );
+
+	if( d->typ == Int )
+		return FindItemBySerial( d->value.i );
+
+	if( d->typ == Double )
+		return FindItemBySerial( floor( d->value.d ) );
+
+	return 0;
+}
+
+/*!
+  Returns the variant as an Item if the variant has type()
+  String; or NULL otherwise.
+*/
+Coord_cl cVariant::toCoord() const
+{
+	if( d->typ == Coord )
+		return *( (Coord_cl*)d->value.ptr );
+
+	// Parse Coord
+	if( d->typ == String )
+	{
+		Coord_cl pos;
+		if( parseCoordinates( *( (QString*)d->value.ptr ), pos ) )
+			return pos;
+	}
+
+	return Coord_cl( 0, 0, 0, 0 );
 }
 
 #define Q_VARIANT_AS( f ) Q##f& cVariant::as##f() { \
@@ -394,6 +554,13 @@ bool cVariant::canCast( Type t ) const
 		return TRUE;
     if ( t == String && ( d->typ == Int || d->typ == Double ) )
 		return TRUE;
+	if ( t == Char && ( d->typ == Char || d->typ == Int || d->typ == Double || d->typ == String ) )
+		return TRUE;
+	if ( t == Item && ( d->typ == Item || d->typ == Int || d->typ == Double || d->typ == String ) )
+		return TRUE;
+	if ( t == Coord && ( d->typ == String || d->typ == Coord ) )
+		return TRUE;
+
     return FALSE;
 }
 

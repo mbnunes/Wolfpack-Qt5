@@ -801,6 +801,10 @@ public:
 	void removeEffect( cTempEffect *effect );
 	Effects effects() const;
 
+	// Simple Property setting and getting.
+	stError *setProperty( const QString &name, const cVariant &value );
+	stError *getProperty( const QString &name, cVariant &value );
+
 	// Definition loading - sereg
 protected:
 	virtual void processNode( const QDomElement& Tag );
