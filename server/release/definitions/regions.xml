@@ -1,0 +1,8 @@
+<definition>
+	<region id="Wildnis">
+		<rectangle x1="0" x2="6144" y1="0" y2="4098" />
+		<region id="Kontinent">
+			<rectangle x1="1000" x2="2500" y1="500" y2="3000" />
+		</region>
+	</region>
+</definition>

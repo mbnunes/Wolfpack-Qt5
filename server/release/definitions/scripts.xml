@@ -1,0 +1,9 @@
+<definitions>
+	<script id="test" type="python">
+		<module name="itemTest" />
+	</script>
+	
+	<script id="pickaxe" type="python">
+		<module name="wolfpack.mining" />
+	</script>
+</definitions>

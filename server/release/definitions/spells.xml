@@ -1,0 +1,1245 @@
+<definitions>
+<!-- // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+<!-- // || 			Wolfpack Scripts (spells.scp)     		  || -->
+<!-- // ||			Maintained by Ripper and Skyfire		  || -->
+<!-- // ||			Last Update - N/A - 		                  || -->
+<!-- // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+<!-- // ENABLE: 0 - No, 1 - Yes           MANTRA: Words of Power -->
+<!-- // CIRCLE: Spell Circle              ACTION: Animation -->
+<!-- // MANA: Mana Cost                   DELAY:  Delay for casting (tenths of a second) -->
+<!-- // LOSKILL: Minimum skill to cast    SCLO:   Min. Scroll Skill to cast -->
+<!-- // HISKILL: 100% Success over this   SCHI:   100% Success over this -->
+<!-- // TARG: message for targ. spells    REFLECT: 1=reflectable, 2=not refl. -->
+<!-- // Clumsy -->
+	<spell id="1">
+		<circle>1</circle>
+		<lowskill>11</lowskill>
+		<highskill>401</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>201</scrollhighskill>
+		<mantra>Uus Jux</mantra>
+		<action>10</action>
+		<target>Select target for clumsy.</target>
+		<reflect />
+		<requirements>
+			<mana>4</mana>
+			<moss>1</moss>
+			<shade>1</shade>
+		</requirements>
+		<agressive />
+	</spell>
+
+<!-- // Create Food -->
+	<spell id="2">
+		<circle>1</circle>
+		<lowskill>11</lowskill>
+		<highskill>401</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>201</scrollhighskill>
+		<mantra>In Mani Yelm</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>4</mana>
+			<drake>1</drake>
+			<garlic>1</garlic>
+			<ginseng>1</ginseng>
+		</requirements>
+	</spell>
+
+<!-- // Feeblemind -->
+	<spell id="3">
+		<circle>1</circle>
+		<lowskill>11</lowskill>
+		<highskill>401</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>201</scrollhighskill>
+		<mantra>Rel Wis</mantra>
+		<action>10</action>
+		<target>Select target for feeblemind.</target>
+		<reflect />
+		<requirements>
+			<mana>4</mana>
+			<ginseng>1</ginseng>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Heal -->
+	<spell id="4">
+		<circle>1</circle>
+		<lowskill>11</lowskill>
+		<highskill>401</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>201</scrollhighskill>
+		<mantra>In Mani</mantra>
+		<action>10</action>
+		<target>Select person to heal.</target>
+		<requirements>
+			<mana>4</mana>
+			<garlic>1</garlic>
+			<ginseng>1</ginseng>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Magic Arrow -->
+	<spell id="5">
+		<circle>1</circle>
+		<lowskill>11</lowskill>
+		<highskill>401</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>201</scrollhighskill>
+		<mantra>In Por Ylem</mantra>
+		<action>10</action>
+		<target>Select target for magic arrow.</target>
+		<reflect />
+		<requirements>
+			<mana>4</mana>
+			<pearl>1</pearl>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Night Sight -->
+	<spell id="6">
+		<circle>1</circle>
+		<lowskill>11</lowskill>
+		<highskill>401</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>201</scrollhighskill>
+		<mantra>In Lor</mantra>
+		<action>10</action>
+		<target>Select target for night sight.</target>
+		<requirements>
+			<mana>4</mana>
+			<ash>1</ash>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Reactive Armour -->
+	<spell id="7">
+		<circle>1</circle>
+		<lowskill>11</lowskill>
+		<highskill>401</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>201</scrollhighskill>
+		<mantra>Flam Sanct</mantra>
+		<action>10</action>
+		<target>Select target for reactive armour.</target>
+		<requirements>
+			<mana>4</mana>
+			<ash>1</ash>
+			<garlic>1</garlic>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Weaken -->
+	<spell id="8">
+		<circle>1</circle>
+		<lowskill>11</lowskill>
+		<highskill>401</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>201</scrollhighskill>
+		<mantra>Des Mani</mantra>
+		<action>10</action>
+		<target>Select target for weaken.</target>
+		<reflect />
+		<requirements>
+			<mana>4</mana>
+			<garlic>1</garlic>
+			<shade>1</shade>
+		</requirements>
+	</spell>
+
+<!-- // Agility -->
+	<spell id="9">
+		<circle>2</circle>
+		<lowskill>61</lowskill>
+		<highskill>501</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>301</scrollhighskill>
+		<mantra>Ex Uus</mantra>
+		<action>10</action>
+		<target>Select target for agility.</target>
+		<requirements>
+			<mana>6</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+		</requirements>
+	</spell>
+
+<!-- // Cunning -->
+	<spell id="10">
+		<circle>2</circle>
+		<lowskill>61</lowskill>
+		<highskill>501</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>301</scrollhighskill>
+		<mantra>Uus Wis</mantra>
+		<action>10</action>
+		<target>Select target for cunning.</target>
+		<reflect />
+		<requirements>
+			<mana>6</mana>
+			<drake>1</drake>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Cure -->
+	<spell id="11">
+		<circle>2</circle>
+		<lowskill>61</lowskill>
+		<highskill>501</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>301</scrollhighskill>
+		<mantra>An Nox</mantra>
+		<action>10</action>
+		<target>Select target to cure.</target>
+		<requirements>
+			<mana>6</mana>
+			<garlic>1</garlic>
+			<ginseng>1</ginseng>
+		</requirements>
+	</spell>
+
+<!-- // Harm -->
+	<spell id="12">
+		<circle>2</circle>
+		<lowskill>61</lowskill>
+		<highskill>501</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>301</scrollhighskill>
+		<mantra>An Mani</mantra>
+		<action>10</action>
+		<target>Select target for harm.</target>
+		<reflect />
+		<requirements>
+			<mana>6</mana>
+			<shade>1</shade>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Magic Trap -->
+	<spell id="13">
+		<circle>2</circle>
+		<lowskill>61</lowskill>
+		<highskill>501</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>301</scrollhighskill>
+		<mantra>In Jux</mantra>
+		<action>10</action>
+		<target>Select item to set magic trap.</target>
+		<requirements>
+			<mana>6</mana>
+			<ash>1</ash>
+			<garlic>1</garlic>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Magic Untrap -->
+	<spell id="14">
+		<circle>2</circle>
+		<lowskill>61</lowskill>
+		<highskill>501</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>301</scrollhighskill>
+		<mantra>An Jux</mantra>
+		<action>10</action>
+		<target>Select item to untrap.</target>
+		<requirements>
+			<mana>6</mana>
+			<ash>1</ash>
+			<moss>1</moss>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Protection -->
+	<spell id="15">
+		<circle>2</circle>
+		<lowskill>61</lowskill>
+		<highskill>501</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>301</scrollhighskill>
+		<mantra>Uus Sanct</mantra>
+		<action>10</action>
+		<target>Select person for protection.</target>
+		<requirements>
+			<mana>6</mana>
+			<ash>1</ash>
+			<garlic>1</garlic>
+			<ginseng>1</ginseng>
+		</requirements>
+	</spell>
+
+<!-- // Strength -->
+	<spell id="16">
+		<circle>2</circle>
+		<lowskill>61</lowskill>
+		<highskill>501</highskill>
+		<scrolllowskill>0</scrolllowskill>
+		<scrollhighskill>301</scrollhighskill>
+		<mantra>Uus Mani</mantra>
+		<action>10</action>
+		<target>Select target for strength.</target>
+		<requirements>
+			<mana>6</mana>
+			<drake>1</drake>
+			<shade>1</shade>
+		</requirements>
+	</spell>
+
+<!-- // Bless -->
+	<spell id="17">
+		<circle>3</circle>
+		<lowskill>161</lowskill>
+		<highskill>601</highskill>
+		<scrolllowskill>11</scrolllowskill>
+		<scrollhighskill>401</scrollhighskill>
+		<mantra>Rel Sanct</mantra>
+		<action>10</action>
+		<target>Select target for bless.</target>
+		<requirements>
+			<mana>9</mana>
+			<drake>1</drake>
+			<garlic>1</garlic>
+		</requirements>
+	</spell>
+
+<!-- // Fireball -->
+	<spell id="18">
+		<circle>3</circle>
+		<lowskill>161</lowskill>
+		<highskill>601</highskill>
+		<scrolllowskill>11</scrolllowskill>
+		<scrollhighskill>401</scrollhighskill>
+		<mantra>Vas Flam</mantra>
+		<action>10</action>
+		<target>Select target for fireball.</target>
+		<reflect />
+		<requirements>
+			<mana>9</mana>
+			<ash>1</ash>
+			<pearl>1</pearl>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Magic Lock -->
+	<spell id="19">
+		<circle>3</circle>
+		<lowskill>161</lowskill>
+		<highskill>601</highskill>
+		<scrolllowskill>11</scrolllowskill>
+		<scrollhighskill>401</scrollhighskill>
+		<mantra>An Por</mantra>
+		<action>10</action>
+		<target>Select item to lock.</target>
+		<requirements>
+			<mana>9</mana>
+			<ash>1</ash>
+			<garlic>1</garlic>
+			<moss>1</moss>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Poison -->
+	<spell id="20">
+		<circle>3</circle>
+		<lowskill>161</lowskill>
+		<highskill>601</highskill>
+		<scrolllowskill>11</scrolllowskill>
+		<scrollhighskill>401</scrollhighskill>
+		<mantra>In Nox</mantra>
+		<action>10</action>
+		<target>Select target to Poison.</target>
+		<reflect />
+		<requirements>
+			<mana>9</mana>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Telekinesis -->
+	<spell id="21">
+		<disabled />
+		<circle>3</circle>
+		<lowskill>161</lowskill>
+		<highskill>601</highskill>
+		<scrolllowskill>11</scrolllowskill>
+		<scrollhighskill>401</scrollhighskill>
+		<mantra>Ort Por Ylem</mantra>
+		<action>10</action>
+		<target>This spell isn't available! (yet)</target>
+		<requirements>
+			<mana>9</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Teleport -->
+	<spell id="22">
+		<circle>3</circle>
+		<lowskill>161</lowskill>
+		<highskill>601</highskill>
+		<scrolllowskill>11</scrolllowskill>
+		<scrollhighskill>401</scrollhighskill>
+		<mantra>Rel Por</mantra>
+		<action>10</action>
+		<target>Select target for teleport.</target>
+		<requirements>
+			<mana>9</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+		</requirements>
+	</spell>
+
+<!-- // Unlock -->
+	<spell id="23">
+		<circle>3</circle>
+		<lowskill>161</lowskill>
+		<highskill>601</highskill>
+		<scrolllowskill>11</scrolllowskill>
+		<scrollhighskill>401</scrollhighskill>
+		<mantra>Ex Por</mantra>
+		<action>10</action>
+		<target>What do you want to unlock?</target>
+		<requirements>
+			<mana>9</mana>
+			<ash>1</ash>
+			<moss>1</moss>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Wall of Stone -->
+	<spell id="24">
+		<circle>3</circle>
+		<lowskill>161</lowskill>
+		<highskill>601</highskill>
+		<scrolllowskill>11</scrolllowskill>
+		<scrollhighskill>401</scrollhighskill>
+		<mantra>In Sanct Ylem</mantra>
+		<action>10</action>
+		<target>Select location for wall of stone.</target>
+		<requirements>
+			<mana>9</mana>
+			<garlic>1</garlic>
+			<moss>1</moss>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Arch Cure -->
+	<spell id="25">
+		<circle>4</circle>
+		<lowskill>261</lowskill>
+		<highskill>701</highskill>
+		<scrolllowskill>61</scrolllowskill>
+		<scrollhighskill>501</scrollhighskill>
+		<mantra>Vas An Nox</mantra>
+		<action>10</action>
+		<target>Select location for Arch Cure.</target>
+		<requirements>
+			<mana>11</mana>
+			<drake>1</drake>
+			<garlic>1</garlic>
+			<ginseng>1</ginseng>
+		</requirements>
+	</spell>
+
+<!-- // Arch Protection -->
+	<spell id="26">
+		<circle>4</circle>
+		<lowskill>261</lowskill>
+		<highskill>701</highskill>
+		<scrolllowskill>61</scrolllowskill>
+		<scrollhighskill>501</scrollhighskill>
+		<mantra>Vas Uus Sanct</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>11</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<garlic>1</garlic>
+			<ginseng>1</ginseng>
+		</requirements>
+	</spell>
+
+<!-- // Curse -->
+	<spell id="27">
+		<circle>4</circle>
+		<lowskill>261</lowskill>
+		<highskill>701</highskill>
+		<scrolllowskill>61</scrolllowskill>
+		<scrollhighskill>501</scrollhighskill>
+		<mantra>Des Sanct</mantra>
+		<action>10</action>
+		<target>Select target for curse.</target>
+		<reflect />
+		<requirements>
+			<mana>11</mana>
+			<ash>1</ash>
+			<garlic>1</garlic>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Fire Field -->
+	<spell id="28">
+		<circle>4</circle>
+		<lowskill>261</lowskill>
+		<highskill>701</highskill>
+		<scrolllowskill>61</scrolllowskill>
+		<scrollhighskill>501</scrollhighskill>
+		<mantra>In Flam Grav</mantra>
+		<action>10</action>
+		<target>Select location for fire field.</target>
+		<requirements>
+			<mana>11</mana>
+			<ash>1</ash>
+			<pearl>1</pearl>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Greater Heal -->
+	<spell id="29">
+		<circle>4</circle>
+		<lowskill>261</lowskill>
+		<highskill>701</highskill>
+		<scrolllowskill>61</scrolllowskill>
+		<scrollhighskill>501</scrollhighskill>
+		<mantra>In Vas Mani</mantra>
+		<action>10</action>
+		<target>Select person to heal.</target>
+		<requirements>
+			<mana>11</mana>
+			<drake>1</drake>
+			<garlic>1</garlic>
+			<ginseng>1</ginseng>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Lightning -->
+	<spell id="30">
+		<circle>4</circle>
+		<lowskill>261</lowskill>
+		<highskill>701</highskill>
+		<scrolllowskill>61</scrolllowskill>
+		<scrollhighskill>501</scrollhighskill>
+		<mantra>Por Ort Grav</mantra>
+		<action>10</action>
+		<target>Select target for lightning.</target>
+		<reflect />
+		<requirements>
+			<mana>11</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<pearl>1</pearl>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Mana Drain -->
+	<spell id="31">
+		<circle>4</circle>
+		<lowskill>261</lowskill>
+		<highskill>701</highskill>
+		<scrolllowskill>61</scrolllowskill>
+		<scrollhighskill>501</scrollhighskill>
+		<mantra>Ort Rel</mantra>
+		<action>10</action>
+		<target>Select target for Mana Drain.</target>
+		<reflect />
+		<requirements>
+			<mana>11</mana>
+			<drake>1</drake>
+			<pearl>1</pearl>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Recall -->
+	<spell id="32">
+		<circle>4</circle>
+		<lowskill>261</lowskill>
+		<highskill>701</highskill>
+		<scrolllowskill>61</scrolllowskill>
+		<scrollhighskill>501</scrollhighskill>
+		<mantra>Kal Ort Por</mantra>
+		<action>10</action>
+		<target>Select rune from which to recall.</target>
+		<requirements>
+			<mana>11</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+			<pearl>1</pearl>
+		</requirements>
+	</spell>
+
+<!-- // Blade Spirits -->
+	<spell id="33">
+		<circle>5</circle>
+		<lowskill>361</lowskill>
+		<highskill>801</highskill>
+		<scrolllowskill>161</scrolllowskill>
+		<scrollhighskill>601</scrollhighskill>
+		<mantra>In Jux Hur Ylem</mantra>
+		<action>10</action>
+		<target>Select location for blade spirits.</target>
+		<requirements>
+			<mana>14</mana>
+			<drake>1</drake>
+			<pearl>1</pearl>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Dispel Field -->
+	<spell id="34">
+		<circle>5</circle>
+		<lowskill>361</lowskill>
+		<highskill>801</highskill>
+		<scrolllowskill>161</scrolllowskill>
+		<scrollhighskill>601</scrollhighskill>
+		<mantra>An Grav</mantra>
+		<action>10</action>
+		<target>Select field to dispel.</target>
+		<requirements>
+			<mana>14</mana>
+			<ash>1</ash>
+			<garlic>1</garlic>
+			<pearl>1</pearl>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Incognito -->
+	<spell id="35">
+		<circle>5</circle>
+		<lowskill>361</lowskill>
+		<highskill>801</highskill>
+		<scrolllowskill>161</scrolllowskill>
+		<scrollhighskill>601</scrollhighskill>
+		<mantra>Kal In Ex</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>14</mana>
+			<garlic>1</garlic>
+			<moss>1</moss>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Magic Reflection -->
+	<spell id="36">
+		<circle>5</circle>
+		<lowskill>361</lowskill>
+		<highskill>801</highskill>
+		<scrolllowskill>161</scrolllowskill>
+		<scrollhighskill>601</scrollhighskill>
+		<mantra>In Jux Sanct</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>14</mana>
+			<drake>1</drake>
+			<garlic>1</garlic>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Mind Blast -->
+	<spell id="37">
+		<circle>5</circle>
+		<lowskill>361</lowskill>
+		<highskill>801</highskill>
+		<scrolllowskill>161</scrolllowskill>
+		<scrollhighskill>601</scrollhighskill>
+		<mantra>Por Corp Wis</mantra>
+		<action>10</action>
+		<target>Select target for mind blast.</target>
+		<reflect />
+		<requirements>
+			<mana>14</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<pearl>1</pearl>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Paralyze -->
+	<spell id="38">
+		<circle>5</circle>
+		<lowskill>361</lowskill>
+		<highskill>801</highskill>
+		<scrolllowskill>161</scrolllowskill>
+		<scrollhighskill>601</scrollhighskill>
+		<mantra>An Ex Por</mantra>
+		<action>10</action>
+		<target>Select target for paralyze.</target>
+		<reflect />
+		<requirements>
+			<mana>14</mana>
+			<drake>1</drake>
+			<garlic>1</garlic>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Poison Field -->
+	<spell id="39">
+		<circle>5</circle>
+		<lowskill>361</lowskill>
+		<highskill>801</highskill>
+		<scrolllowskill>161</scrolllowskill>
+		<scrollhighskill>601</scrollhighskill>
+		<mantra>In Nox Grav</mantra>
+		<action>10</action>
+		<target>Select location for poison field.</target>
+		<requirements>
+			<mana>14</mana>
+			<pearl>1</pearl>
+			<shade>1</shade>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Summon Creature -->
+	<spell id="40">
+		<circle>5</circle>
+		<lowskill>361</lowskill>
+		<highskill>801</highskill>
+		<scrolllowskill>161</scrolllowskill>
+		<scrollhighskill>601</scrollhighskill>
+		<mantra>Kal Xen</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>14</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Dispel -->
+	<spell id="41">
+		<circle>6</circle>
+		<lowskill>461</lowskill>
+		<highskill>901</highskill>
+		<scrolllowskill>261</scrolllowskill>
+		<scrollhighskill>701</scrollhighskill>
+		<mantra>An Ort</mantra>
+		<action>10</action>
+		<target>Select target to dispel.</target>
+		<requirements>
+			<mana>20</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<garlic>1</garlic>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Energy Bolt -->
+	<spell id="42">
+		<circle>6</circle>
+		<lowskill>461</lowskill>
+		<highskill>901</highskill>
+		<scrolllowskill>261</scrolllowskill>
+		<scrollhighskill>701</scrollhighskill>
+		<mantra>Corp Por</mantra>
+		<action>10</action>
+		<target>Select target for energy bolt.</target>
+		<reflect />
+		<requirements>
+			<mana>20</mana>
+			<pearl>1</pearl>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Explosion -->
+	<spell id="43">
+		<circle>6</circle>
+		<lowskill>461</lowskill>
+		<highskill>901</highskill>
+		<scrolllowskill>261</scrolllowskill>
+		<scrollhighskill>701</scrollhighskill>
+		<mantra>Vas Ort Flam</mantra>
+		<action>10</action>
+		<target>Select target for explosion.</target>
+		<reflect />
+		<requirements>
+			<mana>20</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<pearl>1</pearl>
+		</requirements>
+		<agressive />
+	</spell>
+
+<!-- // Invisibility -->
+	<spell id="44">
+		<circle>6</circle>
+		<lowskill>461</lowskill>
+		<highskill>901</highskill>
+		<scrolllowskill>261</scrolllowskill>
+		<scrollhighskill>701</scrollhighskill>
+		<mantra>An Lor Xen</mantra>
+		<action>10</action>
+		<target>Select character to make invisible.</target>
+		<requirements>
+			<mana>20</mana>
+			<moss>1</moss>
+			<shade>1</shade>
+		</requirements>
+	</spell>
+
+<!-- // Mark -->
+	<spell id="45">
+		<circle>6</circle>
+		<lowskill>461</lowskill>
+		<highskill>901</highskill>
+		<scrolllowskill>261</scrolllowskill>
+		<scrollhighskill>701</scrollhighskill>
+		<mantra>Kal Por Ylem</mantra>
+		<action>10</action>
+		<target>Select rune to mark.</target>
+		<requirements>
+			<mana>20</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+			<pearl>1</pearl>
+		</requirements>
+	</spell>
+
+<!-- // Mass Curse -->
+	<spell id="46">
+		<circle>6</circle>
+		<lowskill>461</lowskill>
+		<highskill>901</highskill>
+		<scrolllowskill>261</scrolllowskill>
+		<scrollhighskill>701</scrollhighskill>
+		<mantra>Vas Des Sanct</mantra>
+		<action>10</action>
+		<target>Select location for Mass Curse.</target>
+		<requirements>
+			<mana>20</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<garlic>1</garlic>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Paralyze Field -->
+	<spell id="47">
+		<circle>6</circle>
+		<lowskill>461</lowskill>
+		<highskill>901</highskill>
+		<scrolllowskill>261</scrolllowskill>
+		<scrollhighskill>701</scrollhighskill>
+		<mantra>In Ex Grav</mantra>
+		<action>10</action>
+		<target>Select location for paralyze field.</target>
+		<requirements>
+			<mana>20</mana>
+			<ginseng>1</ginseng>
+			<pearl>1</pearl>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Reveal -->
+	<spell id="48">
+		<circle>6</circle>
+		<lowskill>461</lowskill>
+		<highskill>901</highskill>
+		<scrolllowskill>261</scrolllowskill>
+		<scrollhighskill>701</scrollhighskill>
+		<mantra>Wis Quas</mantra>
+		<action>10</action>
+		<target>Select area to reveal.</target>
+		<requirements>
+			<mana>20</mana>
+			<ash>1</ash>
+			<moss>1</moss>
+		</requirements>
+	</spell>
+
+<!-- // Chain Lightning -->
+	<spell id="49">
+		<circle>7</circle>
+		<lowskill>661</lowskill>
+		<highskill>1101</highskill>
+		<scrolllowskill>461</scrolllowskill>
+		<scrollhighskill>901</scrollhighskill>
+		<mantra>Vas Ort Grav</mantra>
+		<action>10</action>
+		<target>Select location for Chain Lightning.</target>
+		<requirements>
+			<mana>40</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<moss>1</moss>
+			<pearl>1</pearl>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Energy Field -->
+	<spell id="50">
+		<circle>7</circle>
+		<lowskill>661</lowskill>
+		<highskill>1101</highskill>
+		<scrolllowskill>461</scrolllowskill>
+		<scrollhighskill>901</scrollhighskill>
+		<mantra>In Sanct Grav</mantra>
+		<action>10</action>
+		<target>Select location for energy field.</target>
+		<requirements>
+			<mana>40</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<pearl>1</pearl>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Flamestrike -->
+	<spell id="51">
+		<circle>7</circle>
+		<lowskill>661</lowskill>
+		<highskill>1101</highskill>
+		<scrolllowskill>461</scrolllowskill>
+		<scrollhighskill>901</scrollhighskill>
+		<mantra>Kal Vas Vlam</mantra>
+		<action>10</action>
+		<target>Select player to flamestrike.</target>
+		<reflect />
+		<requirements>
+			<mana>40</mana>
+			<ash>1</ash>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Gate Travel -->
+	<spell id="52">
+		<circle>7</circle>
+		<lowskill>661</lowskill>
+		<highskill>1101</highskill>
+		<scrolllowskill>461</scrolllowskill>
+		<scrollhighskill>901</scrollhighskill>
+		<mantra>Vas Rel Por</mantra>
+		<action>10</action>
+		<target>Select rune from which to gate.</target>
+		<requirements>
+			<mana>40</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<pearl>1</pearl>
+		</requirements>
+	</spell>
+
+<!-- // Mana Vampire -->
+	<spell id="53">
+		<circle>7</circle>
+		<lowskill>661</lowskill>
+		<highskill>1101</highskill>
+		<scrolllowskill>461</scrolllowskill>
+		<scrollhighskill>901</scrollhighskill>
+		<mantra>Ort Sanct</mantra>
+		<action>10</action>
+		<target>Select target for Mana Vampire.</target>
+		<reflect />
+		<requirements>
+			<mana>40</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+			<pearl>1</pearl>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Mass Dispel -->
+	<spell id="54">
+		<circle>7</circle>
+		<lowskill>661</lowskill>
+		<highskill>1101</highskill>
+		<scrolllowskill>461</scrolllowskill>
+		<scrollhighskill>901</scrollhighskill>
+		<mantra>Vas An Ort</mantra>
+		<action>10</action>
+		<target>Select location for Mass Dispel.</target>
+		<requirements>
+			<mana>40</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<garlic>1</garlic>
+			<pearl>1</pearl>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Meteor Swarm -->
+	<spell id="55">
+		<circle>7</circle>
+		<lowskill>661</lowskill>
+		<highskill>1101</highskill>
+		<scrolllowskill>461</scrolllowskill>
+		<scrollhighskill>901</scrollhighskill>
+		<mantra>Flam Kal Des Ylem</mantra>
+		<action>10</action>
+		<target>Select location for Meteor Swarm.</target>
+		<reflect />
+		<requirements>
+			<mana>40</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<moss>1</moss>
+			<silk>1</silk>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Polymorph -->
+	<spell id="56">
+		<circle>7</circle>
+		<lowskill>661</lowskill>
+		<highskill>1101</highskill>
+		<scrolllowskill>461</scrolllowskill>
+		<scrollhighskill>901</scrollhighskill>
+		<mantra>Vas Ylem Rel</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>40</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Earthquake -->
+	<spell id="57">
+		<circle>8</circle>
+		<lowskill>761</lowskill>
+		<highskill>1201</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>In Vas Por</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>50</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<ginseng>1</ginseng>
+			<moss>1</moss>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Energy Vortex -->
+	<spell id="58">
+		<circle>8</circle>
+		<lowskill>761</lowskill>
+		<highskill>1201</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>Vas Corp Por</mantra>
+		<action>10</action>
+		<target>Select location for energy vortex.</target>
+		<requirements>
+			<mana>50</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+			<pearl>1</pearl>
+			<shade>1</shade>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Resurrection -->
+	<spell id="59">
+		<circle>8</circle>
+		<lowskill>761</lowskill>
+		<highskill>1201</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>An Corp</mantra>
+		<action>10</action>
+		<target>Select ghost to resurrect.</target>
+		<requirements>
+			<mana>50</mana>
+			<garlic>1</garlic>
+			<ginseng>1</ginseng>
+			<moss>1</moss>
+		</requirements>
+	</spell>
+
+<!-- // Summon Air Elemental -->
+	<spell id="60">
+		<circle>8</circle>
+		<lowskill>761</lowskill>
+		<highskill>1201</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>Kal Vas Xen Hur</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>50</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Summon Daemon -->
+	<spell id="61">
+		<circle>8</circle>
+		<lowskill>761</lowskill>
+		<highskill>1201</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>Kal Vas Xen Corp</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>50</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<moss>1</moss>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Summon Earth Elemental -->
+	<spell id="62">
+		<circle>8</circle>
+		<lowskill>761</lowskill>
+		<highskill>1201</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>Kal Vas Xen Ylem</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>50</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Summon Fire Elemental -->
+	<spell id="63">
+		<circle>8</circle>
+		<lowskill>761</lowskill>
+		<highskill>1201</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>Kal Vas Xen Flam</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>50</mana>
+			<ash>1</ash>
+			<drake>1</drake>
+			<moss>1</moss>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Summon Water Elemental -->
+	<spell id="64">
+		<circle>8</circle>
+		<lowskill>761</lowskill>
+		<highskill>1201</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>Kal Vas Xen An Flam</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>50</mana>
+			<drake>1</drake>
+			<moss>1</moss>
+			<silk>1</silk>
+		</requirements>
+	</spell>
+
+<!-- // Summon Hero (Dupre The Hero) -->
+	<spell id="65">
+		<circle>8</circle>
+		<lowskill>1</lowskill>
+		<highskill>1</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>Uus Jux</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>4</mana>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Cannon Firing (why this is in SPELLs, I have NO idea) -->
+	<spell id="66">
+		<circle>8</circle>
+		<lowskill>1</lowskill>
+		<highskill>1</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>Uus Jux</mantra>
+		<action>10</action>
+		<target>Aye Aye Sir cannon is loaded, please select your target.</target>
+		<requirements>
+			<mana>4</mana>
+		</requirements>
+		<agressive />		
+	</spell>
+
+<!-- // Summon Demon Beast -->
+	<spell id="67">
+		<circle>8</circle>
+		<lowskill>1</lowskill>
+		<highskill>1</highskill>
+		<scrolllowskill>561</scrolllowskill>
+		<scrollhighskill>1001</scrollhighskill>
+		<mantra>Kal Vas Xen Corp</mantra>
+		<action>10</action>
+		<requirements>
+			<mana>4</mana>
+		</requirements>
+		<agressive />		
+	</spell>
+
+</definitions>

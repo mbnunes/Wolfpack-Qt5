@@ -1,0 +1,38 @@
+<definitions>
+	<menu id="1" name="Blacksmithing">
+		<submenu model="1416" id="2" name="Armor" />
+	</menu>
+	
+	<menu id="2" name="Armor">
+		<submenu model="1416" id="3" name="Platemails" />
+	</menu>
+	
+	<menu id="3" name="Platemails">
+		<submenu model="1416" id="4" name="Iron Platemail" />
+	</menu>
+	
+	<menu id="4" name="Iron Platemail">
+		<actions model="1416" name="Breastpiece">
+			<!-- 1BEF & 1BF2 is neccesary because there are two different ingot types -->
+			<useitem id="1BEF,1BF2" color="0" amount="10" fail="You lack 10 iron ingots to make this item!" />
+			<checkskill id="7" min="350" max="750" />
+			<makeitem id="44" />
+		</actions>
+
+		<actions model="1413" name="Gorget">
+		
+		</actions>
+		
+		<actions model="1414" name="Gloves">
+		
+		</actions>
+		
+		<actions model="1411" name="Legs">
+		
+		</actions>		
+		
+		<actions model="1410" name="Arms">
+		
+		</actions>
+	</menu>
+</definitions>
