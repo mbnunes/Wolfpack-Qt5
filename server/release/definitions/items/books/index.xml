@@ -12,5 +12,5 @@
 <definitions>
 	<include file="definitions/items/books/base.xml"/>
 	<include file="definitions/items/books/stories.xml"/>
+	<include file="definitions/items/books/special.xml"/>
 </definitions>
-

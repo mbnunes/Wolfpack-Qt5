@@ -49,7 +49,6 @@
 	<script>lightsource</script>
 	<script>lock</script>
 	<script>lockpick</script>
-	<script>masonry_book</script>
 	<script>moongate</script>
 	<script>ore</script>
 	<script>pickaxe</script>
@@ -68,8 +67,13 @@
 	<script>trashcan</script>
 	<script>wall_clock</script>
 	<script>wool</script>
-	<script>xmlconfig</script>
+<!--	<script>xmlconfig</script> -->
 	<script>yarn</script>
+
+	<!-- Special Books -->
+	<script>books.masonry</script>
+	<script>books.stonemining</script>
+	<script>books.sandmining</script>
 
 	<!-- Potions -->
 	<script>potions</script>

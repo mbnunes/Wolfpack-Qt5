@@ -116,5 +116,11 @@
 		<scripts>contextmenus.stablermenu</scripts>
 		<option tag="200" msgid="6126"/> <!-- Stable -->
 		<option tag="201" msgid="6127"/> <!-- Claim All -->
+	</contextmenu>
+
+	<contextmenu id="pickaxe_menu">
+		<scripts>pickaxe</scripts>
+		<option tag="300" msgid="6176" checkvisible="true" checkenabled="true"/> <!-- set to ore -->
+		<option tag="301" msgid="6177" checkvisible="true" checkenabled="true"/> <!-- set to ore and stone -->
 	</contextmenu>	
 </definitions>

@@ -549,6 +549,7 @@
 		<tag name="remaining_uses" type="int" value="35" />
 		<decay/>
 		<basescripts>equipment,pickaxe</basescripts>
+		<bindmenu>pickaxe_menu</bindmenu>
 		<category>Professions\Miner\Tools\Shovel (E/W)</category>
 		<buyprice>12</buyprice>
 		<weight>5.0</weight>
