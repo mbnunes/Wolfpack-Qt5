@@ -6,6 +6,9 @@
 #  ( (  ;._ \\ ctr # Last Modification: check cvs logs          #
 #################################################################
 
+# BIG FAT TODO:	write clean functions instead of that blown up
+#		include/library search routines.
+
 ##### normalize_path [path]
 # strips off unneeded slashes
 normalize_path ()
@@ -352,10 +355,32 @@ else
 fi;
 
 check_version "python-lib" "${PYTHON_LIB}";
+PYTHON_LIB="-L$PYTHON_LIB -lpython2.3";
 # </python>
 
+# <stlport>
+echo -n "Checking if we need to add stlport... ";
+
+CC="";
+CC="$(which g++)";
+[ ! "$CC" ] && CC="$(which c++)";
+
+CC_VERSION="$(eval "$CC -dumpversion")";
+
+if [ "$(echo "$CC_VERSION"|cut -d. -f1)" -ge "3" ];
+then
+	echo -n "no";
+else
+	echo -n "yes";
+	[ -x "/usr/include/stlport" ] && STLPORT_INC="/usr/include/stlport" || STLPORT_INC="/usr/local/include/stlport";
+	STLPORT_LIB="-lstlport";
+fi;
+
+echo ".";
+# </stlport>
+
 PASSED_VARIABLES="";
-for i in MYSQL_INC MYSQL_LIB PYTHON_INC PYTHON_LIB DEFINES QMAKE_CXXFLAGS QMAKE_LFLAGS CONFIG;
+for i in MYSQL_INC MYSQL_LIB PYTHON_INC PYTHON_LIB STLPORT_INC STLPORT_LIB DEFINES QMAKE_CXXFLAGS QMAKE_LFLAGS CONFIG;
 do
 	PASSED_VARIABLES="$PASSED_VARIABLES $i+='$(eval "echo \$$i")'";
 done;
