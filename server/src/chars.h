@@ -411,7 +411,7 @@ public:
 
 
 // Inline Member functions
-inline bool  cChar::isPlayer() const		{return (this->npc);}
+inline bool  cChar::isPlayer() const		{return (!this->npc);}
 inline bool  cChar::isNpc()	const			{return (this->npc);}
 inline bool  cChar::isHuman() const			{return (this->id() == 0x190 || this->id() == 0x191);} 
 inline bool  cChar::isTrueGM() const		{return (priv&0x01);} 
