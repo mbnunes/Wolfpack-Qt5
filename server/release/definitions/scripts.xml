@@ -52,18 +52,18 @@
 	<script>recall_rune</script>
 	<script>runebook</script>
 	<script>scroll</script>
-	<script>wolfpack.magic</script>
+	<script>spells</script>
 	<script>wolfpack.magic.reactivearmor</script>
 	<script>wolfpack.magic.trap</script>
-	<script>wolfpack.magic.firefield</script>
-	<script>wolfpack.magic.circle1</script>
-	<script>wolfpack.magic.circle2</script>
-	<script>wolfpack.magic.circle3</script>
-	<script>wolfpack.magic.circle4</script>
-	<script>wolfpack.magic.circle5</script>
-	<script>wolfpack.magic.circle6</script>
-	<script>wolfpack.magic.circle7</script>
-	<script>wolfpack.magic.circle8</script>
+	<script>spells.circle4.firefield</script>
+	<script>spells.circle1</script>
+	<script>spells.circle2</script>
+	<script>spells.circle3</script>
+	<script>spells.circle4</script>
+	<script>spells.circle5</script>
+	<script>spells.circle6</script>
+	<script>spells.circle7</script>
+	<script>spells.circle8</script>
 
 	<!-- Multis -->
 	<script>multideed</script>
