@@ -61,6 +61,7 @@ extern "C" {
 char *strlwr(char *);
 char *strupr(char *);
 };
+#include <sys/types.h>
 extern time_t  oldtime, newtime;
 void Writeslot(char *lpszMessage);
 #define SLPMULTI 1000
