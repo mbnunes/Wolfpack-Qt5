@@ -1350,9 +1350,6 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 	main=(buffer[s][5]<<8)+buffer[s][6];
 	sub=(buffer[s][7]<<8)+buffer[s][8];
 	
-    //clConsole.send("main:%i sub:%i \n",main,sub);
-	// if ((main!=0) && (sub==0)) clConsole.send("add menu (gm menu) closed- including its submenus\n");
-
 	if ( main >= 8000 && main <= 8100 )
 	{
 		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pc_currchar->guildstone));

@@ -383,10 +383,10 @@ bool MapCache_cl::processVerdata()
 	fVerdata.open(sVerdata.c_str(),ios::in |ios::binary);
 	if (fVerdata.is_open())
 	{
-		bReturn = true ;
-		UI32  uiHeader ;
+		bReturn = true;
+		UI32  uiHeader;
 
-		fVerdata.read((char*)(&uiHeader),4) ;
+		fVerdata.read((char*)(&uiHeader),4);
 
 		#include "start_pack.h"
 		struct temp_st

@@ -183,7 +183,7 @@ RegionIterator4Chars::RegionIterator4Chars(const Coord_cl& pos)
 bool RegionIterator4Chars::NextCell(void)
 {
 	++currentCell;	//adjacent cell
-	if (currentCell%cRegion::GetColSize() > cell%cRegion::GetColSize()+1)
+	if (currentCell%cRegion::GetColSize() > cell%cRegion::GetColSize()+2)
 		currentCell += cRegion::GetColSize()-3;	//next col
 	if (atEnd())
 		return false;	// upper right corner of the box reached

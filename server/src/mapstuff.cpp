@@ -80,7 +80,8 @@ mapfile(NULL), sidxfile(NULL), statfile(NULL), verfile(NULL), tilefile(NULL), mu
 	MapCache = new QIntCache<map_st>( 100, 521); // should be a prime number
 	// http://www.utm.edu/research/primes/lists/small/1000.txt contains a prime table.
 
-	memset(tilecache, 0x00, sizeof(tilecache));
+	TileCache = new QIntCache<tile_st>( 100, 512 );
+//	memset(tilecache, 0x00, sizeof(tilecache));
 	memset(StaticCache, 0x00, sizeof(StaticCache));
 	
 }
@@ -97,6 +98,7 @@ cMapStuff::~cMapStuff()
 	delete multifile;
 	delete midxfile;
 	delete MapCache;
+	delete TileCache;
 }
 
 void cMapStuff::Load()
@@ -172,9 +174,7 @@ void cMapStuff::Load()
 	CacheVersion();
 	if( Cache )
     {
-		if( !Cache )
-			Cache = true; // Make sure this is only 1 or 0
-		CacheTiles(); // has to be exactly here, or loadnewlorld cant access correct tiles ... LB
+//		CacheTiles(); // has to be exactly here, or loadnewlorld cant access correct tiles ... LB
 		CacheStatics();
     }
 	
@@ -675,132 +675,46 @@ void cMapStuff::SeekTile(int tilenum, tile_st *tile)
 	
 	if ( Cache )
 	{
-		// fill it up straight from the cache
-		memcpy(tile, tilecache + tilenum, sizeof(tile_st));
+
+		tile_st* temp = TileCache->find(tilenum);
+		if ( tile_st )
+		{
+			*tile = *temp;
+			return; // found, just return
+		}
 #ifdef DEBUG_MAP_STUFF
 		clConsole.send("SeekTile - cache hit!\n");
 #endif
 	}
-	else
+
+	if (VerTile(tilenum, tile))
 	{
-		if (VerTile(tilenum, tile))
-		{
 #ifdef DEBUG_MAP_STUFF
 			clConsole.send("Loaded tile %d from verdata.mul\n", tilenum);
 #endif
-		}
-		else
-		{
-			// TILEDATA_TILE is the amount to skip past all of the land_st's
-			// plus skip 4 bytes per block for the long separating them
-			const SI32 block=(tilenum/32);
-			const SI32 pos=TILEDATA_TILES+((block + 1) * 4) + (TileRecordSize*tilenum); // correct
-			tilefile->seek(pos, SEEK_SET);
-			tilefile->get_tile_st(tile);
-		}
-		
-#ifdef DEBUG_MAP_STUFF
-		clConsole.send("Tile #%d is '%s' ", tilenum, tile->name);
-		clConsole.send("flag1: "); bitprint(stdout, tile->flag1);
-		clConsole.send("flag2: "); bitprint(stdout, tile->flag2);
-		clConsole.send("flag3: "); bitprint(stdout, tile->flag3);
-		clConsole.send("flag4: "); bitprint(stdout, tile->flag4);
-		clConsole.send("\n");
-#endif
 	}
-}
-
-void cMapStuff::CacheTiles()
-{
-	// temp disable caching so we can fill the cache
-	Cache = false;
-	clConsole.send("Caching tiledata"); fflush(stdout);
-	TileMem = 0x4000 * sizeof( tile_st );
-	memset(tilecache, 0, TileMem);
-	
-	const int tenPercent = 0x4000 / 9;
-	for (UI32 i = 0; i < 0x4000; ++i)
-    {
-		SeekTile(i, tilecache + i);
-		
-		if (i % tenPercent == 0)
-		{
-			clConsole.send("...%d0%%", 1 + (i / tenPercent)); fflush(stdout);
-		}
-    }
-	clConsole.send(" Done.\n");
-	Cache = true;
-	
-#ifdef DEBUG_TILE_BITS
-	for (int bit = 0x01; bit <= 0x0080; bit = bit << 1)
+	else
 	{
-		char buf[30];
-		sprintf(buf, "static1-%d.txt", bit);
-		FILE *fp = fopen(buf, "w");
-		for (int i = 0; i < 0x4000; ++i)
-		{
-			tile_st *tile = tilecache + i;
-			if ((tile->flag1 & bit) == bit)
-			{
-				fprintf(fp, "%04x tile '%-20.20s'\t", i, tile->name);
-				fprintf(fp, "flag1: "); bitprint(fp, tile->flag1);
-				fprintf(fp, " flag2: "); bitprint(fp, tile->flag2);
-				fprintf(fp, " flag3: "); bitprint(fp, tile->flag3);
-				fprintf(fp, " flag4: "); bitprint(fp, tile->flag4);
-				fprintf(fp, "\n");
-			}
-		}
-		fclose(fp);
-		sprintf(buf, "static2-%d.txt", bit);
-		fp = fopen(buf, "w");
-		int i;
-		for (i = 0; i < 0x4000; ++i)
-		{
-			tile_st *tile = tilecache + i;
-			if ((tile->flag2 & bit) == bit)
-			{
-				fprintf(fp, "%04x tile '%-20.20s'\t", i, tile->name);
-				fprintf(fp, " flag1: "); bitprint(fp, tile->flag1);
-				fprintf(fp, " flag2: "); bitprint(fp, tile->flag2);
-				fprintf(fp, " flag3: "); bitprint(fp, tile->flag3);
-				fprintf(fp, " flag4: "); bitprint(fp, tile->flag4);
-				fprintf(fp, "\n");
-			}
-		}
-		fclose(fp);
-		sprintf(buf, "static3-%d.txt", bit);
-		fp = fopen(buf, "w");
-		for (i = 0; i < 0x4000; ++i)
-		{
-			tile_st *tile = tilecache + i;
-			if ((tile->flag3 & bit) == bit)
-			{
-				fprintf(fp, "%04x tile '%-20.20s'\t", i, tile->name);
-				fprintf(fp, " flag1: "); bitprint(fp, tile->flag1);
-				fprintf(fp, " flag2: "); bitprint(fp, tile->flag2);
-				fprintf(fp, " flag3: "); bitprint(fp, tile->flag3);
-				fprintf(fp, " flag4: "); bitprint(fp, tile->flag4);
-				fprintf(fp, "\n");
-			}
-		}
-		fclose(fp);
-		sprintf(buf, "static4-%d.txt", bit);
-		fp = fopen(buf, "w");
-		for (i = 0; i < 0x4000; ++i)
-		{
-			tile_st *tile = tilecache + i;
-			if ((tile->flag4 & bit) == bit)
-			{
-				fprintf(fp, "%04x tile '%-20.20s'\t", i, tile->name);
-				fprintf(fp, " flag1: "); bitprint(fp, tile->flag1);
-				fprintf(fp, " flag2: "); bitprint(fp, tile->flag2);
-				fprintf(fp, " flag3: "); bitprint(fp, tile->flag3);
-				fprintf(fp, " flag4: "); bitprint(fp, tile->flag4);
-				fprintf(fp, "\n");
-			}
-		}
-		fclose(fp);
+		// TILEDATA_TILE is the amount to skip past all of the land_st's
+		// plus skip 4 bytes per block for the long separating them
+		const SI32 block=(tilenum/32);
+		const SI32 pos=TILEDATA_TILES+((block + 1) * 4) + (TileRecordSize*tilenum); // correct
+		tilefile->seek(pos, SEEK_SET);
+		tilefile->get_tile_st(tile);
 	}
+	
+	if ( Cache )
+	{
+		TileCache->insert( tilenum, new tile_st(*tile) );
+	}
+
+#ifdef DEBUG_MAP_STUFF
+	clConsole.send("Tile #%d is '%s' ", tilenum, tile->name);
+	clConsole.send("flag1: "); bitprint(stdout, tile->flag1);
+	clConsole.send("flag2: "); bitprint(stdout, tile->flag2);
+	clConsole.send("flag3: "); bitprint(stdout, tile->flag3);
+	clConsole.send("flag4: "); bitprint(stdout, tile->flag4);
+	clConsole.send("\n");
 #endif
 }
 
@@ -877,11 +791,11 @@ MapStaticIterator::MapStaticIterator(const Coord_cl& position, bool exact) :
 baseX(position.x / 8), baseY(position.y / 8), remainX(position.x % 8), remainY(position.y % 8), length(0), index(0),
 pos(0), exactCoords(exact), tileid(0)
 {
-	assert(baseX < MapTileWidth);
-	assert(baseY < MapTileHeight);
+	assert(baseX < cMapStuff::mapTileWidth(position));
+	assert(baseY < cMapStuff::mapTileHeight(position));
 
-	if (baseX >= MapTileWidth)  return;
-	if (baseY >= MapTileHeight) return;
+	if (baseX >= cMapStuff::mapTileWidth(position))  return;
+	if (baseY >= cMapStuff::mapTileHeight(position)) return;
 
 	if ( Map->Cache )
 	{
@@ -1185,7 +1099,7 @@ bool cMapStuff::IsRoofOrFloorTile( tile_st *tile )
 	if (!strcmp((char *) tile->name,"wooden boards"))
 		return true;
 	// i'll stick these back in. even if these were bogus tile names it can't hurt
-	if (!strcmp((char *) tile->name,"wooden board") ||
+	if (!strcmp((char *) tile->name, "wooden board") ||
 		!strcmp( (char *) tile->name, "stone pavern") ||
 		!strcmp( (char *) tile->name, "stone pavers"))
 		return true;

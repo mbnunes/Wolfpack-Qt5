@@ -56,24 +56,25 @@ private:
     UOXFile *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
 
 	// tile caching items
-	tile_st tilecache[0x4000];
+//	tile_st tilecache[0x4000];
 
 	// static caching items
 	unsigned long StaticBlocks;
 	struct StaCache_st
 	{
-		staticrecord *Cache;
+		staticrecord* Cache;
 		unsigned short CacheLen;   // i've seen this goto to at least 273 - fur 10/29/1999
 	};
 
 	QIntCache<map_st>* MapCache;
+	QIntCache<tile_st>* TileCache;
+//	QIntCache<StaCache_st>* StaticCache;
 
 	// version caching items
 	versionrecord *versionCache;
 	UI32 versionRecordCount;
 
 	// caching functions
-	void CacheTiles( void );
 	void CacheStatics( void );
 
 public:
@@ -144,6 +145,7 @@ class MapStaticIterator
 private:
 	staticrecord staticArray;
 	SI32 baseX, baseY, pos;
+	Coord_cl position;
 	unsigned char remainX, remainY;
 	UI32 index, length, tileid;
 	bool exactCoords;
@@ -152,8 +154,8 @@ public:
 	MapStaticIterator(const Coord_cl& pos, bool exact = true);
 	~MapStaticIterator() { };
 
-	staticrecord *First();
-	staticrecord *Next();
+	staticrecord* First();
+	staticrecord* Next();
 	void GetTile(tile_st *tile) const;
 	UI32 GetPos() const { return pos; }
 	UI32 GetLength() const { return length; }
