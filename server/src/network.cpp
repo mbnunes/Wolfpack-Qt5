@@ -1482,8 +1482,9 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					}
 					break; // Lord Binary !!!!
 
-				case 0x9B:// GM Page		
-					ShowMenu(s, 4096);
+				case 0x9B:// GM Page
+                    if( !pc_currchar->onHelp() )
+					    ShowMenu(s, 4096);
 					break;
 
 				case 0x7D:// Choice			
@@ -1491,7 +1492,8 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0xB5:
-					sysmessage( s, "Sorry, but the Chat is not yet supported" );
+                    if( !pc_currchar->onChat() )
+					    sysmessage( s, "Sorry, but the Chat is not yet supported" );
 					break;
 
 				case 0x95:// Color Select			
