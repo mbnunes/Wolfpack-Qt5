@@ -1570,9 +1570,9 @@ void itemmenu(int s, int m) // Menus for item creation
 {
 	int total, i,y,ss,yy;
 	int lentext;
-	char sect[2042];
-	static char gmtext[2042][2044]; // crashfix LB, was 30 !!!, increased to 255
-	int gmid[2042]; // crashifx LB
+	char sect[512];
+	static char gmtext[255][257]; // crashfix LB, was 30 !!!, increased to 255
+	int gmid[255]; // crashifx LB
 	int gmnumber=0;
 	int gmindex,loopexit=0;
 	
