@@ -35,6 +35,7 @@
 #include "tilecache.h"
 #include "mapobjects.h"
 #include "multiscache.h"
+#include "exceptions.h"
 
 // Library Includes
 #include <qstring.h>
@@ -51,17 +52,16 @@
 class MapsPrivate
 {
 public:
-	// About map?.mul
-	QFile mapfile;
 	uint width;
 	uint height;
 	QIntCache<map_st> mapCache;
 	QIntCache<QValueVector<staticrecord> > staticsCache;
 
+	QFile mapfile;
 	QFile idxfile;
 	QFile staticsfile;
 	
-	MapsPrivate(QString index, QString map, QString statics);
+	MapsPrivate( const QString& index, const QString& map, const QString& statics) throw(wpFileNotFoundException);
 	map_st seekMap( ushort x, ushort y );
 };
 
@@ -69,19 +69,19 @@ public:
   MapsPrivate member functions
  *****************************************************************************/
 
-MapsPrivate::MapsPrivate( QString index, QString map, QString statics )
+MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QString& statics ) throw(wpFileNotFoundException)
 {
 	idxfile.setName( index );
 	if ( !idxfile.open( IO_ReadOnly ) )
-		qFatal( QString("Couldn't open file %1").arg( index ) );
+		throw wpFileNotFoundException( QString("Couldn't open file %1").arg( index ) );
 
 	mapfile.setName( map );
 	if ( !mapfile.open( IO_ReadOnly ) )
-		qFatal( QString("Couldn't open file %1").arg( map ) );
+		throw wpFileNotFoundException( QString("Couldn't open file %1").arg( map ) );
 	
 	staticsfile.setName( statics );
 	if ( !staticsfile.open( IO_ReadOnly ) )
-		qFatal( QString("Couldn't open file %1").arg( statics ) );
+		throw wpFileNotFoundException( QString("Couldn't open file %1").arg( statics ) );
 }
 
 map_st MapsPrivate::seekMap( ushort x, ushort y )
@@ -126,11 +126,18 @@ map_st MapsPrivate::seekMap( ushort x, ushort y )
   \sa cTileCache
 */
 
-
+/*!
+	Constructs a Maps class, and uses \a path as it's base
+	path to search for the map files registered thru registerMap()
+	\sa registerMap
+*/
 Maps::Maps( const QString& path ) : basePath( path )
 {
 }
 
+/*!
+	Destroy the Maps instance and frees allocated memory
+*/
 Maps::~Maps()
 {
 	for ( iterator it = d.begin(); it != d.end(); ++it )
@@ -142,13 +149,23 @@ Maps::~Maps()
 */
 bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
 {
-	MapsPrivate* p = new MapsPrivate( basePath + staticsidx, basePath + mapfile, basePath + staticsfile );
-	p->height = mapheight;
-	p->width  = mapwidth;
-	d.insert( id, p );
-	return true;
+	try {
+		MapsPrivate* p = new MapsPrivate( basePath + staticsidx, basePath + mapfile, basePath + staticsfile );
+		p->height = mapheight;
+		p->width  = mapwidth;
+		d.insert( id, p );
+		return true;
+	} catch ( wpFileNotFoundException& e ) {
+		qWarning( e.error() );
+		return false;
+	}
 }
 
+/*!
+	Seeks for a map record (map_st) in the given map \a id, at the given \a x, \a y 
+	coordinates.
+	\sa map_st
+*/
 map_st Maps::seekMap( uint id, ushort x, ushort y ) const
 {
 	const_iterator it = d.find( id );
@@ -157,11 +174,21 @@ map_st Maps::seekMap( uint id, ushort x, ushort y ) const
 	return it.data()->seekMap( x, y );
 }
 
+/*!
+	\overload
+	Overloaded method, like the above, but takes coordinates and map id out of
+	a Coord_cl instance.
+	\sa Coord_cl
+	\sa map_st
+*/
 map_st Maps::seekMap( const Coord_cl& p ) const
 {
 	return seekMap( p.map, p.x, p.y );
 }
 
+/*!
+	Returns the elevation (z) of map tile located at \a p.
+*/
 signed char Maps::mapElevation( const Coord_cl& p ) const
 {
 	map_st map = seekMap( p );
@@ -300,15 +327,15 @@ signed char Maps::height(const Coord_cl& pos)
 }
 
 
-StaticsIterator Maps::staticsIterator(uint id, ushort x, ushort y, bool exact /* = true */ )
+StaticsIterator Maps::staticsIterator(uint id, ushort x, ushort y, bool exact /* = true */ ) throw (wpException)
 {
 	iterator it = d.find( id );
 	if ( it == d.end() )
-		throw std::bad_exception();
+		throw wpException(QString("[Maps::staticsIterator line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
 	return StaticsIterator( x, y, it.data(), exact );
 }
 
-StaticsIterator Maps::staticsIterator( const Coord_cl& p, bool exact /* = true */ )
+StaticsIterator Maps::staticsIterator( const Coord_cl& p, bool exact /* = true */ ) throw (wpException)
 {
 	return staticsIterator( p.map, p.x, p.y, exact );
 }
@@ -317,6 +344,25 @@ StaticsIterator Maps::staticsIterator( const Coord_cl& p, bool exact /* = true *
   StaticsIterator member functions
  *****************************************************************************/
 
+/*!
+	\class StaticsIterator maps.h
+
+	\brief The StaticIterator class allows iterating thru the statics file's
+	data ( statics?.mul )
+
+	This class is independent of the running machine endianess.
+
+	\ingroup UO File Handlers
+	\ingroup mainclass
+	\sa cTileCache
+	\sa Maps
+*/
+
+/*!
+	\internal
+	Constructs a StaticsIterator class.
+	\sa registerMap
+*/
 StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact /* = true */ )
 {
 	baseX = x / 8;
@@ -326,6 +372,11 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 	load(d, x, y, exact);
 }
 
+/*!
+	\internal
+	Loads the data from cache or from file if it's not avaliable in cache.
+	This method is independent of the running machine's endianess.
+*/
 void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exact )
 {
 	const uint indexPos = (baseX * mapRecord->height + baseY ) * 12;

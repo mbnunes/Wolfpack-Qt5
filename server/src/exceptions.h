@@ -37,20 +37,28 @@
 // System Includes
 #include <exception>
 #include <string>
-#include "qstring.h"
+
+// Library Includes
+#include <qstring.h>
 
 class wpException : public std::exception
 {
 private:
 	QString mError;
 public:
-	wpException( QString sError ) throw() : mError( sError ) {};
+	wpException( const QString& sError ) throw() : mError( sError ) {};
 	~wpException() throw() {};
 
 	const QString &error() const throw()
 	{
 		return mError;
 	}
+};
+
+class wpFileNotFoundException : public wpException
+{
+public:
+	wpFileNotFoundException( const QString& sError ) throw() : wpException(sError) {};
 };
 
 namespace wp_exceptions

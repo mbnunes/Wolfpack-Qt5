@@ -42,6 +42,7 @@
 // Forward definitions
 class MapsPrivate;
 class Coord_cl;
+class wpException;
 
 // Structures
 struct map_st
@@ -120,8 +121,8 @@ public:
 	uint mapTileWidth( uint ) const;
 	uint mapTileHeight( uint ) const;
 	signed char staticTop(const Coord_cl& pos);
-	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true );
-	StaticsIterator staticsIterator( const Coord_cl&, bool exact = true );
+	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true ) throw( wpException );
+	StaticsIterator staticsIterator( const Coord_cl&, bool exact = true ) throw( wpException );
 };
 
 // Inline member functions
