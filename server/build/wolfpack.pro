@@ -215,6 +215,7 @@ SOURCES		+= python/char.cpp \
 		   python/item.cpp \
 	  	   python/multi.cpp \
 		   python/pyaccount.cpp \
+		   python/pyai.cpp \
 		   python/pycoord.cpp \
 		   python/pypacket.cpp \
 		   python/pyregion.cpp \

@@ -45,7 +45,7 @@ class cAccount;
 class cTerritory;
 class cUOTxTooltipList;
 class cMulti;
-class cNPC_AI;
+class AbstractAI;
 
 typedef cItem* P_ITEM;
 typedef cMulti* P_MULTI;
@@ -106,8 +106,8 @@ PyObject* PyGetMultiObject( P_MULTI );
 P_MULTI getWpMulti( PyObject* );
 
 bool checkWpAI( PyObject *object );
-PyObject* PyGetAIObject( cNPC_AI* );
-cNPC_AI* getWpAI( PyObject* );
+PyObject* PyGetAIObject( AbstractAI* );
+AbstractAI* getWpAI( PyObject* );
 
 // Argument checks
 #define checkArgObject( id ) ( PyTuple_Size( args ) > id && ( checkWpItem( PyTuple_GetItem( args, id ) ) || checkWpChar( PyTuple_GetItem( args, id ) ) ) )

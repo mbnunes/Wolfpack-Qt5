@@ -817,6 +817,10 @@ SOURCE=.\python\pyaccount.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\pyai.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\python\pycoord.cpp
 # End Source File
 # Begin Source File

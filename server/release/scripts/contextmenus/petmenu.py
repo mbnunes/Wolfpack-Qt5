@@ -7,22 +7,26 @@
 
 
 def onContextEntry( char, target, tag  ):
+    ai = target.aiengine()
+    if not ai:
+        char.socket.sysmessage("Outch, a brainless pet!")
+        
     if ( tag == 1 ): # Command: Kill
-        char.socket.sysmessage("Sorry, not implemented yet")
+        ai.onSpeechInput( char, "kill" )
     elif ( tag == 2 ): # Command: Follow
-        char.socket.sysmessage("Sorry, not implemented yet")
+        ai.onSpeechInput( char, "follow" )
     elif ( tag == 3 ): # Command: Guard
-        char.socket.sysmessage("Sorry, not implemented yet")
+        ai.onSpeechInput( char, "guard" )
     elif ( tag == 4 ): # Command: Stop
-        char.socket.sysmessage("Sorry, not implemented yet")
+        ai.onSpeechInput( char, "stop" )
     elif ( tag == 5 ): # Command: Stay
-        char.socket.sysmessage("Sorry, not implemented yet")
+        ai.onSpeechInput( char, "stay" )
     elif ( tag == 6 ): # Add Friend
-        char.socket.sysmessage("Sorry, not implemented yet")
+        ai.onSpeechInput( char, "add friend" )
     elif ( tag == 7 ): # Transfer
-        char.socket.sysmessage("Sorry, not implemented yet")
+        ai.onSpeechInput( char, "transfer" )
     elif ( tag == 8 ): # Release
-        char.socket.sysmessage("Sorry, not implemented yet")
+        ai.onSpeechInput( char, "release" )
 
     return 1
 

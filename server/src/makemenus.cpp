@@ -1726,6 +1726,68 @@ UINT16 cAllMakeMenus::getModel( const cElement *Tag )
 	return model;
 }
 
+void cAllMakeMenus::parseLocationNode( cMakeMenu* pGoMenu, const cElement* defSection )
+{
+	if( !defSection )
+		return;
+
+	QString category    = defSection->getAttribute("category");
+	QString description = defSection->getAttribute("category");
+	
+	Console::instance()->send( category + "\n" );
+
+	if( !category.isEmpty() )
+	{
+		cMakeMenu* currentBaseMenu = pGoMenu;
+		
+		QStringList categorization = QStringList::split( "\\", category );
+		QStringList::const_iterator cit = categorization.begin();
+		while( cit != categorization.end() )
+		{
+			QString current = (*cit);
+			++cit;
+			if( cit != categorization.end() )
+			{
+				bool menuExists = false;
+				cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
+				cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
+				for ( ; sit != submenus.end(); ++sit )
+				{
+					if( (*sit)->name() == current )
+					{
+						menuExists = true;
+						currentBaseMenu = (*sit);
+						break;
+					}
+				}
+				
+				if( !menuExists )
+				{
+					// generate submenu, set current basemenu and continue
+					cMakeMenu* pNewMenu = new cMakeMenu( current, currentBaseMenu );
+					currentBaseMenu->addSubMenu( pNewMenu );
+					currentBaseMenu = pNewMenu;
+				}
+			}
+			else // last item means name
+			{
+				// generate cMakeAction object for the item definition...
+				cMakeAction* pItem = new cMakeAction( current, 0, description, cMakeAction::CODE_ACTION, currentBaseMenu );
+				if( pItem )
+				{
+					currentBaseMenu->addAction( pItem );
+					cDoCodeAction* pMakeSection = new cDoCodeAction( "go", pItem );
+					if( pMakeSection )
+					{
+						pItem->appendSection( pMakeSection );
+						pMakeSection->setParams( defSection->text() );
+					}
+				}
+			}
+		}
+	}
+}
+
 void cAllMakeMenus::load()
 {
 	QStringList sections = DefManager->getSections( WPDT_MENU );
@@ -1753,63 +1815,14 @@ void cAllMakeMenus::load()
 		for (; it != sections.end(); ++it )
 		{
 			const cElement *defSection = DefManager->getDefinition( WPDT_LOCATION, (*it) );
-			
-			if( defSection )
-			{
-				QString category    = defSection->getAttribute("category");
-				QString description = defSection->getAttribute("category");
-				
-				if( !category.isEmpty() )
-				{
-					cMakeMenu* currentBaseMenu = pGoMenu;
-					
-					QStringList categorization = QStringList::split( "\\", category );
-					QStringList::const_iterator cit = categorization.begin();
-					while( cit != categorization.end() )
-					{
-						QString current = (*cit);
-						++cit;
-						if( cit != categorization.end() )
-						{
-							bool menuExists = false;
-							cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
-							cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
-							for ( ; sit != submenus.end(); ++sit )
-							{
-								if( (*sit)->name() == current )
-								{
-									menuExists = true;
-									currentBaseMenu = (*sit);
-									break;
-								}
-							}
-							
-							if( !menuExists )
-							{
-								// generate submenu, set current basemenu and continue
-								cMakeMenu* pNewMenu = new cMakeMenu( current, currentBaseMenu );
-								currentBaseMenu->addSubMenu( pNewMenu );
-								currentBaseMenu = pNewMenu;
-							}
-						}
-						else // last item means name
-						{
-							// generate cMakeAction object for the item definition...
-							cMakeAction* pItem = new cMakeAction( current, 0, description, cMakeAction::CODE_ACTION, currentBaseMenu );
-							if( pItem )
-							{
-								currentBaseMenu->addAction( pItem );
-								cDoCodeAction* pMakeSection = new cDoCodeAction( "go", pItem );
-								if( pMakeSection )
-								{
-									pItem->appendSection( pMakeSection );
-									pMakeSection->setParams( defSection->text() );
-								}
-							}
-						}
-					}
-				}
-			}
+			parseLocationNode( pGoMenu, defSection );
+		}
+
+		QValueVector< cElement* > unnamedLocations = DefManager->getDefinitions( WPDT_LOCATION );
+		QValueVector< cElement* >::const_iterator it2(unnamedLocations.begin());
+		for ( ; it2 != unnamedLocations.end(); ++it2 )
+		{
+			parseLocationNode( pGoMenu, *it2 );
 		}
 	}
 

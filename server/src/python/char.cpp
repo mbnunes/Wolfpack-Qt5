@@ -1719,6 +1719,18 @@ static PyObject* wpChar_vendorsell( wpChar *self, PyObject* args )
 	return PyTrue;
 }
 
+static PyObject* wpChar_aiengine( wpChar* self, PyObject* args )
+{
+	Q_UNUSED( args );
+	P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
+	if ( npc )
+	{
+		return PyGetAIObject( npc->ai() );
+	}
+	Py_INCREF( Py_None );
+	return Py_None;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
@@ -1761,7 +1773,8 @@ static PyMethodDef wpCharMethods[] =
 	{ "follow",			(getattrofunc)wpChar_follow,			METH_VARARGS, "The character should follow someone else." },
 	{ "vendorbuy",		(getattrofunc)wpChar_vendorbuy,			METH_VARARGS, 0 },
 	{ "vendorsell",		(getattrofunc)wpChar_vendorsell,		METH_VARARGS, 0 },
-	
+	{ "aiengine",		(getattrofunc)wpChar_aiengine,			METH_VARARGS, 0	},
+
 	{ "addtimer",		(getattrofunc)wpChar_addtimer,			METH_VARARGS, "Adds a timer to this character." },
 	{ "dispel",			(getattrofunc)wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
 
