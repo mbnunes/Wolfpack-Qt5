@@ -42,7 +42,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
-		<category>Monsters\AoS\Wanderer of the Void</category>
+		<category>Monsters\Shadows\Wanderer of the Void</category>
 	</npc>
 
 </definitions>

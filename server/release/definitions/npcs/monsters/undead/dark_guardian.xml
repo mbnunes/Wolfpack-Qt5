@@ -11,7 +11,7 @@
 	<!--  -->
 	<npc id="dark_guardian" inherit="monster_base">
 		<name>dark guardian</name>
-		<id></id>
+		<id>79</id>
 		<karma></karma>
 		<fame></fame>
 		<!-- Stats -->
@@ -42,7 +42,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
-		<category>Monsters\AoS\</category>
+		<category>Monsters\Undead\Dark Guardian</category>
 	</npc>
 
 </definitions>

@@ -42,7 +42,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
-		<category>Monsters\AoS\Gore Fiend</category>
+		<category>Monsters\Shadows\Gore Fiend</category>
 	</npc>
 
 </definitions>

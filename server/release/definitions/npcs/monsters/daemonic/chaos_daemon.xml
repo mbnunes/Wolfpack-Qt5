@@ -42,7 +42,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
-		<category>Monsters\LBR\Chaos Daemon</category>
+		<category>Monsters\Daemonic\Chaos Daemon</category>
 	</npc>
 
 </definitions>

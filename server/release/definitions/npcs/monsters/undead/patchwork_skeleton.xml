@@ -42,7 +42,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
-		<category>Monsters\AoS\Patchwork Skeleton</category>
+		<category>Monsters\Undead\Patchwork Skeleton</category>
 	</npc>
 
 </definitions>

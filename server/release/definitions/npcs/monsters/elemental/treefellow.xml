@@ -42,7 +42,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
-		<category>Monsters\AoS\Treefellow</category>
+		<category>Monsters\Elementals\Treefellow</category>
 	</npc>
 
 </definitions>
