@@ -73,12 +73,15 @@ def hitlightning(attacker, defender):
 	energydamage(defender, attacker, scaledamage(attacker, 6, 9, 0.02), 0, 0, 0, 0, 100, 0, DAMAGE_MAGICAL)
 
 def hitdispel(attacker, defender):
+	if not defender.npc or not defender.summoned:
+		return
+	
 	dispelChance = 50.0 + (100 * ((attacker.magery / 10.0 - attacker.getintproperty('dispeldifficulty', 0)) / (attacker.getintproperty('dispelfocus', 1) * 2))) / 100.0
 	
 	if dispelChance > random.randint(0, 99):
 		defender.pos.effect(0x3728, 8, 20)
 		defender.soundeffect(0x201)
-		defender.delete()		
+		defender.delete()
 	else:
 		defender.effect(0x3779, 10, 20)
 		if attacker.socket:
