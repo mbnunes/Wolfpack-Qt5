@@ -11,7 +11,7 @@
 	<include file="definitions/lists/names/birds.xml"/>
 	<include file="definitions/lists/names/centaur.xml"/>
 	<include file="definitions/lists/names/daemons.xml"/>
-	<include file="definitions/lists/names/evil_mages.xml"/>
+	<include file="definitions/lists/names/evil_mages_male.xml"/>
 	<include file="definitions/lists/names/gargoyles.xml"/>
 	<include file="definitions/lists/names/human_females.xml"/>
 	<include file="definitions/lists/names/human_males.xml"/>
