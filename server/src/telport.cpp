@@ -44,7 +44,7 @@
 
 #undef  DBGFILE
 #define DBGFILE "teleport.cpp"
-
+/*
 void teleporters(P_CHAR pc_s)
 {
 
@@ -135,7 +135,7 @@ int validtelepos(int s)
 		z=15;
 	return z;
 }
-
+*/
 #pragma note("whole telport.cpp should be done with python, commented out")
 /*
 void advancementobjects(P_CHAR pc_s, int x, int allways)

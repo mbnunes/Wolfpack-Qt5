@@ -389,7 +389,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 {
 	cUOSocket *socket = pChar->socket();
 
-	teleporters( pChar );
+//	teleporters( pChar );
 
 	RegionIterator4Items iter( pChar->pos );
 	for( iter.Begin(); !iter.atEnd(); iter++ )

@@ -69,8 +69,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial);
 void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
 
 //void walking(int s, int dir, int sequence);
-void teleporters(P_CHAR pc_s);
-void read_in_teleport(void);
+//void teleporters(P_CHAR pc_s);
+//void read_in_teleport(void);
 //void walking2(CHARACTER s);
 void all_items(int s);
 void savelog(const char *msg, char *logfile);

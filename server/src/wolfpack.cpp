@@ -1883,7 +1883,7 @@ int main( int argc, char *argv[] )
 
 	clConsole.send("\nLoading vital scripts:\n");
 	
-	read_in_teleport();
+//	read_in_teleport();
 	CIAO_IF_ERROR;
 
 	serverstarttime = getNormalizedTime();
