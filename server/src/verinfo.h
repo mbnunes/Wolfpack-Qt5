@@ -167,7 +167,7 @@ struct wp_version_info
              compiledbystring = "punt" ;  // person that compiled linux version
              codersstring = "Duke, Ripper, Correa, punt, Lord Binary" ;
            #else
-             compiledbystring = "Skyfire" ; // person that cpompiled windows version
+             compiledbystring = "Ripper" ; // person that cpompiled windows version
              codersstring = "Skyfire, Ripper, Correa, punt" ;
            #endif
 
@@ -193,7 +193,7 @@ struct wp_version_info
        wpversion_32bit from_32bitver( unsigned long int indata)
 	   {
 	       wpversion_32bit wpv32;
-	       wpv32.major_version  = static_cast<UI08> ( (indata & 0x0000007f) );
+	       wpv32.major_version  = static_cast<UI08> ( (indata & 0x0000007f) >> 0);
 	       wpv32.sub_version    = static_cast<UI08> ( (indata & 0x00001fc0) >> 7);
 	       wpv32.subsub_version = static_cast<UI08> ( (indata & 0x000fe000) >> 13);
 	       wpv32.flags          = static_cast<UI08> ( (indata & 0x0ff00000) >> 20);
