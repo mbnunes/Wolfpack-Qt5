@@ -39,6 +39,7 @@
 
 #include <iostream>
 
+#include "packlen.h"
 
 using namespace std ;
 
@@ -112,7 +113,7 @@ private:
 	int  Pack(void *pvIn, void *pvOut, int len);
 	void Login2(int s);
 	void Relay(int s);
-	void GoodAuth(int s);   
+	void GoodAuth(int s);
 	void charplay (int s);
 	void CharList(int s);
 	int  Receive(int s, int x, int a);
