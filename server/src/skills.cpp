@@ -1930,7 +1930,7 @@ int cSkills::TrackingDirection(int s,int i)
 static int CheckThreeSkills(int s, int low, int high)
 {
 	int part=0;
-	currentSpellType[currchar[s]]=0;		// needed for MAGERY check
+	currentSpellType[s]=0;		// needed for MAGERY check
 	part += Skills->CheckSkill(currchar[s], INSCRIPTION,low, high);
 	part += Skills->CheckSkill(currchar[s], MAGERY,		low, high);
 	part += Skills->CheckSkill(currchar[s], TINKERING,	low, high);

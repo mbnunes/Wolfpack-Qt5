@@ -1738,7 +1738,6 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 //	P_ITEM pi = MAKE_ITEMREF_LR(cc)
 	int curSpell = pc_currchar->spell;
-	int type = currentSpellType[s];
 	short xo,yo;
 	signed char zo;
 	bool b;
@@ -1757,18 +1756,17 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	bool char_selected, item_selected, terrain_selected;
 
 	if (pc_currchar->dead==1) return;
-	if (type==0)
+	if (currentSpellType[s]==0)
 	{
 		loskill=spells[curSpell].loskill;
 		hiskill=spells[curSpell].hiskill;
-	}
-
-	if (type==0 && !(pc_currchar->isGM()) && !Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MAGERY, loskill, hiskill))
-	{
-		SpellFail(s);
-		pc_currchar->spell = 0;
-		pc_currchar->casting = 0;
-		return;
+	    if (!(pc_currchar->isGM()) && !Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MAGERY, loskill, hiskill))
+		{
+		   SpellFail(s);
+		   pc_currchar->spell = 0;
+		   pc_currchar->casting = 0;
+		   return;
+		}
 	}
 	if (currentSpellType[s]!=2) SubtractMana(pc_currchar, spells[curSpell].mana);
 

@@ -226,7 +226,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 			if ((pc_deffender->effDex()>0)) pc_deffender->priv2&=0xFD;	// unfreeze
 
 			if (fightskill!=WRESTLING && los)
-				Combat->ItemSpell(DEREF_P_CHAR(pc_attacker), DEREF_P_CHAR(pc_deffender));
+				Combat->ItemSpell(pc_attacker, pc_deffender);
 			
 			if (fightskill!=WRESTLING || pc_attacker->isNpc())
 				basedamage=Combat->CalcAtt(DEREF_P_CHAR(pc_attacker)); // Calc base damage
@@ -1243,12 +1243,14 @@ void cCombat::SpawnGuard(CHARACTER s, CHARACTER i, int x, int y, signed char z)
 	}
 }
 
-void cCombat::ItemSpell(int attaker, int defender)
+void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 {
-	currentSpellType[attaker]=2;
+	if (Attacker->npc)			// npcs can't use casting weapons right now (Duke)
+		return;
+	currentSpellType[calcSocketFromChar(Attacker)]=2;
 	int ci=0,loopexit=0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(chars[attaker].serial);
+	vector<SERIAL> vecContainer = contsp.getData(Attacker->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
@@ -1256,6 +1258,8 @@ void cCombat::ItemSpell(int attaker, int defender)
 		{
 			if (pi->offspell && (pi->att||pi->hidamage) && pi->type == 15)
 			{
+				int attaker = DEREF_P_CHAR(Attacker);
+				int defender = DEREF_P_CHAR(Defender);
 				switch(pi->offspell)
 				{
 				case 1:	Magic->ClumsySpell(attaker,defender, false);		break;

@@ -95,7 +95,7 @@ class cCombat
 private:
 	void ItemCastSpell(UOXSOCKET s, CHARACTER c, P_ITEM pi);
 	int TimerOk(int c);
-	void ItemSpell(int attacker, int defender);
+	void ItemSpell(cChar* Attacker, cChar* Defender);
 	void doSoundEffect(CHARACTER p, int fightskill, P_ITEM pWeapon);//AntiChrist
 	void doMissedSoundEffect(CHARACTER p);//AntiChrist
 	void DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los);

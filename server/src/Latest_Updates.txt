@@ -59,3 +59,6 @@ screen away to open bank. helps to open from outsidebank. (Ripper)
 49) Added: items that are too heavy can't be picked up anymore (Lonewolf)(VERY VERY VERY BUGGY! Skyfire, working on a new fix for it with Lord Binary)
 50) Fixed: the result of calculating the distance was way too high in several places (Lonewolf)
 51) Added: You can now change the house sign name thru the house menu. (Ripper)
+52) fixed: a HUGE bug with spell casting weapons :) This bug could cause almost *every* kind
+	of misbehaviour in LoneWolf. A big hand for Pokey :)  (Lonewolf)
+53) fixed: a *second* instance of type bug #45 in inscription (Lonewolf)
