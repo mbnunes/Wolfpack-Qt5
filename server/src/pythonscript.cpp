@@ -569,6 +569,7 @@ It is triggered for every character that could be attacked by the NPC.
 "onCheckVictim",
 
 /*
+\event onDoDamage
 \param char The character dealing the damage.
 \param type The damage type.
 \param amount The amount of damage.

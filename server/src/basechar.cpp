@@ -2269,6 +2269,22 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		resendTooltip();
 	}
 
+
+	P_CHAR sourceChar = dynamic_cast<P_CHAR>(source);
+
+	if (sourceChar && sourceChar->canHandleEvent(EVENT_DODAMAGE)) {
+		PyObject* args = Py_BuildValue( "NiiN", sourceChar->getPyObject(), type, amount, getPyObject() );
+		PyObject* result = callEvent(EVENT_DODAMAGE, args);
+
+		if (result) {
+			if (PyInt_Check(result))
+				amount = PyInt_AsLong(result);
+			Py_DECREF(result);
+		}
+
+		Py_DECREF(args);
+	}
+
 	//
 	// First of all, call onDamage with the damage-type, amount and source
 	// to modify the damage if needed
@@ -2276,8 +2292,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 	if ( canHandleEvent(EVENT_DAMAGE) )
 	{
 		PyObject* args = 0;
-		if ( dynamic_cast<P_CHAR>( source ) != 0 )
-			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, ( unsigned int ) type, amount, PyGetCharObject, source );
+		if ( sourceChar )
+			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, ( unsigned int ) type, amount, PyGetCharObject, sourceChar );
 		else if ( dynamic_cast<P_ITEM>( source ) )
 			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, ( unsigned int ) type, amount, PyGetItemObject, source );
 		else
@@ -2294,21 +2310,6 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		}
 
 		Py_DECREF( args );
-	}
-
-	if (source && source->isChar() && source->canHandleEvent(EVENT_DODAMAGE)) {
-		P_CHAR sourceChar = static_cast<P_CHAR>(source);
-
-		PyObject* args = Py_BuildValue( "NiiN", sourceChar->getPyObject(), type, amount, getPyObject() );
-		PyObject* result = callEvent(EVENT_DAMAGE, args);
-
-		if (result) {
-			if (PyInt_Check(result))
-				amount = PyInt_AsLong(result);
-			Py_DECREF(result);
-		}
-
-		Py_DECREF(args);
 	}
 
 	// The damage has been resisted or scripts have taken care of the damage otherwise
