@@ -90,6 +90,7 @@
 	<script>commands.dye</script>
 	<script>commands.edit</script>
 	<script>commands.effect</script>
+	<script>commands.email</script>
 	<script>commands.eval</script>
 	<script>commands.events</script>
 	<script>commands.export</script>
