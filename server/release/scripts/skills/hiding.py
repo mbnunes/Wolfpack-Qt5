@@ -24,6 +24,18 @@ def hiding( char, skill ):
 		else:
 			char.socket.deltag( 'skill_delay' )
 
+	# If any opponent is within 10 tiles. Deny hiding.
+	opponents = char.getopponents()
+	
+	for enemy in opponents:
+		# Forget about old fights
+		if enemy.attacktarget != char and char.attacktarget != enemy:
+			continue
+			
+		if enemy.distanceto(char) < 10:
+			char.socket.clilocmessage(501238)
+			return False
+
 	success = char.checkskill( HIDING, 0, 1000 )
 
 	if success:

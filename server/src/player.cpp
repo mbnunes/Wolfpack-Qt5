@@ -475,7 +475,7 @@ void cPlayer::mount( P_NPC pMount )
 		pMountItem->setId( 0x915 );
 		pMountItem->setColor( pMount->skin() );
 
-		switch ( static_cast<unsigned short>( pMount->body() & 0x00FF ) )
+		switch ( pMount->body() )
 		{
 		case 0xC8:
 			pMountItem->setId( 0x3E9F ); break; // Horse

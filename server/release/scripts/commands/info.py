@@ -134,7 +134,7 @@ def charinfo( socket, char ):
 
 	gump = wolfpack.gumps.cGump()
 	gump.setCallback( "commands.info.charinfo_response" )
-	gump.setArgs( [char] )
+	gump.setArgs( [char.serial] )
 
 	gump.startPage(0)
 	gump.addResizeGump( 64, 34, 9260, 464, 462 ) #Background
@@ -391,12 +391,9 @@ def charinfo( socket, char ):
 		#else:
 		#	gump.addInputField( 284, 200, 200, 16, 0x834, 43, '' )
 		# 44
-		gump.addText( 113, 240, "Poisoned:", 0x834 )
+		gump.addText( 113, 240, "Poison:", 0x834 )
 		gump.addResizeGump( 280, 240, 0xBB8, 215, 20 )
-		if char.hastag('poisoned'):
-			gump.addInputField( 284, 200, 200, 16, 0x834, 44, unicode( char.gettag('poisoned') ) )
-		else:
-			gump.addInputField( 284, 200, 200, 16, 0x834, 44, '' )
+		gump.addInputField( 284, 240, 200, 16, 0x834, 44, unicode( char.poison ) )
 		# 45
 		#gump.addText( 113, 260, ":", 0x834 )
 		#gump.addResizeGump( 280, 260, 0xBB8, 215, 20 )
@@ -536,7 +533,7 @@ def charinfo( socket, char ):
 
 def charinfo_response( player, args, choice ):
 	socket = player.socket
-	char = args[0]
+	char = wolfpack.findchar(args[0])
 	if choice.button == 0 or not char or not socket:
 		return True
 
@@ -544,59 +541,124 @@ def charinfo_response( player, args, choice ):
 	#if char.rank >= player.rank and not player == char:
 	#	socket.sysmessage( "You've burnt your fingers!" )
 	#	return True
-
+	
 	textentries = choice.text
 	keys = textentries.keys()
-
+		
 	for key in keys:
 		if key == 1:
-			char.name = textentries[ key ]
+			if char.name != textentries[1]:
+				player.log(LOG_MESSAGE, "Changing name of character 0x%x from '%s' to '%s'.\n" % ( char.serial, char.name, textentries[key] ) )
+				char.name = textentries[ key ]
 		elif key == 2:
-			char.title = textentries[ key ]
+			value = textentries[2]
+			if char.title != value:
+				player.log(LOG_MESSAGE, "Changing title of character 0x%x from '%s' to '%s'.\n" % ( char.serial, char.title, textentries[key] ) )
+				char.title = textentries[ key ]
 		elif key == 3:
-			char.id = int( hex2dec( textentries[ key ] ) )
+			value = int(hex2dec(textentries[key]))
+			if char.id != value:
+				player.log(LOG_MESSAGE, "Changing id of character 0x%x from 0x%x to 0x%x.\n" % ( char.serial, char.id, value ) )
+				char.id = int( hex2dec( textentries[ key ] ) )
 		elif key == 4:
-			char.orgid = int( hex2dec( textentries[ key ] ) )
+			value = int(hex2dec(textentries[key]))
+			if char.orgid != value:
+				player.log(LOG_MESSAGE, "Changing orgid of character 0x%x from 0x%x to 0x%x.\n" % ( char.serial, char.orgid, value ) )
+				char.orgid = int( hex2dec( textentries[ key ] ) )
 		elif key == 5:
-			char.skin = int( hex2dec( textentries[ key ] ) )
+			value = int(hex2dec(textentries[key]))
+			if char.skin != value:
+				player.log(LOG_MESSAGE, "Changing skin of character 0x%x from 0x%x to 0x%x.\n" % ( char.serial,  char.skin, value ) )
+				char.skin = int( hex2dec( textentries[ key ] ) )
 		elif key == 6:
-			char.orgskin = int( hex2dec( textentries[ key ] ) )
+			value = int(hex2dec(textentries[key]))
+			if char.orgskin != value:
+				player.log(LOG_MESSAGE, "Changing orgskin of character 0x%x from 0x%x to 0x%x.\n" % ( char.serial,  char.orgskin, value ) )
+				char.orgskin = int( hex2dec( textentries[ key ] ) )
 		elif key == 7:
-			char.fame = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.fame != value:
+				player.log(LOG_MESSAGE, "Changing fame of character 0x%x from %u to %u.\n" % ( char.serial,  char.fame, value ) )
+				char.fame = int( textentries[ key ] )
 		elif key == 8:
-			char.karma = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.karma != value:
+				player.log(LOG_MESSAGE, "Changing karma of character 0x%x from %u to %u.\n" % ( char.serial,  char.karma, value ) )
+				char.karma = int( textentries[ key ] )
 		elif key == 9:
-			char.kills = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.kills != value:
+				player.log(LOG_MESSAGE, "Changing kills of character 0x%x from %u to %u.\n" % ( char.serial,  char.kills, value ) )
+				char.kills = int( textentries[ key ] )
 		elif key == 10:
-			char.deaths = int(  textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.deaths != value:
+				player.log(LOG_MESSAGE, "Changing deaths of character 0x%x from %u to %u.\n" % ( char.serial,  char.deaths, value ) )
+				char.deaths = int(  textentries[ key ] )
 		elif key == 11:
-			char.pos = ( textentries[ key ] )
+			value = textentries[key]
+			if str(char.pos) != value:
+				player.log(LOG_MESSAGE, "Changing position of character 0x%x from %s to %s.\n" % ( char.serial,  str(char.pos), value ) )
+				char.pos = value
 		elif key == 12:
-			char.direction = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.direction != value:
+				player.log(LOG_MESSAGE, "Changing direction of character 0x%x from %u to %u.\n" % ( char.serial,  char.direction, value ) )
+				char.direction = int( textentries[ key ] )
 		elif key == 13:
-			char.invulnerable = str2bool( textentries[ key ] )
+			value = str2bool(textentries[key])
+			if char.invulnerable != value:
+				player.log(LOG_MESSAGE, "Changing invulnerability of character 0x%x from %s to %s.\n" % ( char.serial,  str(char.invulnerable), str(value) ) )
+				char.invulnerable = value
 		elif key == 14:
-			char.strength = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.strength != value:
+				player.log(LOG_MESSAGE, "Changing strength of character 0x%x from %u to %u.\n" % ( char.serial,  char.strength, value ) )
+				char.strength = int( textentries[ key ] )
 		elif key == 15:
-			char.dexterity = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.dexterity != value:
+				player.log(LOG_MESSAGE, "Changing dexterity of character 0x%x from %u to %u.\n" % ( char.serial,  char.dexterity, value ) )
+			char.dexterity = value
 		elif key == 16:
-			char.intelligence = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.intelligence != value:
+				player.log(LOG_MESSAGE, "Changing intelligence of character 0x%x from %u to %u.\n" % ( char.serial,  char.intelligence, value ) )
+			char.intelligence = value
 		elif key == 17:
-			char.maxhitpoints = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.maxhitpoints != value:
+				player.log(LOG_MESSAGE, "Changing maxhitpoints of character 0x%x from %u to %u.\n" % ( char.serial,  char.maxhitpoints, value ) )
+			char.maxhitpoints = value
 		elif key == 18:
-			char.hitpoints = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.hitpoints != value:
+				player.log(LOG_MESSAGE, "Changing hitpoints of character 0x%x from %u to %u.\n" % ( char.serial,  char.hitpoints, value ) )
+			char.hitpoints = value
 		elif key == 19:
-			char.maxstamina = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.maxstamina != value:
+				player.log(LOG_MESSAGE, "Changing maxstamina of character 0x%x from %u to %u.\n" % ( char.serial,  char.maxstamina, value ) )
+			char.maxstamina = value
 		elif key == 20:
-			char.stamina = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.stamina != value:
+				player.log(LOG_MESSAGE, "Changing stamina of character 0x%x from %u to %u.\n" % ( char.serial,  char.stamina, value ) )
+			char.stamina = value
 		elif key == 21:
-			char.maxmana = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.maxmana != value:
+				player.log(LOG_MESSAGE, "Changing maxmana of character 0x%x from %u to %u.\n" % ( char.serial,  char.maxmana, value ) )
+			char.maxmana = value
 		elif key == 22:
-			char.mana = int( textentries[ key ] )
+			value = int(hex2dec(textentries[key]))
+			if char.mana != value:
+				player.log(LOG_MESSAGE, "Changing mana of character 0x%x from %u to %u.\n" % ( char.serial,  char.mana, value ) )
+			char.mana = value
 		elif key == 23:
-                        char.hidden = str2bool( textentries[ key ] )
+			char.hidden = str2bool( textentries[ key ] )
 		elif key == 24:
-                        char.dead = str2bool( textentries[ key ] )
+			char.dead = str2bool( textentries[ key ] )
 		elif key == 25:
 			char.polymorph = str2bool( textentries[ key ] )
 		elif key == 26:
@@ -635,7 +697,8 @@ def charinfo_response( player, args, choice ):
 					char.gender = int( textentries[ key ] )
 		elif key == 38:
 			if not char.npc:
-				char.account.name = textentries[ key ]
+				#char.account.name = textentries[ key ]
+				pass
 			else:
 				if ( textentries[ key ] ) == 'Null' or ( textentries[ key ] ) == 'None':
 					char.owner = 'None'
@@ -673,15 +736,9 @@ def charinfo_response( player, args, choice ):
 			#	if not textentries[ key ] == '':
 			#		char.mindamage = int( textentries[ key ] )
 		elif key == 44:
-			if not char.npc:
-				if (textentries[ key ]) == '':
-					if char.hastag( 'poisoned' ):
-						char.deltag( 'poisoned' )
-				else:
-					char.settag( 'poisoned', int( textentries[ key ] ) )
-			#elif char.npc:
-			#	if not textentries[ key ] == '':
-			#		char.maxdamage = int( textentries[ key ] )
+			#char.poison = int( textentries[ key ] )
+			pass
+
 		elif key == 46:
 			if char.npc:
 				if textentries[ key ] == '' or int(textentries[ key ]) <= 0:

@@ -30,6 +30,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed repairing bows.
 		- Carving now takes bloodcolor into account.
 		- Import now imports multis from WSC files and makes all items non movable.
+		- Fixed bug #0000311. (Hiding and invisibility in combat)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

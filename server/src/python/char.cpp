@@ -2462,8 +2462,32 @@ static PyObject* wpChar_callevent( wpChar* self, PyObject* args )
 	return result;
 }
 
+/*
+	\method char.getopponents
+	\description This method returns a list of characters this character is fighting with.
+	\return A list of char objects.
+*/
+static PyObject* wpChar_getopponents( wpChar* self, PyObject* args )
+{
+	QPtrList<cFightInfo> &fights = self->pChar->fights();
+	PyObject *list = PyList_New(fights.count());
+	unsigned int i = 0;
+	
+	for ( cFightInfo *fight = fights.first(); fight; fight = fights.next() )
+	{
+		if (fight->attacker() == self->pChar) {
+			PyList_SetItem(list, i++, fight->victim()->getPyObject());
+		} else {
+			PyList_SetItem(list, i++, fight->attacker()->getPyObject());
+		}
+	}
+	
+	return list;
+}
+
 static PyMethodDef wpCharMethods[] =
 {
+{ "getopponents",	( getattrofunc ) wpChar_getopponents,		METH_VARARGS, "Get a list of characters this character is fighting at the moment." },
 { "moveto",			( getattrofunc ) wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
 { "resurrect",		( getattrofunc ) wpChar_resurrect,			METH_VARARGS, "Resurrects the character." },
 { "kill",			( getattrofunc ) wpChar_kill,				METH_VARARGS, "This kills the character." },

@@ -59,8 +59,10 @@ def wash_response( char, args, target ):
 
 	if bandages.id == 0xe20:
 		bandages.id = 0xe21
+		bandages.baseid = 'e21'
 	elif bandages.id == 0xe22:
 		bandages.id = 0xee9
+		bandages.baseid = 'ee9'
 
 	bandages.update()
 

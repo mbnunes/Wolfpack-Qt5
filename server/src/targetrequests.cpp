@@ -136,7 +136,15 @@ bool cShowTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 	}
 	else
 	{
-		socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( PyString_AsString( PyObject_Str( result ) ) ) );
+		if (PyUnicode_Check(result) || PyString_Check(result)) {
+			socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( Python2QString(result) ) );
+		} else {
+			PyObject *repr = PyObject_Str(result);
+			QString value = Python2QString(repr);
+			socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( value ) );
+			Py_XDECREF(repr);
+		}
+
 		Py_DECREF( result );
 	}
 	return true;

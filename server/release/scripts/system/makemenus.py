@@ -125,8 +125,11 @@ class MakeItemAction(MakeAction):
 		else:
 			if self.amount > 0:
 				item.amount = self.amount
+				player.log(LOG_MESSAGE, "Created %u items %s (0x%x).\n" % (self.amount, self.definition, item.serial))
+			else:
+				player.log(LOG_MESSAGE, "Created item %s (0x%x).\n" % (self.definition, item.serial))
 			if not tobackpack(item, player):
-				item.update()
+				item.update()			
 			player.socket.sysmessage('You put the new item into your backpack.')
 			MakeAction.make(self, player, arguments, nodelay)
 
@@ -491,6 +494,7 @@ class CraftItemAction(MakeItemAction):
 				self.applyproperties(player, arguments, item, exceptional)
 
 				if exceptional:
+					player.log(LOG_MESSAGE, "Crafted exceptional item %s (0x%x). Amount: %u.\n" % (self.definition, item.serial, item.amount))
 					if self.parent.allowmark and self.markable and player.hastag('markitem'):
 						item.settag('exceptional', int(player.serial))
 						self.success(player, arguments, item, 1, 1)
@@ -498,7 +502,8 @@ class CraftItemAction(MakeItemAction):
 						item.settag('exceptional', 0)
 						self.success(player, arguments, item, 1, 0)
 				else:
-					self.success(player, arguments, item, 0, 0)
+					player.log(LOG_MESSAGE, "Crafted item %s (0x%x). Amount: %u.\n" % (self.definition, item.serial, item.amount))
+					self.success(player, arguments, item, 0, 0)					
 
 			if not tobackpack(item, player):
 				item.update()

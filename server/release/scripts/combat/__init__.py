@@ -30,6 +30,14 @@ def onSwing(attacker, defender, time):
 		attacker.attacktarget = 0
 		return
 
+	# Our defender went invisible or hidden?
+	if defender.invisible or defender.hidden:
+		attacker.attacktarget = None
+		return
+
+	# Reveal us
+	attacker.reveal()
+
 	# Let the defender strike back if he doesnt fight anyone right now
 	if not defender.attacktarget:
 		defender.fight(attacker)

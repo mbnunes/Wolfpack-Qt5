@@ -9,6 +9,7 @@
 
 import wolfpack
 from wolfpack.utilities import hex2dec
+from wolfpack.consts import *
 
 def bank( socket, command, arguments ):
 	arguments = arguments.strip()	# Remove trailing and leading whitespaces
@@ -35,6 +36,10 @@ def callback( char, args, target ):
 		char.socket.sysmessage( 'The target has no item on layer 0x%02x' % args[0] )
 		return
 
+	if args[0] == LAYER_BANKBOX:
+		char.log(LOG_MESSAGE, "Opening bankbox (0x%x) of character 0x%x.\n" % (container.serial, target.char.serial))
+	else:
+		char.log(LOG_MESSAGE, "Opening container (0x%x) on layer %u of character 0x%x.\n" % (container.serial, args[0], target.char.serial))
 	char.socket.sendcontainer( container )
 
 def onLoad():

@@ -16,6 +16,7 @@
 
 import wolfpack
 from wolfpack.utilities import hex2dec
+from wolfpack.consts import *
 
 def dye( socket, command, arguments ):
 	try:
@@ -27,15 +28,20 @@ def dye( socket, command, arguments ):
 def response( char, args, target ):
 	if target.item:
 		color = args[0]
+		oldcolor = target.item.color
 		target.item.color = hex(color)
 		target.item.update()
+		
+		char.log(LOG_MESSAGE, "Redyes item 0x%x from color 0x%x to 0x%x.\n" % (target.item.serial, oldcolor, target.item.color))
 	elif target.char:
 		skin = args[0]
 		if skin == 0:
 			skin = target.char.orgskin
-		target.char.removefromview()
+		oldskin = target.char.skin
 		target.char.skin = hex(skin)
 		target.char.update()
+		
+		char.log(LOG_MESSAGE, "Redyes char 0x%x from skin 0x%x to 0x%x.\n" % (target.char.serial, oldskin, target.char.skin))
 	else:
 		char.socket.sysmessage( 'That was not a valid object.', GRAY )
 	return

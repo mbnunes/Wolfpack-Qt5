@@ -2515,8 +2515,6 @@ void cBaseChar::showPaperdoll( cUOSocket* source, bool hotkey )
 	// Is that faster ??
 	switch ( body_ )
 	{
-	case 0x004E:
-	case 0x0050:
 	case 0x003A:
 	case 0x0039:
 	case 0x003B:
@@ -2576,6 +2574,10 @@ void cBaseChar::showPaperdoll( cUOSocket* source, bool hotkey )
 	case 0x124:
 		if ( objectType() == enNPC && dynamic_cast<P_NPC>( this )->owner() == pChar )
 			source->sendContainer( getBackpack() );
+		break;
+
+	default:
+		break;
 	};
 }
 

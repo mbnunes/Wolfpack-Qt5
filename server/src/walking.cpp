@@ -134,6 +134,20 @@ struct compareTiles : public std::binary_function<stBlockItem, stBlockItem, bool
 {
 	bool operator()( stBlockItem a, stBlockItem b )
 	{
+		// If the items have the same top, the one with the surface flag has precedence
+		unsigned int itemTopA = a.height + a.z;
+		unsigned int itemTopB = b.height + b.z;
+
+		if (itemTopA == itemTopB) {
+			if (a.height == 0 && a.walkable) {
+				return true;
+			}
+
+			if (b.height == 0 && b.walkable) {
+				return true;
+			}
+		}
+
 		return ( ( a.height + a.z ) > ( b.height + b.z ) );
 	}
 };
@@ -192,7 +206,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 
 		// If we are a stair only the half height counts (round up)
 		if ( tTile.flag2 & 0x04 )
-			staticBlock.height = ( Q_UINT8 ) ( ( tTile.height + 1 ) / 2 );
+			staticBlock.height = ( Q_UINT8 ) ( ( tTile.height ) / 2 );
 		else
 			staticBlock.height = tTile.height;
 
@@ -232,7 +246,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 			continue;
 
 		stBlockItem blockItem;
-		blockItem.height = tTile.height;
+		blockItem.height = (tTile.flag2 & 0x04) ? (tTile.height / 2) : tTile.height;
 		blockItem.z = pItem->pos().z;
 
 		// Once again: see above for a description of this part
@@ -264,7 +278,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 					continue;
 
 				stBlockItem blockItem;
-				blockItem.height = tTile.height;
+				blockItem.height = (tTile.flag2 & 0x04) ? (tTile.height / 2) : tTile.height;
 				blockItem.z = pItem->pos().z + multi[j].z;
 
 				if ( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
@@ -311,6 +325,12 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 		stBlockItem item = blockList[i];
 		Q_INT8 itemTop = ( item.z + item.height );
 
+		// If we found something to step on and the next tile
+		// below would block us, use the good one instead
+		if (found && (itemTop > pos.z - P_M_MAX_Z_BLOCKS || !item.walkable)) {
+			break;
+		}
+
 		// If we encounter any object with itemTop <= pos.z which is NOT walkable
 		// Then we can as well just return false as while falling we would be
 		// blocked by that object
@@ -324,15 +344,39 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 			// I would say 2 is a good "reach" value for the bottom
 			// of any item
 			if ( itemTop < pos.z + P_M_MAX_Z_CLIMB && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+				// We already found something to step on above.
+				// See if it's easier to step down.
+				if (found && abs(oldz - pos.z) < abs(oldz - itemTop)) {
+					break;
+				}
+
 				pos.z = itemTop;
 				found = true;
-				break;
+
+				if (item.height > 1) {
+					break;
+				}
+
+				// break; - We can't break here anymore since we have to check if the ground would be easier
+				// to step on
 			// Climbing maptiles is 5 tiles easier
 			} else if ( item.maptile && itemTop < pos.z + P_M_MAX_Z_CLIMB + 5 && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+				// We already found something to step on above.
+				// See if it's easier to step down.
+				if (found && abs(oldz - pos.z) < abs(oldz - itemTop)) {
+					break;
+				}
+
 				pos.z = itemTop;
 				found = true;
 				break;
 			} else if ( itemTop < pos.z ) {
+				// We already found something to step on above.
+				// See if it's easier to step down.
+				if (found && abs(oldz - pos.z) < abs(oldz - itemTop)) {
+					break;
+				}
+
 				pos.z = itemTop;
 				found = true;
 				break;
@@ -374,11 +418,11 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 		// note: the following test was commented out.  by putting the code back in,
 		// npcs stop wandering through the walls of multis.  I am curious if this code
 		// has other (negative) affects besides that.
-		 if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS ) )
+		 if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS / 2 ) )
 			return false;
 
 		// Or does it spread the whole range ?
-		if ( ( item.z <= oldz ) && ( itemTop >= oldz + P_M_MAX_Z_BLOCKS ) )
+		if ( ( item.z <= oldz ) && ( itemTop >= oldz + P_M_MAX_Z_BLOCKS / 2 ) )
 			return false;
 	}
 

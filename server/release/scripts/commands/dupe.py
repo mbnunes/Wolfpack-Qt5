@@ -20,6 +20,8 @@
 
 import wolfpack
 from wolfpack.utilities import hex2dec
+from wolfpack import console
+from wolfpack.consts import *
 
 def dupe(socket, command, arguments):
 	arguments = arguments.strip() # Remove trailing and leading whitespaces
@@ -40,8 +42,13 @@ def callback(char, args, target):
 		char.socket.sysmessage('You have to target an item.')
 		return False
 
+	#char.log(LOG_MESSAGE, "Duping item 0x%x.\n" % target.item.serial)
+
 	for i in range(0, args[0]):
-		target.item.dupe().update()
+		created = target.item.dupe()
+		created.update()
+		
+		char.log(LOG_MESSAGE, "Duping item 0x%x. New serial is 0x%x.\n" % (target.item.serial, created.serial))				
 
 def onLoad():
 	wolfpack.registercommand("dupe", dupe)

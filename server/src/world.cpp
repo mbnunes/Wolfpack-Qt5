@@ -532,6 +532,12 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 				++cit;
 			}
 		}
+
+	// load server time from db
+	QString db_time;
+	QString default_time = Config::instance()->getString( "General", "UO Time", "", true );
+	getOption( "worldtime", db_time, default_time );
+	UoTime::instance()->setMinutes( db_time.toInt() );
 }
 
 void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
