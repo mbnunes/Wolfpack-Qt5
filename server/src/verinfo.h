@@ -141,15 +141,15 @@ struct wp_version_info
 		   verstruct.sub_version    = 6;
 		   verstruct.subsub_version = 63; // no subsub
 
-		   verstruct.flags    = WPV_RELEASE ;
+		   verstruct.flags    = WPV_BETA ;
 		   verstruct.derivate = WOLF ;
 		  
            vernumber = to_32bitver(verstruct);		   
 		  
 		   /// code for auto generation of verstring, productstring and betareleasestring coming soon (LB) ...
-		   verstring = "12.6";  // Wolfpack version 
+		   verstring = "12.7";  // Wolfpack version 
 		   productstring = "Wolfpack"; // selfexplainatory, isnt't it :)
-		   betareleasestring = "Release"; // release status
+		   betareleasestring = "Beta"; // release status
 
 		   //////////////////////////////////////////////////
 
@@ -167,8 +167,8 @@ struct wp_version_info
              compiledbystring = "punt" ;  // person that compiled linux version
              codersstring = "Duke, Ripper, Correa, punt, Lord Binary" ;
            #else
-             compiledbystring = "Ripper" ; // person that cpompiled windows version
-             codersstring = "Duke, Ripper, Correa, punt, Lord Binary" ;
+             compiledbystring = "Skyfire" ; // person that cpompiled windows version
+             codersstring = "Skyfire, Ripper, Correa, punt" ;
            #endif
 
            emailstring = " ";		  

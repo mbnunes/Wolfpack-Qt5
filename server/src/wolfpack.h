@@ -51,6 +51,7 @@
 #include <io.h>
 #include <climits>
 #include <conio.h>
+#include <vector>
 
 #endif
 
@@ -75,7 +76,8 @@ using namespace std;
 //#include "hFile.h"  // New File IO stuff //Currently unused
 #include "SrvParms.h" // Bounty System
 #include "accounts.h" // Account System.
-#include "cweather.h"
+#include "cweather.h" // Weather System
+#include "house.h"    // Housing System
 
 #include "defines.h"
 

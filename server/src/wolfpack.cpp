@@ -2044,6 +2044,12 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	newbieitems(DEREF_P_CHAR(pc));
 
 	perm[s]=1;
+	if(pc->st<10)
+		pc->st=10;
+	if(pc->in<10)
+		pc->in=10;
+	if(pc->effDex()<10)
+		pc->setDex(10);
 	Network->startchar(s);
 }
 
@@ -5678,6 +5684,8 @@ void StartClasses(void)
 	AllTmpEff = new cAllTmpEff;
 	Movement = new cMovement;
 	Weather=new cWeather;
+	HouseManager=new cHouseManager;
+	House.resize(0);
 	// Sky's AI Stuff
 	DragonAI=new cCharStuff::cDragonAI;
 	BankerAI=new cCharStuff::cBankerAI;

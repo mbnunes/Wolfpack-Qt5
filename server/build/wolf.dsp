@@ -479,6 +479,10 @@ SOURCE=.\hFile.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\house.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\im.h
 # End Source File
 # Begin Source File

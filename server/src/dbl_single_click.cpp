@@ -968,7 +968,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						pc_currchar->fx1 = DEREF_P_ITEM(pi); // for deleting it later
 						addid3[s] = pi->morex;
 						// addx2[s]=pi->serial;
-						buildhouse(s, pi->morex);
+						HouseManager->AddHome(s, pi->morex);
 						// target(s,0,1,0,207,"Select Location for house.");
 					}
 					return;// house deeds

@@ -244,7 +244,7 @@ static void AddTarget(int s, PKGx6C *pp)
 		case 124:
 		case 126:
 		case 140:
-			buildhouse(s,addid3[s]);//If its a valid house, send it to buildhouse!
+			HouseManager->AddHome(s,addid3[s]);//If its a valid house, send it to buildhouse!
 			return; // Morrolan, here we WANT fall-thru, don't mess with this switch
 		}
 	}
@@ -3808,7 +3808,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		//taken from 6904t2(5/10/99) - AntiChrist
 		case 240: Targ->SetMurderCount( s ); break; // Abaddon 13 Sept 1999
 
-		case 245: buildhouse(s,addid3[s]);	 break;
+		case 245: HouseManager->AddHome(s,addid3[s]);	 break;
 
 		case 247: Targ->ShowSkillTarget(s);break; //showskill target
 		case 248: Targ->MenuPrivTarg(s);break; // menupriv target

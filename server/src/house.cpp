@@ -38,9 +38,7 @@
 #undef  DBGFILE
 #define DBGFILE "house.cpp"
 
-bool CheckBuildSite(int x, int y, int z, int sx, int sy);
-
-void mtarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt)
+void cHouseManager::HomeTarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt)
 {
 	char multitarcrs[27]="\x99\x01\x40\x01\x02\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x02\x00\x00\x00\x00\x00\x00";
 
@@ -66,7 +64,7 @@ void mtarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt)
 //|                  using HOUSE ITEM, (this includes all doors!) and locked "LOCK"
 //|                  Space around the house with SPACEX/Y and CHAR offset CHARX/Y/Z
 //o---------------------------------------------------------------------------o
-void buildhouse(int s, int i)
+void cHouseManager::AddHome(int s,int i)
 {
 	int x,y,key,loopexit=0;//where they click, and the house/key items
 	signed char z;
@@ -169,12 +167,12 @@ void buildhouse(int s, int i)
 			
 			addid1[s]=0x40;addid2[s]=100;//Used in addtarget
 			if (norealmulti) target(s, 0, 1, 0, 245, "Select a place for your structure: "); else
-				mtarget(s, 0, 1, 0, 0, id1-0x40, id2, "Select location for building.");
+				this->HomeTarget(s, 0, 1, 0, 0, id1-0x40, id2, "Select location for building.");
 			
 		}
 		else
 		{
-			mtarget(s, 0, 1, 0, 0, addid1[s]-0x40, addid2[s], "Select location for building.");
+			this->HomeTarget(s, 0, 1, 0, 0, addid1[s]-0x40, addid2[s], "Select location for building.");
 		}
 		looptimes++;//for when we come back after they target something
 		return;
@@ -206,36 +204,12 @@ void buildhouse(int s, int i)
 		
 		if (ishouse(id1, id2)) // strict checking only for houses ! LB
 		{
-			if(!(CheckBuildSite(x,y,z,sx,sy)))
+			if(!(this->HomeBuildSite(x,y,z,sx,sy)))
 			{
 				sysmessage(s,"Can not build a house at that location (CBS)!");
 				return;
 			}
 		}
-		
-		/*for (k=-sx;k<sx;k++)//check the SPACEX and SPACEY to make sure they are valid locations....
-		{
-			for (l=-sy;l<sy;l++)
-			{
-				if ( ( !Movement->CanCharWalk( pc_currchar, x+k, y+l, z ) )&&
-					((pc_currchar->pos.x!=x+k)&&(pc_currchar->pos.y!=y+l)))
-					This will take the char making the house out of the space check, be careful 
-					you don't build a house on top of your self..... this had to be done So you 
-					could extra space around houses, (12+) and they would still be buildable.
-				{
-					sysmessage(s, "You cannot build your stucture there.");
-					return;
-					//clConsole.send("Invalid %i,%i [%i,%i]\n",k,l,x+k,y+l);
-				} //else clConsole.send("DEBUG: Valid at %i,%i [%i,%i]\n",k,l,x+k,y+l);
-				
-				P_ITEM pi_multi = findmulti(Coord_cl(x+k,y+l,z));
-				if (pi_multi != NULL && !(norealmulti))
-				{
-					sysmessage(s,"You cant build structures inside structures");
-					return;
-				}
-			}
-		}*/
 		
 		//Boats ->
 		if(id2>=18) sprintf((char*)temp,"%s's house",pc_currchar->name);//This will make the little deed item you see when you have showhs on say the person's name, thought it might be helpful for GMs.
@@ -663,7 +637,8 @@ void killkeys(SERIAL serial) // Crackerjack 8/11/99
 // Anything else - Character is on house list, type # is returned.
 int on_hlist(int h, unsigned char s1, unsigned char s2, unsigned char s3, unsigned char s4, int *li)
 {
-
+	if(h<0)
+		return 0;
 	int  StartGrid=mapRegions->StartGrid(items[h].pos.x,items[h].pos.y);
 	unsigned int increment=0;
 	for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
@@ -827,7 +802,7 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 	//} else sysmessage(s,"Only the house owner can lock down items!");
 }
 
-bool CheckBuildSite(int x, int y, int z, int sx, int sy)
+bool cHouseManager::HomeBuildSite(int x, int y, int z, int sx, int sy)
 {
 	signed int checkz;
 	//char statc;

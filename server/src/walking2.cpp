@@ -762,7 +762,7 @@ void cMovement::MoveCharForDirection(P_CHAR pc, int dir)
 void cMovement::GetBlockingMap(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
 {
 	int mapid = 0;
-	signed char mapz = Map->AverageMapElevation(x, y, mapid);
+	signed char mapz = Map->MapElevation(x,y);  //Map->AverageMapElevation(x, y, mapid);
 	if (mapz != illegal_z)
 	{
 		land_st land;
@@ -955,11 +955,12 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 		// lets see, its much cheaper to call perm[i] first so i'm reordering this
 		if ((perm[i]) && (inrange1p(DEREF_P_CHAR(pc), currchar[i])))
 		{
-			if (
+			/*if (
 				(((abs(newx-chars[currchar[i]].pos.x)==visibleRange )||(abs(newy-chars[currchar[i]].pos.y)== visibleRange )) &&
 				((abs(oldx-chars[currchar[i]].pos.x)>visibleRange )||(abs(oldy-chars[currchar[i]].pos.y)>visibleRange ))) ||
 				((abs(newx-chars[currchar[i]].pos.x)==visibleRange )&&(abs(newy-chars[currchar[i]].pos.y)==visibleRange ))
-				)
+				)*/
+			if ((abs(newx-chars[currchar[i]].pos.x)<VISRANGE) && (abs(newy-chars[currchar[i]].pos.y)<VISRANGE))
 			{
 				impowncreate(i, DEREF_P_CHAR(pc), 1);
 			}
@@ -978,6 +979,8 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				//     extmove[12]=buffer[c][1];
 				ShortToCharPtr(pc->skin, &extmove[13]);
 				if( pc->npc /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
+					extmove[12]=dir|0x80;
+				if( pc->npc && (pc->ftarg>0))
 					extmove[12]=dir|0x80;
 				if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
 				if (pc->hidden) extmove[15]=extmove[15]|0x80;
@@ -2160,7 +2163,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, CHARACTER 
 
 	// experimental check for bad spawning/walking places, not optimized in any way (Duke, 3.9.01)
 	int mapid = 0;
-	signed char mapz = Map->AverageMapElevation(x, y, mapid);	// just to get the map-ID
+	signed char mapz = Map->MapElevation(x, y);	// just to get the map-ID
 	if (mapz != illegal_z)
 	{
 		if ((mapid >= 0x25A && mapid <= 0x261) ||	// cave wall

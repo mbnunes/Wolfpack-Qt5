@@ -1589,7 +1589,6 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 				   yos=RandomNum(-items[i].more4,items[i].more4);
 				   // clConsole.send("Spawning at Offset %i,%i (%i,%i,%i) [-%i,%i <-> -%i,%i]. [Loop #: %i]\n",xos,yos,items[i].x+xos,items[i].y+yos,items[i].z,items[i].more3,items[i].more3,items[i].more4,items[i].more4,k); /** lord binary, changed %s to %i, crash when uncommented ! **/
 				   k++;
-				   
 				   if ((items[i].pos.x+xos<1) || (items[i].pos.y+yos<1)) lb=0; /* lord binary, fixes crash when calling npcvalid with negative coordiantes */
 				   else lb=Movement->validNPCMove(items[i].pos.x+xos,items[i].pos.y+yos,items[i].pos.z,c);				 
 				   

@@ -1872,9 +1872,9 @@ void cNetworkStuff::SendUOX3(UOXSOCKET s, void *point, int length, int test)
 
 void cNetworkStuff::SendOSI(UOXSOCKET s, void *point, int length, int test)
 {	
-	clConsole.send("OSI PacketSendStyle not implementined, using UOX3 Style");
-	cNetworkStuff::SendUOX3(s, point, length, test);
-
+	memcpy(&outbuffer[s][boutlength[s]], point, length);
+	boutlength[s]+=length;
+	FlushBuffer(s);
 }
 
 void cNetworkStuff::SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test)

@@ -113,16 +113,20 @@ void cWeather::CTimer()
 	unsigned char r;
 	int player_index;
 	unsigned char s=0,now_old=now;
-	
+	char dry[5]="\x65\x00\x00\x00";
 	for(s=0;s<now_old;s++)
 	{	
 		player_index=currchar[s];
-		if ( online( player_index ) )  // LB, fix for funny crash when server started and clients already waiting for login.
-			                           // In an essence the currchar array cant always be trusted. especially on login.									   
+		if ( online( player_index ) )  
 		{		   
-		   r=chars[player_index].region;			
+		   r=chars[player_index].region;
+		   /*if(noweather[s])
+		   {
+			   Network->xSend(s,dry,4,0);
+			   return;
+		   }*/
 		   if(Active[r] && perm[s])
-		   Weather->DoWeather(s);				
+			Weather->DoWeather(s);				
 		}
 	}
 }
@@ -141,8 +145,6 @@ void cWeather::run()
 	    catch(Synchronization_Exception& e) {
 		}
 	}
-
-//	return TRUE;
 }
 
 void cWeather::kill()

@@ -321,7 +321,15 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 					}
 					break;
 				case 'C':
-					if (!(strcmp("CMSG", (char*)script1)))  // Set Token Completed message
+					if (!(strcmp("CADD", (char*)script1)))  // add item into triggered container
+					{
+						CHARACTER cc = currchar[ts];
+						int i = Targ->AddMenuTarget(ts, 1, str2num(script2));
+						pi->AddItem(&items[i]);
+						Weight->NewCalc(cc);
+						statwindow(ts, cc);
+					}
+					else if (!(strcmp("CMSG", (char*)script1)))  // Set Token Completed message
 					{
 						if (uiCompleted)
 						{
