@@ -25,6 +25,8 @@ def cmdWho(socket, command, arguments):
 	showWhoGump(socket.player, 0)
 
 def showWhoGump(player, page):
+	current_page = page
+
 	# Collect the current list of sockets first
 	wholist = []
 
@@ -72,13 +74,14 @@ def showWhoGump(player, page):
 		gump.addButton( 240, 320, 0x0FC, 0x0FC, 2 ) # Previous Page
 		
 	offset = 22
-	for char in wholist[:10]:
+	wholist = wholist[:10]
+	for char in wholist:
 		gump.addButton( 20, 40 + offset, 0xFA5, 0xFA7, 2 + char.serial )
 		gump.addText( 54, 40 + offset, tr("%s [%s]") % ( char.name, char.account.name ), 0x834 )
 		gump.addText( 257, 40 + offset, unicode(char.socket.address), 0x834 )
 		offset += 24
 	
-	gump.setArgs( [ page ] )
+	gump.setArgs( [ current_page ] )
 	gump.setCallback( "commands.who.callbackWho" )
 	gump.send( player.socket )
 
