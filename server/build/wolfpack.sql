@@ -81,12 +81,10 @@ CREATE TABLE `characters` (
 	`fame` int(11) NOT NULL default '0',
 	`kills` int(10)  NOT NULL default '0',
 	`deaths` int(10)  NOT NULL default '0',
-	`def` int(10)  NOT NULL default '0',
 	`hunger` int(11) NOT NULL default '0',
-	`poison` int(11) NOT NULL default '0',
-	`poisoned` int(10)  NOT NULL default '0',
+	`poison` int(11) NOT NULL default '-1',
 	`murderertime` int(11)  NOT NULL default '0',
-	`criminaltime` int(11)  NOT NULL default '0',	
+	`criminaltime` int(11)  NOT NULL default '0',
 	`gender` tinyint(1)  NOT NULL default '0',
 	`propertyflags` int(11)  NOT NULL default '0',
 	`murderer` int(11) NOT NULL default '-1',
@@ -97,7 +95,7 @@ CREATE TABLE `characters` (
 	`strcap` tinyint(4)  NOT NULL default '125',
 	`dexcap` tinyint(4)  NOT NULL default '125',
 	`intcap` tinyint(4)  NOT NULL default '125',
-  `statcap` tinyint(4)  NOT NULL default '225',
+	`statcap` tinyint(4)  NOT NULL default '225',
 	PRIMARY KEY (`serial`)
 );
 
@@ -192,6 +190,7 @@ CREATE TABLE `npcs` (
 	`fleeat` smallint(3)  NOT NULL default '10',
 	`spellslow` int(11)  NOT NULL default '0',
 	`spellshigh` int(11)  NOT NULL default '0',
+	`controlslots` tinyint NOT NULL default '1',
 	PRIMARY KEY (`serial`)
 );
 
