@@ -278,7 +278,7 @@ void cTrade::restock(int s)
 // this is a q&d fix for 'sell price higher than buy price' bug (Duke, 30.3.2001)
 static bool items_match(P_ITEM pi1, P_ITEM pi2)
 {
-	if (pi1->id()==pi2->id() &&
+	if (pi1 && pi2 && pi1->id()==pi2->id() &&
 		pi1->type==pi2->type &&
 		!(pi1->id()==0x14F0 && (pi1->morex!=pi2->morex)) &&			// house deeds only differ by morex
 		!(IsShield(pi1->id()) && pi1->name2 == pi2->name2) &&	// magic shields only differ by name2
