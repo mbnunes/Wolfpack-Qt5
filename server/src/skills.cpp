@@ -64,7 +64,6 @@
 
 /*
 List of implemented skills:
-Animal Lore
 Arms Lore
 
 */
@@ -585,10 +584,6 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	case BEGGING:
 		message = tr( "Whom do you wish to annoy?" );
 		targetRequest = new cSkBegging;
-		break;
-	case ANIMALLORE:
-		message = tr("What animal do you wish to get information about?");
-		targetRequest = new cSkAnimalLore;
 		break;
 	case FORENSICS:
 		message = tr("What corpse do you want to examine?");
