@@ -1163,11 +1163,11 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						if ((!(strcmp("NEWTYPE", (char*)script1))) ||(!(strcmp("SETTYPE", (char*)script1))))  // Set active item type
 						{
 							if (pi_itemnum != NULL)
-								pi_itemnum->type = str2num(script2);
+								pi_itemnum->setType( str2num(script2) );
 							else
 							{
 								if (pi!=NULL)
-									pi->type = str2num(script2);
+									pi->setType( str2num(script2) );
 							}
 						}
 						else if (!(strcmp("NADD", (char*)script1)))  // Add a NPC at given location - AntiChrist
@@ -2850,7 +2850,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						else if ((!(strcmp("NEWTYPE", (char*)script1))) ||(!(strcmp("SETTYPE", (char*)script1))))  // Set active item type
 						{
 							if (pi_itemnum != NULL)
-								pi_itemnum->type = str2num(script2);
+								pi_itemnum->setType( str2num(script2) );
 						}
 						else if (!(strcmp("NEWNAME", (char*)script1)))  // Give the new item/npc a name
 						{

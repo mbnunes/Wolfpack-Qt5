@@ -501,7 +501,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 		if ((pi->more1==0)&&(pi->more2==0)&&
 			(pi->more3==0)&&(pi->more4==0))
 		{
-			if ( pi->type==7 && (iteminrange(s,pi,2) || (!pi->isInWorld()) ) )
+			if ( pi->type() == 7 && (iteminrange(s,pi,2) || (!pi->isInWorld()) ) )
 			{
 				if (!Skills->CheckSkill(currchar[s], TINKERING, 400, 1000))
 				{
@@ -523,36 +523,36 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			(pi->more3==addid3[s])&&(pi->more4==addid4[s]))||
 			(addid1[s]==(unsigned char)'\xFF'))
 		{
-			if (((pi->type==1)||(pi->type==63))&&(iteminrange(s,pi,2)))
+			if (((pi->type()==1)||(pi->type()==63))&&(iteminrange(s,pi,2)))
 			{
-				if(pi->type==1) pi->type=8;
-				if(pi->type==63) pi->type=64;
+				if(pi->type()==1) pi->setType( 8 );
+				if(pi->type()==63) pi->setType( 64 );
 				sysmessage(s, "You lock the container.");
 				return;
 			}
-			else if ((pi->type==7)&&(iteminrange(s,pi,2)))
+			else if ((pi->type()==7)&&(iteminrange(s,pi,2)))
 			{
 				currchar[s]->inputitem = pi->serial;
 				currchar[s]->inputmode = cChar::enDescription;
 				sysmessage(s,"Enter new name for key.");//morrolan rename keys
 				return;
 			}
-			else if ((pi->type==8)||(pi->type==64)&&(iteminrange(s,pi,2)))
+			else if ((pi->type()==8)||(pi->type()==64)&&(iteminrange(s,pi,2)))
 			{
-				if(pi->type==8) pi->type=1;
-				if(pi->type==64) pi->type=63;
+				if(pi->type()==8) pi->setType( 1 );
+				if(pi->type()==64) pi->setType( 63 );
 				sysmessage(s, "You unlock the container.");
 				return;
 			}
-			else if ((pi->type==12)&&(iteminrange(s,pi,2)))
+			else if ((pi->type()==12)&&(iteminrange(s,pi,2)))
 			{
-				pi->type=13;
+				pi->setType( 13 );
 				sysmessage(s, "You lock the door.");
 				return;
 			}
-			else if ((pi->type==13)&&(iteminrange(s,pi,2)))
+			else if ((pi->type()==13)&&(iteminrange(s,pi,2)))
 			{
-				pi->type=12;
+				pi->setType( 12 );
 				sysmessage(s, "You unlock the door.");
 				return;
 			}
@@ -565,7 +565,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			}
 
 			//Boats ->
-			else if(pi->type==117 && pi->type2==3)
+			else if( pi->type() == 117 && pi->type2() == 3 )
 			{
 				Boats->OpenPlank(pi);
 				RefreshItem(pi);
@@ -574,7 +574,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 		}//else if
 		else
 		{
-			if (pi->type==7) sysmessage (s, "That key is not blank!");
+			if (pi->type()==7) sysmessage (s, "That key is not blank!");
 			else if (pi->more1=='\x00') sysmessage(s, "That does not have a lock.");
 			else sysmessage(s, "The key does not fit into that lock.");
 			return;
@@ -612,12 +612,12 @@ void cTargets::IstatsTarget(int s)
 				pi->serial, pi->id(),
 				pi->name().ascii(),pi->name2().ascii(),pi->color(),
 				contstr,
-				pi->layer(),pi->type,pi->magic,
+				pi->layer(),pi->type(),pi->magic,
 				pi->more1,pi->more2,pi->more3,pi->more4,
 				pi->pos.x,pi->pos.y,pi->pos.z,pi->amount(), pi->priv);
 			sysmessage(s, (char*)temp);
 			sprintf((char*)temp,"STR [%d] HP/MAX [%d/%d] Damage [%d-%d] Defence [%d] Rank [%d] Smelt [%d] SecureIt [%d] MoreXYZ [%i %i %i] Poisoned [%i] RaceHate [%i] Weight [%d] Owner [%x] Creator [%s] MadeValue [%i] Value [%i] Decaytime[%i] Decay [%i] GoodType[%i] RandomValueRate[%i]",
-				pi->st, pi->hp,pi->maxhp, pi->lodamage, pi->hidamage,pi->def,pi->rank,pi->smelt,pi->secureIt,
+				pi->st, pi->hp,pi->maxhp, pi->lodamage, pi->hidamage,pi->def,pi->rank,pi->smelt,( pi->secured() ) ? 1 : 0,
 				pi->morex, pi->morey, pi->morez,pi->poisoned,pi->racehate,
 				pi->weight, pi->ownserial, // Ison 2-20-99
 				pi->creator.c_str(),pi->madewith,pi->value,int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),(pi->priv)&0x01,pi->good,pi->rndvaluerate); // Magius(CHE) (2)
@@ -645,9 +645,9 @@ void cTargets::TargIdTarget(int s) // Fraz
 				sysmessage(s, (char*) temp);
 			}
 		}			
-		if (pi->type != 15)
+		if (pi->type() != 15)
 		{
-			if (pi->type != 404)
+			if (pi->type() != 404)
 			{
 				sysmessage(s, "This item has no hidden magical properties.");
 			}
@@ -694,7 +694,7 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 		pc->packitem = pPack->serial; 
 		pPack->SetContSerial(pc_c->serial);
 		pPack->setLayer( 0x15 );
-		pPack->type=1;
+		pPack->setType( 1 );
 		pPack->dye=1;
 	}
 
@@ -954,7 +954,7 @@ void cTargets::VisibleTarget (int s)
 static void ContainerEmptyTarget1(P_CLIENT ps, P_ITEM pi)
 {
 	UOXSOCKET s = ps->GetSocket();
-	if (isItemSerial(pi->serial) && pi->type == 1)
+	if (isItemSerial(pi->serial) && pi->type() == 1)
 	{
 		addx[s]=pi->serial;
 		target(s, 0, 1, 0, 72, "Select container to fill:");
@@ -965,7 +965,7 @@ static void ContainerEmptyTarget1(P_CLIENT ps, P_ITEM pi)
 static void ContainerEmptyTarget2(P_CLIENT ps, P_ITEM pNewCont)
 {
 	UOXSOCKET s = ps->GetSocket();
-	if (pNewCont->type==1)
+	if( pNewCont->type() == 1 )
 	{
 		P_ITEM pi;	// item to move from old container
 		unsigned int ci = 0;
@@ -3359,7 +3359,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	pi3->more2 = static_cast<unsigned char>((pHouse->serial&0x00FF0000)>>16);
 	pi3->more3 = static_cast<unsigned char>((pHouse->serial&0x0000FF00)>>8);
 	pi3->more4 = static_cast<unsigned char>((pHouse->serial&0x000000FF));
-	pi3->type=7;
+	pi3->setType( 7 );
 	
 	sysmessage(s, "You have transferred your house to %s.", pc->name.c_str());
 	sprintf((char*)temp, "%s has transferred a house to %s.", currchar[s]->name.c_str(), pc->name.c_str());
@@ -3500,17 +3500,17 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 			sysmessage(s,"you cannot lock this down!");
 			return;
 		}
-		if (pi->type==12 || pi->type==13 || pi->type==203)
+		if( pi->type() == 12 || pi->type() == 13 || pi->type() == 203 )
 		{
 			sysmessage(s, "You cant lockdown doors or signs!");
 			return;
 		}
-		if ( IsAnvil(id) )
+		if( IsAnvil( id ) )
 		{
 			sysmessage(s, "You cant lockdown anvils!");
 			return;
 		}
-		if ( IsForge(id) )
+		if( IsForge( id ) )
 		{
 			sysmessage(s, "You cant lockdown forges!");
 			return;
@@ -3557,28 +3557,28 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 			sysmessage(s,"you cannot lock this down!");
 			return;
 		}
-		if (pi->type==12 || pi->type==13 || pi->type==203)
+		if( pi->type() == 12 || pi->type() == 13 || pi->type() == 203 )
 		{
 			sysmessage(s, "You cant lockdown doors or signs!");
 			return;
 		}
-		if(pi->isLockedDown())
+		if( pi->isLockedDown() )
 		{
 			sysmessage(s,"That item is already locked down, release it first!");
 			return;
 		}
 
 		P_ITEM pi_multi = findmulti( pi->pos );
-		if( pi_multi != NULL && pi->type==1)
+		if( pi_multi != NULL && pi->type() == 1 )
 		{
 		    pi->setLockedDown();	// LOCKED DOWN!
-			pi->secureIt = 1;
+			pi->setSecured( true );
 			DRAGGED[s]=0;
 			pi->setOwnSerialOnly(currchar[s]->serial);
 			RefreshItem(pi);
 			return;
 		}
-		if(pi->type!=1)
+		if( pi->type() != 1 )
 		{
 			sysmessage(s,"You can only secure chests!");
 			return;
@@ -3613,7 +3613,7 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 			sysmessage(s,"you cannot release this!");
 			return;
 		}
-		if (pi->type==12 || pi->type==13 || pi->type==203)
+		if( pi->type() == 12 || pi->type() == 13 || pi->type() == 203 )
 		{
 			sysmessage(s, "You cant release doors or signs!");
 			return;
@@ -3621,10 +3621,10 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 
 		// time to unlock it!
 		P_ITEM pi_multi = findmulti( pi->pos );
-		if( pi_multi != NULL && pi->isLockedDown() || pi->type==1)
+		if( pi_multi != NULL && pi->isLockedDown() || pi->type() == 1 )
 		{
 			pi->setAllMovable();	// Default as stored by the client, perhaps we should keep a backup?
-			pi->secureIt = 0;
+			pi->setSecured( false );
 			RefreshItem( pi );
 			return;
 		}
@@ -4047,7 +4047,7 @@ void cTargets::LoadCannon(int s)
 			if ((pi->morez==0)&&(iteminrange(s, pi, 2)))
 			{
 				if(pi->morez==0)
-				pi->type=15;
+				pi->setType( 15 );
 				pi->morex=8;
 				pi->morey=10;
 				pi->morez=1;
@@ -4169,7 +4169,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 3: { cRemoveTarget		T(ps);		T.process();} break;
 		case 4: DyeTarget(s); break;
 		case 5: { cNewzTarget		T(ps);		T.process();} break;
-		case 6: if (Iready) pi->type=addid1[s]; break; //Typetarget
+		case 6: if (Iready) pi->setType( addid1[s] ); break; //Typetarget
 		case 7: Targ->IDtarget(s); break;
 		case 8:	XgoTarget(s); break;
 		case 9: if (Cready) PrivTarget(s,pc); break;

@@ -675,7 +675,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, string& comm)
 		{
 			const P_ITEM pi = Items->SpawnItem(c, pc_currchar, 1, "bank check", 0, 0x14, 0xF0, 0, 0, 0); // bank check
 			if (pi != NULL)
-			pi->type = 1000;
+			pi->setType( 1000 );
 			pi->setId(0x14F0);
 			pi->setColor( 0x0099 );
 			pi->priv |= 0x02;

@@ -321,7 +321,7 @@ P_ITEM cChar::GetBankBox( short banktype )
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->type == 1 && pi->morex == 1)
+		if( pi->type() == 1 && pi->morex == 1 )
 			if ( banktype == 1 && pi->morez == 123 && SrvParams->useSpecialBank()) 
 				return pi;
 			else if ( banktype != 1 || !SrvParams->useSpecialBank())
@@ -340,7 +340,7 @@ P_ITEM cChar::GetBankBox( short banktype )
 	pi->morex=1;
 	if(SrvParams->useSpecialBank() && banktype == 1)//AntiChrist - Special Bank
 		pi->morey=123;//gold only bank
-	pi->type=1;
+	pi->setType( 1 );
 	if (s != -1)
 		wearIt(s, pi);
 
@@ -507,7 +507,7 @@ P_ITEM cChar::getWeapon()
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL)
-		if ( ( pi->layer() == 1 && pi->type != 9 )		// not a spellbook (hozonko)
+		if ( ( pi->layer() == 1 && pi->type() != 9 )		// not a spellbook (hozonko)
 			|| (pi->layer() == 2 && !getShield()) ) //Morrolan don't check for shields
 		{
 			return pi;

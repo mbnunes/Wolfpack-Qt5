@@ -491,7 +491,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 					pBackpack->pos.z=0;
 					pBackpack->SetContSerial(pc_c->serial);
 					pBackpack->setLayer( 0x15 );
-					pBackpack->type=1;
+					pBackpack->setType( 1 );
 					pBackpack->dye=1;
 					
 					retitem = pBackpack;
@@ -1032,7 +1032,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 	   y) If the place chosen is not a valid position (the NPC can't walk there) then a new 
 	   place will be chosen, if a valid place cannot be found in a certain # of tries (50), 
 		   the NPC will be placed directly on the spawner and the server op will be warned. */
-		   if ((pi_i->type==69 || pi_i->type==125)&& pi_i->isInWorld())
+		   if ((pi_i->type() == 69 || pi_i->type() == 125)&& pi_i->isInWorld())
 		   {
 			   if (pi_i->more3==0) pi_i->more3=10;
 			   if (pi_i->more4==0) pi_i->more4=10;
@@ -1076,7 +1076,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 		   pc_c->pos.y=pi_i->pos.y+yos;
 		   pc_c->dispz=pc_c->pos.z=pi_i->pos.z;
 		   pc_c->SetSpawnSerial(pi_i->serial);
-		   if ( pi_i->type == 125 )
+		   if ( pi_i->type() == 125 )
 		   {
 			  MsgBoardQuestEscortCreate( pc_c );
 		   }

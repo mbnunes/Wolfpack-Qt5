@@ -712,7 +712,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 			{
 				P_ITEM pi_ci = FindItemBySerial(vecContainer[a]);
 				if (pi_ci != NULL)
-				if (pi_ci->type==7 && (calcserial(pi_ci->more1, pi_ci->more2, pi_ci->more3, pi_ci->more4) == pi_multi->serial))
+				if (pi_ci->type() == 7 && (calcserial(pi_ci->more1, pi_ci->more2, pi_ci->more3, pi_ci->more4) == pi_multi->serial))
 				{//a key to this multi
 					valid=1;//Log 'em out now!
 					break;
@@ -1417,7 +1417,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							{
 								P_ITEM ci = FindItemBySerial(vecContainer[i]);
 								if (ci != NULL) //lb
-									if ((ci->contserial==serial) && (ci->type==9))
+									if ((ci->contserial==serial) && (ci->type() == 9))
 									{
 										pj = ci;
 										break;

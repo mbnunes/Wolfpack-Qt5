@@ -743,8 +743,8 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "plane", Item->pos.plane )
 	else getIntProperty( "layer", Item->layer() )
 	else getIntProperty( "itemhand", Item->itemhand() )
-	else getIntProperty( "type", Item->type )
-	else getIntProperty( "type2", Item->type2 )
+	else getIntProperty( "type", Item->type() )
+	else getIntProperty( "type2", Item->type2() )
 	
 	// What we're contained in
 	else if( !strcmp( "container", name ) )
@@ -798,9 +798,9 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "strength2", Item->st2 )
 	else getIntProperty( "dexterity2", Item->dx2 )
 	else getIntProperty( "intelligence2", Item->in2 )
-	else getIntProperty( "speed", Item->spd )
+	else getIntProperty( "speed", Item->speed() )
 	else getIntProperty( "smelt", Item->smelt )
-	else getIntProperty( "secureIt", Item->secureIt )
+	else getIntProperty( "secured", Item->secured() ? 1 : 0 )
 	else getIntProperty( "moveable", Item->magic )
 	else getIntProperty( "gatetime", Item->gatetime )
 	else getIntProperty( "gatenumber", Item->gatenumber )
@@ -863,8 +863,12 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else if( !strcmp( name, "itemhand" ) )
 		self->Item->setItemhand( PyInt_AS_LONG( value ) );
 
-	else setIntProperty( "type", Item->type )
-	else setIntProperty( "type2", Item->type2 )
+	else if( !strcmp( name, "type" ) )
+		self->Item->setType( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "type2" ) )
+		self->Item->setType2( PyInt_AS_LONG( value ) );
+
 	// CONTAINER!!
 	else setIntProperty( "oldx", Item->oldpos.x )
 	else setIntProperty( "oldy", Item->oldpos.y )
@@ -899,9 +903,15 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else setIntProperty( "strength2", Item->st2 )
 	else setIntProperty( "dexterity2", Item->dx2 )
 	else setIntProperty( "intelligence2", Item->in2 )
-	else setIntProperty( "speed", Item->spd )
+
+	else if( !strcmp( name, "speed" ) )
+		self->Item->setSpeed( PyInt_AS_LONG( value ) );
+
 	else setIntProperty( "smelt", Item->smelt )
-	else setIntProperty( "secureIt", Item->secureIt )
+
+	else if( !strcmp( name, "secured" ) )
+		self->Item->setSecured( ( PyInt_AS_LONG( value ) == 1 ) ? true : false );
+
 	else setIntProperty( "moveable", Item->magic )
 	else setIntProperty( "gatetime", Item->gatetime )
 	else setIntProperty( "gatenumber", Item->gatenumber )

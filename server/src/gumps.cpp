@@ -306,7 +306,7 @@ void cGump::Input(int s)
 		case 5:		k = str2num( text );	pj->pos.x = k;		break;	// X
 		case 6:		k = str2num( text );	pj->pos.y = k;		break;	// Y
 		case 7:		k = str2num( text );	pj->pos.z = k;		break;	// Z
-		case 8:		k = str2num( text );	pj->type = k;		break;	 // Type
+		case 8:		k = str2num( text );	pj->setType( k );		break;	 // Type
 		case 9:		k = str2num( text );	pj->setItemhand( k );	break;	// Itemhand - added by Xuri
 		case 10:	k = str2num( text );	pj->setLayer( k );		break;	// Layer
 		case 11:	k = str2num( text );	pj->setAmount( k );		break;	// Amount
@@ -332,7 +332,7 @@ void cGump::Input(int s)
 		case 21:	k = str2num( text );	pj->visible = k;	break;	// Visible
 		case 22:	k = str2num( text );	pj->hp = k;			break;	// Current Hitpoints
 		case 23:	k = str2num( text );	pj->maxhp = k;		break;	// MAX Hitpoints
-		case 24:	k = str2num( text );	pj->spd = k;		break;	// Speed (for Combat)
+		case 24:	k = str2num( text );	pj->setSpeed( k );	break;	// Speed (for Combat)
 		case 25:	k = str2num( text );	pj->rank = k;		break;	// Rank
 		case 26:	k = str2num( text );	pj->value = k;		break;	// Value
 		case 27:	k = str2num( text );	pj->good = k;		break;	// Good(for Adv.Trade system)
@@ -1127,7 +1127,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "Z");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i (0x%x)", pj->pos.z, pj->pos.z);
 		line--; if( line == 0 ) strcpy( (char*)script1, "Type");
-		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->type);
+		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->type());
 		line--; if( line == 0 ) strcpy( (char*)script1,  "ItemHand" );
 		line--; if( line == 0 ) sprintf( (char*)script1, "%i", pj->itemhand() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Layer");
@@ -1159,7 +1159,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "MaxHitPoints" );
 		line--; if( line == 0 ) sprintf((char*) script1, "%i", pj->maxhp );
 		line--; if( line == 0 ) strcpy((char*) script1, "Speed" );
-		line--; if( line == 0 ) sprintf((char*) script1, "%i", pj->spd );
+		line--; if( line == 0 ) sprintf((char*) script1, "%i", pj->speed() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Rank");
 		line--; if( line == 0 ) sprintf((char*) script1,"%i", pj->rank);
 		line--; if( line == 0 ) strcpy((char*) script1, "Value");

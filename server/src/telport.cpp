@@ -421,7 +421,7 @@ void monstergate(P_CHAR pc_s, int x)
 				
 				pBackpack->SetContSerial(pc_s->serial);
 				pBackpack->setLayer(0x15);
-				pBackpack->type=1;
+				pBackpack->setType( 1 );
 				pBackpack->dye=1;
 				pRetitem = pBackpack;
 			}
@@ -802,7 +802,7 @@ void objTeleporters(P_CHAR pc_s)
 					if (pmi->pos.x == x && pmi->pos.y == y &&
 						((abs(pmi->pos.z) + 10) >= abs(pc_s->pos.z)) &&((abs(pmi->pos.z) - 10) <= abs(pc_s->pos.z)))
 					{
-						if ((pmi->type == 60) && (pmi->morex + pmi->morey + pmi->morez >0))
+						if ((pmi->type() == 60) && (pmi->morex + pmi->morey + pmi->morez >0))
 						{
 							Coord_cl pos(pc_s->pos);
 							pos.x = pmi->morex;
@@ -813,7 +813,7 @@ void objTeleporters(P_CHAR pc_s)
 						}
 						
 						// advancement objects
-						if ((pmi->type == 80)&&(pc_s->isPlayer()))
+						if ((pmi->type() == 80)&&(pc_s->isPlayer()))
 							if (pmi->more1 != 0 || pmi->more2 != 0 || pmi->more3 != 0 || pmi->more4 != 0)
 							{
 								if (pc_s->serial == calcserial( pmi->more1, pmi->more2, pmi->more3, pmi->more4 ))
@@ -822,7 +822,7 @@ void objTeleporters(P_CHAR pc_s)
 							else
 								advancementobjects(pc_s, pmi->morex, 0);
 							
-							if ((pmi->type == 81)&&(pc_s->isPlayer()))
+							if ((pmi->type() == 81)&&(pc_s->isPlayer()))
 								if (pmi->more1 != 0 || pmi->more2 != 0 || pmi->more3 != 0 || pmi->more4 != 0)
 								{
 									if (pc_s->serial == calcserial(pmi->more1, pmi->more2, pmi->more3, pmi->more4))
@@ -834,7 +834,7 @@ void objTeleporters(P_CHAR pc_s)
 								// serial #
 								
 								// damage objects
-								if (!(pc_s->isInvul()) && (pmi->type == 85))
+								if (!(pc_s->isInvul()) && (pmi->type() == 85))
 								{
 									pc_s->hp = pc_s->hp - (pmi->morex + RandomNum(pmi->morey, pmi->morez));
 									if (pc_s->hp < 1)
@@ -844,7 +844,7 @@ void objTeleporters(P_CHAR pc_s)
 										deathstuff(pc_s);
 								}
 								// monster gates
-								if (pmi->type == 82)
+								if (pmi->type() == 82)
 									monstergate(pc_s, pmi->morex);
 								////////////////////////////////// 
 								// This will be just a body type switching 
@@ -852,7 +852,7 @@ void objTeleporters(P_CHAR pc_s)
 								// 
 								// 
 								// 
-								if (pmi->type == 84) 
+								if (pmi->type() == 84) 
 									polycolorgate(pc_s, pmi->morex); 
 								// 
 								// 
@@ -860,7 +860,7 @@ void objTeleporters(P_CHAR pc_s)
 								//////////////////////////////////
 								
 								// sound objects
-								if (pmi->type == 86)
+								if (pmi->type() == 86)
 								{
 									if (RandomNum(1, 100) <= pmi->morez)
 										soundeffect3(pmi, (pmi->morex << 8) + pmi->morey);

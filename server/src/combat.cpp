@@ -82,7 +82,7 @@ void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char 
 	unsigned short int tempmage=pc_currchar->skill[MAGERY];//Easier than writing new functions for all these spells
 
 
-	if(pi->type != 15 || pi->morez<=0 ) return;
+	if(pi->type() != 15 || pi->morez<=0 ) return;
 	
 	switch(spellnum)
 	{
@@ -164,7 +164,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 	P_ITEM pWeapon=pc_attacker->getWeapon();// get the weapon item only once
 
 	if (pWeapon && !(rand()%50)	// a 2 percent chance (Duke, 07.11.2000)
-		&& pWeapon->type !=9)	// but not for spellbooks (Duke, 09/10/00)
+		&& pWeapon->type() !=9)	// but not for spellbooks (Duke, 09/10/00)
 	{
 		pWeapon->hp--; //Take off a hit point
 		if(pWeapon->hp<=0)
@@ -662,8 +662,10 @@ static void SetWeaponTimeout(P_CHAR Attacker, P_ITEM Weapon)
 	
 	if (Weapon) 
 	{ 
-		if (Weapon->spd==0) Weapon->spd=35;
-		x = (15000*MY_CLOCKS_PER_SEC) / ((Attacker->effDex()+100) * Weapon->spd); //Calculate combat delay
+		if( Weapon->speed() == 0 ) 
+			Weapon->setSpeed( 35 );
+
+		x = (15000*MY_CLOCKS_PER_SEC) / ((Attacker->effDex()+100) * Weapon->speed() ); //Calculate combat delay
 	}
 	else 
 	{
@@ -1300,11 +1302,11 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if ( ( ( pi->layer() == 1 && pi->type != 9 ) || (pi->layer() == 2 ) ) )
+		if ( ( ( pi->layer() == 1 && pi->type() != 9 ) || (pi->layer() == 2 ) ) )
 		{
-			if (pi->offspell && (pi->att||pi->hidamage) && pi->type == 15)
+			if( pi->offspell() && ( pi->att || pi->hidamage ) && pi->type() == 15 )
 			{
-				switch(pi->offspell)
+				switch( pi->offspell() )
 				{
 				case 1:	Magic->ClumsySpell(Attacker,Defender, false);			break;
 				case 2:	Magic->FeebleMindSpell(Attacker, Defender, false);		break;
@@ -1319,15 +1321,15 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 				case 14:Magic->ExplosionSpell(Attacker,Defender, false);		break;
 				case 15:Magic->FlameStrikeSpell(Attacker, Defender, false);		break;
 				default:
-					LogErrorVar("invalid offspell value %i",pi->offspell);
+					LogErrorVar("invalid offspell value %i",pi->offspell());
 				}
 				pi->morez--;
 				if (pi->morez == 0)
 				{
-					pi->type = pi->type2;
+					pi->setType( pi->type2() );
 					pi->morex = 0;
 					pi->morey = 0;
-					pi->offspell = 0;
+					pi->setOffspell( 0 );
 				}
 			}
 			return;

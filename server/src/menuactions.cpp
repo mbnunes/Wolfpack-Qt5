@@ -201,7 +201,7 @@ UI32 consumeResources( P_ITEM Container, UI32 Amount, const vector< UI16 > &Matc
 			continue;
 
 		// If it's a container add it's contained items to our amount (recursive)
-		if( Item->type == 1 )
+		if( Item->type() == 1 )
 		{
 			Amount = consumeResources( Item, Amount, MatchingIDs, MatchingColors, MatchingName, MatchingType, CheckID, CheckColor, CheckName, CheckType );
 
@@ -258,7 +258,7 @@ UI32 consumeResources( P_ITEM Container, UI32 Amount, const vector< UI16 > &Matc
 			continue;
 
 		// ======== TYPE =======
-		if( CheckType && ( Item->type != MatchingType ) )
+		if( CheckType && ( Item->type() != MatchingType ) )
 				continue;
 
 		// ======== NAME =======
@@ -304,7 +304,7 @@ UI32 countResources( P_ITEM Container, const vector< UI16 > &MatchingIDs, const 
 			continue;
 
 		// If it's a container add it's contained items to our amount (recursive)
-		if( Item->type == 1 )
+		if( Item->type() == 1 )
 		{
 			Amount += countResources( Item, MatchingIDs, MatchingColors, MatchingName, MatchingType, CheckID, CheckColor, CheckName, CheckType );
 			continue;
@@ -357,7 +357,7 @@ UI32 countResources( P_ITEM Container, const vector< UI16 > &MatchingIDs, const 
 			continue;
 
 		// ======== TYPE =======
-		if( CheckType && ( Item->type != MatchingType ) )
+		if( CheckType && ( Item->type() != MatchingType ) )
 				continue;
 
 		// ======== NAME =======

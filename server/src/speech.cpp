@@ -902,7 +902,7 @@ bool PlayerVendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET 
 		P_ITEM pDeed = Items->SpawnItem(pPlayer, 1, "employment deed", 0, 0x14F0, 0, 1);
 		if (pDeed)
 		{
-			pDeed->type = 217;
+			pDeed->setType( 217 );
 			pDeed->value = 2000;
 			RefreshItem( pDeed );
 			Npcs->DeleteChar( pVendor );

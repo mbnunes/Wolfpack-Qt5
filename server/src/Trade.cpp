@@ -278,7 +278,7 @@ void cTrade::restock(int s)
 static bool items_match(P_ITEM pi1, P_ITEM pi2)
 {
 	if (pi1 && pi2 && pi1->id()==pi2->id() &&
-		pi1->type==pi2->type &&
+		pi1->type()==pi2->type() &&
 		!(pi1->id()==0x14F0 && (pi1->morex!=pi2->morex)) &&			// house deeds only differ by morex
 		!(IsShield(pi1->id()) && pi1->name2() == pi2->name2()) &&	// magic shields only differ by name2
 		!(IsMetalArmour(pi1->id()) && pi1->color() != pi2->color()) )	// color checking for armour
@@ -428,7 +428,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	pi_ps->pos = Coord_cl(26, 0, 0);
 	pi_ps->SetContSerial(pc_currchar->serial);
 	pi_ps->setLayer( 0 );
-	pi_ps->type=1;
+	pi_ps->setType( 1 );
 	pi_ps->dye=0;
 	sendbpitem(s, pi_ps);
 	if (s2 != INVALID_UOXSOCKET)
@@ -440,7 +440,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	pi_pi->pos = Coord_cl(26, 0, 0);
 	pi_pi->SetContSerial(pc_i->serial);
 	pi_pi->setLayer( 0 );
-	pi_pi->type=1;
+	pi_pi->setType( 1 );
 	pi_pi->dye=0;
 	sendbpitem(s, pi_pi);
 	if (s2 != INVALID_UOXSOCKET)
@@ -491,8 +491,7 @@ void cTrade::clearalltrades()
 	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 	{
 		P_ITEM pi = iterItems.GetData();
-		if (pi->type==1 && pi->pos.x==26 && pi->pos.y==0 && pi->pos.z==0 &&
-			pi->id()==0x1E5E)
+		if( pi->type() == 1 && pi->pos.x == 26 && pi->pos.y == 0 && pi->pos.z == 0 && pi->id() == 0x1E5E )
 		{
 			P_CHAR pc = FindCharBySerial(pi->contserial);
 			P_ITEM pBackpack = Packitem(pc);

@@ -594,7 +594,7 @@ void cRespawn::Continue()
 	{
 		P_ITEM pi = iterItems.GetData();
 		unsigned int k, ci;
-		if (pi->type == 61)
+		if (pi->type() == 61)
 		{
 			k = 0;
 			vector<SERIAL> vecSpawn(spawnsp.getData(pi->serial));
@@ -620,7 +620,7 @@ void cRespawn::Continue()
 			}
 		}
 
-		if ( pi->type == 62 || pi->type == 69 || pi->type == 125 )	// NPC Spawner / Escort Quest spawner(125)
+		if ( pi->type() == 62 || pi->type() == 69 || pi->type() == 125 )	// NPC Spawner / Escort Quest spawner(125)
 		{
 			k=0;
 			vector<SERIAL> vecSpawned(cspawnsp.getData(pi->serial));

@@ -346,7 +346,7 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 
 	pBoat->more1=id2;//Set min ID
 	pBoat->more2=nid2+3;//set MAX id
-	pBoat->type=117;//Boat type
+	pBoat->setType( 117 );//Boat type
 	pBoat->pos.z=-5;//Z in water
 	pBoat->setName( "a mast" );//Name is something other than "%s's house"
 	
@@ -357,8 +357,8 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 
 	P_ITEM pPlankR=Items->SpawnItem(pc_cs,1,"#",0,0x3EB2,0,0);//Plank2 is on the RIGHT side of the boat
 	if( !pPlankR ) return false;
-	pPlankR->type=117;
-	pPlankR->type2=3;
+	pPlankR->setType( 117 );
+	pPlankR->setType2( 3 );
 	pPlankR->more1 = static_cast<unsigned char>((pBoat->serial&0xFF000000)>>24);
 	pPlankR->more2 = static_cast<unsigned char>((pBoat->serial&0x00FF0000)>>16);
 	pPlankR->more3 = static_cast<unsigned char>((pBoat->serial&0x0000FF00)>>8);
@@ -368,8 +368,8 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 
 	P_ITEM pPlankL=Items->SpawnItem(pc_cs,1,"#",0,0x3EB1,0,0);//Plank1 is on the LEFT side of the boat
 	if( !pPlankL ) return false;
-	pPlankL->type=117;//Boat type
-	pPlankL->type2=3;//Plank sub type
+	pPlankL->setType( 117 );//Boat type
+	pPlankL->setType2( 3 );//Plank sub type
 	pPlankL->more1 = static_cast<unsigned char>((pBoat->serial&0xFF000000)>>24);
 	pPlankL->more2 = static_cast<unsigned char>((pBoat->serial&0x00FF0000)>>16);
 	pPlankL->more3 = static_cast<unsigned char>((pBoat->serial&0x0000FF00)>>8);
@@ -383,7 +383,7 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	pHold->more2 = static_cast<unsigned char>((pBoat->serial&0x00FF0000)>>16);
 	pHold->more3 = static_cast<unsigned char>((pBoat->serial&0x0000FF00)>>8);
 	pHold->more4 = static_cast<unsigned char>((pBoat->serial&0x000000FF));
-	pHold->type=1;//Conatiner
+	pHold->setType( 1 );//Conatiner
 	pHold->pos.z=-5;
 	pHold->priv=0;
 	
@@ -676,14 +676,14 @@ void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 
 	if((pBoat->pos.x+tx<=200 || pBoat->pos.x+tx>=6000) && (pBoat->pos.y+ty<=200 || pBoat->pos.y+ty>=4900)) //bugfix LB
 	{
-		pBoat->type2=0;
+		pBoat->setType2( 0 );
 		itemtalk(s, pTiller, "Arr, Sir, we've hit rough waters!");
 		Xsend(s,restart,2);
 		return;
 	}
 	if(Block(pBoat,tx,ty,dir))
 	{
-		pBoat->type2=0;
+		pBoat->setType2( 0 );
 		itemtalk(s, pTiller, "Arr, somethings in the way!");
 		Xsend(s,restart,2);
 		return;
@@ -946,13 +946,13 @@ char cBoat::Speech(UOXSOCKET s, string& msg)//See if they said a command. msg mu
 
 	if((msg.find("FORWARD")!= string::npos) || (msg.find("UNFURL SAIL")!=string::npos))
 	{
-		boat->type2=1;//Moving
+		boat->setType2( 1 );
 		Move(s,dir, boat);
 		itemtalk(s, tiller, "Aye, sir.");
 		return 1;
 	} else if(msg.find("BACKWARD")!= string::npos)
 	{
-		boat->type2=2;//Moving backward
+		boat->setType2( 2 ); // Moving backward
 		if(dir >= 4) dir-=4; 
 		else dir+=4;
 		Move(s,dir, boat);		
@@ -980,8 +980,9 @@ char cBoat::Speech(UOXSOCKET s, string& msg)//See if they said a command. msg mu
 	} 
 	else if((msg.find("STOP")!=string::npos) || (msg.find("FURL SAIL")!=string::npos))
 	{ 
-		boat->type2=0; itemtalk(s, tiller, "Aye, sir."); 
-	}//Moving is type2 1 and 2, so stop is 0 :-)
+		boat->setType( 0 ); 
+		itemtalk(s, tiller, "Aye, sir."); 
+	} //Moving is type2 1 and 2, so stop is 0 :-)
 	
 	else if(((msg.find("TURN")!=string::npos) && ((msg.find("AROUND")!=string::npos) || (msg.find("LEFT")!=string::npos) || (msg.find("RIGHT")!=string::npos)))
 		|| (msg.find("PORT")!=string::npos) || (msg.find("STARBOARD")!=string::npos) || (msg.find("COME ABOUT")!=string::npos))
@@ -1030,7 +1031,7 @@ char cBoat::Speech(UOXSOCKET s, string& msg)//See if they said a command. msg mu
 			  itemtalk(s, tiller, "Aye, sir.");
 			  return 1;
 			} else { 
-				boat->type2 = 0;
+				boat->setType2( 0 );
 			    itemtalk(s, tiller, "Arr,somethings in the way"); 
 				return 1;
 			}
@@ -1080,7 +1081,7 @@ char cBoat::Speech(UOXSOCKET s, string& msg)//See if they said a command. msg mu
 			  return 1;
 			} else 
 			{ 
-				boat->type2 = 0;
+				boat->setType2( 0 );
 				itemtalk(s, tiller, "Arr,somethings in the way"); 
 				return 1;
 			}

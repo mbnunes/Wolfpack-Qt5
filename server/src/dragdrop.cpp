@@ -660,7 +660,7 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR pc_currchar = ps->getPlayer();
 	P_CHAR pc_target = FindCharBySerial(pp->Tserial);
 
-	if( pc_target->hunger() < 6 && pi->type == 14 )//AntiChrist new hunger code for npcs
+	if( pc_target->hunger() < 6 && pi->type() == 14 )//AntiChrist new hunger code for npcs
 	{
 		soundeffect2(pc_currchar, 0x003A+(rand()%3));	//0x3A - 0x3C three different sounds
 
@@ -815,7 +815,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	int amt = pi->amount();
 	int value = pi->value;
 	
-	if (pi->id() == 0x14F0 && pi->type == 1000)
+	if (pi->id() == 0x14F0 && pi->type() == 1000)
 	{
 		while ( pi->value > 65000)
 		{
@@ -1237,7 +1237,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	//
 	if(SrvParams->useSpecialBank())//only if special bank is activated
 	{
-		if(pCont->morey==123 && pCont->morex==1 && pCont->type==1)
+		if(pCont->morey==123 && pCont->morex==1 && pCont->type()==1)
 		{
 			if ( pItem->id() == 0x0EED )
 			{//if they're gold ok
@@ -1275,14 +1275,14 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		return;
 	}
 	// - Trash container
-	if (pCont->type==87)
+	if (pCont->type()==87)
 	{
 		Items->DeleItem(pItem);
 		sysmessage(s, "As you let go of the item it disappears.");
 		return;
 	}
 	// - Spell Book
-	if (pCont->type==9)
+	if (pCont->type()==9)
 	{
 		if (!IsSpellScroll72(pItem->id()))
 		{
@@ -1337,7 +1337,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	
 	// player run vendors
 	if (!(pCont->pileable && pItem->pileable && pCont->id()==pItem->id()
-		|| (pCont->type!=1 && pCont->type!=9)))
+		|| (pCont->type()!=1 && pCont->type()!=9)))
 	{
 		P_CHAR pc_j = GetPackOwner(pCont);
 		if (pc_j != NULL)
@@ -1363,7 +1363,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	
 	else
 		// - Unlocked item spawner or unlockable item spawner
-		if (pCont->type==63 || pCont->type==65 || pCont->type==66)
+		if (pCont->type()==63 || pCont->type()==65 || pCont->type()==66)
 		{
 			pItem->SetContSerial(pp->Tserial);
 
@@ -1412,7 +1412,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			
 			// - Spell Book
 	
-			if (pCont->type==9)
+			if (pCont->type()==9)
 				Magic->SpellBook(s, pCont); // LB, bugfix for showing(!) the wrong spell (clumsy) when a new spell is put into opened spellbook
 
 			if (pItem->glow != INVALID_SERIAL) // LB's glowing items stuff

@@ -43,7 +43,7 @@ class ISerialization;
 
 class cItem : public cUObject
 {
-protected:
+private:
 	UI16 id_;
 	UI16 color_;
 	UI16 amount_; 
@@ -53,6 +53,12 @@ protected:
 	SI08 layer_;
 	UI08 itemhand_;
 	QString murderer_;
+
+	UI16 type_;
+	UI16 type2_;
+
+	UI08 offspell_; // Whats that for ?!
+	SI16 speed_;
 
 public:
 	// Getters
@@ -65,6 +71,11 @@ public:
 	UI08			layer()		const { return layer_; }; // Layer if equipped on paperdoll
 	UI08			itemhand()	const { return itemhand_; };
 	const QString	&murderer() const { return murderer_; }; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
+	UI32			type()		const { return type_; }; // Used for hardcoded behaviour
+	UI32			type2()		const { return type2_; };
+	UI08			offspell()	const { return offspell_; };
+	bool			secured()	const { return priv&0x08; };
+	SI16			speed()		const { return speed_; }; // Weapon speed
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -76,6 +87,11 @@ public:
 	void	setLayer( SI08 nValue ) { layer_ = nValue; };
 	void	setItemhand( UI08 nValue ) { itemhand_ = nValue; };
 	void	setMurderer( const QString nValue ) { murderer_ = nValue; };
+	void	setType( UI32 nValue ) { type_ = nValue; };
+	void	setType2( UI32 nValue ) { type2_ = nValue; };	
+	void	setOffspell( UI08 nValue ) { offspell_ = nValue; };
+	void	setSecured( bool nValue ) { ( nValue ) ? priv &= 0x08 : priv |= 0xF7; };
+	void	setSpeed( SI16 nValue ) { speed_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -85,14 +101,11 @@ public:
 	
 	SERIAL contserial;
 	//int itmhand; // ITEMHAND system - AntiChrist
-	unsigned int type; // For things that do special things on doubleclicking
-	unsigned int type2;
 	
 	Coord_cl oldpos; //Old position - used for bouncing bugfix - AntiChrist
 	SERIAL oldcontserial; //Old contserial - used for bouncing bugfix - Antichrist
 	signed char oldlayer; // Old layer - used for bouncing bugfix - AntiChrist
 	
-	unsigned char offspell;
 	int weight;
 	unsigned char more1; // For various stuff
 	unsigned char more2;
@@ -123,9 +136,7 @@ public:
 	signed short dx2; // The dexterity the item gives
 	signed short in; // The intelligence needed to equip the item
 	signed short in2; // The intelligence the item gives
-	signed short spd; //The speed of the weapon
 	int smelt; // for item smelting
-	int secureIt; // secured chests
 	bool wipe; //Should this item be wiped with the /wipe command
 	unsigned char magic; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
 	unsigned int gatetime;
@@ -137,7 +148,7 @@ public:
 	SERIAL spawnserial;
 	unsigned char dir;
 	//char dir; // Direction, or light source type.
-	unsigned char priv; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
+	unsigned char priv; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable. Bit 3 secure
 	int value; // Price shopkeeper sells item at.
 	int restock; // Number up to which shopkeeper should restock this item
 	int trigger; //Trigger number that item activates

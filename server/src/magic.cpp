@@ -158,7 +158,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 		{
 			pj = FindItemBySerial(vecContainer[ci]);
 
-			if (pj->type==9)
+			if (pj->type()==9)
 			{
 				pi=pj;
 				break;
@@ -173,7 +173,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pj = FindItemBySerial(vecContainer[ci]);
-			if ( pj->type == 9 && pj->layer() == 1 )
+			if ( pj->type() == 9 && pj->layer() == 1 )
 			{
 				pi=pj;
 				break;
@@ -296,9 +296,9 @@ char cMagic::GateCollision(P_CHAR pc_player)
 		P_ITEM mapitem = FindItemBySerial(*it);
 		if (mapitem != NULL)
 		{
-			if (mapitem->type == 51 || (mapitem->type==52))
+			if (mapitem->type() == 51 || (mapitem->type()==52))
 			{
-				if (mapitem->type==51) n=1;
+				if (mapitem->type()==51) n=1;
 				else n=0;
 				if ((pc_player->pos.x==mapitem->pos.x)&&
 					(pc_player->pos.y==mapitem->pos.y)&&
@@ -588,7 +588,7 @@ void cMagic::SbOpenContainer(UOXSOCKET s)
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi)
 	{
-		if ((pi->type==9))
+		if ((pi->type()==9))
 			backpack(s, pi->serial);
 		else
 			sysmessage(s,"That is not a spellbook.");
@@ -1515,7 +1515,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pj = FindItemBySerial(vecContainer[ci]);
-			if (type!=2 && (pj->layer()==2||(pj->layer()==1 && pj->type!=9 )))
+			if (type!=2 && (pj->layer()==2||(pj->layer()==1 && pj->type()!=9 )))
 			{
 				if (!(pj->id()==0x13F9 || pj->id()==0x0E8A || pj->id()==0x0DF0 || pj->id()==0x0DF2
 					|| IsChaosOrOrderShield(pj->id()) ))
@@ -1684,7 +1684,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			{
 				if( !pi->isInWorld() || line_of_sight( s, pc_currchar->pos, pi->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) || pc_currchar->isGM() ) // bugfix LB
 				{
-					if ((pi->type==50))
+					if ((pi->type()==50))
 					{
 						playSound( pc_currchar, curSpell );
 						doStaticEffect( pc_currchar, curSpell );
@@ -1755,7 +1755,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									P_ITEM pi_c = Items->SpawnItem(-1, pc_currchar, 1,"#",0,0x0f,0x6c,0,0,0);
 									if(pi_c != NULL)	//AntiChrist - to prevent crashes
 									{
-										pi_c->type=51+n;
+										pi_c->setType( 51+n );
 										pi_c->pos.x=gatex[gatecount][n];
 										pi_c->pos.y=gatey[gatecount][n];
 										pi_c->pos.z=gatez[gatecount][n];
@@ -2665,8 +2665,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					{
 						//////////// (13) MAGIC TRAP ////////////
 					case 13:
-						if((pi->type==1 || pi->type==63 ||
-							pi->type==8 || pi->type==64)
+						if((pi->type()==1 || pi->type()==63 ||
+							pi->type()==8 || pi->type()==64)
 							&& pi->id()!=0x0E75)
 						{
 							pi->moreb1=1;
@@ -2681,8 +2681,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						break;
 						//////////// (14) MAGIC UNTRAP //////////
 					case 14:
-						if((pi->type==1 || pi->type==63 ||
-							pi->type==8 || pi->type==64))
+						if((pi->type()==1 || pi->type()==63 ||
+							pi->type()==8 || pi->type()==64))
 						{
 							if(pi->moreb1==1)
 							{
@@ -2703,13 +2703,13 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						break;
 						//////////// (19) MAGIC LOCK ////////////
 					case 19:
-						if((pi->type==1 || pi->type==63)
+						if((pi->type()==1 || pi->type()==63)
 							&& pi->id()!=0x0E75 )
 						{
-							switch(pi->type)
+							switch(pi->type())
 							{
-							case 1:	pi->type=8; break;
-							case 63: pi->type=64; break;
+							case 1:	pi->setType( 8 ); break;
+							case 63: pi->setType( 64 ); break;
 							default:
 								clConsole.send("ERROR: Fallout of switch statement without default. magic.cpp, magiclocktarget()/n"); //Morrolan
 								break;
@@ -2725,14 +2725,14 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//////////// (23) MAGIC UNLOCK //////////
 						
 					case 23:
-						if(pi->type==8 || pi->type==64)
+						if( pi->type() == 8 || pi->type() == 64 )
 						{
 							if(pi->more1==0 && pi->more2==0 && pi->more3==0 && pi->more4==0)
 							{ //Make sure it isn't an item that has a key (i.e. player house, chest..etc)
-								switch(pi->type)
+								switch(pi->type())
 								{
-								case 8: pi->type=1; break;
-								case 64: pi->type=63; break;
+								case 8: pi->setType( 1 ); break;
+								case 64: pi->setType( 63 ); break;
 								default:
 									//LogError("switch reached default");
 									return;
@@ -2743,7 +2743,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}
 						} else
 						{
-							if ( pi->type==1 || pi->type==63 || pi->type == 65 || pi->type == 87 )
+							if ( pi->type() == 1 || pi->type() == 63 || pi->type() == 65 || pi->type() == 87 )
 							{
 								sysmessage( s, "That is not locked." );
 							}
@@ -2790,7 +2790,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			   {
 	              if (pj != NULL) // Ripper
 				  {
-	                 pj->type=14;
+	                 pj->setType( 14 );
 					 sprintf((char*)temp,"You magically create food in your backpack: %s",pj->name().ascii());
 		             sysmessage(s,(char*)temp);
 	                 RefreshItem(pj);
@@ -3967,7 +3967,7 @@ void cMagic::BuildCannon(int s)
 	soundeffect(s, 0x02, 0x46);
 	
 	P_ITEM pi_k = Items->SpawnItem(-1, currchar[s] , 1,"#",0,0x0E,0x91,0,0,1);
-	pi_k->type=15;
+	pi_k->setType( 15 );
 	pi_k->morex=8;
 	pi_k->morey=10;
 	pi_k->morez=0;
@@ -4010,7 +4010,7 @@ void cMagic::Gate(UOXSOCKET s)
 				P_ITEM pi_c = Items->SpawnItem(-1,currchar[s],1,"#",0,0x0f,0x6c,0,0,0);
 				if(pi_c != NULL)//AntiChrist - to prevent crashes
 				{
-					pi_c->type=51+n;
+					pi_c->setType( 51 + n );
 					pi_c->pos.x=gatex[gatecount][n];
 					pi_c->pos.y=gatey[gatecount][n];
 					pi_c->pos.z=gatez[gatecount][n];

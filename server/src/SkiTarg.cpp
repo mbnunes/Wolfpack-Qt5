@@ -350,7 +350,7 @@ void cSkills::TasteIDTarget(int s)
 	P_CHAR pc_currchar = currchar[s];
 	if (pi && !pi->isLockedDown()) // Ripper
 	{
-		if(!( pi->type==19 || pi->type==14))
+		if(!( pi->type()==19 || pi->type()==14))
 		{
 			sysmessage(s, tr("You cant taste that!") );
 			return;
@@ -1197,7 +1197,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 						sysmessage(s, tr("You have cooked the %1, and it smells great.").arg(matname) );
 						P_ITEM pi_c = Items->SpawnItem(s, pc_currchar, piRaw->amount(),"#",1,id1,id2,0,1,1);
 						if(pi_c == NULL) return;
-						pi_c->type = 14;
+						pi_c->setType( 14 );
 						RefreshItem(pi_c);
 						Items->DeleItem(piRaw);
 					}
@@ -1806,9 +1806,9 @@ void cSkills::ArmsLoreTarget(int s)
 				
 				if (Skills->CheckSkill(pc_currchar, ARMSLORE, 500, 1000))
 				{
-					if      (pi->spd > 35) strcpy((char*)p2, tr(" And is very fast.") );
-					else if (pi->spd > 25) strcpy((char*)p2, tr(" And is fast.") );
-					else if (pi->spd > 15) strcpy((char*)p2, tr(" And is slow.") );
+					if      (pi->speed() > 35) strcpy((char*)p2, tr(" And is very fast.") );
+					else if (pi->speed() > 25) strcpy((char*)p2, tr(" And is fast.") );
+					else if (pi->speed() > 15) strcpy((char*)p2, tr(" And is slow.") );
 					else                   strcpy((char*)p2, tr(" And is very slow.") );
 					strcat((char*)temp,p2);
 				}
@@ -1899,7 +1899,7 @@ void cSkills::ItemIdTarget(int s)
 			}
 			else
 			{
-				if(pi->type!=15)
+				if(pi->type()!=15)
 				{
 					sysmessage(s, tr("This item has no hidden magical properties.") );
 				}
@@ -2411,7 +2411,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 	P_ITEM pPoi=FindItemBySerial(pc->poisonserial());
 	if (!pPoi) return;
 
-	if(pPoi->type!=19 || pPoi->morey!=6)
+	if(pPoi->type()!=19 || pPoi->morey!=6)
 	{
 		sysmessage(s,"That is not a valid poison!");
 		return;
@@ -2495,13 +2495,13 @@ void cSkills::LockPick(int s)
 		P_ITEM piPick = FindItemBySerial(addmitem[s]);
 		if (piPick == NULL)
 			return;
-		if(pi->type==1 || pi->type==12 || pi->type==63) 
+		if(pi->type()==1 || pi->type()==12 || pi->type()==63) 
 		{
 			sysmessage(s, tr("That is not locked.") );
 			return;
 		}
 		
-		if(pi->type==8 || pi->type==13 || pi->type==64)
+		if(pi->type()==8 || pi->type()==13 || pi->type()==64)
 		{
 			if(pi->more1==0 && pi->more2==0 && pi->more3==0 && pi->more4==0)
 			{ //Make sure it isn't an item that has a key (i.e. player house, chest..etc)
@@ -2519,11 +2519,11 @@ void cSkills::LockPick(int s)
 						}
 
 					}
-					switch(pi->type)
+					switch(pi->type())
 					{
-					case 8:  pi->type=1;  break;
-					case 13: pi->type=12; break;
-					case 64: pi->type=63; break;
+					case 8:  pi->setType( 1 );  break;
+					case 13: pi->setType( 12 ); break;
+					case 64: pi->setType( 63 ); break;
 					default:
 						LogError("switch reached default");
 						return;
@@ -2533,11 +2533,11 @@ void cSkills::LockPick(int s)
 				} else
 					if(Skills->CheckSkill(pc_currchar, LOCKPICKING, 0, 1000))
 					{
-						switch(pi->type)
+						switch(pi->type())
 						{
-						case 8: pi->type=1; break;
-						case 13: pi->type=12; break;
-						case 64: pi->type=63; break;
+						case 8:  pi->setType( 1 );  break;
+						case 13: pi->setType( 12 ); break;
+						case 64: pi->setType( 63 ); break;
 						default:
 							LogError("switch reached default");
 							return;

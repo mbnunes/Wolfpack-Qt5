@@ -961,7 +961,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			if(pi != NULL)
 			{
 				// lets make sure they are spawners.
-				if ((pi->type>=61 && pi->type<=65) || (pi->type==69) || (pi->type==125))
+				if ((pi->type()>=61 && pi->type()<=65) || (pi->type()==69) || (pi->type()==125))
 				{
 					// set to nodecay and refresh.
 	                pi->priv=0;
@@ -1016,7 +1016,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 						else if (mapitem != NULL && (checkitemstime<=currenttime||(overflow))) // moroallan !!! -1 is important !!!
 						{//BugFix
 							Items->RespawnItem(currenttime, mapitem);
-							if(mapitem->type == 51 || mapitem->type == 52) // LB !!!!
+							if(mapitem->type() == 51 || mapitem->type() == 52) // LB !!!!
 							{
 								if(mapitem->gatetime<=currenttime) // LB !!!
 								{
@@ -1026,7 +1026,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								}
 							}
 							Items->DecayItem(currenttime, mapitem);
-							if (mapitem->type==88 && mapitem->morey<25 )
+							if (mapitem->type()==88 && mapitem->morey<25 )
 							{
 								if (itemdist(currchar[i], mapitem)<=mapitem->morey)
 								{
@@ -1035,11 +1035,11 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								}
 							}
 						} else if (mapitem != NULL) {//Boats
-							if(mapitem->type==117 &&
-								(mapitem->type2==1 || mapitem->type2==2)&&
+							if(mapitem->type()==117 &&
+								(mapitem->type2()==1 || mapitem->type2()==2)&&
 								(mapitem->gatetime<=currenttime||overflow))
 							{
-								if (mapitem->type2==1) 
+								if (mapitem->type2()==1) 
 									Boats->Move(i, mapitem->dir, mapitem);
 								else 
 								{

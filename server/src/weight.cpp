@@ -106,7 +106,7 @@ float cWeight::RecursePacks(P_ITEM bp)
 			continue; // let's pick up next.
 		}
 		int itemsweight=pi->getWeight();
-		if (pi->type==1) //item is another container
+		if( pi->type() == 1 ) //item is another container
 		{
 			totalweight += (itemsweight/100.0f);		// the weight of container itself
 			totalweight += RecursePacks(pi);			//find the item's weight within this container
@@ -175,7 +175,7 @@ float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 		int itemsweight=pi->getWeight();
 		total2=total2+pi->amount();
 		*total=*total+1;
-		if (pi->type==1 || pi->type==63 || pi->type==65 || pi->type==87) //item is another container
+		if( pi->type() == 1 || pi->type() == 63 || pi->type() == 65 || pi->type() == 87) //item is another container
 		{
 			totalweight+=(itemsweight/100.0f); //(pi->weight/100);
 			totalweight+=LockeddownWeight(pi, total, total2); //find the item's weight within this container

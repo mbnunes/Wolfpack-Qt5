@@ -2431,7 +2431,7 @@ void command_cleanup(UOXSOCKET s)
 	for( iter_items.Begin(); !iter_items.atEnd(); iter_items++ )
 	{
 		P_ITEM pi = iter_items.GetData();
-		if((pi->corpse == 1) || (pi->type == 51) || (pi->type == 52))
+		if((pi->corpse == 1) || (pi->type() == 51) || (pi->type() == 52))
 		{
 			iter_items--; // Iterator will became invalid when we delete it.
 			Items->DeleItem(pi);
@@ -2495,7 +2495,7 @@ void command_deltype( UOXSOCKET s )
 	for( iter_items.Begin(); !iter_items.atEnd(); iter_items++ )
 	{
 		P_ITEM pi = iter_items.GetData();
-		if( pi->type == type )
+		if( pi->type() == type )
 		{
 			iter_items--; // Iterator will became invalid when we delete it
 			Items->DeleItem( pi );

@@ -331,7 +331,7 @@ void BuildHouse(UOXSOCKET s, int i)
 		pKey->more2 = static_cast<unsigned char>((pMulti->serial&0x00FF0000)>>16);
 		pKey->more3 = static_cast<unsigned char>((pMulti->serial&0x0000FF00)>>8);
 		pKey->more4 = static_cast<unsigned char>((pMulti->serial&0x000000FF));
-		pKey->type=7;
+		pKey->setType( 7 );
 		pKey->priv=2; // Newbify key..Ripper
         
 		P_ITEM pKey2 = Items->SpawnItem(s, pc_currchar, 1, "a house key", 0, 0x10, 0x0F, 0,1,1);
@@ -340,7 +340,7 @@ void BuildHouse(UOXSOCKET s, int i)
 		pKey2->more2 = static_cast<unsigned char>((pMulti->serial&0x00FF0000)>>16);
 		pKey2->more3 = static_cast<unsigned char>((pMulti->serial&0x0000FF00)>>8);
 		pKey2->more4 = static_cast<unsigned char>((pMulti->serial&0x000000FF));
-		pKey2->type=7;
+		pKey2->setType( 7 );
 		pKey2->priv=2;
 		bankbox->AddItem(pKey2);
 		
@@ -478,7 +478,7 @@ void RemoveKeys(SERIAL serial) // Crackerjack 8/11/99
 	for (iter_items.Begin(); !iter_items.atEnd(); ++iter_items)
 	{
 		P_ITEM pi = iter_items.GetData();
-		if (pi->type == 7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == serial)
+		if (pi->type() == 7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == serial)
 		{
 			Items->DeleItem(pi);
 		}
@@ -501,7 +501,7 @@ void RemoveHouse(P_ITEM pHouse)
 	for(rii.Begin(); !rii.atEnd(); ri++)
 	{
 		P_ITEM pi = rii.GetData();
-		if(pi->multis == pHouse->serial && pi->type != 202)
+		if(pi->multis == pHouse->serial && pi->type() != 202)
 			Items->DeleItem(pi);
 	}
 	RemoveKeys(pHouse->serial);
@@ -552,7 +552,7 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 							{
 								sprintf( (char*)temp, "A vendor deed for %s", mapchar->name.c_str() );
 								P_ITEM pPvDeed = Items->SpawnItem(pc, 1, (char*)temp, 0, 0x14F0, 0, 1);
-								pPvDeed->type = 217;
+								pPvDeed->setType( 217 );
 								pPvDeed->value = 2000;
 								RefreshItem( pPvDeed );
 								sysmessage(s, "Packed up vendor %s.", mapchar->name.c_str());
@@ -752,7 +752,7 @@ void killkeys( SERIAL serial )
 	for (iter_items.Begin(); !iter_items.atEnd(); ++iter_items)
 	{
 		P_ITEM pi = iter_items.GetData();
-		if (pi->type == 7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == serial)
+		if (pi->type() == 7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == serial)
 		{
 			--iter_items;
 			Items->DeleItem(pi);

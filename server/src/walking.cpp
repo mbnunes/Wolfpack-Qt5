@@ -1824,7 +1824,7 @@ int validNPCMove(int x, int y, signed char z, int s)
                 if (mapitem->id1<=2 || (mapitem->id()>=0x0300 && mapitem->id()<=0x03E2)) return 0;
                 if (mapitem->id()>0x0854 && mapitem->id()<0x0866) return 0;
                 
-                if (mapitem->type==12)
+                if( mapitem->type() == 12 )
                 {
                     if (pc_s->isNpc() && (strlen(pc_s->title().ascii()) > 0 || pc_s->npcaitype != 0))
                     {                            

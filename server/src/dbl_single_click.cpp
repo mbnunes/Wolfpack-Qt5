@@ -174,23 +174,23 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 
 	// -- end - DarkStorm
 
-	if (isItemSerial(pi->contserial) && pi->type != 1 && !pi->isInWorld())
+	if (isItemSerial(pi->contserial) && pi->type() != 1 && !pi->isInWorld())
 	{// Cant use stuff that isn't in your pack.
 		P_CHAR pc_p = GetPackOwner(FindItemBySerial(pi->contserial));
 		if (pc_p != NULL)
 			if (pc_p != pc_currchar)
 				return;
 	}
-	else if (isCharSerial(pi->contserial) && pi->type != 1 && !pi->isInWorld())
+	else if (isCharSerial(pi->contserial) && pi->type() != 1 && !pi->isInWorld())
 	{// in a character.
 		P_CHAR pc_p = FindCharBySerial(pi->contserial);
 		if (pc_p != NULL)
-			if( pc_p != pc_currchar && pi->layer() != 15 && pi->type != 1 )
+			if( pc_p != pc_currchar && pi->layer() != 15 && pi->type() != 1 )
 				return;
 	}
 	
 	// Begin Items/Guildstones Section 
-	itype = pi->type;
+	itype = pi->type();
 
 	// Criminal for looting an innocent corpse & unhidden if not owner..Ripper
 	if (pi->corpse==1)
@@ -209,7 +209,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		}
 	}
 	
-	if (pi->isLockedDown() && pi->secureIt == 1)
+	if (pi->isLockedDown() && pi->secured() )
 	{
 		if (!pc_currchar->Owns(pi))
 		{
@@ -301,7 +301,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		// end trigger stuff
 		// BEGIN Check items by type 
 	}	
-	switch (pi->type)
+	switch (pi->type())
 	{
 	case 16:
 		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
@@ -320,7 +320,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	case 117:// backpacks - snooping a la Zippy - add check for SrvParms->rogue later- Morrolan
 		
 		// Boats ->
-		if (pi->type2 == 3)
+		if (pi->type2() == 3)
 		{
 			if (iteminrange(s, pi, 3))
 			{
@@ -388,7 +388,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 			{
 				P_ITEM pj = iterItems.GetData();
-				if (pj->type == 3)
+				if (pj->type() == 3)
 				{
 					if (pj->morez == 1)
 					{
@@ -414,7 +414,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 			{
 				P_ITEM pj = iterItems.GetData();
-				if (pj->type == 5)
+				if (pj->type() == 5)
 				{
 					if (pj->morez == 3)
 					{
@@ -520,7 +520,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				for (j = 0; j < vecContainer.size(); j++) // Morrolan come back here and change this to search only backpack items 
 				{
 					P_ITEM pj = FindItemBySerial(vecContainer[j]);
-					if (pj != NULL && pj->type == 7)
+					if (pj != NULL && pj->type() == 7)
 						if (((pj->more1 == pi->more1) &&(pj->more2 == pi->more2)&&
 							(pj->more3 == pi->more3) &&(pj->more4 == pi->more4)))
 						{
@@ -591,10 +591,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					{ 
 						if (pi->morez == 0)
 						{
-							pi->type = pi->type2;
+							pi->setType( pi->type2() );
 							pi->morex = 0;
 							pi->morey = 0;
-							pi->offspell = 0;
+							pi->setOffspell( 0 );
 						}
 					}
 				}
@@ -723,12 +723,12 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			pc_currchar->id1 = i >> 8; 
 			pc_currchar->id2 = i%256; 
 			teleport((currchar[s]));
-			pi->type = 102;
+			pi->setType( 102 );
 			return; // case 101
 		case 102: //??
 			pc_currchar->setId(pc_currchar->xid); 
 			teleport(currchar[s]);
-			pi->type = 101;
+			pi->setType( 101 );
 			return; // case 102
 		case 103: // Army enlistment
 			enlist(s, pi->morex);
@@ -805,7 +805,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						{
 							const P_ITEM pi_i = FindItemBySerial(vecContainer[j]);
 							if ((pi_i != NULL) && (pi_p != NULL)) // lb
-								if (pi_i->type == 7 && calcserial(pi_i->more1, pi_i->more2, pi_i->more3, pi_i->more4) == pi_multi->serial)
+								if (pi_i->type() == 7 && calcserial(pi_i->more1, pi_i->more2, pi_i->more3, pi_i->more4) == pi_multi->serial)
 								{
 									los = 1;
 									break;
@@ -985,7 +985,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					target(s, 0, 1, 0, 32, "Select the clothing to use this on.");
 					return;// dye vat
 				case 0x14F0:// houses
-					if ((pi->type != 103) &&(pi->type != 202))
+					if ((pi->type() != 103) &&(pi->type() != 202))
 					{  // experimental house code
 						pc_currchar->fx1 = pi->serial; // for deleting it later
 						addid3[s] = pi->morex;
@@ -1190,7 +1190,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						P_ITEM pFire = Items->SpawnItem(currchar[s], 1, "#", 0, 0x0DE3, 0, 0);
 						if (pFire)
 						{
-							pFire->type = 45;
+							pFire->setType( 45 );
 							pFire->dir = 2;
 							if (pi->isInWorld())
 								pFire->moveTo(pi->pos);
@@ -1213,7 +1213,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 					{
 						pi->setId(0x1509);
-						pi->type = 45;					
+						pi->setType( 45 );
 						RefreshItem(pi);// AntiChrist
 					}
 					else
@@ -1225,7 +1225,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 					{
 						pi->setId(0x1508);
-						pi->type = 45;						
+						pi->setType( 45 );
 						RefreshItem(pi);// AntiChrist
 					}
 					else
@@ -1238,7 +1238,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 					{
 						pi->setId(0x1245);
-						pi->type = 45;					
+						pi->setType( 45 );				
 						RefreshItem(pi);// AntiChrist
 					}
 					else
@@ -1250,7 +1250,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
 					{
 						pi->setId(0x1230);
-						pi->type = 45;						
+						pi->setType( 45 );					
 						RefreshItem(pi);// AntiChrist
 					}
 					else
@@ -1298,7 +1298,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					telltime(s);
 					return;
 				case 0x0E9B: // Mortar for Alchemy
-					if (pi->type == 17)
+					if (pi->type() == 17)
 					{
 						addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
 						addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
@@ -1496,20 +1496,20 @@ void singleclick(UOXSOCKET s)
 	
 	pi->getName(itemname);
 
-	if (pi->type == 9)
+	if (pi->type() == 9)
 	{
 		int spellcount=Magic->SpellsInBook(pi);
 		sprintf((char*)temp, "%i spells", spellcount);
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
 
-	if (pi->type == 1000) // Ripper...used for bank checks.
+	if (pi->type() == 1000) // Ripper...used for bank checks.
 	{
 		sprintf((char*)temp, "value : %i", pi->value);
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
 
-	if (pi->type == 187) // Ripper...used for slotmachine.
+	if (pi->type() == 187) // Ripper...used for slotmachine.
 	{
 		sprintf((char*)temp, "[%i gold Slot]", SrvParams->slotAmount());
 		itemmessage(s, (char*)temp, serial,0x0481);
@@ -1559,7 +1559,7 @@ void singleclick(UOXSOCKET s)
 	if (pi->creator.size() > 0 && pi->madewith > 0)
 		sprintf((char*)temp, "%s %s by %s", temp, skill[pi->madewith - 1].madeword, pi->creator.c_str());
 	
-	if (pi->type == 15) // Fraz
+	if (pi->type() == 15) // Fraz
 	{
 		if (pi->name2() == pi->name())
 		{
@@ -1568,7 +1568,7 @@ void singleclick(UOXSOCKET s)
 			strcat(temp, "s");
 		}
 	}
-	else if (pi->type == 404 || pi->type == 181)
+	else if (pi->type() == 404 || pi->type() == 181)
 	{
 			if (pi->name2() == pi->name())
 			{
@@ -1588,18 +1588,18 @@ void singleclick(UOXSOCKET s)
 			itemmessage(s,"[Murderer]",serial, 0x0026);
 	}  // end highlighting
 	// Let's handle secure/locked down stuff.
-	if (pi->isLockedDown() && pi->type != 12 && pi->type != 13 && pi->type != 203)
+	if (pi->isLockedDown() && pi->type() != 12 && pi->type() != 13 && pi->type() != 203)
 	{
-		if (pi->secureIt !=1)
+		if ( !pi->secured() )
 			itemmessage(s, "[locked down]", serial, 0x0481);
-		if (pi->secureIt == 1 && pi->isLockedDown())
+		if ( pi->secured() && pi->isLockedDown())
 			itemmessage(s, "[locked down & secure]", serial, 0x0481);				
 	}
 	
 	itemmessage(s, (char*)temp, serial);
 	
 	// Send the item/weight as the last line in case of containers
-	if (pi->type == 1 || pi->type == 63 || pi->type == 65 || pi->type == 87)
+	if (pi->type() == 1 || pi->type() == 63 || pi->type() == 65 || pi->type() == 87)
 	{
 		wgt = (int) Weight->LockeddownWeight(pi, &amt, 0); // get stones and item #, LB	
 		if (amt>0)

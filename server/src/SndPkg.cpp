@@ -384,9 +384,9 @@ void itemmessage(UOXSOCKET s, char *txt, int serial, short color)
 	if ( pi == NULL )
 		return;
 
-	if ((pi->type == 1 && color == 0x0000)||
-		(pi->type == 9 && color == 0x0000)||
-		(pi->type == 1000 && color == 0x0000)||
+	if ((pi->type() == 1 && color == 0x0000)||
+		(pi->type() == 9 && color == 0x0000)||
+		(pi->type() == 1000 && color == 0x0000)||
 		(pi->id()==0x1BF2 && color == 0x0000))
 		color = 0x03B2;
 	    else
@@ -2907,7 +2907,7 @@ int sellstuff(int s, P_CHAR pc)
 
 						if (pi_j->contserial==serial1 &&
 							pi_j->id()==pi_q->id()  &&
-							pi_j->type==pi_q->type && (m1[8]<60) &&
+							pi_j->type()==pi_q->type() && (m1[8]<60) &&
 							((SrvParams->sellbyname()==0)||(SrvParams->sellbyname()==1 && (!strcmp(ciname,cinam2))))) // If the names are the same! --- Magius(CHE)
 						{
 							LongToCharPtr(pi_j->serial,m1+m1t+0);

@@ -59,7 +59,7 @@ vector< P_ITEM > GetContainedItems( P_ITEM Container )
 		P_ITEM Item = FindItemBySerial( Contained[ i ] );
 
 		// we'v got a container
-		if( Item->type == 1 )
+		if( Item->type() == 1 )
 		{
 			vector< P_ITEM > SubContainer = GetContainedItems( Item );
 
@@ -486,7 +486,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			pi->more4 = static_cast<unsigned char>((pi->serial&0x000000FF));
 			P_ITEM pik = Items->CreateScriptItem(-1, 339, 1);
 			if (pik == NULL) return;
-			pik->type = 7;				// Item is a key
+			pik->setType( 7 );				// Item is a key
 			pik->more1 = pi->more1;		// Copy the lock-number to the keys more-variable
 			pik->more2 = pi->more2;		// to make it fit the lock
 			pik->more3 = pi->more3;
@@ -996,7 +996,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 		npcemoteall(pc, (char*)temp,0);
 		return;
 	}
-	pi_mortar->type=17;
+	pi_mortar->setType( 17 );
 	pi_mortar->more1=type;
 	pi_mortar->more2=sub;
 	pi_mortar->morex=pc->skill[ALCHEMY];
@@ -1034,7 +1034,7 @@ void cSkills::BottleTarget(int s)
 
 		P_ITEM mortar = FindItemBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s]));
 		if(mortar == NULL) return;
-		if (mortar->type == 17) 
+		if (mortar->type() == 17) 
 		{
 			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc_currchar->name.c_str());
 			npcemoteall(pc_currchar, (char*)temp,0);
@@ -1089,7 +1089,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 		return;
 	
 	pi_potion->setName( QString( "%1 potion" ).arg( pn ) );
-	pi_potion->type=19;
+	pi_potion->setType( 19 );
 	pi_potion->morex = pi_mortar->morex;
 	pi_potion->morey = pi_mortar->more1;
 	pi_potion->morez = pi_mortar->more2;
@@ -1108,7 +1108,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	}
 	
 	RefreshItem(pi_potion);
-	pi_mortar->type=0;
+	pi_mortar->setType( 0 );
 	// items[i].weight=100; // Ripper 11-25-99
 	// AntiChrist NOTE: please! use the HARDITEMS.SCP...
 	// the settings used in that script are used EVERY TIME we have an item created via
@@ -1615,12 +1615,12 @@ void cSkills::RandomSteal(int s)
 	sysmessage(s, (char*)temp);
 	if (npcinrange(s, pc_npc, 1))
 	{
-		if ((item->weight>cansteal) && (item->type!=1 && item->type!=63 &&
-			item->type!=65 && item->type!=87))//Containers
+		if ((item->weight>cansteal) && (item->type()!=1 && item->type()!=63 &&
+			item->type()!=65 && item->type()!=87))//Containers
 		{
 			sysmessage(s,"That is too heavy.");
 			return;
-		} else if((item->type == 1 || item->type == 63 || item->type == 65 || item->type == 87) && (Weight->RecursePacks(item) > cansteal))
+		} else if((item->type() == 1 || item->type() == 63 || item->type() == 65 || item->type() == 87) && (Weight->RecursePacks(item) > cansteal))
 		{
 			sysmessage(s,"That is too heavy.");
 			return;
@@ -1995,7 +1995,7 @@ void TellScroll( char *menu_name, int s, long snum )
 	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)		// find the spellbook
 	{
 		P_ITEM pb = iterItems.GetData();
-		if (pb->type==9 && (pb->contserial==pBackpack->serial ||
+		if (pb->type()==9 && (pb->contserial==pBackpack->serial ||
 			(pb->layer()==1 && pc_currchar->Wears(pb))))
 		{
 			if (!Magic->CheckBook( cir, spl-1, pb))
@@ -2083,8 +2083,8 @@ void TellScroll( char *menu_name, int s, long snum )
 
 				if (!(pi->morex == cir && pi->morey == spl))	// not THIS spell
 				{
-					pi->type2=pi->type; //kept type of item for returning to this type when item remain no charge 
-					pi->type=15;  //make it magical
+					pi->setType2( pi->type() ); //kept type of item for returning to this type when item remain no charge 
+					pi->setType( 15 );  //make it magical
 					pi->morex=cir;//spell circle
 					pi->morey=spl;//spell number
 					sysmessage(s,"Item successfully Engraved");
@@ -2151,28 +2151,28 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 	{
 	// first circle
 	case 11: spn="Clumsy";
-			pi->offspell=1;
+			pi->setOffspell( 1 );
 			break;
 	case 12: spn="Create Food";break;   
 	case 13: spn="Feeblemind";
-			pi->offspell=2;
+			pi->setOffspell( 2 );
 			break;
 	case 14: spn="Heal";break;
 	case 15: spn="Magic Arrow";
-			pi->offspell=3;
+			pi->setOffspell( 3 );
 			break;
 	case 16: spn="Night Sight";break;
 	case 17: // Reactive Armor
 			sysmessage(s, "Sorry this spell is not implemented!");
 			return 0;
 	case 18: spn="Weaken";
-			pi->offspell=4;
+			pi->setOffspell( 4 );
 			break;
 	// 2nd circle
 	case 21: spn="Agility";break;
 	case 22: spn="Cunning";break;
 	case 24: spn="Harm";
-			pi->offspell=5;
+			pi->setOffspell( 5 );
 			break;
 	case 23:// Cure
 	case 25:// Magic Trap
@@ -2185,7 +2185,7 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 	case 31: spn="Bless";break;
 	case 32:// Fireball
 			spn="Daemon's Breath";
-			pi->offspell=6;
+			pi->setOffspell( 6 );
 			break;
 	case 34: spn="Poison";break;
 	case 33: //Magic lock
@@ -2203,12 +2203,12 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 			return 0;
 	case 43:// Curse
 			spn="Evil's Eye";
-			pi->offspell=8;
+			pi->setOffspell( 8 );
 			break;
 	case 44: spn="Fire Field";break;
 	case 45: spn="Greater Heal";break;
 	case 46: spn="Lightning";
-			pi->offspell=9;
+			pi->setOffspell( 9 );
 			break;
 	case 48: spn="Recall";break;
 	// 5th circle
@@ -2216,11 +2216,11 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 	case 52: spn="Dispel Field";break;
 	case 54: spn="Magic Reflection";break;
 	case 55: spn="Mind Blast";
-			pi->offspell=11;
+			pi->setOffspell( 11 );
 			break;
 	case 56://Paralyze
 			spn="Ghoul's Touch";
-			pi->offspell=12;
+			pi->setOffspell( 12 );
 			break;
 	case 57: spn="Poison Field";break;
 	case 53://Incognito
@@ -2230,10 +2230,10 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 	// 6th circle
 	case 61: spn="Dispel";break;
 	case 62: spn="Energy Bolt";
-			pi->offspell=13;
+			pi->setOffspell( 13 );
 			break;  
 	case 63: spn="Explosion";
-			pi->offspell=14;
+			pi->setOffspell( 14 );
 			break;
 	case 64: spn="Invisibility";break;
 	case 65: spn="Mark";break;
@@ -2245,7 +2245,7 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 	// 7th circle
 	case 72: spn="Energy Field";break;
 	case 73: spn="Flamestrike";
-			pi->offspell=15;
+			pi->setOffspell( 15 );
 			break;
 	case 74: spn="Gate Travel";break;
 	case 71:// Chain Lightning
@@ -2791,7 +2791,7 @@ bool cSkills::HasEmptyMap(P_CHAR pc)	// Check if the player carries an empty map
 		P_ITEM cand = FindItemBySerial(vecContainer[ci]);
 		if (cand->id() == 0x14EB && !cand->free)
 		{
-			if (cand->type == 300)	// Is it the right type
+			if (cand->type() == 300)	// Is it the right type
 				return true;	// Yay, go on with carto
 		}
 	}
@@ -2815,7 +2815,7 @@ bool cSkills::DelEmptyMap(P_CHAR pc)	// Delete an empty map from the player's ba
 		P_ITEM cand = FindItemBySerial(vecContainer[ci]);
 		if (cand->id()==0x14EB && !cand->free)
 		{
-			if (cand->type == 300)	// Is it the right type
+			if (cand->type() == 300)	// Is it the right type
 			{
 				Items->DeleItem(cand);	// Delete it
 				return true;		// Go on with cartography

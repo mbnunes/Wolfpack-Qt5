@@ -2260,7 +2260,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
                 if ( mapitem->id() < 0x0200 || ( mapitem->id() >= 0x0300 && mapitem->id() <= 0x03E2 ) ) return 0;
                 if ( mapitem->id() > 0x0854 && mapitem->id() < 0x0866 ) return 0;
 
-                if (mapitem->type==12)
+                if( mapitem->type() == 12 )
                 {
                     if (pc_s->isNpc() && (!pc_s->title().isEmpty() || pc_s->npcaitype() != 0))
                     {

@@ -71,9 +71,9 @@ cItem::cItem( cItem &src )
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer_ = this->oldlayer = src.layer_;
 	this->itemhand_ = src.itemhand_;
-	this->type = src.type;
-	this->type2 = src.type2;
-	this->offspell = src.offspell;
+	this->type_ = src.type_;
+	this->type2_ = src.type2_;
+	this->offspell_ = src.offspell_;
 	this->weight = src.weight;
 	this->more1 = src.more1;
 	this->more2 = src.more2;
@@ -100,7 +100,6 @@ cItem::cItem( cItem &src )
 	this->hidamage=src.hidamage;
 	this->racehate=src.racehate;
 	this->smelt=src.smelt;
-	this->secureIt = src.secureIt;
 	this->hp=src.hp;
 	this->maxhp=src.maxhp;
 	this->st=src.st;
@@ -109,7 +108,7 @@ cItem::cItem( cItem &src )
 	this->dx2=src.dx2;
 	this->in=src.in;
 	this->in2=src.in2;
-	this->spd=src.spd;
+	this->speed_=src.speed_;
 	this->wipe=src.wipe;
 	this->magic=src.magic;
 	this->gatetime=src.gatetime;
@@ -416,7 +415,7 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->type==1)
+		if (pi->type()==1)
 			rest=pi->DeleteAmount(rest, _id, _color);
 		if (pi->id() == _id && ( _color == 0 || ( pi->color() == _color ) ) )
 			rest=pi->ReduceAmount(rest);
@@ -439,9 +438,9 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("cont",		contserial);
 		archive.read("layer",		layer_);
 		archive.read("itemhand",	itemhand_);
-		archive.read("type",		type);
-		archive.read("type2",		type2);
-		archive.read("offspell",	offspell);
+		archive.read("type",		type_ );
+		archive.read("type2",		type2_);
+		archive.read("offspell",	offspell_);
 		archive.read("more1",		more1);
 		archive.read("more2",		more2);
 		archive.read("more3",		more3);
@@ -478,7 +477,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("in",			in);
 		archive.read("in2",			in2);
 		archive.read("trigon",		trigon);
-		archive.read("spd",			spd);
+		archive.read("speed",		speed_);
 		archive.read("poisoned",	poisoned);
 		archive.read("wipe",		wipe);
 		archive.read("magic",		magic);
@@ -495,7 +494,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("spawnregion",	spawnregion);
 		archive.read("uses",		tuses);
 		archive.read("good",		good);
-		archive.read("secureit",	secureIt);
 		archive.read("smelt",		smelt);
 		archive.read("glow",		glow);
 		archive.read("glow_color",	glow_color);
@@ -512,9 +510,9 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("cont",		contserial);
 		archive.write("layer",		layer_);
 		archive.write("itemhand",	itemhand_);
-		archive.write("type",		type);
-		archive.write("type2",		type2);
-		archive.write("offspell",	offspell);
+		archive.write("type",		type_);
+		archive.write("type2",		type2_);
+		archive.write("offspell",	offspell_);
 		archive.write("more1",		more1);
 		archive.write("more2",		more2);
 		archive.write("more3",		more3);
@@ -549,7 +547,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("in",			in);
 		archive.write("in2",		in2);
 		archive.write("trigon",		trigon);
-		archive.write("spd",		spd);
+		archive.write("speed",		speed_);
 		archive.write("poisoned",	poisoned);
 		archive.write("wipe",		wipe);
 		archive.write("magic",		magic);
@@ -566,7 +564,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("spawnregion",spawnregion);
 		archive.write("uses",		tuses);
 		archive.write("good",		good);
-		archive.write("secureit",	secureIt);
 		archive.write("smelt",		smelt);
 		archive.write("glow",		glow);
 		archive.write("glow_color",	glow_color);
@@ -639,7 +636,7 @@ int cItem::getWeight()
 		Map->SeekTile(this->id(), &tile);
 		if (tile.weight==0) // can't find weight
 		{
-			if(this->type!=14)
+			if( this->type_ != 14 )
 				itemweight = 2;		// not food weighs .02 stone
 			else
 				itemweight = 100;	//food weighs 1 stone
@@ -697,9 +694,9 @@ void cItem::Init(bool mkser)
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer_ = this->oldlayer = 0; // Layer if equipped on paperdoll
 	this->itemhand_ = 0; // Layer if equipped on paperdoll
-	this->type=0; // For things that do special things on doubleclicking
-	this->type2=0;
-	this->offspell=0;
+	this->type_=0; // For things that do special things on doubleclicking
+	this->type2_=0;
+	this->offspell_ = 0;
 	this->weight=0;
 	this->more1=0; // For various stuff
 	this->more2=0;
@@ -726,7 +723,6 @@ void cItem::Init(bool mkser)
 	this->hidamage=0; //Maximum damage weapon inflicts
 	this->racehate=-1; //race hating weapon -Fraz-
 	this->smelt=0; // for smelting items
-	this->secureIt=0; // secured chests
 	this->hp=0; //Number of hit points an item has.
 	this->maxhp=0; // Max number of hit points an item can have.
 	this->st=0; // The strength needed to equip the item
@@ -735,7 +731,7 @@ void cItem::Init(bool mkser)
 	this->dx2=0; // The dexterity the item gives
 	this->in=0; // The intelligence needed to equip the item
 	this->in2=0; // The intelligence the item gives
-	this->spd=0; //The speed of the weapon
+	this->speed_=0; //The speed of the weapon
 	this->wipe=false; //Should this item be wiped with the /wipe command
 	this->magic=0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
 	this->gatetime=0;
@@ -805,7 +801,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 			pi->SetContSerial(INVALID_SERIAL);
 
 
-		if (pi->type==11 && (pi->morex==666 || pi->morey==999)) Books->delete_bokfile(pi); 
+		if (pi->type()==11 && (pi->morex==666 || pi->morey==999)) Books->delete_bokfile(pi); 
         // if a new book gets deleted also delete the corresponding bok file
 
 		// Also delete all items inside if it's a container.
@@ -1009,7 +1005,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 				case 'O':
 				case 'o':
 					if (!strcmp("OFFSPELL", (char*)script1))
-						pi->offspell = str2num(script2);
+						pi->setOffspell( str2num(script2) );
 					break;
 					
 				case 'P':
@@ -1042,7 +1038,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					else if (!strcmp("STR", (char*)script1))
 						pi->st = str2num(script2);
 					else if (!strcmp("SPD", (char*)script1))
-						pi->spd = str2num(script2);
+						pi->setSpeed( str2num(script2) );
 					else if (!strcmp("STRADD", (char*)script1))
 						pi->st2 = str2num(script2);
 					break;
@@ -1050,7 +1046,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 				case 'T':
 				case 't':
 					if (!strcmp("TYPE", (char*)script1))
-						pi->type = str2num(script2);
+						pi->setType( str2num(script2) );
 					else if (!strcmp("TRIGGER", (char*)script1))
 						pi->trigger = str2num(script2);
 					else if (!strcmp("TRIGTYPE", (char*)script1))
@@ -1498,7 +1494,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					if (!(strcmp("NAME",(char*)script1))) pi->setName( script2 );
 					else if (!(strcmp("NAME2",(char*)script1))) pi->setName2( script2 );
 					else if (!(strcmp("NEWBIE",(char*)script1))) pi->priv |= 0x02;
-					else if (!(strcmp("OFFSPELL",(char*)script1))) pi->offspell=str2num(script2);
+					else if (!(strcmp("OFFSPELL",(char*)script1))) pi->setOffspell( str2num(script2) );
 
 				break;
 
@@ -1518,7 +1514,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				
 				case 'S':
 				case 's':
-					if (!(strcmp("SPD",(char*)script1))) pi->spd=str2num(script2);
+					if (!(strcmp("SPD",(char*)script1))) pi->setSpeed( str2num(script2) );
 					else if (!(strcmp("SK_MADE", (char*)script1))) pi->madewith=str2num(script2); // by Magius(CHE)
 					else if (!(strcmp("STR", (char*)script1))) pi->st=str2num(script2);
 					else if (!(strcmp("STRADD", (char*)script1))) pi->st2=str2num(script2);
@@ -1530,7 +1526,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					if (!(strcmp("TRIGGER",(char*)script1))) pi->trigger=str2num(script2);
 					else if (!(strcmp("TRIGTYPE",(char*)script1))) pi->trigtype=str2num(script2);
 					else if (!(strcmp("TRIGON",(char*)script1))) pi->trigon=str2num(script2);					
-					else if (!(strcmp("TYPE",(char*)script1))) pi->type=str2num(script2);				
+					else if (!(strcmp("TYPE",(char*)script1))) pi->setType( str2num(script2) );
 				case 'U':
 				case 'u':
 					if (!(strcmp("USES",(char*)script1))) pi->tuses=str2num(script2);
@@ -1682,7 +1678,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						return;
 					}
 				}
-				if( (pi->type == 1 && pi->corpse != 1 ) || (pi->GetOwnSerial() != -1 && pi->corpse) || (!SrvParams->lootdecayswithcorpse() && pi->corpse ))
+				if( (pi->type() == 1 && pi->corpse != 1 ) || (pi->GetOwnSerial() != -1 && pi->corpse) || (!SrvParams->lootdecayswithcorpse() && pi->corpse ))
 				{
 					serial=pi->serial;
 					vector<SERIAL> vecContainer = contsp.getData(serial);
@@ -1741,7 +1737,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 				pi->disabled=0;
 			}
 			m=0;
-			if (pi->type==61)
+			if (pi->type()==61)
 			{
 				k=0;
 				serial = pi->serial;
@@ -1775,7 +1771,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 					}
 				}
 			}
-			else if (pi->type==62 || pi->type==69 || pi->type==125)
+			else if (pi->type()==62 || pi->type()==69 || pi->type()==125)
 			{
 				k=0;
 				serial=pi->serial;
@@ -1807,7 +1803,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 					}
 				}
 			}
-			else if ((pi->type==63)||(pi->type==64)||(pi->type==65)||(pi->type==66)||(pi->type==8))
+			else if ((pi->type()==63)||(pi->type()==64)||(pi->type()==65)||(pi->type()==66)||(pi->type()==8))
 			{
 				serial=pi->serial;
 				unsigned int j;
@@ -1830,7 +1826,8 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 					}
 					if ((pi->gatetime<=currenttime ||(overflow)) && pi->morex!=0)
 					{
-						if(pi->type==63) pi->type=64; //Lock the container 
+						if(pi->type()==63) 
+							pi->setType( 64 ); //Lock the container 
 						//numtostr(pi->morex,m); //ilist); //LB, makes chest spawners using random Itemlist items instead of a single type, LB							
 						if(pi->morex)
 							Items->AddRespawnItem(pi, pi->morex, 1);//If the item contains an item list then it will randomly choose one from the list, JM
@@ -2027,7 +2024,7 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 
 		// <type>10</type>
 		else if( TagName == "type" )
-			Item->type = Value.toUInt();
+			Item->setType( Value.toUInt() );
 
 		// <weight>10</weight>
 		else if( TagName == "weight" )
@@ -2054,7 +2051,7 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 
 		// <speed>10</speed>
 		else if( TagName == "speed" )
-			Item->spd = Value.toLong();
+			Item->setSpeed( Value.toLong() );
 
 		// <good>10</good>
 		else if( TagName == "good" )

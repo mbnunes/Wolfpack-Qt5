@@ -1074,7 +1074,7 @@ void deathstuff(P_CHAR pc_player)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi_j = FindItemBySerial(vecContainer[ci]);
-		if (pi_j->type==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
+		if (pi_j->type()==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
 			pi_j->pos.z==0 && pi_j->id()==0x1E5E )
 		{
 			endtrade(pi_j->serial);
@@ -1118,7 +1118,7 @@ void deathstuff(P_CHAR pc_player)
 	pi_c->carve=pc_player->carve();//store carve section - AntiChrist
 	pi_c->setName2( pc_player->name.c_str() );
 
-	pi_c->type=1;
+	pi_c->setType( 1 );
 	pi_c->moveTo(pc_player->pos);
 
 	pi_c->more1=nType;
@@ -1158,7 +1158,7 @@ void deathstuff(P_CHAR pc_player)
 				staticeffect(pc_player, 0x37, 0x2A, 0x09, 0x06);
 				Items->DeleItem( pi_j );
 			}
-			if (pi_j->type==1 && pi_j->layer()!=0x1A && pi_j->layer()!=0x1B &&
+			if (pi_j->type()==1 && pi_j->layer()!=0x1A && pi_j->layer()!=0x1B &&
 				pi_j->layer()!=0x1C && pi_j->layer()!=0x1D)
 			{//if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
 				unsigned int ci1;
@@ -1166,7 +1166,7 @@ void deathstuff(P_CHAR pc_player)
 				for ( ci1 = 0; ci1 < vecContainer.size(); ++ci1)
 				{
 					P_ITEM pi_k = FindItemBySerial(vecContainer[ci1]);
-					if ( (!(pi_k->priv&0x02)) && (pi_k->type!=9))//Morrolan spellbook disappearance fix
+					if ( (!(pi_k->priv&0x02)) && (pi_k->type()!=9))//Morrolan spellbook disappearance fix
 					{//put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 						pi_k->setLayer( 0 );
 						pi_k->SetContSerial(pi_c->serial);
@@ -1275,7 +1275,7 @@ int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
 		P_ITEM pj =FindItemBySerial(vecOwn[ci]);
 		if( pj != NULL )
 		{
-			if( pj->ownserial == serial && pj->type == 1 && pj->morex == 1 )
+			if( pj->ownserial == serial && pj->type() == 1 && pj->morex == 1 )
 			{
 				unsigned int counter2;
 				vector<SERIAL> vecContainer = contsp.getData(pj->serial);
@@ -1315,7 +1315,7 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 		P_ITEM pj = FindItemBySerial(vecOwn[ci]);
 		if( pj != NULL )
 		{
-			if( pj->ownserial == serial && pj->type == 1 && pj->morex == 1 )
+			if( pj->ownserial == serial && pj->type() == 1 && pj->morex == 1 )
 			{
 				unsigned int counter2;
 				vector<SERIAL> vecContainer = contsp.getData(pj->serial);
@@ -1463,7 +1463,7 @@ void explodeitem(int s, P_ITEM pi)
 				piMap = FindItemBySerial(*it);
 				if (piMap != NULL)
 				{
-					if (piMap->id()==0x0F0D && piMap->type==19) // check for expl-potions
+					if( piMap->id() == 0x0F0D && piMap->type() == 19 ) // check for expl-potions
 					{
 						dx=abs(pi->pos.x - piMap->pos.x);
 						dy=abs(pi->pos.y - piMap->pos.y);
@@ -1890,7 +1890,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pc->packitem = pi->serial;
 	pi->SetContSerial(pc->serial);
 	pi->setLayer( 0x15 );
-	pi->type=1;
+	pi->setType( 1 );
 	pi->dye=1;
 	}
 
@@ -1926,7 +1926,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	// pant/skirt color -> old client code, random color
 	pi->setColor( static_cast<unsigned short>(buffer[s][102]<<8) + buffer[s][103] );
 	pi->SetContSerial(pc->serial);
-	pi->type=0;
+	pi->setType( 0 );
 	pi->dye=1;
 	pi->hp=10;
 	pi->priv |= 0x02; // Mark as a newbie item
@@ -1971,7 +1971,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->setLayer( 0x01 );
 	//pi->att=5;
 	pi->hp=10;
-	pi->spd=50;
+	pi->setSpeed( 50 );
 	pi->lodamage=3;
 	pi->hidamage=15;
 	pi->setItemhand( 1 );
@@ -3684,7 +3684,7 @@ void openbank(int s, P_CHAR pc_i)
 		if (pj != NULL)
 		{
 			if (pj->GetOwnSerial()==serial &&
-				pj->type==1 && pj->morex==1)
+				pj->type() == 1 && pj->morex == 1 )
 			{
 				if(SrvParams->useSpecialBank())//if using specialbank
 				{
@@ -3716,7 +3716,7 @@ void openbank(int s, P_CHAR pc_i)
 	pic->morex=1;
 	if(SrvParams->useSpecialBank())//AntiChrist - Special Bank
 		pic->morey=123;//gold only bank
-	pic->type=1;
+	pic->setType( 1 );
 	wearIt(s,pic);
 	backpack(s, pic->serial);
 }
@@ -3747,7 +3747,7 @@ void openspecialbank(int s, P_CHAR pc)
 		if (pj != NULL)
 		{
 			if (pj->GetOwnSerial()==serial &&
-				pj->type==1 && pj->morex==1 &&
+				pj->type() == 1 && pj->morex == 1 &&
 				pj->morey!=123 )//specialbank and the current region - AntiChrist
 			{
 				if(pj->morez==0)//convert old banks into new banks
@@ -3772,7 +3772,7 @@ void openspecialbank(int s, P_CHAR pc)
 	pic->morex=1;
 	pic->morey=0;//this's a all-items bank
 	pic->morez=pc_currchar->region;//let's store the region
-	pic->type=1;
+	pic->setType( 1 );
 	wearIt(s,pic);
 	backpack(s, pic->serial);
 }
@@ -3787,8 +3787,12 @@ int getsubamount(int serial, short id)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->id()==id) total+=pi->amount();
-		if (pi->type==1) total+=getsubamount(pi->serial, id);
+
+		if( pi->id() == id )
+			total += pi->amount();
+
+		if( pi->type() == 1 ) 
+			total += getsubamount( pi->serial, id );
 	}
 	return total;
 }
@@ -4248,9 +4252,10 @@ int calcValue(P_ITEM pi, int value)
 	if (pi == NULL)
 		return value;
 
-	if (pi->type==19)
+	if( pi->type() == 19 )
 	{
-		if (pi->morex>500) mod=mod+1;
+		if (pi->morex>500) 
+			mod	=mod+1;
 		if (pi->morex>900) mod=mod+1;
 		if (pi->morex>1000) mod=mod+1;
 		if (pi->morez>1) mod=mod+(3*(pi->morez-1));
@@ -6173,7 +6178,7 @@ void InitMultis()
 			pi_multi = findmulti(pc->pos);
 			if (pi_multi != NULL)
 			{
-				if (pi_multi->type==117)
+				if (pi_multi->type()==117)
 					pc->SetMultiSerial(pi_multi->serial);
 				else
 					pc->multis = INVALID_SERIAL;

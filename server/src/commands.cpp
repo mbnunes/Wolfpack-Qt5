@@ -280,7 +280,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 		{
 			p1A->SetContSerial(pc_c->serial);
 			p1A->setLayer( 0x1A );
-			p1A->type=1;
+			p1A->setType( 1 );
 			p1A->priv |= 0x02;
 		}
 	}
@@ -292,7 +292,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 		{
 			p1B->SetContSerial(pc_c->serial);
 			p1B->setLayer( 0x1B );
-			p1B->type=1;
+			p1B->setType( 1 );
 			p1B->priv |= 0x02;
 		}
 	}
@@ -304,7 +304,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 		{
 			p1C->SetContSerial(pc_c->serial);
 			p1C->setLayer( 0x1C );
-			p1C->type=1;
+			p1C->setType( 1 );
 			p1C->priv |= 0x02;
 		}
 	}

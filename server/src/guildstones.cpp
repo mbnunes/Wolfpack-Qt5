@@ -94,7 +94,7 @@ void StonePlacement(UOXSOCKET s)
 		pStone->addMember( pc );
 		pStone->guildType = cGuildStone::standard;
 		pStone->moveTo(pc->pos);
-		pStone->type = 202;
+		pStone->setType( 202 );
 		pStone->priv = 0;
 		pStone->setLockedDown();
 		pStone->setOwnSerialOnly(pc->serial);
@@ -1235,7 +1235,7 @@ int CheckValidPlace(int s)
 		{
 			P_ITEM pi = FindItemBySerial(vecContainer[j]);
 			if (pi != NULL) 
-				if (pi->type==7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == pi_multi->serial)
+				if (pi->type()==7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == pi_multi->serial)
 				{
 					los=1;
 					break;
