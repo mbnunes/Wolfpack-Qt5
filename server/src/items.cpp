@@ -83,42 +83,53 @@ buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 )
 
 cItem::cItem( const cItem &src )
 {
-	changed( TOOLTIP );
-	flagChanged();
+	//cUObject properties setting
+	this->bindmenu_ = src.bindmenu();
+	this->dir_ = src.direction();
+	this->eventList_ = src.eventList_;
 	this->name_ = src.name_;
-	this->incognito = src.incognito;
-
 	this->setMultis( src.multis() );
-	this->free = false;
-	this->setId(src.id());
 	this->setPos(src.pos());
-	this->color_ = src.color_;
-	this->layer_ = src.layer_;
-	this->type_ = src.type_;
-	this->type2_ = src.type2_;
-	this->weight_ = src.weight_;
+	this->tooltip_ = src.tooltip_;
+	
+	//cItem properties setting
 	this->amount_ = src.amount_;
+	this->antispamtimer_ = src.antispamtimer();
+	this->buyprice_ = src.buyprice_;
+	this->changed( TOOLTIP );
+	this->color_ = src.color_;
+	this->container_ = src.container_;
+	this->decaytime_ = src.decaytime_;
 	this->def_ = src.def_;
-	this->lodamage_=src.lodamage_;
+	this->flagChanged();
+	this->free = false;
 	this->hidamage_=src.hidamage_;
 	this->hp_ = src.hp_;
-	this->maxhp_ = src.maxhp_;
-	this->speed_=src.speed_;
+	this->incognito = src.incognito;
+	this->isPersistent = src.isPersistent;
+	this->layer_ = src.layer_;
+	this->lodamage_=src.lodamage_;
 	this->magic_ = src.magic_;
-	this->decaytime_ = src.decaytime_;
-	this->setOwnSerialOnly(src.ownSerial());
-	this->visible_=src.visible_;
-	this->spawnregion_=src.spawnregion_;
-	this->priv_=src.priv_;
-	this->buyprice_ = src.buyprice_;
-	this->sellprice_ = src.sellprice_;
-	this->restock_ = src.restock_;
+	this->maxhp_ = src.maxhp_;
 	this->poisoned_ = src.poisoned_;
+	this->priv_=src.priv_;
+	this->restock_ = src.restock_;
+	this->sellprice_ = src.sellprice_;
+	this->setId(src.id());
+	this->setOwnSerialOnly(src.ownSerial());
+	this->spawnregion_=src.spawnregion_;
+	this->speed_=src.speed_;
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
-	this->container_ = src.container_;
 	this->totalweight_ = src.totalweight_;
-	setTotalweight( amount_ * weight_ );
+	this->type2_ = src.type2_;
+	this->type_ = src.type_;
+	this->visible_=src.visible_;
+	this->weight_ = src.weight_;
+	
+	this->setTotalweight( amount_ * weight_ );
+	this->recreateEvents();
+
 }
 
 P_CHAR cItem::owner( void ) const
