@@ -133,6 +133,7 @@ public:
 
 	// Events
 	virtual bool onCreate( const QString &definition );
+	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 	
 	bool free;

@@ -102,9 +102,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				return;
 	}
 
-	// Begin Items/Guildstones Section 
-	int itype = pi->type();
-
 	// Criminal for looting an innocent corpse & unhidden if not owner...
 	if( pi->corpse() )
 	{
@@ -146,7 +143,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	}
 	
 	// Dead ppl can only use ankhs
-	if( pc_currchar->isDead() && itype != 16 )
+	if( pc_currchar->isDead() && pi->type() != 16 )
 	{
 		socket->sysMessage( tr( "Your ghostly hand passes trough the object." ) );
 		return;

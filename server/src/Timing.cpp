@@ -73,6 +73,7 @@ cTiming::cTiming() {
 	nextLightCheck = time + 30 * MY_CLOCKS_PER_SEC; // Every 30 seconds
 	nextHungerCheck = time + SrvParams->hungerDamageRate();
 	nextCombatCheck = time + 250; // Every 100 ms
+	nextUOTimeTick = time + SrvParams->secondsPerUOMinute() * MY_CLOCKS_PER_SEC;
 }
 
 void cTiming::poll() {
@@ -214,6 +215,11 @@ void cTiming::poll() {
 
 	if (nextHungerCheck <= time) {
 		nextHungerCheck = time + SrvParams->hungerDamageRate() * MY_CLOCKS_PER_SEC;
+	}
+
+	if ( nextUOTimeTick <= time )
+	{
+		uoTime = uoTime.addSecs(1);
 	}
 }
 

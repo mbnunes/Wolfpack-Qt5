@@ -45,6 +45,7 @@ private:
 	unsigned int nextShopRestock;
 	unsigned int nextHungerCheck;
 	unsigned int nextCombatCheck;
+	unsigned int nextUOTimeTick;
 
 protected:
 	unsigned int lastWorldsave_;

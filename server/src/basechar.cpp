@@ -1886,7 +1886,7 @@ bool cBaseChar::onCHLevelChange( unsigned int level )
 
 	return result;
 }
-
+/*
 bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
@@ -1906,7 +1906,7 @@ bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 
 	return result;
 }
-
+*/
 bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLGAIN );

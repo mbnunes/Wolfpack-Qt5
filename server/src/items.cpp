@@ -810,7 +810,7 @@ bool cItem::onDropOnChar( P_CHAR pChar )
 
 	return result;
 }
-
+/*
 bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
@@ -830,7 +830,7 @@ bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 
 	return result;
 }
-
+*/
 
 void cItem::processNode( const cElement *Tag )
 {

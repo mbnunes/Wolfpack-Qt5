@@ -878,7 +878,8 @@ void cWorld::getOption( const QString name, QString &value, const QString fallba
  */
 void cWorld::setOption( const QString name, const QString value, bool newconnection )
 {
-	if (newconnection) {
+	if (newconnection) 
+	{
 		if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
 		{
 			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
@@ -899,11 +900,11 @@ void cWorld::setOption( const QString name, const QString value, bool newconnect
 	}
 
 	// check if the option already exists
-	persistentBroker->executeQuery( QString( "DELETE FROM `settings` WHERE `option` = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM settings WHERE option = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
 
 	QString sql;
 	sql = "INSERT INTO settings VALUES('%1','%2')";
-	sql = sql.arg( persistentBroker->quoteString( name ) ).arg( persistentBroker->quoteString( value ) );
+	sql = sql.arg( persistentBroker->quoteString( name ), persistentBroker->quoteString( value ) );
 
 	persistentBroker->executeQuery( sql );
 

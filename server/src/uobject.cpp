@@ -788,6 +788,26 @@ bool cUObject::onCreate( const QString &definition )
 	return result;
 }
 
+bool cUObject::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
+{
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
+	bool result = false;
+
+	if( scriptChain || global )
+	{
+		PyObject *args = Py_BuildValue( "O&O&O&", PyGetCharObject, sender, PyGetObjectObject, this, PyGetTooltipObject, tooltip );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_SHOWTOOLTIP, args );
+
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
 void cUObject::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	tooltip.resize(19); // Resize to the original size
 	tooltip.setSerial(serial_);

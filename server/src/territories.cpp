@@ -228,10 +228,17 @@ void cTerritory::processNode( const cElement *Tag )
 			qWarning("ERROR: parsing destination attribute, not a valid coordinate vector");
 			return;
 		}
+		bool bothways = Tag->hasAttribute("bothways");
 		teleporters_st teleporter;
 		teleporter.source = source;
 		teleporter.destination = destination;
 		teleporters.append( teleporter );
+		if ( bothways )
+		{
+			teleporter.source = destination;
+			teleporter.destination = source;
+			teleporters.append( teleporter );
+		}
 	}
 	else
 		cBaseRegion::processNode( Tag );
@@ -275,7 +282,7 @@ void cAllTerritories::load( void )
 	if( DefSections.isEmpty() )
 		throw wpException( "You need to define at least one region." );
 	
-	QStringList::iterator it( DefSections.begin() );
+	QStringList::const_iterator it( DefSections.begin() );
 	while( it != DefSections.end() )
 	{
 		const cElement* DefSection = DefManager->getDefinition( WPDT_REGION, *it );
