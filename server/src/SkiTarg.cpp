@@ -197,7 +197,6 @@ void cSkills::BowCraft(int s)
 
 void cSkills::Carpentry( cUOSocket* socket )
 {
-#pragma note("add hardcoded xml menu section: CRAFTMENU_CARPENTRY")
 	cMakeMenu* pMenu = cAllMakeMenus::getInstance()->getMenu( "CRAFTMENU_CARPENTRY" );
 	if( pMenu )
 	{
