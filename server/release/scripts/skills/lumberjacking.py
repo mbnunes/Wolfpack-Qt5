@@ -11,6 +11,7 @@ from random import randrange
 woodrespawndelay = randrange( LUMBERJACKING_MIN_REFILLTIME, LUMBERJACKING_MAX_REFILLTIME )
 woodspawnamount = randrange( LUMBERJACKING_MIN_LOGS, LUMBERJACKING_MAX_LOGS )
 chopdistance = LUMBERJACKING_MAX_DISTANCE
+nextchopdelay = 3000
 
 # Lumberjacking Harvest Table Items
 REQSKILL = 0
@@ -34,6 +35,10 @@ def response( args ):
 	pos = target.pos
 	
 	if not socket:
+		return OOPS
+		
+	if char.hastag('is_lumberjacking') and ( int( char.gettag( 'is_lumberjacking' ) ) < servertime() ):
+		char.socket.clilocmessage( 500119, "", GRAY )
 		return OOPS
 	
 	# Player can reach that ?
@@ -74,6 +79,7 @@ def response( args ):
 	elif veingem.hastag( 'resname' ):
 		resname = veingem.gettag( 'resname' )
 
+	char.settag( 'is_lumberjacking', str( servertime() + nextchopdelay ) )
 	hack_logs( char, target, tool, veingem )
 
 	return OK
@@ -109,6 +115,7 @@ def chop_tree( time, args ):
 	pos = args[1]
 	
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
+		char.deltag('is_lumberjacking')
 		return OOPS
 		
 	# Turn to our lumberjacking position
@@ -186,6 +193,7 @@ def successlumberjacking( time, args ):
 	# Player can reach that ?
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
 		char.socket.sysmessage("You have moved too far away to gather any wood.")
+		char.deltag('is_lumberjacking')
 		return OOPS
 	
 	socket = char.socket
@@ -226,6 +234,7 @@ def successlumberjacking( time, args ):
 			# You broke your axe!
 			socket.clilocmessage( 500499, '', GRAY ) 
 		char.deltag('wood_gem')
+		char.deltag('is_lumberjacking')
 
 	if int( resource.gettag('resourcecount')) >= 1:
 		resource.settag( 'resourcecount', amount - 1 )
@@ -233,7 +242,7 @@ def successlumberjacking( time, args ):
 	elif int( resource.gettag( 'resourcecount' ) ) == 0:
 		if not resource.hastag ('resource_empty') and int( resource.gettag( 'resourcecount' ) ) == 0:
 			resource.settag( 'resource_empty', 'true' )
-			wolfpack.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [ resource ] )
+			wolfpack.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [ resource ], 1 )
 
 	return OK
 

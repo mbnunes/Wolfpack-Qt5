@@ -281,7 +281,7 @@ def agilityPotion( char, potion, agilitytype ):
 		
 	char.dexterity = char.dexterity + bonus
 	char.maxstamina = char.maxstamina + bonus
-	wolfpack.addtimer( AGILITY_TIME, "potions.effectdextimer", [ char, agilitytype, bonus ] )
+	wolfpack.addtimer( AGILITY_TIME, "potions.effectdextimer", [ char, agilitytype, bonus ], 1 )
 	char.settag( 'agility_effect', 'true' )
 	char.updatestamina()
 	char.updatestats()
@@ -313,7 +313,7 @@ def strengthPotion( char, potion, strengthtype ):
 		
 	char.strength = char.strength + bonus
 	char.maxhitpoints = char.maxhitpoints + bonus
-	wolfpack.addtimer( STRENGTH_TIME, "potions.effectstrtimer", [ char, strengthtype, bonus ] )
+	wolfpack.addtimer( STRENGTH_TIME, "potions.effectstrtimer", [ char, strengthtype, bonus ], 1 )
 	char.settag( 'strength_effect', 'true' )
 	char.updatehealth()
 	char.updatestats()

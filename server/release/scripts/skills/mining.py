@@ -124,13 +124,6 @@ def response( char, args, target ):
 		socket.clilocmessage( 501863, "", GRAY ) 
 		return OK
 	
-	#Check if item is ore gem
-	elif target.item and isoregem( target.item ):
-		#Mine if ore gem is validated
-		socket.sysmessage( 'Ore gem founded' )
-		mining( char, target.pos, tool )
-		return OK
-	
 	#Find tile by it's position if we haven't model
 	elif target.model == 0:
 		map = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
@@ -239,7 +232,7 @@ def domining( time, args ):
 	elif resourcecount == 0:
 		socket.sysmessage( "There is no metal here to mine.", GRAY )
 		if not veingem.hastag( 'resource_empty' ):
-			wolfpack.addtimer( orerespawndelay, "skills.mining.respawnvein", [ veingem ] )
+			wolfpack.addtimer( orerespawndelay, "skills.mining.respawnvein", [ veingem ], 1 )
 			veingem.settag( 'resource_empty', 'true')
 		# veingem
 		success = 1
@@ -276,7 +269,7 @@ def successmining( char, gem, table, resname, amount, ore ):
 	if int( gem.gettag( 'resourcecount' ) ) == 0:
 		if not gem.hastag ('resource_empty') and int( gem.gettag( 'resourcecount' ) ) == 0:
 			gem.settag( 'resource_empty', 'true' )
-			wolfpack.addtimer( orerespawndelay, "skills.mining.respawnvein", [ gem ] )
+			wolfpack.addtimer( orerespawndelay, "skills.mining.respawnvein", [ gem ], 1 )
 	
 	if not wolfpack.utilities.tocontainer( resourceitem, backpack ):
 		resourceitem.update()
