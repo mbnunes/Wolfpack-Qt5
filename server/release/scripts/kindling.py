@@ -7,28 +7,39 @@
 
 # Script for igniting a fire of a kindling
 # Item must be on the ground
+# 0xDE1
+# 0xDE2
 
 import wolfpack
 
 def onUse( char, item ):
 	if( not char.socket ):
 		return 0
+
+	# Wrong item-ids
+	if ( item.id != 0xDE1 ) and ( item.id != 0xDE2 ):
+		return 0
+
+	if( item.container ):
+		char.socket.sysmessage( "You need to place this on the ground to light it." )
+		return 1
 	
 	if( char.distanceto( item ) > 5 ):
-		char.socket.sysmessage( "You are too far away to use this" )
+		char.socket.sysmessage( "You are too far away to use this." )
 		return 1
 
-	if( char.checkskill( wolfpack.ITEMID, 0, 100 ) ):
-		# Not animated
-		if( item.id == 0x1230 ):
-			item.soundeffect( 0x56 )
-			item.id = 0x1245
-		elif( item.id == 0x1245 ):
-			item.id = 0x1230
-		else:
-			char.socket.sysmessage( "Wrong item id" )
-			return 1
-		
-		item.update()		
+	if not char.checkskill( wolfpack.CAMPING, 0, 500 ):
+		char.socket.sysmessage( "You fail to light a fire." )
+		return 1
+
+	# Create the campfire
+	campfire = wolfpack.additem( "de3" )
+	campfire.moveto( item.pos )
+	campfire.update()
+	
+	# Delete the kindling
+	item.delete()
+	
+	# Start a timer	
 
 	return 1
