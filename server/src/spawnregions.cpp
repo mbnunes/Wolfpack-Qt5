@@ -45,16 +45,9 @@
 
 // cSpawnRegions
 
-cSpawnRegion::cSpawnRegion( const QDomElement &Tag )
-{
-	this->Init();
-	this->name_ = Tag.parentNode().toElement().attribute( "id" );
-	this->applyDefinition( Tag );
-}
-
 void cSpawnRegion::Init( void )
 {
-	name_ = QString();
+	cBaseRegion::Init();
 	npcSections_ = QStringList();
 	itemSections_ = QStringList();
 	maxNpcAmt_ = 0;
@@ -64,11 +57,6 @@ void cSpawnRegion::Init( void )
 	minTime_ = 0;
 	maxTime_ = 600;
 	nextTime_ = 0;
-	x1_ = 0;
-	x2_ = 0;
-	y1_ = 0;
-	y2_ = 0;
-	z_ = 255;
 }
 
 void cSpawnRegion::Add( UI32 serial )
@@ -85,7 +73,7 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 	QString Value = this->getNodeValue( Tag );
 
 	//<npcs>
-	//  <npc>npcsection</npc>
+	//  <npc mult="2">npcsection</npc> (mult inserts 2 same sections into the list so the probability rises!
 	//	<npc><random list="npcsectionlist" /></npc>
 	//  <list id="npcsectionlist" />
 	//</npcs>
@@ -97,7 +85,14 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 			if( !childNode.isElement() )
 				this->npcSections_.push_back( Value );
 			else if( childNode.nodeName() == "npc" )
-				this->npcSections_.push_back( this->getNodeValue( childNode.toElement() ) );
+			{
+				UI32 mult = childNode.toElement().attribute( "mult" ).toInt();
+				if( mult < 1 )
+					mult = 1;
+
+				for( UI32 i = 0; i < mult; i++ )
+					this->npcSections_.push_back( this->getNodeValue( childNode.toElement() ) );
+			}
 			else if( childNode.nodeName() == "list" && childNode.attributes().contains( "id" ) )
 			{
 				QStringList NpcList = DefManager->getList( childNode.toElement().attribute( "id" ) );
@@ -126,7 +121,14 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 			if( !childNode.isElement() )
 				this->itemSections_.push_back( Value );
 			else if( childNode.nodeName() == "item" )
-				this->itemSections_.push_back( this->getNodeValue( childNode.toElement() ) );
+			{
+				UI32 mult = childNode.toElement().attribute( "mult" ).toInt();
+				if( mult < 1 )
+					mult = 1;
+
+				for( UI32 i = 0; i < mult; i++ )
+					this->itemSections_.push_back( this->getNodeValue( childNode.toElement() ) );
+			}
 			else if( childNode.nodeName() == "list" && childNode.attributes().contains( "id" ) )
 			{
 				QStringList itemList = DefManager->getList( childNode.toElement().attribute( "id" ) );
@@ -166,19 +168,24 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 	else if( TagName == "maxnpcamount" )
 		this->maxTime_ = Value.toInt();
 
-	// <region x1="0" x2="1000" y1="0" y2="500" z="5" />
-	else if( TagName == "region" && 
+	// <rectangle x1="0" x2="1000" y1="0" y2="500" z="5" />
+	else if( TagName == "rectangle" && 
 		Tag.attributes().contains( "x1" ) && Tag.attributes().contains( "x2" ) && 
 		Tag.attributes().contains( "y1" ) && Tag.attributes().contains( "y2" ) )
 	{
-		this->x1_ = Tag.attribute( "x1" ).toUShort();
-		this->x2_ = Tag.attribute( "x2" ).toUShort();
-		this->y1_ = Tag.attribute( "y1" ).toUShort();
-		this->y2_ = Tag.attribute( "y2" ).toUShort();
+		this->x1_.push_back( Tag.attribute( "x1" ).toUShort() );
+		this->x2_.push_back( Tag.attribute( "x2" ).toUShort() );
+		this->y1_.push_back( Tag.attribute( "y1" ).toUShort() );
+		this->y2_.push_back( Tag.attribute( "y2" ).toUShort() );
 
 		if( Tag.attributes().contains( "z" ) )
-			this->z_ = Tag.attribute( "z" ).toUShort();
+			this->z_.push_back( Tag.attribute( "z" ).toUShort() );
+		else
+			this->z_.push_back( 255 );
 	}
+	
+	else
+		cBaseRegion::processNode( Tag );
 }
 
 bool cSpawnRegion::findValidSpot( Coord_cl &pos )
@@ -186,10 +193,11 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 	UI32 i = 0;
 	while( i < 100 )
 	{
-		pos.x = RandomNum( this->x1_, this->x2_ );
-		pos.y = RandomNum( this->y1_, this->y2_ );
-		if( this->z_ != 255 )
-			pos.z = this->z_;
+		int rndRectNum = RandomNum( 0, this->x1_.size()-1 );
+		pos.x = RandomNum( this->x1_[rndRectNum], this->x2_[rndRectNum] );
+		pos.y = RandomNum( this->y1_[rndRectNum], this->y2_[rndRectNum] );
+		if( this->z_[rndRectNum] != 255 )
+			pos.z = this->z_[rndRectNum];
 		else
 			pos.z = Map->Height( pos );
 
@@ -368,7 +376,7 @@ void cAllSpawnRegions::Load( void )
 		
 		iterator iter_spreg = this->find( pc->spawnregion() );
 		if( iter_spreg != this->end() )
-			iter_spreg->second->Add( pc->serial );
+			dynamic_cast< cSpawnRegion* >(iter_spreg->second)->Add( pc->serial );
 	}
 
 	AllItemsIterator iter_item;
@@ -378,7 +386,7 @@ void cAllSpawnRegions::Load( void )
 		
 		iterator iter_spreg = this->find( pi->spawnregion() );
 		if( iter_spreg != this->end() )
-			iter_spreg->second->Add( pi->serial );
+			dynamic_cast< cSpawnRegion* >(iter_spreg->second)->Add( pi->serial );
 	}
 
 	UI32 endtime = getNormalizedTime();
@@ -391,21 +399,9 @@ void cAllSpawnRegions::Check( void )
 	iterator it = this->begin();
 	while( it != this->end() )
 	{
-		it->second->checkTimer();
+		dynamic_cast< cSpawnRegion* >(it->second)->checkTimer();
 		it++;
 	}
-}
-
-void cAllSpawnRegions::reload( void )
-{
-	iterator it = this->begin();
-	while( it != this->end() )
-	{
-		delete it->second; // delete the cSpawnRegion objects from the stack!
-		it++;
-	}
-
-	this->Load();
 }
 
 void cAllSpawnRegions::reSpawn( void )
@@ -413,7 +409,7 @@ void cAllSpawnRegions::reSpawn( void )
 	iterator it = this->begin();
 	while( it != this->end() )
 	{
-		it->second->reSpawn();
+		dynamic_cast< cSpawnRegion* >(it->second)->reSpawn();
 		it++;
 	}
 }
@@ -423,7 +419,7 @@ void cAllSpawnRegions::reSpawnToMax( void )
 	iterator it = this->begin();
 	while( it != this->end() )
 	{
-		it->second->reSpawnToMax();
+		dynamic_cast< cSpawnRegion* >(it->second)->reSpawnToMax();
 		it++;
 	}
 }
@@ -433,8 +429,10 @@ void cAllSpawnRegions::deSpawn( void )
 	iterator it = this->begin();
 	while( it != this->end() )
 	{
-		it->second->deSpawn();
+		dynamic_cast< cSpawnRegion* >(it->second)->deSpawn();
 		it++;
 	}
 }
 
+// Singleton
+cAllSpawnRegions cAllSpawnRegions::instance;

@@ -284,8 +284,6 @@ extern unsigned char *comm[CMAX];
 extern creat_st creatures[2048]; //LB, stores the base-sound+sound flags of monsters, animals
 extern location_st location[4000];
 extern logout_st logout[1024];//Instalog
-extern region_st region[256];
-extern std::vector<spawnregion_st> spawnregion;
 extern advance_st wpadvance[1000];
 //extern spell_st spells[100];
 extern char spellname[71][25];

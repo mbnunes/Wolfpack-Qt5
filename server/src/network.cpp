@@ -42,6 +42,7 @@ using namespace std ;
 #include "books.h"
 #include "srvparams.h"
 #include "classes.h"
+#include "territories.h"
 
 // Library Includes
 #include "qstringlist.h"
@@ -599,7 +600,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	sysmessage(s, 0x37, tr(QString("Current developers: %1").arg(wp_version.codersstring.c_str())) );
 
 	pc_currchar->region=255;
-	checkregion(pc_currchar);
+	cAllTerritories::getInstance()->Check(pc_currchar);
 	//Tauriel set packitem at login
 	serial=pc_currchar->serial;
 

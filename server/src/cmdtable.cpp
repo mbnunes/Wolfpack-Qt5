@@ -44,6 +44,7 @@
 #include "wolfpack.h"
 #include "cmdtable.h"
 #include "spawnregions.h"
+#include "territories.h"
 #include "bounty.h"
 #include "SndPkg.h"
 #include "worldmain.h"
@@ -518,8 +519,8 @@ void command_reloadcachedscripts(UOXSOCKET s)
 	Magic->reload();
 
 	loadcustomtitle();
-	loadregions();
-	AllSpawnRegions->reload();
+	cAllTerritories::getInstance()->reload();
+	cAllSpawnRegions::getInstance()->reload();
 	Commands->loadPrivLvlCmds();
 	loadskills();
 	read_in_teleport(); // hope i've cought all  ...
@@ -690,10 +691,14 @@ void command_where(UOXSOCKET s)
 // added region-name too, LB
 {
 	PC_CHAR pcc_cs = currchar[s];
-    if (pcc_cs == NULL) return;
-	
-	if (strlen(region[pcc_cs->region].name)>0)
-		sysmessage(s, tr("You are at: %1").arg((char*)region[pcc_cs->region].name)); 
+
+    if (pcc_cs == NULL) 
+		return;
+
+	cTerritory* Region = cAllTerritories::getInstance()->region( pcc_cs->region );
+
+	if( Region != NULL )
+		sysmessage( s, tr("You are at: %1").arg(Region->name()) ); 
 	else 
 		sysmessage(s, tr("You are at: unknown area"));
 	
@@ -1813,7 +1818,7 @@ void command_respawn(UOXSOCKET s)
 	sysbroadcast("World is now respawning, expect some lag!");
 	clConsole.log( QString( "Respawn command called by %1.\n" ).arg( pc_currchar->name.c_str() ).latin1() );
 
-	AllSpawnRegions->reSpawn();
+	cAllSpawnRegions::getInstance()->reSpawn();
 	return;
 }
 
@@ -2009,7 +2014,7 @@ void command_rename2(UOXSOCKET s)
 
 void command_readspawnregions(UOXSOCKET s)
 {
-	AllSpawnRegions->reload();
+	cAllSpawnRegions::getInstance()->reload();
 	sysmessage(s, tr("Spawnregions reloaded."));
 	return;
 	
@@ -2261,7 +2266,7 @@ void command_gms(UOXSOCKET s)
 void command_regspawnall(UOXSOCKET s)
 {
 	sysbroadcast("ALL Regions Spawning to MAX, this will cause some lag.");
-	AllSpawnRegions->reSpawnToMax();
+	cAllSpawnRegions::getInstance()->reSpawnToMax();
 	return;
 }
 

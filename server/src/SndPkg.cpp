@@ -41,7 +41,6 @@
 #include "debug.h"
 #include "basics.h"
 #include "SndPkg.h"
-#include "sregions.h"
 #include "itemid.h"
 #include "guildstones.h"
 #include "combat.h"
@@ -49,6 +48,7 @@
 #include "srvparams.h"
 #include "network.h"
 #include "classes.h"
+#include "territories.h"
 
 #undef  DBGFILE
 #define DBGFILE "SndPkg.cpp"
@@ -1445,7 +1445,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		}
 		if (perm[k]) dolight(k, SrvParams->worldCurrentLevel());
 	}
-	checkregion(pc);
+	cAllTerritories::getInstance()->Check(pc);
 }
 
 void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can find their corpses
@@ -1508,7 +1508,7 @@ void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can fin
 		if (perm[k]) 
 			dolight(k, SrvParams->worldCurrentLevel());
 	}
-	checkregion(pc);
+	cAllTerritories::getInstance()->Check(pc);
 }
 
 

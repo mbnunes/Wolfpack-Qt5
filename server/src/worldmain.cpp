@@ -48,7 +48,7 @@
 #include "wolfpack.h"
 #include "utilsys.h"
 #include "mapstuff.h"
-#include "sregions.h"
+#include "territories.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
@@ -776,7 +776,7 @@ void loaditem (int x) // Load an item from WSC
 		loops++;
 	}
 	while (strcmp((char*)script1, "}") && loops<=200);
-	// StoreItemRandomValue(x,-1); // Magius(CHE) (2)
+	// StoreItemRandomValue(x,"non"); // Magius(CHE) (2)
 
 
 	pi->timeused_last=getNormalizedTime();
@@ -845,7 +845,9 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		pc->priv2 &= 0xBF;
 		pc->SetSpawnSerial( pc->spawnSerial() );
 
-		pc->region = calcRegionFromXY(pc->pos.x, pc->pos.y); //LB bugfix
+		cTerritory* Region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y );
+		if( Region != NULL )
+			pc->region = Region->name();
 
 		pc->setAntispamtimer( 0 );   //LB - AntiSpam -
 		pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn

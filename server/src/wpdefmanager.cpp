@@ -84,6 +84,8 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		PrivLevels[ NodeID ] = Node;
 	else if( NodeName == "spawnregion" )
 		SpawnRegions[ NodeID ] = Node;
+	else if( NodeName == "region" )
+		Regions[ NodeID ] = Node;
 }
 
 // Recursive Function for Importing Script Sections
@@ -157,6 +159,7 @@ void WPDefManager::unload( void )
 	clearNodes( Spells );
 	clearNodes( PrivLevels );
 	clearNodes( SpawnRegions );
+	clearNodes( Regions );
 }
 
 void WPDefManager::reload( void )
@@ -218,6 +221,10 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &SpawnRegions;
 		break;
 
+	case WPDT_REGION:
+		ListPointer = &Regions;
+		break;
+
 	};
 
 	return &( ListPointer->find( Section ).data() );
@@ -262,6 +269,10 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 	case WPDT_SPAWNREGION:
 		ListPointer = &SpawnRegions;
+		break;
+
+	case WPDT_REGION:
+		ListPointer = &Regions;
 		break;
 
 	default:

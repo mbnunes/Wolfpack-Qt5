@@ -45,6 +45,9 @@
 #include "typedefs.h"
 #include "coord.h"
 
+// Library includes
+#include "qstring.h"
+
 using namespace std;
 
 struct move_st
@@ -144,7 +147,7 @@ struct location_st
 	int x2;
 	int y2;
 	// char region;
-	unsigned char region;
+	QString region;
 };
 
 struct logout_st// Instalog
@@ -153,43 +156,6 @@ struct logout_st// Instalog
 	unsigned int y1;
 	unsigned int x2;
 	unsigned int y2;
-};
-
-struct region_st
-{
-	char name[50];
-	int midilist;
-	unsigned char priv; // 0x01 guarded, 0x02, mark allowed, 0x04, gate allowed, 0x08, recall
-	// 0x10 raining, 0x20, snowing, 0x40 magic damage reduced to 0
-	char guardowner[50];
-	unsigned char snowchance;
-	unsigned char rainchance;
-	int guardnum[10];
-	int goodsell[256]; // Magius(CHE)
-	int goodbuy[256]; // Magius(CHE)
-	int goodrnd1[256]; // Magius(CHE) (2)
-	int goodrnd2[256]; // Magius(CHE) (2)
-	int RaceOwner; // Skyfires Race stuff
-};
-
-struct spawnregion_st// Regionspawns
-{
-	unsigned char name[512];// Any Name to show up when this region is spawned [512]
-	int npclists[512];// NPC lists [512]
-	int npcs[512];// Individual npcs [512]
-	int itemlists[512];// item Lists [512]
-	int totalitemlists;// Total number of item lists
-	int totalnpcs;// Total Number of indiviual npcs
-	int totalnpclists;// Number of NPC lists
-	int max;// Max amount of spawned characters
-	int current;// Current amount of spawned chars
-	int mintime;// Minimum spawn time
-	int maxtime;// Maximum spawn time
-	int nexttime;// Nextspawn time for this region
-	int x1;// Top left X
-	int x2;// Bottom right x
-	int y1;// Top left y
-	int y2;// Bottom right y
 };
 
 struct skill_st

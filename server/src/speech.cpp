@@ -41,6 +41,7 @@
 #include "srvparams.h"
 #include "network.h"
 #include "classes.h"
+#include "territories.h"
 
 // Library Includes
 #include "qdatetime.h"
@@ -445,8 +446,10 @@ bool QuestionSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
     //if (strstr( comm, "LOCATION") || strstr( comm, "WHERE AM I")) //Ripper...gives location of char.
 	if (comm.find("LOCATION") != string::npos)
 	{
-		if (strlen(region[pPlayer->region].name)>0)
-			sprintf(temp, "You are in %s",region[pPlayer->region].name); 
+		cTerritory* Region = cAllTerritories::getInstance()->region( pPlayer->region );
+		
+		if( Region != NULL )
+			sprintf(temp, "You are in %s",Region->name().latin1()); 
 		else strcpy(temp,"You are in the wilderness");
 		npctalkall(pc,temp,0);
 		
@@ -515,7 +518,7 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 				// Set the expire time if nobody excepts the quest
 				pEscortee->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) );
 				// Send out the rant about accepting the escort
-				sprintf(temp, "Lead on! Payment shall be made when we arrive at %s.", region[pEscortee->questDestRegion()].name);
+				sprintf(temp, "Lead on! Payment shall be made when we arrive at %s.", QString("%1").arg(pEscortee->questDestRegion()));
 				npctalkall(pEscortee,temp, 0);
 				MsgBoardQuestEscortRemovePost( pEscortee );	// Remove post from message board
 				return 1;	// Return 1 so that we indicate that we handled the message
@@ -535,18 +538,18 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 			if ( pEscortee->ftarg == currchar[s]->serial )
 			{
 				// Send out the rant about accepting the escort
-				sprintf(temp, "Lead on to %s. I shall pay thee when we arrive.", region[pEscortee->questDestRegion()].name);
+				sprintf(temp, "Lead on to %s. I shall pay thee when we arrive.", QString("%1").arg(pEscortee->questDestRegion()));
 			}
 			else if ( pEscortee->ftarg == INVALID_SERIAL )  // If nobody has been accepted for the quest yet
 			{
 				// Send out the rant about accepting the escort
-				sprintf(temp, "I am seeking an escort to %s. Wilt thou take me there?", region[pEscortee->questDestRegion()].name);
+				sprintf(temp, "I am seeking an escort to %s. Wilt thou take me there?", QString("%1").arg(pEscortee->questDestRegion()));
 			}
 			else // The must be enroute
 			{
 				// Send out a message saying we are already being escorted
 				P_CHAR pPlayer = FindCharBySerial(pEscortee->ftarg);
-				sprintf(temp, "I am already being escorted to %s by %s.", region[pEscortee->questDestRegion()].name, pPlayer->name.c_str() );
+				sprintf(temp, "I am already being escorted to %s by %s.", QString("%1").arg(pEscortee->questDestRegion()), pPlayer->name.c_str() );
 			}
 			npctalkall(pEscortee,temp, 0);
 			return 1;	// Return success ( we handled the message )

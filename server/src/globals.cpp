@@ -276,7 +276,6 @@ cNetworkStuff	*Network;
 cMagic			*Magic;
 cBooks          *Books;
 cAccount		*Accounts;
-cAllSpawnRegions *AllSpawnRegions;
 cMovement		*Movement;
 cWeather		*Weather;
 cSpeech	        *Speech;
@@ -378,8 +377,6 @@ list<SERIAL> guilds;
 
  location_st location[4000];
  logout_st logout[1024];//Instalog
- region_st region[256];
- std::vector<spawnregion_st> spawnregion;
  advance_st wpadvance[1000];
  //spell_st spells[100];
  int validEscortRegion[256];

@@ -32,21 +32,4 @@
 #ifndef _SREGIONS_H
 #define _SREGIONS_H
 
-// Platform specifics
-#include "platform.h"
-
-//System includes
-
-// Forward class Dec
-class cRespawn;
-
-//Wolfpack includes
-#include "wolfpack.h"
-#include "SndPkg.h"
-#include "debug.h"
-
-void loadregions();
-void checkregion(P_CHAR pc_i);
-unsigned char calcRegionFromXY(int x, int y);
-
 #endif

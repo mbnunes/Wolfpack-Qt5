@@ -42,6 +42,7 @@
 #include "classes.h"
 #include "network.h"
 #include "spawnregions.h"
+#include "territories.h"
 
 // Library Includes
 #include "qdatetime.h"
@@ -169,7 +170,11 @@ void restockNPC(unsigned int currenttime, P_CHAR pc_i)
 							}
 							// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
 							if (SrvParams->trade_system()==1)
-								StoreItemRandomValue(pic, calcRegionFromXY(pc_i->pos.x, pc_i->pos.y));// Magius(CHE) (2)
+							{
+								cTerritory* Region = cAllTerritories::getInstance()->region( pic->pos.x, pic->pos.y );
+								if( Region != NULL )
+									StoreItemRandomValue(pic, Region->name() );// Magius(CHE) (2)
+							}
 						}
 					}// for b
 				}
@@ -883,7 +888,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 	if(checkspawnregions<=currenttime && SrvParams->spawnRegionCheckTime() != -1)//Regionspawns
 	{
-		AllSpawnRegions->Check();
+		cAllSpawnRegions::getInstance()->Check();
 		checkspawnregions=uiCurrentTime+SrvParams->spawnRegionCheckTime()*MY_CLOCKS_PER_SEC;//Don't check them TOO often (Keep down the lag)
 	}
 

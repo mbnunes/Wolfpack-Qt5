@@ -35,7 +35,7 @@
 // Wolfpack Includes
 #include "wolfpack.h"
 #include "itemid.h"
-#include "sregions.h"
+#include "territories.h"
 #include "SndPkg.h"
 #include "debug.h"
 #include "utilsys.h"
@@ -497,7 +497,11 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 		break;
 	} // no default coz we tested on entry to function
    
-	nChar->region = calcRegionFromXY(nChar->pos.x, nChar->pos.y);
+	cTerritory* Region = cAllTerritories::getInstance()->region( nChar->pos.x, nChar->pos.y );
+	if( Region != NULL )
+		nChar->region = Region->name();
+	else
+		nChar->region = QString();
 
 	nChar->applyDefinition( *DefSection );
 	mapRegions->Add( nChar );
@@ -522,7 +526,10 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 //
 bool cChar::inGuardedArea()
 {
-	this->region=calcRegionFromXY(this->pos.x, this->pos.y);	// make sure it is set correctly
-	return ::region[this->region].priv&1;
+	cTerritory* Region = cAllTerritories::getInstance()->region( this->pos.x, this->pos.y );
+	if( Region != NULL )
+		return Region->isGuarded();
+	else
+		return false;
 }
 

@@ -273,7 +273,7 @@ void cTrade::restock(int s)
 			}
 		}
 		// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
-		if (SrvParams->trade_system()==1) StoreItemRandomValue(pi,-1);// Magius(CHE) (2)
+		if (SrvParams->trade_system()==1) StoreItemRandomValue(pi,"none");// Magius(CHE) (2)
 	}
 }
 

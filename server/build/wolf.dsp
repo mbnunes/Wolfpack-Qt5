@@ -336,6 +336,10 @@ SOURCE=.\telport.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\territories.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\tilecache.cpp
 # End Source File
 # Begin Source File
@@ -409,6 +413,10 @@ SOURCE=.\wptargetrequests.cpp
 # Begin Source File
 
 SOURCE=.\accounts.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\baseregion.h
 # End Source File
 # Begin Source File
 
@@ -649,6 +657,10 @@ SOURCE=.\targetrequests.h
 # Begin Source File
 
 SOURCE=.\telport.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\territories.h
 # End Source File
 # Begin Source File
 

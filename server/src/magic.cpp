@@ -55,6 +55,7 @@
 #include "mapstuff.h"
 #include "network.h"
 #include "TmpEff.h"
+#include "territories.h"
 
 #undef DBGFILE
 #define DBGFILE "magic.cpp"
@@ -397,11 +398,14 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 
 	// Casting agressive spells is not allowed in guarded towns
 	if( spell->agressive() && !caster->isGM() )
-		if( ( region[ caster->region ].priv & 0x80 ) && caster->inGuardedArea() )
+	{
+		cTerritory* Region = cAllTerritories::getInstance()->region( caster->region );
+		if( Region != NULL && Region->allowsMagic() )
 		{
 			sysmessage( calcSocketFromChar( caster ), "You may not cast agressive spells in a guarded area." );
 			return false;
 		}
+	}
 
 	if( !spell->enabled() )
 	{
@@ -1227,13 +1231,19 @@ char cMagic::CheckResist(P_CHAR pc_attacker, P_CHAR pc_defender, int circle)
 //
 void cMagic::MagicDamage(P_CHAR pc, int amount)
 {
+	if( pc == NULL )
+		return;
+
 	if ( pc->priv2&0x02  &&  pc->effDex() > 0 )
 	{
 		pc->priv2 &= 0xFD; // unfreeze
 		UOXSOCKET s = calcSocketFromChar(pc);
 		if (s != -1) sysmessage(s, "You are no longer frozen.");
 	}
-	if ( !pc->isInvul() && (region[pc->region].priv&0x40)) // LB magic-region change
+
+	cTerritory* Region = cAllTerritories::getInstance()->region( pc->region );
+	
+	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{
 		if (pc->isNpc()) amount *= 2;			// double damage against non-players
 		pc->hp = max(0, pc->hp-amount);
@@ -1253,6 +1263,8 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 //
 void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 {
+	if( pc == NULL )
+		return;
 
 	UOXSOCKET s = calcSocketFromChar(pc);
 
@@ -1262,7 +1274,10 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 		if (s!=-1)
 			sysmessage(s, "You are no longer frozen.");
 	}
-	if ( !pc->isInvul() && (region[pc->region].priv&0x40)) // LB magic-region change
+
+	cTerritory* Region = cAllTerritories::getInstance()->region( pc->region );
+	
+	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{
 		if (poison>5) poison = 5;
 		else if (poison<0) poison = 1;
@@ -2022,6 +2037,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	int snr;
 	bool char_selected, item_selected, terrain_selected;
 	
+	cTerritory* Region = cAllTerritories::getInstance()->region( pc_currchar->pos.x, pc_currchar->pos.y );
+
 	if (pc_currchar->dead)
 		return;
 	if (currentSpellType[s]==0)
@@ -2092,8 +2109,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							pi->morez=pc_currchar->pos.z;
 							sysmessage(s,"Recall rune marked.");
 							//antichrist
-							calcreg=calcRegionFromXY(pc_currchar->pos.x, pc_currchar->pos.y);
-							pi->setName( QString( "Rune to: %1" ).arg( region[calcreg].name ) );
+							if( Region != NULL )
+								pi->setName( QString( "Rune to: %1" ).arg( Region->name() ) );
 							
 							cMagic::invisibleItemParticles(pc_currchar, curSpell, pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);						
 							
@@ -2986,11 +3003,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				}
 				if( fieldSpell( curSpell ) )
 				{
-					int R=calcRegionFromXY(x,y);
-					if (R==-1) R=255;
-					//clConsole.send("x: %i, y: %i, z: %i",x,y,z);
-					if (region[R].priv&0x01) // Ripper 11-14-99
-						if (region[R].priv&0x80 || region[R].priv&0x40) // LB magic region changes !
+					cTerritory* Region = cAllTerritories::getInstance()->region( x, y );
+					if( Region != NULL && !Region->isGuarded() ) // Ripper 11-14-99
+						if( !Region->allowsMagic() || !Region->allowsMagicDamage() ) // LB magic region changes !
 						{
 							sysmessage(s, tr(" You cant cast in town!"));
 							return;

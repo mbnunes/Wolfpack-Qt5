@@ -47,7 +47,7 @@ void cWeather::DoWeather(int s)
 	P_CHAR pc_currchar = currchar[s];
 	if (pc_currchar != NULL)
 	{
-	    Region=pc_currchar->region;
+/*	    Region=pc_currchar->region;
 	    if(Type[Region]==-1)
 		{
 		    CalcType(s);
@@ -64,6 +64,7 @@ void cWeather::DoWeather(int s)
 		{
 		    Network->xSend(s,dry,4,0);
 		}
+		*/
 	}
 	return;
 }
@@ -74,7 +75,7 @@ void cWeather::CalcType(UOXSOCKET s)
 	int schance=0;
 	int wchance=0;
 	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar != NULL)
+/*	if (pc_currchar != NULL)
 	rchance=RainChance[pc_currchar->region]; // chance % for it to rain in this region
 	schance=SnowChance[pc_currchar->region]; // chance % for it to snow in this region
 	wchance=rand()%100; // the chance for there to be rain or snow (the lower the bigger chance of weather)
@@ -115,6 +116,7 @@ void cWeather::CalcType(UOXSOCKET s)
 			return;
 		}// if it doesnt rain or snow
 	} // if schance>rchance
+*/
 }
 
 void cWeather::WTimer()
@@ -140,7 +142,7 @@ void cWeather::WTimer()
 
 void cWeather::CTimer()
 {	
-	unsigned char r;
+/*	unsigned char r;
 	unsigned char s=0,now_old=now;
 //	char dry[5]="\x65\x00\x00\x00"; //commented out - unused.
 	for(s=0;s<now_old;s++)
@@ -148,16 +150,16 @@ void cWeather::CTimer()
 //		player_index=currchar[s];
 		if ( online( currchar[s] ) )  
 		{		   
-		   r=currchar[s]->region;
-		   /*if(noweather[s])
+//		   r=currchar[s]->region;
+		   if(noweather[s])
 		   {
 			   Network->xSend(s,dry,4,0);
 			   return;
-		   }*/
+		   }
 		   if(Active[r] && perm[s])
 			Weather->DoWeather(s);				
 		}
-	}
+	}*/
 }
 
 void cWeather::run() throw()

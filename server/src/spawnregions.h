@@ -32,25 +32,18 @@
 #if !defined(__SPAWNREGIONS_H__)
 #define __SPAWNREGIONS_H__ 
 
-#include "definable.h"
-#include "platform.h"
-#include "coord.h"
-#include "typedefs.h"
+#include "baseregion.h"
 
-// Library includes
-#include "qstring.h"
-#include "qstringlist.h"
-#include "qdom.h"
-#include "qfile.h"
-
-#include <vector>
-#include <map>
-
-class cSpawnRegion : public cDefinable
+class cSpawnRegion : public cBaseRegion
 {
 public:
-	cSpawnRegion( const QDomElement &Tag );
-	~cSpawnRegion() {;}
+	cSpawnRegion( const QDomElement &Tag )
+	{
+		this->Init();
+		this->name_ = Tag.parentNode().toElement().attribute( "id" );
+		this->applyDefinition( Tag );
+	}
+	virtual ~cSpawnRegion() {;}
 
 	void	Init( void );
 	void	Add( UI32 serial );
@@ -70,8 +63,6 @@ private:
 	std::vector< SERIAL >		npcSerials_;	// serials of chars spawned by this area
 	std::vector< SERIAL >		itemSerials_;	// serials of items spawned by this area
 
-	QString					name_;			// name of the spawnregion (section's name)
-
 	QStringList				npcSections_;	// list of npc's sections
 	QStringList				itemSections_;	// list of item's sections
 	
@@ -84,28 +75,26 @@ private:
 	UI32					minTime_;		// Minimum spawn time in sec
 	UI32					maxTime_;		// Maximum spawn time in sec
 	UI32					nextTime_;		// Next time for this region to spawn
-	
-	UI16					x1_;			// Top left X
-	UI16					x2_;			// Bottom right x
-	UI16					y1_;			// Top left y
-	UI16					y2_;			// Bottom right y
 
-	UI08					z_;				// Height, if not specified z will be chosen
+	vector< UI08 >			z_;				// Height, if not specified, z will be chosen
 };
 
-class cAllSpawnRegions : public std::map< QString, cSpawnRegion* >
+class cAllSpawnRegions : public cAllBaseRegions
 {
+private:
+	static cAllSpawnRegions instance;
 public:
 	cAllSpawnRegions() {;}
 	~cAllSpawnRegions();
 
-	void	Load( void );
+	virtual void	Load( void );
 	void	Check( void );
-	void	reload( void );
 
 	void	reSpawn( void );
 	void	reSpawnToMax( void );
 	void	deSpawn( void );
+
+	static cAllSpawnRegions *getInstance( void ) { return &instance; }
 };
 
 #endif

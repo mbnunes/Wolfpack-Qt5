@@ -384,14 +384,14 @@ void cCommands::NextCall(int s, int type)
 
 void cCommands::KillSpawn(int s, QString spawnRegion )  // rewrite sereg
 {
-	cAllSpawnRegions::iterator it = AllSpawnRegions->find( spawnRegion );
+	cAllSpawnRegions::iterator it = cAllSpawnRegions::getInstance()->find( spawnRegion );
 
-	if( it == AllSpawnRegions->end() )
+	if( it == cAllSpawnRegions::getInstance()->end() )
 		return;
 	else
 	{
 		sysmessage(s, tr("Killing spawn, this may cause lag..."));
-		it->second->deSpawn();
+		dynamic_cast< cSpawnRegion* >(it->second)->deSpawn();
 	}
 
 	gcollect();
@@ -400,22 +400,22 @@ void cCommands::KillSpawn(int s, QString spawnRegion )  // rewrite sereg
 
 void cCommands::RegSpawnMax (int s, QString spawnRegion) // rewrite sereg
 {
-	cAllSpawnRegions::iterator it = AllSpawnRegions->find( spawnRegion );
+	cAllSpawnRegions::iterator it = cAllSpawnRegions::getInstance()->find( spawnRegion );
 
-	if( it == AllSpawnRegions->end() )
+	if( it == cAllSpawnRegions::getInstance()->end() )
 		return;
 	else
 	{
 		sysmessage(s, tr("Respawning to max, this may cause lag..."));
-		it->second->reSpawnToMax();
+		dynamic_cast< cSpawnRegion* >(it->second)->reSpawnToMax();
 	}
 }
 
 void cCommands::RegSpawnNum (int s, QString spawnRegion, int n) // rewrite by sereg
 {
-	cAllSpawnRegions::iterator it = AllSpawnRegions->find( spawnRegion );
+	cAllSpawnRegions::iterator it = cAllSpawnRegions::getInstance()->find( spawnRegion );
 
-	if( it == AllSpawnRegions->end() )
+	if( it == cAllSpawnRegions::getInstance()->end() )
 		return;
 	else
 	{
@@ -424,7 +424,7 @@ void cCommands::RegSpawnNum (int s, QString spawnRegion, int n) // rewrite by se
 
 		while( i < n )
 		{
-			it->second->reSpawn();
+			dynamic_cast< cSpawnRegion* >(it->second)->reSpawn();
 			i++;
 		}
 	}

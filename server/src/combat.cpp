@@ -44,6 +44,7 @@
 #include "srvparams.h"
 #include "classes.h"
 #include "network.h"
+#include "territories.h"
 
 #include "debug.h"
 #undef  DBGFILE
@@ -1253,12 +1254,8 @@ void cCombat::CombatOnFoot(P_CHAR pc)
 //s: char#
 void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, signed char z)
 {
-	int t;
-//	if (i < 0 || i >= cmem || s < 0 || s >= cmem)
-//		return;
-	
-//	P_CHAR pc_offender = MAKE_CHARREF_LR(s);
-//	P_CHAR pc_caller   = MAKE_CHARREF_LR(i);
+	QString guardSect;
+
 	if ( pc_offender == NULL || pc_caller == NULL)
 		return;
 	
@@ -1267,12 +1264,18 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 	
 	if (pc_offender->dead || pc_caller->dead)
 		return; // AntiChrist
+
+	cTerritory* Region = cAllTerritories::getInstance()->region( pc_caller->region );
+
+	if( Region == NULL )
+		return;
 	
 	if (SrvParams->guardsActive() && !pc_offender->isInvul())
 	{
-        t = region[pc_caller->region].guardnum[(rand()%10)];
-		P_CHAR pc_guard = Npcs->createScriptNpc(calcSocketFromChar(pc_offender), NULL, QString("%1").arg(t), x, y, z);
-		if ( pc_guard == NULL ) return;
+		guardSect = Region->getGuardSect();
+		P_CHAR pc_guard = Npcs->createScriptNpc(calcSocketFromChar(pc_offender), NULL, guardSect, x, y, z);
+		if ( pc_guard == NULL ) 
+			return;
 		
 		pc_guard->setNpcAIType( 4 ); // CITY GUARD, LB, bugfix, was 0x40 -> not existing
 		pc_guard->setAttackFirst();

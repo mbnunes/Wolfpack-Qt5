@@ -42,6 +42,7 @@
 #include "srvparams.h"
 #include "network.h"
 #include "utilsys.h"
+#include "territories.h"
 
 #undef  DBGFILE
 #define DBGFILE "msgboard.cpp"
@@ -238,7 +239,9 @@ void MsgBoardOpen(int s)
 	strcpy( fileName1, "global.bbi" );
 	
 	// REGIONAL post file
-	sprintf( fileName2, "region%d.bbi", calcRegionFromXY(pi_msgBoard->pos.x, pi_msgBoard->pos.y) );
+	cTerritory* Region = cAllTerritories::getInstance()->region( pi_msgBoard->pos.x, pi_msgBoard->pos.y );
+	if( Region != NULL )
+		sprintf( fileName2, "region_%s.bbi", Region->name().latin1() );
 	
 	// LOCAL post file
 	sprintf( fileName3, "%02x%02x%02x%02x.bbi", buffer[s][1], buffer[s][2], buffer[s][3], buffer[s][4]);
@@ -415,7 +418,9 @@ void MsgBoardList( int s )
 	
 	// REGIONAL post file
 	// sprintf( fileName2, "%s.bbp", region[calcRegionFromXY(items[boardSN].x, items[boardSN].y)].name );
-	sprintf( fileName2, "region%d.bbp", calcRegionFromXY(boardSN->pos.x, boardSN->pos.y) );
+	cTerritory* Region = cAllTerritories::getInstance()->region( boardSN->pos.x, boardSN->pos.y );
+	if( Region != NULL )
+		sprintf( fileName2, "region_%s.bbi", Region->name().latin1() );
 	
 	// LOCAL post file
 	sprintf( fileName3, "%02x%02x%02x%02x.bbp", buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
@@ -640,12 +645,16 @@ int MsgBoardGetMaxMsgSN( int msgType, int autoPost=0 )
 		// set the Message Board fileName to the proper region number
 		if ( autoPost )
 		{
-			sprintf( (char*)temp, "region%d.bbi", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region );
+			sprintf( (char*)temp, "region_%s.bbi", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region );
 		}
 		else
 		{
-			P_ITEM msgBoardSerial = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
-			sprintf( (char*)temp, "region%d.bbi", calcRegionFromXY(msgBoardSerial->pos.x, msgBoardSerial->pos.y) );
+			P_ITEM msgBoard = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
+			if( msgBoard == NULL )
+				break;
+			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoard->pos.x, msgBoard->pos.y );
+			if( Region != NULL )
+				sprintf( (char*)temp, "region_%s.bbi", Region->name().latin1() );
 		}
 		break;
 		
@@ -1009,12 +1018,16 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 		// set the Message Board fileName to the proper region number
 		if ( autoPost )
 		{
-			sprintf( (char*)temp, "region%d.bbp", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region );
+			sprintf( (char*)temp, "region_%s.bbp", FindCharBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]))->region );
 		}
 		else
 		{
-			P_ITEM msgBoardSerial = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
-			sprintf( (char*)temp, "region%d.bbp", calcRegionFromXY(msgBoardSerial->pos.x, msgBoardSerial->pos.y) );
+			P_ITEM msgBoard = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
+			if( msgBoard == NULL )
+				break;
+			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoard->pos.x, msgBoard->pos.y );
+			if( Region != NULL )
+				sprintf( (char*)temp, "region_%s.bbi", Region->name().latin1() );
 		}
 		break;
 		
@@ -1265,10 +1278,17 @@ void MsgBoardOpenPost( int s )
 #ifdef DEBUG
 		sysmessage( s, "Opening REGIONAL.bbp posting");
 #endif
-		P_ITEM msgBoardSerial = FindItemBySerial(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
-		sprintf( (char*)temp, "region%d.bbp", calcRegionFromXY(msgBoardSerial->pos.x, msgBoardSerial->pos.y) );
-		strcat( fileName,(char*) temp );
-		file = fopen( fileName, "rb" );
+		P_ITEM msgBoard = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
+		if( msgBoard != NULL )
+		{
+			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoard->pos.x, msgBoard->pos.y );
+			if( Region != NULL )
+			{
+				sprintf( (char*)temp, "region_%s.bbp", Region->name().latin1() );
+			}
+			strcat( fileName,(char*) temp );
+			file = fopen( fileName, "rb" );
+		}
 	}
 	// Is msgSN within the LOCAL post range
 	else if ( (msgSN>=0x03000000) && (msgSN<=0xFFFFFFFF) )
@@ -1491,7 +1511,9 @@ void MsgBoardRemovePost( int s )
 	case 0x02:
 		{
 			// REGIONAL post file
-			sprintf( (char*)temp, "region%d.bbi", calcRegionFromXY(msgBoardSN->pos.x, msgBoardSN->pos.y) );
+			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoardSN->pos.x, msgBoardSN->pos.y );
+			if( Region != NULL )
+				sprintf( (char*)temp, "region_%s.bbi", Region->name().latin1() );
 			break;
 		}
 		
@@ -2016,6 +2038,8 @@ int MsgBoardPostQuest( int serial, int questType )
 
 	loopexit=0;
 	unsigned long loopexit2=0;
+	cTerritory* Region;
+
 	// Read in the random post message choosen above and fill in buffer body for posting
 	while ( (++loopexit < MAXLOOPS)  )
 	{
@@ -2069,16 +2093,30 @@ int MsgBoardPostQuest( int serial, int questType )
 					// Destination Region Name
 				case 'r':
 					{
-						strcpy( flagPos, region[FindCharBySerial( serial )->questDestRegion()].name ); 
-						strcat( (char*)temp, tempString );
+						if( FindCharBySerial( serial ) != NULL )
+						{
+							Region = cAllTerritories::getInstance()->region( QString("%1").arg(FindCharBySerial( serial )->questDestRegion()) );
+							if( Region != NULL )
+							{
+								strcpy( flagPos, Region->name().latin1() ); 
+								strcat( (char*)temp, tempString );
+							}
+						}
 						break;
 					}
 					
 					// Region Name
 				case 'R':
 					{
-						strcpy( flagPos, region[FindCharBySerial( serial )->region].name ); 
-						strcat( (char*)temp, tempString );
+						if( FindCharBySerial( serial ) != NULL )
+						{
+							Region = cAllTerritories::getInstance()->region( FindCharBySerial( serial )->region );
+							if( Region != NULL )
+							{
+								strcpy( flagPos, Region->name().latin1() ); 
+								strcat( (char*)temp, tempString );
+							}
+						}
 						break;
 					}
 					
@@ -2189,7 +2227,7 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	// Make sure they don't move until an player accepts the quest
 	pc_npc->npcWander       = 0;                // Don't want our escort quest object to wander off.
 	pc_npc->setNpcAIType( 18 );                // set to escort speech so they can yell to all.
-	pc_npc->setQuestOrigRegion(pc_npc->region);  // Store this in order to remeber where the original message was posted
+	pc_npc->setQuestOrigRegion(pc_npc->region.toInt());  // Store this in order to remeber where the original message was posted
 	
 	// Set the expirey time on the NPC if no body accepts the quest
 	if ( SrvParams->escortinitexpire() )
@@ -2243,7 +2281,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	// If they have no money, well, oops!
 	if ( servicePay == 0 )
 	{
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name.c_str(), region[pc_npc->questDestRegion()].name );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name.c_str(), QString("%1").arg(pc_npc->questDestRegion()) );
 		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	else // Otherwise pay the poor sod for his time
@@ -2252,7 +2290,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 		if ( servicePay < 75 ) servicePay += RandomNum(75, 100);
 		addgold( k, servicePay );
 		goldsfx( k, servicePay );
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name.c_str(), region[pc_npc->questDestRegion()].name );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name.c_str(), QString("%1").arg(pc_npc->questDestRegion()) );
 		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	
@@ -2318,7 +2356,7 @@ void MsgBoardQuestEscortRemovePost( P_CHAR pc_npc )
 	char fileName[256] = "";
 	
 	// REGIONAL post file
-	sprintf( (char*)temp, "region%d.bbi", pc_npc->questOrigRegion() );
+	sprintf( (char*)temp, "region_%d.bbi", pc_npc->questOrigRegion() );
 	
 	// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
 	if (!SrvParams->msgboardPath().isEmpty())

@@ -45,7 +45,7 @@
 #include "cmdtable.h"
 #include "speech.h"
 #include "SndPkg.h"
-#include "sregions.h"
+#include "territories.h"
 #include "im.h"
 #include "remadmin.h"
 #include "utilsys.h"
@@ -2609,8 +2609,8 @@ void checkkey ()
 			case 'R':
 				clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
-				AllSpawnRegions->reload();
-				loadregions();
+				cAllSpawnRegions::getInstance()->reload();
+				cAllTerritories::getInstance()->reload();
 				Commands->loadPrivLvlCmds();
 
 				SrvParams->reload(); // Reload wolfpack.xml
@@ -2907,7 +2907,7 @@ int main( int argc, char *argv[] )
 	CIAO_IF_ERROR;
 
 	Map->Cache = SrvParams->cacheMulFiles();
-	loadregions();
+	cAllTerritories::getInstance()->Load();
 
 	CIAO_IF_ERROR;
 
@@ -2928,7 +2928,7 @@ int main( int argc, char *argv[] )
 	cwmWorldState->loadnewworld(SrvParams->worldSaveModule());
 	CIAO_IF_ERROR; // LB prevents file corruption
 
-	AllSpawnRegions->Load();
+	cAllSpawnRegions::getInstance()->Load();
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;
@@ -2937,7 +2937,7 @@ int main( int argc, char *argv[] )
 	{
 		pi = iterItems.GetData();
 		// 1. this relies on the container the item is in
-		StoreItemRandomValue(pi, -1);
+		StoreItemRandomValue(pi, "none");
 
 		// 2. needs the char to be loaded
 		if (pi->dx2 && isCharSerial(pi->contserial))	// effect on dex ? like plate eg.
@@ -3704,6 +3704,8 @@ void openbank(int s, P_CHAR pc_i)
 //
 void openspecialbank(int s, P_CHAR pc)
 {
+	sysmessage( s, "Special banks deactivated!" );
+	/*
 	int serial;
 	P_CHAR pc_currchar = currchar[s];
 	serial=pc->serial;
@@ -3743,6 +3745,7 @@ void openspecialbank(int s, P_CHAR pc)
 	pic->setType( 1 );
 	wearIt(s,pic);
 	backpack(s, pic->serial);
+	*/
 }
 
 // streamlined by Duke 01.06.2000
@@ -4251,18 +4254,19 @@ int calcValue(P_ITEM pi, int value)
 
 int calcGoodValue(P_CHAR npcnum2, P_ITEM pi, int value,int goodtype)
 { // Function Created by Magius(CHE) for trade System
-	int actreg=calcRegionFromXY(npcnum2->pos.x, npcnum2->pos.y);
+	cTerritory* Region = cAllTerritories::getInstance()->region( npcnum2->pos.x, npcnum2->pos.y );
+
 	int regvalue=0;
 	int x;
-	if (pi == NULL)
+	if( pi == NULL || Region == NULL )
 		return value;
 
 	int good=pi->good;
 
-	if (good<=-1 || good >255 || actreg<=-1 || actreg>255) return value;
+	if (good<=-1 || good >255 ) return value;
 
-	if (goodtype==1) regvalue=region[actreg].goodsell[pi->good]; // Vendor SELL
-	if (goodtype==0) regvalue=region[actreg].goodbuy[pi->good]; // Vendor BUY
+	if (goodtype==1) regvalue=Region->tradesystem_[good].sellable;	// Vendor SELL
+	if (goodtype==0) regvalue=Region->tradesystem_[good].buyable;	// Vendor BUY
 
 	x=(int) (value*abs(regvalue))/1000;
 
@@ -4274,31 +4278,43 @@ int calcGoodValue(P_CHAR npcnum2, P_ITEM pi, int value,int goodtype)
 	return value;
 }
 
-void StoreItemRandomValue(P_ITEM pi,int tmpreg)
+void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 { // Function Created by Magius(CHE) for trade System
 	int max=0,min=0;
 
-	if (pi == NULL)
+	if( pi == NULL )
 		return;
 	if (pi->good<0) return;
-	if (tmpreg<0)
+
+	if (tmpreg == "none" )
 	{
 		P_ITEM pio=GetOutmostCont(pi);
 		if (!pio) return;
+		cTerritory* Region;
 		if (pio->isInWorld())
-			tmpreg=calcRegionFromXY(pio->pos.x,pio->pos.y);
+		{
+			Region = cAllTerritories::getInstance()->region( pio->pos.x, pio->pos.y );
+			if( Region != NULL )
+				tmpreg = Region->name();
+		}
 		else
 		{
 			P_CHAR pc=FindCharBySerial(pio->contserial);
 			if (!pc) return;
-			tmpreg=calcRegionFromXY(pc->pos.x,pc->pos.y);
+			Region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y );
+			if( Region != NULL )
+				tmpreg = Region->name();
 		}
+		return;
 	}
 
-	if (tmpreg<0 || tmpreg>255 || pi->good<0 || pi->good>255) return;
+	if( pi->good<0 || pi->good>255 ) 
+		return;
 
-	min=region[tmpreg].goodrnd1[pi->good];
-	max=region[tmpreg].goodrnd2[pi->good];
+	cTerritory* Region = cAllTerritories::getInstance()->region( tmpreg );
+
+	min=Region->tradesystem_[pi->good].rndmin;
+	max=Region->tradesystem_[pi->good].rndmax;
 
 	if (max!=0 || min!=0)
 	{
@@ -4314,16 +4330,18 @@ void dosocketmidi(int s)
 
 	char sect[512];
 	P_CHAR pc_currchar = currchar[s];
+	cTerritory* Region = cAllTerritories::getInstance()->region( pc_currchar->region );
 
 	if (pc_currchar->war)
 	{
 		strcpy(sect, "MIDILIST COMBAT");
 	}
-	else
+	else if( Region != NULL )
 	{
-		sprintf(sect, "MIDILIST %i", region[pc_currchar->region].midilist);
+			sprintf(sect, "MIDILIST %i", Region->midilist());
 	}
-	if (region[pc_currchar->region].midilist!=0 && !pScp->find(sect))
+
+	if (Region != NULL && Region->midilist() != 0 && !pScp->find(sect))
 	{
 		//closescript();
 		pScp->Close();
@@ -6090,7 +6108,6 @@ void StartClasses(void)
 	Network			= NULL;
 	Magic			= NULL;
 	Books			= NULL;
-	AllSpawnRegions = NULL;
 	Movement		= NULL;
 	Weather			= NULL;
 	DragonAI		= NULL;
@@ -6117,7 +6134,6 @@ void StartClasses(void)
 	Network			= new cNetworkStuff;
 	Magic			= new cMagic;
 	Books			= new cBooks;
-	AllSpawnRegions	= new cAllSpawnRegions;
 	Movement		= new cMovement;
 
 	//Weather = new cWeather;
@@ -6152,7 +6168,6 @@ void DeleteClasses(void)
 	delete Network;
 	delete Magic;
 	delete Books;
-	delete AllSpawnRegions;
 	delete Movement;
 	delete DragonAI;
 	delete BankerAI;

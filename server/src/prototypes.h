@@ -167,7 +167,7 @@ void sellaction(int s);
 void addgold(UOXSOCKET s, int totgold);
 int calcValue(P_ITEM pi, int value);
 int calcGoodValue(P_CHAR npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
-void StoreItemRandomValue(P_ITEM pi,int tmpreg); // by Magius(CHE) (2) for trade system
+void StoreItemRandomValue(P_ITEM pi,QString tmpreg); // by Magius(CHE) (2) for trade system
 
 void clearalltrades();
 void trademsg(int s);

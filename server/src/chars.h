@@ -122,7 +122,7 @@ public:
 	signed char				fz1; //NPC Wander Point 1 z
 	//int pagegm; //GM Paging
 	//char region;
-	unsigned char			region;
+	QString					region;
 	unsigned int			skilldelay;
 	unsigned int			objectdelay;
 	int						combathitmessage;

@@ -48,7 +48,6 @@ using namespace std ;
 
 #include "wolfpack.h"
 #include "basics.h"
-#include "sregions.h"
 #include "SndPkg.h"
 #include "utilsys.h"
 #include "debug.h"
