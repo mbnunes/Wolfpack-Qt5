@@ -10,9 +10,6 @@ TARGET		= wolfpack
 TEMPLATE	+= app
 CONFIG		+= qt console thread exceptions rtti
 
-# disable run of qmake after Makefile modification
-QMAKE =
-
 unix {
 
 	# Common unix settings

@@ -55,6 +55,8 @@ bool cLog::checkLogFile()
 		Try to open the logfile for today if:
 		a) Our filedescriptor is invalid
 		b) We don't have today anymore
+
+		EXCEPT if the user sets LogRotate to false
 	*/
 	if( !logfile.isOpen() || currentday != today.day() )
 	{
@@ -72,7 +74,10 @@ bool cLog::checkLogFile()
 		}
 
 		QString filename;
-		filename.sprintf( "wolfpack-%04u-%02u-%02u.log", today.year(), today.month(), today.day() );
+		if( SrvParams->logRotate() )
+			filename.sprintf( "wolfpack-%04u-%02u-%02u.log", today.year(), today.month(), today.day() );
+		else
+			filename = QString( "wolfpack.log" );
 
 		logfile.setName( path + filename );
 

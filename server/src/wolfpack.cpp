@@ -35,6 +35,7 @@
 #include "boats.h"
 #include "commands.h"
 #include "console.h"
+#include "getopts.h"
 #include "contextmenu.h"
 #include "corpse.h"
 #include "house.h"
@@ -74,11 +75,6 @@
 #include <qmutex.h>
 #include <qthread.h>
 #include <qglobal.h>
-
-#ifdef Q_OS_UNIX
-# include <sys/wait.h>
-# include <fcntl.h>
-#endif
 
 using namespace std;
 
@@ -209,58 +205,6 @@ void queueAction( eActionType type )
 //#include <crash.h>
 //#endif
 
-#ifdef Q_OS_UNIX
-void daemonize( void )
-{
-	int pid, fd, status;
-
-	pid = fork();
-
-	switch( pid )
-	{
-		case 0: // child
-			setsid();
-
-			if( ( fd = open( "/dev/null", O_RDWR ) ) != -1 )
-			{
-				dup2( fd, 0 );
-				dup2( fd, 1 );
-				close( fd );
-			}
-
-			break;
-
-		case -1:
-			perror( "fork" );
-			break;
-
-		default: // we forked, so silently exit the parent
-			exit( 0 );
-	}
-}
-
-void pidfile_add( char *filename )
-{
-	FILE *pidfile;
-	if( ( pidfile = fopen( filename, "w+" ) ) != NULL )
-	{
-		fprintf( pidfile, "%i", getpid() );
-		fclose( pidfile );
-	}
-	else
-	{
-		perror( "fopen" );
-	}
-}
-
-void pidfile_del( char *filename )
-{
-	if( unlink( filename ) == -1 )
-		perror( "unlink" );
-}
-
-#endif
-
 /*!
 	Main server entry point.
 */
@@ -272,42 +216,8 @@ int main( int argc, char **argv )
 	SetVersion(wp_version.verstring.c_str());
 #endif
 */
+	Getopts::instance()->parse_options( argc, argv );
 	unsigned int i;
-
-#ifdef Q_OS_UNIX
-	bool run_background = false;
-	bool use_pidfile = false;
-	char *pidfile;
-
-	for( i = 1; i < argc; i++ )
-	{
-		if( argv[i][0] == '-' )
-		{
-			switch( argv[i][1] )
-			{
-				case 'h':
-					fprintf( stderr, "Usage: %s [-d [-p file]]\n", argv[0] );
-					fputs( "  -d\trun as daemon.\n", stderr );
-					fputs( "  -p\tuse file as PID file.\n", stderr );
-					exit(1);
-
-				case 'd':
-					run_background = true;
-					daemonize();
-					break;
-
-				case 'p':
-					if( run_background == true && use_pidfile == false )
-					{
-						use_pidfile = true;
-						pidfile = argv[i+1];
-						pidfile_add( pidfile );
-					}
-					break;
-			}
-		}
-	}
-#endif
 
 	keeprun = 1;
 	QApplication app( argc, argv, false ); // we need one instance
@@ -627,11 +537,6 @@ int main( int argc, char **argv )
 	stopPython();
 
 	Console::instance()->stop(); // Stop the Console
-
-#ifdef Q_OS_UNIX
-	if( use_pidfile == true )
-		pidfile_del( pidfile );
-#endif
 
 	return 0;
 }

@@ -122,6 +122,7 @@ protected:
 	int saveInterval_;
 	QString mulPath_;
 	QString logPath_;
+	bool logRotate_;
 	bool categoryTagAddMenu_;
 	double npcMoveTime_;
 	double tamedNpcMoveTime_;
@@ -223,6 +224,7 @@ public:
 	int defaultpriv2() const;
 	QString mulPath() const;
 	QString logPath() const;
+	bool logRotate() const;
 	void setMulPath( const QString& data );
 	void setLogPath( const QString& data );
 	bool addMenuByCategoryTag() const;
@@ -691,6 +693,11 @@ inline int cSrvParams::pathfindFleeRadius() const
 inline QString cSrvParams::logPath() const
 {
 	return logPath_;
+}
+
+inline bool cSrvParams::logRotate() const
+{
+	return logRotate_;
 }
 
 inline int cSrvParams::pathfindMaxIterations() const

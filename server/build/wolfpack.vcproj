@@ -204,6 +204,15 @@
 				RelativePath=".\win\console_win.cpp">
 			</File>
 			<File
+				RelativePath=".\getopts.cpp">
+			</File>
+			<File
+				RelativePath=".\getopts.h">
+			</File>
+			<File
+				RelativePath=".\win\getopts_win.cpp">
+			</File>
+			<File
 				RelativePath=".\contextmenu.cpp">
 			</File>
 			<File

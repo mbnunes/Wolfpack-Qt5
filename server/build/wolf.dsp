@@ -147,6 +147,14 @@ SOURCE=.\win\console_win.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\getopts.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\win\getopts_win.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\contextmenu.cpp
 # End Source File
 # Begin Source File
@@ -405,6 +413,10 @@ SOURCE=.\commands.h
 # Begin Source File
 
 SOURCE=.\console.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\getopts.h
 # End Source File
 # Begin Source File
 
