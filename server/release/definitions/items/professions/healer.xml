@@ -14,7 +14,8 @@
 		<id>0xe20</id>
 		<category>Professions\Healer\Bloody Bandages 1</category>
 		<basescripts>bandages</basescripts>
-		<buyprice>1</buyprice>
+		<buyprice>3</buyprice>
+		<sellprice>3</sellprice>
 		<weight>0.1</weight>
 	</item>
 
@@ -27,8 +28,8 @@
 		<id>0xe21</id>
 		<category>Professions\Healer\Clean Bandages 1</category>
 		<weight>0.1</weight>
-		<buyprice>1</buyprice>
-		<sellprice>3</sellprice>
+		<sellprice>1</sellprice>
+		<buyprice>3</buyprice>
 		<basescripts>bandages</basescripts>
 	</item>
 
