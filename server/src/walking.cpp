@@ -482,7 +482,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		// Check if the char can move to those new coordinates
 		// It is going to automatically calculate the new coords (!)
-		if( !mayWalk( pChar, newCoord ) )
+		if( ( !player || !player->isGM() ) && !mayWalk( pChar, newCoord ) )
 		{
 			if( player && player->socket() )
 				player->socket()->denyMove( sequence );
