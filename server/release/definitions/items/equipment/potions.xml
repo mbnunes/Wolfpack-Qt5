@@ -17,7 +17,7 @@
 
 	<!-- Potion Keg -->
 	<item id="potion_keg">
-		<id>0x1ad6</id>
+		<id>0x1940</id>
 		<weight>10.0</weight>
 		<movable>1</movable>
 		<tag name="kegfill" value="0" type="int" />
@@ -26,17 +26,8 @@
 
 	<!-- Empty Potion Keg -->
 	<item id="potion_keg_empty" inherit="potion_keg">
-		<baseid>potion_keg</baseid>
 		<name>#1041641</name>
-		<id>0x1ad6</id>
-		<basescripts>potionkeg</basescripts>
-	</item>
-
-	<!-- Empty Potion Keg, second direction -->
-	<item id="potion_keg_empty2" inherit="potion_keg">
 		<baseid>potion_keg</baseid>
-		<name>#1041641</name>
-		<id>0x1ad7</id>
 		<basescripts>potionkeg</basescripts>
 	</item>
 
