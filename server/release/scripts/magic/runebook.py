@@ -368,6 +368,9 @@ def callback( char, args, target ):
 		
 		char.socket.clilocmessage(502421)
 		
+		item.deltag('entry%u' % runenum)
+		item.deltag('entry%uname' % runenum)
+		
 		closeGump(char, item)
 		sendGump(char, item)
 
