@@ -26,6 +26,30 @@ ids_clothes_24 = [ 0x1f9f, 0x1fa0 ]
 ids_bolts = [ 0xf95, 0xf96, 0xf97, 0xf98, 0xf99, 0xf9a, 0xf9b, 0xf9c ]
 ids_clothes = [ 0x1766, 0x1765, 0x1767, 0x1768 ]
 
+# Bones (Translation table for bones)
+# Which bone-id gives how many bones in return?
+BONES = {
+	'1b09': 15,
+	'1b0d': 15,
+	'1b0a': 15,
+	'1b0e': 15,
+	'1b0b': 10,
+	'1b0f': 10,
+	'1b0c': 10,
+	'1b10': 10,
+	'1b11': 1,
+	'1b12': 1,
+	'1b13': 1,
+	'1b14': 1,
+	'1b15': 1,
+	'1b16': 1,
+	'1b17': 5,
+	'1b18': 5,
+	'1b19': 2,
+	'1b1a': 2,
+	'1b1b': 3,
+	'1b1c': 3,
+}
 
 def onUse( char, item ):
 	# Needs to be on ourself
@@ -79,7 +103,6 @@ def response( char, args, target ):
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
-
 	elif target.item.id in ids_clothes_4:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
@@ -88,7 +111,6 @@ def response( char, args, target ):
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
-
 
 	elif target.item.id in ids_clothes_6:
 		char.soundeffect( 0x248 )
@@ -207,6 +229,17 @@ def response( char, args, target ):
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
+			
+	# Bones
+	elif target.item.baseid in BONES:
+		amount = BONES[target.item.baseid]
+		item_new = wolfpack.additem('f7e')
+		item_new.amount = amount * target.item.amount
+		target.item.delete()
+		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
+			item_new.update()
+		char.soundeffect(0x21B) # Soundeffect for cutting bones
+		char.socket.clilocmessage( 1008123, "", GRAY ) # Success message
 
 	else:
 		char.socket.clilocmessage( 502440, "", GRAY ) # Scissors can not be used on that to produce anything
