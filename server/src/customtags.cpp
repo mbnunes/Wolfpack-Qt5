@@ -273,10 +273,10 @@ void cVariant::clear()
 	typ = cVariant::Invalid;
 }
 
-static const int ntypes = 7;
+static const int ntypes = 8;
 static const char* const type_map[ntypes] =
 {
-	0, "String", "Int", "Double", "BaseChar", "Item", "Coord"
+	0, "String", "Int", "Long", "Double", "BaseChar", "Item", "Coord"
 };
 
 /*!

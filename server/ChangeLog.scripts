@@ -2,8 +2,12 @@ Wolfpack 13.0.0 ChangeLog
 
 Wolfpack 12.9.8 Beta (CVS)
 	* Core Changes:
+		- Gump Responses are now passed on as Unicode rather than in the
+			local codepage.
+		- Floating point tags are now saved correctly.
 	* Definition Changes:
 	* Python Script Changes:
+		- New Command: taginfo
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

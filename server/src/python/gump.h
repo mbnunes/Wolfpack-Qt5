@@ -66,10 +66,7 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 		std::map<unsigned short, QString>::iterator iter = textentries.begin();
 		for ( ; iter != textentries.end(); ++iter )
 		{
-			if ( !iter->second.isEmpty() )
-				PyDict_SetItem( dict, PyInt_FromLong( iter->first ), PyString_FromString( iter->second.latin1() ) );
-			else
-				PyDict_SetItem( dict, PyInt_FromLong( iter->first ), PyString_FromString( "" ) );
+			PyDict_SetItem(dict, PyInt_FromLong(iter->first), QString2Python(iter->second));
 		}
 
 		return dict;
