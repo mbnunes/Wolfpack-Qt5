@@ -276,7 +276,7 @@ void cUObject::addEvent(cPythonScript *event) {
 		unsigned int count = reinterpret_cast<unsigned int>(*scriptChain);
 
 		cPythonScript **newScriptChain = new cPythonScript* [count + 2];
-		memcpy(newScriptChain, scriptChain, (count + 1) * sizeof(cPythonScript*));		
+		memcpy(newScriptChain, scriptChain, (count + 1) * sizeof(cPythonScript*));
 		newScriptChain[0] = reinterpret_cast<cPythonScript*>(count + 1);
 		newScriptChain[count + 1] = event;
 
@@ -461,7 +461,7 @@ void cUObject::processNode( const cElement *Tag )
 				if (sep != -1) {
 					int min = hex2dec(value.left(sep)).toInt();
 					int max = hex2dec(value.mid(sep + 1)).toInt();
-					
+
 					int value = RandomNum(min, max);
 					tags_.set(name, cVariant((int)value));
 				} else {
@@ -474,7 +474,7 @@ void cUObject::processNode( const cElement *Tag )
 					}
 
 					tags_.set( name, cVariant(hex2dec(value).toInt()));
-				}				
+				}
 			} else if (type == "float") {
 				tags_.set(name, cVariant(value.toFloat()));
 			} else {
@@ -670,7 +670,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 	changed_ = true;
 	// \property object.bindmenu This string property contains a comma separated list of context menu ids for this object.
 	SET_STR_PROPERTY( "bindmenu", bindmenu_ )
-	// \property object.serial This integer property contains the serial for this object.
+	// \rproperty object.serial This integer property contains the serial for this object. Read Only
 	else SET_INT_PROPERTY( "serial", serial_ )
 	// \property object.multi This integer property contains the serial of the multi object this object is in.
 	else SET_INT_PROPERTY( "multi", multis_ )

@@ -1737,7 +1737,9 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	/*
-		\property item.container The container's serial which this item is contained in.
+		\rproperty container The <object id="CHAR">CHAR</object> or
+			<object id="ITEM">ITEM</object> this item is contained in. See the layer property for
+			the layer this item is equipped on if this is a character. This property may also be None.
 	*/
 	else if( name == "container" )
 	{
@@ -1792,7 +1794,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	/*
-		\property item.ownervisible Overrides visible 2
+		\property item.ownervisible Owner visibility level
 		Values:
 		<code>1 - Owner can see
 		0 - Owner can not see.
@@ -1832,10 +1834,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		</code>
 	*/
 	else SET_INT_PROPERTY( "magic", magic_ )
-	/*
-		\property item.visible The artwork id of the object.
-	*/
-	else SET_INT_PROPERTY( "visible", visible_ )
 
 	// Flags
 	/*
