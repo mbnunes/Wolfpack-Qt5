@@ -188,10 +188,9 @@ void cSrvParams::readData() {
 	attack_distance_	    = getNumber("Combat", "Attack Distance", 13, true );
 
 	// Regenerate
-	hitpointrate_			= getNumber("Regenerate", "Hitpoints Regenerate", 11, true);
-	staminarate_			= getNumber("Regenerate", "Stamina Regenerate", 7, true);
-	manarate_				= getNumber("Regenerate", "Mana Regenerate", 7, true);
-	armoraffectmana_		= getNumber("Regenerate", "Armor Affect Mana Regenerate", 0, true);
+	hitpointrate_			= getString("Regenerate", "Hitpoints Regenerate", "11.0", true).toDouble();
+	staminarate_			= getString("Regenerate", "Stamina Regenerate", "7.0", true).toDouble();
+	manarate_				= getString("Regenerate", "Mana Regenerate", "7.0", true).toDouble();
 
 	// Resources
 	resourceitemdecaytime_	= getNumber("Resources", "ResourceItem Decay Time (not empty)", 60*60*12, true);

@@ -531,16 +531,15 @@ static PyObject* wpChar_damage( wpChar* self, PyObject* args )
 		return PyFalse;
 
 	int type, amount;
-	PyObject *source = 0;
+	PyObject *source = Py_None;
 	
 	if( !PyArg_ParseTuple( args, "ii|O:char.damage( type, amount, source )", &type, &amount, &source ) )
 		return 0;
 
 	cUObject *pSource = 0;
-	if( checkWpItem( source ) )
-		pSource = getWpItem( source );
-	else if( checkWpChar( source ) )
-		pSource = getWpChar( source );
+	if (source != Py_None) {
+		PyConvertObject(source, &pSource);
+	}
 
 	return PyInt_FromLong( self->pChar->damage( (eDamageType)type, amount, pSource ) );
 }

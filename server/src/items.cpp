@@ -1836,7 +1836,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			priv_ &= ~0x08;
 		return 0;
 	}
-	else if( name == "wipeable" )
+	else if( name == "allowmeditation" )
 	{
 		if( value.toInt() )
 			priv_ |= 0x10;
@@ -1913,7 +1913,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "newbie", priv_ & 0x02 ? 1 : 0 )
 	else GET_PROPERTY( "dispellable", priv_ & 0x04 ? 1 : 0 )
 	else GET_PROPERTY( "secured", priv_ & 0x08 ? 1 : 0 )
-	else GET_PROPERTY( "wipeable", priv_ & 0x10 ? 1 : 0 )
+	else GET_PROPERTY( "allowmeditation", priv_ & 0x10 ? 1 : 0 )
 	else GET_PROPERTY( "twohanded", priv_ & 0x20 ? 1 : 0 )
 	else GET_PROPERTY( "corpse", priv_ & 0x40 ? 1 : 0 )
 	else GET_PROPERTY( "visible", visible() )

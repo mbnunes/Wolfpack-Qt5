@@ -85,7 +85,7 @@ public:
 	bool			twohanded()		const { return priv_&0x20; }		// Is the weapon twohanded ?
 	UI32			type()			const { return type_; }			// Used for hardcoded behaviour
 	bool			secured()		const { return priv_&0x08; }		// Is the container secured (houses)
-	bool			wipe()			const { return priv_&0x10; }		// Should the item be wiped when affected by /WIPE
+	bool			allowMeditation() const { return priv_&0x10; }		// Does this armor allow meditation?
 	float			weight()		const { return ( ceilf( weight_ * 100 ) / 100 ); }
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
 	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
@@ -119,7 +119,7 @@ public:
 	void	setDye( bool nValue ) {  nValue ? priv_ |= 0x80 : priv_ &= 0x7F; flagChanged();}
 	void	setType( UI32 nValue ) { type_ = nValue; flagChanged();};
 	void	setSecured( bool nValue ) { ( nValue ) ? priv_ |= 0x08 : priv_ &= 0xF7; flagChanged(); changed( TOOLTIP );};
-	void	setWipe( bool nValue ) { ( nValue ) ? priv_ &= 0x10 : priv_ |= 0xEF; flagChanged();};
+	void	setAllowMeditation( bool nValue ) { ( nValue ) ? priv_ &= 0x10 : priv_ |= 0xEF; flagChanged();};
 	void	setNoDecay( bool nValue ) { ( nValue ) ? priv_ |= 0x01 : priv_ &= ~0x01; flagChanged(); };
 	void	setWeight( float nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; flagChanged(); changed( TOOLTIP );};
@@ -165,7 +165,7 @@ public:
 	
 	void SetMultiSerial(long mulser);
 	
-	bool isShield() const { return type_ == 1009; }
+	bool isShield() const { return type_ == 1008; }
 	UINT16 getWeaponSkill();
 
 	void MoveTo( int newx, int newy, signed char newz );
@@ -281,7 +281,7 @@ protected:
 	//   1 |  02 | Newbie
 	//   2 |  04 | Dispellable
 	//   3 |  08 | Secured (Chests)
-	//   4 |  10 | Wipeable (/WIPE affects the item)
+	//   4 |  10 | Allow meditation
 	//   5 |  20 | Twohanded
 	//   6 |  40 | Unprocessed (Set on load. Unset on postprocess)
 	//   7 |  80 | Dye

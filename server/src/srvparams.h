@@ -137,10 +137,9 @@ protected:
 	unsigned int guardDispelTime_;
 
 	// Regenerate
-	unsigned int hitpointrate_;
-	unsigned int staminarate_;
-	unsigned int manarate_;
-	char armoraffectmana_;
+	double hitpointrate_;
+	double staminarate_;
+	double manarate_;
 
 	// Combat
 	int attackstamina_;
@@ -252,10 +251,9 @@ public:
 	QString accountsName() const;
 
 	// Regenerate
-	unsigned int hitpointrate() const;
-	unsigned int staminarate() const;
-	unsigned int manarate() const;
-	char armoraffectmana() const;
+	double hitpointrate() const;
+	double staminarate() const;
+	double manarate() const;
 
 	// Combat
 	int attackstamina() const;
@@ -496,24 +494,19 @@ inline unsigned char cSrvParams::attack_distance() const
 	return attack_distance_;
 }
 
-inline unsigned int cSrvParams::hitpointrate() const
+inline double cSrvParams::hitpointrate() const
 {
 	return hitpointrate_;
 }
 
-inline unsigned int cSrvParams::staminarate() const
+inline double cSrvParams::staminarate() const
 {
 	return staminarate_;
 }
 
-inline unsigned int cSrvParams::manarate() const
+inline double cSrvParams::manarate() const
 {
 	return manarate_;
-}
-
-inline char cSrvParams::armoraffectmana() const
-{
-	return armoraffectmana_;
 }
 
 inline unsigned int cSrvParams::snoopdelay() const

@@ -157,8 +157,7 @@ void cCorpse::update( cUOSocket *mSock )
 	{
 		P_ITEM pItem = World::instance()->findItem( it->second );
 
-		if( pItem && pItem->container() == this )
-		{
+		if (pItem && pItem->container() == this) {
 			corpseEquip.addItem( it->first, it->second );
 			corpseContent.addItem( pItem );
 		}
@@ -205,6 +204,14 @@ void cCorpse::update( cUOSocket *mSock )
 				mSock->send( &corpseContent );
 			}
 		}
+	}
+}
+
+SERIAL cCorpse::getEquipment(UINT8 layer) {
+	if (equipment_.find(layer) != equipment_.end()) {
+		return INVALID_SERIAL;
+	} else {
+		return equipment_[layer];
 	}
 }
 

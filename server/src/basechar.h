@@ -219,7 +219,7 @@ public:
 	stError *setProperty( const QString &name, const cVariant &value );
 	stError *getProperty( const QString &name, cVariant &value ) const;	
 	void updateHealth( void );
-	void action( uchar id ); // Do an action
+	void action(uchar id, uchar speed = 1, bool reverse = false); // Do an action
 	P_ITEM getWeapon() const;
 	P_ITEM getShield() const;
 	void setHairColor( ushort d); 
@@ -227,6 +227,9 @@ public:
 	void setBeardColor( ushort d); 
 	void setBeardStyle( ushort d); 
 	void playDeathSound();
+	double getHitpointRate();
+	double getStaminaRate();
+	double getManaRate();
 	void resurrect();
 	void turnTo( cUObject *object );
 	void turnTo( const Coord_cl &pos );
@@ -948,7 +951,6 @@ inline void cBaseChar::setMana(short data)
 {
     mana_ = data;
 	changed_ = true;
-	refreshMaximumValues();
 }
 
 inline ushort cBaseChar::maxHitpoints() const

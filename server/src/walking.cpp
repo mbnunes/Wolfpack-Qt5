@@ -149,7 +149,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	land_st mapTile = TileCache::instance()->getLand( mapCell.id );
 
 	// If it's not impassable it's automatically walkable
-	if( !(mapTile.flag1 & 0x40) )
+	if (!(mapTile.flag1 & 0x40))
 		mapBlock.walkable = true;
 	else
 		mapBlock.walkable = checkWalkable( pChar, mapCell.id );
@@ -230,7 +230,9 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 			continue;
 		} else if (pChar->isDead()) {
 			// Doors can be passed by ghosts
-			tile_st tile = TileCache::instance()->getTile(pItem->id());
+			if (pItem->hasEvent("door")) {
+				continue;
+			}
 		}
 
 		// They need to be at the same x,y,plane coords
@@ -465,8 +467,6 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			return;
 		}
 
-		checkStealth( pChar ); // Reveals the user if neccesary
-
 		// Check if the char can move to those new coordinates
 		// It is going to automatically calculate the new coords (!)
 		if (!mayWalk(pChar, newCoord))
@@ -500,17 +500,22 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		}
 
 		// We moved so let's update our location
-		pChar->moveTo( newCoord );
+		pChar->moveTo(newCoord);
 		pChar->setLastMovement(uiCurrentTime);
-		AllTerritories::instance()->check( pChar );
+		AllTerritories::instance()->check(pChar);
+
+		if( player && player->socket())
+			player->socket()->allowMove(sequence);
+
+		checkStealth( pChar ); // Reveals the user if neccesary
+	} else {
+		if( player && player->socket() )
+			player->socket()->allowMove( sequence );
 	}
 
 	// do all of the following regardless of whether turning or moving i guess
 	// set the player direction to contain only the cardinal direction bits
 	pChar->setDirection(dir);
-	
-	if( player && player->socket() )
-		player->socket()->allowMove( sequence );
 	
 	RegionIterator4Chars ri( pChar->pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) {
@@ -1038,8 +1043,15 @@ void cMovement::HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 			Coord_cl destination = pc->pos();
 			if ( territory->findTeleporterSpot( destination ) )
 			{
-				pc->moveTo( destination );
-				pc->resend();
+				bool quick = pc->pos().map != destination.map;
+				pc->removeFromView(false);
+				pc->moveTo(destination);
+				pc->resend(false);
+				P_PLAYER player = dynamic_cast<P_PLAYER>(pc);
+				if (player && player->socket()) {
+					player->socket()->resendPlayer(quick);
+					player->socket()->resendWorld();
+				}
 			}
 		}
 	}

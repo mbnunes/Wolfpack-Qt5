@@ -271,7 +271,7 @@ void commandResend( cUOSocket *socket, const QString &command, const QStringList
 {
 	Q_UNUSED(args);
 	Q_UNUSED(command);
-	socket->resendPlayer( false );
+	socket->resendPlayer(false);
 	socket->resendWorld();
 }
 

@@ -1216,13 +1216,12 @@ void cNPC::vendorSell( P_PLAYER player )
 {
 	P_ITEM pContC = GetItemOnLayer( cBaseChar::SellContainer );
 	
-	if( !pContC )
-	{
-		talk( tr( "You have nothing I would be interested in." ), 0, 0, false, player->socket() );
+	if (!pContC || pContC->content().size() == 0) {
+		talk(501550, 0, 0, false, saycolor_, player->socket());
 		return;
 	}
 	
-	talk( tr( "This could be of interest!" ), 0, 0, false, player->socket() );
+	talk(501530, 0, 0, false, saycolor_, player->socket());
 	player->socket()->sendSellWindow( this, player );
 }
 
@@ -1252,19 +1251,18 @@ bool cNPC::inWorld() {
 void cNPC::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	cUObject::createTooltip(tooltip, player);
 
-	QString affix = " ";
-
-	// Append NPC titles
+	QString affix;
+	
 	if (!title_.isEmpty()) {
-		affix.append(", " + title_);
+		affix = title_;
+	} else {
+		affix = " ";
 	}
 
 	// Append the (frozen) tag
 	if (isFrozen()) {
-		if (affix.length() != 1) {
-			affix.append(" " + tr("(frozen)"));
-		} else {
-			affix.append(tr("(frozen)"));
+		if (affix.endsWith(" ")) {
+			affix = tr("(frozen)");
 		}
 	}	
 

@@ -90,6 +90,9 @@ static char *eventNames[] =
 	"onChangeRegion",
 	"onAttach",
 	"onDetach",
+	"onHitpointRate",
+	"onStaminaRate",
+	"onManaRate",
 	0
 };
 

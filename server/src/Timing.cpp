@@ -181,14 +181,10 @@ void cTiming::poll() {
 			}
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
-			if (player) {
-				if (!player->socket() && player->logoutTime() && player->logoutTime() >= time) 
-				{
-					player->setLogoutTime(0);
-					player->removeFromView(false);
-					player->resend(false);
-				}
-				continue;
+			if (player && !player->socket() && player->logoutTime() && player->logoutTime() <= time) {
+				player->removeFromView(false);
+				player->setLogoutTime(0);				
+				player->resend(false);
 			}
 		}
 
@@ -248,89 +244,49 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time)
 		return;
 	}
 
-	unsigned int oldHealth = character->hitpoints();
 	unsigned int oldStamina = character->stamina();
 	unsigned int oldMana = character->mana();
 
-	if (character->regenHitpointsTime() <= time) 
-	{
+	if (character->regenHitpointsTime() <= time) {
 		// If it's not disabled hunger affects our health regeneration
-		if (character->hitpoints() < character->maxHitpoints()) 
-		{
-			if (character->hunger() > 3 || SrvParams->hungerRate() == 0) 
-			{
-				if (character->skillValue(HEALING) < 500) 
-					character->setHitpoints(character->hitpoints() + 1);
-				else if (character->skillValue(HEALING) < 800) 
-					character->setHitpoints(character->hitpoints() + 2);
-				else
-					character->setHitpoints(character->hitpoints() + 3);
+		if (character->hitpoints() < character->maxHitpoints()) {
+			if (!SrvParams->hungerRate() || character->hunger() > 3) {
+				character->setHitpoints(character->hitpoints() + 1);
 				character->updateHealth();
+				character->setRegenHitpointsTime(uiCurrentTime + floor(character->getHitpointRate() * 1000));
 			}
 		}
-
-		int rate = SrvParams->hitpointrate();
-
-		if (character->hasTag("regenhits")) 
-		{
-            unsigned char regenbonus = (unsigned char)character->getTag("regenhits").toInt();
-
-            rate -= regenbonus;
-			if (rate < 1) 
-				rate = 1;
-		}
-
-		character->setRegenHitpointsTime(time + rate * MY_CLOCKS_PER_SEC);
 	}
 
-	if (character->regenStaminaTime() <= time) 
-	{
-		int rate = SrvParams->staminarate();
-
-		if (character->hasTag("regenstam")) 
-		{
-            unsigned char regenbonus = (unsigned char)character->getTag("regenstam").toInt();
-
-            rate -= regenbonus;
-			if (rate < 1) 
-				rate = 1;
-		}
-
-		if (character->stamina() < character->maxStamina()) 
+	if (character->regenStaminaTime() <= time) {
+		if (character->stamina() < character->maxStamina()) {
 			character->setStamina(character->stamina() + 1);
+			character->setRegenStaminaTime(uiCurrentTime + floor(character->getStaminaRate() * 1000));
 
-		character->setRegenStaminaTime(time + rate * MY_CLOCKS_PER_SEC);
+			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
+			if (player && player->socket()) {
+				player->socket()->updateStamina();
+			}
+		}
 	}
 
-	// OSI Style Mana regeneration by blackwind
-	// if (character->in>character->mn)  this leads to the 'mana not subtracted' bug (Duke)
-	if (character->regenManaTime() <= time) 
-	{
-		unsigned int interval = SrvParams->manarate() * MY_CLOCKS_PER_SEC;
-		for (unsigned short c = 0; c < character->maxMana() + 1 ; ++c) 
-		{
-			if (character->regenManaTime() + (c * interval) <= time) 
-			{
-				if (character->mana() >= character->maxMana()) 
-				{
-					if (character->isMeditating()) 
-					{
-						P_PLAYER player = dynamic_cast<P_PLAYER>(character);
+	if (character->regenManaTime() <= time) {
+		if (character->mana() < character->maxMana()) {
+			character->setMana(character->mana() + 1);
+			character->setRegenManaTime(uiCurrentTime + floor(character->getManaRate() * 1000));
 
-						if (player->socket()) 
-							player->socket()->clilocMessage(501846);
-						character->setMeditating(false);
-					}
-					break;
-				} 
-				else
-				{
-					character->setMana(character->mana() + 1);
+			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
+			if (player) {
+				if (player->socket()) {
+					player->socket()->updateMana();
+				}
+
+				if (player->isMeditating() && character->mana() >= character->maxMana()) {
+					player->setMeditating(false);
+					player->sysmessage(501846);
 				}
 			}
 		}
-
-		character->setRegenManaTime( time + interval );
 	}
 }
 

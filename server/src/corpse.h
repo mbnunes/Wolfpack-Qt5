@@ -86,6 +86,7 @@ public:
 
 
 	void addEquipment( UINT8 layer, SERIAL serial );
+	SERIAL getEquipment(UINT8 layer);
 
 	const char *objectID() const
 	{

@@ -104,9 +104,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	// Criminal for looting an innocent corpse & unhidden if not owner...
 	if( pi->corpse() )
 	{
-		if (pc_currchar->isHidden() && !pc_currchar->Owns(pi) && !pc_currchar->isGM()) {
-			pc_currchar->setHidden(0);
-			pc_currchar->resend(false);
+		if (!pc_currchar->Owns(pi) && !pc_currchar->isGM()) {
+			pc_currchar->unhide();
 		}
 
 		// TODO: Add a XML option for this

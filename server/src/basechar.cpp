@@ -267,7 +267,7 @@ void cBaseChar::save()
 		addField( "serial", serial() );
 		addStrField( "name", orgName_ );
 		addStrField( "title", title_ );
-		addStrField( "creationdate", creationDate_.toString() );
+		addStrField( "creationdate", creationDate_.toString(Qt::ISODate) );
 		addField( "body", bodyID_ );
 		addField( "orgbody", orgBodyID_ );
 		addField( "skin", skin_ );
@@ -405,27 +405,60 @@ void cBaseChar::updateHealth( void )
 	}
 }
 
-void cBaseChar::action( UINT8 id )
+void cBaseChar::action(unsigned char id, unsigned char speed, bool reverse)
 {
-	bool mounted = ( atLayer( Mount ) != 0 );
+	bool mounted = atLayer( Mount ) != 0;
 
 	// Bow + Area Cast
-	if( mounted && ( id == 0x11 || id == 0x12 ) )
-		id = 0x1B;
+	if (mounted) {
+		switch (id) {
+		case ANIM_WALK_UNARM:
+		case ANIM_WALK_ARM:
+		case ANIM_WALK_WAR:
+			id = ANIM_HORSE_RIDE_SLOW;
+			break;
+		case ANIM_RUN_UNARM:
+		case ANIM_RUN_ARMED:
+			id = ANIM_HORSE_RIDE_FAST;
+			break;
+		case ANIM_FIDGET1:
+		case ANIM_FIDGET_YAWN:
+		case ANIM_GET_HIT:
+		case ANIM_BLOCK:
+		case ANIM_ATTACK_2H_JAB:
+		case ANIM_ATTACK_2H_WIDE:
+		case ANIM_ATTACK_2H_DOWN:
+			id = ANIM_HORSE_SLAP;
+			break;
+		case ANIM_ATTACK_1H_WIDE:
+		case ANIM_ATTACK_1H_JAB:
+		case ANIM_ATTACK_1H_DOWN:
+		case ANIM_CAST_DIR:
+		case ANIM_ATTACK_UNARM:
+			id = ANIM_HORSE_ATTACK;
+			break;
+		case ANIM_CAST_AREA:
+		case ANIM_ATTACK_BOW:
+			id = ANIM_HORSE_ATTACK_BOW;
+			break;
+		case ANIM_ATTACK_XBOW:
+		case ANIM_BOW:
+		case ANIM_SALUTE:
+		case ANIM_EAT:
+			id = ANIM_HORSE_ATTACK_XBOW;
+			break;
+		case ANIM_STAND:
+		case ANIM_STAND_WAR_1H:
+		case ANIM_STAND_WAR_2H:
+		default:
+			id = ANIM_HORSE_STAND;
+			break;
+		}
+	}
 
-	else if( mounted && ( id == 0x0D || id == 0x14 ) )
-		id = 0x1D;
-
-	// Attack (1H,Side,Down) + Cast Directed
-	else if( mounted && ( id == 0x09 || id == 0x0a ||id == 0x0b ||id == 0x10 ) )
-		id = 0x1A;
-
-	// Bow + Salute + Eat
-	else if( mounted && ( id == 0x13 || id == 0x20 || id == 0x21 || id == 0x22 ) )
-		id = 0x1C;
-
-	else if( ( mounted || bodyID_ < 0x190 ) && ( bodyID_ == 0x22 ) )
+	if (bodyID_ == 0x22) {
 		return;
+	}
 
 	cUOTxAction action;
 	action.setAction( id );
@@ -433,7 +466,10 @@ void cBaseChar::action( UINT8 id )
 	action.setDirection( direction() );
 	action.setRepeat( 1 );
 	action.setRepeatFlag( 0 );
-	action.setSpeed( 1 );
+	action.setSpeed(speed);
+	if (reverse) {
+		action.setBackwards(1);
+	}
 
 	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
 	{
@@ -446,12 +482,12 @@ P_ITEM cBaseChar::getWeapon() const
 {
 	// Check if we have something on our right hand
 	P_ITEM rightHand = rightHandItem();
-	if( Combat::instance()->weaponSkill( rightHand ) != WRESTLING )
+	if( rightHand && Combat::instance()->weaponSkill( rightHand ) != WRESTLING )
 		return rightHand;
 
 	// Check for two-handed weapons
 	P_ITEM leftHand = leftHandItem();
-	if( Combat::instance()->weaponSkill( leftHand ) != WRESTLING )
+	if( leftHand && Combat::instance()->weaponSkill( leftHand ) != WRESTLING )
 		return leftHand;
 
 	return NULL;
@@ -460,7 +496,7 @@ P_ITEM cBaseChar::getWeapon() const
 P_ITEM cBaseChar::getShield() const
 {
 	P_ITEM leftHand = leftHandItem();
-	if( leftHand->isShield() )
+	if( leftHand && leftHand->isShield() )
 		return leftHand;
 	return NULL;
 }
@@ -472,7 +508,6 @@ void cBaseChar::setHairColor( UINT16 d)
 	if( pHair )
 		pHair->setColor( d );
 	pHair->update();
-	resend();
 }
 
 void cBaseChar::setHairStyle( UINT16 d)
@@ -496,7 +531,6 @@ void cBaseChar::setHairStyle( UINT16 d)
 		addItem( cBaseChar::Hair, pHair );
 	}
 	pHair->update();
-	resend();
 }
 
 void cBaseChar::setBeardColor( UINT16 d)
@@ -506,7 +540,6 @@ void cBaseChar::setBeardColor( UINT16 d)
 	if( pBeard )
 		pBeard->setColor( d );
 	pBeard->update();
-	resend();
 }
 
 void cBaseChar::setBeardStyle( UINT16 d)
@@ -528,7 +561,6 @@ void cBaseChar::setBeardStyle( UINT16 d)
 		addItem( cBaseChar::FacialHair, pBeard );
 	}
 	pBeard->update();
-	resend();
 }
 
 void cBaseChar::playDeathSound()
@@ -558,43 +590,104 @@ void cBaseChar::playDeathSound()
 // This should check soon if we are standing above our
 // corpse and if so, merge with our corpse instead of
 // just resurrecting
-void cBaseChar::resurrect()
-{
+void cBaseChar::resurrect() {
 	if ( !isDead() )
 		return;
 
+	cCorpse *corpse = 0;
+
+	// See if there's his corpse at his feet
+	cItemSectorIterator *iter = SectorMaps::instance()->findItems(pos(), 0);
+	for (P_ITEM item = iter->first(); item; item = iter->next()) {
+		corpse = dynamic_cast<cCorpse*>(item);
+
+		if (!corpse || corpse->owner() != this) {
+			corpse = 0;
+		} else {
+			break;
+		}
+	}
+	delete iter;
+
+	if (corpse && corpse->direction() != direction()) {
+		setDirection(corpse->direction());
+		update();
+	}
+
 	changed( TOOLTIP );
 	changed_ = true;
-	awardFame( 0 );
-	soundEffect( 0x0214 );
-	setBodyID( orgBodyID_ );
-	setSkin( orgSkin_ );
-	setDead( false );
-	hitpoints_ = QMAX( 1, (UINT16)( 0.1 * maxHitpoints_ ) );
-	stamina_ = (UINT16)( 0.1 * maxStamina_ );
-	mana_ = (UINT16)( 0.1 * maxMana_ );
+	awardFame(0);
+	soundEffect(0x0214);
+	setBodyID(orgBodyID_);
+	setSkin(orgSkin_);
+	setDead(false);
+	hitpoints_ = QMAX(1, (UINT16)(0.1 * maxHitpoints_));
+	stamina_ = (UINT16)(0.1 * maxStamina_);
+	mana_ = (UINT16)(0.1 * maxMana_);
 	fight(0);
-	getBackpack(); // Make sure he has a backpack
+	P_ITEM backpack = getBackpack(); // Make sure he has a backpack
 
 	// Delete what the user wears on layer 0x16 (Should be death shroud)
-	P_ITEM pRobe = GetItemOnLayer( 0x16 );
+	P_ITEM pRobe = atLayer(OuterTorso);
 
-	if( pRobe )
+	if (pRobe) {
 		pRobe->remove();
+	}
 
-	pRobe = cItem::createFromScript( "1f03" );
+	if (!corpse) {
+		pRobe = cItem::createFromScript("1f03");
 
-	if( !pRobe )
-		return;
+		if (pRobe) {
+			pRobe->setColor(0);
+			pRobe->setHp(1);
+			pRobe->setMaxhp(1);
+			this->addItem(cBaseChar::OuterTorso, pRobe);
+			pRobe->update();
+		}
 
-	pRobe->setColor( 0 );
-	pRobe->setHp( 1 );
-	pRobe->setMaxhp( 1 );
-	this->addItem( cBaseChar::OuterTorso, pRobe );
-	pRobe->update();
+		resend(false);
+	} else {
+		// Move all items from the corpse to the backpack and then look for 
+		// previous equipment
+		cItem::ContainerContent content = corpse->content();
+		cItem::ContainerContent::iterator it;
+		for (it = content.begin(); it != content.end(); ++it) {
+			backpack->addItem(*it, false);
+			(*it)->update();
+		}
 
-	removeFromView( false );
-	resend( false );
+		// Get all the items from the corpse (first move all equipment to the ground)
+		for (unsigned char layer = SingleHandedWeapon; layer < Mount; layer++) {
+			if (layer != Backpack && layer != Hair && layer != FacialHair) {
+				P_ITEM item = atLayer((enLayer)layer);
+
+				if (item) {
+					backpack->addItem(item);
+					item->update();
+				}
+
+				SERIAL equipment = corpse->getEquipment(layer);
+				item = World::instance()->findItem(equipment);
+
+				if (item && item->container() == backpack) {
+					addItem((enLayer)layer, item);
+					item->update();
+				}
+			}
+		}
+
+		unsigned char action = 0x15;
+		if (corpse->direction() & 0x80) {
+			action = 0x16;
+		}
+
+		corpse->remove();
+
+		resend(false);
+
+		// Let him "stand up"
+		this->action(action, 2, true);
+	}	
 }
 
 void cBaseChar::turnTo( const Coord_cl &pos )
@@ -671,7 +764,7 @@ void cBaseChar::unhide()
 	{
 		setStealthedSteps( -1 );
 		setHidden( false );
-		resend( false ); // They cant see us anyway
+		resend(false); // They cant see us anyway
 	}
 }
 
@@ -1543,6 +1636,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetCharObject, source );
 		else if( dynamic_cast< P_ITEM >( source ) )
 			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetItemObject, source );
+		else 
+			args = Py_BuildValue( "O&iiO", PyGetCharObject, this, (unsigned int)type, amount, Py_None );
 
 		PyObject *result = cPythonScript::callChainedEvent( EVENT_DAMAGE, scriptChain, args );
 
@@ -1581,8 +1676,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 		player->socket()->send(&damage);
 	}
 	
-	// There is a 33% chance that blood is created on hit
-	if (!RandomNum(0,2)) {
+	// There is a 33% chance that blood is created on hit by phsical means
+	if (type == DAMAGE_PHYSICAL && !RandomNum(0,2)) {
 		P_ITEM blood = 0;
 
 		// If more than 50% of the maximum healthpoints has been dealt as damage
@@ -1996,12 +2091,9 @@ bool cBaseChar::onStatGain( unsigned char stat )
 	return result;
 }
 
-bool cBaseChar::kill(cUObject *source) 
-{
-	
+bool cBaseChar::kill(cUObject *source) {	
 	if (free || isDead()) 
 		return false;
-
 
 	changed(TOOLTIP);
 	changed_ = true;
@@ -2010,8 +2102,7 @@ bool cBaseChar::kill(cUObject *source)
 	setPoisoned(0);
 	setPoison(0);
 
-	if (isPolymorphed()) 
-	{
+	if (isPolymorphed()) {
 		setBodyID(orgBodyID_);
 		setSkin(orgSkin_);
 		setPolymorphed(false);
@@ -2105,8 +2196,7 @@ bool cBaseChar::kill(cUObject *source)
 
 	// If we are a creature type with a corpse and if we are not summoned
 	// we create a corpse
-	if (!summoned && basedef && !basedef->noCorpse()) 
-	{
+	if (!summoned && basedef && !basedef->noCorpse()) {
 		corpse = new cCorpse(true);
 		
 		const cElement *elem = DefManager->getDefinition(WPDT_ITEM, "2006");
@@ -2178,10 +2268,11 @@ bool cBaseChar::kill(cUObject *source)
 	}
 
 	// Create Loot - Either on the corpse or on the ground
-	QPtrList<cItem> posessions = backpack->getContainment();
+	cItem::ContainerContent content = backpack->content();
+	cItem::ContainerContent::iterator it;
 
-	for (P_ITEM item = posessions.first(); item; item = posessions.next()) 
-	{
+	for (it = content.begin(); it != content.end(); ++it) {
+		P_ITEM item = *it;
 		if (!item->newbie()) 
 		{
 			if (corpse) 
@@ -2270,7 +2361,7 @@ bool cBaseChar::kill(cUObject *source)
 
 		if (player->socket()) 
 		{
-			player->socket()->resendPlayer(true);
+			player->socket()->updatePlayer();
 			
 			// Notify the player of his death
 			cUOTxCharDeath death;
@@ -2336,6 +2427,12 @@ bool cBaseChar::canSeeChar(P_CHAR character)
 		// Check if the target is a npc and currently stabled
 		P_NPC npc = dynamic_cast<P_NPC>(character);
 		if (npc && npc->stablemasterSerial() != INVALID_SERIAL) {
+			return false;
+		}
+
+		// If it's a player see if it's logged out
+		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
+		if (player && !player->socket() && !player->logoutTime()) {
 			return false;
 		}
 	}
@@ -2469,8 +2566,7 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 	turnTo(enemy);
 
 	// See if we need to change our warmode status
-	if (!isAtWar()) 
-	{
+	if (!isAtWar()) {
 		cUOTxWarmode warmode;
 		warmode.setStatus(1);
 		send(&warmode);
@@ -2678,8 +2774,8 @@ void cBaseChar::refreshMaximumValues()
 	if (objectType() == enPlayer) 
 		maxHitpoints_ = QMAX(1, ((strength_ - strengthMod_) / 2) + strengthMod_ + hitpointsBonus_ + 50);
 
-	maxStamina_ = QMAX(1, dexterity_ + dexterityMod_ + staminaBonus_);
-	maxMana_ = QMAX(1, intelligence_ + intelligenceMod_ + manaBonus_);
+	maxStamina_ = (int)QMAX(1, dexterity_ - dexterityMod_ + staminaBonus_);
+	maxMana_ = (int)QMAX(1, intelligence_ - intelligenceMod_ + manaBonus_);
 }
 
 bool cBaseChar::lineOfSight(P_CHAR target, bool touch)
@@ -2706,4 +2802,86 @@ bool cBaseChar::lineOfSight(Coord_cl target, bool touch)
 	Coord_cl eyes = pos_ + Coord_cl(0, 0, 15);
 	
 	return eyes.lineOfSight(target, 0, touch);
+}
+
+double cBaseChar::getHitpointRate() {
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_GETHITPOINTRATE);
+
+	if (global && global->canHandleEvent(EVENT_GETHITPOINTRATE)) {
+		PyObject *args = Py_BuildValue("(N)", getPyObject());
+		PyObject *result = global->callEvent(EVENT_GETHITPOINTRATE, args);
+		Py_DECREF(args);
+		if (result) {
+			if (PyFloat_Check(result)) {
+				double rate = PyFloat_AS_DOUBLE(result);
+				Py_DECREF(result);
+				return rate;
+			}
+			Py_DECREF(result);
+		}
+	}
+
+	// Do the math
+	int points = 0;
+
+	if (hasTag("regenhitpoints")) {
+		points = QMAX(0, getTag("regenhitpoints").toInt());
+	}
+    
+	return 1.0 / (0.1 * (1 + points));
+}
+
+double cBaseChar::getStaminaRate() {
+	if (!isDead()) {
+		double chance = (double)stamina() / maxStamina();
+		double value = sqrt(skillValue(FOCUS) * 0.0005);
+		chance *= (1.0 - value);
+		chance += value;
+		checkSkill(FOCUS, floor((1.0 - chance) * 1200), 1200);
+	}
+
+	int points = 0;
+
+	if (hasTag("regenstamina")) {
+		points = getTag("regenstamina").toInt();
+	}
+
+	points += (int)(skillValue(FOCUS) * 0.01);
+	points = QMAX(-1, points);
+
+	return 1.0 / (0.1 * (2 + points));
+}
+
+double cBaseChar::getManaRate() {
+	if (!isDead()) {
+		double chance = (double)mana() / maxMana();
+		double value = sqrt(skillValue(FOCUS) * 0.0005);
+		chance *= (1.0 - value);
+		chance += value;
+		checkSkill(FOCUS, floor((1.0 - chance) * 1200), 1200);
+	}
+
+	double medPoints = QMIN(13.0, (intelligence() + skillValue(MEDITATION) * 0.03) * (skillValue(MEDITATION) < 1000 ? 0.025 : 0.0275));
+	double focusPoints = skillValue(FOCUS) * 0.005;
+
+	// Wearing type 1009 items without the 'magearmor': 1 or 'spellchanneling': 1 flags 
+	// eliminates the meditation bonus
+	for (unsigned char layer = SingleHandedWeapon; layer < Mount; ++layer) {
+		P_ITEM item = atLayer((enLayer)layer);
+		if (item && (item->type() == 1009 || item->type() == 1008)) {
+			if (!item->allowMeditation() && !item->hasTag("magearmor")) {
+				medPoints = 0;
+				break;
+			}
+		}
+	}
+
+	int points = 2 + (int)(focusPoints + medPoints + (isMeditating() ? medPoints : 0.0));
+
+	// Grant a bonus for the char if present
+	if (hasTag("regenmana")) {
+		points = getTag("regenmana").toInt();
+	}
+
+	return 1.0 / (0.1 * points);
 }

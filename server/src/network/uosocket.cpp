@@ -455,15 +455,11 @@ void cUOSocket::disconnect( void )
 
 	if( _player )
 	{
-		if( _player->region() && _player->region()->isGuarded() )
-			_player->setHidden( 1 );
-		else
-		{
-			cDelayedHideChar* pTmpEff = new cDelayedHideChar( _player->serial() );
-			pTmpEff->setExpiretime_s( SrvParams->quittime() );
-			TempEffects::instance()->insert( pTmpEff );
+		_player->removeFromView(false);
+		if (!_player->region() || !_player->region()->isGuarded()) {
+			_player->setLogoutTime(uiCurrentTime + SrvParams->quittime() * 1000);
 		}
-		_player->resend(true);
+		_player->resend(false);
 	}
 }
 
@@ -1079,6 +1075,9 @@ void cUOSocket::handleMultiPurpose(cUORxMultiPurpose *packet) {
 		}
 		return;
 
+	case 0x0e:
+		return;
+
 	// Ignore this packet (Unknown Login Info)
 	case cUORxMultiPurpose::unknownLoginInfo:
 		return;
@@ -1403,6 +1402,9 @@ void cUOSocket::resendPlayer( bool quick )
 	drawPlayer.fromChar( _player );
 	send( &drawPlayer );
 
+    // Reset the walking sequence
+	_walkSequence = 0xFF;
+
 	// Send the equipment Tooltips
 	cBaseChar::ItemContainer content = _player->content();
 	cBaseChar::ItemContainer::const_iterator it;
@@ -1424,9 +1426,6 @@ void cUOSocket::resendPlayer( bool quick )
 		// Start the game!
 		cUOTxStartGame startGame;
 		send( &startGame );
-
-        // Reset the walking sequence
-		_walkSequence = 0xFF;
 	}
 }
 
@@ -1743,6 +1742,11 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		send( &equipment );
 	}
 
+	// If it's the bankbox, there's a fixed box for it
+	if (pCont->layer() == cBaseChar::BankBox) {
+		gump = 0x4A;
+	}
+
 	// Draw the container
 	cUOTxDrawContainer dContainer;
 	dContainer.setSerial( pCont->serial() );
@@ -1827,6 +1831,9 @@ void cUOSocket::updatePlayer()
 		playerupdate.fromChar(_player);
 		playerupdate.setFlag(_player->notoriety(_player));
 		send(&playerupdate);
+        
+		// Reset the walking sequence
+		_walkSequence = 0xFF;
 	}
 }
 
@@ -2305,11 +2312,12 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	// Only allowed for pItem's contained by a character
 	cUOTxItemContent itemContent;
 	cUOTxVendorBuy vendorBuy;
-	vendorBuy.setSerial( pItem->serial() );
+	vendorBuy.setSerial( pItem->serial() );	
 
 	/* dont ask me, but the order of the items for vendorbuy is reversed */
 	QValueList< buyitem_st > buyitems;
 	QValueList< buyitem_st >::const_iterator bit;
+	QPtrList<cItem> items;
 
 	cItem::ContainerContent container = pItem->content();
 	cItem::ContainerContent::const_iterator it( container.begin() );
@@ -2349,7 +2357,8 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 					if ( name.at(i).isSpace() )
 						name.at(i+1) = name.at(i+1).upper();
 					
-					buyitems.push_front( buyitem_st( mItem->buyprice(), name ) );
+				buyitems.push_front( buyitem_st( mItem->buyprice(), name ) );
+				items.append(mItem);
 			}
 		}
 	}
@@ -2359,6 +2368,10 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 
 	send( &itemContent );
 	send( &vendorBuy );
+
+	for (P_ITEM item = items.first(); item; item = items.next()) {
+		item->sendTooltip(this);
+	}
 }
 
 void cUOSocket::sendBuyWindow( P_CHAR pVendor )
@@ -2386,6 +2399,7 @@ void cUOSocket::sendSellWindow( P_CHAR pVendor, P_CHAR pSeller )
 	
 	if( pPurchase && pBackpack )
 	{
+		QPtrList<cItem> items;
 		cUOTxSellList itemContent;
 		itemContent.setSerial( pVendor->serial() );
 
@@ -2405,14 +2419,20 @@ void cUOSocket::sendSellWindow( P_CHAR pVendor, P_CHAR pSeller )
 				pit = packcont.begin();
 				while( pit != packcont.end() )
 				{
-					if( *pit && (*pit)->id() == mItem->id() && (*pit)->color() == mItem->color() )
+					if( *pit && (*pit)->id() == mItem->id() && (*pit)->color() == mItem->color() && (*pit)->baseid() == mItem->baseid()) {
 						itemContent.addItem( (*pit)->serial(), (*pit)->id(), (*pit)->color(), (*pit)->amount(), mItem->sellprice(), (*pit)->getName() );
+						items.append((*pit));
+					}
 					++pit;
 				}
 			}
 		}
 
 		send( &itemContent );
+
+		for (P_ITEM item = items.first(); item; item = items.next()) {
+			item->sendTooltip(this);
+		}
 	}
 }
 

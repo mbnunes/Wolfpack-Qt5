@@ -916,9 +916,11 @@ void cCombat::doFootCombatAnimation( P_CHAR pc )
 // play the get hit animation
 void cCombat::playGetHitAnimation( P_CHAR pChar )
 {
-	// When we are not currently doing a swing against a target
-	/*if( pChar->swingTarget() == INVALID_SERIAL )
-		pChar->action( 0x14 );*/
+	if (pChar->isHuman()) {
+		pChar->action(20);
+	} else {
+		pChar->action(10);
+	}
 }
 
 // play the "MISSED" sound effect

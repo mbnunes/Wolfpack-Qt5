@@ -123,12 +123,6 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		break;
 
 	case MEDITATION:
-		if( !SrvParams->armoraffectmana() )
-		{
-			socket->sysMessage( tr( "Meditation is disabled." ) );
-			return;
-		}
-        
 		Skills->Meditation( socket );
 		break;
 	case CARTOGRAPHY:
@@ -307,39 +301,21 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 	} 
 }
 
-void cSkills::Meditation( cUOSocket *socket )
-{
+void cSkills::Meditation(cUOSocket *socket) {
 	P_CHAR pc_currchar = socket->player();
 
-	if (pc_currchar->isAtWar())
-	{
-		socket->sysMessage( tr("Your mind is too busy with the war thoughts.") );
-		return;
-	}
-	if (pc_currchar->getWeapon() || pc_currchar->getShield())
-	{
-		socket->sysMessage( tr("You cannot meditate with a weapon or shield equipped!"));
-		pc_currchar->setMeditating( false );
-		return;
-	}
-	else if ( pc_currchar->mana() == pc_currchar->intelligence() )
-	{
-		socket->sysMessage( tr("You are at peace."));
-		pc_currchar->setMeditating( false );
-		return;
-	}
-	else if (!pc_currchar->checkSkill( MEDITATION, 0, 1000))
-	{
-		socket->sysMessage( tr("You cannot focus your concentration."));
-		pc_currchar->setMeditating( false );
-		return;
-	}
-	else
-	{
-		socket->sysMessage( tr("You enter a meditative trance."));
-		pc_currchar->setMeditating( true );
-		pc_currchar->soundEffect(0x00f9, false);
-		return;
+	if (pc_currchar->attackTarget()) {
+		socket->clilocMessage(501845);
+	} else if (pc_currchar->getWeapon() || pc_currchar->getShield()) {
+		socket->clilocMessage(502626);
+	} else if (pc_currchar->mana() >= pc_currchar->intelligence()) {
+		socket->clilocMessage(501846);
+	} else if (!pc_currchar->checkSkill(MEDITATION, 0, 1200)) {
+		socket->clilocMessage(501850);
+	} else {
+		socket->clilocMessage(501851);
+		pc_currchar->setMeditating(true);
+		pc_currchar->soundEffect(0xf9);		
 	}
 }
 

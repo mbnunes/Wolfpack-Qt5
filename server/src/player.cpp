@@ -212,7 +212,7 @@ void cPlayer::update(bool excludeself) {
 
 	if (!excludeself && socket_) {
 		//socket_->updatePlayer();
-		socket_->resendPlayer();
+		socket_->updatePlayer();
 	}
 }
 
@@ -525,7 +525,7 @@ void cPlayer::showName( cUOSocket *socket )
 		affix.append( QString( "[0x%1]" ).arg( serial(), 4, 16 ) );
 
 	// Append offline flag
-	if( !socket_ )
+	if( !socket_ && !logoutTime_ )
 		affix.append( tr(" [offline]") );
 
 	// Guarded
@@ -1170,7 +1170,7 @@ stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
 	else GET_PROPERTY( "logouttime", (int)logoutTime_ )	
 	else GET_PROPERTY( "npc", false )
-	else GET_PROPERTY( "lightbonus", fixedLightLevel_ )
+	else GET_PROPERTY( "fixedlight", fixedLightLevel_ )
 	else GET_PROPERTY( "inputmode", inputMode_ )
 	else GET_PROPERTY( "inputitem", FindItemBySerial( inputItem_ ) )
 	else GET_PROPERTY( "objectdelay", (int)objectDelay_ )
@@ -1345,7 +1345,7 @@ bool cPlayer::canSeeChar(P_CHAR character) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 		if (privileged && player) {
 			// Disconnected players are invisible unless allShow is active for the current account
-			if (!player->socket() && (!account_ || !account_->isAllShow())) {
+			if (!player->socket() && !player->logoutTime() && (!account_ || !account_->isAllShow())) {
 				return false;
 			}
 

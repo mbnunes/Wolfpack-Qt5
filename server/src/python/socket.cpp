@@ -106,16 +106,22 @@ static PyObject* wpSocket_clilocmessage(wpSocket* self, PyObject* args) {
 	char *params = 0;
 	unsigned short color = 0x3b2;
 	unsigned short font = 3;
-	cUObject *source = 0;
+	PyObject *psource = Py_None;
 	char *affix = 0;
 	unsigned char dontmove = 0;
 	unsigned char prepend = 0;
 
-	if (!PyArg_ParseTuple(args, "I|esHHO&esBB:socket.clilocmessage"
+	if (!PyArg_ParseTuple(args, "I|esHHOesBB:socket.clilocmessage"
 		"(messageid, [params], [color], [font], [source], [affix], [dontmove], [prepend])",
-		&clilocid, "utf-8", &params, &color, &font, PyConvertObject, &source, 
+		&clilocid, "utf-8", &params, &color, &font, &psource, 
 		"utf-8", &affix, &dontmove, &prepend)) {
 		return 0;
+	}
+
+	cUObject *source = 0;
+
+	if (psource != Py_None) {
+		PyConvertObject(psource, &source);
 	}
 
 	if (affix != 0) {
