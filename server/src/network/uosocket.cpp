@@ -441,7 +441,7 @@ void cUOSocket::disconnect( void )
 	if( _player )
 	{
 		_player->removeFromView(false);
-		if (!_player->region() || !_player->region()->isGuarded()) {
+		if (!_player->isGMorCounselor() && (!_player->region() || !_player->region()->isGuarded())) {
 			_player->setLogoutTime(uiCurrentTime + SrvParams->quittime() * 1000);
 		} else {
 			SectorMaps::instance()->remove(_player);
@@ -1429,8 +1429,7 @@ void cUOSocket::updateChar( P_CHAR pChar )
 }
 
 // Sends a foreign char including equipment
-void cUOSocket::sendChar( P_CHAR pChar )
-{
+void cUOSocket::sendChar(P_CHAR pChar) {
 	if (canSee(pChar)) {
 		// Then completely resend it
 		cUOTxDrawChar drawChar;
@@ -1438,6 +1437,12 @@ void cUOSocket::sendChar( P_CHAR pChar )
 		drawChar.setHighlight( pChar->notoriety( _player ) );
 		pChar->sendTooltip(this);
 		send( &drawChar );
+
+		// Send item tooltips
+		cBaseChar::ItemContainer content = pChar->content();
+		for (cBaseChar::ItemContainer::const_iterator it = content.begin(); it != content.end(); ++it) {
+			it.data()->sendTooltip(this);
+		}
 	}
 }
 

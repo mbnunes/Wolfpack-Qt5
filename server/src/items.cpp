@@ -2028,8 +2028,7 @@ void cItem::sendTooltip(cUOSocket* mSock)
 
 	// If the item is not movable for the client, the item should not have a tooltip
 	// Exceptions are noted above and containers
-	if (tile.weight == 255 && !isAllMovable())
-	{
+	if (tile.weight == 255 && !isAllMovable()) {
 		if (tile.flag3 & 0x20 == 0)
 			return;
 	}

@@ -41,7 +41,7 @@
 
 using namespace std;
 
-bool tile_st::isRoofOrFloorTile() const
+/*bool tile_st::isRoofOrFloorTile() const
 {
 	if (flag1 & 1)
 		return true; // check the floor bit
@@ -62,7 +62,7 @@ bool tile_st::isRoofOrFloorTile() const
 		return true;
 
 	return false;
-}
+}*/
 
 bool cTileCache::load( const QString &nPath )
 {

@@ -229,10 +229,7 @@ void cPlayer::resend( bool clean, bool excludeself )
 
 	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
 		// Don't send such a packet to ourself
-		if (socket == socket_) {
-			sendTooltip(socket);
-		} else {
-			if (socket->canSee(this)) {
+		if (socket != socket_ && socket->canSee(this)) {
 				drawChar.setHighlight(notoriety(socket->player()));
 				socket->send(&drawChar);
 				sendTooltip(socket);
@@ -241,9 +238,8 @@ void cPlayer::resend( bool clean, bool excludeself )
 				for (ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it) {
 					it.data()->sendTooltip(socket);
 				}
-			} else if (clean) {
-				socket->send(&remove);
-			}
+		} else if (socket != socket_ && clean) {
+			socket->send(&remove);
 		}
 	}
 }

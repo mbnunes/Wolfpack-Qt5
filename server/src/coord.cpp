@@ -1293,10 +1293,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				{
 					if( tile.isBlocking() || tile.isRoofOrFloorTile() )
 					{
-						if( !( (tile.flag2 & 0x2) && (tile.height > 1) ) )
-						{
-							return false;
-						}
+						return false;
 					}
 				}
 			
@@ -1318,11 +1315,8 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					{
 						if( tile.isBlocking() || tile.isRoofOrFloorTile() )
 						{
-							if( !( (tile.flag2 & 0x2) && (tile.height > 1) ) )
-							{
-								//Console::instance()->send( QString( "Item:%1,Z:%2,Height:%3\n" ).arg( pi->id() ).arg( pi->pos().z ).arg( tile.height ) );
-								return false;
-							}
+							//Console::instance()->send( QString( "Item:%1,Z:%2,Height:%3\n" ).arg( pi->id() ).arg( pi->pos().z ).arg( tile.height ) );
+							return false;
 						}
 					}	
 				}
@@ -1352,10 +1346,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 						{
 							if( tile.isBlocking() || tile.isRoofOrFloorTile() )
 							{
-								if( !( (tile.flag2 & 0x2) && (tile.height > 1) ) )
-								{
-									return false;
-								}							
+								return false;							
 							}
 						}	
 					}

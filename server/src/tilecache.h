@@ -65,6 +65,7 @@ struct tile_st
 	bool isWet() const;
 	bool isBlocking() const;
 	bool isRoofOrFloorTile() const;
+	bool isTransparent() const;
 	bool isNoShoot() const;
 };
 
@@ -82,6 +83,16 @@ inline bool tile_st::isWet() const
 inline bool tile_st::isBlocking() const
 {
 	return flag1 & 0x40;
+}
+
+inline bool tile_st::isRoofOrFloorTile() const
+{
+	return ( (( flag1 & 0x1 ) && ( flag2 % 0x2)) || ( flag4 & 0x10 ));
+}
+
+inline bool tile_st::isTransparent() const
+{
+	return flag1 & 0x4;
 }
 
 struct land_st

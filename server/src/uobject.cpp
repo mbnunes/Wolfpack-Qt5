@@ -736,11 +736,10 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 	tooltip.setId( tooltip_ );
 	tooltip.setSerial( serial() );
 
-	if( tooltip_ >= mSock->toolTips()->size() || !mSock->haveTooltip( tooltip_ ) )
-	{
-		mSock->addTooltip( tooltip_ );
-		mSock->send( &tooltip );
-	}
+	//if (tooltip_ >= mSock->toolTips()->size() || !mSock->haveTooltip(tooltip_)) {
+	mSock->addTooltip(tooltip_);
+	mSock->send(&tooltip);
+	//}
 }
 
 void cUObject::changed( uint state )
