@@ -200,7 +200,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 		push_heap( blockList.begin(), blockList.end(), compareTiles() );
 	}
 
-	RegionIterator4Items iIter( pos );
+	RegionIterator4Items iIter( pos, 0 );
 	for ( iIter.Begin(); !iIter.atEnd(); iIter++ )
 	{
 		P_ITEM pItem = iIter.GetData();
