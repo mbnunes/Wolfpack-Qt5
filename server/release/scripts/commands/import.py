@@ -56,7 +56,7 @@ def import_command( socket, command, arguments ):
 
 	gump.addBackground( id=0x2436, width=350, height=300 )
 
-	text = '<basefont color="#FEFEFE"><h3>Import</h3><br><basefont color="#FEFEFE">Enter the name of the worldfile you want to import below. But before clicking Import, choose the correct file format from the list. <!--You may also choose any other options you find suitable.-->'
+	text = '<basefont color="#FEFEFE"><h3>Import - <basefont color="#ff0000">Items Only</basefont></h3><br />Enter the name of the worldfile you want to import below. But before clicking Import, choose the correct file format from the list.</basefont>'
 	gump.addHtmlGump( x=20, y=20, width=310, height=200, html=text )
 
 	# Radiobuttons
@@ -72,6 +72,9 @@ def import_command( socket, command, arguments ):
 
 	gump.addRadioButton( x=20, y=120, off=0x25f8, on=0x25fb, id=4 )
 	gump.addText( x=55, y=125, text='Sphere 51a', hue=0x835 )
+
+	#gump.addRadioButton( x=150, y=120, off=0x25f8, on=0x25fb, id=5 )
+	#gump.addText( x=185, y=125, text='Sphere 55i', hue=0x835 )
 
 	# InputField
 	gump.addResizeGump( x=20, y=210, id=0xBB8, width=310, height=25 )
@@ -179,7 +182,7 @@ def parseTxt( file, map ):
 
 	return ( count, warnings )
 
-def parseSphere(file, map):
+def parseSphere51a(file, map):
 	itemid = -1
 	props = {}
 	count = 0
@@ -220,6 +223,51 @@ def parseSphere(file, map):
 			props = {}
 
 	return (count, warnings)
+
+def parseSphere55i(file, map):
+	"""
+	itemid = -1
+	props = {}
+	count = 0
+	warnings = ''
+
+	while 1:
+		line = file.readline()
+		if not line:
+			break
+		line = line.strip()
+
+		if line.startswith('[WORLDITEM ') and line.endswith(']'):
+			itemid = int(line[11:len(line)-1], 16)
+		elif itemid != -1 and "=" in line:
+			(key, value) = line.split('=', 1)
+			props[key.lower()] = value
+		elif itemid != -1 and len(line) == 0:
+			if props.has_key('p'):
+				(x, y, z) = props['p'].split(',')
+				x = int(x)
+				y = int(y)
+				z = int(z)
+				if props.has_key('color'):
+			 		color = int(props['color'], 16)
+			 	else:
+			 		color = 0
+
+				item = wolfpack.newitem(1)
+				item.decay = 0
+				item.movable = 2
+				item.id = itemid
+				item.color = color
+				item.moveto( x, y, z, map )
+				item.update()
+				count += 1
+
+			itemid = -1
+			props = {}
+
+	return (count, warnings)
+	"""
+	pass
 
 """
 	Parses a .wsc file and imports the items into our world.
@@ -362,8 +410,10 @@ def callback( char, args, choice ):
 		( count, warnings ) = parseWsc( file, char.pos.map )
 	elif format == 3: # Text
 		( count, warnings ) = parseTxt( file, char.pos.map )
-	elif format == 4: # Sphere
-		(count, warnings) = parseSphere(file, char.pos.map)
+	elif format == 4: # Sphere 51a
+		(count, warnings) = parseSphere51a(file, char.pos.map)
+	elif format == 5: # Sphere 55i
+		(count, warnings) = parseSphere55i(file, char.pos.map)
 
 	file.close()
 
