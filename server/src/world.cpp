@@ -80,8 +80,8 @@ typedef std::map<SERIAL, P_CHAR> CharMap;
 // Don't forget to change the version number before changing tableInfo!
 //
 // ONCE AGAIN, DON'T FORGET TO INCREASE THIS VALUE
-#define DATABASE_VERSION 6
-#define WP_DATABASE_VERSION "6"
+#define DATABASE_VERSION 7
+#define WP_DATABASE_VERSION "7"
 
 // This is used for autocreating the tables
 struct
@@ -194,7 +194,7 @@ layer unsigned tinyint(3) NOT NULL default '0',\
 amount smallint(5)  NOT NULL default '0',\
 hp smallint(6) NOT NULL default '0',\
 maxhp smallint(6) NOT NULL default '0',\
-magic tinyint(3)  NOT NULL default '0',\
+movable tinyint(3)  NOT NULL default '0',\
 owner unsigned int(10) NOT NULL default '0',\
 visible tinyint(3)  NOT NULL default '0',\
 priv tinyint(3)  NOT NULL default '0',\

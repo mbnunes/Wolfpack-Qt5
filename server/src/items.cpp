@@ -203,7 +203,7 @@ cItem::cItem( const cItem& src ) : container_( 0 ), totalweight_( 0 )
 	this->flagChanged();
 	this->free = false;
 	this->hp_ = src.hp_;
-	this->magic_ = src.magic_;
+	this->movable_ = src.movable_;
 	this->maxhp_ = src.maxhp_;
 	this->priv_ = src.priv_;
 	this->setId( src.id() );
@@ -469,7 +469,7 @@ void cItem::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeShort( amount_ );
 	writer.writeShort( hp_ );
 	writer.writeShort( maxhp_ );
-	writer.writeByte( magic_ );
+	writer.writeByte( movable_ );
 	writer.writeInt( ownserial_ );
 	writer.writeByte( visible_ );
 	writer.writeByte( priv_ );
@@ -492,7 +492,7 @@ void cItem::load( cBufferedReader& reader, unsigned int version )
 	amount_ = reader.readShort();
 	hp_ = reader.readShort();
 	maxhp_ = reader.readShort();
-	magic_ = reader.readByte();
+	movable_ = reader.readByte();
 	ownserial_ = reader.readInt();
 	visible_ = reader.readByte();
 	priv_ = reader.readByte();
@@ -535,7 +535,7 @@ void cItem::save()
 		addField( "amount", amount_ );
 		addField( "hp", hp_ );
 		addField( "maxhp", maxhp_ );
-		addField( "magic", magic_ );
+		addField( "movable", movable_ );
 		addField( "owner", ownserial_ );
 		addField( "visible", visible_ );
 		addField( "priv", priv_ );
@@ -624,7 +624,7 @@ void cItem::Init( bool createSerial )
 	this->amount_ = 1; // Amount of items in pile
 	this->hp_ = 0; //Number of hit points an item has.
 	this->maxhp_ = 0; // Max number of hit points an item can have.
-	this->magic_ = 0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
+	this->movable_ = 0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
 	this->setOwnSerialOnly( -1 );
 	this->visible_ = 0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->priv_ = 0; // Bit 0, nodecay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
@@ -854,11 +854,11 @@ void cItem::processNode( const cElement* Tag )
 	// <ownermovable />
 	// <immovable />
 	else if ( TagName == "movable" )
-		this->magic_ = 1;
+		this->movable_ = 1;
 	else if ( TagName == "immovable" )
-		this->magic_ = 2;
+		this->movable_ = 2;
 	else if ( TagName == "ownermovable" )
-		this->magic_ = 3;
+		this->movable_ = 3;
 
 	// <decay />
 	// <nodecay />
@@ -962,10 +962,12 @@ void cItem::processModifierNode( const cElement* Tag )
 		}
 		else
 		{
-			/*int offset = Value.find( "%1" );
-									QString left = Value.left( offset );
-									QString right = Value.right( Value.length() - ( offset + 2 ) );
-									name_ = left + name_ + right;*/
+			/*
+			int offset = Value.find( "%1" );
+			QString left = Value.left( offset );
+			QString right = Value.right( Value.length() - ( offset + 2 ) );
+			name_ = left + name_ + right;
+			*/
 			name_ = Value.arg( name_ );
 		}
 	}
@@ -1282,20 +1284,20 @@ void cItem::talk( const QString& message, UI16 color, UINT8 type, bool autospam,
 
 	switch ( type )
 	{
-	case 0x01:
-		speechType = cUOTxUnicodeSpeech::Broadcast; break;
-	case 0x06:
-		speechType = cUOTxUnicodeSpeech::System; break;
-	case 0x09:
-		speechType = cUOTxUnicodeSpeech::Yell; break;
-	case 0x02:
-		speechType = cUOTxUnicodeSpeech::Emote; break;
-	case 0x08:
-		speechType = cUOTxUnicodeSpeech::Whisper; break;
-	case 0x0A:
-		speechType = cUOTxUnicodeSpeech::Spell; break;
-	default:
-		speechType = cUOTxUnicodeSpeech::Regular; break;
+		case 0x01:
+			speechType = cUOTxUnicodeSpeech::Broadcast; break;
+		case 0x06:
+			speechType = cUOTxUnicodeSpeech::System; break;
+		case 0x09:
+			speechType = cUOTxUnicodeSpeech::Yell; break;
+		case 0x02:
+			speechType = cUOTxUnicodeSpeech::Emote; break;
+		case 0x08:
+			speechType = cUOTxUnicodeSpeech::Whisper; break;
+		case 0x0A:
+			speechType = cUOTxUnicodeSpeech::Spell; break;
+		default:
+			speechType = cUOTxUnicodeSpeech::Regular; break;
 	};
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
@@ -1463,7 +1465,7 @@ void cItem::load( char** result, UINT16& offset )
 	amount_ = atoi( result[offset++] );
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
-	magic_ = atoi( result[offset++] );
+	movable_ = atoi( result[offset++] );
 	ownserial_ = atoi( result[offset++] );
 	visible_ = atoi( result[offset++] );
 	priv_ = atoi( result[offset++] );
@@ -1488,7 +1490,7 @@ void cItem::load( char** result, UINT16& offset )
 void cItem::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.color,items.cont,items.layer,items.amount,items.hp,items.maxhp,items.magic,items.owner,items.visible,items.priv,items.baseid" );
+	fields.push_back( "items.id,items.color,items.cont,items.layer,items.amount,items.hp,items.maxhp,items.movable,items.owner,items.visible,items.priv,items.baseid" );
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -1864,7 +1866,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 		</code>
 		*/
 	else
-		SET_INT_PROPERTY( "movable", magic_ )
+		SET_INT_PROPERTY( "movable", movable_ )
 
 		// Flags
 		/*
@@ -2028,7 +2030,6 @@ PyObject* cItem::getProperty( const QString& name )
 	// Visible
 	PY_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
 	PY_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
-	PY_PROPERTY( "magic", magic_ )
 	// Flags
 	PY_PROPERTY( "dye", dye() ? 1 : 0 )
 	PY_PROPERTY( "decay", priv_ & 0x01 ? 0 : 1 )
@@ -2044,7 +2045,7 @@ PyObject* cItem::getProperty( const QString& name )
 	PY_PROPERTY( "visible", visible() )
 	PY_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
 	PY_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
-	PY_PROPERTY( "movable", magic_ )
+	PY_PROPERTY( "movable", movable_ )
 	/*
 	\rproperty item.watersource This property indicates that this type of item is a source of
 	water. If there is a "quantity" tag for the item, it should be used, otherwise the source

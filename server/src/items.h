@@ -286,9 +286,9 @@ public:
 		return container_;
 	}
 
-	uchar magic() const
+	uchar movable() const
 	{
-		return magic_;
+		return movable_;
 	}
 	uchar visible() const
 	{
@@ -419,7 +419,7 @@ public:
 
 	void setMagic( uchar data )
 	{
-		magic_ = data; flagChanged(); changed( TOOLTIP );
+		movable_ = data; flagChanged(); changed( TOOLTIP );
 	}
 	void setVisible( uchar d )
 	{
@@ -481,35 +481,35 @@ public:
 	QString getName( bool shortName = false );
 	void setAllMovable()
 	{
-		this->magic_ = 1; flagChanged();
+		this->movable_ = 1; flagChanged();
 	} // set it all movable..
 	bool isAllMovable()
 	{
-		return ( magic_ == 1 );
+		return ( movable_ == 1 );
 	}
 	void setGMMovable()
 	{
-		this->magic_ = 2; flagChanged();
+		this->movable_ = 2; flagChanged();
 	} // set it GM movable.
 	bool isGMMovable()
 	{
-		return ( magic_ == 2 );
+		return ( movable_ == 2 );
 	}
 	void setOwnerMovable()
 	{
-		this->magic_ = 3; flagChanged();
+		this->movable_ = 3; flagChanged();
 	} // set it owner movable.
 	bool isOwnerMovable()
 	{
-		return ( magic_ == 3 );
+		return ( movable_ == 3 );
 	}
 	void setLockedDown()
 	{
-		this->magic_ = 4; flagChanged();
+		this->movable_ = 4; flagChanged();
 	} // set it locked down.
 	bool isLockedDown()
 	{
-		return ( magic_ == 4 );
+		return ( movable_ == 4 );
 	}
 
 	// Public event wrappers added by darkstorm
@@ -572,7 +572,7 @@ protected:
 		3: This item can only be moved by it's owner
 		4: This item has been locked down
 	*/
-	unsigned char magic_ : 3;
+	unsigned char movable_ : 3;
 
 	SERIAL ownserial_; // This property specifies the owner of this item. If it is INVALID_SERIAL, this item has no owner
 
