@@ -33,15 +33,6 @@ unix {
 
 	# we dont use those.
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
-
-	# TODO: rewrite and put into ./configure
-	release {
-		CONFIG += warn_off
-		linux {
-			QMAKE_CFLAGS_RELEASE = -O3
-			QMAKE_CFLAGS += -march=athlon-xp -O3 -pipe -fomit-frame-pointer -falign-functions=16 -falign-labels=8 -falign-loops=8 -falign-jumps=8 -fsched-spec-load -frerun-loop-opt -finline-limit=800 -funroll-loops -fprefetch-loop-arrays -ffast-math -mfpmath=sse -msse -m3dnow -fschedule-insns2 -fexpensive-optimizations -fmove-all-movables -fdelete-null-pointer-checks
-		}
-	}
 }
 
 RC_FILE = res.rc

@@ -289,9 +289,6 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		return;
 	}
 
-	unsigned int oldStamina = character->stamina();
-	unsigned int oldMana = character->mana();
-
 	if ( character->regenHitpointsTime() <= time )
 	{
 		// If it's not disabled hunger affects our health regeneration
@@ -474,7 +471,7 @@ void cTiming::addDecayItem(P_ITEM item) {
 }
 
 void cTiming::removeDecayItem(P_ITEM item) {
-	register DecayIterator it;
+	DecayIterator it;
 	register SERIAL serial = item->serial();
 	for (it = decayitems.begin(); it != decayitems.end(); ++it) {
 		if ((*it).second == serial) {
@@ -485,7 +482,7 @@ void cTiming::removeDecayItem(P_ITEM item) {
 }
 
 void cTiming::removeDecaySerial(SERIAL serial) {
-	register DecayIterator it;
+	DecayIterator it;
 	for (it = decayitems.begin(); it != decayitems.end(); ++it) {
 		if ((*it).second == serial) {
 			decayitems.remove(it);
@@ -493,3 +490,4 @@ void cTiming::removeDecaySerial(SERIAL serial) {
 		}
 	}
 }
+

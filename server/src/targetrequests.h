@@ -56,7 +56,6 @@ class cSkForensics : public cTargetRequest
 public:
 	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
-		int curtim = Server::instance()->time();
 		P_ITEM pi = FindItemBySerial( target->serial() );
 		P_PLAYER pc_currchar = socket->player();
 
@@ -70,7 +69,7 @@ public:
 		if ( !corpse )
 			return true;
 
-		unsigned int currentTime = QDateTime::currentDateTime().toTime_t();
+		unsigned int currentTime = Server::instance()->time();
 		unsigned int age = currentTime - corpse->murderTime();
 		P_CHAR murderer = FindCharBySerial(corpse->murderer());
 		QString murderername = QString::null;

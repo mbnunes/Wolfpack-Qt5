@@ -44,12 +44,9 @@ class cUOPacket;
 
 typedef int GUILDID;
 typedef unsigned int TIMERVAL;
-typedef int PLAYER;
-typedef int CHARACTER;
 typedef unsigned char LIGHTLEVEL;
 typedef unsigned char SECONDS;
-typedef int ITEM;
-typedef int SERIAL;
+typedef unsigned int SERIAL;
 typedef cItem* P_ITEM;
 typedef const cItem* PC_ITEM;
 typedef cBaseChar* P_CHAR;

@@ -69,6 +69,7 @@ public:
 	cVariant( const cVariant& v );
 	cVariant( const QString& );
 	cVariant( int );
+	cVariant( unsigned int);
 	cVariant( cBaseChar* );
 	cVariant( cItem* );
 	cVariant( Coord_cl );

@@ -2606,12 +2606,12 @@ bool cBaseChar::onDeath( cUObject* source, P_ITEM corpse )
 		}
 		if ( scriptChain )
 		{
-			cPythonScript::callChainedEventHandler( EVENT_DEATH, scriptChain, args );
+			result = cPythonScript::callChainedEventHandler( EVENT_DEATH, scriptChain, args );
 		}
 		Py_DECREF( args );
 	}
 
-	return true;
+	return result;
 }
 
 bool cBaseChar::onCHLevelChange( unsigned int level )
@@ -3141,21 +3141,34 @@ cBaseChar::FightStatus cBaseChar::fight( P_CHAR enemy )
 
 bool cBaseChar::sysmessage( const QString& message, unsigned short color, unsigned short font )
 {
+	Q_UNUSED(message);
+	Q_UNUSED(color);
+	Q_UNUSED(font);
 	return false;
 }
 
 bool cBaseChar::sysmessage( unsigned int message, const QString& params, unsigned short color, unsigned short font )
 {
+	Q_UNUSED(message);
+	Q_UNUSED(params);
+	Q_UNUSED(color);
+	Q_UNUSED(font);
 	return false;
 }
 
 bool cBaseChar::message( const QString& message, unsigned short color, cUObject* source, unsigned short font, unsigned char mode )
 {
+	Q_UNUSED(message);
+	Q_UNUSED(color);
+	Q_UNUSED(source);
+	Q_UNUSED(font);
+	Q_UNUSED(mode);
 	return false;
 }
 
 bool cBaseChar::send( cUOPacket* packet )
 {
+	Q_UNUSED(packet);
 	return false;
 }
 

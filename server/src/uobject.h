@@ -38,6 +38,7 @@
 #include "factory.h"
 #include "spawnregions.h"
 #include "pythonscript.h"
+#include "world.h"
 
 // System includes
 #include <vector>
@@ -131,11 +132,11 @@ public:
 	virtual void sendTooltip( cUOSocket* mSock );
 	bool isItem() const
 	{
-		return ( serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000 );
+		return isItemSerial( serial_ );
 	}
 	bool isChar() const
 	{
-		return ( serial_ != INVALID_SERIAL && serial_ > 0 && serial_ < 0x40000000 );
+		return isCharSerial( serial_ );
 	}
 	virtual void talk( const QString& message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
 	virtual void flagUnchanged()

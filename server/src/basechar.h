@@ -620,7 +620,7 @@ protected:
 		ushort cap; // Special Cap Value (Default: 1000)
 		uchar lock; // 0: Up, 1: Down, 2: Locked (Default: 0)
 
-		stSkillValue() : value( 0 ), cap( 1000 ), lock( 0 ), changed( false )
+		stSkillValue() : changed( false ), value( 0 ), cap( 1000 ), lock( 0 )
 		{
 		}
 	};

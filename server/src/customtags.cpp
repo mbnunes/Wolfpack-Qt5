@@ -115,6 +115,15 @@ cVariant::cVariant( int val )
 }
 
 /*!
+  Constructs a new variant with an integer value, \a val.
+*/
+cVariant::cVariant( unsigned int val )
+{
+	typ = Int;
+	value.i = (int)val;
+}
+
+/*!
   Constructs a new variant with a floating point value, \a val.
 */
 cVariant::cVariant( double val )

@@ -706,7 +706,13 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name );
 PyTypeObject wpElementType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "element", sizeof( wpElementType ), 0, wpDealloc, 0, ( getattrfunc ) wpElement_getAttr
+	0,
+	"element", 
+	sizeof( wpElementType ), 
+	0, 
+	wpDealloc, 
+	0, 
+	( getattrfunc ) wpElement_getAttr
 };
 
 static PyObject* wpElement_hasattribute( wpElement* self, PyObject* args )
@@ -879,3 +885,4 @@ bool cElement::implements( const QString& name ) const
 		return cPythonScriptable::implements( name );
 	}
 }
+

@@ -107,6 +107,7 @@ public:
 	{
 		return _lastCharSerial + 1;
 	}
+	
 	SERIAL findItemSerial() const
 	{
 		return _lastItemSerial + 1;
