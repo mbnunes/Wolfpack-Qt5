@@ -76,6 +76,7 @@
 #include "house.h"
 #include "boats.h"
 #include "weight.h"
+#include "onlinestatus.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -1482,6 +1483,7 @@ int main( int argc, char *argv[] )
 	Resources::instance()->load();
 	MakeMenus::instance()->load();
 	ContextMenus::instance()->reload();
+	OnlineStatus::instance()->reload();
 
 	clConsole.PrepareProgress( tr("Resetting all Trade windows") ); // Should automatically be done whenever a char disconnects
 	Trade->clearalltrades();
