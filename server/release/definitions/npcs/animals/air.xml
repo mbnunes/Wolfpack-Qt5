@@ -2,7 +2,7 @@
         <!-- Chicken -->
         <npc id="chicken">
                 <name>a chicken</name>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <id>0x00D0</id>
                 <category>Animals\Air\Chicken</category>
                 <skin>0</skin>

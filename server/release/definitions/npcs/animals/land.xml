@@ -84,7 +84,7 @@
         <npc id="aligator">
                 <name>a aligator</name>
                 <id>0xCA</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Aggressive</ai>
                 <category>Animals\Land\Aligator</category>
                 <skin>0</skin>
                 <inherit id="monster_base" />
@@ -145,7 +145,7 @@
         <npc id="bear_grizzle">
                 <name>a grizzly bear</name>
                 <id>0xD4</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Aggressive</ai>
                 <category>Animals\Land\Bear (grizzly)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -172,7 +172,7 @@
         <npc id="bear_polar">
                 <name>a polar bear</name>
                 <id>0xD5</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Aggressive</ai>
                 <category>Animals\Land\Bear (polar)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -224,7 +224,7 @@
         <npc id="bull_black">
                 <name>a bull</name>
                 <id>0xE9</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <category>Animals\Land\Bull (black and white)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -284,7 +284,7 @@
         <npc id="cat">
                 <name>a cat</name>
                 <id>0xC9</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <category>Animals\Land\Cat</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -310,7 +310,7 @@
         <npc id="cow_black">
                 <name>a cow</name>
                 <id>0xD8</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <category>Animals\Land\Cow (black and white)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -370,7 +370,7 @@
         <npc id="dog">
                 <name>a dog</name>
                 <id>0xD9</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <category>Animals\Land\Dog</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -396,7 +396,7 @@
         <npc id="goat">
                 <name>a goat</name>
                 <id>0xD1</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <skin>0</skin>
                 <inherit id="animal_base" />
                 <karma>0</karma>
@@ -447,7 +447,7 @@
         <npc id="horse_pack">
                 <name>a pack horse</name>
                 <id>0x123</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <category>Animals\Land\Horse (pack)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -473,7 +473,7 @@
         <npc id="llama_pack">
                 <name>a pack llama</name>
                 <id>0x124</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <category>Animals\Land\Llama (pack)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -559,7 +559,7 @@
         <npc id="sheep_sheered">
                 <name>a sheep</name>
                 <id>0xDF</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <category>Animals\Land\Sheep (sheered)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -585,7 +585,7 @@
         <npc id="sheep_unsheered">
                 <name>sheep</name>
                 <id>0xCF</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Domestic</ai>
                 <category>Animals\Land\Sheep (unsheered)</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
@@ -698,7 +698,7 @@
         <npc id="dire_wolf">
                 <name>a dire wolf</name>
                 <id>0x17</id>
-                <ai>Animal_Wild</ai>
+                <ai>Animal_Aggressive</ai>
                 <category>Animals\Land\Dire Wolf</category>
                 <skin>0</skin>
                 <inherit id="monster_base" />
