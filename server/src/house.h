@@ -79,7 +79,18 @@ public:
 
 	unsigned int last_used;
 
-	cHouse() {}
+	cHouse() 
+	{
+		cItem::Init();
+
+		contserial = INVALID_SERIAL;
+		deedsection_ = (char*)0;
+		lockdownamount_ = 0;
+		secureamount_ = 0;
+		nokey_ = false;
+		itemsdecay_ = false;
+		space_.x = space_.y = charpos_.x = charpos_.y = charpos_.z = 0;
+	}
 	virtual ~cHouse() {}
 	virtual void Serialize( ISerialization &archive );
 	virtual QString objectID() const;
