@@ -304,7 +304,7 @@ void cBaseChar::load( char** result, Q_UINT16& offset )
 	SERIAL ser;
 
 	orgName_ = result[offset++];
-	title_ = result[offset++];
+	title_ = QString::fromUtf8(result[offset++]);
 	creationDate_ = QDateTime::fromString( result[offset++], Qt::ISODate );
 	body_ = atoi( result[offset++] );
 	orgBody_ = atoi( result[offset++] );
