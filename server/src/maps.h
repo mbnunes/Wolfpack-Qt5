@@ -115,6 +115,7 @@ public:
 
 	map_st seekMap( uint id, ushort x, ushort y ) const;
 	map_st seekMap( const Coord_cl& ) const;
+	bool hasMap( uint id ) const;
 	signed char mapElevation( const Coord_cl& p ) const;
 	signed char mapAverageElevation( const Coord_cl& p ) const;
 	signed char dynamicElevation(const Coord_cl& pos) const;

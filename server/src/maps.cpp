@@ -161,6 +161,14 @@ bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint map
 }
 
 /*!
+	Returns true if the \a id map is present, false otherwise
+*/
+bool Maps::hasMap( uint id ) const
+{
+	return d.contains( id );
+}
+
+/*!
 	Seeks for a map record (map_st) in the given map \a id, at the given \a x, \a y 
 	coordinates.
 	\sa map_st

@@ -66,12 +66,13 @@ public:
 	void flushDeleteQueue();
 	void clearDeleteQueue();
 	void addToDeleteQueue( const QString &tables, const QString &conditions );
-	QString quoteString( const QString &d )
+	
+	QString& quoteString( QString &d )
 	{
 		if( sqlite )
-			return QString(d).replace( QRegExp("'"), "''" );
+			return d.replace( QRegExp("'"), "''" );
 		else
-			return QString(d).replace( QRegExp("'"), "\\'" );
+			return d.replace( QRegExp("'"), "\\'" );
 	}
 
 	void lockTable( const QString& table ) const;

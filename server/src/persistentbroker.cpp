@@ -90,7 +90,7 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 		return false;
 
 	// Disable fsynch for sqlite
-	if( sqlite )
+	if( this->sqlite )
 	{
 		connection->exec( "PRAGMA synchronous = OFF;" );
 		connection->exec( "PRAGMA default_synchronous = OFF;" );
