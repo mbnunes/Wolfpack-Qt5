@@ -1275,6 +1275,72 @@ void cBoat::toDeed( UOXSOCKET s ) {
 	sysmessage (s, "You deed the boat.");
 }
 
+void cBoat::Serialize( ISerialization &archive )
+{
+	if( archive.isReading() )
+	{
+		archive.read( "boat.autosail", autosail_ );
+		archive.read( "boat.dir", boatdir );
+		int i,j,k;
+		for( i = 0; i < 8; i++ )
+		{
+			int currid = 0;
+			archive.read( "boat.multiid", currid );
+			this->multiids_.push_back( currid );
+		}
+		for( i = 0; i < 4; i++ )
+		{
+			for( j = 0; j < 4; j++ )
+			{
+				for( k = 0; k < 2; k++ )
+				{
+					signed short curroffset = 0;
+					archive.read( (char*)QString("boat.itemoffset.%1.%2.%3").arg(i).arg(j).arg(k).latin1(), curroffset );
+					this->itemoffsets[i][j][k] = curroffset;
+				}
+			}
+		}
+		for( i = 0; i < 4; i ++ )
+		{
+			for( j = 0; j < 6; j++ )
+			{
+				unsigned short currid = 0;
+				archive.read( (char*)QString("boat.itemid.%1.%2").arg(i).arg(j).latin1(), currid );
+				this->itemids[i][j] = currid;
+			}
+		}
+	}
+	else
+	{
+		archive.write( "boat.autosail", autosail_ );
+		archive.write( "boat.dir", boatdir );
+		int i, j, k;
+		for( i = 0; i < 8; i++ )
+		{
+			int currid = this->multiids_[i];
+			archive.write( "boat.multiid", currid );
+		}
+		for( i = 0; i < 3; i++ )
+		{
+			for( j = 0; j < 3; j++ )
+			{
+				for( k = 0; k < 1; k++ )
+				{
+					archive.write( (char*)QString("boat.itemoffset.%1.%2.%3").arg(i).arg(j).arg(k).latin1(), this->itemoffsets[i][j][k] );
+				}
+			}
+		}
+		for( i = 0; i < 4; i ++ )
+		{
+			for( j = 0; j < 6; j++ )
+			{
+				archive.write( (char*)QString("boat.itemid.%1.%2").arg(i).arg(j).latin1(), this->itemids[i][j] );
+			}
+		}
+	}
+	cItem::Serialize( archive );
+}
+
 
 P_ITEM findmulti(Coord_cl pos) //Sortta like getboat() only more general... use this for other multi stuff!
 {

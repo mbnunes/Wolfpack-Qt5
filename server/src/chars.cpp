@@ -59,7 +59,6 @@
 #include "wpdefmanager.h"
 #include "guildstones.h"
 
-// Inline members
 
 bool cChar::Owns(P_ITEM pi)				{	return (serial==pi->ownserial);		}
 bool cChar::Wears(P_ITEM pi)			{	return (serial == pi->contserial);	}
@@ -704,10 +703,10 @@ void cChar::MoveTo(short newx, short newy, signed char newz)
 
 unsigned int cChar::getSkillSum()
 {
-	register unsigned int sum = 0, a;
-	for (a=0;a<ALLSKILLS;a++)
+	unsigned int sum = 0, a = 0;
+	for (; a < ALLSKILLS; ++a)
 	{
-		sum+=this->baseSkill_[a];
+		sum += this->baseSkill_[a];
 	}
 	return sum;		// this *includes* the decimal digit ie. xxx.y
 }
@@ -1679,15 +1678,19 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type )
 
 	// Generate the ghost-speech *ONCE*
 	if( dead )
+	{
 		for( UINT32 gI = 0; gI < message.length(); ++gI )
+		{
 			if( message.at( gI ) == " " )
 				ghostSpeech.append( " " );
 			else 
 				ghostSpeech.append( ( RandomNum( 0, 1 ) == 0 ) ? "o" : "O" );
+		}
 
-
+	}
 	// Send to all clients in range
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
 			if( mSock->player() && ( mSock->player()->pos.distance( pos ) < 18 ) )
 			{
 				// Take the dead-status into account
@@ -1699,6 +1702,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type )
 
 				mSock->send( &textSpeech );
 			}
+	}
 }
 
 void cChar::emote( const QString &emote, UI16 color )
@@ -1757,47 +1761,47 @@ void cChar::showName( cUOSocket *socket )
 
 	// Are we squelched ?
 	if( squelched() )
-		charName.append( " [squelched]" );
+		charName.append( tr(" [squelched]") );
 
 	// Append serial for GMs
 	if( socket->player()->canSeeSerials() )
-		charName.append( QString( " [0x]" ).arg( serial, 4, 16 ) );
+		charName.append( QString( " [0x%1]" ).arg( serial, 4, 16 ) );
 
 	// Append offline flag
 	if( !socket_ )
-		charName.append( " [offline]" );
+		charName.append( tr(" [offline]") );
 
 	// Invulnerability
 	if( isInvul() )
-		charName.append( " [invul]" );
+		charName.append( tr(" [invul]") );
 
 	// Frozen
 	if( isFrozen() )
-		charName.append( " [frozen]" );
+		charName.append( tr(" [frozen]") );
 
 	// Guarded
 	if( guarded() )
-		charName.append( " [guarded]" );
+		charName.append( tr(" [guarded]") );
 
 	// Guarding
 	if( tamed() && npcaitype_ == 32 && socket->player()->Owns( this ) && socket->player()->guarded() )
-		charName.append( " [guarding]" );
+		charName.append( tr(" [guarding]") );
 
 	// Tamed
 	if( tamed() && npcaitype_ != 17 )
-		charName.append( " [tamed]" );
+		charName.append( tr(" [tamed]") );
 
 	// WarMode ?
 	if( war )
-		charName.append( " [war mode]" );
+		charName.append( tr(" [war mode]") );
 
 	// Criminal ?
 	if( crimflag() && ( kills < SrvParams->maxkills() ) )
-		charName.append( " [criminal]" );
+		charName.append( tr(" [criminal]") );
 
 	// Murderer
 	if( kills >= SrvParams->maxkills() )
-		charName.append( " [murderer]" );
+		charName.append( tr(" [murderer]") );
 
 	cGuildStone *guildStone = dynamic_cast< cGuildStone* >( FindItemBySerial( guildstone_ ) );
 
@@ -1812,10 +1816,8 @@ void cChar::showName( cUOSocket *socket )
 
 		switch( guildStone->guildType )
 		{
-		case cGuildStone::order:	
-			charName.append( " [Order]" ); break;
-		case cGuildStone::chaos:
-			charName.append( " [Chaos]" ); break;
+		case cGuildStone::order:	charName.append( tr(" [Order]") ); break;
+		case cGuildStone::chaos:	charName.append( tr(" [Chaos]") ); break;
 		}
 	}
 	
@@ -1828,16 +1830,11 @@ void cChar::showName( cUOSocket *socket )
 			speechColor = 0x35;
 		else switch( flag() )
 		{
-			case 0x01:	
-				speechColor = 0x26; break; //red
-			case 0x04:	
-				speechColor = 0x5A; break; //blue
-			case 0x08:	
-				speechColor = 0x4A; break; //green
-			case 0x10:	
-				speechColor = 0x30; break; //orange
-			default:	
-				speechColor = 0x3B2; break; //grey
+			case 0x01:	speechColor = 0x26; break; //red
+			case 0x04:	speechColor = 0x5A; break; //blue
+			case 0x08:	speechColor = 0x4A; break; //green
+			case 0x10:	speechColor = 0x30; break; //orange
+			default:	speechColor = 0x3B2; break; //grey
 		}
 	}
 
