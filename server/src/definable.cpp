@@ -105,7 +105,7 @@ QString cDefinable::getNodeValue( const QDomElement &Tag )
 QString hex2dec( QString value )
 {
 	bool ok;
-	if( (value.left( 2 ) == "0x" || value.left( 2 ) == "0X") && value.right( value.length()-2 ).toInt() != 0 )
+	if( (value.left( 2 ) == "0x" || value.left( 2 ) == "0X") )
 		return QString("%1").arg(value.right( value.length()-2 ).toInt( &ok, 16 ));
 	else 
 		return value;

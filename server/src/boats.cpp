@@ -206,12 +206,10 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		}
 	}
 
-	clConsole.send( QString("x: %1, y: %2, z: %3").arg(pos.x).arg(pos.y).arg(pos.z) );
-
 	if( s != -1 )
 		Xsend( s, restart, 2 ); // resume the client
 	
-    pc_currchar->SetMultiSerial(this->serial);
+//    pc_currchar->SetMultiSerial(this->serial);
 	this->SetOwnSerial( pc_currchar->serial );
 }
 
@@ -220,7 +218,7 @@ void cBoat::processNode( const QDomElement &Tag )
 	QString TagName = Tag.nodeName();
 	QString Value = this->getNodeValue( Tag );
 
-	// <ids north="0x4021" east=".." south=".." west="..">16572</ids>
+	// <ids north="0x4021" east=".." south=".." west=".." />
 	if( TagName == "ids" )
 	{
 		this->multiids_.push_back( hex2dec(Tag.attribute( "north" )).toUShort() );

@@ -1732,7 +1732,7 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <id>12f9</id>
 	else if( TagName == "id" )
-		this->setId( Value.toUShort( NULL, 16 ) );
+		this->setId( Value.toUShort() );
 
 	// <content><item id="a" />...<item id="z" /></contains> (sereg)
 	else if( TagName == "content" && Tag.hasChildNodes() )
