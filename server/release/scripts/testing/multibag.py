@@ -7,7 +7,7 @@ from wolfpack.consts import *
 # Add multiple instances of items based on tags
 # defined for the item on creation.
 #
-def onAttach(object):
+def onCreate(object, definition):
 	if not object.isitem():
 		return
 

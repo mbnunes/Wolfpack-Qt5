@@ -28,6 +28,40 @@
 		</content>
 		<category>GM Items\Reagent Bag (5000)</category>
 	</item>
+	
+	<!-- Reagent Bag Small -->
+	<item id="reagentbag_small" inherit="e76">
+		<name>Small Reagent Bag</name>
+		<color>0x8b0</color>
+		<newbie />
+		<content>
+		<item id="f7a"><amount>75</amount></item>
+		<item id="f7b"><amount>75</amount></item>
+		<item id="f84"><amount>75</amount></item>
+		<item id="f85"><amount>75</amount></item>
+		<item id="f86"><amount>75</amount></item>
+		<item id="f88"><amount>75</amount></item>
+		<item id="f8c"><amount>75</amount></item>
+		<item id="f8d"><amount>75</amount></item>
+		</content>
+		<category>GM Items\Reagent Bag (75)</category>
+	</item>
+
+	<!-- Alchemy Kit -->
+	<item id="alchemykit_small" inherit="e76">
+		<name>Small Alchemy Bag</name>
+		<color>0x21</color>
+		<newbie />
+		<content>
+			<!-- Mortar a. Pestle w. 1000 remaining uses. -->
+			<item id="e9b">
+				<tag name="remaining_uses" type="int" value="1000" />
+			</item>
+			<item id="f0e"><amount>50</amount></item> <!-- 1000 Empty Bottles -->
+			<item id="reagentbag" />
+		</content>
+		<category>GM Items\Small Alchemy Kit</category>
+	</item>
 
 	<!-- Alchemy Kit -->
 	<item id="alchemykit" inherit="e76">
@@ -282,6 +316,25 @@
 					<item id="1443" /> <!-- Two Handed Axe -->
 				</content>
 			</item>
+		</content>
+	</item>
+
+	<!-- A small selection of food products -->
+	<item id="foodbag_small" inherit="e76">
+		<name>Foodbag</name>
+		<category>GM Items\Food Bag (10)</category>
+		<color>0xF6</color>
+		<content>
+			<item id="9d0"><amount>10</amount></item>
+			<item id="977"><amount>10</amount></item>
+			<item id="97b"><amount>10</amount></item>
+			<item id="97c"><amount>10</amount></item>
+			<item id="994"><amount>10</amount></item>
+			<item id="9b7"><amount>10</amount></item>
+			<item id="9c0"><amount>10</amount></item>
+			<item id="9d1"><amount>10</amount></item>
+			<item id="9d2"><amount>10</amount></item>
+			<item id="c77"><amount>10</amount></item>
 		</content>
 	</item>
 

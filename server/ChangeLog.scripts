@@ -6,6 +6,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Added random speech for lizardmen, ratmen and orcs.
 		- Fixed Fame and Karma for all NPCs.
 		- Moved equipment properties to the definitions again.
+		- Added several small testing items.
 	* Python Script Changes:
 		- Added a script for database structure updates (system/dbupdate.py).
 		- Added an event for database updates (onUpdateDatabase).
@@ -17,6 +18,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Fixed bug #0000269. Hunger script adjustments.
 		- Fixed bug #0000255. Smelting/Melting ingot combine fix.
 		- Resurrection now can affect dead chars.
+		- Fixed multibags.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
