@@ -51,6 +51,7 @@
 #include "wpscriptmanager.h"
 #include "skills.h"
 #include "wpdefmanager.h"
+#include "srvparams.h"
 
 cBaseChar::cBaseChar()
 {
@@ -1029,11 +1030,11 @@ void cBaseChar::removeEffect( cTempEffect *effect )
 }
 
 // Shows the name of a character to someone else
-bool cBaseChar::onSingleClick( P_CHAR Viewer ) 
+bool cBaseChar::onSingleClick( P_PLAYER Viewer ) 
 {
 	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onSingleClick( (P_CHAR)this, (P_CHAR)Viewer ) )
+		if( scriptChain[ i ]->onSingleClick( (P_PLAYER)this, (P_CHAR)Viewer ) )
 			return true;
 
 	// Try to process the hooks then
@@ -1042,7 +1043,7 @@ bool cBaseChar::onSingleClick( P_CHAR Viewer )
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SINGLECLICK );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onSingleClick( (P_CHAR)this, (P_CHAR)Viewer ) )
+		if( (*it)->onSingleClick( (P_PLAYER)this, (P_CHAR)Viewer ) )
 			return true;
 
 	return false;
@@ -1081,7 +1082,7 @@ bool cBaseChar::onWarModeToggle( bool War )
 }
 
 // The paperdoll of this character has been requested
-bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
+bool cBaseChar::onShowPaperdoll( P_PLAYER pOrigin )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
@@ -1132,7 +1133,7 @@ bool cBaseChar::onDropOnChar( P_ITEM pItem )
 	return false;
 }
 
-QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
+QString cBaseChar::onShowPaperdollName( P_PLAYER pOrigin )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
@@ -1142,6 +1143,25 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 	}
 
 	return (char*)0;
+}
+
+bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
+{
+
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip  ) )
+			return true;
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SHOWTOOLTIP );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onShowToolTip( sender, this, tooltip ) ) 
+			return true;
+
+	return false;
 }
 
 void cBaseChar::processNode( const QDomElement &Tag )

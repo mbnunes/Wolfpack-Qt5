@@ -58,10 +58,10 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	P_PLAYER pHealer = socket->player();
 
 	// Check for an ongoing fight
-	if( !SrvParams->bandageInCombat() && ( pTarget->war() || pHealer->war() ) )
+	if( !SrvParams->bandageInCombat() && ( pTarget->isAtWar() || pHealer->isAtWar() ) )
 	{
-		P_CHAR pAttacker = FindCharBySerial( pHealer->attacker() );
-		if( pAttacker && pAttacker->war() )
+		P_CHAR pAttacker = FindCharBySerial( pHealer->attackerSerial() );
+		if( pAttacker && pAttacker->isAtWar() )
 		{
 			socket->sysMessage( tr("You can`t heal while in a fight!") );
 			return true;

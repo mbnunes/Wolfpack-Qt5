@@ -46,7 +46,6 @@
 
 //Forward class declarations
 class cTempEffect;
-class cTmpEff;
 class cScriptEffect;
 class cTimedSpellAction;
 class cTempEffects;
@@ -119,25 +118,6 @@ public:
 	std::vector< cTempEffect* > asVector();
 };
 
-class cTmpEff : public cTempEffect
-{
-	Q_OBJECT
-public:
-	unsigned char num;
-	unsigned short more1;
-	unsigned short more2;
-	unsigned short more3;
-public:
-	cTmpEff() { objectid = "TmpEff"; }
-	virtual ~cTmpEff() {;}
-	void Init();
-	void Reverse();
-	void On(P_CHAR pc);
-	void Off(P_CHAR pc);
-	virtual void Expire();
-	virtual void Serialize(ISerialization &archive);
-};
-
 class cDelayedHideChar : public cTempEffect
 {
 	Q_OBJECT
@@ -205,8 +185,6 @@ public:
 	std::vector< cTempEffect* > teffects;
 
 	void check();
-	bool add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
-	bool add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
 	void serialize(ISerialization &archive);
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent = false );
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent = false, bool onlyDispellable = true );

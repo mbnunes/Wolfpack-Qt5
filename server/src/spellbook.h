@@ -81,7 +81,7 @@ public:
 
 	// Opening a spellbook is done here
 	virtual bool onUse( cUObject *Target );
-	virtual bool onSingleClick( P_CHAR Viewer );
+	virtual bool onSingleClick( P_PLAYER Viewer );
 };
 
 // Inline members

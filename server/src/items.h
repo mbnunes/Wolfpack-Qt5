@@ -383,12 +383,12 @@ public:
 	bool isLockedDown()			{return (magic_==4);}
 
 	// Public event wrappers added by darkstorm
-	virtual bool onSingleClick( P_CHAR Viewer );
+	virtual bool onSingleClick( P_PLAYER Viewer );
 	bool onDropOnChar( P_CHAR pChar );
 	bool onDropOnItem( P_ITEM pItem );
 	bool onDropOnGround( const Coord_cl &pos );
 	bool onPickup( P_CHAR pChar );
-	bool onShowTooltip( P_CHAR sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
+	bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	
 	QPtrList< cItem > getContainment() const;
 

@@ -573,17 +573,23 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	if( player && player->socket() )
 		player->socket()->allowMove( sequence );
 
-	RegionIterator4Chars ri( pChar->pos() );
 
-	for( ri.Begin(); !ri.atEnd(); ri++ )
+	P_PLAYER pPChar = dynamic_cast<P_PLAYER>(pChar);
+	if( pPChar )
 	{
-		P_CHAR pChar_vis = ri.GetData();
+		RegionIterator4Chars ri( pPChar->pos() );
+		for( ri.Begin(); !ri.atEnd(); ri++ )
+		{
+			P_PLAYER pChar_vis = dynamic_cast<P_PLAYER>(ri.GetData());
 
-		if( !pChar_vis )
-			continue;
+			if( !pChar_vis )
+				continue;
 
-		if( pChar_vis && ( pChar_vis != pChar ) && ( !pChar->dead() || pChar->war() || pChar_vis->isGM() ) && ( !pChar->isHidden() || pChar_vis->isGM() ) )
-			sendWalkToOther( pChar_vis, pChar, oldpos );
+			if( ( pChar_vis != pPChar ) &&
+				( !pPChar->isDead() || pPChar->isAtWar() || pPChar->isGM() ) && 
+				( !pPChar->isHidden() || pPChar->isGM() ) )
+				sendWalkToOther( pChar_vis, pPChar, oldpos );
+		}
 	}
 	
 	// keep on checking this even if we just turned, because if you are taking damage
@@ -603,18 +609,20 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 // restrictions...
 short int cMovement::CheckMovementType(P_CHAR pc)
 {
-	// Am I a GM Body?
-	if( pc->isGMorCounselor() || pc->dead() )
-		return P_C_IS_GM_BODY;
-
-	// Am I a player?
-	if (pc->isPlayer())
-		return P_C_IS_PLAYER;
-
-	// Change this to a flag in NPC.scp
+	if( pc->objectType() == enPlayer )
+	{
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
+		// Am I a GM Body?
+		if( pp->isGMorCounselor() || pc->isDead() )
+			return P_C_IS_GM_BODY;
+		// Am I a player?
+		else
+			return P_C_IS_PLAYER;
+	}
+	// Change this to a flag in NPC definition
 
 	short int retval = P_C_IS_NPC;
-	switch ( pc->id() )
+	switch ( pc->bodyID() )
 	{
 	case 0x0010 : // Water Elemental
 		retval = P_C_IS_FISH;
@@ -636,9 +644,9 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos )
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pc_i = ri.GetData();
-		if (pc_i != NULL)
+		if( pc_i != NULL )
 		{
-			if (pc_i != pc && (pc_i->online() || pc_i->isNpc()))
+			if( pc_i != pc && !pc_i->isHidden() && !pc_i->isInvisible() )
 			{
 				// x=x,y=y, and distance btw z's <= MAX STEP
 				if ((pc_i->pos().x == pos.x) && (pc_i->pos().y == pos.y) && (abs(pc_i->pos().z-pos.z) <= P_M_MAX_Z_CLIMB))
@@ -755,55 +763,61 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 	signed short tempshort;
 	
 	// Running automatically stops stealthing
-	if( pChar->stealth() != -1 ) 
+	if( pChar->stealthedSteps() != -1 ) 
 	{
-		pChar->setStealth( -1 );
-		pChar->setHidden( 0 );
+		pChar->setStealthedSteps( -1 );
+		pChar->setHidden( false );
 		pChar->resend( false );
 	}
 
 	// Don't regenerate stamina while running
-	pChar->setRegen2( uiCurrentTime + ( SrvParams->staminarate() * MY_CLOCKS_PER_SEC ) );
-	pChar->setRunning( pChar->running() + 1 );
+	pChar->setRegenStaminaTime( uiCurrentTime + ( SrvParams->staminarate() * MY_CLOCKS_PER_SEC ) );
+	pChar->setRunningSteps( pChar->runningSteps() + 1 );
 	
 	// If we're running on our feet, check for stamina loss
 	// Crap
-	if( !pChar->dead() && !pChar->atLayer( cChar::Mount ) && pChar->running() > ( SrvParams->runningStamSteps() ) * 2 )
+	if( !pChar->isDead() && !pChar->atLayer( cBaseChar::Mount ) && pChar->runningSteps() > ( SrvParams->runningStamSteps() ) * 2 )
 	{
 		// The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
 		// ^^ WTF?
-		pChar->setRunning( 0 );
-//		pChar->stm--;
-		tempshort = pChar->stm();
-		pChar->setStm( --tempshort );
+		pChar->setRunningSteps( 0 );
+		pChar->setStamina( pChar->stamina() - 1 );
 		socket->updateStamina();
 	}
 
-	if( pChar->war() && pChar->targ() != INVALID_SERIAL )
-		pChar->setTimeOut(uiCurrentTime + ( MY_CLOCKS_PER_SEC * 2 ) ); // 2 Second timeout
+	if( pChar->isAtWar() && pChar->combatTarget() != INVALID_SERIAL )
+		pChar->setNextHitTime(uiCurrentTime + ( MY_CLOCKS_PER_SEC * 2 ) ); // 2 Second timeout
 }
 
 void cMovement::checkStealth( P_CHAR pChar )
 {
-	if( pChar->hidden() && !pChar->isHiddenPermanently() )
+	if( pChar->isHidden() && !pChar->isInvisible() )
 	{
-		if( pChar->stealth() != -1 )
+		if( pChar->stealthedSteps() != -1 )
 		{
-			pChar->setStealth( pChar->stealth() + 1 );
-			if( pChar->stealth() > ( ( SrvParams->maxStealthSteps() * pChar->skillValue( STEALTH ) ) / 1000 ) )
+			pChar->setStealthedSteps( pChar->stealthedSteps() + 1 );
+			if( pChar->stealthedSteps() > ( ( SrvParams->maxStealthSteps() * pChar->skillValue( STEALTH ) ) / 1000 ) )
 			{
-				if( pChar->socket() )
-					pChar->socket()->sysMessage( tr( "You have been revealed." ) );
-				pChar->setStealth( -1 );
-				pChar->setHidden( 0 );
+				if( pChar->objectType() == enPlayer )
+				{
+					P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
+					if( pp->socket() )
+						pp->socket()->sysMessage( tr( "You have been revealed." ) );
+				}
+				pChar->setStealthedSteps( -1 );
+				pChar->setHidden( false );
 				pChar->resend( false, false );
 			}
 		}
 		else
 		{
-			if( pChar->socket() )
-				pChar->socket()->sysMessage( tr( "You have been revealed." ) );
-			pChar->setHidden( 0 );
+			if( pChar->objectType() == enPlayer )
+			{
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
+				if( pp->socket() )
+					pp->socket()->sysMessage( tr( "You have been revealed." ) );
+			}
+			pChar->setHidden( false );
 			pChar->resend( false, false );
 		}
 	}
@@ -906,12 +920,14 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 	}
 } //- end of itemcount for loop
 
-void cMovement::sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& oldpos )
+void cMovement::sendWalkToOther( P_PLAYER pChar, P_PLAYER pWalker, const Coord_cl& oldpos )
 {
 	// What we need to decide here is if we
 	// Need to UPDATE the player (so it's walking on the screen)
 	// Or if we need to CREATE the player if it was not in 
 	// The visibility range of our Viewer
+	if( !pWalker || !pChar )
+		return;
 
 	cUOSocket *socket = pWalker->socket();
 	cUOSocket *visSocket = pChar->socket();
@@ -925,11 +941,11 @@ void cMovement::sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& o
 	Q_UINT32 oldDistance = pChar->pos().distance( oldpos );
 	
 	// We dont see him, he doesn't see us
-	if( ( newDistance > pChar->VisRange() ) && ( newDistance > pWalker->VisRange() ) )
+	if( ( newDistance > pChar->visualRange() ) && ( newDistance > pWalker->visualRange() ) )
 		return;
 
 	// Someone got into our range
-	if( socket && ( newDistance <= pWalker->VisRange() ) && ( oldDistance > pWalker->VisRange() ) )
+	if( socket && ( newDistance <= pWalker->visualRange() ) && ( oldDistance > pWalker->visualRange() ) )
 		socket->sendChar( pChar );
 
 	// This guy is already known to us
@@ -938,67 +954,12 @@ void cMovement::sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& o
 	//	socket->updateChar( pChar );
 
 	// We got into somone elses Range
-	if( visSocket && ( newDistance <= pChar->VisRange() ) && ( oldDistance > pChar->VisRange() ) )
+	if( visSocket && ( newDistance <= pChar->visualRange() ) && ( oldDistance > pChar->visualRange() ) )
 		visSocket->sendChar( pWalker );
 
 	// We are already known to this guy
-	if( visSocket && ( newDistance <= pChar->VisRange() ) && ( oldDistance <= pChar->VisRange() ) )
+	if( visSocket && ( newDistance <= pChar->visualRange() ) && ( oldDistance <= pChar->visualRange() ) )
 		visSocket->updateChar( pWalker );
-}
-
-// see if we should mention that we shove something out of the way
-void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord_cl& oldpos )
-{
-	if( !socket )
-		return;
-
-	const int visibleRange = VISRANGE;
-	signed short tempshort;
-
-	RegionIterator4Chars ri( pChar->pos() );
-	for( ri.Begin(); !ri.atEnd(); ri++ )
-	{
-		P_CHAR mapChar = ri.GetData();
-
-		if( !mapChar || mapChar == pChar || ( !mapChar->online() && !mapChar->isNpc() ) )
-			continue;
-
-		// If it's not on the same position it's useless to check
-		if( mapChar->pos() != pChar->pos() )
-			continue;
-
-		if( ( pChar->id() == 0x3DB ) || ( pChar->id() == 0x192 ) || ( pChar->id() == 0x193 ) || !pChar->isGMorCounselor() )
-			continue;
-
-		// Trigger the event for the "stumbled apon" character
-		if( pChar->onCollideChar( mapChar ) )
-			continue;
-
-		if( mapChar->onCollideChar( pChar ) )
-			continue;
-
-		if( mapChar->isHidden() && !mapChar->dead() && !mapChar->isInvul() && !mapChar->isGM() )
-		{
-			if( socket )
-				socket->sysMessage( tr( "Being perfectly rested, you shoved something invisible out of the way." ) );
-
-		    pChar->setStamina( QMAX( pChar->stm() - 4, 0 ) );
-		}
-		else if( !mapChar->isHidden() && !mapChar->dead() && (!(mapChar->isInvul())) &&(!(mapChar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
-		{
-			if( socket )
-				socket->sysMessage( tr( "Being perfectly rested, you shove %1 out of the way." ).arg( mapChar->name() ) );
-			
-			pChar->setStamina( QMAX( ( tempshort = pChar->stm() ) - 4, 0 ) );
-		}
-		else if( !mapChar->isGMorCounselor() && !mapChar->isInvul() ) //A normal player (No priv1(Not a gm))
-		{
-			if( socket )
-				socket->sysMessage( "Being perfectly rested, you shove something invisible out of the way." );
-
-			pChar->setStamina( QMAX( pChar->stm() - 4, 0 ) );
-		}
-	}
 }
 
 // This is called whenever a char *HAS* already moved
@@ -1033,7 +994,7 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 					if (!amTurning)
 					{
 						// is the item a building on the BUILDRANGE?
-						if( ( mapitem->id() == 0x407C ) || ( mapitem->id() == 0x407D ) || ( mapitem->id() == 0x407E ) )
+						if( ( mapitem->bodyID() == 0x407C ) || ( mapitem->bodyID() == 0x407D ) || ( mapitem->bodyID() == 0x407E ) )
 						{
 							if ((abs(newx-mapitem->pos().x)==BUILDRANGE)||(abs(newy-mapitem->pos().y)==BUILDRANGE))
 							{
@@ -1065,7 +1026,7 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 					if( mapitem->onCollide( pc ) )
 						continue;
 
-					UI16 tileID = mapitem->id();
+					UI16 tileID = mapitem->bodyID();
 
 					// split out the x,y,z check so we can use else ifs for faster item id checking
 					if( ( tileID == 0x3996 ) || ( tileID == 0x398C ) )
@@ -1206,7 +1167,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 }
 
 // type is npcwalk mode ( 0 for normal, 1 for box, 2 for circle )
-void cMovement::randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type )   
+void cMovement::randomNpcWalk( P_NPC pChar, Q_UINT8 dir, Q_UINT8 type )   
 {
 	// If we're not moving at all that could be -1
 	if( !isValidDirection( dir ) )
@@ -1220,49 +1181,51 @@ void cMovement::randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type )
 
 	// When the circle or box is not set yet reset the npcwalking setting
     if(	
-		( type == 1 && ( ( pChar->fx1() == -1 ) || ( pChar->fx2() == -1 ) || ( pChar->fy1() == -1 ) || ( pChar->fy2() == -1 ) ) ) ||
-		( type == 2 && pChar->fx2() == -1 ) 
+		( type == 1 && ( ( pChar->wanderX1() == -1 ) || ( pChar->wanderX2() == -1 ) || ( pChar->wanderY1() == -1 ) || ( pChar->wanderY2() == -1 ) ) ) ||
+		( type == 2 && pChar->wanderRadius() == -1 ) 
 		)
 	{
-		pChar->setNpcWander( 0 );
+		pChar->setWanderType( enHalt );
 		type = 0;
 	}
 
 	// If we should wander around in a circle and the middle of our circle is not yet set, let's reset it to our current position
-	if( type == 2 && pChar->fx1() == -1 && pChar->fy1() == -1 )
+	if( type == 2 && pChar->wanderX1() == -1 && pChar->wanderY1() == -1 )
 	{
-		pChar->setFx1( pChar->pos().x );
-		pChar->setFy1( pChar->pos().y );
+		pChar->setWanderX1( pChar->pos().x );
+		pChar->setWanderY1( pChar->pos().y );
 	}
     
 	// If we either have to walk in a box or a circle we'll check if the new direction
 	// is outside of our bounds
-	if( ( type == 1 ) && !checkBoundingBox( newCoord, pChar->fx1(), pChar->fy1(), pChar->fx2(), pChar->fy2() ) )
+	if( ( type == 1 ) && !checkBoundingBox( newCoord, pChar->wanderX1(), pChar->wanderY1(), pChar->wanderX2(), pChar->wanderY2() ) )
 		return;
 
-	if( ( type == 2 ) && !checkBoundingCircle( newCoord, pChar->fx1(), pChar->fy1(), pChar->fx2() ) )
+	if( ( type == 2 ) && !checkBoundingCircle( newCoord, pChar->wanderX1(), pChar->wanderY1(), pChar->wanderX2() ) )
 		return;
 
 	Walking( pChar, dir&0x07, 0xFF );
 }
 
 // This processes a NPC movement poll
-void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
+void cMovement::NpcMovement( unsigned int currenttime, P_NPC pc_i )
 {
     int dnpctime=0;
-    if( !pc_i->isNpc() || ( pc_i->npcmovetime() > currenttime ) )
+    if( !pc_i || ( pc_i->nextMoveTime() > currenttime ) )
 		return;
 
 	// If we are fighting and not fleeing move toward our target if neccesary
-	if( pc_i->war() && pc_i->npcWander() != 5 )
+	if( pc_i->isAtWar() )
     {
-        P_CHAR pc_attacker = FindCharBySerial( pc_i->targ() ); // This was wrong - we want to move towards our target not our attacker
+        P_CHAR pc_attacker = FindCharBySerial( pc_i->combatTarget() ); // This was wrong - we want to move towards our target not our attacker
 
         if( pc_attacker )
         {
 			// Only move in the direction of the target
 			// No special pathfinding
-			if( pc_attacker->dist( pc_i ) > 1 && ( pc_attacker->socket() || pc_attacker->isNpc() ) )
+			if( pc_attacker->dist( pc_i ) > 1 && 
+				( pc_attacker->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pc_attacker)->socket() ) || 
+				pc_attacker->objectType() == enNPC )
             {
 				//PathFind( pc_i, pc_attacker->pos().x, pc_attacker->pos().y );
                 //UINT8 dir = chardirxyz( pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y );
@@ -1283,22 +1246,23 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 			}
 	    }
 		else
-			pc_i->setTarg( INVALID_SERIAL );
+			pc_i->setCombatTarget( INVALID_SERIAL );
 		return;
     }
 
 	UINT8 j = RandomNum( 0, 32 );
 
-	switch( pc_i->npcWander() )
+	switch( pc_i->wanderType() )
     {
-    case 1: // Follow the follow target
+    case enFollowTarget: // Follow the follow target
 		{
-			P_CHAR pc_target = FindCharBySerial( pc_i->ftarg() );
+			P_CHAR pc_target = FindCharBySerial( pc_i->wanderFollowTarget() );
 
 	        if( !pc_target )
 				return;
 
-		    if( pc_target->socket() || pc_target->isNpc() )
+		    if( ( pc_target->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pc_target)->socket() ) || 
+				pc_target->objectType() == enNPC )
 			{
 				if( pc_i->dist( pc_target ) <= SrvParams->pathfindFollowRadius() && pc_i->pathHeuristic( pc_i->pos(), pc_target->pos() ) > SrvParams->pathfindFollowMinCost() )
 				{
@@ -1318,7 +1282,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 						if( nextmove.x != 0xFFFF )
 						{
 							int dir = chardirxyz( pc_i, nextmove.x, nextmove.y );
-							pc_i->setDir( dir );
+							pc_i->setDirection( dir );
 
 							if( pc_i->dist( pc_target ) > ( SrvParams->pathfindFollowRadius() / 2 ) )
 								dir |= 0x80;
@@ -1328,7 +1292,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 						}
 						else
 						{
-							pc_i->setNpcWander( 0 );
+							pc_i->setWanderType( enHalt );
 						}
 					}
 					else
@@ -1339,27 +1303,27 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 	        }
 		}
         break;
-    case 2: // Wander freely, avoiding obstacles.
+    case enFreely: // Wander freely, avoiding obstacles.
         if( j < 8 || j > 32) 
 			dnpctime = 5;
         if( j > 7 && j < 33) // Let's move in the same direction lots of the time.  Looks nicer.
-            j = pc_i->dir();
+            j = pc_i->direction();
         randomNpcWalk( pc_i, j, 0 );
         break;
-    case 3: // Wander freely, within a defined box
+    case enRectangle: // Wander freely, within a defined box
         if (j<8 || j>32) dnpctime=5;
         if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-            j=pc_i->dir();
+            j=pc_i->direction();
 
         randomNpcWalk(pc_i,j,1);
         break;
-    case 4: // Wander freely, within a defined circle
+    case enCircle: // Wander freely, within a defined circle
         if (j<8 || j>32) dnpctime=5;
         if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-            j=pc_i->dir();
+            j=pc_i->direction();
         randomNpcWalk(pc_i,j,2);
         break;
-    case 5: // Flee
+/*    case 5: // Flee
 		{
 			Coord_cl nextmove = pc_i->nextMove();
 			if( pc_i->hasPath() && mayWalk( pc_i, nextmove ) )
@@ -1369,7 +1333,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				break;
 			}
 
-			P_CHAR pc_k = FindCharBySerial( pc_i->targ() );
+			P_CHAR pc_k = FindCharBySerial( pc_i->combatTarget() );
 			if( !pc_k ) 
 				return;
 
@@ -1403,7 +1367,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				pc_i->findPath( fleeCoord, 2 );
 				Coord_cl nextmove = pc_i->nextMove();
 				int dir = chardirxyz( pc_i, nextmove.x, nextmove.y );
-				pc_i->setDir( dir );
+				pc_i->setDirection( dir );
 				pc_i->popMove();
 				Walking( pc_i, dir, 0xFF );
 			}
@@ -1412,27 +1376,27 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				j=rand()%40;
 				if (j<8 || j>32) dnpctime=5;
 				if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-					j=pc_i->dir();
+					j=pc_i->direction();
 				randomNpcWalk(pc_i,j,0);
 			}
 		}
-		break;
+		break;*/
 	// Try to find your way to a specified position
-	case 6:
+	case enGoToPosition:
 #pragma note("Implement pathfinding for this!")
-		if( pc_i->pos().map != pc_i->ptarg().map )
+		if( pc_i->pos().map != pc_i->wanderDestination().map )
 		{
-			pc_i->setNpcWander( 0 );
+			pc_i->setWanderType( enHalt );
 		}
 		else
 		{
-			Coord_cl dest( pc_i->ptarg() );
+			Coord_cl dest( pc_i->wanderDestination() );
 
 			if( dest.x == 0 && dest.y == 0  && dest.z == 0 )
-				pc_i->setNpcWander( 0 );
+				pc_i->setWanderType( enHalt );
 			else if( dest.distance( pc_i->pos() ) == 0 )
 			{
-				pc_i->setNpcWander( 0 );
+				pc_i->setWanderType( enHalt );
 			}
 			else
 			{
@@ -1540,7 +1504,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 //	return true;
 
 	// Weight percent
-	UINT32 allowedWeight = ( pChar->st() * WEIGHT_PER_STR ) + 30;
+	UINT32 allowedWeight = ( pChar->strength() * WEIGHT_PER_STR ) + 30;
 	UINT8 load = pChar->weight() / allowedWeight;
 
 	if( running )
@@ -1567,6 +1531,8 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 		pChar->talk( tr( "You are too exhausted to move" ) );
 		return false;
 	}
+
+	return true;
 }
 
 /*!

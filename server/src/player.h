@@ -41,9 +41,6 @@
 #include "makemenus.h"
 #include "accounts.h"
 
-// forward declarations
-class cUOTxTooltipList;
-
 // Class for player characters. Implements cBaseChar.
 class cPlayer : public cBaseChar
 {
@@ -106,7 +103,6 @@ public:
 	virtual bool onHelp( void ); // The character wants help
 	virtual bool onChat( void ); // The character wants to chat
 	virtual bool onShowContext( cUObject *object ); // Shows a context menu for a specific item
-	virtual bool onShowTooltip( P_CHAR sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	bool onPickup( P_ITEM pItem );
 
 	// getters

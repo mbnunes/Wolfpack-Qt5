@@ -300,9 +300,11 @@ void cAllTerritories::load( void )
 	}
 }
 
-void cAllTerritories::check( P_PLAYER pc )
+void cAllTerritories::check( P_CHAR pc )
 {
-	cUOSocket *socket = pc->socket();
+	cUOSocket *socket = NULL;
+	if( pc->objectType() == enPlayer )
+		socket = dynamic_cast<P_PLAYER>(pc)->socket();
 	cTerritory* currRegion = this->region( pc->pos().x, pc->pos().y, pc->pos().map );
 	cTerritory* lastRegion = pc->region();
 

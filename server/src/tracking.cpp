@@ -39,6 +39,8 @@
 #include "TmpEff.h"
 #include "mapobjects.h"
 #include "gumps.h"
+#include "basechar.h"
+#include "player.h"
 
 class cRefreshTracking: public cTempEffect
 {
@@ -58,7 +60,7 @@ public:
 	// Until our target expires
 	virtual void Expire()
 	{
-		P_CHAR pChar = FindCharBySerial( tracker_ );
+		P_PLAYER pChar = dynamic_cast<P_PLAYER>(FindCharBySerial( tracker_ ));
 
 		if( !pChar || !pChar->socket() )
 			return;
@@ -66,7 +68,7 @@ public:
 		P_CHAR pTarget = FindCharBySerial( target_ );
 
 		// Disable the quest-arrow
-		if( !pTarget || pChar->trackingTimer() <= uiCurrentTime )
+		if( !pTarget || pChar->trackingTime() <= uiCurrentTime )
 		{
 			pChar->socket()->sendQuestArrow( false, 0, 0 );
 			return;
@@ -82,7 +84,7 @@ class cTrackingList: public cGump
 public:
 	virtual void handleResponse( cUOSocket *socket, gumpChoice_st choice )
 	{
-		P_CHAR player = socket->player();
+		P_PLAYER player = socket->player();
 		
 		if( !player )
 			return;
@@ -94,7 +96,7 @@ public:
 
 		// Start the refresh-timer
 		// Start the wearoff-timer
-		player->setTrackingTimer( uiCurrentTime + ( 30 * MY_CLOCKS_PER_SEC ) );
+		player->setTrackingTime( uiCurrentTime + ( 30 * MY_CLOCKS_PER_SEC ) );
 		TempEffects::instance()->insert( new cRefreshTracking( player->serial(), choice.button ) );
 	}
 
@@ -128,18 +130,18 @@ public:
 			{
 			// Animals
 			case 1:
-				passed = !( !pChar->isNpc() || pChar->id() == 0x190 || pChar->id() == 0x191 || pChar->npcaitype() == 2 );
+				passed = !( pChar->objectType() != enNPC || pChar->bodyID() == 0x190 || pChar->bodyID() == 0x191 ); //|| pChar->npcaitype() == 2 );
 				break;
 			// Monsters
 			case 2:
-				passed = !( !pChar->isNpc() || pChar->id() == 0x190 || pChar->id() == 0x191 || pChar->npcaitype() != 2 );
+				passed = !( pChar->objectType() != enNPC || pChar->bodyID() == 0x190 || pChar->bodyID() == 0x191 ); //|| pChar->npcaitype() != 2 );
 				break;
 			// Human
 			case 3:
-				passed = !( !pChar->isNpc() || ( pChar->id() != 0x190 && pChar->id() != 0x191 ) );
+				passed = !( pChar->objectType() != enNPC || ( pChar->bodyID() != 0x190 && pChar->bodyID() != 0x191 ) );
 				break;
 			case 4:
-				passed = ( pChar->socket() != NULL );
+				passed = ( pChar->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pChar)->socket() );
 				break;
 			};
 
@@ -164,7 +166,7 @@ public:
 				}
 			}
 
-			addTilePic( (pAmount*100)+20, 20, creatures[ pChar->id() ].icon );
+			addTilePic( (pAmount*100)+20, 20, creatures[ pChar->bodyID() ].icon );
 			addButton( (pAmount*100)+20, 110, 0xFA5, 0xFA7, pChar->serial() );
 			addCroppedText( (pAmount*100)+20, 90, 100, 40, pChar->name() );
 

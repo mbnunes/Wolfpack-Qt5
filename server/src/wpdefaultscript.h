@@ -93,10 +93,10 @@ public:
 	// and afterwards it's called for the item
 	// That way you can add special behaviour
 	virtual bool onServerstart() { return false; }
-	virtual bool onUse( P_CHAR User, P_ITEM Used ) { Q_UNUSED(User); Q_UNUSED(Used); return false; }
+	virtual bool onUse( P_PLAYER User, P_ITEM Used ) { Q_UNUSED(User); Q_UNUSED(Used); return false; }
 
 	virtual bool onSingleClick( P_ITEM Item, P_CHAR Viewer ) { Q_UNUSED(Item); Q_UNUSED(Viewer); return false; }
-	virtual bool onSingleClick( P_CHAR Character, P_CHAR Viewer ) { Q_UNUSED(Character); Q_UNUSED(Viewer); return false; }
+	virtual bool onSingleClick( P_PLAYER Character, P_CHAR Viewer ) { Q_UNUSED(Character); Q_UNUSED(Viewer); return false; }
 
 	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle ) { Q_UNUSED(Character); Q_UNUSED(Obstacle); return false; }
 	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle ) { Q_UNUSED(Character); Q_UNUSED(Obstacle); return false; }
@@ -104,16 +104,16 @@ public:
 	virtual bool onCreate( cUObject *object, const QString &definition ) { Q_UNUSED(object); Q_UNUSED(definition); return false; }
 
 	// if this events returns true (handeled) then we should not display the text
-	virtual bool onLogin( P_CHAR pChar ) { Q_UNUSED(pChar); return false; }
-	virtual bool onLogout( P_CHAR pChar ) { Q_UNUSED(pChar); return false; }
+	virtual bool onLogin( P_PLAYER pChar ) { Q_UNUSED(pChar); return false; }
+	virtual bool onLogout( P_PLAYER pChar ) { Q_UNUSED(pChar); return false; }
 	virtual bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ) { Q_UNUSED(Character); Q_UNUSED(speechType); Q_UNUSED(speechColor); Q_UNUSED(speechFont); Q_UNUSED(Text); Q_UNUSED(Lang); return false; }
 	virtual bool onWarModeToggle( P_CHAR Character, bool War ) { Q_UNUSED(Character); Q_UNUSED(War); return false; }
-	virtual bool onHelp( P_CHAR Character ) { Q_UNUSED(Character); return false; }
-	virtual bool onChat( P_CHAR Character ) { Q_UNUSED(Character); return false; }
+	virtual bool onHelp( P_PLAYER Character ) { Q_UNUSED(Character); return false; }
+	virtual bool onChat( P_PLAYER Character ) { Q_UNUSED(Character); return false; }
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { Q_UNUSED(Character); Q_UNUSED(Skill); return false; }
-	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { Q_UNUSED(pChar); Q_UNUSED(pObject); Q_UNUSED(id); return false; }
-	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
-	virtual bool onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltipList* tooltip ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
+	virtual bool onContextEntry( P_PLAYER pChar, cUObject *pObject, UINT16 id ) { Q_UNUSED(pChar); Q_UNUSED(pObject); Q_UNUSED(id); return false; }
+	virtual bool onShowContextMenu( P_PLAYER pChar, cUObject *pObject ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
+	virtual bool onShowToolTip( P_PLAYER pChar, cUObject *pObject, cUOTxTooltipList* tooltip ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
 	virtual bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin ) { Q_UNUSED( pChar ); Q_UNUSED( pOrigin ); return false; }
 	virtual QString onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin ) { Q_UNUSED( pChar ); Q_UNUSED( pOrigin ); return (char*)0; }
 

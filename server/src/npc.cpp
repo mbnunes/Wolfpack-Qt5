@@ -625,8 +625,7 @@ void cNPC::callGuards()
 	} else 
 		return;
 
-	cBaseChar::callGuards()
-
+	cBaseChar::callGuards();
 }
 
 void cNPC::showName( cUOSocket *socket )

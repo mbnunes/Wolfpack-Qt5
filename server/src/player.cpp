@@ -1388,26 +1388,7 @@ bool cPlayer::onChat( void )
 bool cPlayer::onShowContext( cUObject *object )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onShowContextMenu( (P_CHAR)this, object ) )
-			return true;
-
-	return false;
-}
-
-bool cPlayer::onShowTooltip( P_CHAR sender, cUOTxTooltipList* tooltip )
-{
-
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip  ) )
-			return true;
-
-	// Try to process the hooks then
-	QValueVector< WPDefaultScript* > hooks;
-	QValueVector< WPDefaultScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SHOWTOOLTIP );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-		if( (*it)->onShowToolTip( sender, this, tooltip ) ) 
+		if( scriptChain[ i ]->onShowContextMenu( this, object ) )
 			return true;
 
 	return false;

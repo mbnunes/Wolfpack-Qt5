@@ -59,7 +59,7 @@ private:
 public:
 	void Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence );
 	void CombatWalk( P_CHAR pc );
-	void NpcMovement( unsigned int currenttime, P_CHAR pc_i );
+	void NpcMovement( unsigned int currenttime, P_NPC pc_i );
 	bool canLandMonsterMoveHere( const Coord_cl& ) const;
 	bool CheckForCharacterAtXYZ(P_CHAR pc, const Coord_cl &pos );
 private:
@@ -80,7 +80,7 @@ private:
 
 	short int CheckMovementType(P_CHAR pc);
 
-	void randomNpcWalk( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 type );
+	void randomNpcWalk( P_NPC pChar, Q_UINT8 dir, Q_UINT8 type );
 	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
 
 	bool consumeStamina( P_PLAYER pChar, bool running );
@@ -88,10 +88,9 @@ private:
 	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
 	void checkRunning( cUOSocket*, P_CHAR, Q_UINT8 );
 	void checkStealth( P_CHAR );
-	void sendWalkToOther( P_CHAR pChar, P_CHAR pWalker, const Coord_cl& oldpos );
+	void sendWalkToOther( P_PLAYER pChar, P_PLAYER pWalker, const Coord_cl& oldpos );
 
 	void handleItemCollision( P_CHAR pChar );
-	void outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord_cl& oldpos );
 	void HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos);
 	void HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket);
 	

@@ -48,6 +48,10 @@
 #include "typedefs.h"
 #include "magic.h"
 #include "itemid.h"
+#include "basechar.h"
+#include "npc.h"
+#include "player.h"
+#include "chars.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -68,11 +72,11 @@ void checktimers() // Check shutdown timers
 	lclock = tclock;
 }
 
-void restockNPC( UINT32 currenttime, P_CHAR pc_i )
+void restockNPC( UINT32 currenttime, P_NPC pc_i )
 {
 	if( SrvParams->shopRestock() && ( shoprestocktime <= currenttime ) )
 	{
-		pc_i->restock();
+//		pc_i->restock();
 	}
 }
 
@@ -81,85 +85,91 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 	if( !pc )
 		return;
 
-	INT32 oldHealth = pc->hp();
-	INT32 oldStamina = pc->stm();
-	INT32 oldMana = pc->mn();
+	INT32 oldHealth = pc->hitpoints();
+	INT32 oldStamina = pc->stamina();
+	INT32 oldMana = pc->mana();
 
 	// Regeneration stuff
-	if( !pc->dead() )
+	if( !pc->isDead() )
 	{
 		// Health regeneration
-		if( pc->regen() <= currenttime )
+		if( pc->regenHitpointsTime() <= currenttime )
 		{
 			UINT32 interval = SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
 
 			// If it's not disabled hunger affects our health regeneration
-			if( pc->hp() < pc->st() && pc->hunger() > 3 || SrvParams->hungerRate() == 0 )
+			if( pc->hitpoints() < pc->maxHitpoints() && pc->hunger() > 3 || SrvParams->hungerRate() == 0 )
 			{
-				for( UINT16 c = 0; c < pc->st() + 1; ++c )
+				for( UINT16 c = 0; c < pc->maxHitpoints() + 1; ++c )
 				{
-					if( pc->regen() + ( c * interval ) <= currenttime && pc->hp() <= pc->st() )
+					if( pc->regenHitpointsTime() + ( c * interval ) <= currenttime && pc->hitpoints() <= pc->maxHitpoints() )
 					{
 						if( pc->skillValue( HEALING ) < 500 )
-							pc->setHp( pc->hp() + 1 );
+							pc->setHitpoints( pc->hitpoints() + 1 );
 					
 						else if (pc->skillValue( HEALING ) < 800)
-							pc->setHp( pc->hp() + 2 );
+							pc->setHitpoints( pc->hitpoints() + 2 );
 
 						else 
-							pc->setHp( pc->hp() + 3 );
+							pc->setHitpoints( pc->hitpoints() + 3 );
 
-						if( pc->hp() > pc->st() )
+						if( pc->hitpoints() > pc->maxHitpoints() )
 						{
-							pc->setHp( pc->st() );
+							pc->setHitpoints( pc->maxHitpoints() );
 							break;
 						}
 					}
 				}
 			}
 
-			pc->setRegen( currenttime + interval );
+			pc->setRegenHitpointsTime( currenttime + interval );
 		}
 
 		// Stamina regeneration
-		if( pc->regen2() <= currenttime )
+		if( pc->regenStaminaTime() <= currenttime )
 		{
 			UINT32 interval = SrvParams->staminarate()*MY_CLOCKS_PER_SEC;
-			for( UINT16 c = 0; c < pc->effDex() + 1; ++c )
+			for( UINT16 c = 0; c < pc->maxStamina() + 1; ++c )
 			{
-				if (pc->regen2() + (c*interval) <= currenttime && pc->stm() <= pc->effDex())
+				if (pc->regenStaminaTime() + (c*interval) <= currenttime && pc->stamina() <= pc->maxStamina())
 				{
-					pc->setStm( pc->stm() + 1 );
-					if( pc->stm() > pc->effDex() )
+					pc->setStamina( pc->stamina() + 1 );
+					if( pc->stamina() > pc->maxStamina() )
 					{
-						pc->setStm( pc->effDex() );
+						pc->setStamina( pc->maxStamina() );
 						break;
 					}
 				}
 			}
-			pc->setRegen2( currenttime + interval );			
+			pc->setRegenStaminaTime( currenttime + interval );			
 		}
 
 		// OSI Style Mana regeneration by blackwind
 		// if (pc->in>pc->mn)  this leads to the 'mana not subtracted' bug (Duke)
-		if( pc->regen3() <= currenttime )
+		if( pc->regenManaTime() <= currenttime )
 		{
 			unsigned int interval = SrvParams->manarate()*MY_CLOCKS_PER_SEC;
-			for( UINT16 c = 0; c < pc->in() + 1 ; ++c )
+			for( UINT16 c = 0; c < pc->maxMana() + 1 ; ++c )
 			{
-				if (pc->regen3() + (c*interval) <= currenttime && pc->mn() <= pc->in())
+				if (pc->regenManaTime() + (c*interval) <= currenttime && pc->mana() <= pc->maxMana())
 				{
-				pc->setMn( pc->mn() + 1 );
-				if( pc->med() )
-				
-					if (pc->mn()>pc->in())
+					pc->setMana( pc->mana() + 1 );
+/*					if( pc->isMeditating() )
+						pc->setMana( pc->mana() + 1 );*/
+
+					if (pc->mana()>pc->maxMana())
 					{
-						if ( pc->med() )
+						if ( pc->isMeditating() )
 						{
-							pc->socket()->sysMessage( tr("You are at peace." ) );
-							pc->setMed( false );
+							if( pc->objectType() == enPlayer )
+							{
+								P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
+								if( pp->socket() )
+									pp->socket()->sysMessage( tr("You are at peace." ) );
+							}
+							pc->setMeditating( false );
 						}
-						pc->setMn( pc->in() );
+						pc->setMana( pc->maxMana() );
 						break;
 					}
 				}
@@ -170,22 +180,22 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 				// 100 = Maximum skill (GM)
 				// 50 = int affects mana regen (%50)
 				int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParams->manarate());
-				int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skillValue(MEDITATION) + 1)/10) + ((pc->in() + 1) / 2)) / ratio));
-				if (pc->med())
+				int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skillValue(MEDITATION) + 1)/10) + ((pc->intelligence() + 1) / 2)) / ratio));
+				if (pc->isMeditating())
 				{
-					pc->setRegen3( currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC) );
+					pc->setRegenManaTime( currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC) );
 				}
 				else
-					pc->setRegen3( currenttime + ((armorhandicap + charsmeditsecs)* MY_CLOCKS_PER_SEC) );
+					pc->setRegenManaTime( currenttime + ((armorhandicap + charsmeditsecs)* MY_CLOCKS_PER_SEC) );
 			}
 			else 
-				pc->setRegen3( currenttime + interval );
+				pc->setRegenManaTime( currenttime + interval );
 			}
 			// end Mana regeneration
 			
 /* should be a temporal effect!
 		// only if not permanently hidden
-			if( ( pc->hidden() == 2 ) && ( pc->invistimeout() <= currenttime ) && !pc->isHiddenPermanently() )
+			if( ( pc->hidden() == 2 ) && ( pc->invisnextHitTime() <= currenttime ) && !pc->isHiddenPermanently() )
 			{
 				pc->setHidden( 0 );
 				pc->setStealth(-1);
@@ -195,29 +205,33 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 	}
 
 	// Check if the character died
-	if( pc->hp() <= 0 && !pc->dead() )
+	if( pc->hitpoints() <= 0 && !pc->isDead() )
 		pc->kill();
 
-	if( pc->hp() > pc->st() )
-		pc->setHp( pc->st() );
+	if( pc->hitpoints() > pc->maxHitpoints() )
+		pc->setHitpoints( pc->maxHitpoints() );
 
-	if( pc->stm() > pc->effDex() )
-		pc->setStm( pc->effDex() );
+	if( pc->stamina() > pc->maxStamina() )
+		pc->setStamina( pc->maxStamina() );
 
-	if( pc->mn() > pc->in() )
-		pc->setMn( pc->in() );
+	if( pc->mana() > pc->maxMana() )
+		pc->setMana( pc->maxMana() );
 
 	// Now check if our Health, Stamina or Mana has changed
-	if( oldHealth != pc->hp() )
+	if( oldHealth != pc->hitpoints() )
 		pc->updateHealth();
 
-	if( pc->socket() )
+	if( pc->objectType() == enPlayer )
 	{
-		if( oldStamina != pc->stm() )
-			pc->socket()->updateStamina();
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
+		if( pp->socket() )
+		{
+			if( oldStamina != pp->stamina() )
+				pp->socket()->updateStamina();
 
-		if( oldMana != pc->mn() )
-			pc->socket()->updateMana();
+			if( oldMana != pp->mana() )
+				pp->socket()->updateMana();
+		}
 	}
 }
 
@@ -261,7 +275,7 @@ static int check_house_decay()
 }
 
 
-void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInstance()
+void checkPC( P_PLAYER pc, unsigned int currenttime ) //Char cMapObjects::getInstance()
 {
 	cUOSocket *socket = pc->socket();
 
@@ -279,49 +293,43 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	
 	// We are not swinging 
 	// So set up a swing target and start swinging
-	if( !pc->dead() && pc->swingtarg() == -1 )
+	if( !pc->isDead() && pc->swingTarget() == INVALID_SERIAL )
 		Combat::combat( pc );
 
 	// We are swinging and completed swinging
-	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout() <= currenttime ) )
+	else if( !pc->isDead() && ( pc->swingTarget() >= 0 && pc->nextHitTime() <= currenttime ) )
 		Combat::checkandhit( pc );
 
 	// Unmute players who have been muted for a certain amount of time
-	if( pc->isPlayer() && pc->squelched() == 2 )
+	if( pc->isMuted() )
 	{
-		if( pc->mutetime() && ( pc->mutetime() <= currenttime ) )
+		if( pc->muteTime() && ( pc->muteTime() <= currenttime ) )
 		{
-			pc->setSquelched(0);
-			pc->setMutetime(0);
+			pc->setMuted( false );
+			pc->setMuteTime( 0 );
 			socket->sysMessage( tr( "You are no longer muted." ) );
 		}
 	}
 
 	// Reputation System
-	if( pc->isPlayer() )
+	if( pc->criminalTime() > 0 && pc->criminalTime() <= currenttime  )
 	{
-		if ( pc->crimflag() > 0 && ( pc->crimflag() <= currenttime  ) &&  pc->isCriminal() )//AntiChrist
-		{
-			socket->sysMessage( tr( "You are no longer criminal" ) );
-			pc->setCrimflag(0);
-			pc->setInnocent();
-		}
-
-		if( pc->murderrate() < currenttime )
-		{
-			if (pc->kills()>0)
-			{
-//				pc->kills--;
-				tempuint = pc->kills();
-				pc->setKills( --tempuint );
-			}
-			if ((pc->kills()==SrvParams->maxkills())&&(SrvParams->maxkills()>0))
-				socket->sysMessage( tr( "You are no longer a murderer." ) );
-			pc->setMurderrate( ( SrvParams->murderdecay() * MY_CLOCKS_PER_SEC ) + currenttime );
-		}
-
-		setcharflag( pc );
+		socket->sysMessage( tr( "You are no longer criminal" ) );
+		pc->setCriminalTime(0);
 	}
+
+	if( pc->murdererTime() > 0 && pc->murdererTime() < currenttime )
+	{
+		if( pc->kills() > 0 )
+			pc->setKills( pc->kills() - 1 );
+
+		if ((pc->kills()<=SrvParams->maxkills())&&(SrvParams->maxkills()>0))
+			socket->sysMessage( tr( "You are no longer a murderer." ) );
+		else
+			pc->setMurdererTime( ( SrvParams->murderdecay() * MY_CLOCKS_PER_SEC ) + currenttime );
+	}
+
+	setcharflag( pc );
 
 /* still needed !?
 	if( pc->isPlayer() && pc->casting() )//PC casting a spell
@@ -346,7 +354,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 		if( timer == 0 )
 			timer = 1;
 
-		if( socket && !pc->dead() && ( (rand()%(timer) ) == (timer/2))) 
+		if( socket && !pc->isDead() && ( (rand()%(timer) ) == (timer/2))) 
 			bgsound( pc );
 	}
 
@@ -385,7 +393,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	}
 */
 
-	if( SrvParams->hungerRate() > 1 && ( pc->hungertime() <= currenttime  ) )
+	if( SrvParams->hungerRate() > 1 && ( pc->hungerTime() <= currenttime  ) )
 	{
 		if( !pc->isGMorCounselor() && pc->hunger() ) 
 			pc->setHunger( pc->hunger() - 1 ); // GMs and Counselors don't get hungry
@@ -410,13 +418,13 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	if( ( hungerdamagetimer <= currenttime ) && SrvParams->hungerDamage() )
 	{
 		hungerdamagetimer=currenttime+(SrvParams->hungerDamageRate()*MY_CLOCKS_PER_SEC); /** set new hungertime **/
-		if( pc->hp() > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->dead() )
+		if( pc->hitpoints() > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->isDead() )
 		{
 			socket->sysMessage( tr( "You are starving." ) );
 //			pc->hp -= SrvParams->hungerDamage();
-			pc->setHp( pc->hp() - SrvParams->hungerDamage() );
+			pc->setHitpoints( pc->hitpoints() - SrvParams->hungerDamage() );
 			
-			if( pc->hp() <=0 )
+			if( pc->hitpoints() <=0 )
 			{
 				socket->sysMessage( tr( "You have died of starvation." ) );
 				pc->kill();
@@ -424,32 +432,32 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 		}
 	}
 
-	// new math + poison wear off timer added by lord binary !
-	if( pc->poisoned() && !pc->isInvul() )
+/*	// new math + poison wear off timer added by lord binary !
+	if( pc->poisoned() && !pc->isInvulnerable() )
 	{
-		if( pc->poisontime() <= currenttime )
+		if( pc->poisonTime() <= currenttime )
 		{
-			if( pc->poisonwearofftime() > currenttime ) // lb, makes poison wear off pc's
+			if( pc->poisonWearOffTime() > currenttime ) // lb, makes poison wear off pc's
 			{
 				// We only support 4 levels of poison here.
 				switch( pc->poisoned() )
 				{
 				case 1:
-					pc->setPoisontime(currenttime+(5*MY_CLOCKS_PER_SEC));
-					if( pc->poisontxt() <= currenttime )
+					pc->setPoisonTime(currenttime+(5*MY_CLOCKS_PER_SEC));
+					if( pc->isontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						pc->emote( tr( "*%1 looks a bit nauseous!*" ).arg( pc->name() ), 0x26 );
 					}
 				 
 //					pc->hp -= QMAX(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
-					tempshort = pc->hp();
+					tempshort = pc->hitpoints();
 					tempshort -= QMAX(((tempshort)*RandomNum(5,15))/100, RandomNum(0,1) );
-					pc->setHp( tempshort );
+					pc->setHitpoints( tempshort );
 					pc->updateHealth();
 					break;
 				case 2:
-					pc->setPoisontime(currenttime+(4*MY_CLOCKS_PER_SEC));
+					pc->setPoisonTime(currenttime+(4*MY_CLOCKS_PER_SEC));
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
@@ -457,13 +465,13 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					}
 					
 //					pc->hp -= QMAX(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
-					tempshort = pc->hp();
+					tempshort = pc->hitpoints();
 					tempshort -= QMAX(((tempshort)*RandomNum(10,20))/100, RandomNum(0,1));
-					pc->setHp( tempshort );
+					pc->setHitpoints( tempshort );
 					pc->updateHealth();
 					break;
 				case 3:
-					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
+					pc->setPoisonTime(currenttime+(3*MY_CLOCKS_PER_SEC));
 					
 					if( pc->poisontxt() <= currenttime )
 					{
@@ -472,13 +480,13 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					}
 					
 //					pc->hp -= QMAX( ( pc->hp * RandomNum( 20, 30 ) ) / 100, RandomNum( 0, 1 ) ); // between 20% and 30% of player's hp 
-					tempshort = pc->hp();
+					tempshort = pc->hitpoints();
 					tempshort -= QMAX( ( tempshort * RandomNum( 20, 30 ) ) / 100, RandomNum( 0, 1 ) );
-					pc->setHp( tempshort );
+					pc->setHitpoints( tempshort );
 					pc->updateHealth();
 					break;
 				case 4:
-					pc->setPoisontime( currenttime+(3*MY_CLOCKS_PER_SEC) );
+					pc->setPoisonTime( currenttime+(3*MY_CLOCKS_PER_SEC) );
 
 					if( pc->poisontxt() <= currenttime )
 					{
@@ -487,9 +495,9 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					}
 				
 //					pc->hp -= QMAX( ( pc->hp * RandomNum( 30, 40 ) ) / 100, 1 ); //between 30% and 40% of player's hp
-					tempshort = pc->hp();
+					tempshort = pc->hitpoints();
 					tempshort -= QMAX( ( tempshort * RandomNum( 30, 40 ) ) / 100, 1 );
-					pc->setHp( tempshort );
+					pc->setHitpoints( tempshort );
 					pc->updateHealth();
 					break;
 
@@ -499,7 +507,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 					return;
 				}
 
-				if( pc->hp() < 1 )
+				if( pc->hitpoints() < 1 )
 				{
 					socket->sysMessage( tr( "The poison killed you.") );
 					pc->kill();
@@ -508,19 +516,19 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 		} // end if poison-wear off-timer
 	} // end if poison-damage timer
 
-	if( pc->poisoned() && pc->poisonwearofftime() <= currenttime )
+	if( pc->poisoned() && pc->poisonWearOffTime() <= currenttime )
 	{
 		pc->setPoisoned( 0 );
 		pc->update(); // a simple status-update should be enough here
 		socket->sysMessage( tr( "The poison has worn off." ) );
-	}
+	}*/
 }
 
-void checkNPC( P_CHAR pc, unsigned int currenttime )
+void checkNPC( P_NPC pc, unsigned int currenttime )
 {
 	if (pc == NULL)
 		return;
-	if (pc->stablemaster_serial() != INVALID_SERIAL) return;
+	if (pc->stablemasterSerial() != INVALID_SERIAL) return;
 
 	int pcalc;
 	char t[120];
@@ -530,21 +538,21 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
     setcharflag( pc );
 
 	// We are at war and want to prepare a new swing
-	if( !pc->dead() && pc->swingtarg() == -1 && pc->war() )
+	if( !pc->isDead() && pc->swingTarget() == -1 && pc->isAtWar() )
 		Combat::combat( pc );
 
 	// We are swinging and completed our move
-	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout() <= currenttime ) )
+	else if( !pc->isDead() && ( pc->swingTarget() >= 0 && pc->nextHitTime() <= currenttime ) )
 		Combat::checkandhit( pc );
 
 	Magic->CheckFieldEffects2( currenttime, pc, 0 );
 
-	if( pc->shop() )
+/*	if( pc->shop() )
 		restockNPC( currenttime, pc );
-
+*/
 	if( !pc->free )
 	{
-		if( pc->summontimer() && ( pc->summontimer() <= currenttime ) )
+		if( pc->summonTime() && ( pc->summonTime() <= currenttime ) )
 		{
 			pc->soundEffect( 0x01FE );
 			pc->setDead( true );
@@ -553,8 +561,8 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 		}
 	}
 
-	// Character is not fleeing but reached the border
-	if( pc->npcWander() != 5 && pc->hp() < pc->st()*pc->fleeat() / 100 )
+/*	// Character is not fleeing but reached the border
+	if( pc->wanderType() != enFlee && pc->hitpoints() < pc->st()*pc->fleeat() / 100 )
 	{
 		pc->setOldNpcWander( pc->npcWander() );
 		pc->setNpcWander(5);
@@ -562,70 +570,70 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	}
 
     // Character is fleeing and has regenerated
-	if( pc->npcWander() == 5 && pc->hp() > pc->st()*pc->reattackat() / 100 )
+	if( pc->npcWander() == 5 && pc->hitpoints() > pc->st()*pc->reattackat() / 100 )
 	{
 		pc->setNpcWander( pc->oldnpcWander() );
 		pc->setNextMoveTime();
 		pc->setOldNpcWander( 0 );
-	}
+	}*/
 
-	// new poisoning code
-	if (pc->poisoned() && !(pc->isInvul()) )
+/*	// new poisoning code
+	if (pc->poisoned() && !(pc->isInvulnerable()) )
 	{
-		if( pc->poisontime() <= currenttime )
+		if( pc->poisonTime() <= currenttime )
 		{
-			if (pc->poisonwearofftime()>currenttime) // lb, makes poison wear off pc's
+			if (pc->poisonWearOffTime()>currenttime) // lb, makes poison wear off pc's
 			{
 				switch (pc->poisoned())
 				{
 				case 1:
-					pc->setPoisontime(currenttime+(5*MY_CLOCKS_PER_SEC));
+					pc->setPoisonTime(currenttime+(5*MY_CLOCKS_PER_SEC));
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						pc->emote( tr("* %1 looks a bit nauseous *").arg(pc->name()), 0x0026);
 					}
 //					pc->hp -= RandomNum(1,2);
-					pc->setHp( pc->hp() - RandomNum(1,2) );
+					pc->setHitpoints( pc->hitpoints() - RandomNum(1,2) );
 					pc->updateHealth();
 					break;
 				case 2:
-					pc->setPoisontime(currenttime+(4*MY_CLOCKS_PER_SEC));
+					pc->setPoisonTime(currenttime+(4*MY_CLOCKS_PER_SEC));
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						pc->emote( tr("* %1 looks disoriented and nauseous! *").arg(pc->name()), 0x0026);
 					}
 
-					pcalc = ( ( pc->hp() * RandomNum(2,5) ) / 100) + RandomNum(0,2); // damage: 1..2..5% of hp's+ 1..2 constant
+					pcalc = ( ( pc->hitpoints() * RandomNum(2,5) ) / 100) + RandomNum(0,2); // damage: 1..2..5% of hp's+ 1..2 constant
 					
 //					pc->hp -= pcalc;
-					pc->setHp( pc->hp() - pcalc);
+					pc->setHitpoints( pc->hitpoints() - pcalc);
 					pc->updateHealth();
 					break;
 				case 3:
-					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
+					pc->setPoisonTime(currenttime+(3*MY_CLOCKS_PER_SEC));
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						pc->emote( tr("* %1 is in severe pain! *").arg(pc->name()), 0x0026 );
 					}
-					pcalc=( ( pc->hp() * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
+					pcalc=( ( pc->hitpoints() * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
 //					pc->hp -= pcalc;
-					pc->setHp( pc->hp() - pcalc);
+					pc->setHitpoints( pc->hitpoints() - pcalc);
 					pc->updateHealth();
 					break; // lb !!!
 				case 4:
-					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
+					pc->setPoisonTime(currenttime+(3*MY_CLOCKS_PER_SEC));
 					if( pc->poisontxt() <= currenttime )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
 						pc->emote( tr("* %s looks extremely weak and is wrecked in pain! *").arg(pc->name()), 0x0026 );
 					}
 
-					pcalc=( (pc->hp() * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
+					pcalc=( (pc->hitpoints() * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
 //					pc->hp -= pcalc;
-					pc->setHp(pc->hp() - pcalc);
+					pc->setHitpoints(pc->hitpoints() - pcalc);
 					pc->updateHealth();
 					break;
 				default:
@@ -633,7 +641,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					pc->setPoisoned(0);
 					return;
 				}
-				if( pc->hp() < 1 )
+				if( pc->hitpoints() < 1 )
 				{
 					pc->kill();
 				}
@@ -641,7 +649,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 		} // end if poison-wear off-timer
 	} // end if poison-damage timer
 
-	if ((pc->poisonwearofftime()<=currenttime))
+	if ((pc->poisonWearOffTime()<=currenttime))
 	{
 		if ((pc->poisoned()))
 		{
@@ -649,16 +657,16 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			pc->update();
 		}
 	}
-
+*/
 	//hunger code for npcs
-	if( SrvParams->hungerRate() && (pc->hungertime() <= currenttime ) )
+	if( SrvParams->hungerRate() && (pc->hungerTime() <= currenttime ) )
 	{
 		t[0] = '\0';
 
 		if (pc->hunger()) 
 			pc->setHunger( pc->hunger()-1 ); //Morrolan GMs and Counselors don't get hungry
 
-		if(pc->tamed() && pc->npcaitype() != 17)
+		if(pc->isTamed()) // && pc->npcaitype() != 17)
 		{//if tamed let's display his hungry status
 			switch(pc->hunger())
 			{
@@ -671,10 +679,10 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			case 0:
 				//maximum hunger - untame code
 				//pet release code here
-				if(pc->tamed())
+				if(pc->isTamed())
 				{
-					pc->setFtarg( INVALID_SERIAL );
-					pc->setNpcWander( 2 );
+					pc->setWanderFollowTarget( INVALID_SERIAL );
+					pc->setWanderType( enFreely );
 					pc->setTamed( false );
 
 					if( pc->owner() )
@@ -878,28 +886,28 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 			// we check tamed npcs more often than
 			// untamed npcs so they can react faster
-			if( ( !pChar->tamed() && checknpcs <= currenttime ) ||
-				( pChar->tamed() && checktamednpcs <= currenttime ) ||
-				( ( pChar->npcWander() == 1 ) && checknpcfollow <= currenttime ) )
+			if( ( !pChar->isTamed() && checknpcs <= currenttime ) ||
+				( pChar->isTamed() && checktamednpcs <= currenttime ) )
 			{
-				if( pChar->isNpc() )
+				if( pChar->objectType() == enNPC )
 				{
 					// Regenerate Mana+Stamina+Health
 					checkRegeneration( pChar, currenttime );
 
 					// We only process the AI for NPCs who are in a used area
 					if( pChar->dist( socket->player() ) <= 24 )
-						checkNPC( pChar, currenttime );
+						checkNPC( dynamic_cast<P_NPC>(pChar), currenttime );
 				}
 				// Timed for logout
-				else if(
-						pChar->logout() && 
-						( pChar->logout() >= currenttime ) 
-					 )
+				else if( pChar->objectType() == enPlayer )
 				{
-					pChar->setLogout( 0 );
-					pChar->removeFromView( false );
-					pChar->resend( false );
+					P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
+					if( pp->logoutTime() && pp->logoutTime() >= currenttime )
+					{
+						pp->setLogoutTime( 0 );
+						pp->removeFromView( false );
+						pp->resend( false );
+					}
 				}
 			}		
 		}

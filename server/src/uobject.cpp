@@ -296,9 +296,9 @@ bool cUObject::onUse( cUObject *Target )
 		bool Handeled = false;
 
 		if( !this->isChar() )
-			Handeled = scriptChain[ i ]->onUse( (P_CHAR)Target, (P_ITEM)this );
+			Handeled = scriptChain[ i ]->onUse( (P_PLAYER)Target, (P_ITEM)this );
 		else
-			Handeled = scriptChain[ i ]->onUse( (P_CHAR)this, (P_ITEM)Target );
+			Handeled = scriptChain[ i ]->onUse( (P_PLAYER)this, (P_ITEM)Target );
 
 		if( Handeled )
 			return true;
@@ -312,23 +312,23 @@ bool cUObject::onUse( cUObject *Target )
 	for( it = hooks.begin(); it != hooks.end(); ++it )
 	{
 		if( !this->isChar() )
-			(*it)->onUse( (P_CHAR)Target, (P_ITEM)this );
+			(*it)->onUse( (P_PLAYER)Target, (P_ITEM)this );
 		else
-			(*it)->onUse( (P_CHAR)this, (P_ITEM)Target );
+			(*it)->onUse( (P_PLAYER)this, (P_ITEM)Target );
 	}
 
 	if( isChar() )
 	{
 		hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_USE );
 		for( it = hooks.begin(); it != hooks.end(); ++it )
-				(*it)->onUse( (P_CHAR)this, (P_ITEM)Target );
+				(*it)->onUse( (P_PLAYER)this, (P_ITEM)Target );
 	}
 	
 	if( isItem() )
 	{
 		hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_USE );
 		for( it = hooks.begin(); it != hooks.end(); ++it )
-			(*it)->onUse( (P_CHAR)Target, (P_ITEM)this );
+			(*it)->onUse( (P_PLAYER)Target, (P_ITEM)this );
 	}
 
 	return false;

@@ -256,10 +256,7 @@ void cWorld::loadSql()
 
 		cTempEffect* pTE = NULL;
 
-		if( objectID == "TmpEff" )
-			pTE = new cTmpEff;
-
-		else if( objectID == "HIDECHAR" )
+		if( objectID == "HIDECHAR" )
 			pTE = new cDelayedHideChar( INVALID_SERIAL );
 
 		else if( objectID == "cPythonEffect" )

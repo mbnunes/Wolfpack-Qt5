@@ -41,6 +41,7 @@
 #include "srvparams.h"
 #include "typedefs.h"
 #include "basechar.h"
+#include "player.h"
 #include "network.h"
 #include "network/uorxpackets.h"
 #include "network/uotxpackets.h"
@@ -65,7 +66,7 @@ struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
 
 void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 {
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 	P_CHAR pVendor = FindCharBySerial( packet->serial() );
 
 	cUOTxClearBuy clearBuy;

@@ -45,6 +45,8 @@
 #include "TmpEff.h"
 #include "territories.h"
 
+class cUOTxTooltipList;
+
 // This class is the base interface for all char objects. 
 class cBaseChar : public cUObject
 {
@@ -138,15 +140,16 @@ public:
 	void callGuards();
 
 	// Wrapper events
-	virtual bool onSingleClick( P_CHAR Viewer ); // Shows the name of a character to someone else
+	virtual bool onSingleClick( P_PLAYER Viewer ); // Shows the name of a character to someone else
 	virtual bool onWalk( UI08 Direction, UI08 Sequence ); // Walks in a specific Direction
 	virtual bool onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
 	virtual bool onWarModeToggle( bool War ); // The character switches warmode
-	virtual bool onShowPaperdoll( P_CHAR pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
+	virtual bool onShowPaperdoll( P_PLAYER pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
 	virtual bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 	bool onDropOnChar( P_ITEM pItem );
-	QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
+	QString onShowPaperdollName( P_PLAYER pOrigin ); // only change the viewed name
+	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 
 	// getters
     SERIAL			attackerSerial() const;

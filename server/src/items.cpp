@@ -1239,7 +1239,7 @@ P_ITEM cAllItems::createListItem( QString Section )
 }
 
 // Added by DarkStorm
-bool cItem::onSingleClick( P_CHAR Viewer )
+bool cItem::onSingleClick( P_PLAYER Viewer )
 {
 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
@@ -1298,7 +1298,7 @@ bool cItem::onDropOnChar( P_CHAR pChar )
 	return false;
 }
 
-bool cItem::onShowTooltip( P_CHAR sender, cUOTxTooltipList* tooltip )
+bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )

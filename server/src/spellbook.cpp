@@ -131,7 +131,7 @@ bool cSpellBook::onUse( cUObject *Target )
 	return true;
 }
 
-bool cSpellBook::onSingleClick( P_CHAR Viewer )
+bool cSpellBook::onSingleClick( P_PLAYER Viewer )
 {
 	// See if there are scripted events, if not do it our way.
 	if( cItem::onSingleClick( Viewer ) )
