@@ -112,7 +112,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	this->boatdir = 0; // starting with north boatdirection
 
 	this->applyDefinition( Tag );
-	this->serial = ItemsManager::instance()->getUnusedSerial();
+	this->setSerial( ItemsManager::instance()->getUnusedSerial() );
 	ItemsManager::instance()->registerItem( this );
 	if( this->multiids_.size() < 4 || !this->isValidPlace( posx, posy, posz, 0 ) )
 	{
@@ -150,9 +150,9 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pTiller->MoveTo( this->pos().x + itemoffsets[0][ TILLER ][X], this->pos().y + itemoffsets[0][ TILLER ][Y], this->pos().z );
 		pTiller->priv = 0;
 		pTiller->setType( 117 );
-		pTiller->tags.set( "tiller", 1 );
-		pTiller->tags.set( "boatserial", this->serial );
-		this->itemserials[ TILLER ] = pTiller->serial;
+		pTiller->tags().set( "tiller", 1 );
+		pTiller->tags().set( "boatserial", this->serial() );
+		this->itemserials[ TILLER ] = pTiller->serial();
 		pTiller->setGateTime((unsigned int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC)));
 	}
 		
@@ -165,8 +165,8 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pPlankR->setType2( 2 );
 		pPlankR->MoveTo( this->pos().x + itemoffsets[0][ PORT_PLANK ][X], this->pos().y + itemoffsets[0][ PORT_PLANK ][Y], this->pos().z );
 		pPlankR->priv=0;//Nodecay
-		pPlankR->tags.set( "boatserial", this->serial );
-		this->itemserials[ PORT_PLANK ] = pPlankR->serial;
+		pPlankR->tags().set( "boatserial", this->serial() );
+		this->itemserials[ PORT_PLANK ] = pPlankR->serial();
 	}
 
 	P_ITEM pPlankL = Items->SpawnItem( pc_currchar, 1, "#", 0, this->itemids[0][ STAR_P_C ], 0, 0 );//Plank1 is on the LEFT side of the boat
@@ -178,8 +178,8 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pPlankL->setType2( 3 );//Plank sub type
 		pPlankL->MoveTo( this->pos().x + itemoffsets[0][ STARB_PLANK ][X], this->pos().y + itemoffsets[0][ STARB_PLANK ][Y], this->pos().z );
 		pPlankL->priv=0;
-		pPlankL->tags.set( "boatserial", this->serial );
-		this->itemserials[ STARB_PLANK ] = pPlankL->serial;
+		pPlankL->tags().set( "boatserial", this->serial() );
+		this->itemserials[ STARB_PLANK ] = pPlankL->serial();
 	}
 
 	P_ITEM pHold = Items->SpawnItem( pc_currchar, 1, "#", 0, this->itemids[0][ HOLD_ID ], 0, 0 );
@@ -190,8 +190,8 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pHold->setType( 1 );//Conatiner
 		pHold->MoveTo( this->pos().x + itemoffsets[0][ HOLD ][X], this->pos().y + itemoffsets[0][ HOLD ][Y], this->pos().z );
 		pHold->priv=0;
-		pHold->tags.set( "boatserial", this->serial );
-		this->itemserials[ HOLD ] = pHold->serial;
+		pHold->tags().set( "boatserial", this->serial() );
+		this->itemserials[ HOLD ] = pHold->serial();
 	}
 
 	if( siproblem > 0 )
@@ -234,7 +234,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		socket->send( &uoResume );
 	}
 	
-	this->SetOwnSerial( pc_currchar->serial );
+	this->SetOwnSerial( pc_currchar->serial() );
 }
 
 void cBoat::processNode( const QDomElement &Tag )
@@ -434,7 +434,7 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 		for( ri.Begin(); !ri.atEnd(); ri++ ) 
 		{
 			P_ITEM pi = ri.GetData();
-			if( ( pi != NULL ) && ( pi->serial != this->serial ) && ( pi->pos().x == (multi.x + posx) ) && ( pi->pos().y == (multi.y + posy) ) ) 
+			if( ( pi != NULL ) && ( pi->serial() != this->serial() ) && ( pi->pos().x == (multi.x + posx) ) && ( pi->pos().y == (multi.y + posy) ) ) 
 				return false;
 		}
 		*/
@@ -700,7 +700,7 @@ bool cBoat::move( void )
 		dy -= shift_;
 		break;
 	default:
-		clConsole.log( QString( "WARNING: cBoat::Move: invalid boatdirection caught (boatdir: %1, serial: %2), corrected to north boatdir!").arg(this->boatdir).arg(this->serial).latin1() );
+		clConsole.log( QString( "WARNING: cBoat::Move: invalid boatdirection caught (boatdir: %1, serial: %2), corrected to north boatdir!").arg(this->boatdir).arg(this->serial()).latin1() );
 		this->boatdir = 0;
 		dy -= moves_;
 		break;
@@ -860,7 +860,7 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 	QValueList< SERIAL >::iterator it = chars_.begin();
 	while( it != chars_.end() )
 	{
-		if( *it == pc_currchar->serial )
+		if( *it == pc_currchar->serial() )
 			charonboat = true;
 		++it;
 	}
@@ -1033,7 +1033,7 @@ void cBoat::setAutoSail (UOXSOCKET s, P_ITEM pMap, P_ITEM pTiller) {
 		return;
 	}
 
-	if( !pTiller->tags.get( "boatserial" ).isValid() )
+	if( !pTiller->tags().get( "boatserial" ).isValid() )
 		return;
 
 	if (!pMap->mapNumPin) {
@@ -1044,7 +1044,7 @@ void cBoat::setAutoSail (UOXSOCKET s, P_ITEM pMap, P_ITEM pTiller) {
 		sysmessage (s, "You must be on the boat to do that.");
 		return;
 	}
-	SERIAL bserial = pTiller->tags.get( "boatserial" ).toUInt();
+	SERIAL bserial = pTiller->tags().get( "boatserial" ).toUInt();
 	if (bserial != pc->multis) {
 		sysmessage (s, "You must be on the boat to do that.");
 		return;
@@ -1278,7 +1278,7 @@ void cBoat::load( char **result, UINT16 &offset )
 		multiids_.push_back( atoi( result[offset++] ) );
 
 	// Load the other tables
-	QString sql = "SELECT boats_itemids.a,boats_itemids.b,boats_itemids.id FROM boats_itemids WHERE serial = '" + QString::number( serial ) + "'";
+	QString sql = "SELECT boats_itemids.a,boats_itemids.b,boats_itemids.id FROM boats_itemids WHERE serial = '" + QString::number( serial() ) + "'";
 	cDBDriver driver;
 	cDBResult res = driver.query( sql );
 
@@ -1303,7 +1303,7 @@ void cBoat::load( char **result, UINT16 &offset )
 
 	res.free();
 
-	sql = "SELECT boats_itemoffsets.a,boats_itemoffsets.b,boats_itemoffsets.c,boats_itemoffsets.offset FROM boats_itemoffsets WHERE serial = '" + QString::number( serial ) + "'";
+	sql = "SELECT boats_itemoffsets.a,boats_itemoffsets.b,boats_itemoffsets.c,boats_itemoffsets.offset FROM boats_itemoffsets WHERE serial = '" + QString::number( serial() ) + "'";
 	res = driver.query( sql );
 
 	// Error Checking		
@@ -1334,7 +1334,7 @@ void cBoat::save()
 
 	setTable( "boats" );
 
-	addField( "serial", serial );
+	addField( "serial", serial() );
 	addField( "autosail", autosail_ );
 	addField( "boatdir", boatdir );
 
@@ -1346,7 +1346,7 @@ void cBoat::save()
 	for( i = 0; i < 4; ++i )
 		addField( QString( "multi%1" ).arg( i ), multiids_[i] );
 
-	addCondition( "serial", serial );
+	addCondition( "serial", serial() );
 	saveFields;
 
 	// Save the other tables as well	
@@ -1393,9 +1393,9 @@ bool cBoat::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "boats", QString( "serial = '%1'" ).arg( serial ) );
-	persistentBroker->addToDeleteQueue( "boats_itemoffsets", QString( "serial = '%1'" ).arg( serial ) );
-	persistentBroker->addToDeleteQueue( "boats_itemids", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "boats", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "boats_itemoffsets", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "boats_itemids", QString( "serial = '%1'" ).arg( serial() ) );
 
 	return cMulti::del();
 }

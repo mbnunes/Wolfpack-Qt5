@@ -58,7 +58,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 		return;
 
 	if( pc_k->spawnSerial() != INVALID_SERIAL ) 
-		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial);
+		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial());
 
 	pc_k->setOwner( 0 );
 	pc_k->setGuarding( 0 );
@@ -77,9 +77,9 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	}
 
 	// multi check
-	if( pc_k->multis != INVALID_SERIAL )
+	if( pc_k->multis() != INVALID_SERIAL )
 	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pc_k->multis ) );
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pc_k->multis() ) );
 		if( pMulti )
 		{
 			pMulti->removeChar( pc_k );

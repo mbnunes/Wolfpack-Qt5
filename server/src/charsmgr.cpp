@@ -75,8 +75,8 @@ void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pc != NULL)
 	{
-		insert(make_pair(pc->serial, pc));
-		lastUsedSerial = QMAX(lastUsedSerial, pc->serial);
+		insert(make_pair(pc->serial(), pc));
+		lastUsedSerial = QMAX(lastUsedSerial, pc->serial());
 	}
 	else
 	{
@@ -95,7 +95,7 @@ void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::wpbad_ptr)
 void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pc != NULL)
-		erase(pc->serial);
+		erase(pc->serial());
 	else
 		throw wp_exceptions::wpbad_ptr("Invalid argument pc at cCharsManager::unregisterChar");
 }

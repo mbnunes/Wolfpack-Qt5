@@ -216,7 +216,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		if( pickedAmount != pItem->amount() )
 		{
 			P_ITEM splitItem = new cItem( *pItem ); // Create a new item to pick that up
-			splitItem->SetSerial( ItemsManager::instance()->getUnusedSerial() );
+			splitItem->setSerial( ItemsManager::instance()->getUnusedSerial() );
 			splitItem->setAmount( pItem->amount() - pickedAmount );
 			P_ITEM pContainer = dynamic_cast<P_ITEM>(pItem->container());
 			if ( pContainer )
@@ -243,9 +243,9 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		pItem->removeFromCont( true );
 
 	// The item was in a multi
-	if( pItem->multis != INVALID_SERIAL )
+	if( pItem->multis() != INVALID_SERIAL )
 	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pItem->multis ) );
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pItem->multis() ) );
 		if( pMulti )
 			pMulti->removeItem( pItem );
 	}
@@ -533,7 +533,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 
 	// To prevent bad effects remove it from the clients view first
 	cUOTxRemoveObject rObject;
-	rObject.setSerial( pItem->serial );
+	rObject.setSerial( pItem->serial() );
 	socket->send( &rObject );
 
 	P_CHAR pChar = socket->player();
@@ -953,7 +953,7 @@ void cDragItems::dropOnGuard( cUOSocket* socket, P_ITEM pItem, P_CHAR pGuard )
 
 	addgold( socket, pVictim->questBountyReward() );
 	//goldsfx( client->socket(), pVictim->questBountyReward() );
-	Bounty->BountyDelete( pVictim->serial );
+	Bounty->BountyDelete( pVictim->serial() );
 	
 	// Thank them for their work
 	pGuard->talk( tr( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name() ).arg( pVictim->questBountyReward() ) );

@@ -80,7 +80,7 @@ public:
 		qArrow.setActive( 1 );
 		qArrow.setPos( pTarget->pos() );
 		pChar->socket()->send( &qArrow );
-		TempEffects::instance()->insert( new cRefreshTracking( pChar->serial ) );
+		TempEffects::instance()->insert( new cRefreshTracking( pChar->serial() ) );
 	}
 };
 
@@ -105,7 +105,7 @@ public:
 		// Start the refresh-timer
 		// Start the wearoff-timer
 		player->setTrackingTimer( uiCurrentTime + ( 30 * MY_CLOCKS_PER_SEC ) );
-		TempEffects::instance()->insert( new cRefreshTracking( player->serial ) );
+		TempEffects::instance()->insert( new cRefreshTracking( player->serial() ) );
 	}
 
 	cTrackingList( P_CHAR player, UINT8 type )
@@ -175,7 +175,7 @@ public:
 			}
 
 			addTilePic( (pAmount*100)+20, 20, creatures[ pChar->id() ].icon );
-			addButton( (pAmount*100)+20, 110, 0xFA5, 0xFA7, pChar->serial );
+			addButton( (pAmount*100)+20, 110, 0xFA5, 0xFA7, pChar->serial() );
 			addCroppedText( (pAmount*100)+20, 90, 100, 40, pChar->name() );
 
 			++pAmount;

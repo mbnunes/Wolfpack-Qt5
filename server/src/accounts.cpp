@@ -261,7 +261,7 @@ void cAccounts::reload()
 		P_CHAR pc = iterChars.GetData();
 		if( pc->account() )
 		{
-			characcnames.insert( pc->serial, pc->account()->login() );
+			characcnames.insert( pc->serial(), pc->account()->login() );
 		}
 	}
 

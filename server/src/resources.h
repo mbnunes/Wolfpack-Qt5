@@ -167,7 +167,7 @@ class cConvertResource : public cTargetRequest
 {
 	Q_OBJECT
 public:
-	cConvertResource( QString resname, cItem* pi ) : resourcename_( resname ), sourceserial_( pi->serial ) {}
+	cConvertResource( QString resname, cItem* pi ) : resourcename_( resname ), sourceserial_( pi->serial() ) {}
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 
 private:

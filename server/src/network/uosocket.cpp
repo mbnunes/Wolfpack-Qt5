@@ -372,7 +372,7 @@ void cUOSocket::disconnect( void )
 			_player->setHidden( 1 );
 		else
 		{
-			cDelayedHideChar* pTmpEff = new cDelayedHideChar( _player->serial );
+			cDelayedHideChar* pTmpEff = new cDelayedHideChar( _player->serial() );
 			pTmpEff->setExpiretime_s( SrvParams->quittime() );
 			TempEffects::instance()->insert( pTmpEff );
 		}
@@ -1034,7 +1034,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 void cUOSocket::showSpeech( const cUObject *object, const QString &message, Q_UINT16 color, Q_UINT16 font, cUOTxUnicodeSpeech::eSpeechType speechType ) const
 {
 	cUOTxUnicodeSpeech speech;
-	speech.setSource( object->serial );
+	speech.setSource( object->serial() );
 	speech.setName( object->name() );
 	speech.setFont( font );
 	speech.setColor( color );
@@ -1476,7 +1476,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 
 	// Draw the container
 	cUOTxDrawContainer dContainer;
-	dContainer.setSerial( pCont->serial );
+	dContainer.setSerial( pCont->serial() );
 	dContainer.setGump( gump );
 	send( &dContainer );
 
@@ -1507,13 +1507,13 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 
 		if( pCorpse->hairStyle() )
 		{
-			itemContent.addItem( 0x4FFFFFFE, pCorpse->hairStyle(), pCorpse->hairColor(), 0, 0, 1, pCorpse->serial );
+			itemContent.addItem( 0x4FFFFFFE, pCorpse->hairStyle(), pCorpse->hairColor(), 0, 0, 1, pCorpse->serial() );
 			++count;
 		}
 
 		if( pCorpse->beardStyle() )
 		{			
-			itemContent.addItem( 0x4FFFFFFF, pCorpse->beardStyle(), pCorpse->beardColor(), 0, 0, 1, pCorpse->serial );
+			itemContent.addItem( 0x4FFFFFFF, pCorpse->beardStyle(), pCorpse->beardColor(), 0, 0, 1, pCorpse->serial() );
 			++count;
 		}
 	}
@@ -1526,7 +1526,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 void cUOSocket::removeObject( cUObject *object )
 {
 	cUOTxRemoveObject rObject;
-	rObject.setSerial( object->serial );
+	rObject.setSerial( object->serial() );
 	send( &rObject );
 }
 
@@ -1649,7 +1649,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	{
 		if( SrvParams->persecute() )
 		{
-			_player->setTarg( pc_i->serial );
+			_player->setTarg( pc_i->serial() );
 			if( _player->targ() != INVALID_SERIAL ) 
 				Skills->Persecute( this );
 		} 
@@ -1676,24 +1676,24 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		return;
 	}
 
-	_player->setTarg( pc_i->serial );
+	_player->setTarg( pc_i->serial() );
 	_player->unhide();
 	_player->disturbMed();
 
 	// Accept the attack
-	attack.setSerial( pc_i->serial );
+	attack.setSerial( pc_i->serial() );
 	send( &attack );
 
 	// NPC already has a target 
 	// (And so is already fighting and should've been attacked by someone else)
 	if( pc_i->targ() != INVALID_SERIAL )
 	{
-		pc_i->setAttacker( _player->serial );
+		pc_i->setAttacker( _player->serial() );
 		pc_i->resetAttackFirst();
 	}
 
 	_player->setAttackFirst();
-	_player->setAttacker(pc_i->serial);
+	_player->setAttacker(pc_i->serial());
 	_player->turnTo( pc_i );
 
 	// The person being attacked is guarded by pets ?
@@ -1821,7 +1821,7 @@ void cUOSocket::resendWorld( bool clean )
 		if( clean )
 		{
 			cUOTxRemoveObject rObject;
-			rObject.setSerial( pChar->serial );
+			rObject.setSerial( pChar->serial() );
 			send( &rObject );
 		}
 		
@@ -1964,7 +1964,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	sendStats.setHp( pChar->hp() );
 
 	sendStats.setName( pChar->name() );
-	sendStats.setSerial( pChar->serial );
+	sendStats.setSerial( pChar->serial() );
 		
 	// Set the rest - and reset if nec.
 	if( pChar == _player )
@@ -2108,7 +2108,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	// Only allowed for pItem's contained by a character
 	cUOTxItemContent itemContent;
 	cUOTxVendorBuy vendorBuy;
-	vendorBuy.setSerial( pItem->serial );
+	vendorBuy.setSerial( pItem->serial() );
 
 	cItem::ContainerContent container = pItem->content();
 	cItem::ContainerContent::const_iterator it( container.begin() );
@@ -2123,7 +2123,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 			if( pItem->layer() == 0x1A && mItem->restock() <= 0 )
 				continue;
 
-			itemContent.addItem( mItem->serial, mItem->id(), mItem->color(), i, i, ( pItem->layer() == 0x1A ) ? mItem->restock() : mItem->amount(), pItem->serial );
+			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, i, ( pItem->layer() == 0x1A ) ? mItem->restock() : mItem->amount(), pItem->serial() );
 			vendorBuy.addItem( mItem->buyprice(), mItem->getName() );
 		}
 	}
@@ -2144,7 +2144,7 @@ void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 		sendVendorCont( pStock );
 
 	cUOTxDrawContainer drawContainer;
-	drawContainer.setSerial( pVendor->serial );
+	drawContainer.setSerial( pVendor->serial() );
 	drawContainer.setGump( 0x30 );
 
 	send( &drawContainer );
@@ -2152,7 +2152,7 @@ void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 
 void cUOSocket::handleHelpRequest( cUORxHelpRequest* packet )
 {
-	cHelpGump* pGump = new cHelpGump( this->player()->serial );
+	cHelpGump* pGump = new cHelpGump( this->player()->serial() );
 	send( pGump );
 }
 
@@ -2172,7 +2172,7 @@ void cUOSocket::clilocMessage( const Q_INT16 TypeID, const Q_INT16 FileID, const
 
 	if( object != 0 )
 	{
-		msg.setSerial( object->serial );
+		msg.setSerial( object->serial() );
 		msg.setType( cUOTxClilocMsg::OnObject );
 		if( object->isChar() )
 			msg.setName( object->name() );
@@ -2201,7 +2201,7 @@ void cUOSocket::clilocMessageAffix( const Q_INT16 TypeID, const Q_INT16 FileID, 
 
 	if( object != 0 )
 	{
-		msg.setSerial( object->serial );
+		msg.setSerial( object->serial() );
 		msg.setType( cUOTxClilocMsg::OnObject );
 		if( object->isChar() )
 			msg.setName( object->name() );
@@ -2316,7 +2316,7 @@ void cUOSocket::handleProfile( cUORxProfile *packet )
 	else if( packet->command() )
 	{
 		// You can only change your own profile
-		if( packet->serial() != _player->serial )
+		if( packet->serial() != _player->serial() )
 			sysMessage( tr( "You can only change your own profile" ) );
 		else
 			_player->setProfile( packet->text() );
@@ -2330,7 +2330,7 @@ void cUOSocket::handleRename( cUORxRename* packet )
 
 	// If we are no GM we can only rename characters
 	// we own (only pets here!)
-	if( packet->serial() == _player->serial )
+	if( packet->serial() == _player->serial() )
 		sysMessage( tr( "You can't rename yourself" ) );
 	else
 	{

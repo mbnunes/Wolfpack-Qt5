@@ -299,7 +299,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 260, tr( "Position (x,y,z,map):" ), 0x834 );
 		addInputField( 200, 260, 200, 16, 18, QString("%1,%2,%3,%4").arg( pChar->pos().x ).arg( pChar->pos().y ).arg( pChar->pos().z ).arg( pChar->pos().map ), 0x834 );
 		addText( 50, 280, tr( "Serial:" ), 0x834 );
-		addText( 200, 280, QString( "%1" ).arg( pChar->serial ), 0x834 );
+		addText( 200, 280, QString( "%1" ).arg( pChar->serial() ), 0x834 );
 		addText( 50, 300, tr( "Hunger:" ), 0x834 );
 		addInputField( 200, 300, 200, 16, 20, QString( "%1" ).arg( pChar->hunger() ), 0x834 );
 
@@ -573,7 +573,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 160, tr( "ID:" ), 0x834 );
 		addInputField( 200, 160, 200, 16,  3, QString( "0x%1" ).arg( QString::number( pItem->id(), 16 ) ), 0x834 );
 		addText( 50, 180, tr( "Serial:" ), 0x834 );
-		addText( 200, 180, QString( "%1" ).arg( pItem->serial ), 0x834 );
+		addText( 200, 180, QString( "%1" ).arg( pItem->serial() ), 0x834 );
 		addText( 50, 200, tr( "Position (x,y,z,map):" ), 0x834 );
 		addInputField( 200, 200, 200, 16,  5, QString("%1,%2,%3,%4").arg( pItem->pos().x ).arg( pItem->pos().y ).arg( pItem->pos().z ).arg( pItem->pos().map ), 0x834 );
 		addText( 50, 220, tr( "Color:" ), 0x834 );
@@ -692,7 +692,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 140, tr( "Time unused:" ), 0x834 );
 		addInputField( 200, 140, 200, 16, 32, QString( "%1" ).arg( pItem->time_unused ), 0x834 );
 		addText( 50, 160, tr( "Creator:" ), 0x834 );
-		addInputField( 200, 160, 200, 16, 33, QString( "%1" ).arg( pItem->creator ), 0x834 );
+		addInputField( 200, 160, 200, 16, 33, QString( "%1" ).arg( pItem->creator() ), 0x834 );
 		addText( 50, 180, tr( "Made with skill no.:" ), 0x834 );
 		addInputField( 200, 180, 200, 16, 34, QString( "%1" ).arg( pItem->madewith ), 0x834 );
 		addText( 50, 200, tr( "Morex:" ), 0x834 );
@@ -878,7 +878,7 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				break;
 			case 33:
 				if( it->second.length() > 0 )
-					item_->creator = it->second.latin1();
+					item_->setCreator( it->second );
 				break;
 			case 34:
 				item_->madewith = hex2dec( it->second ).toInt();
@@ -930,13 +930,11 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 }
 
-cTagsInfoGump::cTagsInfoGump( cUObject* object )
+cTagsInfoGump::cTagsInfoGump( const cUObject* object ) : object_( const_cast<cUObject*>(object) )
 {
-	object_ = object;
-
 	if( object )
 	{
-		QStringList allkeys = object->tags.getKeys();
+		QStringList allkeys = object->tags().getKeys();
 
 		UINT32 page_ = 0;
 		UINT32 numkeys = allkeys.size();
@@ -976,7 +974,7 @@ cTagsInfoGump::cTagsInfoGump( cUObject* object )
 			
 			for( i = 0; i < thiskeys; i++ )
 			{
-				addText( 50, 120 + i * 20, tr( "Tag \"%1\": %2" ).arg( keys[i] ).arg( object->tags.get( keys[i] ).asString() ), 0x834 );
+				addText( 50, 120 + i * 20, tr( "Tag \"%1\": %2" ).arg( keys[i] ).arg( object->tags().get( keys[i] ).asString() ), 0x834 );
 			}
 
 
@@ -1522,7 +1520,7 @@ cHelpGump::cHelpGump( SERIAL charSerial )
 
 	char_ = charSerial;
 	QStringList categories = cPagesManager::getInstance()->categories();
-	cPage* pPage = cPagesManager::getInstance()->find( pChar->serial );
+	cPage* pPage = cPagesManager::getInstance()->find( pChar->serial() );
 
 	UINT32 category = 0;
 	QStringList lines;

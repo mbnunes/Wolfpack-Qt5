@@ -601,7 +601,7 @@ PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	}
 
 	QString key = getArgStr( 0 );
-	cVariant value = self->pChar->tags.get( key );
+	cVariant value = self->pChar->tags().get( key );
 
 	if( value.type() == cVariant::String )
 		return PyString_FromString( value.asString().latin1() );
@@ -627,12 +627,12 @@ PyObject* wpChar_settag( wpChar* self, PyObject* args )
 
 	QString key = getArgStr( 0 );
 
-	self->pChar->tags.remove( key );
+	self->pChar->tags().remove( key );
 
 	if( checkArgStr( 1 ) )
-		self->pChar->tags.set( key, cVariant( getArgStr( 1 ) ) );
+		self->pChar->tags().set( key, cVariant( getArgStr( 1 ) ) );
 	else if( checkArgInt( 1 ) )
-		self->pChar->tags.set( key, cVariant( (int)getArgInt( 1 ) ) );
+		self->pChar->tags().set( key, cVariant( (int)getArgInt( 1 ) ) );
 
 	return PyTrue;
 }
@@ -653,7 +653,7 @@ PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 
 	QString key = getArgStr( 0 );
 	
-	return self->pChar->tags.get( key ).isValid() ? PyTrue : PyFalse;
+	return self->pChar->tags().get( key ).isValid() ? PyTrue : PyFalse;
 }
 
 /*!
@@ -671,7 +671,7 @@ PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 	}
 
 	QString key = getArgStr( 0 );
-	self->pChar->tags.remove( key );
+	self->pChar->tags().remove( key );
 
 	return PyTrue;
 }
@@ -1131,7 +1131,7 @@ PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	if( checkArgStr( 6 ) )
 		effect->setDispelFunc( getArgStr( 6 ) );
 
-	effect->setDest( self->pChar->serial );
+	effect->setDest( self->pChar->serial() );
 	effect->setExpiretime_ms( expiretime );
 	TempEffects::instance()->insert( effect );
 
@@ -1243,7 +1243,7 @@ PyObject* wpChar_follow( wpChar* self, PyObject* args )
 	if( !pChar || pChar == self->pChar )
 		return PyFalse;
 
-	self->pChar->setFtarg( pChar->serial );
+	self->pChar->setFtarg( pChar->serial() );
 	self->pChar->setNpcWander( 1 );
 	self->pChar->setNextMoveTime();
 

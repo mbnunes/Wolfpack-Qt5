@@ -342,7 +342,7 @@ PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
-	cVariant value = self->pItem->tags.get( key );
+	cVariant value = self->pItem->tags().get( key );
 
 	if( value.type() == cVariant::String )
 	{
@@ -375,12 +375,12 @@ PyObject* wpItem_settag( wpItem* self, PyObject* args )
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 
-	self->pItem->tags.remove( key );
+	self->pItem->tags().remove( key );
 
 	if( checkArgStr( 1 ) )
-		self->pItem->tags.set( key, cVariant( QString( getArgStr( 1 ) ) ) );
+		self->pItem->tags().set( key, cVariant( QString( getArgStr( 1 ) ) ) );
 	else if( checkArgInt( 1 ) )
-		self->pItem->tags.set( key, cVariant( (int)getArgInt( 1 ) ) );
+		self->pItem->tags().set( key, cVariant( (int)getArgInt( 1 ) ) );
 
 	return PyTrue;
 }
@@ -401,7 +401,7 @@ PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 	
-	return self->pItem->tags.get( key ).isValid() ? PyTrue : PyFalse;
+	return self->pItem->tags().get( key ).isValid() ? PyTrue : PyFalse;
 }
 
 /*!
@@ -419,7 +419,7 @@ PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 	}
 
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
-	self->pItem->tags.remove( key );
+	self->pItem->tags().remove( key );
 
 	return PyTrue;
 }
@@ -513,7 +513,7 @@ PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 	else
 		effect->setSerializable( false );
 	
-	effect->setDest( self->pItem->serial );
+	effect->setDest( self->pItem->serial() );
 	effect->setExpiretime_ms( expiretime );
 	TempEffects::instance()->insert( effect );
 

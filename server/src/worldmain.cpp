@@ -332,7 +332,7 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 */	}
 	else
 	{
-		if ( pi->multis == INVALID_SERIAL )
+		if ( pi->multis() == INVALID_SERIAL )
 		{
 			cMulti* pi_multi = cMulti::findMulti( pi->pos() );
 			if( !pi_multi )
@@ -357,7 +357,7 @@ bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 	int serial;
 	P_CHAR pc = FindCharBySerial(charserial);
 	if (pc == NULL) return false;
- 	serial= pc->serial;
+ 	serial = pc->serial();
  	bool foundMatch = false;
 	unsigned int ci;
 	cChar::ContainerContent container(pc->content());

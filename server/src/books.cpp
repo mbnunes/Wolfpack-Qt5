@@ -90,7 +90,7 @@ void cBook::load( char **result, UINT16 &offset )
 
 	// Load the pages
 	cDBDriver driver;
-	cDBResult res = driver.query( QString( "SELECT page,text FROM bookpages WHERE serial = '%1'" ).arg( serial ) );
+	cDBResult res = driver.query( QString( "SELECT page,text FROM bookpages WHERE serial = '%1'" ).arg( serial() ) );
 
 	while( res.fetchrow() )
 		content_.insert( res.getInt( 0 ), res.getString( 1 ) );
@@ -103,7 +103,7 @@ void cBook::save()
 	initSave;
 	setTable( "books" );
 
-	addField( "serial", serial );
+	addField( "serial", serial() );
 	addField( "predefined", predefined_ ? 1 : 0 );
 	addField( "readonly", readonly_ ? 1 : 0 );
 	addStrField( "title", title_ );
@@ -111,16 +111,16 @@ void cBook::save()
 	addStrField( "section", section_ );
 	addField( "pages", content_.count() );
 
-	addCondition( "serial", serial );
+	addCondition( "serial", serial() );
 	saveFields;
 
 	// Delete all Pages from the DB and reinsert them
 	// The Amount of pages CAN change!
 	if( isPersistent )
-		persistentBroker->executeQuery( QString( "DELETE FROM bookpages WHERE serial = '%1'" ).arg( serial ) );
+		persistentBroker->executeQuery( QString( "DELETE FROM bookpages WHERE serial = '%1'" ).arg( serial() ) );
 	
 	for ( QMap<int, QString>::iterator it = content_.begin(); it != content_.end(); ++it )
-		persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial ).arg( it.key() ).arg( __escapeReservedCharacters( it.data() ) ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial() ).arg( it.key() ).arg( __escapeReservedCharacters( it.data() ) ) );
 
 	cItem::save();
 }
@@ -130,8 +130,8 @@ bool cBook::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "books", QString( "serial = '%1'" ).arg( serial ) );
-	persistentBroker->addToDeleteQueue( "bookpages", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "books", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "bookpages", QString( "serial = '%1'" ).arg( serial() ) );
 
 	return cItem::del();
 }
@@ -372,7 +372,7 @@ void cBook::open( cUOSocket* socket )
 		this->refresh();
 
 	cUOTxBookTitle openBook;
-	openBook.setSerial( this->serial );
+	openBook.setSerial( this->serial() );
 	openBook.setWriteable( writeable() );
 	if( writeable() )
 		openBook.setFlag( 1 );
@@ -402,7 +402,7 @@ void cBook::open( cUOSocket* socket )
 
 		cUOTxBookPage readBook( size );
 		readBook.setBlockSize( (UINT16)size );
-		readBook.setSerial( this->serial );
+		readBook.setSerial( this->serial() );
 		readBook.setPages( content_.count() );
 
 		std::vector< QStringList >::iterator it = lines.begin();
@@ -439,7 +439,7 @@ void cBook::readPage( cUOSocket *socket, UINT32 page )
 	cUOTxBookPage readBook( size );
 
 	readBook.setBlockSize( (UINT16)size );
-	readBook.setSerial( this->serial );
+	readBook.setSerial( this->serial() );
 	readBook.setPages( 1 );
 
 	readBook.setPage( page, lines.size(), lines );

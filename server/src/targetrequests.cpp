@@ -274,14 +274,14 @@ bool cSkItemID::responsed( cUOSocket *socket, cUORxTarget *target )
 				// Show Creator by Magius(CHE)
 				if (pc_currchar->checkSkill( ITEMID, 250, 500, false ))
 				{
-					if (pi->creator.length()>0)
+					if (pi->creator().length()>0)
 					{
 						if (pi->madewith>0) 
-							socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.latin1()) ); // Magius(CHE)
+							socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator()) ); // Magius(CHE)
 						else if (pi->madewith<0) 
-							socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.latin1()) ); // Magius(CHE)
+							socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator()) ); // Magius(CHE)
 						else 
-							socket->sysMessage( tr("It is made by %1").arg(pi->creator.latin1()) ); // Magius(CHE)
+							socket->sysMessage( tr("It is made by %1").arg(pi->creator()) ); // Magius(CHE)
 					} else 
 						socket->sysMessage( tr("You don't know its creator!") );
 				} else 
@@ -768,7 +768,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				
 				pc_currchar->criminal();
 				
-				if (pc_npc->isInnocent() && pc_currchar->attacker() != pc_npc->serial && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
+				if (pc_npc->isInnocent() && pc_currchar->attacker() != pc_npc->serial() && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
 					pc_currchar->criminal();//Blue and not attacker and not guild
 				
 				if (pi->name() != "#")
@@ -1442,7 +1442,7 @@ bool cMultiChangeLockTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		return false;
 	}
 	
-	if( pi->multis == pMulti->serial && pi->type() != 117 )
+	if( pi->multis() == pMulti->serial() && pi->type() != 117 )
 	{
 		pi->setMagic((pi->magic() == 4 && pi->type() != 222) ? 0 : 4);
 		pi->update();

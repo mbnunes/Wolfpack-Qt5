@@ -175,7 +175,7 @@ void cNewMagic::unload()
 
 cEndCasting::cEndCasting( P_CHAR _mage, UINT8 _spell, UINT8 _type, UINT32 _delay )
 {
-	destSer = _mage->serial;
+	destSer = _mage->serial();
 	spell = _spell;
 	type = _type;
 	serializable = false;

@@ -269,9 +269,9 @@ bool WPPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id 
 	PyObject *tuple = PyTuple_New( 3 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
 	
-	if( isItemSerial( pObject->serial ) )
+	if( isItemSerial( pObject->serial() ) )
 		PyTuple_SetItem( tuple, 1, PyGetItemObject( (P_ITEM)pObject ) );
-	else if( isCharSerial( pObject->serial ) )
+	else if( isCharSerial( pObject->serial() ) )
 		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
 
 	PyTuple_SetItem( tuple, 2, PyInt_FromLong( id ) );
@@ -286,9 +286,9 @@ bool WPPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
 	PyObject *tuple = PyTuple_New( 2 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
 	
-	if( isItemSerial( pObject->serial ) )
+	if( isItemSerial( pObject->serial() ) )
 		PyTuple_SetItem( tuple, 1, PyGetItemObject( (P_ITEM)pObject ) );
-	else if( isCharSerial( pObject->serial ) )
+	else if( isCharSerial( pObject->serial() ) )
 		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
 
 	PyEvalMethod( "onShowContextMenu" )
@@ -378,7 +378,7 @@ bool WPPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString 
 	PyHasMethod( "onSpeech" )
 
 	PyObject *tuple = PyTuple_New( 4 ); // Create our args for the python function
-	if( isItemSerial( listener->serial ) )
+	if( isItemSerial( listener->serial() ) )
 		PyTuple_SetItem( tuple, 0, PyGetItemObject( (P_ITEM)listener ) );
 	else 
 		PyTuple_SetItem( tuple, 0, PyGetCharObject( (P_CHAR)listener ) );

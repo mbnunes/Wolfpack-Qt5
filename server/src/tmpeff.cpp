@@ -531,7 +531,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			continue;			
 		}
 
-		if (pTE->getDest() == pc_dest->serial)
+		if (pTE->getDest() == pc_dest->serial())
 		{
 			if ((pTE->num==3 && num==3)||
 				(pTE->num==4 && num==4)||
@@ -556,8 +556,8 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 
 	pTE = new cTmpEff;
 	pTE->Init();
-	pTE->setSour(pc_source->serial);
-	pTE->setDest(pc_dest->serial);
+	pTE->setSour(pc_source->serial());
+	pTE->setDest(pc_dest->serial());
 	pTE->num = num;
 
 	cUOSocket *mSock = pc_dest->socket();
@@ -761,10 +761,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char m
 	cTmpEff *pTE = new cTmpEff;
 	pTE->Init();
 	if ( pc_source != NULL )
-		pTE->setSour(pc_source->serial);
+		pTE->setSour(pc_source->serial());
 	else
 		pTE->setSour( INVALID_SERIAL );
-	pTE->setDest(piDest->serial);
+	pTE->setDest(piDest->serial());
 	pTE->num=num;
 	switch (num)
 	{
@@ -822,7 +822,7 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, 
 	std::vector< cTempEffect* > teffects_ = teffects.asVector();
 	std::vector< cTempEffect* >::iterator i = teffects_.begin();
 	for( i = teffects_.begin(); i != teffects_.end(); i++ )
-		if( (*i) != NULL && ( !onlyDispellable || (*i)->dispellable ) && (*i)->getDest() == pc_dest->serial && (*i)->objectID() == type )
+		if( (*i) != NULL && ( !onlyDispellable || (*i)->dispellable ) && (*i)->getDest() == pc_dest->serial() && (*i)->objectID() == type )
 		{
 			if( isCharSerial( (*i)->getSour() ) )
 			{
@@ -841,7 +841,7 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 	std::vector< cTempEffect* > teffects_ = teffects.asVector();
 	std::vector< cTempEffect* >::iterator i = teffects_.begin();
 	for( i = teffects_.begin(); i != teffects_.end(); i++ )
-		if( (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial )
+		if( (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial() )
 		{
 			if( isCharSerial( (*i)->getDest() ) )
 			{
@@ -1196,7 +1196,7 @@ std::vector< cTempEffect* >	cTmpEffFibHeap::asVector()
 
 cRepeatAction::cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay )
 {
-	_mage = mage->serial;
+	_mage = mage->serial();
 	_anim = anim;
 	_delay = delay;
 	mage->action( anim );

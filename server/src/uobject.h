@@ -116,6 +116,10 @@ private:
 	QString bindmenu_;
 	QString name_;
 	Coord_cl pos_;
+	SERIAL serial_;
+	SERIAL multis_;
+	cCustomTags tags_;
+	bool changed_;
 
 protected:
 	// Things for building the SQL string
@@ -149,24 +153,9 @@ public:
 	virtual bool onCreate( const QString &definition );
 	virtual bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
 	
-	SERIAL serial;
-	SERIAL multis;
 	bool free;
 
-	cCustomTags tags;
-
 // Methods
-public:
-	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
-
-protected:
-	virtual void processNode( const QDomElement &Tag ) = 0;
-
-
-	std::vector< WPDefaultScript* > scriptChain;
-	QStringList eventList_; // Important for recreating the scriptChain on reloading
-	void init();
-
 public:
 	cUObject();
 	cUObject( cUObject& ); // Copy constructor
@@ -177,15 +166,32 @@ public:
 	QString bindmenu() const	{ return bindmenu_; }
 	QString name() const		{ return name_;		}
 	Coord_cl pos() const		{ return pos_;		}
-	void setBindmenu( const QString& d )	{ bindmenu_ = d;	}
-	void setName( const QString& d )		{ name_ = d;		}	
-	void setPos( const Coord_cl& d )		{ pos_ = d;			}
+	SERIAL serial() const		{ return serial_;	}
+	SERIAL multis() const		{ return multis_;	}
+	cCustomTags tags() const	{ return tags_;		}
+	cCustomTags& tags()			{ return tags_;		}
 
-	bool isItem() { return (serial != INVALID_SERIAL && serial > 0 && serial >= 0x40000000); }
-	bool isChar() { return (serial != INVALID_SERIAL && serial > 0 && serial <  0x40000000); }
+	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed_ = true;	}
+	void setName( const QString& d )		{ name_ = d; changed_ = true;		}	
+	void setPos( const Coord_cl& d )		{ pos_ = d;	changed_ = true;		}
+	void setMultis( const SERIAL d )		{ multis_ = d; changed_ = true;		}
+	void setTags( const cCustomTags& d )	{ tags_ = d; changed_ = true;		}
+	virtual void setSerial( const SERIAL d ) { serial_ = d; changed_ = true;	}
 
+	bool isItem() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
+	bool isChar() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }
+
+	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
 	virtual stError *setProperty( const QString &name, const cVariant &value );
 	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+
+protected:
+	virtual void processNode( const QDomElement &Tag ) = 0;
+
+
+	std::vector< WPDefaultScript* > scriptChain;
+	QStringList eventList_; // Important for recreating the scriptChain on reloading
+	void init();
 };
 
 

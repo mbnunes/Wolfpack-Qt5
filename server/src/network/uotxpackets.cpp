@@ -168,7 +168,7 @@ void cUOTxUnicodeSpeech::setText( const QString &data )
 // Sets all data automatically
 void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
 {
-	setSerial( pChar->serial );
+	setSerial( pChar->serial() );
 	setBody( pChar->id() );
 	setDirection( pChar->dir() );
 	setX( pChar->pos().x );
@@ -225,7 +225,7 @@ void cUOTxDenyMove::fromChar( P_CHAR pChar )
 
 void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 {
-	setSerial( pChar->serial );
+	setSerial( pChar->serial() );
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
@@ -251,7 +251,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 
 void cUOTxDrawChar::fromChar( P_CHAR pChar )
 {
-	setSerial( pChar->serial );
+	setSerial( pChar->serial() );
 	setModel( pChar->id() );
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
@@ -295,7 +295,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 
 		layers[ pItem->layer() ] = true;
 
-		addEquipment( pItem->serial, pItem->id(), pItem->layer(), pItem->color() );
+		addEquipment( pItem->serial(), pItem->id(), pItem->layer(), pItem->color() );
 	}
 }
 
@@ -304,17 +304,17 @@ void cUOTxCharEquipment::fromItem( P_ITEM pItem )
 	if( !pItem->container() )
 		return;
 
-	setSerial( pItem->serial );
+	setSerial( pItem->serial() );
 	setModel( pItem->id() );
 	setLayer( pItem->layer() );
-	setWearer( pItem->container()->serial );
+	setWearer( pItem->container()->serial() );
 	setColor( pItem->color() );
 }
 
 // Sends an update of ourself
 void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 {
-	setSerial( pChar->serial );
+	setSerial( pChar->serial() );
 	setBody( pChar->id() );
 	setSkin( pChar->skin() );
 	
@@ -348,14 +348,14 @@ void cUOTxTipWindow::setMessage( QString m )
 
 void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 {
-	setSerial( pItem->serial );
+	setSerial( pItem->serial() );
 	setModel( pItem->id() );
 	setAmount( pItem->amount() );
 	setX( pItem->pos().x );
 	setY( pItem->pos().y );
 
 	if( pItem->container() )
-		setContainer( pItem->container()->serial );
+		setContainer( pItem->container()->serial() );
 	else
 		setContainer( INVALID_SERIAL );
 	
@@ -364,7 +364,7 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 
 void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar )
 {
-	setSerial( pChar->serial );
+	setSerial( pChar->serial() );
 	setName( pChar->name() );
 
 	if( pChar->war() )
@@ -421,7 +421,7 @@ void cUOTxItemContent::addItem( P_ITEM pItem )
 	if( !pItem )
 		return;
 
-	addItem( pItem->serial, pItem->id(), pItem->color(), pItem->pos().x, pItem->pos().y, pItem->amount(), pItem->contserial );
+	addItem( pItem->serial(), pItem->id(), pItem->color(), pItem->pos().x, pItem->pos().y, pItem->amount(), pItem->contserial );
 }
 
 void cUOTxItemContent::addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, UINT32 container )

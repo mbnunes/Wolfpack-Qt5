@@ -384,21 +384,21 @@ static void item_char_test()
 	{
 		P_ITEM pi = iterItems.GetData();
 
-		if( pi->serial == pi->contserial )
+		if( pi->serial() == pi->contserial )
 		{
-			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous container value, autocorrecting\n" ).arg( pi->name() ).arg( pi->serial ) );
+			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous container value, autocorrecting\n" ).arg( pi->name() ).arg( pi->serial() ) );
 			//pi->setContSerial( -1 );
 		}
 
-		if( pi->serial == pi->GetOwnSerial() )
+		if( pi->serial() == pi->GetOwnSerial() )
 		{
-			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous owner value\n" ).arg( pi->name() ).arg( pi->serial ) );
+			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous owner value\n" ).arg( pi->name() ).arg( pi->serial() ) );
 			pi->SetOwnSerial( -1 );
 		}
 
-		if( pi->serial == pi->spawnserial )
+		if( pi->serial() == pi->spawnserial )
 		{
-			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous spawn value\n" ).arg( pi->name() ).arg( pi->serial ) );
+			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous spawn value\n" ).arg( pi->name() ).arg( pi->serial() ) );
 			pi->SetSpawnSerial( -1 );
 		}
 	}
@@ -418,7 +418,7 @@ static void item_char_test()
 				P_CHAR pc_j = FindCharBySerial(stablemaster_serial);
 				if (pc_j == NULL)
 				{
-					stablesp.remove(stablemaster_serial, p_pet->serial);
+					stablesp.remove(stablemaster_serial, p_pet->serial());
 					p_pet->setStablemaster_serial(INVALID_SERIAL);
 					p_pet->setTimeused_last(getNormalizedTime());
 					p_pet->setTime_unused(0);
@@ -1004,7 +1004,7 @@ void interpretCommand( const QString &command )
 				{
 					if( mSock->player() )
 					{
-						clConsole.send( "%i) %s [%x]\n", ++i, mSock->player()->name(), mSock->player()->serial );
+						clConsole.send( "%i) %s [%x]\n", ++i, mSock->player()->name(), mSock->player()->serial() );
 					}
 				}
 
@@ -1110,9 +1110,9 @@ static void quickdelete( P_ITEM pi )
 	}
 
 	// if it is within a multi, delete it from the multis vector
-	if( pi->multis != INVALID_SERIAL )
+	if( pi->multis() != INVALID_SERIAL )
 	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
 		if( pMulti )
 		{
 			pMulti->removeItem( pi );
@@ -1361,9 +1361,9 @@ int main( int argc, char *argv[] )
 		}
 
 		// If this item has a multiserial then add it to the multi
-		if( isItemSerial( pi->multis ) )
+		if( isItemSerial( pi->multis() ) )
 		{
-			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
 
 			if( pMulti )
 				pMulti->addItem( pi );
@@ -1404,7 +1404,7 @@ int main( int argc, char *argv[] )
 				}
 				else
 				{
-					clConsole.send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pChar->serial, 16 ).arg( owner, 16 ) );
+					clConsole.send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( owner, 16 ) );
 					pChar->setOwnerOnly( 0 );
 				}
 			}
@@ -1422,7 +1422,7 @@ int main( int argc, char *argv[] )
 				}
 				else
 				{
-					clConsole.send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial, 16 ).arg( guarding, 16 ) );
+					clConsole.send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
 					pChar->setGuardingOnly( 0 );
 				}
 			}
@@ -1431,9 +1431,9 @@ int main( int argc, char *argv[] )
 			for( UINT8 i = 0; i < TRUESKILLS; ++i )
 				Skills->updateSkillLevel( pChar, i );
 
-			if( isItemSerial( pChar->multis ) )
+			if( isItemSerial( pChar->multis() ) )
 			{
-				cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis ) );
+				cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis() ) );
 
 				if( pMulti )
 					pMulti->addChar( pChar );
@@ -1886,7 +1886,7 @@ int getsubamount(int serial, short id)
 			total += pi->amount();
 
 		if( pi->type() == 1 ) 
-			total += getsubamount( pi->serial, id );
+			total += getsubamount( pi->serial(), id );
 	}
 	return total;
 }
@@ -1899,7 +1899,7 @@ int getamount(P_CHAR pc, short id)
 	if (pi==NULL)
 		return 0;
 	else
-		return getsubamount(pi->serial, id);
+		return getsubamount(pi->serial(), id);
 }
 
 // not_deleted = output parameter, returns number of items that could NOT be deleted

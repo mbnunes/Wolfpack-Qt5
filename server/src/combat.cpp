@@ -956,7 +956,7 @@ namespace Combat
 		if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )
 			hit( pAttacker, pDefender, true ); // We are positive that we can hit our target
 		else
-			pAttacker->setSwingTarg( pDefender->serial );
+			pAttacker->setSwingTarg( pDefender->serial() );
 
 		// Set the time for the next attack
 		setWeaponTimeout( pAttacker, pWeapon );
@@ -1302,8 +1302,8 @@ namespace Combat
 			
 			pGuard->setNpcAIType( 4 );
 			pGuard->setAttackFirst();
-			pGuard->setAttacker(pOffender->serial);
-			pGuard->setTarg(pOffender->serial);
+			pGuard->setAttacker(pOffender->serial());
+			pGuard->setTarg(pOffender->serial());
 			pGuard->setNpcWander(2);  // set wander mode
 			pGuard->toggleCombat();
 			pGuard->setNextMoveTime();
@@ -1513,7 +1513,7 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 	currentSpellType[ calcSocketFromChar( Attacker ) ]=2;
 	unsigned int ci;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(Attacker->serial);
+	vector<SERIAL> vecContainer = contsp.getData(Attacker->serial());
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);

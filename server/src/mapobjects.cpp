@@ -328,13 +328,13 @@ void cMapObjects::add( cUObject* object )
 {
 	QMap< UI08, cQuadNode* >::iterator it = rootmap_.find( object->pos().map );
 	if( it != rootmap_.end() )
-		it.data()->add( object->pos().x, object->pos().y, object->serial );
+		it.data()->add( object->pos().x, object->pos().y, object->serial() );
 	else
 	{
 		// root node in center of map.
 		cQuadNode* root = new cQuadNode( Map->mapTileWidth( object->pos().map ) * 4, Map->mapTileHeight( object->pos().map ) * 4 );
 		rootmap_.insert( object->pos().map, root );
-		root->add( object->pos().x, object->pos().y, object->serial );
+		root->add( object->pos().x, object->pos().y, object->serial() );
 	}
 }
 
@@ -343,7 +343,7 @@ void cMapObjects::remove( cUObject* object )
 	QMap< UI08, cQuadNode* >::iterator it = rootmap_.find( object->pos().map );
 	if( it != rootmap_.end() )
 	{
-		it.data()->remove( object->pos().x, object->pos().y, object->serial );
+		it.data()->remove( object->pos().x, object->pos().y, object->serial() );
 	}
 }
 

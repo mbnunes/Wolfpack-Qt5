@@ -441,11 +441,11 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	// Addon for Storing creator NAME and SKILLUSED by Magius(CHE) §
 	if(!pc->isGM())
 	{
-		pi_potion->creator = pc->name(); // Magius(CHE) - Memorize Name of the creator
+		pi_potion->setCreator(pc->name()); // Magius(CHE) - Memorize Name of the creator
 		if (pc->skill(ALCHEMY)>950) pi_potion->madewith=ALCHEMY+1; // Memorize Skill used - Magius(CHE)
 		else pi_potion->madewith=0-ALCHEMY-1; // Memorize Skill used - Magius(CHE)
 	} else {
-		pi_potion->creator = "";
+		pi_potion->setCreator("");
 		pi_potion->madewith=0;
 	}
 	
@@ -977,7 +977,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 				callguards( pChar );
 		}
 		
-		if( pVictim->isInnocent() && pChar->attacker() != pVictim->serial && GuildCompare( pChar, pVictim ) == 0)
+		if( pVictim->isInnocent() && pChar->attacker() != pVictim->serial() && GuildCompare( pChar, pVictim ) == 0)
 			pChar->criminal(); // Blue and not attacker and not guild
 
 		// Our Victim always notices it.

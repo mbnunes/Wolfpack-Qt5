@@ -120,6 +120,11 @@ protected:
 	// RANK 1 ---> 1*10=10% this item has 90% of malus!
 	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
 	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
+	unsigned char dir_;
+	QString desc_;
+	QString creator_; // Store the name of the player made this item
+
+
 //********************END ADDED FROM PUBLIC *************
 
 	virtual void	processNode( const QDomElement &Tag );
@@ -205,6 +210,9 @@ public:
 	unsigned int	poisoned()		const { return poisoned_; }
 	long int		murdertime()	const { return murdertime_; } 
 	int				rank()			const { return rank_; } 
+	uchar			direction()		const { return dir_;  }
+	QString			description()	const { return desc_; }
+	QString			creator()		const { return creator_;}
 //***************************END ADDED GETTERS************
 
 
@@ -242,9 +250,12 @@ public:
 	void	setCarve( const QString& data ) { carve_ = data; }
 	void	setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
 	void	setAccuracy( UI16 data ) { accuracy_ = data; }
+	void	setDirection( uchar d )	 { dir_ = d;	}
+	void	setDescription( const QString& d ) { desc_ = d; }
+	void	setCreator( const QString& d )	{ creator_ = d;	}
 
 	cItem();
-	cItem( cItem& src); // Copy constructor
+	cItem( const cItem& src); // Copy constructor
 	virtual QString objectID() const;
 	static void registerInFactory();
 
@@ -287,17 +298,10 @@ public:
 	void	setRank(int data) { rank_ = data; } 
 //*******************************************END ADDED SETTERS**********
 	SERIAL contserial;
-	
-	
 
-	
-	
-	//signed int destroyTimer; // Ripper for chaos/order shields
 	SERIAL ownserial;
 	unsigned char visible; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	SERIAL spawnserial;
-	unsigned char dir;
-	//char dir; // Direction, or light source type.
 
 	// Bit | Hex | Description
 	//===================
@@ -311,8 +315,6 @@ public:
 	//   7 |  80 | <unused>
 	UI08 priv;
 	
-
-	QString creator; // Store the name of the player made this item -- Magius(CHE)
 	int good; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
 	int rndvaluerate; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
 	int madewith; // Store the skills used to make this item -- Magius(CHE)
@@ -328,7 +330,6 @@ public:
 	//       you click on the item appear its name and the name of the
 	//       creator. A Negative value if the player is not enought
 	//       skilled!
-	QString desc;
 	
 	bool incognito; //AntiChrist - for items under incognito effect
 	// ^^ NUTS !! - move that to priv
@@ -337,7 +338,7 @@ public:
 	unsigned int timeused_last; // helper attribute for time_unused, doesnt get saved
 	
 	virtual void Init( bool mkser = true );
-	void SetSerial(long ser);
+	void setSerial(const SERIAL ser);
 	bool isInWorld()			{ return (!container_); }
 	bool isMulti()				{ return ( id_ >= 0x4000 ); }
 	bool isPileable();

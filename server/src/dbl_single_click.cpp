@@ -282,9 +282,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		{
 			if( pc_currchar->inRange( pi, 3 ) )
 			{
-				if (pi->tags.get("boatserial").isValid())
+				if (pi->tags().get("boatserial").isValid())
 				{
-					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toInt() ) );
+					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags().get("boatserial").toInt() ) );
 					pBoat->handlePlankClick( socket, pi );
 				}
 				else 
@@ -298,7 +298,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			cMulti* pMulti = dynamic_cast< cMulti* >( pi );
 			if( pMulti && ( pMulti->owner() == pc_currchar || pMulti->coOwner() == pc_currchar || pc_currchar->isGM() ) && socket )
 			{
-				cMultiGump* pGump = new cMultiGump( pc_currchar->serial, pMulti->serial );
+				cMultiGump* pGump = new cMultiGump( pc_currchar->serial(), pMulti->serial() );
 				socket->send( pGump );
 			}
 		}
@@ -429,31 +429,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		return;
 
 	case 10: // map?
-		LongToCharPtr(pi->serial, &map1[1]);
-		LongToCharPtr(pi->serial, &map2[1]);
-/*
-		By Polygon:
-		Assign areas and map size before sending
-*/
-		map1[7] = pi->more1();	// Assign topleft x
-		map1[8] = pi->more2();
-		map1[9] = pi->more3();	// Assign topleft y
-		map1[10] = pi->more4();
-		map1[11] = pi->moreb1();	// Assign lowright x
-		map1[12] = pi->moreb2();
-		map1[13] = pi->moreb3();	// Assign lowright y
-		map1[14] = pi->moreb4();
-		int width, height;		// Tempoary storage for w and h;
-		width = 134 + (134 * pi->morez());	// Calculate new w and h
-		height = 134 + (134 * pi->morez());
-		map1[15] = width>>8;
-		map1[16] = width%256;
-		map1[17] = height>>8;
-		map1[18] = height%256;
-//		END OF: By Polygon
-
-		Xsend(s, map1, 19);
-		Xsend(s, map2, 11);
 		return;// maps
 
 	// Book
@@ -473,9 +448,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		return;
 	case 13: // locked door
 		{
-			if( pi->multis != INVALID_SERIAL )
+			if( pi->multis() != INVALID_SERIAL )
 			{
-				cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+				cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
 				if( pMulti )
 				{
 					if( pMulti->authorized( pc_currchar ) )
@@ -498,7 +473,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 						P_ITEM pj = *it;
 						if( pj && pj->type() == 7 && 
-							pj->tags.get( "linkserial" ).isValid() && pj->tags.get( "linkserial" ).toInt() == pi->serial )
+							pj->tags().get( "linkserial" ).isValid() && pj->tags().get( "linkserial" ).toInt() == pi->serial() )
 						{
 							socket->sysMessage( tr( "You quickly unlock, use, and then relock the door." ) );
 							pc_currchar->setObjectDelay( 0 );
@@ -632,13 +607,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		case 202:
 				if ( pi->id() == 0x14F0  ||  pi->id() == 0x1869 )	// Check for Deed/Teleporter + Guild Type
 				{
-					pc_currchar->setFx1( pi->serial );
+					pc_currchar->setFx1( pi->serial() );
 					StonePlacement(socket);
 					return;
 				}
 				else if (pi->id() == 0x0ED5)	// Check for Guildstone + Guild Type
 				{
-					pc_currchar->setFx1( pi->serial );
+					pc_currchar->setFx1( pi->serial() );
 					cGuildStone *pStone = dynamic_cast<cGuildStone*>(pi);
 					if ( pStone != NULL )
 						pStone->Menu(s, 1);
@@ -674,7 +649,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						{
 							const P_ITEM pi_i = *it;
 							if ( pi_i ) // lb
-								if (pi_i->type() == 7 && calcserial(pi_i->more1(), pi_i->more2(), pi_i->more3(), pi_i->more4()) == pi_multi->serial)
+								if (pi_i->type() == 7 && calcserial(pi_i->more1(), pi_i->more2(), pi_i->more3(), pi_i->more4()) == pi_multi->serial())
 								{
 									los = 1;
 									break;
@@ -717,10 +692,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 		case 222:	// player clicks on a house item (sign) to set ban/friendlists, rename
 			{
-				cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+				cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
 				if( pMulti && ( pMulti->owner() == pc_currchar || pMulti->coOwner() == pc_currchar || pc_currchar->isGM() ) && socket )
 				{
-					cMultiGump* pGump = new cMultiGump( pc_currchar->serial, pMulti->serial );
+					cMultiGump* pGump = new cMultiGump( pc_currchar->serial(), pMulti->serial() );
 					socket->send( pGump );
 				}
 			}
@@ -736,39 +711,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	Show a map-gump with the treasure location in it
 */
 		case 302:	// Deciphered treasure map?
-			LongToCharPtr(pi->serial, &map1[1]);
-			LongToCharPtr(pi->serial, &map2[1]);
-			map1[7] = pi->more1();	// Assign topleft x
-			map1[8] = pi->more2();
-			map1[9] = pi->more3();	// Assign topleft y
-			map1[10] = pi->more4();
-			map1[11] = pi->moreb1();	// Assign lowright x
-			map1[12] = pi->moreb2();
-			map1[13] = pi->moreb3();	// Assign lowright y
-			map1[14] = pi->moreb4();
-			map1[15] = 0x01;			// Let width and height be 256
-			map1[16] = 0x00;
-			map1[17] = 0x01;
-			map1[18] = 0x00;
-			Xsend(s, map1, 19);
-
-			Xsend(s, map2, 11);
-
-			// Generate message to add a map point
-			LongToCharPtr(pi->serial, &map3[1]);
-			int posx, posy;			// tempoary storage for map point
-			int tlx, tly, lrx, lry;	// tempoary storage for map extends
-			tlx = (pi->more1() << 8) + pi->more2();
-			tly = (pi->more3() << 8) + pi->more4();
-			lrx = (pi->moreb1() << 8) + pi->moreb2();
-			lry = (pi->moreb3() << 8) + pi->moreb4();
-			posx = (256 * (pi->morex() - tlx)) / (lrx - tlx);	// Generate location for point
-			posy = (256 * (pi->morey() - tly)) / (lry - tly);
-			map3[7] = posx>>8;	// Store the point position
-			map3[8] = posx%256;
-			map3[9] = posy>>8;
-			map3[10] = posy%256;
-			Xsend(s, map3, 11);	// Fire data to client :D
 			return;
 // END OF: By Polygon
 		case 401: // Blackwinds JAIL BALL 
@@ -824,7 +766,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		case 405:
 			{
 				cUOTxDyeTub dyetub;
-				dyetub.setSerial( pi->serial );
+				dyetub.setSerial( pi->serial() );
 				dyetub.setModel( 0xFAB );
 				socket->send( &dyetub );
 			}
@@ -914,7 +856,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x14F0:// deeds
 					if ((pi->type() != 103) &&(pi->type() != 202))
 					{  
-						const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, pi->tags.get( "multisection" ).toString() );
+						const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, pi->tags().get( "multisection" ).toString() );
 						if( !DefSection->isNull() )
 						{
 							UI32 houseid = 0;
@@ -928,7 +870,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 								childNode = childNode.nextSibling();
 							}
 							if( houseid != 0 )
-								socket->attachTarget( new cBuildMultiTarget( pi->tags.get( "multisection" ).toString() , pc_currchar->serial, pi->serial ), houseid );
+								socket->attachTarget( new cBuildMultiTarget( pi->tags().get( "multisection" ).toString() , pc_currchar->serial(), pi->serial() ), houseid );
 						}
 					}
 					return;// deeds
@@ -966,7 +908,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					if (pBackpack != NULL)
 						if (pi->container() == pBackpack)
 						{
-//							addmitem[s] = pi->serial; // save the vials number, LB
+//							addmitem[s] = pi->serial(); // save the vials number, LB
 //							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");
 						}
 						else 
@@ -974,7 +916,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						return;
 					}
 				case 0x0DF9: 
-					pc_currchar->setTailItem( pi->serial );
+					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 166, "Select spinning wheel to spin cotton.");
 					return;
 					/*
@@ -988,7 +930,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x0E1D:
 				case 0x0E1F:
 				case 0x0E1E:  // yarn to cloth
-					pc_currchar->setTailItem(  pi->serial );
+					pc_currchar->setTailItem(  pi->serial() );
 //					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
 					return;
 				case 0x1BD1:
@@ -1006,16 +948,16 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x0FF8:
 				case 0x0FF9: // pitcher of water to flour
-					pc_currchar->setTailItem( pi->serial );
+					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 173, "Select flour to pour this on.");  
 					return;
 				case 0x09C0:
 				case 0x09C1: // sausages to dough
-					pc_currchar->setTailItem( pi->serial );
+					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 174, "Select dough to put this on.");  
 					return;
 				case 0x0DF8: // wool to yarn 
-					pc_currchar->setTailItem( pi->serial );
+					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 164, "Select your spin wheel to spin wool.");      
 					return;
 				case 0x0F9D: // sewing kit for tailoring
@@ -1053,24 +995,24 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				//case 0x0E9B: // Mortar for Alchemy
 				//	if (pi->type() == 17)
 				//	{
-				//		addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-			//			addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-			//			addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-			//			addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+				//		addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
+			//			addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
+			//			addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
+			//			addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
 //						target(s, 0, 1, 0, 109, "Where is an empty bottle for your potion?");
 			//		}
 			//		else
 			//		{
-			///			addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-			//			addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-			//			addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-			//			addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+			///			addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
+			//			addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
+			//			addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
+			//			addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
 //						target(s, 0, 1, 0, 108, "What do you wish to grind with your mortar and pestle?");
 			//		}
 			//		return; // alchemy
 				case 0x0E21: // healing
 					{
-						cSkHealing* target = new cSkHealing( pi->serial );
+						cSkHealing* target = new cSkHealing( pi->serial() );
 						socket->attachTarget( target );
 						socket->sysMessage( tr("Who will you use the bandages on?") );
 					}
@@ -1089,7 +1031,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x14FD:
 				case 0x14FE: // lockpicks
 					{
-						cSkLockpicking* target = new cSkLockpicking( pi->serial );
+						cSkLockpicking* target = new cSkLockpicking( pi->serial() );
 						socket->attachTarget( target );
 						socket->sysMessage( tr("What lock would you like to pick?") );
 					}
@@ -1118,10 +1060,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x105C:
 				case 0x1053:
 				case 0x1054: // tinker axle
-//					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-//					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-//					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-//					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+//					addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
+//					addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
+//					addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
+//					addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
 //					target(s, 0, 1, 0, 183, "Select part to combine that with.");
 					return;
 				case 0x1051:
@@ -1130,10 +1072,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1056:
 				case 0x105D:
 				case 0x105E:
-//					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-//					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-//					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-//					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+//					addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
+//					addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
+//					addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
+//					addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
 					// itemmake[s].materialid1=pi->id1;
 					// itemmake[s].materialid2=pi->id2;
 //					target(s, 0, 1, 0, 184, "Select part to combine it with.");
@@ -1142,10 +1084,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1050:
 				case 0x104D:
 				case 0x104E:// tinker clock
-//					addid1[s] = static_cast<unsigned char>((pi->serial&0xFF000000)>>24);
-//					addid2[s] = static_cast<unsigned char>((pi->serial&0x00FF0000)>>16);
-//					addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
-//					addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
+//					addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
+//					addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
+//					addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
+//					addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
 //					target(s, 0, 1, 0, 185, "Select part to combine with");
 					return;
 				case 0x1059:

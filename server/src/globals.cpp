@@ -166,8 +166,6 @@ WPScriptManager	*ScriptManager;
 WPDefManager    *DefManager;
 PersistentBroker* persistentBroker;
 
-cCharStuff::cDragonAI	*DragonAI;
-
 //////////////////// ARRAYS that didnt get initialized above ////////////////////
 
 /////////////////////////////////////////////

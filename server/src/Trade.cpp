@@ -54,7 +54,7 @@ struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
 {
 	bool operator()(P_ITEM pi, SERIAL serial) const
 	{
-		return pi->serial == serial;
+		return pi->serial() == serial;
 	}
 };
 
@@ -65,7 +65,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 	P_CHAR pVendor = FindCharBySerial( packet->serial() );
 
 	cUOTxClearBuy clearBuy;
-	clearBuy.setSerial( pVendor->serial );
+	clearBuy.setSerial( pVendor->serial() );
 
 	if( !pChar || !pVendor || pVendor->free || pChar->free )
 	{
@@ -133,7 +133,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 		// First check: is the item on the vendor in the specified layer
 		if( layer == 0x1A )
 		{
-			if( find_if( sContent.begin(), sContent.end(), bind2nd(MatchItemAndSerial(), pItem->serial) ) == sContent.end() )
+			if( find_if( sContent.begin(), sContent.end(), bind2nd(MatchItemAndSerial(), pItem->serial()) ) == sContent.end() )
 			{
 				socket->sysMessage( tr( "Invalid item bought." ) );
 				socket->send( &clearBuy );
@@ -142,7 +142,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 		}
 		else if( layer == 0x1B )
 		{
-			if( find_if( bContent.begin(), bContent.end(), bind2nd(MatchItemAndSerial(), pItem->serial ) ) == bContent.end() )
+			if( find_if( bContent.begin(), bContent.end(), bind2nd(MatchItemAndSerial(), pItem->serial() ) ) == bContent.end() )
 			{
 				socket->sysMessage( tr( "Invalid item bought." ) );
 				socket->send( &clearBuy );
@@ -166,7 +166,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 
 		totalValue += amount * pItem->buyprice();
 
-		items.insert( make_pair( pItem->serial, amount ) );
+		items.insert( make_pair( pItem->serial(), amount ) );
 	}
 
 	if( totalValue > totalGold )
@@ -210,7 +210,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 	pVendor->talk( tr( "Thank you %1, this makes %2 gold" ).arg( pChar->name() ).arg( totalValue ) );
 
 	if( pChar->takeGold( totalValue, true ) < totalValue )
-		clConsole.send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial, 8, 16 ).arg( pVendor->serial, 8, 16 ) );
+		clConsole.send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial(), 8, 16 ).arg( pVendor->serial(), 8, 16 ) );
 }
 
 // this is a q&d fix for 'sell price higher than buy price' bug (Duke, 30.3.2001)
@@ -242,7 +242,7 @@ void cTrade::sellaction(int s)
 
 		P_ITEM pi;
 		unsigned int ci;
-		vector<SERIAL> vecContainer = contsp.getData(pc_n->serial);
+		vector<SERIAL> vecContainer = contsp.getData(pc_n->serial());
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pi = FindItemBySerial(vecContainer[ci]);
@@ -283,7 +283,7 @@ void cTrade::sellaction(int s)
 			P_ITEM join = NULL;
 			ci=0;
 			P_ITEM pi;
-			vector<SERIAL> vecContainer = contsp.getData(pRestock->serial);
+			vector<SERIAL> vecContainer = contsp.getData(pRestock->serial());
 			for ( ci = 0; ci < vecContainer.size(); ci++)
 			{
 				pi = FindItemBySerial(vecContainer[ci]);
@@ -294,7 +294,7 @@ void cTrade::sellaction(int s)
 			// Search the sell Container to determine the price
 			ci=0;
 			vecContainer.clear();
-			vecContainer = contsp.getData(pSellCont->serial);
+			vecContainer = contsp.getData(pSellCont->serial());
 			for ( ci = 0; ci < vecContainer.size(); ci++)
 			{
 				pi = FindItemBySerial(vecContainer[ci]);
@@ -357,35 +357,35 @@ P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 	P_ITEM tCont = Items->createScriptItem( "2af8" );
 	tCont->setLayer( 0x1f );
 
-//	tCont->setContSerial( pPlayer->serial );
+//	tCont->setContSerial( pPlayer->serial() );
 	tCont->setOwner( pPlayer );
-	tCont->tags.set( "tradepartner", cVariant( pChar->serial ) );
+	tCont->tags.set( "tradepartner", cVariant( pChar->serial() ) );
 	tCont->update( pPlayer->socket() );
 	tCont->update( pChar->socket() );
-	box1 = tCont->serial;
+	box1 = tCont->serial();
 
 	// One for the tradepartner
 	tCont = tCont->dupe();
 	tCont->setLayer( 0x1f );
-//	tCont->setContSerial( pChar->serial );
+//	tCont->setContSerial( pChar->serial() );
 	tCont->setOwner( pChar );
-	tCont->tags.set( "tradepartner", cVariant( pPlayer->serial ) );
+	tCont->tags.set( "tradepartner", cVariant( pPlayer->serial() ) );
 	tCont->update( pPlayer->socket() );
 	tCont->update( pChar->socket() );
-	box2 = tCont->serial;
+	box2 = tCont->serial();
 
 	// Now send the both secure trading packets
 	cUOTxTrade trade;
 	
 	// To us
-	trade.setPartner( pChar->serial );
+	trade.setPartner( pChar->serial() );
 	trade.setBox1( box1 );
 	trade.setBox2( box2 );
 	trade.setName( pChar->name.latin1() );
 	pPlayer->socket()->send( &trade );
 
 	// To the other
-	trade.setPartner( pPlayer->serial );
+	trade.setPartner( pPlayer->serial() );
 	trade.setBox1( box2 );
 	trade.setBox2( box1 );
 	trade.setName( pPlayer->name.latin1() );
@@ -421,7 +421,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 //	if(pi_ps == NULL)
 //		return 0;
 //	pi_ps->pos = Coord_cl(26, 0, 0);
-////	pi_ps->setContSerial(pc_currchar->serial);
+////	pi_ps->setContSerial(pc_currchar->serial());
 //	pi_ps->setLayer( 0 );
 //	pi_ps->setType( 1 );
 //	pi_ps->setDye(0);
@@ -433,7 +433,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 //	if (pi_pi == NULL)
 //		return 0;
 //	pi_pi->pos = Coord_cl(26, 0, 0);
-////	pi_pi->setContSerial(pc_i->serial);
+////	pi_pi->setContSerial(pc_i->serial());
 //	pi_pi->setLayer( 0 );
 //	pi_pi->setType( 1 );
 //	pi_pi->setDye(0);
@@ -441,14 +441,14 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 ////	if (s2 != INVALID_UOXSOCKET)
 ////		sendbpitem(s2, pi_pi);
 //
-//	pi_pi->setMoreb1( static_cast<unsigned char>((pi_ps->serial&0xFF000000)>>24) );
-//	pi_pi->setMoreb2( static_cast<unsigned char>((pi_ps->serial&0x00FF0000)>>16) );
-//	pi_pi->setMoreb3( static_cast<unsigned char>((pi_ps->serial&0x0000FF00)>>8) );
-//	pi_pi->setMoreb4( static_cast<unsigned char>((pi_ps->serial&0x000000FF)) );
-//	pi_ps->setMore1( static_cast<unsigned char>((pi_pi->serial&0xFF000000)>>24) );
-//	pi_ps->setMore2( static_cast<unsigned char>((pi_pi->serial&0x00FF0000)>>16) );
-//	pi_ps->setMore3( static_cast<unsigned char>((pi_pi->serial&0x0000FF00)>>8) );
-//	pi_ps->setMore4( static_cast<unsigned char>((pi_pi->serial&0x000000FF)) );
+//	pi_pi->setMoreb1( static_cast<unsigned char>((pi_ps->serial()&0xFF000000)>>24) );
+//	pi_pi->setMoreb2( static_cast<unsigned char>((pi_ps->serial()&0x00FF0000)>>16) );
+//	pi_pi->setMoreb3( static_cast<unsigned char>((pi_ps->serial()&0x0000FF00)>>8) );
+//	pi_pi->setMoreb4( static_cast<unsigned char>((pi_ps->serial()&0x000000FF)) );
+//	pi_ps->setMore1( static_cast<unsigned char>((pi_pi->serial()&0xFF000000)>>24) );
+//	pi_ps->setMore2( static_cast<unsigned char>((pi_pi->serial()&0x00FF0000)>>16) );
+//	pi_ps->setMore3( static_cast<unsigned char>((pi_pi->serial()&0x0000FF00)>>8) );
+//	pi_ps->setMore4( static_cast<unsigned char>((pi_pi->serial()&0x000000FF)) );
 //	pi_ps->setMoreZ(0);
 //	pi_pi->setMoreZ(0);
 //
@@ -456,9 +456,9 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 //	msg[1] = 0; // Size
 //	msg[2] = 47; // Size
 //	msg[3] = 0; // Initiate
-//	LongToCharPtr(pc_i->serial,msg+4);
-//	LongToCharPtr(pi_ps->serial,msg+8);
-//	LongToCharPtr(pi_pi->serial,msg+12);
+//	LongToCharPtr(pc_i->serial(),msg+4);
+//	LongToCharPtr(pi_ps->serial(),msg+8);
+//	LongToCharPtr(pi_pi->serial(),msg+12);
 //	msg[16]=1;
 //	strcpy((char*)&(msg[17]), pc_i->name.latin1());
 //	Xsend(s, msg, 47);
@@ -469,9 +469,9 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 //		msg[1]=0;    // Size
 //		msg[2]=47;   // Size
 //		msg[3]=0;    // Initiate
-//		LongToCharPtr(pc_currchar->serial,msg+4);
-//		LongToCharPtr(pi_pi->serial,msg+8);
-//		LongToCharPtr(pi_ps->serial,msg+12);
+//		LongToCharPtr(pc_currchar->serial(),msg+4);
+//		LongToCharPtr(pi_pi->serial(),msg+8);
+//		LongToCharPtr(pi_ps->serial(),msg+12);
 //		msg[16]=1;
 //		strcpy((char*)&(msg[17]), pc_currchar->name.latin1());
 //
@@ -491,7 +491,7 @@ void cTrade::clearalltrades()
 		{
 			P_CHAR pc = FindCharBySerial(pi->contserial);
 			P_ITEM pBackpack = Packitem(pc);
-			SERIAL serial = pi->serial;
+			SERIAL serial = pi->serial();
 			unsigned int ci;
 			vector<SERIAL> vecContainer = contsp.getData(serial);
 			for (ci = 0; ci < vecContainer.size(); ci++)
@@ -574,7 +574,7 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 	UOXSOCKET s2 = calcSocketFromChar(p2);
     if (s2 ==-1)
 		cout << "Error getting socket in trade, calcSocketFromChar for si" << endl;
-	serial = cont1->serial;
+	serial = cont1->serial();
 	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for (ci = 0; ci < vecContainer.size(); ++ci)
@@ -590,7 +590,7 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 					pi->update();//AntiChrist
 			}
 	}
-	serial = cont2->serial;
+	serial = cont2->serial();
 	vecContainer.clear();
 	vecContainer = contsp.getData(serial);
 	for (ci = 0; ci < vecContainer.size(); ++ci)

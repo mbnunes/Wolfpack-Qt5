@@ -67,7 +67,7 @@ void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
   // If the amount of the bounty is larger than zero, create a bounty posting
   if( nAmount > 0 )
   {
-     if( BountyCreate( pcc_nMurderIdx->serial, nAmount ) )
+     if( BountyCreate( pcc_nMurderIdx->serial(), nAmount ) )
 	 {
          sprintf((char*)temp, "BountyAskVictim():  %s has placed a bounty of %i on %s\n",
                 pcc_nVictimIdx->name().latin1(),

@@ -88,7 +88,7 @@ void StonePlacement(const cUOSocket* socket)
 //		pStone->setId(0x0ED5);
 //		pStone->setName( tr("Guildstone for an unnamed guild") );
 //		Items->GetScriptItemSetting(pStone);
-//		pc->setGuildstone( pStone->serial );
+//		pc->setGuildstone( pStone->serial() );
 //		if (pc->id() == 0x0191)	
 //			pc->setGuildtitle(tr("Guildmistress"));
 //		else
@@ -102,11 +102,11 @@ void StonePlacement(const cUOSocket* socket)
 //		pStone->setType( 202 );
 //		pStone->priv = 0;
 //		pStone->setLockedDown();
-//		pStone->setOwnSerialOnly(pc->serial);
+//		pStone->setOwnSerialOnly(pc->serial());
 //
 //		pStone->update();//AntiChrist
 //		Items->DeleItem(pDeed);
-//		//entrygump(toOldSocket(socket), pc->serial,100,1,40,"Enter a name for the guild.");
+//		//entrygump(toOldSocket(socket), pc->serial(),100,1,40,"Enter a name for the guild.");
 //	}
 //	else
 //	{
@@ -116,8 +116,8 @@ void StonePlacement(const cUOSocket* socket)
 //			sysmessage(s,"There are already enough guildstones placed.");
 //			return;
 //		}
-//		if (( pDeed->serial==guilds[guildnumber].stone &&
-//			pc->serial == guilds[guildnumber].master) ||
+//		if (( pDeed->serial()==guilds[guildnumber].stone &&
+//			pc->serial() == guilds[guildnumber].master) ||
 //			pc->isGM() )
 //		{
 //			sprintf(stonename, "Guildstone for %s", guilds[guildnumber].name);
@@ -133,22 +133,22 @@ void StonePlacement(const cUOSocket* socket)
 //			pStone->update();//AntiChrist
 //			Items->DeleItem(pDeed);
 //			pc->fx1 = INVALID_SERIAL;
-//			guilds[guildnumber].stone = pStone->serial;
+//			guilds[guildnumber].stone = pStone->serial();
 //		}
 //		else
-//			itemmessage(s,"You are not the guildmaster of this guild. Only the guildmaster may use this guildstone teleporter.",pDeed->serial);
+//			itemmessage(s,"You are not the guildmaster of this guild. Only the guildmaster may use this guildstone teleporter.",pDeed->serial());
 //*/	}
 }
 
 void cGuildStone::addMember(P_CHAR pc)
 {
-	member.push_back(pc->serial);
+	member.push_back(pc->serial());
 	sort(member.begin(), member.end());
 }
 
 bool cGuildStone::isMember(P_CHAR pc)
 {
-	return binary_search(member.begin(), member.end(), pc->serial);
+	return binary_search(member.begin(), member.end(), pc->serial());
 }
 
 void cGuildStone::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
@@ -253,7 +253,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 	}
 
 	strcpy(guildfealty, "yourself");
-	if ((pc->guildfealty() != pc->serial)&&(pc->guildfealty() != INVALID_SERIAL))
+	if ((pc->guildfealty() != pc->serial())&&(pc->guildfealty() != INVALID_SERIAL))
 	{
 		vector<SERIAL>::iterator it = find(member.begin(), member.end(), pc->guildfealty());
 		if ( it != member.end())
@@ -262,7 +262,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		}
 	}
 	else 
-		pc->setGuildfealty( pc->serial );
+		pc->setGuildfealty( pc->serial() );
 	if (this->ownserial == INVALID_SERIAL) 
 		CalcMaster();
 	
@@ -299,7 +299,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		sprintf(mygump[5],"Toggle showing the guild's abbreviation in your name to unguilded people. Currently %s.",toggle);
 		strcpy(mygump[6],"Resign from the guild.");
 		strcpy(mygump[7],"View list of candidates who have been sponsored to the guild.");
-	    if ((pc->serial == this->ownserial)|| (pc->isGM()))							// Guildmaster Access?
+	    if ((pc->serial() == this->ownserial)|| (pc->isGM()))							// Guildmaster Access?
 		{															
 			gumpnum=10;
 			gmprefix[8] = 0;
@@ -484,7 +484,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 		list<SERIAL>::iterator it;
 		for (it = guilds.begin(); it != guilds.end(); ++it)
 		{
-			if ( !this->free && this->serial != *it )
+			if ( !this->free && this->serial() != *it )
 			{
 				unsigned int i;
 				for (i = 0; i < this->war.size(); ++i)
@@ -556,7 +556,7 @@ void cGuildStone::Menu(UOXSOCKET s, int page)
 	}
 	gmprefix[1] = total>>8;
 	gmprefix[2] = total%256;
-	LongToCharPtr(pc->serial, &gmprefix[3]);
+	LongToCharPtr(pc->serial(), &gmprefix[3]);
 	Xsend(s, gmprefix, 9);
 	Xsend(s, &lentext, 1);
 	Xsend(s, mygump[0], lentext);
@@ -595,7 +595,7 @@ void GuildResign(int s)
 //
 //	pStone->removeMember( currchar[s] );
 //	sysmessage(s,"You are no longer in that guild.");
-//	if ((pStone->ownserial == pc->serial) && (!pStone->member.empty()))
+//	if ((pStone->ownserial == pc->serial()) && (!pStone->member.empty()))
 //	{
 //		pStone->SetOwnSerial(INVALID_SERIAL);
 //		pStone->CalcMaster();
@@ -644,8 +644,8 @@ void EraseGuild(int guildnumber)
 
 static void RemoveShields(P_CHAR pc)
 {
-//	cwmWorldState->RemoveItemsFromCharBody(pc->serial,0x1B, 0xC3);
-//	cwmWorldState->RemoveItemsFromCharBody(pc->serial,0x1B, 0xC4);
+//	cwmWorldState->RemoveItemsFromCharBody(pc->serial(),0x1B, 0xC3);
+//	cwmWorldState->RemoveItemsFromCharBody(pc->serial(),0x1B, 0xC4);
 //	P_ITEM pPack = pc->getBackpack();
 //	if (pPack)
 //	{
@@ -659,7 +659,7 @@ void cGuildStone::removeMember(P_CHAR pc)
 {
 //	if ( pc == NULL ) return;
 	//
-	//	vector<SERIAL>::iterator it = find(member.begin(), member.end(), pc->serial);
+	//	vector<SERIAL>::iterator it = find(member.begin(), member.end(), pc->serial());
 	//	member.erase(it);
 	//	pc->setGuildstone( INVALID_SERIAL );
 	//	pc->setGuildfealty( INVALID_SERIAL );
@@ -727,7 +727,7 @@ void cGuildStone::Recruit(UOXSOCKET s)
 //			{
 //				if (pc->isPlayer())
 //				{
-//					this->recruit.push_back(pc->serial);
+//					this->recruit.push_back(pc->serial());
 //				} 
 //				else sysmessage(s,"This is not a player.");
 //			}
@@ -761,9 +761,9 @@ int GuildCompare(P_CHAR player1, P_CHAR player2)
 	unsigned int i;
 	for (i = 0; i < pStone1->war.size(); ++i)
 	{
-		if ( find(pStone1->war.begin(), pStone1->war.end(), pStone2->serial) != pStone1->war.end() )
+		if ( find(pStone1->war.begin(), pStone1->war.end(), pStone2->serial()) != pStone1->war.end() )
 		{
-			if ( find( pStone2->war.begin(), pStone2->war.end(), pStone1->serial ) != pStone2->war.end() )
+			if ( find( pStone2->war.begin(), pStone2->war.end(), pStone1->serial() ) != pStone2->war.end() )
 			{
 				return 2;
 			}
@@ -805,7 +805,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 //	// Truncate the first few bytes
 //	UI08 Page = (UI08)MenuID;
 //
-//	if ( pc_currchar->guildstone() != this->serial ) 
+//	if ( pc_currchar->guildstone() != this->serial() ) 
 //		return;
 //
 //	switch( Page )
@@ -836,8 +836,8 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 //	case 2:													// guildmaster menu
 //		switch( Choice )
 //		{
-//		case 1:  //entrygump(s,pc_currchar->serial,100,1,40,"Enter a new guildname.");		break;
-//		case 2:  //entrygump(s,pc_currchar->serial,100,2,3,"Enter a new guild abbreviation.");break;
+//		case 1:  //entrygump(s,pc_currchar->serial(),100,1,40,"Enter a new guildname.");		break;
+//		case 2:  //entrygump(s,pc_currchar->serial(),100,2,3,"Enter a new guild abbreviation.");break;
 //		case 3:  Menu(s,3);																	break;
 //		case 4:  Menu(s,4);																	break;
 //		case 5:  Menu(s,8);																	break;
@@ -846,7 +846,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 //		case 8:  Menu(s,15);																break;
 //		case 9:	 Menu(s,10);																break;
 //		case 10: Menu(s,9);																	break;
-//		case 11: //entrygump(s,pc_currchar->serial,100,3,20,"Enter new guildmastertitle.");	break;
+//		case 11: //entrygump(s,pc_currchar->serial(),100,3,20,"Enter new guildmastertitle.");	break;
 //		case 12: Menu(s,12);																break;
 //		case 13: sysmessage(s, "Not yet");													break;
 //		case 14: Menu(s,1);																	break;
@@ -859,8 +859,8 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 //		switch( Choice )
 //		{
 //		case 1: Menu( s, 2 );																break;
-//		case 2: //entrygump( s, pc_currchar->serial, 100, 5, 50, "Enter a new charter." );	break;
-//		case 3:	//entrygump( s, pc_currchar->serial, 100, 6, 50, "Enter a new URL." );		break;
+//		case 2: //entrygump( s, pc_currchar->serial(), 100, 5, 50, "Enter a new charter." );	break;
+//		case 3:	//entrygump( s, pc_currchar->serial(), 100, 6, 50, "Enter a new URL." );		break;
 //			break;
 //		}
 //		return;
@@ -881,7 +881,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 //		if ( static_cast<unsigned int>( Choice ) >= member.size() )
 //			return;
 //
-//		if ( member[ Choice ] == pc_currchar->serial)
+//		if ( member[ Choice ] == pc_currchar->serial())
 //			sysmessage( s, "You can not dismiss yourself, please resign from the guild instead");
 //
 //		else
@@ -931,7 +931,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 //				if (sub == counter)
 //				{
 //					guilds[guildnumber].priv = guilds[guildnumber].member[member];
-//					entrygump(s,pc_currchar->serial,100,3,20,"Enter new guildtitle.");
+//					entrygump(s,pc_currchar->serial(),100,3,20,"Enter new guildtitle.");
 //					return;
 //				}
 //			}		
@@ -952,7 +952,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 //			list<SERIAL>::iterator it;
 //			for (it = guilds.begin(); it != guilds.end(); ++it)
 //			{
-//				if (this->serial != *it)
+//				if (this->serial() != *it)
 //				{
 //					++counter;
 //					if ( Choice == counter)
@@ -1297,7 +1297,7 @@ void GuildTitle(int s, P_CHAR pc_player2)
 		tl=44+strlen(title)+1;
 		talk[1]=tl>>8;
 		talk[2]=tl%256;
-		LongToCharPtr(pc_player2->serial, &talk[3]);
+		LongToCharPtr(pc_player2->serial(), &talk[3]);
 		talk[7]=1;
 		talk[8]=1;
 		talk[9]=0;
@@ -1327,7 +1327,7 @@ int CheckValidPlace(int s)
 		{
 			P_ITEM pi = FindItemBySerial(vecContainer[j]);
 			if (pi != NULL) 
-				if (pi->type()==7 && calcserial(pi->more1(), pi->more2(), pi->more3(), pi->more4()) == pi_multi->serial)
+				if (pi->type()==7 && calcserial(pi->more1(), pi->more2(), pi->more3(), pi->more4()) == pi_multi->serial())
 				{
 					los=1;
 					break;

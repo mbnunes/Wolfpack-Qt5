@@ -89,7 +89,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 
 	// Describing an item
 	case cChar::enDescription:
-		pItem->desc = speech.latin1();
+		pItem->setDescription( speech );
 		socket->sysMessage( tr( "This item is now described as %1." ).arg( speech ) );
 		pChar->setInputMode(cChar::enNone);
 		pChar->setInputItem(INVALID_SERIAL);
@@ -122,7 +122,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 	// Paging a GM
 	case cChar::enPageGM:
 		{
-			cPage* pPage = new cPage( pChar->serial, PT_GM, speech, pChar->pos() );
+			cPage* pPage = new cPage( pChar->serial(), PT_GM, speech, pChar->pos() );
 			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "GM Page from %1: %2" ).arg( pChar->name() ).arg( speech );
 			
@@ -142,7 +142,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 	// Paging a Counselor
 	case cChar::enPageCouns:
 		{
-			cPage* pPage = new cPage( pChar->serial, PT_COUNSELOR, speech, pChar->pos() );
+			cPage* pPage = new cPage( pChar->serial(), PT_COUNSELOR, speech, pChar->pos() );
 			cPagesManager::getInstance()->push_back( pPage );
 			notification = tr( "Counselor Page from %1: %2" ).arg( pChar->name() ).arg( speech );
 			
@@ -221,13 +221,13 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
 	pPlayer->setTarg( INVALID_SERIAL );
 
 	MapObjects::instance()->remove( p_pet );
-	p_pet->setStablemaster_serial( pMaster->serial );
+	p_pet->setStablemaster_serial( pMaster->serial() );
 
 	// set timer for fee calculation
     p_pet->setTime_unused(0);
 	p_pet->setTimeused_last( getNormalizedTime() );
 
-	stablesp.insert( pMaster->serial, p_pet->serial );
+	stablesp.insert( pMaster->serial(), p_pet->serial() );
 
 	pMaster->talk( tr( "Your pet is now stabled, say retrieve or claim %1 to claim your pet" ).arg( p_pet->name() ) );
 	return true;
@@ -249,7 +249,7 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 	//// if not return
     ///////////////////////////////////////////////////////////////////
 	P_CHAR pPet = NULL;
-	vector<SERIAL> pets = stablesp.getData(pMaster->serial);
+	vector<SERIAL> pets = stablesp.getData(pMaster->serial());
 
 	for( UINT32 i = 0; i < pets.size(); ++i )
 	{
@@ -291,7 +291,7 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 	delequan( pPlayer, 0x0EED, fee, NULL );
 		
 	// remove from hash table
-	stablesp.remove( pMaster->serial, pPet->serial );
+	stablesp.remove( pMaster->serial(), pPet->serial() );
 	pPet->setStablemaster_serial( INVALID_SERIAL ); // actual unstabling
 	pPet->setTimeused_last(getNormalizedTime());
 	pPet->setTime_unused(0);
@@ -415,7 +415,7 @@ bool EscortSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pEscortee, const QS
 //	{
 //		if ( pEscortee->ftarg() == INVALID_SERIAL )
 //		{
-//			pEscortee->setFtarg( pPlayer->serial );		// Set the NPC to follow the PC
+//			pEscortee->setFtarg( pPlayer->serial() );		// Set the NPC to follow the PC
 //			pEscortee->setNpcWander( 1 );			// Set the NPC to wander freely
 //			pEscortee->setNpcAIType( 0 );           // Set AI to 0
 //			
@@ -440,7 +440,7 @@ bool EscortSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pEscortee, const QS
 //	if( ( comm.contains( "DESTINATION" ) ) || onRoute )
 //	{
 //		// Send out the rant about accepting the escort
-//		if ( pEscortee->ftarg() == pPlayer->serial )
+//		if ( pEscortee->ftarg() == pPlayer->serial() )
 //			pEscortee->talk( tr( "Lead on to %1. I shall pay thee when we arrive." ).arg( pEscortee->questDestRegion() ) );
 //		
 //		// If nobody has been accepted for the quest yet
@@ -541,7 +541,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 				
 				message.append( tr( " Very well I, can train thee up to the level of %i percent for %i gold. Pay for less and I shall teach thee less." ).arg( perc ).arg( delta ) );
 
-				pPlayer->setTrainer( pTrainer->serial );
+				pPlayer->setTrainer( pTrainer->serial() );
 				pTrainer->setTrainingplayerin( skill );
 			}
 		}
@@ -600,7 +600,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	{
 		if( comm.contains( " ME" ) )
 		{
-			pPet->setFtarg( pPlayer->serial );
+			pPet->setFtarg( pPlayer->serial() );
 			pPet->setNpcWander( 1 );
 			playmonstersound( pPet, pPet->id(), SND_STARTATTACK );
 		}
@@ -621,7 +621,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 
 		//pPlayer->setGuarded( false );
 		// >> LEGACY
-		//addx[s]=pPet->serial;
+		//addx[s]=pPet->serial();
 		//target(s, 0, 1, 0, 118, "Select the target to attack.");//AntiChrist
 		bReturn = true;
 	}
@@ -629,14 +629,14 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	{
 		//pPlayer->setGuarded(false);
 		// >> LEGACY
-		//addx[s]=pPet->serial;
+		//addx[s]=pPet->serial();
 		//target(s, 0, 1, 0, 124, "Click on the object to fetch.");
 		bReturn = true;
 	}
 	else if( comm.contains( " COME" ) )
 	{
 		//pPlayer->setGuarded( false );
-		pPet->setFtarg( pPlayer->serial );
+		pPet->setFtarg( pPlayer->serial() );
 		pPet->setNpcWander(1);
 		pPet->setNextMoveTime();
 		pPlayer->message( tr( "Your pet begins following you." ) );
@@ -645,7 +645,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	else if( comm.contains( " GUARD" ) )
 	{
 		// LEGACY
-		/*addx[s] = pPet->serial;	// the pet's serial
+		/*addx[s] = pPet->serial();	// the pet's serial
 		addy[s] = 0;
 
 		if( comm.find( " ME" ) != string::npos )
@@ -671,7 +671,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	{
 		//pPlayer->setGuarded( false );
 		// >> LEGACY
-		/*addx[s]=pPet->serial;
+		/*addx[s]=pPet->serial();
 		target(s, 0, 1, 0, 119, "Select character to transfer your pet to.");*/
 		bReturn = true;
 	}
@@ -765,7 +765,7 @@ bool PlayerVendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, cons
 	if( ( comm.contains( " BUY" ) ) || ( comm.contains( " PURCHASE" ) ) )
 	{
 		// >> LEGACY
-		/*addx[s]=pVendor->serial;
+		/*addx[s]=pVendor->serial();
 		npctalk(s,pVendor,"What would you like to buy?",0);
 		target(s,0,1,0,224," ");*/
 		return true;
@@ -848,15 +848,15 @@ void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 {
 	Q_UNUSED(socket);
 	// Not inside a multi
-	if( pPlayer->multis == INVALID_SERIAL )
+	if( pPlayer->multis() == INVALID_SERIAL )
 		return; 
 
-	P_ITEM pMulti = FindItemBySerial( pPlayer->multis );
+	P_ITEM pMulti = FindItemBySerial( pPlayer->multis() );
 
 	if( !pMulti )
 	{
-		clConsole.send( tr( "Player %1 [0x%2] has bad multi serial [0x%1]" ).arg( pPlayer->name() ).arg( pPlayer->serial, 8, 16 ).arg( pPlayer->multis ) );
-		pPlayer->multis = INVALID_SERIAL;
+		clConsole.send( tr( "Player %1 [0x%2] has bad multi serial [0x%1]" ).arg( pPlayer->name() ).arg( pPlayer->serial(), 8, 16 ).arg( pPlayer->multis() ) );
+		pPlayer->setMultis( INVALID_SERIAL );
 		return;
 	}
 
@@ -874,18 +874,18 @@ void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 	// >> LEGACY
 	/*if(msg.contains("I BAN THEE")) 
 	{ // house ban
-		addid1[s] = pMulti->serial>>24;
-		addid2[s] = pMulti->serial>>16;
-		addid3[s] = pMulti->serial>>8;
-		addid4[s] = pMulti->serial%256;
+		addid1[s] = pMulti->serial()>>24;
+		addid2[s] = pMulti->serial()>>16;
+		addid3[s] = pMulti->serial()>>8;
+		addid4[s] = pMulti->serial()%256;
 		target(s, 0, 1, 0, 229, "Select person to ban from house.");
 	}
 	else if(msg.contains("REMOVE THYSELF")) 
 	{ // kick out of house
-		addid1[s] = pMulti->serial>>24;
-		addid2[s] = pMulti->serial>>16;
-		addid3[s] = pMulti->serial>>8;
-		addid4[s] = pMulti->serial%256;
+		addid1[s] = pMulti->serial()>>24;
+		addid2[s] = pMulti->serial()>>16;
+		addid3[s] = pMulti->serial()>>8;
+		addid4[s] = pMulti->serial()%256;
 		target(s, 0, 1, 0, 228, "Select person to eject from house.");
 	}
 	else if (msg.contains("I WISH TO LOCK THIS DOWN")) 
@@ -1019,7 +1019,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 
 		if( lFile.open( IO_Append ) )
 		{
 			QString logMessage( "[%1] %2: %3 [%4, 0x%5]" );
-			logMessage = logMessage.arg( QDateTime::currentDateTime().toString() ).arg( pChar->name() ).arg( speech ).arg( pChar->account()->login() ).arg( pChar->serial, 8, 16 );
+			logMessage = logMessage.arg( QDateTime::currentDateTime().toString() ).arg( pChar->name() ).arg( speech ).arg( pChar->account()->login() ).arg( pChar->serial(), 8, 16 );
 			lFile.writeBlock( logMessage.latin1(), logMessage.length() );
 			lFile.close();
 		}
@@ -1065,9 +1065,9 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 
 		if( !pi )
 			continue;
 
-		if( pi->type() == 117 && pi->tags.get( "tiller" ).toInt() == 1 )
+		if( pi->type() == 117 && pi->tags().get( "tiller" ).toInt() == 1 )
 		{
-			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toInt() ));
+			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags().get("boatserial").toInt() ));
 			if( pBoat )
 				pboats.append( pBoat );
 		}

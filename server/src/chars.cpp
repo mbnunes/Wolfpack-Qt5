@@ -96,12 +96,14 @@ bool  cChar::isGMorCounselor() const	{return (priv&0x81 || ( account() && ( acco
 cChar::cChar():
 	socket_(0), account_(0), owner_(0), guildstone_( INVALID_SERIAL ), guarding_( 0 )
 {
+	changed_ = true;
 	VisRange_ = VISRANGE;
 	Init( false );
 }
 
 cChar::cChar( const P_CHAR mob )
 {
+	changed_ = true;
 	this->content_ = mob->content();
 	this->followers_ = mob->followers();
 	this->guardedby_ = mob->guardedby();
@@ -322,15 +324,17 @@ void cChar::giveGold( Q_UINT32 amount, bool inBank )
 		goldsfx( socket_, amount, false );
 }
 
-void cChar::setSerial(SERIAL ser)
+void cChar::setSerial(const SERIAL ser)
 {
-	this->serial = ser;
-	if ( this->serial != INVALID_SERIAL)
+	changed_ = true;
+	cUObject::setSerial( ser );
+	if ( this->serial() != INVALID_SERIAL)
 		CharsManager::instance()->registerChar(this);
 }
 
 void cChar::Init(bool ser)
 {
+	changed_ = true;
 	VisRange_ = VISRANGE;
 	unsigned int i;
 
@@ -340,11 +344,11 @@ void cChar::Init(bool ser)
 	}
 	else
 	{
-		this->serial = INVALID_SERIAL;
+		this->setSerial( INVALID_SERIAL );
 	}
 
 	this->animated = false;
-	this->multis=-1;//Multi serial
+	this->setMultis( INVALID_SERIAL );//Multi serial
 	this->free = false;
 	this->setName("Man");
 	this->setOrgname( "Man" );
@@ -552,7 +556,7 @@ P_ITEM cChar::getBankBox( void )
 	pi = new cItem;
 	pi->Init();
 	pi->setId( 0x9ab );
-	pi->SetOwnSerial(this->serial);
+	pi->SetOwnSerial(this->serial());
 	pi->setMoreX(1);
 	pi->setType( 1 );
 	pi->setName( tr( "%1's bank box" ).arg( name() ) );
@@ -620,16 +624,16 @@ void cChar::setNextMoveTime(short tamediv)
 void cChar::fight(P_CHAR other)
 {
 	// I am already fighting this character.
-	if( war() && targ() == other->serial )
+	if( war() && targ() == other->serial() )
 		return;
 
 	// Store the current Warmode
 	bool oldwar = war_;
 
-	this->targ_ = other->serial;
+	this->targ_ = other->serial();
 	this->unhide();
 	this->disturbMed();	// Meditation
-	this->attacker_ = other->serial;
+	this->attacker_ = other->serial();
 	this->setWar( true );
 	
 	if (this->isNpc())
@@ -648,7 +652,7 @@ void cChar::fight(P_CHAR other)
 
 		// Send Attack target
 		cUOTxAttackResponse attack;
-		attack.setSerial( other->serial );
+		attack.setSerial( other->serial() );
 		socket_->send( &attack );
 
 		// Resend the Character (a changed warmode results in not walking but really just updating)
@@ -743,18 +747,19 @@ P_ITEM cChar::getBackpack()
 
 void cChar::SetSpawnSerial(long spawnser)
 {
+	changed_ = true;
 	if (spawnSerial() != INVALID_SERIAL)	// if it was set, remove the old one
-		cspawnsp.remove(spawnSerial(), serial);
+		cspawnsp.remove(spawnSerial(), serial());
 
 	spawnserial_ = spawnser;
 
 	if (spawnser != INVALID_SERIAL)		// if there is a spawner, add it
-		cspawnsp.insert(spawnserial_, serial);
+		cspawnsp.insert(spawnserial_, serial());
 }
 
 void cChar::SetMultiSerial(long mulser)
 {
-	this->multis = mulser;
+	this->setMultis( mulser );
 }
 
 void cChar::MoveToXY(short newx, short newy)
@@ -804,6 +809,7 @@ int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 
 void cChar::removeItemBonus(cItem* pi)
 {
+	changed_ = true;
 //	this->st -= pi->st2;
 	this->setSt( ( this->st() ) - pi->st2());
 	this->chgDex(-1 * pi->dx2());
@@ -981,7 +987,7 @@ void cChar::load( char **result, UINT16 &offset )
 	SetSpawnSerial( spawnserial_ );
 
 	// Query the Skills for this character
-	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial ) + "'";
+	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
 
 	cDBDriver driver;
 	cDBResult res = driver.query( sql );
@@ -1003,129 +1009,132 @@ void cChar::load( char **result, UINT16 &offset )
 	res.free();
 
 	characterRegisterAfterLoading( this );
+	changed_ = false;
 }
 
 void cChar::save()
 {
-	initSave;
-
-	setTable( "characters" );
-
-	addField( "serial", serial );
-	addStrField( "name", incognito() ? name() : orgname() );	
-	addStrField( "title", title_ );
-
-	if( account_ )
-		addStrField( "account", account_->login() );
-
-	addField( "creationday", creationday_ );
-	addField( "guildtype", GuildType );
-	addField( "guildtraitor", GuildTraitor );
-	addField( "cell", cell_ );
-	addField( "dir", dir_ );
-
-	addField( "body", (incognito() || polymorph()) ? xid_ : id_ );
-	addField( "xbody", xid_ );
-	addField( "skin", incognito() ? xskin_ : skin_ );
-	addField( "xskin", xskin_ );
-	addField( "priv", priv );
-	addField( "stablemaster", stablemaster_serial_ );
-	addField( "npctype", npc_type_ );
-	addField( "time_unused", time_unused_ );
-
-	addField( "allmove", priv2_);
-	addField( "font", fonttype_);
-	addField( "say", saycolor_);
-	addField( "emote", emotecolor_);
-	addField( "strength", st_);
-	addField( "strength2", st2_);
-	addField( "dexterity", dx);
-	addField( "dexterity2", dx2);
-	addField( "intelligence", in_);
-	addField( "intelligence2", in2_);
-	addField( "hitpoints", hp_);
-	addField( "spawnregion", spawnregion_);
-	addField( "stamina", stm_);
-	addField( "mana", mn_);
-	addField( "npc", npc_);
-	addField( "holdgold", holdg_);
-	addField( "shop", shop_);
-
-	addField( "owner", owner_ ? owner_->serial : INVALID_SERIAL );
-
-	addField( "robe", robe_);
-	addField( "karma", karma_);
-	addField( "fame", fame_);
-	addField( "kills", kills_);
-	addField( "deaths", deaths_);
-	addField( "dead", dead_);
-	addField( "fixedlight", fixedlight_);
-	addField( "speech", speech_);
-	addStrField( "disablemsg", disabledmsg_ );
-	addField( "cantrain", cantrain_);
-	addField( "def", def_);
-	addField( "lodamage", lodamage_);
-	addField( "hidamage", hidamage_);
-	addField( "war", war_);
-	addField( "npcwander", npcWander_);
-	addField( "oldnpcwander", oldnpcWander_);
-	addStrField( "carve", carve_);
-	addField( "fx1", fx1_);
-	addField( "fy1", fy1_);
-	addField( "fz1", fz1_);
-	addField( "fx2", fx2_);
-	addField( "fy2", fy2_);
-	addField( "spawn", spawnserial_);
-	addField( "hidden", hidden_);
-	addField( "hunger", hunger_);
-	addField( "npcaitype", npcaitype_);
-	addField( "spattack", spattack_);
-	addField( "spadelay", spadelay_);
-	addField( "taming", taming_);
-	unsigned int summtimer = summontimer_ - uiCurrentTime;
-	addField( "summonremainingseconds", summtimer);
-	addField( "poison", poison_);
-	addField( "poisoned", poisoned_);
-	addField( "fleeat", fleeat_);
-	addField( "reattackat", reattackat_);
-	addField( "split", split_);
-	addField( "splitchance",	splitchnc_);
-	addField( "guildtoggle",	guildtoggle_);  
-	addField( "guildstone", guildstone_);  
-	addField( "guildtitle", guildtitle_);  
-	addField( "guildfealty", guildfealty_);  
-	addField( "murderrate", murderrate_);
-	addField( "menupriv", menupriv_);
-	addField( "questtype", questType_);
-	addField( "questdestregion", questDestRegion_);
-	addField( "questorigregion", questOrigRegion_);
-	addField( "questbountypostserial", questBountyPostSerial_);
-	addField( "questbountyreward", questBountyReward_);
-	unsigned int jtimer = jailtimer_-uiCurrentTime;
-	addField( "jailtimer", jtimer); 
-	addField( "jailsecs", jailsecs_); 
-	addStrField( "lootlist", loot_);
-	addField( "food", food_);
-	addStrField( "profile", profile_ );
-	addField( "guarding", guarding_ ? guarding_->serial : INVALID_SERIAL );
-	addStrField( "destination", QString( "%1,%2,%3,%4" ).arg( ptarg_.x ).arg( ptarg_.y ).arg( ptarg_.z ).arg( ptarg_.map ) );
-
-	addCondition( "serial", serial );
-	saveFields;
-
-	for( UINT32 j = 0; j < TRUESKILLS; ++j )
+	if ( changed_ )
 	{
-		clearFields;
-		setTable( "skills" );
-		addField( "serial", serial );
-		addField( "skill", j );
-		addField( "value", baseSkill_[j] );
-		addField( "locktype", lockSkill_[j] );
-		addCondition( "serial", serial );
-		addCondition( "skill", j );
+		initSave;
+		setTable( "characters" );
+		
+		addField( "serial", serial() );
+		addStrField( "name", incognito() ? name() : orgname() );	
+		addStrField( "title", title_ );
+		
+		if( account_ )
+			addStrField( "account", account_->login() );
+		
+		addField( "creationday", creationday_ );
+		addField( "guildtype", GuildType );
+		addField( "guildtraitor", GuildTraitor );
+		addField( "cell", cell_ );
+		addField( "dir", dir_ );
+		
+		addField( "body", (incognito() || polymorph()) ? xid_ : id_ );
+		addField( "xbody", xid_ );
+		addField( "skin", incognito() ? xskin_ : skin_ );
+		addField( "xskin", xskin_ );
+		addField( "priv", priv );
+		addField( "stablemaster", stablemaster_serial_ );
+		addField( "npctype", npc_type_ );
+		addField( "time_unused", time_unused_ );
+		
+		addField( "allmove", priv2_);
+		addField( "font", fonttype_);
+		addField( "say", saycolor_);
+		addField( "emote", emotecolor_);
+		addField( "strength", st_);
+		addField( "strength2", st2_);
+		addField( "dexterity", dx);
+		addField( "dexterity2", dx2);
+		addField( "intelligence", in_);
+		addField( "intelligence2", in2_);
+		addField( "hitpoints", hp_);
+		addField( "spawnregion", spawnregion_);
+		addField( "stamina", stm_);
+		addField( "mana", mn_);
+		addField( "npc", npc_);
+		addField( "holdgold", holdg_);
+		addField( "shop", shop_);
+		
+		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
+		
+		addField( "robe", robe_);
+		addField( "karma", karma_);
+		addField( "fame", fame_);
+		addField( "kills", kills_);
+		addField( "deaths", deaths_);
+		addField( "dead", dead_);
+		addField( "fixedlight", fixedlight_);
+		addField( "speech", speech_);
+		addStrField( "disablemsg", disabledmsg_ );
+		addField( "cantrain", cantrain_);
+		addField( "def", def_);
+		addField( "lodamage", lodamage_);
+		addField( "hidamage", hidamage_);
+		addField( "war", war_);
+		addField( "npcwander", npcWander_);
+		addField( "oldnpcwander", oldnpcWander_);
+		addStrField( "carve", carve_);
+		addField( "fx1", fx1_);
+		addField( "fy1", fy1_);
+		addField( "fz1", fz1_);
+		addField( "fx2", fx2_);
+		addField( "fy2", fy2_);
+		addField( "spawn", spawnserial_);
+		addField( "hidden", hidden_);
+		addField( "hunger", hunger_);
+		addField( "npcaitype", npcaitype_);
+		addField( "spattack", spattack_);
+		addField( "spadelay", spadelay_);
+		addField( "taming", taming_);
+		unsigned int summtimer = summontimer_ - uiCurrentTime;
+		addField( "summonremainingseconds", summtimer);
+		addField( "poison", poison_);
+		addField( "poisoned", poisoned_);
+		addField( "fleeat", fleeat_);
+		addField( "reattackat", reattackat_);
+		addField( "split", split_);
+		addField( "splitchance",	splitchnc_);
+		addField( "guildtoggle",	guildtoggle_);  
+		addField( "guildstone", guildstone_);  
+		addField( "guildtitle", guildtitle_);  
+		addField( "guildfealty", guildfealty_);  
+		addField( "murderrate", murderrate_);
+		addField( "menupriv", menupriv_);
+		addField( "questtype", questType_);
+		addField( "questdestregion", questDestRegion_);
+		addField( "questorigregion", questOrigRegion_);
+		addField( "questbountypostserial", questBountyPostSerial_);
+		addField( "questbountyreward", questBountyReward_);
+		unsigned int jtimer = jailtimer_-uiCurrentTime;
+		addField( "jailtimer", jtimer); 
+		addField( "jailsecs", jailsecs_); 
+		addStrField( "lootlist", loot_);
+		addField( "food", food_);
+		addStrField( "profile", profile_ );
+		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
+		addStrField( "destination", QString( "%1,%2,%3,%4" ).arg( ptarg_.x ).arg( ptarg_.y ).arg( ptarg_.z ).arg( ptarg_.map ) );
+		
+		addCondition( "serial", serial() );
 		saveFields;
+		
+		for( UINT32 j = 0; j < TRUESKILLS; ++j )
+		{
+			clearFields;
+			setTable( "skills" );
+			addField( "serial", serial() );
+			addField( "skill", j );
+			addField( "value", baseSkill_[j] );
+			addField( "locktype", lockSkill_[j] );
+			addCondition( "serial", serial() );
+			addCondition( "skill", j );
+			saveFields;
+		}
 	}
-
+	changed_ = false;
 	cUObject::save();
 }
 
@@ -1134,8 +1143,9 @@ bool cChar::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial ) );
-	persistentBroker->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial() ) );
+	changed_ = true;
 	return cUObject::del();
 }
 
@@ -1302,6 +1312,7 @@ bool cChar::onDropOnChar( P_ITEM pItem )
 
 void cChar::processNode( const QDomElement &Tag )
 {
+	changed_ = true;
 	QString TagName = Tag.nodeName();
 	QString Value = this->getNodeValue( Tag );
 	QDomNodeList ChildTags;
@@ -1815,7 +1826,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	};
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
-	textSpeech->setSource( serial );
+	textSpeech->setSource( serial() );
 	textSpeech->setModel( id() );
 	textSpeech->setFont( 3 ); // Default Font
 	textSpeech->setType( speechType );
@@ -1877,7 +1888,7 @@ void cChar::emote( const QString &emote, UI16 color )
 		color = emotecolor_;
 
 	cUOTxUnicodeSpeech textSpeech;
-	textSpeech.setSource( serial );
+	textSpeech.setSource( serial() );
 	textSpeech.setModel( id() );
 	textSpeech.setFont( 3 ); // Default Font
 	textSpeech.setType( cUOTxUnicodeSpeech::Emote );
@@ -1900,6 +1911,7 @@ void cChar::message( const QString &message, UI16 color )
 
 void cChar::setAccount( AccountRecord* data, bool moveFromAccToAcc )
 {
+	changed_ = true;
 	if( moveFromAccToAcc && account_ != 0 )
 		account_->removeCharacter( this );
 
@@ -1911,6 +1923,7 @@ void cChar::setAccount( AccountRecord* data, bool moveFromAccToAcc )
 
 void cChar::giveItemBonus(cItem* pi)
 {
+	changed_ = true;
 	st_ += pi->st2();
 	chgDex( pi->dx2() );
 	in_ += pi->in2();
@@ -1940,7 +1953,7 @@ void cChar::showName( cUOSocket *socket )
 
 	// Append serial for GMs
 	if( socket->player()->canSeeSerials() )
-		charName.append( QString( " [0x%1]" ).arg( serial, 4, 16 ) );
+		charName.append( QString( " [0x%1]" ).arg( serial(), 4, 16 ) );
 
 	// Append offline flag
 	if( !isNpc() && !socket_ )
@@ -2045,7 +2058,7 @@ void cChar::resend( bool clean, bool excludeself )
 		return;
 
 	cUOTxRemoveObject rObject;
-	rObject.setSerial( serial );
+	rObject.setSerial( serial() );
 
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( this );
@@ -2131,6 +2144,7 @@ cGuildStone *cChar::getGuildstone()
 
 void cChar::makeShop( void )
 {
+	changed_ = true;
 	shop_ = true;
 
 	// We need to create the same item on several layers
@@ -2173,7 +2187,7 @@ public:
 	cResetAnimated( P_CHAR pChar, UINT32 ms )
 	{
 		expiretime = uiCurrentTime + ms;
-		sourSer = pChar->serial;
+		sourSer = pChar->serial();
 		serializable = false; // We dont want to save this
 	}
 
@@ -2211,7 +2225,7 @@ void cChar::action( UINT8 id )
 
 	cUOTxAction action;
 	action.setAction( id );
-	action.setSerial( serial );
+	action.setSerial( serial() );
 	action.setDirection( dir_ );
 	action.setRepeat( 1 );
 	action.setRepeatFlag( 0 );
@@ -2282,6 +2296,7 @@ UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
 // Formerly deathstuff()
 void cChar::kill()
 {
+	changed_ = true;
 	int ele;
 	int nType=0;
 
@@ -2327,7 +2342,7 @@ void cChar::kill()
 	for( iter_char.Begin(); !iter_char.atEnd(); iter_char++ )
 	{
 		P_CHAR pc_t = iter_char.GetData();
-		if( ( pc_t->swingtarg() == serial || pc_t->targ() == serial ) && !pc_t->free )
+		if( ( pc_t->swingtarg() == serial() || pc_t->targ() == serial() ) && !pc_t->free )
 		{
 			if( pc_t->npcaitype() == 4 )
 			{
@@ -2362,8 +2377,8 @@ void cChar::kill()
 					{
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
-						// BountyAskVictim( this->serial, pc_t->serial );
-						setMurdererSer( pc_t->serial );
+						// BountyAskVictim( this->serial(), pc_t->serial() );
+						setMurdererSer( pc_t->serial() );
 						pc_t->kills_++;
 
 						// Notify the user of reputation changes
@@ -2460,7 +2475,7 @@ void cChar::kill()
 	    else if( isMurderer() )
 			corpse->setMore2(3);
 
-        corpse->ownserial = serial;
+        corpse->ownserial = serial();
 	}
 
 	corpse->setBodyId( xid_ );
@@ -2471,13 +2486,13 @@ void cChar::kill()
 	corpse->moveTo( pos() );
 
 	corpse->setMore1(nType);
-	corpse->dir = dir_;
+	corpse->setDirection( dir_ );
 	corpse->startDecay();
 	
 	// If it was a player set the ownerserial to the player's
 	if( isPlayer() )
 	{
-		corpse->SetOwnSerial(serial);
+		corpse->SetOwnSerial(serial());
 		// This is.... stupid...
 		corpse->setMore4( char( SrvParams->playercorpsedecaymultiplier()&0xff ) ); // how many times longer for the player's corpse to decay
 	}
@@ -2498,7 +2513,7 @@ void cChar::kill()
 			if( pi_loot )
 				corpse->addItem( pi_loot );
 //			if( pi_loot )
-//				pi_loot->setContSerial( corpse->serial );
+//				pi_loot->setContSerial( corpse->serial() );
 // Restructuring
 			it++;
 		}
@@ -2559,7 +2574,7 @@ void cChar::kill()
 				if( pi_j != pi_backpack )
 				{
 					pi_j->removeFromView();
-					corpse->addEquipment( pi_j->layer(), pi_j->serial );
+					corpse->addEquipment( pi_j->layer(), pi_j->serial() );
 					corpse->addItem( pi_j );					
 				}
 			}
@@ -2576,11 +2591,11 @@ void cChar::kill()
 	}	
 
 	cUOTxDeathAction dAction;
-	dAction.setSerial( serial );
-	dAction.setCorpse( corpse->serial );
+	dAction.setSerial( serial() );
+	dAction.setCorpse( corpse->serial() );
 
 	cUOTxRemoveObject rObject;
-	rObject.setSerial( serial );
+	rObject.setSerial( serial() );
 
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) && ( mSock != socket_ ) )
@@ -2599,7 +2614,7 @@ void cChar::kill()
 		P_ITEM pItem = Items->createScriptItem( "204e" );
 		if( pItem )
 		{
-			robe_ = pItem->serial;
+			robe_ = pItem->serial();
 			this->addItem( cChar::OuterTorso, pItem );
 			pItem->update();
 		}
@@ -2641,6 +2656,7 @@ void cChar::resurrect()
 	if ( !dead_ )
 		return;
 
+	changed_ = true;
 	Fame( this, 0 );
 	soundEffect( 0x0214 );
 	setId( xid_ );
@@ -2703,6 +2719,7 @@ void cChar::turnTo( cUObject *object )
 
 	if( nDir != dir_ )
 	{
+		changed_ = true;
 		dir_ = nDir;
 		// TODO: we could try to use an update here because our direction
 		// changed for sure
@@ -2751,8 +2768,8 @@ void cChar::updateWornItems()
 		if (pi != NULL && !pi->free)
 		{
 			cUOTxCharEquipment packet;
-			packet.setWearer( this->serial );
-			packet.setSerial( pi->serial );
+			packet.setWearer( this->serial() );
+			packet.setSerial( pi->serial() );
 			packet.fromItem( pi );
 			for ( cUOSocket* socket = cNetwork::instance()->first(); socket != 0; socket = cNetwork::instance()->next() )
 				if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange() ) ) 
@@ -2776,8 +2793,8 @@ void cChar::updateWornItems( cUOSocket* socket )
 		if (pi != NULL && !pi->free)
 		{
 			cUOTxCharEquipment packet;
-			packet.setWearer( this->serial );
-			packet.setSerial( pi->serial );
+			packet.setWearer( this->serial() );
+			packet.setSerial( pi->serial() );
 			packet.fromItem( pi );
 			socket->send( &packet );
 		}
@@ -2806,8 +2823,8 @@ void cChar::wear( P_ITEM pi )
 
 	this->addItem( static_cast<cChar::enLayer>(layer), pi );
 	cUOTxCharEquipment packet;
-	packet.setWearer( this->serial );
-	packet.setSerial( pi->serial );
+	packet.setWearer( this->serial() );
+	packet.setSerial( pi->serial() );
 	packet.fromItem( pi );
 	for ( cUOSocket* socket = cNetwork::instance()->first(); socket != 0; socket = cNetwork::instance()->next() )
 		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange() ) ) 
@@ -2918,7 +2935,7 @@ void cChar::mount( P_CHAR pMount )
 		position.z = pMount->fz1();
 		pMountItem->setPos( position );
 		
-		pMountItem->setMoreX(pMount->serial);
+		pMountItem->setMoreX(pMount->serial());
 		pMountItem->setMoreY(pMount->id());
 
 		pMountItem->setMoreb1( pMount->npcWander() );
@@ -3194,7 +3211,7 @@ void cChar::attackTarget( P_CHAR defender )
 
 	if( cdist > defender->dist( this ) )
 	{
-		defender->setAttacker(serial);
+		defender->setAttacker(serial());
 		defender->setAttackFirst();
 	}
 
@@ -3207,8 +3224,8 @@ void cChar::attackTarget( P_CHAR defender )
 	if( ( cdist > defender->dist( this ) ) &&
 		( !(npcaitype() == 4) || target ) )
 	{
-		targ_ = defender->serial;
-		attacker_ = defender->serial;
+		targ_ = defender->serial();
+		attacker_ = defender->serial();
 		resetAttackFirst();
 	}
 
@@ -3529,7 +3546,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 			{
 				pc->setSkin( 0xF000 );
 				pc->setXSkin( 0xF000 );
-				clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name().latin1(),pc->serial);
+				clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name().latin1(),pc->serial());
 			}
 		}
 	} 
@@ -3553,7 +3570,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 		MapObjects::instance()->add(pc); 
 	} 
 	else
-		stablesp.insert(pc->stablemaster_serial(), pc->serial);
+		stablesp.insert(pc->stablemaster_serial(), pc->serial());
 	
 	UINT16 max_x = Map->mapTileWidth(pc->pos().map) * 8;
 	UINT16 max_y = Map->mapTileHeight(pc->pos().map) * 8;
@@ -3594,7 +3611,7 @@ void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight, bool no
 
 	content_.insert( (ushort)(layer), pi );
 	pi->setLayer( layer );
-	pi->contserial = this->serial;
+	pi->contserial = this->serial();
 	pi->container_ = this;
 
 	if( handleWeight )
@@ -3643,6 +3660,7 @@ void cChar::setOwner( P_CHAR data )
 	}
 
 	owner_ = data;
+	changed_ = true;
 
 	if( owner_ )
 	{
@@ -3706,6 +3724,7 @@ void cChar::setGuarding( P_CHAR data )
 		guarding_->removeGuard( this );
 
 	guarding_ = data;
+	changed_ = true;
 
 	if( guarding_ )
 		guarding_->addGuard( this );		
@@ -3747,7 +3766,7 @@ bool cChar::Owns( P_ITEM pItem )
 	if( !pItem )
 		return false;
 
-	return ( pItem->ownserial == serial );
+	return ( pItem->ownserial == serial() );
 }
 
 P_ITEM cChar::getWeapon()
@@ -3838,6 +3857,7 @@ void cChar::criminal( )
 // Simple setting and getting of properties for scripts and the set command.
 stError *cChar::setProperty( const QString &name, const cVariant &value )
 {
+	changed_ = true;
 	SET_INT_PROPERTY( "guildtype", GuildType )
 	SET_INT_PROPERTY( "guildtraitor", GuildTraitor )
 	SET_STR_PROPERTY( "orgname", orgname_ )
@@ -3920,12 +3940,12 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 			guildstone_ = INVALID_SERIAL;
 			return 0;
 		}
-		else if( pItem->serial != guildstone_ )
+		else if( pItem->serial() != guildstone_ )
 		{
 			cGuildStone *pGuild = dynamic_cast< cGuildStone* >( FindItemBySerial( guildstone_ ) );
 			if( pGuild )
 				pGuild->removeMember( this );
-			guildstone_ = pItem->serial;
+			guildstone_ = pItem->serial();
 			return 0;
 		}
 		else

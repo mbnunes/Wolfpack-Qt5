@@ -74,7 +74,7 @@ void cMulti::load( char **result, UINT16 &offset )
 	deedsection_ = result[offset++];
 
 	// Load from two additional tables here
-	QString sql = "SELECT multis_bans.serial,multis_bans.ban FROM multis_bans WHERE multis_bans.serial = '" + QString::number( serial ) + "'";
+	QString sql = "SELECT multis_bans.serial,multis_bans.ban FROM multis_bans WHERE multis_bans.serial = '" + QString::number( serial() ) + "'";
 
 	cDBDriver driver;
 	cDBResult res = driver.query( sql );	
@@ -91,7 +91,7 @@ void cMulti::load( char **result, UINT16 &offset )
 
 	res.free();
 
-	sql = "SELECT multis_friends.serial,multis_friends.friend FROM multis_friends WHERE multis_friends.serial = '" + QString::number( serial ) + "'";
+	sql = "SELECT multis_friends.serial,multis_friends.friend FROM multis_friends WHERE multis_friends.serial = '" + QString::number( serial() ) + "'";
 
 	res = driver.query( sql );
 
@@ -113,27 +113,27 @@ void cMulti::save()
 	initSave;
 	setTable( "multis" );
 	
-	addField( "serial", serial );
+	addField( "serial", serial() );
 	addField( "coowner", coowner_ );
 	addStrField( "deedsection", deedsection_ );
 
-	addCondition( "serial", serial );
+	addCondition( "serial", serial() );
 	saveFields;
 
 	// Reset Bans+Friends
 	if( isPersistent )
 	{
-		persistentBroker->executeQuery( QString( "DELETE FROM multis_bans WHERE serial = '%1'" ).arg( serial ) );
-		persistentBroker->executeQuery( QString( "DELETE FROM multis_friends WHERE serial = '%1'" ).arg( serial ) );
+		persistentBroker->executeQuery( QString( "DELETE FROM multis_bans WHERE serial = '%1'" ).arg( serial() ) );
+		persistentBroker->executeQuery( QString( "DELETE FROM multis_friends WHERE serial = '%1'" ).arg( serial() ) );
 	}
 	
 	// Friends + Bans
 	INT32 i;
 	for ( i = 0; i < bans_.size(); ++i )
-		persistentBroker->executeQuery( QString( "INSERT INTO multis_bans SET serial = '%1', ban = '%2'" ).arg( serial ).arg( bans_[i] ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO multis_bans SET serial = '%1', ban = '%2'" ).arg( serial() ).arg( bans_[i] ) );
 
 	for ( i = 0; i < friends_.size(); ++i )
-		persistentBroker->executeQuery( QString( "INSERT INTO multis_friends SET serial = '%1', friend = '%2'" ).arg( serial ).arg( friends_[i] ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO multis_friends SET serial = '%1', friend = '%2'" ).arg( serial() ).arg( friends_[i] ) );
 
 	cItem::save();
 }
@@ -143,9 +143,9 @@ bool cMulti::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "multis", QString( "serial = '%1'" ).arg( serial ) );
-	persistentBroker->addToDeleteQueue( "multis_bans", QString( "serial = '%1'" ).arg( serial ) );
-	persistentBroker->addToDeleteQueue( "multis_friends", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "multis", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "multis_bans", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "multis_friends", QString( "serial = '%1'" ).arg( serial() ) );
 
 	return cItem::del();
 }
@@ -211,15 +211,15 @@ cMulti* cMulti::findMulti( const Coord_cl &pos )
 
 void cMulti::addItem( P_ITEM pi )
 {
-	if( !items_.contains( pi->serial ) )
-		items_.append( pi->serial );
+	if( !items_.contains( pi->serial() ) )
+		items_.append( pi->serial() );
 
-	pi->SetMultiSerial( serial );
+	pi->SetMultiSerial( serial() );
 }
 
 void cMulti::removeItem( P_ITEM pi )
 {
-	items_.remove( pi->serial );
+	items_.remove( pi->serial() );
 	pi->SetMultiSerial( INVALID_SERIAL );
 }
 
@@ -249,15 +249,15 @@ void cMulti::checkItems()
 
 void cMulti::addChar( P_CHAR pc )
 {
-	if( !chars_.contains( pc->serial ) )
-		chars_.append( pc->serial );
+	if( !chars_.contains( pc->serial() ) )
+		chars_.append( pc->serial() );
 	
-	pc->SetMultiSerial( serial );
+	pc->SetMultiSerial( serial() );
 }
 
 void cMulti::removeChar( P_CHAR pc )
 {
-	chars_.remove( pc->serial );
+	chars_.remove( pc->serial() );
 	pc->SetMultiSerial( INVALID_SERIAL );
 }
 
@@ -287,41 +287,41 @@ void cMulti::checkChars()
 
 bool cMulti::isBanned(P_CHAR pc)
 {
-	return binary_search(bans_.begin(), bans_.end(), pc->serial);
+	return binary_search(bans_.begin(), bans_.end(), pc->serial());
 }
 
 bool cMulti::isFriend(P_CHAR pc)
 {
-	return binary_search(friends_.begin(), friends_.end(), pc->serial);
+	return binary_search(friends_.begin(), friends_.end(), pc->serial());
 }
 
 void cMulti::addBan(P_CHAR pc)
 {
-	if( find(bans_.begin(), bans_.end(), pc->serial) == bans_.end() )
+	if( find(bans_.begin(), bans_.end(), pc->serial()) == bans_.end() )
 	{
-		bans_.push_back(pc->serial);
+		bans_.push_back(pc->serial());
 		sort(bans_.begin(), bans_.end());
 	}
 }
 
 void cMulti::addFriend(P_CHAR pc)
 {	
-	if( find(friends_.begin(), friends_.end(), pc->serial) == friends_.end() )
+	if( find(friends_.begin(), friends_.end(), pc->serial()) == friends_.end() )
 	{
-		friends_.push_back(pc->serial);
+		friends_.push_back(pc->serial());
 		sort(friends_.begin(), friends_.end());
 	}
 }
 
 void cMulti::removeBan(P_CHAR pc)
 {
-	vector<SERIAL>::iterator it = find(bans_.begin(), bans_.end(), pc->serial);
+	vector<SERIAL>::iterator it = find(bans_.begin(), bans_.end(), pc->serial());
 	bans_.erase(it);
 }
 
 void cMulti::removeFriend(P_CHAR pc)
 {
-	vector<SERIAL>::iterator it = find(friends_.begin(), friends_.end(), pc->serial);
+	vector<SERIAL>::iterator it = find(friends_.begin(), friends_.end(), pc->serial());
 	friends_.erase(it);
 }
 
@@ -351,7 +351,7 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 	P_ITEM pKey = Items->createScriptItem( "100f" );
 	if( pKey )
 	{
-		pKey->tags.set( "linkserial", this->serial );
+		pKey->tags().set( "linkserial", this->serial() );
 		pKey->setType( 7 );
 		pKey->priv = 2;
 		pKey->setName( name );
@@ -367,7 +367,7 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 		pKey = Items->createScriptItem( "100f" );
 		if( pKey )
 		{
-			pKey->tags.set( "linkserial", this->serial );
+			pKey->tags().set( "linkserial", this->serial() );
 			pKey->setType( 7 );
 //			pKey->priv = 2; dont newbie these 3 bank box keys
 			pKey->setName( name );
@@ -386,7 +386,7 @@ void cMulti::removeKeys( void )
 	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
 	{
 		P_ITEM pi = iter_items.GetData();
-		if( pi && pi->type() == 7 && pi->tags.get( "linkserial" ).isValid() && pi->tags.get( "linkserial" ).toInt() == this->serial )
+		if( pi && pi->type() == 7 && pi->tags().get( "linkserial" ).isValid() && pi->tags().get( "linkserial" ).toInt() == this->serial() )
 			todelete.append( pi );
 	}
 	QPtrListIterator< cItem > it( todelete );
@@ -415,10 +415,10 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 		
 		if( pi->type() == 7 ) 
 		{
-			if( pi->tags.get( "linkserial" ).isValid() )
+			if( pi->tags().get( "linkserial" ).isValid() )
 			{
-				SERIAL si = pi->tags.get( "linkserial" ).toInt();
-				if( si == this->serial ) 
+				SERIAL si = pi->tags().get( "linkserial" ).toInt();
+				if( si == this->serial() ) 
 				{
 					found = true;
 					break;
@@ -438,7 +438,7 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 
 bool cMulti::authorized( P_CHAR pc )
 {
-	return ( pc->isGMorCounselor() || ownserial == pc->serial || findKey( pc ) || isFriend( pc ) );
+	return ( pc->isGMorCounselor() || ownserial == pc->serial() || findKey( pc ) || isFriend( pc ) );
 }
 
 
@@ -450,7 +450,7 @@ P_CHAR cMulti::coOwner( void )
 void cMulti::setCoOwner( P_CHAR pc )
 { 
 	if( pc ) 
-		coowner_ = pc->serial; 
+		coowner_ = pc->serial(); 
 }
 
 void cMulti::setName( const QString nValue )

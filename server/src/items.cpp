@@ -81,18 +81,18 @@ contserial( INVALID_SERIAL ), container_(0), totalweight_(0), incognito(false),
 rndvaluerate(0), dooropen_(0),gatetime_(0),gatenumber_(-1),disabledmsg_(""),murdertime_(0),
 timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 ) {};
 
-cItem::cItem( cItem &src )
+cItem::cItem( const cItem &src )
 {
 	this->name_ = src.name_;
 	this->name2_ = src.name2_;
-	this->creator = src.creator;
+	this->creator_ = src.creator_;
 	this->incognito = src.incognito;
 	this->madewith = src.madewith;
 	this->rank_ = src.rank_;
 	this->good = src.good;
 	this->rndvaluerate = src.rndvaluerate;
 
-	this->multis = src.multis;
+	this->setMultis( src.multis() );
 	this->free = false;
 	this->setId(src.id());
 	this->setPos(src.pos());
@@ -140,7 +140,7 @@ cItem::cItem( cItem &src )
 	this->setOwnSerialOnly(src.ownserial);
 	this->visible=src.visible;
 	this->spawnserial=src.spawnserial;
-	this->dir=src.dir;
+	this->dir_=src.dir_;
 	this->priv=src.priv;
 	this->buyprice_ = src.buyprice_;
 	this->sellprice_ = src.sellprice_;
@@ -153,11 +153,11 @@ cItem::cItem( cItem &src )
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
 	this->setSpawnRegion( src.spawnregion() );
-	this->desc = src.desc;
+	this->desc_ = src.desc_;
 	// We're *NOT* copying the contents over
 	setTotalweight( amount_ * weight_ );
 	
-	this->tags = src.tags;
+	this->setTags( src.tags() );
 	this->accuracy_ = 100;
 	this->container_ = src.container_;
 }
@@ -169,7 +169,7 @@ P_CHAR cItem::owner( void )
 
 void cItem::setOwner( P_CHAR nOwner )
 {
-	ownserial = ( nOwner == NULL ) ? INVALID_SERIAL : nOwner->serial;
+	ownserial = ( nOwner == NULL ) ? INVALID_SERIAL : nOwner->serial();
 }
 
 // Is the Item pileable?
@@ -260,17 +260,17 @@ void cItem::SetOwnSerial(long ownser)
 void cItem::SetSpawnSerial(long spawnser)
 {
 	if (spawnserial != INVALID_SERIAL)	// if it was set, remove the old one
-		spawnsp.remove(spawnserial, this->serial);
+		spawnsp.remove(spawnserial, this->serial());
 
 	spawnserial = spawnser;
 
 	if (spawnser!=-1)		// if there is a spawner, add it
-		spawnsp.insert(spawnserial, this->serial);
+		spawnsp.insert(spawnserial, this->serial());
 }
 
 void cItem::SetMultiSerial(long mulser)
 {
-	this->multis = mulser;
+	this->setMultis(mulser);
 }
 
 void cItem::MoveTo(int newx, int newy, signed char newz)
@@ -353,7 +353,7 @@ short cItem::GetContGumpType()
 bool cItem::PileItem(cItem* pItem)	// pile two items
 {
 	if (!(isPileable() && pItem->isPileable() &&
-		this->serial!=pItem->serial &&
+		this->serial()!=pItem->serial() &&
 		this->id()==pItem->id() &&
 		this->color() == pItem->color() ))
 		return false;	//cannot stack.
@@ -445,7 +445,7 @@ static int ContainerCountItems(const int serial, short id, short color)
 
 int cItem::CountItems(short ID, short col) const
 {
-	return ContainerCountItems(serial, ID, col);
+	return ContainerCountItems(serial(), ID, col);
 }
 
 ///////////////////////
@@ -480,11 +480,11 @@ void cItem::save()
 	initSave;
 	setTable( "items" );
 	
-	addField("serial",		serial);
+	addField("serial",		serial());
 	addField("id",			id());
 	addStrField("name",			name_); // warning: items do not use cUObject name! (nuts, remove it)
 	addStrField("name2",			name2_);
-	addStrField("creator",		creator);
+	addStrField("creator",		creator_);
 	addField("sk_name",		madewith);
 	addField("color",			color());
 	addField("cont",			contserial);
@@ -528,7 +528,7 @@ void cItem::save()
 	addField("owner",			ownserial);
 	addField("visible",		visible);
 	addField("spawn",			spawnserial);
-	addField("dir",			dir);
+	addField("dir",			dir_);
 	addField("priv",			priv);
 	addField("sellprice",			sellprice_);
 	addField("buyprice",			buyprice_);
@@ -536,11 +536,11 @@ void cItem::save()
 	addField("disabled",		disabled_);
 	addStrField("spawnregion",	spawnregion_);
 	addField("good",			good);
-	addStrField("desc",			desc);
+	addStrField("desc",			desc_);
 	addStrField("carve",			carve_);
 	addField("accuracy",		accuracy_);
 	
-	addCondition( "serial", serial );
+	addCondition( "serial", serial() );
 	saveFields;
 
 	cUObject::save();
@@ -553,7 +553,7 @@ bool cItem::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( serial() ) );
 	return cUObject::del();
 }
 
@@ -605,9 +605,9 @@ QString cItem::getName( bool shortName )
 	return itemname;
 }
 
-void cItem::SetSerial(long ser)
+void cItem::setSerial(const SERIAL ser)
 {
-	this->serial=ser;
+	cUObject::setSerial( ser );
 	if (ser != INVALID_SERIAL)
 		ItemsManager::instance()->registerItem( this );
 }
@@ -617,11 +617,11 @@ void cItem::Init( bool mkser )
 {
 	if (mkser)		// give it a NEW serial #
 	{
-		this->SetSerial(ItemsManager::instance()->getUnusedSerial());
+		this->setSerial(ItemsManager::instance()->getUnusedSerial());
 	}
 	else
 	{
-		this->SetSerial(INVALID_SERIAL);
+		this->setSerial(INVALID_SERIAL);
 	}
 
 	this->container_ = 0;
@@ -633,7 +633,7 @@ void cItem::Init( bool mkser )
 	this->good=-1; // Magius(CHE)
 	this->rndvaluerate=0; // Magius(CHE) (2)
 
-	this->multis=INVALID_SERIAL;//Multi serial
+	this->setMultis( INVALID_SERIAL );//Multi serial
 	this->free = false;
 	this->setId(0x0001); // Item visuals as stored in the client
 	// this->name2[0]=0x00; Removed by Magius(CHE)
@@ -682,7 +682,7 @@ void cItem::Init( bool mkser )
 	this->setOwnSerialOnly(-1);
 	this->visible=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->spawnserial=-1;
-	this->dir=0; // Direction, or light source type.
+	this->dir_=0; // Direction, or light source type.
 	// Everything decays by default.
 	this->priv=1; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->disabled_ = 0; //Item is disabled, cant trigger.
@@ -734,9 +734,9 @@ void cAllItems::DeleItem(P_ITEM pi)
 		}
 
 		// if it is within a multi, delete it from the multis vector
-		if( pi->multis != INVALID_SERIAL )
+		if( pi->multis() != INVALID_SERIAL )
 		{
-			cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis ) );
+			cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
 			if( pMulti )
 			{
 				pMulti->removeItem( pi );
@@ -907,7 +907,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 				
 				if (!Items->isFieldSpellItem(pi)) // Gives fieldspells a chance to decay in multis, LB
 				{
-					if (pi->multis<1 && !pi->corpse())
+					if (pi->multis()<1 && !pi->corpse())
 					{
 						// JustMichael -- Added a check to see if item is in a house
 						pi_multi = cMulti::findMulti( pi->pos() );
@@ -920,7 +920,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 							}
 						}
 					} 
-					else if (pi->multis>0 && !pi->corpse()) 
+					else if (pi->multis()>0 && !pi->corpse()) 
 					{					
 						pi->startDecay();
 						return;
@@ -994,7 +994,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 	case 61:
 		{
 			// Check if it's worth respawning
-			vector< SERIAL > spawned = spawnsp.getData( pItem->serial );
+			vector< SERIAL > spawned = spawnsp.getData( pItem->serial() );
 			UINT32 amount = spawned.size();
 
 			// Do a sanity check
@@ -1032,7 +1032,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 				}
 
 				pSpawned->moveTo( pItem->pos() );
-				pSpawned->SetSpawnSerial( pItem->serial );
+				pSpawned->SetSpawnSerial( pItem->serial() );
 				pSpawned->update();
 			}
 		}
@@ -1041,7 +1041,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 	case 62:
 		{
 			// Check if it's worth respawning
-			vector< SERIAL > spawned = spawnsp.getData( pItem->serial );
+			vector< SERIAL > spawned = spawnsp.getData( pItem->serial() );
 			UINT32 amount = spawned.size();
 
 			// Do a sanity check
@@ -1052,13 +1052,13 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 				// Char has been deleted
 				if( !pSpawned )
 				{
-					spawnsp.remove( pItem->serial, pSpawned->serial );
+					spawnsp.remove( pItem->serial(), pSpawned->serial() );
 					--amount;
 				}
 				// Char has been tamed/changed owner
-				else if( pSpawned->tamed() || pSpawned->spawnSerial() != pItem->serial )
+				else if( pSpawned->tamed() || pSpawned->spawnSerial() != pItem->serial() )
 				{
-					spawnsp.remove( pItem->serial, pSpawned->serial );
+					spawnsp.remove( pItem->serial(), pSpawned->serial() );
 					--amount;
 				}
 			}
@@ -1068,7 +1068,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 			{
 				P_CHAR pSpawned = cCharStuff::createScriptNpc( pItem->carve(), pItem->pos() );
 				if( pSpawned )
-					pSpawned->SetSpawnSerial( pItem->serial );
+					pSpawned->SetSpawnSerial( pItem->serial() );
 			}
 		}
 		break;
@@ -1081,14 +1081,14 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 	// Chest spawner
 			else if ((pi->type()==63)||(pi->type()==64)||(pi->type()==65)||(pi->type()==66)||(pi->type()==8))
 			{
-				serial=pi->serial;
+				serial=pi->serial();
 				unsigned int j;
-				vector<SERIAL> vecContainer = contsp.getData(pi->serial);
+				vector<SERIAL> vecContainer = contsp.getData(pi->serial());
 				for (j=0;j<vecContainer.size();j++)
 				{
 					P_ITEM pi_ci = FindItemBySerial(vecContainer[j]);
 					if (pi_ci != NULL)
-					if (pi_ci->contserial == pi->serial && !pi_ci->free)
+					if (pi_ci->contserial == pi->serial() && !pi_ci->free)
 					{
 						m++;
 					}
@@ -1136,7 +1136,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 	{
 		pItem->addItem(pi);
 	}
-	pi->SetSpawnSerial(pItem->serial);
+	pi->SetSpawnSerial(pItem->serial());
 
 
 	//** Lb bugfix for spawning in wrong pack positions **//
@@ -1160,7 +1160,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 
 	unsigned int ci=0;
 	P_ITEM pi;
-/*	vector<SERIAL> vecContainer = contsp.getData(pc_p->serial);
+/*	vector<SERIAL> vecContainer = contsp.getData(pc_p->serial());
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
@@ -1214,8 +1214,7 @@ P_ITEM cAllItems::createScriptItem( const QString& Section )
 		if( DefSection->attribute( "type" ) == "book" )
 		{
 			cBook* nBook = new cBook();
-			nBook->serial = ItemsManager::instance()->getUnusedSerial();
-			ItemsManager::instance()->registerItem( nBook );
+			nBook->setSerial( ItemsManager::instance()->getUnusedSerial() );
 
 			nBook->applyDefinition( *DefSection );
 			nBook->setSection( Section );
@@ -1440,7 +1439,7 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <lightsource>10</lightsource>
 	else if( TagName == "lightsource" )
-		this->dir = Value.toUShort();
+		this->dir_ = Value.toUShort();
 
 	// <more1>10</more1>
 	else if( TagName == "more1" )
@@ -1877,8 +1876,8 @@ void cItem::showName( cUOSocket *socket )
 		itemname = getName();
 
 	// Add creator's mark (if any)
-	if( !creator.isEmpty() && madewith )
-		itemname.append( tr( " %1 by %2" ).arg( skill[ madewith - 1 ].madeword ).arg( creator ) );
+	if( !creator_.isEmpty() && madewith )
+		itemname.append( tr( " %1 by %2" ).arg( skill[ madewith - 1 ].madeword ).arg( creator_ ) );
 
 	// Amount information
 	if( amount_ > 1 )
@@ -1886,7 +1885,7 @@ void cItem::showName( cUOSocket *socket )
 
 	// Show serials
 	if( socket->player() && socket->player()->account() && socket->player()->account()->isShowSerials() )
-		itemname.append( tr( " [%1]" ).arg( serial, 8, 16 ) );
+		itemname.append( tr( " [%1]" ).arg( serial(), 8, 16 ) );
 
 	// Pages
 	if( type_ == 11 )
@@ -1968,12 +1967,12 @@ void cItem::update( cUOSocket *mSock )
 		// we change the packet during iteration, so we have to
 		// recompress it
 		cUOTxSendItem* sendItem = new cUOTxSendItem();
-		sendItem->setSerial( serial );
+		sendItem->setSerial( serial() );
 		sendItem->setId( id() );
 		sendItem->setAmount( amount() );
 		sendItem->setColor( color() );
 		sendItem->setCoord( pos() );
-		sendItem->setDirection( dir );
+		sendItem->setDirection( dir_ );
 
 		if( mSock )
 		{
@@ -2098,8 +2097,7 @@ P_ITEM cItem::dupe()
 		return NULL;
 
 	P_ITEM nItem = new cItem( (*this) );
-	nItem->SetSerial( ItemsManager::instance()->getUnusedSerial() );
-	ItemsManager::instance()->registerItem( nItem );
+	nItem->setSerial( ItemsManager::instance()->getUnusedSerial() );
 	
 	// We wont dupe items on chars without proper handling
 	P_CHAR pWearer = dynamic_cast<P_CHAR>( nItem->container() );
@@ -2221,7 +2219,7 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	};
 
 	cUOTxUnicodeSpeech textSpeech;
-	textSpeech.setSource( serial );
+	textSpeech.setSource( serial() );
 	textSpeech.setModel( id() );
 	textSpeech.setFont( 3 ); // Default Font
 	textSpeech.setType( speechType );
@@ -2319,7 +2317,7 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 {
 	ItemsManager::instance()->registerItem( pi );
 	if( pi->objectID() == "cGuildStone" ) // register as guild as well
-		guilds.push_back(pi->serial);
+		guilds.push_back(pi->serial());
 
 	// Set the outside indices
 	pi->SetSpawnSerial( pi->spawnserial );
@@ -2336,7 +2334,7 @@ void cItem::load( char **result, UINT16 &offset )
 	id_ = atoi( result[offset++] );
 	name_ = result[offset++];
 	name2_ = result[offset++];
-	creator = result[offset++];
+	creator_ = result[offset++];
 	madewith = atoi( result[offset++] );
 	color_ = atoi( result[offset++] );
 	
@@ -2395,7 +2393,7 @@ void cItem::load( char **result, UINT16 &offset )
 	ownserial = atoi( result[offset++] );
 	visible = atoi( result[offset++] );
 	spawnserial = atoi( result[offset++] );
-	dir = atoi( result[offset++] );
+	dir_ = atoi( result[offset++] );
 	priv = atoi( result[offset++] );
 	sellprice_ = atoi( result[offset++] );
 	buyprice_ = atoi( result[offset++] );
@@ -2404,7 +2402,7 @@ void cItem::load( char **result, UINT16 &offset )
 	disabled_ = atoi( result[offset++] );
 	spawnregion_ = result[offset++];
 	good = atoi( result[offset++] );
-	desc = result[offset++];
+	desc_ = result[offset++];
 	carve_ = result[offset++];
 	accuracy_ = atoi( result[offset++] );
 
@@ -2435,7 +2433,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 	content_.push_back( pItem );
 	pItem->layer_ = 0;
 	pItem->container_ = this;
-	pItem->contserial = this->serial;
+	pItem->contserial = this->serial();
 	
 	if( randomPos && !this->ContainerPileItem( pItem ) ) // try to pile
 	{
@@ -2752,7 +2750,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	}
 
 	else SET_INT_PROPERTY( "spawn", spawnserial )
-	else SET_INT_PROPERTY( "direction", dir )
+	else SET_INT_PROPERTY( "direction", dir_ )
 	else SET_INT_PROPERTY( "sellprice", sellprice_ )
 	else SET_INT_PROPERTY( "buyprice", price_ )
 	else SET_INT_PROPERTY( "price", price_ )
@@ -2762,11 +2760,11 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
 	else SET_INT_PROPERTY( "murdertime", murdertime_ )
 	else SET_INT_PROPERTY( "rank", rank_ )
-	else SET_STR_PROPERTY( "creator", creator )
+	else SET_STR_PROPERTY( "creator", creator_ )
 	else SET_INT_PROPERTY( "good", good )
 	else SET_INT_PROPERTY( "rndvaluerate", rndvaluerate )
 	else SET_INT_PROPERTY( "madewith", madewith )
-	else SET_STR_PROPERTY( "description", desc )
+	else SET_STR_PROPERTY( "description", desc_ )
 	else SET_INT_PROPERTY( "incognito", incognito )
 	else SET_INT_PROPERTY( "timeunused", time_unused )
 	else SET_INT_PROPERTY( "timeusedlast", timeused_last )
@@ -2905,7 +2903,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "ownervisible", visible == 1 ? 1 : 0 )
 	else GET_PROPERTY( "spawn", FindItemBySerial( spawnserial ) )
 
-	else GET_PROPERTY( "direction", dir )
+	else GET_PROPERTY( "direction", dir_ )
 	else GET_PROPERTY( "buyprice", buyprice_ )
 	else GET_PROPERTY( "sellprice", sellprice_ )
 	else GET_PROPERTY( "price", price_ )
@@ -2915,11 +2913,11 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "poisoned", (int)poisoned_ )
 	else GET_PROPERTY( "murdertime", (int)murdertime_ )
 	else GET_PROPERTY( "rank", rank_ )
-	else GET_PROPERTY( "creator", creator )
+	else GET_PROPERTY( "creator", creator_ )
 	else GET_PROPERTY( "good", good )
 	else GET_PROPERTY( "rndvaluerate", rndvaluerate )
 	else GET_PROPERTY( "madewith", madewith )
-	else GET_PROPERTY( "description", desc )
+	else GET_PROPERTY( "description", desc_ )
 	else GET_PROPERTY( "incognito", incognito ? 1 : 0 )
 	else GET_PROPERTY( "timeunused", (int)time_unused )
 	else GET_PROPERTY( "timeusedlast", (int)timeused_last )

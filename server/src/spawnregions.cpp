@@ -254,7 +254,7 @@ void cSpawnRegion::reSpawn( void )
 				P_CHAR pc = cCharStuff::createScriptNpc( NpcSect, pos );
 				if( pc != NULL )
 				{
-					this->npcSerials_.push_back( pc->serial );
+					this->npcSerials_.push_back( pc->serial() );
 					pc->setSpawnregion( this->name_ );
 				}
 			}
@@ -275,7 +275,7 @@ void cSpawnRegion::reSpawn( void )
 				if( pi != NULL )
 				{
 					pi->moveTo( pos );
-					this->itemSerials_.push_back( pi->serial );
+					this->itemSerials_.push_back( pi->serial() );
 					pi->setSpawnRegion( this->name_ );
 				}
 			}
@@ -300,7 +300,7 @@ void cSpawnRegion::reSpawnToMax( void )
 			P_CHAR pc = cCharStuff::createScriptNpc( NpcSect, pos );
 			if( pc != NULL )
 			{
-				this->npcSerials_.push_back( pc->serial );
+				this->npcSerials_.push_back( pc->serial() );
 				pc->setSpawnregion( this->name_ );
 			}
 		}
@@ -318,7 +318,7 @@ void cSpawnRegion::reSpawnToMax( void )
 			if( pi != NULL )
 			{
 				pi->setPos( pos );
-				this->itemSerials_.push_back( pi->serial );
+				this->itemSerials_.push_back( pi->serial() );
 				pi->setSpawnRegion( this->name_ );
 			}
 		}
@@ -418,7 +418,7 @@ void cAllSpawnRegions::load( void )
 		
 		iterator iter_spreg = this->find( pc->spawnregion() );
 		if( iter_spreg != this->end() )
-			iter_spreg->second->add( pc->serial );
+			iter_spreg->second->add( pc->serial() );
 	}
 
 	AllItemsIterator iter_item;
@@ -428,7 +428,7 @@ void cAllSpawnRegions::load( void )
 		
 		iterator iter_spreg = this->find( pi->spawnregion() );
 		if( iter_spreg != this->end() )
-			iter_spreg->second->add( pi->serial );
+			iter_spreg->second->add( pi->serial() );
 	}
 
 	UI32 endtime = getNormalizedTime();

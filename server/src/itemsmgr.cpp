@@ -58,8 +58,8 @@ void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pi != NULL)
 	{
-		insert(make_pair(pi->serial&0xBFFFFFFF, pi));
-		lastUsedSerial = QMAX(lastUsedSerial, pi->serial);
+		insert(make_pair(pi->serial()&0xBFFFFFFF, pi));
+		lastUsedSerial = QMAX(lastUsedSerial, pi->serial());
 	}
 	else
 	{
@@ -77,7 +77,7 @@ void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
 void cItemsManager::unregisterItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pi != NULL)
-		erase(pi->serial&0xBFFFFFFF);
+		erase(pi->serial()&0xBFFFFFFF);
 	else
 		throw wp_exceptions::wpbad_ptr("Invalid argument PI at cItemsManager::unregisterItem");
 }

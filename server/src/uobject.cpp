@@ -55,7 +55,7 @@
 #define DBGFILE "uobject.cpp"
 
 cUObject::cUObject() :
-	serial( INVALID_SERIAL ), multis( INVALID_SERIAL ), free( false ), bindmenu_( QString::null )
+	serial_( INVALID_SERIAL ), multis_( INVALID_SERIAL ), free( false ), bindmenu_( QString::null ), changed_(true)
 {
 }
 
@@ -65,10 +65,11 @@ cUObject::cUObject( cUObject &src )
 	eventList_ = src.eventList_;
 	recreateEvents();
 
-	this->serial = src.serial;
-	this->multis = src.multis;
+	this->serial_ = src.serial_;
+	this->multis_ = src.multis_;
 	this->name_ = src.name_;
 	this->free = src.free;
+	this->changed_ = true;
 }
 
 void cUObject::init()
@@ -80,6 +81,7 @@ void cUObject::moveTo( const Coord_cl& newpos )
 	MapObjects::instance()->remove( this );
 	pos_ = newpos;
 	MapObjects::instance()->add( this );
+	changed_ = true;
 }
 
 unsigned int cUObject::dist(cUObject* d) const
@@ -96,8 +98,8 @@ unsigned int cUObject::dist(cUObject* d) const
 void cUObject::load( char **result, UINT16 &offset )
 {
 	name_ = result[offset++];
-	serial = atoi(result[offset++]);
-	multis = atoi(result[offset++]);
+	serial_ = atoi(result[offset++]);
+	multis_ = atoi(result[offset++]);
 	pos_.x = atoi(result[offset++]);
 	pos_.y = atoi(result[offset++]);
 	pos_.z = atoi(result[offset++]);
@@ -108,7 +110,8 @@ void cUObject::load( char **result, UINT16 &offset )
 	// Get our events
 	recreateEvents();
 
-	tags.load( serial );
+	tags_.load( serial_ );
+	changed_ = false;
 
 	PersistentObject::load( result, offset );
 }
@@ -127,28 +130,32 @@ void cUObject::save()
 	if( !isPersistent )
 	{
 		setTable( "uobjectmap" );
-		addField( "serial", serial );
+		addField( "serial", serial_ );
 		addStrField( "type", objectID() );
-		addCondition( "serial", serial );
+		addCondition( "serial", serial_ );
 		saveFields;
 		clearFields;
 	}
 	
 	// uobject fields
-	setTable( "uobject" );	
-	addStrField( "name", name_ );
-	addField( "serial", serial );
-	addField( "multis", multis );
-	addField( "pos_x", pos_.x );
-	addField( "pos_y", pos_.y );
-	addField( "pos_z", pos_.z );
-	addField( "pos_map", pos_.map );
-	addStrField( "events", eventList_.join( "," ) );
-	addStrField( "bindmenu", bindmenu_ );
-	addCondition( "serial", serial );
-	saveFields;
+	if ( changed_ )
+	{
+		setTable( "uobject" );	
+		addStrField( "name", name_ );
+		addField( "serial", serial_ );
+		addField( "multis", multis_ );
+		addField( "pos_x", pos_.x );
+		addField( "pos_y", pos_.y );
+		addField( "pos_z", pos_.z );
+		addField( "pos_map", pos_.map );
+		addStrField( "events", eventList_.join( "," ) );
+		addStrField( "bindmenu", bindmenu_ );
+		addCondition( "serial", serial_ );
+		saveFields;
+	}
+	tags_.save( serial_ );
 
-	tags.save( serial );
+	changed_ = false;
 
 	PersistentObject::save();
 
@@ -162,10 +169,11 @@ bool cUObject::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "uobject", QString( "serial = '%1'" ).arg( serial ) );
-	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "uobject", QString( "serial = '%1'" ).arg( serial_ ) );
+	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial_ ) );
 
-	tags.del( serial );
+	tags_.del( serial_ );
+	changed_ = true;
 
 	return PersistentObject::del();
 }
@@ -188,6 +196,7 @@ void cUObject::clearEvents()
 {
 	scriptChain.clear();
 	eventList_.clear();
+	changed_ = true;
 }
 
 // Method for setting a list of WPDefaultScripts
@@ -207,6 +216,7 @@ void cUObject::setEvents( std::vector< WPDefaultScript* > List )
 			scriptChain.push_back( List[ i ] );
 			eventList_.push_back( List[ i ]->getName() );
 		}
+	changed_ = true;
 }
 
 // Gets a vector of all assigned events
@@ -236,6 +246,7 @@ void cUObject::addEvent( WPDefaultScript *Event )
 
 	scriptChain.push_back( Event );
 	eventList_.push_back( Event->getName() );
+	changed_ = true;
 }
 
 void cUObject::removeEvent( const QString& Name )
@@ -253,6 +264,7 @@ void cUObject::removeEvent( const QString& Name )
  
 	// I hope this works
 	eventList_.remove( Name );
+	changed_ = true;
 }
 
 /****************************
@@ -370,8 +382,7 @@ void cUObject::processNode( const QDomElement &Tag )
 	// </tag>
 	if( TagName == "tag" )
 	{
-		QString tkey = (char*)0;
-		QString tvalue = (char*)0;
+		QString tkey, tvalue;
 		QDomNode childNode = Tag.firstChild();
 		while( !childNode.isNull() )
 		{
@@ -393,9 +404,9 @@ void cUObject::processNode( const QDomElement &Tag )
 		if( !tkey.isNull() && !tvalue.isNull() )
 		{
 			if( Tag.attribute( "type" ) == "value" )
-				this->tags.set( tkey, cVariant( tvalue.toInt() ) );
+				this->tags_.set( tkey, cVariant( tvalue.toInt() ) );
 			else
-				this->tags.set( tkey, cVariant( tvalue ) );
+				this->tags_.set( tkey, cVariant( tvalue ) );
 		}
 	}
 	// <events>a,b,c</events>
@@ -412,7 +423,7 @@ void cUObject::removeFromView( bool clean )
 	// Get Real pos
 	Coord_cl mPos = pos_;
 
-	if( isItemSerial( serial ) )
+	if( isItemSerial( serial_ ) )
 	{
 		P_ITEM pItem = dynamic_cast<P_ITEM>(this);
 		P_ITEM pCont = pItem->getOutmostItem();
@@ -449,8 +460,8 @@ void cUObject::effect( UINT16 id, cUObject *target, bool fixedDirection, bool ex
 
 	cUOTxEffect effect;
 	effect.setType( ET_MOVING );
-	effect.setSource( serial );
-	effect.setTarget( target->serial );
+	effect.setSource( serial_ );
+	effect.setTarget( target->serial_ );
 	effect.setSourcePos( pos_ );
 	effect.setTargetPos( target->pos_ );
 	effect.setId( id );
@@ -479,7 +490,7 @@ void cUObject::effect( UINT16 id, const Coord_cl &target, bool fixedDirection, b
 {
 	cUOTxEffect effect;
 	effect.setType( ET_MOVING );
-	effect.setSource( serial );
+	effect.setSource( serial_ );
 	effect.setSourcePos( pos_ );
 	effect.setTargetPos( target );
 	effect.setId( id );
@@ -508,7 +519,7 @@ void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 {
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCESER );
-	effect.setSource( serial );
+	effect.setSource( serial_ );
 	effect.setSourcePos( pos_ );
 	effect.setTargetPos( pos_ );
 	effect.setId( id );
@@ -529,10 +540,10 @@ void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 // Simple setting and getting of properties for scripts and the set command.
 stError *cUObject::setProperty( const QString &name, const cVariant &value )
 {
-
+	changed_ = true;
 	SET_STR_PROPERTY( "bindmenu", bindmenu_ )
-	else SET_INT_PROPERTY( "serial", serial )
-	else SET_INT_PROPERTY( "multi", multis )
+	else SET_INT_PROPERTY( "serial", serial_ )
+	else SET_INT_PROPERTY( "multi", multis_ )
 	else SET_BOOL_PROPERTY( "free", free )
 	else SET_STR_PROPERTY( "name", this->name_ )
 
@@ -567,8 +578,8 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "bindmenu", bindmenu_ )
-	else GET_PROPERTY( "serial", serial )
-	else GET_PROPERTY( "multi", FindItemBySerial( multis ) )
+	else GET_PROPERTY( "serial", serial_ )
+	else GET_PROPERTY( "multi", FindItemBySerial( multis_ ) )
 	else GET_PROPERTY( "free", free ? 1 : 0 )
 	else GET_PROPERTY( "name", this->name() )
 	else GET_PROPERTY( "pos", pos() )

@@ -132,13 +132,13 @@ bool cSpellBook::onUse( cUObject *Target )
 
 	for( UINT8 i = 0; i < 64; ++i )
 		if( hasSpell( i ) )
-			content.addItem( --sSerial, 0x1, 0, 0, 0, 1+i, serial );
+			content.addItem( --sSerial, 0x1, 0, 0, 0, 1+i, serial() );
 
 	pChar->socket()->send( &content );
 	
 	cUOTxDrawContainer drawcont;
 	drawcont.setGump( 0xFFFF );
-	drawcont.setSerial( serial );
+	drawcont.setSerial( serial() );
 	pChar->socket()->send( &drawcont );
 
 	return true;
@@ -203,12 +203,12 @@ void cSpellBook::save()
 {
 	initSave;
 	setTable( "spellbooks" );
-	addField( "serial", serial );
+	addField( "serial", serial() );
 
 	addField( "spells1", spells1_ );
 	addField( "spells2", spells2_ );
 
-	addCondition( "serial", serial );
+	addCondition( "serial", serial() );
 	saveFields;
 
 	cItem::save();
@@ -219,7 +219,7 @@ bool cSpellBook::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "spellbooks", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "spellbooks", QString( "serial = '%1'" ).arg( serial() ) );
 
 	return cItem::del();
 }

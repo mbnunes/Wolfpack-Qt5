@@ -245,7 +245,7 @@ protected:
 	cUObject* object_;
 
 public:
-	cTagsInfoGump( cUObject* object_ );
+	cTagsInfoGump( const cUObject* object_ );
 
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };

@@ -31,11 +31,10 @@
 
 #include "platform.h"
 
-#include "serbinfile.h"
-
-// Save Path
+// Wolfpack Includes
 #include "wolfpack.h"
 #include "srvparams.h"
+#include "serbinfile.h"
 
 // Library Includes
 #include <qfile.h>

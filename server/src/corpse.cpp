@@ -70,7 +70,7 @@ void cCorpse::load( char **result, UINT16 &offset )
 	beardColor_ = atoi( result[offset++] );
 
 	// Get the corpse equipment
-	QString sql = "SELECT corpses_equipment.layer,corpses_equipment.item FROM corpses_equipment WHERE serial = '" + QString::number( serial ) + "'";
+	QString sql = "SELECT corpses_equipment.layer,corpses_equipment.item FROM corpses_equipment WHERE serial = '" + QString::number( serial() ) + "'";
 	
 	cDBDriver driver;
 	cDBResult res = driver.query( sql );
@@ -90,22 +90,22 @@ void cCorpse::save()
 	initSave;
 	setTable( "corpses" );
 	
-	addField( "serial", serial );
+	addField( "serial", serial() );
 	addField( "bodyid", bodyId_ );
 	addField( "hairstyle", hairStyle_ );
 	addField( "haircolor", hairColor_ );
 	addField( "beardstyle", beardStyle_ );
 	addField( "beardcolor", beardColor_ );
 
-	addCondition( "serial", serial );
+	addCondition( "serial", serial() );
 	saveFields;
 
 	// Equipment can change as well
 	if( isPersistent )
-		persistentBroker->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial ) );
+		persistentBroker->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial() ) );
 
 	for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
-		persistentBroker->executeQuery( QString( "INSERT INTO corpses_equipment SET serial = '%1', layer = '%2', item = '%3'" ).arg( serial ).arg( it->first ).arg( it->second ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO corpses_equipment SET serial = '%1', layer = '%2', item = '%3'" ).arg( serial() ).arg( it->first ).arg( it->second ) );
 
 	cItem::save();
 }
@@ -115,8 +115,8 @@ bool cCorpse::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "corpses", QString( "serial = '%1'" ).arg( serial ) );
-	persistentBroker->addToDeleteQueue( "corpses_equipment", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "corpses", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "corpses_equipment", QString( "serial = '%1'" ).arg( serial() ) );
 
 	return cItem::del();
 }
@@ -144,7 +144,7 @@ void cCorpse::update( cUOSocket *mSock )
 	cUOTxItemContent corpseContent;
 	cUOTxSendItem sendItem;
 
-	corpseEquip.setSerial( serial );
+	corpseEquip.setSerial( serial() );
 	
 	for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 	{
@@ -160,20 +160,20 @@ void cCorpse::update( cUOSocket *mSock )
 	if( hairStyle_ )
 	{
 		corpseEquip.addItem( 11, 0x4FFFFFFE ); // Hair
-		corpseContent.addItem( 0x4FFFFFFE, hairStyle_, hairColor_, 0, 0, 1, serial );
+		corpseContent.addItem( 0x4FFFFFFE, hairStyle_, hairColor_, 0, 0, 1, serial() );
 	}
 
 	if( beardStyle_ )
 	{
 		corpseEquip.addItem( 16, 0x4FFFFFFF ); // Beard
-		corpseContent.addItem( 0x4FFFFFFF, beardStyle_, beardColor_, 0, 0, 1, serial );
+		corpseContent.addItem( 0x4FFFFFFF, beardStyle_, beardColor_, 0, 0, 1, serial() );
 	}
 
 	sendItem.setId( id() );
 	sendItem.setAmount( bodyId_ );
-	sendItem.setSerial( serial );
+	sendItem.setSerial( serial() );
 	sendItem.setCoord( pos() );
-	sendItem.setDirection( dir );
+	sendItem.setDirection( direction() );
 	sendItem.setColor( color() );
 
 	if( mSock )

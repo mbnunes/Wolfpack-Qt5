@@ -569,7 +569,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 
 				for( UINT32 i = 0; i < pCharList.size(); ++i )
 					if( pCharList[i] )
-						sCharList.push_back( QString( "0x%1" ).arg( pCharList[i]->serial, 8, 16 ) );
+						sCharList.push_back( QString( "0x%1" ).arg( pCharList[i]->serial(), 8, 16 ) );
 
 				socket->sysMessage( tr( "Account '%1' has the following characters: %2" ).arg( account->login() ).arg( sCharList.join( ", " ) ) );
 			}

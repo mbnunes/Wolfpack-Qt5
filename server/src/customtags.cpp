@@ -334,7 +334,7 @@ const QString cVariant::toString() const
 	{
 		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
 		if( pChar )
-			return "0x" + QString::number( (unsigned int)pChar->serial, 16 );
+			return "0x" + QString::number( (unsigned int)pChar->serial(), 16 );
 		else
 			return "0x" + QString::number( (unsigned int)INVALID_SERIAL, 16 );
 	}
@@ -343,7 +343,7 @@ const QString cVariant::toString() const
 	{		
 		P_ITEM pItem = static_cast< P_ITEM >( d->value.ptr );
 		if( pItem )
-			return "0x" + QString::number( (unsigned int)pItem->serial, 16 );
+			return "0x" + QString::number( (unsigned int)pItem->serial(), 16 );
 		else
 			return "0x" + QString::number( (unsigned int)INVALID_SERIAL, 16 );
 	}
@@ -388,13 +388,13 @@ int cVariant::toInt( bool * ok ) const
 	if ( d->typ == Char )
 	{
 		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
-		return pChar ? pChar->serial : INVALID_SERIAL;
+		return pChar ? pChar->serial() : INVALID_SERIAL;
 	}
 
 	if ( d->typ == Item )
 	{		
 		P_ITEM pItem = static_cast< P_ITEM >( d->value.ptr );
-		return pItem ? pItem->serial : INVALID_SERIAL;
+		return pItem ? pItem->serial() : INVALID_SERIAL;
 	}
 
     return 0;
@@ -429,13 +429,13 @@ double cVariant::toDouble( bool * ok ) const
 	if ( d->typ == Char )
 	{
 		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
-		return pChar ? (double)pChar->serial : (double)INVALID_SERIAL;
+		return pChar ? (double)pChar->serial() : (double)INVALID_SERIAL;
 	}
 
 	if ( d->typ == Item )
 	{		
 		P_ITEM pItem = static_cast< P_ITEM >( d->value.ptr );
-		return pItem ? (double)pItem->serial : (double)INVALID_SERIAL;
+		return pItem ? (double)pItem->serial() : (double)INVALID_SERIAL;
 	}
 
     return 0.0;

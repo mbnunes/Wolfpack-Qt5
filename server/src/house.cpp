@@ -159,7 +159,7 @@ bool cHouse::onValidPlace()
 		for( ri.Begin(); !ri.atEnd(); ri++ ) 
 		{
 			P_ITEM pi = ri.GetData();
-			if( pi && pi->multis != serial )
+			if( pi && pi->multis() != serial() )
 			{
 				tile = TileCache::instance()->getTile( pi->id() );
 				if( multi[j].z > pi->pos().z && multi[j].z < ( pi->pos().z + tile.height ) )
@@ -208,8 +208,8 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	P_CHAR pc_currchar = FindCharBySerial( senderserial );
 	cUOSocket* socket = pc_currchar->socket();
 
-	this->serial = ItemsManager::instance()->getUnusedSerial();
-	ItemsManager::instance()->registerItem( this );
+	this->setSerial( ItemsManager::instance()->getUnusedSerial() );
+//	ItemsManager::instance()->registerItem( this );
 	this->SetOwnSerial( senderserial );
 	this->priv = 0;
 	this->MoveTo( posx, posy, posz );
@@ -252,14 +252,14 @@ void cHouse::remove( void )
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
-		if(pc->npcaitype() == 17 && pc->multis == this->serial)
+		if(pc->npcaitype() == 17 && pc->multis() == this->serial())
 			cCharStuff::DeleteChar(pc);
 	}
 	RegionIterator4Items rii(this->pos());
 	for(rii.Begin(); !rii.atEnd(); rii++)
 	{
 		P_ITEM pi = rii.GetData();
-		if(pi->multis == this->serial && pi->serial != this->serial && pi->type() != 202)
+		if(pi->multis() == this->serial() && pi->serial() != this->serial() && pi->type() != 202)
 			Items->DeleItem(pi);
 	}
 }
@@ -275,7 +275,7 @@ void cHouse::toDeed( cUOSocket* socket )
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
-		if( pBackpack && pc->npcaitype() == 17 && pc->multis == this->serial )
+		if( pBackpack && pc->npcaitype() == 17 && pc->multis() == this->serial() )
 		{
 			P_ITEM pPvDeed = Items->createScriptItem( "14f0" );
 			if( pPvDeed )
@@ -330,13 +330,13 @@ void cHouse::save()
 	initSave;
 	setTable( "houses" );
 	
-	addField( "serial", serial );
+	addField( "serial", serial() );
 	addField( "nokey", nokey_ );
 	addField( "charpos_x", charpos_.x );
 	addField( "charpos_y", charpos_.y );
 	addField( "charpos_z", charpos_.z );
 
-	addCondition( "serial", serial );
+	addCondition( "serial", serial() );
 	saveFields;
 
 	cMulti::save();
@@ -347,7 +347,7 @@ bool cHouse::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "houses", QString( "serial = '%1'" ).arg( serial ) );
+	persistentBroker->addToDeleteQueue( "houses", QString( "serial = '%1'" ).arg( serial() ) );
 
 	return cMulti::del();
 }

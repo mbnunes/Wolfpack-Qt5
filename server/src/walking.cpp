@@ -385,7 +385,7 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 		for( iter.Begin(); !iter.atEnd(); iter++ )
 		{
 			P_CHAR pPet = iter.GetData();
-			if( pPet->isNpc() && ( pPet->ftarg() == pChar->serial ) )
+			if( pPet->isNpc() && ( pPet->ftarg() == pChar->serial() ) )
 			{
 				if( pPet->inRange( pItem, 4 ) )
 				{
@@ -557,7 +557,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		}
 
 		// Lets check if we entered or left a multi
-		cMulti* pOldMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis ) );
+		cMulti* pOldMulti = dynamic_cast< cMulti* >( FindItemBySerial( pChar->multis() ) );
 		cMulti* pNewMulti = cMulti::findMulti( newCoord );
 		if( pOldMulti != pNewMulti )
 		{
