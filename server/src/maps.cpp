@@ -47,20 +47,46 @@
 #include <algorithm>
 #include <exception>
 #include <assert.h>
+#include <qglobal.h>
 #include <math.h>
 
 class MapsPrivate
 {
 public:
+	/*
+		This maps block ids to offsets in the mapdifX.mul file.
+	*/
+	QMap<unsigned int, unsigned int> mappatches;
+
+	/*
+		This maps block ids to offsets in the stadifiX.mul file.
+	*/
+	QMap<unsigned int, unsigned int> staticpatches;
+
+#pragma pack (1)
+	struct mapblock {
+		unsigned int header;
+		map_st cells[64];
+	};
+#pragma pack()
+
 	uint width;
 	uint height;
-	QIntCache<map_st> mapCache;
-	QIntCache<QValueVector<staticrecord> > staticsCache;
+	QIntCache<mapblock> mapCache;
+	QIntCache< QValueVector<staticrecord> > staticsCache;
 
 	QFile mapfile;
 	QFile idxfile;
 	QFile staticsfile;
-	
+	QFile mapdifdata;
+	QFile stadifindex;
+	QFile stadifdata;	
+
+	/*
+		Try to load the Map- and Stadiff files.
+	*/
+	void loadDiffs(const QString& basepath, unsigned int id);
+
 	MapsPrivate( const QString& index, const QString& map, const QString& statics) throw(wpFileNotFoundException);
 	map_st seekMap( ushort x, ushort y );
 };
@@ -86,32 +112,80 @@ MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QStrin
 	mapCache.setAutoDelete( true );
 }
 
-map_st MapsPrivate::seekMap( ushort x, ushort y )
-{
-	const ushort x1 = x / 8, y1 = y / 8, x2 = x % 8, y2 = y % 8;
-	const uint record = ( x1 * height * 196 ) + ( y1 * 196 ) + ( y2 * 24 ) + ( x2 * 3 ) + 4;
+void MapsPrivate::loadDiffs(const QString& basepath, unsigned int id) {
+	// Try to read the index
+	QFile mapdiflist(basepath + QString("mapdifl%1.mul").arg(id));
+	mapdifdata.setName(basepath + QString("mapdif%1.mul").arg(id));
+	mapdifdata.open(IO_ReadOnly);
 
-	map_st* result = mapCache.find( record );
-	bool shouldDelete = false;
-	if ( !result )
-	{
-		result = new map_st;
-		mapfile.at( record );
-		QDataStream stream( &mapfile );
-		stream.setByteOrder( QDataStream::LittleEndian );
-		stream >> (*result).id;
-		stream >> (*result).z;
-		shouldDelete = !mapCache.insert( record, result );
+	// Try to read a list of ids
+	if (mapdifdata.isOpen() && mapdiflist.open(IO_ReadOnly)) {
+		QDataStream listinput(&mapdiflist);
+		listinput.setByteOrder(QDataStream::LittleEndian);
+		unsigned int offset = 0;
+		while (!listinput.atEnd()) {
+			unsigned int id;
+			listinput >> id;
+			mappatches.insert(id, offset);
+			offset += sizeof(mapblock);
+		}
+		mapdiflist.close();
 	}
 
-	if ( shouldDelete )
-	{
-		map_st dummy = *result;
+	QFile stadiflist(basepath + QString("stadifl%1.mul").arg(id));
+	stadifdata.setName(basepath + QString("stadif%1.mul").arg(id));
+	stadifdata.open(IO_ReadOnly);
+	stadifindex.setName(basepath + QString("stadifi%1.mul").arg(id));
+	stadifindex.open(IO_ReadOnly);
+
+	if (stadifdata.isOpen() && stadifindex.isOpen() && stadiflist.open(IO_ReadOnly)) {
+		QDataStream listinput(&stadiflist);
+		listinput.setByteOrder(QDataStream::LittleEndian);
+		unsigned int offset = 0;
+		while (!listinput.atEnd()) {
+			unsigned int id;
+			listinput >> id;
+			staticpatches.insert(id, offset);
+			offset += 12; // Size of a static index record
+		}
+		stadiflist.close();
+	}
+}
+
+map_st MapsPrivate::seekMap(ushort x, ushort y) {
+	// The blockid our cell is in
+	unsigned int blockid = x / 8 * height + y / 8;
+
+	// See if the block has been cached
+    mapblock* result = mapCache.find(blockid);
+	bool borrowed = true;
+	
+	if (!result) {
+		result = new mapblock;
+		
+		// See if the block has been patched
+		if (mappatches.contains(blockid)) {
+			unsigned int offset = mappatches[blockid];
+			mapdifdata.at(offset);
+			mapdifdata.readBlock((char*)result, sizeof(mapblock));
+		} else {
+			mapfile.at(blockid * sizeof(mapblock));
+			mapfile.readBlock((char*)result, sizeof(mapblock));
+		}
+
+		borrowed = mapCache.insert(blockid, result);
+	}
+	
+	// Convert to in-block values.
+	y %= 8;
+	x %= 8;
+	map_st cell = result->cells[y * 8 + x];
+	
+	if (!borrowed) {
 		delete result;
-		return dummy;
 	}
-	else
-		return *result;
+
+	return cell;
 }
 
 /*****************************************************************************
@@ -171,6 +245,7 @@ bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint map
 		MapsPrivate* p = new MapsPrivate( basePath + staticsIdxName, basePath + mapFileName, basePath + staticsFileName );
 		p->height = mapheight;
 		p->width  = mapwidth;
+		p->loadDiffs(basePath, id);
 		d.insert( id, p );
 		return true;
 	} catch ( wpFileNotFoundException& e ) {
@@ -335,6 +410,22 @@ bool Maps::canFit( int x, int y, int z, int map, int height ) const
 	return true;
 }
 
+unsigned int Maps::mapPatches(unsigned int id) {
+	if (d.find(id) == d.end()) {
+		throw wpException(QString("[Maps::mapPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
+	}
+
+	return d.find(id).data()->mappatches.size();
+}
+
+unsigned int Maps::staticPatches(unsigned int id) {
+	if (d.find(id) == d.end()) {
+		throw wpException(QString("[Maps::staticPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
+	}
+
+	return d.find(id).data()->staticpatches.size();
+}
+
 signed char Maps::dynamicElevation(const Coord_cl& pos) const
 {
 	//int z = ILLEGAL_Z;
@@ -455,7 +546,7 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 */
 void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exact )
 {
-	const uint indexPos = (baseX * mapRecord->height + baseY ) * 12;
+	uint indexPos = (baseX * mapRecord->height + baseY ) * 12;
 	assert ( indexPos < 0x8000000 ); // dam, breaks our assumption
 
 	UINT32 cachePos;
@@ -464,28 +555,42 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 	else
 		cachePos = baseX * baseY;
 
-	QValueVector<staticrecord>* p = mapRecord->staticsCache.find( cachePos );
+	QValueVector<staticrecord>* p = mapRecord->staticsCache.find(cachePos);
 	
 	if ( !p )
 	{ // Well, unfortunally we will be forced to read the file :(
-		struct 
-		{
+#pragma pack (1)
+		struct {
 			Q_UINT32 offset;
 			Q_UINT32 blocklength;
 		} indexStructure;
+#pragma pack()
 
-		mapRecord->idxfile.at(indexPos);
-		QDataStream idxStream( &mapRecord->idxfile );
-		idxStream.setByteOrder( QDataStream::LittleEndian );
-		idxStream >> indexStructure.offset;
-		idxStream >> indexStructure.blocklength;
-
-		if ( indexStructure.offset == 0xFFFFFFFF )
-			return; // No statics for this block
-
-		mapRecord->staticsfile.at( indexStructure.offset );
-		QDataStream staticStream( &mapRecord->staticsfile );
+		QDataStream staticStream;
 		staticStream.setByteOrder( QDataStream::LittleEndian );
+
+		// See if this particular block is patched.
+		if (mapRecord->staticpatches.contains(indexPos / 12)) {
+			indexPos = mapRecord->staticpatches[indexPos / 12];		
+
+			mapRecord->stadifindex.at(indexPos);
+			mapRecord->stadifindex.readBlock((char*)&indexStructure, sizeof(indexStructure));
+
+			if ( indexStructure.offset == 0xFFFFFFFF )
+				return; // No statics for this block
+
+			mapRecord->stadifdata.at(indexStructure.offset);
+			staticStream.setDevice(&mapRecord->stadifdata);
+		} else {
+			mapRecord->idxfile.at(indexPos);
+			mapRecord->idxfile.readBlock((char*)&indexStructure, sizeof(indexStructure));
+
+			if (indexStructure.offset == 0xFFFFFFFF)
+				return; // No statics for this block
+
+			mapRecord->staticsfile.at( indexStructure.offset );
+			staticStream.setDevice(&mapRecord->staticsfile);
+		}
 
 		const uint remainX = x % 8;
 		const uint remainY = y % 8;

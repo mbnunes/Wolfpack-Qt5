@@ -50,6 +50,7 @@
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
 #include "../scriptmanager.h"
+#include "../maps.h"
 #include "../walking.h"
 #include "../combat.h"
 #include "../gumps.h"
@@ -640,6 +641,23 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	season.setSeason( ST_SPRING );
 	send( &season );
 
+	// Tell the Client about mapdiffs.
+	// We don't use a special packet here
+	// because it's only used once.	
+	cUOPacket diffs(0xBF, 9);
+	diffs.setShort(3, 0x18);
+	int map = 0;
+	while (Map->hasMap(map)) {
+		unsigned int offset = diffs.size();
+		diffs.resize(offset + 8);
+		diffs.setInt(5, diffs.getInt(5) + 1);
+        diffs.setInt(offset, Map->mapPatches(map));
+		diffs.setInt(offset, Map->staticPatches(map));
+		++map;
+	}
+	diffs.setShort(1, diffs.size());
+	send(&diffs);
+    
 	// Send us our player and send the rest to us as well.
 	pChar->resend();
 	resendWorld( false );

@@ -46,19 +46,19 @@ class Coord_cl;
 class wpException;
 
 // Structures
-struct map_st
-{
-	short int id;
+#pragma pack (1)
+struct map_st {
+	unsigned short id;
 	signed char z;
 };
 
-struct staticrecord
-{
+struct staticrecord {
 	Q_UINT16 itemid;
 	Q_UINT8  xoff;
 	Q_UINT8  yoff;
 	Q_INT8   zoff;
 };
+#pragma pack()
 
 class StaticsIterator
 {
@@ -113,6 +113,8 @@ public:
 
 	bool registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx );
 
+	unsigned int mapPatches(unsigned int id);
+	unsigned int staticPatches(unsigned int id);
 	map_st seekMap( uint id, ushort x, ushort y ) const;
 	map_st seekMap( const Coord_cl& ) const;
 	bool hasMap( uint id ) const;
