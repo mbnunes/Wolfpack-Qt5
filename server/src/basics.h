@@ -77,7 +77,7 @@ using namespace std ;
 //			  serial=LongFromCharPtr(buffer[s]+7);
 
 inline long LongFromCharPtr(const unsigned char *p){return (*p<<24) | (*(p+1)<<16) | (*(p+2)<<8) | *(p+3);}
-inline short ShortFromCharPtr(const unsigned char *p){return (short)((*p<<8) | *(p+1));}
+inline SI16 ShortFromCharPtr(const unsigned char *p){return static_cast<SI16>((*p<<8) | *(p+1));}
 
 //////////////////////////////////////////////////////////////////////
 // Name:	LongToCharPtr, ShortToCharPtr
@@ -88,12 +88,12 @@ inline short ShortFromCharPtr(const unsigned char *p){return (short)((*p<<8) | *
 
 inline void LongToCharPtr(const unsigned long i, unsigned char *p)
 {
-	*p = (unsigned char)(i>>24); *(p+1) = (unsigned char)(i>>16); *(p+2) = (unsigned char)(i>>8); *(p+3) = (unsigned char)(i);
+	*p = static_cast<UI08>(i>>24); *(p+1) = static_cast<UI08>(i>>16); *(p+2) = static_cast<UI08>(i>>8); *(p+3) = static_cast<UI08>(i);
 }
 
 inline void ShortToCharPtr(const unsigned short i, unsigned char *p)
 {
-	*p = (unsigned char)(i>>8); *(p+1) = (unsigned char) i;	// no %256 for 2nd byte, truncation will occur anyway
+	*p = static_cast<UI08>(i>>8); *(p+1) = static_cast<UI08>(i);	// no %256 for 2nd byte, truncation will occur anyway
 }
 
 
