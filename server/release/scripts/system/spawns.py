@@ -41,9 +41,9 @@ def processSpawns(process):
 		# Check if the spawn is valid.
 		valid = item != None
 		if valid and not item.hasscript( 'spawngem' ):
-			valid = 0
-		if valid and not item.hastag('spawntype') or not item.hastag('spawndef'):
-			valid = 0
+			valid = False
+		if valid and (not item.hastag('spawntype') or not item.hastag('spawndef')):
+			valid = False
 	
 		if not valid:
 			if DEBUG_SPAWNS == 1:

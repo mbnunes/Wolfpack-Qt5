@@ -79,6 +79,8 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed bug #0000349. (No movement during casting)
 		- Victims of harmfull spells will now defend themself.
 		- Most monster cast magic spells no longer send socket messages to npcs.
+		- Fixed bug #0000360. (Problem with duping spawngems)
+		- Fixed a bug in inscription. (Mana being used even on failure)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
