@@ -1341,7 +1341,7 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
 	}
-	if ( pc->isInvul() || pc->shop==1 || // invul or shopkeeper
+	if ( pc->isInvul() || pc->shop || // invul or shopkeeper
 		pc->npcaitype==0x01 || // healer
 		pc->npcaitype==0x04 || // tele guard
 		pc->npcaitype==0x06 || // chaos guard
@@ -1381,7 +1381,7 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
 	}
-	if ( pc->isInvul() || pc->shop==1 || // invul or shopkeeper
+	if ( pc->isInvul() || pc->shop || // invul or shopkeeper
 		pc->npcaitype==0x01 || // healer
 		pc->npcaitype==0x04 || // tele guard
 		pc->npcaitype==0x06 || // chaos guard

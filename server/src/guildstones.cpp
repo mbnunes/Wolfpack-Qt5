@@ -86,11 +86,10 @@ void cGuilds::StonePlacement(int s)
 			sysmessage(s,"Cannot create guildstone");
 			return;
 		}
-		strcpy(pc->guildtitle,"Guildmaster");
 		if (pc->id() == 0x0191)	
-		{
-			strcpy(pc->guildtitle, "Guildmistress");	
-		}
+			pc->guildtitle = "Guildmistress";	
+		else
+			pc->guildtitle = "Guildmaster";
 
 
 		guilds[guildnumber].free = false;
@@ -1180,7 +1179,7 @@ void cGuilds::ChangeTitle(int s, char *text)
 
 	if (member == NULL) member = currchar[s];
 	guilds[guildnumber].priv = INVALID_SERIAL;
-	strcpy(member->guildtitle,(char*)text);
+	member->guildtitle = (char*)text;
 	if (member==currchar[s]) 
 		sysmessage(s,"You changed your own title.");
 	else 
@@ -1483,12 +1482,12 @@ void cGuilds::Title(int s, P_CHAR pc_player2)
 		{
 			if (guilds[pc_player2->guildnumber].type==1) strcpy(guildtype,"Order");
 			else if (guilds[pc_player2->guildnumber].type==2) strcpy(guildtype,"Chaos");
-			if (strcmp(pc_player2->guildtitle,"")) sprintf(title,"[%s, %s] [%s]",pc_player2->guildtitle,abbreviation,guildtype);
+			if (pc_player2->guildtitle != "") sprintf(title,"[%s, %s] [%s]",pc_player2->guildtitle.c_str(),abbreviation,guildtype);
 			else sprintf(title,"[%s] [%s]",abbreviation, guildtype);
 		}
 		else
 		{
-			if (strcmp(pc_player2->guildtitle,"")) sprintf(title,"[%s, %s]",pc_player2->guildtitle,abbreviation);
+			if (pc_player2->guildtitle != "") sprintf(title,"[%s, %s]",pc_player2->guildtitle.c_str(),abbreviation);
 			else sprintf(title,"[%s]",abbreviation);
 		}
 		tl=44+strlen(title)+1;
@@ -1731,7 +1730,7 @@ void cGuilds::CheckConsistancy(void )
 		   LogWarning((char*)temp);
 		   pc_a->guildnumber=0;
 		   pc_a->guildfealty=0;
-		   strcpy(pc_a->guildtitle,"");
+		   pc_a->guildtitle="";
 		   pc_a->guildtoggle=0;
 		   ok=0;
 		}
@@ -1744,7 +1743,7 @@ void cGuilds::CheckConsistancy(void )
 			  LogWarning((char*)temp);
 			  pc_a->guildnumber=0;
 		      pc_a->guildfealty=0;
-		      strcpy(pc_a->guildtitle,"");
+		      pc_a->guildtitle="";
 		      pc_a->guildtoggle=0;
 		      ok=0;
 		   }

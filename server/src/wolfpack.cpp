@@ -2467,7 +2467,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		
 		pc_mount->id1 = id1; 
 		pc_mount->id2 = id2; 
-		pc_mount->war = 0; 
+		pc_mount->war = false; 
 		pc_mount->attacker = INVALID_SERIAL; 
 		pc_mount->pos = Coord_cl(xx, yy, zz);
 		

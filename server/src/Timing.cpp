@@ -144,7 +144,7 @@ void restockNPC(unsigned int currenttime, P_CHAR pc_i)
 			const PC_ITEM pici = FindItemBySerial(vecContainer[a]);
 			if (pici != NULL)
 			{
-				if(pici->layer==0x1A && pc_i->shop==1) //morrolan item restock fix
+				if(pici->layer==0x1A && pc_i->shop) //morrolan item restock fix
 				{
 					vector<SERIAL> vecContainer2 = contsp.getData(pici->serial);
 					for (b=0;b<vecContainer2.size();b++)

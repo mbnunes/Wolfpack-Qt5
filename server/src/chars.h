@@ -93,7 +93,7 @@ public:
 	
 	//	signed char 	oldz;
 	
-	char			dir; //&0F=Direction
+	unsigned char			dir; //&0F=Direction
 	unsigned char			id1; // Character body type
 	unsigned char			id2; // Character body type
 //	unsigned char			xid1; // Backup of body type for ghosts
@@ -115,9 +115,9 @@ public:
 	unsigned char	orgskin2;
 	int             keynumb;  // for renaming keys 
 	UI16			xskin; // Backup of skin color
-	unsigned int creationday ;	// Day since EPOCH this character was created on
+	unsigned int	creationday ;	// Day since EPOCH this character was created on
 	unsigned char	gmrestrict;	// for restricting GMs to certain regions
-	char			priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
+	unsigned char	priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
 	int			            priv3[7];  // needed for Lord binarys meta-gm stuff
 	unsigned char			fonttype; // Speech font to use
@@ -136,8 +136,8 @@ public:
 	int lodamage; //NPC Damage
 	unsigned short int baseskill[ALLSKILLS+1]; // Base skills without stat modifiers
 	unsigned short int skill[ALLSKILLS+1]; // List of skills (with stat modifiers)
-	char npc; // 1=Character is an NPC
-	char shop; //1=npc shopkeeper
+	bool npc; // 1=Character is an NPC
+	bool shop; //1=npc shopkeeper
 	unsigned char cell; // Reserved for jailing players
 	unsigned int jailtimer; // Blackwind - Timer used for crystall ball and jail time.
 	int			 jailsecs;	//             Tweak this value by using command tweak before jailing person 
@@ -152,11 +152,11 @@ public:
 	bool dead; // Is character dead
 	SERIAL packitem; // Only used during character creation
 	unsigned char fixedlight; // Fixed lighting level (For chars in dungeons, where they dont see the night)
-	char speech; // For NPCs: Number of the assigned speech block
+	unsigned char speech; // For NPCs: Number of the assigned speech block
 	int weight; //Total weight
 	unsigned int att; // Intrinsic attack (For monsters that cant carry weapons)
 	unsigned int def; // Intrinsic defense
-	char war; // War Mode
+	bool war; // War Mode
 	SERIAL targ; // Current combat target
 	unsigned int timeout; // Combat timeout (For hitting)
 	unsigned int timeout2; // memory of last shot timeout
@@ -165,8 +165,8 @@ public:
 	int inputitem;		// serial of item the text is referring to
 	SERIAL attacker; // Character's serial who attacked this character
 	unsigned int npcmovetime; // Next time npc will walk
-	char npcWander; // NPC Wander Mode
-	char oldnpcWander; // Used for fleeing npcs
+	unsigned char npcWander; // NPC Wander Mode
+	unsigned char oldnpcWander; // Used for fleeing npcs
 	SERIAL ftarg; // NPC Follow Target
 	int fx1; //NPC Wander Point 1 x
 	int fx2; //NPC Wander Point 2 x
@@ -174,7 +174,7 @@ public:
 	int fy2; //NPC Wander Point 2 y
 	signed char fz1; //NPC Wander Point 1 z
 	int spawnserial; // Spawned by
-	char hidden; // 0 = not hidden, 1 = hidden, 2 = invisible spell
+	unsigned char hidden; // 0 = not hidden, 1 = hidden, 2 = invisible spell
 	unsigned int invistimeout;
 	char attackfirst; // 0 = defending, 1 = attacked first
 	bool onhorse; // On a horse?
@@ -232,14 +232,14 @@ public:
 	bool cantrain;
 	// Begin of Guild Related Character information (DasRaetsel)
 	int guildtoggle;		// Toggle for Guildtitle								(DasRaetsel)
-	char guildtitle[21];	// Title Guildmaster granted player						(DasRaetsel)
+	string guildtitle;	// Title Guildmaster granted player						(DasRaetsel)
 	int	guildfealty;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
 	int	guildnumber;		// Number of guild player is in (0=no guild)			(DasRaetsel)
 	char flag; //1=red 2=grey 4=Blue 8=green 10=Orange
 	//char tempflag; //Zippy -- Not Used
 	unsigned int tempflagtime;
 	// End of Guild Related Character information
-	unsigned long int murderrate; //#of ticks until one murder decays //REPSYS 
+	unsigned int murderrate; //#of ticks until one murder decays //REPSYS 
 	long int crimflag; //Time when No longer criminal -1=Not Criminal
 	int casting; // 0/1 is the cast casting a spell?
 	unsigned int spelltime; //Time when they are done casting....
@@ -299,11 +299,11 @@ public:
 	int spawnregion; 
 	
 	int stablemaster_serial; 
-	char npc_type;		// currently only used for stabling, (type==1 -> stablemaster)
+	unsigned char npc_type;		// currently only used for stabling, (type==1 -> stablemaster)
 	// can be used for other npc types too of course
 	
-	unsigned long int time_unused;     
-	unsigned long int timeused_last;
+	unsigned int time_unused;     
+	unsigned int timeused_last;
 	// The bit for setting what effect gm movement 
     // commands shows 
     // 0 = off 

@@ -277,7 +277,7 @@ mstring cCommands::GetAllParams(void)
 void cCommands::MakeShop(P_CHAR pc_c)
 {
 	if ( pc_c == NULL ) return;
-	pc_c->shop=1;
+	pc_c->shop=true;
 	if (pc_c->GetItemOnLayer(0x1A) == NULL)
 	{
 		P_ITEM p1A = Items->SpawnItem(pc_c,1,"#",0,0x2AF8,0,0);

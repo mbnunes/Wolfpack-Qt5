@@ -34,6 +34,7 @@
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "utilsys.h"
+#include "iserialization.h"
 #include "debug.h"
 
 
@@ -406,16 +407,166 @@ int cItem::DeleteAmount(int amount, short id, short color)
 	return rest;
 }
 
-void cItem::setId(short id)
+void cItem::setId(unsigned short id)
 {
 	id1=id>>8;
 	id2=id&0x00FF;
 }
 
-void cItem::setColor(short color)
+void cItem::setColor(unsigned short color)
 {
 	color1=color>>8;
 	color2=color&0x00FF;
+}
+
+void cItem::Serialize(ISerialization &archive)
+{
+	if (archive.isReading())
+	{
+		unsigned short temp;
+		archive.read("id",			temp);			setId(temp);
+		archive.read("name2",		name2);
+		archive.read("creator",		creator);
+		archive.read("sk_name",		madewith);
+		archive.read("color",		temp);			setColor(temp);
+		archive.read("cont",		contserial);
+		archive.read("layer",		layer);
+		archive.read("itemhand",	itmhand);
+		archive.read("type",		type);
+		archive.read("type2",		type2);
+		archive.read("offspell",	offspell);
+		archive.read("more1",		more1);
+		archive.read("more2",		more2);
+		archive.read("more3",		more3);
+		archive.read("more4",		more4);
+		archive.read("moreb1",		moreb1);
+		archive.read("moreb2",		moreb2);
+		archive.read("moreb3",		moreb3);
+		archive.read("moreb4",		moreb4);
+		archive.read("morex",		morex);
+		archive.read("morey",		morey);
+		archive.read("morez",		morez);
+		archive.read("amount",		amount);
+		archive.read("pileable",	pileable);
+		archive.read("doordir",		doordir);
+		archive.read("dye",			dye);
+		archive.read("decaytime",	decaytime);
+		archive.read("corpse",		corpse);
+		archive.read("att",			att);
+		archive.read("def",			def);
+		archive.read("hidamage",	hidamage);
+		archive.read("lodamage",	lodamage);
+		archive.read("racehate",	racehate);
+		archive.read("st",			st);
+		archive.read("time_unused",	time_unused);
+		archive.read("weight",		weight);
+		archive.read("hp",			hp);
+		archive.read("maxhp",		maxhp);
+		archive.read("rank",		rank);
+		archive.read("st2",			st2);
+		archive.read("dx",			dx);
+		archive.read("dx2",			dx2);
+		archive.read("in",			in);
+		archive.read("in2",			in2);
+		archive.read("trigon",		trigon);
+		archive.read("spd",			spd);
+		archive.read("poisoned",	poisoned);
+		archive.read("wipe",		wipe);
+		archive.read("magic",		magic);
+		archive.read("owner",		ownserial);
+		archive.read("visible",		visible);
+		archive.read("spawn",		spawnserial);
+		archive.read("dir",			dir);
+		archive.read("priv",		priv);
+		archive.read("value",		value);
+		archive.read("restock",		restock);
+		archive.read("trigger",		trigger);
+		archive.read("trigtype",	trigtype);
+		archive.read("disabled",	disabled);
+		archive.read("spawnregion",	spawnregion);
+		archive.read("uses",		tuses);
+		archive.read("good",		good);
+		archive.read("secureit",	secureIt);
+		archive.read("smelt",		smelt);
+		archive.read("glow",		glow);
+		archive.read("glow_c1",		glow_c1);
+		archive.read("glow_c2",		glow_c2);
+		archive.read("glowtype",	glow_effect);
+		archive.read("desc",		desc);
+	}
+	else if ( archive.isWritting())
+	{
+		archive.write("id",			id());
+		archive.write("name2",		name2);
+		archive.write("creator",	creator);
+		archive.write("sk_name",	madewith);
+		archive.write("color",		color());
+		archive.write("cont",		contserial);
+		archive.write("layer",		layer);
+		archive.write("itemhand",	itmhand);
+		archive.write("type",		type);
+		archive.write("type2",		type2);
+		archive.write("offspell",	offspell);
+		archive.write("more1",		more1);
+		archive.write("more2",		more2);
+		archive.write("more3",		more3);
+		archive.write("more4",		more4);
+		archive.write("moreb1",		moreb1);
+		archive.write("moreb2",		moreb2);
+		archive.write("moreb3",		moreb3);
+		archive.write("moreb4",		moreb4);
+		archive.write("morex",		morex);
+		archive.write("morey",		morey);
+		archive.write("morez",		morez);
+		archive.write("amount",		amount);
+		archive.write("pileable",	pileable);
+		archive.write("doordir",	doordir);
+		archive.write("dye",		dye);
+		archive.write("decaytime",	decaytime);
+		archive.write("corpse",		corpse);
+		archive.write("att",		att);
+		archive.write("def",		def);
+		archive.write("hidamage",	hidamage);
+		archive.write("lodamage",	lodamage);
+		archive.write("racehate",	racehate);
+		archive.write("st",			st);
+		archive.write("time_unused",time_unused);
+		archive.write("weight",		weight);
+		archive.write("hp",			hp);
+		archive.write("maxhp",		maxhp);
+		archive.write("rank",		rank);
+		archive.write("st2",		st2);
+		archive.write("dx",			dx);
+		archive.write("dx2",		dx2);
+		archive.write("in",			in);
+		archive.write("in2",		in2);
+		archive.write("trigon",		trigon);
+		archive.write("spd",		spd);
+		archive.write("poisoned",	poisoned);
+		archive.write("wipe",		wipe);
+		archive.write("magic",		magic);
+		archive.write("owner",		ownserial);
+		archive.write("visible",	visible);
+		archive.write("spawn",		spawnserial);
+		archive.write("dir",		dir);
+		archive.write("priv",		priv);
+		archive.write("value",		value);
+		archive.write("restock",	restock);
+		archive.write("trigger",	trigger);
+		archive.write("trigtype",	trigtype);
+		archive.write("disabled",	disabled);
+		archive.write("spawnregion",spawnregion);
+		archive.write("uses",		tuses);
+		archive.write("good",		good);
+		archive.write("secureit",	secureIt);
+		archive.write("smelt",		smelt);
+		archive.write("glow",		glow);
+		archive.write("glow_c1",	glow_c1);
+		archive.write("glow_c2",	glow_c2);
+		archive.write("glowtype",	glow_effect);
+		archive.write("desc",		desc);
+	}
+	cUObject::Serialize(archive);
 }
 
 static int getname(P_ITEM pi, char* itemname)
@@ -658,7 +809,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 			mapRegions->Remove(pi);
 		}
 		else
-			pi->SetContSerial(-1);
+			pi->SetContSerial(INVALID_SERIAL);
 
 
 		if (pi->type==11 && (pi->morex==666 || pi->morey==999)) Books->delete_bokfile(pi); 
@@ -678,7 +829,6 @@ void cAllItems::DeleItem(P_ITEM pi)
 		// Queue for later delete.
 		cItemsManager::getInstance()->deleteItem(pi);
 	}
-	
 }
 
 // sockets

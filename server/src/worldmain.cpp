@@ -161,7 +161,7 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "GUILDTOGGLE"))   pc->guildtoggle=str2num(script2);
 			else if (!strcmp((char*)script1, "GUILDNUMBER"))   pc->guildnumber=str2num(script2);
 			else if (!strcmp((char*)script1, "GMRESTRICT"))    pc->gmrestrict=str2num(script2); 
-		    else if (!strcmp((char*)script1, "GUILDTITLE"))    strcpy(pc->guildtitle,(char*)script2);
+		    else if (!strcmp((char*)script1, "GUILDTITLE"))    pc->guildtitle = (char*)script2;
 		    else if (!strcmp((char*)script1, "GUILDFEALTY"))   pc->guildfealty=str2num(script2);
 			////////////////////////////////// 
 			// Reads in the Gm movement effect int 
@@ -369,7 +369,7 @@ void loadchar(int x) // Load a character from WSC
 		loops++;
  }
  while (strcmp((char*)script1, "}") && loops<=200);
- if (pc->isNpc() && pc->war) pc->war=0;
+ if (pc->isNpc() && pc->war) pc->war=false;
 
 
  ////////////////////////////////////////////////////////////////////
@@ -1347,8 +1347,8 @@ void CWorldMain::SaveChar( P_CHAR pc )
 				fprintf(cWsc, "GUILDTOGGLE %i\n", pc->guildtoggle);  
 			if (pc->guildnumber != pc_reference->guildnumber)
 				fprintf(cWsc, "GUILDNUMBER %i\n", pc->guildnumber);  
-			if (strcmp(pc->guildtitle, pc_reference->guildtitle))
-				fprintf(cWsc, "GUILDTITLE %s\n", pc->guildtitle);  
+			if (pc->guildtitle != pc_reference->guildtitle)
+				fprintf(cWsc, "GUILDTITLE %s\n", pc->guildtitle.c_str());  
 			if (pc->guildfealty != pc_reference->guildfealty)
 				fprintf(cWsc, "GUILDFEALTY %i\n", pc->guildfealty);  
 			if (pc->guildfealty != pc_reference->guildfealty)

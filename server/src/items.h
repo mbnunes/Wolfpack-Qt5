@@ -36,6 +36,9 @@
 
 #include "uobject.h"
 
+// Forward Class declarations
+class ISerialization;
+
 //using namespace std ;
 //typedef struct item_st_
 class cItem : public cUObject
@@ -44,6 +47,7 @@ public:
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
+	virtual void Serialize( ISerialization &archive );
 	unsigned char ser1; // Item serial number
 	unsigned char ser2;
 	unsigned char ser3;
@@ -73,24 +77,24 @@ public:
 	SERIAL oldcontserial; //Old contserial - used for bouncing bugfix - Antichrist
 	signed char oldlayer; // Old layer - used for bouncing bugfix - AntiChrist
 	
-	char offspell;
+	unsigned char offspell;
 	int weight;
 	unsigned char more1; // For various stuff
 	unsigned char more2;
 	unsigned char more3;
 	unsigned char more4;
-	char moreb1;
-	char moreb2;
-	char moreb3;
-	char moreb4;
+	unsigned char moreb1;
+	unsigned char moreb2;
+	unsigned char moreb3;
+	unsigned char moreb4;
 	unsigned int morex;
 	unsigned int morey;
 	unsigned int morez;
-	char doordir; // Reserved for doors
-	char dooropen;
+	unsigned char doordir; // Reserved for doors
+	unsigned char dooropen;
 	bool pileable; // Can item be piled
-	char dye; // Reserved: Can item be dyed by dye kit
-	char corpse; // Is item a corpse
+	unsigned char dye; // Reserved: Can item be dyed by dye kit
+	unsigned char corpse; // Is item a corpse
 	unsigned int att; // Item attack
 	unsigned int def; // Item defense
 	int lodamage; //Minimum Damage weapon inflicts
@@ -109,17 +113,17 @@ public:
 	int smelt; // for item smelting
 	int secureIt; // secured chests
 	int wipe; //Should this item be wiped with the /wipe command
-	char magic; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
+	unsigned char magic; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
 	unsigned int gatetime;
 	int gatenumber;
 	unsigned int decaytime;
 	//signed int destroyTimer; // Ripper for chaos/order shields
 	int ownserial;
-	char visible; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
+	unsigned char visible; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	int spawnserial;
 	unsigned char dir;
 	//char dir; // Direction, or light source type.
-	char priv; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
+	unsigned char priv; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	int value; // Price shopkeeper sells item at.
 	int restock; // Number up to which shopkeeper should restock this item
 	int trigger; //Trigger number that item activates
@@ -155,16 +159,16 @@ public:
 	//       skilled!
 	
 	int glow; // LB identifies glowing objects
-	char glow_c1; // for backup of old color
-	char glow_c2;
-	char glow_effect; 
+	unsigned char glow_c1; // for backup of old color
+	unsigned char glow_c2;
+	unsigned char glow_effect; 
 	
 	string desc;
 	
 	int carve; //AntiChrist - for new carve system
 	bool incognito; //AntiChrist - for items under incognito effect
-	unsigned long int time_unused;     // LB -> used for house decay and possibly for more in future, gets saved
-	unsigned long int timeused_last; // helper attribute for time_unused, doesnt get saved
+	unsigned int time_unused;     // LB -> used for house decay and possibly for more in future, gets saved
+	unsigned int timeused_last; // helper attribute for time_unused, doesnt get saved
 	int spawnregion;
 	
 	
@@ -182,11 +186,11 @@ public:
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	
-	void setId(short id);
-	void setColor(short color);
-	inline short id()			{return (short)((id1<<8)+id2);}
+	void setId(unsigned short id);
+	void setColor(unsigned short color);
+	inline unsigned short id()			{return (unsigned short)((id1<<8)+id2);}
 	
-	inline short color()		{return (short)((color1<<8)+color2);}
+	inline unsigned short color()		{return (unsigned short)((color1<<8)+color2);}
 	void MoveTo(int newx, int newy, signed char newz);
 	long ReduceAmount(const short amount);
 	short GetContGumpType();

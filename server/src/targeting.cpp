@@ -2466,7 +2466,7 @@ bool cTargets::NpcResurrectTarget(P_CHAR pc)
 		pc->mn=pc->in; ///10;
 		pc->attacker = INVALID_SERIAL;
 		pc->resetAttackFirst();
-		pc->war=0;
+		pc->war=false;
 
 		AllItemsIterator iterItems;
 		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)

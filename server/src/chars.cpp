@@ -135,15 +135,15 @@ void cChar::Init(bool ser)
 		this->baseskill[i]=0;
 		this->skill[i]=0;
 	}
-	this->npc=0;
-	this->shop=0; //1=npc shopkeeper
+	this->npc=false;
+	this->shop=false; //1=npc shopkeeper
 	this->cell=0; // Reserved for jailing players 
 	            // bugfix, LB 0= player not in jail !, not -1
 	
 	this->jailtimer=0; //blackwinds jail system
 	this->jailsecs=0;
 
-	this->ownserial=-1; // If Char is an NPC, this sets its owner
+	this->ownserial=INVALID_SERIAL; // If Char is an NPC, this sets its owner
 	this->tamed = false; // True if NPC is tamed
 	this->robe = -1; // Serial number of generated death robe (If char is a ghost)
 	this->karma=0;
@@ -159,7 +159,7 @@ void cChar::Init(bool ser)
 	this->weight=0; //Total weight
 	this->att=0; // Intrinsic attack (For monsters that cant carry weapons)
 	this->def=0; // Intrinsic defense
-	this->war=0; // War Mode
+	this->war=false; // War Mode
 	this->targ=INVALID_SERIAL; // Current combat target
 	this->timeout=0; // Combat timeout (For hitting)
 	this->timeout2=0;
@@ -721,8 +721,270 @@ void cChar::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
+		unsigned short uiShort;
+		unsigned char  uiChar;
+		archive.read("name",			orgname);
+		archive.read("title",			title);
+		archive.read("account",			account);
+		archive.read("creationday",		creationday);
+		archive.read("gmmoveeff",		gmMoveEff);
+		archive.read("guildtype",		GuildType);
+		archive.read("guildtraitor",	GuildTraitor);
+		archive.read("dispz",			dispz);
+		archive.read("cell",			cell);
+		archive.read("dir",				dir);
+		archive.read("race",			race);
+		archive.read("body",			uiShort);	setId(uiShort); xid = uiShort;
+		archive.read("skin",			skin);		xskin = skin;
+		archive.read("priv",			priv);
+		
+		archive.read("priv3a",			priv3[0]);
+		archive.read("priv3b",			priv3[1]);
+		archive.read("priv3c",			priv3[2]);
+		archive.read("priv3d",			priv3[3]);
+		archive.read("priv3e",			priv3[4]);
+		archive.read("priv3f",			priv3[5]);
+		archive.read("priv3g",			priv3[6]);
+		// end of meta-gm save
+		
+		archive.read("stablemaster",	stablemaster_serial);
+		archive.read("npctype",			npc_type);
+		archive.read("time_unused",		time_unused);
+		
+		archive.read("allmove",			priv2);
+		archive.read("font",			fonttype);
+		archive.read("say",				saycolor);
+		archive.read("emote",			uiShort); emotecolor1 = static_cast<unsigned char>(uiShort<<8); emotecolor2 = static_cast<unsigned char>(uiShort & 0x00FF);
+		archive.read("strength",		st);
+		archive.read("strength2",		st2);
+		archive.read("dexterity",		dx);
+		archive.read("dexterity2",		dx2);
+		archive.read("intelligence",	in);
+		archive.read("intelligence2",	in2);
+		archive.read("hitpoints",		hp);
+		archive.read("spawnregion",		spawnregion);
+		archive.read("stamina",			stm);
+		archive.read("mana",			mn);
+		archive.read("npc",				npc);
+		archive.read("holdgold",		holdg);
+		archive.read("shop",			shop);
+		archive.read("own",				ownserial);
+		archive.read("robe",			robe);
+		archive.read("karma",			karma);
+		archive.read("fame",			fame);
+		archive.read("kills",			kills);
+		archive.read("deaths",			deaths);
+		archive.read("dead",			dead);
+		archive.read("packitem",		packitem);
+		archive.read("fixedlight",		fixedlight);
+		archive.read("speech",			speech);
+		archive.read("trigger",			trigger);
+		archive.read("trigword",		trigword);
+		archive.read("disablemsg",		disabledmsg);
+		unsigned int j;
+		for (j=0;j<TRUESKILLS;j++)
+		{
+			char t[256] = {0,};
+			numtostr(j, t);
+			string temp = string("skill") + string(t);
+			archive.read(temp, baseskill[j]);
+			temp = string("skl") + string(t);
+			archive.read(temp, lockSkill[j] );
+		}
+		archive.read("cantrain", cantrain);
+		
+		archive.read("att",				att);
+		archive.read("def",				def);
+		archive.read("lodamage",		lodamage);
+		archive.read("hidamage",		hidamage);
+		archive.read("war",				war);
+		archive.read("npcwander",		npcWander);
+		archive.read("oldnpcwander",	oldnpcWander);
+		archive.read("carve",			carve);
+		archive.read("fx1",				fx1);
+		archive.read("fy1",				fy1);
+		archive.read("fz1",				fz1);
+		archive.read("fx2",				fx2);
+		archive.read("fy2",				fy2);
+		archive.read("spawn",			spawnserial);
+		archive.read("hidden",			hidden);
+		archive.read("hunger",			hunger);
+		archive.read("npcaitype",		npcaitype);
+		archive.read("spattack",		spattack);
+		archive.read("spadelay",		spadelay);
+		archive.read("taming",			taming);
+		archive.read("summonremainingseconds", summontimer);
+		if (summontimer != 0)
+			summontimer += uiCurrentTime;
+		archive.read("advobj",			advobj);
+		archive.read("poison",			poison);
+		archive.read("poisoned",		poisoned);
+		archive.read("fleeat",			fleeat);
+		archive.read("reattackat",		reattackat);
+		archive.read("split",			split);
+		archive.read("splitchance",		splitchnc);
+		// Begin of Guild related things (DasRaetsel)
+		archive.read("guildtoggle",		guildtoggle);  
+		archive.read("guildnumber",		guildnumber);  
+		archive.read("guildtitle",		guildtitle);  
+		archive.read("guildfealty",		guildfealty);  
+		archive.read("murderrate",		murderrate);
+		archive.read("menupriv",		menupriv);  
+		archive.read("questtype",		questType);  
+		archive.read("questdestregion",	questDestRegion);  
+		archive.read("questorigregion",	questOrigRegion);  
+		archive.read("questbountypostserial", questBountyPostSerial);  
+		archive.read("questbountyreward", questBountyReward);  
+		archive.read("jailtimer",		jailtimer);
+		if (jailtimer != 0)
+			jailtimer += uiCurrentTime;
+		archive.read("jailsecs",		jailsecs); 
+		archive.read("gmrestrict",		gmrestrict); 
 	}
 	else if ( archive.isWritting())
 	{
+		if(incognito)
+		{//save original name
+			archive.write("name", orgname);
+		} 
+		else
+		{
+			archive.write("name", name);
+		}
+		
+		archive.write("title",			title);
+		archive.write("account",		account);
+		archive.write("creationday",	creationday);
+		archive.write("gmmoveeff",		gmMoveEff);
+		archive.write("guildtype",		GuildType);
+		archive.write("guildtraitor",	GuildTraitor);
+		archive.write("dispz",			dispz);
+		archive.write("cell",			cell);
+		archive.write("dir",			dir);
+		archive.write("race",			race);
+		//AntiChrist - incognito and polymorph spell special stuff - 12/99
+		if(incognito || polymorph)
+		{//if under incognito spell, don't save BODY but the original XBODY
+			archive.write("body", xid);
+		} 
+		else
+		{//else backup body normally
+			archive.write("body", id());
+		}
+		archive.write("xbody", xid);
+		//AntiChrist - incognito spell special stuff - 12/99
+		if(incognito)
+		{//if under incognito spell, don't save SKIN but the original XSKIN
+			archive.write("skin", xskin);
+		} 
+		else
+		{//else backup skin normally
+			archive.write("skin", skin);
+		}
+		
+		archive.write("xskin",			xskin);
+		archive.write("priv",			priv);
+		
+		archive.write("priv3a",			priv3[0]);
+		archive.write("priv3b",			priv3[1]);
+		archive.write("priv3c",			priv3[2]);
+		archive.write("priv3d",			priv3[3]);
+		archive.write("priv3e",			priv3[4]);
+		archive.write("priv3f",			priv3[5]);
+		archive.write("priv3g",			priv3[6]);
+		// end of meta-gm save
+		
+		archive.write("stablemaster",	stablemaster_serial);
+		archive.write("npctype",		npc_type);
+		archive.write("time_unused",	time_unused);
+		
+		archive.write("allmove",		priv2);
+		archive.write("font",			fonttype);
+		archive.write("say",			saycolor);
+		archive.write("emote", unsigned short((emotecolor1<<8)+emotecolor2));
+		archive.write("strength",		st);
+		archive.write("strength2",		st2);
+		archive.write("dexterity",		dx);
+		archive.write("dexterity2",		dx2);
+		archive.write("intelligence",	in);
+		archive.write("intelligence2",	in2);
+		archive.write("hitpoints",		hp);
+		archive.write("spawnregion",	spawnregion);
+		archive.write("stamina",		stm);
+		archive.write("mana",			mn);
+		archive.write("npc",			npc);
+		archive.write("holdgold",		holdg);
+		archive.write("shop",			shop);
+		archive.write("own",			ownserial);
+		archive.write("robe",			robe);
+		archive.write("karma",			karma);
+		archive.write("fame",			fame);
+		archive.write("kills",			kills);
+		archive.write("deaths",			deaths);
+		archive.write("dead",			dead);
+		archive.write("packitem",		packitem);
+		archive.write("fixedlight",		fixedlight);
+		archive.write("speech",			speech);
+		archive.write("trigger",		trigger);
+		archive.write("trigword",		trigword);
+		archive.write("disablemsg",		disabledmsg);
+		unsigned int j;
+		for (j=0;j<TRUESKILLS;j++)
+		{
+			char t[256] = {0,};
+			numtostr(j, t);
+			string temp = string("skill") + string(t);
+			archive.write(temp, baseskill[j]);
+			temp = string("skl") + string(t);
+			archive.write(temp, lockSkill[j] );
+		}
+		archive.write("cantrain", cantrain);
+		
+		archive.write("att",			att);
+		archive.write("def",			def);
+		archive.write("lodamage",		lodamage);
+		archive.write("hidamage",		hidamage);
+		archive.write("war",			war);
+		archive.write("npcwander",		npcWander);
+		archive.write("oldnpcwander",	oldnpcWander);
+		archive.write("carve",			carve);
+		archive.write("fx1",			fx1);
+		archive.write("fy1",			fy1);
+		archive.write("fz1",			fz1);
+		archive.write("fx2",			fx2);
+		archive.write("fy2",			fy2);
+		archive.write("spawn",			spawnserial);
+		archive.write("hidden",			hidden);
+		archive.write("hunger",			hunger);
+		archive.write("npcaitype",		npcaitype);
+		archive.write("spattack",		spattack);
+		archive.write("spadelay",		spadelay);
+		archive.write("taming",			taming);
+		archive.write("summonremainingseconds", summontimer/MY_CLOCKS_PER_SEC);
+		
+		archive.write("advobj",			advobj);
+		archive.write("poison",			poison);
+		archive.write("poisoned",		poisoned);
+		archive.write("fleeat",			fleeat);
+		archive.write("reattackat",		reattackat);
+		archive.write("split",			split);
+		archive.write("splitchance",	splitchnc);
+		// Begin of Guild related things (DasRaetsel)
+		archive.write("guildtoggle",	guildtoggle);  
+		archive.write("guildnumber",	guildnumber);  
+		archive.write("guildtitle",		guildtitle);  
+		archive.write("guildfealty",	guildfealty);  
+		archive.write("murderrate",		murderrate);
+		archive.write("menupriv",		menupriv);  
+		archive.write("questtype",		questType);  
+		archive.write("questdestregion",questDestRegion);  
+		archive.write("questorigregion",questOrigRegion);  
+		archive.write("questbountypostserial", questBountyPostSerial);  
+		archive.write("questbountyreward", questBountyReward);  
+		archive.write("jailtimer",		jailtimer/MY_CLOCKS_PER_SEC); 
+		archive.write("jailsecs",		jailsecs); 
+		archive.write("gmrestrict",		gmrestrict); 
 	}
+	cUObject::Serialize(archive);
 }
+

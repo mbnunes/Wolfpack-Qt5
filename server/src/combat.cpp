@@ -740,7 +740,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 	}
 	if ((pc_defender == NULL) || (pc_defender->isPlayer() && !online(pc_defender) || pc_defender->isHidden()) && pc_attacker->war)
 	{
-		pc_attacker->war=0; // LB
+		pc_attacker->war=false; // LB
 		pc_attacker->timeout=0;
 		pc_attacker->attacker = INVALID_SERIAL;
 		pc_attacker->resetAttackFirst();
