@@ -2,7 +2,7 @@
 import wolfpack
 import random
 import wolfpack.utilities
-from wolfpack.consts import HEALING, ANATOMY
+from wolfpack.consts import HEALING, ANATOMY, VETERINARY, ANIMALLORE
 
 
 def onUse( char, item ):
@@ -90,16 +90,8 @@ def validCharTarget( char, target ):
 		char.socket.sysmessage( 'You are too far away to apply bandages on %s' % target.name )
 		return 0
 
-	# No resurrection feature in yet
-	if target.dead:
-		char.socket.sysmessage( 'You can''t heal a ghost.' )
-		return 0
-
-	if target.poison != -1:
-		char.socket.clilocmessage(1010060)
-
 	# Already at full health
-	if target.health >= target.strength:
+	if not target.poison and target.health >= target.maxhitpoints:
 		if target == char:
 			char.socket.sysmessage( 'You are healthy.' )
 		else:
@@ -128,6 +120,14 @@ def bandage_response( char, args, target ):
 		char.socket.sysmessage( 'You are not skilled enough to resurrect.' )
 		return
 
+	if target.char and target.char.dead and ( char.skill[ HEALING ] < 800 or char.skill[ ANATOMY ] < 800 ):
+		char.socket.sysmessage( 'You are not skilled enough to resurrect.' )
+		return
+
+	if target.char and target.char.poison and ( char.skill[ HEALING ] < 600 or char.skill[ ANATOMY ] < 600 ):
+		char.socket.sysmessage( 'You are not skilled enough to cure poison.' )
+		return
+
 	# Consume Bandages
 	bandages = wolfpack.finditem( args[0] )
 
@@ -146,27 +146,38 @@ def bandage_response( char, args, target ):
 	success = 0
 
 	# SkillCheck (0% to 80%)
-	if not corpse:
+	if not corpse and not target.char.dead and not target.char.poison:
 		success = char.checkskill( HEALING, 0, 800 )
-	else:
+	elif corpse or target.char.dead:
 		reschance = int( ( char.skill[ HEALING ] + char.skill[ ANATOMY ] ) * 0.17 )
 		rescheck = random.randint( 1, 100 )
-
-		if char.checkskill( HEALING, 800, 1000 ) and char.checkskill( ANATOMY, 800, 1000 ) and reschance < rescheck:
+		if char.checkskill( HEALING, 800, 1000 ) and char.checkskill( ANATOMY, 800, 1000 ) and reschance > rescheck:
+			success = 1
+	else: # must be poisoned
+		reschance = int( ( char.skill[ HEALING ] + char.skill[ ANATOMY ] ) * 0.27 )
+		rescheck = random.randint( 1, 100 )
+		if char.checkskill( HEALING, 600, 1000 ) and char.checkskill( ANATOMY, 600, 1000 ) and reschance > rescheck:
 			success = 1
 
-	char.action( 0x09 )
+
+	#this is non osi, but cool!
+	#char.action( 0x09 )
 
 	if corpse:
 		char.addtimer( random.randint( 2500, 5000 ), 'bandages.bandage_timer', [ 1, success, target.item.serial, baseid ] ) # It takes 5 seconds to bandage
 	else:
-		if char == target.char:
+		if target.char.dead:
+			target.char.socket.sysmessage( char.name + ' begins applying a bandage to you.' )
+			char.addtimer( random.randint( 2500, 5000 ), 'bandages.bandage_timer', [ 2, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
+		elif char == target.char:
 			char.socket.sysmessage( 'You start applying bandages on yourself' )
+			char.addtimer( random.randint( 1500, 2500 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
 		else:
 			char.socket.sysmessage( 'You start applying bandages on %s' % target.char.name )
+			if target.char.player:
+				target.char.socket.sysmessage( char.name + ' begins applying a bandage to you.' )
 			char.turnto( target.char )
-
-		char.addtimer( random.randint( 1500, 2500 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
+			char.addtimer( random.randint( 1500, 2500 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
 
 	char.socket.settag( 'using_bandages', 1 )
 
@@ -177,8 +188,9 @@ def bandage_timer( char, args ):
 	success = args[1]
 	baseid = args[3]
 
-	# Corpse Target
-	if resurrect:
+
+	if resurrect == 1:
+		# Corpse Target		
 		target = wolfpack.finditem( args[2] )
 
 		owner = target.owner
@@ -214,37 +226,58 @@ def bandage_timer( char, args ):
 	else:
 		target = wolfpack.findchar( args[2] )
 
+
 		if not validCharTarget( char, target ):
 			return
+		
+		if target.dead:
+			if not success:
+				char.socket.sysmessage( 'You fail to resurrect the target.' )
+				return
 
-		if not success:
-			if target != char:
-				char.socket.sysmessage( 'You fail applying bandages to %s.' % target.name )
+			target.resurrect()
+			target.update()
+
+			char.socket.sysmessage( 'You successfully resurrect ' + target.name )
+		elif target.poison:
+			if not success:
+				char.socket.sysmessage( 'You fail to cure the target.' )
+				char.socket.clilocmessage(1010060)
+				return
+
+			target.poison=-1
+			target.update()
+
+			char.socket.sysmessage( 'You successfully cured ' + target.name )
+		else:
+			if not success:
+				if target != char:
+					char.socket.sysmessage( 'You fail applying bandages to %s.' % target.name )
+				else:
+					char.socket.sysmessage( 'You fail applying bandages to yourself.' )
+				return
+
+			# Human target ?
+			if target.id == 0x190 or target.id == 0x191:
+				firstskill = HEALING
+				secondskill = ANATOMY
 			else:
-				char.socket.sysmessage( 'You fail applying bandages to yourself.' )
-			return
+				firstskill = VETERINARY
+				secondskill = ANIMALLORE
 
-		# Human target ?
-		if target.id == 0x190 or target.id == 0x191:
-			firstskill = HEALING
-			secondskill = ANATOMY
-		else:
-			firstskill = VETERINARY
-			secondskill = ANIMALLORE
+			# Heal a bit
+			healmin = int( char.skill[ firstskill ] / 5 ) + int( char.skill[ secondskill ] / 5 ) + 3
+			healmax = int( char.skill[ firstskill ] / 5 ) + int( char.skill[ secondskill ] / 2 ) + 10
 
-		# Heal a bit
-		healmin = int( char.skill[ firstskill ] / 5 ) + int( char.skill[ secondskill ] / 5 ) + 3
-		healmax = int( char.skill[ firstskill ] / 5 ) + int( char.skill[ secondskill ] / 2 ) + 10
+			amount = random.randint( healmin, healmax )
 
-		amount = random.randint( healmin, healmax )
+			target.health = min( target.maxhitpoints, target.health + amount )
+			target.updatehealth()
 
-		target.health = min( target.maxhitpoints, target.health + amount )
-		target.updatehealth()
-
-		if char == target:
-			char.socket.sysmessage( 'You successfully apply bandages on yourself.' )
-		else:
-			char.socket.sysmessage( 'You successfully apply bandages on %s' % target.name )
+			if char == target:
+				char.socket.sysmessage( 'You successfully apply bandages on yourself.' )
+			else:
+				char.socket.sysmessage( 'You successfully apply bandages on %s' % target.name )
 
 	# Create bloody bandages
 	# This is target independent
