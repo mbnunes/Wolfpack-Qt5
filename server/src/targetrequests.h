@@ -585,7 +585,6 @@ public:
 		}
 
 		// Move the object relatively
-		pObject->removeFromView();
 		Coord_cl newPos = pObject->pos() + Coord_cl( x, y, z );
 		pObject->moveTo( newPos );
 		
