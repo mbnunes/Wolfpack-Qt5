@@ -34,6 +34,8 @@
 
 using namespace std;
 
+const unsigned int backuplevel = 4;
+
 void serBinFile::setVersion(unsigned int __version)
 {
 	_version = __version;
@@ -49,19 +51,42 @@ unsigned int serBinFile::size()
 	return _count;
 }
 
-void serBinFile::prepareReading(std::string ident)
+void serBinFile::prepareReading(std::string ident, int bLevel)
 {
+
+	// do not recurse forever
+	if ( bLevel >= backuplevel )
+		return; // nothing more can be done.
+
 	std::string fileName(ident);
 	fileName.append(".bin");
 	file.open(fileName.c_str(), ios::in | ios::binary);
+	if ( !file.is_open() )
+		prepareReading( ident + string("-") + static_cast<char>('1' + bLevel), ++bLevel );
 	file.read((char*)&_version, 4);
 	file.read((char*)&_count, 4);
+	if ( _count == 0 ) // has not finished writting.
+	{
+		file.close();
+		prepareReading( ident + string("-") + static_cast<char>('1' + bLevel), ++bLevel );
+	}
+
 	ISerialization::prepareReading(ident);
 }
 
 void serBinFile::prepareWritting(std::string ident)
 {
 	std::string fileName(ident);
+	// perform backups
+	unsigned int i;
+	remove( string(ident + string("-") + static_cast<char>('1' + backuplevel) + string(".bin")).c_str());
+	for ( i = backuplevel - 1; i > 0; --i )
+	{
+		string from = ident + string("-") + static_cast<char>('1' + i) + string(".bin");
+		string to   = ident + string("-") + static_cast<char>('0' + i + 1) + string(".bin");
+		rename ( string(ident + string("-") + static_cast<char>('1' + i) + string(".bin")).c_str(), string(ident + string("-") + static_cast<char>('1' + i + 1) + string(".bin")).c_str());
+	}
+	rename ( string(ident + string(".bin")).c_str(), string(ident + string("-1") + string(".bin")).c_str());
 	fileName.append(".bin");
 	file.open(fileName.c_str(), ios::out | ios::binary);
 	_count = 0;

@@ -632,9 +632,14 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 	char petname[60];
 	strcpy(petname,pPet->name.c_str());
 	strupr(petname);
-	if (!strstr( comm, petname))	//if petname is not in
-		return 0;
+	bool bAllCommand = false;
+	if ( !strstr( comm, petname) )	//if petname is not in
+		if ( strstr ( comm, "ALL") )
+			bAllCommand = true;
+		else
+			return false;
 	
+	bool bReturn = false;
 	
 	if (strstr( comm, " FOLLOW"))
 	{
@@ -650,10 +655,9 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 			addx[s] = pPet->serial;
 			target(s, 0, 1, 0, 117, "Click on the target to follow.");
 		}
-		return 1;
+		bReturn = true;
 	}
-	
-	if (strstr( comm, " KILL")||strstr( comm, " ATTACK"))
+	else if (strstr( comm, " KILL") || strstr( comm, " ATTACK"))
 	{
 		if (pPet->inGuardedArea()) // Ripper..No pet attacking in town.
 		{
@@ -663,27 +667,24 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		pPlayer->guarded = false;
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 118, "Select the target to attack.");//AntiChrist
-		return 1;
+		bReturn = true;
 	}
-	
-	if (strstr( comm, " FETCH")||strstr( comm, " GET"))
+	else if (strstr( comm, " FETCH") || strstr( comm, " GET"))
 	{
 		pPlayer->guarded = false;
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 124, "Click on the object to fetch.");
-		return 1;
+		bReturn = true;
 	}
-	
-	if (strstr( comm, " COME"))
+	else if (strstr( comm, " COME"))
 	{
 		pPlayer->guarded = false;
 		pPet->ftarg = currchar[s]->serial;
 		pPet->npcWander=1;
 		sysmessage(s, "Your pet begins following you.");
-		return 1;
+		bReturn = true;
 	}
-	
-	if (strstr(comm," GUARD")) //if guard
+	else if (strstr(comm," GUARD")) //if guard
 	{
 		addx[s] = pPet->serial;	// the pet's serial
 		addy[s] = 0;
@@ -691,10 +692,9 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 			addy[s]=1;	// indicates we already know whom to guard (for future use)
 		// for now they still must click on themselves (Duke)
 		target(s, 0, 1, 0, 120, "Click on the char to guard.");
-		return 1;
+		bReturn = true;
 	}
-	
-	if (strstr( comm, " STOP")||strstr( comm, " STAY"))
+	else if (strstr( comm, " STOP")||strstr( comm, " STAY"))
 	{
 		pPlayer->guarded = false;
 		pPet->ftarg = INVALID_SERIAL;
@@ -702,18 +702,16 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		if (pPet->war) 
 			npcToggleCombat(pPet);
 		pPet->npcWander=0;
-		return 1;
+		bReturn = true;
 	}
-
-	if (strstr( comm, " TRANSFER"))
+	else if (strstr( comm, " TRANSFER"))
 	{
 		pPlayer->guarded = false;
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 119, "Select character to transfer your pet to.");
-		return 1;
+		bReturn = true;
 	}
-
-	if (strstr( comm, " RELEASE"))
+	else if (strstr( comm, " RELEASE"))
 	{
 		pPlayer->guarded = false;
 		if (pPet->summontimer)
@@ -731,9 +729,12 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 			if(SrvParms->tamed_disappear==1)
 				Npcs->DeleteChar(pPet) ;
 		}
-		return 1;
+		bReturn = true;
 	}
-	return 0;
+	if ( bReturn && bAllCommand )
+		return false; // give other pets opotunity to process command
+	else
+		return bReturn;
 }
 
 void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
@@ -749,7 +750,7 @@ void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 			pVendor->holdg=0;
 			return;
 		}
-		else if(pVendor->holdg<=65535)
+		else if(pVendor->holdg <= 65535)
 		{
 			if (pVendor->holdg>9)
 			{

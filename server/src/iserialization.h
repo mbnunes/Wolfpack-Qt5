@@ -61,7 +61,7 @@ public:
 	ISerialization() : _state(enClosed) {}
 	virtual ~ISerialization(){}
 
-	virtual void prepareReading(std::string ident) { _state = enReading; }
+	virtual void prepareReading(std::string ident, int bLevel = 0 ) { _state = enReading; }
 	virtual void prepareWritting(std::string ident) { _state = enWritting; }
 
 	virtual bool isReading() { return (_state == enReading);	}

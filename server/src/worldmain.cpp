@@ -816,7 +816,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		pi->Init(false);
 		archive.readObject( pi );
 		cItemsManager::getInstance()->registerItem( pi );
-		pi->timeused_last=getNormalizedTime();
+		pi->timeused_last = getNormalizedTime();
 		// Set the outside indices
 		pi->SetSpawnSerial(pi->spawnserial);
 		pi->SetContSerial(pi->contserial);
@@ -956,44 +956,31 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 //|					readable script file "*.wsc". This stores all world items
 //|					and NPC/PC character information for a given shard
 //o---------------------------------------------------------------------------o
-//##ModelId=3C5D92A90135
 void CWorldMain::savenewworld(char x)
 {
-//	int multi=-1;
-//	unsigned int del=0;
-//	unsigned int currenttime=uiCurrentTime;
 	static unsigned long ocCount, oiCount;
 
 	AllTmpEff->Off();
 
 	if ( !Saving() )
 	{
-		//saveserverscript(x);
-		saveserverscript();
-		if (SrvParms->server_log) savelog("Server data save\n","server.log");
-		// Dupois - If shard op has defined an ARCHIVEPATH in SERVER.SCP
-		//          then archive the WSC to the directory specified.
-		// Added Oct 29, 1998
-		if (strlen(SrvParms->archivepath)>1)
-		{
-			save_counter++; // LB - added world backup rate
-			if(( save_counter % SrvParms->backup_save_ratio ) == 0 ) fileArchive("wppcs.wsc", "wpitems.wsc", SrvParms->archivepath);
-		}
-		// End - Dupois
-
 		//	gcollect();
 		if ( announce() )
 		{
 			sysbroadcast("World data saving....");
 			clConsole.send("Worldsave Started!\n" );
 			clConsole.send("items: %i\n", cItemsManager::getInstance()->size());
+			clConsole.send("chars: %i\n", cCharsManager::getInstance()->size());
 		}
 		isSaving = true;
 	}
 
 
 	cItemsSaver ItemsThread;
-	ItemsThread.run();
+	ItemsThread.start();
+
+	saveserverscript();
+	if (SrvParms->server_log) savelog("Server data save\n","server.log");
 
 	serBinFile archive;
 	archive.prepareWritting("chars");
@@ -1004,7 +991,7 @@ void CWorldMain::savenewworld(char x)
 	}
 	archive.close();
 
-	ItemsThread.wait();
+	ItemsThread.join();
 
 //	archive.prepareWritting("items");
 //	AllItemsIterator iterItems;

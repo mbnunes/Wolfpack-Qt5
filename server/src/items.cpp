@@ -840,8 +840,6 @@ void cAllItems::DeleItem(P_ITEM pi)
 			if (pContent != NULL)
 				DeleItem(pContent);
 		}
-		// Remove from map
-		cItemsManager::getInstance()->unregisterItem(pi);
 		// Queue for later delete.
 		cItemsManager::getInstance()->deleteItem(pi);
 	}

@@ -3098,7 +3098,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 			for (r=0;r<now;r++)
 			{
-				if (!currchar[r]->free
+				if (!currchar[r] && !currchar[r]->free
 					&& !currchar[r]->isGM()
 					&& currchar[r]->clientidletime<uiCurrentTime
 					&& perm[r]

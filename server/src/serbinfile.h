@@ -58,7 +58,7 @@ public:
 	serBinFile() : _version(0), _count(0) {}
 	virtual ~serBinFile() {}
 
-	virtual void prepareReading(std::string ident);
+	virtual void prepareReading(std::string ident, int bLevel = 0);
 	virtual void prepareWritting(std::string ident);
 	virtual void close();	
 

@@ -114,7 +114,7 @@ int ContainerCountItems(const int serial, short id, short color)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->free)			// just to be sure ;-)
+		if (!pi || pi->free)			// just to be sure ;-)
 			continue;
 		if (pi->type==1)		// a subcontainer ?
 		{
