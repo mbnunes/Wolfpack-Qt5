@@ -26,15 +26,17 @@ Wolfpack 12.9.8 Beta (4. August, 2004)
 		- Added Py_RETURN_NONE/TRUE/FALSE as in Python 2.4
 		- Added status on MySQL/SQLite modules.
 		- New Python getProperty method.
-		- Fixed a possible bug with the Python interface 
+		- Fixed a possible bug with the Python interface
 			( Possibly source of crashing bugs )
 		- Property item.magic is now item.movable
-		- (Configurable) Speedhack Countermeasure 
+		- (Configurable) Speedhack Countermeasure
 			(See Anti Speed Hack settings in the General group)
 		- Added some additional checking to wolfpack.pro
 		- Began binary save feature. (Incomplete)
 		- Fixes for mul and diff files.
 			Haven should now work.
+		- Database Change:
+			items.magic is now items.movable
 	* Definition Changes:
 		- Fixed Sheep definitions
 		- Regions are split up facet/type/name.xml
@@ -95,14 +97,14 @@ Wolfpack 12.9.8 Beta (4. August, 2004)
 			Provocation - Thanks to Kid_Sk8
 			Inscription - Thanks to khpae
 		- Decoration Saving
-		- Magic fixes: 
+		- Magic fixes:
 			Fire, Poison, Energy and Paralyze fields should work better.
 			Mass dispell can now wipe out these fields.
 			Fixes for controlslots with summon spells.
 		- Scrolls are now usable and actually cast the spell.
 			For scrolls the following rules are in effect:
 			50% decreased mana usage.
-			The effective circle for measuring the skill requirement 
+			The effective circle for measuring the skill requirement
 				is lowered by two.
 			when casting from a scroll.
 		- Fixed a timing issue with onCreate() and items.
@@ -137,9 +139,9 @@ Wolfpack 12.9.7 Beta (4. July 2004)
 			- NPC baseids are now saved.
 			- Spawnregions save spawned NPCs.
 			- Multi tables removed, being redone.
-			- Item.type and other properties are no longer saved, 
+			- Item.type and other properties are no longer saved,
 				uses base definitions.
-			- Removed the `spawnregion` field from the `items`,`npcs` 
+			- Removed the `spawnregion` field from the `items`,`npcs`
 				database tables.
 		* Code Changes:
 			- Major cleanups and structure changes, much cleaner and more sane.
@@ -149,32 +151,32 @@ Wolfpack 12.9.7 Beta (4. July 2004)
 			- Support for the new All Names macro. (CTRL + SHIFT).
 	* Definition Changes:
 		* Item Updates:
-			- Colored platemail baseid mapping. This was overlooked and 
+			- Colored platemail baseid mapping. This was overlooked and
 				should fix armor bugs.
 			- Added the new artwork/items from client 4.0.3a.
 		* NPC Updates:
 			- Several AoS NPCs added. Most NPCs should be added now.
-			- Some NPCs such as orcs and lizardmen can now pull their id 
+			- Some NPCs such as orcs and lizardmen can now pull their id
 				and skin from a list.
 			- Lootlist improvements.
 			- Stat adjustments. ( UO Stratics Data )
 			- Fame/Karma adjustments. ( UO Stratics Data )
-			- Basic loot list implimentation, most monsters should drop 
+			- Basic loot list implimentation, most monsters should drop
 				some gold/gems.
 		* Region/Spawn Region Updates:
 			- Template structure added for regions.
 			- Template structure added for spawn regions.
 			- Updated town spawns for felucca and trammel towns.
 		* Misc. Updates:
-			- Organized scripts.xml to be easier to read/check 
+			- Organized scripts.xml to be easier to read/check
 				for missing scripts.
 	* Python Script Changes:
 		* Commands:
-			- import/export now saves/imports the baseid and map 
+			- import/export now saves/imports the baseid and map
 				values with WSC and TXT.
 			- info updated, supports NPC properties a bit better.
 			- freeze command added, toggles the frozen value.
-			- dye updated to modify character skins. 'dye 0x0 will replace 
+			- dye updated to modify character skins. 'dye 0x0 will replace
 				the skin with char.orgskin.
 		* Loot System:
 			- Index for loot lists in system.loot and system.lootlists.
@@ -185,7 +187,7 @@ Wolfpack 12.9.7 Beta (4. July 2004)
 			- Inscription Skill Updated
 		* System:
 			- SQLite database optimization added.
-			- Script system.debugging created to set different 
+			- Script system.debugging created to set different
 				debugging options.
 			- Support for the Open Door Macro
 	* Misc. Changes:
@@ -219,7 +221,7 @@ Wolfpack 12.9.6 Beta (18. May 2004)
 		- Travel fixes.
 		- Add fixes.
 	* Definitions cleanup
-		- Reorganized the definitions to be cleaner and easier to 
+		- Reorganized the definitions to be cleaner and easier to
 			manage with updates.
 		- Note: ./definitions.xml moved to ./definitions/index.xml
 	* Item Improvements and Fixes
@@ -248,8 +250,8 @@ Wolfpack 12.9.6 Beta (18. May 2004)
 		- Line of Sight fixes.
 	* Known bugs:
 		- Necromancy/Paladin spells do not function, still in the works.
-		- Non-functioning skills: 
-			Snooping, Inscription, Cartography, 
+		- Non-functioning skills:
+			Snooping, Inscription, Cartography,
 			Animal Lore, Arms Lore, Enticement.
 		- Reload (python) memory leak.
 		- Line of Sight blocks even if it shouldn't.
