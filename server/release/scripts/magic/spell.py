@@ -19,6 +19,7 @@ def countReagents(item, items):
 
 	return items
 
+
 # Recursive Function for removing reagents
 def consumeReagents(item, items):
 	for (key, value) in items.items():
@@ -30,19 +31,18 @@ def consumeReagents(item, items):
 				item.amount -= value
 				item.update()
 				del items[key]
-
 			return items # Reagents normally dont have content
 
 	for subitem in item.content:
 		items = consumeReagents(subitem, items)
-
 	return items
 
+
 def callback(char, args):
-   char.removeevent('magic')
+	char.removeevent('magic')
 	
 	# target
-	if args[3] and type(args[3]) == int:
+	if args[3] and type(args[3]) is int:
 		target = wolfpack.findobject(args[3])
 		
 		# Object went out of scope
@@ -53,7 +53,7 @@ def callback(char, args):
 		target = None
 	
 	# item
-	if args[4] and type(args[4]) == int:
+	if args[4] and (type(args[4]) is int):
 		item = wolfpack.findobject(args[4])
 		
 		# Object went out of scope

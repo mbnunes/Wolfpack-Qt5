@@ -19,10 +19,10 @@ def onLoad():
 # Handles the email command
 def commandEmail( socket, cmd, args ):
 	char = socket.player
-	account = wolfpack.accounts.find( char.account.name )
+	account = char.account # wolfpack.accounts.find( char.account.name )
 	email = str( args.strip() )
 
-	if len( email ) == 0
+	if len( email ) == 0:
 		socket.sysmessage( "Usage: email <new email>" )
 		return False
 	elif len( email ) > 255:

@@ -49,9 +49,9 @@ MODE_CMD = 3
 # Remove a possible timer/targetrequest
 #
 def fizzle(char):
-	char.dispel(char, 1, "cast_delay")
+	char.dispel(char, 1, 'cast_delay')
 
-   char.removeevent('magic')
+	char.removeevent('magic')
 
 	if char.socket:
 		char.socket.deltag('cast_target')

@@ -20,7 +20,7 @@ def onLoad():
 def commandPassword( socket, cmd, args ):
 	char = socket.player
 	password = str( args.strip() )
-	account = wolfpack.accounts.find( char.account.name )
+	account = char.account # wolfpack.accounts.find( char.account.name )
 
 	if len( password ) == 0:
 		socket.sysmessage( "Usage: password <newpassword>" )
