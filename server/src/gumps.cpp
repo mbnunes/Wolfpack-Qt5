@@ -530,6 +530,17 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		page_++;
 		startPage( page_ );
 
+		addResizeGump( 245, 120, 0xBB8, 165, 20 );
+		addResizeGump( 245, 140, 0xBB8, 165, 20 );
+		addResizeGump( 245, 160, 0xBB8, 165, 20 );
+		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+		addResizeGump( 245, 200, 0xBB8, 165, 20 );
+		addResizeGump( 245, 220, 0xBB8, 165, 20 );
+		addResizeGump( 245, 240, 0xBB8, 165, 20 );
+		addResizeGump( 245, 260, 0xBB8, 165, 20 );
+		addResizeGump( 245, 280, 0xBB8, 165, 20 );
+		addResizeGump( 245, 300, 0xBB8, 165, 20 );
+
 		addText( 50, 120, tr( "Name:" ), 0x834 );
 		addInputField( 250, 120, 150, 16,  1, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
 		addText( 50, 140, tr( "Title:" ), 0x834 );
@@ -557,6 +568,17 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 
 		page_++;
 		startPage( page_ );
+
+		addResizeGump( 245, 120, 0xBB8, 165, 20 );
+		addResizeGump( 245, 140, 0xBB8, 165, 20 );
+		addResizeGump( 245, 160, 0xBB8, 165, 20 );
+		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+		addResizeGump( 245, 200, 0xBB8, 165, 20 );
+		addResizeGump( 245, 220, 0xBB8, 165, 20 );
+		addResizeGump( 245, 240, 0xBB8, 165, 20 );
+		addResizeGump( 245, 260, 0xBB8, 165, 20 );
+		addResizeGump( 245, 280, 0xBB8, 165, 20 );
+		addResizeGump( 245, 300, 0xBB8, 165, 20 );
 
 		addText( 50, 120, tr( "Spawnregion:" ), 0x834 );
 		addInputField( 250, 120, 150, 16, 11, QString( "%1" ).arg( pChar->spawnregion() ), 0x834 );
@@ -588,6 +610,17 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		page_++;
 		startPage( page_ );
 
+		addResizeGump( 245, 120, 0xBB8, 165, 20 );
+		addResizeGump( 245, 140, 0xBB8, 165, 20 );
+		addResizeGump( 245, 160, 0xBB8, 165, 20 );
+		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+		addResizeGump( 245, 200, 0xBB8, 165, 20 );
+		addResizeGump( 245, 220, 0xBB8, 165, 20 );
+		addResizeGump( 245, 240, 0xBB8, 165, 20 );
+		addResizeGump( 245, 260, 0xBB8, 165, 20 );
+		addResizeGump( 245, 280, 0xBB8, 165, 20 );
+		addResizeGump( 245, 300, 0xBB8, 165, 20 );
+
 		addText( 50, 120, tr( "Npc Wander:" ), 0x834 );
 		addInputField( 250, 120, 150, 16, 21, QString( "%1" ).arg( pChar->npcWander ), 0x834 );
 		addText( 50, 140, tr( "fx1:" ), 0x834 );
@@ -617,6 +650,10 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 
 		page_++;
 		startPage( page_ );
+
+		addResizeGump( 245, 120, 0xBB8, 165, 20 );
+		addResizeGump( 245, 140, 0xBB8, 165, 20 );
+		addResizeGump( 245, 160, 0xBB8, 165, 20 );
 
 		addText( 50, 120, tr( "Speech color:" ), 0x834 );
 		addInputField( 250, 120, 150, 16, 31, QString( "%1" ).arg( pChar->saycolor ), 0x834 );
@@ -776,8 +813,20 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addButton( 160, 340, 0x47E, 0x480, 0 ); 
 		addText( 200, 340, tr( "Close" ), 0x834 );
 
+
 		page_++;
 		startPage( page_ );
+
+		addResizeGump( 245, 120, 0xBB8, 165, 20 );
+		addResizeGump( 245, 140, 0xBB8, 165, 20 );
+		addResizeGump( 245, 160, 0xBB8, 165, 20 );
+		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+		addResizeGump( 245, 200, 0xBB8, 165, 20 );
+		addResizeGump( 245, 220, 0xBB8, 165, 20 );
+		addResizeGump( 245, 240, 0xBB8, 165, 20 );
+		addResizeGump( 245, 260, 0xBB8, 165, 20 );
+		addResizeGump( 245, 280, 0xBB8, 165, 20 );
+		addResizeGump( 245, 300, 0xBB8, 165, 20 );
 
 		addText( 50, 120, tr( "Name:" ), 0x834 );
 		addInputField( 250, 120, 150, 16,  1, QString( "%1" ).arg( pItem->name() ), 0x834 );
@@ -806,6 +855,17 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 
 		page_++;
 		startPage( page_ );
+
+		addResizeGump( 245, 120, 0xBB8, 165, 20 );
+		addResizeGump( 245, 140, 0xBB8, 165, 20 );
+		addResizeGump( 245, 160, 0xBB8, 165, 20 );
+		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+		addResizeGump( 245, 200, 0xBB8, 165, 20 );
+		addResizeGump( 245, 220, 0xBB8, 165, 20 );
+		addResizeGump( 245, 240, 0xBB8, 165, 20 );
+		addResizeGump( 245, 260, 0xBB8, 165, 20 );
+		addResizeGump( 245, 280, 0xBB8, 165, 20 );
+		addResizeGump( 245, 300, 0xBB8, 165, 20 );
 
 		addText( 50, 120, tr( "Type:" ), 0x834 );
 		addInputField( 250, 120, 150, 16, 11, QString( "%1" ).arg( pItem->type() ), 0x834 );
@@ -837,6 +897,17 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		page_++;
 		startPage( page_ );
 
+		addResizeGump( 245, 120, 0xBB8, 165, 20 );
+		addResizeGump( 245, 140, 0xBB8, 165, 20 );
+		addResizeGump( 245, 160, 0xBB8, 165, 20 );
+		addResizeGump( 245, 180, 0xBB8, 165, 20 );
+		addResizeGump( 245, 200, 0xBB8, 165, 20 );
+		addResizeGump( 245, 220, 0xBB8, 165, 20 );
+		addResizeGump( 245, 240, 0xBB8, 165, 20 );
+		addResizeGump( 245, 260, 0xBB8, 165, 20 );
+		addResizeGump( 245, 280, 0xBB8, 165, 20 );
+		addResizeGump( 245, 300, 0xBB8, 165, 20 );
+
 		addText( 50, 120, tr( "Dyable:" ), 0x834 );
 		addInputField( 250, 120, 150, 16, 21, QString( "%1" ).arg( pItem->dye ), 0x834 );
 		addText( 50, 140, tr( "Decay:" ), 0x834 );
@@ -866,6 +937,9 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 
 		page_++;
 		startPage( page_ );
+
+		addResizeGump( 245, 120, 0xBB8, 165, 20 );
+		addResizeGump( 245, 140, 0xBB8, 165, 20 );
 
 		addText( 50, 120, tr( "Disabled:" ), 0x834 );
 		addInputField( 250, 120, 150, 16, 31, QString( "%1" ).arg( pItem->disabled ), 0x834 );
@@ -1081,7 +1155,7 @@ cWhoMenuGump::cWhoMenuGump()
 {
 	QStringList charNames;
 	QStringList charLocations;
-	QStringList charRegions;
+//	QStringList charRegions;
 
 	sockets_.clear();
 
@@ -1092,7 +1166,7 @@ cWhoMenuGump::cWhoMenuGump()
 		{
 			charNames.push_back( pChar->name.c_str() );
 			charLocations.push_back( QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ) );
-			charRegions.push_back( pChar->region );
+//			charRegions.push_back( pChar->region );
 			sockets_.push_back( mSock );
 		}
 	}
@@ -1102,43 +1176,40 @@ cWhoMenuGump::cWhoMenuGump()
 	UINT32 pages = ((UINT32)floor( numsocks / 10 ))+1;
 
 	startPage();
-	// Basic .INFO Header
-	addResizeGump( 0, 40, 0xA28, 600, 420 ); //Background
-	addGump( 180, 18, 0x58B ); // Fancy top-bar
-	addGump( 257, 0, 0x589 ); // "Button" like gump
-	addTilePic( 273, 19, creatures[ 0x190 ].icon );
-	addTilePic( 281, 19, creatures[ 0x190 ].icon );
-	addTilePic( 277, 23, creatures[ 0x190 ].icon ); // Type of info menu
-	addText( 258, 90, tr( "Who Menu" ), 0x530 );
+	addBackground( 0xE10, 380, 340 ); //Background
+	addRawLayout( "{checkertrans 15 15 350 310}" );
+	//addCheckertrans( 15, 15, 570, 390 );
+	addGump( 130, 18, 0xFA8 );
+	addText( 165, 20, tr( "Who Menu" ), 0x530 );
 	
-	// OK button
-	addButton( 50, 410, 0x481, 0x483, 0 ); 
-	addText( 90, 410, tr( "Close" ), 0x834 );
+	// X button
+	addText( 70, 300, "Close", 0x834 );
+	addButton( 30, 300, 0xFB1, 0xFB3, 0 ); 
 
 	for( page_ = 1; page_ <= pages; page_++ )
 	{
 		startPage( page_ );
 
 		UINT32 i;
-		UINT32 right = page_ * 19 - 1;
-		UINT32 left = page_ * 19 - 19;
+		UINT32 right = page_ * 10 - 1;
+		UINT32 left = page_ * 10 - 10;
 		if( numsocks < right )
 			right = numsocks-1;
 
 		for( i = left; i <= right; i++ )
 		{
-			addButton( 30, 120 + (i-left) * 20, 0x0D0, 0x0D1, i+1 ); 
-			addText( 50, 120 + (i-left) * 20, QString( "%1" ).arg( charNames[i] ), 0x834 );
-			addText( 200, 120 + (i-left) * 20, QString( "%1" ).arg( charLocations[i] ), 0x834 );
-			addText( 370, 120 + (i-left) * 20, QString( "%1" ).arg( charRegions[i] ), 0x834 );
+			addButton( 20, 60 + (i-left) * 20, 0xFA5, 0xFA7, i+1 ); 
+			addText( 50, 60 + (i-left) * 20, QString( "%1" ).arg( charNames[i] ), 0x834 );
+			addText( 200, 60 + (i-left) * 20, QString( "%1" ).arg( charLocations[i] ), 0x834 );
+//			addText( 370, 60 + (i-left) * 20, QString( "%1" ).arg( charRegions[i] ), 0x834 );
 		}
 
-		addText( 460, 410, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		addText( 280, 300, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		if( page_ > 1 ) // previous page
-			addPageButton( 420, 410, 0x0FC, 0x0FC, page_-1 );
+			addPageButton( 240, 300, 0x0FC, 0x0FC, page_-1 );
 
 		if( page_ < pages ) // next page
-			addPageButton( 440, 410, 0x0FA, 0x0FA, page_+1 );
+			addPageButton( 260, 300, 0x0FA, 0x0FA, page_+1 );
 	}
 }
   
@@ -1148,8 +1219,8 @@ void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
 		return;
 	else
 	{
-		cWhoMenuGump* pGump = new cWhoMenuGump();
-		socket->send( pGump );
+/*		cWhoMenuGump* pGump = new cWhoMenuGump();
+		socket->send( pGump );*/
 
 		cWhoChildGump* pGump2 = new cWhoChildGump( sockets_[ choice.button-1 ] );
 		socket->send( pGump2 );
@@ -1164,44 +1235,46 @@ cWhoChildGump::cWhoChildGump( cUOSocket* socket )
 	if( socket && pChar )
 	{
 		startPage();
-		addResizeGump( 0, 40, 0xA28, 450, 370 ); //Background
-		addGump( 105, 18, 0x58B ); // Fancy top-bar
-		addGump( 182, 0, 0x589 ); // "Button" like gump
-		addTilePic( 202, 23, creatures[ 0x190 ].icon ); // Type of info menu
-		addText( 180, 90, tr( "Socket Menu" ), 0x530 );
-
-		// OK button
-		addButton( 50, 360, 0x481, 0x483, 0 ); 
-		addText( 90, 360, tr( "Close" ), 0x834 );
+		
+		addBackground( 0xE10, 440, 340 ); //Background
+		addResizeGump( 195, 260, 0xBB8, 165, 20 );
+		addRawLayout( "{checkertrans 15 15 410 310}" );
+		//addCheckertrans( 15, 15, 570, 390 );
+		addGump( 160, 18, 0xFA2 );
+		addText( 195, 20, tr( "Socket Menu" ), 0x530 );
+	
+		// X button
+		addText( 70, 300, "Close", 0x834 );
+		addButton( 30, 300, 0xFB1, 0xFB3, 0 ); 
 
 		startPage( 1 );
 
-		addText( 50, 120, tr( "Char name:" ), 0x834 );
-		addText( 250, 120, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
-		addText( 50, 140, tr( "Account name:" ), 0x834 );
-		addText( 250, 140, QString( "%1" ).arg( pChar->account()->login() ), 0x834 );
-		addText( 50, 160, tr( "Position:" ), 0x834 );
-		addText( 250, 160, QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ), 0x834 );
-		addText( 50, 180, tr( "Region:" ), 0x834 );
-		addText( 250, 180, QString( "%1" ).arg( pChar->region ), 0x834 );
-		addText( 50, 200, tr( "ACL:" ), 0x834 );
-		addText( 250, 200, QString( "%1" ).arg( pChar->account()->acl() ), 0x834 );
+		addText( 50, 60, tr( "Char name:" ), 0x834 );
+		addText( 250, 60, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
+		addText( 50, 80, tr( "Account name:" ), 0x834 );
+		addText( 250, 80, QString( "%1" ).arg( pChar->account()->login() ), 0x834 );
+		addText( 50, 100, tr( "Position:" ), 0x834 );
+		addText( 250, 100, QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ), 0x834 );
+		addText( 50, 120, tr( "Region:" ), 0x834 );
+		addText( 250, 120, QString( "%1" ).arg( pChar->region ), 0x834 );
+		addText( 50, 140, tr( "ACL:" ), 0x834 );
+		addText( 250, 140, QString( "%1" ).arg( pChar->account()->acl() ), 0x834 );
 
-		addButton( 30, 240, 0x0D0, 0x0D1, 1 ); 
-		addText( 50, 240, tr( "Go to position" ), 0x834 );
-		addButton( 30, 260, 0x0D0, 0x0D1, 2 ); 
-		addText( 50, 260, tr( "Bring char" ), 0x834 );
-		addButton( 30, 280, 0x0D0, 0x0D1, 3 ); 
-		addText( 50, 280, tr( "Jail char" ), 0x834 );
-		addButton( 30, 320, 0x0D0, 0x0D1, 6 ); 
-		addText( 50, 320, tr( "Send message:" ), 0x834 );
-		addInputField( 200, 320, 150, 16, 1, tr( "<msg>" ), 0x834 );
+		addButton( 20, 180, 0xFA5, 0xFA7, 1 ); 
+		addText( 50, 180, tr( "Go to position" ), 0x834 );
+		addButton( 20, 200, 0xFA5, 0xFA71, 2 ); 
+		addText( 50, 200, tr( "Bring char" ), 0x834 );
+		addButton( 20, 220, 0xFA5, 0xFA7, 3 ); 
+		addText( 50, 220, tr( "Jail char" ), 0x834 );
+		addButton( 20, 260, 0xFBD, 0xFBF, 6 ); 
+		addText( 50, 260, tr( "Send message:" ), 0x834 );
+		addInputField( 200, 260, 150, 16, 1, tr( "<msg>" ), 0x834 );
 
-		addButton( 230, 240, 0x0D0, 0x0D1, 5 ); 
-		addText( 250, 240, tr( "Show char info gump" ), 0x834 );
+		addButton( 220, 180, 0xFAB, 0xFAD, 5 ); 
+		addText( 250, 180, tr( "Show char info gump" ), 0x834 );
 		//addText( 250, 260, tr( "" ), 0x834 );
-		addButton( 230, 280, 0x0D0, 0x0D1, 4 ); 
-		addText( 250, 280, tr( "Forgive char" ), 0x834 );
+		addButton( 220, 220, 0xFA5, 0xFA7, 4 ); 
+		addText( 250, 220, tr( "Forgive char" ), 0x834 );
 	}
 }
 
