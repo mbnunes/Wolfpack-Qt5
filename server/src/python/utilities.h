@@ -182,4 +182,78 @@ inline QString Python2QString( PyObject* object )
 	}
 }
 
+class PythonFunction
+{
+	PyObject* pModule;
+	PyObject* pFunc;
+	QString sModule;
+public:
+	Q_EXPLICIT PythonFunction( PyObject* function ) : pModule( 0 ), pFunc( 0 )
+	{
+		pFunc = function;
+		Py_XINCREF( pFunc );
+	}
+
+	Q_EXPLICIT PythonFunction( const QString& path ) : pModule( 0 ), pFunc( 0 )
+	{
+		int position = path.findRev( "." );
+		sModule = path.left( position );
+		QString sFunction = path.right( path.length() - ( position + 1 ) );
+
+		pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+
+		if ( pModule )
+		{
+			pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
+			if ( pFunc && !PyCallable_Check( pFunc ) )
+			{
+				cleanUp();
+			}
+		}
+
+	}
+
+	~PythonFunction()
+	{
+		cleanUp();
+	}
+
+	PyObject* function() const
+	{
+		Py_XINCREF( pFunc );
+		return pFunc;
+	}
+
+	QString functionPath() const
+	{
+		PyObject* module = PyObject_GetAttrString(pFunc, "__module__");
+		PyObject* name = PyObject_GetAttrString(pFunc, "__name__");
+		QString result = Python2QString(module) + "." + Python2QString(name);
+		Py_XDECREF( name );
+		Py_XDECREF( module );
+		return result;
+	}
+
+	void cleanUp()
+	{
+		Py_XDECREF( pFunc );
+		Py_XDECREF( pModule );
+		pFunc = 0;
+		pModule = 0;
+	}
+
+	bool isValid() const { return pFunc != 0 && PyCallable_Check( pFunc );	}
+
+	PyObject* operator()( PyObject* args )
+	{
+		PyObject* result = 0;
+		Py_XINCREF( args );
+		if ( isValid() )
+			result = PyEval_CallObject( pFunc, args );
+		reportPythonError( sModule );
+		Py_XDECREF( args );
+		return result;
+	}
+};
+
 #endif

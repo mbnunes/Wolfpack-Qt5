@@ -606,7 +606,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	\method item.addtimer
 	\description Set a delayed timer for a script function to execute.
 	\param expiretime The INT value of the time.
-	\param expirecallback The full name of the function (preceding the name of the script and modules it is in) that should be called
+	\param expirecallback The function that should be called
 	when the effect expires. The prototype for this function is:
 	<code>def expire_callback(item, args):
 		&nbsp;&nbsp;pass</code>
@@ -616,29 +616,44 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 		they are the only objects that can be saved to the worldfile. If you want to
 		pass on items or characters, please pass the serial instead and use the
 		findchar and finditem functions in the wolfpack library.
-	\param serialize Saves the timer. Useful if you crash.
+	\param serializable Defaults to false.
+		If this is true, the effect will be saved to the worldfile. Otherwise the effect will be lost when the server is
+		shutdown or crashes.
 	\return Returns true or false if the tag exists.
 */
 static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 {
-	// Three arguments
-	if ( ( PyTuple_Size( args ) < 3 && PyTuple_Size( args ) > 4 ) || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
+	Q_UINT32 expiretime;
+	PyObject* function;
+	PyObject* arguments;
+	uchar persistent = 0;
+
+	if ( !PyArg_ParseTuple( args, "iOO|B:item.addtimer", &expiretime, &function, &arguments, &persistent ) )
+		return 0;
+
+	PythonFunction* toCall = 0;
+	if ( !PyCallable_Check( function ) )
 	{
-		PyErr_BadArgument();
-		return NULL;
+		QString func = Python2QString( function );
+		if ( func.isNull() )
+		{
+			PyErr_SetString( PyExc_TypeError, "Bad argument on addtimer callback type" );
+			return 0;
+		}
+		Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
+		toCall = new PythonFunction( func );
 	}
+	else
+		toCall = new PythonFunction( function );
 
-	Q_UINT32 expiretime = getArgInt( 0 );
-	QString function = getArgStr( 1 );
-	PyObject* py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
+	if ( !PyList_Check( arguments ) )
+		return 0;
+	PyObject* py_args = PyList_AsTuple( arguments );
 
-	cPythonEffect* effect = new cPythonEffect( function, py_args );
+	cPythonEffect* effect = new cPythonEffect( toCall, py_args );
 
 	// Should we save this effect?
-	if ( checkArgInt( 3 ) && getArgInt( 3 ) != 0 )
-		effect->setSerializable( true );
-	else
-		effect->setSerializable( false );
+	effect->setSerializable( persistent != 0 );
 
 	effect->setDest( self->pItem->serial() );
 	effect->setExpiretime_ms( expiretime );

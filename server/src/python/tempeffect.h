@@ -43,18 +43,18 @@
 class cPythonEffect : public cTimer
 {
 protected:
-	QString functionName;
-	QString dispelId_,
-	dispelFunc_;
+	PythonFunction* func;
+	PythonFunction* dispelFunc_;
+	QString dispelId_;
 	PyObject* args;
 public:
-	cPythonEffect()
+	cPythonEffect() : func( 0 ), dispelFunc_( 0 )
 	{
 		objectid = "cPythonEffect";
 		args = 0;
 	}
 
-	cPythonEffect( const QString& _functionName, PyObject* _args ) : functionName( _functionName ), args( _args )
+	cPythonEffect( PythonFunction* _functionObj, PyObject* _args ) : func( _functionObj ), dispelFunc_(0), args( _args )
 	{
 		objectid = "cPythonEffect";
 		Py_INCREF( args );
@@ -63,22 +63,26 @@ public:
 	virtual ~cPythonEffect()
 	{
 		Py_XDECREF( args );
+		delete func;
+		delete dispelFunc_;
 	}
 
 	void setDispelId( const QString& data )
 	{
 		dispelId_ = data;
 	}
+
 	QString dispelId()
 	{
 		return dispelId_;
 	}
 
-	void setDispelFunc( const QString& data )
+	void setDispelFunc( PythonFunction* data )
 	{
 		dispelFunc_ = data;
 	}
-	QString dispelFunc()
+
+	PythonFunction* dispelFunc()
 	{
 		return dispelFunc_;
 	}
@@ -94,108 +98,63 @@ public:
 	// Dispel args: char, [args], source, [args] (while the last one is optional)
 	void Dispel( P_CHAR pSource, PyObject* disp_args )
 	{
-		if ( dispelFunc_.isNull() )
+		if ( !dispelFunc_ || !dispelFunc_->isValid() )
 			return;
+		
+		// Create our Argument list
+		PyObject* p_args = PyTuple_New( 4 );
 
-		// Get everything before the last dot
-		if ( dispelFunc_.contains( "." ) )
+		if ( isItemSerial( destSer ) )
+			PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
+		else if ( isCharSerial( destSer ) )
+			PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
+		else
 		{
-			// Find the last dot
-			int position = dispelFunc_.findRev( "." );
-			QString sModule = dispelFunc_.left( position );
-			QString sFunction = dispelFunc_.right( dispelFunc_.length() - ( position + 1 ) );
-
-			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
-
-			if ( pModule )
-			{
-				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-				if ( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
-					PyObject* p_args = PyTuple_New( 4 );
-
-					if ( isItemSerial( destSer ) )
-						PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
-					else if ( isCharSerial( destSer ) )
-						PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
-					else
-					{
-						Py_INCREF( Py_None );
-						PyTuple_SetItem( p_args, 0, Py_None );
-					}
-
-					Py_INCREF( args ); // PyTuple_SetItem steals a reference
-					PyTuple_SetItem( p_args, 1, args );
-
-					PyTuple_SetItem( p_args, 2, PyGetCharObject( pSource ) );
-
-					Py_INCREF( disp_args );
-					PyTuple_SetItem( p_args, 3, disp_args );
-
-					PyObject* result = PyEval_CallObject( pFunc, p_args );
-					Py_XDECREF( result );
-
-					reportPythonError( sModule );
-
-					Py_DECREF( p_args );
-				}
-				Py_XDECREF( pFunc );
-			}
-			Py_XDECREF( pModule );
+			Py_INCREF( Py_None );
+			PyTuple_SetItem( p_args, 0, Py_None );
 		}
+
+		Py_INCREF( args ); // PyTuple_SetItem steals a reference
+		PyTuple_SetItem( p_args, 1, args );
+
+		PyTuple_SetItem( p_args, 2, PyGetCharObject( pSource ) );
+
+		Py_INCREF( disp_args );
+		PyTuple_SetItem( p_args, 3, disp_args );
+
+		PyObject* result = (*dispelFunc_)( p_args );
+		Py_XDECREF( result );
+		Py_DECREF( p_args );
 	}
 
 	void Expire()
 	{
-		// Get everything before the last dot
-		if ( functionName.contains( "." ) )
+		// Create our Argument list
+		PyObject* p_args = PyTuple_New( 2 );
+		if ( isItemSerial( destSer ) )
+			PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
+		else if ( isCharSerial( destSer ) )
+			PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
+		else
 		{
-			// Find the last dot
-			int position = functionName.findRev( "." );
-			QString sModule = functionName.left( position );
-			QString sFunction = functionName.right( functionName.length() - ( position + 1 ) );
-
-			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
-
-			if ( pModule )
-			{
-				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-				if ( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
-					PyObject* p_args = PyTuple_New( 2 );
-					if ( isItemSerial( destSer ) )
-						PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
-					else if ( isCharSerial( destSer ) )
-						PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
-					else
-					{
-						Py_INCREF( Py_None );
-						PyTuple_SetItem( p_args, 0, Py_None );
-					}
-
-					Py_INCREF( args );
-					PyTuple_SetItem( p_args, 1, args );
-
-					PyObject* result = PyEval_CallObject( pFunc, p_args );
-					Py_XDECREF( result );
-
-					reportPythonError( sModule );
-					Py_DECREF( p_args );
-				}
-				Py_XDECREF( pFunc );
-			}
-			Py_XDECREF( pModule );
+			Py_INCREF( Py_None );
+			PyTuple_SetItem( p_args, 0, Py_None );
 		}
+
+		Py_INCREF( args );
+		PyTuple_SetItem( p_args, 1, args );
+
+		PyObject* result = (*func)( p_args );
+		Py_XDECREF( result );
+		Py_DECREF( p_args );
 	}
 
 	void save( cBufferedWriter& writer, unsigned int version )
 	{
 		cTimer::save( writer, version );
 
-		writer.writeUtf8( functionName );
-		writer.writeUtf8( dispelFunc_ );
+		writer.writeUtf8( func ? func->functionPath() : "" );
+		writer.writeUtf8( dispelFunc_ ? dispelFunc_->functionPath() : "" );
 		writer.writeUtf8( dispelId_ );
 
 		int count = PyTuple_Size( args );
@@ -242,8 +201,8 @@ public:
 	{
 		cTimer::load( reader, version );
 
-		functionName = reader.readUtf8();
-		dispelFunc_ = reader.readUtf8();
+		func = new PythonFunction( reader.readUtf8() );
+		dispelFunc_ = new PythonFunction( reader.readUtf8() );
 		dispelId_ = reader.readUtf8();
 		int count = reader.readInt();
 
@@ -296,8 +255,8 @@ public:
 
 	void save( unsigned int id )
 	{
-		saveString( id, "functionname", functionName );
-		saveString( id, "dispelfunc", dispelFunc_ );
+		saveString( id, "functionname",  func ? func->functionPath() : "" );
+		saveString( id, "dispelfunc", dispelFunc_ ? dispelFunc_->functionPath() : "" );
 		saveString( id, "dispelid", dispelId_ );
 		saveInt( id, "pycount", PyTuple_Size( args ) );
 
@@ -334,8 +293,11 @@ public:
 	void load( unsigned int id, const char** result )
 	{
 		// Load the Base Properties and then Select
-		loadString( id, "functionname", functionName );
-		loadString( id, "dispelfunc", dispelFunc_ );
+		QString value;
+		loadString( id, "functionname", value );
+		func = new PythonFunction( value );
+		loadString( id, "dispelfunc", value );
+		dispelFunc_ = new PythonFunction( value );
 		loadString( id, "dispelid", dispelId_ );
 
 		int count;

@@ -497,10 +497,7 @@ static PyObject* wpFindmulti( PyObject* /*self*/, PyObject* args )
 /*
 	\function wolfpack.addtimer
 	\param expiretime The delay in miliseconds after which this timer should be triggered.
-	\param function The name of the function that should be called when this timer is triggered.
-	Please note that this is a string containing the full name of the function including the full
-	module name (i.e. <code>"mymodule.mytimer"</code> if the <code>mytimer</code> function is in the
-	<code>mymodule.py</code> file).
+	\param function The function that should be called when this timer is triggered.
 
 	The function should have the following prototype:
 	<code>def expire(object, args):
@@ -518,29 +515,41 @@ static PyObject* wpFindmulti( PyObject* /*self*/, PyObject* args )
 static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	// Three arguments
-	if ( PyTuple_Size( args ) < 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
+	Q_UINT32 expiretime;
+	PyObject* function;
+	PyObject* arguments;
+	uchar persistent = 0;
+
+	if ( !PyArg_ParseTuple( args, "iOO|B:item.addtimer", &expiretime, &function, &arguments, &persistent ) )
+		return 0;
+
+	PythonFunction* toCall = 0;
+	if ( !PyCallable_Check( function ) )
 	{
-		PyErr_BadArgument();
-		return NULL;
+		QString func = Python2QString( function );
+		if ( func.isNull() )
+		{
+			PyErr_SetString( PyExc_TypeError, "Bad argument on addtimer callback type" );
+			return 0;
+		}
+		Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
+		toCall = new PythonFunction( func );
 	}
+	else
+		toCall = new PythonFunction( function );
 
-	Q_UINT32 expiretime = getArgInt( 0 );
-	QString function = getArgStr( 1 );
-	PyObject* py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
+	if ( !PyList_Check( arguments ) )
+		return 0;
+	PyObject* py_args = PyList_AsTuple( arguments );
 
-	cPythonEffect* effect = new cPythonEffect( function, py_args );
+	cPythonEffect* effect = new cPythonEffect( toCall, py_args );
 
 	// Should we save this effect?
-	if ( PyTuple_Size( args ) == 4 && PyObject_IsTrue( PyTuple_GetItem( args, 3 ) ) )
-		effect->setSerializable( true );
-	else
-		effect->setSerializable( false );
-
+	effect->setSerializable( persistent != 0 );
 	effect->setExpiretime_ms( expiretime );
 	Timers::instance()->insert( effect );
 
-	Py_RETURN_FALSE;
+	Py_RETURN_NONE;
 }
 
 /*

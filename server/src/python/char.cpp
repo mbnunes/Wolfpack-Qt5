@@ -1683,8 +1683,8 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 	items or characters, please pass the serial instead and use the findchar and finditem functions in the <library id="wolfpack">wolfpack</library>
 	library.
 	\param serializable Defaults to false.
-	If this is true, the effect will be saved to the worldfile as well. Otherwise the effect will be lost when the server is
-	shutted down or crashes.
+	If this is true, the effect will be saved to the worldfile. Otherwise the effect will be lost when the server is
+	shutdown or crashes.
 	\param dispellable Defaults to false.
 	This flag indicates that the effect can be dispelled by a normal dispel spell.
 	\param dispelname Defaults to an empty string.
@@ -1704,38 +1704,64 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	if ( !self->pChar || self->pChar->free )
 		Py_RETURN_FALSE;
 
-	// Three arguments
-	if ( PyTuple_Size( args ) < 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
+	Q_UINT32 expiretime;
+	PyObject* expireFunction = 0;
+	PyObject* arguments = 0;
+	uchar persistent = 0;
+	uchar dispelable = 0;
+	PyObject* dispelName = 0;
+	PyObject* dispelFunction = 0;
+
+	if ( !PyArg_ParseTuple( args, "iOO|BBOO:char.addtimer", &expiretime, &expireFunction, &arguments, &persistent, &dispelable, &dispelName, &dispelFunction ) )
+		return 0;
+
+	if ( !PyList_Check( arguments ) )
+		return 0;
+
+	PythonFunction* expireCall = 0;
+	if ( !PyCallable_Check( expireFunction ) )
 	{
-		PyErr_BadArgument();
-		return NULL;
+		QString func = Python2QString( expireFunction );
+		if ( func.isNull() )
+		{
+			PyErr_SetString( PyExc_TypeError, "Bad argument on char.addtimer callback type" );
+			return 0;
+		}
+		Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
+		expireCall = new PythonFunction( func );
+	}
+	else
+		expireCall = new PythonFunction( expireFunction );
+
+	PythonFunction* dispelCall = 0;
+	if ( dispelFunction )
+	{
+		if ( !PyCallable_Check( dispelFunction ) )
+		{
+			QString func = Python2QString( dispelFunction );
+			if ( func.isNull() )
+			{
+				PyErr_SetString( PyExc_TypeError, "Bad argument on char.addtimer callback type" );
+				return 0;
+			}
+			Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
+			dispelCall = new PythonFunction( func );
+		}
+		else
+			dispelCall = new PythonFunction( expireFunction );
 	}
 
-	Q_UINT32 expiretime = getArgInt( 0 );
-	QString function = getArgStr( 1 );
-	PyObject* py_args = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
+	PyObject* py_args = PyList_AsTuple( arguments );
 
-	cPythonEffect* effect = new cPythonEffect( function, py_args );
+	cPythonEffect* effect = new cPythonEffect( expireCall, py_args );
 
 	// Should we save this effect?
-	if ( checkArgInt( 3 ) && getArgInt( 3 ) != 0 )
-		effect->setSerializable( true );
-	else
-		effect->setSerializable( false );
+	effect->setSerializable( persistent != 0 );
 
-	// dispellable
-	if ( checkArgInt( 4 ) && getArgInt( 4 ) != 0 )
-		effect->dispellable = true;
-	else
-		effect->dispellable = false;
+	effect->dispellable = dispelable != 0;
+	effect->setDispelId( Python2QString( dispelName ) );
 
-	// dispelname
-	if ( checkArgStr( 5 ) )
-		effect->setDispelId( getArgStr( 5 ) );
-
-	// dispelfunc
-	if ( checkArgStr( 6 ) )
-		effect->setDispelFunc( getArgStr( 6 ) );
+	effect->setDispelFunc( dispelCall );
 
 	effect->setDest( self->pChar->serial() );
 	effect->setExpiretime_ms( expiretime );
