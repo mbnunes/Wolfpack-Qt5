@@ -192,6 +192,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	int i, skill;
 	char temp2[512];
+	char temp[512];
 	tile_st tile;
 	P_PLAYER pc_currchar = socket->player();
 	int cansteal = QMAX( 1, pc_currchar->skillValue( STEALING ) / 10 );

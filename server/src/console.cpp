@@ -211,7 +211,7 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 		Console::instance()->send( tr("Total Users Online: %1\n").arg(cNetwork::instance()->count()) );
 		break;
 	case 'A': //reload the accounts file
-		Accounts::instance()->reload();
+		queueAction( RELOAD_ACCOUNTS );
 		break;
 	case 'R':
 		queueAction( RELOAD_SCRIPTS );

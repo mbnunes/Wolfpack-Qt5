@@ -91,7 +91,10 @@ static QString getErrorString()
 	return result;
 }
 
-// Fill a rectangular on a specific context
+/*!
+	\internal
+	Fill a rectangular on a specific context
+*/
 void paintRect( HDC dc, INT32 x, INT32 y, INT32 width, INT32 height, HBRUSH brush )
 {
 	RECT rect;
@@ -446,7 +449,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	if( hRiched == 0 )
 	{
-		MessageBox( 0, "The riched20.dll library could not be found on your system.\nPlease install Microsoft Internet Explorer 4.0 or later.", "Riched missing", MB_OK|MB_ICONERROR );
+		MessageBox( 0, "The riched20.dll library could not be found on your system.\nPlease install Microsoft Internet Explorer 4.0 or later.", "Missing DLL", MB_OK|MB_ICONERROR );
 		return 1;
 	}
 

@@ -66,8 +66,6 @@ extern unsigned int shoprestocktime;
 
 extern unsigned int hungerdamagetimer; // Used for hunger damage
 
-extern char temp[1024];
-
 class cSrvParams;
 class cBoat;
 class cAccount;

@@ -253,9 +253,8 @@ QValueVector< eActionType > actionQueue;
 
 void queueAction( eActionType type )
 {
-	actionMutex.lock();
+	QMutexLocker lock( &actionMutex );
 	actionQueue.push_back( type );
-	actionMutex.unlock();
 }
 
 //#if defined(_DEBUG)
@@ -528,6 +527,7 @@ int main( int argc, char *argv[] )
 			case 5: if ( cNetwork::instance()->count() != 0 ) niceLevel.wait(40); else niceLevel.wait(5000); break;
 			default: niceLevel.wait(10); break;
 		}
+		qApp->processEvents( 40 );
 
 		// Python threading - end
 		PyEval_RestoreThread( _save );
@@ -578,8 +578,6 @@ int main( int argc, char *argv[] )
 		cNetwork::instance()->poll();
 
 		checkauto();
-
-		qApp->processEvents( 40 );
 	}
 
 	serverState = SHUTDOWN;

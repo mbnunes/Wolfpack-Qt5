@@ -64,5 +64,4 @@ cSpeech	        *Speech;
 WPDefManager    *DefManager;
 PersistentBroker* persistentBroker;
 
-char temp[1024];
 
