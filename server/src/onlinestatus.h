@@ -44,13 +44,17 @@
 class cOnlineStatus {
 
 public:
-				cOnlineStatus() { tUptime_.start(); }
+				cOnlineStatus();
 		void	reload();
-		QString	getUptime();
+		QString	getUptime();	//returns days:hours:minutes:seconds.mseconds
+		QString getCpu();		//returns cpu loading in percents
+		QString	getMem();		//returns alocated real memory in KBytes 
 
 private:
-	QString		pCpuload_;		// in percents
-	QTime		tUptime_;		// uptime days:hours:minutes:seconds.msecs
+	QString		cpu_;		// in percents
+	QTime		uptime_;
+	Q_UINT32	prv_uptime_;
+	Q_UINT32	prv_cpu_;
 	
 
 };
@@ -62,16 +66,15 @@ typedef SingletonHolder<cOnlineStatus> OnlineStatus;
 class cStatFile {
 
 public:
-		cStatFile( QString filename = "/proc/self/stat" );
+				cStatFile( QString filename = "/proc/self/stat" );
     Q_UINT32 	getCPUTime();
     Q_UINT32	getVM();
     Q_UINT32	getRSS();
-    bool	refresh();
+    bool		refresh();
     
 private:
     QString 	stat_fields_;
-    QFile 	stat_file_;
-    bool	stat_opened;
+    QFile 		stat_file_;
 
 };
 

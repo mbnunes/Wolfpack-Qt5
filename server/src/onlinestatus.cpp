@@ -37,25 +37,63 @@
 
 void cOnlineStatus::reload()
 {
-	tUptime_.restart();
+	uptime_.restart();
+}
+
+cOnlineStatus::cOnlineStatus()
+{ 
+
+	uptime_.start(); 
+
+#if defined(__unix__)
+	cStatFile	stat_self;
+	prv_uptime_ = uptime_.elapsed();
+	prv_cpu_ = stat_self.getCPUTime() * 10;
+#endif
+
 }
 
 QString cOnlineStatus::getUptime()
 {
 	int msecs, seconds, minutes, hours, days;
-	int		tmpElapsed, tmp;
-	tmpElapsed = tUptime_.elapsed();
+	int elps = uptime_.elapsed();
 	
-	days = tmpElapsed / 86400000;
-	hours = (tmpElapsed % 86400000) / 3600000;
-	minutes = (( tmpElapsed % 86400000 ) % 3600000 ) / 60000;
-	seconds = ((( tmpElapsed % 86400000 ) % 3600000 ) % 60000 ) / 1000;
-	msecs = ((( tmpElapsed % 86400000 ) % 3600000 ) % 60000 ) % 1000;
+	days = elps / 86400000;
+	hours = (elps % 86400000) / 3600000;
+	minutes = (( elps % 86400000 ) % 3600000 ) / 60000;
+	seconds = ((( elps % 86400000 ) % 3600000 ) % 60000 ) / 1000;
+	msecs = ((( elps % 86400000 ) % 3600000 ) % 60000 ) % 1000;
 	
 	return QString( "%1:%2:%3:%4.%5" ).arg( days ).arg( hours ).arg( minutes ).arg( seconds ).arg( msecs );
 	
 }
 
+QString	cOnlineStatus::getMem()
+{
+#if defined(__unix__)
+	cStatFile	stat_self;
+	return QString( "%1 K" ).arg( stat_self.getRSS() / 1024 );
+#endif
+	return "";
+}
+QString cOnlineStatus::getCpu()
+{
+#if defined(__unix__)
+	cStatFile	stat_self;
+	Q_UINT32	cur_cpu = stat_self.getCPUTime() * 10;
+	Q_UINT32	cur_uptime = uptime_.elapsed();
+	QString		percents;
+	
+	percents = QString( "%1.%2%" ).arg( ( 100 * ( cur_cpu - prv_cpu_ ) ) / ( cur_uptime - prv_uptime_ ) ).arg( (( 100 * ( cur_cpu - prv_cpu_ ) ) % ( cur_uptime - prv_uptime_ ) );
+	
+	prv_cpu_ = cur_cpu;
+	prv_uptime_ = cur_uptime;
+
+	return percents;
+#endif
+
+	return "";
+}
 
 
 #if defined(__unix__) //linux classes
