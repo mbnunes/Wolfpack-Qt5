@@ -24,6 +24,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed bug #0000308. (Using blades on items not possible)
 		- Fixed bug #0000290. (Running doesn't reveal stealthed players)
 		- Fixed bug #0000296. (ArmsLore/ItemID not possible on items equipped by others)
+		- Fixed bug #0000297. (Messages for Anatomy/EvalInt only showing up in journal)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

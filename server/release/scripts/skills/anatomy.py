@@ -66,15 +66,17 @@ def response( char, args, target ):
 		return
 
 	# Anatomy Messages start: 0xFD6DD
-	strId = min( 10, floor( target.char.strength / 10 ) )
-	dexId = min( 10, floor( target.char.dexterity / 10 ) )
+	strId = min( 10, int( target.char.strength / 10 ) )
+	dexId = min( 10, int( target.char.dexterity / 10 ) )
 	msgId = int( 0xFD6DD + strId * 11 + dexId )
 	dexRatio = float( 100.0 / target.char.dexterity )
 	StamId = floor( ( target.char.stamina * dexRatio ) / 10 )
 	msgId2 = int( 0xFD7DF + StamId )
 
-	socket.clilocmessage( msgId, "", 0x3b2, 3, target.char )
-	socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char )
+	socket.clilocmessage( msgId, "", 0x3b2, 3, target.char, "", True )
+	
+	if char.skill[ANATOMY] >= 650:
+		socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char, "", True )
 
 # Register as a global script
 def onLoad():

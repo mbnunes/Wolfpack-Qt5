@@ -50,7 +50,7 @@ def response( char, args, target ):
 
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + EVALINTDELAY ) )
 
-	if not char.checkskill( EVALUATINGINTEL, 0, 1000 ):
+	if not char.checkskill( EVALUATINGINTEL, 0, 1200 ):
 		char.socket.clilocmessage( 0xFD756, "", 0x3b2, 3, target.char )
 		return False
 
@@ -67,8 +67,11 @@ def response( char, args, target ):
 
 	msgId2 = int( 0xFD77A + ManaId )
 
-	char.socket.clilocmessage( msgId, "", 0x3b2, 3, target.char )
-	char.socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char )
+	char.socket.clilocmessage( msgId, "", 0x3b2, 3, target.char, "", True )
+	
+	if char.skill[EVALUATINGINTEL] >= 760:
+		char.socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char, "", True )
+
 	return True
 
 def onLoad():
