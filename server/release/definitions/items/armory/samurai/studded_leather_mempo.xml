@@ -1,0 +1,38 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Studded Leather Mempo -->
+	<item id="279d">
+		<id>0x279d</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Armor\Base\Samurai\Studded Leather\Mempo</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+	</item>
+
+	<item id="27e8" inherit="279d">
+		<id>0x27e8</id>
+		<baseid>279d</baseid>
+		<category>Armor\Base\Samurai\Studded Leather\Mempo 2</category>
+	</item>
+
+</definitions>

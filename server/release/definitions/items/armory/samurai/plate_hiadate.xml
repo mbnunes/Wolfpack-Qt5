@@ -1,0 +1,38 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Plate Hiadate -->
+	<item id="278d">
+		<id>0x278d</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Armor\Base\Samurai\Plate\Hiadate</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+	</item>
+
+	<item id="27d8" inherit="278d">
+		<id>0x27d8</id>
+		<baseid>278d</baseid>
+		<category>Armor\Base\Samurai\Plate\Hiadate 2</category>
+	</item>
+
+</definitions>

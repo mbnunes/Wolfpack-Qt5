@@ -1,0 +1,38 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Studded Leather Do -->
+	<item id="277c">
+		<id>0x277c</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Armor\Base\Samurai\Studded Leather\Do</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+	</item>
+
+	<item id="27c7" inherit="277c">
+		<id>0x27c7</id>
+		<baseid>277c</baseid>
+		<category>Armor\Base\Samurai\Studded Leather\Do 2</category>
+	</item>
+
+</definitions>

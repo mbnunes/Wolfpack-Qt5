@@ -1,0 +1,38 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Leather Suneate -->
+	<item id="2787">
+		<id>0x2787</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Armor\Base\Samurai\Studded Leather\Suneate</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+	</item>
+
+	<item id="27d2" inherit="2787">
+		<id>0x27d2</id>
+		<baseid>2787</baseid>
+		<category>Armor\Base\Samurai\Studded Leather\Suneate 2</category>
+	</item>
+
+</definitions>
