@@ -46,14 +46,14 @@ a:active {
   </tr>
 </table>
 <div align="center">
-  <p>      <span class="maintitle">Wolfpack Command Reference </span></p>
+  <p>      <span class="maintitle">Wolfpack Event Reference </span></p>
   <table width="780" border="0" cellspacing="3" cellpadding="0">
   <tr valign="top">
     <td class="text"><?
 	$row = NULL;
 	if ($_REQUEST['name']) {
 		$name = mysql_escape_string($_REQUEST['name']);
-		$result = mysql_query("SELECT `name`,`description`,`usage`,`notes` FROM documentation_commands WHERE `name` = '$name';");
+		$result = mysql_query("SELECT `name`,`prototype`,`parameters`,`returnvalue`,`callcondition`,`notes` FROM documentation_events WHERE `name` = '$name';");
 		if (mysql_num_rows($result) > 0) {
 			$row = mysql_fetch_array($result);
 		}
@@ -61,44 +61,59 @@ a:active {
 	}
 	
 	if ($row != NULL) {
-	?><span class="sectiontitle">COMMAND DESCRIPTION</span><br>
-        <br>        <strong>Command Name:</strong> <?=$row[0]?><br>
-<br>
-<strong>Short Description:</strong> <?=$row[1]?><br>
-<br>
-	<?
-	if (strlen($row[2]) > 0) {
 	?>
-	<strong>Usage:</strong><br> 
-	<?=$row[2]?><br>
-	<br>
-	<?
-	}
-	
-	if (strlen($row[3]) > 0) {
-	?>	
-	<strong>Notes:</strong><br>
-	<?=$row[3]?><br>
-	<br>
+      <p><span class="sectiontitle">EVENT DESCRIPTION</span><br>
+          <br>        
+          <strong>Event Name:</strong> <?=$row[0]?><br>
+          <br>
+          <strong>Prototype:</strong><br>
+          <?=$row[1]?><br>
+          <br>
+		  <?
+		  	if (strlen($row[2]) > 0) {
+		  ?>
+          <strong>Parameters:</strong><br>        
+<?=$row[2]?><br>
+<br>
 <?
 	}
-}  else {
+	if (strlen($row[3]) > 0) { ?>
+<strong>Return Value: </strong><br>
+<?=$row[3]?><br>
+          <br>
+		  <?
+		  	}
+		  	if (strlen($row[4]) > 0) {
+		  ?>
+          <strong>Call Condition:</strong><br>
+		  <?=$row[4]?><br>
+          <br>
+		  <?
+		  	}
+		  	if(strlen($row[5]) > 0) {
+		  ?>
+          <strong>Notes:</strong><br>
+          <?=$row[5]?><br> 
+          <br>
+          <?
+		  }
+	}  else {
 ?>
-
-<span class="sectiontitle">INGAME COMMANDS</span><br> 
-To use one of the commands in this section, you have to know about your <em>Command Prefix</em> first. The default command prefix is the character <strong>'</strong>, but you can change it to any character you like in your wolfpack.xml file. If you know your command prefix, simply prepend it to the name of the command and say it ingame. The command will then be executed. <br> 
-The name of the command is case insensitive.<br>
-You can see a list of all available commands at the bottom of this page.<br><br>
-<?
+          <span class="sectiontitle">SCRIPTING EVENTS</span><br>
+          To use one of the commands in this section, you have to know about your <em>Command Prefix</em> first. The default command prefix is the character <strong>'</strong>, but you can change it to any character you like in your wolfpack.xml file. If you know your command prefix, simply prepend it to the name of the command and say it ingame. The command will then be executed. <br>
+          The name of the command is case insensitive.<br>
+          You can see a list of all available commands at the bottom of this page.<br><br>
+      </p>
+      <?
 }
 ?></td>
     </tr>
   <tr valign="top">
-    <td class="text"><span class="sectiontitle">OTHER COMMANDS</span><br>
+    <td class="text"><span class="sectiontitle">OTHER EVENTS </span><br>
       <table width="100%"  border="0" cellspacing="0" cellpadding="2">
       <?
 		$commands = array();
-		$result = mysql_query("SELECT name FROM documentation_commands ORDER BY name ASC;");
+		$result = mysql_query("SELECT name FROM documentation_events ORDER BY name ASC;");
 		while ($row = mysql_fetch_array($result)) {	
 			array_push($commands, $row[0]);
 		}
@@ -113,7 +128,7 @@ You can see a list of all available commands at the bottom of this page.<br><br>
 				$id = $col * $rows + $row;
 				if ($id < sizeof($commands)) {
 ?>
-	<td>- <a href="command.php?name=<?=$commands[$id]?>"><?=$commands[$id]?></a></td>
+	<td>- <a href="event.php?name=<?=$commands[$id]?>"><?=$commands[$id]?></a></td>
 <?
 				} else {
 					echo "<td>&nbsp;</td>\n";

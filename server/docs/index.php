@@ -52,15 +52,19 @@ a:active {
   <tr align="left" valign="top">
     <td width="33%" class="text"><div align="left"><span class="sectiontitle">INGAME COMMANDS</span><br> 
           These commands can be used by players, gms and admins while in the game. This section gives you an overview over all available commands and how to use them.<br>
-          <a href="command.php">Read more...</a><br>      
+          <a href="command.php">Read more...  (<?
+		  	$result = mysql_query("SELECT COUNT(*) FROM documentation_commands;");
+			echo array_pop(mysql_fetch_array($result));
+			mysql_free_result($result);
+		  ?> commands)</a><br>      
           <br>
     </div></td>
     <td width="33%" class="text"><span class="sectiontitle">SCRIPTING OBJECTS</span><br>
       This section of the documentation gives you an overview over available wolfpack specific objects, their properties and methods and in some cases how to create them.<br>
-      <a href="object.php">Read more...</a> </td>
+      <a href="#">Read more...</a> </td>
     <td width="33%" class="text"><span class="sectiontitle">SCRIPTING LIBRARY</span><br>
       Wolfpack comes with a sophisticated library of scripts. This section of the documentation provides an overview over the library and its functions.<br>
-      <a href="library.php">Read more... </a></td>
+      <a href="#">Read more... </a></td>
   </tr>
 </table> 
 <hr width="740" size="1" noshade>
@@ -69,12 +73,16 @@ a:active {
   <tr align="left" valign="top">
     <td width="33%" class="text"><span class="sectiontitle">SCRIPTING EVENTS</span><br>
       This section describes the events your scripts will be notified about.<br>
-      <a href="events.php">Read more... </a><br></td><td width="33%" class="text"><span class="sectiontitle">DEFINITION TAGS</span><br>
+      <a href="event.php">Read more... (<?
+		  	$result = mysql_query("SELECT COUNT(*) FROM documentation_events;");
+			echo array_pop(mysql_fetch_array($result));
+			mysql_free_result($result);
+		  ?> events)</a><br></td><td width="33%" class="text"><span class="sectiontitle">DEFINITION TAGS</span><br>
         This section provides an overview over the tags used in the Wolfpack XML definitions. 
-        <a href="tags.php">Read more...</a></td>
+        <a href="#">Read more...</a></td>
     <td width="33%" class="text"><span class="sectiontitle">MISCELLANEOUS</span><br>
       Miscelleneous information can be found in this section. Links, configuration and setup among other things.<br>
-      <a href="misc.php">Read more...</a> </td>
+      <a href="#">Read more...</a> </td>
   </tr>
 </table>
 <br>

@@ -1,6 +1,6 @@
 <span class="smalltext">Generated: <? 
 	echo date('d.m.Y H:m', $SETTINGS['generated']);
-?> | Source Version: <?
+?> | Version: <?
 	echo $SETTINGS['version'];
 ?></span><br>
 <span class="smalltext">&copy; 2004 Wolfpack Team | 
