@@ -47,6 +47,7 @@
 #include "../classes.h"
 #include "../skills.h"
 #include "../combat.h"
+#include "../srvparams.h"
 
 /*!
 	Struct for WP Python Chars
@@ -135,7 +136,11 @@ PyObject* wpChar_message( wpChar* self, PyObject* args )
 
 	QString message = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 
-	if( PyTuple_Size( args ) == 2 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+	if( ( self->pChar->id() == 0x3DB ) && message.startsWith( SrvParams->commandPrefix() ) )
+		cCommands::instance()->process( self->pChar->socket(), message.right( message.length()-1 ) );
+	else if( message.startsWith( SrvParams->commandPrefix() ) )
+		cCommands::instance()->process( self->pChar->socket(), message.right( message.length()-1 ) );
+	else if( PyTuple_Size( args ) == 2 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 		self->pChar->message( message, PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) );
 	else
 		self->pChar->message( message );
