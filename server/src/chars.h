@@ -734,8 +734,6 @@ public:
 	bool isSameAs(cChar* pc) {if (!pc || pc->serial != serial) return false; else return true;}
 	bool inGuardedArea();
 	bool canPickUp(cItem* pi);
-	unsigned int dist(cChar* pc);
-	unsigned int dist(cItem* pi);
 	void soundEffect( UI16 soundId, bool hearAll = true );
 	void giveGold( Q_UINT32 amount, bool inBank = false );
 	UINT32 takeGold( UINT32 amount, bool useBank = false );

@@ -213,27 +213,6 @@ void init_deamon()
 }
 
 
-unsigned int dist(Coord_cl &a, Coord_cl &b) // Distance between position a and b
-{
-	return a.distance(b);
-}
-
-unsigned int chardist (P_CHAR a, P_CHAR b) // Distance between characters a and b
-{
-	if (a == NULL || b == NULL)
-		return 30;
-	return dist(a->pos, b->pos);
-}
-
-
-unsigned int itemdist(P_CHAR pc, P_ITEM pi)// calculates distance between item i and player a
-{
-	if ( pi == NULL || pc == NULL )
-		return 30;
-
-	return dist(pc->pos, pi->pos);
-}
-
 bool online(P_CHAR pc) // Is the player owning the character c online
 {
 	if ( pc->socket() && pc->socket()->state() == cUOSocket::InGame )

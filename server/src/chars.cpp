@@ -88,8 +88,6 @@ void cChar::registerInFactory()
 }
 
 bool cChar::Wears(P_ITEM pi)			{	return (this == pi->container());	}
-unsigned int cChar::dist(cChar* pc)		{	return pos.distance(pc->pos);		}
-unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
 QString cChar::objectID() const			{	return "cChar";						}
 bool  cChar::isGM() const				{return  priv&0x01 || account_ == 0 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" ) );} 
 bool  cChar::isCounselor() const		{return (priv&0x80 || ( account() && ( account()->acl() == "counselor") ) );} 

@@ -173,6 +173,7 @@ public:
 	virtual ~cUObject() {};
 	virtual QString objectID() const = 0;
 	void moveTo( const Coord_cl& );
+	unsigned int dist(cUObject* d) const;
 	QString bindmenu() const { return bindmenu_; }
 	void setBindmenu( const QString& d ) { bindmenu_ = d; }
 

@@ -380,7 +380,7 @@ bool cSkTame::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	
 	bool tamed = false;
-	if ((pc->isNpc() && (chardist(pc_currchar, pc) <= 3))) //Ripper
+	if ((pc->isNpc() && ( pc_currchar->dist( pc ) ) <= 3)) //Ripper
 	{
 		if (pc->taming()>1200||pc->taming() == 0 )//Morrolan default is now no tame
 		{
@@ -596,7 +596,7 @@ bool cSkBegging::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	}
 	
-	if(chardist(pc, pc_currchar)>=5)
+	if(pc->dist(pc)>=5)
 	{
 		socket->sysMessage( tr("You are not close enough to beg.") );
 		return true;

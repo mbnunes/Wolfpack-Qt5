@@ -848,7 +848,7 @@ char cMagic::GateCollision(P_CHAR pc_player)
 							if ( (pc->isNpc()) && (pc->ftarg() == pc_player->serial) )
 							{
 								// If the NPC that is following this player character is within 5 paces
-								if ( chardist(pc_player, pc) <= 4 )
+								if ( pc_player->dist(pc) <= 4 )
 								{
 									// Teleport the NPC along with the player
 									pc->MoveTo(gatex[mapitem->gatenumber()][n], gatey[mapitem->gatenumber()][n], gatez[mapitem->gatenumber()][n]);

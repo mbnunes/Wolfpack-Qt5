@@ -81,6 +81,14 @@ void cUObject::moveTo( const Coord_cl& newpos )
 	cMapObjects::getInstance()->add( this );
 }
 
+unsigned int cUObject::dist(cUObject* d) const
+{	
+	if ( !d )
+		return ~0;
+	return pos.distance(d->pos);		
+}
+
+
 /*!
 	Performs persistency layer loads.
 */

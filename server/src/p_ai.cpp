@@ -67,7 +67,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						d = chardist( pc_i, pc );
+						d = pc_i->dist( pc );
 						if (d > 3)
 							continue;
 						if (pc->isNpc() || !online(pc))
@@ -211,7 +211,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						d = chardist( pc_i, pc );
+						d = pc_i->dist( pc );
 						if (d > 3)
 							continue;
 						if (pc->isNpc() || !online(pc))
@@ -255,7 +255,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						d = chardist( pc_i, pc);
+						d = pc->dist( pc_i );
 
 						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
 						    continue;
@@ -308,7 +308,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						d = chardist( pc_i, pc );
+						d = pc->dist( pc_i );
 						if (d > 3)
 							continue;
 						if (pc->isNpc() || !online(pc))
@@ -346,7 +346,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						d = chardist( pc_i, pc);
+						d = pc->dist( pc_i );
 
 						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
 						    continue;
@@ -398,7 +398,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						d = chardist( pc_i, pc );
+						d = pc->dist( pc_i );
 						if (d > SrvParams->attack_distance())
 							continue;
 						if (pc->isPlayer())
@@ -420,7 +420,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						d = chardist( pc_i, pc );
+						d = pc->dist( pc_i );
 						if (d > SrvParams->attack_distance())
 							continue;
 						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
@@ -445,7 +445,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				P_CHAR pc = ri.GetData();
 				if (pc != NULL)
 				{
-				    d = chardist(pc_i, pc);
+				    d = pc->dist( pc_i );
 					if (d > 10)
 					    continue;
 					if( ( pc->isNpc() ) && ( !online( pc ) ) )
@@ -487,7 +487,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						d = chardist(pc_i, pc);
+						d = pc->dist(pc_i);
 						if (d > SrvParams->attack_distance())
 							continue;
 						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
@@ -524,7 +524,7 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 			P_CHAR pc = ri.GetData();
 			if (pc != NULL)
 			{
-				distance = chardist(pc_i, pc);
+				distance = pc->dist(pc_i);
 				if (!pc->npc() && !online(pc))	// no offline players (Duke)
 					continue;
 				if (!(pc->dead()))

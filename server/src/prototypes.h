@@ -92,8 +92,6 @@ void dotrade(P_ITEM cont1, P_ITEM cont2);
 
 bool inVisRange(int x1, int y1, int x2, int y2);
 bool online(P_CHAR pc);
-unsigned int chardist (P_CHAR a, P_CHAR b);
-unsigned int itemdist(P_CHAR pc, P_ITEM pi);
 
 int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int amt );
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);

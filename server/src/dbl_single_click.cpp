@@ -1347,7 +1347,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 	case 0x031A:
 	case 0x031F:
 		// Try to mount the rideable animal
-		if( chardist( pChar, pTarget ) <  2 || pChar->isGM() )
+		if( pChar->dist( pTarget ) <  2 || pChar->isGM() )
 		{
 			if( !pChar->isHuman() )
 			{

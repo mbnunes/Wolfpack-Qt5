@@ -1363,7 +1363,8 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 
 		    if( pc_target->socket() || pc_target->isNpc() )
 			{
-				if ( chardist( pc_i, pc_target ) > 1 )
+				UINT8 dir = pc_target->dist( pc_i );
+				if ( dir > 1 )
 				{
 					//PathFind( pc_i, pc_target->pos.x, pc_target->pos.y );
 	                //UINT8 dir = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
@@ -1371,8 +1372,6 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 					//pc_i->pathnum++;
 					//pc_i->setPathNum( pc_i->pathnum() + 1 );
 					// Disabled Path finding until a good algorythm is found
-					UINT8 dir = chardir( pc_i, pc_target );
-
 			        Walking( pc_i, dir, 0xFF );
 				}
 
@@ -1410,10 +1409,10 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 			P_CHAR pc_k = FindCharBySerial(pc_i->targ());
 			if (pc_k == NULL) return;
 			
-			if ( chardist(pc_i, pc_k) < P_PF_MFD )
+			if ( pc_k->dist(pc_i) < P_PF_MFD )
 			{
 				// calculate a x,y to flee towards
-				int mydist = P_PF_MFD - chardist( pc_i, pc_k) + 1;
+				int mydist = P_PF_MFD - pc_k->dist( pc_i ) + 1;
 				j = chardirxyz( pc_i, pc_k->pos.x, pc_k->pos.y );
 				Coord_cl fleeCoord = calcCoordFromDir( j, pc_i->pos );
 

@@ -168,7 +168,7 @@ public:
 		P_CHAR pc_currchar = socket->player();
 		
 		// blackwind distance fix 
-		if( chardist( pc, pc_currchar ) >= 10 ) 
+		if( pc->dist(pc_currchar ) >= 10 ) 
 		{ 
 			socket->sysMessage( tr("You need to be closer to find out more about them" ) ); 
 			return true; 
