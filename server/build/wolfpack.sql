@@ -207,3 +207,5 @@ CREATE TABLE `uobjectmap` (
 	`type` varchar(80) NOT NULL default '',
 	PRIMARY KEY  (`serial`)
 );
+
+INSERT INTO `settings` VALUES('db_version', '8');
