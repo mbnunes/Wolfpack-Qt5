@@ -226,8 +226,10 @@ cCorpse::cCorpse( bool init )
 	hairColor_ = 0;
 	beardStyle_ = 0;
 	beardColor_ = 0;
+	murderer_ = QString::null;
+	murdertime_ = 0;
 	id_ = 0x2006;
-	setCorpse( 1 );
+	setCorpse( true );
 	setType( 1 );
 }
 
@@ -238,8 +240,10 @@ stError *cCorpse::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "haircolor", hairColor_ )
 	else SET_INT_PROPERTY( "beardstyle", beardStyle_ )
 	else SET_INT_PROPERTY( "beardcolor", beardColor_ )
-
-	return cItem::setProperty( name, value );
+	else SET_STR_PROPERTY( "murderer", murderer_ )
+	else SET_INT_PROPERTY( "murdertime", murdertime_ )
+	else SET_STR_PROPERTY( "carve", carve_ )
+	else return cItem::setProperty( name, value );
 }
 
 stError *cCorpse::getProperty( const QString &name, cVariant &value ) const
@@ -249,6 +253,9 @@ stError *cCorpse::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "haircolor", hairColor_ )
 	GET_PROPERTY( "beardstyle", beardStyle_ )
 	GET_PROPERTY( "beardcolor", beardColor_ )
+	GET_PROPERTY( "murderer", murderer_ )
+	GET_PROPERTY( "murdertime", (int)murdertime_ )
+	GET_PROPERTY( "carve", carve_ )
 
 	return cItem::getProperty( name, value );
 }

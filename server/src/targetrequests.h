@@ -35,6 +35,7 @@
 #include "wolfpack.h"
 #include "wptargetrequests.h"
 #include "items.h"
+#include "corpse.h"
 #include "gumps.h"
 #include "world.h"
 #include "player.h"
@@ -174,7 +175,7 @@ public:
 	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		int curtim=uiCurrentTime;
-		const PC_ITEM pi = FindItemBySerial(target->serial());
+		P_ITEM pi = FindItemBySerial(target->serial());
 		P_PLAYER pc_currchar = socket->player();
 		
 		if( !pi || !pi->corpse() )
@@ -183,9 +184,13 @@ public:
 			return true;
 		}
 		
+		cCorpse* corpse = dynamic_cast<cCorpse*>(pi);
+		if ( !corpse )
+			return true;
+
 		if(pc_currchar->isGM())
 		{
-			socket->sysMessage( tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name()).arg((curtim-pi->murdertime())/MY_CLOCKS_PER_SEC).arg( pi->murderer() ) );
+			socket->sysMessage( tr("The %1 is %2 seconds old and the killer was %3.").arg(corpse->name()).arg((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC).arg( corpse->murderer() ) );
 		}
 		else
 		{
@@ -193,15 +198,15 @@ public:
 				socket->sysMessage( tr("You are not certain about the corpse.")); 
 			else
 			{
-				if(((curtim-pi->murdertime())/MY_CLOCKS_PER_SEC)>180) socket->sysMessage( tr("The %1 is many many seconds old.").arg(pi->name()));
-				else if(((curtim-pi->murdertime())/MY_CLOCKS_PER_SEC)>60) socket->sysMessage( tr("The %1 is many seconds old.").arg(pi->name()) );
-				else if(((curtim-pi->murdertime())/MY_CLOCKS_PER_SEC)<=60) socket->sysMessage( tr("The %1 is few seconds old.").arg(pi->name()) );
+				if(((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC)>180) socket->sysMessage( tr("The %1 is many many seconds old.").arg(corpse->name()));
+				else if(((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC)>60) socket->sysMessage( tr("The %1 is many seconds old.").arg(corpse->name()) );
+				else if(((curtim-corpse->murdertime())/MY_CLOCKS_PER_SEC)<=60) socket->sysMessage( tr("The %1 is few seconds old.").arg(corpse->name()) );
 								
-				if ( !pc_currchar->checkSkill( FORENSICS, 500, 1000, false ) || pi->murderer() == "" ) 
+				if ( !pc_currchar->checkSkill( FORENSICS, 500, 1000, false ) || corpse->murderer().isNull() ) 
 					socket->sysMessage( tr("You can't say who was the killer.") ); 
 				else
 				{
-					socket->sysMessage( tr("The killer was %1.").arg( pi->murderer() ) );
+					socket->sysMessage( tr("The killer was %1.").arg( corpse->murderer() ) );
 				}
 			}
 		}

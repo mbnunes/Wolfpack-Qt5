@@ -56,6 +56,10 @@ private:
 	UINT16 hairColor_; // Color of the hair
 	UINT16 beardStyle_; // Beardstyle
 	UINT16 beardColor_; // Color of the beard
+	uint   murdertime_; // When the people has been killed
+
+	QString carve_;
+	QString murderer_;
 	std::map< UINT8, SERIAL > equipment_; // Serials of the old equipment
 	// The meaning of this is that even if the items are inside of the corpse
 	// they're displayed as equipment
@@ -67,12 +71,20 @@ public:
 	void setHairColor( UINT16 data );
 	void setBeardStyle( UINT16 data );
 	void setBeardColor( UINT16 data );
+	void setMurderer( const QString& data );
+	void setMurderTime( uint data );
+	void setCarve( const QString& data );
+
 
 	UINT16 bodyId() const;
 	UINT16 hairStyle() const;
 	UINT16 hairColor() const;
 	UINT16 beardStyle() const;
 	UINT16 beardColor() const;
+	QString			carve()			const { return carve_; }
+	QString			murderer()		const { return murderer_; }		// If it's a corpse, this holds the name of the murderer
+	uint			murdertime()	const { return murdertime_; } 
+
 
 	void addEquipment( UINT8 layer, SERIAL serial );
 
@@ -97,27 +109,42 @@ public:
 // Inline members
 inline void cCorpse::setBodyId( UINT16 data ) 
 { 
-	bodyId_ = data; 
+	bodyId_ = data; changed( SAVE );
 }
 
 inline void cCorpse::setHairStyle( UINT16 data ) 
 { 
-	hairStyle_ = data; 
+	hairStyle_ = data; changed( SAVE );
 }
 
 inline void cCorpse::setHairColor( UINT16 data ) 
 { 
-	hairColor_ = data; 
+	hairColor_ = data; changed( SAVE );
 }
 
 inline void cCorpse::setBeardStyle( UINT16 data ) 
 { 
-	beardStyle_ = data; 
+	beardStyle_ = data; changed( SAVE );
 }
 
 inline void cCorpse::setBeardColor( UINT16 data ) 
 { 
-	beardColor_ = data; 
+	beardColor_ = data; changed( SAVE );
+}
+
+inline void cCorpse::setMurderer( const QString& data ) 
+{ 
+	murderer_ = data; changed( SAVE );
+}
+
+inline void cCorpse::setMurderTime( uint data ) 
+{ 
+	murdertime_ = data; changed( SAVE );
+}
+
+inline void cCorpse::setCarve( const QString& data ) 
+{ 
+	carve_ = data; changed( SAVE );
 }
 
 inline UINT16 cCorpse::bodyId() const

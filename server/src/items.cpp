@@ -70,7 +70,7 @@ using namespace std;
 
 // constructor
 cItem::cItem(): container_(0), totalweight_(0), incognito(false),
-rndvaluerate_(0), dooropen_(0),gatetime_(0),gatenumber_(-1),murdertime_(0),
+rndvaluerate_(0), dooropen_(0),gatetime_(0),gatenumber_(-1),
 timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 )
 {
 	Init( false );
@@ -113,7 +113,6 @@ cItem::cItem( const cItem &src )
 	this->doordir_ = src.doordir_;
 	this->dooropen_ = src.dooropen_;
 	this->dye_ = src.dye_;
-	this->carve_ = src.carve_;
 	this->att_ = src.att_;
 	this->def_ = src.def_;
 	this->lodamage_=src.lodamage_;
@@ -141,8 +140,6 @@ cItem::cItem( const cItem &src )
 	this->restock_ = src.restock_;
 	this->disabled_ = src.disabled_;
 	this->poisoned_ = src.poisoned_;
-	this->murderer_ = src.murderer_;
- 	this->murdertime_ = src.murdertime_;
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
 	this->setSpawnRegion( src.spawnregion() );
@@ -192,20 +189,6 @@ void cItem::toBackpack( P_CHAR pChar )
 	}
 
 	update();
-}
-
-// Gets the corpse an item is in
-P_ITEM cItem::getCorpse( void )
-{
-	if( isInWorld() || ( container_ && container_->isChar() ) )
-		return 0;
-
-	P_ITEM Cont = getOutmostItem();
-
-	if( !Cont || !Cont->corpse() )
-		return 0;
-
-	return Cont;
 }
 
 void cItem::startDecay()			
@@ -550,7 +533,6 @@ void cItem::save()
 		addStrField("spawnregion",	spawnregion_);
 		addField("good",			good_);
 		addStrField("description",	desc_);
-		addStrField("carve",			carve_);
 		addField("accuracy",		accuracy_);
 		
 		addCondition( "serial", serial() );
@@ -677,7 +659,6 @@ void cItem::Init( bool createSerial )
 	this->doordir_=0; // Reserved for doors
 	this->dooropen_=0;
 	this->dye_=0; // Reserved: Can item be dyed by dye kit
-	this->carve_=(char*)0;// carving system
 	this->att_=0; // Item attack
 	this->def_=0; // Item defense
 	this->lodamage_=0; //Minimum Damage weapon inflicts
@@ -703,10 +684,9 @@ void cItem::Init( bool createSerial )
 	this->priv_=1; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->disabled_ = 0; //Item is disabled, cant trigger.
 	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
- 	this->murdertime_ = 0; //AntiChrist -- for corpse -- when the people has been killed
 	this->time_unused = 0;
 	this->timeused_last=getNormalizedTime();
-	this->spawnregion_ = "";
+	this->spawnregion_ = QString::null;
 	this->accuracy_ = 100;
 }
 
@@ -775,7 +755,6 @@ P_ITEM cAllItems::SpawnItemBank(P_PLAYER pc_ch, QString nItem)
 	P_ITEM pi = createScriptItem(nItem);
 	if (pi == NULL)
 		return NULL;
-	GetScriptItemSetting(pi); 
 	bankbox->addItem(pi);
 	return pi;
 }
@@ -850,11 +829,6 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 	
 	pi->update();
 	return pi;
-}
-
-void cAllItems::GetScriptItemSetting(P_ITEM pi)
-{
-	qWarning("cAllItems::GetScriptItemSettings is empty!");
 }
 
 char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
@@ -1141,45 +1115,9 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 	pi->update();//AntiChrist
 }
 
-void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
-{
-	if (pc_p == NULL)
-		return;
-
-	unsigned int ci=0;
-	P_ITEM pi;
-/*	vector<SERIAL> vecContainer = contsp.getData(pc_p->serial());
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if(pi->st>pc_p->st() )//if strength required > character's strength
-		{
-			if ( pc_p->socket() )
-			{
-				pc_p->socket()->sysMessage( tr("You are not strong enough to keep %1 equipped!").arg( pi->getName() ) );
-				itemsfx(calcSocketFromChar(pc_p), pi->id());
-			}
-			
-			//Subtract stats bonus and poison
-			pc_p->removeItemBonus(pi);
-						
-			pi->setContSerial(INVALID_SERIAL);
-			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
-			pi->update();
-			
-			for (int j=0;j<now;j++)
-				if (inrange1p(pc_p, currchar[j])&&perm[j])
-				{
-					wornitems(j, pc_p);
-					senditem(j, pi);
-				}
-		}
-	}		
+/*!
+	Retrieves the Item Information stored in Section and creates an item based on it
 */
-}
-
-// Retrieves the Item Information stored in Section
-// And creates an item based on it
 P_ITEM cAllItems::createScriptItem( const QString& Section )
 {
 	if( Section.length() == 0 )
@@ -1226,13 +1164,6 @@ P_ITEM cAllItems::createScriptItem( const QString& Section )
 	nItem->onCreate( Section );
 
 	return nItem;
-}
-
-// Creates an Item from an item-list
-// And applies additional sections to it (<amount><random min="" max="" /></amount>
-P_ITEM cAllItems::createListItem( QString Section )
-{
-	return NULL;
 }
 
 // Added by DarkStorm
@@ -1406,8 +1337,8 @@ void cItem::processNode( const cElement *Tag )
 //		this->price_ = Value.toInt();   --> this was supposed to be player vendor price, the player defines it! :)
 
 	// <carve></carve> For corpses and item spawners
-	else if( TagName == "carve" )
-		this->carve_ = Value;
+//	else if( TagName == "carve" )
+//		this->carve_ = Value;
 		
 	// <restock>10</restock>
 	else if( TagName == "restock" )
@@ -1602,7 +1533,6 @@ void cItem::processNode( const cElement *Tag )
 		for( unsigned int i = 0; i < section->childCount(); ++i )
 			processModifierNode( section->getChild( i ) );
 	}
-
 	else
 		cUObject::processNode( Tag );
 
@@ -2399,7 +2329,6 @@ void cItem::load( char **result, UINT16 &offset )
 	spawnregion_ = result[offset++];
 	good_ = atoi( result[offset++] );
 	desc_ = result[offset++];
-	carve_ = result[offset++];
 	accuracy_ = atoi( result[offset++] );
 
 	// Their own weight should already be set.
@@ -2412,7 +2341,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.carve,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2605,7 +2534,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_STR_PROPERTY( "name2", name2_ )
 	else SET_STR_PROPERTY( "name", name_ )
 	else SET_INT_PROPERTY( "layer", layer_ )
-	else SET_STR_PROPERTY( "murderer", murderer_ )
 	else SET_INT_PROPERTY( "type", type_ )
 	else SET_INT_PROPERTY( "type2", type2_ )
 	else SET_INT_PROPERTY( "offspell", offspell_ )
@@ -2637,7 +2565,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		setTotalweight( value.toInt() );
 		return 0;
 	}
-	else SET_STR_PROPERTY( "carve", carve_ )
 	else SET_INT_PROPERTY( "antispamtimer", antispamtimer_ )
 	else SET_INT_PROPERTY( "accuracy", accuracy_ )
 	
@@ -2758,7 +2685,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "restock", restock_ )
 	else SET_INT_PROPERTY( "disabled", disabled_ )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
-	else SET_INT_PROPERTY( "murdertime", murdertime_ )
 	else SET_INT_PROPERTY( "rank", rank_ )
 	else SET_STR_PROPERTY( "creator", creator_ )
 	else SET_INT_PROPERTY( "good", good_ )
@@ -2841,7 +2767,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "name", name_ )
 	else GET_PROPERTY( "layer", layer_ )
 	// Flag properties are set elsewhere!!
-	else GET_PROPERTY( "murderer", murderer_ )
 	else GET_PROPERTY( "type", type_ )
 	else GET_PROPERTY( "type2", type2_ )
 	else GET_PROPERTY( "offspell", offspell_ )
@@ -2859,7 +2784,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "moreb4", moreb4_ )
 	else GET_PROPERTY( "owner", owner() )
 	else GET_PROPERTY( "totalweight", totalweight_ )
-	else GET_PROPERTY( "carve", carve_ )
 	else GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )
 	else GET_PROPERTY( "accuracy", accuracy_ )
 	
@@ -2909,7 +2833,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "restock", restock_ )
 	else GET_PROPERTY( "disabled", (int)disabled_ )
 	else GET_PROPERTY( "poisoned", (int)poisoned_ )
-	else GET_PROPERTY( "murdertime", (int)murdertime_ )
 	else GET_PROPERTY( "rank", rank_ )
 	else GET_PROPERTY( "creator", creator_ )
 	else GET_PROPERTY( "good", good_ )
@@ -2930,6 +2853,5 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "twohanded", priv_ & 0x20 ? 1 : 0 )
 	else GET_PROPERTY( "corpse", priv_ & 0x40 ? 1 : 0 )
 	else GET_PROPERTY( "visible", visible() )
-
-	return cUObject::getProperty( name, value );
+	else return cUObject::getProperty( name, value );
 }

@@ -53,10 +53,8 @@ class cItem : public cUObject
 	Q_PROPERTY ( ushort		amount		READ amount			WRITE setAmount			)
 	Q_PROPERTY ( ushort		restock		READ restock		WRITE setRestock		)
 	Q_PROPERTY ( uchar		layer		READ layer			WRITE setLayer			)
-	Q_PROPERTY ( QString	murderer	READ murderer		WRITE setMurderer		)
 	Q_PROPERTY ( QString	spawnregion	READ spawnregion	WRITE setSpawnRegion	)
 	Q_PROPERTY ( int		totalweight READ totalweight	WRITE setTotalweight	)
-	Q_PROPERTY ( QString	carve		READ carve			WRITE setCarve			)
 	Q_PROPERTY ( ushort		accuracy	READ accuracy		WRITE setAccuracy		)
 	Q_PROPERTY ( int		sellprice	READ sellprice		WRITE setSellprice		)
 	Q_PROPERTY ( int		buyprice	READ buyprice		WRITE setBuyprice		)
@@ -88,7 +86,6 @@ class cItem : public cUObject
 	Q_PROPERTY ( uint		decaytime	READ decaytime		WRITE setDecayTime		)
 	Q_PROPERTY ( uint		disabled	READ disabled		WRITE setDisabled		)
 	Q_PROPERTY ( uint		poisoned	READ poisoned		WRITE setPoisoned		)
-	Q_PROPERTY ( uint		murdertime	READ murdertime		WRITE setMurderTime		)
 	Q_PROPERTY ( int		rank		READ rank			WRITE setRank			)
 	Q_PROPERTY ( uchar		direction	READ direction		WRITE setDirection		)
 	Q_PROPERTY ( QString	description	READ description	WRITE setDescription	)
@@ -123,10 +120,9 @@ public:
 	ushort			color()			const { return color_; }		// The Color of the item
 	ushort			amount()		const { return amount_; }		// Amount of items in pile
 	ushort			restock()		const { return restock_; }		// Amount of items a vendor will respawn this item to.
-	const QString	&name2()		const { return name2_; }		// The identified name of the item
+	QString			name2()			const { return name2_; }		// The identified name of the item
 	uchar			layer()			const { return layer_; }		// Layer if equipped on paperdoll
 	bool			twohanded()		const { return priv_&0x20; }		// Is the weapon twohanded ?
-	const QString	&murderer()		const { return murderer_; }		// If it's a corpse, this holds the name of the murderer
 	UI32			type()			const { return type_; }			// Used for hardcoded behaviour
 	UI32			type2()			const { return type2_; }
 	uchar			offspell()		const { return offspell_; } 
@@ -146,12 +142,11 @@ public:
 	uchar			moreb4()		const { return moreb4_; }
 	bool			corpse()		const { return priv_&0x40; }		// Is the item a corpse
 	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
-	P_CHAR			owner() const;
+	P_CHAR			owner()			const;
 	int				totalweight()	const { return totalweight_; }
-	QString			carve()			const { return carve_; }
 	uint			antispamtimer() const { return antispamtimer_;}
 	ushort			accuracy()		const { return accuracy_; }		// for weapons, could be used for certain tools too.
-	cUObject		*container()    const { return container_; }
+	cUObject*		container()		const { return container_; }
 	int				sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
 	int				buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
 
@@ -179,7 +174,6 @@ public:
 	uint			decaytime()		const { return decaytime_; }
 	uint			disabled()		const { return disabled_; } 
 	uint			poisoned()		const { return poisoned_; }
-	uint			murdertime()	const { return murdertime_; } 
 	int				rank()			const { return rank_; } 
 	uchar			direction()		const { return dir_;  }
 	QString			description()	const { return desc_; }
@@ -222,7 +216,6 @@ public:
 	void	setName2( const QString& nValue ) { name2_ = nValue; changed( SAVE+TOOLTIP );};
 	void	setLayer( uchar nValue ) { layer_ = nValue; changed( SAVE );};
 	void	setTwohanded( bool nValue ) { nValue ? priv_ &= 0x20 : priv_ |= 0xDF; changed( SAVE+TOOLTIP );};
-	void	setMurderer( const QString& nValue ) { murderer_ = nValue; changed( SAVE );};
 	void	setType( UI32 nValue ) { type_ = nValue; changed( SAVE );};
 	void	setType2( UI32 nValue ) { type2_ = nValue; changed( SAVE );};	
 	void	setOffspell( uchar nValue ) { offspell_ = nValue; changed( SAVE );};
@@ -243,7 +236,6 @@ public:
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; changed( SAVE+TOOLTIP );}
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( int data );
-	void	setCarve( const QString& data ) { carve_ = data; changed( SAVE );}
 	void	setAntispamtimer ( uint data ) { antispamtimer_ = data; changed( SAVE );}
 	void	setAccuracy( ushort data ) { accuracy_ = data; changed( SAVE );}
 	void	setDirection( uchar d )	 { dir_ = d; changed( SAVE );}
@@ -255,7 +247,6 @@ public:
 	static void registerInFactory();
 
 	bool wearOut(); // The item wears out and true is returned if it's destroyed
-	P_ITEM	getCorpse( void ); // Get the corpse this item is in
 	void	toBackpack( P_CHAR pChar );
 	void	showName( cUOSocket *socket );
 	void	applyRank( uchar rank );
@@ -287,7 +278,6 @@ public:
 
 	void	setDisabled(uint data) { disabled_ = data; changed( SAVE );}
 	void	setPoisoned(uint data) { poisoned_ = data; changed( SAVE );}
-	void	setMurderTime(uint data) { murdertime_ = data; changed( SAVE );}
 	void	setRank(int data) { rank_ = data; changed( SAVE );} 
 	void	setVisible( uchar d ) { visible_ = d; changed( SAVE );}
 	void	setPriv( uchar d ) { priv_ = d; changed( SAVE+TOOLTIP );}
@@ -340,8 +330,8 @@ public:
 	
 	virtual void Init( bool mkser = true );
 	void setSerial(SERIAL ser);
-	bool isInWorld()			{ return (!container_); }
-	bool isMulti()				{ return ( id_ >= 0x4000 ); }
+	bool isInWorld() const			{ return (!container_); }
+	bool isMulti() const				{ return ( id_ >= 0x4000 ); }
 	bool isPileable();
 	
 	void setOwnSerialOnly(int ownser);
@@ -351,7 +341,7 @@ public:
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	
-	bool isShield() { return type_ == 1009; }
+	bool isShield() const { return type_ == 1009; }
 	UINT16 getWeaponSkill();
 
 	void MoveTo(int newx, int newy, signed char newz);
@@ -410,7 +400,6 @@ protected:
 	ushort		restock_;
 	QString		name2_;
 	uchar		layer_;
-	QString		murderer_;
 	SI16		lodamage_; 
 	SI16		hidamage_; 
 	ushort		type_;
@@ -422,7 +411,6 @@ protected:
 	SI16		maxhp_;
 	QString		spawnregion_;
 	int			totalweight_;
-	QString		carve_;
 	uint		antispamtimer_;
 	ushort		accuracy_;	// for weapons, could be used for certain tools too.
 	int			sellprice_;
@@ -459,7 +447,6 @@ protected:
 	uint		decaytime_;
 	uint		disabled_; //Item is disabled, cant trigger.
 	uint		poisoned_; //AntiChrist -- for poisoning skill
-	uint		murdertime_; //AntiChrist -- for corpse -- when the people has been killed
 	int			rank_; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
 	// for example: RANK 5 ---> 5*10=50% of malus
 	//   this item has same values decreased by 50%..
@@ -536,7 +523,6 @@ class cAllItems
 public:
 	// Added by DarkStorm
 	P_ITEM createScriptItem( const QString& Section ); // Creates an item from an item-section
-	P_ITEM createListItem( QString Section ); // Creates an Item from an item-list
 
 	void DeleItem(P_ITEM pi);
 	char isFieldSpellItem(P_ITEM pi);
@@ -545,8 +531,6 @@ public:
 	void DecayItem(uint currenttime, P_ITEM pi);
 	void RespawnItem(uint Currenttime, P_ITEM pi);
 	void AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem);
-	void CheckEquipment(P_CHAR pc_p); //AntiChrist
-	void GetScriptItemSetting(P_ITEM pi); // by Magius(CHE)
 };
 
 #endif

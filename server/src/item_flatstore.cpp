@@ -279,9 +279,6 @@ void cItem::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( !description().isNull() && !description().isEmpty() )
 		output->chunkData( ITEM_DESCRIPTION, description().utf8().data() );
 
-	if( !carve().isNull() && !carve().isEmpty() )
-		output->chunkData( ITEM_CARVE, carve().utf8().data() );
-	
 	if( accuracy() != 100 )
 		output->chunkData( ITEM_ACCURACY, (unsigned short)accuracy() );
 
@@ -514,10 +511,6 @@ bool cItem::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 	case ITEM_DESCRIPTION:
 		desc_ = QString::fromUtf8( input->readString() );
-		break;
-
-	case ITEM_CARVE:
-		carve_ = QString::fromUtf8( input->readString() );
 		break;
 
 	case ITEM_ACCURACY:
