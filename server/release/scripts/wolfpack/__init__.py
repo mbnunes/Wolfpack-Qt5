@@ -64,14 +64,6 @@ def findchar( serial ):
 def findmulti( arg ):
 	return _wolfpack.findmulti( arg )
 
-"""
-	\function wolfpack.region
-	\param x
-	\param y
-	\param map
-	\return The Region ID
-	\description Gets the region for a position.
-"""
 def region( x, y, map ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType:
 		raise TypeError, "x, y and map need to be integer values"

@@ -124,8 +124,12 @@ static QStringList getFlagNames( unsigned char flag1, unsigned char flag2, unsig
 #undef FLAG_STUB
 }
 
-/*!
-	Log a string
+/*
+	\function wolfpack.console.log
+	\param loglevel The loglevel for this message. See the ERROR_ constants in wolfpack/consts.py for
+	details.
+	\param text The text of the message.
+	\description Sends a string to the console and the logfile.
 */
 static PyObject* wpConsole_log( PyObject* self, PyObject* args )
 {
@@ -142,8 +146,10 @@ static PyObject* wpConsole_log( PyObject* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	Sends a string to the wolfpack console.
+/*
+	\function wolfpack.console.send
+	\param text The text of the message.
+	\description Prints a string on the server console.
 */
 static PyObject* wpConsole_send( PyObject* self, PyObject* args )
 {
@@ -161,15 +167,16 @@ static PyObject* wpConsole_send( PyObject* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	Sends a progress-bar to the wolfpack console
+/*
+	\function wolfpack.console.sendprogress
+	\param text The progress identifier.
+	\description Prints a string on the console that identifies the start of a progress display.
 */
 static PyObject* wpConsole_sendprogress( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	char* message;
-	if ( !PyArg_ParseTuple( args, "es", "utf-8", &message ) )
-	{
+	if (!PyArg_ParseTuple( args, "es", "utf-8", &message)) {
 		return 0;
 	}
 
@@ -181,8 +188,9 @@ static PyObject* wpConsole_sendprogress( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-/*!
-	Sends a [done] progress section to the console
+/*
+	\function wolfpack.console.senddone
+	\description Indicates that a printed progress action is now done.
 */
 static PyObject* wpConsole_senddone( PyObject* self, PyObject* args )
 {
@@ -193,8 +201,9 @@ static PyObject* wpConsole_senddone( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-/*!
-	Sends a [fail] progress section to the console
+/*
+	\function wolfpack.console.sendfail
+	\description Indicates that a printed progress action has failed.
 */
 static PyObject* wpConsole_sendfail( PyObject* self, PyObject* args )
 {
@@ -205,8 +214,9 @@ static PyObject* wpConsole_sendfail( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-/*!
-	Sends a [skip] progress section to the console
+/*
+	\function wolfpack.console.sendskip
+	\description Indicates that a printed progress action has been skipped.
 */
 static PyObject* wpConsole_sendskip( PyObject* self, PyObject* args )
 {
@@ -217,8 +227,9 @@ static PyObject* wpConsole_sendskip( PyObject* self, PyObject* args )
 	return Py_None;
 }
 
-/*!
-	Returns a list of Strings (the linebuffer)
+/*
+	\function wolfpack.console.getbuffer
+	\return A list of the strings that have been sent to the console previously.
 */
 static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 {
@@ -236,6 +247,10 @@ static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 	return list;
 }
 
+/*
+	\function wolfpack.console.shutdown
+	\description Shutdown the server.
+*/
 static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -251,14 +266,14 @@ static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpConsole[] =
 {
-	{ "send",		wpConsole_send,			METH_VARARGS,	"Prints something to the wolfpack console" },
-	{ "progress",		wpConsole_sendprogress,		METH_VARARGS,	"Prints a .....[xxxx] block" },
-	{ "progressDone",	wpConsole_senddone,		METH_NOARGS,	"Prints a [done] block" },
-	{ "progressFail",	wpConsole_sendfail,		METH_NOARGS,	"Prints a [fail] block" },
-	{ "progressSkip",	wpConsole_sendskip,		METH_NOARGS,	"Prints a [skip] block" },
-	{ "getbuffer",		wpConsole_getbuffer,		METH_NOARGS,	"Gets the linebuffer of the console" },
-	{ "log",		wpConsole_log,			METH_VARARGS,	NULL },
-	{ "shutdown",		wpConsole_shutdown,		METH_NOARGS,	"Shut the server down" },
+	{ "send",			wpConsole_send,			METH_VARARGS,	0 },
+	{ "sendprogress",	wpConsole_sendprogress,	METH_VARARGS,	0 },
+	{ "senddone",		wpConsole_senddone,		METH_NOARGS,	0 },
+	{ "sendfail",		wpConsole_sendfail,		METH_NOARGS,	0 },
+	{ "sendskip",		wpConsole_sendskip,		METH_NOARGS,	0 },
+	{ "getbuffer",		wpConsole_getbuffer,	METH_NOARGS,	0 },
+	{ "log",			wpConsole_log,			METH_VARARGS,	0 },
+	{ "shutdown",		wpConsole_shutdown,		METH_NOARGS,	0 },
 	{ NULL, NULL, 0, NULL } // Terminator
 
 };
@@ -486,8 +501,17 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	return PyFalse();
 }
 
-/*!
-	Tries to find a region for a specific position.
+/*
+	\function wolfpack.region
+	\param x The x component of the coordinate.
+	\param y The y component of the coordinate.
+	\param map Which map should be looked on.
+	<code>0 - Felucca
+	1 - Trammel
+	2 - Ilshenar
+	3 - Malas</code>
+	\return A region object or None if there is no region at the given coordinates.
+	\description Finds a region at the given coordinates.
 */
 static PyObject* wpRegion( PyObject* self, PyObject* args )
 {
