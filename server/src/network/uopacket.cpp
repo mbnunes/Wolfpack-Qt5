@@ -188,7 +188,7 @@ void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 void cUOPacket::print( ostream* s )
 {
 	if ( s )
-		(*s) << dump( rawPacket ).latin1();
+		(*s) << dump( rawPacket ).latin1() << endl;
 }
 
 QString cUOPacket::dump( const QByteArray &data )
@@ -220,7 +220,5 @@ QString cUOPacket::dump( const QByteArray &data )
 		line += "\n";
 		dumped += line;
 	}
-	  
-	dumped += "\n";
 	return dumped;
 }

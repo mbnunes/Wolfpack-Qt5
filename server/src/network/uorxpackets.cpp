@@ -31,7 +31,7 @@
 
 #include "uorxpackets.h"
 #include "uopacket.h"
-
+#include <iostream>
 cUOPacket *getUOPacket( const QByteArray &data )
 {
 	if( data.isEmpty() )
@@ -60,5 +60,7 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	default:
 		return new cUOPacket( data );
 	};	
+
+	cout << "Packet built was: " << QString::number(packetId, 16).latin1() << endl;
 }
 

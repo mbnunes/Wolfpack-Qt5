@@ -60,12 +60,13 @@ void cUOSocket::recieve()
 
 	Q_UINT8 packetId = (*packet)[0];
 
+	packet->print( &cout );
+
 	// Disconnect harmful clients
 	if( ( _state == SS_CONNECTING ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
 	{
-		cUOTxDenyLogin *denyLogin = new cUOTxDenyLogin( DL_BADCOMMUNICATION );
-		send( denyLogin );
-		delete denyLogin;
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
 		_socket->close();
 		return;
 	}
@@ -73,23 +74,29 @@ void cUOSocket::recieve()
 	// Relay it to the handler functions
 	switch( packetId )
 	{
+	case 0x02: // just want to walk a little.
+		{
+			cUOPacket moveOk(3);
+			moveOk[1] = (*packet)[2];
+			send( &moveOk );
+		}
 	case 0x80:
-		handleLoginRequest( static_cast< cUORxLoginRequest* >( packet ) ); break;
+		handleLoginRequest( dynamic_cast< cUORxLoginRequest* >( packet ) ); break;
 	case 0xA4:
-		handleHardwareInfo( static_cast< cUORxHardwareInfo* >( packet ) ); break;
+		handleHardwareInfo( dynamic_cast< cUORxHardwareInfo* >( packet ) ); break;
 	case 0xA0:
-		handleSelectShard( static_cast< cUORxSelectShard* >( packet ) ); break;
+		handleSelectShard( dynamic_cast< cUORxSelectShard* >( packet ) ); break;
 	case 0x91:
-		handleServerAttach( static_cast< cUORxServerAttach* >( packet ) ); break;
+		handleServerAttach( dynamic_cast< cUORxServerAttach* >( packet ) ); break;
 	case 0x73:
 		send( packet ); break; // For pings we just bounce the packet back
 	case 0x83:
-		handleDeleteCharacter( static_cast< cUORxDeleteCharacter* >( packet ) ); break;
+		handleDeleteCharacter( dynamic_cast< cUORxDeleteCharacter* >( packet ) ); break;
 	case 0x5D:
-		handlePlayCharacter( static_cast< cUORxPlayCharacter* >( packet ) ); break;
+		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
-		//packet->print( &cout );
+		packet->print( &cout );
 		break;
 	}
 	
@@ -140,12 +147,11 @@ void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 	// Relay him - save an auth-id so we recog. him when he's relay locally
 	_uniqueId = rand() % 0xFFFFFFFF;
 
-	cUOTxRelayServer *relay = new cUOTxRelayServer;
-	relay->setServerIp( 0x7F000001 );
-	relay->setServerPort( 2593 );
-	relay->setAuthId( _uniqueId );
-	send( relay );
-	delete relay;
+	cUOTxRelayServer relay;
+	relay.setServerIp( 0x7F000001 );
+	relay.setServerPort( 2593 );
+	relay.setAuthId( _uniqueId );
+	send( &relay );
 }
 
 void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
@@ -238,3 +244,4 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 	send( gameTime );
 	delete gameTime;
 }
+

@@ -78,7 +78,7 @@ int main( int argc, char** argv )
 			{
 				cUOSocket *uoSocket = (*uoIterator);
 
-				if( uoSocket->socket()->status() != IO_Ok )
+				if( !uoSocket->socket()->error() == QSocketDevice::NetworkFailure )
 				{
 					cout << QString( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ).latin1();
 					netio->unregisterSocket( uoSocket->socket() );
@@ -99,11 +99,11 @@ int main( int argc, char** argv )
 		netio->cancel();
 		listener->cancel();
 	}
-	catch ( ... )
-	{
-		cerr << "Unknown exception" << endl;
-		terminate();
-	}
+//	catch ( ... )
+//	{
+//		cerr << "Unknown exception" << endl;
+//		terminate();
+//	}
 
 	return 0;
 }

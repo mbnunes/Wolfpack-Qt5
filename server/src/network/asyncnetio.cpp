@@ -384,8 +384,10 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 		if ( packetID != -1 )
 		{
 			Q_UINT16 length = packetLengths[packetID];
-			if ( length != 0xFFFF )
+			if ( length != 0x0000 )
 			{// fixed size.
+				if ( length == 0xFFFF )
+					qWarning("\n\nWe have received an unused packet!!!!\n\n");
 				d->ungetch( packetID );
 				if ( d->rsize >= length )
 				{
@@ -399,9 +401,10 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 			}
 			else
 			{ // variable length
-				if ( d->rsize < 4 ) // Packet ID, size + 1 byte data.
+				if ( d->rsize < 3 ) // Packet ID, size + 1 byte data.
 				{
 					keepExtracting = false;
+					d->ungetch( packetID ); // byte was read, put back to buffer.
 					continue;
 				}
 				Q_UINT16 length = 0;
@@ -424,7 +427,7 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 			}
 		}
 		else
-			d->ungetch( packetID );
+			keepExtracting = false; // no more data in buffer.
 	}
 }
 

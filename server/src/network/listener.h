@@ -43,10 +43,12 @@ class cListener : public ZThread::Thread
 private:
 	QSocketDevice listenningSocket;
 	ZThread::LockedQueue<QSocketDevice*, ZThread::FastMutex> readyConnections;
+
+	virtual void run() throw();
+
 public:
 	cListener(Q_UINT16 port);
 
-	virtual void run() throw();
 
 	QSocketDevice* getNewConnection();
 	bool haveNewConnection();
