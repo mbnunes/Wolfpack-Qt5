@@ -1883,6 +1883,9 @@ void cChar::resend( bool clean )
 		drawChar.setHighlight( notority( pChar ) );
 		pChar->socket()->send( &drawChar );
 	}
+
+	if( socket_ )
+		socket_->resendPlayer();
 }
 
 QString cChar::fullName( void )

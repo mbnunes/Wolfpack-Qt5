@@ -765,11 +765,11 @@ static void SetWeaponTimeout( P_CHAR Attacker, P_ITEM Weapon )
 void cCombat::DoCombatAnimations( P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los )
 {
 	// Check that pc_attacker is facing the right direction
-	UINT8 dir = chardir( pc_attacker, pc_defender );
+	UINT8 dir = 7-chardir( pc_defender, pc_attacker );
 	if( dir != pc_attacker->dir )
 	{
 		pc_attacker->dir = dir;
-		pc_attacker->update();
+		pc_attacker->resend( false );
 	}
 
 	UINT16 id = pc_attacker->id();
