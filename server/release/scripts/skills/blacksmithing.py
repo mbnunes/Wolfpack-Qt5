@@ -1,3 +1,4 @@
+
 #################################################################
 #   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
 #  ((    _/{  "-;  # Created by: DarkStorm                      #
@@ -285,7 +286,6 @@ class BlacksmithingMenu(MakeMenu):
       return
 
     if not checktool(player, wolfpack.finditem(arguments[0])):
-      player.socket.clilocmessage(1044263)
       return
 
     if not target.item:
@@ -359,7 +359,6 @@ class BlacksmithingMenu(MakeMenu):
     tool = wolfpack.finditem(arguments[0])
 
     if not checktool(player, tool):
-      player.socket.clilocmessage(1044263)
       return
     
     if tool == target.item:

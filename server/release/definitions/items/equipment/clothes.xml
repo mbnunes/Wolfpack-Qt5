@@ -7,6 +7,80 @@
 =================================================================
 -->
 <definitions>
+  <!-- Flower Garland -->
+  <item id="2305">
+    <id>0x2305</id>
+    <category>Clothes\Accessories\Flower Garland (N/S)</category>
+    <type>1009</type>
+    <weight>1.0</weight>
+    <events>equipment</events>
+    <durability><random min="25" max="50"/></durability>
+  </item>
+
+  <item id="2306" inherit="2305">
+    <id>0x2306</id>
+    <category>Clothes\Accessories\Flower Garland (W/E)</category>
+  </item>
+
+  <!-- Gilded Dress -->
+  <item id="230d">
+    <id>0x230d</id>
+    <category>Clothes\Torso\Gilded Dress (W/E)</category>
+    <type>1009</type>
+    <weight>3.0</weight>
+    <events>equipment</events>
+    <durability><random min="25" max="50"/></durability>
+  </item>
+ 
+  <item id="230e" inherit="230d">
+    <id>0x230e</id>
+    <category>Clothes\Torso\Gilded Dress (N/S)</category>
+  </item>
+
+  <!-- Fur Cape -->
+  <item id="2309">
+    <id>0x2309</id>
+    <category>Clothes\Accessories\Fur Cape (W/E)</category>
+    <type>1009</type>
+    <weight>4.0</weight>
+    <events>equipment</events>
+    <durability><random min="25" max="50"/></durability>
+  </item>
+ 
+  <item id="230a" inherit="2309">
+    <id>0x230a</id>
+    <category>Clothes\Accessories\Fur Cape (N/S)</category>
+  </item>
+
+  <!-- Fur Sarong -->
+  <item id="230b">
+    <id>0x230b</id>
+    <category>Clothes\Accessories\Fur Sarong (W/E)</category>
+    <type>1009</type>
+    <weight>3.0</weight>
+    <events>equipment</events>
+    <durability><random min="25" max="50"/></durability>
+  </item>
+ 
+  <item id="230c" inherit="230b">
+    <id>0x230c</id>
+    <category>Clothes\Accessories\Fur Sarong (N/S)</category>
+  </item>
+
+  <!-- Formal Shirt -->
+  <item id="230f">
+    <id>0x230F</id>
+    <category>Clothes\Torso\Formal Shirt (W/E)</category>
+    <type>1009</type>
+    <weight>1.0</weight>
+    <events>equipment</events>
+    <durability><random min="25" max="50"/></durability>
+  </item>
+ 
+  <item id="2310" inherit="230f">
+    <id>0x2310</id>
+    <category>Clothes\Accessories\Formal Shirt (N/S)</category>
+  </item>
 
 	<!-- Cloak n/s -->
 	<item id="1515">
@@ -382,6 +456,20 @@
 		<events>equipment</events>
 	</item>
 
+	<!-- Fur Boots -->
+	<item id="2307">
+		<category>Clothes\Footwear\Fur Boots (W/E)</category>
+		<id>0x2307</id>
+		<weight>3.0</weight>
+		<type>1009</type>
+		<events>equipment</events>
+	</item>
+
+  <item id="2308" inherit="2307">
+		<category>Clothes\Footwear\Fur Boots (N/S)</category>
+		<id>0x2308</id>
+  </item>
+
 	<!-- Shoes n/s -->
 	<item id="170f">
 		<category>Clothes\Footwear\Shoes (N/S)</category>
@@ -612,5 +700,6 @@
 		<category>Clothes\Special\Dupre</category>
 		<id>0x2050</id>
 	</item>
+
 
 </definitions>

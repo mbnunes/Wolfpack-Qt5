@@ -158,5 +158,6 @@
 	<script>skills.provocation</script>
 	<script>skills.mining</script>
 	<script>skills.lumberjacking</script>
+  <script>skills.tailoring</script>
 
 </definitions>

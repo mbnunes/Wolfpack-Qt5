@@ -829,7 +829,7 @@ class CraftItemAction(MakeItemAction):
       materials = self.parent.submaterials1
       material = self.parent.getsubmaterial1used(player, arguments)
       if half:
-        amount = math.ceil(self.submaterial1 * 0.5)
+        amount = int(math.ceil(self.submaterial1 * 0.5))
       else:
         amount = self.submaterial1
       count = backpack.removeitems(materials[material][3], amount)
@@ -840,7 +840,7 @@ class CraftItemAction(MakeItemAction):
       materials = self.parent.submaterials2
       material = self.parent.getsubmaterial2used(player, arguments)
       if half:
-        amount = math.ceil(self.submaterial2 * 0.5)
+        amount = int(math.ceil(self.submaterial2 * 0.5))
       else:
         amount = self.submaterial2
       count = backpack.removeitems(materials[material][3], amount)
@@ -850,7 +850,7 @@ class CraftItemAction(MakeItemAction):
     for material in self.materials:
       (baseids, amount) = material
       if half:
-        amount = math.ceil(amount * 0.5)
+        amount = int(math.ceil(amount * 0.5))
       count = backpack.removeitems(baseids, amount)
       if count != 0:
         return 0

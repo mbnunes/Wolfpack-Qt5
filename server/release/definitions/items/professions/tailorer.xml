@@ -306,9 +306,9 @@
 
 	<item id="f9d">
 		<id>0x0f9d</id>
-		<category>Professions\Tailorer\Sewing Kit</category>
-		<type>1106</type>
+		<category>Professions\Tailorer\Sewing Kit</category>		
 		<tag name="remaining_uses" type="int" value="35" />
+    <events>skills.tailoring,equipment</events>
 	</item>
 
 	<item id="f9e">
@@ -339,6 +339,7 @@
 		<id>0x0fa9</id>
 		<category>Professions\Tailorer\Dyes</category>
 		<tag name="remaining_uses" type="int" value="10" />
+    <events>environment</events>
 	</item>
 
 	<item id="fab">
@@ -430,39 +431,40 @@
 	<item id="1067">
 		<id>0x1067</id>
 		<tag name="resname" value="leather" />
-		<category>Professions\Tailorer\Supplies\Cut Up Leather (N/S)</category>
+		<category>Professions\Tailorer\Cut Up Leather (N/S)</category>
 	</item>
 
 	<item id="1068">
 		<id>0x1068</id>
 		<tag name="resname" value="leather" />
-		<category>Professions\Tailorer\Supplies\Cut Up Leather (W/E)</category>
+		<category>Professions\Tailorer\Cut Up Leather (W/E)</category>
 	</item>
 
 	<item id="1078">
 		<id>0x1078</id>
 		<tag name="resname" value="leather" />
-		<category>Professions\Tailorer\Supplies\Pile of Hides 1 (W/E)</category>
+		<category>Professions\Tailorer\Pile of Hides 1 (W/E)</category>
 	</item>
 
 	<item id="1079">
 		<id>0x1079</id>
 		<tag name="resname" value="leather" />
-		<category>Professions\Tailorer\Supplies\Pile of Hides 1 (N/S)</category>
+		<category>Professions\Tailorer\Pile of Hides 1 (N/S)</category>
 	</item>
 
 	<item id="1081">
 		<id>0x1081</id>
 		<tag name="resname" value="leather" />
-		<category>Professions\Tailorer\Supplies\Pile of Hides 2 (W/E)</category>
+		<category>Professions\Tailorer\Pile of Hides 2 (W/E)</category>
 	</item>
 
 	<item id="1082">
 		<id>0x1082</id>
 		<tag name="resname" value="leather" />
-		<category>Professions\Tailorer\Supplies\Pile of Hides 2 (N/S)</category>
+		<category>Professions\Tailorer\Pile of Hides 2 (N/S)</category>
 	</item>
 
+  <!-- Resources -->
 	<item id="leather_cut" inherit="1067">
 		<category>Professions\Tailorer\Supplies\Leather\Cut Up Leather (N/S)</category>
 	</item>
