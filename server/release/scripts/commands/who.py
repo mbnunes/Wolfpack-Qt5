@@ -45,12 +45,10 @@ def showWhoGump(player, page):
 	# Skip page * 10 users
 	newwholist = wholist[page * 10:]
 
-	# Reduce the page id while page > 0 and len(newwholist) == 0
-	while len(newwholist) == 0 and page > 0:
-		page -= 1
-		newwholist = wholist[page * 10:]
-	
 	wholist = newwholist
+	
+	# Player list increases by 22 pixels
+	pages = (count + 9) / 10 # 10 per page
 		
 	gump = cGump( 0, 0, 0, 50, 50 )
 	gump.addBackground( 0xE10, 380, 360 )
@@ -61,10 +59,6 @@ def showWhoGump(player, page):
 	gump.addText( 70, 320, tr("Close"), 0x834 )
 	gump.addText( 145, 320, tr("Players: %u") % count, 0x834 )
 
-	# Player list increases by 22 pixels
-	pages = (count + 9) / 10 # 10 per page
-
-	player.socket.sysmessage(tr('Total sockets: %u') % count)
 	gump.addText( 280, 320, tr( "Page %i of %i" % ( page + 1, pages ) ), 0x834 )
 
 	if page + 1 < pages:
