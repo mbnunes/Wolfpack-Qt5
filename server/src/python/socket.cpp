@@ -380,24 +380,48 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 {
 	// Parameters:
 	// x, y, nomove, noclose, nodispose, serial, type, layout, text, callback, args
-	int x,
-	y;
-	bool nomove,
-	noclose,
-	nodispose;
+	int x, y;
+	bool nomove, noclose, nodispose;
 	unsigned int serial, type;
-	PyObject* layout,* texts,* py_args;
-	char* callback;
+	PyObject* layout;
+	PyObject* texts;
+	PyObject* py_args;
+	PyObject* callback = 0;
 
-	if ( !PyArg_ParseTuple( args, "iiBBBIIO!O!sO!:socket.sendgump", &x, &y, &nomove, &noclose, &nodispose, &serial, &type, &PyList_Type, &layout, &PyList_Type, &texts, &callback, &PyList_Type, &py_args ) )
+	if ( !PyArg_ParseTuple( args, "iiBBBIIO!O!OO!:socket.sendgump", &x, &y, &nomove, &noclose, &nodispose, &serial, &type, &PyList_Type, &layout, &PyList_Type, &texts, &callback, &PyList_Type, &py_args ) )
 	{
 		return 0;
+	}
+
+	PythonFunction* toCall = 0;
+	if ( callback )
+	{
+		if ( !PyCallable_Check( callback ) )
+		{
+			QString func = Python2QString( callback );
+			if ( func.isNull() )
+			{
+				PyErr_SetString( PyExc_TypeError, "Bad argument on socket.sendgump callback type" );
+				return 0;
+			}
+			Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
+			toCall = new PythonFunction( func );
+
+			if ( !toCall || !toCall->isValid() ) 
+			{
+				PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s", func.latin1());
+				return 0;
+			}
+
+		}
+		else
+			toCall = new PythonFunction( callback );
 	}
 
 	// Convert py_args to a tuple
 	py_args = PyList_AsTuple( py_args );
 
-	cPythonGump* gump = new cPythonGump( callback, py_args );
+	cPythonGump* gump = new cPythonGump( toCall, py_args );
 	if ( serial )
 		gump->setSerial( serial );
 
@@ -461,10 +485,10 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 */
 static PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 {
-	unsigned int type;
+	unsigned int type = 0;
 	unsigned int button = 0;
 
-	if ( !PyArg_ParseTuple( args, "i|i:socket.closegump(type, [button])", &type, &button ) )
+	if ( !PyArg_ParseTuple( args, "I|i:socket.closegump(type, [button])", &type, &button ) )
 	{
 		return 0;
 	}

@@ -520,7 +520,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	PyObject* arguments;
 	uchar persistent = 0;
 
-	if ( !PyArg_ParseTuple( args, "iOO|B:item.addtimer", &expiretime, &function, &arguments, &persistent ) )
+	if ( !PyArg_ParseTuple( args, "iOO!|B:item.addtimer", &expiretime, &function, &PyList_Type, &arguments, &persistent ) )
 		return 0;
 
 	PythonFunction* toCall = 0;
@@ -549,8 +549,6 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	if ( !PyList_Check( arguments ) )
-		return 0;
 	PyObject* py_args = PyList_AsTuple( arguments );
 
 	cPythonEffect* effect = new cPythonEffect( toCall, py_args );

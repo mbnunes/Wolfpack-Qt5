@@ -1,11 +1,14 @@
 Wolfpack 12.9.14 Beta (SVN)
  * Core Changes:
+  - Changed python callbacks to use the function object instead of a string containing hardcoded paths.
+    It is backwards compatible with the old scheme, for now.
   - Fixed onDeath being called after the npc was already deleted.
   - Added a basedef property "min_restock_amount" that is used by the restocking code to never let 
   	the restock amount of a specific item type go below the given amount. (Integer property)
   - Added a basedef property "max_restock_amount" that is used by the restocking code to never let
     the restock amount of a specific item type go above the given amount. (Integer property)
   - Fixed bug #0000387 and # 0000366 ( saying 'guard' in a guarded region hang the server )
+  
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")

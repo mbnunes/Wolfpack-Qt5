@@ -124,10 +124,10 @@ PyObject* PyGetGumpResponse( const gumpChoice_st& response )
 class cPythonGump : public cGump
 {
 private:
-	QString callback;
+	PythonFunction* callback;
 	PyObject* args;
 public:
-	cPythonGump( const QString& _callback, PyObject* _args ) : callback( _callback ), args( _args )
+	cPythonGump( PythonFunction* _callback, PyObject* _args ) : callback( _callback ), args( _args )
 	{
 		// Increase ref-count for argument list
 		Py_INCREF( args );
@@ -136,50 +136,30 @@ public:
 	virtual ~cPythonGump()
 	{
 		Py_XDECREF( args );
+		delete callback;
 	}
 
 	void handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 	{
 		// Call the response function (and pass it a response-object)
 		// Try to call the python function
-		// Get everything before the last dot
-		if ( !callback.isNull() && !callback.isEmpty() && callback.contains( "." ) )
+		if ( callback && callback->isValid() )
 		{
-			// Find the last dot
-			int position = callback.findRev( "." );
-			QString sModule = callback.left( position );
-			QString sFunction = callback.right( callback.length() - ( position + 1 ) );
+			// Create our Argument list
+			PyObject* p_args = PyTuple_New( 3 );
 
-			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+			PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
 
-			if ( pModule )
-			{
-				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-				if ( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
-					PyObject* p_args = PyTuple_New( 3 );
+			Py_INCREF( args );
+			PyTuple_SetItem( p_args, 1, args );
+			PyTuple_SetItem( p_args, 2, PyGetGumpResponse( choice ) );
 
-					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
+			PyObject *result = (*callback)( p_args );
+			Py_XDECREF( result );
 
-					Py_INCREF( args );
-					PyTuple_SetItem( p_args, 1, args );
-					PyTuple_SetItem( p_args, 2, PyGetGumpResponse( choice ) );
+			Py_DECREF( p_args );
 
-					PyObject *result = PyEval_CallObject( pFunc, p_args );
-					Py_XDECREF( result );
-
-					Py_DECREF( p_args );
-
-					reportPythonError( sModule );
-				}
-				Py_XDECREF( pFunc );
-				Py_DECREF( pModule );
-			}
-			else
-			{
-				Console::instance()->log( LOG_ERROR, tr( "Couldn't find code module %1 for a gump callback." ).arg( sModule ) );
-			}
+			reportPythonError();
 		}
 	}
 };
