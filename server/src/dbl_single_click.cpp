@@ -49,13 +49,15 @@
 #include "targetactions.h"
 #include "boats.h"
 #include "magic.h"
+#include "chars.h"
+#include "npc.h"
 #include "itemid.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
 
 // Shows the Spellbook gump when using a spellbook
-void useSpellBook( cUOSocket *socket, P_CHAR mage, P_ITEM spellbook )
+void useSpellBook( cUOSocket *socket, P_PLAYER mage, P_ITEM spellbook )
 {
 	mage->setObjectDelay( 0 );
 
@@ -146,11 +148,11 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	unsigned int tempuint;
 
 	SERIAL serial = target_serial;
-	P_CHAR pc_currchar = socket->player();
+	P_PLAYER pc_currchar = socket->player();
 
 	UOXSOCKET s = calcSocketFromChar( socket->player() ); // for Legacy code
 
-	if( !pc_currchar->isGM() && pc_currchar->objectdelay() > 10 && pc_currchar->objectdelay() >= uiCurrentTime )
+	if( !pc_currchar->isGM() && pc_currchar->objectDelay() > 10 && pc_currchar->objectDelay() >= uiCurrentTime )
 	{
 		socket->sysMessage(tr("You must wait to perform another action."));
 		return;
@@ -184,7 +186,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	// Criminal for looting an innocent corpse & unhidden if not owner...
 	if( pi->corpse() )
 	{
-		if (pc_currchar->hidden() && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
+		if (pc_currchar->isInvisible() && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
 		{
 			pc_currchar->setHidden( 0 );
 			pc_currchar->resend( false );
@@ -195,7 +197,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		{
 			if( pi->more2() == 1 ) 
 			{
-				pc_currchar->criminal();
+				pc_currchar->makeCriminal();
 			}
 		}
 	}
@@ -211,7 +213,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	}
 	
 	// Dead ppl can only use ankhs
-	if( pc_currchar->dead() && itype != 16 )
+	if( pc_currchar->isDead() && itype != 16 )
 	{
 		socket->sysMessage( tr( "Your ghostly hand passes trough the object." ) );
 		return;
@@ -365,7 +367,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 
 	case 16:
 		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
-		if( pc_currchar->dead() )
+		if( pc_currchar->isDead() )
 		{
 			pc_currchar->resurrect();
 			socket->sysMessage( tr( "You have been resurrected." ) );
@@ -539,8 +541,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				socket->sysMessage(tr("You have been poisoned!"));
 				pc_currchar->soundEffect( 0x246 ); // poison sound
 				pc_currchar->setPoisoned( pi->poisoned() );
-				pc_currchar->setPoisontime( uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-				pc_currchar->setPoisonwearofftime( pc_currchar->poisontime() +(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()) ); // wear off starts after poison takes effect - AntiChrist
+				pc_currchar->setPoisonTime( uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+				pc_currchar->setPoisonWearOffTime( pc_currchar->poisonTime() +(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()) ); // wear off starts after poison takes effect - AntiChrist
 				pc_currchar->resend( false );
 			}
 			
@@ -590,21 +592,21 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 			return;
 
 		case 202:
-				if ( pi->id() == 0x14F0  ||  pi->id() == 0x1869 )	// Check for Deed/Teleporter + Guild Type
-				{
-					pc_currchar->setFx1( pi->serial() );
-					StonePlacement(socket);
-					return;
-				}
-				else if (pi->id() == 0x0ED5)	// Check for Guildstone + Guild Type
-				{
-					pc_currchar->setFx1( pi->serial() );
-					cGuildStone *pStone = dynamic_cast<cGuildStone*>(pi);
-					if ( pStone != NULL )
-						pStone->Menu(s, 1);
-					return;
-				}
-				else 
+//				if ( pi->id() == 0x14F0  ||  pi->id() == 0x1869 )	// Check for Deed/Teleporter + Guild Type
+//				{
+//					pc_currchar->setFx1( pi->serial() );
+//					StonePlacement(socket);
+//					return;
+//				}
+//				else if (pi->id() == 0x0ED5)	// Check for Guildstone + Guild Type
+//				{
+//					pc_currchar->setFx1( pi->serial() );
+//					cGuildStone *pStone = dynamic_cast<cGuildStone*>(pi);
+//					if ( pStone != NULL )
+//						pStone->Menu(s, 1);
+//					return;
+//				}
+//				else 
 					clConsole.send("Unhandled guild item type named: %s with ID of: %X", pi->name().ascii(), pi->id());
 				return;
 				// End of guild stuff
@@ -644,7 +646,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				
 					if (los)
 					{
-						P_CHAR pc_vendor = cCharStuff::createScriptNpc( "2117", pc_currchar->pos() );
+						P_NPC pc_vendor = cCharStuff::createScriptNpc( "2117", pc_currchar->pos() );
 						
 						if (pc_vendor == NULL) 
 						{
@@ -656,7 +658,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 						pc_vendor->setInvulnerable( true );
 						pc_vendor->setHidden( 0 );
 						pc_vendor->setStealth(-1);
-						pc_vendor->setDir( pc_currchar->dir() );
+						pc_vendor->setDirection( pc_currchar->direction() );
 						pc_vendor->setNpcWander(0);
 						pc_vendor->setInnocent();
 						pc_vendor->setOwner( pc_currchar );
@@ -1105,7 +1107,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 	if( !socket )
 		return;
 
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 
 	if( !pChar || !pTarget )
 		return;
@@ -1136,7 +1138,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 		socket->sendPaperdoll( pTarget );
 	}
 
-	UINT16 body = pTarget->id();
+	UINT16 body = pTarget->bodyID();
 
 	// Is that faster ??
 
@@ -1182,7 +1184,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 				socket->sysMessage( tr( "You are unable to ride an animal" ) );
 				return;
 			}
-			if( pChar->dead() )
+			if( pChar->isDead() )
 			{
 				socket->clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're dead.
 

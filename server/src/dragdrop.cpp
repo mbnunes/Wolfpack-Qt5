@@ -48,6 +48,7 @@
 #include "spellbook.h"
 #include "multis.h"
 #include "dragdrop.h"
+#include "player.h"
 
 
 #undef  DBGFILE
@@ -82,7 +83,7 @@
 void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 {
 	// Get our character
-	P_CHAR pChar = socket->player();
+	P_PLAYER pChar = socket->player();
 	if( !pChar )
 		return;
 
