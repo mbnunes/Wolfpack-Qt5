@@ -586,7 +586,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 
 bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& comm )
 {
-	if( !pPlayer->Owns( pPet ) || pPlayer->isGM() )
+	if( !pPlayer->Owns( pPet ) && !pPlayer->isGM() )
 		return false;
 
 	// player vendor
@@ -649,7 +649,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	}
 	else if( comm.contains( " COME" ) )
 	{
-		pPlayer->setGuarded(false);
+		pPlayer->setGuarded( false );
 		pPet->ftarg = pPlayer->serial;
 		pPet->npcWander = 1;
 		pPet->setNextMoveTime();
@@ -678,7 +678,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 		if (pPet->war()) 
 			pPet->toggleCombat();
 
-		pPet->npcWander=0;
+		pPet->npcWander = 0;
 		bReturn = true;
 	}
 	else if( comm.contains( " TRANSFER" ) )

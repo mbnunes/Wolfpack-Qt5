@@ -1435,11 +1435,14 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 			{
 				if ( chardist( pc_i, pc_target ) > 1 )
 				{
-					PathFind( pc_i, pc_target->pos.x, pc_target->pos.y );
-//	                UINT8 dir = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
-					UINT8 dir = chardirxyz(pc_i, pc_i->pathX( pc_i->pathnum() ), pc_i->pathY(pc_i->pathnum()) );
-//					pc_i->pathnum++;
-					pc_i->setPathNum( pc_i->pathnum() + 1 );
+					//PathFind( pc_i, pc_target->pos.x, pc_target->pos.y );
+	                //UINT8 dir = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+					//UINT8 dir = chardirxyz(pc_i, pc_i->pathX( pc_i->pathnum() ), pc_i->pathY(pc_i->pathnum()) );
+					//pc_i->pathnum++;
+					//pc_i->setPathNum( pc_i->pathnum() + 1 );
+					// Disabled Path finding until a good algorythm is found
+					UINT8 dir = chardir( pc_i, pc_target );
+
 			        Walking( pc_i, dir, 0xFF );
 				}
 
