@@ -717,23 +717,29 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 Q_UINT32 cPlayer::takeGold( Q_UINT32 amount, bool useBank )
 {
 	P_ITEM pPack = getBackpack();
+	P_ITEM pBank = getBankbox();
 
-	Q_UINT32 dAmount = 0;
+	// Count total gold
+	unsigned int totalGold = 0;
+	totalGold = pPack->countItems(0xEED, 0);
 
-	if ( pPack )
-		dAmount = pPack->deleteAmount( amount, 0xEED, 0 );
-
-	if ( ( dAmount > 0 ) && useBank )
-	{
-		P_ITEM pBank = getBankbox();
-
-		if ( pBank )
-			dAmount += pBank->deleteAmount( ( amount - dAmount ), 0xEED, 0 );
+	if (useBank && totalGold < amount) {
+		totalGold += pBank->countItems(0xEED, 0);
 	}
 
-	goldSound( amount, false );
+	if (totalGold < amount) {
+		return 0;
+	}
 
-	return amount - dAmount;
+	Q_UINT32 dAmount = 0;
+	dAmount = pPack->deleteAmount( amount, 0xEED, 0 );
+
+	if (useBank && dAmount > 0) {
+		pBank->deleteAmount( dAmount, 0xEED, 0 );
+	}
+
+	goldSound(amount, false);
+	return amount;
 }
 
 bool cPlayer::inWorld()
