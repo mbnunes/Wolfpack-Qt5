@@ -193,8 +193,8 @@ def onDropOnItem(runebook, item):
 				return True # The item has been removed
 			else:
 				item.amount -= consume
-				item.update()
-				item.resendtooltip()
+				#item.update()
+				#item.resendtooltip()
 		else:
 			player.socket.clilocmessage(502410)
 
