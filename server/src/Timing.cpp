@@ -202,7 +202,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 		if ((pc->regen <= currenttime) || (overflow))
 		{
 			unsigned int interval = SrvParams->hitpointrate()*MY_CLOCKS_PER_SEC;
-			if (pc->hp < pc->st && pc->hunger>3 || SrvParams->hungerRate() == 0)
+			if (pc->hp < pc->st && pc->hunger()>3 || SrvParams->hungerRate() == 0)
 			{
 				for (c = 0; c < pc->st + 1; c++)
 				{
@@ -288,9 +288,9 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 					pc->regen3 = currenttime + interval;
 			}
 			// end Mana regeneration
-			if ((pc->hidden == 2) && ((pc->invistimeout <= currenttime) || (overflow)) && (!(pc->priv2&8)))
+			if ((pc->hidden() == 2) && ((pc->invistimeout() <= currenttime) || (overflow)) && (!(pc->priv2&8)))
 			{// only if not permanently hidden - AntiChrist
-				pc->hidden = 0;
+				pc->setHidden( 0 );
 				pc->setStealth(-1);
 				updatechar(pc);
 			}
@@ -379,7 +379,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		setcharflag(pc);//AntiChrist
 	}
 
-	if (pc->isPlayer() && pc->casting)//PC casting a spell
+	if ( pc->isPlayer() && pc->casting() )//PC casting a spell
 	{
 		pc->nextact--;
 		if (pc->spelltime<=currenttime||overflow)//Spell is complete target it.
@@ -466,11 +466,11 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		}
 	}
 
-	if (SrvParams->hungerRate() > 1 && (pc->hungertime<=currenttime || overflow))
+	if (SrvParams->hungerRate() > 1 && (pc->hungertime()<=currenttime || overflow))
 	{
-		if (!pc->isGMorCounselor() && pc->hunger) pc->hunger--; //Morrolan GMs and Counselors don't get hungry
+		if (!pc->isGMorCounselor() && pc->hunger()) pc->setHunger( pc->hunger()-1 ); //Morrolan GMs and Counselors don't get hungry
 
-		switch(pc->hunger)
+		switch(pc->hunger())
 		{
 		case 6: break; //Morrolan
 		case 5: sysmessage(s, tr("You are still stuffed from your last meal") );	break;
@@ -483,12 +483,12 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				sysmessage(s, tr("You must eat very soon or you will die!") );
 			break;
 		}
-		pc->hungertime = currenttime+(SrvParams->hungerRate() * MY_CLOCKS_PER_SEC); // Bookmark
+		pc->setHungerTime( currenttime+(SrvParams->hungerRate() * MY_CLOCKS_PER_SEC) );
 	}
 	if (((hungerdamagetimer<=currenttime)||(overflow))&&(SrvParams->hungerDamage()>0)) // Damage them if they are very hungry
 	{
 		hungerdamagetimer=currenttime+(SrvParams->hungerDamageRate()*MY_CLOCKS_PER_SEC); /** set new hungertime **/
-		if (pc->hp > 0 && pc->hunger<2 && !pc->isGMorCounselor() && !pc->dead)
+		if (pc->hp > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->dead)
 		{
 			sysmessage(s, tr("You are starving !") );
 			pc->hp -= SrvParams->hungerDamage();
@@ -593,19 +593,19 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		impowncreate(s, pc, 1); // updating to blue stats-bar ...
 		sysmessage(s, tr("The poison has worn off.") );
 	}
-	if( pc->onhorse )
+	if( pc->onHorse() )
 	{
 		P_ITEM pHorse = pc->GetItemOnLayer(0x19);
 		if(!pHorse)
 		{
-			pc->onhorse = false;	// turn it off, we aren't on one because there's no item!
+			pc->setOnHorse( false );	// turn it off, we aren't on one because there's no item!
 			return;
 		}
 		else
 		{
 			if( pHorse->decaytime != 0 && ( pHorse->decaytime <= uiCurrentTime || overflow ) )
 			{
-				pc->onhorse = false;
+				pc->setOnHorse( false );
 				Items->DeleItem( pHorse );
 			}
 		}
@@ -751,7 +751,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					pc->poisoned=0;
 					return;
 				}
-				if (pc->hp<1)
+				if (pc->hp < 1)
 				{
 					deathstuff(pc);
 				}
@@ -769,15 +769,16 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	}
 
 	//hunger code for npcs
-	if (SrvParams->hungerRate()>1 && (pc->hungertime<=currenttime || overflow))
+	if (SrvParams->hungerRate()>1 && (pc->hungertime()<=currenttime || overflow))
 	{
 		t[0] = '\0';
 
-		if (pc->hunger) pc->hunger--; //Morrolan GMs and Counselors don't get hungry
+		if (pc->hunger()) 
+			pc->setHunger( pc->hunger()-1 ); //Morrolan GMs and Counselors don't get hungry
 
-		if(pc->tamed() && pc->npcaitype!=17)
+		if(pc->tamed() && pc->npcaitype() != 17)
 		{//if tamed let's display his hungry status
-			switch(pc->hunger)
+			switch(pc->hunger())
 			{
 			case 6:
 			case 5:	break;
@@ -813,7 +814,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				npcemoteall(pc,t,1);
 			}
 		}//if tamed
-		pc->hungertime=currenttime+(SrvParams->hungerRate()*MY_CLOCKS_PER_SEC); // Bookmark
+		pc->setHungerTime( currenttime+(SrvParams->hungerRate()*MY_CLOCKS_PER_SEC) );
 	}//if hungerrate>1
 }
 

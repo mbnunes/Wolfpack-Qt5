@@ -319,7 +319,7 @@ void cCommands::NextCall(int s, int type)
 	
 	P_CHAR pc_currchar = currchar[s];
 	
-	if (pc_currchar->callnum != 0)
+	if (pc_currchar->callnum() != 0)
 	{
 		donewithcall(s, type);
 	}
@@ -340,7 +340,7 @@ void cCommands::NextCall(int s, int type)
 					sysmessage(s, tr("Paged at %1.").arg((char*)gmpages[i].timeofcall));
 					gmpages[i].handled = 1;
 					pc_currchar->moveTo(pc_player->pos);
-					pc_currchar->callnum = i;
+					pc_currchar->setCallNum( i );
 					teleport((pc_currchar));
 					x++;
 				}// if
@@ -369,7 +369,7 @@ void cCommands::NextCall(int s, int type)
 					sysmessage(s, tr("Paged at %1.").arg(counspages[i].timeofcall));
 					gmpages[i].handled = 1;
 					pc_currchar->moveTo(pc_player->pos);
-					pc_currchar->callnum = i;
+					pc_currchar->setCallNum( i );
 					teleport((pc_currchar));
 					x++;
 					break;
@@ -531,7 +531,7 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 			sprintf(counspages[i].timeofcall, "%02d:%02d:%02d", local->tm_hour, local->tm_min, local->tm_sec);
 			sprintf((char*)temp,"%s [%8x] called at %s, %s",counspages[i].name.c_str(),pc_currchar->serial,counspages[i].timeofcall,counspages[i].reason.c_str());
 			if(heartbeat) Writeslot((char*)temp);
-			pc_currchar->playercallnum=i;
+			pc_currchar->setPlayerCallNum( i );
 			pc_currchar->inputmode = cChar::enPageCouns;
 			x2++;
 			break;
@@ -591,7 +591,7 @@ void cCommands::GMPage(int s, char *reason)
 			sprintf(gmpages[i].timeofcall, "%02d:%02d:%02d", local->tm_hour, local->tm_min, local->tm_sec);
 			sprintf((char*)temp,"%s [%8x] called at %s, %s",gmpages[i].name.c_str(),pc_currchar->serial,gmpages[i].timeofcall,gmpages[i].reason.c_str());
 			if(heartbeat) Writeslot((char*)temp);
-			pc_currchar->playercallnum=i;
+			pc_currchar->setPlayerCallNum( i );
 			pc_currchar->inputmode = cChar::enPageCouns;
 			x2++;
 			break;

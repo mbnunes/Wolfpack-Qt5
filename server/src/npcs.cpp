@@ -230,8 +230,8 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	}
 
 
-	if (pc_k->spawnserial != INVALID_SERIAL) 
-		cspawnsp.remove(pc_k->spawnserial, pc_k->serial);
+	if (pc_k->spawnSerial() != INVALID_SERIAL) 
+		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial);
 	if (pc_k->ownserial != INVALID_SERIAL) 
 		cownsp.remove(pc_k->ownserial, pc_k->serial);
 	
@@ -446,8 +446,8 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 	pc_c->npc=1;
 	pc_c->att=1;
 	pc_c->def=1;
-	pc_c->spawnserial = INVALID_SERIAL;
-	
+	pc_c->setSpawnSerial( INVALID_SERIAL );	
+
 	pScp=pScpBase->Select(sect,custom_npc_script);
 	if (!pScp)
 	{
@@ -748,12 +748,12 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			}
 			else if (!(strcmp((char*)script1, "NOTRAIN"))) pc_c->cantrain=false;
 			else if (!(strcmp("NPCWANDER",(char*)script1))) pc_c->npcWander=str2num(script2);
-			else if (!(strcmp("NPCAI",(char*)script1))) pc_c->npcaitype=hex2num(script2);
+			else if (!(strcmp("NPCAI",(char*)script1))) pc_c->setNpcAIType( hex2num(script2) );
 			break;
 
 			case 'O':
 			case 'o':
-			if (!(strcmp("ONHORSE",(char*)script1))) pc_c->onhorse=true;
+			if (!(strcmp("ONHORSE",(char*)script1))) pc_c->setOnHorse( true );
 			break;
 
 			case 'P':

@@ -856,7 +856,7 @@ int hexnumber(int countx) // Converts hex string comm[count] to int
 
 void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 {
-	pc->onhorse = false;
+	pc->setOnHorse( false );
 	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer(contsp.getData(pc->serial));
@@ -866,7 +866,7 @@ void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 		if (pi != NULL && !pi->free)
 		{
 			if (pi->layer()==0x19)
-				pc->onhorse = true;
+				pc->setOnHorse( true );
 			wearIt(s,pi);
 		}
 	}
@@ -956,7 +956,7 @@ void deathstuff(P_CHAR pc_player)
 		return;
 
 
-	if (pc_player->dead || pc_player->npcaitype == 17 || pc_player->isInvul())
+	if (pc_player->dead || pc_player->npcaitype() == 17 || pc_player->isInvul())
 		return;
 
 	if(pc_player->polymorph())
@@ -984,7 +984,7 @@ void deathstuff(P_CHAR pc_player)
 		P_CHAR pc_t = iter_char.GetData();
 		if (pc_t->targ == pc_player->serial && !pc_t->free)
 		{
-			if (pc_t->npcaitype==4) //LB change from 0x40 to 4
+			if (pc_t->npcaitype()==4) //LB change from 0x40 to 4
 			{
 				pc_t->summontimer=(uiCurrentTime+(MY_CLOCKS_PER_SEC*20));
 				pc_t->npcWander=2;
@@ -1002,7 +1002,7 @@ void deathstuff(P_CHAR pc_player)
 			pc_t->attacker = INVALID_SERIAL;
 			pc_t->resetAttackFirst();
 
-			if (pc_t->npcaitype==4 || pc_t->npcaitype==9) // Ripper...so non human npcs disapear if killed by guards.
+			if (pc_t->npcaitype()==4 || pc_t->npcaitype()==9) // Ripper...so non human npcs disapear if killed by guards.
 			{
 				if (pc_player->isNpc() && !pc_player->isHuman())
 					Npcs->DeleteChar(pc_player);
@@ -1015,7 +1015,7 @@ void deathstuff(P_CHAR pc_player)
 				//murder count \/
 				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
 				{
-					if(pc_player->isInnocent() && GuildCompare( pc_t, pc_player ) == 0 && pc_t->attackfirst == 1)
+					if(pc_player->isInnocent() && GuildCompare( pc_t, pc_player ) == 0 && pc_t->attackfirst())
 					{
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
@@ -1401,7 +1401,7 @@ void explodeitem(int s, P_ITEM pi)
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)
 		{
-			if (pc->isInvul() || pc->npcaitype==17)		// don't affect vendors
+			if (pc->isInvul() || pc->npcaitype()==17)		// don't affect vendors
 				continue;
 			if(pc->isGM() || (pc->isPlayer() && !online(pc)))
 				continue;
@@ -1993,7 +1993,7 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 			int stablemaster_serial = p_petowner->serial;
 			P_CHAR  p_pet = NULL;
 			
-			p_petowner->onhorse = false;
+			p_petowner->setOnHorse( false );
 			
 			vector<SERIAL> pets = stablesp.getData(stablemaster_serial);
 			unsigned int i;
@@ -2322,13 +2322,13 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		return;
 	if (pc_currchar->Owns(pc_mount) || pc_currchar->isGM())
 	{
-		if (pc_currchar->onhorse)
+		if (pc_currchar->onHorse())
 		{
 			sysmessage(s, "You are already on a mount.");
 			return;
 		}
 		strcpy((char*)temp, pc_mount->name.c_str());
-		pc_currchar->onhorse = true;
+		pc_currchar->setOnHorse( true );
 		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin(), 0);
 		if(!pi) return;
 		
@@ -2416,7 +2416,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		if (pc_currchar->isGM())
 		{
 			pc_mount->SetOwnSerial( pc_currchar->serial );
-			pc_mount->npcaitype = 0;
+			pc_mount->setNpcAIType( 0 );
 		}
 		
 		// set stablesp && pets stablemaster serial
@@ -3421,12 +3421,12 @@ void telltime( UOXSOCKET s )
 void impaction(int s, int act)
 {
 	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->onhorse && (act==0x10 || act==0x11))
+	if (pc_currchar->onHorse() && (act==0x10 || act==0x11))
 	{
 		action(s, 0x1b);
 		return;
 	}
-	if ((pc_currchar->onhorse || (pc_currchar->id1<1 && pc_currchar->id2<90))
+	if ((pc_currchar->onHorse() || (pc_currchar->id1<1 && pc_currchar->id2<90))
 		&& (act==0x22))
 	{
 		return;
@@ -3579,7 +3579,7 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 	else cdist=30;
 
 	if ((cdist > chardist(pc_target, pc_target2))&&
-		((!(pc_target2->npcaitype==4)||(!((pc_target2->targ==INVALID_SERIAL)))))) // changed from 0x40 to 4, LB
+		((!(pc_target2->npcaitype()==4)||(!((pc_target2->targ==INVALID_SERIAL)))))) // changed from 0x40 to 4, LB
 	{
 		pc_target2->targ = pc_target->serial;
 		pc_target2->attacker = pc_target->serial;
@@ -3602,7 +3602,7 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 		pc_target->dir = chardir(pc_target, pc_target2);
 	}
 
-	if ((pc_target2->isNpc())&&!(pc_target2->npcaitype==4)) // changed from 0x40 to 4, LB
+	if ((pc_target2->isNpc())&&!(pc_target2->npcaitype()==4)) // changed from 0x40 to 4, LB
 	{
 		if (!(pc_target2->war))
 			npcToggleCombat(pc_target2);
@@ -3920,7 +3920,7 @@ void initque() // Initilizes the gmpages[] and counspages[] arrays and also jail
 void donewithcall(int s, int type)
 {
 	P_CHAR pc_currchar = currchar[s];
-	int cn = pc_currchar->callnum;
+	int cn = pc_currchar->callnum();
 	if(cn!=0) //Player is on a call
 	{
 		if(type==1) //Player is a GM
@@ -3939,7 +3939,7 @@ void donewithcall(int s, int type)
 			counspages[cn].serial = 0;
 			sysmessage(s,"Call removed from the Counselor queue.");
 		}
-		pc_currchar->callnum=0;
+		pc_currchar->setCallNum( 0 );
 	}
 	else
 	{
@@ -4242,7 +4242,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		return;
 	}
 	soundeffect2(pc_p, 0x0030);
-	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onhorse==0)
+	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onHorse()==0)
 		npcaction( pc_p, 0x22);
 	//empty bottle after drinking - Tauriel
 	if (pi->amount()!=1)
@@ -6043,9 +6043,9 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 			pc->setCriminal();
 		}
 	}
-	if (pc->isNpc() && ((pc->npcaitype == 2) || // bad npc
-		(pc->npcaitype == 3) ||  // bad healer
-		(pc->npcaitype == 50)))   // EV & BS
+	if (pc->isNpc() && ((pc->npcaitype() == 2) || // bad npc
+		(pc->npcaitype() == 3) ||  // bad healer
+		(pc->npcaitype() == 50)))   // EV & BS
 	{
 		if (SrvParams->badNpcsRed()== 0)
 		{
@@ -6058,7 +6058,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 	}
 	else
 	{
-		switch (pc->npcaitype)
+		switch (pc->npcaitype())
 		{
 			case 2: // bad npcs
 			case 3: // bad healers
@@ -6081,7 +6081,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 					pc->setInnocent();
 					return;
 				}
-				if (SrvParams->animals_guarded() == 1 && pc->npcaitype == 0 && !pc->tamed())
+				if (SrvParams->animals_guarded() == 1 && pc->npcaitype() == 0 && !pc->tamed())
 				{
 					if (pc->inGuardedArea())	// in a guarded region, with guarded animals, animals == blue
 						pc->setInnocent();

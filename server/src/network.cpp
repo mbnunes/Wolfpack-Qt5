@@ -575,7 +575,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	pc_currchar->spiritspeaktimer=0;	// initially set spiritspeak timer to 0
 
 	pc_currchar->setStealth(-1);//AntiChrist
-	if (! (pc_currchar->isGMorCounselor())) pc_currchar->hidden=0;//AntiChrist
+	if (! (pc_currchar->isGMorCounselor())) pc_currchar->setHidden( 0 );//AntiChrist
 	pc_currchar->setBegging_timer(0);
 
 	Xsend(s, startup, 37);
@@ -1384,7 +1384,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					
 					case 0xC7:
 					// Action
-						if (!pc_currchar->onhorse)
+						if (!pc_currchar->onHorse())
 						{
 							if (!(strcmp((char*)&buffer[s][4],"bow"))) action(s, 0x20);
 							if (!(strcmp((char*)&buffer[s][4],"salute"))) action(s, 0x21);
@@ -1451,7 +1451,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							{
 								sysmessage(s, "You cannot cast spells while frozen.");
 							}
-							if (pc_currchar->casting)
+							if (pc_currchar->casting())
 							{
 								sysmessage(s, "You are already casting a spell.");
 							}

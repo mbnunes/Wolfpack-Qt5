@@ -629,9 +629,9 @@ void cRespawn::Continue()
 				P_CHAR pc_j = FindCharBySerial(vecSpawned[ci]);
 				if (pc_j != NULL)
 				{
-					if (pi->serial == pc_j->spawnserial)
+					if (pi->serial == pc_j->spawnSerial())
 					{
-						k++;
+						++k;
 					}
 				}
 			}

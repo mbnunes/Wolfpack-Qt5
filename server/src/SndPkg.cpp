@@ -1309,10 +1309,10 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 	if (pc->account()==0 && pc->isGM())			{  if (title[12].other[0] != 0) sprintf((char*)temp, " [%s]",title[12].other); else temp[0] = 0; strcat(name2,(char*)temp); } // ripper
 	if (pc->priv2&2)							{  if (title[13].other[0] != 0) sprintf((char*)temp, " [%s]",title[13].other); else temp[0] = 0; strcat(name2,(char*)temp); }
 	if (pc->guarded())							{  if (title[14].other[0] != 0) sprintf((char*)temp, " [%s]",title[14].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
-	if (pc->tamed() && pc->npcaitype==32 
+	if (pc->tamed() && pc->npcaitype()==32 
 		&& pc_currchar->Owns(pc) && pc_currchar->guarded()) 
 												{ if  (title[15].other[0] != 0) sprintf((char*)temp, " [%s]",title[15].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
-	if (pc->tamed() && pc->npcaitype!=17 )		{ if  (title[16].other[0] != 0) sprintf((char*)temp, " [%s]",title[16].other); strcat(name2,(char*)temp); }
+	if (pc->tamed() && pc->npcaitype()!=17 )		{ if  (title[16].other[0] != 0) sprintf((char*)temp, " [%s]",title[16].other); strcat(name2,(char*)temp); }
 	if (pc->war)								{ if  (title[17].other[0] != 0) sprintf((char*)temp, " [%s]",title[17].other); strcat(name2,(char*)temp); } // ripper
 	if ((pc->crimflag>0)&&(pc->kills<SrvParams->maxkills())) 
 												{ if  (title[18].other[0] != 0) sprintf((char*)temp, " [%s]",title[18].other); else temp[0] = 0; strcat(name2,(char*)temp); }// ripper
@@ -1953,11 +1953,11 @@ void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 		talk[12]=0;
 		talk[13]=pc_currchar->fonttype;
 
-		if (pc_npc->npcaitype==2 && SrvParams->badNpcsRed() == 0) //bad npcs speech (red)..Ripper
+		if (pc_npc->npcaitype()==2 && SrvParams->badNpcsRed() == 0) //bad npcs speech (red)..Ripper
 		{
 			pc_npc->saycolor = 0x03B2;
 		}
-		else if (pc_npc->npcaitype==2 && SrvParams->badNpcsRed() == 1)
+		else if (pc_npc->npcaitype()==2 && SrvParams->badNpcsRed() == 1)
 		{
 			pc_npc->saycolor = 0x0026;
 		}

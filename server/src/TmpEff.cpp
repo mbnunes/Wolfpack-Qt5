@@ -443,7 +443,7 @@ void cTmpEff::Expire()
 	case 33: // delayed hiding for gms after flamestrike effect
 		k=calcSocketFromChar((pc_s));
 		sysmessage(k, tr("You have hidden yourself well."));
-		pc_s->hidden=1;
+		pc_s->setHidden( 1 );
 		updatechar(pc_s);
 		break;
 		
@@ -451,7 +451,7 @@ void cTmpEff::Expire()
 		// Changed to be uniform with delayed hideing  (Aldur)
 		k = calcSocketFromChar((pc_s)); 
 		sysmessage(k, tr("You are now visible.")); 
-		pc_s->hidden = 0; 
+		pc_s->setHidden( 0 ); 
 		updatechar(pc_s); 
 		break;
 		
@@ -697,7 +697,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		int c1,b,k;
 		//Grey flag when polymorphed - AntiChrist (9/99)
 		pc_dest->crimflag=(polyduration*MY_CLOCKS_PER_SEC)+uiCurrentTime;
-		if(pc_dest->onhorse) 
+		if(pc_dest->onHorse()) 
 			k = unmounthorse(calcSocketFromChar(pc_dest));
 		k=(more1<<8)+more2;
 

@@ -494,7 +494,7 @@ void RemoveHouse(P_ITEM pHouse)
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_CHAR pc = ri.GetData();
-		if(pc->npcaitype == 17 && pc->multis == pHouse->serial)
+		if(pc->npcaitype() == 17 && pc->multis == pHouse->serial)
 			Npcs->DeleteChar(pc);
 	}
 	cRegion::RegionIterator4Items rii(pHouse->pos);
@@ -548,7 +548,7 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 					{
 						if( mapchar->pos.x >= x1 && mapchar->pos.y >= y1 && mapchar->pos.x <= x2 && mapchar->pos.y <= y2 )
 						{
-							if( mapchar->npcaitype == 17 ) // player vendor in right place
+							if( mapchar->npcaitype() == 17 ) // player vendor in right place
 							{
 								sprintf( (char*)temp, "A vendor deed for %s", mapchar->name.c_str() );
 								P_ITEM pPvDeed = Items->SpawnItem(pc, 1, (char*)temp, 0, 0x14F0, 0, 1);

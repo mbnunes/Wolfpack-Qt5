@@ -106,7 +106,7 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 			return true;
 		case cChar::enPageGM:
 			{
-				gmpages[pPlayer->playercallnum].reason = comm;
+				gmpages[pPlayer->playercallnum()].reason = comm;
 				sprintf(temp, "GM Page from %s [%x]: %s",pPlayer->name.c_str(), pPlayer->serial, comm.c_str());
 				int x = 0;
 				for (i = 0; i < now; i++)
@@ -126,7 +126,7 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 			}
 		case cChar::enPageCouns:
 			{
-				counspages[pPlayer->playercallnum].reason = comm;
+				counspages[pPlayer->playercallnum()].reason = comm;
 				sprintf(temp, "Counselor Page from %s [%x]: %s", pPlayer->name.c_str(), pPlayer->serial, comm.c_str());
 				int x = 0;
 				for (i = 0; i < now; i++)
@@ -339,7 +339,7 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 	if (pPlayer->dist(pGuard) > 3)	// lets be close to talk :)
 		return false;
 				
-	if(pGuard->npcaitype == 6)	// chaos guard
+	if(pGuard->npcaitype() == 6)	// chaos guard
 	{
 		//if (strstr( comm, "CHAOS SHIELD")) //Ripper...if in chaos guild get a new shield.
 		if (comm.find("CHAOS SHIELD") != string::npos)
@@ -377,7 +377,7 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 			return true;
 		}
 	}
-	else if(pGuard->npcaitype == 7)	// order guard
+	else if(pGuard->npcaitype() == 7)	// order guard
 	{
 		//if (strstr( comm, "ORDER SHIELD")) //Ripper...if in order guild get a new shield.
 			// if they say order shield
@@ -421,7 +421,7 @@ bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 
 bool QuestionSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
-	if (pc->npcaitype==2 || !pc->isHuman() || pPlayer->dist(pc) > 3)
+	if (pc->npcaitype()==2 || !pc->isHuman() || pPlayer->dist(pc) > 3)
 		return 0;
 	
     //if (strstr( comm, "NAME")) //Ripper...say name and a npc will tell you there name :).
@@ -510,7 +510,7 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 			{
 				pEscortee->ftarg = currchar[s]->serial;		// Set the NPC to follow the PC
 				pEscortee->npcWander = 1;			// Set the NPC to wander freely
-				pEscortee->npcaitype = 0;           // Set AI to 0
+				pEscortee->setNpcAIType( 0 );           // Set AI to 0
 				// Set the expire time if nobody excepts the quest
 				pEscortee->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) );
 				// Send out the rant about accepting the escort
@@ -556,7 +556,7 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 
 bool BankerSpeech(cChar* pBanker, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
-	if( pBanker->npcaitype != 8 )	// not a banker
+	if( pBanker->npcaitype() != 8 )	// not a banker
 		return 0;
 	if (pPlayer->dist(pBanker) > 12)
 		return 0;
@@ -665,7 +665,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (!(pPlayer->Owns(pPet) || pPlayer->isGM())) //owner of the char || a GM
 		return 0;
-	if (pPet->npcaitype==17)	// player vendor
+	if (pPet->npcaitype() == 17)	// player vendor
 		return 0;
 	if (pPlayer->dist(pPet) > 7)	// too far away to hear us
 		return 0;
@@ -860,7 +860,7 @@ bool VendorChkName(cChar* pVendor, string& comm)
 bool PlayerVendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 
-	if (!(pVendor->npcaitype == 17))
+	if (!(pVendor->npcaitype() == 17))
 	     return 0;
 
 	if (pPlayer->dist(pVendor) > 4)
@@ -917,7 +917,7 @@ bool PlayerVendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET 
 
 bool VendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
-	if (pVendor->npcaitype == 17)
+	if (pVendor->npcaitype() == 17)
 		return false;
 
 	if (pPlayer->dist(pVendor) > 4)

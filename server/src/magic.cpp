@@ -382,7 +382,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 			soundeffect(s, 0x02, 0x12); // EV
 			pc_monster = Npcs->AddNPCxyz(s,295,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
             pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
-			pc_monster->npcaitype=50;
+			pc_monster->setNpcAIType(50);
 			pc_monster->setTamed(false);			
 		}
 		else
@@ -421,7 +421,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		soundeffect(s, 0x02, 0x12); // I don't know if this is the right effect...	
 		pc_monster = Npcs->AddNPCxyz(s,296,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
-		pc_monster->npcaitype=50;
+		pc_monster->setNpcAIType(50);
 		pc_monster->setTamed(false);
 		break;
 	case 0x03e2: // Dupre The Hero
@@ -1481,7 +1481,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	{
 		sysmessage(s,"You are in jail and cannot cast spells");
 		pc_currchar->spell = 0;
-		pc_currchar->casting = 0;
+		pc_currchar->setCasting(false);
 		return false;
 	}
 	if (!townTarget( curSpell ) && !pc_currchar->isGM())
@@ -1493,7 +1493,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 			{
 			sysmessage(s,"you can't cast spells here");
 			pc_currchar->spell = 0;
-			pc_currchar->casting = 0;
+			pc_currchar->setCasting(false);
 			return false;
 			}
 		}
@@ -1502,7 +1502,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	{
 		sysmessage( s, "That spell is currently not enabled" );
 		pc_currchar->spell = 0;
-		pc_currchar->casting = 0;
+		pc_currchar->setCasting(false);
 		return false;
 	}
 
@@ -1522,7 +1522,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 				{
 					sysmessage(s,"You cannot cast with a weapon equipped.");
 					pc_currchar->spell = 0;
-					pc_currchar->casting = 0;
+					pc_currchar->setCasting(false);
 					return false;
 				}
 			}
@@ -1536,7 +1536,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	if (type==0 && (!CheckReagents(pc_currchar, num)))
 	{
 		pc_currchar->spell = 0;
-		pc_currchar->casting = 0;
+		pc_currchar->setCasting(false);
 		return false;
 	}
 	if (type != 2)// -Fraz-
@@ -1546,7 +1546,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 			//success=0;
 			sysmessage(s, "You have insufficient mana to cast that spell.");
 			pc_currchar->spell = 0;
-			pc_currchar->casting = 0;
+			pc_currchar->setCasting(false);
 			return false;
 		}
 	}
@@ -1562,7 +1562,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	//spell section for implementation specific stuff to get the spell to work
 	//AntiChrist - 26/10/99
 	//LET'S USE SCRIPT-CONFIGURABLE DELAYS!!!
-	pc_currchar->casting=1;
+	pc_currchar->setCasting(true);
 	if(pc_currchar->spell!=999) pc_currchar->spell=num;
 	pc_currchar->spellaction=spells[num].action;
 	pc_currchar->nextact=75;
@@ -1586,7 +1586,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 		{
 				SpellFail(s);
 				pc_currchar->spell = 0;
-				pc_currchar->casting = 0;
+				pc_currchar->setCasting(false);
 				return false;
 		}
 	}
@@ -1666,7 +1666,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		{
 			SpellFail(s);
 			pc_currchar->spell = 0;
-			pc_currchar->casting = 0;
+			pc_currchar->setCasting(false);
 			return;
 		}
 	}
@@ -1818,7 +1818,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						{
 							criminal(pc_currchar);
 						}
-						if (pc_defender->npcaitype==17) // Ripper 11-14-99
+						if (pc_defender->npcaitype()==17) // Ripper 11-14-99
 						{
 							sysmessage(s," They are Invulnerable merchants!");
 							return;
@@ -2037,9 +2037,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						
 						cMagic::invisibleItemParticles(pc_defender, curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z+12);
 						
-						pc_defender->hidden=2;
+						pc_defender->setHidden( 2 );
 						updatechar(pc_defender);
-						pc_defender->invistimeout=uiCurrentTime+(SrvParams->invisTimer()*MY_CLOCKS_PER_SEC);
+						pc_defender->setInvisTimeout( uiCurrentTime+(SrvParams->invisTimer()*MY_CLOCKS_PER_SEC) );
 						break;
 						//////////// (51) FLAMESTRIKE ///////////
 					case 51:
@@ -2358,7 +2358,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
 									{
-										if (mapchar->npcaitype==17) // Ripper 11-14-99
+										if (mapchar->npcaitype() == 17) // Ripper 11-14-99
 										{
 											sysmessage(s," They are Invulnerable merchants!");
 											return;
@@ -2462,7 +2462,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
 									{
-										if (mapchar->npcaitype==17) // Ripper 11-14-99
+										if (mapchar->npcaitype() == 17) // Ripper 11-14-99
 										{
 											sysmessage(s," They are Invulnerable merchants!");
 											return;
@@ -2573,7 +2573,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
 									{
-										if (mapchar->npcaitype==17) // Ripper 11-14-99
+										if (mapchar->npcaitype() == 17) // Ripper 11-14-99
 										{
 											sysmessage(s," They are Invulnerable merchants!");
 											return;
@@ -2838,7 +2838,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						P_CHAR pc = FindCharBySerial(*it);
 						if (pc != NULL)
 						{
-							if (pc->isInvul() || pc->npcaitype==17)		// don't affect vendors
+							if (pc->isInvul() || pc->npcaitype()==17)		// don't affect vendors
 								continue;
 							if (pc->isSameAs(pc_currchar))				// nor the caster
 								continue;
@@ -4068,7 +4068,7 @@ void cMagic::AfterSpellDelay(UOXSOCKET s, P_CHAR pc)
 	{
 		Magic->NewCastSpell( s );
 	}
-	pc->casting=0;
+	pc->setCasting(false);
 	pc->spelltime=0;
 	pc->priv2 &= 0xfd; // unfreeze, bugfix LB
 }

@@ -161,7 +161,7 @@ void cSkills::BowCraft(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
 
-	action(s,pc_currchar->onhorse ? 0x1C : 0x0D);
+	action(s,pc_currchar->onHorse() ? 0x1C : 0x0D);
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && !pi->isLockedDown()) // Ripper
@@ -507,7 +507,7 @@ void cSkills::Mine(int s)
 	{
 		pc->unhide();
 	}
-	if (pc->onhorse)
+	if (pc->onHorse())
 	{
 		sysmessage(s, tr("You cant mine while on a horse!") );
 		return;
@@ -635,7 +635,7 @@ void cSkills::Mine(int s)
 		return;
 	}
 	
-	if (pc->onhorse)
+	if (pc->onHorse())
 		action(s,0x1A);
 	else
 		action(s,0x0b);
@@ -788,8 +788,10 @@ void cSkills::TreeTarget(int s)
 	P_ITEM pi_pack = Packitem(pc);
 	if (pi_pack == NULL) {sysmessage(s,tr("No backpack to store logs") ); return; } //LB
 	
-	if (pc->onhorse) action(s,0x1C);
-	else action(s,0x0D);
+	if (pc->onHorse()) 
+		action(s,0x1C);
+	else 
+		action(s,0x0D);
 	soundeffect(s,0x01,0x3E);
 	
 	if (!Skills->CheckSkill(pc, LUMBERJACKING, 0, 1000)) 
@@ -842,7 +844,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 
 	Karma(pc, NULL,-2000); // Karma loss no lower than the -2 pier
 	
-	if(pc->onhorse)
+	if(pc->onHorse())
 		action(s,0x1A);
 	else
 		action(s,0x0b);
@@ -854,7 +856,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 	}
 	
 	nFame = pc->fame;
-	if(pc->onhorse)
+	if(pc->onHorse())
 		action(s,0x1A);
 	else
 		action(s,0x0b);
@@ -963,7 +965,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 	P_CHAR pc_currchar = currchar[s];
 
 //	int smi = pc_currchar->smeltitem;		// index of ore item
-	const P_ITEM pi = FindItemBySerial(pc_currchar->smeltitem);	// on error return
+	const P_ITEM pi = FindItemBySerial(pc_currchar->smeltitem());	// on error return
 	if ( pi == NULL )
 		return;
 
@@ -1030,7 +1032,7 @@ void cSkills::SmeltOre(int s)
 				sysmessage(s, tr("You cant smelt here.") );
 			else
 			{
-				P_ITEM pix = FindItemBySerial(pc_currchar->smeltitem);	// on error return
+				P_ITEM pix = FindItemBySerial(pc_currchar->smeltitem());	// on error return
 				if ( pix == NULL)
 					return;
 				switch ( pix->color() )
@@ -1051,7 +1053,7 @@ void cSkills::SmeltOre(int s)
 			}
 		}
 	}
-	pc_currchar->smeltitem = INVALID_SERIAL;
+	pc_currchar->setSmeltItem( INVALID_SERIAL );
 	Weight->NewCalc(pc_currchar);	// Ison 2-20-99
 	statwindow(s, pc_currchar);		// Ison 2-20-99
 }
@@ -1076,7 +1078,7 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 			sysmessage(s, tr("You have successfully spun your material.") );
 
 //			int ti = pc_currchar->tailitem;
-			const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
+			const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem());	// on error return
 			
 			if (mat==YARN)
 			{
@@ -1096,7 +1098,7 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 			tailme=1;
 		}
 	}
-	pc_currchar->tailitem = INVALID_SERIAL;
+	pc_currchar->setTailItem( INVALID_SERIAL );
 	if(!tailme) sysmessage(s,tr("You cant tailor here.") );
 }
 
@@ -1113,7 +1115,7 @@ void cSkills::Loom(int s)
 			if(iteminrange(s,pi,3))
 			{
 //				int ti = pc_currchar->tailitem;
-				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
+				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem());	// on error return
 				if (pti == NULL)
 					return;
 				if( pti->amount() < 5 )
@@ -1160,7 +1162,7 @@ void cSkills::Loom(int s)
 			}
 		}
 	}
-	pc_currchar->tailitem = INVALID_SERIAL;
+	pc_currchar->setTailItem( INVALID_SERIAL );
 	if(!tailme) 
 		sysmessage(s, tr("You cant tailor here.") );
 }
@@ -1224,7 +1226,7 @@ void cSkills::MakeDough(int s)
 				}
 				sysmessage(s, tr("You have mixed very well to make your dough.") );
 				
-				const P_ITEM pti=FindItemBySerial(pc_currchar->tailitem);	// on error return
+				const P_ITEM pti=FindItemBySerial(pc_currchar->tailitem());	// on error return
 				if ( pti == NULL)
 					return;
 				pti->setName( "#" );
@@ -1238,7 +1240,7 @@ void cSkills::MakeDough(int s)
 			}
 		}
 	}
-	pc_currchar->tailitem=INVALID_SERIAL;
+	pc_currchar->setTailItem( INVALID_SERIAL );
 	if(!tailme) 
 		sysmessage(s, tr("You cant mix here.") );
 }
@@ -1263,7 +1265,7 @@ void cSkills::MakePizza(int s)
 				}
 				sysmessage(s, tr("You have made your uncooked pizza, ready to place in oven.") );
 				
-				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
+				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem());	// on error return
 				if ( pti == NULL )
 					return;
 				pti->setName( "#" );
@@ -1277,7 +1279,7 @@ void cSkills::MakePizza(int s)
 			}
 		}
 	}
-	pc_currchar->tailitem = INVALID_SERIAL;
+	pc_currchar->setTailItem( INVALID_SERIAL);
 	if(!tailme) 
 		sysmessage(s, tr("You cant mix here.") );
 }
@@ -1313,7 +1315,7 @@ void cSkills::DetectHidden(UOXSOCKET s)
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)
 		{
-			if (pc->hidden==1&&(!(pc->priv2&8))) // do not detect invis people only hidden ones
+			if (pc->hidden()==1&&(!(pc->priv2&8))) // do not detect invis people only hidden ones
 			{//do not reveal permanently hidden chars - AntiChrist
 				dx=abs(pc->pos.x-x);
 				dy=abs(pc->pos.y-y);
@@ -1352,11 +1354,11 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 		return;
 	}
 	if ( pc->isInvul() || pc->shop || // invul or shopkeeper
-		pc->npcaitype==0x01 || // healer
-		pc->npcaitype==0x04 || // tele guard
-		pc->npcaitype==0x06 || // chaos guard
-		pc->npcaitype==0x07 || // order guard
-		pc->npcaitype==0x09)   // city guard
+		pc->npcaitype()==0x01 || // healer
+		pc->npcaitype()==0x04 || // tele guard
+		pc->npcaitype()==0x06 || // chaos guard
+		pc->npcaitype()==0x07 || // order guard
+		pc->npcaitype()==0x09)   // city guard
 	{
 		sysmessage(s, tr(" You cant entice that npc!") );
 		return;
@@ -1392,11 +1394,11 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 		return;
 	}
 	if ( pc->isInvul() || pc->shop || // invul or shopkeeper
-		pc->npcaitype==0x01 || // healer
-		pc->npcaitype==0x04 || // tele guard
-		pc->npcaitype==0x06 || // chaos guard
-		pc->npcaitype==0x07 || // order guard
-		pc->npcaitype==0x09)   // city guard
+		pc->npcaitype()==0x01 || // healer
+		pc->npcaitype()==0x04 || // tele guard
+		pc->npcaitype()==0x06 || // chaos guard
+		pc->npcaitype()==0x07 || // order guard
+		pc->npcaitype()==0x09)   // city guard
 	{
 		sysmessage(s, tr(" You cant entice that npc!") );
 		return;
@@ -2094,13 +2096,13 @@ void cSkills::TameTarget(int s)
 			{
 				if(pc->skin() != 0x0481)
 				{
-				    pc->npcaitype = 10;
+				    pc->setNpcAIType( 10 );
 					pc->setTamed(true);
 					updatechar(pc);
 				}
 				else
 				{
-			        pc->npcaitype=0;
+			        pc->setNpcAIType( 0 );
 			        pc->setTamed(true);
 					updatechar(pc);
 				}
@@ -2150,7 +2152,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	
 	P_CHAR pc_npc = GetPackOwner(pi);
 
-	if (pc_npc->npcaitype == 17)
+	if (pc_npc->npcaitype() == 17)
 	{
 		sysmessage(s, tr("You cannot steal that.") );
 		return;

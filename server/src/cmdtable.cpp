@@ -2239,13 +2239,13 @@ void command_gotocur(UOXSOCKET s)
 	int x=0;
 	P_CHAR pc_currchar = currchar[s];
 	
-	if(pc_currchar->callnum==0)
+	if(pc_currchar->callnum()==0)
 	{
 		sysmessage(s, tr("You are not currently on a call."));
 	}
 	else
 	{  
-		int serial = gmpages[pc_currchar->callnum].serial;
+		int serial = gmpages[pc_currchar->callnum()].serial;
 		P_CHAR pc_i = FindCharBySerial( serial );
 		if(pc_i != NULL)
 		{
@@ -2256,7 +2256,7 @@ void command_gotocur(UOXSOCKET s)
 		}  
 		if(x == 0)
 		{
-			SERIAL serial = gmpages[pc_currchar->callnum].serial;
+			SERIAL serial = gmpages[pc_currchar->callnum()].serial;
 			P_CHAR pc_i = FindCharBySerial( serial );
 			if(pc_i != NULL)
 				
@@ -2276,7 +2276,7 @@ void command_gmtransfer(UOXSOCKET s)
 	int x2=0;
 	P_CHAR pc_currchar = currchar[s];
 	
-	if(pc_currchar->callnum!=0)
+	if(pc_currchar->callnum()!=0)
 	{
 		if(!pc_currchar->isGM()) //Char is a counselor
 		{
@@ -2285,9 +2285,9 @@ void command_gmtransfer(UOXSOCKET s)
 				if(gmpages[i].handled==1)
 				{
 					gmpages[i].handled=0;
-					gmpages[i].name = counspages[pc_currchar->callnum].name;
-					gmpages[i].reason = counspages[pc_currchar->callnum].reason;
-					gmpages[i].serial = counspages[pc_currchar->callnum].serial;
+					gmpages[i].name = counspages[pc_currchar->callnum()].name;
+					gmpages[i].reason = counspages[pc_currchar->callnum()].reason;
+					gmpages[i].serial = counspages[pc_currchar->callnum()].serial;
 					time_t current_time = time(0);
 					struct tm *local = localtime(&current_time);
 					sprintf(gmpages[i].timeofcall, "%02d:%02d:%02d", local->tm_hour, local->tm_min, local->tm_sec);
@@ -2392,7 +2392,7 @@ void command_wipenpcs(UOXSOCKET s)
 	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
-        if(toCheck->isNpc() && toCheck->npcaitype!=17 && !toCheck->tamed()) // Ripper
+        if(toCheck->isNpc() && toCheck->npcaitype()!=17 && !toCheck->tamed()) // Ripper
 		{			
 			LongToCharPtr(toCheck->serial, &removeitem[1]);
 			for (i=0;i<now;i++)

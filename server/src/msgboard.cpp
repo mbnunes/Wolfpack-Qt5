@@ -2187,7 +2187,7 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	
 	// Make sure they don't move until an player accepts the quest
 	pc_npc->npcWander       = 0;                // Don't want our escort quest object to wander off.
-	pc_npc->npcaitype       = 18;                // set to escort speech so they can yell to all.
+	pc_npc->setNpcAIType( 18 );                // set to escort speech so they can yell to all.
 	pc_npc->setQuestOrigRegion(pc_npc->region);  // Store this in order to remeber where the original message was posted
 	
 	// Set the expirey time on the NPC if no body accepts the quest

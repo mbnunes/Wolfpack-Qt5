@@ -58,7 +58,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 	//   17  -  11    -  21   -  15
 	//   18  -  12    -  22   -  16
 	//   19  -  13    -  23   -  17  ...this is just a guide...Ripper
-	switch (pc_i->npcaitype)
+	switch (pc_i->npcaitype())
 	{
 		case 0: // Shopkeepers greet players..Ripper
 			if (SrvParams->vendorGreet() == 1 && pc_i->isNpc() && pc_i->shop && pc_i->isHuman())
@@ -160,7 +160,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					if ( pc->isInvul() || pc->isHidden() || pc->dead )
 						continue;
 
-					if ( pc->isNpc() && ( pc->npcaitype == 2 || pc->npcaitype == 1 ) )
+					if ( pc->isNpc() && ( pc->npcaitype() == 2 || pc->npcaitype() == 1 ) )
 						continue;
 
 					if ( SrvParams->monsters_vs_animals() == 0 && ( pc->title().isEmpty() && !pc->isHuman() ) )
@@ -255,7 +255,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					       continue;					// logged out player
 				        if (pc_i->isSameAs(pc))
 					       continue;					// the guard himself
-				        if (!(pc->npcaitype==2 || pc->isMurderer()))
+				        if (!(pc->npcaitype() == 2 || pc->isMurderer()))
 					       continue;
 				        d = pc_i->dist(pc);
 				        if (d > SrvParams->attack_distance() || pc->isInvul() || pc->dead)
@@ -331,9 +331,9 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (d <= 10 &&(
-							(pc->isNpc() &&(pc->npcaitype == 2))	// evil npc
+							(pc->isNpc() &&(pc->npcaitype() == 2))	// evil npc
 							||(pc->isPlayer() && !(pc->isInnocent()) || pc->isCriminal()))	// a player, not grey or blue
-							||(pc->attackfirst == 1))	// any agressor
+							||(pc->attackfirst()))	// any agressor
 						{
 							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
 							pc_i->pos.y = pc->pos.y;
@@ -360,7 +360,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					{
 						onl = online(pc);
 						d = chardist( pc_i, pc );
-						if (d > 10 || pc->isPlayer() || (pc->isNpc() && pc->npcaitype != 2))
+						if (d > 10 || pc->isPlayer() || (pc->isNpc() && pc->npcaitype() != 2))
 							continue;
 						npcattacktarget(pc_i, pc);
 						return;
@@ -381,7 +381,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						d = chardist( pc_i, pc );
 						if (d > 10 || pc->isInvul() || pc->dead)
 							continue;
-						if (!(pc->npcaitype == 2 || pc->isMurderer()))
+						if (!(pc->npcaitype() == 2 || pc->isMurderer()))
 							continue;
 						if (pc->isPlayer() && !onl)
 							continue;
@@ -464,7 +464,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			DragonAI->DoAI(pc_i, currenttime);
 			break;
 		default:
-			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc (%8x) has invalid AI type %i\n", pc_i->serial, pc_i->npcaitype); // Morrolan
+			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc (%8x) has invalid AI type %i\n", pc_i->serial, pc_i->npcaitype()); // Morrolan
 			return;
 	}// switch
 }// void checknpcai

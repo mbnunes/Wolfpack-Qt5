@@ -173,18 +173,18 @@ void cChar::Init(bool ser)
 	this->fy1=-1; //NPC Wander Point 1 y
 	this->fy2=-1; //NPC Wander Point 2 y
 	this->fz1=0; //NPC Wander Point 1 z
-	this->spawnserial=-1; // Spawned by
-	this->hidden=0; // 0 = not hidden, 1 = hidden, 2 = invisible spell
-	this->invistimeout=0;
+	this->setSpawnSerial( INVALID_SERIAL ); // Spawned by
+	this->setHidden(0); // 0 = not hidden, 1 = hidden, 2 = invisible spell
+	this->setInvisTimeout(0);
 	this->resetAttackFirst(); // 0 = defending, 1 = attacked first
-	this->onhorse=false; // On a horse?
-	this->hunger=6;  // Level of hungerness, 6 = full, 0 = "empty"
-	this->hungertime=0; // Timer used for hunger, one point is dropped every 20 min
-	this->smeltitem= INVALID_SERIAL;
-	this->tailitem = INVALID_SERIAL;
-	this->npcaitype=0; // NPC ai
-	this->callnum=-1; //GM Paging
-	this->playercallnum=-1; //GM Paging
+	this->setOnHorse(false); // On a horse?
+	this->setHunger(6);  // Level of hungerness, 6 = full, 0 = "empty"
+	this->setHungerTime(0); // Timer used for hunger, one point is dropped every 20 min
+	this->setSmeltItem( INVALID_SERIAL );
+	this->setTailItem( INVALID_SERIAL );
+	this->setNpcAIType(0); // NPC ai
+	this->setCallNum(-1); //GM Paging
+	this->setPlayerCallNum(-1); //GM Paging
 	this->region=255;
 	this->skilldelay=0;
 	this->objectdelay=0;
@@ -239,7 +239,7 @@ void cChar::Init(bool ser)
 	// End of Guild Related Character information
 	this->murderrate=0; //# of ticks till murder decays.
 	this->crimflag=-1; // time when no longer criminal -1 = not criminal
-	this->casting=0; // 0/1 is the cast casting a spell?
+	this->setCasting(false); // 0/1 is the cast casting a spell?
 	this->spelltime=0; //Time when they are done casting....
 	this->spell=0; //current spell they are casting....
 	this->spellaction=0; //Action of the current spell....
@@ -372,7 +372,7 @@ void cChar::unhide()
 	if (this->isHidden() && !(this->priv2&8))	//if hidden but not permanently
 	{
 		this->setStealth(-1);
-		this->hidden=0;
+		this->setHidden(0);
 		updatechar(this);	// LB, necassary for client 1.26.2
 		if (this->isGM())
 			tempeffect(this, this, 34, 3, 0, 0); 
@@ -586,13 +586,13 @@ void cChar::SetOwnSerial(long ownser)
 
 void cChar::SetSpawnSerial(long spawnser)
 {
-	if (spawnserial != INVALID_SERIAL)	// if it was set, remove the old one
-		cspawnsp.remove(spawnserial, serial);
+	if (spawnSerial() != INVALID_SERIAL)	// if it was set, remove the old one
+		cspawnsp.remove(spawnSerial(), serial);
 
-	spawnserial = spawnser;
+	spawnserial_ = spawnser;
 
 	if (spawnser != INVALID_SERIAL)		// if there is a spawner, add it
-		cspawnsp.insert(spawnserial, serial);
+		cspawnsp.insert(spawnserial_, serial);
 }
 
 void cChar::SetMultiSerial(long mulser)
@@ -788,10 +788,10 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("fz1",				fz1);
 		archive.read("fx2",				fx2);
 		archive.read("fy2",				fy2);
-		archive.read("spawn",			spawnserial);
-		archive.read("hidden",			hidden);
-		archive.read("hunger",			hunger);
-		archive.read("npcaitype",		npcaitype);
+		archive.read("spawn",			spawnserial_);
+		archive.read("hidden",			hidden_);
+		archive.read("hunger",			hunger_);
+		archive.read("npcaitype",		npcaitype_);
 		archive.read("spattack",		spattack);
 		archive.read("spadelay",		spadelay);
 		archive.read("taming",			taming);
@@ -823,7 +823,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("jailsecs",		jailsecs); 
 		archive.read("gmrestrict",		gmrestrict_);
 		SetOwnSerial(ownserial);
-		SetSpawnSerial(spawnserial);
+		SetSpawnSerial(spawnserial_);
 	}
 	else if ( archive.isWritting())
 	{
@@ -937,10 +937,10 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("fz1",			fz1);
 		archive.write("fx2",			fx2);
 		archive.write("fy2",			fy2);
-		archive.write("spawn",			spawnserial);
-		archive.write("hidden",			hidden);
-		archive.write("hunger",			hunger);
-		archive.write("npcaitype",		npcaitype);
+		archive.write("spawn",			spawnserial_);
+		archive.write("hidden",			hidden_);
+		archive.write("hunger",			hunger_);
+		archive.write("npcaitype",		npcaitype_);
 		archive.write("spattack",		spattack);
 		archive.write("spadelay",		spadelay);
 		archive.write("taming",			taming);

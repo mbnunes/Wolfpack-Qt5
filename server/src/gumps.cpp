@@ -399,7 +399,7 @@ void cGump::Input(int s)
 				   }
 					break;
 		case 10:	k = str2num( text );	pc_j->def = k;		break;	// Defence
-		case 11:	k = str2num( text );	pc_j->hunger = k;	break;	// Hunger
+		case 11:	k = str2num( text );	pc_j->setHunger(k);	break;	// Hunger
 		case 12:	k = str2num( text );	pc_j->st = k;		break;	// Strength
 		case 13:	k = str2num( text );	pc_j->setDex(k);	break;	// Dexterity
 		case 14:	k = str2num( text );	pc_j->in = k;		break;	// Intelligence
@@ -1131,7 +1131,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1,  "ItemHand" );
 		line--; if( line == 0 ) sprintf( (char*)script1, "%i", pj->itemhand() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Layer");
-		line--; if( line == 0 ) sprintf( (char*)script1,"%i (0x%x)", pj->layer, pj->layer);
+		line--; if( line == 0 ) sprintf( (char*)script1,"%i (0x%x)", pj->layer(), pj->layer());
 		line--; if( line == 0 ) strcpy( (char*)script1, "Amount");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->amount());
 		line--; if( line == 0 ) strcpy( (char*)script1, "More");
@@ -1196,7 +1196,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "Defence" );
 		line--; if( line == 0 ) sprintf((char*) script1,"%i", pc_j->def );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Hunger" );
-		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pc_j->hunger );
+		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pc_j->hunger() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Strength" );
 		line--; if( line == 0 ) sprintf((char*) script1,"%i", pc_j->st );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Dexterity" );

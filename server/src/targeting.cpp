@@ -152,7 +152,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 
 	P_ITEM np = FindItemBySerial(pi->contserial);		// the pack
 	P_CHAR npc = GetPackOwner(np);				// the vendor
-	if(npc != pc || pc->npcaitype!=17) return;
+	if(npc != pc || pc->npcaitype() != 17) return;
 
 	if (pc_currchar->Owns(pc))
 	{
@@ -673,10 +673,10 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 		pc->account(),pc->getPriv(),pc->priv2,
 		pc->pos.x,pc->pos.y,pc->pos.z, pc->timeout,
 		pc->fame,pc->karma,pc->deaths,pc->kills,
-		pc->npcaitype, pc->npcWander, (float)pc->weight);
+		pc->npcaitype(), pc->npcWander, (float)pc->weight);
 	sysmessage(s, (char*)temp);
 	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target Serial [%x] Carve[%i]", //Changed by Magius(CHE)
-		pc->poisoned,pc->poison,pc->hunger,pc->attacker,pc->targ,pc->carve()); //Changed by Magius(CHE)
+		pc->poisoned,pc->poison,pc->hunger(),pc->attacker,pc->targ,pc->carve()); //Changed by Magius(CHE)
 	sysmessage(s, (char*)temp);
 	Gumps->Open(s, pc, 0, 8);
 	statwindow(s, pc);
@@ -939,7 +939,7 @@ void cTargets::VisibleTarget (int s)
 		P_CHAR pc = FindCharBySerial(serial);
 		if(pc != NULL)
 		{
-			pc->hidden=addx[s];
+			pc->setHidden( addx[s] );
 			updatechar(pc);
 		}
 	}
@@ -2491,7 +2491,7 @@ void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 	if (IsTree(pp->model))
 	{
 		P_CHAR pc = pC->getPlayer();
-		if (!pc->onhorse) action(s,0x0D);
+		if (!pc->onHorse()) action(s,0x0D);
 		else action(s,0x1d);
 		soundeffect(s,0x01,0x3E);
 		P_ITEM pi = Items->SpawnItem(pc,1,"#",1,0x0DE1,0,0); //Kindling
@@ -2595,7 +2595,7 @@ void cTargets::NpcAITarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		pc->npcaitype=addx[s];
+		pc->setNpcAIType(addx[s]);
 		sysmessage(s, "Npc AI changed.");//AntiChrist
 	}
 }
@@ -2887,7 +2887,7 @@ void cTargets::permHideTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial); 
 	if (pc != NULL) 
 	{ 
-		if (pc->hidden == 1) 
+		if (pc->hidden() == 1) 
 		{ 
 			if (pc == currchar[s])
 				sysmessage(s, "You are already hiding."); 
@@ -2918,7 +2918,7 @@ void cTargets::unHideTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial); 
 	if (pc != NULL) 
 	{ 
-		if (pc->hidden == 0) 
+		if (pc->hidden() == 0) 
 		{ 
 			if (pc == currchar[s])
 				sysmessage(s, "You are not hiding."); 
@@ -3872,7 +3872,7 @@ void cTargets::GuardTarget( UOXSOCKET s )
 		sysmessage( s, "Currently can't guard anyone but yourself!" );
 		return;
 	}
-	pPet->npcaitype = 32; // 32 is guard mode
+	pPet->setNpcAIType( 32 ); // 32 is guard mode
 	pPet->ftarg = currchar[s]->serial;
 	pPet->npcWander=1;
 	sysmessage(s, "Your pet is now guarding you.");

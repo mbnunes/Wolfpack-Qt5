@@ -83,7 +83,7 @@ void RcvAttack(P_CLIENT ps)
 			return;
 		}
 		
-		if (pc_i->npcaitype==17)//PlayerVendors
+		if (pc_i->npcaitype() == 17)//PlayerVendors
 		{
 			sprintf((char*)temp, "%s cannot be harmed.",pc_i->name.c_str());
 			sysmessage(s, (char*)temp);
@@ -109,7 +109,7 @@ void RcvAttack(P_CLIENT ps)
 			for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 			{
 				P_CHAR toCheck = iter_char.GetData();
-				if (pc_i->Owns(toCheck) && toCheck->npcaitype == 32 && chardist( pc_currchar, toCheck )<= 10 )
+				if (pc_i->Owns(toCheck) && toCheck->npcaitype() == 32 && chardist( pc_currchar, toCheck )<= 10 )
 				{
 					npcattacktarget( pc_currchar, toCheck );
 				}
@@ -123,23 +123,23 @@ void RcvAttack(P_CLIENT ps)
 				criminal( pc_currchar );
 				Combat->SpawnGuard(pc_currchar, pc_i ,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			}
-			else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype!=4 )
+			else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype() != 4 )
 			{
 				criminal( pc_currchar );
 				Combat->SpawnGuard(pc_currchar, pc_i, pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			}
-			else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype!=4 )
+			else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype() != 4 )
 			{
 				npctalkall(pc_i, "Help! Guards! I've been attacked!", 1);
 				criminal( pc_currchar );
 				callguards(pc_i);
 			}
-			else if( pc_i->isNpc() && pc_i->npcaitype==4)
+			else if( pc_i->isNpc() && pc_i->npcaitype() == 4)
 			{
 				criminal( pc_currchar );
 				npcattacktarget(pc_i, pc_currchar);
 			}
-			else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war && pc_i->npcaitype!=4) // changed from 0x40 to 4, cauz 0x40 was removed LB
+			else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war && pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
 			{
 				npcToggleCombat(pc_i);
 				pc_i->setNextMoveTime();

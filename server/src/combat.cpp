@@ -82,25 +82,23 @@ void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char 
 	unsigned short int tempmage=pc_currchar->skill[MAGERY];//Easier than writing new functions for all these spells
 
 
-	if(pi->type!=15) return;
-	
-	if(pi->morez<=0) return;
+	if(pi->type != 15 || pi->morez<=0 ) return;
 	
 	switch(spellnum)
 	{
-	case 1:  Magic->ClumsySpell(pc_currchar,pc); break; //LB
-	case 3:  Magic->FeebleMindSpell(pc_currchar,pc); break; //LB
-	case 5:	 Magic->MagicArrow(pc_currchar,pc);		break; // lB
-	case 8:  Magic->WeakenSpell(pc_currchar,pc); break; //LB
-	case 18: Magic->FireballSpell(pc_currchar,pc); break; //LB
-	case 22: Magic->HarmSpell(pc_currchar,pc); break; //LB
-	case 27: Magic->CurseSpell(pc_currchar,pc); break; //LB
-	case 30: Magic->LightningSpell(pc_currchar,pc); break; //lb
-	case 37: Magic->MindBlastSpell(pc_currchar,pc); break;
-	case 38: Magic->ParalyzeSpell(pc_currchar,pc);	break; //lb
-	case 42: Magic->EnergyBoltSpell(pc_currchar,pc); break;
-	case 43: Magic->ExplosionSpell(pc_currchar,pc); break;
-	case 51: Magic->FlameStrikeSpell(pc_currchar,pc); break;
+	case 1:  Magic->ClumsySpell(pc_currchar,pc);		break;
+	case 3:  Magic->FeebleMindSpell(pc_currchar,pc);	break;
+	case 5:	 Magic->MagicArrow(pc_currchar,pc);			break;
+	case 8:  Magic->WeakenSpell(pc_currchar,pc);		break;
+	case 18: Magic->FireballSpell(pc_currchar,pc);		break;
+	case 22: Magic->HarmSpell(pc_currchar,pc);			break;
+	case 27: Magic->CurseSpell(pc_currchar,pc);			break;
+	case 30: Magic->LightningSpell(pc_currchar,pc);		break;
+	case 37: Magic->MindBlastSpell(pc_currchar,pc);		break;
+	case 38: Magic->ParalyzeSpell(pc_currchar,pc);		break;
+	case 42: Magic->EnergyBoltSpell(pc_currchar,pc);	break;
+	case 43: Magic->ExplosionSpell(pc_currchar,pc);		break;
+	case 51: Magic->FlameStrikeSpell(pc_currchar,pc);	break;
 	default:
 		staticeffect(pc_currchar, 0x37, 0x35, 0, 30);
 		soundeffect2(pc_currchar, 0x005C);
@@ -426,11 +424,11 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			//when hitten and damage >1, defender fails if casting a spell!
 			if(damage>1 && pc_deffender->isPlayer())//only if damage>1 and against a player
 			{
-				if(pc_deffender->casting && currentSpellType[s2]==0 )
+				if(pc_deffender->casting() && currentSpellType[s2]==0 )
 				{//if casting a normal spell (scroll: no concentration loosen)
 					currentSpellType[s2]=0;
 					pc_deffender->spell=-1;
-					pc_deffender->casting=0;
+					pc_deffender->setCasting(false);
 					pc_deffender->spelltime=0;
 					pc_deffender->priv2 &= 0xfd; // unfreeze, bugfix LB
 					Magic->SpellFail(s2);
@@ -525,7 +523,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			x = pc_deffender->id();
 			if (x>=0x0190)
 			{
-				if (!pc_deffender->onhorse) 
+				if (!pc_deffender->onHorse()) 
 					npcaction(pc_deffender, 0x14);
 			}
 		}
@@ -703,7 +701,7 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 		npcaction(pc_attacker,aa); 
 		playmonstersound(pc_attacker, pc_attacker->id(), SND_ATTACK);
 	}
-	else if (pc_attacker->onhorse)
+	else if (pc_attacker->onHorse())
 	{
 		CombatOnHorse(pc_attacker);	// determines weapon in hand and runs animation kolours (09/19/98)
 	}
@@ -760,11 +758,11 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 		if (pc_attacker->dispz > (pc_defender->dispz +10)) return;//FRAZAI
 		if (pc_attacker->dispz < (pc_defender->dispz -10)) return;//FRAZAI
 		
-		if ((pc_defender->isNpc() && pc_defender->npcaitype!=17) || (online(pc_defender) && !pc_defender->dead) ) // ripper		
+		if ((pc_defender->isNpc() && pc_defender->npcaitype()!=17) || (online(pc_defender) && !pc_defender->dead) ) // ripper		
 		{
 			if (chardist( pc_attacker, pc_defender ) > SrvParams->attack_distance())
 			{
-				if (pc_attacker->npcaitype==4 && pc_attacker->inGuardedArea()) // changed from 0x40 to 4, LB
+				if (pc_attacker->npcaitype()==4 && pc_attacker->inGuardedArea()) // changed from 0x40 to 4, LB
 				{
 					pc_attacker->moveTo(pc_defender->pos);
 					
@@ -785,7 +783,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 					}
 					pc_attacker->attacker=INVALID_SERIAL;
 					pc_attacker->resetAttackFirst();
-					if (pc_attacker->isNpc() && pc_attacker->npcaitype!=17 && !pc_attacker->dead && pc_attacker->war)
+					if (pc_attacker->isNpc() && pc_attacker->npcaitype()!=17 && !pc_attacker->dead && pc_attacker->war)
 						npcToggleCombat(pc_attacker); // ripper
 				}
 			}
@@ -841,7 +839,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 						
 						DoCombatAnimations( pc_attacker, pc_defender, fightskill, bowtype, los);
 
-						if (((chardist( pc_attacker, pc_defender )<2)||(fightskill==ARCHERY))&&!(pc_attacker->npcaitype==4)) // changed from 0x40 to 4
+						if (((chardist( pc_attacker, pc_defender )<2)||(fightskill==ARCHERY))&&!(pc_attacker->npcaitype()==4)) // changed from 0x40 to 4
                         {
 							if (los)
 							{
@@ -870,7 +868,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 			}			
 			if (pc_defender->hp<1)//Highlight //Repsys
 			{
-				if(pc_attacker->npcaitype==4 && pc_defender->isNpc())
+				if(pc_attacker->npcaitype()==4 && pc_defender->isNpc())
 				{
 					npcaction(pc_defender, 0x15);
 					
@@ -1270,7 +1268,7 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 		P_CHAR pc_guard = Npcs->AddNPCxyz(calcSocketFromChar(pc_offender), t, 0, x, y, z);
 		if ( pc_guard == NULL ) return;
 		
-		pc_guard->npcaitype = 4; // CITY GUARD, LB, bugfix, was 0x40 -> not existing
+		pc_guard->setNpcAIType( 4 ); // CITY GUARD, LB, bugfix, was 0x40 -> not existing
 		pc_guard->setAttackFirst();
 		pc_guard->attacker = pc_offender->serial;
 		pc_guard->targ = pc_offender->serial;

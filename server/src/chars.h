@@ -123,18 +123,6 @@ public:
 	int						fy1; //NPC Wander Point 1 y
 	int						fy2; //NPC Wander Point 2 y
 	signed char				fz1; //NPC Wander Point 1 z
-	SERIAL					spawnserial; // Spawned by
-	unsigned char			hidden; // 0 = not hidden, 1 = hidden, 2 = invisible spell
-	unsigned int			invistimeout;
-	bool					attackfirst; // 0 = defending, 1 = attacked first
-	bool					onhorse; // On a horse?
-	int						hunger;  // Level of hungerness, 6 = full, 0 = "empty"
-	unsigned int			hungertime; // Timer used for hunger, one point is dropped every 20 min
-	SERIAL					smeltitem;
-	SERIAL					tailitem;
-	int						npcaitype; // NPC ai
-	int						callnum; //GM Paging
-	int						playercallnum; //GM Paging
 	//int pagegm; //GM Paging
 	//char region;
 	unsigned char			region;
@@ -186,7 +174,6 @@ public:
 	// End of Guild Related Character information
 	unsigned int			murderrate; //#of ticks until one murder decays //REPSYS 
 	long int				crimflag; //Time when No longer criminal -1=Not Criminal
-	int						casting; // 0/1 is the cast casting a spell?
 	unsigned int			spelltime; //Time when they are done casting....
 	int						spell; //current spell they are casting....
 	int						spellaction; //Action of the current spell....
@@ -236,6 +223,7 @@ protected:
 	int						menupriv_; // needed fro LB's menu priv system
 	bool					tamed_;
 	bool					guarded_;							// (Abaddon) if guarded
+	bool					casting_; // 0/1 is the cast casting a spell?
     unsigned int			smoketimer_; // LB
 	unsigned int			smokedisplaytimer_;
 	unsigned int			antispamtimer_;//LB - anti spam
@@ -252,9 +240,6 @@ protected:
 	int						questBountyPostSerial_;  // The global posting serial number of the bounty message
 	SERIAL					murdererSer_;            // Serial number of last person that murdered this char
 	Coord_cl				prevPos_;
-//	int						prevX_; // fix for looping gate travel bug (bounce back problem)
-//	int						prevY_;
-//	signed char 			prevZ_;
 	unsigned char			commandLevel_;             // 0 = player, 1 = counselor, 2 = GM
 	unsigned int			spawnregion_; 
 	SERIAL					stablemaster_serial_; 
@@ -262,6 +247,18 @@ protected:
 	// can be used for other npc types too of course
 	unsigned int			time_unused_;     
 	unsigned int			timeused_last_;
+	SERIAL					spawnserial_; // Spawned by
+	unsigned char			hidden_; // 0 = not hidden, 1 = hidden, 2 = invisible spell
+	unsigned int			invistimeout_;
+	bool					attackfirst_; // 0 = defending, 1 = attacked first
+	bool					onhorse_; // On a horse?
+	int						hunger_;  // Level of hungerness, 6 = full, 0 = "empty"
+	unsigned int			hungertime_; // Timer used for hunger, one point is dropped every 20 min
+	SERIAL					smeltitem_;
+	SERIAL					tailitem_;
+	int						npcaitype_; // NPC ai
+	int						callnum_; //GM Paging
+	int						playercallnum_; //GM Paging
 
 	
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
@@ -325,16 +322,25 @@ public:
 	int						questBountyPostSerial() const {return questBountyPostSerial_;}
 	SERIAL					murdererSer() const {return murdererSer_;}
 	Coord_cl				prevPos() const { return prevPos_; }
-//	int						prevX; // fix for looping gate travel bug (bounce back problem)
-//	int						prevY;
-//	signed char 			prevZ;
 	unsigned char			commandLevel() const { return commandLevel_;}             // 0 = player, 1 = counselor, 2 = GM
 	unsigned int			spawnregion() const {return spawnregion_;} 
 	SERIAL					stablemaster_serial() const {return stablemaster_serial_;} 
 	unsigned char			npc_type() const {return npc_type_;}
 	unsigned int			time_unused() const { return time_unused_;}
 	unsigned int			timeused_last() const { return timeused_last_;}
-
+	bool					casting() const { return casting_;	}
+	SERIAL					spawnSerial() const { return spawnserial_;}
+	unsigned char			hidden() const { return hidden_; } // 0 = not hidden, 1 = hidden, 2 = invisible spell
+	unsigned int			invistimeout() const { return invistimeout_;}
+	bool					attackfirst() const { return attackfirst_; }
+	bool					onHorse() const { return onhorse_; }
+	int						hunger() const { return hunger_; }
+	unsigned int			hungertime() const { return hungertime_;}
+	SERIAL					smeltitem() const { return smeltitem_; }
+	SERIAL					tailitem() const { return tailitem_; }
+	int						npcaitype() const { return npcaitype_;}
+	int						callnum() const { return callnum_; }
+	int						playercallnum() const { return playercallnum_; }
 	
 	// Setters
 	void					setGuildType(short data);
@@ -388,6 +394,19 @@ public:
 	void					setNpc_type( unsigned char data ) { npc_type_ = data; }
 	void					setTime_unused ( unsigned int data ) { time_unused_ = data; }
 	void					setTimeused_last( unsigned int data ) { timeused_last_ = data;}
+	void					setCasting( bool data ) { casting_ = data;	}
+	void					setSpawnSerial( SERIAL data ) { spawnserial_ = data;}
+	void					setHidden ( unsigned char data ) { hidden_ = data;}
+	void					setInvisTimeout ( unsigned int data ) { invistimeout_ = data;}
+	void					setAttackFirst ( bool data ) { attackfirst_ = data;}
+	void					setOnHorse ( bool data ) { onhorse_ = data; }
+	void					setHunger ( int data ) { hunger_ = data; }
+	void					setHungerTime ( unsigned int data ) { hungertime_ = data;}
+	void					setSmeltItem ( SERIAL data ) { smeltitem_ = data;}
+	void					setTailItem ( SERIAL data ) { tailitem_ = data;}
+	void					setNpcAIType( int data ) { npcaitype_ = data;}
+	void					setCallNum ( int data ) { callnum_ = data;}
+	void					setPlayerCallNum ( int data ) { playercallnum_ = data;}
 
 	
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
@@ -416,22 +435,22 @@ public:
 	bool  isInnocent()	const;
 	bool  isMurderer()	const;
 	bool  isCriminal()	const;
-	unsigned char getPriv();
+	unsigned char getPriv() const;
 	void setPriv(unsigned char p);
 	void makeInvulnerable();
 	void makeVulnerable();
 	void setMurderer();
 	void setInnocent();
 	void setCriminal();
-	void setAttackFirst()		{this->attackfirst = true;}
-	void resetAttackFirst()		{this->attackfirst = false;}
+	void setAttackFirst()		{this->attackfirst_ = true;}
+	void resetAttackFirst()		{this->attackfirst_ = false;}
 	void fight(cChar* pOpponent);
 	void setNextMoveTime(short tamediv=1);
 	void disturbMed(UOXSOCKET s=-1);
 	void unhide();
-	bool isHidden() { return hidden > 0 ? true : false; }
-	bool isHiddenBySpell() { return hidden & 2 ? true : false; }
-	bool isHiddenBySkill() { return (hidden & 1); }
+	bool isHidden() { return hidden() > 0 ? true : false; }
+	bool isHiddenBySpell() { return hidden() & 2 ? true : false; }
+	bool isHiddenBySkill() { return (hidden() & 1); }
 	int  CountItems(short ID, short col= -1);
 	int  CountGold()			{return CountItems(0x0EED);}
 	P_ITEM GetItemOnLayer(unsigned char layer);
@@ -529,13 +548,13 @@ inline bool  cChar::canSeeSerials() const 	{return (priv&0x08 ?true:false);}
 inline bool  cChar::isInnocent() const		{return (flag&0x04 ?true:false);}
 inline bool  cChar::isMurderer() const		{return (flag&0x01 ?true:false);}
 inline bool  cChar::isCriminal() const		{return (flag&0x02 ?true:false);}
-inline unsigned char cChar::getPriv()	{return priv;}
+inline unsigned char cChar::getPriv() const	{return priv;}
 inline void cChar::setPriv(unsigned char p)	{this->priv=p;}
-inline void cChar::makeInvulnerable()	{priv |= 4;}
-inline void cChar::makeVulnerable()		{priv &= 0xFB;}
-inline void cChar::setMurderer()		{flag = 0x01;}
-inline void cChar::setInnocent()		{flag = 0x04;}
-inline void cChar::setCriminal()		{flag=0x02;}
+inline void cChar::makeInvulnerable()		{priv |= 4;}
+inline void cChar::makeVulnerable()			{priv &= 0xFB;}
+inline void cChar::setMurderer()			{flag = 0x01;}
+inline void cChar::setInnocent()			{flag = 0x04;}
+inline void cChar::setCriminal()			{flag = 0x02;}
 
 // Getters
 inline short			cChar::guildType() const		{ return GuildType; }

@@ -1787,9 +1787,9 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 				{
 					P_CHAR pc_ci = FindCharBySerial(vecSpawned[j]);
 					if (pc_ci != NULL)
-						if (pc_ci->spawnserial==pi->serial && !pc_ci->free)
+						if (pc_ci->spawnSerial() == pi->serial && !pc_ci->free)
 						{
-							k++;
+							++k;
 						}
 				}
 

@@ -894,12 +894,12 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 
 		//AntiChrist bugfix for hiding
 		pc->priv2 &= 0xf7; // unhide - AntiChrist
-		pc->hidden = 0;
+		pc->setHidden( 0 );
 		pc->setStealth( -1 );
 
 		//AntiChrist bugfix for magic reflect
 		pc->priv2 &= 0xBF;
-		pc->SetSpawnSerial( pc->spawnserial );
+		pc->SetSpawnSerial( pc->spawnSerial() );
 
 		pc->region = calcRegionFromXY(pc->pos.x, pc->pos.y); //LB bugfix
 

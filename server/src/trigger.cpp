@@ -263,46 +263,46 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						{
 						case 0x1A:// Mining-Gravedigging
 						case 0x0B:
-							if (pc_ts->onhorse)
+							if (pc_ts->onHorse())
 								act = 0x1A;
 							else 
 								act = 0x0b;
 							break;
 						case 0x1C:// LumberJacking-Bowcraft
 						case 0x0D:
-							if (pc_ts->onhorse)
+							if (pc_ts->onHorse())
 								act = 0x1C;
 							else 
 								act = 0x0D;
 							break;
 						case 0x1D:// Swordtarget
 							// case 0x0D:
-							if (pc_ts->onhorse)
+							if (pc_ts->onHorse())
 								act = 0x1D;
 							else 
 								act = 0x0D;
 							break;
 						case 0x0A:// Fist Fighting
-							if (pc_ts->onhorse)
+							if (pc_ts->onHorse())
 								act = 0x1A;
 							else 
 								act = 0x0A;
 							break;
 						case 0x0E:// Smelting irons
-							if (pc_ts->onhorse)
+							if (pc_ts->onHorse())
 								act = 0x1C;
 							else 
 								act = 0x0E;
 							break;
 						case 0x09:// Working ingots
-							if (pc_ts->onhorse)
+							if (pc_ts->onHorse())
 								act = 0x1A;
 							else 
 								act = 0x09;
 							break;
 						case 0x14:// These can be done only if not onhorse
 						case 0x22:
-							if (pc_ts->onhorse)
+							if (pc_ts->onHorse())
 								act = 0x00;
 							break;
 						default:
@@ -699,12 +699,12 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						if (!(strcmp("HUNGER", (char*)script1)))  // Do math on players hunger from 0 to 6 - Magius(CHE)
 						{
 							j = str2num(script2);
-							pc_ts->hunger += j;
-							if (pc_ts->hunger>6)
-								pc_ts->hunger = 6;
-							if (pc_ts->hunger < 1)
-								pc_ts->hunger = 1;
-							switch (pc_ts->hunger)
+							pc_ts->setHunger( pc_ts->hunger() + j );
+							if (pc_ts->hunger()>6)
+								pc_ts->setHunger( 6 );
+							if (pc_ts->hunger() < 1)
+								pc_ts->setHunger( 1 );
+							switch (pc_ts->hunger())
 							{
 							case 0:  sysmessage(ts, "You eat the food, but are still extremely hungry.");		break;
 							case 1:  sysmessage(ts, "You eat the food, but are still extremely hungry.");		break;
@@ -736,7 +736,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							j = str2num(script2);
 							if (j >= 0)
 							{
-								if (!(pc_ts->hunger >= j))
+								if (!(pc_ts->hunger() >= j))
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -746,7 +746,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 							else 
 							{
-								if (!(pc_ts->hunger <= abs(j)))
+								if (!(pc_ts->hunger() <= abs(j)))
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -2383,12 +2383,12 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						else if (!(strcmp("HUNGER", (char*)script1)))  // Do math on players hunger from 0 to 6 - Magius(CHE)
 						{
 							j = str2num(script2);
-							pc_ts->hunger += j;
-							if (pc_ts->hunger>6)
-								pc_ts->hunger = 6;
-							if (pc_ts->hunger < 1)
-								pc_ts->hunger = 1;
-							switch (pc_ts->hunger)
+							pc_ts->setHunger( pc_ts->hunger() + j );
+							if (pc_ts->hunger()>6)
+								pc_ts->setHunger( 6 );
+							if (pc_ts->hunger() < 1)
+								pc_ts->setHunger( 1 );
+							switch (pc_ts->hunger())
 							{
 							case 0:	sysmessage(ts, "You eat the food, but are still extremely hungry.");	break;
 							case 1: sysmessage(ts, "You eat the food, but are still extremely hungry.");	break;
@@ -2492,7 +2492,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							j = str2num(script2);
 							if (j >= 0)
 							{
-								if (!(pc_ts->hunger >= j))
+								if (!(pc_ts->hunger() >= j))
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -2502,7 +2502,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							}
 							else 
 							{
-								if (!(pc_ts->hunger <= abs(j)))
+								if (!(pc_ts->hunger() <= abs(j)))
 									
 								{
 									if (strlen(fmsg))

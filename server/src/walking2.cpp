@@ -365,7 +365,7 @@ bool cMovement::isValidDirection(UI08 dir)
 bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
 
-	if ( pc->casting )
+	if ( pc->casting() )
 	{
 		if ( socket != INVALID_UOXSOCKET )
 		{
@@ -684,7 +684,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, UI08 dir)
 		// if we are using stealth
 		if (pc->stealth()!=-1) { //AntiChrist - Stealth - stop hiding if player runs
 			pc->setStealth(-1);
-			pc->hidden=0;
+			pc->setHidden( 0 );
 			updatechar(pc);
 		}
 
@@ -693,7 +693,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, UI08 dir)
 		pc->regen2=uiCurrentTime+(SrvParams->staminarate()*MY_CLOCKS_PER_SEC);
 		pc->setRunning(pc->running()+1);
 		// if all these things
-		if(!pc->dead && !pc->onhorse && pc->running()>(SrvParams->runningStamSteps())*2)
+		if(!pc->dead && !pc->onHorse() && pc->running()>(SrvParams->runningStamSteps())*2)
 		{
 			//The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
 			pc->setRunning(0);
@@ -714,7 +714,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, UI08 dir)
 bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 // PARAM WARNING: unreferenced paramater socket
 {
-	if ((pc->hidden)&&(!(pc->priv2&8)))
+	if ((pc->hidden())&&(!(pc->priv2&8)))
 	{
 		if(pc->stealth()!=-1)
 		{ //AntiChrist - Stealth
@@ -722,13 +722,13 @@ bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 			if(pc->stealth()>((SrvParams->maxStealthSteps()*pc->skill[STEALTH])/1000))
 			{
 				pc->setStealth(-1);
-				pc->hidden=0;
+				pc->setHidden( 0 );
 				updatechar( pc );
 			}
 		}
 		else
 		{
-			pc->hidden=0;
+			pc->setHidden( 0 );
 			updatechar( pc );
 		}
 	}
@@ -943,7 +943,7 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 		char walkok[4]="\x22\x00\x01";
 		walkok[1]=buffer[socket][2];
 		walkok[2]=0x41;
-		if (pc->hidden)
+		if (pc->hidden())
 			walkok[2]=0x00;
 		Network->xSend(socket, walkok, 3, 0);
 
@@ -993,7 +993,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, short int
 			if( us->isNpc() && (pc->ftarg != INVALID_SERIAL))
 				extmove[12]=dir|0x80;
 			if (us->war) extmove[15]=0x40; else extmove[15]=0x00;
-			if (us->hidden) extmove[15]=extmove[15]|0x80;
+			if (us->hidden()) extmove[15]=extmove[15]|0x80;
 			if( us->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
 			if(us->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
 			//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
@@ -1466,7 +1466,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 
 
             if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
-            if (pc->hidden) extmove[15]=extmove[15]|0x80;
+            if (pc->hidden()) extmove[15]=extmove[15]|0x80;
             if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
             const int guild = GuildCompare( pc, currchar[i] );
             if (pc->kills > SrvParams->maxkills() ) extmove[16]=6; // ripper
@@ -2259,7 +2259,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
 
                 if (mapitem->type==12)
                 {
-                    if (pc_s->isNpc() && (!pc_s->title().isEmpty() || pc_s->npcaitype != 0))
+                    if (pc_s->isNpc() && (!pc_s->title().isEmpty() || pc_s->npcaitype() != 0))
                     {
                         // clConsole.send("doors!!!\n");
                         dooruse(-1, mapitem);

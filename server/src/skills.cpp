@@ -722,7 +722,7 @@ void cSkills::Hide(int s)
 		}
 	} 
 	
-	if (pc_currchar->hidden == 1) 
+	if (pc_currchar->hidden() == 1) 
 	{ 
 		sysmessage(s, "You are already hidden"); 
 		return; 
@@ -753,7 +753,7 @@ void cSkills::Hide(int s)
 		////////////////////////////////// 
 	} 
 	sysmessage(s, "You have hidden yourself well."); 
-	pc_currchar->hidden = 1; 
+	pc_currchar->setHidden( 1 ); 
 	updatechar(pc_currchar); 
 }
 
@@ -761,7 +761,7 @@ void cSkills::Stealth(int s)//AntiChrist
 {
 //	int c=currchar[s];
 	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->hidden==0)
+	if (pc_currchar->hidden()==0)
 	{
 		sysmessage(s,"You must hide first.");
 		return;
@@ -779,7 +779,7 @@ void cSkills::Stealth(int s)//AntiChrist
 	}
 	sprintf((char*)temp,"You can move %i steps unseen.", SrvParams->maxStealthSteps());
 	sysmessage(s,(char*)temp);
-	pc_currchar->hidden=1;
+	pc_currchar->setHidden( 1 );
 	pc_currchar->setStealth(0); //AntiChrist -- init. steps already done
 	updatechar(pc_currchar);
 }
@@ -1450,7 +1450,7 @@ void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
 
 	pc_currchar->disturbMed(); // Meditation
 
-	if( pc_currchar->casting )
+	if( pc_currchar->casting() )
 	{
 		sysmessage( s, "You can't do that while you are casting" );
 		return;
@@ -1598,7 +1598,7 @@ void cSkills::RandomSteal(int s)
 		return;
 	}
 	
-	if (pc_npc->npcaitype == 17)
+	if (pc_npc->npcaitype() == 17)
 	{
 		sysmessage(s, "You cannot steal that.");
 		return;
@@ -2297,7 +2297,7 @@ void cSkills::TDummy(int s)
 	}
 	int skillused = Skills->GetCombatSkill(currchar[s]);
 	
-	if (currchar[s]->onhorse)
+	if (currchar[s]->onHorse())
 		Combat->CombatOnHorse(currchar[s]);
 	else
 		Combat->CombatOnFoot(currchar[s]);
@@ -2446,7 +2446,7 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 			pButte->more2++;
 			//add moving effect here to item, not character
 		} 
-		if (pc_currchar->onhorse) Combat->CombatOnHorse(pc_currchar);
+		if (pc_currchar->onHorse()) Combat->CombatOnHorse(pc_currchar);
 		else Combat->CombatOnFoot(pc_currchar);
 		
 		if (pc_currchar->skill[ARCHERY] < 350)
@@ -3056,7 +3056,7 @@ bool cSkills::MeetRequirements( P_CHAR myChar, QDomElement Requirements, bool No
 			SI08 Hunger = 0;
 
 			if( SrvParams->HungerAffectsSkills() )
-				Hunger -= ( abs( myChar->hunger - 6 ) ^ 2 );
+				Hunger -= ( abs( myChar->hunger() - 6 ) ^ 2 );
 
 			// The Skillcheck is made as follows:
 			SI16 Dice = RandomNum( 1, 100 );

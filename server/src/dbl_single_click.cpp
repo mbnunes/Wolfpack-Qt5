@@ -195,9 +195,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	// Criminal for looting an innocent corpse & unhidden if not owner..Ripper
 	if (pi->corpse==1)
 	{
-		if (pc_currchar->hidden==1 && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
+		if (pc_currchar->hidden() == 1 && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
 		{
-			pc_currchar->hidden=0;
+			pc_currchar->setHidden( 0 );
 			updatechar(pc_currchar);
 		}
 		if (!pc_currchar->Owns(pi) && !pc_currchar->isGM() && pc_currchar->isInnocent())
@@ -371,7 +371,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			{	
 				if (pco == NULL)// reorganized by AntiChrist to avoid crashes
 					backpack(s, serial);
-				else if (pc_currchar->serial == pco->serial || pc_currchar->isGMorCounselor() || pco->npcaitype == 17)
+				else if (pc_currchar->serial == pco->serial || pc_currchar->isGMorCounselor() || pco->npcaitype() == 17)
 					backpack(s, serial);
 				else
 					Skills->Snooping(pc_currchar, pi);
@@ -539,7 +539,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		if (pi->isLockedDown())
 			return; // Ripper..cant eat locked down food :)
 		
-		if (pc_currchar->hunger >= 6)
+		if (pc_currchar->hunger() >= 6)
 		{
 			sysmessage(s, "You are simply too full to eat any more!");
 			return;
@@ -553,7 +553,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			case 2: soundeffect2(currchar[s], 0x003C);		break;
 			}// switch(foodsnd)
 			
-			switch (pc_currchar->hunger)
+			switch (pc_currchar->hunger())
 			{
 			case 0:  sysmessage(s, "You eat the food, but are still extremely hungry.");	break;
 			case 1:  sysmessage(s, "You eat the food, but are still extremely hungry.");	break;
@@ -576,7 +576,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			}
 			
 			pi->ReduceAmount(1);	// Remove a food item
-			pc_currchar->hunger++;
+			pc_currchar->setHunger( pc_currchar->hunger()+1 );
 		}// else
 		return; // case 14 (food)
 	case 15: // -Fraz- Modified and tuned up, Wands must now be equipped or in pack
@@ -823,9 +823,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 							return;
 						}
 						
-						pc_vendor->npcaitype = 17;
+						pc_vendor->setNpcAIType( 17 );
 						pc_vendor->makeInvulnerable();
-						pc_vendor->hidden = 0;
+						pc_vendor->setHidden( 0 );
 						pc_vendor->setStealth(-1);
 						pc_vendor->dir = pc_currchar->dir;
 						pc_vendor->npcWander = 0;
@@ -1102,7 +1102,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						return;
 					}
 				case 0x0DF9: 
-					pc_currchar->tailitem = pi->serial;   
+					pc_currchar->setTailItem( pi->serial );
 					target(s, 0, 1, 0, 166, "Select spinning wheel to spin cotton.");
 					return;
 					/*
@@ -1116,7 +1116,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x0E1D:
 				case 0x0E1F:
 				case 0x0E1E:  // yarn to cloth
-					pc_currchar->tailitem = pi->serial;
+					pc_currchar->setTailItem(  pi->serial );
 					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
 					return;
 				case 0x14ED: // Build cannon
@@ -1138,16 +1138,16 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x0FF8:
 				case 0x0FF9: // pitcher of water to flour
-					pc_currchar->tailitem = pi->serial;
+					pc_currchar->setTailItem( pi->serial );
 					target(s, 0, 1, 0, 173, "Select flour to pour this on.");  
 					return;
 				case 0x09C0:
 				case 0x09C1: // sausages to dough
-					pc_currchar->tailitem = pi->serial;
+					pc_currchar->setTailItem( pi->serial );
 					target(s, 0, 1, 0, 174, "Select dough to put this on.");  
 					return;
 				case 0x0DF8: // wool to yarn 
-					pc_currchar->tailitem = pi->serial;   
+					pc_currchar->setTailItem( pi->serial );
 					target(s, 0, 1, 0, 164, "Select your spin wheel to spin wool.");      
 					return;
 				case 0x0F9D: // sewing kit for tailoring
@@ -1157,7 +1157,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x19B9:
 				case 0x19BA:
 				case 0x19B8: // smelt ore
-					pc_currchar->smeltitem = pi->serial;
+					pc_currchar->setSmeltItem( pi->serial );
 					target(s, 0, 1, 0, 52, "Select forge to smelt ore on.");// smelting  for all ore changed by Myth 11/12/98
 					return;
 				case 0x1E5E:
@@ -1371,7 +1371,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x0C53:
 				case 0x0C54: // cotton plants
 					{
-						if (!pc_currchar->onhorse)
+						if (!pc_currchar->onHorse())
 							action(s, 0x0D);
 						else 
 							action(s, 0x1d);
@@ -1531,7 +1531,7 @@ void singleclick(UOXSOCKET s)
 		P_CHAR pc_j = GetPackOwner(FindItemBySerial(pi->contserial));
 		if (pc_j != NULL)
 		{
-			if (pc_j->npcaitype == 17)
+			if (pc_j->npcaitype() == 17)
 			{
 				if (pi->creator.size() > 0 && pi->madewith>0)
 					sprintf((char*)temp2, "%s %s by %s", pi->desc.c_str(), skill[pi->madewith - 1].madeword, pi->creator.c_str()); 
@@ -1714,7 +1714,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 	}//if monster
 	else 
 	{//char
-		if (target->npcaitype==17)//PlayerVendors
+		if (target->npcaitype() == 17)//PlayerVendors
 		{
 			npctalk(s, target,"Take a look at my goods.",0);
 			if (target->packitem != INVALID_SERIAL) backpack(s, target->packitem); // rippers bugfix for vendor bags not opening !!!

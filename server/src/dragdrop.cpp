@@ -574,7 +574,7 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR pc_currchar = ps->getPlayer();
 	P_CHAR pc_target = FindCharBySerial(pp->Tserial);
 
-	if( pc_target->hunger < 6 && pi->type == 14 )//AntiChrist new hunger code for npcs
+	if( pc_target->hunger() < 6 && pi->type == 14 )//AntiChrist new hunger code for npcs
 	{
 		soundeffect2(pc_currchar, 0x003A+(rand()%3));	//0x3A - 0x3C three different sounds
 
@@ -592,7 +592,7 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		sprintf((char*)temp,"* You see %s eating %s *",pc_target->name.c_str(),temp2);
 		pc_target->emotecolor = 0x0026;
 		npcemoteall(pc_target,(char*)temp,1);
-		pc_target->hunger++;
+		pc_target->setHunger( pc_target->hunger()+1 );
 	}
 	else
 	{
@@ -882,7 +882,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			else	// Item dropped on a Human character
 			{
 				// Item dropped on a Guard (possible bounty quest)
-				if( ( pTC->isNpc() ) && ( pTC->npcaitype == 4 ) )
+				if( ( pTC->isNpc() ) && ( pTC->npcaitype() == 4 ) )
 				{
 					if (!ItemDroppedOnGuard( ps, pp, pi) )
 					{
@@ -895,7 +895,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 					}
 					return true;
 				}
-				if ( pTC->npcaitype == 5 )
+				if ( pTC->npcaitype() == 5 )
 				{
 					if (!ItemDroppedOnBeggar( ps, pp, pi))
 					{
@@ -908,7 +908,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 					}
 					return true;
 				}
-				if ( pTC->npcaitype == 19 )
+				if ( pTC->npcaitype() == 19 )
 				{
 					if (!DeedDroppedOnBroker( ps, pp, pi))
 					{
@@ -921,7 +921,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 					}
 					return true;
 				}
-				if ( pTC->npcaitype == 8 )
+				if ( pTC->npcaitype() == 8 )
 				{
 					if (!ItemDroppedOnBanker( ps, pp, pi))
 					{
@@ -1115,7 +1115,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	P_CHAR pc_j = GetPackOwner(pCont);
 	if (pc_j != NULL)
 	{
-		if (pc_j->npcaitype==17 && pc_j->isNpc() && !pc_currchar->Owns(pc_j))
+		if (pc_j->npcaitype() == 17 && pc_j->isNpc() && !pc_currchar->Owns(pc_j))
 		{
 			abort = true;
 			sysmessage(s, "This aint your vendor!");				
@@ -1256,7 +1256,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		P_CHAR pc_j = GetPackOwner(pCont);
 		if (pc_j != NULL)
 		{
-			if (pc_j->npcaitype==17 && pc_j->isNpc() && pc_currchar->Owns(pc_j))
+			if (pc_j->npcaitype() == 17 && pc_j->isNpc() && pc_currchar->Owns(pc_j))
 			{
 				pc_currchar->inputitem = pItem->serial;
 				pc_currchar->inputmode = cChar::enPricing;
