@@ -186,13 +186,10 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 
 									// We are now certain that it's a valid INET ip
 									server.ip = ip;
-									inetIp = ip;
 									break;
 								}
 							}
 						}
-						else if( inetIp )
-							server.sIP = inetIp;
 
 						// Fall back to localhost
 						if( !server.sIP )
