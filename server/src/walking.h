@@ -36,7 +36,6 @@
 
 class cUOSocket;
 
-#include "start_pack.h"
 struct unitile_st
 {
 	signed char basez;
@@ -49,7 +48,6 @@ struct unitile_st
 	signed char height;
 	unsigned char weight;
 }/* PACK*/;
-#include "end_pack.h"
 
 bool mayWalk( P_CHAR pChar, Coord_cl &pos );
 
