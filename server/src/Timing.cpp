@@ -461,12 +461,13 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 		{
 			pc->trackingtimer=0;
 			unsigned char arrow[7] = {0xBA, 0,};
+			P_CHAR pc_trackingTarget = FindCharBySerial(pc->trackingtarget);
 			arrow[0]='\xBA';
 			arrow[1]=0;
-			arrow[2]=(chars[pc->trackingtarget].pos.x-1)>>8;
-			arrow[3]=(chars[pc->trackingtarget].pos.x-1)%256;
-			arrow[4]=chars[pc->trackingtarget].pos.y>>8;
-			arrow[5]=chars[pc->trackingtarget].pos.y%256;
+			arrow[2]=(pc_trackingTarget->pos.x-1)>>8;
+			arrow[3]=(pc_trackingTarget->pos.x-1)%256;
+			arrow[4]=pc_trackingTarget->pos.y>>8;
+			arrow[5]=pc_trackingTarget->pos.y%256;
 			Xsend(s,arrow,6);
 		}
 	}

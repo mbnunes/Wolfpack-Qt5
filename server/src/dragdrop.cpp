@@ -379,18 +379,17 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 
 void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 {
-	int j, k;
+	int j;
 	tile_st tile;
-	int serial, serhash, ci, letsbounce=0; // AntiChrist (5) - new ITEMHAND system
+	int serial, ci, letsbounce=0; // AntiChrist (5) - new ITEMHAND system
 	UOXSOCKET s=ps->GetSocket();
-	int cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+	P_CHAR pc_currchar = ps->getPlayer();
 
 	int cserial=calcserial(buffer[s][6],buffer[s][7],buffer[s][8],buffer[s][9]);
-	if(cserial==-1) return;
-	k=calcCharFromSer( cserial );
+	if(cserial==INVALID_SERIAL) return;
+	P_CHAR pc_k = FindCharBySerial( cserial );
 	
-	if( chars[k].dead )  //Exploit fix: Dead ppl can't equip anything.
+	if( pc_k->dead )  //Exploit fix: Dead ppl can't equip anything.
 		return;
 	
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+1);
@@ -420,10 +419,10 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 
 	if (pi->id1>=0x40) return; // LB, client crashfix if multi-objects are moved to PD
 
-	if (k==DEREF_P_CHAR(pc_currchar) || pc_currchar->isGM()) 
+	if (pc_k == pc_currchar || pc_currchar->isGM()) 
 	{
-		if (k!=-1) //lb
-			if (k==DEREF_P_CHAR(pc_currchar) && pi->st>chars[k].st)
+		if (pc_k != NULL) //lb
+			if (pc_k == pc_currchar && pi->st>pc_k->st)
 			{
 				sysmessage(s,"You are not strong enough to use that.");
 				Sndbounce5(s);
@@ -520,7 +519,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		}
 		if (!(pc_currchar->isGM())) //Ripper..players cant equip items on other players or npc`s paperdolls.
 		{
-			if ((k != DEREF_P_CHAR(pc_currchar)) && (!chars[k].isNpc()))
+			if ((pc_k != pc_currchar) && (!pc_k->isNpc()))
 			{
 				sysmessage(s, "You cant put items on other players!");
 				item_bounce6(ps,pi);
@@ -549,7 +548,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		wearitem[13]=pi->color1;
 		wearitem[14]=pi->color2;
 		Xsend(s, wearitem, 15);
-		wornitems(s, k);//send update to current socket
+		wornitems(s, DEREF_P_CHAR(pc_k));//send update to current socket
 		// -Frazurbluu- Worn item triggers will need code here
 		// Trigger cod ewill also need the adjustments made for skill adding
 		// An apply/unapply type of variable must be added for skill gains
@@ -557,8 +556,8 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 
 		for (j=0;j<now;j++)
 		{
-			if (perm[j] && inrange1p(k, DEREF_P_CHAR(currchar[j])) && (j!=s))//and to all inrange sockets (without re-sending to current socket)//AntiChrist
-				wornitems(j, k);
+			if (perm[j] && inrange1p(DEREF_P_CHAR(pc_k), DEREF_P_CHAR(currchar[j])) && (j!=s))//and to all inrange sockets (without re-sending to current socket)//AntiChrist
+				wornitems(j, DEREF_P_CHAR(pc_k));
 		}
 		
 		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details	// Added Oct 09, 1998
@@ -568,8 +567,8 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		if (pi->glow>0)
 		{
 			pc_currchar->removeHalo(pi); // if gm equips on differnt player it needs to be deleted out of the hashteble
-			chars[k].addHalo(pi);
-			chars[k].glowHalo(pi);
+			pc_k->addHalo(pi);
+			pc_k->glowHalo(pi);
 		}
     }
 }
@@ -739,15 +738,15 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	UOXSOCKET s=ps->GetSocket();
 	CHARACTER cc=ps->GetCurrChar();
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,true);
-	int t=calcCharFromSer(pp->Tserial);
+	P_CHAR pc_t = FindCharBySerial(pp->Tserial);
 
 	if( pi->id() ==0x0EED )
 	{ // They gave the NPC gold
-		char sk=chars[t].trainingplayerin;
-		npctalk(s, t, "I thank thee for thy payment. That should give thee a good start on thy way. Farewell!",0);
+		char sk=pc_t->trainingplayerin;
+		npctalk(s, DEREF_P_CHAR(pc_t), "I thank thee for thy payment. That should give thee a good start on thy way. Farewell!",0);
 
 		int sum = pc_currchar->getSkillSum();
-		int delta = chars[t].getTeachingDelta(pc_currchar, sk, sum);
+		int delta = pc_t->getTeachingDelta(pc_currchar, sk, sum);
 
 		if(pi->amount>delta) // Paid too much
 		{
@@ -770,13 +769,13 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		updateskill(s,sk);
 
 		pc_currchar->trainer=-1;
-		chars[t].trainingplayerin='\xFF';
+		pc_t->trainingplayerin='\xFF';
 		itemsfx(s, pi->id());//AntiChrist - do the gold sound
 		return true;
 	}
 	else // Did not give gold
 	{
-		npctalk(s, t, "I am sorry, but I can only accept gold.",0);
+		npctalk(s, DEREF_P_CHAR(pc_t), "I am sorry, but I can only accept gold.",0);
 		Sndbounce5(s);
 		if (ps->IsDragging())
 		{

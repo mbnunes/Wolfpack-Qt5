@@ -165,10 +165,10 @@ the line of sight.
 	UOXFile *mfile;
 	st_multi multi;
 	map_st map1;
-	SI32 length, i,j;
+	SI32 length, j;
 	/////what is checked for
 	vector<short> itemids;
-	int checkthis[ITEM_TYPE_CHOICES];
+	int checkthis[ITEM_TYPE_CHOICES] = {0,};
 	int checkthistotal;
 	int itemtype;
 	/////item cahcing until item lookup is implimented
@@ -206,10 +206,6 @@ the line of sight.
 			}
 		}
 	}
-
-	for (i=0;i<ITEM_TYPE_CHOICES; i++) checkthis[i] = 0 ; //Null is for pointer types
-	// Zippy moved ----^ to main for initalization.
-	
 	
 	////////////End Initilzations
 	//////////////////////////////////////////////////////////////
@@ -315,7 +311,7 @@ the line of sight.
 	b2plus = b2_incrament; // going up or down
 	////////////////////////////////////////////////////////
 	//////////////// This determines what to check for
-	i = 0;
+	unsigned int i = 0;
 	itemtype = 1;
 	checkthistotal = 0;
 	loopexit = 0;

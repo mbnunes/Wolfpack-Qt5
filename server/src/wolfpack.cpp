@@ -1507,7 +1507,7 @@ void explodeitem(int s, P_ITEM pi)
 
 void srequest(int s)
 {
-	if (buffer[s][5]==4) statwindow(s, calcCharFromSer(buffer[s][6], buffer[s][7], buffer[s][8], buffer[s][9]));
+	if (buffer[s][5]==4) statwindow(s, DEREF_P_CHAR(FindCharBySerial(calcserial(buffer[s][6], buffer[s][7], buffer[s][8], buffer[s][9]))));
 	if (buffer[s][5]==5) skillwindow(s);
 }
 
@@ -1531,16 +1531,16 @@ static void doorsfx(P_ITEM pi, int x, int y)
 			((x>=0x06D5)&&(x<=0x06F4)))
 			soundeffect3(pi,OPENWOOD);
 
-		if (((x>=0x0839)&&(x<=0x0848))|| // Open gate
+		else if (((x>=0x0839)&&(x<=0x0848))|| // Open gate
 			((x>=0x084C)&&(x<=0x085B))||
 			((x>=0x0866)&&(x<=0x0875)))
 			soundeffect3(pi,OPENGATE);
 
-		if (((x>=0x0675)&&(x<0x0695))|| // Open metal
+		else if (((x>=0x0675)&&(x<0x0695))|| // Open metal
 			((x>=0x06C5)&&(x<0x06D5)))
 			soundeffect3(pi,OPENSTEEL);
 
-		if ((x>=0x0314)&&(x<=0x0365)) // Open secret
+		else if ((x>=0x0314)&&(x<=0x0365)) // Open secret
 			soundeffect3(pi,OPENSECRET);
 	}
 	else if (y==1) // Request close door sfx
@@ -1549,16 +1549,16 @@ static void doorsfx(P_ITEM pi, int x, int y)
 			((x>=0x06D5)&&(x<=0x06F4)))
 			soundeffect3(pi,CLOSEWOOD);
 
-		if (((x>=0x0839)&&(x<=0x0848))|| // close gate
-			((x>=0x084C)&&(x<=0x085B))||
+		else if (((x>=0x0839)&&(x<=0x0848))|| // close gate
+			(b(x>=0x084C)&&(x<=0x085B))||
 			((x>=0x0866)&&(x<=0x0875)))
 			soundeffect3(pi,CLOSEGATE);
 
-		if (((x>=0x0675)&&(x<0x0695))|| // close metal
+		else if (((x>=0x0675)&&(x<0x0695))|| // close metal
 			((x>=0x06C5)&&(x<0x06D5)))
 			soundeffect3(pi,CLOSESTEEL);
 
-		if ((x>=0x0314)&&(x<=0x0365)) // close secret
+		else if ((x>=0x0314)&&(x<=0x0365)) // close secret
 			soundeffect3(pi,CLOSESECRET);
 	}
 } // doorsfx() END
@@ -3779,9 +3779,11 @@ void openbank(int s, int i)
 //
 void openspecialbank(int s, int i)
 {
-	int serial,serhash,ci;
+	int serial;
+	P_CHAR pc = MAKE_CHAR_REF(i);
 	P_CHAR pc_currchar = currchar[s];
-	serial=chars[i].serial;
+	serial=pc->serial;
+	unsigned int ci;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
 	for (ci=0;ci<vecOwn.size();ci++)
 	{
@@ -3805,12 +3807,12 @@ void openspecialbank(int s, int i)
 		}
 	} // end of !=-1
 
-	sprintf((char*)temp, "%s's items bank box.", chars[i].name);
-	const P_ITEM pic = Items->SpawnItem(s,i,1,(char*)temp,0,0x09,0xAB,0,0,0,0);
+	sprintf((char*)temp, "%s's items bank box.", pc->name);
+	const P_ITEM pic = Items->SpawnItem(s,DEREF_P_CHAR(pc),1,(char*)temp,0,0x09,0xAB,0,0,0,0);
 	if(pic == NULL) return;
 	pic->layer=0x1d;
-	pic->SetOwnSerial(chars[i].serial);
-	pic->SetContSerial(chars[i].serial);
+	pic->SetOwnSerial(pc->serial);
+	pic->SetContSerial(pc->serial);
 	pic->morex=1;
 	pic->morey=0;//this's a all-items bank
 	pic->morez=pc_currchar->region;//let's store the region
@@ -5324,10 +5326,9 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 				}
 				else if (pc->ownserial>-1 && pc->tamed)
 				{
-					int i = calcCharFromSer(pc->ownserial);
-					if (i!=-1)
+					P_CHAR pc_owner = FindCharBySerial(pc->ownserial);
+					if (pc_owner != NULL)
 					{
-						P_CHAR pc_owner = MAKE_CHARREF_LR(i);
 						pc->flag = pc_owner->flag;
 					}
 				}
@@ -5381,10 +5382,10 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 		wearitem[8]=pi->layer;
 		LongToCharPtr(pi->contserial,wearitem+9);
 		ShortToCharPtr(pi->color(),wearitem+13);
-		int charcont=calcCharFromSer(pi->contserial);
+		P_CHAR charcont = FindCharBySerial(pi->contserial);
 		for(a=0;a<(unsigned)now;a++)//send this item to all the sockets in range
 		{
-			if(perm[a] && inrange1p(currchar[a],charcont))
+			if(perm[a] && inrange1p(currchar[a], DEREF_P_CHAR(charcont)))
 				Xsend(a, wearitem, 15);
 		}
 		return;

@@ -1289,8 +1289,9 @@ void cGuilds::SetType(int guildnumber, int type)
 		{
 			if (guilds[guildnumber].member[member]!=0)
 			{
-               j = calcCharFromSer(guilds[guildnumber].member[member]);
-               if (j>-1) chars[j].guildtoggle=1;
+               P_CHAR pc_j = FindCharBySerial(guilds[guildnumber].member[member]);
+               if (pc_j != NULL) 
+				   pc_j->guildtoggle=1;
 			}
 		}
 	}

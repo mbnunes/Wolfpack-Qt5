@@ -262,7 +262,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 
 mstring cCommands::GetAllParams(void)
 {
-	int pos = 0;
+	string::size_type pos = 0;
 	mstring dummy;
 	pos = command_line.find_first_of(" ");
 	if (pos != mstring::npos)

@@ -224,8 +224,8 @@ public:
 	int taming; //Skill level required for taming
 	unsigned int summontimer; //Timer for summoned creatures.
 	unsigned long trackingtimer; // Timer used for the duration of tracking
-	unsigned int trackingtarget; // Tracking target ID
-	unsigned int trackingtargets[MAXTRACKINGTARGETS];
+	SERIAL trackingtarget; // Tracking target ID
+	SERIAL trackingtargets[MAXTRACKINGTARGETS];
 	unsigned int fishingtimer; // Timer used to delay the catching of fish
 	
 	int advobj; //Has used advance gate?

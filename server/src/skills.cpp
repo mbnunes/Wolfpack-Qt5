@@ -1630,7 +1630,8 @@ void cSkills::Tracking(int s,int selection)
 	pc_currchar->trackingtarget = pc_currchar->trackingtargets[selection]; // sets trackingtarget that was selected in the gump
 	SetTimerSec(&pc_currchar->trackingtimer,(((tracking_data.basetimer*pc_currchar->skill[TRACKING])/1000)+1)); // tracking time in seconds ... gm tracker -> basetimer+1 seconds, 0 tracking -> 1 sec, new calc by LB
 	SetTimerSec(&pc_currchar->trackingdisplaytimer,tracking_data.redisplaytime);
-	sprintf((char*)temp,"You are now tracking %s.",chars[pc_currchar->trackingtarget].name);
+	P_CHAR pc_trackingTarget = FindCharBySerial(pc_currchar->trackingtarget);
+	sprintf((char*)temp,"You are now tracking %s.", pc_trackingTarget->name);
 	sysmessage(s,(char*)temp);
 	Skills->Track(DEREF_P_CHAR(pc_currchar));
 }
@@ -1697,7 +1698,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 			id = mapchar->id();
 			if((d<=distance)&&(!mapchar->dead)&&(id>=id1&&id<=id2)&&calcSocketFromChar(DEREF_P_CHAR(mapchar))!=s&&(online(DEREF_P_CHAR(mapchar))||mapchar->isNpc()))
 			{
-				pc_currchar->trackingtargets[MaxTrackingTargets] = DEREF_P_CHAR(mapchar);
+				pc_currchar->trackingtargets[MaxTrackingTargets] = mapchar->serial;
 				MaxTrackingTargets++;
 				if (MaxTrackingTargets>=MAXTRACKINGTARGETS) break; // lb crashfix
 				switch(Skills->TrackingDirection(s,DEREF_P_CHAR(mapchar)))
@@ -1834,42 +1835,43 @@ void cSkills::TrackingMenu(int s,int gmindex)
 
 void cSkills::Track(int i)
 {
-	int s=calcSocketFromChar(i);
+	UOXSOCKET s = calcSocketFromChar(i);
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	P_CHAR pc_trackingTarget = FindCharBySerial(pc_i->trackingtarget);
 	int direction=5;
-	if((pc_i->pos.y-direction)>=chars[pc_i->trackingtarget].pos.y)  // North
+	if((pc_i->pos.y-direction)>=pc_trackingTarget->pos.y)  // North
 	{
-		sprintf((char*)temp,"%s is to the North",chars[pc_i->trackingtarget].name);
-		if((pc_i->pos.x-direction)>chars[pc_i->trackingtarget].pos.x)
-			sprintf((char*)temp,"%s is to the Northwest",chars[pc_i->trackingtarget].name);
-		if((pc_i->pos.x+direction)<chars[pc_i->trackingtarget].pos.x)
-			sprintf((char*)temp,"%s is to the Northeast",chars[pc_i->trackingtarget].name);
+		sprintf((char*)temp,"%s is to the North",pc_trackingTarget->name);
+		if((pc_i->pos.x-direction)>pc_trackingTarget->pos.x)
+			sprintf((char*)temp,"%s is to the Northwest",pc_trackingTarget->name);
+		if((pc_i->pos.x+direction)<pc_trackingTarget->pos.x)
+			sprintf((char*)temp,"%s is to the Northeast",pc_trackingTarget->name);
 	}
-	else if((pc_i->pos.y+direction)<=chars[pc_i->trackingtarget].pos.y)  // South
+	else if((pc_i->pos.y+direction)<=pc_trackingTarget->pos.y)  // South
 	{
-		sprintf((char*)temp,"%s is to the South",chars[pc_i->trackingtarget].name);
-		if((pc_i->pos.x-direction)>chars[pc_i->trackingtarget].pos.x)
-			sprintf((char*)temp,"%s is to the Southwest",chars[pc_i->trackingtarget].name);
-		if((pc_i->pos.x+direction)<chars[pc_i->trackingtarget].pos.x)
-			sprintf((char*)temp,"%s is to the Southeast",chars[pc_i->trackingtarget].name);
+		sprintf((char*)temp,"%s is to the South",pc_trackingTarget->name);
+		if((pc_i->pos.x-direction)>pc_trackingTarget->pos.x)
+			sprintf((char*)temp,"%s is to the Southwest",pc_trackingTarget->name);
+		if((pc_i->pos.x+direction)<pc_trackingTarget->pos.x)
+			sprintf((char*)temp,"%s is to the Southeast",pc_trackingTarget->name);
 	}
-	else if((pc_i->pos.x-direction)>=chars[pc_i->trackingtarget].pos.x)  // West
+	else if((pc_i->pos.x-direction)>=pc_trackingTarget->pos.x)  // West
 	{
-		sprintf((char*)temp,"%s is to the West",chars[pc_i->trackingtarget].name);
+		sprintf((char*)temp,"%s is to the West",pc_trackingTarget->name);
 	}
-	else if((pc_i->pos.x+direction)<=chars[pc_i->trackingtarget].pos.x)  // East
+	else if((pc_i->pos.x+direction)<=pc_trackingTarget->pos.x)  // East
 	{
-		sprintf((char*)temp,"%s is to the East",chars[pc_i->trackingtarget].name);
+		sprintf((char*)temp,"%s is to the East",pc_trackingTarget->name);
 	}
-	else sprintf((char*)temp,"%s is right next to you",chars[pc_i->trackingtarget].name);
+	else sprintf((char*)temp,"%s is right next to you",pc_trackingTarget->name);
 	
 	char arrow[7];
 	arrow[0]='\xBA';
 	arrow[1]=1;
-	arrow[2]=(chars[pc_i->trackingtarget].pos.x-1)>>8;
-	arrow[3]=(chars[pc_i->trackingtarget].pos.x-1)%256;
-	arrow[4]=chars[pc_i->trackingtarget].pos.y>>8;
-	arrow[5]=chars[pc_i->trackingtarget].pos.y%256;
+	arrow[2]=(pc_trackingTarget->pos.x-1)>>8;
+	arrow[3]=(pc_trackingTarget->pos.x-1)%256;
+	arrow[4]=pc_trackingTarget->pos.y>>8;
+	arrow[5]=pc_trackingTarget->pos.y%256;
 	Xsend(s,arrow,6);
 }
 
