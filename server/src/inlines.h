@@ -32,6 +32,7 @@
 #include <algorithm>
 #include <math.h>
 #include <qglobal.h>
+#include <qstring.h>
 
 inline bool isHair( Q_UINT16 model )
 {
