@@ -64,7 +64,7 @@ cPlayer::cPlayer()
 	socket_				= NULL;
 	visualRange_		= VISRANGE;
 	profile_			= (char*)0;
-	fixedLightLevel_	= 0xFF;
+	fixedLightLevel_	= 0;
 	party_				= 0;
 	guild_				= 0;
 	strengthLock_		= 0;
@@ -120,6 +120,9 @@ void cPlayer::load( char **result, UINT16 &offset )
 	visualRange_ = atoi( result[offset++] );
 	profile_ = result[offset++];
 	fixedLightLevel_ = atoi( result[offset++] );
+	if (fixedLightLevel_ == 0xFF) {
+		fixedLightLevel_ = 0;
+	}
 	strengthLock_ = atoi(result[offset++]);
 	dexterityLock_ = atoi(result[offset++]);
 	intelligenceLock_ = atoi(result[offset++]);
@@ -1107,11 +1110,9 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 	*/
 	else SET_INT_PROPERTY( "logouttime", logoutTime_ )
 	/*
-		\property char.fixedlight If this integer property is not 0xFF, it will be used instead of the
-		world's lightlevel for this character.
-		This property is exclusive to player objects.
+		\property char.lightbonus This is the lightlevel bonus applied for this player.
 	*/
-	else SET_INT_PROPERTY( "fixedlight", fixedLightLevel_ )
+	else SET_INT_PROPERTY( "lightbonus", fixedLightLevel_ )
 	/*
 		\property char.objectdelay If this integer property is not zero, it indicates the servertime in miliseconds
 		when the player will be able to use an item again. Containers ignore this value.
@@ -1177,7 +1178,7 @@ stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
 	else GET_PROPERTY( "logouttime", (int)logoutTime_ )	
 	else GET_PROPERTY( "npc", false )
-	else GET_PROPERTY( "fixedlight", fixedLightLevel_ )
+	else GET_PROPERTY( "lightbonus", fixedLightLevel_ )
 	else GET_PROPERTY( "objectdelay", (int)objectDelay_ )
 	else GET_PROPERTY( "visrange", visualRange_ )
 	else GET_PROPERTY( "profile", profile_ )
@@ -1533,4 +1534,16 @@ void cPlayer::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	}
 
 	onShowTooltip(player, &tooltip);
+}
+
+void cPlayer::poll(unsigned int time, unsigned int events) {
+	cBaseChar::poll(time, events);
+
+	// Process an environmental light change if we're not in a cave.
+	if (socket_) {
+		cTerritory *region = AllTerritories::instance()->region(pos());
+		if(!region || !region->isCave()) {
+			socket_->updateLightLevel();
+		}
+	}
 }

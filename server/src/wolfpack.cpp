@@ -561,7 +561,6 @@ int main( int argc, char **argv )
         unlockDataMutex();
 	}
 
-	unlockDataMutex();
 	changeServerState(SHUTDOWN);
 
 	ScriptManager::instance()->onServerStop();

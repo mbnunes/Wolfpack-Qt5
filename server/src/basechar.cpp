@@ -3024,10 +3024,10 @@ void cBaseChar::poll(unsigned int time, unsigned int events)
 void cBaseChar::refreshMaximumValues() 
 {
 	if (objectType() == enPlayer) 
-		maxHitpoints_ = QMAX(1, ((strength_ - strengthMod_) / 2) + strengthMod_ + hitpointsBonus_ + 50);
+		maxHitpoints_ = QMAX(1, ((strength_) / 2) + hitpointsBonus_ + 50);
 
-	maxStamina_ = (int)QMAX(1, dexterity_ - dexterityMod_ + staminaBonus_);
-	maxMana_ = (int)QMAX(1, intelligence_ - intelligenceMod_ + manaBonus_);
+	maxStamina_ = (int)QMAX(1, dexterity_ + staminaBonus_);
+	maxMana_ = (int)QMAX(1, intelligence_ + manaBonus_);
 }
 
 bool cBaseChar::lineOfSight(P_CHAR target, bool touch)

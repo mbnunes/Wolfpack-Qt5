@@ -240,7 +240,7 @@ public:
 	void sendVendorCont( P_ITEM pItem );
 	void clilocMessage( const UINT32 MsgID, const QString &params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject *object = 0, bool system = false );
 	void clilocMessageAffix( const UINT32 MsgID, const QString &params = 0, const QString &affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject *object = 0, bool dontMove = false, bool prepend = false, bool system = false );
-	void updateLightLevel( UINT8 level );
+	void updateLightLevel();
 	void sendQuestArrow( bool show, UINT16 x, UINT16 y );
 	void closeGump( UINT32 type, UINT32 returnCode );
 	void log( eLogLevel loglevel, const QString &message );

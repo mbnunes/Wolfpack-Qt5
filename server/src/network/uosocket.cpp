@@ -97,7 +97,7 @@ using namespace std;
   cUOSocket will call delete on the given pointer when it's destructed.
 */
 cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
-		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
+		_walkSequence(0), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
 		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ),
 		_screenWidth(640), _screenHeight(480)
 {
@@ -1339,8 +1339,12 @@ void cUOSocket::allowMove( Q_UINT8 sequence )
 	acceptMove.setSequence(sequence);
 	acceptMove.setHighlight(_player->notoriety(_player));
 	send(&acceptMove);
-
-	_walkSequence = (sequence < 255) ? sequence : 0;
+	
+	if (sequence == 255) {
+		_walkSequence = 1;
+	} else {
+		_walkSequence = sequence + 1;
+	}
 }
 
 /*!
@@ -1353,8 +1357,7 @@ void cUOSocket::denyMove( Q_UINT8 sequence )
 	deny.fromChar( _player );
 	deny.setSequence( sequence );
 	send( &deny );
-
-	_walkSequence = ( sequence < 255 ) ? sequence : 0;
+	_walkSequence = 0;
 }
 
 /*!
@@ -1380,14 +1383,14 @@ void cUOSocket::resendPlayer( bool quick )
 
 		resendWorld( false );
 	}
-	
+
+    // Reset the walking sequence
+	_walkSequence = 0;
+
 	cUOTxDrawPlayer drawPlayer;
 	drawPlayer.fromChar(_player);
 	drawPlayer.setFlag(_player->notoriety(_player));
 	send(&drawPlayer);
-
-    // Reset the walking sequence
-	_walkSequence = 0xFF;
 
 	// Send the equipment Tooltips
 	cBaseChar::ItemContainer content = _player->content();
@@ -1400,6 +1403,8 @@ void cUOSocket::resendPlayer( bool quick )
 			pItem->sendTooltip(this);
 		}
 	}
+
+	updateLightLevel();
 
 	// Set the warmode status
 	if (!quick) {
@@ -1828,13 +1833,15 @@ void cUOSocket::updatePlayer()
 		pUpdate.setHighlight(_player->notoriety(_player));
 		send(&pUpdate);*/
 
+		// Reset the walking sequence
+		_walkSequence = 0;
+
 		cUOTxDrawPlayer playerupdate;
 		playerupdate.fromChar(_player);
 		playerupdate.setFlag(_player->notoriety(_player));
 		send(&playerupdate);
-        
-		// Reset the walking sequence
-		_walkSequence = 0xFF;
+
+		updateLightLevel();
 	}
 }
 
@@ -2544,28 +2551,18 @@ void cUOSocket::cancelTarget()
 	}
 }
 
-void cUOSocket::updateLightLevel( UINT8 level )
-{
-	if( _player )
-	{
+void cUOSocket::updateLightLevel() {
+	if(_player) {
 		cUOTxLightLevel pLight;
-
-		if( SrvParams->worldFixedLevel() != 255 )
-			pLight.setLevel( SrvParams->worldFixedLevel() );
-
-		else if( _player->fixedLightLevel() != 255 )
-			pLight.setLevel( _player->fixedLightLevel() );
-
-		else if( AllTerritories::instance()->region( _player->pos() )->isCave() )
-			pLight.setLevel( SrvParams->dungeonLightLevel() );
-
-		else if( level != 0xFF )
-			pLight.setLevel( level );
-
-		else
-			pLight.setLevel( SrvParams->worldCurrentLevel() );
-
-		send( &pLight );
+		unsigned char level;
+		cTerritory *region = AllTerritories::instance()->region(_player->pos());
+		if(region && region->isCave()) {
+			level = QMAX(0, (int)SrvParams->dungeonLightLevel() - _player->fixedLightLevel());
+		} else {
+			level = QMAX(0, (int)SrvParams->worldCurrentLevel() - _player->fixedLightLevel());
+		}
+		pLight.setLevel(level);
+		send(&pLight);
 	}
 }
 

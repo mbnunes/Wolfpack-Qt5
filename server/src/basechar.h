@@ -115,7 +115,8 @@ public:
 			for the given character.
 	*/
 	enum TimingEvents {
-		EventCombat = 1
+		EventCombat = 0x01,
+		EventLight = 0x02,
 	};
 
 	/*!

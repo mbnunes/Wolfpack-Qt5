@@ -114,6 +114,7 @@ public:
 	virtual bool onHelp( void ); // The character wants help
 	virtual bool onChat( void ); // The character wants to chat
 	virtual bool onCastSpell( unsigned int spell );
+	void poll(unsigned int time, unsigned int events);
 	bool onUse( P_ITEM pItem );
 	bool onPickup( P_ITEM pItem );
 	bool onTrade( unsigned int type, unsigned int buttonstate, SERIAL itemserial );

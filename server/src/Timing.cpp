@@ -70,10 +70,17 @@ cTiming::cTiming() {
 	nextNpcCheck = time + SrvParams->checkNPCTime() * MY_CLOCKS_PER_SEC;
 	nextItemCheck = time + SrvParams->checkItemTime() * MY_CLOCKS_PER_SEC;
 	nextShopRestock = time + 20 * 60 * MY_CLOCKS_PER_SEC; // Every 20 minutes
-	nextLightCheck = time + 30 * MY_CLOCKS_PER_SEC; // Every 30 seconds
 	nextHungerCheck = time + SrvParams->hungerDamageRate();
 	nextCombatCheck = time + 100; // Every 100 ms
-	nextUOTimeTick = time + SrvParams->secondsPerUOMinute() * MY_CLOCKS_PER_SEC;
+	nextUOTimeTick = 0;
+}
+
+inline int round(double f) {
+	int i = floor(f);
+	if (f - i >= 0.50) {
+		++i;
+	}
+	return i;
 }
 
 void cTiming::poll() {
@@ -95,30 +102,45 @@ void cTiming::poll() {
 		}
 	}
 
-	// Resend the lightlevel too all clients outside of dungeons?
-	bool updateLight = false;
+	unsigned int events = 0;
 
-	// Check lightlevel
-	if (nextLightCheck <= time) {
+	// Check lightlevel and time
+	if (nextUOTimeTick <= time) {
+		uoTime = uoTime.addSecs(60);
+		nextUOTimeTick = time + SrvParams->secondsPerUOMinute() * MY_CLOCKS_PER_SEC;
+
 		unsigned char &currentLevel = SrvParams->worldCurrentLevel();
-		unsigned char newLevel;
+		unsigned char newLevel = currentLevel;
 
-		if (uoTime.time().hour() <= 3 || uoTime.time().hour() >= 10) {
-			newLevel = SrvParams->worldDarkLevel();
+		unsigned char darklevel = SrvParams->worldDarkLevel();
+		unsigned char brightlevel = SrvParams->worldBrightLevel();
+		unsigned char difference = QMAX(0, (int)darklevel - (int)brightlevel); // Never get below zero
+		unsigned char hour = uoTime.time().hour();
+
+		// 11 to 18 = Day
+		if (hour >= 11 && hour < 18) {
+			newLevel = brightlevel;
+
+		// 22 to 6 = Night
+		} else if (hour >= 22 || hour < 6) {
+			newLevel = darklevel;
+
+		// 6 to 10 = Dawn (Scaled)
+		} else if (hour >= 6 && hour < 11) {
+			double factor = ((hour - 6) * 60 + uoTime.time().minute()) / 240.0;
+			newLevel = darklevel - QMIN(darklevel, round(factor * (float)difference));
+
+		// 18 to 22 = Nightfall (Scaled)
 		} else {
-			newLevel = SrvParams->worldBrightLevel();
+			double factor = ((hour - 18) * 60 + uoTime.time().minute()) / 240.0;
+			newLevel = brightlevel + round(factor * (float)difference);
 		}
 
 		if (newLevel != currentLevel) {
-			updateLight = true;
+			events |= cBaseChar::EventLight;
             currentLevel = newLevel;
 		}
-
-		// Update lightlevel every 30 seconds
-		nextLightCheck = time + 30 * MY_CLOCKS_PER_SEC;
 	}
-
-	unsigned int events = 0;
 
 	if (nextCombatCheck <= time) {
 		events |= cBaseChar::EventCombat;
@@ -232,9 +254,6 @@ void cTiming::poll() {
 
 	if (nextHungerCheck <= time) 
 		nextHungerCheck = time + SrvParams->hungerDamageRate() * MY_CLOCKS_PER_SEC;
-
-	if ( nextUOTimeTick <= time )
-		uoTime = uoTime.addSecs(1);
 }
 
 void cTiming::checkRegeneration(P_CHAR character, unsigned int time) 

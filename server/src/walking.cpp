@@ -475,6 +475,9 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			if( player && player->socket() )
 				player->socket()->denyMove( sequence );
 			return;
+		} else {
+			if (player && player->socket())
+				player->socket()->allowMove(sequence);
 		}
         
 		// Check if we're going to collide with characters
@@ -504,10 +507,6 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		pChar->moveTo(newCoord);
 		pChar->setLastMovement(uiCurrentTime);
 		AllTerritories::instance()->check(pChar);
-
-		if( player && player->socket())
-			player->socket()->allowMove(sequence);
-
 		checkStealth( pChar ); // Reveals the user if neccesary
 	} else {
 		if( player && player->socket() )
@@ -522,8 +521,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	for( ri.Begin(); !ri.atEnd(); ri++ ) {
 		P_CHAR observer = ri.GetData();
 		
-		if (observer == pChar)
-		{
+		if (observer == pChar) {
 			continue;
 		}
 
@@ -691,14 +689,15 @@ bool cMovement::CanBirdWalk(unitile_st xyb)
 
 // if we have a valid socket, see if we need to deny the movement request because of
 // something to do with the walk sequence being out of sync.
-bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw()
-{
-	if( !sequence )
-		socket->setWalkSequence( 0xFF );
+bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw() {
+	if ((socket->walkSequence() == 0 && sequence != 0)) {
+		return false;
+	}
 
-	if ( ( socket->walkSequence() + 1 != sequence ) && ( sequence != 0xFF ) && ( socket->walkSequence() != 0xFF ) )
-	{
-		socket->denyMove( sequence );
+	// Simply ignore this packet. 
+	// It's out of sync
+	if (socket->walkSequence() != sequence) {
+		socket->denyMove(sequence);
 		return false;
 	}
 
