@@ -109,7 +109,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message
 		else if( message.contains( tr(" RELEASE") ) )
 		{
 			int gold = pTalker->CountBankGold() + pTalker->CountGold();
-			P_ITEM pPack = m_npc->getBackpack();
+			P_ITEM pPack = m_npc->getBankbox();
 			cItem::ContainerContent stableitems;
 			if( pPack )
 			{
@@ -120,7 +120,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message
 					if( !(*it)->hasTag( "player" ) || !(*it)->hasTag( "pet" ) )
 						continue;
 
-					if( (*it) && (*it)->id() == 0x1ea7 && (*it)->getTag( "player" ).toInt() == pTalker->serial() )
+					if( (*it) && (*it)->getTag( "player" ).toInt() == pTalker->serial() )
 						stableitems.push_back( (*it) );
 					++it;
 				}
@@ -161,7 +161,7 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget *target
 	if( !player )
 		return;
 
-	P_ITEM pPack = m_npc->getBackpack();
+	P_ITEM pPack = m_npc->getBankbox();
 	if( !pPack )
 		return;
 
@@ -178,7 +178,7 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget *target
 		return;
 	}
 
-	// we spawn a worldgem in the stablemasters backpack for the pet
+	// we spawn a worldgem in the stablemasters bankbox for the pet
 	// it does only hold the serial of it, the serial of the owner and the
 	// number of refresh signals since begin of stabling
 	// the pet becomes "free", which means, that it isnt in the world

@@ -222,6 +222,7 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 			pSold->setAmount( iter->second );
 			pPack->addItem( pSold );
 			pSold->update();
+			pSold->sendTooltip(pChar->socket());
 		}
 		else
 		{
@@ -231,6 +232,7 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 				pSold->setAmount( 1 );
 				pPack->addItem( pSold );
 				pSold->update();
+				pSold->sendTooltip(pChar->socket());
 			}
 		}
 				

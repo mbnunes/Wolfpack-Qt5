@@ -422,7 +422,7 @@ bool BankerSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pBanker, const QSt
 	if( comm.contains( "BANK" ) )
 	{
 		pBanker->turnTo( pPlayer );		
-		socket->sendContainer( pPlayer->getBankBox() );
+		socket->sendContainer( pPlayer->getBankbox() );
 		return true;
 	}
 

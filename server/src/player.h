@@ -101,7 +101,6 @@ public:
 	bool isGMorCounselor() const; 
 	void makeCriminal();
 	void disturbMed();
-	P_ITEM getBankBox( void );
 	int  CountBankGold();
 	bool canPickUp(cItem* pi);	
 	virtual bool inWorld();

@@ -1325,9 +1325,8 @@ void cNPC::vendorSell( P_PLAYER player )
 	if (!pContC || pContC->content().size() == 0) {
 		talk(501550, 0, 0, false, saycolor_, player->socket());
 		return;
-	}
+	}	
 	
-	talk(501530, 0, 0, false, saycolor_, player->socket());
 	player->socket()->sendSellWindow( this, player );
 }
 
@@ -1368,7 +1367,9 @@ void cNPC::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	// Append the (frozen) tag
 	if (isFrozen()) {
 		if (affix.endsWith(" ")) {
-			affix = tr("(frozen)");
+			affix.append(tr("(frozen)"));
+		} else {
+			affix.append(tr(" (frozen)"));
 		}
 	}	
 

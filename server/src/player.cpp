@@ -584,25 +584,9 @@ void cPlayer::disturbMed()
 	}
 }
 
-P_ITEM cPlayer::getBankBox( void )
-{
-	P_ITEM pi = atLayer( BankBox );
-
-	if( !pi )
-	{
-		pi = cItem::createFromScript( "9ab" );
-		pi->setOwner( this );
-		pi->setType( 1 );
-		pi->setName( tr( "%1's bank box" ).arg( name() ) );
-		addItem( BankBox, pi, true, true );
-	}
-
-	return pi;
-}
-
 int cPlayer::CountBankGold()
 {
-	P_ITEM pi = getBankBox(); //we want gold bankbox.
+	P_ITEM pi = getBankbox(); //we want gold bankbox.
 	return pi->CountItems( 0x0EED );
 }
 
@@ -653,7 +637,7 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
     if( !inBank )
 		pCont = getBackpack();
 	else
-		pCont = getBankBox();
+		pCont = getBankbox();
 
 	if( !pCont )
 		return;
@@ -688,7 +672,7 @@ UINT32 cPlayer::takeGold( UINT32 amount, bool useBank )
 
 	if( ( dAmount > 0 ) && useBank )
 	{
-		P_ITEM pBank = getBankBox();
+		P_ITEM pBank = getBankbox();
 
 		if( pBank )
 			dAmount += pBank->DeleteAmount( (amount-dAmount), 0xEED, 0 );

@@ -187,6 +187,68 @@ static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
 	return PyTrue;
 }
 
+static PyObject* wpSocket_attachitemtarget(wpSocket* self, PyObject* args) {
+	char *responsefunc;
+	PyObject *items;
+	PyObject *targetargs = 0;	
+	char *cancelfunc = 0;
+	char *timeoutfunc = 0;
+	unsigned int timeout = 0;
+	int xoffset, yoffset, zoffset;
+
+	if (!PyArg_ParseTuple(args, "sO!iii|O!ssI:socket.attachitemtarget"
+		"(callback, [items], [args], [cancelcallback], [timeoutcallback], [timeout])", 
+		&responsefunc, &PyList_Type, &items, &xoffset, &yoffset, &zoffset, &PyList_Type, 
+		&targetargs, &cancelfunc, &timeoutfunc, &timeout)) {
+		return 0;
+	}
+	
+	if (targetargs) {
+		targetargs = PyList_AsTuple(targetargs);
+	} else {
+		targetargs = PyTuple_New(0);
+	}
+
+	std::vector<stTargetItem> targetitems;
+
+	// Evaluate the given items
+	for (int i = 0; i < PyList_Size(items); ++i) {
+		PyObject *listitem = PyList_GetItem(items, i);
+
+		// Has to be another list
+		if (PyList_Check(listitem)) {			
+			// id, xoffset, yoffset, zoffset, hue
+			if (PyList_Size(listitem) == 5) {
+				PyObject *id = PyList_GetItem(listitem, 0);
+				PyObject *ixoffset = PyList_GetItem(listitem, 1);
+				PyObject *iyoffset = PyList_GetItem(listitem, 2);
+				PyObject *izoffset = PyList_GetItem(listitem, 3);
+				PyObject *hue = PyList_GetItem(listitem, 4);
+
+				if (PyInt_Check(id) && PyInt_Check(ixoffset) && PyInt_Check(iyoffset) &&
+					PyInt_Check(izoffset) && PyInt_Check(hue)) {
+					stTargetItem targetitem;
+					targetitem.id = PyInt_AsLong(id);
+					targetitem.xOffset = PyInt_AsLong(ixoffset);
+					targetitem.yOffset = PyInt_AsLong(iyoffset);
+					targetitem.zOffset = PyInt_AsLong(izoffset);
+					targetitem.hue = PyInt_AsLong(hue);
+					targetitems.push_back(targetitem);
+				}
+			}
+		}
+	}
+
+    cPythonTarget *target = new cPythonTarget(responsefunc, timeoutfunc, cancelfunc, targetargs);	
+	
+	if (timeout) {
+		target->setTimeout(uiCurrentTime + timeout);
+	}
+
+	self->pSock->attachTarget(target, targetitems, xoffset, yoffset, zoffset);
+	return PyTrue;
+}
+
 static PyObject* wpSocket_attachmultitarget(wpSocket* self, PyObject* args) {
 	char *responsefunc;
 	unsigned short multiid;
@@ -571,6 +633,7 @@ static PyMethodDef wpSocketMethods[] =
 	{ "disconnect",			(getattrofunc)wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
 	{ "attachtarget",		(getattrofunc)wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" },
 	{ "attachmultitarget",	(getattrofunc)wpSocket_attachmultitarget,  METH_VARARGS, "Adds a multi target request to the socket" },
+	{ "attachitemtarget",	(getattrofunc)wpSocket_attachitemtarget,  METH_VARARGS, "Adds a target request to the socket" },
 	{ "sendgump",			(getattrofunc)wpSocket_sendgump,	METH_VARARGS, "INTERNAL! Sends a gump to this socket." },
 	{ "closegump",			(getattrofunc)wpSocket_closegump,	METH_VARARGS, "Closes a gump that has been sent to the client." },
 	{ "resendworld",		(getattrofunc)wpSocket_resendworld,  METH_VARARGS, "Sends the surrounding world to this socket." },

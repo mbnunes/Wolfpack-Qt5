@@ -342,7 +342,7 @@ void cMulti::createKeys( P_PLAYER pc, const QString &name )
 		return;
 
 	P_ITEM pBackpack = pc->getBackpack();
-	P_ITEM pBankbox = pc->getBankBox();
+	P_ITEM pBankbox = pc->getBankbox();
 
 	if( !pBackpack && !pBankbox )
 		return;

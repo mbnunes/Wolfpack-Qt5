@@ -877,7 +877,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	}
 
 	// Automatically create Backpack + Bankbox
-	pChar->getBankBox();
+	pChar->getBankbox();
 	pChar->getBackpack();
 	
 	pChar->setAccount( _account );
@@ -2276,8 +2276,17 @@ struct buyitem_st
 	QString name;
 };
 
+class SortedSerialList : public QPtrList<cItem> {
+protected:
+	virtual int compareItems(QPtrCollection::Item item1, QPtrCollection::Item item2) {
+		return ((P_ITEM)item1)->serial() - ((P_ITEM)item2)->serial();
+	}
+};
+
 void cUOSocket::sendVendorCont( P_ITEM pItem )
 {
+	pItem->update(this); // Make sure it's visible to the client
+
 	// Only allowed for pItem's contained by a character
 	cUOTxItemContent itemContent;
 	cUOTxVendorBuy vendorBuy;
@@ -2292,6 +2301,12 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	cItem::ContainerContent::const_iterator it( container.begin() );
 	cItem::ContainerContent::const_iterator end( container.end() );
 
+	SortedSerialList sortedList;
+	for (; it != end; ++it) {
+		sortedList.append(*it);
+	}
+	sortedList.sort();
+
 	bool restockNow = false;
 
 	if ( pItem->layer() == cBaseChar::BuyRestockContainer )
@@ -2305,45 +2320,38 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 			pItem->setTag("last_restock_time", cVariant( int(uiCurrentTime) ) );
 	}
 	
-	for( Q_INT32 i = 0; it != end; ++it, ++i )
-	{
-		P_ITEM mItem = *it;
+	unsigned int i = 0;
+	for (P_ITEM mItem = sortedList.first(); mItem; mItem = sortedList.next()) {
+		if (restockNow)
+			mItem->setRestock( mItem->amount() );
+		
+		unsigned short amount = pItem->layer() == cBaseChar::BuyRestockContainer ? mItem->restock() : mItem->amount();
+		if (amount >= 1) {
+			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, 1, amount, pItem->serial() );
 
-		if( mItem )
-		{
-			if ( restockNow )
-				mItem->setRestock( mItem->amount() );
-			
-			ushort amount = pItem->layer() == cBaseChar::BuyRestockContainer ? mItem->restock() : mItem->amount();
-			if ( amount )
-			{
-				itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i, i, amount, pItem->serial() );
-				
-				// change how the name is displayed
-				QString name = mItem->getName(true);
-				name[0] = name[0].upper();
-				for ( uint i = 1; i < name.length() - 1; ++i )
-					if ( name.at(i).isSpace() )
-						name.at(i+1) = name.at(i+1).upper();
-					
-				buyitems.push_front( buyitem_st( mItem->buyprice(), name ) );
-				items.append(mItem);
-			}
+			// change how the name is displayed
+			QString name = mItem->getName(true);
+			name[0] = name[0].upper();
+			for ( uint i = 1; i < name.length() - 1; ++i )
+				if ( name.at(i).isSpace() )
+					name.at(i+1) = name.at(i+1).upper();
+
+			vendorBuy.addItem(mItem->buyprice(), "");
+			items.append(mItem);
+			++i;
 		}
 	}
 
-	for( bit = buyitems.begin(); bit != buyitems.end(); ++bit )
-		vendorBuy.addItem( (*bit).buyprice, (*bit).name );
-
-	send( &itemContent );
-	send( &vendorBuy );
+	send(&itemContent);
 
 	for (P_ITEM item = items.first(); item; item = items.next()) {
 		item->sendTooltip(this);
 	}
+
+	send( &vendorBuy );
 }
 
-void cUOSocket::sendBuyWindow( P_CHAR pVendor )
+void cUOSocket::sendBuyWindow( P_NPC pVendor )
 {
 	P_ITEM pBought = pVendor->atLayer( cBaseChar::BuyNoRestockContainer );
 	P_ITEM pStock = pVendor->atLayer( cBaseChar::BuyRestockContainer );
@@ -2357,16 +2365,15 @@ void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 	cUOTxDrawContainer drawContainer;
 	drawContainer.setSerial( pVendor->serial() );
 	drawContainer.setGump( 0x30 );
-
 	send( &drawContainer );
 }
 
-void cUOSocket::sendSellWindow( P_CHAR pVendor, P_CHAR pSeller )
+void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 {
 	P_ITEM pPurchase = pVendor->atLayer( cBaseChar::SellContainer );
 	P_ITEM pBackpack = pSeller->getBackpack();
 	
-	if( pPurchase && pBackpack )
+	if (pPurchase && pBackpack)
 	{
 		QPtrList<cItem> items;
 		cUOTxSellList itemContent;
@@ -2397,8 +2404,13 @@ void cUOSocket::sendSellWindow( P_CHAR pVendor, P_CHAR pSeller )
 			}
 		}
 
-		send( &itemContent );
+		if (items.count() == 0) {
+			pVendor->talk(501550, 0, 0, false, pVendor->saycolor(), this);
+			return;
+		}
 
+		pVendor->talk(501530, 0, 0, false, pVendor->saycolor(), this);
+		send(&itemContent);
 		for (P_ITEM item = items.first(); item; item = items.next()) {
 			item->sendTooltip(this);
 		}

@@ -852,16 +852,29 @@ P_ITEM cBaseChar::GetItemOnLayer(unsigned char layer)
 	return atLayer( static_cast<enLayer>(layer) );
 }
 
+P_ITEM cBaseChar::getBankbox()
+{
+	P_ITEM pi = atLayer(BankBox);
+
+	if (!pi) {
+		pi = cItem::createFromScript("9ab");
+		pi->setOwner(this);
+		pi->setType(1);
+		addItem(BankBox, pi, true, false);
+	}
+
+	return pi;
+}
+
 P_ITEM cBaseChar::getBackpack()
 {
 	P_ITEM backpack = atLayer( Backpack );
 
 	// None found so create one
-	if( !backpack )
-	{
-		backpack = cItem::createFromScript( "e75" );
-		backpack->setOwner( this );
-		addItem( Backpack, backpack );
+	if (!backpack) {
+		backpack = cItem::createFromScript("e75");
+		backpack->setOwner(this);
+		addItem(Backpack, backpack);
 		backpack->update();
 	}
 

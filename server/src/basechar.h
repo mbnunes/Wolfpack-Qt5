@@ -243,6 +243,7 @@ public:
 	int  CountGold();
 	P_ITEM GetItemOnLayer(unsigned char layer);
 	P_ITEM getBackpack();
+	P_ITEM getBankbox();
 	void SetMultiSerial(long mulser);
 	void setSerial(SERIAL ser);
 	void MoveTo(short newx, short newy, signed char newz);

@@ -235,8 +235,8 @@ public:
 	void sendStatWindow( P_CHAR pChar = NULL );
 	bool inRange( cUOSocket* ) const;
 	void sendSkill( UINT16 skill );
-	void sendBuyWindow( P_CHAR pVendor );
-	void sendSellWindow( P_CHAR pVendor, P_CHAR pSeller );
+	void sendBuyWindow( P_NPC pVendor );
+	void sendSellWindow( P_NPC pVendor, P_CHAR pSeller );
 	void sendVendorCont( P_ITEM pItem );
 	void clilocMessage( const UINT32 MsgID, const QString &params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject *object = 0, bool system = false );
 	void clilocMessageAffix( const UINT32 MsgID, const QString &params = 0, const QString &affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject *object = 0, bool dontMove = false, bool prepend = false, bool system = false );

@@ -1248,7 +1248,7 @@ static PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
 	if ( !player )
 		return PyFalse;
 
-	return PyGetItemObject( player->getBankBox() );
+	return PyGetItemObject( player->getBankbox() );
 }
 
 /*

@@ -667,6 +667,8 @@ void cUOTxItemTarget::addItem( unsigned short id, short deltaX, short deltaY, sh
 	// Add 10 Bytes
 	int offset = size();
 	resize( offset + 10 );
+	setShort(1, size());
+	setShort(14, getShort(14) + 1);
 	setShort( offset, id );
 	setShort( offset+2, deltaX );
 	setShort( offset+4, deltaY );
