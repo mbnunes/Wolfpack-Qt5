@@ -282,7 +282,7 @@ public:
 	double getHitpointRate();
 	double getStaminaRate();
 	double getManaRate();
-	void resurrect();
+	bool resurrect( cUObject* source );
 
 	virtual void turnTo( cUObject* object );
 	virtual void turnTo( const Coord_cl& pos );
@@ -325,6 +325,7 @@ public:
 	virtual bool onShowSkillGump(); //Show Skillgump
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
 	virtual bool onDeath( cUObject* source, P_ITEM corpse );
+	virtual bool onResurrect( cUObject* source );
 	virtual bool onDropOnChar( P_ITEM pItem );
 	virtual QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
 	//	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object

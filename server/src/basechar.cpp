@@ -782,10 +782,13 @@ void cBaseChar::playDeathSound()
 // This should check soon if we are standing above our
 // corpse and if so, merge with our corpse instead of
 // just resurrecting
-void cBaseChar::resurrect()
+bool cBaseChar::resurrect( cUObject* source )
 {
 	if ( !isDead() )
-		return;
+		return false;
+
+	if ( onResurrect( source ) )
+		return false;
 
 	cCorpse* corpse = 0;
 
@@ -897,6 +900,7 @@ void cBaseChar::resurrect()
 		// Let him "stand up"
 		this->action( action, 2, true );
 	}
+	return true;
 }
 
 void cBaseChar::turnTo( const Coord_cl& pos )
@@ -2665,6 +2669,18 @@ bool cBaseChar::onDeath( cUObject* source, P_ITEM corpse )
 	{
 		PyObject* args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetObjectObject, source, PyGetItemObject, corpse );
 		result = callEventHandler(EVENT_DEATH, args);
+		Py_DECREF( args );
+	}
+	return result;
+}
+
+bool cBaseChar::onResurrect( cUObject* source )
+{
+	bool result = false;
+	if (canHandleEvent(EVENT_RESURRECT))
+	{
+		PyObject* args = Py_BuildValue( "(O&O&)", PyGetCharObject, this, PyGetObjectObject, source );
+		result = callEventHandler(EVENT_RESURRECT, args);
 		Py_DECREF( args );
 	}
 	return result;

@@ -615,6 +615,7 @@ static PyObject* wpChar_useresource( wpChar* self, PyObject* args )
 /*
 	\method char.resurrect
 	\description Resurrect the character.
+	\param source Defaults to None.
 */
 static PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 {
@@ -622,7 +623,18 @@ static PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 	if ( !self->pChar || self->pChar->free )
 		Py_RETURN_FALSE;
 
-	self->pChar->resurrect();
+	PyObject* source = Py_None;
+
+	if ( !PyArg_ParseTuple( args, "|O:char.resurrect( source )", &source ) )
+		return 0;
+
+	cUObject* pSource = 0;
+	if ( source != Py_None )
+	{
+		PyConvertObject( source, &pSource );
+	}
+
+	self->pChar->resurrect( pSource );
 
 	Py_RETURN_TRUE;
 }

@@ -537,6 +537,15 @@ It's triggered for the item, then for the npc and then for the global hook.
 */
 "onShowVirtueGump",
 
+/*
+\event onResurrect
+\param char The character being resurrected.
+\param source The source of the resurrection. This may be None.
+\condition Triggered when a character is resurrected.
+\notes Return False to cancel the resurrection.
+*/
+"onResurrect",
+
 0
 };
 

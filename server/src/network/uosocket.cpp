@@ -3254,8 +3254,10 @@ bool cUOSocket::useItem( P_ITEM item )
 		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
 		if ( _player->isDead() )
 		{
-			_player->resurrect();
-			sysMessage( tr( "You have been resurrected." ) );
+			if ( _player->resurrect( item ) )
+			{
+				sysMessage( tr( "You have been resurrected." ) );
+			}
 		}
 		else
 		{
