@@ -577,6 +577,11 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			else
 			{
 				otherplayer->socket()->updateChar( pChar ); // Previously we were already known
+
+				// If we are now out of range, remove from view (just to be sure)
+				if (pChar->dist( otherplayer ) > otherplayer->visualRange()) {
+					otherplayer->socket()->removeObject(pChar);
+				}
 			}
 		}
 	}

@@ -1629,8 +1629,8 @@ void cUOSocket::sendChar( P_CHAR pChar )
 		cUOTxDrawChar drawChar;
 		drawChar.fromChar( pChar );
 		drawChar.setHighlight( pChar->notoriety( _player ) );
-		pChar->sendTooltip( this );
 		send( &drawChar );
+		pChar->sendTooltip( this );
 
 		// Send item tooltips
 		cBaseChar::ItemContainer content = pChar->content();

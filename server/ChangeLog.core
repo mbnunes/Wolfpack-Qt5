@@ -23,6 +23,7 @@ Wolfpack 12.9.10 Beta (CVS)
 	  with a tag.
 	- Fixed a tooltip bug that made players lords and ladies with only 1000 points
 	  of fame.
+	- Fixed a bug where tooltips were sent before the actual character.
 
 Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.
