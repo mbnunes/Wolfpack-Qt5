@@ -273,6 +273,11 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 	vector< stBlockItem > blockList = getBlockingItems( pChar, pos );
 	bool found = false;
 	UINT32 i;
+	bool priviledged = false;
+
+	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
+
+	priviledged = player && player->isGM();
 	
 	for( i = 0; i < blockList.size(); ++i )
 	{
@@ -282,7 +287,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 		// If we encounter any object with itemTop <= pos.z which is NOT walkable
 		// Then we can as well just return false as while falling we would be
 		// blocked by that object
-		if( !item.walkable && ( itemTop < pos.z ) )
+		if( !item.walkable && !priviledged && itemTop < pos.z)
 			return false;
 
 		// If the top of the item is within our max-climb reach
@@ -290,12 +295,17 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 		// check if the "bottom" of the item is reachable
 		// I would say 2 is a good "reach" value for the bottom
 		// of any item
-		if( item.walkable && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) /*&& ( item.z <= pos.z + 2 )*/ )
+		if( (item.walkable || priviledged) && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) /*&& ( item.z <= pos.z + 2 )*/ )
 		{
 			pos.z = itemTop;
 			found = true;
 			break;
 		}
+	}
+
+	if (priviledged)
+	{
+		return true;
 	}
 
 	// If we're still at the same position
@@ -459,7 +469,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		// Check if the char can move to those new coordinates
 		// It is going to automatically calculate the new coords (!)
-		if( ( !player || !player->isGM() ) && !mayWalk( pChar, newCoord ) )
+		if (!mayWalk(pChar, newCoord))
 		{
 			if( player && player->socket() )
 				player->socket()->denyMove( sequence );
