@@ -3257,7 +3257,7 @@ void endtrade(int b1, int b2, int b3, int b4)
 				pi->pos.y = RandomNum(50, 130);
 				pi->pos.z=9;
 				if (s1 != -1)
-					RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
+					RefreshItem(pi);//AntiChrist
 			}
 	}
 	vecContainer.clear();
@@ -3277,7 +3277,7 @@ void endtrade(int b1, int b2, int b3, int b4)
 				pi->pos.y=50+(rand()%80);
 				pi->pos.z=9;
 				if (s2 != -1)
-					RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
+					RefreshItem(pi);//AntiChrist
 			}
 	}
 	Items->DeleItem(pi_cont1);

@@ -686,7 +686,7 @@ void cCommands::DyeItem(int s) // Rehue an item
 				pi->color1=c1;
 				pi->color2=c2;
 			}
-			RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
+			RefreshItem(pi);//AntiChrist
 			
 			soundeffect( s, 0x02, 0x3e ); // plays the dye sound, LB
 			return;

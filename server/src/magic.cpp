@@ -1864,7 +1864,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										pi_c->dir=1;
 										
 										mapRegions->Add(pi_c);	//add gate to list of items in the region
-										RefreshItem(DEREF_P_ITEM(pi_c));//AntiChrist
+										RefreshItem(pi_c);//AntiChrist
 									}
 									if (n==1)
 									{

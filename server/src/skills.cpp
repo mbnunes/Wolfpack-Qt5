@@ -1065,7 +1065,7 @@ void cSkills::PotionToBottle(CHARACTER s, int mortar)
 		pi_potion->madewith=0;
 	}
 	
-	RefreshItem(DEREF_P_ITEM(pi_potion));
+	RefreshItem(pi_potion);
 	pi_mortar->type=0;
 	// items[i].weight=100; // Ripper 11-25-99
 	// AntiChrist NOTE: please! use the HARDITEMS.SCP...

@@ -41,25 +41,6 @@ inline int calcCharFromPtr(unsigned char *p)
 	if((serial=LongFromCharPtr(p)) == INVALID_SERIAL) return -1;
 	return findbyserial(&charsp[serial%HASHMAX], serial, 1);
 }
-/*
-inline int calcItemFromPtr(unsigned char *p)
-{
-	int serial;
-	if((serial=LongFromCharPtr(p)) == INVALID_SERIAL) return -1;
-	return findbyserial(&itemsp[serial%HASHMAX], serial, 0);
-}
-*/
-inline int calcItemFromSer(unsigned char ser1, unsigned char ser2, unsigned char ser3, unsigned char ser4)
-{
-	if(ser1==255 && ser2==255 && ser3==255 && ser4==255 ) return -1;//AntiChrist
-	int serial = calcserial(ser1, ser2, ser3, ser4);
-	return findbyserial(&itemsp[serial%HASHMAX], serial, 0);
-}
-
-inline int calcItemFromSer(int ser) // Aded by Magius(CHE) (2)
-{
-	return findbyserial(&itemsp[ser%HASHMAX], ser, 0);
-}
 
 inline UOXSOCKET calcSocketFromChar(P_CHAR pc)
 {
@@ -88,11 +69,6 @@ inline int calcCharFromSer(unsigned char ser1, unsigned char ser2, unsigned char
 inline int calcCharFromSer(int serial)
 {
 	return(findbyserial(&charsp[serial%HASHMAX], serial, 1));
-}
-
-inline void RefreshItem(P_ITEM pi)
-{
-	RefreshItem(DEREF_P_ITEM(pi));
 }
 
 inline void SetTimerSec(unsigned long *timer, const short seconds)

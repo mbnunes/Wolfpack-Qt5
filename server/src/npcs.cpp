@@ -382,7 +382,7 @@ void cChar::Init(bool ser)
 	this->disabledmsg[0] = 0; //Character disabled message. -- by Magius(CHE) §
 	this->envokeid1=0x00; //ID1 of item user envoked
 	this->envokeid2=0x00; //ID2 of item user envoked
-	this->envokeitem=-1;
+	this->envokeitem = INVALID_SERIAL;
 	this->split=0;
 	this->splitchnc=0;
 	this->targtrig=0; //Stores the number of the trigger the character for targeting
@@ -469,7 +469,7 @@ void cCharStuff::DeleteChar (int k) // Delete character
 	if (pc_k->spawnserial != INVALID_SERIAL) 
 		cspawnsp.remove(pc_k->spawnserial, pc_k->serial);
 	if (pc_k->ownserial != INVALID_SERIAL) 
-		removefromptr(&cownsp[pc_k->ownserial%HASHMAX], DEREF_P_CHAR(pc_k));
+		cownsp.remove(pc_k->ownserial, pc_k->serial);
 	
 	for (j=0;j<now;j++)
 	{
@@ -2016,7 +2016,7 @@ void cChar::setOwnSerialOnly(long ownser)
 void cChar::SetOwnSerial(long ownser)
 {
 	if (ownserial!=-1)	// if it was set, remove the old one
-		removefromptr(&cownsp[ownserial%HASHMAX], DEREF_P_CHAR(this));
+		cownsp.remove(ownserial, serial);
 	
 	setOwnSerialOnly(ownser);
 	if (ownser != serial && ownser != -1)
@@ -2025,7 +2025,7 @@ void cChar::SetOwnSerial(long ownser)
 		tamed = false;
 
 	if (ownser!=-1)		// if there is an owner, add it
-		setptr(&cownsp[ownserial%HASHMAX], DEREF_P_CHAR(this));
+		cownsp.insert(ownserial, serial);
 }
 
 void cChar::SetSpawnSerial(long spawnser)

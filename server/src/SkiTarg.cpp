@@ -87,7 +87,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			npi->weight = 10;
 			npi->amount = amt1;
 			npi->pileable = 1;
-			RefreshItem(DEREF_P_ITEM(npi));
+			RefreshItem(npi);
 			Items->DeleItem(pi_bolts);
 			Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
 			statwindow(s,DEREF_P_CHAR(pc_currchar));
@@ -1115,9 +1115,9 @@ void cSkills::Loom(int s)
 					sysmessage(s,"You failed to make cloth.");
 					sysmessage(s,"You have broken and lost some material!");
 					if (pti->amount!=0) pti->amount -= 1+(rand() % (pti->amount)); else pti->amount --; 
-					if (pti->amount <=0) Items->DeleItem(ti);
+					if (pti->amount <=0) Items->DeleItem(pti);
 					else
-						RefreshItem(ti);
+						RefreshItem(pti);
 					return;
 				}
 				
@@ -1139,7 +1139,7 @@ void cSkills::Loom(int s)
 					pti->priv |= 1;
 					pti->amount=static_cast<unsigned short> (pti->amount*0.25);
 				}
-				RefreshItem(ti);//AntiChrist
+				RefreshItem(pti);//AntiChrist
 				tailme=1;
 			}
 		}
@@ -1179,7 +1179,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 						P_ITEM pi_c = Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),piRaw->amount,"#",1,id1,id2,0,0,1,1);
 						if(pi_c == NULL) return;
 						pi_c->type = 14;
-						RefreshItem(DEREF_P_ITEM(pi_c));
+						RefreshItem(pi_c);
 						Items->DeleItem(piRaw);
 					}
 					sysmessage(s,tmpmsg);
@@ -1216,7 +1216,7 @@ void cSkills::MakeDough(int s)
 				pti->priv |= 0x01;
 				pti->amount *= 2;
 				
-				RefreshItem(ti);
+				RefreshItem(pti);
 				tailme=1;
 			}
 		}

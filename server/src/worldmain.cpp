@@ -236,13 +236,7 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "OWN"))
 			{
 				i=str2num(script2);
-				pc->ownserial=i;
-				//taken from 6904t2(5/10/99) - AntiChrist
-				if (pc->ownserial!=-1)
-				{
-					setptr(&cownsp[i%HASHMAX], DEREF_P_CHAR(pc)); //Load into charsp array
-					pc->tamed = true;				// Abaddon	// bugfix JM/LB
-				}
+				pc->SetOwnSerial(i);
 			}
 		break;
 

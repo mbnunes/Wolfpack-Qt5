@@ -606,9 +606,9 @@ void dotrade(int cont1_1, int cont2_1)
 				if (pi->glow != INVALID_SERIAL) 
 					glowsp.insert(chars[currchar[s1]].serial, pi->serial);
 				if (s2 != INVALID_UOXSOCKET)
-					RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
+					RefreshItem(pi);//AntiChrist
 				if (s1 != INVALID_UOXSOCKET) sendbpitem(s1, DEREF_P_ITEM(pi));
-					RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
+					RefreshItem(pi);//AntiChrist
 			}
 	}
 }

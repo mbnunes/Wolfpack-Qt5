@@ -243,7 +243,7 @@ public:
 	char disabledmsg[256]; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
 	char envokeid1; //ID1 of item user envoked
 	char envokeid2; //ID2 of item user envoked
-	int envokeitem;
+	SERIAL envokeitem;
 	int split;
 	int splitchnc;
 	int targtrig; //Stores the number of the trigger the character for targeting

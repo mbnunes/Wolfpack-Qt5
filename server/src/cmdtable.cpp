@@ -2178,7 +2178,7 @@ void command_tilew(UOXSOCKET s)
 					pi_a->pos.y=y;
 					pi_a->pos.z = static_cast<signed char>(makenumber(7));
 					mapRegions->Add(pi_a); // lord Binary
-					RefreshItem(DEREF_P_ITEM(pi_a));//AntiChrist
+					RefreshItem(pi_a);//AntiChrist
 				}
 			}
 			

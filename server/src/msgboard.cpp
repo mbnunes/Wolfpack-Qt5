@@ -2273,7 +2273,6 @@ void MsgBoardQuestEscortArrive( int npcIndex, int pcIndex )
 	// Set a timer to automatically delete the NPC
 	pc_npc->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParms->escortdoneexpire ) );
 	
-	//removefromptr(&cownsp[chars[k].ownserial%256], k);
 	pc_npc->ownserial=-1;
 }
 

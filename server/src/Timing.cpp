@@ -983,19 +983,21 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
     if(itemlooptime <=currenttime || (overflow))
 	{
        itemlooptime = currenttime+5*MY_CLOCKS_PER_SEC;
-       for( i = 0; i < itemcount; i++ ) // Ripper...so spawners get set to nodecay.
+	   AllItemsIterator iterItems;
+       for( iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++ ) // Ripper...so spawners get set to nodecay.
 	   {
-          if(i!=-1)
-		  {
-             // lets make sure they are spawners.
-             if ((items[i].type>=61 && items[i].type<=65) || (items[i].type==69) || (items[i].type==125))
-			 {
-               // set to nodecay and refresh.
-                items[i].priv=0;
-                RefreshItem(i);
-			 }
-		  }
-	   }
+			P_ITEM pi = iterItems.GetData();
+			if(pi != NULL)
+			{
+				// lets make sure they are spawners.
+				if ((pi->type>=61 && pi->type<=65) || (pi->type==69) || (pi->type==125))
+				{
+					// set to nodecay and refresh.
+	                pi->priv=0;
+		            RefreshItem(pi);
+				 }
+			}
+		}
 	}
 	for(i=0;i<now;i++)
 	{

@@ -54,88 +54,73 @@
 class cTarget
 {
 protected:
-	int s,serial,inx;
-	P_ITEM pi;
-	P_CHAR pc;
-	P_CLIENT ps;
+	UOXSOCKET s;
+	SERIAL serial;
 	void makeSerial()		{serial=LongFromCharPtr(buffer[s]+7);}
-	void makeCharIndex()	{inx=calcCharFromSer(serial);}
-	void makeItemIndex()	{inx=calcItemFromSer(serial);}
 public:
 	cTarget(P_CLIENT pCli)	{s=pCli->GetSocket();}
 	virtual void process() = 0;
 };
 
-class cCharTarget : public cTarget
+class cCharTarget : public virtual cTarget
 {
+protected:
+	P_CHAR pc;
+
 public:
 	cCharTarget(P_CLIENT pCli) : cTarget(pCli) {}
 	virtual void CharSpecific() = 0;
 	virtual void process()
 	{
 		makeSerial();
-		makeCharIndex();
-		if(inx > -1)
-		{
-			int err;
-			pc = MAKE_CHARREF_LOGGED(inx,err);
-			if (err) return;
+		pc = FindCharBySerial(serial);
+		if (pc != NULL)
 			CharSpecific();
-		}
 		else
 			sysmessage(s,"That is not a character.");
 	}
 };
 
-class cItemTarget : public cTarget
+class cItemTarget : public virtual cTarget
 {
+protected:
+	P_ITEM pi;
 public:
 	cItemTarget(P_CLIENT pCli) : cTarget(pCli) {}
 	virtual void ItemSpecific() = 0;
 	virtual void process()
 	{
 		makeSerial();
-		makeItemIndex();
-		if(inx > -1)
-		{
-			pi = MAKE_ITEMREF_LR(inx);
+		pi = FindItemBySerial(serial);
+		if (pi != NULL)
 			ItemSpecific();
-		}
 		else
-			sysmessage(s,"That is not an item.");
+			sysmessage(s, "That is not an item.");
 	}
 };
 
-class cWpObjTarget : public cTarget
+class cWpObjTarget : public virtual cItemTarget, public virtual cCharTarget
 {
 public:
-	cWpObjTarget(P_CLIENT pCli) : cTarget(pCli) {}
-	virtual void CharSpecific() = 0;
-	virtual void ItemSpecific() = 0;
+	cWpObjTarget(P_CLIENT pCli) : cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
+//	virtual void CharSpecific() = 0;
+//	virtual void ItemSpecific() = 0;
 	virtual void process()
 	{
 		makeSerial();
-		if(buffer[s][7]>=0x40) // an item's serial ?
+		if(isItemSerial(serial)) // an item's serial ?
 		{
-			makeItemIndex();
-			if(inx > -1)
-			{
-				pi = MAKE_ITEMREF_LR(inx);
+			pi = FindItemBySerial(serial);
+			if (pi != NULL)
 				ItemSpecific();
-			}
 			else
 				sysmessage(s,"That is not a valid item.");
 		}
 		else
 		{
-			makeCharIndex();
-			if(inx > -1)
-			{
-				int err;
-				pc = MAKE_CHARREF_LOGGED(inx,err);
-				if (err) return;
+			pc = FindCharBySerial(serial);
+			if (pc != NULL)
 				CharSpecific();
-			}
 			else
 				sysmessage(s,"That is not a valid character.");
 		}
@@ -267,7 +252,7 @@ static void AddTarget(int s, PKGx6C *pp)
 class cRenameTarget : public cWpObjTarget
 {
 public:
-	cRenameTarget(P_CLIENT pCli) : cWpObjTarget(pCli) {}
+	cRenameTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
 	void CharSpecific()
 	{
 		strcpy(pc->name,xtext[s]);
@@ -303,7 +288,7 @@ static void TeleTarget(int s, PKGx6C *pp)
 class cRemoveTarget : public cWpObjTarget
 {
 public:
-	cRemoveTarget(P_CLIENT pCli) : cWpObjTarget(pCli) {}
+	cRemoveTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
 	void CharSpecific()
 	{
 		if (pc->account>-1 && pc->isPlayer()) // player check added by LB
@@ -312,12 +297,12 @@ public:
 			return;
 		}
 		sysmessage(s, "Removing character.");
-		Npcs->DeleteChar(inx);
+		Npcs->DeleteChar(DEREF_P_CHAR(pc));
 	}
 	void ItemSpecific()
 	{
 		sysmessage(s, "Removing item.");
-		Items->DeleItem(inx);
+		Items->DeleItem(pi);
 	}
 };
 
@@ -393,16 +378,16 @@ void DyeTarget(int s)
 class cNewzTarget : public cWpObjTarget
 {
 public:
-	cNewzTarget(P_CLIENT pCli) : cWpObjTarget(pCli) {}
+	cNewzTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
 	void CharSpecific()
 	{
 		pc->dispz=pc->pos.z=addx[s];
-		teleport(inx);
+		teleport(DEREF_P_CHAR(pc));
 	}
 	void ItemSpecific()
 	{
 		pi->pos.z=addx[s];
-		RefreshItem(inx);
+		RefreshItem(pi);
 	}
 };
 
@@ -861,17 +846,18 @@ void cTargets::GhostTarget(int s)
 class cBoltTarget : public cCharTarget
 {
 public:
-	cBoltTarget(P_CLIENT pCli) : cCharTarget(pCli) {}
+	cBoltTarget(P_CLIENT pCli) : cCharTarget(pCli), cTarget(pCli) {}
 	void CharSpecific()
 	{
 		if (w_anim[0]==0 && w_anim[1]==0)
 		{
-			bolteffect(inx, true);
-			soundeffect2(inx, 0x00, 0x29);
+			bolteffect(DEREF_P_CHAR(pc), true);
+			soundeffect2(DEREF_P_CHAR(pc), 0x00, 0x29);
 		}
 		else
 		{
-			for (int j=0;j<=333;j++) bolteffect2(inx,w_anim[0],w_anim[1]);
+			for (int j=0;j<=333;j++) 
+				bolteffect2(DEREF_P_CHAR(pc), w_anim[0],w_anim[1]);
 		}
 	}
 };
@@ -879,7 +865,7 @@ public:
 class cSetAmountTarget : public cItemTarget
 {
 public:
-	cSetAmountTarget(P_CLIENT pCli) : cItemTarget(pCli) {}
+	cSetAmountTarget(P_CLIENT pCli) : cItemTarget(pCli), cTarget(pCli) {}
 	void ItemSpecific()
 	{
 		if (addx[s] > 64000) //Ripper..to fix a client bug for over 64k.
@@ -888,7 +874,7 @@ public:
 			return;
 		}
 		this->pi->amount=addx[s];
-		RefreshItem(inx);
+		RefreshItem(pi);
 	}
 };
 
@@ -939,7 +925,7 @@ void cTargets::VisibleTarget (int s)
 		if(pi != NULL)
 		{
 			pi->visible=addx[s];
-			RefreshItem(DEREF_P_ITEM(pi));
+			RefreshItem(pi);
 		}
 	}
 	else
@@ -1399,6 +1385,8 @@ void cTargets::SquelchTarg(int s)//Squelch
 
 static void TeleStuff(int s, PKGx6C *pp)
 {
+	sysmessage(s, "Command temporary disabled for code restructure");
+/*
 	static int targ=-1;//What/who to tele
 	int x, y, z;
 	int serial, i;
@@ -1439,6 +1427,8 @@ static void TeleStuff(int s, PKGx6C *pp)
 		targ=-1;
 		return;
 	}
+	*/
+
 }
 
 void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bird)
@@ -2464,7 +2454,7 @@ void cTargets::SetDirTarget(int s)
 		if (pi != NULL)
 		{
 			pi->dir=addx[s];
-			RefreshItem(DEREF_P_ITEM(pi));
+			RefreshItem(pi);
 			return;
 		}
 	}
@@ -2550,7 +2540,7 @@ void cTargets::NewXTarget(int s) // Notice a high similarity to th function abov
 		if (pi == NULL)
 			return;
 		pi->MoveTo(addx[s],pi->pos.y,pi->pos.z);
-		RefreshItem(DEREF_P_ITEM(pi));
+		RefreshItem(pi);
 	}
 	else if (isCharSerial(serial))
 	{
@@ -2593,7 +2583,7 @@ void cTargets::IncXTarget(int s)
 		if (pi == NULL)
 			return;
 		pi->MoveTo(pi->pos.x + addx[s], pi->pos.y, pi->pos.z);
-		RefreshItem(DEREF_P_ITEM(pi));
+		RefreshItem(pi);
 	}
 	else if (isCharSerial(serial))
 	{
@@ -2615,7 +2605,7 @@ void cTargets::IncYTarget(int s)
 		if (pi == NULL)
 			return;
 		pi->MoveTo(pi->pos.x, pi->pos.y + addx[s], pi->pos.z);
-		RefreshItem(DEREF_P_ITEM(pi));
+		RefreshItem(pi);
 	}
 	else if (isCharSerial(serial))
 	{
@@ -3137,7 +3127,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 
 
 	RefreshItem(pi1);
-	RefreshItem(c);
+	RefreshItem(pi2);
 
 	impowncreate(s,cc,0); // if equipped send new color too
 }

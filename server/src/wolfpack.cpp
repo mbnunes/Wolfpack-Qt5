@@ -1277,7 +1277,7 @@ void deathstuff(int i)
 //		pi_c->setId(0x09B2);
 //		pi_c->corpse=0; 
 //	}
-	RefreshItem(DEREF_P_ITEM(pi_c));//AntiChrist
+	RefreshItem(pi_c);//AntiChrist
 	if (pc_player->isNpc()) Npcs->DeleteChar(DEREF_P_CHAR(pc_player));
 	if(ele==65535) Items->DeleItem(pi_c);
 }
@@ -5398,13 +5398,12 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 //
 //I also added the inpack check and the worned check....
 //
-void RefreshItem(ITEM i)//Send this item to all online people in range
+void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 {//check if item is in a pack or on the ground, then use different methods
 	unsigned int a;
 	signed int aa ;
 
-	if(i==-1) return; //just to be on the right side
-	const P_ITEM pi=MAKE_ITEMREF_LR(i);	// on error return
+	if(pi == NULL) return; //just to be on the right side
 
 	if (pi->contserial==pi->serial)
 	{
@@ -5417,8 +5416,8 @@ void RefreshItem(ITEM i)//Send this item to all online people in range
 	{//yeah, it's on ground!
 		for(a=0;a<(unsigned)now;a++)//send this item to all the sockets in range
 		{
-			if(perm[a] && iteminrange(a,i,VISRANGE))
-				senditem(a,i);
+			if(perm[a] && iteminrange(a,DEREF_P_ITEM(pi),VISRANGE))
+				senditem(a,DEREF_P_ITEM(pi));
 		}
 		return;
 	}
@@ -5445,7 +5444,7 @@ void RefreshItem(ITEM i)//Send this item to all online people in range
 		for(aa=0;aa<now;aa++)//send this item to all the sockets in range
 		{
 			if(perm[aa])
-				sendbpitem(aa, i);//NOTE: there's already the inrange check
+				sendbpitem(aa, DEREF_P_ITEM(pi));//NOTE: there's already the inrange check
 								 //in the sendbpitem() function, so it's unuseful
 								 //to do a double check!!
 		}
@@ -5514,12 +5513,10 @@ void BuildPointerArray()
 		// null them first
 		itemsp[i].pointer = NULL;
 		charsp[i].pointer = NULL;
-		cownsp[i].pointer = NULL;
 
 		// init them
 			if(( itemsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 			if(( charsp[i].pointer = new int[25]) == NULL) memerrflg=1;
-			if(( cownsp[i].pointer = new int[25]) == NULL) memerrflg=1;
 
 		if (memerrflg)
 		{
@@ -5527,8 +5524,8 @@ void BuildPointerArray()
 			Network->kr=0;
 			return;
 		}
-		itemsp[i].max=cownsp[i].max=charsp[i].max=25;
-		for (int j=0;j<25;j++) itemsp[i].pointer[j]=cownsp[i].pointer[j]=charsp[i].pointer[j]=-1;
+		itemsp[i].max=charsp[i].max=25;
+		for (int j=0;j<25;j++) itemsp[i].pointer[j]=charsp[i].pointer[j]=-1;
 	}
 }
 

@@ -1257,7 +1257,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 					Items->DeleItem(pItem);
 				}
 				SndRemoveitem(pItem->serial);
-				RefreshItem(DEREF_P_ITEM(pCont));//AntiChrist
+				RefreshItem(pCont);//AntiChrist
 			}
 			else
 			{
@@ -1270,7 +1270,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				mapRegions->Add(pItem); //add this item to a map cell
 				
 				SndRemoveitem(pItem->serial);
-				RefreshItem(DEREF_P_ITEM(pCont));//AntiChrist
+				RefreshItem(pCont);//AntiChrist
 			}
 			
 			// - Spell Book

@@ -61,17 +61,17 @@ void doubleclick(int s);
 void dbl_click_character(UOXSOCKET s, SERIAL target_serial);
 void singleclick(UOXSOCKET s);
 
-void walking(int s, int dir, int sequence);
+//void walking(int s, int dir, int sequence);
 void teleporters(CHARACTER s);
 void read_in_teleport(void);
 void npcwalk(CHARACTER i, int j, int type);
-void walking2(CHARACTER s);
+//void walking2(CHARACTER s);
 void all_items(int s);
 void savelog(const char *msg, char *logfile);
 void explodeitem(int s, unsigned int nItem);
 void monstergate(int s, int x);
-void npcMovement2(unsigned int, int);//Lag fix -- Zippy
-void npcMovement(unsigned int);
+//void npcMovement2(unsigned int, int);//Lag fix -- Zippy
+//void npcMovement(unsigned int);
 void Karma(int nCharID,int nKilledID, int nKarma);
 void npctalkall_runic(int npc, char *txt,char antispam);
 void Fame(int nCharID, int nFame);
@@ -111,8 +111,6 @@ void DeleteClasses();
 void npcToggleCombat(int s);
 int chardir(int a, int b);
 UOXSOCKET calcSocketFromChar(CHARACTER i);
-int calcItemFromSer(unsigned char ser1, unsigned char ser2, unsigned char ser3, unsigned char ser4);
-int calcItemFromSer(int ser); // Added by Magius(CHE) (2)
 int calcCharFromSer(int ser1, int ser2, int ser3, int ser4);
 int calcCharFromSer(int ser);
 int calcSerFromChar(int ser);
@@ -190,7 +188,7 @@ void wipe(int s);
 void loadmetagm();
 void xteleport(int s,int x);
 void wornitems(UOXSOCKET s, CHARACTER j);
-void RefreshItem(ITEM i);//AntiChrist
+void RefreshItem(P_ITEM pi);
 int MenuListGenerator();
 void itemmenu(int s, int m);
 void npcemoteall(int npc, char *txt,unsigned char antispam);
@@ -261,8 +259,6 @@ int makenumber(int countx);
 void fileArchive(char *pFile2Archive_chars, char *pFile2Archive_items, char *pArchiveDir);
 void ArchiveID(char archiveid[MAXARCHID]);
 // End - Dupois
-
-void enlist(int s); // For enlisting in army
 
 //Trigger routines
 void triggerwitem(UOXSOCKET ts, int ti, int ttype);  // trigger.cpp

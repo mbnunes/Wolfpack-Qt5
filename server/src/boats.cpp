@@ -165,19 +165,18 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 		if (boat2 == NULL)
 			return;
 	
-		for(a=0;a<cownsp[serhash].max;a++)//Put all their Pets/Hirlings on the boat too
+		vector<SERIAL> vecCown = cownsp.getData(pc_cs->serial);
+		for(a = 0; a < vecCown.size(); a++)//Put all their Pets/Hirlings on the boat too
 		{
-			b=cownsp[serhash].pointer[a];
+			pc_b = FindCharBySerial(vecCown[a]);
 
-			if (b!=-1) // never log -1's that indicate non existance !!!
+			if (pc_b != NULL) // never log -1's that indicate non existance !!!
 			{
-			   pc_b=MAKE_CHARREF_LOGGED(b,err);							   
-			   if (!err && boat2 != NULL)
 			   if (pc_b->isNpc() && pc_cs->Owns(pc_b))
 			   {
 				  pc_b->MoveTo(boat2->pos.x+1, boat2->pos.y+1, boat2->pos.z+2);
                   pc_b->SetMultiSerial(boat2->serial);
-				  teleport(b);
+				  teleport(DEREF_P_CHAR(pc_b));
 			   }
 			}
 		}
@@ -204,15 +203,13 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 	P_CHAR pc_cs,pc_b;
 	
 	pc_cs=MAKE_CHARREF_LR(currchar[s]);
-//	P_ITEM pi_plank = MAKE_ITEM_REF(p);
 
 	//long int pos, pos2, length;
 	int x,x2=pi_plank->pos.x;
 	int y,y2=pi_plank->pos.y;
 	signed char z = pi_plank->pos.z, mz, sz, typ;
 	P_ITEM pBoat = GetBoat(pc_cs);
-	int a,b,serhash=pc_cs->serial%HASHMAX;
-	// char o;
+	int a,b;
 	
 	if (pBoat == NULL) 
 		return;
@@ -228,20 +225,17 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 				typ=0;
 			else 
 				typ=1;
-			//o=Map->o_Type(x,y,z);
 			
 			if((typ==0 && mz!=5) || (typ==1 && sz!=-5))// everthing the blocks a boat is ok to leave the boat ... LB
 			{
-				for(a=0;a<cownsp[serhash].max;a++)//Put all their Pets/Hirlings on the boat too
+				vector<SERIAL> vecCown = cownsp.getData(pc_cs->serial);
+				for(a=0;a<vecCown.size();a++)//Put all their Pets/Hirlings on the boat too
 				{
-					b=cownsp[serhash].pointer[a];
+					pc_b = FindCharBySerial(vecCown[a]);
 
-					if (b!=-1) // never log -1's that indicate non existance !!!
+					if (pc_b != NULL) // never log -1's that indicate non existance !!!
 					{
-					   pc_b=MAKE_CHARREF_LOGGED(b,err);			           
-					   if (!err)
-					   {
-						if (pc_b->isNpc() && pc_cs->Owns(pc_b) && inrange1p(currchar[s], b)<=15)
+						if (pc_b->isNpc() && pc_cs->Owns(pc_b) && inrange1p(currchar[s], DEREF_P_CHAR(pc_b))<=15)
 						{
 							pc_b->MoveTo(x,y, typ ? sz : mz);
 							
@@ -252,9 +246,8 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 								pc_b->multis=-1;
 							}
 							
-							teleport(b);
+							teleport(DEREF_P_CHAR(pc_b));
 						}
-					   }
 					}
 				}
 				

@@ -1849,7 +1849,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							}
 							else
 							{ // Lines Added By Magius(CHE) to fix Targ trigger
-								pi_evti = MAKE_ITEM_REF(pc_ts->envokeitem);
+								pi_evti = FindItemBySerial(pc_ts->envokeitem);
 								if (pi_evti!= NULL)// AntiChrist
 								{
 									if (pi_evti->name[0] != '#') // Get Temporany Name of the REQUIRED Item - Magius(CHE)
@@ -1936,14 +1936,14 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("SETEVID", (char*)script1)))  // Set envoked items id to new id
 						{
-							if (pc_ts->envokeitem>-1)
+							if (pc_ts->envokeitem != INVALID_SERIAL)
 							{
 								cline = &script2[0];
 								splitline();
-								items[pc_ts->envokeitem].id1 = hexnumber(0);
-								items[pc_ts->envokeitem].id2 = hexnumber(1);		
-								RefreshItem(pc_ts->envokeitem);// AntiChrist
-								pi_itemnum = MAKE_ITEM_REF(pc_ts->envokeitem);
+								pi_itemnum = FindItemBySerial(pc_ts->envokeitem);
+								pi_itemnum->id1 = hexnumber(0);
+								pi_itemnum->id2 = hexnumber(1);		
+								RefreshItem(pi_itemnum);// AntiChrist
 							}
 						}
 						else if (!(strcmp("SETOWNER", (char*)script1)))  // Set ownership of item
@@ -1965,10 +1965,11 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							{
 								cline = &script2[0];
 								splitline();
+								pi_itemnum = MAKE_ITEM_REF(ti);
 								pi->id1 = hexnumber(0);
 								pi->id2 = hexnumber(1);				
-								RefreshItem(ti);// AntiChrist
-								pi_itemnum = MAKE_ITEM_REF(ti);
+								RefreshItem(pi_itemnum);// AntiChrist
+								
 							}
 						}
 						break;
@@ -3056,9 +3057,9 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							}
 							else 
 							{
-								pi_evti = MAKE_ITEM_REF(pc_ts->envokeitem);
-								if (items[pc_ts->envokeitem].name[0] != '#') // Get Temporany Name of the REQUIRED Item - Magius(CHE)
-									sprintf(tempname2, "%s", items[pc_ts->envokeitem].name);
+								pi_evti = FindItemBySerial(pc_ts->envokeitem);
+								if (pi_evti->name[0] != '#') // Get Temporany Name of the REQUIRED Item - Magius(CHE)
+									sprintf(tempname2, "%s", pi_evti->name);
 								else 
 								{
 									Map->SeekTile(pi_evti->id(), &tile);
