@@ -45,6 +45,8 @@
 #include "scriptc.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
+#include "commands.h"
+#include "accounts.h"
 
 #include "debug.h"
 
@@ -426,7 +428,6 @@ void cGump::addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 h
 
 cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 {
-	type_ = 3;
 	region_ = region;
 
 	if( region )
@@ -505,7 +506,6 @@ void cSpawnRegionInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choi
 
 cCharInfoGump::cCharInfoGump( cChar* pChar )
 {
-	type_ = 4;
 	char_ = pChar;
 
 	if( char_ )
@@ -755,7 +755,6 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 
 cItemInfoGump::cItemInfoGump( cItem* pItem )
 {
-	type_ = 4;
 	item_ = pItem;
 
 	if( item_ )
@@ -1007,7 +1006,6 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 
 cTagsInfoGump::cTagsInfoGump( cUObject* object )
 {
-	type_ = 5;
 	object_ = object;
 
 	if( object )
@@ -1081,10 +1079,11 @@ void cTagsInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 
 cWhoMenuGump::cWhoMenuGump()
 {
-	type_ = 6;
 	QStringList charNames;
 	QStringList charLocations;
 	QStringList charRegions;
+
+	sockets_.clear();
 
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
@@ -1094,6 +1093,7 @@ cWhoMenuGump::cWhoMenuGump()
 			charNames.push_back( pChar->name.c_str() );
 			charLocations.push_back( QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ) );
 			charRegions.push_back( pChar->region );
+			sockets_.push_back( mSock );
 		}
 	}
 
@@ -1106,7 +1106,9 @@ cWhoMenuGump::cWhoMenuGump()
 	addResizeGump( 0, 40, 0xA28, 600, 420 ); //Background
 	addGump( 180, 18, 0x58B ); // Fancy top-bar
 	addGump( 257, 0, 0x589 ); // "Button" like gump
-	addTilePic( 277, 23, 0x14eb ); // Type of info menu
+	addTilePic( 273, 19, creatures[ 0x190 ].icon );
+	addTilePic( 281, 19, creatures[ 0x190 ].icon );
+	addTilePic( 277, 23, creatures[ 0x190 ].icon ); // Type of info menu
 	addText( 258, 90, tr( "Who Menu" ), 0x530 );
 	
 	// OK button
@@ -1149,6 +1151,131 @@ void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
 		cWhoMenuGump* pGump = new cWhoMenuGump();
 		socket->send( pGump );
 
-		// TODO: implement child gump for further options for the chosen socket!
+		cWhoChildGump* pGump2 = new cWhoChildGump( sockets_[ choice.button-1 ] );
+		socket->send( pGump2 );
 	}
 }
+
+cWhoChildGump::cWhoChildGump( cUOSocket* socket )
+{
+	socket_ = socket;
+	P_CHAR pChar = socket->player();
+
+	if( socket && pChar )
+	{
+		startPage();
+		addResizeGump( 0, 40, 0xA28, 450, 370 ); //Background
+		addGump( 105, 18, 0x58B ); // Fancy top-bar
+		addGump( 182, 0, 0x589 ); // "Button" like gump
+		addTilePic( 202, 23, creatures[ 0x190 ].icon ); // Type of info menu
+		addText( 180, 90, tr( "Socket Menu" ), 0x530 );
+
+		// OK button
+		addButton( 50, 360, 0x481, 0x483, 0 ); 
+		addText( 90, 360, tr( "Close" ), 0x834 );
+
+		startPage( 1 );
+
+		addText( 50, 120, tr( "Char name:" ), 0x834 );
+		addText( 250, 120, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
+		addText( 50, 140, tr( "Account name:" ), 0x834 );
+		addText( 250, 140, QString( "%1" ).arg( pChar->account()->login() ), 0x834 );
+		addText( 50, 160, tr( "Position:" ), 0x834 );
+		addText( 250, 160, QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ), 0x834 );
+		addText( 50, 180, tr( "Region:" ), 0x834 );
+		addText( 250, 180, QString( "%1" ).arg( pChar->region ), 0x834 );
+		addText( 50, 200, tr( "ACL:" ), 0x834 );
+		addText( 250, 200, QString( "%1" ).arg( pChar->account()->acl() ), 0x834 );
+
+		addButton( 30, 240, 0x0D0, 0x0D1, 1 ); 
+		addText( 50, 240, tr( "Go to position" ), 0x834 );
+		addButton( 30, 260, 0x0D0, 0x0D1, 2 ); 
+		addText( 50, 260, tr( "Bring char" ), 0x834 );
+		addButton( 30, 280, 0x0D0, 0x0D1, 3 ); 
+		addText( 50, 280, tr( "Jail char" ), 0x834 );
+		addButton( 30, 320, 0x0D0, 0x0D1, 6 ); 
+		addText( 50, 320, tr( "Send message:" ), 0x834 );
+		addInputField( 200, 320, 150, 16, 1, tr( "<msg>" ), 0x834 );
+
+		addButton( 230, 240, 0x0D0, 0x0D1, 5 ); 
+		addText( 250, 240, tr( "Show char info gump" ), 0x834 );
+		//addText( 250, 260, tr( "" ), 0x834 );
+		addButton( 230, 280, 0x0D0, 0x0D1, 4 ); 
+		addText( 250, 280, tr( "Forgive char" ), 0x834 );
+	}
+}
+
+void cWhoChildGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+{
+	if( choice.button == 0 )
+		return;
+	else if( socket_ && socket_->player() )
+	{
+		cChar* pChar = socket_->player();
+		cChar* mChar = socket->player();
+		switch( choice.button )
+		{
+		case 1:
+			// Check if the privileges are ok
+			if( mChar && !mChar->account()->authorized("command", "go" ))
+			{
+				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
+			}
+			else if( mChar )
+			{
+				mChar->removeFromView( false );
+				mChar->moveTo( pChar->pos );
+				mChar->resend( false );
+				socket->resendPlayer();
+				socket->resendWorld();
+			}
+			break;
+		case 2:
+			// Check if the privileges are ok
+			if( mChar && !mChar->account()->authorized("command", "go" ))
+			{
+				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
+			}
+			else if( mChar )
+			{
+				pChar->removeFromView( false );
+				pChar->moveTo( mChar->pos );
+				pChar->resend( false );
+				socket_->resendPlayer();
+				socket_->resendWorld();
+			}
+			break;
+		case 3:
+			// TODO jail command
+			break;
+		case 4:
+			// TODO forgive command
+			break;
+		case 5:
+			// Check if the privileges are ok
+			if( mChar && !mChar->account()->authorized("command", "info" ))
+			{
+				socket->sysMessage( tr( "Access to command 'info' was denied" ) );
+			}
+			else
+			{
+				cCharInfoGump* pGump = new cCharInfoGump( pChar );
+				socket->send( pGump );
+			}
+			break;
+		case 6:
+			{
+				std::map< UINT16, QString >::iterator it = choice.textentries.find( 1 );
+				if( it != choice.textentries.end() )
+					socket_->sysMessage( it->second );
+
+				socket->sysMessage( tr("Message sent.") );
+			}
+			break;
+		}
+	}
+	else
+		socket->sysMessage( tr("ERROR: Socket has disconnected or changed character!") );
+}
+
+  

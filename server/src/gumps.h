@@ -208,7 +208,7 @@ protected:
 	QString responsefuncname_;
 
 public:
-	cPythonGump() { type_ = 2; }
+	cPythonGump() {}
 
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice ) 
 	{
@@ -262,8 +262,22 @@ public:
 
 class cWhoMenuGump : public cGump
 {
+private:
+	std::vector< cUOSocket* > sockets_;
+
 public:
 	cWhoMenuGump();
+
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+};
+
+class cWhoChildGump : public cGump
+{
+private:
+	cUOSocket* socket_;
+
+public:
+	cWhoChildGump( cUOSocket* socket_ );
 
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
