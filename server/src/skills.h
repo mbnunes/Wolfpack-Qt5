@@ -62,7 +62,6 @@ struct stSkill
 class cSkills
 {
 private:
-	void Tracking(int s, int selection);
 	int GetSubIngotAmt(int p, char id1, char id2, char color1, char color2);
 	int DeleSubIngot(int p, int id1, int id2, int color1, int color2, int amount);
 	void Hide( cUOSocket* );
@@ -101,9 +100,6 @@ public:
 	void Tinkering( cUOSocket* socket );
 
 	static void RandomSteal( cUOSocket*, SERIAL );	
-	void RepairTarget(UOXSOCKET s); // Ripper
-	void SmeltItemTarget(UOXSOCKET s); // Ripper
-	int TrackingDirection(UOXSOCKET s, P_CHAR pc_i);
 	void Track(P_CHAR pc_i);
 	void PotionToBottle(P_PLAYER pc, P_ITEM pi_mortar);
 	void SpiritSpeak(int s);

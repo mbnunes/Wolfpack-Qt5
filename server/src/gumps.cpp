@@ -34,7 +34,6 @@
 #include "prototypes.h"
 #include "globals.h"
 #include "gumps.h"
-#include "guildstones.h"
 #include "srvparams.h"
 #include "wpdefmanager.h"
 #include "network.h"

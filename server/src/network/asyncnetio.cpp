@@ -134,28 +134,23 @@ public:
 };
 
 cAsyncNetIOPrivate::cAsyncNetIOPrivate() 
-	: socket(0), rsize(0), wsize(0), rindex(0), windex(0), skippedUOHeader(false)
+	: socket(0), rsize(0), wsize(0), rindex(0), windex(0), skippedUOHeader(false), encryption(0)
 {
     rba.setAutoDelete( TRUE );
     wba.setAutoDelete( TRUE );
 	packets = new std::deque<cUOPacket*>;
-	
-	// Encryption
-	encryption = 0;
 }
 
 cAsyncNetIOPrivate::~cAsyncNetIOPrivate()
 {
 	for ( uint i = 0; i < packets->size(); ++i )
 	{
-		QMutexLocker lock( &packetsMutex );
+		/// QMutexLocker lock( &packetsMutex ); I think it's safe not to lock here.
 		delete packets->front();
 		packets->pop_front();
 	}
 	delete packets;
-
-	if( encryption )
-		delete encryption;
+	delete encryption;
 }
 
 /*!

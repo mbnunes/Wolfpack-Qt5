@@ -34,7 +34,6 @@
 
 // Wolfpack Includes
 #include "globals.h"
-#include "guildstones.h"
 #include "srvparams.h"
 #include "skills.h"
 #include "network.h"
@@ -75,8 +74,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 
 	SERIAL serial = target_serial;
 	P_PLAYER pc_currchar = socket->player();
-
-	UOXSOCKET s = calcSocketFromChar( socket->player() ); // for Legacy code
 
 	if( !pc_currchar->isGM() && pc_currchar->objectDelay() > 10 && pc_currchar->objectDelay() >= uiCurrentTime )
 	{

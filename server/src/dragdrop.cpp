@@ -35,7 +35,6 @@
 #include "tilecache.h"
 #include "speech.h"
 #include "itemid.h"
-#include "guildstones.h"
 #include "sectors.h"
 #include "srvparams.h"
 #include "skills.h"
@@ -129,7 +128,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	{
 		// For each item we take out we loose carma
 		// if the corpse is innocent and not in our guild
-		bool sameGuild = ( GuildCompare( pChar, outmostCont->owner() ) != 0 );
+		bool sameGuild = true;//( GuildCompare( pChar, outmostCont->owner() ) != 0 );
 
 		if( outmostCont->tags().has( "notority" ) && outmostCont->tags().get( "notority" ).asInt() == 1 && 
 			!pChar->Owns( outmostCont ) && !sameGuild )

@@ -37,7 +37,6 @@
 #include "wolfpack.h"
 #include "itemid.h"
 #include "utilsys.h"
-#include "guildstones.h"
 #include "sectors.h"
 #include "combat.h"
 #include "srvparams.h"

@@ -50,7 +50,6 @@ class cUObject;
 
 typedef int					GUILDID;
 typedef unsigned int		TIMERVAL;
-typedef int					UOXSOCKET;
 typedef int					PLAYER;
 typedef int					CHARACTER;
 typedef unsigned char		LIGHTLEVEL;

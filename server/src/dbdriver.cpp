@@ -97,7 +97,8 @@ bool cDBResult::fetchrow()
 		const char **columns;
 
 		return ( sqlite_step( (sqlite_vm*)_result, &count, (const char***)&_row, &columns ) == SQLITE_ROW );	
-	}	
+	}
+	return false;
 }
 
 // Call this to free the query

@@ -49,7 +49,6 @@
 #include "../wpdefmanager.h"
 #include "../scriptmanager.h"
 #include "../walking.h"
-#include "../guildstones.h"
 #include "../combat.h"
 #include "../gumps.h"
 #include "../skills.h"
@@ -1843,7 +1842,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 
 	if( pc_i->inGuardedArea() && SrvParams->guardsActive() )
 	{
-		if( pc_i->objectType() == enPlayer && pc_i->isInnocent() && GuildCompare( _player, pc_i ) == 0 ) //REPSYS
+		if( pc_i->objectType() == enPlayer && pc_i->isInnocent() /*&& GuildCompare( _player, pc_i ) == 0*/ ) //REPSYS
 		{
 			_player->makeCriminal();
 			Combat::spawnGuard( _player, pc_i, _player->pos() );
@@ -1879,7 +1878,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	{
 		if( pc_i->isInnocent() )
 		{
-			if( pc_i->objectType() == enPlayer && GuildCompare( _player, pc_i ) == 0 )
+			if( pc_i->objectType() == enPlayer /*&& GuildCompare( _player, pc_i ) == 0*/ )
 			{
 				_player->makeCriminal();
 			}

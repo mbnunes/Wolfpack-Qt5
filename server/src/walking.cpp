@@ -36,7 +36,6 @@
 #include "walking.h"
 #include "wolfpack.h"
 #include "debug.h"
-#include "guildstones.h"
 #include "sectors.h"
 #include "srvparams.h"
 #include "network.h"
@@ -1057,7 +1056,7 @@ void cMovement::HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 }
 
 /********* start of LB's no rain & snow in buildings stuff ***********/
-void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
+void cMovement::HandleWeatherChanges(P_CHAR pc, cUOSocket* socket)
 {
 /*	if (pc->isPlayer() && online(pc)) // check for being in buildings (for weather) only for PC's
 	{

@@ -36,7 +36,6 @@
 #include "wpdefmanager.h"
 #include "basics.h"
 #include "itemid.h"
-#include "guildstones.h"
 #include "tracking.h"
 #include "tilecache.h"
 #include "combat.h"
@@ -148,7 +147,6 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 			P_CHAR mapchar = ri.GetData();
 			if( mapchar && mapchar->isAtWar() )
 			{
-				j = calcSocketFromChar(mapchar);
 				if( mapchar->objectType() == enPlayer )
 				{
 					P_PLAYER pp = dynamic_cast<P_PLAYER>(mapchar);
@@ -471,7 +469,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 				pn->callGuards();
 		}
 		
-		if( pVictim->isInnocent() && pChar->attackerSerial() != pVictim->serial() && GuildCompare( pChar, pVictim ) == 0)
+		if( pVictim->isInnocent() && pChar->attackerSerial() != pVictim->serial() /*&& GuildCompare( pChar, pVictim ) == 0*/)
 			pChar->makeCriminal(); // Blue and not attacker and not guild
 
 		// Our Victim always notices it.

@@ -42,11 +42,6 @@
 // Wolfpack includes
 #include "globals.h" // uiCurrentTime
 
-//inline void SetTimerSec(unsigned int *timer, const short seconds)
-//{
-//	*timer=seconds * MY_CLOCKS_PER_SEC + uiCurrentTime;
-//}
-
 inline unsigned int SetTimerSec(unsigned int timer, const short seconds)
 {
 	return timer = seconds * MY_CLOCKS_PER_SEC + uiCurrentTime;

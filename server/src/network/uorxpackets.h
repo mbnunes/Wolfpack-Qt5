@@ -613,7 +613,7 @@ class cUORxSell : public cUOPacket
 {
 public:
 	cUORxSell( const QByteArray &data ): cUOPacket( data ) {}
-	uint serial() const				{ return getInt( 3 ); }
+	uint serial() const					{ return getInt( 3 ); }
 	ushort itemCount() const			{ return getShort( 7 ); }
 	uint iSerial( ushort item ) const	{ return getInt( 9 + ( item * 6 ) ); }
 	ushort iAmount( ushort item ) const	{ return getShort( 13 + ( item * 6 ) ); }

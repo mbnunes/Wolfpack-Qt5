@@ -36,7 +36,6 @@
 #include "accounts.h"
 #include "speech.h"
 
-#include "guildstones.h"
 #include "sectors.h"
 #include "srvparams.h"
 #include "network.h"

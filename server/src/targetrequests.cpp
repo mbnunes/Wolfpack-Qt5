@@ -39,7 +39,6 @@
 //#include "tilecache.h"
 #include "srvparams.h"
 #include "skills.h"
-#include "guildstones.h"
 #include "combat.h"
 #include "scriptmanager.h"
 #include "pythonscript.h"
@@ -263,7 +262,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				
 				pc_currchar->isCriminal();
 				
-				if (pc_npc->isInnocent() && pc_currchar->attackerSerial() != pc_npc->serial() && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
+				if (pc_npc->isInnocent() && pc_currchar->attackerSerial() != pc_npc->serial() /*&& GuildCompare(pc_currchar, pc_npc)==0*/ )//AntiChrist
 					pc_currchar->isCriminal();//Blue and not attacker and not guild
 				
 				if( !pi->name().isNull() )

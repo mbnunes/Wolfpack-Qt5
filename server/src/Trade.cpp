@@ -416,7 +416,7 @@ P_ITEM Trade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 	return 0;
 }
 
-P_ITEM Trade::tradestart(UOXSOCKET s, P_CHAR pc_i)
+P_ITEM Trade::tradestart(cUOSocket* s, P_CHAR pc_i)
 {
 //	P_CHAR pc_currchar = currchar[s];
 //	unsigned char msg[90];

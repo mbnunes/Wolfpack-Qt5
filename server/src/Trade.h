@@ -54,7 +54,7 @@ namespace Trade
 	void sellAction( cUOSocket *socket, cUORxSell *packet );
 
 
-	P_ITEM tradestart(UOXSOCKET s, P_CHAR pc_i);
+	P_ITEM tradestart(cUOSocket* s, P_CHAR pc_i);
 	void clearalltrades();
 	void trademsg(int s);
 	void dotrade(P_ITEM cont1, P_ITEM cont2);

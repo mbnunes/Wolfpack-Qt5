@@ -173,21 +173,6 @@ void cNetwork::poll( void )
 	}
 }
 
-// Code for wrapping old Stuff
-void cNetwork::xSend( int s, const void *point, int length, int test) // Buffering send function
-{
-	cUOSocket *socket = uoSockets.at(s);
-	
-	if( !socket )
-		return;
-
-	QByteArray data( length );
-	memcpy( data.data(), point, length );
-	cUOPacket packet( data );
-
-	socket->send( &packet );
-}
-
 // Load IP Blocking rules
 void cNetwork::load( void )
 {
@@ -204,22 +189,6 @@ void cNetwork::reload( void )
 void cNetwork::unload( void )
 {
 //	hosts_deny.clear();
-}
-
-// This is junk code to interface with the old junk code. Don't relay on that.
-// It's ugly and slower.
-UOXSOCKET cNetwork::getuoSocketsIndex( const cUOSocket* data )
-{
-	return uoSockets.findRef( data );	
-}
-
-UOXSOCKET calcSocketFromChar(P_CHAR pc)
-{
-	if ( !pc || pc->objectType() == enNPC )
-	{
-		return -1;
-	}
-	return cNetwork::instance()->getuoSocketsIndex( dynamic_cast<P_PLAYER>(pc)->socket() );
 }
 
 void cNetwork::broadcast( const QString &message, UINT16 color, UINT16 font )

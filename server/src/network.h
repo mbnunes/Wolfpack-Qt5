@@ -75,14 +75,8 @@ private:
 	cListener *loginServer_;
 	cListener *gameServer_;
 
-	// junk
-	UOXSOCKET getuoSocketsIndex( const cUOSocket* );
-	friend UOXSOCKET calcSocketFromChar(P_CHAR);
-
 public:
 
-	void xSend(UOXSOCKET s, const void *point, int length, int test);
-	
 	void load( void );
 	void unload( void );
 	void reload( void );
@@ -104,6 +98,4 @@ public:
 	void	broadcast( const QString &message, UINT16 color = 0x84d, UINT16 font = 0 );
 };
 
-// Helper Function
-UOXSOCKET calcSocketFromChar(P_CHAR pc);
 #endif

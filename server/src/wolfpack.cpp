@@ -37,7 +37,6 @@
 #include "territories.h"
 
 #include "TmpEff.h"
-#include "guildstones.h"
 #include "combat.h"
 #include "sectors.h"
 #include "srvparams.h"
