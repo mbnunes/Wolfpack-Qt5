@@ -8,7 +8,7 @@
 #===============================================================#
 
 # Which port should the remote admin run on
-REMOTEADMIN_PORT = 2600
+REMOTEADMIN_PORT = 2594
 
 # Spell Settings
 CLUMSY_DURATION = 60000
