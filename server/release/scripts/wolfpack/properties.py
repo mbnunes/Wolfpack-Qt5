@@ -20,12 +20,15 @@ from wolfpack.consts import RESISTANCE_PHYSICAL, RESISTANCE_ENERGY, \
 #
 def getdelay(attacker, weapon):
 	speed = fromitem(weapon, SPEED)
-	value = max(1, (attacker.stamina + 100) * speed)
+	value = (attacker.stamina + 100) * speed
 
 	# Scale value according to bonus
 	# value += bonus * value / 100
+	
+	if value <= 0:
+		value = 1
 
-	return floor(40000.0 / value) * 500
+	return floor(40000.0 / float(value)) * 500
 
 #
 # Known item properties and the tags they are stored in.
