@@ -680,7 +680,7 @@ public:
 	void setName( const QString &name ) { this->setAsciiString(5, name.left( 59 ).latin1(), QMIN( name.length()+1, 60 ) ); }
 	void setFlag( UINT8 flag )			{ (*this)[65] = flag; }
 	UINT8 flag() const					{ return (*this)[65]; }
-	void fromChar( P_CHAR pChar );
+	void fromChar( P_CHAR pChar, P_CHAR pOrigin = NULL );
 };
 
 // 0x93 Book Title

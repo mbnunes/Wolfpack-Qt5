@@ -115,6 +115,7 @@ public:
 	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
 	virtual bool onShowToolTip( P_CHAR pChar, cUObject *pObject, cUOTxTooltipList* tooltip ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
 	virtual bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin ) { Q_UNUSED( pChar ); Q_UNUSED( pOrigin ); return false; }
+	virtual QString onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin ) { Q_UNUSED( pChar ); Q_UNUSED( pOrigin ); return false; }
 
 	// Drop/Pickup Events
 	virtual bool onDropOnChar( P_CHAR pChar, P_ITEM pItem ) { Q_UNUSED(pChar); Q_UNUSED(pItem); return false; }

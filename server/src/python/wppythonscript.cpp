@@ -490,3 +490,27 @@ bool WPPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
 
 	PyEvalMethod( "onShowPaperdoll" )
 }
+
+QString WPPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )
+{
+	PyHasMethod( "onShowPaperdollName" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyGetCharObject( pOrigin ) );
+
+	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onShowPaperdollName" ) ); 
+	if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) 
+		return (char*)0; 
+	
+	PyObject *returnValue = PyObject_CallObject( method, tuple ); 
+	PyReportError(); 
+	if( returnValue == NULL ) 
+		return (char*)0; 
+	if( !PyString_Check( returnValue ) ) 
+		return (char*)0; 
+	
+	return PyString_AsString( returnValue );
+}
+

@@ -808,9 +808,9 @@ void cChar::removeItemBonus(cItem* pi)
 // history:	by Duke, 20.9.2001
 // Purpose:	checks if the char can drag the item
 
-bool cChar::canPickUp(cItem* pi)
+bool cChar::canPickUp( cItem* pi )
 {
-	if (!pi)
+	if( !pi )
 	{
 		LogCritical("cChar::canPickUp() - bad parm");
 		return false;
@@ -819,12 +819,13 @@ bool cChar::canPickUp(cItem* pi)
 	if( account_ && account_->isAllMove() )
 		return true;
 
-	if ( (pi->isOwnerMovable() || pi->isLockedDown()) && !this->Owns(pi) )	// owner movable or locked down ?
+	if( ( pi->isOwnerMovable() || pi->isLockedDown() ) && !this->Owns( pi ) )	// owner movable or locked down ?
 		return false;
 
 	tile_st tile = TileCache::instance()->getTile( pi->id() );
-	if ( pi->isGMMovable() || (tile.weight == 255 && !pi->isAllMovable()))
+	if( pi->isGMMovable() || ( tile.weight == 255 && !pi->isAllMovable() ) )
 		return false;
+
 	return true;
 }
 
@@ -1287,8 +1288,10 @@ bool cChar::onHelp( void )
 bool cChar::onShowPaperdoll( P_CHAR pOrigin )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	{
 		if( scriptChain[ i ]->onShowPaperdoll( this, pOrigin ) )
 			return true;
+	}
 
 	return false;
 }
@@ -4491,4 +4494,16 @@ UINT8 cChar::skillLock( UINT16 skill ) const
 
 //	if( skValue == skills.end() )
 //		return 0;
+}
+
+QString cChar::onShowPaperdollName( P_CHAR pOrigin )
+{
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	{
+		QString result = scriptChain[ i ]->onShowPaperdollName( this, pOrigin );
+		if( !result.isNull() )
+			return result;
+	}
+
+	return (char*)0;
 }

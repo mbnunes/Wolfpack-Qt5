@@ -395,10 +395,16 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 	setColor( pItem->color() );
 }
 
-void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar )
+void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 {
 	setSerial( pChar->serial() );
-	setName( pChar->name()+( pChar->title().isEmpty() ? "" : ", "+pChar->title() ) );
+
+	QString nameByScript = pChar->onShowPaperdollName( pOrigin );
+
+	if( !nameByScript.isNull() )
+		setName( nameByScript );
+	else
+		setName( pChar->name()+( pChar->title().isEmpty() ? "" : ", "+pChar->title() ) );
 
 	if( pChar->war() )
 		setFlag( 0x40 );

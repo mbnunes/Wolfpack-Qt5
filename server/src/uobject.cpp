@@ -422,6 +422,7 @@ bool cUObject::onCollide( cUObject* Obstacle )
 	return false;
 }
 
+
 // Returns the list of events
 QString cUObject::eventList( void ) const
 {

@@ -72,6 +72,7 @@ public:
 	bool onChat( P_CHAR Character );
 	bool onSkillUse( P_CHAR Character, UI08 Skill );
 	bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin );
+	QString onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin );
 
 	bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );
 	bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );

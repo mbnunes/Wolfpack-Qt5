@@ -1366,7 +1366,7 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 void cUOSocket::sendPaperdoll( P_CHAR pChar )
 {
 	cUOTxOpenPaperdoll oPaperdoll;
-	oPaperdoll.fromChar( pChar );
+	oPaperdoll.fromChar( pChar, _player );
 	send( &oPaperdoll );
 }
 

@@ -782,7 +782,8 @@ public:
 	virtual bool onShowTooltip( P_CHAR sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	bool onDropOnChar( P_ITEM pItem );
 	bool onPickup( P_ITEM pItem );
-
+	QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
+	
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	void giveNewbieItems( Q_UINT8 skill = 0xFF );
 
