@@ -18,6 +18,9 @@
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
 
+	<!-- Rune Book -->
+	<script id="runebook" type="python" module="runebook" />
+
 	<!-- Moongate -->
 	<script id="moongate" type="python" module="moongate" />
 
