@@ -1627,24 +1627,18 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							
 							int loopexit = 0;
 							unsigned int increment = 0;
-							for (unsigned int checkgrid = StartGrid +(increment*mapRegions->GetColSize()); increment < 3; increment++, checkgrid = StartGrid +(increment*mapRegions->GetColSize()))
+							cRegion::RegionIterator4Items ri(pc_ts->pos);
+							for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 							{
-								for (int a = 0; a < 3; a++)
-								{
-									vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid + a);
-									for ( unsigned int k = 0; k < vecEntries.size(); k++)
+								P_ITEM mapitem = ri.GetData();
+								if (mapitem != NULL)
+								{// if it's close enought
+									if (iteminrange(ts, DEREF_P_ITEM(mapitem), p))
 									{
-										P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
-										if (mapitem != NULL)
-										{// if it's close enought
-											if (iteminrange(ts, DEREF_P_ITEM(mapitem), p))
-											{
-												sprintf(sect, "x%x%x", mapitem->id1, mapitem->id2);
-												if (strstr((char*)comm[0], sect))
-												{// if it's the item we want
-													c = DEREF_P_ITEM(mapitem);// we found it :D
-												}
-											}
+										sprintf(sect, "x%x%x", mapitem->id1, mapitem->id2);
+										if (strstr((char*)comm[0], sect))
+										{// if it's the item we want
+											c = DEREF_P_ITEM(mapitem);// we found it :D
 										}
 									}
 								}

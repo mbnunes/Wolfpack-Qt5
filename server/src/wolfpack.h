@@ -75,7 +75,7 @@ using namespace std;
 //#include "hFile.h"  // New File IO stuff //Currently unused
 #include "SrvParms.h" // Bounty System
 #include "accounts.h" // Account System.
-#include "hWeather.h"
+#include "cweather.h"
 
 #include "defines.h"
 

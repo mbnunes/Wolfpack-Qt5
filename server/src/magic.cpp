@@ -754,7 +754,8 @@ void cMagic::PoisonDamage(CHARACTER p, int poison) // new functionality, lb !!!
 		else if (poison<0) poison = 1;
 		chars[p].poisoned=poison;
 		chars[p].poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer);	// lb
-		if (s != -1) impowncreate(s, p, 1); //Lb, sends the green bar !
+		if (s != -1) 
+			impowncreate(s, p, 1); //Lb, sends the green bar !
 	}
 }
 
@@ -779,8 +780,6 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timec
 {
 	int loopexit=0;
 	// - Tauriel's region stuff 3/6/99
-	int StartGrid=mapRegions->StartGrid(chars[c].pos.x,chars[c].pos.y);
-	//int getcell=mapRegions->GetCell(chars[c].x,chars[c].y);
 
 	int i,j;
 
@@ -791,50 +790,43 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timec
 
 	if (j)
 	{
-		unsigned int increment=0;
-		for (unsigned int checkgrid = StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+		cRegion::RegionIterator4Items ri(chars[c].pos);
+		for ( ri.Begin(); ri.GetData() != ri.End(); ri++)
 		{
-			for (i=0;i<3;i++)
+			P_ITEM mapitem = ri.GetData();
+			if (mapitem != NULL)
 			{
-				vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+i);
-				for (unsigned int k = 0; k < vecEntries.size(); k++)
+				//clConsole.send("itemname: %s\n",items[mapitem].name);// perfect for mapregion debugging, LB
+				if ((mapitem->pos.x==chars[c].pos.x)&&(mapitem->pos.y==chars[c].pos.y))	// lb
 				{
-					P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
-					if (mapitem != NULL)
+					if (mapitem->id()==0x3996 || mapitem->id()==0x398C)
 					{
-						//clConsole.send("itemname: %s\n",items[mapitem].name);// perfect for mapregion debugging, LB
-						if ((mapitem->pos.x==chars[c].pos.x)&&(mapitem->pos.y==chars[c].pos.y))	// lb
+						if (!CheckResist(-1, c, 4))
+							MagicDamage(c, mapitem->morex/100);
+						else
+							MagicDamage(c, mapitem->morex/200);
+						soundeffect2(c, 2, 8);
+						return; //Ripper
+					} else if (mapitem->id()==0x3915 || mapitem->id()==0x3920)
+					{//Poison Field
+						if (!CheckResist(-1, c, 5))
 						{
-							if (mapitem->id()==0x3996 || mapitem->id()==0x398C)
-							{
-								if (!CheckResist(-1, c, 4))
-									MagicDamage(c, mapitem->morex/100);
-								else
-									MagicDamage(c, mapitem->morex/200);
-								soundeffect2(c, 2, 8);
-								return; //Ripper
-							} else if (mapitem->id()==0x3915 || mapitem->id()==0x3920)
-							{//Poison Field
-								if (!CheckResist(-1, c, 5))
-								{
-									if ((mapitem->morex<997))
-										PoisonDamage(c,2);
-									else
-										PoisonDamage(c,3); // gm mages can cast greater poison field, LB
-								} else PoisonDamage(c,1); // cant be completly resited
-
-								soundeffect2(c, 2, 8);
-								return; //Ripper
-							} else if (mapitem->id()==0x3979 || mapitem->id()==0x3967)
-							{//Para Field
-								if (!CheckResist(-1, c, 6))
-									tempeffect(c, c, 1, 0, 0, 0);
-								soundeffect2(c, 0x02, 0x04);
-								return; //Ripper
-							}
-							break;
-						}
+							if ((mapitem->morex<997))
+								PoisonDamage(c,2);
+							else
+								PoisonDamage(c,3); // gm mages can cast greater poison field, LB
+						} else PoisonDamage(c,1); // cant be completly resited
+						
+						soundeffect2(c, 2, 8);
+						return; //Ripper
+					} else if (mapitem->id()==0x3979 || mapitem->id()==0x3967)
+					{//Para Field
+						if (!CheckResist(-1, c, 6))
+							tempeffect(c, c, 1, 0, 0, 0);
+						soundeffect2(c, 0x02, 0x04);
+						return; //Ripper
 					}
+					break;
 				}
 			}
 		}
@@ -913,7 +905,7 @@ char cMagic::CheckReagents(CHARACTER s, reag_st reagents)
 	if (reagents.silk!=0 && getamount(s, 0x0F8D)<reagents.silk)
 		failmsg.silk=1;
 
-	int fail=RegMsg(s,failmsg);
+	int fail = RegMsg(s,failmsg);
 
 	return fail;
 }
@@ -976,18 +968,17 @@ void cMagic::PFireballTarget(int i, int k, int j) //j = % dammage
 //
 void cMagic::SpellFail(UOXSOCKET s)
 {
-	CHARACTER cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	//Use Reagents on failure ( if casting from spellbook )
-	if (currentSpellType[s]==0) DelReagents( cc, spells[pc_currchar->spell].reagents );
+	if (currentSpellType[s]==0) DelReagents( DEREF_P_CHAR(pc_currchar), spells[pc_currchar->spell].reagents );
 
 	//npcaction(cc, 128); // whaaaaaaaaaaaaaat ?
 	//orders the PG to move a step on, but the pg doesn't really move
 	//disappearing from the other clients. solarin
 	
-	if ( rand()%5==2 ) doStaticEffect(cc, 99); else staticeffect(cc, 0x37, 0x35, 0, 30);
-	soundeffect2(cc, 0x00, 0x5C);
-	npcemote(s, cc, "The spell fizzles.",0);
+	if ( rand()%5==2 ) doStaticEffect(DEREF_P_CHAR(pc_currchar), 99); else staticeffect(DEREF_P_CHAR(pc_currchar), 0x37, 0x35, 0, 30);
+	soundeffect2(DEREF_P_CHAR(pc_currchar), 0x00, 0x5C);
+	npcemote(s, DEREF_P_CHAR(pc_currchar), "The spell fizzles.",0);
 }
 
 

@@ -33,6 +33,7 @@ HEADERS		= CharWrap.h \
 		  classes.h \
 		  cmdtable.h \
 		  coord.h \
+		  cweather.h \
 		  dbl_single_click.h \
 		  debug.h \
 		  defines.h \
@@ -106,6 +107,7 @@ SOURCES		= CharWrap.cpp \
 		  combat.cpp \
 		  commands.cpp \
 		  coord.cpp \
+		  cweather.cpp \
 		  dbl_single_click.cpp \
 		  debug.cpp \
 		  dragdrop.cpp \
