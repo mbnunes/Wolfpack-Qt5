@@ -996,6 +996,13 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 	{
 		return QString2Python( self->pSock->ip() );
 	}
+	/*
+		\rproperty socket.id The unique socket identifier for this socket.
+	*/
+	else if ( !strcmp( name, "id" ) )
+	{
+		return PyInt_FromLong( self->pSock->socket()->socket() );
+	}
 	else
 	{
 		return Py_FindMethod( wpSocketMethods, ( PyObject * ) self, name );
