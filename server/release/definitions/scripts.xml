@@ -32,7 +32,8 @@
 	<script>book</script>
 	<script>equipment</script>
 	<script>bandages</script>
-	<script>key</script>
+  <script>key</script>
+  <script>keyring</script>
 	<script>ore</script>
 
 	<!-- Commands -->
