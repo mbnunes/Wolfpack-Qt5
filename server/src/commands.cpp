@@ -306,6 +306,21 @@ void commandAddItem( cUOSocket *socket, const QString &command, QStringList &arg
 	return;
 }
 
+void commandStatic( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	QString param = args.join( " " ).stripWhiteSpace();
+
+	const QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
+
+	if( node && !node->isNull() )
+	{
+		socket->sysMessage( tr( "Where do you want to add the item '%1'" ).arg( param ) );
+		socket->attachTarget( new cAddItemTarget( param ) );
+	}
+
+	return;
+}
+
 void commandAddNpc( cUOSocket *socket, const QString &command, QStringList &args )
 {
 	QString param = args.join( " " ).stripWhiteSpace();
@@ -1269,6 +1284,7 @@ stCommand cCommands::commands[] =
 	{ "SHOWSERIALS",	commandShowSerials },
 	{ "SHUTDOWN",		commandShutDown },
 	{ "SPAWNREGION",	commandSpawnRegion },
+	{ "STATIC",			commandStatic },
 	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },
 	{ "TILE",			commandTile },	

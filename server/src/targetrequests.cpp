@@ -98,6 +98,12 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	newPos.z = target->z() + TileCache::instance()->tileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
 	pItem->moveTo( newPos );
 
+	if( nodecay )
+	{
+		pItem->setDecayTime( 0 );
+		pItem->priv &= 0xFE;
+	}
+
 	// Send the item to its surroundings
 	pItem->update();
 	return true;

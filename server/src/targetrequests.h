@@ -38,8 +38,9 @@ class cAddItemTarget: public cTargetRequest
 {
 	Q_OBJECT
 	QString item_;
+	bool nodecay;
 public:
-	cAddItemTarget( const QString &item ) : item_(item) {}
+	cAddItemTarget( const QString &item, bool _nodecay = false ) : nodecay( _nodecay ), item_(item) {}
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 

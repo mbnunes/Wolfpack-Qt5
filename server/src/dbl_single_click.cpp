@@ -977,7 +977,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				// TODO: Reimplement repairing items.
 			return;
 
-		// 1102: Forge
+		// 1102: Ore
 		case 1102:
 			socket->sysMessage( "Where do you want to smelt the ore?" );
 			socket->attachTarget( new cConvertResource( QString("RESOURCE_INGOT"), pi ) );
