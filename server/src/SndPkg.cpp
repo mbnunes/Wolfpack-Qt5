@@ -1737,16 +1737,11 @@ void statwindow(int s, P_CHAR pc) // Opens the status window
 
 void updates(UOXSOCKET s) // Update Window
 {
-	UI32 y = 10;
+	UI32 y;
 
-#pragma note("new xml format: convert section MOTD to <list> with id MOTD")
-	QStringList motdText = DefManager->getList( "MOTD" );
-	QStringList::iterator it = motdText.begin();
-	while( it != motdText.end() )
-	{
-		y += (*it).length();
-		it++;
-	}
+#pragma note("new xml format: convert section MOTD to <text> with id MOTD")
+	QStringList motdText = DefManager->getText( "MOTD" );
+	y = motdText.length() + 10;
 	
 	updscroll[1]=y>>8;
 	updscroll[2]=y%256;
@@ -1755,12 +1750,7 @@ void updates(UOXSOCKET s) // Update Window
 	updscroll[9]=(y-10)%256;
 	Xsend(s, updscroll, 10);
 	
-	it = motdText.begin();
-	while( it != motdText.end() )
-	{
-		Xsend(s, (*it).latin1(), (*it).length() );
-		it++;
-	}
+	Xsend(s, (char*)motdText.latin1(), motdText.length() );
 }
 
 void tips(int s, int tip) // Tip of the day window
@@ -1771,20 +1761,15 @@ void tips(int s, int tip) // Tip of the day window
 		tip = 1; 
 
 #pragma note("new xml format: convert section TIPS to <list> with id TIPS")
-#pragma note("new xml format: convert section TIP to <list> linked in TIPS-list")
+#pragma note("new xml format: convert section TIP to <text> linked in TIPS-list")
 	QStringList tipList = DefManager->getList( "TIPS" );
 	if( tipList.size() == 0 )
 		return;
 	else if( tip > tipList.size() )
 		tip = tipList.size();
 
-	QStringList tipText = DefManager->getList( tipList[ tip-1 ] );
-	QStringList::iterator it = tipText.begin();
-	while( it != tipText.end() )
-	{
-		y += (*it).length();
-		it++;
-	}
+	QStringList tipText = DefManager->getText( tipList[ tip-1 ] );
+	y = tipText.length()+10;
 
 	updscroll[1]=y>>8;
 	updscroll[2]=y%256;
@@ -1795,12 +1780,7 @@ void tips(int s, int tip) // Tip of the day window
 
 	Xsend(s, updscroll, 10);
 
-	it = tipText.begin();
-	while( it != tipText.end() )
-	{
-		Xsend( s, (*it).latin1(), (*it).length() );
-		it++;
-	}
+	Xsend( s, (char*)tipText.latin1(), tipText.length() );
 }
 
 void weblaunch(int s, char *txt) // Direct client to a web page

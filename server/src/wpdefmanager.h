@@ -50,7 +50,9 @@ enum WPDEF_TYPE
 	WPDT_SPELL,
 	WPDT_PRIVLEVEL,
 	WPDT_SPAWNREGION,
-	WPDT_REGION
+	WPDT_REGION,
+	WPDT_MULTI,
+	WPDT_TEXT
 };
 
 class WPDefManager  
@@ -66,6 +68,8 @@ private:
 	DefSections PrivLevels;
 	DefSections SpawnRegions;
 	DefSections Regions;
+	DefSections Multis;
+	DefSections Texts;
 
 	bool ImportSections( const QString& FileName );
 	void ProcessNode( QDomElement Node );
@@ -82,6 +86,7 @@ public:
 	QStringList getSections( WPDEF_TYPE Type );
 	QString		getRandomListEntry( QString ListSection );
 	QStringList	getList( QString ListSection );
+	QString		getText( QString TextSection );
 };
 
 const QString processNode( QDomElement Node );

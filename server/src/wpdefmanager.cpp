@@ -86,6 +86,10 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		SpawnRegions[ NodeID ] = Node;
 	else if( NodeName == "region" )
 		Regions[ NodeID ] = Node;
+	else if( NodeName == "multi" )
+		Multis[ NodeID ] = Node;
+	else if( NodeName == "text" )
+		Texts[ NodeID ] = Node;
 }
 
 // Recursive Function for Importing Script Sections
@@ -161,6 +165,8 @@ void WPDefManager::unload( void )
 	clearNodes( PrivLevels );
 	clearNodes( SpawnRegions );
 	clearNodes( Regions );
+	clearNodes( Multis );
+	clearNodes( Texts );
 }
 
 void WPDefManager::reload( void )
@@ -186,6 +192,8 @@ void WPDefManager::load( void )
 		clConsole.send( QString("PrivLevel Sections:      %1\n").arg( PrivLevels.size() ) );
 		clConsole.send( QString("Spell Sections:          %1\n").arg( Spells.size() ) );
 		clConsole.send( QString("List Sections:           %1\n").arg( StringLists.size() ) );
+		clConsole.send( QString("Multi Sections:          %1\n").arg( Multis.size() ) );
+		clConsole.send( QString("Text Sections:           %1\n").arg( Texts.size() ) );
 	}
 	else
 		clConsole.ProgressFail();
@@ -232,6 +240,14 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 
 	case WPDT_REGION:
 		ListPointer = &Regions;
+		break;
+
+	case WPDT_MULTI:
+		ListPointer = &Multis;
+		break;
+
+	case WPDT_TEXT:
+		ListPointer = &Texts;
 		break;
 
 	default:
@@ -286,6 +302,14 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 		ListPointer = &Regions;
 		break;
 
+	case WPDT_MULTI:
+		ListPointer = &Multis;
+		break;
+
+	case WPDT_TEXT:
+		ListPointer = &Texts;
+		break;
+
 	default:
 		// Return an empty list
 		return SectionList;
@@ -326,4 +350,13 @@ QStringList	WPDefManager::getList( QString ListSection )
 		}
 	}
 	return list;
+}
+
+QString WPDefManager::getText( QString TextSection )
+{
+	QDomElement* DefSection = this->getSection( WPDT_TEXT, TextSection );
+	if( DefSection->isNull() )
+		return QString();
+	else
+		return DefSection->text();
 }
