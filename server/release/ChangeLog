@@ -8,6 +8,7 @@ Wolfpack 12.9.14 Beta (SVN)
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
+  - Set the minimum restock amount of reagents, arrows and bolts to 50.
  * Python Script Changes:
   - Added a follow command.
   - Tinkers can now choose a second material.
