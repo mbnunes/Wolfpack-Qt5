@@ -904,7 +904,21 @@ PyObject* wpIsClosing( PyObject* self )
 		return PyFalse;
 }
 
-static PyObject* wpCharRegion( PyObject* self, PyObject* args )
+static PyObject* wpCharBlock( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	unsigned int xBlock, yBlock;
+	unsigned char map;
+
+	if( !PyArg_ParseTuple( args, "iib:wolfpack.charblock", &xBlock, &yBlock, &map ) )
+		return 0;
+
+
+	return PyGetCharRegionIterator( x1, y1, x2, y2, map );
+}
+
+static PyObject* wpItemBlock( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 
@@ -991,6 +1005,8 @@ static PyObject* wpTickcount( PyObject* self )
 */
 static PyMethodDef wpGlobal[] = 
 {
+	{ "charblock",			wpCharBlock,					METH_VARARGS, NULL },
+	{ "itemblock",			wpItemBlock,					METH_VARARGS, NULL },
 	{ "charregion",			wpCharRegion,					METH_VARARGS, NULL },
 	{ "itemregion",			wpItemRegion,					METH_VARARGS, NULL },
 	{ "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" },

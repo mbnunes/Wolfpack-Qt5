@@ -80,6 +80,10 @@ static PyObject *PyGetItemRegionIterator( unsigned short x1, unsigned short y1, 
 	return (PyObject*)returnVal;
 }
 
+/*
+ *	Character Region Iterator
+ */
+
 typedef struct {
     PyObject_HEAD;
 	cCharSectorIterator *iter;
