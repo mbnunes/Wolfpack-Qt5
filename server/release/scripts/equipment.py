@@ -21,7 +21,7 @@ def modifiers(object, tooltip):
 	for (tag, cliloc) in modifiers.items():
 		if object.hastag(tag):
 			tooltip.add(cliloc, str(object.gettag(tag)))
-			
+
 	speedbonus = properties.fromitem(object, SPEEDBONUS)
 	if speedbonus != 0:
 		tooltip.add(1060486, str(speedbonus))
@@ -30,11 +30,11 @@ def modifiers(object, tooltip):
 	hitbonus = properties.fromitem(object, HITBONUS)
 	if hitbonus != 0:
 		tooltip.add(1060415, str(hitbonus))
-		
+
 	defensebonus = properties.fromitem(object, DEFENSEBONUS)
 	if defensebonus != 0:
 		tooltip.add(1060408, str(defensebonus))
-		
+
 	enhancepotions = properties.fromitem(object, ENHANCEPOTIONS)
 	if enhancepotions != 0:
 		tooltip.add(1060411, str(enhancepotions))
@@ -43,7 +43,7 @@ def modifiers(object, tooltip):
 
 	if reflectphysical:
 		tooltip.add(1060442, str(reflectphysical))
-		
+
 	luck = properties.fromitem(object, LUCK)
 	if luck != 0:
 		tooltip.add(1060436, str(luck))
@@ -51,11 +51,11 @@ def modifiers(object, tooltip):
 	bonus = properties.fromitem(object, BONUSSTRENGTH)
 	if bonus != 0:
 		tooltip.add(1060485, str(bonus))
-		
+
 	bonus = properties.fromitem(object, BONUSDEXTERITY)
 	if bonus != 0:
 		tooltip.add(1060409, str(bonus))
-		
+
 	bonus = properties.fromitem(object, BONUSINTELLIGENCE)
 	if bonus != 0:
 		tooltip.add(1060432, str(bonus))
@@ -63,19 +63,19 @@ def modifiers(object, tooltip):
 	bonus = properties.fromitem(object, BONUSHITPOINTS)
 	if bonus != 0:
 		tooltip.add(1060431, str(bonus))
-		
+
 	bonus = properties.fromitem(object, BONUSSTAMINA)
 	if bonus != 0:
 		tooltip.add(1060484, str(bonus))
-		
+
 	bonus = properties.fromitem(object, BONUSMANA)
 	if bonus != 0:
-		tooltip.add(1060439, str(bonus))				
+		tooltip.add(1060439, str(bonus))
 
 	regenhitpoints = properties.fromitem(object, REGENHITPOINTS)
 	if regenhitpoints:
 		tooltip.add(1060444, str(regenhitpoints))
-		
+
 	regenstamina = properties.fromitem(object, REGENSTAMINA)
 	if regenstamina:
 		tooltip.add(1060443, str(regenstamina))
@@ -86,14 +86,14 @@ def modifiers(object, tooltip):
 
 	if properties.fromitem(object, BESTSKILL):
 		tooltip.add(1060400, "")
-		
+
 	mageweapon = properties.fromitem(object, MAGEWEAPON)
 	if mageweapon != 0:
-		tooltip.add(1060438, str(mageweapon))		
+		tooltip.add(1060438, str(mageweapon))
 
 	if properties.fromitem(object, MAGEARMOR) and not object.allowmeditation:
 		tooltip.add(1060437, "")
-		
+
 	selfrepair = properties.fromitem(object, SELFREPAIR)
 	if selfrepair != 0:
 		tooltip.add(1060450, str(selfrepair))
@@ -197,7 +197,7 @@ def onShowTooltip(viewer, object, tooltip):
 			slayer = system.slayer.findEntry(slayer)
 			if slayer:
 				tooltip.add(slayer.name, '')
-	
+
 		# One or twohanded weapon
 		if object.twohanded:
 			tooltip.add(1061171, '')
@@ -214,9 +214,11 @@ def onShowTooltip(viewer, object, tooltip):
 			tooltip.add(1061174, '')
 		elif skill == ARCHERY:
 			tooltip.add(1061175, '')
+		#elif skill == WRESTLING:
+		#	tooltip.add(1061172, '')
 
 		# Special weapon range
-		if object.hasintproperty( 'range' ) or object.hastag( 'range' ):			
+		if object.hasintproperty( 'range' ) or object.hastag( 'range' ):
 			if object.hastag( 'range' ):
 				weaponrange = int( object.gettag( 'range' ) )
 			else:
@@ -276,23 +278,23 @@ def onShowTooltip(viewer, object, tooltip):
 			tooltip.add(1060482, "")
 	else:
 		spellchanneling = False
-	
+
 	# Those are only relevant if its not a shield/weapon or for spellchanneling items
 	if (not weapon and not shield) or spellchanneling:
 		castrecovery = properties.fromitem(object, CASTRECOVERYBONUS)
-		
+
 		if castrecovery:
 			tooltip.add(1060412, str(castrecovery))
-			
+
 		castspeed = properties.fromitem(object, CASTSPEEDBONUS)
-		
+
 		if castspeed:
 			tooltip.add(1060413, str(castspeed))
-		
+
 		spelldamagebonus = properties.fromitem(object, SPELLDAMAGEBONUS)
-		
+
 		if spelldamagebonus:
-			tooltip.add(1060483, str(spelldamagebonus))	
+			tooltip.add(1060483, str(spelldamagebonus))
 
 	physical = properties.fromitem(object, RESISTANCE_PHYSICAL)
 	fire = properties.fromitem(object, RESISTANCE_FIRE)
@@ -339,7 +341,7 @@ def onShowTooltip(viewer, object, tooltip):
 		req_str = int(ceil(req_str) * (1.0 - lower))
 	if req_str:
 		tooltip.add(1061170, str(req_str))
-		
+
 	# Skill Boni (1-5)
 	for i in range(0, 5):
 		if object.hastag('skillbonus_%u' % i):
@@ -347,9 +349,9 @@ def onShowTooltip(viewer, object, tooltip):
 				(skill, bonus) = object.gettag('skillbonus_%u' % i).split(',')
 				(skill, bonus) = (int(skill), int(bonus))
 
-				if bonus == 0 or skill < 0 or skill >= ALLSKILLS:					
+				if bonus == 0 or skill < 0 or skill >= ALLSKILLS:
 					continue
-					
+
 				# Add a Bonus for the skill
 				tooltip.add(1060451 + i, "#%u\t%0.01f%%" % (1044060 + skill, bonus / 10.0))
 			except:
@@ -471,19 +473,19 @@ def onEquip(char, item, layer):
 				if bonus == 0 or skill < 0 or skill >= ALLSKILLS:
 					item.deltag('real_skillbonus_%u' % i)
 					continue
-					
+
 				# Add a Bonus for the skill
 				if char.skill[skill] + bonus > char.skillcap[skill]:
 					bonus = max(0, char.skillcap[skill] - char.skill[skill])
 				if char.skill[skill] + bonus < 0:
 					bonus = - char.skill[skill]
-					
+
 				item.settag('real_skillbonus_%u' % i, '%u,%u' % (skill, bonus))
 				char.skill[skill] += bonus
 			except:
 				item.deltag('skillbonus_%u' % i)
 				continue
-			
+
 			# Update the bonus tag for the character
 			tagname = 'skillbonus_%u' % skill
 			if char.hastag(tagname):
@@ -505,7 +507,7 @@ def onEquip(char, item, layer):
 	if bonusstamina != 0:
 		char.staminabonus += bonusstamina
 		changed = True
-	
+
 	# Bonus Mana
 	bonusmana = properties.fromitem(item, BONUSMANA)
 	if bonusmana != 0:
@@ -517,7 +519,7 @@ def onEquip(char, item, layer):
 	if regenhitpoints:
 		if char.hastag('regenhitpoints'):
 			regenhitpoints += int(char.gettag('regenhitpoints'))
-	
+
 		char.settag('regenhitpoints', regenhitpoints)
 
 	# Add stamina regeneration rate bonus
@@ -525,15 +527,15 @@ def onEquip(char, item, layer):
 	if regenstamina:
 		if char.hastag('regenstamina'):
 			regenstamina += int(char.gettag('regenstamina'))
-	
+
 		char.settag('regenstamina', regenstamina)
-		
+
 	# Add mana regeneration rate bonus
 	regenmana = properties.fromitem(item, REGENMANA)
 	if regenmana:
 		if char.hastag('regenmana'):
 			regenmana += int(char.gettag('regenmana'))
-	
+
 		char.settag('regenmana', regenmana)
 
 	# Update Stats
@@ -545,7 +547,7 @@ def onEquip(char, item, layer):
 #
 def onUnequip(char, item, layer):
 	changed = 0
-	
+
 	# Bonus Str
 	if item.hastag('real_strength_bonus'):
 		value = int(item.gettag('real_strength_bonus'))
@@ -580,29 +582,29 @@ def onUnequip(char, item, layer):
 				if bonus == 0 or skill < 0 or skill >= ALLSKILLS:
 					item.deltag('real_skillbonus_%u' % i)
 					continue
-					
+
 				# If the bonus would add over the skill limit,
 				# make sure it doesnt
 				if bonus < 0 and char.skill[skill] - bonus > char.skillcap[skill]:
 					bonus = - (char.skillcap[skill] - char.skill[skill])
 				if char.skill[skill] - bonus < 0:
 					bonus = char.skill[skill]
-					
+
 				item.deltag('real_skillbonus_%u' % i, bonus)
 				char.skill[skill] -= bonus
-				
+
 				# Update the bonus tag for the character
 				tagname = 'skillbonus_%u' % skill
 				if char.hastag(tagname):
 					value = int(char.gettag(tagname)) - bonus
-					
+
 					if value != 0:
 						char.settag(tagname, value)
 					else:
 						char.deltag(tagname)
 			except:
 				item.deltag('real_skillbonus_%u' % i)
-				continue				
+				continue
 
 	# Bonus Hitpoints
 	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
@@ -615,18 +617,18 @@ def onUnequip(char, item, layer):
 	if bonusstamina != 0:
 		char.staminabonus -= bonusstamina
 		changed = True
-	
+
 	# Bonus Mana
 	bonusmana = properties.fromitem(item, BONUSMANA)
 	if bonusmana != 0:
 		char.manabonus -= bonusmana
 		changed = True
-		
+
 	# Remove hitpoint regeneration rate bonus
 	regenhitpoints = properties.fromitem(item, REGENHITPOINTS)
 	if regenhitpoints and char.hastag('regenhitpoints'):
 		value = int(char.gettag('regenhitpoints')) - regenhitpoints
-			
+
 		if value <= 0:
 			char.deltag('regenhitpoints')
 		else:
@@ -636,21 +638,21 @@ def onUnequip(char, item, layer):
 	regenstamina = properties.fromitem(item, REGENSTAMINA)
 	if regenstamina and char.hastag('regenstamina'):
 		value = int(char.gettag('regenstamina')) - regenstamina
-			
+
 		if value <= 0:
 			char.deltag('regenstamina')
 		else:
 			char.settag('regenstamina', value)
-			
+
 	# Remove mana regeneration rate bonus
 	regenmana = properties.fromitem(item, REGENMANA)
 	if regenmana and char.hastag('regenmana'):
 		value = int(char.gettag('regenmana')) - regenmana
-			
+
 		if value <= 0:
 			char.deltag('regenmana')
 		else:
-			char.settag('regenmana', value)			
+			char.settag('regenmana', value)
 
 	# Update Stats
 	if changed:
@@ -662,8 +664,8 @@ def onUnequip(char, item, layer):
 def onDelete(item):
 	if not item.container or not item.container.ischar():
 		return
-	
-	char = item.container	
+
+	char = item.container
 	onUnequip(char, item, item.layer)
 
 # Try to equip an item after calling onWearItem for it
@@ -717,10 +719,10 @@ def onUse(player, item):
 	item.update()
 	item.soundeffect(0x57)
 	player.updatestats()
-	
+
 	# Remove the use delay, equipping should be for free...
 	player.objectdelay = 0
-	
+
 	for script in scripts[scripts.index("equipment")+1:]:
 		if wolfpack.hasevent(script, EVENT_USE):
 			return 0

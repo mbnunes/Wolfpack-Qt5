@@ -13,6 +13,12 @@ SKILL = 3
 # Static information for certain types of weapons.
 #
 WEAPON_INFORMATION = {
+	# 1000: Wrestling
+	1000: {
+		ONEHANDED_SWING: [0x9],
+		TWOHANDED_SWING: [0xc],
+		SKILL: WRESTLING
+	},
 	# 1001: Sword Weapons (Swordsmanship)
 	1001: {
 		ONEHANDED_SWING: [0x9],
@@ -25,7 +31,7 @@ WEAPON_INFORMATION = {
 		TWOHANDED_SWING: [0xc, 0xd],
 		SKILL: SWORDSMANSHIP
 	},
-	# 1003: Macefighting (Staffs)
+	# 1003: Macefighting (Staves)
 	1003: {
 		ONEHANDED_SWING: [0xc],
 		TWOHANDED_SWING: [0xc],

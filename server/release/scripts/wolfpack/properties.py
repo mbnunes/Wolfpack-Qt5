@@ -15,13 +15,13 @@ import system.slayer
 # The return value is in miliseconds.
 #
 def getdelay(attacker, weapon):
-	speed = fromitem(weapon, SPEED)	
-	
+	speed = fromitem(weapon, SPEED)
+
 	value = (attacker.stamina + 100) * speed
 
 	bonus = fromchar(attacker, SPEEDBONUS)
 
-	# Scale value according to bonus		
+	# Scale value according to bonus
 	value += bonus * value / 100
 
 	if value <= 0:
@@ -53,7 +53,7 @@ PROPERTIES = {
 	# Flags (Weapons):
 	SPELLCHANNELING: ['spellchanneling', 0, 0],
 	MAGEARMOR: ['magearmor', 0, 0],
-	
+
 	# % Boni
 	LOWERREQS: ['lower_reqs', 0, 1],
 	DAMAGEBONUS: ['aos_boni_damage', 0, 1],
@@ -78,7 +78,7 @@ PROPERTIES = {
 	REGENHITPOINTS: ['regenhitpoints', 0, 1],
 	REGENSTAMINA: ['regenstamina', 0, 1],
 	REGENMANA: ['regenmana', 0, 1],
-	
+
 	# Misc
 	LUCK: ['luck', 0, 1],
 	SELFREPAIR: ['selfrepair', 0, 0],
@@ -113,7 +113,7 @@ PROPERTIES = {
 def fromitem(item, property):
 	if property == MAGEARMOR and item.allowmeditation:
 		return True
-	
+
 	if not PROPERTIES.has_key(property):
 		raise Exception, "Unknown property value %u" % property
 
@@ -141,21 +141,21 @@ def fromitem(item, property):
 				return info[1]
 			else:
 				return wolfpack.weaponinfo.WEAPONINFO[item.baseid][property]
-	
+
 		# Get the base property from the item
 		if type(info[1]) == int:
 			value = item.getintproperty( info[0], info[1] )
 		elif type(info[1]) == str:
 			value = item.getstrproperty( info[0], info[1] )
 		else:
-			raise Exception, "Unsupported property type %s for property %u." % (type(info[1]).__name__, property)	
+			raise Exception, "Unsupported property type %s for property %u." % (type(info[1]).__name__, property)
 
 		resboni = None
 
 		# Get Resname boni from the weapon list.
 		if itemcheck(item, ITEM_WEAPON):
 			resboni = wolfpack.weaponinfo.WEAPON_RESNAME_BONI
-		
+
 		# Get Resname boni from the ARMOR list
 		elif itemcheck(item, ITEM_ARMOR) or itemcheck(item, ITEM_SHIELD):
 			resboni = wolfpack.armorinfo.ARMOR_RESNAME_BONI
@@ -164,7 +164,7 @@ def fromitem(item, property):
 			resname = str(item.gettag('resname'))
 			if resboni.has_key(resname) and resboni[resname].has_key(property):
 				value += resboni[resname][property]
-				
+
 		if resboni and item.hastag('resname2'):
 			resname = str(item.gettag('resname2'))
 			if resboni.has_key(resname) and resboni[resname].has_key(property):
@@ -253,11 +253,11 @@ def getdamage(char):
 		# override all other settings
 		mindamage = char.mindamage
 		maxdamage = char.maxdamage
-		
+
 		try:
 			if char.hastag('mindamage'):
 				mindamage = int(char.gettag('mindamage'))
-			
+
 			if char.hastag('maxdamage'):
 				maxdamage = int(char.gettag('maxdamage'))
 		except:
@@ -272,7 +272,7 @@ def getdamage(char):
 		else:
 			mindamage = fromitem(weapon, MINDAMAGE)
 			maxdamage = fromitem(weapon, MAXDAMAGE)
-			
+
 		return (mindamage, maxdamage)
 	else:
 		if not weapon and char.maxdamage != 0:
@@ -302,11 +302,11 @@ def itemcheck(item, check):
 
 	# Only type check yet.
 	if check == ITEM_WEAPON:
-		return item.type >= 1001 and item.type <= 1007
+		return item.type >= 1000 and item.type <= 1007
 
 	# Only type check yet.
 	if check == ITEM_MELEE:
-		return item.type >= 1001 and item.type <= 1005
+		return item.type >= 1000 and item.type <= 1005
 
 	# Only type check yet.
 	if check == ITEM_RANGED:
@@ -343,17 +343,17 @@ CHANCES = [
 def bonusProps(maxprops, luckChance):
 	if maxprops > 5:
 		maxprops = 5
-		
+
 	if maxprops < 1:
 		return 0
-		
+
 	maxprops -= 1
-			
+
 	chances = CHANCES[maxprops]
 	chancesum = sum(chances)
-	
+
 	result = 0
-	
+
 	rnd = random.randrange(0, chancesum)
 	for i in [5, 4, 3, 2, 1, 0]:
 		if rnd < chances[i]:
@@ -361,7 +361,7 @@ def bonusProps(maxprops, luckChance):
 			break
 		else:
 			rnd -= chances[i]
-			
+
 	# Take luck into account
 	if result < maxprops and luckChance > random.randint(0, 10000):
 		result += 1
@@ -375,15 +375,15 @@ def scaleValue( minimum, maximum, propmin, propmax, scale, luckchance ):
 	if scale != 1:
 		propmin = propmin / float(scale)
 		propmax = propmax / float(scale)
-	
+
 	# Although this is the "Worst system ever" (c) RunUO
 	# I think the basic idea of having the chance increase slower than
-	# using a normal rand function is good.	
+	# using a normal rand function is good.
 	percent = 100 - sqrt(random.randint(0, 10000)) # Range of the property value
-	
+
 	if luckchance > random.randint(0, 10000):
 		percent += 10
-		
+
 	# Normalize the percentage
 	percent = min(maximum, max(minimum, percent))
 
@@ -421,7 +421,7 @@ ARMOR_PROPERTIES = {
 #
 def applyArmorRandom(item, props, minintensity, maxintensity, luckchance):
 	properties = ARMOR_PROPERTIES.keys()
-	
+
 	# Remove MageArmor from the list if it's already on the item
 	magearmor = fromitem(item, MAGEARMOR)
 	if magearmor:
@@ -431,7 +431,7 @@ def applyArmorRandom(item, props, minintensity, maxintensity, luckchance):
 	for i in range(0, props):
 		property = random.choice(properties)
 		properties.remove(property)
-		
+
 		if not PROPERTIES.has_key(property):
 			continue
 
@@ -447,9 +447,9 @@ def applyArmorRandom(item, props, minintensity, maxintensity, luckchance):
 
 		# Resistances are cummulative
 		if info[3]:
-			value += fromitem(item, property)		
-		
-		item.settag(PROPERTIES[property][0], value)	
+			value += fromitem(item, property)
+
+		item.settag(PROPERTIES[property][0], value)
 
 	item.resendtooltip()
 
@@ -475,7 +475,7 @@ def applyShieldRandom(item, props, minintensity, maxintensity, luckchance):
 	for i in range(0, props):
 		property = random.choice(properties)
 		properties.remove(property)
-		
+
 		if not PROPERTIES.has_key(property):
 			continue
 
@@ -495,9 +495,9 @@ def applyShieldRandom(item, props, minintensity, maxintensity, luckchance):
 
 		# Resistances are cummulative
 		if info[3]:
-			value += fromitem(item, property)		
-		
-		item.settag(PROPERTIES[property][0], value)	
+			value += fromitem(item, property)
+
+		item.settag(PROPERTIES[property][0], value)
 
 	item.resendtooltip()
 
@@ -515,7 +515,7 @@ JUWEL_PROPERTIES = {
 	RESISTANCE_FIRE: [1, 15, 1, False],
 	RESISTANCE_COLD: [1, 15, 1, False],
 	RESISTANCE_POISON: [1, 15, 1, False],
-	RESISTANCE_ENERGY: [1, 15, 1, False],	
+	RESISTANCE_ENERGY: [1, 15, 1, False],
 	DAMAGEBONUS: [1, 25, 1, False],
 	DEFENSEBONUS: [1, 15, 1, False],
 	HITBONUS: [1, 15, 1, False],
@@ -538,7 +538,7 @@ JUWEL_PROPERTIES = {
 
 def applyJuwelRandom(item, props, minintensity, maxintensity, luckchance):
 	properties = JUWEL_PROPERTIES.keys()
-	
+
 	# Possible bonus skills
 	skills = [SWORDSMANSHIP, FENCING, MACEFIGHTING, ARCHERY, WRESTLING, PARRYING, TACTICS, ANATOMY, HEALING, MAGERY, MEDITATION, EVALUATINGINTEL,
 				MAGICRESISTANCE, TAMING, ANIMALLORE, VETERINARY, MUSICIANSHIP, PROVOCATION, ENTICEMENT, PEACEMAKING, CHIVALRY, FOCUS, NECROMANCY,
@@ -548,18 +548,18 @@ def applyJuwelRandom(item, props, minintensity, maxintensity, luckchance):
 	for i in range(0, props):
 		property = random.choice(properties)
 		properties.remove(property)
-		
+
 		if property in [SKILLBONUS1, SKILLBONUS2, SKILLBONUS3, SKILLBONUS4, SKILLBONUS5]:
 			# Apply a random skillbonus
 			info = JUWEL_PROPERTIES[property]
 			value = scaleValue(minintensity, maxintensity, info[0], info[1], info[2], luckchance)
-			
+
 			skill = random.choice(skills)
 			skills.remove(skill)
-			
+
 			item.settag('skillbonus_%u' % (property - 1000), '%u,%u' % (skill, value * 10))
 			continue
-		
+
 		if not PROPERTIES.has_key(property):
 			continue
 
@@ -569,8 +569,8 @@ def applyJuwelRandom(item, props, minintensity, maxintensity, luckchance):
 
 		# Resistances are cummulative
 		if info[3]:
-			value += fromitem(item, property)		
-		
+			value += fromitem(item, property)
+
 		item.settag(PROPERTIES[property][0], value)
 
 	item.resendtooltip()
@@ -583,19 +583,19 @@ WEAPON_PROPERTIES = {
 	#SPLASH_COLD: [2, 50, 2, False],
 	#SPLASH_POISON: [2, 50, 2, False],
 	#SPLASH_ENERGY: [2, 50, 2, False],
-	
+
 	#HIT_MAGICARROW: [2, 50, 2, False],
 	#HIT_HARM: [2, 50, 2, False],
 	#HIT_FIREBALL: [2, 50, 2, False],
 	#HIT_LIGHTNING: [2, 50, 2, False],
-	
+
 	#HIT_DISPEL: [2, 50, 2, False],
 	#HIT_LEECHHITS: [2, 50, 2, False],
 	#HIT_LEECHSTAMINA: [2, 50, 2, False],
 	#HIT_LEECHMANA: [2, 50, 2, False],
 	#HIT_LOWERATTACK: [2, 50, 2, False],
 	#HIT_LOWERDEFEND: [2, 50, 2, False],
-	
+
 	BESTSKILL: [1, 1, 1, False],
 	#MAGEWEAPON: [29, 20, 1, False],
 
@@ -603,7 +603,7 @@ WEAPON_PROPERTIES = {
 	RESISTANCE_FIRE: [1, 15, 1, True],
 	RESISTANCE_COLD: [1, 15, 1, True],
 	RESISTANCE_POISON: [1, 15, 1, True],
-	RESISTANCE_ENERGY: [1, 15, 1, True],	
+	RESISTANCE_ENERGY: [1, 15, 1, True],
 	DAMAGEBONUS: [1, 25, 1, True],
 	DEFENSEBONUS: [1, 15, 1, True],
 	HITBONUS: [1, 15, 1, True],
@@ -614,13 +614,13 @@ WEAPON_PROPERTIES = {
 	SPELLDAMAGEBONUS: [1, 12, 1, False],
 	DURABILITYBONUS: [10, 100, 10, True],
 	LOWERREQS: [10, 100, 10, True],
-	
+
 	SLAYER: [1, 1, 1, False], # Special
 }
 
 def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 	properties = WEAPON_PROPERTIES.keys()
-	
+
 	# No bestskill property for ranged weapons
 	if itemcheck(item, ITEM_RANGED):
 		properties.remove(BESTSKILL)
@@ -631,7 +631,7 @@ def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 
 		if not PROPERTIES.has_key(property):
 			continue
-			
+
 		# Special handling for slayers
 		if property == SLAYER:
 			slayer = system.slayer.getRandom()
@@ -654,8 +654,8 @@ def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 
 		# Set cast speed to -1
 		elif property == SPELLCHANNELING:
-			item.settag(PROPERTIES[CASTSPEEDBONUS][0], -1)				
-			
+			item.settag(PROPERTIES[CASTSPEEDBONUS][0], -1)
+
 		# MageWeapon and BestSkill are exclusive
 		elif property == BESTSKILL:
 			if MAGEWEAPON in properties:
@@ -666,9 +666,9 @@ def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 
 		# Resistances are cummulative
 		if info[3]:
-			value += fromitem(item, property)		
-		
-		item.settag(PROPERTIES[property][0], value)	
+			value += fromitem(item, property)
+
+		item.settag(PROPERTIES[property][0], value)
 
 	item.resendtooltip()
 
@@ -677,16 +677,16 @@ def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 #
 def applyRandom(item, maxprops, minintensity, maxintensity, luckchance=0 ):
 	props = 1 + bonusProps(maxprops, luckchance)
-	
+
 	if itemcheck(item, ITEM_ARMOR):
 		applyArmorRandom(item, props, minintensity, maxintensity, luckchance)
-		
+
 	elif itemcheck(item, ITEM_SHIELD):
 		applyShieldRandom(item, props, minintensity, maxintensity, luckchance)
 
 	elif itemcheck(item, ITEM_WEAPON):
 		applyWeaponRandom(item, props, minintensity, maxintensity, luckchance)
-		
+
 	else:
 		applyJuwelRandom(item, props, minintensity, maxintensity, luckchance)
 
@@ -695,11 +695,11 @@ def applyRandom(item, maxprops, minintensity, maxintensity, luckchance=0 ):
 #
 def luckchance(char):
 	luck = fromchar(char, LUCK)
-	
+
 	if luck < 0:
 		luck = 0
 
 	if luck > 1200:
 		luck = 1200
-		
+
 	return LUCKTABLE[luck]
