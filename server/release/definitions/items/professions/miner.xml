@@ -17,7 +17,7 @@
 		<tag name="resname" value="iron" />
 		<category>Professions\Miner\Ingots\Colored\Iron Ingot</category>
 	</item>
-	
+
 	<item id="dullcopper_ingot">
 		<name>dull iopper ingot</name>
 		<id>0x1bf2</id>
@@ -25,7 +25,7 @@
 		<tag name="resname" value="dullcopper" />
 		<category>Professions\Miner\Ingots\Colored\Dull Copper Ingot</category>
 	</item>
-	
+
 	<item id="shadowiron_ingot">
 		<name>shadow iron ingot</name>
 		<id>0x1bf2</id>
@@ -33,7 +33,7 @@
 		<tag name="resname" value="shadowiron" />
 		<category>Professions\Miner\Ingots\Colored\Shadow Iron Ingot</category>
 	</item>
-	
+
 	<item id="copper_ingot">
 		<name>copper ingot</name>
 		<id>0x1bf2</id>
@@ -41,7 +41,7 @@
 		<tag name="resname" value="copper" />
 		<category>Professions\Miner\Ingots\Colored\Copper Ingot</category>
 	</item>
-	
+
 	<item id="bronze_ingot">
 		<name>bronze ingot</name>
 		<id>0x1bf2</id>
@@ -49,7 +49,7 @@
 		<tag name="resname" value="bronze" />
 		<category>Professions\Miner\Ingots\Colored\Bronze Ingot</category>
 	</item>
-	
+
 	<item id="gold_ingot">
 		<name>gold ingot</name>
 		<id>0x1bf2</id>
@@ -57,7 +57,7 @@
 		<tag name="resname" value="gold" />
 		<category>Professions\Miner\Ingots\Colored\Gold Ingot</category>
 	</item>
-	
+
 	<item id="silver_ingot">
 		<name>silver ingot</name>
 		<id>0x1bf2</id>
@@ -65,7 +65,7 @@
 		<tag name="resname" value="silver" />
 		<category>Professions\Miner\Ingots\Colored\Silver Ingot</category>
 	</item>
-	
+
 	<item id="agapite_ingot">
 		<name>agapite ingot</name>
 		<id>0x1bf2</id>
@@ -73,7 +73,7 @@
 		<tag name="resname" value="agapite" />
 		<category>Professions\Miner\Ingots\Colored\Agapite Ingot</category>
 	</item>
-	
+
 	<item id="verite_ingot">
 		<name>verite ingot</name>
 		<id>0x1bf2</id>
@@ -81,7 +81,7 @@
 		<tag name="resname" value="verite" />
 		<category>Professions\Miner\Ingots\Colored\Verite Ingot</category>
 	</item>
-	
+
 	<item id="valorite_ingot">
 		<name>valorite ingot</name>
 		<id>0x1bf2</id>
@@ -89,7 +89,7 @@
 		<tag name="resname" value="valorite" />
 		<category>Professions\Miner\Ingots\Colored\Valorite Ingot</category>
 	</item>
-	
+
 	<item id="merkite_ingot">
 		<name>merkite ingot</name>
 		<id>0x1bf2</id>
@@ -97,7 +97,7 @@
 		<tag name="resname" value="merkite" />
 		<category>Professions\Miner\Ingots\Colored\Merkite Ingot</category>
 	</item>
-	
+
 	<item id="mythril_ingot">
 		<name>mythril ingot</name>
 		<id>0x1bf2</id>
@@ -107,7 +107,7 @@
 	</item>
 
 	<item id="iron_ore_1">
-		<name>iron ire</name>
+		<name>iron ore</name>
 		<id>0x19b7</id>
 		<color>0x0</color>
 		<category>Professions\Miner\Ore\Iron\Iron Ore 1</category>
@@ -117,7 +117,7 @@
 	</item>
 
 	<item id="dullcopper_ore_1">
-		<name>dull copper ire</name>
+		<name>dull copper ore</name>
 		<id>0x19b7</id>
 		<color>0x973</color>
 		<category>Professions\Miner\Ore\Dull Copper\Dull Copper Ore 1</category>
@@ -125,7 +125,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="shadowiron_ore_1">
 		<name>shadow iron ore</name>
 		<id>0x19b7</id>
@@ -135,7 +135,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="copper_ore_1">
 		<name>copper ore</name>
 		<id>0x19b7</id>
@@ -145,7 +145,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="bronze_ore_1">
 		<name>bronze ore</name>
 		<id>0x19b7</id>
@@ -155,7 +155,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="gold_ore_1">
 		<name>gold ore</name>
 		<id>0x19b7</id>
@@ -165,7 +165,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="silver_ore_1">
 		<name>silver ore</name>
 		<id>0x19b7</id>
@@ -175,7 +175,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="agapite_ore_1">
 		<name>agapite ore</name>
 		<id>0x19b7</id>
@@ -185,7 +185,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="verite_ore_1">
 		<name>verite ore</name>
 		<id>0x19b7</id>
@@ -195,7 +195,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="valorite_ore_1">
 		<name>valorite ore</name>
 		<id>0x19b7</id>
@@ -205,7 +205,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="merkite_ore_1">
 		<name>merkite ore</name>
 		<id>0x19b7</id>
@@ -215,7 +215,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="mythril_ore_1">
 		<name>mythril ore</name>
 		<id>0x19b7</id>
@@ -245,7 +245,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="shadowiron_ore_2">
 		<name>shadow iron ore</name>
 		<id>0x19b8</id>
@@ -255,7 +255,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="copper_ore_2">
 		<name>copper ore</name>
 		<id>0x19b8</id>
@@ -265,7 +265,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="bronze_ore_2">
 		<name>bronze ore</name>
 		<id>0x19b8</id>
@@ -275,7 +275,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="gold_ore_2">
 		<name>gold ore</name>
 		<id>0x19b8</id>
@@ -285,7 +285,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="silver_ore_2">
 		<name>silver ore</name>
 		<id>0x19b8</id>
@@ -295,7 +295,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="agapite_ore_2">
 		<name>agapite ore</name>
 		<id>0x19b8</id>
@@ -305,7 +305,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="verite_ore_2">
 		<name>verite ore</name>
 		<id>0x19b8</id>
@@ -315,7 +315,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="valorite_ore_2">
 		<name>valorite ore</name>
 		<id>0x19b8</id>
@@ -325,7 +325,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="merkite_ore_2">
 		<name>merkite ore</name>
 		<id>0x19b8</id>
@@ -335,7 +335,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="mythril_ore_2">
 		<name>mythril ore</name>
 		<id>0x19b8</id>
@@ -365,7 +365,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="shadowiron_ore_3">
 		<name>shadow iron ore</name>
 		<id>0x19b9</id>
@@ -375,7 +375,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="copper_ore_3">
 		<name>copper ore</name>
 		<id>0x19b9</id>
@@ -385,7 +385,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="bronze_ore_3">
 		<name>bronze ore</name>
 		<id>0x19b9</id>
@@ -395,7 +395,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="gold_ore_3">
 		<name>gold ore</name>
 		<id>0x19b9</id>
@@ -405,7 +405,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="silver_ore_3">
 		<name>silver ore</name>
 		<id>0x19b9</id>
@@ -415,7 +415,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="agapite_ore_3">
 		<name>agapite ore</name>
 		<id>0x19b9</id>
@@ -425,7 +425,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="verite_ore_3">
 		<name>verite ore</name>
 		<id>0x19b9</id>
@@ -435,7 +435,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="valorite_ore_3">
 		<name>valorite ore</name>
 		<id>0x19b9</id>
@@ -445,7 +445,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="merkite_ore_3">
 		<name>merkite ore</name>
 		<id>0x19b9</id>
@@ -455,7 +455,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="mythril_ore_3">
 		<name>mythril ore</name>
 		<id>0x19b9</id>
@@ -465,7 +465,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="iron_ore_4">
 		<name>iron ore</name>
 		<id>0x19ba</id>
@@ -485,7 +485,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="shadowiron_ore_4">
 		<name>shadow iron ore</name>
 		<id>0x19ba</id>
@@ -495,7 +495,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="copper_ore_4">
 		<name>copper ore</name>
 		<id>0x19ba</id>
@@ -505,7 +505,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="bronze_ore_4">
 		<name>bronze ore</name>
 		<id>0x19ba</id>
@@ -515,7 +515,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="gold_ore_4">
 		<name>gold ore</name>
 		<id>0x19ba</id>
@@ -525,7 +525,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="silver_ore_4">
 		<name>silver ore</name>
 		<id>0x19ba</id>
@@ -535,7 +535,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="agapite_ore_4">
 		<name>agapite ore</name>
 		<id>0x19ba</id>
@@ -545,7 +545,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="verite_ore_4">
 		<name>verite ore</name>
 		<id>0x19ba</id>
@@ -555,7 +555,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="valorite_ore_4">
 		<name>valorite ore</name>
 		<id>0x19ba</id>
@@ -565,7 +565,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="merkite_ore_4">
 		<name>merkite ore</name>
 		<id>0x19ba</id>
@@ -575,7 +575,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="mythril_ore_4">
 		<name>mythril ore</name>
 		<id>0x19ba</id>
@@ -585,7 +585,7 @@
 		<events>ore</events>
 		<type>1102</type>
 	</item>
-	
+
 	<item id="19b7">
 		<id>0x19b7</id>
 		<category>Professions\Miner\Ore\Ore 1</category>

@@ -429,31 +429,89 @@
 
 	<item id="1067">
 		<id>0x1067</id>
+		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Supplies\Cut Up Leather (N/S)</category>
 	</item>
 
 	<item id="1068">
 		<id>0x1068</id>
+		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Supplies\Cut Up Leather (W/E)</category>
 	</item>
 
 	<item id="1078">
 		<id>0x1078</id>
+		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Supplies\Pile of Hides 1 (W/E)</category>
 	</item>
 
 	<item id="1079">
 		<id>0x1079</id>
+		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Supplies\Pile of Hides 1 (N/S)</category>
 	</item>
 
 	<item id="1081">
 		<id>0x1081</id>
+		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Supplies\Pile of Hides 2 (W/E)</category>
 	</item>
 
 	<item id="1082">
 		<id>0x1082</id>
+		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Supplies\Pile of Hides 2 (N/S)</category>
 	</item>
+
+	<item id="leather_cut" inherit="1067">
+		<category>Professions\Tailorer\Supplies\Leather\Cut Up Leather (N/S)</category>
+	</item>
+
+	<item id="spined_leather_cut" inherit="1067">
+		<color>0x8ad</color>
+		<name>spined cut leather</name>
+		<tag name="resname" value="spined_leather" />
+		<category>Professions\Tailorer\Supplies\Spined Leather\Cut Up Leather (N/S)</category>
+	</item>
+
+	<item id="horned_leather_cut" inherit="1067">
+		<color>0x846</color>
+		<name>horned cut leather</name>
+		<tag name="resname" value="horned_leather" />
+		<category>Professions\Tailorer\Supplies\Horned Leather\Cut Up Leather (N/S)</category>
+	</item>
+
+	<item id="barbed_leather_cut" inherit="1067">
+		<color>0x8a4</color>
+		<name>barbed cut leather</name>
+		<tag name="resname" value="barbed_leather" />
+		<category>Professions\Tailorer\Supplies\Barbed Leather\Cut Up Leather (N/S)</category>
+	</item>
+
+	<item id="leather_hides" inherit="1079">
+		<tag name="resname" value="leather" />
+		<category>Professions\Tailorer\Supplies\Leather\Pile of Hides (N/S)</category>
+	</item>
+
+	<item id="spined_leather_hides" inherit="1079">
+		<color>0x8ad</color>
+		<name>spined pile of hides</name>
+		<tag name="resname" value="spined_leather" />
+		<category>Professions\Tailorer\Supplies\Spined Leather\Pile of Hides (N/S)</category>
+	</item>
+
+	<item id="horned_leather_hides" inherit="1079">
+		<color>0x846</color>
+		<name>horned pile of hides</name>
+		<tag name="resname" value="horned_leather" />
+		<category>Professions\Tailorer\Supplies\Horned Leather\Pile of Hides (N/S)</category>
+	</item>
+
+	<item id="barbed_leather_hides" inherit="1079">
+		<color>0x8a4</color>
+		<name>barbed pile of hides</name>
+		<tag name="resname" value="barbed_leather" />
+		<category>Professions\Tailorer\Supplies\Barbed Leather\Pile of Hides (N/S)</category>
+	</item>
+
 </definitions>
