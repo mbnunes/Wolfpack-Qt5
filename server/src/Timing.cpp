@@ -1036,14 +1036,14 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 							}
 						} else if (mapitem != NULL) {//Boats
 							if(mapitem->type()==117 &&
-								(mapitem->type2()==1 || mapitem->type2()==2)&&
-								(mapitem->gatetime<=currenttime))//||overflow?
+								(mapitem->tags.get("tiller").toInt() == 1) &&
+								(mapitem->gatetime<=currenttime||overflow))
 							{
 								cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial(mapitem->tags.get( "boatserial" ).toUInt()));
 								if( pBoat != NULL )
 								{
 									pBoat->move();
-									pBoat->gatetime=(unsigned int)(currenttime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
+									mapitem->gatetime=(unsigned int)(currenttime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
 								}
 							}	
 						}

@@ -1209,11 +1209,13 @@ void cSpeech::talking(int s, QString speech) // PC speech
 	for (rj.Begin(); !rj.atEnd(); rj++)
 	{
 		P_ITEM pi = rj.GetData();
-		if( pi->type() == 117 && pi->type2() == 1 )
+		if( pi->type() == 117 && pi->tags.get( "tiller" ).toInt() == 1 )
 		{
-			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial(pi->tags.get("boatserial").toUInt()));
+			cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags.get("boatserial").toUInt() ));
 			if( pBoat != NULL )
+			{
 				pBoat->speechInput( s, SpeechUpr );
+			}
 		}
 	}
 

@@ -99,8 +99,6 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	this->name_ = "a mast";//Name is something other than "%s's house"
 	this->boatdir = 0; // starting with north boatdirection
 
-	this->gatetime=(unsigned int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
-
 	this->applyDefinition( Tag );
 	if( this->multiids_.size() < 4 || !this->isValidPlace( posx, posy, posz, 0 ) )
 	{
@@ -140,9 +138,10 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pTiller->pos.z = this->pos.z;
 		pTiller->priv = 0;
 		pTiller->setType( 117 );
-		pTiller->setType2( 1 );
+		pTiller->tags.set( "tiller", 1 );
 		pTiller->tags.set( "boatserial", this->serial );
 		this->itemserials[ TILLER ] = pTiller->serial;
+		pTiller->gatetime=(unsigned int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
 	}
 		
 	P_ITEM pPlankR = Items->SpawnItem( pc_currchar, 1, "#", 0, this->itemids[0][ PORT_P_C ], 0, 0 );
@@ -154,7 +153,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pPlankR->setType2( 2 );
 		pPlankR->pos.x = this->pos.x + itemoffsets[0][ PORT_PLANK ][X];
 		pPlankR->pos.y = this->pos.y + itemoffsets[0][ PORT_PLANK ][Y];
-		pPlankR->pos.z=this->pos.z;
+		pPlankR->pos.z = this->pos.z;
 		pPlankR->priv=0;//Nodecay
 		pPlankR->tags.set( "boatserial", this->serial );
 		this->itemserials[ PORT_PLANK ] = pPlankR->serial;
@@ -169,7 +168,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pPlankL->setType2( 3 );//Plank sub type
 		pPlankL->pos.x = this->pos.x + itemoffsets[0][ STARB_PLANK ][X];
 		pPlankL->pos.y = this->pos.y + itemoffsets[0][ STARB_PLANK ][Y];
-		pPlankL->pos.z=this->pos.z;
+		pPlankL->pos.z = this->pos.z;
 		pPlankL->priv=0;
 		pPlankL->tags.set( "boatserial", this->serial );
 		this->itemserials[ STARB_PLANK ] = pPlankL->serial;
@@ -183,7 +182,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pHold->setType( 1 );//Conatiner
 		pHold->pos.x = this->pos.x + itemoffsets[0][ HOLD ][X];
 		pHold->pos.y = this->pos.y + itemoffsets[0][ HOLD ][Y];
-		pHold->pos.z=this->pos.z;
+		pHold->pos.z = this->pos.z;
 		pHold->priv=0;
 		pHold->tags.set( "boatserial", this->serial );
 		this->itemserials[ HOLD ] = pHold->serial;
@@ -415,10 +414,10 @@ void cBoat::processSpecialItemNode( const QDomElement &Tag, UI08 item )
 				
 				if( coord < 0xFF )
 				{
-					this->itemoffsets[0][ item ][ coord ] = childTag.attribute( "north" ).toUShort();
-					this->itemoffsets[1][ item ][ coord ] = childTag.attribute( "east" ).toUShort();
-					this->itemoffsets[2][ item ][ coord ] = childTag.attribute( "south" ).toUShort();
-					this->itemoffsets[3][ item ][ coord ] = childTag.attribute( "west" ).toUShort();
+					this->itemoffsets[0][ item ][ coord ] = childTag.attribute( "north" ).toShort();
+					this->itemoffsets[1][ item ][ coord ] = childTag.attribute( "east" ).toShort();
+					this->itemoffsets[2][ item ][ coord ] = childTag.attribute( "south" ).toShort();
+					this->itemoffsets[3][ item ][ coord ] = childTag.attribute( "west" ).toShort();
 				}
 			}
 			childNode = childNode.nextSibling();
@@ -445,33 +444,39 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 	map_st map;
 	land_st land;
 	tile_st tile;
+	bool mapblocks = false;
 	for( j = 0; j < length; j++ )
 	{
 		mfile->get_st_multi(&multi);
 		map = Map->SeekMap( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
 		Map->SeekLand (map.id, &land);
-		if (!(land.flag1 & 0x80))
-			return false;
-		
 		MapStaticIterator msi( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
+		mapblocks = !(land.flag1 & 0x80);
+
 		staticrecord *stat = msi.Next();
 		while( stat != NULL )
 		{
 			msi.GetTile( &tile );
-			if( !(tile.flag1 & 0x80) && ( (stat->zoff + tile.height) <= 70 ) )
+			if( !(tile.flag1 & 0x80) && ( pos.z >= stat->zoff && pos.z <= (stat->zoff+70) ) && mapblocks )
 				return false;
+			if( mapblocks )
+				mapblocks = false;
 /*			else if( strcmp( (char*)tile.name, "water" ) != 0 )
 				return true; ???????????? non-english users ?????*/
 			stat = msi.Next();
 		}
+		if( mapblocks )
+			return false;
 		
+		/*
 		cRegion::RegionIterator4Items ri( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
 		for( ri.Begin(); !ri.atEnd(); ri++ ) 
 		{
 			P_ITEM pi = ri.GetData();
-			if( ( pi != NULL ) && ( pi->pos.x == (multi.x + posx) ) && ( pi->pos.y == (multi.y + posy) ) ) 
+			if( ( pi != NULL ) && ( pi->serial != this->serial ) && ( pi->pos.x == (multi.x + posx) ) && ( pi->pos.y == (multi.y + posy) ) ) 
 				return false;
 		}
+		*/
 	}
 	return true;
 }
@@ -495,13 +500,13 @@ void cBoat::turn( SI08 turn )
 		return;
 
 	QString errormsg = (char*)0;
-	UI08 newboatdir = 0;
+	UI08 newboatdir = this->boatdir;
 
 	if( turn == 0 )
 		return;
 	else if( turn > 0 ) // clockwise
 	{
-		if( this->boatdir >= 7 )
+		if( this->boatdir >= 5 )
 			newboatdir = 0;
 		else
 			newboatdir+=2;
@@ -549,9 +554,10 @@ void cBoat::turn( SI08 turn )
 	this->boatdir = newboatdir;
 	
 	// turn all items and chars on the boat and send them
-	vector< SERIAL > vecEntries = imultisp.getData( this->serial );
-	vector< SERIAL >::iterator it = vecEntries.begin();
-	while( it != vecEntries.end() )
+	vector< SERIAL > vecItemEntries = imultisp.getData( this->serial );
+	vector< SERIAL > vecCharEntries = cmultisp.getData( this->serial );
+	vector< SERIAL >::iterator it = vecCharEntries.begin();
+	while( it != vecCharEntries.end() )
 	{
 		SI08 dx = 0, dy = 0;
 		P_CHAR pc = FindCharBySerial( *it );
@@ -595,33 +601,36 @@ void cBoat::turn( SI08 turn )
 				iter_sock++;
 			}
 		}
-		else
+		it++;
+	}
+	it = vecItemEntries.begin();
+	while( it != vecItemEntries.end() )
+	{
+		SI08 dx = 0, dy = 0;
+		P_ITEM pi = FindItemBySerial( *it );
+		if( pi != NULL )
 		{
-			P_ITEM pi = FindItemBySerial( *it );
-			if( pi != NULL )
+			mapRegions->Remove( pi );
+			dx = pi->pos.x - this->pos.x;
+			dy = pi->pos.y - this->pos.y;
+
+			if( turn > 0 )
 			{
-				mapRegions->Remove( pi );
-				dx = pi->pos.x - this->pos.x;
-				dy = pi->pos.y - this->pos.y;
+				pi->pos.x += dy * (-1);
+				pi->pos.y += dx;
+			}
+			else
+			{
+				pi->pos.x += dy;
+				pi->pos.y += dx * (-1);
+			}
+			mapRegions->Add( pi );
 
-				if( turn > 0 )
-				{
-					pi->pos.x += dy * (-1);
-					pi->pos.y += dx;
-				}
-				else
-				{
-					pi->pos.x += dy;
-					pi->pos.y += dx * (-1);
-				}
-				mapRegions->Add( pi );
-
-				iter_sock = socketsinrange.begin();
-				while( iter_sock != socketsinrange.end() )
-				{
-					senditem( *iter_sock, pi );
-					iter_sock++;
-				}
+			iter_sock = socketsinrange.begin();
+			while( iter_sock != socketsinrange.end() )
+			{
+				senditem( *iter_sock, pi );
+				iter_sock++;
 			}
 		}
 		it++;
@@ -639,15 +648,21 @@ void cBoat::turn( SI08 turn )
 	pStarplank->setId( itemids[shortboatdir][STAR_P_C] );
 	
 	pTiller->MoveTo( pos.x + itemoffsets[shortboatdir][TILLER][X],
-		pos.y + itemoffsets[shortboatdir][TILLER_ID][Y],
+		pos.y + itemoffsets[shortboatdir][TILLER][Y],
 		pTiller->pos.z );
-	pTiller->setId( itemids[shortboatdir][TILLER] );
+	pTiller->setId( itemids[shortboatdir][TILLER_ID] );
 	
 	pHold->MoveTo( pos.x + itemoffsets[shortboatdir][HOLD][X],
 		pos.y + itemoffsets[shortboatdir][HOLD][Y],
 		pHold->pos.z );
 	pHold->setId( itemids[shortboatdir][HOLD_ID] );
-	
+
+/*	RefreshItem( pTiller );
+	RefreshItem( pPortplank );
+	RefreshItem( pStarplank );
+	RefreshItem( pHold );
+	RefreshItem( this );
+*/	
 	iter_sock = socketsinrange.begin();
 	while( iter_sock != socketsinrange.end() )
 	{
@@ -720,17 +735,22 @@ bool cBoat::move( void )
 	if( ( this->pos.x+dx<=200 || this->pos.x+dx>=6000) && (this->pos.y+dy<=200 || this->pos.y+dy>=4900)) //bugfix LB
 	{
 		errormsg = "Arr, Sir, we've hit rough waters!";
+		moves_ = 0;
+		shift_ = 0;
 	}
 	else if( !this->isValidPlace( pos.x+dx, pos.y+dy, pos.z, boatdir ) )
 	{
 		errormsg = "Arr, somethings in the way!";
+		moves_ = 0;
+		shift_ = 0;
 	}
 
 	// Move all the special items
 	// first pause all clients in visrange
 	vector< UOXSOCKET > socketsinrange; // sockets of the chars in visrange
 	vector< UOXSOCKET >::iterator iter_sock;
-	vector< SERIAL > vecEntries = imultisp.getData( this->serial );
+	vector< SERIAL > vecItemEntries = imultisp.getData( this->serial );
+	vector< SERIAL > vecCharEntries = cmultisp.getData( this->serial );
 	vector< SERIAL >::iterator it;
 
 	cRegion::RegionIterator4Chars ri( pos );
@@ -763,8 +783,8 @@ bool cBoat::move( void )
 	pStarplank->moveTo( pStarplank->pos + desloc );
 	pHold->moveTo( pHold->pos + desloc );
 
-	it = vecEntries.begin();
-	while( it != vecEntries.end() )
+	it = vecItemEntries.begin();
+	while( it != vecItemEntries.end() )
 	{
 		P_ITEM pi = FindItemBySerial( *it );
 		if( pi != NULL )
@@ -778,40 +798,49 @@ bool cBoat::move( void )
 				iter_sock++;
 			}
 		}
-		else
+		it++;
+	}
+
+	it = vecCharEntries.begin();
+	while( it != vecCharEntries.end() )
+	{
+		P_CHAR pc = FindCharBySerial( *it );
+		if( pc != NULL )
 		{
-			P_CHAR pc = FindCharBySerial( *it );
-			if( pc != NULL )
-			{
-				pc->moveTo( pc->pos + desloc );
-
+			pc->MoveTo( pc->pos.x + dx, pc->pos.y + dy, pc->pos.z );
+			teleport( pc );
 				extmove[0]=0x77;
-				LongToCharPtr(pc->serial, &extmove[1]);
-				ShortToCharPtr(pc->id(),  &extmove[5]);
-				extmove[7]=pc->pos.x>>8;
-				extmove[8]=pc->pos.x%256;
-				extmove[9]=pc->pos.y>>8;
-				extmove[10]=pc->pos.y%256;
-				extmove[11]=pc->pos.z;
-				extmove[12]=pc->dir|0x80;
+			LongToCharPtr(pc->serial, &extmove[1]);
+			ShortToCharPtr(pc->id(),  &extmove[5]);
+			extmove[7]=pc->pos.x>>8;
+			extmove[8]=pc->pos.x%256;
+			extmove[9]=pc->pos.y>>8;
+			extmove[10]=pc->pos.y%256;
+			extmove[11]=pc->pos.z;
+			extmove[12]=pc->dir|0x80;
 
-				extmove[13]=0;
-				extmove[14]=0;
+			extmove[13]=0;
+			extmove[14]=0;
 
-				extmove[15]=0;
-				extmove[16]=0;
+			extmove[15]=0;
+			extmove[16]=0;
 
-				iter_sock = socketsinrange.begin();
-				while( iter_sock != socketsinrange.end() )
-				{
-					Xsend( *iter_sock, extmove, 17 );
-					iter_sock++;
-				}
+			iter_sock = socketsinrange.begin();
+			while( iter_sock != socketsinrange.end() )
+			{
+				Xsend( *iter_sock, extmove, 17 );
+				iter_sock++;
 			}
 		}
 		it++;
 	}
 
+/*	RefreshItem( pTiller );
+	RefreshItem( pPortplank );
+	RefreshItem( pStarplank );
+	RefreshItem( pHold );
+	RefreshItem( this );
+*/
 	iter_sock = socketsinrange.begin();
 	while( iter_sock != socketsinrange.end() )
 	{
@@ -835,7 +864,7 @@ void cBoat::handlePlankClick( UOXSOCKET s, P_ITEM pplank )
 
 	bool charonboat = false;
 
-	vector< SERIAL > vecEntries = imultisp.getData( this->serial );
+	vector< SERIAL > vecEntries = cmultisp.getData( this->serial );
 	vector< SERIAL >::iterator it = vecEntries.begin();
 	while( it != vecEntries.end() )
 	{
@@ -986,7 +1015,6 @@ bool cBoat::leave( UOXSOCKET s, P_ITEM pplank )
 			if( pc->isNpc() && pc_currchar->Owns( pc ) && inrange1p( pc_currchar, pc ) )
 			{
 				pc->MoveTo( x, y, z );
-				cmultisp.remove( this->serial, pc->serial );
 				pc->SetMultiSerial( INVALID_SERIAL );
 				teleport( pc );
 			}
@@ -995,7 +1023,6 @@ bool cBoat::leave( UOXSOCKET s, P_ITEM pplank )
 	}
 	pc_currchar->MoveTo( x, y, z );
 	teleport( pc_currchar );
-	cmultisp.remove( this->serial, pc_currchar->serial );
 	pc_currchar->SetMultiSerial( INVALID_SERIAL );
 	return true;
 }
@@ -1079,57 +1106,41 @@ char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a c
 		this->moves_ = 1;
 		if( move() )
 			itemtalk (s, tiller, "Aye, sir.");
-		this->moves_ = 0;
-		this->shift_ = 0;
 		return 1;
 	} else if (msg.contains ("FORWARD RIGHT") ) {
 		this->shift_ = 1;
 		this->moves_ = 1;
 		if( move() )
 			itemtalk (s, tiller, "Aye, sir.");
-		this->moves_ = 0;
-		this->shift_ = 0;
 		return 1;
 	} else if (msg.contains ("BACKWARD RIGHT") ) {
 		this->shift_ = 1;
 		this->moves_ = -1;
 		itemtalk (s, tiller, "Aye, sir.");
-		this->moves_ = 0;
-		this->shift_ = 0;
 		return 1;
 	} else if (msg.contains ("BACKWARD LEFT")) {
 		this->shift_ = -1;
 		this->moves_ = -1;
 		if( move() )
 			itemtalk (s, tiller, "Aye, sir.");
-		this->moves_ = 0;
-		this->shift_ = 0;
 		return 1;
 	} else	if (msg.contains ("FORWARD")) {
 		this->moves_ = 1;
 		if( move() )
 			itemtalk (s, tiller, "Aye, sir.");
-		this->shift_ = 0;
-		this->moves_ = 0;
 	} else if (msg.contains ("BACKWARD")) {
 		this->moves_ = -1;
 		if( move() )
 			itemtalk (s, tiller, "Aye, sir.");
-		this->shift_ = 0;
-		this->moves_ = 0;
-	} else if(msg.contains("LEFT"))	{
+	} else if(msg.contains("LEFT") && !msg.contains("TURN"))	{
 		this->shift_ = -1;
 		if( move() )
 			itemtalk(s, tiller, "Aye, sir.");
-		this->shift_ = 0;
-		this->moves_ = 0;
 		return 1;
-	} else if(msg.contains("RIGHT")) {
+	} else if(msg.contains("RIGHT") && !msg.contains("TURN")) {
 		this->shift_ = 1;
 		if( move() )
 			itemtalk(s, tiller, "Aye, sir.");
-		this->shift_ = 0;
-		this->moves_ = 0;
 		return 1;
 	}
 
