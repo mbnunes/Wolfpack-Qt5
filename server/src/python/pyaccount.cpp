@@ -222,8 +222,9 @@ static PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 		else
 			return PyFalse;
 	}
-	else if(!strcmp(name,"plevel")) {
-		return PyInt_FromLong(self->account->plevel());
+	else if( !strcmp( name, "rank" ) )
+	{
+		return PyInt_FromLong( self->account->rank() );
 	} else {
 		return Py_FindMethod( wpAccountMethods, (PyObject*)self, name );
 	}

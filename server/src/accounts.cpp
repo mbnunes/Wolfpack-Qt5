@@ -216,12 +216,11 @@ void cAccount::setStaff( bool data )
 		flags_ &= 0xFFFFFFDF;
 }
 
-unsigned char cAccount::plevel() const {
-	if (acl_) {
-		return acl_->plevel;
-	} else {
+unsigned int cAccount::rank() const {
+	if (acl_)
+		return acl_->rank;
+	else
 		return 1;
-	}
 }
 
 /*****************************************************************************

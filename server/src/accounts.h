@@ -76,7 +76,7 @@ public:
 
 	QString login() const;
 	QString password() const;
-	unsigned char plevel() const;
+	unsigned int rank() const;
 	void remove();
 	void setPassword( const QString& );
 	QValueVector<P_PLAYER> caracterList() const;

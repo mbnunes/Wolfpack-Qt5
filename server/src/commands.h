@@ -53,7 +53,7 @@ class cAcl
 {
 public:
 	QString name;
-	unsigned char plevel;
+	unsigned int rank;
 	QMap< QString, QMap< QString, bool > > groups;
 };
 

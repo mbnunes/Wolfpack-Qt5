@@ -1745,7 +1745,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 			return PyFalse;
 
 		return player->isGM() ? PyTrue : PyFalse;
-	} else if (!strcmp("plevel", name)) {
+	} else if( !strcmp("rank", name)) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	
 		if (!player)
@@ -1754,7 +1754,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		cAccount *account = player->account();
 
 		if (account) {
-			return PyInt_FromLong(account->plevel());
+			return PyInt_FromLong(account->rank());
 		} else {
 			return PyInt_FromLong(1);
 		}
