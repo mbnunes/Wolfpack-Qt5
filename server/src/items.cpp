@@ -261,47 +261,30 @@ short cItem::GetContGumpType()
 	}
 }
 
-bool cItem::PileItem(cItem* pItem)	// pile two items
-{
-	if (!(isPileable() && pItem->isPileable() &&
-		this->serial()!=pItem->serial() &&
-		this->id()==pItem->id() &&
-		this->color() == pItem->color() ))
-		return false;	//cannot stack.
+bool cItem::PileItem(cItem* pItem) {
+	if (!canStack(pItem))
+		return false;
 
-	if (this->amount() + pItem->amount() > 65535)
-	{
-		Coord_cl position = pItem->pos();
-		position.x = this->pos().x;
-		position.y = this->pos().y;
-		position.z = 9;
-		pItem->setPos( position );
-		pItem->setAmount( (this->amount()+pItem->amount()) - 65535 );
-		this->setAmount( 65535 );
-		pItem->update();
-	}
-	else
-	{
-		this->setAmount( this->amount()  + pItem->amount() );
+	if (amount() + pItem->amount() > 65535) {
+		pItem->setAmount((amount() + pItem->amount()) - 65535);
+		setAmount(65535);
+		update();
+		return false; // Old item still there
+	} else {
+		setAmount(this->amount() + pItem->amount());
 		pItem->remove();
-	}
-
-	changed( TOOLTIP );
-	flagChanged();
-	update();
-	return true;
+		update();
+		return true; // Stacked
+	}	
 }
 
 bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the container to stack with
 {
 	cItem::ContainerContent::const_iterator it(content_.begin());
 	cItem::ContainerContent::const_iterator end(content_.end());
-	for( ; it != end; ++it )
-	{
-		P_ITEM pi = *it;
-		if (pi->id() == pItem->id() && !pi->free && pi->color() == pItem->color())
-			if( pi->PileItem( pItem ) )
-				return true;
+	for (; it != end; ++it) {
+		if ((*it)->PileItem(pItem))
+			return true;
 	}
 	return false;
 }
@@ -983,7 +966,7 @@ void cItem::processContainerNode( const cElement *tag )
 			if( element->hasAttribute( "id" ) )
 			{
 				cItem* nItem = cItem::createFromScript( element->getAttribute("id") );
-				addItem( nItem, true, false );
+				addItem(nItem);
 				for ( unsigned int j = 0; j < element->childCount(); ++j )
 					nItem->processNode( element->getChild( j ) );
 				if ( this->layer() == cBaseChar::BuyRestockContainer )
@@ -1479,8 +1462,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 	if( !pItem )
 		return;
 
-	if( pItem == this )
-	{
+	if (pItem == this) {
 		Console::instance()->log( LOG_WARNING, QString( "Rejected putting an item into itself (%1)" ).arg( serial_, 0, 16 ) );
 		return;
 	}
@@ -1496,13 +1478,28 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 		pItem->removeFromCont(handleWeight);
 	}
 
-	content_.push_back( pItem );
+	if (randomPos) {
+		if (ContainerPileItem(pItem)) {
+			// If the Server is running and this happens, resend the tooltip of us and
+			// all our parent containers.
+			if (serverState == RUNNING) {
+				P_ITEM cont = this;
+
+				while (cont) {
+					cont->resendTooltip();
+					cont = dynamic_cast<P_ITEM>(cont->container());
+				}
+			}
+
+			return; // The item in question was removed.
+		} else {
+			pItem->SetRandPosInCont(this);
+		}
+	}
+
+	content_.push_back(pItem);
 	pItem->layer_ = 0;
 	pItem->container_ = this;
-
-	if (randomPos && !this->ContainerPileItem(pItem)) {
-		pItem->SetRandPosInCont(this); // not piled, random pos
-	}
 
 	if (handleWeight) {
 		// Increase the totalweight upward recursively
@@ -1513,9 +1510,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 	// all our parent containers.
 	if (serverState == RUNNING) {
 		P_ITEM cont = this;
-
-		while (cont)
-		{
+		while (cont) {
 			cont->resendTooltip();
 			cont = dynamic_cast<P_ITEM>(cont->container());
 		}
@@ -2145,20 +2140,25 @@ const char *cItem::className() const
 }
 
 bool cItem::canStack(cItem *pItem) {
-	// Do some basic checks and see if the item is a
-	// container (they never stack).
-	if (id() != pItem->id() || color() != pItem->color()
-		|| type() != pItem->type() || type() == 1) {
-		return false;
-	}
-
 	tile_st tile = TileCache::instance()->getTile(id_);
-
 	if (!(tile.flag2 & 0x08)) {
 		return false;
 	}
 
-	if (baseid() != pItem->baseid()) {
+	// Do some basic checks and see if the item is a
+	// container (they never stack).
+	if (id() != pItem->id() 
+		|| color() != pItem->color()
+		|| type() == 1
+		|| type() != pItem->type()
+		|| bindmenu() != pItem->bindmenu()
+		|| eventList() != pItem->eventList()
+		|| baseid() != pItem->baseid()) {
+		return false;
+	}
+
+	// Check Tags (rather expensive)
+	if (tags_ != pItem->tags_) {
 		return false;
 	}
 

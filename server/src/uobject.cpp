@@ -845,14 +845,13 @@ bool cUObject::onCreate( const QString &definition )
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CREATE );
 	bool result = false;
 
-	if( scriptChain || global )
-	{
-		PyObject *args = Py_BuildValue( "O&s", PyGetObjectObject, this, definition.latin1() );
+	if (scriptChain || global) {
+		PyObject *args = Py_BuildValue("(Ns)", getPyObject(), definition.latin1());
 
-		result = cPythonScript::callChainedEventHandler( EVENT_CREATE, scriptChain, args );
+		result = cPythonScript::callChainedEventHandler(EVENT_CREATE, scriptChain, args);
 
-		if( !result && global )
-			result = global->callEventHandler( EVENT_CREATE, args );
+		if (!result && global)
+			result = global->callEventHandler(EVENT_CREATE, args);
 
 		Py_DECREF( args );
 	}

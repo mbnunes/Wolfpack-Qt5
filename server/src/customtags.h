@@ -158,6 +158,8 @@ public:
 	}
 
 	cCustomTags& operator=( const cCustomTags& );
+    bool operator==( const cCustomTags& ) const;
+    bool operator!=( const cCustomTags& ) const;
 
 
 private:

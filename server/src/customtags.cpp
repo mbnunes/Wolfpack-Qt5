@@ -841,3 +841,47 @@ QValueList< cVariant > cCustomTags::getValues( void )
 	return QValueList< cVariant >();
 }
 
+bool cCustomTags::operator==( const cCustomTags &cmp ) const {
+	if (!tags_ && !cmp.tags_) {
+		return true;
+	}
+
+	// if either is null, they differ.
+	if (!tags_ || !cmp.tags_) {
+		return false;
+	}
+
+	// Check if all keys of Map1 are in Map2.
+	QMap<QString, cVariant>::const_iterator it;
+	QMap<QString, cVariant>::const_iterator cit;
+	for (it = tags_->begin(); it != tags_->end(); ++it) {
+		cit = cmp.tags_->find(it.key());
+		
+		if (cit == cmp.tags_->end()) {
+			return false;
+		}
+
+		if (cit.data() != it.data()) {
+			return false;
+		}
+	}
+
+	// Maybe the comparee has some tags we don't have.
+	for (it = cmp.tags_->begin(); it != cmp.tags_->end(); ++it) {
+		cit = tags_->find(it.key());
+		
+		if (cit == tags_->end()) {
+			return false;
+		}
+
+		if (cit.data() != it.data()) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool cCustomTags::operator!=( const cCustomTags &cmp ) const {
+	return !(this->operator==(cmp));
+}
