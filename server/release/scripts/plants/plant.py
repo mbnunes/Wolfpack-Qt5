@@ -1026,7 +1026,7 @@ def onShowTooltip(player, plant, tooltip):
 		else:
 			title = hue.name
 			
-		args = "#%u\t#%u\t%s" % (getWaterCliloc(plant), 1060822 + getHealthStatus(plant), title)
+		args = "#%u\t#%u\t#%u" % (getWaterCliloc(plant), 1060822 + getHealthStatus(plant), title)
 		
 		if getShowType(plant):
 			args += "\t" + genus.name
