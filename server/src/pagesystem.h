@@ -81,8 +81,8 @@ public:
 
 class cPagesManager : public std::deque< cPage* >
 {
-private:
-	cPagesManager() {} // Unallow anyone to instantiate.
+protected:
+	cPagesManager() {}
 	cPagesManager(cPagesManager& _it) {} // Unallow copy constructor
 	cPagesManager& operator=(cPagesManager& _it) { return *this; } // Unallow Assignment
 public:

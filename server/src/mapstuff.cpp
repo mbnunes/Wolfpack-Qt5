@@ -420,7 +420,7 @@ UINT16 cMapStuff::DynTile( const Coord_cl &pos )
         }    
 		
     }
-	return -1;
+	return (UINT16)-1;
 }
 
 // return the elevation of MAP0.MUL at given coordinates, we'll assume since its land

@@ -1910,7 +1910,7 @@ void cItem::showName( cUOSocket *socket )
 			if (pc_j->npcaitype() == 17)
 			{
 				if (creator.size() > 0 && madewith>0)
-					sprintf((char*)temp2, "%s %s by %s", desc.c_str(), skill[madewith - 1].madeword, creator.c_str()); 
+					sprintf((char*)temp2, "%s %s by %s", desc.c_str(), skill[madewith - 1].madeword.latin1(), creator.c_str()); 
 				else
 					strcpy((char*)temp2, desc.c_str()); // LB bugfix
 				
@@ -1933,7 +1933,7 @@ void cItem::showName( cUOSocket *socket )
 		
 	// Add creator's mark (if any)
 	if( creator.size() > 0 && madewith > 0 )
-		sprintf((char*)temp, "%s %s by %s", temp, skill[madewith - 1].madeword, creator.c_str());
+		sprintf((char*)temp, "%s %s by %s", temp, skill[madewith - 1].madeword.latin1(), creator.c_str());
 	
 	if( type() == 15 )
 	{

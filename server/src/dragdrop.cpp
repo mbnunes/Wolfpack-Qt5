@@ -483,7 +483,7 @@ void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 	// >> SEE LORD BINARIES DROPFIXBUGFIXBUG <<
 
 	// A completely invalid Drop packet
-	if( !iCont && !cCont && ( dropPos.x == 0xFFFF ) && ( dropPos.y == 0xFFFF ) && ( dropPos.z == 0xFF ) )
+	if( !iCont && !cCont && ( dropPos.x == 0xFFFF ) && ( dropPos.y == 0xFFFF ) && ( (unsigned char)dropPos.z == 0xFF ) )
 	{
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
