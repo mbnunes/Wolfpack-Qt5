@@ -42,14 +42,34 @@
 cBoat::cBoat()
 {
 	// default special-item ids!
-	unsigned short itemids_[6][4] =
+	this->itemids[0][0] = this->itemids[2][2] = 0x3EB1;
+	this->itemids[1][0] = this->itemids[3][2] = 0x3E8A;
+	this->itemids[2][0] = this->itemids[0][2] = 0x3EB2;
+	this->itemids[3][0] = this->itemids[1][2] = 0x3E85;
+	
+	this->itemids[0][1] = this->itemids[2][3] = 0x3ED5;
+	this->itemids[1][1] = this->itemids[3][3] = 0x3E89;
+	this->itemids[2][1] = this->itemids[0][3] = 0x3ED4;
+	this->itemids[3][1] = this->itemids[1][3] = 0x3E84;
+
+	this->itemids[0][4] = 0x3EAE;
+	this->itemids[1][4] = 0x3E65;
+	this->itemids[2][4] = 0x3EB9;
+	this->itemids[3][4] = 0x3E93;
+
+	this->itemids[0][5] = 0x3E4E;
+	this->itemids[1][5] = 0x3E53;
+	this->itemids[2][5] = 0x3E4B;
+	this->itemids[3][5] = 0x3E50;
+
+/*	unsigned short itemids_[6][4] =
 {(unsigned short)0x3EB1,(unsigned short)0x3ED5,(unsigned short)0x3EB2,(unsigned short)0x3ED4,(unsigned short)0x3EAE,(unsigned short)0x3E4E,
  (unsigned short)0x3E8A,(unsigned short)0x3E89,(unsigned short)0x3E85,(unsigned short)0x3E84,(unsigned short)0x3E65,(unsigned short)0x3E53,
  (unsigned short)0x3EB2,(unsigned short)0x3ED4,(unsigned short)0x3EB1,(unsigned short)0x3ED5,(unsigned short)0x3EB9,(unsigned short)0x3E4B,
  (unsigned short)0x3E85,(unsigned short)0x3E84,(unsigned short)0x3E8A,(unsigned short)0x3E89,(unsigned short)0x3E93,(unsigned short)0x3E50 };
 
-	memset( this->itemoffsets, 0, sizeof( this->itemoffsets ) );
-	memcpy( &itemids_, &(this->itemids), sizeof( itemids_ ) );
+	memcpy( &itemids_, &this->itemids, 24 * sizeof( unsigned short ) );*/
+	memset( this->itemoffsets, 0, 32 * sizeof( short ) );
 }
 
 
@@ -80,6 +100,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		return;
 	}
 
+	this->setId( multiids_[0] );
 	this->pos.x = posx;
 	this->pos.y = posy;
 	this->pos.z = Map->MapElevation( Coord_cl( pos.x, pos.y, pos.z ) );
@@ -205,6 +226,10 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 			senditem( retr, pHold );
 		}
 	}
+
+	P_ITEM pDeed = FindItemBySerial( deedserial );
+	if( pDeed != NULL )
+		Items->DeleItem( pDeed );
 
 	if( s != -1 )
 		Xsend( s, restart, 2 ); // resume the client

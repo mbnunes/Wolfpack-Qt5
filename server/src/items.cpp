@@ -1771,7 +1771,6 @@ void cItem::processNode( const QDomElement& Tag )
 			childNode = childNode.nextSibling();
 		}
 
-		clConsole.send( tkey + " " + tvalue );
 		if( !tkey.isNull() && !tvalue.isNull() )
 		{
 			if( Tag.attribute( "type" ) == "value" )

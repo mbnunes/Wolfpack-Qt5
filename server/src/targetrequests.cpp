@@ -91,14 +91,14 @@ void cBuildMultiTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
 
 	if( DefSection->attribute( "type" ) == "house" )
 	{
-		cHouse* pHouse = new cHouse;
+		cHouse* pHouse = new cHouse();
 		cItemsManager::getInstance()->registerItem( pHouse );
 		
 		pHouse->build( *DefSection, targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc, senderserial_, deedserial_ );
 	}
 	else if( DefSection->attribute( "type" ) == "boat" )
 	{
-		cBoat* pBoat = new cBoat;
+		cBoat* pBoat = new cBoat();
 		cItemsManager::getInstance()->registerItem( pBoat );
 
 		pBoat->build( *DefSection, targetInfo.TxLoc, targetInfo.TyLoc, targetInfo.TzLoc, senderserial_, deedserial_ );
