@@ -3,10 +3,11 @@ Anton Meshkov (Codex),
 Thiago Correa (Correa),
 Sebastian Hartte (DarkStorm),
 Richard Meyer (Dreoth),
+Jorge Pereira (Kell),
 Ki Hong Pae (Khpae),
 Charles Kerr (Punt),
+Thomas Wagenveld (Radiant)
 Fred Robinson (Ripper),
 Jörg Stückler (Sereg),
+Damian Tedrow (spddmn),
 Rüdiger Pakmor (Varan Dar),
-Jorge Pereira (Kell),
-Thomas Wagenveld (Radiant)
