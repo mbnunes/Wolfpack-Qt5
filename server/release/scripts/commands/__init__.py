@@ -188,10 +188,9 @@ def newlostarget(char, arguments, target):
 	targpos = target.pos
 	
 	if target.item:
-		targpos = target.item.pos
+		targpos = target.item
 	elif target.char:
-		targpos = target.item.char
-		targpos.z += 10
+		targpos = target.char
 		
 	srcpos = char.pos
 	srcpos.z += 15
