@@ -23,6 +23,21 @@ class cGump:
     self.typeid = type
     self.serialid = serial
 
+  def copy(othergump):
+    new = cGump()
+    new.layout = othergump.layout
+    new.texts = othergump.texts
+    new.args = othergump.args
+    new.callback = othergump.callback
+    new.noclose = othergump.noclose
+    new.nomove = othergump.nomove
+    new.nodispose = othergump.nodispose
+    new.x = othergump.x
+    new.y = othergump.y
+    new.typeid = othergump.typeid
+    new.serialid = othergump.serialid
+    return new
+
   # Send the gump
   def send( self, char ):
     # There are two possibilities
