@@ -153,14 +153,12 @@ bool cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( DefSection->attribute( "type" ) == "house" )
 	{
 		cHouse* pHouse = new cHouse();
-		cItemsManager::getInstance()->registerItem( pHouse );
 		
 		pHouse->build( *DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
 	}
 	else if( DefSection->attribute( "type" ) == "boat" )
 	{
 		cBoat* pBoat = new cBoat();
-		cItemsManager::getInstance()->registerItem( pBoat );
 
 		pBoat->build( *DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
 	}

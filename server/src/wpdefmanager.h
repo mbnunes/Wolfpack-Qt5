@@ -92,7 +92,6 @@ private:
 	DefSections Resources;
 
 	bool ImportSections( const QString& FileName );
-	void ProcessNode( QDomElement Node );
 
 public:
 	WPDefManager() {};
@@ -101,6 +100,8 @@ public:
 	void reload( void );
 	void load( void );
 	void unload( void );
+
+	void ProcessNode( QDomElement Node );
 
 	QDomElement *getSection( WPDEF_TYPE Type, QString Section );
 	QStringList getSections( WPDEF_TYPE Type );

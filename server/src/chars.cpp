@@ -944,8 +944,8 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("font",			fonttype);
 		archive.write("say",			saycolor);
 		archive.write("emote",			emotecolor);
-		archive.write("strength",		st);
-		archive.write("strength2",		st2);
+		archive.write("strength",		st_);
+		archive.write("strength2",		st2_);
 		archive.write("dexterity",		dx);
 		archive.write("dexterity2",		dx2);
 		archive.write("intelligence",	in);
@@ -1638,12 +1638,15 @@ void cChar::soundEffect( UI16 soundId, bool hearAll )
 	}
 }
 
-void cChar::talk( const QString &message, UI16 color, UINT8 type, cUOSocket* socket )
+void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
-	if( antispamtimer() < uiCurrentTime )
-		setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*10 );
-	else 
-		return;
+	if( autospam )
+	{
+		if( antispamtimer() < uiCurrentTime )
+			setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*10 );
+		else 
+			return;
+	}
 
 	if( color == 0xFFFF )
 		color = saycolor_;
@@ -2159,7 +2162,7 @@ void cChar::kill()
 				pc_t->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * 20 ) );
 				pc_t->npcWander = 2;
 				pc_t->setNextMoveTime();
-				pc_t->talk( tr( "Thou have suffered thy punishment, scoundrel." ) );
+				pc_t->talk( tr( "Thou have suffered thy punishment, scoundrel." ), -1, 0, true );
 			}
 
 			pc_t->targ = INVALID_SERIAL;

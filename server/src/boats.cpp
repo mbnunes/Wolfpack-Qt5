@@ -108,6 +108,8 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	this->boatdir = 0; // starting with north boatdirection
 
 	this->applyDefinition( Tag );
+	this->serial = cItemsManager::getInstance()->getUnusedSerial();
+	cItemsManager::getInstance()->registerItem( this );
 	if( this->multiids_.size() < 4 || !this->isValidPlace( posx, posy, posz, 0 ) )
 	{
 		if( socket )

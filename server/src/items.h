@@ -67,6 +67,7 @@ protected:
 	QString		spawnregion_;
 	INT32		totalweight_;
 	QString		carve_;
+	unsigned int	antispamtimer_;
 
 	// More values
 	UI08 moreb1_;
@@ -77,7 +78,7 @@ protected:
 	virtual void	processNode( const QDomElement &Tag );
 	void	processModifierNode( const QDomElement &Tag );
 public:
-	virtual void	talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, cUOSocket* socket = NULL );
+	virtual void	talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 
 	void	processContainerNode( const QDomElement &Tag );
 	virtual void update( cUOSocket *mSock = NULL );
@@ -118,6 +119,7 @@ public:
 	P_CHAR			owner();
 	INT32			totalweight()	const { return totalweight_; }
 	QString			carve()			const { return carve_; }
+	unsigned int	antispamtimer() const { return antispamtimer_;}
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -153,6 +155,7 @@ public:
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( INT32 data );
 	void	setCarve( QString data ) { carve_ = data; };
+	void	setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
 
 	cItem() { totalweight_ = 0; };
 	cItem( cItem& src); // Copy constructor

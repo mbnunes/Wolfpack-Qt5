@@ -369,8 +369,8 @@ class cUOTxPause: public cUOPacket
 {
 public:
 	cUOTxPause(): cUOPacket( 0x33, 2 ) {}
-	void pause( void ) { rawPacket[1] = 0; }
-	void resume( void ) { rawPacket[1] = 1; }
+	void pause( void ) { rawPacket[1] = 1; }
+	void resume( void ) { rawPacket[1] = 0; }
 };
 
 // 0x3A UpdateSkill (one skill)

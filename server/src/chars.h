@@ -187,7 +187,7 @@ protected:
 	bool					casting_; // 0/1 is the cast casting a spell?
     unsigned int			smoketimer_; // LB
 	unsigned int			smokedisplaytimer_;
-	unsigned int			antispamtimer_;//LB - anti spam
+	unsigned int			antispamtimer_;
 	unsigned int			antiguardstimer_;//AntiChrist - anti "GUARDS" spawn
 	QString					carve_; // carve system
 	int						hairserial_;//there are needed for incognito stuff
@@ -595,7 +595,7 @@ public:
 	{
 		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator mit = lastselections_.find( basemenu );
 		QPtrList< cMakeSection > lastsections_;
-		lastsections_.setAutoDelete( true );
+//		lastsections_.setAutoDelete( true ); NEVER DELETE THE SECTIONS :) THEY ARE DELETED WITH THEIR MAKEMENU PARENTS
 		if( mit != lastselections_.end() )
 			lastsections_ = mit->second;
 		else
@@ -724,7 +724,7 @@ public:
 	bool onSkillUse( UI08 Skill ); // The character uses %Skill
 	bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 
-	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, cUOSocket* socket = NULL );
+	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	// Definition loading - sereg
 protected:
 	virtual void processNode( const QDomElement& Tag );

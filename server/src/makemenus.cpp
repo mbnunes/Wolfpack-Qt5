@@ -334,7 +334,8 @@ void cMakeSection::processNode( const QDomElement &Tag )
 bool	cMakeSection::hasEnough( cItem* pBackpack )
 {
 	bool hasEnough = true;
-	QPtrListIterator< cUseItem > uiit( useitems_ );
+	QPtrList< cUseItem > useitems = useitems_;
+	QPtrListIterator< cUseItem > uiit( useitems );
 	while( (uiit.current()) && hasEnough )
 	{
 		// this one is in here because a GM doesnt need a backpack if he uses the add menu!
@@ -353,7 +354,8 @@ bool	cMakeSection::hasEnough( cItem* pBackpack )
 
 void	cMakeSection::useResources( cItem* pBackpack )
 {
-	QPtrListIterator< cUseItem > uiit( useitems_ );
+	QPtrList< cUseItem > useitems = useitems_;
+	QPtrListIterator< cUseItem > uiit( useitems );
 	while( uiit.current() )
 	{
 		if( !pBackpack )
@@ -1198,7 +1200,8 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			if( sections[0]->skilledEnough( pChar ) )
 			{
 				cMakeAction* action = actions[ choice.button - submenus.size() - 4 ];
-				cMakeSection* section = action->makesections()[0];
+				std::vector< cMakeSection* > &makesections = action->makesections();
+				cMakeSection* section = makesections[0];
 				cMakeMenu* basemenu = menu_->baseMenu();
 				pChar->setLastSection( basemenu, section );
 				section->execute( socket );

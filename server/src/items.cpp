@@ -2431,8 +2431,16 @@ void cItem::applyRank( UI08 rank )
 	setHp( maxhp() );
 }
 
-void cItem::talk( const QString &message, UI16 color, UINT8 type, cUOSocket* socket )
+void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
+	if( autospam )
+	{
+		if( antispamtimer() < uiCurrentTime )
+			setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*10 );
+		else 
+			return;
+	}
+
 	QString lang( "ENU" );
 
 	if( socket )

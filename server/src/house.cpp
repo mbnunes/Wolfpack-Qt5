@@ -213,6 +213,8 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 
 	this->applyDefinition( Tag );
 	this->MoveTo( posx, posy, posz );
+	this->serial = cItemsManager::getInstance()->getUnusedSerial();
+	cItemsManager::getInstance()->registerItem( this );
 	if( !this->onValidPlace() )
 	{
 		if( s != -1 )

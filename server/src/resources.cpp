@@ -1155,6 +1155,32 @@ void cAllResources::load()
 		if( pResource )
 		{
 			insert( make_pair< QString, cResource* >( (*it), pResource ) );
+
+			QDomDocument doc( "definitions" );
+			QValueVector< cResource::resourcespec_st > specs = pResource->resourceSpecs();
+			QValueVector< cResource::resourcespec_st >::iterator sit = specs.begin();
+			while( sit != specs.end() )
+			{
+				QDomElement section = doc.createElement( "item" );
+				section.setAttribute( "id", QString("%1_%2").arg( (*sit).name ).arg( (*it) ).upper() );
+				doc.appendChild( section );
+				QDomElement itemid = doc.createElement( "id" );
+				section.appendChild( itemid );
+				QDomText itemidtxt = doc.createTextNode( QString::number( (*sit).ids[0] ) );
+				itemid.appendChild( itemidtxt );
+				QDomElement itemcolor = doc.createElement( "color" );
+				section.appendChild( itemcolor );
+				QDomText itemcolortxt = doc.createTextNode( QString::number( (*sit).colors[0] ) );
+				itemcolor.appendChild(itemcolortxt );
+				QDomElement itemname = doc.createElement( "name" );
+				section.appendChild( itemname );
+				QDomText itemnametxt = doc.createTextNode( QString("%1 %2").arg( (*sit).name ).arg( pResource->name() ) );
+				itemname.appendChild( itemnametxt );
+
+				DefManager->ProcessNode( section );
+
+				++sit;
+			}
 		}
 		++it;
 	}

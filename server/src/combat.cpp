@@ -875,7 +875,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 					
 					pc_attacker->soundEffect( 0x1FE );
 					staticeffect(pc_attacker, 0x37, 0x2A, 0x09, 0x06);
-					pc_attacker->talk( "Halt, scoundrel!" );
+					pc_attacker->talk( tr("Halt, scoundrel!"), -1, 0, true );
 				}
 				else if( pc_attacker->isNpc() ) // Any other NPC
 				{
@@ -1424,8 +1424,8 @@ void cCombat::SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, const Coord_cl &
 		// 50% talk chance
 		switch( RandomNum( 0, 4 ) )
 		{
-			case 0:		pc_guard->talk( tr( "Thou shalt regret thine actions, swine!" ) ); break;
-			case 1:		pc_guard->talk( tr( "Death to all Evil!" ) ); break;
+			case 0:		pc_guard->talk( tr( "Thou shalt regret thine actions, swine!" ), -1, 0, true ); break;
+			case 1:		pc_guard->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
 		}
 	}
 }
