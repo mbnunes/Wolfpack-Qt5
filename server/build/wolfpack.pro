@@ -128,6 +128,7 @@ SOURCES         = client.cpp \
 		  combat.cpp \
 		  commands.cpp \
 		  coord.cpp \
+		  customtags.cpp \
 		  cWeather.cpp \
 		  dbl_single_click.cpp \
 		  debug.cpp \
@@ -188,6 +189,14 @@ SOURCES         = client.cpp \
 		  wpscriptmanager.cpp \
 		  menuactions.cpp \
 		  wptargetrequests.cpp 
+
+# Network Module
+SOURCES		+= network/asyncnetio.cpp \
+		   network/listener.cpp \
+		   network/uopacket.cpp \
+		   network/uorxpackets.cpp \
+		   network/uosocket.cpp \
+		   network/uotxpackets.cpp
 
 INTERFACES	=
 TRANSLATIONS    = \

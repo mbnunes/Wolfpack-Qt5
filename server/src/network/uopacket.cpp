@@ -314,8 +314,8 @@ QString cUOPacket::dump( const QByteArray &data )
 	{
 		QString line;
 		line.sprintf( "%04x: ", actLine * 16 );
-
-		for(int actRow = 0; actRow < 16; actRow++)
+		int actRow = 0;
+		for(; actRow < 16; actRow++)
 		{
 			if( actLine * 16 + actRow < length ) 
 				line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
