@@ -10,6 +10,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed bug #0000387 and # 0000366 ( saying 'guard' in a guarded region hang the server )
   - Reimplemented different corpse decay times for players and npcs.  
   - Picking up items from and dropping items into the corpses of other players is logged now in the LOG_TRACE mask.
+  - Implemented an onLog event.
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")

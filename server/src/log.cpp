@@ -28,6 +28,9 @@
 // Wolfpack Includes
 #include "log.h"
 
+#include "pythonscript.h"
+#include "scriptmanager.h"
+
 #include "serverconfig.h"
 #include "network/uosocket.h"
 #include "console.h"
@@ -102,6 +105,18 @@ void cLog::log( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool
 	if ( !( Config::instance()->logMask() & loglevel ) )
 	{
 		return;
+	}
+
+	// -> Log Event
+	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(EVENT_LOG);
+	if (globalHook && globalHook->canHandleEvent(EVENT_LOG)) {
+		PyObject *args = Py_BuildValue("(iNNO)", (unsigned int)loglevel, PyGetSocketObject(sock), QString2Python(string), Py_None );
+		bool result = globalHook->callEventHandler(EVENT_LOG, args);
+		Py_DECREF(args);
+
+		if (result) {
+			return;
+		}
 	}
 
 	if ( !checkLogFile() )

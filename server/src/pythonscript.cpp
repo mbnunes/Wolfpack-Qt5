@@ -635,6 +635,17 @@ container that is being snooped into.
 */
 "onSelectAbility",
 
+/*
+\event onLog
+\param loglevel The loglevel this log event was issued with.
+\param source If the event originates from a player, this is the socket the event was associated with.
+\param text The text that was associated with this log event.
+\param target This is a target object associated with this event. This could be a charcter, item, socket or None.
+\return True if you don't want the string to be logged.
+\condition This event is only triggered globally. If an logging event occurs, this event will be called.
+*/
+"onLog",
+
 0
 };
 

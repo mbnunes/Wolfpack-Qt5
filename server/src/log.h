@@ -64,6 +64,8 @@ public:
 
 	// Prints to the logfile only
 	void log( eLogLevel, cUOSocket*, const QString&, bool timestamp = true );
+	void log( eLogLevel, cUOSocket*, const QString&, cUObject *target, bool timestamp = true );
+	void log( eLogLevel, cUOSocket*, const QString&, const Coord &target, bool timestamp = true );
 
 	// Sends to the console and logs too
 	void print( eLogLevel, const QString&, bool timestamp = true );
