@@ -7,12 +7,11 @@
 # Main Magic Script												#
 #===============================================================#
 
-from wolfpack.consts import *
+import wolfpack
+from wolfpack.consts import LOG_ERROR, EVENT_CASTSPELL
 from magic.utilities import *
 from magic.spell import *
 from wolfpack import console
-
-import wolfpack
 
 # Spell Registry
 spells = {}

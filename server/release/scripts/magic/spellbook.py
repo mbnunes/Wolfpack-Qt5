@@ -27,8 +27,8 @@
 	spells will be removed from the book.
 """
 
-from math import floor,ceil
 import wolfpack
+from math import floor,ceil
 
 def commandAddSpell( socket, command, arguments ):
 	if arguments != 'all':

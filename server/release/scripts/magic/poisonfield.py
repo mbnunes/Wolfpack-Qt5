@@ -1,6 +1,5 @@
 
 import wolfpack
-from wolfpack.consts import *
 from wolfpack.utilities import energydamage
 from system import poison
 

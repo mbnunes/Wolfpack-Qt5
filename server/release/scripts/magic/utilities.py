@@ -2,7 +2,7 @@
 import magic.spellbook
 from wolfpack.utilities import *
 from wolfpack import properties
-from wolfpack.consts import *
+from wolfpack.consts import EVALUATINGINTEL, MAGICRESISTANCE \
 
 TARGET_CHAR = 1
 TARGET_ITEM = 2

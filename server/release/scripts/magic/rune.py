@@ -7,8 +7,8 @@
 # Recall runes                                                  #
 #===============================================================#
 
-from wolfpack.gumps import cGump
 import wolfpack
+from wolfpack.gumps import cGump
 
 # This function returns 1 if the tested
 # item is a recall rune

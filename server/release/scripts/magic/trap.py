@@ -5,7 +5,6 @@
 #
 
 import wolfpack
-from wolfpack.consts import *
 from wolfpack.utilities import energydamage
 
 def onUse(char, item):

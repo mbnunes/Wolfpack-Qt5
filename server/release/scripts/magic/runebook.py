@@ -5,8 +5,8 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
-from wolfpack.gumps import cGump
 import wolfpack
+from wolfpack.gumps import cGump
 from magic.rune import isrune
 from magic.utilities import fizzle
 import whrandom
