@@ -1,0 +1,22 @@
+<!--
+	Buildings Index File
+-->
+<definitions>
+	<include file="definitions/items/buildings/banisters.xml"/>
+	<include file="definitions/items/buildings/banners.xml"/>
+	<include file="definitions/items/buildings/carpets.xml"/>
+	<include file="definitions/items/buildings/chairs.xml"/>
+	<include file="definitions/items/buildings/doors.xml"/>
+	<include file="definitions/items/buildings/dungeon.xml"/>
+	<include file="definitions/items/buildings/fences.xml"/>
+	<include file="definitions/items/buildings/fireplaces.xml"/>
+	<include file="definitions/items/buildings/floors.xml"/>
+	<include file="definitions/items/buildings/furniture.xml"/>
+	<include file="definitions/items/buildings/lightsources.xml"/>
+	<include file="definitions/items/buildings/misc.xml"/>
+	<include file="definitions/items/buildings/roofs.xml"/>
+	<include file="definitions/items/buildings/shrines.xml"/>
+	<include file="definitions/items/buildings/stairs.xml"/>
+	<include file="definitions/items/buildings/walls.xml"/>
+	<include file="definitions/items/buildings/weapons.xml"/>
+</definitions>

@@ -1,0 +1,13 @@
+<!--
+	Misc. Index File
+-->
+<definitions>
+	<include file="definitions/items/misc/animations.xml"/>
+	<include file="definitions/items/misc/figurines.xml"/>
+	<include file="definitions/items/misc/holiday.xml"/>
+	<include file="definitions/items/misc/misc.xml"/>
+	<include file="definitions/items/misc/orccamp.xml"/>
+	<include file="definitions/items/misc/siegeweapons.xml"/>
+	<include file="definitions/items/misc/spellicons.xml"/>
+	<include file="definitions/items/misc/deeds.xml"/>
+</definitions>

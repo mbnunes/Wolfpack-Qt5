@@ -1,0 +1,8 @@
+<!--
+	Books Index File
+-->
+<definitions>
+	<include file="definitions/items/books/base.xml"/>
+	<include file="definitions/items/books/stories.xml"/>
+</definitions>
+

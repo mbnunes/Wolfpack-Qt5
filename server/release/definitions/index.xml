@@ -1,0 +1,93 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: reorganized             |
+=================================================================
+-->
+<definitions>
+
+	<!-- ACLs -->
+	<include file="definitions/access.xml"/>
+
+	<!-- Lists Index -->
+	<include file="definitions/lists/index.xml"/>
+
+	<!-- Skills -->
+	<include file="definitions/skills.xml"/>
+
+	<!-- Locations -->
+	<include file="definitions/locations/index.xml"/>
+
+	<!-- Creatures -->
+	<include file="definitions/creatures.xml"/>
+
+	<!-- Newbie Items -->
+	<include file="definitions/startitems.xml"/>
+
+	<!-- Encryption Keys -->
+	<include file="definitions/encryption.xml" />
+
+	<!-- Scripts -->
+	<include file="definitions/scripts.xml"/>
+
+	<!-- Spells -->
+	<include file="definitions/spells.xml"/>
+
+	<!-- Regions -->
+	<include file="definitions/regions/index.xml"/>
+
+	<!-- Items Base Index -->
+	<include file="definitions/items/index.xml"/>
+
+	<!-- Books Index -->
+	<include file="definitions/items/books/index.xml"/>>
+	<!-- Buildings Index -->
+	<include file="definitions/items/buildings/index.xml"/>
+	<!-- Equipment Index -->
+	<include file="definitions/items/equipment/index.xml"/>
+	<!-- Misc. Index -->
+	<include file="definitions/items/misc/index.xml"/>
+	<!-- Professions Index -->
+	<include file="definitions/items/professions/index.xml" />
+
+	<!-- Vegetation Index -->
+	<include file="definitions/items/vegetation/index.xml"/>
+	<!-- Weapon Index -->
+	<include file="definitions/items/weaponry/weaponry_list.xml"/>
+	<!-- Armor Index -->
+	<include file="definitions/items/armory/armory_list.xml" />
+
+	<!-- Shrinkable Items/Mounts -->
+	<include file="definitions/items/shrink/shrink.xml"/>
+
+	<!-- Menus, Includes Crafting Menus -->
+	<include file="definitions/menus/index.xml"/>
+
+	<!-- Resources Index -->
+	<include file="definitions/resources/index.xml"/>
+
+	<!-- Multis Index -->
+	<include file="definitions/multis/index.xml"/>
+
+	<!-- NPCs -->
+		<!-- NPC Base Stats -->
+		<include file="definitions/npcs/animals/base.xml"/>
+		<include file="definitions/npcs/monsters/base.xml"/>
+
+		<!-- Animal Index -->
+		<include file="definitions/npcs/animals/animal_list.xml"/>
+
+		<!-- Human Index -->
+		<include file="definitions/npcs/humans/civilists.xml"/>
+		<include file="definitions/npcs/humans/guards.xml"/>
+		<include file="definitions/npcs/humans/vendors.xml"/>
+
+		<!-- Monster Index -->
+		<include file="definitions/npcs/monsters/monster_list.xml"/>
+
+	<!-- Spawn Regions -->
+	<include file="definitions/spawnregions/index.xml" />
+
+</definitions>

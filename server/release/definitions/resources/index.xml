@@ -1,0 +1,9 @@
+<!--
+	Resources Index File
+-->
+<definitions>
+	<include file="definitions/resources/ores.xml"/>
+	<include file="definitions/resources/logs.xml"/>
+	<include file="definitions/resources/ingots.xml"/>
+	<include file="definitions/resources/resgems.xml"/>
+</definitions>

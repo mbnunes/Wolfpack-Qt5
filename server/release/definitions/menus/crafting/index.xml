@@ -1,0 +1,13 @@
+<!--
+	Craft Menu Index File
+-->
+<definitions>
+	<include file="definitions/menus/crafting/alchemy.xml" />
+	<include file="definitions/menus/crafting/blacksmithing.xml"/>
+	<include file="definitions/menus/crafting/bowcraft.xml" />
+	<include file="definitions/menus/crafting/carpentry.xml"/>
+	<include file="definitions/menus/crafting/cartography.xml"/>
+	<include file="definitions/menus/crafting/inscription.xml" />
+	<include file="definitions/menus/crafting/tailoring.xml" />
+	<include file="definitions/menus/crafting/tinkering.xml" />
+</definitions>

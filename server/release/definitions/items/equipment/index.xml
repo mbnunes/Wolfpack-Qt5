@@ -1,0 +1,13 @@
+<!--
+	Equipment Index File
+-->
+<definitions>
+	<include file="definitions/items/equipment/clothes.xml"/>
+	<include file="definitions/items/equipment/containers.xml"/>
+	<include file="definitions/items/equipment/currency.xml"/>
+	<include file="definitions/items/equipment/food.xml"/>
+	<include file="definitions/items/equipment/hair.xml"/>
+	<include file="definitions/items/equipment/misc.xml"/>
+	<include file="definitions/items/equipment/potions.xml"/>
+	<include file="definitions/items/equipment/reagents.xml"/>
+</definitions>

@@ -1,0 +1,12 @@
+<!--
+	Spawn Regions Index File
+-->
+<definitions>
+	<!--<include file="definitions/spawnregions/spawntest.xml" />-->
+	<!--<include file="definitions/spawnregions/graveyards.xml" />-->
+	<!--<include file="definitions/spawnregions/shops.xml" />-->
+	<!--<include file="definitions/spawnregions/britain_fel.xml" />-->
+	<!--<include file="definitions/spawnregions/britain_tram.xml" />-->
+	<!--<include file="definitions/spawnregions/bucden_fel.xml" />-->
+	<!--<include file="definitions/spawnregions/bucden_tram.xml" />-->
+</definitions>

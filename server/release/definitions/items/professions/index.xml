@@ -1,0 +1,30 @@
+<!--
+	Professions Index File
+-->
+<definitions>
+	<include file="definitions/items/professions/alchemist.xml" />
+	<include file="definitions/items/professions/artist.xml" />
+	<include file="definitions/items/professions/baker.xml" />
+	<include file="definitions/items/professions/barber.xml" />
+	<include file="definitions/items/professions/barkeeper.xml" />
+	<include file="definitions/items/professions/beekeper.xml" />
+	<include file="definitions/items/professions/blacksmith.xml" />
+	<include file="definitions/items/professions/butcher.xml" />
+	<include file="definitions/items/professions/carpenter.xml" />
+	<include file="definitions/items/professions/cook.xml" />
+	<include file="definitions/items/professions/fisher.xml" />
+	<include file="definitions/items/professions/fletcher.xml" />
+	<include file="definitions/items/professions/gipsy.xml" />
+	<include file="definitions/items/professions/healer.xml" />
+	<include file="definitions/items/professions/jewelier.xml" />
+	<include file="definitions/items/professions/mage.xml" />
+	<include file="definitions/items/professions/mapmaker.xml" />
+	<include file="definitions/items/professions/miner.xml" />
+	<include file="definitions/items/professions/musician.xml" />
+	<include file="definitions/items/professions/necromancer.xml" />
+	<include file="definitions/items/professions/peasant.xml" />
+	<include file="definitions/items/professions/stablemaster.xml" />
+	<include file="definitions/items/professions/tailorer.xml" />
+	<include file="definitions/items/professions/thieve.xml" />
+	<include file="definitions/items/professions/tinker.xml" />
+</definitions>

@@ -1,0 +1,7 @@
+<!--
+	Multis Index File
+-->
+<definitions>
+	<include file="definitions/multis/boats.xml"/>
+	<include file="definitions/multis/houses.xml"/>
+</definitions>

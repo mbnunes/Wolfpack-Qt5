@@ -1,0 +1,16 @@
+<!--
+	Items Base Index File
+-->
+<definitions>
+	<include file="definitions/items/core.xml"/>
+	<include file="definitions/items/groundtiles.xml"/>
+	<include file="definitions/items/magic.xml"/>
+	<include file="definitions/items/rocks.xml"/>
+	<include file="definitions/items/signs.xml"/>
+	<include file="definitions/items/ship.xml"/>
+	<include file="definitions/items/slotmachine.xml"/>
+	<include file="definitions/items/system.xml"/>
+	<include file="definitions/items/unsorted.xml"/>
+</definitions>
+
+

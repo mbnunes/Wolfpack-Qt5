@@ -1,0 +1,9 @@
+<!--
+	Menus Index File
+-->
+<definitions>
+	<include file="definitions/menus/addmenu.xml"/>
+	<include file="definitions/menus/contextmenu.xml"/>
+	<!-- Crafting Menu Index -->
+	<include file="definitions/menus/crafting/index.xml" />
+</definitions>
