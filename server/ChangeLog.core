@@ -26,6 +26,7 @@ Wolfpack 12.9.8 Beta (4. August 2004)
 		(See Anti Speed Hack settings in the General group)
 	- New Windows Release builds should now include MySQL support by default.
 	- Added some additional checking to wolfpack.pro
+	- Began binary save feature (Incomplete)
 
 Wolfpack 12.9.7 Beta (4. July 2004)
 	- Region/Spawn Region Updates:
