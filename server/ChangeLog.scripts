@@ -10,6 +10,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed bug #0000304. (Cast animations for non humans)
 		- Fishing pole now should have the twohanded flag.
 		- Fishing now shows the success cliloc message correctly.
+		- Fixed the dyable attribute for certain new items.
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
@@ -26,6 +27,8 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed bug #0000296. (ArmsLore/ItemID not possible on items equipped by others)
 		- Fixed bug #0000297. (Messages for Anatomy/EvalInt only showing up in journal)
 		- Fixed bug #0000301. (Spellbook not reopening after using it once)
+		- Added a goname <name> command to find players and npcs.
+		- Fixed magic resistance penalty for the protection spell.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

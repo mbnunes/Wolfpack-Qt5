@@ -631,7 +631,7 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 }
 
 /*
-	\function wolfpack.allitemsiterator
+	\function wolfpack.itemiterator
 	\return An <object id="ITEMITERATOR">itemiterator</object> object.
 	\description This function creates an itemiterator object to allow iteration
 	over all items registered in the world.
@@ -644,7 +644,7 @@ static PyObject* wpAllItemsIterator( PyObject* self, PyObject* args )
 }
 
 /*
-	\function wolfpack.allcharsiterator
+	\function wolfpack.chariterator
 	\return A <object id="CHARITERATOR">chariterator</object> object.
 	\description This function creates a chariterator object to allow iteration
 	over all characters registered in the world.

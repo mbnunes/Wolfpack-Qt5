@@ -11,6 +11,7 @@
 	<!-- Flower Garland -->
 	<item id="2305">
 		<id>0x2305</id>
+		<dye />
 		<category>Clothes\Accessories\Flower Garland (N/S)</category>
 		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
@@ -25,6 +26,7 @@
 	<!-- Gilded Dress -->
 	<item id="230d">
 		<id>0x230d</id>
+		<dye />
 		<category>Clothes\Torso\Gilded Dress (W/E)</category>
 		<weight>3.0</weight>
 		<basescripts>equipment</basescripts>
@@ -39,6 +41,7 @@
 	<!-- Fur Cape -->
 	<item id="2309">
 		<id>0x2309</id>
+		<dye />
 		<category>Clothes\Accessories\Fur Cape (W/E)</category>
 		<weight>4.0</weight>
 		<basescripts>equipment</basescripts>
@@ -53,6 +56,7 @@
 	<!-- Fur Sarong -->
 	<item id="230b">
 		<id>0x230b</id>
+		<dye />
 		<category>Clothes\Accessories\Fur Sarong (W/E)</category>
 		<weight>3.0</weight>
 		<basescripts>equipment</basescripts>
@@ -69,6 +73,7 @@
 		<id>0x230F</id>
 		<category>Clothes\Torso\Formal Shirt (W/E)</category>
 		<weight>1.0</weight>
+		<dye />
 		<basescripts>equipment</basescripts>
 	</item>
 
