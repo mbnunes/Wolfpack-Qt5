@@ -10,7 +10,7 @@ def onLoad():
 	wolfpack.registercommand( "remove", commandRemove )
 
 def commandRemove(socket, cmd, args):
-	socket.sysmessage( "Please select the target to kill." )
+	socket.sysmessage( "Please select the object for removal." )
 	socket.attachtarget( "commands.remove.doRemove", [] )
 	return True
 
