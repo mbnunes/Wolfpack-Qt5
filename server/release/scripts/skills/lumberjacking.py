@@ -253,7 +253,7 @@ def successlumberjacking( char, args ):
 		elif resource.gettag( 'resourcecount' ) == 0:
 			if not resource.hastag ('resource_empty') and int( resource.gettag( 'resourcecount' ) ) == 0:
 				resource.settag( 'resource_empty', 'true' )
-				resource.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", True )
+				resource.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [], True )
 		return True
 
 def respawnvein( vein, args ):

@@ -69,7 +69,7 @@ def response( char, args, target ):
 
 		wheel = wolfpack.finditem( target.item.serial )
 		processtime = 5000 # 5 Seconds
-		wolfpack.addtimer( processtime, "wool.ProcessTimer", [char, wheel, color] )
+		char.addtimer( processtime, "wool.ProcessTimer", [wheel, color] )
 
 	elif target.item.id in animids:
 		# That spinning wheel is being used.
@@ -81,10 +81,9 @@ def response( char, args, target ):
 		char.socket.clilocmessage( 502658, '', GRAY )
 		return True
 
-def ProcessTimer( time, args ):
-	char = args[0]
-	wheel = args[1]
-	color = args[2]
+def ProcessTimer( char, args ):
+	wheel = args[0]
+	color = args[1]
 	GetYarn( char, wheel, color )
 	return True
 

@@ -157,29 +157,26 @@ def targetexplosionpotion(char, args, target):
 	return
 
 # Explosion Potion Function
-def potionexplosion(args):
+def potionexplosion( potion, args ):
 	char = wolfpack.findchar(args[0])
-	potion = wolfpack.finditem(args[1])
 	counter = args[2]
 	bonus = args[3]
 	if not bonus:
 		bonus = 1
 	if counter > 0:
-		wolfpack.addtimer(1000, "potions.potioncountdown", [char.serial, potion.serial, counter, bonus] )
+		potion.addtimer( 1000, "potions.potioncountdown", [char.serial, counter, bonus] )
 		return
 	else:
 		potion.soundeffect(0x307) # Boom!
-		potion.effect( explosions[randint(0,2)], 20, 10)
+		potion.effect( explosions[randint( 0, 2 )], 20, 10 )
 		potionregion( [char, potion, bonus] )
 		potion.delete()
 		return
 
 # Explosion Potion Function
-def potioncountdown( time, args ):
-	char = wolfpack.findchar(args[0])
-	potion = wolfpack.finditem(args[1])
-	counter = args[2]
-	bonus = args[3]
+def potioncountdown( potion, args ):
+	counter = args[1]
+	bonus = args[2]
 	if potion:
 		if not bonus:
 			bonus = 1
@@ -188,7 +185,7 @@ def potioncountdown( time, args ):
 				if (counter - 1) > 0:
 					potion.say("%u" % (counter - 1))
 				counter -= 1
-			potionexplosion([char.serial, potion.serial, counter, bonus])
+			potion.addtimer( 0, "potions.potionexplosion", [ args[0], counter, bonus ] )
 		return
 
 # Explosion Potion Function
@@ -249,12 +246,12 @@ def potionregion( args ):
 			if checkLoS( potion, chainbomb, outradius ) and not chainbomb.hastag('exploding'):
 				if chainbomb.baseid in explodables:
 					chainbomb.settag('exploding', 'true')
-					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0, chainbomb.amount] )
+					chainbomb.addtimer( randint(1000, 2250), "potions.potioncountdown", [char.serial, 0, chainbomb.amount] )
 					chainbomb = chainregion.next
 				# Potion Kegs
 				elif (chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype')) and ( chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1 ):
 					chainbomb.settag('exploding', 'true')
-					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
+					chainbomb.addtimer( randint(1000, 2250), "potions.potioncountdown", [char.serial, 11, chainbomb.gettag('kegfill') ] )
 					chainbomb = chainregion.next
 				else:
 					chainbomb = chainregion.next
@@ -284,11 +281,11 @@ def potionregion( args ):
 			if checkLoS( char, chainbomb, outradius ) and not chainbomb.hastag('exploding'):
 				if chainbomb.baseid in explodables:
 					chainbomb.settag('exploding', 'true')
-					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0, chainbomb.amount] )
+					chainbomb.addtimer( randint(1000, 2250), "potions.potioncountdown", [char.serial, 0, chainbomb.amount] )
 					chainbomb = chainregion.next
 				elif ( chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype') ) and ( chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1 ):
 					chainbomb.settag('exploding', 'true')
-					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
+					chainbomb.addtimer( randint(1000, 2250), "potions.potioncountdown", [char.serial, 11, chainbomb.gettag('kegfill') ] )
 					chainbomb = chainregion.next
 				else:
 					chainbomb = chainregion.next
@@ -524,7 +521,7 @@ def agilityPotion( char, potion, agilitytype ):
 	char.updatestamina()
 	char.updatestats()
 
-	char.addtimer(AGILITY_TIME, "magic.utilities.statmodifier_expire", [1, bonus], 1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel")
+	char.addtimer( AGILITY_TIME, "magic.utilities.statmodifier_expire", [1, bonus], 1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel" )
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
@@ -571,7 +568,7 @@ def strengthPotion( char, potion, strengthtype ):
 	char.updatehealth()
 	char.updatestats()
 
-	char.addtimer(STRENGTH_TIME, "magic.utilities.statmodifier_expire", [0, bonus], 1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel")
+	char.addtimer( STRENGTH_TIME, "magic.utilities.statmodifier_expire", [0, bonus], 1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel" )
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )

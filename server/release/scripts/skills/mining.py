@@ -169,7 +169,7 @@ def domining(char, args):
 
 		if not veingem.hastag('resource_empty'):
 			duration = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-			veingem.addtimer( duration, "skills.mining.respawnvein", 1 )
+			veingem.addtimer( duration, "skills.mining.respawnvein", [], True )
 			veingem.settag('resource_empty', 1)
 		return False
 
@@ -239,7 +239,7 @@ def successmining(char, gem, resname, size):
 	# Start respawning the ore
 	if not gem.hastag('resource_empty') and resourcecount <= 1:
 		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
-		gem.addtimer( delay, "skills.mining.respawnvein", 1 )
+		gem.addtimer( delay, "skills.mining.respawnvein", [], True )
 		gem.settag( 'resource_empty', 1 )
 
 	message = ORES[resname][SUCCESSMESSAGE]

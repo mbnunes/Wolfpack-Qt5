@@ -243,7 +243,7 @@ def opendoor( char, item ):
 				item.settag('opened', 'true')
 
 			# Add an autoclose tempeffect
-			item.addtimer(CLOSEDOOR_DELAY, "door.autoclose", [ opencount ], 1)
+			item.addtimer( CLOSEDOOR_DELAY, "door.autoclose", [ opencount ], True )
 
 			# Refresh a House if we opened it
 			# Multis are completely broken right now. add refresh later here
@@ -324,7 +324,7 @@ def autoclose( item, args ):
 			break
 
 	if blocked == 1:
-		item.addtimer(CLOSEDOOR_DELAY, "door.autoclose", [ int(item.gettag('opencount')) ], 1)
+		item.addtimer( CLOSEDOOR_DELAY, "door.autoclose", [ int(item.gettag('opencount')) ], True )
 	else:
 		# Find the door definition for this item
 		for door in doors:

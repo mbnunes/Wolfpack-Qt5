@@ -260,7 +260,7 @@ def itemtimer( char, args ):
 			resource.moveto( wolfpack.coord( int( floor( pos.x / 8 ) ) * 8, int( floor( pos.y / 8 ) ) * 8, int( pos.z - 5 ), pos.map ) )
 			resource.decay = 0
 			decaytime = random.randint( FISHING_REFILLTIME[0], FISHING_REFILLTIME[1] )
-			resource.addtimer( decaytime, 'skills.fishing.resourceDecayTimer', True )
+			resource.addtimer( decaytime, 'skills.fishing.resourceDecayTimer', [], True )
 			resource.update() # Send to GMs
 
 		else:
@@ -283,6 +283,6 @@ def itemtimer( char, args ):
 	else:
 		socket.clilocmessage( 0xf61fd, "", 0x3b2, 3, 0, str(itemname) ) # You pull out an item along with a monster :
 
-def resourceDecayTimer( resource, arguments ):
+def resourceDecayTimer( resource, args ):
 	resource.delete()
 	return
