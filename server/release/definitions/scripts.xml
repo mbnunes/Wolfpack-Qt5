@@ -20,8 +20,7 @@
 	<script id="carpentry_deed" type="python" module="carpentry_deed" />
 	
 	<!-- Commands -->
-	<script id="commands"		type="python" module="commands" />
-	<script id="cmdinfo" 		type="python" module="commands.info" />
+	<script id="wolfpack.commands.info" type="python" module="wolfpack.commands.info" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
