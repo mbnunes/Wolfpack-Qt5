@@ -112,6 +112,7 @@
 	<script>commands.info</script>
 	<script>commands.invis</script>
 	<script>commands.invul</script>
+	<script>commands.kickban</script>
 	<script>commands.kill</script>
 	<script>commands.move</script>
 	<script>commands.password</script>
@@ -131,6 +132,7 @@
 	<script>commands.testlos</script>
 	<script>commands.tile</script>
 	<script>commands.tilecolor</script>
+	<script>commands.tilemove</script>
 	<script>commands.travel</script>
 	<script>commands.turnitem</script>
 	<script>commands.where</script>

@@ -121,6 +121,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixed potion kegs.
   - Added tilecolorz command. Same as tilecolor, but limited to one z coordinate.
   - Added nukez command. Same as nuke, but limited to one z coordinate.
+  - Added tilemove command.
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:
