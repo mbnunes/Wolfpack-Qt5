@@ -74,79 +74,87 @@ def commandAccount( socket, cmd, args ):
 		return False
 	elif len( args ) > 0:
 		# Command with arguments
-		try:
-			args = args.split( ' ' )
-			# Error Check
-			if len( args ) >= 5:
-				return False
-			# One Argument
-			if len( args ) == 1:
-				action = args[0]
-				action = action.lower()
-				# Reload Accounts
-				if action == 'reload':
-					char.log( LOG_MESSAGE, "Reloaded accounts.\n" % char.serial )
-					wolfpack.accounts.reload()
-					return True
-				# Save Accounts
-				elif action == 'save':
-					char.log( LOG_MESSAGE, "Saved accounts.\n" % char.serial )
-					wolfpack.accounts.save()
-					return True
-				else:
-					return False
-			# Two Arguments
-			elif len( args ) == 2:
-				( action, username ) = args
-				action = action.lower()
-				username = username.lower()
-				# Remove Accounts
-				if action == 'remove':
-					accountRemove( socket, username )
-					return True
-				else:
-					return False
-			# Three Arguments
-			elif len( args ) == 3:
-				( action, username, key ) = args
-				action = action.lower()
-				username = username.lower()
-				if len( action ) == 0 or len( username ) == 0 or len( key ) == 0:
-					return False
-				# Create Accounts
-				if action == 'create':
-					accountCreate( socket, username, key )
-					return True
-				# Show Accounts
-				elif action == 'show':
-					accountShow( socket, username, key )
-					return True
-				else:
-					return False
-			# Four Arguments
-			elif len( args ) == 4:
-				( action, username, key, value ) = args
-				action = action.lower()
-				username = username.lower()
-				key = key.lower()
-				if len( action ) == 0 or len( username ) == 0 or len( key ) == 0 or len( value ) == 0:
-					return False
-				# Set Accounts
-				if action.lower() == 'set':
-					accountSet( socket, username, key, value )
-					return True
-				else:
-					return False
-			# Error
-			else:
-				return False
-		except:
-			socket.sysmessage( usage0 )
-			socket.sysmessage( usage1 )
-			socket.sysmessage( usage2 )
-			socket.sysmessage( usage3 )
-			socket.sysmessage( usage4 )
+		args = args.split( ' ' )
+		# Error Check
+		if len( args ) >= 5:
+			useageerror( socket )
 			return False
+		# One Argument
+		if len( args ) == 1:
+			action = args[0]
+			action = action.lower()
+			# Reload Accounts
+			if action == 'reload':
+				char.log( LOG_MESSAGE, "Reloaded accounts.\n" % char.serial )
+				wolfpack.accounts.reload()
+				return True
+			# Save Accounts
+			elif action == 'save':
+				char.log( LOG_MESSAGE, "Saved accounts.\n" % char.serial )
+				wolfpack.accounts.save()
+				return True
+			else:
+				useageerror( socket )
+				return False
+		# Two Arguments
+		elif len( args ) == 2:
+			( action, username ) = args
+			action = action.lower()
+			username = username.lower()
+			# Remove Accounts
+			if action == 'remove':
+				accountRemove( socket, username )
+				return True
+			else:
+				useageerror( socket )
+				return False
+		# Three Arguments
+		elif len( args ) == 3:
+			( action, username, key ) = args
+			action = action.lower()
+			username = username.lower()
+			if len( action ) == 0 or len( username ) == 0 or len( key ) == 0:
+				useageerror( socket )
+				return False
+			# Create Accounts
+			if action == 'create':
+				accountCreate( socket, username, key )
+				return True
+			# Show Accounts
+			elif action == 'show':
+				accountShow( socket, username, key )
+				return True
+			else:
+				useageerror( socket )
+				return False
+		# Four Arguments
+		elif len( args ) == 4:
+			( action, username, key, value ) = args
+			action = action.lower()
+			username = username.lower()
+			key = key.lower()
+			if len( action ) == 0 or len( username ) == 0 or len( key ) == 0 or len( value ) == 0:
+				useageerror( socket )
+				return False
+			# Set Accounts
+			if action.lower() == 'set':
+				accountSet( socket, username, key, value )
+				return True
+			else:
+				useageerror( socket )
+				return False
+		# Error
+		else:
+			useageerror( socket )
+			return False
+
+def usageerror( socket ):
+	socket.sysmessage( usage0 )
+	socket.sysmessage( usage1 )
+	socket.sysmessage( usage2 )
+	socket.sysmessage( usage3 )
+	socket.sysmessage( usage4 )
+	return
 
 # Removes an account
 def accountRemove( socket, username ):
@@ -298,10 +306,10 @@ def accountSet( socket, username, key, value ):
 				if key == 'acl':
 					if value in wolfpack.accounts.acls():
 						oldvalue = account.acl
-						socket.sysmessage( "Previous: %s.acl = %s" % ( account.name, account.acl ) )
-						account.acl == value
+						socket.sysmessage( "Previous: %s.acl = %s" % ( account.name, oldvalue ) )
+						account.acl = value
 						socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.acl ) )
-						char.log( LOG_MESSAGE, "Modified %s.acl ( %s :: %s ).\n" % ( account.name, oldvale, value ) )
+						char.log( LOG_MESSAGE, "Modified %s.acl ( %s :: %s ).\n" % ( account.name, oldvalue, value ) )
 						return True
 					else:
 						socket.sysmessage( "Error: %s is not a valid account.acl!" % value )
@@ -317,10 +325,10 @@ def accountSet( socket, username, key, value ):
 				# MultiGems
 				elif key == 'multigems':
 					if value.lower() == "true" or value.lower() == "false" or value == 1 or value == 0:
-						oldvalue = value
-						socket.sysmessage( "Previous: %s.acl = %s" % ( account.name, account.acl ) )
-						account.multigems == value
-						socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.acl ) )
+						oldvalue = account.multigems
+						socket.sysmessage( "Previous: %s.acl = %s" % ( account.name, account.multigems ) )
+						account.multigems = value
+						socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.multigems ) )
 						char.log( LOG_MESSAGE, "Modified %s.multigems ( %s :: %s ).\n" % ( account.name, oldvalue, value ) )
 						return True
 					else:
@@ -335,7 +343,7 @@ def accountSet( socket, username, key, value ):
 							socket.sysmessage( "Error: Password is NULL!" )
 						return False
 					else:
-						oldvalue = key
+						oldvalue = account.password
 						account.password = key
 						socket.sysmessage( "Changed: %s.password" % ( account.name, account.password ) )
 						char.log( LOG_MESSAGE, "Modified %s.password.\n" % ( char.serial, account.name ) )
