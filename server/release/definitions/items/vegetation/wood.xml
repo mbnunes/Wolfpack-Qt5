@@ -8,9 +8,6 @@
 | Sticks and Wood                                               |
 =================================================================
 -->
-<!-- Aus der base.xml müssen folgende Items (insgesamt 30) gelöscht werden:
-1b81 bis 1b9e
--->
 <definitions>
         <!-- Wood -->
         <item id="1b81">

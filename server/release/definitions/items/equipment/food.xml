@@ -1108,7 +1108,7 @@ Food subtypes:
 	</item>
 
 	<item id="c78">
-		<inherit id="c78" />
+		<inherit id="c77" />
 		<id>0x0c78</id>
 		<category>Equipment\Food\Carrots 2</category>
 	</item>

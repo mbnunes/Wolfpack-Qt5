@@ -8,9 +8,6 @@
 | Mushrooms                                                     |
 =================================================================
 -->
-<!-- Aus der base.xml müssen folgende Items (insgesamt 15) gelöscht werden:
-d0c bis d19
--->
 <definitions>
         <item id="d0c">
                 <id>0xD0C</id>

@@ -8,11 +8,6 @@
 | Decorative Shields and Weapons                                |
 =================================================================
 -->
-<!-- Aus der base.xml müssen folgende Items (insgesamt 46) gelöscht werden:
-155c bis 1583
-1634 bis 1637
-1584, 1585
--->
 <definitions>
         <!-- Decorative Weapons -->
         <item id="155c">

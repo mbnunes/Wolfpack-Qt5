@@ -89,7 +89,4 @@
 	<script>skills.musicianship</script>
 	<script>skills.peacemaking</script>
 	<script>skills.provocation</script>
-	
-	<!-- Load *LAST* thats important -->
-	<script>errorhandler</script>
 </definitions>

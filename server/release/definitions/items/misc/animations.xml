@@ -109,57 +109,57 @@
 
         <item id="3818">
                 <id>0x3818</id>
-                <category>Energy</category>
+                <category>Animations\Energy</category>
         </item>
 
         <item id="3915">
                 <id>0x3915</id>
-                <category>Field of Poison (N/S) 1</category>
+                <category>Animations\Field of Poison (N/S) 1</category>
         </item>
 
         <item id="3e02">
                 <id>0x3e02</id>
-                <category>Field of Poison (N/S) 2</category>
+                <category>Animations\Field of Poison (N/S) 2</category>
         </item>
 
         <item id="3920">
                 <id>0x3920</id>
-                <category>Field of Poison (W/E)</category>
+                <category>Animations\Field of Poison (W/E)</category>
         </item>
 
         <item id="3946">
                 <id>0x3946</id>
-                <category>Field of Energy (N/S)</category>
+                <category>Animations\Field of Energy (N/S)</category>
         </item>
 
         <item id="3956">
                 <id>0x3956</id>
-                <category>Field of Energy (W/E)</category>
+                <category>Animations\Field of Energy (W/E)</category>
         </item>
 
         <item id="3967">
                 <id>0x3967</id>
-                <category>Field of Paralysis (N/S)</category>
+                <category>Animations\Field of Paralysis (N/S)</category>
         </item>
 
         <item id="3979">
                 <id>0x3979</id>
-                <category>Field of Paralysis (W/E)</category>
+                <category>Animations\Field of Paralysis (W/E)</category>
         </item>
 
         <item id="398c">
                 <id>0x398c</id>
-                <category>Field of Fire (N/S) 1</category>
+                <category>Animations\Field of Fire (N/S) 1</category>
         </item>
 
         <item id="3e27">
                 <id>0x3e27</id>
-                <category>Field of Fire (N/S) 2</category>
+                <category>Animations\Field of Fire (N/S) 2</category>
         </item>
 
         <item id="3996">
                 <id>0x3996</id>
-                <category>Field of Fire (W/E)</category>
+                <category>Animations\Field of Fire (W/E)</category>
         </item>
 
         <item id="1153"> 

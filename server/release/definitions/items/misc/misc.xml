@@ -199,21 +199,13 @@
 	<item id="1070">
 		<id>0x1070</id>
 		<category>Misc\Training Dummy\Training Dummy (N/S)</category>
-	</item>
-
-	<item id="1071">
-		<id>0x1071</id>
-		<category>Misc\Training Dummy\Training Dummy (N/S) (Swinging)</category>
+		<events>training_dummy</events>
 	</item>
 
 	<item id="1074">
 		<id>0x1074</id>
 		<category>Misc\Training Dummy\Training Dummy (W/E)</category>
-	</item>
-
-	<item id="1075">
-		<id>0x1075</id>
-		<category>Misc\Training Dummy\Training Dummy (W/E) (Swinging)</category>
+		<events>training_dummy</events>
 	</item>
 
 	<!-- Levers & Switches -->

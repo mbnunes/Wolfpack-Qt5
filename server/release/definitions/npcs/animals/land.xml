@@ -577,7 +577,7 @@
 					<inherit id="animal_base" />
 					<karma><random min="0" max="624" /></karma>
 					<fame><random min="0" max="1249" /></fame>
-					<defense><random min="5" max="10" /</defense>
+					<defense><random min="5" max="10" /></defense>
 					<lodamage>2</lodamage>
 					<hidamage>8</hidamage>
 					<!-- Stats -->

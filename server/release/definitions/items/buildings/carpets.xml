@@ -6,12 +6,6 @@
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
-<!-- Aus der base.xml müssen folgende Items gelöscht werden:
-aa9 bis afa
-1098 bis 10a3
-1e36 bis 1e5b
-1dd3 bis 1dfc
--->
 <definitions>
         <!-- Rug - Brown -->
         <item id="aa9">

@@ -62,7 +62,7 @@
 		<inherit id="undead_loot_small" />
 		<karma><random min="-0" max="-624"/></karma>
 		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="15" max="20"/><</defense>
+		<defense><random min="15" max="20"/></defense>
 		<lodamage>5</lodamage>
 		<hidamage>11</hidamage>
 		<!-- Stats -->
@@ -84,7 +84,7 @@
 		<inherit id="undead_loot_small" />
 		<karma><random min="-0" max="-624"/></karma>
 		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="15" max="20"/><</defense>
+		<defense><random min="15" max="20"/></defense>
 		<lodamage>5</lodamage>
 		<hidamage>11</hidamage>
 		<!-- Stats -->
@@ -106,7 +106,7 @@
 		<gold><random min="100" max="130"/></gold>
 		<karma><random min="-0" max="-624"/></karma>
 		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="35" max="45"/><</defense>
+		<defense><random min="35" max="45"/></defense>
 		<lodamage>18</lodamage>
 		<hidamage>43</hidamage>
 		<!-- Stats -->
