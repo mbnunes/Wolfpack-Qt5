@@ -13,42 +13,48 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 {
 	// Load data into binary format
 	// If value not found, create key.
+
+	// Account Group
+	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true);
+	autoAccountReload_		= getNumber("Accounts",	"Auto Reload",		10, true);
+	checkCharAge_			= getBool("Accounts",	"Check Delete Age", true, true);
+    
+	// Game Speed Group
+	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
+	checkItemTime_			= getDouble("Game Speed", "Items Check Time", 1.1, true);
+	checkNPCTime_			= getDouble("Game Speed", "NPCs Check Time", 1.0, true);
+	checkAITime_			= getDouble("Game Speed", "AI Check Time", 1.2, true);
+	niceLevel_				= getNumber("Game Speed", "Nice Level", 2, true);
+	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);
+	skillLevel_				= getNumber("Game Speed", "SkillLevel", 3, true);
+	bandageDelay_			= getNumber("Game Speed", "BandageDelay", 6, true);
+	maxStealthSteps_		= getNumber("Game Speed",  "Max Stealth Steps", 10, true);
+	runningStamSteps_		= getNumber("Game Speed", "Running Stamina Steps", 15, true);
+    
+	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
 	statcap_				= getNumber("General",	"StatsCap",			300, true);
 	commandPrefix_			= getString("General",	"Command Prefix",	"#", true).latin1()[0];
 	skillAdvanceModifier_	= getNumber("General",	"Skill Advance Modifier", 1000, true);
 	statsAdvanceModifier_	= getNumber("General",	"Stats Advance Modifier", 500, true);
-	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
 	bgSound_				= getNumber("General",	"BackGround Sound Chance", 2, true);
 	stealing_				= getBool("General",	"Stealing Enabled",	true, true);			
 	guardsActive_			= getBool("General",	"Guards Enabled",	true, true);
 	partMsg_				= getBool("General",	"PartMessage",		true, true);
 	joinMsg_				= getBool("General",	"JoinMessage",		true, true);
 	saveSpawns_				= getBool("General",	"Save Spawned Regions", true, true);
-	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true);
-	autoAccountReload_		= getNumber("Accounts",	"Auto Reload",		10, true);
 	stablingFee_			= getDouble("General",	"StablingFee",		0.25, true);
-	checkCharAge_			= getBool("Accounts",	"Check Delete Age", true, true);
 	announceWorldSaves_		= getBool("General",	"Announce WorldSaves", true, true);
-	checkItemTime_			= getDouble("Game Speed", "Items Check Time", 1.1, true);
-	checkNPCTime_			= getDouble("Game Speed", "NPCs Check Time", 1.0, true);
-	checkAITime_			= getDouble("Game Speed", "AI Check Time", 1.2, true);
-	niceLevel_				= getNumber("Game Speed", "Nice Level", 2, true);
 	port_                   = getNumber("General",    "Port", 2593, true);
 	goldWeight_             = getDouble("General",    "Gold Weight", 0.001000, true);
 	playercorpsedecaymultiplier_ = getNumber("General", "Player Corpse Decay Multiplier", 0, true);
 	lootdecayswithcorpse_   = getNumber("General",    "Loot Decays With Corpse", 1, true);
 	invisTimer_             = getDouble("General",    "InvisTimer", 60, true);
-	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);
-	skillLevel_				= getNumber("Game Speed", "SkillLevel", 3, true);
-	bandageDelay_			= getNumber("Game Speed", "BandageDelay", 6, true);
 	bandageInCombat_		= getBool("General",	"Bandage In Combat",	true, true);
 	gateTimer_              = getDouble("General",    "GateTimer", 30, true);
 	inactivityTimeout_		= getNumber("General",  "Inactivity Timeout", 300, true);
 	showDeathAnim_		    = getNumber("General",  "Show Death Animation", 1, true);
 	poisonTimer_		    = getNumber("General",  "PoisonTimer", 180, true);
-	maxStealthSteps_		= getNumber("Game Speed",  "Max Stealth Steps", 10, true);
-	runningStamSteps_		= getNumber("Game Speed", "Running Stamina Steps", 15, true);
 
 	flush(); // if any key created, save it.
 }
