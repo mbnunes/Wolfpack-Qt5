@@ -34,6 +34,7 @@
 #include "../wolfpack.h"
 #include "../wpscriptmanager.h"
 #include "../itemid.h"
+#include "../spellbook.h"
 
 extern cAllItems *Items;
 
@@ -695,7 +696,19 @@ PyObject* wpItem_setadv( wpItem* self, PyObject* args )
 	return PyTrue;
 }
 
+PyObject* wpItem_spellscount( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
 
+	cSpellBook *pBook = dynamic_cast< cSpellBook* >( self->pItem );
+	if( !pBook )
+	{
+		return PyFalse;
+	}
+	return PyInt_FromLong( pBook->spellCount() );
+
+}
 static PyMethodDef wpItemMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
@@ -714,6 +727,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "getname",			(getattrofunc)wpItem_getname, METH_VARARGS, "Get item name." },
 	{ "getadv",				(getattrofunc)wpItem_getadv, METH_VARARGS,"Get advanced modifiers." },
 	{ "setadv",				(getattrofunc)wpItem_setadv, METH_VARARGS,"Set advanced modifiers." },
+	{ "spellscount",		(getattrofunc)wpItem_spellscount, METH_VARARGS,"Get spells count in spellbook" },
 
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
