@@ -632,7 +632,7 @@
 	<!-- a elemental (water) weak-->
 	<npc id="elemental_water_weak">
 		<name>a elemental (water)</name>
-		<id>0x00g</id>
+		<id>0x010</id>
 		<category>Monsters\magicals_summoned\elemental water weak</category>
 		<inherit id="monster_base"/>
 		<karma>
@@ -686,7 +686,7 @@
 	<!-- a elemental (water) medium-->
 	<npc id="elemental_water_medium">
 		<name>a elemental (water)</name>
-		<id>0x00g</id>
+		<id>0x010</id>
 		<category>Monsters\magicals_summoned\elemental water medium</category>
 		<inherit id="monster_base"/>
 		<karma>
@@ -740,7 +740,7 @@
 	<!-- a elemental (water) hard-->
 	<npc id="elemental_water_hard">
 		<name>a elemental (water)</name>
-		<id>0x00g</id>
+		<id>0x010</id>
 		<category>Monsters\magicals_summoned\elemental water hard</category>
 		<inherit id="monster_base"/>
 		<karma>
