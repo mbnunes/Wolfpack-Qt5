@@ -107,7 +107,7 @@ public:
 	Q_UINT32 uniqueId( void ) const;
 
 	void recieve(); // Tries to recieve one packet and process it
-	void send( cUOPacket *packet );
+	void send( cUOPacket *packet ) const;
 	void send( cGump	 *gump );
 
 	// Handler
@@ -143,7 +143,7 @@ public:
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
 	void showSpeech( cUObject *object, const QString &message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, cUOTxUnicodeSpeech::eSpeechType speechType = cUOTxUnicodeSpeech::Regular );
-	void sysMessage( const QString &message, Q_UINT16 color = 0x0037, UINT16 font = 3 );
+	void sysMessage( const QString &message, Q_UINT16 color = 0x0037, UINT16 font = 3 ) const;
 	void sendCharList();
 	void removeObject( cUObject *object );
 	void setPlayer( P_CHAR pChar = NULL ); // Updates the current player

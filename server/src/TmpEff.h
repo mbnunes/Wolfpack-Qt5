@@ -54,6 +54,7 @@ class cTempEffects;
 // Wolfpack includes
 #include "typedefs.h"
 #include "iserialization.h"
+#include "singleton.h"
 
 // Library includes
 #include "Python.h"
@@ -204,19 +205,14 @@ private:
 		}
 	};
 
-	static cTempEffects instance;
-
-protected:
-	cTempEffects()	{ teffects = cTmpEffFibHeap(); }  // No temp effects to start with
-
 public:
+	cTempEffects()	{ teffects = cTmpEffFibHeap(); }  // No temp effects to start with
 	cTmpEffFibHeap	teffects;
 
 	void check();
 	bool add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
 	bool add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
 	void serialize(ISerialization &archive);
-//	bool Exists( P_CHAR pc_source, P_CHAR pc_dest, int num );
 	void dispel( P_CHAR pc_dest );
 	void dispel( P_CHAR pc_dest, const QString &type, bool onlyDispellable = true );
 
@@ -229,9 +225,9 @@ public:
 	{
 		return teffects.asVector().size();
 	}
-
-	static cTempEffects *getInstance( void ) { return &instance; }
 };
+
+typedef SingletonHolder<cTempEffects> TempEffects;
 
 // cRepeatAction
 class cRepeatAction: public cTempEffect

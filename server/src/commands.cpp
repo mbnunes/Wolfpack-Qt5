@@ -346,7 +346,7 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )
 	// Bring up the Add-menu
 	if( args.count() < 1 )
 	{
-		cAllMakeMenus::getInstance()->callMakeMenu( socket, "ADD_MENU" );
+		MakeMenus::instance()->callMakeMenu( socket, "ADD_MENU" );
 		return;
 	}
 
@@ -1319,7 +1319,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 		} 
 		else if( args[1].lower() != "all" )
 		{
-			cSpawnRegion* spawnRegion = cAllSpawnRegions::getInstance()->region( args[1] );
+			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if( !spawnRegion )
 			{
 				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
@@ -1332,7 +1332,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 		}
 		else if( args[1].lower() == "all" )
 		{
-			cAllSpawnRegions::getInstance()->reSpawn();
+			SpawnRegions::instance()->reSpawn();
 			socket->sysMessage( tr( "All spawnregions have respawned" ) );
 		}
 	}
@@ -1346,7 +1346,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 		} 
 		else if( args[1].lower() != "all" )
 		{
-			cSpawnRegion* spawnRegion = cAllSpawnRegions::getInstance()->region( args[1] );
+			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if( !spawnRegion )
 			{
 				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
@@ -1359,7 +1359,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 		}
 		else if( args[1].lower() == "all" )
 		{
-			cAllSpawnRegions::getInstance()->deSpawn();
+			SpawnRegions::instance()->deSpawn();
 			socket->sysMessage( tr( "All spawnregions have been cleared" ) );
 		}
 	}
@@ -1373,7 +1373,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 		}
 		else if( args[1].lower() != "all" )
 		{
-			cSpawnRegion* spawnRegion = cAllSpawnRegions::getInstance()->region( args[1] );
+			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if( !spawnRegion )
 			{
 				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
@@ -1386,7 +1386,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 		}
 		else if( args[1].lower() == "all" )
 		{
-			cAllSpawnRegions::getInstance()->reSpawnToMax();
+			SpawnRegions::instance()->reSpawnToMax();
 			socket->sysMessage( tr( "All spawnregions have respawned to maximum" ) );
 		}
 	}
@@ -1400,7 +1400,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 		}
 		else if( args[1].lower() != "all" )
 		{
-			cSpawnRegion* spawnRegion = cAllSpawnRegions::getInstance()->region( args[1] );
+			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if( !spawnRegion )
 			{
 				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
@@ -1425,9 +1425,9 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 			pGump->addText( 160, 90, tr( "Spawnregion Global Info" ), 0x530 );
 
 			// Give information about the spawnregions
-			pGump->addText( 50, 120, tr( "Spawnregions: %1" ).arg( cAllSpawnRegions::getInstance()->size() ), 0x834 );
-			pGump->addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( cAllSpawnRegions::getInstance()->npcs() ).arg( cAllSpawnRegions::getInstance()->maxNpcs() ), 0x834 );
-			pGump->addText( 50, 160, tr( "Items: %1 of %2" ).arg( cAllSpawnRegions::getInstance()->items() ).arg( cAllSpawnRegions::getInstance()->maxItems() ), 0x834 );
+			pGump->addText( 50, 120, tr( "Spawnregions: %1" ).arg( SpawnRegions::instance()->size() ), 0x834 );
+			pGump->addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( SpawnRegions::instance()->npcs() ).arg( SpawnRegions::instance()->maxNpcs() ), 0x834 );
+			pGump->addText( 50, 160, tr( "Items: %1 of %2" ).arg( SpawnRegions::instance()->items() ).arg( SpawnRegions::instance()->maxItems() ), 0x834 );
 			
 			// OK button
 			pGump->addButton( 50, 200, 0xF9, 0xF8, 0 ); // Only Exit possible
@@ -1733,11 +1733,11 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 
 		SrvParams->reload(); // Reload wolfpack.xml
 		DefManager->reload(); //Reload Definitions
-		cAllSpawnRegions::getInstance()->reload();
+		SpawnRegions::instance()->reload();
 		cAllTerritories::getInstance()->reload();
-		cAllResources::getInstance()->reload();
-		cAllMakeMenus::getInstance()->reload();
-		cAllConMenus::getInstance()->reload();
+		Resources::instance()->reload();
+		MakeMenus::instance()->reload();
+		ContextMenus::instance()->reload();
 
 		cCommands::instance()->loadACLs();
 
@@ -1753,11 +1753,11 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 
 		SrvParams->reload(); // Reload wolfpack.xml
 		DefManager->reload(); //Reload Definitions
-		cAllSpawnRegions::getInstance()->reload();
+		SpawnRegions::instance()->reload();
 		cAllTerritories::getInstance()->reload();
-		cAllResources::getInstance()->reload();
-		cAllMakeMenus::getInstance()->reload();
-		cAllConMenus::getInstance()->reload();
+		Resources::instance()->reload();
+		MakeMenus::instance()->reload();
+		ContextMenus::instance()->reload();
 		cCommands::instance()->loadACLs();
 
 		ScriptManager->reload(); // Reload Scripts
@@ -1777,7 +1777,7 @@ void commandMakeMenu( cUOSocket *socket, const QString &command, QStringList &ar
 		return;
 	}
 
-	cAllMakeMenus::getInstance()->callMakeMenu( socket, args[0] );
+	MakeMenus::instance()->callMakeMenu( socket, args[0] );
 }
 
 class cModifySpellbook: public cTargetRequest

@@ -114,7 +114,7 @@ cUOSocket::~cUOSocket(void)
 /*!
   Sends \a packet to client.
 */
-void cUOSocket::send( cUOPacket *packet )
+void cUOSocket::send( cUOPacket *packet ) const
 {
 	// Don't send when we're already disconnected
 	if( !_socket || !_socket->isOpen() )
@@ -367,7 +367,7 @@ void cUOSocket::disconnect( void )
 		{
 			cDelayedHideChar* pTmpEff = new cDelayedHideChar( _player->serial );
 			pTmpEff->setExpiretime_s( SrvParams->quittime() );
-			cTempEffects::getInstance()->insert( pTmpEff );
+			TempEffects::instance()->insert( pTmpEff );
 		}
 		_player->resend( true );
 	}
@@ -794,7 +794,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
   This method sends a system \a message at the botton of the screen
   \sa cUOTxUnicodeSpeech
 */
-void cUOSocket::sysMessage( const QString &message, Q_UINT16 color, UINT16 font )
+void cUOSocket::sysMessage( const QString &message, Q_UINT16 color, UINT16 font ) const
 {
 	if( message.isEmpty() )
 		return;
@@ -938,7 +938,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 	if (!clicked || clicked->bindmenu().isEmpty() )
 		return;
 	
-	if( !cAllConMenus::getInstance()->MenuExist( clicked->bindmenu() ) ) 
+	if( !ContextMenus::instance()->MenuExist( clicked->bindmenu() ) ) 
 	{
 		clicked->setBindmenu(QString::null);
 		return;
@@ -949,7 +949,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 	
 	menu.setSerial ( packet->serial() ); 
 	
-	const cConMenuOptions *tOptions = cAllConMenus::getInstance()->getMenu( bindmenu, acl );
+	const cConMenuOptions *tOptions = ContextMenus::instance()->getMenu( bindmenu, acl );
 	
 	if ( !tOptions )
 		return;

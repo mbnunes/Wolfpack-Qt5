@@ -29,6 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+#include <limits>
+
 #include "utilities.h"
 #include "../network/uosocket.h"
 

@@ -293,7 +293,7 @@ PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	tmpEff->setArgs( sArgs );
 	tmpEff->setExpiretime_ms( expireTime );
 
-	cTempEffects::getInstance()->insert( tmpEff );
+	TempEffects::instance()->insert( tmpEff );
 
 	return PyTrue;
 }

@@ -1259,8 +1259,8 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 			return true;
 	}
 
-	cAllResources::iterator it = cAllResources::getInstance()->find( resourcename_ );
-	if( it != cAllResources::getInstance()->end() )
+	cAllResources::iterator it = Resources::instance()->find( resourcename_ );
+	if( it != Resources::instance()->end() )
 	{
 		cResource* pResource = it->second;
 		if( !target->model() && !target->serial() ) // map tile
@@ -1357,8 +1357,8 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 			return true;
 	}
 
-	cAllResources::iterator it = cAllResources::getInstance()->find( resourcename_ );
-	if( it != cAllResources::getInstance()->end() )
+	cAllResources::iterator it = Resources::instance()->find( resourcename_ );
+	if( it != Resources::instance()->end() )
 	{
 		cResource* pResource = it->second;
 		if( !target->model() && !target->serial() ) // map tile
@@ -1392,6 +1392,3 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	}
 }
-
-// Singleton
-cAllResources cAllResources::instance;

@@ -297,7 +297,7 @@ public:
 	bool PileItem(cItem* pItem);
 	bool ContainerPileItem(cItem* pItem);	// try to find an item in the container to stack with
 	bool AddItem(cItem* pItem, short xx=-1, short yy=-1);	// Add Item to container
-	int  CountItems(short ID, short col= -1);
+	int  CountItems(short ID, short col= -1) const;
 	int  DeleteAmount(int amount, unsigned short _id, unsigned short _color = 0);
 	int getName(char* itemname);
 	QString getName(void);

@@ -3679,12 +3679,12 @@ void cChar::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT16 r
 void cChar::startRepeatedAction( UINT8 action, UINT16 delay )
 {
 	stopRepeatedAction();
-	cTempEffects::getInstance()->insert( new cRepeatAction( this, action, delay ) );
+	TempEffects::instance()->insert( new cRepeatAction( this, action, delay ) );
 }
 
 void cChar::stopRepeatedAction()
 {
-	cTempEffects::getInstance()->dispel( this, "repeataction", false );
+	TempEffects::instance()->dispel( this, "repeataction", false );
 }
 
 static void characterRegisterAfterLoading( P_CHAR pc )

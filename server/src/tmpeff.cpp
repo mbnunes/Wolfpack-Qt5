@@ -35,6 +35,8 @@
 
 #define RANK_ARRAY_SIZE 65535
 
+#include <limits>
+
 #include "platform.h"
 
 // Wolfpack Includes
@@ -1235,7 +1237,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		return 0;
 	}
 
-	cTempEffects::getInstance()->teffects.insert( pTE );
+	TempEffects::instance()->teffects.insert( pTE );
 	return 1;
 }
 
@@ -1329,12 +1331,12 @@ void cTempEffects::dispel( P_CHAR pc_dest )
 
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
-	return cTempEffects::getInstance()->add(pc_source, pc_dest, num, more1, more2, more3, dur);
+	return TempEffects::instance()->add(pc_source, pc_dest, num, more1, more2, more3, dur);
 }
 
 unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
-	return cTempEffects::getInstance()->add(source, piDest, num, more1, more2, more3);
+	return TempEffects::instance()->add(source, piDest, num, more1, more2, more3);
 }
 
 // cDelayedHideChar
@@ -1401,12 +1403,8 @@ cTimedSpellAction::cTimedSpellAction( SERIAL serial, UI08 nAction )
 void cTimedSpellAction::Expire()
 {
 	if( character != INVALID_SERIAL )
-		cTempEffects::getInstance()->teffects.insert( new cTimedSpellAction( character, action ) );
+		TempEffects::instance()->teffects.insert( new cTimedSpellAction( character, action ) );
 }
-
-// Singleton
-cTempEffects cTempEffects::instance;
-
 
 //  Fibonacci Heap implementation
 //
@@ -1686,5 +1684,5 @@ void cRepeatAction::Expire()
 	P_CHAR pMage = FindCharBySerial( _mage );
 
 	if( pMage )
-		cTempEffects::getInstance()->insert( new cRepeatAction( pMage, _anim, _delay ) );
+		TempEffects::instance()->insert( new cRepeatAction( pMage, _anim, _delay ) );
 }

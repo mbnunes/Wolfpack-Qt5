@@ -2891,7 +2891,7 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 
 void cSkills::Cartography( cUOSocket* socket )
 {
-	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_CARTOGRAPHY" );
+	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_CARTOGRAPHY" );
 }
 
 /*
@@ -3021,18 +3021,18 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 
 void cSkills::Carpentry( cUOSocket* socket )
 {
-	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_CARPENTRY" );
+	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_CARPENTRY" );
 }
 
 
 void cSkills::Fletching( cUOSocket* socket )
 {
-	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_FLETCHING" );
+	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_FLETCHING" );
 }
 
 void cSkills::Tailoring( cUOSocket* socket )
 {
-	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_TAILORING" );
+	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_TAILORING" );
 }
 
 void cSkills::Blacksmithing( cUOSocket* socket )
@@ -3051,12 +3051,12 @@ void cSkills::Blacksmithing( cUOSocket* socket )
 		return;
 	}
 
-	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_BLACKSMITHING" );
+	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_BLACKSMITHING" );
 }
 
 void cSkills::Tinkering( cUOSocket* socket )
 {
-	cAllMakeMenus::getInstance()->callMakeMenu( socket, "CRAFTMENU_TINKERING" );
+	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_TINKERING" );
 }
 
 

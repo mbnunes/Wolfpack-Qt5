@@ -37,12 +37,13 @@
 #include "definable.h"
 #include "gumps.h"
 #include "prototypes.h"
+#include "singleton.h"
 
 // Library includes
-#include "qstringlist.h"
-#include "qdom.h"
-#include "qptrlist.h"
-#include "qvaluevector.h"
+#include <qstringlist.h>
+#include <qdom.h>
+#include <qptrlist.h>
+#include <qvaluevector.h>
 
 // Forward declaration
 class cMakeMenu;
@@ -55,7 +56,6 @@ class cMakeItem : public cDefinable
 {
 public:
 	cMakeItem( const QDomElement &Tag );
-	~cMakeItem() {}
 
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );
@@ -66,8 +66,8 @@ public:
 	UINT16			amount()	const	{ return amount_; }
 
 	// Setters
-	void			setAmount( UINT16 amount ) { amount_ = amount; }
-	void			setSection( QString data ) { section_ = data; }
+	void			setAmount( UINT16 amount )			{ amount_ = amount; }
+	void			setSection( const QString& data )	{ section_ = data; }
 
 private:
 	QString			name_;
@@ -80,18 +80,17 @@ class cUseItem : public cDefinable
 public:
 	cUseItem( const QDomElement &Tag );
 	cUseItem( QString name, QValueVector< UINT16 > ids, QValueVector< UINT16 > colors, UINT16 amount );
-	~cUseItem() {}
 
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );
 
 	// Getters
-	QValueVector< UINT16 >	id()		{ return id_; }
-	QString		name()		{ return name_; }
-	QValueVector< UINT16 >	colors()	{ return colors_; }
-	UINT16		amount()	{ return amount_; }
+	QValueVector< UINT16 >	id()		const { return id_; }
+	QString					name()		const { return name_; }
+	QValueVector< UINT16 >	colors()	const { return colors_; }
+	UINT16					amount()	const { return amount_; }
 
-	bool		hasEnough( cItem* pBackpack );
+	bool		hasEnough( const cItem* pBackpack ) const;
 private:
 	QValueVector< UINT16 >	id_;
 	QString		name_;
@@ -103,7 +102,6 @@ class cSkillCheck : public cDefinable
 {
 public:
 	cSkillCheck( const QDomElement &Tag );
-	~cSkillCheck() {}
 
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );
@@ -125,18 +123,7 @@ class cMakeSection : public cDefinable
 {
 public:
 	cMakeSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
-	~cMakeSection() 
-	{
-		makeitems_.setAutoDelete( true );
-		makeitems_.clear();
-
-		useitems_.setAutoDelete( true );
-		useitems_.clear();
-
-		skillchecks_.setAutoDelete( true );
-		skillchecks_.clear();
-
-	}
+	~cMakeSection();
 
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );
@@ -156,10 +143,10 @@ public:
 	makenpcprops_st				makenpc()		const { return makenpc_; }
 
 	// Setters
-	void		setName( QString data )		{ name_ = data; }
-	void		appendUseItem( cUseItem* pui ) { useitems_.append( pui ); }
+	void		setName( const QString& data )			{ name_ = data; }
+	void		appendUseItem( const cUseItem* pui )	{ useitems_.append( pui ); }
 
-	void		execute( cUOSocket* socket );
+	void		execute( cUOSocket* const socket );
 
 	// execute helper methods
 	bool	hasEnough( cItem* pBackpack );
@@ -171,7 +158,7 @@ public:
 
 	// action type specific methods
 	void	setMakeItemAmounts( UINT16 amount );
-	void	addMakeItemSectionPrefixes( QString prefix );
+	void	addMakeItemSectionPrefixes( const QString& prefix );
 	void	applySkillMod( float skillmod );
 private:
 	QPtrList< cMakeItem >		makeitems_;
@@ -196,15 +183,17 @@ public:
 		CODE_ACTION,		// run a code segment
 		SCRIPT_ACTION		// run a script
 	};
+	typedef QValueVector< cMakeSection* > SectionContainer;
 
 	cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu = NULL );
-	~cMakeAction() 
+	~cMakeAction()
 	{
-		std::vector< cMakeSection* >::iterator it = makesections_.begin();
-		while( it != makesections_.end() )
+		SectionContainer::iterator it = makesections_.begin();
+		SectionContainer::const_iterator end(makesections_.end());
+		while( it != end )
 		{
 			delete (*it);
-			it++;
+			++it;
 		}
 	}
 
@@ -212,10 +201,10 @@ public:
 	virtual void processNode( const QDomElement &Tag );
 
 	// Getters
-	QString			name()			{ return name_; }
-	UINT16			model()			{ return model_; }
-	QString			description()	{ return description_; }
-	cMakeMenu*		baseMenu()		{ return basemenu_; }
+	QString			name()			const { return name_; }
+	UINT16			model()			const { return model_; }
+	QString			description()	const { return description_; }
+	cMakeMenu*		baseMenu()		const { return basemenu_; }
 	QString			failMsg()		const { return failmsg_; }
 	QString			succMsg()		const { return succmsg_; }
 	UINT8			charAction()	const { return charaction_; }
@@ -227,44 +216,47 @@ public:
 	void		setName( QString data )		{ name_ = data; }
 	void		setModel( UINT16 data )		{ model_ = data; }
 
-	std::vector< cMakeSection* >		makesections()	const { return makesections_; }
+	SectionContainer	makesections()	const { return makesections_; }
 
 	void		execute( cUOSocket* socket, UINT32 makesection );
 
 private:
-	QString							name_;
-	UINT16							model_;
-	QString							description_;
-	cMakeMenu*						basemenu_;
-	WPACTIONTYPE					type_;
+	QString				name_;
+	UINT16				model_;
+	QString				description_;
+	cMakeMenu*			basemenu_;
+	WPACTIONTYPE		type_;
 
-	std::vector< cMakeSection* >		makesections_;
-	QString								failmsg_;
-	QString								succmsg_;
-	UINT8								charaction_;
-	UINT16								succsound_;
-	UINT16								failsound_;
+	SectionContainer	makesections_;
+	QString				failmsg_;
+	QString				succmsg_;
+	UINT8				charaction_;
+	UINT16				succsound_;
+	UINT16				failsound_;
 
 };
 
 class cMakeMenu : public cDefinable
 {
 public:
+	typedef QValueVector< cMakeMenu* > SubMenuContainer;
+	typedef QValueVector< cMakeAction* > ActionContainer;
+	
 	cMakeMenu( const QDomElement &Tag, cMakeMenu* previous = NULL );
 	~cMakeMenu()
 	{
-		std::vector< cMakeMenu* >::iterator mit = submenus_.begin();
+		SubMenuContainer::iterator mit = submenus_.begin();
 		while( mit != submenus_.end() )
 		{
 			delete (*mit);
-			mit++;
+			++mit;
 		}
 
-		std::vector< cMakeAction* >::iterator ait = actions_.begin();
+		ActionContainer::iterator ait = actions_.begin();
 		while( ait != actions_.end() )
 		{
 			delete (*ait);
-			ait++;
+			++ait;
 		}
 	}
 
@@ -272,26 +264,27 @@ public:
 	virtual void processNode( const QDomElement &Tag );
 
 	// Getters
-	std::vector< cMakeMenu* >	subMenus()		{ return submenus_; }
-	std::vector< cMakeAction* > actions()		{ return actions_; }
-	QString						name()			{ return name_; }
-	QString						link()			{ return link_; }
-	cMakeMenu*					prevMenu()		{ return prev_; }
+	SubMenuContainer	subMenus()		{ return submenus_; }
+	ActionContainer		actions()		{ return actions_; }
+	QString				name()			{ return name_; }
+	QString				link()			{ return link_; }
+	cMakeMenu*			prevMenu()		{ return prev_; }
 
 	// Setters
-	void	setName( QString data )							{ name_ = data; }
+	void	setName( const QString& data )							{ name_ = data; }
 
-	bool	contains( cMakeMenu* pMenu )
+	bool	contains( const cMakeMenu* pMenu ) const
 	{
-		std::vector< cMakeMenu* >::iterator it = submenus_.begin();
-		while( it != submenus_.end() )
+		SubMenuContainer::const_iterator it = submenus_.begin();
+		SubMenuContainer::const_iterator end( submenus_.end() );
+		while( it != end )
 		{
 			if( (*it) == pMenu )
 				return true;
 			else
 				if( (*it)->contains( pMenu ) )
 					return true;
-			it++;
+			++it;
 		}
 		return false;
 	}
@@ -305,12 +298,12 @@ public:
 	}
 
 private:
-	QString						name_;
-	QString						link_;
+	QString				name_;
+	QString				link_;
 
-	cMakeMenu*					prev_;
-	std::vector< cMakeMenu* >	submenus_;
-	std::vector< cMakeAction* > actions_;
+	cMakeMenu*			prev_;
+	SubMenuContainer	submenus_;
+	ActionContainer		actions_;
 };
 
 class cMakeMenuGump : public cGump
@@ -341,52 +334,35 @@ public:
 
 class cAllMakeMenus
 {
-protected:
-	cAllMakeMenus() {};
 public:
-	~cAllMakeMenus()
-	{
-		std::map< QString, cMakeMenu* >::iterator iter = menus_.begin();
-		while( iter != menus_.end() )
-		{
-			delete iter->second;
-			iter++;
-		}
-		menus_.clear();
-	}
-
-	static cAllMakeMenus* getInstance()
-	{
-		static cAllMakeMenus theMakeMenusManager;
-		return &theMakeMenusManager; 
-	}
+	~cAllMakeMenus();
 
 	void	load( void );
-
 	void	reload( void );
 
-	bool	contains( cMakeMenu* pMenu )
+	bool	contains( const cMakeMenu* pMenu ) const
 	{
-		std::map< QString, cMakeMenu* >::iterator it = menus_.begin();
-		while( it != menus_.end() )
+		std::map< QString, cMakeMenu* >::const_iterator it(menus_.begin());
+		std::map< QString, cMakeMenu* >::const_iterator end(menus_.end());
+		while( it != end )
 		{
 			if( it->second == pMenu )
 				return true;
 			else
 				if( it->second->contains( pMenu ) )
 					return true;
-			it++;
+			++it;
 		}
 		return false;
 	}
 
-	cMakeMenu* getMenu( QString section )
+	cMakeMenu* getMenu( const QString& section ) const
 	{
-		std::map< QString, cMakeMenu* >::iterator it = menus_.find( section );
-		cMakeMenu* pMakeMenu = NULL;
+		std::map< QString, cMakeMenu* >::const_iterator it = menus_.find( section );
 		if( it != menus_.end() )
-			pMakeMenu = it->second;
-		return pMakeMenu;
+			return it->second;
+		else
+			return 0;
 	}
 
 	void	callMakeMenu( cUOSocket* socket, QString section );
@@ -395,6 +371,7 @@ private:
 	std::map< QString, cMakeMenu* >		menus_;
 };
 
+typedef SingletonHolder<cAllMakeMenus> MakeMenus;
 
 #endif
 

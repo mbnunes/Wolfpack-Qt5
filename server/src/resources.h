@@ -37,6 +37,7 @@
 #include "items.h"
 #include "wptargetrequests.h"
 #include "typedefs.h"
+#include "singleton.h"
 
 // Library includes
 #include "qvaluevector.h"
@@ -139,16 +140,12 @@ class cAllResources : public std::map< QString, cResource* >
 public:
 	cAllResources();
 	~cAllResources();
-
-	static cAllResources *getInstance( void ) { return &instance; }
-
 	void load();
 	void unload();
 	void reload();
-
-private:
-	static cAllResources instance;
 };
+
+typedef SingletonHolder<cAllResources> Resources;
 
 class cFindResource : public cTargetRequest
 {

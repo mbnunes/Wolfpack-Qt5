@@ -210,7 +210,7 @@ void CWorldMain::loadnewworld(QString module) // Load world
 
 		archive->readObject( pTE );
 
-		cTempEffects::getInstance()->insert( pTE );
+		TempEffects::instance()->insert( pTE );
 	}
 	clConsole.send(" Done.\n");
 	archive->close();
@@ -243,7 +243,7 @@ void CWorldMain::savenewworld(QString module)
 			clConsole.send("Worldsave Started!\n" );
 			clConsole.send("items  : %i\n", cItemsManager::getInstance()->size());
 			clConsole.send("chars  : %i\n", cCharsManager::getInstance()->size());
-			clConsole.send("effects: %i\n", cTempEffects::getInstance()->size());
+			clConsole.send("effects: %i\n", TempEffects::instance()->size());
 		}
 		isSaving = true;
 	}
@@ -268,7 +268,7 @@ void CWorldMain::savenewworld(QString module)
 
 	archive = cPluginFactory::serializationArchiver( module );
 	archive->prepareWritting( "effects" );
-	cTempEffects::getInstance()->serialize( *archive );
+	TempEffects::instance()->serialize( *archive );
 	archive->close();
 	delete archive;
 

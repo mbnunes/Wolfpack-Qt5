@@ -58,7 +58,8 @@ cItemsManager::~cItemsManager()
 {
 	purge();
 	iterator it = begin();
-	for (; it != end(); it++ )
+	const_iterator end(end());
+	for (; it != end; ++it )
 		delete it->second;
 }
 
@@ -136,7 +137,8 @@ void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
 void cItemsManager::purge()
 {
 	list<cItem*>::iterator it;
-	for (it = deletedItems.begin(); it != deletedItems.end(); ++it)
+	list<cItem*>::const_iterator end(deletedItems.end());
+	for (it = deletedItems.begin(); it != end; ++it)
 	{
 		delete *it;
 	}
@@ -151,17 +153,17 @@ void cItemsManager::purge()
 P_ITEM FindItemBySerial(int serial)
 {
 	if (!isItemSerial(serial))
-		return NULL;
+		return 0;
 	cItemsManager::iterator iterItems = cItemsManager::getInstance()->find( serial );
 	if (iterItems == cItemsManager::getInstance()->end()) 
-		return NULL;
+		return 0;
 	else 
 		return iterItems->second;
 }
 
 P_ITEM FindItemBySerPtr(unsigned char *p)
 {
-	int serial=LongFromCharPtr(p);
+	int serial = LongFromCharPtr(p);
 	if(serial == INVALID_SERIAL) return NULL;
 	return FindItemBySerial(serial);
 }

@@ -35,7 +35,7 @@
 #include "definable.h"
 #include "wpdefmanager.h"
 #include "globals.h"
-
+#include "singleton.h"
 
 #include <qvaluevector.h>
 #include <qmap.h>
@@ -89,16 +89,9 @@ private:
 
 class cAllConMenus
 {
-private:
-	cAllConMenus() {};
-	
 public:
 	~cAllConMenus()	{ menus_.clear(); }
-	static cAllConMenus* cAllConMenus::getInstance()
-	{
-		static cAllConMenus theConMenusManager;
-		return &theConMenusManager;
-	}
+
 	bool	MenuExist( QString bindmenu );
 	void	load( void );
 	void	reload( void );
@@ -106,8 +99,9 @@ public:
 	
 private:
 	QMap< QString, cConMenu >	menus_;
-	
 };
+
+typedef SingletonHolder<cAllConMenus> ContextMenus;
 
 #endif // __CONTEXTMENU_H__
 

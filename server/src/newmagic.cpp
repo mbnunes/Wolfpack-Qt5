@@ -309,7 +309,7 @@ void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 
 	// Stop the repeating animation and the endspell thing
 	pMage->stopRepeatedAction();
-	cTempEffects::getInstance()->dispel( pMage, "endcasting" ); // just to be sure...
+	TempEffects::instance()->dispel( pMage, "endcasting" ); // just to be sure...
 	
 	if( fizzle )
 	{
@@ -532,7 +532,7 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	// We show the target cursor after a given amount of time (set in the scripts)
 	// So what we are adding here is cEndCasting() supplying the Serial of our Mage 
 	// And the ID of our Spell.
-	cTempEffects::getInstance()->insert( new cEndCasting( pMage, spell, CT_BOOK, sInfo->delay ) );
+	TempEffects::instance()->insert( new cEndCasting( pMage, spell, CT_BOOK, sInfo->delay ) );
 }
 
 void cNewMagic::useWand( P_CHAR pMage, P_ITEM pWand )

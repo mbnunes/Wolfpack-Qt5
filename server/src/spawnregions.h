@@ -33,6 +33,7 @@
 #define __SPAWNREGIONS_H__ 
 
 #include "baseregion.h"
+#include "singleton.h"
 
 #include <map>
 #include <vector>
@@ -103,8 +104,6 @@ private:
 
 class cAllSpawnRegions : public cAllBaseRegions, public std::map< QString, cSpawnRegion* >
 {
-private:
-	static cAllSpawnRegions instance;
 public:
 	cAllSpawnRegions() {;}
 	~cAllSpawnRegions();
@@ -166,9 +165,9 @@ public:
 		}
 		return numItems;
 	}
-
-	static cAllSpawnRegions *getInstance( void ) { return &instance; }
 };
+
+typedef SingletonHolder<cAllSpawnRegions> SpawnRegions;
 
 #endif
 

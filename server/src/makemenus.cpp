@@ -43,6 +43,10 @@
 #undef  DBGFILE
 #define DBGFILE "makemenus.cpp"
 
+/*****************************************************************************
+  cMakeItem member functions
+ *****************************************************************************/
+
 cMakeItem::cMakeItem( const QDomElement &Tag )
 {
 	name_ = Tag.attribute( "name" );
@@ -70,6 +74,10 @@ void cMakeItem::processNode( const QDomElement &Tag )
 	else if( TagName == "amount" )
 		amount_ = Value.toUShort();
 }
+
+/*****************************************************************************
+  cUseItem member functions
+ *****************************************************************************/
 
 cUseItem::cUseItem( const QDomElement &Tag )
 {
@@ -219,14 +227,15 @@ void cUseItem::processNode( const QDomElement &Tag )
 	}
 }
 
-bool cUseItem::hasEnough( cItem* pBackpack )
+bool cUseItem::hasEnough( const cItem* pBackpack ) const
 {
 	// the next loop will search for a the item in a range of colors.
 	// it is a do-while, cause it shall run once through the loop if
 	// colormin holds the one color and colormax == 0!
-	QValueVector< UINT16 >::iterator color = colors_.begin();
+	QValueVector< UINT16 >::const_iterator color = colors_.begin();
+	QValueVector< UINT16 >::const_iterator end(colors_.end());
 	UINT16 amount = 0;
-	while( color != colors_.end() )
+	while( color != end )
 	{
 		QValueVector< UINT16 > ids = this->id();
 		QValueVector< UINT16 >::iterator it = ids.begin();
@@ -240,6 +249,10 @@ bool cUseItem::hasEnough( cItem* pBackpack )
 
 	return ( amount >= this->amount() );
 }
+
+/*****************************************************************************
+  cSkillCheck member functions
+ *****************************************************************************/
 
 cSkillCheck::cSkillCheck( const QDomElement &Tag )
 {
@@ -286,6 +299,23 @@ void cSkillCheck::applySkillMod( float skillmod )
 		min_ = temp;
 	}
 }
+
+/*****************************************************************************
+  cMakeSection member functions
+ *****************************************************************************/
+
+cMakeSection::~cMakeSection() 
+{
+	makeitems_.setAutoDelete( true );
+	makeitems_.clear();
+
+	useitems_.setAutoDelete( true );
+	useitems_.clear();
+
+	skillchecks_.setAutoDelete( true );
+	skillchecks_.clear();
+}
+
 
 cMakeSection::cMakeSection( const QDomElement &Tag, cMakeAction* baseaction )
 {
@@ -433,9 +463,9 @@ UINT32	cMakeSection::calcRank( cChar* pChar )
 		return ranksum;
 }
 
-void cMakeSection::execute( cUOSocket* socket )
+void cMakeSection::execute( cUOSocket* const socket )
 {
-	P_CHAR pChar = socket->player();
+	P_CHAR pChar	 = socket->player();
 	P_ITEM pBackpack = FindItemBySerial( pChar->packitem() );
 
 	if( !socket || !pChar || !baseaction_ )
@@ -514,7 +544,7 @@ void cMakeSection::execute( cUOSocket* socket )
 		// if the item is not pileable create amount-1 items more
 		if( pItem && !pItem->isPileable() )
 		{
-			for( UINT16 i = 1; i < miit.current()->amount(); i++ )
+			for( UINT16 i = 1; i < miit.current()->amount(); ++i )
 			{
 				pItem = Items->createScriptItem( miit.current()->section() );
 				if( pItem )
@@ -593,7 +623,7 @@ void cMakeSection::setMakeItemAmounts( UINT16 amount )
 	}
 }
 
-void cMakeSection::addMakeItemSectionPrefixes( QString prefix )
+void cMakeSection::addMakeItemSectionPrefixes( const QString& prefix )
 {
 	QPtrListIterator< cMakeItem > it( makeitems_ );
 	while( it.current() )
@@ -684,8 +714,8 @@ void cMakeAction::processNode( const QDomElement &Tag )
 		}
 		else if( type_ == RESOURCE_SECTIONS && Tag.hasAttribute( "resource" ) )
 		{
-			cAllResources::iterator found = cAllResources::getInstance()->find( Tag.attribute( "resource" ) );
-			if( found != cAllResources::getInstance()->end() )
+			cAllResources::iterator found = Resources::instance()->find( Tag.attribute( "resource" ) );
+			if( found != Resources::instance()->end() )
 			{
 				cResource* pResource = found->second;
 				if( pResource )
@@ -832,6 +862,9 @@ void cMakeAction::execute( cUOSocket* socket, UINT32 makesection )
 	pSection->execute( socket );
 }
 
+/*****************************************************************************
+  cMakeMenu member functions
+ *****************************************************************************/
 
 // cross linking will lead to an infinite loop and stack overflow
 // we avoid this by adding a special attribute for the menu tags
@@ -881,13 +914,17 @@ void cMakeMenu::processNode( const QDomElement &Tag )
 		name_ = Value;
 }
 
+/*****************************************************************************
+  cMakeMenuGump member functions
+ *****************************************************************************/
+
 cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notices )
 {
 	prev_ = menu->prevMenu();
 	// link attribute:
 	if( !menu->link().isNull() )
 	{
-		cMakeMenu* pMenu = cAllMakeMenus::getInstance()->getMenu( menu->link() );
+		cMakeMenu* pMenu = MakeMenus::instance()->getMenu( menu->link() );
 		if( pMenu )
 			menu = pMenu;
 		else
@@ -946,17 +983,17 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notice
 		addHtmlGump( 50, 365, 150, 18, htmlmask.arg( tr("PREVIOUS MENU") ) );
 	}
 
-	std::vector< cMakeMenu* > submenus = menu_->subMenus();
-	std::vector< cMakeAction* > actions = menu_->actions();
-	std::vector< cMakeMenu* >::iterator mit = submenus.begin();
-	std::vector< cMakeAction* >::iterator ait = actions.begin();
+	cMakeMenu::SubMenuContainer submenus = menu_->subMenus();
+	cMakeMenu::ActionContainer  actions  = menu_->actions();
+	cMakeMenu::SubMenuContainer::iterator mit = submenus.begin();
+	cMakeMenu::ActionContainer::iterator ait = actions.begin();
 
 	UINT32 page_;
 	UINT32 menupages = ((UINT32)ceil( (double)submenus.size() / 9.0f ));
 	UINT32 actionpages = ((UINT32)ceil( (double)actions.size() / 10.0f ));
 	UINT32 pages = ( menupages > actionpages ) ? menupages : actionpages;
 
-	for( page_ = 1; page_ <= pages; page_++ )
+	for( page_ = 1; page_ <= pages; ++page_ )
 	{
 		startPage( page_ );
 		UINT32 yoffset = 80;
@@ -969,8 +1006,8 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notice
 				addButton( 15, yoffset, 4005, 4007, i+3 );
 				addHtmlGump( 50, yoffset+3, 150, 18, htmlmask.arg( (*mit)->name() ) );
 				yoffset += 20;
-				i++;
-				mit++;
+				++i;
+				++mit;
 			}
 		}
 
@@ -985,8 +1022,8 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, cUOSocket* socket, QString notice
 				addButton( 480, yoffset, 4011, 4012, i + submenus.size() + 4 + 1000 );
 				addHtmlGump( 255, yoffset+3, 220, 18, htmlmask.arg( (*ait)->name() ) );
 				yoffset += 20;
-				i++;
-				ait++;
+				++i;
+				++ait;
 			}
 		}
 
@@ -1045,7 +1082,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	addHtmlGump( 50, 389, 80, 18, htmlmask.arg( tr("BACK") ) );
 
 	UINT32 page = 1;
-	std::vector< cMakeSection* > makesections = action->makesections();
+	cMakeAction::SectionContainer makesections = action->makesections();
 	std::vector< cMakeSection* > sections;
 	std::vector< UINT32 > offsets;
 	std::vector< cMakeSection* >::iterator it = makesections.begin();
@@ -1167,20 +1204,20 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	if( choice.button == 0 || !socket || !menu_ )
 		return;
 
-	if( !cAllMakeMenus::getInstance()->contains( menu_ ) )
+	if( !MakeMenus::instance()->contains( menu_ ) )
 	{
 		socket->sysMessage( tr("Menu lost because of script reload. Try again please!") );
 		return;
 	}
 
-	std::vector< cMakeMenu* > submenus = menu_->subMenus();
-	std::vector< cMakeAction* > actions = menu_->actions();
+	cMakeMenu::SubMenuContainer submenus = menu_->subMenus();
+	cMakeMenu::ActionContainer  actions  = menu_->actions();
 
-	if( choice.button == -1 && prev_ && cAllMakeMenus::getInstance()->contains( prev_ ) )
+	if( choice.button == -1 && prev_ && MakeMenus::instance()->contains( prev_ ) )
 		socket->send( new cMakeMenuGump( prev_, socket ) );
 	else if( action_ ) // we have response of a detail menu
 	{
-		std::vector< cMakeSection* > sections = action_->makesections();
+		cMakeAction::SectionContainer sections = action_->makesections();
 		if( choice.button <= sections.size() )
 		{
 			cMakeSection* section = sections[ choice.button-1 ];
@@ -1216,7 +1253,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		if( !pChar )
 			return;
 		cItem* pBackpack = FindItemBySerial( pChar->packitem() );
-		std::vector< cMakeSection* > sections = actions[ choice.button - submenus.size() - 4 ]->makesections();
+		cMakeAction::SectionContainer sections = actions[ choice.button - submenus.size() - 4 ]->makesections();
 		if( sections.empty() )
 		{
 			socket->send( new cMakeMenuGump( menu_, socket, tr("There is nothing to make") ) );
@@ -1226,7 +1263,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			if( sections[0]->skilledEnough( pChar ) )
 			{
 				cMakeAction* action = actions[ choice.button - submenus.size() - 4 ];
-				std::vector< cMakeSection* > makesections = action->makesections();
+				cMakeAction::SectionContainer makesections = action->makesections();
 				cMakeSection* section = makesections[0];
 				cMakeMenu* basemenu = menu_->baseMenu();
 				pChar->setLastSection( basemenu, section );
@@ -1264,6 +1301,10 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		socket->send( new cMakeMenuGump( action, socket ) );
 	}
 }
+
+/*****************************************************************************
+  cLastTenGump member functions
+ *****************************************************************************/
 
 cLastTenGump::cLastTenGump( QPtrList< cMakeSection > sections, cMakeMenu* prev, QString notices )
 {
@@ -1335,7 +1376,7 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		return;
 
 	// script reload will lose any object, so it is enough to search for the prev menu.
-	if( !cAllMakeMenus::getInstance()->contains( prev_ ) )
+	if( !MakeMenus::instance()->contains( prev_ ) )
 	{
 		socket->sysMessage( tr("Menu lost because of script reload. Try again please!") );
 		return;
@@ -1369,6 +1410,23 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		socket->send( new cMakeMenuGump( action, socket ) ); 
 	}
 }
+
+/*****************************************************************************
+  cAllMakeMenu member functions
+ *****************************************************************************/
+
+cAllMakeMenus::~cAllMakeMenus()
+{
+	std::map< QString, cMakeMenu* >::iterator iter = menus_.begin();
+	std::map< QString, cMakeMenu* >::const_iterator end(menus_.end());
+	while( iter != end )
+	{
+		delete iter->second;
+		++iter;
+	}
+	menus_.clear();
+}
+
 
 void cAllMakeMenus::load()
 {

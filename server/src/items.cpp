@@ -554,7 +554,7 @@ static int ContainerCountItems(const int serial, short id, short color)
 }
 
 
-int cItem::CountItems(short ID, short col)
+int cItem::CountItems(short ID, short col) const
 {
 	return ContainerCountItems(serial, ID, col);
 }

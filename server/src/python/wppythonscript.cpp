@@ -29,6 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+#include <limits>
+
 #include "wppythonscript.h"
 #include "../worldmain.h"
 #include "../globals.h"

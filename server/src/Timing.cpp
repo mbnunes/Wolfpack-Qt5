@@ -780,7 +780,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 	if(checkspawnregions<=currenttime && SrvParams->spawnRegionCheckTime() != -1)//Regionspawns
 	{
-		cAllSpawnRegions::getInstance()->check();
+		SpawnRegions::instance()->check();
 		checkspawnregions=uiCurrentTime+SrvParams->spawnRegionCheckTime()*MY_CLOCKS_PER_SEC;//Don't check them TOO often (Keep down the lag)
 	}
 
@@ -940,7 +940,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	}
 
 	// Check the TempEffects
-	cTempEffects::getInstance()->check();
+	TempEffects::instance()->check();
 
 	if ( freeUnusedMemory <= currenttime )
 	{

@@ -80,7 +80,7 @@ public:
 		qArrow.setActive( 1 );
 		qArrow.setPos( pTarget->pos );
 		pChar->socket()->send( &qArrow );
-		cTempEffects::getInstance()->insert( new cRefreshTracking( pChar->serial ) );
+		TempEffects::instance()->insert( new cRefreshTracking( pChar->serial ) );
 	}
 };
 
@@ -105,7 +105,7 @@ public:
 		// Start the refresh-timer
 		// Start the wearoff-timer
 		player->setTrackingTimer( uiCurrentTime + ( 30 * MY_CLOCKS_PER_SEC ) );
-		cTempEffects::getInstance()->insert( new cRefreshTracking( player->serial ) );
+		TempEffects::instance()->insert( new cRefreshTracking( player->serial ) );
 	}
 
 	cTrackingList( P_CHAR player, UINT8 type )

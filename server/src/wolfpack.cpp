@@ -1222,11 +1222,11 @@ void checkkey ()
 
 				SrvParams->reload(); // Reload wolfpack.xml
 				DefManager->reload(); //Reload Definitions
-				cAllSpawnRegions::getInstance()->reload();
+				SpawnRegions::instance()->reload();
 				cAllTerritories::getInstance()->reload();
-				cAllResources::getInstance()->reload();
-				cAllMakeMenus::getInstance()->reload();
-				cAllConMenus::getInstance()->reload();
+				Resources::instance()->reload();
+				MakeMenus::instance()->reload();
+				ContextMenus::instance()->reload();
 				cCommands::instance()->loadACLs();
 
 				ScriptManager->reload(); // Reload Scripts
@@ -1491,10 +1491,10 @@ int main( int argc, char *argv[] )
 	cwmWorldState->loadnewworld("binary");
 	CIAO_IF_ERROR; // LB prevents file corruption
 
-	cAllSpawnRegions::getInstance()->load();
-	cAllResources::getInstance()->load();
-	cAllMakeMenus::getInstance()->load();
-	cAllConMenus::getInstance()->reload();
+	SpawnRegions::instance()->load();
+	Resources::instance()->load();
+	MakeMenus::instance()->load();
+	ContextMenus::instance()->reload();
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;
