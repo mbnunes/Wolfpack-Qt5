@@ -32,7 +32,7 @@ def onDropOnItem( potionkeg, potion ):
 		socket.clilocmessage( 502247 )
 		return True
 
-	if potionkeg.id in [ int(0x1ad6), int(0x1ad7), int(0x1940) ]:
+	if potionkeg.id in [0x1ad6, 0x1ad7, 0x1940]:
 		if potionkeg.hastag( 'potiontype' ):
 			if potion.gettag( 'potiontype' ) == potionkeg.gettag( 'potiontype' ):
 				if kegfill < 100 and kegfill >= 0:

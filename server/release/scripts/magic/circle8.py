@@ -83,6 +83,7 @@ class Resurrection(Spell):
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_GARLIC: 1, REAGENT_GINSENG: 1}
 		self.mantra = 'An Corp'
 		self.validtarget = TARGET_CHAR
+		self.affectdead = True
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)

@@ -147,10 +147,11 @@ def onShowTooltip(viewer, object, tooltip):
 			tooltip.add(1061175, '')
 
 		# Special weapon range
-		if object.hasintproperty( 'range' ) or object.hastag( 'range' ):
-			weaponrange = int( object.getintproperty( 'range' ), 12 )
+		if object.hasintproperty( 'range' ) or object.hastag( 'range' ):			
 			if object.hastag( 'range' ):
 				weaponrange = int( object.gettag( 'range' ) )
+			else:
+				weaponrange = int( object.getintproperty( 'range', 12 ) )
 			if weaponrange > 1:
 				tooltip.add( 1061169, str(weaponrange) )
 
