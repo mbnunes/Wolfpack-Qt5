@@ -47,6 +47,8 @@ class cItemsManager : public std::map<SERIAL, cItem*>
 {
 private:
 	cItemsManager() {} // Unallow anyone to instantiate.
+	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
+	operator=(cItemsManager& _it) {} // Unallow Assignment
 public:
 	void registerItem( cItem* ) throw(wp_exceptions::bad_ptr);
 	void unregisterItem( cItem* ) throw (wp_exceptions::bad_ptr);
@@ -67,8 +69,7 @@ protected:
 public:
 	AllItemsIterator()							
 	{ 
-		cItemsManager itemsManager = cItemsManager::getItemsManager();
-		iterItems = itemsManager.begin(); 
+		iterItems = cItemsManager::getItemsManager().begin(); 
 	}
 
 	virtual ~AllItemsIterator()					{ }
@@ -82,6 +83,7 @@ public:
 	P_ITEM Next()
 	{
 		iterItems++;
+		return iterItems->second;
 	}
 	bool atEnd()									{ return (iterItems == cItemsManager::getItemsManager().end()); }
 	AllItemsIterator& operator++(int)		    { iterItems++; return *this; }

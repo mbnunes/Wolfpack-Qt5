@@ -5469,7 +5469,7 @@ void InitMultis()
 				if (pi_multi->type==117)
 					pc->SetMultiSerial(pi_multi->serial);
 				else
-					pc->multis = -1;
+					pc->multis = INVALID_SERIAL;
 			}
 		}
 	}
@@ -5484,7 +5484,8 @@ void InitMultis()
 			if (pi_multi != NULL)
 				if (pi_multi != pi)
 					pi->SetMultiSerial(pi_multi->serial);
-				else pi->multis=-1;
+				else 
+					pi->multis = INVALID_SERIAL;
 		}
 	}
 }

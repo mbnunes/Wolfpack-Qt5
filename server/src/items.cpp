@@ -1446,6 +1446,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 				{
 					preservebody=0;
 					serial=pi->serial;
+					unsigned int ci;
 					vector<SERIAL> vecContainer = contsp.getData(serial);
 					for( ci=0; ci < vecContainer.size(); ci++ )
 					{
@@ -1468,6 +1469,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 				{
 					serial=pi->serial;
 					vector<SERIAL> vecContainer = contsp.getData(serial);
+					unsigned int ci;
 					for (ci=0;ci<vecContainer.size();ci++)
 					{
 						P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);

@@ -53,7 +53,7 @@ public:
 	unsigned char color2;
 	unsigned short amount; // Amount of items in pile
 	unsigned short amount2; //Used to track things like number of yards left in a roll of cloth
-	unsigned char free;
+	bool free;
 	Coord_cl pos;
 	struct						// Attention, this is a bit field
 	{

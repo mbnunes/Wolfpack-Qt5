@@ -195,10 +195,6 @@ SOURCE=.\im.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\item_array.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\itemid.cpp
 # End Source File
 # Begin Source File
@@ -207,7 +203,7 @@ SOURCE=.\items.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ItemWrap.cpp
+SOURCE=.\itemsmgr.cpp
 # End Source File
 # Begin Source File
 
@@ -495,10 +491,6 @@ SOURCE=.\inlines.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\item_array.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\itemid.h
 # End Source File
 # Begin Source File
@@ -507,7 +499,7 @@ SOURCE=.\items.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ItemWrap.h
+SOURCE=.\itemsmgr.h
 # End Source File
 # Begin Source File
 

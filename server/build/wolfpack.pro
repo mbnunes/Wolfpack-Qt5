@@ -25,7 +25,6 @@ TEMPLATE        = app
 CONFIG          = console release
 HEADERS		= CharWrap.h \
 		  Client.h \
-		  ItemWrap.h \
 		  SndPkg.h \
 		  SrvParms.h \
 		  Timing.h \
@@ -55,9 +54,9 @@ HEADERS		= CharWrap.h \
 		  hFile.h \
 		  im.h \
 		  inlines.h \
-		  item_array.h \
 		  itemid.h \
 		  items.h \
+                  itemsmgr.h \
 		  junk.h \
 		  mapstuff.h \
 		  msgboard.h \
@@ -97,7 +96,6 @@ HEADERS		= CharWrap.h \
 
 SOURCES		= CharWrap.cpp \
 		  Client.cpp \
-		  ItemWrap.cpp \
 		  LoS.cpp \
 		  SkiTarg.cpp \
 		  SndPkg.cpp \
@@ -130,9 +128,9 @@ SOURCES		= CharWrap.cpp \
 		  house.cpp \
 		  html.cpp \
 		  im.cpp \
-		  item_array.cpp \
 		  itemid.cpp \
 		  items.cpp \
+                  itemsmgr.cpp \
 		  magic.cpp \
 		  mapstuff.cpp \
 		  msgboard.cpp \

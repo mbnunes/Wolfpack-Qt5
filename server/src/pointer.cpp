@@ -168,9 +168,8 @@ P_ITEM FindItemBySerial(int serial)
 {
 	if (!isItemSerial(serial))
 		return NULL;
-	cItemsManager itemsManager = cItemsManager::getItemsManager();
-	cItemsManager::iterator iterItems = itemsManager.find( serial );
-	if (iterItems == itemsManager.end()) 
+	cItemsManager::iterator iterItems = cItemsManager::getItemsManager().find( serial );
+	if (iterItems == cItemsManager::getItemsManager().end()) 
 		return NULL;
 	else 
 		return iterItems->second;

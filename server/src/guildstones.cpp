@@ -1610,7 +1610,7 @@ int cGuilds::CheckValidPlace(int s)
 	if(pc_currchar->packitem != INVALID_SERIAL)
 	{
 		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem);
-		for (int j = 0; j < vecContainer.size(); j++)
+		for (unsigned int j = 0; j < vecContainer.size(); j++)
 		{
 			P_ITEM pi = FindItemBySerial(vecContainer[j]);
 			if (pi != NULL) 
