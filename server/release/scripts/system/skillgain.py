@@ -115,6 +115,9 @@ def gainskill(char, skill, totalskill, totalcap):
 			points = randint(1, 5) / 10.0
 		else:
 			points = 0.1
+		
+		if char.hastag('skillgain_debug'):
+			char.say('GAINING 1 POINT')
 
 		# This will always happen if we are above the skillcap
 		# But if we have some skills set to lower, they
@@ -159,7 +162,10 @@ def gainskill(char, skill, totalskill, totalcap):
 
 			if char.socket:
 				char.socket.updateskill(skill)
-
+		elif char.hastag('skillgain_debug'):
+			char.say('SKILLS EXCEED TOTAL CAP')
+	elif char.hastag('skillgain_debug'):
+		char.say('SKILL IS LOCKD OR EXCEEDS CAP')
 #
 # Called when the character gains in a skill.
 #
@@ -235,7 +241,12 @@ def onSkillGain(char, skill, lower, higher, success):
 
 	# Skills below 10% always gain, otherwise take the gainchance into
 	# account.
-	if gainchance >= random() or value < 10.0:
+	rndval = random()
+	if char.hastag('skillgain_debug'):
+		char.say('GAINCHANCE: ' + str(gainchance))
+		char.say('RNDVAL: ' + str(rndval))
+
+	if gainchance >= rndval or value < 10.0:
 		gainskill(char, skill, totalskills, totalcap)
 
 	lock = char.skilllock[skill] # Lock value for the skill

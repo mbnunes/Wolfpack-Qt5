@@ -255,9 +255,13 @@ class BlacksmithingMenu(MakeMenu):
 
 					if amount > 0:
 						# Randomly select one of the resources required by that metal
+						baseid = random.choice(metal[3])
+						player.log(LOG_MESSAGE, "Smelted item %s (0x%x) to %s. Amount %u.\n" % (item.baseid, item.serial, baseid, amount))
 						item.delete()
-						ingots = wolfpack.additem(random.choice(metal[3]))
+
+						ingots = wolfpack.additem(baseid)
 						ingots.amount = amount
+
 						if not tobackpack(ingots, player):
 							ingots.update()
 

@@ -30,8 +30,6 @@
 		<group name="command">
 			<action name="any" permit="true" />
 			<action name="RELOAD" permit="false" />
-			<action name="IMPORT" permit="false" />			
-			<action name="EXPORT" permit="false" />
 			<action name="ACCOUNT" permit="false" />
 			<action name="SHUTDOWN" permit="false" />
 			<action name="DECORATION" permit="false" />
@@ -84,6 +82,7 @@
 			<action name="ADDSPELL" permit="true" />
 			<action name="ALLMOVE" permit="true" />
 			<action name="ALLSKILLS" permit="true" />
+			<action name="BARK" permit="true" />
 			<action name="BOLT" permit="true" />
 			<action name="BROADCAST" permit="true" />
 			<action name="CAST" permit="true" />
@@ -108,6 +107,7 @@
 			<action name="NIGHTSIGHT" permit="true" />
 			<action name="NUDGEDOWN" permit="true" />
 			<action name="NUDGEUP" permit="true" />
+			<action name="PAGE" permit="true" />
 			<action name="PAGENOTIFY" permit="true" />
 			<action name="POISON" permit="true" />
 			<action name="REMOVE" permit="true" />
@@ -134,6 +134,11 @@
 			<action name="TELEM" permit="true" />
 			<action name="WHERE" permit="true" />
 			<action name="WHO" permit="true" />
+                        <action name="H" permit="true" /> <!-- Hochelfen -->
+                        <action name="Z" permit="true" /> <!-- Zwergisch -->
+                        <action name="D" permit="true" /> <!-- Drow -->
+                        <action name="CHECKMAGIE" permit="true" />
+                        <action name="ZEIT" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>
@@ -141,23 +146,33 @@
 	<!-- Counselor privs -->
 	<acl id="counselor" rank="25">
 		<group name="command">
-			<action name="any" permit="false" />
-			<action name="ACTION" permit="true" />
-			<action name="FIX" permit="true" />
-			<action name="GO" permit="true" />
-			<action name="FIX" permit="true" />
-			<action name="PAGENOTIFY" permit="true" />
-			<action name="PAGES" permit="true" />
-			<action name="PASSWORD" permit="true" />
-			<action name="TIME" permit="true" />
-			<action name="UPDATEPLAYER" permit="true" />
-			<action name="RESEND" permit="true" />
-			<action name="SERVERINFO" permit="true" />
+                        <action name="any" permit="false" />
+                        <action name="ADDSCRIPT" permit="true" />
+                        <action name="ALLMOVE" permit="true" />
+                        <action name="DELTAG" permit="true" />
+			<action name="DYE" permit="true" />
+                        <action name="FIX" permit="true" />
+                        <action name="GETTAG" permit="true" />
+                        <action name="GO" permit="true" />
+                        <action name="INVIS" permit="true" />
+                        <action name="INVUL" permit="true" />
+                        <action name="MOVE" permit="true" />
+                        <action name="NIGHTSIGHT" permit="true" />
+                        <action name="NUDGEDOWN" permit="true" />
+                        <action name="NUDGEUP" permit="true" />
+                        <action name="REMOVE" permit="true" />
+                        <action name="REMOVESCRIPT" permit="true" />
+                        <action name="RESEND" permit="true" />
+                        <action name="RESENDTOOLTIP" permit="true" />
+                        <action name="SET" permit="true" />
+			<action name="SETTAG" permit="true" />
+			<action name="SPAWN" permit="true" />
 			<action name="STAFF" permit="true" />
-			<action name="TELE" permit="true" />
-			<action name="TRAVEL" permit="true" />
-			<action name="WHERE" permit="true" />
-			<action name="WHO" permit="true" />
+                        <action name="STATIC" permit="true" />
+                        <action name="TELE" permit="true" />
+                        <action name="TELEM" permit="true" />
+			<action name="TILE" permit="true" />
+                        <action name="WHERE" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>
@@ -167,14 +182,17 @@
 		<group name="command">
 			<action name="any" permit="false" />
 			<action name="ACTION" permit="true" />
+			<action name="BARK" permit="true" />
 			<action name="FIX" permit="true" />
-			<action name="EMAIL" permit="true" />
-			<action name="PASSWORD" permit="true" />
 			<action name="TIME" permit="true" />
-			<action name="UPDATEPLAYER" permit="true" />
 			<action name="RESEND" permit="true" />
 			<action name="SERVERINFO" permit="true" />
 			<action name="WHERE" permit="true" />
+			<action name="E" permit="true" /> <!-- Elfen -->
+			<action name="D" permit="true" /> <!-- Dunkelelfisch -->
+			<action name="Z" permit="true" /> <!-- Zwergisch -->
+			<action name="CHECKMAGIE" permit="true" />
+			<action name="ZEIT" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>
