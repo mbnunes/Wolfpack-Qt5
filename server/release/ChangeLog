@@ -26,6 +26,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Improved goname command (you can not only go the first char; e.g. use the command twice to go to
     the second char with the same name etc.)
   - Added a goitem <name> command (same function as goname, but for items)
+  - Fixed a bug in the nukez command.
+  - Fixed an issue with skillgain in the low levels.
+  - Its no longer possible to equip movable>=2 items with doubleclicks.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
