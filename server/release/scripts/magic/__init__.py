@@ -177,10 +177,16 @@ def onDamage(char, type, amount, source):
 	fizzle(char)
 	return amount
 
-def onWalk( char, direction, sequence ):
+def maymove(char, direction, sequence):
 	if char.npc or char.gm:
-		return False # No processing for NPCs
+		return True
 		
+	return False
+
+def onWalk( char, direction, sequence ):
+	if maymove(char, direction, sequence):
+		return False
+			
 	# Disallow movement for players
 	packet = wolfpack.packet(0x21, 8)
 	packet.setbyte(1, sequence)
