@@ -15,7 +15,6 @@
 	
 	<!-- a gray horse -->
 	<npc id="gray_horse">
-		<ai>2</ai>
 		<name>a horse</name>
 		<id>0x0E2</id>
 		<skin>0</skin>
@@ -23,8 +22,8 @@
 		<karma><random min="625" max="1249" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<defense><random min="18" max="18" /></defense>
-		<lodamage></lodamage>
-		<hidamage></hidamage>
+		<lodamage>5</lodamage>
+		<hidamage>15</hidamage>
 		<!-- Stats -->
 		<str><random min="158" max="180" /></str>
 		<dex><random min="26" max="45" /></dex>
@@ -34,5 +33,10 @@
 		<totame>220</totame>
 		<anatomy><random min="0" max="0" /></anatomy>
 		<!-- Priv -->
+		
+		<food>4</food><!--fruits-->
+		<food>5</food><!--crops-->
+		<food>6</food><!--hay-->
+		<food>7</food><!--grain-->
 	</npc>
 </definitions>

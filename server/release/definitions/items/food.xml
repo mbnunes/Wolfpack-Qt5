@@ -6,7 +6,32 @@
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
+
+<!-- 
+Food subtypes:
+0 - no food
+1 - raw meat
+2 - raw fish
+3 - eggs
+4 - crops
+5 - fruits
+6 - hay
+7 - grain
+8 - cooked meat
+9 - cooked fish
+10 - pastries
+11 - leather
+12 - metal
+-->
+
 <definitions>
+	<!-- Hay -->
+	<item id="f36">
+		<category>Equipment\Food\Hay</category>
+		<id>0x0F36</id>
+		<food>6</food>
+	</item>
+	
 	<!-- Stew -->
 	<item id="970">
 		<category>Equipment\Food\Stew</category>
