@@ -101,7 +101,10 @@ class WebserverThread(Thread):
 		server_address = ( '', self.port )
 		time.sleep( 5 )	
 
-		httpd = Webserver( server_address, WebserverHandler )
+		try:
+			httpd = Webserver( server_address, WebserverHandler )
+		except:
+			print "error occured"
 
 		while not self.finished.isSet():
 			httpd.handle_request()
@@ -124,5 +127,6 @@ def onLoad():
 def onUnload():
 	# Stop the Thread
 	thread.cancel()
+	del thread
 
 	web.sessions.clear_sessions()
