@@ -3354,9 +3354,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 	{
 		cCharStuff::DeleteChar( pc );
 		return;
-	}
-
-	setcharflag( pc ); //AntiChrist
+	}	
 }
 
 bool cChar::onShowContext( cUObject *object )

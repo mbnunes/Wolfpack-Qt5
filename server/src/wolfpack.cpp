@@ -1351,18 +1351,6 @@ int main( int argc, char *argv[] )
 		getch();
 		exit(-1);		
 	}
-	catch( ... )
-	{
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "\nERROR" );
-		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ": Unhandeled Exception caught!\n" );
-		clConsole.send( "Press any key to continue..." );
-		cNetwork::instance()->shutdown();
-		DeleteClasses();
-		getch();
-		exit(-1);
-	}
 
 	clConsole.PrepareProgress( "Postprocessing" );
 
@@ -1479,6 +1467,10 @@ int main( int argc, char *argv[] )
 
 			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
 			pChar->setRegion( region );
+
+			// Now that we have our owner set correctly
+			// do the charflags
+			setcharflag( pChar );
 		}
 	}
 
