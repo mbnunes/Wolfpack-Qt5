@@ -100,6 +100,20 @@ class Spell:
 
 		# Change this to 0 for AoS behaviour
 		self.castrecovery = 1 * circle
+		
+	#
+	# Show the cast action
+	#
+	def docastaction(self, char, mode):
+		if char.bodytype == BODY_HUMAN and not char.itemonlayer( LAYER_MOUNT ):
+			char.action(self.castaction)		
+		
+	#
+	# Say the mantra
+	#
+	def saymantra(self, char, mode):
+		if self.mantra and mode in [MODE_BOOK, MODE_SCROLL]:
+			char.say(self.mantra)
 
 	#
 	# Prepare the casting of this spell.
@@ -137,15 +151,14 @@ class Spell:
 		# Unhide the Caster
 		char.reveal()
 
-		if self.mantra:
-			char.say(self.mantra)
+		# Say the mantra
+		self.saymantra(char, mode)
 
 		# Precasting
 		char.addscript('magic')
 
 		# Show the cast action
-		if char.bodytype == BODY_HUMAN and not char.itemonlayer( LAYER_MOUNT ):
-			char.action(self.castaction)
+		self.docastaction(char, mode)
 
 		if item:
 			item = item.serial
