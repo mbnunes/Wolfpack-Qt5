@@ -19,7 +19,7 @@
 		<maxhitpoints>150</maxhitpoints>
 		<maxstamina>50</maxstamina>
 		<!-- Skills -->
-		<magicresistance>600/magicresistance>
+		<magicresistance>600</magicresistance>
 		<tactics>1000</tactics>
 		<wrestling>800</wrestling>
 		<anatomy>0</anatomy>
