@@ -98,7 +98,7 @@ void cTiming::poll() {
 		cItemIterator iter;
 		cItem *item;
 		for (item = iter.first(); item; item = iter.next()) {
-			if (item->isInWorld() && ( item->decaytime() > 0 && item->decaytime() <= time ) && !item->multi() ) {
+			if (item->isInWorld() && item->nodecay() == false && item->decaytime() <= time && !item->multi() ) {
 				toRemove.append(item);
 			}
 		}
