@@ -1,24 +1,12 @@
 <definitions>
-	<script id="training_dummy" type="python">
-		<module name="training_dummy" />
-	</script>
-	
-	<script id="pickpocket_dip" type="python">
-		<module name="pickpocket_dip" />
-	</script>
-	
-	<script id="archery_butte" type="python">
-		<module name="archery_butte" />
-	</script>
-	
-	<script id="wall_clock" type="python">
-		<module name="wall_clock" />
-	</script>
-	
-	<script id="slotmachine" type="python">
-		<module name="slotmachine" />
-	</script>	
+	<script id="training_dummy" type="python" module="training_dummy" />
+	<script id="pickpocket_dip" type="python" module="pickpocket_dip" />
+	<script id="archery_butte" type="python" module="archery_butte" />
+	<script id="wall_clock" type="python" module="wall_clock" />
+	<script id="slotmachine" type="python" module="slotmachine" />
+	<script id="kindling" type="python" module="kindling" />
 
-	<script id="spell_clumsy" type="python"><module name="spells.clumsy" /></script>
-	<script id="spell_createfood" type="python"><module name="spells.createfood" /></script>
+	<!-- Spell Scripts -->
+	<script id="spell_clumsy" type="python" module="spells.clumsy" />
+	<script id="spell_createfood" type="python" module="spells.createfood" />
 </definitions>

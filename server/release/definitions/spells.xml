@@ -12,21 +12,25 @@
 <!-- // TARG: message for targ. spells    REFLECT: 1=reflectable, 2=not refl. -->
 <!-- // Clumsy -->
 	<spell id="1">
-		<circle>1</circle>
-		<lowskill>11</lowskill>
-		<highskill>401</highskill>
-		<scrolllowskill>0</scrolllowskill>
-		<scrollhighskill>201</scrollhighskill>
+		<name>Clumsy</name>
+		<mana>5</mana>
+		<booklow>11</booklow>
+		<bookhigh>401</bookhigh>
+		<scrolllow>0</scrolllow>
+		<scrollhigh>201</scrollhigh>
 		<mantra>Uus Jux</mantra>
 		<action>10</action>
+		<actiondelay>1200</actiondelay>
+		<delay>2000</delay>
 		<target>Select target for clumsy.</target>
-		<reflect />
-		<requirements>
-			<mana>4</mana>
-			<moss>1</moss>
-			<shade>1</shade>
-		</requirements>
-		<agressive />
+		<targets>
+			<char />
+		</targets>
+		<flags>
+			<reflectable />
+			<resistable />
+		</flags>
+		<script>spell_clumsy</script>
 	</spell>
 
 <!-- // Create Food -->
