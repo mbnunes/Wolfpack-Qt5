@@ -12,33 +12,33 @@
 	<npc id="chicken" inherit="animal_base">
 		<name>chicken</name>
 		<ai>Animal_Domestic</ai>
-		<id>208</id>
+		<id value="208" />
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str>5</str>
-		<dex>15</dex>
-		<int>5</int>
+		<str value="5" />
+		<dex value="15" />
+		<int value="5" />
 		<!-- Status -->
 		<maxhitpoints>3</maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
-		<wrestling>50</wrestling>
-		<tactics>50</tactics>
-		<magicresistance>40</magicresistance>
+		<skill id="wrestling" value="50" />
+		<skill id="tactics" value="50" />
+		<skill id="magicresist" value="40" />
+		<skill id="anatomy" value="0" />
 		<!-- Damage -->
-		<mindamage>1</mindamage>
-		<maxdamage>1</maxdamage>
+		<mindamage value="1" />
+		<maxdamage value="1" />
 		<!-- Defense -->
 		<tag name="res_physical" value="0,5" type="int" />
 		<!-- Misc -->
-		<mintaming>0</mintaming>
+		<mintaming value="0" />
+		<controlslots value="1" />
 		<food>3</food>
 		<carve>carve_chicken</carve>
-		<controlslots>1</controlslots>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Chicken</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_feathers" value="25" />
 		<intproperty name="carve_meat" value="1" />
@@ -47,27 +47,28 @@
 
 	<!-- Super Chicken -->
 	<npc id="super_chicken" inherit="chicken">
-		<karma>0</karma>
-		<fame><random min="0" max="150" /></fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str>25</str>
-		<dex>35</dex>
-		<int>15</int>
+		<str value="25" />
+		<dex value="35" />
+		<int value="15" />
 		<!-- Status -->
-		<maxhitpoints>30</maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints value="30" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>3</mindamage>
-		<maxdamage>9</maxdamage>
+		<mindamage value="3" />
+		<maxdamage value="9" />
 		<!-- Defense -->
 		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Skills -->
-		<wrestling>350</wrestling>
-		<tactics>350</tactics>
-		<magicresistance>400</magicresistance>
-		<mintaming>250</mintaming>
+		<skill id="wrestling" value="350" />
+		<skill id="tactics" value="350" />
+		<skill id="magicresist" value="400" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc -->
-		<controlslots>2</controlslots>
+		<controlslots value="2" />
+		<mintaming value="250" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Chicken (Strong)</category>
 	</npc>

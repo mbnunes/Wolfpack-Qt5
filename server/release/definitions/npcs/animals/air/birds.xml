@@ -12,34 +12,33 @@
 	<npc id="bird" inherit="animal_base">
 		<name><random list="NAMES_BIRDS" /></name>
 		<ai>Animal_Wild</ai>
-		<id>6</id>
+		<id value="6" />
 		<skin><random list="SKINS_BIRD" /></skin>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="1" max="4" /></str>
-		<dex>25</dex>
-		<int><random min="1" max="4" /></int>
+		<str min="1" max="4" />
+		<dex value="25" />
+		<int min="1" max="4" />
 		<!-- Status -->
 		<maxhitpoints><random min="1" max="3" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxmana value="0" />
 		<!-- Skills -->
-		<wrestling>50</wrestling>
-		<tactics>50</tactics>
-		<magicresistance>50</magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" value="50" />
+		<skill id="tactics" value="50" />
+		<skill id="magicresist" value="50" />
+		<skill id="anatomy" value="0" />
 		<!-- Damage -->
-		<mindamage>1</mindamage>
-		<maxdamage>1</maxdamage>
+		<mindamage value="1" />
+		<maxdamage value="1" />
 		<!-- Defense -->
 		<tag name="res_physical" value="0,3" type="int" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>0</mintaming>
+		<controlslots value="1" />
+		<mintaming value="0" />
 		<food>3</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Random Bird</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_feathers" value="25" />
 		<intproperty name="carve_meat" value="1" />
