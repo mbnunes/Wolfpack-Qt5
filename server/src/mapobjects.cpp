@@ -836,8 +836,8 @@ inline cUObject * firstObjectInRectangle( IteratorState *is )
 	MapObjectsGrid *map = is->map;
 	RectangleIteratorState &state = is->state.rect;
 
-	state.cellX = ( state.x1 / map->cellSize() );
-	state.cellY = ( state.y1 / map->cellSize() );
+	state.cellX = wpMax<int>(0, ( state.x1 / map->cellSize() ));
+	state.cellY = wpMax<int>(0, ( state.y1 / map->cellSize() ));
 	state.lastCellX = wpMin<UI16>( map->gridWidth() - 1, state.x2 / map->cellSize() );
 	state.lastCellY = wpMin<UI16>( map->gridHeight() - 1, state.y2 / map->cellSize() );
 
@@ -853,8 +853,8 @@ inline cUObject * firstObjectInCircle( IteratorState *is )
 	MapObjectsGrid *map = is->map;
 	CircleIteratorState &state = is->state.circle;
 
-	state.cellX = ( ( state.x - state.radius ) / map->cellSize() );
-	state.cellY = ( ( state.y - state.radius ) / map->cellSize() );
+	state.cellX = wpMax<int>(0, ( ( state.x - state.radius ) / map->cellSize() ));
+	state.cellY = wpMax<int>(0, ( ( state.y - state.radius ) / map->cellSize() ));
 	state.lastCellX = wpMin<UI16>( map->gridWidth() - 1, ( state.x + state.radius ) / map->cellSize() );
 	state.lastCellY = wpMin<UI16>( map->gridHeight() - 1, ( state.y + state.radius ) / map->cellSize() );
 
