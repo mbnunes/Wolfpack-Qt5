@@ -421,7 +421,7 @@ QCString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 	if ( rawPacket.size() < fieldLength + pos )
 	{
 		qWarning( "Warning: cUOPacket::getAsciiString() called with params out of bounds" );
-		return QString(); //#better return empty ?
+		return QCString(); //#better return empty ?
 	}
 #endif
 	if ( fieldLength )
