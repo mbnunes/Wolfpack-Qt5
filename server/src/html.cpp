@@ -163,7 +163,7 @@ void updatehtml()//HTML
 			{
 				ccount=0;
 				AllCharsIterator iter_char;
-				for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
+				for (iter_char.Begin(); !iter_char.atEnd(); ++iter_char)
 				{
 					P_CHAR toCheck = iter_char.GetData();
 					if(!toCheck->free) 
@@ -178,15 +178,7 @@ void updatehtml()//HTML
 		}
 		else if(!(strcmp((char*)script1,"ITEMCOUNT"))) 
 		{
-			icount=0;
-			AllItemsIterator iter_items;
-			for(iter_items.Begin(); !iter_items.atEnd(); iter_items++)
-			{
-				P_ITEM pi = iter_items.GetData();
-				if(!pi->free) 
-					icount++;
-			}
-			fprintf(html,"%i",icount);
+			fprintf(html,"%i",cItemsManager::getInstance()->size());
 		}
 		else if(!(strcmp((char*)script1,"UPTIME")))
 		{
@@ -228,10 +220,13 @@ void updatehtml()//HTML
 		{
 			if(cns==0)
 			{
-				for(a=0;a<now;a++)
+				register int a;
+				for(a = 0; a < now; ++a)
 				{
-					if(currchar[a]->isGM() && perm[a]) gm++;
-					else if(currchar[a]->isCounselor() && perm[a]) cns++; //bugfix LB
+					if ( !currchar[a] )
+						continue;
+					if( perm[a] && currchar[a]->isGM() ) gm++;
+					else if( perm[a] && currchar[a]->isCounselor() ) cns++; //bugfix LB
 				}
 			}
 			fprintf(html,"%i",cns);
