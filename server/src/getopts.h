@@ -49,6 +49,9 @@ public:
 
 	void parse_options( int, char** );
 
+	inline bool isDaemon() const {
+		return isDaemon_;
+	}
 private:
 	QString pidfile_;
 	bool isDaemon_;

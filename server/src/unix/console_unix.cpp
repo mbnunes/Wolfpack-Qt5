@@ -40,6 +40,7 @@
 
 // Wolfpack includes
 #include "console.h"
+#include "getopts.h"
 #include "globals.h"
 #include "wolfpack.h"
 
@@ -107,30 +108,33 @@ protected:
 			signal( SIGTERM, &signal_handler ); // Terminate Server
 			signal( SIGPIPE, SIG_IGN );			// Ignore SIGPIPE
 
-			while( serverState < SHUTDOWN )
+			if( !Getopts::instance()->isDaemon() )
 			{
-				// Do a select operation on the stdin handle and see
-				// if there is any input waiting.
-				fd_set consoleFds;
-				FD_ZERO( &consoleFds );				
-				FD_SET( STDIN_FILENO, &consoleFds );
-
-				timeval tvTimeout;
-				tvTimeout.tv_sec = 0;
-				tvTimeout.tv_usec = 1;
-		
-				if( select( 1, &consoleFds, 0, 0, &tvTimeout ) > 0 )
+				while( serverState < SHUTDOWN )
 				{
-					char c = fgetc( stdin );
+					// Do a select operation on the stdin handle and see
+					// if there is any input waiting.
+					fd_set consoleFds;
+					FD_ZERO( &consoleFds );				
+					FD_SET( STDIN_FILENO, &consoleFds );
 
-					if( c > 0 && serverState == RUNNING )
+					timeval tvTimeout;
+					tvTimeout.tv_sec = 0;
+					tvTimeout.tv_usec = 1;
+			
+					if( select( 1, &consoleFds, 0, 0, &tvTimeout ) > 0 )
 					{
-						Console::instance()->queueCommand( QChar( c ) );
+						char c = fgetc( stdin );
+
+						if( c > 0 && serverState == RUNNING )
+						{
+							Console::instance()->queueCommand( QChar( c ) );
+						}
 					}
-				}
-				else
-				{
-					msleep( 100 );
+					else
+					{
+						msleep( 100 );
+					}
 				}
 			}
 		}
