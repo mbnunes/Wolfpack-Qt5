@@ -342,7 +342,7 @@ CREATE TABLE items (
   disabled int(10) unsigned NOT NULL default '0',
   spawnregion varchar(255) binary default NULL,
   good int(11) NOT NULL default '0',
-  desc varchar(255) default NULL,
+  description varchar(255) default NULL,
   carve varchar(255) default NULL,
   accuracy smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (serial),
@@ -456,17 +456,6 @@ CREATE TABLE uobjectmap (
 ) TYPE=MyISAM;
 
 #!
-
-CREATE TABLE tags (
-  serial int(11) NOT NULL default '0',
-  name varchar(64) NOT NULL,
-  type varchar(6) NOT NULL,
-  value longtext NOT NULL
-) TYPE=MyISAM COMMENT='class cCustomTags';
-
-#
-# Table structure for table 'pages'
-#
 
 CREATE TABLE `pages` (
   `charserial` int(11) NOT NULL default '-1',
