@@ -48,6 +48,29 @@
 void setptr(lookuptr_st *ptr, int item) //set item in pointer array
 {
 	int i;
+	if (ptr->max == 0)	// allow for deferred memory allocation ie. just when needed (Duke, 18.12.01)
+	{
+		if (ptr->pointer)
+		{
+			LogCritical("Corrupted pointer memory!");
+			return;
+		}
+		else	// both are zero, so allocate
+		{
+			int* ti = (int *)malloc(25*sizeof(int));
+			if (!ti)
+			{
+				LogCritical("Error allocating pointer memory!");
+				return;
+			}
+			else
+			{
+				ptr->pointer = ti;
+				ptr->max = 25;
+				memset(ptr->pointer,0xFF,25*sizeof(int));	// initialize to -1
+			}
+		}
+	}
 	for (i=0;i<(ptr->max);i++)
 	{
 		if (ptr->pointer[i]==-1)
