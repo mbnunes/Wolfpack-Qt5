@@ -802,7 +802,7 @@ inline cUObject* nextObjectInCircle( IteratorState* is )
 		if ( ++state.cellY > state.lastCellY )
 		{
 			++state.cellX;
-			state.cellY = ( ( state.y - state.radius ) / map->cellSize() );
+			state.cellY = ( ( state.y - wpMin<unsigned short>(state.y, state.radius) ) / map->cellSize() );
 			is->cellId = ( state.cellX * map->gridHeight() + state.cellY );
 		}
 		else
