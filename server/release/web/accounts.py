@@ -94,14 +94,15 @@ accounts = []
 
 # Display a filtered list of accounts
 for account in wolfpack.accounts.list():
-	first = account.lower()[0]
+	if len( account ) > 0:
+		first = account.lower()[0]
 
-	if letter == 'all':
-		accounts.append( account )
-	elif letter == '\#' and first not in letters[1:]:
-		accounts.append( account )
-	elif first == letter:
-		accounts.append( account )
+		if letter == 'all':
+			accounts.append( account )
+		elif letter == '#' and first not in letters[1:]:
+			accounts.append( account )
+		elif first == letter:
+			accounts.append( account )
 
 # Sort the list
 accounts.sort( lambda a, b: cmp( a.lower(), b.lower() ) )
