@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
 // Books class by Lord Binary 7'th December 1999

@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
 #if !defined(__ARCHIVE_H__)

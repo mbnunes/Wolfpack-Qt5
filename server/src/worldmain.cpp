@@ -25,8 +25,7 @@
 //	* download it.
 //
 //
-//
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
 // WorldMain.cpp: implementation of the CWorldMain class.

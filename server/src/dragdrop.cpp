@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
 // dragdrop.cpp: implementation of dragging and dropping

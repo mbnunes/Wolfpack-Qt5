@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
  //Boats->cpp by Zippy Started on 7/12/99
