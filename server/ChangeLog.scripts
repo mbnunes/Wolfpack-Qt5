@@ -1,7 +1,24 @@
-Wolfpack 13.0.0 ChangeLog
+Wolfpack ChangeLog
 
-Wolfpack 12.9.10 Beta (CVS)
-	* Core Changes:
+Wolfpack 12.9.11 Beta (CVS)
+	* Definition Changes:
+	* Python Script Changes:
+	* Misc. Changes:
+	* Known Issues, Bugs, and Missing Features:
+		- Some skills are still incomplete.
+		- Spawn regions are incomplete.
+			We welcome donated OSI-like spawn scripts!
+		- Town/World regions are incomplete.
+			We welcome donated OSI-like region scripts!
+		- Teleport Scripts are incomplete.
+			We welcome donated OSI-like teleport scripts!
+		- Possible that a few monsters are missing and/or incomplete.
+		- Reloading Python too many times can crash the server.
+		- There are still some memory leaks.
+		- Large gumps can potentially crash remote clients.
+		- Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.10 Beta (10. September 2004)
 	* Definition Changes:
 		- Added random speech for lizardmen, ratmen and orcs.
 		- Fixed Fame and Karma for all NPCs.
