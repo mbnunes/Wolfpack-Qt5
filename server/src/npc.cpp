@@ -902,7 +902,7 @@ PyObject* cNPC::getProperty( const QString& name )
 Coord_cl cNPC::nextMove()
 {
 	Coord_cl ret;
-	std::deque<Coord_cl>::const_iterator it = path_.begin();
+	QValueList<Coord_cl>::const_iterator it = path_.begin();
 
 	if (it != path_.end())
 	{
@@ -928,7 +928,9 @@ void cNPC::pushMove( const Coord_cl& move )
 
 void cNPC::popMove( void )
 {
-	path_.pop_front();
+	if (!path_.empty()) {
+		path_.pop_front();
+	}
 }
 
 void cNPC::clearPath( void )
@@ -938,8 +940,7 @@ void cNPC::clearPath( void )
 
 bool cNPC::hasPath( void )
 {
-	std::deque<Coord_cl>::const_iterator it = path_.begin();
-	return it != path_.end();
+	return !path_.isEmpty();
 }
 
 Coord_cl cNPC::pathDestination( void ) const

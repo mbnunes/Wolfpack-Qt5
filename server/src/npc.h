@@ -32,7 +32,7 @@
 #include "platform.h"
 
 // library includes
-#include <deque>
+#include <qvaluelist.h>
 
 // wolfpack includes
 #include "basechar.h"
@@ -259,7 +259,7 @@ protected:
 	SERIAL stablemasterSerial_;
 
 	// A* calculated path which the NPC walks on.
-	std::deque<Coord_cl> path_;
+	QValueList<Coord_cl> path_;
 
 	// NPC AI interface
 	AbstractAI* ai_;
