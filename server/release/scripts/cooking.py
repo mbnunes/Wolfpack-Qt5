@@ -13,25 +13,26 @@ import random
 
 # Ids of items we can cook on
 ids_heat = [ 	0xde3, # Campfire
-				0x92b, 0x92c, 0x930, 0x931, 0x937, 0x93d, 0x945, 0x94b, 0x953, 0x959, 0x961, 0x967, # Stone Ovens + Fireplaces
-				0xe31, # Brazier
-				0x461, 0x462, 0x46a, 0x46f, 0x475, 0x47b, 0x482, 0x489 # Sandstone Ovens + Fireplaces
-			]
+		0x92b, 0x92c, 0x930, 0x931, 0x937, 0x93d, 0x945, 0x94b, 0x953, 0x959, 0x961, 0x967, # Stone Ovens + Fireplaces
+		0xe31, # Brazier
+		0x461, 0x462, 0x46a, 0x46f, 0x475, 0x47b, 0x482, 0x489 # Sandstone Ovens + Fireplaces
+	    ]
 
 # The first value is the original uncooked item id
 # The List contains two values:
 # a) the id if cooking succeeds
 # b) the id if cooking fails, empty if item should just be deleted
+# we won't use "1eb0" because it is not stackable
 ids = {
 	# raw bird : cooked bird
-	0x9b9 : [ "9b7", "1eb0" ],
-	0x9ba : [ "9b8", "1eb0" ],
+	0x9b9 : [ "9b7", "burned_bird" ],
+	0x9ba : [ "9b8", "burned_bird" ],
 
 	# raw fish : cooked fish
-	0x97a : [ "97b", "1eb0" ],
+	0x97a : [ "97b", "burned_fish" ],
 
 	# raw rib : cooked rib
-	0x9f1 : [ "9f2", "1eb0" ],
+	0x9f1 : [ "9f2", "burned_rib" ],
 
 	# dough : bread
 	0x103d : [ "103b", "" ],
@@ -43,10 +44,10 @@ ids = {
 	0xa1e : [ "9e9", "" ],
 
 	# raw chickenleg : cooked chickenleg
-	0x1607 : [ "1608", "1eb0" ],
+	0x1607 : [ "1608", "burned_chickenleg" ],
 
 	# raw lamleg : cooked lamleg
-	0x1609 : [ "160a", "1eb0" ],
+	0x1609 : [ "160a", "burned_lambleg" ],
 
 	# unbaked pie : baked pie
 	0x1042 : [ "1041", "" ],
@@ -60,14 +61,14 @@ def onUse( char, item ):
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage( 0x7A258 ) # That doesnt belong to you
-		return 1
+		return True
 
 	if ids.has_key( item.id ):
 		char.socket.clilocmessage( 0x7A1FE ) # What should i cook this on
 		char.socket.attachtarget( "cooking.response", [ item.serial ] )
-		return 1
+		return True
 
-	return 0
+	return False
 
 def response( char, args, target ):
 	direction = char.directionto( target.pos )
@@ -81,21 +82,21 @@ def response( char, args, target ):
 
 	if not item or item.getoutmostchar() != char:
 		char.socket.clilocmessage( 0x7ACA2 ) # That belongs to someone else.
-		return 1
+		return True
 
 	# Are we too far away from the target ?
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
 		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
-		return 1
+		return True
 
 	if abs( char.pos.z - target.pos.z ) > 5:
 		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
-		return 1
+		return True
 
 	# We can only cook on dynamic ovens/fireplaces
 	if not target.item or not target.item.id in ids_heat:
 		char.socket.clilocmessage( 0x7A3D2 ) # You can't cook on that.
-		return 1
+		return True
 
 	# We're cooking one by one
 	if item.amount > 1:

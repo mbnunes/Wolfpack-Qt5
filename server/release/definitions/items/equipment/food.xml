@@ -927,4 +927,33 @@ Food subtypes:
 		<category>Equipment\Food\Misc\Burned Food</category>
 	</item>
 
+	<!-- Burned Food (stackable) -->
+	<item id="burned_rib">
+		<id>0x9f2</id>
+		<name>#1027856</name>
+		<color>0x762</color>
+		<weight>0.2</weight>
+		<category>Equipment\Food\Misc\Burned Rib</category>
+	</item>
+
+	<item id="burned_bird" inherit="burned_rib">
+		<id>0x9b9</id>
+		<category>Equipment\Food\Misc\Burned Bird</category>
+	</item>
+
+	<item id="burned_fish" inherit="burned_rib">
+		<id>0x97b</id>
+		<category>Equipment\Food\Misc\Burned Fish</category>
+	</item>
+
+	<item id="burned_chickenleg" inherit="burned_rib">
+		<id>0x1608</id>
+		<category>Equipment\Food\Misc\Burned Chicken Leg</category>
+	</item>
+
+	<item id="burned_lambleg" inherit="burned_rib">
+		<id>0x160a</id>
+		<category>Equipment\Food\Misc\Burned Lamb Leg</category>
+	</item>
+
 </definitions>
