@@ -578,7 +578,7 @@ void checkregion(P_CHAR pc_i)
 void cRespawn::Continue()
 {
 	unsigned int i;
-	for( i = currentSpawnRegion; i < spawnregion.size(); i++) //New -- Zippy region spawner
+	for( i = 0; i < spawnregion.size(); i++) //New -- Zippy region spawner
 	{
 		if (doregionspawn(i) == false)	// no more things to spawn in this region
 			currentSpawnRegion++;
