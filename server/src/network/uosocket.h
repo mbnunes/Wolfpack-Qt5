@@ -204,6 +204,7 @@ public:
 	void handleCHLevel( cUORxCHLevel *packet );
 	void handleCHRevert( cUORxAosMultiPurpose *packet );
 	void handleParty( cUOPacket *packet );
+	void handleChat(cUOPacket *packet);
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

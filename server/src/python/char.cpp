@@ -466,7 +466,7 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 
 		P_CHAR pChar = getWpChar( pObj );
         if( pChar )
-			return PyInt_FromLong( pChar->direction( self->pChar ) );
+			return PyInt_FromLong( self->pChar->direction(pChar) );
 	}
 	else if( PyTuple_Size( args ) >= 2 ) // Min 2 
 	{

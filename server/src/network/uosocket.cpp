@@ -341,6 +341,8 @@ void cUOSocket::recieve()
 		handleSpeechRequest( dynamic_cast< cUORxSpeechRequest* >( packet ) ); break;
 	case 0xB1:
 		handleGumpResponse( dynamic_cast< cUORxGumpResponse* >( packet ) ); break;
+	case 0xB5:
+		handleChat(packet); break;
 	case 0xB8:
 		handleProfile( dynamic_cast< cUORxProfile* >( packet ) ); break;
 	case 0xBD:
@@ -2751,3 +2753,10 @@ void cUOSocket::handleExtendedStats(cUORxExtendedStats *packet) {
 					break; 	 
 	} 	 
 } 	 
+
+void cUOSocket::handleChat(cUOPacket *packet) {
+	if (cPythonScript::canChainHandleEvent(EVENT_CHAT, _player->getEvents())) {
+		PyObject *args = Py_BuildValue("(N)", _player->getPyObject());
+		Py_DECREF(args);
+	}
+}
