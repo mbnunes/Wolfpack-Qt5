@@ -243,21 +243,6 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	pHold->update();
 	this->update();
 
-	cRegion::RegionIterator4Chars ri( pos );
-	for (ri.Begin(); !ri.atEnd(); ri++ )
-	{
-		P_CHAR pc = ri.GetData();
-		UOXSOCKET retr = calcSocketFromChar( pc );
-		if( retr != -1 )
-		{
-			senditem( retr, this );
-			senditem( retr, pTiller );
-			senditem( retr, pPlankL );
-			senditem( retr, pPlankR );
-			senditem( retr, pHold );
-		}
-	}
-
 	P_ITEM pDeed = FindItemBySerial( deedserial );
 	if( pDeed != NULL )
 		Items->DeleItem( pDeed );
@@ -607,9 +592,11 @@ void cBoat::turn( SI08 turn )
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )
 			{
-				iter_sock.current()->send( uoPacket );
+				iter_sock.current()->send( new cUOTxUpdatePlayer( *uoPacket ) );
 				++iter_sock;
 			}
+
+			delete uoPacket;
 		}
 		++it;
 	}
@@ -830,9 +817,10 @@ bool cBoat::move( void )
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )
 			{
-				iter_sock.current()->send( uoPacket );
+				iter_sock.current()->send( new cUOTxUpdatePlayer( *uoPacket ) );
 				++iter_sock;
 			}
+			delete uoPacket;
 		}
 		++it;
 	}
