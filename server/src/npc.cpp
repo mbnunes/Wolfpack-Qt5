@@ -395,6 +395,10 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 	*/
 	UINT8 result;
 
+	if (isInvulnerable()) {
+		return 0;
+	}
+
 	// Check for Guild status + Highlight
 //	UINT8 guildStatus = GuildCompare( this, pChar );
 
@@ -729,7 +733,7 @@ void cNPC::showName( cUOSocket *socket )
 		charName.append( QString( " [0x%1]" ).arg( serial(), 4, 16 ) );
 
 	// Invulnerability
-	if( isInvulnerable() )
+	if( isInvulnerable() && socket->player()->isGMorCounselor() )
 		charName.append( tr(" [invul]") );
 
 	// Frozen
@@ -765,12 +769,16 @@ void cNPC::showName( cUOSocket *socket )
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	switch( notority( socket->player() ) )
 	{
-		case 0x01:	speechColor = 0x5A;		break; //blue
-		case 0x02:	speechColor = 0x43;		break; //green
+		case 0x01:	speechColor = 0x59;		break; //blue
+		case 0x02:	speechColor = 0x3F;		break; //green
 		case 0x03:	speechColor = 0x3B2;	break; //grey
-		case 0x05:	speechColor = 0x30;		break; //orange
-		case 0x06:	speechColor = 0x26;		break; //red
+		case 0x05:	speechColor = 0x90;		break; //orange
+		case 0x06:	speechColor = 0x22;		break; //red
 		default:	speechColor = 0x3B2;	break; // grey
+	}
+
+	if (isInvulnerable()) {
+		speechColor = 0x35;
 	}
 
 	// Show it to the socket

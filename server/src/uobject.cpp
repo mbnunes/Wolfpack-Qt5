@@ -447,7 +447,7 @@ void cUObject::processNode( const cElement *Tag )
 	}
 	else
 	{
-		if (Tag->text().isNull()) {
+		if (Value.isEmpty()) {
 			Value = "1";
 		}
 

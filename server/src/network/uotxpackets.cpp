@@ -268,6 +268,10 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
+	if (pChar->isInvulnerable()) {
+		setFlag(flag() | 0x08);
+	}
+
 	if( pChar->isHidden() )
 		setFlag( flag() | 0x80 );
 
@@ -310,6 +314,10 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
+
+	if (pChar->isInvulnerable()) {
+		setFlag(flag() | 0x08);
+	}
 
 	if( pChar->isHidden() || ( pChar->objectType() == enPlayer && !dynamic_cast<P_PLAYER>(pChar)->socket() ) )
 		setFlag( flag() | 0x80 );
@@ -375,6 +383,10 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
+	if (pChar->isInvulnerable()) {
+		setFlag(flag() | 0x08);
+	}
+
 	if( pChar->isHidden() )
 		setFlag( flag() | 0x80 );
 
@@ -388,7 +400,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
 	setDirection( pChar->direction() );
-	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
+	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 9 = invul,0x40=attack, 0x80=hidden CHARMODE_WAR
 }
 
 void cUOTxTipWindow::setMessage( const QCString& m )
@@ -477,6 +489,10 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
+
+	if (pChar->isInvulnerable()) {
+		setFlag(flag() | 0x08);
+	}
 
 	if( pChar->isHidden() )
 		setFlag( flag() | 0x80 );

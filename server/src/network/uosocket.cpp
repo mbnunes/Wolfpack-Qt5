@@ -1801,14 +1801,14 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 {
 	// If we dont set any serial the attack is rejected
 	cUOTxAttackResponse attack;
+	attack.setSerial(INVALID_SERIAL);
 
 	P_CHAR pc_i = FindCharBySerial( packet->serial() );
-	if( !pc_i ) 
-	{
-		send( &attack );
+	if (!pc_i || pc_i->isInvulnerable()) {
+		send(&attack);
 		return;
 	}
-
+	
 /*
 	// No Fighting in jail
 	if( _player->cell() > 0 )

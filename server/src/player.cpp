@@ -352,10 +352,15 @@ UINT8 cPlayer::notority( P_CHAR pChar ) // Gets the notority toward another char
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	UINT8 result;
 
+	if (isInvulnerable()) {
+		return 0;
+	}
+
 	// Check for Guild status + Highlight
 //	UINT8 guildStatus = GuildCompare( this, pChar );
 
 	if( pChar->kills() > SrvParams->maxkills() )
+	{
 		result = 0x06; // 6 = Red -> Murderer
 
 //	else if( guildStatus == 1 )
@@ -364,8 +369,7 @@ UINT8 cPlayer::notority( P_CHAR pChar ) // Gets the notority toward another char
 //	else if( guildStatus == 2 )
 //		result = 0x05; // 5 = Orange -> Enemy Guild
 
-	else if( account_ )
-	{
+	} else if( account_ ) {
 		if( isCriminal() )
 			result = 0x03;
 		else if( karma_ < -2000 )
@@ -875,12 +879,16 @@ void cPlayer::showName( cUOSocket *socket )
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	switch( notority( socket->player() ) )
 	{
-		case 0x01:	speechColor = 0x5A;		break; //blue
-		case 0x02:	speechColor = 0x43;		break; //green
+		case 0x01:	speechColor = 0x59;		break; //blue
+		case 0x02:	speechColor = 0x3F;		break; //green
 		case 0x03:	speechColor = 0x3B2;	break; //grey
-		case 0x05:	speechColor = 0x30;		break; //orange
-		case 0x06:	speechColor = 0x26;		break; //red
+		case 0x05:	speechColor = 0x90;		break; //orange
+		case 0x06:	speechColor = 0x22;		break; //red
 		default:	speechColor = 0x3B2;	break; // grey
+	}
+
+	if (isInvulnerable()) {
+		speechColor = 0x35;
 	}
 
 	// Show it to the socket
