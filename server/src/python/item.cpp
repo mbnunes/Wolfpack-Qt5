@@ -1061,7 +1061,7 @@ static PyObject* wpItem_effect(wpItem* self, PyObject* args) {
 		return 0;
 	}
 
-	self->pItem->effect(id, speed, duration, hue, renderMode);
+	self->pItem->pos().effect(id, speed, duration, hue, renderMode);
 
 	Py_INCREF(Py_None);
 	return Py_None;
