@@ -74,7 +74,7 @@ void cBook::Serialize( ISerialization &archive )
 		}
 		archive.write( "book.readonly", readonly_ );
 		archive.write( "book.predefined", predefined_ );
-		archive.write( "book.section", (char*)section_.latin1() );
+		archive.write( "book.section", section_ );
 	}
 	cItem::Serialize( archive );
 }
