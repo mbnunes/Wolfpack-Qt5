@@ -31,11 +31,7 @@
 #include "../log.h"
 
 // Qt Includes
-#include <qhostaddress.h>
 #include <qdir.h>
-#include <qstringlist.h>
-
-Q_INT32 resolveName( const QString& data ); // declared in srvparams.cpp
 
 QString cConfig::mulPath() const
 {
@@ -46,41 +42,4 @@ QString cConfig::mulPath() const
 		qWarning( "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"" );
 	}
 	return mulPath_;
-}
-
-std::vector<ServerList_st>& cConfig::serverList()
-{
-	if ( serverList_.empty() ) // Empty? Try to load
-	{
-		bool bKeepLooping = true;
-		unsigned int i = 1;
-		do
-		{
-			QString tmp = getString( "LoginServer", QString( "Shard %1" ).arg( i++ ), "", false ).simplifyWhiteSpace();
-			bKeepLooping = ( tmp != "" );
-			if ( bKeepLooping ) // valid data.
-			{
-				QStringList strList = QStringList::split( "=", tmp );
-				if ( strList.size() == 2 )
-				{
-					ServerList_st server;
-					server.sServer = strList[0];
-					QStringList strList2 = QStringList::split( ",", strList[1].stripWhiteSpace() );
-					QHostAddress host;
-					host.setAddress( strList2[0] );
-					server.sIP = strList2[0];
-					server.ip = resolveName( server.sIP );
-
-					bool ok = false;
-					server.uiPort = strList2[1].toUShort( &ok );
-					if ( !ok )
-						server.uiPort = 2593; // Unspecified defaults to 2593
-
-					serverList_.push_back( server );
-				}
-			}
-		}
-		while ( bKeepLooping );
-	}
-	return serverList_;
 }
