@@ -1314,8 +1314,9 @@ int main( int argc, char *argv[] )
 		QString uoPath = getUOPath();
 		if( uoPath != QString::null )
 		{
-			mulPath = uoPath;
 			SrvParams->setMulPath( uoPath );
+			delete Map;
+			Map = new Maps( uoPath );
 		}
 	}
 
