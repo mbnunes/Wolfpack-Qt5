@@ -502,170 +502,170 @@ public:
 	void					setTitle( const QString& d);
 	void					setUnicode( bool d); // This is set to 1 if the player uses unicode speech, 0 if not
 	void					setAccount( AccountRecord* data, bool moveFromAccToAcc = true ); // changed to signed, lb
-	void					setIncognito ( bool d) { incognito_ = d; changed_ = true;} 
-	void					setPolymorph ( bool d) { polymorph_ = d; changed_ = true;}
-	void					setHairColor ( unsigned short d) { haircolor_ = d; changed_ = true;}
-	void					setHairStyle ( unsigned short d) { hairstyle_ = d; changed_ = true;}
-	void					setBeardColor( unsigned short d) { beardcolor_ = d; changed_ = true;}
-	void					setBeardStyle( unsigned short d) { beardstyle_ = d; changed_ = true;}
-	void					setSkin( unsigned short d) { skin_ = d; changed_ = true;}
-	void					setOrgSkin( unsigned short d) { orgskin_ = d; changed_ = true;}
-	void					setXSkin( unsigned short d) { xskin_ = d; changed_ = true;}
-	void					setCreationDay( unsigned int d ) { creationday_ = d; changed_ = true;}
-	void					setStealth(int d) {stealth_ = d; changed_ = true;}
-	void					setRunning(unsigned int d) {running_ = d; changed_ = true;}
-	void					setLogout(unsigned int d) {logout_ = d; changed_ = true;}
-	void					setClientIdleTime( unsigned int d ) { clientidletime_ = d; changed_ = true;}
-	void					setSwingTarg( SERIAL d ) { swingtarg_ = d; changed_ = true;}
-	void					setHoldg( unsigned int d ) {holdg_ = d; changed_ = true;}
-	void					setFlySteps( unsigned char d) {fly_steps_ = d; changed_ = true;}
-	void					setMenupriv(int d) { menupriv_ = d; changed_ = true;}
-	void					setTamed( bool d ) { tamed_ = d; changed_ = true;}
-    void					setSmokeTimer( unsigned int d ) { smoketimer_ = d; changed_ = true;}
-	void					setSmokeDisplayTimer ( unsigned int d ) { smokedisplaytimer_ = d; changed_ = true;}
-	void					setAntispamtimer ( unsigned int d ) { antispamtimer_ = d; changed_ = true;}
-	void					setAntiguardstimer( unsigned int d ) { antiguardstimer_ = d; changed_ = true;}
-	void					setCarve( const QString& d ) { carve_ = d; changed_ = true;}
-	void					setHairSerial( SERIAL d ) { hairserial_ = d; changed_ = true;}
-	void					setBeardSerial( SERIAL d ) {beardserial_ = d; changed_ = true;}
-	void 					setBegging_timer( unsigned int d ) { begging_timer_ = d; changed_ = true;}
-	void					setPostType( int d ) { postType_ = d; changed_ = true;}
-	void					setQuestType ( int d ) { questType_ = d; changed_ = true;}
-	void					setQuestDestRegion( int d ) { questDestRegion_ = d; changed_ = true;}
-	void					setQuestOrigRegion( int d ) {questOrigRegion_ = d; changed_ = true;}
-	void					setQuestBountyReward ( int d ) { questBountyReward_ = d; changed_ = true;}
-	void					setQuestBountyPostSerial ( int d ) {questBountyPostSerial_ = d; changed_ = true;}
-	void					setMurdererSer( SERIAL d ) { murdererSer_ = d; changed_ = true;}
-	void					setPrevPos( const Coord_cl& d ) { prevPos_ = d; changed_ = true;}
-	void					setCommandLevel( unsigned char d ) { commandLevel_ = d; changed_ = true;}
-	void					setSpawnregion ( QString d ) { spawnregion_ = d; changed_ = true;}
-	void					setStablemaster_serial (SERIAL d ) { stablemaster_serial_ = d; changed_ = true;}  
-	void					setNpc_type( unsigned char d ) { npc_type_ = d; changed_ = true;}
-	void					setTime_unused ( unsigned int d ) { time_unused_ = d; changed_ = true;}
-	void					setTimeused_last( unsigned int d ) { timeused_last_ = d; changed_ = true;}
-	void					setCasting( bool d ) { casting_ = d; changed_ = true;}
-	void					setSpawnSerial( SERIAL d ) { spawnserial_ = d; changed_ = true;}
-	void					setHidden ( unsigned char d ) { hidden_ = d; changed_ = true;}
-	void					setInvisTimeout ( unsigned int d ) { invistimeout_ = d; changed_ = true;}
-	void					setAttackFirst ( bool d ) { attackfirst_ = d; changed_ = true;}
-	void					setHunger ( int d ) { hunger_ = d; changed_ = true;}
-	void					setHungerTime ( unsigned int d ) { hungertime_ = d; changed_ = true;}
-	void					setTailItem ( SERIAL d ) { tailitem_ = d; changed_ = true;}
-	void					setNpcAIType( int d ) { npcaitype_ = d; changed_ = true;}
-	void					setCallNum ( int d ) { callnum_ = d; changed_ = true;}
-	void					setPlayerCallNum ( int d ) { playercallnum_ = d; changed_ = true;}
+	void					setIncognito ( bool d) { incognito_ = d; changed( SAVE );} 
+	void					setPolymorph ( bool d) { polymorph_ = d; changed( SAVE );}
+	void					setHairColor ( unsigned short d) { haircolor_ = d; changed( SAVE );}
+	void					setHairStyle ( unsigned short d) { hairstyle_ = d; changed( SAVE );}
+	void					setBeardColor( unsigned short d) { beardcolor_ = d; changed( SAVE );}
+	void					setBeardStyle( unsigned short d) { beardstyle_ = d; changed( SAVE );}
+	void					setSkin( unsigned short d) { skin_ = d; changed( SAVE );}
+	void					setOrgSkin( unsigned short d) { orgskin_ = d; changed( SAVE );}
+	void					setXSkin( unsigned short d) { xskin_ = d; changed( SAVE );}
+	void					setCreationDay( unsigned int d ) { creationday_ = d; changed( SAVE );}
+	void					setStealth(int d) {stealth_ = d; changed( SAVE );}
+	void					setRunning(unsigned int d) {running_ = d; changed( SAVE );}
+	void					setLogout(unsigned int d) {logout_ = d; changed( SAVE );}
+	void					setClientIdleTime( unsigned int d ) { clientidletime_ = d; changed( SAVE );}
+	void					setSwingTarg( SERIAL d ) { swingtarg_ = d; changed( SAVE );}
+	void					setHoldg( unsigned int d ) {holdg_ = d; changed( SAVE );}
+	void					setFlySteps( unsigned char d) {fly_steps_ = d; changed( SAVE );}
+	void					setMenupriv(int d) { menupriv_ = d; changed( SAVE );}
+	void					setTamed( bool d ) { tamed_ = d; changed( SAVE+TOOLTIP );}
+    void					setSmokeTimer( unsigned int d ) { smoketimer_ = d; changed( SAVE );}
+	void					setSmokeDisplayTimer ( unsigned int d ) { smokedisplaytimer_ = d; changed( SAVE );}
+	void					setAntispamtimer ( unsigned int d ) { antispamtimer_ = d; changed( SAVE );}
+	void					setAntiguardstimer( unsigned int d ) { antiguardstimer_ = d; changed( SAVE );}
+	void					setCarve( const QString& d ) { carve_ = d; changed( SAVE );}
+	void					setHairSerial( SERIAL d ) { hairserial_ = d; changed( SAVE );}
+	void					setBeardSerial( SERIAL d ) {beardserial_ = d; changed( SAVE );}
+	void 					setBegging_timer( unsigned int d ) { begging_timer_ = d; changed( SAVE );}
+	void					setPostType( int d ) { postType_ = d; changed( SAVE );}
+	void					setQuestType ( int d ) { questType_ = d; changed( SAVE );}
+	void					setQuestDestRegion( int d ) { questDestRegion_ = d; changed( SAVE );}
+	void					setQuestOrigRegion( int d ) {questOrigRegion_ = d; changed( SAVE );}
+	void					setQuestBountyReward ( int d ) { questBountyReward_ = d; changed( SAVE );}
+	void					setQuestBountyPostSerial ( int d ) {questBountyPostSerial_ = d; changed( SAVE );}
+	void					setMurdererSer( SERIAL d ) { murdererSer_ = d; changed( SAVE );}
+	void					setPrevPos( const Coord_cl& d ) { prevPos_ = d; changed( SAVE );}
+	void					setCommandLevel( unsigned char d ) { commandLevel_ = d; changed( SAVE );}
+	void					setSpawnregion ( QString d ) { spawnregion_ = d; changed( SAVE );}
+	void					setStablemaster_serial (SERIAL d ) { stablemaster_serial_ = d; changed( SAVE );}  
+	void					setNpc_type( unsigned char d ) { npc_type_ = d; changed( SAVE );}
+	void					setTime_unused ( unsigned int d ) { time_unused_ = d; changed( SAVE );}
+	void					setTimeused_last( unsigned int d ) { timeused_last_ = d; changed( SAVE );}
+	void					setCasting( bool d ) { casting_ = d; changed( SAVE );}
+	void					setSpawnSerial( SERIAL d ) { spawnserial_ = d; changed( SAVE );}
+	void					setHidden ( unsigned char d ) { hidden_ = d; changed( SAVE );}
+	void					setInvisTimeout ( unsigned int d ) { invistimeout_ = d; changed( SAVE );}
+	void					setAttackFirst ( bool d ) { attackfirst_ = d; changed( SAVE );}
+	void					setHunger ( int d ) { hunger_ = d; changed( SAVE );}
+	void					setHungerTime ( unsigned int d ) { hungertime_ = d; changed( SAVE );}
+	void					setTailItem ( SERIAL d ) { tailitem_ = d; changed( SAVE );}
+	void					setNpcAIType( int d ) { npcaitype_ = d; changed( SAVE );}
+	void					setCallNum ( int d ) { callnum_ = d; changed( SAVE );}
+	void					setPlayerCallNum ( int d ) { playercallnum_ = d; changed( SAVE );}
 
-	void					setFishingtimer( unsigned int d ) { fishingtimer_ = d; changed_ = true;}
-	void					setPoison( int d ) { poison_ = d; changed_ = true;}
-	void					setPoisoned( unsigned int d ) {poisoned_ = d; changed_ = true;}
-	void					setPoisontime( unsigned int d ) { poisontime_ = d; changed_ = true;}
-	void					setPoisontxt( unsigned int d ) { poisontxt_ = d; changed_ = true;}
-	void					setPoisonwearofftime( unsigned int d ) {poisonwearofftime_ = d; changed_ = true;}
-	void					setFleeat( short d ) { fleeat_ = d; changed_ = true;}
-	void					setReattackat(short d) { reattackat_ = d; changed_ = true;}
-	void					setDisabled( unsigned int d ) { disabled_ = d; changed_ = true;}
-	void					setDisabledmsg( const QString& d ) { disabledmsg_ = d; changed_ = true;}
-	void					setEnvokeid( unsigned short d ) { envokeid_ = d; changed_ = true;}
-	void					setEnvokeitem( SERIAL d ) { envokeitem_ = d; changed_ = true;}
-	void					setSplit(unsigned char d) {split_ = d; changed_ = true;}
-	void					setSplitchnc(unsigned char d) {splitchnc_ = d; changed_ = true;}
-	void					setRa( char d ) { ra_ = d; changed_ = true;}
-	void					setTrainer( SERIAL d ) { trainer_ = d; changed_ = true;}
-	void					setTrainingplayerin( char d ) { trainingplayerin_ = d; changed_ = true;}
-	void					setCantrain( bool d ) { cantrain_ = d; changed_ = true;}
-	void					setGuildtoggle( bool d ) { guildtoggle_ = d; changed_ = true;}
-	void					setGuildtitle( const QString& d ) { guildtitle_ = d; changed_ = true;}
-	void					setGuildfealty( SERIAL d ) { guildfealty_ = d; changed_ = true;}
-	void					setGuildstone( SERIAL d ) { guildstone_ = d; changed_ = true;}
-	void					setFlag( char d ) { flag_ = d; changed_ = true;}
-	void					setTempflagtime( unsigned int d ) { tempflagtime_ = d; changed_ = true;}
-	void					setMurderrate( unsigned int d ) { murderrate_ = d; changed_ = true;}
-	void					setCrimflag( unsigned int d ) { crimflag_ = d; changed_ = true;}
-	void					setSpelltime( unsigned int d ) { spelltime_ = d; changed_ = true;}
-	void					setSpell( int d ) { spell_ = d; changed_ = true;}
-	void					setSpellaction( int d ) { spellaction_ = d; changed_ = true;} 
-	void					setNextact( int d ) { nextact_ = d; changed_ = true;}
-	void					setPoisonserial( SERIAL d ) {poisonserial_ = d; changed_ = true;}
-	void					setSquelched( int d) { squelched_ = d; changed_ = true;}
-	void					setMutetime( int d ) { mutetime_ = d; changed_ = true;}
-	void					setMed( bool d ) { med_ = d; changed_ = true;}
-	void					setSocket( cUOSocket* d ) { socket_ = d; changed_ = true;}
-	void					setWeight( unsigned short d ) { weight_ = d; changed_ = true;}
-	void					setLootList( QString d ) { loot_ = d; changed_ = true;}
-	void					setTrackingTarg( SERIAL d ) { trackingTarget_ = d; changed_ = true;}
-	void					setTrackingTimer( UINT32 d ) { trackingTimer_ = d; changed_ = true;}
-	void					setFontType( unsigned char d ) { fonttype_ = d; changed_ = true;}
-	void					setSayColor( UI16 d ) { saycolor_ = d; changed_ = true;}
-	void					setEmoteColor( unsigned short d ) { emotecolor_ = d; changed_ = true;}
-	void					setSt( signed short d ) { st_ = d; changed_ = true;}
-	void					setSt2( signed short d ) { st2_ = d; changed_ = true;}
-	void					setMay_Levitate( bool d ) { may_levitate_ = d; changed_ = true;}
-	void					setPathNum( unsigned char d ) { pathnum_ = d; changed_ = true;}
-	void					setPath( int p, path_st val ){ path_[p] = val; changed_ = true;}
-	void					setPathX( int p, unsigned short xValue ) { path_[p].x = xValue; changed_ = true;}
-	void					setPathY( int p, unsigned short yValue ) { path_[p].y = yValue; changed_ = true;}
-	void					setDispz( signed char d ) { dispz_ = d; changed_ = true;}
-	void					setDir( unsigned char d ) { dir_ = d; changed_ = true;}
-	void					setXid( unsigned short d ) { xid_ = d; changed_ = true;}
-	void					setPriv2( unsigned char d ) { priv2_ = d; changed_ = true;}
-	void					setIn( signed short d ) { in_ = d; changed_ = true;}
-	void					setIn2( signed short d ) { in2_ = d; changed_ = true;}
-	void					setHp( signed short d ) { hp_ = d; changed_ = true;}
-	void					setStm( signed short d ) { stm_ = d; changed_ = true;}
-	void					setMn( signed short d ) { mn_ = d; changed_ = true;}
-	void					setMn2( signed short d ) { mn2_ = d; changed_ = true;}
-	void					setHiDamage( int d ) { hidamage_ = d; changed_ = true;}
-	void					setLoDamage( int d ) { lodamage_ = d; changed_ = true;}
-	void					setNpc( bool d ) { npc_ = d; changed_ = true;}
-	void					setShop( bool d ) { shop_ = d; changed_ = true;}
-	void					setCell( unsigned char d ) { cell_ = d; changed_ = true;}
-	void					setJailTimer( unsigned int d ) { jailtimer_ = d; changed_ = true;}
-	void					setJailSecs( int d ) { jailsecs_ = d; changed_ = true;}
+	void					setFishingtimer( unsigned int d ) { fishingtimer_ = d; changed( SAVE );}
+	void					setPoison( int d ) { poison_ = d; changed( SAVE );}
+	void					setPoisoned( unsigned int d ) {poisoned_ = d; changed( SAVE );}
+	void					setPoisontime( unsigned int d ) { poisontime_ = d; changed( SAVE );}
+	void					setPoisontxt( unsigned int d ) { poisontxt_ = d; changed( SAVE );}
+	void					setPoisonwearofftime( unsigned int d ) {poisonwearofftime_ = d; changed( SAVE );}
+	void					setFleeat( short d ) { fleeat_ = d; changed( SAVE );}
+	void					setReattackat(short d) { reattackat_ = d; changed( SAVE );}
+	void					setDisabled( unsigned int d ) { disabled_ = d; changed( SAVE );}
+	void					setDisabledmsg( const QString& d ) { disabledmsg_ = d; changed( SAVE );}
+	void					setEnvokeid( unsigned short d ) { envokeid_ = d; changed( SAVE );}
+	void					setEnvokeitem( SERIAL d ) { envokeitem_ = d; changed( SAVE );}
+	void					setSplit(unsigned char d) {split_ = d; changed( SAVE );}
+	void					setSplitchnc(unsigned char d) {splitchnc_ = d; changed( SAVE );}
+	void					setRa( char d ) { ra_ = d; changed( SAVE );}
+	void					setTrainer( SERIAL d ) { trainer_ = d; changed( SAVE );}
+	void					setTrainingplayerin( char d ) { trainingplayerin_ = d; changed( SAVE );}
+	void					setCantrain( bool d ) { cantrain_ = d; changed( SAVE );}
+	void					setGuildtoggle( bool d ) { guildtoggle_ = d; changed( SAVE );}
+	void					setGuildtitle( const QString& d ) { guildtitle_ = d; changed( SAVE );}
+	void					setGuildfealty( SERIAL d ) { guildfealty_ = d; changed( SAVE );}
+	void					setGuildstone( SERIAL d ) { guildstone_ = d; changed( SAVE );}
+	void					setFlag( char d ) { flag_ = d; changed( SAVE );}
+	void					setTempflagtime( unsigned int d ) { tempflagtime_ = d; changed( SAVE );}
+	void					setMurderrate( unsigned int d ) { murderrate_ = d; changed( SAVE );}
+	void					setCrimflag( unsigned int d ) { crimflag_ = d; changed( SAVE );}
+	void					setSpelltime( unsigned int d ) { spelltime_ = d; changed( SAVE );}
+	void					setSpell( int d ) { spell_ = d; changed( SAVE );}
+	void					setSpellaction( int d ) { spellaction_ = d; changed( SAVE );} 
+	void					setNextact( int d ) { nextact_ = d; changed( SAVE );}
+	void					setPoisonserial( SERIAL d ) {poisonserial_ = d; changed( SAVE );}
+	void					setSquelched( int d) { squelched_ = d; changed( SAVE );}
+	void					setMutetime( int d ) { mutetime_ = d; changed( SAVE );}
+	void					setMed( bool d ) { med_ = d; changed( SAVE );}
+	void					setSocket( cUOSocket* d ) { socket_ = d; changed( SAVE );}
+	void					setWeight( unsigned short d ) { weight_ = d; changed( SAVE );}
+	void					setLootList( QString d ) { loot_ = d; changed( SAVE );}
+	void					setTrackingTarg( SERIAL d ) { trackingTarget_ = d; changed( SAVE );}
+	void					setTrackingTimer( UINT32 d ) { trackingTimer_ = d; changed( SAVE );}
+	void					setFontType( unsigned char d ) { fonttype_ = d; changed( SAVE );}
+	void					setSayColor( UI16 d ) { saycolor_ = d; changed( SAVE );}
+	void					setEmoteColor( unsigned short d ) { emotecolor_ = d; changed( SAVE );}
+	void					setSt( signed short d ) { st_ = d; changed( SAVE );}
+	void					setSt2( signed short d ) { st2_ = d; changed( SAVE );}
+	void					setMay_Levitate( bool d ) { may_levitate_ = d; changed( SAVE );}
+	void					setPathNum( unsigned char d ) { pathnum_ = d; changed( SAVE );}
+	void					setPath( int p, path_st val ){ path_[p] = val; changed( SAVE );}
+	void					setPathX( int p, unsigned short xValue ) { path_[p].x = xValue; changed( SAVE );}
+	void					setPathY( int p, unsigned short yValue ) { path_[p].y = yValue; changed( SAVE );}
+	void					setDispz( signed char d ) { dispz_ = d; changed( SAVE );}
+	void					setDir( unsigned char d ) { dir_ = d; changed( SAVE );}
+	void					setXid( unsigned short d ) { xid_ = d; changed( SAVE );}
+	void					setPriv2( unsigned char d ) { priv2_ = d; changed( SAVE+TOOLTIP );}
+	void					setIn( signed short d ) { in_ = d; changed( SAVE );}
+	void					setIn2( signed short d ) { in2_ = d; changed( SAVE );}
+	void					setHp( signed short d ) { hp_ = d; changed( SAVE );}
+	void					setStm( signed short d ) { stm_ = d; changed( SAVE );}
+	void					setMn( signed short d ) { mn_ = d; changed( SAVE );}
+	void					setMn2( signed short d ) { mn2_ = d; changed( SAVE );}
+	void					setHiDamage( int d ) { hidamage_ = d; changed( SAVE );}
+	void					setLoDamage( int d ) { lodamage_ = d; changed( SAVE );}
+	void					setNpc( bool d ) { npc_ = d; changed( SAVE );}
+	void					setShop( bool d ) { shop_ = d; changed( SAVE );}
+	void					setCell( unsigned char d ) { cell_ = d; changed( SAVE );}
+	void					setJailTimer( unsigned int d ) { jailtimer_ = d; changed( SAVE );}
+	void					setJailSecs( int d ) { jailsecs_ = d; changed( SAVE );}
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* d );
-	void					setRobe( int d ) { robe_ = d; changed_ = true;}
-	void					setKarma( int d ) { karma_ = d; changed_ = true;}
-	void					setFame( signed int d ) { fame_ = d; changed_ = true;}
-	void					setKills( unsigned int d ) { kills_ = d; changed_ = true;}
-	void					setDeaths( unsigned int d ) { deaths_ = d; changed_ = true;}
-	void					setDead( bool d ) { dead_ = d; changed_ = true;}
-	void					setFixedLight( unsigned char d ) { fixedlight_ = d; changed_ = true;}
-	void					setSpeech( unsigned char d ) { speech_ = d; changed_ = true;}
-	void					setDef( unsigned int d ) { def_ = d; changed_ = true;}
-	void					setWar( bool d ) { war_ = d; changed_ = true;}
-	void					setFood( unsigned int d ) { food_ = d; changed_ = true;}
-	void					setTarg( SERIAL d ) { targ_ = d; changed_ = true;}
-	void					setTimeOut( unsigned int d ) { timeout_ = d; changed_ = true;}
-	void					setRegen( unsigned int d ) { regen_ = d; changed_ = true;}
-	void					setRegen2( unsigned int d ) { regen2_ = d; changed_ = true;}  
-	void					setRegen3( unsigned int d ) { regen3_ = d; changed_ = true;}
-	void					setInputMode( enInputMode d ) { inputmode_ = d; changed_ = true;}
-	void					setInputItem( SERIAL d ) { inputitem_ = d; changed_ = true;}
-	void					setAttacker( SERIAL d ) { attacker_ = d; changed_ = true;}
-	void					setNpcMoveTime( unsigned int d ) { npcmovetime_ = d; changed_ = true;}
-	void					setNpcWander( unsigned char d ) { npcWander_ = d; changed_ = true;}
-	void					setOldNpcWander( unsigned char d ) { oldnpcWander_ = d; changed_ = true;}
-	void					setFtarg( SERIAL d ) { ftarg_ = d; changed_ = true;}
-	void					setPtarg( Coord_cl d ) { ptarg_ = d; changed_ = true;}
-	void					setFx1( int d ) { fx1_ = d; changed_ = true;}
-	void					setFx2( int d ) { fx2_ = d; changed_ = true;}
-	void					setFy1( int d ) { fy1_ = d; changed_ = true;}
-	void					setFy2( int d ) { fy2_ = d; changed_ = true;}
-	void					setFz1( signed char d ) { fz1_ = d; changed_ = true;}
-	void					setRegion( cTerritory* d ) { region_ = d; changed_ = true;}
-	void					setSkillDelay( unsigned int d ) { skilldelay_ = d; changed_ = true;}
-	void					setObjectDelay( unsigned int d ) { objectdelay_ = d; changed_ = true;}
-	void					setMaking( int d ) { making_ = d; changed_ = true;}
-	void					setLastTarget( SERIAL d ) { lastTarget_ = d; changed_ = true;}
-	void					setBlocked( char d ) { blocked_ = d; changed_ = true;}
-	void					setDir2( char d ) { dir2_ = d; changed_ = true;}
-	void					setSpiritSpeakTimer( unsigned int d ) { spiritspeaktimer_ = d; changed_ = true;}
-	void					setSpAttack( int d ) { spattack_ = d; changed_ = true;}
-	void					setSpaDelay( int d ) { spadelay_ = d; changed_ = true;}
-	void					setSpaTimer( unsigned int d ) { spatimer_ = d; changed_ = true;}
-	void					setTaming( int d ) { taming_ = d; changed_ = true;}
-	void					setSummonTimer( unsigned int d ) { summontimer_ = d; changed_ = true;}
-	void					setVisRange( int d ) { VisRange_ = d; changed_ = true;}
-	void					setProfile( const QString &d ) { profile_ = d; changed_ = true;}
+	void					setRobe( int d ) { robe_ = d; changed( SAVE );}
+	void					setKarma( int d ) { karma_ = d; changed( SAVE );}
+	void					setFame( signed int d ) { fame_ = d; changed( SAVE );}
+	void					setKills( unsigned int d ) { kills_ = d; changed( SAVE );}
+	void					setDeaths( unsigned int d ) { deaths_ = d; changed( SAVE );}
+	void					setDead( bool d ) { dead_ = d; changed( SAVE+TOOLTIP );}
+	void					setFixedLight( unsigned char d ) { fixedlight_ = d; changed( SAVE );}
+	void					setSpeech( unsigned char d ) { speech_ = d; changed( SAVE );}
+	void					setDef( unsigned int d ) { def_ = d; changed( SAVE );}
+	void					setWar( bool d ) { war_ = d; changed( SAVE );}
+	void					setFood( unsigned int d ) { food_ = d; changed( SAVE );}
+	void					setTarg( SERIAL d ) { targ_ = d; changed( SAVE );}
+	void					setTimeOut( unsigned int d ) { timeout_ = d; changed( SAVE );}
+	void					setRegen( unsigned int d ) { regen_ = d; changed( SAVE );}
+	void					setRegen2( unsigned int d ) { regen2_ = d; changed( SAVE );}  
+	void					setRegen3( unsigned int d ) { regen3_ = d; changed( SAVE );}
+	void					setInputMode( enInputMode d ) { inputmode_ = d; changed( SAVE );}
+	void					setInputItem( SERIAL d ) { inputitem_ = d; changed( SAVE );}
+	void					setAttacker( SERIAL d ) { attacker_ = d; changed( SAVE );}
+	void					setNpcMoveTime( unsigned int d ) { npcmovetime_ = d; changed( SAVE );}
+	void					setNpcWander( unsigned char d ) { npcWander_ = d; changed( SAVE );}
+	void					setOldNpcWander( unsigned char d ) { oldnpcWander_ = d; changed( SAVE );}
+	void					setFtarg( SERIAL d ) { ftarg_ = d; changed( SAVE );}
+	void					setPtarg( Coord_cl d ) { ptarg_ = d; changed( SAVE );}
+	void					setFx1( int d ) { fx1_ = d; changed( SAVE );}
+	void					setFx2( int d ) { fx2_ = d; changed( SAVE );}
+	void					setFy1( int d ) { fy1_ = d; changed( SAVE );}
+	void					setFy2( int d ) { fy2_ = d; changed( SAVE );}
+	void					setFz1( signed char d ) { fz1_ = d; changed( SAVE );}
+	void					setRegion( cTerritory* d ) { region_ = d; changed( SAVE );}
+	void					setSkillDelay( unsigned int d ) { skilldelay_ = d; changed( SAVE );}
+	void					setObjectDelay( unsigned int d ) { objectdelay_ = d; changed( SAVE );}
+	void					setMaking( int d ) { making_ = d; changed( SAVE );}
+	void					setLastTarget( SERIAL d ) { lastTarget_ = d; changed( SAVE );}
+	void					setBlocked( char d ) { blocked_ = d; changed( SAVE );}
+	void					setDir2( char d ) { dir2_ = d; changed( SAVE );}
+	void					setSpiritSpeakTimer( unsigned int d ) { spiritspeaktimer_ = d; changed( SAVE );}
+	void					setSpAttack( int d ) { spattack_ = d; changed( SAVE );}
+	void					setSpaDelay( int d ) { spadelay_ = d; changed( SAVE );}
+	void					setSpaTimer( unsigned int d ) { spatimer_ = d; changed( SAVE );}
+	void					setTaming( int d ) { taming_ = d; changed( SAVE );}
+	void					setSummonTimer( unsigned int d ) { summontimer_ = d; changed( SAVE );}
+	void					setVisRange( int d ) { VisRange_ = d; changed( SAVE );}
+	void					setProfile( const QString &d ) { profile_ = d; changed( SAVE );}
 	void					clearLastSelections( void );
 
 	void					setSkillValue( UINT16 skill, UINT16 value );
@@ -690,15 +690,15 @@ public:
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity
 	short decDex()				{return dx2;}	// returns the 3 digits behind the decimal point
-	void  setDex(signed short val)		{dx = val; changed_ = true;}		// set the true Dex
-	void  setDecDex(signed short val)	{dx2 = val; changed_ = true;}	// set the 3 digits
-	void  chgDex(signed short val)		{tmpDex += val; changed_ = true;}// intended for temporary changes of Dex
-	void  chgRealDex(short val) {dx += val;if(dx<1) dx=1;if(dx>100) dx=100; changed_ = true;}	// intended for permanent changes of Dex
-	bool  incDecDex(short val)	{dx2 += val;changed_ = true;
+	void  setDex(signed short val)		{dx = val; changed( SAVE );}		// set the true Dex
+	void  setDecDex(signed short val)	{dx2 = val; changed( SAVE );}	// set the 3 digits
+	void  chgDex(signed short val)		{tmpDex += val; changed( SAVE );}// intended for temporary changes of Dex
+	void  chgRealDex(short val) {dx += val;if(dx<1) dx=1;if(dx>100) dx=100; changed( SAVE );}	// intended for permanent changes of Dex
+	bool  incDecDex(short val)	{dx2 += val;changed( SAVE );
 	if (dx2>1000) {dx2-=1000;chgRealDex(1);return true;}
 	else return false;}
 	unsigned short id() const				{return id_;}
-	void setId(unsigned short d)			{id_ = d; changed_ = true;}
+	void setId(unsigned short d)			{id_ = d; changed( SAVE );}
 	bool  isPlayer() const;
 	bool  isNpc() const;
 	bool  isHuman()	const;
@@ -724,8 +724,8 @@ public:
 	void setInnocent();
 	void setCriminal();
 	void criminal();
-	void setAttackFirst()		{this->attackfirst_ = true; changed_ = true;}
-	void resetAttackFirst()		{this->attackfirst_ = false; changed_ = true;}
+	void setAttackFirst()		{this->attackfirst_ = true; changed( SAVE );}
+	void resetAttackFirst()		{this->attackfirst_ = false; changed( SAVE );}
 	void fight(cChar* pOpponent);
 	void setNextMoveTime(short tamediv=1);
 	void disturbMed();
@@ -861,12 +861,12 @@ inline bool  cChar::isInnocent() const		{return (flag_&0x04 ?true:false);}
 inline bool  cChar::isMurderer() const		{return (flag_&0x01 ?true:false);}
 inline bool  cChar::isCriminal() const		{return (flag_&0x02 ?true:false);}
 inline unsigned char cChar::getPriv() const	{return priv;}
-inline void cChar::setPriv(unsigned char p)	{this->priv=p; changed_ = true;}
-inline void cChar::makeInvulnerable()		{priv |= 4; changed_ = true;}
-inline void cChar::makeVulnerable()			{priv &= 0xFB; changed_ = true;}
-inline void cChar::setMurderer()			{flag_ = 0x01; changed_ = true;}
-inline void cChar::setInnocent()			{flag_ = 0x04; changed_ = true;}
-inline void cChar::setCriminal()			{flag_ = 0x02; changed_ = true;}
+inline void cChar::setPriv(unsigned char p)	{this->priv=p; changed( SAVE );}
+inline void cChar::makeInvulnerable()		{priv |= 4; changed( SAVE );}
+inline void cChar::makeVulnerable()			{priv &= 0xFB; changed( SAVE );}
+inline void cChar::setMurderer()			{flag_ = 0x01; changed( SAVE );}
+inline void cChar::setInnocent()			{flag_ = 0x04; changed( SAVE );}
+inline void cChar::setCriminal()			{flag_ = 0x02; changed( SAVE );}
 
 
 // Getters
@@ -879,10 +879,10 @@ inline AccountRecord*	cChar::account() const			{ return account_; }
 inline cChar::Effects	cChar::effects() const			{ return effects_; }
 
 // Setters
-inline void	cChar::setGuildType(short d)			{ GuildType = d; changed_ = true; }
-inline void cChar::setGuildTraitor(bool  d)			{ GuildTraitor = d; changed_ = true;}
-inline void	cChar::setOrgname( const QString& d )	{ orgname_ = d; changed_ = true;}
-inline void cChar::setTitle( const QString& d )		{ title_ = d;   changed_ = true;}
-inline void cChar::setUnicode(bool d)				{ unicode_ = d; changed_ = true;}
+inline void	cChar::setGuildType(short d)			{ GuildType = d; changed( SAVE ); }
+inline void cChar::setGuildTraitor(bool  d)			{ GuildTraitor = d; changed( SAVE );}
+inline void	cChar::setOrgname( const QString& d )	{ orgname_ = d; changed( SAVE );}
+inline void cChar::setTitle( const QString& d )		{ title_ = d;   changed( SAVE );}
+inline void cChar::setUnicode(bool d)				{ unicode_ = d; changed( SAVE );}
 
 #endif // __CHARS_H__

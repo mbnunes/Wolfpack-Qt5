@@ -70,7 +70,7 @@ cUObject::cUObject( cUObject &src )
 	this->multis_ = src.multis_;
 	this->name_ = src.name_;
 	this->free = src.free;
-	this->changed_ = true;
+	this->changed( SAVE|TOOLTIP );
 	tooltip_ = src.tooltip_;
 }
 
@@ -83,7 +83,7 @@ void cUObject::moveTo( const Coord_cl& newpos )
 	MapObjects::instance()->remove( this );
 	pos_ = newpos;
 	MapObjects::instance()->add( this );
-	changed_ = true;
+	changed( SAVE );
 }
 
 unsigned int cUObject::dist(cUObject* d) const
@@ -175,7 +175,7 @@ bool cUObject::del()
 	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial_ ) );
 
 	tags_.del( serial_ );
-	changed_ = true;
+	changed( SAVE );
 
 	return PersistentObject::del();
 }
@@ -198,7 +198,7 @@ void cUObject::clearEvents()
 {
 	scriptChain.clear();
 	eventList_.clear();
-	changed_ = true;
+	changed( SAVE );
 }
 
 // Method for setting a list of WPDefaultScripts
@@ -218,7 +218,7 @@ void cUObject::setEvents( std::vector< WPDefaultScript* > List )
 			scriptChain.push_back( List[ i ] );
 			eventList_.push_back( List[ i ]->getName() );
 		}
-	changed_ = true;
+	changed( SAVE );
 }
 
 // Gets a vector of all assigned events
@@ -248,7 +248,7 @@ void cUObject::addEvent( WPDefaultScript *Event )
 
 	scriptChain.push_back( Event );
 	eventList_.push_back( Event->getName() );
-	changed_ = true;
+	changed( SAVE );
 }
 
 void cUObject::removeEvent( const QString& Name )
@@ -266,7 +266,7 @@ void cUObject::removeEvent( const QString& Name )
  
 	// I hope this works
 	eventList_.remove( Name );
-	changed_ = true;
+	changed( SAVE );
 }
 
 /****************************
@@ -617,7 +617,7 @@ void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 // Simple setting and getting of properties for scripts and the set command.
 stError *cUObject::setProperty( const QString &name, const cVariant &value )
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	SET_STR_PROPERTY( "bindmenu", bindmenu_ )
 	else SET_INT_PROPERTY( "serial", serial_ )
 	else SET_INT_PROPERTY( "multi", multis_ )
@@ -668,26 +668,29 @@ stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 void cUObject::sendTooltip( cUOSocket* mSock )
 {
 
-	UINT32 tt = getTooltip();
-	
-	if( tt == 0xFFFFFFFF )
+	if( tooltip_ == 0xFFFFFFFF )
 	{
-		tt = ItemsManager::instance()->getUnusedTooltip(); 
-		setTooltip( tt );
+		tooltip_ = ItemsManager::instance()->getUnusedTooltip(); 
+		setTooltip( tooltip_ );
 	}
 
 
 	cUOTxAttachTooltip* tooltip = new cUOTxAttachTooltip;
 
-	tooltip->setId( tt );
+	tooltip->setId( tooltip_ );
 	tooltip->setSerial( serial() );
 
-	if( mSock->toolTips() == NULL || tt >= mSock->toolTips()->size() || !mSock->haveTooltip( tt ))
+	if( mSock->toolTips() == NULL || tooltip_ >= mSock->toolTips()->size() || !mSock->haveTooltip( tooltip_ ) )
 	{
-		mSock->addTooltip( tt );
+		mSock->addTooltip( tooltip_ );
 		mSock->send( tooltip );
 	}
 
 	delete( tooltip );
 }
 
+void cUObject::changed( UINT32 state )
+{
+	if( state & eChanged::SAVE ) changed_ = true;
+	if( state & eChanged::TOOLTIP ) tooltip_ = 0xFFFFFFFF;
+}

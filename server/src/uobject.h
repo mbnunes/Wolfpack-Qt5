@@ -127,6 +127,14 @@ private:
 protected:
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+	
+	enum eChanged // Each bit controls different state
+	{
+		SAVE = 1,
+		TOOLTIP = 2,
+		UNUSED = 4,
+		UNUSED2 = 8
+	};
 
 public:
 	const std::vector< WPDefaultScript* > &getEvents( void );
@@ -164,6 +172,8 @@ public:
 	cUObject( cUObject& ); // Copy constructor
 	virtual ~cUObject() {};
 //	virtual QString objectID() const = 0;
+
+	void changed( UINT32 );
 	void moveTo( const Coord_cl& );
 	unsigned int dist(cUObject* d) const;
 	QString bindmenu() const	{ return bindmenu_; }
@@ -175,12 +185,12 @@ public:
 	cCustomTags& tags()			{ return tags_;		}
 	UINT32 getTooltip() const		{ return tooltip_; }
 
-	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed_ = true;	}
-	void setName( const QString& d )		{ name_ = d; changed_ = true;		}	
-	void setPos( const Coord_cl& d )		{ pos_ = d;	changed_ = true;		}
-	void setMultis( const SERIAL d )		{ multis_ = d; changed_ = true;		}
-	void setTags( const cCustomTags& d )	{ tags_ = d; changed_ = true;		}
-	virtual void setSerial( SERIAL d )		{ serial_ = d; changed_ = true;	}
+	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed( SAVE );	}
+	void setName( const QString& d )		{ name_ = d; changed( SAVE+TOOLTIP );		}	
+	void setPos( const Coord_cl& d )		{ pos_ = d;	changed( SAVE );		}
+	void setMultis( const SERIAL d )		{ multis_ = d; changed( SAVE );		}
+	void setTags( const cCustomTags& d )	{ tags_ = d; changed( SAVE+TOOLTIP );		}
+	virtual void setSerial( SERIAL d )		{ serial_ = d; changed( SAVE );	}
 	void setTooltip( const UINT32 d )		{ tooltip_ = d; }
 	void sendTooltip( cUOSocket* mSock );
 

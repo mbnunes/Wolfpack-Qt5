@@ -68,7 +68,7 @@ cBook::cBook()
 	this->author_ = QString::null;
 	this->section_ = QString::null;
 	this->pages_ = 0;
-	this->changed_ = true;
+	this->changed( SAVE|TOOLTIP );
 }
 
 void cBook::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
@@ -137,7 +137,7 @@ bool cBook::del()
 
 	persistentBroker->addToDeleteQueue( "books", QString( "serial = '%1'" ).arg( serial() ) );
 	persistentBroker->addToDeleteQueue( "bookpages", QString( "serial = '%1'" ).arg( serial() ) );
-	changed_ = true;
+	changed( SAVE );
 	return cItem::del();
 }
 
@@ -299,7 +299,7 @@ void cBook::processNode( const QDomElement &Tag )
 
 	else
 		cItem::processNode( Tag );
-	changed_ = true;
+	changed( SAVE );
 }
 
 void cBook::refresh( void )

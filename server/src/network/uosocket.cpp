@@ -1011,10 +1011,11 @@ void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 	pItem = FindItemBySerial( packet->serial() );
 	if( pItem )
 	{
+		tooltips.setSerial( pItem->serial() );
+		tooltips.setId( pItem->getTooltip() );
+
 		if( !pItem->onShowTooltip( this->player(), &tooltips ) ) // just for test if object haven't tooltip
 		{
-			tooltips.setSerial( pItem->serial() );
-			tooltips.setId( pItem->getTooltip() );
 			tooltips.addLine( 0x1005bd, " \t" + pItem->name() + "\t " );
 			this->send( &tooltips );
 		}
@@ -1025,10 +1026,10 @@ void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 		if( !pChar ) 
 			return;
 
+		tooltips.setSerial( pChar->serial() );
+		tooltips.setId( pChar->getTooltip() );
 		if( !pChar->onShowTooltip( this->player(), &tooltips ) )
 		{
-			tooltips.setSerial( pChar->serial() );
-			tooltips.setId( pChar->getTooltip() );
 			tooltips.addLine( 0x1005bd, " \t" + pChar->name() + "\t " );
 			this->send( &tooltips );
 		}

@@ -86,7 +86,7 @@ timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 ), c
 
 cItem::cItem( const cItem &src )
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	this->name_ = src.name_;
 	this->name2_ = src.name2_;
 	this->creator_ = src.creator_;
@@ -172,7 +172,7 @@ P_CHAR cItem::owner( void ) const
 
 void cItem::setOwner( P_CHAR nOwner )
 {
-	changed_ = true;
+	changed( SAVE );
 	ownserial_ = ( nOwner == NULL ) ? INVALID_SERIAL : nOwner->serial();
 }
 
@@ -185,7 +185,7 @@ bool cItem::isPileable()
 
 void cItem::toBackpack( P_CHAR pChar )
 {
-	changed_ = true;
+	changed( SAVE );
 	P_ITEM pPack = pChar->getBackpack();
 	
 	// Pack it to the ground
@@ -222,7 +222,7 @@ void cItem::startDecay()
 	if( container_ )
 		return;
 
-	changed_ = true;
+	changed( SAVE );
 	this->decaytime_ = SrvParams->decayTime()*MY_CLOCKS_PER_SEC+uiCurrentTime;
 }
 
@@ -250,19 +250,19 @@ long cItem::ReduceAmount(const short amt)
 		rest = amt - amount_;
 	}
 
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	return rest;
 }
 
 void cItem::setOwnSerialOnly(int ownser)
 {
-	changed_ = true;
+	changed( SAVE );
 	ownserial_ = ownser;
 }
 
 void cItem::SetOwnSerial(int ownser)
 {
-	changed_ = true;
+	changed( SAVE );
 	setOwnSerialOnly(ownser);
 }
 
@@ -272,7 +272,7 @@ void cItem::SetSpawnSerial(long spawnser)
 		spawnsp.remove(spawnserial, this->serial());
 
 	spawnserial = spawnser;
-	changed_ = true;
+	changed( SAVE );
 
 	if (spawnser!=-1)		// if there is a spawner, add it
 		spawnsp.insert(spawnserial, this->serial());
@@ -280,7 +280,7 @@ void cItem::SetSpawnSerial(long spawnser)
 
 void cItem::SetMultiSerial(long mulser)
 {
-	changed_ = true;
+	changed( SAVE );
 	this->setMultis(mulser);
 }
 
@@ -386,7 +386,7 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 		Items->DeleItem( pItem );
 	}
 	
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	update();
 	return true;
 }
@@ -572,7 +572,7 @@ bool cItem::del()
 		return false; // We didn't need to delete the object
 
 	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( serial() ) );
-	changed_ = true;
+	changed( SAVE );
 	return cUObject::del();
 }
 
@@ -626,7 +626,7 @@ QString cItem::getName( bool shortName )
 
 void cItem::setSerial(const SERIAL ser)
 {
-	changed_ = true;
+	changed( SAVE );
 	cUObject::setSerial( ser );
 	if (ser != INVALID_SERIAL)
 		ItemsManager::instance()->registerItem( this );
@@ -635,7 +635,7 @@ void cItem::setSerial(const SERIAL ser)
 // -- Initialize an Item in the items array
 void cItem::Init( bool mkser )
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	if (mkser)		// give it a NEW serial #
 	{
 		this->setSerial(ItemsManager::instance()->getUnusedSerial());
@@ -1345,7 +1345,7 @@ bool cItem::onShowTooltip( P_CHAR sender, cUOTxTooltipList* tooltip )
 
 void cItem::processNode( const QDomElement& Tag )
 {
-	changed_ = true;
+	changed( SAVE );
 	// we do this as we're going to modify the element
 	QString TagName = Tag.nodeName();
 	QString Value = this->getNodeValue( Tag );
@@ -2143,7 +2143,7 @@ void cItem::soundEffect( UINT16 sound )
 void cItem::setWeight( SI16 nValue )
 {
 	setTotalweight( totalweight_ - ( amount_ * weight_ ) );
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	weight_ = nValue;
 	setTotalweight( totalweight_ + ( amount_ * weight_ ) );
 }
@@ -2171,7 +2171,7 @@ void cItem::setTotalweight( INT32 data )
 		}
 	}
 
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	totalweight_ = data;
 
 	if ( container_ )
@@ -2205,7 +2205,7 @@ void cItem::applyRank( UI08 rank )
 	UINT16 mindef = (UINT16)floor( minmod * (double)def() );
 	UINT16 maxdef = (UINT16)floor( maxmod * (double)def() );
 	
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	setLodamage( RandomNum( minlodam, maxlodam ) );
 	setHidamage( RandomNum( minhidam, maxhidam ) );
 	def_ = RandomNum( mindef, maxdef );
@@ -2494,7 +2494,7 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 	}
 
 	pItem->container_ = 0;
-	pItem->changed_ = true;
+	pItem->changed( SAVE );
 	pItem->setLayer( 0 );
 }
 
@@ -2530,7 +2530,7 @@ void cItem::removeFromCont( bool handleWeight )
 	}
 
 	container_ = 0;
-	changed_ = true;
+	changed( SAVE );
 }
 
 P_ITEM cItem::getOutmostItem()
@@ -2571,7 +2571,7 @@ void cItem::setAmount( UI16 nValue )
 {
 	setTotalweight( totalweight_ + ( ( nValue - amount_ ) * weight_ ) );
 	amount_ = nValue;	
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 }
 
 UINT16 cItem::getWeaponSkill()
@@ -2612,7 +2612,7 @@ UINT16 cItem::getWeaponSkill()
 // Simple setting and getting of properties for scripts and the set command.
 stError *cItem::setProperty( const QString &name, const cVariant &value )
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	SET_INT_PROPERTY( "id", id_ )
 	else SET_INT_PROPERTY( "color", color_ )
 	

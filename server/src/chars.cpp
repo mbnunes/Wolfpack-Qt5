@@ -97,14 +97,14 @@ cChar::cChar():
 	socket_(0), account_(0), owner_(0), guildstone_( INVALID_SERIAL ), guarding_( 0 ),
 	regen_( 0 ), regen2_( 0 ), regen3_( 0 )
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	VisRange_ = VISRANGE;
 	Init( false );
 }
 
 cChar::cChar( const P_CHAR mob )
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	this->content_ = mob->content();
 	this->followers_ = mob->followers();
 	this->guardedby_ = mob->guardedby();
@@ -321,7 +321,7 @@ void cChar::giveGold( Q_UINT32 amount, bool inBank )
 
 void cChar::setSerial(const SERIAL ser)
 {
-	changed_ = true;
+	changed( SAVE );
 	cUObject::setSerial( ser );
 	if ( this->serial() != INVALID_SERIAL)
 		CharsManager::instance()->registerChar(this);
@@ -329,7 +329,7 @@ void cChar::setSerial(const SERIAL ser)
 
 void cChar::Init(bool ser)
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	VisRange_ = VISRANGE;
 	unsigned int i;
 
@@ -727,7 +727,7 @@ P_ITEM cChar::getBackpack()
 
 void cChar::SetSpawnSerial(long spawnser)
 {
-	changed_ = true;
+	changed( SAVE );
 	if (spawnSerial() != INVALID_SERIAL)	// if it was set, remove the old one
 		cspawnsp.remove(spawnSerial(), serial());
 
@@ -790,7 +790,7 @@ int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 
 void cChar::removeItemBonus(cItem* pi)
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 //	this->st -= pi->st2;
 	this->setSt( ( this->st() ) - pi->st2());
 	this->chgDex(-1 * pi->dx2());
@@ -1146,7 +1146,7 @@ bool cChar::del()
 
 	persistentBroker->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial() ) );
 	persistentBroker->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial() ) );
-	changed_ = true;
+	changed( SAVE );
 	return cUObject::del();
 }
 
@@ -1348,7 +1348,7 @@ bool cChar::onDropOnChar( P_ITEM pItem )
 
 void cChar::processNode( const QDomElement &Tag )
 {
-	changed_ = true;
+	changed( SAVE );
 	QString TagName = Tag.nodeName();
 	QString Value = this->getNodeValue( Tag );
 	QDomNodeList ChildTags;
@@ -1922,7 +1922,7 @@ void cChar::message( const QString &message, UI16 color )
 
 void cChar::setAccount( AccountRecord* data, bool moveFromAccToAcc )
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	if( moveFromAccToAcc && account_ != 0 )
 		account_->removeCharacter( this );
 
@@ -1934,7 +1934,7 @@ void cChar::setAccount( AccountRecord* data, bool moveFromAccToAcc )
 
 void cChar::giveItemBonus(cItem* pi)
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	st_ += pi->st2();
 	chgDex( pi->dx2() );
 	in_ += pi->in2();
@@ -2283,7 +2283,7 @@ cGuildStone *cChar::getGuildstone()
 
 void cChar::makeShop( void )
 {
-	changed_ = true;
+	changed( SAVE );
 	shop_ = true;
 
 	// We need to create the same item on several layers
@@ -2435,7 +2435,7 @@ UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
 // Formerly deathstuff()
 void cChar::kill()
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	int ele;
 	int nType=0;
 
@@ -2795,7 +2795,7 @@ void cChar::resurrect()
 	if ( !dead_ )
 		return;
 
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	Fame( this, 0 );
 	soundEffect( 0x0214 );
 	setId( xid_ );
@@ -2858,7 +2858,7 @@ void cChar::turnTo( const Coord_cl &pos )
 
 	if( nDir != dir_ )
 	{
-		changed_ = true;
+		changed( SAVE );
 		dir_ = nDir;
 		
 		update( true );
@@ -3813,7 +3813,7 @@ void cChar::setOwner( P_CHAR data )
 	}
 
 	owner_ = data;
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 
 	if( owner_ )
 	{
@@ -3877,7 +3877,7 @@ void cChar::setGuarding( P_CHAR data )
 		guarding_->removeGuard( this );
 
 	guarding_ = data;
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 
 	if( guarding_ )
 		guarding_->addGuard( this );		
@@ -4010,7 +4010,7 @@ void cChar::criminal( )
 // Simple setting and getting of properties for scripts and the set command.
 stError *cChar::setProperty( const QString &name, const cVariant &value )
 {
-	changed_ = true;
+	changed( SAVE|TOOLTIP );
 	SET_INT_PROPERTY( "guildtype", GuildType )
 	SET_INT_PROPERTY( "guildtraitor", GuildTraitor )
 	SET_STR_PROPERTY( "orgname", orgname_ )
