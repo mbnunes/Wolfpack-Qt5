@@ -165,8 +165,8 @@ int cUOPacket::getInt( unsigned int pos )
 
 short cUOPacket::getShort( unsigned int pos )
 {
-	short value = (Q_INT8)rawPacket.at(pos);
-	value |= rawPacket.at(pos+1) << 8;
+	short value = (Q_INT8)rawPacket.at(pos+1);
+	value |= rawPacket.at(pos) << 8;
 	return value;
 }
 

@@ -84,11 +84,6 @@ public:
 	void recieve(); // Tries to recieve one packet and process it
 	void send( cUOPacket *packet );
 
-	// Helper
-	void sysMessage( const QString &message, Q_UINT16 color = 0xFFFF );
-
-	void disconnect( void ); // Call this whenever the socket should disconnect
-
 	// Handler
 	void handleLoginRequest( cUORxLoginRequest *packet );
 	void handleHardwareInfo( cUORxHardwareInfo *packet );
@@ -99,7 +94,10 @@ public:
 	void handleCreateChar( cUORxCreateChar *packet );
 
 	// Utilities
+	void sysMessage( const QString &message, Q_UINT16 color = 0x0037 );
 	void sendCharList();
+	void updateCharList();
+	void disconnect( void ); // Call this whenever the socket should disconnect
 };
 
 #endif

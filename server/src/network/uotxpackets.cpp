@@ -147,11 +147,12 @@ void cUOTxDrawObject::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 lay
 
 void cUOTxUnicodeSpeech::setText( const QString &data )
 {
-	rawPacket.resize( 50 + data.length() );
+	rawPacket.resize( 50 + (data.length()*2) );
 
 	Q_INT32 offset = 48; // Pad right by one - remeber to copy one byte less
 	rawPacket[ offset ] = 0x00;
 	memcpy( &rawPacket.data()[ offset + 1 ], data.unicode(), (data.length()*2)-1 );
 
 	// Add the new Terminator
+	setShort( rawPacket.count() - 2, 0 );
 }

@@ -221,11 +221,8 @@ void cUOSocket::sendCharList()
 
 void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 {
-	//cout << "Trying to delete character with id " << packet->index() << endl;
-
-	cUOTxUpdateCharList *update = new cUOTxUpdateCharList;
-	update->setCharacter( 0, "You deleted me!" );
-	send( update );
+	// TODO: Implement code here
+	updateCharList();
 }
 
 void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
@@ -319,20 +316,168 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 
 // Processes a create character request
 // Notes from Lord Binaries packet documentation:
-
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 {
 	// Several security checks
 	vector< P_CHAR > characters = Accounts->characters( _account );
 
+    // If we have more than 5 characters
 	if( characters.size() >= 5 )
 	{
-
+		clConsole.send( QString( "%1 is trying to create char but has more than 5 characters" ).arg( Accounts->findByNumber( _account ) ) );
+		cUOTxDenyLogin denyLogin( DL_OTHER );
+		send( &denyLogin );
+		sysMessage( "You already have more than 5 characters" );		
+		return;
 	}
 
+	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
+
+	// Check the stats
+	Q_UINT16 statSum = ( packet->strength() + packet->dexterity() + packet->intelligence() );
+	if( statSum > 80 )
+	{
+		clConsole.send( QString( "%1 is trying to create char with wrong stats: %2" ).arg( Accounts->findByNumber( _account ) ).arg( statSum ) );
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
+		sysMessage( QString( "Invalid Character stat sum: %1" ).arg( statSum ) );
+		return;
+	}
+
+	// Every stat needs to be below 60
+	if( ( packet->strength() > 60 ) || ( packet->dexterity() > 60 ) || ( packet->intelligence() > 60 ) )
+	{
+		clConsole.send( QString( "%1 is trying to create char with wrong stats: %2 [str] %3 [dex] %4 [int]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->strength() ).arg( packet->dexterity() ).arg( packet->intelligence() ) );
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
+		sysMessage( "Invalid Character stats" );
+		return;
+	}
+
+	// Check the skills
+	if( ( packet->skillId1() >= ALLSKILLS ) || ( packet->skillValue1() > 50 ) ||
+		( packet->skillId2() >= ALLSKILLS ) || ( packet->skillValue2() > 50 ) ||
+		( packet->skillId3() >= ALLSKILLS ) || ( packet->skillValue3() > 50 ) ||
+		( packet->skillValue1() + packet->skillValue2() + packet->skillValue3() > 100 ) )
+	{
+		QString failMessage = QString( "%1 is trying to create char with wrong skills: %1 [%2%] %3 [%4%] %5 [%6%]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() );
+		clConsole.send( failMessage );
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
+		sysMessage( "Invalid Character skills" );
+		return;
+	}
+
+	// Check Hair
+	if( !isHair( packet->hairStyle() ) || !isHairColor( packet->hairColor() ) )
+	{
+		clConsole.send( QString( "%1 is trying to create a char with wrong hair %2 [Color: %3]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
+		sysMessage( "Invalid Hair" );
+		return;
+	}
+
+	// Check Beard
+	if( !isBeard( packet->beardStyle() ) || !isHairColor( packet->beardColor() ) )
+	{
+		clConsole.send( QString( "%1 is trying to create a char with wrong beard %2 [Color: %3]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
+		sysMessage( "Invalid Beard" );
+		return;
+	}
+
+	// Check color for pants and shirt
+	if( !isNormalColor( packet->shirtColor() ) || !isNormalColor( packet->pantsColor() ) )
+	{
+		clConsole.send( QString( "%1 is trying to create a char with wrong shirt [%2] or pant [%3] color" ).arg( Accounts->findByNumber( _account ) ).arg( packet->shirtColor() ).arg( packet->pantsColor() ) );
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
+		sysMessage( "Invalid Shirt or Pant color" );
+		return;
+	}
+
+	// Check the start location
+	vector< StartLocation_st > startLocations = SrvParams->startLocation();
+	if( packet->startTown() > startLocations.size() )
+	{
+		clConsole.send( QString( "%1 is trying to create a char with wrong start location: %2" ).arg( Accounts->findByNumber( _account ) ).arg( packet->startTown ) );
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
+		sysMessage( "Invalid start location" );
+		return;
+	}
+
+	// Finally check the skin
+	if( !isSkinColor( packet->skinColor() ) )
+	{
+		clConsole.send( QString( "%1 is trying to create a char with wrong skin color: %2" ).arg( Accounts->findByNumber( _account ) ).arg( packet->skinColor() ) );
+		cUOTxDenyLogin denyLogin( DL_BADCOMMUNICATION );
+		send( &denyLogin );
+		sysMessage( "Invalid Skin color" );
+		return;
+	}
+
+	// FINALLY create the char
+	P_CHAR pChar = new cChar;
+	pChar->Init();
+	
+	pChar->setPriv( SrvParams->defaultpriv1() );
+	pChar->priv2 = SrvParams->defaultpriv2();
+
+	if( _account == 0 )
+	{
+		pChar->setPriv( 0xE7 );
+		pChar->setPrivLvl("admin");
+		pChar->setMenupriv( -1 );
+	}
+	else
+		pChar->setPrivLvl( "player" );
+
+	pChar->name = packet->name().latin1();
+	
+	pChar->setSkin( packet->skinColor() );
+	pChar->setXSkin( packet->skinColor() );
+
+	pChar->moveTo( startLocations[ packet->startTown() ].pos );
+	pChar->dir = 4;
+
+	pChar->setId( ( packet->gender() == 1 ) ? 0x191 : 0x190 )
+	pChar->xid = pChar->id();
+
+	pChar->st = packet->strength();
+	pChar->hp = pChar->st;
+
+	pChar->dx = packet->dexterity();
+	pChar->stm = pChar->effDex();
+
+	pChar->in = packet->intelligence();
+	pChar->mn = pChar->in;
+
+	// Create the char equipment (JUST the basics !!)
+	P_ITEM pItem = new cItem;
+	pItem->Init();
+
+	// Shirt
+	pItem->setId( 0x1517 );
+	pItem->setLayer( 0x05 );
+	pItem->setColor( packet->shirtColor() );
+	pItem->setContSerial( pChar->serial );
+
+	pItem = new cItem;
+	pItem->Init();
+
+	// Skirt or Pants
+	pItem->setId( ( packet->gender() != 0 ) ? 0x1516 : 0x152E );
+	pItem->setLayer( 0x04 );
+	pItem->setColor( packet->pantsColor() );
+	pItem->setContSerial( pChar->serial );
+
+	// Hair & Beard
 }
 
-void cUOSocket::sysMessage( const QString &message, Q_UINT16 )
+void cUOSocket::sysMessage( const QString &message, Q_UINT16 color )
 {
 	// Color: 0x0037
 	cUOTxUnicodeSpeech *speech = new cUOTxUnicodeSpeech;
@@ -340,9 +485,27 @@ void cUOSocket::sysMessage( const QString &message, Q_UINT16 )
 	speech->setModel( 0xFFFF );
 	speech->setFont( 3 );
 	speech->setLanguage( "ENU" ); // Standard server language >> Change later
-	speech->setColor( 0x0037 );
+	speech->setColor( color );
 	speech->setType( cUOTxUnicodeSpeech::System );
 	speech->setName( "System" );
-	
+	speech->setText( message );
+
+	clConsole.send( cUOPacket::dump( speech->uncompressed() ) );
+
+	send( speech );
+	delete speech;
 }
 
+void cUOSocket::updateCharList()
+{
+
+	cUOTxUpdateCharList *charList = new cUOTxUpdateCharList;
+	vector< P_CHAR > characters = Accounts->characters( _account );
+
+	// Add the characters
+	for( Q_UINT8 i = 0; i < characters.size(); ++i )
+		charList->setCharacter( i, characters[ i ]->name.c_str() );
+
+	send( charList );
+	delete charList;
+}
