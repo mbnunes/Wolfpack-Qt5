@@ -537,6 +537,7 @@ public:
 class cUORxCHDelete : public cUORxAosMultiPurpose
 {
 public:
+	cUORxCHDelete( const QByteArray &data ): cUORxAosMultiPurpose( data ) {}
 	UINT32 elementId() const { return getInt( 10 ); }
 	UINT32 x() const { return getInt( 15 ); }
 	UINT32 y() const { return getInt( 20 ); }
@@ -546,6 +547,7 @@ public:
 class cUORxCHBuild : public cUORxAosMultiPurpose
 {
 public:
+	cUORxCHBuild( const QByteArray &data ): cUORxAosMultiPurpose( data ) {}
 	UINT32 elementId() const { return getInt( 10 ); }
 	UINT32 x() const { return getInt( 15 ); }
 	UINT32 y() const { return getInt( 20 ); }
@@ -555,6 +557,7 @@ public:
 class cUORxCHStairs : public cUORxAosMultiPurpose
 {
 public:
+	cUORxCHStairs( const QByteArray &data ): cUORxAosMultiPurpose( data ) {}
 	UINT32 multiId() const { return getInt( 10 ); }
 	UINT32 x() const { return getInt( 15 ); }
 	UINT32 y() const { return getInt( 20 ); }
@@ -564,6 +567,7 @@ public:
 class cUORxCHLevel : public cUORxAosMultiPurpose
 {
 public:
+	cUORxCHLevel( const QByteArray &data ): cUORxAosMultiPurpose( data ) {}
 	UINT32 level() const { return getInt( 10 ); }
 };
 
