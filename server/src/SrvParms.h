@@ -80,7 +80,6 @@ struct server_st
 	unsigned int houseintown; // Ripper
 	unsigned int shoprestock; // Ripper 
 	char archivepath[256];
-	int backup_save_ratio; // LB, each X'th save-intervall a backup is done if a path is given ...
 	unsigned int maxabsorbtion; // Magius(CHE) --- Maximum Armour of the single pieces of armour (for player)!
 	unsigned int maxnohabsorbtion; // Magius(CHE) --- Maximum Armour of the total armour (for NPC)!
 	unsigned int npcdamage; // Magius(CHE) --- DAmage divided by this number if the attacked is an NPC!
@@ -105,10 +104,6 @@ struct server_st
 	int cutscrollreq;//AntiChrist - cut skill requirements for scrolls
 	int persecute;//AntiChrist - persecute thing
 	char errors_to_console; // LB
-	char gm_log;
-	char speech_log;
-	char pvp_log;
-	char server_log;
 	unsigned long int housedecay_secs;
 	unsigned int ra_port;
 	bool EnableRA;

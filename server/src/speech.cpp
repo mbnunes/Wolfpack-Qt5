@@ -1155,7 +1155,7 @@ void cSpeech::talking(int s, string& speech) // PC speech
 	{
 		pc_currchar->saycolor = speech_color;
 	}
-	if (SrvParms->speech_log) // Logging bugfixed by LB
+	if (SrvParams->speechLog()) // Logging bugfixed by LB
 	{
 		char temp2[512];
 		sprintf(temp2, "%s.speech_log", pc_currchar->name.c_str());

@@ -55,6 +55,11 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	inactivityTimeout_		= getNumber("General",  "Inactivity Timeout", 300, true);
 	showDeathAnim_		    = getNumber("General",  "Show Death Animation", 1, true);
 	poisonTimer_		    = getNumber("General",  "PoisonTimer", 180, true);
+	serverLog_		        = getBool("General",	"Server Log", false, true);
+	speechLog_		        = getBool("General",	"Speech Log", false, true);
+	pvpLog_		            = getBool("General",	"PvP Log", false, true);
+	gmLog_		            = getBool("General",	"GM Log", false, true);
+	backupSaveRatio_		= getNumber("General",  "Backup Save Ratio", 1, true);
 
 	flush(); // if any key created, save it.
 }

@@ -480,7 +480,7 @@ void XgoTarget(int s)
 
 static void PrivTarget(int s, P_CHAR pc)
 {
-	if (SrvParms->gm_log)	//Logging
+	if (SrvParams->gmLog())	//Logging
 	{
 		sprintf((char*)temp, "%s.gm_log", currchar[s]->name.c_str());
 		sprintf((char*)temp2, "%s as given %s Priv [%x][%x]\n", currchar[s]->name.c_str(), pc->name.c_str(), addid1[s],addid2[s]);
@@ -729,7 +729,7 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	UOXSOCKET s = ps->GetSocket();
 
 	int i;	
-	if (SrvParms->gm_log)
+	if (SrvParams->gmLog())
 	{
 		sprintf((char*)temp, "%s.gm_log",currchar[s]->name.c_str());
 		sprintf((char*)temp2, "%s has made %s a GM.\n",currchar[s]->name.c_str(),pc->name.c_str());
@@ -787,7 +787,7 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 {
 	UOXSOCKET s = ps->GetSocket();
 
-	if (SrvParms->gm_log)
+	if (SrvParams->gmLog())
 	{
 		// logging
 		sprintf((char*)temp, "%s.gm_log",currchar[s]->name.c_str());

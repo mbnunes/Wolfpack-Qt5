@@ -696,7 +696,7 @@ void command_setpriv3(UOXSOCKET s)
 	switch(tnum) {
 	case 7:
 	case 8:
-		if (SrvParms->gm_log) { sprintf((char*)temp,"%s.log", pcc_cs->name.c_str()); savelog("setpriv3 executed!\n",(char*)temp); }
+		if (SrvParams->gmLog()) { sprintf((char*)temp,"%s.log", pcc_cs->name.c_str()); savelog("setpriv3 executed!\n",(char*)temp); }
 		priv3a[s]=hexnumber(1);
 		priv3b[s]=hexnumber(2);
 		priv3c[s]=hexnumber(3);
@@ -709,7 +709,7 @@ void command_setpriv3(UOXSOCKET s)
 		break;
 	case 2:
 		y=makenumber(1);
-		if (SrvParms->gm_log) { sprintf((char*)temp,"%s.log",pcc_cs->name.c_str()); savelog("setpriv3 executed!\n",(char*)temp); }
+		if (SrvParams->gmLog()) { sprintf((char*)temp,"%s.log",pcc_cs->name.c_str()); savelog("setpriv3 executed!\n",(char*)temp); }
 		//AntiChrist-this was metagm[y%255]-
 		if(y>255)
 		{
@@ -2423,7 +2423,7 @@ void command_wipenpcs(UOXSOCKET s)
 	}
 	
 	
-	if (SrvParms->gm_log) 
+	if (SrvParams->gmLog()) 
 	{ 
 		char temp2[1024];
 		sprintf((char*)temp,"%s.log",pc_currchar->name.c_str()); 

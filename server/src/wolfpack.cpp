@@ -1066,7 +1066,7 @@ void deathstuff(P_CHAR pc_player)
 						setcharflag(pc_t);//AntiChrist
 					}
 
-					if (SrvParms->pvp_log)
+					if (SrvParams->pvpLog())
 					{
 						sprintf((char*)temp,"%s was killed by %s!\n",pc_player->name.c_str(),pc_t->name.c_str());
 						savelog((char*)temp,"PvP.log");
@@ -3061,7 +3061,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	clConsole.send("WOLFPACK: Startup Complete.\n\n");
 
 
-	if (SrvParms->server_log) savelog("-=Server Startup=-\n=======================================================================\n","server.log");
+	if (SrvParams->serverLog()) savelog("-=Server Startup=-\n=======================================================================\n","server.log");
 
 	uiCurrentTime=getNormalizedTime();
 	serverstarttime=getNormalizedTime(); // dont remove, its absolutly necassairy that its 3 times in the startup sequence for several timing reasons.
@@ -3254,10 +3254,10 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	if (error) {
 		clConsole.send("ERROR: Server terminated by error!\n");
 
-		if (SrvParms->server_log) savelog("Server Shutdown by Error!\n=======================================================================\n\n\n","server.log");
+		if (SrvParams->serverLog()) savelog("Server Shutdown by Error!\n=======================================================================\n\n\n","server.log");
 	} else {
 		clConsole.send("WOLFPACK: Server shutdown complete!\n");
-		if (SrvParms->server_log) savelog("Server Shutdown!\n=======================================================================\n\n\n","server.log");
+		if (SrvParams->serverLog()) savelog("Server Shutdown!\n=======================================================================\n\n\n","server.log");
 	}
 	//endScrn() ;
 	return 0;

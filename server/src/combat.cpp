@@ -898,7 +898,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 							sysmessage(calcSocketFromChar(pc_attacker),"You are now a murderer!");
 					}
 					
-					if (SrvParms->pvp_log)
+					if (SrvParams->pvpLog())
 					{
 						sprintf((char*)temp,"%s was killed by %s!\n",pc_defender->name.c_str(), pc_attacker->name.c_str());
 						savelog((char*)temp,"PvP.log");

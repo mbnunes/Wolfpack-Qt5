@@ -995,7 +995,7 @@ void CWorldMain::savenewworld(char x)
 	ItemsThread.start();
 
 	saveserverscript();
-	if (SrvParms->server_log) savelog("Server data save\n","server.log");
+	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
 
 	serBinFile archive;
 	archive.prepareWritting("chars");

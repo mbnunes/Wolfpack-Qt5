@@ -45,6 +45,10 @@ protected:
 	bool joinMsg_;
 	bool saveSpawns_;
 	bool autoAccountCreate_;
+	bool serverLog_;
+	bool speechLog_;
+	bool pvpLog_;
+	bool gmLog_;
 	unsigned int autoAccountReload_;
 	float stablingFee_;
 	bool checkCharAge_;
@@ -71,6 +75,7 @@ protected:
 	unsigned int poisonTimer_;
 	signed int maxStealthSteps_;
 	unsigned int runningStamSteps_;
+	int backupSaveRatio_;
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
 	std::vector<ServerList_st>& serverList(); // read-only
@@ -92,6 +97,10 @@ public:
 	unsigned int autoAccountReload() const;
 	bool autoAccountCreate() const;
 	bool saveSpawns() const;
+	bool serverLog() const;
+	bool speechLog() const;
+	bool pvpLog() const;
+	bool gmLog() const;
 	float stablingFee() const;
 	bool checkCharAge() const;
 	bool announceWorldSaves() const;
@@ -118,6 +127,7 @@ public:
 	unsigned int poisonTimer() const;
 	signed int maxStealthSteps() const;
 	unsigned int runningStamSteps() const;
+	int backupSaveRatio() const;
 
 private:
 	void setDefaultStartLocation();
@@ -180,6 +190,26 @@ inline unsigned short cSrvParams::objectDelay() const
 inline bool cSrvParams::partMsg() const
 {
 	return partMsg_;
+}
+
+inline bool cSrvParams::serverLog() const
+{
+	return serverLog_;
+}
+
+inline bool cSrvParams::speechLog() const
+{
+	return speechLog_;
+}
+
+inline bool cSrvParams::pvpLog() const
+{
+	return pvpLog_;
+}
+
+inline bool cSrvParams::gmLog() const
+{
+	return gmLog_;
 }
 
 inline bool cSrvParams::joinMsg() const
@@ -331,6 +361,11 @@ inline signed int cSrvParams::maxStealthSteps() const
 inline unsigned int cSrvParams::runningStamSteps() const
 {
 	return runningStamSteps_;
+}
+
+inline int cSrvParams::backupSaveRatio() const
+{
+	return backupSaveRatio_;
 }
 
 #endif __SRVPARAMS_H___

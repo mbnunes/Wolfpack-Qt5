@@ -115,15 +115,9 @@ void loadserverdefaults(void)
 	server_data.rank_system=1;		// Rank system to make various type of a single intem based on the creator's skill! - Magius(CHE)
 	server_data.errors_to_console=0;
 
-	server_data.gm_log=0;
-	server_data.pvp_log=0;
-	server_data.speech_log=0;
-	server_data.server_log=0;
-
 	server_data.quittime=300;//Instalog
 
 	server_data.msgboardpath[0] = 0;	   // Dupois - Added Dec 20, 1999 for message boards (current dir)
-	server_data.backup_save_ratio=1; //LB
 	
 	server_data.msgpostaccess=0;           // Dupois - Added Dec 20, 1999 for message boards (GM only)
 	server_data.msgpostremove=0;           // Dupois - Added Dec 20, 1999 for message boards (GM only)
@@ -349,16 +343,6 @@ void loadserver()
 				server_data.specialbanktrigger[i] = toupper(server_data.specialbanktrigger[i]);
 		}
 		else if(!(strcmp((char*)script1,"ARCHIVEPATH"))) strcpy(server_data.archivepath,(char*)script2);
-		else if(!(strcmp((char*)script1,"BACKUP_SAVE_RATIO"))) { //LB
-			server_data.backup_save_ratio=str2num(script2);
-			if (server_data.backup_save_ratio<1) server_data.backup_save_ratio=1;
-		}
-
-		else if(!(strcmp((char*)script1,"SERVER_LOG"))) server_data.server_log=str2num(script2);
-		else if(!(strcmp((char*)script1,"SPEECH_LOG"))) server_data.speech_log=str2num(script2);
-		else if(!(strcmp((char*)script1,"PVP_LOG"))) server_data.pvp_log=str2num(script2);
-		else if(!(strcmp((char*)script1,"GM_LOG"))) server_data.gm_log=str2num(script2);		
-
 
 		else if(!(strcmp((char*)script1,"CHAR_TIME_OUT"))) server_data.quittime = str2num(script2);//Instalog
         else if(!(strcmp((char*)script1,"BOAT_SPEED"))) server_data.boatspeed = atof((char*)script2);//Boats
@@ -598,12 +582,6 @@ void saveserverscript(void)
 	fprintf(file, "USESPECIALBANK %i\n",server_data.usespecialbank);	//AntiChrist - specialbank
 	fprintf(file, "SPECIALBANKTRIGGER %s\n",server_data.specialbanktrigger);
 	fprintf(file, "ARCHIVEPATH %s\n",server_data.archivepath);
-	fprintf(file, "BACKUP_SAVE_RATIO %i\n",server_data.backup_save_ratio);//LB
-
-	fprintf(file, "SERVER_LOG %i\n",server_data.server_log); //Lb, splitt log to those 4
-	fprintf(file, "SPEECH_LOG %i\n",server_data.speech_log);
-	fprintf(file, "PVP_LOG %i\n",server_data.pvp_log);
-	fprintf(file, "GM_LOG %i\n",server_data.gm_log);
 	
 	fprintf(file, "CHAR_TIME_OUT %i\n",server_data.quittime);//Instalog
     fprintf(file, "BOAT_SPEED %f\n",server_data.boatspeed);//Boats
