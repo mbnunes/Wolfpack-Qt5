@@ -781,7 +781,7 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timec
 	int loopexit=0;
 	// - Tauriel's region stuff 3/6/99
 
-	int i,j;
+	int j;
 
 	if (timecheck)
 	{
