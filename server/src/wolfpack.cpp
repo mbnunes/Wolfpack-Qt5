@@ -1339,6 +1339,7 @@ int main( int argc, char *argv[] )
 	cCorpse::registerInFactory();
 	cBoat::registerInFactory();
 	cHouse::registerInFactory();
+	cResourceItem::registerInFactory();
 
 	try
 	{

@@ -655,6 +655,34 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 				self->pItem->addEvent( script );
 		}
 	}
+	else if( !strcmp( "container", name ) )
+	{
+		if( checkWpItem( value ) )
+		{
+			P_ITEM pCont = getWpItem( value );
+			if( pCont )
+				pCont->addItem( self->pItem );
+		}
+		else if( checkWpChar( value ) )
+		{
+			P_CHAR pCont = getWpChar( value );
+			if( pCont )
+			{
+				tile_st tile = TileCache::instance()->getTile( self->pItem->id() );
+				if( tile.layer )
+				{
+					if( pCont->atLayer( (cChar::enLayer)tile.layer ) )
+						pCont->atLayer( (cChar::enLayer)tile.layer )->toBackpack( pCont );
+					pCont->addItem( (cChar::enLayer)tile.layer, self->pItem );
+				}
+			}
+		}
+		else
+		{
+			self->pItem->removeFromCont();
+			self->pItem->moveTo( self->pItem->pos );
+		}
+	}
 	else
 	{
 		cVariant val;

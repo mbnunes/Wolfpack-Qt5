@@ -739,14 +739,15 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
 			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", failmsg_ );
+			QStringList parts = QStringList::split( ",", id );
 
-			if( parts.count() == 2 )
+			if( parts.count() == 3 )
 			{
-				INT32 file = parts[0].toInt();
-				INT32 id = parts[1].toInt();
+				INT32 type = parts[0].toInt();
+				INT32 file = parts[1].toInt();
+				INT32 id = parts[2].toInt();
 
-				socket->clilocMessage( file, id );
+				socket->clilocMessage( type, file, id );
 			}
 		}
 		else
@@ -817,14 +818,15 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		if( emptymsg_.left( 7 ) == "cliloc:" )
 		{
 			QString id = emptymsg_.right( emptymsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", emptymsg_ );
+			QStringList parts = QStringList::split( ",", id );
 
-			if( parts.count() == 2 )
+			if( parts.count() == 3 )
 			{
-				INT32 file = parts[0].toInt();
-				INT32 id = parts[1].toInt();
+				INT32 type = parts[0].toInt();
+				INT32 file = parts[1].toInt();
+				INT32 id = parts[2].toInt();
 
-				socket->clilocMessage( file, id );
+				socket->clilocMessage( type, file, id );
 			}
 		}
 		else
@@ -880,14 +882,15 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
 			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", failmsg_ );
+			QStringList parts = QStringList::split( ",", id );
 
-			if( parts.count() == 2 )
+			if( parts.count() == 3 )
 			{
-				INT32 file = parts[0].toInt();
-				INT32 id = parts[1].toInt();
+				INT32 type = parts[0].toInt();
+				INT32 file = parts[1].toInt();
+				INT32 id = parts[2].toInt();
 
-				socket->clilocMessage( file, id );
+				socket->clilocMessage( type, file, id );
 			}
 		}
 		else
@@ -916,14 +919,15 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
 			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", failmsg_ );
+			QStringList parts = QStringList::split( ",", id );
 
-			if( parts.count() == 2 )
+			if( parts.count() == 3 )
 			{
-				INT32 file = parts[0].toInt();
-				INT32 id = parts[1].toInt();
+				INT32 type = parts[0].toInt();
+				INT32 file = parts[1].toInt();
+				INT32 id = parts[2].toInt();
 
-				socket->clilocMessage( file, id );
+				socket->clilocMessage( type, file, id );
 			}
 		}
 		else
@@ -943,15 +947,16 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	if( succmsg_.left( 7 ) == "cliloc:" )
 	{
 		QString id = succmsg_.right( succmsg_.length() - 7 );
-		QStringList parts = QStringList::split( ",", succmsg_ );
+		QStringList parts = QStringList::split( ",", id );
 
-		if( parts.count() == 2 )
-		{
-			INT32 file = parts[0].toInt();
-			INT32 id = parts[1].toInt();
+			if( parts.count() == 3 )
+			{
+				INT32 type = parts[0].toInt();
+				INT32 file = parts[1].toInt();
+				INT32 id = parts[2].toInt();
 
-			socket->clilocMessage( file, id );
-		}
+				socket->clilocMessage( type, file, id );
+			}
 	}
 	else
 	{
@@ -985,6 +990,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 				pi->setName( item.name );
 
 			pBackpack->addItem( pi );
+			socket->sendStatWindow();
 		}
 
 		spawnamount -= 1;
@@ -1003,14 +1009,15 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		if( emptymsg_.left( 7 ) == "cliloc:" )
 		{
 			QString id = emptymsg_.right( emptymsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", emptymsg_ );
+			QStringList parts = QStringList::split( ",", id );
 
-			if( parts.count() == 2 )
+			if( parts.count() == 3 )
 			{
-				INT32 file = parts[0].toInt();
-				INT32 id = parts[1].toInt();
+				INT32 type = parts[0].toInt();
+				INT32 file = parts[1].toInt();
+				INT32 id = parts[2].toInt();
 
-				socket->clilocMessage( file, id );
+				socket->clilocMessage( type, file, id );
 			}
 		}
 		else
@@ -1025,14 +1032,15 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 			if( emptymsg_.left( 7 ) == "cliloc:" )
 			{
 				QString id = emptymsg_.right( emptymsg_.length() - 7 );
-				QStringList parts = QStringList::split( ",", emptymsg_ );
+				QStringList parts = QStringList::split( ",", id );
 
-				if( parts.count() == 2 )
+				if( parts.count() == 3 )
 				{
-					INT32 file = parts[0].toInt();
-					INT32 id = parts[1].toInt();
+					INT32 type = parts[0].toInt();
+					INT32 file = parts[1].toInt();
+					INT32 id = parts[2].toInt();
 
-					socket->clilocMessage( file, id );
+					socket->clilocMessage( type, file, id );
 				}
 			}
 			else
@@ -1132,14 +1140,15 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		if( emptymsg_.left( 7 ) == "cliloc:" )
 		{
 			QString id = emptymsg_.right( emptymsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", emptymsg_ );
+			QStringList parts = QStringList::split( ",", id );
 
-			if( parts.count() == 2 )
+			if( parts.count() == 3 )
 			{
-				INT32 file = parts[0].toInt();
-				INT32 id = parts[1].toInt();
+				INT32 type = parts[0].toInt();
+				INT32 file = parts[1].toInt();
+				INT32 id = parts[2].toInt();
 
-				socket->clilocMessage( file, id );
+				socket->clilocMessage( type, file, id );
 			}
 		}
 		else
@@ -1191,14 +1200,15 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
 			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", failmsg_ );
+			QStringList parts = QStringList::split( ",", id );
 
-			if( parts.count() == 2 )
+			if( parts.count() == 3 )
 			{
-				INT32 file = parts[0].toInt();
-				INT32 id = parts[1].toInt();
+				INT32 type = parts[0].toInt();
+				INT32 file = parts[1].toInt();
+				INT32 id = parts[2].toInt();
 
-				socket->clilocMessage( file, id );
+				socket->clilocMessage( type, file, id );
 			}
 		}
 		else
@@ -1225,14 +1235,15 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
 			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", failmsg_ );
+			QStringList parts = QStringList::split( ",", id );
 
-			if( parts.count() == 2 )
+			if( parts.count() == 3 )
 			{
-				INT32 file = parts[0].toInt();
-				INT32 id = parts[1].toInt();
+				INT32 type = parts[0].toInt();
+				INT32 file = parts[1].toInt();
+				INT32 id = parts[2].toInt();
 
-				socket->clilocMessage( file, id );
+				socket->clilocMessage( type, file, id );
 			}
 		}
 		else
@@ -1245,14 +1256,15 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	if( succmsg_.left( 7 ) == "cliloc:" )
 	{
 		QString id = succmsg_.right( succmsg_.length() - 7 );
-		QStringList parts = QStringList::split( ",", succmsg_ );
+		QStringList parts = QStringList::split( ",", id );
 
-		if( parts.count() == 2 )
+		if( parts.count() == 3 )
 		{
-			INT32 file = parts[0].toInt();
-			INT32 id = parts[1].toInt();
+			INT32 type = parts[0].toInt();
+			INT32 file = parts[1].toInt();
+			INT32 id = parts[2].toInt();
 
-			socket->clilocMessage( file, id );
+			socket->clilocMessage( type, file, id );
 		}
 	}
 	else
@@ -1553,4 +1565,18 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		clConsole.send( tr("ERROR: Resource definition %1 not found!").arg( resourcename_ ) );
 		return true;
 	}
+}
+
+static cUObject *productCreator()
+{
+	return new cResourceItem;
+}
+
+void cResourceItem::registerInFactory()
+{
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cResourceItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	UObjectFactory::instance()->registerType("cResourceItem", productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cResourceItem", sqlString );
 }

@@ -41,6 +41,7 @@
 #include "../maps.h"
 #include "../tilecache.h"
 #include "../wpscriptmanager.h"
+#include "../wpdefmanager.h"
 #include "../wpdefaultscript.h"
 
 #include "utilities.h"
@@ -504,6 +505,26 @@ PyObject *wpSpell( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns a stringlist out of the definitions.
+*/
+PyObject *wpList( PyObject* self, PyObject* args )
+{
+	if( !checkArgStr( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	QStringList list = DefManager->getList( getArgStr( 0 ) );
+	PyObject *pylist = PyList_New( list.count() );
+
+	for( int i = 0; i < list.count(); ++i )
+		PyList_SetItem( pylist, i, PyString_FromString( list[i].latin1() ) );
+
+	return pylist;
+}
+
+/*!
 	wolfpack
 	Initializes wolfpack
 */
@@ -521,6 +542,7 @@ static PyMethodDef wpGlobal[] =
 	{ "items",			wpItems,		METH_VARARGS, "Returns a list of items in a specific sector." },
 	{ "tiledata",		wpTiledata,		METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
 	{ "spell",			wpSpell,		METH_VARARGS, "Returns information about a certain spell." },
+	{ "list",			wpList,			METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 

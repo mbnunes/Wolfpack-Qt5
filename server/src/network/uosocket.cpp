@@ -2162,7 +2162,7 @@ thanks to codex, see
 http://www.wpdev.org/modules.php?op=modload&name=phpBB2&file=viewtopic&t=1117&sid=44a576c488c79ba923295eae549bed42
 for more information
 */
-void cUOSocket::clilocMessage( const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params, const Q_UINT16 color, const Q_UINT16 font, cUObject *object )
+void cUOSocket::clilocMessage( const Q_INT16 TypeID, const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params, const Q_UINT16 color, const Q_UINT16 font, cUObject *object )
 {
 	cUOTxClilocMsg msg;
 
@@ -2184,13 +2184,14 @@ void cUOSocket::clilocMessage( const Q_INT16 FileID, const Q_UINT16 MsgID, const
 	msg.setBody( 0xFF );
 	msg.setHue( color );
 	msg.setFont( font );
-	msg.setMsgNum( FileID*1000+MsgID+1000001 );
+	msg.setMsgNum( TypeID * 1000000 + FileID * 1000 + MsgID );
+
 	msg.setParams( params );
 
 	send( &msg );
 }
 
-void cUOSocket::clilocMessageAffix( const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params, const QString &affix, const Q_UINT16 color, const Q_UINT16 font, cUObject *object, bool dontMove, bool prepend )
+void cUOSocket::clilocMessageAffix( const Q_INT16 TypeID, const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params, const QString &affix, const Q_UINT16 color, const Q_UINT16 font, cUObject *object, bool dontMove, bool prepend )
 {
 	cUOTxClilocMsgAffix msg;
 
@@ -2220,7 +2221,8 @@ void cUOSocket::clilocMessageAffix( const Q_INT16 FileID, const Q_UINT16 MsgID, 
 		flags |= cUOTxClilocMsgAffix::DontMove;
 	msg.setFlags( flags );
 
-	msg.setMsgNum( FileID*1000+MsgID+1000001 );
+	msg.setMsgNum( TypeID * 1000000 + FileID * 1000 + MsgID );
+
 	msg.setParams( affix, params );
 
 	send( &msg );

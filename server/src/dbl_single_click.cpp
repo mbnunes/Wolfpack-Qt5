@@ -951,21 +951,16 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			socket->attachTarget( new cFindResource( "RESOURCE_LOG" ) );
 			return;
 
-		// 1003: Macefighting (Staffs)
-		case 1003:
-
-		// 1004: Macefighting (Maces/WarHammer)
-		case 1004:
-
 		// 1005: Fencing
 		case 1005:
-
+		// 1003: Macefighting (Staffs)
+		case 1003:
+		// 1004: Macefighting (Maces/WarHammer)
+		case 1004:
 		// 1006: Bows
 		case 1006:
-
 		// 1007: Crossbows
 		case 1007:
-
 		// 1008: Shields
 		case 1008:
 			break;
@@ -1130,25 +1125,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x0F9D: // sewing kit for tailoring
 //					target(s, 0, 1, 0, 167, "Select material to use.");
-					return;
-				case 0x0EC4:// skinning knife 1 - antichrist
-				case 0x0EC5:// skinning knife 2
-				case 0x0F51:// Dagger 1
-				case 0x0F52:// Dagger 2
-				case 0x0EC2:// cleaver 1
-				case 0x0EC3:// cleaver 2 - antichrist
-				case 0x0F5E:
-				case 0x0F61:// Broad Sword Long Sword1
-				case 0x13B5:
-				case 0x13B6:
-				case 0x13BA:// Scimitar Long Sword2 Viking Sword 
-				case 0x13FE:
-				case 0x13FF:// Katana
-				case 0x1400:
-				case 0x1401:// Kryss
-				case 0x1440:
-				case 0x1441:
-//					target(s, 0, 1, 0, 86, "What would you like to use that on ?");
 					return;
 				case 0x1508: // magic statue?
 					if( pc_currchar->checkSkill( ITEMID, 0, 10))

@@ -118,6 +118,43 @@ PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 }
 
 /*!
+	Sends a localized message to the socket
+*/
+PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	UINT16 type = getArgInt( 0 );
+	UINT16 file = getArgInt( 1 );
+	UINT16 message = getArgInt( 2 );
+
+	UINT16 color = 0x37;
+	UINT16 font = 3;
+
+	QString params( "" );
+
+	if( checkArgStr( 3 ) )
+		params = getArgStr( 3 );
+
+	if( checkArgInt( 4 ) )
+		color = getArgInt( 4 );
+
+	if( checkArgInt( 5 ) )
+		font = getArgInt( 5 );
+
+	self->pSock->clilocMessage( type, file, message, params, color, font );
+
+	return PyTrue;
+}
+
+/*!
 	Sends speech of a given object to the socket
 */
 PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
@@ -362,6 +399,7 @@ PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 static PyMethodDef wpSocketMethods[] = 
 {
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
+    { "clilocmessage",		(getattrofunc)wpSocket_clilocmessage, METH_VARARGS, "Sends a localized message to the socket." },
 	{ "showspeech",			(getattrofunc)wpSocket_showspeech, METH_VARARGS, "Sends raw speech to the socket." },
 	{ "disconnect",			(getattrofunc)wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
 	{ "attachtarget",		(getattrofunc)wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" },

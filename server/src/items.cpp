@@ -1692,7 +1692,22 @@ void cItem::processModifierNode( const QDomElement &Tag )
 	// <name>magic %1</name>
 	if( TagName == "name" )
 	{
-		name_ = Value.arg( name_ );
+		// This prevents double naming issues (magic magic item)
+		// magic %1 | magic item
+		// This is rather tough i'd say, we have to check whether we already
+		// have the prefix *OR* suffix
+		if( !Value.contains( "%1" ) )
+		{
+			name_ = Value;
+		}
+		else
+		{
+			/*int offset = Value.find( "%1" );
+			QString left = Value.left( offset );
+			QString right = Value.right( Value.length() - ( offset + 2 ) );
+			name_ = left + name_ + right;*/
+			name_ = Value.arg( name_ );
+		}
 	}
 
 	// <identified>%1 of Hardening</identified>
@@ -1944,7 +1959,7 @@ void cItem::showName( cUOSocket *socket )
 
 	// Try a localized Message
 	if( name_ == "#" )
-		socket->clilocMessageAffix( 20 + floor( id_ / 1000 ), id_ % 1000, "", itemname, 0x3B2, 3, this );
+		socket->clilocMessageAffix( 1, 20 + floor( id_ / 1000 ), id_ % 1000, "", itemname, 0x3B2, 3, this );
 	else
 		socket->showSpeech( this, itemname );
 	
