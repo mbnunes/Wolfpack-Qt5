@@ -44,9 +44,7 @@ def stealth( char, skill ):
 
 	if success:
 		char.socket.clilocmessage( 502730, "", 0x3b2, 3 )
-		char.stealthedsteps = 5
-		#char.stealthedsteps = int(ceil(char.skill[STEALTH] / 50.0))
-		#char.message(str(int(ceil(char.skill[STEALTH] / 50.0))))
+		char.stealthedsteps = int(ceil(char.skill[STEALTH] / 50.0))
 	else:
 		char.socket.clilocmessage( 502731, "", 0x3b2, 3 )
 		char.hidden = 0
