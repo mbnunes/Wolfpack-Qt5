@@ -1986,7 +1986,7 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 			if (PyString_Check(result)) {
 				name = PyString_AsString(result);
 			} else if (PyUnicode_Check(result)) {
-				name = QString::fromUcs2(PyUnicode_AS_UNICODE(result));
+				name = QString::fromUcs2((ushort*)PyUnicode_AS_UNICODE(result));
 			}
 		}
 

@@ -163,8 +163,8 @@ static PyObject *wpAccount_authorized( wpAccount *self, PyObject *args )
 		return 0;
 	}
 
-	QCString group = getArgStr( 0 );
-	QCString action = getArgStr( 1 );
+	QCString group = getArgStr( 0 ).latin1();
+	QCString action = getArgStr( 1 ).latin1();
 
 	if( self->account->authorized( group, action ) )
 		return PyTrue;

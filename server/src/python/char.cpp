@@ -656,7 +656,7 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	cVariant value = self->pChar->getTag( key );
 
 	if( value.type() == cVariant::String )
-		return PyUnicode_FromWideChar(value.toString().ucs2(), value.toString().length());
+		return PyUnicode_FromWideChar((Py_UNICODE*)value.toString().ucs2(), value.toString().length());
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 	else if( value.type() == cVariant::Double )
@@ -683,7 +683,7 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 	if (PyString_Check(object)) {
 		self->pChar->setTag(key, cVariant(PyString_AsString(object)));
 	} else if (PyUnicode_Check(object)) {
-		self->pChar->setTag(key, cVariant(QString::fromUcs2(PyUnicode_AsUnicode(object))));
+		self->pChar->setTag(key, cVariant(QString::fromUcs2((ushort*)PyUnicode_AsUnicode(object))));
 	} else if (PyInt_Check(object)) {
 		self->pChar->setTag(key, cVariant((int)PyInt_AsLong(object)));
 	} else if (PyFloat_Check(object)) {
@@ -1936,7 +1936,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 				if( result.toString().isNull() )
 					obj = PyUnicode_FromWideChar(L"", 0);
 				else
-					obj = PyUnicode_FromWideChar(result.toString().ucs2(), result.toString().length() );
+					obj = PyUnicode_FromWideChar((Py_UNICODE*)result.toString().ucs2(), result.toString().length() );
 				break;
 			case cVariant::Double:
 				obj = PyFloat_FromDouble( result.toDouble() );
