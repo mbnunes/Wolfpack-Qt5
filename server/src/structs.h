@@ -74,6 +74,7 @@ struct creat_st
 	unsigned char soundflag;
 	unsigned char who_am_i;
 	int icon;
+	unsigned char type;
 };
 
 #include "start_pack.h"

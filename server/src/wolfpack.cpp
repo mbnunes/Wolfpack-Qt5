@@ -4548,7 +4548,7 @@ void itemsfx(UOXSOCKET s, short item)
 void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of all npcs
 // LB 9.8.99/17.9/20.9
 
-// completed: LB 27.3.2002
+// completed: LB 27.3.2002 (covering ALL monsters LBR, T2A, Third dawn + old ones)
 
 {
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4561,8 +4561,15 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 // who_am_i bit # 1 creature can fly (must have the animations, so better dont change)
 //				# 2 anti-blink: these creatures dont have animation #4, if not set creaure will randomly dissapear in battle
 //								if you find a creature that blinks while fighting, set that bit
-//				# 3 animal-bit		(currently not used/set)
-//				# 4 water creatures (currently not used/set)
+// type (disjunct) it belongs to: 
+//
+//            [ #  4: anything else
+//              # 3: NPC ]  ( only 0,1,2 set there )
+//
+//              # 2: animal / pet (mounts too, even if rideable dragon)
+//              # 1: sea creature
+//              # 0: monster
+//             			
 // icon: used for tracking, to set the appropriate icon
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 	memset(&creatures[0], 0, 2048*sizeof( creat_st ));
@@ -4584,11 +4591,13 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x05].who_am_i+=1; // set can_fly bit
 	creatures[0x05].who_am_i+=2; // set anti blink bit
 	creatures[0x05].icon=8434;
+	creatures[0x05].type=2;
 
 	creatures[0x06].basesound=0x007d;							// Bird
 	creatures[0x06].who_am_i+=1; //set fly bit
 	creatures[0x06].soundflag=1; // birds need special treatment cause there are about 20 bird-sounds
 	creatures[0x06].icon=8430;
+	creatures[0x06].type=2;
 
 	creatures[0x07].basesound=0x01b0;							// Orc
 	creatures[0x07].icon=8416;
@@ -4644,24 +4653,28 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
 	creatures[0x17].basesound=229;								// dire wolf
 	creatures[0x17].icon=8476;
+	creatures[0x17].type=2;
 
 	creatures[0x18].basesound=412;								// liche
 	creatures[0x18].icon=8440; // counldnt find a better one :(
 
 	creatures[0x19].basesound=229;								// grey wolf
     creatures[0x19].icon=8476;
+	creatures[0x19].type=2;
 
 	creatures[0x1a].basesound=382;								// ghost 1
 	creatures[0x1a].icon=8457;
 
 	creatures[0x1b].basesound=229;								// grey wolf
     creatures[0x1b].icon=8476;
+	creatures[0x1b].type=2;
 
 	creatures[0x1c].basesound=387;								// giant spider
 	creatures[0x1c].icon=8445;
 
 	creatures[0x1d].basesound=158;								// gorialla
 	creatures[0x1d].icon=8437;
+	creatures[0x1d].type=2;
 
 	creatures[0x1e].basesound=402;								// harpy
 	creatures[0x1e].icon=8412;
@@ -4680,6 +4693,8 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
 	creatures[0x22].basesound=creatures[0x25].basesound=229;    // wolves
 	creatures[0x22].icon=creatures[0x25].icon=8476;
+	creatures[0x22].type=creatures[0x25].type=2;
+
 
 	creatures[0x26].basesound=696;								// black daemon
 	creatures[0x26].icon=9605;
@@ -4728,6 +4743,7 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
 	creatures[0x34].basesound=219;								// Snake
 	creatures[0x34].icon=8444;
+	creatures[0x34].type=2;
 
 	creatures[0x35].basesound=461;								// troll
 	creatures[0x35].icon=8425;
@@ -4759,12 +4775,15 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
     creatures[0x3f].basesound=115;                              // cougar
 	creatures[0x3f].icon=9603;
+	creatures[0x3f].type=2;
 
 	creatures[0x40].basesound=115;                              // snow leopard
 	creatures[0x40].icon=9635;
+	creatures[0x40].type=2;
 
 	creatures[0x41].basesound=115;                              // snow leopard 2
 	creatures[0x41].icon=9635;
+	creatures[0x41].type=2;
 
 	creatures[0x42].basesound=639;                              // swamp tentacle
 	creatures[0x42].icon=9672;
@@ -4813,8 +4832,9 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x50].basesound=858;                            // giant frog 1
 	creatures[0x50].icon=8495;
 
-	creatures[0x51].basesound=863;                            // giant frog 2
+	creatures[0x51].basesound=863;                            // bullfrog
 	creatures[0x51].icon=8496;
+	creatures[0x51].type=2;
 
 	creatures[0x52].basesound=417;                            // liche lord 3
 	creatures[0x52].icon=8440;
@@ -4836,6 +4856,7 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
 	creatures[0x58].basesound=153;                            // mountain goat 2
 	creatures[0x58].icon=9600;
+	creatures[0x58].type=2;
 
 	creatures[0x59].basesound=387;                             // giant snake ice
 	creatures[0x59].icon=9664;
@@ -4862,15 +4883,19 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
 	creatures[0x61].basesound=133;                             // hell hound
 	creatures[0x61].icon=9622;
+	creatures[0x61].type=2;
 
 	creatures[0x62].basesound=133;                             // hell hound 2
 	creatures[0x62].icon=9622;
+	creatures[0x62].type=2;
 
 	creatures[0x63].basesound=229;                             // wolf 2
 	creatures[0x63].icon=9679;
+	creatures[0x63].type=2;
 
 	creatures[0x64].basesound=229;                             // wolf 3
 	creatures[0x64].icon=9679;
+	creatures[0x64].type=2;
 
 	creatures[0x65].basesound=679;                             // centaur
 	creatures[0x65].icon=9601;
@@ -4918,33 +4943,43 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
 	creatures[0x71].basesound=168;                            // horse dark steed
 	creatures[0x71].icon=8481;
+	creatures[0x71].type=2;
 
 	creatures[0x72].basesound=168;                            // horse ethernal
 	creatures[0x72].icon=8480;
+	creatures[0x72].type=2;
 
 	creatures[0x73].basesound=168;                            // horse nightmare
 	creatures[0x73].icon=9628;
+	creatures[0x73].type=2;
 
 	creatures[0x74].basesound=168;                            // horse silver steed
 	creatures[0x74].icon=9629;
+	creatures[0x74].type=2;
 
 	creatures[0x75].basesound=168;                            // horse war brittain
 	creatures[0x75].icon=8481;
+	creatures[0x75].type=2;
 
 	creatures[0x76].basesound=168;                            // horse war mage council
 	creatures[0x76].icon=8481;
+	creatures[0x76].type=2;
 
 	creatures[0x77].basesound=168;                            // horse mage council
 	creatures[0x77].icon=8481;
+	creatures[0x77].type=2;
 
 	creatures[0x78].basesound=168;                            // horse minax
 	creatures[0x78].icon=8481;
+	creatures[0x78].type=2;
 
 	creatures[0x79].basesound=168;                            // horse shadowlord
 	creatures[0x79].icon=8481;
+	creatures[0x79].type=2;
 
 	creatures[0x7a].basesound=1212;                           // horse unicorn
 	creatures[0x7a].icon=9678;
+	creatures[0x7a].type=2;
 
 	creatures[0x7b].basesound=757;                            // ethereal
 	creatures[0x7b].icon=9609;
@@ -4961,6 +4996,7 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
 	creatures[0x7f].basesound=105;                            // hell cat
 	creatures[0x7f].icon=9623;
+	creatures[0x7f].type=2;
 
 	creatures[0x80].basesound=1133;                           // pixie
 	creatures[0x80].icon=9654;
@@ -4976,13 +5012,16 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
 	creatures[0x84].basesound=965;                            // kirin
 	creatures[0x84].icon=9632;
+	creatures[0x84].type=2;
 
 	creatures[0x85].basesound=90;                            // alligator
 	creatures[0x85].icon=8479;
+	creatures[0x85].type=2;
 
 	creatures[0x86].basesound=711;                           // Komodo dragon
 	creatures[0x86].icon=9633;
 	creatures[0x86].who_am_i++;
+	creatures[0x86].type=2; // interesting but true
 
 	creatures[0x87].basesound=427;                           // ogre lord artic
 	creatures[0x87].icon=9640;
@@ -5013,10 +5052,12 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 
 	creatures[0x90].basesound=1144;                          // sea horse
 	creatures[0x90].icon=9658;
+	creatures[0x90].type=1;
 
 	creatures[0x91].basesound=477;							 // sea serpant
 	creatures[0x91].basesound=3;
 	creatures[0x91].icon=8443;
+	creatures[0x91].type=1;
 
 	creatures[0x92].basesound=1149;                          // shadowlord
 	creatures[0x92].icon=9610;
@@ -5033,9 +5074,11 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0x96].basesound=477;								// sea serpant
 	creatures[0x96].basesound=3;
 	creatures[0x96].icon=8443;
+	creatures[0x96].type=1;
 
 	creatures[0x97].basesound=138;								// dolphin
 	creatures[0x97].icon=8433;
+	creatures[0x97].type=1;
 	
 	creatures[0x98].basesound=1170;								// terethan
 	creatures[0x98].icon=9674;
@@ -5085,123 +5128,479 @@ void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of 
 	creatures[0xa6].basesound=268;								// gold elemental
 	creatures[0xa6].icon=9689;
 
-	creatures[0xa7].basesound=666;								// borwn bear
+	creatures[0xa7].basesound=1218;								// brown bear
 	creatures[0xa7].icon=8478;
+	creatures[0xa7].type=2;
+
+	creatures[0xa8].basesound=959;								// shadow imp
+	creatures[0xa8].icon=9631;
+
+	//// 0xa9 not in art files, hence crahsing 2d client if instanciated
+
+	creatures[0xaa].basesound=1011;								// ethereal llama
+	creatures[0xaa].icon=8438;
+	creatures[0xaa].type=2;
+
+	creatures[0xab].basesound=183;								// ethereal ostard
+	creatures[0xab].icon=9652;
+	creatures[0xab].soundflag=2;
+	creatures[0xab].type=2;
+
+	creatures[0xac].basesound=362;								// dragon red
+	creatures[0xac].icon=8406;
+	creatures[0xac].who_am_i+=1;
+
+	creatures[0xad].basesound=904;								// black widow
+	creatures[0xad].icon=9667;
+
+	creatures[0xae].basesound=1200;								// scubbidus big
+	creatures[0xae].icon=9631;
+	creatures[0xae].who_am_i+=1;
+
+	creatures[0xaf].basesound=762;								// ethereal warrior male
+	creatures[0xaf].icon=9609;
+
+	creatures[0xb0].basesound=1132;								// pixie big
+	creatures[0xb0].icon=9654;
+	creatures[0xb0].who_am_i+=1;
+
+
+	creatures[0xb2].basesound=168;								// nightmare
+	creatures[0xb2].icon=9628;
+	creatures[0xb2].type=2;
+
+	creatures[0xb3].basesound=168;								// nightmare
+	creatures[0xb3].icon=9628;
+	creatures[0xb3].type=2;
+
+	creatures[0xb4].basesound=704;								// white wyrm
+	creatures[0xb4].icon=8406;
+	creatures[0xb4].who_am_i+=1;
+
+	creatures[0xb5].basesound=432;								// orc scout
+	creatures[0xb5].icon=9647;
+
+	creatures[0xb6].basesound=432;								// orc bomber
+	creatures[0xb6].icon=9648;
+
+	// b7...ba : savage npc's no sound
+
+	creatures[0xbb].basesound=869;								// ridgeback
+	creatures[0xbb].icon=9650; // no better icon there (ostard)
+	creatures[0xbb].type=2;
+
+	creatures[0xbc].basesound=869;								// ridgeback
+	creatures[0xbc].icon=9650; 
+	creatures[0xbc].type=2;
+
+	creatures[0xbd].basesound=1114;								// orc-lord
+	creatures[0xbd].icon=9648; 
+
+	/// be .. c7 : not in artfiules, crashing client if instanciated
 
 	creatures[0xc8].basesound=168;								// white horse
 	creatures[0xc8].icon=8479;
+	creatures[0xc8].type=2;
 
 	creatures[0xc9].basesound=105;								// cat
 	creatures[0xc9].who_am_i+=2; // set blink flag
 	creatures[0xc9].icon=8475;
+	creatures[0xc9].type=2;
 
 	creatures[0xca].basesound=90;								// alligator
 	creatures[0xca].icon=8410;
+	creatures[0xca].type=2;
 
 	creatures[0xcb].basesound=196;								// small pig
 	creatures[0xcb].icon=8449;
+	creatures[0xcb].type=2;
 
 	creatures[0xcc].basesound=168;								// brown horse
 	creatures[0xcc].icon=8481;
+	creatures[0xcc].type=2;
 
 	creatures[0xcd].basesound=201;								// rabbit
 	creatures[0xcd].soundflag=2;								// rabbits only have 3 sounds, thus need special treatment
 	creatures[0xcd].icon=8485;
+	creatures[0xcd].type=2;
 
 	creatures[0xcf].basesound=214;								// wooly sheep
 	creatures[0xcf].icon=8427;
+	creatures[0xcf].type=2;
 
 	creatures[0xd0].basesound=110;								// chicken
 	creatures[0xd0].icon=8401;
+	creatures[0xd0].type=2;
 
 	creatures[0xd1].basesound=153;								// goat
 	creatures[0xd1].icon=8422; // theres no goat icon, so i took a (differnt) sheep
+	creatures[0xd1].type=2;
 
 	creatures[0xd3].basesound=95;								// brown bear
 	creatures[0xd3].icon=8399;
+	creatures[0xd3].type=2;
 
 	creatures[0xd4].basesound=95;								// grizzly bear
 	creatures[0xd4].icon=8411;
+	creatures[0xd4].type=2;
 
 	creatures[0xd5].basesound=95;								// polar bear
 	creatures[0xd5].icon=8417;
+	creatures[0xd5].type=2;
 
 	creatures[0xd6].basesound=186;								// panther
 	creatures[0xd6].who_am_i+=2;
 	creatures[0xd6].icon=8473;
+	creatures[0xd6].type=2;
 
 	creatures[0xd7].basesound=392;								// giant rat
 	creatures[0xd7].icon=8400;
 
 	creatures[0xd8].basesound=120;								// cow
 	creatures[0xd8].icon=8432;
+	creatures[0xd8].type=2;
 
 	creatures[0xd9].basesound=133;								// dog
 	creatures[0xd9].icon=8405;
+	creatures[0xd9].type=2;
+
+	creatures[0xda].basesound=1013;							    // forest ostard
+	creatures[0xda].icon=9651; 
+	creatures[0xda].type=2;
+
+	creatures[0xdb].basesound=1013;							    // frenzied ostard
+	creatures[0xdb].icon=9652; 
+	creatures[0xdb].type=2;
 
 	creatures[0xdc].basesound=183;								// llama
 	creatures[0xdc].soundflag=2;
 	creatures[0xdc].icon=8438;
+	creatures[0xdc].type=2;
 
 	creatures[0xdd].basesound=224;								// walrus
 	creatures[0xdd].icon=8447;
+	creatures[0xdd].type=1;
 
 	creatures[0xdf].basesound=216;								// lamb/shorn sheep
 	creatures[0xdf].soundflag=2;
 	creatures[0xdf].icon=8422;
+	creatures[0xdf].type=2;
 
 	creatures[0xe1].basesound=229;								// jackal
 	creatures[0xe1].who_am_i+=2; // set anti blink bit
 	creatures[0xe1].icon=8426;
+	creatures[0xe1].type=2;
 
 	creatures[0xe2].basesound=168;								// yet another horse
 	creatures[0xe2].icon=8484;
+	creatures[0xe2].type=2;
 
 	creatures[0xe4].basesound=168;								// horse ...
 	creatures[0xe4].icon=8480;
+	creatures[0xe4].type=2;
 
 	creatures[0xe7].basesound=120;								// brown cow
 	creatures[0xe7].who_am_i+=2;
 	creatures[0xe7].icon=8432;
+	creatures[0xe7].type=2;
 
 	creatures[0xe8].basesound=100;								// bull
 	creatures[0xe8].who_am_i+=2;
 	creatures[0xe8].icon=8431;
+	creatures[0xe8].type=2;
 
 	creatures[0xe9].basesound=120;								// b/w cow
 	creatures[0xe9].who_am_i+=2;
 	creatures[0xe9].icon=8451;
+	creatures[0xe9].type=2;
 
 	creatures[0xea].basesound=130;								// deer
 	creatures[0xea].soundflag=2;
 	creatures[0xea].icon=8404;
+	creatures[0xea].type=2;
 
 	creatures[0xed].basesound=130;								// small deer
 	creatures[0xed].soundflag=2;
 	creatures[0xed].icon=8404;
+	creatures[0xed].type=2;
 
 	creatures[0xee].basesound=204;								// rat
 	creatures[0xee].icon=8483;
+	creatures[0xee].type=2;
+
+	/// 0xef - 0x121  no monster, but not crashing client 
 
 	creatures[0x122].basesound=196;								// Boar
 	creatures[0x122].icon=8449;
+	creatures[0x122].type=2;
 
 	creatures[0x123].basesound=168;								// pack horse
 	creatures[0x123].icon=8486;
+	creatures[0x123].type=2;
 
 	creatures[0x124].basesound=183;								// pack llama
 	creatures[0x124].soundflag=2;
 	creatures[0x124].icon=8487;
+	creatures[0x124].type=2;
+
+	/// 0x125 - 0x189  no monster but not crashing client 
+
+	creatures[0x190].icon=8454;
+	creatures[0x191].icon=8455;
+
+	creatures[0x192].icon=9712;
+	creatures[0x193].icon=9713;
+	
+	/// 0x194 - 0x23c  no monster, but not crashing client 
 
 	creatures[0x23d].basesound=263;								// e-vortex
 	creatures[0x23e].basesound=512;								// blade spritit
 	creatures[0x23e].soundflag=4;
 
-	creatures[0x600].basesound=115;								// cougar;
-	creatures[0x600].icon=8473;
+	/// 0x23f-0x2ef no monster but not crashing client 
 
-	creatures[0x190].icon=8454;
-	creatures[0x191].icon=8455;
+	//// LBR monster here.
+	//// because none of them has neither deicated sounds nor icons, 
+	//// --> lots of creative freedom ;)
+
+	creatures[0x2f0].basesound=268;								// iron golem
+	creatures[0x2f0].icon=9649;
+
+	creatures[0x2f1].basesound=372;								// gargoyle slave
+	creatures[0x2f1].icon=9613;
+	creatures[0x2f1].who_am_i+=1;
+
+	creatures[0x2f2].basesound=372;								// gargoyle enforcer
+	creatures[0x2f2].icon=9613;
+	creatures[0x2f2].who_am_i+=1;
+
+	creatures[0x2f3].basesound=372;								// gargoyle guard
+	creatures[0x2f3].icon=9613;
+	creatures[0x2f3].who_am_i+=1;
+
+	creatures[0x2f4].basesound=877;								// clockwork overseer
+	creatures[0x2f4].icon=9615;
+
+	creatures[0x2f5].basesound=877;								// clockwork minion
+	creatures[0x2f5].icon=9615;
+
+	creatures[0x2f6].basesound=372;								// gargoyle shopkeeper
+	creatures[0x2f6].icon=9613;
+	creatures[0x2f6].who_am_i+=1;
+
+
+	// 2f7-2fa: no monster, but not crashing client
+
+	creatures[0x2fb].basesound=877;								// clockwork minion
+	creatures[0x2fb].icon=9615; // gazer icon
+
+    // 2fc-306 : NPCs -> no sound (LB, juggernaut, meer's etc)
+
+	creatures[0x307].basesound=849;								// plague beast
+	creatures[0x307].icon=8424; // no better icon than slime
+
+	creatures[0x308].basesound=863;								// horde demon
+	creatures[0x308].icon=8495; // frog icon !!!
+
+	creatures[0x309].basesound=1110;							// doppelgänger
+	creatures[0x309].icon=9685; // zombie icon !
+
+	creatures[0x30a].basesound=877;								// swarm
+	creatures[0x30a].icon=9615; // very gazor like again
+
+	creatures[0x30b].basesound=760;								// bogling
+	creatures[0x30b].icon=8407; // earth ele icon
+
+	creatures[0x30c].basesound=768;								// bog thing
+	creatures[0x30c].icon=9602; // corsper icon
+
+	creatures[0x30d].basesound=838;								// fire ant worker
+	creatures[0x30d].icon=9673; // therathan icon
+
+	creatures[0x30e].basesound=838;								// fire ant warrior
+	creatures[0x30e].icon=9674; // therathan icon
+
+	creatures[0x30f].basesound=838;								// fire ant queen
+	creatures[0x30f].icon=9675; // therathan icon
+
+	creatures[0x310].basesound=357;								// archane daemon
+	creatures[0x310].icon=9605; 
+	
+	creatures[0x311].basesound=696;								// four armed daemon
+	creatures[0x311].icon=9606; 
+
+    creatures[0x312].basesound=904;								// chariot
+	creatures[0x312].icon=9667; 
+
+	creatures[0x313].basesound=397;							    // ant lion
+	creatures[0x313].icon=9657; // giant scorp !
+
+	creatures[0x314].basesound=1006;							// phinx
+	creatures[0x314].icon=9679; // wolf ! 
+
+	creatures[0x315].basesound=1105;							// quagmire
+	creatures[0x315].icon=9668; // spider ! any better idea ? 
+
+	creatures[0x316].basesound=655;							    // sand vortex
+	creatures[0x316].icon=9689; 
+
+	creatures[0x317].basesound=701;							    // giant beetle
+	creatures[0x317].icon=9667; // spider :/
+	creatures[0x317].type=2;
+
+	creatures[0x318].basesound=357;								// chaos daemon
+	creatures[0x318].icon=9604; 	
+
+	creatures[0x319].basesound=168;							    // skeletal mount
+	creatures[0x319].icon=9627; // noraml horse icon
+	creatures[0x319].type=2;
+
+	creatures[0x31a].basesound=362;							    // swamp dragon
+	creatures[0x31a].icon=9619; 
+	creatures[0x31a].who_am_i+=1;
+	creatures[0x31a].type=2;
+
+
+	creatures[0x31b].basesound=697;							    // horde daemon (sesamy street?!)
+	creatures[0x31b].icon=9604; 
+
+	creatures[0x31c].basesound=697;							    // horde daemon big
+	creatures[0x31c].icon=9604; 
+
+	creatures[0x31d].basesound=273;							    // fire dragon
+	creatures[0x31d].icon=8406; 
+	creatures[0x31d].who_am_i+=1;
+
+	creatures[0x31e].basesound=362;							    // rust dragon
+	creatures[0x31e].icon=8406; 
+	creatures[0x31e].who_am_i+=1;
+
+	creatures[0x31f].basesound=362;							    // swamp dragon
+	creatures[0x31f].icon=8406; 
+	creatures[0x31f].who_am_i+=1;
+	creatures[0x31f].type=2;
+
+
+	// 0x320 .. 0x333 no monsters, but not crashing client
+
+	creatures[0x334].basesound=168;							    // horse, dappeled brown
+	creatures[0x334].icon=9624; 
+	creatures[0x334].type=2;
+
+
+	// 0x335 .. 0x337 no monsters, but not crashing client
+
+	creatures[0x338].basesound=168;							    // horse, dark brown
+	creatures[0x338].icon=9626; 
+	creatures[0x338].type=2;
+
+
+	creatures[0x339].basesound=1013;							// dessert ostard
+	creatures[0x339].icon=9650; 
+	creatures[0x339].type=2;
+
+
+	creatures[0x33a].basesound=1013;							// forest ostard
+	creatures[0x33a].icon=9651; 
+	creatures[0x33a].type=2;
+
+	creatures[0x33b].basesound=1013;							// frenzied ostard
+	creatures[0x33b].icon=9652; 
+	creatures[0x33b].type=2;
+
+
+	creatures[0x33c].basesound=183;								// llama
+	creatures[0x33c].soundflag=2;
+	creatures[0x33c].icon=8438;
+	creatures[0x33c].type=2;
+
+
+	// 0x33d .. 0x33e no monsters, but not crashing client
+
+	creatures[0x33f].basesound=191;								// birds: parrot
+	creatures[0x33f].icon=8474;
+	creatures[0x33f].type=2;
+
+	
+	creatures[0x340].basesound=750;								// birds: phenix
+	creatures[0x340].icon=8434;
+	creatures[0x340].type=2;
+
+
+	creatures[0x341].basesound=629;								// birds: turkey
+	creatures[0x341].icon=8474;
+	creatures[0x341].type=2;
+
+	creatures[0x342].basesound=674;								// hellcat
+	creatures[0x342].icon=9623;
+	creatures[0x342].type=2;
+
+	creatures[0x343].basesound=201;								// jack rabbit
+	creatures[0x343].icon=8485;
+	creatures[0x343].soundflag=2;
+	creatures[0x343].type=2;
+
+
+	// 0x344 no monster, but not crashing client
+
+	creatures[0x345].basesound=219;								// ice snake
+	creatures[0x345].icon=9664;
+	creatures[0x345].type=2;
+
+	creatures[0x346].basesound=219;								// lava snake
+	creatures[0x346].icon=9665;
+	creatures[0x346].type=2;
+
+	creatures[0x347].basesound=869;								// ridgeback
+	creatures[0x347].icon=9650; // ostard ...
+	creatures[0x347].type=2;
+
+	creatures[0x348].basesound=869;								// ridgeback giant
+	creatures[0x348].icon=9650; // ostard ...
+	creatures[0x348].type=2;
+
+	creatures[0x349].basesound=869;								// ridgeback flame
+	creatures[0x349].icon=9650; // ostard ...
+	creatures[0x349].type=2;
+
+	creatures[0x34a].basesound=869;								// ridgeback hatchling
+	creatures[0x34a].icon=9650; // ostard ...
+	creatures[0x34a].type=2;
+
+	creatures[0x34b].basesound=204;								// rat
+	creatures[0x34b].icon=8483;
+	creatures[0x34b].type=2;
+
+
+	// 0x34c-d no monsters, but not crashing client
+
+	creatures[0x34e].basesound=168;								// horse: dappled grey
+	creatures[0x34e].icon=9625; 
+	creatures[0x34e].type=2;
+
+	// 0x34f  no monster, but not crashing client
+
+	creatures[0x350].basesound=168;								// horse: tan
+	creatures[0x350].icon=9630; 
+	creatures[0x350].type=2;
+
+	// 0x351-0x3c9 no monsters, but not crashing client
+
+	// 0x3ca: player ghost
+	// 0x3de: LB
+	// 0x3df blackthorn
+	// 03e2: dupre
+
+	// anything between those 4 and 0x3e6: no monsters, but not crashing client
+
+	creatures[0x3e6].basesound=168;								// kirin_kirin
+	creatures[0x3e6].icon=9632; 
+	creatures[0x3e6].type=2;
+
+	// npc's
+
+	//creatures[
+
 }
 
 ////////////////

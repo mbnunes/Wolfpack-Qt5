@@ -113,3 +113,4 @@ added hopefully better looking extra animations if you are fighting on kirins, o
 92) Fixed: bug where if you didnt have a start gold amount it showed a coin 0 gold.(Ripper)
 93) Fixed: cancelling the menu for polymorph turned you into bear.(Ripper/Correa)
 94) Fixed: No more bad circles in the spellbook. (Ripper)
+95) Added & Fixed: Sounds for all monsters.Needs more testing. (LB & Ripper)
