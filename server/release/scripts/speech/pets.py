@@ -161,6 +161,8 @@ def release(char, pet):
 def onSpeech(pet, char, text, keywords):
 	if not char.socket:
 		return 0
+		
+	text = text.lower()
 
 	# Test Ownership / Allow GMs to control
 	if ( not pet.owner or pet.owner != char ) and not char.gm:
@@ -172,7 +174,6 @@ def onSpeech(pet, char, text, keywords):
 	all = text.startswith('all ')
 	
 	if all:
-		text = text.lower()
 		#char.socket.sysmessage('zzz ALL')
 		# begin all #
 		# All Follow Me

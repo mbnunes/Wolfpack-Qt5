@@ -23,15 +23,15 @@ def onContextEntry(char, target, tag):
 		return 0
 
 	if tag == 1: # Command: Kill
-			attack(char, target, 0)
+		attack(char, target, 0)
 	elif tag == 2: # Command: Follow
-			follow(char, target, 0)
+		follow(char, target, 0)
 	elif tag == 5: # Command: Stay
-			stop(char, target, 0)
+		stop(char, target, 0)
 	elif tag == 7: # Transfer
-			transfer(char, target)
+		transfer(char, target)
 	elif tag == 8: # Release
-			release(char, target)
+		release(char, target)
 
 	# Disabled for now
 	#elif ( tag == 3 ): # Command: Guard
