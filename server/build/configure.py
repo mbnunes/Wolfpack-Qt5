@@ -19,6 +19,9 @@ py_libpath = ""
 py_libfile = ""
 py_incpath = ""
 qt_qmake = ""
+mysql_libpath = ""
+mysql_libfile = ""
+mysql_incpath = ""
 
 sys.stdout.write( "Wolfpack configure script\n"	)
 
@@ -63,6 +66,66 @@ def checkQt():
 
 	return True
 
+def checkMySQL(options):
+	if sys.platform == "win32":
+		MySQL_LIBSEARCHPATH = [ sys.prefix + "\Libs\mysqlclient*.lib" ]
+		MySQL_INCSEARCHPATH = [ sys.prefix + "\include\mysql.h" ]
+	elif sys.platform == "linux2":
+		MySQL_LIBSEARCHPATH = [ "/usr/local/lib/mysql/libmysqlclient*.so", \
+					"/usr/lib/mysql/libmysqlclient*.so", \
+					"/usr/local/lib/libmysqlclient*.so", \
+					"/usr/lib/libmysqlclient*.so" ]
+		MySQL_LIBSTATICSEARCHPATH = [ "/usr/local/lib/mysql/libmysqlclient*.a", \
+					"/usr/lib/mysql/libmysqlclient*.a", \
+					"/usr/local/lib/libmysqlclient*.a", \
+					"/usr/lib/libmysqlclient*.a" ]
+		MySQL_INCSEARCHPATH = [ "/usr/local/include/mysql/mysql.h", \
+					"/usr/include/mysql/mysql.h", \
+					"/usr/local/include/mysql.h", \
+					"/usr/include/mysql.h" ]
+	elif sys.platform == "freebsd4":
+		MySQL_LIBSEARCHPATH = [ "/usr/local/lib/mysql/libmysqlclient*.so", \
+					"/usr/lib/mysql/libmysqlclient*.so", \
+					"/usr/local/lib/libmysqlclient*.so", \
+					"/usr/lib/libmysqlclient*.so" ]
+		MySQL_LIBSTATICSEARCHPATH = [ "/usr/local/lib/mysql/libmysqlclient*.a", \
+					"/usr/lib/mysql/libmysqlclient*.a", \
+					"/usr/local/lib/libmysqlclient*.a", \
+					"/usr/lib/libmysqlclient*.a" ]
+		MySQL_INCSEARCHPATH = [ "/usr/local/include/mysql/mysql.h", \
+					"/usr/include/mysql/mysql.h", \
+					"/usr/local/include/mysql.h", \
+					"/usr/include/mysql.h" ]
+	else:
+		sys.stdout.write("ERROR: Unknown platform %s to checkMySQL()" % sys.platform )
+		sys.exit()
+
+	# if --static
+	if options.staticlink:
+		MySQL_LIBSEARCHPATH = MySQL_LIBSTATICSEARCHPATH
+
+	global mysql_libpath
+	global mysql_libfile
+
+	mysql_libfile, mysql_libpath = findFile( MySQL_LIBSEARCHPATH )
+	if ( mysql_libfile ):
+		sys.stdout.write("%s\n" % os.path.join( py_libpath, py_libfile ) )
+	else:
+		sys.stdout.write("Not Found!\n")
+		sys.exit()
+
+	global mysql_incpath
+	mysql_incfile = None
+	sys.stdout.write( "Searching for Python includes... " )
+	mysql_incfile, mysql_incpath = findFile( MySQL_INCSEARCHPATH )
+	if ( mysql_incfile ):
+		sys.stdout.write( "%s\n" % mysql_incpath )
+	else:
+		sys.stdout.write("Not Found!\n")
+		sys.exit()
+
+	return True
+
 def checkPython(options):
 	if sys.platform == "win32":
 		PYTHONLIBSEARCHPATH = [ sys.prefix + "\Libs\python*.lib" ]
@@ -102,9 +165,9 @@ def checkPython(options):
 		sys.stdout.write("ERROR: Unknown platform %s to checkPython()" % sys.platform )
 		sys.exit()
 
-        # if --static
+	# if --static
 	if options.staticlink:
-                PYTHONLIBSEARCHPATH = PYTHONLIBSTATICSEARCHPATH
+		PYTHONLIBSEARCHPATH = PYTHONLIBSTATICSEARCHPATH
 
 	# if it was overiden...
 	if options.py_incpath:
@@ -122,16 +185,16 @@ def checkPython(options):
 
 	sys.stdout.write( "Checking unicode support... " )
 	if sys.maxunicode > 65535:
-                sys.stdout.write( "failed\n" )
-                sys.stdout.write( "Wolfpack currently requires python to be compiled with UCS2, its compiled with UCS4\n" )
-                sys.exit();
-        else:
-                sys.stdout.write( "ok\n" )
+		sys.stdout.write( "failed\n" )
+		sys.stdout.write( "Wolfpack currently requires python to be compiled with UCS2, its compiled with UCS4\n" )
+		sys.exit();
+	else:
+		sys.stdout.write( "ok\n" )
 
-        sys.stdout.write( "Checking CPU byte order... %s" % sys.byteorder )
-        if sys.byteorder != 'little':
-                sys.stdout.write("\nError: Wolfpack currently only supports little endian systems\n" )
-                sys.exit();
+	sys.stdout.write( "Checking CPU byte order... %s" % sys.byteorder )
+	if sys.byteorder != 'little':
+		sys.stdout.write("\nError: Wolfpack currently only supports little endian systems\n" )
+		sys.exit();
 
 	sys.stdout.write( "Searching for Python library... " )
 
@@ -166,10 +229,14 @@ def main():
 	parser.add_option("--python-includes",  dest="py_incpath", help="Python include directory")
 	parser.add_option("--python-libraries", dest="py_libpath", help="Python library path")
 	parser.add_option("--qt-directory", dest="qt_dir", help="Base directory of Qt")
-        parser.add_option("--static", action="store_true", dest="staticlink", help="Build wokfpack using static libraries")
+	parser.add_option("--static", action="store_true", dest="staticlink", help="Build wokfpack using static libraries")
+	parser.add_option("--enable-debug", action="store_true", dest="enable_debug", help="Enables basic debugging support.")
+	parser.add_option("--enable-aidebug", action="store_true", dest="enable_aidebug", help="Enabled debugging of NPC AI.")
+	parser.add_option("--enable-mysql", action="store_true", dest="enable_mysql", help="Enables MySQL support.")
 	(options, args) = parser.parse_args()
 
 	checkPython(options)
+	checkMySQL(options)
 	checkQt()
 
 	# Create config.pri
@@ -177,20 +244,45 @@ def main():
 	global py_libfile
 	global py_incpath
 	global qt_qmake
+	global mysql_libpath
+	global mysql_libfile
+	global mysql_incpath
 
 	config = file("config.pri", "w")
 	config.write("# WARNING: This file was automatically generated by configure.py\n ")
 	config.write("#          any changes to this file will be lost!\n")
 
-	config.write("INCLUDEPATH += %s\n" % ( py_incpath ) )
-	# Build LIBS
-	LIBS = ""
+	# Build Python LIBS and Includes
+	PY_LIBDIR = ""
 	if sys.platform == "win32":
-		LIBS = os.path.join( py_libpath, py_libfile )
+		PY_LIBDIR = os.path.join( py_libpath, py_libfile )
 	else:
-		LIBS = "-l%s -L%s" % ( py_libfile, py_libpath )
+		PY_LIBDIR = "-lpython2.3 -L%s" % ( py_libpath )
+	config.write("PY_INCDIR = %s\n" % ( py_incpath ) )
+	config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
 
-	config.write("LIBS += %s\n" % LIBS)
+
+	# Build MySQL Libs
+	MySQL_LIBDIR = ""
+	if sys.platform == "win32":
+		MySQL_LIBDIR = os.path.join( mysql_libpath, mysql_libfile )
+	else:
+		MySQL_LIBDIR = "-lmysqlclient -L%s" % ( mysql_libpath )
+	config.write("MySQL_INCDIR = %s\n" % mysql_incpath )
+	config.write("MySQL_LIBDIR = %s\n" % MySQL_LIBDIR )
+
+	DEFINES = ""
+	CONFIG = ""
+	# if --debug
+	if options.enable_debug:
+		DEFINES += "_DEBUG "
+		CONFIG += "debug "
+	# if --aidebug
+	if options.enable_aidebug:
+		DEFINES += "_AIDEBUG "
+
+	config.write("DEFINES += %s\n" % DEFINES)
+	config.write("CONFIG += %s\n" % CONFIG)
 	config.close()
 
 	sys.stdout.write("Generating makefile...\n")
@@ -202,4 +294,4 @@ def main():
 	sys.stdout.write("Configure finished. Please run make now.\n")
 
 if __name__ == "__main__":
-    main()
+	main()

@@ -5,17 +5,15 @@
 #  ( (  ;._ \\ ctr # Last Modification: check cvs logs          #
 #################################################################
 
+include( config.pri )
+
 PROJECT = wolfpack
 TARGET = wolfpack
 TEMPLATE = app
 
-CONFIG += qt thread exceptions rtti debug
+CONFIG += qt thread exceptions rtti
 
 unix {
-	debug {
-		message( "Debugging is enabled!" )
-		DEFINES +=_DEBUG _AIDEBUG
-	}
 	QMAKE_LIBDIR_FLAGS = -L/usr/lib -L/usr/local/lib
 	LIBS = -ldl -lutil
 
@@ -27,26 +25,26 @@ unix {
 	# This will use custom installs over package installs.
 
 	# MySQL Checks
-	isEmpty( MYSQL_INCDIR ) {
-		message( "Warning: MYSQL_INCDIR was not defined!" )
+	isEmpty( MySQL_INCDIR ) {
+		message( "Warning: MySQL_INCDIR was not defined!" )
 		exists( /usr/local/include/mysql/mysql.h ) {
 			message( "MySQL included found in: /usr/local/include/mysql" )
-			MYSQL_INCDIR = /usr/local/include/mysql
+			MySQL_INCDIR = /usr/local/include/mysql
 		}
 		else:exists( /usr/include/mysql/mysql.h ) {
 			message( "MySQL included found in: /usr/include/mysql" )
-			MYSQL_INCDIR = /usr/include/mysql
+			MySQL_INCDIR = /usr/include/mysql
 		}
 	}
-	isEmpty( MYSQL_LIBDIR ) {
-		message( "Warning: MYSQL_LIBDIR was not defined!" )
+	isEmpty( MySQL_LIBDIR ) {
+		message( "Warning: MySQL_LIBDIR was not defined!" )
 		exists( /usr/local/lib/mysql/libmysqlclient.so ) {
 			message( "Found libmysqlclient.so in: /usr/local/lib/mysql" )
-			MYSQL_LIBDIR = -L/usr/local/lib/mysql -lmysqlclient
+			MySQL_LIBDIR = -L/usr/local/lib/mysql -lmysqlclient
 		}
 		else:exists( /usr/lib/mysql/libmysqlclient.so ) {
 			message( "Found libmysqlclient.so in: /usr/lib/mysql" )
-			MYSQL_LIBDIR = -L/usr/lib/mysql -lmysqlclient
+			MySQL_LIBDIR = -L/usr/lib/mysql -lmysqlclient
 		}
 
 	}
@@ -110,8 +108,8 @@ unix {
 		}
 	}
 
-	INCLUDEPATH += $$PY_INCDIR $$MYSQL_INCDIR $$SQLITE_INCDIR
-	LIBS += $$PY_LIBDIR $$MYSQL_LIBDIR $$SQLITE_LIBDIR
+	INCLUDEPATH += $$PY_INCDIR $$MySQL_INCDIR $$SQLITE_INCDIR
+	LIBS += $$PY_LIBDIR $$MySQL_LIBDIR $$SQLITE_LIBDIR
 
 	# We need to remove these to be safe
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
@@ -374,3 +372,5 @@ DISTFILES += \
 unix {
 	INCPATH -= /usr/include/python2.2
 }
+
+message( "For additional options please try executing: python configure.py" )
