@@ -14,9 +14,9 @@
 	<include file="definitions/npcs/monsters/summoned/daemon.xml"/>
 	<include file="definitions/npcs/monsters/summoned/dark_wolf.xml"/>
 	<include file="definitions/npcs/monsters/summoned/death_adder.xml"/>
-	<include file="definitions/npcs/monsters/summoned/earth_elemental"/>
+	<include file="definitions/npcs/monsters/summoned/earth_elemental.xml"/>
 	<include file="definitions/npcs/monsters/summoned/energy_vortex.xml" />
-	<include file="definitions/npcs/monsters/summoned/fire_elemental"/>
+	<include file="definitions/npcs/monsters/summoned/fire_elemental.xml"/>
 	<include file="definitions/npcs/monsters/summoned/hellsteed.xml"/>
 	<include file="definitions/npcs/monsters/summoned/horde_minion.xml"/>
 	<include file="definitions/npcs/monsters/summoned/mound_of_maggots.xml"/>

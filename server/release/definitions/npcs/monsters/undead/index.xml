@@ -26,7 +26,7 @@
 	<include file="definitions/npcs/monsters/undead/skeletal_mage.xml"/>
 	<include file="definitions/npcs/monsters/undead/skeletal_steed.xml"/>
 	<include file="definitions/npcs/monsters/undead/skeletons.xml"/>
-	<include file="definitions/npcs/monsters/undead/wailing_bashee.xml"/>
+	<include file="definitions/npcs/monsters/undead/wailing_banshee.xml"/>
 	<include file="definitions/npcs/monsters/undead/zombie.xml"/>
 
 </definitions>

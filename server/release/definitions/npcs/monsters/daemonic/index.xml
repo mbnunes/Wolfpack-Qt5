@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Daemonic -->
-	<include file="definitions/npcs/monsters/daemonic/arcame_daemon.xml" />
+	<include file="definitions/npcs/monsters/daemonic/arcane_daemon.xml" />
 	<include file="definitions/npcs/monsters/daemonic/balron.xml" />
 	<include file="definitions/npcs/monsters/daemonic/black_gate_daemon.xml" />
 	<include file="definitions/npcs/monsters/daemonic/chaos_daemon.xml" />

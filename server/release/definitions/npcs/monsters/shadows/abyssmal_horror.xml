@@ -28,7 +28,7 @@
 		<wrestling><random min="841" max="880"/></wrestling>
 		<magery><random min="1126" max="1175"/></magery>
 		<anatomy>0</anatomy>
-		<meditaiton>2000</meditation>
+		<meditation>2000</meditation>
 		<!-- Damage -->
 		<mindamage>39</mindamage>
 		<maxdamage>49</maxdamage>
