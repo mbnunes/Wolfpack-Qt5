@@ -262,6 +262,7 @@ void cVariant::clear()
 	case cVariant::Coord:
 		delete (Coord_cl*)value.ptr;
 	    break;
+	default: break;
 	}
 
     typ = cVariant::Invalid;

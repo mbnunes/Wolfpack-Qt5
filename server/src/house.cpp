@@ -127,11 +127,11 @@ bool cHouse::onValidPlace()
 
 	const UI32 multiid = this->id() - 0x4000;
 
-	int j;
 	MultiDefinition* def = MultiCache::instance()->getMulti( multiid );
 	if ( !def )
 		return false;
 
+	uint j;
 	QValueVector<multiItem_st> multi = def->getEntries();
 	SI08 mapz = 0;
 	tile_st tile;

@@ -85,50 +85,6 @@ enum ePythonEvent
 	EVENT_COUNT,
 };
 
-// Keep this in Synch with the Enum above
-static char *eventNames[] =
-{
-	"onUse",
-	"onSingleClick",
-	"onCollide",
-	"onWalk",
-	"onCreate",
-	"onTalk",
-	"onWarModeToggle",
-	"onLogin",
-	"onLogout",
-	"onHelp",
-	"onChat",
-	"onSkillUse",
-	"onSkillGain",
-	"onStatGain",
-	"onShowPaperdoll",
-	"onShowSkillGump",
-	"onDeath",
-	"onShowPaperdollName",
-	"onContextEntry",
-	"onShowContextMenu",
-	"onShowTooltip",
-	"onCHLevelChange",
-	"onSpeech",
-	"onWearItem",
-	"onEquip",
-	"onUnequip",
-	"onDropOnChar",
-	"onDropOnItem",
-	"onDropOnGround",
-	"onPickup",
-	"onCommand",
-	"onBookUpdateInfo",
-	"onBookRequestPage",
-	"onBookUpdatePage",
-	"onDamage",
-	"onCastSpell",
-	"onTrade",
-	"onTradeStart",
-	0
-};
-
 class cElement;
 class cUOTxTooltipList;
 

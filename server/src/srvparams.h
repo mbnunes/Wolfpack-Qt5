@@ -38,7 +38,6 @@
 
 // Our own headers
 #include "structs.h"
-#include "coord.h"
 #include "preferences.h"
 
 // Library Headers

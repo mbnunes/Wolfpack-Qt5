@@ -1200,7 +1200,7 @@ void cBoat::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM `uobjectmap`,%2 WHERE uobjectmap.type = 'cBoat' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cBoat' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cBoat", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cBoat", sqlString );
 }
@@ -1228,7 +1228,7 @@ void cBoat::load( char **result, UINT16 &offset )
 		multiids_.push_back( atoi( result[offset++] ) );
 
 	// Load the other tables
-	QString sql = "SELECT `a`,`b`,`id` FROM `boats_itemids` WHERE `serial` = '" + QString::number( serial() ) + "'";
+	QString sql = "SELECT a,b,id FROM boats_itemids WHERE serial = '" + QString::number( serial() ) + "'";
 	cDBResult res = persistentBroker->query( sql );
 
 	if( !res.isValid() )
@@ -1252,7 +1252,7 @@ void cBoat::load( char **result, UINT16 &offset )
 
 	res.free();
 
-	sql = "SELECT `a`,`b`,`c`,`offset` FROM `boats_itemoffsets` WHERE `serial` = '" + QString::number( serial() ) + "'";
+	sql = "SELECT a,b,c,offset FROM boats_itemoffsets WHERE serial = '" + QString::number( serial() ) + "'";
 	res = persistentBroker->query( sql );
 
 	// Error Checking
@@ -1346,9 +1346,9 @@ bool cBoat::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "boats", QString( "`serial` = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "boats_itemoffsets", QString( "`serial` = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "boats_itemids", QString( "`serial` = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "boats", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "boats_itemoffsets", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "boats_itemids", QString( "serial = '%1'" ).arg( serial() ) );
 
 	return cMulti::del();
 }

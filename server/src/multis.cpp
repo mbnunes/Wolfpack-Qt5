@@ -76,7 +76,7 @@ void cMulti::load( char **result, UINT16 &offset )
 	deedsection_ = result[offset++];
 
 	// Load from two additional tables here
-	QString sql = "SELECT `serial`,`ban` FROM `multis_bans` WHERE `serial` = '" + QString::number( serial() ) + "'";
+	QString sql = "SELECT serial,ban FROM multis_bans WHERE serial = '" + QString::number( serial() ) + "'";
 
 	cDBResult res = persistentBroker->query( sql );
 
@@ -92,7 +92,7 @@ void cMulti::load( char **result, UINT16 &offset )
 
 	res.free();
 
-	sql = "SELECT `serial`,`friend` FROM `multis_friends` WHERE `serial` = '" + QString::number( serial() ) + "'";
+	sql = "SELECT serial,friend FROM multis_friends WHERE serial = '" + QString::number( serial() ) + "'";
 
 	res = persistentBroker->query( sql );
 
@@ -124,17 +124,17 @@ void cMulti::save()
 	// Reset Bans+Friends
 	if( isPersistent )
 	{
-		persistentBroker->executeQuery( QString( "DELETE FROM `multis_bans` WHERE `serial` = '%1'" ).arg( serial() ) );
-		persistentBroker->executeQuery( QString( "DELETE FROM `multis_friends` WHERE `serial` = '%1'" ).arg( serial() ) );
+		persistentBroker->executeQuery( QString( "DELETE FROM multis_bans WHERE serial = '%1'" ).arg( serial() ) );
+		persistentBroker->executeQuery( QString( "DELETE FROM multis_friends WHERE serial = '%1'" ).arg( serial() ) );
 	}
 
 	// Friends + Bans
 	INT32 i;
 	for ( i = 0; i < bans_.size(); ++i )
-		persistentBroker->executeQuery( QString( "REPLACE INTO `multis_bans` VALUES(%1,%2)" ).arg( serial() ).arg( bans_[i] ) );
+		persistentBroker->executeQuery( QString( "REPLACE INTO multis_bans VALUES(%1,%2)" ).arg( serial() ).arg( bans_[i] ) );
 
 	for ( i = 0; i < friends_.size(); ++i )
-		persistentBroker->executeQuery( QString( "REPLACE INTO `multis_friends` VALUES(%1,%2)" ).arg( serial() ).arg( friends_[i] ) );
+		persistentBroker->executeQuery( QString( "REPLACE INTO multis_friends VALUES(%1,%2)" ).arg( serial() ).arg( friends_[i] ) );
 
 	cItem::save();
 }
@@ -144,9 +144,9 @@ bool cMulti::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "multis", QString( "`serial` = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "multis_bans", QString( "`serial` = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "multis_friends", QString( "`serial` = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "multis", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "multis_bans", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "multis_friends", QString( "serial = '%1'" ).arg( serial() ) );
 
 	return cItem::del();
 }

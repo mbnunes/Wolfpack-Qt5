@@ -42,6 +42,50 @@
 #include "python/utilities.h"
 #include "python/target.h"
 
+// Keep this in Synch with the Enum on the header file
+static char *eventNames[] =
+{
+	"onUse",
+	"onSingleClick",
+	"onCollide",
+	"onWalk",
+	"onCreate",
+	"onTalk",
+	"onWarModeToggle",
+	"onLogin",
+	"onLogout",
+	"onHelp",
+	"onChat",
+	"onSkillUse",
+	"onSkillGain",
+	"onStatGain",
+	"onShowPaperdoll",
+	"onShowSkillGump",
+	"onDeath",
+	"onShowPaperdollName",
+	"onContextEntry",
+	"onShowContextMenu",
+	"onShowTooltip",
+	"onCHLevelChange",
+	"onSpeech",
+	"onWearItem",
+	"onEquip",
+	"onUnequip",
+	"onDropOnChar",
+	"onDropOnItem",
+	"onDropOnGround",
+	"onPickup",
+	"onCommand",
+	"onBookUpdateInfo",
+	"onBookRequestPage",
+	"onBookUpdatePage",
+	"onDamage",
+	"onCastSpell",
+	"onTrade",
+	"onTradeStart",
+	0
+};
+
 cPythonScript::cPythonScript() : loaded(false)
 {
 	codeModule = 0;

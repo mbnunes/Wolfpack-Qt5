@@ -372,7 +372,6 @@ signed char Maps::dynamicElevation(const Coord_cl& pos) const
 signed char Maps::staticTop(const Coord_cl& pos) const
 {
 	signed char top = ILLEGAL_Z;
-	unsigned long loopexit = 0;
 
 	StaticsIterator msi = this->staticsIterator(pos);
 	while ( !msi.atEnd() )

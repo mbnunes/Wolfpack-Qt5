@@ -574,7 +574,7 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args )
 		if( checkArgInt( 1 ) )
 			color = getArgInt( 1 );
 	
-		npc->talk( cliloc, 0, color );
+		npc->talk( cliloc, 0, 1 );
 		return PyTrue;
 	}
 	else

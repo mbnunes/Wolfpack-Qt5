@@ -206,7 +206,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	guarding_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
 
 	// Query the Skills for this character
-	QString sql = "SELECT `skill`,`value`,`locktype`,`cap` FROM `skills` WHERE `serial` = '" + QString::number( serial() ) + "'";
+	QString sql = "SELECT skill,value,locktype,cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
 
 	cDBResult res = persistentBroker->query( sql );
 	if( !res.isValid() )
@@ -317,8 +317,8 @@ bool cBaseChar::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "characters", QString( "`serial` = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "skills", QString( "`serial` = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial() ) );
 	changed_ = true;
 	return cUObject::del();
 }

@@ -65,9 +65,6 @@
 
 using namespace std;
 
-#undef  DBGFILE
-#define DBGFILE "items.cpp"
-
 /**
  * Loads item definitions and transforms them into cItemBase instances.
  */
@@ -491,7 +488,7 @@ bool cItem::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "items", QString( "`serial` = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( serial() ) );
 	flagChanged();
 	return cUObject::del();
 }
@@ -1348,8 +1345,6 @@ void cItem::processContainerNode( const cElement *tag )
 
 		if( element->name() == "item" )
 		{
-			P_ITEM pItem = 0;
-
 			if( element->hasAttribute( "id" ) )
 			{
 				cItem* nItem = cItem::createFromScript( element->getAttribute("id") );
@@ -1771,7 +1766,7 @@ QPtrList< cItem > cItem::getContainment() const
 			// Transfer the items
 			QPtrListIterator< cItem > pit( sublist );
 			P_ITEM pi;
-			while( pi = pit.current() )
+			while( ( pi = pit.current() ) )
 			{
 				itemlist.append( pi );
 				++pit;
@@ -1805,7 +1800,7 @@ void cItem::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM `uobjectmap`,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cItem", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
 }

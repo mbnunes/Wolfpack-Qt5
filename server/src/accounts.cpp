@@ -42,14 +42,14 @@
 #include "world.h"
 
 // DB AutoCreation
-const char *createSql = "CREATE TABLE `accounts` (\
-	`login` varchar(255) NOT NULL default '',\
-	`password` varchar(255) NOT NULL default '',\
-	`flags` int NOT NULL default '0',\
-	`acl` varchar(255) NOT NULL default 'player',\
-	`lastlogin` int NOT NULL default '',\
-	`blockuntil` int NOT NULL default '',\
-	PRIMARY KEY (`login`)\
+const char *createSql = "CREATE TABLE accounts (\
+	login varchar(255) NOT NULL default '',\
+	password varchar(255) NOT NULL default '',\
+	flags int NOT NULL default '0',\
+	acl varchar(255) NOT NULL default 'player',\
+	lastlogin int NOT NULL default '',\
+	blockuntil int NOT NULL default '',\
+	PRIMARY KEY (login)\
 	);";
 
 /*****************************************************************************
@@ -310,7 +310,7 @@ void cAccounts::save()
 
 		persistentBroker->executeQuery( "BEGIN;" );
 
-		persistentBroker->executeQuery( "DELETE FROM `accounts`;" );
+		persistentBroker->executeQuery( "DELETE FROM accounts;" );
 
 		iterator it = accounts.begin();
 		for (; it != accounts.end(); ++it)
@@ -318,7 +318,7 @@ void cAccounts::save()
 			// INSERT
 			cAccount *account = it.data();
 
-			QString sql( "INSERT INTO `accounts` VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
+			QString sql( "INSERT INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
 
 			sql = sql.arg( account->login_.lower() ).arg( account->password_ ).arg( account->flags_ ).arg( account->aclName_ ).arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ).arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 );
 
@@ -364,7 +364,7 @@ void cAccounts::load()
 			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
 		}
 
-		cDBResult result = persistentBroker->query( "SELECT `login`,`password`,`flags`,`acl`,`lastlogin`,`blockuntil` FROM `accounts`;" );
+		cDBResult result = persistentBroker->query( "SELECT login,password,flags,acl,lastlogin,blockuntil FROM accounts;" );
 
 		// Clear Accounts HERE
 		// Here we can be pretty sure that we have a valid datasource for accounts

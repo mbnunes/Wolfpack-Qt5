@@ -48,9 +48,9 @@
 // System Includes
 #include <math.h>
 
-cGump::cGump() : noMove_( false ), noClose_( false ), 
-noDispose_( false ), x_( 50 ), y_( 50 ), serial_( INVALID_SERIAL ), 
-type_( 1 ) 
+cGump::cGump() : serial_( INVALID_SERIAL ), type_( 1 ), 
+x_( 50 ), y_( 50 ), noMove_( false ), noClose_( false ), 
+noDispose_( false )
 {
 }
 
@@ -434,7 +434,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 	bool contains = false;
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock && !contains; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock = socket_ )
+		if( mSock == socket_ )
 			contains = true;
 	}
 	

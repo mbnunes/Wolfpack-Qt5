@@ -196,8 +196,8 @@ bool cUObject::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "uobject", QString( "`serial` = '%1'" ).arg( serial_ ) );
-	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "`serial` = '%1'" ).arg( serial_ ) );
+	persistentBroker->addToDeleteQueue( "uobject", QString( "serial = '%1'" ).arg( serial_ ) );
+	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial_ ) );
 
 	if( tags_.size() > 0 )
 		tags_.del( serial_ );

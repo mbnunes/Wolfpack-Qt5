@@ -71,8 +71,6 @@ bool isInLockedItem( P_ITEM pItem )
 
 void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 {
-	unsigned int tempuint;
-
 	SERIAL serial = target_serial;
 	P_PLAYER pc_currchar = socket->player();
 
