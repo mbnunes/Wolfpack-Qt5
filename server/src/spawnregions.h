@@ -64,7 +64,7 @@ public:
 	void checkTimer( void );
 
 	unsigned int countPoints();
-	bool isValidSpot( Coord_cl& pos );
+	bool isValidSpot( const Coord_cl& pos );
 	bool findValidSpot( Coord_cl& pos, int tries = -1 );
 
 	// Getters

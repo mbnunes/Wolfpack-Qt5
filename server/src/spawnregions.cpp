@@ -202,7 +202,7 @@ cSpawnRegion::cSpawnRegion(const cElement *tag) {
 cSpawnRegion::~cSpawnRegion() {
 }
 
-bool cSpawnRegion::isValidSpot(Coord_cl &pos) {
+bool cSpawnRegion::isValidSpot(const Coord_cl &pos) {
 	// Check all sub positions
 	cSpawnPosition *position;
 	for (position = positions_.first(); position; position = positions_.next()) {
