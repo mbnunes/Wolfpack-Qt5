@@ -21,6 +21,39 @@ from wolfpack.gumps import cGump
 from wolfpack.utilities import *
 from wolfpack import *
 
+#
+# Helper function for setting a tag on a object
+# Especially for logging
+#
+def setTag(player, obj, tagname, value):
+	if value == None:
+		deleteTag(player, obj, tagname)
+		return
+	
+	oldvalue = None
+	if obj.hastag(tagname):
+		oldvalue = obj.gettag(tagname)
+		
+	if oldvalue == value:
+		return # Nothing changed
+	
+	player.log(LOG_MESSAGE, u"Setting tag '%s' on object 0x%x from '%s' (%s) to '%s' (%s).\n" % (unicode(tagname), obj.serial, unicode(oldvalue), type(oldvalue).__name__, unicode(value), type(value).__name__))
+	obj.settag(tagname, value)
+
+#
+# Helper function for deleting a tag from an object
+#
+def deleteTag(player, obj, tagname):
+	oldvalue = None
+	if obj.hastag(tagname):
+		oldvalue = obj.gettag(tagname)
+		
+	if oldvalue == None:
+		return # Nothing changed
+	
+	player.log(LOG_MESSAGE, u"Deleting tag '%s' from object 0x%x. Value was '%s' (%s).\n" % (unicode(tagname), obj.serial, unicode(oldvalue), type(oldvalue).__name__))
+	obj.deltag(tagname)
+
 def str2bool( str ):
 	if str == "1" or str.upper() == "TRUE":
 		return True
@@ -738,12 +771,12 @@ def charinfo_response( player, args, choice ):
 			if ( textentries[key] ) == "female":				
 				value = 1
 			elif ( textentries[key] ) == "male":
-				value = 0
+				value = None
 			elif ( textentries[key] ) == "none":
-				value = 0
+				value = None
 			elif len(textentries[key]) == 1:
 				if ( int( textentries[ key ] ) < 0 ) or ( int( textentries[ key ] ) > 1 ):
-					value = 0
+					value = None
 				else:
 					value = int( textentries[ key ] )
 					
@@ -798,166 +831,75 @@ def charinfo_response( player, args, choice ):
 		elif key == 46:
 			if char.npc:
 				if textentries[ key ] == '':
-					value = 0
+					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
 				
-				# Get current value
-				current = 0
-				if char.hastag('dmg_fire'):
-					current = int(char.gettag('dmg_fire'))
-				
-				if current != value:
-					player.log(LOG_MESSAGE, "Changing tag 'dmg_fire' for character 0x%x from %i to %i.\n" % ( char.serial, current, value ) )
-					if value <= 0:
-						char.deltag('dmg_fire')
-					else:
-						char.settag('dmg_fire', value)
+				setTag(player, char, 'dmg_fire', value)
 		elif key == 47:
 			if char.npc:
 				if textentries[ key ] == '':
-					value = 0
+					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
 				
-				# Get current value
-				current = 0
-				if char.hastag('dmg_cold'):
-					current = int(char.gettag('dmg_cold'))
-				
-				if current != value:
-					player.log(LOG_MESSAGE, "Changing tag 'dmg_cold' for character 0x%x from %i to %i.\n" % ( char.serial, current, value ) )
-					if value <= 0:
-						char.deltag('dmg_cold')
-					else:
-						char.settag('dmg_cold', value)
+				setTag(player, char, 'dmg_cold', value)
 		elif key == 48:
 			if char.npc:
 				if textentries[ key ] == '':
-					value = 0
+					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
 				
-				# Get current value
-				current = 0
-				if char.hastag('dmg_poison'):
-					current = int(char.gettag('dmg_poison'))
-				
-				if current != value:
-					player.log(LOG_MESSAGE, "Changing tag 'dmg_poison' for character 0x%x from %i to %i.\n" % ( char.serial, current, value ) )
-					if value <= 0:
-						char.deltag('dmg_poison')
-					else:
-						char.settag('dmg_poison', value)
+				setTag(player, char, 'dmg_poison', value)
 		elif key == 49:
 			if char.npc:
 				if textentries[ key ] == '':
-					value = 0
+					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
 				
-				# Get current value
-				current = 0
-				if char.hastag('dmg_energy'):
-					current = int(char.gettag('dmg_energy'))
-				
-				if current != value:
-					player.log(LOG_MESSAGE, "Changing tag 'dmg_energy' for character 0x%x from %i to %i.\n" % ( char.serial, current, value ) )
-					if value <= 0:
-						char.deltag('dmg_energy')
-					else:
-						char.settag('dmg_energy', value)
+				setTag(player, char, 'dmg_energy', value)
 		elif key == 50:
 			if char.npc:
 				if textentries[ key ] == '':
-					value = 0
+					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
 				
-				# Get current value
-				current = 0
-				if char.hastag('res_physical'):
-					current = int(char.gettag('res_physical'))
-				
-				if current != value:
-					player.log(LOG_MESSAGE, "Changing tag 'res_physical' for character 0x%x from %i to %i.\n" % ( char.serial, current, value ) )
-					if value <= 0:
-						char.deltag('res_physical')
-					else:
-						char.settag('res_physical', value)
+				setTag(player, char, 'res_physical', value)
 		elif key == 51:
 			if char.npc:
 				if textentries[ key ] == '':
-					value = 0
+					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
 				
-				# Get current value
-				current = 0
-				if char.hastag('res_fire'):
-					current = int(char.gettag('res_fire'))
-				
-				if current != value:
-					player.log(LOG_MESSAGE, "Changing tag 'res_fire' for character 0x%x from %i to %i.\n" % ( char.serial, current, value ) )
-					if value <= 0:
-						char.deltag('res_fire')
-					else:
-						char.settag('res_fire', value)
+				setTag(player, char, 'res_fire', value)
 		elif key == 52:
 			if char.npc:
 				if textentries[ key ] == '':
-					value = 0
+					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
 				
-				# Get current value
-				current = 0
-				if char.hastag('res_cold'):
-					current = int(char.gettag('res_cold'))
-				
-				if current != value:
-					player.log(LOG_MESSAGE, "Changing tag 'res_cold' for character 0x%x from %i to %i.\n" % ( char.serial, current, value ) )
-					if value <= 0:
-						char.deltag('res_cold')
-					else:
-						char.settag('res_cold', value)
-					
+				setTag(player, char, 'res_cold', value)
 		elif key == 53:
 			if char.npc:
 				if textentries[ key ] == '':
-					value = 0
+					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
 				
-				# Get current value
-				current = 0
-				if char.hastag('res_poison'):
-					current = int(char.gettag('res_poison'))
-				
-				if current != value:
-					player.log(LOG_MESSAGE, "Changing tag 'res_poison' for character 0x%x from %i to %i.\n" % ( char.serial, current, value ) )
-					if value <= 0:
-						char.deltag('res_poison')
-					else:
-						char.settag('res_poison', value)
+				setTag(player, char, 'res_poison', value)
 		elif key == 54:
 			if char.npc:
 				if textentries[ key ] == '':
-					value = 0
+					value = None
 				else:
 					value = min( 100, int( hex2dec( textentries[key] ) ) )
 				
-				# Get current value
-				current = 0
-				if char.hastag('res_energy'):
-					current = int(char.gettag('res_energy'))
-				
-				if current != value:
-					player.log(LOG_MESSAGE, "Changing tag 'res_energy' for character 0x%x from %i to %i.\n" % ( char.serial, current, value ) )
-					if value <= 0:
-						char.deltag('res_energy')
-					else:
-						char.settag('res_energy', value)
+				setTag(player, char, 'res_energy', value)
 
 	if choice.button == 1:
 		charinfo( socket, char )
@@ -1314,167 +1256,192 @@ def iteminfo_response( player, args, choice ):
 		elif key == 14:
 			item.visible = int( hex2dec( textentries[ key ] ) )
 		elif key == 15:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('price') ):
-					item.deltag('price')
-			else:
-				item.settag( 'price', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'price', value)
 		#elif key == 16:
 		#	item.restock = int( hex2dec( textentries[ key ] ) )
 		elif key == 17:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('timeunused') ):
-					item.deltag('timeunused')
-			else:
-				item.settag( 'timeunused', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'timeunused', value)
 		elif key == 18:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('charges') ):
-					item.deltag('charges')
-			else:
-				item.settag( 'charges', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'charges', value)
 		elif key == 19:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('maxcharges') ):
-					item.deltag('maxcharges')
-			else:
-				item.settag( 'maxcharges', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'maxcharges', value)
 		elif key == 20:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('req_str') ):
-					item.deltag('req_str')
-			else:
-				item.settag( 'req_str', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'req_str', value)
 		elif key == 21:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('req_dex') ):
-					item.deltag('req_dex')
-			else:
-				item.settag( 'req_dex', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'req_dex', value)
 		elif key == 22:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('req_int') ):
-					item.deltag('req_int')
-			else:
-				item.settag( 'req_int', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'req_int', value)
 		elif key == 23:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('boni_str') ):
-					item.deltag('boni_str')
-			else:
-				item.settag( 'boni_str', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'boni_str', value)
 		elif key == 24:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('boni_dex') ):
-					item.deltag('boni_dex')
-			else:
-				item.settag( 'boni_dex', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'boni_dex', value)
 		elif key == 25:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('boni_int') ):
-					item.deltag('boni_int')
-			else:
-				item.settag( 'boni_int', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'boni_int', value)
 		elif key == 26:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('speed') ):
-					item.deltag('speed')
-			else:
-				item.settag( 'speed', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'speed', value)
 		elif key == 27:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('resname') ):
-					item.deltag('resname')
-			else:
-				item.settag( 'resname', unicode( textentries[ key ] ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = textentries[key]
+				
+				setTag(player, item, 'resname', value)
 		elif key == 28:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('resname2') ):
-					item.deltag('resname2')
-			else:
-				item.settag( 'resname2', unicode( textentries[ key ] ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = textentries[key]
+				
+				setTag(player, item, 'resname2', value)
 		elif key == 29:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('exceptional') ):
-					item.deltag('exceptional')
-			else:
-				item.settag( 'exceptional', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'exceptional', value)
 		elif key == 30:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('res_physical') ):
-					item.deltag('res_physical')
-			else:
-				item.settag( 'res_physical', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'res_physical', value)
 		elif key == 31:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('res_fire') ):
-					item.deltag('res_fire')
-			else:
-				item.settag( 'res_fire', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'res_fire', value)
 		elif key == 32:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('res_cold') ):
-					item.deltag('res_cold')
-			else:
-				item.settag( 'res_cold', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'res_cold', value)
 		elif key == 33:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('res_poison') ):
-					item.deltag('res_poison')
-			else:
-				item.settag( 'res_poison', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'res_poison', value)
 		elif key == 34:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('res_energy') ):
-					item.deltag('res_energy')
-			else:
-				item.settag( 'res_energy', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'res_energy', value)
 		elif key == 35:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('dmg_physical') ):
-					item.deltag('dmg_physical')
-			else:
-				item.settag( 'dmg_physical', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'dmg_physical', value)
 		elif key == 36:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('dmg_fire') ):
-					item.deltag('dmg_fire')
-			else:
-				item.settag( 'dmg_fire', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'dmg_fire', value)
 		elif key == 37:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('dmg_cold') ):
-					item.deltag('dmg_cold')
-			else:
-				item.settag( 'dmg_cold', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'dmg_cold', value)
 		elif key == 38:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('dmg_poison') ):
-					item.deltag('dmg_poison')
-			else:
-				item.settag( 'dmg_poison', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'dmg_poison', value)
 		elif key == 39:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('dmg_energy') ):
-					item.deltag('dmg_energy')
-			else:
-				item.settag( 'dmg_energy', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'dmg_energy', value)
 		elif key == 40:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('mindamage') ):
-					item.deltag('mindamage')
-			else:
-				item.settag( 'mindamage', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'mindamage', value)
 		elif key == 41:
-			if ( textentries[ key ] == '' ):
-				if ( item.hastag('maxdamage') ):
-					item.deltag('maxdamage')
-			else:
-				item.settag( 'maxdamage', int( hex2dec( textentries[ key ] ) ) )
+				if textentries[ key ] == '':
+					value = None
+				else:
+					value = int( hex2dec( textentries[key] ) )
+				
+				setTag(player, item, 'maxdamage', value)
 
 	if choice.button == 1:
 		iteminfo( socket, item )
-
 	
 	item.update()
 	return True

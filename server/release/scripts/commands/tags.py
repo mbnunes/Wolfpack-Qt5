@@ -81,7 +81,7 @@ def taginfo_callback(player, tagnames, response):
 			change = (name != tagnames[i]) or (type(oldvalue) != type(value)) or (oldvalue != value)
 
 			if change:
-				player.log(LOG_MESSAGE, u"Settings tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), object.serial, unicode(value), type(value).__name__))
+				player.log(LOG_MESSAGE, u"Setting tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), object.serial, unicode(value), type(value).__name__))
 				object.deltag(tagnames[i])
 				object.settag(name, value)
 
@@ -185,7 +185,7 @@ def settagResponse(player, arguments, target):
 			change = (type(oldvalue) != type(value)) or (oldvalue != value)
 
 		if change:
-			player.log(LOG_MESSAGE, u"Settings tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), target.char.serial, unicode(value), type(value).__name__))
+			player.log(LOG_MESSAGE, u"Setting tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), target.char.serial, unicode(value), type(value).__name__))
 			target.char.settag(name, value)
 			target.char.resendtooltip()
 		player.socket.sysmessage('You modify the tag of the character.')
@@ -197,7 +197,7 @@ def settagResponse(player, arguments, target):
 			change = (type(oldvalue) != type(value)) or (oldvalue != value)
 
 		if change:
-			player.log(LOG_MESSAGE, u"Settings tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), target.item.serial, unicode(value), type(value).__name__))
+			player.log(LOG_MESSAGE, u"Setting tag '%s' on object 0x%x to '%s' (%s).\n" % (unicode(name), target.item.serial, unicode(value), type(value).__name__))
 			target.item.settag(name, value)
 			target.item.resendtooltip()
 
