@@ -39,8 +39,11 @@
 #include "qstringlist.h"
 #include "coord.h"
 
+
 // Library Includes
-#include "qstring.h"
+#include <qstring.h>
+
+#include <math.h>
 
 /*!
   Returns a random number between \a nLowNum
@@ -61,7 +64,12 @@ int RandomNum(int nLowNum, int nHighNum)
 float RandomNum(float nLowNum, float nHighNum)
 {
 	if (nHighNum - nLowNum + 1)
-		return ((rand() % (nHighNum - nLowNum + 1.0)) + nLowNum);
+	{
+		float number = nLowNum;
+		number += rand() % static_cast<int>( ceil(nHighNum) - ceil(nLowNum) + 1 ); // Integer part
+		number += (float) rand() / (float) 0x7FFFFFFF;
+		return number;
+	}
 	else
 		return nLowNum;
 }
