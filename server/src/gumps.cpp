@@ -459,7 +459,7 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 
 		UINT32 page_ = 0;
 		UINT32 numrects = allrectangles.size();
-		UINT32 pages = ((UINT32)floor( numrects / 10 ))+1;
+		UINT32 pages = ((UINT32)ceil( (double)numrects / 10.0f ));
 
 		startPage();
 		// Basic .INFO Header
@@ -484,7 +484,7 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 			UINT32 i;
 			UINT32 right = page_ * 10 - 1;
 			UINT32 left = page_ * 10 - 10;
-			if( numrects < right )
+			if( numrects <= right )
 				right = numrects-1;
 
 			QStringList rectangles = QStringList();
@@ -1263,7 +1263,7 @@ cTagsInfoGump::cTagsInfoGump( cUObject* object )
 
 		UINT32 page_ = 0;
 		UINT32 numkeys = allkeys.size();
-		UINT32 pages = ((UINT32)floor( numkeys / 10 ))+1;
+		UINT32 pages = ((UINT32)ceil( (double)numkeys / 10.0f ));
 
 		startPage();
 		// Basic .INFO Header
@@ -1283,7 +1283,7 @@ cTagsInfoGump::cTagsInfoGump( cUObject* object )
 			UINT32 i;
 			UINT32 right = page_ * 19 - 1;
 			UINT32 left = page_ * 19 - 19;
-			if( numkeys < right )
+			if( numkeys <= right )
 				right = numkeys-1;
 
 			QStringList keys = QStringList();
@@ -1354,7 +1354,7 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 	}
 
 	UINT32 numsocks = charNames.size();
-	UINT32 pages = ((UINT32)floor( numsocks / 10 ))+1;
+	UINT32 pages = ((UINT32)ceil( (double)numsocks / 10.0f ));
 
 	startPage();
 	addBackground( 0xE10, 380, 360 ); //Background
@@ -1371,7 +1371,7 @@ cWhoMenuGump::cWhoMenuGump( UINT32 page )
 	INT32 i;
 	INT32 right = page_ * 10 - 1;
 	INT32 left = page_ * 10 - 10;
-	if( numsocks < right )
+	if( numsocks <= right )
 		right = numsocks-1;
 
 	for( i = left; i <= right; i++ )
@@ -1603,7 +1603,7 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 	}
 
 	UINT32 numsocks = charNames.size();
-	UINT32 pages = ((UINT32)floor( numsocks / 10 ))+1;
+	UINT32 pages = ((UINT32)ceil( (double)numsocks / 10.0f ));
 
 	startPage();
 	addBackground( 0xE10, 480, 360 ); //Background
@@ -1619,7 +1619,7 @@ cPagesGump::cPagesGump( UINT32 page, WPPAGE_TYPE ptype )
 
 	INT32 right = page_ * 10 - 1;
 	INT32 left = page_ * 10 - 10;
-	if( numsocks < right )
+	if( numsocks <= right )
 		right = numsocks-1;
 
 	INT32 i = left;

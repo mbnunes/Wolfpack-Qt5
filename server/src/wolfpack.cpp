@@ -2124,13 +2124,13 @@ int main( int argc, char *argv[] )
 	Magic->unload();
 	im_clearmenus();
 	
+	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
+
 	clConsole.PrepareProgress( "Closing sockets" );
 	cNetwork::shutdown();
 	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
 	clConsole.ProgressDone();
-	
-	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
-	
+		
 	DefManager->unload();
 
 	clConsole.PrepareProgress( "Saving Wolfpack.xml" );

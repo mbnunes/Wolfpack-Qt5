@@ -567,7 +567,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu )
 		}
 		
 		UINT32 page_;
-		UINT32 pages = ((UINT32)floor( submenus.size() / 6 ))+1;
+		UINT32 pages = ((UINT32)ceil( (double)submenus.size() / 6.0f ));
 		for( page_ = 1; page_ <= pages; page_++ )
 		{
 			startPage( page_ );
@@ -575,7 +575,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu )
 			UINT32 i;
 			UINT32 right = page_ * 6 - 1;
 			UINT32 left = page_ * 6 - 6;
-			if( submenus.size() < right )
+			if( submenus.size() <= right )
 				right = submenus.size()-1;
 
 			i = left;
