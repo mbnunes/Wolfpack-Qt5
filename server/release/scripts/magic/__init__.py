@@ -126,7 +126,7 @@ def target_response( char, args, target ):
 				char.socket.clilocmessage(500237)
 			return
 			
-		message = "Casting spell %u (%s) on item %s (0x%x).\n"  % (spell.spellid, spell.__class__.__name__, target.item.getname(), target.item.serial)
+		message = u"Casting spell %u (%s) on item %s (0x%x).\n"  % (spell.spellid, spell.__class__.__name__, target.item.getname(), target.item.serial)
 		char.log(LOG_MESSAGE, message)
 		spell.target(char, mode, TARGET_ITEM, target.item, args, item)
 
