@@ -2542,11 +2542,16 @@ static PyObject* wpChar_walk( wpChar* self, PyObject* args )
 	{
 		return 0;
 	}
-
-	if (Movement::instance()->Walking(self->pChar, direction, 0xFF)) {
-		Py_RETURN_TRUE;
+	
+	if (self->pChar->pos().isInternalMap()) {
+		PyErr_SetString(PyExc_RuntimeError, "Cannot use .walk on the internal map.");
+		return 0;
 	} else {
-		Py_RETURN_FALSE;
+		if (Movement::instance()->Walking(self->pChar, direction, 0xFF)) {
+			Py_RETURN_TRUE;
+		} else {
+			Py_RETURN_FALSE;
+		}
 	}
 }
 
