@@ -11,7 +11,7 @@
 	\command nuke
 	\description Remove items in a certain area.
 	\usage - <code>nuke</code>
-	\usage - <code>nuke all</code>
+	- <code>nuke all</code>
 	If you don't specify any parameters, you will
 	be able to select a region to nuke. If you
 	use wipe all, the whole world will be nuked.
@@ -21,7 +21,7 @@
 	\command wipe
 	\description Remove items in a certain area.
 	\usage - <code>wipe</code>
-	\usage - <code>wipe all</code>
+	- <code>wipe all</code>
 	If you don't specify any parameters, you will
 	be able to select a region to wipe. If you
 	use wipe all, the whole world will be wiped.
