@@ -5,10 +5,10 @@ wolf.opt
 wolf.plg
 Release
 Debug
-vc70.idb
+vc*.idb
 wolfpack.suo
 wolfpack.ncb
-vc70.pdb
+vc*.pdb
 wolfpack.exe
 wolfpack
 Makefile

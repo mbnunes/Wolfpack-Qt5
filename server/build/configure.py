@@ -53,7 +53,7 @@ def buildLibLine( path, file ):
 		return ""
 	
 	if sys.platform == "win32":
-		return path + os.path.pathsep + file
+		return path + os.path.sep + file
 	else:
 		if file[0:3] == "lib":
 			file = file[3:]
@@ -164,8 +164,11 @@ def checkMySQL(options):
 	return True
 
 def checkPython(options):
-	PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() ]
-	PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] + os.path.sep + "libpython*" ]
+	PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + "Python.h" ]
+	if distutils.sysconfig.get_config_vars().has_key("DESTSHARED"):
+		PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] + os.path.sep + "libpython*" ]
+	else:
+		PYTHONLIBSEARCHPATH = []
 	PYTHONLIBSTATICSEARCHPATH = []
 	if sys.platform == "win32":
 		PYTHONLIBSEARCHPATH += [ sys.prefix + "\Libs\python*.lib" ]
@@ -264,7 +267,7 @@ def main():
 	CONFIG = ""
 
 	# Setup command line parser
-	parser = OptionParser(version="%prog 0.1")
+	parser = OptionParser(version="%prog 0.2")
 	parser.add_option("--dsp", action="store_true", dest="dsp", help="also Generate Visual Studio project files")
 	parser.add_option("--nocolor", action="store_true", dest="nocolor", help="disable color output support on this script")
 	parser.add_option("--python-includes",  dest="py_incpath", help="Python include directory")
@@ -276,7 +279,7 @@ def main():
 	parser.add_option("--enable-mysql", action="store_true", dest="enable_mysql", help="Enables MySQL support.")
 	(options, args) = parser.parse_args()
 
-	if options.nocolor:
+	if options.nocolor or sys.platform == "win32":
 		nocolor()
 
 	checkPython(options)
@@ -313,7 +316,11 @@ def main():
 	# if --debug
 	if options.enable_debug:
 		DEFINES += "_DEBUG "
-		CONFIG += "debug "
+		CONFIG += "debug warn_on "
+	else:
+                CONFIG += "release warn_off "
+
+                                
 	# if --aidebug
 	if options.enable_aidebug:
 		DEFINES += "_AIDEBUG "
