@@ -130,7 +130,7 @@ public:
 	unsigned int version;
 	QCString magic;
 	bool needswap;
-	QByteArray buffer;
+	char *buffer;
 	unsigned int bufferpos;
 	QMap<QCString, unsigned int> dictionary;
 	QMap<unsigned char, unsigned int> skipmap;
@@ -175,7 +175,19 @@ inline void cBufferedWriter::writeInt( unsigned int data, bool unbuffered )
 		swapBytes( data );
 	}
 
-	writeRaw( &data, sizeof( data ), unbuffered );
+	if (unbuffered) {
+		flush();
+		d->file.writeBlock((char*)&data, sizeof(data));
+	} else {
+		if (d->bufferpos > buffersize - sizeof(data)) {
+			flush();
+		}
+
+		d->buffer[d->bufferpos++] = ((char*)&data)[0];
+		d->buffer[d->bufferpos++] = ((char*)&data)[1];
+		d->buffer[d->bufferpos++] = ((char*)&data)[2];
+		d->buffer[d->bufferpos++] = ((char*)&data)[3];
+	}
 }
 
 inline void cBufferedWriter::writeShort( unsigned short data, bool unbuffered )
@@ -186,7 +198,17 @@ inline void cBufferedWriter::writeShort( unsigned short data, bool unbuffered )
 		swapBytes( data );
 	}
 
-	writeRaw( &data, sizeof( data ), unbuffered );
+	if (unbuffered) {
+		flush();
+		d->file.writeBlock((char*)&data, sizeof(data));
+	} else {
+		if (d->bufferpos > buffersize - sizeof(data)) {
+			flush();
+		}
+
+		d->buffer[d->bufferpos++] = ((char*)&data)[0];
+		d->buffer[d->bufferpos++] = ((char*)&data)[1];
+	}
 }
 
 inline void cBufferedWriter::writeBool( bool data, bool unbuffered ) {
@@ -202,13 +224,11 @@ inline void cBufferedWriter::writeByte( unsigned char data, bool unbuffered )
 	}
 	else
 	{
-		if ( d->bufferpos + sizeof( data ) >= buffersize )
-		{
-			flush(); // Flush buffer to file
+		if (d->bufferpos >= 4096) {
+			flush();
 		}
 
-		*( unsigned char * ) ( d->buffer.data() + d->bufferpos ) = data;
-		d->bufferpos += sizeof( data );
+		d->buffer[d->bufferpos++] = (char)data;
 	}
 }
 
@@ -253,7 +273,7 @@ inline void cBufferedWriter::writeRaw( const void* data, unsigned int size, bool
 			// Try putting in some bytes of the remaining data
 			if ( bspace != 0 )
 			{
-				memcpy( d->buffer.data() + d->bufferpos, ( unsigned char * ) data + pos, bspace );
+				memcpy( d->buffer + d->bufferpos, ( unsigned char * ) data + pos, bspace );
 				d->bufferpos = buffersize;
 				pos += bspace;
 				size -= bspace;
@@ -265,7 +285,7 @@ inline void cBufferedWriter::writeRaw( const void* data, unsigned int size, bool
 		// There are still some remaining bytes of our data
 		if ( size != 0 )
 		{
-			memcpy( d->buffer.data() + d->bufferpos, ( unsigned char * ) data + pos, size );
+			memcpy( d->buffer + d->bufferpos, ( unsigned char * ) data + pos, size );
 			d->bufferpos += size;
 		}
 	}

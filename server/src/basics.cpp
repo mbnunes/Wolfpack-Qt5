@@ -190,7 +190,7 @@ cBufferedWriter::cBufferedWriter( const QCString& magic, unsigned int version )
 	d = new cBufferedWriterPrivate;	
 	d->version = version;
 	d->magic = magic;
-	d->buffer.resize( buffersize );
+	d->buffer = new char[buffersize];
 	d->bufferpos = 0;
 	d->lastStringId = 0;
 	d->objectCount = 0;
@@ -204,6 +204,7 @@ cBufferedWriter::cBufferedWriter( const QCString& magic, unsigned int version )
 cBufferedWriter::~cBufferedWriter()
 {
 	close();
+	delete d->buffer;
 	delete d;
 }
 
@@ -307,10 +308,11 @@ void cBufferedWriter::close()
 	}
 }
 
-void cBufferedWriter::flush()
-{
-	d->file.writeBlock( d->buffer.data(), d->bufferpos );
-	d->bufferpos = 0;
+void cBufferedWriter::flush() {
+	if (d->bufferpos != 0) {
+        d->file.writeBlock( d->buffer, d->bufferpos );
+		d->bufferpos = 0;
+	}
 }
 
 unsigned int cBufferedWriter::position()
