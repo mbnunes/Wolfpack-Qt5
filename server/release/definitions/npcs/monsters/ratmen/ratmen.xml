@@ -4,21 +4,29 @@
 	<!-- Ratman Base -->
 	<npc id="ratmen_base">
 		<name><random list="NAMES_RATMAN" /></name>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-1250" max="-2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="25" max="30" /></defense>
-		<lodamage>7</lodamage>
-		<hidamage>9</hidamage>
+		<karma>-1500</karma>
+		<fame>1500</fame>
 		<!-- Stats -->
-		<str><random min="96" max="120" /></str>
-		<dex><random min="81" max="99" /></dex>
-		<int><random min="36" max="60" /></int>
+		<str><random min="96" max="120"/></str>
+		<dex><random min="81" max="100"/></dex>
+		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="750" /></wrestling>
-		<tactics><random min="501" max="750" /></tactics>
-		<magicresistance><random min="351" max="600" /></magicresistance>
+		<magicresistance><random min="351" max="600"/></magicresistance>
+		<tactics><random min="501" max="750"/></tactics>
+		<wrestling><random min="501" max="750"/></wrestling>
+		<!-- Damage -->
+		<lodamage>4</lodamage>
+		<hidamage>5</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="30" /></defense>
+		<tag name="coldresist" value="10,20" />
+		<tag name="energyresist" value="10,20" />
+		<tag name="fireresist" value="10,20" />
+		<tag name="physicalresist" value="25,30" />
+		<tag name="poisonresist" value="10,20" />
+		<!-- Misc. -->
+		<desc>Surely the product of some foul sorcery, the rat man truly has thefeatures of a rat, but walks about like a man. Rat men wear garments,wield weapons and give every sign of possessing intelligence. They arevicious, thieving creatures, and cowards if pressed in battle.</desc>
 	</npc>
 
 	<!-- a ratman -->

@@ -4,25 +4,32 @@
 	<!-- a ratman mage -->
 	<npc id="ratman_mage">
 		<name><random list="NAMES_RATMAN" /></name>
-		<id>0x8F</id>
-		<category>Monsters\Ratmen\Ratman Mage</category>
-		<skin>0</skin>
+		<id>0x8f</id>
 		<inherit id="monster_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="40" max="45" /></defense>
-		<lodamage>19</lodamage>
-		<hidamage>28</hidamage>
+		<karma>-7500</karma>
+		<fame>7500</fame>
 		<!-- Stats -->
-		<str><random min="146" max="180" /></str>
-		<dex><random min="101" max="130" /></dex>
-		<int><random min="186" max="210" /></int>
+		<str><random min="146" max="180"/></str>
+		<dex><random min="101" max="130"/></dex>
+		<int><random min="701" max="800"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="750" /></wrestling>
-		<tactics><random min="501" max="750" /></tactics>
-		<magicresistance><random min="651" max="900" /></magicresistance>
-		<magery><random min="701" max="800" /></magery>
-		<evaluatingintel><random min="701" max="800" /></evaluatingintel>
+		<evaluatingintel><random min="701" max="800"/></evaluatingintel>
+		<magery><random min="701" max="800"/></magery>
+		<magicresistance><random min="651" max="900"/></magicresistance>
+		<tactics><random min="501" max="750"/></tactics>
+		<wrestling><random min="501" max="750"/></wrestling>
+		<!-- Damage -->
+		<lodamage>7</lodamage>
+		<hidamage>14</hidamage>
+		<!-- Resists -->
+		<defense><random min="40" max="45" /></defense>
+		<tag name="coldresist" value="" /><random min="10" max="20"/>
+		<tag name="energyresist" value="" /><random min="10" max="20"/>
+		<tag name="fireresist" value="" /><random min="10" max="20"/>
+		<tag name="physicalresist" value="" /><random min="40" max="45"/>
+		<tag name="poisonresist" value="" /><random min="10" max="20"/>
+		<!-- Misc. -->
+		<category>Monsters\Ratmen\Ratman Mage</category>
 	</npc>
 
 </definitions>
