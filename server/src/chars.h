@@ -48,6 +48,9 @@
 #include "accounts.h"
 #include "makemenus.h"
 
+// Library Includes
+#include <qmap.h>
+
 // Forward class declaration
 class QString;
 class cUOSocket;
@@ -58,17 +61,23 @@ class cTerritory;
 #define DBGFILE "chars.h"
 
 
-//typedef struct char_st_
 class cChar : public cUObject
 {
-// Public Data Members
+// Public Types
 public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
+	typedef QMap<ushort, cItem*> ContainerContent;
 	//  Chaos/Order Guild Stuff for Ripper
+	enum enLayer { SingleHandedWeapon = 1, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
+	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso, 
+	Earrings, Arms, Back, Backpack, OuterTorso, OuterLegs, InnerLegs, Mount, BuyRestockContainer,
+	ByNoRestockContainer, SellContainer, BankBox };
 
 
 	// Protected Data Members	
 protected:
+
+	ContainerContent		content_;
 	SERIAL					trackingTarget_;
 	bool					animated;
 	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
@@ -218,7 +227,6 @@ protected:
 	unsigned int			kills_; //PvP Kills
 	unsigned int			deaths_;
 	bool					dead_; // Is character dead
-	SERIAL					packitem_; // Serial of backpack
 	unsigned char			fixedlight_; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	unsigned char			speech_; // For NPCs: Number of the assigned speech block
 	unsigned int			def_; // Intrinsic defense
@@ -425,7 +433,6 @@ public:
 	unsigned int			kills() const { return kills_; }
 	unsigned int			deaths() const { return deaths_; }
 	bool					dead() const { return dead_; }
-	SERIAL					packitem() const { return packitem_; }
 	unsigned char			fixedlight() const { return fixedlight_; }
 	unsigned char			speech() const { return speech_; }
 	unsigned int			def() const { return def_; }
@@ -607,7 +614,6 @@ public:
 	void					setKills( unsigned int data ) { kills_ = data; }
 	void					setDeaths( unsigned int data ) { deaths_ = data; }
 	void					setDead( bool data ) { dead_ = data; }
-	void					setPackItem( SERIAL data ) { packitem_ = data; }
 	void					setFixedLight( unsigned char data ) { fixedlight_ = data; }
 	void					setSpeech( unsigned char data ) { speech_ = data; }
 	void					setDef( unsigned int data ) { def_ = data; }
@@ -779,6 +785,11 @@ public:
 	void setSkillDelay();
 	void startRepeatedAction( UINT8 action, UINT16 delay );
 	void stopRepeatedAction();
+
+	void addItem( enLayer layer, cItem* );
+	void removeItem( enLayer layer);
+	ContainerContent content() const;
+	cItem* atLayer( enLayer layer ) const;
 
 	// Definition loading - sereg
 protected:

@@ -325,7 +325,7 @@ bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QStri
 
 		// lets give them a new chaos shield.
 		P_ITEM pShield = Items->createScriptItem( "28" );
-		pPlayer->getBackpack()->AddItem( pShield );
+		pPlayer->getBackpack()->addItem( pShield );
 		
 		socket->sysMessage( tr( "You put the chaos shield into your backpack" ) );
 		pGuard->talk( tr( "Hi fellow guild member, here is your new chaos shield." ) );
@@ -351,7 +351,7 @@ bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QStri
 
 		// lets give them a new order shield.
 		P_ITEM pShield = Items->createScriptItem( "29" );
-		pPlayer->getBackpack()->AddItem( pShield );
+		pPlayer->getBackpack()->addItem( pShield );
 		
 		socket->sysMessage( tr( "You put the order shield into your backpack" ) );
 		pGuard->talk( tr( "Hi fellow guild member, here is your new order shield." ) );

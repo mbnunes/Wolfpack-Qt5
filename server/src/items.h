@@ -38,12 +38,17 @@
 #include "uobject.h"
 #include "defines.h"
 
+// Library Includes
+#include <qvaluevector.h>
+
 // Forward Class declarations
 class ISerialization;
 class cUOSocket;
 
 class cItem : public cUObject
 {
+public:
+	typedef QValueVector<cItem*> ContainerContent;
 protected:
 	UI16		id_;
 	UI16		color_;
@@ -73,6 +78,7 @@ protected:
 	UI08 moreb2_;
 	UI08 moreb3_;
 	UI08 moreb4_;
+	ContainerContent content_;
 
 //******************** ADDED FROM PUBLIC *******************
 	
@@ -88,6 +94,7 @@ protected:
 	virtual void	processNode( const QDomElement &Tag );
 	void	processModifierNode( const QDomElement &Tag );
 public:
+
 	virtual void	talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	void save( const QString& = QString::null );
 	void load( const QString& = QString::null );
@@ -159,7 +166,6 @@ public:
 	void	setOffspell( UI08 nValue ) { offspell_ = nValue; };
 	void	setSecured( bool nValue ) { ( nValue ) ? priv &= 0x08 : priv |= 0xF7; };
 	void	setSpeed( SI16 nValue ) { speed_ = nValue; };
-	void	setContSerial( SERIAL nValue ); // Defined in items.cpp
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; };
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; };
 	void	setWipe( bool nValue ) { ( nValue ) ? priv &= 0x10 : priv |= 0xEF; };
@@ -296,7 +302,10 @@ public:
 	void SetRandPosInCont(cItem* pCont);
 	bool PileItem(cItem* pItem);
 	bool ContainerPileItem(cItem* pItem);	// try to find an item in the container to stack with
-	bool AddItem(cItem* pItem, short xx=-1, short yy=-1);	// Add Item to container
+	void addItem(cItem* pItem, bool randomPos = true, bool handleWeight = true );	// Add Item to container
+	void removeItem(cItem*, bool handleWeight = true );
+	ContainerContent content() const;
+	bool contains( const cItem* ) const;
 	int  CountItems(short ID, short col= -1) const;
 	int  DeleteAmount(int amount, unsigned short _id, unsigned short _color = 0);
 	int getName(char* itemname);

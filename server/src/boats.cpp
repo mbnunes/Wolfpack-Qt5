@@ -1217,7 +1217,7 @@ void cBoat::toDeed( cUOSocket* socket )
 		if( !pDeed ) 
 			socket->sysMessage ( tr("An error occured. Send a bug report to the staff, please.") );
 		else
-			pBackpack->AddItem( pDeed );
+			pBackpack->addItem( pDeed );
 	}
 
 	removeKeys();

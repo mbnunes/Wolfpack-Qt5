@@ -1223,7 +1223,7 @@ void GuildTitle(int s, P_CHAR pc_player2)
 
 int CheckValidPlace(int s)
 {
-	int los = 0;
+/*	int los = 0;
 	P_CHAR pc_currchar = currchar[s];
 	cMulti* pi_multi = cMulti::findMulti( pc_currchar->pos ); 
 	if( !pi_multi ) 
@@ -1252,6 +1252,8 @@ int CheckValidPlace(int s)
 	} else if (pi_multi == NULL)
 		sysmessage(s, "You must be close to a house and have a key in your pack to place that.");
 	return 0;
+*/
+	return 1;
 }
 
 

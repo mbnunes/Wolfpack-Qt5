@@ -177,7 +177,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 		if( pItem->isPileable() )
 		{
 			pSold = pItem->dupe();
-			pPack->AddItem( pSold );
+			pPack->addItem( pSold );
 			pSold->update();
 		}
 		else
@@ -185,7 +185,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 			for( UINT16 j = 0; j < amount; ++j )
 			{
 				pSold = pItem->dupe();
-				pPack->AddItem( pSold );
+				pPack->addItem( pSold );
 				pSold->update();
 			}
 		}
@@ -304,12 +304,12 @@ void cTrade::sellaction(int s)
 			else
 			{
 				pSell->removeFromView();
-				pSell->setContSerial( pNoRestock->serial );
+				pNoRestock->addItem( pSell );
 				if( pSell->amount() != amt )
 				{
 					P_ITEM nItem = pSell->dupe();
 					nItem->setAmount( pSell->amount() - amt );
-					pc_currchar->getBackpack()->AddItem( nItem );
+					pc_currchar->getBackpack()->addItem( nItem );
 				}
 			}
 		}
@@ -341,7 +341,8 @@ P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 	// One for our player
 	P_ITEM tCont = Items->createScriptItem( "2af8" );
 	tCont->setLayer( 0x1f );
-	tCont->setContSerial( pPlayer->serial );
+
+//	tCont->setContSerial( pPlayer->serial );
 	tCont->setOwner( pPlayer );
 	tCont->tags.set( "tradepartner", cVariant( pChar->serial ) );
 	tCont->update( pPlayer->socket() );
@@ -351,7 +352,7 @@ P_ITEM cTrade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 	// One for the tradepartner
 	tCont = tCont->dupe();
 	tCont->setLayer( 0x1f );
-	tCont->setContSerial( pChar->serial );
+//	tCont->setContSerial( pChar->serial );
 	tCont->setOwner( pChar );
 	tCont->tags.set( "tradepartner", cVariant( pPlayer->serial ) );
 	tCont->update( pPlayer->socket() );
@@ -404,7 +405,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	if(pi_ps == NULL)
 		return 0;
 	pi_ps->pos = Coord_cl(26, 0, 0);
-	pi_ps->setContSerial(pc_currchar->serial);
+//	pi_ps->setContSerial(pc_currchar->serial);
 	pi_ps->setLayer( 0 );
 	pi_ps->setType( 1 );
 	pi_ps->dye=0;
@@ -416,7 +417,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	if (pi_pi == NULL)
 		return 0;
 	pi_pi->pos = Coord_cl(26, 0, 0);
-	pi_pi->setContSerial(pc_i->serial);
+//	pi_pi->setContSerial(pc_i->serial);
 	pi_pi->setLayer( 0 );
 	pi_pi->setType( 1 );
 	pi_pi->dye=0;
@@ -484,7 +485,7 @@ void cTrade::clearalltrades()
 					{
 						if(pBackpack != NULL)
 						{
-							pBackpack->AddItem(pj);
+							pBackpack->addItem(pj);
 						}
 					}
 			}
@@ -564,7 +565,7 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 			{
 				if (pi->glow != INVALID_SERIAL)
 					glowsp.remove(p2->serial, pi->serial); // lb, glowing stuff
-				bp2->AddItem(pi);
+				bp2->addItem(pi);
 				if (pi->glow != INVALID_SERIAL)
 					glowsp.insert(p1->serial, pi->serial);
 				if (s1!=-1)
@@ -584,7 +585,7 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 			{
 				if (pi->glow != INVALID_SERIAL)
 					glowsp.remove(p2->serial, pi->serial); // lb, glowing stuff
-				bp1->AddItem(pi);
+				bp1->addItem(pi);
 				if (pi->glow != INVALID_SERIAL)
 					glowsp.insert(currchar[s1]->serial, pi->serial);
 				if (s2 != INVALID_UOXSOCKET)

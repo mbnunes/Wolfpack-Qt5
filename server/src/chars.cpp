@@ -102,7 +102,7 @@ void cChar::giveGold( Q_UINT32 amount, bool inBank )
 		pile->Init();
 		pile->setId( 0xEED );
 		pile->setAmount( QMIN( total, static_cast<Q_UINT32>(65535) ) );
-		pCont->AddItem( pile );
+		pCont->addItem( pile );
 		total -= pile->amount();
 	}
 
@@ -198,7 +198,6 @@ void cChar::Init(bool ser)
 	this->kills_ = 0; // PvP Kills
 	this->deaths_ = 0;
 	this->dead_ = false; // Is character dead
-	this->packitem_ = INVALID_SERIAL; // Only used during character creation
 	this->fixedlight_ = 255; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	// changed to -1, LB, bugfix
 	this->speech_ = 0; // For NPCs: Number of the assigned speech block
@@ -359,29 +358,16 @@ P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 
 P_ITEM cChar::getBankBox( void )
 {
-	P_ITEM pi;
-	unsigned int ci=0;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if( pi && pi->layer() == 0x1D )
-			return pi;
-	}
-
-	// If we reach this point, bankbox wasn't found == wasn't created yet.
-	sprintf((char*)temp, "%s's bank box.", name.latin1());
-	UOXSOCKET s = calcSocketFromChar(this);
-	pi = Items->SpawnItem(this, 1, (char*)temp, 0, 0x09AB, 0, 0);
-	if(pi == NULL) 
-		return NULL;
-	pi->setLayer( 0x1D );
+	P_ITEM pi = atLayer( BankBox );
+	if ( pi )
+		return pi;
+	QString temp = QString("%1's bank box").arg(name);
+	pi = Items->SpawnItem(this, 1, temp.latin1(), 0, 0x09AB, 0, 0);
+	if(pi == 0) 
+		return 0;
 	pi->SetOwnSerial(this->serial);
-	pi->setContSerial(this->serial);
 	pi->morex=1;
 	pi->setType( 1 );
-	if (s != -1)
-		wearIt(s, pi);
 
 	return pi;
 }
@@ -592,35 +578,12 @@ bool cChar::hasShield()
 
 P_ITEM Packitem(P_CHAR pc) // Find packitem
 {
-	if(pc == NULL) 
-		return NULL;
-	P_ITEM pi = FindItemBySerial(pc->packitem());
-	if (pi != NULL)
-	{
-		if (pc->Wears(pi) && pi->layer()==0x15)
-		{
-			return pi;
-		}
-	}
-
-	// - For some reason it's not defined, so go look for it.
-	unsigned int ci = 0;
-	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (pi != NULL && pi->layer()==0x15)
-		{
-			pc->setPackItem( pi->serial );	//Record it for next time
-			return (pi);
-		}
-	}
-	return NULL;
+	return pc->getBackpack();
 }
 
 P_ITEM cChar::getBackpack()	
 {
-	P_ITEM backpack = FindItemBySerial( packitem_ );
+	P_ITEM backpack = atLayer( Backpack );
 
 	// None found so create one
 	if( !backpack )
@@ -630,10 +593,9 @@ P_ITEM cChar::getBackpack()
 		{
 			backpack->setLayer( 0x15 );
 			backpack->setOwner( this );
-			backpack->setContSerial( serial );
+			this->addItem( Backpack, backpack );
 			backpack->setType( 1 );
 			backpack->update();
-			packitem_ = backpack->serial;
 		}
 	}
 
@@ -815,7 +777,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("kills",			kills_);
 		archive.read("deaths",			deaths_);
 		archive.read("dead",			dead_);
-		archive.read("packitem",		packitem_);
 		archive.read("fixedlight",		fixedlight_);
 		archive.read("speech",			speech_);
 
@@ -954,7 +915,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("kills",			kills_);
 		archive.write("deaths",			deaths_);
 		archive.write("dead",			dead_);
-		archive.write("packitem",		packitem_);
 		archive.write("fixedlight",		fixedlight_);
 		archive.write("speech",			speech_);
 		archive.write("disablemsg",		disabledmsg_);
@@ -1091,7 +1051,7 @@ void cChar::save( const QString& s/* = QString::null  */ )
 	savePersistentIntValue("kills",			kills_);
 	savePersistentIntValue("deaths",		deaths_);
 	savePersistentIntValue("dead",			dead_);
-	savePersistentIntValue("packitem",		packitem_);
+//	savePersistentIntValue("packitem",		packitem_);
 	savePersistentIntValue("fixedlight",	fixedlight_);
 	savePersistentIntValue("speech",		speech_);
 	savePersistentStrValue("disablemsg",	disabledmsg_);
@@ -1211,7 +1171,7 @@ void cChar::load( const QString& s/* = QString::null  */ )
 		loadPersistentIntValue("kills",			kills_);
 		loadPersistentIntValue("deaths",		deaths_);
 		loadPersistentIntValue("dead",			dead_);
-		loadPersistentIntValue("packitem",		packitem_);
+//		loadPersistentIntValue("packitem",		packitem_);
 		loadPersistentIntValue("fixedlight",	fixedlight_);
 		loadPersistentIntValue("speech",		speech_);
 
@@ -1472,7 +1432,7 @@ void cChar::processNode( const QDomElement &Tag )
 	//</backpack>
 	else if( TagName == "backpack" )
 	{
-		if( this->packitem_ == INVALID_SERIAL )
+		if( !this->getBackpack() )
 		{
 			P_ITEM pBackpack = Items->SpawnItem( -1, this, 1, "Backpack", 0, 0x0E,0x75,0,0,0);
 			if( pBackpack == NULL )
@@ -1481,12 +1441,10 @@ void cChar::processNode( const QDomElement &Tag )
 				return;
 			}
 			
-			this->packitem_ = pBackpack->serial;
-			
 			pBackpack->pos.x = 0;
 			pBackpack->pos.y = 0;
 			pBackpack->pos.z = 0;
-			pBackpack->setContSerial(this->serial);
+			this->addItem( Backpack, pBackpack );
 			pBackpack->setLayer( 0x15 );
 			pBackpack->setType( 1 );
 			pBackpack->dye=1;
@@ -1872,7 +1830,7 @@ void cChar::processNode( const QDomElement &Tag )
 			if( !nItem->layer() )
 				Items->DeleItem( nItem );
 			else
-				nItem->setContSerial( this->serial );
+				this->addItem( static_cast<cChar::enLayer>(nItem->layer()), nItem ); // not sure about this one.
 
 			++iter;
 		}
@@ -2292,10 +2250,10 @@ void cChar::makeShop( void )
 		
 		if( pItem )
 		{
-			pItem->setContSerial( serial);
 			pItem->setLayer( layer );
 			pItem->setType( 1 );
 			pItem->priv |= 0x02;
+			this->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
 		}
 	}
 }
@@ -2618,9 +2576,9 @@ void cChar::kill()
 		while( it != lootItemSections.end() )
 		{
 			P_ITEM pi_loot = Items->createScriptItem( (*it) );
-			if( pi_loot )
-				pi_loot->setContSerial( corpse->serial );
-
+//			if( pi_loot )
+//				pi_loot->setContSerial( corpse->serial );
+// Restructuring
 			it++;
 		}
 	}
@@ -2661,7 +2619,7 @@ void cChar::kill()
 					// put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 					if( !pi_k->newbie() && ( pi_k->type() != 9 ) )
 					{
-						corpse->AddItem( pi_k );
+						corpse->addItem( pi_k );
 						
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
@@ -2686,13 +2644,13 @@ void cChar::kill()
 				if( pi_j != pi_backpack )
 				{
 					corpse->addEquipment( pi_j->layer(), pi_j->serial );
-					corpse->AddItem( pi_j );					
+					corpse->addItem( pi_j );					
 				}
 			}
 			else if( ( pi_j != pi_backpack ) && ( pi_j->layer() != 0x1D ) )
 			{	
 				// else if the item is newbie put it into char's backpack
-				pi_backpack->AddItem( pi_j );
+				pi_backpack->addItem( pi_j );
 			}
 
 			//if( ( pi_j->layer() == 0x15 ) && ( shop == 0 ) ) 
@@ -2731,8 +2689,9 @@ void cChar::kill()
 		if( pItem )
 		{
 			robe_ = pItem->serial;
-			pItem->setContSerial( serial );
+//			pItem->setContSerial( serial );
 			pItem->setLayer( 0x16 );
+			this->addItem( cChar::OuterTorso, pItem );
 			pItem->update();
 		}
 	}
@@ -2800,11 +2759,11 @@ void cChar::resurrect()
 	if( !pRobe ) 
 		return;
 
-	pRobe->setContSerial( serial );
 	pRobe->setColor( 0 );
 	pRobe->setHp( 1 );
 	pRobe->setMaxhp( 1 );
 	pRobe->setLayer( 0x16 );
+	this->addItem( cChar::OuterTorso, pRobe );
 	pRobe->update();
 
 	resend( false );
@@ -2928,7 +2887,7 @@ void cChar::updateWornItems( cUOSocket* socket )
 */
 void cChar::wear( P_ITEM pi )
 {
-	pi->setContSerial( this->serial );
+	this->addItem( static_cast<cChar::enLayer>(pi->layer()), pi );
 	cUOTxCharEquipment packet;
 	packet.setWearer( this->serial );
 	packet.setSerial( pi->serial );
@@ -3040,8 +2999,8 @@ void cChar::mount( P_CHAR pMount )
 			case 0x1f: pMountItem->setId(0x3EBE); break; // armor dragon
 		}
 		
-		pMountItem->setContSerial( serial );
 		pMountItem->setLayer( 0x19 );
+		this->addItem( cChar::Mount, pMountItem );
 		Coord_cl npos( pos );
 		npos.x = pMount->fx1();
 		npos.y = pMount->fy1();
@@ -3144,7 +3103,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 						// Put it into the backpack
 						P_ITEM backpack = getBackpack();
 						if( backpack )
-							backpack->AddItem( pItem );
+							backpack->addItem( pItem );
 						else
 							Items->DeleItem( pItem );
 					}
@@ -3178,7 +3137,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 						// Put it into the bankbox
 						P_ITEM bankbox = getBankBox();
 						if( bankbox )
-							bankbox->AddItem( pItem );
+							bankbox->addItem( pItem );
 						else
 							Items->DeleItem( pItem );
 					}
@@ -3215,7 +3174,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 					else
 					{
 						// Put it onto the char
-						pItem->setContSerial( serial );
+						this->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
 						giveItemBonus( pItem );
 					}
 				}
@@ -3777,4 +3736,32 @@ bool cChar::onShowContext( cUObject *object )
 
 	return false;
 }
+
+void cChar::addItem( cChar::enLayer layer, cItem* pi )
+{
+	if ( content_.contains(layer) )
+	{
+		
+	}
+	content_.insert( (ushort)(layer), pi );
+}
+
+void cChar::removeItem( cChar::enLayer layer)
+{
+	content_.remove((ushort)(layer));
+}
+
+cChar::ContainerContent cChar::content() const
+{
+	return content_;
+}
+
+cItem* cChar::atLayer( cChar::enLayer layer ) const
+{
+	ContainerContent::const_iterator it = content_.find(layer);
+	if ( it != content_.end() )
+		return it.data();
+	return 0;
+}
+
 

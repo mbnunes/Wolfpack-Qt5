@@ -95,7 +95,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	pc->setHoldg(pc->holdg() + pi->value); // putting the gold to the vendor's "pocket"
 
 	// sends item to the proud new owner's pack
-	pi->setContSerial(pBackpack->serial);
+	pBackpack->addItem(pi);
 	pi->update();
 
 }
@@ -298,49 +298,6 @@ void cTargets::IstatsTarget(int s)
 	}
 }
 
-static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
-{
-	P_ITEM pPack = Packitem(pc);
-	if (pPack == NULL)
-	{
-		pPack = Items->SpawnItem(calcSocketFromChar(pc_c),pc_c,1,"#",0,0x0E,0x75,0,0,0);
-		if (pPack == NULL)
-			return;
-		pc->setPackItem( pPack->serial ); 
-		pPack->setContSerial(pc_c->serial);
-		pPack->setLayer( 0x15 );
-		pPack->setType( 1 );
-		pPack->dye=1;
-	}
-
-	unsigned int ci=0;
-	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer() != 0x15 && pi->layer() != 0x1D &&
-			pi->layer() != 0x10 && pi->layer() != 0x0B && (!pi->free))
-		{
-			pi->removeFromView( false );
-
-			pi->pos.x=(rand()%80)+50;
-			pi->pos.y=(rand()%80)+50;
-			pi->pos.z=9;
-			pi->setContSerial(pPack->serial);
-			pi->setLayer( 0x00 );
-
-			pi->update();
-		}
-		else if (pc->Wears(pi) &&
-			(pi->layer()==0x0B || pi->layer()==0x10))	// hair & beard (Duke)
-		{
-			Items->DeleItem(pi);
-		}
-	}
-	updatechar(pc_c);
-}
-
 // public !!!
 P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 updated for new items
 {
@@ -535,7 +492,7 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 		if (pi != NULL) // crashfix LB
 		{
 			pi->moveTo( clTemp4 );
-			pi->setContSerial(INVALID_SERIAL);
+			//pi->setContSerial(INVALID_SERIAL);
 			pi->setGMMovable(); //make item unmovable once thrown
 			movingeffect2(pc_currchar, pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
 			pi->update();
@@ -696,6 +653,7 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 //Scriptable carving product added
 static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 {
+/*
 	P_CHAR pc_currchar = currchar[s];
 	bool deletecorpse=false;
 	int storeval;
@@ -723,7 +681,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		sprintf((char*)temp,"the head of %s",pi3->name2().ascii());
 		P_ITEM pi = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA0,0,0,0);
 		if(pi == NULL) return;
-		pi->setContSerial(pi3->serial);
+		pi3->addItem(pi);
 		pi->setLayer( 0x01 );
 		pi->att=5;
 
@@ -825,6 +783,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		}
 		Items->DeleItem(pi3);	//and then delete the corpse
 	}
+*/
 }
 
 
@@ -1805,28 +1764,6 @@ void cTargets::LoadCannon(int s)
 	}*/
 }
 
-void cTargets::MoveToBagTarget(int s)
-{
-	SERIAL serial=LongFromCharPtr(buffer[s]+7);
-	P_ITEM pi = FindItemBySerial(serial);
-	if (pi == NULL) return;
-	P_CHAR pc_currchar = currchar[s];
-	P_ITEM pBackpack = Packitem(pc_currchar);
-	if(pBackpack == NULL) return;
-	
-	pi->removeFromView( false );
-
-	pi->setContSerial(pBackpack->serial);
-	pi->pos.x=50+rand()%80;
-	pi->pos.y=50+rand()%80;
-	pi->pos.z=9;
-	pi->setLayer( 0x00 );
-	pi->decaytime=0;//reset decaytimer
-	
-	pi->update();
-}
-
-
 void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something with the targetting cursor
 {
 	UOXSOCKET s = toOldSocket( socket );
@@ -2068,7 +2005,7 @@ void cTargets::AddItem( UOXSOCKET s )
 		return;
 	}
 
-	Item->setContSerial( -1 );
+//	Item->setContSerial( -1 );
 	Item->MoveTo( TargetX, TargetY, TargetZ );
 	Item->update();
 }

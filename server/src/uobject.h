@@ -49,7 +49,6 @@
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qdom.h"
-#include "qfile.h"
 
 // Forward class declarations
 //class ISerialization;

@@ -734,7 +734,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, const string& comm)
 			pi->value = goldcount;
 			DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
 			P_ITEM bankbox = pc_currchar->getBankBox();
-			bankbox->AddItem(pi);
+			bankbox->addItem(pi);
 			//statwindow(c, pc_currchar);
 			pBanker->talk( tr("%1 your check has been placed in your bankbox, it is worth %2.").arg(pc_currchar->name.latin1()).arg(goldcount), -1, 0 );
 			return true;

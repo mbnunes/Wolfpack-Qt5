@@ -96,13 +96,13 @@ void cItem::toBackpack( P_CHAR pChar )
 	// Pack it to the ground
 	if( !pPack )
 	{
-		setContSerial( INVALID_SERIAL );
+		contserial = INVALID_SERIAL;
 		moveTo( pChar->pos );
 		update();
 	}
 	// Or to the backpack
 	else
-		pPack->AddItem( this );
+		pPack->addItem( this );
 }
 
 // Gets the corpse an item is in
@@ -136,7 +136,7 @@ cItem::cItem( cItem &src )
 	this->setId(src.id());
 	this->pos = src.pos;
 	this->color_ = src.color_;
-	this->setContSerial(src.contserial);
+	this->contserial = src.contserial;
 	this->layer_ = src.layer_;
 	this->type_ = src.type_;
 	this->type2_ = src.type2_;
@@ -239,79 +239,6 @@ long cItem::ReduceAmount(const short amt)
 	}
 
 	return rest;
-}
-
-void cItem::setContSerial( SERIAL nValue )
-{
-	// If the item is in the bank or any sell-container it's NOT counted as char-weight
-	// bool inBank = ( outmostCont && 	( outmostCont->contserial == pChar->serial ) && ( outmostCont->layer() >= 0x1A ) );
-	P_CHAR oldOwner = 0;
-	P_CHAR newOwner = 0;
-
-	if( contserial != INVALID_SERIAL )
-	{
-		if( isItemSerial( contserial ) )
-		{
-			P_ITEM pItem = FindItemBySerial( contserial );
-
-			if( pItem )
-			{
-				pItem->setTotalweight( pItem->totalweight() - totalweight_ );
-				oldOwner = GetPackOwner( pItem, 64 ); // Try to find it at least, otherwise its 0
-			}
-		}
-		else if( isCharSerial( contserial ) )
-		{
-			P_CHAR pChar = FindCharBySerial( contserial );
-
-			if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
-			{
-				pChar->setWeight( pChar->weight() - weight_ );
-				oldOwner = pChar;
-			}
-		}
-
-		contsp.remove( contserial, serial );
-	}
-
-	contserial = nValue;
-
-	if( contserial != INVALID_SERIAL )
-	{
-	/*	// Get the New owner only if we're taking an item along (no bank no sell conts. etc.)
-		if( isItemSerial( contserial ) )
-		{
-			P_ITEM pItem = FindItemBySerial( contserial );
-
-			if( pItem )
-			{
-				pItem->setTotalweight( pItem->totalweight() + totalweight_ );
-				newOwner = GetPackOwner( pItem, 64 );
-			}
-		}
-		else if( isCharSerial( contserial ) )
-		{
-			P_CHAR pChar = FindCharBySerial( contserial );
-
-			if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
-			{
-				pChar->setWeight( pChar->weight() + totalweight_ );
-				newOwner = pChar;
-			}
-		}*/
-
-		contsp.insert( contserial, serial );		
-	}
-
-	// There was an owner change
-	if( oldOwner != newOwner )
-	{
-		if( oldOwner && oldOwner->socket() )
-			oldOwner->socket()->sendStatWindow();
-
-		if( newOwner && newOwner->socket() )
-			newOwner->socket()->sendStatWindow();
-	}
 }
 
 void cItem::setOwnSerialOnly(long ownser)
@@ -425,33 +352,6 @@ short cItem::GetContGumpType()
 	case 0x2006: return 5;	// a corpse/coffin
 	default: return -1;
 	}
-}
-
-bool cItem::AddItem(cItem* pItem, short xx, short yy)	// Add Item to container
-{
-	if( !pItem ) 
-		return false;
-
-	pItem->setContSerial( serial );
-	
-	// use the given position
-	if( xx != -1 ) 
-	{
-		pItem->pos.x = xx;
-		pItem->pos.y = yy;
-		pItem->pos.z = 9;
-		pItem->update();
-	}	// no pos given
-	else		
-	{
-		if( !this->ContainerPileItem( pItem ) ) // try to pile
-		{
-			pItem->SetRandPosInCont( this ); // not piled, random pos
-			pItem->update();
-		}
-	}	
-
-	return true;
 }
 
 bool cItem::PileItem(cItem* pItem)	// pile two items
@@ -932,7 +832,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 		}
 		else
 		{
-			pi->setContSerial( INVALID_SERIAL );
+			pi->contserial = INVALID_SERIAL;
 		}
 
         // if a new book gets deleted also delete the corresponding bok file
@@ -1028,7 +928,7 @@ P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, QString nItem)
 	if (pi == NULL)
 		return NULL;
 	GetScriptItemSetting(pi); 
-	bankbox->AddItem(pi);
+	bankbox->addItem(pi);
 	return pi;
 }
 
@@ -1092,10 +992,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 	{
 		if (pPack)
 		{
-			pi->setContSerial(pPack->serial);
-			pi->pos.x=(50+rand()%80);
-			pi->pos.y=(50+rand()%80);
-			pi->pos.z=9;
+			pPack->addItem(pi);
 		}
 		else
 		{// LB place it at players feet if he hasnt got backpack
@@ -1149,7 +1046,7 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging) /
 
 	GetScriptItemSetting(pi);
 
-	backpack->AddItem(pi);
+	backpack->addItem(pi);
 	pi->update();
 	return pi;
 }
@@ -1176,7 +1073,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 	if ( pi == NULL )
 		return;
 	cMulti* pi_multi = NULL;
-
+	
 	if(pi->isLockedDown()) {pi->decaytime=0; return;}
 	if( pi->decaytime <= currenttime || (overflow) )//fixed by JustMichael
 	{
@@ -1190,30 +1087,30 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 			if (pi->decaytime<=currenttime)
 			{
                 //Multis --Boats ->
-
+				
 				if (!Items->isFieldSpellItem(pi)) // Gives fieldspells a chance to decay in multis, LB
 				{
-				  if (pi->multis<1 && !pi->corpse())
-				  {
-					// JustMichael -- Added a check to see if item is in a house
-					pi_multi = cMulti::findMulti( pi->pos );
-					if ( pi_multi )
+					if (pi->multis<1 && !pi->corpse())
 					{
-						if( pi_multi->itemsdecay() ) //JustMichael -- set more to 1 and stuff can decay in the building
+						// JustMichael -- Added a check to see if item is in a house
+						pi_multi = cMulti::findMulti( pi->pos );
+						if ( pi_multi )
 						{
-							pi->startDecay();
-							return;
+							if( pi_multi->itemsdecay() ) //JustMichael -- set more to 1 and stuff can decay in the building
+							{
+								pi->startDecay();
+								return;
+							}
 						}
+					} 
+					else if (pi->multis>0 && !pi->corpse()) 
+					{					
+						pi->startDecay();
+						return;
 					}
-				} 
-				else if (pi->multis>0 && !pi->corpse()) 
-				{					
-					  pi->startDecay();
-					  return;
-				}
 				}
 				//End Boats/Mutlis
-
+				
 				//JustMichael--Keep player's corpse as long as it has more than 1 item on it
 				//up to playercorpsedecaymultiplier times the decay rate
 				if (pi->corpse() && pi->GetOwnSerial()!=-1)
@@ -1232,10 +1129,10 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						}
 						if(preservebody) break; //lagfix - AntiChrist - not necessary to check ALL the items!!!
 					}
-
+					
 					if( preservebody > 1 && pi->more4() )
 					{
-					//	pi->more4--;
+						//	pi->more4--;
 						pi->setMore4( --(tempchar = pi->more4()) );
 						pi->startDecay();
 						return;
@@ -1251,14 +1148,14 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
                         if (pi_j != NULL) //lb
 						{
-						   if (pi_j->contserial==pi->serial)// && (items[j].layer!=0x0B)&&(items[j].layer!=0x10))
-						   {
-							pi_j->setContSerial(-1);
-							pi_j->MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
-
-							pi_j->startDecay();
-							pi_j->update();//AntiChrist
-						   }
+							if (pi_j->contserial==pi->serial)// && (items[j].layer!=0x0B)&&(items[j].layer!=0x10))
+							{
+								pi->removeItem(pi_j);
+								pi_j->MoveTo(pi->pos.x,pi->pos.y,pi->pos.z);
+								
+								pi_j->startDecay();
+								pi_j->update();//AntiChrist
+							}
 						} // enof of if j!=-1
 					}
 					Items->DeleItem(pi);
@@ -1435,7 +1332,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 	}
 	else
 	{
-		pi->setContSerial(pItem->serial); //set item in pointer array
+		pItem->addItem(pi);
 	}
 	pi->SetSpawnSerial(pItem->serial);
 
@@ -1461,7 +1358,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 
 	unsigned int ci=0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(pc_p->serial);
+/*	vector<SERIAL> vecContainer = contsp.getData(pc_p->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
@@ -1488,6 +1385,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 				}
 		}
 	}		
+*/
 }
 
 P_ITEM cAllItems::createScriptItem( UOXSOCKET s, QString Section, UI32 nSpawned )
@@ -2118,7 +2016,7 @@ void cItem::processContainerNode( const QDomElement &Tag )
 
 			nItem->applyDefinition( equipment[ i ] );
 
-			nItem->setContSerial( this->serial );
+			this->addItem(nItem);
 	}
 	childNode = childNode.nextSibling();
 }
@@ -2407,7 +2305,7 @@ P_ITEM cItem::dupe()
 	if( pWearer )
 	{
 		nItem->setLayer( 0 );
-		nItem->setContSerial( INVALID_SERIAL );
+//		nItem->setContSerial( INVALID_SERIAL );
 		nItem->moveTo( pWearer->pos );
 	}
 
@@ -2790,3 +2688,36 @@ void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
 
+void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight )
+{
+	content_.append( pItem );
+	if( !this->ContainerPileItem( pItem ) ) // try to pile
+	{
+		if (randomPos)
+			pItem->SetRandPosInCont( this ); // not piled, random pos
+	}
+	if ( handleWeight )
+		setTotalweight( this->totalweight() + pItem->totalweight() );
+}
+
+void cItem::removeItem( cItem* pItem, bool handleWeight )
+{
+	ContainerContent::iterator it = std::find(content_.begin(), content_.end(), pItem);
+	if ( it != content_.end() )
+	{
+		content_.erase(it);
+		if (handleWeight)
+			setTotalweight(	this->totalweight() - pItem->totalweight() );
+	}
+}
+
+cItem::ContainerContent cItem::content() const
+{
+	return content_;
+}
+
+bool cItem::contains( const cItem* pItem ) const
+{
+	ContainerContent::const_iterator it = std::find(content_.begin(), content_.end(), pItem);
+	return it != content_.end();
+}

@@ -676,7 +676,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 		//return;
 	
 //	CHARACTER cc=currchar[s];
-	P_CHAR pc_currchar = currchar[s];
+/*	P_CHAR pc_currchar = currchar[s];
 	if (!pi && pc_currchar->packitem() != INVALID_SERIAL)
 	{
 		unsigned int ci=0;
@@ -787,6 +787,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 			Xsend(s, sbookspell, 19);
 		}
 	}
+*/
 }
 
 

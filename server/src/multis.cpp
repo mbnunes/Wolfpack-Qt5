@@ -312,7 +312,7 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 	if( !pc )
 		return;
 
-	P_ITEM pBackpack = FindItemBySerial( pc->packitem() );
+	P_ITEM pBackpack = pc->getBackpack();
 	P_ITEM pBankbox = pc->getBankBox();
 
 	if( !pBackpack && !pBankbox )
@@ -326,9 +326,9 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 		pKey->priv = 2;
 		pKey->setName( name );
 		if( pBackpack )
-			pBackpack->AddItem( pKey );
+			pBackpack->addItem( pKey );
 		else 
-			pBankbox->AddItem( pKey );
+			pBankbox->addItem( pKey );
 	}
 
 	// just create 3 additional keys...
@@ -342,9 +342,9 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 //			pKey->priv = 2; dont newbie these 3 bank box keys
 			pKey->setName( name );
 			if( pBankbox )
-				pBankbox->AddItem( pKey );
+				pBankbox->addItem( pKey );
 			else
-				pBackpack->AddItem( pKey );
+				pBackpack->addItem( pKey );
 		}
 	}
 }
@@ -371,14 +371,14 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 {
 	P_ITEM pi = NULL;
 	bool found = false;
-	vector<SERIAL> vpack = contsp.getData( pc->packitem() );
-	vector<SERIAL>::iterator it = vpack.begin();
-	while( it != vpack.end() )
+	P_ITEM pBackpack = pc->getBackpack();
+	cItem::ContainerContent container = pBackpack->content();
+	cItem::ContainerContent::iterator it = container.begin();;
+	while( it != container.end() )
 	{
-		pi = FindItemBySerial( *it );
+		pi = *it;
 		if( !pi ) 
 		{
-			contsp.remove( pc->packitem(), (*it) );
 			++it;
 			continue;
 		}
@@ -402,7 +402,7 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 	if( found )
 		return pi;
 	else
-		return NULL;
+		return 0;
 }
 
 

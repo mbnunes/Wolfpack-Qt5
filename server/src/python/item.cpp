@@ -712,7 +712,9 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 
 		if( contserial != 0 )
 		{
-			self->pItem->setContSerial( contserial );
+			// I'm not quite sure about this.
+			return 0;
+			//self->pItem->setContSerial( contserial );
 
 			// Get a random position
 			if( pItem && ( pItem->GetContGumpType() != -1 ) )

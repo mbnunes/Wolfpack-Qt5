@@ -466,7 +466,7 @@ UINT32	cMakeSection::calcRank( cChar* pChar )
 void cMakeSection::execute( cUOSocket* const socket )
 {
 	P_CHAR pChar	 = socket->player();
-	P_ITEM pBackpack = FindItemBySerial( pChar->packitem() );
+	P_ITEM pBackpack = pChar->getBackpack();
 
 	if( !socket || !pChar || !baseaction_ )
 		return;
@@ -538,7 +538,7 @@ void cMakeSection::execute( cUOSocket* const socket )
 			if( pItem->isPileable() )
 				pItem->setAmount( miit.current()->amount() );
 			pItem->applyRank( rank );
-			pBackpack->AddItem( pItem );
+			pBackpack->addItem( pItem );
 		}
 
 		// if the item is not pileable create amount-1 items more
@@ -550,7 +550,7 @@ void cMakeSection::execute( cUOSocket* const socket )
 				if( pItem )
 				{
 					pItem->applyRank( rank );
-					pBackpack->AddItem( pItem );
+					pBackpack->addItem( pItem );
 				}
 			}
 		}
@@ -1086,9 +1086,9 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	std::vector< cMakeSection* > sections;
 	std::vector< UINT32 > offsets;
 	std::vector< cMakeSection* >::iterator it = makesections.begin();
-	cItem* pBackpack = NULL;
+	cItem* pBackpack = 0;
 	if( pChar )
-		 pBackpack = FindItemBySerial( pChar->packitem() );
+		 pBackpack = pChar->getBackpack();
 	UINT32 i = 1;
 
 	while( it != makesections.end() )
@@ -1252,7 +1252,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		cChar* pChar = socket->player();
 		if( !pChar )
 			return;
-		cItem* pBackpack = FindItemBySerial( pChar->packitem() );
+		cItem* pBackpack = pChar->getBackpack();
 		cMakeAction::SectionContainer sections = actions[ choice.button - submenus.size() - 4 ]->makesections();
 		if( sections.empty() )
 		{
@@ -1395,7 +1395,7 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		cChar* pChar = socket->player();
 		if( !pChar )
 			return;
-		cItem* pBackpack = FindItemBySerial( pChar->packitem() );
+		cItem* pBackpack = pChar->getBackpack();
 		if( section && section->hasEnough( pBackpack ) )
 		{
 			section->execute( socket );

@@ -209,7 +209,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 			P_ITEM splitItem = new cItem( *pItem ); // Create a new item to pick that up
 			splitItem->SetSerial( cItemsManager::getInstance()->getUnusedSerial() );
 			splitItem->setAmount( pItem->amount() - pickedAmount );
-			splitItem->setContSerial( pItem->contserial );
+			pItem->addItem( splitItem );
 			splitItem->SetOwnSerial( pItem->ownserial );
 			splitItem->SetSpawnSerial( pItem->spawnserial );
 
@@ -271,7 +271,7 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	}
 
 	// *finally* equip the item
-	item->setContSerial( wearer->serial );
+	wearer->addItem( static_cast<cChar::enLayer>(item->layer()), item );
 
 	// Add the item bonuses
 	wearer->giveItemBonus( item );
@@ -438,8 +438,8 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// At this point we're certain that we can wear the item
-	pItem->setContSerial( packet->wearer() );
 	pItem->setLayer( pTile.layer ); // Don't trust the user input on this one
+	pWearer->addItem( static_cast<cChar::enLayer>(pTile.layer), pItem );
 
 	if( pWearer->socket() )
 		pWearer->socket()->sendStatWindow();
@@ -603,7 +603,7 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 		socket->sysMessage( "Trading is disabled" );
 		return;
 
-		pItem->setContSerial( tradeWindow->serial);
+		tradeWindow->addItem( pItem, false, false );
 		pItem->pos.x = rand() % 60;
 		pItem->pos.y = rand() % 60;
 		pItem->pos.z = 9;
@@ -665,8 +665,19 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 		socket->bounceItem( pItem, BR_CANNOT_PICK_THAT_UP );
 		return;
 	}
+	
+	if ( pItem->contserial != INVALID_SERIAL )
+	{
+		P_ITEM pi = FindItemBySerial( pItem->contserial );
+		if ( pi )
+			pi->removeItem(pItem);
+		else
+		{
+			P_CHAR pc = FindCharBySerial( pItem->contserial );
+			pc->removeItem( static_cast<cChar::enLayer>( pItem->layer() ) );
+		}
+	}
 
-	pItem->setContSerial( INVALID_SERIAL );
 	pItem->moveTo( pos );	
 	pItem->setLayer( 0 );
 	pItem->update();
@@ -820,9 +831,13 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	{
 		// If we're dropping it onto the closed container
 		if( dropPos.distance( pCont->pos ) == 0 )
-			pCont->AddItem( pItem );
+			pCont->addItem( pItem );
 		else
-			pCont->AddItem( pItem, dropPos.x, dropPos.y );
+		{
+			pCont->addItem( pItem, false );
+			pItem->pos.x = dropPos.x;
+			pItem->pos.y = dropPos.y;
+		}
 
 		// Dropped on another Container/in another Container
 		pChar->soundEffect( 0x57 );
@@ -858,7 +873,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	pItem->moveTo( pCont->pos );
 	pItem->pos.z += 2; // Increase z by 2
 	pItem->setLayer( 0 );
-	pItem->setContSerial( pCont->contserial );
+	pCont->addItem(pItem);
 	pItem->update();
 
 	// This needs to be checked
@@ -1075,7 +1090,7 @@ void cDragItems::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
 		P_ITEM bankBox = pChar->getBankBox();
 
 		if( bankBox )
-			bankBox->AddItem( pItem );
+			bankBox->addItem( pItem );
 		else
 			bounceItem( socket, pItem );
 

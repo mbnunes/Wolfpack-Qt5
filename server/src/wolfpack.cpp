@@ -465,7 +465,7 @@ void item_char_test()
 		if( pi->serial == pi->contserial )
 		{
 			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous container value, autocorrecting\n" ).arg( pi->name() ).arg( pi->serial ) );
-			pi->setContSerial( -1 );
+			//pi->setContSerial( -1 );
 		}
 
 		if( pi->serial == pi->GetOwnSerial() )
@@ -2394,7 +2394,7 @@ void usepotion( P_CHAR pc_p, P_ITEM pi )//Reprogrammed by AntiChrist
 	pc_p->action( 0x22 );
 
 	// empty bottle after drinking
-	pi->setContSerial( -1 );
+//	pi->setContSerial( -1 );
 	if( pi->morey != 3 )
 	{
 		SERIAL kser = pi->serial;

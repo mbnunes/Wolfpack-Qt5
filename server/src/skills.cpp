@@ -814,7 +814,7 @@ public:
 				P_ITEM pi_pack = Packitem(pc_currchar);
 				if (pi_pack == NULL) 
 					return true;
-				pi->setContSerial(pi_pack->serial);
+				pi_pack->addItem(pi);
 				socket->sysMessage( tr("You successfully steal that item.") );
 				pi->update();
 			} 
@@ -1190,7 +1190,7 @@ bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
 		socket->sysMessage( tr("You can't repair that!") );
 		return false;
 	}
-	else if( pc->packitem() != INVALID_SERIAL && pi->contserial != pc->packitem() )
+	else if( pc->getBackpack() && !pc->getBackpack()->contains(pi) )
 	{
 		socket->sysMessage( tr("The item must be in your backpack to get repaired!") );
 		return true;
@@ -1404,16 +1404,18 @@ P_ITEM cSkills::GetInstrument(cUOSocket* socket)
 	P_CHAR pc_currchar = socket->player();
 
 	unsigned int ci = 0;
-	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem());
-	for (; ci < vecContainer.size(); ++ci)
+	P_ITEM pBackpack = pc_currchar->getBackpack();
+	cItem::ContainerContent container = pBackpack->content();
+	cItem::ContainerContent::iterator it = container.begin();
+	for (; it != container.end(); ++it )
 	{
-		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+		P_ITEM pi = *it;
 		if ( IsInstrument(pi->id()) )
 		{
 			return pi;
 		}
 	}
-	return NULL;
+	return 0;
 }
 
 //////////////////////////////
@@ -2123,9 +2125,15 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 		skill = pc_currchar->checkSkill( STEALING, 0, 999);
 		if (skill)
 		{
-			item->setContSerial(pc_currchar->packitem());
-			socket->sysMessage( tr("You successfully steal that item.") );
-			item->update();
+			P_ITEM pBackpack = pc_currchar->atLayer(cChar::Backpack);
+			if ( pBackpack )
+			{
+				pBackpack->addItem(item);
+				socket->sysMessage( tr("You successfully steal that item.") );
+				item->update();
+			}
+			else
+				socket->sysMessage( tr("Ops, you don't seam to have a backpack!") );
 		} else 
 			socket->sysMessage( tr("You failed to steal that item.") );
 		

@@ -167,11 +167,14 @@ namespace Combat
 				if( bowtype == BOW )
 					id=0x0F3F;		// arrows
 
-				std::vector< SERIAL > vecContainer = contsp.getData( pAttacker->packitem() );
-				std::vector< SERIAL >::iterator vit = vecContainer.begin();
-				while( vit != vecContainer.end() )
+				P_ITEM pBackpack = pAttacker->getBackpack();
+				if ( !pBackpack )
+					return;
+				cItem::ContainerContent container = pBackpack->content();
+				cItem::ContainerContent::iterator vit = container.begin();
+				while( vit != container.end() )
 				{
-					P_ITEM pi = FindItemBySerial( *vit );
+					P_ITEM pi = *vit;
 					if( pi && pi->id() == id )
 					{
 						pAmmo = pi->dupe();

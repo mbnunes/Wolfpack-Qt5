@@ -87,9 +87,9 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 			// <pack />
 			if( TagName == "pack" && pOwner )
 			{
-				P_ITEM pBackpack = Packitem( pOwner );
+				P_ITEM pBackpack = pOwner->atLayer( cChar::Backpack );
 				if( pBackpack )
-					pBackpack->AddItem( nItem );
+					pBackpack->addItem( nItem );
 			}
 
 			// <lock />
@@ -300,7 +300,7 @@ void cHouse::toDeed( cUOSocket* socket )
 	P_ITEM pDeed = Items->createScriptItem( this->deedsection_ );
 	if( pDeed ) 
 	{
-		pBackpack->AddItem( pDeed );
+		pBackpack->addItem( pDeed );
 		pDeed->update();
 	}
 	Items->DeleItem( this );

@@ -318,9 +318,9 @@ void CWorldMain::SaveChar( P_CHAR pc )
 static void decay1(P_ITEM pi, P_ITEM pItem)
 {
 	long serial;
-	if( pi->corpse() == 1 )
+	if( pi->corpse() )
 	{
-		serial=pi->serial;
+/*		serial=pi->serial;
 		unsigned int ci;
 		vector<SERIAL> vecContainer( contsp.getData(pi->serial) );
 		for (ci=0;ci<vecContainer.size();ci++)
@@ -331,13 +331,14 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 				if ((pi_j->contserial==pi->serial) &&
 					(pi_j->layer()!=0x0B)&&(pi_j->layer()!=0x10))
 				{
+					
 					pi_j->setContSerial(-1);
 					pi_j->moveTo(pi->pos);
 					Items->DeleItem(pi_j);
 				}
 			}
 		}
-	}
+*/	}
 	else
 	{
 		if ( pi->multis == INVALID_SERIAL )

@@ -1306,7 +1306,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 		{
 			pTarget->talk( tr( "Take a look at my goods" ) );
 
-			if( pTarget->packitem() != INVALID_SERIAL )
+			if( pTarget->getBackpack() )
 				socket->sendContainer( pTarget->getBackpack() );
 
 			return;
