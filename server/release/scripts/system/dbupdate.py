@@ -32,8 +32,8 @@ def sqlite_update_8():
 	sql = "drop table tmp_players7;"
 	database.execute(sql)
 
-	sql = "replace into settings (option, value) values ('db_version',8)"
-	database.execute(sql)
+	#sql = "replace into settings (option, value) values ('db_version',8)"
+	#database.execute(sql)
 
 	sql = "VACUUM"
 	database.execute(sql)
