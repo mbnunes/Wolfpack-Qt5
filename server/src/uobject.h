@@ -77,6 +77,7 @@ struct stError
 	if( text == QString::null )	\
 		PROPERTY_ERROR( -2, "String expected" ) \
 	setter = text; \
+	return 0; \
 	}
 
 #define SET_INT_PROPERTY( id, setter ) if( name == id ) {\
@@ -85,6 +86,7 @@ struct stError
 	if( !ok ) \
 		PROPERTY_ERROR( -2, "Integer expected" ) \
 	setter = data; \
+	return 0; \
 	}
 
 #define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
@@ -92,15 +94,18 @@ struct stError
 	INT32 data = value.toInt( &ok ); \
 	if( !ok ) \
 		PROPERTY_ERROR( -2, "Boolean expected" ) \
-		setter = data == 0 ? false : true; \
+	setter = data == 0 ? false : true; \
+	return 0; \
 	}
 
 #define SET_CHAR_PROPERTY( id, setter ) if( name == id ) {\
 	setter = value.toChar(); \
+	return 0; \
 	}
 
 #define SET_ITEM_PROPERTY( id, setter ) if( name == id ) {\
 	setter = value.toItem(); \
+	return 0; \
 	}
 
 class cUObject : public virtual PersistentObject, public virtual cDefinable

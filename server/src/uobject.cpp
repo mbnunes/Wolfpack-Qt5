@@ -525,7 +525,8 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "serial", serial )
 	else SET_INT_PROPERTY( "multi", multis )
 	else SET_BOOL_PROPERTY( "free", free )
-		
+	else SET_STR_PROPERTY( "name", this->name )
+
 	else if( name == "pos" )
 	{
 		Coord_cl pos;
@@ -558,7 +559,7 @@ stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "serial", "0x" + QString::number( serial, 16 ) )
 	else GET_PROPERTY( "multi", FindItemBySerial( multis ) )
 	else GET_PROPERTY( "free", free ? 1 : 0 )
-	else GET_PROPERTY( "name", name )
+	else GET_PROPERTY( "name", this->name )
 	else GET_PROPERTY( "pos", pos )
 	else GET_PROPERTY( "eventlist", eventList_.join(",") );
 
