@@ -18,6 +18,13 @@ POTION_LESSERHEAL_RANGE = [ 1, 16 ]
 POTION_HEAL_RANGE = [ 1, 16 ]
 POTION_GREATERHEAL_RANGE = [ 1, 16 ]
 
+# Fishing Settings
+FISHING_MIN_FISH = 25	 # Minimum fish in a 8x8 block
+FISHING_MAX_FISH = 30	 # Maximum fish in a 8x8 block
+FISHING_REFILLTIME = 60 * 5 # 5 Minute refresh time
+FISHING_MAX_DISTANCE = 6 # Maximum Distance to fishing ground
+FISHING_BLOCK_RANGE = 13 # How many Z-Units of free space need to be above the fishing ground
+
 # Lumberjacking Settings
 LUMBERJACKING_MIN_LOGS = 10
 LUMBERJACKING_MAX_LOGS = 15
@@ -147,3 +154,9 @@ EVENT_ENDCAST				= 0x00200000
 EVENT_SPELLCHECKTARGET		= 0x00400000
 EVENT_SPELLSUCCESS			= 0x00800000
 EVENT_SPELLFAILURE			= 0x01000000
+
+# Effect Constants
+EFFECT_MOVING        = 0
+EFFECT_LIGHTNING     = 1
+EFFECT_STAYSOURCEPOS = 2
+EFFECT_STAYSOURCESER = 3

@@ -6,6 +6,7 @@
 #===============================================================#
 
 import _wolfpack
+from wolfpack.consts import *
 from types import *
 
 def finditem( serial ):
@@ -86,3 +87,13 @@ def registerglobal( object, event, script ):
 # Register this script to fetch a specific command
 def registercommand( command, script ):
 	return _wolfpack.registercommand( command, script )
+
+def tiledata( id ):
+	return _wolfpack.tiledata( id )
+
+def coord( x, y, z, map ):
+	return _wolfpack.coord( x, y, z, map )
+
+def effect( id, pos, speed, duration ):
+	_wolfpack.effect( id, pos, speed, duration )
+
