@@ -2913,8 +2913,13 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				if( pItem )
 				{
 					pItem->applyDefinition( node );
+					if( pItem->layer() == 0 )
+					{
+						tile_st tile = cTileCache::instance()->getTile( pItem->id() );
+						pItem->setLayer( tile.layer );
+					}
 
-					if( pItem->id() <= 1 )
+					if( pItem->id() <= 1 || pItem->layer() == 0 )
 						Items->DeleItem( pItem );
 					else
 					{

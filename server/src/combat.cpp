@@ -927,7 +927,7 @@ namespace Combat
 		// Monsters receive special treatment
 		if( id < 0x0190 )
 		{
-			UINT8 action = 4 + RandomNum( 0, 3 ); // some creatures dont have animation #4
+			UINT8 action = 4 + RandomNum( 0, 2 ); // some creatures dont have animation #4
 			if( creatures[id].who_am_i & 0x2 ) // anti blink bit set ?
 			{
 				action++;
