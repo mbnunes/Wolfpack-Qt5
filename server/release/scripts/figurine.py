@@ -1,5 +1,5 @@
 import wolfpack
-from wolfpack import console
+from wolfpack import console, tr
 from wolfpack.consts import SND_IDLE, ANIM_CASTDIRECTED
 
 #
@@ -75,7 +75,43 @@ def onDelete(object):
 # targetted npc.
 #
 def shrink(socket, command, arguments):
-	pass
+	socket.sysmessage( 'What do you want to shrink?' )
+	socket.attachtarget( 'figurine.shrinktarget', [] )
+	#pass
+	
+def shrinktarget( char, args, target ):
+	if not target.char:
+		char.socket.sysmessage(tr('You can only shrink characters.'))
+		return
+	if target.char.player:
+		char.socket.sysmessage(tr('You cannot shrink other players.'))
+		return
+		
+	bodyinfo = wolfpack.bodyinfo(target.char.id)
+		
+	if bodyinfo['figurine'] <= 0 or bodyinfo['figurine'] >= 0x4000:
+		char.socket.sysmessage(tr('You cannot shrink that.'))
+		return
+			
+	target.char.sound(SND_IDLE)
+
+	# Create a new figurine and make it newbie
+	figurine = wolfpack.additem('%x' % bodyinfo['figurine'])
+	figurine.newbie = True
+	figurine.addscript('figurine')
+	figurine.settag('pet', target.char.serial)
+	figurine.color = target.char.skin
+	figurine.name = target.char.name
+	figurine.update()
+	figurine.moveto(target.char.pos)
+	#char.getbackpack().additem(figurine, True, False) # Random pos, no auto stacking
+	figurine.update()
+
+	target.char.removefromview()
+	target.char.owner = None
+	target.char.stablemaster = figurine.serial
+	target.char.addscript('figurine') # This is a figurined NPC
+
 
 #
 # Register the shrink command.

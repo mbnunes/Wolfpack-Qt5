@@ -22,6 +22,7 @@ Wolfpack 12.9.13 Beta (CVS)
 		- Fixed gainfactor for skills always beeing 1.0
 		- Fixed a skill check bug with lumberjacking.
 		- Implemented shrink potions.
+		- Implemented shrink command.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
