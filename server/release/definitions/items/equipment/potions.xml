@@ -15,18 +15,27 @@
 		<basescripts>potions</basescripts>
 	</item>
 
-	<!-- Empty Potion Keg -->
-	<item id="potion_keg_empty">
-		<name>#1041641</name>
+	<!-- Potion Keg -->
+	<item id="potion_keg">
 		<id>0x1ad6</id>
 		<weight>10.0</weight>
-		<tag name="kegfill" value="0" type="int" />
 		<movable>1</movable>
+		<tag name="kegfill" value="0" type="int" />
+		<basescripts>potionkeg</basescripts>
+	</item>
+
+	<!-- Empty Potion Keg -->
+	<item id="potion_keg_empty" inherit="potion_keg">
+		<baseid>potion_keg</baseid>
+		<name>#1041641</name>
+		<id>0x1ad6</id>
 		<basescripts>potionkeg</basescripts>
 	</item>
 
 	<!-- Empty Potion Keg, second direction -->
 	<item id="potion_keg_empty2" inherit="potion_keg">
+		<baseid>potion_keg</baseid>
+		<name>#1041641</name>
 		<id>0x1ad7</id>
 		<basescripts>potionkeg</basescripts>
 	</item>
@@ -44,7 +53,8 @@
 
 	<item id="potion_keg_nightsight" inherit="potion_keg_empty">
 		<name>#1041620</name>
-		<intproperty name="potiontype" value="0" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="0" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x3a0</color>
 	</item>
@@ -62,7 +72,8 @@
 
 	<item id="potion_keg_lesserheal" inherit="potion_keg_empty">
 		<name>#1041634</name>
-		<intproperty name="potiontype" value="1" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="1" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x8a5</color>
 	</item>
@@ -78,7 +89,8 @@
 
 	<item id="potion_keg_heal" inherit="potion_keg_empty">
 		<name>#1041635</name>
-		<intproperty name="potiontype" value="2" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="2" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x8a5</color>
 	</item>
@@ -94,7 +106,8 @@
 
 	<item id="potion_keg_greaterheal" inherit="potion_keg_empty">
 		<name>#1041636</name>
-		<intproperty name="potiontype" value="3" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="3" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x8a5</color>
 	</item>
@@ -112,7 +125,8 @@
 
 	<item id="potion_keg_lessercure" inherit="potion_keg_empty">
 		<name>#1041621</name>
-		<intproperty name="potiontype" value="4" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="4" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x2c</color>
 	</item>
@@ -128,7 +142,8 @@
 
 	<item id="potion_keg_cure" inherit="potion_keg_empty">
 		<name>#1041622</name>
-		<intproperty name="potiontype" value="5" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="5" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x2c</color>
 	</item>
@@ -144,7 +159,8 @@
 
 	<item id="potion_keg_greatercure" inherit="potion_keg_empty">
 		<name>#1041623</name>
-		<intproperty name="potiontype" value="6" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="6" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x2c</color>
 	</item>
@@ -162,7 +178,8 @@
 
 	<item id="potion_keg_agility" inherit="potion_keg_empty">
 		<name>#1041624</name>
-		<intproperty name="potiontype" value="7" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="7" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0xc4</color>
 	</item>
@@ -178,7 +195,8 @@
 
 	<item id="potion_keg_greateragility" inherit="potion_keg_empty">
 		<name>#1041625</name>
-		<intproperty name="potiontype" value="8" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="8" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0xc4</color>
 	</item>
@@ -196,7 +214,8 @@
 
 	<item id="potion_keg_strength" inherit="potion_keg_empty">
 		<name>#1041626</name>
-		<intproperty name="potiontype" value="9" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="9" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x835</color>
 	</item>
@@ -212,7 +231,7 @@
 
 	<item id="potion_keg_greaterstrength" inherit="potion_keg_empty">
 		<name>#1041627</name>
-		<intproperty name="potiontype" value="10" />
+		<tag name="potiontype" value="10" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x835</color>
 	</item>
@@ -230,7 +249,8 @@
 
 	<item id="potion_keg_lesserexplosion" inherit="potion_keg_empty">
 		<name>#1041637</name>
-		<intproperty name="potiontype" value="11" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="11" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x79</color>
 	</item>
@@ -246,7 +266,8 @@
 
 	<item id="potion_keg_explosion" inherit="potion_keg_empty">
 		<name>#1041638</name>
-		<intproperty name="potiontype" value="12" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="12" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x79</color>
 	</item>
@@ -261,8 +282,9 @@
 	</item>
 
 	<item id="potion_keg_greaterexplosion" inherit="potion_keg_empty">
+		<baseid>potion_keg</baseid>
 		<name>#1041639</name>
-		<intproperty name="potiontype" value="13" />
+		<tag name="potiontype" value="13" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x79</color>
 	</item>
@@ -280,7 +302,8 @@
 
 	<item id="potion_keg_lesserpoison" inherit="potion_keg_empty">
 		<name>#1041628</name>
-		<intproperty name="potiontype" value="14" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="14" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x44</color>
 	</item>
@@ -296,7 +319,8 @@
 
 	<item id="potion_keg_poison" inherit="potion_keg_empty">
 		<name>#1041629</name>
-		<intproperty name="potiontype" value="15" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="15" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x44</color>
 	</item>
@@ -312,7 +336,8 @@
 
 	<item id="potion_keg_greaterpoison" inherit="potion_keg_empty">
 		<name>#1041630</name>
-		<intproperty name="potiontype" value="16" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="16" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x44</color>
 	</item>
@@ -328,7 +353,8 @@
 
 	<item id="potion_keg_deadlypoison" inherit="potion_keg_empty">
 		<name>#1041631</name>
-		<intproperty name="potiontype" value="17" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="17" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x44</color>
 	</item>
@@ -346,7 +372,8 @@
 
 	<item id="potion_keg_refresh" inherit="potion_keg_empty">
 		<name>#1041632</name>
-		<intproperty name="potiontype" value="18" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="18" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x21</color>
 	</item>
@@ -362,7 +389,8 @@
 
 	<item id="potion_keg_totalrefresh" inherit="potion_keg_empty">
 		<name>#1041633</name>
-		<intproperty name="potiontype" value="19" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="19" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x21</color>
 	</item>
@@ -379,7 +407,8 @@
 
 	<item id="potion_keg_shrink" inherit="potion_keg_empty">
 		<name>A keg of Shrink potions</name>
-		<intproperty name="potiontype" value="25" />
+		<baseid>potion_keg</baseid>
+		<tag name="potiontype" value="25" type="int" />
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x763</color>
 	</item>
