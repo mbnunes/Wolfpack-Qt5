@@ -238,9 +238,9 @@ class Page:
 			if char.socket:
 				char.socket.sysmessage(tr('A message from %s: %s') % (player.name, response.text[1]), 0x846)
 				player.socket.sysmessage(tr('The message has been sent.'), 0x846)
+				player.log(LOG_MESSAGE, tr("%s sends player %s (%s) a message: %s\n") % (player.name, char.name, self.account, response.text[1]))
 			else:
 				player.socket.sysmessage(tr('This player is currently offline. The message has not been sent.'), 0x846)
-			player.log(LOG_MESSAGE, tr("%s sends player %s (%s) a message: %s\n") % (player.name, char.name, self.account, response.text[1]))
 
 		# Show socket info gump
 		elif response.button == 5:

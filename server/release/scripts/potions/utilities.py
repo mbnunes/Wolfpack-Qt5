@@ -61,6 +61,8 @@ def targetpotion( char, args, target ):
 	check = 10
 	socket = char.socket
 	pitem = wolfpack.finditem( args[0] )
+	if not pitem:
+		return False
 	# Range Check Override
 	if pitem.hastag( 'range' ):
 		check = int( potion.gettag( 'range' ) )

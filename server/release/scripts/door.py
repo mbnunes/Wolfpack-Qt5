@@ -356,9 +356,10 @@ def onUse(char, item, norange=0):
 	# Do we have a linked door, is this door not open?
 	if item.hastag('link') and not item.hastag('opened'):
 		doubledoor = wolfpack.finditem( int(item.gettag('link')) )
-		# Double check to make sure either door isn't open.
-		if not item.hastag('opened') and not doubledoor.hastag('opened'):
-			opendoor( char, doubledoor )
+		if doubledoor:
+			# Double check to make sure either door isn't open.
+			if not item.hastag('opened') and not doubledoor.hastag('opened'):
+				opendoor( char, doubledoor )
 	return opendoor( char, item )
 
 def onTelekinesis(char, item):
