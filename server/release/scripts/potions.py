@@ -225,7 +225,9 @@ def potionregion( args ):
 				outradius = 6
 			else:
 				outradius = 5
-	# Potion thrown on the ground
+	# Empty Lists
+	potion_chainlist = []
+	# Potion is thrown on the ground
 	if not potion.container:
 		x1 = int(potion.pos.x - outradius)
 		y1 = int(potion.pos.y - outradius)
@@ -243,22 +245,29 @@ def potionregion( args ):
 
 		# Chain Reaction Bombing
 		chainregion = wolfpack.itemregion( x1, y1, x2, y2, potion.pos.map )
-		chainbomb= chainregion.first
+
+		chainbomb = chainregion.first
+		# Scan the region, build a list of explosives
 		while chainbomb:
-			if checkLoS( potion, chainbomb, outradius ) and not chainbomb.hastag('exploding'):
-				if chainbomb.baseid in explodables:
-					chainbomb.settag('exploding', 'true')
-					chainbomb.addtimer( randint(1000, 2250), "potions.potioncountdown", [char.serial, 0, chainbomb.amount] )
-					chainbomb = chainregion.next
-				# Potion Kegs
-				elif (chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype')) and ( chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1 ):
-					chainbomb.settag('exploding', 'true')
-					chainbomb.addtimer( randint(1000, 2250), "potions.potioncountdown", [char.serial, 11, chainbomb.gettag('kegfill') ] )
-					chainbomb = chainregion.next
-				else:
-					chainbomb = chainregion.next
-			else:
+			# Doing error checks first, makes it faster
+			if not checkLoS( potion, chainbomb, outradius ):
 				chainbomb = chainregion.next
+			if chainbomb.hastag('exploding'):
+				chainbomb = chainregion.next
+			# Type Checking
+			if not potion.hastag('potiontype') or not chainbomb.gettag('potiontype') in [11,12,13]:
+				chainbomb = chainregion.next
+			# Append
+			potion_chainlist.append( chainbomb )
+			chainbomb = chainregion.next
+		# Explosions
+		for bomb in potion_chainlist:
+			bomb.settag( 'exploding', char.serial )
+			if chainbomb.hastag( 'kegfill' ) and int( chainbomb.gettag( 'kegfill' ) ) >= 1:
+				bomb.addtimer( randint(1000,2250), "potions.potioncountdown", [ char.serial, 0, int( bomb.gettag( 'kegfill' ) ) ] )
+			else:
+				bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char.serial, 0, bomb.amount ] )
+
 		return
 	# Potion is in a container
 	else:
@@ -279,21 +288,26 @@ def potionregion( args ):
 		# Chain Reaction Bombing
 		chainregion = wolfpack.itemregion( x1, y1, x2, y2, char.pos.map )
 		chainbomb = chainregion.first
+		# Scan the region, build a list of explosives
 		while chainbomb:
-			if checkLoS( char, chainbomb, outradius ) and not chainbomb.hastag('exploding'):
-				if chainbomb.baseid in explodables:
-					chainbomb.settag('exploding', 'true')
-					chainbomb.addtimer( randint(1000, 2250), "potions.potioncountdown", [char.serial, 0, chainbomb.amount] )
-					chainbomb = chainregion.next
-				elif ( chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype') ) and ( chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1 ):
-					chainbomb.settag('exploding', 'true')
-					chainbomb.addtimer( randint(1000, 2250), "potions.potioncountdown", [char.serial, 11, chainbomb.gettag('kegfill') ] )
-					chainbomb = chainregion.next
-				else:
-					chainbomb = chainregion.next
-			else:
+			# Doing error checks first, makes it faster
+			if not checkLoS( potion, chainbomb, outradius ):
 				chainbomb = chainregion.next
-			# Potion Kegs
+			if chainbomb.hastag('exploding'):
+				chainbomb = chainregion.next
+			# Type Checking
+			if not potion.hastag('potiontype') or not chainbomb.gettag('potiontype') in [11,12,13]:
+				chainbomb = chainregion.next
+			# Append
+			potion_chainlist.append( chainbomb )
+			chainbomb = chainregion.next
+		# Explosions
+		for bomb in potion_chainlist:
+			bomb.settag( 'exploding', char.serial )
+			if chainbomb.hastag( 'kegfill' ) and int( chainbomb.gettag( 'kegfill' ) ) >= 1:
+				bomb.addtimer( randint(1000,2250), "potions.potioncountdown", [ char.serial, 0, int( bomb.gettag( 'kegfill' ) ) ] )
+			else:
+				bomb.addtimer( randint( 1000, 2250 ), "potions.potioncountdown", [ char.serial, 0, bomb.amount ] )
 		return
 
 # Explosion Potion Function
