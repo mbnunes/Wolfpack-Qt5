@@ -37,8 +37,6 @@
 
 // System Includes
 
-
-
 //Forward class Declaration
 class cNetworkStuff;
 class cAsyncNetIO;
@@ -50,7 +48,7 @@ class QHostAddress;
 #include "typedefs.h"
 
 // Library Includes
-#include "qptrlist.h"
+#include <qptrlist.h>
 
 struct ip_block_st
 {
@@ -83,7 +81,6 @@ private:
 
 public:
 
-	void disconnect( UOXSOCKET s );
 	void xSend(UOXSOCKET s, const void *point, int length, int test);
 	
 	void load( void );
@@ -98,10 +95,10 @@ public:
 
 	void poll( void ); // called by the main loop
 
-	cAsyncNetIO *netIo() { return netIo_; }
-	cUOSocket *first() { return uoSockets.first(); }
-	cUOSocket *next() { return uoSockets.next(); }
-	UINT32 count() { return uoSockets.count(); }
+	cAsyncNetIO *netIo()	{ return netIo_; }
+	cUOSocket *first()		{ return uoSockets.first(); }
+	cUOSocket *next()		{ return uoSockets.next(); }
+	UINT32 count()			{ return uoSockets.count(); }
 	QPtrListIterator<cUOSocket> getIterator() { return QPtrListIterator<cUOSocket>(uoSockets); }
 
 };
