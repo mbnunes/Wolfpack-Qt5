@@ -47,6 +47,7 @@
 #include "wpdefmanager.h"
 #include "pagesystem.h"
 #include "makemenus.h"
+#include "mapobjects.h"
 #include "resources.h"
 #include "contextmenu.h"
 #include "spellbook.h"
@@ -2228,10 +2229,11 @@ public:
 					
 					if( pItem )
 					{
-						pItem->moveTo( socket->player()->pos );
 						pItem->pos.x = x;
 						pItem->pos.y = y;
 						pItem->pos.z = z;
+						pItem->pos.map = socket->player()->pos.map;
+						cMapObjects::getInstance()->add( pItem );
 						pItem->update();
 						dCount++;
 					}

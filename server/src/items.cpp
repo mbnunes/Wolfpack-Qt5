@@ -77,8 +77,8 @@ void cItem::registerInFactory()
 
 // constructor
 cItem::cItem(): 
-container_(0), totalweight_(0), incognito(false),rndvaluerate(0),
-dooropen(0),gatetime(0),gatenumber(-1),disabledmsg(""),murdertime(0),
+contserial( INVALID_SERIAL ), container_(0), totalweight_(0), incognito(false),
+rndvaluerate(0), dooropen(0),gatetime(0),gatenumber(-1),disabledmsg(""),murdertime(0),
 timeused_last(0) {};
 
 cItem::cItem( cItem &src )
