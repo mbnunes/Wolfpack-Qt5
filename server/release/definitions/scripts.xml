@@ -59,6 +59,9 @@
 	<script id="skills.healing" type="python" module="skills.healing" />
 	<script id="skills.hiding" type="python" module="skills.hiding" />
 	<script id="skills.inscription" type="python" module="skills.inscription" />
+	<script id="skills.detectinghidden" type="python" module="skills.detectinghidden" />
+	<script id="skills.musicianship" type="python" module="skills.musicianship" />
+	<script id="skills.peacemaking" type="python" module="skills.peacemaking" />
 
 	<!-- Load *LAST* thats important -->
 	<script id="errorhandler"	type="python" module="errorhandler" />
