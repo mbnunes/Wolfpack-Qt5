@@ -1,8 +1,8 @@
 #################################################################
-#	 )			(\_		 # WOLFPACK 13.0.0 Scripts										#
-#	((		_/{	"-;	# Created by: DarkStorm											#
-#	 )).-' {{ ;'`	 # Revised by:																#
-#	( (	;._ \\ ctr # Last Modification: Created								 #
+#   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  # Created by: Darkstorm                      #
+#   )).-' {{ ;'`   # Revised by:                                #
+#  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
 from wolfpack import console
@@ -16,7 +16,7 @@ import random
 
 # Leather types used by tailoring.
 LEATHERS = [
-		['Leather',			TAILORING, 0, 	['leather_cut', 'leather_hides'], 				0x0,   'leather'],
+		['Leather',		TAILORING, 0, 	['leather_cut', 'leather_hides'], 				0x0,   'leather'],
 		['Spined Leather', 	TAILORING, 650, ['spined_leather_cut', 'spined_leather_hides'], 0x283, 'spined_leather'],
 		['Horned Leather', 	TAILORING, 800, ['horned_leather_cut', 'horned_leather_hides'], 0x227, 'horned_leather'],
 		['Barbed Leather', 	TAILORING, 990, ['barbed_leather_cut', 'barbed_leather_hides'], 0x1c1, 'barbed_leather'],
@@ -25,43 +25,43 @@ LEATHERS = [
 #
 # Check if the character is using the right tool
 #
-def checktool(char, item, wearout = 0):
+def checktool(char, item, wearout = False):
 	if not item:
-		return 0
+		return False
 
 	# Has to be in our posession
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage(500364)
-		return 0
+		return False
 
 	# We do not allow "invulnerable" tools.
 	if not item.hastag('remaining_uses'):
 		char.socket.clilocmessage(1044038)
 		item.delete()
-		return 0
+		return False
 
 	if wearout:
 		uses = int(item.gettag('remaining_uses'))
 		if uses <= 1:
 			char.socket.clilocmessage(1044038)
 			item.delete()
-			return 0
+			return False
 		else:
 			item.settag('remaining_uses', uses - 1)
-
-	return 1
+			item.resendtooltip()
+	return True
 
 #
 # Bring up the tailoring menu
 #
 def onUse(char, item):
 	if not checktool(char, item):
-		return 1
+		return True
 
 	menu = findmenu('TAILORING')
 	if menu:
 		menu.send(char, [item.serial])
-	return 1
+	return True
 
 #
 # Tailor an item.
@@ -77,7 +77,7 @@ class TailorItemAction(CraftItemAction):
 	def getexceptionalchance(self, player, arguments):
 		# Only works if this item requires blacksmithing
 		if not self.skills.has_key(TAILORING):
-			return 0
+			return False
 
 		minskill = self.skills[TAILORING][0]
 		maxskill = self.skills[TAILORING][1]
@@ -113,7 +113,7 @@ class TailorItemAction(CraftItemAction):
 				item.settag('res_poison', fromitem(item, RESISTANCE_POISON) + boni[4])
 
 		# Reduce the uses remain count
-		checktool(player, wolfpack.finditem(arguments[0]), 1)
+		checktool(player, wolfpack.finditem(arguments[0]), True)
 
 	#
 	# Check for the used tool.
@@ -122,7 +122,7 @@ class TailorItemAction(CraftItemAction):
 		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
 
 		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return 0
+			return False
 
 		return CraftItemAction.make(self, player, arguments, nodelay)
 
@@ -218,13 +218,13 @@ class TailoringMenu(MakeMenu):
 	#
 	def getsubmaterial1used(self, player, arguments):
 		if not player.hastag('tailoring_leather'):
-			return 0
+			return False
 		else:
 			material = int(player.gettag('tailoring_leather'))
 			if material < len(self.submaterials1):
 				return material
 			else:
-				return 0
+				return False
 
 	#
 	# Save the material preferred by the user in a tag
