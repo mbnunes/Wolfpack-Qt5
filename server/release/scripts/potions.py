@@ -37,7 +37,6 @@ potions = \
 	22:	[ 1, 0, 0, 'Lesser Mana' ], # lesser mana
 	23:	[ 1, 0, 0, 'Mana' ], # mana
 	24:	[ 1, 0, 0, 'Greater Mana' ] # greater mana
-
 }
 
 POT_RETURN_BOTTLE = 0
@@ -47,19 +46,86 @@ POT_NAME = 3
 
 # Use the potion
 def onUse( char, item ):
+	socket = char.socket
 	# Potions need to be on your body to use them, or in arms reach.
 	if item.getoutmostchar() != char:
 		char.message( "This potion is out of your reach..." )
-		return OK
+		return
 
+	# Lets make sure the tag exists.
 	if not item.hastag( 'potiontype' ):
 		return OOPS
 	else:
 		potiontype = item.gettag( 'potiontype' )
-		potioncheck( char, item, potiontype )
+		# Make sure it's in the index
+		if not potiontype in potions:
+			return OOPS
 
-	return OK
+		# Do we throw this thing?
+		if potions[ potiontype ][ POT_TARGET ] == TRUE:
+			# Explosion Potion
+			if potiontype in [ 11, 12, 13 ]:
+				socket.sysmessage( 'Please select a target...', RED )
+				socket.attachtarget( "potions.targetexplosionpotion", [ item ] )
+			return
 
+		# We just drink this potion...
+		else:
+			# If it's a drinkable potion we check if there is a free hand.
+			if not canUsePotion( char, item ):
+				return OOPS
+			# Heal Potions
+			if potiontype in [ 1, 2, 3 ]:
+				if char.hastag('poisoned'):
+					# You can not heal yourself in your current state.
+					char.socket.clilocmessage(1005000)
+					return OOPS
+				if char.hitpoints >= char.maxhitpoints:
+					# You decide against drinking this potion, as you are already at full health.
+					char.socket.clilocmessage(1049547)
+				else:
+					healPotion(char, item, potiontype)
+				return
+
+			# Cure Potions
+			elif potiontype in [ 4, 5, 6 ]:
+				socket.sysmessage('Drinking a cure potion.')
+				return
+
+			# Agility Potions
+			elif potiontype in [ 7, 8 ]:
+				if not char.hastag('agility_effect'):
+					agilityPotion(char, item, potiontype)
+				else:
+					# You are already under a similar effect.
+					char.socket.clilocmessage(502173)
+				return
+
+			# Strength Potions
+			elif potiontype in [ 9, 10 ]:
+				if not char.hastag( 'strength_effect' ):
+					strengthPotion( char, item, potiontype )
+				else:
+					# You are already under a similar effect.
+					char.socket.clilocmessage( 502173, '', GRAY )
+				return
+
+			# Poison Potions
+			elif potiontype in [ 14, 15, 16, 17 ]:
+				poisonPotion( char, item, potiontype )
+				return
+
+			# Nightsight Potions
+			elif potiontype in [ 0 ]:
+				nightsightPotion( char, potion )
+				return
+
+			# Not Known
+			else:
+				socket.sysmessage( 'Unknown potion...' )
+				return
+
+# Explosion Potion Function
 def targetexplosionpotion(char, args, target):
 	if target.char:
 		pos = target.char
@@ -71,7 +137,7 @@ def targetexplosionpotion(char, args, target):
 			pos = item.pos
 	else:
 		pos = target.pos
-		
+
 	if char.distanceto(pos) > 15:
 		char.socket.clilocmessage(1005539)
 		return
@@ -83,6 +149,7 @@ def targetexplosionpotion(char, args, target):
 	potion.settag('exploding', 'true')
 	return
 
+# Explosion Potion Function
 def potionexplosion(args):
 	char = args[0]
 	potion = args[1]
@@ -97,9 +164,10 @@ def potionexplosion(args):
 		potion.delete()
 		return
 
+# Explosion Potion Function
 def potioncountdown( time, args ):
 	char = wolfpack.findchar(args[0])
-	potion = wolfpack.findchar(args[1])
+	potion = wolfpack.finditem(args[1])
 	counter = args[2]
 	if counter >= 0:
 		if counter > 0:
@@ -108,6 +176,7 @@ def potioncountdown( time, args ):
 		potionexplosion([char, potion, counter])
 	return
 
+# Explosion Potion Function
 def potionregion( args ):
 	char = args[0]
 	potion = args[1]
@@ -149,6 +218,7 @@ def potionregion( args ):
 
 	return
 
+# Explosion Potion Function
 def potiondamage( char, target, potion ):
 	if potion.gettag('potiontype') == 11:
 		damage = randint(1, 5)
@@ -172,80 +242,6 @@ def potiondamage( char, target, potion ):
 	energydamage(target, char, damage, fire=100)
 	return
 
-# Check what kind of potion we use, drink or throw
-def potioncheck( char, item, potiontype ):
-	socket = char.socket
-
-	# Lets get the type of potion
-	if not potiontype:
-		return OOPS
-
-	# Do we throw this thing?
-	if potions[ potiontype ][ POT_TARGET ] == TRUE:
-		# Explosion Potion
-		if potiontype in [ 11, 12, 13 ]:
-			socket.sysmessage( 'Please select a target...', RED )
-			socket.attachtarget( "potions.targetexplosionpotion", [ item ] )
-
-		# Not Known
-		else:
-			socket.sysmessage( 'What am I throwing!?', RED )
-
-	# We just drink this potion...
-	else:
-		# Heal Potions
-		if potiontype in [ 1, 2, 3 ]:
-			if canUsePotion(char, item):
-				if char.hastag('poisoned'):
-					# You can not heal yourself in your current state.
-					char.socket.clilocmessage(1005000)
-					return OOPS
-				if char.hitpoints >= char.maxhitpoints:
-					# You decide against drinking this potion, as you are already at full health.
-					char.socket.clilocmessage(1049547)
-				else:
-					healPotion(char, item, potiontype)
-
-		# Cure Potions
-		elif potiontype in [ 4, 5, 6 ]:
-			if canUsePotion(char, item):
-				socket.sysmessage('Drinking a cure potion.')
-
-		# Agility Potions
-		elif potiontype in [ 7, 8 ]:
-			if canUsePotion(char, item):
-				if not char.hastag('agility_effect'):
-					agilityPotion(char, item, potiontype)
-				else:
-					# You are already under a similar effect.
-					char.socket.clilocmessage(502173)
-
-		# Strength Potions
-		elif potiontype in [ 9, 10 ]:
-			if canUsePotion( char, item ):
-				if not char.hastag( 'strength_effect' ):
-					strengthPotion( char, item, potiontype )
-				else:
-					# You are already under a similar effect.
-					char.socket.clilocmessage( 502173, '', GRAY )
-
-		# Poison Potions
-		elif potiontype in [ 14, 15, 16, 17 ]:
-			if canUsePotion( char, item ):
-				poisonPotion( char, item, potiontype )
-
-		# Nightsight Potions
-		elif potiontype in [ 0 ]:
-			if canUsePotion( char, item ):
-				nightsightPotion( char, potion )
-
-		# Not Known
-		else:
-			socket.sysmessage( 'Unknown potion...' )
-			return OOPS
-
-	return OK
-
 # You have to have one hand free for using a potion
 # This is not valid for explosion potions
 def canUsePotion( char, item ):
@@ -264,11 +260,6 @@ def canUsePotion( char, item ):
 	char.socket.clilocmessage( 0x7A99C ) # You must have a free hand to drink a potion.
 	return OOPS
 
-# Display the drink action
-def drinkAnim( char ):
-	char.action( ANIM_FIDGET3 )
-	char.soundeffect( SOUND_DRINK1 )
-
 # Consume the potion
 def consumePotion( char, potion, givebottle ):
 
@@ -285,14 +276,15 @@ def consumePotion( char, potion, givebottle ):
 
 # Nightsight potion
 def nightsightPotion( char, potion ):
-	char.message( "This potion will help you to see in the dark" )
+	char.message( "This potion should help you to see in the dark!" )
+	char.message( "But... It's not done yet. Sorry :(" )
 
 # 10 Second Delay
 def checkHealTimer( char ):
 
 	if not char.hastag( "heal_timer" ):
 		char.settag( "heal_timer", wolfpack.time.servertime() + HEAL_POT_DELAY )
-		return OK
+		return
 
 	# Compare
 	elapsed = int( char.gettag( "heal_timer" ) )
@@ -302,7 +294,7 @@ def checkHealTimer( char ):
 	else:
 		char.settag( "heal_timer", wolfpack.time.servertime() + HEAL_POT_DELAY )
 
-	return OK
+	return
 
 # Heal Potions
 def healPotion( char, potion, healtype ):
@@ -330,13 +322,14 @@ def healPotion( char, potion, healtype ):
 	#char.socket.clilocmessage( 1060203, str(amount) , GRAY, NORMAL ) # broken
 	char.socket.sysmessage( 'You have had ' + str( amount ) + ' hit points of damage healed.', GRAY )
 
-	drinkAnim( char )
+	char.action( ANIM_FIDGET3 )
+	char.soundeffect( SOUND_DRINK1 )
 	consumePotion( char, potion, potions[ healtype ][ POT_RETURN_BOTTLE ] )
 
-	return OK
+	return
 
 # Dexterity Effect Timer
-def effectdextimer( time, args ):
+def effecttimer( time, args ):
 	char = args[0]
 	effecttype = args[1]
 	bonus = args[2]
@@ -346,41 +339,35 @@ def effectdextimer( time, args ):
 			return OOPS
 		char.dexterity = char.dexterity - bonus
 		char.maxstamina = char.maxstamina - bonus
+		if char.stamina > char.maxstamina:
+			char.stamina = char.maxstamina
 		char.deltag( 'agility_effect' )
 		char.updatestamina()
 		char.updatestats()
-	return OK
+		return
 
-# Strength Effect Timer
-def effectstrtimer( time, args ):
-	char = args[0]
-	effecttype = args[1]
-	bonus = args[2]
-
-	if effecttype == 8 or effecttype == 9:
+	elif effecttype == 8 or effecttype == 9:
 		if not char.hastag( 'strength_effect' ):
 			return OOPS
 		char.strength = char.strength - bonus
-		char.maxhitpoints = char.maxhitpoints - bonus
+		if char.hitpoints > char.maxhitpoints:
+			char.hitpoints = char.maxhitpoints
 		char.deltag( 'strength_effect' )
 		char.updatehealth()
 		char.updatestats()
-	return OK
+		return
 
-# Intelligence Effect Timer, Not needed
-def effectinttimer( time, args ):
-	char = args[0]
-	effecttype = args[1]
-	bonus = args[2]
-	if effecttype == 20 or effecttype == 21:
+	elif effecttype == 20 or effecttype == 21:
 		if not char.hastag( 'intelligence_effect' ):
 			return OOPS
 		char.intelligence = char.intelligence - bonus
 		char.maxmana = char.maxmana - bonus
+		if char.mana > char.maxmana:
+			char.mana = char.maxmana
 		char.deltag( 'intelligence_effect' )
 		char.updatemana()
 		char.updatestats()
-	return OK
+		return
 
 # Agility Potion
 def agilityPotion( char, potion, agilitytype ):
@@ -402,17 +389,18 @@ def agilityPotion( char, potion, agilitytype ):
 
 	char.dexterity = char.dexterity + bonus
 	char.maxstamina = char.maxstamina + bonus
-	wolfpack.addtimer( AGILITY_TIME, "potions.effectdextimer", [ char, agilitytype, bonus ], 1 )
+	wolfpack.addtimer( AGILITY_TIME, "potions.effecttimer", [ char, agilitytype, bonus ], 1 )
 	char.settag( 'agility_effect', 'true' )
 	char.updatestamina()
 	char.updatestats()
 
-	drinkAnim( char )
+	char.action( ANIM_FIDGET3 )
+	char.soundeffect( SOUND_DRINK1 )
 	char.effect( 0x375a, 10, 15 )
 	char.soundeffect( SOUND_AGILITY_UP )
 	consumePotion( char, potion, potions[ agilitytype ][ POT_RETURN_BOTTLE ] )
 
-	return OK
+	return
 
 # Strength Potion
 def strengthPotion( char, potion, strengthtype ):
@@ -434,22 +422,23 @@ def strengthPotion( char, potion, strengthtype ):
 
 	char.strength = char.strength + bonus
 	char.maxhitpoints = char.maxhitpoints + bonus
-	wolfpack.addtimer( STRENGTH_TIME, "potions.effectstrtimer", [ char, strengthtype, bonus ], 1 )
+	wolfpack.addtimer( STRENGTH_TIME, "potions.effecttimer", [ char, strengthtype, bonus ], 1 )
 	char.settag( 'strength_effect', 'true' )
 	char.updatehealth()
 	char.updatestats()
 
-	drinkAnim( char )
+	char.action( ANIM_FIDGET3 )
+	char.soundeffect( SOUND_DRINK1 )
 	char.effect( 0x375a, 10, 15 )
 	char.soundeffect( SOUND_STRENGTH_UP )
 	consumePotion( char, potion, potions[ strengthtype ][ POT_RETURN_BOTTLE ] )
 
-	return OK
+	return
 
 # Poison Potions
 def poisonPotion( char, potion, poisontype ):
 	char.socket.sysmessage( "You shouldn't drink that..." )
-	return OK
+	return
 
 # Potion Kegs
 def onDropOnItem(target, potion):
