@@ -4,7 +4,7 @@
 	<!-- Swamp Dragon -->
 	<npc id="swamp_dragon_1" inherit="monster_base">
 		<name>a swamp dragon</name>
-		<id>0x31a</id>
+		<id>794</id>
 		<category>Animals\Mounts\Swamp Dragon</category>
 		<bindmenu>tame_menu</bindmenu>
 		<karma>-2000</karma>
@@ -28,7 +28,7 @@
 
 	<!-- Armored Swamp Dragons -->
 	<npc id="swamp_dragon_2" inherit="swampdragon_1">
-		<id>0x31f</id>
+		<id>799</id>
 		<category>Animals\Mounts\Armored Swamp Dragon (Weak)</category>
 	</npc>
 

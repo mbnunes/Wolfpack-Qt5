@@ -4,7 +4,7 @@
 	<!-- Jack Rabbit -->
 	<npc id="jack_rabbit" inherit="animal_base">
 		<name>a jack rabbit</name>
-		<id>0x343</id>
+		<id>205</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_ANIMAL" /></skin>
 		<category>Animals\Rabbits\Jack Rabbit</category>

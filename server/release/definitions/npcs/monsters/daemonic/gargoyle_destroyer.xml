@@ -4,7 +4,7 @@
 	<!-- a gargoyle destroyer -->
 	<npc id="gargoyle_destroyer" inherit="monster_base">
 		<name>a gargoyle destroyer</name>
-		<id>0x2f3</id>
+		<id>754</id>
 		<karma>-10000</karma>
 		<fame>10000</fame>
 		<!-- Stats -->

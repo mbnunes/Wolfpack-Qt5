@@ -4,7 +4,7 @@
 	<!-- a gaint toad -->
 	<npc id="gaint_toad" inherit="monster_base">
 		<name>a gaint toad</name>
-		<id>0x50</id>
+		<id>80</id>
 		<karma>-750</karma>
 		<fame>750</fame>
 		<!-- Stats -->

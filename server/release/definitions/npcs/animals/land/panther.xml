@@ -4,7 +4,7 @@
 	<!-- Panther -->
 	<npc id="panther" inherit="animal_base">
 		<name>a panther</name>
-		<id>0xd6</id>
+		<id>214</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Feline\Panther</category>
 		<karma>0</karma>

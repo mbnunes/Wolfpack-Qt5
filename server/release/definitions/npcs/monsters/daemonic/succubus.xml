@@ -4,7 +4,7 @@
 	<!-- Succubus -->
 	<npc id="succubus" inherit="monster_base">
 		<name>a succubus</name>
-		<id>0x95</id>
+		<id>149</id>
 		<karma><random min="-10000" max="-15000" /></karma>
 		<fame><random min="10000" max="15000" /></fame>
 		<!-- Stats -->
@@ -29,6 +29,10 @@
 		<tag name="res_poison" value="100" type="int" />
 		<!-- -->
 		<category>Monsters\Daemonic\Succubus</category>
+	</npc>
+
+	<npc id="succubus_2" inherit="succubus">
+		<id>174</id>
 	</npc>
 
 </definitions>

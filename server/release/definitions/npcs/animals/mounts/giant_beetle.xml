@@ -4,7 +4,7 @@
 	<!-- Giant Beetle -->
 	<npc id="giant_beetle" inherit="monster_base">
 		<name>a giant beetle</name>
-		<id>0x317</id>
+		<id>791</id>
 		<category>Animals\Mounts\Giant Beetle</category>
 		<bindmenu>tame_menu</bindmenu>
 		<karma>-4000</karma>

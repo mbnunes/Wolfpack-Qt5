@@ -4,7 +4,7 @@
 	<!-- Goat -->
 	<npc id="goat" inherit="animal_base">
 		<name>a goat</name>
-		<id>0xd1</id>
+		<id>209</id>
 		<ai>Animal_Domestic</ai>
 		<karma>0</karma>
 		<fame>150</fame>
@@ -31,7 +31,7 @@
 	<npc id="mountain_goat" inherit="animal_base">
 		<ai>Animal_Wild</ai>
 		<name>a mountain goat</name>
-		<id>0x1d</id>
+		<id>88</id>
 		<category>Animals\Land\Mountain Goat</category>
 		<karma>0</karma>
 		<fame>300</fame>

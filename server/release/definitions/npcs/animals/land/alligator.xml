@@ -4,7 +4,7 @@
 	<!-- Aligator -->
 	<npc id="alligator" inherit="animal_base">
 		<name>an alligator</name>
-		<id>0xca</id>
+		<id>202</id>
 		<ai>Animal_Aggressive</ai>
 		<category>Animals\Land\Alligator</category>
 		<karma>-600</karma>

@@ -5,7 +5,7 @@
 	<npc id="black_bear" inherit="animal_base">
 		<name>a black bear</name>
 		<ai>Animal_Wild</ai>
-		<id>0xd3</id>
+		<id>211</id>
 		<karma>0</karma>
 		<fame>450</fame>
 		<!-- Damage -->

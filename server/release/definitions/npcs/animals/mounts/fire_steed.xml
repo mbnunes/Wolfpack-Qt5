@@ -2,9 +2,9 @@
 <definitions>
 
 	<!-- Fire Steed -->
-	<npc id="steed_fire" inherit="monster_base">
+	<npc id="fire_steed" inherit="monster_base">
 		<name>a fire steed</name>
-		<id>0xbe</id>
+		<id>190</id>
 		<category>Animals\Mounts\Fire Steed</category>
 		<karma>-20000</karma>
 		<fame>-20000</fame>

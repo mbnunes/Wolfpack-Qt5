@@ -4,7 +4,7 @@
 	<!-- Llama -->
 	<npc id="llama" inherit="animal_base">
 		<name>llama</name>
-		<id>0x33c</id>
+		<id>220</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Llama</category>
 		<karma>0</karma>

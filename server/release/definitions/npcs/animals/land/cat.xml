@@ -4,7 +4,7 @@
 	<!-- Cat -->
 	<npc id="cat" inherit="animal_base">
 		<name>a cat</name>
-		<id>0xc9</id>
+		<id>201</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Feline\Cat</category>
 		<skin><random list="SKINS_ANIMAL" /></skin>

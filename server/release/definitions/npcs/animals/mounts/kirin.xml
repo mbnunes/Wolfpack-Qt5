@@ -4,7 +4,7 @@
 	<!-- Kirins -->
 	<npc id="kirin" inherit="animal_base">
 		<name>ki-rin</name>
-		<id>0x84</id>
+		<id>132</id>
 		<category>Animals\Mounts\Kirin</category>
 		<ai>Animal_Wild</ai>
 		<karma>9000</karma>

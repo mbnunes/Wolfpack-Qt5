@@ -4,7 +4,7 @@
 	<!-- Grizzly Bear -->
 	<npc id="grizzly_bear" inherit="animal_base">
 		<name>a grizzly bear</name>
-		<id>0xd4</id>
+		<id>212</id>
 		<!-- <ai>Animal_Aggressive</ai> -->
 		<category>Animals\Bears\Grizzly Bear</category>
 		<karma>0</karma>

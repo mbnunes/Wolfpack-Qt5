@@ -4,7 +4,7 @@
 	<!-- horde minion -->
 	<npc id="horde_minion" inherit="monster_base">
 		<name>a horde minion</name>
-		<id>0x308</id>
+		<id>776</id>
 		<karma>-500</karma>
 		<fame>500</fame>
 		<!-- Stats -->
@@ -24,6 +24,16 @@
 		<!-- Misc. -->
 		<desc>These creatures are only two to three feet tall with extremely largeheads. The lower jaw of the creature is enormous, nearly half the sizeof the entire head, with a small, piggish nose that perches betweentwo bulbous, yellow eyes. Short, sturdy arms and legs sprout from theshaggy torso, but convey surprising speed as it scuttles about.Cowardly as individuals, the Horde Demon will always prefer to runthan to fight. However, in numbers, they gain courage and thrive onthe confusion their appearance creates.</desc>
 		<category>Monsters\Daemonic\Horde Minion</category>
+	</npc>
+
+	<npc id="horde_minion_2" inherit="horde_minion">
+		<name>a horde daemon</name>
+		<id>795</id>
+	</npc>
+
+	<npc id="horde_minion_3" inherit="horde_minion">
+		<name>a horde daemon</name>
+		<id>796</id>
 	</npc>
 
 </definitions>

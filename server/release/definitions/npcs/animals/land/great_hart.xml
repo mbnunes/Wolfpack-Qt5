@@ -4,7 +4,7 @@
 	<!-- Great Hart -->
 	<npc id="great_heart" inherit="animal_base">
 		<name>a great hart</name>
-		<id>0xea</id>
+		<id>234</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Great Hart</category>
 		<karma>0</karma>

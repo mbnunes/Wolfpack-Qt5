@@ -4,7 +4,7 @@
 	<!-- Polar Bear -->
 	<npc id="polar_bear" inherit="animal_base">
 		<name>a polar bear</name>
-		<id>0xd5</id>
+		<id>213</id>
 		<ai>Animal_Aggressive</ai>
 		<category>Animals\Bears\Polar Bear</category>
 		<karma>0</karma>

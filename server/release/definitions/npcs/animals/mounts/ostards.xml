@@ -4,7 +4,7 @@
 	<!-- Desert Ostards -->
 	<npc id="ostard_desert" inherit="animal_base">
 		<name>a desert ostard</name>
-		<id>0xd2</id>
+		<id>210</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Desert Ostard </category>
 		<karma>0</karma>
@@ -28,7 +28,7 @@
 	<!-- Forest Ostards -->
 	<npc id="ostard_forest" inherit="animal_base">
 		<name>a forest ostard</name>
-		<id>0xdb</id>
+		<id>218</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_BIRD" /></skin>
 		<category>Animals\Mounts\Forest Ostard (Weak)</category>
@@ -54,7 +54,7 @@
 	<!-- Frenzied Ostard -->
 	<npc id="ostard_frenzied" inherit="monster_base">
 		<name>a frenzied ostard</name>
-		<id>0xda</id>
+		<id>219</id>
 		<skin><random list="SKINS_BIRD" /></skin>
 		<category>Animals\Mounts\Frenzied Ostard (Weak)</category>
 		<bindmenu>tame_menu</bindmenu>

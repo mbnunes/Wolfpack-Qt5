@@ -4,7 +4,7 @@
 	<!-- an ice fiend -->
 	<npc id="ice_fiend" inherit="monster_base">
 		<name>an ice fiend</name>
-		<id>0x2b</id>
+		<id>43</id>
 		<karma>-18000</karma>
 		<fame>18000</fame>
 		<!-- Stats -->

@@ -4,7 +4,7 @@
 	<!-- Ridable Llama -->
 	<npc id="ridable_llama" inherit="animal_base">
 		<name>a ridable llama</name>
-		<id>0xdc</id>
+		<id>220</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Llama</category>
 		<karma>0</karma>

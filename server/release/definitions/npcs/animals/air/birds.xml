@@ -3,9 +3,9 @@
 
 	<!-- birds -->
 	<npc id="bird" inherit="animal_base">
-		<name><random list="NAMES_BIRD" /></name>
+		<name><random list="NAMES_BIRDS" /></name>
 		<ai>Animal_Wild</ai>
-		<id>0x6</id>
+		<id>6</id>
 		<category>Animals\Birds\Random Bird</category>
 		<skin><random list="SKINS_BIRD" /></skin>
 		<karma>0</karma>

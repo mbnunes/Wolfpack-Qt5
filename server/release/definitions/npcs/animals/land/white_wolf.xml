@@ -1,30 +1,13 @@
 
 <definitions>
 
-	<list id="SKINS_WHITE_WOLF">
-		<item>0x835</item>
-		<item>0x836</item>
-		<item>0x837</item>
-		<item>0x838</item>
-		<item>0x839</item>
-		<item>0x83a</item>
-		<item>0x8fd</item>
-		<item>0x8fe</item>
-		<item>0x8ff</item>
-		<item>0x900</item>
-		<item>0x901</item>
-		<item>0x902</item>
-		<item>0x47e</item>
-		<item>0x481</item>
-	</list>
 
 	<!-- White Wolf -->
 	<npc id="white_wolf" inherit="animal_base">
 		<name>a white wolf</name>
-		<id>0xe1</id>
+		<id>34</id>
 		<category>Animals\Canine\White Wolf</category>
 		<ai>Animal_Wild</ai>
-		<skin><random list="SKINS_WHITE_WOLF" /></skin>
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Damage -->
@@ -43,6 +26,10 @@
 		<totame>651</totame>
 		<food>1</food>
 		<carve></carve>
+	</npc>
+
+	<npc id="white_wolf_2" inherit="white_wolf">
+		<id>37</id>
 	</npc>
 
 </definitions>

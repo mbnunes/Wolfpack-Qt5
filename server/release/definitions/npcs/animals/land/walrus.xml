@@ -4,7 +4,7 @@
 	<!-- Walrus -->
 	<npc id="walrus" inherit="animal_base">
 		<name>a walrus</name>
-		<id>0xdd</id>
+		<id>221</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Walrus</category>
 		<karma>0</karma>

@@ -4,7 +4,8 @@
 	<!-- a hell cat (small) -->
 	<npc id="hellcat" inherit="monster_base">
 		<name>a hell cat</name>
-		<id>0xc9</id>
+		<id>201</id>
+		<skin>0x485</skin>
 		<karma>-1000</karma>
 		<fame>1000</fame>
 		<!-- Stats -->

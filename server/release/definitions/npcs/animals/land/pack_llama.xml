@@ -4,7 +4,7 @@
 	<!-- Pack Llama -->
 	<npc id="pack_llama" inherit="animal_base">
 		<name>a llama</name>
-		<id>0x124</id>
+		<id>292</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Pack\Pack Llama</category>
 		<karma><random min="0" max="624" /></karma>

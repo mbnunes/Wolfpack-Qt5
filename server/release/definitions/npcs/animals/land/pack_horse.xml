@@ -4,7 +4,7 @@
 	<!-- Pack Horse -->
 	<npc id="pack_horse" inherit="animal_base">
 		<name>a horse</name>
-		<id>0x123</id>
+		<id>291</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Pack\Pack Horse</category>
 		<karma><random min="0" max="624" /></karma>

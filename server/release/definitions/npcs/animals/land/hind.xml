@@ -5,7 +5,7 @@
 	<npc id="hind" inherit="animal_base">
 		<name>a hind</name>
 		<ai>Animal_Wild</ai>
-		<id>0xed</id>
+		<id>237</id>
 		<category>Animals\Forest\Hind</category>
 		<karma>0</karma>
 		<fame>300</fame>

@@ -4,7 +4,7 @@
 	<!-- a mongbat -->
 	<npc id="mongbat" inherit="monster_base">
 		<name>a mongbat</name>
-		<id>0x27</id>
+		<id>39</id>
 		<karma>-150</karma>
 		<fame>150</fame>
 		<gold><random min="0" max="25"/></gold>

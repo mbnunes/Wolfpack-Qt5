@@ -4,7 +4,7 @@
 	<!-- enslaved gargoyle -->
 	<npc id="enslaved_gargoyle" inherit="monster_base">
 		<name>an enslaved gargoyle</name>
-		<id>0x2f1</id>
+		<id>753</id>
 		<karma>0</karma>
 		<fame>3500</fame>
 		<!-- Stats -->

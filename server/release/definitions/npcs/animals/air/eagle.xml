@@ -4,7 +4,7 @@
 	<npc id="eagle" inherit="animal_base">
 		<name>an eagle</name>
 		<ai>Animal_Wild</ai>
-		<id>0x5</id>
+		<id>5</id>
 		<category>Animals\Birds\Eagle</category>
 		<karma>0</karma>
 		<fame>300</fame>

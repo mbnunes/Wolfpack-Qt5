@@ -4,7 +4,7 @@
 	<!-- Cougar -->
 	<npc id="cougar" inherit="animal_base">
 		<name>a cougar</name>
-		<id>0x3f</id>
+		<id>63</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Cougar</category>
 		<karma>0</karma>

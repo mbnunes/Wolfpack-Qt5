@@ -4,7 +4,7 @@
 	<!-- a harpy -->
 	<npc id="harpy" inherit="monster_base">
 		<name>a harpy</name>
-		<id>0x1e</id>
+		<id>30</id>
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<gold><random min="50" max="100"/></gold>

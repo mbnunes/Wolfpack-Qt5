@@ -4,7 +4,7 @@
 	<!-- Bullfrog -->
 	<npc id="bullfrog" inherit="animal_base">
 		<name>a bullfrog</name>
-		<id>0x51</id>
+		<id>81</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_SNAKE" /></skin>
 		<category>Animals\Land\Bullfrog</category>

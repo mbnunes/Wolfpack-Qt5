@@ -4,7 +4,7 @@
 	<!-- Brown Bear -->
 	<npc id="brown_bear" inherit="animal_base">
 		<name>a brown bear</name>
-		<id>0xa7</id>
+		<id>167</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Bears\Brown Bear</category>
 		<karma>0</karma>

@@ -24,25 +24,25 @@
 
 	<!-- Britannian Warhorse -->
 	<npc id="britannian_war_horse" inherit="WAR_HORSE_STATS">
-		<id>0x76</id>
+		<id>118</id>
 		<category>Animals\Mounts\War Horses\Britannian Warhorse</category>
 	</npc>
 
 	<!-- Council of Mages Warhorse -->
 	<npc id="magecouncil_war_horse" inherit="WAR_HORSE_STATS">
-		<id>0x77</id>
+		<id>119</id>
 		<category>Animals\Mounts\War Horses\Council of Mages Warhorse</category>
 	</npc>
 
 	<!-- Shadowlords Warhorse -->
 	<npc id="shadowlord_war_horse" inherit="WAR_HORSE_STATS">
-		<id>0x78</id>
+		<id>121</id>
 		<category>Animals\Mounts\War Horses\Shadowlord Warhorse</category>
 	</npc>
 
 	<!-- Followers of Minax Warhorse -->
 	<npc id="minax_war_horse" inherit="WAR_HORSE_STATS">
-		<id>0x76</id>
+		<id>120</id>
 		<category>Animals\Mounts\War Horses\Minax Warhorse</category>
 	</npc>
 

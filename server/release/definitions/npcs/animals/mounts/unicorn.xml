@@ -4,7 +4,7 @@
 	<!-- Unicorn -->
 	<npc id="unicorn" inherit="animal_base">
 		<name>a unicorn</name>
-		<id>0x7a</id>
+		<id>122</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Unicorn</category>
 		<karma>9000</karma>

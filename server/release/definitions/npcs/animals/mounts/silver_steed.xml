@@ -5,7 +5,7 @@
 	<npc id="steed_silver" inherit="nightmare_1">
 		<name>silver steed</name>
 		<ai>Animal_Wild</ai>
-		<id>0x75</id>
+		<id>117</id>
 		<category>Animals\Mounts\Silver Steed (Weak)</category>
 		<ai>1</ai>
 	</npc>

@@ -4,7 +4,7 @@
 	<!-- Cow (black & white) -->
 	<npc id="cow_black" inherit="animal_base">
 		<name>a cow</name>
-		<id>0xD8</id>
+		<id>231</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Land\Cow (black and white)</category>
 		<skin>0</skin>
@@ -31,7 +31,7 @@
 
 	<!-- Cow (brown) -->
 	<npc id="cow_brown" inherit="cow_black">
-		<id>0xE7</id>
+		<id>216</id>
 		<category>Animals\Land\Cow (brown)</category>
 	</npc>
 

@@ -4,7 +4,7 @@
 	<!-- Ridgebacks -->
 	<npc id="ridgeback" inherit="animal_base">
 		<name>a ridgeback</name>
-		<id>0x187</id>
+		<id>187</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Ridgeback</category>
 		<karma>0</karma>
@@ -28,7 +28,7 @@
 	<!-- Savage Ridgebacks -->
 	<npc id="savage_ridgeback" inherit="animal_base">
 		<name>a savage ridgeback</name>
-		<id>0x188</id>
+		<id>188</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Savage Ridgeback</category>
 		<karma>0</karma>

@@ -4,7 +4,7 @@
 	<!-- a gargoyle -->
 	<npc id="gargoyle" inherit="monster_base">
 		<name>a gargoyle</name>
-		<id>0x4</id>
+		<id>4</id>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<gold><random min="60" max="100"/></gold>

@@ -5,7 +5,7 @@
 	<npc id="steed_dark" inherit="nightmare_1">
 		<name>a dark steed</name>
 		<ai>Animal_Wild</ai>
-		<id>0x74</id>
+		<id>114</id>
 		<category>Animals\Mounts\Dark Steed</category>
 	</npc>
 

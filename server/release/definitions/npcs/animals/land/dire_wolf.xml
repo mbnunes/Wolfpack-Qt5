@@ -4,7 +4,7 @@
 	<!-- Dire Wolf -->
 	<npc id="dire_wolf" inherit="animal_base">
 		<name>a dire wolf</name>
-		<id>0x17</id>
+		<id>23</id>
 		<ai>Animal_Aggressive</ai>
 		<skin><random list="SKINS_NEUTRAL" /></skin>
 		<category>Animals\Land\Dire Wolf</category>

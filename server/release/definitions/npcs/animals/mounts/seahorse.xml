@@ -2,9 +2,9 @@
 <definitions>
 
 	<!-- Sea Horse -->
-	<npc id="seahorse" inherit="animal_base">
-		<name>a seahorse</name>
-		<id>0x90</id>
+	<npc id="sea_horse" inherit="animal_base">
+		<name>a sea horse</name>
+		<id>144</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Seahorse</category>
 		<karma><random min="0" max="625" /></karma>

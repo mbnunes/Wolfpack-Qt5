@@ -5,7 +5,7 @@
 	<npc id="dolphin" inherit="animal_base">
 		<name>a dolphin</name>
 		<ai>Animal_Wild</ai>
-		<id>0x97</id>
+		<id>151</id>
 		<category>Animals\Sea\Dolphin</category>
 		<karma>2000</karma>
 		<fame>500</fame>

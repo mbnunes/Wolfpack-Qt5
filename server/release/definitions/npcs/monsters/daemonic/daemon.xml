@@ -4,7 +4,7 @@
 	<!-- a daemon -->
 	<npc id="daemon" inherit="monster_base">
 		<name><random list="NAMES_DAEMON" /></name>
-		<id>0x9</id>
+		<id>9</id>
 		<karma>-15000</karma>
 		<fame>15000</fame>
 		<gold><random min="300" max="400"/></gold>
@@ -33,6 +33,15 @@
 		<desc>No purer manifestation of primal evil exists than the hideous daemon,a denizen of the dark and infernal planes brought to these shores bythe most vile wizardries. Only the greatest of heroes have evervanquished a daemon in single combat, and even a group of valiantwarriors must be mighty indeed to survive an encounter with such afiend.</desc>
 		<carve>carve_demon</carve>
 		<category>Monsters\Daemonic\Daemon</category>
+	</npc>
+
+	<npc id="daemon_2" inherit="daemon">
+		<id>10</id>
+	</npc>
+
+	<npc id="daemon_exodus" inherit="daemon">
+		<id>102</id>
+		<name>an exodus daemon</name>
 	</npc>
 
 </definitions>

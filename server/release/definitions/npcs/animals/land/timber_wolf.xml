@@ -4,7 +4,7 @@
 	<!-- Timber Wolf -->
 	<npc id="timber_wolf" inherit="animal_base">
 		<name>a timber wolf</name>
-		<id>0xe1</id>
+		<id>225</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Canine\Timber Wolf</category>
 		<karma>0</karma>

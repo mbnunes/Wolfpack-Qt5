@@ -2,6 +2,7 @@
 <definitions>
 
 	<npc id="ETHEREAL_STATS" inherit="animal_base">
+		<ai>Animal_Wild</ai>
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Damage -->
@@ -24,79 +25,64 @@
 		<wrestling>1000</wrestling>
 		<tactics>1000</tactics>
 		<magicresistance>1000</magicresistance>
+		<food>0</food>
 		<totame>0</totame>
 	</npc>
 
 	<!-- Ethereal Beetle -->
 	<npc id="ethereal_beetle" inherit="ETHERAL_STATS">
 		<name>an ethereal giant beetle</name>
-		<ai>Animal_Wild</ai>
-		<id>0xc3</id>
+		<id>195</id>
 		<category>Animals\Mounts\Ethereal\Giant Beetle</category>
-		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Horse -->
 	<npc id="ethereal_horse" inherit="ETHERAL_STATS">
 		<name>an ethereal horse</name>
-		<ai>Animal_Wild</ai>
-		<id>0x73</id>
+		<id>115</id>
 		<category>Animals\Mounts\Ethereal\Horse</category>
-		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Ki-rin -->
 	<npc id="ethereal_kirin" inherit="ETHERAL_STATS">
 		<name>an ethereal ki-rin</name>
-		<ai>Animal_Wild</ai>
-		<id>0x317</id>
+		<id>191</id>
 		<category>Animals\Mounts\Ethereal\Ki-rin</category>
-		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Llama -->
 	<npc id="ethereal_llama" inherit="ETHERAL_STATS">
 		<name>an ethereal llama</name>
-		<ai>Animal_Wild</ai>
-		<id>0xaa</id>
+		<id>170</id>
 		<category>Animals\Mounts\Ethereal\Llama</category>
-		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Ostard -->
 	<npc id="ethereal_ostard" inherit="ETHERAL_STATS">
 		<name>an ethereal ostard</name>
-		<ai>Animal_Wild</ai>
-		<id>0xab</id>
+		<id>171</id>
 		<category>Animals\Mounts\Ethereal\Ostard</category>
-		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Ridgeback -->
 	<npc id="ethereal_ridgeback" inherit="ETHERAL_STATS">
 		<name>an ethereal ridgeback</name>
-		<id>0xc1</id>
-		<ai>Animal_Wild</ai>
+		<id>193</id>
 		<category>Animals\Mounts\Ethereal\Ridgeback</category>
-		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Swamp Dragon -->
 	<npc id="ethereal_swamp_dragon" inherit="ETHERAL_STATS">
 		<name>an ethereal swamp dragon</name>
-		<id>0xc2</id>
-		<ai>Animal_Wild</ai>
+		<id>194</id>
 		<category>Animals\Mounts\Ethereal\Swamp Dragon</category>
-		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Unicorn -->
 	<npc id="ethereal_unicorn" inherit="ETHERAL_STATS">
 		<name>an ethereal unicorn</name>
-		<id>0xc0</id>
-		<ai>Animal_Wild</ai>
+		<id>192</id>
 		<category>Animals\Mounts\Ethereal\Unicorn</category>
-		<food>0</food>
 	</npc>
 
 </definitions>

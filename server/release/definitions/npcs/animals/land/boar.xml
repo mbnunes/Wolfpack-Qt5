@@ -4,7 +4,7 @@
 	<!-- Boar -->
 	<npc id="boar" inherit="animal_base">
 		<name>a boar</name>
-		<id>0x122</id>
+		<id>290</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Boar</category>
 		<karma>0</karma>
@@ -28,12 +28,6 @@
 		<totame>291</totame>
 		<food>5</food>
 		<carve>carve_boar</carve>
-	</npc>
-
-	<!-- Boar 2 -->
-	<npc id="boar_2" inherit="boar">
-		<id>0xcb</id>
-		<category>Animals\Land\Boar_2</category>
 	</npc>
 
 </definitions>

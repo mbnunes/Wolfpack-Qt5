@@ -4,7 +4,7 @@
 	<!-- Gorilla -->
 	<npc id="gorilla" inherit="animal_base">
 		<name>a gorilla</name>
-		<id>0x1d</id>
+		<id>29</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Gorilla</category>
 		<karma>0</karma>
