@@ -26,6 +26,7 @@
 	<script>carpentry_deed</script>
 	
 	<!-- Commands -->
+	<script>wolfpack.commands</script>
 	<script>wolfpack.commands.info</script>
 	<script>wolfpack.commands.export</script>
 	<script>wolfpack.commands.import</script>
