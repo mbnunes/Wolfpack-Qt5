@@ -42,13 +42,13 @@
 class cUOPacket;
 class AccountRecord;
 class cTargetRequest;
+class cGump;
 
 // Too many Forward Declarations
 #include "uorxpackets.h"
 #include "uotxpackets.h"
 #include "../typedefs.h"
 #include "../wptargetrequests.h"
-#include "../gumpsmgr.h"
 
 class cUOSocket
 {

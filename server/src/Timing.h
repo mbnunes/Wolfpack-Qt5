@@ -34,7 +34,6 @@
 
 //Platform specifics
 #include "platform.h"
-#include "gumpsmgr.h"
 
 //system includes
 

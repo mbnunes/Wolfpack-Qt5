@@ -34,7 +34,6 @@
 #include "classes.h"
 #include "commands.h"
 #include "gumps.h"
-#include "gumpsmgr.h"
 #include "mapstuff.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"

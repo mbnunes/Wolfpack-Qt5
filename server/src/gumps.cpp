@@ -44,7 +44,6 @@
 #include "network.h"
 #include "scriptc.h"
 #include "network/uosocket.h"
-#include "gumpsmgr.h"
 #include "spawnregions.h"
 
 #include "debug.h"
