@@ -25,9 +25,11 @@
  * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
+#include <qstring.h>
+
 #include "content.h"
 #include "items.h"
-#include <qstring.h>
+
 
 /*
 	Iterate over the content of an item.

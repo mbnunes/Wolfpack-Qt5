@@ -28,13 +28,15 @@
 #if !defined(__CONTENT_H__)
 #define __CONTENT_H__
 
+#include <functional>
+
 // Forward declarations
 class ContainerIterator;
 class ContainerContent;
 class cItem;
 class QString;
 
-#include <functional>
+
 
 /*
 	Use this to make sure that a certain item type exists in a container.
@@ -44,6 +46,7 @@ class ContainerComparer
 public:
 	virtual bool operator()( cItem* item ) const
 	{
+		Q_UNUSED( item );
 		return false;
 	}
 };
@@ -59,6 +62,7 @@ private:
 
 	ContainerContent( const ContainerContent& src )
 	{
+		Q_UNUSED( src );
 		content = 0;
 	}
 public:

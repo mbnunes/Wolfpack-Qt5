@@ -109,11 +109,11 @@ void cConfig::readData()
 	guardDispelTime_ = getNumber( "AI", "Guard dispel time (sec)", 25, true );
 
 	// Persistency
-	databasePassword_ = getString( "Database", "password", "", true );
-	databaseUsername_ = getString( "Database", "username", "", true );
-	databaseHost_ = getString( "Database", "host", "", true );
-	databaseDriver_ = getString( "Database", "driver", "binary", true );
-	databaseName_ = getString( "Database", "name", "world.db", true );
+	databasePassword_ = getString( "Database", "Database Password", "", true );
+	databaseUsername_ = getString( "Database", "Database Username", "", true );
+	databaseHost_ = getString( "Database", "Database Host", "", true );
+	databaseDriver_ = getString( "Database", "Database Driver", "binary", true );
+	databaseName_ = getString( "Database", "Database Name", "world.db", true );
 
 	// Repsys
 	murderdecay_ = getNumber( "Repsys", "Murder Decay", 28800, true );

@@ -77,6 +77,8 @@ Wolfpack 12.9.13 Beta (SVN)
     <container><item list="list" /><item randomlist="list1,list2" /></container>
   - Disabled verdata.mul support as this is no longer included in the latest
     releases of Ultima Online. Note: Commented out the source code only.
+  - Small cleanup to wolfpack.xml: Database options follow the same option
+    names are are given in account options. 
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheep.
