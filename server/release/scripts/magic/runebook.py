@@ -280,7 +280,7 @@ def callback( char, args, target ):
 		else:
 			# recall to the rune
 			char.say( "Kal Ort Por", 5 )
-			wolfpack.addtimer( 2000, "magic.runebook.recall0", [ char.serial, runes[ runenum ], runebook.serial, charges ] )
+			wolfpack.addtimer( 2000, "magic.runebook.recall0", [ char.serial, runes[ runenum ], item.serial, charges ] )
 	# set default button : 101 - 116
 	elif( button > 100 and button < 117 ):
 		item.settag( "default", int( runenum ) )
@@ -358,9 +358,9 @@ def recall1( self, args ):
 		return 1
 	# cast spell
 	if( char.mana < 11 ):
-		char.socket.sysmessage( )
+		char.socket.sysmessage( "You lack the mana to recall." )
 		return 1
-	char.soundeffect( 0x1fd )
+	# Insert link to Recall Spell!
 	char.socket.sysmessage( "not implemented yet." )
 	return 1
 
@@ -374,6 +374,6 @@ def gate( self, args ):
 	if not rune:
 		char.socket.sysmessage( "runebook script error." )
 		return 1
+	# Insert link to Gate Travel Spell!
 	char.socket.sysmessage( "not implemented yet" )
 	return 1
-
