@@ -192,7 +192,7 @@ def export( char, args, choice ):
 					output.write( "TYPE 255%s" % newline ) # World Freeze Requirement
 				output.write( "COLOR %i%s" % ( item.color, newline ) )
 				output.write( "CONT -1%s" % newline )
-				output.write( "}%s%s" ( newline, newline ) )
+				output.write( "}%s%s" % ( newline, newline ) )
 
 			else: # Text
 				output.write( "%s 0x%x %i %i %i %i 0x%x%s" % ( item.baseid, item.id, item.pos.x, item.pos.y, item.pos.z, item.pos.map, item.color, newline ) )
