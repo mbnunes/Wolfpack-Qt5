@@ -61,7 +61,6 @@ HEADERS         = \
 		  multis.h \
 		  msgboard.h \
 		  network.h \
-		  onlinestatus.h \
                   pfactory.h \
 		  platform.h \
 		  prototypes.h \
@@ -148,7 +147,6 @@ SOURCES         = \
 		  necro.cpp \
 		  network.cpp \
 		  npcs.cpp \
-		  onlinestatus.cpp \
 		  p_ai.cpp \
                   pfactory.cpp \
   		  persistentbroker.cpp \
