@@ -329,9 +329,16 @@ void cWorld::draw(int x, int y, int width, int height) {
 	int topClip = y;
 	int bottomClip = y + height;
 
+
+	// Get the entity below the mouse
+	int mx, my;
+	SDL_GetMouseState(&mx, &my);
+	cEntity *mouseEntity = 0;
+	bool checkMouse = Gui->getControl(mx, my) == WorldView;
+
 	// Draw all existing entites.
-	for (int cx = QMAX(0, x_ - 18); cx < x_ + 18; ++cx) {
-		for (int cy = QMAX(0, y_ - 18); cy < y_ + 18; ++cy) {
+	for (int cx = QMAX(0, x_ - 18); cx <= x_ + 18; ++cx) {
+		for (int cy = QMAX(0, y_ - 18); cy <= y_ + 18; ++cy) {
 			unsigned int cellid = getCellId(cx, cy);
 			Iterator it = entities.find(cellid);
 			if (it != entities.end()) {
@@ -348,37 +355,21 @@ void cWorld::draw(int x, int y, int width, int height) {
 						celly = centery + (diffx + diffy) * 22 - diffz * 4;
 
 						entity->draw(cellx, celly, leftClip, topClip, rightClip, bottomClip);
+
+						// Do a quick hit-test here with the mouse coordinate to speed up hit testing a lot
+						// Possible optimization -> Do an inlined bounding box check here to remove the
+						// performance hit by calling so many functions.
+						if (checkMouse && entity->hitTest(mx - entity->drawx(), my - entity->drawy())) {
+							mouseEntity = entity;
+						}
 					}
 				}
 			}
 		}
 	}
-/*	QValueList<cEntity*>::const_iterator it;
-	for (it = entities.begin(); it != entities.end(); ++it) {
-		cEntity *entity = *it;
-		if (entity->isInWorld() && entity->z() < roofCap_) {
-			// Calculate the difference on the x/y axis and get the offset from a 0,0 coordinate
-			diffx = entity->x() - x_;
-			diffy = entity->y() - y_;
-			diffz = entity->z() - z_;
-
-			cellx = centerx + (diffx - diffy) * 22;
-			celly = centery + (diffx + diffy) * 22 - diffz * 4;
-
-			entity->draw(cellx, celly, leftClip, topClip, rightClip, bottomClip);
-		}
-	}*/
-
-	// Get the entity below the mouse
-	int mx, my;
-	SDL_GetMouseState(&mx, &my);
-
-	// If there is a Window below the mouse, don't get a mouse over tile
-	if (Gui->getControl(mx, my) == WorldView) {
-		mouseOver_ = getEntity(mx, my);
-	} else {
-		mouseOver_ = 0;
-	}
+	
+	// Save the mouse over entity
+	mouseOver_ = mouseEntity;
 
 	// Disable scissor box
 	glDisable(GL_SCISSOR_TEST);
@@ -387,7 +378,29 @@ void cWorld::draw(int x, int y, int width, int height) {
 cEntity *cWorld::getEntity(int x, int y) {
 	cEntity *found = 0; // The entity that was clicked on
 
-	// Get the entity at the given position
+	// Check reverse
+	for (int cx = x_ + 18; !found && cx >= QMAX(0, x_ - 18); --cx) {
+		for (int cy = y_ + 18; !found && cy >= QMAX(0, y_ - 18); --cy) {
+			unsigned int cellid = getCellId(cx, cy);
+			Iterator it = entities.find(cellid);
+			if (it != entities.end()) {
+				Cell &cell = it.data();
+				if (!cell.isEmpty()) {
+					ConstCellIterator cit = cell.end();
+					do {
+						--cit;
+						cEntity *entity = *cit;
+						if (entity->isInWorld() && entity->z() < roofCap_) {
+							if (entity->hitTest(x - entity->drawx(), y - entity->drawy())) {
+								found = entity;
+								break;
+							}
+						}
+					} while (cit != cell.begin());
+				}
+			}
+		}
+	}
 	/*if (!entities.isEmpty()) {
 		Iterator it = entities.end();
 		do {

@@ -386,7 +386,7 @@ void cUoClient::run(const QStringList &arguments) {
 		Cursor->draw(); // Draw the cursor overlay
 
 		Engine->poll(); // Swap
-		//SDL_Delay(5);
+		SDL_Delay(5);
 	}
 
 	try {

@@ -3,6 +3,7 @@
 #include "engine.h"
 #include "gui/gui.h"
 #include "gui/worldview.h"
+#include "game/world.h"
 #include "log.h"
 #include "utilities.h"
 #include "exceptions.h"
@@ -192,7 +193,7 @@ void cEngine::poll() {
 	}
 
 	if (lastswap_start + 1000 < SDL_GetTicks()) {
-		SDL_WM_SetCaption(tr("Ultima Online %1 fps").arg(lastswap_count).latin1(), 0);
+		SDL_WM_SetCaption(tr("Ultima Online %1 fps (%1,%2,%3,%4)").arg(lastswap_count).arg(World->x()).arg(World->y()).arg(World->z()).arg(World->facet()).latin1(), 0);
 		lastswap_count = 0;
 		lastswap_start = SDL_GetTicks();
 	} else {
