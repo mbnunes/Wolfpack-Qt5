@@ -1944,7 +1944,7 @@ void TellScroll( char *menu_name, int s, long snum )
 	if (pBackpack == NULL) return;
 	
 	AllItemsIterator iterItems;
-	for (iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)		// find the spellbook
+	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)		// find the spellbook
 	{
 		P_ITEM pb = iterItems.GetData();
 		if (pb->type==9 && (pb->contserial==pBackpack->serial ||

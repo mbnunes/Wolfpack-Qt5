@@ -610,7 +610,7 @@ void cHouseManager::RemoveKeys(int serial) // Crackerjack 8/11/99
 	if (serial == INVALID_SERIAL)
 		return;
 	AllItemsIterator iter_items;
-	for (iter_items.Begin(); iter_items.GetData() != iter_items.End(); iter_items++)
+	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++)
 	{
 		P_ITEM pi = iter_items.GetData();
 		if (pi->type == 7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == serial)

@@ -30,6 +30,14 @@ void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 	}
 }
 
+void cItemsManager::unregisterItem(cItem* pi) throw(wp_exceptions::bad_ptr)
+{
+	if ( pi != NULL)
+		erase(pi->serial);
+	else
+		throw wp_exceptions::bad_ptr("Invalid argument PI at cItemsManager::unregisterItem");
+}
+
 SERIAL cItemsManager::getUnusedSerial() const
 {
 	typedef maxKeyPred<SERIAL, cItem*> max_serialPred;

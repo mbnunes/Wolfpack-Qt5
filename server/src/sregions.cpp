@@ -593,7 +593,7 @@ void cRespawn::Continue()
 	}
 
 	AllItemsIterator iterItems;
-	for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
+	for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
 	{
 		P_ITEM pi = iterItems.GetData();
 		int k, serial, ci;
@@ -642,13 +642,13 @@ void cRespawn::Continue()
 
 			if (k<pi->amount)	// lord binary, adds spawn amount checking
 			{
-				int olditemcount=itemcount;
+				int olditemcount = cItemsManager::getItemsManager().size();
 				Npcs->AddNPC(INVALID_SOCKET, pi, pi->morex);
-				if (itemcount-olditemcount>300)
+				if (cItemsManager::getItemsManager().size()-olditemcount>300)
 				{
 					char ttt[222];
 					sprintf(ttt,"script npc %d produced %d items. Current limit is 300 !",
-								pi->morex,itemcount-olditemcount);
+								pi->morex,cItemsManager::getItemsManager().size()-olditemcount);
 					LogWarning(ttt);
 				}
 				pi->gatetime=0;

@@ -2428,10 +2428,10 @@ void command_cleanup(UOXSOCKET s)
 	char temp[100];
 	
 	sysmessage(s,"Cleaning corpses and closing gates...");
-	AllItemsIterator iterItems;
-	for(iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
+	AllItemsIterator iter_items;
+	for( iter_items.Begin(); !iter_items.atEnd(); iter_items++ )
 	{
-		P_ITEM pi = iterItems.GetData();
+		P_ITEM pi = iter_items.GetData();
 		if((pi->corpse == 1) || (pi->type == 51) || (pi->type == 52))
 		{
 			Items->DeleItem(pi);
@@ -2478,7 +2478,7 @@ void command_delid( UOXSOCKET s )
 	unsigned char id1 = static_cast<unsigned char>(hexnumber( 1 ));
 	unsigned char id2 = static_cast<unsigned char>(hexnumber( 2 ));
 	AllItemsIterator iterItems;
-	for( iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++ )
+	for( iterItems.Begin(); !iterItems.atEnd(); iterItems++ )
 	{
 		P_ITEM pi = iterItems.GetData();
 		if( pi->id1 == id1 && pi->id2 == id2 )
@@ -2496,7 +2496,7 @@ void command_deltype( UOXSOCKET s )
 	
 	unsigned int type = makenumber( 1 );
 	AllItemsIterator iter_items;
-	for( iter_items.Begin(); iter_items.GetData() != iter_items.End(); iter_items++ )
+	for( iter_items.Begin(); !iter_items.atEnd(); iter_items++ )
 	{
 		P_ITEM pi = iter_items.GetData();
 		if( pi->type == type )

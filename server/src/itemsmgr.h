@@ -49,6 +49,7 @@ private:
 	cItemsManager() {} // Unallow anyone to instantiate.
 public:
 	void registerItem( cItem* ) throw(wp_exceptions::bad_ptr);
+	void unregisterItem( cItem* ) throw (wp_exceptions::bad_ptr);
 	SERIAL getUnusedSerial() const;
 
 	static cItemsManager& getItemsManager()
@@ -56,6 +57,35 @@ public:
 		static cItemsManager theItemsManager;
 		return theItemsManager; 
 	}
+};
+
+class AllItemsIterator
+{
+protected:
+	cItemsManager::iterator iterItems;
+	
+public:
+	AllItemsIterator()							
+	{ 
+		cItemsManager itemsManager = cItemsManager::getItemsManager();
+		iterItems = itemsManager.begin(); 
+	}
+
+	virtual ~AllItemsIterator()					{ }
+	P_ITEM GetData(void)						{ return iterItems->second; }
+	P_ITEM First()								{ return cItemsManager::getItemsManager().begin()->second; }
+	P_ITEM Begin()								
+	{
+		iterItems = cItemsManager::getItemsManager().begin();
+		return GetData();
+	}
+	P_ITEM Next()
+	{
+		iterItems++;
+	}
+	bool atEnd()									{ return (iterItems == cItemsManager::getItemsManager().end()); }
+	AllItemsIterator& operator++(int)		    { iterItems++; return *this; }
+	
 };
 
 #endif // __ITEMSMGR_H__

@@ -83,6 +83,7 @@ using namespace std;
 #include "structs.h"
 
 #include "globals.h"
+#include "itemsmgr.h"
 
 #include "prototypes.h"
 

@@ -686,7 +686,7 @@ void gcollect () // Remove items which were in deleted containers
 	LogMessage("Performing Garbage Collection...");
 	
 	AllItemsIterator iter_items;
-	for (iter_items.Begin(); iter_items.GetData() != NULL; iter_items++)
+	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++)
 	{
 		const P_ITEM pi = iter_items.GetData();
 		if (pi->free || pi->isInWorld()) 
@@ -768,7 +768,7 @@ void item_char_test()
 	LogMessage("Starting item consistancy check");
 	
 	AllItemsIterator iterItems;
-	for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
+	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 	{
 		P_ITEM pi = iterItems.GetData();
 		char tmp[150];
@@ -906,7 +906,7 @@ void wornitems(UOXSOCKET s, CHARACTER j) // Send worn items of player j
 void all_items(int s) // Send ALL items to player
 {
 	AllItemsIterator iterItems;
-	for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
+	for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
 	{
 		P_ITEM pi = iterItems.GetData();
 		if (!pi->free) senditem(s, pi);
@@ -2240,7 +2240,7 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 		int totaltotal=0;
 		int cc=0;
 		AllItemsIterator iterItems;
-		for (iterItems.Begin(); iterItems.GetData() != iterItems.End();iterItems++)
+		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
 		{ 
 			P_ITEM pi = iterItems.GetData();
 			if (pi->free==0) total++; totaltotal++; 
@@ -2671,7 +2671,7 @@ void checkkey ()
 				clConsole.send("Timer code: %fmsec [%i samples]\n" _ (float)((float)timerTime/(float)timerTimeCount) _ timerTimeCount);
 				clConsole.send("Auto code: %fmsec [%i samples]\n" _ (float)((float)autoTime/(float)autoTimeCount) _ autoTimeCount);
 				clConsole.send("Loop Time: %fmsec [%i samples]\n" _ (float)((float)loopTime/(float)loopTimeCount) _ loopTimeCount);
-				clConsole.send("Characters: %i/%i (Dynamic)		Items: %i/%i (Dynamic)\n" _ charcount _ cmem _ itemcount _ imem);
+//				clConsole.send("Characters: %i/%i (Dynamic)		Items: %i/%i (Dynamic)\n" _ charcount _ cmem _ itemcount _ imem);
 				clConsole.send("Simulation Cycles: %f per sec\n" _ (1000.0*(1.0/(float)((float)loopTime/(float)loopTimeCount))));
 				break;
 			case 'W':
@@ -2749,7 +2749,7 @@ void checkkey ()
 void start_glow(void)	// better to make an extra function cauze in loaditem it could be the case that the
 {						// glower is loaded before the pack
 	AllItemsIterator it;
-	for (it.Begin(); it.GetData() != it.End();it++)
+	for (it.Begin(); !it.atEnd();it++)
 	{
 		const P_ITEM pi = it.GetData();	// on error return
 		if (pi->glow>0 && pi->free==0)
@@ -2969,9 +2969,10 @@ int main(int argc, char *argv[])
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;
-	AllItemsIterator aii;
-	for(pi=aii.First(); (pi=aii.Next())!=aii.End(); )
+	AllItemsIterator iterItems;
+	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 	{
+		pi = iterItems.GetData();
 		// 1. this relies on the container the item is in
 		StoreItemRandomValue(pi, -1);
 
@@ -3165,7 +3166,6 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 		tempSecs = getNormalizedTime() ;
 
-		Items->CheckMemoryRequest();	// reallocate item memory if neccessary
 		Npcs->CheckMemoryRequest();		// reallocate character memory if neccessary
 
 		if(Respawn->AreWeRespawning())	// pseudo-respawn-thread (Duke)
@@ -5417,7 +5417,6 @@ void SetGlobalVars()
 	for (i=0;i<MAXLAYERS;i++) layers[i]=0;
 	
 	save_counter=0;
-	imem=0;
 	cmem=0;
 	uoxtimeout.tv_sec=0;
 	uoxtimeout.tv_usec=0;
@@ -5426,14 +5425,10 @@ void SetGlobalVars()
 	now=0;
 	secure=1;
 	charcount=0;
-	itemcount=0;
 	charcount2=1;
-	itemcount2=0x40000000;
 	wtype=0;
 	cmemover=0;
 	cmemcheck=-1;
-	imemover=0;
-	imemcheck=-1;
 	xcounter=0;
 	ycounter=0;
 	globallight=0;
@@ -5480,7 +5475,7 @@ void InitMultis()
 	}
 
 	AllItemsIterator iter_items;
-	for (iter_items.Begin(); iter_items.GetData() != NULL; iter_items++)
+	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++)
 	{
 		P_ITEM pi = iter_items.GetData();
 		if (!pi->free && !pi->isInWorld())
@@ -5568,7 +5563,6 @@ void StartClasses(void)
 	Network=NULL;
 	Magic=NULL;
 	Books=NULL;
-	ItemArray=NULL;
 	CharArray=NULL;
 	Respawn=NULL;
 	Movement = NULL;
@@ -5595,7 +5589,6 @@ void StartClasses(void)
 	Network = new cNetworkStuff;
 	Magic = new cMagic;
 	Books = new cBooks;
-	ItemArray = new cItemArray;
 	CharArray = new cCharArray;
 	Respawn = new cRespawn;
 	AllTmpEff = new cAllTmpEff;
@@ -5630,7 +5623,6 @@ void DeleteClasses(void)
 	delete Network;
 	delete Magic;
 	delete Books;
-	delete ItemArray;
 	delete CharArray;
 	delete Respawn;
 	delete Movement;

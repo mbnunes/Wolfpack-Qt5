@@ -180,7 +180,7 @@ void updatehtml()//HTML
 		{
 			icount=0;
 			AllItemsIterator iter_items;
-			for(iter_items.Begin(); iter_items.GetData() != iter_items.End(); iter_items++)
+			for(iter_items.Begin(); !iter_items.atEnd(); iter_items++)
 			{
 				P_ITEM pi = iter_items.GetData();
 				if(!pi->free) 
@@ -239,7 +239,7 @@ void updatehtml()//HTML
 			fprintf(html,"Timer code: %fmsec [%i samples] <BR>" , (float)((float)timerTime/(float)timerTimeCount) , timerTimeCount);
 			fprintf(html,"Auto code: %fmsec [%i samples] <BR>" , (float)((float)autoTime/(float)autoTimeCount) , autoTimeCount);
 			fprintf(html,"Loop Time: %fmsec [%i samples] <BR>" , (float)((float)loopTime/(float)loopTimeCount) , loopTimeCount);
-			fprintf(html,"Characters: %i/Dynamic    Items: %i/Dynamic <BR>" , charcount, itemcount);
+			fprintf(html,"Characters: %i/Dynamic    Items: %i/Dynamic <BR>" , charcount, cItemsManager::getItemsManager().size());
 			if (!(loopTime <eps ||  loopTimeCount<eps)) //Bugfix LB
 				fprintf(html,"Simulation Cycles: %f per sec <BR>" , (1000.0*(1.0/(float)((float)loopTime/(float)loopTimeCount))));
 			else fprintf(html,"Simulation Cylces: too fast to be measured <BR>");

@@ -411,141 +411,9 @@ int cItem::getWeight()
 	return itemweight;
 }
 
-void cAllItems::CheckMemoryRequest()
-{
-	if (moreItemMemoryRequested)
-		ResizeMemory();
-}
-
-bool cAllItems::AllocateMemory(int NumberOfItems)
-{
-	bool memerr = false;
-	imem=NumberOfItems;
-	if (imem<100) imem=100;
-	imem+=(2*ITEM_RESERVE);	// some reserve so realloc doesn't occur immediately after serverstart(Duke)
-
-	clConsole.send(" Allocating initial dynamic Item memory of %i... ",imem);
-	if ((realitems= (cItem *) malloc(imem*sizeof(cItem)))==NULL)
-		memerr=true;
-	else if ((itemids = (int *) malloc(imem*sizeof(int)))==NULL)
-		memerr=true;
-
-	if (memerr)
-	{
-		clConsole.send("\nERROR: Could not Allocate item memory!\n");
-		error=1;
-		return false;
-	}
-	unsigned int ilimit = 0;
-	if ((imem-200) > 0)
-		ilimit = imem-200 ;	
-	for (unsigned int i = ilimit;i<imem;i++)
-		realitems[i].free=1;
-
-	clConsole.send("Done\n");
-	return true;
-}
-
-bool cAllItems::ResizeMemory()
-{
-	char memerr=0;
-	const int slots=4000;   // bugfix for crashes under w95/98, LB never ever touch this number ...
-	// it has major influence on performance !! if it too low -> slow and can cause crashes under w95/98.
-	// this is because w95/98 can only handle 8196 subsequent realloc calls ( crappy thing...)
-	// free() calls DONT help !!!, btw so we have to make that number real big
-	// under nt and unix this limit doesnt exist
-
-	if ((realitems = (cItem *)realloc(realitems, (imem + slots)*sizeof(cItem)))==NULL)
-		memerr=1;
-	else if ((itemids = (int *)realloc(itemids, (imem + slots)*sizeof(int)))==NULL)
-		memerr=1;
-	
-	if (memerr)
-	{
-		LogCriticalVar("Could not reallocate item memory after %i. No more items will be created.\nWOLFPACK may become unstable.",imem);
-		cwmWorldState->savenewworld(1);
-		return false;
-	}
-	else
-	{
-		for (unsigned int i=imem;i<imem+slots;i++)
-			realitems[i].free=1;
-		imem+=slots;
-		moreItemMemoryRequested=false;
-		return true;
-	}
-}
-void cAllItems::CollectReusableSlots()
-{
-	if (imemover!=1)
-	{
-		imemover=0;
-		imemcheck++;
-		for (unsigned int i=0;i<itemcount;i++)
-		{
-			if (imemcheck==300)
-			{
-				imemover=1; 
-				break;
-			}
-			if (items[i].free==1)
-			{
-				freeitemmem[imemcheck]=i;
-				imemcheck++;
-			}
-		}
-	}
-}
-
-///////////////////////
-// Name:	GetReusableSlot
-// history:	by Duke, 17.05.2001
-// Purpose:	searches for an empty slot in the items array
-//			It does this by simply searching from the *last* position where it found a slot.
-//			If it reaches the end, it will search from the start. A timer prevents too many wrap-arounds.
-//
-int cAllItems::GetReusableSlot()
-{
-	static unsigned int NextMemCheck=0;
-	static unsigned int LastFree=0;	// remember this point in the array to continue search from here next time
-
-	unsigned int ctime=uiCurrentTime;
-	if (NextMemCheck<=ctime || (overflow))	// didn't wrap around in the past minute
-	{
-		unsigned int started=LastFree;		// remember where we started the search from here next time
-		for (  ;LastFree<itemcount;LastFree++)
-		{
-			if (items[LastFree].free)
-				return LastFree;	
-		}
-		// we have reached the end so start again from the beginning of the array
-		for (LastFree=0;LastFree<started;LastFree++)
-		{
-			if (items[LastFree].free)
-				return LastFree;	
-		}
-		NextMemCheck=ctime+speed.checkmem*60*MY_CLOCKS_PER_SEC;	// nothing found, set time for next try
-	}
-	return -1;
-}
-
 P_ITEM cAllItems::MemItemFree()// -- Find a free item slot, checking freeitemmem[] first
 {
-	if (itemcount+ITEM_RESERVE >= imem-I_W_O_1)	//less than 'Reserve' free slots left, so get more memory
-		moreItemMemoryRequested=true;
-
-	int nItem=GetReusableSlot();		// try to use the space of a deleted item
-	if (nItem==-1)
-	{
-		if (itemcount+1>=imem-I_W_O_1)	//theres no more free sluts.. er slots
-		{
-			LogCritical("couldn't resize item memory in time");
-			return NULL;
-		}
-		nItem=itemcount;
-		itemcount++;
-	}
-	return &items[nItem];
+	return new cItem;
 }
 
 void cItem::SetSerial(long ser)
@@ -556,7 +424,7 @@ void cItem::SetSerial(long ser)
 	this->ser4=(unsigned char) ((ser&0x000000FF));
 	this->serial=ser;
 	if (ser > -1)
-		setptr(itemsp, ser, DEREF_P_ITEM(this));
+		cItemsManager::getItemsManager().registerItem( this );
 }
 
 // -- Initialize an Item in the items array
@@ -566,12 +434,11 @@ void cItem::Init(char mkser)
 
 	if (mkser)		// give it a NEW serial #
 	{
-		this->SetSerial(itemcount2);
-		itemcount2++;
+		this->SetSerial(cItemsManager::getItemsManager().getUnusedSerial());
 	}
 	else
 	{
-		this->SetSerial(-1);
+		this->SetSerial(INVALID_SERIAL);
 	}
 
 	strcpy(this->name,"#");
@@ -725,28 +592,8 @@ void cAllItems::DeleItem(P_ITEM pi)
 			if (pContent != NULL)
 				DeleItem(pContent);
 		}
-		removefromptr(itemsp, pi->serial);
-		pi->free=1;
-		pi->pos.x=20+(xcounter++);
-		pi->pos.y=50+(ycounter);
-		pi->pos.z=9;
-
-		if (xcounter==40)
-		{
-			ycounter++;
-			xcounter=0;
-		}
-		if (ycounter==80)
-		{
-			ycounter=0;
-			xcounter=0;
-		}
-		if (imemcheck<500)
-		{
-			imemcheck++;
-			freeitemmem[imemcheck]=DEREF_P_ITEM(pi);
-		}
-		else imemover=1;
+		cItemsManager::getItemsManager().unregisterItem(pi);
+		delete pi;
 	}
 	
 }
@@ -1855,23 +1702,3 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 		}
 	}		
 }
-
-/////////////
-// name:	AllItemsIterator
-// purpose:	intended to replace the itemcount loops
-// history:	by Duke, 27.6.01
-//
-P_ITEM AllItemsIterator::First()
-{
-	return pos < itemcount ? &items[pos] : NULL;
-}
-P_ITEM AllItemsIterator::Next()
-{
-	return ++pos < itemcount ? &items[pos] : NULL;
-}
-P_ITEM AllItemsIterator::GetData(void)
-{ 
-	return pos < itemcount ? &items[pos] : NULL; 
-}
-
-

@@ -182,8 +182,6 @@ unsigned int startcount;
 
 int cmemcheck;
 unsigned char cmemover;
-int imemcheck;
-unsigned char imemover;
 unsigned char xcounter;
 unsigned char ycounter;
 int secure; // Secure mode
@@ -213,9 +211,6 @@ unsigned int logoutcount;//Instalog
 
 unsigned int charcount;
 unsigned int charcount2;
-unsigned int itemcount;
-unsigned int itemcount2;
-unsigned int imem;
 //unsigned int cmem;
 int cmem ;
 char *cline;
@@ -313,11 +308,7 @@ cRaces			Races;
 cCharStuff::cDragonAI	*DragonAI;
 cCharStuff::cBankerAI	*BankerAI;	
 
-cItemArray *ItemArray;
 cCharArray *CharArray;
-
-cItem *realitems;
-cItemWrap iwrap;
 
 //char_st *chars;
 cChar *realchars;
@@ -398,7 +389,6 @@ char firstpacket[MAXCLIENT+1];
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
- lookuptr_st itemsp;
  lookuptr_st charsp;
 
 Container_cl stablesp, imultisp, cmultisp, contsp, ownsp, cspawnsp, spawnsp, glowsp, cownsp;

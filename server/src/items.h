@@ -207,25 +207,18 @@ public:
 };
 
 
-#include "ItemWrap.h"
-#include "item_array.h"       // must be delcared AFTER items_st 
-
 int	ContainerCountItems(const int serial, short id, short color=-1);
 
 class cAllItems
 {
 private:
-	bool moreItemMemoryRequested;
 	cItem* CreateScriptRandomItem(int s, char *sItemList);
 	void GetScriptItemSetting(P_ITEM pi); // by Magius(CHE)
 	unsigned char PackType(unsigned char id1, unsigned char id2);
-	bool ResizeMemory();
-	void CollectReusableSlots();
-	int  GetReusableSlot();
 public:
-	cAllItems() {moreItemMemoryRequested=false;}
-	P_ITEM  MemItemFree();
+	cAllItems() {}
 	void DeleItem(P_ITEM pi);
+	P_ITEM  MemItemFree();
 	char isFieldSpellItem(P_ITEM pi);
 	P_ITEM CreateFromScript(UOXSOCKET s, int itemnum);
 	P_ITEM  CreateScriptItem(int s, int itemnum, int nSpawned);
@@ -247,23 +240,7 @@ public:
 	void RespawnItem(unsigned int Currenttime, P_ITEM pi);
 	void AddRespawnItem(P_ITEM pItem, int x, int y);
 	void CheckEquipment(P_CHAR pc_p); //AntiChrist
-	void CheckMemoryRequest();
-	bool AllocateMemory(int NumberOfItems);
 };
 
-class AllItemsIterator
-{
-protected:
-	unsigned int pos;
-public:
-	AllItemsIterator()							{ pos = 0; }
-	~AllItemsIterator()							{ }
-	P_ITEM GetData(void);
-	P_ITEM First();
-	P_ITEM Begin()								{ pos = 0; return GetData();}
-	P_ITEM Next();
-	P_ITEM End()								{ return NULL; }
-	AllItemsIterator& operator++(int/* inc*/)		{ pos++; return *this; }
-};
 
 #endif

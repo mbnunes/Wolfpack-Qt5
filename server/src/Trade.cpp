@@ -234,7 +234,7 @@ void restock(int s)
 {
 	int a,serial;
 	AllItemsIterator iter_items;
-	for (iter_items.Begin(); iter_items.GetData() != iter_items.End(); iter_items++)
+	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++)
 	{
 		P_ITEM pi = iter_items.GetData();
 		// Dupois - added this check to only restock items that ... well ... have a restock value >0
@@ -486,7 +486,7 @@ P_ITEM tradestart(int s, int i)
 void clearalltrades()
 {
 	AllItemsIterator iterItems;
-	for (iterItems.Begin();iterItems.GetData() != iterItems.End(); iterItems++)
+	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 	{
 		P_ITEM pi = iterItems.GetData();
 		if (pi->type==1 && pi->pos.x==26 && pi->pos.y==0 && pi->pos.z==0 &&

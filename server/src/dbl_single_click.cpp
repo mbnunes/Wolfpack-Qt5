@@ -373,7 +373,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	case 2: // Order gates?
 		{
 			AllItemsIterator iterItems;
-			for (iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
+			for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 			{
 				P_ITEM pj = iterItems.GetData();
 				if (pj->type == 3)
@@ -399,7 +399,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	case 4: // Chaos gates?
 		{
 			AllItemsIterator iterItems;
-			for (iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
+			for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 			{
 				P_ITEM pj = iterItems.GetData();
 				if (pj->type == 5)
@@ -672,7 +672,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		case 100:  // type 100?  this ain't in the docs... - Morrolan
 			{
 				AllItemsIterator it;
-				for (it.Begin(); it.GetData() != it.End(); it++)
+				for (it.Begin(); !it.atEnd(); it++)
 				{
 					P_ITEM pj = it.GetData();
 					if (((pj->moreb1 == pi->morex) &&(pj->moreb2 == pi->morey) &&(pj->moreb3 == pi->morez))

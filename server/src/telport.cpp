@@ -396,7 +396,7 @@ void monstergate(int s, int x)
 	pc_s->title[0] = 0;
 
 	AllItemsIterator iterItem;
-	for(iterItem.Begin(); iterItem.GetData() != iterItem.End(); iterItem++)
+	for(iterItem.Begin(); !iterItem.atEnd(); iterItem++)
 	{
 		P_ITEM pi = iterItem.GetData();
 		if (pc_s->Wears(pi) &&

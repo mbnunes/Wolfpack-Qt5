@@ -152,8 +152,6 @@ void loadQnpc(FILE *fp,char *fn)
 		signed char zmap = Map->MapElevation(pos.x, pos.y);
 		Npcs->AddNPCxyz(-1,npc_scp_no,0,pos.x,pos.y,zmap);
 	}
-
-	Items->CheckMemoryRequest();	// reallocate item memory if neccessary
 }
 
 void qsfLoad(char *fn, short depth) // Load a quest script file

@@ -127,8 +127,6 @@ extern unsigned int startcount;
 
 extern int cmemcheck;        //stores point to freecharmem no. that stores last delete char memory
 extern unsigned char cmemover;        // 0 means freecharmem buffer has not been overflowed, 1 means overflowed
-extern int imemcheck;        //stores point to freeitemmem no. that stores last delete item memory
-extern unsigned char imemover;        // 0 means freeitemmem buffer has not been overflowed, 1 means overflowed
 extern unsigned char xcounter;
 extern unsigned char ycounter;        //x&y counter used for placing deleted items and chars
 extern int secure; // Secure mode
@@ -152,10 +150,6 @@ extern UI32 StaticRecordSize;
 
 extern unsigned int charcount;
 extern unsigned int charcount2;
-extern unsigned int itemcount;
-extern unsigned int itemcount2;
-extern unsigned int imem;
-//extern unsigned int cmem;
 extern int cmem ;
 
 extern int global_lis;
@@ -303,7 +297,6 @@ extern char xoutbuffer[MAXBUFFER_REAL*3];
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
-extern lookuptr_st itemsp;
 extern lookuptr_st charsp;
 
 extern Container_cl stablesp, cmultisp, imultisp, contsp, ownsp, cspawnsp, spawnsp, glowsp, cownsp;

@@ -550,7 +550,7 @@ bool cCharStuff::ResizeMemory()
 	
 	if (memerr)
 	{
-		LogCriticalVar("Could not reallocate item memory after %i. No more items will be created.\nWOLFPACK may become unstable.",imem);
+		LogCriticalVar("Could not reallocate char memory after %i. No more chars will be created.\nWOLFPACK may become unstable.",cmem);
 		cwmWorldState->savenewworld(1);
 		return false;
 	}
@@ -1353,7 +1353,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 				if ( shoppack1 == NULL)
 				{
 					AllItemsIterator iterItems;
-					for(iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
+					for(iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 					{
 						P_ITEM pz = iterItems.GetData();
 						if (!pz->free)
@@ -1411,7 +1411,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 				if (shoppack3 == NULL) 
 				{
 					AllItemsIterator iterItems;
-					for(iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++) 
+					for(iterItems.Begin(); !iterItems.atEnd(); iterItems++) 
 					{
 						P_ITEM pz = iterItems.GetData();
 						if (!pz->free)
@@ -1453,7 +1453,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 				if ( shoppack2 == NULL )
 				{
 					AllItemsIterator iterItems;
-					for(iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
+					for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 					{
 						P_ITEM pz = iterItems.GetData();
 						if (!pz->free)

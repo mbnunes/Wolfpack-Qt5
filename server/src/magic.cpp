@@ -3684,8 +3684,8 @@ void cMagic::invisibleItemParticles(CHARACTER c, int spellNum, short x, short y,
 	// this is rather tricky, deleitem can't be applied there 
 	// because the client has to tihnk its still there. np because it's an invisible item anyway
 	// but we have to tell the memory manger to delete it
-	removefromptr(itemsp, it->serial );
-	it->free=1;	
+	cItemsManager::getItemsManager().unregisterItem(it);
+	delete it;	
 }
 
 sound_st cMagic::getSoundEffects( int num )

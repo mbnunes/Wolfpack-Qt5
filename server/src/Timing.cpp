@@ -983,7 +983,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	{
        itemlooptime = currenttime+5*MY_CLOCKS_PER_SEC;
 	   AllItemsIterator iterItems;
-       for( iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++ ) // Ripper...so spawners get set to nodecay.
+       for( iterItems.Begin(); !iterItems.atEnd(); iterItems++ ) // Ripper...so spawners get set to nodecay.
 	   {
 			P_ITEM pi = iterItems.GetData();
 			if(pi != NULL)

@@ -973,8 +973,7 @@ void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 	pi_c->Init(0);
 #pragma note("Replace by a copy constructor before finishing items[]")
 	memcpy(pi_c, pi_target, sizeof(cItem));
-	pi_c->SetSerial(itemcount2);
-	itemcount2++;
+	pi_c->SetSerial(cItemsManager::getItemsManager().getUnusedSerial());
 	
 	pi_c->SetContSerial(pPack->serial);
 	pi_c->SetOwnSerial(pi_target->ownserial);
@@ -1062,9 +1061,10 @@ void cCommands::Wipe(int s)
 	clConsole.send("WOLFPACK: %s has initiated an item wipe\n",pc_currchar->name);
 	
 	P_ITEM pi;
-	AllItemsIterator aii;
-	for(pi=aii.First(); (pi=aii.Next())!=aii.End(); )
+	AllItemsIterator iterItems;
+	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 	{
+		pi = iterItems.GetData();
 		if(pi->isInWorld() && pi->wipe==0)
 		{
 			Items->DeleItem(pi);

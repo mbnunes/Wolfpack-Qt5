@@ -168,9 +168,12 @@ P_ITEM FindItemBySerial(int serial)
 {
 	if (!isItemSerial(serial))
 		return NULL;
-	int i = findbyserial(itemsp, serial, 0);
-	if (i==-1) return NULL;		// legal rc from findbyserial, don't log
-	else return MAKE_ITEMREF_LRV(i,NULL);
+	cItemsManager itemsManager = cItemsManager::getItemsManager();
+	cItemsManager::iterator iterItems = itemsManager.find( serial );
+	if (iterItems == itemsManager.end()) 
+		return NULL;
+	else 
+		return iterItems->second;
 }
 
 P_ITEM FindItemBySerPtr(unsigned char *p)

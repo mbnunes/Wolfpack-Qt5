@@ -298,8 +298,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 						//	pi_c->Init(0);
 #pragma note("Replace by a copy constructor before finishing items[]")
 						memcpy(pi_c, pi, sizeof(cItem));  // Tauriel reduce code faster too
-						pi_c->SetSerial(itemcount2);
-						itemcount2++;
+						pi_c->SetSerial(cItemsManager::getItemsManager().getUnusedSerial());
 
 						pi_c->amount = pi->amount - amount;
 						pi_c->SetContSerial(pi_c->contserial);
