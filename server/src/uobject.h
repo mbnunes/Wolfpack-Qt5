@@ -51,7 +51,7 @@
 #include <qmap.h>
 
 // Forward class declarations
-class Coord_cl;
+class Coord;
 class cPythonScript;
 class cUOSocket;
 class QSqlQuery;
@@ -72,7 +72,7 @@ protected:
 	cCustomTags tags_;
 	uint tooltip_;
 	QString name_;
-	Coord_cl pos_;
+	Coord pos_;
 	SERIAL serial_;
 	cMulti* multi_; // If we're in a Multi	
 	cPythonScript** scriptChain; // NULL Terminated Array
@@ -139,7 +139,7 @@ public:
 	// Utility Methods
 	void effect( Q_UINT16 id, Q_UINT8 speed = 10, Q_UINT8 duration = 5, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 ); // Moving with this character
 	void effect( Q_UINT16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, Q_UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
-	void effect( Q_UINT16 id, const Coord_cl& target, bool fixedDirection = true, bool explodes = false, Q_UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
+	void effect( Q_UINT16 id, const Coord& target, bool fixedDirection = true, bool explodes = false, Q_UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
 	void lightning( unsigned short hue = 0 );
 	bool inRange( cUObject* object, Q_UINT32 range ) const;
 	void removeFromView( bool clean = true );
@@ -160,7 +160,7 @@ public:
 	void resendTooltip();
 	unsigned char direction( cUObject* );
 	virtual void remove();
-	virtual void moveTo( const Coord_cl&, bool noRemove = false );
+	virtual void moveTo( const Coord&, bool noRemove = false );
 	unsigned int dist( cUObject* d ) const;
 
 	// Event Methods
@@ -181,7 +181,7 @@ public:
 	{
 		return name_;
 	}
-	Coord_cl pos() const
+	const Coord& pos() const
 	{
 		return pos_;
 	}
@@ -209,7 +209,7 @@ public:
 		name_ = d; changed_ = true; changed( TOOLTIP );
 	}
 
-	void setPos( const Coord_cl& d )
+	void setPos( const Coord& d )
 	{
 		pos_ = d;	changed_ = true;
 	}

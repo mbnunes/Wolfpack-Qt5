@@ -40,7 +40,7 @@
 #include "console.h"
 #include "definitions.h"
 #include "scriptmanager.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "contextmenu.h"
 #include "pythonscript.h"
 #include "network/network.h"
@@ -544,28 +544,24 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 
 /*
 	\command allshow
-	\description Toggles the allshow flag of your account.
-	\notes The allshow flag determines whether you can see logged out characters.
+	\description Reveals the offline characters on your screen.
 */
 void commandAllShow( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
 {
 	Q_UNUSED( command );
-	if ( !socket->player() || !socket->player()->account() )
+
+	P_PLAYER player = socket->player();
+	if( !player )
 		return;
 
-	// Switch
-	if ( !args.count() )
-		socket->player()->account()->setAllShow( !socket->player()->account()->isAllShow() );
-	// Set
-	else
-		socket->player()->account()->setAllShow( args[0].toInt() != 0 );
+	MapCharsIterator offlineChars = MapObjects::instance()->listCharsInCircle( player->pos(), player->visualRange(), true );
+	for( P_CHAR offChar = offlineChars.first(); offChar; offChar = offlineChars.next() )
+	{
+		socket->removeObject( offChar );
+		socket->sendChar( offChar );
+	}
 
-	if ( socket->player()->account()->isAllShow() )
-		socket->sysMessage( tr( "AllShow = '1'" ) );
-	else
-		socket->sysMessage( tr( "AllShow = '0'" ) );
-
-	socket->resendWorld( true );
+	socket->sysMessage( tr( "The offline characters on your screen have been revealed." ) );
 }
 
 /*
@@ -1104,7 +1100,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 				categoryId = categories[ category ];
 			}
 
-			Coord_cl coord;
+			Coord coord;
 			parseCoordinates( element->text(), coord );
 			QString id = *sectionIt;
 
@@ -1293,8 +1289,8 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 */
 void commandWalkTest( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ ) throw()
 {
-	Coord_cl newpos = socket->player()->pos();
-	newpos = Movement::instance()->calcCoordFromDir(socket->player()->direction(), newpos);
+	Coord newpos = socket->player()->pos();
+	newpos = Movement::instance()->calcCoordFromDir( socket->player()->direction(), newpos );
 
 	bool result = mayWalk(socket->player(), newpos);
 
@@ -1385,7 +1381,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const 
 
 		bool coordHasEastFrame( int x, int y, int z, int map )
 		{
-			StaticsIterator tiles = Maps::instance()->staticsIterator( Coord_cl( x, y, z, map ), true );
+			StaticsIterator tiles = Maps::instance()->staticsIterator( Coord( x, y, z, map ), true );
 			for ( ; !tiles.atEnd(); ++tiles )
 			{
 				if ( tiles.data().zoff == z && isEastFrame( tiles.data().itemid ) )
@@ -1398,7 +1394,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const 
 
 		bool coordHasSouthFrame( int x, int y, int z, int map )
 		{
-			StaticsIterator tiles = Maps::instance()->staticsIterator( Coord_cl( x, y, z, map ), true );
+			StaticsIterator tiles = Maps::instance()->staticsIterator( Coord( x, y, z, map ), true );
 			for ( ; !tiles.atEnd(); ++tiles )
 			{
 				if ( tiles.data().zoff == z && isSouthFrame( tiles.data().itemid ) )
@@ -1424,7 +1420,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const 
 			if ( !Maps::instance()->canFit( x, y, z, map ) )
 				return 0;
 			cItem* door = cItem::createFromScript( QString::number( 0x6A5 + 2 * int( facing ), 16 ) );
-			door->moveTo( Coord_cl( x, y, z, map ), true );
+			door->moveTo( Coord( x, y, z, map ), true );
 			return door;
 		}
 	public:

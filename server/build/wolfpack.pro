@@ -14,11 +14,11 @@ CONFIG += qt thread exceptions rtti
 unix {
 	CONFIG += console
 
-	# We need to remove these, unnecessary dependency 
+	# We need to remove these, unnecessary dependency
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 }
 
-DEFINES += QT_CLEAN_NAMESPACE 
+DEFINES += QT_CLEAN_NAMESPACE
 
 RC_FILE = res.rc
 OBJECTS_DIR = obj
@@ -88,6 +88,7 @@ HEADERS += \
 	inlines.h \
 	items.h \
 	log.h \
+	mapobjects.h \
 	md5.h \
 	multi.h \
 	npc.h \
@@ -102,7 +103,6 @@ HEADERS += \
 	pythonscript.h \
 	resource.h \
 	scriptmanager.h \
-	sectors.h \
 	server.h \
 	singleton.h \
 	skills.h \
@@ -145,6 +145,7 @@ SOURCES += \
 	gumps.cpp \
 	items.cpp \
 	log.cpp \
+	mapobjects.cpp \
 	md5.cpp \
 	multi.cpp \
 	npc.cpp \
@@ -156,7 +157,6 @@ SOURCES += \
 	profile.cpp \
 	pythonscript.cpp \
 	scriptmanager.cpp \
-	sectors.cpp \
 	server.cpp \
 	skills.cpp \
 	spawnregions.cpp \

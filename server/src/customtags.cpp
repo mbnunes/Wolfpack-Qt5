@@ -87,7 +87,7 @@
 */
 cVariant::cVariant()
 {
-	typ = cVariant::Invalid;
+	typ = InvalidType;
 }
 
 cVariant::cVariant( const cVariant& v )
@@ -100,7 +100,7 @@ cVariant::cVariant( const cVariant& v )
 */
 cVariant::cVariant( const QString& val )
 {
-	typ = String;
+	typ = StringType;
 	value.ptr = new QString( val );
 }
 
@@ -109,7 +109,7 @@ cVariant::cVariant( const QString& val )
 */
 cVariant::cVariant( int val )
 {
-	typ = Int;
+	typ = IntType;
 	value.i = val;
 }
 
@@ -118,7 +118,7 @@ cVariant::cVariant( int val )
 */
 cVariant::cVariant( unsigned int val )
 {
-	typ = Int;
+	typ = IntType;
 	value.i = ( int ) val;
 }
 
@@ -127,13 +127,13 @@ cVariant::cVariant( unsigned int val )
 */
 cVariant::cVariant( double val )
 {
-	typ = Double;
+	typ = DoubleType;
 	value.d = val;
 }
 
 cVariant::cVariant( long int val )
 {
-	typ = Long;
+	typ = LongType;
 	value.d = val;
 }
 
@@ -142,7 +142,7 @@ cVariant::cVariant( long int val )
 */
 cVariant::cVariant( cBaseChar* val )
 {
-	typ = BaseChar;
+	typ = BaseCharType;
 	value.ptr = val;
 }
 
@@ -151,17 +151,17 @@ cVariant::cVariant( cBaseChar* val )
 */
 cVariant::cVariant( cItem* val )
 {
-	typ = Item;
+	typ = ItemType;
 	value.ptr = val;
 }
 
 /*!
-  Constructs a new variant with a Coord_cl value, \a val.
+  Constructs a new variant with a Coord value, \a val.
 */
-cVariant::cVariant( const Coord_cl& val )
+cVariant::cVariant( const Coord& val )
 {
-	typ = Coord;
-	value.ptr = new Coord_cl( val );
+	typ = CoordType;
+	value.ptr = new Coord( val );
 }
 
 /*!
@@ -188,11 +188,11 @@ cVariant& cVariant::operator=( const cVariant& v )
 	// For non pointer types we can simply use the union
 	switch ( typ )
 	{
-	case cVariant::String:
+	case StringType:
 		value.ptr = new QString( v.toString() );
 		break;
-	case cVariant::Coord:
-		value.ptr = new Coord_cl( v.toCoord() );
+	case CoordType:
+		value.ptr = new Coord( v.toCoord() );
 		break;
 	default:
 		memcpy( &value, &v.value, sizeof( value ) );
@@ -212,16 +212,16 @@ bool cVariant::operator==( const cVariant& v ) const
 	{
 		switch ( typ )
 		{
-		case cVariant::String:
+		case StringType:
 			return *( QString * ) value.ptr == *( QString * ) v.value.ptr;
 
-		case cVariant::Coord:
-			return *( Coord_cl * ) value.ptr == *( Coord_cl * ) v.value.ptr;
+		case CoordType:
+			return *( Coord * ) value.ptr == *( Coord * ) v.value.ptr;
 
-		case Int:
+		case IntType:
 			return value.i == v.value.i;
 
-		case Double:
+		case DoubleType:
 			return value.d == v.value.d;
 
 		default:
@@ -245,7 +245,7 @@ bool cVariant::operator!=( const cVariant& v ) const
 	Returns the name of the type stored in the variant.
 	The returned strings describe the C++ datatype used to store the
 	data: for example, "QFont", "QString", or "QValueList<cVariant>".
-	An Invalid variant returns 0.
+	An InvalidType variant returns 0.
 */
 const char* cVariant::typeName() const
 {
@@ -253,29 +253,29 @@ const char* cVariant::typeName() const
 }
 
 /*!
-	Convert this variant to type Invalid and free up any resources used.
+	Convert this variant to type InvalidType and free up any resources used.
 */
 void cVariant::clear()
 {
 	switch ( typ )
 	{
-	case cVariant::String:
+	case cVariant::StringType:
 		delete ( QString * ) value.ptr;
 		break;
-	case cVariant::Coord:
-		delete ( Coord_cl * ) value.ptr;
+	case cVariant::CoordType:
+		delete ( Coord * ) value.ptr;
 		break;
 	default:
 		break;
 	}
 
-	typ = cVariant::Invalid;
+	typ = cVariant::InvalidType;
 }
 
 static const int ntypes = 8;
 static const char* const type_map[ntypes] =
 {
-0, "String", "Int", "Long", "Double", "BaseChar", "Item", "Coord"
+	0, "String", "Int", "Long", "Double", "BaseChar", "Item", "Coord"
 };
 
 /*!
@@ -295,7 +295,7 @@ const char* cVariant::typeToName( Type typ )
 	name, to its enum representation.
 
 	If the string representation cannot be converted to any enum
-	representation, the variant is set to \c Invalid.
+	representation, the variant is set to \c InvalidType.
 */
 cVariant::Type cVariant::nameToType( const char* name )
 {
@@ -304,7 +304,7 @@ cVariant::Type cVariant::nameToType( const char* name )
 		if ( !qstrcmp( type_map[i], name ) )
 			return ( Type ) i;
 	}
-	return Invalid;
+	return InvalidType;
 }
 
 /*! \fn Type cVariant::type() const
@@ -317,28 +317,28 @@ cVariant::Type cVariant::nameToType( const char* name )
 /*! \fn bool cVariant::isValid() const
 
 	Returns TRUE if the storage type of this variant is not
-	cVariant::Invalid; otherwise returns FALSE.
+	cVariant::InvalidType; otherwise returns FALSE.
 */
 
 /*!
 	Returns the variant as a QString if the variant has type()
-	String, CString, ByteArray, Int, Uint, Bool, Double, Date, Time, or DateTime,
+	StringType, CString, ByteArray, IntType, Uint, Bool, DoubleType, Date, Time, or DateTime,
 	or QString::null otherwise.
 
 	\sa asString()
 */
 const QString cVariant::toString() const
 {
-	if ( typ == Int )
+	if ( typ == IntType )
 		return QString::number( value.i );
 
-	if ( typ == Long )
+	if ( typ == LongType )
 		return QString::number( value.d );
 
-	if ( typ == Double )
+	if ( typ == DoubleType )
 		return QString::number( toDouble() );
 
-	if ( typ == BaseChar )
+	if ( typ == BaseCharType )
 	{
 		P_CHAR pChar = static_cast<P_CHAR>( value.ptr );
 		if ( pChar )
@@ -347,7 +347,7 @@ const QString cVariant::toString() const
 			return "0x" + QString::number( ( unsigned int ) INVALID_SERIAL, 16 );
 	}
 
-	if ( typ == Item )
+	if ( typ == ItemType )
 	{
 		P_ITEM pItem = static_cast<P_ITEM>( value.ptr );
 		if ( pItem )
@@ -356,13 +356,13 @@ const QString cVariant::toString() const
 			return "0x" + QString::number( ( unsigned int ) INVALID_SERIAL, 16 );
 	}
 
-	if ( typ == Coord )
+	if ( typ == CoordType )
 	{
-		Coord_cl* pos = static_cast<Coord_cl*>( value.ptr );
+		Coord* pos = static_cast<Coord*>( value.ptr );
 		return QString( "%1,%2,%3,%4" ).arg( pos->x ).arg( pos->y ).arg( pos->z ).arg( pos->map );
 	}
 
-	if ( typ != String )
+	if ( typ != StringType )
 		return QString::null;
 
 	return *( ( QString * ) value.ptr );
@@ -370,7 +370,7 @@ const QString cVariant::toString() const
 
 /*!
 	Returns the variant as an int if the variant has type()
-	String, CString, Int, UInt, Double, Bool or KeySequence; or 0 otherwise.
+	StringType, CString, IntType, UInt, DoubleType, Bool or KeySequence; or 0 otherwise.
 
 	If \a ok is non-null, \a *ok is set to TRUE if the value could be
 	converted to an int and FALSE otherwise.
@@ -379,28 +379,28 @@ const QString cVariant::toString() const
 */
 int cVariant::toInt( bool* ok ) const
 {
-	if ( typ == String )
+	if ( typ == StringType )
 		return hex2dec( *( ( QString * ) value.ptr ) ).toInt( ok );
 
 	if ( ok )
-		*ok = canCast( Int );
+		*ok = canCast( IntType );
 
-	if ( typ == Int )
+	if ( typ == IntType )
 		return value.i;
 
-	if ( typ == Long )
+	if ( typ == LongType )
 		return ( int ) value.d;
 
-	if ( typ == Double )
+	if ( typ == DoubleType )
 		return ( int ) value.d;
 
-	if ( typ == BaseChar )
+	if ( typ == BaseCharType )
 	{
 		P_CHAR pChar = static_cast<P_CHAR>( value.ptr );
 		return pChar ? pChar->serial() : INVALID_SERIAL;
 	}
 
-	if ( typ == Item )
+	if ( typ == ItemType )
 	{
 		P_ITEM pItem = static_cast<P_ITEM>( value.ptr );
 		return pItem ? pItem->serial() : INVALID_SERIAL;
@@ -411,7 +411,7 @@ int cVariant::toInt( bool* ok ) const
 
 /*!
 	Returns the variant as a double if the variant has type()
-	String, CString, Double, Int, UInt, or Bool; or 0.0 otherwise.
+	StringType, CString, DoubleType, IntType, UInt, or Bool; or 0.0 otherwise.
 
 	If \a ok is non-null, \a *ok is set to TRUE if the value could be
 	converted to a double and FALSE otherwise.
@@ -420,28 +420,28 @@ int cVariant::toInt( bool* ok ) const
 */
 double cVariant::toDouble( bool* ok ) const
 {
-	if ( typ == String )
+	if ( typ == StringType )
 		return ( ( QString * ) value.ptr )->toDouble( ok );
 
 	if ( ok )
-		*ok = canCast( Double );
+		*ok = canCast( DoubleType );
 
-	if ( typ == Double )
+	if ( typ == DoubleType )
 		return value.d;
 
-	if ( typ == Int )
+	if ( typ == IntType )
 		return ( double ) value.i;
 
-	if ( typ == Long )
+	if ( typ == LongType )
 		return ( double ) value.d;
 
-	if ( typ == BaseChar )
+	if ( typ == BaseCharType )
 	{
 		P_CHAR pChar = static_cast<P_CHAR>( value.ptr );
 		return pChar ? ( double ) pChar->serial() : ( double ) INVALID_SERIAL;
 	}
 
-	if ( typ == Item )
+	if ( typ == ItemType )
 	{
 		P_ITEM pItem = static_cast<P_ITEM>( value.ptr );
 		return pItem ? ( double ) pItem->serial() : ( double ) INVALID_SERIAL;
@@ -452,49 +452,49 @@ double cVariant::toDouble( bool* ok ) const
 
 /*!
 	Returns the variant as a Character if the variant has type()
-	String, Double, Int; or NULL otherwise.
+	StringType, DoubleType, IntType; or NULL otherwise.
 
 	\sa toChar()
 */
 cBaseChar* cVariant::toChar() const
 {
-	if ( typ == BaseChar )
+	if ( typ == BaseCharType )
 		return ( P_CHAR ) value.ptr;
 
-	if ( typ == String )
+	if ( typ == StringType )
 		return FindCharBySerial( hex2dec( *( ( QString * ) value.ptr ) ).toUInt() );
 
-	if ( typ == Int )
+	if ( typ == IntType )
 		return FindCharBySerial( value.i );
 
-	if ( typ == Long )
+	if ( typ == LongType )
 		return FindCharBySerial( ( unsigned int ) value.d );
 
-	if ( typ == Double )
+	if ( typ == DoubleType )
 		return FindCharBySerial( ( unsigned int ) floor( value.d ) );
 
 	return 0;
 }
 
 /*!
-	Returns the variant as an Item if the variant has type()
-	String, Double, Int; or NULL otherwise.
+	Returns the variant as an ItemType if the variant has type()
+	StringType, DoubleType, IntType; or NULL otherwise.
 */
 cItem* cVariant::toItem() const
 {
-	if ( typ == Item )
+	if ( typ == ItemType )
 		return ( P_ITEM ) value.ptr;
 
-	if ( typ == String )
+	if ( typ == StringType )
 		return FindItemBySerial( hex2dec( *( ( QString * ) value.ptr ) ).toUInt() );
 
-	if ( typ == Int )
+	if ( typ == IntType )
 		return FindItemBySerial( value.i );
 
-	if ( typ == Long )
+	if ( typ == LongType )
 		return FindItemBySerial( ( unsigned int ) value.d );
 
-	if ( typ == Double )
+	if ( typ == DoubleType )
 		return FindItemBySerial( ( unsigned int ) floor( value.d ) );
 
 	return 0;
@@ -502,22 +502,22 @@ cItem* cVariant::toItem() const
 
 /*!
   Returns the variant as a Coordinate if the variant has type()
-  String; or NULL otherwise.
+  StringType; or NULL otherwise.
 */
-Coord_cl cVariant::toCoord() const
+Coord cVariant::toCoord() const
 {
-	if ( typ == Coord )
-		return *( ( Coord_cl * ) value.ptr );
+	if ( typ == CoordType )
+		return *( ( Coord * ) value.ptr );
 
 	// Parse Coord
-	if ( typ == String )
+	if ( typ == StringType )
 	{
-		Coord_cl pos;
+		Coord pos;
 		if ( parseCoordinates( *( ( QString * ) value.ptr ), pos ) )
 			return pos;
 	}
 
-	return Coord_cl( 0, 0, 0, 0 );
+	return Coord( 0, 0, 0, 0 );
 }
 
 /*! \fn QString& cVariant::asString()
@@ -531,7 +531,7 @@ Coord_cl cVariant::toCoord() const
 */
 QString& cVariant::asString()
 {
-	if ( typ != String )
+	if ( typ != StringType )
 		*this = cVariant( toString() );
 	return *( ( QString * ) value.ptr );
 }
@@ -541,12 +541,12 @@ QString& cVariant::asString()
 */
 int& cVariant::asInt()
 {
-	if ( typ != Int )
+	if ( typ != IntType )
 	{
 		int i = toInt();
 		clear();
 		value.i = i;
-		typ = Int;
+		typ = IntType;
 	}
 	return value.i;
 }
@@ -556,12 +556,12 @@ int& cVariant::asInt()
 */
 double& cVariant::asDouble()
 {
-	if ( typ != Double )
+	if ( typ != DoubleType )
 	{
 		double dbl = toDouble();
 		clear();
 		value.d = dbl;
-		typ = Double;
+		typ = DoubleType;
 	}
 	return value.d;
 }
@@ -573,26 +573,26 @@ double& cVariant::asDouble()
 
 	The following casts are done automatically:
 	\list
-	\i Double => String, Int
-	\i Int => String, Double
-	\i String => Int, Double
+	\i DoubleType => StringType, IntType
+	\i IntType => StringType, DoubleType
+	\i StringType => IntType, DoubleType
 	\endlist
 */
 bool cVariant::canCast( Type t ) const
 {
 	if ( typ == t )
 		return TRUE;
-	if ( t == Int && ( typ == Int || typ == Long || typ == BaseChar || typ == Item || typ == String || typ == Double ) )
+	if ( t == IntType && ( typ == IntType || typ == LongType || typ == BaseCharType || typ == ItemType || typ == StringType || typ == DoubleType ) )
 		return TRUE;
-	if ( t == Double && ( typ == BaseChar || typ == Item || typ == Long || typ == String || typ == Int ) )
+	if ( t == DoubleType && ( typ == BaseCharType || typ == ItemType || typ == LongType || typ == StringType || typ == IntType ) )
 		return TRUE;
-	if ( t == String && ( typ == BaseChar || typ == Item || typ == Long || typ == Int || typ == Double ) )
+	if ( t == StringType && ( typ == BaseCharType || typ == ItemType || typ == LongType || typ == IntType || typ == DoubleType ) )
 		return TRUE;
-	if ( t == BaseChar && ( typ == BaseChar || typ == Int || typ == Double || typ == String || typ == Long ) )
+	if ( t == BaseCharType && ( typ == BaseCharType || typ == IntType || typ == DoubleType || typ == StringType || typ == LongType ) )
 		return TRUE;
-	if ( t == Item && ( typ == Item || typ == Int || typ == Double || typ == String || typ == Long ) )
+	if ( t == ItemType && ( typ == ItemType || typ == IntType || typ == DoubleType || typ == StringType || typ == LongType ) )
 		return TRUE;
-	if ( t == Coord && ( typ == String || typ == Coord ) )
+	if ( t == CoordType && ( typ == StringType || typ == CoordType ) )
 		return TRUE;
 
 	return FALSE;
@@ -602,7 +602,7 @@ bool cVariant::canCast( Type t ) const
 	Casts the variant to the requested type.  If the cast cannot be
 	done, the variant is set to the default value of the requested type
 	(e.g. an empty string if the requested type \a t is
-	cVariant::String, an empty point array if the requested type \a t is
+	cVariant::StringType, an empty point array if the requested type \a t is
 	cVariant::PointArray, etc).  Returns TRUE if the current type of the
 	variant was successfully casted; otherwise returns FALSE.
 
@@ -613,17 +613,16 @@ bool cVariant::cast( Type t )
 {
 	switch ( t )
 	{
-	case cVariant::String:
+	case StringType:
 		asString();
 		break;
-	case cVariant::Int:
+	case IntType:
 		asInt();
 		break;
-	case cVariant::Double:
+	case DoubleType:
 		asDouble();
 		break;
 	default:
-	case cVariant::Invalid:
 		( *this ) = cVariant();
 	}
 	return canCast( t );
@@ -636,11 +635,11 @@ void cVariant::serialize( cBufferedWriter& writer, unsigned int /*version*/ )
 
 	switch ( typ )
 	{
-	case Invalid:
+	case InvalidType:
 		writer.writeRaw( skipper, 8 );
 		break;
 
-	case String:
+	case StringType:
 		if ( value.ptr )
 		{
 			writer.writeUtf8( *( QString * ) value.ptr );
@@ -652,21 +651,21 @@ void cVariant::serialize( cBufferedWriter& writer, unsigned int /*version*/ )
 		writer.writeRaw( skipper, 4 );
 		break;
 
-	case Int:
+	case IntType:
 		writer.writeInt( value.i );
 		writer.writeRaw( skipper, 4 );
 		break;
 
-	case Long:
+	case LongType:
 		writer.writeInt( value.i );
 		writer.writeRaw( skipper, 4 );
 		break;
 
-	case Double:
+	case DoubleType:
 		writer.writeDouble( value.d );
 		break;
 
-	case BaseChar:
+	case BaseCharType:
 		if ( value.ptr )
 		{
 			writer.writeInt( ( ( P_CHAR ) value.ptr )->serial() );
@@ -678,7 +677,7 @@ void cVariant::serialize( cBufferedWriter& writer, unsigned int /*version*/ )
 		writer.writeRaw( skipper, 4 );
 		break;
 
-	case Item:
+	case ItemType:
 		if ( value.ptr )
 		{
 			writer.writeInt( ( ( P_ITEM ) value.ptr )->serial() );
@@ -690,11 +689,11 @@ void cVariant::serialize( cBufferedWriter& writer, unsigned int /*version*/ )
 		writer.writeRaw( skipper, 4 );
 		break;
 
-	case Coord:
-		writer.writeShort( ( ( Coord_cl * ) ( value.ptr ) )->x );
-		writer.writeShort( ( ( Coord_cl * ) ( value.ptr ) )->y );
-		writer.writeByte( ( ( Coord_cl * ) ( value.ptr ) )->z );
-		writer.writeByte( ( ( Coord_cl * ) ( value.ptr ) )->map );
+	case CoordType:
+		writer.writeShort( ( ( Coord * ) ( value.ptr ) )->x );
+		writer.writeShort( ( ( Coord * ) ( value.ptr ) )->y );
+		writer.writeByte( ( ( Coord * ) ( value.ptr ) )->z );
+		writer.writeByte( ( ( Coord * ) ( value.ptr ) )->map );
 		writer.writeRaw( skipper, 2 );
 		break;
 	}
@@ -703,7 +702,7 @@ void cVariant::serialize( cBufferedWriter& writer, unsigned int /*version*/ )
 void cVariant::serialize( cBufferedReader& reader, unsigned int /*version*/ )
 {
 	// Only invalid can be loaded
-	if ( typ != Invalid )
+	if ( typ != InvalidType )
 	{
 		return;
 	}
@@ -712,46 +711,46 @@ void cVariant::serialize( cBufferedReader& reader, unsigned int /*version*/ )
 	typ = ( Type ) type;
 	switch ( typ )
 	{
-	case Invalid:
+	case InvalidType:
 		reader.readInt();
 		reader.readInt();
 		break;
 
-	case String:
+	case StringType:
 		value.ptr = new QString( reader.readUtf8() );
 		reader.readInt();
 		break;
 
-	case Int:
+	case IntType:
 		value.i = reader.readInt();
 		reader.readInt();
 		break;
 
-	case Long:
+	case LongType:
 		value.i = reader.readInt();
 		reader.readInt();
 		break;
 
-	case Double:
+	case DoubleType:
 		value.d = reader.readDouble();
 		break;
 
-	case BaseChar:
+	case BaseCharType:
 		value.ptr = World::instance()->findChar( reader.readInt() );
 		reader.readInt();
 		break;
 
-	case Item:
+	case ItemType:
 		value.ptr = World::instance()->findItem( reader.readInt() );
 		reader.readInt();
 		break;
 
-	case Coord:
-		value.ptr = new Coord_cl;
-		( ( Coord_cl * ) ( value.ptr ) )->x = reader.readShort();
-		( ( Coord_cl * ) ( value.ptr ) )->y = reader.readShort();
-		( ( Coord_cl * ) ( value.ptr ) )->z = reader.readByte();
-		( ( Coord_cl * ) ( value.ptr ) )->map = reader.readByte();
+	case CoordType:
+		value.ptr = new Coord;
+		( ( Coord * ) ( value.ptr ) )->x = reader.readShort();
+		( ( Coord * ) ( value.ptr ) )->y = reader.readShort();
+		( ( Coord * ) ( value.ptr ) )->z = reader.readByte();
+		( ( Coord * ) ( value.ptr ) )->map = reader.readByte();
 		reader.readShort();
 		break;
 	}
@@ -865,11 +864,11 @@ void cCustomTags::load( SERIAL key )
 		if ( !tags_ )
 			tags_ = new QMap<QString, cVariant>;
 
-		if ( type == "String" )
+		if ( type == "StringType" )
 			tags_->insert( name, cVariant( value ) );
-		else if ( type == "Int" )
+		else if ( type == "IntType" )
 			tags_->insert( name, cVariant( value.toInt() ) );
-		else if ( type == "Double" )
+		else if ( type == "DoubleType" )
 			tags_->insert( name, cVariant( value.toDouble() ) );
 	}
 

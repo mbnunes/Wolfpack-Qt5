@@ -56,6 +56,6 @@ private:
 	bool usePidfile_;
 };
 
-typedef SingletonHolder<cGetopts> Getopts;
+typedef Singleton<cGetopts> Getopts;
 
 #endif

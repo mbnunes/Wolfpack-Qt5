@@ -31,7 +31,7 @@
 #include "skills.h"
 
 #include "timers.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "gumps.h"
 #include "basechar.h"
 #include "player.h"
@@ -113,9 +113,8 @@ public:
 		// 2: Monsters
 		// 3: Humans
 		// 4: Players
-		cCharSectorIterator* iter = SectorMaps::instance()->findChars( player->pos(), 18 );
-
-		for ( P_CHAR pChar = iter->first(); pChar; pChar = iter->next() )
+		MapCharsIterator iter = MapObjects::instance()->listCharsInCircle( player->pos(), 18 );
+		for ( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
 		{
 			// Do the neccesary checks
 			bool passed = true;
@@ -170,8 +169,6 @@ public:
 
 			++pAmount;
 		}
-
-		delete iter;
 	}
 };
 

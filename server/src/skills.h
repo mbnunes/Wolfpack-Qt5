@@ -75,6 +75,6 @@ public:
 	void Snooping( P_PLAYER, P_ITEM );
 };
 
-typedef SingletonHolder<cSkills> Skills;
+typedef Singleton<cSkills> Skills;
 
 #endif

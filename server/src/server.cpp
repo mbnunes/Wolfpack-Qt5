@@ -43,7 +43,7 @@
 #include "npc.h"
 #include "player.h"
 #include "scriptmanager.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "action.h"
 #include "skills.h"
 #include "spawnregions.h"
@@ -221,7 +221,7 @@ cServer::cServer()
 	//registerComponent(PythonEngine::instance(), "python", false, true, "configuration");
 
 	registerComponent( Maps::instance(), QT_TR_NOOP("maps"), true, false, "configuration" );
-	registerComponent( SectorMaps::instance(), QT_TR_NOOP("sectormaps"), false, true, "maps" );
+	registerComponent( MapObjects::instance(), QT_TR_NOOP("sectormaps"), false, true, "maps" );
 	registerComponent( TileCache::instance(), QT_TR_NOOP("tiledata"), true, false, "configuration" );
 	registerComponent( MultiCache::instance(), QT_TR_NOOP("multis"), true, false, "configuration" );
 

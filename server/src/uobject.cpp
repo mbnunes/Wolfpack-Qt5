@@ -45,7 +45,7 @@
 #include "dbdriver.h"
 #include "basechar.h"
 #include "multi.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "player.h"
 #include "basics.h"
 #include "items.h"
@@ -54,23 +54,27 @@
 
 // Library Includes
 
-cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), spawnregion_( 0 )
+cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ),
+	tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), spawnregion_( 0 )
 {
 }
 
 cUObject::~cUObject()
 {
-	if ( isScriptChainFrozen() && scriptChain )
+	if( scriptChain )
 	{
-		unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
-		for ( unsigned int i = 1; i <= count; ++i )
+		if ( isScriptChainFrozen() )
 		{
-			QCString* str = reinterpret_cast<QCString*>( scriptChain[i] );
-			delete str;
+			unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
+			for ( unsigned int i = 1; i <= count; ++i )
+			{
+				QCString* str = reinterpret_cast<QCString*>( scriptChain[i] );
+				delete str;
+			}
 		}
-	}
 
-	delete[] scriptChain;
+		delete[] scriptChain;
+	}
 }
 
 cUObject::cUObject( const cUObject& src ) : cDefinable(src), cPythonScriptable(src), PersistentObject( src )
@@ -98,7 +102,7 @@ cUObject::cUObject( const cUObject& src ) : cDefinable(src), cPythonScriptable(s
 	changed_ = true;
 }
 
-void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
+void cUObject::moveTo( const Coord& newpos, bool noRemove )
 {
 	// See if the map is valid
 	if ( !Maps::instance()->hasMap( newpos.map ) )
@@ -124,14 +128,20 @@ void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 		multi_ = multi;
 	}
 
-	if ( !noRemove )
+	// note: is noRemove really necessary?
+	if( noRemove )
 	{
-		MapObjects::instance()->remove( this );
+		// place the object onto the map
+		MapObjects::instance()->add( this );
+	}
+	else
+	{
+		// update the object's position
+		MapObjects::instance()->update( this, newpos );
 	}
 
 	pos_ = newpos;
 	changed_ = true;
-	MapObjects::instance()->add( this );
 }
 
 /*!
@@ -554,7 +564,7 @@ void cUObject::processNode( const cElement* Tag )
 void cUObject::removeFromView( bool clean )
 {
 	// Get Real pos
-	Coord_cl mPos = pos_;
+	Coord mPos = pos_;
 
 	if ( isItemSerial( serial_ ) )
 	{
@@ -588,7 +598,7 @@ bool cUObject::inRange( cUObject* object, Q_UINT32 range ) const
 	if ( !object )
 		return false;
 
-	Coord_cl pos = object->pos_;
+	Coord pos = object->pos_;
 
 	if ( object->isItem() )
 	{
@@ -667,7 +677,7 @@ void cUObject::effect( Q_UINT16 id, cUObject* target, bool fixedDirection, bool 
 /*!
 	Displays an effect emitting from this object and moving towards a specific location.
 */
-void cUObject::effect( Q_UINT16 id, const Coord_cl& target, bool fixedDirection, bool explodes, Q_UINT8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( Q_UINT16 id, const Coord& target, bool fixedDirection, bool explodes, Q_UINT8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
 {
 	cUOTxEffect effect;
 	effect.setType( ET_MOVING );
@@ -726,7 +736,7 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	changed_ = true;	
 	// \rproperty object.serial This integer property contains the serial for this object.
 	if (name == "serial") {
-		if (!value.canCast(cVariant::Int)) {
+		if (!value.canCast(cVariant::IntType)) {
 			PROPERTY_ERROR( -3, QString( "Invalid integer value: '%1'" ).arg( value.toString() ) );
 		}
 		setSerial(value.toInt());
@@ -742,7 +752,7 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 		// \property object.pos This property is a <object id="coord">coord</object> object (Python) or a string representation (Show/Set) of the objects position.
 	else if ( name == "pos" )
 	{
-		Coord_cl pos;
+		Coord pos;
 		if ( !parseCoordinates( value.toString(), pos ) )
 			PROPERTY_ERROR( -3, QString( "Invalid coordinate value: '%1'" ).arg( value.toString() ) )
 			moveTo( pos );

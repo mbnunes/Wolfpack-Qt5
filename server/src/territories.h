@@ -132,7 +132,7 @@ public:
 		return rainchance_;
 	}
 	bool haveTeleporters() const;
-	bool findTeleporterSpot( Coord_cl& ) const;
+	bool findTeleporterSpot( Coord& ) const;
 
 	QString getGuardSect( void ) const;
 private:
@@ -252,15 +252,15 @@ private:
 
 	struct teleporters_st
 	{
-		Coord_cl source;
-		Coord_cl destination;
+		Coord source;
+		Coord destination;
 	};
 
 	QValueList<teleporters_st> teleporters;
 public:
 	std::map<UI32, good_st> tradesystem_;
 
-	inline void addTeleporter(const Coord_cl &from, const Coord_cl &to) {
+	inline void addTeleporter(const Coord &from, const Coord &to) {
 		teleporters_st t;
 		t.source = from;
 		t.destination = to;
@@ -282,12 +282,12 @@ public:
 	cTerritory* region( const QString& regName );
 	cTerritory* region( UI16 posx, UI16 posy, UI08 map );
 
-	inline cTerritory* region( const Coord_cl& pos )
+	inline cTerritory* region( const Coord& pos )
 	{
 		return region( pos.x, pos.y, pos.map );
 	}
 };
 
-typedef SingletonHolder<cTerritories> Territories;
+typedef Singleton<cTerritories> Territories;
 
 #endif

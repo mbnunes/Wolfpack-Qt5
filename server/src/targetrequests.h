@@ -106,7 +106,7 @@ public:
 
 		socket->player()->removeFromView( false );
 
-		Coord_cl newPos = socket->player()->pos();
+		Coord newPos = socket->player()->pos();
 		newPos.x = target->x();
 		newPos.y = target->y();
 		newPos.z = target->z();
@@ -339,7 +339,7 @@ public:
 		}
 
 		// Move the object relatively
-		Coord_cl newPos = pObject->pos() + Coord_cl( x, y, z );
+		Coord newPos = pObject->pos() + Coord( x, y, z );
 		pObject->moveTo( newPos );
 
 		if ( pObject->isChar() )

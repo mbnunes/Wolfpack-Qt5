@@ -359,7 +359,7 @@ public:
 	}
 	Q_UINT16 getWeaponSkill();
 
-	void moveTo( const Coord_cl& pos, bool noremove = false );
+	void moveTo( const Coord& pos, bool noremove = false );
 	long reduceAmount( unsigned int amount = 1 );
 	short containerGumpType() const;
 	void setRandPosInCont( cItem* pCont );
@@ -421,7 +421,7 @@ public:
 	bool onCollide( P_CHAR pChar );
 	bool onDropOnChar( P_CHAR pChar );
 	bool onDropOnItem( P_ITEM pItem );
-	bool onDropOnGround( const Coord_cl& pos );
+	bool onDropOnGround( const Coord& pos );
 	bool onPickup( P_CHAR pChar );
 	//	bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 
@@ -429,7 +429,7 @@ public:
 
 	P_ITEM getOutmostItem();
 	P_CHAR getOutmostChar();
-	Coord_cl getOutmostPos();
+	Coord getOutmostPos();
 
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	virtual stError* setProperty( const QString& name, const cVariant& value );

@@ -30,7 +30,7 @@
 
 // Wolfpack Includes
 #include "walking.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "serverconfig.h"
 #include "network/network.h"
 #include "muls/maps.h"
@@ -154,7 +154,7 @@ struct compareTiles : public std::binary_function<stBlockItem, stBlockItem, bool
 
 // The highest items will be @ the beginning
 // While walking we always will try the highest first.
-vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
+vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 {
 	vector<stBlockItem> blockList;
 	make_heap( blockList.begin(), blockList.end(), compareTiles() );
@@ -214,21 +214,13 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 		push_heap( blockList.begin(), blockList.end(), compareTiles() );
 	}
 
-	
 	// We are only interested in items at pos
 	// todo: we could impliment blocking for items on the adjacent sides 
 	// during a diagonal move here, but this has yet to be decided.
 
-	RegionIterator4Items iIter( pos, 0 );  
-	
-	P_ITEM pItem;
-	for ( iIter.Begin(); !iIter.atEnd(); iIter++ )
+	MapItemsIterator iIter = MapObjects::instance()->listItemsAtCoord( pos );  
+	for ( P_ITEM pItem = iIter.first(); pItem; pItem = iIter.next() )
 	{
-		pItem = iIter.GetData();
-
-		if ( !pItem )
-			continue;
-		
 		if ( pChar && pChar->isDead() )
 		{
 			// Doors can be passed by ghosts
@@ -237,7 +229,6 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 				continue;
 			}
 		}
-
 
 		tile_st tTile = TileCache::instance()->getTile( pItem->id() );
 
@@ -261,17 +252,19 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 	
 	
 	// deal with the multis now, or not.
-	cItemSectorIterator* iter = SectorMaps::instance()->findMultis( pos, 18 );  // 18 has been tested with castle sides and corners...
-	for ( pItem = iter->first(); pItem; pItem = iter->next() )
+	// 18 has been tested with castle sides and corners...
+	MapMultisIterator iter = MapObjects::instance()->listMultisInCircle( pos, 18 );
+	for( cMulti *pMulti = iter.first(); pMulti; pMulti = iter.next() )
 	{
-		MultiDefinition* def = MultiCache::instance()->getMulti( pItem->id() - 0x4000 );
+		MultiDefinition* def = MultiCache::instance()->getMulti( pMulti->id() - 0x4000 );
 		if ( !def )
 			continue;
+
 		QValueVector<multiItem_st> multi = def->getEntries();
-		unsigned int j;
-		for ( j = 0; j < multi.size(); ++j )
+		
+		for( unsigned int j = 0; j < multi.size(); ++j )
 		{
-			if ( multi[j].visible && ( pItem->pos().x + multi[j].x == pos.x ) && ( pItem->pos().y + multi[j].y == pos.y ) )
+			if ( multi[j].visible && ( pMulti->pos().x + multi[j].x == pos.x ) && ( pMulti->pos().y + multi[j].y == pos.y ) )
 			{
 				tile_st tTile = TileCache::instance()->getTile( multi[j].tile );
 				if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
@@ -279,12 +272,12 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 
 				stBlockItem blockItem;
 				blockItem.height = (tTile.flag2 & 0x04) ? (tTile.height / 2) : tTile.height;
-				blockItem.z = pItem->pos().z + multi[j].z;
+				blockItem.z = pMulti->pos().z + multi[j].z;
 
 				if ( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
 					blockItem.walkable = true;
 				else
-					blockItem.walkable = checkWalkable( pChar, pItem->id() );
+					blockItem.walkable = checkWalkable( pChar, pMulti->id() );
 
 				blockList.push_back( blockItem );
 				push_heap( blockList.begin(), blockList.end(), compareTiles() );
@@ -292,12 +285,8 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 		}
 		continue;
 	}
-
-	delete iter;
-	 
 	
 	// Now we need to evaluate dynamic items [...] (later)  ??
-
 	sort_heap( blockList.begin(), blockList.end(), compareTiles() );
 
 	return blockList;
@@ -306,7 +295,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 
 // May a character walk here ? 
 // If yes we auto. set the new z value for pos
-bool mayWalk( P_CHAR pChar, Coord_cl& pos )
+bool mayWalk( P_CHAR pChar, Coord& pos )
 {
 	// Go trough the array top-to-bottom and check
 	// If we find a tile to walk on
@@ -441,7 +430,7 @@ bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 */
 bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 {
-	Coord_cl dPos = pChar->pos();
+	Coord dPos = pChar->pos();
 
 	if ( pItem->onCollide( pChar ) )
 		return true;
@@ -450,16 +439,15 @@ bool handleItemCollision( P_CHAR pChar, P_ITEM pItem )
 }
 
 /*!
-	Sends items which came in range and
-	handles collisions with teleporters
+	Sends items which came in range and handles collisions with teleporters
 	or damaging items.
 */
-void handleItems( P_CHAR pChar, const Coord_cl& oldpos )
+void handleItems( P_CHAR pChar, const Coord& oldpos )
 {
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
-	cItemSectorIterator* iter = SectorMaps::instance()->findItems( pChar->pos(), BUILDRANGE );
-	for ( cItem*pItem = iter->first(); pItem; pItem = iter->next() )
+	MapItemsIterator iter = MapObjects::instance()->listItemsInCircle( pChar->pos(), VISRANGE );
+	for( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )
 	{
 		// Check for item collisions here.
 		if ( pChar->pos().x == pItem->pos().x && pChar->pos().y == pItem->pos().y )
@@ -474,25 +462,38 @@ void handleItems( P_CHAR pChar, const Coord_cl& oldpos )
 		}
 
 		// If we are a connected player then send new items
-		if ( player && player->socket() )
+		if( player && player->socket() )
 		{
 			UI32 oldDist = oldpos.distance( pItem->pos() );
-			UI32 newDist = pChar->pos().distance( pItem->pos() );
-
-			// Was out of range before and now is in range
-			if ( pItem->isMulti() )
+			if( oldDist >= player->visualRange() )
 			{
-				if ( ( oldDist >= BUILDRANGE ) && ( newDist < BUILDRANGE ) )
-				{
-					pItem->update( player->socket() );
-				}
+				// was out of range before and now is in range
+				pItem->update( player->socket() );
 			}
-			else
+		}
+	}
+}
+
+/*!
+	Sends multis which came in range and handles collisions with them.
+*/
+void handleMultis( P_CHAR pChar, const Coord& oldpos )
+{
+	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
+
+	MapMultisIterator multis = MapObjects::instance()->listMultisInCircle( pChar->pos(), BUILDRANGE );
+	for( P_MULTI multi = multis.first(); multi; multi = multis.next() )
+	{
+		// TODO: handle multi collisions here.
+
+		// If we are a connected player then send new multis
+		if( player && player->socket() )
+		{
+			UI32 oldDist = oldpos.distance( multi->pos() );
+			if( oldDist >= BUILDRANGE )
 			{
-				if ( ( oldDist >= player->visualRange() ) && ( newDist < player->visualRange() ) )
-				{
-					pItem->update( player->socket() );
-				}
+				// was out of range before and now is in range
+				multi->update( player->socket() );
 			}
 		}
 	}
@@ -525,7 +526,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	}
 
 	// save our original location before we even think about moving
-	const Coord_cl oldpos( pChar->pos() );
+	const Coord oldpos( pChar->pos() );
 
 	// If the Direction we're moving to is different from our current direction
 	// We're turning and NOT moving into a specific direction
@@ -542,7 +543,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	if ( !turning )
 	{
 		// Note: Do NOT use the copy constructor as it'll create a reference
-		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos() );
+		Coord newCoord = calcCoordFromDir( dir, pChar->pos() );
 
 		// Check if the stamina parameters
 		if ( player && !consumeStamina( player, running ) )
@@ -592,33 +593,30 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// set the player direction to contain only the cardinal direction bits
 	pChar->setDirection( dir );
 
-	RegionIterator4Chars ri( pChar->pos(), 18, true );
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
+	MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( pChar->pos(), VISRANGE );
+	for( P_CHAR observer = ri.first(); observer; observer = ri.next() )
 	{
-		P_CHAR observer = ri.GetData();
-
-		if ( observer == pChar )
-		{
+		if( observer == pChar )
 			continue;
-		}
 
 		unsigned int distance = observer->pos().distance( oldpos );
 
 		// If we are a player, send us new characters
-		if ( player && player->socket() )
+		if( player && player->socket() )
 		{
-			if ( distance > player->visualRange() )
+			if ( distance >= player->visualRange() )
 			{
-				player->socket()->sendChar( observer ); // We were previously out of range.
+				// an observer was previously out of range.
+				player->socket()->sendChar( observer );
 			}
 		}
 
 		// Send our movement to the observer
 		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>( observer );
 
-		if ( otherplayer && otherplayer->socket() )
+		if( otherplayer && otherplayer->socket() )
 		{
-			if ( distance > otherplayer->visualRange() )
+			if( distance > otherplayer->visualRange() )
 			{
 				otherplayer->socket()->sendChar( pChar ); // Previously we were out of range
 			}
@@ -638,35 +636,28 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	if ( !turning )
 	{
 		handleItems( pChar, oldpos );
+		handleMultis( pChar, oldpos );
 		handleTeleporters( pChar, oldpos );
 	}
 
 	return true;
 }
 
-bool cMovement::CheckForCharacterAtXYZ( P_CHAR pc, const Coord_cl& pos )
+bool cMovement::CheckForCharacterAtXYZ( P_CHAR pc, const Coord& pos )
 {
-	// again this seems to me like we are doing too much work.
-	// why should we get all chars in the region using default (18), 
-	// and then loop through them ignoring all those not at exactly the spot we are going (now) on?
-	// why not just get those on the one spot we care about anyways?
-
-	RegionIterator4Chars ri( pos, 0 );
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
+	MapCharsIterator ri = MapObjects::instance()->listCharsAtCoord( pos );
+	for( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 	{
-		P_CHAR pc_i = ri.GetData();
-		if ( pc_i != NULL )
+		if( pChar != pc && !pChar->isHidden() && !pChar->isInvisible() )
 		{
-			if ( pc_i != pc && !pc_i->isHidden() && !pc_i->isInvisible() )
+			// x=x,y=y, and distance btw z's <= MAX STEP
+			if( abs( pChar->pos().z - pos.z ) <= P_M_MAX_Z_CLIMB )
 			{
-				// x=x,y=y, and distance btw z's <= MAX STEP
-				if ( abs( pc_i->pos().z - pos.z ) <= P_M_MAX_Z_CLIMB )
-				{
-					return true;
-				}
+				return true;
 			}
 		}
 	}
+
 	return false;
 }
 
@@ -706,7 +697,7 @@ void cMovement::checkStealth( P_CHAR pChar )
 	}
 }
 
-void cMovement::handleTeleporters( P_CHAR pc, const Coord_cl& oldpos )
+void cMovement::handleTeleporters( P_CHAR pc, const Coord& oldpos )
 {
 	cTerritory* territory = pc->region();
 
@@ -717,7 +708,7 @@ void cMovement::handleTeleporters( P_CHAR pc, const Coord_cl& oldpos )
 	{
 		if ( territory->haveTeleporters() )
 		{
-			Coord_cl destination = pc->pos();
+			Coord destination = pc->pos();
 			if ( territory->findTeleporterSpot( destination ) )
 			{
 				bool quick = pc->pos().map != destination.map;
@@ -739,9 +730,9 @@ void cMovement::handleTeleporters( P_CHAR pc, const Coord_cl& oldpos )
 	Calculates a new position out of the old position
 	and the direction we're moving to.
 */
-Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
+Coord cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord& oldCoords )
 {
-	Coord_cl newCoords( oldCoords );
+	Coord newCoords( oldCoords );
 
 	// We're not switching the running flag
 	switch ( dir & 0x07 )
@@ -798,7 +789,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
 		}
 
 		// Set the new stamina
-		pChar->setStamina(QMAX(0, pChar->stamina() - amount), false);
+		pChar->setStamina( wpMax<Q_INT16>( 0, pChar->stamina() - amount ), false );
 		update = true;
 
 		// We are overloaded
@@ -811,8 +802,9 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
 
 	// If we have less than 10% stamina left, we loose
 	// stamina more quickly
-	if ( (pChar->stamina() * 100) / QMAX(1, pChar->maxStamina()) < 10 ) {
-		pChar->setStamina(QMAX(0, pChar->stamina() - 1), false);
+	if ( ( pChar->stamina() * 100 ) / wpMax<ushort>( 1, pChar->maxStamina() ) < 10 )
+	{
+		pChar->setStamina( wpMax<Q_INT16>( 0, pChar->stamina() - 1 ), false );
 		update = true;
 	}
 
@@ -825,7 +817,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
 
 	// Normally reduce stamina every few steps
 	if ( pChar->stepsTaken() % ( mounted ? 48 : 16 ) == 0 ) {
-		pChar->setStamina( QMAX( 0, pChar->stamina() - 1 ) );
+		pChar->setStamina( wpMax<Q_INT16>( 0, pChar->stamina() - 1 ) );
 		update = true;
 	}
 
@@ -840,42 +832,41 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
 	This checks the new tile we're moving to
 	for Character we could eventually bump into.
 */
-bool cMovement::checkObstacles( P_CHAR /*pChar*/, const Coord_cl& /*newPos*/, bool /*running*/ )
+bool cMovement::checkObstacles( P_CHAR /*pChar*/, const Coord& /*newPos*/, bool /*running*/ )
 {
 	// TODO: insert code here
 	return true;
 }
 
-Q_UINT16 DynTile( const Coord_cl& pos )
+Q_UINT16 DynTile( const Coord& pos )
 {
-	RegionIterator4Items ri( pos );
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
+	MapItemsIterator ri = MapObjects::instance()->listItemsInCircle( pos, 18 );
+	for( P_ITEM mapitem = ri.first(); mapitem; mapitem = ri.next() )
 	{
-		P_ITEM mapitem = ri.GetData();
-		if ( mapitem )
+		if ( mapitem->isMulti() )
 		{
-			if ( mapitem->isMulti() )
+			MultiDefinition* def = MultiCache::instance()->getMulti( mapitem->id() - 0x4000 );
+			if ( !def )
+				return 0;
+
+			QValueVector<multiItem_st> multi = def->getEntries();
+			for ( Q_UINT32 j = 0; j < multi.size(); ++j )
 			{
-				MultiDefinition* def = MultiCache::instance()->getMulti( mapitem->id() - 0x4000 );
-				if ( !def )
-					return 0;
-				QValueVector<multiItem_st> multi = def->getEntries();
-				for ( Q_UINT32 j = 0; j < multi.size(); ++j )
+				if ( ( multi[j].visible && ( mapitem->pos().x + multi[j].x == pos.x ) && ( mapitem->pos().y + multi[j].y == pos.y ) && ( abs( mapitem->pos().z + multi[j].z - pos.z ) <= 1 ) ) )
 				{
-					if ( ( multi[j].visible && ( mapitem->pos().x + multi[j].x == pos.x ) && ( mapitem->pos().y + multi[j].y == pos.y ) && ( abs( mapitem->pos().z + multi[j].z - pos.z ) <= 1 ) ) )
-					{
-						return multi[j].tile;
-					}
+					return multi[j].tile;
 				}
 			}
-			else if ( mapitem->pos() == pos )
-				return mapitem->id();
+		}
+		else if( mapitem->pos() == pos )
+		{
+			return mapitem->id();
 		}
 	}
 	return ( Q_UINT16 ) - 1;
 }
 
-bool cMovement::canLandMonsterMoveHere( Coord_cl& pos ) const
+bool cMovement::canLandMonsterMoveHere( Coord& pos ) const
 {
 	if ( pos.x >= ( Maps::instance()->mapTileWidth( pos.map ) * 8 ) || pos.y >= ( Maps::instance()->mapTileHeight( pos.map ) * 8 ) )
 		return false;

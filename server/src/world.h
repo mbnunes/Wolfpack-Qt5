@@ -164,17 +164,17 @@ public:
 	}
 };
 
-typedef SingletonHolder<cWorld> World;
+typedef Singleton<cWorld> World;
 
 #define FindCharBySerial( serial ) World::instance()->findChar( serial )
 #define FindItemBySerial( serial ) World::instance()->findItem( serial )
 inline bool isItemSerial( SERIAL serial )
 {
-	return ( serial > 0x40000000 ) && ( serial < 0xFFFFFFFF );
+	return ( serial > 0x40000000 );
 };
 inline bool isCharSerial( SERIAL serial )
 {
-	return ( serial > 0x00000000 ) && ( serial < 0x40000000 );
+	return ( serial < 0x40000000 );
 };
 
 #endif

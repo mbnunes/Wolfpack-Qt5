@@ -92,7 +92,7 @@ static PyObject* PyGetTarget( cUORxTarget* target, Q_UINT8 map )
 
 	wpTarget* returnVal = PyObject_New( wpTarget, &wpTargetType );
 
-	Coord_cl pos;
+	Coord pos;
 	pos.x = target->x();
 	pos.y = target->y();
 	pos.z = target->z();

@@ -40,7 +40,7 @@ typedef struct
 	PyObject_HEAD;
 	cTerritory* pRegion;
 	bool frozen; // unused yet
-	Coord_cl pos; // unused yet
+	Coord pos; // unused yet
 } wpRegion;
 
 // Forward Declarations

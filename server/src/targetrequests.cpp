@@ -28,7 +28,7 @@
 // Wolfpack Includes
 #include "targetrequests.h"
 #include "muls/maps.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "definitions.h"
 #include "territories.h"
 #include "items.h"

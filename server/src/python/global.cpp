@@ -35,7 +35,7 @@
 #include "../guilds.h"
 #include "../uotime.h"
 #include "../timers.h"
-#include "../sectors.h"
+#include "../mapobjects.h"
 #include "../territories.h"
 #include "../muls/maps.h"
 #include "../muls/tilecache.h"
@@ -377,7 +377,7 @@ static PyObject* wpAdditem( PyObject* /*self*/, PyObject* args )
 static PyObject* wpAddnpc( PyObject* /*self*/, PyObject* args )
 {
 	char* definition;
-	Coord_cl pos;
+	Coord pos;
 
 	if ( !PyArg_ParseTuple( args, "sO&:wolfpack.addnpc(def, pos)", &definition, &PyConvertCoord, &pos ) )
 	{
@@ -475,7 +475,7 @@ static PyObject* wpFindchar( PyObject* self, PyObject* args )
 */
 static PyObject* wpFindmulti( PyObject* /*self*/, PyObject* args )
 {
-	Coord_cl coord;
+	Coord coord;
 
 	if ( !PyArg_ParseTuple( args, "O&:wolfpack.findmulti(pos)", &PyConvertCoord, &coord ) )
 	{
@@ -646,7 +646,7 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 	if (y >= maxY)
 		y = maxY - 1;
 
-	StaticsIterator iter = Maps::instance()->staticsIterator( Coord_cl( x, y, 0, map ), exact );
+	StaticsIterator iter = Maps::instance()->staticsIterator( Coord( x, y, 0, map ), exact );
 
 	PyObject* list = PyList_New( 0 );
 	Q_UINT32 xBlock = x / 8;
@@ -718,16 +718,13 @@ static PyObject* wpItems( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iii|i:wolfpack.items", &x, &y, &map, &range ) )
 		return 0;
 
-	Coord_cl pos( x, y, 0, map );
-	RegionIterator4Items iter( pos, range );
+	Coord pos( x, y, 0, map );
+	MapItemsIterator iter = MapObjects::instance()->listItemsInCircle( pos, range );
 
 	PyObject* list = PyList_New( 0 );
-	for ( iter.Begin(); !iter.atEnd(); iter++ )
+	for ( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )
 	{
-		P_ITEM pItem = iter.GetData();
-
-		if ( pItem )
-			PyList_Append( list, PyGetItemObject( pItem ) );
+		PyList_Append( list, PyGetItemObject( pItem ) );
 	}
 
 	return list;
@@ -758,15 +755,13 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iii|iO:wolfpack.chars", &x, &y, &map, &range, &offline ) )
 		return 0;
 
-	Coord_cl pos( x, y, 0, map );
-	cCharSectorIterator *iter = SectorMaps::instance()->findChars(pos, range, PyObject_IsTrue(offline) != 0);
-	
+	MapCharsIterator iter = MapObjects::instance()->listCharsInCircle( map, x, y, range, PyObject_IsTrue(offline) != 0 );
+
 	PyObject* list = PyList_New( 0 );
-	for ( P_CHAR pChar = iter->first(); pChar; pChar = iter->next() ) {
+	for ( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
+	{
 		PyList_Append( list, pChar->getPyObject() );
 	}
-
-	delete iter;
 
 	return list;
 }
@@ -780,7 +775,7 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 	\description This function checks if a multi can be placed at a certain location by players.
 */
 static PyObject *wpCanPlace( PyObject* self, PyObject *args ) {
-	Coord_cl pos;
+	Coord pos;
 	unsigned short multiid;
 	unsigned short yard;	
 	if (!PyArg_ParseTuple(args, "O&hh:wolfpack.canplace(id, yard)", &PyConvertCoord, &pos, &multiid, &yard)) {
@@ -838,7 +833,7 @@ static PyObject* wpEffect( PyObject* self, PyObject* args )
 	effect.setDuration( getArgInt( 3 ) );
 	effect.setSpeed( getArgInt( 2 ) );
 
-	Coord_cl displaypos = getArgCoord( 1 );
+	Coord displaypos = getArgCoord( 1 );
 
 	cUOSocket* mSock;
 	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
@@ -873,7 +868,7 @@ static PyObject* wpMap( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iii:wolfpack.map", &x, &y, &map ) )
 		return 0;
 
-	map_st mTile = Maps::instance()->seekMap( Coord_cl( x, y, 0, map ) );
+	map_st mTile = Maps::instance()->seekMap( Coord( x, y, 0, map ) );
 
 	PyObject* dict = PyDict_New();
 	PyDict_SetItemString( dict, "id", PyInt_FromLong( mTile.id ) );
@@ -1182,7 +1177,7 @@ static PyObject* wpCoord( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iiib:wolfpack.coord", &x, &y, &z, &map ) )
 		return 0;
 
-	Coord_cl pos( x, y, z, map );
+	Coord pos( x, y, z, map );
 
 	return PyGetCoordObject( pos );
 }

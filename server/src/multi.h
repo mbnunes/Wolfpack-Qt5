@@ -63,7 +63,7 @@ public:
 	virtual ~cMulti();
 
 	// This static function can be used to check if the given multi can be placed at the given position
-	static bool canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUObject> &moveOut, unsigned short yard = 5);
+	static bool canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObject> &moveOut, unsigned short yard = 5);
 
 	static void buildSqlString(const char *objectid, QStringList &fields, QStringList &tables, QStringList &conditions);
 	/*
@@ -73,7 +73,7 @@ public:
 	void save( cBufferedWriter& writer );
 
 	// Find at certain position
-	static cMulti* find( const Coord_cl& pos );
+	static cMulti* find( const Coord& pos );
 
 	// Property Interface Methods
 	stError* setProperty( const QString& name, const cVariant& value );
@@ -96,13 +96,13 @@ public:
 
 	// Move all contained items along.
 	// Also recheck our position in the multi grid.
-	void moveTo( const Coord_cl&, bool noRemove = false );
+	void moveTo( const Coord&, bool noRemove = false );
 
 	// Create a multi from a script definition
 	static cMulti* createFromScript( const QString& section );
 
 	// See if a certain coordinate is within the multi
-	bool inMulti( const Coord_cl& pos );
+	bool inMulti( const Coord& pos );
 };
 
 #endif

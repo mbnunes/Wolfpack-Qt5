@@ -390,6 +390,12 @@
 				RelativePath=".\log.h">
 			</File>
 			<File
+				RelativePath=".\mapobjects.cpp">
+			</File>
+			<File
+				RelativePath=".\mapobjects.h">
+			</File>
+			<File
 				RelativePath=".\md5.cpp">
 			</File>
 			<File
@@ -481,12 +487,6 @@
 			</File>
 			<File
 				RelativePath=".\scriptmanager.h">
-			</File>
-			<File
-				RelativePath=".\sectors.cpp">
-			</File>
-			<File
-				RelativePath=".\sectors.h">
 			</File>
 			<File
 				RelativePath=".\server.cpp">

@@ -35,7 +35,7 @@
 #include "log.h"
 #include "console.h"
 #include "basechar.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "timers.h"
 
 void cMulti::remove()
@@ -83,7 +83,7 @@ PyObject* cMulti::getProperty( const QString& name )
 	return cItem::getProperty( name );
 }
 
-void cMulti::moveTo( const Coord_cl& pos, bool noRemove )
+void cMulti::moveTo( const Coord& pos, bool noRemove )
 {
 	cUObject::moveTo( pos, noRemove );
 }
@@ -122,7 +122,7 @@ void cMulti::removeObject( cUObject* object )
 	objects.remove( object );
 }
 
-bool cMulti::inMulti( const Coord_cl& pos )
+bool cMulti::inMulti( const Coord& pos )
 {
 	// Seek tiles with same x,y as pos
 	// Seek for tile which z value <= pos.z + 5 && z value >= pos.z - 5
@@ -160,28 +160,20 @@ static FactoryRegistration<cMulti> registration("cMulti");
 
 unsigned char cMulti::classid;
 
-cMulti* cMulti::find( const Coord_cl& pos )
+cMulti* cMulti::find( const Coord& pos )
 {
-	cMulti* multi = 0;
-
 	// Multi Range = BUILDRANGE
-	cItemSectorIterator* iter = SectorMaps::instance()->findMultis( pos, BUILDRANGE );
+	MapMultisIterator multis = MapObjects::instance()->listMultisInCircle( pos, BUILDRANGE );
 
-	for ( cItem*item = iter->first(); item; item = iter->next() )
+	cMulti *multi;
+	for( multi = multis.first(); multi; multi = multis.next() )
 	{
-		multi = dynamic_cast<cMulti*>( item );
-
 		if ( multi && multi->inMulti( pos ) )
 		{
 			break;
 		}
-		else
-		{
-			multi = 0;
-		}
 	}
 
-	delete iter;
 	return multi;
 }
 
@@ -197,7 +189,7 @@ void cMulti::save( cBufferedWriter& writer )
 	}
 }
 
-bool cMulti::canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUObject> &moveOut, unsigned short yard) {
+bool cMulti::canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObject> &moveOut, unsigned short yard) {
 	MultiDefinition *multi = MultiCache::instance()->getMulti(multiid);
 
 	if (!multi) {
@@ -214,12 +206,12 @@ bool cMulti::canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUOb
 	int height = multi->getHeight();
 	int width = multi->getWidth();
     
-	QValueList<Coord_cl> borderList; // a list of points around the foundation that need to be clear of impassables
-	QValueList<Coord_cl> yardList; // a list of points in the yard (front/back of the house that needs to be clear)
+	QValueList<Coord> borderList; // a list of points around the foundation that need to be clear of impassables
+	QValueList<Coord> yardList; // a list of points in the yard (front/back of the house that needs to be clear)
 
 	for ( int x = 0; x < width; ++x) {
 		for ( int y = 0; y < height; ++y) {
-			Coord_cl point = pos + Coord_cl(x + left, y + top);
+			Coord point = pos + Coord(x + left, y + top);
 			bool hasBase = false; // Has this multi tile a base below the floor?
 
 			// See if there are any tiles at that position
@@ -236,7 +228,7 @@ bool cMulti::canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUOb
 
 			// Collect data for the intersect checks
 			StaticsIterator statics = Maps::instance()->staticsIterator(point);
-			RegionIterator4Items items(point, 0);
+			MapItemsIterator items = MapObjects::instance()->listItemsAtCoord( point );
 			int top, bottom;
 			unsigned short landId;
 			Maps::instance()->mapTileSpan(point, landId, bottom, top);
@@ -296,9 +288,9 @@ bool cMulti::canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUOb
 
 				// Do the same check (as above) with movable items, but make sure that movable items 
 				// are moved out of the house
-				for (items.Begin(); !items.atEnd(); items++) {
-					P_ITEM pItem = items.GetData();
-					tile_st itemInfo = TileCache::instance()->getTile(pItem->id());
+				for( P_ITEM pItem = items.first(); pItem; pItem = items.next() )
+				{
+					tile_st itemInfo = TileCache::instance()->getTile( pItem->id() );
 
 					int dynamicBottom = pItem->pos().z;
 					int dynamicTop = dynamicBottom + itemInfo.height;
@@ -324,11 +316,12 @@ bool cMulti::canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUOb
 				}
 
 				// Moves mobiles inside the multi out to the ban location
-				RegionIterator4Chars chars(point, 0, true);
-				while (!chars.atEnd()) {
-					const cUObject *pChar = (chars++).GetData();
-					// Move them ALWAYS out, they could be trapped by the castle otherwise (or other strange multi forms)
-					moveOut.append(pChar);
+				MapCharsIterator chars = MapObjects::instance()->listCharsAtCoord( point );
+				for( P_CHAR pChar = chars.first(); pChar; pChar = chars.next() )
+				{
+					// Move them ALWAYS out, they could be trapped by the castle
+					// otherwise (or other strange multi forms)
+					moveOut.append( pChar );
 				}
 
 				// To keep roads house free, here's a specialized check for roads
@@ -360,7 +353,7 @@ bool cMulti::canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUOb
 					// but not for the border
 					for (xOffset = -1; xOffset <= 1; ++xOffset) {
 						for (yOffset = -yard; yOffset <= yard; ++yOffset) {
-							Coord_cl pos = point + Coord_cl(xOffset, yOffset);
+							Coord pos = point + Coord(xOffset, yOffset);
 							
 							if (!yardList.contains(pos)) {
 								yardList.push_back(pos); // Put this point into the yard checklist if it's not there
@@ -370,7 +363,7 @@ bool cMulti::canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUOb
 
 					for (xOffset = -1; xOffset <= 1; ++xOffset) {
 						for (yOffset = -1; yOffset <= 1; ++yOffset) {
-							Coord_cl pos = point + Coord_cl(xOffset, yOffset);
+							Coord pos = point + Coord(xOffset, yOffset);
 
 							// Only do the following if the current tiles position differs from the 
 							// check position.
@@ -423,7 +416,7 @@ bool cMulti::canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUOb
 		}
 	}
 
-	QValueList<Coord_cl>::const_iterator it;
+	QValueList<Coord>::const_iterator it;
 
 	// Now check all the accumulated border tiles
 	for (it = borderList.begin(); it != borderList.end(); ++it) {
@@ -455,39 +448,39 @@ bool cMulti::canPlace(const Coord_cl &pos, unsigned short multiid, QPtrList<cUOb
 		}
 
 		// Do the same check (as above) with dynamic items
-		RegionIterator4Items items(*it, 0);
-		for (items.Begin(); !items.atEnd(); items++) {
-			P_ITEM pItem = items.GetData();
+		MapItemsIterator items = MapObjects::instance()->listItemsAtCoord( *it );
+		for( P_ITEM pItem = items.first(); pItem; pItem = items.next() )
+		{
 			tile_st itemInfo = TileCache::instance()->getTile(pItem->id());
 
 			// Move the item out of the multi space if possible
-			if ((pItem->movable() == 0 && itemInfo.weight != 255) || pItem->movable() == 1) {
+			if( ( pItem->movable() == 0 && itemInfo.weight != 255 ) || pItem->movable() == 1 )
 				continue;
-			} else {
-				if (pItem->pos().z <= ((*it).z + 2)) {
-					continue; // Does not interfere with the border
-				}
+			
+			if( pItem->pos().z <= ((*it).z + 2) )
+				continue; // Does not interfere with the border
 
-				bool impassable = (itemInfo.flag1 & 0x40) != 0;
-				bool background = (itemInfo.flag1 & 0x01) != 0;
-				bool surface = (itemInfo.flag2 & 0x02) != 0;
+			bool impassable = (itemInfo.flag1 & 0x40) != 0;
+			bool background = (itemInfo.flag1 & 0x01) != 0;
+			bool surface = (itemInfo.flag2 & 0x02) != 0;
 
-				// A normally blocking tile is intersecting our multi
-				if (impassable || (!background && surface)) {
-					return false;
-				}
-			}
+			// A normally blocking tile is intersecting our multi
+			if( impassable || ( !background && surface ) )
+				return false;
 		}
 	}
 
 	// The yard has to be free of any multis at that position
-	for (it = yardList.begin(); it != yardList.end(); ++it) {
-		RegionIterator4Items multis(*it); // Search for multis in the region
-		for (multis.Begin(); !multis.atEnd(); multis++) {
-			cMulti *multi = dynamic_cast<cMulti*>(multis.GetData());
-
-			if (multi && multi->inMulti(*it)) {
-				return false; // This is a simplified check but it should be sufficient.
+	for( it = yardList.begin(); it != yardList.end(); ++it )
+	{
+		// Search for multis in the region
+		MapMultisIterator multis = MapObjects::instance()->listMultisInCircle( *it, 18 );
+		for( cMulti* multi = multis.first(); multi; multi = multis.next() )
+		{
+			if( multi->inMulti(*it) )
+			{
+				// This is a simplified check but it should be sufficient.
+				return false;
 			}
 		}
 	}

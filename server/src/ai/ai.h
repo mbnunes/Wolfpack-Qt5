@@ -45,7 +45,7 @@
 #include <qstringlist.h>
 
 // forward declarations
-class Coord_cl;
+class Coord;
 class AbstractAI;
 
 // Uncomment if you want AI debugging messages
@@ -180,7 +180,7 @@ public:
 	void checkScriptAI( const QStringList& oldSections, const QStringList& newSections );
 };
 
-typedef SingletonHolder<cAIFactory> AIFactory;
+typedef Singleton<cAIFactory> AIFactory;
 
 class Action_Wander : public AbstractAction
 {
@@ -202,8 +202,8 @@ public:
 	}
 
 protected:
-	bool moveTo( const Coord_cl& pos, bool run = false );
-	bool movePath( const Coord_cl& pos, bool run = false );
+	bool moveTo( const Coord& pos, bool run = false );
+	bool movePath( const Coord& pos, bool run = false );
 	int waitForPathCalculation;
 };
 

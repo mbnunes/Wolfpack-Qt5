@@ -39,7 +39,7 @@
 #include "console.h"
 #include "muls/maps.h"
 #include "inlines.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "multi.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
@@ -104,7 +104,7 @@ cBaseChar::cBaseChar()
 	saycolor_ = 0x1700;
 	murdererSerial_ = INVALID_SERIAL;
 	guarding_ = NULL;
-	cUObject::pos_ = Coord_cl( 100, 100, 0, 0 );
+	cUObject::pos_ = Coord( 100, 100, 0, 0 );
 	setDead( false );  // we want to live ;)
 
 	saycolor_ = 600;
@@ -500,12 +500,12 @@ bool cBaseChar::isCriminal() const
 }
 
 // Send the changed health-bar to all sockets in range
-void cBaseChar::updateHealth( void )
+void cBaseChar::updateHealth()
 {
-	RegionIterator4Chars cIter( pos() );
-	for ( cIter.Begin(); !cIter.atEnd(); cIter++ )
+	MapCharsIterator cIter = MapObjects::instance()->listCharsInCircle( pos(), 18 );
+	for( P_CHAR pChar = cIter.first(); pChar; pChar = cIter.next() )
 	{
-		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( cIter.GetData() );
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
 
 		// Send only if target can see us
 		if ( !pPlayer || !pPlayer->socket() || !pPlayer->inRange( this, pPlayer->visualRange() ) || ( isHidden() && !pPlayer->isGM() && this != pPlayer ) )
@@ -517,10 +517,10 @@ void cBaseChar::updateHealth( void )
 
 void cBaseChar::action( unsigned char id, unsigned char speed, bool reverse )
 {
-	if (isAntiBlink()) {
-		if (id == ANIM_CAST_DIR) {
+	if( isAntiBlink() )
+	{
+		if( id == ANIM_CAST_DIR )
 			id = ANIM_CAST_AREA;
-		}
 	}
 
 	bool mounted = atLayer( Mount ) != 0;
@@ -764,10 +764,10 @@ bool cBaseChar::resurrect( cUObject* source )
 	cCorpse* corpse = 0;
 
 	// See if there's his corpse at his feet
-	cItemSectorIterator* iter = SectorMaps::instance()->findItems( pos(), 0 );
-	for ( P_ITEM item = iter->first(); item; item = iter->next() )
+	MapItemsIterator iter = MapObjects::instance()->listItemsAtCoord( pos() );
+	for ( P_ITEM item = iter.first(); item; item = iter.next() )
 	{
-		corpse = dynamic_cast<cCorpse*>( item );
+		corpse = dynamic_cast<cCorpse *>( item );
 
 		if ( !corpse || corpse->owner() != this )
 		{
@@ -778,7 +778,6 @@ bool cBaseChar::resurrect( cUObject* source )
 			break;
 		}
 	}
-	delete iter;
 
 	if ( corpse && corpse->direction() != direction() )
 	{
@@ -793,9 +792,9 @@ bool cBaseChar::resurrect( cUObject* source )
 	setBody( orgBody_ );
 	setSkin( orgSkin_ );	
 	setDead( false );
-	hitpoints_ = QMAX( 1, ( Q_UINT16 ) ( 0.1 * maxHitpoints_ ) );
-	stamina_ = ( Q_UINT16 ) ( 0.5* maxStamina_ );
-	mana_ = ( Q_UINT16 ) ( 0.5 * maxMana_ );
+	hitpoints_ = wpMax<short>( 1, static_cast<short>( 0.1 * maxHitpoints_ ) );
+	stamina_ = static_cast<short>( 0.5 * maxStamina_ );
+	mana_ = static_cast<short>( 0.5 * maxMana_ );
 	fight( 0 );
 	P_ITEM backpack = getBackpack(); // Make sure he has a backpack
 
@@ -872,7 +871,7 @@ bool cBaseChar::resurrect( cUObject* source )
 	return true;
 }
 
-void cBaseChar::turnTo( const Coord_cl& pos )
+void cBaseChar::turnTo( const Coord& pos )
 {
 	Q_INT16 xdif = ( Q_INT16 ) ( pos.x - this->pos().x );
 	Q_INT16 ydif = ( Q_INT16 ) ( pos.y - this->pos().y );
@@ -2241,16 +2240,12 @@ void cBaseChar::callGuards()
 		return;
 
 	// Is there a criminal around?
-	RegionIterator4Chars ri( pos() );
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
+	MapCharsIterator cIter = MapObjects::instance()->listCharsInCircle( pos(), 18 );
+	for( P_CHAR pChar = cIter.first(); pChar; pChar = cIter.next() )
 	{
-		P_CHAR pc = ri.GetData();
-		if ( pc )
+		if ( !pChar->isDead() && !pChar->isInnocent() )
 		{
-			if ( !pc->isDead() && !pc->isInnocent() && inRange( pc, 14 ) )
-			{
-				Combat::instance()->spawnGuard( pc, pc, pc->pos() );
-			}
+			Combat::instance()->spawnGuard( pChar, pChar, pChar->pos() );
 		}
 	}
 }
@@ -3266,10 +3261,10 @@ bool cBaseChar::isInnocent()
 void cBaseChar::refreshMaximumValues()
 {
 	if ( objectType() == enPlayer )
-		maxHitpoints_ = QMAX( 1, ( ( strength_ ) / 2 ) + hitpointsBonus_ + 50 );
+		maxHitpoints_ = wpMax<ushort>( 1, ( ( strength_ ) / 2 ) + hitpointsBonus_ + 50 );
 
-	maxStamina_ = ( int ) QMAX( 1, dexterity_ + staminaBonus_ );
-	maxMana_ = ( int ) QMAX( 1, intelligence_ + manaBonus_ );
+	maxStamina_ = wpMax<ushort>( 1, dexterity_ + staminaBonus_ );
+	maxMana_ = wpMax<ushort>( 1, intelligence_ + manaBonus_ );
 }
 
 bool cBaseChar::lineOfSight( P_CHAR target, bool debug )
@@ -3285,7 +3280,7 @@ bool cBaseChar::lineOfSight( P_CHAR target, bool debug )
 bool cBaseChar::lineOfSight( P_ITEM target, bool debug )
 {
 	target = target->getOutmostItem();
-	Coord_cl pos;
+	Coord pos;
 
 	if (target->container() && target->container()->isChar()) {
 		pos = target->container()->pos().losCharPoint(false);
@@ -3296,12 +3291,12 @@ bool cBaseChar::lineOfSight( P_ITEM target, bool debug )
 	return pos_.losCharPoint(true).lineOfSight(pos, debug);
 }
 
-bool cBaseChar::lineOfSight( const Coord_cl& target, bool debug )
+bool cBaseChar::lineOfSight( const Coord& target, bool debug )
 {	
 	return pos_.losCharPoint(true).lineOfSight(target.losMapPoint(), debug);
 }
 
-bool cBaseChar::lineOfSight( const Coord_cl& target, unsigned short id, bool debug )
+bool cBaseChar::lineOfSight( const Coord& target, unsigned short id, bool debug )
 {
 	return pos_.losCharPoint(true).lineOfSight(target.losItemPoint(id), debug);
 }
@@ -3313,7 +3308,7 @@ double cBaseChar::getHitpointRate()
 
 	if ( hasTag( "regenhitpoints" ) )
 	{
-		points = QMAX( 0, getTag( "regenhitpoints" ).toInt() );
+		points = wpMax<int>( 0, getTag( "regenhitpoints" ).toInt() );
 	}
 
 	return 1.0 / ( 0.1 * ( 1 + points ) );
@@ -3337,8 +3332,8 @@ double cBaseChar::getStaminaRate()
 		points = getTag( "regenstamina" ).toInt();
 	}
 
-	points += ( int ) ( skillValue( FOCUS ) * 0.01 );
-	points = QMAX( -1, points );
+	points += static_cast<int>( skillValue( FOCUS ) * 0.01 );
+	points = wpMax<int>( -1, points );
 
 	return 1.0 / ( 0.1 * ( 2 + points ) );
 }
@@ -3362,7 +3357,7 @@ double cBaseChar::getManaRate()
 		checkSkill( MEDITATION, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
 	}
 
-	double medPoints = QMIN( 13.0, ( intelligence() + skillValue( MEDITATION ) * 0.03 ) * ( skillValue( MEDITATION ) < 1000 ? 0.025 : 0.0275 ) );
+	double medPoints = wpMin<double>( 13.0, ( intelligence() + skillValue( MEDITATION ) * 0.03 ) * ( skillValue( MEDITATION ) < 1000 ? 0.025 : 0.0275 ) );
 	double focusPoints = skillValue( FOCUS ) * 0.005;
 
 	// Wearing type 1009 items without the 'magearmor': 1 or 'spellchanneling': 1 flags
@@ -3392,7 +3387,7 @@ double cBaseChar::getManaRate()
 }
 
 // Light and Region checks
-void cBaseChar::moveTo( const Coord_cl& pos, bool noremove )
+void cBaseChar::moveTo( const Coord& pos, bool noremove )
 {
 	cUObject::moveTo( pos, noremove );
 	Territories::instance()->check( this );
@@ -3458,7 +3453,6 @@ void cBaseChar::load( cBufferedReader& reader )
 {
 	load( reader, reader.version() );
 	World::instance()->registerObject( this );
-	SectorMaps::instance()->add( this );
 }
 
 PyObject *cBaseChar::callEvent(ePythonEvent event, PyObject *args, bool ignoreErrors) {

@@ -3,8 +3,9 @@
 #include "ai_mage.h"
 #include "../npc.h"
 #include "../combat.h"
-#include "../serverconfig.h"
+#include "../inlines.h"
 #include "../walking.h"
+#include "../serverconfig.h"
 
 /*
 	The additional mage code does:
@@ -97,14 +98,14 @@ protected:
 	unsigned int nextSpellTime;
 	int spell;
 	cUObject *objTarget;
-	Coord_cl posTarget;
+	Coord posTarget;
 
 public:
 	Monster_Mage_Cast(P_NPC npc, AbstractAI *ai) : AbstractAction(npc, ai) {
 		nextSpellTime = 0;
 		spell = -1; // Current Spell
 		objTarget = 0;
-		posTarget = Coord_cl::null;
+		posTarget = Coord::null;
 	}
 
 	// Is the target dispellable?
@@ -173,10 +174,11 @@ public:
 	/*
 		Get the id of a random damage spell
 	*/
-	int getRandomHarmfulSpell() {
-		static const float mageryPerCircle = (1000.0 / 7.0);
-		unsigned char maxCircle = QMIN(8, QMAX(1, (unsigned char)((m_npc->skillValue(MAGERY) + 200) / mageryPerCircle)));
-		int selected = RandomNum(1, maxCircle * 2) - 1; // Select a random spell
+	int getRandomHarmfulSpell()
+	{
+		static const ushort mageryPerCircle = ( 1000 / 7 );
+		int maxCircle = wpMin<int>( 8, wpMax<int>( 1, ( ( m_npc->skillValue( MAGERY ) + 200 ) / mageryPerCircle ) ) );
+		int selected = RandomNum( 1, maxCircle * 2 ) - 1; // Select a random spell
 
 		// 5: Magic Arrow
 		// 12: Harm
@@ -194,7 +196,7 @@ public:
 	/*
 		Chose a random spell
 	*/
-	void chooseSpell(int &spell, cUObject *&objTarget, Coord_cl &posTarget, P_CHAR currentVictim) {
+	void chooseSpell(int &spell, cUObject *&objTarget, Coord &posTarget, P_CHAR currentVictim) {
 		// If we are not summoned, try healing
 		if (m_npc->hitpoints() < m_npc->maxHitpoints()  // Only try to heal if we're not at full health
 			&& !m_npc->summoned() // Summoned creatures dont heal
@@ -232,7 +234,7 @@ public:
 		// Reinitialize to "zero"
 		spell = -1;
 		objTarget = 0;
-		posTarget = Coord_cl::null;
+		posTarget = Coord::null;
 
 		// We dont have a spell ready, are ready to cast.
 		P_NPC dispelTarget = findDispelOpponent();

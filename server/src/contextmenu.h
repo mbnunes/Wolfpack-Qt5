@@ -145,6 +145,6 @@ private:
 	Menus menus_;
 };
 
-typedef SingletonHolder<cAllContextMenus> ContextMenus;
+typedef Singleton<cAllContextMenus> ContextMenus;
 
 #endif // __CONTEXTMENU_H__

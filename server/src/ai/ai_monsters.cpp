@@ -29,8 +29,8 @@
 #include "../combat.h"
 #include "../npc.h"
 #include "../factory.h"
-#include "../sectors.h"
 #include "../player.h"
+#include "../mapobjects.h"
 #include "../serverconfig.h"
 #include "../basics.h"
 #include "../items.h"
@@ -117,11 +117,12 @@ P_CHAR findBestTarget(P_NPC npc) {
 
 	// If we're not tamed, we attack other players as well.
 	if (!npc->isTamed()) {
-		RegionIterator4Chars ri(npc->pos(), VISRANGE);
-		for ( ri.Begin(); !ri.atEnd(); ri++ ) {
+		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( npc->pos(), VISRANGE );
+		for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
+		{
 			// We limit ourself to players and pets owned by players.
-			P_PLAYER victim = dynamic_cast<P_PLAYER>( ri.GetData() );
-			P_NPC npcVictim = dynamic_cast<P_NPC>( ri.GetData() );
+			P_PLAYER victim= dynamic_cast<P_PLAYER>( pChar );
+			P_NPC npcVictim = dynamic_cast<P_NPC>( pChar );
 
 			// We don't already attack the target, right?
 			if (victim && victim != target) {
@@ -268,7 +269,7 @@ float Monster_Aggr_MoveToTarget::preCondition()
 		return 0.0f;
 
 	// 1.0 = Full Health, 0.0 = Dead
-	float diff = 1.0 - QMAX( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
 
 	if ( diff <= m_npc->criticalHealth() / 100.0 )
 	{
@@ -313,7 +314,7 @@ float Monster_Aggr_MoveToTarget::postCondition()
 		return 1.0f;
 
 	// 1.0 = Full Health, 0.0 = Dead
-	float diff = 1.0 - QMAX( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
 
 	if ( diff <= m_npc->criticalHealth() / 100.0 )
 	{
@@ -393,7 +394,7 @@ float Monster_Aggr_Fight::preCondition()
 		return 0.0f;
 
 	// 1.0 = Full Health, 0.0 = Dead
-	float diff = 1.0 - QMAX( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
 
 	if ( diff <= m_npc->criticalHealth() / 100.0 )
 	{
@@ -437,7 +438,7 @@ float Monster_Aggr_Fight::postCondition()
 	}
 
 	// 1.0 = Full Health, 0.0 = Dead
-	float diff = 1.0 - QMAX( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
 
 	if ( diff <= m_npc->criticalHealth() / 100.0 )
 	{

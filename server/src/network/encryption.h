@@ -61,7 +61,7 @@ public:
 	void load();
 };
 
-typedef SingletonHolder<cKeyManager> KeyManager;
+typedef Singleton<cKeyManager> KeyManager;
 
 // General Client Encryption Class
 class cClientEncryption

@@ -34,7 +34,7 @@
 #include "basics.h"
 #include "timers.h"
 #include "combat.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "serverconfig.h"
 #include "network/network.h"
 #include "spawnregions.h"
@@ -69,16 +69,6 @@ cTiming::cTiming()
 	nextHungerCheck = time + Config::instance()->hungerDamageRate();
 	nextCombatCheck = time + 100; // Every 100 ms
 	nextUOTimeTick = 0;
-}
-
-inline int froundf( double f )
-{
-	int i = ( int )floor( f );
-	if ( f - i >= 0.50 )
-	{
-		++i;
-	}
-	return i;
 }
 
 void cTiming::poll()
@@ -161,7 +151,7 @@ void cTiming::poll()
 
 		unsigned char darklevel = Config::instance()->worldDarkLevel();
 		unsigned char brightlevel = Config::instance()->worldBrightLevel();
-		unsigned char difference = QMAX( 0, ( int ) darklevel - ( int ) brightlevel ); // Never get below zero
+		unsigned char difference = wpMax<unsigned char>( 0, static_cast<int>( darklevel ) - brightlevel );
 		unsigned char hour = UoTime::instance()->hour();
 
 		if ( hour != oldhour )
@@ -185,14 +175,14 @@ void cTiming::poll()
 		else if ( hour >= 6 && hour < 11 )
 		{
 			double factor = ( ( hour - 6 ) * 60 + UoTime::instance()->minute() ) / 240.0;
-			newLevel = darklevel - QMIN( darklevel, froundf( factor * ( float ) difference ) );
+			newLevel = darklevel - wpMin<int>( darklevel, roundInt( factor * difference ) );
 
 			// 18 to 22 = Nightfall (Scaled)
 		}
 		else
 		{
 			double factor = ( ( hour - 18 ) * 60 + UoTime::instance()->minute() ) / 240.0;
-			newLevel = brightlevel + froundf( factor * ( float ) difference );
+			newLevel = brightlevel + roundInt( factor * difference );
 		}
 
 		if ( newLevel != currentLevel )
@@ -241,7 +231,7 @@ void cTiming::poll()
 	}
 
 	// Save the positions of connected players
-	QValueVector<Coord_cl> positions;
+	QValueVector<Coord> positions;
 
 	// Periodic checks for connected players
 	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
@@ -264,15 +254,14 @@ void cTiming::poll()
 	if ( nextNpcCheck <= time )
 	{
 		cCharIterator chariter;
-		for ( P_CHAR character = chariter.first(); character; character = chariter.next() )
+		for( P_CHAR character = chariter.first(); character; character = chariter.next() )
 		{
 			P_NPC npc = dynamic_cast<P_NPC>( character );
-
-			if ( npc && npc->stablemasterSerial() == INVALID_SERIAL )
+			if( npc && npc->stablemasterSerial() == INVALID_SERIAL )
 			{
 				// Check if we are anywhere near a player
 				// all other npcs are accounted as inactive
-				for ( QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it )
+				for ( QValueVector<Coord>::const_iterator it = positions.begin(); it != positions.end(); ++it )
 				{
 					if ( ( *it ).distance( npc->pos() ) <= 24 )
 					{
@@ -288,12 +277,12 @@ void cTiming::poll()
 			}
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>( character );
-			if ( player && !player->socket() && player->logoutTime() && player->logoutTime() <= time )
+			if( player && !player->socket() && player->logoutTime() && player->logoutTime() <= time )
 			{
 				player->removeFromView( false );
+				player->onLogout();
 				player->setLogoutTime( 0 );
 				player->resend( false );
-				//MapObjects::instance()->remove( player );
 			}
 		}
 

@@ -29,8 +29,8 @@
 
 #include "ai.h"
 #include "../npc.h"
-#include "../sectors.h"
 #include "../player.h"
+#include "../mapobjects.h"
 #include "../serverconfig.h"
 
 #include "../basics.h"
@@ -581,7 +581,7 @@ void Action_Wander::execute()
 					dir = RandomNum(0, 7);
 				}
 
-				Coord_cl newpos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
+				Coord newpos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
 
 				// Calculate a new direction.
 				if ( !region->isValidSpot( newpos ) )
@@ -649,13 +649,13 @@ void Action_Wander::execute()
 			Q_UINT16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
 			Q_UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
 
-			Q_UINT8 dir = m_npc->pos().direction( Coord_cl( rndx, rndy ) );
+			Q_UINT8 dir = m_npc->pos().direction( Coord( rndx, rndy ) );
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
 	case enCircle:
 		{
-			Coord_cl pos = m_npc->pos();
+			Coord pos = m_npc->pos();
 			pos.x = m_npc->wanderX1();
 			pos.y = m_npc->wanderY1();
 			// get any point within the circle and calculate the direction to it
@@ -710,11 +710,11 @@ void Action_Wander::execute()
 	}
 }
 
-bool Action_Wander::moveTo( const Coord_cl& pos, bool run )
+bool Action_Wander::moveTo( const Coord& pos, bool run )
 {
 	// simply move towards the target
 	Q_UINT8 dir = m_npc->pos().direction( pos );
-	Coord_cl newPos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
+	Coord newPos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
 
 	if ( !mayWalk( m_npc, newPos ) )
 	{
@@ -758,7 +758,7 @@ bool Action_Wander::moveTo( const Coord_cl& pos, bool run )
 	}
 }
 
-bool Action_Wander::movePath( const Coord_cl& pos, bool run )
+bool Action_Wander::movePath( const Coord& pos, bool run )
 {
 	if ( waitForPathCalculation <= 0 && !m_npc->hasPath() )
 	{
@@ -786,7 +786,7 @@ bool Action_Wander::movePath( const Coord_cl& pos, bool run )
 	if ( m_npc->hasPath() )
 	{
 		waitForPathCalculation = 0;
-		Coord_cl nextmove = m_npc->nextMove();
+		Coord nextmove = m_npc->nextMove();
 		Q_UINT8 dir = m_npc->pos().direction( nextmove );
 
 		// Make sure we face the direction...
@@ -825,8 +825,8 @@ void Action_Flee::execute()
 
 	if ( !m_npc->hasPath() )
 	{
-		Coord_cl newPos = m_npc->pos();
-		Coord_cl fleePos = pFleeFrom->pos();
+		Coord newPos = m_npc->pos();
+		Coord fleePos = pFleeFrom->pos();
 
 		// find a valid spot in a circle of flee_radius fields to move to
 		float rnddist = ( float ) RandomNum( 1, Config::instance()->pathfindFleeRadius() );
@@ -872,7 +872,7 @@ float Action_FleeAttacker::preCondition()
 	pFleeFromSer = pAttacker->serial();
 
 	// 1.0 = Full Health, 0.0 = Dead
-	float diff = 1.0 - QMAX( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
 
 	if ( diff <= m_npc->criticalHealth() / 100.0 )
 	{
@@ -900,7 +900,7 @@ float Action_FleeAttacker::postCondition()
 		return 1.0f;
 
 	// 1.0 = Full Health, 0.0 = Dead
-	float diff = 1.0 - QMAX( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
 
 	if ( diff <= m_npc->criticalHealth() / 100.0 )
 	{
@@ -945,7 +945,7 @@ float Action_Defend::preCondition()
 		return 0.0f;
 
 	// 1.0 = Full Health, 0.0 = Dead
-	float diff = 1.0 - QMAX( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
 
 	if ( diff <= m_npc->criticalHealth() / 100.0 )
 	{
@@ -987,7 +987,7 @@ float Action_Defend::postCondition()
 		return 1.0f;
 
 	// 1.0 = Full Health, 0.0 = Dead
-	float diff = 1.0 - QMAX( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
+	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
 
 	if ( diff <= m_npc->criticalHealth() / 100.0 )
 	{

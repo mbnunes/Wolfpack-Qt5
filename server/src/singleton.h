@@ -25,107 +25,106 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-/*
-	Based on the ideas from Modern C++ Design.
-*/
-
 #if !defined(__SINGLETONHOLDER_H__)
 #define __SINGLETONHOLDER_H__
 
-#include "platform.h" // just to silent the warnings.
+#include "platform.h"
 #include <stdlib.h>
 
-/*****************************************************************************
-  LifeTime Policies
- *****************************************************************************/
-
+/************************************************************************/
+/* LifeTime Policies                                                    */
+/************************************************************************/
 struct NoDestroy
 {
-	template <class T>
-	static void scheduleDestruction( T*, void( * ) () )
+	template<typename T>
+	static void scheduleDestruction( T*, void( * )() )
 	{
 	}
 };
 
 struct DefaultLifeTime
 {
-	template <class T>
-	static void scheduleDestruction( T*, void( *pFun ) () )
+	template<typename T>
+	static void scheduleDestruction( T*, void( *pFun )() )
 	{
 		atexit( pFun );
 	}
 };
 
 /*!
-	Singleton Holder class
-	This templated class provides an unified interface and handling of uniqueness of
-	a Singleton.
+	Singleton Template Class
+	Provides an unified interface and handling of uniqueness of	a Singleton.
 */
-template <typename T, class LifetimePolicy = DefaultLifeTime>
-class SingletonHolder
+template<typename T, typename Policy = DefaultLifeTime>
+class Singleton
 {
-private:
-	static void makeInstance();
-	static void destroySingleton();
+public:
+	inline static T* instance();
+	inline static bool wasDestroyed();
 
-	// Protection
-	SingletonHolder();
-	SingletonHolder( SingletonHolder& );
-	SingletonHolder& operator=( SingletonHolder& );
+protected:
+	Singleton()
+	{;}
+
+	~Singleton()
+	{;}
+
+private:
+	inline static void makeInstance();
+	inline static void destroySingleton();
+
+	// Forbid copies
+	Singleton( Singleton& );
+	Singleton& operator=( Singleton& );
 
 	// Data
-	typedef T* ptrInstanceType;
-	static ptrInstanceType ptrInstance;
-
-public:
-	static T* instance();
-	static bool destroyed_;
+	static T* smInstance;
+	static bool smDestroyed;
 };
 
+/************************************************************************/
+/* Singleton Member Functions                                           */
+/************************************************************************/
 
-/*****************************************************************************
-  SingletonHolder member functions
- *****************************************************************************/
+template<typename T, typename Policy>
+T* Singleton<T, Policy>::smInstance = NULL;
 
+template<typename T, typename Policy>
+bool Singleton<T, Policy>::smDestroyed = false;
 
-// Singleton Holder Data
-template <typename T, class L>
-typename SingletonHolder<T, L>::ptrInstanceType SingletonHolder<T, L> ::ptrInstance = 0;
-template <typename T, class L>
-bool SingletonHolder<T, L> ::destroyed_ = false;
-
-// Singleton Members
-#if defined(_DEBUG)
-#include <typeinfo>
-#endif
-
-template <typename T, class L>
-inline T* SingletonHolder<T, L>::instance()
+template<typename T, typename Policy>
+inline T* Singleton<T, Policy>::instance()
 {
-	if ( !ptrInstance )
+	if( !smInstance )
 	{
 		makeInstance();
 	}
-	return ptrInstance;
+	return smInstance;
 }
 
-template <typename T, typename LifetimePolicy>
-void SingletonHolder<T, LifetimePolicy>::makeInstance()
+template<typename T, typename Policy>
+inline bool Singleton<T, Policy>::wasDestroyed()
 {
-	if ( !ptrInstance )
+	return smDestroyed;
+}
+
+template<typename T, typename Policy>
+inline void Singleton<T, Policy>::makeInstance()
+{
+	if( !smInstance )
 	{
-		ptrInstance = new T();
-		LifetimePolicy::scheduleDestruction( ptrInstance, &destroySingleton );
-		destroyed_ = false;
+		smInstance = new T();
+		Policy::scheduleDestruction( smInstance, &destroySingleton );
+		smDestroyed = false;
 	}
 }
 
-template <typename T, class LifetimePolicy>
-void SingletonHolder<T, LifetimePolicy>::destroySingleton()
+template<typename T, class Policy>
+inline void Singleton<T, Policy>::destroySingleton()
 {
-	delete ptrInstance;
-	ptrInstance = 0;
-	destroyed_ = true;
+	delete smInstance;
+	smInstance = NULL;
+	smDestroyed = true;
 }
 
 #endif // __SINGLETONHOLDER_H__

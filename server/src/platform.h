@@ -85,14 +85,16 @@
 #	define WP_ISUNLIKELY( x )  ( x )
 #endif
 
-typedef unsigned long UI32;
-typedef unsigned short UI16;
-typedef unsigned char UI08;
-typedef signed long SI32;
-typedef signed short SI16;
-typedef signed char SI08;
-typedef float RF32;
-typedef double RF64;
+typedef Q_UINT64	UI64;
+typedef Q_UINT32	UI32;
+typedef Q_UINT16	UI16;
+typedef Q_UINT8		UI08;
+typedef Q_INT64		SI64;
+typedef Q_INT32		SI32;
+typedef Q_INT16		SI16;
+typedef Q_INT8		SI08;
+typedef float		RF32;
+typedef double		RF64;
 
 #if defined(Q_CC_MSVC)
 

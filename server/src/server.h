@@ -179,6 +179,6 @@ public:
 	void registerComponent( cComponent* component, const QString& name, bool reloadable = true, bool silent = false, const QString& depends = QString::null );
 };
 
-typedef SingletonHolder<cServer> Server;
+typedef Singleton<cServer> Server;
 
 #endif

@@ -171,6 +171,6 @@ public:
 	void reload();
 };
 
-typedef SingletonHolder<cTileCache> TileCache;
+typedef Singleton<cTileCache> TileCache;
 
 #endif

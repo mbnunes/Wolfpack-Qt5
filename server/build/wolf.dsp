@@ -7,19 +7,19 @@
 CFG=wolf - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "wolf.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "wolf.mak" CFG="wolf - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Possible choices for configuration are:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "wolf - Win32 Release" (based on "Win32 (x86) Console Application")
 !MESSAGE "wolf - Win32 Debug" (based on "Win32 (x86) Console Application")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -84,7 +84,7 @@ PostBuild_Desc=MoveIt
 PostBuild_Cmds=copy debug\wolfpack.exe d:\wolfpack\wolfpackEXE\WolfpackDebug\WolfpackCurrent\wolfpack.exe
 # End Special Build Tool
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -219,6 +219,10 @@ SOURCE=.\muls\maps.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\mapobjects.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\md5.cpp
 # End Source File
 # Begin Source File
@@ -264,10 +268,6 @@ SOURCE=.\pythonscript.cpp
 # Begin Source File
 
 SOURCE=.\scriptmanager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\sectors.cpp
 # End Source File
 # Begin Source File
 
@@ -466,6 +466,10 @@ SOURCE=.\log.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\mapobjects.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\muls\maps.h
 # End Source File
 # Begin Source File
@@ -529,10 +533,6 @@ SOURCE=.\resources.h
 # Begin Source File
 
 SOURCE=.\scriptmanager.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\sectors.h
 # End Source File
 # Begin Source File
 
@@ -692,7 +692,7 @@ InputName=uosocket
 
 # PROP Ignore_Default_Tool 1
 
-!ENDIF 
+!ENDIF
 
 # End Source File
 # Begin Source File

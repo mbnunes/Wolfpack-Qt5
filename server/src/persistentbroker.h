@@ -70,7 +70,7 @@ public:
 	void rollbackTransaction();
 };
 
-typedef SingletonHolder<cPersistentBroker> PersistentBroker;
+typedef Singleton<cPersistentBroker> PersistentBroker;
 
 #define initSave QStringList conditions, fields, values; QString table;
 #define clearFields conditions.clear(); fields.clear(); values.clear();

@@ -32,7 +32,7 @@
 #include "accounts.h"
 #include "speech.h"
 
-#include "sectors.h"
+#include "mapobjects.h"
 #include "uotime.h"
 #include "serverconfig.h"
 #include "network/network.h"
@@ -176,10 +176,10 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 
 	QString speechUpr = comm.upper();
 
-	RegionIterator4Chars ri( pPlayer->pos() );
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
+	MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( pPlayer->pos(), 18 );
+	for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 	{
-		P_NPC pNpc = dynamic_cast<P_NPC>( ri.GetData() );
+		P_NPC pNpc = dynamic_cast<P_NPC>( pChar );
 
 		// We will only process NPCs here
 		if ( !pNpc )

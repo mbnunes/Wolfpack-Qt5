@@ -28,6 +28,8 @@
 #ifndef __TYPEDEFS_H__
 #define __TYPEDEFS_H__
 
+#include "platform.h"
+
 // Forward Base Classes declaration
 
 class cItem;
@@ -36,13 +38,13 @@ class cNPC;
 class cPlayer;
 class cUObject;
 class cUOSocket;
-class Coord_cl;
+class Coord;
 class cParty;
 class cUOPacket;
 
 // Typedefs
 
-typedef unsigned int SERIAL;
+typedef UI32 SERIAL;
 typedef cItem* P_ITEM;
 typedef cBaseChar* P_CHAR;
 typedef cNPC* P_NPC;

@@ -39,7 +39,7 @@
 #include "world.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "serverconfig.h"
 #include "log.h"
 #include "console.h"
@@ -101,8 +101,6 @@ void cNPC::buildSqlString( const char *objectid, QStringList& fields, QStringLis
 	conditions.push_back( "uobjectmap.serial = npcs.serial" );
 }
 
-static void npcRegisterAfterLoading( P_NPC pc );
-
 void cNPC::postload( unsigned int version )
 {
 	cBaseChar::postload( version );
@@ -112,14 +110,17 @@ void cNPC::postload( unsigned int version )
 	setOwner( dynamic_cast<P_PLAYER>( World::instance()->findChar( owner ) ) );
 	if ( wanderType() == enFollowTarget )
 		setWanderType( enFreely );
+
+	if( stablemasterSerial() == INVALID_SERIAL )
+	{
+		MapObjects::instance()->add( this );
+	}
 }
 
 void cNPC::load( cBufferedReader& reader )
 {
 	load( reader, reader.version() );
-
 	World::instance()->registerObject( this );
-	SectorMaps::instance()->add( this );
 }
 
 void cNPC::load( cBufferedReader& reader, unsigned int version )
@@ -178,7 +179,6 @@ void cNPC::load( char** result, Q_UINT16& offset )
 	setWanderY2( atoi( result[offset++] ) );
 	setWanderRadius( atoi( result[offset++] ) );
 
-	npcRegisterAfterLoading( this );
 	changed_ = false;
 }
 
@@ -217,14 +217,6 @@ bool cNPC::del()
 	PersistentBroker::instance()->addToDeleteQueue( "npcs", QString( "serial = '%1'" ).arg( serial() ) );
 	changed_ = true;
 	return cBaseChar::del();
-}
-
-static void npcRegisterAfterLoading( P_NPC pc )
-{
-	if ( pc->stablemasterSerial() == INVALID_SERIAL )
-	{
-		MapObjects::instance()->add( pc );
-	}
 }
 
 bool cNPC::isInnocent()
@@ -312,8 +304,8 @@ void cNPC::setNextMoveTime(bool changedDirection)
 
 	// Creatures become slower if hurt
 	if (hitpoints() < maxHitpoints()) {
-		float ratio = 1.0f - QMAX(0.0f, QMIN(1.0f, (float)hitpoints() / (float)maxHitpoints())); // Range from 0.0 to 1.0
-		interval += (unsigned int)(ratio * 800);
+		float ratio = 1.0f - wpMax<float>( 0, wpMin<float>( 1, (float)hitpoints() / (float)maxHitpoints())); // Range from 0.0 to 1.0
+		interval += ( static_cast<unsigned int>( ratio ) * 800 );
 	}
 
 	setNextMoveTime(Server::instance()->time() + interval);
@@ -645,7 +637,7 @@ void cNPC::giveGold( Q_UINT32 amount, bool inBank )
 	while ( total > 0 )
 	{
 		P_ITEM pile = cItem::createFromScript( "eed" );
-		pile->setAmount( QMIN( total, static_cast<Q_UINT32>( 65535 ) ) );
+		pile->setAmount( wpMin<Q_UINT32>( total, 65535 ) );
 		pCont->addItem( pile );
 		total -= pile->amount();
 	}
@@ -949,10 +941,10 @@ PyObject* cNPC::getProperty( const QString& name )
 	return cBaseChar::getProperty( name );
 }
 
-Coord_cl cNPC::nextMove()
+Coord cNPC::nextMove()
 {
-	Coord_cl ret;
-	QValueList<Coord_cl>::const_iterator it = path_.begin();
+	Coord ret;
+	QValueList<Coord>::const_iterator it = path_.begin();
 
 	if (it != path_.end())
 	{
@@ -960,7 +952,7 @@ Coord_cl cNPC::nextMove()
 	}
 	else
 	{
-		ret = Coord_cl( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
+		ret = Coord( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
 	}
 
 	return ret;
@@ -968,10 +960,10 @@ Coord_cl cNPC::nextMove()
 
 void cNPC::pushMove( UI16 x, UI16 y, SI08 z )
 {
-	path_.push_back( Coord_cl( x, y, z, 0 ) );
+	path_.push_back( Coord( x, y, z, 0 ) );
 }
 
-void cNPC::pushMove( const Coord_cl& move )
+void cNPC::pushMove( const Coord& move )
 {
 	path_.push_back( move );
 }
@@ -993,11 +985,11 @@ bool cNPC::hasPath( void )
 	return !path_.isEmpty();
 }
 
-Coord_cl cNPC::pathDestination( void ) const
+Coord cNPC::pathDestination( void ) const
 {
 
 	if ( path_.empty() )
-		return Coord_cl( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
+		return Coord( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
 	else
 		return path_.back();
 }
@@ -1057,7 +1049,7 @@ struct pathnode_coordComparePredicate : public std::binary_function<pathnode_cl,
 	Heuristic function for A*
 	We use simple 3-dim. euclid distance: d = sqrt( (x1-x2) + (y1-y2) + (z1-z2) )
 */
-float cNPC::pathHeuristic( const Coord_cl& source, const Coord_cl& destination )
+float cNPC::pathHeuristic( const Coord& source, const Coord& destination )
 {
 	return ( float ) ( sqrt( pow( ( float ) ( source.x - destination.x ), 2 ) + pow( ( float ) ( source.y - destination.y ), 2 ) + pow( ( source.z - destination.z ) / 5.0f, 2 ) ) );
 }
@@ -1066,7 +1058,7 @@ float cNPC::pathHeuristic( const Coord_cl& source, const Coord_cl& destination )
 	The algorithm..
 	currently works in x,y,z direction. no idea how to implement map jumping yet.
 */
-void cNPC::findPath( const Coord_cl& goal, float sufficient_cost /* = 0.0f */ )
+void cNPC::findPath( const Coord& goal, float sufficient_cost /* = 0.0f */ )
 {
 	if ( path_.size() > 0 )
 		path_.clear();
@@ -1088,9 +1080,9 @@ void cNPC::findPath( const Coord_cl& goal, float sufficient_cost /* = 0.0f */ )
 		And a temporary vector of neighbours.
 	*/
 	std::vector<pathnode_cl*> allnodes;
-	std::vector<Coord_cl> neighbours;
+	std::vector<Coord> neighbours;
 	std::vector<pathnode_cl*>::iterator pit;
-	std::vector<Coord_cl>::iterator nit;
+	std::vector<Coord>::iterator nit;
 
 	/*
 		So let's start :)
@@ -1154,13 +1146,13 @@ void cNPC::findPath( const Coord_cl& goal, float sufficient_cost /* = 0.0f */ )
 		neighbours.clear();
 		int i = 0;
 		int j = 0;
-		Coord_cl pos;
+		Coord pos;
 		for ( i = -1; i <= 1; ++i )
 		{
 			for ( j = -1; j <= 1; ++j )
 			{
 				if ( i != 0 || j != 0 )
-					neighbours.push_back( Coord_cl( currentNode->x + i, currentNode->y + j, currentNode->z, pos_.map ) );
+					neighbours.push_back( Coord( currentNode->x + i, currentNode->y + j, currentNode->z, pos_.map ) );
 			}
 		}
 
@@ -1193,14 +1185,14 @@ void cNPC::findPath( const Coord_cl& goal, float sufficient_cost /* = 0.0f */ )
 		path_.clear();
 		while ( currentNode->prev )
 		{
-			path_.push_front( Coord_cl( currentNode->x, currentNode->y, currentNode->z, pos_.map ) );
+			path_.push_front( Coord( currentNode->x, currentNode->y, currentNode->z, pos_.map ) );
 			currentNode = currentNode->prev;
 		}
 	}
 
 	/* debug...
 	Console::instance()->send( QString( "Pathfinding: %1 iterations\n" ).arg( iterations ) );
-	std::deque< Coord_cl >::const_iterator it = path_.begin();
+	std::deque< Coord >::const_iterator it = path_.begin();
 	while( it != path_.end() )
 	{
 		Console::instance()->send( QString( "%1,%2\n" ).arg( (*it).x ).arg( (*it).y ) );
@@ -1312,7 +1304,7 @@ void cNPC::awardFame( short amount )
 {
 	int nCurFame, nChange = 0;
 
-	setFame( QMIN( 10000, fame() ) );
+	setFame( wpMin<short>( 10000, fame() ) );
 
 	nCurFame = fame();
 
@@ -1325,7 +1317,7 @@ void cNPC::awardFame( short amount )
 	{
 		// Fame / 25 is our loss
 		nChange = nCurFame / 25;
-		setFame( QMAX( 0, nCurFame - nChange ) );
+		setFame( wpMax<short>( 0, nCurFame - nChange ) );
 		setDeaths( deaths() + 1 );
 	}
 	else
@@ -1426,22 +1418,25 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 
 void cNPC::setStablemasterSerial( SERIAL data )
 {
-	stablemasterSerial_ = data;
-	changed_ = true;
+	if( stablemasterSerial_ == data )
+		return;
 
-	if ( data == INVALID_SERIAL )
+	if( data == INVALID_SERIAL )
 	{
+		// was stabled, and now is entering the world
 		MapObjects::instance()->add( this );
 	}
-	else
+	else if( stablemasterSerial_ == INVALID_SERIAL )
 	{
+		// was on the world, and now is being stabled
 		MapObjects::instance()->remove( this );
 	}
 
-
+	stablemasterSerial_ = data;
+	changed_ = true;
 }
 
-cNPC* cNPC::createFromScript( const QString& section, const Coord_cl& pos )
+cNPC* cNPC::createFromScript( const QString& section, const Coord& pos )
 {
 	if ( section.isNull() || section.isEmpty() )
 		return NULL;
@@ -1501,7 +1496,7 @@ unsigned int cNPC::damage( eDamageType type, unsigned int amount, cUObject* sour
 		// the more hitpoints we have, the less we loose
 		int value = (int)(amount * (100.0 / hitpoints_) * (stamina_ / 100.0)) - 5;
 		if (value > 0) {
-			stamina_ = QMAX(0, stamina_ - value);
+			stamina_ = wpMax<short>( 0, stamina_ - value );
 		}
 	}
 

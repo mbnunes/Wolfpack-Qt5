@@ -39,7 +39,7 @@
 
 // Forward definitions
 class MapsPrivate;
-class Coord_cl;
+class Coord;
 class wpException;
 
 // Structures
@@ -121,19 +121,19 @@ public:
 	unsigned int mapPatches( unsigned int id );
 	unsigned int staticPatches( unsigned int id );
 	map_st seekMap( uint id, ushort x, ushort y ) const;
-	map_st seekMap( const Coord_cl& ) const;
+	map_st seekMap( const Coord& ) const;
 	bool hasMap( uint id ) const;
-	signed char mapElevation( const Coord_cl& p ) const;
-	signed char mapAverageElevation( const Coord_cl& p, int* top = 0, int* botton = 0 ) const;
-	void mapTileSpan(const Coord_cl &pos, unsigned short &id, int &bottom, int &top) const;
-	signed char dynamicElevation( const Coord_cl& pos ) const;
-	signed char height( const Coord_cl& pos );
+	signed char mapElevation( const Coord& p ) const;
+	signed char mapAverageElevation( const Coord& p, int* top = 0, int* botton = 0 ) const;
+	void mapTileSpan(const Coord &pos, unsigned short &id, int &bottom, int &top) const;
+	signed char dynamicElevation( const Coord& pos ) const;
+	signed char height( const Coord& pos );
 	uint mapTileWidth( uint ) const;
 	uint mapTileHeight( uint ) const;
-	signed char staticTop( const Coord_cl& pos ) const;
+	signed char staticTop( const Coord& pos ) const;
 	bool canFit( int x, int y, int z, uint map ) const;
 	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true ) const throw( wpException );
-	StaticsIterator staticsIterator( const Coord_cl&, bool exact = true ) const throw( wpException );
+	StaticsIterator staticsIterator( const Coord&, bool exact = true ) const throw( wpException );
 };
 
 // Inline member functions
@@ -188,6 +188,6 @@ inline const staticrecord& StaticsIterator::operator*() const
 	return data();
 }
 
-typedef SingletonHolder<cMaps> Maps;
+typedef Singleton<cMaps> Maps;
 
 #endif // __MAPS_H__

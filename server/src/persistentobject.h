@@ -133,7 +133,7 @@ public:
 	}
 };
 
-typedef SingletonHolder<cBinaryTypemap> BinaryTypemap;
+typedef Singleton<cBinaryTypemap> BinaryTypemap;
 
 /*
 	This factory creates objects from type ids used in the 
@@ -187,7 +187,7 @@ private:
 	QStringList sql_keys;
 };
 
-typedef SingletonHolder<cPersistentFactory> PersistentFactory;
+typedef Singleton<cPersistentFactory> PersistentFactory;
 
 /*
 	A static and local instance of this class allows an automatic 

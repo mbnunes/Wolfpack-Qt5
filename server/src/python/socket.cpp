@@ -690,11 +690,11 @@ static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 	cVariant value = self->pSock->tags().get( key );
 
-	if ( value.type() == cVariant::String )
+	if ( value.type() == cVariant::StringType )
 		return QString2Python(value.toString());
-	else if ( value.type() == cVariant::Int )
+	else if ( value.type() == cVariant::IntType )
 		return PyInt_FromLong( value.asInt() );
-	else if ( value.type() == cVariant::Double )
+	else if ( value.type() == cVariant::DoubleType )
 		return PyFloat_FromDouble( value.asDouble() );
 
 	Py_RETURN_NONE;

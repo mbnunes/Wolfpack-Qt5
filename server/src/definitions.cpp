@@ -30,7 +30,6 @@
 #include <qfile.h>
 #include <qptrstack.h>
 #include <qregexp.h>
-#include <qvaluestack.h>
 #include <qstringlist.h>
 #include <qvaluevector.h>
 
@@ -106,11 +105,11 @@ class cXmlHandler : public QXmlDefaultHandler
 private:
 	cDefManagerPrivate* impl;
 	// Element level within the current file
-	QValueStack<int> levels;
+	QValueVector<int> levels;
 	// Holds all read elements.
 	QPtrStack<cElement> elements;
 	// Files stack (each <include> pushes a file)
-	QValueStack<QString> filenames;
+	QValueVector<QString> filenames;
 	// Locators associated to each document
 	QPtrStack<QXmlLocator> locators;
 
@@ -146,7 +145,7 @@ public:
 			return;
 		}
 
-		filenames.push( filename );
+		filenames.push_back( filename );
 
 		QXmlInputSource input( &file );
 		QXmlSimpleReader reader;
@@ -156,7 +155,7 @@ public:
 		reader.setErrorHandler( this );
 		reader.parse( &input, false );
 
-		filenames.pop();
+		filenames.pop_back();
 	}
 
 	void setDocumentLocator( QXmlLocator* locator )
@@ -166,23 +165,23 @@ public:
 
 	bool startDocument()
 	{
-		levels.push( 0 );
+		levels.push_back( 0 );
 		return true;
 	}
 
 	bool endDocument()
 	{
-		levels.pop();
+		levels.pop_back();
 		locators.pop();
 		return true;
 	}
 
 	bool startElement( const QString& /*namespaceURI*/, const QString& localName, const QString& qName, const QXmlAttributes& atts )
 	{
-		levels.top()++;
+		levels.back()++;
 
 		// Ignore document root
-		if( levels.top() == 1 )
+		if( levels.back() == 1 )
 		{
 			if( levels.isEmpty() )
 			{
@@ -227,7 +226,7 @@ public:
 	bool endElement( const QString& /*namespaceURI*/, const QString& /*localName*/, const QString& /*qName*/ )
 	{
 		cElement* element = elements.pop();
-		if( --( levels.top() ) == 0 )
+		if( --( levels.back() ) == 0 )
 		{
 			// Ignore root
 			return true;
@@ -258,7 +257,7 @@ public:
 						if ( impl->unique[categories[i].key].contains( tagId ) && !Config::instance()->overwriteDefinitions() )
 						{
 							Console::instance()->log( LOG_WARNING, tr( "Duplicate %1: %2\n[File: %3, Line: %4]\n" )
-								.arg( element->name() ).arg( tagId ).arg( filenames.top() ).arg( locators.current()->lineNumber() ) );
+								.arg( element->name() ).arg( tagId ).arg( filenames.back() ).arg( locators.current()->lineNumber() ) );
 							delete element;
 						}
 						else
@@ -277,7 +276,7 @@ public:
 			}
 
 			Console::instance()->log( LOG_WARNING, tr( "Unknown element: %1\n[File: %2, Line: %3]\n" )
-				.arg( element->name() ).arg( filenames.top() ).arg( locators.current()->lineNumber() ) );
+				.arg( element->name() ).arg( filenames.back() ).arg( locators.current()->lineNumber() ) );
 			delete element;
 		}
 
@@ -300,19 +299,19 @@ public:
 	bool warning( const QXmlParseException& exception )
 	{
 		Console::instance()->log( LOG_WARNING, tr( "%1\n[File: %2, Line: %3, Column: %4" )
-			.arg( exception.message(), filenames.top() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
+			.arg( exception.message(), filenames.back() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 	bool error( const QXmlParseException& exception )
 	{
 		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" )
-			.arg( exception.message(), filenames.top() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
+			.arg( exception.message(), filenames.back() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 	bool fatalError( const QXmlParseException& exception )
 	{
 		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4" )
-			.arg( exception.message(), filenames.top() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
+			.arg( exception.message(), filenames.back() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
 		return true; // continue
 	}
 };

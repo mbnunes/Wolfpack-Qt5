@@ -70,6 +70,6 @@ public:
 	cPythonScript* getGlobalHook( ePythonEvent event );
 };
 
-typedef SingletonHolder<cScriptManager> ScriptManager;
+typedef Singleton<cScriptManager> ScriptManager;
 
 #endif

@@ -37,7 +37,7 @@
 #include "world.h"
 #include "basics.h"
 #include "console.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "serverconfig.h"
 #include "inlines.h"
 #include "scriptmanager.h"
@@ -49,18 +49,18 @@ using namespace std;
 // Custom position classes
 class cSpawnPoint : public cSpawnPosition {
 private:
-	Coord_cl pos;
+	Coord pos;
 public:
-	cSpawnPoint(const Coord_cl &pos) {
+	cSpawnPoint(const Coord &pos) {
 		this->pos = pos;
 		points_ = 1;
 	}
 
-	Coord_cl findSpot() {
+	Coord findSpot() {
 		return pos;
 	}
 
-	bool inBounds(const Coord_cl &pos) {
+	bool inBounds(const Coord &pos) {
 		return this->pos == pos;
 	}
 };
@@ -72,7 +72,7 @@ private:
 	signed char z;
 	unsigned char map;
 public:
-	cSpawnRectangle(const Coord_cl &from, const Coord_cl &to, unsigned char map, bool fixedZ = false, signed char z = 0) {
+	cSpawnRectangle(const Coord &from, const Coord &to, unsigned char map, bool fixedZ = false, signed char z = 0) {
 		this->x1 = from.x;
 		this->y1 = from.y;
 		this->x2 = to.x;
@@ -96,9 +96,9 @@ public:
 		points_ = xDiff * yDiff;
 	}
 
-	Coord_cl findSpot() {
+	Coord findSpot() {
 		// Simply select one random point within the rectangle
-		Coord_cl pos = Coord_cl(RandomNum(x1, x2), RandomNum(y1, y2), z, map);
+		Coord pos = Coord(RandomNum(x1, x2), RandomNum(y1, y2), z, map);
 
 		// If a fixed z value should not be used, make sure to
 		// find a good one.
@@ -109,7 +109,7 @@ public:
 		return pos;
 	}
 
-	bool inBounds(const Coord_cl &pos) {
+	bool inBounds(const Coord &pos) {
 		return (pos.map == map && pos.x >= x1 && pos.x <= x2 && pos.y >= y1 && pos.y <= y2);
 	}
 };
@@ -122,7 +122,7 @@ private:
 	signed char z;
 	unsigned char map;
 public:
-	cSpawnCircle(const Coord_cl &center, int radius, unsigned char map, bool fixedZ = false, signed char z = 0) {
+	cSpawnCircle(const Coord &center, int radius, unsigned char map, bool fixedZ = false, signed char z = 0) {
 		this->x = center.x;
 		this->y = center.y;
 		this->radius = radius;
@@ -136,7 +136,7 @@ public:
 		points_ = (int)(pi * (float)radius * (float)radius);
 	}
 
-	bool inBounds(const Coord_cl &pos) {
+	bool inBounds(const Coord &pos) {
 		// Calculate the distance to the center and
 		// check if it's smaller than the radius
 		float xDiff = (float)abs(pos.x - x);
@@ -147,8 +147,8 @@ public:
 		return distance <= (float)radius;
 	}
 
-	Coord_cl findSpot() {
-		Coord_cl pos;
+	Coord findSpot() {
+		Coord pos;
 
 		// now get a point on this circle around the m_npc
 		float rnddist = (float)RandomNum(0, radius);
@@ -202,7 +202,7 @@ cSpawnRegion::cSpawnRegion(const cElement *tag) {
 cSpawnRegion::~cSpawnRegion() {
 }
 
-bool cSpawnRegion::isValidSpot(const Coord_cl &pos) {
+bool cSpawnRegion::isValidSpot(const Coord &pos) {
 	// Check all sub positions
 	cSpawnPosition *position;
 	for (position = positions_.first(); position; position = positions_.next()) {
@@ -330,7 +330,7 @@ void cSpawnRegion::processNode( const cElement *tag )
 	// <rectangle from="0,1000" to="0,1000" map="" z="" />
 	else if ( name == "rectangle" && tag->hasAttribute("from") && tag->hasAttribute("to") && tag->hasAttribute("map") ) {
 		// Parse from/to
-		Coord_cl from, to;
+		Coord from, to;
 		if (!parseCoordinates(tag->getAttribute("from"), from, true)) {
 			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a rectangle with an invalid from attribute '%2'.\n").arg(id_).arg(tag->getAttribute("from")));
 			return;
@@ -372,7 +372,7 @@ void cSpawnRegion::processNode( const cElement *tag )
 
 	// <point pos="x,y,z,map" />
 	else if ( name == "point" && tag->hasAttribute( "pos" ) ) {
-		Coord_cl pos;
+		Coord pos;
 		if (!parseCoordinates(tag->getAttribute("pos"), pos)) {
 			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a point with an invalid pos attribute '%2'.\n").arg(id_).arg(tag->getAttribute("pos")));
 			return;
@@ -384,7 +384,7 @@ void cSpawnRegion::processNode( const cElement *tag )
 	// <circle center="x,y" radius="" map="" [z=""] />
 	else if ( name == "circle" && tag->hasAttribute( "center" ) && tag->hasAttribute( "radius" ) && tag->hasAttribute( "map" ) ) {
 		// Parse center
-		Coord_cl center;
+		Coord center;
 		if (!parseCoordinates(tag->getAttribute("center"), center, true)) {
 			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a circle with an invalid center attribute '%2'.\n").arg(id_).arg(tag->getAttribute("center")));
 			return;
@@ -447,7 +447,7 @@ unsigned int cSpawnRegion::countPoints() {
 	return total;
 }
 
-bool cSpawnRegion::findValidSpot(Coord_cl& result, int tries) {
+bool cSpawnRegion::findValidSpot(Coord& result, int tries) {
 	if (tries == -1) {
 		tries = 20; // Try 20 times (should be a config option instead)
 	} else if (tries == 0) {
@@ -471,7 +471,7 @@ bool cSpawnRegion::findValidSpot(Coord_cl& result, int tries) {
 		// Is this the correct partition?
 		if (chosen < offset) {
 			// Find a random position within the partition
-			Coord_cl rndPos = position->findSpot();
+			Coord rndPos = position->findSpot();
 
 			// See if the spot is valid.
 			if (!Movement::instance()->canLandMonsterMoveHere(rndPos)) {
@@ -505,7 +505,7 @@ bool cSpawnRegion::findValidSpot(Coord_cl& result, int tries) {
 
 void cSpawnRegion::spawnSingleNPC()
 {
-	Coord_cl pos;
+	Coord pos;
 	if ( findValidSpot( pos ) )
 	{
 		// This is a little tricky.
@@ -591,7 +591,7 @@ void cSpawnRegion::spawnSingleNPC()
 
 void cSpawnRegion::spawnSingleItem()
 {
-	Coord_cl pos;
+	Coord pos;
 	if ( findValidSpot( pos ) )
 	{
 		// This is a little tricky.

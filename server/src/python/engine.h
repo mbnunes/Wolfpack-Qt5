@@ -95,7 +95,7 @@ public:
 	void unload();
 };
 
-typedef SingletonHolder<cPythonEngine> PythonEngine;
+typedef Singleton<cPythonEngine> PythonEngine;
 
 void registerCleanupHandler( fnCleanupHandler );
 void reloadPython();

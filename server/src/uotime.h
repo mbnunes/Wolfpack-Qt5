@@ -66,6 +66,6 @@ public:
 	}
 };
 
-typedef SingletonHolder<cUoTime> UoTime;
+typedef Singleton<cUoTime> UoTime;
 
 #endif

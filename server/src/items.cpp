@@ -46,7 +46,7 @@
 #include "guilds.h"
 #include "dbdriver.h"
 #include "world.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "scriptmanager.h"
 #include "basechar.h"
 #include "player.h"
@@ -289,7 +289,7 @@ bool cItem::containerPileItem( cItem* pItem )
 void cItem::setRandPosInCont( cItem* pCont )
 {
 	int k = pCont->containerGumpType();
-	Coord_cl position = pos();
+	Coord position = pos();
 	position.x = RandomNum( 18, 118 );
 	position.z = 9;
 
@@ -362,6 +362,10 @@ void cItem::save( cBufferedWriter& writer, unsigned int version )
 
 void cItem::postload( unsigned int /*version*/ )
 {
+	if( !container_ )
+	{
+		MapObjects::instance()->add( this );
+	}
 }
 
 void cItem::load( cBufferedReader& reader, unsigned int version )
@@ -513,7 +517,7 @@ void cItem::Init( bool createSerial )
 	this->container_ = 0;
 	this->free = false;
 	this->setId( 0x0001 ); // Item visuals as stored in the client
-	this->setPos( Coord_cl( 100, 100, 0 ) );
+	this->setPos( Coord( 100, 100, 0 ) );
 	this->color_ = 0x00; // Hue
 	this->layer_ = 0; // Layer if equipped on paperdoll
 	this->amount_ = 1; // Amount of items in pile
@@ -565,7 +569,7 @@ void cItem::remove()
 	}
 	else
 	{
-		SectorMaps::instance()->remove( this );
+		MapObjects::instance()->remove( this );
 
 		// Remove us from a possilbe multi container too
 		if ( multi_ )
@@ -603,7 +607,7 @@ bool cItem::onDropOnItem( P_ITEM pItem )
 	return result;
 }
 
-bool cItem::onDropOnGround( const Coord_cl& pos )
+bool cItem::onDropOnGround( const Coord& pos )
 {
 	bool result = false;
 	if (canHandleEvent(EVENT_DROPONGROUND)) {
@@ -2126,7 +2130,7 @@ unsigned int cItem::removeItems( const QStringList& baseids, unsigned int amount
 	return amount;
 }
 
-void cItem::moveTo( const Coord_cl& newpos, bool noremove )
+void cItem::moveTo( const Coord& newpos, bool noremove )
 {
 	// See if the map is valid
 	if ( !Maps::instance()->hasMap( newpos.map ) )
@@ -2216,11 +2220,6 @@ void cItem::load( cBufferedReader& reader )
 	load( reader, reader.version() );
 
 	World::instance()->registerObject( this );
-
-	if ( !container_ )
-	{
-		SectorMaps::instance()->add( this );
-	}
 }
 
 bool cItem::callEventHandler(ePythonEvent event, PyObject *args, bool ignoreErrors) {
@@ -2312,7 +2311,7 @@ bool cItem::hasScript( const QCString& name )
 	return cUObject::hasScript(name);
 }
 
-Coord_cl cItem::getOutmostPos() {
+Coord cItem::getOutmostPos() {
 	if (container_) {
 		if (container_->isChar()) {
 			return container_->pos();

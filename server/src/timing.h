@@ -91,6 +91,6 @@ public:
 	void removeDecaySerial( SERIAL item );
 };
 
-typedef SingletonHolder<cTiming> Timing;
+typedef Singleton<cTiming> Timing;
 
 #endif

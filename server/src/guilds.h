@@ -439,8 +439,8 @@ public:
 };
 
 /*!
-	\brief SingletonHolder type instance for the guild manager.
+	\brief Singleton type instance for the guild manager.
 */
-typedef SingletonHolder<cGuilds> Guilds;
+typedef Singleton<cGuilds> Guilds;
 
 #endif

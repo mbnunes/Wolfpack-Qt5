@@ -203,6 +203,6 @@ public:
 	int countSerializables();
 };
 
-typedef SingletonHolder<cTimers> Timers;
+typedef Singleton<cTimers> Timers;
 
 #endif

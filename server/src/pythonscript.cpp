@@ -931,7 +931,7 @@ bool cPythonScriptable::convertPyObject( PyObject* /*object*/, P_ITEM& /*pItem*/
 	return false;
 }
 
-bool cPythonScriptable::convertPyObject( PyObject* /*object*/, Coord_cl& /*pos*/ )
+bool cPythonScriptable::convertPyObject( PyObject* /*object*/, Coord& /*pos*/ )
 {
 	return false;
 }

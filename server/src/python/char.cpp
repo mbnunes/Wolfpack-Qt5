@@ -43,7 +43,7 @@
 #include "../singleton.h"
 
 #include "utilities.h"
-#include "content.h"
+#include "pycontent.h"
 #include "tempeffect.h"
 #include "objectcache.h"
 #include "skills.h"
@@ -303,7 +303,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	}
 
 	// Gather parameters
-	Coord_cl pos = self->pChar->pos();
+	Coord pos = self->pChar->pos();
 
 	if ( PyTuple_Size( args ) <= 1 )
 	{
@@ -440,7 +440,7 @@ static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 	}
 	else if ( PyTuple_Size( args ) >= 2 ) // Min 2
 	{
-		Coord_cl pos = self->pChar->pos();
+		Coord pos = self->pChar->pos();
 
 		if ( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 			return PyInt_FromLong( -1 );
@@ -501,8 +501,8 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 
 		if ( checkWpCoord( pObj ) )
 		{
-			Coord_cl pos = getWpCoord( pObj );
-			return PyInt_FromLong( self->pChar->pos().direction( Coord_cl( pos.x, pos.y ) ) );
+			Coord pos = getWpCoord( pObj );
+			return PyInt_FromLong( self->pChar->pos().direction( Coord( pos.x, pos.y ) ) );
 		}
 
 		// Item
@@ -516,7 +516,7 @@ static PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 	}
 	else if ( PyTuple_Size( args ) >= 2 ) // Min 2
 	{
-		Coord_cl pos = self->pChar->pos();
+		Coord pos = self->pChar->pos();
 
 		if ( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 			return PyInt_FromLong( -1 );
@@ -967,11 +967,11 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	QString key = getArgStr( 0 );
 	cVariant value = self->pChar->getTag( key );
 
-	if ( value.type() == cVariant::String )
+	if ( value.type() == cVariant::StringType )
 		return QString2Python(value.toString());
-	else if ( value.type() == cVariant::Int )
+	else if ( value.type() == cVariant::IntType )
 		return PyInt_FromLong( value.asInt() );
-	else if ( value.type() == cVariant::Double )
+	else if ( value.type() == cVariant::DoubleType )
 		return PyFloat_FromDouble( value.asDouble() );
 
 	Py_RETURN_NONE;
@@ -1274,7 +1274,7 @@ static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 
 	if ( checkArgCoord( 0 ) )
 	{
-		Coord_cl pos = getArgCoord( 0 );
+		Coord pos = getArgCoord( 0 );
 		self->pChar->turnTo( pos );
 		Py_RETURN_NONE;
 	}
@@ -1458,7 +1458,7 @@ static PyObject* wpChar_movingeffect( wpChar* self, PyObject* args )
 	// Coordinates or Object accepted
 	if ( checkWpCoord( target ) )
 	{
-		Coord_cl coord = getWpCoord( target );
+		Coord coord = getWpCoord( target );
 		self->pChar->effect( id, coord, fixedDirection, explodes, speed, hue, renderMode );
 	}
 	else if ( checkWpChar( target ) )
@@ -1734,12 +1734,12 @@ static PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	//if( !mayWalk( self->pChar, Coord_cl( getArgInt( 0 ), getArgInt( 1 ), getArgInt( 2 ), getArgInt( 3 ) ) ) )
+	//if( !mayWalk( self->pChar, Coord( getArgInt( 0 ), getArgInt( 1 ), getArgInt( 2 ), getArgInt( 3 ) ) ) )
 	int argx = getArgInt( 0 );
 	int argy = getArgInt( 1 );
 	int argz = getArgInt( 2 );
 	int argmap = getArgInt( 3 );
-	Coord_cl argcoord( argx, argy, argz, argmap );
+	Coord argcoord( argx, argy, argz, argmap );
 	if ( !mayWalk( self->pChar, argcoord ) )
 		Py_RETURN_FALSE;
 	else
@@ -1917,7 +1917,7 @@ static PyObject* wpChar_goto( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	Coord_cl pos = getArgCoord( 0 );
+	Coord pos = getArgCoord( 0 );
 
 	if ( pos.map != self->pChar->pos().map )
 	{
@@ -2012,7 +2012,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 		return 0;
 	}
 
-	Coord_cl targetPos;
+	Coord targetPos;
 
 	if (checkWpCoord(target)) {
 		if (range == 0) {
@@ -2048,7 +2048,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 		targetPos = pChar->pos().losCharPoint(false);
 	} else if (target->ob_type == &wpTargetType) {
 		SERIAL object = ((wpTarget*)target)->object;
-		Coord_cl pos = ((wpTarget*)target)->pos;
+		Coord pos = ((wpTarget*)target)->pos;
 		unsigned short model = ((wpTarget*)target)->model;
 
 		P_ITEM pItem = dynamic_cast<P_ITEM>(World::instance()->findItem(object));
@@ -2091,7 +2091,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 	}
 
 	// Now that we have the target position, measure the distance.
-	Coord_cl pos = self->pChar->pos().losCharPoint(true);
+	Coord pos = self->pChar->pos().losCharPoint(true);
 
 	if (pos.map != targetPos.map) {
 		Py_RETURN_FALSE;

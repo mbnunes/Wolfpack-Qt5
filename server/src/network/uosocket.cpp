@@ -40,7 +40,7 @@
 #include "../console.h"
 #include "../territories.h"
 #include "../inlines.h"
-#include "../sectors.h"
+#include "../mapobjects.h"
 #include "../multi.h"
 #include "../muls/maps.h"
 #include "../speech.h"
@@ -478,7 +478,7 @@ void cUOSocket::disconnect( void )
 
 	if ( _player )
 	{
-		_player->onLogout();
+		_player->onDisconnect();
 		_player->setSocket( NULL );
 
 		// Remove the player from it's party
@@ -498,14 +498,18 @@ void cUOSocket::disconnect( void )
 	if ( _player )
 	{
 		_player->removeFromView( true );
-		if ( !_player->isGMorCounselor() && ( !_player->region() || !_player->region()->isGuarded() ) )
+
+		// is the player allowed to logout instantly?
+		if( _player->isGMorCounselor() || ( _player->region() && _player->region()->isGuarded() ) )
 		{
-			_player->setLogoutTime( Server::instance()->time() + Config::instance()->quittime() * 1000 );
+			_player->onLogout();
 		}
 		else
 		{
-			//SectorMaps::instance()->remove( _player );
+			// let the player linger...
+			_player->setLogoutTime( Server::instance()->time() + Config::instance()->quittime() * 1000 );
 		}
+
 		_player->resend( false );
 	}
 }
@@ -560,7 +564,7 @@ void cUOSocket::sendCharList()
 	// NOTE:
 	// Send the server/account features here as well
 	// AoS needs it most likely for account creation
-	const uint maxChars = QMIN( 6, Config::instance()->maxCharsPerAccount() );
+	const uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
 	cUOTxClientFeatures clientFeatures;
 	clientFeatures.setLbr( true );
 	clientFeatures.setT2a( true );
@@ -674,7 +678,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// d) Set the Game Time
 
 	if (!Maps::instance()->hasMap(pChar->pos().map)) {
-		Coord_cl pos;
+		Coord pos;
 		pos.x = 0;
 		pos.y = 0;
 		pos.z = 0;
@@ -880,7 +884,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
 	// If we have more than 6 characters
-	const uint maxChars = QMIN( 6, Config::instance()->maxCharsPerAccount() );
+	const uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
 	if ( characters.size() >= maxChars )
 	{
 		cancelCreate( tr( "You already have more than %1 characters" ).arg( maxChars ) )
@@ -1639,13 +1643,13 @@ void cUOSocket::updateChar( P_CHAR pChar )
 // Sends a foreign char including equipment
 void cUOSocket::sendChar( P_CHAR pChar )
 {
-	if ( pChar == _player )
+	if( pChar == _player )
 	{
 		updatePlayer();
 		return;
 	}
 
-	if ( canSee( pChar ) )
+	if( canSee( pChar ) )
 	{
 		// Then completely resend it
 		cUOTxDrawChar drawChar;
@@ -1656,9 +1660,13 @@ void cUOSocket::sendChar( P_CHAR pChar )
 
 		// Send item tooltips
 		cBaseChar::ItemContainer content = pChar->content();
-		for ( cBaseChar::ItemContainer::const_iterator it = content.begin(); it != content.end(); ++it )
+		for( cBaseChar::ItemContainer::const_iterator it = content.begin(); it != content.end(); ++it )
 		{
-			it.data()->sendTooltip( this );
+			P_ITEM item = it.data();
+			if( item->layer() <= 0x19 )
+			{
+				item->sendTooltip( this );
+			}
 		}
 	}
 }
@@ -1688,13 +1696,13 @@ void cUOSocket::setPlayer( P_PLAYER pChar )
 			_player->setSocket( 0 );
 			_player->setLogoutTime( 0 );
 			_player->resend( false );
-			//SectorMaps::instance()->remove( _player );
+			//MapObjects::instance()->remove( _player );
 		}
 
 		_player = pChar;
 		_player->setSocket( this );
 		_player->resend( false );
-		SectorMaps::instance()->add( _player );
+		MapObjects::instance()->add( _player );
 	}
 
 	_state = InGame;
@@ -2239,50 +2247,37 @@ void cUOSocket::resendWorld( bool clean )
 	if ( !_player )
 		return;
 
-	cItemSectorIterator* itemIter = SectorMaps::instance()->findItems( _player->pos(), BUILDRANGE );
-	for ( cItem*item = itemIter->first(); item; item = itemIter->next() )
+	// resend items
+	MapItemsIterator itemIt = MapObjects::instance()->listItemsInCircle( _player->pos(), _player->visualRange() );
+	for( P_ITEM item = itemIt.first(); item; item = itemIt.next() )
 	{
 		if ( clean )
-		{
 			removeObject( item );
-		}
+
 		item->update( this );
 	}
 
-	RegionIterator4Chars chIterator( _player->pos(), _player->visualRange(), true );
-	for ( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
+	// resend multis
+	MapMultisIterator multiIt = MapObjects::instance()->listMultisInCircle( _player->pos(), BUILDRANGE );
+	for( P_MULTI multi = multiIt.first(); multi; multi = multiIt.next() )
 	{
-		P_CHAR pChar = chIterator.GetData();
-		if ( pChar == _player )
+		if( clean )
+			removeObject( multi );
+
+		multi->update( this );
+	}
+
+	// send online characters
+	MapCharsIterator charIt = MapObjects::instance()->listCharsInCircle( _player->pos(), _player->visualRange() );
+	for( P_CHAR character = charIt.first(); character; character = charIt.next() )
+	{
+		if( character == _player )
 			continue;
 
-		if ( clean )
-		{
-			removeObject( pChar );
-		}
+		if( clean )
+			removeObject( character );
 
-		// Hidden
-		if ( _player->canSee( pChar ) )
-		{
-			cUOTxDrawChar drawChar;
-			drawChar.fromChar( pChar );
-			drawChar.setHighlight( pChar->notoriety( _player ) );
-			send( &drawChar );
-			pChar->sendTooltip( this );
-
-			// Send the equipment Tooltips
-			cBaseChar::ItemContainer content = pChar->content();
-			cBaseChar::ItemContainer::const_iterator it;
-
-			for ( it = content.begin(); it != content.end(); it++ )
-			{
-				P_ITEM pItem = it.data();
-				if ( pItem->layer() <= 0x19 )
-				{
-					pItem->sendTooltip( this );
-				}
-			}
-		}
+		sendChar( character );
 	}
 }
 
@@ -3009,16 +3004,16 @@ void cUOSocket::updateLightLevel()
 {
 	if ( _player )
 	{
+		UI08 level;
 		cUOTxLightLevel pLight;
-		unsigned char level;
 		cTerritory* region = Territories::instance()->region( _player->pos() );
 		if ( region && region->isCave() )
 		{
-			level = QMAX( 0, ( int ) Config::instance()->dungeonLightLevel() - _player->fixedLightLevel() );
+			level = wpMax<UI08>( 0, Config::instance()->dungeonLightLevel() - static_cast<int>( _player->fixedLightLevel() ) );
 		}
 		else
 		{
-			level = QMAX( 0, ( int ) Config::instance()->worldCurrentLevel() - _player->fixedLightLevel() );
+			level = wpMax<UI08>( 0, Config::instance()->worldCurrentLevel() - static_cast<int>( _player->fixedLightLevel() ) );
 		}
 		pLight.setLevel( level );
 		send( &pLight );
@@ -3087,7 +3082,7 @@ void cUOSocket::sendQuestArrow( bool show, Q_UINT16 x, Q_UINT16 y )
 {
 	cUOTxQuestArrow qArrow;
 	qArrow.setActive( show ? 1 : 0 );
-	qArrow.setPos( Coord_cl( x, y, 0, 0 ) );
+	qArrow.setPos( Coord( x, y, 0, 0 ) );
 	send( &qArrow );
 }
 

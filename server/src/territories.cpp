@@ -244,7 +244,7 @@ void cTerritory::processNode( const cElement* Tag )
 			qWarning( "ERROR: processing teleport tag, missing destination attribute" );
 			return;
 		}
-		Coord_cl source, destination;
+		Coord source, destination;
 		if ( !parseCoordinates( Tag->getAttribute( "source" ), source ) )
 		{
 			qWarning( "ERROR: parsing source attribute, not a valid coordinate vector" );
@@ -284,7 +284,7 @@ bool cTerritory::haveTeleporters() const
 	return !teleporters.isEmpty();
 }
 
-bool cTerritory::findTeleporterSpot( Coord_cl& d ) const
+bool cTerritory::findTeleporterSpot( Coord& d ) const
 {
 	QValueList<teleporters_st>::const_iterator it( teleporters.begin() );
 	QValueList<teleporters_st>::const_iterator end( teleporters.end() );
@@ -372,7 +372,7 @@ void cTerritories::load()
 		}
 
 		// Convert into coordinates
-		Coord_cl clSource, clDestination;		
+		Coord clSource, clDestination;		
 		if (!parseCoordinates(source, clSource) || !parseCoordinates(destination, clDestination)) {
 			continue; // Skip broken coordinates
 		}

@@ -304,7 +304,7 @@ public:
 		}
 	}
 
-	inline PyObject* createPyObject( const Coord_cl& pos )
+	inline PyObject* createPyObject( const Coord& pos )
 	{
 		return PyGetCoordObject( pos );
 	}
@@ -333,7 +333,7 @@ public:
 	// Functions for creating python representations of objects
 	bool convertPyObject( PyObject* object, P_CHAR& pChar );
 	bool convertPyObject( PyObject* object, P_ITEM& pItem );
-	bool convertPyObject( PyObject* object, Coord_cl& pos );
+	bool convertPyObject( PyObject* object, Coord& pos );
 	bool convertPyObject( PyObject* object, QString& string );
 	bool convertPyObject( PyObject* object, QCString& string );
 	bool convertPyObject( PyObject* object, unsigned int& data );

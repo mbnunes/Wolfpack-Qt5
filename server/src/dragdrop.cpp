@@ -28,7 +28,7 @@
 #include "basics.h"
 #include "muls/tilecache.h"
 #include "speech.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "serverconfig.h"
 #include "skills.h"
 #include "multi.h"
@@ -165,7 +165,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 	// Take that into account
 	if ( amount < pItem->amount() )
 	{
-		UI32 pickedAmount = QMIN( amount, pItem->amount() );
+		UI32 pickedAmount = wpMin<UI32>( amount, pItem->amount() );
 
 		// We only have to split if we're not taking it all
 		if ( pickedAmount != pItem->amount() )
@@ -462,7 +462,7 @@ void DragAndDrop::dropItem( cUOSocket* socket, cUORxDropItem* packet )
 	// Get the data
 	//SERIAL contId = packet->cont();
 
-	Coord_cl dropPos = pChar->pos(); // plane
+	Coord dropPos = pChar->pos(); // plane
 	dropPos.x = packet->x();
 	dropPos.y = packet->y();
 	dropPos.z = packet->z();
@@ -590,7 +590,7 @@ void DragAndDrop::dropOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pOtherChar
 	return;
 }
 
-void DragAndDrop::dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord_cl& pos )
+void DragAndDrop::dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord& pos )
 {
 	P_PLAYER pChar = socket->player();
 
@@ -636,7 +636,7 @@ inline char calcSpellId( cItem* item )
 		return tile.unknown1 - 1;
 }
 
-void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl& dropPos )
+void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, const Coord& dropPos )
 {
 	P_PLAYER pChar = socket->player();
 
@@ -795,7 +795,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 		if ( pNewCont )
 		{
 			pNewCont->addItem( pItem, false );
-			pItem->setPos( pCont->pos() + Coord_cl( 0, 0, 2 ) );
+			pItem->setPos( pCont->pos() + Coord( 0, 0, 2 ) );
 		}
 		else
 		{
@@ -805,7 +805,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 	else
 	{
 		pItem->removeFromCont();
-		pItem->moveTo( pCont->pos() + Coord_cl( 0, 0, 2 ) );
+		pItem->moveTo( pCont->pos() + Coord( 0, 0, 2 ) );
 	}
 
 	pItem->update();

@@ -92,7 +92,7 @@ inline cAcl* cCommands::getACL( const QString& key ) const
 		return 0;
 }
 
-typedef SingletonHolder<cCommands> Commands;
+typedef Singleton<cCommands> Commands;
 
 #endif
 

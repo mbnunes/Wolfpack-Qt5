@@ -56,7 +56,7 @@ public:
 	}
 };
 
-typedef SingletonHolder<cCleanupHandlers> CleanupHandlers;
+typedef Singleton<cCleanupHandlers> CleanupHandlers;
 
 void registerCleanupHandler( fnCleanupHandler handler )
 {

@@ -89,7 +89,7 @@ public:
 
 	/*!
 		\brief Construct a new console object. Only available to
-			the \s SingletonHolder class.
+			the \s Singleton class.
 	*/
 	cConsole();
 
@@ -203,6 +203,6 @@ public:
 	void setAttributes( bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, enFontType font );
 };
 
-typedef SingletonHolder<cConsole> Console;
+typedef Singleton<cConsole> Console;
 
 #endif

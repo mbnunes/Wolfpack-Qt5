@@ -40,7 +40,7 @@
 #include "dbdriver.h"
 #include "persistentbroker.h"
 #include "skills.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"

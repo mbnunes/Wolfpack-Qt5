@@ -37,7 +37,7 @@
 class cUOSocket;
 class cItem;
 class cBaseChar;
-class Coord_cl;
+class Coord;
 class cAccount;
 class cTerritory;
 class cUOTxTooltipList;
@@ -77,9 +77,9 @@ cUOSocket* getWpSocket( PyObject* object );
 int PyConvertSocket( PyObject* object, cUOSocket** sock );
 
 bool checkWpCoord( PyObject* object );
-int PyConvertCoord( PyObject* object, Coord_cl* pos );
-PyObject* PyGetCoordObject( const Coord_cl& coord );
-Coord_cl getWpCoord( PyObject* object );
+int PyConvertCoord( PyObject* object, Coord* pos );
+PyObject* PyGetCoordObject( const Coord& coord );
+Coord getWpCoord( PyObject* object );
 
 bool checkWpItem( PyObject* object );
 PyObject* PyGetItemObject( P_ITEM );

@@ -218,7 +218,7 @@ public:
 				P_ITEM pItem = getWpItem(object);
 				cVariant(pItem).serialize(writer, version);
 			} else if ( checkWpCoord( object ) ) {
-				Coord_cl coord = getWpCoord(object);
+				Coord coord = getWpCoord(object);
 				cVariant(coord).serialize(writer, version);
 			}
 		}
@@ -239,31 +239,31 @@ public:
 
 			variant.serialize(reader, version);
 			switch (variant.type()) {
-				case cVariant::Long:
-				case cVariant::Int:
+				case cVariant::LongType:
+				case cVariant::IntType:
 					object = PyInt_FromLong(variant.asInt());
 					break;
                 
-				case cVariant::String:
+				case cVariant::StringType:
 					object = QString2Python(variant.asString());
 					break;
                 
-				case cVariant::Double:
+				case cVariant::DoubleType:
 					object = PyFloat_FromDouble(variant.asDouble());
 					break;
 
-				case cVariant::BaseChar:
+				case cVariant::BaseCharType:
 					object = PyGetCharObject(variant.toChar());
 					break;
 
-				case cVariant::Item:
+				case cVariant::ItemType:
 					object = PyGetItemObject(variant.toItem());
 					break;
 
-				case cVariant::Coord:
+				case cVariant::CoordType:
 					object = PyGetCoordObject(variant.toCoord());
 					break;
-				case cVariant::Invalid:
+				case cVariant::InvalidType:
 					break;
 			}
 

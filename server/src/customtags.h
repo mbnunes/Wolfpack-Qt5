@@ -43,7 +43,7 @@ class cItem;
 class cBaseChar;
 class QString;
 class cVariant;
-class Coord_cl;
+class Coord;
 class cBufferedReader;
 class cBufferedWriter;
 
@@ -53,15 +53,16 @@ public:
 	// Static NULL instance
 	static const cVariant null;
 
-	enum Type {
-		Invalid			= 0,
-		String,
-		Int,
-		Long,
-		Double,
-		BaseChar,
-		Item,
-		Coord
+	enum Type
+	{
+		InvalidType = 0,
+		StringType,
+		IntType,
+		LongType,
+		DoubleType,
+		BaseCharType,
+		ItemType,
+		CoordType
 	};
 
 	cVariant();
@@ -73,7 +74,7 @@ public:
 	cVariant( unsigned int );
 	cVariant( cBaseChar* );
 	cVariant( cItem* );
-	cVariant( const Coord_cl& );
+	cVariant( const Coord& );
 	cVariant( double );
 	cVariant( long int );
 
@@ -95,7 +96,7 @@ public:
 	double toDouble( bool* ok = 0 ) const;
 	cBaseChar* toChar() const;
 	cItem* toItem() const;
-	Coord_cl toCoord() const;
+	Coord toCoord() const;
 
 	cVariant& operator=( const cVariant& );
 	bool operator==( const cVariant& ) const;
@@ -109,6 +110,7 @@ public:
 	static Type nameToType( const char* name );
 
 	bool isString();
+
 private:
 	Type typ;
 
@@ -128,7 +130,7 @@ inline cVariant::Type cVariant::type() const
 
 inline bool cVariant::isValid() const
 {
-	return ( typ != Invalid );
+	return ( typ != InvalidType );
 }
 
 class cCustomTags

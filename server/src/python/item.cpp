@@ -55,7 +55,7 @@ class cItemObjectCache : public cObjectCache<wpItem, 50>
 {
 };
 
-typedef SingletonHolder<cItemObjectCache> ItemCache;
+typedef Singleton<cItemObjectCache> ItemCache;
 
 // Forward Declarations
 static PyObject* wpItem_getAttr( wpItem* self, char* name );
@@ -190,7 +190,7 @@ static PyObject* wpItem_delete( wpItem* self, PyObject* args )
 static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 {
 	// Gather parameters
-	Coord_cl pos = self->pItem->pos();
+	Coord pos = self->pItem->pos();
 	uchar noRemove = 0;
 
 	if ( PyTuple_Size( args ) == 1 )
@@ -294,7 +294,7 @@ static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 	}
 	else if ( PyTuple_Size( args ) >= 2 ) // Min 2
 	{
-		Coord_cl pos = self->pItem->pos();
+		Coord pos = self->pItem->pos();
 
 		if ( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 			return PyInt_FromLong( -1 );
@@ -395,11 +395,11 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 	cVariant value = self->pItem->getTag( key );
 
-	if ( value.type() == cVariant::String )
+	if ( value.type() == cVariant::StringType )
 		return QString2Python(value.toString());
-	else if ( value.type() == cVariant::Int )
+	else if ( value.type() == cVariant::IntType )
 		return PyInt_FromLong( value.asInt() );
-	else if ( value.type() == cVariant::Double )
+	else if ( value.type() == cVariant::DoubleType )
 		return PyFloat_FromDouble( value.asDouble() );
 
 	Py_RETURN_NONE;
@@ -551,7 +551,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	if ( !object )
 		object = getArgItem( 1 );
 
-	Coord_cl pos;
+	Coord pos;
 
 	if ( checkArgCoord( 1 ) )
 		pos = getArgCoord( 1 );

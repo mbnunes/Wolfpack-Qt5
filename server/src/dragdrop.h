@@ -42,9 +42,9 @@ void equipItem( cUOSocket*, cUORxWearItem* );
 void dropItem( cUOSocket*, cUORxDropItem* );
 
 // Sub-drop Functions
-void dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl& dropPos );
+void dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, const Coord& dropPos );
 void dropOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pOtherChar );
-void dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord_cl& pos );
+void dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord& pos );
 
 // Drop-on-char subfunctions
 void dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar );

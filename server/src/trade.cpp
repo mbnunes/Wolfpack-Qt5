@@ -120,12 +120,17 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		Q_UINT8 layer = pItem->getOutmostItem()->layer();
 
 		// First check: is the item on the vendor in the specified layer
-		if (layer == cBaseChar::BuyRestockContainer) {
-			amount = QMIN(pItem->restock(), amount);
-		} else if (layer == cBaseChar::BuyNoRestockContainer) {
+		if( layer == cBaseChar::BuyRestockContainer )
+		{
+			amount = wpMin<Q_UINT16>( pItem->restock(), amount );
+		}
+		else if( layer == cBaseChar::BuyNoRestockContainer )
+		{
 			// Not enough of that item is left
-			amount = QMIN(pItem->amount(), amount);
-		} else {
+			amount = wpMin<Q_UINT16>( pItem->amount(), amount );
+		}
+		else
+		{
 			socket->sysMessage( tr( "Invalid item bought." ) );
 			socket->send( &clearBuy );
 			return;
@@ -329,7 +334,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 		for ( map<SERIAL, Q_UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
 		{
 			P_ITEM pItem = FindItemBySerial( iter->first );
-			Q_UINT16 amount = QMIN(pItem->amount(), iter->second);
+			Q_UINT16 amount = wpMin<Q_UINT16>( pItem->amount(), iter->second );
 
 			// If we can find something to stack with that is already in the vendors 
 			// no restock container, increase the amount of that item instead. 

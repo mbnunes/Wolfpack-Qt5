@@ -30,7 +30,6 @@
 
 // library Includes
 #include <algorithm>
-#include <math.h>
 #include <qglobal.h>
 #include <qstring.h>
 
@@ -59,13 +58,27 @@ inline bool isHairColor( Q_UINT16 color )
 	return ( ( color >= 0x44E ) && ( color <= 0x47D ) ) ? true : false;
 }
 
-inline int roundInt(double n) {
-    double f = n - floor(n);
-	if (f >= 0.50) {
-		return (int)ceil(n);
-	} else {
-		return (int)floor(n);
-	}
+template<typename T>
+inline T wpAbs( T a )
+{
+	return ( a >= 0  ? a : -a );
+}
+
+template<typename T>
+inline T wpMin( T a, T b )
+{
+	return ( a > b ? b : a );
+}
+
+template<typename T>
+inline T wpMax( T a, T b )
+{
+	return ( a < b ? b : a );
+}
+
+inline int roundInt( double n )
+{
+	return static_cast<int>( n + 0.5 );
 }
 
 inline bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {

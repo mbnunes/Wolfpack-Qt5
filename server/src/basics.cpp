@@ -26,8 +26,9 @@
  */
 
 // Wolfpack Includes
-#include "basics.h"
 #include "coord.h"
+#include "basics.h"
+#include "inlines.h"
 #include "exceptions.h"
 #include "persistentobject.h"
 
@@ -93,7 +94,7 @@ int rollDice( const QString& dicePattern ) // roll dices d&d style
 	return RandomNum( x, x * y ) + z;
 }
 
-bool parseCoordinates( const QString& input, Coord_cl& coord, bool ignoreZ )
+bool parseCoordinates( const QString& input, Coord& coord, bool ignoreZ )
 {
 	QStringList coords = QStringList::split( ",", input );
 
@@ -582,7 +583,7 @@ void cBufferedReader::readRaw( void* data, unsigned int size )
 	do
 	{
 		unsigned int available = d->buffersize - d->bufferpos;
-		unsigned int needed = QMIN( available, size );
+		unsigned int needed = wpMin<unsigned int>( available, size );
 
 		// Get as much data as possible
 		if ( needed != 0 )

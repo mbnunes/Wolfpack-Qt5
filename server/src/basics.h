@@ -38,13 +38,13 @@
 #include <qfile.h>
 
 // Forward definitions
-class Coord_cl;
+class Coord;
 class QString;
 
 // sereg : roll dices d&d style
 int rollDice( const QString& dicePattern );
 
-bool parseCoordinates( const QString& input, Coord_cl& coord, bool ignoreZ = false );
+bool parseCoordinates( const QString& input, Coord& coord, bool ignoreZ = false );
 
 int RandomNum( int nLowNum, int nHighNum );
 

@@ -75,6 +75,7 @@ public:
 	void load( char**, Q_UINT16& );
 	void save();
 	bool del();
+	void postload( unsigned int version );
 	void load( cBufferedReader& reader, unsigned int version );
 	void save( cBufferedWriter& writer, unsigned int version );
 	void load( cBufferedReader& reader );
@@ -120,11 +121,18 @@ public:
 	unsigned char controlslots() const;
 	unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );
 
+	//! Returns true if there's a client (socket) attached to the character.
+	bool isConnected();
+
+	//! Returns true if the char is present in the world (may have disconnected, but be lingering).
+	bool isOnline();
+
 	// Wrapper events
-	virtual bool onLogin( void ); // The character enters the world
-	virtual bool onLogout( void ); // The character enters the world
-	virtual bool onHelp( void ); // The character wants help
-	virtual bool onChat( void ); // The character wants to chat
+	virtual bool onLogin(); // The character enters the world
+	virtual bool onDisconnect(); // The socket has disconnected
+	virtual bool onLogout(); // The character exits the world
+	virtual bool onHelp(); // The character wants help
+	virtual bool onChat(); // The character wants to chat
 	virtual bool onCastSpell( unsigned int spell );
 	void poll( unsigned int time, unsigned int events );
 	bool onUse( P_ITEM pItem );
@@ -200,7 +208,7 @@ public:
 	void removePet( P_NPC pPet, bool noOwnerChange = false );
 	bool canSeeChar( P_CHAR character );
 	bool canSeeItem( P_ITEM item );
-	virtual void moveTo( const Coord_cl& pos, bool noremove = false );
+	virtual void moveTo( const Coord& pos, bool noremove = false );
 
 	// cPythonScriptable inherited methods
 	PyObject* getPyObject();
@@ -521,6 +529,16 @@ inline void cPlayer::setIntelligenceLock( unsigned char data )
 {
 	intelligenceLock_ = data;
 	changed_ = true;
+}
+
+inline bool cPlayer::isConnected()
+{
+	return socket_ != 0;
+}
+
+inline bool cPlayer::isOnline()
+{
+	return socket_ != 0 || logoutTime_ != 0;
 }
 
 #endif /* CPLAYER_H_HEADER_INCLUDED */

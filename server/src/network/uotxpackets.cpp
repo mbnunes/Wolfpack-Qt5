@@ -236,7 +236,7 @@ void cUOTxContextMenu::addEntry( unsigned short RetVal, unsigned short msgID, un
 	setShort( size + 4, flags );
 }
 
-void cUOTxDenyMove::setCoord( const Coord_cl& coord )
+void cUOTxDenyMove::setCoord( const Coord& coord )
 {
 	setShort( 2, coord.x );
 	setShort( 4, coord.y );
@@ -549,7 +549,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 			position = 5;
 		}
 
-		position = ( position * 5 ) + QMIN( 4, pChar->fame() / 2500 );
+		position = ( position * 5 ) + wpMin<unsigned int>( 4, pChar->fame() / 2500 );
 
 		if ( pChar->objectType() != enNPC && position < titles.size() )
 		{
@@ -701,14 +701,14 @@ void cUOTxProfile::setInfo( const QString& title, const QString& staticText, con
 	setShort( 10 + title.length() + ( staticText.length() * 2 ) + ( dynamicText.length() * 2 ), 0 );
 }
 
-void cUOTxSendItem::setCoord( const Coord_cl& coord )
+void cUOTxSendItem::setCoord( const Coord& coord )
 {
 	setShort( 11, coord.x | 0x8000 );
 	setShort( 13, coord.y | 0xC000 );
 	( *this )[16] = coord.z;
 }
 
-void cUOTxSoundEffect::setCoord( const Coord_cl& coord )
+void cUOTxSoundEffect::setCoord( const Coord& coord )
 {
 	setShort( 6, coord.x );
 	setShort( 8, coord.y );

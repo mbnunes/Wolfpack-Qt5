@@ -34,36 +34,36 @@
 
 class cUORxTarget;
 
-class WPEXPORT Coord_cl
+class WPEXPORT Coord
 {
 public:
-	Coord_cl( void );
-	Coord_cl( const Coord_cl& clCoord );
-	Coord_cl( UI16, UI16, SI08 = 0, UI08 uiMap = 0, UI08 uiPlane = 0 );
+	Coord( void );
+	Coord( const Coord& clCoord );
+	Coord( UI16, UI16, SI08 = 0, UI08 uiMap = 0, UI08 uiPlane = 0 );
 	// Operators
-	Coord_cl& operator=( const Coord_cl& clCoord );
-	bool operator==( const Coord_cl& ) const;
-	bool operator!=( const Coord_cl& ) const;
-	Coord_cl operator+( const Coord_cl& src ) const;
-	Coord_cl operator-( const Coord_cl& src ) const;
-	unsigned int distance( const Coord_cl& src ) const;
-	unsigned int direction( const Coord_cl& dest ) const;
-	bool lineOfSight(const Coord_cl &dest, bool debug = false) const;
+	Coord& operator=( const Coord& clCoord );
+	bool operator==( const Coord& ) const;
+	bool operator!=( const Coord& ) const;
+	Coord operator+( const Coord& src ) const;
+	Coord operator-( const Coord& src ) const;
+	unsigned int distance( const Coord& src ) const;
+	unsigned int direction( const Coord& dest ) const;
+	bool lineOfSight(const Coord &dest, bool debug = false) const;
 
 	// Utility functions for getting correct LOS points
-	Coord_cl losCharPoint(bool eye = false) const;
-	Coord_cl losItemPoint(unsigned short id) const;
-	Coord_cl losMapPoint() const;
-	static Coord_cl losTargetPoint(cUORxTarget *target, unsigned char map);
+	Coord losCharPoint(bool eye = false) const;
+	Coord losItemPoint(unsigned short id) const;
+	Coord losMapPoint() const;
+	static Coord losTargetPoint(cUORxTarget *target, unsigned char map);
 
-	static UI32 distance( const Coord_cl& a, const Coord_cl& b );
+	static UI32 distance( const Coord& a, const Coord& b );
 
 	/*!
 		Displays an effect staying at this position.
 	*/
 	void effect( UI16 id, UI08 speed = 10, UI08 duration = 5, UI16 hue = 0, UI16 renderMode = 0 ) const;
 
-	static Coord_cl null;
+	static Coord null;
 
 public:
 	UI16 x;

@@ -32,14 +32,15 @@
 #include "qcstring.h"
 #include "qstring.h"
 #include "qstringlist.h"
-#include "../typedefs.h"
 #include "../coord.h"
+#include "../inlines.h"
+#include "../typedefs.h"
 #include "../objectdef.h"
 
 #include <vector>
 #include "uopacket.h"
 
-class Coord_cl;
+class Coord;
 
 // 0x82: DenyLogin
 class cUOTxDenyLogin : public cUOPacket
@@ -976,11 +977,11 @@ public:
 	}
 	void setLanguage( const QString& data )
 	{
-		this->setAsciiString( 14, data.left( 3 ).latin1(), QMIN( data.length() + 1, 4 ) );
+		this->setAsciiString( 14, data.left( 3 ).latin1(), wpMin<uint>( data.length() + 1, 4 ) );
 	}
 	void setName( const QString& data )
 	{
-		this->setAsciiString( 18, data.left( 29 ).latin1(), QMIN( data.length() + 1, 30 ) );
+		this->setAsciiString( 18, data.left( 29 ).latin1(), wpMin<uint>( data.length() + 1, 30 ) );
 	}
 	void setText( const QString& data );
 };
@@ -1024,7 +1025,7 @@ public:
 	}
 	void setName( const QString& name )
 	{
-		setAsciiString( 7, name.left( 29 ).latin1(), QMIN( name.length() + 1, 30 ) );
+		setAsciiString( 7, name.left( 29 ).latin1(), wpMin<uint>( name.length() + 1, 30 ) );
 	}
 	void setHp( unsigned short data )
 	{
@@ -1175,7 +1176,7 @@ public:
 	{
 		( *this )[1] = data;
 	}
-	void setCoord( const Coord_cl& coord );
+	void setCoord( const Coord& coord );
 	void setDirection( unsigned char data )
 	{
 		( *this )[6] = data;
@@ -1250,7 +1251,7 @@ public:
 	}
 	void setName( const QString& name )
 	{
-		this->setAsciiString( 5, name.left( 59 ).latin1(), QMIN( strlen( name.left( 59 ).latin1() ) + 1, 60 ) );
+		this->setAsciiString( 5, name.left( 59 ).latin1(), wpMin<uint>( name.length() + 1, 60 ) );
 	}
 	void setFlag( unsigned char flag )
 	{
@@ -1309,7 +1310,7 @@ public:
 	{
 		setShort( 9, data );
 	}
-	void setCoord( const Coord_cl& coord );
+	void setCoord( const Coord& coord );
 	void setDirection( unsigned char data )
 	{
 		( *this )[15] = data;
@@ -1388,7 +1389,7 @@ public:
 	{
 		setShort( 4, data );
 	}
-	void setCoord( const Coord_cl& coord );
+	void setCoord( const Coord& coord );
 };
 
 
@@ -1603,7 +1604,7 @@ public:
 	{
 		( *this )[1] = status;
 	}
-	void setPos( const Coord_cl& pos )
+	void setPos( const Coord& pos )
 	{
 		setShort( 2, pos.x );
 		setShort( 4, pos.y );
@@ -1731,13 +1732,13 @@ public:
 	{
 		setShort( 10, data );
 	}
-	void setSource( const Coord_cl& pos )
+	void setSource( const Coord& pos )
 	{
 		setShort( 12, pos.x );
 		setShort( 14, pos.y );
 		( *this )[16] = pos.z;
 	}
-	void setTarget( const Coord_cl& pos )
+	void setTarget( const Coord& pos )
 	{
 		setShort( 17, pos.x );
 		setShort( 19, pos.y );
@@ -1985,7 +1986,7 @@ public:
 	}
 	void setName( const QString& data )
 	{
-		this->setAsciiString( 19, data.left( 29 ).latin1(), QMIN( data.length() + 1, 30 ) );
+		this->setAsciiString( 19, data.left( 29 ).latin1(), wpMin<uint>( data.length() + 1, 30 ) );
 	}
 	void setParams( const QString& affix, const QString& params )
 	{
@@ -2029,14 +2030,14 @@ public:
 	{
 		setShort( 10, data );
 	}
-	void setSourcePos( const Coord_cl& pos )
+	void setSourcePos( const Coord& pos )
 	{
 		setShort( 12, pos.x );
 		setShort( 14, pos.y );
 		( *this )[16] = pos.z;
 	}
 
-	void setTargetPos( const Coord_cl& pos )
+	void setTargetPos( const Coord& pos )
 	{
 		setShort( 17, pos.x );
 		setShort( 19, pos.y );
@@ -2097,14 +2098,14 @@ public:
 	{
 		setShort( 10, data );
 	}
-	void setSourcePos( const Coord_cl& pos )
+	void setSourcePos( const Coord& pos )
 	{
 		setShort( 12, pos.x );
 		setShort( 14, pos.y );
 		( *this )[16] = pos.z;
 	}
 
-	void setTargetPos( const Coord_cl& pos )
+	void setTargetPos( const Coord& pos )
 	{
 		setShort( 17, pos.x );
 		setShort( 19, pos.y );
@@ -2390,7 +2391,7 @@ public:
 		setInt( 9, data );
 	}
 	void addTile( unsigned short id, short x, short y, short z );
-	void addTile( unsigned short id, const Coord_cl& coords )
+	void addTile( unsigned short id, const Coord& coords )
 	{
 		addTile( id, coords.x, coords.y, coords.z );
 	}

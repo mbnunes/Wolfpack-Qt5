@@ -46,7 +46,7 @@
 struct StartLocation_st
 {
 	QString name;
-	Coord_cl pos;
+	Coord pos;
 };
 
 struct ServerList_st
@@ -784,7 +784,7 @@ inline unsigned int cConfig::maxCharsPerAccount() const
 	return ( unsigned int ) maxCharsPerAccount_;
 }
 
-typedef SingletonHolder<cConfig> Config;
+typedef Singleton<cConfig> Config;
 
 #endif //__SRVPARAMS_H___
 

@@ -100,6 +100,6 @@ public:
 	MultiDefinition* getMulti( ushort id );
 };
 
-typedef SingletonHolder<cMultiCache> MultiCache;
+typedef Singleton<cMultiCache> MultiCache;
 
 #endif // __MULTISCACHE_H__

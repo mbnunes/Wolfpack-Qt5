@@ -32,7 +32,7 @@
 #include "typedefs.h"
 #include <qptrlist.h>
 
-class Coord_cl;
+class Coord;
 class cUOSocket;
 
 /*!
@@ -173,10 +173,10 @@ public:
 	// Sounds + Animations
 	void playGetHitSoundEffect( P_CHAR pChar );
 	void playGetHitAnimation( P_CHAR pChar );
-	void spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl& pos );
+	void spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord& pos );
 };
 
-typedef SingletonHolder<cCombat> Combat;
+typedef Singleton<cCombat> Combat;
 
 #endif // __COMBAT_H__
 

@@ -27,12 +27,12 @@
 
 #include "maps.h"
 #include "tilecache.h"
-#include "../sectors.h"
 #include "multiscache.h"
-#include "../defines.h"
+#include "../log.h"
 #include "../items.h"
 #include "../console.h"
-#include "../log.h"
+#include "../defines.h"
+#include "../mapobjects.h"
 #include "../serverconfig.h"
 
 // Library Includes
@@ -381,11 +381,11 @@ map_st cMaps::seekMap( uint id, ushort x, ushort y ) const
 /*!
 	\overload
 	Overloaded method, like the above, but takes coordinates and map id out of
-	a Coord_cl instance.
-	\sa Coord_cl
+	a Coord instance.
+	\sa Coord
 	\sa map_st
 */
-map_st cMaps::seekMap( const Coord_cl& p ) const
+map_st cMaps::seekMap( const Coord& p ) const
 {
 	return seekMap( p.map, p.x, p.y );
 }
@@ -393,7 +393,7 @@ map_st cMaps::seekMap( const Coord_cl& p ) const
 /*!
 	Returns the elevation (z) of map tile located at \a p.
 */
-signed char cMaps::mapElevation( const Coord_cl& p ) const
+signed char cMaps::mapElevation( const Coord& p ) const
 {
 	map_st map = seekMap( p );
 	// make sure nothing can move into black areas
@@ -429,7 +429,8 @@ uint cMaps::mapTileWidth( uint id ) const
 	return it.data()->width;
 }
 
-void cMaps::mapTileSpan(const Coord_cl &pos, unsigned short &id, int &bottom, int &top) const {
+void cMaps::mapTileSpan( const Coord &pos, unsigned short &id, int &bottom, int &top ) const
+{
 	int topZ, bottomZ, leftZ, rightZ;
 
 	// Get the elevation of the tile itself
@@ -447,10 +448,10 @@ void cMaps::mapTileSpan(const Coord_cl &pos, unsigned short &id, int &bottom, in
 	bottomZ = seekMap(pos.map, pos.x + 1, pos.y + 1).z;
 
 	// Get the smallest of the z values
-	bottom = QMIN( QMIN( QMIN(topZ, leftZ), rightZ), bottomZ);
+	bottom = wpMin<int>( wpMin<int>( wpMin<int>( topZ, leftZ ), rightZ ), bottomZ );
     
 	// Get the highest of the z values
-	top = QMAX( QMAX( QMAX(topZ, leftZ), rightZ), bottomZ);
+	top = wpMax<int>( wpMax<int>( wpMax<int>( topZ, leftZ ), rightZ ), bottomZ );
 }
 
 /*!
@@ -461,7 +462,7 @@ void cMaps::mapTileSpan(const Coord_cl &pos, unsigned short &id, int &bottom, in
 	The optional parameters \a top and \a botton are respectively the highest
 	and lowerst values that composes the average
 */
-signed char cMaps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, int* botton /* = 0 */ ) const
+signed char cMaps::mapAverageElevation( const Coord& p, int* top /* = 0 */, int* botton /* = 0 */ ) const
 {
 	// first thing is to get the map where we are standing
 	map_st map1 = seekMap( p );
@@ -470,9 +471,9 @@ signed char cMaps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, i
 	if ( map1.id > 2 && ILLEGAL_Z != mapElevation( p ) )
 	{
 		// get three other nearby titles to decide on an average z?
-		Q_INT8 map2z = mapElevation( p + Coord_cl( 1, 0, 0 ) );
-		Q_INT8 map3z = mapElevation( p + Coord_cl( 0, 1, 0 ) );
-		Q_INT8 map4z = mapElevation( p + Coord_cl( 1, 1, 0 ) );
+		Q_INT8 map2z = mapElevation( p + Coord( 1, 0, 0 ) );
+		Q_INT8 map3z = mapElevation( p + Coord( 0, 1, 0 ) );
+		Q_INT8 map4z = mapElevation( p + Coord( 1, 1, 0 ) );
 
 		Q_INT8 testz = 0;
 		if ( abs( map1.z - map4z ) <= abs( map2z - map3z ) )
@@ -525,7 +526,7 @@ bool cMaps::canFit( int x, int y, int z, uint map ) const
 		return false; // There is something here.
 
 	// check statics too
-	StaticsIterator StaticTiles = staticsIterator( Coord_cl( x, y, z, map ) );
+	StaticsIterator StaticTiles = staticsIterator( Coord( x, y, z, map ) );
 	for ( ; !StaticTiles.atEnd(); ++StaticTiles )
 	{
 		tile_st tile = TileCache::instance()->getTile( StaticTiles->itemid );
@@ -552,14 +553,12 @@ unsigned int cMaps::staticPatches( unsigned int id )
 	return d.find( id ).data()->staticpatches.size();
 }
 
-signed char cMaps::dynamicElevation( const Coord_cl& pos ) const
+signed char cMaps::dynamicElevation( const Coord& pos ) const
 {
-	//int z = ILLEGAL_Z;
-	signed char z = ILLEGAL_Z;
-	RegionIterator4Items ri( pos );
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
+	SI08 z = ILLEGAL_Z;
+	MapItemsIterator ri = MapObjects::instance()->listItemsInCircle( pos, 18 );
+	for ( P_ITEM mapitem = ri.first(); mapitem; mapitem = ri.next() )
 	{
-		P_ITEM mapitem = ri.GetData();
 		if ( mapitem != NULL )
 		{
 			if ( mapitem->isMulti() )
@@ -586,7 +585,7 @@ signed char cMaps::dynamicElevation( const Coord_cl& pos ) const
 	return z;
 }
 
-signed char cMaps::staticTop( const Coord_cl& pos ) const
+signed char cMaps::staticTop( const Coord& pos ) const
 {
 	signed char top = ILLEGAL_Z;
 
@@ -604,7 +603,7 @@ signed char cMaps::staticTop( const Coord_cl& pos ) const
 }
 
 // Return new height of player who walked to X/Y but from OLDZ
-signed char cMaps::height( const Coord_cl& pos )
+signed char cMaps::height( const Coord& pos )
 {
 	// let's check in this order.. dynamic, static, then the map
 	signed char dynz = dynamicElevation( pos );
@@ -629,7 +628,7 @@ StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact 
 	return StaticsIterator( x, y, it.data(), exact );
 }
 
-StaticsIterator cMaps::staticsIterator( const Coord_cl& p, bool exact /* = true */ ) const throw( wpException )
+StaticsIterator cMaps::staticsIterator( const Coord& p, bool exact /* = true */ ) const throw( wpException )
 {
 	return staticsIterator( p.map, p.x, p.y, exact );
 }

@@ -36,10 +36,10 @@
 #include "../serverconfig.h"
 #include "../console.h"
 
-#include "../sectors.h"
 #include "../world.h"
-#include "../inlines.h"
 #include "../basics.h"
+#include "../inlines.h"
+#include "../mapobjects.h"
 
 // library includes
 #include <math.h>
@@ -208,7 +208,6 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 			pGem->update();
 
 			//pPet->free = true;
-			MapObjects::instance()->remove( pPet );
 			pPet->setStablemasterSerial( this->m_npc->serial() );
 			pPet->setOwner(0); // Remove ownership from this player since it's stabled
 			pPet->removeFromView();
@@ -381,10 +380,9 @@ void Human_Guard::selectVictim()
 	if ( !m_currentVictim )
 	{
 		// Get a criminal or murderer in range to attack it
-		RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
-		for ( ri.Begin(); !ri.atEnd(); ri++ )
+		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), VISRANGE );
+		for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 		{
-			P_CHAR pChar = ri.GetData();
 			if ( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
 			{
 				// If its a NPC... special handling

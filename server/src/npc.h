@@ -84,7 +84,7 @@ public:
 		Q_UINT16 radius;
 
 		P_CHAR followTarget;
-		Coord_cl destination;
+		Coord destination;
 	};
 
 	// implementation of interfaces
@@ -119,7 +119,7 @@ public:
 	void awardFame( short amount );
 	void awardKarma( P_CHAR pKilled, short amount );
 	void vendorBuy( P_PLAYER player );
-	static cNPC* createFromScript( const QString& id, const Coord_cl& pos );
+	static cNPC* createFromScript( const QString& id, const Coord& pos );
 	void remove();
 	void vendorSell( P_PLAYER player );
 	virtual bool isInnocent();
@@ -149,9 +149,9 @@ public:
 	// advanced getters for data structures
 	// path finding
 	bool hasPath( void );
-	Coord_cl nextMove();
-	Coord_cl pathDestination( void ) const;
-	float pathHeuristic( const Coord_cl& source, const Coord_cl& destination );
+	Coord nextMove();
+	Coord pathDestination( void ) const;
+	float pathHeuristic( const Coord& source, const Coord& destination );
 	// wander type
 	enWanderTypes wanderType() const;
 	Q_UINT16 wanderX1() const;
@@ -160,7 +160,7 @@ public:
 	Q_UINT16 wanderY2() const;
 	Q_UINT16 wanderRadius() const;
 	P_CHAR wanderFollowTarget() const;
-	Coord_cl wanderDestination() const;
+	Coord wanderDestination() const;
 
 	// setters
 	void setAdditionalFlags( Q_UINT32 data );
@@ -181,11 +181,11 @@ public:
 	// AI
 	void setAI( const QString& data );
 	// path finding
-	void pushMove( const Coord_cl& move );
+	void pushMove( const Coord& move );
 	void pushMove( UI16 x, UI16 y, SI08 z );
 	void popMove( void );
 	void clearPath( void );
-	void findPath( const Coord_cl& goal, float sufficient_cost = 0.0f );
+	void findPath( const Coord& goal, float sufficient_cost = 0.0f );
 	// wander type
 	void setWanderType( enWanderTypes data );
 	void setWanderX1( Q_UINT16 data );
@@ -194,7 +194,7 @@ public:
 	void setWanderY2( Q_UINT16 data );
 	void setWanderRadius( Q_UINT16 data );
 	void setWanderFollowTarget( P_CHAR data );
-	void setWanderDestination( const Coord_cl& data );
+	void setWanderDestination( const Coord& data );
 
 	// cPythonScriptable inherited methods
 	PyObject* getPyObject();
@@ -259,7 +259,7 @@ protected:
 	SERIAL stablemasterSerial_;
 
 	// A* calculated path which the NPC walks on.
-	QValueList<Coord_cl> path_;
+	QValueList<Coord> path_;
 
 	// NPC AI interface
 	AbstractAI* ai_;
@@ -420,7 +420,7 @@ inline P_CHAR cNPC::wanderFollowTarget() const
 	return wanderType_.followTarget;
 }
 
-inline Coord_cl cNPC::wanderDestination() const
+inline Coord cNPC::wanderDestination() const
 {
 	return wanderType_.destination;
 }
@@ -460,7 +460,7 @@ inline void cNPC::setWanderFollowTarget( P_CHAR data )
 	wanderType_.followTarget = data;
 }
 
-inline void cNPC::setWanderDestination( const Coord_cl& data )
+inline void cNPC::setWanderDestination( const Coord& data )
 {
 	wanderType_.destination = data;
 }

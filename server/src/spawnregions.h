@@ -44,8 +44,8 @@ public:
 		return points_;
 	}
 
-	virtual Coord_cl findSpot() = 0;
-	virtual bool inBounds(const Coord_cl &pos) = 0;
+	virtual Coord findSpot() = 0;
+	virtual bool inBounds(const Coord &pos) = 0;
 };
 
 class cSpawnRegion : public cDefinable {
@@ -64,8 +64,8 @@ public:
 	void checkTimer( void );
 
 	unsigned int countPoints();
-	bool isValidSpot( const Coord_cl& pos );
-	bool findValidSpot( Coord_cl& pos, int tries = -1 );
+	bool isValidSpot( const Coord& pos );
+	bool findValidSpot( Coord& pos, int tries = -1 );
 
 	// Getters
 	const QString &id() const {
@@ -227,6 +227,6 @@ public:
 	}
 };
 
-typedef SingletonHolder<cAllSpawnRegions> SpawnRegions;
+typedef Singleton<cAllSpawnRegions> SpawnRegions;
 
 #endif

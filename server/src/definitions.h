@@ -153,6 +153,6 @@ protected:
 	QMap<QString, QStringList> listcache_;
 };
 
-typedef SingletonHolder<cDefinitions> Definitions;
+typedef Singleton<cDefinitions> Definitions;
 
 #endif // __WPDEFMANAGER_H__

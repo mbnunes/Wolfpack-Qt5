@@ -31,7 +31,7 @@
 #include "muls/tilecache.h"
 #include "combat.h"
 #include "targetrequests.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "serverconfig.h"
 #include "scriptmanager.h"
 #include "skills.h"
@@ -153,7 +153,8 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		return;
 	}
 
-	float maxWeight = ( float ) QMIN( 1, pChar->skillValue( STEALING ) ); // We can steal max. 10 Stones when we are a GM
+	// We can steal max. 10 Stones when we are a GM
+	float maxWeight = wpMin<ushort>( 1, pChar->skillValue( STEALING ) );
 	// 1000 Skill == 100 Weight == 10 Stones
 
 	QPtrList<cItem> containment = pBackpack->getContainment();
@@ -407,7 +408,7 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 			}
 		}
 
-		unsigned char title = QMAX( 1, ( ( int ) pChar->skillValue( skill ) - 300 ) / 100 );
+		UI08 title = wpMax<UI08>( 1, ( static_cast<int>( pChar->skillValue( skill ) ) - 300 ) / 100 );
 
 		if ( title >= skillRanks.size() )
 		{

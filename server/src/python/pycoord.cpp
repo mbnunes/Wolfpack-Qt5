@@ -42,13 +42,13 @@
 typedef struct
 {
 	PyObject_HEAD;
-	Coord_cl coord;
+	Coord coord;
 } wpCoord;
 
 // Return a string representation for a coord object.
 static PyObject* wpCoord_str( wpCoord* object )
 {
-	const Coord_cl &pos = object->coord;
+	const Coord &pos = object->coord;
 	return PyString_FromFormat( "%i,%i,%i,%i", pos.x, pos.y, ( int ) pos.z, pos.map );
 }
 
@@ -88,8 +88,8 @@ static int wpCoord_compare( PyObject* a, PyObject* b )
 	if ( a->ob_type != &wpCoordType || b->ob_type != &wpCoordType )
 		return -1;
 
-	const Coord_cl &posa = ( ( wpCoord* ) a )->coord;
-	const Coord_cl &posb = ( ( wpCoord* ) b )->coord;
+	const Coord &posa = ( ( wpCoord* ) a )->coord;
+	const Coord &posb = ( ( wpCoord* ) b )->coord;
 
 	if ( posa.x != posb.x || posa.y != posb.y || posa.z != posb.z || posa.map != posb.map )
 	{
@@ -119,7 +119,7 @@ static PyObject* wpCoord_distance( wpCoord* self, PyObject* args )
 	}
 	else
 	{
-		Coord_cl pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
+		Coord pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
 
 		// Calculate the distance
 		return PyInt_FromLong( self->coord.distance( pos ) );
@@ -142,7 +142,7 @@ static PyObject* wpCoord_direction( wpCoord* self, PyObject* args )
 	}
 	else
 	{
-		Coord_cl pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
+		Coord pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
 
 		// Calculate the distance
 		return PyInt_FromLong( self->coord.direction( pos ) );
@@ -171,7 +171,7 @@ static PyObject* wpCoord_validspawnspot( wpCoord* self, PyObject* args )
 */
 static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 {
-	Coord_cl pos;
+	Coord pos;
 	char debug = 0;
 	if ( !PyArg_ParseTuple( args, "O&|b:coord.lineofsight(coord, [debug=0])", &PyConvertCoord, &pos, &debug ) )
 		return 0;
@@ -296,7 +296,7 @@ static int wpCoord_setAttr( wpCoord* self, char* name, PyObject* value )
 	return 0;
 }
 
-int PyConvertCoord( PyObject* object, Coord_cl* pos )
+int PyConvertCoord( PyObject* object, Coord* pos )
 {
 	if ( object->ob_type != &wpCoordType )
 	{
@@ -313,16 +313,16 @@ bool checkWpCoord( PyObject* object )
 	return ( object->ob_type == &wpCoordType );
 }
 
-PyObject* PyGetCoordObject( const Coord_cl& coord )
+PyObject* PyGetCoordObject( const Coord& coord )
 {
 	wpCoord* cObject = PyObject_New( wpCoord, &wpCoordType );
 	cObject->coord = coord;
 	return ( PyObject * ) ( cObject );
 }
 
-Coord_cl getWpCoord( PyObject* object )
+Coord getWpCoord( PyObject* object )
 {
-	Coord_cl coord;
+	Coord coord;
 
 	if ( object->ob_type == &wpCoordType )
 		coord = ( ( wpCoord * ) object )->coord;

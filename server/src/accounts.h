@@ -251,7 +251,7 @@ inline void cAccount::setFlags( Q_UINT32 data )
 	flags_ = data;
 }
 
-typedef SingletonHolder<cAccounts> Accounts;
+typedef Singleton<cAccounts> Accounts;
 
 #endif // __ACCOUNTS_H__
 

@@ -27,10 +27,11 @@
 
 #include "serverconfig.h"
 
-#include "verinfo.h"
-#include "preferences.h"
 #include "log.h"
+#include "verinfo.h"
 #include "basedef.h"
+#include "inlines.h"
+#include "preferences.h"
 
 // Library Includes
 #include <qstring.h>
@@ -100,7 +101,7 @@ void cConfig::readData()
 	accountsPassword_ = getString( "Accounts", "Database Password", "", true );
 	hashAccountPasswords_ = getBool( "Accounts", "Use MD5 Hashed Passwords", false, true );
 	convertUnhashedPasswords_ = getBool( "Accounts", "Automatically Hash Loaded Passwords", false, true );
-	maxCharsPerAccount_ = QMIN( 6, getNumber( "Accounts", "Maximum Number of Characters", 6, true ) );
+	maxCharsPerAccount_ = wpMin<unsigned char>( 6, getNumber( "Accounts", "Maximum Number of Characters", 6, true ) );
 
 	// AI
 	checkAITime_ = getDouble( "AI", "Default AI Check Time", 0.5, true );

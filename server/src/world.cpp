@@ -52,7 +52,7 @@
 
 // Postprocessing stuff, can be deleted later on
 #include "muls/maps.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "territories.h"
 
 // Objects ( => Factory later on )
@@ -455,7 +455,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 								cUObject *obj = dynamic_cast<cUObject*>(object);
 								if (obj) {
 									obj->setSpawnregion(0);
-									SectorMaps::instance()->remove(obj);
+									MapObjects::instance()->remove(obj);
 									unregisterObject(obj);
 
 									if (obj->multi()) {
@@ -713,10 +713,6 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 					Console::instance()->log( LOG_ERROR, tr( "Item with invalid position %1,%2,%3,%4.\n" ).arg( pi->pos().x ).arg( pi->pos().y ).arg( pi->pos().z ).arg( pi->pos().map ) );
 					deleteItems.append( pi );
 					continue;
-				}
-				else
-				{
-					MapObjects::instance()->add( pi );
 				}
 			}
 			else

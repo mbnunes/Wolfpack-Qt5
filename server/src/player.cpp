@@ -41,7 +41,7 @@
 #include "definitions.h"
 #include "corpse.h"
 #include "multi.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "party.h"
 #include "npc.h"
 #include "combat.h"
@@ -99,19 +99,39 @@ void cPlayer::buildSqlString( const char *objectid, QStringList& fields, QString
 	conditions.push_back( "uobjectmap.serial = players.serial" );
 }
 
-static void playerRegisterAfterLoading( P_PLAYER pc );
+void cPlayer::postload( unsigned int version )
+{
+	// account removed?
+	if( account() == 0 )
+	{
+		// we need to remove the equipment here.
+		cBaseChar::ItemContainer::const_iterator it;
+		for( it = content_.begin(); it != content_.end(); ++it )
+		{
+			P_ITEM item = *it;
+			if( !item )
+				continue;
+
+			item->remove();
+		}
+		del();
+		return;
+	}
+
+	cBaseChar::postload( version );
+	MapObjects::instance()->add( this );
+}
 
 void cPlayer::load( cBufferedReader& reader )
 {
 	load( reader, reader.version() );
-
 	World::instance()->registerObject( this );
-	SectorMaps::instance()->add( this );
 }
 
 void cPlayer::load( cBufferedReader& reader, unsigned int version )
 {
 	cBaseChar::load( reader, version );
+
 	setAccount( Accounts::instance()->getRecord( reader.readUtf8() ) );
 	additionalFlags_ = reader.readInt();
 	visualRange_ = reader.readByte();
@@ -120,9 +140,9 @@ void cPlayer::load( cBufferedReader& reader, unsigned int version )
 	strengthLock_ = reader.readByte();
 	dexterityLock_ = reader.readByte();
 	intelligenceLock_ = reader.readByte();
-	if (version > 7) {
+
+	if( version > 7 )
 		maxControlSlots_ = reader.readByte();
-	}
 }
 
 void cPlayer::save( cBufferedWriter& writer, unsigned int version )
@@ -155,7 +175,6 @@ void cPlayer::load( char** result, Q_UINT16& offset )
 	intelligenceLock_ = atoi( result[offset++] );
 	maxControlSlots_ = atoi( result[offset++] );
 
-	playerRegisterAfterLoading( this );
 	changed_ = false;
 }
 
@@ -200,32 +219,6 @@ bool cPlayer::del()
 	PersistentBroker::instance()->addToDeleteQueue( "players", QString( "serial = '%1'" ).arg( serial() ) );
 	changed_ = true;
 	return cBaseChar::del();
-}
-
-static void playerRegisterAfterLoading( P_PLAYER pc )
-{
-	if ( pc->account() == 0 )
-	{
-		// We need to remove the equipment here.
-		cBaseChar::ItemContainer container( pc->content() );
-		cBaseChar::ItemContainer::const_iterator it( container.begin() );
-		cBaseChar::ItemContainer::const_iterator end( container.end() );
-		for ( ; it != end; ++it )
-		{
-			P_ITEM pItem = *it;
-			if ( !pItem )
-				continue;
-
-			pItem->remove();
-		}
-		pc->del();
-		return;
-	}
-	/*	else
-		{
-			pc->setBody(0x0190);
-			Console::instance()->send("player: %s with bugged body-value detected, restored to male shape\n",pc->name().latin1());
-		}*/
 }
 
 // Update flags etc.
@@ -698,7 +691,7 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 	while ( total > 0 )
 	{
 		P_ITEM pile = cItem::createFromScript( "eed" );
-		pile->setAmount( QMIN( total, static_cast<Q_UINT32>( 65535 ) ) );
+		pile->setAmount( wpMin<Q_UINT32>( total, static_cast<Q_UINT32>( 65535 ) ) );
 		total -= pile->amount();
 
 		pCont->addItem( pile );
@@ -948,50 +941,44 @@ bool cPlayer::onPickup( P_ITEM pItem )
 	return result;
 }
 
-bool cPlayer::onLogin( void )
+bool cPlayer::onLogin()
 {
-	bool result = false;
+	MapObjects::instance()->updateOnlineStatus( this, true );
 
+	// trigger the script event
+	bool result = false;
 	if ( canHandleEvent( EVENT_LOGIN ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 		result = callEventHandler( EVENT_LOGIN, args );
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
-bool cPlayer::onCastSpell( unsigned int spell )
+bool cPlayer::onDisconnect()
 {
-	bool result = false;
-
-	if ( canHandleEvent( EVENT_CASTSPELL ) )
-	{
-		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, spell );
-		result = callEventHandler( EVENT_CASTSPELL, args );
-		Py_DECREF( args );
-	}
-
-	return result;
+	// TODO: trigger a script event here
+	return true;
 }
 
-bool cPlayer::onLogout( void )
+bool cPlayer::onLogout()
 {
-	bool result = false;
+	MapObjects::instance()->updateOnlineStatus( this, false );
 
+	// trigger the script event
+	bool result = false;
 	if ( canHandleEvent( EVENT_LOGOUT ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 		result = callEventHandler( EVENT_LOGOUT, args );
 		Py_DECREF( args );
 	}
-
 	return result;
 }
 
 // The character wants help
-bool cPlayer::onHelp( void )
+bool cPlayer::onHelp()
 {
 	bool result = false;
 
@@ -1008,7 +995,7 @@ bool cPlayer::onHelp( void )
 }
 
 // The character wants to chat
-bool cPlayer::onChat( void )
+bool cPlayer::onChat()
 {
 	bool result = false;
 
@@ -1030,6 +1017,20 @@ bool cPlayer::onUse( P_ITEM pItem )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
 		result = callEventHandler( EVENT_USE, args );
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cPlayer::onCastSpell( unsigned int spell )
+{
+	bool result = false;
+
+	if ( canHandleEvent( EVENT_CASTSPELL ) )
+	{
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, spell );
+		result = callEventHandler( EVENT_CASTSPELL, args );
 		Py_DECREF( args );
 	}
 
@@ -1209,7 +1210,7 @@ void cPlayer::awardFame( short amount )
 	int nCurFame, nChange = 0;
 	bool gain = false;
 
-	setFame( QMIN( 10000, fame() ) );
+	setFame( wpMin<short>( 10000, fame() ) );
 
 	nCurFame = fame();
 
@@ -1222,7 +1223,7 @@ void cPlayer::awardFame( short amount )
 	{
 		// Fame / 25 is our loss
 		nChange = nCurFame / 25;
-		setFame( QMAX( 0, nCurFame - nChange ) );
+		setFame( wpMax<short>( 0, nCurFame - nChange ) );
 		setDeaths( deaths() + 1 );
 		gain = false;
 	}
@@ -1367,18 +1368,12 @@ bool cPlayer::canSeeChar( P_CHAR character )
 
 		P_PLAYER player = dynamic_cast<P_PLAYER>( character );
 
-		// By default we are mor privileged than our target if we are a gm
+		// By default we are more privileged than our target if we are a GM
 		bool privileged = isGM();
 
-		// Disconnected players are invisible unless allShow is active for the current account
 		if ( player )
 		{
-			if ( !player->socket() && !player->logoutTime() && ( !account_ || !account_->isAllShow() ) )
-			{
-				return false;
-			}
-
-			if ( privileged )
+			if( privileged )
 			{
 				// Determine if we are more privileged than the target
 				if ( player->account() )
@@ -1388,6 +1383,11 @@ bool cPlayer::canSeeChar( P_CHAR character )
 						privileged = false;
 					}
 				}
+			}
+			else if( !player->isOnline() )
+			{
+				// offline players are invisible for normal players
+				return false;
 			}
 
 			if ( party_ && party_ == player->party() )
@@ -1665,9 +1665,9 @@ unsigned char cPlayer::controlslots() const
 	return controlslots;
 }
 
-void cPlayer::moveTo( const Coord_cl& pos, bool noremove )
+void cPlayer::moveTo( const Coord& pos, bool noremove )
 {
-	Coord_cl oldpos = pos_;
+	Coord oldpos = pos_;
 	cBaseChar::moveTo( pos, noremove );
 
 	if ( socket_ && oldpos.map != pos_.map )
@@ -1734,7 +1734,7 @@ unsigned int cPlayer::damage( eDamageType type, unsigned int amount, cUObject* s
 		// the more hitpoints we have, the less we loose
 		int value = (int)(amount * (100.0 / hitpoints) * (stamina / 100.0)) - 5;
 		if (value > 0) {
-			stamina_ = QMAX(0, stamina_ - value);
+			stamina_ = wpMax<short>( 0, stamina_ - value );
 			if (socket_) {
 				socket_->updateStamina();
 			}

@@ -30,8 +30,8 @@
 #include "../player.h"
 #include "../serverconfig.h"
 
-#include "../sectors.h"
 #include "../basics.h"
+#include "../mapobjects.h"
 #include "../targetrequests.h"
 
 // library includes
@@ -77,10 +77,10 @@ float Animal_Wild_Flee::preCondition()
 	if ( m_npc->attackTarget() )
 		return 0.0f;
 
-	RegionIterator4Chars ri( m_npc->pos(), Config::instance()->animalWildFleeRange() );
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
+	MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), Config::instance()->animalWildFleeRange() );
+	for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 	{
-		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( ri.GetData() );
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
 		if ( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
 		{
 			pFleeFromSer = pPlayer->serial();
@@ -108,11 +108,11 @@ float Animal_Wild_Flee::postCondition()
 	if ( m_npc->attackTarget() )
 		return 1.0f;
 
-	RegionIterator4Chars ri( m_npc->pos(), Config::instance()->animalWildFleeRange() );
 	bool found = false;
-	for ( ri.Begin(); !ri.atEnd(); ri++ )
+	MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), Config::instance()->animalWildFleeRange() );
+	for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 	{
-		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( ri.GetData() );
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
 		if ( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
 			found = true;
 

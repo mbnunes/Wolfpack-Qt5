@@ -29,7 +29,7 @@
 #include "coord.h"
 #include "player.h"
 #include "network/network.h"
-#include "sectors.h"
+#include "mapobjects.h"
 #include "items.h"
 #include "inlines.h"
 #include "muls/multiscache.h"
@@ -45,10 +45,10 @@
 #include <math.h>
 #include <set>
 
-inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl &target) {
+inline QValueList<Coord> getPointList(const Coord &origin, const Coord &target) {
 	// Create a list of coordinates we are going to "touch" when looking
 	// from point a to point b
-	QValueList<Coord_cl> pointList;
+	QValueList<Coord> pointList;
 
 	int xDiff = target.x - origin.x;
 	int yDiff = target.y - origin.y;
@@ -75,7 +75,7 @@ inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl 
 	double currentZ = origin.z;
 	double currentX = origin.x;
 
-	Coord_cl pos = origin;
+	Coord pos = origin;
 
 	while (isBetween(currentX, target.x, origin.x) && isBetween(currentY, target.y, origin.y) && isBetween(currentZ, target.z, origin.z)) {
 		pos.x = roundInt(currentX);
@@ -110,7 +110,8 @@ struct stBlockingItem {
 };
 
 // Get blocking tiles at the given x,y,map coordinate
-void getBlockingTiles(const Coord_cl &pos, QValueList<stBlockingItem> &items) {
+void getBlockingTiles( const Coord &pos, QValueList<stBlockingItem> &items )
+{
 	stBlockingItem item;
 
 	// Maptiles first
@@ -143,68 +144,71 @@ void getBlockingTiles(const Coord_cl &pos, QValueList<stBlockingItem> &items) {
 	}
 
 	// Search for items at the given location
-	cItemSectorIterator *ditems = SectorMaps::instance()->findItems(pos, 0);
-
-	for (P_ITEM ditem = ditems->first(); ditem; ditem = ditems->next()) {
+	MapItemsIterator itemIter = MapObjects::instance()->listItemsAtCoord( pos );
+	for( P_ITEM pItem = itemIter.first(); pItem; pItem = itemIter.next() )
+	{
 		// If the item is invisible or a multi, skip past it.
-		if (ditem->isMulti()) {
+		if( pItem->isMulti() )
 			continue;
-		}
 
-		tile_st tile = TileCache::instance()->getTile(ditem->id());
+		tile_st tile = TileCache::instance()->getTile( pItem->id() );
 
 		// Window and noshoot tiles block
-		if (tile.flag2 & 0x30) {
-			item.id = ditem->id();
-			item.bottom = ditem->pos().z;
+		if( tile.flag2 & 0x30 )
+		{
+			item.id = pItem->id();
+			item.bottom = pItem->pos().z;
 			// Bridges are only half as high
-			item.top = item.bottom + ((tile.flag2 & 0x04) ? (tile.height / 2) : tile.height);
-			items.append(item);
+			item.top = item.bottom + ( ( tile.flag2 & 0x04 ) ? ( tile.height / 2 ) : tile.height );
+			items.append( item );
 		}
 	}
 
-	delete ditems;
-
 	// Check for multis around the area
-	cItemSectorIterator *multis = SectorMaps::instance()->findMultis(pos, BUILDRANGE);
-    
+	MapMultisIterator multis = MapObjects::instance()->listMultisInCircle( pos, BUILDRANGE );
+
 	// Check if there is an intersecting item for this multi
-	for (P_MULTI multi = (P_MULTI)multis->first(); multi; multi = (P_MULTI)multis->next()) {
+	for( P_MULTI pMulti = multis.first(); pMulti; pMulti = multis.next() )
+	{
 		// Get all items for this multi
-		MultiDefinition *data = MultiCache::instance()->getMulti(multi->id() - 0x4000);
-		if (data) {
+		MultiDefinition *data = MultiCache::instance()->getMulti( pMulti->id() - 0x4000 );
+		if( data )
+		{
 			QValueVector<multiItem_st> mitems = data->getEntries();
 			QValueVector<multiItem_st>::iterator it;
 
-			for (it = mitems.begin(); it != mitems.end(); ++it) {
+			for( it = mitems.begin(); it != mitems.end(); ++it )
+			{
 				multiItem_st mitem = *it;
 
 				// Skip this multi tile if it's not at the position we need it to be
-				if (!mitem.visible || multi->pos().x + mitem.x != pos.x || multi->pos().y + mitem.y != pos.y) {
+				if( !mitem.visible || pMulti->pos().x + mitem.x != pos.x || pMulti->pos().y + mitem.y != pos.y )
+				{
 					continue;
 				}
 
-				tile_st tile = TileCache::instance()->getTile(mitem.tile);
-				
+				tile_st tile = TileCache::instance()->getTile( mitem.tile );
+
 				// Has to be blocking
-				if (tile.flag2 & 0x30) {
-					item.bottom = mitem.z + multi->pos().z;
-					item.top = item.bottom + ((tile.flag2 & 0x04) ? (tile.height / 2) : tile.height);
+				if( tile.flag2 & 0x30 )
+				{
+					item.bottom = mitem.z + pMulti->pos().z;
+					item.top = item.bottom + ( ( tile.flag2 & 0x04 ) ? ( tile.height / 2 ) : tile.height );
 					item.id = mitem.tile;
-					items.append(item);
+					items.append( item );
 				}
 			}
 		}
 	}
-
-	delete multis;
 }
 
 // Check for blocking tiles at the given position
-inline bool checkBlockingTiles(const QValueList<stBlockingItem> &items, const Coord_cl &pos, const Coord_cl &target) {
+inline bool checkBlockingTiles( const QValueList<stBlockingItem> &items, const Coord &pos, const Coord &target )
+{
 	// Iterate trough all blocking tiles
 	QValueList<stBlockingItem>::const_iterator it;
-	for (it = items.begin(); it != items.end(); ++it) {
+	for (it = items.begin(); it != items.end(); ++it)
+	{
 		stBlockingItem item = *it;
 
 		// 0x244 tiles are handled differently. If they're the only 
@@ -226,7 +230,7 @@ inline bool checkBlockingTiles(const QValueList<stBlockingItem> &items, const Co
 }
 
 // Check the line of sight from a source to a target coordinate.
-bool Coord_cl::lineOfSight(const Coord_cl &target, bool debug) const {
+bool Coord::lineOfSight(const Coord &target, bool debug) const {
 	// If the target is out of range, save cpu time by not calculating the
 	// line of sight
 	if (map != target.map || distance(target) > 25) {
@@ -238,14 +242,14 @@ bool Coord_cl::lineOfSight(const Coord_cl &target, bool debug) const {
 		return true;
 	}
 
-	QValueList<Coord_cl> pointList = getPointList(*this, target);
+	QValueList<Coord> pointList = getPointList(*this, target);
 
 	int lastX = -1, lastY = -1;
 	QValueList<stBlockingItem> blockingItems;
 
-	QValueList<Coord_cl>::const_iterator it;
+	QValueList<Coord>::const_iterator it;
 	for (it = pointList.begin(); it != pointList.end(); ++it) {
-		Coord_cl point = *it;
+		Coord point = *it;
 
 		// Get a fresh tile-list
 		if (point.x != lastX || point.y != lastY) {
@@ -272,19 +276,19 @@ bool Coord_cl::lineOfSight(const Coord_cl &target, bool debug) const {
 	return true;
 }
 
-Coord_cl Coord_cl::null( 0xFFFF, 0xFFFF, 0xFF, 0xFF );
+Coord Coord::null( 0xFFFF, 0xFFFF, 0xFF, 0xFF );
 
-Coord_cl::Coord_cl( void )
+Coord::Coord( void )
 {
 	x = y = z = map = 0;
 }
 
-Coord_cl::Coord_cl( const Coord_cl& clCoord )
+Coord::Coord( const Coord& clCoord )
 {
 	( *this ) = clCoord;
 }
 
-Coord_cl::Coord_cl( UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 )
+Coord::Coord( UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 )
 {
 	x = uiX;
 	y = uiY;
@@ -302,7 +306,7 @@ Coord_cl::Coord_cl( UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 )
  *
  * @return UI32  : distance result
  */
-unsigned int Coord_cl::distance( const Coord_cl& src ) const
+unsigned int Coord::distance( const Coord& src ) const
 {
 	UI32 uiResult = ~0U; // Initialize with *infinite*
 	if ( map == src.map )
@@ -314,13 +318,13 @@ unsigned int Coord_cl::distance( const Coord_cl& src ) const
 	return uiResult;
 }
 
-UI32 Coord_cl::distance( const Coord_cl& a, const Coord_cl& b )
+UI32 Coord::distance( const Coord& a, const Coord& b )
 {
 	return a.distance( b );
 }
 
 // Operators
-Coord_cl& Coord_cl::operator=( const Coord_cl& clCoord )
+Coord& Coord::operator=( const Coord& clCoord )
 {
 	x = clCoord.x;
 	y = clCoord.y;
@@ -329,27 +333,27 @@ Coord_cl& Coord_cl::operator=( const Coord_cl& clCoord )
 	return ( *this );
 }
 
-bool Coord_cl::operator==( const Coord_cl& src ) const
+bool Coord::operator==( const Coord& src ) const
 {
 	return ( x == src.x && y == src.y && z == src.z && map == src.map );
 }
 
-bool Coord_cl::operator!=( const Coord_cl& src ) const
+bool Coord::operator!=( const Coord& src ) const
 {
 	return !( x == src.x && y == src.y && z == src.z && map == src.map );
 }
 
-Coord_cl Coord_cl::operator+( const Coord_cl& src ) const
+Coord Coord::operator+( const Coord& src ) const
 {
-	return Coord_cl( this->x + src.x, this->y + src.y, this->z + src.z, this->map );
+	return Coord( this->x + src.x, this->y + src.y, this->z + src.z, this->map );
 }
 
-Coord_cl Coord_cl::operator-( const Coord_cl& src ) const
+Coord Coord::operator-( const Coord& src ) const
 {
-	return Coord_cl( this->x - src.x, this->y - src.y, this->z - src.z, this->map );
+	return Coord( this->x - src.x, this->y - src.y, this->z - src.z, this->map );
 }
 
-void Coord_cl::effect( Q_UINT16 id, Q_UINT8 speed, Q_UINT8 duration, Q_UINT16 hue, Q_UINT16 renderMode ) const
+void Coord::effect( Q_UINT16 id, Q_UINT8 speed, Q_UINT8 duration, Q_UINT16 hue, Q_UINT16 renderMode ) const
 {
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCEPOS );
@@ -369,7 +373,7 @@ void Coord_cl::effect( Q_UINT16 id, Q_UINT8 speed, Q_UINT8 duration, Q_UINT16 hu
 }
 
 // Calculates the direction from one location to another
-unsigned int Coord_cl::direction( const Coord_cl& dest ) const
+unsigned int Coord::direction( const Coord& dest ) const
 {
 	unsigned int dir;
 	short xdif, ydif;
@@ -399,14 +403,14 @@ unsigned int Coord_cl::direction( const Coord_cl& dest ) const
 	return dir;
 }
 
-Coord_cl Coord_cl::losCharPoint(bool eye) const {
-	Coord_cl result = *this;
+Coord Coord::losCharPoint(bool eye) const {
+	Coord result = *this;
 	result.z += (eye ? 15 : 10);
 	return result;
 }
 
-Coord_cl Coord_cl::losItemPoint(unsigned short id) const {
-	Coord_cl result = *this;
+Coord Coord::losItemPoint(unsigned short id) const {
+	Coord result = *this;
 
 	tile_st tile = TileCache::instance()->getTile(id);
 	result.z += tile.height / 2 + 1;
@@ -414,8 +418,8 @@ Coord_cl Coord_cl::losItemPoint(unsigned short id) const {
 	return result;
 }
 
-Coord_cl Coord_cl::losMapPoint() const {
-	Coord_cl result = *this;
+Coord Coord::losMapPoint() const {
+	Coord result = *this;
 
     int bottom, top;
 	unsigned short id;
@@ -429,7 +433,7 @@ Coord_cl Coord_cl::losMapPoint() const {
 	return result;
 }
 
-Coord_cl Coord_cl::losTargetPoint(cUORxTarget *target, unsigned char map) {
+Coord Coord::losTargetPoint(cUORxTarget *target, unsigned char map) {
 	SERIAL serial = target->serial();
 	P_ITEM pItem = World::instance()->findItem(serial);
 	P_CHAR pChar = World::instance()->findChar(serial);
@@ -445,6 +449,6 @@ Coord_cl Coord_cl::losTargetPoint(cUORxTarget *target, unsigned char map) {
 	} else if (pChar) {
 		return pChar->pos().losCharPoint();
 	} else {
-		return Coord_cl(target->x(), target->y(), target->z(), map);
+		return Coord(target->x(), target->y(), target->z(), map);
 	}
 }

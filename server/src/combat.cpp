@@ -71,7 +71,7 @@ void cCombat::playGetHitAnimation( P_CHAR pChar )
 	}
 }
 
-void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl& pos )
+void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord& pos )
 {
 	if ( !pOffender || !pCaller )
 		return;

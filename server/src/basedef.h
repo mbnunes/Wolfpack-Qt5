@@ -304,7 +304,7 @@ public:
 	void loadBodyInfo();
 };
 
-typedef SingletonHolder<cCharBaseDefs> CharBaseDefs;
+typedef Singleton<cCharBaseDefs> CharBaseDefs;
 
 /*
 	This class represents an item definition and it's
@@ -413,6 +413,6 @@ public:
 	cMultiBaseDef( const QCString& id );
 };
 
-typedef SingletonHolder<cItemBaseDefs> ItemBaseDefs;
+typedef Singleton<cItemBaseDefs> ItemBaseDefs;
 
 #endif
