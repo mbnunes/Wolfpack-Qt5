@@ -35,6 +35,7 @@
 #include "typedefs.h"
 #include "singleton.h"
 #include "qdatetime.h"
+#include "qfile.h"
 
 /*	Online status class
 	contains global performance data, timings etc
