@@ -16,7 +16,7 @@
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Nightsight</category>
-		<tag name="potiontype" value="nightsight" />
+		<tag name="potiontype" value="0" type="int" />
 		<!-- Pricing information -->
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
@@ -29,7 +29,7 @@
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Heal (lesser)</category>
-		<tag name="potiontype" value="lesser_heal" />
+		<tag name="potiontype" value="1" type="int" />
 		<!-- Pricing information -->
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
@@ -42,7 +42,7 @@
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Heal</category>
-		<tag name="potiontype" value="heal" />
+		<tag name="potiontype" value="2" type="int" />
 		<!-- Pricing information -->
 	</item>
 
@@ -53,9 +53,110 @@
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Heal (greater)</category>
-		<tag name="potiontype" value="greater_heal" />
+		<tag name="potiontype" value="3" type="int" />
 		<!-- Pricing information -->
 	</item>
+
+	<item id="potion_lessercure">
+		<id>0xf07</id>
+		<name>Lesser Cure</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Cure (lesser)</category>
+		<tag name="potiontype" value="4" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_cure">
+		<id>0xf07</id>
+		<name>Cure</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Cure</category>
+		<tag name="potiontype" value="5" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_greatercure">
+		<id>0xf07</id>
+		<name>Lesser Cure</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Cure (greater)</category>
+		<tag name="potiontype" value="6" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_agility">
+		<id>0xf08</id>
+		<name>Agility</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Agility</category>
+		<tag name="potiontype" value="7" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_greateragility">
+		<id>0xf08</id>
+		<name>Greater Agility</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Agility (greater)</category>
+		<tag name="potiontype" value="8" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_strength">
+		<id>0xf09</id>
+		<name>Strength</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Strength</category>
+		<tag name="potiontype" value="9" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_greaterstrength">
+		<id>0xf09</id>
+		<name>Greater Strength</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Strength (greater)</category>
+		<tag name="potiontype" value="10" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_lesserexplosion">
+		<id>0xf0d</id>
+		<name>Lesser Explosion</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Explosion (lesser)</category>
+		<tag name="potiontype" value="11" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_explosion">
+		<id>0xf0d</id>
+		<name>Explosion</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Explosion</category>
+		<tag name="potiontype" value="12" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_greaterexplosion">
+		<id>0xf0d</id>
+		<name>Greater Explosion</name>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Explosion (greater)</category>
+		<tag name="potiontype" value="13" type="int" />
+		<!-- Pricing information -->
+	</item>
+
 
 	<!-- Lesser Poison -->
 	<item id="potion_lesserpoison">
@@ -64,7 +165,7 @@
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison (lesser)</category>
-		<tag name="potiontype" value="lesser_poison" />
+		<tag name="potiontype" value="14" type="int" />
 		<!-- Pricing information -->
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
@@ -77,7 +178,7 @@
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison</category>
-		<tag name="potiontype" value="poison" />
+		<tag name="potiontype" value="15" type="int" />
 		<!-- Pricing information -->
 	</item>
 
@@ -88,7 +189,7 @@
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison (greater)</category>
-		<tag name="potiontype" value="greater_poison" />
+		<tag name="potiontype" value="16" type="int" />
 		<!-- Pricing information -->
 	</item>
 
@@ -99,7 +200,7 @@
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison (deadly)</category>
-		<tag name="potiontype" value="deadly_poison" />
+		<tag name="potiontype" value="17" type="int" />
 		<!-- Pricing information -->
 	</item>
 
@@ -109,7 +210,7 @@
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Refresh</category>
-		<tag name="potiontype" value="refresh" />
+		<tag name="potiontype" value="18" type="int" />
 		<!-- Pricing information -->
 	</item>
 
@@ -118,108 +219,8 @@
 		<name>Total Refresh</name>
 		<weight>0.5</weight>
 		<events>potions</events>
-		<category>Equipment\Potions\Refresh</category>
-		<tag name="potiontype" value="total_refresh" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_lessercure">
-		<id>0xf07</id>
-		<name>Lesser Cure</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Cure (lesser)</category>
-		<tag name="potiontype" value="lesser_cure" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_cure">
-		<id>0xf07</id>
-		<name>Cure</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Cure</category>
-		<tag name="potiontype" value="cure" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_greatercure">
-		<id>0xf07</id>
-		<name>Lesser Cure</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Cure (greater)</category>
-		<tag name="potiontype" value="greater_cure" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_agility">
-		<id>0xf08</id>
-		<name>Agility</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Agility</category>
-		<tag name="potiontype" value="agility" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_greateragility">
-		<id>0xf08</id>
-		<name>Greater Agility</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Agility (greater)</category>
-		<tag name="potiontype" value="greater_agility" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_strength">
-		<id>0xf09</id>
-		<name>Strength</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Strength</category>
-		<tag name="potiontype" value="strength" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_greaterstrength">
-		<id>0xf09</id>
-		<name>Greater Strength</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Strength (greater)</category>
-		<tag name="potiontype" value="greater_strength" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_lesserexplosion">
-		<id>0xf0d</id>
-		<name>Lesser Explosion</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Explosion (lesser)</category>
-		<tag name="potiontype" value="lesser_explosion" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_explosion">
-		<id>0xf0d</id>
-		<name>Explosion</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Explosion</category>
-		<tag name="potiontype" value="explosion" />
-		<!-- Pricing information -->
-	</item>
-
-	<item id="potion_greaterexplosion">
-		<id>0xf0d</id>
-		<name>Greater Explosion</name>
-		<weight>0.5</weight>
-		<events>potions</events>
-		<category>Equipment\Potions\Explosion (greater)</category>
-		<tag name="potiontype" value="greater_explosion" />
+		<category>Equipment\Potions\Total Refresh</category>
+		<tag name="potiontype" value="19" type="int" />
 		<!-- Pricing information -->
 	</item>
 
