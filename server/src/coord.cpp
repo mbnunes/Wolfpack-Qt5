@@ -58,7 +58,7 @@ Coord_cl getItemLosCoord(P_ITEM pItem) {
 	return pos;
 }
 
-bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
+inline bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
 	// Swap the bounds if they are out of order
 	if (lower > higher) {
 		std::swap(lower, higher);
@@ -67,12 +67,12 @@ bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
 	return (n > lower - tolerance) && (n < higher + tolerance);
 }
 
-double round(double n) {
+inline int round(double n) {
     double f = n - floor(n);
 	if (f >= 0.50) {
-		return ceil(n);
+		return (int)ceil(n);
 	} else {
-		return floor(n);
+		return (int)floor(n);
 	}
 }
 
@@ -81,41 +81,46 @@ inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl 
 	// from point a to point b
 	QValueList<Coord_cl> pointList;
 
-	int xDiff = target.x - origin.x; // i1
-	int yDiff = target.y - origin.y; // j1
-	int zDiff = target.z - origin.z; // k1
+	int xDiff = target.x - origin.x;
+	int yDiff = target.y - origin.y;
+	int zDiff = target.z - origin.z;
 
 	// Calculate the length of the X,Y diagonal
-	double xyDiagonal = sqrt( (double)( xDiff * xDiff + yDiff * yDiff ) ); // d3
+	double xyDiagonal = sqrt( (double)( xDiff * xDiff + yDiff * yDiff ) );
 		
 	// Calculate the length of the second diagonal
-	double zDiagonal; // d4
+	double lineLength;
 	if (zDiff != 0) {
-		zDiagonal = sqrt( xyDiagonal * xyDiagonal + (double)( zDiff * zDiff ) );
+		lineLength = sqrt( xyDiagonal * xyDiagonal + (double)( zDiff * zDiff ) );
 	} else {
-		zDiagonal = xyDiagonal;
+		lineLength = xyDiagonal;
 	}
 
-	// Calculate the "increases"
-	double d1 = yDiff / zDiagonal;
-	double d2 = xDiff / zDiagonal;
-    xyDiagonal = zDiff / zDiagonal;
+	// Calculate the stepsize for each coordinate
+	double xStep = yDiff / lineLength;
+	double yStep = xDiff / lineLength;
+    double zStep = zDiff / lineLength;
 
-	double d6 = origin.y; // CurrentY ?
-	double d7 = origin.z; // CurrentZ ?
-	double d5 = origin.x; // CurrentX ?
+	// Initialize loop variables
+	double currentY = origin.y;
+	double currentZ = origin.z;
+	double currentX = origin.x;
 
-	while (isBetween(d5, target.x, origin.x) && isBetween(d6, target.y, origin.y) && isBetween(d7, target.z, origin.z)) {
-		Coord_cl pos((int)round(d5), (int)round(d6), (int)round(d7), origin.map);
+	Coord_cl pos = origin;
+
+	while (isBetween(currentX, target.x, origin.x) && isBetween(currentY, target.y, origin.y) && isBetween(currentZ, target.z, origin.z)) {
+		pos.x = round(currentX);
+		pos.y = round(currentY);
+		pos.z = round(currentZ);
 
 		if (pointList.count() == 0 || pointList.last() != pos) {
 			pointList.append(pos);
 		}
 
 		// Jump to the next set of coordinates.
-		d7 += xyDiagonal;
-		d5 += d2;
-        d6 += d1;
+		currentX += xStep;
+		currentY += yStep;
+        currentZ += zStep;
 	}
 
 	// Add the target to the end of the pointlist if it's not already
