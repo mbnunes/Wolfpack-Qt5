@@ -8,507 +8,506 @@
 -->
 <definitions>
 
-	  <!-- Towns -->
-        <!-- Britain -->
-        <location id="felluca felluca britain" category="Felluca\Towns\Britain\Center">1500,1630,10,0</location>
-        <location id="felluca britain graveyard" category="Felluca\Towns\Britain\Graveyard">1384,1497,10,0</location>
-        <location id="felluca britain bank" category="Felluca\Towns\Britain\Bank">1430,1688,0,0</location>
-        <location id="felluca britain healer" category="Felluca\Towns\Britain\Healer">1474,1611,20,0</location>
-        <location id="felluca britain premier provisioner and fish shop" category="Felluca\Towns\Britain\Premier Provisioner and Fish Shop">1475,1672,0,0</location>
-        <location id="felluca britain etheral goods" category="Felluca\Towns\Britain\Etheral Goods">1502,1661,27,0</location>
-        <location id="felluca britain farmlands" category="Felluca\Towns\Britain\Farmlands">1228,1705,0,0</location>
-        <location id="felluca britain hall of virtues" category="Felluca\Towns\Britain\Hall of Virtues">1554,1610,11,0</location>
-        <location id="felluca lord blackthorns castle" category="Felluca\Towns\Britain\Lord Blackthornes Castle">1523,1456,15,0</location>
-        <location id="felluca lord british castle" category="Felluca\Towns\Britain\Lord British Castle">1401,1625,28,0</location>
-
-        <!-- Bucaneers Den -->
-        <location id="felluca bucaneers den bathouse" category="Felluca\Towns\Bucaneers Den\Bath House">2667,2084,5,0</location>
-        <location id="felluca bucaneers den docks" category="Felluca\Towns\Bucaneers Den\Docks">2736,2166,1,0</location>
-        <location id="felluca bucaneers den" category="Felluca\Towns\Bucaneers Den\Tavern">2691,2233,2,0</location>
-
-        <!-- Cove -->
-        <location id="felluca cove cemetary" category="Felluca\Towns\Cove\Cemetary">2437,1098,8,0</location>
-        <location id="felluca cove" category="Felluca\Towns\Cove\Center">2246,1214,0,0</location>
-
-        <!-- Jhelom -->
-        <location id="felluca jhelom docks" category="Felluca\Towns\Jhelom\Docks">1485,3695,0,0</location>
-        <location id="felluca jhelom farm" category="Felluca\Towns\Jhelom\Farm">1131,3606,0,0</location>
-        <location id="felluca jhelom fighting pit" category="Felluca\Towns\Jhelom\Fighting Pit">1397,3745,-20,0</location>
-        <location category="Felluca\Towns\Jhelom\Jhelom's Fine Tailoring">1460,4011,0,0</location>
-        <location id="felluca jhelom" category="Felluca\Towns\Jhelom\Inn">1376,3817,0,0</location>
-
-        <!-- Minoc -->
-        <location id="felluca minoc" category="Felluca\Towns\Minoc\Center">2466,443,15,0</location>
-        <location id="felluca minoc mining camp" category="Felluca\Towns\Minoc\Mining Camp">2585,528,15,0</location>
-        <location id="felluca minoc stables" category="Felluca\Towns\Minoc\Stables">2527,378,23,0</location>
-
-        <!-- Moonglow -->
-        <location id="felluca moonglow cemetary" category="Felluca\Towns\Moonglow\Cemetary">4549,1330,8,0</location>
-        <location id="felluca moonglow lycaeum" category="Felluca\Towns\Moonglow\Lycaeum">4310,1007,0,0</location>
-        <location id="felluca moonglow bank" category="Felluca\Towns\Moonglow\Bank">4471,1178,0,0</location>
-
-        <!-- Njuhelm -->
-        <location id="felluca njuhelm" category="Felluca\Towns\Njuhelm\Center">3756,1244,0,0</location>
-        <location id="felluca njuhelm market" category="Felluca\Towns\Njuhelm\Market">3554,1187,0,0</location>
-        <location id="felluca njuhelm palace" category="Felluca\Towns\Njuhelm\Palace">3703,1282,20,0</location>
-
-        <!-- Occlo -->
-        <location id="felluca occlo" category="Felluca\Towns\Occlo\Bank">3686,2519,0,0</location>
-        <location id="felluca occlo smithy" category="Felluca\Towns\Occlo\Smithy">3642,2595,0,0</location>
-
-        <!-- Serpents Hold -->
-        <location id="felluca serpents hold" category="Felluca\Towns\Serpents Hold\Center">3021,3397,15,0</location>
-        <location id="felluca serpents hold entrance" category="Felluca\Towns\Serpents Hold\Outside Gates">2980,3387,15,0</location>
-
-        <!-- Skara Brae -->
-        <location id="felluca skara brae" category="Felluca\Towns\Skara Brae\Bank">591,2147,0,0</location>
-        <location id="felluca skara brae guild hall" category="Felluca\Towns\Skara Brae\Guild Hall">619,2131,0,0</location>
-        <location id="felluca skara brae market" category="Felluca\Towns\Skara Brae\Market">611,2159,0,0</location>
-        <location category="Felluca\Towns\Skara Brae\Shear Pleasure">650,2184,0,0</location>
-        <location category="Felluca\Towns\Skara Brae\Sundry Supplies">584,2227,0,0</location>
-        <location category="Felluca\Towns\Skara Brae\Bowman">595,2211,0,0</location>
-
-        <!-- Trinsic -->
-        <location id="felluca trinsic bank" category="Felluca\Towns\Trinsic\Bank">1815,2822,0,0</location>
-        <location category="Felluca\Towns\Trinsic\Britannia Provisions">1852,2792,-8,0</location>
-        <location id="felluca trinsic" category="Felluca\Towns\Trinsic\Center">1956,2780,10,0</location>
-        <location category="Felluca\Towns\Trinsic\Honourable Arms">1934,2772,10,0</location>
-        <location id="felluca trinsic entrance" category="Felluca\Towns\Trinsic\Outside Gates">1827,2779,0,0</location>
-        <location id="felluca trinsic jail" category="Felluca\Towns\Trinsic\Jail">1851,2770,0,0</location>
-
-        <!-- Vesper -->
-        <location id="felluca vesper cemetary" category="Felluca\Towns\Vesper\Cemetary">2782,867,0,0</location>
-        <location id="felluca vesper docks" category="Felluca\Towns\Vesper\Docks">3003,830,0,0</location>
-        <location id="felluca vesper" category="Felluca\Towns\Vesper\Bank">2895,688,0,0</location>
-        <location category="Felluca\Towns\Vesper\The Adventurer's Friend">2842,876,0,0</location>
-
-        <!-- Wind -->
-        <location id="felluca wind" category="Felluca\Towns\Wind\Entrance">5167,243,15,0</location>
-        <location id="felluca wind garden" category="Felluca\Towns\Wind\Garden">5214,24,16,0</location>
-        <location id="felluca wind outside entrance" category="Felluca\Towns\Wind\Outside">1361,895,0,0</location>
-
-        <!-- Yew -->
-        <location id="felluca yew cemetary" category="Felluca\Towns\Yew\Cemetary">724,1136,0,0</location>
-        <location id="felluca yew" category="Felluca\Towns\Yew\Center">546,991,0,0</location>
-        <location category="Felluca\Towns\Yew\Abbey">635,818,0,0</location>
-
-        <!-- Councelor Halls -->
-        <location category="Felluca\Misc\Councelor Halls\Moonglow">4479,1126,0,0</location>
-        <location category="Felluca\Misc\Councelor Halls\Skara Brae">619,2131,0,0</location>
-
-        <!-- Forts -->
-        <location category="Felluca\Misc\Forts\Cove Orc Fort">2171,1332,0,0</location>
-        <location category="Felluca\Misc\Forts\Yew Brigand Camp">885,1682,0,0</location>
-        <location category="Felluca\Misc\Forts\Yew Fort of the Damned">972,768,0,0</location>
-        <location category="Felluca\Misc\Forts\Yew Orc Fort">634,1500,0,0</location>
-
-        <!-- Moongates -->
-        <location id="felluca Britain moongate" category="Felluca\Misc\Moongates\Britain">1338,1991,0,0</location>
-        <location id="felluca Jhelom moongate" category="Felluca\Misc\Moongates\Jhelom">1502,3769,0,0</location>
-        <location id="felluca magincia moongate" category="Felluca\Misc\Moongates\Magincia">3567,2138,0,0</location>
-        <location id="felluca Minoc moongate" category="Felluca\Misc\Moongates\Minoc">2705,691,0,0</location>
-        <location id="felluca Moonglow moongate" category="Felluca\Misc\Moongates\Moonglow">4470,1281,0,0</location>
-        <location id="felluca Skara Brae moongate" category="Felluca\Misc\Moongates\Skara Brae">647,2067,0,0</location>
-        <location id="felluca Trinsic moongate" category="Felluca\Misc\Moongates\Trinsic">1826,2944,-25,0</location>
-        <location id="felluca Yew moongate" category="Felluca\Misc\Moongates\Yew">769,747,0,0</location>
-
-        <!-- Shrines -->
-        <location id="felluca chaos shrine" category="Felluca\Misc\Shrines\Chaos">1456,854,0,0</location>
-        <location id="felluca compassion shrine" category="Felluca\Misc\Shrines\Compassion">1856,872,2,0</location>
-        <location id="felluca honesty shrine" category="Felluca\Misc\Shrines\Honesty">4217,564,35,0</location>
-        <location id="felluca honor shrine" category="Felluca\Misc\Shrines\Honor">1730,3528,0,0</location>
-        <location id="felluca humility shrine" category="Felluca\Misc\Shrines\Humility">4276,3699,0,0</location>
-        <location id="felluca justice shrine" category="Felluca\Misc\Shrines\Justice">1301,639,15,0</location>
-        <location id="felluca sacrifice shrine" category="Felluca\Misc\Shrines\Sacrifice">3355,299,9,0</location>
-        <location id="felluca spirituality shrine" category="Felluca\Misc\Shrines\Spirituality">1589,2485,5,0</location>
-        <location id="felluca valor shrine" category="Felluca\Misc\Shrines\Valor">2496,3932,0,0</location>
-
-        <!-- Sightings -->
-        <location category="Felluca\Misc\Sightings\Ancient Ruins north of Trinsic">1814,2421,0,0</location>
-        <location category="Felluca\Misc\Sightings\Crossroads west of Britain">1012,1937,0,0</location>
-        <location category="Felluca\Misc\Sightings\Fishermans Huts">2381,3485,3,0</location>
-        <location category="Felluca\Misc\Sightings\Hidden Valley Temple">1687,2986,0,0</location>
-        <location category="Felluca\Misc\Sightings\Inside the Hedge Mace">1152,2228,16,0</location>
-        <location category="Felluca\Misc\Sightings\Island Temple">2494,3566,3,0</location>
-        <location category="Felluca\Misc\Sightings\Outside the Hedge Mace">1260,2301,0,0</location>
-        <location category="Felluca\Misc\Sightings\Temple of Fire">4595,3600,30,0</location>
-        <location category="Felluca\Misc\Sightings\The great Waterfall">1322,544,30,0</location>
-        <location category="Felluca\Misc\Sightings\Trappers Camp">3347,572,0,0</location>
-
-        <!-- Dungeons: Covetous -->
-        <location id="felluca covetous level 1" category="Felluca\Dungeons\Covetous\Level 1">5456,1862,0,0</location>
-        <location id="felluca covetous level 2" category="Felluca\Dungeons\Covetous\Level 2">5613,1998,0,0</location>
-        <location id="felluca covetous level 3" category="Felluca\Dungeons\Covetous\Level 3">5580,1926,0,0</location>
-        <location id="felluca covetous level 4" category="Felluca\Dungeons\Covetous\Lake Area">5467,1809,0,0</location>
-        <location id="felluca covetous entrance" category="Felluca\Dungeons\Covetous\Entrance">2499,922,0,0</location>
-        <location category="Felluca\Dungeons\Covetous\Torture Rooms">5553,1808,0,0</location>
-
-        <!-- Dungeons: Deceit -->
-        <location id="felluca deceit level 1" category="Felluca\Dungeons\Deceit\Level 1">5189,637,0,0</location>
-        <location id="felluca deceit level 2" category="Felluca\Dungeons\Deceit\Level 2">5310,531,0,0</location>
-        <location id="felluca deceit level 3" category="Felluca\Dungeons\Deceit\Level 3">5141,651,0,0</location>
-        <location id="felluca deceit level 4" category="Felluca\Dungeons\Deceit\Level 4">5307,655,0,0</location>
-        <location id="felluca deceit entrance" category="Felluca\Dungeons\Deceit\Outside Entrance">4111,434,5,0</location>
-
-        <!-- Dungeons: Despise -->
-        <location category="Felluca\Dungeons\Despise\Entrance Room">5579,632,30,0</location>
-        <location id="felluca despise level 1" category="Felluca\Dungeons\Despise\Level 1">5499,571,59,0</location>
-        <location id="felluca despise level 2" category="Felluca\Dungeons\Despise\Level 2">5518,673,20,0</location>
-        <location id="felluca despise level 3" category="Felluca\Dungeons\Despise\Level 3">5405,860,45,0</location>
-        <location id="felluca despise" category="Felluca\Dungeons\Despise\Entrance">1301,1080,0,0</location>
-
-        <!-- Dungeons: Destard -->
-        <location id="felluca destard level 1" category="Felluca\Dungeons\Destard\Level 1">5243,1004,0,0</location>
-        <location id="felluca destard level 2" category="Felluca\Dungeons\Destard\Level 2">5148,805,0,0</location>
-        <location id="felluca destard level 3" category="Felluca\Dungeons\Destard\Level 3">5140,983,0,0</location>
-        <location id="felluca destard" category="Felluca\Dungeons\Destard\Entrance">1176,2639,0,0</location>
-
-        <!-- Dungeons: Hythloth -->
-        <location id="felluca hythloth level 1" category="Felluca\Dungeons\Hythloth\Level 1">5907,28,44,0</location>
-        <location id="felluca hythloth level 2" category="Felluca\Dungeons\Hythloth\Level 2">5978,171,0,0</location>
-        <location id="felluca hythloth level 3" category="Felluca\Dungeons\Hythloth\Level 3">6083,148,-22,0</location>
-        <location id="felluca hythloth level 4" category="Felluca\Dungeons\Hythloth\Level 4">6059,92,22,0</location>
-        <location id="felluca hythloth" category="Felluca\Dungeons\Hythloth\Entrance">4722,3825,0,0</location>
-
-        <!-- Dungeons: Shame -->
-        <location id="felluca shame level 1" category="Felluca\Dungeons\Shame\Level 1">5395,126,0,0</location>
-        <location id="felluca shame level 2" category="Felluca\Dungeons\Shame\Level 2">5515,15,5,0</location>
-        <location id="felluca shame level 3" category="Felluca\Dungeons\Shame\Level 3">5516,142,25,0</location>
-        <location id="felluca shame level 4" category="Felluca\Dungeons\Shame\Level 4">5876,22,-10,0</location>
-        <location id="felluca shame" category="Felluca\Dungeons\Shame\Entrance">514,1561,0,0</location>
-
-        <!-- Dungeons: Wrong -->
-        <location id="felluca wrong level 1" category="Felluca\Dungeons\Wrong\Level 1">5825,630,0,0</location>
-        <location id="felluca wrong level 2" category="Felluca\Dungeons\Wrong\Level 2">5694,569,20,0</location>
-        <location id="felluca wrong level 3" category="Felluca\Dungeons\Wrong\Level 3">5703,630,0,0</location>
-        <location id="felluca wrong" category="Felluca\Dungeons\Wrong\Entrance">2044,238,10,0</location>
-
-        <!-- Jails -->
-        <location id="felluca jail 1" category="Felluca\Gamemaster\Jails\Cell 1">5276,1164,0,0</location>
-        <location id="felluca jail 2" category="Felluca\Gamemaster\Jails\Cell 2">5286,1164,0,0</location>
-        <location id="felluca jail 3" category="Felluca\Gamemaster\Jails\Cell 3">5296,1164,0,0</location>
-        <location id="felluca jail 4" category="Felluca\Gamemaster\Jails\Cell 4">5306,1164,0,0</location>
-        <location id="felluca jail 5" category="Felluca\Gamemaster\Jails\Cell 5">5276,1174,0,0</location>
-        <location id="felluca jail 6" category="Felluca\Gamemaster\Jails\Cell 6">5286,1174,0,0</location>
-        <location id="felluca jail 7" category="Felluca\Gamemaster\Jails\Cell 7">5296,1174,0,0</location>
-        <location id="felluca jail 8" category="Felluca\Gamemaster\Jails\Cell 8">5306,1174,0,0</location>
-        <location id="felluca jail 9" category="Felluca\Gamemaster\Jails\Cell 9">5283,1184,0,0</location>
-        <location id="felluca jail" category="Felluca\Gamemaster\Jails\Cell 10">5304,1184,0,0</location>
-
-        <!-- Dungeons: Others -->
-        <location id="felluca green acres" category="Felluca\Others\Green Acres">5434,1102,0,0</location>
-        <location id="felluca star chamber" category="Felluca\Others\Star Chamber">5152,1761,0,0</location>
-        <location id="felluca green acres 2" category="Felluca\Gamemaster\Others\T2A Green Acres">5972,1678,0,0</location>
-
-        <!-- The Second Age Dungeons -->
-        <location id="felluca fire dungeon" category="Felluca\Dungeons\Fire Dungeon Entrance">5760,2907,17,0</location>
-        <location id="felluca ice dungeon" category="Felluca\Dungeons\Ice Dungeon Entrance (From Old Lands)">1999,81,5,0</location>
-        <location category="Felluca\Dungeons\Ice Dungeon Entrance (From Snow Lands)">5209,2322,33,0</location>
-
-        <!-- The Second Age Entrances -->
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Britain (Sewers)">1490,1641,24,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Cave (Minoc)">2401,201,0,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Cave (Trinsic)">1628,3322,0,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Serpents Hold">2923,3407,8,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Trinsic (Island)">1984,2068,-40,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Vesper (Cemetary)">2778,894,-23,0</location>
-
-        <!-- The Second Age Exits -->
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Britain (Sewers)">6032,1501,31,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Cave (Minoc)">6088,3676,18,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Cave (Trinsic)">5154,4063,37,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Serpents Hold">5687,1422,38,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Trinsic (Island)">5128,3144,97,0</location>
-        <location category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Vesper (Cemetary)">5697,3656,0,0</location>
-
-        <!-- The Second Age Forts and Ruins -->
-        <location id="felluca city of the dead" category="Felluca\Forts &amp; Ruins\City of the Dead">5213,3667,-3,0</location>
-        <location id="felluca delucia orc fort" category="Felluca\Forts &amp; Ruins\Delucia Orc Fort">5211,3630,3,0</location>
-        <location id="felluca ruins in the woods" category="Felluca\Forts &amp; Ruins\Ruins in the Woods">5389,3233,-5,0</location>
-        <location id="felluca terathen fort" category="Felluca\Forts &amp; Ruins\Terathen Fort Entrance">5451,3140,-60,0</location>
-        <location id="felluca terathen fort underground" category="Felluca\Forts &amp; Ruins\Terathen Underground Entrance">5427,3119,-60,0</location>
-
-        <!-- The Second Age Towns -->
-        <location id="felluca delucia" category="Felluca\Towns\Delucia\Bank">5270,3993,37,0</location>
-        <location id="felluca papua" category="Felluca\Towns\Papua\The Just Inn">5771,3162,14,0</location>
-        <location id="felluca papua market" category="Felluca\Towns\Papua\Tricks of the Trade">5730,3206,-7,0</location>
-
-
-	  <!-- Towns -->
-        <!-- Britain -->
-        <location id="trammel trammel britain" category="Trammel\Towns\Britain\Center">1500,1630,10,1</location>
-        <location id="trammel britain graveyard" category="Trammel\Towns\Britain\Graveyard">1384,1497,10,1</location>
-        <location id="trammel britain bank" category="Trammel\Towns\Britain\Bank">1430,1688,0,1</location>
-        <location id="trammel britain healer" category="Trammel\Towns\Britain\Healer">1474,1611,20,1</location>
-        <location id="trammel britain premier provisioner and fish shop" category="Trammel\Towns\Britain\Premier Provisioner and Fish Shop">1475,1672,0,1</location>
-        <location id="trammel britain etheral goods" category="Trammel\Towns\Britain\Etheral Goods">1502,1661,27,1</location>
-        <location id="trammel britain farmlands" category="Trammel\Towns\Britain\Farmlands">1228,1705,0,1</location>
-        <location id="trammel britain hall of virtues" category="Trammel\Towns\Britain\Hall of Virtues">1554,1610,11,1</location>
-        <location id="trammel lord blackthorns castle" category="Trammel\Towns\Britain\Lord Blackthornes Castle">1523,1456,15,1</location>
-        <location id="trammel lord british castle" category="Trammel\Towns\Britain\Lord British Castle">1401,1625,28,1</location>
-
-        <!-- Bucaneers Den -->
-        <location id="trammel bucaneers den bathouse" category="Trammel\Towns\Bucaneers Den\Bath House">2667,2084,5,1</location>
-        <location id="trammel bucaneers den docks" category="Trammel\Towns\Bucaneers Den\Docks">2736,2166,1,1</location>
-        <location id="trammel bucaneers den" category="Trammel\Towns\Bucaneers Den\Tavern">2691,2233,2,1</location>
-
-        <!-- Cove -->
-        <location id="trammel cove cemetary" category="Trammel\Towns\Cove\Cemetary">2437,1098,8,1</location>
-        <location id="trammel cove" category="Trammel\Towns\Cove\Center">2246,1214,0,1</location>
-
-        <!-- Jhelom -->
-        <location id="trammel jhelom docks" category="Trammel\Towns\Jhelom\Docks">1485,3695,0,1</location>
-        <location id="trammel jhelom farm" category="Trammel\Towns\Jhelom\Farm">1131,3606,0,1</location>
-        <location id="trammel jhelom fighting pit" category="Trammel\Towns\Jhelom\Fighting Pit">1397,3745,-20,1</location>
-        <location category="Trammel\Towns\Jhelom\Jhelom's Fine Tailoring">1460,4011,0,1</location>
-        <location id="trammel jhelom" category="Trammel\Towns\Jhelom\Inn">1376,3817,0,1</location>
-
-        <!-- Minoc -->
-        <location id="trammel minoc" category="Trammel\Towns\Minoc\Center">2466,443,15,1</location>
-        <location id="trammel minoc mining camp" category="Trammel\Towns\Minoc\Mining Camp">2585,528,15,1</location>
-        <location id="trammel minoc stables" category="Trammel\Towns\Minoc\Stables">2527,378,23,1</location>
-
-        <!-- Moonglow -->
-        <location id="trammel moonglow cemetary" category="Trammel\Towns\Moonglow\Cemetary">4549,1330,8,1</location>
-        <location id="trammel moonglow lycaeum" category="Trammel\Towns\Moonglow\Lycaeum">4310,1007,0,1</location>
-        <location id="trammel moonglow bank" category="Trammel\Towns\Moonglow\Bank">4471,1178,0,1</location>
-
-        <!-- Njuhelm -->
-        <location id="trammel njuhelm" category="Trammel\Towns\Njuhelm\Center">3756,1244,0,1</location>
-        <location id="trammel njuhelm market" category="Trammel\Towns\Njuhelm\Market">3554,1187,0,1</location>
-        <location id="trammel njuhelm palace" category="Trammel\Towns\Njuhelm\Palace">3703,1282,20,1</location>
-
-        <!-- Occlo -->
-        <location id="trammel occlo" category="Trammel\Towns\Occlo\Bank">3686,2519,0,1</location>
-        <location id="trammel occlo smithy" category="Trammel\Towns\Occlo\Smithy">3642,2595,0,1</location>
-
-        <!-- Serpents Hold -->
-        <location id="trammel serpents hold" category="Trammel\Towns\Serpents Hold\Center">3021,3397,15,1</location>
-        <location id="trammel serpents hold entrance" category="Trammel\Towns\Serpents Hold\Outside Gates">2980,3387,15,1</location>
-
-        <!-- Skara Brae -->
-        <location id="trammel skara brae" category="Trammel\Towns\Skara Brae\Bank">591,2147,0,1</location>
-        <location id="trammel skara brae guild hall" category="Trammel\Towns\Skara Brae\Guild Hall">619,2131,0,1</location>
-        <location id="trammel skara brae market" category="Trammel\Towns\Skara Brae\Market">611,2159,0,1</location>
-        <location id="trammel skara brae pleasure" category="Trammel\Towns\Skara Brae\Shear Pleasure">650,2184,0,1</location>
-        <location id="trammel skara brae supplies" category="Trammel\Towns\Skara Brae\Sundry Supplies">584,2227,0,1</location>
-        <location id="trammel skara brae Bowman" category="Trammel\Towns\Skara Brae\Bowman">595,2211,0,1</location>
-
-        <!-- Trinsic -->
-        <location id="trammel trinsic bank" category="Trammel\Towns\Trinsic\Bank">1815,2822,0,1</location>
-        <location id="trammel trinsic provisions" category="Trammel\Towns\Trinsic\Britannia Provisions">1852,2792,-8,1</location>
-        <location id="trammel trinsic" category="Trammel\Towns\Trinsic\Center">1956,2780,10,1</location>
-        <location id="trammel trinsic arms" category="Trammel\Towns\Trinsic\Honourable Arms">1934,2772,10,1</location>
-        <location id="trammel trinsic entrance" category="Trammel\Towns\Trinsic\Outside Gates">1827,2779,0,1</location>
-        <location id="trammel trinsic jail" category="Trammel\Towns\Trinsic\Jail">1851,2770,0,1</location>
-
-        <!-- Vesper -->
-        <location id="trammel vesper cemetary" category="Trammel\Towns\Vesper\Cemetary">2782,867,0,1</location>
-        <location id="trammel vesper docks" category="Trammel\Towns\Vesper\Docks">3003,830,0,1</location>
-        <location id="trammel vesper" category="Trammel\Towns\Vesper\Bank">2895,688,0,1</location>
-        <location id="trammel vesper friend" category="Trammel\Towns\Vesper\The Adventurer's Friend">2842,876,0,1</location>
-
-        <!-- Wind -->
-        <location id="trammel wind" category="Trammel\Towns\Wind\Entrance">5167,243,15,1</location>
-        <location id="trammel wind garden" category="Trammel\Towns\Wind\Garden">5214,24,16,1</location>
-        <location id="trammel wind outside entrance" category="Trammel\Towns\Wind\Outside">1361,895,0,1</location>
-
-        <!-- Yew -->
-        <location id="trammel yew cemetary" category="Trammel\Towns\Yew\Cemetary">724,1136,0,1</location>
-        <location id="trammel yew" category="Trammel\Towns\Yew\Center">546,991,0,1</location>
-        <location category="Trammel\Towns\Yew\Abbey">635,818,0,1</location>
-
-        <!-- Councelor Halls -->
-        <location category="Trammel\Misc\Councelor Halls\Moonglow">4479,1126,0,1</location>
-        <location category="Trammel\Misc\Councelor Halls\Skara Brae">619,2131,0,1</location>
-
-        <!-- Forts -->
-        <location category="Trammel\Misc\Forts\Cove Orc Fort">2171,1332,0,1</location>
-        <location category="Trammel\Misc\Forts\Yew Brigand Camp">885,1682,0,1</location>
-        <location category="Trammel\Misc\Forts\Yew Fort of the Damned">972,768,0,1</location>
-        <location category="Trammel\Misc\Forts\Yew Orc Fort">634,1500,0,1</location>
-
-        <!-- Moongates -->
-        <location id="trammel Britain moongate" category="Trammel\Misc\Moongates\Britain">1338,1991,0,1</location>
-        <location id="trammel Jhelom moongate" category="Trammel\Misc\Moongates\Jhelom">1502,3769,0,1</location>
-        <location id="trammel magincia moongate" category="Trammel\Misc\Moongates\Magincia">3567,2138,0,1</location>
-        <location id="trammel Minoc moongate" category="Trammel\Misc\Moongates\Minoc">2705,691,0,1</location>
-        <location id="trammel Moonglow moongate" category="Trammel\Misc\Moongates\Moonglow">4470,1281,0,1</location>
-        <location id="trammel Skara Brae moongate" category="Trammel\Misc\Moongates\Skara Brae">647,2067,0,1</location>
-        <location id="trammel Trinsic moongate" category="Trammel\Misc\Moongates\Trinsic">1826,2944,-25,1</location>
-        <location id="trammel Yew moongate" category="Trammel\Misc\Moongates\Yew">769,747,0,1</location>
-
-        <!-- Shrines -->
-        <location id="trammel chaos shrine" category="Trammel\Misc\Shrines\Chaos">1456,854,0,1</location>
-        <location id="trammel compassion shrine" category="Trammel\Misc\Shrines\Compassion">1856,872,2,1</location>
-        <location id="trammel honesty shrine" category="Trammel\Misc\Shrines\Honesty">4217,564,35,1</location>
-        <location id="trammel honor shrine" category="Trammel\Misc\Shrines\Honor">1730,3528,0,1</location>
-        <location id="trammel humility shrine" category="Trammel\Misc\Shrines\Humility">4276,3699,0,1</location>
-        <location id="trammel justice shrine" category="Trammel\Misc\Shrines\Justice">1301,639,15,1</location>
-        <location id="trammel sacrifice shrine" category="Trammel\Misc\Shrines\Sacrifice">3355,299,9,1</location>
-        <location id="trammel spirituality shrine" category="Trammel\Misc\Shrines\Spirituality">1589,2485,5,1</location>
-        <location id="trammel valor shrine" category="Trammel\Misc\Shrines\Valor">2496,3932,0,1</location>
-
-        <!-- Sightings -->
-        <location category="Trammel\Misc\Sightings\Ancient Ruins north of Trinsic">1814,2421,0,1</location>
-        <location category="Trammel\Misc\Sightings\Crossroads west of Britain">1012,1937,0,1</location>
-        <location category="Trammel\Misc\Sightings\Fishermans Huts">2381,3485,3,1</location>
-        <location category="Trammel\Misc\Sightings\Hidden Valley Temple">1687,2986,0,1</location>
-        <location category="Trammel\Misc\Sightings\Inside the Hedge Mace">1152,2228,16,1</location>
-        <location category="Trammel\Misc\Sightings\Island Temple">2494,3566,3,1</location>
-        <location category="Trammel\Misc\Sightings\Outside the Hedge Mace">1260,2301,0,1</location>
-        <location category="Trammel\Misc\Sightings\Temple of Fire">4595,3600,30,1</location>
-        <location category="Trammel\Misc\Sightings\The great Waterfall">1322,544,30,1</location>
-        <location category="Trammel\Misc\Sightings\Trappers Camp">3347,572,0,1</location>
-
-        <!-- Dungeons: Covetous -->
-        <location id="trammel covetous level 1" category="Trammel\Dungeons\Covetous\Level 1">5456,1862,0,1</location>
-        <location id="trammel covetous level 2" category="Trammel\Dungeons\Covetous\Level 2">5613,1998,0,1</location>
-        <location id="trammel covetous level 3" category="Trammel\Dungeons\Covetous\Level 3">5580,1926,0,1</location>
-        <location id="trammel covetous level 4" category="Trammel\Dungeons\Covetous\Lake Area">5467,1809,0,1</location>
-        <location id="trammel covetous entrance" category="Trammel\Dungeons\Covetous\Entrance">2499,922,0,1</location>
-        <location category="Trammel\Dungeons\Covetous\Torture Rooms">5553,1808,0,1</location>
-
-        <!-- Dungeons: Deceit -->
-        <location id="trammel deceit level 1" category="Trammel\Dungeons\Deceit\Level 1">5189,637,0,1</location>
-        <location id="trammel deceit level 2" category="Trammel\Dungeons\Deceit\Level 2">5310,531,0,1</location>
-        <location id="trammel deceit level 3" category="Trammel\Dungeons\Deceit\Level 3">5141,651,0,1</location>
-        <location id="trammel deceit level 4" category="Trammel\Dungeons\Deceit\Level 4">5307,655,0,1</location>
-        <location id="trammel deceit entrance" category="Trammel\Dungeons\Deceit\Outside Entrance">4111,434,5,1</location>
-
-        <!-- Dungeons: Despise -->
-        <location category="Trammel\Dungeons\Despise\Entrance Room">5579,632,30,1</location>
-        <location id="trammel despise level 1" category="Trammel\Dungeons\Despise\Level 1">5499,571,59,1</location>
-        <location id="trammel despise level 2" category="Trammel\Dungeons\Despise\Level 2">5518,673,20,1</location>
-        <location id="trammel despise level 3" category="Trammel\Dungeons\Despise\Level 3">5405,860,45,1</location>
-        <location id="trammel despise" category="Trammel\Dungeons\Despise\Entrance">1301,1080,0,1</location>
-
-        <!-- Dungeons: Destard -->
-        <location id="trammel destard level 1" category="Trammel\Dungeons\Destard\Level 1">5243,1004,0,1</location>
-        <location id="trammel destard level 2" category="Trammel\Dungeons\Destard\Level 2">5148,805,0,1</location>
-        <location id="trammel destard level 3" category="Trammel\Dungeons\Destard\Level 3">5140,983,0,1</location>
-        <location id="trammel destard" category="Trammel\Dungeons\Destard\Entrance">1176,2639,0,1</location>
-
-        <!-- Dungeons: Hythloth -->
-        <location id="trammel hythloth level 1" category="Trammel\Dungeons\Hythloth\Level 1">5907,28,44,1</location>
-        <location id="trammel hythloth level 2" category="Trammel\Dungeons\Hythloth\Level 2">5978,171,0,1</location>
-        <location id="trammel hythloth level 3" category="Trammel\Dungeons\Hythloth\Level 3">6083,148,-22,1</location>
-        <location id="trammel hythloth level 4" category="Trammel\Dungeons\Hythloth\Level 4">6059,92,22,1</location>
-        <location id="trammel hythloth" category="Trammel\Dungeons\Hythloth\Entrance">4722,3825,0,1</location>
-
-        <!-- Dungeons: Shame -->
-        <location id="trammel shame level 1" category="Trammel\Dungeons\Shame\Level 1">5395,126,0,1</location>
-        <location id="trammel shame level 2" category="Trammel\Dungeons\Shame\Level 2">5515,15,5,1</location>
-        <location id="trammel shame level 3" category="Trammel\Dungeons\Shame\Level 3">5516,142,25,1</location>
-        <location id="trammel shame level 4" category="Trammel\Dungeons\Shame\Level 4">5876,22,-10,1</location>
-        <location id="trammel shame" category="Trammel\Dungeons\Shame\Entrance">514,1561,0,1</location>
-
-        <!-- Dungeons: Wrong -->
-        <location id="trammel wrong level 1" category="Trammel\Dungeons\Wrong\Level 1">5825,630,0,1</location>
-        <location id="trammel wrong level 2" category="Trammel\Dungeons\Wrong\Level 2">5694,569,20,1</location>
-        <location id="trammel wrong level 3" category="Trammel\Dungeons\Wrong\Level 3">5703,630,0,1</location>
-        <location id="trammel wrong" category="Trammel\Dungeons\Wrong\Entrance">2044,238,10,1</location>
-
-        <!-- Jails -->
-        <location id="trammel jail 1" category="Trammel\Gamemaster\Jails\Cell 1">5276,1164,0,1</location>
-        <location id="trammel jail 2" category="Trammel\Gamemaster\Jails\Cell 2">5286,1164,0,1</location>
-        <location id="trammel jail 3" category="Trammel\Gamemaster\Jails\Cell 3">5296,1164,0,1</location>
-        <location id="trammel jail 4" category="Trammel\Gamemaster\Jails\Cell 4">5306,1164,0,1</location>
-        <location id="trammel jail 5" category="Trammel\Gamemaster\Jails\Cell 5">5276,1174,0,1</location>
-        <location id="trammel jail 6" category="Trammel\Gamemaster\Jails\Cell 6">5286,1174,0,1</location>
-        <location id="trammel jail 7" category="Trammel\Gamemaster\Jails\Cell 7">5296,1174,0,1</location>
-        <location id="trammel jail 8" category="Trammel\Gamemaster\Jails\Cell 8">5306,1174,0,1</location>
-        <location id="trammel jail 9" category="Trammel\Gamemaster\Jails\Cell 9">5283,1184,0,1</location>
-        <location id="trammel jail" category="Trammel\Gamemaster\Jails\Cell 10">5304,1184,0,1</location>
-
-        <!-- Dungeons: Others -->
-        <location id="trammel green acres" category="Trammel\Others\Green Acres">5434,1102,0,1</location>
-        <location id="trammel star chamber" category="Trammel\Others\Star Chamber">5152,1761,0,1</location>
-        <location id="trammel green acres 2" category="Trammel\Gamemaster\Others\T2A Green Acres">5972,1678,0,1</location>
-
-        <!-- The Second Age Dungeons -->
-        <location id="trammel fire dungeon" category="Trammel\Dungeons\Fire Dungeon Entrance">5760,2907,17,1</location>
-        <location id="trammel ice dungeon" category="Trammel\Dungeons\Ice Dungeon Entrance (From Old Lands)">1999,81,5,1</location>
-        <location id="trammel ice dungeon entrance"=category="Trammel\Dungeons\Ice Dungeon Entrance (From Snow Lands)">5209,2322,33,1</location>
-
-        <!-- The Second Age Entrances -->
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Britain (Sewers)">1490,1641,24,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Cave (Minoc)">2401,201,0,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Cave (Trinsic)">1628,3322,0,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Serpents Hold">2923,3407,8,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Trinsic (Island)">1984,2068,-40,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Vesper (Cemetary)">2778,894,-23,1</location>
-
-        <!-- The Second Age Exits -->
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Britain (Sewers)">6032,1501,31,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Cave (Minoc)">6088,3676,18,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Cave (Trinsic)">5154,4063,37,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Serpents Hold">5687,1422,38,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Trinsic (Island)">5128,3144,97,1</location>
-        <location category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Vesper (Cemetary)">5697,3656,0,1</location>
-
-        <!-- The Second Age Forts and Ruins -->
-        <location id="trammel city of the dead" category="Trammel\Forts &amp; Ruins\City of the Dead">5213,3667,-3,1</location>
-        <location id="trammel delucia orc fort" category="Trammel\Forts &amp; Ruins\Delucia Orc Fort">5211,3630,3,1</location>
-        <location id="trammel ruins in the woods" category="Trammel\Forts &amp; Ruins\Ruins in the Woods">5389,3233,-5,1</location>
-        <location id="trammel terathen fort" category="Trammel\Forts &amp; Ruins\Terathen Fort Entrance">5451,3140,-60,1</location>
-        <location id="trammel terathen fort underground" category="Trammel\Forts &amp; Ruins\Terathen Underground Entrance">5427,3119,-60,1</location>
-
-        <!-- The Second Age Towns -->
-        <location id="trammel delucia" category="Trammel\Towns\Delucia\Bank">5270,3993,37,1</location>
-        <location id="trammel papua" category="Trammel\Towns\Papua\The Just Inn">5771,3162,14,1</location>
-        <location id="trammel papua2" category="Trammel\Towns\Papua\Tricks of the Trade">5730,3206,-7,1</location>
-
-        <location id="unnamed1" category="Ilshenar\Cities\Ancient Citadel\Entrance">1518,568,-14,2</location>
-        <location id="unnamed2" category="Ilshenar\Cities\Gargoyle City\Bank">852,602,-40,2</location>
-        <location id="unnamed3" category="Ilshenar\Cities\Gargoyle City\Central Area">836,641,-20,2</location>
-        <location category="Ilshenar\Cities\LakeShire\Central Area">1203,1124,-25,2</location>
-        <location category="Ilshenar\Cities\Mistas\Central Area">820,1073,-30,2</location>
-        <location category="Ilshenar\Cities\Montor\Central Area">1643,310,48,2</location>
-        <location category="Ilshenar\Cities\Req Volon\Central Area">1362,10733,-13,2</location>
-        <location category="Ilshenar\Cities\Savage Camp\Central Area">1251,743,-80,2</location>
-        <location category="Ilshenar\Cities\Terort Skitas\Entrance">567,437,21,2</location>
-        <location category="Ilshenar\Dungeons\Ankh\Entrance">576,1150,-100,2</location>
-        <location category="Ilshenar\Dungeons\Ankh\Level 1">155,1482,-28,2</location>
-        <location category="Ilshenar\Dungeons\Ankh\Kirin Passage">11,874,-28,2</location>
-        <location category="Ilshenar\Dungeons\Ankh\Serpentine Passage">396,1578,-28,2</location>
-
-        <location category="Ilshenar\Dungeons\Blood\Entrance">1747,1228,-1,2</location>
-        <location category="Ilshenar\Dungeons\Blood\Level 1">2114,834,-28,2</location>
-
-        <location category="Ilshenar\Dungeons\Exodus\Entrance">835,777,-80,2</location>
-        <location category="Ilshenar\Dungeons\Exodus\Level 1">1974,115,-28,2</location>
-
-		<location category="Ilshenar\Dungeons\Rock\Entrance">1788,573,70,2</location>
-		<location category="Ilshenar\Dungeons\Rock\Level 1">2188,318,-7,2</location>
-		<location category="Ilshenar\Dungeons\Rock\Level 2">2188.28.-27,2</location>
-
-		<location category="Ilshenar\Dungeons\Sorcerers\Entrance">548,462,-53,2</location>
-		<location category="Ilshenar\Dungeons\Sorcerers\Level 1">428,109,-28,2</location>
-		<location category="Ilshenar\Dungeons\Sorcerers\Level 2">240,23,-18,2</location>
-		<location category="Ilshenar\Dungeons\Sorcerers\Level 3">272,136,-28,2</location>
-		<location category="Ilshenar\Dungeons\Sorcerers\Level 4">132,124,-28,2</location>
-		<location category="Ilshenar\Dungeons\Sorcerers\Level 5">236,121,-28,2</location>
-
-		<location category="Ilshenar\Dungeons\Spectre\Entrance">1363,1033,-8,2</location>
-		<location category="Ilshenar\Dungeons\Spectre\Level 1">1982,1103,-28,2</location>
-
-		<location category="Ilshenar\Dungeons\Wisp\Entrance">651,1302,-58,2</location>
-		<location category="Ilshenar\Dungeons\Wisp\Level 1">627,1525,-28,2</location>
-		<location category="Ilshenar\Dungeons\Wisp\Level 2">718,1492,-28,2</location>
-		<location category="Ilshenar\Dungeons\Wisp\Level 3">832,1551,-28,2</location>
-		<location category="Ilshenar\Dungeons\Wisp\Level 4">960,1428,-28,2</location>
-		<location category="Ilshenar\Dungeons\Wisp\Level 5">942.1465,-33,2</location>
-		<location category="Ilshenar\Dungeons\Wisp\Level 6">866,1434,-28,2</location>
-		<location category="Ilshenar\Dungeons\Wisp\Level 7">807,1548,-28,2</location>
-		<location category="Ilshenar\Dungeons\Wisp\Level 8">754,1479,-28,2</location>
-
-
-		<location category="Malas\Towns\Luna\Moongate">1015,527,-65,3</location>
-		<location category="Malas\Towns\Luna\Bank">991,519,-50,3</location>
-		<location category="Malas\Towns\Luna\Chothier's Colors">976,527,-50,3</location>
-		<location category="Malas\Towns\Luna\Grand Arena">961,638,-90,3</location>
-
-		<location category="Malas\Towns\Umbra\Moongate">1998,1387,-85,3</location>
+	<!-- Towns -->
+	<!-- Britain -->
+	<location id="felluca felluca britain" category="Felluca\Towns\Britain\Center">1500,1630,10,0</location>
+	<location id="felluca britain graveyard" category="Felluca\Towns\Britain\Graveyard">1384,1497,10,0</location>
+	<location id="felluca britain bank" category="Felluca\Towns\Britain\Bank">1430,1688,0,0</location>
+	<location id="felluca britain healer" category="Felluca\Towns\Britain\Healer">1474,1611,20,0</location>
+	<location id="felluca britain premier provisioner and fish shop" category="Felluca\Towns\Britain\Premier Provisioner and Fish Shop">1475,1672,0,0</location>
+	<location id="felluca britain etheral goods" category="Felluca\Towns\Britain\Etheral Goods">1502,1661,27,0</location>
+	<location id="felluca britain farmlands" category="Felluca\Towns\Britain\Farmlands">1228,1705,0,0</location>
+	<location id="felluca britain hall of virtues" category="Felluca\Towns\Britain\Hall of Virtues">1554,1610,11,0</location>
+	<location id="felluca lord blackthorns castle" category="Felluca\Towns\Britain\Lord Blackthornes Castle">1523,1456,15,0</location>
+	<location id="felluca lord british castle" category="Felluca\Towns\Britain\Lord British Castle">1401,1625,28,0</location>
+	
+	<!-- Bucaneers Den -->
+	<location id="felluca bucaneers den bathouse" category="Felluca\Towns\Bucaneers Den\Bath House">2667,2084,5,0</location>
+	<location id="felluca bucaneers den docks" category="Felluca\Towns\Bucaneers Den\Docks">2736,2166,1,0</location>
+	<location id="felluca bucaneers den" category="Felluca\Towns\Bucaneers Den\Tavern">2691,2233,2,0</location>
+	
+	<!-- Cove -->
+	<location id="felluca cove cemetary" category="Felluca\Towns\Cove\Cemetary">2437,1098,8,0</location>
+	<location id="felluca cove" category="Felluca\Towns\Cove\Center">2246,1214,0,0</location>
+	
+	<!-- Jhelom -->
+	<location id="felluca jhelom docks" category="Felluca\Towns\Jhelom\Docks">1485,3695,0,0</location>
+	<location id="felluca jhelom farm" category="Felluca\Towns\Jhelom\Farm">1131,3606,0,0</location>
+	<location id="felluca jhelom fighting pit" category="Felluca\Towns\Jhelom\Fighting Pit">1397,3745,-20,0</location>
+	<location id="felluca jhelom tailor" category="Felluca\Towns\Jhelom\Jheloms Fine Tailoring">1460,4011,0,0</location>
+	<location id="felluca jhelom inn" category="Felluca\Towns\Jhelom\Inn">1376,3817,0,0</location>
+	
+	<!-- Minoc -->
+	<location id="felluca minoc" category="Felluca\Towns\Minoc\Center">2466,443,15,0</location>
+	<location id="felluca minoc mining camp" category="Felluca\Towns\Minoc\Mining Camp">2585,528,15,0</location>
+	<location id="felluca minoc stables" category="Felluca\Towns\Minoc\Stables">2527,378,23,0</location>
+	
+	<!-- Moonglow -->
+	<location id="felluca moonglow cemetary" category="Felluca\Towns\Moonglow\Cemetary">4549,1330,8,0</location>
+	<location id="felluca moonglow lycaeum" category="Felluca\Towns\Moonglow\Lycaeum">4310,1007,0,0</location>
+	<location id="felluca moonglow bank" category="Felluca\Towns\Moonglow\Bank">4471,1178,0,0</location>
+	
+	<!-- Njuhelm -->
+	<location id="felluca njuhelm" category="Felluca\Towns\Njuhelm\Center">3756,1244,0,0</location>
+	<location id="felluca njuhelm market" category="Felluca\Towns\Njuhelm\Market">3554,1187,0,0</location>
+	<location id="felluca njuhelm palace" category="Felluca\Towns\Njuhelm\Palace">3703,1282,20,0</location>
+	
+	<!-- Occlo -->
+	<location id="felluca occlo" category="Felluca\Towns\Occlo\Bank">3686,2519,0,0</location>
+	<location id="felluca occlo smithy" category="Felluca\Towns\Occlo\Smithy">3642,2595,0,0</location>
+	
+	<!-- Serpents Hold -->
+	<location id="felluca serpents hold" category="Felluca\Towns\Serpents Hold\Center">3021,3397,15,0</location>
+	<location id="felluca serpents hold entrance" category="Felluca\Towns\Serpents Hold\Outside Gates">2980,3387,15,0</location>
+	
+	<!-- Skara Brae -->
+	<location id="felluca skara brae" category="Felluca\Towns\Skara Brae\Bank">591,2147,0,0</location>
+	<location id="felluca skara brae guild hall" category="Felluca\Towns\Skara Brae\Guild Hall">619,2131,0,0</location>
+	<location id="felluca skara brae market" category="Felluca\Towns\Skara Brae\Market">611,2159,0,0</location>
+	<location id="felluca skara brae pleasure" category="Felluca\Towns\Skara Brae\Shear Pleasure">650,2184,0,0</location>
+	<location id="felluca skara brae supplies" category="Felluca\Towns\Skara Brae\Sundry Supplies">584,2227,0,0</location>
+	<location id="felluca skara brae bowman" category="Felluca\Towns\Skara Brae\Bowman">595,2211,0,0</location>
+	
+	<!-- Trinsic -->
+	<location id="felluca trinsic bank" category="Felluca\Towns\Trinsic\Bank">1815,2822,0,0</location>
+	<location id="felluca trinsic privisions" category="Felluca\Towns\Trinsic\Britannia Provisions">1852,2792,-8,0</location>
+	<location id="felluca trinsic center" category="Felluca\Towns\Trinsic\Center">1956,2780,10,0</location>
+	<location id="felluca trinsic arms" category="Felluca\Towns\Trinsic\Honourable Arms">1934,2772,10,0</location>
+	<location id="felluca trinsic entrance" category="Felluca\Towns\Trinsic\Outside Gates">1827,2779,0,0</location>
+	<location id="felluca trinsic jail" category="Felluca\Towns\Trinsic\Jail">1851,2770,0,0</location>
+	
+	<!-- Vesper -->
+	<location id="felluca vesper cemetary" category="Felluca\Towns\Vesper\Cemetary">2782,867,0,0</location>
+	<location id="felluca vesper docks" category="Felluca\Towns\Vesper\Docks">3003,830,0,0</location>
+	<location id="felluca vesper bank" category="Felluca\Towns\Vesper\Bank">2895,688,0,0</location>
+	<location id="felluca vesper spot1" category="Felluca\Towns\Vesper\The Adventurers Friend">2842,876,0,0</location>
+	
+	<!-- Wind -->
+	<location id="felluca wind entrance" category="Felluca\Towns\Wind\Entrance">5167,243,15,0</location>
+	<location id="felluca wind garden" category="Felluca\Towns\Wind\Garden">5214,24,16,0</location>
+	<location id="felluca wind outside entrance" category="Felluca\Towns\Wind\Outside">1361,895,0,0</location>
+	
+	<!-- Yew -->
+	<location id="felluca yew cemetary" category="Felluca\Towns\Yew\Cemetary">724,1136,0,0</location>
+	<location id="felluca yew center" category="Felluca\Towns\Yew\Center">546,991,0,0</location>
+	<location id="felluca yew abbey" category="Felluca\Towns\Yew\Abbey">635,818,0,0</location>
+	
+	<!-- Councelor Halls -->
+	<location id="felluca glow chall" category="Felluca\Misc\Councelor Halls\Moonglow">4479,1126,0,0</location>
+	<location id="felluca skara brae chall " category="Felluca\Misc\Councelor Halls\Skara Brae">619,2131,0,0</location>
+	
+	<!-- Forts -->
+	<location id="felluca cove orc fort" category="Felluca\Misc\Forts\Cove Orc Fort">2171,1332,0,0</location>
+	<location id="felluca yew brigand camp" category="Felluca\Misc\Forts\Yew Brigand Camp">885,1682,0,0</location>
+	<location id="felluca yew damned fort" category="Felluca\Misc\Forts\Yew Fort of the Damned">972,768,0,0</location>
+	<location id="felluca yew orc fort" category="Felluca\Misc\Forts\Yew Orc Fort">634,1500,0,0</location>
+	
+	<!-- Moongates -->
+	<location id="felluca nritain moongate" category="Felluca\Misc\Moongates\Britain">1338,1991,0,0</location>
+	<location id="felluca jhelom moongate" category="Felluca\Misc\Moongates\Jhelom">1502,3769,0,0</location>
+	<location id="felluca magincia moongate" category="Felluca\Misc\Moongates\Magincia">3567,2138,0,0</location>
+	<location id="felluca minoc moongate" category="Felluca\Misc\Moongates\Minoc">2705,691,0,0</location>
+	<location id="felluca moonglow moongate" category="Felluca\Misc\Moongates\Moonglow">4470,1281,0,0</location>
+	<location id="felluca skara brae moongate" category="Felluca\Misc\Moongates\Skara Brae">647,2067,0,0</location>
+	<location id="felluca trinsic moongate" category="Felluca\Misc\Moongates\Trinsic">1826,2944,-25,0</location>
+	<location id="felluca yew moongate" category="Felluca\Misc\Moongates\Yew">769,747,0,0</location>
+	
+	<!-- Shrines -->
+	<location id="felluca chaos shrine" category="Felluca\Misc\Shrines\Chaos">1456,854,0,0</location>
+	<location id="felluca compassion shrine" category="Felluca\Misc\Shrines\Compassion">1856,872,2,0</location>
+	<location id="felluca honesty shrine" category="Felluca\Misc\Shrines\Honesty">4217,564,35,0</location>
+	<location id="felluca honor shrine" category="Felluca\Misc\Shrines\Honor">1730,3528,0,0</location>
+	<location id="felluca humility shrine" category="Felluca\Misc\Shrines\Humility">4276,3699,0,0</location>
+	<location id="felluca justice shrine" category="Felluca\Misc\Shrines\Justice">1301,639,15,0</location>
+	<location id="felluca sacrifice shrine" category="Felluca\Misc\Shrines\Sacrifice">3355,299,9,0</location>
+	<location id="felluca spirituality shrine" category="Felluca\Misc\Shrines\Spirituality">1589,2485,5,0</location>
+	<location id="felluca valor shrine" category="Felluca\Misc\Shrines\Valor">2496,3932,0,0</location>
+	
+	<!-- Sightings -->
+	<location id="felluca sight trinsic ruins" category="Felluca\Misc\Sightings\Ancient Ruins north of Trinsic">1814,2421,0,0</location>
+	<location id="felluca sight brit west xroads" category="Felluca\Misc\Sightings\Crossroads west of Britain">1012,1937,0,0</location>
+	<location id="felluca sight fisherman huts" category="Felluca\Misc\Sightings\Fishermans Huts">2381,3485,3,0</location>
+	<location id="felluca sight valley temple" category="Felluca\Misc\Sightings\Hidden Valley Temple">1687,2986,0,0</location>
+	<location id="felluca sight inside hedge maze" category="Felluca\Misc\Sightings\Inside the Hedge Mace">1152,2228,16,0</location>
+	<location id="felluca sight island temple" category="Felluca\Misc\Sightings\Island Temple">2494,3566,3,0</location>
+	<location id="felluca sight outside hedge maze" category="Felluca\Misc\Sightings\Outside the Hedge Mace">1260,2301,0,0</location>
+	<location id="felluca sight fire temple" category="Felluca\Misc\Sightings\Temple of Fire">4595,3600,30,0</location>
+	<location id="felluca sight great waterfall" category="Felluca\Misc\Sightings\The great Waterfall">1322,544,30,0</location>
+	<location id="felluca sight trappers camp" category="Felluca\Misc\Sightings\Trappers Camp">3347,572,0,0</location>
+	
+	<!-- Dungeons: Covetous -->
+	<location id="felluca covetous level 1" category="Felluca\Dungeons\Covetous\Level 1">5456,1862,0,0</location>
+	<location id="felluca covetous level 2" category="Felluca\Dungeons\Covetous\Level 2">5613,1998,0,0</location>
+	<location id="felluca covetous level 3" category="Felluca\Dungeons\Covetous\Level 3">5580,1926,0,0</location>
+	<location id="felluca covetous level 4" category="Felluca\Dungeons\Covetous\Lake Area">5467,1809,0,0</location>
+	<location id="felluca covetous entrance" category="Felluca\Dungeons\Covetous\Entrance">2499,922,0,0</location>
+	<location id="felluca covetous torture room" category="Felluca\Dungeons\Covetous\Torture Rooms">5553,1808,0,0</location>
+	
+	<!-- Dungeons: Deceit -->
+	<location id="felluca deceit level 1" category="Felluca\Dungeons\Deceit\Level 1">5189,637,0,0</location>
+	<location id="felluca deceit level 2" category="Felluca\Dungeons\Deceit\Level 2">5310,531,0,0</location>
+	<location id="felluca deceit level 3" category="Felluca\Dungeons\Deceit\Level 3">5141,651,0,0</location>
+	<location id="felluca deceit level 4" category="Felluca\Dungeons\Deceit\Level 4">5307,655,0,0</location>
+	<location id="felluca deceit entrance" category="Felluca\Dungeons\Deceit\Outside Entrance">4111,434,5,0</location>
+	
+	<!-- Dungeons: Despise -->
+	<location id="felluca despise entrance room" category="Felluca\Dungeons\Despise\Entrance Room">5579,632,30,0</location>
+	<location id="felluca despise level 1" category="Felluca\Dungeons\Despise\Level 1">5499,571,59,0</location>
+	<location id="felluca despise level 2" category="Felluca\Dungeons\Despise\Level 2">5518,673,20,0</location>
+	<location id="felluca despise level 3" category="Felluca\Dungeons\Despise\Level 3">5405,860,45,0</location>
+	<location id="felluca despise entrance" category="Felluca\Dungeons\Despise\Entrance">1301,1080,0,0</location>
+	
+	<!-- Dungeons: Destard -->
+	<location id="felluca destard level 1" category="Felluca\Dungeons\Destard\Level 1">5243,1004,0,0</location>
+	<location id="felluca destard level 2" category="Felluca\Dungeons\Destard\Level 2">5148,805,0,0</location>
+	<location id="felluca destard level 3" category="Felluca\Dungeons\Destard\Level 3">5140,983,0,0</location>
+	<location id="felluca destard entrance" category="Felluca\Dungeons\Destard\Entrance">1176,2639,0,0</location>
+	
+	<!-- Dungeons: Hythloth -->
+	<location id="felluca hythloth level 1" category="Felluca\Dungeons\Hythloth\Level 1">5907,28,44,0</location>
+	<location id="felluca hythloth level 2" category="Felluca\Dungeons\Hythloth\Level 2">5978,171,0,0</location>
+	<location id="felluca hythloth level 3" category="Felluca\Dungeons\Hythloth\Level 3">6083,148,-22,0</location>
+	<location id="felluca hythloth level 4" category="Felluca\Dungeons\Hythloth\Level 4">6059,92,22,0</location>
+	<location id="felluca hythloth entrance" category="Felluca\Dungeons\Hythloth\Entrance">4722,3825,0,0</location>
+	
+	<!-- Dungeons: Shame -->
+	<location id="felluca shame level 1" category="Felluca\Dungeons\Shame\Level 1">5395,126,0,0</location>
+	<location id="felluca shame level 2" category="Felluca\Dungeons\Shame\Level 2">5515,15,5,0</location>
+	<location id="felluca shame level 3" category="Felluca\Dungeons\Shame\Level 3">5516,142,25,0</location>
+	<location id="felluca shame level 4" category="Felluca\Dungeons\Shame\Level 4">5876,22,-10,0</location>
+	<location id="felluca shame entrance" category="Felluca\Dungeons\Shame\Entrance">514,1561,0,0</location>
+	
+	<!-- Dungeons: Wrong -->
+	<location id="felluca wrong level 1" category="Felluca\Dungeons\Wrong\Level 1">5825,630,0,0</location>
+	<location id="felluca wrong level 2" category="Felluca\Dungeons\Wrong\Level 2">5694,569,20,0</location>
+	<location id="felluca wrong level 3" category="Felluca\Dungeons\Wrong\Level 3">5703,630,0,0</location>
+	<location id="felluca wrong entrance" category="Felluca\Dungeons\Wrong\Entrance">2044,238,10,0</location>
+	
+	<!-- Jails -->
+	<location id="felluca jail 1" category="Felluca\Gamemaster\Jails\Cell 1">5276,1164,0,0</location>
+	<location id="felluca jail 2" category="Felluca\Gamemaster\Jails\Cell 2">5286,1164,0,0</location>
+	<location id="felluca jail 3" category="Felluca\Gamemaster\Jails\Cell 3">5296,1164,0,0</location>
+	<location id="felluca jail 4" category="Felluca\Gamemaster\Jails\Cell 4">5306,1164,0,0</location>
+	<location id="felluca jail 5" category="Felluca\Gamemaster\Jails\Cell 5">5276,1174,0,0</location>
+	<location id="felluca jail 6" category="Felluca\Gamemaster\Jails\Cell 6">5286,1174,0,0</location>
+	<location id="felluca jail 7" category="Felluca\Gamemaster\Jails\Cell 7">5296,1174,0,0</location>
+	<location id="felluca jail 8" category="Felluca\Gamemaster\Jails\Cell 8">5306,1174,0,0</location>
+	<location id="felluca jail 9" category="Felluca\Gamemaster\Jails\Cell 9">5283,1184,0,0</location>
+	<location id="felluca jail 10" category="Felluca\Gamemaster\Jails\Cell 10">5304,1184,0,0</location>
+	
+	<!-- Dungeons: Others -->
+	<location id="felluca green acres" category="Felluca\Others\Green Acres">5434,1102,0,0</location>
+	<location id="felluca star chamber" category="Felluca\Others\Star Chamber">5152,1761,0,0</location>
+	<location id="felluca green acres 2" category="Felluca\Gamemaster\Others\T2A Green Acres">5972,1678,0,0</location>
+	
+	<!-- The Second Age Dungeons -->
+	<location id="felluca fire dungeon entrance" category="Felluca\Dungeons\Fire Dungeon Entrance">5760,2907,17,0</location>
+	<location id="felluca ice dungeon entrance 1" category="Felluca\Dungeons\Ice Dungeon Entrance (From Old Lands)">1999,81,5,0</location>
+	<location id="felluca ice dungeon entrance 2" category="Felluca\Dungeons\Ice Dungeon Entrance (From Snow Lands)">5209,2322,33,0</location>
+	
+	<!-- The Second Age Entrances -->
+	<location id="felluca t2a entrance 1" category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Britain (Sewers)">1490,1641,24,0</location>
+	<location id="felluca t2a entrance 2" category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Cave (Minoc)">2401,201,0,0</location>
+	<location id="felluca t2a entrance 3" category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Cave (Trinsic)">1628,3322,0,0</location>
+	<location id="felluca t2a entrance 4" category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Serpents Hold">2923,3407,8,0</location>
+	<location id="felluca t2a entrance 5" category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Trinsic (Island)">1984,2068,-40,0</location>
+	<location id="felluca t2a entrance 6" category="Felluca\Entrances &amp; Exits\The Second Age\Entrance from Vesper (Cemetary)">2778,894,-23,0</location>
+	
+	<!-- The Second Age Exits -->
+	<location id="felluca t2a exit 1" category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Britain (Sewers)">6032,1501,31,0</location>
+	<location id="felluca t2a exit 2" category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Cave (Minoc)">6088,3676,18,0</location>
+	<location id="felluca t2a exit 3" category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Cave (Trinsic)">5154,4063,37,0</location>
+	<location id="felluca t2a exit 4" category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Serpents Hold">5687,1422,38,0</location>
+	<location id="felluca t2a exit 5" category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Trinsic (Island)">5128,3144,97,0</location>
+	<location id="felluca t2a exit 6" category="Felluca\Entrances &amp; Exits\The Second Age\Exit to Vesper (Cemetary)">5697,3656,0,0</location>
+	
+	<!-- The Second Age Forts and Ruins -->
+	<location id="felluca city of the dead" category="Felluca\Forts &amp; Ruins\City of the Dead">5213,3667,-3,0</location>
+	<location id="felluca delucia orc fort" category="Felluca\Forts &amp; Ruins\Delucia Orc Fort">5211,3630,3,0</location>
+	<location id="felluca ruins in the woods" category="Felluca\Forts &amp; Ruins\Ruins in the Woods">5389,3233,-5,0</location>
+	<location id="felluca terathen fort" category="Felluca\Forts &amp; Ruins\Terathen Fort Entrance">5451,3140,-60,0</location>
+	<location id="felluca terathen fort underground" category="Felluca\Forts &amp; Ruins\Terathen Underground Entrance">5427,3119,-60,0</location>
+	
+	<!-- The Second Age Towns -->
+	<location id="felluca delucia" category="Felluca\Towns\Delucia\Bank">5270,3993,37,0</location>
+	<location id="felluca papua" category="Felluca\Towns\Papua\The Just Inn">5771,3162,14,0</location>
+	<location id="felluca papua market" category="Felluca\Towns\Papua\Tricks of the Trade">5730,3206,-7,0</location>
+	
+	
+	<!-- Towns -->
+	<!-- Britain -->
+	<location id="trammel trammel britain" category="Trammel\Towns\Britain\Center">1500,1630,10,1</location>
+	<location id="trammel britain graveyard" category="Trammel\Towns\Britain\Graveyard">1384,1497,10,1</location>
+	<location id="trammel britain bank" category="Trammel\Towns\Britain\Bank">1430,1688,0,1</location>
+	<location id="trammel britain healer" category="Trammel\Towns\Britain\Healer">1474,1611,20,1</location>
+	<location id="trammel britain premier provisioner and fish shop" category="Trammel\Towns\Britain\Premier Provisioner and Fish Shop">1475,1672,0,1</location>
+	<location id="trammel britain etheral goods" category="Trammel\Towns\Britain\Etheral Goods">1502,1661,27,1</location>
+	<location id="trammel britain farmlands" category="Trammel\Towns\Britain\Farmlands">1228,1705,0,1</location>
+	<location id="trammel britain hall of virtues" category="Trammel\Towns\Britain\Hall of Virtues">1554,1610,11,1</location>
+	<location id="trammel lord blackthorns castle" category="Trammel\Towns\Britain\Lord Blackthornes Castle">1523,1456,15,1</location>
+	<location id="trammel lord british castle" category="Trammel\Towns\Britain\Lord British Castle">1401,1625,28,1</location>
+	
+	<!-- Bucaneers Den -->
+	<location id="trammel bucaneers den bathouse" category="Trammel\Towns\Bucaneers Den\Bath House">2667,2084,5,1</location>
+	<location id="trammel bucaneers den docks" category="Trammel\Towns\Bucaneers Den\Docks">2736,2166,1,1</location>
+	<location id="trammel bucaneers den" category="Trammel\Towns\Bucaneers Den\Tavern">2691,2233,2,1</location>
+	
+	<!-- Cove -->
+	<location id="trammel cove cemetary" category="Trammel\Towns\Cove\Cemetary">2437,1098,8,1</location>
+	<location id="trammel cove" category="Trammel\Towns\Cove\Center">2246,1214,0,1</location>
+	
+	<!-- Jhelom -->
+	<location id="trammel jhelom docks" category="Trammel\Towns\Jhelom\Docks">1485,3695,0,1</location>
+	<location id="trammel jhelom farm" category="Trammel\Towns\Jhelom\Farm">1131,3606,0,1</location>
+	<location id="trammel jhelom fighting pit" category="Trammel\Towns\Jhelom\Fighting Pit">1397,3745,-20,1</location>
+	<location id="trammel jhelom tailor" category="Trammel\Towns\Jhelom\Jheloms Fine Tailoring">1460,4011,0,1</location>
+	<location id="trammel jhelom inn" category="Trammel\Towns\Jhelom\Inn">1376,3817,0,1</location>
+	
+	<!-- Minoc -->
+	<location id="trammel minoc" category="Trammel\Towns\Minoc\Center">2466,443,15,1</location>
+	<location id="trammel minoc mining camp" category="Trammel\Towns\Minoc\Mining Camp">2585,528,15,1</location>
+	<location id="trammel minoc stables" category="Trammel\Towns\Minoc\Stables">2527,378,23,1</location>
+	
+	<!-- Moonglow -->
+	<location id="trammel moonglow cemetary" category="Trammel\Towns\Moonglow\Cemetary">4549,1330,8,1</location>
+	<location id="trammel moonglow lycaeum" category="Trammel\Towns\Moonglow\Lycaeum">4310,1007,0,1</location>
+	<location id="trammel moonglow bank" category="Trammel\Towns\Moonglow\Bank">4471,1178,0,1</location>
+	
+	<!-- Njuhelm -->
+	<location id="trammel njuhelm" category="Trammel\Towns\Njuhelm\Center">3756,1244,0,1</location>
+	<location id="trammel njuhelm market" category="Trammel\Towns\Njuhelm\Market">3554,1187,0,1</location>
+	<location id="trammel njuhelm palace" category="Trammel\Towns\Njuhelm\Palace">3703,1282,20,1</location>
+	
+	<!-- Occlo -->
+	<location id="trammel occlo" category="Trammel\Towns\Occlo\Bank">3686,2519,0,1</location>
+	<location id="trammel occlo smithy" category="Trammel\Towns\Occlo\Smithy">3642,2595,0,1</location>
+	
+	<!-- Serpents Hold -->
+	<location id="trammel serpents hold" category="Trammel\Towns\Serpents Hold\Center">3021,3397,15,1</location>
+	<location id="trammel serpents hold entrance" category="Trammel\Towns\Serpents Hold\Outside Gates">2980,3387,15,1</location>
+	
+	<!-- Skara Brae -->
+	<location id="trammel skara brae" category="Trammel\Towns\Skara Brae\Bank">591,2147,0,1</location>
+	<location id="trammel skara brae guild hall" category="Trammel\Towns\Skara Brae\Guild Hall">619,2131,0,1</location>
+	<location id="trammel skara brae market" category="Trammel\Towns\Skara Brae\Market">611,2159,0,1</location>
+	<location id="trammel skara brae pleasure" category="Trammel\Towns\Skara Brae\Shear Pleasure">650,2184,0,1</location>
+	<location id="trammel skara brae supplies" category="Trammel\Towns\Skara Brae\Sundry Supplies">584,2227,0,1</location>
+	<location id="trammel skara brae Bowman" category="Trammel\Towns\Skara Brae\Bowman">595,2211,0,1</location>
+	
+	<!-- Trinsic -->
+	<location id="trammel trinsic bank" category="Trammel\Towns\Trinsic\Bank">1815,2822,0,1</location>
+	<location id="trammel trinsic provisions" category="Trammel\Towns\Trinsic\Britannia Provisions">1852,2792,-8,1</location>
+	<location id="trammel trinsic" category="Trammel\Towns\Trinsic\Center">1956,2780,10,1</location>
+	<location id="trammel trinsic arms" category="Trammel\Towns\Trinsic\Honourable Arms">1934,2772,10,1</location>
+	<location id="trammel trinsic entrance" category="Trammel\Towns\Trinsic\Outside Gates">1827,2779,0,1</location>
+	<location id="trammel trinsic jail" category="Trammel\Towns\Trinsic\Jail">1851,2770,0,1</location>
+	
+	<!-- Vesper -->
+	<location id="trammel vesper cemetary" category="Trammel\Towns\Vesper\Cemetary">2782,867,0,1</location>
+	<location id="trammel vesper docks" category="Trammel\Towns\Vesper\Docks">3003,830,0,1</location>
+	<location id="trammel vesper" category="Trammel\Towns\Vesper\Bank">2895,688,0,1</location>
+	<location id="trammel vesper friend" category="Trammel\Towns\Vesper\The Adventurers Friend">2842,876,0,1</location>
+	
+	<!-- Wind -->
+	<location id="trammel wind entrance" category="Trammel\Towns\Wind\Entrance">5167,243,15,1</location>
+	<location id="trammel wind garden" category="Trammel\Towns\Wind\Garden">5214,24,16,1</location>
+	<location id="trammel wind outside entrance" category="Trammel\Towns\Wind\Outside">1361,895,0,1</location>
+	
+	<!-- Yew -->
+	<location id="trammel yew cemetary" category="Trammel\Towns\Yew\Cemetary">724,1136,0,1</location>
+	<location id="trammel yew center" category="Trammel\Towns\Yew\Center">546,991,0,1</location>
+	<location id="trammel yew abbey" category="Trammel\Towns\Yew\Abbey">635,818,0,1</location>
+	
+	<!-- Councelor Halls -->
+	<location id="trammel glow chall" category="Trammel\Misc\Councelor Halls\Moonglow">4479,1126,0,1</location>
+	<location id="trammel skara chall" category="Trammel\Misc\Councelor Halls\Skara Brae">619,2131,0,1</location>
+	
+	<!-- Forts -->
+	<location id="trammel cove orc fort" category="Trammel\Misc\Forts\Cove Orc Fort">2171,1332,0,1</location>
+	<location id="trammel yew brigand camp" category="Trammel\Misc\Forts\Yew Brigand Camp">885,1682,0,1</location>
+	<location id="trammel yew damned fort" category="Trammel\Misc\Forts\Yew Fort of the Damned">972,768,0,1</location>
+	<location id="trammel yew orc fort" category="Trammel\Misc\Forts\Yew Orc Fort">634,1500,0,1</location>
+	
+	<!-- Moongates -->
+	<location id="trammel britain moongate" category="Trammel\Misc\Moongates\Britain">1338,1991,0,1</location>
+	<location id="trammel jhelom moongate" category="Trammel\Misc\Moongates\Jhelom">1502,3769,0,1</location>
+	<location id="trammel magincia moongate" category="Trammel\Misc\Moongates\Magincia">3567,2138,0,1</location>
+	<location id="trammel minoc moongate" category="Trammel\Misc\Moongates\Minoc">2705,691,0,1</location>
+	<location id="trammel moonglow moongate" category="Trammel\Misc\Moongates\Moonglow">4470,1281,0,1</location>
+	<location id="trammel skara brae moongate" category="Trammel\Misc\Moongates\Skara Brae">647,2067,0,1</location>
+	<location id="trammel trinsic moongate" category="Trammel\Misc\Moongates\Trinsic">1826,2944,-25,1</location>
+	<location id="trammel yew moongate" category="Trammel\Misc\Moongates\Yew">769,747,0,1</location>
+	
+	<!-- Shrines -->
+	<location id="trammel chaos shrine" category="Trammel\Misc\Shrines\Chaos">1456,854,0,1</location>
+	<location id="trammel compassion shrine" category="Trammel\Misc\Shrines\Compassion">1856,872,2,1</location>
+	<location id="trammel honesty shrine" category="Trammel\Misc\Shrines\Honesty">4217,564,35,1</location>
+	<location id="trammel honor shrine" category="Trammel\Misc\Shrines\Honor">1730,3528,0,1</location>
+	<location id="trammel humility shrine" category="Trammel\Misc\Shrines\Humility">4276,3699,0,1</location>
+	<location id="trammel justice shrine" category="Trammel\Misc\Shrines\Justice">1301,639,15,1</location>
+	<location id="trammel sacrifice shrine" category="Trammel\Misc\Shrines\Sacrifice">3355,299,9,1</location>
+	<location id="trammel spirituality shrine" category="Trammel\Misc\Shrines\Spirituality">1589,2485,5,1</location>
+	<location id="trammel valor shrine" category="Trammel\Misc\Shrines\Valor">2496,3932,0,1</location>
+	
+	<!-- Sightings -->
+	<location id="trammel sight trinsic ancient ruins" category="Trammel\Misc\Sightings\Ancient Ruins north of Trinsic">1814,2421,0,1</location>
+	<location id="trammel sight brit west xroads" category="Trammel\Misc\Sightings\Crossroads west of Britain">1012,1937,0,1</location>
+	<location id="trammel sight fisherman huts" category="Trammel\Misc\Sightings\Fishermans Huts">2381,3485,3,1</location>
+	<location id="trammel sight valley temple" category="Trammel\Misc\Sightings\Hidden Valley Temple">1687,2986,0,1</location>
+	<location id="trammel sight inside hedge maze" category="Trammel\Misc\Sightings\Inside the Hedge Mace">1152,2228,16,1</location>
+	<location id="trammel sight island temple" category="Trammel\Misc\Sightings\Island Temple">2494,3566,3,1</location>
+	<location id="trammel sight outside hedge maze" category="Trammel\Misc\Sightings\Outside the Hedge Mace">1260,2301,0,1</location>
+	<location id="trammel sight fire temple" category="Trammel\Misc\Sightings\Temple of Fire">4595,3600,30,1</location>
+	<location id="trammel sight great waterfall" category="Trammel\Misc\Sightings\The great Waterfall">1322,544,30,1</location>
+	<location id="trammel sight trappers camp" category="Trammel\Misc\Sightings\Trappers Camp">3347,572,0,1</location>
+	
+	<!-- Dungeons: Covetous -->
+	<location id="trammel covetous level 1" category="Trammel\Dungeons\Covetous\Level 1">5456,1862,0,1</location>
+	<location id="trammel covetous level 2" category="Trammel\Dungeons\Covetous\Level 2">5613,1998,0,1</location>
+	<location id="trammel covetous level 3" category="Trammel\Dungeons\Covetous\Level 3">5580,1926,0,1</location>
+	<location id="trammel covetous level 4" category="Trammel\Dungeons\Covetous\Lake Area">5467,1809,0,1</location>
+	<location id="trammel covetous entrance" category="Trammel\Dungeons\Covetous\Entrance">2499,922,0,1</location>
+	<location category="Trammel\Dungeons\Covetous\Torture Rooms">5553,1808,0,1</location>
+	
+	<!-- Dungeons: Deceit -->
+	<location id="trammel deceit level 1" category="Trammel\Dungeons\Deceit\Level 1">5189,637,0,1</location>
+	<location id="trammel deceit level 2" category="Trammel\Dungeons\Deceit\Level 2">5310,531,0,1</location>
+	<location id="trammel deceit level 3" category="Trammel\Dungeons\Deceit\Level 3">5141,651,0,1</location>
+	<location id="trammel deceit level 4" category="Trammel\Dungeons\Deceit\Level 4">5307,655,0,1</location>
+	<location id="trammel deceit entrance" category="Trammel\Dungeons\Deceit\Outside Entrance">4111,434,5,1</location>
+	
+	<!-- Dungeons: Despise -->
+	<location id="trammel despise entrance room" category="Trammel\Dungeons\Despise\Entrance Room">5579,632,30,1</location>
+	<location id="trammel despise level 1" category="Trammel\Dungeons\Despise\Level 1">5499,571,59,1</location>
+	<location id="trammel despise level 2" category="Trammel\Dungeons\Despise\Level 2">5518,673,20,1</location>
+	<location id="trammel despise level 3" category="Trammel\Dungeons\Despise\Level 3">5405,860,45,1</location>
+	<location id="trammel despise entrance" category="Trammel\Dungeons\Despise\Entrance">1301,1080,0,1</location>
+	
+	<!-- Dungeons: Destard -->
+	<location id="trammel destard level 1" category="Trammel\Dungeons\Destard\Level 1">5243,1004,0,1</location>
+	<location id="trammel destard level 2" category="Trammel\Dungeons\Destard\Level 2">5148,805,0,1</location>
+	<location id="trammel destard level 3" category="Trammel\Dungeons\Destard\Level 3">5140,983,0,1</location>
+	<location id="trammel destard" category="Trammel\Dungeons\Destard\Entrance">1176,2639,0,1</location>
+	
+	<!-- Dungeons: Hythloth -->
+	<location id="trammel hythloth level 1" category="Trammel\Dungeons\Hythloth\Level 1">5907,28,44,1</location>
+	<location id="trammel hythloth level 2" category="Trammel\Dungeons\Hythloth\Level 2">5978,171,0,1</location>
+	<location id="trammel hythloth level 3" category="Trammel\Dungeons\Hythloth\Level 3">6083,148,-22,1</location>
+	<location id="trammel hythloth level 4" category="Trammel\Dungeons\Hythloth\Level 4">6059,92,22,1</location>
+	<location id="trammel hythloth" category="Trammel\Dungeons\Hythloth\Entrance">4722,3825,0,1</location>
+	
+	<!-- Dungeons: Shame -->
+	<location id="trammel shame level 1" category="Trammel\Dungeons\Shame\Level 1">5395,126,0,1</location>
+	<location id="trammel shame level 2" category="Trammel\Dungeons\Shame\Level 2">5515,15,5,1</location>
+	<location id="trammel shame level 3" category="Trammel\Dungeons\Shame\Level 3">5516,142,25,1</location>
+	<location id="trammel shame level 4" category="Trammel\Dungeons\Shame\Level 4">5876,22,-10,1</location>
+	<location id="trammel shame" category="Trammel\Dungeons\Shame\Entrance">514,1561,0,1</location>
+	
+	<!-- Dungeons: Wrong -->
+	<location id="trammel wrong level 1" category="Trammel\Dungeons\Wrong\Level 1">5825,630,0,1</location>
+	<location id="trammel wrong level 2" category="Trammel\Dungeons\Wrong\Level 2">5694,569,20,1</location>
+	<location id="trammel wrong level 3" category="Trammel\Dungeons\Wrong\Level 3">5703,630,0,1</location>
+	<location id="trammel wrong" category="Trammel\Dungeons\Wrong\Entrance">2044,238,10,1</location>
+	
+	<!-- Jails -->
+	<location id="trammel jail 1" category="Trammel\Gamemaster\Jails\Cell 1">5276,1164,0,1</location>
+	<location id="trammel jail 2" category="Trammel\Gamemaster\Jails\Cell 2">5286,1164,0,1</location>
+	<location id="trammel jail 3" category="Trammel\Gamemaster\Jails\Cell 3">5296,1164,0,1</location>
+	<location id="trammel jail 4" category="Trammel\Gamemaster\Jails\Cell 4">5306,1164,0,1</location>
+	<location id="trammel jail 5" category="Trammel\Gamemaster\Jails\Cell 5">5276,1174,0,1</location>
+	<location id="trammel jail 6" category="Trammel\Gamemaster\Jails\Cell 6">5286,1174,0,1</location>
+	<location id="trammel jail 7" category="Trammel\Gamemaster\Jails\Cell 7">5296,1174,0,1</location>
+	<location id="trammel jail 8" category="Trammel\Gamemaster\Jails\Cell 8">5306,1174,0,1</location>
+	<location id="trammel jail 9" category="Trammel\Gamemaster\Jails\Cell 9">5283,1184,0,1</location>
+	<location id="trammel jail" category="Trammel\Gamemaster\Jails\Cell 10">5304,1184,0,1</location>
+	
+	<!-- Dungeons: Others -->
+	<location id="trammel green acres" category="Trammel\Others\Green Acres">5434,1102,0,1</location>
+	<location id="trammel star chamber" category="Trammel\Others\Star Chamber">5152,1761,0,1</location>
+	<location id="trammel green acres 2" category="Trammel\Gamemaster\Others\T2A Green Acres">5972,1678,0,1</location>
+	
+	<!-- The Second Age Dungeons -->
+	<location id="trammel fire dungeon" category="Trammel\Dungeons\Fire Dungeon Entrance">5760,2907,17,1</location>
+	<location id="trammel ice dungeon" category="Trammel\Dungeons\Ice Dungeon Entrance (From Old Lands)">1999,81,5,1</location>
+	<location id="trammel ice dungeon entrance"=category="Trammel\Dungeons\Ice Dungeon Entrance (From Snow Lands)">5209,2322,33,1</location>
+	
+	<!-- The Second Age Entrances -->
+	<location id="trammel t2a entrance 1" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Britain (Sewers)">1490,1641,24,1</location>
+	<location id="trammel t2a entrance 2" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Cave (Minoc)">2401,201,0,1</location>
+	<location id="trammel t2a entrance 3" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Cave (Trinsic)">1628,3322,0,1</location>
+	<location id="trammel t2a entrance 4" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Serpents Hold">2923,3407,8,1</location>
+	<location id="trammel t2a entrance 5" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Trinsic (Island)">1984,2068,-40,1</location>
+	<location id="trammel t2a entrance 6" category="Trammel\Entrances &amp; Exits\The Second Age\Entrance from Vesper (Cemetary)">2778,894,-23,1</location>
+	
+	<!-- The Second Age Exits -->
+	<location id="trammel t2a exit 1" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Britain (Sewers)">6032,1501,31,1</location>
+	<location id="trammel t2a exit 2" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Cave (Minoc)">6088,3676,18,1</location>
+	<location id="trammel t2a exit 3" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Cave (Trinsic)">5154,4063,37,1</location>
+	<location id="trammel t2a exit 4" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Serpents Hold">5687,1422,38,1</location>
+	<location id="trammel t2a exit 5" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Trinsic (Island)">5128,3144,97,1</location>
+	<location id="trammel t2a exit 6" category="Trammel\Entrances &amp; Exits\The Second Age\Exit to Vesper (Cemetary)">5697,3656,0,1</location>
+	
+	<!-- The Second Age Forts and Ruins -->
+	<location id="trammel city of the dead" category="Trammel\Forts &amp; Ruins\City of the Dead">5213,3667,-3,1</location>
+	<location id="trammel delucia orc fort" category="Trammel\Forts &amp; Ruins\Delucia Orc Fort">5211,3630,3,1</location>
+	<location id="trammel ruins in the woods" category="Trammel\Forts &amp; Ruins\Ruins in the Woods">5389,3233,-5,1</location>
+	<location id="trammel terathen fort" category="Trammel\Forts &amp; Ruins\Terathen Fort Entrance">5451,3140,-60,1</location>
+	<location id="trammel terathen fort underground" category="Trammel\Forts &amp; Ruins\Terathen Underground Entrance">5427,3119,-60,1</location>
+	
+	<!-- The Second Age Towns -->
+	<location id="trammel delucia" category="Trammel\Towns\Delucia\Bank">5270,3993,37,1</location>
+	<location id="trammel papua" category="Trammel\Towns\Papua\The Just Inn">5771,3162,14,1</location>
+	<location id="trammel papua2" category="Trammel\Towns\Papua\Tricks of the Trade">5730,3206,-7,1</location>
+	
+	<location id="unnamed1" category="Ilshenar\Cities\Ancient Citadel\Entrance">1518,568,-14,2</location>
+	<location id="unnamed2" category="Ilshenar\Cities\Gargoyle City\Bank">852,602,-40,2</location>
+	<location id="unnamed3" category="Ilshenar\Cities\Gargoyle City\Central Area">836,641,-20,2</location>
+	<location id="ilshenar lakeshire center" category="Ilshenar\Cities\LakeShire\Central Area">1203,1124,-25,2</location>
+	<location id="ilshenar mistas center" category="Ilshenar\Cities\Mistas\Central Area">820,1073,-30,2</location>
+	<location id="ilshenar montor center" category="Ilshenar\Cities\Montor\Central Area">1643,310,48,2</location>
+	<location id="ilshenar reg volon center" category="Ilshenar\Cities\Req Volon\Central Area">1362,10733,-13,2</location>
+	<location id="ilshenar savage camp center" category="Ilshenar\Cities\Savage Camp\Central Area">1251,743,-80,2</location>
+	<location id="ilshenar terort skitas entrance" category="Ilshenar\Cities\Terort Skitas\Entrance">567,437,21,2</location>
+	<location id="ilshenar ankh entrance" category="Ilshenar\Dungeons\Ankh\Entrance">576,1150,-100,2</location>
+	<location id="ilshenar ankh 1" category="Ilshenar\Dungeons\Ankh\Level 1">155,1482,-28,2</location>
+	<location id="ilshenar ankh kirin pass" category="Ilshenar\Dungeons\Ankh\Kirin Passage">11,874,-28,2</location>
+	<location id="ilshenar ankh serpentine pass" category="Ilshenar\Dungeons\Ankh\Serpentine Passage">396,1578,-28,2</location>
+	
+	<location id="ilshenar blood entrance" category="Ilshenar\Dungeons\Blood\Entrance">1747,1228,-1,2</location>
+	<location id="ilshenar blood 1" category="Ilshenar\Dungeons\Blood\Level 1">2114,834,-28,2</location>
+	
+	<location id="ilshenar exodus entrance" category="Ilshenar\Dungeons\Exodus\Entrance">835,777,-80,2</location>
+	<location id="ilshenar exodus 1" category="Ilshenar\Dungeons\Exodus\Level 1">1974,115,-28,2</location>
+
+	<location id="ilshenar rock entrance" category="Ilshenar\Dungeons\Rock\Entrance">1788,573,70,2</location>
+	<location id="ilshenar rock 1" category="Ilshenar\Dungeons\Rock\Level 1">2188,318,-7,2</location>
+	<location id="ilshenar rock 2" category="Ilshenar\Dungeons\Rock\Level 2">2188.28.-27,2</location>
+	
+	<location id="ilshenar sorcerers entrance" category="Ilshenar\Dungeons\Sorcerers\Entrance">548,462,-53,2</location>
+	<location id="ilshenar sorcerers 1" category="Ilshenar\Dungeons\Sorcerers\Level 1">428,109,-28,2</location>
+	<location id="ilshenar sorcerers 2" category="Ilshenar\Dungeons\Sorcerers\Level 2">240,23,-18,2</location>
+	<location id="ilshenar sorcerers 3" category="Ilshenar\Dungeons\Sorcerers\Level 3">272,136,-28,2</location>
+	<location id="ilshenar sorcerers 4" category="Ilshenar\Dungeons\Sorcerers\Level 4">132,124,-28,2</location>
+	<location id="ilshenar sorcerers 5" category="Ilshenar\Dungeons\Sorcerers\Level 5">236,121,-28,2</location>
+	
+	<location id="ilshenar spectre entrance" category="Ilshenar\Dungeons\Spectre\Entrance">1363,1033,-8,2</location>
+	<location id="ilshenar spectre 1" category="Ilshenar\Dungeons\Spectre\Level 1">1982,1103,-28,2</location>
+	
+	<location id="ilshenar wisp entrance" category="Ilshenar\Dungeons\Wisp\Entrance">651,1302,-58,2</location>
+	<location id="ilshenar wisp 1" category="Ilshenar\Dungeons\Wisp\Level 1">627,1525,-28,2</location>
+	<location id="ilshenar wisp 2" category="Ilshenar\Dungeons\Wisp\Level 2">718,1492,-28,2</location>
+	<location id="ilshenar wisp 3" category="Ilshenar\Dungeons\Wisp\Level 3">832,1551,-28,2</location>
+	<location id="ilshenar wisp 4" category="Ilshenar\Dungeons\Wisp\Level 4">960,1428,-28,2</location>
+	<location id="ilshenar wisp 5" category="Ilshenar\Dungeons\Wisp\Level 5">942.1465,-33,2</location>
+	<location id="ilshenar wisp 6" category="Ilshenar\Dungeons\Wisp\Level 6">866,1434,-28,2</location>
+	<location id="ilshenar wisp 7" category="Ilshenar\Dungeons\Wisp\Level 7">807,1548,-28,2</location>
+	<location id="ilshenar wisp 8" category="Ilshenar\Dungeons\Wisp\Level 8">754,1479,-28,2</location>
+	
+	<location id="malas luna gate" category="Malas\Towns\Luna\Moongate">1015,527,-65,3</location>
+	<location id="malas luna bank" category="Malas\Towns\Luna\Bank">991,519,-50,3</location>
+	<location id="malas luna chothier colors" category="Malas\Towns\Luna\Chothier Colors">976,527,-50,3</location>
+	<location id="malas luna grand arena" category="Malas\Towns\Luna\Grand Arena">961,638,-90,3</location>
+
+	<location id="malas umbra gate" category="Malas\Towns\Umbra\Moongate">1998,1387,-85,3</location>
 
 </definitions>
