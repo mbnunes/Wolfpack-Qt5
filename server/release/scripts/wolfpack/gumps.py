@@ -63,7 +63,7 @@ class cGump:
 	def addRawText( self, data ):
 		# Find the text
 		if data in self.texts:
-      return self.texts.index(data)
+			return self.texts.index(data)
 		else:
 			# Insert the text
 			self.texts.append(data)
