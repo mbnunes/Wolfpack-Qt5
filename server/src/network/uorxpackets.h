@@ -237,12 +237,21 @@ public:
 		contextMenuRequest = 0x13,
 		contextMenuSelection = 0x15,
 		setLanguage = 0x0B,
-		
+		castSpell = 0x1c
 	};
 
 	cUORxMultiPurpose( const QByteArray &data ): cUOPacket( data ) {}
 	eSubCommands subCommand( void ) const { return (eSubCommands)getShort( 3 ); }
 	static cUOPacket *packet( const QByteArray& data );
+};
+
+// 0xBF 0x1C
+class cUORxCastSpell : public cUORxMultiPurpose
+{
+public:
+	cUORxCastSpell( const QByteArray &data ): cUORxMultiPurpose( data ) {}
+	UINT16 unknown1() const { return getShort( 5 ); }
+	UINT16 spell() const { return getShort( 7 ); }
 };
 
 // 0xBF 0x13 PopUp Menu Request

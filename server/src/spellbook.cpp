@@ -101,21 +101,20 @@ bool cSpellBook::onUse( cUObject *Target )
 	if( !pChar || !pChar->socket() )
 		return true;
 
-	SERIAL sSerial = 0x70000000; // Just some unused ID
-
 	// First we send a multi-object-to-container packet and then open the gump
-/*	cUOTxItemContent content;
-
-	for( UINT8 i = 0; i < 64; ++i )
-		if( hasSpell( i ) )
-			content.addItem( --sSerial, 0x1, 0, 0, 0, 1+i, serial() );
-
-	pChar->socket()->send( &content );
-*/
 	cUOTxNewSpellbook book;
 
 	book.setBook( serial() );
-	book.setModel( 0x0efa ); // common spellbook model
+	book.setModel( id() ); // common spellbook model
+
+	UINT16 offset = 1;
+
+	if( type() == 1201 )
+		offset = 101;
+	else if( type() == 1202 )
+		offset = 201;
+    
+	book.setOffset( offset );
 	book.setSpell1( spells1() );
 	book.setSpell2( spells2() );
 	

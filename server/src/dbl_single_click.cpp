@@ -427,9 +427,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		useSpellBook( socket, pc_currchar, pi );
 		return;
 
-	case 10: // map?
-		return;// maps
-
 	// Book
 	case 11:
 	{
@@ -842,6 +839,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		// 1108: Tailoring Tools
 		case 1108:
 			Skills->Fletching( socket );
+			return;
+
+		// 1201: Necromancy Book
+		// 1202: Paladin Book
+		case 1201:
+		case 1202:
+			useSpellBook( socket, pc_currchar, pi );
 			return;
 
 		default:						

@@ -953,11 +953,18 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 		break;
 	case cUORxMultiPurpose::contextMenuSelection: 
 		handleContextMenuSelection( dynamic_cast< cUORxContextMenuSelection* >( packet ) ); break; 
+	case cUORxMultiPurpose::castSpell:
+		handleCastSpell( dynamic_cast< cUORxCastSpell* >( packet ) ); break;
 	default:
 		return;
 		packet->print( &cout ); // Dump the packet 
 	}; 
 } 
+
+void cUOSocket::handleCastSpell( cUORxCastSpell *packet )
+{
+	NewMagic->castSpell( _player, packet->spell() - 1 );
+}
 
 void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet ) 
 { 
@@ -2114,14 +2121,6 @@ void cUOSocket::handleAction( cUORxAction *packet )
 			QStringList skillParts = QStringList::split( " ", packet->action() );
 			if( skillParts.count() > 1 )
 				Skills->SkillUse( this, skillParts[0].toInt() );
-		}
-		break;
-	// Cast Spell (out of spellbook)
-	case 0x56:
-	case 0x27:
-	case 0x39:
-		{
-			NewMagic->castSpell( _player, packet->action().toInt()-1 );
 		}
 		break;
 	}

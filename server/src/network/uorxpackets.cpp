@@ -98,6 +98,8 @@ cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
 		return new cUORxContextMenuRequest( data ); break; 
 	case contextMenuSelection: 
 		return new cUORxContextMenuSelection( data ); break; 
+	case castSpell:
+		return new cUORxCastSpell( data ); break;
 	default:
 		{
 			//qWarning("Unknown cUORxMultiPurpose subcommand");

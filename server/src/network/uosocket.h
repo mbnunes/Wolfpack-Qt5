@@ -139,6 +139,7 @@ public:
 	void handleQuery( cUORxQuery *packet );
 	void handleRequestLook( cUORxRequestLook *packet );
 	void handleMultiPurpose( cUORxMultiPurpose *packet );
+	void handleCastSpell( cUORxCastSpell *packet );
 	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
  	void handleContextMenuSelection( cUORxContextMenuSelection *packet ); 
 	void handleWalkRequest( cUORxWalkRequest* packet );
