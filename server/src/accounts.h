@@ -60,7 +60,7 @@ private:
 	QString password_;
 	cACL acl_;
 	QValueVector<cChar*> characters_;
-	QDateTime lastLogin;
+	QDateTime lastLogin_;
 	QDateTime blockUntil;
 	bool blocked_;
 	int attempts_;
@@ -83,9 +83,12 @@ public:
 	void loginAttemped() { ++attempts_; }
 	int loginAttempts() { return attempts_; }
 	void block( int seconds );
+	uint secsToUnblock() const;
 	void block();
 	void unBlock();
 	void setACL( cACL );
+	QDateTime lastLogin() const;
+	void setLastLogin( const QDateTime& );
 		
 	void Serialize( ISerialization& );
 	QString	objectID( void ) const;
@@ -162,6 +165,16 @@ inline void AccountRecord::unBlock()
 {
 	blocked_ = false;
 	blockUntil = QDateTime::currentDateTime(); // Unblock now.
+}
+
+inline QDateTime AccountRecord::lastLogin() const
+{
+	return lastLogin_;
+}
+
+inline void AccountRecord::setLastLogin( const QDateTime& d )
+{
+	lastLogin_ = d;
 }
 
 #endif // __ACCOUNTS_H__

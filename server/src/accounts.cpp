@@ -54,7 +54,7 @@ void AccountRecord::Serialize( ISerialization& archive )
 		archive.read("acl", temp);
 		acl_ = cCommands::instance()->getACL(temp);
 		archive.read("lastlogin", temp);
-		lastLogin.fromString(temp, Qt::ISODate);
+		lastLogin_.fromString(temp, Qt::ISODate);
 	}
 	else // Writting
 	{
@@ -65,7 +65,7 @@ void AccountRecord::Serialize( ISerialization& archive )
 			archive.write("acl", acl_.key());
 		else
 			archive.write("acl", "");
-		archive.write("lastlogin", lastLogin.toString(Qt::ISODate));
+		archive.write("lastlogin", lastLogin_.toString(Qt::ISODate));
 	}
 	cSerializable::Serialize( archive );
 }
@@ -76,6 +76,15 @@ bool AccountRecord::isBlocked() const
 		return true;
 	else
 		return false;
+}
+
+uint AccountRecord::secsToUnblock() const
+{
+	if ( blocked_ )
+		return ~0;
+	else if ( blockUntil < QDateTime::currentDateTime() )
+		return QDateTime::currentDateTime().secsTo( blockUntil );
+	return 0;
 }
 
 bool AccountRecord::addCharacter( cChar* d )
