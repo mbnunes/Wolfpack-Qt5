@@ -158,7 +158,8 @@ BOOL WIP_Init(void)
 		clConsole.send("shared memory write failed\n"); 
 		return FALSE;
 
-	} else 
+	} 
+	else 
 	{ 
 		Msg->messagethread_pid=id; 
 		Msg->wolfcore_pid=GetCurrentThreadId();		

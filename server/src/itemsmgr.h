@@ -86,7 +86,8 @@ public:
 		return iterItems->second;
 	}
 	bool atEnd()									{ return (iterItems == cItemsManager::getItemsManager().end()); }
-	AllItemsIterator& operator++(int)		    { iterItems++; return *this; }
+	AllItemsIterator& operator++(int)				{ iterItems++; return *this; }
+	AllItemsIterator& operator--(int)				{ iterItems--; return *this;			   }
 	
 };
 

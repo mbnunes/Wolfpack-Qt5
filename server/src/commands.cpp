@@ -427,6 +427,7 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 		P_ITEM toCheck = iter_item.GetData();
 		if(toCheck->spawnregion == r && !toCheck->free)
 		{			
+			iter_item--; // Iterator will became invalid when we delete it.
 			Items->DeleItem(toCheck);
             killed++;
 		}
@@ -1067,6 +1068,7 @@ void cCommands::Wipe(int s)
 		pi = iterItems.GetData();
 		if(pi->isInWorld() && pi->wipe==0)
 		{
+			iterItems--; // Iterator will became invalid when we delete it.
 			Items->DeleItem(pi);
 		}
 	}

@@ -1288,7 +1288,10 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 		{
 			P_ITEM pi=iterItems.GetData();
 			if (!(pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2) && pi->isInWorld() && pi->wipe==0)
+			{
+				iterItems--;
 				Items->DeleItem(pi);
+			}
 		}
 	}
 	else
@@ -1298,7 +1301,10 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 		{
 			P_ITEM pi=iterItems.GetData();
 			if (pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2 && pi->isInWorld() && pi->wipe==0)
+			{
+				iterItems--;
 				Items->DeleItem(pi);
+			}
 		}
 	}
 }

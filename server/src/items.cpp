@@ -594,6 +594,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 		}
 		cItemsManager::getItemsManager().unregisterItem(pi);
 		delete pi;
+		pi = NULL;
 	}
 	
 }

@@ -684,11 +684,12 @@ void gcollect () // Remove items which were in deleted containers
 	int removed = 0, rtotal = 0;
 	bool bdelete;
 	LogMessage("Performing Garbage Collection...");
-	
+	int debug = 0;
+	unsigned int total = cItemsManager::getItemsManager().size();
 	AllItemsIterator iter_items;
-	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++)
+	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++, debug++)
 	{
-		const P_ITEM pi = iter_items.GetData();
+		P_ITEM pi = iter_items.GetData();
 		if (pi->free || pi->isInWorld()) 
 			continue;
 		bdelete = true;
@@ -707,7 +708,8 @@ void gcollect () // Remove items which were in deleted containers
 		}
 		if (bdelete)
 		{
-			Items->DeleItem( pi );
+			iter_items--; // Go back for a little.
+			Items->DeleItem( pi ); // Warning, iterator became invalid!
 			removed++;
 		}
 	}
