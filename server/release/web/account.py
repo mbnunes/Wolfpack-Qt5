@@ -14,10 +14,12 @@ form = cgi.FieldStorage()
 session_id = form.getvalue( 'session', '' )
 letter = form.getvalue( 'letter', '#' )
 account = form.getvalue( 'username', '' )
+
 try:
 	save = int( form.getvalue( 'save', '0' ) )
 except:
 	pass
+	
 message = None
 
 web.sessions.check_timeouts()

@@ -6,6 +6,7 @@ import web.template
 import cgi
 import sys
 import wolfpack.console
+from wolfpack.consts import *
 import re
 
 form = cgi.FieldStorage()
@@ -28,7 +29,7 @@ username = session[ 'username' ]
 if action == 1:
 	print "Content-type: text/html\n\n"
 	print "Server is reloading, you will have to re-login after reloading is done"
-	wolfpack.console.reloadScripts()
+	wolfpack.queueaction( RELOAD_SCRIPTS )
 	sys.exit()
 
 content = """
