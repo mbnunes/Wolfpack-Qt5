@@ -234,44 +234,51 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time) {
 	unsigned int oldMana = character->mana();
 
 	if (character->regenHitpointsTime() <= time) {
-		unsigned int interval = SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
-
 		// If it's not disabled hunger affects our health regeneration
-		if (character->hitpoints() < character->maxHitpoints() && character->hunger() > 3 || SrvParams->hungerRate() == 0) {
-			for (unsigned short c = 0; c < character->maxHitpoints() + 1; ++c) {
-				if (character->regenHitpointsTime() + (c * interval) <= time && character->hitpoints() <= character->maxHitpoints()) {
-					if (character->skillValue(HEALING) < 500) {
-						character->setHitpoints(character->hitpoints() + 1);
-					} else if (character->skillValue(HEALING) < 800) {
-						character->setHitpoints(character->hitpoints() + 2);
-					} else {
-						character->setHitpoints(character->hitpoints() + 3);
-					}
-
-					if (character->hitpoints() > character->maxHitpoints()) {
-						character->setHitpoints(character->maxHitpoints());
-						break;
-					}
+		if (character->hitpoints() < character->maxHitpoints()) {
+			if (character->hunger() > 3 || SrvParams->hungerRate() == 0) {
+				if (character->skillValue(HEALING) < 500) {
+					character->setHitpoints(character->hitpoints() + 1);
+				} else if (character->skillValue(HEALING) < 800) {
+					character->setHitpoints(character->hitpoints() + 2);
+				} else {
+					character->setHitpoints(character->hitpoints() + 3);
 				}
+				character->updateHealth();
 			}
 		}
 
-		character->setRegenHitpointsTime(time + interval);
+		int rate = SrvParams->hitpointrate();
+
+		if (character->hasTag("regenhits")) {
+            unsigned char regenbonus = (unsigned char)character->getTag("regenhits").toInt();
+
+            rate -= regenbonus;
+			if (rate < 1) {
+				rate = 1;
+			}
+		}
+
+		character->setRegenHitpointsTime(time + rate * MY_CLOCKS_PER_SEC);
 	}
 
 	if (character->regenStaminaTime() <= time) {
-		unsigned int interval = SrvParams->staminarate() * MY_CLOCKS_PER_SEC;
-		for (unsigned short c = 0; c < character->maxStamina() + 1; ++c) {
-			if (character->regenStaminaTime() + (c * interval) <= time && character->stamina() <= character->maxStamina()) {
-				if (character->stamina() >= character->maxStamina()) {
-					character->setStamina(character->maxStamina());
-					break;
-				} else {
-					character->setStamina(character->stamina() + 1);
-				}
+		int rate = SrvParams->staminarate();
+
+		if (character->hasTag("regenstam")) {
+            unsigned char regenbonus = (unsigned char)character->getTag("regenstam").toInt();
+
+            rate -= regenbonus;
+			if (rate < 1) {
+				rate = 1;
 			}
 		}
-		character->setRegenStaminaTime(time + interval);
+
+		if (character->stamina() < character->maxStamina()) {
+			character->setStamina(character->stamina() + 1);
+		}
+
+		character->setRegenStaminaTime(time + rate * MY_CLOCKS_PER_SEC);
 	}
 
 	// OSI Style Mana regeneration by blackwind
@@ -298,35 +305,6 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time) {
 		}
 
 		character->setRegenManaTime( time + interval );
-	}
-
-	if (character->hitpoints() > character->maxHitpoints()) {
-		character->setHitpoints(character->maxHitpoints());
-	}
-
-	if (character->stamina() > character->maxStamina()) {
-		character->setStamina(character->maxStamina());
-	}
-
-	if (character->mana() > character->maxMana()) {
-		character->setMana(character->maxMana());
-	}
-
-	P_PLAYER player = dynamic_cast<P_PLAYER>(character);
-	if (player && player->socket()) {
-		if (oldHealth != player->hitpoints()) {
-			player->socket()->updateHealth();
-		}
-
-		if (oldStamina != player->stamina()) {
-			player->socket()->updateStamina();
-		}
-
-		if (oldMana != player->mana()) {
-			player->socket()->updateMana();
-		}
-	} else if (oldHealth != character->hitpoints()) {
-		character->updateHealth();
 	}
 }
 

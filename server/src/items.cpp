@@ -1066,74 +1066,30 @@ void cItem::processContainerNode( const cElement *tag )
 	}
 }
 
-void cItem::showName( cUOSocket *socket )
-{
-	// End chars/npcs section
+void cItem::showName(cUOSocket *socket) {
+	if (!onSingleClick(socket->player())) {
+		unsigned int message;
+		QString params = QString::null;
 
-    if( onSingleClick( socket->player() ) )
-        return;
+		if (amount_ > 1) {
+			if (name_.isEmpty()) {
+				message = 1050039;
+				params = QString("%1\t#%2").arg(amount_).arg(1020000 + id_);
+			} else {
+				message = 1050039;
+				params = QString("%1\t%2").arg(amount_).arg(name_);
+			}
+		} else {
+			if (name_.isEmpty()) {
+				message = 1042971;
+				params = QString("#%2").arg(1020000 + id_);
+			} else {
+				message = 1042971;
+				params = name_;
+			}
+		}
 
-	QString itemname( "" );
-
-	if( !name_.isNull() )
-		itemname = getName();
-
-	// Amount information
-	if( amount_ > 1 )
-		itemname.append( tr( ": %1" ).arg( amount_ ) );
-
-	// Show serials
-	if( socket->player() && socket->player()->account() && socket->player()->account()->isShowSerials() )
-		itemname.append( tr( " [%1]" ).arg( serial(), 8, 16 ) );
-
-	// Try a localized Message
-	if( name_.isNull() )
-		socket->clilocMessageAffix( 0xF9060 + id_, "", itemname, 0x3B2, 3, this );
-	else
-		socket->showSpeech( this, itemname );
-
-/*	// When we click on a player vendors item,
-	// we show the price as well
-	if( container_ && container_->isItem() )
-	{
-		P_CHAR pc_j = getOutmostChar();
-		if( pc_j && pc_j->npcaitype() == 17 )
-			socket->showSpeech( this, tr( "at %1gp" ).arg( price_ ) );
-	}*/
-
-	// Show RepSys Settings of Victim when killed
-	if( corpse() && hasTag( "notoriety" ) )
-	{
-		int notoriety = getTag( "notoriety" ).toInt();
-
-		if( notoriety == 1 )
-			socket->showSpeech( this, tr( "[Innocent]" ), 0x005A );
-		else if( notoriety == 2 )
-			socket->showSpeech( this, tr( "[Criminal]" ), 0x03B2 );
-		else if( notoriety == 3 )
-			socket->showSpeech( this, tr( "[Murderer]" ), 0x0026 );
-	}
-
-	// Let's handle secure/locked down stuff.
-	if ( isLockedDown() && type() != 12 && type() != 13 && type() != 203 )
-	{
-		if ( !secured() )
-			socket->showSpeech( this, tr( "[locked down]" ), 0x481 );
-		else
-			socket->showSpeech( this, tr( "[locked down & secure]" ), 0x481 );
-	}
-
-	// Send the item/weight as the last line in case of containers
-	if( type() == 1 || type() == 63 || type() == 65 || type() == 87 )
-	{
-		float tWeight = totalweight_;
-
-		if( weight_ == 255 )
-			tWeight -= 255;
-
-		QString message = tr( "[%1 items, %2 stones]" ).arg( content_.size() ).arg( tWeight );
-
-		socket->showSpeech( this, message, 0x3B2 );
+		socket->clilocMessage(message, params, 0x3b2, 3, this, true);
 	}
 }
 
@@ -2046,6 +2002,12 @@ void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	if (type_ == 1) {
 		unsigned int count = content_.size();
 		unsigned int weight = (unsigned int)floor(totalweight_);
+
+		// static items weight doesnt count
+		if (weight_ == 255) {
+			weight -= 255;
+		}
+
 		tooltip.addLine(1050044, QString("%1\t%2").arg(count).arg(weight));
 	}
 
