@@ -18,6 +18,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- New command: removeevent
 		- Fixed carving
 		- Fixed sheering of sheeps and wool regrowing
+		- Rudimentarily Implemented Map Plotting
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

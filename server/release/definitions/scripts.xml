@@ -49,6 +49,7 @@
 	<script>signpost</script>
 	<script>slotmachine</script>
 	<script>spawngem</script>
+	<script>map</script>
 	<script>spiderweb</script>
 	<script>training_dummy</script>
 	<script>wall_clock</script>
