@@ -237,7 +237,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	if( pChar->hidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead && !pChar->war )
+	if( pChar->dead() && !pChar->war )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
@@ -260,7 +260,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	if( pChar->hidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead && !pChar->war )
+	if( pChar->dead() && !pChar->war )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
@@ -314,7 +314,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	if( pChar->hidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead && !pChar->war )
+	if( pChar->dead() && !pChar->war )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
@@ -358,7 +358,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar )
 	if( pChar->hidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead && !pChar->war )
+	if( pChar->dead() && !pChar->war )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )

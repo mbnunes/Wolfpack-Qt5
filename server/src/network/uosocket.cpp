@@ -1170,7 +1170,7 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 	playMusic();
 	_player->disturbMed();
 
-	if( _player->dead ) 
+	if( _player->dead() ) 
 		_player->resend( false );
 	else
 		_player->update();
@@ -1472,7 +1472,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	}
 
 	// Player is dead
-	if( _player->dead )
+	if( _player->dead() )
 	{
 		if( SrvParams->persecute() )
 		{
@@ -1488,7 +1488,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	}
 
 	// Attacking ghosts is not possible
-	if( pc_i->dead || pc_i->hp() <= 0 )
+	if( pc_i->dead() || pc_i->hp() <= 0 )
 	{
 		sysMessage( tr( "That person is already dead!" ) );
 		send( &attack );

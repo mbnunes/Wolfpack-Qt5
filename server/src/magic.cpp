@@ -668,11 +668,11 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 	
 //	CHARACTER cc=currchar[s];
 	P_CHAR pc_currchar = currchar[s];
-	if (!pi && pc_currchar->packitem != INVALID_SERIAL)
+	if (!pi && pc_currchar->packitem() != INVALID_SERIAL)
 	{
 		unsigned int ci=0;
 		P_ITEM pj;
-		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem);
+		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem());
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pj = FindItemBySerial(vecContainer[ci]);
@@ -704,7 +704,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 	// reason: just have a look at the loop above ...
 
 	if (!pi ||	// no book at all
-		(pc_currchar->packitem != INVALID_SERIAL && pi->contserial != pc_currchar->packitem &&	// not in primary pack
+		(pc_currchar->packitem() != INVALID_SERIAL && pi->contserial != pc_currchar->packitem() &&	// not in primary pack
 				!pc_currchar->Wears(pi)))		// not equipped
 	{
 		sysmessage(s, "In order to open spellbook, it must be equipped in your hand or in the first layer of your backpack.");
@@ -970,8 +970,8 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setStm(70);
 		pc_monster->setMn(100);
 		pc_monster->setIn( pc_monster->mn() );
-		pc_monster->fame=10000;
-		pc_monster->karma=10000;
+		pc_monster->setFame(10000);
+		pc_monster->setKarma(10000);
 		break;
 	case 0x000B: // Black Night
 		soundeffect(s, 0x02, 0x16);
@@ -1014,8 +1014,8 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster->setStm(70);
 		pc_monster->setMn(100);
 		pc_monster->setIn( pc_monster->mn() );
-		pc_monster->fame=-10000;
-		pc_monster->karma=-10000;
+		pc_monster->setFame(-10000);
+		pc_monster->setKarma(-10000);
 		break;
 	default:
 		soundeffect(s, 0x02, 0x15);
@@ -2059,7 +2059,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	
 	cTerritory* Region = cAllTerritories::getInstance()->region( pc_currchar->pos.x, pc_currchar->pos.y );
 
-	if (pc_currchar->dead)
+	if (pc_currchar->dead())
 		return;
 	if (currentSpellType[s]==0)
 	{
@@ -2485,14 +2485,14 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						break;
 						//////////// (59) RESURRECTION //////////
 					case 59:
-						if (pc_defender->dead && online(pc_defender))
+						if (pc_defender->dead() && online(pc_defender))
 						{
 							cMagic::doStaticEffect(pc_defender, curSpell);
 							Targ->NpcResurrectTarget(pc_defender);		
 							cMagic::invisibleItemParticles(pc_defender, curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z);
 							return;
 						}
-						else if (!pc_defender->dead) sysmessage(s,"That player isn't dead!");
+						else if (!pc_defender->dead()) sysmessage(s,"That player isn't dead!");
 						else sysmessage(s,"That player isn't online!");
 						break;
 						//////////// (66) CANNON FIRING /////////

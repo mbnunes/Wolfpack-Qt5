@@ -82,14 +82,8 @@ public:
 	
 	
 	
-	int						ownserial; // If Char is an NPC, this sets its owner
-	int						robe; // Serial number of generated death robe (If char is a ghost)
-	int						karma;
-	signed int				fame;
-	unsigned int			kills; //PvP Kills
-	unsigned int			deaths;
-	bool					dead; // Is character dead
-	SERIAL					packitem; // Serial of backpack
+	
+	
 	unsigned char			fixedlight; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	unsigned char			speech; // For NPCs: Number of the assigned speech block
 	unsigned int			att; // Intrinsic attack (For monsters that cant carry weapons)
@@ -302,6 +296,15 @@ protected:
 	int						jailsecs_;	//             Tweak this value by using command tweak before jailing person 
 	//			   or he will be jailed 1 day ( in realtime )
 
+	int						ownserial_; // If Char is an NPC, this sets its owner
+	int						robe_; // Serial number of generated death robe (If char is a ghost)
+	int						karma_;
+	signed int				fame_;	
+
+	unsigned int			kills_; //PvP Kills
+	unsigned int			deaths_;
+	bool					dead_; // Is character dead
+	SERIAL					packitem_; // Serial of backpack
 //END ADDED FROM PUBLIC ******************************************
 	std::map< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
@@ -463,6 +466,16 @@ public:
 	unsigned char			cell() const { return cell_; }
 	unsigned int			jailtimer() const { return jailtimer_; }
 	int						jailsecs() const { return jailsecs_; }
+
+	int						ownserial() const { return ownserial_; }
+	int						robe() const { return robe_; }
+	int						karma() const { return karma_; }
+	signed int				fame() const { return fame_; }
+
+	unsigned int			kills() const { return kills_; }
+	unsigned int			deaths() const { return deaths_; }
+	bool					dead() const { return dead_; }
+	SERIAL					packitem() const { return packitem_; }
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu )
 	{ 
@@ -626,7 +639,16 @@ public:
 	void					setCell( unsigned char data ) { cell_ = data; }
 	void					setJailTimer( unsigned int data ) { jailtimer_ = data; }
 	void					setJailSecs( int data ) { jailsecs_ = data; }
-//END SETTERS********************************************************
+	void					setOwnSerial( int data ) { ownserial_ = data; }
+	void					setRobe( int data ) { robe_ = data; }
+	void					setKarma( int data ) { karma_ = data; }
+	void					setFame( signed int data ) { fame_ = data; }
+
+	void					setKills( unsigned int data ) { kills_ = data; }
+	void					setDeaths( unsigned int data ) { deaths_ = data; }
+	void					setDead( bool data ) { dead_ = data; }
+	void					setPackItem( SERIAL data ) { packitem_ = data; }
+	//END SETTERS********************************************************
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data )
 	{
 		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator mit = lastselections_.find( basemenu );
@@ -722,13 +744,13 @@ public:
 	P_ITEM getBackpack();
 	void setOwnSerialOnly(long ownser);
 	void SetOwnSerial(long ownser);
-	long GetOwnSerial()	{return ownserial;}
+	long GetOwnSerial()	{return ownserial_;}
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	void setSerial(SERIAL ser);
 	void MoveTo(short newx, short newy, signed char newz);
 	void MoveToXY(short newx, short newy);
-	bool Owns(P_CHAR pc)	{return (serial==pc->ownserial);}
+	bool Owns(P_CHAR pc)	{return (serial==pc->ownserial());}
 	bool Owns(P_ITEM pi);
 	bool Wears(P_ITEM pi);
 	unsigned int getSkillSum();

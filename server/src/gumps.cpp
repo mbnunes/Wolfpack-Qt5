@@ -302,17 +302,17 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 120, tr( "Spawnregion:" ), 0x834 );
 		addInputField( 200, 120, 200, 16, 11, QString( "%1" ).arg( pChar->spawnregion() ), 0x834 );
 		addText( 50, 140, tr( "Karma:" ), 0x834 );
-		addInputField( 200, 140, 200, 16, 12, QString( "%1" ).arg( pChar->karma ), 0x834 );
+		addInputField( 200, 140, 200, 16, 12, QString( "%1" ).arg( pChar->karma() ), 0x834 );
 		addText( 50, 160, tr( "Fame:" ), 0x834 );
-		addInputField( 200, 160, 200, 16, 13, QString( "%1" ).arg( pChar->fame ), 0x834 );
+		addInputField( 200, 160, 200, 16, 13, QString( "%1" ).arg( pChar->fame() ), 0x834 );
 		addText( 50, 180, tr( "Kills:" ), 0x834 );
-		addInputField( 200, 180, 200, 16, 14, QString( "%1" ).arg( pChar->kills ), 0x834 );
+		addInputField( 200, 180, 200, 16, 14, QString( "%1" ).arg( pChar->kills() ), 0x834 );
 		addText( 50, 200, tr( "Deaths:" ), 0x834 );
-		addInputField( 200, 200, 200, 16, 15, QString( "%1" ).arg( pChar->deaths ), 0x834 );
+		addInputField( 200, 200, 200, 16, 15, QString( "%1" ).arg( pChar->deaths() ), 0x834 );
 		addText( 50, 220, tr( "Defense:" ), 0x834 );
 		addInputField( 200, 220, 200, 16, 16, QString( "%1" ).arg( pChar->def ), 0x834 );
 		addText( 50, 240, tr( "Dead:" ), 0x834 );
-		addInputField( 200, 240, 200, 16, 17, QString( "%1" ).arg( pChar->dead ), 0x834 );
+		addInputField( 200, 240, 200, 16, 17, QString( "%1" ).arg( pChar->dead() ), 0x834 );
 		addText( 50, 260, tr( "Position (x,y,z,map):" ), 0x834 );
 		addInputField( 200, 260, 200, 16, 18, QString("%1,%2,%3,%4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.map ), 0x834 );
 		addText( 50, 280, tr( "Serial:" ), 0x834 );
@@ -439,22 +439,22 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setSpawnregion( it->second );
 				break;
 			case 12:
-				char_->karma = hex2dec( it->second ).toInt();
+				char_->setKarma( hex2dec( it->second ).toInt() );
 				break;
 			case 13:
-				char_->fame = hex2dec( it->second ).toInt();
+				char_->setFame( hex2dec( it->second ).toInt() );
 				break;
 			case 14:
-				char_->kills = hex2dec( it->second ).toUInt();
+				char_->setKills( hex2dec( it->second ).toUInt() );
 				break;
 			case 15:
-				char_->deaths = hex2dec( it->second ).toUInt();
+				char_->setDeaths( hex2dec( it->second ).toUInt() );
 				break;
 			case 16:
 				char_->def = hex2dec( it->second ).toUInt();
 				break;
 			case 17:
-				char_->dead = ( it->second == "true" || hex2dec( it->second ).toUInt() > 0 );
+				char_->setDead( ( it->second == "true" || hex2dec( it->second ).toUInt() > 0 ) );
 				break;
 			case 18:
 				{

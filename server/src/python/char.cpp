@@ -606,13 +606,23 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	
 	// Owner
 	else if( !strcmp( name, "owner" ) )
-		return PyGetCharObject( FindCharBySerial( self->pChar->ownserial ) );
+		return PyGetCharObject( FindCharBySerial( self->pChar->ownserial() ) );
 
-	else pGetInt( "karma", karma )
-	else pGetInt( "fame", fame )
-	else pGetInt( "kills", kills )
-	else pGetInt( "deaths", deaths )
-	else pGetInt( "dead", dead )
+//	else pGetInt( "karma", karma )
+	else if( !strcmp( name, "karma" ) )
+		return PyInt_FromLong( self->pChar->karma() );
+//	else pGetInt( "fame", fame )
+	else if( !strcmp( name, "fame" ) )
+		return PyInt_FromLong( self->pChar->fame() );
+//	else pGetInt( "kills", kills )
+	else if( !strcmp( name, "kills" ) )
+		return PyInt_FromLong( self->pChar->kills() );
+//	else pGetInt( "deaths", deaths )
+	else if( !strcmp( name, "deaths" ) )
+		return PyInt_FromLong( self->pChar->deaths() );
+//	else pGetInt( "dead", dead )
+	else if( !strcmp( name, "dead" ) )
+		return PyInt_FromLong( self->pChar->dead() );
 
 	else if( !strcmp( name, "backpack" ) )
 		return PyGetItemObject( self->pChar->getBackpack() );

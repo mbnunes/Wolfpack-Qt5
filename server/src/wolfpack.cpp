@@ -497,8 +497,8 @@ char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 	int k;
 	unsigned int f;
 
-	k=pc->karma;
-	f=pc->fame;
+	k=pc->karma();
+	f=pc->fame();
 	thetitle[0] = 0;
 
 	if (k>=10000)
@@ -585,7 +585,7 @@ char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 
 	if (f>=10000) // Morollans bugfix for repsys
 	{
-		if (pc->kills >= (unsigned)SrvParams->maxkills())
+		if (pc->kills() >= (unsigned)SrvParams->maxkills())
 		{
 			if (pc->id()==0x0191) strcpy(fametitle,"The Murderous Lady ");//Morrolan rep
 			else strcpy(fametitle,"The Murderer Lord ");
@@ -595,7 +595,7 @@ char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 	}
 	else
 	{
-		if (pc->kills >= (unsigned)SrvParams->maxkills())
+		if (pc->kills() >= (unsigned)SrvParams->maxkills())
 		{
 			strcpy(fametitle,"The Murderer "); //Morrolan rep
 		}
@@ -1393,7 +1393,7 @@ void callguards( P_CHAR pc_player )
 		P_CHAR pc = ri.GetData();
 		if( pc )
 		{
-			if( !pc->dead && !pc->isInnocent() && pc_player->inRange( pc, 14 ) )
+			if( !pc->dead() && !pc->isInnocent() && pc_player->inRange( pc, 14 ) )
 			{
 				Combat->SpawnGuard( pc, pc, pc->pos );
 			}
@@ -1475,8 +1475,8 @@ void mounthorse(cUOSocket* socket, P_CHAR pc_mount) // Remove horse char and giv
 		pi->setMoreb3( pc_mount->realDex() );
 		pi->setMoreb4( pc_mount->in() );
 		pi->setHp( pc_mount->hp() );
-		pi->setLodamage( pc_mount->fame );
-		pi->setHidamage( pc_mount->karma );
+		pi->setLodamage( pc_mount->fame() );
+		pi->setHidamage( pc_mount->karma() );
 		pi->poisoned = pc_mount->poisoned();
 		if (pc_mount->summontimer != 0)
 			pi->decaytime = pc_mount->summontimer;
@@ -2342,7 +2342,7 @@ void npcattacktarget( P_CHAR attacker, P_CHAR defender )
 {
 	if (attacker == defender) return;
 	if (attacker == NULL || defender == NULL) return;
-	if (attacker->dead || defender->dead) return;
+	if (attacker->dead() || defender->dead()) return;
 	if (defender->pos.z > (attacker->pos.z +10)) return;//FRAZAI
 	if (defender->pos.z < (attacker->pos.z -10)) return;//FRAZAI
 
@@ -2498,7 +2498,7 @@ void npcsimpleattacktarget( P_CHAR attacker, P_CHAR defender )
 {
 	if (attacker == NULL || defender == NULL) return;
 	if (attacker == defender) return;
-	if (attacker->dead || defender->dead) return;
+	if (attacker->dead() || defender->dead()) return;
 
 	defender->fight(attacker);
 	defender->setAttackFirst();
@@ -4192,7 +4192,7 @@ void bgsound(P_CHAR pc)
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)
 		{
-			if((pc->isPlayer())&&(!(pc->dead))&&(!(pc->war))&&(y<=10))
+			if((pc->isPlayer())&&(!(pc->dead()))&&(!(pc->war))&&(y<=10))
 			{
 				if (!pc->free) // lb, bugfix !
 				{
@@ -4274,18 +4274,18 @@ void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 {	// nEffect = 1 positive karma effect
 	int nCurKarma=0, nChange=0, nEffect=0;
 
-	nCurKarma = pc_toChange->karma;
+	nCurKarma = pc_toChange->karma();
 
 	if((nCurKarma>10000)||(nCurKarma<-10000))
 		if(nCurKarma>10000)
-			pc_toChange->karma=10000;
+			pc_toChange->setKarma(10000);
 		else
-			pc_toChange->karma=-10000;
+			pc_toChange->setKarma(-10000);
 
 	if(nCurKarma<nKarma && nKarma>0)
 	{
 		nChange=((nKarma-nCurKarma)/75);
-		pc_toChange->karma=(nCurKarma+nChange);
+		pc_toChange->setKarma(nCurKarma+nChange);
 		nEffect=1;
 	}
 
@@ -4296,13 +4296,13 @@ void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 	if((nCurKarma>nKarma)&&(pc_Killed == NULL))
 	{
 		nChange=((nCurKarma-nKarma)/50);
-		pc_toChange->karma=(nCurKarma-nChange);
+		pc_toChange->setKarma(nCurKarma-nChange);
 		nEffect=0;
 	}
-	else if((nCurKarma>nKarma)&&(pc_Killed->karma>0))
+	else if((nCurKarma>nKarma)&&(pc_Killed->karma()>0))
 	{
 		nChange=((nCurKarma-nKarma)/50);
-		pc_toChange->karma=(nCurKarma-nChange);
+		pc_toChange->setKarma(nCurKarma-nChange);
 		nEffect=0;
 	}
 
@@ -4366,33 +4366,36 @@ void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 void Fame(P_CHAR pc_toChange, int nFame)
 {
 	int nCurFame, nChange=0, nEffect=0;
+	unsigned int tempuint;
 
 	if (pc_toChange->isNpc()) //NPCs don't gain fame.
 		return;
 
-	nCurFame= pc_toChange->fame;
+	nCurFame= pc_toChange->fame();
 	if(nCurFame>nFame) // if player fame greater abort function
 	{
 		if(nCurFame>10000)
-			pc_toChange->fame=10000;
+			pc_toChange->setFame(10000);
 		return;
 	}
 	if(nCurFame<nFame)
 	{
 		nChange=(nFame-nCurFame)/75;
-		pc_toChange->fame=(nCurFame+nChange);
+		pc_toChange->setFame(nCurFame+nChange);
 		nEffect=1;
 	}
-	if(pc_toChange->dead)
+	if(pc_toChange->dead())
 	{
 		if(nCurFame<=0)
-			pc_toChange->fame=0;
+			pc_toChange->setFame(0);
 		else
 		{
 			nChange=(nCurFame-0)/25;
-			pc_toChange->fame=(nCurFame-nChange);
+			pc_toChange->setFame(nCurFame-nChange);
 		}
-		pc_toChange->deaths++;
+//		pc_toChange->deaths++;
+		tempuint = pc_toChange->deaths();
+		pc_toChange->setDeaths( ++tempuint );
 		nEffect=0;
 	}
 	if((nChange==0)||(pc_toChange->isNpc()))
@@ -4487,7 +4490,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 {
 
 	//First, let's see their karma.
-	if (pc->karma <= -200)
+	if (pc->karma() <= -200)
 	{
 		pc->setMurderer();
 	}	
@@ -4498,7 +4501,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 			pc->setInnocent();
 			return;
 		}
-		else if (pc->kills >= (unsigned) SrvParams->maxkills())
+		else if (pc->kills() >= (unsigned) SrvParams->maxkills())
 		{
 			pc->setMurderer();
 			return;
@@ -4566,9 +4569,9 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 					else				// if the region's not guarded, they're gray
 						pc->setCriminal();
 				}
-				else if (pc->ownserial>-1 && !pc->isHuman() && pc->tamed())
+				else if (pc->ownserial()>-1 && !pc->isHuman() && pc->tamed())
 				{
-					P_CHAR pc_owner = FindCharBySerial(pc->ownserial);
+					P_CHAR pc_owner = FindCharBySerial(pc->ownserial());
 					if (pc_owner != NULL)
 					{
 						pc->setFlag(pc_owner->flag());

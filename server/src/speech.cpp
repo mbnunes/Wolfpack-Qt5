@@ -929,7 +929,7 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
 		return 1;
 	}*/
 
-    if( !pPlayer->socket() || pPlayer->dead )
+    if( !pPlayer->socket() || pPlayer->dead() )
 		return false;
 
 	RegionIterator4Chars ri( pPlayer->pos );
@@ -1082,7 +1082,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 	//house_speech( s, SpeechUpr );
 
 	// this makes it so npcs do not respond to dead people - HEALERS ??
-	if( pChar->dead )
+	if( pChar->dead() )
 		return;
 	
 	cChar* pc = NULL;

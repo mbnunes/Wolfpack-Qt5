@@ -436,7 +436,7 @@ UINT32	cMakeSection::calcRank( cChar* pChar )
 void cMakeSection::execute( cUOSocket* socket )
 {
 	P_CHAR pChar = socket->player();
-	P_ITEM pBackpack = FindItemBySerial( pChar->packitem );
+	P_ITEM pBackpack = FindItemBySerial( pChar->packitem() );
 
 	if( !socket || !pChar || !baseaction_ )
 		return;
@@ -1036,7 +1036,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	std::vector< cMakeSection* >::iterator it = makesections.begin();
 	cItem* pBackpack = NULL;
 	if( pChar )
-		 pBackpack = FindItemBySerial( pChar->packitem );
+		 pBackpack = FindItemBySerial( pChar->packitem() );
 	UINT32 i = 1;
 
 	while( it != makesections.end() )
@@ -1200,7 +1200,7 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		cChar* pChar = socket->player();
 		if( !pChar )
 			return;
-		cItem* pBackpack = FindItemBySerial( pChar->packitem );
+		cItem* pBackpack = FindItemBySerial( pChar->packitem() );
 		std::vector< cMakeSection* > sections = actions[ choice.button - submenus.size() - 4 ]->makesections();
 		if( sections.empty() )
 		{
@@ -1339,7 +1339,7 @@ void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		cChar* pChar = socket->player();
 		if( !pChar )
 			return;
-		cItem* pBackpack = FindItemBySerial( pChar->packitem );
+		cItem* pBackpack = FindItemBySerial( pChar->packitem() );
 		if( section && section->hasEnough( pBackpack ) )
 		{
 			section->execute( socket );

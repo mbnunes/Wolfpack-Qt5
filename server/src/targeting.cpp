@@ -634,7 +634,7 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 		pPack = Items->SpawnItem(calcSocketFromChar(pc_c),pc_c,1,"#",0,0x0E,0x75,0,0,0);
 		if (pPack == NULL)
 			return;
-		pc->packitem = pPack->serial; 
+		pc->setPackItem( pPack->serial ); 
 		pPack->setContSerial(pc_c->serial);
 		pPack->setLayer( 0x15 );
 		pPack->setType( 1 );
@@ -764,7 +764,7 @@ void cTargets::GhostTarget(int s)
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
 	if(pc != NULL)
 	{
-		if(!pc->dead)
+		if(!pc->dead())
 		{
 			P_CHAR pc_currchar = currchar[s];
 			pc->attacker=pc_currchar->serial; //AntiChrist -- for forensics ev
@@ -1295,7 +1295,8 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 	if(pi3->morey)	//if it's a human corpse
 	{
-		pc_currchar->karma-=100; // Ripper..lose karma and criminal.
+//		pc_currchar->karma-=100; // Ripper..lose karma and criminal.
+		pc_currchar->setKarma( pc_currchar->karma() - 100 );
 		sysmessage(s,"You have lost some karma!");
 		criminal( pc_currchar );
 		//create the Head
@@ -2493,7 +2494,7 @@ void cTargets::TransferTarget(int s)
 
 	pc1->emote( tr("%1 will now take %2 as his master.").arg(pc1->name.c_str()).arg(pc2->name.c_str()), -1 );
 
-	if (pc1->ownserial != -1) 
+	if (pc1->ownserial() != -1) 
 		pc1->SetOwnSerial(-1);
 	pc1->SetOwnSerial(pc2->serial);
 	pc1->npcWander=1;
@@ -3232,7 +3233,7 @@ void cTargets::SetMurderCount( int s )
 	P_CHAR pc = FindCharBySerial(serial);
 	if( pc != NULL )
 	{
-		pc->kills = addmitem[s];
+		pc->setKills( addmitem[s] );
 		setcharflag(pc);
 	}
 }
@@ -3469,7 +3470,7 @@ void cTargets::ResurrectionTarget( UOXSOCKET s )
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		if (pc->dead)
+		if (pc->dead())
 		{
 			Targ->NpcResurrectTarget(pc);
 			return;

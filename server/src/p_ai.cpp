@@ -77,7 +77,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (pc->isNpc() || !online(pc))
 							continue;
-						if (pc->isInvul() || pc->dead || !pc->isInnocent())
+						if (pc->isInvul() || pc->dead() || !pc->isInnocent())
 							continue;
 						pc_i->talk( tr("Hello %1, Welcome to my shop, How may i help thee?.").arg( pc->name.c_str() ), -1, 0, true );
 						pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
@@ -99,7 +99,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 
 						if( pc->isNpc() || !pc->socket() )
 							continue;
-						if( !pc->dead )
+						if( !pc->dead() )
 							continue;
 						if( pc->isMurderer() )
 						{
@@ -163,7 +163,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					if ( d > SrvParams->attack_distance() )
 						continue;
 
-					if ( pc->isInvul() || pc->isHidden() || pc->dead )
+					if ( pc->isInvul() || pc->isHidden() || pc->dead() )
 						continue;
 
 					if ( pc->isNpc() && ( pc->npcaitype() == 2 || pc->npcaitype() == 1 ) )
@@ -224,7 +224,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (pc->isNpc() || !online(pc))
 							continue;
-						if (!pc->dead)
+						if (!pc->dead())
 							continue;
 						if (pc->isInnocent())
 						{
@@ -267,7 +267,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 
 						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
 						    continue;
-						if (pc_i == pc || d > SrvParams->attack_distance() || pc->isInvul() || pc->dead)
+						if (pc_i == pc || d > SrvParams->attack_distance() || pc->isInvul() || pc->dead())
 							continue;
 						if (!pc->inGuardedArea())
 							continue;
@@ -321,7 +321,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (pc->isNpc() || !online(pc))
 							continue;
-						if (pc->isInvul() || pc->dead || !pc->isInnocent())
+						if (pc->isInvul() || pc->dead() || !pc->isInnocent())
 							continue;
 						switch (RandomNum(0, 2))
 						{
@@ -358,7 +358,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 
 						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
 						    continue;
-						if (pc_i == pc || d > SrvParams->attack_distance() || pc->isInvul() || pc->dead)
+						if (pc_i == pc || d > SrvParams->attack_distance() || pc->isInvul() || pc->dead())
 							continue;
 						// If the distance is below the minimal distance we found
 					    if( ( Victim == NULL ) || ( minDist > d ) )
@@ -433,7 +433,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
 						    continue;
-						if (pc->isInvul() || pc->dead)
+						if (pc->isInvul() || pc->dead())
 							continue;
 						if (!(pc->npcaitype() == 2 || pc->isMurderer()))
 							continue;
@@ -458,7 +458,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 					    continue;
 					if( ( pc->isNpc() ) && ( !online( pc ) ) )
 						    continue;
-				    if (pc->dead)
+				    if (pc->dead())
 					    continue;
 
 					pc_i->talk( tr("I am waiting for my escort to %1, Will you take me?").arg( pc_i->questDestRegion() ), -1 , 0 );
@@ -484,7 +484,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
 						    continue;
-						if (pc->dead)
+						if (pc->dead())
 							continue;
 						if (!pc->guarded())
 							continue;
@@ -513,7 +513,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
 						    continue;
-						if (pc->isInvul() || pc->dead)
+						if (pc->isInvul() || pc->dead())
 							continue;
 						npcattacktarget(pc_i, pc);
 						return;
@@ -548,7 +548,7 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 				distance = chardist(pc_i, pc);
 				if (!pc->npc() && !online(pc))	// no offline players (Duke)
 					continue;
-				if (!(pc->dead))
+				if (!(pc->dead()))
 				{
 					if (distance>4)
 					{
@@ -634,20 +634,20 @@ bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, const QString& comm)
 	string search3("WITHDRAW") ;
 	string search4("CHECK") ;
 
-    if ((comm.contains("BANK")) &&(!(pc_currchar->dead)))
+    if ((comm.contains("BANK")) &&(!(pc_currchar->dead())))
 	{
 		OpenBank(c);
 		return true;
 	}
-    else if ((comm.contains("BALANCE")) &&(!(pc_currchar->dead)))
+    else if ((comm.contains("BALANCE")) &&(!(pc_currchar->dead())))
 	{
 		return Balance(c, pBanker);
 	}
-	else if ((comm.contains("WITHDRAW")) &&(!(pc_currchar->dead)))
+	else if ((comm.contains("WITHDRAW")) &&(!(pc_currchar->dead())))
 	{
 		return Withdraw(c, pBanker, comm.latin1());
 	}
-	else if ((comm.contains("CHECK")) &&(!(pc_currchar->dead)))
+	else if ((comm.contains("CHECK")) &&(!(pc_currchar->dead())))
 	{
 		return BankCheck(c, pBanker, comm.latin1());
 	}

@@ -326,7 +326,7 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 	if( !pc )
 		return;
 
-	P_ITEM pBackpack = FindItemBySerial( pc->packitem );
+	P_ITEM pBackpack = FindItemBySerial( pc->packitem() );
 	P_ITEM pBankbox = pc->getBankBox();
 
 	if( !pBackpack && !pBankbox )
@@ -385,14 +385,14 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 {
 	P_ITEM pi = NULL;
 	bool found = false;
-	vector<SERIAL> vpack = contsp.getData( pc->packitem );
+	vector<SERIAL> vpack = contsp.getData( pc->packitem() );
 	vector<SERIAL>::iterator it = vpack.begin();
 	while( it != vpack.end() )
 	{
 		pi = FindItemBySerial( *it );
 		if( !pi ) 
 		{
-			contsp.remove( pc->packitem, (*it) );
+			contsp.remove( pc->packitem(), (*it) );
 			++it;
 			continue;
 		}

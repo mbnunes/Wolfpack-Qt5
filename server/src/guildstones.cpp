@@ -1231,9 +1231,9 @@ int CheckValidPlace(int s)
 	if( !IsHouse( pi_multi->id() ) ) 
 		return 0;
 	
-	if(pc_currchar->packitem != INVALID_SERIAL)
+	if(pc_currchar->packitem() != INVALID_SERIAL)
 	{
-		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem);
+		vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem());
 		for (unsigned int j = 0; j < vecContainer.size(); j++)
 		{
 			P_ITEM pi = FindItemBySerial(vecContainer[j]);

@@ -103,7 +103,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 					sysmessage(calcSocketFromChar(Victim),temp);
 					// flag criminal						
 				}
-				Karma(Player,Victim,(0-(Victim->karma)));
+				Karma(Player,Victim,(0-(Victim->karma())));
 			}
 //			Victim->hp -= (rand()%6)+2;
 			Victim->setHp(Victim->hp() - (rand()%6)+2);

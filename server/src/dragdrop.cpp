@@ -167,7 +167,8 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 
 		if( ( outmostCont->more2 == 1 ) && !pChar->Owns( outmostCont ) && !sameGuild )
 		{
-			pChar->karma -= 5;
+//			pChar->karma -= 5;
+			pChar->setKarma( pChar->karma() - 5 );
 			criminal( pChar );
 			socket->sysMessage( "You lost some karma." );
 		}
@@ -307,7 +308,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	P_CHAR pChar = socket->player();
 
 	// We're dead and can't do that
-	if( pChar->dead )
+	if( pChar->dead() )
 	{
 		socket->sysMessage( tr( "You are dead and can't do that." ) );
 		socket->bounceItem( pItem, BR_NO_REASON );
@@ -315,7 +316,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Our target is dead
-	if( ( pWearer != pChar ) && pWearer->dead )
+	if( ( pWearer != pChar ) && pWearer->dead() )
 	{
 		socket->sysMessage( tr( "You can't equip dead players." ) );
 		socket->bounceItem( pItem, BR_NO_REASON );
@@ -929,11 +930,14 @@ void cDragItems::dropOnGuard( P_CLIENT client, P_ITEM pItem, P_CHAR pGuard )
 	// Thank them for their work
 	pGuard->talk( QString( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name.c_str() ).arg( pVictim->questBountyReward() ) );
 
-	client->player()->karma += 100;
+//	client->player()->karma += 100;
+	client->player()->setKarma( client->player()->karma() + 100 );
 }
 
 void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
 {
+	int tempint;
+	
 	if( ( pBeggar->hunger() < 6 ) && pItem->type() == 14 )
 	{
 		pBeggar->talk( "*cough* Thank thee!" );
@@ -964,7 +968,10 @@ void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
 		// We try to feed it more than it needs
 		if( pBeggar->hunger() + pItem->amount() > 6 )
 		{
-			client->player()->karma += ( 6 - pBeggar->hunger() ) * 10;
+			
+//			client->player()->karma += ( 6 - pBeggar->hunger() ) * 10;
+			tempint = ( 6 - pBeggar->hunger() ) * 10;
+			client->player()->setKarma( client->player()->karma() + tempint );
 
 			pItem->setAmount( pItem->amount() - ( 6 - pBeggar->hunger() ) );
 			pBeggar->setHunger( 6 );
@@ -975,7 +982,9 @@ void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
 		}
 
 		pBeggar->setHunger( pBeggar->hunger() + pItem->amount() );
-		client->player()->karma += pItem->amount() * 10;
+//		client->player()->karma += pItem->amount() * 10;
+		tempint = pItem->amount() * 10;
+		client->player()->setKarma( client->player()->karma() + tempint );
 
 		Items->DeleItem( pItem );
 		return;
@@ -993,9 +1002,11 @@ void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
 	client->sysMessage( "You have gained some karma!" );
 	
 	if( pItem->amount() <= 100 )
-		client->player()->karma += 10;
+//		client->player()->karma += 10;
+		client->player()->setKarma( client->player()->karma() + 10 );
 	else
-		client->player()->karma += 50;
+//		client->player()->karma += 50;
+		client->player()->setKarma( client->player()->karma() + 50 );
 	
 	Items->DeleItem( pItem );
 }

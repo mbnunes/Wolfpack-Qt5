@@ -63,8 +63,8 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	if( pc_k->spawnSerial() != INVALID_SERIAL ) 
 		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial);
 
-	if( pc_k->ownserial != INVALID_SERIAL ) 
-		cownsp.remove( pc_k->ownserial, pc_k->serial );
+	if( pc_k->ownserial() != INVALID_SERIAL ) 
+		cownsp.remove( pc_k->ownserial(), pc_k->serial );
 	
 	// We need to remove the equipment here.
 	vector< SERIAL > equipment = contsp.getData( pc_k->serial );
@@ -114,7 +114,7 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 	pc_c->setSerial(cCharsManager::getInstance()->getUnusedSerial());
 	pc_c->ftarg = INVALID_SERIAL;
 	pc_c->moveTo(pc_k->pos + Coord_cl(1, 0, 0) );
-	pc_c->kills = 0;
+	pc_c->setKills(0);
 	pc_c->setHp( pc_k->st() );
 	pc_c->setStm( pc_k->realDex() );
 	pc_c->setMn( pc_k->in() );

@@ -175,16 +175,16 @@ void cChar::Init(bool ser)
 	this->jailtimer_=0; //blackwinds jail system
 	this->jailsecs_=0;
 
-	this->ownserial=INVALID_SERIAL; // If Char is an NPC, this sets its owner
+	this->ownserial_=INVALID_SERIAL; // If Char is an NPC, this sets its owner
 	this->setTamed(false); // True if NPC is tamed
-	this->robe = -1; // Serial number of generated death robe (If char is a ghost)
-	this->karma=0;
-	this->fame=0;
+	this->robe_ = -1; // Serial number of generated death robe (If char is a ghost)
+	this->karma_ = 0;
+	this->fame_ = 0;
 	this->pathnum_=PATHNUM;
-	this->kills=0; // PvP Kills
-	this->deaths=0;
-	this->dead = false; // Is character dead
-	this->packitem=INVALID_SERIAL; // Only used during character creation
+	this->kills_ = 0; // PvP Kills
+	this->deaths_ = 0;
+	this->dead_ = false; // Is character dead
+	this->packitem_ = INVALID_SERIAL; // Only used during character creation
 	this->fixedlight=255; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	// changed to -1, LB, bugfix
 	this->speech=0; // For NPCs: Number of the assigned speech block
@@ -593,7 +593,7 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 {
 	if(pc == NULL) 
 		return NULL;
-	P_ITEM pi = FindItemBySerial(pc->packitem);
+	P_ITEM pi = FindItemBySerial(pc->packitem());
 	if (pi != NULL)
 	{
 		if (pc->Wears(pi) && pi->layer()==0x15)
@@ -610,7 +610,7 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL && pi->layer()==0x15)
 		{
-			pc->packitem = pi->serial;	//Record it for next time
+			pc->setPackItem( pi->serial );	//Record it for next time
 			return (pi);
 		}
 	}
@@ -619,7 +619,7 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 
 P_ITEM cChar::getBackpack()	
 {
-	P_ITEM backpack = FindItemBySerial( packitem );
+	P_ITEM backpack = FindItemBySerial( packitem_ );
 
 	// None found so create one
 	if( !backpack )
@@ -632,7 +632,7 @@ P_ITEM cChar::getBackpack()
 			backpack->setContSerial( serial );
 			backpack->setType( 1 );
 			backpack->update();
-			packitem = backpack->serial;
+			packitem_ = backpack->serial;
 		}
 	}
 
@@ -646,13 +646,13 @@ P_ITEM cChar::getBackpack()
 
 void cChar::setOwnSerialOnly(long ownser)
 {
-	ownserial=ownser;
+	ownserial_=ownser;
 }
 
 void cChar::SetOwnSerial(long ownser)
 {
-	if (ownserial != INVALID_SERIAL)	// if it was set, remove the old one
-		cownsp.remove(ownserial, serial);
+	if (ownserial_ != INVALID_SERIAL)	// if it was set, remove the old one
+		cownsp.remove(ownserial_, serial);
 	
 	setOwnSerialOnly(ownser);
 	if (ownser != serial && ownser != INVALID_SERIAL)
@@ -661,7 +661,7 @@ void cChar::SetOwnSerial(long ownser)
 		tamed_ = false;
 
 	if (ownser != INVALID_SERIAL)		// if there is an owner, add it
-		cownsp.insert(ownserial, serial);
+		cownsp.insert(ownserial_, serial);
 }
 
 void cChar::SetSpawnSerial(long spawnser)
@@ -808,14 +808,14 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("npc",				npc_);
 		archive.read("holdgold",		holdg_);
 		archive.read("shop",			shop_);
-		archive.read("own",				ownserial);
-		archive.read("robe",			robe);
-		archive.read("karma",			karma);
-		archive.read("fame",			fame);
-		archive.read("kills",			kills);
-		archive.read("deaths",			deaths);
-		archive.read("dead",			dead);
-		archive.read("packitem",		packitem);
+		archive.read("own",				ownserial_);
+		archive.read("robe",			robe_);
+		archive.read("karma",			karma_);
+		archive.read("fame",			fame_);
+		archive.read("kills",			kills_);
+		archive.read("deaths",			deaths_);
+		archive.read("dead",			dead_);
+		archive.read("packitem",		packitem_);
 		archive.read("fixedlight",		fixedlight);
 		archive.read("speech",			speech);
 
@@ -880,7 +880,7 @@ void cChar::Serialize(ISerialization &archive)
 			jailtimer_ += uiCurrentTime;
 		archive.read("jailsecs",		jailsecs_); 
 		archive.read("lootlist",		loot_ );
-		SetOwnSerial(ownserial);
+		SetOwnSerial(ownserial_);
 		SetSpawnSerial(spawnserial_);
 		setAccount( account_ );
 	}
@@ -952,14 +952,14 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("npc",			npc_);
 		archive.write("holdgold",		holdg_);
 		archive.write("shop",			shop_);
-		archive.write("own",			ownserial);
-		archive.write("robe",			robe);
-		archive.write("karma",			karma);
-		archive.write("fame",			fame);
-		archive.write("kills",			kills);
-		archive.write("deaths",			deaths);
-		archive.write("dead",			dead);
-		archive.write("packitem",		packitem);
+		archive.write("own",			ownserial_);
+		archive.write("robe",			robe_);
+		archive.write("karma",			karma_);
+		archive.write("fame",			fame_);
+		archive.write("kills",			kills_);
+		archive.write("deaths",			deaths_);
+		archive.write("dead",			dead_);
+		archive.write("packitem",		packitem_);
 		archive.write("fixedlight",		fixedlight);
 		archive.write("speech",			speech);
 		archive.write("trigger",		trigger_);
@@ -1189,7 +1189,7 @@ void cChar::processNode( const QDomElement &Tag )
 	//</backpack>
 	else if( TagName == "backpack" )
 	{
-		if( this->packitem == INVALID_SERIAL )
+		if( this->packitem_ == INVALID_SERIAL )
 		{
 			P_ITEM pBackpack = Items->SpawnItem( -1, this, 1, "Backpack", 0, 0x0E,0x75,0,0,0);
 			if( pBackpack == NULL )
@@ -1198,7 +1198,7 @@ void cChar::processNode( const QDomElement &Tag )
 				return;
 			}
 			
-			this->packitem = pBackpack->serial;
+			this->packitem_ = pBackpack->serial;
 			
 			pBackpack->pos.x = 0;
 			pBackpack->pos.y = 0;
@@ -1317,7 +1317,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<fame>8000</fame>
 	else if( TagName == "fame" )
-		this->fame = Value.toInt();
+		this->fame_ = Value.toInt();
 
 	//<gold>100</gold>
 	else if( TagName == "gold" )
@@ -1338,7 +1338,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<karma>-500</karma>
 	else if( TagName == "karma" )
-		this->karma = Value.toInt();
+		this->karma_ = Value.toInt();
 
 	//<loot>lootlist</loot>
 	else if( TagName == "loot" )
@@ -1686,7 +1686,7 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	QString ghostSpeech;
 
 	// Generate the ghost-speech *ONCE*
-	if( dead )
+	if( dead_ )
 	{
 		for( UINT32 gI = 0; gI < message.length(); ++gI )
 		{
@@ -1701,8 +1701,8 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 	if( socket )
 	{
 		// Take the dead-status into account
-		if( dead && !isNpc() )
-			if( !socket->player()->dead && !socket->player()->spiritspeaktimer && !socket->player()->isGMorCounselor() )
+		if( dead_ && !isNpc() )
+			if( !socket->player()->dead() && !socket->player()->spiritspeaktimer && !socket->player()->isGMorCounselor() )
 				textSpeech.setText( ghostSpeech );
 			else
 				textSpeech.setText( message );
@@ -1717,8 +1717,8 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 				if( mSock->player() && ( mSock->player()->pos.distance( pos ) < 18 ) )
 				{
 					// Take the dead-status into account
-					if( dead && !isNpc() )
-						if( !mSock->player()->dead && !mSock->player()->spiritspeaktimer && !mSock->player()->isGMorCounselor() )
+					if( dead_ && !isNpc() )
+						if( !mSock->player()->dead() && !mSock->player()->spiritspeaktimer && !mSock->player()->isGMorCounselor() )
 							textSpeech.setText( ghostSpeech );
 						else
 							textSpeech.setText( message );
@@ -1790,7 +1790,7 @@ void cChar::showName( cUOSocket *socket )
 		charName.append( ", " + title_ );
 
 	// Lord & Lady Title
-	if( fame == 10000 )
+	if( fame_ == 10000 )
 		charName.prepend( ( id() == 0x191 ) ? tr( "Lady " ) : tr( "Lord " ) );
 
 	// Are we squelched ?
@@ -1830,11 +1830,11 @@ void cChar::showName( cUOSocket *socket )
 		charName.append( tr(" [war mode]") );
 
 	// Criminal ?
-	if( crimflag() && ( kills < SrvParams->maxkills() ) )
+	if( crimflag() && ( kills_ < SrvParams->maxkills() ) )
 		charName.append( tr(" [criminal]") );
 
 	// Murderer
-	if( kills >= SrvParams->maxkills() )
+	if( kills_ >= SrvParams->maxkills() )
 		charName.append( tr(" [murderer]") );
 
 	cGuildStone *guildStone = dynamic_cast< cGuildStone* >( FindItemBySerial( guildstone_ ) );
@@ -1931,7 +1931,7 @@ void cChar::resend( bool clean )
 		if( clean )
 			pChar->socket()->removeObject( this );
 
-		if( ( isHidden() || ( dead && !war ) ) && !pChar->isGMorCounselor() )
+		if( ( isHidden() || ( dead_ && !war ) ) && !pChar->isGMorCounselor() )
 			continue;
 
 		drawChar.setHighlight( notority( pChar ) );
@@ -1947,27 +1947,27 @@ QString cChar::fullName( void )
 		fName = QString( "%1 %2" ).arg( name.c_str() ).arg( title_ );
 
 	// Normal Criminal
-	else if( ( crimflag_ > 0 ) && !dead && ( kills < SrvParams->maxkills() ) )
+	else if( ( crimflag_ > 0 ) && !dead_ && ( kills_ < SrvParams->maxkills() ) )
 		fName = tr( "The Criminal %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Serial Killer
-	else if( ( kills >= SrvParams->maxkills() ) && ( kills < 10 ) && !dead )
+	else if( ( kills_ >= SrvParams->maxkills() ) && ( kills_ < 10 ) && !dead_ )
 		fName = tr( "The Serial Killer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Murderer
-	else if( ( kills >= 10 ) && ( kills < 20 ) && !dead )
+	else if( ( kills_ >= 10 ) && ( kills_ < 20 ) && !dead_ )
 		fName = tr( "The Murderer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Mass Murderer
-	else if( ( kills >= 20 ) && ( kills < 50 ) && !dead )
+	else if( ( kills_ >= 20 ) && ( kills_ < 50 ) && !dead_ )
 		fName = tr( "The Mass Murderer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Evil Dread Murderer
-	else if( ( kills >= 50 ) && ( kills < 100 ) && !dead )
+	else if( ( kills_ >= 50 ) && ( kills_ < 100 ) && !dead_ )
 		fName = tr( "The Evil Dread Murderer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// The Evil Emperor
-	else if( ( kills >= 100 ) && !dead )
+	else if( ( kills_ >= 100 ) && !dead_ )
 		fName = tr( "The Evil Emperor %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	// Normal Player
@@ -2089,7 +2089,7 @@ UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
 	else
 		result = 0x01; // 1 = Blue -> Innocent
 
-	if( pChar->kills > SrvParams->maxkills() )
+	if( pChar->kills() > SrvParams->maxkills() )
 		result = 0x06; // 6 = Red -> Murderer
 	else if( guildStatus == 1 )
 		result = 0x02; // 2 = Green -> Same Guild
@@ -2117,7 +2117,7 @@ void cChar::kill()
 	if( free )
 		return;
 
-	if( dead || npcaitype() == 17 || isInvul() )
+	if( dead_ || npcaitype() == 17 || isInvul() )
 		return;
 
 	if( polymorph() )
@@ -2179,8 +2179,8 @@ void cChar::kill()
 
 			if( pc_t->isPlayer() && !pc_t->inGuardedArea() )
 			{
-				Karma( pc_t, this, ( 0 - ( karma ) ) );
-				Fame( pc_t, fame );
+				Karma( pc_t, this, ( 0 - ( karma_ ) ) );
+				Fame( pc_t, fame_ );
 
 				if( ( isPlayer() ) && ( pc_t->isPlayer() ) ) //Player vs Player
 				{
@@ -2190,14 +2190,14 @@ void cChar::kill()
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
 						// BountyAskVictim( this->serial, pc_t->serial );
 						setMurdererSer( pc_t->serial );
-						pc_t->kills++;
+						pc_t->kills_++;
 
 						// Notify the user of reputation changes
 						if( pc_t->socket() )
 						{
-							pc_t->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pc_t->kills ) );
+							pc_t->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pc_t->kills_ ) );
 
-							if( pc_t->kills >= SrvParams->maxkills() )
+							if( pc_t->kills_ >= SrvParams->maxkills() )
 								pc_t->socket()->sysMessage( tr( "You are now a murderer!" ) );
 						}
 
@@ -2247,7 +2247,7 @@ void cChar::kill()
 	PlayDeathSound( this );
 
 	setSkin( 0x0000 ); // Undyed
-	dead = true; // Dead
+	dead_ = true; // Dead
 	hp_ = 0; // With no hp left
 	
 	// Reset poison
@@ -2442,7 +2442,7 @@ void cChar::kill()
 		P_ITEM pItem = Items->createScriptItem( "204E" );
 		if( pItem )
 		{
-			robe = pItem->serial;
+			robe_ = pItem->serial;
 			pItem->setContSerial( serial );
 			pItem->setLayer( 0x16 );
 			pItem->update();
@@ -2484,14 +2484,14 @@ void cChar::kill()
 // just resurrecting
 void cChar::resurrect()
 {
-	if ( !dead )
+	if ( !dead_ )
 		return;
 
 	Fame( this, 0 );
 	soundEffect( 0x0214 );
 	setId( xid_ );
 	setSkin( xskin() );
-	dead = false;
+	dead_ = false;
 	hp_ = QMAX( 1, (UINT16)( 0.1 * st_ ) );
 	stm_ = (UINT16)( 0.1 * effDex() );
 	mn_ = (UINT16)( 0.1 * in_ );

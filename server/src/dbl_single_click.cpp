@@ -187,7 +187,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	}
 	
 	// Dead ppl can only use ankhs
-	if( pc_currchar->dead && itype != 16 )
+	if( pc_currchar->dead() && itype != 16 )
 	{
 		socket->sysMessage( tr( "Your ghostly hand passes trough the object." ) );
 		return;
@@ -233,7 +233,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 	case 16:
 		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
-		if( pc_currchar->dead )
+		if( pc_currchar->dead() )
 		{
 			pc_currchar->resurrect();
 			socket->sysMessage( tr( "You have been resurrected." ) );
@@ -835,10 +835,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	    case 402: // Blackwinds Reputation ball 
 			{ 
 				pc_currchar->soundEffect( 0x01ec ); // Play sound effect for player 
-                socket->sysMessage(tr("Your karma is %1").arg(pc_currchar->karma)); 
-                socket->sysMessage(tr("Your fame is %1").arg(pc_currchar->fame)); 
-                socket->sysMessage(tr("Your Kill count is %1 ").arg(pc_currchar->kills)); 
-                socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths));
+                socket->sysMessage(tr("Your karma is %1").arg(pc_currchar->karma())); 
+                socket->sysMessage(tr("Your fame is %1").arg(pc_currchar->fame())); 
+                socket->sysMessage(tr("Your Kill count is %1 ").arg(pc_currchar->kills())); 
+                socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths()));
 				staticeffect(pc_currchar, 0x37, 0x2A, 0x09, 0x06 );
 				socket->sysMessage(tr("*The crystal ball seems to have vanished*"));
                 pi->ReduceAmount(1); 
@@ -1328,7 +1328,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 		{
 			pTarget->talk( tr( "Take a look at my goods" ) );
 
-			if( pTarget->packitem != INVALID_SERIAL )
+			if( pTarget->packitem() != INVALID_SERIAL )
 				socket->sendContainer( pTarget->getBackpack() );
 
 			return;
@@ -1388,7 +1388,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 				socket->sysMessage( tr( "You are unable to ride an animal" ) );
 				return;
 			}
-			if( pChar->dead )
+			if( pChar->dead() )
 			{
 				socket->sysMessage( tr("You are dead and cannot do that." ) );
 				return;

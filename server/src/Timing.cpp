@@ -102,7 +102,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 
 	signed short tempshort;
 
-	if( !pc->dead )
+	if( !pc->dead() )
 	{
 		if( pc->hp() > pc->st() )
 		{
@@ -244,7 +244,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getIn
 	}
 
 	// Check if the character died
-	if( pc->hp() <= 0 && !pc->dead )
+	if( pc->hp() <= 0 && !pc->dead() )
 		pc->kill();
 }
 
@@ -255,7 +255,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	// We are not logged in so dont check anything at all.
 	if( !socket )
 		return;
-	
+	unsigned int tempuint;
 	signed short tempshort;
 	int y,x, timer;//, valid=0;
 	char t[120];
@@ -265,9 +265,9 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	// Check if the character is in a field which affects him
 	Magic->CheckFieldEffects2( currenttime, pc, 1 ); 
 	
-	if( !pc->dead && pc->swingtarg() == -1 )
+	if( !pc->dead() && pc->swingtarg() == -1 )
 		Combat->DoCombat( pc, currenttime );
-	else if( !pc->dead && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
+	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
 		Combat->CombatHitCheckLoS( pc, currenttime );
 
 	// Guess it was taken out because of traffic-concerns ?
@@ -302,9 +302,13 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 
 		if( pc->murderrate() < currenttime )
 		{
-			if (pc->kills>0)
-				pc->kills--;
-			if ((pc->kills==SrvParams->maxkills())&&(SrvParams->maxkills()>0))
+			if (pc->kills()>0)
+			{
+//				pc->kills--;
+				tempuint = pc->kills();
+				pc->setKills( --tempuint );
+			}
+			if ((pc->kills()==SrvParams->maxkills())&&(SrvParams->maxkills()>0))
 				socket->sysMessage( tr( "You are no longer a murderer." ) );
 			pc->setMurderrate( ( SrvParams->murderdecay() * MY_CLOCKS_PER_SEC ) + currenttime );
 		}
@@ -333,7 +337,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 		if( timer == 0 )
 			timer = 1;
 
-		if( socket && !pc->dead && ( (rand()%(timer) ) == (timer/2))) 
+		if( socket && !pc->dead() && ( (rand()%(timer) ) == (timer/2))) 
 			bgsound( pc );
 	}
 
@@ -407,7 +411,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	if( ( hungerdamagetimer <= currenttime ) && SrvParams->hungerDamage() )
 	{
 		hungerdamagetimer=currenttime+(SrvParams->hungerDamageRate()*MY_CLOCKS_PER_SEC); /** set new hungertime **/
-		if( pc->hp() > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->dead )
+		if( pc->hp() > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->dead() )
 		{
 			socket->sysMessage( tr( "You are starving." ) );
 //			pc->hp -= SrvParams->hungerDamage();
@@ -545,9 +549,9 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	Movement->NpcMovement( currenttime, pc );
     setcharflag( pc );
 
-	if( !pc->dead && pc->swingtarg() == -1 )
+	if( !pc->dead() && pc->swingtarg() == -1 )
 		Combat->DoCombat( pc, currenttime );
-	else if( !pc->dead && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
+	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
 		Combat->CombatHitCheckLoS(pc,currenttime);
 
 	Magic->CheckFieldEffects2( currenttime, pc, 0 );
@@ -579,7 +583,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 			// Dupois - End
 
 			pc->soundEffect( 0x01FE );
-			pc->dead = true;
+			pc->setDead( true );
 			Npcs->DeleteChar(pc);
 			return;
 		}
@@ -716,7 +720,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 					pc->ftarg = INVALID_SERIAL;
 					pc->npcWander=2;
 					pc->setTamed(false);
-					if(pc->ownserial!=-1) 
+					if(pc->ownserial()!=-1) 
 						pc->SetOwnSerial(-1);
 					pc->emote( tr("%1 appears to have decided that it is better off without a master").arg(pc->name.c_str()) );
 

@@ -1192,7 +1192,7 @@ bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
 		socket->sysMessage( tr("You can't repair that!") );
 		return false;
 	}
-	else if( pc->packitem != INVALID_SERIAL && pi->contserial != pc->packitem )
+	else if( pc->packitem() != INVALID_SERIAL && pi->contserial != pc->packitem() )
 	{
 		socket->sysMessage( tr("The item must be in your backpack to get repaired!") );
 		return true;
@@ -1403,7 +1403,7 @@ P_ITEM cSkills::GetInstrument(cUOSocket* socket)
 	P_CHAR pc_currchar = socket->player();
 
 	unsigned int ci = 0;
-	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem);
+	vector<SERIAL> vecContainer = contsp.getData(pc_currchar->packitem());
 	for (; ci < vecContainer.size(); ++ci)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
@@ -1664,7 +1664,7 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
     
 	cUOSocket *socket = pc->socket();
 
-	if( pc->dead ) // fix for magic resistance exploit and probably others too, LB
+	if( pc->dead() ) // fix for magic resistance exploit and probably others too, LB
 	{
 		if( socket )
 			socket->sysMessage( tr( "Ghosts can not train %1" ).arg( skillname[sk] ) );
@@ -1989,7 +1989,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		return;
 	}
 
-	if( pChar->dead )
+	if( pChar->dead() )
 	{
 		socket->sysMessage( tr( "You cannot do that as a ghost." ) );
 		return;
@@ -2211,7 +2211,7 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 		skill = Skills->CheckSkill(pc_currchar, STEALING, 0, 999);
 		if (skill)
 		{
-			item->setContSerial(pc_currchar->packitem);
+			item->setContSerial(pc_currchar->packitem());
 			socket->sysMessage( tr("You successfully steal that item.") );
 			item->update();
 		} else 

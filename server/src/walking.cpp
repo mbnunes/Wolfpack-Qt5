@@ -576,7 +576,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	{
 		P_CHAR pChar_vis = ri.GetData();
 
-		if( pChar_vis && ( pChar_vis != pChar ) && ( !pChar->dead || pChar->war || pChar_vis->isGM() ) && ( !pChar->isHidden() || pChar_vis->isGM() ) )
+		if( pChar_vis && ( pChar_vis != pChar ) && ( !pChar->dead() || pChar->war || pChar_vis->isGM() ) && ( !pChar->isHidden() || pChar_vis->isGM() ) )
 			sendWalkToOther( pChar_vis, pChar, oldpos );
 	}
 	
@@ -602,7 +602,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 short int cMovement::CheckMovementType(P_CHAR pc)
 {
 	// Am I a GM Body?
-	if( pc->isGMorCounselor() || pc->dead )
+	if( pc->isGMorCounselor() || pc->dead() )
 		return P_C_IS_GM_BODY;
 
 	// Am I a player?
@@ -772,7 +772,7 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 	
 	// If we're running on our feet, check for stamina loss
 	// Crap
-	if( !pChar->dead && !pChar->onHorse() && pChar->running() > ( SrvParams->runningStamSteps() ) * 2 )
+	if( !pChar->dead() && !pChar->onHorse() && pChar->running() > ( SrvParams->runningStamSteps() ) * 2 )
 	{
 		// The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
 		// ^^ WTF?
@@ -993,7 +993,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 		if( mapChar->onCollideChar( pChar ) )
 			continue;
 
-		if( mapChar->isHidden() && !mapChar->dead && !mapChar->isInvul() && !mapChar->isGM() )
+		if( mapChar->isHidden() && !mapChar->dead() && !mapChar->isInvul() && !mapChar->isGM() )
 		{
 			if( socket )
 				socket->sysMessage( tr( "Being perfectly rested, you shoved something invisible out of the way." ) );
@@ -1001,7 +1001,7 @@ void cMovement::outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord
 		    pChar->setStm( QMAX( pChar->stm() - 4, 0 ) );
 			updatestats( pChar, 2 );
 		}
-		else if( !mapChar->isHidden() && !mapChar->dead && (!(mapChar->isInvul())) &&(!(mapChar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
+		else if( !mapChar->isHidden() && !mapChar->dead() && (!(mapChar->isInvul())) &&(!(mapChar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
 		{
 			if( socket )
 				socket->sysMessage( tr( "Being perfectly rested, you shove %1 out of the way." ).arg( mapChar->name.c_str() ) );
@@ -1581,7 +1581,7 @@ inline bool cMovement::isValidDirection( Q_UINT8 dir )
 */
 inline bool cMovement::isOverloaded( P_CHAR pc )
 {
-	if ( !pc->dead && !pc->isNpc() && !pc->isGMorCounselor() )
+	if ( !pc->dead() && !pc->isNpc() && !pc->isGMorCounselor() )
 		if( !Weight->CheckWeight( pc ) || ( pc->stm() < 3 ) )
 			return true;
 

@@ -76,7 +76,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		return;
 	}
 	
-	nFame = pc->fame;
+	nFame = pc->fame();
 	if(pc->onHorse())
 		action(s,0x1A);
 	else
@@ -592,7 +592,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		   }
 		}
 		
-		if (pp->dead)
+		if (pp->dead())
 		{
 			if (ph->skill(HEALING) < 800 || ph->skill(ANATOMY) < 800)
 				sysmessage(s, tr("You are not skilled enough to resurrect") );

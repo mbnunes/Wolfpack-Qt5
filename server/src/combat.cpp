@@ -623,7 +623,7 @@ static void NpcSpellAttack( P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int
 	{
 		int spattacks = numbitsset( pc_attacker->spattack );
 
-		if (!pc_defender->dead && chardist(pc_attacker, pc_defender) < SrvParams->attack_distance() && spattacks > 0 )
+		if (!pc_defender->dead() && chardist(pc_attacker, pc_defender) < SrvParams->attack_distance() && spattacks > 0 )
 		{
 			if (los)
 			{																	
@@ -830,7 +830,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 		return;
 
 	int x, bowtype=0; // spamanachecking,tmp;
-
+	unsigned int tempuint;
 	P_ITEM pWeapon = pc_attacker->getWeapon();
 
 	P_CHAR pc_defender = FindCharBySerial( pc_attacker->targ );
@@ -867,7 +867,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 		if( pc_attacker->pos.z < ( pc_defender->pos.z - 10 ) ) 
 			return;
 		
-		if( ( pc_defender->isNpc() && pc_defender->npcaitype() !=17 ) || ( pc_defender->socket() && !pc_defender->dead ) )
+		if( ( pc_defender->isNpc() && pc_defender->npcaitype() !=17 ) || ( pc_defender->socket() && !pc_defender->dead() ) )
 		{
 			if( !pc_attacker->inRange( pc_defender, SrvParams->attack_distance() ) )
 			{
@@ -895,7 +895,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 					}
 					pc_attacker->attacker = INVALID_SERIAL;
 					pc_attacker->resetAttackFirst();
-					if (pc_attacker->isNpc() && pc_attacker->npcaitype()!=17 && !pc_attacker->dead && pc_attacker->war)
+					if (pc_attacker->isNpc() && pc_attacker->npcaitype()!=17 && !pc_attacker->dead() && pc_attacker->war)
 						npcToggleCombat(pc_attacker);
 				}
 			}
@@ -1016,13 +1016,16 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 				{
 					if(pc_defender->isInnocent() && GuildCompare(pc_attacker, pc_defender )==0 )
 					{
-						++pc_attacker->kills;
+//						++pc_attacker->kills;
+						tempuint = pc_attacker->kills();
+						pc_attacker->setKills( ++tempuint );
+
 
 						if( pc_attacker->socket() )
 						{
-							pc_attacker->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pc_attacker->kills ) );
+							pc_attacker->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pc_attacker->kills() ) );
 
-							if( pc_attacker->kills == SrvParams->maxkills() + 1 )
+							if( pc_attacker->kills() == SrvParams->maxkills() + 1 )
 								pc_attacker->socket()->sysMessage( tr("You are now a murderer!") );
 						}
 					}
@@ -1398,7 +1401,7 @@ void cCombat::SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, const Coord_cl &
 	if (!pc_caller->inGuardedArea())
 		return;
 	
-	if (pc_offender->dead || pc_caller->dead)
+	if (pc_offender->dead() || pc_caller->dead())
 		return; // AntiChrist
 
 	cTerritory* Region = pc_caller->region;

@@ -37,7 +37,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			}
 		}
 		
-		if (pp->dead)
+		if (pp->dead())
 		{
 			if (ph->skill(HEALING) < 800 || ph->skill(ANATOMY) < 800)
 				socket->sysMessage( tr("You are not skilled enough to resurrect") );

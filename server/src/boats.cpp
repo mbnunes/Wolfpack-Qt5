@@ -561,7 +561,7 @@ void cBoat::turn( SI08 turn )
 				iter_sock.current()->removeObject( pc );
 				if( iter_sock.current() == pc->socket() )
 					iter_sock.current()->resendPlayer();
-				if( !( ( pc->isHidden() || ( pc->dead && !pc->war ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
+				if( !( ( pc->isHidden() || ( pc->dead() && !pc->war ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
 				{
 					drawChar->setHighlight( pc->notority( iter_sock.current()->player() ) );
 					iter_sock.current()->send( new cUOTxDrawChar( *drawChar ) );
@@ -790,7 +790,7 @@ bool cBoat::move( void )
 				{
 					iter_sock.current()->resendPlayer();
 				}
-				if( !( ( pc->isHidden() || ( pc->dead && !pc->war ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
+				if( !( ( pc->isHidden() || ( pc->dead() && !pc->war ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
 				{
 					drawChar->setHighlight( pc->notority( iter_sock.current()->player() ) );
 					iter_sock.current()->send( new cUOTxDrawChar( *drawChar ) );
