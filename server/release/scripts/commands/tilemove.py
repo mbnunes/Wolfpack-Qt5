@@ -7,7 +7,7 @@
 
 """
 	\command tilemove
-	\description Move objects relative to their current position.
+	\description Moves items relative to their current position.
 	\usage - <code>tilemove [z0] x</code>
 	- <code>tilemove [z0] x[,y]</code>
 	- <code>tilemove [z0] x[,y][,z]</code>
