@@ -98,7 +98,7 @@ for account in wolfpack.accounts.list():
 
 	if letter == 'all':
 		accounts.append( account )
-	elif letter == '#' and first not in letters[1:]:
+	elif letter == '\#' and first not in letters[1:]:
 		accounts.append( account )
 	elif first == letter:
 		accounts.append( account )
