@@ -30,10 +30,9 @@
 		<tag name="res_physical" value="5,10" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling>40</wrestling>
-		<tactics>40</tactics>
-		<magicresistance>40</magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling">40</skill>
+		<skill id="tactics">40</skill>
+		<skill id="magicresist">40</skill>
 		<!-- Misc. -->
 		<!-- Missing:  -->
 		<controlslots>1</controlslots>
@@ -43,7 +42,6 @@
 		<carve>carve_rat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Rats\Rat</category>
-		
 		<intproperty name="carve_meat" value="1" />
 		<inherit id="speed_slow" />
 	</npc>

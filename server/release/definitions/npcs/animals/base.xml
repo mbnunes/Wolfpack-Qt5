@@ -13,13 +13,17 @@
 		<name>unknown animal</name>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction>
-		<anatomy>0</anatomy>
 		<mindamage>1</mindamage>
 		<maxdamage>3</maxdamage>
 		<mintaming>2000</mintaming>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<basescripts>speech.pets</basescripts>
 		<ai>Animal_Wild</ai>
+		<!-- Animals should at least have 0 skill and be able to gain. -->
+		<skill id="wrestling">0</skill>
+		<skill id="tactics">0</skill>
+		<skill id="magicresist">0</skill>
+		<skill id="anatomy">0</skill>
 	</npc>
 
 </definitions>

@@ -10,7 +10,7 @@
 
 	<!-- Sheep (sheered) -->
 	<npc id="sheep_sheered" inherit="animal_base">
-		<name>sheep</name>
+		<baseid>sheep</baseid>
 		<id>223</id>
 		<ai>Animal_Domestic</ai>
 		<inherit id="KARMA_L0" />
@@ -28,10 +28,9 @@
 		<!-- Defense -->
 		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling>50</wrestling>
-		<tactics>60</tactics>
-		<magicresistance>50</magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling">50</skill>
+		<skill id="tactics">60</skill>
+		<skill id="magicresist">50</skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>111</mintaming>
@@ -39,22 +38,25 @@
 		<carve>carve_sheep_sheered</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Farm\Sheep (Sheered)</category>
-		
 		<intproperty name="carve_meat" value="4" />
 		<strproperty name="carve_meat_type" value="lambleg" />
 	</npc>
 
 	<!-- Sheep (unsheered) -->
 	<npc id="sheep_unsheered" inherit="sheep_sheered">
+		<baseid>sheep</baseid>
 		<id>207</id>
 		<carve>carve_sheep_unsheered</carve>
 		<category>Animals\Land\Sheep (Unsheered)</category>
-
-		<intproperty name="carve_meat" value="4" />		
+		<intproperty name="carve_meat" value="4" />
 		<strproperty name="carve_meat_type" value="lambleg" />
-		
 		<!-- Carve -->
 		<intproperty name="carve_wool" value="1" />
+	</npc>
+
+	<npc id="sheep">
+		<inherit><random list="SHEEP_LIST" /></inherit>
+		<category>Animals\Land\Sheep (Random)</category>
 	</npc>
 
 </definitions>

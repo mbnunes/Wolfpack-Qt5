@@ -33,10 +33,9 @@
 		<tag name="res_poison" value="10,15" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="293" max="440" /></wrestling>
-		<tactics><random min="293" max="440" /></tactics>
-		<magicresistance><random min="251" max="300" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="293" max="440" /></skill>
+		<skill id="tactics"><random min="293" max="440" /></skill>
+		<skill id="magicresist"><random min="251" max="300" /></skill>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>291</mintaming>
@@ -44,7 +43,6 @@
 		<carve>carve_horse_pack</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Pack\Pack Horse</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<intproperty name="carve_meat" value="3" />

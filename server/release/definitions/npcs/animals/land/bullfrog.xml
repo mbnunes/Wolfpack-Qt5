@@ -32,7 +32,6 @@
 		<skill id="wrestling"><random min="401" max="600" /></skill>
 		<skill id="tactics"><random min="401" max="600" /></skill>
 		<skill id="magicresist"><random min="251" max="400" /></skill>
-		<skill id="anatomy">0</skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>231</mintaming>

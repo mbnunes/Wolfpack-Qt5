@@ -30,10 +30,9 @@
 		<tag name="res_fire" value="5,10" type="int" />
 		<tag name="res_cold" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="433" max="580" /></wrestling>
-		<tactics><random min="433" max="580" /></tactics>
-		<magicresistance><random min="451" max="600" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="433" max="580" /></skill>
+		<skill id="tactics"><random min="433" max="580" /></skill>
+		<skill id="magicresist"><random min="451" max="600" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>0</mintaming>
@@ -41,7 +40,7 @@
 		<carve>carve_gorilla</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Gorilla</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />

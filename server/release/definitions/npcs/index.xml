@@ -1,0 +1,20 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<!-- Animals -->
+	<include file="definitions/npcs/animals/index.xml"/>
+
+	<!-- Humans -->
+	<include file="definitions/npcs/humans/index.xml"/>
+
+	<!-- Monsters -->
+	<include file="definitions/npcs/monsters/index.xml"/>
+
+</definitions>

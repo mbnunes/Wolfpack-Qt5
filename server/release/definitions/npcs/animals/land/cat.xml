@@ -32,7 +32,6 @@
 		<skill id="wrestling">50</skill>
 		<skill id="tactics">40</skill>
 		<skill id="magicresist">50</skill>
-		<skill id="anatomy" >0</skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>0</mintaming>

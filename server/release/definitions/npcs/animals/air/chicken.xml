@@ -26,7 +26,6 @@
 		<skill id="wrestling">50</skill>
 		<skill id="tactics">50</skill>
 		<skill id="magicresist">40</skill>
-		<skill id="anatomy">0</skill>
 		<!-- Damage -->
 		<mindamage>1</mindamage>
 		<maxdamage>1</maxdamage>

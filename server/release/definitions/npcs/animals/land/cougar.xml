@@ -31,10 +31,9 @@
 		<tag name="res_cold" value="10,15" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="451" max="600" /></wrestling>
-		<tactics><random min="451" max="600" /></tactics>
-		<magicresistance><random min="151" max="300" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="451" max="600" /></skill>
+		<skill id="tactics"><random min="451" max="600" /></skill>
+		<skill id="magicresist"><random min="151" max="300" /></skill>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>411</mintaming>
@@ -42,7 +41,6 @@
 		<!--<carve></carve>-->
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Cougar</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<intproperty name="carve_meat" value="1" />

@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Base Includes -->
-	<include file="definitions/npcs/monsters/undead/undead_base.xml"/>
+	<include file="definitions/npcs/monsters/base.xml"/>
 
 	<!-- Beasts -->
 	<include file="definitions/npcs/monsters/beasts/index.xml" />
@@ -37,7 +37,7 @@
 
 	<!-- Insect / Arachnid -->
 	<include file="definitions/npcs/monsters/insect/index.xml" />
-	
+
 	<!-- Juka -->
 	<include file="definitions/npcs/monsters/juka/index.xml" />
 
@@ -46,7 +46,7 @@
 
 	<!-- Meer -->
 	<include file="definitions/npcs/monsters/meer/index.xml" />
-	
+
 	<!-- Ophidian -->
 	<include file="definitions/npcs/monsters/ophidian/index.xml" />
 

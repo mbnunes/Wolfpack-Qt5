@@ -1,0 +1,22 @@
+
+<definitions>
+
+	<!-- Mounts -->
+	<include file="definitions/npcs/animals/mounts/dark_steed.xml" />
+	<include file="definitions/npcs/animals/mounts/ethereals.xml" />
+	<include file="definitions/npcs/animals/mounts/fire_steed.xml" />
+	<include file="definitions/npcs/animals/mounts/giant_beetle.xml" />
+	<include file="definitions/npcs/animals/mounts/horse.xml" />
+	<include file="definitions/npcs/animals/mounts/hiryu.xml" />
+	<include file="definitions/npcs/animals/mounts/kirin.xml" />
+	<include file="definitions/npcs/animals/mounts/nightmare.xml" />
+	<include file="definitions/npcs/animals/mounts/ostards.xml" />
+	<include file="definitions/npcs/animals/mounts/ridable_llama.xml" />
+	<include file="definitions/npcs/animals/mounts/ridgeback.xml" />
+	<include file="definitions/npcs/animals/mounts/seahorse.xml" />
+	<include file="definitions/npcs/animals/mounts/silver_steed.xml" />
+	<include file="definitions/npcs/animals/mounts/swamp_dragon.xml" />
+	<include file="definitions/npcs/animals/mounts/unicorn.xml" />
+	<include file="definitions/npcs/animals/mounts/war_horses.xml" />
+
+</definitions>

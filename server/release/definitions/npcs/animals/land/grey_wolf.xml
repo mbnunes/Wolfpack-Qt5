@@ -32,10 +32,9 @@
 		<tag name="res_poison" value="10,15" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="451" max="600" /></wrestling>
-		<tactics><random min="451" max="600" /></tactics>
-		<magicresistance><random min="201" max="350" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="451" max="600" /></skill>
+		<skill id="tactics"><random min="451" max="600" /></skill>
+		<skill id="magicresist"><random min="201" max="350" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>531</mintaming>
@@ -43,7 +42,6 @@
 		<!--<carve></carve>-->
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Canine\Grey Wolf (Random)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />
@@ -51,13 +49,15 @@
 
 	<!-- Grey Wolf -->
 	<npc id="grey_wolf_1" inherit="grey_wolf">
-		<id>27</id>
+		<id>25</id>
+		<baseid>grey_wolf</baseid>
 		<category>Animals\Canine\Grey Wolf 1</category>
 	</npc>
 
 	<!-- Grey Wolf -->
 	<npc id="grey_wolf_2" inherit="grey_wolf">
 		<id>27</id>
+		<baseid>grey_wolf</baseid>
 		<category>Animals\Canine\Grey Wolf 2</category>
 	</npc>
 

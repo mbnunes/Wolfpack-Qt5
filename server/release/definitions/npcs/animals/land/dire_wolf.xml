@@ -32,17 +32,15 @@
 		<tag name="res_poison" value="5,10" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="601" max="800" /></wrestling>
-		<tactics><random min="501" max="700" /></tactics>
-		<magicresistance><random min="576" max="750" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="601" max="800" /></skill>
+		<skill id="tactics"><random min="501" max="700" /></skill>
+		<skill id="magicresist"><random min="576" max="750" /></skill>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>831</mintaming>
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Dire Wolf</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="7" />
 		<strproperty name="carve_hides_type" value="spined" />

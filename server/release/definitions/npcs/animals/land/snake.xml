@@ -31,11 +31,10 @@
 		<tag name="res_physical" value="10,20" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="193" max="340" /></wrestling>
-		<tactics><random min="193" max="340" /></tactics>
-		<magicresistance><random min="151" max="200" /></magicresistance>
-		<poisoning><random min="501" max="700" /></poisoning>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="193" max="340" /></skill>
+		<skill id="tactics"><random min="193" max="340" /></skill>
+		<skill id="magicresist"><random min="151" max="200" /></skill>
+		<skill id="poisoning"><random min="501" max="700" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>591</mintaming>
@@ -45,9 +44,8 @@
 		<category>Animals\Land\Snake</category>
 		<strproperty name="slayer_group" value="snakes" />
 		<intproperty name="carve_meat" value="1" />
-		
 		<basescript>npc.poison</basescript>
-		<intproperty name="hit_poison_level" value="0" />		
+		<intproperty name="hit_poison_level" value="0" />
 	</npc>
 
 </definitions>

@@ -1,0 +1,36 @@
+
+<definitions>
+	<!-- Land -->
+	<include file="definitions/npcs/animals/land/alligator.xml"/>
+	<include file="definitions/npcs/animals/land/black_bear.xml"/>
+	<include file="definitions/npcs/animals/land/boar.xml"/>
+	<include file="definitions/npcs/animals/land/brown_bear.xml"/>
+	<include file="definitions/npcs/animals/land/bull.xml"/>
+	<include file="definitions/npcs/animals/land/bullfrog.xml"/>
+	<include file="definitions/npcs/animals/land/cat.xml"/>
+	<include file="definitions/npcs/animals/land/cougar.xml"/>
+	<include file="definitions/npcs/animals/land/cow.xml"/>
+	<include file="definitions/npcs/animals/land/dire_wolf.xml"/>
+	<include file="definitions/npcs/animals/land/dog.xml"/>
+	<include file="definitions/npcs/animals/land/goat.xml"/>
+	<include file="definitions/npcs/animals/land/gorilla.xml"/>
+	<include file="definitions/npcs/animals/land/great_hart.xml"/>
+	<include file="definitions/npcs/animals/land/grey_wolf.xml"/>
+	<include file="definitions/npcs/animals/land/grizzly_bear.xml"/>
+	<include file="definitions/npcs/animals/land/hind.xml"/>
+	<include file="definitions/npcs/animals/land/jack_rabbit.xml"/>
+	<include file="definitions/npcs/animals/land/llama.xml"/>
+	<include file="definitions/npcs/animals/land/pack_horse.xml"/>
+	<include file="definitions/npcs/animals/land/pack_llama.xml"/>
+	<include file="definitions/npcs/animals/land/panther.xml"/>
+	<include file="definitions/npcs/animals/land/polar_bear.xml"/>
+	<include file="definitions/npcs/animals/land/rabbit.xml"/>
+	<include file="definitions/npcs/animals/land/rat.xml"/>
+	<include file="definitions/npcs/animals/land/sheep.xml"/>
+	<include file="definitions/npcs/animals/land/snake.xml"/>
+	<include file="definitions/npcs/animals/land/snow_leopard.xml"/>
+	<include file="definitions/npcs/animals/land/timber_wolf.xml"/>
+	<include file="definitions/npcs/animals/land/walrus.xml"/>
+	<include file="definitions/npcs/animals/land/white_wolf.xml"/>
+
+</definitions>

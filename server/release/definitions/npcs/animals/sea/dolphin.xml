@@ -31,14 +31,12 @@
 		<tag name="res_poison" value="10,15" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="192" max="290" /></wrestling>
-		<tactics><random min="192" max="290" /></tactics>
-		<magicresistance><random min="151" max="200" /></magicresistance>
-		<anatomy>0</anatomy>
-		<!-- Misc. -->S
+		<skill id="wrestling"><random min="192" max="290" /></skill>
+		<skill id="tactics"><random min="192" max="290" /></skill>
+		<skill id="magicresist"><random min="151" max="200" /></skill>
+		<!-- Misc. -->
 		<carve>carve_dolphin</carve>
 		<category>Animals\Sea\Dolphin</category>
-		
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

@@ -36,8 +36,8 @@
 		<skin><random list="SKINS_HUMAN" /></skin>
 		<saycolor><random min="2" max="1000" /></saycolor>
 		<wandertype>1</wandertype>
-		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
-
+		<!-- Facing a random direction -->
+		<direction><random min="0" max="7" /></direction>
 		<!-- The Equipment of a standard human -->
 		<equipped>
 			<item id="e75" /> <!-- Backpack -->
@@ -48,12 +48,26 @@
 		</equipped>
 
 		<inherit><random list="NPC_BEARD_CHANCE"/></inherit>
-
 		<haircolor><random list="HAIRCOLOR" /></haircolor>
 
 		<str><random min="71" max="85" /></str>
 		<dex><random min="66" max="80" /></dex>
 		<int><random min="66" max="80" /></int>
+		<!-- Skills -->
+		<skill id="parrying">0</skill>
+		<skill id="magery">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="meditation">0</skill>
+		<skill id="magicresist">0</skill>
+		<skill id="tactics">0</skill>
+		<skill id="wrestling">0</skill>
+		<skill id="swordsmanship">0</skill>
+		<skill id="fencing">0</skill>
+		<skill id="macefighting">0</skill>
+		<skill id="archery">0</skill>
+		<skill id="anatomy">0</skill>
+		<skill id="necromancy">0</skill>
+		<skill id="focus">0</skill>
 		<basescripts>speech.pets</basescripts>
 	</npc>
 
@@ -65,9 +79,9 @@
 		<name><random list="NAMES_FEMALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
 		<saycolor><random min="2" max="1000" /></saycolor>
-        <wandertype>1</wandertype>
-		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
-
+		<wandertype>1</wandertype>
+		<!-- Facing a random direction -->
+		<direction><random min="0" max="7" /></direction>
 		<!-- The Equipment of a standard human -->
 		<equipped>
 			<item id="e75" /> 			<!-- Backpack -->
@@ -82,6 +96,21 @@
 		<str><random min="71" max="85" /></str>
 		<dex><random min="66" max="80" /></dex>
 		<int><random min="66" max="80" /></int>
+		<!-- Skills -->
+		<skill id="parrying">0</skill>
+		<skill id="magery">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="meditation">0</skill>
+		<skill id="magicresist">0</skill>
+		<skill id="tactics">0</skill>
+		<skill id="wrestling">0</skill>
+		<skill id="swordsmanship">0</skill>
+		<skill id="fencing">0</skill>
+		<skill id="macefighting">0</skill>
+		<skill id="archery">0</skill>
+		<skill id="anatomy">0</skill>
+		<skill id="necromancy">0</skill>
+		<skill id="focus">0</skill>
 		<basescripts>speech.pets</basescripts>
 	</npc>
 

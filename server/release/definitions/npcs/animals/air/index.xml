@@ -1,0 +1,9 @@
+
+<definitions>
+
+	<!-- Air -->
+	<include file="definitions/npcs/animals/air/birds.xml"/>
+	<include file="definitions/npcs/animals/air/chicken.xml"/>
+	<include file="definitions/npcs/animals/air/eagle.xml"/>
+
+</definitions>

@@ -31,10 +31,9 @@
 		<tag name="res_poison" value="15,25" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="451" max="700" /></wrestling>
-		<tactics><random min="601" max="900" /></tactics>
-		<magicresistance><random min="451" max="600" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="451" max="700" /></skill>
+		<skill id="tactics"><random min="601" max="900" /></skill>
+		<skill id="magicresist"><random min="451" max="600" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>351</mintaming>
@@ -42,7 +41,6 @@
 		<carve>carve_bear_polar</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Bears\Polar Bear</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="16" />
 		<intproperty name="carve_meat" value="2" />

@@ -32,28 +32,28 @@
 		<tag name="res_poison" value="10,20" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="401" max="500" /></wrestling>
-		<tactics><random min="451" max="600" /></tactics>
-		<magicresistance><random min="251" max="350" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="401" max="500" /></skill>
+		<skill id="tactics"><random min="451" max="600" /></skill>
+		<skill id="magicresist"><random min="251" max="350" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>531</mintaming>
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Feline\Snow Leopard (Random)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 	<npc id="snow_leopard_1" inherit="snow_leopard">
+		<baseid>snow_leopard</baseid>
 		<id>64</id>
 		<category>Animals\Feline\Snow Leopard 1</category>
 	</npc>
 
 	<npc id="snow_leopard_2" inherit="snow_leopard">
+		<baseid>snow_leopard</baseid>
 		<id>65</id>
 		<category>Animals\Feline\Snow Leopard 2</category>
 	</npc>

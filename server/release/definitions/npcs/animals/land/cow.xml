@@ -28,10 +28,9 @@
 		<!-- Defense -->
 		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Skills -->
-		<wrestling>55</wrestling>
-		<tactics>55</tactics>
-		<magicresistance>55</magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling">55</skill>
+		<skill id="tactics">55</skill>
+		<skill id="magicresist">55</skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>111</mintaming>
@@ -39,7 +38,7 @@
 		<carve>carve_cow</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Cow (Random)</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
 		<intproperty name="carve_meat" value="8" />
@@ -48,12 +47,14 @@
 	<!-- Cow (black & white) -->
 	<npc id="cow_black" inherit="cow">
 		<id>231</id>
+		<baseid>cow</baseid>
 		<category>Animals\Land\Cow (Black)</category>
 	</npc>
 
 	<!-- Cow (brown) -->
 	<npc id="cow_brown" inherit="cow">
 		<id>216</id>
+		<baseid>cow</baseid>
 		<category>Animals\Land\Cow (Brown)</category>
 	</npc>
 

@@ -31,10 +31,9 @@
 		<tag name="res_cold" value="10,15" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="501" max="650" /></wrestling>
-		<tactics><random min="501" max="650" /></tactics>
-		<magicresistance><random min="151" max="300" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="501" max="650" /></skill>
+		<skill id="tactics"><random min="501" max="650" /></skill>
+		<skill id="magicresist"><random min="151" max="300" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>531</mintaming>
@@ -42,9 +41,8 @@
 		<carve>carve_panther</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Feline\Panther</category>
-		
 		<!-- Carve -->
-		<intproperty name="carve_hides" value="10" />		
+		<intproperty name="carve_hides" value="10" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

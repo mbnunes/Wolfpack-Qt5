@@ -28,10 +28,9 @@
 		<!-- Defense -->
 		<tag name="res_physical" value="5,15" type="int" />
 		<!-- Skills -->
-		<wrestling>50</wrestling>
-		<tactics>50</tactics>
-		<magicresistance>50</magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling">50</skill>
+		<skill id="tactics">50</skill>
+		<skill id="magicresist">50</skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>111</mintaming>
@@ -39,7 +38,7 @@
 		<carve>carve_goat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Goat</category>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<intproperty name="carve_meat" value="2" />
@@ -50,8 +49,8 @@
 		<ai>Animal_Wild</ai>
 		<name>mountain goat</name>
 		<id>88</id>
-		<karma>0</karma>
-		<fame>300</fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="22" max="64" /></str>
 		<dex><random min="56" max="75" /></dex>
@@ -69,16 +68,15 @@
 		<tag name="res_poison" value="10,15" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="293" max="440" /></wrestling>
-		<tactics><random min="293" max="440" /></tactics>
-		<magicresistance><random min="251" max="300" /></magicresistance>
+		<skill id="wrestling"><random min="293" max="440" /></skill>
+		<skill id="tactics"><random min="293" max="440" /></skill>
+		<skill id="magicresist"><random min="251" max="300" /></skill>
 		<controlslots>1</controlslots>
 		<mintaming>0</mintaming>
 		<food>1</food>
 		<carve>carve_goat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Mountain Goat</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
 		<intproperty name="carve_meat" value="2" />

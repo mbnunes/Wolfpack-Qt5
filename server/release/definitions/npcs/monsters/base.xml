@@ -22,32 +22,22 @@
 		<mindamage>1</mindamage>
 		<maxdamage>10</maxdamage>
 		<!-- Skills -->
-		<anatomy>0</anatomy>
-		<wrestling>0</wrestling>
-		<tactics>0</tactics>
-		<magicresistance>0</magicresistance>
+		<skill id="wrestling">0</skill>
+		<skill id="tactics">0</skill>
+		<skill id="magicresist">0</skill>
+		<skill id="anatomy">0</skill>
 		<!-- Misc -->
-		<mintaming>1100</mintaming>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="7"/></direction>
 		<mintaming>2000</mintaming>
 		<basescripts>speech.pets</basescripts>
 	</npc>
-	
-	<!-- Monster Speeds -->
-	<npc id="speed_slow">
-		<speed action="300" wander="600" />
+
+	<!-- undead_base-->
+	<npc id="undead_base" inherit="monster_base">
+		<ai>Monster_Aggressive_L1</ai>
+		<wandertype>1</wandertype>
+		<strproperty name="bloodcolor" value="1401,1447" />
 	</npc>
-	
-	<npc id="speed_medium">
-		<speed action="250" wander="500" />
-	</npc>
-	
-	<npc id="speed_fast">
-		<speed action="200" wander="400" />			
-	</npc>
-	
-	<npc id="speed_veryfast">
-		<speed action="175" wander="350" />
-	</npc>
+
 </definitions>
