@@ -975,6 +975,15 @@ public:
 					socket->send( pGump );
 				}
 			}
+			else if( isItemSerial( target->serial() ) )
+			{
+				P_ITEM pItem = FindItemBySerial( target->serial() );
+				if( pItem )
+				{
+					cItemInfoGump* pGump = new cItemInfoGump( pItem );
+					socket->send( pGump );
+				}
+			}
 		}
 		return true;
 	}
@@ -1278,40 +1287,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 			}
 			else
 			{
-/*				QStringList rectangles = spawnRegion->rectangles();
-				UINT32 numrects = rectangles.size();
-				if( numrects > 10 )
-					numrects = 10;
-
-				// Display a gump with this information
-				cGump* pGump = new cGump();
-
-				// Basic .INFO Header
-				pGump->addResizeGump( 0, 40, 0xA28, 450, 220 + numrects * 20 ); //Background
-				pGump->addGump( 105, 18, 0x58B ); // Fancy top-bar
-				pGump->addGump( 182, 0, 0x589 ); // "Button" like gump
-				pGump->addTilePic( 202, 23, 0x14eb ); // Type of info menu
-	
-				pGump->addText( 175, 90, tr( "Spawnregion Info" ), 0x530 );
-
-				// Give information about the spawnregion
-				pGump->addText( 50, 120, tr( "Name: %1" ).arg( args[1] ), 0x834 );
-				pGump->addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( spawnRegion->npcs() ).arg( spawnRegion->maxNpcs() ), 0x834 );
-				pGump->addText( 50, 160, tr( "Items: %1 of %2" ).arg( spawnRegion->items() ).arg( spawnRegion->maxItems() ), 0x834 );
-				pGump->addText( 50, 180, tr( "Coordinates: %1" ).arg( rectangles.size() ), 0x834 );
-			
-				UINT8 i;
-				for( i = 0; i < numrects; i++ )
-				{
-					pGump->addText( 50, 200 + i * 20, tr( "Rectangle %1: %2" ).arg( i+1 ).arg( rectangles[i] ), 0x834 );
-				}
-
-				// OK button
-				pGump->addButton( 90, 210 + numrects * 20, 0x481, 0x483, 0 ); // Only Exit possible
-				pGump->addText( 130, 210 + numrects * 20, tr( "Close" ), 0x834 );*/
-
 				cSpawnRegionInfoGump* pGump = new cSpawnRegionInfoGump( spawnRegion );
-
 				socket->send( pGump );
 			}
 		}
@@ -1342,6 +1318,244 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 	}
 }
 
+class cSetTagTarget: public cTargetRequest
+{
+private:
+	UINT8 type_;
+	QString key_;
+	QString value_;
+public:
+	cSetTagTarget( QString key, QString value, UINT8 type ) 
+	{ 
+		type_	= type; 
+		key_	= key;
+		value_	= value;
+	}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( isCharSerial( target->serial() ) )
+		{
+			P_CHAR pChar = FindCharBySerial( target->serial() );
+			if( pChar )
+			{
+				if( type_ )
+					pChar->tags.set( key_, cVariant( value_.toInt() ) );
+				else
+					pChar->tags.set( key_, cVariant( value_ ) );
+			}
+			return true;
+		}
+		else if( isItemSerial( target->serial() ) )
+		{
+			P_ITEM pItem = FindItemBySerial( target->serial() );
+			if( pItem )
+			{
+				if( type_ )
+					pItem->tags.set( key_, cVariant( value_.toInt() ) );
+				else
+					pItem->tags.set( key_, cVariant( value_ ) );
+			}
+			return true;
+		}
+		return false;
+	}
+};
+
+class cGetTagTarget: public cTargetRequest
+{
+private:
+	QString key_;
+public:
+	cGetTagTarget( QString key ) 
+	{ 
+		key_	= key;
+	}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( isCharSerial( target->serial() ) )
+		{
+			P_CHAR pChar = FindCharBySerial( target->serial() );
+			if( pChar )
+			{
+				socket->sysMessage( tr("Tag \"%1\" has value \"%2\".").arg( key_ ).arg( pChar->tags.get( key_ ).asString() ) );
+			}
+			return true;
+		}
+		else if( isItemSerial( target->serial() ) )
+		{
+			P_ITEM pItem = FindItemBySerial( target->serial() );
+			if( pItem )
+			{
+				socket->sysMessage( tr("Tag \"%1\" has value \"%2\".").arg( key_ ).arg( pItem->tags.get( key_ ).asString() ) );
+			}
+			return true;
+		}
+		return false;
+	}
+};
+
+class cRemoveTagTarget: public cTargetRequest
+{
+private:
+	QString key_;
+public:
+	cRemoveTagTarget( QString key ) 
+	{ 
+		key_	= key;
+	}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( isCharSerial( target->serial() ) )
+		{
+			P_CHAR pChar = FindCharBySerial( target->serial() );
+			if( pChar )
+			{
+				if( key_.lower() == "all" )
+				{
+					QStringList keys = pChar->tags.getKeys();
+					QStringList::const_iterator it = keys.begin();
+					while( it != keys.end() )
+					{
+						pChar->tags.remove( (*it) );
+						it++;
+					}
+					socket->sysMessage( tr("All tags removed.") );
+				}
+				else
+				{
+					pChar->tags.remove( key_ );
+					socket->sysMessage( tr("Tag \"%1\" removed.").arg( key_ ) );
+				}
+			}
+			return true;
+		}
+		else if( isItemSerial( target->serial() ) )
+		{
+			P_ITEM pItem = FindItemBySerial( target->serial() );
+			if( pItem )
+			{
+				if( key_.lower() == "all" )
+				{
+					QStringList keys = pItem->tags.getKeys();
+					QStringList::const_iterator it = keys.begin();
+					while( it != keys.end() )
+					{
+						pItem->tags.remove( (*it) );
+						it++;
+					}
+					socket->sysMessage( tr("All tags removed.") );
+				}
+				else
+				{
+					pItem->tags.remove( key_ );
+					socket->sysMessage( tr("Tag \"%1\" removed.").arg( key_ ) );
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+};
+
+class cTagsInfoTarget: public cTargetRequest
+{
+public:
+	cTagsInfoTarget() {}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( isCharSerial( target->serial() ) )
+		{
+			P_CHAR pChar = FindCharBySerial( target->serial() );
+			if( pChar )
+			{
+				cTagsInfoGump* pGump = new cTagsInfoGump( pChar );
+				socket->send( pGump );
+			}
+			return true;
+		}
+		else if( isItemSerial( target->serial() ) )
+		{
+			P_ITEM pItem = FindItemBySerial( target->serial() );
+			if( pItem )
+			{
+				cTagsInfoGump* pGump = new cTagsInfoGump( pItem );
+				socket->send( pGump );
+			}
+			return true;
+		}
+		return false;
+	}
+};
+
+void commandTags( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	// Tags set		<key> <value>	(as string/value)
+	// Tags get		<key>
+	// Tags remove	<key> or all
+	// Tags info
+
+	if( args.count() == 0 )
+	{
+		socket->sysMessage( tr( "Usage: tags <set|get|remove|info>" ) );
+		return;
+	}
+
+	QString subCommand = args[0].lower();
+
+	// set
+	if( subCommand == "set" )
+	{
+		if( args.count() < 3 )
+		{
+			socket->sysMessage( tr( "Usage: tags set <key> <value> (as value/string)" ) );
+		} 
+		else
+		{
+			UINT8 type = 0; // 0 - string, 1 - value
+			if( args.count() == 5 )
+			{
+				if( args[4].lower() == "value" )
+					type = 1;
+			}
+			socket->sysMessage( tr( "Please select a target" ) );
+			socket->attachTarget( new cSetTagTarget( args[1], args[2], type ) );
+		}
+	}
+	if( subCommand == "get" )
+	{
+		if( args.count() < 2 )
+		{
+			socket->sysMessage( tr( "Usage tags get <key>" ) );
+		}
+		else
+		{
+			socket->sysMessage( tr( "Please select a target" ) );
+			socket->attachTarget( new cGetTagTarget( args[1] ) );
+		}
+	}
+	if( subCommand == "remove" )
+	{
+		if( args.count() < 2 )
+		{
+			socket->sysMessage( tr( "Usage tags remove <key>" ) );
+		}
+		else
+		{
+			socket->sysMessage( tr( "Please select a target" ) );
+			socket->attachTarget( new cRemoveTagTarget( args[1] ) );
+		}
+	}
+	if( subCommand == "info" )
+	{
+		socket->sysMessage( tr( "Please select a target" ) );
+		socket->attachTarget( new cTagsInfoTarget() );
+	}
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1360,6 +1574,7 @@ stCommand cCommands::commands[] =
 	{ "SHOW",			commandShow },
 	{ "SPAWNREGION",	commandSpawnRegion },
 	{ "KILL",			commandKill },
+	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },
 	{ "WHERE",			commandWhere },
 	{ "RESURRECT",		commandResurrect },

@@ -208,7 +208,6 @@ protected:
 	int						beardserial_;
 	unsigned int			begging_timer_;
 	int						postType_;
-	QString			        privlvl_;  // needed for special privs
 	int						questType_;
 	int						questDestRegion_;
 	int						questOrigRegion_;
@@ -384,7 +383,6 @@ public:
 	unsigned int			poisontime() const { return poisontime_;}
 	unsigned int			poisontxt() const { return poisontxt_;}
 	unsigned int			poisonwearofftime() const { return poisonwearofftime_;}
-	QString			        privlvl() const { return privlvl_; }
 	short					fleeat() const { return fleeat_;}
 	short					reattackat() const { return reattackat_; }
 	int						trigger() const { return trigger_; }
@@ -462,7 +460,6 @@ public:
 	void					setBeardSerial( SERIAL data ) {beardserial_ = data;}
 	void 					setBegging_timer( unsigned int data ) { begging_timer_ = data;}
 	void					setPostType( int data ) { postType_ = data;}
-	void					setPrivLvl( QString data ) { privlvl_ = data; }
 	void					setQuestType ( int data ) { questType_ = data;}
 	void					setQuestDestRegion( int data ) { questDestRegion_ = data;}
 	void					setQuestOrigRegion( int data ) {questOrigRegion_ = data;}

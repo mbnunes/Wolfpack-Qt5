@@ -34,16 +34,6 @@
 #include "wolfpack.h"
 #include "wptargetrequests.h"
 
-class cSetPrivLvlTarget: public cTargetRequest
-{
-protected:
-	QString plevel_;
-public:
-	cSetPrivLvlTarget( const QString &plevel ) { plevel_ = plevel; };
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
 class cAddItemTarget: public cTargetRequest
 {
 protected:

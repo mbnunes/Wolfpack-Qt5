@@ -194,14 +194,6 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		else
 			stablesp.insert(pc->stablemaster_serial(), pc->serial);
 
-		if (pc->isPlayer() && pc->privlvl().isEmpty())
-		{
-			if (!pc->isGMorCounselor()) pc->setPrivLvl("player"); //normal player defaults
-			if (pc->isCounselor())		pc->setPrivLvl("counselor"); // couscelor defaults
-			if (pc->isGM()) 			pc->setPrivLvl("gm"); // gm defaults
-			if (pc->account()==0)		pc->setPrivLvl("admin");
-		}
-
 		if (pc->isPlayer() && pc->account() == 0) pc->setMenupriv(-1);
 
 

@@ -752,10 +752,6 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	pc->priv2 = (unsigned char) (0xD9);
 	pc->setGmRestrict(0); // By default, let's not restrict them.
 	
-	if (pc->account() == 0) 
-		pc->setPrivLvl("admin");
-	else
-		pc->setPrivLvl("gm"); // gm default
 	pc->setMenupriv(-1); // LB, disabling menupriv stuff for gms per default
 	
 	for (i = 0; i < TRUESKILLS; i++)
@@ -805,8 +801,6 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 		sprintf((char*)temp, "Counselor %s", pc->name.c_str());
 		pc->name  = (char*)temp;
 	}
-	pc->setPrivLvl("counselor"); // counselor defaults
-	if (pc->account()==0) pc->setPrivLvl("admin");
 	MoveBelongingsToBp(pc, pc);
 }
 

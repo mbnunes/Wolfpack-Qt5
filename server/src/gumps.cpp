@@ -511,14 +511,14 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 	if( char_ )
 	{
 		UINT32 page_ = 0;
-		UINT32 pages = 2;
+		UINT32 pages = 4;
 
 		startPage();
 		addResizeGump( 0, 40, 0xA28, 450, 350 ); //Background
 		addGump( 105, 18, 0x58B ); // Fancy top-bar
 		addGump( 182, 0, 0x589 ); // "Button" like gump
 		addTilePic( 202, 23, creatures[ char_->id() ].icon ); // Type of info menu
-		addText( 190, 90, tr( "Char Info" ), 0x530 );
+		addText( 178, 90, tr( "Char Properties" ), 0x530 );
 
 		// Apply button
 		addButton( 50, 340, 0x481, 0x483, 1 ); 
@@ -530,7 +530,6 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		page_++;
 		startPage( page_ );
 
-		// Give information about the char
 		addText( 50, 120, tr( "Name:" ), 0x834 );
 		addInputField( 250, 120, 150, 16,  1, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
 		addText( 50, 140, tr( "Title:" ), 0x834 );
@@ -559,7 +558,6 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		page_++;
 		startPage( page_ );
 
-		// Give information about the char
 		addText( 50, 120, tr( "Spawnregion:" ), 0x834 );
 		addInputField( 250, 120, 150, 16, 11, QString( "%1" ).arg( pChar->spawnregion() ), 0x834 );
 		addText( 50, 140, tr( "Karma:" ), 0x834 );
@@ -572,14 +570,60 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addInputField( 250, 200, 150, 16, 15, QString( "%1" ).arg( pChar->deaths ), 0x834 );
 		addText( 50, 220, tr( "Defense:" ), 0x834 );
 		addInputField( 250, 220, 150, 16, 16, QString( "%1" ).arg( pChar->def ), 0x834 );
-		addText( 50, 240, tr( "Npc Wander:" ), 0x834 );
-		addInputField( 250, 240, 150, 16, 17, QString( "%1" ).arg( pChar->npcWander ), 0x834 );
+		addText( 50, 240, tr( "Dead:" ), 0x834 );
+		addInputField( 250, 240, 150, 16, 17, QString( "%1" ).arg( pChar->dead ), 0x834 );
 		addText( 50, 260, tr( "Carve:" ), 0x834 );
 		addInputField( 250, 260, 150, 16, 18, QString( "%1" ).arg( pChar->carve() ), 0x834 );
 		addText( 50, 280, tr( "Loot:" ), 0x834 );
 		addInputField( 250, 280, 150, 16, 19, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
 		addText( 50, 300, tr( "Hunger:" ), 0x834 );
 		addInputField( 250, 300, 150, 16, 20, QString( "%1" ).arg( pChar->hunger() ), 0x834 );
+
+		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		// prev page
+		addPageButton( 270, 340, 0x0FC, 0x0FC, page_-1 );
+		// next page
+		addPageButton( 290, 340, 0x0FA, 0x0FA, page_+1 );
+
+		page_++;
+		startPage( page_ );
+
+		addText( 50, 120, tr( "Npc Wander:" ), 0x834 );
+		addInputField( 250, 120, 150, 16, 21, QString( "%1" ).arg( pChar->npcWander ), 0x834 );
+		addText( 50, 140, tr( "fx1:" ), 0x834 );
+		addInputField( 250, 140, 150, 16, 22, QString( "%1" ).arg( pChar->fx1 ), 0x834 );
+		addText( 50, 160, tr( "fy1:" ), 0x834 );
+		addInputField( 250, 160, 150, 16, 23, QString( "%1" ).arg( pChar->fy1 ), 0x834 );
+		addText( 50, 180, tr( "fx2:" ), 0x834 );
+		addInputField( 250, 180, 150, 16, 24, QString( "%1" ).arg( pChar->fx2 ), 0x834 );
+		addText( 50, 200, tr( "fy2:" ), 0x834 );
+		addInputField( 250, 200, 150, 16, 25, QString( "%1" ).arg( pChar->fy2 ), 0x834 );
+		addText( 50, 220, tr( "fz:" ), 0x834 );
+		addInputField( 250, 220, 150, 16, 26, QString( "%1" ).arg( pChar->fz1 ), 0x834 );
+		addText( 50, 240, tr( "Direction:" ), 0x834 );
+		addInputField( 250, 240, 150, 16, 27, QString( "%1" ).arg( pChar->dir ), 0x834 );
+		addText( 50, 260, tr( "Strength modifier:" ), 0x834 );
+		addInputField( 250, 260, 150, 16, 28, QString( "%1" ).arg( pChar->st2 ), 0x834 );
+		addText( 50, 280, tr( "Dexterity modifier:" ), 0x834 );
+		addInputField( 250, 280, 150, 16, 29, QString( "%1" ).arg( pChar->decDex() ), 0x834 );
+		addText( 50, 300, tr( "Intelligence modifier:" ), 0x834 );
+		addInputField( 250, 300, 150, 16, 30, QString( "%1" ).arg( pChar->in2 ), 0x834 );
+
+		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		// prev page
+		addPageButton( 270, 340, 0x0FC, 0x0FC, page_-1 );
+		// next page
+		addPageButton( 290, 340, 0x0FA, 0x0FA, page_+1 );
+
+		page_++;
+		startPage( page_ );
+
+		addText( 50, 120, tr( "Speech color:" ), 0x834 );
+		addInputField( 250, 120, 150, 16, 31, QString( "%1" ).arg( pChar->saycolor ), 0x834 );
+		addText( 50, 140, tr( "Emote color:" ), 0x834 );
+		addInputField( 250, 140, 150, 16, 32, QString( "%1" ).arg( pChar->emotecolor ), 0x834 );
+		addText( 50, 160, tr( "Speech:" ), 0x834 );
+		addInputField( 250, 160, 150, 16, 33, QString( "%1" ).arg( pChar->speech ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// prev page
@@ -645,7 +689,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->def = hex2dec( it->second ).toUInt();
 				break;
 			case 17:
-				char_->npcWander = hex2dec( it->second ).toUShort();
+				char_->dead = ( it->second == "true" || hex2dec( it->second ).toUInt() > 0 );
 				break;
 			case 18:
 				char_->setCarve( it->second );
@@ -655,6 +699,45 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				break;
 			case 20:
 				char_->setHunger( hex2dec( it->second ).toInt() );
+				break;
+			case 21:
+				char_->npcWander = hex2dec( it->second ).toUShort();
+				break;
+			case 22:
+				char_->fx1 = hex2dec( it->second ).toInt();
+				break;
+			case 23:
+				char_->fy1 = hex2dec( it->second ).toInt();
+				break;
+			case 24:
+				char_->fx2 = hex2dec( it->second ).toInt();
+				break;
+			case 25:
+				char_->fy2 = hex2dec( it->second ).toInt();
+				break;
+			case 26:
+				char_->fz1 = hex2dec( it->second ).toInt();
+				break;
+			case 27:
+				char_->dir = hex2dec( it->second ).toUShort();
+				break;
+			case 28:
+				char_->st2 = hex2dec( it->second ).toShort();
+				break;
+			case 29:
+				char_->setDecDex( hex2dec( it->second ).toShort() );
+				break;
+			case 30:
+				char_->in2 = hex2dec( it->second ).toShort();
+				break;
+			case 31:
+				char_->saycolor = hex2dec( it->second ).toUShort();
+				break;
+			case 32:
+				char_->emotecolor = hex2dec( it->second ).toUShort();
+				break;
+			case 33:
+				char_->speech = hex2dec( it->second ).toUShort();
 				break;
 			}
 			it++;
@@ -670,3 +753,330 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 }
 
+cItemInfoGump::cItemInfoGump( cItem* pItem )
+{
+	type_ = 4;
+	item_ = pItem;
+
+	if( item_ )
+	{
+		UINT32 page_ = 0;
+		UINT32 pages = 4;
+
+		startPage();
+		addResizeGump( 0, 40, 0xA28, 450, 350 ); //Background
+		addGump( 105, 18, 0x58B ); // Fancy top-bar
+		addGump( 182, 0, 0x589 ); // "Button" like gump
+		addTilePic( 202, 23, item_->id() ); // Type of info menu
+		addText( 180, 90, tr( "Item Properties" ), 0x530 );
+
+		// Apply button
+		addButton( 50, 340, 0x481, 0x483, 1 ); 
+		addText( 90, 340, tr( "Apply" ), 0x834 );
+		// Close button
+		addButton( 160, 340, 0x47E, 0x480, 0 ); 
+		addText( 200, 340, tr( "Close" ), 0x834 );
+
+		page_++;
+		startPage( page_ );
+
+		addText( 50, 120, tr( "Name:" ), 0x834 );
+		addInputField( 250, 120, 150, 16,  1, QString( "%1" ).arg( pItem->name() ), 0x834 );
+		addText( 50, 140, tr( "Name (identified):" ), 0x834 );
+		addInputField( 250, 140, 150, 16,  2, QString( "%1" ).arg( pItem->name2() ), 0x834 );
+		addText( 50, 160, tr( "ID:" ), 0x834 );
+		addInputField( 250, 160, 150, 16,  3, QString( "%1" ).arg( pItem->id() ), 0x834 );
+		addText( 50, 180, tr( "Creator:" ), 0x834 );
+		addInputField( 250, 180, 150, 16,  4, QString( "%1" ).arg( pItem->creator.c_str() ), 0x834 );
+		addText( 50, 200, tr( "Made with skill no.:" ), 0x834 );
+		addInputField( 250, 200, 150, 16,  5, QString( "%1" ).arg( pItem->madewith ), 0x834 );
+		addText( 50, 220, tr( "Color:" ), 0x834 );
+		addInputField( 250, 220, 150, 16,  6, QString( "%1" ).arg( pItem->color() ), 0x834 );
+		addText( 50, 240, tr( "Amount:" ), 0x834 );
+		addInputField( 250, 240, 150, 16,  7, QString( "%1" ).arg( pItem->amount() ), 0x834 );
+		addText( 50, 260, tr( "Weight:" ), 0x834 );
+		addInputField( 250, 260, 150, 16,  8, QString( "%1" ).arg( pItem->weight() ), 0x834 );
+		addText( 50, 280, tr( "Layer:" ), 0x834 );
+		addInputField( 250, 280, 150, 16,  9, QString( "%1" ).arg( pItem->layer() ), 0x834 );
+		addText( 50, 300, tr( "Good:" ), 0x834 );
+		addInputField( 250, 300, 150, 16, 10, QString( "%1" ).arg( pItem->good ), 0x834 );
+
+		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		// next page
+		addPageButton( 290, 340, 0x0FA, 0x0FA, page_+1 );
+
+		page_++;
+		startPage( page_ );
+
+		addText( 50, 120, tr( "Type:" ), 0x834 );
+		addInputField( 250, 120, 150, 16, 11, QString( "%1" ).arg( pItem->type() ), 0x834 );
+		addText( 50, 140, tr( "Type 2:" ), 0x834 );
+		addInputField( 250, 140, 150, 16, 12, QString( "%1" ).arg( pItem->type2() ), 0x834 );
+		addText( 50, 160, tr( "Max. hitpoints:" ), 0x834 );
+		addInputField( 250, 160, 150, 16, 13, QString( "%1" ).arg( pItem->maxhp() ), 0x834 );
+		addText( 50, 180, tr( "Hitpoints:" ), 0x834 );
+		addInputField( 250, 180, 150, 16, 14, QString( "%1" ).arg( pItem->hp() ), 0x834 );
+		addText( 50, 200, tr( "Speed:" ), 0x834 );
+		addInputField( 250, 200, 150, 16, 15, QString( "%1" ).arg( pItem->speed() ), 0x834 );
+		addText( 50, 220, tr( "Low damage:" ), 0x834 );
+		addInputField( 250, 220, 150, 16, 16, QString( "%1" ).arg( pItem->lodamage() ), 0x834 );
+		addText( 50, 240, tr( "High damage:" ), 0x834 );
+		addInputField( 250, 240, 150, 16, 17, QString( "%1" ).arg( pItem->hidamage() ), 0x834 );
+		addText( 50, 260, tr( "Str (required):" ), 0x834 );
+		addInputField( 250, 260, 150, 16, 18, QString( "%1" ).arg( pItem->st ), 0x834 );
+		addText( 50, 280, tr( "Dex (required):" ), 0x834 );
+		addInputField( 250, 280, 150, 16, 19, QString( "%1" ).arg( pItem->dx ), 0x834 );
+		addText( 50, 300, tr( "Int (required):" ), 0x834 );
+		addInputField( 250, 300, 150, 16, 20, QString( "%1" ).arg( pItem->in ), 0x834 );
+
+		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		// prev page
+		addPageButton( 270, 340, 0x0FC, 0x0FC, page_-1 );
+		// next page
+		addPageButton( 290, 340, 0x0FA, 0x0FA, page_+1 );
+
+		page_++;
+		startPage( page_ );
+
+		addText( 50, 120, tr( "Dyable:" ), 0x834 );
+		addInputField( 250, 120, 150, 16, 21, QString( "%1" ).arg( pItem->dye ), 0x834 );
+		addText( 50, 140, tr( "Decay:" ), 0x834 );
+		addInputField( 250, 140, 150, 16, 22, QString( "%1" ).arg( pItem->priv & 0x01 ? "true" : "false" ), 0x834 );
+		addText( 50, 160, tr( "Dispellable/newbie:" ), 0x834 );
+		addInputField( 250, 160, 150, 16, 23, QString( "%1" ).arg( pItem->priv & 0x04 ? "true" : "false" ), 0x834 );
+		addText( 50, 180, tr( "Movable:" ), 0x834 );
+		addInputField( 250, 180, 150, 16, 24, QString( "%1" ).arg( pItem->magic ), 0x834 );
+		addText( 50, 200, tr( "Visible:" ), 0x834 );
+		addInputField( 250, 200, 150, 16, 25, QString( "%1" ).arg( pItem->visible ), 0x834 );
+		addText( 50, 220, tr( "Rank:" ), 0x834 );
+		addInputField( 250, 220, 150, 16, 26, QString( "%1" ).arg( pItem->rank ), 0x834 );
+		addText( 50, 240, tr( "Value:" ), 0x834 );
+		addInputField( 250, 240, 150, 16, 27, QString( "%1" ).arg( pItem->value ), 0x834 );
+		addText( 50, 260, tr( "Restock:" ), 0x834 );
+		addInputField( 250, 260, 150, 16, 28, QString( "%1" ).arg( pItem->restock ), 0x834 );
+		addText( 50, 280, tr( "Poisoned:" ), 0x834 );
+		addInputField( 250, 280, 150, 16, 29, QString( "%1" ).arg( pItem->poisoned ), 0x834 );
+		addText( 50, 300, tr( "Spawnregion:" ), 0x834 );
+		addInputField( 250, 300, 150, 16, 30, QString( "%1" ).arg( pItem->spawnregion() ), 0x834 );
+
+		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		// prev page
+		addPageButton( 270, 340, 0x0FC, 0x0FC, page_-1 );
+		// next page
+		addPageButton( 290, 340, 0x0FA, 0x0FA, page_+1 );
+
+		page_++;
+		startPage( page_ );
+
+		addText( 50, 120, tr( "Disabled:" ), 0x834 );
+		addInputField( 250, 120, 150, 16, 31, QString( "%1" ).arg( pItem->disabled ), 0x834 );
+		addText( 50, 140, tr( "Time unused:" ), 0x834 );
+		addInputField( 250, 140, 150, 16, 32, QString( "%1" ).arg( pItem->time_unused ), 0x834 );
+
+		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		// prev page
+		addPageButton( 270, 340, 0x0FC, 0x0FC, page_-1 );
+	}
+}
+
+void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+{
+	if( item_ )
+	{
+		std::map< UINT16, QString >::iterator it = choice.textentries.begin();
+		while( it != choice.textentries.end() )
+		{
+			switch( it->first )
+			{
+			case 1:
+				item_->setName( it->second );
+				break;
+			case 2:
+				item_->setName2( it->second );
+				break;
+			case 3:
+				item_->setId( hex2dec( it->second ).toUShort() );
+				break;
+			case 4:
+				if( it->second.length() > 0 )
+					item_->creator = it->second.latin1();
+				break;
+			case 5:
+				item_->madewith = hex2dec( it->second ).toInt();
+				break;
+			case 6:
+				item_->setColor( hex2dec( it->second ).toUShort() );
+				break;
+			case 7:
+				item_->setAmount( hex2dec( it->second ).toUShort() );
+				break;
+			case 8:
+				item_->setWeight( hex2dec( it->second ).toShort() );
+				break;
+			case 9:
+				item_->setLayer( hex2dec( it->second ).toShort() );
+				break;
+			case 10:
+				item_->good = hex2dec( it->second ).toInt();
+				break;
+			case 11:
+				item_->setType( hex2dec( it->second ).toUInt() );
+				break;
+			case 12:
+				item_->setType2( hex2dec( it->second ).toUInt() );
+				break;
+			case 13:
+				item_->setMaxhp( hex2dec( it->second ).toShort() );
+				break;
+			case 14:
+				item_->setHp( hex2dec( it->second ).toShort() );
+				break;
+			case 15:
+				item_->setSpeed( hex2dec( it->second ).toShort() );
+				break;
+			case 16:
+				item_->setLodamage( hex2dec( it->second ).toShort() );
+				break;
+			case 17:
+				item_->setHidamage( hex2dec( it->second ).toShort() );
+				break;
+			case 18:
+				item_->st = hex2dec( it->second ).toShort();
+				break;
+			case 19:
+				item_->dx = hex2dec( it->second ).toShort();
+				break;
+			case 20:
+				item_->in = hex2dec( it->second ).toShort();
+				break;
+			case 21:
+				item_->dye = hex2dec( it->second ).toUShort();
+				break;
+			case 22:
+				if( it->second == "true" || hex2dec( it->second ).toUInt() )
+					item_->priv |= 0x01;
+				else
+					item_->priv &= 0xFE;
+				break;
+			case 23:
+				if( it->second == "true" || hex2dec( it->second ).toUInt() )
+					item_->priv |= 0x04;
+				else
+					item_->priv &= 0xFB;
+				break;
+			case 24:
+				item_->magic = hex2dec( it->second ).toUShort();
+				break;
+			case 25:
+				item_->visible = hex2dec( it->second ).toUShort();
+				break;
+			case 26:
+				item_->rank = hex2dec( it->second ).toInt();
+				break;
+			case 27:
+				item_->value = hex2dec( it->second ).toInt();
+				break;
+			case 28:
+				item_->restock = hex2dec( it->second ).toInt();
+				break;
+			case 29:
+				item_->poisoned = hex2dec( it->second ).toUInt();
+				break;
+			case 30:
+				item_->setSpawnRegion( it->second );
+				break;
+			case 31:
+				item_->disabled = hex2dec( it->second ).toUInt();
+				break;
+			case 32:
+				item_->time_unused = hex2dec( it->second ).toUInt();
+				break;
+			}
+			it++;
+		}
+
+		if( choice.button == 0 )
+			return;
+		else
+		{
+			cItemInfoGump* pGump = new cItemInfoGump( item_ );
+			socket->send( pGump );
+		}
+	}
+}
+
+cTagsInfoGump::cTagsInfoGump( cUObject* object )
+{
+	type_ = 5;
+	object_ = object;
+
+	if( object )
+	{
+		QStringList allkeys = object->tags.getKeys();
+
+		UINT32 page_ = 0;
+		UINT32 numkeys = allkeys.size();
+		UINT32 pages = ((UINT32)floor( numkeys / 10 ))+1;
+
+		startPage();
+		// Basic .INFO Header
+		addResizeGump( 0, 40, 0xA28, 450, 420 ); //Background
+		addGump( 105, 18, 0x58B ); // Fancy top-bar
+		addGump( 182, 0, 0x589 ); // "Button" like gump
+		addTilePic( 202, 23, 0x14eb ); // Type of info menu
+		addText( 190, 90, tr( "Tags Info" ), 0x530 );
+
+		// OK button
+		addButton( 50, 410, 0x481, 0x483, 0 ); 
+		addText( 90, 410, tr( "Close" ), 0x834 );
+
+		for( page_ = 1; page_ <= pages; page_++ )
+		{
+			startPage( page_ );
+
+			UINT32 i;
+			UINT32 right = page_ * 19 - 1;
+			UINT32 left = page_ * 19 - 19;
+			if( numkeys < right )
+				right = numkeys-1;
+
+			QStringList keys = QStringList();
+			QStringList::const_iterator it = allkeys.at( left );
+			while( it != allkeys.at( right+1 ) )
+			{
+				keys.push_back( (*it) );
+				it++;
+			}
+			UINT32 thiskeys = keys.size();
+			
+
+			
+			for( i = 0; i < thiskeys; i++ )
+			{
+				addText( 50, 120 + i * 20, tr( "Tag \"%1\": %2" ).arg( keys[i] ).arg( object->tags.get( keys[i] ).asString() ), 0x834 );
+			}
+
+
+			addText( 310, 410, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+			if( page_ > 1 ) // previous page
+				addPageButton( 270, 410, 0x0FC, 0x0FC, page_-1 );
+
+			if( page_ < pages ) // next page
+				addPageButton( 290, 410, 0x0FA, 0x0FA, page_+1 );
+		}
+	}
+}
+
+void cTagsInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+{
+	if( choice.button == 0 )
+		return;
+
+	if( object_ )
+	{
+		cTagsInfoGump* pGump = new cTagsInfoGump( object_ );
+		socket->send( pGump );
+	}
+}
+
+  

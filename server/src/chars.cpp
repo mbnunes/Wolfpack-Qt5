@@ -142,7 +142,6 @@ void cChar::Init(bool ser)
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	this->priv2=0;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
-	this->setPrivLvl("");  // needed for special privs
 	this->fonttype=3; // Speech font to use
 	this->saycolor=0x1700; // Color for say messages
 	this->emotecolor = 0x0023; // Color for emote messages
@@ -792,8 +791,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("xskin",           xskin_);
 		archive.read("priv",			priv);
 		
-		archive.read("privlvl",			privlvl_);
-		
 		archive.read("stablemaster",	stablemaster_serial_);
 		archive.read("npctype",			npc_type_);
 		archive.read("time_unused",		time_unused_);
@@ -936,9 +933,6 @@ void cChar::Serialize(ISerialization &archive)
 		
 		archive.write("xskin",			xskin_);
 		archive.write("priv",			priv);
-		
-		archive.write("privlvl",			privlvl_);
-		// end of meta-gm save
 		
 		archive.write("stablemaster",	stablemaster_serial_);
 		archive.write("npctype",		npc_type_);

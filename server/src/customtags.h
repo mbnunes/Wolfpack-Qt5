@@ -297,7 +297,14 @@ public:
 		cSerializable::Serialize( archive );
 	}
 
-	cVariant	get( QString key ) { return this->tags_[ key ]; }
+	cVariant	get( QString key ) 
+	{ 
+		std::map< QString, cVariant >::iterator it = tags_.find( key );
+		if( it != tags_.end() )
+			return it->second;
+		else
+			return cVariant();
+	}
 	void		set( QString key, cVariant value ) 
 	{
 		if( !value.isValid() )

@@ -37,20 +37,6 @@
 #include "items.h"
 #include "itemsmgr.h"
 
-bool cSetPrivLvlTarget::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	if( !isCharSerial( target->serial() ) )
-		return true;
-
-	P_CHAR pc = FindCharBySerial( target->serial() );
-	if( !pc )
-		return true;
-
-	pc->setPrivLvl( plevel_ );
-	socket->sysMessage( tr( "PrivLvl set to : %1" ).arg( plevel_ ) );
-	return true;
-};	
-
 bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )

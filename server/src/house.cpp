@@ -69,7 +69,6 @@ void cHouseItem::processNode( const QDomElement &Tag )
 	}
 
 	// <lock />
-#pragma note( "Replace with customtags! see house.h" )
 	else if( TagName == "lock" )
 		this->locked_ = true;
 

@@ -238,5 +238,27 @@ public:
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
 
+class cItemInfoGump : public cGump
+{
+protected:
+	cItem* item_;
+
+public:
+	cItemInfoGump( cItem* item_ );
+
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+};
+
+class cTagsInfoGump : public cGump
+{
+protected:
+	cUObject* object_;
+
+public:
+	cTagsInfoGump( cUObject* object_ );
+
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+};
+
 #endif
 
