@@ -191,13 +191,12 @@ void cMultiCache::load()
 
 		QValueVector<multiItem_st> items;
 		items.reserve( indexData.length / 12 );
-		uint i = 0;
 
 		multiFile.at( indexData.start );
 		QDataStream multiStream( &multiFile );
 		multiStream.setByteOrder( QDataStream::LittleEndian );
 
-		for ( ; i < indexData.length / 12; ++i )
+		for (int i = 0; i < indexData.length / 12; ++i )
 		{
 			multiItem_st item;
 			multiStream >> item.tile;

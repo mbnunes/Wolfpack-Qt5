@@ -143,6 +143,7 @@ protected:
 	double npcMoveTime_;
 	double tamedNpcMoveTime_;
 	unsigned int showNpcTitles_;
+	unsigned char maxCharsPerAccount_;
 
 	// AI
 	float checkAITime_;
@@ -272,6 +273,7 @@ public:
 	QString accountsPassword() const;
 	QString accountsUsername() const;
 	QString accountsName() const;
+	unsigned int maxCharsPerAccount() const;
 
 	// Combat
 	int attackstamina() const;
@@ -731,6 +733,11 @@ inline bool cConfig::convertUnhashedPasswords() const
 inline bool cConfig::overwriteDefinitions() const
 {
 	return overwriteDefinitions_;
+}
+
+inline unsigned int cConfig::maxCharsPerAccount() const
+{
+	return (unsigned int) maxCharsPerAccount_;
 }
 
 typedef SingletonHolder<cConfig> Config;

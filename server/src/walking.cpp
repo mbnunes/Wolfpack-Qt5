@@ -614,8 +614,6 @@ bool cMovement::verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw()
 // This only gets called when running
 void cMovement::checkRunning( cUOSocket* socket, P_CHAR pChar, Q_UINT8 dir )
 {
-	signed short tempshort;
-
 	// Don't regenerate stamina while running
 	pChar->setRegenStaminaTime( Server::instance()->time() + floor( pChar->getStaminaRate() * 1000 ) );
 	pChar->setRunningSteps( pChar->runningSteps() + 1 );

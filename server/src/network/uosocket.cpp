@@ -567,7 +567,7 @@ void cUOSocket::sendCharList()
 
 	charList.compile();
 	send( &charList );
-
+#pragma fixme("Warning: Ugly ugly ugly! Fix me!")
 	// Ask the client for a viewrange
 	cUOPacket packet( 0xc8, 2 );
 	packet[1] = VISRANGE;
@@ -827,10 +827,11 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
-	// If we have more than 5 characters
-	if ( characters.size() >= 6 )
+	// If we have more than 6 characters
+	const uint maxChars = QMIN(6, Config::instance()->maxCharsPerAccount() );
+	if ( characters.size() >= maxChars )
 	{
-		cancelCreate( tr( "You already have more than 6 characters" ) )
+		cancelCreate( tr( "You already have more than %1 characters" ).arg(maxChars) )
 	}
 
 	// Check the stats
