@@ -149,6 +149,11 @@ protected:
 	int defaultpriv1_;
 	int defaultpriv2_;
 	QString mulPath_;
+	int maxLoginAttempts_;
+	int resetAttemptCount_;
+	int accountsBlockTime_;
+	QString accountsArchiver_;
+
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -326,6 +331,10 @@ public:
 	int defaultpriv1() const;
 	int defaultpriv2() const;
 	QString mulPath() const;
+	int MaxLoginAttempts() const;
+	int AccountBlockTime() const;
+	int resetAttemptCount() const;
+	QString accountsArchiver() const;
 
 	// Remote Admin
 	unsigned int ra_port() const;
@@ -1128,6 +1137,26 @@ inline QString cSrvParams::mulPath() const
 inline unsigned int cSrvParams::showNpcTitles() const
 {
 	return showNpcTitles_;
+}
+
+inline int cSrvParams::MaxLoginAttempts() const
+{
+	return maxLoginAttempts_;
+}
+
+inline int cSrvParams::AccountBlockTime() const
+{
+	return accountsBlockTime_;
+}
+
+inline int cSrvParams::resetAttemptCount() const
+{
+	return resetAttemptCount_;
+}
+
+inline QString cSrvParams::accountsArchiver() const
+{
+	return accountsArchiver_;
 }
 
 #endif //__SRVPARAMS_H___

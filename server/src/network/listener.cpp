@@ -59,22 +59,25 @@
 
 cListener::cListener( Q_UINT16 port )
 {
-	listenningSocket.setBlocking( true );
+	listenningSocket.setBlocking( false ); // or else it would take a while to join()
 	listenningSocket.bind( static_cast<Q_UINT32>(0), port );
 	listenningSocket.listen( 20 );
 }
 
 void cListener::run() throw()
 {
-
 	while ( !canceled() )
 	{
 		int fd = listenningSocket.accept();
-		QSocketDevice* socket = new QSocketDevice(fd, QSocketDevice::Stream);
-		socket->setBlocking( false );
-		readyConnections.add( socket );
+		if ( fd != -1 )
+		{
+			QSocketDevice* socket = new QSocketDevice(fd, QSocketDevice::Stream);
+			socket->setBlocking( false );
+			readyConnections.add( socket );
+		}
+		else 
+			sleep(2000); // if nothing interesting happen take a nap
 	}
-
 }
 
 QSocketDevice* cListener::getNewConnection()

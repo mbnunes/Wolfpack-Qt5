@@ -68,7 +68,7 @@ void cSpawnRegion::init( void )
 
 void cSpawnRegion::add( UI32 serial )
 {
-	if( serial >= 0x40000000 )
+	if( isItemSerial(serial) /*>= 0x40000000*/ )
 		this->itemSerials_.push_back( serial );
 	else
 		this->npcSerials_.push_back( serial );

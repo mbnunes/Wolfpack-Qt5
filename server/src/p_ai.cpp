@@ -375,7 +375,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && d <= 3)
 						{
-							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name.c_str(), pc->region);
+							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name.c_str(), pc->region.latin1());
 							npctalkall(pc_i, (char*)temp, 1);
 							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
@@ -464,7 +464,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				    if (pc->dead)
 					    continue;
 
-				    sprintf((char*)temp,"I am waiting for my escort to %s, Will you take me?", QString("%1").arg(pc_i->questDestRegion()));
+				    sprintf((char*)temp,"I am waiting for my escort to %s, Will you take me?", QString("%1").arg(pc_i->questDestRegion()).latin1());
 				    npctalkall(pc_i,(char*)temp,1);
 				    pc_i->setAntispamtimer(uiCurrentTime+MY_CLOCKS_PER_SEC*30);
 				    return;

@@ -259,7 +259,7 @@ cWeight			*Weight;
 cTargets		*Targ;
 cMagic			*Magic;
 cBooks          *Books;
-cAccount		*Accounts;
+cAccounts		*Accounts;
 cMovement		*Movement;
 cWeather		*Weather;
 cSpeech	        *Speech;

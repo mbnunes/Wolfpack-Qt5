@@ -29,334 +29,192 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
+// Wolfpack Includes
 #include "accounts.h"
-#include "scriptc.h"
-#include "prototypes.h"
-#include "globals.h"
 #include "junk.h"
+#include "srvparams.h"
+#include "pfactory.h"
 
-#include <ctime>
 
-#include "debug.h"
-#undef DBGFILE
-#define DBGFILE "accounts.cpp"
+// ===== AccountRecord Methods ===== //
 
-cAccount::cAccount(void)
+AccountRecord::AccountRecord()
 {
-	unsavedaccounts = 0;
-	saveratio = 0;         // Save everyaccount
 }
 
-cAccount::~cAccount(void)
+void AccountRecord::Serialize( ISerialization& archive )
 {
-	if (unsavedaccounts > 0)
-		SaveAccounts();
-}
-
-QString cAccount::findByNumber( Q_INT32 account )
-{
-	QString accName;
-
-	if( acctnumbers_sp.find( account ) != acctnumbers_sp.end() )
-		accName = acctnumbers_sp[ account ];
-
-	return accName;
-}
-
-void cAccount::LoadAccount( int acctnumb )
-{
-	unsigned long loopexit=0;
-	account_st account;
-	account.name = "";
-	account.pass = "";
-	account.ban = false;
-	account.remoteadmin = false;
-	account.number = acctnumb;
-	do
+	if ( archive.isReading() )
 	{
-		read2();
-		
-		if (!strcmp((char*)script1, "NAME"))				account.name =  script2;
-		else if (!strcmp((char*)script1, "PASS"))			account.pass = script2;
-		else if (!strcmp((char*)script1, "BAN"))			account.ban = true;
-		else if (!strcmp((char*)script1, "REMOTEADMIN"))	account.remoteadmin = true;
-	}
-	while ( (strcmp((char*)script1, "}")) && (strcmp((char*)script1, "EOF")) && (++loopexit < MAXLOOPS) );
-
-	acctlist.insert( make_pair( account.name, account ) );
-	acctnumbers_sp.insert( make_pair( account.number, account.name ) );
-	lasttimecheck = uiCurrentTime;
-}
-
-int cAccount::Count()
-{
-	return acctlist.size();
-}
-
-void cAccount::LoadAccounts( bool silent )
-{
-	if( !silent )
-		clConsole.PrepareProgress( "Loading Accounts" );
-
-	int b,c,ac, account,loopexit=0;
-	char accnumb[64]; 		
-	char acc[64];
-	char *t;
-	lastusedacctnum = 0;
-
-	openscript("accounts.adm");
-	acctlist.clear();
-	do
-	{
-		read2();	
-		if (!(strcmp((char*)script1, "SECTION")))
+		archive.read("login", login_);
+		archive.read("password", password_);
+		archive.read("blocked", blocked_);
+		uint i,j;
+		archive.read("groups_size", i);
+		for ( j = 0; j < i; --j )
 		{
-			   
-			c = strlen((char*)script2);
-			for (b=0; b<9; b++) acc[b]=script2[b]; 
-			for (b=8; b<c; b++) accnumb[b-8]=script2[b];
-			accnumb[b-8]=0; acc[8]=0;		
-			ac = strtol(accnumb, &t, 10);
-			if (strlen(t)!=0) ac=-1;
-
-			if (strcmp(acc,"ACCOUNT ") || ac < 0 )
-			{
-				clConsole.send("Error loading accounts, skipping invalid account entry!\n");
-
-			} else {
-			   account=ac;
-			   LoadAccount(account);
-			   if (account > lastusedacctnum)
-				   lastusedacctnum = account;
-			}
+			QString line;
+			archive.read(QString("line%1").arg(j).latin1(), line);
+			groups_.append(line);
 		}
+		QString temp;
+		archive.read("lastlogin", temp);
+		lastLogin.fromString(temp, Qt::ISODate);
 	}
-	while ( (strcmp((char*)script1, "EOF")) && (++loopexit < MAXLOOPS) );
-	closescript();	
-
-	if( !silent )
+	else // Writting
 	{
-		clConsole.ProgressDone();
-		clConsole.send( "Loaded %i accounts\n\n", Count() );
-	}
-}
-
-void cAccount::SaveAccounts( void )
-{
-	map< QString, account_st >::iterator iter_account;
-	account_st account;
-	fstream faccount ;
-	string  line ;
-	faccount.open("accounts.adm",ios::out) ;
-	unsigned int maxacctnumb = 0;     // Saving the number of loaded accounts
-	if (faccount.is_open())
-	{
-		for (iter_account = acctlist.begin(); iter_account != acctlist.end(); iter_account++)
+		archive.write("login", login_);
+		archive.write("password", password_);
+		archive.write("blocked", blocked_);
+		uint i;
+		for ( i = 0; i < groups_.size(); ++i)
 		{
-			account = iter_account->second;    
-			faccount << "SECTION ACCOUNT " << account.number << endl ;
-			faccount << "{" << endl ;
-			faccount << "NAME " << account.name.latin1() << endl ;
-			faccount << "PASS " << account.pass.latin1() << endl ;
-			if (account.ban)
-				faccount << "BAN" << endl ;
-			if (account.remoteadmin)
-				faccount << "REMOTEADMIN" << endl;
-			faccount << "}" << endl << endl;
-			if (maxacctnumb < account.number)
-				maxacctnumb = account.number;
+			archive.write(QString("line%1").arg(i).latin1(), groups_[i]);
 		}
-		faccount << endl ;
-		faccount << "// Note: Last used Account Number was: " << maxacctnumb << endl;
-		faccount << "EOF" << endl ;
+		archive.write("lastlogin", lastLogin.toString(Qt::ISODate));
 	}
-	faccount.close();
-	unsavedaccounts = 0;
-
-	return;
 }
 
-bool cAccount::RemoteAdmin(int acctnum)
+bool AccountRecord::isBlocked() const
 {
-	if (acctnum < 0)
-		return false;
-
-	map< QString, account_st >::iterator iter_account;
-	map< int, QString >::iterator iter_acctnumber = acctnumbers_sp.find(acctnum);
-	if (iter_acctnumber == acctnumbers_sp.end())
-		return false;
-
-	if ((iter_account = acctlist.find(iter_acctnumber->second)) != acctlist.end())
-		return iter_account->second.remoteadmin;
+	if ( blockUntil < QDateTime::currentDateTime() && !blocked_ )
+		return true;
 	else
 		return false;
 }
 
-signed int cAccount::Authenticate( const QString &username, const QString &password)
+bool AccountRecord::addCharacter( cChar* d )
 {
-	account_st account;
-	map< QString, account_st >::iterator iter_account;
-
-	if ((iter_account = acctlist.find(username)) != acctlist.end())
+	if (qFind( characters_.begin(), characters_.end(), d ) != characters_.end())
 	{
-		account = iter_account->second;
-		if( account.pass == password )
-		{
-			if( account.ban )
-				return ACCOUNT_BANNED;
-			else
-				return account.number;
-		} else
-			return BAD_PASSWORD;
+		characters_.push_back(d);
+		return true;
 	}
-	return LOGIN_NOT_FOUND;
+	return false;
 }
 
-unsigned int cAccount::CreateAccount(const QString& username, const QString& password)
+bool AccountRecord::removeCharacter( cChar* d )
 {
-	++lastusedacctnum;
-	account_st account;
-	account.name = username;
-	account.pass = password;
-	account.ban = false;
-	account.remoteadmin = false;
-	account.number = lastusedacctnum;
-	acctlist.insert(make_pair(username, account));
-	acctnumbers_sp.insert( make_pair( account.number, username ) );
-	++unsavedaccounts;
-	if (unsavedaccounts >= saveratio)
-		SaveAccounts();
-	return account.number;
-}
-
-void cAccount::CheckAccountFile(void)
-{
-
-	struct stat filestatus;
-	static time_t lastchecked;
-	
-	stat("accounts.adm", &filestatus);
-
-	if (difftime(filestatus.st_mtime, lastchecked) > 0.0)
-		LoadAccounts();
-
-	lastchecked = filestatus.st_mtime;
-	lasttimecheck = uiCurrentTime;
-
-}
-
-bool cAccount::IsOnline( int acctnum )
-{
-	if (acctnum < 0)
-		return false;
-	map<int, acctman_st>::iterator iter_acctman;
-	if ((iter_acctman = acctman.find(acctnum)) != acctman.end())
+	QValueVector<cChar*>::iterator it = qFind( characters_.begin(), characters_.end(), d );
+	if ( it != characters_.end() )
 	{
-		acctman_st dummy = iter_acctman->second;
-		if ( dummy.online )
-			return true;
-		else
-		{
-			P_CHAR pc = FindCharBySerial(dummy.character);
-			return pc->logout() > uiCurrentTime;
-		}
-	} 
-	else 
-		return false;
-}
-
-SERIAL cAccount::GetInWorld( int acctnum )
-{
-	if (acctnum < 0)
-		return -1;
-	map<int, acctman_st>::iterator iter_acctman;
-	if ((iter_acctman = acctman.find(acctnum)) != acctman.end())
-	{
-		acctman_st dummy = iter_acctman->second;
-		return dummy.character;
-	} else 
-		return INVALID_SERIAL;
-}
-
-void cAccount::SetOnline( int acctnum, SERIAL serial)
-{
-	acctman_st dummy;
-	dummy.online = true;
-	dummy.character = serial;
-	acctman.insert(make_pair(acctnum, dummy));
-}
-
-void cAccount::SetOffline( int acctnum )
-{
-	map<int, acctman_st>::iterator iter_acctman;
-	if ((iter_acctman = acctman.find(acctnum)) != acctman.end())
-	{
-		acctman.erase(iter_acctman);
+		characters_.erase(it);
+		return true;
 	}
-
+	return false;
 }
 
-bool cAccount::ChangePassword( unsigned int number, const QString &password )
+bool AccountRecord::authorized( const QString& action, const QString& value ) const
 {
-	QString accName = findByNumber( number );
-	
-	if( accName.isEmpty() )
-		return false;
-
-	acctlist[ accName ].pass = password;
-
-	++unsavedaccounts;
-	if (unsavedaccounts >= saveratio)
-		SaveAccounts();
-
 	return true;
 }
 
-vector< P_CHAR > cAccount::characters( int number )
+// ===== cAccounts ===== //
+
+cAccounts::~cAccounts()
 {
-	QString accName = findByNumber( number );
+	clear();
+}
 
-	if( accName.isEmpty() )
-		return vector< P_CHAR >();
+void cAccounts::clear()
+{
+	iterator it = accounts.begin();
+	for (; it != accounts.end(); ++it)
+		delete it.data();
+}
 
-	vector< SERIAL > charSerials = acctlist[ accName ].characters;
-	vector< SERIAL >::const_iterator iter;
-	vector< P_CHAR > charList;
-
-	for( iter = charSerials.begin(); iter != charSerials.end(); ++iter )
+AccountRecord* cAccounts::authenticate(const QString& login, const QString& password, enErrorCode* error) const
+{
+	const_iterator it = accounts.find(login);
+	*error = NoError;
+	if ( it != accounts.end() )
 	{
-		P_CHAR pChar = FindCharBySerial( (*iter) );
-		if( pChar )
-			charList.push_back( pChar );
-	}
-
-	return charList;
-}
-
-void cAccount::addCharacter( int number, SERIAL serial )
-{
-	QString accName = findByNumber( number );
-
-	if( accName.isEmpty() )
-		return;
-
-	acctlist[ accName ].characters.push_back( serial );
-}
-
-void cAccount::removeCharacter( int number, SERIAL serial )
-{
-	QString accName = findByNumber( number );
-
-	if( accName.isEmpty() )
-		return;
-
-	vector< SERIAL >::iterator iter;
-
-	for( iter = acctlist[ accName ].characters.begin(); iter != acctlist[ accName ].characters.end(); ++iter )
-		if( (*iter) == serial )
-		{
-			acctlist[ accName ].characters.erase( iter );
-			return;
+		// First we check for blocked account.
+		if ( it.data()->isBlocked() )
+		{	
+			*error = Banned;
+			return 0;
 		}
+		// Ok, let´s continue.
+		if (it.data()->password() == password)
+		{
+			it.data()->resetLoginAttempts();		
+			return it.data();
+		}
+		else
+		{
+			it.data()->loginAttemped();
+			*error = BadPassword;
+			// Now we check for the number of attempts;
+			if ( it.data()->loginAttempts() > SrvParams->MaxLoginAttempts() )
+			{
+				it.data()->block(SrvParams->AccountBlockTime());
+			}
+			return 0;
+		}
+	}
+	else
+	{
+		*error = LoginNotFound;
+		return 0;
+	}
+}
+
+void cAccounts::save()
+{
+	ISerialization* archive = cPluginFactory::serializationArchiver( SrvParams->accountsArchiver());
+	archive->prepareWritting("accounts");
+	iterator it = accounts.begin();
+	for (; it != accounts.end(); ++it )
+	{
+		archive->writeObject( it.data() );
+	}
+	archive->close();
+}
+
+void cAccounts::load()
+{
+	ISerialization* archive = cPluginFactory::serializationArchiver( SrvParams->accountsArchiver());
+	archive->prepareReading("accounts");
+	for (uint i = 0; i < archive->size(); ++i)
+	{
+		QString objectID;
+		archive->readObjectID( objectID );
+		if ( objectID != "ACCOUNT" )
+			qFatal("Invalid object ID parsing accounts file");
+		AccountRecord* d = new AccountRecord;
+		archive->readObject( d );
+		accounts.insert( d->login(), d );
+	}
+	archive->close();
+}
+
+void cAccounts::reload()
+{
+	clear();
+	load();
+}
+
+AccountRecord* cAccounts::createAccount( const QString& login, const QString& password )
+{
+	AccountRecord* d = new AccountRecord;
+	d->login_ = login;
+	d->password_ = password;
+	accounts.insert(d->login(), d);
+	return d;
+}
+
+uint cAccounts::count()
+{
+	return accounts.count();
+}
+
+AccountRecord* cAccounts::getRecord( const QString& login )
+{
+	iterator it = accounts.find( login );
+	if ( it == accounts.end() )
+		return 0;
+	else
+		return it.data();
 }
 

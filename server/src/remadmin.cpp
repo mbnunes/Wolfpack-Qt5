@@ -159,14 +159,14 @@ void RemoteAdmin::executeCommand( PrivateSocket* socket )
 		break;
 	case PrivateSocket::SendingPassword:
 		{
-			int account = Accounts->Authenticate( socket->username, socket->line );
-			if ( account < 0 )
+			AccountRecord* account = Accounts->authenticate( socket->username, socket->line );
+			if ( account == 0 )
 			{
 				socket->send("Access Denied");
 				socket->socket.close(); // No second chances here.
 				return;
 			}
-			if ( !Accounts->RemoteAdmin( account ) )
+			if ( !account->authorized("RemoteAccess", "login") )
 			{
 				socket->send("Access Denied");
 				socket->socket.close();

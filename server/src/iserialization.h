@@ -43,7 +43,7 @@ class ISerialization;
 CLASS
     
 
-    This class provides the interface for persistent classes...
+    This class provides the interface for persistent objects...
 
 
 USAGE
@@ -109,7 +109,7 @@ public:
 	virtual void write(const char* Key, double data) = 0;
 
 	// Read Methods
-	virtual void readObjectID(std::string &data) = 0;
+	virtual void readObjectID(QString &data) = 0;
 
 	virtual void read(const char* Key, std::string   &data) = 0;
 	virtual void read(const char* Key, unsigned int  &data) = 0;

@@ -69,31 +69,31 @@ void WPDefManager::ProcessNode( QDomElement Node )
 	// <script id="xx">
 	// <npc id="xx">
 	if( NodeName == "item" )
-		Items[ NodeID ] = Node;
+		Items.insert( NodeID, Node );
 	else if( NodeName == "script" )
-		Scripts[ NodeID ] = Node;
+		Scripts.insert( NodeID, Node );
 	else if( NodeName == "npc" )
-		NPCs[ NodeID ] = Node;
+		NPCs.insert( NodeID, Node );
 	else if( NodeName == "menu" )
-		Menus[ NodeID ] = Node;
+		Menus.insert( NodeID, Node );
 	else if( NodeName == "spell" )
-		Spells[ NodeID ] = Node;
+		Spells.insert( NodeID, Node );
 	else if( NodeName == "list" )
-		StringLists[ NodeID ] = Node;
+		StringLists.insert( NodeID, Node );
 	else if( NodeName == "privlevel" )
-		PrivLevels[ NodeID ] = Node;
+		PrivLevels.insert( NodeID, Node );
 	else if( NodeName == "spawnregion" )
-		SpawnRegions[ NodeID ] = Node;
+		SpawnRegions.insert( NodeID, Node );
 	else if( NodeName == "region" )
-		Regions[ NodeID ] = Node;
+		Regions.insert( NodeID, Node );
 	else if( NodeName == "multi" )
-		Multis[ NodeID ] = Node;
+		Multis.insert( NodeID, Node );
 	else if( NodeName == "text" )
-		Texts[ NodeID ] = Node;
+		Texts.insert( NodeID, Node );
 	else if( NodeName == "startitems" )
-		StartItems[ NodeID ] = Node;
+		StartItems.insert( NodeID, Node );
 	else if( NodeName == "location" )
-		Locations[ NodeID ] = Node;
+		Locations.insert( NodeID, Node );
 }
 
 // Recursive Function for Importing Script Sections
@@ -132,7 +132,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	QDomNodeList NodeList = Definitions.childNodes();
 
 	// Process all nodes
-	for( UI32 i = 0; i < NodeList.count(); i++ )
+	for( UI32 i = 0; i < NodeList.count(); ++i )
 	{
 		if( NodeList.item( i ).isElement() )
 		{

@@ -80,6 +80,8 @@
 #include "qdatetime.h"
 #include "qfile.h"
 
+#include "fstream"
+
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"
 #include "debug.h"
@@ -234,7 +236,7 @@ void signal_handler(int signal)
 		break ;
 		
 	case SIGUSR1:
-		Accounts->LoadAccounts( false );
+		Accounts->reload();
 		break ;
 	case SIGUSR2:
 		cwmWorldState->savenewworld(SrvParams->worldSaveModule());
@@ -315,7 +317,7 @@ bool online(P_CHAR pc) // Is the player owning the character c online
 	UOXSOCKET k = calcSocketFromChar(pc); //LB crashfix
 	if (k == -1 || pc->isNpc())
 		return false;
-	if(pc != NULL && Accounts->GetInWorld(pc->account()) == pc->serial)
+	if(pc != 0 && pc->socket() != 0)
 		return true;//Instalog
 	else
 	{
@@ -1081,7 +1083,7 @@ void deathstuff(P_CHAR pc_player)
 	}
 	if (SrvParams->showDeathAnim())
 		deathaction(pc_player, pi_c);
-	if (pc_player->account() != -1) // LB
+	if (pc_player->account() != 0) // LB
 	{
 		
 		teleport(pc_player);
@@ -1982,7 +1984,7 @@ void checkkey ()
 				break;
 			case 'A': //reload the accounts file
 			case 'a':
-				Accounts->LoadAccounts( false );
+				Accounts->reload();
 				break;
 			case 'r':
 			case 'R':
@@ -2204,7 +2206,7 @@ int main( int argc, char *argv[] )
 	loadskills();
 	clConsole.ProgressDone();
 
-	Accounts->LoadAccounts( false );
+	Accounts->load();
 
 	keeprun = 1;
 	//keeprun = cNetwork::instance()->kr; //LB. for some technical reasons global varaibles CANT be changed in constructors in c++.
@@ -5152,7 +5154,7 @@ void StartClasses(void)
 	SrvParams		= new cSrvParams("wolfpack.xml", "Wolfpack", "1.0");
 	cwmWorldState	= new CWorldMain;
 	mapRegions		= new cRegion;
-	Accounts		= new cAccount;
+	Accounts		= new cAccounts;
 	Combat			= new cCombat;
 	Items			= new cAllItems;
 	Map				= new cMapStuff ( SrvParams->mulPath());

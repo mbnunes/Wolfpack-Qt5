@@ -315,7 +315,7 @@ public:
 	cRemoveTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
 	void CharSpecific()
 	{
-		if (pc->account() > -1 && pc->isPlayer()) // player check added by LB
+		if (pc->account() != 0 && pc->isPlayer()) // player check added by LB
 		{
 			sysmessage(s,"You cant delete players");
 			return;
@@ -3835,6 +3835,7 @@ void cTargets::ResurrectionTarget( UOXSOCKET s )
 //AntiChrist - shows the COMMENT line in the account section of player current acct.
 void cTargets::ShowAccountCommentTarget(int s)
 {
+/*
 	int j,accountfound=0,commentfound=0;
 	temp2[0] = '\0';
 
@@ -3843,7 +3844,7 @@ void cTargets::ShowAccountCommentTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if(pc != NULL)
 	{
-		if(pc->account()==-1)
+		if(pc->account() == 0)
 		{
 			sysmessage(s,"No account available for that character.");
 			return; //only if char has an account
@@ -3889,6 +3890,7 @@ void cTargets::ShowAccountCommentTarget(int s)
 		sysmessage(s,"Account Comment: %s",temp2);
 		closescript();
 	}
+	*/
 }
 
 void cTargets::SetHome(int s)

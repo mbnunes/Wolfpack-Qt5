@@ -198,3 +198,4 @@ void qsfLoad(char *fn, short depth) // Load a quest script file
 	fclose(fp);
 }
 */
+

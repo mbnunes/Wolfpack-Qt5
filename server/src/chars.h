@@ -47,6 +47,7 @@
 // Forward class declaration
 class QString;
 class cUOSocket;
+class AccountRecord;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
@@ -166,7 +167,7 @@ protected:
 	QString					orgname_;//original name - for Incognito
 	QString					title_;
 	bool					unicode_; // This is set to 1 if the player uses unicode speech, 0 if not
-	int						account_; // changed to signed, lb
+	AccountRecord*			account_; // changed to signed, lb
 	bool					incognito_;// AntiChrist - true if under incognito effect
 	bool					polymorph_;// AntiChrist - true if under polymorph effect
 	unsigned short			haircolor_; // backup of hair/beard for incognito spell
@@ -306,7 +307,7 @@ public:
 	QString					orgname() const;	  //original name - for Incognito
 	QString					title() const;
 	bool					unicode() const; // This is set to 1 if the player uses unicode speech, 0 if not
-	int						account() const; // changed to signed, lb
+	AccountRecord*			account() const; // changed to signed, lb
 	bool					incognito() const { return incognito_;	}
 	bool					polymorph() const { return polymorph_;	}
 	unsigned short			haircolor() const { return haircolor_;	}
@@ -415,7 +416,7 @@ public:
 	void					setOrgname(const QString& data);//original name - for Incognito
 	void					setTitle( const QString& data);
 	void					setUnicode( bool data); // This is set to 1 if the player uses unicode speech, 0 if not
-	void					setAccount( int data); // changed to signed, lb
+	void					setAccount( AccountRecord* data); // changed to signed, lb
 	void					setIncognito ( bool data) { incognito_ = data; } 
 	void					setPolymorph ( bool data) { polymorph_ = data; }
 	void					setHairColor ( unsigned short data) { haircolor_ = data; }
@@ -679,7 +680,7 @@ inline bool				cChar::guildTraitor() const		{ return GuildTraitor; }
 inline QString			cChar::orgname() const			{ return orgname_; }
 inline QString			cChar::title() const			{ return title_;   }
 inline bool				cChar::unicode() const			{ return unicode_; }
-inline int				cChar::account() const			{ return account_; }
+inline AccountRecord*	cChar::account() const			{ return account_; }
 
 // Setters
 inline void	cChar::setGuildType(short data)				{ GuildType = data; }

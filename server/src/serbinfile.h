@@ -84,7 +84,7 @@ public:
 	virtual void doneWritting();
 
 	// Read Methods
-	virtual void readObjectID(std::string &data);
+	virtual void readObjectID(QString &data);
 
 	virtual void read(const char* Key, std::string    &data);
 	virtual void read(const char* Key, unsigned int   &data);

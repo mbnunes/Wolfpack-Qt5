@@ -1013,7 +1013,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 		for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
 		{
 			P_CHAR pc = iterChars.GetData();
-			if ((pc->account() == acctno[s] && !pc->free))
+			if ((pc->account() != 0 && !pc->free))
 			{
 				if (j == buffer[s][0x22]) 
 					toDelete = pc;
@@ -1049,7 +1049,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 			for (it.Begin(); !it.atEnd(); ++it)
 			{
 				P_CHAR pc = it.GetData();
-				if ( pc->account() == acctno[s] && !pc->free)
+				if ( pc->account() != 0 && !pc->free)
 				{
 					strcpy((char*)login04b, pc->name.c_str());
 					Xsend(s, login04b, 60);

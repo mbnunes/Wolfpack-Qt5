@@ -59,6 +59,11 @@ void cSrvParams::readData()
 	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true);
 	autoAccountReload_		= getNumber("Accounts",	"Auto Reload",		10, true);
 	checkCharAge_			= getBool("Accounts",	"Check Delete Age", true, true);
+	maxLoginAttempts_		= getNumber("Accounts", "Max Login Attempts", 5, true);
+	resetAttemptCount_		= getNumber("Accounts", "Reset Attempts Count", 3*60, true);
+	accountsBlockTime_		= getNumber("Accounts", "Block Failed Logins", 3*60, true);
+	accountsArchiver_		= getString("Accounts", "Archiver Module", "xml", true);
+
 
 	// Remote Admin
 	ra_port_		        = getNumber("Remote Admin",	"Port", 2594, true);

@@ -141,7 +141,7 @@ void updatehtml()//HTML
 			}
 		}
 		else if(!(strcmp((char*)script1,"NOWNUM"))) fprintf(html,"%i",now);
-		else if(!(strcmp((char*)script1,"ACCOUNTNUM"))) fprintf(html,"%i",Accounts->Count());
+		else if(!(strcmp((char*)script1,"ACCOUNTNUM"))) fprintf(html,"%i",Accounts->count());
 		else if(!(strcmp((char*)script1,"CHARCOUNT")))
 		{
 			if(ccount==0)

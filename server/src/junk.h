@@ -88,7 +88,7 @@ class cRegion;
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cSrvParams		*SrvParams;
 extern CWorldMain		*cwmWorldState;
-extern cAccount			*Accounts;
+extern cAccounts		*Accounts;
 extern cCombat			*Combat;
 extern cAllItems		*Items;
 extern cMapStuff		*Map;

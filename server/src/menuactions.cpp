@@ -703,8 +703,9 @@ bool makeItem( UOXSOCKET Socket, QDomElement& Action )
 bool serverStatus( UOXSOCKET Socket, QDomElement& Action )
 {
 	// Clients, Items, Chars, Accounts, MemoryUsage(?)
-	QString message = QString( "Clients: %1, Items: %2, Chars: %3, Accounts: %4" ).arg( now ).arg( cItemsManager::getInstance()->size() ).arg( cCharsManager::getInstance()->size() ).arg( Accounts->Count() );
+	QString message = QString( "Clients: %1, Items: %2, Chars: %3, Accounts: %4" ).arg( now ).arg( cItemsManager::getInstance()->size() ).arg( cCharsManager::getInstance()->size() ).arg( Accounts->count() );
 	sysmessage( Socket, message );
 	
 	return true;
 }
+

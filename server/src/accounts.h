@@ -29,91 +29,121 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __ACCOUNTS_H__
+
+
+#if !defined(__ACCOUNTS_H__)
 #define __ACCOUNTS_H__
 
-//Platform specifics
-#include "platform.h"
 
-
-//System include
-
-#include <fstream>
-#include <string>
-#include <map>
-#include <vector>
-#include <sys/stat.h>
-#include "qstring.h"
-
-using namespace std;
-
-// Third Party
-
-
-// Forward Class declaration
-class cAccount;
-
-
-// Wolfpack Includes
-
+#include "iserialization.h"
 #include "typedefs.h"
 
-// Authenticate return codes
+// Library Includes
+#include "qstring.h"
+#include "qstringlist.h"
+#include "qdatetime.h"
+#include "qvaluevector.h"
+#include "qmap.h"
 
-#define LOGIN_NOT_FOUND -3
-#define BAD_PASSWORD -4
-#define ACCOUNT_BANNED -5
-#define ACCOUNT_WIPE -6
 
-using namespace std;
-struct account_st
+// Forward Class declarations
+
+class cChar;
+
+class AccountRecord : public cSerializable
 {
-	unsigned int number;
-	QString name;
-	QString pass;
-	bool ban;
-	bool remoteadmin;
-	vector<SERIAL> characters;
+	friend class cAccounts; // my manager
+private:
+	QString login_;
+	QString password_;
+	QStringList groups_;
+	QValueVector<cChar*> characters_;
+	QDateTime lastLogin;
+	QDateTime blockUntil;
+	bool blocked_;
+	int attempts_;
+
+public:
+	
+	AccountRecord();
+
+	QString login() const;
+
+	QString password() const;
+	void setPassword( const QString& );
+	QValueVector<cChar*> caracterList() const;
+	bool authorized( const QString& action, const QString& value ) const;
+	bool addCharacter( cChar* );
+	bool removeCharacter( cChar* );
+	
+	bool isBlocked() const;
+	void resetLoginAttempts() { attempts_ = 0; };
+	void loginAttemped() { ++attempts_; }
+	int loginAttempts() { return attempts_; }
+	void block( int seconds ) 
+	{
+		blockUntil = QDateTime::currentDateTime().addSecs( seconds );
+	}
+
+	void block()
+	{
+		blocked_ = true;
+	}
+
+	void Serialize( ISerialization& );
+	QString	objectID( void ) const;
 };
 
-class cAccount
+
+class cAccounts
 {
 private:
-	map< QString, account_st > acctlist;
-	map< int, QString > acctnumbers_sp;
+	QMap<QString, AccountRecord*> accounts;
+	typedef QMap<QString, AccountRecord*>::iterator iterator;
+	typedef QMap<QString, AccountRecord*>::const_iterator const_iterator;
 
-	struct acctman_st {
-		bool online;
-		SERIAL character;
-	};
-	map< int, acctman_st > acctman;
-	int lastusedacctnum;
-	unsigned int unsavedaccounts;
-	unsigned int saveratio;
-	void LoadAccount ( int acctnumb );
 public:
-	QString findByNumber( Q_INT32 account );
-	unsigned int lasttimecheck;
-	cAccount( void );
-	~cAccount( void );
-	void SetSaveRatio ( int );
-	bool IsOnline( int );
-	SERIAL GetInWorld( int );
-	void SetOnline( int, SERIAL );
-	void SetOffline( int acctnum );
-	void LoadAccounts( bool silent = true );
-	void SaveAccounts( void );
-	void CheckAccountFile(void);
-	int Count();
-	bool RemoteAdmin(int acctnum);
-	signed int Authenticate( const QString &username, const QString &password);
-	unsigned int CreateAccount(const QString& username, const QString& password);
-	bool ChangePassword(unsigned int number, const QString &password);
-	vector< P_CHAR > characters( int number );
-	void addCharacter( int number, SERIAL serial );
-	void removeCharacter( int number, SERIAL serial );
+	enum enErrorCode {LoginNotFound, BadPassword, Banned, Wipped, NoError};
+
+public:
+	~cAccounts();
+	AccountRecord* authenticate(const QString& login, const QString& password, enErrorCode* = 0) const; 
+	AccountRecord* getRecord( const QString& );
+	AccountRecord* createAccount( const QString& login, const QString& password );
+
+	uint count();
+
+	void save();
+	void load();
+	void reload();
+	void clear();
 };
 
+// inline members
+inline QString AccountRecord::login() const
+{
+	return login_;
+}
+
+inline QString AccountRecord::password() const
+{
+	return password_;
+}
+
+inline void AccountRecord::setPassword( const QString& data )
+{
+	password_ = data;
+}
+
+inline QValueVector<cChar*> AccountRecord::caracterList() const
+{
+	return characters_;
+}
+
+inline QString AccountRecord::objectID( void ) const
+{
+	return "ACCOUNT";
+}
 
 #endif // __ACCOUNTS_H__
 

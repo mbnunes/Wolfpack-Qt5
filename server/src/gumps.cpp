@@ -649,7 +649,7 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
-		if (toCheck->account() != -1 && !toCheck->free)
+		if (toCheck->account() != 0 && !toCheck->free)
 		{
 			if(k>0 && (!(k%10)))
 			{
@@ -716,7 +716,7 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
-		if (toCheck->account() != -1 && !toCheck->free && !online(toCheck)) { 
+		if (toCheck->account() != 0 && !toCheck->free && !online(toCheck)) { 
 			sprintf(menuarray1[linecount1++], "Player: %s [offline]",toCheck->name.c_str());
 			whomenudata[x++]=toCheck->serial;
 			//clConsole.send("name: %s\n",chars[i].name);
@@ -806,7 +806,7 @@ void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
 		k=0;
 		for(i=0;i<now;i++)
 		{
-			if ((currchar[i]->account() != -1 && !currchar[i]->free && online(currchar[i])))
+			if ((currchar[i]->account() != 0 && !currchar[i]->free && online(currchar[i])))
 			{
 			  if(k>0 && (!(k%10)))
 			  {

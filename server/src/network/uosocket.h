@@ -39,6 +39,7 @@
 
 // Forward Declarations
 class cUOPacket;
+class AccountRecord;
 class cTargetRequest;
 
 // Too many Forward Declarations
@@ -54,7 +55,7 @@ public:
 private:
 	QSocketDevice *_socket;
 	UINT32 _rxBytes, _txBytes, _uniqueId, _tempInt;
-	INT32 _account; // Our account-id > should be a pointer
+	AccountRecord* _account;
 	P_CHAR _player;
 	eSocketState _state;
 	UINT8 lastPacket, _viewRange, _walkSequence;

@@ -59,7 +59,7 @@ using namespace std;
 
 cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
 		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
-		targetRequest(0), _account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) 
+		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) 
 {
 }
 
@@ -234,12 +234,12 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 void cUOSocket::sendCharList()
 {
 	cUOTxCharTownList *charList = new cUOTxCharTownList;
-	vector< P_CHAR > characters = Accounts->characters( _account );
+	QValueVector< cChar* > characters = _account->caracterList();
 
 	// Add the characters
 	Q_UINT8 i = 0;
 	for(; i < characters.size(); ++i )
-		charList->addCharacter( characters[ i ]->name.c_str() );
+		charList->addCharacter( characters.at(i)->name.c_str() );
 
 	// Add the Starting Locations
 	vector< StartLocation_st > startLocations = SrvParams->startLocation();
@@ -261,7 +261,7 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 {
 	// Check the character the user wants to play
-	vector< P_CHAR > characters = Accounts->characters( _account );
+	QValueVector< cChar* > characters = _account->caracterList();
 
 	if( packet->slot() >= characters.size() )
 	{
@@ -270,7 +270,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 		return;
 	}
 
-	playChar( characters[ packet->slot() ] );
+	playChar( characters.at(packet->slot()) );
 }
 
 // Set up the neccesary stuff to play
@@ -323,19 +323,24 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 	// Log
 	clConsole.send( QString( "Trying to log in as %1 using password %2 [%3]\n" ).arg( username ).arg( password ).arg( _socket->address().toString() ) );
 
-	Q_INT32 authRet = Accounts->Authenticate( username, password );
+	cAccounts::enErrorCode error;
+	AccountRecord* authRet = Accounts->authenticate( username, password, &error );
 
 	cUOPacket *denyPacket = 0;
 
-	switch( authRet )
+	switch( error )
 	{
-	case LOGIN_NOT_FOUND:
-		denyPacket = new cUOTxDenyLogin( DL_NOACCOUNT ); break;
-	case BAD_PASSWORD:
-		denyPacket = new cUOTxDenyLogin( DL_BADPASSWORD ); break;
-	case ACCOUNT_WIPE:
-	case ACCOUNT_BANNED:
-		denyPacket = new cUOTxDenyLogin( DL_BLOCKED ); break;
+	case cAccounts::LoginNotFound:
+		if ( SrvParams->autoAccountCreate() )
+			authRet = Accounts->createAccount( username, password );
+		else
+			denyPacket = new cUOTxDenyLogin( DL_NOACCOUNT );	
+		break;
+	case cAccounts::BadPassword:
+		denyPacket = new cUOTxDenyLogin( DL_BADPASSWORD );	break;
+	case cAccounts::Wipped:
+	case cAccounts::Banned:
+		denyPacket = new cUOTxDenyLogin( DL_BLOCKED );		break;
 	};
 
 	// Reject login
@@ -359,12 +364,12 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 {
 	// Several security checks
-	vector< P_CHAR > characters = Accounts->characters( _account );
+	QValueVector<cChar*> characters = _account->caracterList();
 
     // If we have more than 5 characters
 	if( characters.size() >= 5 )
 	{
-		clConsole.send( tr( "%1 is trying to create char but has more than 5 characters" ).arg( Accounts->findByNumber( _account ) ) );
+		clConsole.send( tr( "%1 is trying to create char but has more than 5 characters" ).arg( _account->login() ) );
 		cancelCreate( tr("You already have more than 5 characters") )
 	}
 
@@ -372,14 +377,14 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	Q_UINT16 statSum = ( packet->strength() + packet->dexterity() + packet->intelligence() );
 	if( statSum > 80 )
 	{
-		clConsole.send( tr( "%1 is trying to create char with wrong stats: %2" ).arg( Accounts->findByNumber( _account ) ).arg( statSum ) );
+		clConsole.send( tr( "%1 is trying to create char with wrong stats: %2" ).arg( _account->login() ).arg( statSum ) );
 		cancelCreate( tr( "Invalid Character stat sum: %1" ).arg( statSum ) )
 	}
 
 	// Every stat needs to be below 60
 	if( ( packet->strength() > 60 ) || ( packet->dexterity() > 60 ) || ( packet->intelligence() > 60 ) )
 	{
-		clConsole.send( tr( "%1 is trying to create char with wrong stats: %2 [str] %3 [dex] %4 [int]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->strength() ).arg( packet->dexterity() ).arg( packet->intelligence() ) );
+		clConsole.send( tr( "%1 is trying to create char with wrong stats: %2 [str] %3 [dex] %4 [int]" ).arg( _account->login() ).arg( packet->strength() ).arg( packet->dexterity() ).arg( packet->intelligence() ) );
 		cancelCreate( tr("Invalid Character stats") )
 	}
 
@@ -389,7 +394,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		( packet->skillId3() >= ALLSKILLS ) || ( packet->skillValue3() > 50 ) ||
 		( packet->skillValue1() + packet->skillValue2() + packet->skillValue3() > 100 ) )
 	{
-		QString failMessage = tr( "%1 is trying to create char with wrong skills: %1 [%2%] %3 [%4%] %5 [%6%]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() );
+		QString failMessage = tr( "%1 is trying to create char with wrong skills: %1 [%2%] %3 [%4%] %5 [%6%]" ).arg( _account->login() ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() );
 		clConsole.send( failMessage );
 		cancelCreate( tr("Invalid Character skills") )
 	}
@@ -397,21 +402,21 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	// Check Hair
 	if( packet->hairStyle() && ( !isHair( packet->hairStyle() ) || !isHairColor( packet->hairColor() ) ) )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong hair %2 [Color: %3]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
+		clConsole.send( tr( "%1 is trying to create a char with wrong hair %2 [Color: %3]" ).arg( _account->login() ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
 		cancelCreate( tr("Invalid hair") )
 	}
 
 	// Check Beard
 	if( packet->beardStyle() && ( !isBeard( packet->beardStyle() ) || !isHairColor( packet->beardColor() ) ) )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong beard %2 [Color: %3]" ).arg( Accounts->findByNumber( _account ) ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
+		clConsole.send( tr( "%1 is trying to create a char with wrong beard %2 [Color: %3]" ).arg( _account->login() ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
 		cancelCreate( tr("Invalid beard") )
 	}
 
 	// Check color for pants and shirt
 	if( !isNormalColor( packet->shirtColor() ) || !isNormalColor( packet->pantsColor() ) )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong shirt [%2] or pant [%3] color" ).arg( Accounts->findByNumber( _account ) ).arg( packet->shirtColor() ).arg( packet->pantsColor() ) );
+		clConsole.send( tr( "%1 is trying to create a char with wrong shirt [%2] or pant [%3] color" ).arg( _account->login() ).arg( packet->shirtColor() ).arg( packet->pantsColor() ) );
 		cancelCreate( tr("Invalid shirt or pant color") )
 	}
 
@@ -419,14 +424,14 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	vector< StartLocation_st > startLocations = SrvParams->startLocation();
 	if( packet->startTown() > startLocations.size() )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong start location: %2" ).arg( Accounts->findByNumber( _account ) ).arg( packet->startTown() ) );
+		clConsole.send( tr( "%1 is trying to create a char with wrong start location: %2" ).arg( _account->login() ).arg( packet->startTown() ) );
 		cancelCreate( tr("Invalid start location") )
 	}
 
 	// Finally check the skin
 	if( !isSkinColor( packet->skinColor() ) )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong skin color: %2" ).arg( Accounts->findByNumber( _account ) ).arg( packet->skinColor() ) );
+		clConsole.send( tr( "%1 is trying to create a char with wrong skin color: %2" ).arg( _account->login() ).arg( packet->skinColor() ) );
 		cancelCreate( tr("Invalid skin color") )
 	}
 
@@ -437,7 +442,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setPriv( SrvParams->defaultpriv1() );
 	pChar->priv2 = SrvParams->defaultpriv2();
 
-	if( _account == 0 )
+	if( Accounts->count() == 1 ) // first account is Admin.
 	{
 		pChar->setPriv( 0xE7 );
 		pChar->setPrivLvl("admin");
@@ -608,11 +613,11 @@ void cUOSocket::sysMessage( const QString &message, Q_UINT16 color )
 void cUOSocket::updateCharList()
 {
 	cUOTxUpdateCharList charList;
-	vector< P_CHAR > characters = Accounts->characters( _account );
+	QValueVector<cChar*> characters = _account->caracterList();
 
 	// Add the characters
 	for( Q_UINT8 i = 0; i < characters.size(); ++i )
-		charList.setCharacter( i, characters[ i ]->name.c_str() );
+		charList.setCharacter( i, characters.at(i)->name.c_str() );
 
 	send( &charList );
 }

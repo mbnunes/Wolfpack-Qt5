@@ -188,9 +188,9 @@ void serBinFile::doneWritting()
 
 }
 
-void serBinFile::readObjectID(string &data)
+void serBinFile::readObjectID(QString &data)
 {
-	read("objectID", data);
+	ISerialization::read("objectID", data);
 }
 
 void serBinFile::read(const char* Key, string& data)

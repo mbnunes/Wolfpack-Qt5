@@ -124,10 +124,6 @@ SOURCE=.\client.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\cmdtable.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\combat.cpp
 # End Source File
 # Begin Source File

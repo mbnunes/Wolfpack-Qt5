@@ -78,6 +78,9 @@ cNetwork::~cNetwork( void )
 	netIo_->cancel();
 	listener_->cancel();
 
+	netIo_->join();
+	listener_->join(); // Wait for them to stop
+
 	delete netIo_;
 	delete listener_;
 }

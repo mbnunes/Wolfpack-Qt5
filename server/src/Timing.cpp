@@ -992,11 +992,10 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				}
 				// Timed for logout
 				else if( ( 
-						( Accounts->GetInWorld( pChar->account() ) == pChar->serial ) && pChar->logout() && 
+						pChar->logout() && 
 						( pChar->logout() >= currenttime ) 
 					) || overflow )
 				{
-					Accounts->SetOffline( pChar->account() );
 					pChar->setLogout( 0 );
 					pChar->removeFromView( false );
 					pChar->resend( false );
@@ -1074,6 +1073,4 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		nextfieldeffecttime = (unsigned int)((double) currenttime + (0.5*MY_CLOCKS_PER_SEC));
 	if (nextdecaytime <= currenttime)
 		nextdecaytime = currenttime + (15*MY_CLOCKS_PER_SEC); // lb ...
-	if (SrvParams->autoAccountReload() > 0 && Accounts->lasttimecheck + (SrvParams->autoAccountReload()*60*MY_CLOCKS_PER_SEC) <= currenttime)
-		Accounts->CheckAccountFile();
 }

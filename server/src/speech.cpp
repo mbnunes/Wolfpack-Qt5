@@ -1005,7 +1005,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 		if( lFile.open( IO_Append ) )
 		{
 			QString logMessage( "[%1] %2: %3 [%4, 0x%5]" );
-			logMessage = logMessage.arg( getRealTimeString().c_str() ).arg( pChar->name.c_str() ).arg( speech ).arg( pChar->account() ).arg( pChar->serial, 8, 16 );
+			logMessage = logMessage.arg( getRealTimeString().c_str() ).arg( pChar->name.c_str() ).arg( speech ).arg( pChar->account()->login() ).arg( pChar->serial, 8, 16 );
 			lFile.writeBlock( logMessage.latin1(), logMessage.length() );
 			lFile.close();
 		}

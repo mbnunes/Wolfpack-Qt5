@@ -123,7 +123,6 @@ void cChar::Init(bool ser)
 	this->setAntispamtimer(0);//LB - anti spam
 
 	this->setUnicode(true); // This is set to 1 if the player uses unicode speech, 0 if not
-	this->setAccount(-1);
 	this->pos.x=100;
 	this->pos.y=100;
 	this->pos.z=this->dispz=0;
@@ -452,7 +451,7 @@ void cChar::fight(P_CHAR other)
 
 
 cChar::cChar():
-	socket_(0)
+	socket_(0), account_(0)
 {
 	VisRange = VISRANGE;
 }
@@ -772,7 +771,9 @@ void cChar::Serialize(ISerialization &archive)
 	{
 		archive.read("name",			orgname_);
 		archive.read("title",			title_);
-		archive.read("account",			account_);
+		QString login;
+		archive.read("account",			login);
+		account_ = Accounts->getRecord( login );
 		archive.read("creationday",		creationday_);
 		archive.read("gmmoveeff",		gmMoveEff);
 		archive.read("guildtype",		GuildType);
@@ -1719,15 +1720,15 @@ void cChar::message( const QString &message, UI16 color )
 	socket_->showSpeech( this, message, color, 3 );
 }
 
-void cChar::setAccount( int data )
+void cChar::setAccount( AccountRecord* data )
 {
-	if( account_ != -1 )
-		Accounts->removeCharacter( account_, serial );
+	if( account_ != 0 )
+		account_->removeCharacter( this );
 
 	account_ = data;
 
-	if( account_ != -1 )
-		Accounts->addCharacter( account_, serial );
+	if( account_ != 0 )
+		account_->addCharacter( this );
 }
 
 void cChar::giveItemBonus(cItem* pi)
