@@ -110,7 +110,7 @@ PyObject* wpMulti_sendcustomhouse( wpMulti* self, PyObject* args )
 	if( !self->pMulti || self->pMulti->free || !self->pMulti->ishouse() )
 		return PyFalse;
 	
-	if( PyTuple_Size( args ) < 1 || !checkArgChar( 0 ) )
+	if( !checkArgChar( 0 ) )
 	{
 		PyErr_BadArgument();
 		return NULL;
@@ -518,6 +518,7 @@ static PyMethodDef wpMultiMethods[] =
 	{ "friends",			(getattrofunc)wpMulti_friends, METH_VARARGS, "Returns the friends list of this multi." },
 	{ "bans",				(getattrofunc)wpMulti_friends, METH_VARARGS, "Returns the ban list of this multi." },
 	{ "addchtile",			(getattrofunc)wpMulti_addchtile, METH_VARARGS, "Adds a tile to the custom house." },
+	{ "sendcustomhouse",	(getattrofunc)wpMulti_sendcustomhouse, METH_VARARGS, "Sends custom house." },
 
 	// Tag System
 	{ "gettag",				(getattrofunc)wpMulti_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." },
