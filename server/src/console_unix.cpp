@@ -28,7 +28,13 @@
 //
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
+
+// System Includes
+#include <sys/time.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <termios.h>
+
 // Qt Includes
 #include <qthread.h>
 
@@ -38,6 +44,21 @@
 
 using namespace std;
 
+void setNonBlockingIo()
+{
+        termios term_caps;
+
+        if( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
+                return;
+
+        term_caps.c_lflag &= ~ICANON;
+
+        if( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
+                return;
+
+        setbuf( stdin, NULL );
+}
+
 class cConsoleThread : public QThread
 {
 protected:
@@ -45,15 +66,31 @@ protected:
 	{
 		try
 		{
+			setNonBlockingIo();
+
 			while( serverState < SHUTDOWN )
 			{
-				char c = fgetc( stdin );
-				if( c > 0 && serverState == RUNNING )
+				// Do a select operation on the stdin handle and see
+				// if there is any input waiting.
+				fd_set consoleFds;
+				FD_ZERO( &consoleFds );				
+				FD_SET( STDIN_FILENO, &consoleFds );
+
+				timeval tvTimeout;
+				tvTimeout.tv_sec = 0;
+				tvTimeout.tv_usec = 1;
+		
+				if( select( 1, &consoleFds, 0, 0, &tvTimeout ) > 0 )
 				{
-					Console::instance()->queueCommand( QChar( c ) );
+					char c = fgetc( stdin );
+
+					if( c > 0 && serverState == RUNNING )
+					{
+						Console::instance()->queueCommand( QChar( c ) );
+					}
 				}
 				else
-				{	
+				{
 					msleep( 100 );
 				}
 			}

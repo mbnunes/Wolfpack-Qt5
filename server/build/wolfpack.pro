@@ -27,7 +27,7 @@ unix {
 	}
 	
 	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite lib/Python/Include network
-	LIBS  += -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.2 -lmysqlclient -lutil
+	LIBS  += -L. -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.3 -lmysqlclient -lutil
 	# we dont use those.
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 	

@@ -113,7 +113,7 @@ unsigned int cUObject::dist(cUObject* d) const
 */
 void cUObject::load( char **result, UINT16 &offset )
 {
-	name_ = result[offset] == 0 ? QString::null : result[offset];
+	name_ = ( result[offset] == 0 ) ? QString::null : QString( result[offset] );
 	offset++;
 	serial_ = atoi(result[offset++]);
 	multis_ = atoi(result[offset++]);
@@ -122,7 +122,7 @@ void cUObject::load( char **result, UINT16 &offset )
 	pos_.y = atoi(result[offset++]);
 	pos_.z = atoi(result[offset++]);
 	pos_.map = atoi(result[offset++]);
-	eventList_ = result[offset] == 0 ? QString::null : result[offset];
+	eventList_ = ( result[offset] == 0 ) ? QString::null : QString( result[offset] );
 	offset++;
 	bindmenu_ = result[offset++];
 	bool havetags_ = atoi( result[offset++] );
