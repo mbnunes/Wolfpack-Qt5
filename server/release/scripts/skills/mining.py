@@ -10,7 +10,7 @@ import wolfpack.time
 import skills
 import random
 from wolfpack.consts import MINING, GRAY, MINING_REFILLTIME, MINING_ORE, \
-	MINING_MAX_DISTANCE, ANIM_ATTACK3, SOUND_MINING
+	MINING_MAX_DISTANCE, ANIM_ATTACK3, SOUND_MINING, FELUCIA2XRESGAIN
 from wolfpack import console
 from wolfpack.utilities import ismountainorcave, tobackpack
 
