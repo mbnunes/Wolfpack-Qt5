@@ -21,6 +21,7 @@
 		<wrestling>50</wrestling>
 		<tactics>50</tactics>
 		<magicresistance>50</magicresistance>
+		<anatomy>0</anatomy>
 		<totame>111</totame>
 		<food>0</food>
 		<carve>carve_goat</carve>

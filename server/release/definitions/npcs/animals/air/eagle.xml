@@ -13,6 +13,10 @@
 		<tag name="maxdamage" value="13" type="int" />
 		<!-- Defense -->
 		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_fire" value="10,15" type="int" />
+		<tag name="res_cold" value="20,25" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<tag name="res_energy" value="5,10" type="int" />
 		<!-- Stats -->
 		<str><random min="31" max="47" /></str>
 		<dex><random min="36" max="60" /></dex>
@@ -21,6 +25,7 @@
 		<wrestling><random min="201" max="300" /></wrestling>
 		<tactics><random min="181" max="370" /></tactics>
 		<magicresistance><random min="153" max="300" /></magicresistance>
+		<anatomy>0</anatomy>
 		<totame>171</totame>
 		<food>1</food>
 		<carve>carve_eagle</carve>

@@ -3,7 +3,7 @@
 
 	<!-- Aligator -->
 	<npc id="alligator" inherit="animal_base">
-		<name>a alligator</name>
+		<name>an alligator</name>
 		<id>0xca</id>
 		<ai>Animal_Aggressive</ai>
 		<category>Animals\Land\Alligator</category>
@@ -14,6 +14,8 @@
 		<tag name="maxdamage" value="24" type="int" />
 		<!-- Defense -->
 		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Stats -->
 		<str><random min="76" max="100" /></str>
 		<dex><random min="6" max="25" /></dex>
@@ -22,6 +24,7 @@
 		<wrestling><random min="401" max="600" /></wrestling>
 		<tactics><random min="401" max="600" /></tactics>
 		<magicresistance><random min="251" max="400" /></magicresistance>
+		<anatomy>0</anatomy>
 		<totame>471</totame>
 		<food>0</food>
 		<carve>carve_aligator</carve>

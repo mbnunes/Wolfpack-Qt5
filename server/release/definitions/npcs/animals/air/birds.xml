@@ -16,13 +16,14 @@
 		<!-- Defense -->
 		<tag name="res_physical" value="0,3" type="int" />
 		<!-- Stats -->
-		<str><random min="3" max="8" /></str>
-		<dex><random min="15" max="25" /></dex>
+		<str><random min="1" max="4" /></str>
+		<dex>25</dex>
 		<int><random min="1" max="4" /></int>
 		<!-- Skills -->
-		<wrestling><random min="50" max="50" /></wrestling>
-		<tactics><random min="50" max="50" /></tactics>
-		<magicresistance><random min="50" max="50" /></magicresistance>
+		<wrestling>50</wrestling>
+		<tactics>50</tactics>
+		<magicresistance>50</magicresistance>
+		<anatomy>0</anatomy>
 		<totame>0</totame>
 		<food>3</food>
 		<carve>carve_bird</carve>
