@@ -174,8 +174,8 @@ void gms(int s);
 void playmonstersound(int monster, int id1, int id2, int sfx);
 void sellaction(int s);
 void addgold(int s, int totgold);
-int calcValue(int i, int value);
-int calcGoodValue(int npcnum, int i, int value,int goodtype); // by Magius(CHE) for trade system
+int calcValue(P_ITEM pi, int value);
+int calcGoodValue(int npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
 void StoreItemRandomValue(int i,int tmpreg); // by Magius(CHE) (2) for trade system
 
 int tradestart(int s, int i);
@@ -207,7 +207,7 @@ void loadserverdefaults(void);
 int numbitsset( int number );
 int whichbit( int number, int bit );
 unsigned int chardist (CHARACTER a, CHARACTER b);
-unsigned int itemdist(CHARACTER a, ITEM i);
+unsigned int itemdist(CHARACTER a, P_ITEM pi);
 
 int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color = 0x0000 );
 int DeleBankItem( CHARACTER p, unsigned short itemid, unsigned short color, int amt );

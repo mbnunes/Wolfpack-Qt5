@@ -342,8 +342,8 @@ void cChar::Init(bool ser)
 	this->onhorse=false; // On a horse?
 	this->hunger=6;  // Level of hungerness, 6 = full, 0 = "empty"
 	this->hungertime=0; // Timer used for hunger, one point is dropped every 20 min
-	this->smeltitem=-1;
-	this->tailitem=-1;
+	this->smeltitem= INVALID_SERIAL;
+	this->tailitem = INVALID_SERIAL;
 	this->npcaitype=0; // NPC ai
 	this->callnum=-1; //GM Paging
 	this->playercallnum=-1; //GM Paging

@@ -97,7 +97,7 @@ void do_lsd(UOXSOCKET s)
 						 if (rand()%10==0) zz=pi->pos.z+rand()%33; else zz=pi->pos.z;
 						 if (rand()%10==0) xx=pi->pos.x+rand()%3; else xx=pi->pos.x;
 						 if (rand()%10==0) yy=pi->pos.y+rand()%3; else yy=pi->pos.y;
-						 di = itemdist(DEREF_P_CHAR(pc_currchar),DEREF_P_ITEM(pi));
+						 di = itemdist(DEREF_P_CHAR(pc_currchar), pi);
 						 if (di<13) if (rand()%7==0)
 						 {
 							icnt++;
@@ -1056,7 +1056,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 							Items->DecayItem(currenttime, mapitem);
 							if (mapitem->type==88 && mapitem->morey<25 )
 							{
-								if (itemdist(currchar[i], DEREF_P_ITEM(mapitem))<=mapitem->morey)
+								if (itemdist(currchar[i], mapitem)<=mapitem->morey)
 								{
 									if (RandomNum(1,100)<=mapitem->morez)
 										soundeffect4(DEREF_P_ITEM(mapitem),i, mapitem->morex>>8, mapitem->morex%256);

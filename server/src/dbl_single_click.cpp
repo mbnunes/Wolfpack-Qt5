@@ -73,17 +73,18 @@ static bool Item_ToolWearOut(UOXSOCKET s, P_ITEM pi)
 // history:	by Ripper, 5.12.2000
 // purpose:	takes 5gp to spin it and gives random wins
 //
-void slotmachine(UOXSOCKET s, ITEM x)
+void slotmachine(UOXSOCKET s, P_ITEM pi)
 {
 	int cc=currchar[s];
-	const P_ITEM pi=MAKE_ITEMREF_LR(x);	// on error return
+	if (pi == NULL)
+		return;
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
 	if(pc_currchar->dead)		// no ghosts playing :)
 	{
 		sysmessage(s,"ghosts cant do that!");
 		return;
 	}
-	if(itemdist(cc,x)>3)	// within 3 to play.
+	if(itemdist(cc,pi)>3)	// within 3 to play.
 	{
 		sysmessage(s,"you need to be closer to play!");
 		return;
@@ -1091,7 +1092,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						return;
 					}
 				case 0x0DF9: 
-					pc_currchar->tailitem = DEREF_P_ITEM(pi);   
+					pc_currchar->tailitem = pi->serial;   
 					target(s, 0, 1, 0, 166, "Select spinning wheel to spin cotton.");
 					return;
 					/*
@@ -1105,7 +1106,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x0E1D:
 				case 0x0E1F:
 				case 0x0E1E:  // yarn to cloth
-					pc_currchar->tailitem = DEREF_P_ITEM(pi);
+					pc_currchar->tailitem = pi->serial;
 					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
 					return;
 				case 0x14ED: // Build cannon
@@ -1127,16 +1128,16 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				case 0x0FF8:
 				case 0x0FF9: // pitcher of water to flour
-					pc_currchar->tailitem = DEREF_P_ITEM(pi);
+					pc_currchar->tailitem = pi->serial;
 					target(s, 0, 1, 0, 173, "Select flour to pour this on.");  
 					return;
 				case 0x09C0:
 				case 0x09C1: // sausages to dough
-					pc_currchar->tailitem = DEREF_P_ITEM(pi);
+					pc_currchar->tailitem = pi->serial;
 					target(s, 0, 1, 0, 174, "Select dough to put this on.");  
 					return;
 				case 0x0DF8: // wool to yarn 
-					pc_currchar->tailitem = DEREF_P_ITEM(pi);   
+					pc_currchar->tailitem = pi->serial;   
 					target(s, 0, 1, 0, 164, "Select your spin wheel to spin wool.");      
 					return;
 				case 0x0F9D: // sewing kit for tailoring
@@ -1146,7 +1147,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x19B9:
 				case 0x19BA:
 				case 0x19B8: // smelt ore
-					pc_currchar->smeltitem = DEREF_P_ITEM(pi);
+					pc_currchar->smeltitem = pi->serial;
 					target(s, 0, 1, 0, 52, "Select forge to smelt ore on.");// smelting  for all ore changed by Myth 11/12/98
 					return;
 				case 0x1E5E:
@@ -1330,27 +1331,27 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x14FC:
 				case 0x14FD:
 				case 0x14FE: // lockpicks
-					addmitem[s] = DEREF_P_ITEM(pi);
+					addmitem[s] = pi->serial;
 					target(s, 0, 1, 0, 162, "What lock would you like to pick?");
 					return;
 				case 0x097A: // Raw Fish steaks
-					addmitem[s] = DEREF_P_ITEM(pi);
+					addmitem[s] = pi->serial;
 					target(s, 0, 1, 0, 49, "What would you like to cook this on?");
 					return;
 				case 0x09b9: // Raw Bird
-					addmitem[s] = DEREF_P_ITEM(pi);
+					addmitem[s] = pi->serial;
 					target(s, 0, 1, 0, 54, "What would you like to cook this on?");
 					return;
 				case 0x1609: // Raw Lamb
-					addmitem[s] = DEREF_P_ITEM(pi);
+					addmitem[s] = pi->serial;
 					target(s, 0, 1, 0, 55, "What would you like to cook this on?");
 					return;
 				case 0x09F1: // Raw Ribs
-					addmitem[s] = DEREF_P_ITEM(pi);
+					addmitem[s] = pi->serial;
 					target(s, 0, 1, 0, 68, "What would you like to cook this on?");
 					return;
 				case 0x1607: // Raw Chicken Legs
-					addmitem[s] = DEREF_P_ITEM(pi);
+					addmitem[s] = pi->serial;
 					target(s, 0, 1, 0, 69, "What would you like to cook this on?");
 					return;
 				case 0x0C4F:
@@ -1433,7 +1434,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					sysmessage(s, "You must wait for it to stop swinging !");
 					return;
 				case 0x1EA8: 
-					slotmachine(s, DEREF_P_ITEM(pi));
+					slotmachine(s, pi);
 					return; // Ripper
 				case 0x1EBC: // tinker's tools
 					target(s, 0, 1, 0, 180, "Select material to use.");

@@ -308,9 +308,10 @@ unsigned int chardist (CHARACTER a, CHARACTER b) // Distance between characters 
 }
 
 
-unsigned int itemdist(CHARACTER a, ITEM i)// calculates distance between item i and player a
+unsigned int itemdist(CHARACTER a, P_ITEM pi)// calculates distance between item i and player a
 {
-	const P_ITEM pi = MAKE_ITEMREF_LRV(i,30);	// on error return 30
+	if ( pi == NULL)
+		return 30;
 
 	if (a<=-1) return 30;
 	return dist(chars[a].pos, pi->pos);
@@ -4330,10 +4331,11 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 #endif
 }
 
-int calcValue(int i, int value)
+int calcValue(P_ITEM pi, int value)
 {
 	int mod=10;
-	const P_ITEM pi=MAKE_ITEMREF_LRV(i,value);	// on error return
+	if (pi == NULL)
+		return value;
 
 	if (pi->type==19)
 	{
@@ -4363,12 +4365,15 @@ int calcValue(int i, int value)
 	return value;
 }
 
-int calcGoodValue(int npcnum2, int i, int value,int goodtype)
+int calcGoodValue(int npcnum2, P_ITEM pi, int value,int goodtype)
 { // Function Created by Magius(CHE) for trade System
 	int actreg=calcRegionFromXY(chars[npcnum2].pos.x, chars[npcnum2].pos.y);
 	int regvalue=0;
 	int x;
-	const P_ITEM pi=MAKE_ITEMREF_LRV(i,value);	// on error return
+	//const P_ITEM pi=MAKE_ITEMREF_LRV(i,value);	// on error return
+	if (pi == NULL)
+		return value;
+
 	int good=pi->good;
 
 	if (good<=-1 || good >255 || actreg<=-1 || actreg>255) return value;

@@ -202,8 +202,8 @@ public:
 	bool onhorse; // On a horse?
 	int hunger;  // Level of hungerness, 6 = full, 0 = "empty"
 	unsigned int hungertime; // Timer used for hunger, one point is dropped every 20 min
-	int smeltitem;
-	int tailitem;
+	SERIAL smeltitem;
+	SERIAL tailitem;
 	int npcaitype; // NPC ai
 	int callnum; //GM Paging
 	int playercallnum; //GM Paging

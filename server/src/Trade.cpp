@@ -80,8 +80,8 @@ void buyaction(int s)
 			buyit[i]->rank=10;
 			// Fixed for adv trade system -- Magius(CHE) §
 			tmpvalue = buyit[i]->value;
-			tmpvalue = calcValue(DEREF_P_ITEM(buyit[i]), tmpvalue);
-			if (SrvParms->trade_system==1) tmpvalue = calcGoodValue(s, DEREF_P_ITEM(buyit[i]), tmpvalue,0);
+			tmpvalue = calcValue(buyit[i], tmpvalue);
+			if (SrvParms->trade_system==1) tmpvalue = calcGoodValue(s, buyit[i], tmpvalue,0);
 			goldtotal += (amount[i]*tmpvalue);
 			// End Fix for adv trade system -- Magius(CHE) §
 		}
@@ -325,7 +325,6 @@ void sellaction(int s)
 		{
 			P_ITEM pSell=FindItemBySerPtr(buffer[s]+9+(6*i));	// the item to sell
 			if (!pSell) continue;
-			int sell=DEREF_P_ITEM(pSell);
 			amt=ShortFromCharPtr(buffer[s]+9+(6*i)+4);
 			
 			// player may have taken items out of his bp while the sell menu was up ;-)
@@ -357,9 +356,9 @@ void sellaction(int s)
 				if (items_match(pi,pSell))
 				{
 					value=pi->value;
-					value=calcValue(sell, value);
+					value=calcValue(pSell, value);
 					if (SrvParms->trade_system==1)
-						value=calcGoodValue(s,sell,value,1); // Fixed for adv trade --- by Magius(CHE) §
+						value=calcGoodValue(s, pSell, value, 1); // Fixed for adv trade --- by Magius(CHE) §
 					break;	// let's take the first match
 				}
 			}
@@ -376,7 +375,7 @@ void sellaction(int s)
 				pSell->SetContSerial(items[npb].serial);
 				SndRemoveitem(pSell->serial);
 				if (pSell->amount!=amt)
-					Commands->DupeItem(s, sell, pSell->amount-amt);
+					Commands->DupeItem(s, DEREF_P_ITEM(pSell), pSell->amount-amt);
 			}
 		}
 		addgold(s, totgold);

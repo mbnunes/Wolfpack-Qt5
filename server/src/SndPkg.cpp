@@ -2993,8 +2993,8 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 				m1[4]++; // Increase item count.
 				m1t=m1t+19;
 				value=pi_j->value;
-				value=calcValue(DEREF_P_ITEM(pi_j), value);
-				if (SrvParms->trade_system==1) value=calcGoodValue(c, DEREF_P_ITEM(pi_j), value, 0); // by Magius(CHE)
+				value=calcValue(pi_j, value);
+				if (SrvParms->trade_system==1) value=calcGoodValue(c, pi_j, value, 0); // by Magius(CHE)
 				m2[m2t+0]=value>>24;// Item value/price
 				m2[m2t+1]=value>>16;//Item value/price
 				m2[m2t+2]=value>>8; // Item value/price
@@ -3103,8 +3103,8 @@ int sellstuff(int s, int i)
 							ShortToCharPtr(pi_j->color(),m1+m1t+6);
 							ShortToCharPtr(pi_j->amount,m1+m1t+8);
 							value=pi_q->value;
-							value=calcValue(DEREF_P_ITEM(pi_j), value);
-							if (SrvParms->trade_system==1) value=calcGoodValue(i,DEREF_P_ITEM(pi_j),value,1); // by Magius(CHE)
+							value=calcValue(pi_j, value);
+							if (SrvParms->trade_system==1) value=calcGoodValue(i, pi_j, value, 1); // by Magius(CHE)
 							m1[m1t+10]=value>>8;
 							m1[m1t+11]=value%256;
 							m1[m1t+12]=0;// Unknown... 2nd length byte for string?

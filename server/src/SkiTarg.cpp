@@ -956,8 +956,10 @@ static void SmeltOre2(	int s,					// current char's socket #
 {
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
-	int smi = pc_currchar->smeltitem;		// index of ore item
-	const P_ITEM pi=MAKE_ITEMREF_LR(smi);	// on error return
+//	int smi = pc_currchar->smeltitem;		// index of ore item
+	const P_ITEM pi = FindItemBySerial(pc_currchar->smeltitem);	// on error return
+	if ( pi == NULL )
+		return;
 
 
 	if (pc_currchar->skill[MINING] < minskill)
@@ -1023,7 +1025,9 @@ void cSkills::SmeltOre(int s)
 				sysmessage(s,"You cant smelt here.");
 			else
 			{
-				cItem* pix=MAKE_ITEMREF_LR(pc_currchar->smeltitem);	// on error return
+				P_ITEM pix = FindItemBySerial(pc_currchar->smeltitem);	// on error return
+				if ( pix == NULL)
+					return;
 				switch (pix->color())
 				{
 					case 0x0000:	SmeltOre2(s,   0, 0x1BF2, 0x0961,"Iron");	break;
@@ -1042,7 +1046,7 @@ void cSkills::SmeltOre(int s)
 			}
 		}
 	}
-	pc_currchar->smeltitem=-1;
+	pc_currchar->smeltitem = INVALID_SERIAL;
 	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
 	statwindow(s, DEREF_P_CHAR(pc_currchar));		// Ison 2-20-99
 }
@@ -1066,8 +1070,8 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 			}
 			sysmessage(s,"You have successfully spun your material.");
 
-			int ti = pc_currchar->tailitem;
-			const P_ITEM pti=MAKE_ITEMREF_LR(ti);	// on error return
+//			int ti = pc_currchar->tailitem;
+			const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
 			
 			if (mat==YARN)
 			{
@@ -1087,7 +1091,7 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 			tailme=1;
 		}
 	}
-	pc_currchar->tailitem=-1;
+	pc_currchar->tailitem = INVALID_SERIAL;
 	if(!tailme) sysmessage(s,"You cant tailor here.");
 }
 
@@ -1103,8 +1107,10 @@ void cSkills::Loom(int s)
 		{
 			if(iteminrange(s,pi,3))
 			{
-				int ti = pc_currchar->tailitem;
-				const P_ITEM pti=MAKE_ITEMREF_LR(ti);	// on error return
+//				int ti = pc_currchar->tailitem;
+				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
+				if (pti == NULL)
+					return;
 				if(pti->amount<5)
 				{
 					sysmessage(s,"You do not have enough material to make anything!");
@@ -1144,7 +1150,7 @@ void cSkills::Loom(int s)
 			}
 		}
 	}
-	pc_currchar->tailitem=-1;
+	pc_currchar->tailitem = INVALID_SERIAL;
 	if(!tailme) sysmessage(s,"You cant tailor here.");
 }
 
@@ -1159,7 +1165,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	if (pi && pi->magic!=4) // Ripper
 	{
-		P_ITEM piRaw=MAKE_ITEMREF_LR(addmitem[s]);
+		P_ITEM piRaw = FindItemBySerial(addmitem[s]);
 		if (CheckInPack(s,piRaw))
 		{
 			if(IsCookingPlace(pi->id()) )
@@ -1191,7 +1197,7 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 
 void cSkills::MakeDough(int s)
 {
-	int tailme=0;
+	bool tailme = false;
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -1208,8 +1214,9 @@ void cSkills::MakeDough(int s)
 				}
 				sysmessage(s,"You have mixed very well to make your dough.");
 				
-				int ti = pc_currchar->tailitem;
-				const P_ITEM pti=MAKE_ITEMREF_LR(ti);	// on error return
+				const P_ITEM pti=FindItemBySerial(pc_currchar->tailitem);	// on error return
+				if ( pti == NULL)
+					return;
 				strcpy(pti->name,"#");
 				
 				pti->setId(0x103D);
@@ -1217,12 +1224,12 @@ void cSkills::MakeDough(int s)
 				pti->amount *= 2;
 				
 				RefreshItem(pti);
-				tailme=1;
+				tailme = true;
 			}
 		}
 	}
-	pc_currchar->tailitem=-1;
-	if(!tailme) sysmessage(s,"You cant mix here.");
+	pc_currchar->tailitem=INVALID_SERIAL;
+	if(!tailme) sysmessage(s, "You cant mix here.");
 }
 
 void cSkills::MakePizza(int s)
@@ -1245,7 +1252,9 @@ void cSkills::MakePizza(int s)
 				}
 				sysmessage(s,"You have made your uncooked pizza, ready to place in oven.");
 				
-				const P_ITEM pti=MAKE_ITEMREF_LR(pc_currchar->tailitem);	// on error return
+				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
+				if ( pti == NULL )
+					return;
 				strcpy(pti->name,"#");
 				
 				pti->setId(0x1083);
@@ -1257,7 +1266,7 @@ void cSkills::MakePizza(int s)
 			}
 		}
 	}
-	pc_currchar->tailitem=1;
+	pc_currchar->tailitem = INVALID_SERIAL;
 	if(!tailme) sysmessage(s,"You cant mix here.");
 }
 
@@ -2471,7 +2480,9 @@ void cSkills::LockPick(int s)
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	if (pi && pi->magic!=4) // Ripper
 	{
-		P_ITEM piPick=MAKE_ITEMREF_LR(addmitem[s]);
+		P_ITEM piPick = FindItemBySerial(addmitem[s]);
+		if (piPick == NULL)
+			return;
 		if(pi->type==1 || pi->type==12 || pi->type==63) 
 		{
 			sysmessage(s, "That is not locked.");
@@ -2533,7 +2544,7 @@ void cSkills::LockPick(int s)
 							}
 							else
 							{
-								P_ITEM pi = MAKE_ITEM_REF(addmitem[s]);
+								P_ITEM pi = FindItemBySerial(addmitem[s]);
 							    Items->DeleItem(pi);
 							}
 						} else
