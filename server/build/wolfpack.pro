@@ -16,7 +16,8 @@ unix {
 	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite /usr/include/mysql /usr/local/lib/mysql/include/mysql lib/Python/Include network
 	LIBS  += -L/usr/local/lib/mysql/lib/mysql -L/usr/local/lib -Llib/Python -L/usr/lib/mysql -ldl -lpython2.2 -lmysqlclient -lutil
 	
-# Optional compile modes	
+	# Optional compile modes	
+	release:debug:error(You can't have release and debug at the same time!)
 	
 	release {
 		CONFIG += warn_off
@@ -44,13 +45,12 @@ win32:DEFINES  += WIN32
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
 win32:INCLUDEPATH += lib/Python/PC C:/mysql/include/
 win32-g++:LIBS= -lwsock32
-win32-msvc:LIBS      = kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib ZThread.lib
+win32-msvc:LIBS      = kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib 
 win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
-win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib
+win32-borland:LIBS += ws2_32.lib 
 
-QMAKE_CFLAGS   += -DMYSQL_DRIVER
-QMAKE_CXXFLAGS += -DMYSQL_DRIVER
+DEFINES += -DMYSQL_DRIVER
 
 # Common files
 
