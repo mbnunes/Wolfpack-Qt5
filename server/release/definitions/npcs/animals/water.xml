@@ -7,21 +7,20 @@
 		<category>Animals\Water\dolphin</category>
 		<skin>0</skin>
 		<inherit id="animal_base" />
-		<karma><random min="30" max="50" /></karma>
-		<fame><random min="20" max="40" /></fame>
+		<karma>2000</karma>
+		<fame>500</fame>
 		<defense><random min="5" max="10" /></defense>
-		<lodamage>5</lodamage>
-		<hidamage>10</hidamage>
+		<lodamage>3</lodamage>
+		<hidamage>6</hidamage>
 		<!-- Stats -->
-		<str><random min="10" max="15" /></str>
-		<dex><random min="15" max="20" /></dex>
-		<int><random min="20" max="25" /></int>
+		<str><random min="21" max="49" /></str>
+		<dex><random min="66" max="85" /></dex>
+		<int><random min="96" max="110" /></int>
 		<!-- Skills -->
-		<wrestling><random min="575" max="625" /></wrestling>
-		<tactics><random min="475" max="525" /></tactics>
-		<parrying><random min="475" max="525" /></parrying>
-		<magicresistance><random min="475" max="525" /></magicresistance>
-		<totame>500</totame>
+		<wrestling><random min="192" max="290" /></wrestling>
+		<tactics><random min="192" max="290" /></tactics>
+		<magicresistance><random min="151" max="200" /></magicresistance>
+		<totame>1100</totame>
 		<carve>carve_dolphin</carve>
 	</npc>
 		

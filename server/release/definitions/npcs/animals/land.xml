@@ -17,7 +17,7 @@
                 <dex><random min="36" max="55" /></dex>
                 <int><random min="36" max="60" /></int>
                 <!-- Skills -->
-                <wrestling><random min="4337" max="580" /></wrestling>
+                <wrestling><random min="433" max="580" /></wrestling>
                 <tactics><random min="433" max="580" /></tactics>
                 <magicresistance><random min="451" max="600" /></magicresistance>
                 <totame>0</totame>

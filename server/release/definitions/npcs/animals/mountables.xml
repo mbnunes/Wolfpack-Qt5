@@ -11,16 +11,16 @@
 <definitions>
 	<!-- Beetle -->
 	<npc id="beetle">
-		<name>giant beetle</name>
+		<name>a giant beetle</name>
 		<id>0x0317</id>
 		<category>Animals\Ridables\Beetle</category>
 		<skin>0</skin>
-		<inherit id="animal_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
+		<inherit id="monster_base" />
+		<karma>-4000</karma>
+		<fame>4000</fame>
 		<defense>60</defense>
-		<lodamage>8</lodamage>
-		<hidamage>23</hidamage>
+		<lodamage>7</lodamage>
+		<hidamage>20</hidamage>
 		<str>300</str>
 		<dex>100</dex>
 		<int>500</int>
@@ -33,130 +33,77 @@
 
 	<!-- Swamp Dragon -->
 	<npc id="swampdragon_1">
-		<name>swamp dragon</name>
+		<name>a swamp dragon</name>
 		<id>0x031a</id>
 		<category>Animals\Ridables\Swamp Dragon </category>
-		<inherit id="animal_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
+		<inherit id="monster_base" />
+		<karma>-2000</karma>
+		<fame>2000</fame>
 		<defense>40</defense>
-		<lodamage>1</lodamage>
-		<hidamage>2</hidamage>
-		<str><random min="209" max="299" /></str>
+		<lodamage>3</lodamage>
+		<hidamage>4</hidamage>
+		<str><random min="201" max="300" /></str>
 		<dex><random min="66" max="85" /></dex>
 		<int><random min="61" max="100" /></int>
-		<wrestling><random min="510" max="594" /></wrestling>
-		<tactics><random min="459" max="550" /></tactics>
-		<magicresistance><random min="455" max="550" /></magicresistance>
-		<anatomy><random min="452" max="541" /></anatomy>
+		<wrestling><random min="451" max="500" /></wrestling>
+		<tactics><random min="451" max="500" /></tactics>
+		<magicresistance><random min="451" max="500" /></magicresistance>
+		<anatomy><random min="451" max="500" /></anatomy>
 		<totame>939</totame>
 		<food>1</food>
 	</npc>
 
 	<!-- Armored Swamp Dragons -->
 	<npc id="swampdragon_2">
-		<name>swamp dragon</name>
+		<name>a swamp dragon</name>
 		<id>0x031f</id>
 		<category>Animals\Ridables\Armored Swamp Dragon (Weak)</category>
-		<inherit id="animal_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense>46</defense>
-		<lodamage>1</lodamage>
-		<hidamage>2</hidamage>
-		<str><random min="209" max="299" /></str>
-		<dex><random min="66" max="85" /></dex>
-		<int><random min="61" max="100" /></int>
-		<wrestling><random min="510" max="594" /></wrestling>
-		<tactics><random min="459" max="550" /></tactics>
-		<magicresistance><random min="455" max="550" /></magicresistance>
-		<anatomy><random min="452" max="541" /></anatomy>
-		<totame>939</totame>
-		<food>1</food>
+		<inherit id="swampdragon_1" />
 	</npc>
 
 	<!-- Gray Horses -->
-	<npc id="horse_gray">
-		<name>horse</name>
+	<npc id="horse_1">
+		<name>a horse</name>
 		<id>0x00e2</id>
 		<category>Animals\Ridables\Gray Horse (Weak)</category>
 		<inherit id="animal_base" />
-		<karma><random min="0" max="625" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma>300</karma>
+		<fame>300</fame>
 		<defense>18</defense>
-		<lodamage>2</lodamage>
-		<hidamage>10</hidamage>
-		<str><random min="55" max="75" /></str>
-		<dex><random min="57" max="75" /></dex>
-		<int>10</int>
-		<wrestling><random min="337" max="449" /></wrestling>
-		<tactics><random min="310" max="417" /></tactics>
-		<magicresistance><random min="234" max="296" /></magicresistance>
+		<lodamage>3</lodamage>
+		<hidamage>4</hidamage>
+		<str><random min="22" max="98" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="6" max="10" /></int>
+		<wrestling><random min="293" max="440" /></wrestling>
+		<tactics><random min="293" max="440" /></tactics>
+		<magicresistance><random min="251" max="300" /></magicresistance>
 		<totame>291</totame>
 		<food>5</food>
 	</npc>
 
 	<!-- Gray Brown Horses -->
-	<npc id="horse_graybrown">
-		<name>horse</name>
+	<npc id="horse_2">
+		<name>a horse</name>
 		<id>0x00e4</id>
 		<category>Animals\Ridables\Gray-brown Horse</category>
-		<inherit id="animal_base" />
-		<karma><random min="0" max="625" /></karma>
-		<fame><random min="0" max="1249" /></fame>
-		<defense>18</defense>
-		<lodamage>2</lodamage>
-		<hidamage>10</hidamage>
-		<str><random min="55" max="75" /></str>
-		<dex><random min="57" max="75" /></dex>
-		<int>10</int>
-		<wrestling><random min="337" max="449" /></wrestling>
-		<tactics><random min="310" max="417" /></tactics>
-		<magicresistance><random min="234" max="296" /></magicresistance>
-		<totame>291</totame>
-		<food>5</food>
+		<inherit id="horse_1" />
 	</npc>
 
 	<!-- Light Brown Horses -->
-	<npc id="horse_lightbrown">
-		<name>horse</name>
+	<npc id="horse_3">
+		<name>a horse</name>
 		<id>0x00c8</id>
 		<category>Animals\Ridables\Light-brown Horse</category>
-		<inherit id="animal_base" />
-		<karma><random min="0" max="625" /></karma>
-		<fame><random min="0" max="1249" /></fame>
-		<defense>18</defense>
-		<lodamage>2</lodamage>
-		<hidamage>10</hidamage>
-		<str><random min="55" max="75" /></str>
-		<dex><random min="57" max="75" /></dex>
-		<int>10</int>
-		<wrestling><random min="337" max="449" /></wrestling>
-		<tactics><random min="310" max="417" /></tactics>
-		<magicresistance><random min="234" max="296" /></magicresistance>
-		<totame>291</totame>
-		<food>5</food>
+		<inherit id="horse_1" />
 	</npc>
 
 	<!-- Brown Horses -->
-	<npc id="horse_brown">
+	<npc id="horse_4">
 		<name>horse</name>
 		<id>0x00cc</id>
 		<category>Animals\Ridables\Brown Horse </category>
-		<inherit id="animal_base" />
-		<karma><random min="0" max="625" /></karma>
-		<fame><random min="0" max="1249" /></fame>
-		<defense>18</defense>
-		<lodamage>2</lodamage>
-		<hidamage>10</hidamage>
-		<str><random min="55" max="75" /></str>
-		<dex><random min="57" max="75" /></dex>
-		<int>10</int>
-		<wrestling><random min="337" max="449" /></wrestling>
-		<tactics><random min="310" max="417" /></tactics>
-		<magicresistance><random min="234" max="296" /></magicresistance>
-		<totame>291</totame>
-		<food>5</food>
+		<inherit id="horse_1" />
 	</npc>
 
 	<!-- Sea Horse -->
@@ -186,19 +133,19 @@
 		<id>0x84</id>
 		<category>Animals\Ridables\Kirin</category>
 		<inherit id="animal_base" />
-		<karma><random min="5000" max="9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
+		<karma>9000</karma>
+		<fame>9000</fame>
 		<defense>60</defense>
-		<lodamage>10</lodamage>
-		<hidamage>20</hidamage>
+		<lodamage>16</lodamage>
+		<hidamage>22</hidamage>
 		<str><random min="296" max="325" /></str>
 		<dex><random min="86" max="105" /></dex>
-		<int><random min="186" max="225" /></int>
-		<wrestling><random min="838" max="913" /></wrestling>
+		<int><random min="195" max="210" /></int>
+		<wrestling><random min="805" max="925" /></wrestling>
 		<tactics><random min="201" max="225" /></tactics>
-		<magicresistance><random min="873" max="980" /></magicresistance>
-		<magery><random min="727" max="940" /></magery>
-		<evaluatingintel><random min="804" max="933" /></evaluatingintel>
+		<magicresistance><random min="853" max="1000" /></magicresistance>
+		<magery><random min="604" max="1000" /></magery>
+		<evaluatingintel><random min="801" max="900" /></evaluatingintel>
 		<meditation><random min="901" max="1000" /></meditation>
 		<totame>951</totame>
 		<food>5</food>
@@ -210,145 +157,101 @@
 		<id>0x00dc</id>
 		<category>Animals\Ridables\Llama</category>
 		<inherit id="animal_base" />
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma>0</karma>
+		<fame>300</fame>
 		<defense>16</defense>
-		<lodamage>1</lodamage>
+		<lodamage>3</lodamage>
 		<hidamage>5</hidamage>
-		<str><random min="23" max="47" /></str>
+		<str><random min="21" max="49" /></str>
 		<dex><random min="56" max="75" /></dex>
 		<int><random min="16" max="30" /></int>
-		<wrestling><random min="237" max="292" /></wrestling>
-		<tactics><random min="213" max="274" /></tactics>
-		<magicresistance><random min="151" max="197" /></magicresistance>
+		<wrestling><random min="192" max="290" /></wrestling>
+		<tactics><random min="192" max="290" /></tactics>
+		<magicresistance><random min="151" max="200" /></magicresistance>
 		<totame>291</totame>
 		<food>5</food>
 	</npc>
 
-	<!-- Skeletal Horse -->
-	<npc id="skeletalhorse">
-		<name>skeletal mount</name>
+	<!-- Hellsteed -->
+	<npc id="hellsteed">
+		<name>a hellsteed</name>
 		<id>793</id>
-		<category>Animals\Ridables\Skeletal Horse</category>
-		<inherit id="animal_base" />
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
-		<defense>16</defense>
-		<lodamage>1</lodamage>
-		<hidamage>5</hidamage>
-		<str><random min="23" max="47" /></str>
-		<dex><random min="56" max="75" /></dex>
-		<int><random min="16" max="30" /></int>
-		<wrestling><random min="237" max="292" /></wrestling>
-		<tactics><random min="213" max="274" /></tactics>
-		<magicresistance><random min="151" max="197" /></magicresistance>
+		<category>Animals\Ridables\Hellsteed</category>
+		<inherit id="monster_base" />
+		<karma>0</karma>
+		<fame>0</fame>
+		<defense><random min="60" max="70" /></defense>
+		<lodamage>20</lodamage>
+		<hidamage>24</hidamage>
+		<str><random min="201" max="210" /></str>
+		<dex><random min="101" max="110" /></dex>
+		<int><random min="101" max="115" /></int>
+		<wrestling><random min="901" max="1100" /></wrestling>
+		<tactics><random min="500" max="500" /></tactics>
+		<magicresistance><random min="901" max="1100" /></magicresistance>
 		<totame>291</totame>
 	</npc>
 
 	<!-- Nightmares 1 -->
 	<npc id="nightmare_1">
-		<name>nightmare</name>
+		<name>a nightmare</name>
 		<id>0x0074</id>
 		<category>Animals\Ridables\Nightmare 1</category>
-		<inherit id="animal_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
+		<inherit id="monster_base" />
+		<karma>-14000</karma>
+		<fame>14000</fame>
 		<defense>60</defense>
-		<lodamage>9</lodamage>
-		<hidamage>29</hidamage>
+		<lodamage>16</lodamage>
+		<hidamage>22</hidamage>
 		<str><random min="496" max="525" /></str>
 		<dex><random min="86" max="105" /></dex>
 		<int><random min="86" max="125" /></int>
-		<wrestling><random min="848" max="981" /></wrestling>
+		<wrestling><random min="805" max="925" /></wrestling>
 		<tactics><random min="976" max="1000" /></tactics>
-		<magicresistance><random min="860" max="980" /></magicresistance>
-		<magery><random min="311" max="499" /></magery>
+		<magicresistance><random min="853" max="1000" /></magicresistance>
+		<magery><random min="104" max="500" /></magery>
+		<evaluatingintel><random min="104" max="500" /></evaluatingintel>
 		<totame>951</totame>
 		<food>1</food>
 	</npc>
 
 	<!-- Nightmares 2 -->
 	<npc id="nightmare_2">
-		<name>nightmare</name>
+		<inherit id="nightmare_1" />
 		<id>0x00b1</id>
-		<category>Animals\Ridables\Nightmare 2 (Weak)</category>
-		<inherit id="animal_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense>60</defense>
-		<lodamage>9</lodamage>
-		<hidamage>29</hidamage>
-		<str><random min="496" max="525" /></str>
-		<dex><random min="86" max="105" /></dex>
-		<int><random min="86" max="125" /></int>
-		<wrestling><random min="848" max="981" /></wrestling>
-		<tactics><random min="976" max="1000" /></tactics>
-		<magicresistance><random min="860" max="980" /></magicresistance>
-		<magery><random min="311" max="499" /></magery>
-		<totame>951</totame>
-		<food>1</food>
+		<category>Animals\Ridables\Nightmare 2 </category>
 	</npc>
 
 	<!-- Nightmares 3 -->
 	<npc id="nightmare_3">
-		<name>nightmare</name>
+		<inherit id="nightmare_1" />
 		<id>0x00b2</id>
 		<category>Animals\Ridables\Nightmare 3</category>
-		<inherit id="animal_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense>60</defense>
-		<lodamage>9</lodamage>
-		<hidamage>29</hidamage>
-		<str><random min="496" max="525" /></str>
-		<dex><random min="86" max="105" /></dex>
-		<int><random min="86" max="125" /></int>
-		<wrestling><random min="848" max="981" /></wrestling>
-		<tactics><random min="976" max="1000" /></tactics>
-		<magicresistance><random min="860" max="980" /></magicresistance>
-		<magery><random min="311" max="499" /></magery>
-		<totame>951</totame>
-		<food>1</food>
 	</npc>
 
 	<!-- Nightmares 4 -->
 	<npc id="nightmare_4">
-		<name>nightmare</name>
+		<inherit id="nightmare_1" />
 		<id>0x00b3</id>
-		<category>Animals\Ridables\Nightmare 4 (Weak)</category>
-		<inherit id="animal_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense>60</defense>
-		<lodamage>9</lodamage>
-		<hidamage>29</hidamage>
-		<str><random min="496" max="525" /></str>
-		<dex><random min="86" max="105" /></dex>
-		<int><random min="86" max="125" /></int>
-		<wrestling><random min="848" max="981" /></wrestling>
-		<tactics><random min="976" max="1000" /></tactics>
-		<magicresistance><random min="860" max="980" /></magicresistance>
-		<magery><random min="311" max="499" /></magery>
-		<totame>951</totame>
-		<food>1</food>
+		<category>Animals\Ridables\Nightmare 4</category>
 	</npc>
 
 	<!-- Desert Ostards -->
 	<npc id="ostard_desert">
-		<name>desert ostard</name>
+		<name>a desert ostard</name>
 		<id>0x00d2</id>
-		<category>Animals\Ridables\Desert Ostard (Weak)</category>
+		<category>Animals\Ridables\Desert Ostard </category>
 		<inherit id="animal_base" />
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma>0</karma>
+		<fame>450</fame>
 		<defense>20</defense>
-		<lodamage>7</lodamage>
-		<hidamage>15</hidamage>
-		<str><random min="104" max="162" /></str>
+		<lodamage>5</lodamage>
+		<hidamage>11</hidamage>
+		<str><random min="94" max="170" /></str>
 		<dex><random min="56" max="75" /></dex>
-		<int><random min="10" max="10" /></int>
-		<wrestling><random min="373" max="482" /></wrestling>
-		<tactics><random min="272" max="379" /></tactics>
+		<int><random min="6" max="10" /></int>
+		<wrestling><random min="293" max="440" /></wrestling>
+		<tactics><random min="253" max="400" /></tactics>
 		<magicresistance><random min="251" max="300" /></magicresistance>
 		<totame>291</totame>
 		<food>5</food>
@@ -356,127 +259,115 @@
 
 	<!-- Forest Ostards -->
 	<npc id="ostard_forest">
-		<name>forest ostard</name>
+		<name>a forest ostard</name>
 		<id>0x00db</id>
 		<category>Animals\Ridables\Forest Ostard (Weak)</category>
 		<inherit id="animal_base" />
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma>0</karma>
+		<fame>450</fame>
 		<defense>20</defense>
-		<lodamage>4</lodamage>
-		<hidamage>12</hidamage>
-		<str><random min="99" max="167" /></str>
+		<lodamage>8</lodamage>
+		<hidamage>14</hidamage>
+		<str><random min="94" max="170" /></str>
 		<dex><random min="56" max="75" /></dex>
-		<int><random min="10" max="10" /></int>
-		<wrestling><random min="379" max="479" /></wrestling>
-		<tactics><random min="306" max="419" /></tactics>
-		<magicresistance><random min="265" max="320" /></magicresistance>
+		<int><random min="6" max="10" /></int>
+		<wrestling><random min="293" max="440" /></wrestling>
+		<tactics><random min="293" max="440" /></tactics>
+		<magicresistance><random min="271" max="320" /></magicresistance>
 		<totame>291</totame>
 		<food>5</food>
 	</npc>
 
 	<!-- Frenzied Ostard -->
 	<npc id="ostard_frenzied">
-		<name>frenzied ostard</name>
+		<name>a frenzied ostard</name>
 		<id>0x00da</id>
 		<category>Animals\Ridables\Frenzied Ostard (Weak)</category>
-		<inherit id="animal_base" />
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<inherit id="monster_base" />
+		<karma>-1500</karma>
+		<fame>1500</fame>
 		<defense>30</defense>
-		<lodamage>8</lodamage>
-		<hidamage>23</hidamage>
-		<str><random min="101" max="161" /></str>
+		<lodamage>11</lodamage>
+		<hidamage>17</hidamage>
+		<str><random min="94" max="170" /></str>
 		<dex><random min="96" max="115" /></dex>
-		<int><random min="10" max="10" /></int>
-		<wrestling><random min="813" max="934" /></wrestling>
-		<tactics><random min="799" max="921" /></tactics>
-		<magicresistance><random min="717" max="800" /></magicresistance>
+		<int><random min="6" max="10" /></int>
+		<wrestling><random min="793" max="940" /></wrestling>
+		<tactics><random min="793" max="940" /></tactics>
+		<magicresistance><random min="751" max="800" /></magicresistance>
 		<totame>771</totame>
 		<food>1</food>
 	</npc>
 
 	<!-- Ridgebacks -->
 	<npc id="ridgeback">
-		<name>ridgeback</name>
-		<id>187</id>
+		<name>a ridgeback</name>
+		<id>0x187</id>
 		<category>Animals\Ridables\Ridgeback</category>
 		<inherit id="animal_base" />
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma>0</karma>
+		<fame>300</fame>
 		<defense>18</defense>
-		<lodamage>7</lodamage>
-		<hidamage>15</hidamage>
-		<str><random min="65" max="94" /></str>
-		<dex><random min="58" max="75" /></dex>
-		<int><random min="18" max="30" /></int>
-		<wrestling><random min="408" max="484" /></wrestling>
-		<tactics><random min="336" max="418" /></tactics>
-		<magicresistance><random min="283" max="377" /></magicresistance>
+		<lodamage>3</lodamage>
+		<hidamage>5</hidamage>
+		<str><random min="58" max="100" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="16" max="30" /></int>
+		<wrestling><random min="351" max="450" /></wrestling>
+		<tactics><random min="293" max="440" /></tactics>
+		<magicresistance><random min="253" max="400" /></magicresistance>
 		<totame>831</totame>
 		<food>5</food>
 	</npc>
 
+
 	<!-- Savage Ridgebacks -->
 	<npc id="ridgeback_savage">
-		<name>savage ridgeback</name>
+		<name>a savage ridgeback</name>
 		<id>188</id>
-		<category>Animals\Ridables\Savage Ridgeback (Weak)</category>
+		<category>Animals\Ridables\Savage Ridgeback</category>
 		<inherit id="animal_base" />
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma>0</karma>
+		<fame>300</fame>
 		<defense>18</defense>
-		<lodamage>7</lodamage>
-		<hidamage>15</hidamage>
-		<str><random min="65" max="94" /></str>
+		<lodamage>3</lodamage>
+		<hidamage>5</hidamage>
+		<str><random min="58" max="100" /></str>
 		<dex><random min="58" max="75" /></dex>
-		<int><random min="18" max="30" /></int>
-		<wrestling><random min="408" max="484" /></wrestling>
-		<tactics><random min="336" max="418" /></tactics>
-		<magicresistance><random min="283" max="377" /></magicresistance>
+		<int><random min="56" max="75" /></int>
+		<wrestling><random min="351" max="450" /></wrestling>
+		<tactics><random min="293" max="440" /></tactics>
+		<magicresistance><random min="251" max="400" /></magicresistance>
 		<totame>831</totame>
 		<food>5</food>
 	</npc>
 
 	<!-- Dark Steeds -->
 	<npc id="steed_dark">
-		<name>dark steed</name>
+		<name>a dark steed</name>
 		<id>0x0074</id>
 		<category>Animals\Ridables\Dark Steed</category>
-		<inherit id="animal_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense>60</defense>
-		<lodamage>9</lodamage>
-		<hidamage>29</hidamage>
-		<str><random min="496" max="525" /></str>
-		<dex><random min="86" max="105" /></dex>
-		<int><random min="86" max="125" /></int>
-		<wrestling><random min="848" max="981" /></wrestling>
-		<tactics><random min="976" max="1000" /></tactics>
-		<magicresistance><random min="860" max="980" /></magicresistance>
-		<magery><random min="311" max="499" /></magery>
-		<totame>991</totame>
-		<food>1</food>
+		<inherit id="nightmare_1" />
+
 	</npc>
 
 	<!-- Fire Steed -->
 	<npc id="steed_fire">
-		<name>fire steed</name>
+		<name>a fire steed</name>
 		<id>0x00be</id>
 		<category>Animals\Ridables\Fire Steed</category>
-		<inherit id="animal_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
+		<inherit id="monster_base" />
+		<karma>-20000</karma>
+		<fame>-20000</fame>
 		<defense><random min="52" max="58" /></defense>
-		<lodamage>9</lodamage>
-		<hidamage>29</hidamage>
-		<str><random min="378" max="400" /></str>
-		<dex><random min="96" max="120" /></dex>
+		<lodamage>11</lodamage>
+		<hidamage>30</hidamage>
+		<str><random min="376" max="400" /></str>
+		<dex><random min="91" max="120" /></dex>
 		<int><random min="291" max="300" /></int>
 		<wrestling><random min="1000" max="1000" /></wrestling>
 		<tactics><random min="1000" max="1000" /></tactics>
-		<magicresistance><random min="1022" max="1189" /></magicresistance>
+		<magicresistance><random min="1000" max="1200" /></magicresistance>
 		<totame>1060</totame>
 		<food>1</food>
 	</npc>
@@ -486,43 +377,30 @@
 		<name>silver steed</name>
 		<id>0x0075</id>
 		<category>Animals\Ridables\Silver Steed (Weak)</category>
-		<inherit id="animal_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense>60</defense>
-		<lodamage>9</lodamage>
-		<hidamage>29</hidamage>
-		<str><random min="496" max="525" /></str>
-		<dex><random min="86" max="105" /></dex>
-		<int><random min="86" max="125" /></int>
-		<wrestling><random min="848" max="981" /></wrestling>
-		<tactics><random min="976" max="1000" /></tactics>
-		<magicresistance><random min="860" max="980" /></magicresistance>
-		<magery><random min="311" max="499" /></magery>
-		<totame>991</totame>
-		<food>1</food>
+		<inherit id="nightmare_1" />
+		<ai>1</ai>
 	</npc>
 
 	<!-- Unicorns -->
 	<npc id="unicorn">
-		<name>unicorn</name>
+		<name>a unicorn</name>
 		<id>0x007a</id>
-		<category>Animals\Ridables\Unicorn (Weak)</category>
+		<category>Animals\Ridables\Unicorn</category>
 		<inherit id="animal_base" />
-		<karma><random min="5000" max="9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
+		<karma>9000</karma>
+		<fame>9000</fame>
 		<defense>60</defense>
-		<lodamage>10</lodamage>
-		<hidamage>20</hidamage>
+		<lodamage>16</lodamage>
+		<hidamage>22</hidamage>
 		<str><random min="296" max="325" /></str>
-		<dex><random min="86" max="115" /></dex>
-		<int><random min="187" max="225" /></int>
-		<wrestling><random min="739" max="910" /></wrestling>
-		<tactics><random min="188" max="225" /></tactics>
-		<magicresistance><random min="733" max="950" /></magicresistance>
-		<magery><random min="656" max="895" /></magery>
-		<evaluatingintel><random min="792" max="896" /></evaluatingintel>
-		<meditation><random min="491" max="600" /></meditation>
+		<dex><random min="96" max="115" /></dex>
+		<int><random min="186" max="225" /></int>
+		<wrestling><random min="805" max="925" /></wrestling>
+		<tactics><random min="201" max="221" /></tactics>
+		<magicresistance><random min="753" max="900" /></magicresistance>
+		<magery><random min="602" max="800" /></magery>
+		<evaluatingintel><random min="801" max="900" /></evaluatingintel>
+		<meditation><random min="501" max="600" /></meditation>
 		<totame>951</totame>
 		<food>5</food>
 	</npc>
