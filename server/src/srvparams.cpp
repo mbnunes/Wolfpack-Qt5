@@ -55,6 +55,7 @@ Q_INT32 resolveName( const QString& data )
 		return INADDR_NONE;
 //	we do a dns lookup on this
 
+#ifndef __unix__
 	Q_INT32 uiValue = inet_addr((char*)data.latin1()) ;
 	if (uiValue == INADDR_NONE)
 	{
@@ -79,6 +80,9 @@ Q_INT32 resolveName( const QString& data )
 	part4 = ( (uiValue & 0xFF000000) >> 24 );
 
 	return (part1 + part2 + part3 + part4);
+#endif
+
+	return INADDR_NONE;
 }
 
 cSrvParams::cSrvParams( const QString& filename, const QString& format, const QString& version )  : Preferences(filename, format, version)
