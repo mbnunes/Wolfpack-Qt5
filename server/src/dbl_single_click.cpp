@@ -1479,7 +1479,7 @@ void singleclick(UOXSOCKET s)
 	if (pi->type == 9)
 	{
 		int spellcount=Magic->SpellsInBook(DEREF_P_ITEM(pi));
-		sprintf((char*)temp, "[%i spells]", spellcount);
+		sprintf((char*)temp, "%i spells", spellcount);
 		itemmessage(s, (char*)temp, serial,0x0481);
 	}
 
