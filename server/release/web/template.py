@@ -14,6 +14,7 @@ def output( navigation, username, navbar, content, session_id ):
 		navigation = '<br /><br />'
 		navigation += '- <a href="main.py?session=%s">Main</a><br />' % session_id
 		navigation += '- <a href="console.py?session=%s">Console</a><br />' % session_id
+		navigation += '- <a href="pythonlog.py?session=%s">Python Log</a><br />' % session_id
 		navigation += '- <a href="accounts.py?session=%s">Accounts</a><br />' % session_id
 	else:
 		navigation = ''
