@@ -488,7 +488,6 @@ signed char cMapStuff::MapElevation( const Coord_cl& pos )
 }
 
 // compute the 'average' map height by looking at three adjacent cells
-//int cMapStuff::AverageMapElevation(int x, int y, int &id)
 signed char cMapStuff::AverageMapElevation(const Coord_cl& pos, int &id)
 {
 	// first thing is to get the map where we are standing
@@ -525,7 +524,7 @@ signed char cMapStuff::AverageMapElevation(const Coord_cl& pos, int &id)
 		}
 		return testz;
 	}
-//	clConsole.send("Uhh.. Someone's walking on something funny..\n");
+
 	return illegal_z;
 }
 

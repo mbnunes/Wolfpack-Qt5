@@ -59,9 +59,7 @@
 
 #define P_C_PRIV_GM			0x01	// GM Privilege Bit
 #define P_C_PRIV_COUNSELOR	0x80	// Counselor Privilege Bit
-
 #define P_C_PRIV2_FROZEN	0x02	// Character Frozen Bit
-
 #define P_C_IS_GM_BODY		0x01	// Bits for different movement types
 #define P_C_IS_PLAYER		0x02
 #define P_C_IS_BIRD			0x20
@@ -86,7 +84,7 @@
 
 #define P_M_MAX_Z_CLIMB		14
 #define P_M_MAX_Z_INFLUENCE	15
-#define P_M_MAX_Z_FALL		15
+#define P_M_MAX_Z_FALL		20 // You can fall 20 tiles ofcourse !!
 
 // These are the debugging defines
 
@@ -98,27 +96,178 @@
 #define DEBUG_WALK			0
 #define DEBUG_PATHFIND		0
 
-//#define DBGFILE "walking2.cpp"
-
-// Variable Declarations
-
-// CLEAN CODE END
-
 // Ok, as a part of the cleanup effort of the code, I'm seperating everything into sections...
-
-
-// Thyme 2000.09.21
 // This is my attempt to rewriting the walking code. I'm going to take the code and documentation
 // that others before me have used and incorporate my little (big?) fixes and comments.
 // Many thanks to all of the previous contributors, and I hope these changes help out.
-// Lord Binary
-// Morrolan
-// Anti-Christ
 // fur            : 1999.10.27 - rewrite of walking.cpp with documentation!
 //                : 1999.10.27 - ripped apart walking into smaller functions
 // Tauriel        : 1999.03.06 - For all of the region stuff
 // knoxos         : 2000.08.?? - For finally making use of the flags, and height blocking
 // DarkStorm	  : 2002.06.19 - Cleaning up the mess
+
+// To clear things up, we only need to care about 
+// blocking items anyway. So we don't need 90% of the data
+// previously gathered. What we need is a check if the character 
+// Can walk the tile, the tile's height and if the tile's a stair
+struct stBlockItem
+{
+	INT8 z;
+	UINT8 height;
+	bool walkable;
+
+	stBlockItem(): walkable( false ), height( 0 ), z( -128 ) {}
+};
+
+// Keep in mind that this only get's called when 
+// the tile we're walking on is impassable
+bool checkWalkable( P_CHAR pChar, UINT16 tileId )
+{
+	return false;
+}
+
+struct compareTiles : public std::binary_function<stBlockItem, stBlockItem, bool>
+{
+	bool operator()(stBlockItem a, stBlockItem b)
+	{
+		return ( (a.height+a.z) > (b.height+b.z) );
+	}
+};
+
+// The highest items will be @ the beginning
+// While walking we always will try the highest first.
+vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
+{
+	vector< stBlockItem > blockList;
+	make_heap( blockList.begin(), blockList.end(), compareTiles() );
+
+	// Process the map at that position
+	stBlockItem mapBlock;
+	INT32 mapId = 0;
+	mapBlock.z = Map->AverageMapElevation( pos, mapId );
+
+	// TODO: Calculate the REAL average Z Value of that Map Tile here! Otherwise clients will have minor walking problems.
+	mapBlock.z = Map->MapElevation( pos );
+
+	map_st mapCell = Map->SeekMap( pos );
+	land_st mapTile;	
+	Map->SeekLand( mapId, &mapTile );
+
+	// If it's not impassable it's automatically walkable
+	if( !(mapTile.flag1 & 0x40) )
+		mapBlock.walkable = true;
+	else
+		mapBlock.walkable = checkWalkable( pChar, Map->SeekMap( pos ).id );
+
+	blockList.push_back( mapBlock );
+	push_heap( blockList.begin(), blockList.end(), compareTiles() );
+
+    // Now for the static-items
+	MapStaticIterator staIter( pos );
+	for( staticrecord *sTile = staIter.First(); sTile; sTile = staIter.Next() )
+	{
+		tile_st tTile;
+		Map->SeekTile( sTile->itemid, &tTile );
+
+		// Here is decided if the tile is needed
+		// It's uninteresting if it's NOT blocking
+		// And NOT a bridge/surface
+		if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
+			continue;
+
+		stBlockItem staticBlock;
+		staticBlock.z = sTile->zoff;
+
+		// If we are a surface we can always walk here, otherwise check if
+		// we are special
+		if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
+			staticBlock.walkable = true;
+		else
+			staticBlock.walkable = checkWalkable( pChar, sTile->itemid );
+
+		// If we are a stair only the half height counts
+		if( tTile.flag2 & 0x04 )
+			staticBlock.height = (UINT8)( tTile.height / 2 );
+		else
+			staticBlock.height = tTile.height;
+
+		blockList.push_back( staticBlock );
+		push_heap( blockList.begin(), blockList.end(), compareTiles() );
+	}
+
+	// Now we need to evaluate dynamic items [...] (later)
+	// TODO: Multis + Dynamic Items
+	sort_heap( blockList.begin(), blockList.end(), compareTiles() );
+
+	return blockList;
+};
+
+// May a character walk here ?
+// If yes we auto. set the new z value for pos
+bool mayWalk( P_CHAR pChar, Coord_cl &pos )
+{
+	// Go trough the array top-to-bottom and check
+	// If we find a tile to walk on
+	vector< stBlockItem > blockList = getBlockingItems( pChar, pos );
+	bool found = false;
+	UINT32 i;
+
+	for( i = 0; i < blockList.size(); ++i )
+	{
+		stBlockItem item = blockList[i];
+		INT8 itemTop = ( item.z + item.height );
+
+		// If we encounter any object with itemTop <= pos.z which is NOT walkable
+		// Then we can as well just return false as while falling we would be
+		// blocked by that object
+		if( !item.walkable && ( itemTop < pos.z ) )
+			return false;
+
+		// Item is within reachable tile
+		if( item.walkable && ( itemTop <= pos.z + P_M_MAX_Z_CLIMB ) && ( itemTop >= pos.z - P_M_MAX_Z_FALL ) )
+		{
+			pos.z = itemTop;
+			found = true;
+			break;
+		}
+	}
+
+	// If we're still at the same position
+	// We didn't find anything to step on
+	if( !found )
+		return false;
+
+	// Another loop *IS* needed here (at least that's what i think)
+	for( i = 0; i < blockList.size(); ++i )
+	{
+		// So we know about the new Z position we are moving to
+		// Lets check if there is enough space ABOVE that position (at least 15 z units)
+		// If there is ANY impassable object between pos.z and pos.z + 15 we can't walk here
+		stBlockItem item = blockList[i];
+		INT8 itemTop = ( item.z + item.height );
+
+		// Does the top of the item looms into our space
+		// Like before 15 is the assumed height of ourself
+		if( ( itemTop > pos.z ) && ( itemTop < pos.z + 15 ) )
+			return false;
+
+		// Or the bottom ?
+		if( ( item.z > pos.z ) && ( item.z < pos.z + 15 ) )
+			return false;
+
+		// Or does it spread the whole range ?
+		if( ( item.z <= pos.z ) && ( itemTop >= pos.z + 15 ) )
+			return false;
+
+		// If the Item Tops are already below our current position exit the
+		// loop, we're sorted by those !
+		if( itemTop <= pos.z )
+			break;
+	}
+
+	// All Checks passed
+	return true;
+}
 
 // This handles if a character actually tries to walk (NPC & Player)
 void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
@@ -179,11 +328,12 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		checkStealth( pChar ); // Reveals the user if neccesary
 
-		Coord_cl newCoord = pChar->pos; // Note: Do NOT use the copy constructor as it'll create a reference
+		// Note: Do NOT use the copy constructor as it'll create a reference
+		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos );
 
 		// Check if the char can move to those new coordinates
 		// It is going to automatically calculate the new coords (!)
-		if( !CanCharMove( pChar, newCoord, dir ) )
+		if( !mayWalk( pChar, newCoord ) )
 		{
 			if( socket )
 				socket->denyMove( sequence );
@@ -192,6 +342,16 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 			return;
 		}
+
+		/*if( !CanCharMove( pChar, newCoord, dir ) )
+		{
+			if( socket )
+				socket->denyMove( sequence );
+			else if( pChar->isNpc() )
+				pChar->pathnum += P_PF_MRV;
+
+			return;
+		}*/
         
 		// Check if we're going to collide with characters
 		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord.x, newCoord.y, newCoord.z ) )
@@ -465,10 +625,8 @@ bool cMovement::CanFishWalk(unitile_st xyb)
 }
 
 // needs testing... not totally accurate, but something to hold place.
-
 bool cMovement::CanBirdWalk(unitile_st xyb)
 {
-//	unsigned short int blockid = xyb.id;
 	return ( CanNPCWalk(xyb) || CanFishWalk(xyb) );
 }
 
@@ -476,6 +634,9 @@ bool cMovement::CanBirdWalk(unitile_st xyb)
 // something to do with the walk sequence being out of sync.
 bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw()
 {
+	if( !sequence )
+		socket->setWalkSequence( 0xFF );
+
 	if ( ( socket->walkSequence() + 1 != sequence ) && ( sequence != 0xFF ) && ( socket->walkSequence() != 0xFF ) )
 	{
 		socket->denyMove( sequence );
@@ -1505,21 +1666,21 @@ Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
 	switch( dir&0x07 )
 	{
 	case 0x00:
-		newCoords.y--; break;
+		newCoords.y--;                break;
 	case 0x01:
 		newCoords.y--; newCoords.x++; break;
 	case 0x02:
-		newCoords.x++; break;
+		               newCoords.x++; break;
 	case 0x03:
-		newCoords.x++; newCoords.y++; break;
+		newCoords.y++; newCoords.x++; break;
 	case 0x04:
-		newCoords.y++; break;
+		newCoords.y++;                break;
 	case 0x05:
-		newCoords.y--; newCoords.x--; break;
+		newCoords.y++; newCoords.x--; break;
 	case 0x06:
-		newCoords.x--; break;
+		               newCoords.x--; break;
 	case 0x07:
-		newCoords.x--; newCoords.y--; break;
+		newCoords.y--; newCoords.x--; break;
 	};
 
 	return newCoords;
