@@ -178,21 +178,17 @@ void signal_handler(int signal)
 
 void savelog(const char *msg, char *logfile)
 {
-		FILE *file;
-		file = fopen( logfile, "a" );
-		
-		QString logMessage = QString( "[%1] %2\n" ).arg( QDateTime::currentDateTime().toString() ).arg( msg );
-
-		// Remove newlines
-		logMessage = logMessage.replace( QRegExp( "\n" ), "" );
-
-		fprintf( file, "%s", logMessage.ascii() );
-
-#ifdef DEBUG
-		clConsole.send("DEBUG: Logging to %s\n", logfile);
-#endif
-
-		fclose( file );
+	FILE *file;
+	file = fopen( logfile, "a" );
+	
+	QString logMessage = QString( "[%1] %2\n" ).arg( QDateTime::currentDateTime().toString() ).arg( msg );
+	
+	// Remove newlines
+	logMessage = logMessage.replace( QRegExp( "\n" ), "" );
+	
+	fprintf( file, "%s", logMessage.ascii() );
+	
+	fclose( file );
 }
 
 int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int amt )
@@ -616,13 +612,13 @@ void interpretCommand( const QString &command )
 					break;
 			case 'P':
 			case 'p':				// Display profiling information
-				clConsole.send("Performace Dump:\n");
-				clConsole.send("Network code: %fmsec [%i samples]\n" _ (float)((float)networkTime/(float)networkTimeCount) _ networkTimeCount);
-				clConsole.send("Timer code: %fmsec [%i samples]\n" _ (float)((float)timerTime/(float)timerTimeCount) _ timerTimeCount);
-				clConsole.send("Auto code: %fmsec [%i samples]\n" _ (float)((float)autoTime/(float)autoTimeCount) _ autoTimeCount);
-				clConsole.send("Loop Time: %fmsec [%i samples]\n" _ (float)((float)loopTime/(float)loopTimeCount) _ loopTimeCount);
+//				clConsole.send("Performace Dump:\n");
+//				clConsole.send("Network code: %fmsec [%i samples]\n" _ (float)((float)networkTime/(float)networkTimeCount) _ networkTimeCount);
+//				clConsole.send("Timer code: %fmsec [%i samples]\n" _ (float)((float)timerTime/(float)timerTimeCount) _ timerTimeCount);
+//				clConsole.send("Auto code: %fmsec [%i samples]\n" _ (float)((float)autoTime/(float)autoTimeCount) _ autoTimeCount);
+//				clConsole.send("Loop Time: %fmsec [%i samples]\n" _ (float)((float)loopTime/(float)loopTimeCount) _ loopTimeCount);
 //				clConsole.send("Characters: %i/%i (Dynamic)		Items: %i/%i (Dynamic)\n" _ charcount _ cmem _ itemcount _ imem);
-				clConsole.send("Simulation Cycles: %f per sec\n" _ (1000.0*(1.0/(float)((float)loopTime/(float)loopTimeCount))));
+//				clConsole.send("Simulation Cycles: %f per sec\n" _ (1000.0*(1.0/(float)((float)loopTime/(float)loopTimeCount))));
 				break;
 			case 'W':
 			case 'w':				// Display logged in chars
@@ -635,11 +631,11 @@ void interpretCommand( const QString &command )
 				{
 					if( mSock->player() )
 					{
-						clConsole.send( "%i) %s [%x]\n", ++i, mSock->player()->name().latin1(), mSock->player()->serial() );
+						clConsole.send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
 					}
 				}
 
-				clConsole.send( "Total Users Online: %d\n", cNetwork::instance()->count() );
+				clConsole.send( tr("Total Users Online: %1\n").arg(cNetwork::instance()->count()) );
 				break;
 			case 'A': //reload the accounts file
 			case 'a':
@@ -671,7 +667,7 @@ void interpretCommand( const QString &command )
 				clConsole.send("End of commands list.\n");
 				break;
 			default:
-				clConsole.send("WOLFPACK: Key %c [%x] does not preform a fucntion.\n",c,c);
+				clConsole.send(tr("WOLFPACK: Key %1 [%2] does not preform a fucntion.\n").arg(c).arg(QString::number(c)));
 				break;
 			}
 		}
@@ -800,7 +796,7 @@ int main( int argc, char *argv[] )
 	clConsole.send( "Copyright (C) 2000-2003 Wolfpack Development Team\n");
 	clConsole.send( "Wolfpack Homepage: http://www.wpdev.org/\n");
 	clConsole.send( "By using this software you agree to the license accompanying this release.\n");
-	clConsole.send( "Compiled on %s (%s %s)\n",__DATE__,__TIME__, wp_version.timezonestring.c_str() );
+	clConsole.send( "Compiled on " __DATE__ " " __TIME__ "\n" );
 	clConsole.send( "\n" );
 	
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );

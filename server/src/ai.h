@@ -57,7 +57,7 @@ class cNPC_AI
 public:
 	cNPC_AI() { currentState = NULL; }
 	cNPC_AI( P_NPC npc ) : m_npc( npc ) , currentState( NULL ) {}
-	~cNPC_AI();
+	virtual ~cNPC_AI();
 		
 	virtual void eventHandler() = 0;
 	virtual void updateState();
@@ -98,7 +98,7 @@ class Actions
 {
 public:
 	Actions() { waitForPathCalculation = 0; npc = NULL; }
-	~Actions() {}
+	virtual ~Actions() {}
 
 	P_NPC npc;
 
@@ -123,7 +123,7 @@ class Events
 {
 public:
 	Events() {}
-	~Events() {}
+	virtual ~Events() {}
 
 	virtual void attacked() {}
 	virtual void won() {}

@@ -83,7 +83,6 @@ public:
 	void setStreams(std::istream *in, std::ostream *out, std::ostream *error, std::ostream *log);
 
 	// Send a message to the console
-	void send(char* szMessage, ...);
 	void send(const QString &sMessage);
 
 
@@ -91,7 +90,6 @@ public:
 	void log( UINT8 logLevel, const QString &message );
 
 	// Flag an error
-	void error(char* szMessage, ...);
 	void error(const QString&);
 
         // Get input from the console

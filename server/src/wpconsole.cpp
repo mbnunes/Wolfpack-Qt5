@@ -75,20 +75,6 @@ void WPConsole_cl::setStreams(istream *in, ostream *out, ostream *error, ostream
 }
 
 //========================================================================================
-// Send a char string to the console
-void WPConsole_cl::send(char* szMessage, ...)
-{
-	va_list argptr;
-	char msg[512];
-	va_start(argptr, szMessage);
-	::vsnprintf(msg, 512, szMessage, argptr);
-	va_end(argptr);
-	
-	QString sMessage(msg);
-	send(sMessage);
-}
-
-//========================================================================================
 // Send a message to the console
 void WPConsole_cl::send(const QString &sMessage)
 {
@@ -151,19 +137,6 @@ void WPConsole_cl::log( UINT8 logLevel, const QString &message )
 	send( ": " + message + "\n" );
 }
 
-//========================================================================================
-// Send a char string to the error
-void WPConsole_cl::error(char* szMessage, ...)
-{
-	va_list argptr;
-	char msg[512];
-	va_start(argptr, szMessage);
-	vsnprintf(msg, 512,szMessage, argptr);
-	va_end(argptr);
-	
-	QString sMessage(msg);
-	error(sMessage);
-}
 //========================================================================================
 // Send a message to the console
 void WPConsole_cl::error(const QString& sMessage)

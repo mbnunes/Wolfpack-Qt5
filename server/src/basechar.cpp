@@ -340,7 +340,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 			{
 				pc->setSkin( 0xF000 );
 				pc->setOrgSkin( 0xF000 );
-				clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name().latin1(),pc->serial());
+				clConsole.send(QString("char/player: %1 : [%2] correted problematic skin hue\n").arg(pc->name()).arg( pc->serial(), 16 ) );
 			}
 		}
 	} 
@@ -1506,7 +1506,7 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	// DoubleEquip is *NOT* allowed
 	if ( atLayer( layer ) != 0 )
 	{
-		clConsole.send( "WARNING: Trying to put an item on layer %i which is already occupied\n", layer );
+		clConsole.send( tr("WARNING: Trying to put an item on layer %1 which is already occupied\n").arg(layer) );
 		pi->setContainer(0);
 		return;
 	}
