@@ -4,25 +4,33 @@
 	<!-- an ettin -->
 	<npc id="ettin">
 		<name>an ettin</name>
-		<id>0x11</id>
-		<category>Monsters\Giants\Ettin</category>
+		<id>0x2</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="35" max="40" /></defense>
-		<lodamage>13</lodamage>
-		<hidamage>35</hidamage>
+		<karma>-3000</karma>
+		<fame>3000</fame>
 		<gold><random min="100" max="150"/></gold>
 		<!-- Stats -->
 		<str><random min="136" max="165"/></str>
 		<dex><random min="56" max="75"/></dex>
 		<int><random min="31" max="55"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="600"/></wrestling>
-		<tactics><random min="501" max="700"/></tactics>
 		<magicresistance><random min="401" max="550"/></magicresistance>
+		<tactics><random min="501" max="700"/></tactics>
+		<wrestling><random min="501" max="600"/></wrestling>
+		<!-- Damage -->
+		<lodamage>7</lodamage>
+		<hidamage>17</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="40" /></defense>
+		<coldresist><random min="40" max="50"/></coldresist>
+		<energyresist><random min="15" max="25"/></energyresist>
+		<fireresist><random min="15" max="25"/></fireresist>
+		<physicalresist><random min="35" max="40"/></physicalresist>
+		<poisonresist><random min="15" max="25"/></poisonresist>
+		<!-- Misc. -->
+		<desc>Ettins are the largest of Britannia's humanoid races by far, but their great size is less remarkable than their two heads. It is said that the heads of an Ettin often quarrel together, but this may be a fancy. Ettins live together in family groups, and are most numerous along the Serpent Spine mountains. They are stupid and vicious creatures, buthave some degree of reason and speak a debased dialect of Britannian. Ettins are common brigands, who slay travelers for their gold, which they love dearly and hoard whenever they may. (Some of the wilder tribes hew gold directly from the ground in crude mines.) They are most notorious for their cowardly habit of hurling boulders of greatsize down on travelers in the high mountain passes.</desc>
 		<carve>carve_ettin</carve>
-		<!-- Priv -->
+		<category>Monsters\Giants\Ettin</category>
 	</npc>
 
 </definitions>

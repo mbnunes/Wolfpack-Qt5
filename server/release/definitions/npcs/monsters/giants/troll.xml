@@ -4,25 +4,33 @@
 	<!-- a troll -->
 	<npc id="troll">
 		<name>a troll</name>
-		<id>0x36</id>
-		<category>Monsters\Giants\Troll</category>
+		<id>0x35</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="35" max="45"/></defense>
-		<lodamage>16</lodamage>
-		<hidamage>28</hidamage>
+		<karma>-3500</karma>
+		<fame>3500</fame>
 		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
 		<str><random min="176" max="205"/></str>
 		<dex><random min="46" max="65"/></dex>
 		<int><random min="46" max="70"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="700"/></wrestling>
-		<tactics><random min="501" max="700"/></tactics>
 		<magicresistance><random min="451" max="600"/></magicresistance>
+		<tactics><random min="501" max="700"/></tactics>
+		<wrestling><random min="501" max="700"/></wrestling>
+		<!-- Damage -->
+		<lodamage>8</lodamage>
+		<hidamage>14</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="45"/></defense>
+		<coldresist><random min="15" max="25"/></coldresist>
+		<energyresist><random min="5" max="15"/></energyresist>
+		<fireresist><random min="25" max="35"/></fireresist>
+		<physicalresist><random min="35" max="45"/></physicalresist>
+		<poisonresist><random min="5" max="15"/></poisonresist>
+		<!-- Misc. -->
+		<desc>These creatures are perhaps the least human of all the humanoid races of the land. They are treacherously clever, but utterly devoid of civilized impulse. It is said that they can heal themselves from wounds at an unnatural rate.</desc>
 		<carve>carve_troll</carve>
-		<!-- Priv -->
+		<category>Monsters\Giants\Troll</category>
 	</npc>
 
 </definitions>

@@ -4,25 +4,33 @@
 	<!-- an ogre -->
 	<npc id="ogre">
 		<name>an ogre</name>
-		<id>0x001</id>
-		<category>Monsters\Giants\Ogre</category>
+		<id>0x1</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="30" max="35"/></defense>
-		<lodamage>18</lodamage>
-		<hidamage>22</hidamage>
+		<karma>-3000</karma>
+		<fame>3000</fame>
 		<gold><random min="60" max="90"/></gold>
 		<!-- Stats -->
 		<str><random min="166" max="195"/></str>
 		<dex><random min="46" max="65"/></dex>
 		<int><random min="46" max="70"/></int>
 		<!-- Skills -->
-		<wrestling><random min="701" max="800"/></wrestling>
-		<tactics><random min="601" max="700"/></tactics>
 		<magicresistance><random min="551" max="700"/></magicresistance>
+		<tactics><random min="601" max="700"/></tactics>
+		<wrestling><random min="701" max="800"/></wrestling>
 		<carve>carve_ogr</carve>
-		<!-- Priv -->
+		<!-- Damage -->
+		<lodamage>9</lodamage>
+		<hidamage>11</hidamage>
+		<!-- Resists -->
+		<defense><random min="30" max="35"/></defense>
+		<coldresist><random min="15" max="25"/></coldresist>
+		<energyresist>25</energyresist>
+		<fireresist><random min="15" max="25"/></fireresist>
+		<physicalresist><random min="30" max="35"/></physicalresist>
+		<poisonresist><random min="15" max="25"/></poisonresist>
+		<!-- Misc. -->
+		<desc>These brutes are akin to orcs, but larger. They are fiercely stupid, but do possess some faculty of reason. Like all the intelligent races, they have a great greed for gold. Ogres are bullies, but also cowards, and will run if a fight turns against them.</desc>
+		<category>Monsters\Giants\Ogre</category>
 	</npc>
 
 </definitions>

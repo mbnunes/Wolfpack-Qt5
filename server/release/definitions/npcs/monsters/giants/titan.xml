@@ -4,27 +4,35 @@
 	<!-- a titan-->
 	<npc id="titan">
 		<name>a titan</name>
-		<id>0x4a</id>
-		<category>Monsters\Giants\Titan</category>
+		<id>0x4c</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-10000" max="-20000"/></karma>
-		<fame><random min="10000" max="20000"/></fame>
-		<defense><random min="35" max="45"/></defense>
-		<lodamage>41</lodamage>
-		<hidamage>50</hidamage>
+		<karma>-11500</karma>
+		<fame>11500</fame>
 		<gold><random min="300" max="450"/></gold>
 		<!-- Stats -->
 		<str><random min="556" max="585"/></str>
 		<dex><random min="126" max="145"/></dex>
 		<int><random min="281" max="305"/></int>
 		<!-- Skills -->
-		<wrestling><random min="401" max="500"/></wrestling>
-		<tactics><random min="601" max="800"/></tactics>
-		<magicresistance><random min="802" max="1100"/></magicresistance>
+		<evaluatingintel><random min="851" max="1000"/></evaluatingintel>
 		<magery><random min="851" max="1000"/></magery>
-		<evaluatingint><random min="851" max="1000"/></evaluatingint>
+		<magicresistance><random min="802" max="1100"/></magicresistance>
+		<tactics><random min="601" max="800"/></tactics>
+		<wrestling><random min="401" max="500"/></wrestling>
 		<carve>carve_titan</carve>
-		<!-- Priv -->
+		<!-- Damage -->
+		<lodamage>13</lodamage>
+		<hidamage>16</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="45"/></defense>
+		<coldresist><random min="25" max="35"/></coldresist>
+		<energyresist><random min="30" max="40"/></energyresist>
+		<fireresist><random min="30" max="40"/></fireresist>
+		<physicalresist><random min="35" max="45"/></physicalresist>
+		<poisonresist><random min="30" max="40"/></poisonresist>
+		<!-- Misc. -->
+		<desc>Titans are the progenitors of the Cyclopsian race. They are immortal and cannot be killed permanently; though it is rumored they can befelled in combat. Adventurers foolish enough to face a Titan willl earn what an eternity of experience can grant. There is no weapon a Titan cannot wield, and no magic they do not know. It is believed that a Titan does not tire in battle nor do their spells require mana. Indeed, they lift their magic from the heart of the world and call it down on their opponents.</desc>
+		<category>Monsters\Giants\Titan</category>
 	</npc>
 
 </definitions>
