@@ -743,6 +743,17 @@ void cCustomTags::load( SERIAL key )
 	changed = false;
 }
 
+bool cCustomTags::has( const QString &key )
+{
+	if( tags_ )
+	{
+		if( tags_->find( key ) != tags_->end() )
+			return true;
+	}
+	
+	return false;
+}
+
 cVariant cCustomTags::get( const QString& key ) 
 {
 	if( tags_ )

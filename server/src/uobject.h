@@ -60,10 +60,6 @@ struct stError;
 
 class cUObject : public PersistentObject, public cDefinable
 {
-	Q_OBJECT
-	Q_PROPERTY( QString bindmenu READ bindmenu WRITE setBindmenu )
-	Q_PROPERTY( QString name READ name WRITE setName )
-// Data Members
 private:
 	uchar changed_:1;
 
@@ -77,7 +73,6 @@ protected:
 	cCustomTags tags_;
 	uchar dir_:3;
 
-protected:
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 	void changed( uint );
@@ -91,6 +86,11 @@ protected:
 	};
 
 public:
+	const char *objectID() const
+	{
+        return "cUObject";
+	}
+
 	// EventHandling functions
 	cPythonScript **getEvents()
 	{

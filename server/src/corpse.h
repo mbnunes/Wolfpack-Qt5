@@ -46,7 +46,6 @@ class cUOSocket;
 
 class cCorpse: public cItem
 {
-	Q_OBJECT
 private:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 
@@ -89,7 +88,11 @@ public:
 
 	void addEquipment( UINT8 layer, SERIAL serial );
 
-	virtual QString objectID( void ) const { return "cCorpse"; }
+	const char *objectID() const
+	{
+        return "cCorpse";
+	}
+
 	virtual void flagUnchanged() { cCorpse::changed_ = false; cItem::flagUnchanged();	}
 
 	// DB Serialization

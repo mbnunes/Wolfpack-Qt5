@@ -221,18 +221,6 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 		clConsole.send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial(), 8, 16 ).arg( pVendor->serial(), 8, 16 ) );
 }
 
-// this is a q&d fix for 'sell price higher than buy price' bug (Duke, 30.3.2001)
-static bool items_match(P_ITEM pi1, P_ITEM pi2)
-{
-	if (pi1 && pi2 && pi1->id()==pi2->id() &&
-		pi1->type()==pi2->type() &&
-		!(pi1->id()==0x14F0 && (pi1->morex()!=pi2->morex())) &&			// house deeds only differ by morex
-		!(IsShield(pi1->id()) && pi1->name2() == pi2->name2()) &&	// magic shields only differ by name2
-		!(IsMetalArmour(pi1->id()) && pi1->color() != pi2->color()) )	// color checking for armour
-		return true;
-	return false;
-}
-
 void Trade::sellAction( cUOSocket *socket, cUORxSell *packet )
 {
 	P_PLAYER pChar = socket->player();
@@ -310,7 +298,10 @@ void Trade::sellAction( cUOSocket *socket, cUORxSell *packet )
 			if( !(*it) )
 				continue;
 	
-			if( (*it)->id() == pItem->id() && (*it)->color() == pItem->color() && (*it)->amount() >= pItem->amount() )
+			if(		(*it)->id() == pItem->id() && 
+					(*it)->color() == pItem->color() && 
+					(*it)->amount() >= pItem->amount() &&
+					(*it)->eventList() == pItem->eventList() )
 			{
 				found = true;
 				break;

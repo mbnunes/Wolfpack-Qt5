@@ -30,6 +30,7 @@
 //==================================================================================
 
 #include "resources.h"
+#include "inlines.h"
 
 #include "globals.h"
 #include "prototypes.h"
@@ -920,7 +921,6 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 			if( !item.name.isNull() )
 			{
 				pi->setName( item.name );
-				pi->setName2( item.name );
 			}
 
 			pBackpack->addItem( pi );
@@ -1189,8 +1189,7 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 	setMoreY(vein);
 	this->setId( 0x1ea7 );
 	this->amount_ = 1;
-	this->setName( tr("resitem: %1").arg(resource) );
-	this->setName2( this->name() );
+	this->setName( QString( "resitem: %1" ).arg( resource ) );
 	this->setVisible( 2 ); // gm visible
 }
 

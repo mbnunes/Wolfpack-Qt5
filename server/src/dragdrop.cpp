@@ -338,7 +338,14 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	if( pChar->isDead() )
 	{
 		socket->clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're dead.
+		socket->bounceItem( pItem, BR_NO_REASON );
+		return;
+	}
 
+	// No Special Layer Equipping
+	if( ( packet->layer() > cBaseChar::InnerLegs || packet->layer() <= cBaseChar::TradeWindow ) && !pChar->isGM() )
+	{
+		socket->sysMessage( tr( "You can't equip on that layer." ) );
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
@@ -351,6 +358,19 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 		return;
 	}
 
+	// Only GM's can equip other People
+	if( pWearer != pChar && !pChar->isGM() )
+	{
+		P_NPC pNpc = dynamic_cast< P_NPC >( pWearer );
+		
+		// But we are allowed to equip our own humans
+		if( !pNpc || ( pNpc->owner() != pChar && pWearer->isHuman() ) )
+			socket->sysMessage( tr( "You can't equip other players." ) );
+
+		socket->bounceItem( pItem, BR_NO_REASON );
+		return;
+	}
+
 	// Get our tile-information
 	tile_st pTile = TileCache::instance()->getTile( pItem->id() );
 
@@ -359,6 +379,13 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	if( pTile.layer == 0 || !( pTile.flag3 & 0x40 ) || pItem->isMulti() )
 	{
 		socket->sysMessage( tr( "This item cannot be equipped." ) );
+		socket->bounceItem( pItem, BR_NO_REASON );
+		return;
+	}
+
+	// Check the Script for it
+	if( pItem->onWearItem( pChar, pWearer, packet->layer() ) )
+	{
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}

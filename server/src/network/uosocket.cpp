@@ -1054,7 +1054,7 @@ void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 
 		if( !pItem->onShowTooltip( this->player(), &tooltips ) ) // just for test if object haven't tooltip
 		{
-			if( pItem->name() == "#" || pItem->name().isNull() )
+			if( pItem->name().isNull() )
 				tooltips.addLine( 0xF9060 + pItem->id(), "" );
 			else
 				tooltips.addLine( 0x1005bd, " \t" + pItem->name() + "\t " );
@@ -1075,9 +1075,8 @@ void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 			this->send( &tooltips );
 		}
 	}
-
-
 }
+
 // Show a context menu
 /*!
   This method handles cUORxContextMenuRequest packet types.

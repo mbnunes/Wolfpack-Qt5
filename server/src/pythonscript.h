@@ -113,6 +113,10 @@ public:
 
 	bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords );
 
+	bool onWearItem( P_PLAYER pPlayer, P_CHAR pChar, P_ITEM pItem, unsigned char layer );
+	bool onEquip( P_CHAR pChar, P_ITEM pItem, unsigned char layer );
+	bool onUnequip( P_CHAR pChar, P_ITEM pItem, unsigned char layer );
+
 	// Drop/Pickup events
 	bool onDropOnChar( P_CHAR pChar, P_ITEM pItem );
 	bool onDropOnItem( P_ITEM pCont, P_ITEM pItem );

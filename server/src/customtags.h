@@ -152,6 +152,7 @@ public:
 	void load( SERIAL key );
 
 	cVariant	get( const QString& key );
+	bool		has( const QString& key );
 	void		set( const QString& key, const cVariant& value );
 	void		remove( const QString& key );
 

@@ -354,6 +354,7 @@ void interpretCommand( const QString &command )
 				endtime=uiCurrentTime+(MY_CLOCKS_PER_SEC*600);
 				endmessage(0);
 				break;
+
 			case '#':
 				World::instance()->save();
 				
@@ -558,6 +559,23 @@ int main( int argc, char *argv[] )
 	SetVersion(wp_version.verstring.c_str());
 #endif
 */
+	/*clConsole.send( QString::number( sizeof cUObject ) + "\n" );
+	clConsole.send( QString::number( sizeof cItem ) + "\n" );
+
+	clConsole.send( "STARTING UP\n" );
+	Sleep( 5000 );
+
+	for( unsigned int x = 0; x < 100000; ++x )
+	{
+		cItem *pItem = new cItem;
+		pItem->Init();
+	}
+
+	clConsole.send( "STARTING UP\n" );
+	Sleep( 5000 );
+
+	return 0;*/
+
 	QApplication app( argc, argv, false ); // we need one instance
 	QTranslator translator( 0 ); // must be valid thru app life.
 

@@ -44,11 +44,15 @@ class QStringList;
 
 class cBook : public cItem
 {
-	Q_OBJECT
 private:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 
 public:
+	const char *objectID() const
+	{
+        return "cBook";
+	}
+
 	cBook();
 
 	// abstract cDefinable

@@ -45,8 +45,12 @@ class AbstractAI;
 // Class for Non Player Characters. Implements cBaseChar.
 class cNPC : public cBaseChar
 {
-	Q_OBJECT
 public:
+	const char *objectID() const
+	{
+        return "cUObject";
+	}
+
 	// con-/destructors
     cNPC();
     cNPC(const cNPC& right);

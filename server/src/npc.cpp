@@ -402,7 +402,6 @@ void cNPC::kill()
 	changed( TOOLTIP );
 	changed_ = true;
 	int ele;
-	int nType=0;
 
 	if( free )
 		return;
@@ -535,13 +534,11 @@ void cNPC::kill()
 	}
 
 	corpse->setBodyId( orgBodyID_ );
-	corpse->setMoreY( this->isHuman() ); //is human??
 	corpse->setCarve( carve() ); //store carve section
-	corpse->setName2( name() );
+	corpse->tags().set( "human", cVariant( isHuman() ? 1 : 0 ) );
+	corpse->tags().set( "name", cVariant( name() ) );
 
 	corpse->moveTo( pos() );
-
-	corpse->setMore1(nType);
 	corpse->setDirection( direction() );
 	
 	// stores the time and the murderer's name

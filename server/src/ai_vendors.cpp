@@ -241,7 +241,6 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget *target
 	pGem->setMoreZ( 0 );
 	pGem->setId( 0x1ea7 );
 	pGem->setName( tr("petitem: %1").arg(pPet->name()) );
-	pGem->setName2( player->name() );
 	pGem->setVisible( 2 ); // gm visible
 	pPack->addItem( pGem );
 	pGem->update();

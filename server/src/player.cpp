@@ -48,7 +48,7 @@
 #include "skills.h"
 #include "pythonscript.h"
 #include "scriptmanager.h"
-
+#include "inlines.h"
 
 cPlayer::cPlayer()
 {
@@ -384,7 +384,6 @@ void cPlayer::kill()
 	changed( TOOLTIP );
 	changed_ = true;
 	int ele;
-	int nType=0;
 
 	if( free )
 		return;
@@ -557,12 +556,11 @@ void cPlayer::kill()
     corpse->setOwner( this );
 
 	corpse->setBodyId( orgBodyID_ );
-	corpse->setMoreY( this->isHuman() ); //is human??
-	corpse->setName2( name() );
+	corpse->tags().set( "human", cVariant( isHuman() ? 1 : 0 ) );
+	corpse->tags().set( "name", cVariant( name() ) );
 
 	corpse->moveTo( pos() );
 
-	corpse->setMore1(nType);
 	corpse->setDirection( direction() );
 	
 	// Set the ownerserial to the player's

@@ -312,6 +312,8 @@ void cWorld::load()
 
 			if( pCont )
 			{
+				// NoRemove is important. 
+				// It is faster *and* it prevents onEquip from being fired
 				pCont->addItem( (cBaseChar::enLayer)pi->layer(), pi, false, true );
 			}
 			else

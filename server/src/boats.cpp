@@ -47,7 +47,7 @@
 #include "globals.h"
 #include "wpconsole.h"
 #include "player.h"
-
+#include "inlines.h"
 
 #undef DBGFILE
 #define DBGFILE "boats.cpp" 

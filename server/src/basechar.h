@@ -58,9 +58,12 @@ enum eDamageType
 // This class is the base interface for all char objects. 
 class cBaseChar : public cUObject
 {
-	Q_OBJECT
-
 public:
+	const char *objectID() const
+	{
+        return "cBaseChar";
+	}
+
 	// con-/destructors
     cBaseChar();
     cBaseChar(const cBaseChar& right);

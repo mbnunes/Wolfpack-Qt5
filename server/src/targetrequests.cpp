@@ -267,7 +267,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				if (pc_npc->isInnocent() && pc_currchar->attackerSerial() != pc_npc->serial() && GuildCompare(pc_currchar, pc_npc)==0)//AntiChrist
 					pc_currchar->isCriminal();//Blue and not attacker and not guild
 				
-				if (pi->name() != "#")
+				if( !pi->name().isNull() )
 				{
 					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name()).arg(pi->name()) );
 					sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name()).arg(pi->name()).arg(pc_npc->name()) );

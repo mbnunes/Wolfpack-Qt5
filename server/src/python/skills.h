@@ -81,8 +81,10 @@ PyObject *wpSkills_set( wpSkills *self, int skill, PyObject *pValue )
 	else if( self->type == 2 )
 		self->pChar->setSkillLock( skill, value );
 
-	if( self->pChar->isA("cPlayer") && static_cast<P_PLAYER>(self->pChar)->socket() )
-		static_cast<P_PLAYER>(self->pChar)->socket()->sendSkill( skill );
+	P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
+	
+	if( pPlayer && pPlayer->socket() )
+		pPlayer->socket()->sendSkill( skill );
 
 	return 0;
 }

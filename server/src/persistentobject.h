@@ -34,9 +34,8 @@
 
 #include <qobject.h>
 
-class PersistentObject : public QObject
+class PersistentObject
 {
-	Q_OBJECT
 protected:
 	bool isPersistent;
 public:
@@ -46,9 +45,10 @@ public:
 
 	virtual void load( char **, UINT16& );
 	virtual void save();
-	virtual QString objectID() const
+	
+	virtual const char *objectID() const
 	{
-        return QString(className());
+        return "PersistentObject";
 	}
 
 };

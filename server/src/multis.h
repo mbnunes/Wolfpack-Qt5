@@ -48,11 +48,15 @@
 // Beware! This is abstract (more or less)
 class cMulti : public cItem
 {
-	Q_OBJECT
 protected:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 
 public:
+	const char *objectID() const
+	{
+        return "cMulti";
+	}
+
 	cMulti();
 	virtual void toDeed( cUOSocket* socket ) = 0;
 

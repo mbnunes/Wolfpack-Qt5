@@ -61,11 +61,14 @@ typedef QValueList< CHTile > CHTiles;
 
 class cHouse : public cMulti
 {
-	Q_OBJECT
 private:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 
 public:
+	const char *objectID() const
+	{
+        return "cHouse";
+	}
 
 	unsigned int last_used;
 

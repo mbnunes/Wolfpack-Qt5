@@ -44,8 +44,12 @@
 // Class for player characters. Implements cBaseChar.
 class cPlayer : public cBaseChar
 {
-	Q_OBJECT
 public:
+	const char *objectID() const
+	{
+        return "cPlayer";
+	}
+
 	// con-/destructors
     cPlayer();
     cPlayer(const cPlayer& right);

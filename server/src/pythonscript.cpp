@@ -575,23 +575,55 @@ bool cPythonScript::onShowSkillGump( P_CHAR pChar )
 bool cPythonScript::onWorldSave( cDBDriver *connection )
 {
 	PyHasMethod( "onWorldSave" )
-
-	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 1 );
-	//PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
-
+	PyObject *tuple = PyTuple_New( 0 );
 	return PyEvalMethod( "onWorldSave", tuple );
 }
 
 bool cPythonScript::onWorldLoad( cDBDriver *connection )
 {
 	PyHasMethod( "onWorldLoad" )
+	PyObject *tuple = PyTuple_New( 0 );
+	return PyEvalMethod( "onWorldSave", tuple );
+}
+
+bool cPythonScript::onWearItem( P_PLAYER pPlayer, P_CHAR pChar, P_ITEM pItem, unsigned char layer )
+{
+	PyHasMethod( "onWearItem" )
 
 	// Create our args for the python function
-	PyObject *tuple = PyTuple_New( 1 );
-	//PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyObject *tuple = PyTuple_New( 4 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pPlayer ) );
+	PyTuple_SetItem( tuple, 1, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 2, PyGetItemObject( pItem ) );
+	PyTuple_SetItem( tuple, 3, PyInt_FromLong( layer ) );
 
-	return PyEvalMethod( "onWorldSave", tuple );
+	return PyEvalMethod( "onWearItem", tuple );
+}
+
+bool cPythonScript::onEquip( P_CHAR pChar, P_ITEM pItem, unsigned char layer )
+{
+	PyHasMethod( "onEquip" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 3 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( layer ) );
+
+	return PyEvalMethod( "onEquip", tuple );
+}
+
+bool cPythonScript::onUnequip( P_CHAR pChar, P_ITEM pItem, unsigned char layer )
+{
+	PyHasMethod( "onUnequip" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 3 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( layer ) );
+
+	return PyEvalMethod( "onUnequip", tuple );
 }
 
 QString cPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )

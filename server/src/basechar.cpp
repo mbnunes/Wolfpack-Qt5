@@ -142,7 +142,7 @@ void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStrin
 	fields.push_back( "characters.def,characters.hunger" );
 	fields.push_back( "characters.poison,characters.poisoned" );
 	fields.push_back( "characters.murderertime,characters.criminaltime,characters.nutriment" );
-	fields.push_back( "characters.stealthsteps,characters.gender,characters.propertyflags" );
+	fields.push_back( "characters.gender,characters.propertyflags" );
 	fields.push_back( "characters.attacker,characters.combattarget,characters.murderer" );
 	fields.push_back( "characters.guarding" );
 	tables.push_back( "characters" );
@@ -193,7 +193,6 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	murdererTime_ = atoi( result[offset++] ) + uiCurrentTime;
 	criminalTime_ = atoi( result[offset++] ) + uiCurrentTime;
 	nutriment_ = atoi( result[offset++] );
-	stealthedSteps_ = atoi( result[offset++] );
 	gender_ = atoi( result[offset++] );
 	propertyFlags_ = atoi( result[offset++] );
 	attackerSerial_ = atoi( result[offset++] );
@@ -637,6 +636,7 @@ void cBaseChar::wear( P_ITEM pi )
 		return;
 
 	this->addItem( static_cast<cBaseChar::enLayer>(layer), pi );
+
 	cUOTxCharEquipment packet;
 	packet.setWearer( this->serial() );
 	packet.setSerial( pi->serial() );
@@ -1482,13 +1482,18 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	// DoubleEquip is *NOT* allowed
 	if ( atLayer( layer ) != 0 )
 	{
-		clConsole.send( tr("WARNING: Trying to put an item on layer %1 which is already occupied\n").arg(layer) );
-		pi->setContainer(0);
+		clConsole.log( LOG_WARNING, QString( "Trying to put an item on layer %1 which is already occupied\n" ).arg( layer ) );
+		pi->setContainer( 0 );
 		return;
 	}
 
 	if( !noRemove )
-		pi->removeFromCont();
+	{
+		// Dragging doesnt count as Equipping
+		if( layer != Dragging )
+			pi->onEquip( this, layer );
+		pi->removeFromCont();		
+	}
 
 	content_.insert( (ushort)(layer), pi );
 	pi->setLayer( layer );
@@ -1503,6 +1508,10 @@ void cBaseChar::removeItem( cBaseChar::enLayer layer, bool handleWeight )
 	P_ITEM pi = atLayer(layer);
 	if ( pi )
 	{
+		// Dragging doesnt count as Equipping
+		if( layer != Dragging )
+			pi->onUnequip( this, layer );
+
 		pi->setContainer(0);
 		pi->setLayer( 0 );
 		content_.remove((ushort)(layer));

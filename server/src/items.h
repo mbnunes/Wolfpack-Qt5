@@ -47,47 +47,6 @@ class cUOSocket;
 
 class cItem : public cUObject
 {
-	Q_OBJECT
-	Q_PROPERTY ( ushort		id			READ id				WRITE setId				)
-	Q_PROPERTY ( ushort		color		READ color			WRITE setColor			)
-	Q_PROPERTY ( ushort		amount		READ amount			WRITE setAmount			)
-	Q_PROPERTY ( ushort		restock		READ restock		WRITE setRestock		)
-	Q_PROPERTY ( uchar		layer		READ layer			WRITE setLayer			)
-	Q_PROPERTY ( int		totalweight READ totalweight	WRITE setTotalweight	)
-	Q_PROPERTY ( ushort		accuracy	READ accuracy		WRITE setAccuracy		)
-	Q_PROPERTY ( int		sellprice	READ sellprice		WRITE setSellprice		)
-	Q_PROPERTY ( int		buyprice	READ buyprice		WRITE setBuyprice		)
-	Q_PROPERTY ( uchar		more1		READ more1			WRITE setMore1			)
-	Q_PROPERTY ( uchar		more2		READ more2			WRITE setMore2			)
-	Q_PROPERTY ( uchar		more3		READ more3			WRITE setMore3			)
-	Q_PROPERTY ( uchar		more4		READ more4			WRITE setMore4			)
-	Q_PROPERTY ( uchar		morex		READ morex			WRITE setMoreX			)
-	Q_PROPERTY ( uchar		morey		READ morey			WRITE setMoreY			)
-	Q_PROPERTY ( uchar		morez		READ morez			WRITE setMoreZ			)
-	Q_PROPERTY ( uchar		doordir		READ doordir		WRITE setDoorDir		)
-	Q_PROPERTY ( uchar		dooropen	READ dooropen		WRITE setDoorOpen		)
-	Q_PROPERTY ( uchar		dye			READ dye			WRITE setDye			)
-	Q_PROPERTY ( uint		att			READ att			WRITE setAtt			)
-	Q_PROPERTY ( uint		def			READ def			WRITE setDef			)
-	Q_PROPERTY ( short		StrengthReq	READ strengthReq	WRITE setStrengthReq	)
-	Q_PROPERTY ( short		strengthMod	READ strengthMod	WRITE setStrengthMod	)
-	Q_PROPERTY ( short		dexterityReq READ dexterityReq	WRITE setDexterityReq	)
-	Q_PROPERTY ( short		dexterityMod READ dexterityMod	WRITE setDexterityMod	)
-	Q_PROPERTY ( short		intelligenceMod READ intelligenceMod	WRITE setIntelligenceMod	)
-	Q_PROPERTY ( short		intelligenceReq	READ intelligenceReq	WRITE setIntelligenceReq	)
-	Q_PROPERTY ( uchar		magic		READ magic			WRITE setMagic			)
-	Q_PROPERTY ( uint		decaytime	READ decaytime		WRITE setDecayTime		)
-	Q_PROPERTY ( uint		disabled	READ disabled		WRITE setDisabled		)
-	Q_PROPERTY ( uint		poisoned	READ poisoned		WRITE setPoisoned		)
-	Q_PROPERTY ( int		rank		READ rank			WRITE setRank			)
-	Q_PROPERTY ( QString	creator		READ creator		WRITE setCreator		)
-	Q_PROPERTY ( int		ownserial	READ ownSerial		WRITE SetOwnSerial		)
-	Q_PROPERTY ( uchar		visible		READ visible		WRITE setVisible		)
-	Q_PROPERTY ( uchar		priv		READ priv			WRITE setPriv			)
-	Q_PROPERTY ( int		good		READ good			WRITE setGood			)
-	Q_PROPERTY ( int		rndvaluerate READ rndvaluerate	WRITE setRndValueRate	)
-	Q_PROPERTY ( uchar		madewith	READ madewith		WRITE setMadeWith		)
-
 private:
 	bool changed_;
 	void flagChanged() { changed_ = true; } // easier to debug, compiler should make it inline;
@@ -96,6 +55,10 @@ public:
 	typedef QValueVector<cItem*> ContainerContent;
 
 public:
+	const char *objectID() const
+	{
+        return "cItem";
+	}
 
 	virtual void	talk( const QString &message, ushort color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	void load( char **, UINT16& );
@@ -113,7 +76,6 @@ public:
 	ushort			color()			const { return color_; }		// The Color of the item
 	ushort			amount()		const { return amount_; }		// Amount of items in pile
 	ushort			restock()		const { return restock_; }		// Amount of items a vendor will respawn this item to.
-	QString			name2()			const { return name2_; }		// The identified name of the item
 	uchar			layer()			const { return layer_; }		// Layer if equipped on paperdoll
 	bool			twohanded()		const { return priv_&0x20; }		// Is the weapon twohanded ?
 	UI32			type()			const { return type_; }			// Used for hardcoded behaviour
@@ -189,7 +151,6 @@ public:
 	void	setColor( ushort nValue ) { color_ = nValue; flagChanged();};
 	void	setAmount( ushort nValue );
 	void	setRestock( ushort nValue ) { restock_ = nValue; flagChanged();}
-	void	setName2( const QString& nValue ) { name2_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setLayer( uchar nValue ) { layer_ = nValue; flagChanged();};
 	void	setTwohanded( bool nValue ) { nValue ? priv_ &= 0x20 : priv_ |= 0xDF; flagChanged(); changed( TOOLTIP );};
 	void	setType( UI32 nValue ) { type_ = nValue; flagChanged();};
@@ -291,7 +252,7 @@ public:
 	bool isShield() const { return type_ == 1009; }
 	UINT16 getWeaponSkill();
 
-	void MoveTo(int newx, int newy, signed char newz);
+	void MoveTo( int newx, int newy, signed char newz );
 	long reduceAmount( short amount = 1 );
 	short GetContGumpType();
 	void SetRandPosInCont(cItem* pCont);
@@ -318,6 +279,9 @@ public:
 	// Public event wrappers added by darkstorm
 	virtual bool onSingleClick( P_PLAYER Viewer );
 	bool onUse( P_CHAR pChar );
+	bool onWearItem( P_PLAYER pPlayer, P_CHAR pChar, unsigned char layer );
+	bool onEquip( P_CHAR pChar, unsigned char layer );
+	bool onUnequip( P_CHAR pChar, unsigned char layer );
 	bool onCollide( P_CHAR pChar );
 	bool onDropOnChar( P_CHAR pChar );
 	bool onDropOnItem( P_ITEM pItem );
@@ -352,7 +316,6 @@ protected:
 	ushort		color_;
 	ushort		amount_; 
 	ushort		restock_;
-	QString		name2_;
 	uchar		layer_;
 	SI16		lodamage_; 
 	SI16		hidamage_; 

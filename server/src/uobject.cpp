@@ -152,7 +152,7 @@ void cUObject::save()
 		initSave;
 		setTable( "uobjectmap" );
 		addField( "serial", serial_ );
-		addStrField( "type", objectID() );
+		addStrField( "type", QString( objectID() ) );
 		addCondition( "serial", serial_ );
 		saveFields;
 		clearFields;
@@ -466,29 +466,20 @@ void cUObject::processNode( const cElement *Tag )
 	//		<value>smallboat</value>
 	// </tag>
 	else if( TagName == "tag" )
-	{
-		QString tkey, tvalue;
+	{		
+		QString name = Tag->getAttribute( "name" );
+		QString value = Tag->getAttribute( "value" );
 
-		for( unsigned int i = 0; i < Tag->childCount(); ++i )
+		if( !name.isNull() && !value.isNull() )
 		{
-			const cElement *childTag = Tag->getChild( i );
+			QString type = Tag->getAttribute( "type", "string" );
 
-			QString childValue = childTag->getValue();
-			QString childName = childTag->name();
-				
-			if( childName == "key" )
-				tkey = childValue;	
-
-			else if( childName == "value" )
-				tvalue = childValue;
-		}
-
-		if( !tkey.isNull() && !tvalue.isNull() )
-		{
-			if( Tag->getAttribute( "type" ) == "value" )
-				this->tags_.set( tkey, cVariant( tvalue.toInt() ) );
+			if( type == "int" )
+				tags_.set( name, cVariant( hex2dec( value ).toInt() ) );
+			else if( type == "float" )
+				tags_.set( name, cVariant( value.toFloat() ) );
 			else
-				this->tags_.set( tkey, cVariant( tvalue ) );
+				tags_.set( name, cVariant( value ) );
 		}
 	}
 	// <events>a,b,c</events>

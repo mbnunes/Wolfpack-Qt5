@@ -84,7 +84,6 @@ cItem::cItem( const cItem &src )
 	changed( TOOLTIP );
 	flagChanged();
 	this->name_ = src.name_;
-	this->name2_ = src.name2_;
 	this->creator_ = src.creator_;
 	this->incognito = src.incognito;
 	this->madewith_ = src.madewith_;
@@ -459,8 +458,6 @@ void cItem::save()
 		
 		addField("serial",		serial());
 		addField("id",			id());
-		addStrField("name",			name_); // warning: items do not use cUObject name! (nuts, remove it)
-		addStrField("name2",			name2_);
 		addStrField("creator",		creator_);
 		addField("sk_name",		madewith_);
 		addField("color",			color());
@@ -602,9 +599,10 @@ void cItem::Init( bool createSerial )
 	if( createSerial )
 		this->setSerial( World::instance()->findItemSerial() );
 
+	// We need to implement NULL checking here.
+	this->creator_ = QString::null;
+
 	this->container_ = 0;
-	this->name_ = "#";
-	this->name2_ = this->name_;
 	this->incognito=false;//AntiChrist - incognito
 	this->madewith_=0; // Added by Magius(CHE)
 	this->rank_ = 0; // Magius(CHE)
@@ -1055,6 +1053,57 @@ bool cItem::onPickup( P_CHAR pChar )
 	return false;
 }
 
+bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
+{
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onEquip( pChar, this, layer ) )
+				return true;
+
+			++i;
+		}
+	}
+
+	return false;
+}
+
+bool cItem::onUnequip( P_CHAR pChar, unsigned char layer )
+{
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onUnequip( pChar, this, layer ) )
+				return true;
+
+			++i;
+		}
+	}
+
+	return false;
+}
+
+bool cItem::onWearItem( P_PLAYER pPlayer, P_CHAR pChar, unsigned char layer )
+{
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onWearItem( pPlayer, pChar, this, layer ) )
+				return true;
+
+			++i;
+		}
+	}
+
+	return false;
+}
+
 bool cItem::onUse( P_CHAR pChar )
 {
 	if( scriptChain )
@@ -1154,10 +1203,6 @@ void cItem::processNode( const cElement *Tag )
 		else
 			setBindmenu(Value);
 	}
-
-	// <identified>my magic item</identified>
-	else if( TagName == "identified" )
-		this->setName2( Value.latin1() );
 
 	// <attack min="1" max="2"/>
 	else if( TagName == "attack" )
@@ -1382,7 +1427,7 @@ void cItem::processModifierNode( const cElement *Tag )
 	if( TagName == "name" )
 	{
 		// Bad: # = iron #
-		if( name_ == "#" )
+		if( name_.isNull() )
 		{
 			name_ = getName( true );
 		}
@@ -1404,10 +1449,6 @@ void cItem::processModifierNode( const cElement *Tag )
 			name_ = Value.arg( name_ );
 		}
 	}
-
-	// <identified>%1 of Hardening</identified>
-	else if( TagName == "identified" )
-		name2_ = Value.arg( name2_ );
 
 	// <attack min="-1" max="+2"/>
 	else if( TagName == "attack" )
@@ -1607,7 +1648,7 @@ void cItem::showName( cUOSocket *socket )
 		
 	QString itemname( "" );
 	
-	if( name_ != "#" )
+	if( !name_.isNull() )
 		itemname = getName();
 
 	// Add creator's mark (if any)
@@ -1633,13 +1674,13 @@ void cItem::showName( cUOSocket *socket )
 	}
 
 	// Show charges for wands only if they are identified
-	if( type() == 15 && name_ == name2_ )
+	if( type() == 15 && !tags().has( "identified" ) )
 			itemname.append( tr( " [%1 charge%2]" ).arg( morez_ ).arg( ( morez_ > 1 ) ? "s" : "" ) );
 	else if( type() == 404 || type() == 181 )
 		itemname.append( tr( " [%1 charge%2]" ).arg( morex_ ).arg( ( morex_ > 1 ) ? "s" : "" ) );
 
 	// Try a localized Message
-	if( name_ == "#" )
+	if( name_.isNull() )
 		socket->clilocMessageAffix( 0xF9060 + id_, "", itemname, 0x3B2, 3, this );
 	else
 		socket->showSpeech( this, itemname );
@@ -2077,8 +2118,6 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 
 	if( pi->maxhp() == 0) 
 		pi->setMaxhp( pi->hp() );
-	if( pi->name() == "#" )
-		pi->setName( QString::null );
 }
 
 static cUObject* productCreator()
@@ -2104,8 +2143,6 @@ void cItem::load( char **result, UINT16 &offset )
 		throw QString( "Item has invalid character serial: 0x%1" ).arg( serial(), 0, 16 );
 
 	id_ = atoi( result[offset++] );
-	name_ = result[offset++];
-	name2_ = result[offset++];
 	creator_ = result[offset++];
 	madewith_ = atoi( result[offset++] );
 	color_ = atoi( result[offset++] );
@@ -2176,7 +2213,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.good,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.good,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2368,8 +2405,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 
-	else SET_STR_PROPERTY( "name2", name2_ )
-	else SET_STR_PROPERTY( "name", name_ )
 	else SET_INT_PROPERTY( "layer", layer_ )
 	else SET_INT_PROPERTY( "type", type_ )
 	else SET_INT_PROPERTY( "type2", type2_ )
@@ -2590,8 +2625,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "id", id_ )
 	else GET_PROPERTY( "color", color_ )
 	else GET_PROPERTY( "amount", amount_ )
-	else GET_PROPERTY( "name2", name2_ )
-	else GET_PROPERTY( "name", name_ )
 	else GET_PROPERTY( "layer", layer_ )
 	// Flag properties are set elsewhere!!
 	else GET_PROPERTY( "type", type_ )

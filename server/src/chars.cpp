@@ -54,7 +54,7 @@
 #undef  DBGFILE
 #define DBGFILE "chars.cpp"
 
-void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
+void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 {
 	if( !pc_k )
 		return;

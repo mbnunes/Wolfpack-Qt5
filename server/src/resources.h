@@ -122,7 +122,6 @@ private:
 
 class cResourceItem : public cItem
 {
-	Q_OBJECT
 public:
 	cResourceItem( const QString& resource, UINT32 amount, UINT32 vein );
 	cResourceItem() {} // Used for Loading

@@ -209,7 +209,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 					if( pc_currchar->isHuman() )
 						pc_currchar->action( 0x20 );
 
-					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name() ).arg( pi->name2() ), 0x26 );
+					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name() ).arg( pi->tags().get( "name" ).toString() ), 0x26 );
 				}
 				
 				socket->sendContainer( pi );
