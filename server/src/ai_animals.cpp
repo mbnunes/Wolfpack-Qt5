@@ -35,6 +35,8 @@
 #include "globals.h"
 #include "mapobjects.h"
 #include "basics.h"
+#include "targetrequests.h"
+#include "chars.h"
 
 // library includes
 #include <math.h>
@@ -61,12 +63,11 @@ void Animal_Domestic::registerInFactory()
 
 void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 {
-/*	//TODO: speech handling here
-	if( pPet->owner() != pPlayer && !pPlayer->isGM() )
+	if( m_npc->owner() != pTalker && !pTalker->isGM() )
 		return;
 
 	// too far away to hear us
-	if( pPlayer->dist( pPet ) > 7 )
+	if( pTalker->dist( m_npc ) > 7 )
 		return;
 	
 	if( comm.contains( " FOLLOW" ) )
@@ -74,20 +75,21 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 		if( comm.contains( " ME" ) )
 		{
 
-//			pPet->setWanderFollowTarget( pPlayer->serial() );
-//			pPet->setWanderType( enFollowTarget );
-			playmonstersound( pPet, pPet->bodyID(), SND_STARTATTACK );
+			m_npc->setWanderFollowTarget( pTalker );
+			m_npc->setWanderType( enFollowTarget );
+			playmonstersound( m_npc, m_npc->bodyID(), SND_STARTATTACK );
 		}
 		else
 		{
+			pTalker->socket()->attachTarget( new cFollowTarget( m_npc ) );
 			// LEGACY: target( s, 0, 1, 0, 117, "Click on the target to follow." );
 		}
 	}
 	else if( ( comm.contains( " KILL" ) ) || ( comm.contains( " ATTACK" ) ) )
 	{
-		if( pPet->inGuardedArea() ) // Ripper..No pet attacking in town.
+		if( m_npc->inGuardedArea() ) // Ripper..No pet attacking in town.
 		{
-			pPlayer->message( tr( "You can't have pets attack in town!" ) );
+			pTalker->message( tr( "You can't have pets attack in town!" ) );
 		}
 		//pPlayer->setGuarded( false );
 		// >> LEGACY
@@ -106,8 +108,8 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 		//pPlayer->setGuarded( false );
 //		pPet->setWanderFollowTarget( pPlayer->serial() );
 //		pPet->setWanderType( enFollowTarget );
-		pPet->setNextMoveTime();
-		pPlayer->message( tr( "Your pet begins following you." ) );
+//		m_npc->setNextMoveTime();
+//		pTalker->message( tr( "Your pet begins following you." ) );
 	}
 	else if( comm.contains( " GUARD" ) )
 	{
@@ -119,45 +121,40 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 			addy[s]=1;	// indicates we already know whom to guard (for future use)
 		
 		// for now they still must click on themselves (Duke)
-		target(s, 0, 1, 0, 120, "Click on the char to guard.");*//*
+		target(s, 0, 1, 0, 120, "Click on the char to guard.");*/
 	}
 	else if( ( comm.contains( " STOP" ) ) || ( comm.contains(" STAY") ) )
 	{
-		//pPlayer->setGuarded( false );
-//		pPet->setWanderFollowTarget( INVALID_SERIAL );
-		pPet->setCombatTarget( INVALID_SERIAL );
+		m_npc->setCombatTarget( INVALID_SERIAL );
 
-		if (pPet->isAtWar()) 
-			pPet->toggleCombat();
+		if (m_npc->isAtWar()) 
+			m_npc->toggleCombat();
 
-		pPet->setWanderType( enHalt );
+		m_npc->setWanderType( enHalt );
 	}
 	else if( comm.contains( " TRANSFER" ) )
 	{
 		//pPlayer->setGuarded( false );
 		// >> LEGACY
 		/*addx[s]=pPet->serial();
-		target(s, 0, 1, 0, 119, "Select character to transfer your pet to.");*//*
+		target(s, 0, 1, 0, 119, "Select character to transfer your pet to.");*/
 	}
 	else if( comm.contains( " RELEASE" ) )
 	{
-		//pPlayer->setGuarded( false );
-
 		// Has it been summoned ? Let's dispel it
-		if( pPet->summonTime() > uiCurrentTime )
-			pPet->setSummonTime( uiCurrentTime );
+		if( m_npc->summonTime() > uiCurrentTime )
+			m_npc->setSummonTime( uiCurrentTime );
 
-//		pPet->setWanderFollowTarget( INVALID_SERIAL );
-		pPet->setWanderType( enFreely );
-		pPet->setOwner( NULL );
-		pPet->setTamed( false );
-		pPet->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( pPet->name() ) );
-		if( SrvParams->tamedDisappear() ==1 )
+		m_npc->setWanderType( enFreely );
+		m_npc->setOwner( NULL );
+		m_npc->setTamed( false );
+		m_npc->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( m_npc->name() ) );
+		if( SrvParams->tamedDisappear() )
 		{
-			pPet->soundEffect( 0x01FE );
-			cCharStuff::DeleteChar( pPet );
+			m_npc->soundEffect( 0x01FE );
+			cCharStuff::DeleteChar( m_npc );
 		}
-	}*/
+	}
 }
 
 float Animal_Wild_Flee::preCondition()
@@ -166,6 +163,7 @@ float Animal_Wild_Flee::preCondition()
 	 * Fleeing from an approaching player has the following preconditions:
 	 * - There is a player within flight range.
 	 * - There is no character attacking us.
+	 * - Our owner is not in range.
 	 *
 	 */
 
@@ -179,9 +177,13 @@ float Animal_Wild_Flee::preCondition()
 		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
 		{
 			pFleeFrom = pPlayer;
-			return 1.0f;
 		}
+		if( pPlayer && m_npc->owner() == pPlayer )
+			return 0.0f;
+
 	}
+	if( pFleeFrom )
+		return 1.0f;
 
 	return 0.0f;
 }
@@ -192,6 +194,7 @@ float Animal_Wild_Flee::postCondition()
 	 * Fleeing from an approaching player has the following postconditions:
 	 * - There is no character in flight range.
 	 * - There is an character attacking us.
+	 * - Our owner has come in range.
 	 *
 	 */
 
@@ -199,12 +202,20 @@ float Animal_Wild_Flee::postCondition()
 		return 1.0f;
 
 	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
+	bool found = false;
 	for(ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
 		if( pPlayer && !pPlayer->free && !pPlayer->isGMorCounselor() && !pPlayer->isHidden() && !pPlayer->isInvisible() )
-			return 0.0f;
+			found = true;
+
+		if( pPlayer && m_npc->owner() == pPlayer )
+			return 1.0f;
 	}
+
+	if( found )
+		return 0.0f;
+
 	return 1.0f;
 }
 

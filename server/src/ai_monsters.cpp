@@ -63,6 +63,13 @@ void Monster_Aggressive_L0::selectVictim()
 	// We must make sure, that the npc has a correct target.
 	// If he already has one, we must check if it is still correct.
 	// Else we search a new one.
+
+	// If the npc is tamed, it cant attack
+	if( m_npc->isTamed() )
+	{
+		m_currentVictim = NULL;
+		return;
+	}
 	
 	if( m_currentVictim )
 	{
@@ -115,6 +122,13 @@ void Monster_Aggressive_L1::selectVictim()
 	// We must make sure, that the npc has a correct target.
 	// If he already has one, we must check if it is still correct.
 	// Else we search a new one.
+	
+	// If the npc is tamed, it cant attack
+	if( m_npc->isTamed() )
+	{
+		m_currentVictim = NULL;
+		return;
+	}
 	
 	if( m_currentVictim )
 	{

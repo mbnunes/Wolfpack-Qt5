@@ -923,6 +923,29 @@ public:
 	}
 };
 
+class cFollowTarget : public cTargetRequest
+{
+	Q_OBJECT
+private:
+	P_NPC m_npc;
+public:
+	cFollowTarget( P_NPC npc ) : m_npc( npc ) {}
+
+	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
+	{
+		if( m_npc )
+		{
+			P_CHAR pTarget = World::instance()->findChar( target->serial() );
+			if( pTarget )
+			{
+				m_npc->setWanderFollowTarget( pTarget );
+				m_npc->setWanderType( enFollowTarget );
+			}
+		}
+		return true;
+	}
+};
+
 
 #endif
 

@@ -362,7 +362,7 @@ float Action_Wander::preCondition()
 	if( m_npc->wanderType() == enDestination && m_npc->wanderDestination() == m_npc->pos() )
 		return 0.0f;
 
-	if( m_npc->wanderType() == enFollowTarget && m_npc->inRange( m_npc->wanderFollowTarget(), SrvParams->pathfindFollowRadius() ) )
+	if( m_npc->wanderType() == enFollowTarget && !m_npc->inRange( m_npc->wanderFollowTarget(), SrvParams->pathfindFollowRadius() ) )
 		return 0.0f;
 
 	return 1.0f;
@@ -451,6 +451,8 @@ void Action_Wander::execute()
 			{
 				movePath( pTarget->pos() );
 			}
+			if( pTarget->dist( m_npc ) > 3 )
+				m_npc->setAICheckTime( uiCurrentTime + (float)m_npc->aiCheckInterval() * 0.0005f * MY_CLOCKS_PER_SEC );
 		}
 		else
 		{

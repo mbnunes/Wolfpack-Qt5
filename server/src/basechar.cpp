@@ -1505,7 +1505,7 @@ void cBaseChar::processNode( const cElement *Tag )
 			setSkillValue( skillId, Value.toInt() );
 	}
 	
-	cUObject::processNode( Tag );
+//	cUObject::processNode( Tag );
 }
 
 void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight, bool noRemove )
