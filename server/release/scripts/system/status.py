@@ -7,6 +7,7 @@ import sys
 from wolfpack.consts import *
 from wolfpack import settings, console, accounts, sockets
 import wolfpack.time # Already imported
+import htmlentitydefs
 from threading import Thread, Event, Lock
 import time
 
@@ -43,7 +44,7 @@ class ProcessThread(Thread):
 				global outputfile
 				try:
 					fp = file(outputfile, 'wu')
-					fp.write(data)
+					fp.write(data.encode('utf-8'))
 					fp.close()
 				except Exception, e:
 					console.log(LOG_PYTHON, "Couldn't write status to '%s': %s.\n" % (outputfile, str(e)))
