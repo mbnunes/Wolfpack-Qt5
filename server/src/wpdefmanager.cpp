@@ -267,7 +267,7 @@ const QString processNode( QDomElement &Node )
 		else if( Node.attributes().contains("list") )
 		{
 			QStringList RandValues = QStringList::split(",", Node.attributeNode("list").nodeValue());
-			return RandValues[ RandomNum(0,RandValues.size()) ];
+			return RandValues[ RandomNum(0,RandValues.size()-1) ];
 		}
 		else if( Node.attributes().contains("dice") )
 			return QString("%1").arg(rollDice(Node.attributeNode("dice").nodeValue()));
