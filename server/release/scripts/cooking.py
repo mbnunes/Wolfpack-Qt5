@@ -8,46 +8,53 @@
 # Cooking
 import wolfpack
 import wolfpack.utilities
+from wolfpack.consts import *
+import random
 
-ids_heat =[ 0xde3 ]
-ids_meat =[ 0x9b7, 0x9b8, 0x9f2, 0x1608 ]
-ids_fish =[ 0x97b ]
-ids_pastries =[ 0x160c, 0x9e9, 0x1041, 0x1040 ]
+# Ids of items we can cook on
+ids_heat = [ 	0xde3, # Campfire
+				0x92b, 0x92c, 0x930, 0x931, 0x937, 0x93d, 0x945, 0x94b, 0x953, 0x959, 0x961, 0x967, # Stone Ovens + Fireplaces
+				0xe31, # Brazier
+				0x461, 0x462, 0x46a, 0x46f, 0x475, 0x47b, 0x482, 0x489 # Sandstone Ovens + Fireplaces
+			]
 
+# The first value is the original uncooked item id
+# The List contains two values:
+# a) the id if cooking succeeds
+# b) the id if cooking fails, empty if item should just be deleted
 ids = {
 	# raw bird : cooked bird
-	0x9b9 : 0x9b7,
-	0x9ba : 0x9b8,
+	0x9b9 : [ "9b7", "1eb0" ],
+	0x9ba : [ "9b8", "1eb0" ],
 	
 	# raw fish : cooked fish
-	0x97a : 0x97b,
+	0x97a : [ "97b", "1eb0" ],
 	
 	# raw rib : cooked rib
-	0x9f1 : 0x9f2,
+	0x9f1 : [ "9f2", "1eb0" ],
 	
 	# dough : bread
-	0x103d : 0x103b,
+	0x103d : [ "103b", "" ],
 	
 	# cookie mix : cookie
-	0x103f : 0x160c,
+	0x103f : [ "160c", "" ],
 	
-	# cakie mix : cake
-	0xa1e : 0x9e9,
+	# bowl of flour : cake
+	0xa1e : [ "9e9", "" ],
 	
 	# raw chickenleg : cooked chickenleg
-	0x1607 : 0x1608,
+	0x1607 : [ "1608", "1eb0" ],
 	
 	# raw lamleg : cooked lamleg
-	0x1609 : 0x160a,
+	0x1609 : [ "160a", "1eb0" ],
 	
-	# unbaked pi : baked pie
-	0x1042 : 0x1041,
+	# unbaked pie : baked pie
+	0x1042 : [ "1041", "" ],
 	
 	# uncooked pizza : pizza
-	0x1083 : 0x1040
+	0x1083 : [ "1040", "" ]
 	
 	}
-
 
 def onUse( char, item ):
 	# Needs to be on ourself
@@ -60,44 +67,57 @@ def onUse( char, item ):
 		char.socket.attachtarget( "cooking.response", [ item.serial ] )
 		return 1
 
+	return 0
+
 def response( char, args, target ):
 	direction = char.directionto( target.pos )
-	if not char.direction == direction:
+
+	if char.direction != direction:
 		char.direction = direction
 		char.update()
-	item = wolfpack.finditem( args[0] )
-	
+
+	item = wolfpack.finditem( args[0] ) # What we want to cook
+	id = item.id
+
+	if not item or item.getoutmostchar():
+		char.socket.clilocmessage( 0x7ACA2 ) # That belongs to someone else.
+
+	# Are we too far away from the target ?
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
-		char.socket.clilocmessage( 0x7A258 )
+		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
 		return 1
 		
 	if abs( char.pos.z - target.pos.z ) > 5:
-		char.socket.clilocmessage( 0x7A258 )
-		return 1
-	
-	# Check target (only item targets valid)
-	if not target.item:
-		char.socket.sysmessage( "You can't cook on this." )
+		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
 		return 1
 
-	if target.item.id in ids_heat:
-		# Change the id
-		newid = ids[ item.id ]
-		item.id = newid
-	
-	if item.newid in ids_meat:
-		item.type2 = 8
+	# We can only cook on dynamic ovens/fireplaces
+	if not target.item or not target.item.id in ids_heat:
+		char.socket.clilocmessage( 0x7A3D2 ) # You can't cook on that.
+		return 1
+
+	# We're cooking one by one
+	if item.amount > 1:
+		item.amount -= 1
 		item.update()
-	
-	elif item.newid in ids_fish:
-		item.type2 = 9
-		item.update()
+	else:
+		item.delete()
+
+	# Succeess ?
+	if char.checkskill( COOKING, 0, 1000 ):
+		item = wolfpack.additem( ids[ id ][0] )
+		if not wolfpack.utilities.tobackpack( item, char ):
+			item.update()
 		
-	elif item.newid in ids_pastries:
-		item.type2 = 10
-		item.update()
+		char.socket.clilocmessage( random.choice( [ 0x7A3CF, 0x7A3D0 ] ) ) # Either "Looks delicious." or "Mmmm, smells good."
+		char.socket.clilocmessage( 0x7A3D1 ) # You put the cooked food into your backpack.
 	
 	else:
-		char.socket.sysmessage( "You can't cook on this." )
-		return
-	
+		burned_id = ids[ id ][1]
+
+		if burned_id != "":
+			burned = wolfpack.additem( burned_id )
+			if not wolfpack.utilities.tobackpack( burned, char )
+				burned.update()
+
+		char.socket.clilocmessage( 0x7A3CE ) # You burn the food to a crisp! It's ruined.

@@ -1,6 +1,6 @@
 
 import wolfpack.time
-import random
+from random import randint
 from wolfpack.consts import *
 
 # POTIONS SCRIPT
@@ -17,13 +17,13 @@ def canUsePotion( char ):
 	if not firsthand and not secondhand:
 		return 1
 
-	if firsthand and not firsthand.twohanded:
+	if firsthand and not secondhand and not firsthand.twohanded:
+		return 1
+	
+	if not firsthand and secondhand and not secondhand.twohanded:
 		return 1
 
-	if secondhand and not firsthand:
-		return 1
-
-	char.message( "You can't wear shields and twohanded weapons when using potions." ) # Ihr habt keine Hand frei
+	char.socket.cilocmessage( 0x7A99C ) # You must have a free hand to drink a potion.
 	return 0
 
 # 10 Seconds Timeout
@@ -40,7 +40,7 @@ def checkPotionTimer( char ):
 	# Compare 
 	elapsed = int( socket.gettag( "heal_timer" ) )
 	if elapsed > wolfpack.time.servertime():
-		char.message( "Du musst 10 Sekunden warten bevor du die nächste Potion schluckst" )
+		char.clilocmessage( 0x7A20B ) # You must wait 10 seconds before using another healing potion.
 		return 0
 
 	socket.settag( "heal_timer", wolfpack.time.servertime() + 10000 )
@@ -82,14 +82,29 @@ def healPotion( char, potion ):
 	elif pType == 3:
 		amount = randint( POTION_GREATERHEAL_RANGE[0], POTION_GREATERHEAL_RANGE[1] )
 
+	char.health = min( char.health + amount, char.strength ) # We don't heal over our maximum health
+
+	# Resend Health
+	char.updatehealth()
+
 	drinkAnim( char )
 	consumePotion( potion )
 
+# Poison Potions
+def poisonPotion( char, potion ):
+	char.socket.sysmessage( "You better don't drink that." )
+
 potions = {
 	1: nightsightPotion,
-	2: healPotion, # Lesser Heal
-	3: healPotion, # Heal
-	4: healPotion # Greater Heal
+
+	2: healPotion, 		# Lesser Heal
+	3: healPotion, 		# Heal
+	4: healPotion, 		# Greater Heal
+
+	5: poisonPotion, 	# Lesser Poison
+	6: poisonPotion, 	# Poison
+	7: poisonPotion,	# Greater Poison
+	8: poisonPotion, 	# Deadly Poison
 }
 
 def onUse( char, item ):
@@ -106,3 +121,7 @@ def onUse( char, item ):
 	
 	potions[ pType ]( char, item )
 	return 1
+
+# INVIS POTION
+# ID: 0x7A9A3 (0)
+# Your skin becomes extremely sensitive to light, changing to mirror the colors of things around you.
