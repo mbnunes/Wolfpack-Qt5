@@ -4,26 +4,37 @@
 	<!-- a poison elemental -->
 	<npc id="poison_elemental">
 		<name>a poison elemental</name>
-		<id>0x0A2</id>
-		<category>Monsters\Elementals\Poison Elemental </category>
+		<id>0xa2</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-10000" max="-15000"/></karma>
-		<fame><random min="10000" max="15000"/></fame>
-		<defense><random min="60" max="70"/></defense>
-		<lodamage>36</lodamage>
-		<hidamage>57</hidamage>
+		<karma>-12500</karma>
+		<fame>12500</fame>
 		<!-- Stats -->
 		<str><random min="426" max="515"/></str>
 		<dex><random min="166" max="185"/></dex>
-		<int><random min="361" max="435"/></int>
+		<int><random min="801" max="950"/></int>
 		<!-- Skills -->
-		<wrestling><random min="701" max="900"/></wrestling>
-		<tactics><random min="801" max="1000"/></tactics>
+		<evaluatingintel><random min="801" max="950"/></evaluatingintel>
+		<magery><random min="801" max="950"/></magery>
+		<meditation><random min="802" max="1200"/></meditation>
+		<poisoning><random min="901" max="1000"/></poisoning>
 		<magicresistance><random min="852" max="1150"/></magicresistance>
-		<poisoning><random min="901" max="1000" /></poisoning>
-		<magery><random min="801" max="950" /></magery>
-		<evaluatingint><random min="801" max="950"/></evaluatingint>
-		<meditation><random min="802" max="1200" /></meditation>
+		<tactics><random min="801" max="1000"/></tactics>
+		<wrestling><random min="701" max="900"/></wrestling>
+		<!-- Damage -->
+		<lodamage>12</lodamage>
+		<hidamage>18</hidamage>
+		<physicaldamage>10</physicaldamage>
+		<poisondamage>90</poisondamage>
+		<!-- Resists -->
+		<defense><random min="60" max="70"/></defense>
+		<coldresist><random min="20" max="30"/></coldresist>
+		<energyresist><random min="40" max="50"/></energyresist>
+		<fireresist><random min="20" max="30"/></fireresist>
+		<physicalresist><random min="60" max="70"/></physicalresist>
+		<poisonresist>100</poisonresist>
+		<!-- Misc. -->
+		<desc>Poison Elementals are the result of corruption of Air Elementals by horrific magic. It is believed that air elementals that disobey an evil summoner are sometimes punished in this fashion. If such is thecase, poison elementals hate their very existence, as it is anabomination of everything they were as an air elemental. Those unluckyenough to see a poison elemental should immediately turn tail lest they become an outlet for the revenge of the cursed elemental.</desc>
+		<category>Monsters\Elementals\Poison Elemental</category>
 	</npc>
 
 </definitions>

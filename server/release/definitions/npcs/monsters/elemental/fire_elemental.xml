@@ -4,24 +4,35 @@
 	<!-- a fire elemental -->
 	<npc id="fire_elemental">
 		<name>a fire elemental</name>
-		<id>0x00f</id>
-		<category>Monsters\Elementals\Fire Elemental </category>
+		<id>0xf</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="35" max="45"/></defense>
-		<lodamage>14</lodamage>
-		<hidamage>18</hidamage>
+		<karma>-4500</karma>
+		<fame>4500</fame>
 		<!-- Stats -->
 		<str><random min="126" max="155"/></str>
 		<dex><random min="166" max="185"/></dex>
-		<int><random min="101" max="125"/></int>
+		<int><random min="601" max="750"/></int>
 		<!-- Skills -->
-		<wrestling><random min="701" max="1000"/></wrestling>
-		<tactics><random min="801" max="1000"/></tactics>
+		<evaluatingintel><random min="601" max="750"/></evaluatingintel>
+		<magery><random min="601" max="750"/></magery>
 		<magicresistance><random min="752" max="1050"/></magicresistance>
-		<magery><random min="601" max="750" /></magery>
-		<evaluatingint><random min="601" max="750"/></evaluatingint>
+		<tactics><random min="801" max="1000"/></tactics>
+		<wrestling><random min="701" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>7</lodamage>
+		<hidamage>9</hidamage>
+		<firedamage>75</firedamage>
+		<physicaldamage>25</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="35" max="45"/></defense>
+		<coldresist><random min="5" max="10"/></coldresist>
+		<energyresist><random min="30" max="40"/></energyresist>
+		<fireresist><random min="60" max="80"/></fireresist>
+		<physicalresist><random min="35" max="45"/></physicalresist>
+		<poisonresist><random min="30" max="40"/></poisonresist>
+		<!-- Misc. -->
+		<desc>Perhaps the most destructive elemental of them all, for its very touch burns with a consuming flame. Fortunately, fire elementals can not long survive in the cool climes of our world, and are therefore seldom found outside of the burning lava pits of great volcanoes.</desc>
+		<category>Monsters\Elementals\Fire Elemental</category>
 	</npc>
 
 </definitions>

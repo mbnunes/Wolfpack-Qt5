@@ -4,22 +4,30 @@
 	<!-- a shadow iron elemental -->
 	<npc id="shadow_iron_elemental">
 		<name>an air elemental</name>
-		<id>0x06F</id>
-		<category>Monsters\Elementals\Shadow Iron Elemental </category>
+		<id>0x6f</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="30" max="40"/></defense>
-		<lodamage>20</lodamage>
-		<hidamage>37</hidamage>
+		<karma>-4500</karma>
+		<fame>4500</fame>
 		<!-- Stats -->
 		<str><random min="226" max="255"/></str>
 		<dex><random min="126" max="145"/></dex>
 		<int><random min="71" max="92"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="1000"/></wrestling>
-		<tactics><random min="601" max="1000"/></tactics>
 		<magicresistance><random min="501" max="950"/></magicresistance>
+		<tactics><random min="601" max="1000"/></tactics>
+		<wrestling><random min="601" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>9</lodamage>
+		<hidamage>16</hidamage>
+		<!-- Resists -->
+		<defense><random min="30" max="40"/></defense>
+		<coldresist><random min="20" max="30"/></coldresist>
+		<energyresist><random min="30" max="40"/></energyresist>
+		<fireresist><random min="30" max="40"/></fireresist>
+		<physicalresist><random min="30" max="40"/></physicalresist>
+		<poisonresist><random min="10" max="20"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Elementals\Shadow Iron Elemental</category>
 	</npc>
 
 </definitions>

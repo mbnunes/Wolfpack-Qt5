@@ -5,22 +5,31 @@
 	<npc id="sand_vortex">
 		<name>a sand vortex</name>
 		<id>0x316</id>
-		<category>Monsters\Common Monsters\Sand Vortex</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="80" max="90" /></defense>
-		<lodamage>5</lodamage>
-		<hidamage>27</hidamage>
+		<karma>-4500</karma>
+		<fame>4500</fame>
 		<!-- Stats -->
-		<str><random min="96" max="120" /></str>
-		<dex><random min="171" max="195" /></dex>
-		<int><random min="76" max="100" /></int>
+		<str><random min="96" max="120"/></str>
+		<dex><random min="171" max="195"/></dex>
+		<int><random min="76" max="100"/></int>
 		<!-- Skills -->
-		<wrestling>800</wrestling>
-		<tactics>700</tactics>
 		<magicresistance>1500</magicresistance>
+		<tactics>700</tactics>
+		<wrestling>800</wrestling>
+		<!-- Damage -->
+		<lodamage>3</lodamage>
+		<hidamage>16</hidamage>
+		<firedamage>10</firedamage>
+		<physicaldamage>90</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="80" max="90" /></defense>
+		<coldresist><random min="60" max="70"/></coldresist>
+		<energyresist><random min="60" max="70"/></energyresist>
+		<fireresist><random min="60" max="70"/></fireresist>
+		<physicalresist><random min="80" max="90"/></physicalresist>
+		<poisonresist><random min="60" max="70"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Common Monsters\Sand Vortex</category>
 	</npc>
 
 </definitions>

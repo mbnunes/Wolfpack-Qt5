@@ -3,25 +3,38 @@
 
 	<!-- an air elemental -->
 	<npc id="air_elemental">
+		<id>0xd</id>
 		<name>an air elemental</name>
-		<id>0x00d</id>
-		<category>Monsters\Elementals\Air Elemental </category>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="35" max="45"/></defense>
-		<lodamage>15</lodamage>
-		<hidamage>19</hidamage>
+		<!-- Attributes -->
+		<karma>-4500</karma>
+		<fame>4500</fame>
 		<!-- Stats -->
 		<str><random min="126" max="155"/></str>
 		<dex><random min="166" max="185"/></dex>
-		<int><random min="101" max="125"/></int>
+		<int><random min="601" max="750"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="800"/></wrestling>
-		<tactics><random min="601" max="800"/></tactics>
+		<evaluatingintel><random min="601" max="750"/></evaluatingintel>
+		<magery><random min="601" max="750"/></magery>
 		<magicresistance><random min="601" max="750"/></magicresistance>
-		<evaluatingint><random min="601" max="750"/></evaluatingint>
-		<magery><random min="601" max="750" /></magery>
+		<tactics><random min="601" max="800"/></tactics>
+		<wrestling><random min="601" max="800"/></wrestling>
+		<!-- Combat -->
+		<lodamage>8</lodamage>
+		<hidamage>10</hidamage>
+		<colddamage>40</colddamage>
+		<energydamage>40</energydamage>
+		<physicaldamage>20</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="35" max="45" /><defense>
+		<coldresist><random min="10" max="20"/></coldresist>
+		<energyresist><random min="25" max="35"/></energyresist>
+		<fireresist><random min="15" max="25"/></fireresist>
+		<physicalresist><random min="35" max="45"/></physicalresist>
+		<poisonresist><random min="10" max="20"/></poisonresist>
+		<!-- Misc -->
+		<desc>Tales of this creature might be pried from between the lips of those who have encountered it deep within the dungeon Shame, or venturing across its native plains and mountains. The Air Elemental is awesome and perhaps deceptivein its beauty, as it takes the form of a luminous blue man. It moves with such speed as could hardly be imagined; no sooner is it seen in the distance before it bears down on the unfortunate adventurer. The blue vapor it exudes about its form is but an indication of the foul winds that it uses to fell its opponents. Even those who flee this creature may be hit with an unseen weapon that the creature has thrown. Although the naturally occurring Air Elemental is the strongest, such creatures can be summoned at the behest of the strongest of mages. Be warned, ye Adventurers who make your way through the plains and mountains of Britannia! Prepare yourselves well to meet one of these creatures, should you feel the sting of hot wind and grit come from nowhere as you travel!</desc>
+		<category>Monsters\Elementals\Air Elemental</category>
 	</npc>
 
 </definitions>

@@ -4,25 +4,36 @@
 	<!-- an acid elemental -->
 	<npc id="acid_elemental">
 		<name>an acid elemental</name>
-		<id>0x09E</id>
-		<category>Monsters\Elementals\Acid Elemental </category>
+		<id>0x9e</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-10000" max="-12000"/></karma>
-		<fame><random min="10000" max="12000"/></fame>
-		<defense><random min="45" max="55"/></defense>
-		<lodamage>26</lodamage>
-		<hidamage>42</hidamage>
+		<karma>-10000</karma>
+		<fame>10000</fame>
 		<!-- Stats -->
 		<str><random min="326" max="355"/></str>
 		<dex><random min="66" max="85"/></dex>
-		<int><random min="271" max="295"/></int>
+		<int><random min="701" max="850"/></int>
 		<!-- Skills -->
-		<wrestling><random min="701" max="900"/></wrestling>
-		<tactics><random min="801" max="900"/></tactics>
-		<magicresistance><random min="601" max="750"/></magicresistance>
 		<anatomy><random min="303" max="600"/></anatomy>
-		<magery><random min="701" max="850" /></magery>
-		<evaluatingint><random min="701" max="850"/></evaluatingint>
+		<evaluatingintel><random min="701" max="850"/></evaluatingintel>
+		<magery><random min="701" max="850"/></magery>
+		<magicresistance><random min="601" max="750"/></magicresistance>
+		<tactics><random min="801" max="900"/></tactics>
+		<wrestling><random min="701" max="900"/></wrestling>
+		<!-- Damage -->
+		<lodamage>9</lodamage>
+		<hidamage>15</hidamage>
+		<energydamage>25</energydamage>
+		<firedamage>50</firedamage>
+		<physicaldamage>25</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="45" max="55"/></defense>
+		<coldresist><random min="20" max="30"/></coldresist>
+		<energyresist><random min="30" max="40"/></energyresist>
+		<fireresist><random min="40" max="50"/></fireresist>
+		<physicalresist><random min="45" max="55"/></physicalresist>
+		<poisonresist><random min="10" max="20"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Elementals\Acid Elemental</category>
 	</npc>
 
 </definitions>

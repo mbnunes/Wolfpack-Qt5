@@ -4,22 +4,34 @@
 	<!-- a valorite elemental -->
 	<npc id="valorite_elemental">
 		<name>a valorite elemental</name>
-		<id>0x070</id>
-		<category>Monsters\Elementals\Valorite Elemental </category>
+		<id>0x70</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="65" max="75"/></defense>
-		<lodamage>59</lodamage>
-		<hidamage>69</hidamage>
+		<karma>-3500</karma>
+		<fame>3500</fame>
 		<!-- Stats -->
 		<str><random min="226" max="255"/></str>
 		<dex><random min="126" max="145"/></dex>
 		<int><random min="71" max="92"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="1000"/></wrestling>
-		<tactics><random min="601" max="1000"/></tactics>
 		<magicresistance><random min="501" max="950"/></magicresistance>
+		<tactics><random min="601" max="1000"/></tactics>
+		<wrestling><random min="601" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>28</lodamage>
+		<hidamage>25</hidamage>
+		<colddamage>25</colddamage>
+		<energydamage>25</energydamage>
+		<firedamage>25</firedamage>
+		<physicaldamage>25</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="65" max="75"/></defense>
+		<coldresist><random min="50" max="60"/></coldresist>
+		<energyresist><random min="40" max="50"/></energyresist>
+		<fireresist><random min="50" max="60"/></fireresist>
+		<physicalresist><random min="65" max="75"/></physicalresist>
+		<poisonresist><random min="50" max="60"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Elementals\Valorite Elemental</category>
 	</npc>
 
 </definitions>

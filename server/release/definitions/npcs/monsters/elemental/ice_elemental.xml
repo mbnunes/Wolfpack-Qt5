@@ -4,24 +4,35 @@
 	<!-- an ice elemental -->
 	<npc id="ice_elemental">
 		<name>an ice elemental</name>
-		<id>0x0A1</id>
-		<category>Monsters\Elementals\Ice Elemental </category>
+		<id>0xa1</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="35" max="45"/></defense>
-		<lodamage>22</lodamage>
-		<hidamage>45</hidamage>
+		<karma>-4000</karma>
+		<fame>4000</fame>
 		<!-- Stats -->
 		<str><random min="156" max="185"/></str>
 		<dex><random min="96" max="115"/></dex>
-		<int><random min="171" max="192"/></int>
+		<int><random min="105" max="600"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="1000"/></wrestling>
-		<tactics><random min="701" max="1000"/></tactics>
+		<evaluatingintel><random min="105" max="600"/></evaluatingintel>
+		<magery><random min="105" max="600"/></magery>
 		<magicresistance><random min="301" max="800"/></magicresistance>
-		<magery><random min="105" max="600" /></magery>
-		<evaluatingint><random min="105" max="600"/></evaluatingint>
+		<tactics><random min="701" max="1000"/></tactics>
+		<wrestling><random min="601" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>10</lodamage>
+		<hidamage>21</hidamage>
+		<colddamage>75</colddamage>
+		<physicaldamage>25</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="35" max="45"/></defense>
+		<coldresist><random min="50" max="60"/></coldresist>
+		<energyresist><random min="20" max="30"/></energyresist>
+		<fireresist><random min="5" max="10"/></fireresist>
+		<physicalresist><random min="35" max="45"/></physicalresist>
+		<poisonresist><random min="20" max="30"/></poisonresist>
+		<!-- Misc. -->
+		<desc>The motives and desires of elementals are their own. What is known of the Ice Elemental is that they desire the return of the Ice. Working toward one sinister purpose, the Elementals composed of permafrost desire a time when glaciers cover the world. Make no mistake; these demons of cold are an invading force.</desc>
+		<category>Monsters\Elementals\Ice Elemental</category>
 	</npc>
 
 </definitions>

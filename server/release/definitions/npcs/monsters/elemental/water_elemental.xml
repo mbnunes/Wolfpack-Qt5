@@ -4,24 +4,33 @@
 	<!-- a water elemental -->
 	<npc id="water_elemental">
 		<name>a water elemental</name>
-		<id>0x010</id>
-		<category>Monsters\Elementals\Air Elemental </category>
+		<id>0x10</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="35" max="45"/></defense>
-		<lodamage>13</lodamage>
-		<hidamage>17</hidamage>
+		<karma>-4500</karma>
+		<fame>4500</fame>
 		<!-- Stats -->
 		<str><random min="126" max="155"/></str>
 		<dex><random min="66" max="85"/></dex>
 		<int><random min="101" max="125"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="700"/></wrestling>
-		<tactics><random min="501" max="700"/></tactics>
+		<evaluatingintel><random min="601" max="750"/></evaluatingintel>
+		<magery><random min="601" max="750"/></magery>
 		<magicresistance><random min="1001" max="1150"/></magicresistance>
-		<magery><random min="601" max="750" /></magery>
-		<evaluatingint><random min="601" max="750"/></evaluatingint>
+		<tactics><random min="501" max="700"/></tactics>
+		<wrestling><random min="501" max="700"/></wrestling>
+		<!-- Damage -->
+		<lodamage>7</lodamage>
+		<hidamage>9</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="45"/></defense>
+		<coldresist><random min="10" max="25"/></coldresist>
+		<energyresist><random min="5" max="10"/></energyresist>
+		<fireresist><random min="10" max="25"/></fireresist>
+		<physicalresist><random min="35" max="45"/></physicalresist>
+		<poisonresist><random min="60" max="70"/></poisonresist>
+		<!-- Misc. -->
+		<desc>Water elementals dwell in, and are composed of, water. They have great power to command the waves themselves. Fortunately, the few that dwell upon our plane keep themselves mostly to the nether depths of the ocean, and so seldom come into contact with humanity.</desc>
+		<category>Monsters\Elementals\Air Elemental</category>
 	</npc>
 
 </definitions>

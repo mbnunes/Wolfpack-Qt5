@@ -4,22 +4,30 @@
 	<!-- an agapite elemental -->
 	<npc id="agapite_elemental">
 		<name>an agapite elemental</name>
-		<id>0x06B</id>
-		<category>Monsters\Elementals\Agapite Elemental </category>
+		<id>0x6b</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="30" max="40"/></defense>
-		<lodamage>59</lodamage>
-		<hidamage>69</hidamage>
+		<karma>-3500</karma>
+		<fame>3500</fame>
 		<!-- Stats -->
 		<str><random min="226" max="255"/></str>
 		<dex><random min="126" max="145"/></dex>
-		<int><random min="70" max="92"/></int>
+		<int><random min="71" max="92"/></int>
 		<!-- Skills -->
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<tactics><random min="601" max="1000"/></tactics>
 		<magicresistance><random min="501" max="950"/></magicresistance>
+		<!-- Damage -->
+		<lodamage>28</lodamage>
+		<hidamage>28</hidamage>
+		<!-- Resists -->
+		<defense><random min="30" max="40"/></defense>
+		<coldresist><random min="40" max="50"/></coldresist>
+		<energyresist><random min="10" max="20"/></energyresist>
+		<fireresist><random min="40" max="50"/></fireresist>
+		<physicalresist><random min="30" max="40"/></physicalresist>
+		<poisonresist><random min="30" max="40"/></poisonresist>
+		<!-- Misc. -->
+		<category>Monsters\Elementals\Agapite Elemental</category>
 	</npc>
 
 </definitions>

@@ -4,22 +4,31 @@
 	<!-- an earth elemental -->
 	<npc id="earth_elemental">
 		<name>an earth elemental</name>
-		<id>0x00e</id>
-		<category>Monsters\Elementals\Earth Elemental </category>
+		<id>0xe</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="30" max="35"/></defense>
-		<lodamage>17</lodamage>
-		<hidamage>32</hidamage>
+		<karma>-3500</karma>
+		<fame>3500</fame>
 		<!-- Stats -->
 		<str><random min="126" max="155"/></str>
 		<dex><random min="66" max="85"/></dex>
 		<int><random min="71" max="92"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="1000"/></wrestling>
-		<tactics><random min="601" max="1000"/></tactics>
 		<magicresistance><random min="501" max="950"/></magicresistance>
+		<tactics><random min="601" max="1000"/></tactics>
+		<wrestling><random min="601" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>9</lodamage>
+		<hidamage>16</hidamage>
+		<!-- Resists -->
+		<defense><random min="30" max="35"/></defense>
+		<coldresist><random min="10" max="20"/></coldresist>
+		<energyresist><random min="15" max="25"/></energyresist>
+		<fireresist><random min="10" max="20"/></fireresist>
+		<physicalresist><random min="30" max="35"/></physicalresist>
+		<poisonresist><random min="15" max="25"/></poisonresist>
+		<!-- Misc. -->
+		<desc>These beings embody the element of Earth, and as the Air Elementalsdwell naturally on a plane devoid of solidity, the Earth Elementalsare native to a world devoid of air. They are mighty engines of destruction indeed, possessing both the crushing power of the avalanche and the steadfast endurance of the mountain. Furthermore, they command magicks allowing them to twist the earth to their will.</desc>
+		<category>Monsters\Elementals\Earth Elemental</category>
 	</npc>
 
 </definitions>
