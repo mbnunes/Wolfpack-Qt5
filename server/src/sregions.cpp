@@ -140,7 +140,6 @@ bool doregionspawn(int r)//Regionspawns
 			}
 		}
 	}
-
 	return false;
 }
 
@@ -150,9 +149,8 @@ void loadspawnregions()//Regionspawns
 
 	spawnregion_st dummy;
 
-//	i++;
 	spawnregion.clear();
-	spawnregion.reserve(1); // Spawnregions start at 1, so we need to trash spawnregion[0] :(
+	spawnregion.reserve(1);
 
 	openscript("spawn.scp");
 	unsigned long loopexit=0 ;
@@ -580,10 +578,9 @@ void checkregion(P_CHAR pc_i)
 void cRespawn::Continue()
 {
 	unsigned int i;
-	for( i = 0; i < spawnregion.size(); i++) //New -- Zippy region spawner
+	for( i = 1; i < spawnregion.size(); i++) //New -- Zippy region spawner
 	{
-		if (doregionspawn(i) == false)	// no more things to spawn in this region
-			currentSpawnRegion++;
+		while (doregionspawn(i));	// spawn up to the max.
 	}
 
 	AllItemsIterator iterItems;
@@ -644,5 +641,5 @@ void cRespawn::Continue()
 		}
 	}
 	sysbroadcast("Respawn now complete.");
-	respawning=false;	// if we get here, the respawning has finished
+	respawning = false;	// if we get here, the respawning has finished
 }
