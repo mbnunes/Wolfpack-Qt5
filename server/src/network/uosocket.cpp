@@ -2168,7 +2168,10 @@ void cUOSocket::clilocMessage( const Q_INT16 FileID, const Q_UINT16 MsgID, const
 	{
 		msg.setSerial( object->serial );
 		msg.setType( cUOTxClilocMsg::OnObject );
-		msg.setName( object->name.latin1() );
+		if( object->isChar() )
+			msg.setName( object->name.latin1() );
+		else
+			msg.setName( "Item" );
 	}
 	else
 	{
@@ -2181,6 +2184,42 @@ void cUOSocket::clilocMessage( const Q_INT16 FileID, const Q_UINT16 MsgID, const
 	msg.setFont( font );
 	msg.setMsgNum( FileID*1000+MsgID+1000001 );
 	msg.setParams( params );
+
+	send( &msg );
+}
+
+void cUOSocket::clilocMessageAffix( const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params, const QString &affix, const Q_UINT16 color, const Q_UINT16 font, cUObject *object, bool dontMove, bool prepend )
+{
+	cUOTxClilocMsgAffix msg;
+
+	if( object != 0 )
+	{
+		msg.setSerial( object->serial );
+		msg.setType( cUOTxClilocMsg::OnObject );
+		if( object->isChar() )
+			msg.setName( object->name.latin1() );
+		else
+			msg.setName( "Item" );
+	}
+	else
+	{
+		msg.setSerial( 0xFFFF );
+		msg.setType( cUOTxClilocMsg::LowerLeft );
+		msg.setName( "System" );
+	}
+	msg.setBody( 0xFF );
+	msg.setHue( color );
+	msg.setFont( font );
+	
+	UINT8 flags = 0;
+	if( prepend )
+		flags |= cUOTxClilocMsgAffix::Prepend;
+	if( dontMove )
+		flags |= cUOTxClilocMsgAffix::DontMove;
+	msg.setFlags( flags );
+
+	msg.setMsgNum( FileID*1000+MsgID+1000001 );
+	msg.setParams( affix, params );
 
 	send( &msg );
 }

@@ -74,7 +74,7 @@ public:
 	QString getUnicodeString( uint, uint ) const;
 	void	setInt( uint, uint );
 	void	setShort( uint, ushort );
-	void	setUnicodeString( uint, QString&, uint );
+	void	setUnicodeString( uint, const QString&, uint );
 	void	setAsciiString( uint, const char*, uint );
 	static	QString dump( const QByteArray& );
 

@@ -1030,6 +1030,33 @@ public:
 	}
 }; 
 
+// 0xCC Cliloc message
+class cUOTxClilocMsgAffix: public cUOPacket
+{
+public:
+	cUOTxClilocMsgAffix(): cUOPacket (0xCC,PacketLen ) { setShort( 1, PacketLen ); }
+
+	enum { LowerLeft = 6, OnObject = 7, PacketLen = 50 };
+	enum { DontMove = 0x04, Unknown = 0x02, Prepend = 0x01 };
+
+	void setSerial ( SERIAL data )	{ setInt( 3, data ); }
+	void setBody ( Q_UINT16 data )	{ setShort( 7, data ); }
+	void setType ( Q_UINT8 data )	{ setShort( 9, data ); }
+	void setHue ( Q_UINT16 data )	{ setShort(10, data ); }
+	void setFont ( Q_UINT16 data )	{ setShort(12, data ); }
+	void setMsgNum ( Q_UINT32 data ) { setInt(14, data ); }
+	void setFlags( UINT8 flags ) { (*this)[18] = flags; }
+	void setName ( const QString &data ) { this->setAsciiString(19, data.left( 29 ).latin1(), QMIN( data.length()+1, 30 ) ); }
+	void setParams ( const QString &affix, const QString &params )
+	{
+		// Resize first
+		resize( PacketLen + affix.length() + params.length() * 2 + 2 );
+		setShort( 1, PacketLen + affix.length() + params.length() * 2 + 2 );
+		setAsciiString( 49, affix.latin1(), affix.length() + 1 );
+		setUnicodeString( 50 + affix.length(), params, params.length()*2+2 );
+	}
+};
+
 enum eEffectType
 {
 	ET_MOVING = 0,

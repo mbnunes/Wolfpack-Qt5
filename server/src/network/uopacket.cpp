@@ -463,7 +463,7 @@ void  cUOPacket::setShort( unsigned int pos, unsigned short value )
   and with field size \a maxlen. If the actual string \a data is longer than \a maxlen
   it will be truncated.
 */
-void cUOPacket::setUnicodeString( uint pos, QString& data, uint maxlen )
+void cUOPacket::setUnicodeString( uint pos, const QString& data, uint maxlen )
 {
 	haveCompressed = false; // changed
 	const QChar* unicodeData = data.unicode();

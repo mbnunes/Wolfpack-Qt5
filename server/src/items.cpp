@@ -1894,9 +1894,12 @@ void cItem::showName( cUOSocket *socket )
 	// End chars/npcs section
 	
     if( onSingleClick( socket->player() ) )
-        return;        
+        return;       
+		
+	QString itemname( "" );
 	
-	QString itemname = getName();
+	if( name_ != "#" )
+		itemname = getName();
 
 	// Add creator's mark (if any)
 	if( !creator.isEmpty() && madewith )
@@ -1925,13 +1928,12 @@ void cItem::showName( cUOSocket *socket )
 			itemname.append( tr( " [%1 charge%2]" ).arg( morez_ ).arg( ( morez_ > 1 ) ? "s" : "" ) );
 	else if( type() == 404 || type() == 181 )
 		itemname.append( tr( " [%1 charge%2]" ).arg( morex_ ).arg( ( morex_ > 1 ) ? "s" : "" ) );
-	
-	// Show the name here
-	socket->showSpeech( this, itemname );
 
-	// Show the amount for banque cheques
-	if( type() == 1000 )
-		socket->showSpeech( this, tr( "[value: %1]" ).arg( value ) );
+	// Try a localized Message
+	if( name_ == "#" )
+		socket->clilocMessageAffix( 20 + floor( id_ / 1000 ), id_ % 1000, "", itemname, 0x3B2, 3, this );
+	else
+		socket->showSpeech( this, itemname );
 	
 	// When we click on a player vendors item,
 	// we show the price as well

@@ -174,6 +174,7 @@ public:
 	void sendBuyWindow( P_CHAR pVendor );
 	void sendVendorCont( P_ITEM pItem );
 	void clilocMessage( const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params = 0, const Q_UINT16 color = 0x37, const Q_UINT16 font = 3, cUObject *object = 0 ); 
+	void clilocMessageAffix( const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params = 0, const QString &affix = 0, const Q_UINT16 color = 0x37, const Q_UINT16 font = 3, cUObject *object = 0, bool dontMove = false, bool prepend = false ); 
 	void updateLightLevel( UINT8 level );
 
 	void allowMove( Q_UINT8 sequence );
