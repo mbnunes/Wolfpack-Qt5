@@ -78,6 +78,9 @@ public:
 	void poll( void ); // called by the main loop
 
 	cAsyncNetIO *netIo() { return netIo_; }
+	cUOSocket *first() { return uoSockets.first(); }
+	cUOSocket *next() { return uoSockets.next(); }
+	UINT32 count() { return uoSockets.count(); }
 
 private:
 	cNetwork();

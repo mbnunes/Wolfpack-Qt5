@@ -244,7 +244,7 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength )
 		qWarning("cUOPacket::getUnicodeString() - field size is bigger than packet");
 	for ( uint i = pos; i < pos + fieldLength; i += 2 )
 	{
-		QChar ch(getShort(pos + i) );
+		QChar ch(getShort(i) );
 		result.append(ch);
 		if ( ch.isNull() )
 			break;

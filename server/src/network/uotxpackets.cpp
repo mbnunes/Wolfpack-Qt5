@@ -317,3 +317,14 @@ void cUOTxTipWindow::setMessage( QString m )
 	setShort(8, length );
 	setAsciiString(10, m.latin1(), length);
 }
+
+void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
+{
+	setSerial( pItem->serial );
+	setModel( pItem->id() );
+	setAmount( pItem->amount() );
+	setX( pItem->pos.x );
+	setY( pItem->pos.y );
+	setContainer( pItem->contserial );
+	setColor( pItem->color() );
+}

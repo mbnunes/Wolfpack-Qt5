@@ -3703,26 +3703,6 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 	}
 }
 
-void dosocketmidi(int s)
-{
-	P_CHAR pc_currchar = currchar[s];
-	cTerritory* Region = cAllTerritories::getInstance()->region( pc_currchar->region );
-	UI32 midi = 0;
-
-	if (pc_currchar->war)
-	{
-#pragma note("new xml format: convert section MIDILIST COMBAT to <list> with id MIDI_COMBAT")
-		midi = DefManager->getRandomListEntry( "MIDI_COMBAT" ).toInt();
-	}
-	else if( Region != NULL )
-	{
-		midi = DefManager->getRandomListEntry( Region->midilist() ).toInt();
-	}
-
-	if( midi != 0 )
-		playmidi(s, 0, midi);
-}
-
 int numbitsset( int number )
 {
 	int bitsset = 0;

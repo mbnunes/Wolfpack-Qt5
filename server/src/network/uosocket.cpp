@@ -42,6 +42,7 @@
 #include "../accounts.h"
 #include "../globals.h"
 #include "../junk.h"
+#include "../territories.h"
 #include "../structs.h"
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
@@ -836,9 +837,10 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	else if( speech.startsWith( SrvParams->commandPrefix() ) )
 		clConsole.send( QString( "Command: %1\n" ).arg( speech ) );
 	else
-		clConsole.send( QString( "Speech: %1\n" ).arg( speech ) );
+		Speech->talking( _player, speech, color, type );
+	//clConsole.send( QString( "Speech: %1\n" ).arg( speech ) );
 }
-
+	
 void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
 {
 	if ( isCharSerial(packet->serial() ) )
@@ -864,4 +866,185 @@ void cUOSocket::sendPaperdoll( P_CHAR pChar, bool detailed )
 	oPaperdoll.setName( pChar->name.c_str() );
 	oPaperdoll.setFlag( detailed ? 1 : 0 );
 	send( &oPaperdoll );
+}
+
+void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
+{
+	_player->targ = INVALID_SERIAL;
+	_player->war = packet->warmode() ? 1 : 0;
+
+	if( _player->dead ) 
+		if( packet->warmode() ) // Either make him visible
+			_player->update();
+		//else // Or remove him from sight
+		//	_player->removeFromSight();
+
+	Movement->CombatWalk( _player );
+	playMusic();
+	_player->disturbMed();
+}
+
+void cUOSocket::playMusic()
+{
+	if( !_player );
+		return;
+
+	cTerritory* Region = cAllTerritories::getInstance()->region( _player->region );
+	UINT32 midi = 0;
+
+	#pragma note("new xml format: convert section MIDILIST COMBAT to <list> with id MIDI_COMBAT")
+
+	if( _player->war )
+		midi = DefManager->getRandomListEntry( "MIDI_COMBAT" ).toInt();
+
+	else if( Region )
+		midi = DefManager->getRandomListEntry( Region->midilist() ).toInt();
+
+	if( midi )
+	{
+		cUOTxPlayMusic pMusic;
+		pMusic.setId( midi );
+		send( &pMusic );
+	}
+}
+
+void cUOSocket::sendContainer( P_ITEM pCont )
+{
+	if( !pCont )
+		return;
+
+	// Get the container gump
+	UINT16 gump = 0x3D;
+
+	switch( pCont->id() )
+	{
+		case 0x0E75:					// Backpack
+		case 0x0E79:					// Box/Pouch
+			gump = 0x3C; break;
+
+		case 0x0E76:					// Leather Bag
+			gump = 0x3D; break;
+
+		case 0x0E77:					// Barrel
+		case 0x0E7A:					// Square Basket
+		case 0x0E7F:					// Keg
+			gump = 0x3E; break;
+
+		case 0x0E7C:					// Silver Chest
+			gump = 0x4A; break;
+
+		case 0x0E7D:					// Wooden Box
+			gump = 0x43; break;
+
+		case 0x0E3D:					// Large Wooden Crate
+		case 0x0E3C:					// Large Wooden Crate
+		case 0x0E3F:					// Small Wooden Crate
+		case 0x0E3E:					// Small Wooden Crate
+		case 0x0E7E:					// Wooden Crate
+			gump = 0x44; break;
+
+		case 0x0E80:					// Brass Box
+			gump = 0x4B; break;
+
+		case 0x0E40:					// Metal & Gold Chest
+		case 0x0E41:					// Metal & Gold Chest
+			gump = 0x42; break;
+
+		case 0x0E43:					// Wooden & Gold chest
+		case 0x0E42:					// Wooden & Gold Chest
+			gump = 0x49; break;
+
+		case 0x0990:					// Round Basket
+			gump = 0x41; break;
+
+		case 0x09B2:					// Backpack 2
+			gump = 0x3C; break;
+
+		case 0x09AA:					// Wooden Box
+			gump = 0x43; break;
+
+		case 0x09A8:					// Metal Box
+			gump = 0x40; break;
+
+		case 0x09AB:					// Metal/Silver Chest
+			gump = 0x4A; break;
+
+		case 0x09A9:					// Small Wooden Crate
+			gump = 0x44; break;
+			
+		case 0x2006:					// Coffin
+			gump = 0x09; break;
+
+		case 0x0A97:					// Bookcase
+		case 0x0A98:					// Bookcase
+		case 0x0A99:					// Bookcase
+		case 0x0A9a:					// Bookcase
+		case 0x0A9b:					// Bookcase
+		case 0x0A9c:					// Bookcase
+		case 0x0A9d:					// Bookcase
+		case 0x0A9e:					// Bookcase
+			gump = 0x4d; break;
+
+		case 0x0A4d:					// Fancy Armoire
+		case 0x0A51:					// Fancy Armoire
+		case 0x0A4c:					// Fancy Armoire
+		case 0x0A50: 					// Fancy Armoire
+			gump = 0x4e; break;
+
+		case 0x0A4f:					// Wooden Armoire
+		case 0x0A53:					// Wooden Armoire
+		case 0x0A4e:					// Wooden Armoire
+		case 0x0A52:					// Wooden Armoire
+			gump = 0x4f; break;
+
+		case 0x0A30:					// chest of drawers (fancy)
+		case 0x0A38:					// chest of drawers (fancy)
+			gump = 0x48; break;
+
+		case 0x0A2c:					// chest of drawers (wood)
+		case 0x0A34:					// chest of drawers (wood)
+		case 0x0A3c:					// Dresser
+		case 0x0A3d:					// Dresser
+		case 0x0A44:					// Dresser
+		case 0x0A35:					// Dresser
+			gump = 0x51; break;
+
+		case 0x0Ab2: 
+			if( pCont->morex == 1 ) 
+				gump = 0x4a;
+			break;
+
+		default:
+			if( ( ( pCont->id() & 0xFF00 ) >> 8 ) == 0x3E )
+				gump = 0x4C;
+			break;
+	}
+
+	// Draw the container
+	cUOTxDrawContainer dContainer;
+	dContainer.setSerial( pCont->serial );
+	dContainer.setGump( gump );
+	send( &dContainer );
+
+	// Add all items to the container
+	vector< SERIAL > content = contsp.getData( pCont->serial );
+	for( UINT32 i = 0; i < content.size(); ++i )
+	{
+		P_ITEM pItem = FindItemBySerial( content[ i ] );
+		
+		if( !pItem )
+			continue;
+
+		// Send Container item
+		cUOTxAddContainerItem addCItem;
+		addCItem.fromItem( pItem );
+		send( &addCItem );
+	}
+}
+
+void cUOSocket::removeObject( cUObject *object )
+{
+	cUOTxRemoveObject rObject;
+	rObject.setSerial( object->serial );
+	send( &rObject );
 }

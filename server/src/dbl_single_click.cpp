@@ -409,10 +409,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			
 			SERIAL contser = pi->contserial;
 			if ((contser <= 0 && iteminrange(s, pi, 2)) ||  // Backpack in world - free access to everyone
-				pc_currchar->Wears(pi))	// primary pack
+				pc_currchar->Wears( pi ) )	// primary pack
 			{
 				pc_currchar->objectdelay = 0;
-				backpack(s, serial);
+				socket->sendContainer( pi );
 				return;
 			}
 			if (isItemSerial(pi->contserial))
@@ -422,7 +422,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				if (pc_currchar->Wears(pio) ||	// sub-pack
 					(pio->isInWorld() && iteminrange(s, pio, 2)))	// in world and in range
 				{
-					backpack(s, serial);
+					socket->sendContainer( pi );
 					return;
 				}
 			}
@@ -432,11 +432,11 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			if ((npcinrange(s, pco, 2)) || (iteminrange(s, pi, 2)))
 			{	
 				if (pco == NULL)// reorganized by AntiChrist to avoid crashes
-					backpack(s, serial);
+					socket->sendContainer( pi );
 				else if (pc_currchar->serial == pco->serial || pc_currchar->isGMorCounselor() || pco->npcaitype() == 17)
-					backpack(s, serial);
+					socket->sendContainer( pi );
 				else
-					Skills->Snooping(pc_currchar, pi);
+					Skills->Snooping( pc_currchar, pi );
 			}
 			else
 			{
@@ -1522,7 +1522,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 			pTarget->talk( "Take a look at my goods" );
 
 			if( pTarget->packitem != INVALID_SERIAL )
-				backpack( s, pTarget->packitem );
+				socket->sendContainer( pTarget->getBackpack() );
 
 			return;
 		}
@@ -1598,13 +1598,6 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 	case 0x123:
 	case 0x124:
 		if( pChar->Owns( pTarget ) )
-		{
-			P_ITEM pBackpack = pTarget->getBackpack();
-
-			if( pBackpack )
-				backpack( s, pBackpack->serial );
-			else
-				clConsole.send( "Pack animal 0x%08x has no backpack!\n", pTarget->serial );
-		}
+				socket->sendContainer( pTarget->getBackpack() );
 	};
 }

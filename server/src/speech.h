@@ -60,10 +60,8 @@ class cSpeech;
 class cSpeech
 {
 public:
-	int response(UOXSOCKET s, P_CHAR pPlayer, const QString& SpeechUpr);
-    void talking(UOXSOCKET, QString );
-    void wchar2char (const char* str);
-    void char2wchar (const char* str);
+	bool response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm );
+    void talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 type );
 };
 
 extern cSpeech	*Speech;

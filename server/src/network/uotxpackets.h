@@ -303,7 +303,8 @@ public:
 	void setX( Q_UINT16 data ) { setShort( 10, data ); }
 	void setY( Q_UINT16 data ) { setShort( 12, data ); }
 	void setContainer( Q_UINT32 data ) { setInt( 14, data ); }
-	void setColor( Q_UINT16 data ) { setShort( 18, data ); }	
+	void setColor( Q_UINT16 data ) { setShort( 18, data ); }
+	void fromItem( P_ITEM pItem );
 };
 
 // 0x26 KickPlayer
@@ -619,6 +620,22 @@ public:
 	void setPages( UINT16 data ) { setShort( 7, data ); }
 	void setTitle( const QString &title ) { setAsciiString( 9, title.latin1(), 60 ); }
 	void setAuthor( const QString &author ) { setAsciiString( 69, author.latin1(), 30 ); }
+};
+
+// 0x6D Play Music
+class cUOTxPlayMusic: public cUOPacket
+{
+public:
+	cUOTxPlayMusic(): cUOPacket( 0x6D, 3 ) {}
+	void setId( UINT16 data ) { setShort( 1, data ); }
+};
+
+// 0x1d Remove Object
+class cUOTxRemoveObject: public cUOPacket
+{
+public:
+	cUOTxRemoveObject(): cUOPacket( 0x1d, 5 ) {}
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
 };
 
 #endif

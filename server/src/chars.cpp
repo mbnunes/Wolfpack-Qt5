@@ -51,6 +51,7 @@
 #include "utilsys.h"
 #include "network.h"
 #include "network/uosocket.h"
+#include "network/uotxpackets.h" 
 #include "mapstuff.h"
 #include "classes.h"
 #include "wpdefmanager.h"
@@ -383,13 +384,14 @@ P_ITEM cChar::getBankBox( void )
 // history:	by Duke, 17.3.2001
 // Purpose:	stops meditation if necessary. Displays message if a socket is passed
 
-void cChar::disturbMed(UOXSOCKET s)
+void cChar::disturbMed()
 {
 	if (this->med()) //Meditation
 	{
 		this->setMed( false );
-		if (s != INVALID_UOXSOCKET)
-			sysmessage(s, "You break your concentration.");
+
+		if( socket_ )
+			socket_->sysMessage( tr ( "You loose your concentration" ) );
 	}
 }
 
@@ -459,13 +461,24 @@ cChar::cChar()
 // Purpose:	searches the character recursively,
 //			counting the items of the given ID and (if given) color
 
-int cChar::CountItems(short ID, short col)
+int cChar::CountItems( short ID, short col )
 {
-	P_ITEM pi=this->getBackpack();
-		
-	int number = 0 ;
+	// Dont you think it's better to search the char's equipment as well?
+	UINT32 number = 0;
+	vector< SERIAL > equipment = contsp.getData( serial );
+
+	for( UINT32 i = 0; i < equipment.size(); ++i )
+	{
+		P_ITEM pItem = FindItemBySerial( equipment[i] );
+
+		if( ( pItem->id() == ID ) && ( pItem->color() == col ) )
+			number++;
+	}
+
+	P_ITEM pi = this->getBackpack();
+	
 	if (pi != NULL)
-		number = pi->CountItems(ID, col);
+		number = pi->CountItems( ID, col );
 	return number ;
 }
 
@@ -480,14 +493,15 @@ void cChar::openBank( UOXSOCKET socket )
 	// Send to ourself ?
 	if( socket == INVALID_UOXSOCKET )
 	{
-		if( !online( this ) )
-			return;
-		socket = calcSocketFromChar( this );
+		if( socket_ )
+			socket_->sendContainer( getBankBox() );
 	}
-
-	// Send it to the socket
-	P_ITEM bankBox = getBankBox();
-	backpack( socket, bankBox->serial );
+	else
+	{
+		// Send it to the socket
+		/*P_ITEM bankBox = getBankBox();
+		backpack( socket, bankBox->serial );*/
+	}
 }
 
 ///////////////////////
@@ -602,7 +616,24 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 	return NULL;
 }
 
-P_ITEM cChar::getBackpack()	{return Packitem(this);}
+P_ITEM cChar::getBackpack()	
+{
+	P_ITEM backpack = Packitem( this );
+
+	// None found so create one
+	if( !backpack )
+	{
+		backpack = Items->SpawnItem( this, 1, "#", false, 0xE75, 0x0000, false );
+		backpack->setLayer( 0x15 );
+		backpack->setOwner( this );
+		backpack->setContSerial( serial );
+		backpack->setType( 1 );
+		backpack->update();
+		packitem = backpack->serial;
+	}
+
+	return backpack;
+}
 
 ///////////////////////
 // Name:	setters for various serials
@@ -1603,17 +1634,68 @@ void cChar::soundEffect( UI16 soundId, bool hearAll )
 	}
 }
 
-void cChar::talk( const QString &message, UI16 color )
+void cChar::talk( const QString &message, UI16 color, UINT8 type )
 {
 	if( color == 0xFFFF )
 		color = saycolor;
 
-	cUnicodeSpeech textSpeech( this, message, color, 3, "ENU", SP_REGULAR );
+	QString lang( "ENU" );
+
+	if( socket() )
+		lang = socket_->lang();
 	
+	cUOTxUnicodeSpeech::eSpeechType speechType;
+
+	switch( type )
+	{
+	case 0x01:
+		speechType = cUOTxUnicodeSpeech::Broadcast;
+	case 0x06:
+		speechType = cUOTxUnicodeSpeech::System;
+	case 0x09:
+		speechType = cUOTxUnicodeSpeech::Yell;
+	case 0x02:
+		speechType = cUOTxUnicodeSpeech::Emote;
+	case 0x08:
+		speechType = cUOTxUnicodeSpeech::Whisper;
+	default:
+		speechType = cUOTxUnicodeSpeech::Regular;
+	};
+
+	cUOTxUnicodeSpeech textSpeech;
+	textSpeech.setSource( serial );
+	textSpeech.setModel( id() );
+	textSpeech.setFont( 3 ); // Default Font
+	textSpeech.setType( speechType );
+	textSpeech.setLanguage( lang );
+	textSpeech.setName( name.c_str() );
+	textSpeech.setColor( color );
+	textSpeech.setText( message );
+
+	QString ghostSpeech;
+
+	// Generate the ghost-speech *ONCE*
+	if( dead )
+		for( UINT32 gI = 0; gI < message.length(); ++gI )
+			if( message.at( gI ) == " " )
+				ghostSpeech.append( " " );
+			else 
+				ghostSpeech.append( ( RandomNum( 0, 1 ) == 0 ) ? "o" : "O" );
+
+
 	// Send to all clients in range
-	for( UOXSOCKET s = 0; s < now; s++ )
-		if( perm[ s ] && inrange1p( this, currchar[ s ] ) )
-			textSpeech.send( s );
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+			if( mSock->player() && ( mSock->player()->pos.distance( pos ) < 18 ) )
+			{
+				// Take the dead-status into account
+				if( dead && !isNpc() )
+					if( !mSock->player()->dead && !mSock->player()->spiritspeaktimer && !mSock->player()->isGMorCounselor() )
+						textSpeech.setText( ghostSpeech );
+					else
+						textSpeech.setText( message );
+
+				mSock->send( &textSpeech );
+			}
 }
 
 void cChar::emote( const QString &emote, UI16 color )
@@ -1829,3 +1911,14 @@ QString cChar::fullName( void )
 	return fName;
 }
 
+// Remove it from all sockets
+void cChar::removeFromView( void )
+{
+	for( cUOSocket *socket = cNetwork::instance()->first(); !socket; socket = cNetwork::instance()->next() )
+		socket->removeObject( this );
+}
+
+cGuildStone *cChar::getGuildstone()
+{ 
+	return dynamic_cast<cGuildStone*>( FindItemBySerial( guildstone_ ) ); 
+}

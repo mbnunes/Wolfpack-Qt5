@@ -75,7 +75,7 @@ void RcvAttack(P_CLIENT ps)
 	{
 		pc_currchar->targ = serial;
 		pc_currchar->unhide();
-		pc_currchar->disturbMed(s);
+		pc_currchar->disturbMed();
 
 		
 		if(pc_i->dead || pc_i->hp<=0)//AntiChrist

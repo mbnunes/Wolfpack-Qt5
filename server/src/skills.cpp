@@ -47,6 +47,7 @@
 #include "network.h"
 #include "mapstuff.h"
 #include "scriptc.h"
+#include "network/uosocket.h"
 
 #undef DBGFILE
 #define DBGFILE "skills.cpp"
@@ -2725,39 +2726,36 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 	return ar;
 }
 
-void cSkills::Snooping(P_CHAR player, P_ITEM container)
+void cSkills::Snooping( P_CHAR player, P_ITEM container )
 {
+	cUOSocket *socket = player->socket();
 
-	UOXSOCKET s = calcSocketFromChar(player);
-	P_CHAR pc_owner = GetPackOwner(container);
-	if (pc_owner->isGMorCounselor())
+	if( !socket )
+		return;
+
+	P_CHAR pc_owner = GetPackOwner( container );
+
+	if( pc_owner->isGMorCounselor() )
 	{
-		UOXSOCKET owner_sock = calcSocketFromChar(pc_owner);
-		sysmessage(s, "You can't peek into that container or you'll be jailed.");// AntiChrist
-		sprintf((char*)temp, "%s is trying to snoop you!", player->name.c_str());
-		sysmessage(owner_sock, (char*)temp);
+		pc_owner->message( tr( "%1 is trying to snoop in your pack" ).arg( player->name.c_str() ) );
+		socket->sysMessage( tr( "You can't peek into that container or you'll be jailed." ) );
 		return;
 	}
-	else if (Skills->CheckSkill(player, SNOOPING, 0, 1000))
+	else if( Skills->CheckSkill( player, SNOOPING, 0, 1000 ) )
 	{
-		backpack(s, container->serial);
-		sysmessage(s, "You successfully peek into that container.");
+		socket->sendContainer( container );
+		socket->sysMessage( tr( "You successfully peek into that container." ) );
 	}
 	else
 	{
-		sysmessage(s, "You failed to peek into that container.");
-		if (player->isNpc())
-			npctalk(s, player, "Art thou attempting to disturb my privacy?", 0);
+		socket->sysMessage( tr( "You failed to peek into that container." ) );
+
+		if( pc_owner->isNpc() )
+			pc_owner->talk( tr( "Art thou attempting to disturb my privacy?" ) );
 		else
-		{
-			sprintf((char*)temp, "You notice %s trying to peek into your pack!", player->name.c_str());
-			UOXSOCKET owner_sock = calcSocketFromChar(pc_owner);
-			if (owner_sock != -1)
-				sysmessage(owner_sock, (char*)temp); 
-		}
-		// Karma(currchar[s],-1,-2000);//AntiChrist
-		// criminal(currchar[s]);//AntiChrist
+			pc_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name.c_str() ) );
 	}
+
 	SetTimerSec(&player->objectdelay, SrvParams->objectDelay()+SrvParams->snoopdelay());//adds a delay - solarin
 }
 

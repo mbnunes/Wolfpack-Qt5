@@ -51,18 +51,21 @@ public:
 	enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
 private:
 	QSocketDevice *_socket;
-	Q_UINT32 _rxBytes, _txBytes, _uniqueId;
-	Q_INT32 _account; // Our account-id > should be a pointer
+	UINT32 _rxBytes, _txBytes, _uniqueId, _tempInt;
+	INT32 _account; // Our account-id > should be a pointer
 	P_CHAR _player;
 	eSocketState _state;
-	Q_UINT8 lastPacket, _viewRange;
-	Q_UINT8 _walkSequence;
+	UINT8 lastPacket, _viewRange, _walkSequence;
 	QString _lang,_version;
 
 	bool authenticate( const QString &username, const QString &password );
 	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
 
 public:
+	// Temporary stuff, should be replaced by a tag-like system later
+	void setTempInt( UINT32 data ) { _tempInt = data; }
+	UINT32 tempInt() { return _tempInt; }
+
 	Q_UINT8 walkSequence( void )			{ return _walkSequence; }
 	void setWalkSequence( Q_UINT8 data )	{ _walkSequence = data; }
 
@@ -111,6 +114,7 @@ public:
 	void handleSpeechRequest( cUORxSpeechRequest* packet );
 	void handleDoubleClick( cUORxDoubleClick* packet );
 	void handleGetTip( cUORxGetTip* packet );
+	void handleChangeWarmode( cUORxChangeWarmode* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );
@@ -118,12 +122,15 @@ public:
 	void showSpeech( cUObject *object, const QString &message, Q_UINT16 color = 0xFFFF, Q_UINT16 font = 0xFFFF, cUOTxUnicodeSpeech::eSpeechType speechType = cUOTxUnicodeSpeech::Regular );
 	void sysMessage( const QString &message, Q_UINT16 color = 0x0037 );
 	void sendCharList();
+	void removeObject( cUObject *object );
 	void setPlayer( P_CHAR pChar = NULL ); // Updates the current player
 	void updateCharList();
 	void disconnect( void ); // Call this whenever the socket should disconnect
 	void playChar( P_CHAR player ); // Play a character
 	bool isT2A()	{ return true; } // ???
 	void sendPaperdoll( P_CHAR pChar, bool detailed = false );
+	void playMusic( void );
+	void sendContainer( P_ITEM pCont );
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );

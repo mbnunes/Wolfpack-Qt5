@@ -147,7 +147,6 @@ void npcaction(P_CHAR pc_npc, int x); // NPC character does a certain action
 void sysbroadcast(const char *txt); // System broadcast in bold text
 void itemmessage(UOXSOCKET s, char *txt, int serial, short color=0x0000);
 void wearIt(const UOXSOCKET s, const P_ITEM pi);
-void backpack(UOXSOCKET s, SERIAL serial); // Send Backpack (with items);
 void backpack2(int s, SERIAL serial); // Send corpse stuff
 void sendbpitem(UOXSOCKET s, P_ITEM pi); // Update single item in backpack
 void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop);

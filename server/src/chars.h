@@ -38,6 +38,7 @@
 // just temporary
 #include "debug.h"
 
+#include "guildstones.h"
 #include "typedefs.h"
 #include "structs.h"
 #include "defines.h"
@@ -289,6 +290,7 @@ public:
 	virtual QString objectID() const;
 
 	void update( void );
+	void removeFromView( void );
 	QString fullName( void );
 
 	// Getters
@@ -381,7 +383,8 @@ public:
 	bool					guildtoggle() const { return guildtoggle_; }
 	QString					guildtitle() const { return guildtitle_; }
 	SERIAL					guildfealty() const { return guildfealty_;}
-	SERIAL					guildstone() const { return guildstone_;}
+	cGuildStone*			getGuildstone();
+	SERIAL					guildstone() const { return guildstone_; }
 	char					flag() const { return flag_;}
 	unsigned int			tempflagtime() const { return tempflagtime_; }
 	unsigned int			murderrate() const { return murderrate_;}
@@ -546,7 +549,7 @@ public:
 	void resetAttackFirst()		{this->attackfirst_ = false;}
 	void fight(cChar* pOpponent);
 	void setNextMoveTime(short tamediv=1);
-	void disturbMed(UOXSOCKET s=-1);
+	void disturbMed();
 	void unhide();
 	bool isHidden() { return hidden() > 0 ? true : false; }
 	bool isHiddenBySpell() { return hidden() & 2 ? true : false; }
@@ -585,7 +588,7 @@ public:
 	unsigned int dist(cChar* pc);
 	unsigned int dist(cItem* pi);
 	void soundEffect( UI16 soundId, bool hearAll = true );
-	void talk( const QString &message, UI16 color = 0xFFFF );
+	void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0 );
 	void giveGold( Q_UINT32 amount, bool inBank = false );
 	void emote( const QString &emote, UI16 color = 0xFFFF );
 	void message( const QString &message, UI16 color = 0x3B2 );

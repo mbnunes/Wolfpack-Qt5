@@ -44,6 +44,7 @@
 #include "targetrequests.h"
 #include "mapstuff.h"
 #include "classes.h"
+#include "network/uosocket.h"
 #include "gumps.h"
 #include "network.h"
 #include "scriptc.h"
@@ -2659,7 +2660,7 @@ void cTargets::ReleaseTarget(int s, int c)
 	} 
 }
 
-void cTargets::GmOpenTarget(int s)
+void cTargets::GmOpenTarget( int s )
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
 	unsigned int ci=0;
@@ -2670,7 +2671,8 @@ void cTargets::GmOpenTarget(int s)
 		pi = FindItemBySerial(vecContainer[ci]);
 		if( pi->layer() == addmitem[s] )
 		{
-			backpack(s, pi->serial);
+			if( currchar[s] )
+				currchar[s]->socket()->sendContainer( pi );
 			return;
 		}
 	}
@@ -2792,7 +2794,8 @@ void cTargets::AttackTarget(int s)
 
 void cTargets::FollowTarget(int s)
 {
-
+	// IS NOW STORED IN socket->tempInt(); !!!
+    // LEGACY
 	P_CHAR char1 = FindCharBySerial(addx[s]);
 	P_CHAR char2 = FindCharBySerial(calcserial(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]));
 

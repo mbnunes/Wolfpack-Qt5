@@ -32,6 +32,7 @@
 #include "territories.h"
 #include "wpdefmanager.h"
 #include "globals.h"
+#include "network/uosocket.h"
 #include "defines.h"
 #include "utilsys.h"
 #include "srvparams.h"
@@ -315,11 +316,11 @@ void cAllTerritories::check( P_CHAR pc )
 			}
 		}
 
-		pc->region=currRegion->name();
-		if( s!=-1 ) 
-		{
-			dosocketmidi(s);
-		}
+		pc->region = currRegion->name();
+		
+		if( pc->socket() )
+			pc->socket()->playMusic();
+
 		if( indungeon(pc) ) 
 		{
 			dolight( s, SrvParams->dungeonLightLevel() );

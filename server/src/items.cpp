@@ -1944,3 +1944,8 @@ void cItem::showName( cUOSocket *socket )
 			itemmessage(s, "[0 items, 0 stones]", serial);
 	}
 }
+
+void cItem::update()
+{
+	// TODO: INSERT CODE
+}

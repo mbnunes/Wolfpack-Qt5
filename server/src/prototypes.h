@@ -167,7 +167,6 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg); // by Magius(CHE) (2) for t
 void clearalltrades();
 void trademsg(int s);
 void dotrade(P_ITEM cont1, P_ITEM cont2);
-void dosocketmidi(int s);
 void wipe(int s);
 
 void xteleport(int s,int x);

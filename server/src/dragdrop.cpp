@@ -106,7 +106,7 @@ void cDragItems::grabItem( P_CLIENT client )
 	// Do we really want to let him break his meditation
 	// When he picks up an item ?
 	// Maybe a meditation check here ?!?
-	pChar->disturbMed( client->socket() ); // Meditation
+	pChar->disturbMed(); // Meditation
 
 	P_CHAR itemOwner = GetPackOwner( pItem, 64 );
 

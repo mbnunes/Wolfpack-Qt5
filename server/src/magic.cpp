@@ -450,7 +450,7 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 	caster->unhide();
 	
 	// We can't meditade while we're casting
-	caster->disturbMed( calcSocketFromChar( caster ) );
+	caster->disturbMed();
 
 	// Check for sufficient mana if we're not casting from a wand
 	if( sourceType != 2 )
@@ -1128,14 +1128,15 @@ int cMagic::SpellsInBook(P_ITEM pi)
 //
 void cMagic::SbOpenContainer(UOXSOCKET s)
 {
-	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+/*	P_ITEM pi = FindItemBySerPtr(buffer[s]+7);
+
 	if (pi)
 	{
 		if ((pi->type()==9))
 			backpack(s, pi->serial);
 		else
 			sysmessage(s,"That is not a spellbook.");
-	}
+	}*/
 }
 
 
