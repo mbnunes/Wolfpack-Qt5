@@ -5,7 +5,7 @@ from wolfpack.consts import ANIM_FIDGET3, MAGERY, ALCHEMY
 from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
 
-def potion( char, potion ):
+def potion( char, potion, potiontype ):
 	socket = char.socket
 	if not canUsePotion( char, potion ):
 		return False
@@ -29,5 +29,5 @@ def potion( char, potion ):
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( 0x1e3 )
 	char.effect( 0x376a, 9, 32 )
-	consumePotion( char, potion, POTIONS[ potion.gettag('potiontype') ][ POT_RETURN_BOTTLE ] )
+	consumePotion( char, potion, POTIONS[ potiontype ][ POT_RETURN_BOTTLE ] )
 	return True

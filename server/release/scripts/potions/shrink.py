@@ -1,4 +1,9 @@
 
+import wolfpack
+from wolfpack import tr
+from potions.utilities import *
+from potions.consts import *
+
 #
 # Shrink a char in range
 #

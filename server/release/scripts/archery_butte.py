@@ -8,7 +8,7 @@
 import wolfpack
 import random
 from wolfpack.consts import ARCHERY, LAYER_MOUNT, ANIM_ATTACKBOW, \
-     ANIM_ATTACKXBOX
+	ANIM_ATTACKXBOX
 from combat.utilities import weaponskill
 from random import choice
 
@@ -104,7 +104,7 @@ def onUse( char, item ):
 		#You cannot reach ..
 		char.socket.clilocmessage( 500312 )
 		return True
-	    
+
 	# Calculates the direction we'll have to look
 	# to focus the dummy
 	char.turnto( item )
@@ -141,7 +141,7 @@ def onUse( char, item ):
 
 	#reveal the char if an arrow is fired
 	char.reveal()
-	
+
 	char.movingeffect( movingeff, item, 1, 1, 1, 0, 1 )
 
 	# Display the char-action

@@ -1,5 +1,6 @@
 
 import wolfpack
+from wolfpack import tr
 import time
 import random
 from wolfpack.consts import ANIM_FIDGET3, MAGERY, ALCHEMY, HEAL_POT_DELAY, \
@@ -53,8 +54,7 @@ def potion( char, potion, healtype ):
 
 	# Resend Health
 	char.updatehealth()
-	#char.socket.clilocmessage( 1060203, str(amount) ) # broken
-	socket.sysmessage( 'You have had ' + str( amount ) + ' hit points of damage healed.' )
+	char.socket.clilocmessage( 1060203, unicode(amount) )
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )

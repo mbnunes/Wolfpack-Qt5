@@ -1,5 +1,6 @@
 
 import wolfpack
+from wolfpack import tr
 from wolfpack.consts import *
 from wolfpack.utilities import *
 from potions.consts import *
@@ -42,7 +43,7 @@ def potioncountdown( item, args ):
 		if counter >= 0:
 			if counter > 0:
 				if ( counter - 1 ) > 0:
-					item.say( "%u" % ( counter - 1 ) )
+					item.say( unicode( counter - 1 ) )
 				counter -= 1
 			potion( cserial, item.serial, True, counter, bonus )
 	else:
@@ -62,10 +63,11 @@ def potionregion( cserial, iserial, bonus=0 ):
 	kegfill = 0
 	iskeg = False
 
-	if item.hastag( 'potiontype' ):
-		potiontype = item.gettag( 'potiontype' )
-		if not potiontype in [ 11, 12, 13 ]:
-			potiontype = 11
+	if item.hasintproperty( 'potiontype' ):
+		potiontype = item.getintproperty( 'potiontype' )
+
+	if not potiontype in [ 11, 12, 13 ]:
+		potiontype = 11
 
 	if item.hastag( 'kegfill' ):
 		iskeg = True
@@ -117,7 +119,7 @@ def potionregion( cserial, iserial, bonus=0 ):
 			if not target.ischar:
 				target = damageregion.next
 			if checkLoS( target, item, outradius ):
-				potiondamage( cserial, target, iserial, bonus )
+				potiondamage( cserial, target, iserial, bonus, potiontype )
 				target = damageregion.next
 			else:
 				target = damageregion.next
@@ -143,7 +145,7 @@ def potionregion( cserial, iserial, bonus=0 ):
 			if not target.ischar:
 				target = damageregion.next
 			if checkLoS( char, target, outradius ):
-				potiondamage( cserial, target, iserial, bonus )
+				potiondamage( cserial, target, iserial, bonus, potiontype )
 				target = damageregion.next
 			else:
 				target = damageregion.next
@@ -168,13 +170,13 @@ def chainpotiontimer( cserial, iserial, bserial, outradius ):
 
 	# Doing error checks first, makes it faster
 	if not checkLoS( item, bomb, outradius ):
-		return
-	if not bomb.hastag('potiontype'):
-		return
-	if not int( bomb.gettag('potiontype') ) in [ 11, 12, 13 ]:
-		return
+		return False
+	if not bomb.hasintproperty('potiontype'):
+		return False
+	if not bomb.getintproperty('potiontype') in [11, 12, 13]:
+		return False
 	if bomb.hastag( 'exploding' ):
-		return
+		return False
 
 	bomb.settag( 'exploding', cserial )
 
@@ -182,22 +184,23 @@ def chainpotiontimer( cserial, iserial, bserial, outradius ):
 		bomb.addtimer( randint( 1000, 2250 ), "potions.explosion.potioncountdown", [ char.serial, 0, int( bomb.gettag( 'kegfill' ) ) ] )
 	else:
 		bomb.addtimer( randint( 1000, 2250 ), "potions.explosion.potioncountdown", [ char.serial, 0, bomb.amount ] )
-	return
+	return True
 
 # Explosion Potion Function
-def potiondamage( cserial, target, iserial, dmgbonus ):
+def potiondamage( cserial, target, iserial, dmgbonus, potiontype ):
 	char = wolfpack.findchar( cserial )
 	item = wolfpack.finditem( iserial )
 
 	if not item or not char:
 		return False
 
+
 	# Damage Range
-	if item.gettag( 'potiontype' ) == 11:
+	if potiontype == 11:
 		damage = randint( POTION_LESSEREXPLOSION_RANGE[0], POTION_LESSEREXPLOSION_RANGE[1] )
-	elif item.gettag( 'potiontype' ) == 12:
+	elif potiontype == 12:
 		damage = randint( POTION_EXPLOSION_RANGE[0], POTION_EXPLOSION_RANGE[1] )
-	elif item.gettag( 'potiontype' ) == 13:
+	elif potiontype == 13:
 		damage = randint( POTION_GREATEREXPLOSION_RANGE[0], POTION_GREATEREXPLOSION_RANGE[1] )
 	else:
 		damage = randint( POTION_LESSEREXPLOSION_RANGE[0], POTION_GREATEREXPLOSION_RANGE[1] )
