@@ -4176,7 +4176,7 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	if( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		INT16 skillId = Skills->findSkillByDef( name );
+		INT16 skillId = Skills->findSkillByDef( skill );
 
 		if( skillId != -1 )
 		{

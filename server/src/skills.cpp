@@ -1321,6 +1321,10 @@ void cSkills::load()
 			{
 				nSkill.name = node.text();
 			}
+			else if( node.nodeName() == "defname" )
+			{
+				nSkill.defname = node.text();
+			}
 			else if( node.nodeName() == "title" )
 			{
 				nSkill.title = node.text();
