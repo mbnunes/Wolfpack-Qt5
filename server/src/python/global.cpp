@@ -989,8 +989,7 @@ static PyObject* wpServerVersion( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	wp_version_info wpversioninfo;
-	return PyString_FromString( QString("%1 %2 %3").arg( wpversioninfo.productstring ).arg( wpversioninfo.betareleasestring ).arg( wpversioninfo.verstring ).latin1() );
+	return PyString_FromString(QString("%1 %2 %3").arg(productString()).arg(productBeta()).arg(productVersion()).latin1());
 }
 
 /*!

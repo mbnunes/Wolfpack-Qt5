@@ -121,7 +121,6 @@ void cGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(choice);
-#pragma message(__FILE__ Reminder "This is a good candidate for pure virtual")
 }
 
 cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )

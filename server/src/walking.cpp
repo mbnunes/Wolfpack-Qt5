@@ -59,12 +59,6 @@
 
 using namespace std;
 
-#undef  DBGFILE
-#define DBGFILE "walking.cpp"
-
-unitile_st xyblock[XYMAX];
-
-
 // DEFINES (Some of these should probably be moved to typedefs.h in the future)
 
 // These are defines that I'll use. I have a history of working with properties, so that's why

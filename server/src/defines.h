@@ -52,9 +52,7 @@
 #define VISRANGE 18 // Visibility for normal items
 #define BUILDRANGE 31 // Visibility for castles and keeps
 
-#define XYMAX 256 // Maximum items Wolfpack can handle on one X/Y square
-#define MAXLAYERS 50 // Maximum number of Layers in paperdolls (still not sure how many)
-#define ITEMMENUOFFSET 256
+// Verdata Settings
 #define VERFILE_MAP 0x00
 #define VERFILE_STAIDX 0x01
 #define VERFILE_STATICS 0x02
@@ -74,132 +72,70 @@
 #define VERFILE_SKILLS 0x10
 #define VERFILE_TILEDATA 0x1E
 #define VERFILE_ANIMDATA 0x1F
-#define TILEDATA_TILES 0x68800
-//////////////////
 
 // List of skill numbers (For later implementation)
-#define ALCHEMY 0
-#define ANATOMY 1
-#define ANIMALLORE 2
-#define ITEMID 3
-#define ARMSLORE 4
-#define PARRYING 5
-#define BEGGING 6
-#define BLACKSMITHING 7
-#define BOWCRAFT 8
-#define PEACEMAKING 9
-#define CAMPING 10
-#define CARPENTRY 11
-#define CARTOGRAPHY 12
-#define COOKING 13
-#define DETECTINGHIDDEN 14
-#define DISCORDANCE 15
-#define EVALUATINGINTEL 16
-#define HEALING 17
-#define FISHING 18
-#define FORENSICS 19
-#define HERDING 20
-#define HIDING 21
-#define PROVOCATION 22
-#define INSCRIPTION 23
-#define LOCKPICKING 24
-#define MAGERY 25
-#define MAGICRESISTANCE 26
-#define TACTICS 27
-#define SNOOPING 28
-#define MUSICIANSHIP 29
-#define POISONING 30
-#define ARCHERY 31
-#define SPIRITSPEAK 32
-#define STEALING 33
-#define TAILORING 34
-#define TAMING 35
-#define TASTEID 36
-#define TINKERING 37
-#define TRACKING 38
-#define VETERINARY 39
-#define SWORDSMANSHIP 40
-#define MACEFIGHTING 41
-#define FENCING 42
-#define WRESTLING 43
-#define LUMBERJACKING 44
-#define MINING 45
+enum eSkills {
+	ALCHEMY = 0,
+	ANATOMY,
+	ANIMALLORE,
+	ITEMID,
+	ARMSLORE,
+	PARRYING,
+	BEGGING,
+	BLACKSMITHING,
+	BOWCRAFT,
+	PEACEMAKING,
+	CAMPING,
+	CARPENTRY,
+	CARTOGRAPHY,
+	COOKING,
+	DETECTINGHIDDEN,
+	DISCORDANCE,
+	EVALUATINGINTEL,
+	HEALING,
+	FISHING,
+	FORENSICS,
+	HERDING,
+	HIDING,
+	PROVOCATION,
+	INSCRIPTION,
+	LOCKPICKING,
+	MAGERY,
+	MAGICRESISTANCE,
+	TACTICS,
+	SNOOPING,
+	MUSICIANSHIP,
+	POISONING,
+	ARCHERY,
+	SPIRITSPEAK,
+	STEALING,
+	TAILORING,
+	TAMING,
+	TASTEID,
+	TINKERING,
+	TRACKING,
+	VETERINARY,
+	SWORDSMANSHIP,
+	MACEFIGHTING,
+	FENCING,
+	WRESTLING,
+	LUMBERJACKING,
+	MINING,
 
-#define MEDITATION 46
-#define STEALTH 47
-#define REMOVETRAPS 48
+	MEDITATION,
+	STEALTH,
+	REMOVETRAPS,
 
-#define NECROMANCY 49
-#define FOCUS 50
-#define CHIVALRY 51
+	NECROMANCY,
+	FOCUS,
+	CHIVALRY,
 
-#define ALLSKILLS 52 // # skills + 1
-
-#define DOORTYPES 17
-#define WEIGHT_PER_STR 4
-#define MAXGATES 100
-
-//Stats
-#define MANA 1
-#define STAMINA 2
-#define HITPOINTS 3
-#define DEXTERITY 4
-#define INTELLIGENCE 5
-#define STRENGTH 6
-
-
-//Requirements
-#define MANACOST 1
-#define REAGENTCONST 2
-#define GLB_REQUIREMENT 3
-
-//Damage by
-#define SPELL 1
-#define COLD 2
-#define DISPEL 3
-#define ENERGY 4
-#define FIRE 5
-#define HITCHANCE 6
-#define LOWERATTACK 7
-#define LOWERDEFENCE 8	   
-// ... here we need to add every spell also
-
-// Enhancements
-#define GOLD 1             // Gold increase
-#define SWINGSPEED 2	   // Swing speed increase
-#define POTIONS 3		   // Enhance potions
-#define SELFREPAIR 4	   // Self repair
-#define DEFENCECHANCE 5	   // Defence chance
-#define CASTSPEED 6		   // Faster casting
-#define CASTRECOVERY 7	   // Faster cast recovery
-
-#define REGEN 1		//Regenerations
-#define BONUS 2		//Stats bonuses
-#define DAMAGE 3	//Damage ( cold, fire, energy etc )
-#define ENH 4		//Enhancements, for example: Gold increase
-#define HIT 5		//Attack and defence modifiers
-#define REQ 6		//Smaller requirements
-#define RESIST 7	//Resists to various types of damage
-#define REFLECT 8	//Reflecting damage
- 
-enum enDirection
-{
-	North = 1, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest
+	ALLSKILLS
 };
 
-// Line Of Sight
-#define TREES_BUSHES 1 // Trees and other large vegetaion in the way
-#define WALLS_CHIMNEYS 2  // Walls, chimineys, ovens, etc... in the way
-#define DOORS 4 // Doors in the way
-#define ITEM_TYPE_CHOICES 6
-#define ROOFING_SLANTED 8  // So can't tele onto slanted roofs, basically
-#define FLOORS_FLAT_ROOFING 16  //  For attacking between floors
-#define LAVA_WATER 32  // Don't know what all to use this for yet
+#define WEIGHT_PER_STR 4
 
-///////////////////////  End Defines
-
-
-#define DEFAULTWEBPAGE "http://www.wpdev.org/"  //this URL doesn't exist, changed to www.wpdev.org ;)
+#define DEFAULTWEBPAGE "http://www.wpdev.org/"
 
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL -1

@@ -29,8 +29,6 @@
 //==================================================================================
 
 // Global Variables
-
-#include "verinfo.h"
 #include "walking.h"
 #include "wpdefmanager.h"
 #include "wptargetrequests.h"
@@ -42,7 +40,6 @@
 #include "speech.h"
 
 unsigned int uiCurrentTime;
-wp_version_info wp_version;
 
 // Library Includes
 #include <qdatetime.h>
