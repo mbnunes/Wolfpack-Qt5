@@ -252,6 +252,7 @@ def onSkillGain(char, skill, lower, higher, success):
 		realdex = char.dexterity - char.dexterity2
 		realint = char.intelligence - char.intelligence2
 
+
 		if (char.npc or char.strengthlock != 0) or realstr >= char.strengthcap:
 			strchance = 0.0
 		else:

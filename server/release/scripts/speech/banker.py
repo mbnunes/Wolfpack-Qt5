@@ -9,6 +9,7 @@
 
 from wolfpack import tr
 from wolfpack.consts import *
+import wolfpack.utilities
 import wolfpack
 import re
 
@@ -67,7 +68,7 @@ def onSpeech( listener, speaker, text, keywords ):
             amount -= min( [ amount, 65535 ] )
 
           speaker.soundeffect( 0x37, 0 )
-
+          
       break
 
     # balance (count all gold)
@@ -126,20 +127,34 @@ def onSpeech( listener, speaker, text, keywords ):
         else:
           # We have enough money, so let's withdraw it
           # Into your bank box I have placed a check in the amount of:
-          total = str( amount )
+          total = str(amount)
           speaker.socket.clilocmessage( 0xFE8F1, "", 0x3b2, 3, listener, " %s" %total )
           bank.useresource( amount, 0xEED, 0x0 )
           check = wolfpack.additem( "bank_check" )
           check.settag( 'value', amount )
-          check.container = bank
+          bank.additem(check)
           check.update()
+          
+          # Resend Status (Money changed)
+          speaker.socket.resendstatus()
       break
 
   return 1
 
 # An item has been dropped on us
 def onDropOnChar( char, item ):
-	char.socket.clilocmessage( 0x7A2A4, "", 0x3b2, 3, listener )
-	#backpack = char.getbackpack()
-	#item.container = backpack
+	player = item.container
+	
+	if not player or not player.ischar() or not player.socket:
+		return False
+	
+	# Move to bankbox if gold
+	if item.id == 0xeed:
+		bankbox = player.getbankbox()
+		if not wolfpack.utilities.tocontainer(item, bankbox):
+			item.update()
+		return True
+	else:	
+		char.say( 500388, "", "", False, 0x3b2, player.socket )
+
 	return 0

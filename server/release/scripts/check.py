@@ -11,32 +11,32 @@
 #Into your bank box I have placed a check in the amount of:
 
 import wolfpack
+import wolfpack.utilities
 
-def onCreate( item, definition ):
-	item.settag( 'value', 0 )
-
-def onShowToolTip( sender, target, tooltip ):
-
+def onShowTooltip( sender, target, tooltip ):
+	tooltip.reset()
 	tooltip.add( 1041361, "" ) # A Bank Check
 	tooltip.add( 1038021, "" ) # Blessed
-	tooltip.add( 1060738, str( target.gettag( "value") ) )
-	tooltip.send ( sender )
-	return True
+	if target.hastag('value'):
+		tooltip.add( 1060738, str( target.gettag( "value") ) )
 
 def onUse( char, item ):
-	#D: 0xFE8F0 (0)
+	#D: 0xFE8F0 (0)	
 	#Gold was deposited in your account:
 	bankbox = char.getbankbox()
-	value = item.gettag( "value" )
+	value = int(item.gettag("value"))
 	if bankbox:
+		amount = value
 		while value > 0:
 			gold = wolfpack.additem( "eed" )
-			gold.amount = min( [ value, 60000 ] )
-			gold.container = bankbox
-			value -= min( [ value, 60000 ] )
-
-		amount = str( value )
-		char.soundeffect( 0x37, 0 )
-		char.socket.sendcontainer( bankbox )
+			gold.amount = min(value, 60000)			
+			value -= gold.amount
+			
+			if not wolfpack.utilities.tocontainer(gold, bankbox):
+				gold.update()
+		
 		item.delete()
+		char.socket.resendstatus()
+		char.socket.clilocmessage(1042672, "", 0x3b2, 3, None, " %s" % amount)
+		char.soundeffect( 0x37, 0 )
 	return True
