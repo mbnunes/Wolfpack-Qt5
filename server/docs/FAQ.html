@@ -179,6 +179,11 @@
 							<li>Latest client support for versions such as Age of Shadows.</li>
 							<li>Client Encryption Support</li>
 						</ul>
+						<br />
+						For a more verbose changelog:
+						<ul>
+							<li><a href="http://www.wpdev.org/docs/ChangeLog.wolfpack">http://www.wpdev.org/docs/ChangeLog.wolfpack</a></li>
+						</ul>
 					</div>
 				</li>
 				<!-- Answer 02 -->
@@ -252,41 +257,9 @@
 							<li>Recommended Packages: python2.3-mysqldb python2.3-sqlite python2.3-xml libsqlite0 libsqlite0-dev sqlite sqlite-doc</li>
 							<li>MySQL Packages: libmysqlclient-dev libmysqlclient12 mysql-client mysql-common mysql-server</li>
 						</ul>
-						<br /><br />
+						<br />
 						Compiling Instructions:<br />
 						<div class="bash">
-							tar xvfj wolfpack.tar.bz2 -C ./<br />
-							cd wolfpack_source_dir/<br />
-							chmod +x configure<br />
-							./configure --help<br />
-							# Please read the options and use those that apply to you.<br />
-							# Running configure should auto detect most options. <br />
-							./configure --enable-debug --enable-mysql<br />
-							# At this point you can edit Makefile and add optional CFLAGS<br />
-							# I personally add -march=athlon -03<br />
-							make<br />
-							# Grab a snack while it compiles.
-						</div>
-						<br /><br />
-						<span style="font-weight:bold;">Python Warning</span><br />
-						Python-2.3 on many distributions comes compiled using UCS4 for Unicode. Wolfpack currently requires
-						that Python-2.3 be compiled with UCS2 for Unicode. If this is the case, you will need to download and
-						manually compile Python-2.3 and add the --enable-unicode=ucs2 --enable-shared to the ./configure arguments. After this you can install this Python-2.3 to your /usr/local/ directory or anywhere else.
-						Please be sure to put this new python path in the Wolfpack configure arguments!<br />
-						<br /><br />
-						Python Fix / Compiling Instructions:<br />
-						<div class="bash">
-							# Compiling/Installing Python-2.3.x
-							tar xvjf Python-2.3.4.tar.bz2 -C ./<br />
-							cd python_source_dir/<br />
-							# Please note the --enable-shared and --enable-unicode=ucs2<br />
-							./configure --prefix=/usr/local --enable-unicode=ucs2 --enable-shared<br />
-							make<br />
-							su root<br />
-							make install<br />
-							exit<br />
-							<br />
-							# Compiling Wolfpack 13.x.x
 							tar xvfj wolfpack.tar.bz2 -C ./<br />
 							cd wolfpack_source_dir/<br />
 							chmod +x configure<br />
@@ -318,7 +291,6 @@
 							make<br />
 							# Grab a snack while it compiles.
 						</div>
-						<br /><br />
 					</div>
 				</li>
 				<!-- Answer 08 -->
@@ -357,6 +329,20 @@
 						Python-2.3 to your /usr/local/ directory or anywhere else. Please be sure to put this new python path
 						in the Wolfpack configure arguments!<br />
 						<br />
+						Python Fix / Compiling Instructions:<br />
+						<div class="bash">
+							# Compiling/Installing Python-2.3.x
+							tar xvjf Python-2.3.4.tar.bz2 -C ./<br />
+							cd python_source_dir/<br />
+							# Please note the --enable-shared and --enable-unicode=ucs2<br />
+							./configure --prefix=/usr/local --enable-unicode=ucs2 --enable-shared<br />
+							make<br />
+							su root<br />
+							make install<br />
+							exit<br />
+						</div>
+						<br />
+						At this point you need to recompile Wolfpack.<br />
 						For information reguarding compiling, please check out:<br />
 						<ul>
 							<li><a href="#06">Linux Compile Guide</a></li>
