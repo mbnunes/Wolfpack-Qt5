@@ -119,7 +119,6 @@ SOURCES         = \
 		  boats.cpp \
 		  books.cpp \
 		  bounty.cpp \
-		  cache.cpp \
                   chars.cpp \
                   charsmgr.cpp \
 		  combat.cpp \
