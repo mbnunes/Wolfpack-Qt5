@@ -33,11 +33,13 @@
 #define __GUMPS_H__
 
 #include "typedefs.h"
-#include "pagesystem.h"
 
 #include "qstringlist.h"
 
 // Forward Declarations
+class cUObject;
+class cUOSocket;
+class cPage;
 class cSpawnRegion;
 
 /*****************************************************************************
@@ -85,6 +87,7 @@ public:
 	void addText( Q_INT32 textX, Q_INT32 textY, const QString &data, Q_UINT16 hue = 0 ) { layout_.push_back( QString( "{text %1 %2 %3 %4}" ).arg( textX ).arg( textY ).arg( hue ).arg( addRawText( data ) ) ); }
 	void addBackground( Q_UINT16 gumpId, Q_UINT32 width, Q_UINT32 height ) { layout_.push_back( QString( "{resizepic 0 0 %1 %2 %3}" ).arg( gumpId ).arg( width ).arg( height ) ); }
 	void addResizeGump( Q_INT16 gumpX, Q_INT16 gumpY, Q_UINT16 gumpId, Q_UINT32 width, Q_UINT32 height ) { layout_.push_back( QString( "{resizepic %1 %2 %3 %4 %5}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ) ); }
+	void addCroppedText( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, const QString &data, Q_UINT16 hue = 0 );
 	
 	// Buttons
 	// TODO: IMPLEMENTATION
@@ -105,7 +108,7 @@ public:
 	void addRadioButton( Q_INT32 radioX, Q_INT32 radioY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, Q_INT32 returnVal, bool checked = false  ) { layout_.push_back( QString( "{radio %1 %2 %3 %4 %5 %6}" ).arg( radioX ).arg( radioY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) ); }
 
 	// HTML Stuff
-	void addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack = false );
+	void addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack = false, bool canScroll = false );
 	// void addXmfHtmlGump( );
 	// void addXmfHtmlColorGump( );
 

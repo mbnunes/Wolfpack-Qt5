@@ -62,9 +62,15 @@ typedef const cChar *		PC_CHAR;
 
 struct gumpChoice_st 
 {
-	unsigned int button;
+	signed int button;
 	std::vector< unsigned int > switches;
 	std::map< unsigned short, QString > textentries;
+};
+
+enum WPPAGE_TYPE
+{
+	PT_GM = 0,
+	PT_COUNSELOR
 };
 
 #endif

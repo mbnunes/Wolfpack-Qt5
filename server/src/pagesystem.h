@@ -42,12 +42,6 @@
 #include "qstringlist.h"
 #include <deque>
 
-enum WPPAGE_TYPE
-{
-	PT_GM = 0,
-	PT_COUNSELOR
-};
-
 class cPage
 {
 private:

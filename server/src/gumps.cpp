@@ -46,7 +46,7 @@
 #include "network/uosocket.h"
 #include "spawnregions.h"
 #include "accounts.h"
-//#include "pagesystem.h"
+#include "pagesystem.h"
 
 #include "debug.h"
 
@@ -426,11 +426,11 @@ void cGump::addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 h
 	layout_.push_back( QString( "{gumppictiled %1 %2 %3 %4 %5%6}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString("") ) ); 
 }
 
-void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack )
+void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack, bool canScroll )
 {
-	QString layout = "{htmlgump %1 %2 %3 %4 %5 %6 0}";
+	QString layout = "{htmlgump %1 %2 %3 %4 %5 %6 %7}";
 	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
-	layout = layout.arg( addRawText( html ) ).arg( hasBack ? 1 : 0 );
+	layout = layout.arg( addRawText( html ) ).arg( hasBack ? 1 : 0 ).arg( canScroll ? 1 : 0 );
 	layout_.push_back( layout );
 }
 
@@ -440,6 +440,14 @@ void cGump::addCheckertrans( INT32 x, INT32 y, INT32 width, INT32 height )
 	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
 	layout_.push_back( layout );
 }
+
+void cGump::addCroppedText( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, const QString &data, Q_UINT16 hue )
+{
+	QString layout = "{croppedtext %1 %2 %3 %4 %5 %6}";
+	layout = layout.arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( addRawText( data ) );
+	layout_.push_back( layout );
+}
+
 
 cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 {
@@ -1947,13 +1955,6 @@ void cHelpGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 			it++;
 		}
 		QString content_ = lines.join( "<br>" );
-/*		QString content_;
-		QStringList::const_iterator iter = lines.begin();
-		while( iter != lines.end() )
-		{
-			content_ += QString("%1<br>").arg(*iter);
-			iter++;
-		}*/
 
 		if( pPage )
 		{
@@ -1979,5 +1980,8 @@ void cHelpGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 		pPage->setPageCategory( choice.switches[1] - 3 );
 	}
 }
+
+
+
 
 

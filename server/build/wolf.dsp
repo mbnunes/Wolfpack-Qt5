@@ -215,6 +215,10 @@ SOURCE=.\magic.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\makemenus.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\mapstuff.cpp
 # End Source File
 # Begin Source File
@@ -524,6 +528,10 @@ SOURCE=.\junk.h
 # Begin Source File
 
 SOURCE=.\magic.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\makemenus.h
 # End Source File
 # Begin Source File
 

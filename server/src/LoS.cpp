@@ -357,7 +357,6 @@ the line of sight.
 					((map1.id>=1881)&&(map1.id<=1884))
 					)
 				{
-					//sysmessage(s, "There seems to be something in the way!");
 					return blocked;
 				}
 			}
@@ -463,28 +462,24 @@ the line of sight.
 			case 1 : // Trees, Shrubs, bushes
 				if (isTree_Bushe(itemids[i]))
 				{
-//					sysmessage(s, "You can't see the forest for the trees!");
 					return blocked;
 				}
 				break;
 			case 2 : // Walls, Chimneys, ovens, not fences
 				if (isWall_Chimney(itemids[i]))
 				{
-//					sysmessage(s, "There seems to be some sort of wall in the way!");
 					return blocked;
 				}
 				break;
 			case 4 : // Doors, not gates
 				if (isDoor(itemids[i]))
 				{
-//					sysmessage(s, "Only ghosts do things through doors!");
 					return blocked;
 				}
 				break;
 			case 8 : // Roofing Slanted
 				if (isRoofing_Slanted(itemids[i]))
 				{
-//					sysmessage(s, "The roof is too steep!");
 					return blocked;
 				}
 				break;
@@ -497,7 +492,6 @@ the line of sight.
 					}
 					else
 					{
-//						sysmessage(s, "You would love to do that, but the is a floor in the way!");
 						return blocked;
 					}
 				}
@@ -505,7 +499,6 @@ the line of sight.
 			case 32 :	// Lava, water
 				if (isLavaWater(itemids[i]))
 				{
-//					sysmessage(s, "Yah, you wish!");
 					return blocked;
 				}
 				break;

@@ -45,6 +45,7 @@
 #include "wpconsole.h"
 #include "wpdefmanager.h"
 #include "pagesystem.h"
+#include "makemenus.h"
 
 // System Includes
 #include <functional>
@@ -332,8 +333,11 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args )
 	// Bring up the Add-menu
 	if( args.count() < 1 )
 	{
-		// TODO: Show Add menu here
-		socket->sysMessage( "Showing addmenu [unimplemented]" );
+		cMakeMenu* pMakeMenu = cAllMakeMenus::getInstance()->getMenu( "ADD_MENU" );
+		if( !pMakeMenu )
+			socket->sysMessage( "Addmenu undefined!" );
+		else
+			socket->send( new cMakeMenuGump( pMakeMenu ) );
 		return;
 	}
 

@@ -137,6 +137,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 	// Send the char to it's surroundings
 	pChar->resend( false ); // It's new so no need to remove it first
+
 	return true;
 };
 
