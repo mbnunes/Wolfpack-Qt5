@@ -95,7 +95,7 @@ check_version ()
 				error!
 				Your Qt version is ${VERSION} and hence too old.
 				Please install version 3.x.x from:
-				    http://www.trolltech.com/download/qt/x11.html
+				    http://www.trolltech.com/download/qt/embedded.html
 				or use ${0} --help for help with specifying the correct path.
 
 				Please note, that Qt has to be installed multi threaded!
