@@ -263,7 +263,7 @@ void cAllTerritories::load( void )
 
 void cAllTerritories::check( P_CHAR pc )
 {
-	UOXSOCKET s = calcSocketFromChar( pc );
+	cUOSocket *socket = pc->socket();
 	cTerritory* currRegion = this->region( pc->pos.x, pc->pos.y );
 	cTerritory* lastRegion = this->region( pc->region );
 
@@ -272,18 +272,13 @@ void cAllTerritories::check( P_CHAR pc )
 
 	if( currRegion != lastRegion )
 	{
-		if( s != -1 )
+		if( socket )
 		{
-			if( lastRegion != NULL )
-			{
-				sprintf((char*)temp, "You have left %s.", lastRegion->name().latin1() );
-				sysmessage(s, 0x37, (char*)temp);
-			}
-			if( currRegion != NULL )
-			{
-				sprintf((char*)temp, "You have entered %s.", currRegion->name().latin1() );
-				sysmessage(s, 0x37, (char*)temp);
-			}
+			if( lastRegion )
+				socket->sysMessage( tr( "You have left %1." ).arg( lastRegion->name() ), 0x37 );
+
+			if( currRegion )
+				socket->sysMessage( tr( "You have entered %1." ).arg( currRegion->name() ), 0x37 );
 
 			if( (currRegion->isGuarded() && !lastRegion->isGuarded()) ||
 				(!currRegion->isGuarded() && lastRegion->isGuarded()) ||
@@ -292,39 +287,24 @@ void cAllTerritories::check( P_CHAR pc )
 				if( currRegion->isGuarded() )
 				{
 					if( currRegion->guardOwner().isEmpty() )
-					{
-						sysmessage(s, 0x37, "You are now under the protection of the guards.");
-					}
+						socket->sysMessage( tr( "You have a safe feeling." ), 0x37 );
 					else
-					{
-						sprintf((char*)temp, "You are now under the protection of %s guards.", currRegion->guardOwner().latin1() );
-						sysmessage(s, 0x37, (char*) temp);
-					}
+						socket->sysMessage( tr( "You are now under the protection of %1 guards." ).arg( currRegion->guardOwner() ), 0x37 );
 				}
 				else
 				{
 					if( lastRegion->guardOwner().isEmpty() )
-					{
-						sysmessage(s, 0x37, "You are no longer under the protection of the guards.");
-					}
+						socket->sysMessage( tr( "You no longer have a safe feeling." ), 0x37 );
 					else
-					{
-						sprintf((char*)temp, "You are no longer under the protection of %s guards.", lastRegion->guardOwner().latin1() );
-						sysmessage(s, 0x37, (char*)temp);
-					}
+						socket->sysMessage( tr( "You are no longer under the protection of %1 guards." ).arg( lastRegion->guardOwner() ), 0x37 );
 				}
 			}
 		}
 
 		pc->region = currRegion->name();
 		
-		if( pc->socket() )
-			pc->socket()->playMusic();
-
-		if( indungeon(pc) ) 
-		{
-			dolight( s, SrvParams->dungeonLightLevel() );
-		}
+		if( socket )
+			socket->playMusic();
 	}
 }
 

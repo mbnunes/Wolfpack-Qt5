@@ -45,6 +45,8 @@ void cDefinable::applyDefinition( const QDomElement& sectionNode )
 			wpType = WPDT_ITEM;
 		else if( sectionNode.nodeName() == "npc" )
 			wpType = WPDT_NPC;
+		else if( sectionNode.nodeName() == "region" )
+			wpType = WPDT_REGION;
 
 		QDomElement *tInherit = DefManager->getSection( wpType, sectionNode.attribute( "inherit", "" ) );
 		if( tInherit && !tInherit->isNull() )

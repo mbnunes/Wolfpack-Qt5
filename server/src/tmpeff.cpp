@@ -642,7 +642,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if( typeid(*pTEs) == typeid(cTmpEff) )
 			pTE = dynamic_cast<cTmpEff *>(pTEs);
 		else
-			continue;
+		{
+			it++;
+			continue;			
+		}
 
 		if (pTE->getDest() == pc_dest->serial)
 		{
