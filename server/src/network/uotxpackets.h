@@ -697,7 +697,7 @@ class cUOTxOpenPaperdoll: public cUOPacket
 public:
 	cUOTxOpenPaperdoll(): cUOPacket( 0x88, 66 ) {}
 	void setSerial( uint data )		{ setInt( 1, data ); }
-	void setName( const QString &name ) { this->setAsciiString(5, name.left( 59 ).latin1(), QMIN( name.length()+1, 60 ) ); }
+	void setName( const QString &name ) { this->setAsciiString(5, name.left( 59 ).latin1(), QMIN( strlen(name.left(59).latin1())+1, 60 ) ); }
 	void setFlag( UINT8 flag )			{ (*this)[65] = flag; }
 	UINT8 flag() const					{ return (*this)[65]; }
 	void fromChar( P_CHAR pChar, P_CHAR pOrigin = NULL );

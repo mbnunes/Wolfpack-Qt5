@@ -41,6 +41,7 @@ struct wpPacket
 {
     PyObject_HEAD;
 	cUOPacket *packet;
+	bool borrowed;
 };
 
 static PyObject *wpPacket_getattr( PyObject *self, char *name );
@@ -48,7 +49,9 @@ static PyObject *wpPacket_getattr( PyObject *self, char *name );
 // Object Destructor
 static void wpPacketDestructor( PyObject *obj )
 {
-	delete ( (wpPacket*)obj )->packet;
+	if (!((wpPacket*)obj)->borrowed) {
+		delete ( (wpPacket*)obj )->packet;
+	}
 	PyObject_Del( obj );
 }
 
@@ -121,16 +124,52 @@ static PyObject *wpPacket_setint( PyObject *self, PyObject *args )
 	return Py_None;
 }
 
+// Get a byte
+static PyObject *wpPacket_getbyte( PyObject *self, PyObject *args )
+{
+	unsigned int pos;
+
+	if( !PyArg_ParseTuple( args, "i:wppacket.getbyte( position )", &pos ) )
+		return 0;
+
+	return PyInt_FromLong(((unsigned char)((*((wpPacket*)self)->packet)[(unsigned short)pos])));
+}
+
+// Get a short
+static PyObject *wpPacket_getshort( PyObject *self, PyObject *args )
+{
+	unsigned int pos;
+
+	if( !PyArg_ParseTuple( args, "i:wppacket.getshort( position )", &pos ) )
+		return 0;
+
+	return PyInt_FromLong( ( (wpPacket*)self )->packet->getShort( (unsigned short)pos ) );
+}
+
+// Get an integer
+static PyObject *wpPacket_getint( PyObject *self, PyObject *args )
+{
+	unsigned int pos;
+
+	if( !PyArg_ParseTuple( args, "i:wppacket.getint( position )", &pos ) )
+		return 0;
+
+	return PyInt_FromLong( ( (wpPacket*)self )->packet->getInt( (unsigned short)pos ) );
+}
+
+
 // Set raw data in the packet buffer
 static PyObject *wpPacket_setascii( PyObject *self, PyObject *args )
 {
 	int pos;
 	char *buffer;
 		
-	if( !PyArg_ParseTuple( args, "ies:wppacket.setbuffer( position, value )", &pos, "ascii", &buffer ) )
+	if( !PyArg_ParseTuple( args, "ies:wppacket.setbuffer( position, value )", &pos, "utf-8", &buffer ) )
 		return 0;
 
 	( (wpPacket*)self )->packet->setAsciiString( (unsigned short)pos, buffer, strlen( buffer ) + 1 );
+
+	PyMem_Free(buffer);
 
 	Py_INCREF( Py_None );
 	return Py_None;
@@ -188,12 +227,19 @@ PyMethodDef wpPacketMethods[] =
 	{ "setunicode",	wpPacket_setunicode,		METH_VARARGS,	NULL },
 	{ "send",		wpPacket_send,				METH_VARARGS,	NULL },
 	{ "dump",		wpPacket_dump,				METH_VARARGS,	NULL },
+	{ "getbyte",	wpPacket_getbyte,			METH_VARARGS,	NULL },
+	{ "getshort",	wpPacket_getshort,			METH_VARARGS,	NULL },
+	{ "getint",		wpPacket_getint,			METH_VARARGS,	NULL },
 	{ NULL, NULL, 0, NULL }
 };
 
 static PyObject* wpPacket_getattr( PyObject* self, char* name )
 {
-	return Py_FindMethod( wpPacketMethods, self, name );
+	if (!strcmp(name, "size")) {
+		return PyInt_FromLong(((wpPacket*)self)->packet->size());
+	} else {
+		return Py_FindMethod( wpPacketMethods, self, name );
+	}
 }
 
 // Object Constructor
@@ -202,6 +248,16 @@ PyObject *CreatePyPacket( unsigned char id, unsigned short size )
 	wpPacket *obj = (wpPacket*)PyObject_New( wpPacket, &wpPacketType );
 
 	obj->packet = new cUOPacket( id, size );
+	obj->borrowed = false;
+
+	return (PyObject*)obj;
+}
+
+PyObject *CreatePyPacket(cUOPacket *packet) {
+	wpPacket *obj = (wpPacket*)PyObject_New( wpPacket, &wpPacketType );
+
+	obj->packet = packet;
+	obj->borrowed = true;
 
 	return (PyObject*)obj;
 }

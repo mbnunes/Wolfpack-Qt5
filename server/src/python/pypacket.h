@@ -33,6 +33,9 @@
 
 #include "engine.h"
 
+class cUOPacket;
+
 PyObject *CreatePyPacket( unsigned char id, unsigned short size );
+PyObject *CreatePyPacket(cUOPacket *packet);
 
 #endif

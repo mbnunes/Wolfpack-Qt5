@@ -145,8 +145,7 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 	if( !player || !player->socket() )
 		return PyFalse;
 
-	if( checkArgStr( 0 ) )
-	{
+	if (checkArgStr(0)) {
 		QString message = getArgStr( 0 );
 
 		if( ( player->bodyID() == 0x3DB ) && message.startsWith( SrvParams->commandPrefix() ) )
@@ -537,14 +536,13 @@ static PyObject* wpChar_emote( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	if( !PyTuple_Size( args ) || !PyString_Check( PyTuple_GetItem( args, 0 ) ) )
-	{
+	if (checkArgStr(0)) {
 		PyErr_BadArgument();
 		return NULL;
 	}
 
-	QString message = QString( "*%1*" ).arg( PyString_AsString( PyTuple_GetItem( args, 0 ) ) );
-	self->pChar->emote( message );
+	QString message = QString( "*%1*" ).arg(getArgStr(0));
+	self->pChar->emote(message);
 	return PyTrue;
 }
 
@@ -658,7 +656,7 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	cVariant value = self->pChar->getTag( key );
 
 	if( value.type() == cVariant::String )
-		return PyString_FromString( value.asString().latin1() );
+		return PyUnicode_FromWideChar(value.toString().ucs2(), value.toString().length());
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 	else if( value.type() == cVariant::Double )
@@ -685,7 +683,7 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 	if (PyString_Check(object)) {
 		self->pChar->setTag(key, cVariant(PyString_AsString(object)));
 	} else if (PyUnicode_Check(object)) {
-		self->pChar->setTag(key, cVariant(QString::fromUcs2((ushort*)PyUnicode_AsUnicode(object))));
+		self->pChar->setTag(key, cVariant(QString::fromUcs2(PyUnicode_AsUnicode(object))));
 	} else if (PyInt_Check(object)) {
 		self->pChar->setTag(key, cVariant((int)PyInt_AsLong(object)));
 	} else if (PyFloat_Check(object)) {
@@ -1936,9 +1934,9 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 				break;
 			case cVariant::String:
 				if( result.toString().isNull() )
-					obj = PyString_FromString( "" );
+					obj = PyUnicode_FromWideChar(L"", 0);
 				else
-					obj = PyString_FromString( result.toString().latin1() );
+					obj = PyUnicode_FromWideChar(result.toString().ucs2(), result.toString().length() );
 				break;
 			case cVariant::Double:
 				obj = PyFloat_FromDouble( result.toDouble() );

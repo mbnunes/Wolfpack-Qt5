@@ -117,7 +117,7 @@ unsigned int cUObject::dist(cUObject* d) const
 */
 void cUObject::load( char **result, UINT16 &offset )
 {
-	name_ = ( result[offset] == 0 ) ? QString::null : QString( result[offset] );
+	name_ = ( result[offset] == 0 ) ? QString::null : QString::fromUtf8( result[offset] );
 	offset++;
 	serial_ = atoi(result[offset++]);
 	multis_ = atoi(result[offset++]);

@@ -1983,11 +1983,11 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 		if( result )
 		{
 			// Strings and Unicode Objects gladly accepted
-			if( PyString_Check( result ) )
-				name = PyString_AsString( result );
-
-			if( PyUnicode_Check( result ) )
-				name = QString::fromUcs2( (unsigned short*)( PyUnicode_AS_UNICODE( result ) ) );
+			if (PyString_Check(result)) {
+				name = PyString_AsString(result);
+			} else if (PyUnicode_Check(result)) {
+				name = QString::fromUcs2(PyUnicode_AS_UNICODE(result));
+			}
 		}
 
 		Py_XDECREF( result );

@@ -48,10 +48,10 @@ class cUObject;
 class cCustomTags;
 class cContextMenu;
 
-
 // Too many Forward Declarations
 #include "uorxpackets.h"
 #include "../typedefs.h"
+#include "../python/engine.h"
 #include "../wptargetrequests.h"
 #include "../customtags.h"
 
@@ -68,6 +68,7 @@ class cUOSocket
 {
 public:
 	enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
+
 private:
 	QSocketDevice *_socket;
 	unsigned int _rxBytes, _txBytes, _uniqueId, _lastActivity;	

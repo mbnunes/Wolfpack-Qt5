@@ -67,6 +67,7 @@
 #include "../npc.h"
 #include "../log.h"
 #include "../ai/ai.h"
+#include "../python/pypacket.h"
 
 #include <stdlib.h>
 #include <qhostaddress.h>
@@ -197,7 +198,7 @@ void cUOSocket::recieve()
 	Q_UINT8 packetId = (*packet)[0];
 
 	// Disconnect harmful clients
-	if( ( _account < 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
+	if( ( _account == 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
 	{
 		log( QString( "Communication error: %1 instead of 0x80 or 0x91\n" ).arg( packetId, 2, 16 ) );
 		
@@ -258,6 +259,17 @@ void cUOSocket::recieve()
 		handleTarget( dynamic_cast< cUORxTarget* >( packet ) ); break;
 	case 0x6F:
  		handleSecureTrading( dynamic_cast< cUORxSecureTrading* >( packet ) ); break;
+	case 0x71:
+		// Call a global packet handler
+		{
+			cPythonScript *script = ScriptManager::instance()->getGlobalHook(EVENT_BULLETINBOARD);
+			if (script) {
+				PyObject *args = Py_BuildValue("NN", _player->getPyObject(), CreatePyPacket(packet));
+				script->callEventHandler(EVENT_BULLETINBOARD, args);
+				Py_DECREF(args);
+			}
+		}
+		break;
 	case 0x72:
 		handleChangeWarmode( dynamic_cast< cUORxChangeWarmode* >( packet ) ); break;
 	case 0x73:

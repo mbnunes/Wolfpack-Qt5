@@ -1589,4 +1589,16 @@ void init_wolfpack_globals()
 	
 	PyObject *mOptions = Py_InitModule( "_wolfpack.options", wpOptions );
 	PyObject_SetAttrString( wpNamespace, "options", mOptions );
+
+	// Try to import the wolfpack module and add some integer constants
+	/*PyObject *module;
+	
+	module = PyImport_ImportModule("wolfpack.consts");
+	
+	if (!module) {
+		reportPythonError("wolfpack.consts");
+		return;
+	}
+
+	Py_DECREF(module);*/
 }

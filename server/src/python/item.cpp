@@ -345,16 +345,11 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	cVariant value = self->pItem->getTag( key );
 
 	if( value.type() == cVariant::String )
-	{
-		QString strValue = value.asString();
-
-		if( !strValue.isNull() )
-			return PyString_FromString( strValue.latin1() );
-		else
-			return PyString_FromString( "" );
-	}
+		return PyUnicode_FromWideChar(value.toString().ucs2(), value.toString().length());
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
+	else if( value.type() == cVariant::Double )
+		return PyFloat_FromDouble( value.asDouble() );
 
 	Py_INCREF( Py_None );
 	return Py_None;
@@ -728,9 +723,9 @@ static PyObject *wpItem_getAttr( wpItem *self, char *name )
 				break;
 			case cVariant::String:
 				if( result.toString().isNull() )
-					obj = PyString_FromString( "" );
+					obj = PyUnicode_FromWideChar(L"", 0);
 				else
-					obj = PyString_FromString( result.toString().latin1() );
+					obj = PyUnicode_FromWideChar(result.toString().ucs2(), result.toString().length() );
 				break;
 			case cVariant::Double:
 				obj = PyFloat_FromDouble( result.toDouble() );

@@ -87,7 +87,7 @@ void cListener::run() throw()
 		}
 		else
 		{ 
-			waitCondition.wait(2000); // if nothing interesting happen take a nap
+			waitCondition.wait(250); // if nothing interesting happen take a nap
 		}
 	}
 

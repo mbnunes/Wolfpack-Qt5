@@ -83,6 +83,7 @@ static char *eventNames[] =
 	"onCastSpell",
 	"onTrade",
 	"onTradeStart",
+	"onBulletinBoard",
 	0
 };
 
@@ -237,7 +238,6 @@ bool cPythonScript::callEventHandler( const QString &name, PyObject* args, bool 
 
 	return handled;
 }
-
 
 // Standard Handler for Python ScriptChains assigned to objects
 bool cPythonScript::callChainedEventHandler( ePythonEvent event, cPythonScript** chain, PyObject* args )
