@@ -44,6 +44,20 @@
 
 using namespace std;
 
+void resetNonBlockingIo()
+{
+        termios term_caps;
+
+        if( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
+                return;
+
+        term_caps.c_lflag |= ICANON;
+	term_caps.c_lflag |= ECHO;
+
+        if( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
+                return;
+}
+
 void setNonBlockingIo()
 {
         termios term_caps;
@@ -52,11 +66,14 @@ void setNonBlockingIo()
                 return;
 
         term_caps.c_lflag &= ~ICANON;
+	term_caps.c_lflag &= ~ECHO;
 
         if( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
                 return;
 
         setbuf( stdin, NULL );
+
+	atexit( resetNonBlockingIo );
 }
 
 class cConsoleThread : public QThread
