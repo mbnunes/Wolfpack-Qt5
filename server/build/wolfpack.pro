@@ -14,7 +14,6 @@ TEMPLATE = app
 CONFIG += qt thread exceptions rtti
 
 unix {
-	QMAKE_LIBDIR_FLAGS = -L/usr/lib -L/usr/local/lib
 	LIBS = -ldl -lutil
 
 	CONFIG += console
@@ -50,13 +49,13 @@ unix {
 	}
 
 	# SQLite Checks
-	isEmpty( SQLITE_INCDIR ) {
-		message( "Warning: SQLITE_INCDIR was not defined!" )
-		SQLITE_INCDIR = sqlite
+	isEmpty( SQLite_INCDIR ) {
+		message( "Warning: SQLite_INCDIR was not defined!" )
+		SQLite_INCDIR = sqlite
 	}
-	isEmpty( SQLITE_LIBDIR ) {
-		message( "Warning: SQLITE_LIBDIR was not defined!" )
-		SQLITE_LIBDIR = -Lsqlite
+	isEmpty( SQLite_LIBDIR ) {
+		message( "Warning: SQLite_LIBDIR was not defined!" )
+		SQLite_LIBDIR = -Lsqlite
 	}
 
 	# Python includes. Run configure script to initialize it.
@@ -108,8 +107,8 @@ unix {
 		}
 	}
 
-	INCLUDEPATH += $$PY_INCDIR $$MySQL_INCDIR $$SQLITE_INCDIR
-	LIBS += $$PY_LIBDIR $$MySQL_LIBDIR $$SQLITE_LIBDIR
+	INCLUDEPATH += $$PY_INCDIR $$MySQL_INCDIR $$SQLite_INCDIR
+	LIBS += $$PY_LIBDIR $$MySQL_LIBDIR $$SQLite_LIBDIR
 
 	# We need to remove these to be safe
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
@@ -373,4 +372,4 @@ unix {
 	INCPATH -= /usr/include/python2.2
 }
 
-message( "For additional options please try executing: python configure.py" )
+message( "Please make sure you execute: python configure.py" )

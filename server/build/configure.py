@@ -116,7 +116,7 @@ def checkMySQL(options):
 
 	global mysql_incpath
 	mysql_incfile = None
-	sys.stdout.write( "Searching for Python includes... " )
+	sys.stdout.write( "Searching for MySQL includes... " )
 	mysql_incfile, mysql_incpath = findFile( MySQL_INCSEARCHPATH )
 	if ( mysql_incfile ):
 		sys.stdout.write( "%s\n" % mysql_incpath )
@@ -257,19 +257,23 @@ def main():
 	if sys.platform == "win32":
 		PY_LIBDIR = os.path.join( py_libpath, py_libfile )
 	else:
-		PY_LIBDIR = "-lpython2.3 -L%s" % ( py_libpath )
+		PY_LIBDIR = "-L%s -lpython2.3" % ( py_libpath )
 	config.write("PY_INCDIR = %s\n" % ( py_incpath ) )
 	config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
 
 
-	# Build MySQL Libs
+	# Build MySQL Libs and Includes
 	MySQL_LIBDIR = ""
 	if sys.platform == "win32":
 		MySQL_LIBDIR = os.path.join( mysql_libpath, mysql_libfile )
 	else:
-		MySQL_LIBDIR = "-lmysqlclient -L%s" % ( mysql_libpath )
+		MySQL_LIBDIR = "-L%s -lmysqlclient" % ( mysql_libpath )
 	config.write("MySQL_INCDIR = %s\n" % mysql_incpath )
 	config.write("MySQL_LIBDIR = %s\n" % MySQL_LIBDIR )
+
+	# Build MySQL Libs and Includes
+	config.write("SQLite_INCDIR = sqlite\n" )
+	config.write("SQLite_LIBDIR = -lsqlite\n" )
 
 	DEFINES = ""
 	CONFIG = ""
