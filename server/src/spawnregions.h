@@ -162,6 +162,8 @@ public:
 		}
 		return numItems;
 	}
+
+	void	postWorldLoading( void );
 };
 
 typedef SingletonHolder<cAllSpawnRegions> SpawnRegions;

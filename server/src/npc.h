@@ -48,7 +48,7 @@ class cNPC : public cBaseChar
 public:
 	const char *objectID() const
 	{
-        return "cUObject";
+        return "cNPC";
 	}
 
 	// con-/destructors

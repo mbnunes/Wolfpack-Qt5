@@ -54,7 +54,7 @@ void cTerritory::init( void )
 	snowchance_ = 50;
 	rainchance_ = 50;
 	guardSections_ = QStringList();
-	guardSections_.push_back( "standard_guard" );
+//	guardSections_.push_back( "standard_guard" );
 }
 
 void cTerritory::processNode( const cElement *Tag )
@@ -238,7 +238,10 @@ void cTerritory::processNode( const cElement *Tag )
 
 QString cTerritory::getGuardSect( void ) const
 {
-	return this->guardSections_[ RandomNum( 0, this->guardSections_.size()-1 ) ];
+	if( guardSections_.count() > 0 )
+		return this->guardSections_[ RandomNum( 0, this->guardSections_.size()-1 ) ];
+	else
+		return (char*)0;
 }
 
 bool cTerritory::haveTeleporters() const

@@ -107,6 +107,8 @@ public:
 	uchar			visible()		const { return visible_;}
 	uchar			priv()			const { return priv_;	}
 
+	QString			spawnregion()	const { return spawnregion_; }
+
 //***************************END ADDED GETTERS************
 
 	// Setters
@@ -133,6 +135,7 @@ public:
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( int data );
 	void	setAntispamtimer ( uint data ) { antispamtimer_ = data; flagChanged();}
+	void	setSpawnRegion( const QString &data ) { spawnregion_ = data; flagChanged(); }
 
 	cItem();
 	cItem( const cItem& src); // Copy constructor
@@ -155,8 +158,6 @@ public:
 
 //*******************************************END ADDED SETTERS**********
 
-	SERIAL spawnserial;
-
 	bool incognito; //AntiChrist - for items under incognito effect
 	// ^^ NUTS !! - move that to priv
 
@@ -173,7 +174,6 @@ public:
 	void SetOwnSerial(int ownser);
 	int ownSerial() const			{return ownserial_;}
 	
-	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	
 	bool isShield() const { return type_ == 1009; }
@@ -259,6 +259,7 @@ protected:
 	uint		antispamtimer_;
 	int			sellprice_;
 	int			buyprice_;
+	QString		spawnregion_;
 
 	ContainerContent content_;
 	cUObject*	container_;

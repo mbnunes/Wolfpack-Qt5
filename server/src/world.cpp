@@ -49,6 +49,7 @@
 #include "maps.h"
 #include "sectors.h"
 #include "territories.h"
+#include "spawnregions.h"
 
 // Objects ( => Factory later on )
 #include "uobject.h"
@@ -205,7 +206,7 @@ struct {
   magic tinyint(3)  NOT NULL default '0',\
   owner int(11) NOT NULL default '-1',\
   visible tinyint(3)  NOT NULL default '0',\
-  spawn int(11) NOT NULL default '-1',\
+  spawnregion varchar(255) default NULL,\
   priv tinyint(3)  NOT NULL default '0',\
   sellprice int(11) NOT NULL default '0',\
   buyprice int(11) NOT NULL default '0',\
@@ -643,6 +644,9 @@ void cWorld::load()
 
 		pChar->flagUnchanged(); // We've just loaded, nothing changes
 	}
+
+	// Post process spawnregions
+	SpawnRegions::instance()->postWorldLoading();
 
 	Console::instance()->ProgressDone();
 

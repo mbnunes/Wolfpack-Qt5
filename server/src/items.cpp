@@ -107,7 +107,7 @@ cItem::cItem( const cItem &src )
 	this->decaytime_ = src.decaytime_;
 	this->setOwnSerialOnly(src.ownSerial());
 	this->visible_=src.visible_;
-	this->spawnserial=src.spawnserial;
+	this->spawnregion_=src.spawnregion_;
 	this->priv_=src.priv_;
 	this->buyprice_ = src.buyprice_;
 	this->sellprice_ = src.sellprice_;
@@ -198,12 +198,6 @@ void cItem::SetOwnSerial(int ownser)
 {
 	flagChanged();
 	setOwnSerialOnly(ownser);
-}
-
-void cItem::SetSpawnSerial(long spawnser)
-{
-	spawnserial = spawnser;
-	flagChanged();
 }
 
 void cItem::SetMultiSerial(long mulser)
@@ -451,7 +445,7 @@ void cItem::save()
 		addField("magic",			magic_);
 		addField("owner",			ownserial_);
 		addField("visible",		visible_);
-		addField("spawn",			spawnserial);
+		addStrField("spawnregion",			spawnregion_);
 		addField("priv",			priv_);
 		addField("sellprice",			sellprice_);
 		addField("buyprice",			buyprice_);
@@ -554,7 +548,7 @@ void cItem::Init( bool createSerial )
 	this->decaytime_ = 0;
 	this->setOwnSerialOnly(-1);
 	this->visible_=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
-	this->spawnserial=-1;
+	this->spawnregion_=(char*)0;
 	// Everything decays by default.
 	this->priv_ = 0; // Bit 0, nodecay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
@@ -575,7 +569,7 @@ void cItem::remove()
 	removeFromView( false );
 
 	// Update Top Objects
-	SetSpawnSerial( -1 );
+	setSpawnRegion( (char*)0 );
 	SetOwnSerial( -1 );
 
 	// - remove from cMapObjects if a world item
@@ -1875,7 +1869,7 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 	World::instance()->registerObject( pi );
 
 	// Set the outside indices
-	pi->SetSpawnSerial( pi->spawnserial );
+	pi->setSpawnRegion( pi->spawnregion() );
 	pi->SetOwnSerial( pi->ownSerial() );
 
 	if( pi->maxhp() == 0) 
@@ -1937,7 +1931,7 @@ void cItem::load( char **result, UINT16 &offset )
 	magic_ = atoi( result[offset++] );
 	ownserial_ = atoi( result[offset++] );
 	visible_ = atoi( result[offset++] );
-	spawnserial = atoi( result[offset++] );
+	spawnregion_ = atoi( result[offset++] );
 	priv_ = atoi( result[offset++] );
 	sellprice_ = atoi( result[offset++] );
 	buyprice_ = atoi( result[offset++] );
@@ -1952,7 +1946,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock" );
+	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawnregion,items.priv,items.sellprice,items.buyprice,items.restock" );
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2226,7 +2220,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 
-	else SET_INT_PROPERTY( "spawn", spawnserial )
+	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
 	else SET_INT_PROPERTY( "sellprice", sellprice_ )
 	else SET_INT_PROPERTY( "buyprice", buyprice_ )
 	else SET_INT_PROPERTY( "restock", restock_ )
@@ -2341,7 +2335,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	// Visible
 	else GET_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
 	else GET_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
-	else GET_PROPERTY( "spawn", FindItemBySerial( spawnserial ) )
+	else GET_PROPERTY( "spawnregion", spawnregion_ )
 
 	else GET_PROPERTY( "buyprice", buyprice_ )
 	else GET_PROPERTY( "sellprice", sellprice_ )

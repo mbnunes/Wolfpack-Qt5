@@ -426,6 +426,80 @@ protected:
 	QString onspeech;
 };
 
+class Human_Guard_Called_Fight : public AbstractAction
+{
+protected:
+	Human_Guard_Called_Fight() : AbstractAction() {}
+public:
+	Human_Guard_Called_Fight( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
+class Human_Guard_Called_TeleToTarget : public AbstractAction
+{
+protected:
+	Human_Guard_Called_TeleToTarget() : AbstractAction() {}
+public:
+	Human_Guard_Called_TeleToTarget( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
+class Human_Guard_Called_Disappear : public AbstractAction
+{
+protected:
+	Human_Guard_Called_Disappear() : AbstractAction() {}
+public:
+	Human_Guard_Called_Disappear( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
+class cTerritory;
+
+class Human_Guard_Called : public AbstractAI
+{
+protected:
+	Human_Guard_Called() : AbstractAI()
+	{
+		 notorityOverride_ = 1;
+	}
+
+	cTerritory* region_;
+
+public:
+	Human_Guard_Called( P_NPC npc );
+	virtual void	init( P_NPC npc );
+
+	static void registerInFactory();
+	virtual QString name() { return "Human_Guard_Called"; }
+};
+
+class Human_Guard_Wander : public Action_Wander
+{
+protected:
+	Human_Guard_Wander() : Action_Wander() {}
+public:
+	Human_Guard_Wander( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ) {}
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
+class Human_Guard_MoveToTarget : public Action_Wander
+{
+protected:
+	Human_Guard_MoveToTarget() : Action_Wander() {}
+public:
+	Human_Guard_MoveToTarget( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai ) {}
+	virtual void execute();
+	virtual float preCondition();
+	virtual float postCondition();
+};
+
 class Human_Guard_Fight : public AbstractAction
 {
 protected:
@@ -437,43 +511,27 @@ public:
 	virtual float postCondition();
 };
 
-class Human_Guard_TeleToTarget : public AbstractAction
-{
-protected:
-	Human_Guard_TeleToTarget() : AbstractAction() {}
-public:
-	Human_Guard_TeleToTarget( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
-	virtual void execute();
-	virtual float preCondition();
-	virtual float postCondition();
-};
-
-class Human_Guard_Disappear : public AbstractAction
-{
-protected:
-	Human_Guard_Disappear() : AbstractAction() {}
-public:
-	Human_Guard_Disappear( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ) {}
-	virtual void execute();
-	virtual float preCondition();
-	virtual float postCondition();
-};
-
 class Human_Guard : public AbstractAI
 {
 protected:
-	Human_Guard() : AbstractAI()
+	Human_Guard() : AbstractAI(), m_currentVictim( NULL )
 	{
-		 notorityOverride_ = 1;
+		notorityOverride_ = 1;
 	}
 
 public:
 	Human_Guard( P_NPC npc );
-	virtual void	init( P_NPC npc );
-
+	
 	static void registerInFactory();
 	virtual QString name() { return "Human_Guard"; }
-};
 
+	virtual void check();
+
+	P_CHAR currentVictim() const { return m_currentVictim; }
+protected:
+	virtual void selectVictim();
+
+	P_CHAR	m_currentVictim;
+};
 
 #endif /* AI_H_HEADER_INCLUDED */

@@ -833,7 +833,7 @@ bool cPlayer::isCounselor() const
  
 bool cPlayer::isGMorCounselor() const	
 {
-	return account() && ( account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor" );
+	return account() && ( account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor" ) && account()->isStaff();
 } 
 
 void cPlayer::showName( cUOSocket *socket )

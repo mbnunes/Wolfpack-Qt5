@@ -462,3 +462,35 @@ cSpawnRegion*	cAllSpawnRegions::region( UI16 posx, UI16 posy, UI08 map )
 	else
 		return 0;
 }
+
+void cAllSpawnRegions::postWorldLoading()
+{
+	cCharIterator iChars;
+	for( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
+	{
+		if( pChar->objectType() == enNPC )
+		{
+			P_NPC pNPC = dynamic_cast< P_NPC >(pChar);
+			QString srname = pNPC->spawnregion();
+			if( !srname.isNull() )
+			{
+				cSpawnRegion* spawnregion = region( srname );
+				if( spawnregion )
+					spawnregion->add( pNPC->serial() );
+			}
+		}
+	}
+
+	cItemIterator iItems;
+	for( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
+	{
+		QString srname = pItem->spawnregion();
+		if( !srname.isNull() )
+		{
+			cSpawnRegion* spawnregion = region( srname );
+			if( spawnregion )
+				spawnregion->add( pItem->serial() );
+		}
+	}
+}
+

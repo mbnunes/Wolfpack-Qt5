@@ -869,13 +869,13 @@ namespace Combat
 		if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )		
 		{
 			// Only shot if our "head" can see the opponent
-			if( !pAttacker->pos().lineOfSight( pDefender->pos() ) )
+			if( pAttacker->pos().lineOfSight( pDefender->pos() ) )
 			{
 				/*
 					This function get's hammerd
 					Maybe a 100 ms delay would be appropiate
 				*/
-				mayAttack = false;
+				mayAttack = true;
 			}
 		}
 		// For other Combat Skills it's enough to stand near the opponent
@@ -1045,7 +1045,7 @@ namespace Combat
 		}
 
 		// Show flying arrows if archery was used
-/*		if( fightskill == ARCHERY )
+	/*	if( fightskill == ARCHERY )
 		{
 			if( los )
 			{
@@ -1262,9 +1262,11 @@ namespace Combat
 		if( pRegion == NULL )
 			return;
 		
-		if( pRegion->isGuarded() && SrvParams->guardsActive() && !pOffender->isInvulnerable() )
+		if( pRegion->isGuarded() && SrvParams->guardsActive() /*&& !pOffender->isInvulnerable()*/ )
 		{
-			P_NPC pGuard = cCharStuff::createScriptNpc( pRegion->getGuardSect(), pos );
+			QString guardsect = pRegion->getGuardSect();
+
+			P_NPC pGuard = ( guardsect.isNull() ? NULL : cCharStuff::createScriptNpc( guardsect, pos ) );
 			
 			if ( !pGuard ) 
 				return;

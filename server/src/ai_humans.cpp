@@ -223,31 +223,31 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget *target
 	m_npc->talk( tr("Say release to get your pet back!") );
 }
 
-static AbstractAI* productCreator_HG()
+static AbstractAI* productCreator_HGC()
 {
-	return new Human_Guard( NULL );
+	return new Human_Guard_Called( NULL );
 }
 
-void Human_Guard::registerInFactory()
+void Human_Guard_Called::registerInFactory()
 {
-	AIFactory::instance()->registerType("Human_Guard", productCreator_HG);
+	AIFactory::instance()->registerType("Human_Guard_Called", productCreator_HGC);
 }
 
-Human_Guard::Human_Guard( P_NPC npc ) : AbstractAI( npc )
+Human_Guard_Called::Human_Guard_Called( P_NPC npc ) : AbstractAI( npc )
 {
 	notorityOverride_ = 1;
-	m_actions.append( new Human_Guard_Fight( npc, this ) );
-	m_actions.append( new Human_Guard_TeleToTarget( npc, this ) );
-	m_actions.append( new Human_Guard_Disappear( npc, this ) );
+	m_actions.append( new Human_Guard_Called_Fight( npc, this ) );
+	m_actions.append( new Human_Guard_Called_TeleToTarget( npc, this ) );
+	m_actions.append( new Human_Guard_Called_Disappear( npc, this ) );
 }
 
-void Human_Guard::init( P_NPC npc )
+void Human_Guard_Called::init( P_NPC npc )
 {
 	npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
 	AbstractAI::init( npc );
 }
 
-void Human_Guard_Fight::execute()
+void Human_Guard_Called_Fight::execute()
 {
 	// talk only in about every 10th check
 	switch( RandomNum( 0, 20 ) )
@@ -261,13 +261,13 @@ void Human_Guard_Fight::execute()
 	// Fighting is handled within combat..
 }
 
-float Human_Guard_Fight::preCondition()
+float Human_Guard_Called_Fight::preCondition()
 {
 	if( m_npc->combatTarget() == INVALID_SERIAL )
 		return 0.0f;
 
 	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
-	if( !pTarget || pTarget->isDead() )
+	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() || pTarget->region() != m_npc->region() )
 		return 0.0f;
 
 	if( pTarget && m_npc->dist( pTarget ) < 2 )
@@ -276,12 +276,12 @@ float Human_Guard_Fight::preCondition()
 		return 0.0f;
 }
 
-float Human_Guard_Fight::postCondition()
+float Human_Guard_Called_Fight::postCondition()
 {
 	return 1.0f - preCondition();
 }
 
-void Human_Guard_TeleToTarget::execute()
+void Human_Guard_Called_TeleToTarget::execute()
 {
 	m_npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
 
@@ -297,13 +297,13 @@ void Human_Guard_TeleToTarget::execute()
 	}
 }
 
-float Human_Guard_TeleToTarget::preCondition()
+float Human_Guard_Called_TeleToTarget::preCondition()
 {
 	if( m_npc->combatTarget() == INVALID_SERIAL )
 		return 0.0f;
 
 	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
-	if( !pTarget || pTarget->isDead() )
+	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() || pTarget->region() != m_npc->region() )
 		return 0.0f;
 
 	if( pTarget && m_npc->dist( pTarget ) >= 2 )
@@ -312,30 +312,172 @@ float Human_Guard_TeleToTarget::preCondition()
 		return 0.0f;
 }
 
-float Human_Guard_TeleToTarget::postCondition()
+float Human_Guard_Called_TeleToTarget::postCondition()
 {
 	return 1.0f - preCondition();
 }
 
-void Human_Guard_Disappear::execute()
+void Human_Guard_Called_Disappear::execute()
 {
 	// nothing to do
 }
 
-float Human_Guard_Disappear::preCondition()
+float Human_Guard_Called_Disappear::preCondition()
 {
 	if( m_npc->combatTarget() == INVALID_SERIAL )
 		return 1.0f;
 
 	P_CHAR pTarget = World::instance()->findChar( m_npc->combatTarget() );
-	if( !pTarget || pTarget->isDead() )
+	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() || pTarget->region() != m_npc->region() )
 		return 1.0f;
 
 	return 0.0f;
 }
 
-float Human_Guard_Disappear::postCondition()
+float Human_Guard_Called_Disappear::postCondition()
 {
-	// not really needed in this case, but necessary for the system ;)
+	return 1.0f - preCondition();
+}
+
+static AbstractAI* productCreator_HG()
+{
+	return new Human_Guard( NULL );
+}
+
+void Human_Guard::registerInFactory()
+{
+	AIFactory::instance()->registerType("Human_Guard", productCreator_HG);
+}
+
+Human_Guard::Human_Guard( P_NPC npc ) : AbstractAI( npc ), m_currentVictim( NULL )
+{
+	notorityOverride_ = 1;
+	m_actions.append( new Human_Guard_Wander( npc, this ) );
+	m_actions.append( new Human_Guard_MoveToTarget( npc, this ) );
+	m_actions.append( new Human_Guard_Fight( npc, this ) );
+}
+
+void Human_Guard::check()
+{
+	selectVictim();
+	AbstractAI::check();
+}
+
+void Human_Guard::selectVictim()
+{
+	if( m_currentVictim )
+	{
+		// Check if the current target is valid, including:
+		// - Target not dead.
+		// - Target in attack range.
+		// - Target not innocent.
+		if( m_currentVictim->isDead() || m_currentVictim->isInnocent() )
+			m_currentVictim = NULL;
+		else if( !m_npc->inRange( m_currentVictim, SrvParams->attack_distance() ) )
+			m_currentVictim = NULL;
+	}
+	
+	if( !m_currentVictim )
+	{
+		// Get a criminal or murderer in range to attack it
+		RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
+		for( ri.Begin(); !ri.atEnd(); ri++ )
+		{
+			P_CHAR pChar = ri.GetData();
+			if( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() && !pChar->isInnocent() )
+			{
+				P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
+				if( pPlayer && pPlayer->isGMorCounselor() )
+					continue;
+
+				m_currentVictim = pChar;
+				break;
+			}
+		}
+
+		// If we found a new target, let us attack it
+		if( m_currentVictim )
+			m_npc->fight( m_currentVictim );
+	}
+
+}
+
+void Human_Guard_Fight::execute()
+{
+	// talk only in about every 10th check
+	switch( RandomNum( 0, 20 ) )
+	{
+		case 0:		m_npc->talk( tr( "Thou shalt regret thine actions, swine!" ), -1, 0, true );	break;
+		case 1:		m_npc->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
+	}
+
+	// Fighting is handled within combat..
+}
+
+float Human_Guard_Fight::preCondition()
+{
+	Human_Guard* pAI = dynamic_cast< Human_Guard* >(m_ai);
+	P_CHAR pTarget = ( pAI ? pAI->currentVictim() : NULL );
+
+	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() )
+		return 0.0f;
+
+	if( pTarget && m_npc->dist( pTarget ) < 2 )
+		return 1.0f;
+	else
+		return 0.0f;
+}
+
+float Human_Guard_Fight::postCondition()
+{
+	return 1.0f - preCondition();
+}
+
+void Human_Guard_MoveToTarget::execute()
+{
+	Human_Guard* pAI = dynamic_cast< Human_Guard* >(m_ai);
+	P_CHAR pTarget = ( pAI ? pAI->currentVictim() : NULL );
+
+	if( !pTarget )
+		return;
+
+	if( SrvParams->pathfind4Combat() )
+		movePath( pTarget->pos() );
+	else
+		moveTo( pTarget->pos() );
+}
+
+float Human_Guard_MoveToTarget::preCondition()
+{
+	Human_Guard* pAI = dynamic_cast< Human_Guard* >(m_ai);
+	P_CHAR pTarget = ( pAI ? pAI->currentVictim() : NULL );
+
+	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() )
+		return 0.0f;
+
+	if( pTarget && m_npc->dist( pTarget ) >= 2 )
+		return 1.0f;
+	else
+		return 0.0f;
+}
+
+float Human_Guard_MoveToTarget::postCondition()
+{
+	return 1.0f - preCondition();
+}
+
+float Human_Guard_Wander::preCondition()
+{
+	Human_Guard* pAI = dynamic_cast< Human_Guard* >(m_ai);
+	P_CHAR pTarget = ( pAI ? pAI->currentVictim() : NULL );
+
+	if( !pTarget || pTarget->isDead() || pTarget->isInnocent() )
+		return 1.0f;
+
+	return 0.0f;
+}
+
+float Human_Guard_Wander::postCondition()
+{
 	return 1.0f - preCondition();
 }
