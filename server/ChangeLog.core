@@ -1,12 +1,13 @@
 Wolfpack ChangeLog
 
-Wolfpack 12.9.10 Beta (4. September 2004)
+Wolfpack 12.9.10 Beta (CVS)
 	- Made the maximum number of controlled pets a dynamic property for players.
 	  Name: maxcontrolslots
-	 - Implemented the event onUpdateDatabase for database updating.
-	 - Exceptions thrown during server startup are now caught correctly.
+	- Implemented the event onUpdateDatabase for database updating.
+	- Exceptions thrown during server startup are now caught correctly.
+	- Stablemasters now respond to stabling requests.  No charge yet!
 
-Wolfpack 12.9.9 Beta (CVS)
+Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.
 	  Replace <property> with the name of the account property and <value>
 	  with the value you want to set:
