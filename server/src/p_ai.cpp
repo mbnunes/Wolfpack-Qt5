@@ -36,15 +36,17 @@
 #undef  DBGFILE
 #define DBGFILE "p_ai.cpp"
 
-void cCharStuff::CheckAI(unsigned int currenttime, int i) //Lag Fix -- Zippy
+void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 {
 	int d, onl;
 	unsigned int chance;
-	//unsigned int StartGrid, getcell, increment, a, checkgrid;
+	// unsigned int StartGrid, getcell, increment, a, checkgrid;
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
-	if (i<0 || i>cmem) return;
-
-	if (!(nextnpcaitime<=currenttime||(overflow))) return;
+	if (i < 0 || i>cmem)
+		return;
+	
+	if (!(nextnpcaitime <= currenttime || (overflow)))
+		return;
     // in npc.scp add script # for npc`s ai
 	// case - script - case - script -   case - script -  case - script
 	//   0   -  0     -  4    -  4     -  8    -  8     -  12   -  C
@@ -56,509 +58,557 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) //Lag Fix -- Zippy
 	//   17  -  11    -  21   -  15
 	//   18  -  12    -  22   -  16
 	//   19  -  13    -  23   -  17  ...this is just a guide...Ripper
-	switch(pc_i->npcaitype)
+	switch (pc_i->npcaitype)
 	{
-	case 0: // Shopkeepers greet players..Ripper
-		if(server_data.VendorGreet==1 && pc_i->isNpc() && pc_i->shop==1 && pc_i->id1==0x01 && (pc_i->id2==0x90 || pc_i->id2==0x91))
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+		case 0: // Shopkeepers greet players..Ripper
+			if (server_data.VendorGreet == 1 && pc_i->isNpc() && pc_i->shop == 1 && pc_i->id1 == 0x01 &&(pc_i->id2 == 0x90 || pc_i->id2 == 0x91))
 			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (d > 3)
-						continue;
-					if (pc->isInvul() || pc->isNpc() || pc->dead || !pc->isInnocent() || !onl)
-					    continue;
-						sprintf((char*)temp,"Hello %s, Welcome to my shop, How may i help thee?.", pc->name);
-						npctalkall(i,(char*)temp,1);
-						pc_i->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*30;
-				}
-			}
-		}
-		break;
-	case 1: // good healers
-		if(!pc_i->war)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
-			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
-				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (!pc->dead || d > 3 || pc->isNpc() || !onl)
-						continue;
-					if (pc->isMurderer()) 
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
 					{
-						npctalkall(i, "I will nay give life to a scoundrel like thee!",1);
-						return;
-					}
-					else if (pc->isCriminal()) 
-					{
-						npctalkall(i, "I will nay give life to thee for thou art a criminal!",1);
-						return;
-					}
-					else if (pc->isInnocent())
-					{
-						npcaction(i, 0x10);
-						Targ->NpcResurrectTarget(DEREF_P_CHAR(pc));
-						staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
-						switch(RandomNum(0, 4)) 
-						{
-						case 0: npctalkall(i, "Thou art dead, but 'tis within my power to resurrect thee.  Live!",1);			break;
-						case 1: npctalkall(i, "Allow me to resurrect thee ghost.  Thy time of true death has not yet come.",1);	break;
-						case 2: npctalkall(i, "Perhaps thou shouldst be more careful.  Here, I shall resurrect thee.",1);		break;
-						case 3: npctalkall(i, "Live again, ghost!  Thy time in this world is not yet done.",1);					break;
-						case 4: npctalkall(i, "I shall attempt to resurrect thee.",1);											break;
-						}
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (d > 3)
+							continue;
+						if (pc->isInvul() || pc->isNpc() || pc->dead || !pc->isInnocent() || !onl)
+							continue;
+						sprintf((char*)temp, "Hello %s, Welcome to my shop, How may i help thee?.", pc->name);
+						npctalkall(i, (char*)temp, 1);
+						pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 					}
 				}
 			}
-		}
-		break;
-	case 2 : // Monsters, PK's - (stupid NPCs)
-		if (!pc_i->war)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+			break;
+		case 1: // good healers
+			if (!pc_i->war)
 			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					chance = RandomNum(1, 100);
-					if (DEREF_P_CHAR(pc) == i)
-						continue;
-					if (d>SrvParms->attack_distance)
-						continue;
-					if (onl &&(pc->isInvul() || pc->isHidden() || pc->dead))
-						continue;
-					if (pc->isNpc() &&(pc->npcaitype == 2 || pc->npcaitype == 1))
-						continue;
-					if (server_data.monsters_vs_animals == 0 && (strlen(pc->title) > 0 || !onl))
-						continue;
-					if (server_data.monsters_vs_animals == 1 && chance > server_data.animals_attack_chance)
-						continue;
-					if (pc_i->baseskill[MAGERY]>400)
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
 					{
-						if (pc_i->hp < (pc_i->st/2))
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
+							continue;
+						if (pc->isMurderer()) 
 						{
-							npctalkall(i, "In Vas Mani", 0);
-							Magic->NPCHeal(i);
+							npctalkall(i, "I will nay give life to a scoundrel like thee!", 1);
+							return;
 						}
-						if (pc_i->poisoned)
+						else if (pc->isCriminal()) 
 						{
-							npctalkall(i, "An Nox", 0);
-							Magic->NPCCure(i);
+							npctalkall(i, "I will nay give life to thee for thou art a criminal!", 1);
+							return;
 						}
-						if (pc->priv2&0x20)
+						else if (pc->isInnocent())
 						{
-							npctalkall(i, "An Ort", 0);
-							Magic->NPCDispel(i, DEREF_P_CHAR(pc));
-						}
-					}
-					npcattacktarget(i, DEREF_P_CHAR(pc));
-					return;
-				}
-			}
-		}
-		break;
-	case 3 : //Evil Healers
-		if(!pc_i->war)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
-			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
-				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (!pc->dead || d > 3 || pc->isNpc() || !onl)
-						continue;
-					if (pc->isInnocent())
-					{
-						npctalkall(i, "I dispise all things good. I shall not give thee another chance!",1);
-						return;
-					}
-					else
-					{
-						npcaction(i, 0x10);
-						Targ->NpcResurrectTarget(DEREF_P_CHAR(pc));
-						staticeffect(DEREF_P_CHAR(pc), 0x37, 0x09, 0x09, 0x19); //Flamestrike effect
-						switch(RandomNum(0, 4)) 
-						{
-						   case 0: npctalkall(i, "Fellow minion of Mondain, Live!!",1); break;
-						   case 1: npctalkall(i, "Thou has evil flowing through your vains, so I will bring you back to life.",1); break;
-						   case 2: npctalkall(i, "If I res thee, promise to raise more hell!.",1); break;
-						   case 3: npctalkall(i, "From hell to Britannia, come alive!.",1); break;
-						   case 4: npctalkall(i, "Since you are Evil, I will bring you back to consciouness.",1); break;
+							npcaction(i, 0x10);
+							Targ->NpcResurrectTarget(DEREF_P_CHAR(pc));
+							staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
+							switch (RandomNum(0, 4)) 
+							{
+							case 0: 
+								npctalkall(i, "Thou art dead, but 'tis within my power to resurrect thee.  Live!", 1);
+								break;
+							case 1: 
+								npctalkall(i, "Allow me to resurrect thee ghost.  Thy time of true death has not yet come.", 1);
+								break;
+							case 2: 
+								npctalkall(i, "Perhaps thou shouldst be more careful.  Here, I shall resurrect thee.", 1);
+								break;
+							case 3: 
+								npctalkall(i, "Live again, ghost!  Thy time in this world is not yet done.", 1);
+								break;
+							case 4: 
+								npctalkall(i, "I shall attempt to resurrect thee.", 1);
+								break;
+							}
 						}
 					}
 				}
 			}
-		}
-		break;
-	case 4 : // Guards
-		if (!pc_i->war	// guard isnt busy 
-			&& pc_i->inGuardedArea())	// this region is guarded
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+			break;
+		case 2 : // Monsters, PK's - (stupid NPCs)
+			if (!pc_i->war)
 			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (d > 10 || pc->isInvul() || pc->dead || !onl)
-						continue;
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
+					{
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						chance = RandomNum(1, 100);
+						if (DEREF_P_CHAR(pc) == i)
+							continue;
+						if (d>SrvParms->attack_distance)
+							continue;
+						if (onl &&(pc->isInvul() || pc->isHidden() || pc->dead))
+							continue;
+						if (pc->isNpc() &&(pc->npcaitype == 2 || pc->npcaitype == 1))
+							continue;
+						if (server_data.monsters_vs_animals == 0 &&(strlen(pc->title) > 0 || !onl))
+							continue;
+						if (server_data.monsters_vs_animals == 1 && chance > server_data.animals_attack_chance)
+							continue;
+						if (pc_i->baseskill[MAGERY]>400)
+						{
+							if (pc_i->hp <(pc_i->st/2))
+							{
+								npctalkall(i, "In Vas Mani", 0);
+								Magic->NPCHeal(i);
+							}
+							if (pc_i->poisoned)
+							{
+								npctalkall(i, "An Nox", 0);
+								Magic->NPCCure(i);
+							}
+							if (pc->priv2&0x20)
+							{
+								npctalkall(i, "An Ort", 0);
+								Magic->NPCDispel(i, DEREF_P_CHAR(pc));
+							}
+						}
 						npcattacktarget(i, DEREF_P_CHAR(pc));
-						npctalkall(i, "Thou shalt regret thine actions, swine!",1); // ANTISPAM !!! LB
+						return;
+					}
 				}
 			}
-		}
-		break;
-	case 5: // npc beggars
-		if (!pc_i->war)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+			break;
+		case 3 : // Evil Healers
+			if (!pc_i->war)
 			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (d > 3 || pc->isInvul() || pc->isNpc() || pc->dead || !onl || !pc->isInnocent())
-					    continue;
-						int beg= RandomNum (0,2);
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
+					{
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (!pc->dead || d > 3 || pc->isNpc() || !onl)
+							continue;
+						if (pc->isInnocent())
+						{
+							npctalkall(i, "I dispise all things good. I shall not give thee another chance!", 1);
+							return;
+						}
+						else
+						{
+							npcaction(i, 0x10);
+							Targ->NpcResurrectTarget(DEREF_P_CHAR(pc));
+							staticeffect(DEREF_P_CHAR(pc), 0x37, 0x09, 0x09, 0x19); // Flamestrike effect
+							switch (RandomNum(0, 4)) 
+							{
+							case 0: 
+								npctalkall(i, "Fellow minion of Mondain, Live!!", 1);
+								break;
+							case 1: 
+								npctalkall(i, "Thou has evil flowing through your vains, so I will bring you back to life.", 1);
+								break;
+							case 2: 
+								npctalkall(i, "If I res thee, promise to raise more hell!.", 1);
+								break;
+							case 3: 
+								npctalkall(i, "From hell to Britannia, come alive!.", 1);
+								break;
+							case 4: 
+								npctalkall(i, "Since you are Evil, I will bring you back to consciouness.", 1);
+								break;
+							}
+						}
+					}
+				}
+			}
+			break;
+		case 4 : // Guards
+			if (!pc_i->war	// guard isnt busy 
+				&& pc_i->inGuardedArea())	// this region is guarded
+			{
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				{
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
+					{
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (d > 10 || pc->isInvul() || pc->dead || !onl)
+							continue;
+						npcattacktarget(i, DEREF_P_CHAR(pc));
+						npctalkall(i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+					}
+				}
+			}
+			break;
+		case 5: // npc beggars
+			if (!pc_i->war)
+			{
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				{
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
+					{
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (d > 3 || pc->isInvul() || pc->isNpc() || pc->dead || !onl || !pc->isInnocent())
+							continue;
+						int beg= RandomNum(0, 2);
 						{
 							switch (beg)
 							{
-								case 0: npctalkall(i,"Could thou spare a few coins?",1);
-										pc_i->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*30;
-										break;
-								case 1: npctalkall(i,"Hey buddy can you spare some gold?",1);
-										pc_i->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*30;
-										break;
-								case 2: npctalkall(i,"I have a family to feed, think of the children.",1);
-										pc_i->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*30;
-										break;
-								default:
-										break;
+							case 0: 
+								npctalkall(i, "Could thou spare a few coins?", 1);
+								pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
+								break;
+							case 1: 
+								npctalkall(i, "Hey buddy can you spare some gold?", 1);
+								pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
+								break;
+							case 2: 
+								npctalkall(i, "I have a family to feed, think of the children.", 1);
+								pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
+								break;
+							default:
+								break;
 							}
 						}
+					}
 				}
 			}
-		}
-		break;
-	case 6: break; // Ripper- chaos guards.
-	case 7: break; // Ripper- order guards.
-	case 8: break; //morrolan - old banker
-	case 9 : // in world guards, they dont teleport out...Ripper
-		if (!pc_i->war	// guard isnt busy 
-			&& pc_i->inGuardedArea())	// this region is guarded
-		{	// this bracket just to keep compiler happy
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
-			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
+			break;
+		case 6: 
+			break; // Ripper- chaos guards.
+		case 7: 
+			break; // Ripper- order guards.
+		case 8: 
+			break; // morrolan - old banker
+		case 9 : // in world guards, they dont teleport out...Ripper
+			if (!pc_i->war	// guard isnt busy 
+				&& pc_i->inGuardedArea())	// this region is guarded
+			{	// this bracket just to keep compiler happy
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (i==DEREF_P_CHAR(pc) || d > 3 || pc->isInvul() || pc->dead || !onl)
-						continue;
-					if ( pc->isPlayer() && pc->crimflag > 0 )
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
 					{
-						sprintf((char*)temp,"You better watch your step %s, I am watching thee!!", pc->name);
-						npctalkall(i,(char*)temp,1);
-						pc_i->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*30;
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (i == DEREF_P_CHAR(pc) || d > 3 || pc->isInvul() || pc->dead || !onl)
+							continue;
+						if (pc->isPlayer() && pc->crimflag > 0)
+						{
+							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name);
+							npctalkall(i, (char*)temp, 1);
+							pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
+						}
+						else if (pc->isPlayer() && pc->isInnocent() && !pc->dead)
+						{
+							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name, region[pc->region].name);
+							npctalkall(i, (char*)temp, 1);
+							pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
+						}
+						else if (d <= 10 &&(
+							(pc->isNpc() &&(pc->npcaitype == 2))	// evil npc
+							||(pc->isPlayer() && !(pc->isInnocent()) && !(pc->isCriminal()))	// a player, not grey or blue
+							||(pc->attackfirst == 1)))	// any agressor
+						{
+							pc_i->pos.x = pc->pos.x; // Ripper..guards teleport to enemies.
+							pc_i->pos.y = pc->pos.y;
+							pc_i->pos.z = pc->pos.z;
+							soundeffect2(i, 0x01, 0xFE); // crashfix, LB
+							staticeffect(i, 0x37, 0x2A, 0x09, 0x06);
+							npcattacktarget(i, DEREF_P_CHAR(pc));
+							npctalkall(i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+							return;
+						}
 					}
-					else if ( pc->isPlayer() && pc->isInnocent() && !pc->dead )
+				}
+			}
+			break;
+		case 10: // Tamed Dragons ..not white wyrm..Ripper
+			// so regular dragons attack reds on sight while tamed.
+			if (pc_i->isNpc() && pc_i->tamed)
+			{
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				{
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
 					{
-						sprintf((char*)temp,"%s is an upstanding citizen, I will protect thee in %s.", pc->name, region[pc->region].name);
-						npctalkall(i,(char*)temp,1);
-						pc_i->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*30;
-					}
-					else if ( d<=10 && (
-							(pc->isNpc() && (pc->npcaitype==2))	// evil npc
-							|| (pc->isPlayer() && !(pc->isInnocent()) && !(pc->isCriminal()))	// a player, not grey or blue
-							|| (pc->attackfirst==1)))	// any agressor
-					{
-						pc_i->pos.x=pc->pos.x; //Ripper..guards teleport to enemies.
-						pc_i->pos.y=pc->pos.y;
-						pc_i->pos.z=pc->pos.z;
-						soundeffect2(i, 0x01, 0xFE); // crashfix, LB
-						staticeffect(i, 0x37, 0x2A, 0x09, 0x06);
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (d > 10 || pc->isPlayer() || pc->npcaitype != 2)
+							continue;
 						npcattacktarget(i, DEREF_P_CHAR(pc));
-						npctalkall(i, "Thou shalt regret thine actions, swine!",1); // ANTISPAM !!! LB
+						return;
+					}
+				}
+			}
+			break;
+		case 11 : // add NPCAI B in scripts to make them attack reds. (Ripper)
+			if (!pc_i->war)
+			{
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				{
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
+					{
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (d > 10 || pc->isInvul() || pc->dead || !onl)
+							continue;
+						if (pc->npcaitype != 2 || !pc->isCriminal() || !pc->isMurderer())
+							continue;
+						npcattacktarget(i, DEREF_P_CHAR(pc));
+					}
+				}
+			}
+			break;
+		case 17: 
+			break; // Zippy Player Vendors.
+		case 30: // why is this the same as case 50???..Ripper
+			if (!pc_i->war)
+			{
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+				{
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
+					{
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (d > 10 || pc->isInvul() || pc->dead || pc->npcaitype != 2 || !onl)
+							continue;
+						npcattacktarget(i, DEREF_P_CHAR(pc));
 						return;
 					}
 				}
 			}
-		}
-		break;
-	case 10: // Tamed Dragons ..not white wyrm..Ripper
-		// so regular dragons attack reds on sight while tamed.
-		if(pc_i->isNpc() && pc_i->tamed)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+			break;
+		case 32: // Pets Guarding..Ripper
+			if (pc_i->isNpc() && pc_i->tamed)
 			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if(d > 10 || pc->isPlayer() || pc->npcaitype!=2)
-						continue;
-						npcattacktarget(i,DEREF_P_CHAR(pc));
-						return;
-				}
-			}
-		}
-		break;
-	case 11 : // add NPCAI B in scripts to make them attack reds. (Ripper)
-		if (!pc_i->war)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
-			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
-				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (d > 10 || pc->isInvul() || pc->dead || !onl)
-						continue;
-					if (pc->npcaitype!=2 || !pc->isCriminal() || !pc->isMurderer())
-					    continue;
-						npcattacktarget(i, DEREF_P_CHAR(pc));
-				}
-			}
-		}
-		break;
-	case 17: break; //Zippy Player Vendors.
-	case 30: // why is this the same as case 50???..Ripper
-		if (!pc_i->war)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
-			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
-				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (d > 10 || pc->isInvul() || pc->dead || pc->npcaitype!=2 || !onl)
-						continue;
-						npcattacktarget(i, DEREF_P_CHAR(pc));
-						return;
-				}
-			}
-		}
-		break;
-	case 32: // Pets Guarding..Ripper
-		if(pc_i->isNpc() && pc_i->tamed)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
-			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
-				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
-					if (d > 10 || pc->isNpc() || pc->dead || !pc->guarded || !onl)
-						continue;
-						if(pc->Owns(pc_i))
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
+					{
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						if (d > 10 || pc->isNpc() || pc->dead || !pc->guarded || !onl)
+							continue;
+						if (pc->Owns(pc_i))
 						{
 							P_CHAR pc_target = FindCharBySerial(pc->attacker);
 							npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_target));
 							return;
 						}
+					}
 				}
 			}
-		}
-		break;
-	case 50://EV/BS
-		if (!pc_i->war)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+			break;
+		case 50:// EV/BS
+			if (!pc_i->war)
 			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
+				cRegion::RegionIterator4Chars ri(pc_i->pos);
+				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (d > 10 || pc->isInvul() || pc->dead || !onl)
-						continue;
+					P_CHAR pc = ri.GetData();
+					if (pc != NULL)
+					{
+						onl = online(DEREF_P_CHAR(pc));
+						d = chardist(i, DEREF_P_CHAR(pc));
+						if (d > 10 || pc->isInvul() || pc->dead || !onl)
+							continue;
 						npcattacktarget(i, DEREF_P_CHAR(pc));
 						return;
+					}
 				}
 			}
-		}
-		break;
-		// Case 60-70 is Skyfires new AI
-	case 96:
-	case 60: //Skyfire - Dragon AI
-		DragonAI->DoAI(i,currenttime);
-		break;
-	case 97:
-	case 61://Skyfire - Banker AI
-		break;
-	default:
-		clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc %i (%x %x %x %x) has invalid AI type %i\n",i,pc_i->ser1,pc_i->ser2,pc_i->ser3,pc_i->ser4,pc_i->npcaitype); //Morrolan
-		return;
+			break;
+			// Case 60-70 is Skyfires new AI
+		case 96:
+		case 60: // Skyfire - Dragon AI
+			DragonAI->DoAI(i, currenttime);
+			break;
+		case 97:
+		case 61:// Skyfire - Banker AI
+			break;
+		default:
+			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc %i (%x %x %x %x) has invalid AI type %i\n", i, pc_i->ser1, pc_i->ser2, pc_i->ser3, pc_i->ser4, pc_i->npcaitype); // Morrolan
+			return;
 	}// switch
 }// void checknpcai
 
 
 
-void cCharStuff::cDragonAI::DoAI(int i,int currenttime)
+void cCharStuff::cDragonAI::DoAI(int i, int currenttime)
 {
 	int randvalue;
 	int distance;
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 	if (pc_i->war)
 	{
-		npctalkall(i,"Who dares disturbe me?!?!",1);
-		unsigned long loopexit=0;
+		npctalkall(i, "Who dares disturbe me?!?!", 1);
+		unsigned long loopexit = 0;
 		cRegion::RegionIterator4Chars ri(pc_i->pos);
 		for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 		{
 			P_CHAR pc = ri.GetData();
 			if (pc != NULL)
 			{
-				distance=chardist(i, DEREF_P_CHAR(pc));
+				distance = chardist(i, DEREF_P_CHAR(pc));
 				if (!pc->npc && !online(DEREF_P_CHAR(pc)))	// no offline players (Duke)
 					continue;
 				if (!(pc->dead))
 				{
 					if (distance>4)
 					{
-						randvalue=RandomNum(0,4);
-						switch(randvalue)
+						randvalue = RandomNum(0, 4);
+						switch (randvalue)
 						{
-							case 1:	Breath(i,currenttime);		break;
-							case 3:	HarmMagic(i,currenttime,pc);	break;
-							case 4:	HealMagic(i,currenttime);	break;
+							case 1:	
+								Breath(i, currenttime);
+								break;
+							case 3:	
+								HarmMagic(i, currenttime, pc);
+								break;
+							case 4:	
+								HealMagic(i, currenttime);
+								break;
 						}
 					}
 					else
-						HarmMagic(i,currenttime,pc);
+						HarmMagic(i, currenttime, pc);
 				}
-				HealMagic(i,currenttime);
+				HealMagic(i, currenttime);
 			}
 		}
 	}
 	else
-		HealMagic(i,currenttime);
+		HealMagic(i, currenttime);
 	return;
 }
 
-void cCharStuff::cDragonAI::Breath(int i,int currenttime)
+void cCharStuff::cDragonAI::Breath(int i, int currenttime)
 {
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
-	Magic->PFireballTarget(i,pc_i->targ,20);
-	DoneAI(i,currenttime);
+	Magic->PFireballTarget(i, pc_i->targ, 20);
+	DoneAI(i, currenttime);
 	return; 
 }
 
-void cCharStuff::cDragonAI::HarmMagic(int i,int currenttime,P_CHAR pc)
+void cCharStuff::cDragonAI::HarmMagic(int i, int currenttime, P_CHAR pc)
 {
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
-	if(currenttime>=pc_i->spatimer)
+	if (currenttime >= pc_i->spatimer)
 	{
-		switch(RandomNum(0, 5))
+		switch (RandomNum(0, 5))
 		{
-			case 0:	Magic->NPCEBoltTarget(i,DEREF_P_CHAR(pc));			break;
-			case 1:	Magic->NPCFlameStrikeTarget(i,DEREF_P_CHAR(pc));	break;
-			case 2:	Magic->ParalyzeSpell(i,DEREF_P_CHAR(pc));			break;
-			case 3:	Magic->NPCLightningTarget(i,DEREF_P_CHAR(pc));		break;
-			case 4:	Magic->ParalyzeSpell(i,DEREF_P_CHAR(pc));			break;
-			case 5: if (pc->priv2&0x20) { Magic->NPCDispel(i,DEREF_P_CHAR(pc)); } break;
+			case 0:	
+				Magic->NPCEBoltTarget(i, DEREF_P_CHAR(pc));
+				break;
+			case 1:	
+				Magic->NPCFlameStrikeTarget(i, DEREF_P_CHAR(pc));
+				break;
+			case 2:	
+				Magic->ParalyzeSpell(i, DEREF_P_CHAR(pc));
+				break;
+			case 3:	
+				Magic->NPCLightningTarget(i, DEREF_P_CHAR(pc));
+				break;
+			case 4:	
+				Magic->ParalyzeSpell(i, DEREF_P_CHAR(pc));
+				break;
+			case 5: 
+				if (pc->priv2&0x20)
+				{
+					Magic->NPCDispel(i, DEREF_P_CHAR(pc));
+				} 
+				break;
 		}
 	}
-	DoneAI(i,currenttime);
+	DoneAI(i, currenttime);
 	return;
 }
 
-void cCharStuff::cDragonAI::HealMagic(int i,int currenttime)
+void cCharStuff::cDragonAI::HealMagic(int i, int currenttime)
 {
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
-	if(currenttime>=pc_i->spatimer)
+	if (currenttime >= pc_i->spatimer)
 	{
 		if (pc_i->poisoned)
 		{
 			Magic->NPCCure(i);
 		}
-		else if (pc_i->hp<(pc_i->st/2))
+		else if (pc_i->hp < (pc_i->st/2))
 		{
 			Magic->NPCHeal(i);
 		}
-		if(pc_i->targ>=1)
+		if (pc_i->targ >= 1)
 			npcattacktarget(i, pc_i->targ);
 	}
-	DoneAI(i,currenttime);
+	DoneAI(i, currenttime);
 }
-void cCharStuff::cDragonAI::DoneAI(int i,int currenttime)
+void cCharStuff::cDragonAI::DoneAI(int i, int currenttime)
 {
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
-	pc_i->spatimer=currenttime+(pc_i->spadelay*MY_CLOCKS_PER_SEC); 
+	pc_i->spatimer = currenttime + (pc_i->spadelay*MY_CLOCKS_PER_SEC); 
 	return;
 }
 
-bool cCharStuff::cBankerAI::DoAI(int c,int i,char *comm)
+bool cCharStuff::cBankerAI::DoAI(int c, int i, char *comm)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c], false);
 	char search1[50], search2[50], search3[50], search4[50];
-	char *response1=0;
-	char *response2=0;
-	char *response3=0;
-	char *response4=0;
-	strcpy(search1,"BANK");
-    strcpy(search2,"BALANCE");
-	strcpy(search3,"WITHDRAW");
-	strcpy(search4,"CHECK");
-    response1=(strstr( comm, search1));
-    response2=(strstr( comm, search2));
-	response3=(strstr( comm, search3));
-	response4=(strstr( comm, search4));
-	if(SrvParms->usespecialbank)
+	char *response1 = 0;
+	char *response2 = 0;
+	char *response3 = 0;
+	char *response4 = 0;
+	strcpy(search1, "BANK");
+    strcpy(search2, "BALANCE");
+	strcpy(search3, "WITHDRAW");
+	strcpy(search4, "CHECK");
+    response1 = (strstr(comm, search1));
+    response2 = (strstr(comm, search2));
+	response3 = (strstr(comm, search3));
+	response4 = (strstr(comm, search4));
+	if (SrvParms->usespecialbank)
 	{
 		strcpy(search1, SrvParms->specialbanktrigger);
-		response1=(strstr( comm, search1));
-		if (response1 && (!(pc_currchar->dead)))
+		response1 = (strstr(comm, search1));
+		if (response1 &&(!(pc_currchar->dead)))
 		{
 			openspecialbank(c, currchar[c]);
 		}
 	}
-    else if (response1 && (!(pc_currchar->dead)))
+    else if (response1 &&(!(pc_currchar->dead)))
 	{
 		OpenBank(c);
 		return true;
 	}
-    else if (response2 && (!(pc_currchar->dead)))
+    else if (response2 &&(!(pc_currchar->dead)))
 	{
-		return Balance(c,i);
+		return Balance(c, i);
 	}
-	else if (response3 && (!(pc_currchar->dead)))
+	else if (response3 &&(!(pc_currchar->dead)))
 	{
-		return Withdraw(c,i,comm);
+		return Withdraw(c, i, comm);
 	}
-	else if (response4 && (!(pc_currchar->dead)))
+	else if (response4 &&(!(pc_currchar->dead)))
 	{
-		return Check(c,i,comm);
+		return Check(c, i, comm);
 	}
 	return true;
 }
@@ -571,89 +621,92 @@ void cCharStuff::cBankerAI::OpenBank(int c)
 
 bool cCharStuff::cBankerAI::Balance(int c, int i)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c], false);
 	sprintf(temp, "%s's balance as of now is %i.", pc_currchar->name, pc_currchar->CountBankGold());
-	npctalk(c, i, temp,1);
+	npctalk(c, i, temp, 1);
 	return true;
 }
 
 bool cCharStuff::cBankerAI::Withdraw(int c, int i, char *comm)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
-	    int a=0;
-	    char value1[50]={' '};
-	    char value2[50]={' '};
-	    value1[0]=0;
-	    value2[0]=0;
-	    while(comm[a]!=0 && comm[a]!=' ' && a<50 )
-		{
-		   a++;
-		}
-	    strncpy(value1, temp, a);
-	    value1[a]=0;
-	    if (value1[0]!='[' && comm[a]!=0) strcpy(value2, comm+a+1);
-	    if(pc_currchar->CountBankGold()>=str2num(value2))
-		{
-		    int goldcount=str2num(value2);
-		    addgold(c, goldcount);
-		    goldsfx(c, goldcount);
-		    DeleBankItem(DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldcount );
-		    sprintf(temp, "%s here is your withdraw of %i.", pc_currchar->name, goldcount);
-		    npctalk(c, i, temp,1);
-		    return true;
-		}
-	    else
-		    sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
-	        npctalk(c, i, temp,1);
-	        return true;
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c], false);
+	int a = 0;
+	char value1[50]={' '};
+	char value2[50]={' '};
+	value1[0] = 0;
+	value2[0] = 0;
+	while (comm[a] != 0 && comm[a] != ' ' && a < 50)
+	{
+		a++;
+	}
+	strncpy(value1, temp, a);
+	value1[a] = 0;
+	if (value1[0] != '[' && comm[a] != 0)
+		strcpy(value2, comm + a + 1);
+	if (pc_currchar->CountBankGold() >= str2num(value2))
+	{
+		int goldcount = str2num(value2);
+		addgold(c, goldcount);
+		goldsfx(c, goldcount);
+		DeleBankItem(DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldcount);
+		sprintf(temp, "%s here is your withdraw of %i.", pc_currchar->name, goldcount);
+		npctalk(c, i, temp, 1);
+		return true;
+	}
+	else
+		sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
+	npctalk(c, i, temp, 1);
+	return true;
 }
 
 bool cCharStuff::cBankerAI::Check(int c, int i, char *comm)
 {
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
-	    int a=0;
-	    char value1[50]={' '};
-	    char value2[50]={' '};
-	    value1[0]=0;
-	    value2[0]=0;
-	    while(comm[a]!=0 && comm[a]!=' ' && a<50 )
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c], false);
+	int a = 0;
+	char value1[50]={' '};
+	char value2[50]={' '};
+	value1[0] = 0;
+	value2[0] = 0;
+	while (comm[a] != 0 && comm[a] != ' ' && a < 50)
+	{
+		a++;
+	}
+	strncpy(value1, temp, a);
+	value1[a] = 0;
+	if (value1[0] != '[' && comm[a] != 0)
+		strcpy(value2, comm + a + 1);
+	int d = pc_currchar->CountBankGold();
+	{
+		int goldcount = str2num(value2);
+		if (goldcount < 5000 || goldcount > 1000000)
 		{
-		   a++;
+			sprintf(temp, "%s you can only get checks worth 5000gp to 1000000gp.", pc_currchar->name);
+			npctalk(c, i, temp, 1);
+			return false;
 		}
-	    strncpy(value1, temp, a);
-	    value1[a]=0;
-	    if (value1[0]!='[' && comm[a]!=0) strcpy(value2, comm+a+1);
-		int d = pc_currchar->CountBankGold();
+		if (d >= goldcount)
 		{
-		    int goldcount=str2num(value2);
-			if(goldcount < 5000 || goldcount > 1000000)
-			{
-				sprintf(temp, "%s you can only get checks worth 5000gp to 1000000gp.", pc_currchar->name);
-		        npctalk(c, i, temp,1);
-		        return false;
-			}
-			if( d >= goldcount )
-			{
-				int n=Items->SpawnItem(c,DEREF_P_CHAR(pc_currchar),1,"bank check",0,0x14,0xF0,0,0,0,0); // bank check
-	            if(n==-1) return false;
-				const P_ITEM pi=MAKE_ITEMREF_LRV(n,false);
-				pi->type = 1000;
-                pi->setId(0x14F0);
-				pi->color1 = 0x00;
-				pi->color2 = 0x99;
-                pi->priv |= 0x02;
-				pi->value = goldcount;
-		        DeleBankItem(DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldcount );
-				P_ITEM bankbox = pc_currchar->GetBankBox();
-				bankbox->AddItem(pi);
-	            statwindow(c, DEREF_P_CHAR(pc_currchar));
-		        sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name, goldcount);
-		        npctalk(c, i, temp,1);
-		        return true;
-			}
-		    else
-		       sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
-	           npctalk(c, i, temp,1);
-	           return true;
+			int n = Items->SpawnItem(c, DEREF_P_CHAR(pc_currchar), 1, "bank check", 0, 0x14, 0xF0, 0, 0, 0, 0); // bank check
+			if (n==-1)
+				return false;
+			const P_ITEM pi = MAKE_ITEMREF_LRV(n, false);
+			pi->type = 1000;
+			pi->setId(0x14F0);
+			pi->color1 = 0x00;
+			pi->color2 = 0x99;
+			pi->priv |= 0x02;
+			pi->value = goldcount;
+			DeleBankItem(DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldcount);
+			P_ITEM bankbox = pc_currchar->GetBankBox();
+			bankbox->AddItem(pi);
+			statwindow(c, DEREF_P_CHAR(pc_currchar));
+			sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name, goldcount);
+			npctalk(c, i, temp, 1);
+			return true;
 		}
+		else
+			sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
+		npctalk(c, i, temp, 1);
+		return true;
+	}
 }
