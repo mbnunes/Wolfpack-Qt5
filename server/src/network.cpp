@@ -1447,41 +1447,41 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					} 
 					else if ((buffer[s][3]=='\x27')||(buffer[s][3]=='\x56'))  // Spell
 					{
-						j=0;
-						k=packitem(DEREF_P_CHAR(pc_currchar));
-						if (k!=-1) //lb
+						j = -1;
+						P_ITEM pBackpack = Packitem(pc_currchar);
+						if (pBackpack != NULL) //lb
 						{
-							serial=items[k].serial;
+							serial=pBackpack->serial;
 							serhash=serial%HASHMAX;
 							vector<SERIAL> vecContainer = contsp.getData(serial);
 							unsigned int i;
 							for (i = 0; i < vecContainer.size(); i++)
 							{
-								ci=calcItemFromSer(vecContainer[i]);
-								if (ci!=-1) //lb
-									if ((items[ci].contserial==serial) && (items[ci].type==9))
+								P_ITEM ci = FindItemBySerial(vecContainer[i]);
+								if (ci != NULL) //lb
+									if ((ci->contserial==serial) && (ci->type==9))
 									{
-										j=ci;
+										j = DEREF_P_ITEM(ci);
 										break;
 									}
 							}
 						}
-						if (j==0)
+						if (j == -1)
 						{
 							serial = pc_currchar->serial;
 							vector<SERIAL> vecContainer = contsp.getData(serial);
 							unsigned int i;
 							for (i=0;i<vecContainer.size();i++)
 							{
-								ci=calcItemFromSer(vecContainer[i]);
-								if (ci!=-1) //lb
-									if ((items[ci].contserial==serial) && (items[ci].layer==1)) 
+								P_ITEM ci = FindItemBySerial(vecContainer[i]);
+								if ( ci != NULL ) //lb
+									if ((ci->contserial==serial) && (ci->layer==1)) 
 									{
-										j=ci;
+										j = DEREF_P_ITEM(ci);
 									}
 							}
 						}
-						if (j!=0)
+						if (j != -1)
 						{
 							book=buffer[s][4]-0x30;
 							if (buffer[s][5]>0x20) 
@@ -1489,7 +1489,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 								book=(book*10)+(buffer[s][5]-0x30);
 							}
 						}
-						if (j!=0 && Magic->CheckBook(((book-1)/8)+1, (book-1)%8, j)) 
+						if (j!=-1 && Magic->CheckBook(((book-1)/8)+1, (book-1)%8, j)) 
 							if (pc_currchar->priv2&2) // REAL cant cast while frozen bugfix, lord binary
 							{
 								if (pc_currchar->casting)
@@ -1597,12 +1597,11 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 				case 0x3a: // client 1.26.2b+ skill managment packet
                      
-               			// -> 0,1,2,3 -> ignore them
-               			// -> 4 = skill number
-               			// -> 5 = 0 raising (up), 1 falling=candidate for atrophy, 2 = locked
-               				pc_currchar->lockSkill[buffer[s][4]]=buffer[s][5]; // save skill managment changes
-
-            				break;
+               		// -> 0,1,2,3 -> ignore them
+               		// -> 4 = skill number
+               		// -> 5 = 0 raising (up), 1 falling=candidate for atrophy, 2 = locked
+               		pc_currchar->lockSkill[buffer[s][4]] = buffer[s][5]; // save skill managment changes
+            		break;
 
 				case 0xA7:// Get Tip			
 					tips(s, (buffer[s][1]<<8)+buffer[s][2]+1);

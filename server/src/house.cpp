@@ -66,12 +66,13 @@ void cHouseManager::HomeTarget(int s, int a1, int a2, int a3, int a4, char b1, c
 //|                  using HOUSE ITEM, (this includes all doors!) and locked "LOCK"
 //|                  Space around the house with SPACEX/Y and CHAR offset CHARX/Y/Z
 //o---------------------------------------------------------------------------o
-void cHouseManager::AddHome(int s,int i)
+void cHouseManager::AddHome(int s, int i)
 {
-	int x,y,key,loopexit=0;//where they click, and the house/key items
+	int x,y,loopexit=0;//where they click, and the house/key items
+	P_ITEM pKey = NULL;
 	signed char z;
 	int sx=0,sy=0;                                  //space around the house needed
-	int k,l,tmp;                                            //Temps
+	int k,tmp;                                            //Temps
 	int hitem[100],icount=0;//extra "house items" (up to 100)
 	char sect[512];                         //file reading
 	unsigned char id1,id2;                                   //house ID
@@ -230,18 +231,18 @@ void cHouseManager::AddHome(int s,int i)
 		
 		if (othername) strcpy((char*)temp,name);
 		
-		P_ITEM pHouse=Items->SpawnItem(DEREF_P_CHAR(pc_currchar), 1,(char*)temp,0,(id1<<8)+id2,0,0);
-		if (!pHouse) return;		
+		P_ITEM pMulti = Items->SpawnItem(DEREF_P_CHAR(pc_currchar), 1,(char*)temp,0,(id1<<8)+id2,0,0);
+		if (!pMulti) return;		
 		pc_currchar->making=0;
-		pHouse->MoveTo(x,y,z);
-		pHouse->priv=0;
-		pHouse->more4 = itemsdecay; // set to 1 to make items in houses decay
-		pHouse->morex=hdeed; // crackerjack 8/9/99 - for converting back *into* deeds
-		pHouse->SetOwnSerial(pc_currchar->serial);
+		pMulti->MoveTo(x,y,z);
+		pMulti->priv=0;
+		pMulti->more4 = itemsdecay; // set to 1 to make items in houses decay
+		pMulti->morex=hdeed; // crackerjack 8/9/99 - for converting back *into* deeds
+		pMulti->SetOwnSerial(pc_currchar->serial);
 		if (!hitem[0] && !boat)
 		{
 			teleport(DEREF_P_CHAR(pc_currchar));
-			cRegion::RegionIterator4Items rii(pHouse->pos);
+			cRegion::RegionIterator4Items rii(pMulti->pos);
 			for(rii.Begin();rii.GetData() != rii.End(); rii++)
 			{
 				P_ITEM sii = rii.GetData();
@@ -252,9 +253,9 @@ void cHouseManager::AddHome(int s,int i)
 		
 		if(boat) //Boats
 		{
-			if(!Boats->Build(s,DEREF_P_ITEM(pHouse), id2))
+			if(!Boats->Build(s,DEREF_P_ITEM(pMulti), id2))
 			{
-				Items->DeleItem(pHouse);
+				Items->DeleItem(pMulti);
 				return;
 			} 
 		}
@@ -277,40 +278,41 @@ void cHouseManager::AddHome(int s,int i)
 		House[houseSize]->pos.z=z;
 		House[houseSize]->id1=id1;
 		House[houseSize]->id2=id2;
-		House[houseSize]->serial=pHouse->serial;
+		House[houseSize]->serial=pMulti->serial;
 		House[houseSize]->OwnerSerial=pc_currchar->serial;
 		House[houseSize]->OwnerAccount=pc_currchar->account;
 		House[houseSize]->LockAmount=lockamount;
 		House[houseSize]->SecureAmount=secureamount;
 	
-		if (id2>=112&&id2<=115) key=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1);//iron key for tents
-		else if(id2<=0x18) key=Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"a ship key",0,0x10,0x13,0,0,1,1);//Boats -Rusty Iron Key
-		else key=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else;
+		if (id2>=112&&id2<=115) pKey = MAKE_ITEM_REF(Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a tent key", 0, 0x10, 0x10,0, 0,1,1));//iron key for tents
+		else if(id2<=0x18) pKey = MAKE_ITEM_REF(Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),1,"a ship key",0,0x10,0x13,0,0,1,1));//Boats -Rusty Iron Key
+		else pKey = MAKE_ITEM_REF(Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1));//gold key for everything else;
 		
-		items[key].more1=pHouse->ser1;//use the house's serial for the more on the key to keep it unique
-		items[key].more2=pHouse->ser2;
-		items[key].more3=pHouse->ser3;
-		items[key].more4=pHouse->ser4;
-		items[key].type=7;
-		items[key].priv=2; // Newbify key..Ripper
+		pKey->more1=pMulti->ser1;//use the house's serial for the more on the key to keep it unique
+		pKey->more2=pMulti->ser2;
+		pKey->more3=pMulti->ser3;
+		pKey->more4=pMulti->ser4;
+		pKey->type=7;
+		pKey->priv=2; // Newbify key..Ripper
         
-		ITEM key2=Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);
+		P_ITEM pKey2 = MAKE_ITEM_REF(Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1));
 		P_ITEM bankbox = pc_currchar->GetBankBox();
-		P_ITEM p_key=MAKE_ITEMREF_LR(key2);
-		p_key->more1=pHouse->ser1;
-		p_key->more2=pHouse->ser2;
-		p_key->more3=pHouse->ser3;
-		p_key->more4=pHouse->ser4;
-		p_key->type=7;
-		p_key->priv=2;
-		bankbox->AddItem(p_key);
+		pKey2->more1=pMulti->ser1;
+		pKey2->more2=pMulti->ser2;
+		pKey2->more3=pMulti->ser3;
+		pKey2->more4=pMulti->ser4;
+		pKey2->type=7;
+		pKey2->priv=2;
+		bankbox->AddItem(pKey2);
 		
 		if(nokey) 
 		{
-			Items->DeleItem(key); // No key for .. nokey items
-			Items->DeleItem(key2);
+			Items->DeleItem(pKey); // No key for .. nokey items
+			Items->DeleItem(pKey2);
 		}
 		
+		P_ITEM pHouseItem = NULL;
+
 		for (k=0;k<icount;k++)//Loop through the HOUSE_ITEMs
 		{
 			openscript("house.scp");
@@ -331,70 +333,71 @@ void cHouseManager::AddHome(int s,int i)
 						{
 							pos=ftell(scpfile);// To prevent accidental exit of loop.
 							closescript();
-							l=Items->CreateScriptItem(s,str2num(script2),0);//This opens the item script... so we gotta keep track of where we are with the other script.
+							pHouseItem = MAKE_ITEM_REF(Items->CreateScriptItem(s,str2num(script2),0));//This opens the item script... so we gotta keep track of where we are with the other script.
 							openscript("house.scp");
 							fseek(scpfile, pos, SEEK_SET);
 							strcpy((char*)script1, "ITEM");
-							items[l].magic=2;//Non-Movebale by default
-							items[l].priv=0;//since even things in houses decay, no-decay by default
-							items[l].pos.x=x;
-							items[l].pos.y=y;
-							items[l].pos.z=z;
-							items[l].SetOwnSerial(pc_currchar->serial);
+							pHouseItem->magic=2;//Non-Movebale by default
+							pHouseItem->priv=0;//since even things in houses decay, no-decay by default
+							pHouseItem->pos.x=x;
+							pHouseItem->pos.y=y;
+							pHouseItem->pos.z=z;
+							pHouseItem->SetOwnSerial(pc_currchar->serial);
 						}
-						if (!(strcmp((char*)script1,"DECAY")))
+						else if (!(strcmp((char*)script1,"DECAY")))
 						{
-							items[l].priv |= 0x01;
+							pHouseItem->priv |= 0x01;
 						}
-						if (!(strcmp((char*)script1,"NODECAY")))
+						else if (!(strcmp((char*)script1,"NODECAY")))
 						{
-							items[l].priv=0;
+							pHouseItem->priv=0;
 						}
-						if (!(strcmp((char*)script1,"PACK")))//put the item in the Builder's Backpack
+						else if (!(strcmp((char*)script1,"PACK")))//put the item in the Builder's Backpack
 						{
-							items[l].SetContSerial(items[packitem(DEREF_P_CHAR(pc_currchar))].serial);
-							items[l].pos.x=rand()%90+31;
-							items[l].pos.y=rand()%90+31;
-							items[l].pos.z=9;
+							pHouseItem->SetContSerial(items[packitem(DEREF_P_CHAR(pc_currchar))].serial);
+							pHouseItem->pos.x=rand()%90+31;
+							pHouseItem->pos.y=rand()%90+31;
+							pHouseItem->pos.z=9;
 						}
-						if (!(strcmp((char*)script1,"MOVEABLE")))
+						else if (!(strcmp((char*)script1,"MOVEABLE")))
 						{
-							items[l].magic=1;
+							pHouseItem->magic=1;
 						}
-						if (!(strcmp((char*)script1,"LOCK")))//lock it with the house key
+						else if (!(strcmp((char*)script1,"LOCK")))//lock it with the house key
 						{
-							items[l].more1=pHouse->ser1;
-							items[l].more2=pHouse->ser2;
-							items[l].more3=pHouse->ser3;
-							items[l].more4=pHouse->ser4;
+							pHouseItem->more1=pHouseItem->ser1;
+							pHouseItem->more2=pHouseItem->ser2;
+							pHouseItem->more3=pHouseItem->ser3;
+							pHouseItem->more4=pHouseItem->ser4;
 						}
-						if (!(strcmp((char*)script1,"X")))//offset + or - from the center of the house:
+						else if (!(strcmp((char*)script1,"X")))//offset + or - from the center of the house:
 						{
-							items[l].pos.x=x+str2num(script2);
+							pHouseItem->pos.x=x+str2num(script2);
 						}
-						if (!(strcmp((char*)script1,"Y")))
+						else if (!(strcmp((char*)script1,"Y")))
 						{ 
-							items[l].pos.y=y+str2num(script2);
+							pHouseItem->pos.y=y+str2num(script2);
 						}
-						if (!(strcmp((char*)script1,"Z")))
+						else if (!(strcmp((char*)script1,"Z")))
 						{
-							items[l].pos.z=z+str2num(script2);
+							pHouseItem->pos.z=z+str2num(script2);
 						}
 					}
 				}
 				while ( (strcmp((char*)script1,"}")) && (++loopexit < MAXLOOPS) );
 				
-				if (items[l].isInWorld()) 
-					mapRegions->Add(&items[l]);  //add to mapRegions
+				if (pHouseItem->isInWorld()) 
+					mapRegions->Add(pHouseItem);  //add to mapRegions
 				closescript();
 			}
 		}
-		cRegion::RegionIterator4Items ri(pHouse->pos);
+		cRegion::RegionIterator4Items ri(pHouseItem->pos);
 		for(ri.Begin();ri.GetData() != ri.End(); ri++)
 		{
 			P_ITEM si = ri.GetData();
 			sendinrange(DEREF_P_ITEM(si));
 		}
+		
 		if (!(norealmulti))
 		{
 			pc_currchar->pos.x=x+cx; //move char inside house
@@ -412,27 +415,28 @@ void cHouseManager::AddHome(int s,int i)
 // morex on the house item must be set to deed item # in items.scp.
 void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 {
+	P_ITEM pHouse = MAKE_ITEM_REF(i);
 	int ii,loopexit=0;
 	int x1, y1, x2, y2;
 	unsigned char ser1, ser2, ser3, ser4;
 	int playerCont;
-	if( i == -1 ) return;
+	if( pHouse == NULL ) return;
 	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
 	playerCont = packitem( DEREF_P_CHAR(pc) );
 	int a,checkgrid,increment,StartGrid,getcell,ab;		
-	if(pc->Owns(&items[i]) || pc->isGM())
+	if(pc->Owns(pHouse) || pc->isGM())
 	{
-		Map->MultiArea(i, &x1,&y1,&x2,&y2);
+		Map->MultiArea(pHouse, &x1,&y1,&x2,&y2);
 		
-		ii=Items->SpawnItemBackpack2(s, items[i].morex, 0);        // need to make before delete
+		ii=Items->SpawnItemBackpack2(s, pHouse->morex, 0);        // need to make before delete
 		if( ii == -1 ) return;
-		sprintf((char*)temp, "Demolishing House %s", items[i].name);
+		sprintf((char*)temp, "Demolishing House %s", pHouse->name);
 		sysmessage( s, (char*)temp );
-		ser1 = items[i].ser1;
-		ser2 = items[i].ser2;
-		ser3 = items[i].ser3;
-		ser4 = items[i].ser4;
-		Items->DeleItem(i);
+		ser1 = pHouse->ser1;
+		ser2 = pHouse->ser2;
+		ser3 = pHouse->ser3;
+		ser4 = pHouse->ser4;
+		Items->DeleItem(pHouse);
 		sprintf((char*)temp, "Converted into a %s.", items[ii].name);
 		sysmessage(s, (char*)temp); 
 		// door/sign delete

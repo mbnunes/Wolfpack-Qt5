@@ -2259,7 +2259,7 @@ void cSkills::updateSkillLevel(int c, int s)
 void cSkills::TDummy(int s)
 {
 	//unsigned int i;
-	int j,serial,hit;
+	int serial,hit;
 	int type = Combat->GetBowType(currchar[s]);
 	
 	if (type > 0)
@@ -2285,13 +2285,13 @@ void cSkills::TDummy(int s)
 		return;
 	}
 	serial=calcserial((buffer[s][1]&0x7F),buffer[s][2],buffer[s][3],buffer[s][4]);
-	j = calcItemFromSer( serial );
-	if (j!=-1)
+	P_ITEM pj = FindItemBySerial( serial );
+	if (pj != NULL)
 	{
-		if (items[j].id()==0x1070) items[j].setId(0x1071);
-		if (items[j].id()==0x1074) items[j].setId(0x1075);
-		tempeffect2(0, &items[j], 14, 0, 0, 0);
-		RefreshItem(j);
+		if (pj->id()==0x1070) pj->setId(0x1071);
+		if (pj->id()==0x1074) pj->setId(0x1075);
+		tempeffect2(0, pj, 14, 0, 0, 0);
+		RefreshItem(pj);
 	}
 	if(chars[currchar[s]].skill[skillused] < 300)
 	{

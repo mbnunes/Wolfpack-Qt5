@@ -163,7 +163,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 	int serial, serhash=-1, ci;
 	unsigned int i, uiTempi, uiCompleted = 0;
 	int tl;
-	int p, j, c, r;
+	int j, c, r;
 	P_ITEM pi_itemnum  = NULL;
 	P_ITEM pi_needitem = NULL;
 	int npcnum=-1;
@@ -385,7 +385,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						//*comm[1]='\0';
 						cline = &script2[0];
 						splitline();
-						p = makenumber(0);
+						int p = makenumber(0);
 						j = makenumber(1);
 						// End Magius(CHE) §
 						i = (rand()%1000) + 1;
@@ -437,7 +437,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						cline = &script2[0];
 						splitline();
 						j = makenumber(0);
-						p = makenumber(1);
+						int p = makenumber(1);
 						if (p <= 0)
 							p = 100;
 						if (ti>-1)
@@ -513,7 +513,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						cline = &script2[0];
 						splitline();
 						j = makenumber(0);
-						p = makenumber(1);
+						int p = makenumber(1);
 						if (p <= 0)
 							p = 100;
 						if (pi_evti != NULL)
@@ -576,7 +576,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						cline = &script2[0];
 						splitline();
 						j = makenumber(0);
-						p = makenumber(1);
+						int p = makenumber(1);
 						if (p <= 0)
 							p = 100;
 						if (pi_evti != NULL)
@@ -719,27 +719,13 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								pc_ts->hunger = 1;
 							switch (pc_ts->hunger)
 							{
-							case 0:  
-								sysmessage(ts, "You eat the food, but are still extremely hungry.");
-								break;
-							case 1:  
-								sysmessage(ts, "You eat the food, but are still extremely hungry.");
-								break;
-							case 2:  
-								sysmessage(ts, "After eating the food, you feel much less hungry.");
-								break;
-							case 3:  
-								sysmessage(ts, "You eat the food, and begin to feel more satiated.");
-								break;
-							case 4:  
-								sysmessage(ts, "You feel quite full after consuming the food.");
-								break;
-							case 5:  
-								sysmessage(ts, "You are nearly stuffed, but manage to eat the food.");
-								break;
-							case 6:  
-								sysmessage(ts, "You are simply too full to eat any more!");
-								break;
+							case 0:  sysmessage(ts, "You eat the food, but are still extremely hungry.");		break;
+							case 1:  sysmessage(ts, "You eat the food, but are still extremely hungry.");		break;
+							case 2:  sysmessage(ts, "After eating the food, you feel much less hungry.");		break;
+							case 3:  sysmessage(ts, "You eat the food, and begin to feel more satiated.");		break;
+							case 4:  sysmessage(ts, "You feel quite full after consuming the food.");			break;
+							case 5:  sysmessage(ts, "You are nearly stuffed, but manage to eat the food.");		break;
+							case 6:  sysmessage(ts, "You are simply too full to eat any more!");				break;
 							}
 						}
 						else if (!(strcmp("HEA", (char*)script1)))  // Do math on players health
@@ -822,9 +808,6 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							unsigned int low = 0, high = 0;
 							cline = &script2[0];
 							splitline();
-							p = packitem(currchar[ts]);
-							if (p==-1)
-								p = 0;
 							
 							low = makenumber(2);
 							high = (tnum == 4) ? makenumber(3) : low;
@@ -832,21 +815,20 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							// AntiChrist
 							pos = ftell(scpfile);
 							closescript();
-							c = Items->SpawnItem(ts,currchar[ts], r, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1);
-							if (c==-1)
+							pi_itemnum = MAKE_ITEM_REF(Items->SpawnItem(ts,currchar[ts], r, "#", 1, hexnumber(0), hexnumber(1), 0, 0, 1, 1));
+							if (pi_itemnum == NULL)
 							{
 								closescript();
 								return;
 							}
 							// Added colormem token here! by Magius(CHE) §
-							if (c>-1 && coloring>-1)
+							if (coloring > -1)
 							{
-								items[c].color1 = memcolor1;
-								items[c].color2 = memcolor2;
-								RefreshItem(c);
+								pi_itemnum->color1 = memcolor1;
+								pi_itemnum->color2 = memcolor2;
+								RefreshItem(pi_itemnum);
 							}
 							// end addons	
-							pi_itemnum = MAKE_ITEM_REF(c);
 							if (ttype)
 								openscript("triggers.scp");// AntiChrist
 							else 
@@ -1072,7 +1054,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							cline = &script2[0];
 							splitline();
 							j = makenumber(0);
-							p = makenumber(1);
+							int p = makenumber(1);
 							if (p <= 0)
 								p = 100;
 							if (ti>-1)
@@ -1275,6 +1257,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("NEWOWNER", (char*)script1)))  // Set ownership of item
 						{
+							int p;
 							if (pi_itemnum != NULL)
 							{
 								p = currchar[ts];
@@ -1296,10 +1279,11 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("NEED", (char*)script1)))  // The item here is required and will be removed
 						{
-							p = packitem(currchar[ts]);
-							if (p!=-1)
+							P_CHAR ts_currchar = MAKE_CHAR_REF(currchar[ts]);
+							P_ITEM pBackpack = Packitem(ts_currchar);
+							if (pBackpack != NULL)
 							{
-								serial = items[p].serial;
+								serial = pBackpack->serial;
 								vector<SERIAL> vecContainer = contsp.getData(serial);
 								for (ci = 0; ci < vecContainer.size(); ci++)
 								{
@@ -1371,7 +1355,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							cline = &script2[0];
 							splitline();
 							j = makenumber(0);
-							p = makenumber(1);
+							int p = makenumber(1);
 							if (p <= 0)
 								p = 100;
 							if (pi_needitem != NULL)
@@ -1433,7 +1417,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							cline = &script2[0];
 							splitline();
 							j = makenumber(0);
-							p = makenumber(1);
+							int p = makenumber(1);
 							if (p <= 0)
 								p = 100;
 							if (pi_needitem != NULL)
@@ -1593,7 +1577,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							cline = &script2[0];
 							splitline();
 							// comm[0] contains the id of the out-items!
-							p = makenumber(1);
+							int p = makenumber(1);
 							
 							// int tmp=hex2num(comm[0]);
 							// int id1=tmp>>8;
@@ -1762,7 +1746,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								x2 = pi->pos.x;
 								y2 = pi->pos.y;
 								z2 = pi->pos.z;
-								p = currchar[ts];
+								int p = currchar[ts];
 								r = packitem(currchar[ts]);
 								if (r!=-1) // lb
 									if (pi->contserial != items[r].serial)
@@ -1812,6 +1796,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						{
 							cline = &script2[0];
 							splitline();
+							int p;
 							if (makenumber(0) != 0)
 								p = (rand()%(makenumber(0))) + 1;
 							else 
@@ -1885,7 +1870,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						{
 							cline = &script2[0];
 							splitline();
-							p = makenumber(0);
+							int p = makenumber(0);
 							j = makenumber(1);
 							
 							if (j)
@@ -1965,7 +1950,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						{
 							if (pi != NULL)
 							{
-								p = currchar[ts];
+								int p = currchar[ts];
 								pi->SetOwnSerial(chars[p].serial);
 							}
 						}
@@ -1997,7 +1982,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						{
 							cline = &script2[0];
 							splitline();
-							p = makenumber(0);
+							int p = makenumber(0);
 							j = makenumber(1);
 							if (pi->trigon) // -Frazurbluu- beginning of skill raising items
 							{
@@ -2072,7 +2057,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 					case 'U':
 						if (!(strcmp("USEUP", (char*)script1)))  // The item here is required and will be removed
 						{
-							p = packitem(currchar[ts]);
+							int p = packitem(currchar[ts]);
 							if (p==-1)
 								p = 0;
 							

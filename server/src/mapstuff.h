@@ -97,7 +97,7 @@ public:
 // Functions
 private:
 	char VerLand(int landnum, land_st *land);
-	signed char MultiHeight(int i, short int x, short int y, signed char oldz);
+	signed char MultiHeight(P_ITEM pi, short int x, short int y, signed char oldz);
 	int MultiTile(int i, short int x, short int y, signed char oldz);
 	SI32 VerSeek(SI32 file, SI32 block);
 	char VerTile(int tilenum, tile_st *tile);
@@ -124,7 +124,7 @@ public:
 	signed char Height(short int x, short int y, signed char oldz);
 
 	// look at tile functions
-	void MultiArea(int i, int *x1, int *y1, int *x2, int *y2);
+	void MultiArea(P_ITEM pi, int *x1, int *y1, int *x2, int *y2);
 	void SeekTile(int tilenum, tile_st *tile);
 	void SeekMulti(int multinum, UOXFile **mfile, SI32 *length);
 	void SeekLand(int landnum, land_st *land);

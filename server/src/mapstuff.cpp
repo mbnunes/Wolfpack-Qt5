@@ -309,14 +309,14 @@ bool cMapStuff::DoesTileBlock( tile_st &tile )
 
 // crackerjack 8/9/1999 - finds the "corners" of a multitile object. I use
 // this for when houses are converted into deeds.
-void cMapStuff::MultiArea(int i, int *x1, int *y1, int *x2, int *y2)
+void cMapStuff::MultiArea(P_ITEM pi, int *x1, int *y1, int *x2, int *y2)
 {
 	st_multi multi;
 	UOXFile *mfile = NULL;
 	SI32 length = 0;
 	
 	*x1 = *y1 = *x2 = *y2 = 0;
-	SeekMulti(items[i].id()-0x4000, &mfile, &length);
+	SeekMulti(pi->id()-0x4000, &mfile, &length);
 	length=length/MultiRecordSize;
 	if (length == -1 || length>=17000000)
 		length = 0;//Too big...  bug fix hopefully (Abaddon 13 Sept 1999)
@@ -329,19 +329,19 @@ void cMapStuff::MultiArea(int i, int *x1, int *y1, int *x2, int *y2)
 		if(multi.y<*y1) *y1=multi.y;
 		if(multi.y>*y2) *y2=multi.y;
 	}
-	*x1+=items[i].pos.x;
-	*x2+=items[i].pos.x;
-	*y1+=items[i].pos.y;
-	*y2+=items[i].pos.y;
+	*x1+=pi->pos.x;
+	*x2+=pi->pos.x;
+	*y1+=pi->pos.y;
+	*y2+=pi->pos.y;
 }
 
 // return the height of a multi item at the given x,y. this seems to actually return a height
 //int cMapStuff::MultiHeight(int i, int x, int y, int oldz)
-signed char cMapStuff::MultiHeight(int i, short int x, short int y, signed char oldz)
+signed char cMapStuff::MultiHeight(P_ITEM pi, short int x, short int y, signed char oldz)
 {                                                                                                                                  	st_multi multi;                                                                                                               
 	UOXFile *mfile = NULL;
 	SI32 length = 0;
-	SeekMulti(items[i].id()-0x4000, &mfile, &length);                                                           
+	SeekMulti(pi->id()-0x4000, &mfile, &length);                                                           
 	length = length / MultiRecordSize;                                                                                               
 	if (length == -1 || length>=17000000)//Too big... bug fix hopefully (Abaddon 13 Sept 1999)
 	{                                                                                                                             
@@ -353,9 +353,9 @@ signed char cMapStuff::MultiHeight(int i, short int x, short int y, signed char 
 	for (int j=0;j<length;j++)
 	{
 		mfile->get_st_multi(&multi);
-		if (multi.visible && (items[i].pos.x+multi.x == x) && (items[i].pos.y+multi.y == y))
+		if (multi.visible && (pi->pos.x+multi.x == x) && (pi->pos.y+multi.y == y))
 		{
-			int tmpTop = items[i].pos.z + multi.z;
+			int tmpTop = pi->pos.z + multi.z;
 			if ((tmpTop<=oldz+MaxZstep)&& (tmpTop>=oldz-1))
 			{
 				//clConsole.send("At or above=%i\n",multi.z);
@@ -389,7 +389,7 @@ signed char cMapStuff::DynamicElevation(short int x, short int y, signed char ol
 		{
 			if(mapitem->isMulti())
 			{
-				z = MultiHeight(DEREF_P_ITEM(mapitem), x ,y, oldz);
+				z = MultiHeight(mapitem, x ,y, oldz);
 				// this used to do a z++, but that doesn't take into account the fact that
 				// the itemp[] the multi was based on has its own elevation
 				z += mapitem->pos.z + 1;

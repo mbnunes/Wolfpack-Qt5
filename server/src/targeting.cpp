@@ -2770,11 +2770,11 @@ void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out
 		return;
 	int serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
 	if(serial == INVALID_SERIAL) return;
-	int h=calcItemFromSer(serial);
-	if(h!=-1)
+	P_ITEM pHouse = FindItemBySerial(serial);
+	if(pHouse != NULL)
 	{
 		int sx, sy, ex, ey;
-		Map->MultiArea(h, &sx,&sy,&ex,&ey);
+		Map->MultiArea(pHouse, &sx,&sy,&ex,&ey);
 		if(pc->serial == chars[currchar[s]].serial)
 		{
 			sysmessage(s,"Do you really want to do that?!");
