@@ -36,7 +36,7 @@
 	<!-- Small Horde Minion -->
 	<npc id="horde_minion_1" inherit="horde_minion">
 		<id>776</id>
-		<category>Monsters\ADaemonic\Horde Minion (Small)</category>
+		<category>Monsters\Daemonic\Horde Minion (Small)</category>
 	</npc>
 
 	<!-- Medium Horde Minion -->
