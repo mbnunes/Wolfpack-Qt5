@@ -251,17 +251,6 @@ void commandSet( cUOSocket* socket, const QString& command, const QStringList& a
 }
 
 /*
-	\command resend
-	\description Resend the player and the surrounding objects.
-*/
-void commandResend( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( args );
-	Q_UNUSED( command );
-	socket->resendPlayer( false );
-}
-
-/*
 	\command remove
 	\description Delete an item or character.
 */
@@ -1031,7 +1020,6 @@ stCommand cCommands::commands[] =
 	{ "PAGENOTIFY", commandPageNotify },
 	{ "RELOAD", commandReload },
 	{ "REMOVE", commandRemove },
-	{ "RESEND", commandResend },
 	{ "RESTOCK", commandRestock },
 	{ "SAVE", commandSave },
 	{ "SERVERTIME", commandServerTime },
