@@ -133,8 +133,9 @@ def main():
 		LIBS = "-l%s -L%s" % ( py_libfile, py_libpath )
 	
 	config.write("LIBS += %s\n" % LIBS)
+	config.close()
 	
-	config.write("Generating makefile...")
+	sys.stdout.write("Generating makefile...")
 	os.execv(qt_qmake, [qt_qmake, "wolfpack.pro"])
 
 	

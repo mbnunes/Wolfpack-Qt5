@@ -358,10 +358,10 @@ public:
 	void setMaxhp( SI16 nValue )
 	{
 		maxhp_ = nValue; flagChanged(); changed( TOOLTIP );
-	};
+	}
 	void setNewbie( bool nValue )
 	{
-		( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; flagChanged(); changed( TOOLTIP );
+		( nValue ) ? priv_ |= 0x02 : priv_ &= ~0x02; flagChanged(); changed( TOOLTIP );
 	}
 	void setUnprocessed( bool nValue )
 	{

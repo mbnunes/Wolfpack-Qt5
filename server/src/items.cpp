@@ -1865,7 +1865,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 	}
 
 		/*
-		\property item.magic The movable permission for the object.
+		\property item.movable The movable permission for the object.
 		Values:
 		<code>0 - Tiledata default
 		1 - Movable by anyone
@@ -1874,7 +1874,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 		</code>
 		*/
 	else
-		SET_INT_PROPERTY( "magic", magic_ )
+		SET_INT_PROPERTY( "movable", magic_ )
 
 		// Flags
 		/*
@@ -2063,7 +2063,7 @@ stError* cItem::getProperty( const QString& name, cVariant& value )
 	else
 		GET_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
 	else
-		GET_PROPERTY( "magic", magic_ )
+		GET_PROPERTY( "movable", magic_ )
 
 		// Flags
 	else

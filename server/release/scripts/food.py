@@ -93,7 +93,7 @@ def onCollide( char, item ):
 		if char.baseid in farm_eaters:
 			char.events = ['food'] + char.events
 			char.say( "*nibbles*" )
-			item.magic = 3
+			item.movable = 3
 			item.update()
 			return True
 		else:

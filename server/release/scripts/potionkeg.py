@@ -94,7 +94,7 @@ def onUse( char, potionkeg ):
 			if not newpot:
 				return False
 			newpot.decay = 1
-			newpot.magic = 1
+			newpot.movable = 1
 			socket.clilocmessage( 502242 ) # You pour some of the keg's contents into an empty bottle...
 			socket.clilocmessage( 502243 ) # ...and place it into your backpack.
 			if not wolfpack.utilities.tobackpack( newpot, char ):
