@@ -14,7 +14,6 @@ ANTIMACRO = 5
 #SKILLID, STRGAIN, DEXGAIN, INTGAIN, GAINFACTOR, SKILLCAP, ANTIMACRO
 skilltable = \
 {
-
 ALCHEMY:					[0, 0.5, 0.5, 1, 1000, FALSE],
 ANATOMY:					[0.15, 0.15, 0.7, 1, 1000, FALSE ],
 ANIMALLORE:				[0, 0, 1, 1, 1000, FALSE ], 
@@ -87,26 +86,6 @@ def onSkillUse( char, skill ):
 		
 	return 0
 
-# table structure - look mining.py
-def successharvest( char, gem, table, resname, amount ):
-	socket = char.socket
-	message = table[ resname ][ SUCCESSCLILOC ]
-	backpack = char.getbackpack()
-	if not backpack:
-		return OOPS
-	resourceitem = wolfpack.newitem( 1 ) # Get new serial
-	resourceitem.decay = 1
-	resourceitem.color = table[ resname ][ COLORID ]
-	resourceitem.id = table[ resname ][ RESOURCEID ]
-	resourceitem.amount = amount
-        gem.settag( 'resourcecount', str( int( gem.gettag( 'resourcecount' ) ) - amount ) )
-
-	backpack.additem( resourceitem )
-
-	socket.clilocmessage( table[ resname ][ SUCCESSCLILOC ], "", GREEN, NORMAL )
-	return OK
-
-
 def checkskill( char, targetobject, skillid, chance ):
 	if char.dead:
 		return OOPS
@@ -173,7 +152,7 @@ def skillgain( char, skillid ):
 
 def statgain( char, stat ):
 	#STATGAINDELAY is not over ?
-	if char.hastag( 'laststatgain' ) and ( time.time() - int(char.gettag( 'laststatgain' ) ) ) < STATGAINDELAY:
+	if char.hastag( 'laststatgain' ) and ( time.time() - float(char.gettag( 'laststatgain' ) ) ) < STATGAINDELAY:
 		return OOPS
 	
 	char.settag( 'laststatgain', str( time.time() ) )

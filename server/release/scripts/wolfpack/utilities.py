@@ -119,6 +119,12 @@ def hex2dec( value ):
 	else:
 		return int( value.replace( "0x", "" ), 16 )
 
+def evenorodd( value ):
+	if value % 2 == 0:
+		return "even"
+	else:
+		return "odd"
+
 def itemsmatch( a, b ):
 	return a.type == b.type and a.id == b.id and a.color == b.color and a.events == b.events
 

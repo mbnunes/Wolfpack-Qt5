@@ -25,21 +25,23 @@
 	<script>commoditydeed</script>
 	<script>clothing_bless_deed</script>
 	<script>item_bless_deed</script>
-	<script>carpentry_deed</script>	
+	<script>carpentry_deed</script>
 	<script>environment</script>
 	<script>door</script>
 	<script>lock</script>
 	<script>book</script>
 	<script>equipment</script>
 	<script>bandages</script>
-  <script>key</script>
-	
+	<script>key</script>
+	<script>ore</script>
+
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
 	<script>wolfpack.commands.action</script>
 	<script>wolfpack.commands.bank</script>
 	<script>wolfpack.commands.cast</script>
 	<script>wolfpack.commands.decoration</script>
+	<script>wolfpack.commands.dye</script>
 	<script>wolfpack.commands.export</script>
 	<script>wolfpack.commands.import</script>
 	<script>wolfpack.commands.info</script>
@@ -47,6 +49,7 @@
 	<script>wolfpack.commands.wipe</script>
 	<script>wolfpack.commands.skill</script>
 	<script>wolfpack.commands.stat</script>
+	<script>wolfpack.commands.sound</script>
 	<script>wolfpack.commands.travel</script>
 
 	<!-- Magic -->
@@ -81,7 +84,7 @@
 	<!-- Multis -->
 	<script>multideed</script>
 	<script>signpost</script>
-	
+
 	<!-- Moongate -->
 	<script>moongate</script>
 

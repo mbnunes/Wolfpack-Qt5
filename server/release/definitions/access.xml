@@ -17,7 +17,7 @@
 		</group>
 		<group name="multi"></group>
 	</acl>
-	
+
 	<!-- Admin privs -->
 	<acl id="admin" plevel="100">
 		<group name="command">
@@ -30,7 +30,7 @@
 			<action name="any" permit="true" />
 		</group>
 	</acl>
-	
+
 	<!-- GameMaster privs -->
 	<acl id="gm" plevel="50">
 		<group name="command">
@@ -45,7 +45,7 @@
 	<acl id="counselor" plevel="25">
 		<group name="command">
 			<action name="any" permit="true" />
-		</group>		
+		</group>
 		<group name="multi"></group>
 	</acl>
 </definitions>

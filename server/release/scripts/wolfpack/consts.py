@@ -8,7 +8,7 @@
 #===============================================================#
 
 # Which port should the remote admin run on
-REMOTEADMIN_PORT = 2594
+REMOTEADMIN_PORT = 2600
 
 # Spell Settings
 CLUMSY_DURATION = 60000
@@ -18,8 +18,8 @@ COTTONPLANTS_REGROW = 30
 
 # Potions
 POTION_LESSERHEAL_RANGE = [ 1, 16 ]
-POTION_HEAL_RANGE = [ 1, 16 ]
-POTION_GREATERHEAL_RANGE = [ 1, 16 ]
+POTION_HEAL_RANGE = [ 3, 19 ]
+POTION_GREATERHEAL_RANGE = [ 5, 25 ]
 
 # Fishing Settings
 FISHING_MIN_FISH = 25	 # Minimum fish in a 8x8 block
@@ -36,7 +36,7 @@ LUMBERJACKING_MAX_SKILL = 600
 LUMBERJACKING_REFILLTIME = 60 * 5 # 5 Minutes Refresh time for trees
 
 # Mining Settings
-MINING_MAX_DISTANCE = 2
+MINING_MAX_DISTANCE = 3
 
 
 # Skill Constants
@@ -105,16 +105,61 @@ skillnames = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parryi
 	'macefighting', 'fencing', 'wrestling', 'lumberjacking', 'mining', 'meditation',
 	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry' ]
 
-skillnamesids = { 'alchemy' : ALCHEMY, 'anatomy' : ANATOMY, 'animallore' : ANIMALLORE, 'itemid' : ITEMID, 'armslore' : ARMSLORE, 'parrying' : PARRYING,
-	'begging' : BEGGING, 'blacksmithing' : BLACKSMITHING, 'bowcraft' : BOWCRAFT, 'peacemaking' : PEACEMAKING, 'camping' : CAMPING, 'carpentry' : CARPENTRY,
-	'cartography' : CARTOGRAPHY, 'cooking' : COOKING, 'detectinghidden' : DETECTINGHIDDEN, 'enticement' : ENTICEMENT, 'evaluatingintel' : EVALUATINGINTEL,
-	'healing' : HEALING, 'fishing' : FISHING, 'forensics' : FORENSICS, 'herding' : HERDING, 'hiding' : HIDING, 'provocation' : PROVOCATION,
-	'inscription' : INSCRIPTION, 'lockpicking' : LOCKPICKING, 'magery' : MAGERY, 'magicresistance' : MAGICRESISTANCE, 'tactics' : TACTICS, 'snooping' : SNOOPING,
-	'musicianship' : MUSICIANSHIP, 'poisoning' : POISONING, 'archery' : ARCHERY, 'spiritspeak' : SPIRITSPEAK, 'stealing' : STEALING, 'tailoring' : TAILORING,
-	'taming' : TAMING, 'tasteid' : TASTEID, 'tinkering' : TINKERING, 'tracking' : TRACKING, 'veterinary' : VETERINARY, 'swordsmanship' : SWORDSMANSHIP,
-	'macefighting' : MACEFIGHTING, 'fencing' : FENCING, 'wrestling' : WRESTLING, 'lumberjacking' : LUMBERJACKING, 'mining' : MINING, 'meditation' : MEDITATION,
-	'stealth' : STEALTH, 'removetraps' : REMOVETRAPS, 'necromancy' : NECROMANCY, 'focus' : FOCUS, 'chivalry' : CHIVALRY }
-
+skillnamesids = \
+{ 
+	'alchemy' : ALCHEMY, 
+	'anatomy' : ANATOMY, 
+	'animallore' : ANIMALLORE, 
+	'itemid' : ITEMID, 
+	'armslore' : ARMSLORE, 
+	'parrying' : PARRYING,
+	'begging' : BEGGING, 
+	'blacksmithing' : BLACKSMITHING, 
+	'bowcraft' : BOWCRAFT, 
+	'peacemaking' : PEACEMAKING, 
+	'camping' : CAMPING, 
+	'carpentry' : CARPENTRY,
+	'cartography' : CARTOGRAPHY, 
+	'cooking' : COOKING, 
+	'detectinghidden' : DETECTINGHIDDEN, 
+	'enticement' : ENTICEMENT, 
+	'evaluatingintel' : EVALUATINGINTEL,
+	'healing' : HEALING, 
+	'fishing' : FISHING, 
+	'forensics' : FORENSICS, 
+	'herding' : HERDING, 
+	'hiding' : HIDING, 
+	'provocation' : PROVOCATION,
+	'inscription' : INSCRIPTION, 
+	'lockpicking' : LOCKPICKING, 
+	'magery' : MAGERY, 
+	'magicresistance' : MAGICRESISTANCE, 
+	'tactics' : TACTICS, 
+	'snooping' : SNOOPING,
+	'musicianship' : MUSICIANSHIP, 
+	'poisoning' : POISONING, 
+	'archery' : ARCHERY, 
+	'spiritspeak' : SPIRITSPEAK, 
+	'stealing' : STEALING, 
+	'tailoring' : TAILORING,
+	'taming' : TAMING, 
+	'tasteid' : TASTEID, 
+	'tinkering' : TINKERING, 
+	'tracking' : TRACKING, 
+	'veterinary' : VETERINARY, 
+	'swordsmanship' : SWORDSMANSHIP,
+	'macefighting' : MACEFIGHTING, 
+	'fencing' : FENCING, 
+	'wrestling' : WRESTLING, 
+	'lumberjacking' : LUMBERJACKING, 
+	'mining' : MINING, 
+	'meditation' : MEDITATION,
+	'stealth' : STEALTH, 
+	'removetraps' : REMOVETRAPS, 
+	'necromancy' : NECROMANCY, 
+	'focus' : FOCUS, 
+	'chivalry' : CHIVALRY 
+}
 
 statnames = [ 'str', 'int', 'dex' ]
 
@@ -125,7 +170,6 @@ HEALTH = 2
 DEXTERITY = 3
 INTELLIGENCE = 4
 STRENGTH = 5
-
 
 #Requirements
 MANACOST = 0
@@ -140,7 +184,7 @@ ENERGY = 3
 FIRE = 4
 HITCHANCE = 5
 LOWERATTACK = 6
-LOWERDEFENCE = 7	   
+LOWERDEFENCE = 7
 #... here we need to add every spell also
 
 #Enhancements
@@ -153,15 +197,14 @@ CASTSPEED = 5	   #Faster casting
 CASTRECOVERY = 6   #Faster cast recovery
 
 #Advanced properties ID's
-REGEN = 1	
-BONUS = 2	
+REGEN = 1
+BONUS = 2
 DAMAGE = 3
-ENH = 4	
-HIT = 5	
-REQ = 6	
+ENH = 4
+HIT = 5
+REQ = 6
 RESIST = 7
 REFLECT = 8
-
 
 # Constants for char.sound
 SND_STARTATTACK = 0
@@ -334,16 +377,13 @@ NORMAL = 3
 OK = 1
 OOPS = 0
 
-
-# Harvest table items
+# Mining Harvest Table Items
 REQSKILL = 0
 MINSKILL = 1
 MAXSKILL = 2
 SUCCESSCLILOC = 3
-RESOURCEID = 4
-COLORID = 5
-MUTATECHANCE = 6
-FALLBACKCHANCE = 7 
+COLORID = 4
+RESOURCENAME = 5
 
 #SKILLS GROW LOCKS
 GROWUP = 0
@@ -351,7 +391,7 @@ GROWDOWN = 1
 GROWLOCK = 2
 
 #Stat gain delay = 15 minutes ( 900 seconds )
-STATGAINDELAY = 900 
+STATGAINDELAY = 900
 
 RELOAD_SCRIPTS = 0
 RELOAD_PYTHON = 1
