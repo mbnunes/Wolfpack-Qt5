@@ -42,6 +42,7 @@
 	<!-- Misc. -->
 	<include file="definitions/regions/felucca/misc/britain_graveyard.xml" />
 	<include file="definitions/regions/felucca/misc/britain_passage.xml" />
+	<include file="definitions/regions/felucca/misc/moongates.xml" />
 	<include file="definitions/regions/felucca/misc/orc_forts.xml" />
 	<include file="definitions/regions/felucca/misc/shrines.xml" />
 	<include file="definitions/regions/felucca/misc/trinsic_passage.xml" />

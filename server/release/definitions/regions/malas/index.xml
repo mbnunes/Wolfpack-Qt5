@@ -1,0 +1,27 @@
+
+<definitions>
+	<!--
+	<region id="facet_malas">
+		<rectangle x1="1" y1="1" x2="2560" y2="2048" map="3" />
+	</region>
+	-->
+	<!-- Towns -->
+	<include file="definitions/regions/malas/towns/luna.xml" />
+	<include file="definitions/regions/malas/towns/umbra.xml" />
+	<!-- Dungeons -->
+	<include file="definitions/regions/malas/dungeons/doom.xml" />
+	<!-- Misc. -->
+	<include file="definitions/regions/malas/misc/bridge_of_the_divide.xml" />
+	<include file="definitions/regions/malas/misc/brigand_camps.xml" />
+	<include file="definitions/regions/malas/misc/broken_mountains.xml" />
+	<include file="definitions/regions/malas/misc/corrupted_forest.xml" />
+	<include file="definitions/regions/malas/misc/crumbling_continent.xml" />
+	<include file="definitions/regions/malas/misc/crystal_fens.xml" />
+	<include file="definitions/regions/malas/misc/desert_of_malas.xml" />
+	<include file="definitions/regions/malas/misc/dry_highlands.xml" />
+	<include file="definitions/regions/malas/misc/grand_arena.xml" />
+	<include file="definitions/regions/malas/misc/moongates.xml" />
+	<include file="definitions/regions/malas/misc/northern_crags.xml" />
+	<include file="definitions/regions/malas/misc/orc_forts.xml" />
+
+</definitions>

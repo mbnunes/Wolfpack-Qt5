@@ -43,6 +43,7 @@
 	<!-- Misc. -->
 	<include file="definitions/regions/trammel/misc/britain_graveyard.xml" />
 	<include file="definitions/regions/trammel/misc/britain_passage.xml" />
+	<include file="definitions/regions/trammel/misc/moongates.xml" />
 	<include file="definitions/regions/trammel/misc/orc_forts.xml" />
 	<include file="definitions/regions/trammel/misc/shrines.xml" />
 	<include file="definitions/regions/trammel/misc/trinsic_passage.xml" />
