@@ -452,18 +452,6 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 	{
 		startProfiling(PF_AICHECK);
 		npc->ai()->check();
-
-		// Check the current action
-		Monster_Aggr_MoveToTarget *a1 = dynamic_cast<Monster_Aggr_MoveToTarget*>(npc->ai()->currentAction());
-		Human_Guard_MoveToTarget *a2 = dynamic_cast<Human_Guard_MoveToTarget*>(npc->ai()->currentAction());
-
-		if (a1 || a2) {
-			npc->setAICheckTime( time + 100 );
-		} else {
-			unsigned int delay = RandomNum(250, 700);
-			npc->setAICheckTime( time +  delay );
-		}
-
 		stopProfiling(PF_AICHECK);
 	}
 

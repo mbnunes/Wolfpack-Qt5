@@ -297,13 +297,13 @@ void cNPC::setNextMoveTime(bool changedDirection)
 		interval += 200;
 	}
 
+	if (owner() && wanderFollowTarget() == owner() && ai_ && dynamic_cast<Action_Wander*>(ai_->currentAction()) != 0) {
+        interval >>= 1; // Half the time
+	}
+
 	// This creature is not player or monster controlled. Thus slower.
 	if (isTamed()) {
-		// Creatures following their owner are a lot faster than usual
-		if (wanderFollowTarget() == owner() && ai_ && dynamic_cast<Action_Wander*>(ai_->currentAction()) != 0) {
-            interval >>= 1; // Half the time
-		}
-        
+		// Creatures following their owner are a lot faster than usual 
 		interval -= 75; // A little faster
 	} else if (!summoned()) {
 		interval += 100; // The creature is not summoned nor tamed, make it a little slower
@@ -316,6 +316,10 @@ void cNPC::setNextMoveTime(bool changedDirection)
 	}
 
 	setNextMoveTime(Server::instance()->time() + interval);
+
+	if (nextMoveTime() < aiCheckTime()) {
+		setAICheckTime(nextMoveTime());
+	}
 }
 
 // Update flags etc.

@@ -163,11 +163,17 @@ void AbstractAI::check()
 	}
 #endif
 
+	m_npc->setAICheckTime(Server::instance()->time() + m_npc->wanderSpeed());
+
 	// Now we should have a current action set, else do nothing!
 	startProfiling(PF_AICHECKEXECUTEACTION);
 	if ( m_currentAction )
 	{
-		m_currentAction->execute();
+		if (!m_currentAction->isPassive()) {
+			m_npc->setAICheckTime(Server::instance()->time() + m_npc->actionSpeed());
+		}
+
+		m_currentAction->execute();		
 
 		// We must check the postcondition now and set the current action to NULL
 		// if the action is finished (when it returns >= 1.0f)!
@@ -183,6 +189,7 @@ void AbstractAI::check()
 			m_currentAction = NULL;
 		}
 	}
+
 	stopProfiling(PF_AICHECKEXECUTEACTION);
 }
 
@@ -633,9 +640,6 @@ void Action_Wander::execute()
 					} else {
 						moveTo( pTarget->pos());
 					}
-
-					if ( pTarget->dist( m_npc ) > 3 )
-						m_npc->setAICheckTime( ( uint )( Server::instance()->time() + ( float ) m_npc->aiCheckInterval() * 0.0005f * MY_CLOCKS_PER_SEC ) );
 				}
 			}
 			else
