@@ -602,13 +602,13 @@ inline IteratorState* initRectIterator( IteratorState* it, UI16 x1, UI16 y1, UI1
 	{
 		UI16 temp = x1;
 		x1 = x2;
-		x2 = x1;
+		x2 = temp;
 	}
 	if ( y2 < y1 )
 	{
 		UI16 temp = y1;
 		y1 = y2;
-		y2 = y1;
+		y2 = temp;
 	}
 
 	it->type = ITERATE_RECTANGLE;
