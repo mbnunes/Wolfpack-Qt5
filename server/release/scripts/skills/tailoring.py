@@ -48,7 +48,7 @@ def checktool(char, item, wearout = 0):
 			return 0
 		else:
 			item.settag('remaining_uses', uses - 1)
-	
+
 	return 1
 
 #
@@ -133,7 +133,7 @@ class TailorItemAction(CraftItemAction):
 		player.soundeffect(0x248)
 
 #
-# The Tailor menu. 
+# The Tailor menu.
 #
 class TailoringMenu(MakeMenu):
 	def __init__(self, id, parent, title):
@@ -160,7 +160,7 @@ class TailoringMenu(MakeMenu):
 		if target.item.container != player.getbackpack():
 			player.socket.clilocmessage(1044275)
 			return
-		
+
 		item = target.item
 		weapon = itemcheck(item, ITEM_WEAPON)
 		shield = itemcheck(item, ITEM_SHIELD)
@@ -254,10 +254,10 @@ def loadMenu(id, parent = None):
 		# Submenu
 		if child.name == 'menu':
 			if not child.hasattribute('id'):
-				console.log(LOG_ERROR, "Submenu with missing id attribute in menu %s.\n" % menu.id)		
+				console.log(LOG_ERROR, "Submenu with missing id attribute in menu %s.\n" % menu.id)
 			else:
-				loadMenu(child.getattribute('id'), menu)			
-		
+				loadMenu(child.getattribute('id'), menu)
+
 		# Craft an item
 		elif child.name == 'tailor':
 			if not child.hasattribute('definition') or not child.hasattribute('name'):
@@ -273,17 +273,17 @@ def loadMenu(id, parent = None):
 						if item:
 							itemchild = item.findchild('id')
 							if itemchild:
-								itemid = itemchild.value							
+								itemid = itemchild.value
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
 					action = TailorItemAction(menu, name, int(itemid), itemdef)
 				except:
 					console.log(LOG_ERROR, "Tailor action with invalid item id in menu %s.\n" % menu.id)
-				
-				# Process subitems				
+
+				# Process subitems
 				for j in range(0, child.childcount):
 					subchild = child.getchild(j)
-				 
+
 					# How much of the primary resource should be consumed
 					if subchild.name == 'leather':
 						action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
@@ -297,10 +297,11 @@ def loadMenu(id, parent = None):
 							ids = subchild.getattribute('id').split(';')
 							try:
 								amount = hex2dec(subchild.getattribute('amount', '1'))
+								materialname = hex2dec(subchild.getattribute('name', 'Unknown'))
 							except:
 								console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
 								break
-							action.materials.append([ids, amount])
+							action.materials.append([ids, amount, materialname])
 
 					# Skill requirement
 					elif subchild.name in skillnamesids:
@@ -309,13 +310,13 @@ def loadMenu(id, parent = None):
 							minimum = hex2dec(subchild.getattribute('min', '0'))
 						except:
 							console.log(LOG_ERROR, "%s element with invalid min value in menu %s.\n" % (subchild.name, menu.id))
-	
+
 						try:
 							maximum = hex2dec(subchild.getattribute('max', '1200'))
 						except:
 							console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
 						action.skills[skill] = [minimum, maximum]
-	
+
 	# Sort the menu. This is important for the makehistory to make.
 	menu.sort()
 

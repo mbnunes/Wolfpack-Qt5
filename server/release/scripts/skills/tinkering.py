@@ -81,7 +81,7 @@ class TinkerItemAction(CraftItemAction):
 	def getexceptionalchance(self, player, arguments):
 		if not self.markable:
 			return 0
-	
+
 		if not self.skills.has_key(TINKERING):
 			return 0
 
@@ -112,8 +112,8 @@ class TinkerItemAction(CraftItemAction):
 	#
 	def applyproperties(self, player, arguments, item, exceptional):
 		item.decay = 1
-	
-		# See if this item 
+
+		# See if this item
 		if self.retaincolor and self.submaterial1 > 0:
 			material = self.parent.getsubmaterial1used(player, arguments)
 			material = self.parent.submaterials1[material]
@@ -238,18 +238,20 @@ def loadMenu(id, parent = None):
 					# How much of the primary resource should be consumed
 					if subchild.name == 'ingots':
 						action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
-						
+
 					elif subchild.name == 'gems':
 						action.submaterial2 = hex2dec(subchild.getattribute('amount', '0'))
-	
+
 					# Standard material
 					elif subchild.name == 'logs':
 						amount = hex2dec(subchild.getattribute('amount', '0'))
-						action.materials.append([['1bdd','1be0','1bd7','1bda'], amount])
-						
+						materialname = hex2dec(subchild.getattribute('name', '1'))
+						action.materials.append([['1bdd','1bde','1bdf','1be0','1be1','1be2','1bd7','1bd8','1bd9','1bda','1bdb','1bdc'], amount])
+						action.materials.append([ids, amount, materialname])
+
 					elif subchild.name == 'nomark':
 						action.markable = 0
-						
+
 					elif subchild.name == 'retaincolor':
 						action.retaincolor = 1
 

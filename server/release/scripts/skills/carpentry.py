@@ -224,7 +224,7 @@ def loadMenu(id, parent = None):
 						action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
 
 					# Normal Material
-					if subchild.name == 'boards' or subchild.name == 'wood' or subchild.name == 'cloth':
+					if subchild.name == 'boards' or subchild.name == 'wood' or subchild.name == 'cloth' or subchild.name == 'material':
 						if not subchild.hasattribute('id'):
 							console.log(LOG_ERROR, "Material element without id list in menu %s.\n" % menu.id)
 							break
@@ -232,10 +232,11 @@ def loadMenu(id, parent = None):
 							ids = subchild.getattribute('id').split(';')
 							try:
 								amount = hex2dec(subchild.getattribute('amount', '1'))
+								materialname = hex2dec(subchild.getattribute('name', '1'))
 							except:
 								console.log(LOG_ERROR, "Material element with invalid id list in menu %s.\n" % menu.id)
 								break
-							action.materials.append([ids, amount])
+							action.materials.append([ids, amount, materialname])
 
 					# Skill requirement
 					elif subchild.name in skillnamesids:

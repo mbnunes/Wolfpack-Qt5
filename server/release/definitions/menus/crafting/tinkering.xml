@@ -20,29 +20,29 @@
 	<menu id="TINKERING_WOODEN" name="Wooden Items">
 		<tinker definition="1030" name="Jointing Plane">
 			<tinkering min="0" max="500" />
-			<logs amount="4" />
+			<logs amount="4" name="Boards, Logs" />
 		</tinker>
 		<tinker definition="102c" name="Moulding Plane">
 			<tinkering min="0" max="500" />
-			<logs amount="4" />
+			<logs amount="4" name="Boards, Logs" />
 		</tinker>
 		<tinker definition="1032" name="Smoothing Plane">
 			<tinkering min="0" max="500" />
-			<logs amount="4" />
+			<logs amount="4" name="Boards, Logs" />
 		</tinker>
 		<tinker definition="104f" name="Clock Frame">
 			<tinkering min="0" max="500" />
-			<logs amount="6" />
+			<logs amount="6" name="Boards, Logs" />
 			<nomark />
 		</tinker>
 		<tinker definition="105b" name="Axle">
 			<tinkering min="-250" max="250" />
-			<logs amount="2" />
+			<logs amount="2" name="Boards, Logs" />
 			<nomark />
 		</tinker>
 		<tinker definition="1043" name="Rolling Pin">
 			<tinkering min="0" max="500" />
-			<logs amount="5" />
+			<logs amount="5" name="Boards, Logs" />
 		</tinker>
 	</menu>
 
@@ -248,33 +248,33 @@
 
 	<menu id="TINKERING_ASSEMBLIES" name="Assemblies">
 		<tinker definition="1051" name="Axle Gears">
-			<material id="105b;105c" amount="1" /> <!-- Axle -->
-			<material id="1053;1054" amount="1" /> <!-- Gears -->
+			<material id="105b;105c" amount="1" name="Axle" /> <!-- Axle -->
+			<material id="1053;1054" amount="1" name="Gears" /> <!-- Gears -->
 			<nomark />
 		</tinker>
 		<tinker definition="104f" name="Clock Parts">
-			<material id="1051;1052" amount="1" /> <!-- Axle + Gears -->
-			<material id="105d;105e" amount="1" /> <!-- Spring -->
+			<material id="1051;1052" amount="1" name="Axle & Gears" /> <!-- Axle + Gears -->
+			<material id="105d;105e" amount="1" name="Spring"  /> <!-- Spring -->
 			<nomark />
 		</tinker>
 		<tinker definition="1059" name="Sextant Parts">
-			<material id="1051;1052" amount="1" /> <!-- Axle + Gears -->
-			<material id="1055;1056" amount="1" /> <!-- Hinge -->
+			<material id="1051;1052" amount="1" name="Axle & Gears" /> <!-- Axle + Gears -->
+			<material id="1055;1056" amount="1" name="Hinge" /> <!-- Hinge -->
 			<nomark />
 		</tinker>
 		<tinker definition="104b" name="Clock">
-			<material id="104d;104e" amount="1" /> <!-- Clock Frame -->
-			<material id="104f;1050" amount="1" /> <!-- Clock Parts -->
+			<material id="104d;104e" amount="1" name="Clock Frame" /> <!-- Clock Frame -->
+			<material id="104f;1050" amount="1" name="Clock Parts" /> <!-- Clock Parts -->
 		</tinker>
 		<tinker definition="1057" name="Sextant">
-			<material id="1059;105a" amount="1" /> <!-- Sextant Parts -->
+			<material id="1059;105a" amount="1" name="Sextant Parts" /> <!-- Sextant Parts -->
 		</tinker>
 		<tinker definition="potionkeg" name="Potion Keg">
 			<tinkering min="750" max="1000" />
-			<material id="e7f" amount="1" /> <!-- Keg -->
-			<material id="1004" amount="1" /> <!-- Barrel Tap -->
-			<material id="1db8" amount="1" /> <!-- Barrel Lid -->
-			<material id="f0e" amount="10" /> <!-- Bottle -->
+			<material id="e7f" amount="1" name="Keg" /> <!-- Keg -->
+			<material id="1004" amount="1" name="Barrel Tap" /> <!-- Barrel Tap -->
+			<material id="1db8" amount="1" name="Barrel Lid" /> <!-- Barrel Lid -->
+			<material id="f0e" amount="10" name="Bottles" /> <!-- Bottle -->
 		</tinker>
 	</menu>
 

@@ -33,97 +33,97 @@
 		<menu id="CARPENTRY_COOKING" />
 		<craft definition="dart_board_s_deed" name="Dart Board South">
 			<carpentry min="157" max="657" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 		</craft>
 		<craft definition="dart_board_e_deed" name="Dart Board East">
 			<carpentry min="157" max="657" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 		</craft>
 		<craft definition="ballot_box_deed" name="Ballot Box">
 			<carpentry min="473" max="973" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 		</craft>
 	</menu>
 
 	<menu id="CARPENTRY_OTHER" name="Other">
 		<craft definition="1bd7" name="Board">
 			<carpentry min="-250" max="250" />
-			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="1" />
+			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="1" name="Logs" />
 		</craft>
 		<craft definition="1eb1" name="Barrel Staves">
 			<carpentry min="-250" max="250" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 		</craft>
 		<craft definition="1db8" name="Barrel Lid">
 			<carpentry min="-140" max="360" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="4" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="4" name="Boards" />
 		</craft>
 		<craft definition="eb6" name="Short Music Stand">
 			<carpentry min="539" max="1039" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" name="Boards" />
 		</craft>
 		<craft definition="ebc" name="Tall Music Stand">
 			<carpentry min="565" max="1065" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" name="Boards" />
 		</craft>
 		<craft definition="f65" name="Easel">
 			<carpentry min="618" max="1118" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" name="Boards" />
 		</craft>
 	</menu>
 
 	<menu id="CARPENTRY_FURNITURE" name="Furniture">
 		<craft definition="b5e" name="Foot Stool">
 			<carpentry min="110" max="610" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" name="Boards" />
 		</craft>
 		<craft definition="a2a" name="Stool">
 			<carpentry min="110" max="610" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" name="Boards" />
 		</craft>
 		<craft definition="b5a" name="Straw Chair">
 			<carpentry min="210" max="710" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="13" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="13" name="Boards" />
 		</craft>
 		<craft definition="b56" name="Wooden Chair">
 			<carpentry min="210" max="710" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="13" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="13" name="Boards" />
 		</craft>
 		<craft definition="b4e" name="Vesper-Style Chair">
 			<carpentry min="421" max="921" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" name="Boards" />
 		</craft>
 		<craft definition="b52" name="Trinsic-Style Chair">
 			<carpentry min="421" max="921" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" name="Boards" />
 		</craft>
 		<craft definition="1049" name="Wooden Bench">
 			<carpentry min="526" max="1026" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" name="Boards" />
 		</craft>
 		<craft definition="b2e" name="Wooden Throne">
 			<carpentry min="526" max="1026" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" name="Boards" />
 		</craft>
 		<craft definition="b32" name="Fancy Throne">
 			<carpentry min="736" max="1236" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="19" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="19" name="Boards" />
 		</craft>
 		<craft definition="b34" name="Smal Table">
 			<carpentry min="421" max="921" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" name="Boards" />
 		</craft>
 		<craft definition="b49" name="Writing Table">
 			<carpentry min="631" max="1131" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" name="Boards" />
 		</craft>
 		<craft definition="b7c" name="Large Table">
 			<carpentry min="631" max="1131" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="23" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="23" name="Boards" />
 		</craft>
 		<craft definition="b7d" name="Yew-Wood Table">
 			<carpentry min="842" max="1342" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="27" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="27" name="Boards" />
 		</craft>
 	</menu>
 
@@ -132,72 +132,72 @@
 		<craft definition="9aa" name="Wooden Box">
 			<carpentry min="210" max="710" />
 			<tinkering min="210" max="210" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="10" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="10" name="Boards" />
 		</craft>
 		<craft definition="9a9" name="Small Crate">
 			<carpentry min="100" max="600" />
 			<tinkering min="100" max="100" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="8" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="8" name="Boards" />
 		</craft>
 		<craft definition="e3f" name="Medium Crate">
 			<carpentry min="315" max="815" />
 			<tinkering min="315" max="315"/>
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" name="Boards" />
 		</craft>
 		<craft definition="e3d" name="Large Crate">
 			<carpentry min="473" max="973" />
 			<tinkering min="473" max="473" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="18" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="18" name="Boards" />
 		</craft>
 		<craft definition="e42" name="Wooden Chest">
 			<carpentry min="736" max="1200" />
 			<tinkering min="736" max="736" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="10" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="10" name="Boards" />
 		</craft>
 		<craft definition="a9d" name="Wooden Shelf">
 			<carpentry min="315" max="815" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="25" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="25" name="Boards" />
 		</craft>
 		<craft definition="a4d" name="Fancy Armoire">
 			<carpentry min="842" max="1200" />
 			<tinkering min="842" max="842" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" name="Boards" />
 		</craft>
 		<craft definition="a4f" name="Armoire">
 			<carpentry min="842" max="1200" />
 			<tinkering min="842" max="842" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" name="Boards" />
 		</craft>
 		<craft definition="e7f" name="Keg">
 			<carpentry min="578" max="1078" />
-			<materials id="1eb1" amount="3" /> <!-- Barrel Staves -->
-			<materials id="10e1;10e2" amount="1" /> <!-- Barrel Hoops -->
-			<materials id="1bd8" amount="1" /> <!-- Barrel Lid -->
+			<materials id="1eb1" amount="3" name="Barrel Staves" /> <!-- Barrel Staves -->
+			<materials id="10e1;10e2" amount="1" name="Barrel Hoops" /> <!-- Barrel Hoops -->
+			<materials id="1bd8" amount="1" name="Barrel Lid" /> <!-- Barrel Lid -->
 		</craft>
 	</menu>
 
 	<menu id="CARPENTRY_STAVESSHIELDS" name="Staves and Shields">
 		<craft definition="13f5" name="Shepherd's Crook">
 			<carpentry min="789" max="1289" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="7" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="7" name="Boards" />
 		</craft>
 		<craft definition="e89" name="Quarter Staff">
 			<carpentry min="736" max="786" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="6" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="6" name="Boards" />
 		</craft>
 		<craft definition="13f8" name="Gnarled Staff">
 			<carpentry min="789" max="1289" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="7" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="7" name="Boards" />
 		</craft>
 		<craft definition="1b7a" name="Wooden Shield">
 			<carpentry min="526" max="776" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" name="Boards" />
 		</craft>
 		<craft definition="dbf" name="Fishing Pole">
 			<carpentry min="684" max="1284" />
 			<fishing min="400" max="900" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
-			<cloth id="1765;1766;1767;1768" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="5" name="Cloth" />
 		</craft>
 	</menu>
 
@@ -206,38 +206,38 @@
 		<craft definition="eb2" name="Lap Harp">
 			<carpentry min="631" max="1131" />
 			<musicianship min="450" max="950" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" />
-			<cloth id="1765;1766;1767;1768" amount="10" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
 		</craft>
 		<craft definition="eb1" name="Standing Harp">
 			<carpentry min="789" max="1289" />
 			<musicianship min="450" max="950" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="35" name="Boards" />
 			<cloth id="1765;1766;1767;1768" amount="15" />
 		</craft>
 		<craft definition="e9c" name="Drum">
 			<carpentry min="578" max="1078" />
 			<musicianship min="450" max="950" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" />
-			<cloth id="1765;1766;1767;1768" amount="10" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="20" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
 		</craft>
 		<craft definition="eb3" name="Lute">
 			<carpentry min="684" max="1184" />
 			<musicianship min="450" max="950" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="25" />
-			<cloth id="1765;1766;1767;1768" amount="10" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="25" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
 		</craft>
 		<craft definition="e9d" name="Tambourine">
 			<carpentry min="578" max="1078" />
 			<musicianship min="450" max="950" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
-			<cloth id="1765;1766;1767;1768" amount="10" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
 		</craft>
 		<craft definition="e9e" name="Fancy Tambourine">
 			<carpentry min="578" max="1078" />
 			<musicianship min="450" max="950" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" />
-			<cloth id="1765;1766;1767;1768" amount="15" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="15" name="Cloth" />
 		</craft>
 	</menu>
 
@@ -245,31 +245,31 @@
 		<craft definition="anvil_e_deed" name="Anvil East">
 			<carpentry min="736" max="1200" />
 			<blacksmithing min="750" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 			<ingots amount="150" />
 		</craft>
 		<craft definition="anvil_s_deed" name="Anvil South">
 			<carpentry min="736" max="1200" />
 			<blacksmithing min="750" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 			<ingots amount="150" />
 		</craft>
 		<craft definition="small_forge_deed" name="Small Forge">
 			<carpentry min="736" max="1200" />
 			<blacksmithing min="750" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 			<ingots amount="75" />
 		</craft>
 		<craft definition="large_forge_s_deed" name="Large Forge South">
 			<carpentry min="789" max="1200" />
 			<blacksmithing min="800" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 			<ingots amount="100" />
 		</craft>
 		<craft definition="large_forge_e_deed" name="Large Forge East">
 			<carpentry min="789" max="1200" />
 			<blacksmithing min="800" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" name="Boards" />
 			<ingots amount="100" />
 		</craft>
 	</menu>
@@ -278,56 +278,56 @@
 		<craft definition="ec6" name="Dressform">
 			<carpentry min="631" max="1100" />
 			<tailoring min="650" max="1150" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="25" />
-			<cloth id="1765;1766;1767;1768" amount="10" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="25" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
 		</craft>
 		<craft definition="spinning_wheel_s_deed" name="Spinning Wheel South">
 			<carpentry min="736" max="1200" />
 			<tailoring min="650" max="1150" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="75" />
-			<cloth id="1765;1766;1767;1768" amount="25" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="75" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="25" name="Cloth" />
 		</craft>
 		<craft definition="spinning_wheel_e_deed" name="Spinning Wheel East">
 			<carpentry min="736" max="1200" />
 			<tailoring min="650" max="1150" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="75" />
-			<cloth id="1765;1766;1767;1768" amount="25" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="75" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="25" name="Cloth" />
 		</craft>
 		<craft definition="loom_s_deed" name="Loom South">
 			<carpentry min="842" max="1100" />
 			<tailoring min="650" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" />
-			<cloth id="1765;1766;1767;1768" amount="25" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="25" name="Cloth" />
 		</craft>
 		<craft definition="loom_e_deed" name="Loom East">
 			<carpentry min="842" max="1100" />
 			<tailoring min="650" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" />
-			<cloth id="1765;1766;1767;1768" amount="25" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="25" name="Cloth" />
 		</craft>
 		<craft definition="small_bed_s_deed" name="Small Bed South">
 			<carpentry min="947" max="1100" />
 			<tailoring min="750" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" />
-			<cloth id="1765;1766;1767;1768" amount="100" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="100" name="Cloth" />
 		</craft>
 		<craft definition="small_bed_e_deed" name="Small Bed East">
 			<carpentry min="947" max="1100" />
 			<tailoring min="750" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" />
-			<cloth id="1765;1766;1767;1768" amount="100" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="100" name="Cloth" />
 		</craft>
 		<craft definition="large_bed_s_deed" name="Large Bed South">
 			<carpentry min="947" max="1100" />
 			<tailoring min="750" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" />
-			<cloth id="1765;1766;1767;1768" amount="150" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="150" name="Cloth" />
 		</craft>
 		<craft definition="large_bed_e_deed" name="Large Bed East">
 			<carpentry min="947" max="1100" />
 			<tailoring min="750" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" />
-			<cloth id="1765;1766;1767;1768" amount="150" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="150" name="Cloth" />
 		</craft>
 	</menu>
 
@@ -335,13 +335,13 @@
 		<craft definition="stone_oven_s_deed" name="Stone Oven South">
 			<carpentry min="684" max="1184" />
 			<tinkering min="500" max="1000" lock="0" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" name="Boards" />
 			<ingots amount="125" />
 		</craft>
 		<craft definition="stone_oven_e_deed" name="Stone Oven East">
 			<carpentry min="684" max="1184" />
 			<tinkering min="500" max="1000" lock="0" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="85" name="Boards" />
 			<ingots amount="125" />
 		</craft>
 		<craft definition="flour_mill_s_deed" name="Flour Mill South">
@@ -353,16 +353,16 @@
 		<craft definition="flour_mill_e_deed" name="Flour Mill East">
 			<carpentry min="736" max="1200" />
 			<tinkering min="500" max="1000" lock="0" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
 			<ingots amount="50" />
 		</craft>
 		<craft definition="water_trough_s_deed" name="Water Trough South">
 			<carpentry min="947" max="1200" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" name="Boards" />
 		</craft>
 		<craft definition="water_trough_e_deed" name="Water Trough East">
 			<carpentry min="947" max="1200" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="150" name="Boards" />
 		</craft>
 	</menu>
 
@@ -370,20 +370,20 @@
 		<craft definition="training_dummy_s_deed" name="Training Dummy South">
 			<carpentry min="684" max="1184" />
 			<tailoring min="500" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="55" />
-			<cloth id="1765;1766;1767;1768" amount="60" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="55" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="60" name="Cloth" />
 		</craft>
 		<craft definition="training_dummy_e_deed" name="Training Dummy East">
 			<carpentry min="684" max="1184" />
 			<tailoring min="500" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="55" />
-			<cloth id="1765;1766;1767;1768" amount="60" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="55" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="60" name="Cloth" />
 		</craft>
 		<craft definition="pickpocket_dip_deed" name="Pickpocket Dip">
 			<carpentry min="736" max="1200" />
 			<tailoring min="500" max="1000" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="65" />
-			<cloth id="1765;1766;1767;1768" amount="60" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="65" name="Boards" />
+			<cloth id="1765;1766;1767;1768" amount="60" name="Cloth" />
 		</craft>
 	</menu>
 
@@ -391,13 +391,13 @@
 		<craft definition="pentagram_deed" name="Pentagram">
 			<carpentry min="1000" max="1000" />
 			<magery min="750" max="750" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
 			<ingots amount="40" />
 		</craft>
 		<craft definition="arbattoir_deed" name="Arbattoir">
 			<carpentry min="1000" max="1000" />
 			<magery min="500" max="500" />
-			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" name="Boards" />
 			<ingots amount="40" />
 		</craft>
 	</menu>
