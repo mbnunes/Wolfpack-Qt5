@@ -12,7 +12,7 @@
 	<npc id="orcish_lord" inherit="monster_base">
 		<name>orcish lord</name>
 		<strproperty name="monsterspeech" value="orc" />
-		<basescripts>speech.monster</basescripts>
+		<basescript>speech.monster</basescript>
 		<id>138</id>
 		<inherit id="KARMA_L3" />
 		<inherit id="FAME_L3" />

@@ -11,7 +11,7 @@
 	<!-- Lizardman -->
 	<npc id="lizardman"  inherit="monster_base">
 		<strproperty name="monsterspeech" value="lizardman" />
-		<basescripts>speech.monster</basescripts>
+		<basescript>speech.monster</basescript>
 		<name><random list="NAMES_LIZARDMAN" /></name>
 		<id><random list="NPCIDS_LIZARDMAN" /></id>
 		<inherit id="KARMA_L2" />

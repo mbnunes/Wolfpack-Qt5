@@ -31,5 +31,6 @@
 		<direction>
 			<random min="0" max="7"/>
 		</direction>
+		<basescripts>speech.pets</basescripts>
 	</npc>
 </definitions>

@@ -12,7 +12,7 @@
 	<npc id="ratman" inherit="monster_base">
 		<!-- Monsterspeech -->
 		<strproperty name="monsterspeech" value="ratman" />
-		<basescripts>speech.monster</basescripts>
+		<basescript>speech.monster</basescript>
 		
 		<name><random list="NAMES_RATMAN" /></name>
 		<id><random list="NPCIDS_RATMAN" /></id>

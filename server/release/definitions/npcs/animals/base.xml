@@ -17,6 +17,7 @@
 		<mindamage>1</mindamage>
 		<maxdamage>3</maxdamage>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<basescripts>speech.pets</basescripts>
 	</npc>
 
 </definitions>

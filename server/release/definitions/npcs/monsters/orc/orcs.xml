@@ -10,7 +10,7 @@
 
 	<npc id="orc" inherit="monster_base">
 		<strproperty name="monsterspeech" value="orc" />
-		<basescripts>speech.monster</basescripts>
+		<basescript>speech.monster</basescript>
 		<name><random list="NAMES_ORC" /></name>
 		<id><random list="NPCIDS_ORC" /></id>
 		<inherit id="KARMA_L2" />

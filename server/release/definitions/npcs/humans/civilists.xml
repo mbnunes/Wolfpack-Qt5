@@ -30,6 +30,7 @@
 		<str><random min="71" max="85" /></str>
 		<dex><random min="66" max="80" /></dex>
 		<int><random min="66" max="80" /></int>
+		<basescripts>speech.pets</basescripts>
 	</npc>
 
 	<!-- Female Base -->
@@ -55,6 +56,7 @@
 		<str><random min="71" max="85" /></str>
 		<dex><random min="66" max="80" /></dex>
 		<int><random min="66" max="80" /></int>
+		<basescripts>speech.pets</basescripts>
 	</npc>
 	
 	<!-- Pirate -->
@@ -73,7 +75,7 @@
 		<inherit>base_male</inherit>
 		<ai>Human_Vendor</ai>
 		<bindmenu>vendor_menu,train_menu</bindmenu>
-		<basescripts>contextmenus.trainmenu</basescripts>
+		<basescript>contextmenus.trainmenu</basescript>
 		<invulnerable />
 		<wandertype>0</wandertype>
 	</npc>
@@ -81,7 +83,7 @@
 		<inherit>base_female</inherit>
 		<ai>Human_Vendor</ai>
 		<bindmenu>vendor_menu,train_menu</bindmenu>
-		<basescripts>contextmenus.trainmenu</basescripts>
+		<basescript>contextmenus.trainmenu</basescript>
 		<invulnerable />
 		<wandertype>0</wandertype>
 	</npc>

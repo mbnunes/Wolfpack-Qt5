@@ -11,7 +11,7 @@
 	<!-- orc scount -->
 	<npc id="orc_scout" inherit="monster_base">
 		<name>orc scout</name>
-		<basescripts>speech.monster</basescripts>
+		<basescript>speech.monster</basescript>
 		<strproperty name="monsterspeech" value="orc" />
 		<id>181</id>
 		<inherit id="KARMA_L2" />
