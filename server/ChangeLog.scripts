@@ -2,10 +2,33 @@ Wolfpack 13.0.0 ChangeLog
 
 Wolfpack 12.9.9 Beta (CVS)
 	* Core Changes:
+		- Added an email field for accounts.
 	* Definition Changes:
 	* Python Script Changes:
+		- Added the bolt command, just lightnings the target.
+		- Added the email command, changes your account's email.
+		- Added sparkle effects to the heal/restore commands.
+		- Fixes for the account command:
+			Fixed a few typos.
+			Fixed a bug in updating the password
+			Added support for the email field.
+		- Tweaked the hunger script.
+		- Fixed an update bug with npcs and the dye command.
+		- Fixed a bug with the dupe command.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
+		- Some skills are still incomplete.
+		- Spawn regions are incomplete.
+			We welcome donated OSI-like spawn scripts!
+		- Town/World regions are incomplete.
+			We welcome donated OSI-like region scripts!
+		- Teleport Scripts are incomplete.
+			We welcome donated OSI-like teleport scripts!
+		- Possible that a few monsters are missing and/or incomplete.
+		- Reloading Python too many times can crash the server.
+		- There are still some memory leaks.
+		- Large gumps can potentially crash remote clients.
+		- Multis (Houses/Boats) are not currently supported.
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	* Core Changes:
