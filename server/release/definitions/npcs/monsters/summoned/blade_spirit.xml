@@ -2,8 +2,11 @@
 <definitions>
 
 	<!-- Blade Spirit -->
-	<npc id="blade_spirit" inherit="monster_base">
+	<npc id="blade_spirit">
 		<name>a blade spirit</name>
+		<totame>1100</totame>
+		<wandertype>1</wandertype>
+		<ai>Monster_Berserk</ai>
 		<id>0x23e</id>
 		<karma>0</karma>
 		<fame>0</fame>
