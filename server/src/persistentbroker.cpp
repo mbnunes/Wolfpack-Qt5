@@ -115,8 +115,8 @@ void PersistentBroker::disconnect()
 bool PersistentBroker::saveObject( PersistentObject* object )
 {
 	// Start Transaction
-	/*if( sqlite )
-		connection->exec( "BEGIN TRANSACTION;" );*/
+	if( sqlite )
+		connection->exec( "BEGIN TRANSACTION;" );
 
 	try
 	{
@@ -125,14 +125,14 @@ bool PersistentBroker::saveObject( PersistentObject* object )
 	catch( ... )
 	{
 		// Rollback
-		/*if( sqlite )
-			connection->exec( "ROLLBACK TRANSACTION;" );*/
+		if( sqlite )
+			connection->exec( "ROLLBACK TRANSACTION;" );
 		throw;
 	}
 
 	// Commit
-	/*if( sqlite )
-		connection->exec( "COMMIT TRANSACTION;" );*/
+	if( sqlite )
+		connection->exec( "COMMIT TRANSACTION;" );
 
 	return true;
 }
