@@ -2838,32 +2838,41 @@ int main( int argc, char *argv[] )
 
 	DefManager->Load();
 
+	// Start loading Python !
+	
+	clConsole.PrepareProgress( "Starting Python interpreter" );
+	
 	Py_SetProgramName( argv[ 0 ] );
-	Py_SetPythonHome( "python" ); // Subdirectory "python"
+	Py_SetPythonHome( "python" ); // Subdirectory "python" is the base path
 
-	//PyEval_InitThreads();
 	Py_Initialize(); // Initialize python finally
 	PySys_SetArgv( argc, argv );
 
 	init_socket();
 	initPythonExtensions();
 
+	clConsole.ProgressDone();
+
+	// Done loading Python 
+
 	ScriptManager->Load();
 
 	Map->Cache = 0;
 	Admin->ReadIni();
 
-	clConsole.send("Initializing script pointers...\n");
+	clConsole.send( "Loading scripts:\n" );
 	for(i=0;i<NUM_SCRIPTS;i++)
 	{
 		if (i==custom_npc_script || i==custom_item_script)//Don't initialize these till we know the file names ;-)
 			continue;
+
 		if (i==npc_script /*||i==create_script || i==regions_script*/)
 			i_scripts[i] = new Script(n_scripts[i], SCP_PRELOADABLE);
 		else
 			i_scripts[i] = new Script(n_scripts[i]);
 	}
-	clConsole.send("Done.\n");
+	
+	clConsole.send( "\n" );
 
 	QTranslator translator(0); // must be valid thru app life.
 	QString languageFile = SrvParams->getString("General", "Language File", "", true);
@@ -2892,18 +2901,14 @@ int main( int argc, char *argv[] )
 
 	SkillVars();	// Set Creator Variables
 
-	clConsole.send("Loading skills...");
+	clConsole.PrepareProgress( "Loading skills" );
 	loadskills();
-	clConsole.send(" Done\n");
-
-	clConsole.send("Building pointer arrays...");
-	BuildPointerArray();
-	clConsole.send(" Done. \n");
+	clConsole.ProgressDone();
 
 	Accounts->LoadAccounts();
 
-	keeprun=Network->kr; //LB. for some technical reasons global varaibles CANT be changed in constructors in c++.
-	error=Network->faul; // i hope i can find a cleaner solution for that, but this works !!!
+	keeprun = Network->kr; //LB. for some technical reasons global varaibles CANT be changed in constructors in c++.
+	error = Network->faul; // i hope i can find a cleaner solution for that, but this works !!!
 	// has to here and not at the cal cause it would get overriten later
 
 	CIAO_IF_ERROR;
@@ -2917,24 +2922,18 @@ int main( int argc, char *argv[] )
 	Map->Load();
 
 	if (keeprun==0) { Network->SockClose(); im_clearmenus(); DeleteClasses(); exit(-1); }
-
-	clConsole.send("Loading Teleport...");
-	read_in_teleport();
-	clConsole.send(" Done.\n");
-
-	//Map->TileCache(); // has to be exactly here, or loadnewlorld cant access correct tiles ... LB
-	// (it does access them ..)
-
+		
 	srand(uiCurrentTime); // initial randomization call
-	clConsole.send("Loading vital scripts...\n");
+
+	clConsole.send("\nLoading vital scripts:\n");
+	
+	read_in_teleport();
 	loadmetagm();
-
-	serverstarttime=getNormalizedTime();
-
 	CIAO_IF_ERROR;
 
-	cwmWorldState->loadnewworld(SrvParams->worldSaveModule());
+	serverstarttime = getNormalizedTime();
 
+	cwmWorldState->loadnewworld(SrvParams->worldSaveModule());
 	CIAO_IF_ERROR; // LB prevents file corruption
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
@@ -4320,6 +4319,8 @@ void loadmetagm() // LORD BINARY
 	unsigned int const plus=1;
 	int pm,ss,y;
 
+	clConsole.PrepareProgress( "Loading Meta GM Privs." );
+
 	openscript("metagm.scp");
 
 	for (i=0;i<256;i++)
@@ -4355,9 +4356,11 @@ void loadmetagm() // LORD BINARY
 
 						if (y==-1) // not found ?
 						{
-							clConsole.send("warning: found unknown command %s in meta gm script\n",script1);
-							clConsole.send("press any key to continue. . .\n");//AntiChrist-so we know if something's wrong
-							//getchar();//AntiChrist-so we know if something's wrong
+							// Close the server
+							clConsole.ProgressFail();
+							clConsole.send( "Unknown command %s found in meta GM script", script1 );
+							error = 1;
+							return;
 						} else // found it!
 						{
 							if (command_table[y].cmd_priv_m!=255)
@@ -4372,10 +4375,11 @@ void loadmetagm() // LORD BINARY
 			}
 			while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
 
-			if (mode==-1)
+			if( mode == -1 )
 			{
 				error=1;
 				keeprun=0;
+				clConsole.ProgressFail();
 				clConsole.send("\n Meta-Gm script parsing error, mode keyword missing, section# %i - closing wolfpack\n",i);
 			}
 
@@ -4389,7 +4393,8 @@ void loadmetagm() // LORD BINARY
 	} while (i<255);
 
 	closescript();
-	clConsole.send("Meta Gm script loaded... %i priv3 shortcut/s\n",k-3);
+	
+	clConsole.ProgressDone();
 }
 
 void dosocketmidi(int s)
@@ -6106,8 +6111,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 void SetGlobalVars()
 {
 	int i=0;
-	clConsole.send("Initializing global variables...");
-
+	
 	w_anim[0]=0; w_anim[1]=0; w_anim[2]=0;
 
 	for (i=0; i>ALLSKILLS; i++) { strcpy(title[i].other, "old titles.scp error"); }
@@ -6135,11 +6139,6 @@ void SetGlobalVars()
 	autosaved = 0;
 	dosavewarning = 0;
 }
-
-void BuildPointerArray()
-{
-}
-
 void InitMultis()
 {
 	P_ITEM pi_multi;

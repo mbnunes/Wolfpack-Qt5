@@ -67,6 +67,8 @@ void teleporters(P_CHAR pc_s)
 
 void read_in_teleport(void)
 {
+	clConsole.PrepareProgress( "Loading Teleporters" );
+
 	FILE *fp;
 	char text[256];
 	char seps[]	= " ,\t\n";
@@ -76,9 +78,9 @@ void read_in_teleport(void)
 
 	if(fp==NULL)
 	{
-		clConsole.send("ERROR: Teleport Data not found\n");
-		error=1;
-		keeprun=0;
+		clConsole.ProgressFail();
+		clConsole.send( "teleport.scp not found!" );
+		error = 1;
 		return;
 	}
 
@@ -113,6 +115,8 @@ void read_in_teleport(void)
 		}
 	}
 	fclose(fp);
+
+	clConsole.ProgressDone();
 }
 
 int validtelepos(int s)

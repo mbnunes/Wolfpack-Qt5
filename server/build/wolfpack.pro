@@ -103,7 +103,12 @@ HEADERS         = Client.h \
 		  tilecache.h \
 		  walking2.h \
 		  packlen.h \
-		  extract.h
+		  extract.h \
+		  wpdefaultscript.h \
+		  wpdefmanager.h \
+		  wppythonscript.h \
+		  wpscriptmanager.h \
+		  menuactions.h
 
 SOURCES         = Client.cpp \
 		  LoS.cpp \
@@ -178,7 +183,13 @@ SOURCES         = Client.cpp \
 		  wpconsole.cpp \
 		  tilecache.cpp \
 		  walking2.cpp \
-		  packlen.cpp
+		  packlen.cpp \
+		  wpdefaultscript.cpp \
+		  wpdefmanager.cpp \
+		  wppythonscript.cpp \
+		  wpscriptmanager.cpp \
+		  menuactions.cpp
+
 INTERFACES	=
 TRANSLATIONS    = \
                   languages/wolfpack_pt-BR.ts \

@@ -151,6 +151,8 @@ bool doregionspawn(int r)//Regionspawns
 
 void loadspawnregions()//Regionspawns
 {
+	clConsole.PrepareProgress( "Loading Spawn regions " );
+	
 	int i=0;
 
 	spawnregion_st dummy;
@@ -202,7 +204,9 @@ void loadspawnregions()//Regionspawns
 		}//if Section
 	} while( (strcmp((char*)script1, "EOF")));
 	closescript();
-	clConsole.send("WOLFPACK: %i spawn regions loaded from script.\n",i);
+
+	clConsole.ProgressDone();
+	clConsole.send( "Loaded %i spawn regions\n", i );
 }
 
 static void loadpredefspawnregion(char *name)//Load predefined spawnregion //Regionspawns

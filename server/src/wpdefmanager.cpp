@@ -109,6 +109,8 @@ void WPDefManager::Load( void )
 
 	if( ImportSections( QString( "definitions.xml" ) ) )	
 		clConsole.ProgressDone();
+	else
+		clConsole.ProgressFail();
 }
 
 // Returns one Section

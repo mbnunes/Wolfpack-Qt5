@@ -101,83 +101,66 @@ cMapStuff::~cMapStuff()
 	delete TileCache;
 }
 
+#define loadError( file ) clConsole.ProgressFail(); clConsole.send( "Could not open: %s", file ); LogCritical( "Could not open: " ); LogCritical( file ); keeprun = 0; return;
+
 void cMapStuff::Load()
 {
-	clConsole.send("Preparing to open *.mul files...\n(If they don't open, fix your paths in the wolfpack.ini)\n");
-	mapfile= new UOXFile(mapname,"rb");
-	clConsole.send("	%s\n", mapname);
+	clConsole.PrepareProgress( "Loading MUL Files" );
+
+	// MAP0.MUL
+	mapfile= new UOXFile( mapname, "rb" );
 	if (mapfile==NULL || !mapfile->ready())
     {
-		sprintf((char*)temp,"ERROR: Map %s not found...\n",mapname);
-		LogCritical((char*)temp);
-		keeprun=0;
-		return;
+		loadError( mapname );
     }
-	clConsole.send("	%s\n", sidxname);
-	sidxfile= new UOXFile(sidxname,"rb");
+
+	// STAIDX0.MUL + STATICS0.MUL
+	sidxfile= new UOXFile( sidxname, "rb" );
 	if (sidxfile==NULL || !sidxfile->ready())
     {	
-		sprintf((char*)temp, "ERROR: Statics Index %s not found...\n",sidxname);
-		LogCritical((char*)temp);
-		keeprun=0;
-		return;
+		loadError( sidxname );
     }
-	clConsole.send("	%s\n", statname);
-	statfile= new UOXFile(statname,"rb");
+	
+	statfile= new UOXFile( statname, "rb" );
 	if (statfile==NULL || !statfile->ready())
-    {		
-		sprintf((char*)temp, "ERROR: Statics File %s not found...\n",statname);
-		LogCritical((char*)temp);
-		keeprun=0;
-		return;
+    {
+		loadError( statname );
 	}
-	clConsole.send("	%s\n", vername);
-	verfile= new UOXFile(vername,"rb");
+
+	// VERDATA.MUL
+	verfile= new UOXFile( vername,"rb" );
 	if (verfile == NULL || !verfile->ready() )
     {
-	//	sprintf((char*)temp,"WARNING: Version File %s not found...\n",vername);
-	//	LogCritical((char*)temp);
-	//	keeprun=0;
-	//	return;
 		delete verfile; // Normal behavior if UO:LBR
 		verfile = 0; 
     }
-	clConsole.send("	%s\n", tilename);
-	tilefile= new UOXFile(tilename,"rb");
+
+	// TILEDATA.MUL
+	tilefile= new UOXFile( tilename, "rb" );
 	if (tilefile==NULL || !tilefile->ready())
     {		
-		sprintf((char*)temp, "ERROR: Tiledata File %s not found...\n",tilename);
-		LogCritical((char*)temp);
-		keeprun=0;
-		return;
+		loadError( statname );
     }
-	clConsole.send("	%s\n", multiname);
-	multifile= new UOXFile(multiname,"rb");
+
+	// MULTI.IDX + MULTI.MUL
+	midxfile = new UOXFile( midxname, "rb" );
+	if( midxfile == NULL || !midxfile->ready() )
+    {
+		loadError( midxname );
+    }
+
+	multifile= new UOXFile( multiname, "rb" );
 	if (multifile==NULL || !multifile->ready())
     {
-		sprintf((char*)temp,"ERROR: Multi data file %s not found...\n",multiname);
-		LogCritical((char*)temp);
-		keeprun=0;
-		return;
-    }
-	clConsole.send("	%s\n", midxname);
-	midxfile=new UOXFile(midxname,"rb");
-	if (midxfile==NULL || !midxfile->ready())
-    {
-		sprintf((char*)temp, "ERROR: Multi index file %s not found...\n",midxname);
-		LogCritical((char*)temp);
-		keeprun=0;
-		return;
-    }
-	clConsole.send("Mul files successfully opened (but not yet loaded.)\n");
-	
+		loadError( multiname );
+	}
+
+	clConsole.ProgressDone();
+
 	CacheVersion();
+
 	if( Cache )
-    {
-//		CacheTiles(); // has to be exactly here, or loadnewlorld cant access correct tiles ... LB
-		CacheStatics();
-    }
-	
+		CacheStatics();    
 }
 
 // this stuff is rather buggy thats why I separted it from uox3.cpp
@@ -562,57 +545,68 @@ char cMapStuff::MapType(int x, int y) // type of MAP0.MUL at given coordinates
 // versionRecordCount hold how many we actually saved
 void cMapStuff::CacheVersion()
 {
-	if (verfile != NULL)
+	clConsole.PrepareProgress( "Caching Verdata Patches" );
+
+	if( verfile == NULL )
 	{
-		verfile->seek(0, SEEK_SET);
-		UI32 maxRecordCount = 0;
-		verfile->getULong(&maxRecordCount);
-	
-		if (0 == maxRecordCount)
-			return;
-		if (NULL == (versionCache = new versionrecord[maxRecordCount]))
-			return;
-	
-		clConsole.send("Caching version data..."); fflush(stdout);
-		versionMemory = maxRecordCount * sizeof(versionrecord);
-
-		bool unhandeledPatches = false;
-
-		for (UI32 i = 0; i < maxRecordCount; ++i)
-    	{
-			if (verfile->eof())
-			{
-				clConsole.send("Error: Avoiding bad read crash with verdata.mul.\n");
-				return;
-			}
-			versionrecord *ver = versionCache + versionRecordCount;
-			assert(ver);
-			verfile->get_versionrecord(ver);
-		
-			// see if its a record we care about
-			switch(ver->file)
-			{
-			case VERFILE_MULTIIDX:
-			case VERFILE_MULTI:
-			case VERFILE_TILEDATA:
-				++versionRecordCount;
-				break;
-			case VERFILE_MAP:
-			case VERFILE_STAIDX:
-			case VERFILE_STATICS:
-				// at some point we may need to handle these cases, but OSI hasn't patched them as of
-				// yet, so no need slowing things down processing them
-				unhandeledPatches = true;
-				break;
-			default:
-				// otherwise its for a file we don't care about
-				break;
-			}
-   		}
-
-		clConsole.send( "Warning: Map/Static Patches are not processed\n" );
-		clConsole.send( "Done\n(Cached %ld patches out of %ld possible).\n", versionRecordCount, maxRecordCount);
+		clConsole.ProgressSkip();
+		return;
 	}
+
+	verfile->seek(0, SEEK_SET);
+	UI32 maxRecordCount = 0;
+	verfile->getULong(&maxRecordCount);
+
+	if (0 == maxRecordCount)
+		return;
+	if (NULL == (versionCache = new versionrecord[maxRecordCount]))
+		return;
+
+	versionMemory = maxRecordCount * sizeof(versionrecord);
+
+	bool unhandeledPatches = false;
+
+	for (UI32 i = 0; i < maxRecordCount; ++i)
+    {
+		if (verfile->eof())
+		{
+			clConsole.ProgressFail();
+			clConsole.send( "Corrupt Verdata, please check Verdata.mul" );
+			return;
+		}
+		versionrecord *ver = versionCache + versionRecordCount;
+		assert(ver);
+		verfile->get_versionrecord(ver);
+	
+		// see if its a record we care about
+		switch(ver->file)
+		{
+		case VERFILE_MULTIIDX:
+		case VERFILE_MULTI:
+		case VERFILE_TILEDATA:
+			++versionRecordCount;
+			break;
+		case VERFILE_MAP:
+		case VERFILE_STAIDX:
+		case VERFILE_STATICS:
+			// at some point we may need to handle these cases, but OSI hasn't patched them as of
+			// yet, so no need slowing things down processing them
+			unhandeledPatches = true;
+			break;
+		default:
+			// otherwise its for a file we don't care about
+			break;
+		}
+   	}
+
+	clConsole.ProgressDone();
+
+	if( unhandeledPatches )
+	{
+		clConsole.send( "Unsupported Map and Static patches have been skipped\n" );
+	}
+
+	clConsole.send( "\n" );
 }
 
 SI32 cMapStuff::VerSeek(SI32 file, SI32 block)
