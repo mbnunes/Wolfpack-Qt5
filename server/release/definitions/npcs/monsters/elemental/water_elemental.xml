@@ -28,7 +28,7 @@
 		<tag name="res_poison" value="60,70" type="int" />
 		<!-- Misc. -->
 		<desc>Water elementals dwell in, and are composed of, water. They have great power to command the waves themselves. Fortunately, the few that dwell upon our plane keep themselves mostly to the nether depths of the ocean, and so seldom come into contact with humanity.</desc>
-		<category>Monsters\Elementals\Air Elemental</category>
+		<category>Monsters\Elementals\Water Elemental</category>
 	</npc>
 
 </definitions>
