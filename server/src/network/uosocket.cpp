@@ -724,6 +724,8 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	// FINALLY create the char
 	P_CHAR pChar = new cChar;
 	pChar->Init();
+
+	pChar->setSex( packet->gender() );
 	
 	pChar->setPriv( SrvParams->defaultpriv1() );
 	pChar->setPriv2( SrvParams->defaultpriv2() );

@@ -322,7 +322,7 @@ public:
 	bool					guildTraitor() const; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	QString					orgname() const;	  //original name - for Incognito
 	QString					title() const;
-	bool					sex() const;
+	bool					sex() const; // false/0 - male
 	bool					unicode() const; // This is set to 1 if the player uses unicode speech, 0 if not
 	AccountRecord*			account() const; // changed to signed, lb
 	bool					incognito() const { return incognito_;	}
@@ -502,7 +502,7 @@ public:
 	void					setGuildTraitor(bool  d);
 	void					setOrgname(const QString& d);//original name - for Incognito
 	void					setTitle( const QString& d);
-	void					setSex( bool male );
+	void					setSex( bool female );
 	void					setUnicode( bool d); // This is set to 1 if the player uses unicode speech, 0 if not
 	void					setAccount( AccountRecord* data, bool moveFromAccToAcc = true ); // changed to signed, lb
 	void					setIncognito ( bool d) { incognito_ = d; changed( SAVE );} 
@@ -888,6 +888,6 @@ inline void cChar::setGuildTraitor(bool  d)			{ GuildTraitor = d; changed( SAVE 
 inline void	cChar::setOrgname( const QString& d )	{ orgname_ = d; changed( SAVE );}
 inline void cChar::setTitle( const QString& d )		{ title_ = d;   changed( SAVE );}
 inline void cChar::setUnicode(bool d)				{ unicode_ = d; changed( SAVE );}
-inline void cChar::setSex( bool male )				{ sex_ = male; changed( SAVE ); }
+inline void cChar::setSex( bool female )				{ sex_ = female; changed( SAVE ); }
 
 #endif // __CHARS_H__

@@ -369,6 +369,8 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addInputField( 200, 260, 200, 16, 34, QString( "%1" ).arg( pChar->carve() ), 0x834 );
 		addText( 50, 200, tr( "Loot:" ), 0x834 );
 		addInputField( 200, 280, 200, 16, 35, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
+		addText( 50, 220, tr( "Gender:" ), 0x834 );
+		addInputField( 200, 280, 220, 16, 36, QString( "%1" ).arg( ( pChar->sex() ? tr("female") : tr("male") ) ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// prev page
@@ -514,6 +516,9 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				break;
 			case 35:
 				char_->setLootList( it->second );
+				break;
+			case 46:
+				char_->setSex( it->second == tr("female") );
 				break;
 			}
 			it++;
