@@ -104,7 +104,8 @@ public:
 	void attackTarget( P_CHAR defender );
 	void toggleCombat();
 	void setNextMoveTime( void );
-	void callGuards(); // overriding
+	virtual void callGuards(); // overriding
+	void makeShop();
 
 	// getters
 	UINT32			additionalFlags() const;

@@ -63,37 +63,37 @@ void Monster_Aggressive_L0::registerInFactory()
 
 Monster_Aggressive_L0::Monster_Aggressive_L0()
 { 
-	currentState = new Monster_Aggr_L0_Wander( this );
+	currentState = new Monster_Aggr_L0_Wander( this, m_npc );
 }
 
 Monster_Aggressive_L0::Monster_Aggressive_L0( P_NPC currnpc )
 { 
-	npc = currnpc; 
-	currentState = new Monster_Aggr_L0_Wander( this );
+	setNPC( currnpc ); 
+	currentState = new Monster_Aggr_L0_Wander( this, m_npc );
 }
 
 void Monster_Aggressive_L0::eventHandler()
 {
 	currentState->nextState = currentState;
-	if( !npc->isDead() )
+	if( !m_npc->isDead() )
 	{
-		P_CHAR pVictim = World::instance()->findChar( npc->combatTarget() );
+		P_CHAR pVictim = World::instance()->findChar( m_npc->combatTarget() );
 		if( !pVictim  || pVictim->isDead() )
 			currentState->won();
-		else if( !pVictim->inRange( npc, VISRANGE ) )
+		else if( !pVictim->inRange( m_npc, VISRANGE ) )
 			currentState->combatCancelled();
 
-		P_CHAR pAttacker = World::instance()->findChar( npc->attackerSerial() );
-		if( pAttacker && pAttacker->inRange( npc, VISRANGE ) )
+		P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
+		if( pAttacker && pAttacker->inRange( m_npc, VISRANGE ) )
 			currentState->attacked();
 		else
 		{
 			// get the first best character and attack it
-			RegionIterator4Chars ri( npc->pos(), VISRANGE );
+			RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
 			for( ri.Begin(); !ri.atEnd(); ri++ )
 			{
 				P_CHAR pChar = ri.GetData();
-				if( pChar && pChar != npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
+				if( pChar && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
 				{
 					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
 					if( pPlayer && pPlayer->isGMorCounselor() )
@@ -122,22 +122,22 @@ void Monster_Aggr_L0_Wander::registerInFactory()
 
 void Monster_Aggr_L0_Wander::attacked()
 {
-	reattack( m_interface->npc );
-	nextState = new Monster_Aggr_L0_Combat( m_interface );
+	reattack();
+	nextState = new Monster_Aggr_L0_Combat( m_interface, npc );
 }
 
 void Monster_Aggr_L0_Wander::foundVictim( P_CHAR pVictim )
 {
 	if( pVictim )
-		m_interface->npc->setCombatTarget( pVictim->serial() );
-	attack( m_interface->npc );
-	nextState = new Monster_Aggr_L0_Combat( m_interface );
+		npc->setCombatTarget( pVictim->serial() );
+	attack();
+	nextState = new Monster_Aggr_L0_Combat( m_interface, npc );
 }
 
 void Monster_Aggr_L0_Wander::execute()
 {
 	// wander freely
-	wanderFreely( m_interface->npc );
+	wanderFreely();
 }
 
 static AbstractState* productCreator_MAL0_Combat()
@@ -152,21 +152,21 @@ void Monster_Aggr_L0_Combat::registerInFactory()
 
 void Monster_Aggr_L0_Combat::won()
 {
-	m_interface->npc->setAttackerSerial( INVALID_SERIAL );
-	m_interface->npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L0_Wander( m_interface );
+	npc->setAttackerSerial( INVALID_SERIAL );
+	npc->setCombatTarget( INVALID_SERIAL );
+	nextState = new Monster_Aggr_L0_Wander( m_interface, npc );
 }
 
 void Monster_Aggr_L0_Combat::combatCancelled()
 {
-	m_interface->npc->setAttackerSerial( INVALID_SERIAL );
-	m_interface->npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L0_Wander( m_interface );
+	npc->setAttackerSerial( INVALID_SERIAL );
+	npc->setCombatTarget( INVALID_SERIAL );
+	nextState = new Monster_Aggr_L0_Wander( m_interface, npc );
 }
 
 void Monster_Aggr_L0_Combat::execute()
 {
-	P_CHAR pTarget = World::instance()->findChar( m_interface->npc->combatTarget() );
+	P_CHAR pTarget = World::instance()->findChar( npc->combatTarget() );
 	if( !pTarget )
 	{
 		won();
@@ -174,15 +174,15 @@ void Monster_Aggr_L0_Combat::execute()
 	}
 
 	UINT8 range = 1;
-	if( m_interface->npc->rightHandItem() && IsBowType( m_interface->npc->rightHandItem()->id() ) )
+	if( npc->rightHandItem() && IsBowType( npc->rightHandItem()->id() ) )
 		range = ARCHERY_RANGE;
 
-	if( !m_interface->npc->inRange( pTarget, range ) )
+	if( !npc->inRange( pTarget, range ) )
 	{ // move towards the target
 		if( SrvParams->pathfind4Combat() )
-			movePath( m_interface->npc, pTarget->pos() );
+			movePath( pTarget->pos() );
 		else
-			moveTo( m_interface->npc, pTarget->pos() );
+			moveTo( pTarget->pos() );
 	}
 }
 
@@ -205,42 +205,42 @@ void Monster_Aggressive_L1::registerInFactory()
 
 Monster_Aggressive_L1::Monster_Aggressive_L1()
 { 
-	currentState = new Monster_Aggr_L1_Wander( this );
+	currentState = new Monster_Aggr_L1_Wander( this, m_npc );
 }
 
 Monster_Aggressive_L1::Monster_Aggressive_L1( P_NPC currnpc )
 { 
-	npc = currnpc; 
-	currentState = new Monster_Aggr_L1_Wander( this );
+	setNPC( currnpc );  
+	currentState = new Monster_Aggr_L1_Wander( this, m_npc );
 }
 
 void Monster_Aggressive_L1::eventHandler()
 {
 	currentState->nextState = currentState;
-	if( !npc->isDead() )
+	if( !m_npc->isDead() )
 	{
-		P_CHAR pVictim = World::instance()->findChar( npc->combatTarget() );
+		P_CHAR pVictim = World::instance()->findChar( m_npc->combatTarget() );
 		if( !pVictim || pVictim->isDead() )
 			currentState->won();
-		else if( !pVictim->inRange( npc, VISRANGE ) )
+		else if( !pVictim->inRange( m_npc, VISRANGE ) )
 			currentState->combatCancelled();
 
-		if( npc->hitpoints() < (float)npc->criticalHealth() * 0.01f * npc->maxHitpoints() )
+		if( m_npc->hitpoints() < (float)m_npc->criticalHealth() * 0.01f * m_npc->maxHitpoints() )
 			currentState->hitpointsCritical();
 		else
 			currentState->hitpointsRestored();
 
-		P_CHAR pAttacker = World::instance()->findChar( npc->attackerSerial() );
-		if( pAttacker && pAttacker->inRange( npc, VISRANGE ) )
+		P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
+		if( pAttacker && pAttacker->inRange( m_npc, VISRANGE ) )
 			currentState->attacked();
 		else
 		{
 			// get the first best character and attack it
-			RegionIterator4Chars ri( npc->pos(), VISRANGE );
+			RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
 			for( ri.Begin(); !ri.atEnd(); ri++ )
 			{
 				P_CHAR pChar = ri.GetData();
-				if( pChar && pChar != npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
+				if( pChar && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
 				{
 					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
 					if( pPlayer && pPlayer->isGMorCounselor() )
@@ -269,22 +269,22 @@ void Monster_Aggr_L1_Wander::registerInFactory()
 
 void Monster_Aggr_L1_Wander::attacked()
 {
-	reattack( m_interface->npc );
-	nextState = new Monster_Aggr_L1_Combat( m_interface );
+	reattack();
+	nextState = new Monster_Aggr_L1_Combat( m_interface, npc );
 }
 
 void Monster_Aggr_L1_Wander::foundVictim( P_CHAR pVictim )
 {
 	if( pVictim )
-		m_interface->npc->setCombatTarget( pVictim->serial() );
-	attack( m_interface->npc );
-	nextState = new Monster_Aggr_L1_Combat( m_interface );
+		npc->setCombatTarget( pVictim->serial() );
+	attack();
+	nextState = new Monster_Aggr_L1_Combat( m_interface, npc );
 }
 
 void Monster_Aggr_L1_Wander::execute()
 {
 	// wander freely
-	wanderFreely( m_interface->npc );
+	wanderFreely();
 }
 
 static AbstractState* productCreator_MAL1_Combat()
@@ -299,26 +299,26 @@ void Monster_Aggr_L1_Combat::registerInFactory()
 
 void Monster_Aggr_L1_Combat::won()
 {
-	m_interface->npc->setAttackerSerial( INVALID_SERIAL );
-	m_interface->npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L1_Wander( m_interface );
+	npc->setAttackerSerial( INVALID_SERIAL );
+	npc->setCombatTarget( INVALID_SERIAL );
+	nextState = new Monster_Aggr_L1_Wander( m_interface, npc );
 }
 
 void Monster_Aggr_L1_Combat::combatCancelled()
 {
-	m_interface->npc->setAttackerSerial( INVALID_SERIAL );
-	m_interface->npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L1_Wander( m_interface );
+	npc->setAttackerSerial( INVALID_SERIAL );
+	npc->setCombatTarget( INVALID_SERIAL );
+	nextState = new Monster_Aggr_L1_Wander( m_interface, npc );
 }
 
 void Monster_Aggr_L1_Combat::hitpointsCritical()
 {
-	nextState = new Monster_Aggr_L1_Flee( m_interface );
+	nextState = new Monster_Aggr_L1_Flee( m_interface, npc );
 }
 
 void Monster_Aggr_L1_Combat::execute()
 {
-	P_CHAR pTarget = World::instance()->findChar( m_interface->npc->combatTarget() );
+	P_CHAR pTarget = World::instance()->findChar( npc->combatTarget() );
 	if( !pTarget )
 	{
 		won();
@@ -326,31 +326,31 @@ void Monster_Aggr_L1_Combat::execute()
 	}
 
 	UINT8 range = 1;
-	if( m_interface->npc->rightHandItem() && IsBowType( m_interface->npc->rightHandItem()->id() ) )
+	if( npc->rightHandItem() && IsBowType( npc->rightHandItem()->id() ) )
 		range = ARCHERY_RANGE;
 
-	if( !m_interface->npc->inRange( pTarget, range ) )
+	if( !npc->inRange( pTarget, range ) )
 	{ // move towards the target
-		Coord_cl pos = m_interface->npc->pos();
+		Coord_cl pos = npc->pos();
 		if( SrvParams->pathfind4Combat() )
-			movePath( m_interface->npc, pTarget->pos() );
+			movePath( pTarget->pos() );
 		else
-			moveTo( m_interface->npc, pTarget->pos() );
+			moveTo( pTarget->pos() );
 
 		// no move found
-		if( pos == m_interface->npc->pos() )
+		if( pos == npc->pos() )
 		{ // search new target
-			RegionIterator4Chars ri( m_interface->npc->pos(), VISRANGE );
+			RegionIterator4Chars ri( npc->pos(), VISRANGE );
 			for( ri.Begin(); !ri.atEnd(); ri++ )
 			{
 				P_CHAR pChar = ri.GetData();
-				if( pChar && pChar != m_interface->npc && pChar != pTarget && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
+				if( pChar && pChar != npc && pChar != pTarget && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
 				{
 					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
 					if( pPlayer && pPlayer->isGMorCounselor() )
 						continue;
 
-					m_interface->npc->setCombatTarget( pChar->serial() );
+					npc->setCombatTarget( pChar->serial() );
 					break;
 				}
 			}
@@ -370,28 +370,28 @@ void Monster_Aggr_L1_Flee::registerInFactory()
 
 void Monster_Aggr_L1_Flee::won()
 {
-	m_interface->npc->setAttackerSerial( INVALID_SERIAL );
-	m_interface->npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L1_Wander( m_interface );
+	npc->setAttackerSerial( INVALID_SERIAL );
+	npc->setCombatTarget( INVALID_SERIAL );
+	nextState = new Monster_Aggr_L1_Wander( m_interface, npc );
 }
 
 void Monster_Aggr_L1_Flee::combatCancelled()
 {
-	m_interface->npc->setAttackerSerial( INVALID_SERIAL );
-	m_interface->npc->setCombatTarget( INVALID_SERIAL );
-	nextState = new Monster_Aggr_L1_Wander( m_interface );
+	npc->setAttackerSerial( INVALID_SERIAL );
+	npc->setCombatTarget( INVALID_SERIAL );
+	nextState = new Monster_Aggr_L1_Wander( m_interface, npc );
 }
 
 void Monster_Aggr_L1_Flee::hitpointsRestored()
 {
-	nextState = new Monster_Aggr_L1_Combat( m_interface );
+	nextState = new Monster_Aggr_L1_Combat( m_interface, npc );
 }
 
 void Monster_Aggr_L1_Flee::execute()
 {
-	if( !m_interface->npc->hasPath() )
+	if( !npc->hasPath() )
 	{
-		Coord_cl newPos = m_interface->npc->pos();
+		Coord_cl newPos = npc->pos();
 		// find a valid spot in a circle of flee_radius fields to move to
 		float rnddist = (float)RandomNum( 1, SrvParams->pathfindFleeRadius() );
 		// now get a point on this circle around the npc
@@ -400,8 +400,8 @@ void Monster_Aggr_L1_Flee::execute()
 		newPos.y = newPos.y + (INT16)floor( sin( rndphi ) * rnddist );
 
 		// we use pathfinding for fleeing
-		movePath( m_interface->npc, newPos );
+		movePath( newPos );
 	}
 	else
-		movePath( m_interface->npc );
+		movePath();
 }

@@ -1007,7 +1007,7 @@ void cNPC::processNode( const QDomElement &Tag )
 	else if( TagName == "ai" )
 		this->setAI( Value );
 
-/*	//<shopkeeper>
+	//<shopkeeper>
 	//	<sellable>...handled like item-<contains>-section...</sellable>
 	//	<buyable>...see above...</buyable>
 	//	<restockable>...see above...</restockable>
@@ -1028,11 +1028,11 @@ void cNPC::processNode( const QDomElement &Tag )
 
 			unsigned char contlayer = 0;
 			if( currNode.nodeName() == "restockable" )
-				contlayer = 0x1A;
+				contlayer = BuyRestockContainer;
 			else if( currNode.nodeName() == "buyable" )
-				contlayer = 0x1B;
+				contlayer = BuyNoRestockContainer;
 			else if( currNode.nodeName() == "sellable" )
-				contlayer = 0x1C;
+				contlayer = SellContainer;
 			else 
 			{
 				childNode = childNode.nextSibling();
@@ -1045,10 +1045,10 @@ void cNPC::processNode( const QDomElement &Tag )
 			childNode = childNode.nextSibling();
 		}
 		
-		restock();
+//		restock();
 	}
 		
-	//<split>1</split>
+/*	//<split>1</split>
 	else if( TagName == "split" )
 		this->setSplit( Value.toUShort() );
 
@@ -1475,7 +1475,7 @@ void cNPC::setAI( const QString &data )
 	if( !ai )
 		return;
 
-	ai->npc = this;
+	ai->setNPC( this );
 
 	QString tempstate = temp[1];
 	if( !tempstate.isEmpty() )
@@ -1490,7 +1490,44 @@ void cNPC::setAI( const QString &data )
 	setAI( ai );
 }
 
+void cNPC::makeShop()
+{
+	P_ITEM currCont = GetItemOnLayer( BuyRestockContainer );
+	if( !currCont )
+	{
+		currCont = new cItem;
+		currCont->Init();
+		currCont->setId( 0xE75 );
+		currCont->setOwner( this );
+		currCont->setType( 1 );		
+		addItem( BuyRestockContainer, currCont );
+		currCont->update();
+	}
 
+	currCont = GetItemOnLayer( BuyNoRestockContainer );
+	if( !currCont )
+	{
+		currCont = new cItem;
+		currCont->Init();
+		currCont->setId( 0xE75 );
+		currCont->setOwner( this );
+		currCont->setType( 1 );		
+		addItem( BuyNoRestockContainer, currCont );
+		currCont->update();
+	}
+
+	currCont = GetItemOnLayer( SellContainer );
+	if( !currCont )
+	{
+		currCont = new cItem;
+		currCont->Init();
+		currCont->setId( 0xE75 );
+		currCont->setOwner( this );
+		currCont->setType( 1 );		
+		addItem( SellContainer, currCont );
+		currCont->update();
+	}
+}
 
 
 

@@ -47,6 +47,17 @@
 // library includes
 #include <math.h>
 
+void cNPC_AI::setNPC( P_NPC npc )
+{
+	m_npc = npc;
+	if( currentState )
+	{
+		currentState->npc = npc;
+		if( currentState->nextState )
+			currentState->nextState->npc = npc;
+	}
+}
+
 void cNPC_AI::updateState()
 {
 	if( currentState->nextState != currentState )
@@ -65,10 +76,11 @@ void cNPC_AI::updateState( AbstractState* newState )
 			delete currentState;
 		currentState = newState;
 		currentState->setInterface( this );
+		currentState->npc = m_npc;
 	}
 }
 
-void Actions::reattack( P_NPC npc )
+void Actions::reattack()
 {
 	P_CHAR pAttacker = World::instance()->findChar( npc->attackerSerial() );
 	if( pAttacker )
@@ -78,7 +90,7 @@ void Actions::reattack( P_NPC npc )
 	}
 }
 
-void Actions::attack( P_NPC npc )
+void Actions::attack()
 {
 	P_CHAR pVictim = World::instance()->findChar( npc->combatTarget() );
 	if( pVictim )
@@ -88,7 +100,7 @@ void Actions::attack( P_NPC npc )
 	}
 }
 
-void Actions::wanderFreely( P_NPC npc )
+void Actions::wanderFreely()
 {
 	switch( npc->wanderType() )
 	{
@@ -137,7 +149,7 @@ void Actions::wanderFreely( P_NPC npc )
 	};
 }
 
-void Actions::moveTo( P_NPC npc, const Coord_cl &pos )
+void Actions::moveTo( const Coord_cl &pos )
 {
 	// simply move towards the target
 	UINT8 dir = chardirxyz( npc, pos.x, pos.y );
@@ -171,7 +183,7 @@ void Actions::moveTo( P_NPC npc, const Coord_cl &pos )
 	Movement::instance()->Walking( npc, dir, 0xFF );
 }
 
-void Actions::movePath( P_NPC npc, const Coord_cl &pos )
+void Actions::movePath( const Coord_cl &pos )
 {
 	if( !waitForPathCalculation )
 	{
@@ -185,7 +197,7 @@ void Actions::movePath( P_NPC npc, const Coord_cl &pos )
 	else
 	{
 		waitForPathCalculation--;
-		moveTo( npc, pos );
+		moveTo( pos );
 		return;
 	}
 
@@ -202,7 +214,7 @@ void Actions::movePath( P_NPC npc, const Coord_cl &pos )
 	else
 	{
 		waitForPathCalculation = 3;
-		moveTo( npc, pos );
+		moveTo( pos );
 		return;
 	}
 }
@@ -210,7 +222,7 @@ void Actions::movePath( P_NPC npc, const Coord_cl &pos )
 /*
 Precondition: npc has path!
 */
-void Actions::movePath( P_NPC npc )
+void Actions::movePath()
 {
 	Coord_cl nextmove = npc->nextMove();
 	UINT8 dir = chardirxyz( npc, nextmove.x, nextmove.y );
@@ -220,3 +232,8 @@ void Actions::movePath( P_NPC npc )
 	return;
 }
 
+void Actions::callGuards()
+{
+	npc->talk( tr("Guards! Help me!") );
+	npc->callGuards();
+}

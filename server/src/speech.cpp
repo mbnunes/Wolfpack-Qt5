@@ -51,6 +51,7 @@
 #include "player.h"
 #include "npc.h"
 #include "chars.h"
+#include "ai.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -756,51 +757,6 @@ bool PlayerVendorSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pVendor, con
 	return false;
 }
 
-bool VendorSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pVendor, const QString& comm )
-{
-/*	if( pVendor->npcaitype() == 17 )
-		return false;*/
-
-/*	if( !pVendor->shop() )
-		return false;*/
-
-	if( pPlayer->dist( pVendor ) > 4 )
-		return false;
-
-	if( !VendorChkName( pVendor, comm ) )
-		return false;
-
-	// TODO: Rip this code out and
-	// use python instead
-	if( comm.contains( " BUY" ) )
-	{
-		// 0x1A = Normal Vendor items
-		// 0x1B = Items Players sold to the vendor
-		P_ITEM pItem = pVendor->GetItemOnLayer( 0x1A );
-
-		pVendor->turnTo( pPlayer );
-
-		if( !pItem )
-		{
-			pVendor->talk( tr( "Sorry but i have no goods to sell" ) );
-			return true;
-		}
-
-		pVendor->talk( tr( "Take a look at my wares!" ) );
-		socket->sendBuyWindow( pVendor );
-		return true;
-	}
-
-	if( comm.contains( " SELL" ) )
-	{
-		// LEGACY
-		//sellstuff(s, pVendor);
-		return true;
-	}
-
-	return false;
-}
-
 // Handles house commands from friends of the house.
 // msg must already be capitalized
 void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
@@ -904,10 +860,11 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 					return true;
 		}
 
-		if( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
-			return true;
+		cNPC_AI* pAI = pNpc->ai();
+		if( pAI && pAI->currState() )
+			pAI->currState()->speechInput( pPlayer, speechUpr );
 
-		if( VendorSpeech( socket, pPlayer, pNpc, speechUpr ) )
+		if( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 
 		if( PetCommand( socket, pPlayer, pNpc, speechUpr ) )

@@ -59,11 +59,14 @@ public:
 	virtual void updateState( AbstractState* newState );
 
 	virtual QString AIType() = 0;
-	P_NPC	npc;
 
 	AbstractState*	currState() const { return currentState; }
+
+	P_NPC	npc() const { return m_npc; };
+	void	setNPC( P_NPC npc );
 protected:
 	AbstractState*	currentState;
+	P_NPC	m_npc;
 };
 
 class AIFactory : public Factory<cNPC_AI, QString>
@@ -89,22 +92,24 @@ public:
 class Actions
 {
 public:
-	Actions() { waitForPathCalculation = 0; }
+	Actions() { waitForPathCalculation = 0; npc = NULL; }
 	~Actions() {}
 
+	P_NPC npc;
+
 protected:
-	virtual void attack( P_NPC npc );
-	virtual void reattack( P_NPC npc );
+	virtual void attack();
+	virtual void reattack();
 	virtual void reset() {}
 	virtual void flee() {}
 	virtual void greet() {}
 	virtual void showTargetCursor() {}
 	virtual void decline() {}
-	virtual void callGuards() {}
-	virtual void wanderFreely( P_NPC npc );
-	virtual void moveTo( P_NPC npc, const Coord_cl &pos );
-	virtual void movePath( P_NPC npc );
-	virtual void movePath( P_NPC npc, const Coord_cl &pos );
+	virtual void callGuards();
+	virtual void wanderFreely();
+	virtual void moveTo( const Coord_cl &pos );
+	virtual void movePath();
+	virtual void movePath( const Coord_cl &pos );
 
 	UINT8 waitForPathCalculation;
 };
@@ -120,17 +125,20 @@ public:
 	virtual void combatCancelled() {}
 	virtual void hitpointsCritical() {}
 	virtual void hitpointsRestored() {}
-	virtual void speechInput() {}
+	virtual void speechInput( P_PLAYER pTalker, const QString &message ) {}
 	virtual void targetCursorInput() {}
 	virtual void pay() {}
 	virtual void foundVictim( P_CHAR pVictim ) {}
+	virtual void handleSelection() {}
+	virtual void selectionCancelled() {}
+	virtual void selectionTimeOut() {}
 };
 
 class AbstractState : public Actions, public Events
 {
 public:
-	AbstractState() {}
-	AbstractState( cNPC_AI* interface_ ) { m_interface = interface_; }
+	AbstractState() : nextState( NULL ), m_interface( NULL ) {}
+	AbstractState( cNPC_AI* interface_ ) : nextState( NULL ), m_interface( interface_ ) {}
 	~AbstractState() {}
 
 	virtual QString stateType() = 0;
@@ -168,8 +176,8 @@ public:
 class Monster_Aggr_L0_Wander : public AbstractState
 {
 public:
-	Monster_Aggr_L0_Wander() { m_interface = NULL; }
-	Monster_Aggr_L0_Wander( cNPC_AI* interface_ ) { m_interface = interface_; }
+	Monster_Aggr_L0_Wander() { m_interface = NULL; npc = NULL; }
+	Monster_Aggr_L0_Wander( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
 	~Monster_Aggr_L0_Wander() {}
 
 	virtual QString stateType() { return "Monster_Aggr_L0_Wander"; }
@@ -185,7 +193,7 @@ class Monster_Aggr_L0_Combat : public AbstractState
 {
 public:
 	Monster_Aggr_L0_Combat() { m_interface = NULL; }
-	Monster_Aggr_L0_Combat( cNPC_AI* interface_ ) { m_interface = interface_; }
+	Monster_Aggr_L0_Combat( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
 	~Monster_Aggr_L0_Combat() {}
 
 	virtual QString stateType() { return "Monster_Aggr_L0_Combat"; }
@@ -213,7 +221,7 @@ class Monster_Aggr_L1_Wander : public AbstractState
 {
 public:
 	Monster_Aggr_L1_Wander() { m_interface = NULL; }
-	Monster_Aggr_L1_Wander( cNPC_AI* interface_ ) { m_interface = interface_; }
+	Monster_Aggr_L1_Wander( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
 	~Monster_Aggr_L1_Wander() {}
 
 	virtual QString stateType() { return "Monster_Aggr_L1_Wander"; }
@@ -229,7 +237,7 @@ class Monster_Aggr_L1_Combat : public AbstractState
 {
 public:
 	Monster_Aggr_L1_Combat() { m_interface = NULL; }
-	Monster_Aggr_L1_Combat( cNPC_AI* interface_ ) { m_interface = interface_; }
+	Monster_Aggr_L1_Combat( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
 	~Monster_Aggr_L1_Combat() {}
 
 	virtual QString stateType() { return "Monster_Aggr_L1_Combat"; }
@@ -246,7 +254,7 @@ class Monster_Aggr_L1_Flee : public AbstractState
 {
 public:
 	Monster_Aggr_L1_Flee() { m_interface = NULL; }
-	Monster_Aggr_L1_Flee( cNPC_AI* interface_ ) { m_interface = interface_; }
+	Monster_Aggr_L1_Flee( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
 	~Monster_Aggr_L1_Flee() {}
 
 	virtual QString stateType() { return "Monster_Aggr_L1_Flee"; }
@@ -259,5 +267,100 @@ public:
 	virtual void hitpointsRestored();
 };
 
+class Human_Vendor : public cNPC_AI
+{
+public:
+	Human_Vendor();
+	Human_Vendor( P_NPC currnpc );
+
+	virtual void eventHandler();
+
+	virtual QString AIType() { return "Human_Vendor"; }
+	static void registerInFactory();
+};
+
+class Human_Vendor_Wander : public AbstractState
+{
+public:
+	Human_Vendor_Wander() { m_interface = NULL; }
+	Human_Vendor_Wander( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~Human_Vendor_Wander() {}
+
+	virtual QString stateType() { return "Human_Vendor_Wander"; }
+	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void attacked();
+	virtual void speechInput( P_PLAYER pTalker, const QString &message );
+};
+
+class Human_Vendor_Combat : public AbstractState
+{
+public:
+	Human_Vendor_Combat() { m_interface = NULL; }
+	Human_Vendor_Combat( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~Human_Vendor_Combat() {}
+
+	virtual QString stateType() { return "Human_Vendor_Combat"; }
+	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void won();
+	virtual void combatCancelled();
+	virtual void hitpointsCritical();
+};
+
+class Human_Vendor_Flee : public AbstractState
+{
+public:
+	Human_Vendor_Flee() { m_interface = NULL; }
+	Human_Vendor_Flee( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~Human_Vendor_Flee() {}
+
+	virtual QString stateType() { return "Human_Vendor_Flee"; }
+	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void won();
+	virtual void combatCancelled();
+	virtual void hitpointsRestored();
+};
+
+class Human_Vendor_BuyQuery : public AbstractState
+{
+public:
+	Human_Vendor_BuyQuery() { m_interface = NULL; }
+	Human_Vendor_BuyQuery( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~Human_Vendor_BuyQuery() {}
+
+	virtual QString stateType() { return "Human_Vendor_BuyQuery"; }
+//	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void handleSelection();
+	virtual void selectionCancelled();
+	virtual void selectionTimeOut();
+};
+
+class Human_Vendor_SellQuery : public AbstractState
+{
+public:
+	Human_Vendor_SellQuery() { m_interface = NULL; }
+	Human_Vendor_SellQuery( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~Human_Vendor_SellQuery() {}
+
+	virtual QString stateType() { return "Human_Vendor_SellQuery"; }
+//	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void handleSelection();
+	virtual void selectionCancelled();
+	virtual void selectionTimeOut();
+};
 
 #endif /* AI_H_HEADER_INCLUDED */
