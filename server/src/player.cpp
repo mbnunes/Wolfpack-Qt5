@@ -104,7 +104,7 @@ void cPlayer::load( char **result, UINT16 &offset )
 	setAccount( Accounts::instance()->getRecord( result[offset++] ) );
 	additionalFlags_ = atoi( result[offset++] );
 	visualRange_ = atoi( result[offset++] );
-	profile_ = atoi( result[offset++] );
+	profile_ = result[offset++];
 	fixedLightLevel_ = atoi( result[offset++] );
 
 	playerRegisterAfterLoading( this );
