@@ -60,7 +60,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed a bug with kindlings.
 		- Fixed a bug with canceling a magery target not canceling the spell.
 		- Fixed a bug where the send command didn't resend the world to the target.
-		- Fix for the info command.
+		- Fixed bug #0000314. (Fix for the info command)
 		- Exploit fix for ore smelting. Unlimited mining skill checks.
 	* Misc. Changes:
 		- Fixed configure.py for FreeBSD 5

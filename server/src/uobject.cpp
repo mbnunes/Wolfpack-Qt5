@@ -1078,6 +1078,12 @@ void cUObject::setScriptList( const QCString& eventlist )
 			scriptChain[i++] = script;
 		}
 	}
+
+	if (scriptChain && cPythonScript::canChainHandleEvent(EVENT_ATTACH, scriptChain)) {
+		PyObject* args = Py_BuildValue("(N)", getPyObject());
+		cPythonScript::callChainedEventHandler(EVENT_ATTACH, scriptChain, args);
+		Py_DECREF(args);
+	}
 }
 
 void cUObject::save(cBufferedWriter& writer) {

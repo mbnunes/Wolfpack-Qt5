@@ -57,6 +57,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed console bugs.
 	- Added translation support to Python scripts.
 	- Fixed stablemaster speech handling ( Stablemasters are also vendors )
+	- Fixed bug #0000326. (onAttach not being called on startup)
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.
