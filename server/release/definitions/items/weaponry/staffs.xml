@@ -14,6 +14,7 @@
 		<attack min="8" max="33" />
 		<durability>30</durability>
 		<decay />
+		<type>1003</type>
 		<value>85</value>
 		<speed>35</speed>
 		<weight>3.0</weight>
@@ -37,6 +38,7 @@
 		<value>70</value>
 		<requires type="str">30</requires>
 		<speed>48</speed>
+		<type>1003</type>
 		<weight>3.0</weight>
 		<category>Weapons\Staffs\Quarter Staff N/S</category>
 	</item>
@@ -57,6 +59,7 @@
 		<value>65</value>
 		<requires type="str">20</requires>
 		<speed>33</speed>
+		<type>1003</type>
 		<weight>3.00</weight>
 		<category>Weapons\Staffs\Gnarled Staff N/S</category>
 	</item>

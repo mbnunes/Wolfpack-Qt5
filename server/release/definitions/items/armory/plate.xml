@@ -20,7 +20,7 @@
 		<requires type='str'>100</requires> 
 		<restock>10</restock>
 		<smelt>53</smelt>
-		<weight>500</weight>
+		<weight>50.0</weight>
 		<value>500</value>
 	</item>
 
@@ -37,7 +37,7 @@
 		<requires type='str'>100</requires> 
 		<restock>10</restock>
 		<smelt>53</smelt>
-		<weight>250</weight>
+		<weight>25.0</weight>
 		<value>500</value>
 	</item>
 
@@ -54,7 +54,7 @@
 		<requires type='str'>100</requires> 
 		<restock>10</restock>
 		<smelt>11</smelt>
-		<weight>477</weight>
+		<weight>47.7</weight>
 		<value>300</value>
 	</item>
 
@@ -71,7 +71,7 @@
 		<requires type='str'>100</requires> 
 		<restock>10</restock>
 		<smelt>7</smelt>
-		<weight>99</weight>
+		<weight>9.9</weight>
 		<value>200</value>
 	</item>
 
@@ -88,7 +88,7 @@
 		<requires type='str'>100</requires> 
 		<restock>10</restock>
 		<smelt>4</smelt>
-		<weight>63</weight>
+		<weight>6.3</weight>
 		<value>100</value>
 	</item>
 	
@@ -105,7 +105,7 @@
 		<requires type='str'>100</requires> 
 		<restock>10</restock>
 		<smelt>11</smelt>
-		<weight>72</weight>
+		<weight>7.2</weight>
 		<value>300</value>
 	</item>
 
@@ -122,7 +122,7 @@
 		<requires type='str'>100</requires> 
 		<restock>10</restock>
 		<smelt>14</smelt>
-		<weight>63</weight>
+		<weight>6.3</weight>
 		<value>400</value>
 	</item>
 </definitions>

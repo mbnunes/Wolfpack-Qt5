@@ -16,12 +16,11 @@
 		<id>0x1B73</id>
 		<layer>6</layer>
 		<modifier type='dex'>-2</modifier>
-		<name>buckler</name>
 		<requires type='str'>45</requires> 
 		<restock>10</restock>
 		<smelt>4</smelt>
 		<weight>27</weight>
-		<value>100</value>
+		<value>10.0</value>
 	</item>
 
 	<!-- heater -->
@@ -33,12 +32,11 @@
 		<id>0x1B76</id>
 		<layer>13</layer>
 		<modifier type='dex'>-15</modifier>
-		<name>heater</name>
 		<requires type='str'>95</requires> 
 		<restock>10</restock>
 		<smelt>18</smelt>
 		<weight>36</weight>
-		<value>300</value>
+		<value>30.0</value>
 	</item>
 
 	<!-- normal shield -->
@@ -50,12 +48,11 @@
 		<id>0x1B7B</id>
 		<layer>2</layer>
 		<modifier type='dex'>-8</modifier>
-		<name>shield</name>
 		<requires type='str'>100</requires> 
 		<restock>10</restock>
 		<smelt>6</smelt>
 		<weight>126</weight>
-		<value>360</value>
+		<value>36.0</value>
 	</item>
 
 	<!-- kite shield -->
@@ -67,11 +64,10 @@
 		<id>0x1B74</id>
 		<layer>24</layer>
 		<modifier type='dex'>-12</modifier>
-		<name>shield kite</name>
 		<requires type='str'>85</requires> 
 		<restock>10</restock>
 		<smelt>14</smelt>
-		<weight>54</weight>
+		<weight>5.4</weight>
 		<value>500</value>
 	</item>
 </definitions>
