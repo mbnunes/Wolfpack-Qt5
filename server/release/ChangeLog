@@ -72,6 +72,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Reorganized base armor categories.
   - New folder for defines: definitions/defines/
   - Applied the index.xml branches to colored armor.
+  - Added lightsources to fire elementals, wisps and horde minions.
+  - Added bones to bone_magi and body parts to horde minions, zombies and others.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
@@ -102,6 +104,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixed bug #0000321. (Info Gump not setting boolean values to True if input is 1)
   - Poisoning now accepts stacked potions.
   - Reorganized the potion scripts.
+  - Added possibility to cut bone parts into usable bones using scissors.
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:
