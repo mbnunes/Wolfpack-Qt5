@@ -144,11 +144,11 @@ public:
 	virtual bool onWalk( UI08 Direction, UI08 Sequence ); // Walks in a specific Direction
 	virtual bool onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang ); // The character says something
 	virtual bool onWarModeToggle( bool War ); // The character switches warmode
-	virtual bool onShowPaperdoll( P_PLAYER pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
+	virtual bool onShowPaperdoll( P_CHAR pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
 	virtual bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 	bool onDropOnChar( P_ITEM pItem );
-	QString onShowPaperdollName( P_PLAYER pOrigin ); // only change the viewed name
+	QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
 	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 
 	// getters
@@ -159,7 +159,6 @@ public:
     QDateTime		creationDate() const;
     UINT32			criminalTime() const;
     UINT16			deaths() const;
-    INT16			dexEff() const;
     INT16			dexterityMod() const;
     INT16			dexterity() const;
     UINT8			direction() const;
@@ -241,7 +240,6 @@ public:
     void setCreationDate(const QDateTime &data);
     void setCriminalTime(UINT32 data);
     void setDeaths(UINT16 data);
-    void setDexEff(INT16 data);
     void setDexterityMod(INT16 data);
     void setDexterity(INT16 data);
     void setDirection(UINT8 data);
@@ -385,10 +383,6 @@ protected:
     // dex modifier for influencing equipped items.
     // cOldChar::dx2
     INT16 dexterityMod_;
-
-    // Temporal effected dexterity.
-    // cOldChar::tmpDex
-    INT16 dexEff_;
 
     // maximum stamina the character can fill up
     UINT16 maxStamina_;
@@ -627,17 +621,6 @@ inline UINT16 cBaseChar::deaths() const
 inline void cBaseChar::setDeaths(UINT16 data)
 {
     deaths_ = data;
-	changed( SAVE );
-}
-
-inline INT16 cBaseChar::dexEff() const
-{
-    return dexEff_;
-}
-
-inline void cBaseChar::setDexEff(INT16 data)
-{
-    dexEff_ = data;
 	changed( SAVE );
 }
 

@@ -1064,7 +1064,7 @@ int main( int argc, char *argv[] )
 		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
 			P_PLAYER player = mSock->player();
-			if ( player && !player->isGM() && player->clientidletime() && player->clientidletime() < uiCurrentTime )
+			if ( player && !player->isGM() && player->clientIdleTime() && player->clientIdleTime() < uiCurrentTime )
 			{
 				clConsole.send( tr("Player %1 disconnected due to inactivity !\n").arg( player->name() ) );
 				cUOTxMessageWarning packet;
@@ -2620,14 +2620,13 @@ void bgsound(P_CHAR pc)
 
 	if (pc == NULL) return;
 
-	int y=0;
 	RegionIterator4Chars ri(pc->pos());
 	for (ri.Begin(); !ri.atEnd(); ri++)
 	{
-		P_CHAR pc = ri.GetData();
-		if (pc != NULL)
+		P_PLAYER pc = dynamic_cast<P_PLAYER>(ri.GetData());
+		if( pc )
 		{
-			if((pc->isPlayer())&&(!(pc->dead()))&&(!(pc->war()))&&(y<=10))
+			if( !pc->isDead() && !pc->isAtWar() )
 			{
 				if (!pc->free) // lb, bugfix !
 				{
@@ -2643,7 +2642,7 @@ void bgsound(P_CHAR pc)
 	if (inrange.size() > 0)
 	{
 		sound=RandomNum(0, inrange.size()-1);
-		xx = inrange[sound]->id();
+		xx = inrange[sound]->bodyID();
 		if (xx>-1 && xx<2048)
 		{
 			basesound=creatures[xx].basesound;
@@ -2747,7 +2746,9 @@ void Karma( P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma )
 
 	// For NPCs we dont need to send a message
 	// If nothing changed we dont need to do that either
-	if( !nChange || !pc_toChange->socket() )
+	P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_toChange);
+
+	if( !nChange || !pp || !pp->socket() )
 		return;
 
 	UINT32 message;
@@ -2781,20 +2782,20 @@ void Karma( P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma )
 			message = 0xF8CBA; // You have lost a lot of karma.
 	}
 
-	pc_toChange->socket()->clilocMessage( message );
+	pp->socket()->clilocMessage( message );
 }
 
 /*!
 	Give fame credit for killing someone.
 */
-void Fame( P_CHAR pc_toChange, int nFame )
+void Fame( P_CHAR pChar, int nFame )
 {
+	P_PLAYER pc_toChange = dynamic_cast<P_PLAYER>( pChar );
+	if( !pc_toChange )
+		return;
+
 	int nCurFame, nChange=0;
 	bool gain = false;
-
-	// NPCs don't gain fame.
-	if( pc_toChange->isNpc() ) 
-		return;
 
 	pc_toChange->setFame( QMIN( 10000, pc_toChange->fame() ) );
 
@@ -2867,52 +2868,54 @@ void setcharflag( P_CHAR pc )
 	//First, let's see their karma.
 	if( pc->karma() <= -200 )
 	{
-		pc->setMurderer();
+		pc->setMurdererTime( uiCurrentTime + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC );
 	}
 
-	if (pc->isPlayer())
+	if( pc->objectType() == enPlayer )
 	{
-		if (pc->isGMorCounselor())
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
+		if (pp->isGMorCounselor())
 		{
-			pc->setInnocent();
+			pp->setMurdererTime( 0 );
+			pp->setCriminalTime( 0 );
 			return;
 		}
 		else if (pc->kills() >= (unsigned) SrvParams->maxkills())
 		{
-			pc->setMurderer();
+			pp->setMurdererTime( uiCurrentTime + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC );
 			return;
 		}	
-		else if (pc->crimflag() == 0)
+		else if (pc->criminalTime() == 0)
 		{
-			pc->setInnocent();
+			pp->setMurdererTime( 0 );
 			return;
 		}
-		else if (pc->crimflag()>0)
+		else if (pc->criminalTime() > 0)
 		{
-			pc->criminal();
+			pp->makeCriminal();
 			return;
 		}		
 		else
 		{
-			pc->criminal();
+			pp->makeCriminal();
 		}
 	}
-	else if (pc->isNpc() && ((pc->npcaitype() == 2) || // bad npc
-		(pc->npcaitype() == 3) ||  // bad healer
-		(pc->npcaitype() == 50)))   // EV & BS
+	else if (pc->objectType() == enNPC) // && ((pc->npcaitype() == 2) || // bad npc
+		//(pc->npcaitype() == 3) ||  // bad healer
+		//(pc->npcaitype() == 50)))   // EV & BS
 	{
-		if (SrvParams->badNpcsRed()== 0)
+		if (SrvParams->badNpcsRed() == 0)
 		{
-			pc->criminal();
+			pc->setCriminalTime( uiCurrentTime + SrvParams->crimtime() * MY_CLOCKS_PER_SEC );
 		}
 		else
 		{
-			pc->setMurderer();
+			pc->setMurdererTime( uiCurrentTime + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC );
 		}
 	}
 	else
 	{
-		switch (pc->npcaitype())
+/*		switch (pc->npcaitype())
 		{
 			case 2: // bad npcs
 			case 3: // bad healers
@@ -2935,13 +2938,15 @@ void setcharflag( P_CHAR pc )
 			default:
 				if (pc->isHuman())
 				{
-					pc->setInnocent();
+					pc->setMurdererTime( 0 );
+					pc->setCriminalTime( 0 );
 					return;
 				}
 				if (SrvParams->animals_guarded() == 1 && pc->npcaitype() == 0 && !pc->isHuman() && !pc->tamed())
 				{
 					if (pc->inGuardedArea())	// in a guarded region, with guarded animals, animals == blue
-						pc->setInnocent();
+						pc->setMurdererTime( 0 );
+						pc->setCriminalTime( 0 );
 					else				// if the region's not guarded, they're gray
 						pc->criminal();
 				}
@@ -2952,7 +2957,7 @@ void setcharflag( P_CHAR pc )
 				else
 					pc->criminal();
 				break;
-		}
+		}*/
 	}
 }
 

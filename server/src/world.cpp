@@ -43,6 +43,9 @@
 #include "utilsys.h" // What the heck do we need this file for ?!
 #include "accounts.h"
 #include "inlines.h"
+#include "basechar.h"
+#include "player.h"
+#include "npc.h"
 
 // Postprocessing stuff, can be deleted later on
 #include "maps.h"
@@ -307,7 +310,7 @@ void cWorld::loadSql()
 
 			if( pCont )
 			{
-				pCont->addItem( (cChar::enLayer)pi->layer(), pi, false, true );
+				pCont->addItem( (cBaseChar::enLayer)pi->layer(), pi, false, true );
 			}
 			else
 			{
@@ -342,14 +345,14 @@ void cWorld::loadSql()
 		if( pi->container() && pi->container()->isItem() )
 			StoreItemRandomValue(pi, "none");
 
-		// effect on dex ? like plate eg.
+/*		// effect on dex ? like plate eg.
 		if( pi->dx2() && pi->container() && pi->container()->isChar() )
 		{
 			P_CHAR pChar = dynamic_cast< P_CHAR >( pi->container() );
 
 			if( pChar )
-				pChar->chgDex( pi->dx2() );
-		}
+				pChar->setDexterity( pChar->dexterity + pi->dx2() );
+		}*/
 		pi->flagUnchanged(); // We've just loaded, nothing changes.
 	}
 
@@ -358,21 +361,23 @@ void cWorld::loadSql()
 	P_CHAR pChar;
 	for( pChar = charIter.first(); pChar; pChar = charIter.next() )
 	{
+		P_NPC pNPC = dynamic_cast<P_NPC>(pChar);
+
 		// Find Owner
-		if( pChar->owner() )
+		if( pNPC && pNPC->owner() )
 		{
-			SERIAL owner = (SERIAL)pChar->owner();
+			SERIAL owner = pNPC->owner()->serial();
 			
-			P_CHAR pOwner = FindCharBySerial( owner );
+			P_PLAYER pOwner = dynamic_cast<P_PLAYER>(FindCharBySerial( owner ));
 			if( pOwner )
 			{
-				pChar->setOwnerOnly( pOwner );
-				pOwner->addFollower( pChar, true );
+				pNPC->setOwner( pOwner );
+				pOwner->addPet( pNPC, true );
 			}
 			else
 			{
-				clConsole.send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( owner, 16 ) );
-				pChar->setOwnerOnly( 0 );
+				clConsole.send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pNPC->serial(), 16 ).arg( owner, 16 ) );
+				pNPC->setOwner( NULL );
 			}
 		}
 
@@ -384,13 +389,13 @@ void cWorld::loadSql()
 			P_CHAR pGuarding = FindCharBySerial( guarding );
 			if( pGuarding )
 			{
-				pChar->setGuardingOnly( pGuarding );
+				pChar->setGuarding( pGuarding );
 				pGuarding->addGuard( pChar, true );
 			}
 			else
 			{
 				clConsole.send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
-				pChar->setGuardingOnly( 0 );
+				pChar->setGuarding( NULL );
 			}
 		}
 

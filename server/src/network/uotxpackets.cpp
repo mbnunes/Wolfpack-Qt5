@@ -18,7 +18,7 @@
 //	along with this program; if not, write to the Free Software
 //	Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
 //
-//	* In addition to that license, if you are running this program or modified
+//	* In addition to that license, if you are runningSteps this program or modified
 //	* versions of it on a public system you HAVE TO make the complete source of
 //	* the version used by you available or provide people with a location to
 //	* download it.
@@ -33,6 +33,7 @@
 #include "../items.h"
 #include "../coord.h"
 #include "../basechar.h"
+#include "../player.h"
 
 // Library Includes
 #include <qstringlist.h>
@@ -265,9 +266,9 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	setHue( pChar->skin() );
 	setBody( pChar->bodyID() );
 	
-	// If he's running we need to take that into account here
-	// ->running() is greater than zero in that case
-	setDirection( pChar->running() ? pChar->direction()|0x80 : pChar->direction() );
+	// If he's runningSteps we need to take that into account here
+	// ->runningSteps() is greater than zero in that case
+	setDirection( pChar->runningSteps() ? pChar->direction()|0x80 : pChar->direction() );
 
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
@@ -295,7 +296,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	if( pChar->isHidden() || ( pChar->account() && !pChar->socket() ) )
+	if( pChar->isHidden() || ( pChar->objectType() == enPlayer && !dynamic_cast<P_PLAYER>(pChar)->socket() ) )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->isDead() && !pChar->isAtWar() )

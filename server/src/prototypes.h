@@ -52,7 +52,7 @@ void savelog(const char *msg, char *logfile);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
 void Fame(P_CHAR pc_toChange, int nFame);
 
-int ishuman(P_CHAR pc);
+bool ishuman(P_CHAR pc);
 int chardir(P_CHAR a, P_CHAR b);
 int fielddir(P_CHAR pc, int x, int y, int z);
 

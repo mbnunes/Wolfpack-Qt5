@@ -65,6 +65,7 @@
 #include "../multis.h"
 #include "../basechar.h"
 #include "../chars.h"
+#include "../npc.h"
 
 //#include <conio.h>
 #include <iostream>
@@ -560,13 +561,13 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	resendWorld( false );
 
 	cUOTxWarmode warmode;
-	warmode.setStatus( pChar->war() );
+	warmode.setStatus( pChar->isAtWar() );
 	send( &warmode );
 
-	if( pChar->targ() != INVALID_SERIAL )
+	if( pChar->combatTarget() != INVALID_SERIAL )
 	{
 		cUOTxAttackResponse attack;
-		attack.setSerial( pChar->targ() );
+		attack.setSerial( pChar->combatTarget() );
 		send( &attack );
 	}
 
@@ -734,27 +735,28 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 
 	pChar->setGender( packet->gender() );
 	
-	pChar->setPriv2( SrvParams->defaultpriv2() );
-
 	pChar->setName( packet->name() );
 	
 	pChar->setSkin( packet->skinColor() );
-	pChar->setXSkin( packet->skinColor() );
+	pChar->setOrgSkin( packet->skinColor() );
 
 	pChar->moveTo( startLocations[ packet->startTown() ].pos );
 	pChar->setDirection(4);
 
 	pChar->setBodyID( ( packet->gender() == 1 ) ? 0x191 : 0x190 );
-	pChar->setXid( pChar->bodyID() );
+	pChar->setOrgBodyID( pChar->bodyID() );
 
 	pChar->setStrength( packet->strength() );
 	pChar->setHitpoints( pChar->strength() );
+	pChar->setMaxHitpoints( pChar->strength() );
 
 	pChar->setDexterity( packet->dexterity() );
 	pChar->setStamina( pChar->dexterity() );
+	pChar->setMaxStamina( pChar->dexterity() );
 
 	pChar->setIntelligence( packet->intelligence() );
 	pChar->setMana( pChar->intelligence() );
+	pChar->setMaxMana( pChar->intelligence() );
 
 	pChar->setSkillValue( packet->skillId1(), packet->skillValue1()*10 );
 	pChar->setSkillValue( packet->skillId2(), packet->skillValue2()*10 );
@@ -908,7 +910,7 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 		return; // Na..
 
 	//if( _player )
-	//	_player->VisRange = packet->range();
+	//	_player->visualRange = packet->range();
 }
 
 /*!
@@ -1191,7 +1193,7 @@ void cUOSocket::resendPlayer( bool quick )
 	if( !quick )
 	{
 		cUOTxWarmode warmode;
-		warmode.setStatus( _player->war() );
+		warmode.setStatus( _player->isAtWar() );
 		send( &warmode );
 	}
 
@@ -1223,10 +1225,10 @@ void cUOSocket::sendChar( P_CHAR pChar )
 	if( !_player || !_player->account() )
 		return;
 
-	if( !pChar->isNpc() && !pChar->socket() && !_player->account()->isAllShow() )
+	if( pChar->objectType() == enPlayer && !dynamic_cast<P_PLAYER>(pChar)->socket() && !_player->account()->isAllShow() )
 		return;
 
-	if( ( pChar->isHidden() || ( pChar->isDead() && !pChar->war() ) ) && !_player->isGMorCounselor() )
+	if( ( pChar->isHidden() || ( pChar->isDead() && !pChar->isAtWar() ) ) && !_player->isGMorCounselor() )
 		return;
 	
 	// Then completely resend it
@@ -1288,7 +1290,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 
 	// There is one special case. if the user has the body 0x3db and the first char
 	// of the speech is = then it's always a command
-	if( ( _player->id() == 0x3DB ) && speech.startsWith( SrvParams->commandPrefix() ) )
+	if( ( _player->bodyID() == 0x3DB ) && speech.startsWith( SrvParams->commandPrefix() ) )
 		cCommands::instance()->process( this, speech.right( speech.length()-1 ) );
 	else if( speech.startsWith( SrvParams->commandPrefix() ) )
 		cCommands::instance()->process( this, speech.right( speech.length()-1 ) );
@@ -1368,17 +1370,17 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 {
 	bool update = false;
 
-	if( packet->warmode() != _player->war() )
+	if( packet->warmode() != _player->isAtWar() )
 		update = true;
 
-	_player->setWar( packet->warmode() );
+	_player->setAtWar( packet->warmode() );
 
 	// Stop fighting immedeately
-	if( !_player->war() )
+	if( !_player->isAtWar() )
 	{
-		_player->setTarg( INVALID_SERIAL );
-		_player->setSwingTarg( INVALID_SERIAL );
-		_player->setTimeOut( 0 );
+		_player->setCombatTarget( INVALID_SERIAL );
+		_player->setSwingTarget( INVALID_SERIAL );
+		_player->setNextHitTime( 0 );
 	}
 
 	cUOTxWarmode warmode;
@@ -1391,9 +1393,9 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 	// Something changed
 	if( update )
 	{
-		if( _player->dead() && _player->war() ) 
+		if( _player->isDead() && _player->isAtWar() ) 
 			_player->resend( false );
-		else if( _player->dead() && !_player->war() )
+		else if( _player->isDead() && !_player->isAtWar() )
 		{
 			_player->removeFromView( false );
 			_player->resend( false );
@@ -1411,7 +1413,7 @@ void cUOSocket::playMusic()
 	cTerritory* Region = _player->region();
 	UINT32 midi = 0;
 
-	if( _player->war() )
+	if( _player->isAtWar() )
 		midi = DefManager->getRandomListEntry( "MIDI_COMBAT" ).toInt();
 
 	else if( Region )
@@ -1758,39 +1760,39 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	}
 */
 
-	// Player is dead
-	if( _player->dead() )
+	// Player is isDead
+	if( _player->isDead() )
 	{
 		if( SrvParams->persecute() )
 		{
-			_player->setTarg( pc_i->serial() );
-			if( _player->targ() != INVALID_SERIAL ) 
+			_player->setCombatTarget( pc_i->serial() );
+			if( _player->combatTarget() != INVALID_SERIAL ) 
 				Skills->Persecute( this );
 		} 
 		else
-			clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're dead.
+			clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're isDead.
 
 		send( &attack );
 		return;
 	}
 
 	// Attacking ghosts is not possible
-	if( pc_i->dead() || pc_i->hp() <= 0 )
+	if( pc_i->isDead() || pc_i->hitpoints() <= 0 )
 	{
-		sysMessage( tr( "That person is already dead!" ) );
+		sysMessage( tr( "That person is already isDead!" ) );
 		send( &attack );
 		return;
 	}
 
-	// Playervendors are invulnerable
+/*	// Playervendors are invulnerable
 	if( pc_i->npcaitype() == 17 ) 
 	{
 		sysMessage( tr( "%1 cannot be harmed." ).arg( pc_i->name() ) );
 		send( &attack );
 		return;
-	}
+	}*/
 
-	_player->setTarg( pc_i->serial() );
+	_player->setCombatTarget( pc_i->serial() );
 	_player->unhide();
 	_player->disturbMed();
 
@@ -1800,85 +1802,90 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 
 	// NPC already has a target 
 	// (And so is already fighting and should've been attacked by someone else)
-	if( pc_i->targ() != INVALID_SERIAL )
+	if( pc_i->combatTarget() != INVALID_SERIAL )
 	{
-		pc_i->setAttacker( _player->serial() );
-		pc_i->resetAttackFirst();
+		pc_i->setAttackerSerial( _player->serial() );
+		pc_i->setAttackFirst( false );
 	}
 
-	_player->setAttackFirst();
-	_player->setAttacker(pc_i->serial());
+	_player->setAttackFirst( true );
+	_player->setAttackerSerial(pc_i->serial());
 	_player->turnTo( pc_i );
 
 	// The person being attacked is guarded by pets ?
-	cChar::Followers guards = pc_i->guardedby();
-	for( cChar::Followers::iterator iter = guards.begin(); iter != guards.end(); ++iter )
+	cBaseChar::CharContainer guards = pc_i->guardedby();
+	for( cBaseChar::CharContainer::iterator iter = guards.begin(); iter != guards.end(); ++iter )
 	{
-		P_CHAR pPet = *iter;
-		if( pPet->targ() == INVALID_SERIAL && pPet->inRange( _player, SrvParams->attack_distance() ) ) // is it on screen?
+		P_NPC pPet = dynamic_cast<P_NPC>(*iter);
+		if( pPet->combatTarget() == INVALID_SERIAL && pPet->inRange( _player, SrvParams->attack_distance() ) ) // is it on screen?
 		{
 			pPet->fight( pc_i );
 
 			// Show the You see XXX attacking YYY messages
 			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( pc_i->name() );
 			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->VisRange() ) )
+				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->visualRange() ) )
 					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 			
-			if( pc_i->socket() )
-				pc_i->socket()->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+			if( pc_i->objectType() == enPlayer )
+			{
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
+				if( pp->socket() )
+					pp->socket()->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+			}
 		}
 	}
 
 	if( pc_i->inGuardedArea() && SrvParams->guardsActive() )
 	{
-		if( pc_i->isPlayer() && pc_i->isInnocent() && GuildCompare( _player, pc_i ) == 0 ) //REPSYS
+		if( pc_i->objectType() == enPlayer && pc_i->isInnocent() && GuildCompare( _player, pc_i ) == 0 ) //REPSYS
 		{
-			_player->criminal();
+			_player->makeCriminal();
 			Combat::spawnGuard( _player, pc_i, _player->pos() );
 		}
-		else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype() != 4 )
+		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && !pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
 		{
-			_player->criminal();
+			_player->makeCriminal();
 			Combat::spawnGuard( _player, pc_i, _player->pos() );
 		}
-		else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype() != 4 )
+		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
 		{
 			pc_i->talk( tr("Help! Guards! I've been attacked!") );
-			_player->criminal();
+			_player->makeCriminal();
 			pc_i->callGuards();
 		}
-		else if( pc_i->isNpc() && pc_i->npcaitype() == 4 )
+		else if( pc_i->objectType() == enNPC )//&& pc_i->npcaitype() == 4 )
 		{
-			_player->criminal();
-			pc_i->attackTarget( _player );
+			_player->makeCriminal();
+			pc_i->fight( _player );
 		}
-		else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war() && pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
+		else if ((pc_i->objectType() == enNPC || pc_i->isTamed()) && !pc_i->isAtWar() )//&& pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
 		{
-			pc_i->toggleCombat();
-			pc_i->setNextMoveTime();
+			P_NPC pn = dynamic_cast<P_NPC>(pc_i);
+			pn->toggleCombat();
+			pn->setNextMoveTime();
 		}
 		else
 		{
-			pc_i->setNextMoveTime();
+			dynamic_cast<P_NPC>(pc_i)->setNextMoveTime();
 		}
 	}
 	else // not a guarded area
 	{
 		if( pc_i->isInnocent() )
 		{
-			if( pc_i->isPlayer() && GuildCompare( _player, pc_i ) == 0 )
+			if( pc_i->objectType() == enPlayer && GuildCompare( _player, pc_i ) == 0 )
 			{
-				_player->criminal();
+				_player->makeCriminal();
 			}
-			else if( pc_i->isNpc() )
+			else if( pc_i->objectType() == enNPC )
 			{
-				_player->criminal();
+				_player->makeCriminal();
 
-				if( pc_i->targ() == INVALID_SERIAL )
-					pc_i->attackTarget( _player );
+				if( pc_i->combatTarget() == INVALID_SERIAL )
+					pc_i->fight( _player );
 
-				if( !pc_i->tamed() && pc_i->isHuman() )
+				if( !pc_i->isTamed() && pc_i->isHuman() )
 					pc_i->talk( tr( "Help! Guards! Tis a murder being commited!" ) );
 			}
 		}
@@ -1888,12 +1895,16 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	// Except the one being attacked
 	QString message = tr( "*You see %1 attacking %2*" ).arg(_player->name()).arg(pc_i->name());
 	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
-		if( s->player() && s != this && s->player()->inRange( _player, s->player()->VisRange() ) && s->player() != pc_i )
+		if( s->player() && s != this && s->player()->inRange( _player, s->player()->visualRange() ) && s->player() != pc_i )
 			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 
 	// Send an extra message to the victim
-	if( pc_i->socket() )
-		pc_i->socket()->showSpeech( _player, tr( "*You see %1 attacking you*" ).arg( _player->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+	if( pc_i->objectType() == enPlayer )
+	{
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
+		if( pp->socket() )
+			pp->socket()->showSpeech( _player, tr( "*You see %1 attacking you*" ).arg( _player->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+	}
 }
 
 void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
@@ -1924,7 +1935,7 @@ void cUOSocket::resendWorld( bool clean )
 		pItem->update( this );
 	}
 
-	RegionIterator4Chars chIterator( _player->pos(), _player->VisRange() );
+	RegionIterator4Chars chIterator( _player->pos(), _player->visualRange() );
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
 		P_CHAR pChar = chIterator.GetData();
@@ -1943,7 +1954,7 @@ void cUOSocket::resendWorld( bool clean )
 			continue;
 
 		// Logged out
-		if( pChar->account() && !pChar->socket() && !_player->account()->isAllShow() )
+		if( pChar->objectType() == enPlayer && !dynamic_cast<P_PLAYER>(pChar)->socket() && !_player->account()->isAllShow() )
 			continue;
 
 		cUOTxDrawChar drawChar;
@@ -1964,7 +1975,7 @@ P_ITEM cUOSocket::dragging() const
 	if( !_player )
 		return 0;
 
-	return _player->atLayer( cChar::Dragging );
+	return _player->atLayer( cBaseChar::Dragging );
 }
 
 void cUOSocket::bounceItem( P_ITEM pItem, UINT8 reason )
@@ -2066,9 +2077,9 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	sendStats.setFullMode( pChar == _player, true /*_version.left(1).toInt() == 3*/ );
 
 	// Dont allow rename-self
-	sendStats.setAllowRename( ( ( pChar->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
+	sendStats.setAllowRename( ( ( pChar->objectType() == enNPC && dynamic_cast<P_NPC>(pChar)->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
 	
-	sendStats.setMaxHp( pChar->strength() );
+	sendStats.setMaxHp( pChar->maxHitpoints() );
 	sendStats.setHp( pChar->hitpoints() );
 
 	sendStats.setName( pChar->name() );
@@ -2077,18 +2088,18 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	// Set the rest - and reset if nec.
 	if( pChar == _player )
 	{
-		sendStats.setStamina( pChar->stm() );
-		sendStats.setMaxStamina( pChar->effDex() );
+		sendStats.setStamina( pChar->stamina() );
+		sendStats.setMaxStamina( pChar->maxStamina() );
 		sendStats.setMana( pChar->mana() );
-		sendStats.setMaxMana( pChar->intelligence() );
+		sendStats.setMaxMana( pChar->maxMana() );
 		sendStats.setStrength( pChar->strength() );
 		sendStats.setDexterity( pChar->dexterity() );
 		sendStats.setIntelligence( pChar->intelligence() );
-		sendStats.setWeight( pChar->stones() );
-		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
+		sendStats.setWeight( pChar->weight() * 10 );
+		sendStats.setGold( _player->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( pChar->gender() );
-		sendStats.setPets( _player->followers().size() );
+		sendStats.setPets( _player->pets().size() );
 		sendStats.setMaxPets( 0xFF );
 		sendStats.setStatCap( SrvParams->statcap() );
 	}
@@ -2100,7 +2111,7 @@ bool cUOSocket::inRange( cUOSocket* socket ) const
 {
 	if ( !socket || !socket->player() || !_player )
 		return false;
-	return ( socket->player()->dist( _player ) < socket->player()->VisRange() );
+	return ( socket->player()->dist( _player ) < socket->player()->visualRange() );
 }
 
 void cUOSocket::handleBookPage( cUORxBookPage* packet )
@@ -2242,8 +2253,8 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 
 void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 {
-	P_ITEM pBought = pVendor->atLayer( cChar::BuyNoRestockContainer );
-	P_ITEM pStock = pVendor->atLayer( cChar::BuyRestockContainer );
+	P_ITEM pBought = pVendor->atLayer( cBaseChar::BuyNoRestockContainer );
+	P_ITEM pStock = pVendor->atLayer( cBaseChar::BuyRestockContainer );
 	
 	if( pBought )
 		sendVendorCont( pBought );
@@ -2365,8 +2376,8 @@ void cUOSocket::updateLightLevel( UINT8 level )
 		if( SrvParams->worldFixedLevel() != 255 )
 			pLight.setLevel( SrvParams->worldFixedLevel() );
 
-		else if( _player->fixedlight() != 255 )
-			pLight.setLevel( _player->fixedlight() );
+		else if( _player->fixedLightLevel() != 255 )
+			pLight.setLevel( _player->fixedLightLevel() );
 
 		//else if( indungeon( _player ) )
 		//	pLight.setLevel( SrvParams->dungeonLightLevel() );
@@ -2417,7 +2428,7 @@ void cUOSocket::handleProfile( cUORxProfile *packet )
 		{
 			cUOTxProfile profile;
 			profile.setSerial( packet->serial() );
-			profile.setInfo( pChar->name(), pChar->title(), pChar->profile() );
+			profile.setInfo( pChar->name(), pChar->title(), (pChar->objectType() == enPlayer) ? dynamic_cast<P_PLAYER>(pChar)->profile() : QString("") );
 			send( &profile );
 		}
 	}
@@ -2443,8 +2454,7 @@ void cUOSocket::handleRename( cUORxRename* packet )
 		sysMessage( tr( "You can't rename yourself" ) );
 	else
 	{
-		P_CHAR pChar = FindCharBySerial( packet->serial() );
-
+		P_NPC pChar = dynamic_cast<P_NPC>(FindCharBySerial( packet->serial() ));
 		if( pChar && pChar->owner() == _player && !pChar->isHuman() )
 		{
 			pChar->setName( packet->name() );

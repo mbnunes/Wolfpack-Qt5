@@ -647,6 +647,21 @@ void cPlayer::kill()
 	}
 }
 
+void cPlayer::turnTo( cUObject *object )
+{
+	cBaseChar::turnTo( object );
+
+	// Send a different packet for ourself
+	if( socket_ )
+	{
+		socket_->resendPlayer( true );
+
+		/*cUOTxForceWalk forceWalk;
+		forceWalk.setDirection( dir_ );
+		socket_->send( &forceWalk );*/
+	}
+}
+
 void cPlayer::turnTo( const Coord_cl &pos )
 {
 	cBaseChar::turnTo( pos );

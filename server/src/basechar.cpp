@@ -63,19 +63,18 @@ cBaseChar::cBaseChar()
 	weight_				= 0;
 	bodyArmor_			= 2;
 	direction_			= 0;
-	dexterity_			= 50;
+	dexterity_			= 0;
 	dexterityMod_		= 0;
-	dexEff_				= 0;
-	maxStamina_			= dexterity_;
-	stamina_			= maxStamina_;
-	strength_			= 50;
+	maxStamina_			= 0;
+	stamina_			= 0;
+	strength_			= 0;
 	strengthMod_		= 0;
-	maxHitpoints_		= strength_;
-	hitpoints_			= maxHitpoints_;
-	intelligence_		= 50;
+	maxHitpoints_		= 0;
+	hitpoints_			= 0;
+	intelligence_		= 0;
 	intelligenceMod_	= 0;
-	maxMana_			= intelligence_;
-	mana_				= maxMana_;
+	maxMana_			= 0;
+	mana_				= 0;
 	karma_				= 0;
 	fame_				= 0;
 	kills_				= 0;
@@ -1082,7 +1081,7 @@ bool cBaseChar::onWarModeToggle( bool War )
 }
 
 // The paperdoll of this character has been requested
-bool cBaseChar::onShowPaperdoll( P_PLAYER pOrigin )
+bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
@@ -1133,7 +1132,7 @@ bool cBaseChar::onDropOnChar( P_ITEM pItem )
 	return false;
 }
 
-QString cBaseChar::onShowPaperdollName( P_PLAYER pOrigin )
+QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 	{
@@ -1244,32 +1243,71 @@ void cBaseChar::processNode( const QDomElement &Tag )
 			if( statType == "str" )
 			{
 				strength_ = Value.toLong();
+				if( maxHitpoints_ == 0 )
+					maxHitpoints_ = strength_;
 			}
 			else if( statType == "dex" )
 			{
 				dexterity_ = Value.toLong();
+				if( maxStamina_ == 0 )
+					maxStamina_ = dexterity_;
 			}
 			else if( statType == "int" )
 			{
 				intelligence_ = Value.toLong();
+				if( maxMana_ == 0 )
+					maxMana_ = intelligence_;
+			}
+			else if( statType == "maxhp" || statType == "maxhitpoints" )
+			{
+				maxHitpoints_ = Value.toLong();
+			}
+			else if( statType == "maxstm" || statType == "maxstamina" )
+			{
+				maxStamina_ = Value.toLong();
+			}
+			else if( statType == "maxmn" || statType == "maxmana" )
+			{
+				maxMana_ = Value.toLong();
 			}
 		}
 	}
 
-	// Aliasses <str <dex <int
+	// Aliasses <str <dex <int <maxhp <maxstm <maxmn <maxhitpoints <maxstamina <maxmana
 	else if( TagName == "str" )
 	{
 		strength_ = Value.toLong();
+		if( maxHitpoints_ == 0 )
+			maxHitpoints_ = strength_;
 	}
 
 	else if( TagName == "dex" )
 	{
 		dexterity_ = Value.toLong();
+		if( maxStamina_ == 0 )
+			maxStamina_ = dexterity_;
 	}
 	
 	else if( TagName == "int" )
 	{
 		intelligence_ = Value.toLong();
+		if( maxMana_ == 0 )
+			maxMana_ = intelligence_;
+	}
+
+	else if( TagName == "maxhp" || TagName == "maxhitpoints" )
+	{
+		maxHitpoints_ = Value.toLong();
+	}
+
+	else if( TagName == "maxstm" || TagName == "maxstamina" )
+	{
+		maxStamina_ = Value.toLong();
+	}
+
+	else if( TagName == "maxmn" || TagName == "maxmana" )
+	{
+		maxMana_ = Value.toLong();
 	}
 
 	//<defense>10</defense>
