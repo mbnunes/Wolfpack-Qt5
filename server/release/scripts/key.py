@@ -5,7 +5,7 @@ from wolfpack.gumps import cGump
 import random
 
 def gump_response(char, args, response):
-  if len(args) < 1:
+  if len(args) < 1 or response.button != 1:
     return
 
   key = wolfpack.finditem(args[0])
@@ -17,17 +17,20 @@ def gump_response(char, args, response):
   # Rename
   new_name = response.text[1][:30] # 30 Chars max.
   key.name = new_name
-
+  char.socket.sysmessage("You renamed the key to '%s'" % new_name)
+  
   # Rekey
   if char.gm:
     new_lock = response.text[2]
     
     if len(new_lock) != 0:
-      key.settag(new_lock)
-      char.socket.sysmessage('This key now unlocks:' + new_lock)
+      key.settag('lock', new_lock)
+      char.socket.sysmessage('This key now unlocks: ' + new_lock)
     else:
       key.deltag('lock')
-      char.socket.sysmessage('You erase the lock information.')    
+      char.socket.sysmessage('You erase the lock information from the key.')    
+
+  key.update()
 
 def rename_key(char, key):
   
@@ -148,7 +151,7 @@ def onShowTooltip(char, item, tooltip):
   tooltip.add(0xF9060 + item.id, '')
 
   # The user defined name
-  if len(item.name) != 0:
+  if len(item.name) > 0:
     tooltip.add(1050045, " \t" + item.name + "\t ")
 
   # Add the lock id for gms
