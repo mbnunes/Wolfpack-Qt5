@@ -197,9 +197,8 @@ short getstatskillvalue(char *stringguy);
 // for newbie stuff
 int bestskill(P_CHAR pc);
 int nextbestskill(P_CHAR pc, int bstskll);
-void newbieitems(UOXSOCKET s, P_CHAR pc);
-void read3 ();
-void read4 ();
+//void read3 ();
+//void read4 ();
 void readscript ();
 
 //For custom titles

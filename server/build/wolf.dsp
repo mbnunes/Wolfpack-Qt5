@@ -243,10 +243,6 @@ SOURCE=.\network.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\newbie.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\npcs.cpp
 # End Source File
 # Begin Source File
