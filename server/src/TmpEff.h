@@ -226,4 +226,13 @@ public:
 	virtual QString objectID() const { return "repeataction"; }
 };
 
+class cDelayedHeal: public cTempEffect
+{
+private:
+	UINT16 amount;
+public:
+	cDelayedHeal( P_CHAR pSource, P_CHAR pTarget, UINT16 _amount );
+	void Expire();
+};
+
 #endif

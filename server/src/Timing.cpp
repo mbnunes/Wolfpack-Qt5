@@ -75,7 +75,7 @@ void restockNPC( UINT32 currenttime, P_CHAR pc_i )
 	}
 }
 
-void checkRegeneration(P_CHAR pc, unsigned int currenttime)
+void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 {
 	if( !pc )
 		return;
@@ -104,6 +104,7 @@ void checkRegeneration(P_CHAR pc, unsigned int currenttime)
 					
 						else if (pc->skill( HEALING ) < 800)
 							pc->setHp( pc->hp() + 2 );
+
 						else 
 							pc->setHp( pc->hp() + 3 );
 
@@ -200,7 +201,7 @@ void checkRegeneration(P_CHAR pc, unsigned int currenttime)
 	if( pc->stm() > pc->effDex() )
 		pc->setStm( pc->effDex() );
 
-	if (pc->mn()>pc->in())
+	if( pc->mn() > pc->in() )
 		pc->setMn( pc->in() );
 
 	// Now check if our Health, Stamina or Mana has changed

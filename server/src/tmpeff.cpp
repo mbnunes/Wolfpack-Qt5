@@ -446,16 +446,8 @@ void cTmpEff::Expire()
 		break;
 		
 	case 35: // heals some hp (??)
-//		pc_s->hp += more1;
-		pc_s->setHp( (tempsignedshort = pc_s->hp() ) + more1 );
-		
-		// TODO: Need to update the inrange sockets
-		if( socket )
-			socket->updateHealth();
-
-		if( !more2 )
-			tempeffect( pc_s, pc_s, 35, more1+1, 1, more3, 0 );
-		
+		pc_s->setHp( pc_s->hp() + more1 );
+		pc_s->updateHealth();
 		break;
 		
 	default:
@@ -1223,4 +1215,32 @@ void cTempEffects::insert( cTempEffect *pT )
 	}
 
 	teffects.insert( pT );
+}
+
+void cDelayedHeal::Expire()
+{
+	P_CHAR pSource = FindCharBySerial( destSer );
+	P_CHAR pTarget = FindCharBySerial( sourSer );
+
+	if( !pSource || !pTarget )
+		return;
+
+	if( !pSource->inRange( pTarget, 5 ) )
+	{
+		if( pSource->socket() )
+			pSource->socket()->sysMessage( tr( "You are standing too far away to apply any bandages." ) );
+		return;
+	}
+}
+
+cDelayedHeal::cDelayedHeal( P_CHAR pSource, P_CHAR pTarget, UINT16 _amount )
+{
+	// Switching them here is important because we want to 
+	// keep track of our current healing targets
+	destSer = pSource->serial();
+	sourSer = pTarget->serial();
+	amount = _amount;
+	objectid = "cDelayedHeal";
+	serializable = false;
+	dispellable = false;
 }

@@ -33,160 +33,148 @@
 #include "srvparams.h"
 //#include "classes.h"
 #include "skills.h"
+#include "TmpEff.h"
 
 bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	
-	signed short tempshort;
-	
+	P_ITEM pBandage = FindItemBySerial( bandageSerial ); // item index of bandage
 
-	P_ITEM pib = FindItemBySerial( bandageSerial );	// item index of bandage
-	
-	P_CHAR pp = FindCharBySerial( target->serial() ); // pointer to patient
-	if (pp != NULL)
+	P_CHAR pTarget = FindCharBySerial( target->serial() );
+
+	if( !pTarget )
 	{
-		P_CHAR ph = socket->player();	// points to the healer
-		if (!SrvParams->bandageInCombat() && (pp->war() || ph->war()))
-		{
-			P_CHAR pc_attacker = FindCharBySerial(ph->attacker()); // Ripper...cant heal while in a fight
-			if ( (pc_attacker != NULL) && pc_attacker->war())
-			{
-				socket->sysMessage( tr("You can`t heal while in a fight!") );
-				return true;
-			}
-		}
-		if(ph->dist(pp)>5)
-		{
-			socket->sysMessage( tr("You are not close enough to apply the bandages.") );
-			return true;
-		}
-		if ((ph->isInnocent()) &&(ph->serial() != pp->serial()))
-		{
-			if ((pp->crimflag()>0) ||(pp->isMurderer()))
-			{
-				ph->criminal();
-			}
-		}
-		
-		if (pp->dead())
-		{
-			if (ph->skill(HEALING) < 800 || ph->skill(ANATOMY) < 800)
-				socket->sysMessage( tr("You are not skilled enough to resurrect") );
-			else
-			{
-				int reschance = static_cast<int>((ph->baseSkill(HEALING)+ph->baseSkill(ANATOMY))*0.17);
-				int rescheck=RandomNum(1,100);
-				if (ph->checkSkill(HEALING,800,1000) && ph->checkSkill(ANATOMY,800,1000) && reschance<=rescheck)
-					socket->sysMessage( tr("You failed to resurrect the ghost") );
-				else
-				{
-					ph->resurrect();
-					socket->sysMessage( tr("Because of your skill, you were able to resurrect the ghost.") );
-				}
-			}
-			return true;
-		}
-		
-		if (pp->poisoned()>0)
-		{
-			if ( pp->isHuman() )
-			{
-				if (ph->skill(HEALING)<600 || ph->skill(ANATOMY)<600)
-				{
-					socket->sysMessage( tr("You are not skilled enough to cure poison.") );
-					socket->sysMessage( tr("The poison in your target's system counters the bandage's effect.") );
-				}
-				else
-				{
-					int curechance = static_cast<int>((ph->baseSkill(HEALING)+ph->baseSkill(ANATOMY))*0.67);
-					int curecheck=RandomNum(1,100);
-					ph->checkSkill(HEALING,600,1000);
-					ph->checkSkill(ANATOMY,600,1000);
-					if(curechance<=curecheck)
-					{
-						pp->setPoisoned(0);
-						socket->sysMessage( tr("Because of your skill, you were able to counter the poison.") );
-					}
-					else
-						socket->sysMessage( tr("You fail to counter the poison") );
-					pib->ReduceAmount(1);
-				}
-				return true;
-			}
-			else
-			{
-				if (ph->baseSkill(VETERINARY)<=600 || ph->baseSkill(ANIMALLORE)<=600)
-				{
-					socket->sysMessage( tr("You are not skilled enough to cure poison."));
-					socket->sysMessage( tr("The poison in your target's system counters the bandage's effect."));
-				}
-				else
-				{
-					if (ph->checkSkill(VETERINARY,600,1000) &&
-						ph->checkSkill(ANIMALLORE,600,1000))
-					{
-						pp->setPoisoned(0);
-						socket->sysMessage( tr("Because of your skill, you were able to counter the poison."));
-					}
-					else
-					{
-						socket->sysMessage( tr("You fail to counter the poison"));
-						pib->ReduceAmount(1);
-					}
-				}
-			}
-			return true;
-		}
-		
-		if(pp->hp() == pp->st() )
-		{
-			socket->sysMessage( tr("That being is not damaged") );
-			return true;
-		}
-		
-		if(pp->isHuman()) //Used on human
-		{
-			if (!ph->checkSkill(HEALING,0,1000))
-			{
-				socket->sysMessage( tr("You apply the bandages, but they barely help!") );
-//				pp->hp++;
-				tempshort = pp->hp();
-				pp->setHp(++tempshort);
-			}
-			else
-			{
-				int healmin = (((ph->skill(HEALING)/5)+(ph->skill(ANATOMY)/5))+3); //OSI's formula for min amount healed (Skyfire)
-				int healmax = (((ph->skill(HEALING)/5)+(ph->skill(ANATOMY)/2))+10); //OSI's formula for max amount healed (Skyfire)
-				int j=RandomNum(healmin,healmax);
-				//int iMore1 = min(pp->st, j+pp->hp)-pp->hp;
-				if(j>(pp->st() -pp->hp()))
-					j=(pp->st() -pp->hp());
-				if(pp->serial()==ph->serial())
-					tempeffect(ph, ph, 35, j, 0, 15, 0);//allow a delay
-				else 
-					tempeffect(ph, ph, 35, j, 0, 5, 0);// added suggestion by Ramases //-Fraz- must be checked
-			}
-		}
-		else //Bandages used on a non-human
-		{
-			if (!ph->checkSkill(VETERINARY,0,1000))
-				socket->sysMessage( tr("You are not skilled enough to heal that creature.") );
-			else
-			{
-				int healmin = (((ph->skill(HEALING)/5)+(ph->skill(VETERINARY)/5))+3); //OSI's formula for min amount healed (Skyfire)
-				int healmax = (((ph->skill(HEALING)/5)+(ph->skill(VETERINARY)/2))+10); //OSI's formula for max amount healed (Skyfire)
-				int j = RandomNum(healmin, healmax);
-				// khpae
-				pp->setHp( (pp->st() > (pp->hp() + j)) ? (pp->hp() + j) : pp->st() );
-				pp->updateHealth();
-				socket->sysMessage( tr("You apply the bandages and the creature looks a bit healthier.") );
-			}
-		}
-
-
-		ph->setObjectDelay( SetTimerSec(ph->objectdelay(),SrvParams->objectDelay() + SrvParams->bandageDelay()) );
-		pib->ReduceAmount(1);
+		socket->sysMessage( tr( "Please select a human being or an animal to heal." ) );
+		return true;
 	}
+		
+	P_CHAR pHealer = socket->player();
+
+	// Check for an ongoing fight
+	if( !SrvParams->bandageInCombat() && ( pTarget->war() || pHealer->war() ) )
+	{
+		P_CHAR pAttacker = FindCharBySerial( pHealer->attacker() );
+		if( pAttacker && pAttacker->war() )
+		{
+			socket->sysMessage( tr("You can`t heal while in a fight!") );
+			return true;
+		}
+	}
+
+	// Out of range?
+	if( !pHealer->inRange( pTarget, 5 ) )
+	{
+		socket->sysMessage( tr("You are not close enough to apply the bandages.") );
+		return true;
+	}
+
+	// Healing Criminals flags you criminal as well
+	if( pHealer->isInnocent() && !pTarget->isInnocent() )
+		pHealer->criminal();
+
+	// Resurrecting
+	if( pTarget->dead() )
+	{
+		if( pHealer->skill( HEALING ) < 800 || pHealer->skill( ANATOMY ) < 800 )
+		{
+			socket->sysMessage( tr( "You are not skilled enough to resurrect." ) );
+			return true;
+		}
+
+		int reschance = static_cast<int>( ( pHealer->baseSkill( HEALING ) + pHealer->baseSkill( ANATOMY ) ) * 0.17 );
+		int rescheck = RandomNum( 1, 100 );
+
+		if( pHealer->checkSkill( HEALING, 800, 1000 ) && pHealer->checkSkill( ANATOMY, 800, 1000 ) && reschance <= rescheck )
+			socket->sysMessage( tr( "You failed to resurrect the ghost." ) );
+		else
+		{
+			pTarget->resurrect();
+			socket->sysMessage( tr( "Because of your skill, you were able to resurrect the ghost." ) );
+		}
+
+		pBandage->ReduceAmount();
+
+		return true;
+	}
+	
+	// Cure Poison
+	if( pTarget->poisoned() )
+	{
+		UINT8 firstSkill = HEALING;
+		UINT8 secondSkill = ANATOMY;
+
+		if( !pTarget->isHuman() )
+		{
+			firstSkill = VETERINARY;
+			secondSkill = ANIMALLORE;
+		}
+
+		if( pHealer->skill( firstSkill ) < 600 || pHealer->skill( secondSkill ) < 600 )
+		{
+			socket->sysMessage( tr("You are not skilled enough to cure poison.") );
+			return true;			
+		}
+
+		unsigned int curechance = static_cast<int>( ( pHealer->baseSkill( firstSkill ) + pHealer->baseSkill( secondSkill ) ) *0.67 );
+		unsigned int curecheck = RandomNum( 1, 100 );
+		pHealer->checkSkill( firstSkill, 600, 1000 );
+		pHealer->checkSkill( secondSkill, 600, 1000 );
+			
+		if( curechance <= curecheck )
+		{
+			pTarget->setPoisoned( 0 );
+			socket->sysMessage( tr( "Because of your skill, you were able to cure the poison." ) );
+		}
+		else
+		{
+			socket->sysMessage( tr( "You fail to cure the poison." ) );
+		}
+
+		pBandage->ReduceAmount();
+		return true;
+	}
+
+	// Normal Healing
+	if( pTarget->hp() == pTarget->st() )
+	{
+		socket->sysMessage( tr( "That being is not damaged." ) );
+		return true;
+	}
+
+	// Healing Humans
+	UINT8 firstSkill = HEALING;
+	UINT8 secondSkill = ANATOMY;
+
+	if( !pTarget->isHuman() )
+	{
+		firstSkill = VETERINARY;
+		secondSkill = ANIMALLORE;
+	}
+		
+	if( !pHealer->checkSkill( firstSkill, 0, 1000 ) )
+	{
+		socket->sysMessage( tr( "You apply the bandages, but they barely help!" ) );
+		pTarget->setHp( pTarget->hp() + 1 );
+	}
+	else
+	{
+		unsigned int healmin = ( ( ( pHealer->skill( firstSkill ) / 5 ) + ( pHealer->skill( secondSkill ) / 5 ) ) + 3 );
+		unsigned int healmax = ( ( ( pHealer->skill( firstSkill ) / 5 ) + ( pHealer->skill( secondSkill ) / 2 ) ) + 10 );
+		unsigned int amount = RandomNum( healmin, healmax );
+		
+		// We don't heal over the maximum amount.
+		if( pTarget->hp() + amount > pTarget->st() )
+			amount = pTarget->st() - pTarget->hp();
+
+		// Show the HitUnarmed Animation and Make the Effect delayed
+		pHealer->action( 0x09 );
+		cTempEffect *tEff = new cDelayedHeal( pHealer, pTarget, amount );
+		tEff->setExpiretime_s( SrvParams->bandageDelay() );
+		TempEffects::instance()->insert( tEff );
+	}
+
+	pHealer->setObjectDelay( SetTimerSec( pHealer->objectdelay(), SrvParams->objectDelay() + SrvParams->bandageDelay() ) );	
+	pBandage->ReduceAmount();
+
 	return true;
 }
 

@@ -94,7 +94,8 @@ bool  cChar::isCounselor() const		{return (priv&0x80 || ( account() && ( account
 bool  cChar::isGMorCounselor() const	{return (priv&0x81 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor" ) ) );} 
 
 cChar::cChar():
-	socket_(0), account_(0), owner_(0), guildstone_( INVALID_SERIAL ), guarding_( 0 )
+	socket_(0), account_(0), owner_(0), guildstone_( INVALID_SERIAL ), guarding_( 0 ),
+	regen_( 0 ), regen2_( 0 ), regen3_( 0 )
 {
 	changed_ = true;
 	VisRange_ = VISRANGE;
@@ -416,9 +417,6 @@ void cChar::Init(bool ser)
 	this->war_ = false; // War Mode
 	this->targ_=INVALID_SERIAL; // Current combat target
 	this->timeout_=0; // Combat timeout (For hitting)
-	this->regen_=0;
-	this->regen2_=0;
-	this->regen3_=0;//Regeneration times for mana, stamin, and str
 	this->inputmode_ = enNone;
 	this->inputitem_ = INVALID_SERIAL;
 	this->attacker_ = INVALID_SERIAL; // Character's serial who attacked this character
