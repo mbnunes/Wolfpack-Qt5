@@ -409,8 +409,7 @@ void cAccounts::load()
 	// Open the Account Driver
 	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
-		return;
+		throw wpException( QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
 	}
 
 	// Load all Accounts
@@ -473,11 +472,11 @@ void cAccounts::load()
 	}
 	catch ( QString& error )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Error while loading Accounts: %1" ).arg( error ) );
+		throw wpException( QString( "Error while loading Accounts: %1" ).arg( error ) );
 	}
 	catch ( ... )
 	{
-		Console::instance()->log( LOG_ERROR, "Unknown error while loading Accounts" );
+		throw wpException( "Unknown error while loading Accounts" );
 	}
 
 	cComponent::load();
