@@ -35,6 +35,7 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <shellapi.h>
 #include <richedit.h>
 #include <qthread.h>
 
@@ -184,22 +185,21 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 					SendMessage( logWindow, EM_GETTEXTRANGE, 0, (LPARAM)&tr );
 
 					// String contains the link
+					ShellExecute( mainWindow, "open", string, 0, 0, SW_NORMAL );
 
 					delete [] string;
-
-					// Reset selection to the end
 				}				
 			}
 			else if( notify->code == EN_MSGFILTER )
 			{
-				MSGFILTER *msg = (MSGFILTER*)notify;
+				/*MSGFILTER *msg = (MSGFILTER*)notify;
 
 				// Append to the Input Control
 				if( msg->msg == WM_CHAR )
 				{
 					SendMessage( inputWindow, WM_SETFOCUS, 0, 0 );
 					SendMessage( inputWindow, WM_CHAR, msg->wParam, msg->lParam );
-				}
+				}*/
 			}
 		}
 		return 0;
@@ -403,7 +403,7 @@ void cConsole::send(const QString &sMessage)
 	unsigned int textLength = sMessage.length();
 
 	// Check for the caret
-	PostMessage( logWindow, EM_SETSEL, ctrlLength, ctrlLength );
+	SendMessage( logWindow, EM_SETSEL, ctrlLength, ctrlLength );
 
 	// Delete lines from the beginning if we exceed the maximum limit.
 	if( ctrlLength + textLength > logLimit )
@@ -415,12 +415,12 @@ void cConsole::send(const QString &sMessage)
 		{
 			char buffer[1024] = { 0, };
 			((short*)buffer)[0] = 1024;
-			textcount += PostMessage( logWindow, EM_GETLINE, linecount++, (WPARAM)buffer );
+			textcount += SendMessage( logWindow, EM_GETLINE, linecount++, (WPARAM)buffer );	// We have to wait here.
 		}
 		while( textcount < ( ctrlLength + textLength ) - logLimit );
 
-		PostMessage( logWindow, EM_SETSEL, 0, textcount );
-		PostMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)"" );
+		SendMessage( logWindow, EM_SETSEL, 0, textcount );
+		SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)"" );
 	}
 
 	// Place the Caret at the End of the Text
@@ -436,24 +436,24 @@ void cConsole::send(const QString &sMessage)
 		else
 		{
 			CHARRANGE range;
-			PostMessage( logWindow, EM_EXGETSEL, 0, (LPARAM)&range );
+			SendMessage( logWindow, EM_EXGETSEL, 0, (LPARAM)&range );
 			range.cpMin -= 1;
-			PostMessage( logWindow, EM_EXSETSEL, 0, (LPARAM)&range );
-			PostMessage( logWindow, EM_REPLACESEL, FALSE, 0 );
+			SendMessage( logWindow, EM_EXSETSEL, 0, (LPARAM)&range );
+			SendMessage( logWindow, EM_REPLACESEL, FALSE, 0 );
 			send( sMessage.left( sMessage.length() - 1 ) );
 			return;
 		}
 	}
 
 	unsigned int tLength = GetWindowTextLength( logWindow );
-	PostMessage( logWindow, EM_SETSEL, tLength, tLength );
+	SendMessage( logWindow, EM_SETSEL, tLength, tLength );
 
 	// Now it will get right, even if the user had selected sth.
-	PostMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1() );
+	SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1() );
 
 	// And ofcourse if not some control is currently capturing the input
 	if( !GetCapture() )
-		PostMessage( logWindow, WM_VSCROLL, SB_BOTTOM, 0 );
+		SendMessage( logWindow, WM_VSCROLL, SB_BOTTOM, 0 );
 }
 
 void cConsole::ChangeColor( WPC_ColorKeys color )
@@ -487,7 +487,7 @@ void cConsole::ChangeColor( WPC_ColorKeys color )
 
 	};
 
-	PostMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
+	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
 }
 
 void cConsole::setConsoleTitle( const QString& data )
@@ -502,7 +502,7 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 	ZeroMemory( &cf, sizeof( CHARFORMAT ) );
 	cf.cbSize = sizeof( CHARFORMAT );
 
-	PostMessage( logWindow, EM_GETCHARFORMAT, SCF_SELECTION, (WPARAM)&cf );
+	SendMessage( logWindow, EM_GETCHARFORMAT, SCF_SELECTION, (WPARAM)&cf );
 
 	if( bold )
 	{
@@ -548,6 +548,6 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 		break;
 	}
 
-	PostMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
+	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
 }
 
