@@ -469,12 +469,14 @@
 	<item id="1853">
 		<id>0x1853</id>
 		<nodecay />
+		<events>lightsource</events>
 		<category>Decoration\Lightsources\Skullcandle (W/E) (Off)</category>
 	</item>
 
 	<item id="1854">
 		<id>0x1854</id>
 		<nodecay />
+		<events>lightsource</events>
 		<category>Decoration\Lightsources\Skullcandle 1 (W/E) (On)</category>
 	</item>
 
@@ -493,12 +495,14 @@
 	<item id="1857">
 		<id>0x1857</id>
 		<nodecay />
+		<events>lightsource</events>
 		<category>Decoration\Lightsources\Skullcandle 1 (N/S) (Off)</category>
 	</item>
 
 	<item id="1858">
 		<id>0x1858</id>
 		<nodecay />
+		<events>lightsource</events>
 		<category>Decoration\Lightsources\Skullcandle 1 (N/S) (On)</category>
 	</item>
 
@@ -518,6 +522,7 @@
 	<item id="a12">
 		<id>0xa12</id>
 		<nodecay />
+		<events>lightsource</events>
 		<category>Decoration\Lightsources\Torch (On)</category>
 	</item>
 
@@ -534,12 +539,14 @@
 	<item id="f64">
 		<id>0xf64</id>
 		<nodecay />
+		<events>lightsource</events>
 		<category>Decoration\Lightsources\Torch (W/E) (Off)</category>
 	</item>
 
 	<item id="f6b">
 		<id>0xf6b</id>
 		<nodecay />
+		<events>lightsource</events>
 		<category>Decoration\Lightsources\Torch (N/S) (Off)</category>
 	</item>
 
