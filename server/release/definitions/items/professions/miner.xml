@@ -22,7 +22,7 @@
 		<name>dull iopper ingot</name>
 		<id>0x1bf2</id>
 		<color>0x973</color>
-		<tag name="resname" value="iron" />
+		<tag name="resname" value="dullcopper" />
 		<category>Professions\Miner\Ingots\Colored\Dull Copper Ingot</category>
 	</item>
 	
