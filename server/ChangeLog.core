@@ -37,6 +37,7 @@ Wolfpack 12.9.13 Beta (CVS)
 	- Fixed Multi Update range.
 	- Added .reload muls and added a broadcast message to the reload commands.
 	- Fixed handling of a fixed z value for spawnregions.
+	- Fixed an exploit (dropping without dragging first)
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error

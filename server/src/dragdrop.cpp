@@ -473,6 +473,12 @@ void DragAndDrop::dropItem( cUOSocket* socket, cUORxDropItem* packet )
 	if ( !pItem )
 		return;
 
+	// If the item is not dragged by us, dont even bother
+	if (pItem->container() != pChar) {
+		socket->bounceItem( pItem, BR_NO_REASON );
+		return;
+	}
+
 	P_ITEM iCont = FindItemBySerial( packet->cont() );
 	P_CHAR cCont = FindCharBySerial( packet->cont() );
 

@@ -558,7 +558,7 @@ void cSpawnRegion::spawnSingleNPC()
 		pChar->Init();
 		pChar->setSpawnregion(this);
 		pChar->setBaseid(id.latin1());
-		pChar->moveTo( pos );
+		pChar->moveTo( pos, true );
 
 		pChar->applyDefinition( parent ); // Apply the definition from the id first
 

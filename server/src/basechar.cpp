@@ -2385,7 +2385,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 			{
 				blood->setColor(bloodColor);
 				blood->setNoDecay( false ); // Override the nodecay tag in the definitions
-				blood->moveTo( pos_ ); // Move it to the feet of the victim
+				blood->moveTo( pos_, true ); // Move it to the feet of the victim
 				blood->update(); // Send it to all sockets in range
 			}
 		}

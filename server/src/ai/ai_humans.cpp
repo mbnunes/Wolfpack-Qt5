@@ -136,7 +136,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 							// we need this for db saves
 							pPet->setStablemasterSerial( INVALID_SERIAL );
 							pPet->setOwner( pTalker ); // This is important...
-							pPet->moveTo( m_npc->pos() );
+							pPet->moveTo( m_npc->pos(), true );
 							pPet->resend();
 						}
 					}
