@@ -9,7 +9,7 @@
 <definitions>
 	<!-- undead_base-->
 	<npc id="undead_base">
-		<ai>2</ai>
+		<ai>Monster_Aggressive_L1</ai>
 		<wandertype>"circle" radius="20"</wandertype>
 		<totame>1100</totame>
 	</npc>

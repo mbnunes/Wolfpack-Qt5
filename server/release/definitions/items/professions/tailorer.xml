@@ -330,6 +330,7 @@
 	<item id="fab">
 		<id>0x0fab</id>
 		<category>Professions\Tailorer\Dying Tub</category>
+		<events>environment</events>
 	</item>
 
 	<item id="1015">

@@ -30,6 +30,7 @@
 	<script>door</script>
 	<script>book</script>
 	<script>equipment</script>
+	<script>bandages</script>
 	
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
