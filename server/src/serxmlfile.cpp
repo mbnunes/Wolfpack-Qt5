@@ -269,7 +269,7 @@ void serXmlFile::readObjectID(QString &data)
 		readObjectID( data ); // "Re-read"
 	}
 	else if ( node.nodeName() == "objectID" )
-		data = node.attribute("value").latin1();
+		data = node.attribute("value");
 }
 
 void serXmlFile::read(const char* Key, std::string& data)

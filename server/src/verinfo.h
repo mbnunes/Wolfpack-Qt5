@@ -149,7 +149,7 @@ struct wp_version_info
            vernumber = to_32bitver(verstruct);		   
 		  
 		   /// code for auto generation of verstring, productstring and betareleasestring coming soon (LB) ...
-		   verstring = "12.8.2";  // Wolfpack version 
+		   verstring = "13.0.0";  // Wolfpack version 
 		   productstring = "Wolfpack"; // selfexplainatory, isnt't it :)
 		   betareleasestring = ""; // release status
 

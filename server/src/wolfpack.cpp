@@ -623,9 +623,10 @@ void gcollect () // Remove items which were in deleted containers
 	int removed = 0, rtotal = 0;
 	bool bdelete;
 	LogMessage( "Performing Garbage Collection..." );
+	std::vector< P_ITEM > toDelete;
 	AllItemsIterator iter_items;
 	
-	for( iter_items.Begin(); !iter_items.atEnd(); iter_items.Next() )
+	for( iter_items.Begin(); !iter_items.atEnd(); iter_items++ )
 	{
 		P_ITEM pi = iter_items.GetData();
 		if( pi->free || pi->isInWorld() )
@@ -647,23 +648,19 @@ void gcollect () // Remove items which were in deleted containers
 		}
 		if (bdelete)
 		{
-			bool atBegin = false;
-
-			/*if( !iter_items.atBegin() )
-				--iter_items; // Go back for a little.
-			else
-				atBegin = true;*/
-
-			Items->DeleItem( pi ); // Warning, iterator became invalid!
-											   
-			/*if( atBegin )
-				iter_items.Begin();*/
-			//iter_items.First();
-
+			toDelete.push_back( pi );
 			removed++;
 		}
 	}
 	rtotal += removed;
+
+	std::vector< P_ITEM >::iterator it = toDelete.begin();
+	while( it != toDelete.end() )
+	{
+		Items->DeleItem( (*it) ); 
+		it++;
+	}
+
 	
 	sprintf((char*)temp, " gc: Removed %i items", rtotal);
 	if (rtotal > 0) LogMessage((char*)temp);
