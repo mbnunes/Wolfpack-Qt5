@@ -7,7 +7,7 @@
 =================================================================
 -->
 <definitions>
-	<spawnregion id="bank1">
+	<spawnregion id="fel_bank1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
