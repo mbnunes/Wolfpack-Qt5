@@ -102,7 +102,6 @@ void cChar::Init(bool ser)
 	this->xid = 0x0190;
 	this->setId(0x0190);
 	this->skin = this->xskin = 0x0000; // Skin color
-	this->keynumb=-1;  // for renaming keys 
 	this->setPriv(0);	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	this->priv2=0;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
@@ -224,8 +223,8 @@ void cChar::Init(bool ser)
 	this->disabledmsg = ""; //Character disabled message. -- by Magius(CHE) §
 	this->envokeid = 0x00; //ID of item user envoked
 	this->envokeitem = INVALID_SERIAL;
-	this->split=0;
-	this->splitchnc=0;
+	this->split = 0;
+	this->splitchnc = 0;
 	this->targtrig=0; //Stores the number of the trigger the character for targeting
 	this->ra=0;  // Reactive Armor spell
 	this->trainer=0; // Serial of the NPC training the char, -1 if none.
@@ -252,7 +251,7 @@ void cChar::Init(bool ser)
 	
 	this->squelched=0; // zippy  - squelching
 	this->mutetime=0; //Time till they are UN-Squelched.
-	this->med=0; // 0=not meditating, 1=meditating //Morrolan - Meditation 
+	this->med = false; // false = not meditating, true = meditating //Morrolan - Meditation 
 	this->stealth=-1; //AntiChrist - stealth ( steps already done, -1=not using )
 	this->running=0; //AntiChrist - Stamina Loose while running
 	this->logout=0;//Time till logout for this char -1 means in the world or already logged out //Instalog
@@ -379,7 +378,7 @@ void cChar::disturbMed(UOXSOCKET s)
 {
 	if (this->med) //Meditation
 	{
-		this->med=0;
+		this->med = false;
 		if (s != -1)
 			sysmessage(s, "You break your concentration.");
 	}

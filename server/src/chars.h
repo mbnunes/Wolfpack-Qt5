@@ -87,7 +87,6 @@ public:
 	unsigned short			beardstyle;
 	UI16					skin; // Skin color
 	unsigned short			orgskin;	// skin color backup for incognito spell
-	int						keynumb;  // for renaming keys 
 	UI16					xskin; // Backup of skin color
 	unsigned int			creationday;	// Day since EPOCH this character was created on
 	unsigned char			gmrestrict;	// for restricting GMs to certain regions
@@ -195,8 +194,8 @@ public:
 	string					disabledmsg; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
 	unsigned short			envokeid;  //ID1 of item user envoked
 	SERIAL					envokeitem;
-	int						split;
-	int						splitchnc;
+	unsigned char			split;
+	unsigned char			splitchnc;
 	int						targtrig; //Stores the number of the trigger the character for targeting
 	char					ra;  // Reactive Armor spell
 	int						trainer; // Serial of the NPC training the char, -1 if none.
@@ -222,7 +221,7 @@ public:
 	
 	int						squelched; // zippy  - squelching
 	int						mutetime; //Time till they are UN-Squelched.
-	int						med; // 0=not meditating, 1=meditating //Morrolan - Meditation 
+	bool					med; // 0=not meditating, 1=meditating //Morrolan - Meditation 
 	//int statuse[3]; //Morrolan - stat/skill cap STR/INT/DEX in that order
 	//int skilluse[TRUESKILLS][1]; //Morrolan - stat/skill cap
 	unsigned char			lockSkill[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
@@ -230,12 +229,10 @@ public:
 	unsigned int			running; //AntiChrist - Stamina Loose while running
 	signed long int			logout; //unsigned int logout;//Time till logout for this char -1 means in the world or already logged out //Instalog
 	unsigned long int		clientidletime; // LB
-    //unsigned long int swing;
-	int						swingtarg; //Tagret they are going to hit after they swing
+	SERIAL					swingtarg; //Tagret they are going to hit after they swing
 	
 	unsigned int			holdg; // Gold a player vendor is holding for Owner
-	//int weather;//Weather!
-	char					fly_steps; // number of step the creatures flies if it can fly
+	unsigned char			fly_steps; // number of step the creatures flies if it can fly
 	unsigned long int		trackingdisplaytimer;
 	int						menupriv; // needed fro LB's menu priv system
 	//taken from 6904t2(5/10/99) - AntiChrist

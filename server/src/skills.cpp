@@ -2465,31 +2465,31 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 	if (Skills->GetAntiMagicalArmorDefence(pc_currchar)>15) // blackwind armor affect fix
 	{
 		sysmessage(s, "Regenerative forces cannot penetrate your armor.");
-		pc_currchar->med = 0;
+		pc_currchar->med = false;
 		return;
 	}
 	else if (pc_currchar->getWeapon() || pc_currchar->getShield())
 	{
 		sysmessage(s, "You cannot meditate with a weapon or shield equipped!");
-		pc_currchar->med = 0;
+		pc_currchar->med = false;
 		return;
 	}
 	else if ((pc_currchar->mn) == (pc_currchar->in))
 	{
 		sysmessage(s, "You are at peace.");
-		pc_currchar->med = 0;
+		pc_currchar->med = false;
 		return;
 	}
 	else if (!Skills->CheckSkill(pc_currchar, MEDITATION, 0, 1000))
 	{
 		sysmessage(s, "You cannot focus your concentration.");
-		pc_currchar->med = 0;
+		pc_currchar->med = false;
 		return;
 	}
 	else
 	{
 		sysmessage(s, "You enter a meditative trance.");
-		pc_currchar->med = 1;
+		pc_currchar->med = true;
 		soundeffect(s, 0x00, 0xf9);
 		return;
 	}

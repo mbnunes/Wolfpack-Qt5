@@ -193,7 +193,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
         * call it only in the case of actual movement
         if (pc->med) //Morrolan - Meditation
         {
-            pc->med=0; 
+            pc->med=false; 
             sysmessage(c, "You break your concentration.");
         }
 		*/

@@ -255,7 +255,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 							{
 								int s = calcSocketFromChar(pc);
 								sysmessage(s, "You are at peace.");
-								pc->med = 0;
+								pc->med = false;
 							}
 							pc->mn = pc->in;
 							break;
