@@ -62,7 +62,8 @@ Q_INT32 resolveName( const QString& data )
 {
 	if ( data.isEmpty() )
 		return INADDR_NONE;
-//	we do a dns lookup on this
+
+	//	we do a dns lookup on this
 
 	Q_INT32 uiValue = inet_addr((char*)data.latin1()) ;
 	if (uiValue == INADDR_NONE)
@@ -81,13 +82,7 @@ Q_INT32 resolveName( const QString& data )
 	}
 
 	// inet_addr returns the ip in reverse order
-	Q_INT32 part1 = 0, part2 = 0, part3 = 0, part4 = 0;
-	part1 = ( (uiValue & 0x000000FF) << 24 );
-	part2 = ( (uiValue & 0x0000FF00) << 8 );
-	part3 = ( (uiValue & 0x00FF0000) >> 8 );
-	part4 = ( (uiValue & 0xFF000000) >> 24 );
-
-	return (part1 + part2 + part3 + part4);
+	return ntohl(uiValue);
 }
 
 cSrvParams::cSrvParams( const QString& filename, const QString& format, const QString& version )  : Preferences(filename, format, version)
@@ -392,6 +387,12 @@ void cSrvParams::setDungeonLightLevel( unsigned char data )
 	flush();
 }
 
+void cSrvParams::setMulPath( const QString& data )
+{ 
+	mulPath_ = data; 
+	setString("General", "MulPath", data);
+	flush();
+}
 
 bool cSrvParams::isClientAllowed( const QString& data )
 {

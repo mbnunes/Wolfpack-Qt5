@@ -41,18 +41,22 @@
 
 Q_INT32 resolveName( const QString& data ); // declared in srvparams.cpp
 
+/*!
+	\internal
+	Tries to figure where UO client was instaled, thru the registry keys
+*/
 static QString getUOPath()
 {
 	// Search for T3D preferably
-	const QString Registry3d = "Software\\Origin Worlds Online\\Ultima Online Third Dawn\\1.0";
-	const QString Registry2d = "Software\\Origin Worlds Online\\Ultima Online\\1.0";
+	const char* Registry3d = "Software\\Origin Worlds Online\\Ultima Online Third Dawn\\1.0";
+	const char* Registry2d = "Software\\Origin Worlds Online\\Ultima Online\\1.0";
 	unsigned char exePath[MAX_PATH];
 	unsigned long pathLen;
 
 	HKEY tempKey;
 
 	// Look for 3D Client Path
-	if( RegOpenKeyEx( HKEY_LOCAL_MACHINE, Registry3d.latin1(), 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
+	if( RegOpenKeyEx( HKEY_LOCAL_MACHINE, Registry3d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
 	{
 		if( RegQueryValueEx( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
 		{
@@ -67,7 +71,7 @@ static QString getUOPath()
 	}
 
 	// Look for 2D Client Path
-	if( RegOpenKeyEx( HKEY_LOCAL_MACHINE, Registry2d.latin1(), 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
+	if( RegOpenKeyEx( HKEY_LOCAL_MACHINE, Registry2d, 0, KEY_READ, &tempKey ) == ERROR_SUCCESS )
 	{
 		if( RegQueryValueEx( tempKey, "ExePath", 0, 0, &exePath[0], &pathLen ) == ERROR_SUCCESS )
 		{
@@ -84,11 +88,16 @@ static QString getUOPath()
 	return QString::null;
 }
 
-
+/*!
+	Returns the *.mul files path, extracted from wolfpack.xml
+	If the path is not especified or if we can't find the mul files in there,
+	this method will query the registry to try to figure where the UO client
+	was installed
+*/
 QString cSrvParams::mulPath() const
 {
 	QDir thePath( mulPath_ );
-	if( !thePath.exists() )
+	if( !thePath.exists() || thePath.entryList("*.mul").isEmpty() )
 	{
 		QString uoPath(getUOPath());
 		if( uoPath != QString::null )
@@ -97,24 +106,25 @@ QString cSrvParams::mulPath() const
 			cSrvParams* that = const_cast<cSrvParams*>(this); // perhaps not so const ;)
 			that->setMulPath( uoPath );
 		}
+		else
+			qWarning( "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"" );
 	}
 	return mulPath_;
 }
 
 std::vector<ServerList_st>& cSrvParams::serverList()
 {
-	static UINT32 lastIpCheck = 0;
+	static unsigned int lastIpCheck = 0;
 	static UINT32 inetIp = 0;
 
 	if ( serverList_.empty() ) // Empty? Try to load
 	{
-		setGroup("LoginServer");
 		bool bKeepLooping = true;
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString(QString("Shard %1").arg(i++), "").simplifyWhiteSpace();
-			bKeepLooping = ( tmp != "" );
+			QString tmp = getString("LoginServer", QString("Shard %1").arg(i++), "").simplifyWhiteSpace();
+			bKeepLooping = !tmp.isEmpty();
 			if ( bKeepLooping ) // valid data.
 			{
 				QStringList strList = QStringList::split("=", tmp);
@@ -152,16 +162,16 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 
 							if( hostinfo )
 							{
-								UINT32 i = 0;
+								Q_UINT32 i = 0;
 
 								while( hostinfo->h_addr_list[i] )
 								{
 									// Check if it's an INTERNET ADDRESS
 									char *hIp = inet_ntoa( *(struct in_addr *)hostinfo->h_addr_list[i++] );
 									host.setAddress( hIp );
-									UINT32 ip = host.ip4Addr();
-									UINT8 part1 = ( ip & 0xFF000000 ) >> 24;
-									UINT8 part2 = ( ip & 0x00FF0000 ) >> 16;
+									Q_UINT32 ip = host.ip4Addr();
+									Q_UINT8 part1 = ( ip & 0xFF000000 ) >> 24;
+									Q_UINT8 part2 = ( ip & 0x00FF0000 ) >> 16;
 
 									if	( 
 										( part1 == 127 ) || //this one is class A too.

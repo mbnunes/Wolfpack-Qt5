@@ -341,7 +341,7 @@ public:
 	bool heartBeat() const;
 	int defaultpriv2() const;
 	QString mulPath() const;
-	void setMulPath( QString data ) { mulPath_ = data; }
+	void setMulPath( const QString& data );
 	int MaxLoginAttempts() const;
 	int AccountBlockTime() const;
 	int resetAttemptCount() const;

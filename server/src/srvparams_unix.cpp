@@ -39,25 +39,24 @@ Q_INT32 resolveName( const QString& data ); // declared in srvparams.cpp
 
 QString cSrvParams::mulPath() const
 {
+	QDir thePath( mulPath_ );
+	if( !thePath.exists() || thePath.entryList("*.mul").isEmpty() )
+	{
+		// Can't detect under *nix, so just warn the user :(
+		qWarning( "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"" );
+	}
 	return mulPath_;
 }
 
 std::vector<ServerList_st>& cSrvParams::serverList()
 {
-	// We need a way to get this stuff for linux too
-#ifndef __unix__
-	static UINT32 lastIpCheck = 0;
-	static UINT32 inetIp = 0;
-#endif
-
 	if ( serverList_.empty() ) // Empty? Try to load
 	{
-		setGroup("LoginServer");
 		bool bKeepLooping = true;
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString(QString("Shard %1").arg(i++), "").simplifyWhiteSpace();
+			QString tmp = getString("LoginServer", QString("Shard %1").arg(i++), "").simplifyWhiteSpace();
 			bKeepLooping = ( tmp != "" );
 			if ( bKeepLooping ) // valid data.
 			{
@@ -76,55 +75,6 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 					server.uiPort = strList2[1].toUShort(&ok);
 					if ( !ok )
 						server.uiPort = 2593; // Unspecified defaults to 2593
-
-					// This code will retrieve the first
-					// valid Internet IP it finds
-					// and replace a 0.0.0.0 with it
-#ifndef __unix__
-					if( ( server.ip == 0 ) && ( lastIpCheck <= uiCurrentTime ) )
-					{
-						hostent *hostinfo;
-						char name[256];
-
-						// We check for a new IP max. every 30 minutes
-						// So we have a max. of 30 minutes downtime
-						lastIpCheck = uiCurrentTime + (MY_CLOCKS_PER_SEC*30*60);
-
-						// WSA Is needed for this :/
-						if( !gethostname( name, sizeof( name ) ) )
-						{
-							hostinfo = gethostbyname( name );
-
-							if( hostinfo )
-							{
-								UINT32 i = 0;
-								while( hostinfo->h_addr_list[i] )
-								{
-									// Check if it's an INTERNET ADDRESS
-									char *hIp = inet_ntoa( *(struct in_addr *)hostinfo->h_addr_list[i++] );
-									host.setAddress( hIp );
-									UINT32 ip = host.ip4Addr();
-									UINT8 part1 = ( ip & 0xFF000000 ) >> 24;
-									UINT8 part2 = ( ip & 0x00FF0000 ) >> 16;
-
-									if	( 
-										( part1 == 127 ) || //this one is class A too.
-										( part1 == 10 ) || 
-										( ( part1 == 192 ) && ( part2 == 168 ) ) || 
-										( ( part1 == 172 ) && ( part2 == 16 ) ) 
-										)
-										continue;
-
-									// We are now certain that it's a valid INET ip
-									server.ip = ip;
-									inetIp = ip;
-								}
-							}
-						}
-						else if( inetIp )
-							server.sIP = inetIp;
-					}
-#endif
 
 					serverList_.push_back(server);
 				}

@@ -101,13 +101,13 @@ struct tele_locations_st
 
 struct ServerList_st
 {
-	UI16 uiIndex;
+	Q_UINT16 uiIndex;
 	QString sServer;
-	UI08 uiFull;
-	UI08 uiTime;
-	UI32 ip;
-	QString sIP;
-	UI16 uiPort;
+	Q_UINT8 uiFull;
+	Q_UINT8 uiTime;
+	Q_UINT32 ip;
+	QCString sIP;
+	Q_UINT16 uiPort;
 };
 
 #endif
