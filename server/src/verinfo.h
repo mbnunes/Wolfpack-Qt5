@@ -151,11 +151,11 @@ struct wp_version_info
 		   /// code for auto generation of verstring, productstring and betareleasestring coming soon (LB) ...
 		   verstring = "12.8.0";  // Wolfpack version 
 		   productstring = "Wolfpack"; // selfexplainatory, isnt't it :)
-		   betareleasestring = "Beta"; // release status
+		   betareleasestring = ""; // release status
 
 		   //////////////////////////////////////////////////
 
-		   clientsupportedstring = "3.0.0c";
+		   clientsupportedstring = "3.0.7b";
 
 		   // SUPPORTED_CLIENT is part of the client version control system.
            // this is NOT necassairily the lastest client.
