@@ -149,7 +149,7 @@ private:
 	void CollectAmmo(int s, int a, int b);
 	void Meditation(int s);
 	int CalcRank(int s,int skill); // by Magius(CHE)
-	void ApplyRank(int s,int c,int rank); // by Magius(CHE)
+	void ApplyRank(int s, P_ITEM pi,int rank); // by Magius(CHE)
 	void Zero_Itemmake(int s); // by Magius(CHE)
 public:
 	void RepairTarget(UOXSOCKET s); // Ripper
@@ -187,7 +187,7 @@ public:
 	void EnticementTarget2(UOXSOCKET s);
 	void AlchemyTarget(int s);
 	void BottleTarget(int s);
-	void PotionToBottle(CHARACTER s, int mortar);
+	void PotionToBottle(CHARACTER s, P_ITEM pi_mortar);
 	char CheckSkill(int s,unsigned short int sk, int low, int high);
 	void CreateBandageTarget(int s);
 	void HealingSkillTarget(UOXSOCKET s);

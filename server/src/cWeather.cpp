@@ -35,6 +35,8 @@
 #include "wolfpack.h"
 #include "cweather.h"
 
+using namespace ZThread;
+
 void cWeather::DoWeather(int s)
 { 
 	char rain[5]="\x65\x01\x46\x00";

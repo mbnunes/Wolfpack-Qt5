@@ -1089,7 +1089,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if (pBackpack != NULL)
 						if (pi->contserial == pBackpack->serial)
 						{
-							addx[s] = DEREF_P_ITEM(pi); // save the vials number, LB
+							addmitem[s] = pi->serial; // save the vials number, LB
 							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");
 						}
 						else 
@@ -1315,7 +1315,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					target(s, 0, 1, 0, 128, "What cloth should I use these scissors on?");
 					return;
 				case 0x0E21: // healing
-					addx[s] = DEREF_P_ITEM(pi);
+					addmitem[s] = pi->serial;
 					target(s, 0, 1, 0, 130, "Who will you use the bandages on?");
 					return;
 				case 0x1057:

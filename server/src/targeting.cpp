@@ -147,7 +147,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	int price=pi->value;
 
 	P_ITEM np = FindItemBySerial(pi->contserial);		// the pack
-	int npc=GetPackOwner(DEREF_P_ITEM(np));				// the vendor
+	int npc = DEREF_P_CHAR(GetPackOwner(np));				// the vendor
 	if(npc!=v || pc->npcaitype!=17) return;
 
 	if (pc_currchar->Owns(pc))
@@ -522,7 +522,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			}
 			else if ((pi->type==7)&&(iteminrange(s,pi,2)))
 			{
-				chars[currchar[s]].inputitem=DEREF_P_ITEM(pi);
+				chars[currchar[s]].inputitem = pi->serial;
 				chars[currchar[s]].inputmode = cChar::enDescription;
 				sysmessage(s,"Enter new name for key.");//morrolan rename keys
 				return;
@@ -549,7 +549,7 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 			else if (pi->id()==0x0BD2)
 			{
 				sysmessage(s, "What do you wish the sign to say?");
-				chars[currchar[s]].inputitem=DEREF_P_ITEM(pi); //Morrolan sign kludge
+				chars[currchar[s]].inputitem = pi->serial; //Morrolan sign kludge
 				chars[currchar[s]].inputmode=cChar::enHouseSign;
 				return;
 			}
@@ -1320,7 +1320,7 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 			pi->MoveTo(x, y, z);
 			pi->SetContSerial(-1);
 			pi->magic=2; //make item unmovable once thrown
-			movingeffect2(cc, DEREF_P_ITEM(pi), 0x0F, 0x0D, 0x11, 0x00, 0x00);
+			movingeffect2(cc, pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
 			RefreshItem(pi);
 		}
 	}
@@ -1434,7 +1434,7 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 {
 	int cc = currchar[s];
 	P_ITEM pi1=Items->SpawnItem(cc,1,"#",0,0x122A,0,0);	//add the blood puddle
-	P_ITEM pi2=MAKE_ITEMREF_LR(npcshape[0]);
+	P_ITEM pi2=FindItemBySerial(npcshape[0]);
 	if(!pi1) return;
 	pi1->pos.x=pi2->pos.x;
 	pi1->pos.y=pi2->pos.y;
@@ -1492,7 +1492,7 @@ void CarveTarget(int s, int feat, int ribs, int hides, int fur, int wool, int bi
 //AntiChrist - new carving system - 3/11/99
 //Human-corpse carving code added
 //Scriptable carving product added
-static void newCarveTarget(UOXSOCKET s, ITEM i)
+static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 {
 	int cc = currchar[s];
 	bool deletecorpse=false;
@@ -1501,8 +1501,9 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 	long int pos;
 
 	P_ITEM pi1=Items->SpawnItem(cc,1,"#",0,0x122A,0,0);	//add the blood puddle
-	P_ITEM pi2=MAKE_ITEMREF_LR(npcshape[0]);
-	P_ITEM pi3=MAKE_ITEMREF_LR(i);
+	P_ITEM pi2=FindItemBySerial(npcshape[0]);
+	if (pi3 == NULL)
+		return;
 	if(!pi1) return;
 	pi1->MoveTo(pi2->pos.x,pi2->pos.y,pi2->pos.z);
 	pi1->magic=2;//AntiChrist - makes the item unmovable
@@ -1656,7 +1657,7 @@ static void CorpseTarget(const P_CLIENT pC)
 	{
 		if(iteminrange(s, pi, 1))
 		{
-			npcshape[0]=DEREF_P_ITEM(pi);
+			npcshape[0]=pi->serial;
 			action(s,0x20);
 			n=1;
 			if(pi->more1==0)
@@ -1665,7 +1666,7 @@ static void CorpseTarget(const P_CLIENT pC)
 
 				if(pi->morey || pi->carve>-1)
 				{//if specified, use enhanced carving system!
-					newCarveTarget(s, DEREF_P_ITEM(pi));//AntiChrist
+					newCarveTarget(s, pi);//AntiChrist
 				} else
 				{//else use standard carving
 					switch(pi->amount) {
@@ -1933,10 +1934,9 @@ void cTargets::NpcCircleTarget(int s)
 void cTargets::NpcWanderTarget(int s)
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		if ((pc->isNpc())) pc->npcWander=npcshape[0];
 	}
 }
@@ -2895,7 +2895,7 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 
 		// time to lock it down!
 
-		if (Items->isFieldSpellItem ( DEREF_P_ITEM(pi) ))
+		if (Items->isFieldSpellItem ( pi ))
 		{
 			sysmessage(s,"you cannot lock this down!");
 			return;
@@ -2952,7 +2952,7 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 	if( pi != NULL )
 	{
 		// time to lock it down!
-		if (Items->isFieldSpellItem ( DEREF_P_ITEM( pi ) ) )
+		if (Items->isFieldSpellItem ( pi ) )
 		{
 			sysmessage(s,"you cannot lock this down!");
 			return;
@@ -3008,7 +3008,7 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 	P_ITEM pi = FindItemBySerial(ser);
 	if( pi != NULL )
 	{
-		if (Items->isFieldSpellItem(DEREF_P_ITEM(pi)))
+		if (Items->isFieldSpellItem(pi))
 		{
 			sysmessage(s,"you cannot release this!");
 			return;
@@ -3073,7 +3073,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	{
 		P_ITEM pj = FindItemBySerial(pi1->contserial); // in bp ?
 		l=calcCharFromSer(pi1->contserial); // equipped ?
-		if (l==-1) k=GetPackOwner(DEREF_P_ITEM(pj)); else k=l;
+		if (l==-1) k=DEREF_P_CHAR(GetPackOwner(pj)); else k=l;
 
 		if (k!=cc)	// creation only allowed in the creators pack/char otherwise things could go wrong
 		{
@@ -3146,7 +3146,7 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 	{
 		P_ITEM pj = FindItemBySerial(pi->contserial); // in bp ?
 		l=calcCharFromSer(pi->contserial); // equipped ?
-		if (l==-1) k = GetPackOwner(DEREF_P_ITEM(pj)); else k=l;
+		if (l==-1) k = DEREF_P_CHAR(GetPackOwner(pj)); else k=l;
 		if (k!=currchar[s])	// creation only allowed in the creators pack/char otherwise things could go wrong
 		{
 			sysmessage(s,"you can't unglow items in other perons packs or hands");

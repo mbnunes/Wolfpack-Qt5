@@ -228,7 +228,7 @@ public:
 	void SetPos(ITEM nItem, short x,short y, signed char z);
 	P_ITEM  MemItemFree();
 	void DeleItem(P_ITEM pi);
-	char isFieldSpellItem(int i);
+	char isFieldSpellItem(P_ITEM pi);
 	P_ITEM CreateFromScript(UOXSOCKET s, int itemnum);
 	P_ITEM  CreateScriptItem(int s, int itemnum, int nSpawned);
 	int  CreateRandomItem(char *sItemList);

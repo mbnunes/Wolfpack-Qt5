@@ -1062,7 +1062,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	   abort=true; // LB crashfix that prevents moving multi objcts in BP's
        sysmessage(s,"Hey, putting houses in your pack crashes your back and client!");
 	}
-	j=GetPackOwner(DEREF_P_ITEM(pCont));
+	j=DEREF_P_CHAR(GetPackOwner(pCont));
 	if (j>-1)
 		if (chars[j].npcaitype==17 && chars[j].isNpc() && !pc_currchar->Owns(&chars[j]))
 		{
@@ -1202,7 +1202,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	if (!(pCont->pileable && pItem->pileable && pCont->id()==pItem->id()
 		|| (pCont->type!=1 && pCont->type!=9)))
 	{
-		j=GetPackOwner(DEREF_P_ITEM(pCont));
+		j=DEREF_P_CHAR(GetPackOwner(pCont));
 		if (j>-1) // bugkilling, LB, was j=!-1, arghh, C !!!
 		{
 			if (chars[j].npcaitype==17 && chars[j].isNpc() && pc_currchar->Owns(&chars[j]))
@@ -1279,7 +1279,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 
 			if (pItem->glow>0) // LB's glowing items stuff
 			{
-				int p=GetPackOwner(DEREF_P_ITEM(pCont)); 
+				int p = DEREF_P_CHAR(GetPackOwner(pCont)); 
 				pc_currchar->removeHalo(pItem); // if gm put glowing object in another pack, handle glowsp correctly !
 				if (p!=-1) 
 				{

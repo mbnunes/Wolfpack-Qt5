@@ -287,7 +287,7 @@ void cBoat::OpenPlank(P_ITEM pi_p)//Open, or close the plank (called from keytar
 	}
 }
 
-bool cBoat::Build(UOXSOCKET s, ITEM b, char id2)//Build a boat! (Do stuff NESSICARY for boats, called from buildhouse() )
+bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff NESSICARY for boats, called from buildhouse() )
 {
 	P_CHAR pc_cs=MAKE_CHARREF_LRV(currchar[s],false);
 
@@ -296,7 +296,6 @@ bool cBoat::Build(UOXSOCKET s, ITEM b, char id2)//Build a boat! (Do stuff NESSIC
 	map_st map;
 	land_st land;
 
-	P_ITEM pBoat=MAKE_ITEMREF_LRV(b,false);
 	if( !pBoat ) 
 	{
 		sysmessage(s, "There was an error creating that boat.");
@@ -613,7 +612,7 @@ bool cBoat::Block(P_ITEM pBoat, short int xmove, short int ymove, int dir)//Chec
 void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 {//Move the boat and all it's items 1 square
 	int tx=0,ty=0;
-	int a, serial;
+	int serial;
      
 	if (pBoat == NULL)
 		return;
@@ -700,6 +699,7 @@ void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 
     serial = pBoat->serial;
 	
+	unsigned int a;
 	vector<SERIAL> vecEntries = imultisp.getData(pBoat->serial);
 	for (a = 0; a < vecEntries.size(); a++)
 	{

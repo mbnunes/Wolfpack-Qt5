@@ -501,7 +501,7 @@ void monstergate(int s, int x)
 			if (!(strcmp("LOOT",(char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
-				pRetitem = Npcs->AddRandomLoot(DEREF_P_ITEM(pBackpack), (char*)script2);
+				pRetitem = Npcs->AddRandomLoot(pBackpack, (char*)script2);
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 			}

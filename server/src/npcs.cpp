@@ -771,7 +771,7 @@ int cCharStuff::MemCharFree()
 }
 #endif
 
-P_ITEM cCharStuff::AddRandomLoot(int s, char * lootlist)
+P_ITEM cCharStuff::AddRandomLoot(P_ITEM pBackpack, char * lootlist)
 {
 	char sect[512];
 	int i,j, storeval,loopexit=0;
@@ -820,7 +820,7 @@ P_ITEM cCharStuff::AddRandomLoot(int s, char * lootlist)
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
-						retitem->SetContSerial(items[s].serial);
+						retitem->SetContSerial(pBackpack->serial);
 					}
 					break;;    
 				}
@@ -1264,7 +1264,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 				if (pBackpack != NULL)
 				{
 					scpMark m=pScp->Suspend();
-					retitem = Npcs->AddRandomLoot(DEREF_P_ITEM(pBackpack), script2);
+					retitem = Npcs->AddRandomLoot(pBackpack, script2);
 					pScp->Resume(m);
 
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...

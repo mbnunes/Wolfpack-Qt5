@@ -184,7 +184,7 @@ public:
 	unsigned int timeout2; // memory of last shot timeout
 	unsigned int regen, regen2, regen3;//Regeneration times for mana, stamin, and str
 	enInputMode inputmode;	// Used for entering text; 0= none, 4=rename rune
-	int inputitem;		// index of item the text is referring to
+	int inputitem;		// serial of item the text is referring to
 	SERIAL attacker; // Character's serial who attacked this character
 	unsigned int npcmovetime; // Next time npc will walk
 	char npcWander; // NPC Wander Mode
@@ -415,7 +415,7 @@ public:
 	void CheckMemoryRequest();
 	bool AllocateMemory(int NumberOfChars);
 	int MemCharFree();
-	P_ITEM AddRandomLoot(int s, char * lootlist);
+	P_ITEM AddRandomLoot(P_ITEM pBackpack, char * lootlist);
 	int AddRandomNPC(int s, char *npclist, int spawnpoint);
 	int AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1);
 	void Split(int k);

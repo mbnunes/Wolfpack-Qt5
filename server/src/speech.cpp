@@ -67,13 +67,13 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 			sprintf(pTarget->name, "Rune to %s", comm);
 			sysmessage(s, "Rune renamed to: Rune to %s", comm);
 			pPlayer->inputmode = cChar::enNone;
-			pPlayer->inputitem=INVALID_SERIAL;
+			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
 		case cChar::enNameDeed: // eagle rename deed
 			strncpy(pPlayer->name, comm, 49);
 			sysmessage(s, "Your new name is: %s", comm);
 			pPlayer->inputmode = cChar::enNone;
-			pPlayer->inputitem=INVALID_SERIAL;
+			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
 		case cChar::enHouseSign: // house sign rename
 			strncpy(pTarget->name, comm, 49);

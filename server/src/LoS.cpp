@@ -394,6 +394,7 @@ the line of sight.
 			}
 			
 			// Items
+			unsigned int i;
 			for (i = 0; i < loscache.size(); i++)
 			{
 				P_ITEM pi = loscache[i];

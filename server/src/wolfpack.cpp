@@ -2757,24 +2757,23 @@ void checkkey ()
 }
 #endif
 void start_glow(void)	// better to make an extra function cauze in loaditem it could be the case that the
-						// glower is loaded before the pack
-{
-	int k,l;
-	unsigned int i ;
-	for (i=0;i<itemcount;i++)
+{						// glower is loaded before the pack
+	AllItemsIterator it;
+	for (it.Begin(); it.GetData() != it.End();it++)
 	{
-		const P_ITEM pi=MAKE_ITEMREF_LR(i);	// on error return
+		const P_ITEM pi = it.GetData();	// on error return
 		if (pi->glow>0 && pi->free==0)
 		{
 			if (!pi->isInWorld())
 			{
 				P_ITEM pj = FindItemBySerial(pi->contserial); // find glowing item in backpack
-				l=calcCharFromSer(pi->contserial); // find equipped glowing items
-				if (l==-1) k = GetPackOwner(DEREF_P_ITEM(pj)); else k=l;
-				if (k!=-1)
+				P_CHAR pc_l = FindCharBySerial(pi->contserial); // find equipped glowing items
+				P_CHAR pc;
+				if (pc_l == NULL) pc = GetPackOwner(pj); else pc = pc_l;
+				if (pc != NULL)
 				{
-					chars[k].addHalo(pi);
-					chars[k].glowHalo(pi);
+					pc->addHalo(pi);
+					pc->glowHalo(pi);
 				}
 			}
 		}

@@ -333,11 +333,12 @@ void cItem::setColor(short color)
 	color2=color&0x00FF;
 }
 
-static int getname(int i, char* itemname)
+static int getname(P_ITEM pi, char* itemname)
 {
 	tile_st tile;
 	int j, len, mode, used, ok, namLen;
-	P_ITEM pi=MAKE_ITEMREF_LRV(i,1);
+	if (pi == NULL)
+		return 1;
 	if (pi->name[0]!='#')
 	{
 		strcpy((char*)itemname, pi->name);
@@ -372,7 +373,7 @@ static int getname(int i, char* itemname)
 
 int cItem::getName(char* itemname)
 {
-	return getname(DEREF_P_ITEM(this),itemname);
+	return getname(this, itemname);
 }
 
 string cItem::getName(void)
@@ -1549,17 +1550,18 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Ad
 	return pi;
 }
 
-char cAllItems::isFieldSpellItem(int i) //LB
+char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
 {
 	int a=0;
-	P_ITEM pi=MAKE_ITEMREF_LRV(i,0);
-	short id=pi->id();
+	if (pi == NULL)
+		return 0;
+	short id = pi->id();
 	if (id==0x3996 || id==0x398C) a=1; // fire field
-	if (id==0x3915 || id==0x3920) a=2; // poison field
-	if (id==0x3979 || id==0x3967) a=3; // paralyse field
-	if (id==0x3956 || id==0x3946) a=4; // energy field;
-	if (id==0x0080) a=5;                // wall of stone
-	if (id>=0x122a && id <=0x122e) a=6; // blood
+	else if (id==0x3915 || id==0x3920) a=2; // poison field
+	else if (id==0x3979 || id==0x3967) a=3; // paralyse field
+	else if (id==0x3956 || id==0x3946) a=4; // energy field;
+	else if (id==0x0080) a=5;                // wall of stone
+	else if (id>=0x122a && id <=0x122e) a=6; // blood
 	
 	return a;
 }
@@ -1585,7 +1587,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 			{
                 //Multis --Boats ->
 
-				if (!Items->isFieldSpellItem(DEREF_P_ITEM(pi))) // Gives fieldspells a chance to decay in multis, LB
+				if (!Items->isFieldSpellItem(pi)) // Gives fieldspells a chance to decay in multis, LB
 				{
 				  if (pi->multis<1 && !pi->corpse)
 				  {
@@ -1694,8 +1696,9 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 			if (pi->type==61)
 			{
 				k=0;
-				serial=pi->serial;
+				serial = pi->serial;
 				vector<SERIAL> vecSpawn = spawnsp.getData(pi->serial);
+				unsigned int j;
 				for (j = 0; j < vecSpawn.size(); j++)
 				{
 					P_ITEM pi_ci = FindItemBySerial(vecSpawn[j]);
@@ -1728,6 +1731,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 			{
 				k=0;
 				serial=pi->serial;
+				unsigned int j;
 				vector<SERIAL> vecSpawned = cspawnsp.getData(pi->serial);
 				for (j = 0; j < vecSpawned.size(); j++)
 				{
@@ -1758,6 +1762,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 			else if ((pi->type==63)||(pi->type==64)||(pi->type==65)||(pi->type==66)||(pi->type==8))
 			{
 				serial=pi->serial;
+				unsigned int j;
 				vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 				for (j=0;j<vecContainer.size();j++)
 				{

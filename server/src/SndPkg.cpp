@@ -2688,12 +2688,12 @@ void movingeffect3(int source, int dest, unsigned char eff1, unsigned char eff2,
 
 //	- Movingeffect2 is used to send an object from a char
 //	to another object (like purple potions)
-void movingeffect2(int source, int dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
+void movingeffect2(int source, P_ITEM dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
 {
 	//0x0f 0x42 = arrow 0x1b 0xfe=bolt
 	char effect[29];
 	int j;
-	const P_ITEM pi=MAKE_ITEMREF_LR(dest);	// on error return
+	const P_ITEM pi = dest;	// on error return
 	P_CHAR pc_source = MAKE_CHARREF_LR(source);
 
 	effect[0]=0x70; // Effect message

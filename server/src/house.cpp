@@ -252,7 +252,7 @@ void cHouseManager::AddHome(int s, int i)
 		
 		if(boat) //Boats
 		{
-			if(!Boats->Build(s,DEREF_P_ITEM(pMulti), id2))
+			if(!Boats->Build(s, pMulti, id2))
 			{
 				Items->DeleItem(pMulti);
 				return;

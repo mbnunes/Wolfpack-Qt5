@@ -93,12 +93,13 @@ int cSkills::CalcRank(int s,int skill)
 //
 // Purpose:		modify variables base on item's rank.
 //
-void cSkills::ApplyRank(int s,int i,int rank)
+void cSkills::ApplyRank(int s, P_ITEM pi, int rank)
 {
 	char tmpmsg[512];
 	*tmpmsg='\0';
 	if(SrvParms->rank_system==0) return;
-	const P_ITEM pi=MAKE_ITEMREF_LR(i);	// on error return
+	if (pi == NULL)
+		return;
 
 	if (SrvParms->rank_system==1)
 	{
@@ -315,7 +316,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			strcpy(pi->name,pi->name2); // Item identified! - }
 		if (SrvParms->rank_system==1) rank=CalcRank(s,skill);
 		else if (SrvParms->rank_system==0) rank=10;
-		ApplyRank(s,DEREF_P_ITEM(pi),rank);
+		ApplyRank(s, pi, rank);
 
 		if(!pc_currchar->isGM())		//AntiChrist - do this only if not a GM! bugfix - to avoid "a door mixed by GM..."
 		{
@@ -959,7 +960,7 @@ void cSkills::CreatePotion(int s, char type, char sub, P_ITEM pi_mortar)
 		sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc->name);
 		npcemoteall(s, (char*)temp,0);
 		delequan(s, 0x0F0E, 1);
-		Skills->PotionToBottle(s, DEREF_P_ITEM(pi_mortar));
+		Skills->PotionToBottle(s, pi_mortar);
 	} 
 }
 
@@ -985,7 +986,7 @@ void cSkills::BottleTarget(int s)
 		{
 			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc_currchar->name);
 			npcemoteall(DEREF_P_CHAR(pc_currchar), (char*)temp,0);
-			Skills->PotionToBottle(DEREF_P_CHAR(pc_currchar), DEREF_P_ITEM(mortar));
+			Skills->PotionToBottle(DEREF_P_CHAR(pc_currchar), mortar);
 		}
 	}
 	else
@@ -997,13 +998,12 @@ void cSkills::BottleTarget(int s)
 // history: unknown, revamped by Duke,23.04.2000
 // Purpose: this really creates the potion
 //
-void cSkills::PotionToBottle(CHARACTER s, int mortar)
+void cSkills::PotionToBottle(CHARACTER s, P_ITEM pi_mortar)
 {
 	unsigned char id1,id2;
 	char pn[50];
 
 	P_CHAR pc = MAKE_CHARREF_LR(s);
-	P_ITEM pi_mortar = MAKE_ITEM_REF(mortar);
 
 	switch((10*pi_mortar->more1)+pi_mortar->more2)
 	{

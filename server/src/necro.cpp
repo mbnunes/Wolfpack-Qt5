@@ -160,14 +160,14 @@ int SpawnRandomItem(int nCharID,int nInPack, char* cScript, char* cList, char* c
 
 void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 {
-	cItem* Vial=MAKE_ITEMREF_LR(addx[nSocket]);
+	P_ITEM Vial = FindItemBySerial(addmitem[nSocket]);
 	if (!Vial) return; // should never happen
 	
 //	int nTargetID=-1;
 	
 	
 	int cc = currchar[nSocket];
-	cChar* Player = MAKE_CHARREF_LR(cc);
+	cChar* Player = MAKE_CHARREF_LR(currchar[nSocket]);
 
 	cItem* Weapon = Player->getWeapon(); // search for a dagger in the players hand
 	if (!Weapon || !IsDagger(Weapon->id()) )

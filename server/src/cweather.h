@@ -34,9 +34,7 @@
 
 #include <zthread/Thread.h>
 
-using namespace ZThread;
-
-class cWeather : public Thread
+class cWeather : public ZThread::Thread
 {
 public:
 	cWeather()
