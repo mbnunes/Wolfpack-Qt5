@@ -160,14 +160,14 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 		//	wpChar *returnVal = CharCache::instance()->allocObj( &wpCharType );
 		wpChar* returnVal = PyObject_New( wpChar, &wpCharType );
 		returnVal->pChar = pChar;
-	
+
 		returnVal->py_account	= NULL;
 		returnVal->py_region		= NULL;
 		returnVal->py_socket		= NULL;
 		returnVal->py_skill		= NULL;
 		returnVal->py_skillcap	= NULL;
 		returnVal->py_skilllock	= NULL;
-	
+
 		return ( PyObject * ) returnVal;
 	}
 }
@@ -2034,7 +2034,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 		P_ITEM pItem = dynamic_cast<P_ITEM>(World::instance()->findItem(object));
 
 		if (pItem) {
-			pItem = pItem->getOutmostItem();	
+			pItem = pItem->getOutmostItem();
 
 			if (pItem->container() && pItem->container()->isChar()) {
 				if (range == -1) {
@@ -2046,7 +2046,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 				if (range == -1) {
 					Py_RETURN_FALSE;
 				}
-				
+
 				targetPos = pItem->pos().losItemPoint(pItem->id());
 			}
 		} else {
@@ -2077,7 +2077,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 		Py_RETURN_FALSE;
 	}
 
-	if (pos.distance(targetPos) > range) {
+	if ( (int)pos.distance(targetPos) > range ) {
 		Py_RETURN_FALSE;
 	}
 
@@ -2839,7 +2839,7 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 		val = cVariant( getWpCoord( value ) );
 	else if ( PyFloat_Check( value ) )
 		val = cVariant( PyFloat_AsDouble( value ) );
-	else if ( value == Py_True ) 
+	else if ( value == Py_True )
 		val = cVariant( 1 ); // True
 	else if ( value == Py_False )
 		val = cVariant( 0 ); // false
@@ -2852,7 +2852,7 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 		return -1;
 	}
 
-    return 0;	
+    return 0;
 }
 
 P_CHAR getWpChar( PyObject* pObj )
