@@ -86,6 +86,7 @@ protected:
 
 	ContainerContent		content_;
 	Followers				followers_; // NPC owned by this character
+	Followers				guardedby_; // List of NPCs that guard this character.
 	Effects					effects_; // Tempeffects affecting this character (Bless, Other Status affecting spells)
 	P_CHAR					owner_;
 
@@ -118,12 +119,12 @@ protected:
 	unsigned char			fly_steps_; // number of step the creatures flies if it can fly
 	int						menupriv_; // needed fro LB's menu priv system
 	bool					tamed_;
-	bool					guarded_;							// (Abaddon) if guarded
 	bool					casting_; // 0/1 is the cast casting a spell?
     unsigned int			smoketimer_; // LB
 	unsigned int			smokedisplaytimer_;
 	unsigned int			antispamtimer_;
 	unsigned int			antiguardstimer_;//AntiChrist - anti "GUARDS" spawn
+	P_CHAR					guarding_; // is guarding this.	
 	QString					carve_; // carve system
 	int						hairserial_;//there are needed for incognito stuff
 	int						beardserial_;
@@ -249,6 +250,7 @@ protected:
 	unsigned char			npcWander_; // NPC Wander Mode
 	unsigned char			oldnpcWander_; // Used for fleeing npcs
 	SERIAL					ftarg_; // NPC Follow Target
+	Coord_cl				ptarg_;
 	int						fx1_; //NPC Wander Point 1 x
 	int						fx2_; //NPC Wander Point 2 x
 	int						fy1_; //NPC Wander Point 1 y
@@ -325,11 +327,11 @@ public:
 	unsigned char			fly_steps() const {return fly_steps_;} // number of step the creatures flies if it can fly
 	int						menupriv() const {return menupriv_;}
 	bool					tamed() const {return tamed_;}
-	bool					guarded() const {return guarded_;}
     unsigned int			smoketimer() const {return smoketimer_;}
 	unsigned int			smokedisplaytimer() const {return smokedisplaytimer_;}
 	unsigned int			antispamtimer() const { return antispamtimer_;}
 	unsigned int			antiguardstimer() const { return antiguardstimer_;}
+	P_CHAR					guarding() const { return guarding_; }
 	QString					carve() const {return carve_;}
 	SERIAL					hairserial() const {return hairserial_;}
 	SERIAL					beardserial() const { return beardserial_;}
@@ -450,6 +452,7 @@ public:
 	unsigned char			npcWander() const { return npcWander_; }
 	unsigned char			oldnpcWander() const { return oldnpcWander_; }
 	SERIAL					ftarg() const { return ftarg_; }
+	Coord_cl				ptarg() const { return ptarg_; }
 	int						fx1() const { return fx1_; }
 	int						fx2() const { return fx2_; }
 	int						fy1() const { return fy1_; }
@@ -502,7 +505,6 @@ public:
 	void					setFlySteps( unsigned char data) {fly_steps_ = data; }
 	void					setMenupriv(int data) { menupriv_ = data;}
 	void					setTamed( bool data ) { tamed_ = data; }
-	void					setGuarded( bool data ) { guarded_ = data; }
     void					setSmokeTimer( unsigned int data ) { smoketimer_ = data; }
 	void					setSmokeDisplayTimer ( unsigned int data ) { smokedisplaytimer_ = data; }
 	void					setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
@@ -629,6 +631,7 @@ public:
 	void					setNpcWander( unsigned char data ) { npcWander_ = data; }
 	void					setOldNpcWander( unsigned char data ) { oldnpcWander_ = data; }
 	void					setFtarg( SERIAL data ) { ftarg_ = data; }
+	void					setPtarg( Coord_cl data ) { ptarg_ = data; }
 	void					setFx1( int data ) { fx1_ = data; }
 	void					setFx2( int data ) { fx2_ = data; }
 	void					setFy1( int data ) { fy1_ = data; }
@@ -781,6 +784,13 @@ public:
 	void addFollower( P_CHAR pPet, bool noOwnerChange = false );	
 	void removeFollower( P_CHAR pPet, bool noOwnerChange = false );
 	Followers followers() const;
+
+	void setGuarding( P_CHAR data );
+	void setGuardingOnly( P_CHAR data ) { guarding_ = data; };
+	void addGuard( P_CHAR pPet, bool noGuardingChange = false );
+	void removeGuard( P_CHAR pPet, bool noGuardingChange = false );
+	Followers guardedby() const;
+	
 	bool Owns( P_ITEM pi );
 
 	// Effect System

@@ -507,6 +507,29 @@ PyObject* wpChar_emote( wpChar* self, PyObject* args )
 }
 
 /*!
+	The character says something.
+*/
+PyObject* wpChar_say( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgStr( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	INT16 color = -1;
+	
+	if( checkArgInt( 1 ) )
+		color = getArgInt( 1 );
+
+	self->pChar->talk( getArgStr( 0 ), color );
+	return PyTrue;
+}
+
+/*!
 	Takes at least one argument (item-id)
 	Optionally the color
 	It returns the amount of a resource
@@ -1162,6 +1185,85 @@ PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Let's this character attack someone else.
+*/
+PyObject* wpChar_attack( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgChar( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	P_CHAR pChar = getArgChar( 0 );
+
+	if( !pChar || self->pChar == pChar )
+		return PyFalse;
+
+	self->pChar->fight( pChar );
+
+	return PyTrue;
+}
+
+/*!
+	The character should follow someone else.
+*/
+PyObject* wpChar_follow( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgChar( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	P_CHAR pChar = getArgChar( 0 );
+
+	if( !pChar || pChar == self->pChar )
+		return PyFalse;
+
+	self->pChar->setFtarg( pChar->serial );
+	self->pChar->setNpcWander( 1 );
+	self->pChar->setNextMoveTime();
+
+	return PyTrue;
+}
+
+/*!
+	The character should follow someone else.
+*/
+PyObject* wpChar_goto( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgCoord( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	Coord_cl pos = getArgCoord( 0 );
+
+	if( pos.map != self->pChar->pos.map )
+	{
+		PyErr_Warn( PyExc_Warning, "Cannot move to a different map using goto." );
+		return PyFalse;
+	}
+
+	self->pChar->setPtarg( pos );
+	self->pChar->setNpcWander( 1 );
+	self->pChar->setNextMoveTime();
+
+	return PyTrue;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
@@ -1182,10 +1284,16 @@ static PyMethodDef wpCharMethods[] =
 	{ "useresource",	(getattrofunc)wpChar_useresource, METH_VARARGS, "Consumes a resource posessed by the char." },
 	{ "countresource",	(getattrofunc)wpChar_countresource, METH_VARARGS, "Counts the amount of a certain resource the user has." },
 	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Shows an emote above the character." },
+	{ "say",			(getattrofunc)wpChar_say, METH_VARARGS, "The character begins to talk." },
 	{ "turnto",			(getattrofunc)wpChar_turnto, METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
 	{ "equip",			(getattrofunc)wpChar_equip, METH_VARARGS, "Equips a given item on this character." },
 	{ "maywalk",		(getattrofunc)wpChar_maywalk, METH_VARARGS, "Checks if this character may walk to a specific cell." },
 	
+	// Mostly NPC functions
+	{ "attack",			(getattrofunc)wpChar_attack, METH_VARARGS, "Let's the character attack someone else." },
+	{ "goto",			(getattrofunc)wpChar_goto, METH_VARARGS, "The character should go to a coordinate." },
+	{ "follow",			(getattrofunc)wpChar_follow, METH_VARARGS, "The character should follow someone else." },
+
 	{ "addtimer",		(getattrofunc)wpChar_addtimer, METH_VARARGS, "Adds a timer to this character." },
 	{ "dispel",			(getattrofunc)wpChar_dispel, METH_VARARGS, "Dispels this character (with special options)." },
 
@@ -1240,6 +1348,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetInt( "xid", xid() )
     
 	else pGetInt( "dir", dir() )
+	else pGetInt( "tamed", tamed() ? 1 : 0 )
 
 	// Flags
 	else pGetInt( "allmove", canMoveAll() ? 1 : 0 )
@@ -1258,15 +1367,15 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		return PyInt_FromLong( self->pChar->saycolor() );
 	else if( !strcmp( name, "emotecolor" ) ) 
 		return PyInt_FromLong( self->pChar->emotecolor() );
-	else if( !strcmp( name, "str" ) ) 
+	else if( !strcmp( name, "strength" ) ) 
 		return PyInt_FromLong( self->pChar->st() );
-	else pGetInt( "dex", effDex() )
-	else if( !strcmp( name, "int" ) )
+	else pGetInt( "dexterity", effDex() )
+	else if( !strcmp( name, "intelligence" ) )
 		return PyInt_FromLong( self->pChar->in() );
-	else if ( !strcmp( name, "str2" ) )
+	else if ( !strcmp( name, "strength2" ) )
 		return PyInt_FromLong( self->pChar->st2() );
 	else pGetInt( "dex2", decDex() )
-	else if( !strcmp( name, "int2" ) )
+	else if( !strcmp( name, "intelligence2" ) )
 		return PyInt_FromLong( self->pChar->in2() );
 	else if ( !strcmp( name, "health" ) )
 		return PyInt_FromLong( self->pChar->hp() );
@@ -1376,7 +1485,13 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 	else pGetStr( "profile", profile() )
 
-	else if( !strcmp( name, "followers" ) )
+	else if( !strcmp( "follow", name ) )
+		return PyGetCharObject( FindCharBySerial( self->pChar->ftarg() ) );
+
+	else if( !strcmp( "destination", name ) )
+		return PyGetCoordObject( self->pChar->ptarg() );
+
+	else if( !strcmp( "followers", name ) )
 	{
 		cChar::Followers followers = self->pChar->followers();
 		PyObject *rVal = PyTuple_New( followers.size() );
@@ -1397,6 +1512,21 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 {
 	setStrProperty( "name", pChar->name )
+	else if( !strcmp( "follow", name ) )
+	{
+		P_CHAR pChar = getWpChar( value );
+		if( pChar )
+			self->pChar->setFtarg( pChar->serial );
+		else
+			self->pChar->setFtarg( INVALID_SERIAL );
+	}
+
+	else if ( !strcmp( "owner", name ) )
+		self->pChar->setOwner( getWpChar( value ) );
+	else if ( !strcmp( "tamed", name ) )
+		self->pChar->setTamed( PyObject_IsTrue( value ) );
+	else if ( !strcmp( "destination", name ) )
+		self->pChar->setPtarg( getWpCoord( value ) );
 	else if ( !strcmp( "orgname", name) )
 		self->pChar->setOrgname( PyString_AS_STRING( value ) );
 	else if ( !strcmp( "title", name) )
@@ -1416,11 +1546,11 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 		self->pChar->setStm( PyInt_AS_LONG( value ) );
 	else if ( !strcmp( "mana", name ) )
 		self->pChar->setMn( PyInt_AS_LONG( value ) );
-	else if ( !strcmp( "str", name ) )
+	else if ( !strcmp( "strength", name ) )
 		self->pChar->setSt( PyInt_AS_LONG( value ) );
-	else if ( !strcmp( "dex", name ) )
+	else if ( !strcmp( "dexterity", name ) )
 		self->pChar->setDex( PyInt_AS_LONG( value ) );
-	else if ( !strcmp( "int", name ) )
+	else if ( !strcmp( "intelligence", name ) )
 		self->pChar->setIn( PyInt_AS_LONG( value ) );
 	else if( !strcmp("direction", name ) )
 		self->pChar->setDir( PyInt_AS_LONG( value ) );

@@ -473,31 +473,18 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		break;
 		case 19:
 			break; // real estate broker...Ripper
-		case 32: // Pets Guarding..Ripper
-			if (pc_i->isNpc() && pc_i->tamed())
+		case 32:
+			// We don't have anything to do
+			// So let's attack what has attacked our guarding target
+			if( pc_i->isNpc() && pc_i->guarding() && !pc_i->war() && pc_i->targ() == INVALID_SERIAL )
 			{
-				RegionIterator4Chars ri(pc_i->pos);
-				for (ri.Begin(); !ri.atEnd(); ri++)
+				P_CHAR pGuarded = pc_i->guarding();
+
+				if( pGuarded->attacker() != INVALID_SERIAL )
 				{
-					P_CHAR pc = ri.GetData();
-					if (pc != NULL)
-					{
-						d = chardist(pc_i, pc);
-						if (d > SrvParams->attack_distance())
-							continue;
-						if( ( !pc->isNpc() ) && ( !online( pc ) ) )
-						    continue;
-						if (pc->dead())
-							continue;
-						if (!pc->guarded())
-							continue;
-						if (pc_i->owner() == pc)
-						{
-							P_CHAR pc_target = FindCharBySerial(pc->attacker());
-							pc_i->attackTarget( pc_target );
-							return;
-						}
-					}
+					P_CHAR pAttacker = FindCharBySerial( pGuarded->attacker() );
+					if( pAttacker )
+						pGuarded->fight( pAttacker );
 				}
 			}
 			break;

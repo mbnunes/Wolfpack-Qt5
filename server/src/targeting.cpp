@@ -1542,7 +1542,7 @@ void cTargets::GuardTarget( UOXSOCKET s )
 	pPet->setFtarg(currchar[s]->serial);
 	pPet->setNpcWander(1);
 	sysmessage(s, "Your pet is now guarding you.");
-	currchar[s]->setGuarded(true);
+//	currchar[s]->setGuarded(true);
 }
 
 void cTargets::ResurrectionTarget( UOXSOCKET s )

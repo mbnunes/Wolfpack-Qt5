@@ -159,8 +159,8 @@ void WPScriptManager::load( void )
 		else
 			continue;
 	
-		Script->load( *NodePtr );
 		add( SectionList[ i ].latin1(), Script );
+		Script->load( *NodePtr );		
 		++ScriptsLoaded;
 	}
 

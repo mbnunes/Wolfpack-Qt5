@@ -88,7 +88,7 @@ unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
 QString cChar::objectID() const			{	return "cChar";						}
 
 cChar::cChar():
-	socket_(0), account_(0), owner_(0), guildstone_( INVALID_SERIAL )
+	socket_(0), account_(0), owner_(0), guildstone_( INVALID_SERIAL ), guarding_( 0 )
 {
 	VisRange_ = VISRANGE;
 	Init( false );
@@ -301,7 +301,6 @@ void cChar::Init(bool ser)
 	this->setHoldg(0); // Gold a player vendor is holding for Owner
 	this->setFlySteps(0); //LB -> used for flyging creatures
 	this->setMenupriv(0); // Lb -> menu priv
-	this->setGuarded(false); // True if CHAR is guarded by some NPC
 	this->setSmokeTimer(0);
 	this->setSmokeDisplayTimer(0);
 	this->setAntiguardstimer(0); // AntiChrist - for "GUARDS" call-spawn
@@ -675,7 +674,7 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty" );
 	fields.push_back( "characters.murderrate,characters.menupriv,characters.questtype,characters.questdestregion" );
 	fields.push_back( "characters.questorigregion,characters.questbountypostserial,characters.questbountyreward,characters.jailtimer" );
-	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food,characters.profile" );
+	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food,characters.profile,characters.guarding" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
@@ -786,6 +785,11 @@ void cChar::load( char **result, UINT16 &offset )
 	loot_ = result[offset++];
 	food_ = atoi( result[offset++] );
 	profile_ = result[offset++];
+	
+	// UGLY OPTIMIZATION!
+	guarding_ = (P_CHAR)atoi( result[offset++] );
+	if( (SERIAL)guarding_ == -1 )
+		guarding_ = 0;
 	
 	SetSpawnSerial( spawnserial_ );
 
@@ -916,6 +920,7 @@ void cChar::save()
 	addStrField( "lootlist", loot_);
 	addField( "food", food_);
 	addStrField( "profile", profile_ );
+	addField( "guarding", guarding_ ? guarding_->serial : INVALID_SERIAL );
 
 	addCondition( "serial", serial );
 	saveFields;
@@ -1740,11 +1745,11 @@ void cChar::showName( cUOSocket *socket )
 		charName.append( tr(" [frozen]") );
 
 	// Guarded
-	if( guarded() )
+	if( guardedby_.size() > 0 )
 		charName.append( tr(" [guarded]") );
 
 	// Guarding
-	if( tamed() && npcaitype_ == 32 && owner_ == socket->player() && socket->player()->guarded() )
+	if( tamed() && npcaitype_ == 32 && guarding_ )
 		charName.append( tr(" [guarding]") );
 
 	// Tamed
@@ -3452,6 +3457,56 @@ void cChar::removeFollower( P_CHAR pPet, bool noOwnerChange )
 cChar::Followers cChar::followers() const
 {
 	return followers_;
+}
+
+cChar::Followers cChar::guardedby() const
+{
+	return guardedby_;
+}
+
+void cChar::setGuarding( P_CHAR data )
+{
+	if( data == guarding_ )
+		return;
+
+	if( guarding_ )
+		guarding_->removeGuard( this );
+
+	guarding_ = data;
+
+	if( guarding_ )
+		guarding_->addGuard( this );		
+}
+
+void cChar::addGuard( P_CHAR pPet, bool noGuardingChange )
+{
+	// Check if already existing in the guard list
+	for( Followers::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
+		if( *iter == pPet )
+			return;
+
+	if( !noGuardingChange )
+	{
+		if( pPet->guarding() )
+			pPet->guarding()->removeGuard( pPet );
+
+		pPet->setGuardingOnly( this );
+	}
+
+	guardedby_.push_back( pPet );
+}
+
+void cChar::removeGuard( P_CHAR pPet, bool noGuardingChange )
+{
+	for( Followers::iterator iter = guardedby_.begin(); iter != guardedby_.end(); ++iter )
+		if( *iter == pPet )
+		{
+			guardedby_.erase( iter );
+			break;
+		}
+
+	if( !noGuardingChange )
+		pPet->setGuardingOnly( 0 );
 }
 
 bool cChar::Owns( P_ITEM pItem )

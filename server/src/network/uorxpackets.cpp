@@ -178,12 +178,6 @@ std::vector< UINT16 > cUORxSpeechRequest::keywords()
 {
 	std::vector< UINT16 > keywords;
 
-	// Packet Dump for a speech packet containing 
-	// Keywords: 0x0171 + 0x0172
-	// 12 bit per keyword
-	// 0000: ad 00 1a c0 02 b2 00 03 44 45 55 00 00 11 71 62 : ........DEU...qb
-	// 0010: 72 6f 77 73 65 20 62 75 79 00 -- -- -- -- -- -- : rowse buy.
-
 	UINT16 count = keywordCount();
 	UINT16 offset = 13; // Skip the count
 

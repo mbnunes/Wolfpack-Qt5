@@ -1510,6 +1510,29 @@ int main( int argc, char *argv[] )
 					pChar->setOwnerOnly( pOwner );
 					pOwner->addFollower( pChar, true );
 				}
+				else
+				{
+					clConsole.send( QString( "The owner of Serial 0x%1 is invalid: %2" ).arg( pChar->serial, 16 ).arg( owner, 16 ) );
+					pChar->setOwnerOnly( 0 );
+				}
+			}
+
+			// Find Guarding
+			if( pChar->guarding() )
+			{
+				SERIAL guarding = (SERIAL)pChar->guarding();
+
+				P_CHAR pGuarding = FindCharBySerial( guarding );
+				if( pGuarding )
+				{
+					pChar->setGuardingOnly( pGuarding );
+					pGuarding->addGuard( pChar, true );
+				}
+				else
+				{
+					clConsole.send( QString( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial, 16 ).arg( guarding, 16 ) );
+					pChar->setGuardingOnly( 0 );
+				}
 			}
 
 			// Set Skills (non-real)

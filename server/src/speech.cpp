@@ -595,8 +595,6 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	
 	if( comm.contains( " FOLLOW" ) )
 	{
-		pPlayer->setGuarded( false );
-
 		if( comm.contains( " ME" ) )
 		{
 			pPet->setFtarg( pPlayer->serial );
@@ -618,7 +616,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 			return false;
 		}
 
-		pPlayer->setGuarded( false );
+		//pPlayer->setGuarded( false );
 		// >> LEGACY
 		//addx[s]=pPet->serial;
 		//target(s, 0, 1, 0, 118, "Select the target to attack.");//AntiChrist
@@ -626,7 +624,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	}
 	else if( ( comm.contains( " FETCH" ) ) || ( comm.contains( " GET" ) ) )
 	{
-		pPlayer->setGuarded(false);
+		//pPlayer->setGuarded(false);
 		// >> LEGACY
 		//addx[s]=pPet->serial;
 		//target(s, 0, 1, 0, 124, "Click on the object to fetch.");
@@ -634,7 +632,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	}
 	else if( comm.contains( " COME" ) )
 	{
-		pPlayer->setGuarded( false );
+		//pPlayer->setGuarded( false );
 		pPet->setFtarg( pPlayer->serial );
 		pPet->setNpcWander(1);
 		pPet->setNextMoveTime();
@@ -656,7 +654,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	}
 	else if( ( comm.contains( " STOP" ) ) || ( comm.contains(" STAY") ) )
 	{
-		pPlayer->setGuarded( false );
+		//pPlayer->setGuarded( false );
 		pPet->setFtarg( INVALID_SERIAL );
 		pPet->setTarg( INVALID_SERIAL );
 
@@ -668,7 +666,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	}
 	else if( comm.contains( " TRANSFER" ) )
 	{
-		pPlayer->setGuarded( false );
+		//pPlayer->setGuarded( false );
 		// >> LEGACY
 		/*addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 119, "Select character to transfer your pet to.");*/
@@ -676,7 +674,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 	}
 	else if( comm.contains( " RELEASE" ) )
 	{
-		pPlayer->setGuarded( false );
+		//pPlayer->setGuarded( false );
 
 		// Has it been summoned ? Let's dispel it
 		if( pPet->summontimer() )
@@ -913,6 +911,8 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, 
     if( !pPlayer->socket() || pPlayer->dead() )
 		return false;
 
+	QString speechUpr = comm.upper();
+
 	RegionIterator4Chars ri( pPlayer->pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
@@ -929,7 +929,7 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, 
 		// Check if the NPC has a script that can handle 
 		// speech events and then check if it can handle everything
 		// or just certain things
-		std::vector< WPDefaultScript* > events = pPlayer->getEvents();
+		std::vector< WPDefaultScript* > events = pNpc->getEvents();
 		for( std::vector< WPDefaultScript* >::const_iterator iter = events.begin(); iter != events.end(); ++iter )
 		{
 			WPDefaultScript *script = *iter;
@@ -941,34 +941,34 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, 
 					return true;
 		}
 
-		if( StableSpeech( socket, pPlayer, pNpc, comm ) )
+		if( StableSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( UnStableSpeech( socket, pPlayer, pNpc, comm ) )
+		if( UnStableSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( ShieldSpeech( socket, pPlayer, pNpc, comm ) )
+		if( ShieldSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( QuestionSpeech( socket, pPlayer, pNpc, comm ) )
+		if( QuestionSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( EscortSpeech( socket, pPlayer, pNpc, comm ) )
+		if( EscortSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( BankerSpeech( socket, pPlayer, pNpc, comm ) )
+		if( BankerSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( TrainerSpeech( socket, pPlayer, pNpc, comm ) )
+		if( TrainerSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( PetCommand( socket, pPlayer, pNpc, comm ) )
+		if( PetCommand( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 
-		if( PlayerVendorSpeech( socket, pPlayer, pNpc, comm ) )
+		if( PlayerVendorSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 		
-		if( VendorSpeech( socket, pPlayer, pNpc, comm ) )
+		if( VendorSpeech( socket, pPlayer, pNpc, speechUpr ) )
 			return true;
 	}
 	
@@ -995,6 +995,10 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 
 
 	pChar->unhide();
 		
+	// Check for Bogus Color
+	if( !isNormalColor( color ) )
+		color = 0x2;
+
 	if( ( type == 0x09 ) && ( pChar->canBroadcast() ) )
 	{
 		pChar->talk( speech, color, type );
@@ -1018,19 +1022,20 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 
 	}
 
 	pChar->talk( speech, color, type );
-	QString speechUpr = speech.upper();
-
+	
 	// >> LEGACY
 	/*if( speechUpr == "I RESIGN FROM MY GUILD" )
 	{
 		GuildResign(s);
 	}*/
 	
-	if( response( socket, pChar, speechUpr, keywords ) )
+	if( response( socket, pChar, speech, keywords ) )
 		return;  // Vendor responded already
 	
-	// >> LEGACY
-	if( speech.contains( "guards", false ) )
+	QString speechUpr = speech.upper();
+
+	// 0x0007 -> Speech-id for "Guards"
+	if( find( keywords.begin(), keywords.end(), 0x07 ) != keywords.end() )
 		callguards( pChar );
 
 	// well,i had a strange problem with duplicate speech input

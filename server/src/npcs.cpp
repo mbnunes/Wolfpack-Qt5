@@ -60,7 +60,8 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	if( pc_k->spawnSerial() != INVALID_SERIAL ) 
 		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial);
 
-	pc_k->setOwner( NULL );
+	pc_k->setOwner( 0 );
+	pc_k->setGuarding( 0 );
 	
 	// We need to remove the equipment here.
 	cChar::ContainerContent container(pc_k->content());
@@ -84,7 +85,6 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 			pMulti->removeChar( pc_k );
 		}
 	}
-	
 
 	pc_k->removeFromView( false ); // Remove the character from all in-range sockets view
 	cMapObjects::getInstance()->remove( pc_k ); // taking it out of mapregions BEFORE x,y changed

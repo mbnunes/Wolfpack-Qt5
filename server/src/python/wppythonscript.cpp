@@ -386,7 +386,7 @@ bool WPPythonScript::onSpeech( cUObject *listener, P_CHAR talker, const QString 
 	PyTuple_SetItem( tuple, 2, PyString_FromString( text.latin1() ) );
 	
 	// Convert the keywords into a list
-	PyObject *list = PyList_New( keywords.size() );
+	PyObject *list = PyList_New( 0 );
 	for( std::vector< UINT16 >::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
 		PyList_Append( list, PyInt_FromLong( *iter ) );
 

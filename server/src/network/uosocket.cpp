@@ -1695,15 +1695,22 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	_player->turnTo( pc_i );
 
 	// The person being attacked is guarded by pets ?
-	if( pc_i->guarded() )
+	cChar::Followers guards = pc_i->guardedby();
+	for( cChar::Followers::iterator iter = guards.begin(); iter != guards.end(); ++iter )
 	{
-		RegionIterator4Chars cIter( pc_i->pos );
-		for( cIter.Begin(); !cIter.atEnd(); cIter++ )
+		P_CHAR pPet = *iter;
+		if( pPet->targ() == INVALID_SERIAL && pPet->inRange( _player, SrvParams->attack_distance() ) ) // is it on screen?
 		{
-			P_CHAR toCheck = cIter.GetData();
-			if( toCheck->owner() == pc_i && toCheck->npcaitype() == 32 && toCheck->inRange( _player, 10 ) && toCheck->targ() == INVALID_SERIAL )
-				toCheck->attackTarget( _player );
-				// This was: npcattacktarget( _player, toCheck );
+			pPet->fight( pc_i );
+
+			// Show the You see XXX attacking YYY messages
+			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name ).arg( pc_i->name );
+			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->VisRange() ) )
+					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+			
+			if( pc_i->socket() )
+				pc_i->socket()->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
 		}
 	}
 
@@ -1763,14 +1770,14 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 
 	// Send the "You see %1 attacking %2" string to all surrounding sockets
 	// Except the one being attacked
-	QString message = tr( "*You see %1 attacking %2!" ).arg(_player->name.latin1()).arg(pc_i->name.latin1());
+	QString message = tr( "*You see %1 attacking %2*" ).arg(_player->name.latin1()).arg(pc_i->name.latin1());
 	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
 		if( s->player() && s != this && s->player()->inRange( _player, s->player()->VisRange() ) && s->player() != pc_i )
 			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 
 	// Send an extra message to the victim
 	if( pc_i->socket() )
-		pc_i->socket()->showSpeech( _player, tr( "You see %1 attacking you" ).arg( _player->name.latin1() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+		pc_i->socket()->showSpeech( _player, tr( "*You see %1 attacking you*" ).arg( _player->name.latin1() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
 }
 
 void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
