@@ -34,28 +34,28 @@ def stat( socket, command, args ):
 		except:
 			socket.sysmessage( usage )
 			socket.sysmessage( example )
-			return OK
+			return True
 
 	else:
 		socket.sysmessage( usage )
 		socket.sysmessage( example )
-		return OK
+		return True
 
 	# Uknown stat name ?
-	if not stat in statnames:
+	if not stat in STATNAMES:
 		socket.clilocmessage( 3000380, "", YELLOW, NORMAL ) # I Accept
-		socket.sysmessage( str( statnames ) )
-		return OK
+		socket.sysmessage( str( STATNAMES ) )
+		return True
 
 	# Accept 10 >= value <= 125 only.
 	elif value < 0 or value > 125:
 		socket.clilocmessage( 1005628, "", YELLOW, NORMAL ) # Stats range between 10 and 125
-		return OK
+		return True
 
 	socket.clilocmessage( 503403, "", YELLOW, NORMAL ) # Select the body.
 	socket.attachtarget( "commands.stat.callback", [ stat, value ] )
 
-	return OK
+	return True
 
 def callback( char, args, target ):
 	socket = char.socket
@@ -63,12 +63,12 @@ def callback( char, args, target ):
 	# What are you targeted ?
 	if not target.char:
 		socket.clilocmessage( 500931, "", YELLOW, NORMAL ) # Invalid mobile
-		return OK
+		return True
 
 	# Is target not your own char ?
 	if not char == target.char:
 		socket.clilocmessage( 1005213, "", YELLOW, NORMAL ) # You can't do that
-		return OK
+		return True
 
 	( stat, value ) = args
 
@@ -80,14 +80,14 @@ def callback( char, args, target ):
 		char.dexterity = value
 	else:
 		socket.clilocmessage( 3000380, "", YELLOW, NORMAL ) # I Accept
-		socket.sysmessage( str( statnames ) )
-		return OK
+		socket.sysmessage( str( STATNAMES ) )
+		return True
 
 	socket.clilocmessage( 1005630, "", YELLOW, NORMAL ) # Your stats have been adjusted.
 
 	char.updatestats()
 
-	return OK
+	return True
 
 def onLoad():
 	wolfpack.registercommand( "stat", stat )

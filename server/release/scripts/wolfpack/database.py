@@ -6,8 +6,15 @@
 
 import _wolfpack.database
 
+"""
+	\constants wolfpack.database Database Constants
+	These constants identify one of the databases.
+"""
 ACCOUNTS = 1
 WORLD = 2
+"""
+	\end
+"""
 
 # Let's make sure these tables are in sync with the current database
 SQLITE_ACCOUNTS = "accounts"

@@ -103,7 +103,7 @@ def response( char, args, target ):
 		else:
 			# You can't use a bladed item on that.
 			char.socket.clilocmessage( 500494, "", GRAY )
-			return OOPS
+			return False
 
 # CARVE CORPSE
 def carve_corpse( char, corpse ):

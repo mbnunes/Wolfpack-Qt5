@@ -11,19 +11,19 @@ import wolfpack
 def onContextEntry( char, healer, tag  ):
 	if( tag == 1 ):
 		if not char or not healer:
-			return OOPS
+			return False
 
 		if healer.dead:
 			char.socket.clilocmessage( 501040, "", YELLOW, NORMAL ) # The resurrecter must be alive
-			return OOPS
+			return False
 
 		if char.dead:
 			char.socket.clilocmessage( 3002069, "", YELLOW, NORMAL ) # Resurrection
 			char.soundeffect( 0x215 )
 			char.resurrect()
-			return OK
+			return True
 		else:
 			char.socket.clilocmessage( 1060197, "", YELLOW, NORMAL ) # You are not dead, and thus cannot be resurrected!
-			return OOPS
+			return False
 
-		return OK
+		return True

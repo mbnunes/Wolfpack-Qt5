@@ -52,16 +52,16 @@ def onUse( char, item ):
 	# Potions need to be on your body to use them, or in arms reach.
 	if item.getoutmostchar() != char:
 		char.message( "This potion is out of your reach..." )
-		return OOPS
+		return False
 
 	# Lets make sure the tag exists.
 	if not item.hastag( 'potiontype' ):
-		return OOPS
+		return False
 	else:
 		potiontype = item.gettag( 'potiontype' )
 		# Make sure it's in the index
 		if not potiontype in potions:
-			return OOPS
+			return False
 
 		# Do we throw this thing?
 		if potions[ potiontype ][ POT_TARGET ] == TRUE:
@@ -78,7 +78,7 @@ def onUse( char, item ):
 		else:
 			# If it's a drinkable potion we check if there is a free hand.
 			if not canUsePotion( char, item ):
-				return OK
+				return True
 
 			# Nightsight Potions
 			if potiontype == 0:
@@ -102,7 +102,7 @@ def onUse( char, item ):
 			elif potiontype in [ 18, 19 ]:
 				refreshPotion( char, item, potiontype )
 
-		return OK
+		return True
 
 
 # Explosion Potion Function
@@ -329,16 +329,16 @@ def canUsePotion( char, item ):
 	secondhand = char.itemonlayer( 2 )
 
 	if not firsthand and not secondhand:
-		return OK
+		return True
 
 	if firsthand and not secondhand and not firsthand.twohanded:
-		return OK
+		return True
 
 	if not firsthand and secondhand and not secondhand.twohanded:
-		return OK
+		return True
 
 	char.socket.clilocmessage( 0x7A99C ) # You must have a free hand to drink a potion.
-	return OOPS
+	return False
 
 # Consume the potion
 def consumePotion( char, potion, givebottle ):
@@ -382,24 +382,24 @@ def nightsightPotion( char, potion ):
 	char.soundeffect(0x1e3)
 	char.effect(0x376a, 9, 32)
 	consumePotion( char, potion, potions[ potion.gettag('potiontype') ][ POT_RETURN_BOTTLE ] )
-	return OK
+	return True
 
 # Heal Potions
 def healPotion( char, potion, healtype ):
 	socket = char.socket
 	if not canUsePotion( char, potion ):
-		return OOPS
+		return False
 
 	if char.poison > -1:
 		# You can not heal yourself in your current state.
 		socket.clilocmessage(1005000)
-		return OOPS
+		return False
 	if char.hitpoints >= char.maxhitpoints:
 		socket.clilocmessage(1049547)
 		if char.hitpoints > char.maxhitpoints:
 			char.hitpoints = char.maxhitpoints
 			char.updatehealth()
-		return OOPS
+		return False
 
 	if not char.hastag( "heal_pot_timer" ):
 		char.settag( "heal_pot_timer", (time.servertime() + HEAL_POT_DELAY) )
@@ -408,7 +408,7 @@ def healPotion( char, potion, healtype ):
 	elapsed = int( char.gettag( "heal_pot_timer" ) )
 	if elapsed > time.servertime():
 		socket.clilocmessage( 500235, '', GRAY ) # You must wait 10 seconds before using another healing potion.
-		return OOPS
+		return False
 	else:
 		char.settag( "heal_pot_timer", (time.servertime() + HEAL_POT_DELAY) )
 
@@ -435,14 +435,14 @@ def healPotion( char, potion, healtype ):
 	char.soundeffect( SOUND_DRINK1 )
 	consumePotion( char, potion, potions[ healtype ][ POT_RETURN_BOTTLE ] )
 
-	return OK
+	return True
 
 # Cure Potions
 def curePotion( char, potion, curetype ):
 	socket = char.socket
 	if char.poison == -1:
 		socket.clilocmessage(1042000) # You are not poisoned.
-		return OOPS
+		return False
 
 	if curetype == 4:
 		curelevel = 0
@@ -480,7 +480,7 @@ def curePotion( char, potion, curetype ):
 		socket.clilocmessage(500231) # You feel cured of poison!
 	else:
 		socket.clilocmessage(500232) # That potion was not strong enough to cure your ailment!
-	return OK
+	return True
 
 # Agility Potion
 def agilityPotion( char, potion, agilitytype ):
@@ -495,7 +495,7 @@ def agilityPotion( char, potion, agilitytype ):
 		bonus = 20
 	# Oops!
 	else:
-		return OOPS
+		return False
 
 	if not char.hastag( "dex_pot_timer" ):
 		char.settag( "dex_pot_timer", (time.servertime() + AGILITY_TIME) )
@@ -504,7 +504,7 @@ def agilityPotion( char, potion, agilitytype ):
 	elapsed = int( char.gettag( "dex_pot_timer" ) )
 	if elapsed > time.servertime():
 		socket.clilocmessage(502173) # You are already under a similar effect.
-		return OOPS
+		return False
 	else:
 		char.settag( 'dex_pot_timer', (time.servertime() + AGILITY_TIME) )
 
@@ -524,13 +524,13 @@ def agilityPotion( char, potion, agilitytype ):
 	char.soundeffect( SOUND_AGILITY_UP )
 	consumePotion( char, potion, potions[ agilitytype ][ POT_RETURN_BOTTLE ] )
 
-	return OK
+	return True
 
 # Strength Potion
 def strengthPotion( char, potion, strengthtype ):
 	socket = char.socket
 	if not canUsePotion( char, potion ):
-		return OOPS
+		return False
 
 	bonus = 0
 
@@ -542,7 +542,7 @@ def strengthPotion( char, potion, strengthtype ):
 		bonus = 20
 	# Oops!
 	else:
-		return OOPS
+		return False
 
 	if not char.hastag( "str_pot_timer" ):
 		char.settag( "str_pot_timer", (time.servertime() + STRENGTH_TIME) )
@@ -551,7 +551,7 @@ def strengthPotion( char, potion, strengthtype ):
 	elapsed = int( char.gettag( "str_pot_timer" ) )
 	if elapsed > time.servertime():
 		socket.clilocmessage(502173) # You are already  under a similar effect
-		return OOPS
+		return False
 	else:
 		char.settag( 'str_pot_timer', (time.servertime() + STRENGTH_TIME) )
 
@@ -571,7 +571,7 @@ def strengthPotion( char, potion, strengthtype ):
 	char.soundeffect( SOUND_STRENGTH_UP )
 	consumePotion( char, potion, potions[ strengthtype ][ POT_RETURN_BOTTLE ] )
 
-	return OK
+	return True
 
 # Poison Potions
 def poisonPotion( char, potion, poisontype ):
@@ -586,12 +586,12 @@ def poisonPotion( char, potion, poisontype ):
 	elif poisontype == levels[3]:
 		poison.poison(char, 3)
 	else:
-		return OOPS
+		return False
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
 	consumePotion( char, potion, potions[ poisontype ][ POT_RETURN_BOTTLE ] )
-	return OK
+	return True
 
 def refreshPotion( char, potion, refreshtype ):
 	socket = char.socket
@@ -604,17 +604,17 @@ def refreshPotion( char, potion, refreshtype ):
 		char.stamina = char.maxstamina
 		char.updatestamina()
 	else:
-		return OOPS
+		return False
 
 	if char.stamina > char.maxstamina:
 		char.stamina = char.maxstamina
 		char.updatestamina()
-		return OOPS
+		return False
 
 	char.action( ANIM_FIDGET3 )
 	char.soundeffect( SOUND_DRINK1 )
 	consumePotion( char, potion, potions[ refreshtype ][ POT_RETURN_BOTTLE ] )
-	return OK
+	return True
 
 # INVIS POTION
 # 502179	Your skin becomes extremely sensitive to light, changing to mirror the colors of things around you.

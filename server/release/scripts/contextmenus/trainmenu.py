@@ -68,7 +68,7 @@ def onDropOnChar( char, item ):
 			amount = MAX_TEACHING
 
 		# check for skill cap
-		cap = wolfpack.settings.getNumber("General", "SkillCap", 700) * 10
+		cap = wolfpack.settings.getnumber("General", "SkillCap", 700) * 10
 
 		sum = skills.totalskills( dropper )
 

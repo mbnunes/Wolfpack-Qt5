@@ -18,7 +18,7 @@ def CmdCast( socket, command, args ):
 
 	castSpell( socket.player, args, 1 )
 
-	return OK
+	return True
 
 def onLoad():
 	wolfpack.registercommand( "cast", CmdCast )

@@ -353,7 +353,7 @@ class CraftItemAction(MakeItemAction):
 	def getskillshtml(self, player, arguments):
 		skillshtml = ''
 		for (skill, values) in self.skills.items():
-			skillshtml += '%s: %.1f%%<br>' % (skillnames[skill].capitalize(), max(0, values[0] / 10.0))
+			skillshtml += '%s: %.1f%%<br>' % (SKILLNAMES[skill].capitalize(), max(0, values[0] / 10.0))
 		return skillshtml
 
 	#

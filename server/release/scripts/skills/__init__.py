@@ -105,7 +105,7 @@ def cleartag( self, args ):
 	char = args[0]
 	tagname = args[1]
 	self.deltag( tagname )
-	return OK
+	return True
 
 def antimacrocheck( char, skillid, object ):
 	#Get or set antimacro tag: "AM" + SERIAL = COUNT
@@ -114,14 +114,14 @@ def antimacrocheck( char, skillid, object ):
 		count = object.gettag( tagname )
 		object.settag( tagname, str( int( count + 1 ) ) )
 		if count <= ANTIMACROALLOWANCE:
-			return OK
+			return True
 		elif count > ANTIMACROALLOWANCE + 1:
-			return OOPS
+			return False
 		else:
 			object.addtimer( ANTIMACRODELAY, "skills.cleartag", [char, tagname] )
-			return OOPS
+			return False
 	else:
 		object.settag( tagname, "1" )
-		return OK
+		return True
 
 

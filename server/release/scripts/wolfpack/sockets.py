@@ -12,11 +12,6 @@
 
 import _wolfpack.sockets
 
-def first():
-	return _wolfpack.sockets.first()
-
-def next():
-	return _wolfpack.sockets.next()
-
-def count():
-	return _wolfpack.sockets.count()
+first = _wolfpack.sockets.first
+next = _wolfpack.sockets.next
+count = _wolfpack.sockets.count

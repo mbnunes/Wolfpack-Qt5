@@ -119,7 +119,10 @@ MINING_MAX_DISTANCE = 2
 MINING_REFILLTIME = [300000, 600000] # 5 to 10 Minutes Refresh time for trees
 MINING_ORE = [10, 34]
 
-# Skill Constants
+"""
+	\constants wolfpack.consts Skill Constants
+	These constants are shortcuts for the ids of every skill.
+"""
 ALCHEMY = 0
 ANATOMY = 1
 ANIMALLORE = 2
@@ -172,10 +175,12 @@ REMOVETRAPS = 48
 NECROMANCY = 49
 FOCUS = 50
 CHIVALRY = 51
-
 ALLSKILLS = 52 # skills + 1
+"""
+	\end
+"""
 
-skillnames = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parrying',
+SKILLNAMES = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parrying',
 	'begging', 'blacksmithing', 'bowcraft', 'peacemaking', 'camping', 'carpentry',
 	'cartography', 'cooking', 'detectinghidden', 'enticement', 'evaluatingintel',
 	'healing', 'fishing', 'forensics', 'herding', 'hiding', 'provocation',
@@ -185,8 +190,7 @@ skillnames = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parryi
 	'macefighting', 'fencing', 'wrestling', 'lumberjacking', 'mining', 'meditation',
 	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry' ]
 
-skillnamesids = \
-{
+skillnamesids = {
 	'alchemy' : ALCHEMY,
 	'anatomy' : ANATOMY,
 	'animallore' : ANIMALLORE,
@@ -241,59 +245,28 @@ skillnamesids = \
 	'chivalry' : CHIVALRY
 }
 
-statnames = [ 'str', 'int', 'dex' ]
+STATNAMES = [ 'str', 'int', 'dex' ]
 
-#Stats
-MANA = 0
-STAMINA = 1
-HEALTH = 2
-DEXTERITY = 3
-INTELLIGENCE = 4
-STRENGTH = 5
-
-#Requirements
-MANACOST = 0
-REAGENTCONST = 1
-GLB_REQUIREMENT = 2
-
-#Damage by
-SPELL = 0
-COLD = 1
-DISPEL = 2
-ENERGY = 3
-FIRE = 4
-HITCHANCE = 5
-LOWERATTACK = 6
-LOWERDEFENCE = 7
-#... here we need to add every spell also
-
-#Enhancements
-GOLD = 0           #Gold increase
-SWINGSPEED = 1	   #Swing speed increase
-POTIONS = 2	   #Enhance potions
-SELFREPAIR = 3	   #Self repair
-DEFENCECHANCE = 4  #Defence chance
-CASTSPEED = 5	   #Faster casting
-CASTRECOVERY = 6   #Faster cast recovery
-
-#Advanced properties ID's
-REGEN = 1
-BONUS = 2
-DAMAGE = 3
-ENH = 4
-HIT = 5
-REQ = 6
-RESIST = 7
-REFLECT = 8
-
-# Constants for char.sound
+"""
+	\constants wolfpack.consts Character Sound Constants
+	These constants can be used to let a character make
+	a body dependant sound. See the sound method for the
+	<object id="char">char</object> object.
+"""
 SND_STARTATTACK = 0
 SND_IDLE = 1
 SND_ATTACK = 2
 SND_DEFEND = 3
 SND_DIE = 4
+"""
+	\end
+"""
 
-# Layer
+"""
+	\constants wolfpack.consts Layer Constants
+	These constants provide fast access to equipment on certain 
+	layers of a character. See the itemonlayer method for <object id="char">char</object> objects.
+"""
 LAYER_RIGHTHAND = 1
 LAYER_LEFTHAND = 2
 LAYER_SHOES = 3
@@ -325,6 +298,9 @@ LAYER_NPCSELL = 28
 LAYER_BANKBOX = 29
 LAYER_DRAGGING = 30
 LAYER_TRADING = 31
+"""
+	\end
+"""
 
 # Layer Names
 LAYERNAMES = {
@@ -361,12 +337,12 @@ LAYERNAMES = {
   LAYER_TRADING: 'Trading'
 }
 
-# Several Hook Constants
-HOOK_OBJECT = 1
-HOOK_ITEM = 2
-HOOK_CHAR = 3
-
-# Id's for Hooks (not all are hookable though)
+"""
+	\constants wolfpack.consts Event Constants
+	These constants represent an event in a python script. These
+	are used in the callevent, hasevent and registerglobal functions of the
+	<module id="wolfpack">wolfpack</module> module.
+"""
 EVENT_USE = 0
 EVENT_SINGLECLICK = 1
 EVENT_COLLIDE = 2
@@ -411,13 +387,19 @@ EVENT_TELEKINESIS = 40
 EVENT_CONTEXTCHECKVISIBLE = 41
 EVENT_CONTEXTCHECKENABLED = 42
 EVENT_COUNT = 43
+"""
+	\end
+"""
 
-HOUSE = 0
-BOAT = 1
-CUSTOMHOUSE = 2
-
+"""
+	\constants wolfpack.consts Boolean Constants
+	Only two constants for true and false.
+"""
 FALSE = 0
 TRUE = 1
+"""
+	\end
+"""
 
 # Definitions for Magic (Casting Source)
 CAST_BOOK = 0
@@ -427,13 +409,27 @@ CAST_TARGET_CHAR = 0x01 # Agressive Spells, Heal, Etc.
 CAST_TARGET_ITEM = 0x02 # Recall
 CAST_TARGET_GROUND = 0x04 # Other
 
-# Different Type of Damages
+"""
+	\constants wolfpack.consts Damage Constants
+	These constants specify a damage type for the
+	damage method in the <object id="char">char</object> 
+	object.
+"""
 DAMAGE_PHYSICAL = 0
 DAMAGE_MAGICAL = 1
 DAMAGE_GODLY = 2
 DAMAGE_HUNGER = 3
+"""
+	\end
+"""
 
 # Some nice animation definitions
+"""
+	\constants wolfpack.consts Animation Constants
+	These constants are animation ids for the 
+	action method in the <object id="char">char</object>
+	object.
+"""
 ANIM_WALKUNARMED = 0x0
 ANIM_WALKARMED = 0x1
 ANIM_RUNUNARMED = 0x2
@@ -443,25 +439,28 @@ ANIM_FIDGET1 = 0x5
 ANIM_FIDGET2 = 0x6
 ANIM_ATTACKREADY1 = 0x7
 ANIM_ATTACKREADY2 = 0x8
-ANIM_ATTACK1=0x9
-ANIM_ATTACK2=0xa
-ANIM_ATTACK3=0xb
-ANIM_ATTACK4=0xc
-ANIM_ATTACK5=0xd
-ANIM_ATTACK6=0xe
-ANIM_ATTACKWALK=0xf
-ANIM_CASTDIRECTED=0x10
-ANIM_CASTAREA=0x11
-ANIM_ATTACKBOW=0x12
-ANIM_ATTACKXBOX=0x13
-ANIM_TAKEHIT=0x14
-ANIM_DIE1=0x15
-ANIM_DIE2=0x16
-ANIM_TURN=0x1e
-ANIM_ATTACK7=0x1f
-ANIM_BOW=0x20
-ANIM_SALUTE=0x21
-ANIM_FIDGET3=0x22
+ANIM_ATTACK1 = 0x9
+ANIM_ATTACK2 = 0xa
+ANIM_ATTACK3 = 0xb
+ANIM_ATTACK4 = 0xc
+ANIM_ATTACK5 = 0xd
+ANIM_ATTACK6 = 0xe
+ANIM_ATTACKWALK = 0xf
+ANIM_CASTDIRECTED = 0x10
+ANIM_CASTAREA = 0x11
+ANIM_ATTACKBOW = 0x12
+ANIM_ATTACKXBOX = 0x13
+ANIM_TAKEHIT = 0x14
+ANIM_DIE1 = 0x15
+ANIM_DIE2 = 0x16
+ANIM_TURN = 0x1e
+ANIM_ATTACK7 = 0x1f
+ANIM_BOW = 0x20
+ANIM_SALUTE = 0x21
+ANIM_FIDGET3 = 0x22
+"""
+	\end
+"""
 
 # Definitions for the Sextant
 SEXTANT_CENTER_X = 5936
@@ -469,7 +468,11 @@ SEXTANT_CENTER_Y = 3112
 SEXTANT_MAP_HEIGHT = 5120
 SEXTANT_MAP_WIDTH = 4096
 
-# LogLevels
+"""
+	\constants wolfpack.consts Log Constants
+	These constants represent a loglevel for the console
+	and the logfile.
+"""
 LOG_MESSAGE = 0
 LOG_ERROR	= 1
 LOG_PYTHON  = 2
@@ -477,6 +480,9 @@ LOG_WARNING = 3
 LOG_NOTICE  = 4
 LOG_TRACE   = 5
 LOG_DEBUG   = 6
+"""
+	\end
+"""
 
 # Colors
 BLACK = 1
@@ -493,25 +499,23 @@ GRAY = 999
 # Fonts
 NORMAL = 3
 
-# Results
-OK = 1
-OOPS = 0
-
-#SKILLS GROW LOCKS
-GROWUP = 0
-GROWDOWN = 1
-GROWLOCK = 2
-
 #Stat gain delay = 15 minutes ( 900 seconds )
 STATGAINDELAY = 900
 
-# Constants for wolfpack.queueaction
-RELOAD_SCRIPTS = 0
-RELOAD_PYTHON = 1
-RELOAD_ACCOUNTS = 2
-RELOAD_CONFIGURATION = 3
-SAVE_WORLD = 4
-SAVE_ACCOUNTS = 5
+"""
+	\constants wolfpack.consts Action Constants
+	These constants can be used to queue an action to be executed in the next mainloop iteration.
+	See the queueaction function in the <module id="wolfpack">wolfpack</module> module.
+"""
+RELOAD_SCRIPTS = 0 # Reload definitions and python scripts.
+RELOAD_PYTHON = 1 # Reload python scripts.
+RELOAD_ACCOUNTS = 2 # Reload accounts.
+RELOAD_CONFIGURATION = 3 # Reload all of the above.
+SAVE_WORLD = 4 # Save the world.
+SAVE_ACCOUNTS = 5 # Save the accounts.
+"""
+	\end
+"""
 
 #5 minutes
 ANTIMACRODELAY = 300000
@@ -521,7 +525,10 @@ ANTIMACROALLOWANCE = 3
 # A Huge Sound List!
 #
 # Notes: 0x4d4 appears to be the final sound ID
-
+"""
+	\constants wolfpack.consts Sound Constants
+	This list of constants describes some commonly used sounds.
+"""
 SOUND_JUNGLE_BIRDS_1 = 0x0
 SOUND_JUNGLE_BIRDS_2 = 0x1
 SOUND_JUNGLE_BIRDS_3 = 0x2
@@ -619,7 +626,15 @@ SOUND_HARP_03 = 0x418 # Cool tune
 
 SOUND_TAMBER_01 = 0x4b6 # Short tune
 SOUND_TAMBER_02 = 0x4b7 # Longer Tune, Battle?
+"""
+	\end
+"""
 
+"""
+	\constants wolfpack.consts Human Male Sounds
+	Some handy male sound constants.
+	Use the sound method of the <object id="char">char</object> object to play them.
+"""
 SOUND_MALE_01 = 0x419 # Ah!
 SOUND_MALE_02 = 0x41a # Aha!
 SOUND_MALE_03 = 0x41b # Clapping
@@ -670,7 +685,15 @@ SOUND_MALE_47 = 0x447 # Whistles
 SOUND_MALE_48 = 0x448 # Yawning
 SOUND_MALE_49 = 0x449 # Yeah!
 SOUND_MALE_50 = 0x44a # Hoaghhh!
+"""
+	\end
+"""
 
+"""
+	\constants wolfpack.consts Human Female Sounds
+	Some handy female sound constants.
+	Use the sound method of the <object id="char">char</object> object to play them.
+"""
 SOUND_FEMALE_01 = 0x30a # Ooooh!
 SOUND_FEMALE_02 = 0x30b # Aha!
 SOUND_FEMALE_03 = 0x30c # Clap
@@ -717,8 +740,15 @@ SOUND_FEMALE_43 = 0x335 # Whistles
 SOUND_FEMALE_44 = 0x336 # Yawns
 SOUND_FEMALE_45 = 0x337 # Yeah!
 SOUND_FEMALE_46 = 0x338 # Really frustrated
+"""
+	\end
+"""
 
-# Definiton Types
+"""
+	\constants wolfpack.consts Definition Constants
+	These constants represent the definition section types as used in 
+	getdefinition in the <module id="wolfpack">wolfpack</module> module.
+"""
 WPDT_ITEM = 0
 WPDT_SCRIPT = 1
 WPDT_NPC = 2
@@ -742,3 +772,6 @@ WPDT_DEFINE = 19
 WPDT_RESOURCE = 20
 WPDT_CONTEXTMENU = 21
 WPDT_AI = 22
+"""
+	\end
+"""

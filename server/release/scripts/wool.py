@@ -17,11 +17,11 @@ def onUse( char, item ):
 	# Needs to be on ourself
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage( 500312, '', GRAY ) # You cannot reach that.
-		return OK
+		return True
 
 	char.socket.clilocmessage( 502655 ) # What spinning wheel do you wish to spin this on?
 	char.socket.attachtarget( "wool.response", [ item.serial ] )
-	return OK
+	return True
 
 
 def response( char, args, target ):
@@ -34,16 +34,16 @@ def response( char, args, target ):
 
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
 		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
-		return OK
+		return True
 
 	if abs( char.pos.z - target.pos.z ) > 5:
 		char.socket.clilocmessage( 502648, '', GRAY) # You are too far away to do that.
-		return OK
+		return True
 
 	# Check target (only item targets valid)
 	if not target.item:
 		char.socket.clilocmessage( 502658, '', GRAY ) # Use that on a spinning wheel.
-		return OK
+		return True
 
 	if target.item.id in ids:
 		color = item.color
@@ -74,19 +74,19 @@ def response( char, args, target ):
 	elif target.item.id in animids:
 		# That spinning wheel is being used.
 		char.socket.clilocmessage( 502656, '', GRAY )
-		return OK
+		return True
 
 	else:
 		# Use that on a spinning wheel.
 		char.socket.clilocmessage( 502658, '', GRAY )
-		return OK
+		return True
 
 def ProcessTimer( time, args ):
 	char = args[0]
 	wheel = args[1]
 	color = args[2]
 	GetYarn( char, wheel, color )
-	return OK
+	return True
 
 def GetYarn( char, wheel, color ):
 	# End the animations.
@@ -115,4 +115,4 @@ def GetYarn( char, wheel, color ):
 	else:
 		# You put a ball of yarn in your backpack.
 		char.socket.clilocmessage( 1010574, '', GRAY )
-	return OK
+	return True

@@ -36,25 +36,25 @@ def onUse( char, ore ):
 		if ore.getoutmostchar() != char:
 			if char.pos.distance( ore.pos ) > 2:
 				char.socket.clilocmessage( 501976, '', GRAY ) # You can't reach...
-				return OK
+				return True
 			else:
 				if not ore.hastag( 'resname' ):
 					char.socket.clilocmessage( 501986, '', GRAY ) # Strange ore.
-					return OK
+					return True
 				else:
 					# Where do you want to smelt the ore?
 					char.socket.clilocmessage( 501971, '', GRAY )
 					char.socket.attachtarget( "ore.response", [ ore.serial ] )
-					return OK
+					return True
 		else:
 			if not ore.hastag( 'resname' ):
 				char.socket.clilocmessage( 501986, '', GRAY )
-				return OK
+				return True
 			else:
 				# Where do you want to smelt the ore?
 				char.socket.clilocmessage( 501971, '', GRAY )
 				char.socket.attachtarget( "ore.response", [ ore.serial ] )
-				return OK
+				return True
 
 def response( char, args, target ):
 	if not target.item:
@@ -73,7 +73,7 @@ def response( char, args, target ):
 		return
 
 	if not item.hastag( 'resname' ):
-		return OOPS
+		return False
 	else:
 		resname = item.gettag( 'resname' )
 
@@ -84,25 +84,25 @@ def response( char, args, target ):
 		if item.baseid in DEF_ORES:
 			if char.pos.distance( target.pos ) > 3:
 				char.socket.clilocmessage( 0x7A258 ) # You can't reach...
-				return OK
+				return True
 			else:
 				dosmelt( char, [ item, targetitem, resname ] )
-				return OK
+				return True
 
 	# This is for merging the ore piles
 	elif target.item.baseid in DEF_ORES:
 		if targetitem.serial == item.serial:
-			return OOPS
+			return False
 		if not targetitem.hastag('resname'):
 			char.socket.clilocmessage( 501986, '', GRAY )
-			return OOPS
+			return False
 		# Largest Ore Pile
 		if item.baseid == DEF_ORES[3] and item.color == targetitem.color and item.gettag( 'resname' ) == targetitem.gettag( 'resname' ):
 			if targetitem.getoutmostchar() != char:
 				if char.pos.distance( target.pos ) > 2:
 					# The ore is too far away.
 					char.socket.clilocmessage( 501976, '', GRAY)
-					return OK
+					return True
 				else:
 					# Merge the ore piles
 					if targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[1]:
@@ -123,7 +123,7 @@ def response( char, args, target ):
 						item.delete()
 						# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
 						char.socket.clilocmessage( 501971, '', GRAY )
-					return OK
+					return True
 			else:
 				# Merge the ore piles
 				if targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[1]:
@@ -144,7 +144,7 @@ def response( char, args, target ):
 					item.delete()
 					# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
 					char.socket.clilocmessage( 501971, '', GRAY )
-				return OK
+				return True
 
 		# Second Largest Ore
 		elif item.baseid == DEF_ORES[2] and item.color == targetitem.color and item.gettag( 'resname' ) == targetitem.gettag( 'resname' ):
@@ -152,73 +152,73 @@ def response( char, args, target ):
 				if char.pos.distance( target.pos ) > 2:
 					# The ore is too far away.
 					char.socket.clilocmessage( 501976, '', GRAY)
-					return OK
+					return True
 				else:
 					# Merge the ore piles
 					if targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[1] or targetitem.baseid == DEF_ORES[0]:
 						targetitem.amount += item.amount
 						targetitem.update()
 						item.delete()
-						return OK
+						return True
 					elif targetitem.baseid == DEF_ORES[0]:
 						targetitem.amount += ( item.amount * 2 )
 						targetitem.update()
 						item.delete()
-						return OK
+						return True
 					elif targetitem.baseid == DEF_ORES[3]:
-						return OOPS
-					return OK
+						return False
+					return True
 			else:
 				# Merge the ore piles
 				if targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[1]:
 					targetitem.amount += item.amount
 					targetitem.update()
 					item.delete()
-					return OK
+					return True
 				elif targetitem.baseid == DEF_ORES[0]:
 					targetitem.amount += ( item.amount * 2 )
 					targetitem.update()
 					item.delete()
-					return OK
+					return True
 				elif targetitem.baseid == DEF_ORES[3]:
-					return OOPS
-				return OK
+					return False
+				return True
 
 		# Second Smallest
 		elif item.baseid == DEF_ORES[1] and item.color == targetitem.color and item.gettag( 'resname' ) == targetitem.gettag( 'resname' ):
 			if targetitem.getoutmostchar() != char:
 				if char.pos.distance( target.pos ) > 2:
 					char.socket.clilocmessage( 0x7A258 ) # You can't reach...
-					return OK
+					return True
 				else:
 					if targetitem.baseid == DEF_ORES[1]:
 						targetitem.amount += item.amount
 						targetitem.update()
 						item.delete()
-						return OK
+						return True
 					elif targetitem.baseid == DEF_ORES[0]:
 						targetitem.amount += ( item.amount * 2 )
 						targetitem.update()
 						item.delete()
-						return OK
+						return True
 					elif targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[3]:
-						return OOPS
-					return OK
+						return False
+					return True
 			else:
 				# Merge the ore piles
 				if targetitem.baseid == DEF_ORES[1]:
 					targetitem.amount += item.amount
 					targetitem.update()
 					item.delete()
-					return OK
+					return True
 				elif targetitem.baseid == DEF_ORES[0]:
 					targetitem.amount += ( item.amount * 2 )
 					targetitem.update()
 					item.delete()
-					return OK
+					return True
 				elif targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[3]:
-					return OOPS
-				return OK
+					return False
+				return True
 
 		# Smallest
 		elif item.baseid == DEF_ORES[0] and item.color == targetitem.color and item.gettag( 'resname' ) == targetitem.gettag( 'resname' ):
@@ -226,7 +226,7 @@ def response( char, args, target ):
 				if char.pos.distance( target.pos ) > 2:
 					# The ore is too far away.
 					char.socket.clilocmessage( 501976 )
-					return OK
+					return True
 				else:
 					# Merge the ore piles
 					if targetitem.baseid == DEF_ORES[1] or targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[3]:
@@ -236,7 +236,7 @@ def response( char, args, target ):
 						targetitem.update()
 						item.delete()
 						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
-					return OK
+					return True
 			else:
 				# Merge the ore piles
 				if targetitem.baseid == DEF_ORES[1] or targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[3]:
@@ -246,7 +246,7 @@ def response( char, args, target ):
 					targetitem.update()
 					item.delete()
 					char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
-				return OK
+				return True
 
 def dosmelt(char, args):
 	ore = args[0]
@@ -263,7 +263,7 @@ def dosmelt(char, args):
 
 	if not char.skill[MINING] >= reqskill:
 		char.socket.clilocmessage(501986, '', GRAY) # You have no idea how to smelt this strange ore!
-		return OOPS
+		return False
 
 	if ore.amount >= 1 and char.skill[ MINING ] >= reqskill:
 		if not skills.checkskill(char, MINING, chance):
@@ -290,7 +290,7 @@ def dosmelt(char, args):
 				elif ore.amount == 1:
 					# There is not enough metal-bearing ore in this pile to make an ingot.
 					char.socket.clilocmessage( 501987, '', GRAY )
-					return OOPS
+					return False
 			success = 1
 
 	if success == 0:
@@ -304,7 +304,7 @@ def dosmelt(char, args):
 			char.socket.clilocmessage( 501989, '', GRAY )
 			ore.delete()
 
-	return OK
+	return True
 
 def successsmelt(char, resname, amount):
 	item = wolfpack.additem('1bf2')
@@ -322,4 +322,4 @@ def successsmelt(char, resname, amount):
 	# You smelt the ore removing the impurities and put the metal in your backpack.
 	char.socket.clilocmessage(501988, '', GRAY)
 	char.soundeffect(SOUND_HAMMER_1)
-	return OK
+	return True

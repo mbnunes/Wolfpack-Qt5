@@ -20,7 +20,7 @@ from wolfpack.consts import *
 def travel( socket, command, args ):
 	char = socket.player
 	sendGump( char, 0 )
-	return OK
+	return True
 
 def onLoad():
 	wolfpack.registercommand( "travel", travel )

@@ -20,7 +20,7 @@ def onLogout( player ):
 		box1 = player.itemonlayer( LAYER_TRADING )
 		closetrade( player, partner, box1, box2 )
 
-	return OK
+	return True
 
 def onTradeAdd( player, item ):
 	#not implemented yet in code
@@ -33,12 +33,12 @@ def onTradeAdd( player, item ):
 	#Refuse pet's transfering while trading ( tag )
 	#Refuse trading with someone who dragging something ( tag )
 
-	return OK
+	return True
 
 def onTradeRemove( player, item ):
 	#not implemented yet in code
 
-	return OK
+	return True
 
 def onTradeStart( player1, player2, firstitem ):
 	#player1 : I am
@@ -62,7 +62,7 @@ def onTradeStart( player1, player2, firstitem ):
 		box2.update()
 
 	if not box1 or not box2:
-		return OOPS
+		return False
 
 	#onLogout event should be executed for tradewindow disposing
 	events1 = player1.events
@@ -93,7 +93,7 @@ def onTradeStart( player1, player2, firstitem ):
 	box1.additem( firstitem )
 	firstitem.update()
 
-	return OK
+	return True
 
 def onTrade( player, type, buttonstate, itemserial ):
 	#Receiving button state, close request etc...
@@ -108,9 +108,9 @@ def onTrade( player, type, buttonstate, itemserial ):
 	if player.hastag( 'partner' ):
 		partner = wolfpack.findchar( player.gettag( 'partner' ) )
 		if not partner:
-			return OOPS
+			return False
 	else:
-		return OOPS
+		return False
 
 	#Get tradecontainers
 	box2 = partner.itemonlayer( LAYER_TRADING )
@@ -128,7 +128,7 @@ def onTrade( player, type, buttonstate, itemserial ):
 	handler[type]( player, partner, box1, box2 )
 
 
-	return OK
+	return True
 
 def closetrade( player, partner, box1, box2 ):
 	#Closing tradewindows, deleting tradecontainers
@@ -149,7 +149,7 @@ def closetrade( player, partner, box1, box2 ):
 		sendclosetrade( partner.socket, box2.serial )
 		box2.delete()
 
-	return OK
+	return True
 
 def pressbutton( player, partner, box1, box2 ):
 	#Switch buttons on trade gump
@@ -161,7 +161,7 @@ def pressbutton( player, partner, box1, box2 ):
 	#To far away for trading ?
 	if player.distanceto( partner ) > 2:
 		closetrade( player, partner, box1, box2 )
-		return OK
+		return True
 
 	if button1 == 1 and button2 == 1:
 		back1 = player.getbackpack()
@@ -170,7 +170,7 @@ def pressbutton( player, partner, box1, box2 ):
 		cont2cont( box1, back2 )
 		closetrade( player, partner, box1, box2 )
 
-	return OK
+	return True
 
 def sendtradepacket( socket, action, partnerserial, box1serial, box2serial, playername ):
 	#Sending 0x6F packet. Length may vary when playername is defined
@@ -190,7 +190,7 @@ def sendtradepacket( socket, action, partnerserial, box1serial, box2serial, play
 	trade.setint( 12, box2serial )
 	trade.send( socket )
 
-	return OK
+	return True
 
 def sendclosetrade( socket, boxserial ):
 	# 2 - close action
@@ -201,4 +201,4 @@ def sendclosetrade( socket, boxserial ):
 	trade.setbyte( 3, action )
 	trade.setint( 4, boxserial )
 	trade.send( socket )
-	return OK
+	return True

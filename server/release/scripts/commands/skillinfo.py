@@ -29,7 +29,7 @@ def response(player, arguments, response):
       newvalue = int(floor(float(response.text[0x1000 | skill]) * 10))
       newcap = int(floor(float(response.text[0x2000 | skill]) * 10))
     except:
-      player.socket.sysmessage('You have entered invalid values for %s.' % skillnames[skill])
+      player.socket.sysmessage('You have entered invalid values for %s.' % SKILLNAMES[skill])
       return
 
     oldvalue = target.skill[skill]
@@ -37,7 +37,7 @@ def response(player, arguments, response):
 
     if oldvalue != newvalue or oldcap != newcap:
       message = "Changed %s for character 0x%x to value %u [%d] and cap %u [%d].\n"
-      message = message % (skillnames[skill], target.serial, newvalue, newvalue - oldvalue, newcap, newcap - oldcap)
+      message = message % (SKILLNAMES[skill], target.serial, newvalue, newvalue - oldvalue, newcap, newcap - oldcap)
       player.log(LOG_MESSAGE, message)
       player.socket.sysmessage(message)
 
@@ -97,7 +97,7 @@ def callback(player, arguments, target):
       if skill >= ALLSKILLS:
         break
 
-      skillname = skillnames[skill]
+      skillname = SKILLNAMES[skill]
       skillname = skillname[0].upper() + skillname[1:]
 
       dialog.addResizeGump(65, 109 + yoffset, 9200, 405, 62)

@@ -33,27 +33,27 @@ def skill( socket, command, args ):
 		except:
 			socket.sysmessage( usage )
 			socket.sysmessage( example )
-			return OK
+			return True
 
 	else:
 		socket.sysmessage( usage )
 		socket.sysmessage( example )
-		return OK
+		return True
 
 	# Uknown skill name ?
 	if not skill in skillnamesids:
 		socket.clilocmessage( 500156, "", YELLOW, NORMAL ) # Invalid skill
-		return OK
+		return True
 
 	# Accept 0 >= value <= 1000 skill value only. 1200 maximum - with power scrolls only
 	elif value < 0 or value > 1000:
 		socket.clilocmessage( 1005632, "", YELLOW, NORMAL ) # Skill values range from 0 - 1000.
-		return OK
+		return True
 
 	socket.clilocmessage( 503403, "", YELLOW, NORMAL ) # Select the body.
 	socket.attachtarget( "commands.skill.callback", [ skill, value ] )
 
-	return OK
+	return True
 
 def callback( char, args, target ):
 	socket = char.socket
@@ -61,25 +61,25 @@ def callback( char, args, target ):
 	# What are you targeted ?
 	if not target.char:
 		socket.clilocmessage( 500931, "", YELLOW, NORMAL ) # Invalid mobile
-		return OK
+		return True
 
 	# Is target not your own char ?
 	if not ( char == target.char ):
 	    if target.char.rank >= char.rank:
 		socket.clilocmessage( 1005213, "", YELLOW, NORMAL ) # You can't do that
-		return OK
+		return True
 
 	# check for rank
 	#if target.char.rank >= char.rank and not char == target.char:
 	#	socket.sysmessage( "You are not very skilled, are you?" )
-	#	return OK
+	#	return True
 
 
 	( skill, value ) = args
 
 	target.char.skill[ skillnamesids[ skill.lower() ] ] = value
 
-	return OK
+	return True
 
 def onLoad():
 	wolfpack.registercommand( "skill", skill )

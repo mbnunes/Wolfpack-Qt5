@@ -33,11 +33,11 @@ def response( args ):
 	pos = target.pos
 
 	if not socket:
-		return OOPS
+		return False
 
 	if socket.hastag('is_lumberjacking') and ( socket.gettag( 'is_lumberjacking' ) > servertime() ):
 		socket.clilocmessage( 500119, "", GRAY )
-		return OOPS
+		return False
 	else:
 		socket.deltag('is_lumberjacking')
 
@@ -45,13 +45,13 @@ def response( args ):
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
 		# That is too far away
 		socket.clilocmessage( 500446, "", GRAY )
-		return OK
+		return True
 
 	#Player also can't lumberjack when riding, polymorphed and dead.
 	if char.itemonlayer( LAYER_MOUNT ):
 		# You can't use this while on a mount!
 		char.socket.clilocmessage( 1049627, "", GRAY )
-		return OOPS
+		return False
 
 	##########
 	if socket.hastag( 'wood_gem' ):
@@ -74,7 +74,7 @@ def response( args ):
 		veingem = createwoodgem( target, pos )
 
 	if not veingem.hastag( 'resname' ) or not veingem.hastag( 'resourcecount' ):
-		return OOPS
+		return False
 
 	elif veingem.hastag( 'resname' ):
 		resname = veingem.gettag( 'resname' )
@@ -82,7 +82,7 @@ def response( args ):
 	socket.settag( 'is_lumberjacking', int( servertime() + nextchopdelay ) )
 	hack_logs( char, target, tool, veingem )
 
-	return OK
+	return True
 
 def createwoodgem( target, pos ):
 	gem = wolfpack.additem( 'wood_gem' )
@@ -117,7 +117,7 @@ def chop_tree( time, args ):
 
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
 		socket.deltag( 'is_lumberjacking' )
-		return OOPS
+		return False
 
 	# Turn to our lumberjacking position
 	direction = char.directionto( pos )
@@ -128,7 +128,7 @@ def chop_tree( time, args ):
 	# Let him hack
 	char.action( 0xd )
 	char.soundeffect( 0x13e )
-	return OK
+	return True
 
 # HACK LOGS
 def hack_logs( char, target, tool, resource ):
@@ -143,7 +143,7 @@ def hack_logs( char, target, tool, resource ):
 	# No resource left to harvest?
 	if resourcecount <= 0:
 		socket.clilocmessage( 500488, '', GRAY )
-		return OOPS
+		return False
 
 	# Turn to our lumberjacking position
 	direction = char.directionto( pos )
@@ -197,27 +197,27 @@ def successlumberjacking( time, args ):
 	if char.pos.map != pos.map or char.pos.distance( pos ) > chopdistance:
 		socket.sysmessage("You have moved too far away to gather any wood.")
 		socket.deltag( 'is_lumberjacking' )
-		return OOPS
+		return False
 
 	if not resource.hastag( 'resourcecount' ):
-		return OOPS
+		return False
 
 	if int( resource.gettag( 'resourcecount' ) ) <= 0:
 		char.socket.clilocmessage( 500488, '', GRAY )
-		return OOPS
+		return False
 
 	reqskill = woodtable[ resname ][ REQSKILL ]
 	chance = int( ( char.skill[ LUMBERJACKING ] - woodtable[ resname ][ MINSKILL ] ) / 10 )
 
 	if char.skill[ LUMBERJACKING ] < reqskill:
 		char.socket.clilocmessage( 500298 ) # You are not skilled enough...
-		return OOPS
+		return False
 	else:
 		# Skill Check against LUMBERJACKING
 		if not char.checkskill( LUMBERJACKING, reqskill, 1200 ):
 			char.socket.clilocmessage( 500495 ) # You hack at the tree for a while but fail to produce...
 			success = 0
-			return OOPS
+			return False
 		elif chance >= randint(1, 100):
 			char.socket.clilocmessage( 500498 ) # You put some logs into your backpack
 			if tool.gettag( 'remaining_uses' ) > 1:
@@ -233,13 +233,13 @@ def successlumberjacking( time, args ):
 		else:
 			char.socket.clilocmessage( 500495 ) # You hack at the tree for a while but fail to produce...
 			success = 0
-			return OOPS
+			return False
 
 	if success == 1:
 		# Check for a backpack
 		backpack = char.getbackpack()
 		if not backpack:
-			return OOPS
+			return False
 		# Create an item in my pack (logs to be specific)
 		resourceitem = wolfpack.additem( "1bdd" )
 		if ( FELUCIA2XRESGAIN == TRUE ) and ( char.pos.map  == 0 ):
@@ -256,14 +256,14 @@ def successlumberjacking( time, args ):
 			if not resource.hastag ('resource_empty') and int( resource.gettag( 'resourcecount' ) ) == 0:
 				resource.settag( 'resource_empty', 'true' )
 				wolfpack.addtimer( woodrespawndelay, "skills.lumberjacking.respawnvein", [ resource ], 1 )
-		return OK
+		return True
 
 def respawnvein( time, args ):
 	vein = args[0]
 	if vein.hastag ('resource_empty') and int(vein.gettag( 'resourcecount' )) == 0:
 		vein.settag( 'resourcecount', int( woodspawnamount ) )
 		vein.deltag( 'resource_empty' )
-		return OK
+		return True
 	else:
-		return OOPS
+		return False
 
