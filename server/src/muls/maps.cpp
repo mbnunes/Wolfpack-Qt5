@@ -47,6 +47,14 @@
 #include <qglobal.h>
 #include <math.h>
 
+#pragma pack (1)
+struct stIndexRecord {
+	unsigned int offset;
+	unsigned int blocklength;
+	unsigned int extra;
+};
+#pragma pack()
+
 class MapsPrivate
 {
 public:
@@ -58,7 +66,7 @@ public:
 	/*
 		This maps block ids to offsets in the stadifiX.mul file.
 	*/
-	QMap<unsigned int, unsigned int> staticpatches;
+	QMap<unsigned int, stIndexRecord> staticpatches;
 
 #pragma pack (1)
 	struct mapblock
@@ -77,7 +85,6 @@ public:
 	QFile idxfile;
 	QFile staticsfile;
 	QFile mapdifdata;
-	QFile stadifindex;
 	QFile stadifdata;
 
 	/*
@@ -133,25 +140,39 @@ void MapsPrivate::loadDiffs( const QString& basepath, unsigned int id )
 		mapdiflist.close();
 	}
 
-	QFile stadiflist( basepath + QString( "stadifl%1.mul" ).arg( id ) );
 	stadifdata.setName( basepath + QString( "stadif%1.mul" ).arg( id ) );
 	stadifdata.open( IO_ReadOnly );
-	stadifindex.setName( basepath + QString( "stadifi%1.mul" ).arg( id ) );
-	stadifindex.open( IO_ReadOnly );
 
-	if ( stadifdata.isOpen() && stadifindex.isOpen() && stadiflist.open( IO_ReadOnly ) )
-	{
-		QDataStream listinput( &stadiflist );
-		listinput.setByteOrder( QDataStream::LittleEndian );
-		unsigned int offset = 0;
-		while ( !listinput.atEnd() )
-		{
+	QFile stadiflist( basepath + QString( "stadifl%1.mul" ).arg( id ) );	
+	QFile stadifindex( basepath + QString( "stadifi%1.mul" ).arg( id ) );	
+
+	if (stadifindex.open(IO_ReadOnly) && stadiflist.open(IO_ReadOnly)) {
+		QDataStream listinput(&stadiflist);
+		QDataStream indexinput(&stadifindex);
+		listinput.setByteOrder(QDataStream::LittleEndian);
+		indexinput.setByteOrder(QDataStream::LittleEndian);
+
+		stIndexRecord record;
+		while (!listinput.atEnd()) {
 			unsigned int id;
 			listinput >> id;
-			staticpatches.insert( id, offset );
-			offset += 12; // Size of a static index record
-		}
+            
+			indexinput >> record.offset;
+			indexinput >> record.blocklength;
+			indexinput >> record.extra;
+
+			if (!staticpatches.contains(id)) {
+                staticpatches.insert( id, record );
+			}
+		}		
+	}
+
+	if (stadiflist.isOpen()) {
 		stadiflist.close();
+	}
+
+	if (stadifindex.isOpen()) {
+		stadifindex.close();
 	}
 }
 
@@ -607,34 +628,25 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 	if ( true )
 #endif
 	{
-		// Well, unfortunally we will be forced to read the file :(
-#pragma pack (1)
-		struct
-		{
-			Q_UINT32 offset;
-			Q_UINT32 blocklength;
-		} indexStructure;
-#pragma pack()
-
 		QDataStream staticStream;
 		staticStream.setByteOrder( QDataStream::LittleEndian );
+		unsigned int blockLength;
 
 		// See if this particular block is patched.
 		if ( mapRecord->staticpatches.contains( indexPos / 12 ) )
 		{
-			indexPos = mapRecord->staticpatches[indexPos / 12];
+			const stIndexRecord& index = mapRecord->staticpatches[indexPos / 12];
 
-			mapRecord->stadifindex.at( indexPos );
-			mapRecord->stadifindex.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
-
-			if ( indexStructure.offset == 0xFFFFFFFF )
+			if ( index.offset == 0xFFFFFFFF )
 				return; // No statics for this block
 
-			mapRecord->stadifdata.at( indexStructure.offset );
+			mapRecord->stadifdata.at( index.offset );
 			staticStream.setDevice( &mapRecord->stadifdata );
+			blockLength = index.blocklength;
 		}
 		else
 		{
+			stIndexRecord indexStructure; 
 			mapRecord->idxfile.at( indexPos );
 			mapRecord->idxfile.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
 
@@ -643,11 +655,12 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 
 			mapRecord->staticsfile.at( indexStructure.offset );
 			staticStream.setDevice( &mapRecord->staticsfile );
+			blockLength = indexStructure.blocklength;
 		}
 
 		const uint remainX = x % 8;
 		const uint remainY = y % 8;
-		for ( Q_UINT32 i = 0; i < indexStructure.blocklength / 7; ++i )
+		for ( Q_UINT32 i = 0; i < blockLength / 7; ++i )
 		{
 			staticrecord r;
 			staticStream >> r.itemid;
