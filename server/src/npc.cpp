@@ -163,7 +163,6 @@ void cNPC::save( cBufferedWriter& writer, unsigned int version )
 void cNPC::load( char** result, Q_UINT16& offset )
 {
 	cBaseChar::load( result, offset );
-	SERIAL ser;
 
 	summonTime_ = atoi( result[offset++] ) + Server::instance()->time();
 	if ( summonTime_ )
