@@ -465,6 +465,8 @@ def dropitem(item, char, container):
 	item.decay = True # Make SURE the item decays
 	item.movable = 1 # Also make sure the item is movable
 
+	console.log(LOG_MESSAGE, "Dropped item 0x%x (%s, %u) for npc 0x%x.\n" % (item.serial, item.baseid, item.amount, char.serial))
+
 	if container:
 		if not utilities.tocontainer(item, container):
 			item.update()
