@@ -1285,7 +1285,7 @@ void cBoat::Serialize( ISerialization &archive )
 				}
 			}
 		}
-		for( i = 0; i < 4; i ++ )
+		for( i = 0; i < 4; i++ )
 		{
 			for( j = 0; j < 6; j++ )
 			{
@@ -1293,6 +1293,13 @@ void cBoat::Serialize( ISerialization &archive )
 				archive.read( (char*)QString("boat.itemid.%1.%2").arg(i).arg(j).latin1(), currid );
 				this->itemids[i][j] = currid;
 			}
+		}
+
+		for( i = 0; i < 4; ++i )
+		{
+			int serial = 0;
+			archive.read( (char*)QString("boat.itemserial.%1").arg(i).latin1(), serial );
+			this->itemserials[ i ] = serial;
 		}
 	}
 	else
@@ -1322,6 +1329,12 @@ void cBoat::Serialize( ISerialization &archive )
 				archive.write( (char*)QString("boat.itemid.%1.%2").arg(i).arg(j).latin1(), this->itemids[i][j] );
 			}
 		}
+
+		for( i = 0; i < 4; ++i )
+		{
+			archive.write( (char*)QString("boat.itemserial.%1").arg(i).latin1(), this->itemserials[i] );
+		}
+
 	}
 	cItem::Serialize( archive );
 }
