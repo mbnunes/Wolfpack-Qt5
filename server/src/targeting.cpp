@@ -53,36 +53,25 @@
 //			Changed my mind. These classes are now considered 'experimental'
 //			Duke, 7.11.2000
 //
-//##ModelId=3C5D933600FB
 class cTarget
 {
 protected:
-	//##ModelId=3C5D9336012E
 	UOXSOCKET s;
-	//##ModelId=3C5D93360160
 	SERIAL serial;
-	//##ModelId=3C5D93360187
 	void makeSerial()		{serial=LongFromCharPtr(buffer[s]+7);}
 public:
-	//##ModelId=3C5D933601E2
 	cTarget(P_CLIENT pCli)	{s=pCli->GetSocket();}
-	//##ModelId=3C5D933601F6
 	virtual void process() = 0;
 };
 
-//##ModelId=3C5D93360232
 class cCharTarget : public virtual cTarget
 {
 protected:
-	//##ModelId=3C5D9336028C
 	P_CHAR pc;
 
 public:
-	//##ModelId=3C5D933602AA
 	cCharTarget(P_CLIENT pCli) : cTarget(pCli) {}
-	//##ModelId=3C5D933602BE
 	virtual void CharSpecific() = 0;
-	//##ModelId=3C5D933602DC
 	virtual void process()
 	{
 		makeSerial();
@@ -94,18 +83,13 @@ public:
 	}
 };
 
-//##ModelId=3C5D93360318
 class cItemTarget : public virtual cTarget
 {
 protected:
-	//##ModelId=3C5D93360355
 	P_ITEM pi;
 public:
-	//##ModelId=3C5D93360372
 	cItemTarget(P_CLIENT pCli) : cTarget(pCli) {}
-	//##ModelId=3C5D93360386
 	virtual void ItemSpecific() = 0;
-	//##ModelId=3C5D9336039A
 	virtual void process()
 	{
 		makeSerial();
@@ -117,15 +101,12 @@ public:
 	}
 };
 
-//##ModelId=3C5D933603CC
 class cWpObjTarget : public virtual cItemTarget, public virtual cCharTarget
 {
 public:
-	//##ModelId=3C5D93370016
 	cWpObjTarget(P_CLIENT pCli) : cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
 //	virtual void CharSpecific() = 0;
 //	virtual void ItemSpecific() = 0;
-	//##ModelId=3C5D93370034
 	virtual void process()
 	{
 		makeSerial();
@@ -148,8 +129,6 @@ public:
 	}
 };
 
-
-//##ModelId=3C5D92BC0286
 void cTargets::PlVBuy(int s)//PlayerVendors
 {
 	if (s == -1) 
@@ -200,7 +179,6 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 // history:		by Magius(CHE),24 August 1999
 // Purpose:		Select an item or an npc to set with new trigger.
 //
-//##ModelId=3C5D92BE02A7
 void cTargets::triggertarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -219,7 +197,6 @@ void cTargets::triggertarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BE028A
 void cTargets::BanTarg(int s)
 {
 
@@ -273,18 +250,14 @@ static void AddTarget(int s, PKGx6C *pp)
 	addid2[s]=0;
 }
 
-//##ModelId=3C5D93370085
 class cRenameTarget : public cWpObjTarget
 {
 public:
-	//##ModelId=3C5D933700C1
 	cRenameTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
-	//##ModelId=3C5D933700D5
 	void CharSpecific()
 	{
 		pc->name = xtext[s];
 	}
-	//##ModelId=3C5D9337012F
 	void ItemSpecific()
 	{
 		if(addx[s]==1) //rename2 //New -- Zippy
@@ -313,13 +286,10 @@ static void TeleTarget(int s, PKGx6C *pp)
 	} 
 }
 
-//##ModelId=3C5D93370189
 class cRemoveTarget : public cWpObjTarget
 {
 public:
-	//##ModelId=3C5D933701CF
 	cRemoveTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
-	//##ModelId=3C5D933701F7
 	void CharSpecific()
 	{
 		if (pc->account>-1 && pc->isPlayer()) // player check added by LB
@@ -330,7 +300,6 @@ public:
 		sysmessage(s, "Removing character.");
 		Npcs->DeleteChar( pc );
 	}
-	//##ModelId=3C5D93370201
 	void ItemSpecific()
 	{
 		sysmessage(s, "Removing item.");
@@ -404,19 +373,15 @@ void DyeTarget(int s)
 	}
 }
 
-//##ModelId=3C5D93370265
 class cNewzTarget : public cWpObjTarget
 {
 public:
-	//##ModelId=3C5D933702C9
 	cNewzTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
-	//##ModelId=3C5D933702F1
 	void CharSpecific()
 	{
 		pc->dispz=pc->pos.z=addx[s];
 		teleport(pc);
 	}
-	//##ModelId=3C5D93370305
 	void ItemSpecific()
 	{
 		pi->pos.z=addx[s];
@@ -425,7 +390,6 @@ public:
 };
 
 //public !!
-//##ModelId=3C5D92BF00C9
 void cTargets::IDtarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -452,7 +416,6 @@ void cTargets::IDtarget(int s)
 }
 
 //public !!
-//##ModelId=3C5D92BF0231
 void cTargets::XTeleport(int s, int x)
 {
 	SERIAL serial = INVALID_SERIAL;
@@ -611,7 +574,6 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 	}//if
 }//keytarget()
 
-//##ModelId=3C5D92BC02FF
 void cTargets::IstatsTarget(int s)
 {
 	if ((buffer[s][7]==0)&&(buffer[s][8]==0)&&(buffer[s][9]==0)&&(buffer[s][10]==0))
@@ -862,7 +824,6 @@ static void KillTarget(P_CHAR pc, int ly)
 	}
 }
 
-//##ModelId=3C5D92BC031D
 void cTargets::GhostTarget(int s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
@@ -881,13 +842,10 @@ void cTargets::GhostTarget(int s)
 	}
 }
 
-//##ModelId=3C5D93370374
 class cBoltTarget : public cCharTarget
 {
 public:
-	//##ModelId=3C5D9337039C
 	cBoltTarget(P_CLIENT pCli) : cCharTarget(pCli), cTarget(pCli) {}
-	//##ModelId=3C5D933703B0
 	void CharSpecific()
 	{
 		if (w_anim[0]==0 && w_anim[1]==0)
@@ -903,13 +861,10 @@ public:
 	}
 };
 
-//##ModelId=3C5D9338002C
 class cSetAmountTarget : public cItemTarget
 {
 public:
-	//##ModelId=3C5D933800CC
 	cSetAmountTarget(P_CLIENT pCli) : cItemTarget(pCli), cTarget(pCli) {}
-	//##ModelId=3C5D933800E0
 	void ItemSpecific()
 	{
 		if (addx[s] > 64000) //Ripper..to fix a client bug for over 64k.
@@ -922,7 +877,6 @@ public:
 	}
 };
 
-//##ModelId=3C5D92BC0345
 void cTargets::CloseTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -940,7 +894,6 @@ void cTargets::CloseTarget(int s)
 }
 
 // public !!!
-//##ModelId=3C5D92BF01C2
 P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 updated for new items
 {
 	if (s>=0)
@@ -954,14 +907,12 @@ P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 up
 }
 
 // public !!!
-//##ModelId=3C5D92BF0140
 P_CHAR cTargets::NpcMenuTarget(int s)
 {
 	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return NULL;
 	return Npcs->AddNPC(s, NULL, addmitem[s]);
 }
 
-//##ModelId=3C5D92BC0363
 void cTargets::VisibleTarget (int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -1049,7 +1000,6 @@ static void OwnerTarget(P_CLIENT ps, P_ITEM pi)
 	}
 }
 
-//##ModelId=3C5D92BC0377
 void cTargets::DvatTarget(int s)
 {
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -1094,7 +1044,6 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	updatechar(pc);
 }
 
-//##ModelId=3C5D92BC0395
 void cTargets::AllSetTarget(int s)
 {
 	int j;
@@ -1220,7 +1169,6 @@ static void InfoTarget(int s, PKGx6C *pp) // rewritten to work also with map-til
 	clConsole.send("\n");
 }
 
-//##ModelId=3C5D92BC03A9
 void cTargets::TweakTarget(int s)//Lag fix -- Zippy
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
@@ -1313,7 +1261,6 @@ static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls th
 }
 
 //public !!
-//##ModelId=3C5D92BF00FA
 void cTargets::Wiping(int s) // Clicking the corners of wiping calls this function - Crwth 01/11/1999
 {
 	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
@@ -1400,7 +1347,6 @@ static void Priv3Target(UOXSOCKET s, P_CHAR pc)
 	pc->priv3[6]=priv3g[s];
 }
 
-//##ModelId=3C5D92BC03DB
 void cTargets::SquelchTarg(int s)//Squelch
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2514,7 +2460,6 @@ static void AxeTarget(P_CLIENT pC, PKGx6C *pp)
 		BladeTarget(pC,pp);
 }
 
-//##ModelId=3C5D92BD0026
 void cTargets::NpcTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2529,7 +2474,6 @@ void cTargets::NpcTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD0043
 void cTargets::NpcTarget2(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2544,7 +2488,6 @@ void cTargets::NpcTarget2(int s)
 	}
 }
 
-//##ModelId=3C5D92BD00ED
 void cTargets::NpcRectTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2563,7 +2506,6 @@ void cTargets::NpcRectTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD0115
 void cTargets::NpcCircleTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2581,7 +2523,6 @@ void cTargets::NpcCircleTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD013D
 void cTargets::NpcWanderTarget(int s)
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
@@ -2593,7 +2534,6 @@ void cTargets::NpcWanderTarget(int s)
 }
 
 //taken from 6904t2(5/10/99) - AntiChrist
-//##ModelId=3C5D92BD0151
 void cTargets::NpcAITarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2605,7 +2545,6 @@ void cTargets::NpcAITarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD016F
 void cTargets::xBankTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2616,7 +2555,6 @@ void cTargets::xBankTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD0183
 void cTargets::xSpecialBankTarget(int s)//AntiChrist
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2627,7 +2565,6 @@ void cTargets::xSpecialBankTarget(int s)//AntiChrist
 	}
 }
 
-//##ModelId=3C5D92BD0206
 void cTargets::SellStuffTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2638,7 +2575,6 @@ void cTargets::SellStuffTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BF01AE
 void cTargets::ReleaseTarget(int s, int c) 
 { 
 
@@ -2675,7 +2611,6 @@ void cTargets::ReleaseTarget(int s, int c)
 	} 
 }
 
-//##ModelId=3C5D92BD021A
 void cTargets::GmOpenTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2694,7 +2629,6 @@ void cTargets::GmOpenTarget(int s)
 	sysmessage(s,"No object was found at that layer on that character");
 }
 
-//##ModelId=3C5D92BD0238
 void cTargets::StaminaTarget(int s)
 {
 	SERIAL serial=LongFromCharPtr(buffer[s]+7);
@@ -2710,7 +2644,6 @@ void cTargets::StaminaTarget(int s)
 	sysmessage(s,"That is not a person.");
 }
 
-//##ModelId=3C5D92BD0256
 void cTargets::ManaTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2726,7 +2659,6 @@ void cTargets::ManaTarget(int s)
 	sysmessage(s,"That is not a person.");
 }
 
-//##ModelId=3C5D92BD026A
 void cTargets::MakeShopTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2741,7 +2673,6 @@ void cTargets::MakeShopTarget(int s)
 	sysmessage(s, "Target character not found...");
 }
 
-//##ModelId=3C5D92BF0190
 void cTargets::JailTarget(int s, int c) 
 { 
 	SERIAL serial; 
@@ -2798,7 +2729,6 @@ void cTargets::JailTarget(int s, int c)
 		sysmessage(s, "All jails are currently full!"); 
 }
 
-//##ModelId=3C5D92BD0288
 void cTargets::AttackTarget(int s)
 {
 	P_CHAR target = FindCharBySerial(addx[s]);
@@ -2812,7 +2742,6 @@ void cTargets::AttackTarget(int s)
 	npcattacktarget(target2, target);
 }
 
-//##ModelId=3C5D92BD029C
 void cTargets::FollowTarget(int s)
 {
 
@@ -2823,7 +2752,6 @@ void cTargets::FollowTarget(int s)
 	char1->npcWander = 1;
 }
 
-//##ModelId=3C5D92BD02BA
 void cTargets::TransferTarget(int s)
 {
 	char t[120];
@@ -2845,7 +2773,6 @@ void cTargets::TransferTarget(int s)
 	pc1->npcWander=0;
 }
 
-//##ModelId=3C5D92BD02CE
 void cTargets::BuyShopTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2859,7 +2786,6 @@ void cTargets::BuyShopTarget(int s)
 		sysmessage(s, "Target shopkeeper not found...");
 }
 
-//##ModelId=3C5D92BF0245
 int cTargets::BuyShop(UOXSOCKET s, P_CHAR pc)
 {
 	P_ITEM pCont1=NULL, pCont2=NULL;
@@ -2899,8 +2825,7 @@ int cTargets::BuyShop(UOXSOCKET s, P_CHAR pc)
 ////////////////////////////////// 
 // Changed hideing to make flamestrike and hide work better 
 // 
-// 
-//##ModelId=3C5D92BD02E2
+//
 void cTargets::permHideTarget(int s) 
 { 
 	SERIAL serial = LongFromCharPtr(buffer[s] + 7); 
@@ -2931,8 +2856,7 @@ void cTargets::permHideTarget(int s)
 ////////////////////////////////// 
 // Changed unhideing to make flamestrike and unhide work better 
 // 
-// 
-//##ModelId=3C5D92BD0300
+//
 void cTargets::unHideTarget(int s) 
 { 
 	SERIAL serial = LongFromCharPtr(buffer[s] + 7); 
@@ -2963,7 +2887,6 @@ void cTargets::unHideTarget(int s)
 // Aldur 
 //////////////////////////////////
 
-//##ModelId=3C5D92BD0314
 void cTargets::SetSpeechTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -2989,7 +2912,6 @@ static void SetSpAttackTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BE00EF
 void cTargets::SetSpaDelayTarget(int s)
 {
 	SERIAL serial=LongFromCharPtr(buffer[s]+7);
@@ -3000,7 +2922,6 @@ void cTargets::SetSpaDelayTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD0329
 void cTargets::SetPoisonTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3011,7 +2932,6 @@ void cTargets::SetPoisonTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD0346
 void cTargets::SetPoisonedTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3024,7 +2944,6 @@ void cTargets::SetPoisonedTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD035A
 void cTargets::FullStatsTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3044,7 +2963,6 @@ void cTargets::FullStatsTarget(int s)
 	sysmessage(s,"That is not a person.");
 }
 
-//##ModelId=3C5D92BD0378
 void cTargets::SetAdvObjTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3060,7 +2978,6 @@ void cTargets::SetAdvObjTarget(int s)
 // history:		by Antrhacks 1-3-99
 // Purpose:		Used for training by NPC's
 //
-//##ModelId=3C5D92BD0396
 void cTargets::CanTrainTarget(int s)
 {
 	SERIAL serial=LongFromCharPtr(buffer[s]+7);
@@ -3076,7 +2993,6 @@ void cTargets::CanTrainTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD03C8
 void cTargets::SetSplitTarget(int s)
 {
 	SERIAL serial=LongFromCharPtr(buffer[s]+7);
@@ -3087,7 +3003,6 @@ void cTargets::SetSplitTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BE00C7
 void cTargets::SetSplitChanceTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3098,7 +3013,6 @@ void cTargets::SetSplitChanceTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BE01C2
 void cTargets::SetDirTarget(int s)
 {
 	SERIAL serial=LongFromCharPtr(buffer[s]+7);
@@ -3130,7 +3044,6 @@ void cTargets::SetDirTarget(int s)
 // history:		by UnKnown (Touched tabstops by Tauriel Dec 28, 1998)
 // Purpose:		Resurrects a character
 //
-//##ModelId=3C5D92BF0154
 bool cTargets::NpcResurrectTarget(P_CHAR pc)
 {
 	if ( pc == NULL)
@@ -3187,7 +3100,6 @@ bool cTargets::NpcResurrectTarget(P_CHAR pc)
 	return false;
 }
 
-//##ModelId=3C5D92BE0153
 void cTargets::NewXTarget(int s) // Notice a high similarity to th function above? Wonder why. - Gandalf
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3209,7 +3121,6 @@ void cTargets::NewXTarget(int s) // Notice a high similarity to th function abov
 	}
 }
 
-//##ModelId=3C5D92BE0167
 void cTargets::NewYTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3231,7 +3142,6 @@ void cTargets::NewYTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BE017B
 void cTargets::IncXTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3254,7 +3164,6 @@ void cTargets::IncXTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BE0199
 void cTargets::IncYTarget(int s)
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3277,7 +3186,6 @@ void cTargets::IncYTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BC025E
 void cTargets::Priv3XTarget(int s) // crackerjack's addition, jul.24/99
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3299,7 +3207,6 @@ void cTargets::Priv3XTarget(int s) // crackerjack's addition, jul.24/99
 	}
 }
 
-//##ModelId=3C5D92BC0272
 void cTargets::ShowPriv3Target(int s) // crackerjack, jul 25/99
 {
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
@@ -3327,7 +3234,6 @@ void cTargets::ShowPriv3Target(int s) // crackerjack, jul 25/99
 		sysmessage(s, "You cannot retrieve privilige information on that.");
 }
 
-//##ModelId=3C5D92BE01DF
 void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house owner
 {
 	int os, i;
@@ -3393,7 +3299,6 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 			sysmessage(k, (char*)temp);
 }
 
-//##ModelId=3C5D92BE0207
 void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out of house
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
@@ -3422,7 +3327,6 @@ void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out
 	}
 }
 
-//##ModelId=3C5D92BE021B
 void cTargets::HouseBanTarget(int s) 
 {
 	Targ->HouseEjectTarget(s);	// first, eject the player
@@ -3440,7 +3344,6 @@ void cTargets::HouseBanTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BE022F
 void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to friends list
 {
 	P_CHAR Friend = FindCharBySerPtr(buffer[s]+7);
@@ -3460,7 +3363,6 @@ void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to
 	}
 }
 
-//##ModelId=3C5D92BE024D
 void cTargets::HouseUnBanTarget(int s)
 {
 	P_CHAR pc_banned = FindCharBySerPtr(buffer[s]+7);
@@ -3481,7 +3383,6 @@ void cTargets::HouseUnBanTarget(int s)
 	return;
 }
 
-//##ModelId=3C5D92BE0261
 void cTargets::HouseUnFriendTarget(int s)
 {
 	P_CHAR pc_friend = FindCharBySerPtr(buffer[s]+7);
@@ -3502,7 +3403,6 @@ void cTargets::HouseUnFriendTarget(int s)
 	return;
 }
 
-//##ModelId=3C5D92BC022C
 void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 // PRE:		S is the socket of a valid owner/coowner and is in a valid house
 // POST:	either locks down the item, or puts a message to the owner saying he's a moron
@@ -3569,7 +3469,6 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 	}
 }
 
-//##ModelId=3C5D92BC020F
 void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 // For locked down and secure chests
 {
@@ -3623,7 +3522,6 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 	}
 }
 
-//##ModelId=3C5D92BC0240
 void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 // PRE:		S is the socket of a valid owner/coowner and is in a valid house, the item is locked down
 // POST:	either releases the item from lockdown, or puts a message to the owner saying he's a moron
@@ -3669,7 +3567,6 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 	}
 }
 
-//##ModelId=3C5D92BE03D4
 void cTargets::SetMurderCount( int s )
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
@@ -3681,7 +3578,6 @@ void cTargets::SetMurderCount( int s )
 	}
 }
 
-//##ModelId=3C5D92BE02C5
 void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 {
 	int c;
@@ -3757,7 +3653,6 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	impowncreate(s, pc_currchar, 0); // if equipped send new color too
 }
 
-//##ModelId=3C5D92BE0301
 void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from items
 {
 	int c;
@@ -3806,7 +3701,6 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 	currchar[s]->removeHalo(pi);
 }
 
-//##ModelId=3C5D92BE0348
 void cTargets::MenuPrivTarg(int s)//LB's menu privs
 {
 	int i;
@@ -3826,7 +3720,6 @@ void cTargets::MenuPrivTarg(int s)//LB's menu privs
 	}
 }
 
-//##ModelId=3C5D92BE0370
 void cTargets::ShowSkillTarget(int s) // LB's showskills
 {
 	int a,j,k,b=0,c,z,zz,ges=0;
@@ -3884,13 +3777,11 @@ void cTargets::ShowSkillTarget(int s) // LB's showskills
 		sysmessage(s,"no valid target");
 }
 
-//##ModelId=3C5D92BE03C0
 void cTargets::FetchTarget(UOXSOCKET s) // Ripper
 {
 	sysmessage(s,"Fetch is not available at this time.");
 }
 
-//##ModelId=3C5D92BE03A2
 void cTargets::GuardTarget( UOXSOCKET s )
 {
 	P_CHAR pPet = FindCharBySerial(addx[s]);
@@ -3914,7 +3805,6 @@ void cTargets::GuardTarget( UOXSOCKET s )
 	currchar[s]->guarded = true;
 }
 
-//##ModelId=3C5D92BE0334
 void cTargets::ResurrectionTarget( UOXSOCKET s )
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
@@ -3931,7 +3821,6 @@ void cTargets::ResurrectionTarget( UOXSOCKET s )
 }
 
 //AntiChrist - shows the COMMENT line in the account section of player current acct.
-//##ModelId=3C5D92BF003C
 void cTargets::ShowAccountCommentTarget(int s)
 {
 	int j,accountfound=0,commentfound=0;
@@ -3990,17 +3879,14 @@ void cTargets::ShowAccountCommentTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BF005A
 void cTargets::SetHome(int s)
 {
 }
 
-//##ModelId=3C5D92BF006E
 void cTargets::SetWork(int s)
 {
 }
 
-//##ModelId=3C5D92BF0083
 void cTargets::SetFood(int s)
 {
 }
@@ -4072,7 +3958,6 @@ static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
 	}
 }
 
-//##ModelId=3C5D92BC03C7
 void cTargets::LoadCannon(int s)
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
@@ -4102,7 +3987,6 @@ void cTargets::LoadCannon(int s)
 	}
 }
 
-//##ModelId=3C5D92BD01AC
 void cTargets::DupeTarget(int s)
 {
 	if (addid1[s]>=1)
@@ -4120,7 +4004,6 @@ void cTargets::DupeTarget(int s)
 	}
 }
 
-//##ModelId=3C5D92BD01C0
 void cTargets::MoveToBagTarget(int s)
 {
 	SERIAL serial=LongFromCharPtr(buffer[s]+7);
@@ -4141,7 +4024,6 @@ void cTargets::MoveToBagTarget(int s)
 	RefreshItem(pi);
 }
 
-//##ModelId=3C5D92BF00E6
 void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with the targetting cursor
 {
 //	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF)
