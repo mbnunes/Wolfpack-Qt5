@@ -201,7 +201,7 @@
 				RelativePath=".\console.h">
 			</File>
 			<File
-				RelativePath=".\console_win.cpp">
+				RelativePath=".\win\console_win.cpp">
 			</File>
 			<File
 				RelativePath=".\contextmenu.cpp">
