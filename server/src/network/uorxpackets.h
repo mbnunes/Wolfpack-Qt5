@@ -29,37 +29,21 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(__UOPACKET_H__)
-#define __UOPACKET_H__
+#ifndef __UO_RXPACKETS__
+#define __UO_RXPACKETS__
 
+#include "uopacket.h"
 #include "qcstring.h"
 #include "qstring.h"
-#include <ostream>
 
-using namespace std;
+cUOPacket *getUOPacket( const QByteArray &data );
 
-class cUOPacket
+class cUORxLoginRequest: public cUOPacket
 {
-protected:
-	QByteArray compressedBuffer;
-	QByteArray rawPacket;
-	void compress();
-
 public:
-	cUOPacket( QByteArray );
-	cUOPacket( Q_UINT32 );
-	virtual ~cUOPacket() {}
-
-	virtual QByteArray compressed();
-	char& operator [](unsigned int);
-	int   getInt( unsigned int );
-	short getShort( unsigned int);
-	void  setInt( unsigned int, unsigned int );
-	void  setShort( unsigned int, unsigned short );
-	QString dump( const QByteArray& );
-
-	virtual void print( ostream* );
+	cUORxLoginRequest( const QByteArray &data ): cUOPacket( data ) {}
+	QString username( void ) { return &rawPacket.data()[1]; }
+	QString password( void ) { return &rawPacket.data()[31]; }
 };
 
-#endif // __UOPACKET_H__
-
+#endif

@@ -40,6 +40,9 @@
 // Forward Declarations
 class cUOPacket;
 
+// Too many Forward Declarations
+#include "uorxpackets.h"
+
 class cUOSocket
 {
 private:
@@ -68,6 +71,9 @@ public:
 	void send( cUOPacket *packet );
 
 	void disconnect( void ); // Call this whenever the socket should disconnect
+
+	// Handler
+	void handleLoginRequest( cUORxLoginRequest *packet );
 };
 
 #endif

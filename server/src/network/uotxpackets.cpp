@@ -29,37 +29,25 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(__UOPACKET_H__)
-#define __UOPACKET_H__
+#include "uotxpackets.h"
+#include "uopacket.h"
 
-#include "qcstring.h"
-#include "qstring.h"
-#include <ostream>
-
-using namespace std;
-
-class cUOPacket
+void cUOTxShardList::addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT8 serverFull, Q_INT8 serverTimeZone, Q_UINT32 serverIp )
 {
-protected:
-	QByteArray compressedBuffer;
-	QByteArray rawPacket;
-	void compress();
+	// Increase the server-count
+	// Offset: 4
+	setShort( 4, getShort( 4 ) + 1 );
 
-public:
-	cUOPacket( QByteArray );
-	cUOPacket( Q_UINT32 );
-	virtual ~cUOPacket() {}
+	Q_INT32 offset = rawPacket.count();
+	rawPacket.resize( rawPacket.count() + 40 ); // 40 byte per server
+	setShort( offset, serverIndex );
 
-	virtual QByteArray compressed();
-	char& operator [](unsigned int);
-	int   getInt( unsigned int );
-	short getShort( unsigned int);
-	void  setInt( unsigned int, unsigned int );
-	void  setShort( unsigned int, unsigned short );
-	QString dump( const QByteArray& );
+	if( serverName.length() > 31 ) 
+		serverName = serverName.left( 31 );
 
-	virtual void print( ostream* );
-};
+	strcpy( &rawPacket.data()[ offset + 2 ], serverName.latin1() );
 
-#endif // __UOPACKET_H__
-
+	rawPacket[ offset + 34 ] = serverFull;
+	rawPacket[ offset + 35 ] = serverTimeZone;
+	setInt( offset + 36, serverIp );
+}

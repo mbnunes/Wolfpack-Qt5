@@ -41,6 +41,12 @@ cUOPacket::cUOPacket( QByteArray d )
 	rawPacket = d.copy();
 }
 
+cUOPacket::cUOPacket( Q_UINT32 size )
+{
+	rawPacket.resize( size );
+	rawPacket.fill( (char)0 );
+}
+
 // Compresses the packet
 // Author: Beosil
 static unsigned int bitTable[257][2] =
@@ -154,8 +160,8 @@ int cUOPacket::getInt( unsigned int pos )
 
 short cUOPacket::getShort( unsigned int pos )
 {
-	short value = rawPacket.at(pos+2) & 0x000000FF;
-	value |= rawPacket.at(pos+2) << 8;
+	short value = (Q_INT8)rawPacket.at(pos);
+	value |= rawPacket.at(pos+1) << 8;
 	return value;
 }
 
@@ -173,35 +179,45 @@ void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 	rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
 }
 
+#define LINE_WIDTH 6
+
 // Leave as last method, please
 void cUOPacket::print( ostream* s )
 {
 	if ( s )
+		(*s) << dump( rawPacket ).latin1();
+}
+
+QString cUOPacket::dump( const QByteArray &data )
+{
+	Q_INT32 length = data.count();
+	QString dumped = QString( "\n[ packet: %1 ; length: %2 ]\n" ).arg( (Q_UINT8)data[0], 2, 16 ).arg( data.count() );
+
+	for(int actLine = 0; actLine < (length / 16) + 1; actLine++)
 	{
-		(*s) << "[unknown packet:" << QString::number( rawPacket.at(0) ).latin1() << ", length: " << QString::number(rawPacket.size(), 16).latin1() << endl;
-		int length = rawPacket.size();
-		for(int actLine = 0; actLine < (length / 16) + 1; actLine++)
+		QString line;
+		line.sprintf( "%04x: ", actLine * 16 );
+
+		for(int actRow = 0; actRow < 16; actRow++)
 		{
-			QString line;
-			line += QString("%1: ").arg(actLine * 16, 4, 16);
-			
-			for(int actRow = 0; actRow < 16; actRow++)
-			{
-				if(actLine * 16 + actRow < length) 
-					line += QString("%1 ").arg((ushort)(rawPacket.at(actLine * 16 + actRow)), 2, 16);
-				else 
-					line += "-- ";
-			}
-			
-			line += ": ";
-			
-			for(actRow = 0; actRow < 16; actRow++)
-			{
-				if(actLine * 16 + actRow < length) 
-					line += isprint(rawPacket.at(actLine * 16 + actRow)) ? rawPacket.at(actLine * 16 + actRow) : '.';
-			}
-			
-			(*s) << line << endl;
+			if( actLine * 16 + actRow < length ) 
+				line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
+			else 
+				line += "-- ";
 		}
+
+		line += ": ";
+
+		for(actRow = 0; actRow < 16; actRow++)
+		{
+			if( actLine * 16 + actRow < length ) 
+				line += QString().sprintf( "%c", ( isprint(static_cast< Q_UINT8 >( data[actLine * 16 + actRow] ) ) ) ? data[actLine * 16 + actRow] : '.' );
+		}
+
+		line += "\n";
+		dumped += line;
 	}
+	  
+	dumped += "\n";
+	return dumped;
 }

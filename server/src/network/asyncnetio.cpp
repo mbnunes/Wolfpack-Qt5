@@ -31,6 +31,7 @@
 
 
 #include "asyncnetio.h"
+#include "uorxpackets.h"
 #include "uopacket.h"
 
 // Library Includes
@@ -363,8 +364,9 @@ void cAsyncNetIO::run() throw()
 			d->wmutex.release(); // release this record
 		}
 		mapsMutex.release();		
-		if ( buffers.empty() )
-			sleep(5); // we've done our job, let's relax for a while.
+		//if ( buffers.empty() )
+		// Disconnecting doesnt work for now
+		sleep(40); // we've done our job, let's relax for a while.
 	}
 }
 
@@ -390,7 +392,7 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 				{
 					QByteArray packetData(length);
 					d->readBlock( packetData.data(), length );
-					cUOPacket* packet = new cUOPacket( packetData );
+					cUOPacket* packet = getUOPacket( packetData );
 					d->packets->add( packet );
 				}
 				else
@@ -418,7 +420,7 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 
 				QByteArray packetData( length );
 				d->readBlock( packetData.data(), length );
-				cUOPacket* packet = new cUOPacket( packetData );
+				cUOPacket* packet = getUOPacket( packetData );
 				d->packets->add( packet );
 			}
 		}

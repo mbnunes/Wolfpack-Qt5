@@ -29,37 +29,62 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(__UOPACKET_H__)
-#define __UOPACKET_H__
+#ifndef __UO_TXPACKETS__
+#define __UO_TXPACKETS__
 
+// Library includes
 #include "qcstring.h"
 #include "qstring.h"
-#include <ostream>
 
-using namespace std;
+#include "uopacket.h"
 
-class cUOPacket
+// Packets which are sent always uncompressed
+class cUORawPacket: public cUOPacket
 {
-protected:
-	QByteArray compressedBuffer;
-	QByteArray rawPacket;
-	void compress();
-
 public:
-	cUOPacket( QByteArray );
-	cUOPacket( Q_UINT32 );
-	virtual ~cUOPacket() {}
-
-	virtual QByteArray compressed();
-	char& operator [](unsigned int);
-	int   getInt( unsigned int );
-	short getShort( unsigned int);
-	void  setInt( unsigned int, unsigned int );
-	void  setShort( unsigned int, unsigned short );
-	QString dump( const QByteArray& );
-
-	virtual void print( ostream* );
+	cUORawPacket( Q_UINT32 size ): cUOPacket( size ) {}
+	virtual QByteArray compressed() { return rawPacket; }
 };
 
-#endif // __UOPACKET_H__
+enum eDenyLogin
+{
+	DL_NOACCOUNT = 0x00,
+	DL_INUSE,
+	DL_BLOCKED,
+	DL_BADPASSWORD,
+	DL_BADCOMMUNICATION
+};
 
+// Packet to deny Login
+class cUOTxDenyLogin: public cUORawPacket
+{
+public:
+	cUOTxDenyLogin( eDenyLogin reason ): cUORawPacket( 2 )
+	{
+		rawPacket[0] = (Q_UINT8)0x82;
+		rawPacket[1] = reason;
+	}
+};
+
+class cUOTxAcceptLogin: public cUORawPacket
+{
+public:
+	cUOTxAcceptLogin(): cUORawPacket( 3 )
+	{
+		rawPacket[0] = (Q_UINT8)0x81;
+	}
+};
+
+class cUOTxShardList: public cUORawPacket
+{
+public:
+	cUOTxShardList(): cUORawPacket( 6 )
+	{
+		rawPacket[0] = (Q_UINT8)0xA8;
+		rawPacket[3] = (Q_UINT8)0xFF;
+	}
+
+	void addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT8 serverFull = 0, Q_INT8 serverTimeZone = 0, Q_UINT32 serverIp = 0 );
+};
+
+#endif

@@ -31,12 +31,12 @@
 
 #include "uosocket.h"
 #include "uopacket.h"
+#include "uotxpackets.h"
 #include "asyncnetio.h"
+
 #include <conio.h>
 #include <iostream>
-
 #include <stdlib.h>
-
 
 using namespace std;
 
@@ -45,6 +45,7 @@ extern cAsyncNetIO* netio;
 // Send a packet to our ioHandle
 void cUOSocket::send( cUOPacket *packet )
 {
+	packet->print( &cout );
 	netio->sendPacket( _socket, packet );
 }
 
@@ -56,6 +57,47 @@ void cUOSocket::recieve()
 	if( !packet )
 		return;
 
-	packet->print( &cout );
+	Q_UINT8 packetId = (*packet)[0];
+
+	switch( packetId )
+	{
+	case 0x80:
+		handleLoginRequest( static_cast< cUORxLoginRequest* >( packet ) ); break;
+	default:
+		packet->print( &cout );
+	}
+	
 	delete packet;
+}
+
+// Packet Handler
+void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
+{
+	// has to check for username/password here (normally)
+	cout << "Trying to access the server via: " << packet->username().latin1() << "/" << packet->password().latin1() << endl;
+
+	cUOPacket *denyPacket = NULL;
+
+	if( packet->username() != "admin" )
+		denyPacket = new cUOTxDenyLogin( DL_NOACCOUNT );
+	else if( packet->password() != "admin" )
+		denyPacket = new cUOTxDenyLogin( DL_BADPASSWORD );
+
+	// Reject login
+	if( denyPacket )
+	{
+		send( denyPacket );
+		delete denyPacket;
+		return;
+	}
+
+	// Accept login and send serverlist
+	/*cUOTxAcceptLogin *acceptLogin = new cUOTxAcceptLogin;
+	netio->sendPacket( _socket, acceptLogin );
+	delete acceptLogin;*/
+
+	cUOTxShardList *shardList = new cUOTxShardList;
+	shardList->addServer( 0, "Mein Server", 10, 0, 0x7F000001 );
+	send( shardList );
+	delete shardList;
 }
