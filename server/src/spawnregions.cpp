@@ -82,7 +82,7 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 	//<npcs>
 	//  <npc mult="2">npcsection</npc> (mult inserts 2 same sections into the list so the probability rises!
 	//	<npc><random list="npcsectionlist" /></npc>
-	//  <list id="npcsectionlist" />
+	//  <getlist id="npcsectionlist" />
 	//</npcs>
 	if( TagName == "npcs" )
 	{
@@ -100,9 +100,15 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 				for( UI32 i = 0; i < mult; i++ )
 					this->npcSections_.push_back( this->getNodeValue( childNode.toElement() ) );
 			}
-			else if( childNode.nodeName() == "list" && childNode.attributes().contains( "id" ) )
+			else if( childNode.nodeName() == "getlist" )
 			{
-				QStringList NpcList = DefManager->getList( childNode.toElement().attribute( "id" ) );
+				QString listSect;
+				if( childNode.attributes().contains( "id" ) )
+					listSect = childNode.toElement().attribute( "id" );
+				else
+					listSect = getNodeValue( childNode.toElement() );
+
+				QStringList NpcList = DefManager->getList( listSect );
 				QStringList::iterator it = NpcList.begin();
 				while( it != NpcList.end() )
 				{
@@ -111,7 +117,7 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 				}
 			}
 
-			childNode.nextSibling();
+			childNode = childNode.nextSibling();
 		}
 	}
 
@@ -136,9 +142,15 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 				for( UI32 i = 0; i < mult; i++ )
 					this->itemSections_.push_back( this->getNodeValue( childNode.toElement() ) );
 			}
-			else if( childNode.nodeName() == "list" && childNode.attributes().contains( "id" ) )
+			else if( childNode.nodeName() == "getlist" )
 			{
-				QStringList itemList = DefManager->getList( childNode.toElement().attribute( "id" ) );
+				QString listSect;
+				if( childNode.attributes().contains( "id" ) )
+					listSect = childNode.toElement().attribute( "id" );
+				else
+					listSect = getNodeValue( childNode.toElement() );
+
+				QStringList itemList = DefManager->getList( listSect );
 				QStringList::iterator it = itemList.begin();
 				while( it != itemList.end() )
 				{
@@ -147,7 +159,7 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 				}
 			}
 
-			childNode.nextSibling();
+			childNode = childNode.nextSibling();
 		}
 	}
 
@@ -229,7 +241,7 @@ void cSpawnRegion::reSpawn( void )
 	UI16 i = 0;
 	for( i = 0; i < this->npcsPerCycle_; i++ )
 	{
-		if( (this->npcSerials_.size()+1) < this->maxNpcAmt_ )
+		if( this->npcSerials_.size() < this->maxNpcAmt_ )
 		{
 			// spawn a random npc
 			// first find a valid position for the npc
@@ -239,14 +251,17 @@ void cSpawnRegion::reSpawn( void )
 				QString NpcSect = this->npcSections_[ RandomNum( 0, this->npcSections_.size() ) ];
 				P_CHAR pc = Npcs->createScriptNpc( -1, NULL, NpcSect, pos.x, pos.y, pos.z );
 				if( pc != NULL )
+				{
 					this->npcSerials_.push_back( pc->serial );
+					pc->setSpawnregion( this->name_ );
+				}
 			}
 		}
 	}
 
 	for( i = 0; i < this->itemsPerCycle_; i++ )
 	{
-		if( (this->itemSerials_.size()+1) < this->maxItemAmt_ )
+		if( this->itemSerials_.size() < this->maxItemAmt_ )
 		{
 			// spawn a random item
 			// first find a valid position for the item
@@ -259,6 +274,7 @@ void cSpawnRegion::reSpawn( void )
 				{
 					pi->pos = pos;
 					this->itemSerials_.push_back( pi->serial );
+					pi->setSpawnRegion( this->name_ );
 				}
 			}
 		}
@@ -271,7 +287,7 @@ void cSpawnRegion::reSpawnToMax( void )
 {
 	this->checkForDeleted();
 
-	while( (this->npcSerials_.size()+1) < this->maxNpcAmt_ )
+	while( this->npcSerials_.size() < this->maxNpcAmt_ )
 	{
 		// spawn a random npc
 		// first find a valid position for the npc
@@ -281,11 +297,14 @@ void cSpawnRegion::reSpawnToMax( void )
 			QString NpcSect = this->npcSections_[ RandomNum( 0, this->npcSections_.size() ) ];
 			P_CHAR pc = Npcs->createScriptNpc( -1, NULL, NpcSect, pos.x, pos.y, pos.z );
 			if( pc != NULL )
+			{
 				this->npcSerials_.push_back( pc->serial );
+				pc->setSpawnregion( this->name_ );
+			}
 		}
 	}
 
-	while( (this->npcSerials_.size()+1) < this->maxNpcAmt_ )
+	while( this->npcSerials_.size() < this->maxNpcAmt_ )
 	{
 		// spawn a random item
 		// first find a valid position for the item
@@ -298,6 +317,7 @@ void cSpawnRegion::reSpawnToMax( void )
 			{
 				pi->pos = pos;
 				this->itemSerials_.push_back( pi->serial );
+				pi->setSpawnRegion( this->name_ );
 			}
 		}
 	}
@@ -313,37 +333,42 @@ void cSpawnRegion::deSpawn( void )
 	while( it != this->npcSerials_.end() )
 	{
 		Npcs->DeleteChar( FindCharBySerial( *it ) );
-		this->npcSerials_.erase( it );
 		it++;
 	}
+	npcSerials_.erase( npcSerials_.begin(), npcSerials_.end() );
 
+	it = this->itemSerials_.begin();
 	while( it != this->itemSerials_.end() )
 	{
 		Items->DeleItem( FindItemBySerial( *it ) );
-		this->itemSerials_.erase( it );
 		it++;
 	}
+	itemSerials_.erase( itemSerials_.begin(), itemSerials_.end() );
 
 	this->nextTime_ = uiCurrentTime + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
 }
 
 void cSpawnRegion::checkForDeleted( void )
 {
+	std::vector< SERIAL > foundSerials;
 	std::vector< SERIAL >::iterator it = this->npcSerials_.begin();
 	while( it != this->npcSerials_.end() )
 	{
-		if( FindCharBySerial( *it ) == NULL )
-			this->npcSerials_.erase( it );
+		if( FindCharBySerial( *it ) )
+			foundSerials.push_back( (*it) );
 		it++;
 	}
+	npcSerials_ = foundSerials;
 
+	foundSerials.clear();
 	it = this->itemSerials_.begin();
 	while( it != this->itemSerials_.end() )
 	{
-		if( FindItemBySerial( *it ) == NULL )
-			this->itemSerials_.erase( it );
+		if( FindItemBySerial( *it ) )
+			foundSerials.push_back( (*it) );
 		it++;
 	}
+	itemSerials_ = foundSerials;
 }
 
 // check the timer and if expired do reSpawn

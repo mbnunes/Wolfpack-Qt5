@@ -29,20 +29,21 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#include "commands.h"
 #include "globals.h"
+#include "accounts.h"
 #include "classes.h"
-#include "tilecache.h"
+#include "commands.h"
 #include "gumps.h"
+#include "mapstuff.h"
+#include "network/uosocket.h"
+#include "spawnregions.h"
+#include "srvparams.h"
+#include "targetrequests.h"
+#include "territories.h"
+#include "tilecache.h"
+#include "worldmain.h"
 #include "wpconsole.h"
 #include "wpdefmanager.h"
-#include "mapstuff.h"
-#include "worldmain.h"
-#include "srvparams.h"
-#include "territories.h"
-#include "targetrequests.h"
-#include "accounts.h"
-#include "network/uosocket.h"
 
 // System Includes
 #include <functional>
@@ -1021,24 +1022,123 @@ void commandAction( cUOSocket *socket, const QString &command, QStringList &args
 	}
 }
 
+void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	// Spawnregion respawn region_name
+	// Spawnregion clear   region_name
+	// Spawnregion fill    region_name
+
+	// region_name can be "all"
+
+	if( args.count() == 0 )
+	{
+		socket->sysMessage( tr( "Usage: spawnregion <respawn|clear|fill>" ) );
+		return;
+	}
+
+	QString subCommand = args[0].lower();
+
+	// respawn spawnregion
+	if( subCommand == "respawn" )
+	{
+		if( args.count() < 2 )
+		{
+			socket->sysMessage( tr( "Usage: spawnregion respawn <region_name>" ) );
+		} 
+		else if( args[1].lower() != "all" )
+		{
+			cSpawnRegion* spawnRegion = cAllSpawnRegions::getInstance()->region( args[1] );
+			if( !spawnRegion )
+			{
+				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
+			}
+			else
+			{
+				spawnRegion->reSpawn();
+				socket->sysMessage( tr( "Spawnregion '%1' has respawned" ).arg( args[1] ) );
+			}
+		}
+		else if( args[1].lower() == "all" )
+		{
+			cAllSpawnRegions::getInstance()->reSpawn();
+			socket->sysMessage( tr( "All spawnregions have respawned" ) );
+		}
+	}
+
+	// clear spawnregions (despawn)
+	else if( subCommand == "clear" )
+	{
+		if( args.count() < 2 )
+		{
+			socket->sysMessage( tr( "Usage: spawnregion clear <region_name>" ) );
+		} 
+		else if( args[1].lower() != "all" )
+		{
+			cSpawnRegion* spawnRegion = cAllSpawnRegions::getInstance()->region( args[1] );
+			if( !spawnRegion )
+			{
+				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
+			}
+			else
+			{
+				spawnRegion->deSpawn();
+				socket->sysMessage( tr( "Spawnregion '%1' has been cleared" ).arg( args[1] ) );
+			}
+		}
+		else if( args[1].lower() == "all" )
+		{
+			cAllSpawnRegions::getInstance()->deSpawn();
+			socket->sysMessage( tr( "All spawnregions have been cleared" ) );
+		}
+	}
+
+	// fill spawnregions up (respawnmax)
+	else if( subCommand == "fill" )
+	{
+		if( args.count() < 2 )
+		{
+			socket->sysMessage( tr( "Usage: spawnregion fill <region_name>" ) );
+		}
+		else if( args[1].lower() != "all" )
+		{
+			cSpawnRegion* spawnRegion = cAllSpawnRegions::getInstance()->region( args[1] );
+			if( !spawnRegion )
+			{
+				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
+			}
+			else
+			{
+				spawnRegion->reSpawnToMax();
+				socket->sysMessage( tr( "Spawnregion '%1' has respawned to maximum" ).arg( args[1] ) );
+			}
+		}
+		else if( args[1].lower() == "all" )
+		{
+			cAllSpawnRegions::getInstance()->reSpawnToMax();
+			socket->sysMessage( tr( "All spawnregions have respawned to maximum" ) );
+		}
+	}
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
-	{ "ADD", commandAdd },
-	{ "ACCOUNT", commandAccount },
-	{ "TELE", commandTele },
-	{ "REMOVE", commandRemove },
-	{ "RESEND", commandResend },
-	{ "ADDITEM", commandAddItem },
-	{ "SAVE", commandSave },
-	{ "ADDNPC", commandAddNpc },
-	{ "GO", commandGo },
-	{ "WHERE", commandWhere },
-	{ "FIX", commandFix },
-	{ "INFO", commandInfo },
-	{ "SHOW", commandShow },
-	{ "SET", commandSet },
-	{ "ACTION", commandAction },
+	{ "ACCOUNT",		commandAccount },
+	{ "ACTION",			commandAction },
+	{ "ADD",			commandAdd },
+	{ "ADDITEM",		commandAddItem },
+	{ "ADDNPC",			commandAddNpc },
+	{ "FIX",			commandFix },
+	{ "GO",				commandGo },
+	{ "INFO",			commandInfo },
+	{ "REMOVE",			commandRemove },
+	{ "RESEND",			commandResend },
+	{ "SAVE",			commandSave },
+	{ "SET",			commandSet },
+	{ "SHOW",			commandShow },
+	{ "SPAWNREGION",	commandSpawnRegion },
+	{ "TELE",			commandTele },
+	{ "WHERE",			commandWhere },
 	{ NULL, NULL }
 };
 
