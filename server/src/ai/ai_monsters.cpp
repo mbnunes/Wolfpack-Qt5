@@ -129,12 +129,12 @@ void Monster_Aggressive::check()
 	// Our current victim
 	P_CHAR m_currentVictim = World::instance()->findChar(m_currentVictimSer);
 	if (!m_currentVictim) {
-		m_currentVictim = INVALID_SERIAL;
+		m_currentVictimSer = INVALID_SERIAL;
 	}
 
 	if (m_currentVictim && invalidTarget(m_npc, m_currentVictim)) {
 		m_currentVictim = 0;
-		m_currentVictim = INVALID_SERIAL;
+		m_currentVictimSer = INVALID_SERIAL;
 		m_npc->fight(0);
 	}
 
@@ -226,7 +226,14 @@ float Monster_Aggr_MoveToTarget::preCondition()
 	 */
 
 	Monster_Aggressive* pAI = dynamic_cast<Monster_Aggressive*>( m_ai );
-	if ( !pAI || !pAI->currentVictim() )
+
+	if (!pAI) {
+		return 0.0f;
+	}
+
+	P_CHAR currentVictim = pAI->currentVictim();
+
+	if ( !currentVictim || !validTarget(m_npc, currentVictim) )
 		return 0.0f;
 
 	Q_UINT8 range = 1;
@@ -241,7 +248,7 @@ float Monster_Aggr_MoveToTarget::preCondition()
 		}
 	}
 
-	if ( m_npc->inRange( pAI->currentVictim(), range ) )
+	if ( m_npc->inRange( currentVictim, range ) )
 		return 0.0f;
 
 	// 1.0 = Full Health, 0.0 = Dead
@@ -265,7 +272,14 @@ float Monster_Aggr_MoveToTarget::postCondition()
 	 */
 
 	Monster_Aggressive* pAI = dynamic_cast<Monster_Aggressive*>( m_ai );
-	if ( !pAI || !pAI->currentVictim() )
+
+	if (!pAI) {
+		return 1.0f;
+	}
+
+	P_CHAR currentVictim = pAI->currentVictim();
+
+	if ( !currentVictim || !validTarget(m_npc, currentVictim) )
 		return 1.0f;
 
 	Q_UINT8 range = 1;
@@ -279,7 +293,7 @@ float Monster_Aggr_MoveToTarget::postCondition()
 		}
 	}
 
-	if ( m_npc->inRange( pAI->currentVictim(), range ) )
+	if ( m_npc->inRange( currentVictim, range ) )
 		return 1.0f;
 
 	// 1.0 = Full Health, 0.0 = Dead
