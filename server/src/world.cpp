@@ -44,7 +44,7 @@
 #include "player.h"
 #include "npc.h"
 #include "log.h"
-#include "timing.h"
+#include "Timing.h"
 #include "basics.h"
 #include <sqlite.h>
 
