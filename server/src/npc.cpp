@@ -169,8 +169,7 @@ void cNPC::load( char** result, Q_UINT16& offset )
 	if ( summonTime_ )
 		summonTime_ += Server::instance()->time();
 	additionalFlags_ = atoi( result[offset++] );
-	ser = atoi( result[offset++] );
-	owner_ = dynamic_cast<P_PLAYER>( FindCharBySerial( ser ) );
+	owner_ =  reinterpret_cast<P_PLAYER>(atoi(result[offset++]));
 	stablemasterSerial_ = atoi( result[offset++] );
 	setAI( result[offset++] );
 	setWanderType( ( enWanderTypes ) atoi( result[offset++] ) );
@@ -185,7 +184,7 @@ void cNPC::load( char** result, Q_UINT16& offset )
 }
 
 void cNPC::save()
-{
+{	
 	if ( changed_ )
 	{
 		initSave;
@@ -207,6 +206,7 @@ void cNPC::save()
 		addCondition( "serial", serial() );
 		saveFields;
 	}
+	
 	cBaseChar::save();
 }
 
@@ -1380,6 +1380,8 @@ void cNPC::setStablemasterSerial( SERIAL data )
 	{
 		MapObjects::instance()->remove( this );
 	}
+
+
 }
 
 cNPC* cNPC::createFromScript( const QString& section, const Coord_cl& pos )

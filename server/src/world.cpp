@@ -707,25 +707,8 @@ void cWorld::load()
 		{
 			P_NPC pNPC = dynamic_cast<P_NPC>( pChar );
 
-			// Find Owner
-			if ( pNPC && pNPC->owner() )
-			{
-				SERIAL owner = pNPC->owner()->serial();
-
-				P_PLAYER pOwner = dynamic_cast<P_PLAYER>( FindCharBySerial( owner ) );
-				if ( pOwner )
-				{
-					pNPC->setOwner( pOwner );
-					pOwner->addPet( pNPC, true );
-				}
-				else
-				{
-					Console::instance()->send( QString( "The owner of Serial 0x%1 is invalid: %2" ).arg( pNPC->serial(), 0, 16 ).arg( owner, 0, 16 ) );
-					pNPC->setOwner( NULL );
-				}
-			}
-
 			// Find Guarding
+			// this needs to move to postprocessing
 			if ( pChar->guarding() )
 			{
 				SERIAL guarding = ( SERIAL ) pChar->guarding();

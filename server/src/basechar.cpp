@@ -398,9 +398,9 @@ void cBaseChar::save( cBufferedWriter& writer )
 
 void cBaseChar::save()
 {
-	initSave;
 	if ( changed_ )
 	{
+		initSave;
 		setTable( "characters" );
 
 		addField( "serial", serial() );
@@ -464,7 +464,6 @@ void cBaseChar::save()
 		}
 	}
 	PersistentBroker::instance()->unlockTable( "skills" );
-
 	cUObject::save();
 }
 
