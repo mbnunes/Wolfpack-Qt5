@@ -112,6 +112,25 @@ class AnimateDead(Spell):
 		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'Uus Corp'
 
+	def target(self, char, mode, targettype, target, args, item):
+		char.turnto(target)
+		if target.id != 0x2006:
+			char.socket.clilocmessage(1042600)
+			return
+
+		if char.player and char.controlslots >= 5:
+			char.socket.clilocmessage(1049645)
+			return
+
+		if target.owner:
+			char.socket.sysmessage('You may not use this on players!')
+			return
+
+		if not self.consumerequirements(char, mode, args, target, item):
+			return
+
+		char.socket.sysmessage('Not yet implented')
+
 class PoisonStrike(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
