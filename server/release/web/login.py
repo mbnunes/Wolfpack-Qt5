@@ -66,15 +66,12 @@ else:
 	# Create a session
 	session = web.sessions.start_session( username )
 
+	print "Content-type: text/html\n\n"
 	print """
 <html>
 <head>
 	<title>You were logged in succesfully</title>
-	<script language="JavaScript">
-	<!--
-		window.location.href = 'main.py?session=""" + session + """';
-	// -->
-	</script>
+	<meta http-equiv="refresh" content="1; URL=main.py?session=""" + session + """">
 </head>
 <body>
 <h1>You were logged in successfully</h1><br>
