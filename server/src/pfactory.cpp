@@ -25,77 +25,21 @@
 //	* download it.
 //
 //
-//
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// WorldMain.h: interface for the CWorldMain class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(__WORLDMAIN_H__)
-#define __WORLDMAIN_H__ 
-
-// Platform Specifics 
-#include "platform.h"
+#include "pfactory.h"
+#include "iserialization.h"
+#include "serbinfile.h"
+#include "serxmlfile.h"
 
 
-// System includes
-
-#include <iostream>
-
-using namespace std;
-
-// forward class declaration
-
-class CWorldMain ;
-
-//Wolfpack Includes
-#include "typedefs.h"
-#include "debug.h"
-
-
-#include <zthread/Thread.h>
-#include <zthread/FastMutex.h>
-#include <qstring.h>
-
-
-class CWorldMain  
+ISerialization* cPluginFactory::serializationArchiver( const QString& name )
 {
-public:
-	virtual int announce();
-	virtual void announce(int choice);
-	virtual void loadnewworld( QString module = "binary" );
-	virtual void savenewworld( QString module = "binary" );
-	CWorldMain();
-	virtual ~CWorldMain();
+	// for now only hardcoded stuff.
+	if ( name == "binary")
+		return new serBinFile;
+	else if ( name == "xml")
+		return new serXmlFile;
+}
 
-	void SetLoopSaveAmt( long toSet );
-	long LoopSaveAmt( void );
-	bool Saving( void );
-	bool RemoveItemsFromCharBody(int charserial, int type1, int type2);
-private:
-	bool isSaving;
-	int DisplayWorldSaves;
-	FILE *iWsc, *cWsc;
-	unsigned long Cur, Max;
-	long PerLoop;
-
-	void SaveChar( P_CHAR );
-	void SaveItem( P_ITEM pi, P_ITEM pDefault );
-
-	class cItemsSaver : public ZThread::Thread
-	{
-	private:
-		ZThread::FastMutex waitMutex;
-		QString module;
-	public:
-		cItemsSaver(QString mod) : module(mod) {}
-		virtual ~cItemsSaver() throw() {}
-		virtual void run() throw();
-		void wait();
-	};
-};
-
-#endif 
- 

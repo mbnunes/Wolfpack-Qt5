@@ -967,10 +967,10 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, int dir, short int 
 		(!((abs(oldx-us->pos.x) <= pc->VisRange) || (abs(oldy-us->pos.y) <= pc->VisRange))))
 		{
 
-				if (visSocket != -1)
-					impowncreate(visSocket, us, 1);
-				if (socket != -1)
-					impowncreate(socket,pc,1) ;
+			if (visSocket != -1)
+				impowncreate(visSocket, us, 1);
+			if (socket != -1)
+				impowncreate(socket,pc,1) ;
 		}
 		else if ( visSocket != INVALID_UOXSOCKET ) // did we get a valid socket?
 		{

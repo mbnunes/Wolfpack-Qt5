@@ -2567,7 +2567,7 @@ void checkkey ()
 				if ( !cwmWorldState->Saving() )
 				{
 					clConsole.send( "Saving worldfile...");
-					cwmWorldState->savenewworld(1);
+					cwmWorldState->savenewworld();
 					//saveserverscript(1);
 					saveserverscript();
 					clConsole.send( "Done!\n");
@@ -3256,12 +3256,11 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	{
 		do 
 		{
-			cwmWorldState->savenewworld(1);
+			cwmWorldState->savenewworld();
 		} 
 		while ( cwmWorldState->Saving() );
 	}
 	clConsole.send("Saving Server.scp...\n");
-	//saveserverscript(1);
 	saveserverscript();
 	clConsole.send("\n");
 	clConsole.send("Deleting Classes...");

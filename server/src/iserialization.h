@@ -70,6 +70,7 @@ public:
 	virtual void close() = 0;	
 
 	virtual void setVersion(unsigned int) = 0;
+	virtual unsigned int size() = 0;
 	virtual unsigned int getVersion() = 0;
 
 	virtual void readObject( cUObject * );

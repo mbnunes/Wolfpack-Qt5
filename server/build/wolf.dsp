@@ -25,7 +25,7 @@ CFG=wolf - Win32 Debug
 # PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName ""
 # PROP Scc_LocalPath ""
-CPP=cl.exe
+CPP=xicl6.exe
 RSC=rc.exe
 
 !IF  "$(CFG)" == "wolf - Win32 Release"
@@ -49,7 +49,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib wrl.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib"
 
@@ -67,13 +67,13 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /w /W0 /Gm /GR /GX /ZI /Od /I "lib\ZThread\include" /I "lib\wrl\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /Gm /GR /GX /ZI /Od /I "lib\ZThread\include" /I "lib\wrl\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib wrl.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib"
 
@@ -256,6 +256,10 @@ SOURCE=.\packlen.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\pfactory.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\pointer.cpp
 # End Source File
 # Begin Source File
@@ -293,6 +297,10 @@ SOURCE=.\serbinfile.cpp
 # Begin Source File
 
 SOURCE=.\sertextfile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\serxmlfile.cpp
 # End Source File
 # Begin Source File
 
@@ -544,6 +552,10 @@ SOURCE=.\packlen.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\pfactory.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\platform.h
 # End Source File
 # Begin Source File
@@ -581,6 +593,10 @@ SOURCE=.\serbinfile.h
 # Begin Source File
 
 SOURCE=.\sertextfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\serxmlfile.h
 # End Source File
 # Begin Source File
 

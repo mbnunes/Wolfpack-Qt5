@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -25,57 +24,23 @@
 //	* download it.
 //
 //
-//
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined (__CWEATHER_H__)
-#define __CWEATHER_H__
+#if !defined(__PFACTORY_H__)
+#define __PFACTORY_H__
 
-//#include <zthread/Thread.h>
+class ISerialization;
+class QString;
 
-class cWeather //: public ZThread::Thread
+class cPluginFactory
 {
-public:
-	cWeather()
-	{
-        int x;
-        for(x=0;x<256;x++);
-		{
-			Type[x]=0;
-			RainChance[x]=0;
-			SnowChance[x]=0;
-			Duration[x]=0;
-			Check[x]=0;
-			StartTime[x]=0;
-			Active[x]=false;
-		}
-		CurrentRegions=0; 
-	}
-	virtual ~cWeather() throw() {}
-	void DoWeather(int s); 
-	void SetActive(int reg) 
-	{
-		if(Active[reg])
-			Active[reg]=false;
-		else
-			Active[reg]=true;
-	}
-	void WTimer();
-	void CTimer();
-	void CalcType(UOXSOCKET s);
-	virtual void run() throw();
-	virtual void kill() throw();
-	int Type[256]; // 0 dry, 1 rain, 2 snow
-	int RainChance[256]; // chance of rain in this region
-	int SnowChance[256]; // chance of snow in this region
-	unsigned int Duration[256]; // how long weather lasts in this region
-	unsigned int Check[256]; // how many seconds should it attempt to restart weather?
-	unsigned int StartTime[256]; // when it started
-	unsigned int BoltTimer[256];
-	int CurrentRegions;
-	bool Active[256]; // weather it is active or not
-};
-extern cWeather* Weather;
+private:
+	cPluginFactory(){}
 
-#endif // __CWEATHER_H__
+public:
+	static ISerialization* serializationArchiver( const QString& );
+};
+
+
+#endif // __PFACTORY_H__

@@ -93,11 +93,11 @@ bool doregionspawn(int r)//Regionspawns
 			if (FindSpotForItem(r, pos))
 			//if (FindSpotForItem(r, Coord_cl(x, y, z)))
 			{
-				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npclists[counter], 0,x,y,z );
+				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npclists[counter], 0,pos.x,pos.y,pos.z );
 				if (npc != NULL)
 				{
 					spawnregion[r].current++;
-					npc->spawnregion=r;
+					npc->spawnregion=r; 
 					return true;
 				}
 			}

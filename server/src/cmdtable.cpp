@@ -1247,7 +1247,10 @@ void command_title(UOXSOCKET s)
 void command_save(UOXSOCKET s)
 // Saves the current world data into ITEMS.WSC and CHARS.WSC.
 {
-	cwmWorldState->savenewworld(1);
+	if ( !Commands->GetAllParams().empty() )
+		cwmWorldState->savenewworld( Commands->GetAllParams().c_str() );
+	else
+		cwmWorldState->savenewworld();
 	saveserverscript();
 	return;
 }

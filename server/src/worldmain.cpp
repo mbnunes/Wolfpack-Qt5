@@ -33,7 +33,8 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "worldmain.h"
-#include "serbinfile.h"
+//#include "serbinfile.h"
+//#include "serxmlfile.h"
 #include "progress.h"
 #include "charsmgr.h"
 #include "itemsmgr.h"
@@ -42,6 +43,8 @@
 #include "regions.h"
 #include "srvparams.h"
 #include "chars.h"
+#include "pfactory.h"
+#include "iserialization.h"
 #include "wolfpack.h"
 
 #undef  DBGFILE
@@ -58,14 +61,15 @@ void CWorldMain::cItemsSaver::run() throw()
 	try
 	{
 		waitMutex.acquire();
-		serBinFile archive;
-		archive.prepareWritting("items");
+		ISerialization* archive = cPluginFactory::serializationArchiver( module );
+		archive->prepareWritting("items");
 		AllItemsIterator iterItems;
 		for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
 		{
-			archive.writeObject( iterItems.GetData() );
+			archive->writeObject( iterItems.GetData() );
 		}
-		archive.close();
+		archive->close();
+		delete archive;
 		waitMutex.release();
 	}
 	catch( ... )
@@ -346,7 +350,7 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "SPAWNREGION"))
 			{
 				pc->spawnregion = str2num(script2);
-				if (pc->spawnregion < 0 || pc->spawnregion >= spawnregion.size())
+				if ( pc->spawnregion >= spawnregion.size() )
 				{
 					pc->spawnregion = 0;
 				} else
@@ -795,18 +799,18 @@ void loaditem (int x) // Load an item from WSC
 		Items->DeleItem(pi);
 }
 
-void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
+void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 {
 
-	serBinFile archive;
-	archive.prepareReading("items"); // Load Items
+	ISerialization* archive = cPluginFactory::serializationArchiver(module);
+	archive->prepareReading("items"); // Load Items
 	string objectID;
 	register unsigned int i;
-	clConsole.send("Loading Items %i...\n", archive.size());
-	progress_display progress(archive.size());
-	for ( i = 0; i < archive.size(); ++progress, ++i)
+	clConsole.send("Loading Items %i...\n", archive->size());
+	progress_display progress(archive->size());
+	for ( i = 0; i < archive->size(); ++progress, ++i)
 	{
-		archive.readObjectID(objectID);
+		archive->readObjectID(objectID);
 		P_ITEM pi = NULL;
 		if ( objectID == "ITEM" )
 		{
@@ -823,7 +827,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		else // somethine went wrong and we have a NULL pointer.
 			continue; 
 		pi->Init(false);
-		archive.readObject( pi );
+		archive->readObject( pi );
 		cItemsManager::getInstance()->registerItem( pi );
 		if ( objectID == "GUILDSTONE" ) // register as guild as well
 			guilds.push_back(pi->serial);
@@ -843,25 +847,26 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		// Tauriel adding region pointers
 		if (pi->isInWorld())
 		{
-			int max_x = MapTileWidth  * 8;
-			int max_y = MapTileHeight * 8;
-			mapRegions->Add(pi); // it reurns 1 if inalid, if invalid it DOESNT get added !!!
+			int max_x = cMapStuff::mapTileWidth(pi->pos) * 8;
+			int max_y = cMapStuff::mapTileHeight(pi->pos) * 8;
 			if (pi->pos.x>max_x || pi->pos.y>max_y) 
 			{
 				Items->DeleItem(pi);	//these are invalid locations, delete them!
 			}
+			else
+				mapRegions->Add(pi);
 		}
 	}
 	clConsole.send(" Done.\n");
-	archive.close();
+	archive->close();
 
 	// Load Chars
-	archive.prepareReading("chars");
-	clConsole.send("Loading Characters %i...\n", archive.size());
-	progress.restart(archive.size());
-	for ( i = 0; i < archive.size(); ++progress, ++i)
+	archive->prepareReading("chars");
+	clConsole.send("Loading Characters %i...\n", archive->size());
+	progress.restart(archive->size());
+	for ( i = 0; i < archive->size(); ++progress, ++i)
 	{
-		archive.readObjectID(objectID);
+		archive->readObjectID(objectID);
 		P_CHAR pc = NULL;
 		if ( objectID == "CHARACTER" )
 		{
@@ -870,7 +875,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		}
 		else
 			continue; // Something went wrong and we have an NULL pointer
-		archive.readObject( pc );
+		archive->readObject( pc );
 		cCharsManager::getInstance()->registerChar( pc );
 		int zeta;
 		for (zeta = 0;zeta<ALLSKILLS;zeta++) if (pc->lockSkill[zeta]!=0 && pc->lockSkill[zeta]!=1 && pc->lockSkill[zeta]!=2) pc->lockSkill[zeta]=0;
@@ -925,9 +930,9 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		else
 			stablesp.insert(pc->stablemaster_serial, pc->serial);
 
-		for (int u=0;u<7;u++)
+		if (pc->isPlayer())
 		{
-			if (pc->isPlayer())
+			for (int u=0;u<7;u++)
 			{
 				if (pc->priv3[u]==0) // dont overwrite alreday saved settings
 				{
@@ -961,7 +966,8 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 		setcharflag(pc);//AntiChrist
 	}
 	clConsole.send(" Done.\n");
-	archive.close();
+	archive->close();
+	delete archive;
 }
 
 //o---------------------------------------------------------------------------o
@@ -973,7 +979,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 //|					readable script file "*.wsc". This stores all world items
 //|					and NPC/PC character information for a given shard
 //o---------------------------------------------------------------------------o
-void CWorldMain::savenewworld(char x)
+void CWorldMain::savenewworld(QString module)
 {
 	static unsigned long ocCount, oiCount;
 
@@ -993,20 +999,21 @@ void CWorldMain::savenewworld(char x)
 	}
 
 
-	cItemsSaver ItemsThread;
+	cItemsSaver ItemsThread(module);
 	ItemsThread.start();
 
 	saveserverscript();
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
 
-	serBinFile archive;
-	archive.prepareWritting("chars");
+	ISerialization* archive = cPluginFactory::serializationArchiver( module );
+	archive->prepareWritting("chars");
 	AllCharsIterator iterChars;
 	for (iterChars.Begin(); !iterChars.atEnd(); ++iterChars)
 	{
-		archive.writeObject( iterChars.GetData() );
+		archive->writeObject( iterChars.GetData() );
 	}
-	archive.close();
+	archive->close();
+	delete archive;
 
 	ItemsThread.join();
 
