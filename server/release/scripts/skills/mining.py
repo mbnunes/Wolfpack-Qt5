@@ -17,13 +17,21 @@ from random import randrange
 
 #in seconds
 miningdelay = 1000
-orerespawndelay = randrange( 5, 10 ) * 60000 # 5 - 10 minutes
+orerespawndelay = randrange( MINING_MIN_REFILLTIME, MINING_MAX_REFILLTIME )
+orespawnamount = randrange( MINING_MIN_ORE, MINING_MAX_ORE )
 
 # 0x19b7, 0x19b8, 0x19ba give 1 ingot.
 # 0x19b9 gives 2 ingots.
 oreids = [ 0x19b7, 0x19b8, 0x19ba, 0x19b9 ]
 oredefs = [ '19b7', '19b8', '19ba', '19b9' ]
 
+# Mining Harvest Table Items
+REQSKILL = 0
+MINSKILL = 1
+MAXSKILL = 2
+SUCCESSCLILOC = 3
+COLORID = 4
+RESOURCENAME = 5
 # resname, reqSkill, minSkill, maxSkill, successClilocId, color, 'ore name'
 oretable = \
 {
@@ -48,45 +56,50 @@ def mining( char, pos, tool ):
 	char.action( ANIM_ATTACK3 )
 	return OK
 
+def createoregem( pos ):
+	gem = wolfpack.additem( 'ore_gem' )
+	gem.settag( 'resourcecount', str( orespawnamount ) ) # 10 - 34 ore
+	gem.settag( 'resname', 'iron' ) # All veins should default to iron ore.
+	# This will give it a chance to be a random ore type, this can change later.
+	colorchance = randrange( 0, 100 )
+	if colorchance >= 99 and colorchance <= 100: # %2 chance for merkite (99 - 100)
+		gem.settag( 'resname2', 'mythril' )
+	elif colorchance >= 96 and colorchance <= 98: # %3 chance for merkite (96 - 99)
+		gem.settag( 'resname2', 'merkite')
+	elif colorchance >= 92 and colorchance <= 95: # 4% chance for valorite (92 - 95)
+		gem.settag( 'resname2', 'valorite' )
+	elif colorchance >= 87 and colorchance <= 91: # 5% chance for verite (87 - 91)
+		gem.settag( 'resname2', 'verite')
+	elif colorchance >= 81 and colorchance <= 86: # 6% chance for agapite (81 - 86)
+		gem.settag( 'resname2', 'agapite')
+	elif colorchance >= 74 and colorchance <= 80: # 7% chance for silver (74 - 80)
+		gem.settag( 'resname2', 'silver')
+	elif colorchance >= 66 and colorchance <= 73: # 8% chance for gold (66 - 73)
+		gem.settag( 'resname2', 'gold')
+	elif colorchance >= 57 and colorchance <= 65: # 9% chance for bronze (57 - 65)
+		gem.settag( 'resname2', 'bronze')
+	elif colorchance >= 47 and colorchance <= 56: # 10% chance for copper (47 - 56)
+		gem.settag( 'resname2', 'copper')
+	elif colorchance >= 36 and colorchance <= 46: # 11% chance for shadow iron (36 - 46)
+		gem.settag( 'resname2', 'shadowiron')
+	elif colorchance >= 24 and colorchance <= 35: # 12% chance for dull copper (24 - 35)
+		gem.settag( 'resname2', 'dullcopper')
+	gem.moveto( pos )
+	gem.visible = 0
+	gem.update()
+	return gem
+
 def getvein( socket, pos ):
 	#Check if we have ore_gems near ( range = 4 )
 	gems = wolfpack.items( pos.x, pos.y, pos.map, 4 )
-	if len( gems ) < 1:
-		gem = wolfpack.additem( 'ore_gem' )
-		gem.settag( 'resourcecount', str( randrange( 10, 34 ) ) ) # 10 - 34 ore
-		gem.settag( 'resname', 'iron' ) # All veins should default to iron ore.
-		
-		# This will give it a chance to be a random ore type, this can change later.
-		colorchance = randrange( 0, 100 )
-		if colorchance >= 99 and colorchance <= 100: # %2 chance for merkite (99 - 100)
-			gem.settag( 'resname2', 'mythril' )
-		elif colorchance >= 96 and colorchance <= 98: # %3 chance for merkite (96 - 99)
-			gem.settag( 'resname2', 'merkite')
-		elif colorchance >= 92 and colorchance <= 95: # 4% chance for valorite (92 - 95)
-			gem.settag( 'resname2', 'valorite' )
-		elif colorchance >= 87 and colorchance <= 91: # 5% chance for verite (87 - 91)
-			gem.settag( 'resname2', 'verite')
-		elif colorchance >= 81 and colorchance <= 86: # 6% chance for agapite (81 - 86)
-			gem.settag( 'resname2', 'agapite')
-		elif colorchance >= 74 and colorchance <= 80: # 7% chance for silver (74 - 80)
-			gem.settag( 'resname2', 'silver')
-		elif colorchance >= 66 and colorchance <= 73: # 8% chance for gold (66 - 73)
-			gem.settag( 'resname2', 'gold')
-		elif colorchance >= 57 and colorchance <= 65: # 9% chance for bronze (57 - 65)
-			gem.settag( 'resname2', 'bronze')
-		elif colorchance >= 47 and colorchance <= 56: # 10% chance for copper (47 - 56)
-			gem.settag( 'resname2', 'copper')
-		elif colorchance >= 36 and colorchance <= 46: # 11% chance for shadow iron (36 - 46)
-			gem.settag( 'resname2', 'shadowiron')
-		elif colorchance >= 24 and colorchance <= 35: # 12% chance for dull copper (24 - 35)
-			gem.settag( 'resname2', 'dullcopper')
-
-		gem.moveto( pos )
-		gem.visible = 0
-		gem.update()
+	for gem in gems:
+		if wolfpack.finditem( gem.serial ):
+			if gem.hastag('resource') and gem.gettag('resource') == 'ore' and gem.hastag('resname') and gem.id == hex2dec(0x1ea7):
+				return gem
+				break
+	if not gems:
+		gem = createoregem( pos )
 		return gem
-	else:
-		return gems[0]
 
 #Response from mining tool
 def response( char, args, target ):
@@ -156,11 +169,13 @@ def domining( time, args ):
 			veingem = getvein( socket, pos )
 			if not veingem:
 				char.deltag( 'ore_gem' )
-				return OOPS
+				veingem = createoregem( pos )
+				char.settag( 'ore_gem', str( veingem.serial ) )
 	else:
 		veingem = getvein( socket, pos )
 		if not veingem:
-			return OOPS
+			veingem = createoregem( pos )
+			char.settag( 'ore_gem', str( veingem.serial ) )
 		else:
 			char.settag( 'ore_gem', str( veingem.serial ) )
 	
@@ -168,7 +183,7 @@ def domining( time, args ):
 		veingem = getvein( socket, pos )
 	
 	if not veingem:
-		return OOPS
+		veingem = createoregem( pos )
 	
 	if not veingem.hastag( 'resname' ) or not veingem.hastag( 'resourcecount' ):
 		return OOPS
@@ -187,9 +202,11 @@ def domining( time, args ):
 	reqskill = oretable[ resname ][ REQSKILL ]
 
 	success = 0
-	char.update()
-	char.updatestats()
 	
+	if char.pos.map != pos.map or char.pos.distance( pos ) > MINING_MAX_DISTANCE:
+		char.socket.clilocmessage( 501867, '', GRAY )
+		return OOPS
+		
 	# Are you skilled enough ? And here is ore ?
 	if ( resourcecount >= 1 ) and ( char.skill[ MINING ] >= reqskill ):
 		if not skills.checkskill( char, veingem, MINING, 0 ):
@@ -245,7 +262,10 @@ def successmining( char, gem, table, resname, amount, ore ):
 	resourceitem.decay = 1
 	resourceitem.name = str( table[ resname ][ RESOURCENAME ] )
 	resourceitem.color = table[ resname ][ COLORID ]
-	resourceitem.amount = amount
+	if (FELUCIA2XRESGAIN == TRUE) and (char.pos.map  == 0):
+		resourceitem.amount = amount * 2
+	else:
+		resourceitem.amount = amount
 	resourceitem.settag( 'resname', str( resname ) ) # Used when smelting
 	
 	if not gem.hastag('resourcecount'):
@@ -272,6 +292,6 @@ def successmining( char, gem, table, resname, amount, ore ):
 def respawnvein( time, args ):
 	vein = args[0]
 	if vein.hastag ('resource_empty') and int( vein.gettag( 'resourcecount' ) ) == 0:
-		vein.settag( 'resourcecount', str( randrange( 10, 34 ) ) )
+		vein.settag( 'resourcecount', str( orespawnamount ) )
 		vein.deltag('resource_empty')
 	return OK

@@ -10,6 +10,12 @@
 # Which port should the remote admin run on
 REMOTEADMIN_PORT = 2594
 
+# Age of Shadows Stuff
+# AGEOFSHADOWS, enable Age of Shadows features
+# FELUCIA2XRESGAIN, double gain resources
+AGEOFSHADOWS = 1			# 1 = True || 0 = False
+FELUCIA2XRESGAIN = 0		# 1 = True || 0 = False
+
 # Spell Settings
 CLUMSY_DURATION = 60000
 
@@ -29,16 +35,20 @@ FISHING_MAX_DISTANCE = 6 # Maximum Distance to fishing ground
 FISHING_BLOCK_RANGE = 13 # How many Z-Units of free space need to be above the fishing ground
 
 # Lumberjacking Settings
-LUMBERJACKING_MIN_LOGS = 10
-LUMBERJACKING_MAX_LOGS = 15
+LUMBERJACKING_MIN_LOGS = 5 # 5 chops = 10 or 20 per chop
+LUMBERJACKING_MAX_LOGS = 10 # 10 chops = 10 or 20 per chop
 LUMBERJACKING_MIN_SKILL = 0
-LUMBERJACKING_MAX_SKILL = 600
-LUMBERJACKING_REFILLTIME = 60 * 5 # 5 Minutes Refresh time for trees
-LUMBERJACKING_MAX_DISTANCE = 2
+LUMBERJACKING_MAX_SKILL = 850
+LUMBERJACKING_MIN_REFILLTIME = 300000 # 5 Minutes Min Refresh time for trees
+LUMBERJACKING_MAX_REFILLTIME = 600000 # 10 Minutes Max Refresh time for trees
+LUMBERJACKING_MAX_DISTANCE = 1 # Makes sure we are next to the tree
 
 # Mining Settings
-MINING_MAX_DISTANCE = 3
-
+MINING_MAX_DISTANCE = 2
+MINING_MIN_REFILLTIME = 300000 # 5 Minutes Min Refresh time for trees
+MINING_MAX_REFILLTIME = 600000 # 10 Minutes Max Refresh time for trees
+MINING_MIN_ORE = 10
+MINING_MAX_ORE = 34
 
 # Skill Constants
 ALCHEMY = 0
@@ -377,14 +387,6 @@ NORMAL = 3
 # Results
 OK = 1
 OOPS = 0
-
-# Mining Harvest Table Items
-REQSKILL = 0
-MINSKILL = 1
-MAXSKILL = 2
-SUCCESSCLILOC = 3
-COLORID = 4
-RESOURCENAME = 5
 
 #SKILLS GROW LOCKS
 GROWUP = 0
