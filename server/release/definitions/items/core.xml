@@ -17,4 +17,8 @@
 		<newbie />
 	</item>
 
+	<item id="ITEM_NO_DECAY">
+		<nodecay />
+	</item>
+
 </definitions>

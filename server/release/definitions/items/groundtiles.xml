@@ -12,3179 +12,3179 @@
 <definitions>
 
 	<!-- Unlabeled -->
-	<item id="40b">
+	<item id="40b" inherit="ITEM_NO_DECAY">
 		<id>0x040b</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 1</category>
 	</item>
 
-	<item id="40c">
+	<item id="40c" inherit="ITEM_NO_DECAY">
 		<id>0x040c</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 2</category>
 	</item>
 
-	<item id="40d">
+	<item id="40d" inherit="ITEM_NO_DECAY">
 		<id>0x040d</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 3</category>
 	</item>
 
-	<item id="40e">
+	<item id="40e" inherit="ITEM_NO_DECAY">
 		<id>0x040e</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 4</category>
 	</item>
 
-	<item id="40f">
+	<item id="40f" inherit="ITEM_NO_DECAY">
 		<id>0x040f</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 5</category>
 	</item>
 
-	<item id="410">
+	<item id="410" inherit="ITEM_NO_DECAY">
 		<id>0x0410</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 6</category>
 	</item>
 
-	<item id="411">
+	<item id="411" inherit="ITEM_NO_DECAY">
 		<id>0x0411</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 7</category>
 	</item>
 
-	<item id="412">
+	<item id="412" inherit="ITEM_NO_DECAY">
 		<id>0x0412</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 8</category>
 	</item>
 
-	<item id="413">
+	<item id="413" inherit="ITEM_NO_DECAY">
 		<id>0x0413</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 9</category>
 	</item>
 
-	<item id="414">
+	<item id="414" inherit="ITEM_NO_DECAY">
 		<id>0x0414</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 10</category>
 	</item>
 
-	<item id="415">
+	<item id="415" inherit="ITEM_NO_DECAY">
 		<id>0x0415</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 11</category>
 	</item>
 
-	<item id="416">
+	<item id="416" inherit="ITEM_NO_DECAY">
 		<id>0x0416</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 12</category>
 	</item>
 
-	<item id="417">
+	<item id="417" inherit="ITEM_NO_DECAY">
 		<id>0x0417</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 13</category>
 	</item>
 
-	<item id="418">
+	<item id="418" inherit="ITEM_NO_DECAY">
 		<id>0x0418</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 14</category>
 	</item>
 
-	<item id="419">
+	<item id="419" inherit="ITEM_NO_DECAY">
 		<id>0x0419</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 15</category>
 	</item>
 
-	<item id="41a">
+	<item id="41a" inherit="ITEM_NO_DECAY">
 		<id>0x041a</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 16</category>
 	</item>
 
-	<item id="41b">
+	<item id="41b" inherit="ITEM_NO_DECAY">
 		<id>0x041b</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 17</category>
 	</item>
 
-	<item id="41c">
+	<item id="41c" inherit="ITEM_NO_DECAY">
 		<id>0x041c</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 18</category>
 	</item>
 
-	<item id="41d">
+	<item id="41d" inherit="ITEM_NO_DECAY">
 		<id>0x041d</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 19</category>
 	</item>
 
-	<item id="41e">
+	<item id="41e" inherit="ITEM_NO_DECAY">
 		<id>0x041e</id>
 		<category>Ground Tiles\Unlabeled\Unlabeled 20</category>
 	</item>
 
 	<!-- Dirt Patches -->
-	<item id="911">
+	<item id="911" inherit="ITEM_NO_DECAY">
 		<id>0x0911</id>
 		<category>Ground Tiles\Dirt Patches\Dirt Patch 1</category>
 	</item>
 
-	<item id="912">
+	<item id="912" inherit="ITEM_NO_DECAY">
 		<id>0x0912</id>
 		<category>Ground Tiles\Dirt Patches\Dirt Patch 2</category>
 	</item>
 
-	<item id="913">
+	<item id="913" inherit="ITEM_NO_DECAY">
 		<id>0x0913</id>
 		<category>Ground Tiles\Dirt Patches\Dirt Patch 3</category>
 	</item>
 
-	<item id="914">
+	<item id="914" inherit="ITEM_NO_DECAY">
 		<id>0x0914</id>
 		<category>Ground Tiles\Dirt Patches\Dirt Patch 4</category>
 	</item>
 
 	<!-- Rest of file done by Aerandir! -->
 	<!-- Lava animated tiles -->
-    <item id="12ee">
+    <item id="12ee" inherit="ITEM_NO_DECAY">
 		<id>0x12ee</id>
 		<category>Ground Tiles\Lava\Lava\Lava 1</category>
 	</item>
 
-	<item id="12f4">
+	<item id="12f4" inherit="ITEM_NO_DECAY">
 		<id>0x12f4</id>
 		<category>Ground Tiles\Lava\Lava\Lava 2</category>
 	</item>
 
-	<item id="12fa">
+	<item id="12fa" inherit="ITEM_NO_DECAY">
 		<id>0x12fa</id>
 		<category>Ground Tiles\Lava\Lava\Lava 3</category>
 	</item>
 
-	<item id="12fe">
+	<item id="12fe" inherit="ITEM_NO_DECAY">
 		<id>0x12fe</id>
 		<category>Ground Tiles\Lava\Lava\Lava 4</category>
 	</item>
 
-	<item id="1300">
+	<item id="1300" inherit="ITEM_NO_DECAY">
 		<id>0x1300</id>
 		<category>Ground Tiles\Lava\Lava\Lava 5</category>
 	</item>
 
-	<item id="1306">
+	<item id="1306" inherit="ITEM_NO_DECAY">
 		<id>0x1306</id>
 		<category>Ground Tiles\Lava\Lava\Lava 6</category>
 	</item>
 
-	<item id="130c">
+	<item id="130c" inherit="ITEM_NO_DECAY">
 		<id>0x130c</id>
 		<category>Ground Tiles\Lava\Lava\Lava 7</category>
 	</item>
 
-	<item id="1312">
+	<item id="1312" inherit="ITEM_NO_DECAY">
 		<id>0x1312</id>
 		<category>Ground Tiles\Lava\Lava\Lava 8</category>
 	</item>
 
-	<item id="1318">
+	<item id="1318" inherit="ITEM_NO_DECAY">
 		<id>0x1318</id>
 		<category>Ground Tiles\Lava\Lava\Lava 9</category>
 	</item>
 
-	<item id="3462">
+	<item id="3462" inherit="ITEM_NO_DECAY">
 		<id>0x3462</id>
 		<category>Ground Tiles\Lava\Lava\Lava 10</category>
 	</item>
 
-	<item id="3468">
+	<item id="3468" inherit="ITEM_NO_DECAY">
 		<id>0x3468</id>
 		<category>Ground Tiles\Lava\Lava\Lava 11</category>
 	</item>
 
 	<!-- Lava animated border -->
-	<item id="131e">
+	<item id="131e" inherit="ITEM_NO_DECAY">
 		<id>0x131e</id>
 		<category>Ground Tiles\Lava\Border\Border 1</category>
 	</item>
 
-	<item id="1324">
+	<item id="1324" inherit="ITEM_NO_DECAY">
 		<id>0x1324</id>
 		<category>Ground Tiles\Lava\Border\Border 2</category>
 	</item>
 
-	<item id="1327">
+	<item id="1327" inherit="ITEM_NO_DECAY">
 		<id>0x1327</id>
 		<category>Ground Tiles\Lava\Border\Border 3</category>
 	</item>
 
-	<item id="132a">
+	<item id="132a" inherit="ITEM_NO_DECAY">
 		<id>0x132a</id>
 		<category>Ground Tiles\Lava\Border\Border 4</category>
 	</item>
 
-	<item id="132d">
+	<item id="132d" inherit="ITEM_NO_DECAY">
 		<id>0x132d</id>
 		<category>Ground Tiles\Lava\Border\Border 5</category>
 	</item>
 
-	<item id="1330">
+	<item id="1330" inherit="ITEM_NO_DECAY">
 		<id>0x1330</id>
 		<category>Ground Tiles\Lava\Border\Border 6</category>
 	</item>
 
-	<item id="1333">
+	<item id="1333" inherit="ITEM_NO_DECAY">
 		<id>0x1333</id>
 		<category>Ground Tiles\Lava\Border\Border 7</category>
 	</item>
 
-	<item id="1336">
+	<item id="1336" inherit="ITEM_NO_DECAY">
 		<id>0x1336</id>
 		<category>Ground Tiles\Lava\Border\Border 8</category>
 	</item>
 
-	<item id="1339">
+	<item id="1339" inherit="ITEM_NO_DECAY">
 		<id>0x1339</id>
 		<category>Ground Tiles\Lava\Border\Border 9</category>
 	</item>
 
-	<item id="133c">
+	<item id="133c" inherit="ITEM_NO_DECAY">
 		<id>0x133c</id>
 		<category>Ground Tiles\Lava\Border\Border 10</category>
 	</item>
 
-	<item id="133f">
+	<item id="133f" inherit="ITEM_NO_DECAY">
 		<id>0x133f</id>
 		<category>Ground Tiles\Lava\Border\Border 11</category>
 	</item>
 
-	<item id="1342">
+	<item id="1342" inherit="ITEM_NO_DECAY">
 		<id>0x1342</id>
 		<category>Ground Tiles\Lava\Border\Border 12</category>
 	</item>
 
-	<item id="1345">
+	<item id="1345" inherit="ITEM_NO_DECAY">
 		<id>0x1345</id>
 		<category>Ground Tiles\Lava\Border\Border 13</category>
 	</item>
 
-	<item id="1348">
+	<item id="1348" inherit="ITEM_NO_DECAY">
 		<id>0x1348</id>
 		<category>Ground Tiles\Lava\Border\Border 14</category>
 	</item>
 
-	<item id="134b">
+	<item id="134b" inherit="ITEM_NO_DECAY">
 		<id>0x134b</id>
 	<category>Ground Tiles\Lava\Border\Border 15</category>
 	</item>
 
 	<!-- Lava: misc tiles -->
-	<item id="1a19">
+	<item id="1a19" inherit="ITEM_NO_DECAY">
 		<id>0x1a19</id>
 		<category>Ground Tiles\Lava\Misc\Lava 1</category>
 	</item>
 
-	<item id="1a1e">
+	<item id="1a1e" inherit="ITEM_NO_DECAY">
 		<id>0x1a1e</id>
 		<category>Ground Tiles\Lava\Misc\Lava 2</category>
 	</item>
 
-	<item id="1a23">
+	<item id="1a23" inherit="ITEM_NO_DECAY">
 		<id>0x1a23</id>
 		<category>Ground Tiles\Lava\Misc\Lava 3</category>
 	</item>
 
-	<item id="1a28">
+	<item id="1a28" inherit="ITEM_NO_DECAY">
 		<id>0x1a28</id>
 		<category>Ground Tiles\Lava\Misc\Lava 4</category>
 	</item>
 
-	<item id="1a2d">
+	<item id="1a2d" inherit="ITEM_NO_DECAY">
 		<id>0x1a2d</id>
 		<category>Ground Tiles\Lava\Misc\Lava 5</category>
 	</item>
 
-	<item id="1a32">
+	<item id="1a32" inherit="ITEM_NO_DECAY">
 		<id>0x1a32</id>
 		<category>Ground Tiles\Lava\Misc\Lava 5</category>
 	</item>
 
-	<item id="1a37">
+	<item id="1a37" inherit="ITEM_NO_DECAY">
 		<id>0x1a37</id>
 		<category>Ground Tiles\Lava\Misc\Lava 6</category>
 	</item>
 
-	<item id="1a3b">
+	<item id="1a3b" inherit="ITEM_NO_DECAY">
 		<id>0x1a3b</id>
 		<category>Ground Tiles\Lava\Misc\Lava 7</category>
 	</item>
 
-	<item id="1a3f">
+	<item id="1a3f" inherit="ITEM_NO_DECAY">
 		<id>0x1a3f</id>
 		<category>Ground Tiles\Lava\Misc\Lava 8</category>
 	</item>
 
-	<item id="1a43">
+	<item id="1a43" inherit="ITEM_NO_DECAY">
 		<id>0x1a43</id>
 		<category>Ground Tiles\Lava\Misc\Lava 9</category>
 	</item>
 
-	<item id="1a47">
+	<item id="1a47" inherit="ITEM_NO_DECAY">
 		<id>0x1a47</id>
 		<category>Ground Tiles\Lava\Misc\Lava 10</category>
 	</item>
 
-	<item id="1a4c">
+	<item id="1a4c" inherit="ITEM_NO_DECAY">
 		<id>0x1a4c</id>
 		<category>Ground Tiles\Lava\Misc\Lava 11</category>
 	</item>
 
-	<item id="1a51">
+	<item id="1a51" inherit="ITEM_NO_DECAY">
 		<id>0x1a51</id>
 		<category>Ground Tiles\Lava\Misc\Lava 12</category>
 	</item>
 
-	<item id="1a56">
+	<item id="1a56" inherit="ITEM_NO_DECAY">
 		<id>0x1a56</id>
 		<category>Ground Tiles\Lava\Misc\Lava 13</category>
 	</item>
 
-	<item id="1a5b">
+	<item id="1a5b" inherit="ITEM_NO_DECAY">
 		<id>0x1a5b</id>
 		<category>Ground Tiles\Lava\Misc\Lava 14</category>
 	</item>
 
-	<item id="1a60">
+	<item id="1a60" inherit="ITEM_NO_DECAY">
 		<id>0x1a60</id>
 		<category>Ground Tiles\Lava\Misc\Lava 15</category>
 	</item>
 
-	<item id="1a65">
+	<item id="1a65" inherit="ITEM_NO_DECAY">
 		<id>0x1a65</id>
 		<category>Ground Tiles\Lava\Misc\Lava 16</category>
 	</item>
 
-	<item id="1a69">
+	<item id="1a69" inherit="ITEM_NO_DECAY">
 		<id>0x1a69</id>
 		<category>Ground Tiles\Lava\Misc\Lava 17</category>
 	</item>
 
-	<item id="1a6d">
+	<item id="1a6d" inherit="ITEM_NO_DECAY">
 		<id>0x1a6d</id>
 		<category>Ground Tiles\Lava\Misc\Lava 18</category>
 	</item>
 
-	<item id="1a71">
+	<item id="1a71" inherit="ITEM_NO_DECAY">
 		<id>0x1a71</id>
 		<category>Ground Tiles\Lava\Misc\Lava 19</category>
 	</item>
 
-	<item id="343b">
+	<item id="343b" inherit="ITEM_NO_DECAY">
 		<id>0x343b</id>
 		<category>Ground Tiles\Lava\Misc\Blob\Lava 1</category>
 	</item>
 
-	<item id="3447">
+	<item id="3447" inherit="ITEM_NO_DECAY">
 		<id>0x3447</id>
 		<category>Ground Tiles\Lava\Misc\Blob\Lava 2</category>
 	</item>
 
-	<item id="344e">
+	<item id="344e" inherit="ITEM_NO_DECAY">
 		<id>0x344e</id>
 		<category>Ground Tiles\Lava\Misc\Blob\Lava 3</category>
 	</item>
 
-	<item id="3459">
+	<item id="3459" inherit="ITEM_NO_DECAY">
 		<id>0x3459</id>
 		<category>Ground Tiles\Lava\Misc\Blob\Lava 4</category>
 	</item>
 
-	<item id="1a75">
+	<item id="1a75" inherit="ITEM_NO_DECAY">
 		<id>0x1a75</id>
 		<category>Ground Tiles\Lava\Misc\Blob\Lava 5</category>
 	</item>
 
-	<item id="2ae4">
+	<item id="2ae4" inherit="ITEM_NO_DECAY">
 		<id>0x2ae4</id>
 		<category>Ground Tiles\Lava\Misc\Blob\Lava 6</category>
 	</item>
 
-	<item id="2ae5">
+	<item id="2ae5" inherit="ITEM_NO_DECAY">
 		<id>0x2ae5</id>
 		<category>Ground Tiles\Lava\Misc\Blob\Lava 7</category>
 	</item>
 
 	<!-- Lava: not animated border -->
-	<item id="3286">
+	<item id="3286" inherit="ITEM_NO_DECAY">
 		<id>0x3286</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 1</category>
 	</item>
 
-	<item id="3287">
+	<item id="3287" inherit="ITEM_NO_DECAY">
 		<id>0x3287</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 2</category>
 	</item>
 
-	<item id="3288">
+	<item id="3288" inherit="ITEM_NO_DECAY">
 		<id>0x3288</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 3</category>
 	</item>
 
-	<item id="3289">
+	<item id="3289" inherit="ITEM_NO_DECAY">
 		<id>0x3289</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 4</category>
 	</item>
 
-	<item id="328a">
+	<item id="328a" inherit="ITEM_NO_DECAY">
 		<id>0x328a</id>
 	<category>Ground Tiles\Lava\Not animated\Border\Lava 5</category>
 	</item>
 
-	<item id="328b">
+	<item id="328b" inherit="ITEM_NO_DECAY">
 		<id>0x328b</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 6</category>
 	</item>
 
-	<item id="328c">
+	<item id="328c" inherit="ITEM_NO_DECAY">
 		<id>0x328c</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 7</category>
 	</item>
 
-	<item id="328d">
+	<item id="328d" inherit="ITEM_NO_DECAY">
 		<id>0x328d</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 8</category>
 	</item>
 
-	<item id="328e">
+	<item id="328e" inherit="ITEM_NO_DECAY">
 		<id>0x328e</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 9</category>
 	</item>
 
-	<item id="328f">
+	<item id="328f" inherit="ITEM_NO_DECAY">
 		<id>0x328f</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 10</category>
 	</item>
 
-	<item id="3290">
+	<item id="3290" inherit="ITEM_NO_DECAY">
 		<id>0x3290</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 11</category>
 	</item>
 
-	<item id="3291">
+	<item id="3291" inherit="ITEM_NO_DECAY">
 		<id>0x3291</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 12</category>
 	</item>
 
-	<item id="3292">
+	<item id="3292" inherit="ITEM_NO_DECAY">
 		<id>0x3292</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 13</category>
 	</item>
 
-	<item id="3293">
+	<item id="3293" inherit="ITEM_NO_DECAY">
 		<id>0x3293</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 14</category>
 	</item>
 
-	<item id="3294">
+	<item id="3294" inherit="ITEM_NO_DECAY">
 		<id>0x3294</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 15</category>
 	</item>
 
-	<item id="3295">
+	<item id="3295" inherit="ITEM_NO_DECAY">
 		<id>0x3295</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 16</category>
 	</item>
 
-	<item id="329a">
+	<item id="329a" inherit="ITEM_NO_DECAY">
 		<id>0x329a</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 17</category>
 	</item>
 
-	<item id="329b">
+	<item id="329b" inherit="ITEM_NO_DECAY">
 		<id>0x329b</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 18</category>
 	</item>
 
-	<item id="329c">
+	<item id="329c" inherit="ITEM_NO_DECAY">
 		<id>0x329c</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 19</category>
 	</item>
 
-	<item id="329d">
+	<item id="329d" inherit="ITEM_NO_DECAY">
 		<id>0x329d</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 20</category>
 	</item>
 
-	<item id="329e">
+	<item id="329e" inherit="ITEM_NO_DECAY">
 		<id>0x329e</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 21</category>
 	</item>
 
-	<item id="329f">
+	<item id="329f" inherit="ITEM_NO_DECAY">
 		<id>0x329f</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 22</category>
 	</item>
 
-	<item id="32a0">
+	<item id="32a0" inherit="ITEM_NO_DECAY">
 		<id>0x32a0</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 23</category>
 	</item>
 
-	<item id="32a1">
+	<item id="32a1" inherit="ITEM_NO_DECAY">
 		<id>0x32a1</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 24</category>
 	</item>
 
-	<item id="32a2">
+	<item id="32a2" inherit="ITEM_NO_DECAY">
 		<id>0x32a2</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 25</category>
 	</item>
 
-	<item id="32a3">
+	<item id="32a3" inherit="ITEM_NO_DECAY">
 		<id>0x32a3</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 26</category>
 	</item>
 
-	<item id="32a4">
+	<item id="32a4" inherit="ITEM_NO_DECAY">
 		<id>0x32a4</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 27</category>
 	</item>
 
-	<item id="32a5">
+	<item id="32a5" inherit="ITEM_NO_DECAY">
 		<id>0x32a5</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 28</category>
 	</item>
 
-	<item id="32a6">
+	<item id="32a6" inherit="ITEM_NO_DECAY">
 		<id>0x32a6</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 29</category>
 	</item>
 
-	<item id="32a7">
+	<item id="32a7" inherit="ITEM_NO_DECAY">
 		<id>0x32a7</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 30</category>
 	</item>
 
-	<item id="32a8">
+	<item id="32a8" inherit="ITEM_NO_DECAY">
 		<id>0x32a8</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 31</category>
 	</item>
 
-	<item id="32a9">
+	<item id="32a9" inherit="ITEM_NO_DECAY">
 		<id>0x32a9</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 32</category>
 	</item>
 
-	<item id="32aa">
+	<item id="32aa" inherit="ITEM_NO_DECAY">
 		<id>0x32aa</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 33</category>
 	</item>
 
-	<item id="32ab">
+	<item id="32ab" inherit="ITEM_NO_DECAY">
 		<id>0x32ab</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 34</category>
 	</item>
 
-	<item id="32ac">
+	<item id="32ac" inherit="ITEM_NO_DECAY">
 		<id>0x32ac</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 35</category>
 	</item>
 
-	<item id="32ad">
+	<item id="32ad" inherit="ITEM_NO_DECAY">
 		<id>0x32ad</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 36</category>
 	</item>
 
-	<item id="32ae">
+	<item id="32ae" inherit="ITEM_NO_DECAY">
 		<id>0x32ae</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 37</category>
 	</item>
 
-	<item id="32af">
+	<item id="32af" inherit="ITEM_NO_DECAY">
 		<id>0x32af</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 38</category>
 	</item>
 
-	<item id="32b0">
+	<item id="32b0" inherit="ITEM_NO_DECAY">
 		<id>0x32b0</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 39</category>
 	</item>
 
-	<item id="32b1">
+	<item id="32b1" inherit="ITEM_NO_DECAY">
 		<id>0x32b1</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 40</category>
 	</item>
 
-	<item id="354d">
+	<item id="354d" inherit="ITEM_NO_DECAY">
 		<id>0x354d</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 41</category>
 	</item>
 
-	<item id="354e">
+	<item id="354e" inherit="ITEM_NO_DECAY">
 		<id>0x354e</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 42</category>
 	</item>
 
-	<item id="354f">
+	<item id="354f" inherit="ITEM_NO_DECAY">
 		<id>0x354f</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 43</category>
 	</item>
 
-	<item id="3550">
+	<item id="3550" inherit="ITEM_NO_DECAY">
 		<id>0x3550</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 44</category>
 	</item>
 
-	<item id="3551">
+	<item id="3551" inherit="ITEM_NO_DECAY">
 		<id>0x3551</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 45</category>
 	</item>
 
-	<item id="3552">
+	<item id="3552" inherit="ITEM_NO_DECAY">
 		<id>0x3552</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 46</category>
 	</item>
 
-	<item id="3553">
+	<item id="3553" inherit="ITEM_NO_DECAY">
 		<id>0x3553</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 47</category>
 	</item>
 
-	<item id="3554">
+	<item id="3554" inherit="ITEM_NO_DECAY">
 		<id>0x3554</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 48</category>
 	</item>
 
-	<item id="3555">
+	<item id="3555" inherit="ITEM_NO_DECAY">
 		<id>0x3555</id>
 	<category>Ground Tiles\Lava\Not animated\Border\Lava 49</category>
 	</item>
 
-	<item id="3556">
+	<item id="3556" inherit="ITEM_NO_DECAY">
 		<id>0x3556</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 50</category>
 	</item>
 
-	<item id="3557">
+	<item id="3557" inherit="ITEM_NO_DECAY">
 		<id>0x3557</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 51</category>
 	</item>
 
-	<item id="3558">
+	<item id="3558" inherit="ITEM_NO_DECAY">
 		<id>0x3558</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 52</category>
 	</item>
 
-	<item id="3559">
+	<item id="3559" inherit="ITEM_NO_DECAY">
 		<id>0x3559</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 53</category>
 	</item>
 
-	<item id="355a">
+	<item id="355a" inherit="ITEM_NO_DECAY">
 		<id>0x355a</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 54</category>
 	</item>
 
-	<item id="355b">
+	<item id="355b" inherit="ITEM_NO_DECAY">
 		<id>0x355b</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 55</category>
 	</item>
 
-	<item id="355c">
+	<item id="355c" inherit="ITEM_NO_DECAY">
 		<id>0x355c</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 56</category>
 	</item>
 
-	<item id="355d">
+	<item id="355d" inherit="ITEM_NO_DECAY">
 		<id>0x355d</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 57</category>
 	</item>
 
-	<item id="355e">
+	<item id="355e" inherit="ITEM_NO_DECAY">
 		<id>0x355e</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 58</category>
 	</item>
 
-	<item id="355f">
+	<item id="355f" inherit="ITEM_NO_DECAY">
 		<id>0x355f</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 59</category>
 	</item>
 
-	<item id="3560">
+	<item id="3560" inherit="ITEM_NO_DECAY">
 		<id>0x3560</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 60</category>
 	</item>
 
-	<item id="3561">
+	<item id="3561" inherit="ITEM_NO_DECAY">
 		<id>0x3561</id>
 		<category>Ground Tiles\Lava\Not animated\Border\Lava 61</category>
 	</item>
 
 	<!-- Lava: Not animated  -->
-	<item id="3296">
+	<item id="3296" inherit="ITEM_NO_DECAY">
 		<id>0x3296</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 1</category>
 	</item>
 
-	<item id="3297">
+	<item id="3297" inherit="ITEM_NO_DECAY">
 		<id>0x3297</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 2</category>
 	</item>
 
-	<item id="3298">
+	<item id="3298" inherit="ITEM_NO_DECAY">
 		<id>0x3298</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 3</category>
 	</item>
 
-	<item id="3299">
+	<item id="3299" inherit="ITEM_NO_DECAY">
 		<id>0x3299</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 4</category>
 	</item>
 
-	<item id="3547">
+	<item id="3547" inherit="ITEM_NO_DECAY">
 		<id>0x3547</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 5</category>
 	</item>
 
-	<item id="3548">
+	<item id="3548" inherit="ITEM_NO_DECAY">
 		<id>0x3548</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 6</category>
 	</item>
 
-	<item id="3549">
+	<item id="3549" inherit="ITEM_NO_DECAY">
 		<id>0x3549</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 7</category>
 	</item>
 
-	<item id="354a">
+	<item id="354a" inherit="ITEM_NO_DECAY">
 		<id>0x354a</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 8</category>
 	</item>
 
-	<item id="354b">
+	<item id="354b" inherit="ITEM_NO_DECAY">
 		<id>0x354b</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 9</category>
 	</item>
 
-	<item id="354c">
+	<item id="354c" inherit="ITEM_NO_DECAY">
 		<id>0x354c</id>
 		<category>Ground Tiles\Lava\Not animated\Lava 10</category>
 	</item>
 
 	<!-- Water:Animated tiles -->
-	<item id="1fa3">
+	<item id="1fa3" inherit="ITEM_NO_DECAY">
 		<id>0x1fa3</id>
 		<category>Ground Tiles\Water\Waves\Wave 1</category>
 	</item>
 
-	<item id="1fa4">
+	<item id="1fa4" inherit="ITEM_NO_DECAY">
 		<id>0x1fa4</id>
 		<category>Ground Tiles\Water\Waves\Wave 2</category>
 	</item>
 
-	<item id="1fa5">
+	<item id="1fa5" inherit="ITEM_NO_DECAY">
 		<id>0x1fa5</id>
 		<category>Ground Tiles\Water\Waves\Wave 3</category>
 	</item>
 
-	<item id="1fa6">
+	<item id="1fa6" inherit="ITEM_NO_DECAY">
 		<id>0x1fa6</id>
 		<category>Ground Tiles\Water\Waves\Wave 4</category>
 	</item>
 
-	<item id="1fa7">
+	<item id="1fa7" inherit="ITEM_NO_DECAY">
 		<id>0x1fa7</id>
 		<category>Ground Tiles\Water\Waves\Wave 5</category>
 	</item>
 
-	<item id="1fa8">
+	<item id="1fa8" inherit="ITEM_NO_DECAY">
 		<id>0x1fa8</id>
 		<category>Ground Tiles\Water\Waves\Wave 6</category>
 	</item>
 
-	<item id="1fa9">
+	<item id="1fa9" inherit="ITEM_NO_DECAY">
 		<id>0x1fa9</id>
 		<category>Ground Tiles\Water\Waves\Wave 7</category>
 	</item>
 
-	<item id="1faa">
+	<item id="1faa" inherit="ITEM_NO_DECAY">
 		<id>0x1faa</id>
 		<category>Ground Tiles\Water\Waves\Wave 8</category>
 	</item>
 
-	<item id="1fab">
+	<item id="1fab" inherit="ITEM_NO_DECAY">
 		<id>0x1fab</id>
 		<category>Ground Tiles\Water\Waves\Wave 9</category>
 	</item>
 
-	<item id="1fac">
+	<item id="1fac" inherit="ITEM_NO_DECAY">
 		<id>0x1fac</id>
 		<category>Ground Tiles\Water\Waves\Wave 10</category>
 	</item>
 
-	<item id="1fad">
+	<item id="1fad" inherit="ITEM_NO_DECAY">
 		<id>0x1fad</id>
 		<category>Ground Tiles\Water\Waves\Wave 11</category>
 	</item>
 
-	<item id="1fae">
+	<item id="1fae" inherit="ITEM_NO_DECAY">
 		<id>0x1fae</id>
 		<category>Ground Tiles\Water\Waves\Wave 12</category>
 	</item>
 
-	<item id="1faf">
+	<item id="1faf" inherit="ITEM_NO_DECAY">
 		<id>0x1faf</id>
 		<category>Ground Tiles\Water\Waves\Wave 13</category>
 	</item>
 
-	<item id="1fb0">
+	<item id="1fb0" inherit="ITEM_NO_DECAY">
 		<id>0x1fb0</id>
 		<category>Ground Tiles\Water\Waves\Wave 14</category>
 	</item>
 
-	<item id="1fb1">
+	<item id="1fb1" inherit="ITEM_NO_DECAY">
 		<id>0x1fb1</id>
 		<category>Ground Tiles\Water\Waves\Wave 15</category>
 	</item>
 
-	<item id="1fb2">
+	<item id="1fb2" inherit="ITEM_NO_DECAY">
 		<id>0x1fb2</id>
 		<category>Ground Tiles\Water\Waves\Wave 16</category>
 	</item>
 
-	<item id="1fb3">
+	<item id="1fb3" inherit="ITEM_NO_DECAY">
 		<id>0x1fb3</id>
 		<category>Ground Tiles\Water\Waves\Wave 17</category>
 	</item>
 
-	<item id="1fb4">
+	<item id="1fb4" inherit="ITEM_NO_DECAY">
 		<id>0x1fb4</id>
 		<category>Ground Tiles\Water\Waves\Wave 18</category>
 	</item>
 
-	<item id="1fb5">
+	<item id="1fb5" inherit="ITEM_NO_DECAY">
 		<id>0x1fb5</id>
 		<category>Ground Tiles\Water\Waves\Wave 19</category>
 	</item>
 
-	<item id="1fb6">
+	<item id="1fb6" inherit="ITEM_NO_DECAY">
 		<id>0x1fb6</id>
 		<category>Ground Tiles\Water\Waves\Wave 20</category>
 	</item>
 
-	<item id="1fb7">
+	<item id="1fb7" inherit="ITEM_NO_DECAY">
 		<id>0x1fb7</id>
 		<category>Ground Tiles\Water\Waves\Wave 21</category>
 	</item>
 
-	<item id="1fb8">
+	<item id="1fb8" inherit="ITEM_NO_DECAY">
 		<id>0x1fb8</id>
 		<category>Ground Tiles\Water\Waves\Wave 22</category>
 	</item>
 
-	<item id="1fb9">
+	<item id="1fb9" inherit="ITEM_NO_DECAY">
 		<id>0x1fb9</id>
 		<category>Ground Tiles\Water\Waves\Wave 23</category>
 	</item>
 
-	<item id="1fba">
+	<item id="1fba" inherit="ITEM_NO_DECAY">
 		<id>0x1fba</id>
 		<category>Ground Tiles\Water\Waves\Wave 24</category>
 	</item>
 
-	<item id="1fbb">
+	<item id="1fbb" inherit="ITEM_NO_DECAY">
 		<id>0x1fbb</id>
 		<category>Ground Tiles\Water\Waves\Wave 25</category>
 	</item>
 
-	<item id="1fbc">
+	<item id="1fbc" inherit="ITEM_NO_DECAY">
 		<id>0x1fbc</id>
 		<category>Ground Tiles\Water\Waves\Wave 26</category>
 	</item>
 
-	<item id="1fbd">
+	<item id="1fbd" inherit="ITEM_NO_DECAY">
 		<id>0x1fbd</id>
 		<category>Ground Tiles\Water\Waves\Wave 27</category>
 	</item>
 
-	<item id="1fbe">
+	<item id="1fbe" inherit="ITEM_NO_DECAY">
 		<id>0x1fbe</id>
 		<category>Ground Tiles\Water\Waves\Wave 28</category>
 	</item>
 
-	<item id="1fbf">
+	<item id="1fbf" inherit="ITEM_NO_DECAY">
 		<id>0x1fbf</id>
 	<category>Ground Tiles\Water\Waves\Wave 29</category>
 	</item>
 
-	<item id="1fc0">
+	<item id="1fc0" inherit="ITEM_NO_DECAY">
 		<id>0x1fc0</id>
 		<category>Ground Tiles\Water\Waves\Wave 30</category>
 	</item>
 
-	<item id="1fc1">
+	<item id="1fc1" inherit="ITEM_NO_DECAY">
 		<id>0x1fc1</id>
 		<category>Ground Tiles\Water\Waves\Wave 31</category>
 	</item>
 
-	<item id="1fc2">
+	<item id="1fc2" inherit="ITEM_NO_DECAY">
 		<id>0x1fc2</id>
 		<category>Ground Tiles\Water\Waves\Wave 32</category>
 	</item>
 
-	<item id="1fc3">
+	<item id="1fc3" inherit="ITEM_NO_DECAY">
 		<id>0x1fc3</id>
 		<category>Ground Tiles\Water\Waves\Wave 33</category>
 	</item>
 
-	<item id="1fc4">
+	<item id="1fc4" inherit="ITEM_NO_DECAY">
 		<id>0x1fc4</id>
 		<category>Ground Tiles\Water\Waves\Wave 34</category>
 	</item>
 
-	<item id="1fc5">
+	<item id="1fc5" inherit="ITEM_NO_DECAY">
 		<id>0x1fc5</id>
 		<category>Ground Tiles\Water\Waves\Wave 35</category>
 	</item>
 
-	<item id="1fc6">
+	<item id="1fc6" inherit="ITEM_NO_DECAY">
 		<id>0x1fc6</id>
 		<category>Ground Tiles\Water\Waves\Wave 36</category>
 	</item>
 
-	<item id="1fc7">
+	<item id="1fc7" inherit="ITEM_NO_DECAY">
 		<id>0x1fc7</id>
 		<category>Ground Tiles\Water\Waves\Wave 37</category>
 	</item>
 
-	<item id="1fc8">
+	<item id="1fc8" inherit="ITEM_NO_DECAY">
 		<id>0x1fc8</id>
 		<category>Ground Tiles\Water\Waves\Wave 38</category>
 	</item>
 
-	<item id="1fc9">
+	<item id="1fc9" inherit="ITEM_NO_DECAY">
 		<id>0x1fc9</id>
 		<category>Ground Tiles\Water\Waves\Wave 39</category>
 	</item>
 
-	<item id="1fca">
+	<item id="1fca" inherit="ITEM_NO_DECAY">
 		<id>0x1fca</id>
 		<category>Ground Tiles\Water\Waves\Wave 40</category>
 	</item>
 
-	<item id="346e">
+	<item id="346e" inherit="ITEM_NO_DECAY">
 		<id>0x346e</id>
 		<category>Ground Tiles\Water\Water 1</category>
 	</item>
 
-	<item id="346f">
+	<item id="346f" inherit="ITEM_NO_DECAY">
 		<id>0x346f</id>
 		<category>Ground Tiles\Water\Water 2</category>
 	</item>
 
-	<item id="3470">
+	<item id="3470" inherit="ITEM_NO_DECAY">
 		<id>0x3470</id>
 		<category>Ground Tiles\Water\Water 3</category>
 	</item>
 
-	<item id="3471">
+	<item id="3471" inherit="ITEM_NO_DECAY">
 		<id>0x3471</id>
 		<category>Ground Tiles\Water\Water 4</category>
 	</item>
 
-	<item id="3472">
+	<item id="3472" inherit="ITEM_NO_DECAY">
 		<id>0x3472</id>
 		<category>Ground Tiles\Water\Water 5</category>
 	</item>
 
-	<item id="3473">
+	<item id="3473" inherit="ITEM_NO_DECAY">
 		<id>0x3473</id>
 		<category>Ground Tiles\Water\Water 6</category>
 	</item>
 
-	<item id="3474">
+	<item id="3474" inherit="ITEM_NO_DECAY">
 		<id>0x3474</id>
 		<category>Ground Tiles\Water\Water 7</category>
 	</item>
 
-	<item id="3475">
+	<item id="3475" inherit="ITEM_NO_DECAY">
 		<id>0x3475</id>
 		<category>Ground Tiles\Water\Water 8</category>
 	</item>
 
-	<item id="3476">
+	<item id="3476" inherit="ITEM_NO_DECAY">
 		<id>0x3476</id>
 		<category>Ground Tiles\Water\Water 9</category>
 	</item>
 
-	<item id="3477">
+	<item id="3477" inherit="ITEM_NO_DECAY">
 		<id>0x3477</id>
 		<category>Ground Tiles\Water\Water 10</category>
 	</item>
 
-	<item id="3478">
+	<item id="3478" inherit="ITEM_NO_DECAY">
 		<id>0x3478</id>
 		<category>Ground Tiles\Water\Water 11</category>
 	</item>
 
-	<item id="3479">
+	<item id="3479" inherit="ITEM_NO_DECAY">
 		<id>0x3479</id>
 		<category>Ground Tiles\Water\Water 12</category>
 	</item>
 
-	<item id="347a">
+	<item id="347a" inherit="ITEM_NO_DECAY">
 		<id>0x347a</id>
 		<category>Ground Tiles\Water\Water 13</category>
 	</item>
 
-	<item id="347b">
+	<item id="347b" inherit="ITEM_NO_DECAY">
 		<id>0x347b</id>
 		<category>Ground Tiles\Water\Water 14</category>
 	</item>
 
-	<item id="347c">
+	<item id="347c" inherit="ITEM_NO_DECAY">
 		<id>0x347c</id>
 		<category>Ground Tiles\Water\Water 15</category>
 	</item>
 
-	<item id="347d">
+	<item id="347d" inherit="ITEM_NO_DECAY">
 		<id>0x347d</id>
 		<category>Ground Tiles\Water\Water 16</category>
 	</item>
 
-	<item id="347e">
+	<item id="347e" inherit="ITEM_NO_DECAY">
 		<id>0x347e</id>
 		<category>Ground Tiles\Water\Water 17</category>
 	</item>
 
-	<item id="347f">
+	<item id="347f" inherit="ITEM_NO_DECAY">
 		<id>0x347f</id>
 		<category>Ground Tiles\Water\Water 18</category>
 	</item>
 
-	<item id="3480">
+	<item id="3480" inherit="ITEM_NO_DECAY">
 		<id>0x3480</id>
 		<category>Ground Tiles\Water\Water 19</category>
 	</item>
 
-	<item id="3481">
+	<item id="3481" inherit="ITEM_NO_DECAY">
 		<id>0x3481</id>
 		<category>Ground Tiles\Water\Water 20</category>
 	</item>
 
-	<item id="3482">
+	<item id="3482" inherit="ITEM_NO_DECAY">
 		<id>0x3482</id>
 		<category>Ground Tiles\Water\Water 21</category>
 	</item>
 
-	<item id="3483">
+	<item id="3483" inherit="ITEM_NO_DECAY">
 		<id>0x3483</id>
 		<category>Ground Tiles\Water\Water 22</category>
 	</item>
 
-	<item id="3484">
+	<item id="3484" inherit="ITEM_NO_DECAY">
 		<id>0x3484</id>
 		<category>Ground Tiles\Water\Water 23</category>
 	</item>
 
-	<item id="3485">
+	<item id="3485" inherit="ITEM_NO_DECAY">
 		<id>0x3485</id>
 		<category>Ground Tiles\Water\Water 24</category>
 	</item>
 
-	<item id="3490">
+	<item id="3490" inherit="ITEM_NO_DECAY">
 		<id>0x3490</id>
 		<category>Ground Tiles\Water\Water 25</category>
 	</item>
 
-	<item id="3491">
+	<item id="3491" inherit="ITEM_NO_DECAY">
 		<id>0x3491</id>
 		<category>Ground Tiles\Water\Water 26</category>
 	</item>
 
-	<item id="3492">
+	<item id="3492" inherit="ITEM_NO_DECAY">
 		<id>0x3492</id>
 		<category>Ground Tiles\Water\Water 27</category>
 	</item>
 
-	<item id="3493">
+	<item id="3493" inherit="ITEM_NO_DECAY">
 		<id>0x3493</id>
 		<category>Ground Tiles\Water\Water 28</category>
 	</item>
 
-	<item id="3494">
+	<item id="3494" inherit="ITEM_NO_DECAY">
 		<id>0x3494</id>
 		<category>Ground Tiles\Water\Water 29</category>
 	</item>
 
-	<item id="3495">
+	<item id="3495" inherit="ITEM_NO_DECAY">
 		<id>0x3495</id>
 		<category>Ground Tiles\Water\Water 30</category>
 	</item>
 
-	<item id="3496">
+	<item id="3496" inherit="ITEM_NO_DECAY">
 		<id>0x3496</id>
 		<category>Ground Tiles\Water\Water 31</category>
 	</item>
 
-	<item id="3497">
+	<item id="3497" inherit="ITEM_NO_DECAY">
 		<id>0x3497</id>
 		<category>Ground Tiles\Water\Water 32</category>
 	</item>
 
-	<item id="3498">
+	<item id="3498" inherit="ITEM_NO_DECAY">
 		<id>0x3498</id>
 		<category>Ground Tiles\Water\Water 33</category>
 	</item>
 
-	<item id="3499">
+	<item id="3499" inherit="ITEM_NO_DECAY">
 		<id>0x3499</id>
 		<category>Ground Tiles\Water\Water 34</category>
 	</item>
 
-	<item id="349a">
+	<item id="349a" inherit="ITEM_NO_DECAY">
 		<id>0x349a</id>
 		<category>Ground Tiles\Water\Water 35</category>
 	</item>
 
-	<item id="349b">
+	<item id="349b" inherit="ITEM_NO_DECAY">
 		<id>0x349b</id>
 		<category>Ground Tiles\Water\Water 36</category>
 	</item>
 
-	<item id="349c">
+	<item id="349c" inherit="ITEM_NO_DECAY">
 		<id>0x349c</id>
 		<category>Ground Tiles\Water\Water 37</category>
 	</item>
 
-	<item id="349d">
+	<item id="349d" inherit="ITEM_NO_DECAY">
 		<id>0x349d</id>
 		<category>Ground Tiles\Water\Water 38</category>
 	</item>
 
-	<item id="349e">
+	<item id="349e" inherit="ITEM_NO_DECAY">
 		<id>0x349e</id>
 		<category>Ground Tiles\Water\Water 39</category>
 	</item>
 
-	<item id="349f">
+	<item id="349f" inherit="ITEM_NO_DECAY">
 		<id>0x349f</id>
 		<category>Ground Tiles\Water\Water 40</category>
 	</item>
 
-	<item id="34a0">
+	<item id="34a0" inherit="ITEM_NO_DECAY">
 		<id>0x34a0</id>
 		<category>Ground Tiles\Water\Water 41</category>
 	</item>
 
-	<item id="34a1">
+	<item id="34a1" inherit="ITEM_NO_DECAY">
 		<id>0x34a1</id>
 		<category>Ground Tiles\Water\Water 42</category>
 	</item>
 
-	<item id="34a2">
+	<item id="34a2" inherit="ITEM_NO_DECAY">
 		<id>0x34a2</id>
 		<category>Ground Tiles\Water\Water 43</category>
 	</item>
 
-	<item id="34a3">
+	<item id="34a3" inherit="ITEM_NO_DECAY">
 		<id>0x34a3</id>
 		<category>Ground Tiles\Water\Water 44</category>
 	</item>
 
-	<item id="34a4">
+	<item id="34a4" inherit="ITEM_NO_DECAY">
 		<id>0x34a4</id>
 		<category>Ground Tiles\Water\Water 45</category>
 	</item>
 
-	<item id="34a5">
+	<item id="34a5" inherit="ITEM_NO_DECAY">
 		<id>0x34a5</id>
 		<category>Ground Tiles\Water\Water 46</category>
 	</item>
 
-	<item id="34a6">
+	<item id="34a6" inherit="ITEM_NO_DECAY">
 		<id>0x34a6</id>
 		<category>Ground Tiles\Water\Water 47</category>
 	</item>
 
-	<item id="34a7">
+	<item id="34a7" inherit="ITEM_NO_DECAY">
 		<id>0x34a7</id>
 		<category>Ground Tiles\Water\Water 48</category>
 	</item>
 
-	<item id="34a8">
+	<item id="34a8" inherit="ITEM_NO_DECAY">
 		<id>0x34a8</id>
 		<category>Ground Tiles\Water\Water 49</category>
 	</item>
 
-	<item id="34a9">
+	<item id="34a9" inherit="ITEM_NO_DECAY">
 		<id>0x34a9</id>
 		<category>Ground Tiles\Water\Water 50</category>
 	</item>
 
-	<item id="34aa">
+	<item id="34aa" inherit="ITEM_NO_DECAY">
 		<id>0x34aa</id>
 		<category>Ground Tiles\Water\Water 51</category>
 	</item>
 
-	<item id="34ab">
+	<item id="34ab" inherit="ITEM_NO_DECAY">
 		<id>0x34ab</id>
 		<category>Ground Tiles\Water\Water 52</category>
 	</item>
 
-	<item id="34b5">
+	<item id="34b5" inherit="ITEM_NO_DECAY">
 		<id>0x34b5</id>
 		<category>Ground Tiles\Water\Water 53</category>
 	</item>
 
-	<item id="34b6">
+	<item id="34b6" inherit="ITEM_NO_DECAY">
 		<id>0x34b6</id>
 		<category>Ground Tiles\Water\Water 54</category>
 	</item>
 
-	<item id="34b7">
+	<item id="34b7" inherit="ITEM_NO_DECAY">
 		<id>0x34b7</id>
 		<category>Ground Tiles\Water\Water 55</category>
 	</item>
 
-	<item id="34b8">
+	<item id="34b8" inherit="ITEM_NO_DECAY">
 		<id>0x34b8</id>
 		<category>Ground Tiles\Water\Water 56</category>
 	</item>
 
-	<item id="34b9">
+	<item id="34b9" inherit="ITEM_NO_DECAY">
 		<id>0x34b9</id>
 		<category>Ground Tiles\Water\Water 57</category>
 	</item>
 
-	<item id="34ba">
+	<item id="34ba" inherit="ITEM_NO_DECAY">
 		<id>0x34ba</id>
 		<category>Ground Tiles\Water\Water 58</category>
 	</item>
 
-	<item id="34bb">
+	<item id="34bb" inherit="ITEM_NO_DECAY">
 		<id>0x34bb</id>
 		<category>Ground Tiles\Water\Water 59</category>
 	</item>
 
-	<item id="34bd">
+	<item id="34bd" inherit="ITEM_NO_DECAY">
 		<id>0x34bd</id>
 		<category>Ground Tiles\Water\Water 60</category>
 	</item>
 
-	<item id="34be">
+	<item id="34be" inherit="ITEM_NO_DECAY">
 		<id>0x34be</id>
 		<category>Ground Tiles\Water\Water 61</category>
 	</item>
 
-	<item id="34bf">
+	<item id="34bf" inherit="ITEM_NO_DECAY">
 		<id>0x34bf</id>
 		<category>Ground Tiles\Water\Water 62</category>
 	</item>
 
-	<item id="34c0">
+	<item id="34c0" inherit="ITEM_NO_DECAY">
 		<id>0x34c0</id>
 		<category>Ground Tiles\Water\Water 63</category>
 	</item>
 
-	<item id="34c2">
+	<item id="34c2" inherit="ITEM_NO_DECAY">
 		<id>0x34c2</id>
 		<category>Ground Tiles\Water\Water 64</category>
 	</item>
 
-	<item id="34c3">
+	<item id="34c3" inherit="ITEM_NO_DECAY">
 		<id>0x34c3</id>
 		<category>Ground Tiles\Water\Water 65</category>
 	</item>
 
-	<item id="34c4">
+	<item id="34c4" inherit="ITEM_NO_DECAY">
 		<id>0x34c4</id>
 		<category>Ground Tiles\Water\Water 66</category>
 	</item>
 
-	<item id="34c5">
+	<item id="34c5" inherit="ITEM_NO_DECAY">
 		<id>0x34c5</id>
 		<category>Ground Tiles\Water\Water 67</category>
 	</item>
 
-	<item id="34c7">
+	<item id="34c7" inherit="ITEM_NO_DECAY">
 		<id>0x34c7</id>
 		<category>Ground Tiles\Water\Water 68</category>
 	</item>
 
-	<item id="34c8">
+	<item id="34c8" inherit="ITEM_NO_DECAY">
 		<id>0x34c8</id>
 		<category>Ground Tiles\Water\Water 69</category>
 	</item>
 
-	<item id="34c9">
+	<item id="34c9" inherit="ITEM_NO_DECAY">
 		<id>0x34c9</id>
 		<category>Ground Tiles\Water\Water 70</category>
 	</item>
 
-	<item id="34ca">
+	<item id="34ca" inherit="ITEM_NO_DECAY">
 		<id>0x34ca</id>
 		<category>Ground Tiles\Water\Water 71</category>
 	</item>
 
-	<item id="34d1">
+	<item id="34d1" inherit="ITEM_NO_DECAY">
 		<id>0x34d1</id>
 		<category>Ground Tiles\Water\Water 72</category>
 	</item>
 
-	<item id="34d2">
+	<item id="34d2" inherit="ITEM_NO_DECAY">
 		<id>0x34d2</id>
 		<category>Ground Tiles\Water\Water 73</category>
 	</item>
 
-	<item id="34d3">
+	<item id="34d3" inherit="ITEM_NO_DECAY">
 		<id>0x34d3</id>
 		<category>Ground Tiles\Water\Water 74</category>
 	</item>
 
-	<item id="34d4">
+	<item id="34d4" inherit="ITEM_NO_DECAY">
 		<id>0x34d4</id>
 		<category>Ground Tiles\Water\Water 75</category>
 	</item>
 
 	<!-- Water:Not animated tiles -->
- 	<item id="1796">
+ 	<item id="1796" inherit="ITEM_NO_DECAY">
 		<id>0x1796</id>
 		<category>Ground Tiles\Water\Not animated\Water 1</category>
 	</item>
 
-	<item id="1797">
+	<item id="1797" inherit="ITEM_NO_DECAY">
 		<id>0x1797</id>
 		<category>Ground Tiles\Water\Not animated\Water 2</category>
 	</item>
 
-	<item id="1798">
+	<item id="1798" inherit="ITEM_NO_DECAY">
 		<id>0x1798</id>
 		<category>Ground Tiles\Water\Not animated\Water 3</category>
 	</item>
 
-	<item id="1799">
+	<item id="1799" inherit="ITEM_NO_DECAY">
 		<id>0x1799</id>
 		<category>Ground Tiles\Water\Not animated\Water 4</category>
 	</item>
 
-	<item id="179a">
+	<item id="179a" inherit="ITEM_NO_DECAY">
 		<id>0x179a</id>
 		<category>Ground Tiles\Water\Not animated\Water 5</category>
 	</item>
 
-	<item id="179b">
+	<item id="179b" inherit="ITEM_NO_DECAY">
 		<id>0x179b</id>
 		<category>Ground Tiles\Water\Not animated\Water 6</category>
 	</item>
 
-	<item id="179c">
+	<item id="179c" inherit="ITEM_NO_DECAY">
 		<id>0x179c</id>
 		<category>Ground Tiles\Water\Not animated\Water 7</category>
 	</item>
 
 	<!-- Water:Misc -->
 	<!-- Water:rocks in water -->
-	<item id="3486">
+	<item id="3486" inherit="ITEM_NO_DECAY">
 		<id>0x3486</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 1</category>
 	</item>
 
-	<item id="3487">
+	<item id="3487" inherit="ITEM_NO_DECAY">
 		<id>0x3487</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 2</category>
 	</item>
 
-	<item id="3488">
+	<item id="3488" inherit="ITEM_NO_DECAY">
 		<id>0x3488</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 3</category>
 	</item>
 
-	<item id="3489">
+	<item id="3489" inherit="ITEM_NO_DECAY">
 		<id>0x3489</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 4</category>
 	</item>
 
-	<item id="348a">
+	<item id="348a" inherit="ITEM_NO_DECAY">
 		<id>0x348a</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 5</category>
 	</item>
 
-	<item id="348b">
+	<item id="348b" inherit="ITEM_NO_DECAY">
 		<id>0x348b</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 6</category>
 	</item>
 
-	<item id="34ac">
+	<item id="34ac" inherit="ITEM_NO_DECAY">
 		<id>0x34ac</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 7</category>
 	</item>
 
-	<item id="34b3">
+	<item id="34b3" inherit="ITEM_NO_DECAY">
 		<id>0x34b3</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 8</category>
 	</item>
 
-	<item id="34b4">
+	<item id="34b4" inherit="ITEM_NO_DECAY">
 		<id>0x34b4</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 9</category>
 	</item>
 
-	<item id="34b0">
+	<item id="34b0" inherit="ITEM_NO_DECAY">
 		<id>0x34b0</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 10</category>
 	</item>
 
-	<item id="34b1">
+	<item id="34b1" inherit="ITEM_NO_DECAY">
 		<id>0x34b1</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 11</category>
 	</item>
 
-	<item id="34b2">
+	<item id="34b2" inherit="ITEM_NO_DECAY">
 		<id>0x34b2</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 12</category>
 	</item>
 
-	<item id="34ad">
+	<item id="34ad" inherit="ITEM_NO_DECAY">
 		<id>0x34ad</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 13</category>
 	</item>
 
-	<item id="34ae">
+	<item id="34ae" inherit="ITEM_NO_DECAY">
 		<id>0x34ae</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 14</category>
 	</item>
 
-	<item id="34af">
+	<item id="34af" inherit="ITEM_NO_DECAY">
 		<id>0x34af</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 15</category>
 	</item>
 
-	<item id="348c">
+	<item id="348c" inherit="ITEM_NO_DECAY">
 		<id>0x348c</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 16</category>
 	</item>
 
-	<item id="348d">
+	<item id="348d" inherit="ITEM_NO_DECAY">
 		<id>0x348d</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 17</category>
 	</item>
 
-	<item id="348e">
+	<item id="348e" inherit="ITEM_NO_DECAY">
 		<id>0x348e</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 18</category>
 	</item>
 
-	<item id="348f">
+	<item id="348f" inherit="ITEM_NO_DECAY">
 		<id>0x348f</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 19</category>
 	</item>
 
-	<item id="3421">
+	<item id="3421" inherit="ITEM_NO_DECAY">
 		<id>0x3421</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 20</category>
 	</item>
 
-	<item id="3422">
+	<item id="3422" inherit="ITEM_NO_DECAY">
 		<id>0x3422</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 21</category>
 	</item>
 
-	<item id="3423">
+	<item id="3423" inherit="ITEM_NO_DECAY">
 		<id>0x3423</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 22</category>
 	</item>
 
-	<item id="3424">
+	<item id="3424" inherit="ITEM_NO_DECAY">
 		<id>0x3424</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 23</category>
 	</item>
 
-	<item id="3426">
+	<item id="3426" inherit="ITEM_NO_DECAY">
 		<id>0x3426</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 24</category>
 	</item>
 
-	<item id="3427">
+	<item id="3427" inherit="ITEM_NO_DECAY">
 		<id>0x3427</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 25</category>
 	</item>
 
-	<item id="3428">
+	<item id="3428" inherit="ITEM_NO_DECAY">
 		<id>0x3428</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 26</category>
 	</item>
 
-	<item id="3429">
+	<item id="3429" inherit="ITEM_NO_DECAY">
 		<id>0x3429</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 27</category>
 	</item>
 
-	<item id="342c">
+	<item id="342c" inherit="ITEM_NO_DECAY">
 		<id>0x342c</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 28</category>
 	</item>
 
-	<item id="342d">
+	<item id="342d" inherit="ITEM_NO_DECAY">
 		<id>0x342d</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 29</category>
 	</item>
 
-	<item id="342e">
+	<item id="342e" inherit="ITEM_NO_DECAY">
 		<id>0x342e</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 30</category>
 	</item>
 
-	<item id="342f">
+	<item id="342f" inherit="ITEM_NO_DECAY">
 		<id>0x342f</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 31</category>
 	</item>
 
-	<item id="3430">
+	<item id="3430" inherit="ITEM_NO_DECAY">
 		<id>0x3430</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 32</category>
 	</item>
 
-	<item id="3431">
+	<item id="3431" inherit="ITEM_NO_DECAY">
 		<id>0x3431</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 33</category>
 	</item>
 
-	<item id="3432">
+	<item id="3432" inherit="ITEM_NO_DECAY">
 		<id>0x3432</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 34</category>
 	</item>
 
-	<item id="3433">
+	<item id="3433" inherit="ITEM_NO_DECAY">
 		<id>0x3433</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 35</category>
 	</item>
 
- 	<item id="3434">
+ 	<item id="3434" inherit="ITEM_NO_DECAY">
 		<id>0x3434</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 36</category>
 	</item>
 
-	<item id="3435">
+	<item id="3435" inherit="ITEM_NO_DECAY">
 		<id>0x3435</id>
 		<category>Ground Tiles\Water\Misc\Rocks\Rock 37</category>
 	</item>
 
 
 <!--Water:Waterfall-->
-	<item id="34d5">
+	<item id="34d5" inherit="ITEM_NO_DECAY">
 		<id>0x34d5</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 1</category>
 	</item>
 
-	<item id="34ed">
+	<item id="34ed" inherit="ITEM_NO_DECAY">
 		<id>0x34ed</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 2</category>
 	</item>
 
-	<item id="34ee">
+	<item id="34ee" inherit="ITEM_NO_DECAY">
 		<id>0x34ee</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 3</category>
 	</item>
 
-	<item id="34ef">
+	<item id="34ef" inherit="ITEM_NO_DECAY">
 		<id>0x34ef</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 4</category>
 	</item>
 
-	<item id="34f0">
+	<item id="34f0" inherit="ITEM_NO_DECAY">
 		<id>0x34f0</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 5</category>
 	</item>
 
-	<item id="34f1">
+	<item id="34f1" inherit="ITEM_NO_DECAY">
 		<id>0x34f1</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 6</category>
 	</item>
 
-	<item id="34f2">
+	<item id="34f2" inherit="ITEM_NO_DECAY">
 		<id>0x34f2</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 7</category>
 	</item>
 
-	<item id="34f3">
+	<item id="34f3" inherit="ITEM_NO_DECAY">
 		<id>0x34f3</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 8</category>
 	</item>
 
-	<item id="34f4">
+	<item id="34f4" inherit="ITEM_NO_DECAY">
 		<id>0x34f4</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 9</category>
 	</item>
 
-	<item id="34f5">
+	<item id="34f5" inherit="ITEM_NO_DECAY">
 		<id>0x34f5</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 10</category>
 	</item>
 
-	<item id="34f6">
+	<item id="34f6" inherit="ITEM_NO_DECAY">
 		<id>0x34f6</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 11</category>
 	</item>
 
-	<item id="34f7">
+	<item id="34f7" inherit="ITEM_NO_DECAY">
 		<id>0x34f7</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 12</category>
 	</item>
 
-	<item id="34f8">
+	<item id="34f8" inherit="ITEM_NO_DECAY">
 		<id>0x34f8</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 13</category>
 	</item>
 
-	<item id="34f9">
+	<item id="34f9" inherit="ITEM_NO_DECAY">
 		<id>0x34f9</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 14</category>
 	</item>
 
-	<item id="34fa">
+	<item id="34fa" inherit="ITEM_NO_DECAY">
 		<id>0x34fa</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 15</category>
 	</item>
 
-	<item id="34fb">
+	<item id="34fb" inherit="ITEM_NO_DECAY">
 		<id>0x34fb</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 16</category>
 	</item>
 
-	<item id="34fc">
+	<item id="34fc" inherit="ITEM_NO_DECAY">
 		<id>0x34fc</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 17</category>
 	</item>
 
-	<item id="34fd">
+	<item id="34fd" inherit="ITEM_NO_DECAY">
 		<id>0x34fd</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 18</category>
 	</item>
 
-	<item id="34fe">
+	<item id="34fe" inherit="ITEM_NO_DECAY">
 		<id>0x34fe</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 19</category>
 	</item>
 
-	<item id="34ff">
+	<item id="34ff" inherit="ITEM_NO_DECAY">
 		<id>0x34ff</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 20</category>
 	</item>
 
-	<item id="3500">
+	<item id="3500" inherit="ITEM_NO_DECAY">
 		<id>0x3500</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 21</category>
 	</item>
 
-	<item id="3501">
+	<item id="3501" inherit="ITEM_NO_DECAY">
 		<id>0x3501</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 22</category>
 	</item>
 
-	<item id="3502">
+	<item id="3502" inherit="ITEM_NO_DECAY">
 		<id>0x3502</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 23</category>
 	</item>
 
-	<item id="3503">
+	<item id="3503" inherit="ITEM_NO_DECAY">
 		<id>0x3503</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 24</category>
 	</item>
 
-	<item id="3504">
+	<item id="3504" inherit="ITEM_NO_DECAY">
 		<id>0x3504</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 25</category>
 	</item>
 
-	<item id="3505">
+	<item id="3505" inherit="ITEM_NO_DECAY">
 		<id>0x3505</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 26</category>
 	</item>
 
-	<item id="3506">
+	<item id="3506" inherit="ITEM_NO_DECAY">
 		<id>0x3506</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 27</category>
 	</item>
 
-	<item id="3507">
+	<item id="3507" inherit="ITEM_NO_DECAY">
 		<id>0x3507</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 28</category>
 	</item>
 
-	<item id="3508">
+	<item id="3508" inherit="ITEM_NO_DECAY">
 		<id>0x3508</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 29</category>
 	</item>
 
-	<item id="3509">
+	<item id="3509" inherit="ITEM_NO_DECAY">
 		<id>0x3509</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 30</category>
 	</item>
 
-	<item id="350a">
+	<item id="350a" inherit="ITEM_NO_DECAY">
 		<id>0x350a</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 31</category>
 	</item>
 
-	<item id="350b">
+	<item id="350b" inherit="ITEM_NO_DECAY">
 		<id>0x350b</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 32</category>
 	</item>
 
-	<item id="350c">
+	<item id="350c" inherit="ITEM_NO_DECAY">
 		<id>0x350c</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 33</category>
 	</item>
 
-	<item id="350d">
+	<item id="350d" inherit="ITEM_NO_DECAY">
 		<id>0x350d</id>
  		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 34</category>
 	</item>
 
-	<item id="350e">
+	<item id="350e" inherit="ITEM_NO_DECAY">
 		<id>0x350e</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 35</category>
 	</item>
 
-	<item id="350f">
+	<item id="350f" inherit="ITEM_NO_DECAY">
 		<id>0x350f</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 36</category>
 	</item>
 
-	<item id="3510">
+	<item id="3510" inherit="ITEM_NO_DECAY">
 		<id>0x3510</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 37</category>
 	</item>
 
-	<item id="3511">
+	<item id="3511" inherit="ITEM_NO_DECAY">
 		<id>0x3511</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 38</category>
 	</item>
 
-	<item id="3512">
+	<item id="3512" inherit="ITEM_NO_DECAY">
 		<id>0x3512</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 39</category>
 	</item>
 
-	<item id="3513">
+	<item id="3513" inherit="ITEM_NO_DECAY">
 		<id>0x3513</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 40</category>
 	</item>
 
-	<item id="3514">
+	<item id="3514" inherit="ITEM_NO_DECAY">
 		<id>0x3514</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 41</category>
 	</item>
 
-	<item id="3515">
+	<item id="3515" inherit="ITEM_NO_DECAY">
 		<id>0x3515</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 42</category>
 	</item>
 
-	<item id="3516">
+	<item id="3516" inherit="ITEM_NO_DECAY">
 		<id>0x3516</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 43</category>
 	</item>
 
-	<item id="3517">
+	<item id="3517" inherit="ITEM_NO_DECAY">
 		<id>0x3517</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 44</category>
 	</item>
 
-	<item id="3518">
+	<item id="3518" inherit="ITEM_NO_DECAY">
 		<id>0x3518</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 45</category>
 	</item>
 
-	<item id="3519">
+	<item id="3519" inherit="ITEM_NO_DECAY">
 		<id>0x3519</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 46</category>
 	</item>
 
-	<item id="351a">
+	<item id="351a" inherit="ITEM_NO_DECAY">
 		<id>0x351a</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 47</category>
 	</item>
 
-	<item id="351b">
+	<item id="351b" inherit="ITEM_NO_DECAY">
 		<id>0x351b</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 48</category>
 	</item>
 
-	<item id="351c">
+	<item id="351c" inherit="ITEM_NO_DECAY">
 		<id>0x351c</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 49</category>
 	</item>
 
-	<item id="351d">
+	<item id="351d" inherit="ITEM_NO_DECAY">
 		<id>0x351d</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 50</category>
 	</item>
 
-	<item id="351e">
+	<item id="351e" inherit="ITEM_NO_DECAY">
 		<id>0x351e</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 51</category>
 	</item>
 
-	<item id="351f">
+	<item id="351f" inherit="ITEM_NO_DECAY">
 		<id>0x351f</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 52</category>
 	</item>
 
-	<item id="3520">
+	<item id="3520" inherit="ITEM_NO_DECAY">
 		<id>0x3520</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 53</category>
 	</item>
 
-	<item id="3521">
+	<item id="3521" inherit="ITEM_NO_DECAY">
 		<id>0x3521</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 54</category>
 	</item>
 
-	<item id="3522">
+	<item id="3522" inherit="ITEM_NO_DECAY">
 		<id>0x3522</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 55</category>
 	</item>
 
-	<item id="3523">
+	<item id="3523" inherit="ITEM_NO_DECAY">
 		<id>0x3523</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 56</category>
 	</item>
 
-	<item id="3524">
+	<item id="3524" inherit="ITEM_NO_DECAY">
 		<id>0x3524</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 57</category>
 	</item>
 
-	<item id="3525">
+	<item id="3525" inherit="ITEM_NO_DECAY">
 		<id>0x3525</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 58</category>
 	</item>
 
-	<item id="3526">
+	<item id="3526" inherit="ITEM_NO_DECAY">
 		<id>0x3526</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 59</category>
 	</item>
 
-	<item id="3527">
+	<item id="3527" inherit="ITEM_NO_DECAY">
 		<id>0x3527</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 60</category>
 	</item>
 
-	<item id="3528">
+	<item id="3528" inherit="ITEM_NO_DECAY">
 		<id>0x3528</id>
 		<category>Ground Tiles\Water\Misc\Waterfall\Waterfall 70</category>
 	</item>
 
 	<!--Water:Splash-->
-	<item id="352d">
+	<item id="352d" inherit="ITEM_NO_DECAY">
 		<id>0x352d</id>
 		<category>Ground Tiles\Water\Misc\Splash\Splash 1</category>
 	</item>
 
-	<item id="352e">
+	<item id="352e" inherit="ITEM_NO_DECAY">
 		<id>0x352e</id>
 		<category>Ground Tiles\Water\Misc\Splash\Splash 2</category>
 	</item>
 
-	<item id="352f">
+	<item id="352f" inherit="ITEM_NO_DECAY">
 		<id>0x352f</id>
 		<category>Ground Tiles\Water\Misc\Splash\Splash 3</category>
 	</item>
 
-	<item id="3530">
+	<item id="3530" inherit="ITEM_NO_DECAY">
 		<id>0x3530</id>
 		<category>Ground Tiles\Water\Misc\Splash\Splash 4</category>
 	</item>
 
 	<!-- Water:Not animated border -->
-	<item id="179d">
+	<item id="179d" inherit="ITEM_NO_DECAY">
 		<id>0x179d</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 1</category>
 	</item>
 
-	<item id="179e">
+	<item id="179e" inherit="ITEM_NO_DECAY">
 		<id>0x179e</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 2</category>
 	</item>
 
-	<item id="179f">
+	<item id="179f" inherit="ITEM_NO_DECAY">
 		<id>0x179f</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 3</category>
 	</item>
 
-	<item id="17a0">
+	<item id="17a0" inherit="ITEM_NO_DECAY">
 		<id>0x17a0</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 4</category>
 	</item>
 
-	<item id="17a1">
+	<item id="17a1" inherit="ITEM_NO_DECAY">
 		<id>0x17a1</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 5</category>
 	</item>
 
-	<item id="17a2">
+	<item id="17a2" inherit="ITEM_NO_DECAY">
 		<id>0x17a2</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 6</category>
 	</item>
 
-	<item id="17a3">
+	<item id="17a3" inherit="ITEM_NO_DECAY">
 		<id>0x17a3</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 7</category>
 	</item>
 
-	<item id="17a4">
+	<item id="17a4" inherit="ITEM_NO_DECAY">
 		<id>0x17a4</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 8</category>
 	</item>
 
-	<item id="17a5">
+	<item id="17a5" inherit="ITEM_NO_DECAY">
 		<id>0x17a5</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 9</category>
 	</item>
 
-	<item id="17a6">
+	<item id="17a6" inherit="ITEM_NO_DECAY">
 		<id>0x17a6</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 10</category>
 	</item>
 
-	<item id="17a7">
+	<item id="17a7" inherit="ITEM_NO_DECAY">
 		<id>0x17a7</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 11</category>
 	</item>
 
-	<item id="17a8">
+	<item id="17a8" inherit="ITEM_NO_DECAY">
 		<id>0x17a8</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 12</category>
 	</item>
 
-	<item id="17a9">
+	<item id="17a9" inherit="ITEM_NO_DECAY">
 		<id>0x17a9</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 13</category>
 	</item>
 
-	<item id="17aa">
+	<item id="17aa" inherit="ITEM_NO_DECAY">
 		<id>0x17aa</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 14</category>
 	</item>
 
-	<item id="17ab">
+	<item id="17ab" inherit="ITEM_NO_DECAY">
 		<id>0x17ab</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 15</category>
 	</item>
 
-	<item id="17ac">
+	<item id="17ac" inherit="ITEM_NO_DECAY">
 		<id>0x17ac</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 16</category>
 	</item>
 
-	<item id="17ad">
+	<item id="17ad" inherit="ITEM_NO_DECAY">
 		<id>0x17ad</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 17</category>
 	</item>
 
-	<item id="17ae">
+	<item id="17ae" inherit="ITEM_NO_DECAY">
 		<id>0x17ae</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 18</category>
 	</item>
 
-	<item id="17af">
+	<item id="17af" inherit="ITEM_NO_DECAY">
 		<id>0x17af</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 19</category>
 	</item>
 
-	<item id="17b0">
+	<item id="17b0" inherit="ITEM_NO_DECAY">
 		<id>0x17b0</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 20</category>
 	</item>
 
-	<item id="17b1">
+	<item id="17b1" inherit="ITEM_NO_DECAY">
 		<id>0x17b1</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 21</category>
 	</item>
 
-	<item id="17b2">
+	<item id="17b2" inherit="ITEM_NO_DECAY">
 		<id>0x17b2</id>
 		<category>Ground Tiles\Water\Not animated\Border\Water 22</category>
 	</item>
 
 	<!-- Swamp:Not animated tiles border -->
-	<item id="3209">
+	<item id="3209" inherit="ITEM_NO_DECAY">
 		<id>0x3209</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 1</category>
 	</item>
 
-	<item id="320a">
+	<item id="320a" inherit="ITEM_NO_DECAY">
 		<id>0x320a</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 2</category>
 	</item>
 
-	<item id="3252">
+	<item id="3252" inherit="ITEM_NO_DECAY">
 		<id>0x3252</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 3</category>
 	</item>
 
-	<item id="3253">
+	<item id="3253" inherit="ITEM_NO_DECAY">
 		<id>0x3253</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 4</category>
 	</item>
 
-	<item id="3254">
+	<item id="3254" inherit="ITEM_NO_DECAY">
 		<id>0x3254</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 5</category>
 	</item>
 
-	<item id="3255">
+	<item id="3255" inherit="ITEM_NO_DECAY">
 		<id>0x3255</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 6</category>
 	</item>
 
-	<item id="3256">
+	<item id="3256" inherit="ITEM_NO_DECAY">
 		<id>0x3256</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 7</category>
 	</item>
 
-	<item id="3257">
+	<item id="3257" inherit="ITEM_NO_DECAY">
 		<id>0x3257</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 8</category>
 	</item>
 
-	<item id="3258">
+	<item id="3258" inherit="ITEM_NO_DECAY">
 		<id>0x3258</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 9</category>
 	</item>
 
-	<item id="3259">
+	<item id="3259" inherit="ITEM_NO_DECAY">
 		<id>0x3259</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 10</category>
 	</item>
 
-	<item id="325a">
+	<item id="325a" inherit="ITEM_NO_DECAY">
 		<id>0x325a</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 11</category>
 	</item>
 
-	<item id="325b">
+	<item id="325b" inherit="ITEM_NO_DECAY">
 		<id>0x325b</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 12</category>
 	</item>
 
-	<item id="325c">
+	<item id="325c" inherit="ITEM_NO_DECAY">
 		<id>0x325c</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 13</category>
 	</item>
 
-	<item id="325d">
+	<item id="325d" inherit="ITEM_NO_DECAY">
 		<id>0x325d</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 14</category>
 	</item>
 
-	<item id="325e">
+	<item id="325e" inherit="ITEM_NO_DECAY">
 		<id>0x325e</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 15</category>
 	</item>
 
-	<item id="325f">
+	<item id="325f" inherit="ITEM_NO_DECAY">
 		<id>0x325f</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 16</category>
 	</item>
 
-	<item id="3260">
+	<item id="3260" inherit="ITEM_NO_DECAY">
 		<id>0x3260</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 17</category>
 	</item>
 
-	<item id="3261">
+	<item id="3261" inherit="ITEM_NO_DECAY">
 		<id>0x3261</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 18</category>
 	</item>
 
-	<item id="3262">
+	<item id="3262" inherit="ITEM_NO_DECAY">
 		<id>0x3262</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 19</category>
 	</item>
 
-	<item id="3263">
+	<item id="3263" inherit="ITEM_NO_DECAY">
 		<id>0x3263</id>
 	<category>Ground Tiles\Swamp\Border\Swamp 20</category>
 	</item>
 
-	<item id="3264">
+	<item id="3264" inherit="ITEM_NO_DECAY">
 		<id>0x3264</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 21</category>
 	</item>
 
-	<item id="3265">
+	<item id="3265" inherit="ITEM_NO_DECAY">
 		<id>0x3265</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 22</category>
 	</item>
 
-	<item id="3266">
+	<item id="3266" inherit="ITEM_NO_DECAY">
 		<id>0x3266</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 23</category>
 	</item>
 
-	<item id="3267">
+	<item id="3267" inherit="ITEM_NO_DECAY">
 		<id>0x3267</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 24</category>
 	</item>
 
-	<item id="3268">
+	<item id="3268" inherit="ITEM_NO_DECAY">
 		<id>0x3268</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 25</category>
 	</item>
 
-	<item id="3270">
+	<item id="3270" inherit="ITEM_NO_DECAY">
 		<id>0x3270</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 26</category>
 	</item>
 
-	<item id="3271">
+	<item id="3271" inherit="ITEM_NO_DECAY">
 		<id>0x3271</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 27</category>
 	</item>
 
-	<item id="3272">
+	<item id="3272" inherit="ITEM_NO_DECAY">
 		<id>0x3272</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 28</category>
 	</item>
 
-	<item id="3273">
+	<item id="3273" inherit="ITEM_NO_DECAY">
 		<id>0x3273</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 29</category>
 	</item>
 
-	<item id="3274">
+	<item id="3274" inherit="ITEM_NO_DECAY">
 		<id>0x3274</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 30</category>
 	</item>
 
-	<item id="3275">
+	<item id="3275" inherit="ITEM_NO_DECAY">
 		<id>0x3275</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 21</category>
 	</item>
 
-	<item id="3276">
+	<item id="3276" inherit="ITEM_NO_DECAY">
 		<id>0x3276</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 32</category>
 	</item>
 
-	<item id="3277">
+	<item id="3277" inherit="ITEM_NO_DECAY">
 		<id>0x3277</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 33</category>
 	</item>
 
-	<item id="3278">
+	<item id="3278" inherit="ITEM_NO_DECAY">
 		<id>0x3278</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 34</category>
 	</item>
 
-	<item id="3279">
+	<item id="3279" inherit="ITEM_NO_DECAY">
 		<id>0x3279</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 35</category>
 	</item>
 
-	<item id="327a">
+	<item id="327a" inherit="ITEM_NO_DECAY">
 		<id>0x327a</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 36</category>
 	</item>
 
-	<item id="327b">
+	<item id="327b" inherit="ITEM_NO_DECAY">
 		<id>0x327b</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 37</category>
 	</item>
 
-	<item id="327c">
+	<item id="327c" inherit="ITEM_NO_DECAY">
 		<id>0x327c</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 38</category>
 	</item>
 
-	<item id="327d">
+	<item id="327d" inherit="ITEM_NO_DECAY">
 		<id>0x327d</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 39</category>
 	</item>
 
-	<item id="327e">
+	<item id="327e" inherit="ITEM_NO_DECAY">
 		<id>0x327e</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 40</category>
 	</item>
 
-	<item id="327f">
+	<item id="327f" inherit="ITEM_NO_DECAY">
 		<id>0x327f</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 41</category>
 	</item>
 
-	<item id="3280">
+	<item id="3280" inherit="ITEM_NO_DECAY">
 		<id>0x3280</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 42</category>
 	</item>
 
-	<item id="3281">
+	<item id="3281" inherit="ITEM_NO_DECAY">
 		<id>0x3281</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 43</category>
 	</item>
 
-	<item id="3282">
+	<item id="3282" inherit="ITEM_NO_DECAY">
 		<id>0x3282</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 44</category>
 	</item>
 
-	<item id="3283">
+	<item id="3283" inherit="ITEM_NO_DECAY">
 		<id>0x3283</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 45</category>
 	</item>
 
-	<item id="3284">
+	<item id="3284" inherit="ITEM_NO_DECAY">
 		<id>0x3284</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 46</category>
 	</item>
 
-	<item id="3285">
+	<item id="3285" inherit="ITEM_NO_DECAY">
 		<id>0x3285</id>
 		<category>Ground Tiles\Swamp\Border\Swamp 47</category>
 	</item>
 
 	<!-- Swamp:Misc splash-->
-	<item id="322c">
+	<item id="322c" inherit="ITEM_NO_DECAY">
 		<id>0x322c</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 1</category>
 	</item>
 
-	<item id="322d">
+	<item id="322d" inherit="ITEM_NO_DECAY">
 		<id>0x322d</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 2</category>
 	</item>
 
-	<item id="322e">
+	<item id="322e" inherit="ITEM_NO_DECAY">
 		<id>0x322e</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 3</category>
 	</item>
 
-	<item id="322f">
+	<item id="322f" inherit="ITEM_NO_DECAY">
 		<id>0x322f</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 4</category>
 	</item>
 
-	<item id="3230">
+	<item id="3230" inherit="ITEM_NO_DECAY">
 		<id>0x3230</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 5</category>
 	</item>
 
-	<item id="3231">
+	<item id="3231" inherit="ITEM_NO_DECAY">
 		<id>0x3231</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 6</category>
 	</item>
 
-	<item id="3232">
+	<item id="3232" inherit="ITEM_NO_DECAY">
 		<id>0x3232</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 7</category>
 	</item>
 
-	<item id="3233">
+	<item id="3233" inherit="ITEM_NO_DECAY">
 		<id>0x3233</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 8</category>
 	</item>
 
-	<item id="3234">
+	<item id="3234" inherit="ITEM_NO_DECAY">
 		<id>0x3234</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 9</category>
 	</item>
 
-	<item id="3236">
+	<item id="3236" inherit="ITEM_NO_DECAY">
 		<id>0x3236</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 10</category>
 	</item>
 
-	<item id="3237">
+	<item id="3237" inherit="ITEM_NO_DECAY">
 		<id>0x3237</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 11</category>
 	</item>
 
-	<item id="3238">
+	<item id="3238" inherit="ITEM_NO_DECAY">
 		<id>0x3238</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 12</category>
 	</item>
 
-	<item id="3239">
+	<item id="3239" inherit="ITEM_NO_DECAY">
 		<id>0x3239</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 13</category>
 	</item>
 
-	<item id="323a">
+	<item id="323a" inherit="ITEM_NO_DECAY">
 		<id>0x323a</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 14</category>
 	</item>
 
-	<item id="323b">
+	<item id="323b" inherit="ITEM_NO_DECAY">
 		<id>0x323b</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 15</category>
 	</item>
 
-	<item id="323c">
+	<item id="323c" inherit="ITEM_NO_DECAY">
 		<id>0x323c</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 16</category>
 	</item>
 
-	<item id="323d">
+	<item id="323d" inherit="ITEM_NO_DECAY">
 		<id>0x323d</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 17</category>
 	</item>
 
-	<item id="323e">
+	<item id="323e" inherit="ITEM_NO_DECAY">
 		<id>0x323e</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 18</category>
 	</item>
 
-	<item id="323f">
+	<item id="323f" inherit="ITEM_NO_DECAY">
 		<id>0x323f</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 19</category>
 	</item>
 
-	<item id="3241">
+	<item id="3241" inherit="ITEM_NO_DECAY">
 		<id>0x3241</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 20</category>
 	</item>
 
-	<item id="3242">
+	<item id="3242" inherit="ITEM_NO_DECAY">
 		<id>0x3242</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 21</category>
 	</item>
 
-	<item id="3243">
+	<item id="3243" inherit="ITEM_NO_DECAY">
 		<id>0x3243</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 22</category>
 	</item>
 
-	<item id="3244">
+	<item id="3244" inherit="ITEM_NO_DECAY">
 		<id>0x3244</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 23</category>
 	</item>
 
-	<item id="3245">
+	<item id="3245" inherit="ITEM_NO_DECAY">
 		<id>0x3245</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 24</category>
 	</item>
 
-	<item id="3246">
+	<item id="3246" inherit="ITEM_NO_DECAY">
 		<id>0x3246</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 25</category>
 	</item>
 
-	<item id="3247">
+	<item id="3247" inherit="ITEM_NO_DECAY">
 		<id>0x3247</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 26</category>
 	</item>
 
-	<item id="3248">
+	<item id="3248" inherit="ITEM_NO_DECAY">
 		<id>0x3248</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 27</category>
 	</item>
 
-	<item id="3249">
+	<item id="3249" inherit="ITEM_NO_DECAY">
 		<id>0x3249</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 28</category>
 	</item>
 
-	<item id="324a">
+	<item id="324a" inherit="ITEM_NO_DECAY">
 		<id>0x324a</id>
 		<category>Ground Tiles\Swamp\Misc\Splash\Swamp 29</category>
 	</item>
 
 <!-- Swamp:Misc Treestump -->
-	<item id="324e">
+	<item id="324e" inherit="ITEM_NO_DECAY">
 		<id>0x324e</id>
 		<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 1</category>
 	</item>
 
-	<item id="324f">
+	<item id="324f" inherit="ITEM_NO_DECAY">
 		<id>0x324f</id>
 		<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 2</category>
 	</item>
 
-	<item id="3250">
+	<item id="3250" inherit="ITEM_NO_DECAY">
 		<id>0x3250</id>
 		<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 3</category>
 	</item>
 
-	<item id="3251">
+	<item id="3251" inherit="ITEM_NO_DECAY">
 		<id>0x3251</id>
 		<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 4</category>
 	</item>
 
-	<item id="324b">
+	<item id="324b" inherit="ITEM_NO_DECAY">
 		<id>0x324b</id>
 		<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 5</category>
 	</item>
 
-	<item id="324c">
+	<item id="324c" inherit="ITEM_NO_DECAY">
 		<id>0x324c</id>
 		<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 6</category>
 	</item>
 
-	<item id="324d">
+	<item id="324d" inherit="ITEM_NO_DECAY">
 		<id>0x324d</id>
 		<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 7</category>
 	</item>
 
 	<!-- Swamp:Not animated tiles -->
-	<item id="320d">
+	<item id="320d" inherit="ITEM_NO_DECAY">
 		<id>0x320d</id>
 		<category>Ground Tiles\Swamp\Swamp 1</category>
 	</item>
 
-	<item id="320e">
+	<item id="320e" inherit="ITEM_NO_DECAY">
 		<id>0x320e</id>
 		<category>Ground Tiles\Swamp\Swamp 2</category>
 	</item>
 
-	<item id="320f">
+	<item id="320f" inherit="ITEM_NO_DECAY">
 		<id>0x320f</id>
 		<category>Ground Tiles\Swamp\Swamp 3</category>
 	</item>
 
-	<item id="3210">
+	<item id="3210" inherit="ITEM_NO_DECAY">
 		<id>0x3210</id>
 		<category>Ground Tiles\Swamp\Swamp 4</category>
 	</item>
 
-	<item id="3211">
+	<item id="3211" inherit="ITEM_NO_DECAY">
 		<id>0x3211</id>
 		<category>Ground Tiles\Swamp\Swamp 5</category>
 	</item>
 
-	<item id="3213">
+	<item id="3213" inherit="ITEM_NO_DECAY">
 		<id>0x3213</id>
 		<category>Ground Tiles\Swamp\Swamp 6</category>
 	</item>
 
-	<item id="3214">
+	<item id="3214" inherit="ITEM_NO_DECAY">
 		<id>0x3214</id>
 		<category>Ground Tiles\Swamp\Swamp 7</category>
 	</item>
 
-	<item id="3215">
+	<item id="3215" inherit="ITEM_NO_DECAY">
 		<id>0x3215</id>
 		<category>Ground Tiles\Swamp\Swamp 8</category>
 	</item>
 
-	<item id="3216">
+	<item id="3216" inherit="ITEM_NO_DECAY">
 		<id>0x3216</id>
 		<category>Ground Tiles\Swamp\Swamp 9</category>
 	</item>
 
-	<item id="3217">
+	<item id="3217" inherit="ITEM_NO_DECAY">
 		<id>0x3217</id>
 		<category>Ground Tiles\Swamp\Swamp 10</category>
 	</item>
 
-	<item id="3218">
+	<item id="3218" inherit="ITEM_NO_DECAY">
 		<id>0x3218</id>
 		<category>Ground Tiles\Swamp\Swamp 11</category>
 	</item>
 
-	<item id="321a">
+	<item id="321a" inherit="ITEM_NO_DECAY">
 		<id>0x321a</id>
 		<category>Ground Tiles\Swamp\Swamp 12</category>
 	</item>
 
-	<item id="321b">
+	<item id="321b" inherit="ITEM_NO_DECAY">
 		<id>0x321b</id>
 		<category>Ground Tiles\Swamp\Swamp 13</category>
 	</item>
 
-	<item id="321c">
+	<item id="321c" inherit="ITEM_NO_DECAY">
 		<id>0x321c</id>
 		<category>Ground Tiles\Swamp\Swamp 14</category>
 	</item>
 
-	<item id="321d">
+	<item id="321d" inherit="ITEM_NO_DECAY">
 		<id>0x321d</id>
 		<category>Ground Tiles\Swamp\Swamp 15</category>
 	</item>
 
-	<item id="321e">
+	<item id="321e" inherit="ITEM_NO_DECAY">
 		<id>0x321e</id>
 		<category>Ground Tiles\Swamp\Swamp 16</category>
 	</item>
 
-	<item id="3220">
+	<item id="3220" inherit="ITEM_NO_DECAY">
 		<id>0x3220</id>
 		<category>Ground Tiles\Swamp\Swamp 17</category>
 	</item>
 
-	<item id="3221">
+	<item id="3221" inherit="ITEM_NO_DECAY">
 		<id>0x3221</id>
 		<category>Ground Tiles\Swamp\Swamp 18</category>
 	</item>
 
-	<item id="3222">
+	<item id="3222" inherit="ITEM_NO_DECAY">
 		<id>0x3222</id>
 		<category>Ground Tiles\Swamp\Swamp 19</category>
 	</item>
 
-	<item id="3223">
+	<item id="3223" inherit="ITEM_NO_DECAY">
 		<id>0x3223</id>
 		<category>Ground Tiles\Swamp\Swamp 20</category>
 	</item>
 
-	<item id="3224">
+	<item id="3224" inherit="ITEM_NO_DECAY">
 		<id>0x3224</id>
 		<category>Ground Tiles\Swamp\Swamp 21</category>
 	</item>
 
-	<item id="3226">
+	<item id="3226" inherit="ITEM_NO_DECAY">
 		<id>0x3226</id>
 		<category>Ground Tiles\Swamp\Swamp 22</category>
 	</item>
 
-	<item id="3227">
+	<item id="3227" inherit="ITEM_NO_DECAY">
 		<id>0x3227</id>
 		<category>Ground Tiles\Swamp\Swamp 23</category>
 	</item>
 
-	<item id="3228">
+	<item id="3228" inherit="ITEM_NO_DECAY">
 		<id>0x3228</id>
 		<category>Ground Tiles\Swamp\Swamp 24</category>
 	</item>
 
-	<item id="3229">
+	<item id="3229" inherit="ITEM_NO_DECAY">
 		<id>0x3229</id>
 		<category>Ground Tiles\Swamp\Swamp 25</category>
 	</item>
 
-	<item id="322a">
+	<item id="322a" inherit="ITEM_NO_DECAY">
 		<id>0x322a</id>
 		<category>Ground Tiles\Swamp\Swamp 26</category>
 	</item>
 
-	<item id="3269">
+	<item id="3269" inherit="ITEM_NO_DECAY">
 		<id>0x3269</id>
 		<category>Ground Tiles\Swamp\Swamp 27</category>
 	</item>
 
-	<item id="326a">
+	<item id="326a" inherit="ITEM_NO_DECAY">
 		<id>0x326a</id>
 		<category>Ground Tiles\Swamp\Swamp 28</category>
 	</item>
 
-	<item id="326b">
+	<item id="326b" inherit="ITEM_NO_DECAY">
 		<id>0x326b</id>
 		<category>Ground Tiles\Swamp\Swamp 29</category>
 	</item>
 
-	<item id="326c">
+	<item id="326c" inherit="ITEM_NO_DECAY">
 		<id>0x326c</id>
 		<category>Ground Tiles\Swamp\Swamp 30</category>
 	</item>
 
-	<item id="326d">
+	<item id="326d" inherit="ITEM_NO_DECAY">
 		<id>0x326d</id>
 		<category>Ground Tiles\Swamp\Swamp 31</category>
 	</item>
 
-	<item id="326e">
+	<item id="326e" inherit="ITEM_NO_DECAY">
 		<id>0x326e</id>
 		<category>Ground Tiles\Swamp\Swamp 32</category>
 	</item>
 
-	<item id="326f">
+	<item id="326f" inherit="ITEM_NO_DECAY">
 		<id>0x326f</id>
 		<category>Ground Tiles\Swamp\Swamp 33</category>
 	</item>
 
 
 <!-- Grass:Not animated tiles -->
-	<item id="177d">
+	<item id="177d" inherit="ITEM_NO_DECAY">
 		<id>0x177d</id>
 		<category>Ground Tiles\Grass\Grass 1</category>
 	</item>
 
-	<item id="177e">
+	<item id="177e" inherit="ITEM_NO_DECAY">
 		<id>0x177e</id>
 		<category>Ground Tiles\Grass\Grass 2</category>
 	</item>
 
-	<item id="177f">
+	<item id="177f" inherit="ITEM_NO_DECAY">
 		<id>0x177f</id>
 		<category>Ground Tiles\Grass\Grass 3</category>
 	</item>
 
-	<item id="1780">
+	<item id="1780" inherit="ITEM_NO_DECAY">
 		<id>0x1780</id>
 		<category>Ground Tiles\Grass\Grass 4</category>
 	</item>
 
-	<item id="1781">
+	<item id="1781" inherit="ITEM_NO_DECAY">
 		<id>0x1781</id>
 		<category>Ground Tiles\Grass\Grass 5</category>
 	</item>
 
 <!-- Grass:Not animated tiles edges -->
-	<item id="1782">
+	<item id="1782" inherit="ITEM_NO_DECAY">
 		<id>0x1782</id>
 		<category>Ground Tiles\Grass\Edges\Grass 1</category>
 	</item>
 
-	<item id="1783">
+	<item id="1783" inherit="ITEM_NO_DECAY">
 		<id>0x1783</id>
 		<category>Ground Tiles\Grass\Edges\Grass 2</category>
 	</item>
 
-	<item id="1784">
+	<item id="1784" inherit="ITEM_NO_DECAY">
 		<id>0x1784</id>
 		<category>Ground Tiles\Grass\Edges\Grass 3</category>
 	</item>
 
-	<item id="1785">
+	<item id="1785" inherit="ITEM_NO_DECAY">
 		<id>0x1785</id>
 		<category>Ground Tiles\Grass\Edges\Grass 4</category>
 	</item>
 
-	<item id="1786">
+	<item id="1786" inherit="ITEM_NO_DECAY">
 		<id>0x1786</id>
 		<category>Ground Tiles\Grass\Edges\Grass 5</category>
 	</item>
 
-	<item id="1787">
+	<item id="1787" inherit="ITEM_NO_DECAY">
 		<id>0x1787</id>
 		<category>Ground Tiles\Grass\Edges\Grass 6</category>
 	</item>
 
-	<item id="1788">
+	<item id="1788" inherit="ITEM_NO_DECAY">
 		<id>0x1788</id>
 		<category>Ground Tiles\Grass\Edges\Grass 7</category>
 	</item>
 
-	<item id="1789">
+	<item id="1789" inherit="ITEM_NO_DECAY">
 		<id>0x1789</id>
 		<category>Ground Tiles\Grass\Edges\Grass 8</category>
 	</item>
 
 	<!-- Snow (DarkStorm) -->
-	<item id="17bd">
+	<item id="17bd" inherit="ITEM_NO_DECAY">
 		<id>0x17bd</id>
 		<category>Ground Tiles\Snow\Snow 1</category>
 	</item>
 
-	<item id="17be">
+	<item id="17be" inherit="ITEM_NO_DECAY">
 		<id>0x17be</id>
 		<category>Ground Tiles\Snow\Snow 2</category>
 	</item>
 
-	<item id="17bf">
+	<item id="17bf" inherit="ITEM_NO_DECAY">
 		<id>0x17bf</id>
 		<category>Ground Tiles\Snow\Snow 3</category>
 	</item>
 
-	<item id="17c0">
+	<item id="17c0" inherit="ITEM_NO_DECAY">
 		<id>0x17c0</id>
 		<category>Ground Tiles\Snow\Snow 4</category>
 	</item>
 
-	<item id="17c1">
+	<item id="17c1" inherit="ITEM_NO_DECAY">
 		<id>0x17c1</id>
 		<category>Ground Tiles\Snow\Edges\Snow 1</category>
 	</item>
 
-	<item id="17c2">
+	<item id="17c2" inherit="ITEM_NO_DECAY">
 		<id>0x17c2</id>
 		<category>Ground Tiles\Snow\Edges\Snow 2</category>
 	</item>
 
-	<item id="17c3">
+	<item id="17c3" inherit="ITEM_NO_DECAY">
 		<id>0x17c3</id>
 		<category>Ground Tiles\Snow\Edges\Snow 3</category>
 	</item>
 
-	<item id="17c4">
+	<item id="17c4" inherit="ITEM_NO_DECAY">
 		<id>0x17c4</id>
 		<category>Ground Tiles\Snow\Edges\Snow 4</category>
 	</item>
 
-	<item id="17c5">
+	<item id="17c5" inherit="ITEM_NO_DECAY">
 		<id>0x17c5</id>
 		<category>Ground Tiles\Snow\Edges\Snow 5</category>
 	</item>
 
-	<item id="17c6">
+	<item id="17c6" inherit="ITEM_NO_DECAY">
 		<id>0x17c6</id>
 		<category>Ground Tiles\Snow\Edges\Snow 6</category>
 	</item>
 
-	<item id="17c7">
+	<item id="17c7" inherit="ITEM_NO_DECAY">
 		<id>0x17c7</id>
 		<category>Ground Tiles\Snow\Edges\Snow 7</category>
 	</item>
 
-	<item id="17c8">
+	<item id="17c8" inherit="ITEM_NO_DECAY">
 		<id>0x17c8</id>
 		<category>Ground Tiles\Snow\Edges\Snow 8</category>
 	</item>
 
-	<item id="17c9">
+	<item id="17c9" inherit="ITEM_NO_DECAY">
 		<id>0x17c9</id>
 		<category>Ground Tiles\Snow\Edges\Snow 9</category>
 	</item>
 
-	<item id="17ca">
+	<item id="17ca" inherit="ITEM_NO_DECAY">
 		<id>0x17ca</id>
 		<category>Ground Tiles\Snow\Edges\Snow 10</category>
 	</item>
 
-	<item id="17cb">
+	<item id="17cb" inherit="ITEM_NO_DECAY">
 		<id>0x17cb</id>
 		<category>Ground Tiles\Snow\Edges\Snow 11</category>
 	</item>
 
-	<item id="17cc">
+	<item id="17cc" inherit="ITEM_NO_DECAY">
 		<id>0x17cc</id>
 		<category>Ground Tiles\Snow\Edges\Snow 12</category>
 	</item>
 
-	<item id="17cd">
+	<item id="17cd" inherit="ITEM_NO_DECAY">
 		<id>0x17cd</id>
 		<category>Ground Tiles\Snow\Snow 5</category>
 	</item>
 
-	<item id="17ce">
+	<item id="17ce" inherit="ITEM_NO_DECAY">
 		<id>0x17ce</id>
 		<category>Ground Tiles\Snow\Snow 6</category>
 	</item>
 
 	<!-- Dirt -->
-	<item id="1b27">
+	<item id="1b27" inherit="ITEM_NO_DECAY">
 		<id>0x1b27</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 1</category>
 	</item>
 
-	<item id="1b28">
+	<item id="1b28" inherit="ITEM_NO_DECAY">
 		<id>0x1b28</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 2</category>
 	</item>
 
-	<item id="1b29">
+	<item id="1b29" inherit="ITEM_NO_DECAY">
 		<id>0x1b29</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 3</category>
 	</item>
 
-	<item id="1b2a">
+	<item id="1b2a" inherit="ITEM_NO_DECAY">
 		<id>0x1b2a</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 4</category>
 	</item>
 
-	<item id="1b2b">
+	<item id="1b2b" inherit="ITEM_NO_DECAY">
 		<id>0x1b2b</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 5</category>
 	</item>
 
-	<item id="1b2c">
+	<item id="1b2c" inherit="ITEM_NO_DECAY">
 		<id>0x1b2c</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 6</category>
 	</item>
 
-	<item id="1b2d">
+	<item id="1b2d" inherit="ITEM_NO_DECAY">
 		<id>0x1b2d</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 7</category>
 	</item>
 
-	<item id="1b2e">
+	<item id="1b2e" inherit="ITEM_NO_DECAY">
 		<id>0x1b2e</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 8</category>
 	</item>
 
-	<item id="1b2f">
+	<item id="1b2f" inherit="ITEM_NO_DECAY">
 		<id>0x1b2f</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 9</category>
 	</item>
 
-	<item id="1b30">
+	<item id="1b30" inherit="ITEM_NO_DECAY">
 		<id>0x1b30</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 10</category>
 	</item>
 
-	<item id="1b31">
+	<item id="1b31" inherit="ITEM_NO_DECAY">
 		<id>0x1b31</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 11</category>
 	</item>
 
-	<item id="1b32">
+	<item id="1b32" inherit="ITEM_NO_DECAY">
 		<id>0x1b32</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 12</category>
 	</item>
 
-	<item id="1b33">
+	<item id="1b33" inherit="ITEM_NO_DECAY">
 		<id>0x1b33</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 13</category>
 	</item>
 
-	<item id="1b34">
+	<item id="1b34" inherit="ITEM_NO_DECAY">
 		<id>0x1b34</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 14</category>
 	</item>
 
-	<item id="1b35">
+	<item id="1b35" inherit="ITEM_NO_DECAY">
 		<id>0x1b35</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 15</category>
 	</item>
 
-	<item id="1b36">
+	<item id="1b36" inherit="ITEM_NO_DECAY">
 		<id>0x1b36</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 16</category>
 	</item>
 
-	<item id="1b37">
+	<item id="1b37" inherit="ITEM_NO_DECAY">
 		<id>0x1b37</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 17</category>
 	</item>
 
-	<item id="1b38">
+	<item id="1b38" inherit="ITEM_NO_DECAY">
 		<id>0x1b38</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 18</category>
 	</item>
 
-	<item id="1b39">
+	<item id="1b39" inherit="ITEM_NO_DECAY">
 		<id>0x1b39</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 19</category>
 	</item>
 
-	<item id="1b3a">
+	<item id="1b3a" inherit="ITEM_NO_DECAY">
 		<id>0x1b3a</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 20</category>
 	</item>
 
-	<item id="1b3b">
+	<item id="1b3b" inherit="ITEM_NO_DECAY">
 		<id>0x1b3b</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 21</category>
 	</item>
 
-	<item id="1b3c">
+	<item id="1b3c" inherit="ITEM_NO_DECAY">
 		<id>0x1b3c</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 22</category>
 	</item>
 
-	<item id="1b3d">
+	<item id="1b3d" inherit="ITEM_NO_DECAY">
 		<id>0x1b3d</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 23</category>
 	</item>
 
-	<item id="1b3e">
+	<item id="1b3e" inherit="ITEM_NO_DECAY">
 		<id>0x1b3e</id>
 		<category>Ground Tiles\Dirt\Transparent Dirt 24</category>
 	</item>
 
-	<item id="1dfd">
+	<item id="1dfd" inherit="ITEM_NO_DECAY">
 		<id>0x1dfd</id>
 		<category>Ground Tiles\Dirt\Spilled Dirt 1</category>
 	</item>
 
-	<item id="1dfe">
+	<item id="1dfe" inherit="ITEM_NO_DECAY">
 		<id>0x1dfe</id>
 		<category>Ground Tiles\Dirt\Spilled Dirt 2</category>
 	</item>
 
-	<item id="1dff">
+	<item id="1dff" inherit="ITEM_NO_DECAY">
 		<id>0x1dff</id>
 		<category>Ground Tiles\Dirt\Spilled Dirt 3</category>
 	</item>
 
-	<item id="1e00">
+	<item id="1e00" inherit="ITEM_NO_DECAY">
 		<id>0x1e00</id>
 		<category>Ground Tiles\Dirt\Spilled Dirt 4</category>
 	</item>
 
-	<item id="1e01">
+	<item id="1e01" inherit="ITEM_NO_DECAY">
 		<id>0x1e01</id>
 		<category>Ground Tiles\Dirt\Mud 1</category>
 	</item>
 
-	<item id="1e02">
+	<item id="1e02" inherit="ITEM_NO_DECAY">
 		<id>0x1e02</id>
 		<category>Ground Tiles\Dirt\Mud 2</category>
 	</item>
 
-	<item id="1e03">
+	<item id="1e03" inherit="ITEM_NO_DECAY">
 		<id>0x1e03</id>
 		<category>Ground Tiles\Dirt\Footprints 1</category>
 	</item>
 
-	<item id="1e04">
+	<item id="1e04" inherit="ITEM_NO_DECAY">
 		<id>0x1e04</id>
 		<category>Ground Tiles\Dirt\Footprints 2</category>
 	</item>
 
-	<item id="1e05">
+	<item id="1e05" inherit="ITEM_NO_DECAY">
 		<id>0x1e05</id>
 		<category>Ground Tiles\Dirt\Footprints 3</category>
 	</item>
 
-	<item id="1e06">
+	<item id="1e06" inherit="ITEM_NO_DECAY">
 		<id>0x1e06</id>
 		<category>Ground Tiles\Dirt\Footprints 4</category>
 	</item>
 
-	<item id="1e07">
+	<item id="1e07" inherit="ITEM_NO_DECAY">
 		<id>0x1e07</id>
 		<category>Ground Tiles\Dirt\Stain 1</category>
 	</item>
 
-	<item id="1e08">
+	<item id="1e08" inherit="ITEM_NO_DECAY">
 		<id>0x1e08</id>
 		<category>Ground Tiles\Dirt\Stain 2</category>
 	</item>
 
-	<item id="1e09">
+	<item id="1e09" inherit="ITEM_NO_DECAY">
 		<id>0x1e09</id>
 		<category>Ground Tiles\Dirt\Stain 3</category>
 	</item>
 
-	<item id="1e0a">
+	<item id="1e0a" inherit="ITEM_NO_DECAY">
 		<id>0x1e0a</id>
 		<category>Ground Tiles\Dirt\Stain 4</category>
 	</item>
 
-	<item id="1e0b">
+	<item id="1e0b" inherit="ITEM_NO_DECAY">
 		<id>0x1e0b</id>
 		<category>Ground Tiles\Dirt\Stain 5</category>
 	</item>
 
-	<item id="1e0c">
+	<item id="1e0c" inherit="ITEM_NO_DECAY">
 		<id>0x1e0c</id>
 		<category>Ground Tiles\Dirt\Stain 6</category>
 	</item>
 
-	<item id="1e0d">
+	<item id="1e0d" inherit="ITEM_NO_DECAY">
 		<id>0x1e0d</id>
 		<category>Ground Tiles\Dirt\Stain 7</category>
 	</item>
 
-	<item id="1e0e">
+	<item id="1e0e" inherit="ITEM_NO_DECAY">
 		<id>0x1e0e</id>
 		<category>Ground Tiles\Dirt\Stain 8</category>
 	</item>
 
-	<item id="31f4">
+	<item id="31f4" inherit="ITEM_NO_DECAY">
 		<id>0x31f4</id>
 		<category>Ground Tiles\Dirt\Dirt 1</category>
 	</item>
 
-	<item id="31f5">
+	<item id="31f5" inherit="ITEM_NO_DECAY">
 		<id>0x31f5</id>
 		<category>Ground Tiles\Dirt\Dirt 2</category>
 	</item>
 
-	<item id="31f6">
+	<item id="31f6" inherit="ITEM_NO_DECAY">
 		<id>0x31f6</id>
 		<category>Ground Tiles\Dirt\Dirt 3</category>
 	</item>
 
-	<item id="31f7">
+	<item id="31f7" inherit="ITEM_NO_DECAY">
 		<id>0x31f7</id>
 		<category>Ground Tiles\Dirt\Dirt 4</category>
 	</item>
 
-	<item id="31f8">
+	<item id="31f8" inherit="ITEM_NO_DECAY">
 		<id>0x31f8</id>
 		<category>Ground Tiles\Dirt\Dirt 5</category>
 	</item>
 
-	<item id="31f9">
+	<item id="31f9" inherit="ITEM_NO_DECAY">
 		<id>0x31f9</id>
 		<category>Ground Tiles\Dirt\Dirt 6</category>
 	</item>
 
-	<item id="31fa">
+	<item id="31fa" inherit="ITEM_NO_DECAY">
 		<id>0x31fa</id>
 		<category>Ground Tiles\Dirt\Dirt 7</category>
 	</item>
 
-	<item id="31fb">
+	<item id="31fb" inherit="ITEM_NO_DECAY">
 		<id>0x31fb</id>
 		<category>Ground Tiles\Dirt\Dirt 8</category>
 	</item>
 
-	<item id="32c9">
+	<item id="32c9" inherit="ITEM_NO_DECAY">
 		<id>0x32c9</id>
 		<category>Ground Tiles\Dirt\Dirt 9</category>
 	</item>
 
-	<item id="32ca">
+	<item id="32ca" inherit="ITEM_NO_DECAY">
 		<id>0x32ca</id>
 		<category>Ground Tiles\Dirt\Dirt 10</category>
 	</item>
 
 	<!-- Refuse -->
-	<item id="1b9f">
+	<item id="1b9f" inherit="ITEM_NO_DECAY">
 		<id>0x1b9f</id>
 		<category>Ground Tiles\Refuse\Refuse 1</category>
 	</item>
 
-	<item id="1ba0">
+	<item id="1ba0" inherit="ITEM_NO_DECAY">
 		<id>0x1ba0</id>
 		<category>Ground Tiles\Refuse\Refuse 2</category>
 	</item>
 
-	<item id="1ba1">
+	<item id="1ba1" inherit="ITEM_NO_DECAY">
 		<id>0x1ba1</id>
 		<category>Ground Tiles\Refuse\Refuse 3</category>
 	</item>
 
-	<item id="1ba2">
+	<item id="1ba2" inherit="ITEM_NO_DECAY">
 		<id>0x1ba2</id>
 		<category>Ground Tiles\Refuse\Refuse 4</category>
 	</item>
 
-	<item id="1ba3">
+	<item id="1ba3" inherit="ITEM_NO_DECAY">
 		<id>0x1ba3</id>
 		<category>Ground Tiles\Refuse\Refuse 5</category>
 	</item>
 
-	<item id="1ba4">
+	<item id="1ba4" inherit="ITEM_NO_DECAY">
 		<id>0x1ba4</id>
 		<category>Ground Tiles\Refuse\Refuse 6</category>
 	</item>
 
-	<item id="1ba5">
+	<item id="1ba5" inherit="ITEM_NO_DECAY">
 		<id>0x1ba5</id>
 		<category>Ground Tiles\Refuse\Refuse 7</category>
 	</item>
 
-	<item id="1ba6">
+	<item id="1ba6" inherit="ITEM_NO_DECAY">
 		<id>0x1ba6</id>
 		<category>Ground Tiles\Refuse\Refuse 8</category>
 	</item>
 
-	<item id="1ba7">
+	<item id="1ba7" inherit="ITEM_NO_DECAY">
 		<id>0x1ba7</id>
 		<category>Ground Tiles\Refuse\Refuse 9</category>
 	</item>
 
-	<item id="1ba8">
+	<item id="1ba8" inherit="ITEM_NO_DECAY">
 		<id>0x1ba8</id>
 		<category>Ground Tiles\Refuse\Refuse 10</category>
 	</item>
 
-	<item id="1ba9">
+	<item id="1ba9" inherit="ITEM_NO_DECAY">
 		<id>0x1ba9</id>
 		<category>Ground Tiles\Refuse\Refuse 11</category>
 	</item>
 
-	<item id="1baa">
+	<item id="1baa" inherit="ITEM_NO_DECAY">
 		<id>0x1baa</id>
 		<category>Ground Tiles\Refuse\Refuse 12</category>
 	</item>
 
-	<item id="1bab">
+	<item id="1bab" inherit="ITEM_NO_DECAY">
 		<id>0x1bab</id>
 		<category>Ground Tiles\Refuse\Refuse 13</category>
 	</item>
 
-	<item id="1bac">
+	<item id="1bac" inherit="ITEM_NO_DECAY">
 		<id>0x1bac</id>
 		<category>Ground Tiles\Refuse\Refuse 14</category>
 	</item>
 
-	<item id="1bad">
+	<item id="1bad" inherit="ITEM_NO_DECAY">
 		<id>0x1bad</id>
 		<category>Ground Tiles\Refuse\Refuse 15</category>
 	</item>
 
-	<item id="1bae">
+	<item id="1bae" inherit="ITEM_NO_DECAY">
 		<id>0x1bae</id>
 		<category>Ground Tiles\Refuse\Refuse 16</category>
 	</item>
 
-	<item id="1baf">
+	<item id="1baf" inherit="ITEM_NO_DECAY">
 		<id>0x1baf</id>
 		<category>Ground Tiles\Refuse\Refuse 17</category>
 	</item>
 
-	<item id="1bb0">
+	<item id="1bb0" inherit="ITEM_NO_DECAY">
 		<id>0x1bb0</id>
 		<category>Ground Tiles\Refuse\Refuse 18</category>
 	</item>
 
-	<item id="1bb1">
+	<item id="1bb1" inherit="ITEM_NO_DECAY">
 		<id>0x1bb1</id>
 		<category>Ground Tiles\Refuse\Refuse 19</category>
 	</item>
 
-	<item id="1bb2">
+	<item id="1bb2" inherit="ITEM_NO_DECAY">
 		<id>0x1bb2</id>
 		<category>Ground Tiles\Refuse\Refuse 20</category>
 	</item>
 
-	<item id="1bb4">
+	<item id="1bb4" inherit="ITEM_NO_DECAY">
 		<id>0x1bb4</id>
 		<category>Ground Tiles\Refuse\Refuse 21</category>
 	</item>
 
-	<item id="1bb5">
+	<item id="1bb5" inherit="ITEM_NO_DECAY">
 		<id>0x1bb5</id>
 		<category>Ground Tiles\Refuse\Refuse 22</category>
 	</item>
 
-	<item id="1bb6">
+	<item id="1bb6" inherit="ITEM_NO_DECAY">
 		<id>0x1bb6</id>
 		<category>Ground Tiles\Refuse\Refuse 23</category>
 	</item>
 
-	<item id="1bb7">
+	<item id="1bb7" inherit="ITEM_NO_DECAY">
 		<id>0x1bb7</id>
 		<category>Ground Tiles\Refuse\Refuse 24</category>
 	</item>
 
-	<item id="1bb8">
+	<item id="1bb8" inherit="ITEM_NO_DECAY">
 		<id>0x1bb8</id>
 		<category>Ground Tiles\Refuse\Refuse 25</category>
 	</item>
 
-	<item id="1bb9">
+	<item id="1bb9" inherit="ITEM_NO_DECAY">
 		<id>0x1bb9</id>
 		<category>Ground Tiles\Refuse\Refuse 26</category>
 	</item>
 
-	<item id="1bba">
+	<item id="1bba" inherit="ITEM_NO_DECAY">
 		<id>0x1bba</id>
 		<category>Ground Tiles\Refuse\Refuse 27</category>
 	</item>
 
-	<item id="1bbb">
+	<item id="1bbb" inherit="ITEM_NO_DECAY">
 		<id>0x1bbb</id>
 		<category>Ground Tiles\Refuse\Refuse 28</category>
 	</item>
 
-	<item id="1bbc">
+	<item id="1bbc" inherit="ITEM_NO_DECAY">
 		<id>0x1bbc</id>
 		<category>Ground Tiles\Refuse\Refuse 29</category>
 	</item>
 
-	<item id="1bbd">
+	<item id="1bbd" inherit="ITEM_NO_DECAY">
 		<id>0x1bbd</id>
 		<category>Ground Tiles\Refuse\Refuse 30</category>
 	</item>
 
 	<!-- Stars -->
-	<item id="213f">
+	<item id="213f" inherit="ITEM_NO_DECAY">
 		<id>0x213f</id>
 		<category>Ground Tiles\Stars\Stars 1</category>
 	</item>
 
-	<item id="2140">
+	<item id="2140" inherit="ITEM_NO_DECAY">
 		<id>0x2140</id>
 		<category>Ground Tiles\Stars\Stars 2</category>
 	</item>
 
-	<item id="2141">
+	<item id="2141" inherit="ITEM_NO_DECAY">
 		<id>0x2141</id>
 		<category>Ground Tiles\Stars\Stars 3</category>
 	</item>
 
-	<item id="2142">
+	<item id="2142" inherit="ITEM_NO_DECAY">
 		<id>0x2142</id>
 		<category>Ground Tiles\Stars\Stars 4</category>
 	</item>
 
-	<item id="2143">
+	<item id="2143" inherit="ITEM_NO_DECAY">
 		<id>0x2143</id>
 		<category>Ground Tiles\Stars\Stars 5</category>
 	</item>
 
-	<item id="2144">
+	<item id="2144" inherit="ITEM_NO_DECAY">
 		<id>0x2144</id>
 		<category>Ground Tiles\Stars\Stars 6</category>
 	</item>
 
 	<!-- Misc -->
-	<item id="337a">
+	<item id="337a" inherit="ITEM_NO_DECAY">
 		<id>0x337a</id>
 		<category>Ground Tiles\Misc\Forest</category>
 	</item>
