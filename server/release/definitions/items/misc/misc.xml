@@ -1553,11 +1553,13 @@
 	<item id="1c14">
 		<id>0x1c14</id>
 		<category>Misc\Quest Items\Candle of Love (On)</category>
+		<basescript>lightsource</basescript>
 	</item>
 
 	<item id="1c16">
 		<id>0x1c16</id>
 		<category>Misc\Quest Items\Candle of Love (Off)</category>
+		<basescript>lightsource</basescript>
 	</item>
 
 	<!-- Lighthouse -->
