@@ -52,7 +52,7 @@ def sextant_parts( char, item ):
 			item.amount -= 1
 			item.update()
 		else:
-			item.remove()	
+			item.delete()	
 	
 		if item.id == 0x1059:
 			item = wolfpack.additem( '1057' )
