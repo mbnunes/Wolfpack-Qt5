@@ -38,7 +38,7 @@ worlddriver = database.driver( database.WORLD )
 
 time = 24 * 3600000 * 7 # Every Week
 
-worldtables = "`boats`, `boats_itemids`, `boats_itemoffsets`,`bookpages`,`books`, `characters`, `corpses`, `corpses_equipment`, `effects`, `effects_properties`, `guilds`, `guilds_canidates`, `guilds_members`, `houses`, `items`, `multis`, `multis_bans`, `multis_friends`, `npcs`, `players`, `settings`, `skills`, `tags`, `uobject`, `uobjectmap`"
+worldtables = "`characters`, `corpses`, `corpses_equipment`, `effects`, `effects_properties`, `guilds`, `guilds_canidates`, `guilds_members`, `items`, `npcs`, `players`, `settings`, `skills`, `spawnregions,` `tags`, `uobject`, `uobjectmap`"
 
 """
 	\command backupdb
