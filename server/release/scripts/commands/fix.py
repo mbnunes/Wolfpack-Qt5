@@ -21,8 +21,10 @@ def onLoad():
 	return
 
 def commandFix( socket, cmd, args ):
+	char = socket.player
 	socket.sysmessage( "Resending the world, please wait." )
-	socket.player.update()
-	socket.player.resendtooltip()
+	socket.resendplayer()
+	char.update()
+	#socket.resendworld()
 	socket.sysmessage( "Resend complete." )
 	return True

@@ -63,7 +63,7 @@ def sendresponse(player, arguments, target):
 	if target.item:
 		object = target.item
 	elif target.char:
-		if target.char.rank >= player.rank and player != target.char:
+		if target.char.rank > player.rank and player != target.char:
 			player.socket.sysmessage("You've burnt your fingers!")
 			return
 

@@ -6,7 +6,7 @@
 import wolfpack
 import wolfpack.gumps
 from wolfpack.utilities import tobackpack
-from wolfpack.consts import ALLSKILLS, SKILLNAMES, LOG_MESSAGE
+from wolfpack.consts import ALLSKILLS, SKILLNAMES, LOG_MESSAGE, skillnamesids
 from math import ceil, floor
 from commands.info import iteminfo
 
@@ -20,16 +20,16 @@ def response(player, arguments, response):
 	target = wolfpack.findchar(arguments[0])
 
 	if not target:
-		return
+		return False
 
 	# Iterate trough all skills and see what changed
-	for skill in range(0, ALLSKILLS):
+	for skill in range( 0, ALLSKILLS ):
 		try:
 			newvalue = int(floor(float(response.text[0x1000 | skill]) * 10))
 			newcap = int(floor(float(response.text[0x2000 | skill]) * 10))
 		except:
 			player.socket.sysmessage('You have entered invalid values for %s.' % SKILLNAMES[skill])
-			return
+			return False
 
 		oldvalue = target.skill[skill]
 		oldcap = target.skillcap[skill]

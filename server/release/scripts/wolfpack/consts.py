@@ -264,7 +264,7 @@ SND_DIE = 4
 
 """
 	\constants wolfpack.consts Layer Constants
-	These constants provide fast access to equipment on certain 
+	These constants provide fast access to equipment on certain
 	layers of a character. See the itemonlayer method for <object id="char">char</object> objects.
 """
 LAYER_RIGHTHAND = 1
@@ -412,7 +412,7 @@ CAST_TARGET_GROUND = 0x04 # Other
 """
 	\constants wolfpack.consts Damage Constants
 	These constants specify a damage type for the
-	damage method in the <object id="char">char</object> 
+	damage method in the <object id="char">char</object>
 	object.
 """
 DAMAGE_PHYSICAL = 0
@@ -426,7 +426,7 @@ DAMAGE_HUNGER = 3
 # Some nice animation definitions
 """
 	\constants wolfpack.consts Animation Constants
-	These constants are animation ids for the 
+	These constants are animation ids for the
 	action method in the <object id="char">char</object>
 	object.
 """
@@ -746,7 +746,7 @@ SOUND_FEMALE_46 = 0x338 # Really frustrated
 
 """
 	\constants wolfpack.consts Definition Constants
-	These constants represent the definition section types as used in 
+	These constants represent the definition section types as used in
 	getdefinition in the <module id="wolfpack">wolfpack</module> module.
 """
 WPDT_ITEM = 0
