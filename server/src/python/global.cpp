@@ -28,7 +28,7 @@
 #include "engine.h"
 
 #include "../basics.h"
-
+#include "../network/network.h"
 #include "../network/uosocket.h"
 #include "../network/uotxpackets.h"
 #include "../console.h"
@@ -48,7 +48,6 @@
 #include "../verinfo.h"
 
 #include "../items.h"
-#include "../network.h"
 #include "../config.h"
 #include "../basechar.h"
 #include "../player.h"

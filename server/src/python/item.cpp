@@ -28,7 +28,7 @@
 #include "engine.h"
 
 #include "../items.h"
-#include "../tilecache.h"
+#include "../muls/tilecache.h"
 #include "../scriptmanager.h"
 #include "../multi.h"
 #include "../basechar.h"
