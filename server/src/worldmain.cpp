@@ -846,12 +846,6 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		pi->setContSerial(pi->contserial);
 		pi->SetOwnSerial(pi->ownserial);
 
-		if (pi->spawnregion < 0)
-			pi->spawnregion = 0;
-		else
-			++spawnregion[pi->spawnregion].current;
-
-
 		//add item weight if item doesn't have it yet
 		if( pi->weight() <= 0 ) // LB, changed from 29 to 0
 		{

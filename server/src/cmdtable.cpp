@@ -43,7 +43,7 @@
 
 #include "wolfpack.h"
 #include "cmdtable.h"
-#include "sregions.h"
+#include "spawnregions.h"
 #include "bounty.h"
 #include "SndPkg.h"
 #include "worldmain.h"
@@ -519,7 +519,7 @@ void command_reloadcachedscripts(UOXSOCKET s)
 
 	loadcustomtitle();
 	loadregions();
-	loadspawnregions();
+	AllSpawnRegions->reload();
 	Commands->loadPrivLvlCmds();
 	loadskills();
 	read_in_teleport(); // hope i've cought all  ...
@@ -1810,11 +1810,10 @@ void command_respawn(UOXSOCKET s)
 // Forces a respawn.
 {
 	P_CHAR pc_currchar = currchar[s];
-	
-	sprintf((char*)temp,"Respawn command called by %s.\n", pc_currchar->name.c_str());//AntiChrist
 	sysbroadcast("World is now respawning, expect some lag!");
-	LogMessage((char*)temp);
-	Respawn->Start();
+	clConsole.log( QString( "Respawn command called by %1.\n" ).arg( pc_currchar->name.c_str() ).latin1() );
+
+	AllSpawnRegions->reSpawn();
 	return;
 }
 
@@ -1826,7 +1825,7 @@ void command_regspawnmax(UOXSOCKET s)
 		P_CHAR pc_currchar = currchar[s];
 		sprintf((char*)temp,"MAX Region Respawn command called by %s.\n", pc_currchar->name.c_str());//AntiChrist
 		LogMessage((char*)temp);
-		Commands->RegSpawnMax(s, makenumber(1));
+		Commands->RegSpawnMax(s, Commands->GetAllParams() );
 		return;
 	}
 	
@@ -1837,10 +1836,11 @@ void command_regspawn(UOXSOCKET s)
 {
 	if (tnum==3)
 	{
+		QStringList Params = QStringList::split( " ", Commands->GetAllParams() );
 		P_CHAR pc_currchar = currchar[s];
 		sprintf((char*)temp,"Specific Region Respawn command called by %s.\n", pc_currchar->name.c_str());
 		LogMessage((char*)temp);
-		Commands->RegSpawnNum(s, makenumber(1), makenumber(2));
+		Commands->RegSpawnNum(s, Params[0], makenumber(2));
 		return;
 	}
 	
@@ -2009,7 +2009,7 @@ void command_rename2(UOXSOCKET s)
 
 void command_readspawnregions(UOXSOCKET s)
 {
-	loadspawnregions();
+	AllSpawnRegions->reload();
 	sysmessage(s, tr("Spawnregions reloaded."));
 	return;
 	
@@ -2116,7 +2116,7 @@ void command_spawnkill(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		Commands->KillSpawn(s, makenumber(1));
+		Commands->KillSpawn(s, Commands->GetAllParams() );
 	}
 	return;
 }
@@ -2260,27 +2260,9 @@ void command_gms(UOXSOCKET s)
 
 void command_regspawnall(UOXSOCKET s)
 {
-	int  j, k, spawn=0;
-	unsigned int i;
-	
-	for (i = 1; i < spawnregion.size(); i++)
-	{
-		spawn += (spawnregion[i].max - spawnregion[i].current);
-	}
-	
 	sysbroadcast("ALL Regions Spawning to MAX, this will cause some lag.");
-	
-	for(i = 1; i < spawnregion.size(); i++)
-	{
-		k = (spawnregion[i].max-spawnregion[i].current);
-		for(j = 1; j < k; j++)
-		{
-			doregionspawn(i);
-		}
-		spawnregion[i].nexttime = uiCurrentTime+(MY_CLOCKS_PER_SEC*60*RandomNum(spawnregion[i].mintime,spawnregion[i].maxtime));
-	}
-	
-	sysmessage(s, tr("Done. %1 total NPCs/items spawned in %2 regions.").arg(spawn).arg(spawnregion.size()));
+	AllSpawnRegions->reSpawnToMax();
+	return;
 }
 
 void command_wipenpcs(UOXSOCKET s)

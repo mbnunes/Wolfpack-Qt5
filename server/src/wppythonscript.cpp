@@ -829,7 +829,7 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "madewith", Item->madewith ) 
 	else getStrProperty( "desc", Item->desc.c_str() ) 
 	else getIntProperty( "carve", Item->carve ) 
-	else getIntProperty( "spawnregion", Item->spawnregion )
+	else getStrProperty( "spawnregion", Item->spawnregion().latin1() )
 
 	// If no property is found search for a method
 	return Py_FindMethod( Py_WPItemMethods, (PyObject*)self, name );
@@ -965,7 +965,9 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else setIntProperty( "madewith", Item->madewith ) 
 	else setStrProperty( "desc", Item->desc ) 
 	else setIntProperty( "carve", Item->carve ) 
-	else setIntProperty( "spawnregion", Item->spawnregion ) 
+
+	else if( !strcmp( name, "spawnregion" ) )
+		self->Item->setSpawnRegion( PyString_AS_STRING( value ) );
 	// incognito
 
 	return 0;

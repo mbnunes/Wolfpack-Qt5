@@ -60,9 +60,9 @@ public:
 	QStringList params;
 	QString GetAllParams(void);
 	void NextCall(int s, int type);
-	void KillSpawn(int s, int r);
-	void RegSpawnMax(int s, int r);
-	void RegSpawnNum(int s, int r, int n);
+	void KillSpawn(int s, QString spawnRegion );
+	void RegSpawnMax(int s, QString spawnRegion );
+	void RegSpawnNum(int s, QString spawnRegion, int n);
 	void KillAll(int s, int percent, const char * sysmsg);
 	void AddHere(int s, char z);
 	void ShowGMQue(int s, int type);

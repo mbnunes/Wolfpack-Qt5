@@ -32,7 +32,7 @@
 #include "wolfpack.h"
 #include "debug.h"
 #include "cmdtable.h"
-#include "sregions.h"
+#include "spawnregions.h"
 #include "SndPkg.h"
 #include "classes.h"
 #include "utilsys.h"
@@ -382,102 +382,52 @@ void cCommands::NextCall(int s, int type)
 	}// if
 }
 
-void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
+void cCommands::KillSpawn(int s, QString spawnRegion )  // rewrite sereg
 {
-	int killed=0;
+	cAllSpawnRegions::iterator it = AllSpawnRegions->find( spawnRegion );
 
-	char temp[512];
-
-	r++; // synch with 1-indexed real storage, casue 0 is no region indicator, LB
-
-	if (r<=0 || r>=255) return;
-
-	sysmessage(s, tr("Killing spawn, this may cause lag..."));
-
-	AllCharsIterator iter_char;
-	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
+	if( it == AllSpawnRegions->end() )
+		return;
+	else
 	{
-		P_CHAR toCheck = iter_char.GetData();
-		if(toCheck->spawnregion()==r && !toCheck->free)
-		{
-			bolteffect(toCheck, true);
-			soundeffect2(toCheck, 0x0029);
-			Npcs->DeleteChar(toCheck);
-            killed++;
-		}
-	}
-
-	AllItemsIterator iter_item;
-	for(iter_item.Begin(); !iter_item.atEnd(); iter_item++)
-	{
-		P_ITEM toCheck = iter_item.GetData();
-		if(toCheck->spawnregion == r && !toCheck->free)
-		{			
-			iter_item--; // Iterator will became invalid when we delete it.
-			Items->DeleItem(toCheck);
-            killed++;
-		}
+		sysmessage(s, tr("Killing spawn, this may cause lag..."));
+		it->second->deSpawn();
 	}
 
 	gcollect();
 	sysmessage(s, tr("Done."));
-	sysmessage(s, tr("%1 of Spawn %2 have been killed.").arg(killed).arg(r-1));
 }
 
-void cCommands::RegSpawnMax (int s, int r) // rewrite LB
+void cCommands::RegSpawnMax (int s, QString spawnRegion) // rewrite sereg
 {
-	int i, spawn;
-	unsigned int currenttime=uiCurrentTime;
-	char *temps;
+	cAllSpawnRegions::iterator it = AllSpawnRegions->find( spawnRegion );
 
-	r++;
-	if (r<=0 || r>=255) return;
-
-	temps = new char[100];
-
-	spawn = (spawnregion[r].max-spawnregion[r].current);
-
-	sprintf(temps, "Region %d is Spawning %d items/NPCs, this will cause some lag.", r-1, spawn);
-	sysbroadcast(temps);
-
-	for(i=1;i<spawn;i++)
+	if( it == AllSpawnRegions->end() )
+		return;
+	else
 	{
-		doregionspawn(r);
-
-	}	
-	
-	spawnregion[r].nexttime=currenttime+(MY_CLOCKS_PER_SEC*60*RandomNum(spawnregion[r].mintime,spawnregion[r].maxtime));	
-	sysmessage(s, tr("Done. %1 total NPCs/items spawned in Spawnregion %2.").arg(spawn).arg(r-1));
-
-	if (temps!=NULL) delete [] temps;
+		sysmessage(s, tr("Respawning to max, this may cause lag..."));
+		it->second->reSpawnToMax();
+	}
 }
 
-void cCommands::RegSpawnNum (int s, int r, int n) // rewrite by LB
+void cCommands::RegSpawnNum (int s, QString spawnRegion, int n) // rewrite by sereg
 {
-	int i, spawn=0;
-	unsigned int currenttime=uiCurrentTime;
-	char *temps;
+	cAllSpawnRegions::iterator it = AllSpawnRegions->find( spawnRegion );
 
-	r++;
-	if (r<=0 || r>=255) return;
-
-	temps = new char[100];
-
-	spawn = (spawnregion[r].max-spawnregion[r].current);
-	if (n > spawn) 
-	{		
-		sysmessage(s, tr("%1 too many for region %2, spawning %3 to reach MAX:%4 instead.").arg(n).arg(r-1).arg(spawn).arg(spawnregion[r].max));
-		n=spawn;
-	}		
-	sysbroadcast( tr("Region %1 is Spawning: %2 NPCs/items, this will cause some lag.").arg(r-1).arg(spawn));
-	for(i=1;i<spawn;i++)
+	if( it == AllSpawnRegions->end() )
+		return;
+	else
 	{
-		doregionspawn(r);
-	}//for	
-	
-	spawnregion[r].nexttime=currenttime+(MY_CLOCKS_PER_SEC*60*RandomNum(spawnregion[r].mintime,spawnregion[r].maxtime));
-	sysmessage(s, tr("Done. %1 total NPCs/items spawned in Spawnregion %2.").arg(spawn).arg(r-1));
-    if (temps!=NULL) delete [] temps; // fixing memory leak, LB
+		sysmessage(s, tr("Respawning to max, this may cause lag..."));
+		int i = 0;
+
+		while( i < n )
+		{
+			it->second->reSpawn();
+			i++;
+		}
+	}
 }//regspawnnum
 
 void cCommands::KillAll(int s, int percent, const char* sysmsg)

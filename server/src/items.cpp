@@ -136,7 +136,7 @@ cItem::cItem( cItem &src )
     this->glow_color = src.glow_color;
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
-	this->spawnregion=src.spawnregion;
+	this->setSpawnRegion( src.spawnregion() );
 	this->desc = src.desc;
 }
 
@@ -490,7 +490,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("trigger",		trigger);
 		archive.read("trigtype",	trigtype);
 		archive.read("disabled",	disabled);
-		archive.read("spawnregion",	spawnregion);
+		archive.read("spawnregion",	spawnregion());
 		archive.read("uses",		tuses);
 		archive.read("good",		good);
 		archive.read("smelt",		smelt_);
@@ -752,7 +752,7 @@ void cItem::Init(bool mkser)
     this->glow_color = 0;
 	this->time_unused=0;
 	this->timeused_last=getNormalizedTime();
-	this->spawnregion=0;
+	this->spawnregion_="";
 }
 
 // -- delete an item (Actually just mark it is free)
@@ -767,11 +767,6 @@ void cAllItems::DeleItem(P_ITEM pi)
 	{
 		
 		LongToCharPtr(pi->serial, &removeitem[1]);
-
-		if (pi->spawnregion>0 && pi->spawnregion<255)
-		{
-			spawnregion[pi->spawnregion].current--;
-		}
 
 		for (j=0;j<now;j++)
 		{

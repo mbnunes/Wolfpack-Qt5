@@ -41,6 +41,7 @@
 #include "srvparams.h"
 #include "classes.h"
 #include "network.h"
+#include "spawnregions.h"
 
 // Library Includes
 #include "qdatetime.h"
@@ -882,15 +883,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 	if(checkspawnregions<=currenttime && SrvParams->spawnRegionCheckTime() != -1)//Regionspawns
 	{
-		for(i=1;i<spawnregion.size();i++)
-		{
-			//if (spawnregion[i].max) continue;
-			if(spawnregion[i].nexttime<=currenttime)
-			{
-				spawnregion[i].nexttime=currenttime+(MY_CLOCKS_PER_SEC*60*RandomNum(spawnregion[i].mintime,spawnregion[i].maxtime));
-				if (doregionspawn(i)) break;
-			}
-		}
+		AllSpawnRegions->Check();
 		checkspawnregions=uiCurrentTime+SrvParams->spawnRegionCheckTime()*MY_CLOCKS_PER_SEC;//Don't check them TOO often (Keep down the lag)
 	}
 

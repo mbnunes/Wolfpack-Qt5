@@ -62,6 +62,7 @@
 #include "classes.h"
 #include "mapstuff.h"
 #include "gumps.h"
+#include "spawnregions.h"
 
 // new-style includes
 #include "wpdefmanager.h"
@@ -2610,7 +2611,7 @@ void checkkey ()
 			case 'R':
 				clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
-				loadspawnregions();
+				AllSpawnRegions->reload();
 				loadregions();
 				Commands->loadPrivLvlCmds();
 
@@ -2908,7 +2909,6 @@ int main( int argc, char *argv[] )
 	CIAO_IF_ERROR;
 
 	Map->Cache = SrvParams->cacheMulFiles();
-	loadspawnregions();
 	loadregions();
 
 	CIAO_IF_ERROR;
@@ -2929,6 +2929,8 @@ int main( int argc, char *argv[] )
 
 	cwmWorldState->loadnewworld(SrvParams->worldSaveModule());
 	CIAO_IF_ERROR; // LB prevents file corruption
+
+	AllSpawnRegions->Load();
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;
@@ -3126,9 +3128,6 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		}
 
 		tempSecs = getNormalizedTime();
-
-		if(Respawn->AreWeRespawning())	// pseudo-respawn-thread (Duke)
-			Respawn->Continue();
 
 		if (CheckClientIdle<=uiCurrentTime)
 		{
@@ -6141,7 +6140,7 @@ void StartClasses(void)
 	Network			= NULL;
 	Magic			= NULL;
 	Books			= NULL;
-	Respawn			= NULL;
+	AllSpawnRegions = NULL;
 	Movement		= NULL;
 	Weather			= NULL;
 	DragonAI		= NULL;
@@ -6168,7 +6167,7 @@ void StartClasses(void)
 	Network			= new cNetworkStuff;
 	Magic			= new cMagic;
 	Books			= new cBooks;
-	Respawn			= new cRespawn;
+	AllSpawnRegions	= new cAllSpawnRegions;
 	AllTmpEff		= new cAllTmpEff;
 	Movement		= new cMovement;
 
@@ -6204,7 +6203,7 @@ void DeleteClasses(void)
 	delete Network;
 	delete Magic;
 	delete Books;
-	delete Respawn;
+	delete AllSpawnRegions;
 	delete Movement;
 	delete DragonAI;
 	delete BankerAI;

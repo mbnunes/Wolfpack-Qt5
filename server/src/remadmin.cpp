@@ -48,7 +48,7 @@
 #include "debug.h"
 #include "speech.h"
 #include "dragdrop.h"
-#include "sregions.h"
+#include "spawnregions.h"
 #include "rcvpkg.h"
 #include "SndPkg.h"
 #include "worldmain.h"
@@ -518,7 +518,7 @@ void racProcessInput(int s)
 			Accounts->LoadAccounts( false );
 			racPrintf(s, "Done!\r\n");
 			racPrintf(s, "WOLFPACK: Reloading Server.scp, Spawn.scp, and Regions.scp....");
-			loadspawnregions();
+			AllSpawnRegions->reload();
 			loadregions();
 			Commands->loadPrivLvlCmds();
 			SrvParams->reload();

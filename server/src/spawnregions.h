@@ -35,6 +35,7 @@
 #include "definable.h"
 #include "platform.h"
 #include "coord.h"
+#include "typedefs.h"
 
 // Library includes
 #include "qstring.h"
@@ -56,7 +57,9 @@ public:
 
 	void	reSpawn( void );
 	void	deSpawn( void );
+	void	reSpawnToMax( void );
 
+	void	checkForDeleted( void );
 	void	checkTimer( void );
 
 	bool	findValidSpot( Coord_cl &pos );
@@ -64,8 +67,8 @@ private:
 	virtual void processNode( const QDomElement &Tag );
 
 private:
-	std::vector< UI32 >		npcSerials_;	// serials of chars spawned by this area
-	std::vector< UI32 >		itemSerials_;	// serials of items spawned by this area
+	std::vector< SERIAL >		npcSerials_;	// serials of chars spawned by this area
+	std::vector< SERIAL >		itemSerials_;	// serials of items spawned by this area
 
 	QString					name_;			// name of the spawnregion (section's name)
 
@@ -98,8 +101,10 @@ public:
 
 	void	Load( void );
 	void	Check( void );
+	void	reload( void );
 
 	void	reSpawn( void );
+	void	reSpawnToMax( void );
 	void	deSpawn( void );
 };
 

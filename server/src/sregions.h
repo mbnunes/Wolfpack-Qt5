@@ -45,24 +45,6 @@ class cRespawn;
 #include "SndPkg.h"
 #include "debug.h"
 
-class cRespawn
-{
-private:
-	bool respawning;
-	bool doItemSpawns;
-	int currentSpawnRegion;
-	unsigned int currentSpawnItem;
-public:
-	cRespawn() {respawning = doItemSpawns = false;}
-	bool AreWeRespawning() {return respawning;}
-	void Start() {respawning = doItemSpawns = true; currentSpawnRegion=1; currentSpawnItem=0;}
-	void Continue();
-};
-
-extern cRespawn	*Respawn;
-
-bool doregionspawn(int r);
-void loadspawnregions();//Zippy
 void loadregions();
 void checkregion(P_CHAR pc_i);
 unsigned char calcRegionFromXY(int x, int y);

@@ -39,6 +39,7 @@
 #include "defines.h"
 #include "mapstuff.h"
 #include "walking2.h"
+#include "utilsys.h"
 
 #include "junk.h" // needed for objects Npcs and Items
 
@@ -203,6 +204,8 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 // do one spawn and reset the timer
 void cSpawnRegion::reSpawn( void )
 {
+	this->checkForDeleted();
+
 	UI16 i = 0;
 	for( i = 0; i < this->npcsPerCycle_; i++ )
 	{
@@ -244,10 +247,48 @@ void cSpawnRegion::reSpawn( void )
 	this->nextTime_ = uiCurrentTime + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
 }
 
+void cSpawnRegion::reSpawnToMax( void )
+{
+	this->checkForDeleted();
+
+	while( (this->npcSerials_.size()+1) < this->maxNpcAmt_ )
+	{
+		// spawn a random npc
+		// first find a valid position for the npc
+		Coord_cl pos;
+		if( this->findValidSpot( pos ) )
+		{
+			QString NpcSect = this->npcSections_[ RandomNum( 0, this->npcSections_.size() ) ];
+			P_CHAR pc = Npcs->createScriptNpc( -1, NULL, NpcSect, pos.x, pos.y, pos.z );
+			if( pc != NULL )
+				this->npcSerials_.push_back( pc->serial );
+		}
+	}
+
+	while( (this->npcSerials_.size()+1) < this->maxNpcAmt_ )
+	{
+		// spawn a random item
+		// first find a valid position for the item
+		Coord_cl pos;
+		if( this->findValidSpot( pos ) )
+		{
+			QString ItemSect = this->itemSections_[ RandomNum( 0, this->itemSections_.size() ) ];
+			P_ITEM pi = Items->createScriptItem( ItemSect );
+			if( pi != NULL )
+			{
+				pi->pos = pos;
+				this->itemSerials_.push_back( pi->serial );
+			}
+		}
+	}
+
+	this->nextTime_ = uiCurrentTime + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
+}
+
 // delete all spawns and reset the timer
 void cSpawnRegion::deSpawn( void )
 {
-	std::vector< UI32 >::iterator it = this->npcSerials_.begin();
+	std::vector< SERIAL >::iterator it = this->npcSerials_.begin();
 
 	while( it != this->npcSerials_.end() )
 	{
@@ -264,6 +305,25 @@ void cSpawnRegion::deSpawn( void )
 	}
 
 	this->nextTime_ = uiCurrentTime + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
+}
+
+void cSpawnRegion::checkForDeleted( void )
+{
+	std::vector< SERIAL >::iterator it = this->npcSerials_.begin();
+	while( it != this->npcSerials_.end() )
+	{
+		if( FindCharBySerial( *it ) == NULL )
+			this->npcSerials_.erase( it );
+		it++;
+	}
+
+	it = this->itemSerials_.begin();
+	while( it != this->itemSerials_.end() )
+	{
+		if( FindItemBySerial( *it ) == NULL )
+			this->itemSerials_.erase( it );
+		it++;
+	}
 }
 
 // check the timer and if expired do reSpawn
@@ -286,7 +346,9 @@ cAllSpawnRegions::~cAllSpawnRegions( void )
 
 void cAllSpawnRegions::Load( void )
 {
+	UI32 starttime = getNormalizedTime();
 	QStringList DefSections = DefManager->getSections( WPDT_SPAWNREGION );
+	clConsole.PrepareProgress( "Loading spawn regions..." );
 
 	QStringList::iterator it = DefSections.begin();
 	while( it != DefSections.end() )
@@ -318,6 +380,10 @@ void cAllSpawnRegions::Load( void )
 		if( iter_spreg != this->end() )
 			iter_spreg->second->Add( pi->serial );
 	}
+
+	UI32 endtime = getNormalizedTime();
+	clConsole.ProgressDone();
+	clConsole.send( QString( "Loaded %1 spawnregions in %2 sec.\n" ).arg( DefSections.size() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ).latin1() );
 }
 
 void cAllSpawnRegions::Check( void )
@@ -330,12 +396,34 @@ void cAllSpawnRegions::Check( void )
 	}
 }
 
+void cAllSpawnRegions::reload( void )
+{
+	iterator it = this->begin();
+	while( it != this->end() )
+	{
+		delete it->second; // delete the cSpawnRegion objects from the stack!
+		it++;
+	}
+
+	this->Load();
+}
+
 void cAllSpawnRegions::reSpawn( void )
 {
 	iterator it = this->begin();
 	while( it != this->end() )
 	{
 		it->second->reSpawn();
+		it++;
+	}
+}
+
+void cAllSpawnRegions::reSpawnToMax( void )
+{
+	iterator it = this->begin();
+	while( it != this->end() )
+	{
+		it->second->reSpawnToMax();
 		it++;
 	}
 }
