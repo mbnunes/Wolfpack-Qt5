@@ -879,7 +879,7 @@ def isValidPosition( pos ):
 	# Check if the map is valid.
 	if wolfpack.hasmap( pos.map ):
 		# Z Checking
-		if pos.z > 127 or pos.z < -127 ):
+		if pos.z > 127 or pos.z < -127:
 			return False
 		# X & Y Checking
 		# Felucca & Trammel
