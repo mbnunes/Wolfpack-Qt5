@@ -12,378 +12,385 @@
 	<!-- Marble Bench -->
 	<item id="459">
 		<id>0x0459</id> <nodecay />
-		<category>Decoration\Chairs\Marble Bench 1 (N/S)</category>
+		<category>Decoration\Chairs\Marble Bench\Marble Bench 1 (N/S)</category>
 	</item>
 
 	<item id="45a">
 		<id>0x045a</id> <nodecay />
-		<category>Decoration\Chairs\Marble Bench 1 (W/E)</category>
+		<category>Decoration\Chairs\Marble Bench\Marble Bench 1 (W/E)</category>
 	</item>
 
 	<!-- Sandstone Bench -->
 	<item id="45b">
 		<id>0x045b</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 1 (N/S)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 1 (N/S)</category>
 	</item>
 
 	<item id="45c">
 		<id>0x045c</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 1 (W/E)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 1 (W/E)</category>
 	</item>
 
 	<!-- Stool -->
 	<item id="a2a">
 		<id>0x0a2a</id> <nodecay />
-		<category>Decoration\Chairs\Stool 1</category>
+		<category>Decoration\Chairs\Stool\Stool 1</category>
 	</item>
 
 	<item id="a2b">
 		<id>0x0a2b</id> <nodecay />
-		<category>Decoration\Chairs\Stool 2</category>
+		<category>Decoration\Chairs\Stool\Stool 2</category>
 	</item>
 
 	<!-- Wooden Bench -->
 	<item id="b2c">
 		<id>0x0b2c</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Bench 1 (W/E)</category>
+		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 1 (W/E)</category>
 	</item>
 
 	<item id="b2d">
 		<id>0x0b2d</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Bench 1 (N/S)</category>
+		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 1 (N/S)</category>
 	</item>
 
 	<!-- Wooden Chair -->
 	<item id="b2e">
 		<id>0x0b2e</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Chair 1</category>
+		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 1</category>
 	</item>
 
 	<item id="b2f">
 		<id>0x0b2f</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Chair 2</category>
+		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 2</category>
 	</item>
 
 	<item id="b30">
 		<id>0x0b30</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Chair 3</category>
+		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 3</category>
 	</item>
 
 	<item id="b31">
 		<id>0x0b31</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Chair 4</category>
+		<category>Decoration\Chairs\Wooden Chair\Wooden Chair 4</category>
 	</item>
 
-	<!-- Throne -->
+	<!-- Wooden Throne -->
 	<item id="b32">
 		<id>0x0b32</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Throne 1</category>
+		<category>Decoration\Chairs\Wooden Throne\Wooden Throne 1</category>
 	</item>
 
 	<item id="b33">
 		<id>0x0b33</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Throne 2</category>
+		<category>Decoration\Chairs\Wooden Throne\Wooden Throne 2</category>
 	</item>
 
-	<!-- Wooden Chairs -->
+	<!-- Wooden Chair -->
 	<item id="b4e">
 		<id>0x0b4e</id> <nodecay />
-		<category>Decoration\Chairs\Fancy Wooden Chair 1</category>
+		<category>Decoration\Chairs\Wooden Chair\Fancy Wooden Chair 1</category>
 	</item>
 
 	<item id="b4f">
 		<id>0x0b4f</id> <nodecay />
-		<category>Decoration\Chairs\Fancy Wooden Chair 2</category>
+		<category>Decoration\Chairs\Wooden Chair\Fancy Wooden Chair 2</category>
 	</item>
 
 	<item id="b50">
 		<id>0x0b50</id> <nodecay />
-		<category>Decoration\Chairs\Fancy Wooden Chair 3</category>
+		<category>Decoration\Chairs\Wooden Chair\Fancy Wooden Chair 3</category>
 	</item>
 
 	<item id="b51">
 		<id>0x0b51</id> <nodecay />
-		<category>Decoration\Chairs\Fancy Wooden Chair 4</category>
+		<category>Decoration\Chairs\Wooden Chair\Fancy Wooden Chair 4</category>
 	</item>
 
 	<item id="b52">
 		<id>0x0b52</id> <nodecay />
-		<category>Decoration\Chairs\Simple Wooden Chair 1</category>
+		<category>Decoration\Chairs\Wooden Chair\Simple Wooden Chair 1</category>
 	</item>
 
 	<item id="b53">
 		<id>0x0b53</id> <nodecay />
-		<category>Decoration\Chairs\Simple Wooden Chair 2</category>
+		<category>Decoration\Chairs\Wooden Chair\Simple Wooden Chair 2</category>
 	</item>
 
 	<item id="b54">
 		<id>0x0b54</id> <nodecay />
-		<category>Decoration\Chairs\Simple Wooden Chair 3</category>
+		<category>Decoration\Chairs\Wooden Chair\Simple Wooden Chair 3</category>
 	</item>
 
 	<item id="b55">
 		<id>0x0b55</id> <nodecay />
-		<category>Decoration\Chairs\Simple Wooden Chair 4</category>
+		<category>Decoration\Chairs\Wooden Chair\Simple Wooden Chair 4</category>
 	</item>
 
 	<item id="b56">
 		<id>0x0b56</id> <nodecay />
-		<category>Decoration\Chairs\Plain Wooden Chair 1</category>
+		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 1</category>
 	</item>
 
 	<item id="b57">
 		<id>0x0b57</id> <nodecay />
-		<category>Decoration\Chairs\Plain Wooden Chair 2</category>
+		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 2</category>
 	</item>
 
 	<item id="b58">
 		<id>0x0b58</id> <nodecay />
-		<category>Decoration\Chairs\Plain Wooden Chair 3</category>
+		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 3</category>
 	</item>
 
 	<item id="b59">
 		<id>0x0b59</id> <nodecay />
-		<category>Decoration\Chairs\Plain Wooden Chair 4</category>
+		<category>Decoration\Chairs\Wooden Chair\Plain Wooden Chair 4</category>
 	</item>
 
 	<item id="b5a">
 		<id>0x0b5a</id> <nodecay />
-		<category>Decoration\Chairs\Rustic Wooden Chair 1</category>
+		<category>Decoration\Chairs\Wooden Chair\Rustic Wooden Chair 1</category>
 	</item>
 
 	<item id="b5b">
 		<id>0x0b5b</id> <nodecay />
-		<category>Decoration\Chairs\Rustic Wooden Chair 2</category>
+		<category>Decoration\Chairs\Wooden Chair\Rustic Wooden Chair 2</category>
 	</item>
 
 	<item id="b5c">
 		<id>0x0b5c</id> <nodecay />
-		<category>Decoration\Chairs\Rustic Wooden Chair 3</category>
+		<category>Decoration\Chairs\Wooden Chair\Rustic Wooden Chair 3</category>
 	</item>
 
 	<item id="b5d">
 		<id>0x0b5d</id> <nodecay />
-		<category>Decoration\Chairs\Rustic Wooden Chair 4</category>
+		<category>Decoration\Chairs\Wooden Chair\Rustic Wooden Chair 4</category>
 	</item>
 
+	<!-- misc -->
 	<item id="b5e">
 		<id>0x0b5e</id> <nodecay />
-		<category>Decoration\Chairs\Foot Stool</category>
+		<category>Decoration\Chairs\Misc\Foot Stool</category>
 	</item>
 
+	<!-- Wooden Bench -->
 	<item id="b5f">
 		<id>0x0b5f</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Bench 2 (W/E) (1/3)</category>
+		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (W/E) (1/3)</category>
 	</item>
 
 	<item id="b60">
 		<id>0x0b60</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Bench 2 (W/E) (2/3)</category>
+		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (W/E) (2/3)</category>
 	</item>
 
 	<item id="b61">
 		<id>0x0b61</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Bench 2 (W/E) (3/3)</category>
+		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (W/E) (3/3)</category>
 	</item>
 
+	<!-- Sandstone Bench -->
 	<item id="b62">
 		<id>0x0b62</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 2 (W/E) (1/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (W/E) (1/3)</category>
 	</item>
 
 	<item id="b63">
 		<id>0x0b63</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 2 (W/E) (2/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (W/E) (2/3)</category>
 	</item>
 
 	<item id="b64">
 		<id>0x0b64</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 2 (W/E) (3/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (W/E) (3/3)</category>
 	</item>
 
+	<!-- Wooden Bench -->
 	<item id="b65">
 		<id>0x0b65</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Bench 2 (N/S) (1/3)</category>
+		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (N/S) (1/3)</category>
 	</item>
 
 	<item id="b66">
 		<id>0x0b66</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Bench 2 (N/S) (2/3)</category>
+		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (N/S) (2/3)</category>
 	</item>
 
 	<item id="b67">
 		<id>0x0b67</id> <nodecay />
-		<category>Decoration\Chairs\Wooden Bench 2 (N/S) (3/3)</category>
+		<category>Decoration\Chairs\Wooden Bench\Wooden Bench 2 (N/S) (3/3)</category>
 	</item>
 
+	<!-- Sandstone Bench -->
 	<item id="b68">
 		<id>0x0b68</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 2 (N/S) (1/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (N/S) (1/3)</category>
 	</item>
 
 	<item id="b69">
 		<id>0x0b69</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 2 (N/S) (2/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (N/S) (2/3)</category>
 	</item>
 
 	<item id="b6a">
 		<id>0x0b6a</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 2 (N/S) (3/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 2 (N/S) (3/3)</category>
 	</item>
 
 	<!-- Wall Bench -->
 	<item id="b91">
 		<id>0x0b91</id> <nodecay />
-		<category>Decoration\Chairs\Bench (N/S) (1/2)</category>
+		<category>Decoration\Chairs\Wall Bench\Bench (N/S) (1/2)</category>
 	</item>
 
 	<item id="b92">
 		<id>0x0b92</id> <nodecay />
-		<category>Decoration\Chairs\Bench (N/S) (2/2)</category>
+		<category>Decoration\Chairs\Wall Bench\Bench (N/S) (2/2)</category>
 	</item>
 
 	<item id="b93">
 		<id>0x0b93</id> <nodecay />
-		<category>Decoration\Chairs\Bench (W/E) (1/2)</category>
+		<category>Decoration\Chairs\Wall Bench\Bench (W/E) (1/2)</category>
 	</item>
 
 	<item id="b94">
 		<id>0x0b94</id> <nodecay />
-		<category>Decoration\Chairs\Bench (N/S) (2/2)</category>
+		<category>Decoration\Chairs\Wall Bench\Bench (N/S) (2/2)</category>
 	</item>
 
 	<!-- Loom Bench -->
 	<item id="1049">
 		<id>0x1049</id> <nodecay />
-		<category>Decoration\Chairs\Loom Bench (W/E)</category>
+		<category>Decoration\Chairs\Loom Bench\Loom Bench (W/E)</category>
 	</item>
 
 	<item id="104a">
 		<id>0x104a</id> <nodecay />
-		<category>Decoration\Chairs\Loom Bench (N/S)</category>
+		<category>Decoration\Chairs\Loom Bench\Loom Bench (N/S)</category>
 	</item>
 
-	<!-- Bamboo Stool -->
+	<!-- misc -->
 	<item id="11fc">
 		<id>0x11fc</id> <nodecay />
-		<category>Decoration\Chairs\Bamboo Stool</category>
+		<category>Decoration\Chairs\Misc\Bamboo Stool</category>
 	</item>
 
 	<!-- Stone Bench -->
 	<item id="1207">
 		<id>0x1207</id> <nodecay />
-		<category>Decoration\Chairs\Stone Bench 1 (W/E) (1/3)</category>
+		<category>Decoration\Chairs\Stone Bench\Stone Bench 1 (W/E) (1/3)</category>
 	</item>
 
 	<item id="1208">
 		<id>0x1208</id> <nodecay />
-		<category>Decoration\Chairs\Stone Bench 1 (W/E) (2/3)</category>
+		<category>Decoration\Chairs\Stone Bench\Stone Bench 1 (W/E) (2/3)</category>
 	</item>
 
 	<item id="1209">
 		<id>0x1209</id> <nodecay />
-		<category>Decoration\Chairs\Stone Bench 1 (W/E) (3/3)</category>
+		<category>Decoration\Chairs\Stone Bench\Stone Bench 1 (W/E) (3/3)</category>
 	</item>
 
 	<!-- Stone Throne -->
 	<item id="1218">
 		<id>0x1218</id> <nodecay />
-		<category>Decoration\Chairs\Stone Throne 1</category>
+		<category>Decoration\Chairs\Stone Throne\Stone Throne 1</category>
 	</item>
 
 	<item id="1219">
 		<id>0x1219</id> <nodecay />
-		<category>Decoration\Chairs\Stone Throne 2</category>
+		<category>Decoration\Chairs\Stone Throne\Stone Throne 2</category>
 	</item>
 
 	<item id="121a">
 		<id>0x121a</id> <nodecay />
-		<category>Decoration\Chairs\Stone Throne 3</category>
+		<category>Decoration\Chairs\Stone Throne\Stone Throne 3</category>
 	</item>
 
 	<item id="121b">
 		<id>0x121b</id> <nodecay />
-		<category>Decoration\Chairs\Stone Throne 4</category>
+		<category>Decoration\Chairs\Stone Throne\Stone Throne 4</category>
 	</item>
 
 	<item id="1526">
 		<id>0x1526</id> <nodecay />
-		<category>Decoration\Chairs\Lord British Throne (1/2)</category>
+		<category>Decoration\Chairs\Stone Throne\Lord British Throne (1/2)</category>
 	</item>
 
 	<item id="1527">
 		<id>0x1527</id> <nodecay />
-		<category>Decoration\Chairs\Lord British Throne (2/2)</category>
+		<category>Decoration\Chairs\Stone Throne\Lord British Throne (2/2)</category>
 	</item>
 
+	<!-- Sandstone Bench -->
 	<item id="1dc7">
 		<id>0x1dc7</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 3 (N/S) (1/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (N/S) (1/3)</category>
 	</item>
 
 	<item id="1dc8">
 		<id>0x1dc8</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 3 (N/S) (3/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (N/S) (3/3)</category>
 	</item>
 
 	<item id="1dc9">
 		<id>0x1dc9</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 3 (N/S) (2/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (N/S) (2/3)</category>
 	</item>
 
 	<item id="1dca">
 		<id>0x1dca</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 3 (W/E) (1/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (W/E) (1/3)</category>
 	</item>
 
 	<item id="1dcb">
 		<id>0x1dcb</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 3 (W/E) (3/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (W/E) (3/3)</category>
 	</item>
 
 	<item id="1dcc">
 		<id>0x1dcc</id> <nodecay />
-		<category>Decoration\Chairs\Sandstone Bench 3 (W/E) (2/3)</category>
+		<category>Decoration\Chairs\Sandstone Bench\Sandstone Bench 3 (W/E) (2/3)</category>
 	</item>
 
+	<!-- Marble Bench -->
 	<item id="1dcd">
 		<id>0x1dcd</id> <nodecay />
-		<category>Decoration\Chairs\Marble Bench 2 (N/S) (1/3)</category>
+		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (N/S) (1/3)</category>
 	</item>
 
 	<item id="1dce">
 		<id>0x1dce</id> <nodecay />
-		<category>Decoration\Chairs\Marble Bench 2 (N/S) (3/3)</category>
+		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (N/S) (3/3)</category>
 	</item>
 
 	<item id="1dcf">
 		<id>0x1dcf</id> <nodecay />
-		<category>Decoration\Chairs\Marble Bench 2 (N/S) (2/3)</category>
+		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (N/S) (2/3)</category>
 	</item>
 
 	<item id="1dd0">
 		<id>0x1dd0</id> <nodecay />
-		<category>Decoration\Chairs\Marble Bench 2 (W/E) (1/3)</category>
+		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (W/E) (1/3)</category>
 	</item>
 
 	<item id="1dd1">
 		<id>0x1dd1</id> <nodecay />
-		<category>Decoration\Chairs\Marble Bench 2 (W/E) (3/3)</category>
+		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (W/E) (3/3)</category>
 	</item>
 
 	<item id="1dd2">
 		<id>0x1dd2</id> <nodecay />
-		<category>Decoration\Chairs\Marble Bench 2 (W/E) (2/3)</category>
+		<category>Decoration\Chairs\Marble Bench\Marble Bench 2 (W/E) (2/3)</category>
 	</item>
 
-	<!-- Stone Bench 2 -->
+	<!-- Stone Bench -->
 	<item id="3dff">
 		<id>0x3dff</id> <nodecay />
-		<category>Decoration\Chairs\Stone Bench 2 (N/S)</category>
+		<category>Decoration\Chairs\Stone Bench\Stone Bench 2 (N/S)</category>
 	</item>
 
 	<item id="3e00">
 		<id>0x3e00</id> <nodecay />
-		<category>Decoration\Chairs\Stone Bench 2 (W/E)</category>
+		<category>Decoration\Chairs\Stone Bench\Stone Bench 2 (W/E)</category>
 	</item>
 </definitions>
