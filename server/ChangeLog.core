@@ -28,6 +28,7 @@ Wolfpack 12.9.13 Beta (CVS)
 	- The "range" lookup now looks for items within a real circle.
 	- Multis now have their own structure, and are now separate from items.
 	- Region calls now list online and offline chars in seperate lists.
+	- Implemented player collision stamina loss in Felucca.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error
