@@ -20,7 +20,7 @@ from wolfpack.gumps import cGump
 def onLoad():
 	wolfpack.registercommand( "who", cmdWho )
 	return
-	
+
 def cmdWho(socket, command, arguments):
 	showWhoGump(socket.player, 0)
 
@@ -38,12 +38,12 @@ def showWhoGump(player, page):
 			continue
 		if not char.account:
 			wolfpack.sockets.next()
-			continue	
+			continue
 		wholist.append(char)
 		worldsocket = wolfpack.sockets.next()
-		
+
 	count = len(wholist)
-		
+
 	# Skip page * 10 users
 	newwholist = wholist[page * 10:]
 
@@ -52,10 +52,10 @@ def showWhoGump(player, page):
 		newwholist = wholist[page * 10:]
 
 	wholist = newwholist
-	
+
 	# Player list increases by 22 pixels
 	pages = (count + 9) / 10 # 10 per page
-		
+
 	gump = cGump( 0, 0, 0, 50, 50 )
 	gump.addBackground( 0xE10, 380, 360 )
 	gump.addCheckerTrans( 15, 15, 350, 330 );
@@ -69,10 +69,10 @@ def showWhoGump(player, page):
 
 	if page + 1 < pages:
 		gump.addButton( 260, 320, 0x0FA, 0x0FA, 1 ) # Next Page
-		
+
 	if page > 0:
 		gump.addButton( 240, 320, 0x0FC, 0x0FC, 2 ) # Previous Page
-		
+
 	offset = 22
 	wholist = wholist[:10]
 	for char in wholist:
@@ -80,21 +80,21 @@ def showWhoGump(player, page):
 		gump.addText( 54, 40 + offset, tr("%s [%s]") % ( char.name, char.account.name ), 0x834 )
 		gump.addText( 257, 40 + offset, unicode(char.socket.address), 0x834 )
 		offset += 24
-	
+
 	gump.setArgs( [ current_page ] )
 	gump.setCallback( callbackWho )
 	gump.send( player.socket )
 
 def callbackWho( char, args, choice ):
 	page = args[0]
-		
+
 	# Next page
 	if choice.button == 1:
 		showWhoGump(char, page + 1)
-	
+
 	elif choice.button == 2 and page > 0:
 		showWhoGump(char, page - 1)
-		
+
 	elif choice.button > 2:
 		serial = choice.button - 2
 		player = wolfpack.findchar(serial)
@@ -104,7 +104,7 @@ def details(char, player):
 	if not player.socket:
 		char.socket.sysmessage('The player is currently offline.')
 		return
-	
+
 	pos = player.pos
 	account = player.account
 	# Socket Information
@@ -174,7 +174,7 @@ def callbackSocket( char, args, choice ):
 	elif choice.button == 6:
 		for key in keys:
 			if key == 1:
-				if player socket:
+				if player.socket:
 					player.socket.sysmessage( textentries[ key ] )
 				else:
 					socket.sysmessage( "The Player has left. Message not sent." )

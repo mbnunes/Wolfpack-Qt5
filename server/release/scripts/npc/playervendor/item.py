@@ -7,7 +7,7 @@ from wolfpack.consts import *
 from wolfpack import tr, callevent, hasevent
 from npc.playervendor import setSellInfo, removeSellInfo, removeChildrenSellInfo
 import book
-from ancientrealms import playervendor
+from npc import playervendor
 
 #
 # Show containers and books
@@ -23,13 +23,13 @@ def onUse(player, item):
 #
 # Property setting has been canceled
 #
-def onTextInputCancel(player, item, inputid):	
+def onTextInputCancel(player, item, inputid):
 	# Check if the vendor the item is in is owned by us
 	vendor = item.getoutmostchar()
-		
+
 	if not vendor or not vendor.hasscript('npc.playervendor'):
 		return
-	
+
 	if not player.gm and vendor.owner != player:
 		player.socket.sysmessage(tr('You cannot set the properties of items in a player vendor not owned by you.'))
 		return
@@ -42,14 +42,14 @@ def onTextInputCancel(player, item, inputid):
 def onTextInput(player, item, inputid, text):
 	# Check if the vendor the item is in is owned by us
 	vendor = item.getoutmostchar()
-	
+
 	if not vendor or not vendor.hasscript('npc.playervendor'):
 		return
-	
+
 	if not player.gm and vendor.owner != player:
 		player.socket.sysmessage(tr('You cannot set the properties of items in a player vendor not owned by you.'))
-		return	
-	
+		return
+
 	parts = text.split(' ', 1)
 	description = ''
 
@@ -57,7 +57,7 @@ def onTextInput(player, item, inputid, text):
 		price = int(parts[0])
 	except:
 		price = 0
-		
+
 	if price < 0:
 		price = 0
 
@@ -67,24 +67,24 @@ def onTextInput(player, item, inputid, text):
 		description = ''
 
 	setSellInfo(item, price, description)
-	
+
 #
 # Show extra tooltip information for vended items
 #
 def onShowTooltip(viewer, item, tooltip):
 	## Call the other tooltip scripts first
 	scripts = item.scripts + item.basescripts.split(',') # Build the scriptlist
-	
+
 	for script in scripts:
 		if len(script) == 0 or script == 'npc.playervendor.item': # Ignore us
 			continue
-			
+
 		if hasevent(script, EVENT_SHOWTOOLTIP):
 			result = callevent(script, EVENT_SHOWTOOLTIP, (viewer, item, tooltip))
-			
+
 			if result:
 				break
-	
+
 	if not item.hastag('pv_price'):
 		price = -1
 	else:
@@ -101,7 +101,7 @@ def onShowTooltip(viewer, item, tooltip):
 		description = item.gettag('pv_description').strip()
 		if len(description) != 0:
 			tooltip.add(1043305, description) # Description
-						
+
 	return True
 
 #
@@ -116,7 +116,7 @@ def onDropOnItem(container, item):
 		removeSellInfo(item) # Remove scripts and tags
 		removeChildrenSellInfo(item)
 		return False
-		
+
 	# If the container is not the backpack itself...
 	if container.container and container.container.ischar():
 		return False
