@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Papua -->
-	<region name="felucca_papua">
+	<region name="Papua">
 		<flags>
 			<guarded />
 			<noagressivemagic />

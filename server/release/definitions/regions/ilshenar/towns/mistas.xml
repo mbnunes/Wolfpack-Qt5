@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Mistas -->
-	<region name="ilshenar_mistas">
+	<region name="Mistas">
 		<rectangle x1="744" y1="984" x2="912" y2="1152" map="2" />
 		<rectangle x1="744" y1="1152" x2="792" y2="1176" map="2" />
 	</region>

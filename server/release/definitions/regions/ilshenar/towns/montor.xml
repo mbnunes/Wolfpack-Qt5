@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Montor -->
-	<region name="ilshenar_montor">
+	<region name="Montor">
 		<rectangle x1="1576" y1="272" x2="1720" y2="368" map="2" />
 		<rectangle x1="1616" y1="200" x2="1696" y2="272" map="2" />
 		<rectangle x1="1696" y1="144" x2="1736" y2="272" map="2" />

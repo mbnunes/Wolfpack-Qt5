@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Reg Volon -->
-	<region name="ilshenar_reg_volon">
+	<region name="Reg Volon">
 		<rectangle x1="1328" y1="1008" x2="1408" y2="1120" map="2" />
 	</region>
 

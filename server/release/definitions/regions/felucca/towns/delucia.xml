@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Delucia -->
-	<region name="felucca_delucia">
+	<region name="Delucia">
 		<flags>
 			<guarded />
 			<noagressivemagic />

@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Minoc -->
-	<region name="felucca_minoc">
+	<region name="Minoc">
 		<flags>
 			<guarded />
 			<noagressivemagic />

@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Vesper -->
-	<region name="felucca_vesper">
+	<region name="Vesper">
 		<flags>
 			<guarded />
 			<noagressivemagic />

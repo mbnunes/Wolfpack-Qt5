@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Cove -->
-	<region name="trammel_cove">
+	<region name="Cove">
 		<flags>
 			<guarded />
 			<noagressivemagic />

@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Britain Graveyard -->
-	<region name="felucca_britain_graveyard">
+	<region name="The Britain Graveyard">
 		<rectangle x1="1336" y1="1443" x2="1391" y2="1494" map="0" />
 		<rectangle x1="1336" y1="1494" x2="1376" y2="1511" map="0" />
 	</region>

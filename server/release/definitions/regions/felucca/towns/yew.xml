@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Yew -->
-	<region name="felucca_yew">
+	<region name="Yew">
 		<flags>
 			<guarded />
 			<noagressivemagic />

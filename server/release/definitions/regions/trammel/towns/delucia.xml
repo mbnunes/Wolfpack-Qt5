@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Delucia -->
-	<region name="trammel_delucia">
+	<region name="Delucia">
 		<flags>
 			<guarded />
 			<noagressivemagic />

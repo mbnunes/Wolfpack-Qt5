@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Moonglow -->
-	<region id="trammel_moonglow">
+	<region id="Moonglow">
 		<flags>
 			<guarded />
 			<noagressivemagic />

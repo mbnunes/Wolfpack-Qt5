@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- Cove -->
-	<region name="felucca_cove">
+	<region name="Cove">
 		<flags>
 			<guarded />
 			<noagressivemagic />
