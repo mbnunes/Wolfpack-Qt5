@@ -240,6 +240,9 @@ void cWorld::load()
 			++progress;
 		}
 
+		while( progress.count() < progress.expected_count() )
+			++progress;
+
 		res.free();
 		persistentBroker->driver()->setActiveConnection();
 
