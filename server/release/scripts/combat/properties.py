@@ -1,5 +1,60 @@
 
 from wolfpack.consts import *
+from math import floor
+
+# Weapon Skills
+WEAPON_SKILLS = {
+		# 1001: Sword Weapons (Swordsmanship)
+		# 1002: Axe Weapons (Swordsmanship + Lumberjacking)
+		1001: SWORDSMANSHIP,
+		1002: SWORDSMANSHIP,
+
+		# 1003: Macefighting (Staffs)
+		# 1004: Macefighting (Maces/WarHammer)
+		1003: MACEFIGHTING,
+		1004: MACEFIGHTING,
+
+		# 1005: Fencing
+    1005: FENCING,
+
+		# 1006: Bows
+		# 1007: Crossbows
+		1006: ARCHERY,
+		1007: ARCHERY
+}
+
+#
+# Returns the weapon skill used by the given character.
+# If bestskill is 1 and the weapon has the given property.
+# The best skill is used instead.
+#
+def weaponskill(char, weapon, bestskill = 0):
+  if not weapon:
+    return WRESTLING
+  else:
+    if not WEAPON_SKILLS.has_key(weapon.type):
+      return WRESTLING
+    else:
+      return WEAPON_SKILLS[weapon.type]
+
+#
+# Get the delay for the next swing from this attacker and his weapon.
+# The return value is in miliseconds.
+#
+def getdelay(attacker, weapon):
+  if not weapon or not weapon.hastag('speed'):
+    speed = 50
+  else:
+    speed = int(weapon.gettag('speed'))
+
+  attacker.log(LOG_PYTHON, "Weapon Speed: " + str(speed) + "\n")
+
+  value = max(1, (attacker.stamina + 100) * speed)
+
+  # Scale value according to bonus
+  # value += bonus * value / 100
+
+  return floor(40000.0 / value) * 500
 
 #
 # This method calculates all required properties for a

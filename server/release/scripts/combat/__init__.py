@@ -2,6 +2,7 @@
 import wolfpack
 from wolfpack.consts import *
 import combat.properties
+import combat.aos
 
 #
 # This function is used to initialize the basic combat
@@ -17,9 +18,25 @@ def onLoad():
 # the next hit can be done.
 #
 def onSwing(attacker, defender, time):
-  if attacker.player:
-    attacker.message('Swing')
-  attacker.nextswing = time + 2500
+  attacker.log(LOG_PYTHON, "Swing at " + str(time) + "\n")
+
+  if AGEOFSHADOWS:
+    weapon = attacker.getweapon()
+
+    try:      
+      combat.utilities.playswinganimation(attacker, defender, weapon)
+  
+      if combat.aos.checkhit(attacker, defender, time):
+        combat.aos.hit(attacker, defender, weapon, time)
+      else:
+        combat.aos.miss(attacker, defender, weapon, time)
+    except:
+      # Try again in 10 seconds
+      attacker.nextswing = time + 10000
+      raise
+
+    attacker.nextswing = time + combat.properties.getdelay(attacker, weapon)
+    attacker.log(LOG_PYTHON, "Next swing in " + str(attacker.nextswing - time) + "ms\n")
 
 #
 # Callback for showing the status gump to yourself.
