@@ -30,7 +30,7 @@
 	<!--  Anatomy -->
 	<startitems id="anatomy">
 	        <!--Robe --><equipment id="1f03"></equipment>
-	        <!--Bandages --><item id="1f03"><amount>3</amount></item>
+	        <!--Bandages --><item id="e21"><amount>3</amount></item>
 	</startitems>
 
 	<!--  Animallore -->
@@ -135,7 +135,7 @@
 
 	<!--  Healing -->
 	<startitems id="healing">
-	        <!--Bandages --><item id="1f03"><amount>50</amount></item>
+	        <!--Bandages --><item id="e21"><amount>50</amount></item>
 	        <!--Scissors --><item id="f9e"></item>
 	</startitems>
 
