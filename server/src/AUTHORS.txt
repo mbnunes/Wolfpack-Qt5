@@ -8,4 +8,5 @@ Charles Kerr (Punt),
 Fred Robinson (Ripper),
 Jörg Stückler (Sereg),
 Rüdiger Pakmor (Varan Dar),
-Jorge Pereira (Kell)
+Jorge Pereira (Kell),
+Thomas Wagenveld (Radiant)

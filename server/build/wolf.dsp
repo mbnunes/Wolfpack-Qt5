@@ -123,10 +123,6 @@ SOURCE=.\basics.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\chars.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\combat.cpp
 # End Source File
 # Begin Source File

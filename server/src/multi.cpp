@@ -42,7 +42,7 @@ stError *cMulti::getProperty( const QString &name, cVariant &value ) const {
 }
 
 void cMulti::moveTo(const Coord_cl &pos, bool noRemove) {
-	return cUObject::moveTo(pos, noRemove);
+	cUObject::moveTo(pos, noRemove);
 }
 
 cMulti *cMulti::createFromScript(const QString &id) {
