@@ -188,6 +188,8 @@ protected:
 	cItemTileInfo *items[0x4000];
 	cLandTileInfo *land[0x4000];
 public:
+	cTiledata();
+
 	void load();
 	void unload();
 	void reload();
