@@ -552,7 +552,7 @@ bool cItem::del()
 	return cUObject::del();
 }
 
-QString cItem::getName(void)
+QString cItem::getName( bool shortName )
 {
 	// Book Titles
 	if( type_ == 11 )
@@ -563,7 +563,7 @@ QString cItem::getName(void)
 			QString bookname = pBook->title();
 
 			// Append author
-			if( !pBook->author().isEmpty() )
+			if( !shortName && !pBook->author().isEmpty() )
 				bookname.append( tr( " by %1" ).arg( pBook->author() ) );
 
 			return bookname;
@@ -577,10 +577,14 @@ QString cItem::getName(void)
 
 	QString itemname = tile.name;
 	
-	if( tile.flag2 & 0x80 )
-		itemname.prepend( "an " );
-	else
-		itemname.prepend( "a " );
+	// NEVER prepend a or at when shortName is true (You destroy your a shirt sounds stupid doesnt it)
+	if( !shortName )
+	{
+		if( tile.flag2 & 0x80 )
+			itemname.prepend( "an " );
+		else
+			itemname.prepend( "a " );
+	}
 
 	// Now "parse" the %/% information
 	if( itemname.contains( "%" ) )

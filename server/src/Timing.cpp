@@ -97,7 +97,7 @@ void restockNPC( UINT32 currenttime, P_CHAR pc_i )
 	}
 }
 
-void genericCheck(P_CHAR pc, unsigned int currenttime)// Char cMapObjects::getInstance()
+void checkRegeneration(P_CHAR pc, unsigned int currenttime)
 {
 	if( !pc )
 		return;
@@ -868,12 +868,13 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		}*/
 	//}
 
+	// Regenerate only players who are online
 	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
 	{
 		if( !socket->player() )
 			continue;
 
-		genericCheck( socket->player(), currenttime );
+		checkRegeneration( socket->player(), currenttime );
 		checkPC( socket->player(), currenttime );
 
 		// Check all Characters first (Intersting. we seem to check characters more than once)
@@ -893,7 +894,8 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			{
 				if( pChar->isNpc() )
 				{
-					genericCheck( pChar, currenttime );
+					// Regenerate Mana+Stamina+Health
+					checkRegeneration( pChar, currenttime );
 
 					// We only process the AI for NPCs who are in a used area
 					if( pChar->pos.distance( socket->player()->pos ) <= 24 )
