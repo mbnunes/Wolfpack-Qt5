@@ -1395,6 +1395,22 @@ void cBaseChar::processNode( const cElement* Tag )
 		if ( ok )
 			this->setSaycolor( color );
 	}
+	// <haircolor>color</haircolor> dyes currently equipped hair/beard
+	else if ( TagName == "haircolor" )
+	{
+		bool ok;
+		ushort color = Value.toUShort( &ok );
+		if( ok )
+		{
+			P_ITEM hair = getItemOnLayer( Hair );
+			if( hair )
+				hair->setColor( color );
+
+			P_ITEM facialHair = getItemOnLayer( FacialHair );
+			if( facialHair )
+				facialHair->setColor( color );
+		}
+	}
 	else
 	{
 		Q_INT16 skillId = Skills::instance()->findSkillByDef( TagName );

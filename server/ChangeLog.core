@@ -2,6 +2,7 @@ Wolfpack ChangeLog
 
 Wolfpack 12.9.13 Beta (CVS)
 	- Fixed meditation skillcheck in mana regeneration code.
+	- Added the <haircolor> NPC definition tag to dye the currently equipped hair/beard (both the same color).
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error
