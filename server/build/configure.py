@@ -69,26 +69,36 @@ def checkPython(options):
 		PYTHONINCSEARCHPATH = [ sys.prefix + "\include\Python.h" ]
 	elif sys.platform == "linux2":
 		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython*.so", \
-							 "/usr/local/lib/[Pp]ython*/libpython*.so", \
-							 "/usr/lib/libpython*.so", \
-							 "/usr/lib/[Pp]ython*/libpython*.so", \
-							 "/usr/lib/[Pp]ython*/config/libpython*.so", \
-							 "/usr/local/lib/[Pp]ython*/config/libpython*.so"]
+					 "/usr/local/lib/[Pp]ython*/libpython*.so", \
+					 "/usr/lib/libpython*.so", \
+					 "/usr/lib/[Pp]ython*/libpython*.so", \
+					 "/usr/lib/[Pp]ython*/config/libpython*.so", \
+					 "/usr/local/lib/[Pp]ython*/config/libpython*.so"]
+		PYTHONLIBSTATICSEARCHPATH = [ "/usr/local/lib/libpython*.a", \
+					 "/usr/local/lib/[Pp]ython*/libpython*.a", \
+					 "/usr/lib/libpython*.a", \
+					 "/usr/lib/[Pp]ython*/libpython*.a", \
+					 "/usr/lib/[Pp]ython*/config/libpython*.a", \
+					 "/usr/local/lib/[Pp]ython*/config/libpython*.a"]
 		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython*/Python.h", \
-							 "/usr/include/[Pp]ython*/Python.h"]
+					 "/usr/include/[Pp]ython*/Python.h"]
 	elif sys.platform == "freebsd4":
 		PYTHONLIBSEARCHPATH = [ "/usr/local/lib/libpython*.so", \
-							 "/usr/local/lib/[Pp]ython*/libpython*.so", \
-							 "/usr/lib/libpython*.so", \
-							 "/usr/lib/[Pp]ython*/libpython*.so", \
-							 "/usr/lib/[Pp]ython*/config/libpython*.so", \
-							 "/usr/local/lib/[Pp]ython*/config/libpython*.so"]
+					 "/usr/local/lib/[Pp]ython*/libpython*.so", \
+					 "/usr/lib/libpython*.so", \
+					 "/usr/lib/[Pp]ython*/libpython*.so", \
+					 "/usr/lib/[Pp]ython*/config/libpython*.so", \
+					 "/usr/local/lib/[Pp]ython*/config/libpython*.so"]
 		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython*/Python.h", \
-							 "/usr/include/[Pp]ython*/Python.h"]
+					 "/usr/include/[Pp]ython*/Python.h"]
 
 	else:
 		sys.stdout.write("ERROR: Unknown platform %s to checkPython()" % sys.platform )
 		sys.exit()
+
+        # if --static
+	if options.staticlink:
+                PYTHONLIBSEARCHPATH = PYTHONLIBSTATICSEARCHPATH
 
 	# if it was overiden...
 	if options.py_incpath:
@@ -136,7 +146,7 @@ def main():
 	parser.add_option("--python-includes",  dest="py_incpath", help="Python include directory")
 	parser.add_option("--python-libraries", dest="py_libpath", help="Python library path")
 	parser.add_option("--qt-directory", dest="qt_dir", help="Base directory of Qt")
-	
+        parser.add_option("--static", dest="staticlink", help="Build wokfpack using static libraries")
 	(options, args) = parser.parse_args()
 	
 	checkPython(options)
