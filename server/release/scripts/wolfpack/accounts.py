@@ -34,7 +34,7 @@ def acls():
 """
 	\function wolfpack.accounts.acl
 	\param name
-	\return True or False
+	\return Boolean
 	\description Returns true or false if the given ACL name exists.
 """
 def acl( name ):
@@ -44,7 +44,7 @@ def acl( name ):
 	\function wolfpack.accounts.add
 	\param username
 	\param password
-	\return True or False
+	\return Boolean
 	\description Creates an account with the given username and password.
 """
 def add( username, password ):
@@ -52,7 +52,6 @@ def add( username, password ):
 
 """
 	\function wolfpack.accounts.save
-	\return None
 	\description Saves the accounts.
 """
 def save():
@@ -60,7 +59,6 @@ def save():
 
 """
 	\function wolfpack.accounts.reload
-	\return None
 	\description Reloads the accounts.
 """
 def reload():

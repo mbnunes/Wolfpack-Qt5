@@ -20,8 +20,8 @@ import _wolfpack
 	\param section
 	\param key
 	\param default
-	\return Booling
-	\description Returns the booling value for the key in a given section.
+	\return Boolean
+	\description Returns the boolean value for the key in a given section.
 """
 def getBool( section, key, default ):
 	return _wolfpack.settings.getBool()
@@ -31,8 +31,7 @@ def getBool( section, key, default ):
 	\param section
 	\param key
 	\param default
-	\return None
-	\description Sets a booling value for the key in a given section.
+	\description Sets a boolean value for the key in a given section.
 """
 def setBool( section, key, value ):
 	return _wolfpack.settings.setBool( section, key, value )
@@ -53,7 +52,6 @@ def getNumber( section, key, default ):
 	\param section
 	\param key
 	\param default
-	\return None
 	\description Sets a number value for the key in a given section.
 """
 def setNumber( section, key, value ):
@@ -75,7 +73,6 @@ def getString( section, key, default ):
 	\param section
 	\param key
 	\param default
-	\return None
 	\description Sets a string value for the key in a given section.
 """
 def setString( section, key, value ):
@@ -83,7 +80,6 @@ def setString( section, key, value ):
 
 """
 	\function wolfpack.settings.reload
-	\return None
 	\description Reload the settings.
 """
 def reload():
@@ -91,7 +87,6 @@ def reload():
 
 """
 	\function wolfpack.settings.save
-	\return None
 	\description Saves the settings.
 """
 def save():

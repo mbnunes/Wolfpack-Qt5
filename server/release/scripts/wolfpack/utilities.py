@@ -25,7 +25,7 @@ from types import *
 	\param dice
 	\param sides
 	\param bonus
-	\return Result
+	\return Integer
 	\description Rolls some dice and returns a result.
 """
 def rolldice(dice, sides, bonus):
@@ -39,7 +39,7 @@ def rolldice(dice, sides, bonus):
 	\function wolfpack.utilities.hex2dec
 	\param value
 	\param default
-	\return Decimal Value
+	\return Integer
 	\description Converts a given hex value into a decimal value.
 """
 def hex2dec(value, default = 0):
@@ -72,7 +72,7 @@ def evenorodd( value ):
 	\function wolfpack.utilities.itemsmatch
 	\param item1
 	\param item2
-	\return True of Fasle
+	\return Boolean
 	\description Determines if the items match for stacking.
 """
 def itemsmatch(a, b):
@@ -82,7 +82,7 @@ def itemsmatch(a, b):
 	\function wolfpack.utilities.tobackpack
 	\param item
 	\param char
-	\return True or False
+	\return Boolean
 	\description Moves an object into a character's backpack.
 """
 def tobackpack( item, char ):
@@ -93,7 +93,7 @@ def tobackpack( item, char ):
 	\function wolfpack.utilities.tocontainer
 	\param item
 	\param container
-	\return True or False, if stacked.
+	\return Boolean
 	\description Moves an item to a container, stacks if possible.
 """
 def tocontainer( item, container ):
@@ -114,7 +114,6 @@ def tocontainer( item, container ):
 	\function wolfpack.utilities.cont2cont
 	\param container1
 	\param container2
-	\return None
 	\description Moves objects from container1 to container2.
 """
 def cont2cont( container1, container2 ):
@@ -125,7 +124,7 @@ def cont2cont( container1, container2 ):
 """
 	\function wolfpack.utilities.isclothing
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known clothing.
 """
 def isclothing( item ):
@@ -148,7 +147,7 @@ def isclothing( item ):
 """
 	\function wolfpack.utilities.ishat
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known hat.
 """
 def ishat ( item ):
@@ -165,7 +164,7 @@ def ishat ( item ):
 """
 	\function wolfpack.utilities.isarmor
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known armor.
 """
 def isarmor( item ):
@@ -191,7 +190,7 @@ def isarmor( item ):
 """
 	\function wolfpack.utilities.isweapon
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known weapon.
 """
 def isweapon( item ):
@@ -206,7 +205,7 @@ def isweapon( item ):
 """
 	\function wolfpack.utilities.isshield
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known shield.
 """
 def isshield( item ):
@@ -221,7 +220,7 @@ def isshield( item ):
 """
 	\function wolfpack.utilities.isspellbook
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known spell book.
 """
 def isspellbook( item ):
@@ -235,7 +234,7 @@ def isspellbook( item ):
 """
 	\function wolfpack.utilities.isinstrument
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known instrument.
 """
 def isinstrument( item ):
@@ -244,7 +243,7 @@ def isinstrument( item ):
 """
 	\function wolfpack.utilities.isminingtool
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known mining tool.
 """
 def isminingtool( item ):
@@ -253,7 +252,7 @@ def isminingtool( item ):
 """
 	\function wolfpack.utilities.isoregem
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known ore gem.
 """
 def isoregem( item ):
@@ -262,7 +261,7 @@ def isoregem( item ):
 """
 	\function wolfpack.utilities.iswoodgem
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the item is a known wood gem.
 """
 def iswoodgem( item ):
@@ -271,7 +270,7 @@ def iswoodgem( item ):
 """
 	\function wolfpack.utilities.ismountainorcave
 	\param tile
-	\return True or False
+	\return Boolean
 	\description Returns if the tile is a mountain or cave tile.
 """
 def ismountainorcave( tile ):
@@ -306,7 +305,7 @@ def ismountainorcave( tile ):
 """
 	\function wolfpack.utilities.issand
 	\param tile
-	\return True or False
+	\return Boolean
 	\description Returns if the tile is a sand tile.
 """
 def issand( tile ):
@@ -333,7 +332,7 @@ def issand( tile ):
 """
 	\function wolfpack.utilities.iscrystal
 	\param tile
-	\return True or False
+	\return Boolean
 	\description Returns if the tile is a crystal tile, AoS artwork.
 """
 def iscrystal( tile ):
@@ -342,7 +341,7 @@ def iscrystal( tile ):
 """
 	\function wolfpack.utilities.istree
 	\param tile
-	\return True or False
+	\return Boolean
 	\description Returns if the tile is a tree object..
 """
 def istree( tile ):
@@ -382,7 +381,7 @@ def istree( tile ):
 """
 	\function wolfpack.utilities.iswater
 	\param tile
-	\return True or False
+	\return Boolean
 	\description Returns if the tile is a water tile.
 """
 def iswater( tile ):
@@ -395,7 +394,7 @@ def iswater( tile ):
 """
 	\function wolfpack.utilities.isdirt
 	\param item
-	\return True or False
+	\return Boolean
 	\description Returns if the tile is a dirt tile..
 """
 def isdirt( tile ):
@@ -426,7 +425,6 @@ def isdirt( tile ):
 	\function wolfpack.utilities.cleartag
 	\param self
 	\param args[ char, tagname ]
-	\return None
 	\description Removes a tagname from a character.
 """
 def cleartag( self, args ):
@@ -439,7 +437,6 @@ def cleartag( self, args ):
 	\function wolfpack.utilities.rusmsg
 	\param player
 	\param locmsg
-	\return None
 	\description Sends a localized system message to a given player.
 """
 def rusmsg( player, locmsg ):
@@ -454,7 +451,7 @@ def rusmsg( player, locmsg ):
 	\param container
 	\param baseid
 	\param amount
-	\return Amount Remaining
+	\return Ineger
 	\description Returns the amount of a resource to consume in a container from a given baseid.
 """
 def checkresources(container, baseid, amount):
@@ -480,7 +477,7 @@ def checkresources(container, baseid, amount):
 	\param container
 	\param baseid
 	\param amount
-	\return Amount Remaining
+	\return Integer
 	\description Consumes an amount of resources from a container with the given baseid.
 """
 def consumeresourcesinternal(container, baseid, amount):
@@ -509,7 +506,7 @@ def consumeresourcesinternal(container, baseid, amount):
 	\param container
 	\param baseid
 	\param amount
-	\return Amount consumed or False.
+	\return Integer or False
 	\description Consumes the amount of resources from a container with a given baseid.
 """
 def consumeresources(container, baseid, amount):
