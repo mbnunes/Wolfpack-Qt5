@@ -221,7 +221,7 @@ void cSrvParams::readData()
 	gamePort_               = getNumber( "Network",		"Gameserver Port", 2592, true );
 	enableLogin_			= getBool( "Network",		"Enable Loginserver", true, true );
 	enableGame_				= getBool( "Network",		"Enable Gameserver", true, true );
-	allowUnencryptedClients_ = getBool("Network",	"Allow Unencrypted Clients", true, true );
+	allowUnencryptedClients_ = getBool("Network",		"Allow Unencrypted Clients", true, true );
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );

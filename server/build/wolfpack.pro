@@ -69,7 +69,6 @@ HEADERS         = \
 		  persistentobject.h \
 		  preferences.h \
 		  mapobjects.h \
-		  remadmin.h \
 		  resource.h \
 		  resources.h \
 		  spawnregions.h \
@@ -154,7 +153,6 @@ SOURCES         = \
   		  persistentbroker.cpp \
 		  persistentobject.cpp \
 		  preferences.cpp \
-		  remadmin.cpp \
 		  resources.cpp \
                   serxmlfile.cpp \
                   serbinfile.cpp \

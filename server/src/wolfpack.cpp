@@ -175,38 +175,6 @@ void signal_handler(int signal)
 }
 	
 #endif
-// Initialize deamon
-void init_deamon()
-{
-/*
-#if defined(__unix__)
-	
-	int i ;
-	pid_t pid ;
-
-	if ((pid = fork() ) != 0)
-		exit(0) ; //
-	setsid() ;
-	signal(SIGHUP, SIG_IGN) ;
-	if ((pid=fork()) != 0)
-	{
-		fstream fPid ;
-		fPid.open("wolfpack.pid",ios::out) ;
-		fPid << pid <<endl;
-		fPid.close() ;
-		exit(0) ;
-	}
-	// We should close any dangling descriptors we have
-	for (i=0 ; i < 64 ; i++)
-	{
-		close(i) ;
-	}
-
-	
-#endif
-*/
-}
-
 
 bool online(P_CHAR pc) // Is the player owning the character c online
 {
@@ -885,22 +853,10 @@ void interpretCommand( const QString &command )
 	}
 }
 
-#if defined(__unix__)
-	bool bDeamon = false; //true ;
-#else
-	bool bDeamon = false ;
-#endif
-
-void checkparm(QString param)
+static void checkparm( const QString &param )
 {
-	param = param.upper();
-
-	if (param == "--NO-DEAMON")
-		bDeamon = false ;
-	else if (param == "--DEAMON")
-		bDeamon = true ;
-
 	// Add what ever paramters you want
+	// Right now we don't have any parameters
 }
 
 static void quickdelete( P_ITEM pi )
@@ -909,8 +865,8 @@ static void quickdelete( P_ITEM pi )
 	// We dont have pointers to that item except here
 	// So queueing it up for deletion is lame
 
-	pi->SetSpawnSerial(-1);
-	pi->SetOwnSerial(-1);
+	pi->SetSpawnSerial( -1 );
+	pi->SetOwnSerial( -1 );
 
 	// Also delete all items inside if it's a container.
 	cItem::ContainerContent container(pi->content());
@@ -953,48 +909,25 @@ int main( int argc, char *argv[] )
 	QApplication app( argc, argv, false ); // we need one instance
 
 	// Parse our arguments
-	if (argc > 1)
-	{
-		for (int index=1; index < argc; ++index)
-		{
-			QString param( argv[ index ] );
-			checkparm( param );
-		}
-	}
-	
-	if( bDeamon )
-	{
-		// Under unix we go to deamon mode
-		cout << "Going into deamon mode, returning local control to terminal" <<endl;
-		init_deamon();
-		// set up our console redirection
-		fstream fconsole;
-		fconsole.open("console.txt", ios::out);
-		clConsole.setStreams(NULL, (dynamic_cast<ostream*>(&fconsole)), NULL, NULL);
-	}
+	unsigned int i;
 
-	#if defined(__unix__)
-	// We can use SIGHUP, SIGINT, and SIGWINCH as we should never recive them
-	// So we will use SIGHUP to reload our scripts (kinda a standard for sighup to be reload)
-	// We will use a SIGUSR2 to be world save
-	// and SIGUSR1 for an Account reload
-	signal( SIGUSR2,&signal_handler );
-	signal( SIGHUP,&signal_handler );
-	signal( SIGUSR1,&signal_handler );
-	signal( SIGTERM,&signal_handler );
-	signal( SIGPIPE, SIG_IGN );
+	for( i = 1; i <= argc; ++i )
+		checkparm( QString( argv[ i ] ) );
+	
+	// Unix Signal Handling
+	#if defined( __unix__ )	
+	signal( SIGHUP,  &signal_handler ); // Reload Scripts
+	signal( SIGUSR1, &signal_handler ); // Save World
+	signal( SIGUSR2, &signal_handler ); // Reload Accounts
+	signal( SIGTERM, &signal_handler ); // Terminate Server
+	signal( SIGPIPE, SIG_IGN );			// Ignore SIGPIPE
 	#endif	
 
 	#define CIAO_IF_ERROR if (error==1) { cNetwork::instance()->shutdown(); DeleteClasses(); exit(-1); }
 
-	int i;
 	unsigned long tempSecs;
-
 	unsigned long loopSecs;
-
 	unsigned long tempTime;
-	unsigned int uiNextCheckConn=0;//CheckConnection rate - AntiChrist ( thnx to LB )
-	unsigned long CheckClientIdle=0;
 	int r;
 	uiCurrentTime = serverstarttime = getNormalizedTime();
 
@@ -1295,9 +1228,6 @@ int main( int argc, char *argv[] )
 	cNetwork::instance()->load();
 	clConsole.ProgressDone();
 
-//    if (SrvParams->EnableRA())
-//		RemoteAdmin::initialize( SrvParams->ra_port() );
-
 	item_char_test(); //LB
 
 	if( SrvParams->serverLog() )
@@ -1331,9 +1261,7 @@ int main( int argc, char *argv[] )
 
 	// Start the Console Input thread
 	cConsoleThread consoleThread;
-
-	if( !bDeamon )
-		consoleThread.start();
+	consoleThread.start();
 
 	// This is our main loop
 	while( keeprun )
@@ -1353,12 +1281,12 @@ int main( int argc, char *argv[] )
 		}
 
 		// Python threading - end
-		PyEval_RestoreThread(_save);
+		PyEval_RestoreThread( _save );
 
 		// It's more likely that we have a new key-press now
 		// Checking every 25 loops should be enough.
 		#if !defined( __unix__ )
-		if( !bDeamon && loopTimeCount % 25 == 0 )
+		if( loopTimeCount % 25 == 0 )
 		{
 			commandMutex.acquire();
 			if( commandQueue.count() > 0 )
@@ -1405,9 +1333,6 @@ int main( int argc, char *argv[] )
 			}
 		}
 
-//        if (SrvParams->EnableRA())
-//           RemoteAdmin::instance()->processNextEvent();
-
 		tempTime = getNormalizedTime() - tempSecs ;
 		networkTime += tempTime;
 		++networkTimeCount;
@@ -1448,8 +1373,7 @@ int main( int argc, char *argv[] )
 //		qApp->processOneEvent();
 	}
 
-	if( !bDeamon )
-		consoleThread.interrupt();
+	consoleThread.cancel();
 
 	cNetwork::instance()->broadcast( tr( "The server is shutting down." ) );
 

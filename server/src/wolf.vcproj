@@ -291,9 +291,6 @@
 				RelativePath=".\preferences.cpp">
 			</File>
 			<File
-				RelativePath=".\remadmin.cpp">
-			</File>
-			<File
 				RelativePath=".\resources.cpp">
 			</File>
 			<File
@@ -743,9 +740,6 @@
 			</File>
 			<File
 				RelativePath=".\prototypes.h">
-			</File>
-			<File
-				RelativePath=".\remadmin.h">
 			</File>
 			<File
 				RelativePath=".\resource.h">
