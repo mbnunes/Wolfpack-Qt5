@@ -290,14 +290,8 @@ class Spell:
 				char.message(502625)
 				return 0
 
-			# Check for Reagents
-			if not char.npc and len(self.reagents) > 0:
-				items = countReagents(char.getbackpack(), self.reagents.copy())
-
-				for item in items.keys():
-					if items[item] > 0:
-						char.message(502630)
-						return 0
+			if not self.checkreagents(char, mode, args):
+				return False
 
 		elif mode == MODE_SCROLL:
 			if not self.checkweapon(char):
@@ -320,6 +314,26 @@ class Spell:
 				return 0
 
 		return 1
+		
+	# Check for Reagents
+	def checkreagents(self, char, mode, args=[]):		
+		if not char.npc and len(self.reagents) > 0:
+			items = countReagents(char.getbackpack(), self.reagents.copy())
+
+			for item in items.keys():
+				if items[item] > 0:
+					char.message(502630)
+					return False
+
+		return True
+
+	# Consume Reagents
+	def consumereagents(self, char, mode, args=[]):		
+		if not char.npc and len(self.reagents) > 0:
+			lowerreagentcost = properties.fromchar(char, LOWERREAGENTCOST)
+
+			if lowerreagentcost == 0 or lowerreagentcost < random.randint(0, 99):
+				consumeReagents(char.getbackpack(), self.reagents.copy())
 
 	def consumerequirements(self, char, mode, args=[], target=None, item=None):
 		if char.gm:
@@ -351,12 +365,7 @@ class Spell:
 				char.mana = max(0, char.mana - mana)
 				char.updatemana()
 
-			# Consume Reagents
-			if not char.npc and len(self.reagents) > 0:
-				lowerreagentcost = properties.fromchar(char, LOWERREAGENTCOST)
-
-				if lowerreagentcost == 0 or lowerreagentcost < random.randint(0, 99):
-					consumeReagents(char.getbackpack(), self.reagents.copy())
+			self.consumereagents(char, mode, args)
 
 		# Reduced Skill, Reduced Mana, No Reagents
 		elif mode == MODE_SCROLL:
