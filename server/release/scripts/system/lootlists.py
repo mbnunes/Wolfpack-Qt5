@@ -127,3 +127,6 @@ for i in range(0x1b09, 0x1b1d):
 	DEF_BODYFLESH.append('%x' % i)
 
 DEF_BODYPARTS = DEF_BODYFLESH + DEF_BODYBONES
+
+# Statues
+DEF_STATUE = ['12cb', '12ca', '139a', '1224', '139b', '1226', '139c', '1227']

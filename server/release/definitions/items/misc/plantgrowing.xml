@@ -6,6 +6,8 @@
 		<id>0x15fd</id>
 		<category>Plant Growing\Empty Plant Bowl</category>
 		<basescript>plants.bowl</basescript>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
 	</item>
 	
 	<!-- A plant -->
@@ -13,7 +15,45 @@
 		<weight>1.0</weight>
 		<id>0x1602</id>
 		<category>Plant Growing\Plant</category>
-		<scriptlist>plants.plant</scriptlist>
+		<scriptlist>plants.plant</scriptlist> <!-- This HAS TO BE DYNAMIC! onAttach/onDetach require that -->
+	</item>
+	
+	<!-- A seed -->
+	<item id="seed">
+		<name>#1060810</name>
+		<category>Plant Growing\Seed</category>
+		<basescript>plants.seed</basescript>
+		<weight>1.0</weight>
+		<id>0xdcf</id>
 	</item>
 
+	<!-- Green Thorns -->
+	<item id="greenthorns">
+		<id>0xf42</id>
+		<name>#1060837</name>
+		<weight>1.0</weight>
+		<color>0x42</color>
+		<category>Plant Growing\Green Thorns</category>
+		<basescript>plants.greenthorns</basescript>
+	</item>
+
+	<!-- Orange Petals -->
+	<item id="orangepetals">
+		<id>0x1021</id>
+		<name>#1053122</name>
+		<weight>0.1</weight>
+		<color>0x2b</color>
+		<category>Plant Growing\Orange Petals</category>
+		<basescript>plants.orangepetals</basescript>
+	</item>
+
+	<!-- Red Leaves -->
+	<item id="redleaves">
+		<id>0x1e85</id>
+		<name>#1053123</name>
+		<weight>0.1</weight>
+		<color>0x21</color>
+		<category>Plant Growing\Red Leaves</category>
+		<basescript>plants.redleaves</basescript>
+	</item>
 </definitions>

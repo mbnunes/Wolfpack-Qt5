@@ -449,6 +449,12 @@ PACKS = {
 	# Single Bone
 	'bone': [
 		[1.0, 'f7e', 1, 0],
+	],
+	
+	# Vorpal Bunny
+	'vorpal_bunny' : [
+		[1.0, DEF_STATUE, 1, 0], # Statue
+		[0.2, 'brightly_colored_eggs', 1, 0] # Brightly Colored Eggs
 	]
 }
 

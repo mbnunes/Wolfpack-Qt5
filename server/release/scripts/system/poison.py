@@ -1,8 +1,11 @@
 
 import wolfpack
 from wolfpack.utilities import energydamage
-from wolfpack import console
+from wolfpack import console, tr
 from wolfpack.consts import *
+
+# The maximum poisonlevel that can be resisted by orange petals
+ORANGEPETALS_RESIST_LEVEL = 2
 
 #
 # The poison types
@@ -35,6 +38,25 @@ def stroke(char, arguments):
 		if char.poison != -1:
 			char.poison = -1
 			char.updateflags()
+		return
+
+	# Check for orange petals
+	if char.hastag('orangepetals') and char.poison <= ORANGEPETALS_RESIST_LEVEL:
+		# Cure Poison
+		if char.poison != -1:
+			char.poison = -1
+			char.updateflags()
+
+		char.message(tr("* You feel yourself resisting the effects of the poison *" ), 0x3f)
+		
+		# Show to everyone else
+		listeners = wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, 18)
+		text = unicode(tr("* %s seems resistant to the poison *")) % unicode(char.name)
+
+		for listener in listeners:
+			if listener != char and listener.socket:
+				listener.socket.showspeech(char, text, 0x3f)
+
 		return
 
 	poison = POISONS[char.poison]

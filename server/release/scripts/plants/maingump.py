@@ -6,6 +6,8 @@ import plants
 from consts import *
 import potions.utilities
 import potionkeg
+import plants.emptybowlgump
+import plants.reproductiongump
 
 #
 # Add the background to the gump
@@ -13,9 +15,9 @@ import potionkeg
 def addBackground(dialog):
 	dialog.addResizeGump(50, 50, 0xe10, 200, 150)
 	dialog.addTilePic(45, 45, 0xcef)
-	dialog.addTilePic(45, 118, 0xcef)
-	dialog.addTilePic(211, 45, 0xcef)
-	dialog.addTilePic(211, 118, 0xcef)
+	dialog.addTilePic(45, 118, 0xcf0)
+	dialog.addTilePic(211, 45, 0xceb)
+	dialog.addTilePic(211, 118, 0xcec)	
 
 #
 # Add the plant to the gump
@@ -192,7 +194,7 @@ def response(player, arguments, response):
 	# Reproduction Menu
 	if response.button == 1:
 		if plants.plant.getStatus(plant) > STATUS_DIRT:
-			# plants.reproductiongump.send(player, plant)
+			plants.reproductiongump.send(player, plant)
 			pass
 		else:
 			player.socket.clilocmessage(1061885) # You need to plant a seed in the bowl first.
@@ -246,7 +248,7 @@ def response(player, arguments, response):
 	
 	# Empty the Bowl
 	elif response.button == 12:
-		#plants.emptybowlgump.send(player, plant)
+		plants.emptybowlgump.send(player, plant)
 		pass
 
 def addPotion(player, plant, potiontypes):

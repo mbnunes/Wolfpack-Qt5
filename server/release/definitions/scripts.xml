@@ -176,6 +176,8 @@
 	<script>npc.healer</script>
 	<script>npc.poison</script>
 	<script>npc.mount</script>
+	<script>npc.vendor</script>
+	<script>npc.vendor.packets</script>
 
 	<!-- Context menu scripts -->
 	<script>contextmenus.bankermenu</script>
@@ -255,4 +257,13 @@
 	<script>testing</script>
 	<script>testing.multibag</script>
 
+
+	<!-- Plants -->
+	<script>plants</script>
+	<script>plants.bowl</script>
+	<script>plants.plant</script>
+	<script>plants.seed</script>
+	<script>plants.greenthorns</script>
+	<script>plants.redleaves</script>
+	<script>plants.orangepetals</script>
 </definitions>

@@ -28,5 +28,6 @@
 	<include file="definitions/npcs/monsters/common/vampire_bat.xml" />
 	<include file="definitions/npcs/monsters/common/vorpal_bunny.xml" />
 	<include file="definitions/npcs/monsters/common/wisp.xml" />
+	<include file="definitions/npcs/monsters/common/whipping_vine.xml" />
 
 </definitions>

@@ -44,6 +44,7 @@
 				<item id="checkerboard"><amount>20</amount></item> <!-- Checkerboard -->
 				<item id="e1c"><amount>20</amount></item> <!-- Backgammon -->
 				<item id="fa7"><amount>20</amount></item> <!-- Dices -->
+				<item id="plantbowl"><amount>20</amount></item> <!-- Plant Bowl -->
 			</restockable>
 		</shopkeeper>
 	</npc>

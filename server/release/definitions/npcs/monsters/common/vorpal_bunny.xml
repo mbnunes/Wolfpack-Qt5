@@ -9,9 +9,10 @@
 <definitions>
 
 	<!-- vorpal bunny -->
-	<npc id="vorpal_bunny" inherit="animal_base">
+	<npc id="vorpal_bunny" inherit="monster_base">
 		<name>vorpal bunny</name>
 		<id>205</id>
+		<skin>0x480</skin>
 		<karma>0</karma>
 		<inherit id="FAME_L1" />
 		<str>15</str>
@@ -28,10 +29,16 @@
 		<mindamage>1</mindamage>
 		<maxdamage>1</maxdamage>
 		<!-- Misc. -->
-		<!-- Missing: 6-10 Carrot, Statue, Brightly Colored Eggs -->
-		<lootpacks>lootpack_filthy_rich;lootpack_rich;lootpack_rich;lootpack_rich</lootpacks>
+		<!-- Missing: Brightly Colored Eggs -->
+		<lootpacks>lootpack_filthy_rich;lootpack_rich;lootpack_rich;lootpack_rich;vorpal_bunny</lootpacks>
 		<category>Monsters\Common\Vorpal Bunny</category>
 		<inherit id="speed_veryfast" />
+		
+		<backpack>
+			<content>
+				<item id="c77"><amount><random min="6" max="10" /></amount></item>
+			</content>
+		</backpack>
 	</npc>
 
 </definitions>

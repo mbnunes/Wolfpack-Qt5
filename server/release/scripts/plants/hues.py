@@ -5,6 +5,7 @@
 #
 
 from consts import *
+import random
 
 HUES = {} # Registry
 
@@ -33,9 +34,54 @@ class Hue:
 		self.color = color
 		self.name = name
 		self.gumpcolor = gumpcolor
+		self.bright = (id & FLAG_BRIGHT) != 0
+		self.crossable = (id & FLAG_CROSSABLE) != 0
 		
 		global HUES
 		HUES[id] = self
+		
+	# Cross with another hue
+	def cross(self, other):
+		if not self.crossable or not other.crossable:
+			return HUES[COLOR_PLAIN]
+			
+		# There's a 10% chance to get black or white
+		if random.random() < 0.01:
+			if random.random() < 0.5:
+				return HUES[COLOR_BLACK]
+			else:
+				return HUES[COLOR_WHITE]
+
+		# Crossing with plain makes no sense.
+		# Always returns plain
+		if self.id == COLOR_PLAIN or other.id == COLOR_PLAIN:
+			return HUES[COLOR_PLAIN]
+
+		# Remove the bright flag
+		notBrightSelf = self.id & ~ FLAG_BRIGHT
+		notBrightOther = other.id & ~ FLAG_BRIGHT
+		
+		# Crossing with the same color gets us the bright color
+		if notBrightSelf == notBrightOther:
+			return HUES[notBrightSelf | FLAG_BRIGHT]
+			
+		# Check Primary Colors
+		selfPrimary = notBrightSelf in [COLOR_RED, COLOR_BLUE, COLOR_YELLOW]
+		otherPrimary = notBrightOther in [COLOR_RED, COLOR_BLUE, COLOR_YELLOW]
+
+		# Primary Colors get mixed
+		if selfPrimary and otherPrimary:
+			return HUES[notBrightSelf | notBrightOther]
+			
+		# Primaries override non primaries
+		if selfPrimary and not otherPrimary:
+			return HUES[notBrightSelf]
+			
+		if otherPrimary and not selfPrimary:
+			return HUES[notBrightOther]
+
+		# Otherwise just merge them to what they both have
+		return HUES[notBrightSelf & notBrightOther]
 
 #
 # Register Default Hues
@@ -59,3 +105,7 @@ Hue(COLOR_PINK, 0x48e, 1061854)
 Hue(COLOR_MAGENTA, 0x486, 1061852)
 Hue(COLOR_AQUA, 0x495, 1061853)
 Hue(COLOR_FIRERED, 0x489, 1061855)
+
+#
+# Check certain combinations
+#
