@@ -5,11 +5,15 @@
 	<script id="wall_clock" type="python" module="wall_clock" />
 	<script id="slotmachine" type="python" module="slotmachine" />
 	<script id="kindling" type="python" module="kindling" />
-
+	
 	<!-- Spell Scripts -->
 	<script id="spell_clumsy" type="python" module="spells.clumsy" />
 	<script id="spell_createfood" type="python" module="spells.createfood" />
 
 	<!-- moongate -->
 	<script id="moongate" type="python" module="moongate" />
+
+	<!-- Context menu scripts -->
+	<script id="daggermenu" type="python" module="daggermenu" />
+
 </definitions>
