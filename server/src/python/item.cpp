@@ -31,6 +31,7 @@
 
 #include "utilities.h"
 #include "item.h"
+#include "coord.h"
 #include "char.h"
 #include "../items.h"
 #include "../tilecache.h"
@@ -112,6 +113,12 @@ PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
+	if( PyTuple_Size( args ) == 1 && checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
+	{
+		self->pItem->moveTo( getWpCoord( PyTuple_GetItem( args, 0 ) ) );
+		return PyTrue;
+	}
+
 	// Gather parameters
 	Coord_cl pos = self->pItem->pos;
 
@@ -140,7 +147,7 @@ PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 		pos.z = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 	}
 
-	// PLANE
+	// MAP
 	if( PyTuple_Size( args ) >= 4 )
 	{
 		if( !PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
@@ -199,6 +206,9 @@ PyObject* wpItem_distance( wpItem* self, PyObject* args )
 	if( PyTuple_Size( args ) == 1 )
 	{
 		PyObject *pObj = PyTuple_GetItem( args, 0 );
+
+		if( checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
+			return PyInt_FromLong( self->pItem->pos.distance( getWpCoord( pObj ) ) );
 
 		// Item
 		P_ITEM pItem = getWpItem( pObj );
@@ -429,15 +439,14 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	else getIntProperty( "amount", pItem->amount() )
 	else getIntProperty( "amount2", pItem->amount2() )
 	else getIntProperty( "serial", pItem->serial )
-	else getIntProperty( "x", pItem->pos.x )
-	else getIntProperty( "y", pItem->pos.y )
-	else getIntProperty( "z", pItem->pos.z )
-	else getIntProperty( "map", pItem->pos.map )
 	else getIntProperty( "layer", pItem->layer() )
 	else getIntProperty( "twohanded", pItem->twohanded() ? 1 : 0 )
 	else getIntProperty( "type", pItem->type() )
 	else getIntProperty( "type2", pItem->type2() )
-	
+
+	else if( !strcmp( "pos", name ) )
+		return PyGetCoordObject( self->pItem->pos );
+
 	// What we're contained in
 	else if( !strcmp( "container", name ) )
 	{
