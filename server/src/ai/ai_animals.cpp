@@ -37,25 +37,15 @@
 // library includes
 #include <math.h>
 
-static AbstractAI* productCreator_AW()
-{
-	return new Animal_Wild( NULL );
-}
-
 void Animal_Wild::registerInFactory()
 {
-	AIFactory::instance()->registerType( "Animal_Wild", productCreator_AW );
-	AIFactory::instance()->registerType( "Animal_Aggressive", productCreator_AW );
-}
-
-static AbstractAI* productCreator_AD()
-{
-	return new Animal_Domestic( NULL );
+	AIFactory::instance()->registerType( "Animal_Wild", productCreatorFunctor<Animal_Wild> );
+	AIFactory::instance()->registerType( "Animal_Aggressive", productCreatorFunctor<Animal_Wild> );
 }
 
 void Animal_Domestic::registerInFactory()
 {
-	AIFactory::instance()->registerType( "Animal_Domestic", productCreator_AD );
+	AIFactory::instance()->registerType( "Animal_Domestic", productCreatorFunctor<Animal_Domestic> );
 }
 
 void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )

@@ -44,14 +44,9 @@
 // library includes
 #include <math.h>
 
-static AbstractAI* productCreator_HV()
-{
-	return new Human_Vendor( 0 );
-}
-
 void Human_Vendor::registerInFactory()
 {
-	AIFactory::instance()->registerType( "Human_Vendor", productCreator_HV );
+	AIFactory::instance()->registerType( "Human_Vendor", productCreatorFunctor<Human_Vendor> );
 }
 
 void Human_Vendor::onSpeechInput( P_PLAYER pTalker, const QString& comm )
@@ -84,14 +79,9 @@ void Human_Stablemaster::init( P_NPC npc )
 	AbstractAI::init( npc );
 }
 
-static AbstractAI* productCreator_HS()
-{
-	return new Human_Stablemaster( NULL );
-}
-
 void Human_Stablemaster::registerInFactory()
 {
-	AIFactory::instance()->registerType( "Human_Stablemaster", productCreator_HS );
+	AIFactory::instance()->registerType( "Human_Stablemaster", productCreatorFunctor<Human_Stablemaster> );
 }
 
 void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message )
@@ -224,14 +214,9 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 	}
 }
 
-static AbstractAI* productCreator_HGC()
-{
-	return new Human_Guard_Called( NULL );
-}
-
 void Human_Guard_Called::registerInFactory()
 {
-	AIFactory::instance()->registerType( "Human_Guard_Called", productCreator_HGC );
+	AIFactory::instance()->registerType( "Human_Guard_Called", productCreatorFunctor<Human_Guard_Called> );
 }
 
 Human_Guard_Called::Human_Guard_Called( P_NPC npc ) : AbstractAI( npc )
@@ -298,6 +283,7 @@ void Human_Guard_Called_TeleToTarget::execute()
 		m_npc->effect( 0x372A, 0x09, 0x06 );
 
 		m_npc->resend( false );
+		pTarget->kill( m_npc );
 	}
 }
 
@@ -337,14 +323,9 @@ float Human_Guard_Called_Disappear::postCondition()
 	return 1.0f - preCondition();
 }
 
-static AbstractAI* productCreator_HG()
-{
-	return new Human_Guard( NULL );
-}
-
 void Human_Guard::registerInFactory()
 {
-	AIFactory::instance()->registerType( "Human_Guard", productCreator_HG );
+	AIFactory::instance()->registerType( "Human_Guard", productCreatorFunctor<Human_Guard> );
 }
 
 Human_Guard::Human_Guard( P_NPC npc ) : AbstractAI( npc ), m_currentVictimSer( INVALID_SERIAL )
@@ -438,6 +419,8 @@ void Human_Guard_Fight::execute()
 		m_npc->talk( tr( "Thou shalt regret thine actions, swine!" ), 0xFFFF, 0, true );	break;
 	case 1:
 		m_npc->talk( tr( "Death to all Evil!" ), 0xFFFF, 0, true );						break;
+	default:
+		break;
 	}
 }
 

@@ -157,42 +157,27 @@ void Monster_Aggressive::check()
 	AbstractAI::check();
 }
 
-static AbstractAI* productCreator_MAL0()
-{
-	return new Monster_Aggressive_L0( NULL );
-}
-
 void Monster_Aggressive_L0::registerInFactory()
 {
-	AIFactory::instance()->registerType( "Monster_Aggressive_L0", productCreator_MAL0 );
+	AIFactory::instance()->registerType( "Monster_Aggressive_L0", productCreatorFunctor<Monster_Aggressive_L0> );
 }
 
 void Monster_Aggressive_L0::selectVictim()
 {
 }
 
-static AbstractAI* productCreator_MB()
-{
-	return new Monster_Berserk( NULL );
-}
-
 void Monster_Berserk::registerInFactory()
 {
-	AIFactory::instance()->registerType( "Monster_Berserk", productCreator_MB );
+	AIFactory::instance()->registerType( "Monster_Berserk", productCreatorFunctor<Monster_Berserk> );
 }
 
 void Monster_Berserk::selectVictim()
 {
 }
 
-static AbstractAI* productCreator_MAL1()
-{
-	return new Monster_Aggressive_L1( NULL );
-}
-
 void Monster_Aggressive_L1::registerInFactory()
 {
-	AIFactory::instance()->registerType( "Monster_Aggressive_L1", productCreator_MAL1 );
+	AIFactory::instance()->registerType( "Monster_Aggressive_L1", productCreatorFunctor<Monster_Aggressive_L1> );
 }
 
 void Monster_Aggressive_L1::selectVictim()

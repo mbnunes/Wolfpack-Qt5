@@ -141,7 +141,7 @@ void startPython( int argc, char* argv[] )
 	}
 	catch ( ... )
 	{
-		Console::instance()->send( "Failed to initialize the python extension modules\n" );
+		Console::instance()->send( tr("Failed to initialize the python extension modules\n") );
 	}
 }
 
@@ -191,22 +191,22 @@ void reportPythonError( const QString& moduleName )
 		{
 			if ( !moduleName.isNull() )
 			{
-				Console::instance()->log( LOG_ERROR, QString( "An error occured while compiling \"%1\": %2" ).arg( moduleName ).arg( PyString_AsString( exceptionName ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "An error occured while compiling \"%1\": %2" ).arg( moduleName ).arg( PyString_AsString( exceptionName ) ) );
 			}
 			else
 			{
-				Console::instance()->log( LOG_ERROR, QString( "An error occured: %1" ).arg( PyString_AsString( exceptionName ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "An error occured: %1" ).arg( PyString_AsString( exceptionName ) ) );
 			}
 		}
 		else
 		{
 			if ( !moduleName.isNull() )
 			{
-				Console::instance()->log( LOG_ERROR, QString( "An error occured in \"%1\": %2" ).arg( moduleName ).arg( PyString_AsString( exceptionName ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "An error occured in \"%1\": %2" ).arg( moduleName ).arg( PyString_AsString( exceptionName ) ) );
 			}
 			else
 			{
-				Console::instance()->log( LOG_ERROR, QString( "An error occured: %1" ).arg( PyString_AsString( exceptionName ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "An error occured: %1" ).arg( PyString_AsString( exceptionName ) ) );
 			}
 
 			Console::instance()->log( LOG_PYTHON, QString( "%1: %2" ).arg( PyString_AsString( exceptionName ) ).arg( PyString_AsString( error ) ), false );
@@ -260,7 +260,7 @@ void reportPythonError( const QString& moduleName )
 			Py_XDECREF( pyLine );
 
 			// Print it
-			Console::instance()->log( LOG_PYTHON, QString( "File '%1',%2 in '%3'" ).arg( filename ).arg( line ).arg( function ), false );
+			Console::instance()->log( LOG_PYTHON, tr( "File '%1',%2 in '%3'" ).arg( filename ).arg( line ).arg( function ), false );
 
 			// Switch Frames
 			PyObject* newtb = PyObject_GetAttrString( traceback, "tb_next" );

@@ -101,7 +101,7 @@ QString cConfig::mulPath() const
 	QDir thePath( mulPath_ );
 	if ( !thePath.exists() || thePath.entryList( "*.mul" ).isEmpty() )
 	{
-		Console::instance()->log( LOG_WARNING, QString( "UO Mul files not found at '%1', trying to locate...\n" ).arg( mulPath_ ) );
+		Console::instance()->log( LOG_WARNING, tr( "UO Mul files not found at '%1', trying to locate...\n" ).arg( mulPath_ ) );
 		QString uoPath( getUOPath() );
 		if ( !uoPath.isEmpty() )
 		{
@@ -110,7 +110,7 @@ QString cConfig::mulPath() const
 			that->setMulPath( uoPath );
 		}
 		else
-			Console::instance()->log( LOG_ERROR, "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"" );
+			Console::instance()->log( LOG_ERROR, tr("Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"") );
 	}
 	return mulPath_;
 }

@@ -341,7 +341,7 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 		try {
 			p = new MapsPrivate( basePath + staticsIdxName, basePath + mapFileName, basePath + staticsFileName );
 		} catch(wpFileNotFoundException &e) {
-			Console::instance()->log(LOG_WARNING, QString("Unable to find the files for map %1.\n").arg(id));
+			Console::instance()->log(LOG_WARNING, tr("Unable to find the files for map %1.\n").arg(id));
 			return false;
 		}
 
@@ -623,7 +623,7 @@ StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact 
 {
 	const_iterator it = d.find( id );
 	if ( it == d.end() ) {
-		Console::instance()->log(LOG_ERROR, QString( "[cMaps::staticsIterator line %1] map id(%2) not registered!\n" ).arg( __LINE__ ).arg( id ) );
+		Console::instance()->log(LOG_ERROR, tr( "[cMaps::staticsIterator line %1] map id(%2) not registered!\n" ).arg( __LINE__ ).arg( id ) );
 		return StaticsIterator( x, y, 0, true );
 	}		
 	return StaticsIterator( x, y, it.data(), exact );

@@ -36,6 +36,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Fixed a bug (Exploit) related to consumeResource.
 	- Removed old page system from core.
 	- onCreate is now called for players on character creation.
+	- Fixed bug #0000348 (  Guards should kill instantly )
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

@@ -239,7 +239,7 @@ void cUOSocket::recieve()
 	// Disconnect harmful clients
 	if ( ( _account == 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
 	{
-		log( QString( "Communication error: 0x%1 instead of 0x80 or 0x91\n" ).arg( packetId, 2, 16 ) );
+		log( tr( "Communication error: 0x%1 instead of 0x80 or 0x91\n" ).arg( packetId, 2, 16 ) );
 
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
@@ -2111,7 +2111,7 @@ void cUOSocket::poll()
 	// Check for idling/silent sockets
 	if ( _lastActivity + 180 * MY_CLOCKS_PER_SEC < Server::instance()->time() )
 	{
-		log( QString( "Idle for %1 ms. Disconnecting.\n" ).arg( Server::instance()->time() - _lastActivity ) );
+		log( tr( "Idle for %1 ms. Disconnecting.\n" ).arg( Server::instance()->time() - _lastActivity ) );
 		disconnect();
 	}
 }
@@ -3053,7 +3053,7 @@ void cUOSocket::handleExtendedStats( cUORxExtendedStats* packet )
 
 	if ( lock > 2 )
 	{
-		log( LOG_WARNING, QString( "Wrong lock value for extended stats packet: %1\n" ).arg( lock ) );
+		log( LOG_WARNING, tr( "Wrong lock value for extended stats packet: %1\n" ).arg( lock ) );
 		return;
 	}
 
@@ -3072,7 +3072,7 @@ void cUOSocket::handleExtendedStats( cUORxExtendedStats* packet )
 		break;
 
 	default:
-		log( LOG_WARNING, QString( "Wrong stat value for extended stats packet: %1\n" ).arg( stat ) );
+		log( LOG_WARNING, tr( "Wrong stat value for extended stats packet: %1\n" ).arg( stat ) );
 		break;
 	}
 }

@@ -824,4 +824,10 @@ protected:
 	SERIAL m_currentVictimSer;
 };
 
+template< typename T >
+AbstractAI* productCreatorFunctor()
+{
+	return new T(0);
+}
+
 #endif /* AI_H_HEADER_INCLUDED */
