@@ -986,8 +986,7 @@ void showcname (int s, int i, char b) // Singleclick text for a character
 //
 void deathstuff(int i)
 {
-	int z, j=0, c, l, q, ele, corpsenum, p;
-	int serial,serial1,serhash;
+	int z, c, l, q, ele, p;
 	char murderername[50]; //AntiChrist
 	char clearmsg[8];
 	int nType=0;
@@ -1002,7 +1001,7 @@ void deathstuff(int i)
 	{
 		pc_player->id1=pc_player->xid1;
 		pc_player->id2=pc_player->xid2;
-		pc_player->polymorph=false;
+		pc_player->polymorph = false;
 		teleport(DEREF_P_CHAR(pc_player));
 	}
 
@@ -1018,6 +1017,7 @@ void deathstuff(int i)
 	}
 	else 
 		murderername[0]=0;
+
 	AllCharsIterator iter_char;
 	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
 	{
@@ -1078,14 +1078,17 @@ void deathstuff(int i)
 					}
 				}
 			}//if !npc
-			if (pc_t->isNpc() && pc_t->war) npcToggleCombat(DEREF_P_CHAR(pc_t)); // ripper
+			if (pc_t->isNpc() && pc_t->war) 
+				npcToggleCombat(DEREF_P_CHAR(pc_t)); // ripper
 		}
 	}
 
-	p=packitem(DEREF_P_CHAR(pc_player));
+	P_ITEM pi_backpack = Packitem(pc_player);
 	z=calcSocketFromChar(DEREF_P_CHAR(pc_player));
-	if (z!=-1) j=unmounthorse(z);
-	int ci=0,loopexit=0;
+	if (z != -1) 
+		unmounthorse(z);
+
+	int ci=0;
 	P_ITEM pi_j;
 	vector<SERIAL> vecContainer = contsp.getData(pc_player->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -1127,9 +1130,9 @@ void deathstuff(int i)
         pi_c->ownserial=pc_player->serial;
 	}// end corpse highlighting.
 
-    if(pc_player->isNpc() || pc_player->isPlayer())
+//    if(pc_player->isNpc() || pc_player->isPlayer())
 
-	ele=pi_c->amount=(pc_player->xid1<<8)+pc_player->xid2; // Amount == corpse type
+//	ele=pi_c->amount=(pc_player->xid1<<8)+pc_player->xid2; // Amount == corpse type
 	pi_c->morey=ishuman(DEREF_P_CHAR(pc_player));//is human?? - AntiChrist
 	pi_c->carve=pc_player->carve;//store carve section - AntiChrist
 	strcpy(pi_c->name2,pc_player->name);
@@ -1141,7 +1144,6 @@ void deathstuff(int i)
 	pi_c->dir=pc_player->dir;
 	pi_c->corpse=1;
 	pi_c->startDecay();
-	corpsenum = DEREF_P_ITEM(pi_c);
 	
 	//JustMichael -- If it was a player set the ownerserial to the player's
 	if( pc_player->isPlayer() )
@@ -1151,25 +1153,22 @@ void deathstuff(int i)
 	}
 
 	//AntiChrist -- stores the time and the murderer's name
-	strcpy(pi_c->murderer,murderername);
-	pi_c->murdertime=uiCurrentTime;
+	strcpy(pi_c->murderer, murderername);
+	pi_c->murdertime = uiCurrentTime;
 	// Put objects on corpse
-	serial=pc_player->serial;
-	serhash=serial%HASHMAX;
-	ci=0,loopexit=0;
+
 	vecContainer.clear();
-	vecContainer = contsp.getData(pi_j->serial);
+	vecContainer = contsp.getData(pc_player->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi_j = FindItemBySerial(vecContainer[ci]);
-		int j=DEREF_P_ITEM(pi_j);
 		// for BONUS ITEMS - remove bonus
 		pc_player->removeItemBonus(pi_j);
 		if ((pi_j->trigon==1) && (pi_j->layer >0) && (pi_j->layer!=15) && (pi_j->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
 			triggerwitem(z, DEREF_P_ITEM(pi_j), 1); // trigger is fired when item destroyed
 		}
-		if ((pi_j->contserial==serial) && (pi_j->layer!=0x0B) && (pi_j->layer!=0x10))
+		if ((pi_j->contserial== pc_player->serial) && (pi_j->layer!=0x0B) && (pi_j->layer!=0x10))
 		{//Let's check all items, except HAIRS and BEARD
 			// Ripper...so order/chaos shields disappear when on corpse backpack.
 			if( pi_j->id1 == 0x1B && ( pi_j->id2 == 0xC3 || pi_j->id2 == 0xC4 ) )
@@ -1181,18 +1180,15 @@ void deathstuff(int i)
 			if (pi_j->type==1 && pi_j->layer!=0x1A && pi_j->layer!=0x1B &&
 				pi_j->layer!=0x1C && pi_j->layer!=0x1D)
 			{//if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
-				serial1=pi_j->serial;
 				int ci1=0;
-				int loopexit1=0;
-				P_ITEM pi_k;
-				vector<SERIAL> vecContainer = contsp.getData(serial1);
-				for ( ci = 0; ci < vecContainer.size(); ci++)
+				vector<SERIAL> vecContainer = contsp.getData(pi_j->serial);
+				for ( ci1 = 0; ci1 < vecContainer.size(); ci1++)
 				{
-					pi_k = FindItemBySerial(vecContainer[ci]);
+					P_ITEM pi_k = FindItemBySerial(vecContainer[ci1]);
 					if ( (!(pi_k->priv&0x02)) && (pi_k->type!=9))//Morrolan spellbook disappearance fix
 					{//put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 						pi_k->layer=0;
-						pi_k->SetContSerial(items[corpsenum].serial);
+						pi_k->SetContSerial(pi_c->serial);
 						pi_k->SetRandPosInCont(pi_c);
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id1 == 0x1B && ( pi_k->id2 == 0xC3 || pi_k->id2 == 0xC4 ) )
@@ -1220,17 +1216,17 @@ void deathstuff(int i)
 			}//else if it's a normal item but ( not newbie and not bank items )
 			else if ((!(pi_j->priv&0x02)) && pi_j->layer!=0x1D)
 			{
-				if (j!=p)
+				if (pi_j != pi_backpack)
 				{
-					pi_j->SetContSerial(items[corpsenum].serial);
+					pi_j->SetContSerial(pi_c->serial);
 				}
 			}
-			else if(p!=-1 && pi_j->layer!=0x1D)
+			else if(pi_backpack != NULL && pi_j->layer!=0x1D)
 			{//else if the item is newbie put it into char's backpack
-				if(j!=p)
+				if(pi_j != pi_backpack)
 				{
-					pi_j->layer=0;
-					pi_j->SetContSerial(items[p].serial);
+					pi_j->layer = 0;
+					pi_j->SetContSerial(pi_backpack->serial);
 				}
 			}
 			if ((pi_j->layer==0x15)&&(pc_player->shop==0)) pi_j->layer=0x1A;
@@ -1240,7 +1236,7 @@ void deathstuff(int i)
 			SndRemoveitem(pi_j->serial);
 			RefreshItem(pi_j);//AntiChrist
 		}
-		if ((pi_j->contserial==serial)&& ((pi_j->layer==0x0B)||(pi_j->layer==0x10)))
+		if ((pi_j->contserial == pc_player->serial)&& ((pi_j->layer==0x0B)||(pi_j->layer==0x10)))
 		{
 			strcpy(pi_j->name,"Hair/Beard");
 			pi_j->pos.x=0x47;
@@ -1259,7 +1255,7 @@ void deathstuff(int i)
 		pi_c->layer=0x16;
 		pi_c->def=1;
 	}
-	if (SrvParms->showdeathanim) deathaction(DEREF_P_CHAR(pc_player), corpsenum);
+	if (SrvParms->showdeathanim) deathaction(DEREF_P_CHAR(pc_player), DEREF_P_ITEM(pi_c));
 	if (pc_player->account!=-1) // LB
 	{
 		
@@ -1278,9 +1274,9 @@ void deathstuff(int i)
 //		pi_c->setId(0x09B2);
 //		pi_c->corpse=0; 
 //	}
-	RefreshItem(corpsenum);//AntiChrist
+	RefreshItem(DEREF_P_ITEM(pi_c));//AntiChrist
 	if (pc_player->isNpc()) Npcs->DeleteChar(DEREF_P_CHAR(pc_player));
-	if(ele==65535) Items->DeleItem(corpsenum);
+	if(ele==65535) Items->DeleItem(DEREF_P_ITEM(pi_c));
 }
 
 int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color )

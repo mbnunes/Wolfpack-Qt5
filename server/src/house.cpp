@@ -724,35 +724,38 @@ int on_hlist(int h, unsigned char s1, unsigned char s2, unsigned char s3, unsign
 // 3 - Character is not on property
 int add_hlist(int c, int h, int t)
 {
-	int sx, sy, ex, ey, i;
+	int sx, sy, ex, ey;
+	
+	P_CHAR pc = MAKE_CHAR_REF(c);
 
-	if(on_hlist(h, chars[c].ser1, chars[c].ser2, chars[c].ser3, chars[c].ser4, NULL))
+	if(on_hlist(h, pc->ser1, pc->ser2, pc->ser3, pc->ser4, NULL))
 		return 2;
 
 	Map->MultiArea(h, &sx,&sy,&ex,&ey);
 	// Make an object with the character's serial & the list type
 	// and put it "inside" the house item.
-	if(chars[c].pos.x>=sx&&chars[c].pos.y>=sy&&chars[c].pos.x<=ex&&chars[c].pos.y<=ey)
+	if(pc->pos.x>=sx&&pc->pos.y>=sy&&pc->pos.x<=ex&&pc->pos.y<=ey)
 	{
-		i=Items->MemItemFree();	
-		items[i].Init();
+		ITEM i = Items->MemItemFree();	
+		P_ITEM pi = MAKE_ITEM_REF(i);
+		pi->Init();
 
-		items[i].morex=t;
-		items[i].more1=chars[c].ser1;
-		items[i].more2=chars[c].ser2;
-		items[i].more3=chars[c].ser3;
-		items[i].more4=chars[c].ser4;
-		items[i].morey=items[h].serial;
+		pi->morex=t;
+		pi->more1 = pc->ser1;
+		pi->more2 = pc->ser2;
+		pi->more3 = pc->ser3;
+		pi->more4 = pc->ser4;
+		pi->morey=items[h].serial;
 
-		items[i].priv=0; // no decay !!
-		items[i].visible=0;
-		strcpy(items[i].name,"friend of house");
+		pi->priv=0; // no decay !!
+		pi->visible=0;
+		strcpy(pi->name,"friend of house");
 
-		items[i].pos.x=items[h].pos.x;
-		items[i].pos.y=items[h].pos.y;
-		items[i].pos.z=items[h].pos.z;
+		pi->pos.x=items[h].pos.x;
+		pi->pos.y=items[h].pos.y;
+		pi->pos.z=items[h].pos.z;
 
-		mapRegions->Add(&items[i]);
+		mapRegions->Add(pi);
 		return 1;
 	}
 
@@ -780,12 +783,12 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 {
 	int fr;
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
-//	char msg[512];
 	if(s<0 || s>MAXCLIENT) return;
 	P_ITEM pi_multi = findmulti(pc_currchar->pos);
 	if(pi_multi == NULL) return; // not in a house, so we don't care.
 	fr=on_hlist(DEREF_P_ITEM(pi_multi), pc_currchar->ser1, pc_currchar->ser2,
 		pc_currchar->ser3, pc_currchar->ser4, NULL);
+
 	if(fr!=H_FRIEND && !pc_currchar->Owns(pi_multi) )
 		return; // not a friend or owner, so we don't care.
 
@@ -826,29 +829,28 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 
 bool CheckBuildSite(int x, int y, int z, int sx, int sy)
 {
-signed int checkz;
-//char statc;
-int checkx;
-int checky;
-int ycount=0;
-checkx=x-(sx/2);
-for (;checkx<(x+(sx/2));checkx++)
-{
-	checky=y-(sy/2);
-	for (;checky<(y+(sy/2));checky++)
+	signed int checkz;
+	//char statc;
+	int checkx;
+	int checky;
+	int ycount=0;
+	checkx=x-(sx/2);
+	for (;checkx<(x+(sx/2));checkx++)
 	{
-		checkz=Map->MapElevation(checkx,checky);
-		if ((checkz>(z-2))&&(checkz<(z+2)))
+		for (checky=y-(sy/2);checky<(y+(sy/2));checky++)
 		{
-			ycount++;
+			checkz=Map->MapElevation(checkx,checky);
+			if ((checkz>(z-2))&&(checkz<(z+2)))
+			{
+				ycount++;
+			}
+			//	statc=Map->StaHeight(checkx,checky,checkz);
+			//	if (statc>0)
+			//		statb=true;
 		}
-	//	statc=Map->StaHeight(checkx,checky,checkz);
-	//	if (statc>0)
-	//		statb=true;
 	}
-}
-if (ycount==(sx*sy)) //&& (statb==false))
-	return true;
-else
-	return false;
+	if (ycount==(sx*sy)) //&& (statb==false))
+		return true;
+	else
+		return false;
 }

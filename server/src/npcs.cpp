@@ -1658,10 +1658,10 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
    //Now find real 'skill' based on 'baseskill' (stat modifiers)
    for(z=0;z<TRUESKILLS;z++)
    {
-	   Skills->updateSkillLevel(c,z);
+	   Skills->updateSkillLevel(DEREF_P_CHAR(pc_c),z);
    }
    
-   updatechar(c);
+   updatechar(DEREF_P_CHAR(pc_c));
 
    // Dupois - Added April 4, 1999
    // After the NPC has been fully initialized, then post the message (if its a quest spawner) type==125
@@ -1669,14 +1669,14 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
    {
       if ( items[i].type == 125 )
 	  {
-          MsgBoardQuestEscortCreate( c );
+          MsgBoardQuestEscortCreate( DEREF_P_CHAR(pc_c) );
 	  }
    }
    // End - Dupois
 
    //Char mapRegions
-   mapRegions->Remove(&chars[c]);
-   mapRegions->Add(&chars[c]);
+   mapRegions->Remove(pc_c);
+   mapRegions->Add(pc_c);
    return c;
 }
 
@@ -1684,13 +1684,13 @@ void cCharStuff::Split(int k) // For NPCs That Split during combat
 {
 	int c,serial,z;
 	
-	c=Npcs->MemCharFree ();
+	c=Npcs->MemCharFree();
 	
 	P_CHAR pc_c = MAKE_CHARREF_LR(c);
 	pc_c->Init();
 	P_CHAR pc_k = MAKE_CHARREF_LR(k);
 	serial=pc_c->serial;
-	memcpy(&chars[c],&chars[k],sizeof(cChar));
+	memcpy(pc_c, pc_k, sizeof(cChar));
 	pc_c->ser1=serial>>24;
 	pc_c->ser2=serial>>16;
 	pc_c->ser3=serial>>8;

@@ -1140,14 +1140,16 @@ int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 
 void cNetworkStuff::GetMsg(int s) // Receive message from client 
 {
-	int count, i, j, k, book,serial,serhash,ci,length, dyn_length,loopexit=0, fb;
+	int count, j, k, book,serial,serhash,ci,length, dyn_length,loopexit=0, fb;
 	unsigned char nonuni[512];
 	unsigned char packet;
 	int  myoffset,  myj, mysize, subcommand, subsubcommand ;
 	unsigned char mytempbuf[512] ;
 	char client_lang[4];
 
-
+	P_CHAR pc_target = NULL;
+	P_ITEM pi_target = NULL;
+	
 	string cpps;
 	vector<string>::const_iterator viter;
 		
@@ -1342,7 +1344,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 						//cout << "Max length characters will be " << dec << (iWord - myoffset) << endl ;
 						mysize = iWord - myoffset ;
-
+						int i;
 						for (i=0; i < mysize ; i++)
 						{
 							mytempbuf[i] = buffer[s][i+myoffset] ;
@@ -1420,7 +1422,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					} 
 					else if (buffer[s][3]=='\x24') // Skill
 					{
-						i=4;
+						int i=4;
 						while ( (buffer[s][i]!=' ') && (++loopexit < MAXLOOPS) ) i++;
 						buffer[s][i]=0;
 						Skills->SkillUse(s, str2num((char*)&buffer[s][4]));
@@ -1435,7 +1437,8 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							serial=items[k].serial;
 							serhash=serial%HASHMAX;
 							vector<SERIAL> vecContainer = contsp.getData(serial);
-							for (i=0;i<vecContainer.size();i++)
+							unsigned int i;
+							for (i = 0; i < vecContainer.size(); i++)
 							{
 								ci=calcItemFromSer(vecContainer[i]);
 								if (ci!=-1) //lb
@@ -1451,6 +1454,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							serial=pc_currchar->serial;
 							serhash=serial%HASHMAX;
 							vector<SERIAL> vecContainer = contsp.getData(serial);
+							unsigned int i;
 							for (i=0;i<vecContainer.size();i++)
 							{
 								ci=calcItemFromSer(vecContainer[i]);
@@ -1483,7 +1487,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 					else if ((buffer[s][2]=='\x05')&&(buffer[s][3]=='\x43'))  // Open spell book
 					{
-						Magic->SpellBook(s,-1);
+						Magic->SpellBook(s, -1);
 						break;
 					} else if ((buffer[s][2]=='\x05')&&(buffer[s][3]=='\x58'))  // Door macro
 					{
@@ -1512,21 +1516,23 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x75:// Rename Character //Lag Fix -- Zippy //Bug Fix -- Zippy	
-					serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
-					if(serial==-1) return;
-					i = calcCharFromSer( serial );
-					if(i!=-1)
-						strncpy(chars[i].name, (char*)&buffer[s][5], 50);
+					{
+						serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
+						if(serial==-1) return;
+						pc_target = FindCharBySerial( serial );
+						if(pc_target != NULL)
+							strncpy(pc_target->name, (char*)&buffer[s][5], 50);
+					}
 					break;
 		
 				case 0x66:// Read Book
 					int size;
 					size=dyn_length;
 					serial=calcserial(buffer[s][3],buffer[s][4],buffer[s][5],buffer[s][6]);
-					i = calcItemFromSer( serial );
-					if (i!=-1)
+					pi_target = FindItemBySerial( serial );
+					if (pi_target != NULL)
 					{
-						P_ITEM pBook=&items[i];
+						P_ITEM pBook= pi_target;
 						if (pBook->morex!=666 && pBook->morex!=999)
 							Books->readbook_readonly_old(s, pBook, (buffer[s][9]<<8)+buffer[s][10]);  // call old books read-method
 						if (pBook->morex==666) // writeable book -> copy page data send by client to the class-page buffer
@@ -1546,18 +1552,17 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 			// LB 7-dec 1999
 				case 0x93:
 
-					int serial,i,j;
+					int serial,j;
 					char author[31],title[61],ch;
 	         
 					serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
-					i = calcItemFromSer( serial );
-					if (i==-1) return;				
+					pi_target = FindItemBySerial( serial );
+					if (pi_target == NULL) return;				
 					Books->a_t=1;			
-
-                			j=9;ch=1;
+           			j=9;ch=1;
 					while(ch!=0)
 					{
-                   				ch=buffer[s][j];
+                   		ch=buffer[s][j];
 						title[j-9]=ch;
 						Books->titlebuffer[s][j-9]=ch;
 						j++;
@@ -1574,8 +1579,6 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						j++;
 				  		if (j>99) ch=0;
 					}
-							
-
 					break;
 
 				case 0x3a: // client 1.26.2b+ skill managment packet

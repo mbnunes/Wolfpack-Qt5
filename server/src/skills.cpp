@@ -535,7 +535,9 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 	int tmpgmnumber=0; // By Magius(CHE) for Rank System
 	make_st *imk=&itemmake[s];
 	
-	chars[currchar[s]].making=skill;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+
+	pc_currchar->making=skill;
 	
 	Script *pScp=i_scripts[create_script];
 	if (!pScp->Open()) return;
@@ -589,7 +591,7 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 			}
 			if (imk->maxskill<200) imk->maxskill=200;
 			if ((imk->has<imk->needs) || ((imk->has2) &&
-				(imk->has2<imk->needs)) || (chars[currchar[s]].skill[skill]<imk->minskill))
+				(imk->has2<imk->needs)) || (pc_currchar->skill[skill]<imk->minskill))
 				gmnumber--;
 
 			pScp->NextLineSplitted();
@@ -640,10 +642,10 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 	}
 	gmprefix[1]=total>>8;
 	gmprefix[2]=total%256;
-	gmprefix[3]=chars[currchar[s]].ser1;
-	gmprefix[4]=chars[currchar[s]].ser2;
-	gmprefix[5]=chars[currchar[s]].ser3;
-	gmprefix[6]=chars[currchar[s]].ser4;
+	gmprefix[3]=pc_currchar->ser1;
+	gmprefix[4]=pc_currchar->ser2;
+	gmprefix[5]=pc_currchar->ser3;
+	gmprefix[6]=pc_currchar->ser4;
 	gmprefix[7]=(gmindex+MAKEMENUOFFSET)>>8;
 	gmprefix[8]=(gmindex+MAKEMENUOFFSET)%256;
 	Xsend(s, gmprefix, 9);
