@@ -134,6 +134,7 @@
 			<action name="TELEM" permit="true" />
 			<action name="WHERE" permit="true" />
 			<action name="WHO" permit="true" />
+			<action name="TURNITEM" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>
@@ -158,6 +159,7 @@
 			<action name="TRAVEL" permit="true" />
 			<action name="WHERE" permit="true" />
 			<action name="WHO" permit="true" />
+			<action name="TURNITEM" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>
@@ -175,6 +177,7 @@
 			<action name="RESEND" permit="true" />
 			<action name="SERVERINFO" permit="true" />
 			<action name="WHERE" permit="true" />
+			<action name="TURNITEM" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>
