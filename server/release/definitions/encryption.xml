@@ -3,6 +3,7 @@
 			<!-- High priority first !! -->
 
 		<!-- Client identification string (optional) ; Key1 ; Key2 -->
+		<item> Client 4.0.2 ; 0x2E63ADDD ; 0xA225227F </item>
 		<item> Client 4.0.1 ; 0x2E2BA7ED ; 0xA2017E7F </item>
 		<item> Client 4.0.0 ; 0x2E13A5FD ; 0xA21D527F </item>
 		<item> Client 3.0.5 ; 0x2C8B97AD ; 0xA350DE7F </item>
