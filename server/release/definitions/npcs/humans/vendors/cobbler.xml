@@ -26,11 +26,13 @@
 
 	<!-- A cobbler vendor -->
 	<npc id="cobbler_male" inherit="vendor_male">
+		<inherit id="cobbler_inventory" />
 		<title context="Vendor Male Titles">the Cobbler</title>
 		<category>Vendors\Cobbler (Male)</category>
 	</npc>
 	
 	<npc id="cobbler_female" inherit="vendor_female">
+		<inherit id="cobbler_inventory" />
 		<title context="Vendor Female Titles">the Cobbler</title>
 		<category>Vendors\Cobbler (Female)</category>
 	</npc>
