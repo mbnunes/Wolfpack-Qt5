@@ -9,7 +9,7 @@ PROJECT = wolfpack
 TARGET = wolfpack
 TEMPLATE = app
 
-CONFIG += qt thread exceptions rtti
+CONFIG += qt thread exceptions rtti 
 
 unix {
 	CONFIG += console
@@ -18,7 +18,7 @@ unix {
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 }
 
-DEFINES += QT_CLEAN_NAMESPACE
+DEFINES += QT_CLEAN_NAMESPACE QT_COMPAT_WARNINGS
 
 RC_FILE = res.rc
 OBJECTS_DIR = obj
@@ -26,9 +26,16 @@ MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
 
+# make confclean
+unix {
+	confclean.depends += clean
+	confclean.commands += $(DEL_FILE) config.pri 
+	QMAKE_EXTRA_UNIX_TARGETS += confclean 
+}
+
 # Include configure settings
 !include(config.pri) {
-	message("HINT: use ./configure script!")
+	message("HINT: use ./configure.py script!")
 }
 
 # Precompiled header

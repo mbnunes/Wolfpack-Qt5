@@ -31,7 +31,7 @@ import distutils.sysconfig
 try:
 	from optparse import OptionParser
 except:
-	sys.path.append( './tools/scripts' )
+	sys.path.append( '../tools/scripts' )
 	from optparse import OptionParser
 
 try:
@@ -388,6 +388,7 @@ def main():
 		os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro", "-t vcapp"])
 	sys.stdout.write(bold(green("Done\n")))
 	sys.stdout.write(bold("Configure finished. Please run 'make' now.\n"))
+	sys.stdout.write("To reconfigure, run /usr/bin/gmake confclean and configure.py\n") 
 	sys.stdout.write("\n")
 
 if __name__ == "__main__":
