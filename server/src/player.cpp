@@ -542,7 +542,8 @@ void cPlayer::mount( P_NPC pMount )
 		case 0x1f:
 			pMountItem->setId( 0x3EBE ); break; // armor dragon
 		}
-
+		
+		this->setDirection( pMount->direction() );
 		this->addItem( cBaseChar::Mount, pMountItem );
 		pMountItem->setTag( "pet", cVariant( pMount->serial() ) );
 		pMountItem->update();
@@ -552,7 +553,7 @@ void cPlayer::mount( P_NPC pMount )
 		{
 			pMount->setOwner( this );
 		}
-
+		
 		// remove it from screen!
 		pMount->bark( Bark_Idle );
 		pMount->removeFromView( false );
