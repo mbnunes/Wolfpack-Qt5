@@ -90,10 +90,10 @@ protected:
 class AbstractAI
 {
 protected:
-	AbstractAI() : m_npc( NULL ), m_currentAction( NULL ) { m_actions.setAutoDelete( true ); }
+	AbstractAI() : m_npc( NULL ), m_currentAction( NULL ), notorityOverride_( 0 ) { m_actions.setAutoDelete( true ); }
 
 public:
-	AbstractAI( P_NPC npc ) : m_npc( npc ), m_currentAction( NULL ) { m_actions.setAutoDelete( true ); }
+	AbstractAI( P_NPC npc ) : m_npc( npc ), m_currentAction( NULL ), notorityOverride_( 0 ) { m_actions.setAutoDelete( true ); }
 	virtual ~AbstractAI() {} // virtual destructor.
 
 	// some events that can be triggered from outside
@@ -106,6 +106,9 @@ public:
 
 	P_NPC			npc() const { return m_npc; }
 	void			setNPC( P_NPC npc ) { m_npc = npc; }
+
+	unsigned char	notorityOverride() const { return notorityOverride_; }
+	void			setNotorityOverride( unsigned char value ) { notorityOverride_ = value; }
 
 	// This is for creating AI interfaces through the AIFactory
 	virtual void	init( P_NPC npc )
@@ -122,6 +125,7 @@ protected:
 	P_NPC			m_npc;
 	AbstractAction*	m_currentAction;
 	QPtrList< AbstractAction >	m_actions;
+	unsigned char	notorityOverride_;
 };
 
 class AIFactory : public Factory< AbstractAI, QString >
@@ -218,10 +222,16 @@ public:
 class Monster_Aggressive : public AbstractAI
 {
 protected:
-	Monster_Aggressive() : AbstractAI(), m_currentVictim( NULL ) {}
+	Monster_Aggressive() : AbstractAI(), m_currentVictim( NULL )
+	{
+		 notorityOverride_ = 6;
+	}
 
 public:
-	Monster_Aggressive( P_NPC npc ) : AbstractAI( npc ), m_currentVictim( NULL ) {} 
+	Monster_Aggressive( P_NPC npc ) : AbstractAI( npc ), m_currentVictim( NULL )
+	{
+		notorityOverride_ = 6;
+	}
 
 	virtual void check();
 
@@ -255,7 +265,7 @@ protected:
 class Monster_Aggressive_L1 : public Monster_Aggressive
 {
 protected:
-	Monster_Aggressive_L1() : Monster_Aggressive() {}
+	Monster_Aggressive_L1() : Monster_Aggressive(){}
 
 public:
 	Monster_Aggressive_L1( P_NPC npc ) : Monster_Aggressive( npc ) 
@@ -276,11 +286,15 @@ protected:
 class Human_Vendor : public AbstractAI
 {
 protected:
-	Human_Vendor() : AbstractAI() {}
+	Human_Vendor() : AbstractAI()
+	{
+		 notorityOverride_ = 1;
+	}
 
 public:
-	Human_Vendor( P_NPC npc ) : AbstractAI( npc ) 
+	Human_Vendor( P_NPC npc ) : AbstractAI( npc )
 	{
+		notorityOverride_ = 1;
 		m_actions.append( new Action_Wander( npc, this ) );
 		m_actions.append( new Action_FleeAttacker( npc, this ) );
 	} 
@@ -296,7 +310,10 @@ class cUORxTarget;
 class Human_Stablemaster : public AbstractAI
 {
 protected:
-	Human_Stablemaster() : AbstractAI() {}
+	Human_Stablemaster() : AbstractAI()
+	{
+		 notorityOverride_ = 1;
+	}
 
 public:
 	Human_Stablemaster( P_NPC npc );

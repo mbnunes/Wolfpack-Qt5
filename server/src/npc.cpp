@@ -368,6 +368,9 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 //	if( npcaitype() == 0x02 )
 //		return 0x06; // 6 = Red -> Monster
 
+	if( ai_ && ai_->notorityOverride() )
+		return ai_->notorityOverride();
+
 	if( pChar->kills() > SrvParams->maxkills() )
 		result = 0x06; // 6 = Red -> Murderer
 	
