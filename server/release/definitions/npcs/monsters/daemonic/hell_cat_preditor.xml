@@ -4,8 +4,8 @@
 	<!-- hellcat (large) -->
 	<npc id="large_hellcat">
 		<name>a hell cat</name>
-		<id>0x7f</id>
-		<category>Monsters\Deamons\Hell Cat (Large)</category>
+		<id>0x342</id>
+		<category>Monsters\Daemonic\Hell Cat (Large)</category>
 		<skin>0</skin>
 		<inherit id="monster_base" />
 		<karma><random min="-1250" max="-2499" /></karma>

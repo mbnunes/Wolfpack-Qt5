@@ -4,8 +4,8 @@
 	<!-- Succubus -->
 	<npc id="succubus">
 		<name>a succubus</name>
-		<id>0x18</id>
-		<category>Monsters\Deamons\Succubus</category>
+		<id>0x95</id>
+		<category>Monsters\Daemonic\Succubus</category>
 		<skin>0</skin>
 		<inherit id="monster_base" />
 		<karma><random min="-10000" max="-15000" /></karma>

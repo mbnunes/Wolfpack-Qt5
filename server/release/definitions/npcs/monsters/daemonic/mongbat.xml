@@ -4,26 +4,33 @@
 	<!-- a mongbat -->
 	<npc id="mongbat">
 		<name>a mongbat</name>
-		<id>0x26</id>
-		<category>Monsters\Deamons\Mongbat</category>
+		<id>0x27</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-0" max="-624"/></karma>
-		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="5" max="10"/></defense>
-		<lodamage>1</lodamage>
-		<hidamage>2</hidamage>
+		<karma>-150</karma>
+		<fame>150</fame>
 		<gold><random min="0" max="25"/></gold>
 		<!-- Stats -->
 		<str><random min="6" max="10"/></str>
 		<dex><random min="26" max="38"/></dex>
 		<int><random min="6" max="14"/></int>
 		<!-- Skills -->
-		<wrestling><random min="51" max="100"/></wrestling>
-		<tactics><random min="51" max="100"/></tactics>
 		<magicresistance><random min="51" max="140"/></magicresistance>
+		<tactics><random min="51" max="100"/></tactics>
+		<wrestling><random min="51" max="100"/></wrestling>
+		<totame>771</totame>
+		<!-- Damage -->
+		<lodamage>1</lodamage>
+		<hidamage>2</hidamage>
+		<!-- Resists -->
+		<coldresist>0</coldresist>
+		<energyresist>0</energyresist>
+		<fireresist>0</fireresist>
+		<physicalresist><random min="5" max="10"/></physicalresist>
+		<poisonresist>0</poisonresist>
+		<!-- Misc. -->
+		<desc>Like the harpies and the headless, the mongbat is a bestial perversionof the human form, being shaped like a bat with a monkey's head.Mongbats are cowardly creatures, of no great threat individually, butthey are masters of the underground ambush, attacking in flocks fromout of the concealing dark.</desc>
 		<carve>carve_mong_bat</carve>
-		<totame>0</totame>
-		<food>1</food>
+		<category>Monsters\Daemonic\Mongbat</category>
 	</npc>
 
 </definitions>

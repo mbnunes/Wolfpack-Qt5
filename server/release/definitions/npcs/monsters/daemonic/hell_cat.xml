@@ -5,24 +5,35 @@
 	<npc id="hellcat">
 		<name>a hell cat</name>
 		<id>0xc9</id>
-		<category>Monsters\Deamons\Hell Cat (Small)</category>
+
 		<inherit id="monster_base"/>
-		<karma><random min="-0" max="-624"/></karma>
-		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="25" max="35"/></defense>
-		<lodamage>9</lodamage>
-		<hidamage>18</hidamage>
+		<karma>-1000</karma>
+		<fame>1000</fame>
 		<!-- Stats -->
 		<str><random min="51" max="100"/></str>
 		<dex><random min="52" max="150"/></dex>
 		<int><random min="13" max="85"/></int>
 		<!-- Skills -->
-		<wrestling><random min="301" max="400"/></wrestling>
-		<tactics><random min="401" max="550"/></tactics>
 		<magicresistance><random min="451" max="600"/></magicresistance>
-		<carve>carve_hellcat</carve>
+		<tactics><random min="401" max="550"/></tactics>
+		<wrestling><random min="301" max="400"/></wrestling>
 		<totame>711</totame>
-		<food>1</food>
+		<!-- Damage -->
+		<lodamage>6</lodamage>
+		<hidamage>12</hidamage>
+		<physicaldamage>40</physicaldamage>
+		<firedamage>60</firedamage>
+		<!-- Resists -->
+		<defense><random min="25" max="35"/></defense>
+		<physicalresist><random min="25" max="35"/></physicalresist>
+		<fireresist><random min="80" max="90"/></fireresist>
+		<coldresist>0</coldresist>
+		<poisonresist>0</poisonresist>
+		<energyresist><random min="15" max="20"/></energyresist>
+		<!-- Misc. -->
+		<desc>These cats hail from another plane. Why they were brought to ours is amystery. The hellcat does not make a good pet, as they are likely toimmolate at inopportune times. Balls of yarn are nothing more than awaiting fuse.</desc>
+		<carve>carve_hellcat</carve>
+		<category>Monsters\Daemonic\Hell Cat (Small)</category>
 	</npc>
 
 </definitions>

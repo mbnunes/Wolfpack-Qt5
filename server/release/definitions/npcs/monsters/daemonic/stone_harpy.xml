@@ -5,22 +5,32 @@
 	<npc id="stone_harpy">
 		<name>a stone harpy</name>
 		<id>0x49</id>
-		<category>Monsters\Deamons\Stone Harpy</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="45" max="55" /></defense>
-		<lodamage>20</lodamage>
-		<hidamage>40</hidamage>
+		<karma>-4500</karma>
+		<fame>4500</fame>
 		<!-- Stats -->
-		<str><random min="296" max="320" /></str>
-		<dex><random min="86" max="110" /></dex>
-		<int><random min="51" max="75" /></int>
+		<str><random min="296" max="320"/></str>
+		<dex><random min="86" max="110"/></dex>
+		<int><random min="51" max="75"/></int>
 		<!-- Skills -->
-		<wrestling><random min="701" max="1000" /></wrestling>
-		<tactics><random min="701" max="1000" /></tactics>
-		<magicresistance><random min="501" max="650" /></magicresistance>
+		<magicresistance><random min="501" max="650"/></magicresistance>
+		<tactics><random min="701" max="1000"/></tactics>
+		<wrestling><random min="701" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>8</lodamage>
+		<hidamage>16</hidamage>
+		<physicaldamage>75</physicaldamage>
+		<poisondamage>25</poisondamage>
+		<!-- Resists -->
+		<defense><random min="45" max="55" /></defense>
+		<coldresist><random min="10" max="20"/></coldresist>
+		<energyresist><random min="30" max="40"/></energyresist>
+		<fireresist><random min="20" max="30"/></fireresist>
+		<physicalresist><random min="45" max="55"/></physicalresist>
+		<poisonresist><random min="30" max="40"/></poisonresist>
+		<!-- Misc. -->
+		<desc>Stone Harpy is a misnomer. Harpies living in excess of a century willdevelop a very tough outer layer of skin. Almost chitinous, this skinacts as a primary defense of the older harpies. Though movement isdecreased, their armor and hardened talons make them more dangerous. The feathers covering a stone harpy, are hard as steel and areexcellent for fletching.</desc>
+		<category>Monsters\Daemonic\Stone Harpy</category>
 	</npc>
 
 </definitions>

@@ -4,25 +4,35 @@
 	<!-- an ice fiend -->
 	<npc id="ice_fiend">
 		<name>an ice fiend</name>
-		<id>0xa</id>
-		<category>Monsters\Deamons\Ice Fiend</category>
-		<skin>0</skin>
+		<id>0x2b</id>
 		<inherit id="monster_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense><random min="55" max="65" /></defense>
-		<lodamage>24</lodamage>
-		<hidamage>50</hidamage>
+		<karma>-18000</karma>
+		<fame>18000</fame>
 		<!-- Stats -->
 		<str><random min="376" max="405" /></str>
 		<dex><random min="176" max="195" /></dex>
 		<int><random min="201" max="225" /></int>
 		<!-- Skills -->
-		<wrestling><random min="801" max="1000" /></wrestling>
-		<tactics><random min="801" max="900" /></tactics>
-		<magicresistance><random min="751" max="850" /></magicresistance>
-		<magery><random min="801" max="900" /></magery>
-		<evaluatingintel><random min="801" max="900" /></evaluatingintel>
+		<evaluatingintel><random min="801" max="900"/></evaluatingintel>
+		<magery><random min="801" max="900"/></magery>
+		<magicresistance><random min="751" max="850"/></magicresistance>
+		<tactics><random min="801" max="900"/></tactics>
+		<wrestling><random min="801" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>8</lodamage>
+		<hidamage>19</hidamage>
+		<physicaldamage>20</physicaldamage>
+		<colddamage>80</colddamage>
+		<!-- Resists -->
+		<defense><random min="55" max="65" /></defense>
+		<coldresist><random min="60" max="70"/></coldresist>
+		<energyresist><random min="30" max="40"/></energyresist>
+		<fireresist><random min="10" max="20"/></fireresist>
+		<physicalresist><random min="55" max="65"/></physicalresist>
+		<poisonresist><random min="20" max="30"/></poisonresist>
+		<!-- Misc. -->
+		<desc>Some say hell is a sulfurous inferno, and others hold it is a barrenwasteland of ice under an ever-biting blizzard. The Ice Fiend is a good support for the latter. No hatred, anger, madness, joy, love, oremotion of any kind shows on their faces. The Ice Fiend wields thewhip of frost in battle with only a grim look of lost hope on theirface.</desc>
+		<category>Monsters\Daemonic\Ice Fiend</category>
 	</npc>
 
 </definitions>
