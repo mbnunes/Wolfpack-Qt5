@@ -3,7 +3,7 @@
 			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="0" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="0" />
 			<ingots id="1765;1766;1767;1768" amount="0" />
-			<cloth id="" amount="0" />
+			<cloth id="1765;1766;1767;1768" amount="0" />
 
 -->
 
@@ -158,6 +158,28 @@
 	</menu>
 
 	<menu id="CARPENTRY_STAVESSHIELDS" name="Staves and Shields">
+		<craft definition="" name="Shepherd's Crook">
+			<carpentry min="789" max="1289" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="7" />
+		</craft>
+		<craft definition="" name="Quarter Staff">
+			<carpentry min="736" max="1236" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="6" />
+		</craft>
+		<craft definition="" name="Gnarled Staff">
+			<carpentry min="789" max="1289" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="7" />
+		</craft>
+		<craft definition="" name="Wooden Shield">
+			<carpentry min="526" max="1026" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="9" />
+		</craft>
+		<craft definition="" name="Fishing Pole">
+			<carpentry min="684" max="1284" />
+			<fishing min="400" max="900" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="5" />
+			<cloth id="1765;1766;1767;1768" amount="5" />
+		</craft>
 	</menu>
 
 	<menu id="CARPENTRY_TRAINING" name="Training">
