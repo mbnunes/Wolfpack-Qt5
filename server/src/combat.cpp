@@ -747,7 +747,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 		pc_attacker->resetAttackFirst();
 		return;
 	}
-	racerela=RaceManager->CheckRelation(pc_attacker,pc_defender);
+	racerela=Races.CheckRelation(pc_attacker,pc_defender);
 	if(racerela == 1)
 	{
 		pc_attacker->war=0; // LB

@@ -659,7 +659,7 @@ void cCommands::DyeItem(int s) // Rehue an item
 	int body,c1,c2,b,k;
 	int serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
 	P_ITEM pi = FindItemBySerial(serial);
-	if (pi == NULL)
+	if (pi != NULL)
 		return;
 	{
 			c1=buffer[s][7];
@@ -729,7 +729,7 @@ void cCommands::SetItemTrigger(int s)
 	
   serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
   P_ITEM pi = FindItemBySerial(serial);
-  if (pi == NULL)
+  if (pi != NULL)
 	  return;
   {
 		sysmessage(s,"Item triggered");
@@ -744,7 +744,7 @@ void cCommands::SetTriggerType(int s)
 	
   serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
   P_ITEM pi = FindItemBySerial(serial);
-  if (pi == NULL)
+  if (pi != NULL)
 	  return;
   {
 		sysmessage(s,"Trigger type set");

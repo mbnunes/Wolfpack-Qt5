@@ -1059,7 +1059,7 @@ void deathstuff(int i)
 				//murder count \/
 				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
 				{
-					if(pc_player->isInnocent() && (RaceManager->CheckRelation(pc_t,pc_player)==1) && Guilds->Compare(DEREF_P_CHAR(pc_t),DEREF_P_CHAR(pc_player))==0 && pc_t->attackfirst == 1)
+					if(pc_player->isInnocent() && (Races.CheckRelation(pc_t,pc_player)==1) && Guilds->Compare(DEREF_P_CHAR(pc_t),DEREF_P_CHAR(pc_player))==0 && pc_t->attackfirst == 1)
 					{
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
