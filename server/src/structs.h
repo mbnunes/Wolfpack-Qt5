@@ -160,19 +160,19 @@ struct logout_st// Instalog
 
 struct skill_st
 {
-	int st;
-	int dx;
-	int in;
-	int advance_index;
-	char madeword[50]; // Added by Magius(CHE)
+	UINT16 st;
+	UINT16 dx;
+	UINT16 in;
+	UINT16 advance_index;
+	QString madeword;
 };
 
 struct advance_st
 {
-	unsigned char skill;
-	int base;
-	int success;
-	int failure;
+	UINT8 skill;
+	UINT16 base;
+	UINT16 success;
+	UINT16 failure;
 };
 
 struct make_st

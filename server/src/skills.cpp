@@ -34,6 +34,7 @@
 */
 
 #include "wolfpack.h"
+#include "wpdefmanager.h"
 #include "basics.h"
 #include "itemid.h"
 #include "im.h"
@@ -917,79 +918,69 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 	targetok[s]=1; 
 }
 
-void cSkills::Hide(int s) 
+void cSkills::Hide( cUOSocket *socket ) 
 { 
-	P_CHAR pc_currchar = currchar[s]; 
-	if (pc_currchar->attacker != INVALID_SERIAL)
-	{ 
-		P_CHAR pc_attacker = FindCharBySerial(pc_currchar->attacker);
-		if (inrange1p(pc_currchar, pc_attacker))
-		{
-			sysmessage(s, "You cannot hide while fighting."); 
-			return; 
-		}
-	} 
+	P_CHAR pChar = socket->player();
+
+	if( !pChar )
+		return;
+
+	P_CHAR aChar = FindCharBySerial( pChar->attacker );
+	if( aChar && aChar->inRange( pChar, pChar->VisRange ) )
+	{
+		pChar->message( tr( "You cannot hide while fighting." ) );
+		return; 
+	}
 	
-	if (pc_currchar->hidden() == 1) 
+	if( pChar->hidden() ) 
 	{ 
-		sysmessage(s, "You are already hidden"); 
+		pChar->message( tr( "You are already hidden." ) );
 		return; 
 	} 
 	
-	if (!Skills->CheckSkill(pc_currchar, HIDING, 0, 1000)) 
+	if( !Skills->CheckSkill( pChar, HIDING, 0, 1000 ) ) 
 	{ 
-		sysmessage(s, "You are unable to hide here."); 
+		pChar->message( "You are unable to hide here." );
 		return; 
 	} 
 	
-	if (pc_currchar->isGM()) // add flamestrike effect for gms, LB 
-	{ 
-		////////////////////////////////// 
-		// Change FS delay 
-		// 
-		// 
-		staticeffect(pc_currchar, 0x37, 0x09, 0x09, 0x19); 
-		soundeffect2(pc_currchar, 0x0208); 
-		tempeffect(pc_currchar, pc_currchar, 33, 1, 0, 0); 
-		// immediate hiding overwrites the effect. 
-		// so lets hide after 4 secs. 
-		// 1 sec works fine now so changed to this. 
-		return; 
-		// 
-		// 
-		// Aldur 
-		////////////////////////////////// 
-	} 
-	sysmessage(s, "You have hidden yourself well."); 
-	pc_currchar->setHidden( 1 ); 
-	updatechar(pc_currchar); 
+	pChar->message( tr( "You have hidden yourself well." ) );
+	pChar->setHidden( 1 );
+	pChar->resend(); // Remove + Resend (GMs etc.)
+	
+	// Resend us to ourself
+	if( pChar->socket() )
+		pChar->socket()->updatePlayer();
 }
 
-void cSkills::Stealth(int s)//AntiChrist
+void cSkills::Stealth( cUOSocket *socket )
 {
-//	int c=currchar[s];
-	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->hidden()==0)
+	P_CHAR pChar = socket->player();
+
+	if( !pChar )
+		return;
+
+	if( !pChar->hidden() )
 	{
-		sysmessage(s,"You must hide first.");
+		pChar->message( tr( "You must hide first." ) );
 		return;
 	}
-	if (pc_currchar->skill(HIDING)<700)
+
+	if( pChar->skill( HIDING ) < 700 )
 	{
-		sysmessage(s,"You are not hidden well enough. Become better at hiding.");
-		pc_currchar->unhide();
+		socket->sysMessage( tr( "You are not hidden well enough. Become better at hiding." ) );
 		return;
 	}
-	if (!Skills->CheckSkill(pc_currchar,STEALTH, 0, 1000)) 
+
+	if( !Skills->CheckSkill( pChar, STEALTH, 0, 1000 ) ) 
 	{
-		pc_currchar->unhide();
+		socket->sysMessage( tr( "You fail to stealth with your environment." ) );
+		pChar->unhide();
 		return;
 	}
-	sprintf((char*)temp,"You can move %i steps unseen.", SrvParams->maxStealthSteps());
-	sysmessage(s,(char*)temp);
-	pc_currchar->setHidden( 1 );
-	pc_currchar->setStealth(0); //AntiChrist -- init. steps already done
-	updatechar(pc_currchar);
+
+	socket->sysMessage( tr( "You can move %1 steps unseen" ).arg( SrvParams->maxStealthSteps() ) );
+	pChar->setStealth( 0 );
 }
 
 void cSkills::PeaceMaking(int s)
@@ -1705,14 +1696,14 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		//target(s, 0, 1, 0, 42, );
 		break;
 	case HIDING:
-		Skills->Hide(s);
+		Skills->Hide( socket );
 		break;
 	case STEALTH:
-		Skills->Stealth(s);
+		Skills->Stealth( socket );
 		break;
 	case DETECTINGHIDDEN:
 		message = "Where do you wish to search for hidden characters?";
-		//target(s, 0, 1, 0, 77, );
+		targetRequest = new cSkDetectHidden;
 		break;
 	case PEACEMAKING:
 		Skills->PeaceMaking(s);
@@ -2811,62 +2802,53 @@ void cSkills::Persecute ( cUOSocket* socket ) //AntiChrist - persecute stuff
 
 void loadskills()
 {
-	int i, noskill, l=0;
-	char sect[512];
+	QStringList skills = DefManager->getSections( WPDT_SKILL );
+	UINT16 l = 0;
 
-	for (i=0;i<SKILLS;i++) // lb
+	for( UINT32 i = 0; i < skills.count(); ++i )
 	{
-		skill[i].st=0;
-		skill[i].dx=0;
-		skill[i].in=0;
-		skill[i].advance_index=l;
-		noskill=0;
-		openscript("skills.scp");
-		sprintf(sect, "SKILL %i", i);
-		if (!i_scripts[skills_script]->find(sect))
-		{
-			noskill=1;
-		}
+		bool ok = false;
+		UINT16 skillId = skills[i].toInt( &ok );
 
-		unsigned long loopexit=0;
-		do
+		if( !ok || skillId > SKILLS ) 
+			continue;
+
+        QDomElement *skillNode = DefManager->getSection( WPDT_SKILL, skills[i] );
+		QDomElement node = skillNode->firstChild().toElement();
+		
+		skill[skillId].advance_index = l;
+		
+		while( !node.isNull() )
 		{
-			read2();
-			if (script1[0]!='}')
+			if( node.nodeName() == "str" )
+				skill[skillId].st = node.text().toInt();
+			
+			else if( node.nodeName() == "dex" )
+				skill[skillId].dx = node.text().toInt();
+
+			else if( node.nodeName() == "int" )
+				skill[skillId].in = node.text().toInt();
+
+			else if( node.nodeName() == "makeword" )
+				skill[skillId].madeword = node.text();
+
+			else if( node.nodeName() == "advancement" )
 			{
-				if (!(strcmp("STR", (char*)script1)))
-				{
-					skill[i].st=str2num(script2);
-				}
-				else if (!(strcmp("DEX", (char*)script1)))
-				{
-					skill[i].dx=str2num(script2);
-				}
-				else if (!(strcmp("INT", (char*)script1)))
-				{
-					skill[i].in=str2num(script2);
-				}
-				else if (!(strcmp("SKILLPOINT", (char*)script1)))
-				{
-					wpadvance[l].skill=i;
-					gettokennum((char*)script2, 0);
-					wpadvance[l].base=str2num(gettokenstr);
-					gettokennum((char*)script2, 1);
-					wpadvance[l].success=str2num(gettokenstr);
-					gettokennum((char*)script2, 2);
-					wpadvance[l].failure=str2num(gettokenstr);
-					l++;
-				}
+				wpadvance[l].base = node.attribute( "base", "0" ).toInt();
+				wpadvance[l].failure = node.attribute( "failure", "0" ).toInt();
+				wpadvance[l].success = node.attribute( "success", "0" ).toInt();
+				wpadvance[l].skill = skillId;
+				l++;
 			}
+
+			node = node.nextSibling().toElement();
 		}
-		while ( (script1[0]!='}') && (!noskill) && (++loopexit < MAXLOOPS) );
-		closescript();
 	}
 }
 
 void SkillVars()
 {
-	strcpy(skill[ALCHEMY].madeword,"mixed");
+/*	strcpy(skill[ALCHEMY].madeword,"mixed");
 	strcpy(skill[ANATOMY].madeword,"made");
 	strcpy(skill[ANIMALLORE].madeword,"made");
 	strcpy(skill[ITEMID].madeword,"made");
@@ -2914,15 +2896,16 @@ void SkillVars()
 	strcpy(skill[MINING].madeword,"smelted");
 	strcpy(skill[MEDITATION].madeword,"envoked");
 	strcpy(skill[STEALTH].madeword,"made");
-	strcpy(skill[REMOVETRAPS].madeword,"made");
+	strcpy(skill[REMOVETRAPS].madeword,"made");*/
 }
 
 int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
-{// blackwind
+{
 	int ar = 0;
 
 	if (ishuman(pc))
 	{
+		
 		unsigned int ci = 0;
 		P_ITEM pi;
 		vector<SERIAL> vecContainer = contsp.getData(pc->serial);
@@ -2971,7 +2954,7 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 			pc_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name.c_str() ) );
 	}
 
-	SetTimerSec(&player->objectdelay, SrvParams->objectDelay()+SrvParams->snoopdelay());//adds a delay - solarin
+	SetTimerSec(&player->objectdelay, SrvParams->objectDelay()+SrvParams->snoopdelay());
 }
 
 

@@ -470,8 +470,6 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 */
 void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 {
-	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
-
 	// Several security checks
 	QValueVector<cChar*> characters = _account->caracterList();
 

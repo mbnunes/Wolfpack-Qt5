@@ -95,6 +95,8 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		StartItems.insert( NodeID, Node );
 	else if( NodeName == "location" )
 		Locations.insert( NodeID, Node );
+	else if( NodeName == "skill" )
+		Skills.insert( NodeID, Node );
 }
 
 // Recursive Function for Importing Script Sections
@@ -180,6 +182,7 @@ void WPDefManager::unload( void )
 	clearNodes( Texts );
 	clearNodes( StartItems );
 	clearNodes( Locations );
+	clearNodes( Skills );
 }
 
 void WPDefManager::reload( void )
@@ -256,6 +259,10 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &Locations;
 		break;
 
+	case WPDT_SKILL:
+		ListPointer = &Skills;
+		break;
+
 	default:
 		return 0;
 	};
@@ -322,6 +329,10 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 	case WPDT_LOCATION:
 		ListPointer = &Locations;
+		break;
+
+	case WPDT_SKILL:
+		ListPointer = &Skills;
 		break;
 
 	default:

@@ -70,8 +70,8 @@ private:
 	void AnvilTargetMerk(int s, int m);
 	void AnvilTargetCop(int s, int m);
 	void AnvilTargetAgap(int s, int m);
-	void Hide(int s);
-	void Stealth(int s);
+	void Hide( cUOSocket* );
+	void Stealth( cUOSocket* );
 	void PeaceMaking(int s);
 	void PlayInstrumentWell(int s, P_ITEM pi);
 	void PlayInstrumentPoor(int s, P_ITEM pi);
