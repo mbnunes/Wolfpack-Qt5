@@ -79,7 +79,6 @@ extern int uotickcount;
 
 extern unsigned int nextfieldeffecttime;
 extern unsigned int nextnpcaitime;
-extern unsigned int nextdecaytime;
 
 extern int autosaved, dosavewarning;
 extern int err, error;

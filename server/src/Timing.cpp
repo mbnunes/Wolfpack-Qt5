@@ -64,12 +64,11 @@ using namespace std;
 
 void checktimers() // Check shutdown timers
 {
-	register unsigned int tclock = uiCurrentTime;
 	if (endtime)
 	{
-		if (endtime <= tclock) keeprun = 0;
+		if (endtime <= uiCurrentTime) keeprun = 0;
 	}
-	lclock = tclock;
+	lclock = uiCurrentTime;
 }
 
 void restockNPC( UINT32 currenttime, P_NPC pc_i )
@@ -515,7 +514,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	static unsigned int checknpcfollow = 0;
 	static unsigned int checkitemstime = 0;
 	static unsigned int lighttime = 0;
-	static unsigned int htmltime = 0;
 	static unsigned int housedecaytimer = 0;
 
 	if( shoprestocktime == 0 )
@@ -563,12 +561,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	{
 		SpawnRegions::instance()->check();
 		checkspawnregions=uiCurrentTime+SrvParams->spawnRegionCheckTime()*MY_CLOCKS_PER_SEC;//Don't check them TOO often (Keep down the lag)
-	}
-
-	if( ( SrvParams->html() > 0 ) && ( htmltime <= currenttime ) )
-	{
-//			updatehtml();
-			htmltime = currenttime + ( SrvParams->html() * MY_CLOCKS_PER_SEC );
 	}
 
 	if( SrvParams->saveInterval() != 0 )
@@ -641,34 +633,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		// Update lightlevel every 30 seconds
 		lighttime = currenttime + 30 * MY_CLOCKS_PER_SEC;
 	}
-
-	// Check Spawners
-	//static UINT32 respawntime = 0;
-
-    //if( respawntime <= currenttime )
-	//{
-     //  respawntime = currenttime + 5 * MY_CLOCKS_PER_SEC;
-
-	   // This is a rather "crappy" loop
-	   // We iterate trough all items just because we want
-	   // To "fix" spawners. We better leave that alone
-	   // And ensure that the spawners are no-decay in the scripts
-	   /*AllItemsIterator iterItems;
-       for( iterItems.Begin(); !iterItems.atEnd(); ++iterItems )
-	   {
-			P_ITEM pi = iterItems.GetData();
-			if(pi != NULL)
-			{
-				// lets make sure they are spawners.
-				if( ( pi->type() >= 61 && pi->type() <= 65) || ( pi->type() == 69) || ( pi->type() == 125 ) )
-				{
-					// set to nodecay and refresh.
-	                pi->priv=0;
-		            pi->update();
-				 }
-			}
-		}*/
-	//}
 
 	// Regenerate only players who are online
 	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
@@ -772,8 +736,4 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	// Update the delay for the next field-effect (every 500ms)
 	if( nextfieldeffecttime <= currenttime )
 		nextfieldeffecttime = (unsigned int) ( currenttime + ( 0.5 * MY_CLOCKS_PER_SEC ) );
-
-	// Update the next-decay time (decay-check is made every 15 seconds)
-	if( nextdecaytime <= currenttime )
-		nextdecaytime = currenttime + ( 15 * MY_CLOCKS_PER_SEC );
 }

@@ -251,29 +251,33 @@ void cWorld::loadSql()
 	archive = cPluginFactory::serializationArchiver( "xml" );
 
 	archive->prepareReading( "effects" );
-	clConsole.send( QString( tr("Loading Temp. Effects %1...")+"\n" ).arg( archive->size() ) );
-	progress_display progress( archive->size() );
-
-	for ( i = 0; i < archive->size(); ++progress, ++i)
+	
+	if ( archive->size() )
 	{
-		archive->readObjectID(objectID);
-
-		cTempEffect* pTE = NULL;
-
-		if( objectID == "HIDECHAR" )
-			pTE = new cDelayedHideChar( INVALID_SERIAL );
-
-		else if( objectID == "cPythonEffect" )
-			pTE = new cPythonEffect;
-
-		else
+		clConsole.send( QString( "Loading %1 Temp. Effects...\n" ).arg( archive->size() ) );
+		progress_display progress( archive->size() );
+		
+		for ( i = 0; i < archive->size(); ++progress, ++i)
 		{
-			clConsole.log( LOG_FATAL, tr( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
-			continue; // Skip the class, not a good habit but at the moment the user couldn't really debug the error
+			archive->readObjectID(objectID);
+			
+			cTempEffect* pTE = NULL;
+			
+			if( objectID == "HIDECHAR" )
+				pTE = new cDelayedHideChar( INVALID_SERIAL );
+			
+			else if( objectID == "cPythonEffect" )
+				pTE = new cPythonEffect;
+			
+			else
+			{
+				clConsole.log( LOG_FATAL, tr( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
+				continue; // Skip the class, not a good habit but at the moment the user couldn't really debug the error
+			}
+			
+			archive->readObject( pTE );
+			TempEffects::instance()->insert( pTE );
 		}
-
-		archive->readObject( pTE );
-		TempEffects::instance()->insert( pTE );
 	}
 
 	archive->close();
@@ -330,7 +334,7 @@ void cWorld::loadSql()
 			}
 			else
 				MapObjects::instance()->add(pi);
-			continue;
+//			continue;
 		}
 
 		// If this item has a multiserial then add it to the multi
@@ -522,15 +526,14 @@ void cWorld::load( QString basepath, QString prefix, QString module )
 		throw QString( "Unknown worldsave module: %1" ).arg( module );
 	}
 
+	clConsole.send("World Loading ");
 	clConsole.ChangeColor( WPC_GREEN );
-	clConsole.send( " Done\n" );
+	clConsole.send( "Completed\n" );
 	clConsole.ChangeColor( WPC_NORMAL );
 }
 
 void cWorld::saveSql()
 {
-	UI32 savestarttime = getNormalizedTime();
-
 	SrvParams->flush();
 
 	// Flush old items

@@ -99,7 +99,7 @@ public:
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 	virtual void applyDefinition( const cElement* );
-	virtual void flagUnchanged() { changed_ = false; cBaseChar::flagUnchanged();	}
+	virtual void flagUnchanged() { cNPC::changed_ = false; cBaseChar::flagUnchanged();	}
 
 	// other public methods
 	virtual stError *setProperty( const QString &name, const cVariant &value );

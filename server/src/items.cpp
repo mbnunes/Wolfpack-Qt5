@@ -67,6 +67,10 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
 
+/*****************************************************************************
+  cItem member functions
+ *****************************************************************************/
+
 // constructor
 cItem::cItem(): container_(0), totalweight_(0), incognito(false),
 rndvaluerate_(0), dooropen_(0),gatetime_(0),gatenumber_(-1),
@@ -78,7 +82,7 @@ timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), restock_( 1 ), antispamtimer_
 cItem::cItem( const cItem &src )
 {
 	changed( TOOLTIP );
-	changed_ = true;
+	flagChanged();
 	this->name_ = src.name_;
 	this->name2_ = src.name2_;
 	this->creator_ = src.creator_;
@@ -155,7 +159,7 @@ P_CHAR cItem::owner( void ) const
 
 void cItem::setOwner( P_CHAR nOwner )
 {
-	changed_ = true;
+	flagChanged();
 	ownserial_ = ( nOwner == NULL ) ? INVALID_SERIAL : nOwner->serial();
 }
 
@@ -168,7 +172,7 @@ bool cItem::isPileable()
 
 void cItem::toBackpack( P_CHAR pChar )
 {
-	changed_ = true;
+	flagChanged();
 	P_ITEM pPack = pChar->getBackpack();
 	
 	// Pack it to the ground
@@ -203,7 +207,7 @@ long cItem::reduceAmount( const short amt )
 		setAmount( amount_ - amt );
 		update();
 		changed( TOOLTIP );
-		changed_ = true;
+		flagChanged();
 	}
 	else
 	{
@@ -215,25 +219,25 @@ long cItem::reduceAmount( const short amt )
 
 void cItem::setOwnSerialOnly(int ownser)
 {
-	changed_ = true;
+	flagChanged();
 	ownserial_ = ownser;
 }
 
 void cItem::SetOwnSerial(int ownser)
 {
-	changed_ = true;
+	flagChanged();
 	setOwnSerialOnly(ownser);
 }
 
 void cItem::SetSpawnSerial(long spawnser)
 {
 	spawnserial = spawnser;
-	changed_ = true;
+	flagChanged();
 }
 
 void cItem::SetMultiSerial(long mulser)
 {
-	changed_ = true;
+	flagChanged();
 	this->setMultis(mulser);
 }
 
@@ -338,7 +342,7 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 	}
 	
 	changed( TOOLTIP );
-	changed_ = true;
+	flagChanged();
 	update();
 	return true;
 }
@@ -441,7 +445,7 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 
 void cItem::save()
 {
-	if( decaytime_ > 0 && !changed_ )
+/*	if( decaytime_ > 0 && !changed_ )
 	{
 		initSave;
 		setTable( "items" );
@@ -451,7 +455,7 @@ void cItem::save()
 		addCondition( "serial", serial() );
 		saveFields;
 	}
-
+*/
 	if ( changed_ )
 	{
 		initSave;
@@ -518,7 +522,6 @@ void cItem::save()
 		saveFields;
 	}
 	cUObject::save();
-	changed_ = false;
 }
 
 static void itemRegisterAfterLoading( P_ITEM pi );
@@ -529,7 +532,7 @@ bool cItem::del()
 		return false; // We didn't need to delete the object
 
 	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( serial() ) );
-	changed_ = true;
+	flagChanged();
 	return cUObject::del();
 }
 
@@ -598,7 +601,7 @@ void cItem::setSerial( const SERIAL ser )
 void cItem::Init( bool createSerial )
 {
 	changed( TOOLTIP );
-	changed_ = true;
+	flagChanged();
 
 	cUObject::setSerial( INVALID_SERIAL );
 
@@ -711,7 +714,7 @@ void cItem::startDecay()
 	if( container_ || nodecay() )
 		return;
 
-	changed_ = true;
+//	flagChanged();
 
 	decaytime_ = uiCurrentTime;
 	
@@ -1064,7 +1067,7 @@ bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 
 void cItem::processNode( const cElement *Tag )
 {
-	changed_ = true;
+	flagChanged();
 	// we do this as we're going to modify the element
 	QString TagName = Tag->name();
 	QString Value = Tag->getValue();
@@ -1789,7 +1792,7 @@ void cItem::setWeight( SI16 nValue )
 {
 	setTotalweight( totalweight_ - ( amount_ * weight_ ) );
 	changed( TOOLTIP );
-	changed_ = true;
+	flagChanged();
 	weight_ = nValue;
 	setTotalweight( totalweight_ + ( amount_ * weight_ ) );
 }
@@ -1818,7 +1821,7 @@ void cItem::setTotalweight( INT32 data )
 	}
 
 	changed( TOOLTIP );
-	changed_ = true;
+	flagChanged();
 	totalweight_ = data;
 
 	if ( container_ )
@@ -1853,7 +1856,7 @@ void cItem::applyRank( UI08 rank )
 	UINT16 maxdef = (UINT16)floor( maxmod * (double)def() );
 	
 	changed( TOOLTIP );
-	changed_ = true;
+	flagChanged();
 	setLodamage( RandomNum( minlodam, maxlodam ) );
 	setHidamage( RandomNum( minhidam, maxhidam ) );
 	def_ = RandomNum( mindef, maxdef );
@@ -2085,7 +2088,6 @@ void cItem::load( char **result, UINT16 &offset )
 	totalweight_ = amount_ * weight_;
 
 	itemRegisterAfterLoading( this );
-	flagUnchanged();
 }
 
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
@@ -2143,7 +2145,7 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 	}
 
 	pItem->container_ = 0;
-	pItem->changed_ = true;
+	pItem->flagChanged();
 	pItem->setLayer( 0 );
 }
 
@@ -2179,7 +2181,7 @@ void cItem::removeFromCont( bool handleWeight )
 	}
 
 	container_ = 0;
-	changed_ = true;
+	flagChanged();
 }
 
 P_ITEM cItem::getOutmostItem()
@@ -2221,7 +2223,7 @@ void cItem::setAmount( UI16 nValue )
 	setTotalweight( totalweight_ + ( ( nValue - amount_ ) * weight_ ) );
 	amount_ = nValue;	
 	changed( TOOLTIP );
-	changed_ = true;
+	flagChanged();
 }
 
 UINT16 cItem::getWeaponSkill()
@@ -2263,7 +2265,7 @@ UINT16 cItem::getWeaponSkill()
 stError *cItem::setProperty( const QString &name, const cVariant &value )
 {
 	changed( TOOLTIP );
-	changed_ = true;
+	flagChanged();
 	SET_INT_PROPERTY( "id", id_ )
 	else SET_INT_PROPERTY( "color", color_ )
 	

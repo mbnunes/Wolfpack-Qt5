@@ -60,7 +60,7 @@ public:
 	void save();
 	bool del();
 
-	virtual void flagUnchanged() { changed_ = false; cItem::flagUnchanged();	}
+	virtual void flagUnchanged() { cBook::changed_ = false; cItem::flagUnchanged();	}
 
 	// FlatStore
 	void save( FlatStore::OutputFile*, bool first = false ) throw();

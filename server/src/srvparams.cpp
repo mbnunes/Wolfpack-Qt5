@@ -185,7 +185,6 @@ void cSrvParams::readData()
 	gmLog_		            = getBool("General",	"GM Log", false, true);
 	backupSaveRatio_		= getNumber("General",  "Backup Save Ratio", 1, true);
 	hungerDamage_			= getNumber("General",  "Hunger Damage", 0, true);
-	html_			        = getNumber("General",  "Html", -1, true);	
 	persecute_              = getNumber("General",  "Persecution", 1, true);
 	tamedDisappear_         = getNumber("General",  "Tamed Disappear", 0, true);
 	houseInTown_            = getNumber("General",  "House In Town", 0, true);

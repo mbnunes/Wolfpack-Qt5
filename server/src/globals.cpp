@@ -70,7 +70,6 @@ unsigned long initialservermill ;
 //int goldamount;
 unsigned int nextfieldeffecttime=0;
 unsigned int nextnpcaitime=0;
-unsigned int nextdecaytime=0;
 
 // MSVC fails to compile WOLFPACK if this is unsigned, change it then
 int autosaved, saveinterval;

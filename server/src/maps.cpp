@@ -203,6 +203,9 @@ signed char Maps::mapElevation( const Coord_cl& p ) const
 	return map.z;
 }
 
+/*!
+	Returns the height ( max. y value ) of \a id map
+*/
 uint Maps::mapTileHeight( uint id ) const
 {
 	const_iterator it = d.find( id );
@@ -211,6 +214,9 @@ uint Maps::mapTileHeight( uint id ) const
 	return it.data()->height;
 }
 
+/*!
+	Returns the width ( max. x value ) of \a id map
+*/
 uint Maps::mapTileWidth( uint id ) const
 {
 	const_iterator it = d.find( id );
@@ -219,6 +225,12 @@ uint Maps::mapTileWidth( uint id ) const
 	return it.data()->width;
 }
 
+/*!
+	Returns the average elevation (z) of coordinates \a p and it's
+	neighbor tiles.
+	This method does not take into account dynamic objects that might
+	be placed in those coordinates, instead it only looks at the map file.
+*/
 signed char Maps::mapAverageElevation( const Coord_cl& p ) const
 {
 	// first thing is to get the map where we are standing

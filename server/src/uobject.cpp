@@ -130,8 +130,6 @@ void cUObject::load( char **result, UINT16 &offset )
 	if( havetags_ )
 		tags_.load( serial_ );
 	
-	changed_ = false;
-
 	PersistentObject::load( result, offset );
 }
 
@@ -142,13 +140,13 @@ void cUObject::save()
 {
 	bool havetags_ = ( tags_.size() > 0 );
 	// uobjectmap fields
-	initSave;
 
 	// If the type is changed somewhere in the code
 	// That part needs to take care of delete/recreate
 	// So we never update the type EVER here..
 	if( !isPersistent )
 	{
+		initSave;
 		setTable( "uobjectmap" );
 		addField( "serial", serial_ );
 		addStrField( "type", objectID() );
@@ -160,6 +158,7 @@ void cUObject::save()
 	// uobject fields
 	if ( changed_ )
 	{
+		initSave;
 		setTable( "uobject" );	
 		addStrField( "name", name_ );
 		addField( "serial", serial_ );
@@ -179,7 +178,6 @@ void cUObject::save()
 	{
 		tags_.save( serial_ );
 	}
-
 
 	PersistentObject::save();
 	flagUnchanged(); // This is the botton of the chain, now go up and flag everyone unchanged.

@@ -90,7 +90,7 @@ public:
 	void addEquipment( UINT8 layer, SERIAL serial );
 
 	virtual QString objectID( void ) const { return "cCorpse"; }
-	virtual void flagUnchanged() { changed_ = false; cItem::flagUnchanged();	}
+	virtual void flagUnchanged() { cCorpse::changed_ = false; cItem::flagUnchanged();	}
 
 	// DB Serialization
 	static void registerInFactory();

@@ -120,7 +120,6 @@ protected:
 	unsigned int hungerDamageRate_;
 	unsigned char hungerDamage_;
 	float boatSpeed_;
-	int html_;
 	int persecute_;
 	unsigned int tamedDisappear_;
 	unsigned int houseInTown_;
@@ -305,7 +304,6 @@ public:
 	unsigned int hungerDamageRate() const;
 	unsigned char hungerDamage() const;
 	float boatSpeed() const;
-	int html() const;
 	bool cutScrollReq() const;
 	bool precasting() const;
 	bool walkDisturbsCast() const;
@@ -726,11 +724,6 @@ inline bool cSrvParams::combatHitMessage() const
 inline float cSrvParams::boatSpeed() const
 {
 	return boatSpeed_;
-}
-
-inline int cSrvParams::html() const
-{
-	return html_;
 }
 
 inline bool cSrvParams::cutScrollReq() const

@@ -256,7 +256,7 @@ inline void cPlayer::setAccount(AccountRecord* data, bool moveFromAccToAcc)
 
 inline void cPlayer::flagUnchanged()
 {
-	changed_ = true;
+	cPlayer::changed_ = true;
 	cBaseChar::flagUnchanged();
 }
 
