@@ -216,7 +216,6 @@ void cChar::Init(bool ser)
 	this->setOnHorse(false); // On a horse?
 	this->setHunger(6);  // Level of hungerness, 6 = full, 0 = "empty"
 	this->setHungerTime(0); // Timer used for hunger, one point is dropped every 20 min
-	this->setSmeltItem( INVALID_SERIAL );
 	this->setTailItem( INVALID_SERIAL );
 	this->setNpcAIType(0); // NPC ai
 	this->setCallNum(-1); //GM Paging
@@ -247,15 +246,12 @@ void cChar::Init(bool ser)
 	
 	this->setFleeat(SrvParams->npc_base_fleeat());
 	this->setReattackat(SrvParams->npc_base_reattackat());
-	this->setTrigger(0); //Trigger number that character activates
-	this->setTrigword(QString::null);
 	this->setDisabled(0); //Character is disabled for n cicles, cant trigger.
 	this->setDisabledmsg(QString::null); //Character disabled message. -- by Magius(CHE) §
 	this->setEnvokeid(0x00); //ID of item user envoked
 	this->setEnvokeitem(INVALID_SERIAL);
 	this->setSplit(0);
 	this->setSplitchnc(0);
-	this->setTargtrig(0); //Stores the number of the trigger the character for targeting
 	this->setRa(0);  // Reactive Armor spell
 	this->setTrainer(INVALID_SERIAL); // Serial of the NPC training the char, -1 if none.
 	this->setTrainingplayerin(0); // Index in skillname of the skill the NPC is training the player in
@@ -808,8 +804,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("fixedlight",		fixedlight_);
 		archive.read("speech",			speech_);
 
-		archive.read("trigger",			trigger_);
-		archive.read("trigword",		trigword_);
 		archive.read("disablemsg",		disabledmsg_);
 		unsigned int j;
 		for (j=0;j<TRUESKILLS;j++)
@@ -949,8 +943,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("packitem",		packitem_);
 		archive.write("fixedlight",		fixedlight_);
 		archive.write("speech",			speech_);
-		archive.write("trigger",		trigger_);
-		archive.write("trigword",		trigword_);
 		archive.write("disablemsg",		disabledmsg_);
 		unsigned int j;
 		for (j=0;j<TRUESKILLS;j++)
@@ -1159,9 +1151,15 @@ void cChar::processNode( const QDomElement &Tag )
 	QString Value = this->getNodeValue( Tag );
 	QDomNodeList ChildTags;
 
+	// <bindmenu>contextmenu</bindmenu>
+	// <bindmenu id="contextmenu />
 	if( TagName == "bindmenu" )
-		if( !Tag.attribute( "id" ).isNull() )
+	{
+		if( !Tag.attribute( "id" ).isNull() ) 
 			this->bindmenu = Tag.attribute( "id" );
+		else
+			bindmenu = Value;
+	}
 
 	//<name>my this</name>
 	if( TagName == "name" )
@@ -1498,14 +1496,6 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "totame" )
 		this->taming = Value.toInt();
 
-	//<trigger>3</trigger>
-	else if( TagName == "trigger" )
-		this->setTrigger( Value.toInt() );
-
-	//<trigword>abc</trigword>
-	else if( TagName == "trigword" )
-		this->setTrigword( Value );
-
 	//<skill type="alchemy">100</skill>
 	//<skill type="1">100</skill>
 	else if( TagName == "skill" && Tag.attributes().contains("type") )
@@ -1671,15 +1661,15 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 		speechType = cUOTxUnicodeSpeech::Regular;
 	};
 
-	cUOTxUnicodeSpeech textSpeech;
-	textSpeech.setSource( serial );
-	textSpeech.setModel( id() );
-	textSpeech.setFont( 3 ); // Default Font
-	textSpeech.setType( speechType );
-	textSpeech.setLanguage( lang );
-	textSpeech.setName( name.c_str() );
-	textSpeech.setColor( color );
-	textSpeech.setText( message );
+	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
+	textSpeech->setSource( serial );
+	textSpeech->setModel( id() );
+	textSpeech->setFont( 3 ); // Default Font
+	textSpeech->setType( speechType );
+	textSpeech->setLanguage( lang );
+	textSpeech->setName( name.c_str() );
+	textSpeech->setColor( color );
+	textSpeech->setText( message );
 
 	QString ghostSpeech;
 
@@ -1701,11 +1691,11 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 		// Take the dead-status into account
 		if( dead_ && !isNpc() )
 			if( !socket->player()->dead() && !socket->player()->spiritspeaktimer && !socket->player()->isGMorCounselor() )
-				textSpeech.setText( ghostSpeech );
+				textSpeech->setText( ghostSpeech );
 			else
-				textSpeech.setText( message );
+				textSpeech->setText( message );
 
-		socket->send( &textSpeech );
+		socket->send( textSpeech );
 	}
 	else
 	{
@@ -1717,13 +1707,14 @@ void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 					// Take the dead-status into account
 					if( dead_ && !isNpc() )
 						if( !mSock->player()->dead() && !mSock->player()->spiritspeaktimer && !mSock->player()->isGMorCounselor() )
-							textSpeech.setText( ghostSpeech );
+							textSpeech->setText( ghostSpeech );
 						else
-							textSpeech.setText( message );
+							textSpeech->setText( message );
 
-					mSock->send( &textSpeech );
+					mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
 				}
 		}
+		delete textSpeech;
 	}
 }
 
@@ -1885,8 +1876,8 @@ void cChar::showName( cUOSocket *socket )
 // Update flags etc.
 void cChar::update( void )
 {
-	cUOTxUpdatePlayer updatePlayer;
-	updatePlayer.fromChar( this );
+	cUOTxUpdatePlayer* updatePlayer = new cUOTxUpdatePlayer();
+	updatePlayer->fromChar( this );
 
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
@@ -1894,10 +1885,11 @@ void cChar::update( void )
 
 		if( pChar && pChar->socket() && pChar->inRange( this, pChar->VisRange ) )
 		{
-			updatePlayer.setHighlight( notority( pChar ) );
-			mSock->send( &updatePlayer );	
+			updatePlayer->setHighlight( notority( pChar ) );
+			mSock->send( new cUOTxUpdatePlayer( *updatePlayer ) );	
 		}
 	}
+	delete updatePlayer;
 }
 
 // Resend the char to all sockets in range
@@ -2133,14 +2125,11 @@ void cChar::kill()
 
 	QString murderer( "" );
 
-	P_CHAR pAttacker = NULL;
-	if( attacker != INVALID_SERIAL )
+	P_CHAR pAttacker = FindCharBySerial( attacker );
+	if( pAttacker )
 	{
-		pAttacker = FindCharBySerial( attacker );
 		pAttacker->targ = INVALID_SERIAL;
-
-		if( pAttacker )
-			murderer = pAttacker->name.c_str();
+		murderer = pAttacker->name.c_str();
 	}
 
 	// We do know our murderer here (or if there is none it's null)
@@ -2418,10 +2407,11 @@ void cChar::kill()
 	dAction.setSerial( serial );
 	dAction.setCorpse( corpse->serial );
 
-	cUOTxRemoveObject rObject;
-
 	cUOTxClearBuy rShop;
 	rShop.setSerial( serial );
+
+	cUOTxRemoveObject rObject;
+	rObject.setSerial( serial );
 
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) && ( mSock != socket_ ) )
@@ -2429,7 +2419,6 @@ void cChar::kill()
 			if( SrvParams->showDeathAnim() )
 				mSock->send( &dAction );
 
-			rObject.setSerial( serial );
 			mSock->send( &rObject );
 
 			if( resetShop )
@@ -2440,8 +2429,8 @@ void cChar::kill()
 
 	if( isPlayer() )
 	{
-#pragma note( "Deathshroud has to be defined as 204E in the scripts" )
-		P_ITEM pItem = Items->createScriptItem( "204E" );
+#pragma note( "Deathshroud has to be defined as 204e in the scripts" )
+		P_ITEM pItem = Items->createScriptItem( "204e" );
 		if( pItem )
 		{
 			robe_ = pItem->serial;
@@ -2847,6 +2836,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				if( pItem )
 				{
 					pItem->applyDefinition( node );
+					pItem->priv |= 0x02; // make it newbie
 
 					if( pItem->id() <= 1 )
 						Items->DeleItem( pItem );
@@ -2880,6 +2870,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				if( pItem )
 				{
 					pItem->applyDefinition( node );
+					pItem->priv |= 0x02; // make it newbie
 
 					if( pItem->id() <= 1 )
 						Items->DeleItem( pItem );
@@ -2913,6 +2904,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				if( pItem )
 				{
 					pItem->applyDefinition( node );
+					pItem->priv |= 0x02; // make it newbie
 					if( pItem->layer() == 0 )
 					{
 						tile_st tile = cTileCache::instance()->getTile( pItem->id() );
@@ -3229,8 +3221,6 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 		}
 		++it;
 	} 
-
-	// TODO: MOVE THAT TO THE DAMN APPROPIATE FUNCTION !! THIS DAMGES EVERYTHING WHEN JUST CALCULATING
 
 	if( pHitItem ) 
 	{ 

@@ -403,8 +403,8 @@ bool TriggerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pChar, const QStri
 	if( pPlayer->dist( pChar ) < 5 )
 		return false;
 
-	if( !pPlayer->trigger() || pPlayer->trigword().isEmpty() || !comm.contains( pChar->trigword(), false )  )
-		return false;
+//	if( !pPlayer->trigger() || pPlayer->trigword().isEmpty() || !comm.contains( pChar->trigword(), false )  )
+//		return false;
 
 	if( pChar->disabled() > 0 && pChar->disabled() > uiCurrentTime )
 	{

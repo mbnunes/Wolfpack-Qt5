@@ -908,7 +908,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						socket->sysMessage(tr("Must be closer to use this!"));
 						return;
 					}
-					target(s, 0, 1, 0, 237, "What item would you like to Smelt?");
+//					target(s, 0, 1, 0, 237, "What item would you like to Smelt?");
 					return; // Ripper..Smelting items.
 				case 0x0FAB:// dye vat
 					addid1[s] = static_cast<unsigned char>(pi->color()>>8);

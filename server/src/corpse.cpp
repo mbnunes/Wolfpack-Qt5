@@ -43,7 +43,7 @@ void cCorpse::Serialize( ISerialization &archive )
 		archive.read( "beardstyle", beardStyle_ );
 		archive.read( "beardcolor", beardColor_ );
 
-		UINT8 equipCount = 0;
+		unsigned int equipCount = 0;
 		archive.read( "equipcount", equipCount );
 
 		for( UINT8 i = 0; i < equipCount; ++i )

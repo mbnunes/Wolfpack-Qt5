@@ -190,7 +190,6 @@ protected:
 	bool					onhorse_; // On a horse?
 	int						hunger_;  // Level of hungerness, 6 = full, 0 = "empty"
 	unsigned int			hungertime_; // Timer used for hunger, one point is dropped every 20 min
-	SERIAL					smeltitem_;
 	SERIAL					tailitem_;
 	int						npcaitype_; // NPC ai
 	int						callnum_; //GM Paging
@@ -205,15 +204,12 @@ protected:
 	unsigned int			poisonwearofftime_; // LB, makes poision wear off ...
 	short					fleeat_;
 	short					reattackat_;
-	int						trigger_; //Trigger number that character activates
-	QString					trigword_; //Word that character triggers on.
 	unsigned int			disabled_; //Character is disabled, cant trigger.
 	QString					disabledmsg_; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
 	unsigned short			envokeid_;  //ID1 of item user envoked
 	SERIAL					envokeitem_;
 	unsigned char			split_;
 	unsigned char			splitchnc_;
-	int						targtrig_; //Stores the number of the trigger the character for targeting
 	char					ra_;  // Reactive Armor spell
 	SERIAL					trainer_; // Serial of the NPC training the char, -1 if none.
 	char					trainingplayerin_; // Index in skillname of the skill the NPC is training the player in
@@ -384,7 +380,6 @@ public:
 	bool					onHorse() const { return onhorse_; }
 	int						hunger() const { return hunger_; }
 	unsigned int			hungertime() const { return hungertime_;}
-	SERIAL					smeltitem() const { return smeltitem_; }
 	SERIAL					tailitem() const { return tailitem_; }
 	int						npcaitype() const { return npcaitype_;}
 	int						callnum() const { return callnum_; }
@@ -398,15 +393,12 @@ public:
 	unsigned int			poisonwearofftime() const { return poisonwearofftime_;}
 	short					fleeat() const { return fleeat_;}
 	short					reattackat() const { return reattackat_; }
-	int						trigger() const { return trigger_; }
-	QString					trigword() const { return trigword_; }
 	unsigned int			disabled() const { return disabled_; }
 	QString					disabledmsg() const { return disabledmsg_; }
 	unsigned short			envokeid() const { return envokeid_;}
 	SERIAL					envokeitem() const { return envokeitem_;}
 	unsigned char			split() const { return split_;}
 	unsigned char			splitchnc() const { return splitchnc_;}
-	int						targtrig() const { return targtrig_;}
 	char					ra() const { return ra_;}
 	SERIAL					trainer() const { return trainer_;}
 	char					trainingplayerin() const { return trainingplayerin_;}
@@ -541,7 +533,6 @@ public:
 	void					setOnHorse ( bool data ) { onhorse_ = data; }
 	void					setHunger ( int data ) { hunger_ = data; }
 	void					setHungerTime ( unsigned int data ) { hungertime_ = data;}
-	void					setSmeltItem ( SERIAL data ) { smeltitem_ = data;}
 	void					setTailItem ( SERIAL data ) { tailitem_ = data;}
 	void					setNpcAIType( int data ) { npcaitype_ = data;}
 	void					setCallNum ( int data ) { callnum_ = data;}
@@ -556,15 +547,12 @@ public:
 	void					setPoisonwearofftime( unsigned int data ) {poisonwearofftime_ = data;}
 	void					setFleeat( short data ) { fleeat_ = data; }
 	void					setReattackat(short data) { reattackat_ = data; }
-	void					setTrigger( int data ) { trigger_ = data; }
-	void					setTrigword( const QString& data ) { trigword_ = data;}
 	void					setDisabled( unsigned int data ) { disabled_ = data;}
 	void					setDisabledmsg( const QString& data ) { disabledmsg_ = data;}
 	void					setEnvokeid( unsigned short data ) { envokeid_ = data;}
 	void					setEnvokeitem( SERIAL data ) { envokeitem_ = data; }
 	void					setSplit(unsigned char data) {split_ = data;}
 	void					setSplitchnc(unsigned char data) {splitchnc_ = data;}
-	void					setTargtrig( int data ) { targtrig_ = data; }
 	void					setRa( char data ) { ra_ = data;}
 	void					setTrainer( SERIAL data ) { trainer_ = data;}
 	void					setTrainingplayerin( char data ) { trainingplayerin_ = data;}

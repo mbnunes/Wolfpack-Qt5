@@ -145,7 +145,6 @@ cItem::cItem( cItem &src )
 	this->def = src.def;
 	this->lodamage_=src.lodamage_;
 	this->hidamage_=src.hidamage_;
-	this->smelt_=src.smelt_;
 	this->hp_ = src.hp_;
 	this->maxhp_=src.maxhp_;
 	this->st=src.st;
@@ -166,11 +165,8 @@ cItem::cItem( cItem &src )
 	this->priv=src.priv;
 	this->value=src.value;
 	this->restock=src.restock;
-	this->trigger=src.trigger;
-	this->trigtype=src.trigtype;
 	this->disabled=src.disabled;
 	this->disabledmsg = src.disabledmsg;
-	this->tuses=src.tuses;
 	this->poisoned=src.poisoned;
 	this->murderer_ = src.murderer_;
  	this->murdertime=src.murdertime;
@@ -629,13 +625,9 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("priv",		priv);
 		archive.read("value",		value);
 		archive.read("restock",		restock);
-		archive.read("trigger",		trigger);
-		archive.read("trigtype",	trigtype);
 		archive.read("disabled",	disabled);
 		archive.read("spawnregion",	spawnregion_);
-		archive.read("uses",		tuses);
 		archive.read("good",		good);
-		archive.read("smelt",		smelt_);
 		archive.read("glow",		glow);
 		archive.read("glow_color",	glow_color);
 		archive.read("glowtype",	glow_effect);
@@ -696,13 +688,9 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("priv",		priv);
 		archive.write("value",		value);
 		archive.write("restock",	restock);
-		archive.write("trigger",	trigger);
-		archive.write("trigtype",	trigtype);
 		archive.write("disabled",	disabled);
 		archive.write("spawnregion",spawnregion_);
-		archive.write("uses",		tuses);
 		archive.write("good",		good);
-		archive.write("smelt",		smelt_);
 		archive.write("glow",		glow);
 		archive.write("glow_color",	glow_color);
 		archive.write("glowtype",	glow_effect);
@@ -832,7 +820,6 @@ void cItem::Init( bool mkser )
 	this->def=0; // Item defense
 	this->lodamage_=0; //Minimum Damage weapon inflicts
 	this->hidamage_=0; //Maximum damage weapon inflicts
-	this->smelt_ = 0; // for smelting items
 	this->hp_=0; //Number of hit points an item has.
 	this->maxhp_=0; // Max number of hit points an item can have.
 	this->st=0; // The strength needed to equip the item
@@ -853,11 +840,8 @@ void cItem::Init( bool mkser )
 	this->priv=0; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->value=0; // Price shopkeeper sells item at.
 	this->restock=0; // Number up to which shopkeeper should restock this item
-	this->trigger=0; //Trigger number that item activates
-	this->trigtype=0; //Type of trigger
 	this->disabled = 0; //Item is disabled, cant trigger.
 	this->disabledmsg = ""; //Item disabled message. -- by Magius(CHE) §
-	this->tuses = 0;    //Number of uses for trigger
 	this->poisoned = 0; //AntiChrist -- for poisoning skill
  	this->murdertime = 0; //AntiChrist -- for corpse -- when the people has been killed
     this->glow = INVALID_SERIAL;
@@ -882,7 +866,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 	if (!pi->free)
 	{
 		// Remove it from view
-		pi->removeFromView( false );
+		pi->removeFromView( true );
 
 		if (pi->glow != INVALID_SERIAL) 
 		{  
@@ -1578,9 +1562,15 @@ void cItem::processNode( const QDomElement& Tag )
 	QString Value = this->getNodeValue( Tag );
 	QDomElement* DefSection = DefManager->getSection( WPDT_DEFINE, TagName );
 
+	// <bindmenu>contextmenu</bindmenu>
+	// <bindmenu id="contextmenu" />
 	if( TagName == "bindmenu" )
+	{
 		if( !Tag.attribute( "id" ).isNull() ) 
 			this->bindmenu = Tag.attribute( "id" );
+		else
+			bindmenu = Value;
+	}
 
 	// <name>my Item</name>
 	if( TagName == "name" )
@@ -1743,18 +1733,6 @@ void cItem::processNode( const QDomElement& Tag )
 	// <singlehanded />
 	else if( TagName == "singlehanded" )
 		this->setTwohanded( false );
-
-	// <trigger>2</trigger>
-	else if( TagName == "trigger" )
-		this->trigger = Value.toInt();
-
-	// <triggertype>2</triggertype>
-	else if( TagName == "triggertype" )
-		this->trigtype = Value.toInt();
-
-	// <smelt>2</smelt>
-	else if( TagName == "smelt" )
-		this->setSmelt( Value.toInt() );
 
 	// <requires type="xx">2</requires>
 	else if( TagName == "requires" )
@@ -2015,12 +1993,12 @@ void cItem::processModifierNode( const QDomElement &Tag )
 
 	// <color>480</color>
 	else if( TagName == "color" )
-		this->setColor( Value.toUShort() );
+		this->setColor( color() + Value.toUShort() );
 
 	// <id>12f9</id>
 	else if( TagName == "id" )
 	{
-		this->setId( Value.toUShort() );
+		this->setId( id() + Value.toUShort() );
 
 		// In addition to the normal behaviour we retrieve the weight of the
 		// item here.
@@ -2224,13 +2202,15 @@ void cItem::update( cUOSocket *mSock )
 	// Items on Ground
 	if( isInWorld() )
 	{
-		cUOTxSendItem sendItem;
-		sendItem.setSerial( serial );
-		sendItem.setId( id() );
-		sendItem.setAmount( amount() );
-		sendItem.setColor( color() );
-		sendItem.setCoord( pos );
-		sendItem.setDirection( dir );
+		// we change the packet during iteration, so we have to
+		// recompress it
+		cUOTxSendItem* sendItem = new cUOTxSendItem();
+		sendItem->setSerial( serial );
+		sendItem->setId( id() );
+		sendItem->setAmount( amount() );
+		sendItem->setColor( color() );
+		sendItem->setCoord( pos );
+		sendItem->setDirection( dir );
 
 		if( mSock )
 		{
@@ -2249,18 +2229,18 @@ void cItem::update( cUOSocket *mSock )
 				return;
 	        
 			if( isAllMovable() )
-				sendItem.setFlags( 0x20 );
+				sendItem->setFlags( 0x20 );
 			else if( pChar->canMoveAll() )
-				sendItem.setFlags( 0x20 );
+				sendItem->setFlags( 0x20 );
 			else if( isOwnerMovable() && pChar->Owns( this ) )
-				sendItem.setFlags( 0x20 );
+				sendItem->setFlags( 0x20 );
 
 			if( ( visible > 0 ) && !pChar->Owns( this ) )
-				sendItem.setFlags( sendItem.flags() | 0x80 );
+				sendItem->setFlags( sendItem->flags() | 0x80 );
 
 			// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
 
-			mSock->send( &sendItem );
+			mSock->send( sendItem );
 		}
 		else
 		{
@@ -2279,21 +2259,24 @@ void cItem::update( cUOSocket *mSock )
 				// Visible to owners and GMs only
 				else if( ( visible == 1 ) && !pChar->Owns( this ) && !pChar->isGM() )
 					continue;
+
+				cUOTxSendItem sockSendItem( *sendItem );
 	            
 				if( isAllMovable() )
-					sendItem.setFlags( 0x20 );
+					sockSendItem.setFlags( 0x20 );
 				else if( pChar->canMoveAll() )
-					sendItem.setFlags( 0x20 );
+					sockSendItem.setFlags( 0x20 );
 				else if( ( isOwnerMovable() || isLockedDown() ) && pChar->Owns( this ) )
-					sendItem.setFlags( 0x20 );
+					sockSendItem.setFlags( 0x20 );
 	
 				if( ( visible > 0 ) && !pChar->Owns( this ) )
-					sendItem.setFlags( sendItem.flags() | 0x80 );
+					sockSendItem.setFlags( sockSendItem.flags() | 0x80 );
 	
 				// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
 	
-				mSock->send( &sendItem );
+				mSock->send( &sockSendItem );
 			}
+			delete sendItem;
 		}
 	}
 	// equipped items

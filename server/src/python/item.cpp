@@ -502,7 +502,6 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	else getIntProperty( "dex2", pItem->dx2 )
 	else getIntProperty( "int2", pItem->in2 )
 	else getIntProperty( "speed", pItem->speed() )
-	else getIntProperty( "smelt", pItem->smelt() )
 	else getIntProperty( "secured", pItem->secured() ? 1 : 0 )
 	else getIntProperty( "moveable", pItem->magic )
 	else getIntProperty( "gatetime", pItem->gatetime )
@@ -635,9 +634,6 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 
 	else if( !strcmp( name, "hidamage" ) )
 		self->pItem->setHidamage( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "smelt" ) )
-		self->pItem->setSmelt( PyInt_AS_LONG( value ) );
 
 	else if( !strcmp( name, "secured" ) )
 		self->pItem->setSecured( ( PyInt_AS_LONG( value ) == 1 ) ? true : false );

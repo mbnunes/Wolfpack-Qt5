@@ -125,7 +125,7 @@ namespace Combat
 
 	void hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	{
-		UI16 totaldamage = 0;
+		SI32 totaldamage = 0;
 
 		QValueList< cItem* > handitems;
 		handitems.push_back( pAttacker->rightHandItem() );
@@ -186,7 +186,8 @@ namespace Combat
 
 				if( !pAmmo )
 				{
-					pAttacker->message( tr("You are out of ammunition!") );
+					if( pAttacker->socket() )
+						pAttacker->socket()->sysMessage( tr("You are out of ammunition!") );
 					return;
 				}
 			}
@@ -249,8 +250,8 @@ namespace Combat
 			if( ( fightskill != WRESTLING ) && los )
 					Combat->ItemSpell( pc_attacker, pc_defender );*/
 
-			UI32 damage = 0;
-			UI32 accuracy = pAttacker->skill( TACTICS ) / 10;
+			SI32 damage = 0;
+			SI32 accuracy = pAttacker->skill( TACTICS ) / 10;
 
 			// Calc base damage
 			if( pAttacker->isNpc() )
@@ -262,7 +263,7 @@ namespace Combat
 				// set basedamage to random value of weapon lo and hidamage
 				damage = RandomNum( pItem->lodamage(), pItem->hidamage() );
 				// modify basedamage by skill value of attacker
-				damage = (UI16)floor( (float)damage * (float)pAttacker->skill( fightskill ) / 1000.0f );
+				damage = (SI32)floor( (float)damage * (float)pAttacker->skill( fightskill ) / 1000.0f );
 			}
 			else if( ( pAttacker->skill( WRESTLING ) / 100 ) > 0 )
 			{
@@ -277,28 +278,28 @@ namespace Combat
 			// Tactics influences damage
 			if( Skills->CheckSkill( pAttacker, TACTICS, minskill, maxskill ) )
 			{
-				damage = (UI32)floor( (float)damage * ( ( (float)pAttacker->skill( TACTICS ) + 500.0f ) / 1000.0f ) );
+				damage = (SI32)floor( (float)damage * ( ( (float)pAttacker->skill( TACTICS ) + 500.0f ) / 1000.0f ) );
 			}
 			// Strength influences damage, 100 str equals +1/5 damage
-			damage += (UI32)floor( (float)damage * ( (float)pAttacker->st() / 500.0f ) );
+			damage += (SI32)floor( (float)damage * ( (float)pAttacker->st() / 500.0f ) );
 			// Dexterity influences accuracy, 100 dex equals +1/5 acc%
-			accuracy += (UI32)floor( (float)accuracy * ( (float)pAttacker->effDex() / 500.0f ) );
+			accuracy += (SI32)floor( (float)accuracy * ( (float)pAttacker->effDex() / 500.0f ) );
 			
 			// Anatomy influences accuracy, 20% bonus for 100% anatomy
 			if( Skills->CheckSkill( pAttacker, ANATOMY, minskill, maxskill ) )
 			{
 				float multiplier=(((float)pAttacker->skill(ANATOMY)*20.0f)/100000.0f)+1.0f;
-				accuracy=(UI32)floor((float)accuracy * multiplier);
+				accuracy=(SI32)floor((float)accuracy * multiplier);
 			}
 
 			// Defender:
 
 			// Tactics: 100 -> Bonus -20% Damage
 			float multiplier=1-(((float)pDefender->skill(TACTICS)*20.0f)/100000.0f);
-			damage = (UI32)floor((float)damage * multiplier);
+			damage = (SI32)floor((float)damage * multiplier);
 
 			// Dexterity influences accuracy, 100 dex equals +1/5 acc%
-			accuracy -= (UI32)floor( (float)accuracy * ( (float)pDefender->effDex() / 500.0f ) );
+			accuracy -= (SI32)floor( (float)accuracy * ( (float)pDefender->effDex() / 500.0f ) );
 
 			// Parrying with shield
 			P_ITEM pShield = pDefender->leftHandItem();
@@ -319,19 +320,10 @@ namespace Combat
 			if( pDefender->isPlayer() )
 				damage /= SrvParams->npcdamage(); // Rate damage against other players
 
-			/*
-			When we reached this point, only the armor of the defender will effect damage anymore.
-			If damage is 0, the defender was successful, so lets break this iteration here...
-			*/
-			if( damage == 0 )
-			{
-				pAttacker->message( tr("Your attack has been parried!") );
-				pDefender->message( tr("You parried the blow!") );
-				++it;
-				continue;
-			}
+			if( accuracy <= 0 )
+				accuracy = 0;
 
-			UI32 bodyhit = RandomNum( 0, accuracy );
+			SI32 bodyhit = RandomNum( 0, accuracy );
 			enBodyParts bodypart;
 			if( bodyhit > 100 )
 				bodyhit = 100;
@@ -348,6 +340,21 @@ namespace Combat
 				bodypart = NECK;
 			else if( bodyhit <= 100 )
 				bodypart = HEAD;
+
+			damage -= pDefender->calcDefense( bodypart, true );
+			/*
+			When we reached this point, nothing will affect the damage anymore.
+			If damage is <= 0, the defender was successful, so lets break this iteration here...
+			*/
+			if( damage <= 0 )
+			{
+				if( pAttacker->socket() )
+					pAttacker->socket()->sysMessage( tr("Your attack has been parried!") );
+				if( pDefender->socket() )
+					pDefender->socket()->sysMessage( tr("You parried the blow!") );
+				++it;
+				continue;
+			}
 
 			QString defMessage = (char*)0;
 			QString attMessage = (char*)0;
@@ -512,7 +519,8 @@ namespace Combat
 			if( ( fightskill == FENCING ) && ( IsFencing2H( pItem->id() ) ) && pDefender->isPlayer() )
 			{ 
 				tempeffect( pAttacker, pDefender, 44, 0, 0, 0 );
-				pAttacker->message( tr( "You delivered a paralyzing blow" ) );
+				if( pAttacker->socket() )
+					pAttacker->socket()->sysMessage( tr( "You delivered a paralyzing blow" ) );
 			}
 
 			// Concussion Hit
@@ -581,7 +589,7 @@ namespace Combat
 		if( pDefender->ra() )
 		{
 			// lets reflect (MAGERY/2)% of the damage
-			UI16 reflectdamage = (UI16)floor( (float)totaldamage * (float)pDefender->skill( MAGERY ) / 2000.0f );
+			SI32 reflectdamage = (SI32)floor( (float)totaldamage * (float)pDefender->skill( MAGERY ) / 2000.0f );
 			totaldamage -= reflectdamage;
 
 			pAttacker->setHp( pAttacker->hp() - reflectdamage );
@@ -675,7 +683,6 @@ namespace Combat
 		// We are at war but our target's gone out of range
 		if( !pDefender || pDefender->free || ( pDefender->isPlayer() && !pDefender->socket() ) || pDefender->isHidden() )
 		{
-//			pAttacker->setWar( false );
 			pAttacker->timeout = 0;
 			if( pDefender )
 				pDefender->attacker = INVALID_SERIAL;
@@ -685,13 +692,14 @@ namespace Combat
 			// Send a warmode update
 			pAttacker->resend( false );
 			
-			// Update the little button on the paperdoll
+/*			// Update the little button on the paperdoll
+			pAttacker->setWar( false );
 			if( pAttacker->socket() )
 			{
 				cUOTxWarmode warmode;
 				warmode.setStatus( 0 );
 				pAttacker->socket()->send( &warmode );
-			}
+			}*/
 
 			return;
 		}
@@ -884,7 +892,8 @@ namespace Combat
 						}
 					}
 
-					pAttacker->toggleCombat();
+					if( pAttacker->isNpc() )
+						pAttacker->toggleCombat();
 				}
 			}
 		}

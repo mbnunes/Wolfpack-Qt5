@@ -259,7 +259,6 @@ cAccounts		*Accounts;
 cMovement		*Movement;
 cWeather		*Weather;
 cSpeech	        *Speech;
-cTrigger	    *Trig;
 cTrade	        *Trade;
 cBounty         *Bounty;
 WPScriptManager	*ScriptManager;

@@ -423,9 +423,10 @@ public:
 		{
 			pObject->clearEvents();
 			QStringList events = QStringList::split( ",", value );
-			for( INT32 i = 0; i < events.count(); ++i )
+			QStringList::const_iterator it = events.begin();
+			while( it != events.end() )
 			{
-				WPDefaultScript *script = ScriptManager->find( events[i] );
+				WPDefaultScript *script = ScriptManager->find( *it );
 				if( script )
 					pObject->addEvent( script );
 			}
@@ -1120,7 +1121,7 @@ public:
 		else if( key == "morez" && pItem )
 			result = QString( "%1" ).arg( pItem->morez );
 
-		else if( key == "pos" )
+		else if( key == "pos" || key == "p" )
 			result = QString( "%1,%2,%3,%4" ).arg( pObject->pos.x ).arg( pObject->pos.y ).arg( pObject->pos.z ).arg( pObject->pos.map );
 
 		else if( key == "color" )
@@ -1135,6 +1136,38 @@ public:
 		{
 			if( pChar )
 				result = QString( "0x%1" ).arg( pChar->skin(), 0, 16 );
+		}
+
+		else if( key == "id" || key == "model" || key == "body" )
+		{
+			if( pItem )
+				result = QString( "0x%1" ).arg( pItem->id(), 0, 16 );
+			else if( pChar )
+				result = QString( "0x%1" ).arg( pChar->id(), 0, 16 );
+		}
+
+		else if( key == "dir")
+		{
+			if( pItem )
+				result = QString( "%1" ).arg( pItem->dir );
+			else if( pChar )
+				result = QString( "%1" ).arg( pChar->dir() );
+		}
+
+		else if( key == "events" ) 
+		{
+			QStringList events = QStringList::split( ",", pObject->eventList() );
+			QStringList::const_iterator it = events.begin();
+			while( it != events.end() )
+			{
+				result = QString( "%1\n" ).arg( *it );
+				++it;
+			}
+		}
+
+		else if( key == "amount" && pItem )
+		{
+			result = QString( "%1" ).arg( pItem->amount() );
 		}
 
 		else if( key == "npcwander" && pChar )

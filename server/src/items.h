@@ -62,7 +62,6 @@ protected:
 	SI16		weight_;
 	SI16		hp_;
 	SI16		maxhp_;
-	SI08		smelt_;
 	QString		spawnregion_;
 	INT32		totalweight_;
 	QString		carve_;
@@ -107,7 +106,6 @@ public:
 	SI16			stones()		const { return (SI16)( weight_ / 10 ); } // Weight transformed to UO Stones
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
 	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
-	SI32			smelt()			const { return smelt_; }		// For item smelting
 	QString			spawnregion()	const { return spawnregion_; }
 	UI08			moreb1()		const { return moreb1_; }
 	UI08			moreb2()		const { return moreb2_; }
@@ -143,7 +141,6 @@ public:
 	void	setWeight( SI16 nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; };
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; };
-	void	setSmelt( SI32 nValue ) { smelt_ = nValue; };
 	void	setSpawnRegion( QString nValue ) { spawnregion_ = nValue; };
 	void	setMoreb1( UI08 nValue ) { moreb1_ = nValue; };
 	void	setMoreb2( UI08 nValue ) { moreb2_ = nValue; };
@@ -214,11 +211,8 @@ public:
 	
 	int value; // Price shopkeeper sells item at.
 	int restock; // Number up to which shopkeeper should restock this item
-	int trigger; //Trigger number that item activates
-	int trigtype; //Type of trigger
 	unsigned int disabled; //Item is disabled, cant trigger.
 	string disabledmsg; //Item is disabled, so display this message. -- added by Magius(CHE) §
-	int tuses;    //Number of uses for trigger
 	unsigned int poisoned; //AntiChrist -- for poisoning skill
 	long int murdertime; //AntiChrist -- for corpse -- when the people has been killed
 	int rank; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.

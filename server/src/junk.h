@@ -78,7 +78,6 @@ class cTargets;
 class cMagic;
 class cMovement;
 class cSpeech;
-class cTrigger;
 class cTrade;
 class cBounty;
 class cAccounts;
@@ -97,7 +96,6 @@ extern cTargets			*Targ;
 extern cMagic			*Magic;
 extern cMovement		*Movement;
 extern cSpeech	        *Speech;
-extern cTrigger	        *Trig;
 extern cTrade	        *Trade;
 extern cBounty          *Bounty;
 // Skys AI 

@@ -220,7 +220,8 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		}
 	}
 	
-	//cMapObjects::getInstance()->remove( pItem );
+	pItem->removeFromView( true );
+	cMapObjects::getInstance()->remove( pItem );
 	pItem->setContSerial( pChar->serial );
 	if( pItem->multis != INVALID_SERIAL )
 	{
@@ -231,6 +232,9 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		}
 	}
 	pItem->setLayer( 0x1E );
+
+//	pItem->removeFromView( true );
+//	pItem->update();
 }
 
 // Tries to equip an item
@@ -420,6 +424,9 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// At this point we're certain that we can wear the item
 	pItem->setContSerial( packet->wearer() );
 	pItem->setLayer( pTile.layer ); // Don't trust the user input on this one
+
+	if( pWearer->socket() )
+		pWearer->socket()->sendStatWindow();
 
 	if( pTile.layer == 0x19 )
 		pWearer->setOnHorse( true );
@@ -647,6 +654,8 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	pItem->moveTo( pos );	
 	pItem->setLayer( 0 );
 	pItem->update();
+	if( pItem->priv & 0x01 )
+		pItem->startDecay();
 
 	if( pItem->glow != INVALID_SERIAL )
 	{

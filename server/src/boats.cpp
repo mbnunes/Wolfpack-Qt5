@@ -95,12 +95,12 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	P_ITEM pdeed = FindItemBySerial( deedserial );
 	UI08 siproblem = 0;
 
+	cUOTxPause uoPacket;
+	uoPacket.pause();
 	if( socket )
 	{
 		// pause the client till sending
-		cUOTxPause* uoPacket = new cUOTxPause();
-		uoPacket->pause();
-		socket->send( uoPacket );
+		socket->send( &uoPacket );
 	}
 
 	this->type_ = 117;//Boat type
@@ -113,11 +113,11 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	cItemsManager::getInstance()->registerItem( this );
 	if( this->multiids_.size() < 4 || !this->isValidPlace( posx, posy, posz, 0 ) )
 	{
+		cUOTxPause uoPacket;
+		uoPacket.resume();
 		if( socket )
 		{
-			cUOTxPause* uoPacket = new cUOTxPause();
-			uoPacket->resume();
-			socket->send( uoPacket );
+			socket->send( &uoPacket );
 			socket->sysMessage( tr("Can not build boat at this location!") );
 		}
 		cItemsManager::getInstance()->unregisterItem( this );
@@ -193,11 +193,11 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 
 	if( siproblem > 0 )
 	{
+		cUOTxPause uoPacket;
+		uoPacket.resume();
 		if( socket )
 		{
-			cUOTxPause* uoPacket = new cUOTxPause();
-			uoPacket->resume();
-			socket->send( uoPacket );
+			socket->send( &uoPacket );
 			socket->sysMessage( tr("Can not build boat without itemid definitions for special items!") );
 		}
 		cItemsManager::getInstance()->unregisterItem( this );
@@ -223,12 +223,12 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	if( pDeed != NULL )
 		Items->DeleItem( pDeed );
 
+	cUOTxPause uoResume;
+	uoResume.resume();
 	if( socket )
 	{
 		// resume client
-		cUOTxPause* uoPacket = new cUOTxPause();
-		uoPacket->resume();
-		socket->send( uoPacket );
+		socket->send( &uoResume );
 	}
 	
 	this->SetOwnSerial( pc_currchar->serial );
@@ -495,6 +495,8 @@ void cBoat::turn( SI08 turn )
 	// first pause all clients in visrange
 	QPtrList< cUOSocket > socketsinrange; // sockets of the chars in visrange
 
+	cUOTxPause uoPacket;
+	uoPacket.pause();
 	RegionIterator4Chars ri( pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
 	{
@@ -506,9 +508,7 @@ void cBoat::turn( SI08 turn )
 			{
 				if( errormsg.isNull() || errormsg.isEmpty() )
 				{
-					cUOTxPause* uoPacket = new cUOTxPause();
-					uoPacket->pause();
-					socket->send( uoPacket );
+					socket->send( &uoPacket );
 					socketsinrange.append( socket );
 				}
 				else
@@ -649,6 +649,8 @@ void cBoat::turn( SI08 turn )
 
 	QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 	cUOSocket* mSock;
+	cUOTxPause uoResume;
+	uoResume.resume();
 	while( mSock = iter_sock.current() )
 	{
 		pPortplank->update( mSock );
@@ -656,9 +658,7 @@ void cBoat::turn( SI08 turn )
 		pTiller->update( mSock );
 		pHold->update( mSock );
 		this->update( mSock );
-		cUOTxPause* uoPacket = new cUOTxPause();
-		uoPacket->resume();
-		mSock->send( uoPacket );
+		mSock->send( &uoResume );
 		++iter_sock;
 	}
 }
@@ -736,6 +736,8 @@ bool cBoat::move( void )
 	// first pause all clients in visrange
 	QPtrList< cUOSocket > socketsinrange; // sockets of the chars in visrange
 
+	cUOTxPause uoPacket;
+	uoPacket.pause();
 	RegionIterator4Chars ri( pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
 	{
@@ -747,9 +749,7 @@ bool cBoat::move( void )
 			{
 				if( errormsg.isNull() && errormsg.isEmpty() )
 				{
-					cUOTxPause* uoPacket = new cUOTxPause();
-					uoPacket->pause();
-					socket->send( uoPacket );
+					socket->send( &uoPacket );
 					socketsinrange.append( socket );
 				}
 				else
@@ -842,6 +842,8 @@ bool cBoat::move( void )
 
 	QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 	cUOSocket* mSock;
+	cUOTxPause uoResume;
+	uoResume.resume();
 	while( mSock = iter_sock.current() )
 	{
 		pPortplank->update( mSock );
@@ -849,9 +851,7 @@ bool cBoat::move( void )
 		pTiller->update( mSock );
 		pHold->update( mSock );
 		this->update( mSock );
-		cUOTxPause* uoPacket = new cUOTxPause();
-		uoPacket->resume();
-		mSock->send( uoPacket );
+		mSock->send( &uoResume );
 		++iter_sock;
 	}
 
