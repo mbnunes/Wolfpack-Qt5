@@ -130,6 +130,18 @@
 		<id>0x35a1</id>
 	</item>
 
+	<item id="chessboard">
+		<id>0xfa6</id>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+	</item>
+
+	<item id="checkerboard">
+		<id>0xfa6</id>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+	</item>
+
 	<!-- Archery Butte -->	
 	<item id="100a">
 		<id>0x100a</id>

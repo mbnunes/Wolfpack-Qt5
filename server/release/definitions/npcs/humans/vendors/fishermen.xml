@@ -14,8 +14,14 @@
 		<title>the Fisherman</title>
 		<shopkeeper>
 			<restockable>
+				<item id="97a"><amount>20</amount></item>
+				<item id="9cc"><amount>20</amount></item>
+				<item id="dc0"><amount>20</amount></item>
 			</restockable>
 			<sellable>
+				<item id="97a" />
+				<item id="9cc" />
+				<item id="dc0" />
 			</sellable>
 		</shopkeeper>
 		<fishing><random min="750" max="980" /></fishing>
@@ -28,8 +34,14 @@
 		<title>the Fisherlady</title>
 		<shopkeeper>
 			<restockable>
+				<item id="97a"><amount>20</amount></item>
+				<item id="9cc"><amount>20</amount></item>
+				<item id="dc0"><amount>20</amount></item>
 			</restockable>
 			<sellable>
+				<item id="97a" />
+				<item id="9cc" />
+				<item id="dc0" />
 			</sellable>
 		</shopkeeper>
 		<fishing><random min="750" max="980" /></fishing>

@@ -10,9 +10,8 @@
 
 	<!-- A bard vendor -->
 	<npc id="bard_male">
-		<inherit>base_male</inherit>
+		<inherit>vendor_male</inherit>
 		<title>the Bard</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="eb2"><amount>10</amount></item>
@@ -36,13 +35,11 @@
 		<archery><random min="360" max="680" /></archery>
 		<swordsmanship><random min="360" max="680" /></swordsmanship>
 		<category>Vendors\Bard (Male)</category>
-		<invulnerable />
 	</npc>
 	
 	<npc id="bard_female">
-		<inherit>base_female</inherit>
+		<inherit>vendor_female</inherit>
 		<title>the Bard</title>
-		<ai>Human_Vendor</ai>
 		<shopkeeper>
 			<restockable>
 				<item id="eb2"><amount>10</amount></item>
@@ -66,7 +63,6 @@
 		<archery><random min="360" max="680" /></archery>
 		<swordsmanship><random min="360" max="680" /></swordsmanship>
 		<category>Vendors\Bard (Female)</category>
-		<invulnerable />
 	</npc>
 
 </definitions>

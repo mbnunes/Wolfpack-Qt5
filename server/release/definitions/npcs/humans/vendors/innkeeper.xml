@@ -14,8 +14,66 @@
 		<title>the Innkeeper</title>
 		<shopkeeper>
 			<restockable>
+				<item id="99f"><amount>20</amount></item>
+				<item id="9c7"><amount>20</amount></item>
+				<item id="99b"><amount>20</amount></item>
+				<item id="9c8"><amount>20</amount></item>
+				<item id="9f0"><amount>20</amount></item>
+				<item id="1f95"><amount>20</amount></item>
+				<item id="1f97"><amount>20</amount></item>
+				<item id="1f99"><amount>20</amount></item>
+				<item id="1f9b"><amount>20</amount></item>
+				<item id="1f9d"><amount>20</amount></item>
+				<item id="103b"><amount>10</amount></item>
+				<item id="97e"><amount>10</amount></item>
+				<item id="9b7"><amount>20</amount></item>
+				<item id="16a0"><amount>20</amount></item>
+				<item id="1608"><amount>20</amount></item>
+				<item id="9f2"><amount>20</amount></item>
+				<item id="9d2"><amount>20</amount></item>
+				<item id="994"><amount>20</amount></item>
+				<item id="9d1"><amount>20</amount></item>
+				<item id="9d0"><amount>20</amount></item>
+				<item id="171f"><amount>20</amount></item>
+				<item id="f6b"><amount>20</amount></item>
+				<item id="a28"><amount>20</amount></item>
+				<item id="1422"><amount>20</amount></item>
+				<item id="9b2"><amount>20</amount></item>
+				<item id="chessboard"><amount>20</amount></item>
+				<item id="checkerboard"><amount>20</amount></item>
+				<item id="e1c"><amount>20</amount></item>
+				<item id="fa7"><amount>20</amount></item>
 			</restockable>
 			<sellable>
+				<item id="99f" />
+				<item id="9c7" />
+				<item id="99b" />
+				<item id="9c8" />
+				<item id="9f0" />
+				<item id="1f95" />
+				<item id="1f97" />
+				<item id="1f99" />
+				<item id="1f9b" />
+				<item id="1f9d" />
+				<item id="103b" />
+				<item id="97e" />
+				<item id="9b7" />
+				<item id="16a0" />
+				<item id="1608" />
+				<item id="9f2" />
+				<item id="9d2" />
+				<item id="994" />
+				<item id="9d1" />
+				<item id="9d0" />
+				<item id="171f" />
+				<item id="f6b" />
+				<item id="a28" />
+				<item id="1422" />
+				<item id="9b2" />
+				<item id="chessboard" />
+				<item id="checkerboard" />
+				<item id="e1c" />
+				<item id="fa7" />
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Innkeeper (Male)</category>
@@ -26,8 +84,66 @@
 		<title>the Innkeeper</title>
 		<shopkeeper>
 			<restockable>
+				<item id="99f"><amount>20</amount></item>
+				<item id="9c7"><amount>20</amount></item>
+				<item id="99b"><amount>20</amount></item>
+				<item id="9c8"><amount>20</amount></item>
+				<item id="9f0"><amount>20</amount></item>
+				<item id="1f95"><amount>20</amount></item>
+				<item id="1f97"><amount>20</amount></item>
+				<item id="1f99"><amount>20</amount></item>
+				<item id="1f9b"><amount>20</amount></item>
+				<item id="1f9d"><amount>20</amount></item>
+				<item id="103b"><amount>10</amount></item>
+				<item id="97e"><amount>10</amount></item>
+				<item id="9b7"><amount>20</amount></item>
+				<item id="16a0"><amount>20</amount></item>
+				<item id="1608"><amount>20</amount></item>
+				<item id="9f2"><amount>20</amount></item>
+				<item id="9d2"><amount>20</amount></item>
+				<item id="994"><amount>20</amount></item>
+				<item id="9d1"><amount>20</amount></item>
+				<item id="9d0"><amount>20</amount></item>
+				<item id="171f"><amount>20</amount></item>
+				<item id="f6b"><amount>20</amount></item>
+				<item id="a28"><amount>20</amount></item>
+				<item id="1422"><amount>20</amount></item>
+				<item id="9b2"><amount>20</amount></item>
+				<item id="chessboard"><amount>20</amount></item>
+				<item id="checkerboard"><amount>20</amount></item>
+				<item id="e1c"><amount>20</amount></item>
+				<item id="fa7"><amount>20</amount></item>
 			</restockable>
 			<sellable>
+				<item id="99f" />
+				<item id="9c7" />
+				<item id="99b" />
+				<item id="9c8" />
+				<item id="9f0" />
+				<item id="1f95" />
+				<item id="1f97" />
+				<item id="1f99" />
+				<item id="1f9b" />
+				<item id="1f9d" />
+				<item id="103b" />
+				<item id="97e" />
+				<item id="9b7" />
+				<item id="16a0" />
+				<item id="1608" />
+				<item id="9f2" />
+				<item id="9d2" />
+				<item id="994" />
+				<item id="9d1" />
+				<item id="9d0" />
+				<item id="171f" />
+				<item id="f6b" />
+				<item id="a28" />
+				<item id="1422" />
+				<item id="9b2" />
+				<item id="chessboard" />
+				<item id="checkerboard" />
+				<item id="e1c" />
+				<item id="fa7" />
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Innkeeper (Female)</category>

@@ -14,8 +14,16 @@
 		<title>the Cobbler</title>
 		<shopkeeper>
 			<restockable>
+				<item id="170f"><amount>20</amount></item>
+				<item id="170b"><amount>20</amount></item>
+				<item id="1711"><amount>20</amount></item>
+				<item id="170d"><amount>20</amount></item>
 			</restockable>
 			<sellable>
+				<item id="170f" />
+				<item id="170b" />
+				<item id="1711" />
+				<item id="170d" />
 			</sellable>
 		</shopkeeper>
 		<tailoring><random min="600" max="830" /></tailoring>
@@ -27,8 +35,16 @@
 		<title>the Cobbler</title>
 		<shopkeeper>
 			<restockable>
+				<item id="170f"><amount>20</amount></item>
+				<item id="170b"><amount>20</amount></item>
+				<item id="1711"><amount>20</amount></item>
+				<item id="170d"><amount>20</amount></item>
 			</restockable>
 			<sellable>
+				<item id="170f" />
+				<item id="170b" />
+				<item id="1711" />
+				<item id="170d" />
 			</sellable>
 		</shopkeeper>
 		<tailoring><random min="600" max="830" /></tailoring>

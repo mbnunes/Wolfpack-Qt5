@@ -47,6 +47,9 @@
 				<item id="f9e"/>
 			</sellable>
 		</shopkeeper>
+		<forensics><random min="800" max="1000" /></forensics>
+		<spiritspeak><random min="800" max="1000" /></spiritspeak>
+		<swordsmanship><random min="800" max="1000" /></swordsmanship>
 		<category>Vendors\Healer (Male)</category>
 		<events>npc.healer</events>
 	</npc>
@@ -89,6 +92,9 @@
 				<item id="f9e"/>
 			</sellable>
 		</shopkeeper>
+		<forensics><random min="800" max="1000" /></forensics>
+		<spiritspeak><random min="800" max="1000" /></spiritspeak>
+		<swordsmanship><random min="800" max="1000" /></swordsmanship>
 		<category>Vendors\Healer (Female)</category>
 		<events>npc.healer</events>
 	</npc>
