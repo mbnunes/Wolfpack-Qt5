@@ -384,12 +384,12 @@ def charinfo( socket, char ):
 		gump.addResizeGump( 280, 180, 0xBB8, 215, 20 )
 		gump.addInputField( 284, 180, 200, 16, 0x834, 41, char.profile)
 		# 43
-		gump.addText( 113, 220, "Notoriety:", 0x834 )
-		gump.addResizeGump( 280, 220, 0xBB8, 215, 20 )
-		if char.hastag('notoriety'):
-			gump.addInputField( 284, 200, 200, 16, 0x834, 43, unicode( char.gettag('notoriety') ) )
-		else:
-			gump.addInputField( 284, 200, 200, 16, 0x834, 43, '' )
+		#gump.addText( 113, 220, "Notoriety:", 0x834 )
+		#gump.addResizeGump( 280, 220, 0xBB8, 215, 20 )
+		#if char.hastag('notoriety'):
+		#	gump.addInputField( 284, 200, 200, 16, 0x834, 43, unicode( char.gettag('notoriety') ) )
+		#else:
+		#	gump.addInputField( 284, 200, 200, 16, 0x834, 43, '' )
 		# 44
 		gump.addText( 113, 240, "Poisoned:", 0x834 )
 		gump.addResizeGump( 280, 240, 0xBB8, 215, 20 )
@@ -574,7 +574,7 @@ def charinfo_response( player, args, choice ):
 		elif key == 12:
 			char.direction = int( textentries[ key ] )
 		elif key == 13:
-                        char.invulnerable = str2bool( textentries[ key ] )
+            char.invulnerable = str2bool( textentries[ key ] )
 		elif key == 14:
 			char.strength = int( textentries[ key ] )
 		elif key == 15:
@@ -662,12 +662,13 @@ def charinfo_response( player, args, choice ):
 				else:
 					char.settag( 'guild', int( hex2dec( textentries[ key ] ) ) )
 		elif key == 43:
-			if not char.npc:
-				if (textentries[ key ]) == '':
-					if char.hastag( 'notoriety' ):
-						char.deltag( 'notoriety' )
-				else:
-					char.settag( 'notoriety', int( textentries[ key ] ) )
+			pass
+			#if not char.npc:
+			#	if (textentries[ key ]) == '':
+			#		if char.hastag( 'notoriety' ):
+			#			char.deltag( 'notoriety' )
+			#	else:
+			#		char.settag( 'notoriety', int( textentries[ key ] ) )
 			#elif char.npc:
 			#	if not textentries[ key ] == '':
 			#		char.mindamage = int( textentries[ key ] )

@@ -109,6 +109,9 @@ def sendresponse(player, arguments, target):
 			object.removefromview()
 			object.moveto(pos)
 			object.update()
+			
+			if object.ischar() and object.socket:
+				object.socket.resendworld()
 		else:
 			player.socket.sysmessage('Usage: send <x, y, z, map>|<location>')
 
