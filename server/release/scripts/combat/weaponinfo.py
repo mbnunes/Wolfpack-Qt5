@@ -1,6 +1,68 @@
 
 from wolfpack.consts import *
 
+WEAPON_RESNAME_BONI = {
+	# Metals
+	'iron': {
+		DAMAGE_FIRE: 0,
+		DAMAGE_COLD: 0,
+		DAMAGE_POISON: 0,
+		DAMAGE_ENERGY: 0
+	},
+	'dullcopper': {
+		DAMAGE_FIRE: 0,
+		DAMAGE_COLD: 0,
+		DAMAGE_POISON: 0,
+		DAMAGE_ENERGY: 0,
+		LOWERREQS: 50
+	},
+	'shadowiron': {
+		DAMAGE_FIRE: 0,
+		DAMAGE_COLD: 20,
+		DAMAGE_POISON: 0,
+		DAMAGE_ENERGY: 0
+	},
+	'copper': {
+		DAMAGE_FIRE: 0,
+		DAMAGE_COLD: 0,
+		DAMAGE_POISON: 10,
+		DAMAGE_ENERGY: 20
+	},
+	'bronze': {
+		DAMAGE_FIRE: 40,
+		DAMAGE_COLD: 0,
+		DAMAGE_POISON: 0,
+		DAMAGE_ENERGY: 0
+	},
+	'gold': {
+		DAMAGE_FIRE: 0,
+		DAMAGE_COLD: 0,
+		DAMAGE_POISON: 0,
+		DAMAGE_ENERGY: 0,
+		LUCK: 40,
+		LOWERREQS: 50
+	},
+	'agapite': {
+		DAMAGE_FIRE: 0,
+		DAMAGE_COLD: 30,
+		DAMAGE_POISON: 0,
+		DAMAGE_ENERGY: 20
+	},
+	'verite': {
+		DAMAGE_FIRE: 0,
+		DAMAGE_COLD: 0,
+		DAMAGE_POISON: 40,
+		DAMAGE_ENERGY: 20
+	},
+	'valorite': {
+		DAMAGE_FIRE: 10,
+		DAMAGE_COLD: 20,
+		DAMAGE_POISON: 10,
+		DAMAGE_ENERGY: 20
+	}
+
+}
+
 #
 # Weapon Information
 # This file includes all known standard weapon information.
