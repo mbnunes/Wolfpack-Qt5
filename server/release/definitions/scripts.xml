@@ -96,6 +96,7 @@
 	<script>commands.import</script>
 	<script>commands.info</script>
 	<script>commands.invul</script>
+	<script>commands.password</script>
 	<script>commands.restore</script>
 	<script>commands.resurrect</script>
 	<script>commands.serverinfo</script>
