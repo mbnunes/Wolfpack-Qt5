@@ -3152,7 +3152,6 @@ void SetGlobalVars()
 {
 	keeprun=1;
 	error=0;
-	now=0;
 	secure=1;
 	autosaved = 0;
 	dosavewarning = 0;

@@ -60,23 +60,6 @@ unsigned short int doorbase[DOORTYPES]={
 0x0675, 0x0685, 0x0695, 0x06A5, 0x06B5, 0x06C5, 0x06D5, 0x06E5, 0x0839, 0x084C, 
 0x0866, 0x00E8, 0x0314, 0x0324, 0x0334, 0x0344, 0x0354};
 
-char spellname[71][25]={
-        "Clumsy","Create Food","Feeblemind","Heal","Magic Arrow","Night Sight","Reactive Armor","Weaken",
-        "Agility","Cunning","Cure","Harm","Magic Trap","Magic Untrap","Protection","Strength",
-        "Bless","Fireball","Magic Lock","Poison","Telekinesis","Teleport","Unlock","Wall Of Stone",
-        "Arch Cure","Arch Protection","Curse","Fire Field","Greater Heal","Lightning","Mana Drain","Recall",
-        "Blade Spirits","Dispel Field","Incognito","Magic Reflection","Mind Blast","Paralyze","Poison Field","Summon Creature",
-        "Dispel","Energy Bolt","Explosion","Invisibility","Mark","Mass Curse","Paralyze Field","Reveal",
-        "Chain Lightning","Energy Field","Flame Strike","Gate Travel","Mana Vampire","Mass Dispel","Meteor Swarm","Polymorph",
-        "Earthquake","Energy Vortex","Resurrection","Summon Air Elemental",
-        "Summon Daemon","Summon Earth Elemental","Summon Fire Elemental","Summon Water Elemental",
-        "Random", "Necro1", "Necro2", "Necro3", "Necro4", "Necro5"
-};
-
-char foodname[enNumberOfFood][20]={
-"no food", "raw meat", "raw fish", "eggs", "crops", "fruits", "hay",
-"grain", "cooked meat", "cooked fish", "pastries", "leather", "metal" };
-          
 time_t	oldtime, newtime;
 
 unsigned int polyduration=90;
@@ -102,18 +85,15 @@ bool heartbeat;
 int err, error;
 int keeprun;
 
-int now;
+//int now;
 
 int secure; // Secure mode
-
-int xycount;
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
 unsigned int raindroptime;
 
-//unsigned int cmem;
 int tnum;
 
 unsigned int starttime, endtime, lclock;
@@ -170,7 +150,6 @@ list<SERIAL> guilds;
 ///////////////////////////////////////////
 ///   and the rest                        /
 ///////////////////////////////////////////
- std::multimap <int, tele_locations_st> tele_locations; // can't use a map here, so using a multimap with x as the key :(
  int validEscortRegion[256];
  creat_st creatures[2048];
 

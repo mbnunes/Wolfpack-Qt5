@@ -34,29 +34,10 @@
 
 #define MAXLOOPS 250000
 #define MaxZstep 5
-/*
-#if defined(__BORLANDC__)
-#ifndef max
-#define max(a,b)            (((a) > (b)) ? (a) : (b))
-#endif
 
-
-#ifndef min
-#define min(a,b)            (((a) < (b)) ? (a) : (b))
-#endif
-#endif
-*/
 #if defined(__unix__)
 #define BYTE unsigned char
 #define SOCKET_ERROR -1
-//#ifndef max
-//#define max(a,b)            (((a) > (b)) ? (a) : (b))
-//#endif
-	
-
-//#ifndef min
-//#define min(a,b)            (((a) < (b)) ? (a) : (b))
-//#endif
 
 extern "C" {
 char *strlwr(char *);
@@ -64,7 +45,6 @@ char *strupr(char *);
 };
 #include <sys/types.h>
 extern time_t  oldtime, newtime;
-#define SLPMULTI 1000
 //#define Sleep(sec) usleep(sec * 1000)
 
 #else
@@ -76,43 +56,8 @@ extern long int oldtime, newtime;
 //#endif
 
 #define MAX_GUILDTYPE 2	// Code to support the Chaos/order system
-//#define MAXIMUM 128 // Maximum open connections to server
-//#define MAXCLIENT MAXIMUM+1
 #define MAXSERV 5 // Maximum servers in login listing
 //#define MAXSTART 15 // Maximum starting locations
-
-////////////////////////////////////////////////////////////////
-/// DO NOT TOUCH THIS VALUES !!!!!!!
-/// Unless you are a SERVER AND(!!!) CLIENT networking guru
-////////////////////////////////////////////////////////////////
-
-#define MAXBUFFER_ASYNCH 2560   // Maximum# of bytes for old asynchronous UOX3 packetsend buffer
-                                // If buffer exceeded this max they are send in bursts of this sizes.
-                                // *NO* correlation to packets. 
-                                // has to be < MAXBUFFER_REAL
-                                // only used for PacketSendStyle UOX3 in server.scp
-                                // 2560 is traditional UOX value, unchanged for years ...
-
-#define MAXBUFFER_REAL   17000  // that's the real buffersize correlating to the client packet buffer
-                                // it's 64kb, but you have to consider compression !!! >32 isn't safe.
-                                // didn't use 32kb because too much memory (4MB versus 2MB of 17kb)
-                                // and I've never seen any packet >10kb on OSI servers.
-
-//#define MAXBUFFER_SYNCH  512    // Used for synchronous packetSendStyle SMART.
-                                // If buffer exceeded this max all FULL packets of the buffer are send.
-                                // keep this small (<1024, >64)
-
-//#define MAXPACKETS_SYNCH 10     // Used for synchronous packetSendStyle SMART
-                                // if packet sin buffer exceed this max all FULL packets of the buffer are send
-                                // usefiull values: 5-25
- 
-                                // remark: synchronous packetSendStyle OSI doesn't use those both.
-
-//////////////////////////////////
-
-//#define PSS_UOX3      0x0
-//#define PSS_OSI       0x1
-//#define PSS_SMARTWOLF 0x2
 
 #define MAXPAGES 75 // Maximum number of pages in the GM queue
 #define VISRANGE 18 // Visibility for normal items

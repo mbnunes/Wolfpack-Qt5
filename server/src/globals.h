@@ -87,10 +87,8 @@ extern unsigned int nextdecaytime;
 extern int autosaved, dosavewarning;
 extern int err, error;
 extern int keeprun;
-extern int now;
+//extern int now;
 extern int secure; // Secure mode
-
-extern int xycount;
 
 extern unsigned int starttime, endtime, lclock;
 
@@ -128,12 +126,8 @@ extern std::list<SERIAL> guilds;
 
 extern unsigned short int doorbase[DOORTYPES];
 
-extern  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here :(
-
 extern creat_st creatures[2048]; //LB, stores the base-sound+sound flags of monsters, animals
 extern advance_st wpadvance[1000];
-//extern char spellname[71][25];
-extern char foodname[enNumberOfFood][20];
 extern int validEscortRegion[256];
 
 extern int npcshape[5]; //Stores the coords of the bouding shape for the NPC
