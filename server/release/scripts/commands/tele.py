@@ -46,6 +46,6 @@ def teleport( char, args, target ):
 	
 	if args[0]:
 		char.socket.sysmessage( 'Select your teleport destination.' )
-		char.socket.attachtarget( "commands.tele.teleport", [multi] )
+		char.socket.attachtarget( "commands.tele.teleport", [True] )
 	
 	return True
