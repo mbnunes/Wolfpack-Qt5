@@ -125,6 +125,7 @@ void cCharBaseDef::refreshScripts() {
 	if (loaded) {
 		QStringList scripts = QStringList::split(",", baseScriptList_);
 		QStringList::const_iterator it;
+		baseScripts_.clear();
 		for (it = scripts.begin(); it != scripts.end(); ++it) {
 			cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
 			if (script) {
@@ -227,6 +228,7 @@ void cItemBaseDef::refreshScripts() {
 	if (loaded) {
 		QStringList scripts = QStringList::split(",", baseScriptList_);
 		QStringList::const_iterator it;
+		baseScripts_.clear();
 		for (it = scripts.begin(); it != scripts.end(); ++it) {
 			cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
 			if (script) {
