@@ -132,7 +132,7 @@ class CarpItemAction(CraftItemAction):
 class CarpentryMenu(MakeMenu):
 	def __init__(self, id, parent, title):
 		MakeMenu.__init__(self, id, parent, title)
-		self.allowmark = 1
+		self.allowmark = True
 		#self.allowrepair = 1
 		self.submaterials1 = skills.blacksmithing.METALS
 		self.submaterial1missing = 1042081 # Ingots
@@ -141,11 +141,12 @@ class CarpentryMenu(MakeMenu):
 		self.requiretool = True
 
 	#
-	# Check for an anvil too when checking for the tool
+	# Check for the tool
 	#
 	def checktool(self, player, item, wearout = False):
 		if not MakeMenu.checktool(self, player, item, wearout):
 			return False
+		return True
 
 	#
 	# Get the material used by the character from the tags
