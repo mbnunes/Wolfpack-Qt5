@@ -610,7 +610,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	// Check the character the user wants to play
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
-	if ( packet->slot() >= characters.size() )
+	if ( packet->slot() > characters.size() )
 	{
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
@@ -2363,6 +2363,9 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	// Dont allow rename-self
 	sendStats.setAllowRename( ( ( pChar->objectType() == enNPC && dynamic_cast<P_NPC>( pChar )->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
 
+	sendStats.setName( pChar->name() );
+	sendStats.setSerial( pChar->serial() );
+
 	if ( pChar != _player )
 	{
 		float factor = pChar->hitpoints() / ( float ) pChar->maxHitpoints();
@@ -2375,14 +2378,6 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	{
 		sendStats.setMaxHp( pChar->maxHitpoints() );
 		sendStats.setHp( pChar->hitpoints() );
-	}
-
-	sendStats.setName( pChar->name() );
-	sendStats.setSerial( pChar->serial() );
-
-	// Set the rest - and reset if nec.
-	if ( pChar == _player )
-	{
 		sendStats.setStamina( _player->stamina() );
 		sendStats.setMaxStamina( _player->maxStamina() );
 		sendStats.setMana( _player->mana() );
@@ -2417,18 +2412,18 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		stats.setSerial( _player->serial() );
 		stats.setLocks( _player->strengthLock(), _player->dexterityLock(), _player->intelligenceLock() );
 		send( &stats );
-	}
 
-	// Send the packet to our party members too
-	if ( pChar == _player && _player->party() )
-	{
-		QPtrList<cPlayer> members = _player->party()->members();
-
-		for ( P_PLAYER member = members.first(); member; member = members.next() )
+		// Send the packet to our party members too
+		if ( _player->party() )
 		{
-			if ( member->socket() && member != _player )
+			QPtrList<cPlayer> members = _player->party()->members();
+
+			for ( P_PLAYER member = members.first(); member; member = members.next() )
 			{
-				member->socket()->send( &sendStats );
+				if ( member->socket() && member != _player )
+				{
+					member->socket()->send( &sendStats );
+				}
 			}
 		}
 	}
