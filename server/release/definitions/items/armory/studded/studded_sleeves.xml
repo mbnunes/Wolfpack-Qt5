@@ -20,7 +20,7 @@
 		<sellprice>43</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Studded Leather\Sleeves (N/S)</category>
+		<category>Base Armor\Studded Leather\Sleeves (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="25" />
@@ -34,7 +34,7 @@
 	<item id="13dc" inherit="13d4">
 		<id>0x13dc</id>
 		<baseid>13d4</baseid>
-		<category>Armor\Base\Studded Leather\Sleeves (E/W)</category>
+		<category>Base Armor\Studded Leather\Sleeves (E/W)</category>
 	</item>
 
  </definitions>

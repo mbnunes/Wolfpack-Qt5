@@ -21,7 +21,7 @@
 		<sellprice>72</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Platemail\Gloves (N/S)</category>
+		<category>Base Armor\Platemail\Gloves (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="70" />
@@ -35,7 +35,7 @@
 	<!-- Plate Gloves EW -->
 	<item id="1418" inherit="1414">
 		<id>0x1418</id>
-		<category>Armor\Base\Platemail\Gloves (E/W)</category>
+		<category>Base Armor\Platemail\Gloves (E/W)</category>
 	</item>
 
 </definitions>

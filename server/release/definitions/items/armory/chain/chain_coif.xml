@@ -21,7 +21,7 @@
 		<sellprice>8</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Chainmail\Coif NS</category>
+		<category>Base Armor\Chainmail\Coif NS</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="60" />
@@ -36,7 +36,7 @@
 	<item id="13c0" inherit="13bb">
 		<id>0x13c0</id>
 		<baseid>13bb</baseid>
-		<category>Armor\Base\Chainmail\Coif (E/W)</category>
+		<category>Base Armor\Chainmail\Coif (E/W)</category>
 	</item>
 
 </definitions>

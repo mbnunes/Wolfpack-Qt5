@@ -20,7 +20,7 @@
 		<sellprice>51</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Studded Leather\Leggings (N/S)</category>
+		<category>Base Armor\Studded Leather\Leggings (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="35" />
@@ -34,7 +34,7 @@
 	<item id="13e1" inherit="13da">
 		<id>0x13e1</id>
 		<baseid>13da</baseid>
-		<category>Armor\Base\Studded Leather\Leggings (E/W)</category>
+		<category>Base Armor\Studded Leather\Leggings (E/W)</category>
 	</item>
 
 </definitions>

@@ -20,7 +20,7 @@
 		<sellprice>15</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Bone\Bone Helmet (N/S)</category>
+		<category>Base Armor\Bone\Bone Helmet (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="20" />
@@ -35,7 +35,7 @@
 	<item id="1456" inherit="1451">
 		<id>0x1456</id>
 		<baseid>1451</baseid>
-		<category>Armor\Base\Bone\Bone Helmet (E/W)</category>
+		<category>Base Armor\Bone\Bone Helmet (E/W)</category>
 	</item>
 
 </definitions>

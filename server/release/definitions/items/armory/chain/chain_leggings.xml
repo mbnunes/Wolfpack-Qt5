@@ -21,7 +21,7 @@
 		<sellprice>107</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Chainmail\Leggings (N/S)</category>
+		<category>Base Armor\Chainmail\Leggings (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="60" />
@@ -36,7 +36,7 @@
 	<item id="13c3" inherit="13be">
 		<id>0x13c3</id>
 		<baseid>13be</baseid>
-		<category>Armor\Base\Chainmail\Leggings (E/W)</category>
+		<category>Base Armor\Chainmail\Leggings (E/W)</category>
 	</item>
 
 </definitions>

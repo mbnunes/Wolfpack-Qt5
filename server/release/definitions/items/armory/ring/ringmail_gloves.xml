@@ -21,7 +21,7 @@
 		<sellprice>66</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Ringmail\Gloves (N/S)</category>
+		<category>Base Armor\Ringmail\Gloves (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="40" />
@@ -35,7 +35,7 @@
 	<item id="13f2" inherit="13eb">
 		<id>0x13f2</id>
 		<baseid>13eb</baseid>
-		<category>Armor\Base\Ringmail\Gloves (E/W)</category>
+		<category>Base Armor\Ringmail\Gloves (E/W)</category>
 	</item>
 
 </definitions>

@@ -18,7 +18,7 @@
 		<weight>10.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Samurai\Leather\Nina Jacket</category>
+		<category>Base Armor\Samurai\Leather\Nina Jacket</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="95" />
@@ -32,7 +32,7 @@
 	<item id="27de" inherit="2793">
 		<id>0x27de</id>
 		<baseid>2793</baseid>
-		<category>Armor\Base\Samurai\Leather\Nina Jacket 2</category>
+		<category>Base Armor\Samurai\Leather\Nina Jacket 2</category>
 	</item>
 
 </definitions>

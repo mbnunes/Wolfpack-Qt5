@@ -1,0 +1,198 @@
+
+<definitions>
+
+	<!-- Leather Equipment -->
+	<item id="277b_spined" inherit="277b">
+		<spined_leather_armor />
+		<baseid>277b</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Do 1</category>
+	</item>
+
+	<item id="27c6_spined" inherit="27c6">
+		<spined_leather_armor />
+		<baseid>277b</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Do 2</category>
+	</item>
+
+	<item id="278a_spined" inherit="278a">
+		<spined_leather_armor />
+		<baseid>278a</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Hiadate 1</category>
+	</item>
+
+	<item id="27d5_spined" inherit="27d5">
+		<spined_leather_armor />
+		<baseid>278a</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Hiadate 2</category>
+	</item>
+
+	<item id="277e_spined" inherit="277e">
+		<spined_leather_armor />
+		<baseid>277e</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Hiro Sode 1</category>
+	</item>
+
+	<item id="27c9_spined" inherit="27c9">
+		<spined_leather_armor />
+		<baseid>277e</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Hiro Sode 2</category>
+	</item>
+
+	<item id="2776_spined" inherit="2776">
+		<spined_leather_armor />
+		<baseid>2776</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Jingasa 1</category>
+	</item>
+
+	<item id="27c1_spined" inherit="27c1">
+		<spined_leather_armor />
+		<baseid>2776</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Jingasa 2</category>
+	</item>
+
+	<item id="277a_spined" inherit="277a">
+		<spined_leather_armor />
+		<baseid>277a</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Mempo 1</category>
+	</item>
+
+	<item id="27c5_spined" inherit="27c5">
+		<spined_leather_armor />
+		<baseid>277a</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Mempo 2</category>
+	</item>
+
+	<item id="2790_spined" inherit="2790">
+		<spined_leather_armor />
+		<baseid>2790</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Belt 1</category>
+	</item>
+
+	<item id="27db_spined" inherit="27db">
+		<spined_leather_armor />
+		<baseid>2790</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Belt 2</category>
+	</item>
+
+	<item id="278e_spined" inherit="278e">
+		<spined_leather_armor />
+		<baseid>278e</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Hood 1</category>
+	</item>
+
+	<item id="27d9_spined" inherit="27d9">
+		<spined_leather_armor />
+		<baseid>278e</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Hood 2</category>
+	</item>
+
+	<item id="2793_spined" inherit="2793">
+		<spined_leather_armor />
+		<baseid>2793</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Jacket 1</category>
+	</item>
+
+	<item id="27de_spined" inherit="27de">
+		<spined_leather_armor />
+		<baseid>2793</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Jacket 2</category>
+	</item>
+
+	<item id="2792_spined" inherit="2792">
+		<spined_leather_armor />
+		<baseid>2792</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Mitts 1</category>
+	</item>
+
+	<item id="27dd_spined" inherit="27dd">
+		<spined_leather_armor />
+		<baseid>2792</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Mitts 2</category>
+	</item>
+
+	<item id="2791_spined" inherit="2791">
+		<spined_leather_armor />
+		<baseid>2791</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Pants 1</category>
+	</item>
+
+	<item id="27dc_spined" inherit="27dc">
+		<spined_leather_armor />
+		<baseid>2791</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Nina Pants 2</category>
+	</item>
+
+	<item id="2786_spined" inherit="2786">
+		<spined_leather_armor />
+		<baseid>2786</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Suneate 1</category>
+	</item>
+
+	<item id="27d1_spined" inherit="27d1">
+		<spined_leather_armor />
+		<baseid>2786</baseid>
+		<category>Armor\Spined Leather\Samurai\Leather\Suneate 2</category>
+	</item>
+
+	<!-- Studded Leather Equipment -->
+	<item id="277c_spined" inherit="277c">
+		<spined_leather_armor />
+		<baseid>277c</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Do 1</category>
+	</item>
+
+	<item id="27c7_spined" inherit="27c7">
+		<spined_leather_armor />
+		<baseid>277c</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Do 2</category>
+	</item>
+
+	<item id="278b_spined" inherit="278b">
+		<spined_leather_armor />
+		<baseid>278b</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Hiadate 1</category>
+	</item>
+
+	<item id="27d6_spined" inherit="27d6">
+		<spined_leather_armor />
+		<baseid>278b</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Hiadate 2</category>
+	</item>
+
+	<item id="277f_spined" inherit="277f">
+		<spined_leather_armor />
+		<baseid>277f</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Sode 1</category>
+	</item>
+
+	<item id="27ca_spined" inherit="27ca">
+		<spined_leather_armor />
+		<baseid>277f</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Sode 2</category>
+	</item>
+
+	<item id="279d_spined" inherit="279d">
+		<spined_leather_armor />
+		<baseid>279d</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Mempo 1</category>
+	</item>
+
+	<item id="27e8_spined" inherit="27e8">
+		<spined_leather_armor />
+		<baseid>279d</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Mempo 2</category>
+	</item>
+
+	<item id="2787_spined" inherit="2787">
+		<spined_leather_armor />
+		<baseid>2787</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Suneate 1</category>
+	</item>
+
+	<item id="27d2_spined" inherit="27d2">
+		<spined_leather_armor />
+		<baseid>2787</baseid>
+		<category>Armor\Spined Leather\Samurai\Studded Leather\Suneate 2</category>
+	</item>
+
+<definitions>

@@ -107,4 +107,19 @@
 	<include file="definitions/items/armory/colored/studded/horned_leather.xml"/>
 	<include file="definitions/items/armory/colored/studded/barbed_leather.xml"/>
 
+	<!-- Samurai Armor -->
+	<include file="definitions/items/armory/colored/samurai/iron.xml"/>
+	<include file="definitions/items/armory/colored/samurai/dull_copper.xml"/>
+	<include file="definitions/items/armory/colored/samurai/shadow.xml"/>
+	<include file="definitions/items/armory/colored/samurai/copper.xml"/>
+	<include file="definitions/items/armory/colored/samurai/bronze.xml"/>
+	<include file="definitions/items/armory/colored/samurai/golden.xml"/>
+	<include file="definitions/items/armory/colored/samurai/agapite.xml"/>
+	<include file="definitions/items/armory/colored/samurai/verite.xml"/>
+	<include file="definitions/items/armory/colored/samurai/valorite.xml"/>
+	<include file="definitions/items/armory/colored/samurai/leather.xml"/>
+	<include file="definitions/items/armory/colored/samurai/spined_leather.xml"/>
+	<include file="definitions/items/armory/colored/samurai/horned_leather.xml"/>
+	<include file="definitions/items/armory/colored/samurai/barbed_leather.xml"/>
+
 </definitions>

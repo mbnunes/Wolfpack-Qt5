@@ -18,7 +18,7 @@
 		<weight>10.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Leather\Suneate</category>
+		<category>Base Armor\Leather\Suneate</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="95" />
@@ -32,7 +32,7 @@
 	<item id="27d3" inherit="2788">
 		<id>0x27d3</id>
 		<baseid>2788</baseid>
-		<category>Armor\Base\Leather\Suneate 2</category>
+		<category>Base Armor\Leather\Suneate 2</category>
 	</item>
 
 </definitions>

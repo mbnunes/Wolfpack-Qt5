@@ -11,115 +11,115 @@
 	<item id="1c06_spined" inherit="1c06">
 		<baseid>1c06</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Armor</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Armor</category>
 	</item>
 
 	<item id="1c07_spined" inherit="1c07">
 		<baseid>1c06</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Armor 2</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Armor 2</category>
 	</item>
 
 	<item id="1c0a_spined" inherit="1c0a">
 		<baseid>1c0a</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Bustier</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Bustier</category>
 	</item>
 
 	<item id="1c0b_spined" inherit="1c0b">
 		<baseid>1c0a</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Bustier 2</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Bustier 2</category>
 	</item>
 
 	<item id="1db9_spined" inherit="1db9">
 		<baseid>1db9</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Cap</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Cap</category>
 	</item>
 
 	<item id="1dba_spined" inherit="1dba">
 		<baseid>1db9</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Cap 2</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Cap 2</category>
 	</item>
 
 	<item id="13c6_spined" inherit="13c6">
 		<baseid>13c6</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Gloves</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Gloves</category>
 	</item>
 
 	<item id="13ce_spined" inherit="13ce">
 		<baseid>13c6</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Gloves 2</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Gloves 2</category>
 	</item>
 
 	<item id="13c7_spined" inherit="13c7">
 		<baseid>13c7</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Gorget</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Gorget</category>
 	</item>
 
 	<item id="13cb_spined" inherit="13cb">
 		<baseid>13cb</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Leggings</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Leggings</category>
 	</item>
 
 	<item id="13d2_spined" inherit="13d2">
 		<baseid>13cb</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Leggings 2</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Leggings 2</category>
 	</item>
 
 	<item id="1c00_spined" inherit="1c00">
 		<baseid>1c00</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Shorts</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Shorts</category>
 	</item>
 
 	<item id="1c01_spined" inherit="1c01">
 		<baseid>1c00</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Shorts 2</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Shorts 2</category>
 	</item>
 
 	<item id="1c08_spined" inherit="1c08">
 		<baseid>1c08</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Skirt</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Skirt</category>
 	</item>
 
 	<item id="1c09_spined" inherit="1c09">
 		<baseid>1c08</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Skirt 2</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Skirt 2</category>
 	</item>
 
 	<item id="13c5_spined" inherit="13c5">
 		<baseid>13c5</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Sleeves</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Sleeves</category>
 	</item>
 
 	<item id="13cd_spined" inherit="13cd">
 		<baseid>13c5</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Sleeves 2</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Sleeves 2</category>
 	</item>
 
 	<item id="13cc_spined" inherit="13cc">
 		<baseid>13cc</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Tunic</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Tunic</category>
 	</item>
 
 	<item id="13d3_spined" inherit="13d3">
 		<baseid>13cc</baseid>
 		<spined_leather_armor />
-		<category>Armor\Leather Armor\Spined Leather\Leather Tunic 2</category>
+		<category>Armor\Spined Leather\Leather Armor\Leather Tunic 2</category>
 	</item>
 
 </definitions>

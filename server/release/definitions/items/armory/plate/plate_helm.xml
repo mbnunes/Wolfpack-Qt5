@@ -21,7 +21,7 @@
 		<sellprice>85</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Platemail\Helm (N/S)</category>
+		<category>Base Armor\Platemail\Helm (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="60" />
@@ -36,7 +36,7 @@
 	<item id="1419" inherit="1412">
 		<id>0x1419</id>
 		<baseid>1412</baseid>
-		<category>Armor\Base\Platemail\Helm (E/W)</category>
+		<category>Base Armor\Platemail\Helm (E/W)</category>
 	</item>
 
 </definitions>

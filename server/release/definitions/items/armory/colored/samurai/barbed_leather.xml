@@ -1,0 +1,198 @@
+
+<definitions>
+
+	<!-- Leather Equipment -->
+	<item id="277b_barbed" inherit="277b">
+		<barbed_leather_armor />
+		<baseid>277b</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Do 1</category>
+	</item>
+
+	<item id="27c6_barbed" inherit="27c6">
+		<barbed_leather_armor />
+		<baseid>277b</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Do 2</category>
+	</item>
+
+	<item id="278a_barbed" inherit="278a">
+		<barbed_leather_armor />
+		<baseid>278a</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Hiadate 1</category>
+	</item>
+
+	<item id="27d5_barbed" inherit="27d5">
+		<barbed_leather_armor />
+		<baseid>278a</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Hiadate 2</category>
+	</item>
+
+	<item id="277e_barbed" inherit="277e">
+		<barbed_leather_armor />
+		<baseid>277e</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Hiro Sode 1</category>
+	</item>
+
+	<item id="27c9_barbed" inherit="27c9">
+		<barbed_leather_armor />
+		<baseid>277e</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Hiro Sode 2</category>
+	</item>
+
+	<item id="2776_barbed" inherit="2776">
+		<barbed_leather_armor />
+		<baseid>2776</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Jingasa 1</category>
+	</item>
+
+	<item id="27c1_barbed" inherit="27c1">
+		<barbed_leather_armor />
+		<baseid>2776</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Jingasa 2</category>
+	</item>
+
+	<item id="277a_barbed" inherit="277a">
+		<barbed_leather_armor />
+		<baseid>277a</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Mempo 1</category>
+	</item>
+
+	<item id="27c5_barbed" inherit="27c5">
+		<barbed_leather_armor />
+		<baseid>277a</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Mempo 2</category>
+	</item>
+
+	<item id="2790_barbed" inherit="2790">
+		<barbed_leather_armor />
+		<baseid>2790</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Belt 1</category>
+	</item>
+
+	<item id="27db_barbed" inherit="27db">
+		<barbed_leather_armor />
+		<baseid>2790</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Belt 2</category>
+	</item>
+
+	<item id="278e_barbed" inherit="278e">
+		<barbed_leather_armor />
+		<baseid>278e</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Hood 1</category>
+	</item>
+
+	<item id="27d9_barbed" inherit="27d9">
+		<barbed_leather_armor />
+		<baseid>278e</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Hood 2</category>
+	</item>
+
+	<item id="2793_barbed" inherit="2793">
+		<barbed_leather_armor />
+		<baseid>2793</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Jacket 1</category>
+	</item>
+
+	<item id="27de_barbed" inherit="27de">
+		<barbed_leather_armor />
+		<baseid>2793</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Jacket 2</category>
+	</item>
+
+	<item id="2792_barbed" inherit="2792">
+		<barbed_leather_armor />
+		<baseid>2792</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Mitts 1</category>
+	</item>
+
+	<item id="27dd_barbed" inherit="27dd">
+		<barbed_leather_armor />
+		<baseid>2792</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Mitts 2</category>
+	</item>
+
+	<item id="2791_barbed" inherit="2791">
+		<barbed_leather_armor />
+		<baseid>2791</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Pants 1</category>
+	</item>
+
+	<item id="27dc_barbed" inherit="27dc">
+		<barbed_leather_armor />
+		<baseid>2791</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Nina Pants 2</category>
+	</item>
+
+	<item id="2786_barbed" inherit="2786">
+		<barbed_leather_armor />
+		<baseid>2786</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Suneate 1</category>
+	</item>
+
+	<item id="27d1_barbed" inherit="27d1">
+		<barbed_leather_armor />
+		<baseid>2786</baseid>
+		<category>Armor\Barbed Leather\Samurai\Leather\Suneate 2</category>
+	</item>
+
+	<!-- Studded Leather Equipment -->
+	<item id="277c_barbed" inherit="277c">
+		<barbed_leather_armor />
+		<baseid>277c</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Do 1</category>
+	</item>
+
+	<item id="27c7_barbed" inherit="27c7">
+		<barbed_leather_armor />
+		<baseid>277c</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Do 2</category>
+	</item>
+
+	<item id="278b_barbed" inherit="278b">
+		<barbed_leather_armor />
+		<baseid>278b</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Hiadate 1</category>
+	</item>
+
+	<item id="27d6_barbed" inherit="27d6">
+		<barbed_leather_armor />
+		<baseid>278b</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Hiadate 2</category>
+	</item>
+
+	<item id="277f_barbed" inherit="277f">
+		<barbed_leather_armor />
+		<baseid>277f</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Sode 1</category>
+	</item>
+
+	<item id="27ca_barbed" inherit="27ca">
+		<barbed_leather_armor />
+		<baseid>277f</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Sode 2</category>
+	</item>
+
+	<item id="279d_barbed" inherit="279d">
+		<barbed_leather_armor />
+		<baseid>279d</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Mempo 1</category>
+	</item>
+
+	<item id="27e8_barbed" inherit="27e8">
+		<barbed_leather_armor />
+		<baseid>279d</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Mempo 2</category>
+	</item>
+
+	<item id="2787_barbed" inherit="2787">
+		<barbed_leather_armor />
+		<baseid>2787</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Suneate 1</category>
+	</item>
+
+	<item id="27d2_barbed" inherit="27d2">
+		<barbed_leather_armor />
+		<baseid>2787</baseid>
+		<category>Armor\Barbed Leather\Samurai\Studded Leather\Suneate 2</category>
+	</item>
+
+<definitions>

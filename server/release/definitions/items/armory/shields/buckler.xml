@@ -21,7 +21,7 @@
 		<sellprice>33</sellprice>
 		<type>1008</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Shields\Buckler</category>
+		<category>Base Armor\Shields\Buckler</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="20" />

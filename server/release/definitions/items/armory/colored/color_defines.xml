@@ -18,7 +18,22 @@
 		<tag name="resname" value="dullcopper" />
 	</define>
 
+	<define id="dullcopper_armor">
+		<color>0x973</color>
+		<tag name="resname" value="dullcopper" />
+	</define>
+
 	<define id="shadow_armor">
+		<color>0x966</color>
+		<tag name="resname" value="shadowiron" />
+	</define>
+
+	<define id="shadow_iron_armor">
+		<color>0x966</color>
+		<tag name="resname" value="shadowiron" />
+	</define>
+
+	<define id="shadowiron_armor">
 		<color>0x966</color>
 		<tag name="resname" value="shadowiron" />
 	</define>
@@ -34,6 +49,11 @@
 	</define>
 
 	<define id="gold_armor">
+		<color>0x8a5</color>
+		<tag name="resname" value="gold" />
+	</define>
+
+	<define id="golden_armor">
 		<color>0x8a5</color>
 		<tag name="resname" value="gold" />
 	</define>
@@ -75,6 +95,11 @@
 		<tag name="resname" value="leather" />
 	</define>
 
+	<define id="barbed_leather_armor">
+		<color>0x8a4</color>
+		<tag name="resname" value="barbed_leather" />
+	</define>
+
 	<define id="spined_leather_armor">
 		<color>0x8ad</color>
 		<tag name="resname" value="spined_leather" />
@@ -86,11 +111,6 @@
 	</define>
 
 	<!-- Dragon Scales -->
-
-	<define id="barbed_leather_armor">
-		<color>0x8a4</color>
-		<tag name="resname" value="barbed_leather" />
-	</define>
 
 	<define id="red_scaled_armor">
 		<color>0x66d</color>

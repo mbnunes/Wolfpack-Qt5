@@ -20,7 +20,7 @@
 		<sellprice>31</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Leather\Cap (N/S)</category>
+		<category>Base Armor\Leather\Cap (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="20" />
@@ -35,7 +35,7 @@
 	<item id="1dba" inherit="1db9">
 		<id>0x1dba</id>
 		<baseid>1db9</baseid>
-		<category>Armor\Base\Leather\Cap (E/W)</category>
+		<category>Base Armor\Leather\Cap (E/W)</category>
 	</item>
 
  </definitions>

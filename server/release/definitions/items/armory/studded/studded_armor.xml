@@ -20,7 +20,7 @@
 		<sellprice>71</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Studded Leather\Female Armor (N/S)</category>
+		<category>Base Armor\Studded Leather\Female Armor (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="35" />
@@ -34,7 +34,7 @@
 	<item id="1c03" inherit="1c02">
 		<id>0x1c03</id>
 		<baseid>1c02</baseid>
-		<category>Armor\Base\Studded Leather\Female Armor (E/W)</category>
+		<category>Base Armor\Studded Leather\Female Armor (E/W)</category>
 	</item>
 
  </definitions>

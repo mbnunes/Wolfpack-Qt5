@@ -22,7 +22,7 @@
 		<sellprice>63</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Helmets\Kabuto (N/S)</category>
+		<category>Base Armor\Helmets\Kabuto (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="45" />
@@ -37,7 +37,7 @@
 	<item id="236c" inherit="236d">
 		<id>0x236c</id>
 		<baseid>236d</baseid>
-		<category>Armor\Base\Helmets\Kabuto (E/W)</category>
+		<category>Base Armor\Helmets\Kabuto (E/W)</category>
 	</item>
 
 </definitions>

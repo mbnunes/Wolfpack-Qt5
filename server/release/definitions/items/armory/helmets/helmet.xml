@@ -21,7 +21,7 @@
 		<sellprice>58</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Helmets\Normal Helm (N/S)</category>
+		<category>Base Armor\Helmets\Normal Helm (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="45" />
@@ -36,7 +36,7 @@
 	<item id="140a" inherit="140b">
 		<id>0x140a</id>
 		<baseid>140b</baseid>
-		<category>Armor\Base\Helmets\Normal Helm (E/W)</category>
+		<category>Base Armor\Helmets\Normal Helm (E/W)</category>
 	</item>
 
 </definitions>

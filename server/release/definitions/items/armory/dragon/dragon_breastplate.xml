@@ -18,7 +18,7 @@
 		<weight>10.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Dragon\Dragon Breastplate 1</category>
+		<category>Base Armor\Dragon\Dragon Breastplate 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="95" />
@@ -33,7 +33,7 @@
 	<item id="2642" inherit="2641">
 		<id>0x2642</id>
 		<baseid>2641</baseid>
-		<category>Armor\Base\Dragon\Dragon Breastplate 2</category>
+		<category>Base Armor\Dragon\Dragon Breastplate 2</category>
 	</item>
 
 </definitions>

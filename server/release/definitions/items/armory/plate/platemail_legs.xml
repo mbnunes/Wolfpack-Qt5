@@ -21,7 +21,7 @@
 		<sellprice>109</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Platemail\Legs (N/S)</category>
+		<category>Base Armor\Platemail\Legs (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="90" />
@@ -36,7 +36,7 @@
 	<item id="141a" inherit="1411">
 		<id>0x141a</id>
 		<baseid>1411</baseid>
-		<category>Armor\Base\Platemail\Legs (E/W)</category>
+		<category>Base Armor\Platemail\Legs (E/W)</category>
 	</item>
 
 </definitions>

@@ -20,7 +20,7 @@
 		<sellprice>15</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Bone\Bone Gloves (N/S)</category>
+		<category>Base Armor\Bone\Bone Gloves (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="55" />
@@ -35,7 +35,7 @@
 	<item id="1455" inherit="1450">
 		<id>0x1455</id>
 		<baseid>1450</baseid>
-		<category>Armor\Base\Bone\Bone Gloves (E/W)</category>
+		<category>Base Armor\Bone\Bone Gloves (E/W)</category>
 	</item>
 
 </definitions>

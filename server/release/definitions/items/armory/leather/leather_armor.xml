@@ -20,7 +20,7 @@
 		<sellprice>58</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Leather\Female Leather Armor (N/S)</category>
+		<category>Base Armor\Leather\Female Leather Armor (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="25" />
@@ -35,7 +35,7 @@
 	<item id="1c07" inherit="1c06">
 		<id>0x1c07</id>
 		<baseid>1c06</baseid>
-		<category>Armor\Base\Leather\Female Leather Armor (E/W)</category>
+		<category>Base Armor\Leather\Female Leather Armor (E/W)</category>
 	</item>
 
  </definitions>

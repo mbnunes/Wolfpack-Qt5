@@ -21,7 +21,7 @@
 		<sellprice>49</sellprice>
 		<type>1008</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Shields\Metal Shield</category>
+		<category>Base Armor\Shields\Metal Shield</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="45" />

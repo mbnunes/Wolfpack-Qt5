@@ -20,7 +20,7 @@
 		<sellprice>48</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Leather\Bustier (N/S)</category>
+		<category>Base Armor\Leather\Bustier (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="25" />
@@ -35,7 +35,7 @@
 	<item id="1c0b" inherit="1c0a">
 		<id>0x1c0b</id>
 		<baseid>1c0a</baseid>
-		<category>Armor\Base\Leather\Bustier (E/W)</category>
+		<category>Base Armor\Leather\Bustier (E/W)</category>
 	</item>
 
  </definitions>

@@ -20,7 +20,7 @@
 		<sellprice>56</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Ringmail\Sleeves (N/S)</category>
+		<category>Base Armor\Ringmail\Sleeves (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="40" />
@@ -34,7 +34,7 @@
 	<item id="13ef" inherit="13ee">
 		<id>0x13ef</id>
 		<baseid>13ee</baseid>
-		<category>Armor\Base\Ringmail\Sleeves (E/W)</category>
+		<category>Base Armor\Ringmail\Sleeves (E/W)</category>
 	</item>
 
 </definitions>

@@ -20,7 +20,7 @@
 		<sellprice>0</sellprice>
 		<type>1008</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Shields\Order Shield (N/S)</category>
+		<category>Base Armor\Shields\Order Shield (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="95" />
@@ -30,7 +30,7 @@
 	<item id="1bc5" inherit="1bc4">
 		<id>0x1bc5</id>
 		<baseid>1bc4</baseid>
-		<category>Armor\Base\Shields\Order Shield (E/W)</category>
+		<category>Base Armor\Shields\Order Shield (E/W)</category>
 	</item>
 
 </definitions>

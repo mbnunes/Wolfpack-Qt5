@@ -18,7 +18,7 @@
 		<weight>7.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Dragon\Dragon Leggings 1</category>
+		<category>Base Armor\Dragon\Dragon Leggings 1</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="90" />
@@ -33,7 +33,7 @@
 	<item id="2648" inherit="2647">
 		<id>0x2648</id>
 		<baseid>2647</baseid>
-		<category>Armor\Base\Dragon\Dragon Leggings 2</category>
+		<category>Base Armor\Dragon\Dragon Leggings 2</category>
 	</item>
 
 </definitions>

@@ -1,0 +1,124 @@
+
+<definitions>
+
+	<item id="277d_valorite" inherit="277d">
+		<valorite_armor />
+		<baseid>277d</baseid>
+		<category>Armor\Valorite\Samurai\Do 1</category>
+	</item>
+
+	<item id="27c8_valorite" inherit="27c8">
+		<valorite_armor />
+		<baseid>277d</baseid>
+		<category>Armor\Valorite\Samurai\Do 2</category>
+	</item>
+
+	<item id="2774_valorite" inherit="2774">
+		<valorite_armor />
+		<baseid>2774</baseid>
+		<category>Armor\Valorite\Samurai\Mail Hatsuburi 1</category>
+	</item>
+
+	<item id="27bf_valorite" inherit="27bf">
+		<valorite_armor />
+		<baseid>2774</baseid>
+		<category>Armor\Valorite\Samurai\Mail Hatsuburi 2</category>
+	</item>
+
+	<item id="2775_valorite" inherit="2775">
+		<valorite_armor />
+		<baseid>2775</baseid>
+		<category>Armor\Valorite\Samurai\Plate Hatsuburi 1</category>
+	</item>
+
+	<item id="27c0_valorite" inherit="27c0">
+		<valorite_armor />
+		<baseid>2775</baseid>
+		<category>Armor\Valorite\Samurai\Plate Hatsuburi 2</category>
+	</item>
+
+	<item id="278d_valorite" inherit="278d">
+		<valorite_armor />
+		<baseid>278d</baseid>
+		<category>Armor\Valorite\Samurai\Hiadate 1</category>
+	</item>
+
+	<item id="27d8_valorite" inherit="27d8">
+		<valorite_armor />
+		<baseid>278d</baseid>
+		<category>Armor\Valorite\Samurai\Hiadate 2</category>
+	</item>
+
+	<item id="2780_valorite" inherit="2780">
+		<valorite_armor />
+		<baseid>2780</baseid>
+		<category>Armor\Valorite\Samurai\Hiro Sode 1</category>
+	</item>
+
+	<item id="27cb_valorite" inherit="27cb">
+		<valorite_armor />
+		<baseid>2780</baseid>
+		<category>Armor\Valorite\Samurai\Hiro Sode 2</category>
+	</item>
+
+	<item id="2777_valorite" inherit="2777">
+		<valorite_armor />
+		<baseid>2777</baseid>
+		<category>Armor\Valorite\Samurai\Jingasa 1-1</category>
+	</item>
+
+	<item id="27c2_valorite" inherit="27c2">
+		<valorite_armor />
+		<baseid>2777</baseid>
+		<category>Armor\Valorite\Samurai\Jingasa 1-2</category>
+	</item>
+
+	<item id="2781_valorite" inherit="2781">
+		<valorite_armor />
+		<baseid>2781</baseid>
+		<category>Armor\Valorite\Samurai\Jingasa 2-1</category>
+	</item>
+
+	<item id="27cc_valorite" inherit="27cc">
+		<valorite_armor />
+		<baseid>2781</baseid>
+		<category>Armor\Valorite\Samurai\Jingasa 2-2</category>
+	</item>
+
+	<item id="2784_valorite" inherit="2784">
+		<valorite_armor />
+		<baseid>2784</baseid>
+		<category>Armor\Valorite\Samurai\Jingasa 3-1</category>
+	</item>
+
+	<item id="27cf_valorite" inherit="27cf">
+		<valorite_armor />
+		<baseid>2784</baseid>
+		<category>Armor\Valorite\Samurai\Jingasa 3-2</category>
+	</item>
+
+	<item id="2779_valorite" inherit="2779">
+		<valorite_armor />
+		<baseid>2779</baseid>
+		<category>Armor\Valorite\Samurai\Mempo 1</category>
+	</item>
+
+	<item id="27c4_valorite" inherit="27c4">
+		<valorite_armor />
+		<baseid>2779</baseid>
+		<category>Armor\Valorite\Samurai\Mempo 2</category>
+	</item>
+
+	<item id="2788_valorite" inherit="2788">
+		<valorite_armor />
+		<baseid>2788</baseid>
+		<category>Armor\Valorite\Samurai\Suneate 1</category>
+	</item>
+
+	<item id="27d3_valorite" inherit="27d3">
+		<valorite_armor />
+		<baseid>2788</baseid>
+		<category>Armor\Valorite\Samurai\Suneate 2</category>
+	</item>
+
+</definitions>

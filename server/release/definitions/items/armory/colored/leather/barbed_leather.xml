@@ -11,115 +11,115 @@
 	<item id="1c06_barbed" inherit="1c06">
 		<baseid>1c06</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Armor</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Armor</category>
 	</item>
 
 	<item id="1c07_barbed" inherit="1c07">
 		<baseid>1c06</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Armor 2</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Armor 2</category>
 	</item>
 
 	<item id="1c0a_barbed" inherit="1c0a">
 		<baseid>1c0a</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Bustier</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Bustier</category>
 	</item>
 
 	<item id="1c0b_barbed" inherit="1c0b">
 		<baseid>1c0a</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Bustier 2</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Bustier 2</category>
 	</item>
 
 	<item id="1db9_barbed" inherit="1db9">
 		<baseid>1db9</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Cap</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Cap</category>
 	</item>
 
 	<item id="1dba_barbed" inherit="1dba">
 		<baseid>1db9</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Cap 2</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Cap 2</category>
 	</item>
 
 	<item id="13c6_barbed" inherit="13c6">
 		<baseid>13c6</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Gloves</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Gloves</category>
 	</item>
 
 	<item id="13ce_barbed" inherit="13ce">
 		<baseid>13c6</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Gloves 2</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Gloves 2</category>
 	</item>
 
 	<item id="13c7_barbed" inherit="13c7">
 		<baseid>13c7</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Gorget</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Gorget</category>
 	</item>
 
 	<item id="13cb_barbed" inherit="13cb">
 		<baseid>13cb</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Leggings</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Leggings</category>
 	</item>
 
 	<item id="13d2_barbed" inherit="13d2">
 		<baseid>13cb</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Leggings 2</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Leggings 2</category>
 	</item>
 
 	<item id="1c00_barbed" inherit="1c00">
 		<baseid>1c00</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Shorts</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Shorts</category>
 	</item>
 
 	<item id="1c01_barbed" inherit="1c01">
 		<baseid>1c00</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Shorts 2</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Shorts 2</category>
 	</item>
 
 	<item id="1c08_barbed" inherit="1c08">
 		<baseid>1c08</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Skirt</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Skirt</category>
 	</item>
 
 	<item id="1c09_barbed" inherit="1c09">
 		<baseid>1c08</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Skirt 2</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Skirt 2</category>
 	</item>
 
 	<item id="13c5_barbed" inherit="13c5">
 		<baseid>13c5</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Sleeves</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Sleeves</category>
 	</item>
 
 	<item id="13cd_barbed" inherit="13cd">
 		<baseid>13c5</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Sleeves 2</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Sleeves 2</category>
 	</item>
 
 	<item id="13cc_barbed" inherit="13cc">
 		<baseid>13cc</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Tunic</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Tunic</category>
 	</item>
 
 	<item id="13d3_barbed" inherit="13d3">
 		<baseid>13cc</baseid>
 		<barbed_leather_armor />
-		<category>Armor\Leather Armor\Barbed Leather\Leather Tunic 2</category>
+		<category>Armor\Barbed Leather\Leather Armor\Leather Tunic 2</category>
 	</item>
 
 </definitions>

@@ -21,7 +21,7 @@
 		<sellprice>67</sellprice>
 		<type>1008</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Shields\Metal Kite (N/S)</category>
+		<category>Base Armor\Shields\Metal Kite (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="45" />
@@ -31,7 +31,7 @@
 	<item id="1b75" inherit="1b74">
 		<id>0x1b75</id>
 		<baseid>1b74</baseid>
-		<category>Armor\Base\Shields\Metal Kite (E/W)</category>
+		<category>Base Armor\Shields\Metal Kite (E/W)</category>
 	</item>
 
 </definitions>

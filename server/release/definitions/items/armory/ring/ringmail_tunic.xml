@@ -21,7 +21,7 @@
 		<sellprice>84</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Ringmail\Tunic (N/S)</category>
+		<category>Base Armor\Ringmail\Tunic (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="40" />
@@ -35,7 +35,7 @@
 	<item id="13ed" inherit="13ec">
 		<id>0x13ed</id>
 		<baseid>13ec</baseid>
-		<category>Armor\Base\Ringmail\Tunic (E/W)</category>
+		<category>Base Armor\Ringmail\Tunic (E/W)</category>
 	</item>
 
 </definitions>

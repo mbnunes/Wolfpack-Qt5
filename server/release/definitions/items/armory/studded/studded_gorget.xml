@@ -20,7 +20,7 @@
 		<sellprice>36</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Studded Leather\Gorget</category>
+		<category>Base Armor\Studded Leather\Gorget</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="25" />

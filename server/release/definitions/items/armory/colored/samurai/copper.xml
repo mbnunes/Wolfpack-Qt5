@@ -1,0 +1,124 @@
+
+<definitions>
+
+	<item id="277d_copper" inherit="277d">
+		<copper_armor />
+		<baseid>277d</baseid>
+		<category>Armor\Copper\Samurai\Do 1</category>
+	</item>
+
+	<item id="27c8_copper" inherit="27c8">
+		<copper_armor />
+		<baseid>277d</baseid>
+		<category>Armor\Copper\Samurai\Do 2</category>
+	</item>
+
+	<item id="2774_copper" inherit="2774">
+		<copper_armor />
+		<baseid>2774</baseid>
+		<category>Armor\Copper\Samurai\Mail Hatsuburi 1</category>
+	</item>
+
+	<item id="27bf_copper" inherit="27bf">
+		<copper_armor />
+		<baseid>2774</baseid>
+		<category>Armor\Copper\Samurai\Mail Hatsuburi 2</category>
+	</item>
+
+	<item id="2775_copper" inherit="2775">
+		<copper_armor />
+		<baseid>2775</baseid>
+		<category>Armor\Copper\Samurai\Plate Hatsuburi 1</category>
+	</item>
+
+	<item id="27c0_copper" inherit="27c0">
+		<copper_armor />
+		<baseid>2775</baseid>
+		<category>Armor\Copper\Samurai\Plate Hatsuburi 2</category>
+	</item>
+
+	<item id="278d_copper" inherit="278d">
+		<copper_armor />
+		<baseid>278d</baseid>
+		<category>Armor\Copper\Samurai\Hiadate 1</category>
+	</item>
+
+	<item id="27d8_copper" inherit="27d8">
+		<copper_armor />
+		<baseid>278d</baseid>
+		<category>Armor\Copper\Samurai\Hiadate 2</category>
+	</item>
+
+	<item id="2780_copper" inherit="2780">
+		<copper_armor />
+		<baseid>2780</baseid>
+		<category>Armor\Copper\Samurai\Hiro Sode 1</category>
+	</item>
+
+	<item id="27cb_copper" inherit="27cb">
+		<copper_armor />
+		<baseid>2780</baseid>
+		<category>Armor\Copper\Samurai\Hiro Sode 2</category>
+	</item>
+
+	<item id="2777_copper" inherit="2777">
+		<copper_armor />
+		<baseid>2777</baseid>
+		<category>Armor\Copper\Samurai\Jingasa 1-1</category>
+	</item>
+
+	<item id="27c2_copper" inherit="27c2">
+		<copper_armor />
+		<baseid>2777</baseid>
+		<category>Armor\Copper\Samurai\Jingasa 1-2</category>
+	</item>
+
+	<item id="2781_copper" inherit="2781">
+		<copper_armor />
+		<baseid>2781</baseid>
+		<category>Armor\Copper\Samurai\Jingasa 2-1</category>
+	</item>
+
+	<item id="27cc_copper" inherit="27cc">
+		<copper_armor />
+		<baseid>2781</baseid>
+		<category>Armor\Copper\Samurai\Jingasa 2-2</category>
+	</item>
+
+	<item id="2784_copper" inherit="2784">
+		<copper_armor />
+		<baseid>2784</baseid>
+		<category>Armor\Copper\Samurai\Jingasa 3-1</category>
+	</item>
+
+	<item id="27cf_copper" inherit="27cf">
+		<copper_armor />
+		<baseid>2784</baseid>
+		<category>Armor\Copper\Samurai\Jingasa 3-2</category>
+	</item>
+
+	<item id="2779_copper" inherit="2779">
+		<copper_armor />
+		<baseid>2779</baseid>
+		<category>Armor\Copper\Samurai\Mempo 1</category>
+	</item>
+
+	<item id="27c4_copper" inherit="27c4">
+		<copper_armor />
+		<baseid>2779</baseid>
+		<category>Armor\Copper\Samurai\Mempo 2</category>
+	</item>
+
+	<item id="2788_copper" inherit="2788">
+		<copper_armor />
+		<baseid>2788</baseid>
+		<category>Armor\Copper\Samurai\Suneate 1</category>
+	</item>
+
+	<item id="27d3_copper" inherit="27d3">
+		<copper_armor />
+		<baseid>2788</baseid>
+		<category>Armor\Copper\Samurai\Suneate 2</category>
+	</item>
+
+</definitions>

@@ -22,7 +22,7 @@
 		<sellprice>62</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Platemail\Gorget</category>
+		<category>Base Armor\Platemail\Gorget</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="45" />

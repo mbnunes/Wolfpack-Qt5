@@ -21,7 +21,7 @@
 		<sellprice>50</sellprice>
 		<type>1008</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Shields\Bronze Shield</category>
+		<category>Base Armor\Shields\Bronze Shield</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="35" />

@@ -18,7 +18,7 @@
 		<weight>10.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Samurai\Leather\Hiadate</category>
+		<category>Base Armor\Samurai\Leather\Hiadate</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="95" />
@@ -32,7 +32,7 @@
 	<item id="27d5" inherit="278a">
 		<id>0x27d5</id>
 		<baseid>278a</baseid>
-		<category>Armor\Base\Samurai\Leather\Hiadate 2</category>
+		<category>Base Armor\Samurai\Leather\Hiadate 2</category>
 	</item>
 
 </definitions>

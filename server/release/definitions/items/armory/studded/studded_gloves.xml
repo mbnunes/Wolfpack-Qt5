@@ -20,7 +20,7 @@
 		<sellprice>39</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Studded Leather\Gloves (N/S)</category>
+		<category>Base Armor\Studded Leather\Gloves (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="25" />
@@ -34,7 +34,7 @@
 	<item id="13dd" inherit="13d5">
 		<id>0x13dd</id>
 		<baseid>13d5</baseid>
-		<category>Armor\Base\Studded Leather\Gloves (E/W)</category>
+		<category>Base Armor\Studded Leather\Gloves (E/W)</category>
 	</item>
 
 </definitions>

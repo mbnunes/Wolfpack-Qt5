@@ -18,7 +18,7 @@
 		<weight>10.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Samurai\Studded Leather\Do</category>
+		<category>Base Armor\Samurai\Studded Leather\Do</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="95" />
@@ -32,7 +32,7 @@
 	<item id="27c7" inherit="277c">
 		<id>0x27c7</id>
 		<baseid>277c</baseid>
-		<category>Armor\Base\Samurai\Studded Leather\Do 2</category>
+		<category>Base Armor\Samurai\Studded Leather\Do 2</category>
 	</item>
 
 </definitions>

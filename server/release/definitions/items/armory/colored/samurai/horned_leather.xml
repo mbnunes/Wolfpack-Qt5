@@ -1,0 +1,198 @@
+
+<definitions>
+
+	<!-- Leather Equipment -->
+	<item id="277b_horned" inherit="277b">
+		<horned_leather_armor />
+		<baseid>277b</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Do 1</category>
+	</item>
+
+	<item id="27c6_horned" inherit="27c6">
+		<horned_leather_armor />
+		<baseid>277b</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Do 2</category>
+	</item>
+
+	<item id="278a_horned" inherit="278a">
+		<horned_leather_armor />
+		<baseid>278a</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Hiadate 1</category>
+	</item>
+
+	<item id="27d5_horned" inherit="27d5">
+		<horned_leather_armor />
+		<baseid>278a</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Hiadate 2</category>
+	</item>
+
+	<item id="277e_horned" inherit="277e">
+		<horned_leather_armor />
+		<baseid>277e</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Hiro Sode 1</category>
+	</item>
+
+	<item id="27c9_horned" inherit="27c9">
+		<horned_leather_armor />
+		<baseid>277e</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Hiro Sode 2</category>
+	</item>
+
+	<item id="2776_horned" inherit="2776">
+		<horned_leather_armor />
+		<baseid>2776</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Jingasa 1</category>
+	</item>
+
+	<item id="27c1_horned" inherit="27c1">
+		<horned_leather_armor />
+		<baseid>2776</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Jingasa 2</category>
+	</item>
+
+	<item id="277a_horned" inherit="277a">
+		<horned_leather_armor />
+		<baseid>277a</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Mempo 1</category>
+	</item>
+
+	<item id="27c5_horned" inherit="27c5">
+		<horned_leather_armor />
+		<baseid>277a</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Mempo 2</category>
+	</item>
+
+	<item id="2790_horned" inherit="2790">
+		<horned_leather_armor />
+		<baseid>2790</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Belt 1</category>
+	</item>
+
+	<item id="27db_horned" inherit="27db">
+		<horned_leather_armor />
+		<baseid>2790</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Belt 2</category>
+	</item>
+
+	<item id="278e_horned" inherit="278e">
+		<horned_leather_armor />
+		<baseid>278e</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Hood 1</category>
+	</item>
+
+	<item id="27d9_horned" inherit="27d9">
+		<horned_leather_armor />
+		<baseid>278e</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Hood 2</category>
+	</item>
+
+	<item id="2793_horned" inherit="2793">
+		<horned_leather_armor />
+		<baseid>2793</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Jacket 1</category>
+	</item>
+
+	<item id="27de_horned" inherit="27de">
+		<horned_leather_armor />
+		<baseid>2793</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Jacket 2</category>
+	</item>
+
+	<item id="2792_horned" inherit="2792">
+		<horned_leather_armor />
+		<baseid>2792</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Mitts 1</category>
+	</item>
+
+	<item id="27dd_horned" inherit="27dd">
+		<horned_leather_armor />
+		<baseid>2792</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Mitts 2</category>
+	</item>
+
+	<item id="2791_horned" inherit="2791">
+		<horned_leather_armor />
+		<baseid>2791</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Pants 1</category>
+	</item>
+
+	<item id="27dc_horned" inherit="27dc">
+		<horned_leather_armor />
+		<baseid>2791</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Nina Pants 2</category>
+	</item>
+
+	<item id="2786_horned" inherit="2786">
+		<horned_leather_armor />
+		<baseid>2786</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Suneate 1</category>
+	</item>
+
+	<item id="27d1_horned" inherit="27d1">
+		<horned_leather_armor />
+		<baseid>2786</baseid>
+		<category>Armor\Horned Leather\Samurai\Leather\Suneate 2</category>
+	</item>
+
+	<!-- Studded Leather Equipment -->
+	<item id="277c_horned" inherit="277c">
+		<horned_leather_armor />
+		<baseid>277c</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Do 1</category>
+	</item>
+
+	<item id="27c7_horned" inherit="27c7">
+		<horned_leather_armor />
+		<baseid>277c</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Do 2</category>
+	</item>
+
+	<item id="278b_horned" inherit="278b">
+		<horned_leather_armor />
+		<baseid>278b</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Hiadate 1</category>
+	</item>
+
+	<item id="27d6_horned" inherit="27d6">
+		<horned_leather_armor />
+		<baseid>278b</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Hiadate 2</category>
+	</item>
+
+	<item id="277f_horned" inherit="277f">
+		<horned_leather_armor />
+		<baseid>277f</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Sode 1</category>
+	</item>
+
+	<item id="27ca_horned" inherit="27ca">
+		<horned_leather_armor />
+		<baseid>277f</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Sode 2</category>
+	</item>
+
+	<item id="279d_horned" inherit="279d">
+		<horned_leather_armor />
+		<baseid>279d</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Mempo 1</category>
+	</item>
+
+	<item id="27e8_horned" inherit="27e8">
+		<horned_leather_armor />
+		<baseid>279d</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Mempo 2</category>
+	</item>
+
+	<item id="2787_horned" inherit="2787">
+		<horned_leather_armor />
+		<baseid>2787</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Suneate 1</category>
+	</item>
+
+	<item id="27d2_horned" inherit="27d2">
+		<horned_leather_armor />
+		<baseid>2787</baseid>
+		<category>Armor\Horned Leather\Samurai\Studded Leather\Suneate 2</category>
+	</item>
+
+<definitions>

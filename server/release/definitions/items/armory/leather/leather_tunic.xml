@@ -20,7 +20,7 @@
 		<sellprice>52</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Leather\Tunic (N/S)</category>
+		<category>Base Armor\Leather\Tunic (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="25" />
@@ -35,7 +35,7 @@
 	<item id="13d3" inherit="13cc">
 		<id>0x13d3</id>
 		<baseid>13cc</baseid>
-		<category>Armor\Base\Leather\Tunic (E/W)</category>
+		<category>Base Armor\Leather\Tunic (E/W)</category>
 	</item>
 
 </definitions>

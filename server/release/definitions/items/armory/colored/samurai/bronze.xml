@@ -1,0 +1,124 @@
+
+<definitions>
+
+	<item id="277d_bronze" inherit="277d">
+		<bronze_armor />
+		<baseid>277d</baseid>
+		<category>Armor\Bronze\Samurai\Do 1</category>
+	</item>
+
+	<item id="27c8_bronze" inherit="27c8">
+		<bronze_armor />
+		<baseid>277d</baseid>
+		<category>Armor\Bronze\Samurai\Do 2</category>
+	</item>
+
+	<item id="2774_bronze" inherit="2774">
+		<bronze_armor />
+		<baseid>2774</baseid>
+		<category>Armor\Bronze\Samurai\Mail Hatsuburi 1</category>
+	</item>
+
+	<item id="27bf_bronze" inherit="27bf">
+		<bronze_armor />
+		<baseid>2774</baseid>
+		<category>Armor\Bronze\Samurai\Mail Hatsuburi 2</category>
+	</item>
+
+	<item id="2775_bronze" inherit="2775">
+		<bronze_armor />
+		<baseid>2775</baseid>
+		<category>Armor\Bronze\Samurai\Plate Hatsuburi 1</category>
+	</item>
+
+	<item id="27c0_bronze" inherit="27c0">
+		<bronze_armor />
+		<baseid>2775</baseid>
+		<category>Armor\Bronze\Samurai\Plate Hatsuburi 2</category>
+	</item>
+
+	<item id="278d_bronze" inherit="278d">
+		<bronze_armor />
+		<baseid>278d</baseid>
+		<category>Armor\Bronze\Samurai\Hiadate 1</category>
+	</item>
+
+	<item id="27d8_bronze" inherit="27d8">
+		<bronze_armor />
+		<baseid>278d</baseid>
+		<category>Armor\Bronze\Samurai\Hiadate 2</category>
+	</item>
+
+	<item id="2780_bronze" inherit="2780">
+		<bronze_armor />
+		<baseid>2780</baseid>
+		<category>Armor\Bronze\Samurai\Hiro Sode 1</category>
+	</item>
+
+	<item id="27cb_bronze" inherit="27cb">
+		<bronze_armor />
+		<baseid>2780</baseid>
+		<category>Armor\Bronze\Samurai\Hiro Sode 2</category>
+	</item>
+
+	<item id="2777_bronze" inherit="2777">
+		<bronze_armor />
+		<baseid>2777</baseid>
+		<category>Armor\Bronze\Samurai\Jingasa 1-1</category>
+	</item>
+
+	<item id="27c2_bronze" inherit="27c2">
+		<bronze_armor />
+		<baseid>2777</baseid>
+		<category>Armor\Bronze\Samurai\Jingasa 1-2</category>
+	</item>
+
+	<item id="2781_bronze" inherit="2781">
+		<bronze_armor />
+		<baseid>2781</baseid>
+		<category>Armor\Bronze\Samurai\Jingasa 2-1</category>
+	</item>
+
+	<item id="27cc_bronze" inherit="27cc">
+		<bronze_armor />
+		<baseid>2781</baseid>
+		<category>Armor\Bronze\Samurai\Jingasa 2-2</category>
+	</item>
+
+	<item id="2784_bronze" inherit="2784">
+		<bronze_armor />
+		<baseid>2784</baseid>
+		<category>Armor\Bronze\Samurai\Jingasa 3-1</category>
+	</item>
+
+	<item id="27cf_bronze" inherit="27cf">
+		<bronze_armor />
+		<baseid>2784</baseid>
+		<category>Armor\Bronze\Samurai\Jingasa 3-2</category>
+	</item>
+
+	<item id="2779_bronze" inherit="2779">
+		<bronze_armor />
+		<baseid>2779</baseid>
+		<category>Armor\Bronze\Samurai\Mempo 1</category>
+	</item>
+
+	<item id="27c4_bronze" inherit="27c4">
+		<bronze_armor />
+		<baseid>2779</baseid>
+		<category>Armor\Bronze\Samurai\Mempo 2</category>
+	</item>
+
+	<item id="2788_bronze" inherit="2788">
+		<bronze_armor />
+		<baseid>2788</baseid>
+		<category>Armor\Bronze\Samurai\Suneate 1</category>
+	</item>
+
+	<item id="27d3_bronze" inherit="27d3">
+		<bronze_armor />
+		<baseid>2788</baseid>
+		<category>Armor\Bronze\Samurai\Suneate 2</category>
+	</item>
+
+</definitions>

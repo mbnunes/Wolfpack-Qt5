@@ -20,7 +20,7 @@
 		<sellprice>40</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Leather\Sleeves (N/S)</category>
+		<category>Base Armor\Leather\Sleeves (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<intproperty name="req_strength" value="20" />
@@ -35,7 +35,7 @@
 	<item id="13cd" inherit="13c5">
 		<id>0x13cd</id>
 		<baseid>13c5</baseid>
-		<category>Armor\Base\Leather\Sleeves (E/W)</category>
+		<category>Base Armor\Leather\Sleeves (E/W)</category>
 	</item>
 
 </definitions>

@@ -21,7 +21,7 @@
 		<sellprice>63</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Helmets\Bascinet (N/S)</category>
+		<category>Base Armor\Helmets\Bascinet (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="40" />
@@ -36,7 +36,7 @@
 	<item id="140c" inherit="140d">
 		<id>0x140c</id>
 		<baseid>140d</baseid>
-		<category>Armor\Base\Helmets\Bascinet (E/W)</category>
+		<category>Base Armor\Helmets\Bascinet (E/W)</category>
 	</item>
 
 </definitions>

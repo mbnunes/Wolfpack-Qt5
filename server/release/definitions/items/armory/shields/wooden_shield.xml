@@ -20,7 +20,7 @@
 		<sellprice>32</sellprice>
 		<type>1008</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Shields\Wooden Shield</category>
+		<category>Base Armor\Shields\Wooden Shield</category>
 		<!-- Properties -->
 		<intproperty name="req_strength" value="20" />
 		<intproperty name="res_energy" value="1" />

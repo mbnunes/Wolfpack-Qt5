@@ -21,7 +21,7 @@
 		<sellprice>72</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
-		<category>Armor\Base\Helmets\Nose Helm (N/S)</category>
+		<category>Base Armor\Helmets\Nose Helm (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="55" />
@@ -36,7 +36,7 @@
 	<item id="140e" inherit="140f">
 		<id>0x140e</id>
 		<baseid>140f</baseid>
-		<category>Armor\Base\Helmets\Nose Helm (E/W)</category>
+		<category>Base Armor\Helmets\Nose Helm (E/W)</category>
 	</item>
 
 </definitions>
