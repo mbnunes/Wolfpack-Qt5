@@ -58,6 +58,14 @@ def items( x, y, map, exact=1 ):
 	else:
 		return _wolfpack.items( x, y, map, exact )
 
+def allitemsserials():
+	return _wolfpack.allitemsserials()
+
+def allcharsserials():
+	return _wolfpack.allitemsserials()
+
+
+
 def addtimer( expiretime, function, args, serializable=0 ):
 	
 	if not type( expiretime ) is IntType:

@@ -441,6 +441,40 @@ PyObject *wpStatics( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns a list of all items serials 
+*/
+PyObject *wpAllItemsSerials( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	AllItemsIterator iter;
+	PyObject *list = PyList_New( 0 );
+	for( iter.Begin(); !iter.atEnd(); iter++ )
+	{
+		P_ITEM pItem = iter.GetData();
+		PyList_Append( list, PyInt_FromLong( pItem->serial() ) );
+	}
+
+	return list;
+}
+/*!
+	Returns a list of all chars serials 
+*/
+PyObject *wpAllCharsSerials( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	AllCharsIterator iter;
+	PyObject *list = PyList_New( 0 );
+	for( iter.Begin(); !iter.atEnd(); iter++ )
+	{
+		P_CHAR pChar = iter.GetData();
+		PyList_Append( list, PyInt_FromLong( pChar->serial() ) );
+	}
+
+	return list;
+}
+/*!
 	Returns a list of items at a given position (sector)
 */
 PyObject *wpItems( PyObject* self, PyObject* args )
@@ -799,6 +833,8 @@ static PyMethodDef wpGlobal[] =
 	{ "map",				wpMap,				METH_VARARGS, "Retruns a dictionary with information about a given map tile" },
 	{ "items",				wpItems,			METH_VARARGS, "Returns a list of items in a specific sector." },
 	{ "chars",				wpChars,			METH_VARARGS, "Returns a list of chars in a specific sector." },
+	{ "allcharsserials",	wpAllCharsSerials,	METH_VARARGS, "Returns a list of all chars serials" },
+	{ "allitemsserials",	wpAllItemsSerials,	METH_VARARGS, "Returns a list of all items serials" },
 	{ "tiledata",			wpTiledata,			METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
 	{ "coord",				wpCoord,			METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
 	{ "spell",				wpSpell,			METH_VARARGS, "Returns information about a certain spell." },
