@@ -61,7 +61,7 @@ LINK32=link.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "Debug"
+# PROP Output_Dir "c:\wolfpack"
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
@@ -74,7 +74,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib ws2_32.lib kernel32.lib user32.lib advapi32.lib wrl.lib /nologo /subsystem:console /debug /machine:I386 /out:"C:\wolfpack\wolf.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib" /libpath:"lib\Python\lib"
+# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib ws2_32.lib kernel32.lib user32.lib advapi32.lib wrl.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib" /libpath:"lib\Python\lib"
 
 !ENDIF 
 
@@ -143,14 +143,6 @@ SOURCE=.\cweather.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\daemon.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\daemon_win.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\dbl_single_click.cpp
 # End Source File
 # Begin Source File
@@ -180,6 +172,10 @@ SOURCE=.\guildstones.cpp
 # Begin Source File
 
 SOURCE=.\gumps.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\gumpsmgr.cpp
 # End Source File
 # Begin Source File
 
@@ -496,6 +492,10 @@ SOURCE=.\guildstones.h
 # Begin Source File
 
 SOURCE=.\gumps.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\gumpsmgr.h
 # End Source File
 # Begin Source File
 

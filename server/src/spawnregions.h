@@ -60,6 +60,7 @@ public:
 	bool	findValidSpot( Coord_cl &pos );
 
 	// Getters
+	QString name( void )		{ return name_; }
 	UI16	npcs( void )		{ return npcSerials_.size(); }
 	UI16	items( void )		{ return itemSerials_.size(); }
 	UI16	maxNpcs( void )		{ return maxNpcAmt_; }

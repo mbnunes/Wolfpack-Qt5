@@ -36,20 +36,8 @@
 
 #include "qstringlist.h"
 
-class cGumps
-{
-public:
-	void Button(int s, int button, SERIAL serial, char type);
-	void Input(int s);
-	void Menu(UOXSOCKET s, int m, P_ITEM it);
-	void Open(int s, P_CHAR pc, int num, int num2);
-
-	static cGumps *instance( void )
-	{
-		static cGumps instance;
-		return &instance;
-	}
-};
+// Forward Declarations
+class cSpawnRegion;
 
 class cGump
 {
@@ -60,13 +48,15 @@ protected:
 	bool noMove_, noClose_, noDispose_;
 public:
 
-	SERIAL serial( void ) { return serial_; }
-	SERIAL type( void ) { return type_; }
-	Q_UINT32 x( void ) { return x_; }
-	Q_UINT32 y( void ) { return y_; }
-	bool noMove( void ) { return noMove_; }
-	bool noDispose( void ) { return noDispose_; }
-	bool noClose( void ) { return noClose_; }
+	SERIAL serial( void )			{ return serial_; }
+	SERIAL type( void )				{ return type_; }
+	Q_UINT32 x( void )				{ return x_; }
+	Q_UINT32 y( void )				{ return y_; }
+	QStringList layout( void )		{ return layout_; }
+	QStringList text( void )		{ return text_; }
+	bool noMove( void )				{ return noMove_; }
+	bool noDispose( void )			{ return noDispose_; }
+	bool noClose( void )			{ return noClose_; }
 
 	void setType( SERIAL data ) { type_ = data; }
 	void setSerial( SERIAL data ) { serial_ = data; }
@@ -79,13 +69,12 @@ public:
 	void addRawLayout( const QString &data ) { layout_.push_back( data ); }
 	Q_UINT32 addRawText( const QString &data );
 
-	cGump(): noMove_( false ), noClose_( false ), noDispose_( false ), x_( -1 ), y_( -1 ) {}
+	cGump(): noMove_( false ), noClose_( false ), noDispose_( false ), x_( -1 ), y_( -1 ),
+			 serial_( INVALID_SERIAL ), type_( 1 ) {}
 	virtual ~cGump() {}
 
-	// Convenience Constructors
-	cGump( SERIAL nSerial, SERIAL nType, bool bNoMove = false, bool bNoClose = false, bool bNoDispose = false, Q_INT32 nX = -1, Q_INT32 nY = -1 ): 
-		serial_( nSerial ), type_( nType ), noMove_( bNoMove ), noClose_( bNoClose ), noDispose_( bNoDispose ), x_( nX ), y_( nY ) {}
-
+	virtual void handleResponse( cUOSocket* socket, UINT32 choice ) {}
+	
 	// Comfort Setters
 	void startPage( Q_UINT32 pageId = 0 ) { layout_.push_back( QString( "{page %1}" ).arg( pageId ) ); }
 	void startGroup( Q_UINT32 groupId = 0 ) { layout_.push_back( QString( "{group %1}" ).arg( groupId ) ); }
@@ -119,10 +108,38 @@ public:
 	// CheckerTrans
 	// void addCheckerTrans( );
 
-	void send( cUOSocket *socket );
+	//void send( cUOSocket *socket );
 };
 
 void entrygump(int s, SERIAL serial, unsigned char type, char index, short int maxlength, char *text1);
+
+class cPythonGump : public cGump
+{
+protected:
+	QString scriptname_;
+	QString responsefuncname_;
+
+public:
+	cPythonGump() : cGump(), scriptname_( (char*)0 ), responsefuncname_( (char*)0 ) { type_ = 2; }
+	virtual ~cPythonGump() {}
+
+	virtual void handleResponse( cUOSocket* socket, UINT32 choice ) 
+	{
+		// TODO: passing choice to script/function
+	}
+};
+
+class cSpawnRegionInfoGump : public cGump
+{
+protected:
+	cSpawnRegion* region_;
+	UINT32 page_;
+
+public:
+	cSpawnRegionInfoGump( cSpawnRegion* region, UINT32 choice );
+	
+	virtual void handleResponse( cUOSocket* socket, UINT32 choice );
+};
 
 #endif
 

@@ -70,6 +70,7 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0xA4:		return new cUORxHardwareInfo( data );
 	case 0xA7:		return new cUORxGetTip( data );
 	case 0xAD:		return new cUORxSpeechRequest( data );
+	case 0xB1:		return new cUORxGumpResponse( data );
 	case 0xBF:		return new cUORxMultiPurpose( data );
 	case 0xBD:		return new cUORxSetVersion( data );
 	case 0xC8:		return new cUORxUpdateRange( data );

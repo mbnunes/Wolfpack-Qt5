@@ -124,6 +124,7 @@ public:
 	void handleBookPage( cUORxBookPage* packet );
 	void handleUpdateBook( cUORxUpdateBook* packet );
 	void handleAction( cUORxAction* packet );
+	void handleGumpResponse( cUORxGumpResponse* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

@@ -34,6 +34,7 @@
 #include "classes.h"
 #include "commands.h"
 #include "gumps.h"
+#include "gumpsmgr.h"
 #include "mapstuff.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
@@ -807,20 +808,20 @@ public:
 			land_st lTile = cTileCache::instance()->getLand( mapTile.id );
 			
 			// Display a gump with this information
-			cGump iGump( 100, 100 );
+			cGump* pGump = new cGump();
 
 			// Basic .INFO Header
-			iGump.addResizeGump( 0, 40, 0xA28, 450, 250 ); //Background
-			iGump.addGump( 105, 18, 0x58B ); // Fancy top-bar
-			iGump.addGump( 182, 0, 0x589 ); // "Button" like gump
-			iGump.addTilePic( 202, 23, 0x14eb ); // Type of info menu
+			pGump->addResizeGump( 0, 40, 0xA28, 450, 250 ); //Background
+			pGump->addGump( 105, 18, 0x58B ); // Fancy top-bar
+			pGump->addGump( 182, 0, 0x589 ); // "Button" like gump
+			pGump->addTilePic( 202, 23, 0x14eb ); // Type of info menu
 
-            iGump.addText( 175, 90, tr( "Landscape Info" ), 0x530 );
+            pGump->addText( 175, 90, tr( "Landscape Info" ), 0x530 );
 
 			// Give information about the tile
-			iGump.addText( 50, 120, tr( "Name: %1" ).arg( lTile.name ), 0x834 );
-			iGump.addText( 50, 145, tr( "ID: 0x%1" ).arg( mapTile.id, 0, 16 ), 0x834 );
-			iGump.addText( 50, 170, tr( "Z Height: %1" ).arg( mapTile.z ), 0x834 );
+			pGump->addText( 50, 120, tr( "Name: %1" ).arg( lTile.name ), 0x834 );
+			pGump->addText( 50, 145, tr( "ID: 0x%1" ).arg( mapTile.id, 0, 16 ), 0x834 );
+			pGump->addText( 50, 170, tr( "Z Height: %1" ).arg( mapTile.z ), 0x834 );
 
 			// Wet ? Impassable ? At least these are the most interesting
 			QStringList flags;
@@ -837,13 +838,13 @@ public:
 			if( lTile.flag2&0x04 )
 				flags.push_back( tr( "stairs" ) );
 
-			iGump.addText( 50, 195, tr( "Properties: %1" ).arg( flags.join( ", " ) ), 0x834 );
+			pGump->addText( 50, 195, tr( "Properties: %1" ).arg( flags.join( ", " ) ), 0x834 );
 
 			// OK button
-			iGump.addButton( 90, 240, 0x481, 0x483, 0 ); // Only Exit possible
-			iGump.addText( 130, 240, tr( "Close" ), 0x834 );
+			pGump->addButton( 90, 240, 0x481, 0x483, 0 ); // Only Exit possible
+			pGump->addText( 130, 240, tr( "Close" ), 0x834 );
 
-			iGump.send( socket );
+			cGumpsManager::getInstance()->attachGump( socket, pGump );
 		}
 		// Static Tiles
 		else if( target->model() && !target->serial() )
@@ -851,38 +852,37 @@ public:
 			tile_st sTile = cTileCache::instance()->getTile( target->model() );
 
 			// Display a gump with this information
-			cGump iGump( 100, 100 );
+			cGump* pGump = new cGump();
 
 			// Basic .INFO Header
-			iGump.addResizeGump( 0, 40, 0xA28, 450, 300 ); //Background
-			iGump.addGump( 105, 18, 0x58B ); // Fancy top-bar
-			iGump.addGump( 182, 0, 0x589 ); // "Button" like gump
-			iGump.addTilePic( 202, 23, 0x14EF ); // Display our tile
+			pGump->addResizeGump( 0, 40, 0xA28, 450, 300 ); //Background
+			pGump->addGump( 105, 18, 0x58B ); // Fancy top-bar
+			pGump->addGump( 182, 0, 0x589 ); // "Button" like gump
+			pGump->addTilePic( 202, 23, 0x14EF ); // Display our tile
 
-            iGump.addText( 175, 90, tr( "Static Info" ), 0x530 );
+            pGump->addText( 175, 90, tr( "Static Info" ), 0x530 );
 			
 			// Give information about the tile
-			iGump.addText( 50, 120, tr( "Name: %1" ).arg( sTile.name ), 0x834 );
-			iGump.addText( 50, 140, tr( "ID: 0x%1" ).arg( target->model(), 0, 16 ), 0x834 );
-			iGump.addText( 50, 160, tr( "Position: %1,%2,%3" ).arg( target->x() ).arg( target->y() ).arg( target->z() ), 0x834 );
-			iGump.addText( 50, 180, tr( "Weight: %1" ).arg( (UINT8)sTile.weight ), 0x834 );
-			iGump.addText( 50, 200, tr( "Height: %1" ).arg( (UINT8)sTile.height ), 0x834 );
+			pGump->addText( 50, 120, tr( "Name: %1" ).arg( sTile.name ), 0x834 );
+			pGump->addText( 50, 140, tr( "ID: 0x%1" ).arg( target->model(), 0, 16 ), 0x834 );
+			pGump->addText( 50, 160, tr( "Position: %1,%2,%3" ).arg( target->x() ).arg( target->y() ).arg( target->z() ), 0x834 );
+			pGump->addText( 50, 180, tr( "Weight: %1" ).arg( (UINT8)sTile.weight ), 0x834 );
+			pGump->addText( 50, 200, tr( "Height: %1" ).arg( (UINT8)sTile.height ), 0x834 );
 
 			// Wet ? Impassable ? At least these are the most interesting
 			QStringList flags = getFlagNames( sTile );
 
-			iGump.addText( 50, 220, tr( "Properties: %1" ).arg( flags.join( ", " ) ), 0x834 );
+			pGump->addText( 50, 220, tr( "Properties: %1" ).arg( flags.join( ", " ) ), 0x834 );
 
 			// OK button
-			iGump.addButton( 90, 275, 0x481, 0x483, 0 ); // Only Exit possible
-			iGump.addText( 130, 275, tr( "Close" ), 0x834 );
+			pGump->addButton( 90, 275, 0x481, 0x483, 0 ); // Only Exit possible
+			pGump->addText( 130, 275, tr( "Close" ), 0x834 );
 
 			// Item Preview
-			iGump.addResizeGump( 300, 120, 0xBB8, 110, 150 );
-			iGump.addTilePic( 340, 160 - ( sTile.height / 2 ), target->model() );
+			pGump->addResizeGump( 300, 120, 0xBB8, 110, 150 );
+			pGump->addTilePic( 340, 160 - ( sTile.height / 2 ), target->model() );
 
-
-			iGump.send( socket );
+			cGumpsManager::getInstance()->attachGump( socket, pGump );
 		}
 	}
 };
@@ -1136,64 +1136,66 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 			}
 			else
 			{
-				QStringList rectangles = spawnRegion->rectangles();
+/*				QStringList rectangles = spawnRegion->rectangles();
 				UINT32 numrects = rectangles.size();
 				if( numrects > 10 )
 					numrects = 10;
 
 				// Display a gump with this information
-				cGump iGump( 100, 100 );
+				cGump* pGump = new cGump();
 
 				// Basic .INFO Header
-				iGump.addResizeGump( 0, 40, 0xA28, 450, 220 + numrects * 20 ); //Background
-				iGump.addGump( 105, 18, 0x58B ); // Fancy top-bar
-				iGump.addGump( 182, 0, 0x589 ); // "Button" like gump
-				iGump.addTilePic( 202, 23, 0x14eb ); // Type of info menu
+				pGump->addResizeGump( 0, 40, 0xA28, 450, 220 + numrects * 20 ); //Background
+				pGump->addGump( 105, 18, 0x58B ); // Fancy top-bar
+				pGump->addGump( 182, 0, 0x589 ); // "Button" like gump
+				pGump->addTilePic( 202, 23, 0x14eb ); // Type of info menu
 	
-				iGump.addText( 175, 90, tr( "Spawnregion Info" ), 0x530 );
+				pGump->addText( 175, 90, tr( "Spawnregion Info" ), 0x530 );
 
 				// Give information about the spawnregion
-				iGump.addText( 50, 120, tr( "Name: %1" ).arg( args[1] ), 0x834 );
-				iGump.addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( spawnRegion->npcs() ).arg( spawnRegion->maxNpcs() ), 0x834 );
-				iGump.addText( 50, 160, tr( "Items: %1 of %2" ).arg( spawnRegion->items() ).arg( spawnRegion->maxItems() ), 0x834 );
-				iGump.addText( 50, 180, tr( "Coordinates: %1" ).arg( rectangles.size() ), 0x834 );
+				pGump->addText( 50, 120, tr( "Name: %1" ).arg( args[1] ), 0x834 );
+				pGump->addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( spawnRegion->npcs() ).arg( spawnRegion->maxNpcs() ), 0x834 );
+				pGump->addText( 50, 160, tr( "Items: %1 of %2" ).arg( spawnRegion->items() ).arg( spawnRegion->maxItems() ), 0x834 );
+				pGump->addText( 50, 180, tr( "Coordinates: %1" ).arg( rectangles.size() ), 0x834 );
 			
 				UINT8 i;
 				for( i = 0; i < numrects; i++ )
 				{
-					iGump.addText( 50, 200 + i * 20, tr( "Rectangle %1: %2" ).arg( i+1 ).arg( rectangles[i] ), 0x834 );
+					pGump->addText( 50, 200 + i * 20, tr( "Rectangle %1: %2" ).arg( i+1 ).arg( rectangles[i] ), 0x834 );
 				}
 
 				// OK button
-				iGump.addButton( 90, 210 + numrects * 20, 0x481, 0x483, 0 ); // Only Exit possible
-				iGump.addText( 130, 210 + numrects * 20, tr( "Close" ), 0x834 );
+				pGump->addButton( 90, 210 + numrects * 20, 0x481, 0x483, 0 ); // Only Exit possible
+				pGump->addText( 130, 210 + numrects * 20, tr( "Close" ), 0x834 );*/
 
-				iGump.send( socket );
+				cSpawnRegionInfoGump* pGump = new cSpawnRegionInfoGump( spawnRegion, 1 );
+
+				cGumpsManager::getInstance()->attachGump( socket, pGump );
 			}
 		}
 		else if( args[1].lower() == "all" )
 		{
 			// Display a gump with this information
-			cGump iGump( 100, 100 );
+			cGump* pGump = new cGump();
 
 			// Basic .INFO Header
-			iGump.addResizeGump( 0, 40, 0xA28, 450, 210 ); //Background
-			iGump.addGump( 105, 18, 0x58B ); // Fancy top-bar
-			iGump.addGump( 182, 0, 0x589 ); // "Button" like gump
-			iGump.addTilePic( 202, 23, 0x14eb ); // Type of info menu
+			pGump->addResizeGump( 0, 40, 0xA28, 450, 210 ); //Background
+			pGump->addGump( 105, 18, 0x58B ); // Fancy top-bar
+			pGump->addGump( 182, 0, 0x589 ); // "Button" like gump
+			pGump->addTilePic( 202, 23, 0x14eb ); // Type of info menu
 	
-			iGump.addText( 160, 90, tr( "Spawnregion Global Info" ), 0x530 );
+			pGump->addText( 160, 90, tr( "Spawnregion Global Info" ), 0x530 );
 
 			// Give information about the spawnregions
-			iGump.addText( 50, 120, tr( "Spawnregions: %1" ).arg( cAllSpawnRegions::getInstance()->size() ), 0x834 );
-			iGump.addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( cAllSpawnRegions::getInstance()->npcs() ).arg( cAllSpawnRegions::getInstance()->maxNpcs() ), 0x834 );
-			iGump.addText( 50, 160, tr( "Items: %1 of %2" ).arg( cAllSpawnRegions::getInstance()->items() ).arg( cAllSpawnRegions::getInstance()->maxItems() ), 0x834 );
+			pGump->addText( 50, 120, tr( "Spawnregions: %1" ).arg( cAllSpawnRegions::getInstance()->size() ), 0x834 );
+			pGump->addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( cAllSpawnRegions::getInstance()->npcs() ).arg( cAllSpawnRegions::getInstance()->maxNpcs() ), 0x834 );
+			pGump->addText( 50, 160, tr( "Items: %1 of %2" ).arg( cAllSpawnRegions::getInstance()->items() ).arg( cAllSpawnRegions::getInstance()->maxItems() ), 0x834 );
 			
 			// OK button
-			iGump.addButton( 90, 200, 0x481, 0x483, 0 ); // Only Exit possible
-			iGump.addText( 130, 200, tr( "Close" ), 0x834 );
+			pGump->addButton( 90, 200, 0x481, 0x483, 0 ); // Only Exit possible
+			pGump->addText( 130, 200, tr( "Close" ), 0x834 );
 
-			iGump.send( socket );
+			cGumpsManager::getInstance()->attachGump( socket, pGump );
 		}
 	}
 }

@@ -402,5 +402,16 @@ public:
 	QStringList lines();
 };
 
+// 0xB1 Gump Response
+class cUORxGumpResponse : public cUOPacket
+{
+public:
+	cUORxGumpResponse( const QByteArray &data ): cUOPacket( data ) {}
+	UINT16 size() { return getShort( 1 ); }
+	UINT32 serial() { return getInt( 3 ); }
+	UINT32 type() { return getInt( 7 ); }
+	UINT32 choice() { return getInt( 11 ); }
+};
+
 #endif
 

@@ -809,7 +809,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				addid3[s] = static_cast<unsigned char>((pi->serial&0x0000FF00)>>8);
 				addid4[s] = static_cast<unsigned char>((pi->serial&0x000000FF));
 
-				cGumps::instance()->Menu( s, pi->morex, pi );
+//				cGumps::instance()->Menu( s, pi->morex, pi );
 				return;
 		// Cannon Ball
 		case 204:

@@ -55,6 +55,7 @@
 #include "../guildstones.h"
 #include "../combat.h"
 #include "../books.h"
+#include "../gumpsmgr.h"
 
 //#include <conio.h>
 #include <iostream>
@@ -205,6 +206,8 @@ void cUOSocket::recieve()
 		handleUpdateBook( dynamic_cast< cUORxUpdateBook* >( packet ) ); break;
 	case 0x12:
 		handleAction( dynamic_cast< cUORxAction* >( packet ) ); break;
+	case 0xB1:
+		handleGumpResponse( dynamic_cast< cUORxGumpResponse* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -1796,4 +1799,9 @@ void cUOSocket::handleAction( cUORxAction *packet )
 		}
 		break;
 	}
+}
+
+void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
+{
+	cGumpsManager::getInstance()->handleResponse( this, packet->serial(), packet->type(), packet->choice() );
 }

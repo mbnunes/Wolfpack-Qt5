@@ -123,11 +123,11 @@ void doworldlight(void);
 char indungeon(P_CHAR pc);
 void setabovelight(unsigned char);
 
-void tweakmenu(UOXSOCKET, SERIAL);
+//void tweakmenu(UOXSOCKET, SERIAL);
 int validtelepos(int s);
 void addhere(int s, signed char z);
-void whomenu(int s, int type);
-void playermenu(int s, int type);
+//void whomenu(int s, int type);
+//void playermenu(int s, int type);
 void endmessage(int x);
 
 void goldsfx(int s, int goldtotal);

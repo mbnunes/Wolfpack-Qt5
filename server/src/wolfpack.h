@@ -79,6 +79,7 @@
 #include "globals.h"
 #include "itemsmgr.h"
 #include "charsmgr.h"
+//#include "gumpsmgr.h"
 
 #include "prototypes.h"
 

@@ -1225,13 +1225,13 @@ void cTargets::TweakTarget(int s)//Lag fix -- Zippy
 	{
 		if (FindCharBySerial(serial) == NULL) // but let's make sure
 			return;
-		tweakmenu(s, serial);
+//		tweakmenu(s, serial);
 	} 
 	else
 	{//item
 		if (FindItemBySerial(serial) == NULL)
 			return;
-		tweakmenu(s, serial);
+//		tweakmenu(s, serial);
 	}
 }
 

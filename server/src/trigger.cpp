@@ -1585,8 +1585,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								return;
 							}
 						}
-						else if (!strcmp("OPENGUMP", (char*)script1))
-							cGumps::instance()->Menu( ts, str2num( script2 ), NULL );
+//						else if (!strcmp("OPENGUMP", (char*)script1))
+//							cGumps::instance()->Menu( ts, str2num( script2 ), NULL );
 						
 						break;
 					case 'P':
@@ -2894,8 +2894,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						}
 						break;
 					case 'O':
-						if (!strcmp("OPENGUMP", (char*)script1))
-							cGumps::instance()->Menu( ts, str2num( script2 ), NULL );
+//						if (!strcmp("OPENGUMP", (char*)script1))
+//							cGumps::instance()->Menu( ts, str2num( script2 ), NULL );
 						break;
 						
 					case 'P':
