@@ -29,6 +29,18 @@ METALS = [
     ['Valorite',    BLACKSMITHING, 990, ['valorite_ingot'], 0x8ab, 'valorite'],
 ]
 
+#
+# A list of scales used by the blacksmithing menu.
+#
+SCALES = [
+  ['Red Scales', 0, 0, ['red_scales'], 0x66D, 'red_scales'],
+  ['Yellow Scales', 0, 0, ['yellow_scales'], 0x8A8, 'yellow_scales'],
+  ['Black Scales', 0, 0, ['black_scales'], 0x455, 'black_scales'],
+  ['Green Scales', 0, 0, ['green_scales'], 0x851, 'green_scales'],
+  ['White Scales', 0, 0, ['white_scales'], 0x8FD, 'white_scales'],
+  ['Blue Scales', 0, 0, ['blue_scales'], 0x8B0, 'blue_scales'],
+]
+
 # This table defines all special properties for items crafted 
 # using a given resource. It's based on the resname tag.
 ARMOR_PROPERTIES = {
@@ -127,20 +139,6 @@ class SmithItemAction(CraftItemAction):
             else:
               item.settag('aos_boni_durability', value)
 
-        # Distribute another 6 points randomly between the resistances this armor already has
-        if exceptional:
-          # Copy all the values to tags
-          boni = [0, 0, 0, 0, 0]
-
-          for i in range(0, 6):
-            boni[random.randint(0,4)] += 1
-
-          item.settag('res_physical', fromitem(item, RESISTANCE_PHYSICAL) + boni[0])
-          item.settag('res_fire', fromitem(item, RESISTANCE_FIRE) + boni[1])
-          item.settag('res_cold', fromitem(item, RESISTANCE_COLD) + boni[2])
-          item.settag('res_energy', fromitem(item, RESISTANCE_ENERGY) + boni[3])
-          item.settag('res_poison', fromitem(item, RESISTANCE_POISON) + boni[4])
-
       # Weapon properties
       elif itemcheck(item, ITEM_WEAPON):
         if WEAPON_PROPERTIES.has_key(material[5]):
@@ -154,11 +152,32 @@ class SmithItemAction(CraftItemAction):
             else:
               item.settag('aos_boni_durability', value)
 
+    # Apply properties of secondary material
+    if self.submaterial2 > 0:
+      material = self.parent.getsubmaterial2used(player, arguments)
+      material = self.parent.submaterials2[material]
+      item.color = material[4]
+      item.settag('resname2', material[5])
+
+    # Distribute another 6 points randomly between the resistances this armor already has
+    if exceptional:
+      if itemcheck(item, ITEM_ARMOR) or itemcheck(item, ITEM_SHIELD):
+        # Copy all the values to tags
+        boni = [0, 0, 0, 0, 0]
+
+        for i in range(0, 6):
+          boni[random.randint(0,4)] += 1
+
+        item.settag('res_physical', fromitem(item, RESISTANCE_PHYSICAL) + boni[0])
+        item.settag('res_fire', fromitem(item, RESISTANCE_FIRE) + boni[1])
+        item.settag('res_cold', fromitem(item, RESISTANCE_COLD) + boni[2])
+        item.settag('res_energy', fromitem(item, RESISTANCE_ENERGY) + boni[3])
+        item.settag('res_poison', fromitem(item, RESISTANCE_POISON) + boni[4])
+      elif itemcheck(item, ITEM_WEAPON):
         # Increase the damage bonus by 20%
-        if exceptional:
-          bonus = fromitem(item, DAMAGEBONUS)
-          bonus += 20
-          item.settag('aos_boni_damage', bonus)
+        bonus = fromitem(item, DAMAGEBONUS)
+        bonus += 20
+        item.settag('aos_boni_damage', bonus)
 
   #
   # First check if we are near an anvil and forge.
@@ -189,7 +208,8 @@ class BlacksmithingMenu(MakeMenu):
     self.sort = 1
     self.allowmark = 1
     self.submaterials1 = METALS
-    #self.submaterials2.append(['Red Scales', 0, 0, ['ironingot']])
+    self.submaterials2 = SCALES
+    self.submaterial2missing = 1053097
     self.submaterial1missing = 1044037
     self.submaterial1noskill = 1044268
 

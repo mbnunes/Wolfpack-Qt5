@@ -95,6 +95,12 @@ def fromitem(item, property):
             if WEAPON_RESNAME_BONI[resname].has_key(property):
               value += WEAPON_RESNAME_BONI[resname][property]
 
+        if item.hastag('resname2'):
+          resname = str(item.gettag('resname2'))
+          if WEAPON_RESNAME_BONI.has_key(resname):
+            if WEAPON_RESNAME_BONI[resname].has_key(property):
+              value += WEAPON_RESNAME_BONI[resname][property]
+
         return value
     elif itemcheck(item, ITEM_ARMOR) or itemcheck(item, ITEM_SHIELD):
       if ARMORINFO.has_key(item.baseid):
@@ -108,6 +114,12 @@ def fromitem(item, property):
         # Resource dependant boni
         if item.hastag('resname'):
           resname = str(item.gettag('resname'))
+          if ARMOR_RESNAME_BONI.has_key(resname):
+            if ARMOR_RESNAME_BONI[resname].has_key(property):
+              value += ARMOR_RESNAME_BONI[resname][property]
+
+        if item.hastag('resname2'):
+          resname = str(item.gettag('resname2'))
           if ARMOR_RESNAME_BONI.has_key(resname):
             if ARMOR_RESNAME_BONI[resname].has_key(property):
               value += ARMOR_RESNAME_BONI[resname][property]
