@@ -18,7 +18,7 @@ REQSKILL = 0
 MINSKILL = 1
 COLORID = 2
 RESOURCENAME = 3
-# resname, reqSkill, maxSkill, color
+# resname: [ reqSkill, maxSkill, color ]
 woodtable = \
 {
 	'plainwood': [ 0, 10, 0x0 ]
@@ -163,9 +163,9 @@ def hack_kindling( char, pos ):
 	item = wolfpack.additem( "de1" )
 	if not wolfpack.utilities.tobackpack( item, char ):
 		item.update()
-		
+
 	# Resend weight
-	char.socket.resendstatus()		
+	char.socket.resendstatus()
 
 	# Let him hack
 	char.action( 0x9 )
@@ -196,15 +196,15 @@ def successlumberjacking( char, args ):
 		return False
 
 	reqskill = woodtable[ resname ][ REQSKILL ]
-	chance = int( ( char.skill[ LUMBERJACKING ] - woodtable[ resname ][ MINSKILL ] ) / 10 )
+	chance = max(0, char.skill[LUMBERJACKING] - woodtable[ resname ][ MINSKILL ]) / 1000.0
 
 	if char.skill[ LUMBERJACKING ] < reqskill:
 		char.socket.clilocmessage( 500298 ) # You are not skilled enough...
 		return False
 	else:
 		# Skill Check against LUMBERJACKING
-		if not char.checkskill( LUMBERJACKING, reqskill, 1200 ):
-			char.socket.clilocmessage( 500495 ) # You hack at the tree for a while but fail to produce...
+		if not skills.checkskill(char, LUMBERJACKING, chance):
+			socket.clilocmessage(500495)
 			success = 0
 			return False
 		elif chance >= randint(1, 100):
@@ -237,7 +237,7 @@ def successlumberjacking( char, args ):
 		resourceitem.settag( 'resname', resname ) # Used when crafting
 		if not wolfpack.utilities.tobackpack( resourceitem, char ):
 			resourceitem.update()
-			
+
 		# Resend weight
 		char.socket.resendstatus()
 
