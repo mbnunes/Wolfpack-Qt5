@@ -73,6 +73,7 @@ HEADERS		= CharWrap.h \
 		  utilsys.h \
 		  verinfo.h \
 		  walking.h \
+		  walking2.h \
 		  weight.h \
 		  whitespace.h \
 		  wip.h \
@@ -144,6 +145,7 @@ SOURCES		= CharWrap.cpp \
 		  trigger.cpp \
 		  utilsys.cpp \
 		  walking.cpp \
+		  walking2.cpp \
 		  weight.cpp \
 		  wip.cpp \
 		  wolfpack.cpp \
