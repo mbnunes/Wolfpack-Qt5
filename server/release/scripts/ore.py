@@ -60,29 +60,26 @@ def onUse( char, ore ):
 				return OK
 
 def response( char, args, target ):
-	direction = char.directionto( target.pos )
-	if not char.direction == direction:
-		char.direction = direction
-		char.update()
+	if not target.item:
+		char.socket.clilocmessage(501973)
+		return
 
-	item = wolfpack.finditem( args[0] )
+	char.turnto(target.item)
+	
+	if not char.canreach(target.item, 4):
+		char.socket.clilocmessage(500295)
+		return
 
-	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):
-		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
-		return OK
-
-	if abs( char.pos.z - target.pos.z ) > 5:
-		char.socket.clilocmessage( 0x7A247 ) # You are too far away to do that.
-		return OK
+	item = wolfpack.finditem(args[0])
+	
+	if not item:
+		return
 
 	if not item.hastag( 'resname' ):
 		return OOPS
 	else:
 		resname = item.gettag( 'resname' )
-
-	if target.char:
-		return OOPS
-
+		
 	targetitem = wolfpack.finditem( target.item.serial )
 
 	# We go onto creating ingots here.
