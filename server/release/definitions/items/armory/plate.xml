@@ -24,6 +24,23 @@
 		<sellprice>122</sellprice>
 		<category>Armor\Platemail\Female Armor</category>
 	</item>
+	
+	<!-- Female Plate Armor -->
+	<item id="1c05">
+		<name>plate armor</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<id>0x1C05</id>
+		<requires type='str'>95</requires>
+		<restock>10</restock>
+		<smelt>16</smelt>
+		<weight>4.0</weight>
+		<buyprice>245</buyprice>
+		<sellprice>122</sellprice>
+		<category>Armor\Platemail\Female Armor</category>
+	</item>
 
 	<!-- Male Plate Armor -->
 	<item id="1415">
@@ -33,6 +50,23 @@
 		<defense>5</defense>
 		<durability><random min="50" max="65" /></durability>
 		<id>0x1415</id>
+		<requires type='str'>95</requires>
+		<restock>10</restock>
+		<smelt>20</smelt>
+		<weight>10.0</weight>
+		<buyprice>273</buyprice>
+		<sellprice>136</sellprice>
+		<category>Armor\Platemail\Male Armor</category>
+	</item>
+	
+	<!-- Male Plate Armor -->
+	<item id="1416">
+		<name>platemail</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<id>0x1416</id>
 		<requires type='str'>95</requires>
 		<restock>10</restock>
 		<smelt>20</smelt>
@@ -58,6 +92,23 @@
 		<sellprice>90</sellprice>
 		<category>Armor\Platemail\Arms</category>
 	</item>
+	
+	<!-- Plate Arms -->
+	<item id="1417">
+		<name>platemail arms</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<id>0x1417</id>
+		<requires type='str'>80</requires>
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>5.0</weight>
+		<buyprice>181</buyprice>
+		<sellprice>90</sellprice>
+		<category>Armor\Platemail\Arms</category>
+	</item>
 
 	<!-- Plate Gloves -->
 	<item id="1414">
@@ -67,6 +118,23 @@
 		<defense>5</defense>
 		<durability><random min="50" max="65" /></durability>
 		<id>0x1414</id>
+		<requires type='str'>70</requires>
+		<restock>10</restock>
+		<smelt>9</smelt>
+		<weight>2.0</weight>
+		<buyprice>145</buyprice>
+		<sellprice>72</sellprice>
+		<category>Armor\Platemail\gloves</category>
+	</item>
+	
+	<!-- Plate Gloves -->
+	<item id="1418">
+		<name>platemail gloves</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<id>0x1418</id>
 		<requires type='str'>70</requires>
 		<restock>10</restock>
 		<smelt>9</smelt>
@@ -109,6 +177,23 @@
 		<sellprice>85</sellprice>
 		<category>Armor\Platemail\helmet</category>
 	</item>
+	
+	<!-- Plate Helmet -->
+	<item id="1419">
+		<name>plate helmet</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<id>0x1419</id>
+		<requires type='str'>80</requires>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>7.0</weight>
+		<buyprice>170</buyprice>
+		<sellprice>85</sellprice>
+		<category>Armor\Platemail\helmet</category>
+	</item>
 
 	<!-- Plate Leggings -->
 	<item id="1411">
@@ -118,6 +203,23 @@
 		<defense>5</defense>
 		<durability><random min="50" max="65" /></durability>
 		<id>0x1411</id>
+		<requires type='str'>90</requires>
+		<restock>10</restock>
+		<smelt>16</smelt>
+		<weight>7.0</weight>
+		<buyprice>218</buyprice>
+		<sellprice>109</sellprice>
+		<category>Armor\Platemail\leggings</category>
+	</item>
+	
+	<!-- Plate Leggings -->
+	<item id="141a">
+		<name>platemail legs</name>
+		<decay />
+		<nodye />
+		<defense>5</defense>
+		<durability><random min="50" max="65" /></durability>
+		<id>0x141a</id>
 		<requires type='str'>90</requires>
 		<restock>10</restock>
 		<smelt>16</smelt>

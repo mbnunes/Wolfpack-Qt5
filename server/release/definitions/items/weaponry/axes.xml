@@ -7,6 +7,24 @@
 =================================================================
 -->
 <definitions>
+        <!-- Two Handed Axe -->
+	<item id="1442">
+		<id>0x1442</id>
+		<name>two handed axe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>31</buyprice>
+		<attack min="16" max="17" />
+		<durability><random min="30" max="62" /></durability>
+		<speed>31</speed>
+		<weight>8.0</weight>
+		<tag name="req_str" value="40" type="int" />
+		<events>equipment</events>
+		<category>Weapons\Axes\Two Handed Axe</category>
+		<type>1002</type>
+	</item>
 
 	<!-- Two Handed Axe -->
 	<item id="1443">
@@ -24,6 +42,25 @@
 		<tag name="req_str" value="40" type="int" />
 		<events>equipment</events>
 		<category>Weapons\Axes\Two Handed Axe</category>
+		<type>1002</type>
+	</item>
+	
+	<!-- Large Battle Axe -->
+	<item id="13fa">
+		<id>0x13fa</id>
+		<name>large battle axe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>18</sellprice>
+		<buyprice>36</buyprice>
+		<attack min="16" max="17" />
+		<durability><random min="30" max="64" /></durability>
+		<speed>29</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="80" type="int" />
+		<events>equipment</events>
+		<category>Weapons\Axes\Large Battle Axe</category>
 		<type>1002</type>
 	</item>
 
@@ -140,10 +177,48 @@
 		<type>1002</type>
 		<category>Weapons\Axes\Large Battle Axe</category>
 	</item>
+	
+	<!-- Axe -->
+	<item id="f4a">
+		<id>0x0f4a</id>
+		<name>axe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>120</sellprice>
+		<buyprice>40</buyprice>
+		<attack min="14" max="16" />
+		<durability><random min="30" max="60" /></durability>
+		<speed>37</speed>
+		<weight>4.0</weight>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
+		<type>1002</type>
+		<category>Weapons\Axes\Large Battle Axe</category>
+	</item>
 
 	<!-- Double Axe -->
 	<item id="f4b">
 		<id>0x0f4b</id>
+		<name>double axe</name>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>28</sellprice>
+		<buyprice>57</buyprice>
+		<attack min="15" max="17" />
+		<durability><random min="50" max="95" /></durability>
+		<speed>33</speed>
+		<weight>3.0</weight>
+		<tag name="req_str" value="45" type="int" />
+		<events>equipment</events>
+		<type>1002</type>
+		<category>Weapons\Axes\Double Axe</category>
+	</item>
+	
+	<!-- Double Axe -->
+	<item id="f4c">
+		<id>0x0f4c</id>
 		<name>double axe</name>
 		<twohanded />
 		<decay />

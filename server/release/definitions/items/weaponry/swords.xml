@@ -48,6 +48,24 @@
 		<tag name="req_str" value="35" type="int" />
 		<category>Weapons\Swords\Longsword 1</category>
 	</item>
+	
+	<!-- Scomitar -->
+	<item id="13b5">
+		<inherit id="swords_base" />
+		<name>scimitar</name>
+		<id>0x13b5</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>18</sellprice>
+		<buyprice>36</buyprice>
+		<attack min="13" max="15" />
+		<durability><random min="30" max="76" /></durability>
+		<speed>37</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="25" type="int" />
+		<category>Weapons\Swords\Scimitar</category>
+	</item>
 
 	<!-- Scomitar -->
 	<item id="13b6">
@@ -101,6 +119,42 @@
 		<weight>6.0</weight>
 		<tag name="req_str" value="40" type="int" />
 		<category>Weapons\Swords\Viking Sword (N/S)</category>
+	</item>
+	
+	<!-- Viking Sword -->
+	<item id="13ba">
+		<inherit id="swords_base" />
+		<name>viking sword</name>
+		<id>0x13ba</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>25</sellprice>
+		<buyprice>51</buyprice>
+		<attack min="15" max="17" />
+		<durability><random min="30" max="56" /></durability>
+		<speed>28</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="40" type="int" />
+		<category>Weapons\Swords\Viking Sword (N/S)</category>
+	</item>
+	
+	<!-- Katana -->
+	<item id="13fe">
+		<inherit id="swords_base" />
+		<name>katana</name>
+		<id>0x13fe</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>16</sellprice>
+		<buyprice>32</buyprice>
+		<attack min="11" max="13" />
+		<durability><random min="30" max="55" /></durability>
+		<speed>46</speed>
+		<weight>6.0</weight>
+		<tag name="req_str" value="25" type="int" />
+		<category>Weapons\Swords\Katana</category>
 	</item>
 
 	<!-- Katana -->
