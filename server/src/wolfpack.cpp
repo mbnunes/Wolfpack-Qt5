@@ -2703,7 +2703,8 @@ bool bDeamon = false ;
 void checkparm(string param)
 {
 	transform(param.begin(),param.end(),param.begin(),::toupper) ;
-	if (param == "--NO_DEAMON")
+	//cout << "Console paramter is : " << param << endl;
+	if (param == "--NO-DEAMON")
 		bDeamon = false ;
 	else if (param =="--DEAMON")
 		bDeamon = true ;
