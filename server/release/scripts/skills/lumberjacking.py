@@ -213,7 +213,6 @@ def successlumberjacking( char, args ):
 				tool.delete()
 				# You broke your axe!
 				socket.clilocmessage( 500499, '', GRAY )
-			char.socket.deltag( 'wood_gem' )
 			char.socket.deltag( 'is_lumberjacking' )
 			success = 1
 		else:
