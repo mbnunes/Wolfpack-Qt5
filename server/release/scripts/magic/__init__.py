@@ -57,14 +57,15 @@ def castSpell( char, spell, mode = 0, args = [], target = None, item = None ):
 
 # Target Cancel
 def target_cancel(char):
-	if char.socket.hastag('cast_target'):
-		char.socket.deltag('cast_target')
+	char.socket.deltag('cast_target')
+	char.dispel(char, 1, 'cast_delay')
+	char.removescript('magic')
 
 # Target Timeout
 def target_timeout(char):
-	char.socket.deltag('cast_target')
-	char.socket.clilocmessage(500641)
-	fizzle(char)
+	if char.socket.hastag('cast_target'):
+		char.socket.clilocmessage(500641)
+		fizzle(char)
 
 # Target Response
 def target_response( char, args, target ):

@@ -50,7 +50,6 @@ MODE_CMD = 3
 #
 def fizzle(char):
 	char.dispel(char, 1, 'cast_delay')
-
 	char.removescript('magic')
 
 	if char.socket:

@@ -55,6 +55,8 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Nuke also works from bottom right to top left now.
 		- Removed spell cast animation while mounted.
 		- Fixed a lumberjacking bug.
+		- Fixed a bug with kindlings.
+		- Fixed a bug with canceling a magery target not canceling the spell.
 	* Misc. Changes:
 		- Fixed configure.py for FreeBSD 5
 	* Known Issues, Bugs, and Missing Features:
