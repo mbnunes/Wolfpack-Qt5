@@ -33,10 +33,9 @@ class Earthquake(Spell):
 			guild = None
 
 		targets = []
-
-		damage = self.scaledamage(char, None, 48, 45, 5)
-
-		chars = wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, 8)
+		
+		spellrange = 1 + int(char.skill[MAGERY] / 150.0)
+		chars = wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, spellrange)
 		for target in chars:
 			if target == char:
 				continue
@@ -44,11 +43,20 @@ class Earthquake(Spell):
 			if (guild and target.guild == guild) or (party and target.party == party):
 				continue
 
+			if not char.canreach(target, spellrange):
+				continue
+
 			targets.append(target)
 
 		for target in targets:
 			target.soundeffect(0x2F3)
 			self.harmchar(char, target)
+			
+			damage = target.hitpoints / 2
+			if target.player:
+				damage += random.randint(0, 15)
+			
+			damage = min(100, max(15, damage))			
 			energydamage(target, char, damage, physical=100)
 
 class EnergyVortex(Spell):
