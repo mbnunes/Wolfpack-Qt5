@@ -1,0 +1,303 @@
+<definitions>
+	<!--
+		BASESOUND:
+			Offset of the sounds for the soundmode list below
+	
+		SOUNDMODES:
+			0: normal, 5 sounds (attack-started, idle, attack, defence, dying, see WOLFPACK.h)
+			1: birds .. only one "bird-shape" and zillions of sounds ...
+			2: only 3 sounds - /> (attack,defence,dying)
+			3: only 4 sounds - />	(attack-started,attack,defnce,dying)
+			4: only 1 sound !!
+			
+		FLAGS:
+			0x01: Creature can Fly
+			0x02: Anti-Blink (Creature is Missing Animation #4)
+      0x04: Creature has no corpse
+			
+		SHRINK:
+			Item id for the animal in shrinked form (numeric!)
+			
+		TYPE:
+			4: Anything Else
+			3: NPC (?)
+			2: Animals / Pets (Including all Mounts)
+			1: Sea Creature
+			0: Monster
+	-->
+
+	<charbase id="0x1" basesound="0x1ab" shrink="0x20df" />
+	<charbase id="0x2" basesound="0x16f" shrink="0x20d8" />
+	<charbase id="0x3" basesound="0x1d7" shrink="0x20ec" />
+	<charbase id="0x4" basesound="0x174" shrink="0x20d9" flags="0x1" />
+	<charbase id="0x5" basesound="0x8f" shrink="0x20f2" type="2" flags="0x3" />
+	<charbase id="0x6" basesound="0x7d" shrink="0x20ee" soundmode="1" type="2" flags="0x1" />
+	<charbase id="0x7" basesound="0x1b0" shrink="0x20e0" />
+	<charbase id="0x8" basesound="0x1ba" shrink="0x20d2" soundmode="3" />
+	<charbase id="0x9" basesound="0x165" shrink="0x20d3" flags="0x1" />
+	<charbase id="0xa" basesound="0x165" shrink="0x20d3" flags="0x1" />
+	<charbase id="0xb" basesound="0x183" shrink="0x20fd" />
+	<charbase id="0xc" basesound="0x16a" shrink="0x20d6" flags="0x1" />
+	<charbase id="0xd" basesound="0x107" shrink="0x20ed" flags="0x04"/>
+	<charbase id="0xe" basesound="0x10c" shrink="0x20d7"/>
+	<charbase id="0xf" basesound="0x111" shrink="0x20f3" flags="0x04"/>
+	<charbase id="0x10" basesound="0x116" shrink="0x210b" flags="0x04"/> 
+	<charbase id="0x11" basesound="0x1b0" shrink="0x20e0" /> 
+	<charbase id="0x12" basesound="0x16f" shrink="0x20d8" /> 
+	<charbase id="0x13" basesound="0x183" shrink="0x20fd" />  
+	<charbase id="0x14" basesound="0x388" shrink="0x20fd" /> 
+	<charbase id="0x15" basesound="0xdb" shrink="0x20fe" /> 
+	<charbase id="0x16" basesound="0x179" shrink="0x20ea" />
+	<charbase id="0x17" basesound="0xe5" shrink="0x211c" type="2" /> 
+	<charbase id="0x18" basesound="0x19c" shrink="0x20f8" />
+	<charbase id="0x19" basesound="0xe5" shrink="0x211c" type="2" /> 
+	<charbase id="0x1a" basesound="0x17e" shrink="0x2109" /> 
+	<charbase id="0x1b" basesound="0xe5" shrink="0x211c" type="2" /> 
+	<charbase id="0x1c" basesound="0x183" shrink="0x20fd" /> 
+	<charbase id="0x1d" basesound="0x9e" shrink="0x20f5" type="2" />
+	<charbase id="0x1e" basesound="0x192" shrink="0x20dc" />
+	<charbase id="0x1f" basesound="0x197" shrink="0x210a" />
+	<charbase id="0x21" basesound="0x1a1" shrink="0x20de" />
+	<charbase id="0x22" basesound="0xe5" shrink="0x211c" type="2" />
+	<charbase id="0x23" basesound="0x1a1" shrink="0x20de" /> 
+	<charbase id="0x24" basesound="0x1a1" shrink="0x20de" />
+	<charbase id="0x25" basesound="0xe5" shrink="0x211c" type="2" /> 
+	<charbase id="0x26" basesound="0x2b8" shrink="0x2585" flags="0x1" />
+	<charbase id="0x27" basesound="0x1a6" shrink="0x20f9" flags="0x1" />
+	<charbase id="0x28" basesound="0x2b8" shrink="0x2586" flags="0x1" />
+	<charbase id="0x29" basesound="0x1b0" shrink="0x20e0" />
+	<charbase id="0x2a" basesound="0x1b5" shrink="0x20e3" />
+	<charbase id="0x2b" basesound="0x2b8" shrink="0x2587" flags="0x1" />
+	<charbase id="0x2c" basesound="0x1b5" shrink="0x20e3" />
+	<charbase id="0x2d" basesound="0x1b5" shrink="0x20e3" />
+	<charbase id="0x2e" basesound="0x16a" shrink="0x2104" flags="0x1" />
+	<charbase id="0x2f" basesound="0x1ba" shrink="0x20fa" />
+	<charbase id="0x30" basesound="0x18d" shrink="0x20e4" />
+	<charbase id="0x31" basesound="0x16a" shrink="0x2104" flags="0x1" />
+	<charbase id="0x32" basesound="0x1c4" shrink="0x20e7" />
+	<charbase id="0x33" basesound="0x1c8" shrink="0x20e8" />
+	<charbase id="0x34" basesound="0xdb" shrink="0x20fc" type="2" />
+	<charbase id="0x35" basesound="0x1cd" shrink="0x20e9" />
+	<charbase id="0x36" basesound="0x1cd" shrink="0x20e9" />
+	<charbase id="0x37" basesound="0x1cd" shrink="0x20e9" />
+	<charbase id="0x38" basesound="0x1c4" shrink="0x20e7" />
+	<charbase id="0x39" basesound="0x1c4" shrink="0x20e7" />
+	<charbase id="0x3a" basesound="0x1d2" shrink="0x2100" />
+	<charbase id="0x3b" basesound="0x16a" shrink="0x20d6" flags="0x1" />
+	<charbase id="0x3c" basesound="0x16a" shrink="0x20d6" flags="0x1" />
+	<charbase id="0x3d" basesound="0x16a" shrink="0x20d6" flags="0x1" />
+	<charbase id="0x3e" basesound="0x16a" shrink="0x25d4" flags="0x1" />
+	<charbase id="0x3f" basesound="0x73" shrink="0x2583" type="2" />
+	<charbase id="0x40" basesound="0x73" shrink="0x25a3" type="2" />
+	<charbase id="0x41" basesound="0x73" shrink="0x25a3" type="2" />
+	<charbase id="0x42" basesound="0x27f" shrink="0x25c8" />
+	<charbase id="0x43" basesound="0x174" shrink="0x258e" />
+	<charbase id="0x44" basesound="0x179" shrink="0x258f" />
+	<charbase id="0x45" basesound="0x36b" shrink="0x20f4" />
+	<charbase id="0x46" basesound="0x24e" shrink="0x25c9" />
+	<charbase id="0x47" basesound="0x24e" shrink="0x25ca" />
+	<charbase id="0x48" basesound="0x258" shrink="0x25cb" />
+	<charbase id="0x49" basesound="0x192" shrink="0x2594" flags="0x1" />
+	<charbase id="0x4a" basesound="0x3bf" shrink="0x259f" flags="0x1" />
+	<charbase id="0x4b" basesound="0x25c" shrink="0x212d" />
+	<charbase id="0x4c" basesound="0x261" shrink="0x25cd" />
+	<charbase id="0x4d" basesound="0x44c" shrink="0x25a2" />
+	<charbase id="0x4e" basesound="0x19c" shrink="0x20f8" />
+	<charbase id="0x4f" basesound="0x1a1" shrink="0x20f8" />
+	<charbase id="0x50" basesound="0x35a" shrink="0x212f" />
+	<charbase id="0x51" basesound="0x35f" shrink="0x2130" type="2" />
+	<charbase id="0x52" basesound="0x1a1" shrink="0x20f8" />
+	<charbase id="0x53" basesound="0x1ab" shrink="0x20cb" />
+	<charbase id="0x54" basesound="0x1ab" shrink="0x20cb" />
+	<charbase id="0x55" basesound="0x280" shrink="0x25ab" />
+	<charbase id="0x56" basesound="0x27b" shrink="0x25ac" />
+	<charbase id="0x57" basesound="0x285" shrink="0x25ad" />
+	<charbase id="0x58" basesound="0x99" shrink="0x2580" type="2" />
+	<charbase id="0x59" basesound="0x183" shrink="0x25c0" />
+	<charbase id="0x5a" basesound="0x183" shrink="0x25c1" />
+	<charbase id="0x5b" basesound="0x388" shrink="0x25c2" />
+	<charbase id="0x5c" basesound="0x388" shrink="0x25c2" />
+	<charbase id="0x5d" basesound="0x388" shrink="0x25c2" />
+	<charbase id="0x5e" basesound="0x1c8" shrink="0x20e8" />
+	<charbase id="0x60" basesound="0x1c8" shrink="0x20e8" />
+	<charbase id="0x61" basesound="0x85" shrink="0x2596" type="2" />
+	<charbase id="0x62" basesound="0x85" shrink="0x2596" type="2" />
+	<charbase id="0x63" basesound="0xe5" shrink="0x25cf" type="2" />
+	<charbase id="0x64" basesound="0xe5" shrink="0x25cf" type="2" />
+	<charbase id="0x65" basesound="0x2a7" shrink="0x2581" />
+	<charbase id="0x66" basesound="0x300" shrink="0x2105" flags="0x1" />
+	<charbase id="0x67" basesound="0x2c0" shrink="0x2593" flags="0x1" />
+	<charbase id="0x68" basesound="0x488" shrink="0x20d6" flags="0x1" />
+	<charbase id="0x69" basesound="0x2d2" shrink="0x20d6" flags="0x1" />
+	<charbase id="0x6a" basesound="0x2cd" shrink="0x20d6" flags="0x1" />
+	<charbase id="0x6b" basesound="0x10c" shrink="0x25d9" />
+	<charbase id="0x6c" basesound="0x10c" shrink="0x25d9" />
+	<charbase id="0x6d" basesound="0x10c" shrink="0x25d9" />
+	<charbase id="0x6e" basesound="0x10c" shrink="0x20d7" />
+	<charbase id="0x6f" basesound="0x10c" shrink="0x20d7" />
+	<charbase id="0x70" basesound="0x10c" shrink="0x20d7" />
+	<charbase id="0x71" basesound="0xa8" shrink="0x2121" type="2" />
+	<charbase id="0x72" basesound="0xa8" shrink="0x2120" type="2" />
+	<charbase id="0x73" basesound="0xa8" shrink="0x259c" type="2" />
+	<charbase id="0x74" basesound="0xa8" shrink="0x259d" type="2" />
+	<charbase id="0x75" basesound="0xa8" shrink="0x2121" type="2" />
+	<charbase id="0x76" basesound="0xa8" shrink="0x2121" type="2" />
+	<charbase id="0x77" basesound="0xa8" shrink="0x2121" type="2" />
+	<charbase id="0x78" basesound="0xa8" shrink="0x2121" type="2" />
+	<charbase id="0x79" basesound="0xa8" shrink="0x2121" type="2" />
+	<charbase id="0x7a" basesound="0x4bc" shrink="0x25ce" type="2" />
+	<charbase id="0x7b" basesound="0x2f5" shrink="0x2589" flags="0x1" />
+	<charbase id="0x7c" basesound="0x24d" shrink="0x258a" />
+	<charbase id="0x7d" basesound="0x27f" shrink="0x258b" />
+	<charbase id="0x7e" basesound="0x257" shrink="0x258b" />
+	<charbase id="0x7f" basesound="0x69" shrink="0x2597" type="2" />
+	<charbase id="0x80" basesound="0x46d" shrink="0x25b6" />
+	<charbase id="0x81" basesound="0x34e" shrink="0x25c8" />
+	<charbase id="0x82" basesound="0x174" shrink="0x20d9" />
+	<charbase id="0x83" basesound="0x370" shrink="0x2590" />
+	<charbase id="0x84" basesound="0x3c5" shrink="0x25a0" type="2" />
+	<charbase id="0x85" basesound="0x5a" shrink="0x211f" type="2" />
+	<charbase id="0x86" basesound="0x2c7" shrink="0x25a1" type="2" flags="0x1" />
+	<charbase id="0x87" basesound="0x1ab" shrink="0x25a8" />
+	<charbase id="0x88" basesound="0x280" shrink="0x25a9" />
+	<charbase id="0x89" basesound="0x27b" shrink="0x25aa" />
+	<charbase id="0x8a" basesound="0x459" shrink="0x25b0" />
+	<charbase id="0x8b" basesound="0x459" shrink="0x25b0" />
+	<charbase id="0x8c" basesound="0x1ab" shrink="0x25b1" />
+	<charbase id="0x8d" basesound="0x447" shrink="0x2106" />
+	<charbase id="0x8e" basesound="0x1b5" shrink="0x25b7" />
+	<charbase id="0x8f" basesound="0x1b5" shrink="0x25b7" />
+	<charbase id="0x90" basesound="0x478" shrink="0x25ba" type="1" />
+	<charbase id="0x91" basesound="0x3" shrink="0x20fb" type="1" />
+	<charbase id="0x92" basesound="0x47d" shrink="0x258a" />
+	<charbase id="0x93" basesound="0x48d" shrink="0x25bd" />
+	<charbase id="0x94" basesound="0x48d" shrink="0x25be" />
+	<charbase id="0x95" basesound="0x4b0" shrink="0x259f" />
+	<charbase id="0x96" basesound="0x3" shrink="0x20fb" type="1" />
+	<charbase id="0x97" basesound="0x8a" shrink="0x20f1" type="1" />
+	<charbase id="0x98" basesound="0x492" shrink="0x25ca" />
+	<charbase id="0x99" basesound="0x379" shrink="0x25c7" />
+	<charbase id="0x9a" basesound="0x1d7" shrink="0x25bb" />
+	<charbase id="0x9b" basesound="0x1d7" shrink="0x25a7" />
+	<charbase id="0x9d" basesound="0x388" shrink="0x25c3" />
+	<charbase id="0x9e" basesound="0x205" shrink="0x25d6" soundmode="2" />
+	<charbase id="0x9f" basesound="0x205" shrink="0x25d8" soundmode="2" />
+	<charbase id="0xa0" basesound="0x205" shrink="0x25d8" soundmode="2" />
+	<charbase id="0xa1" basesound="0x107" shrink="0x25da" />
+	<charbase id="0xa2" basesound="0x205" shrink="0x25db" soundmode="2" />
+	<charbase id="0xa3" basesound="0x10c" shrink="0x25dc" />
+	<charbase id="0xa4" basesound="0x107" shrink="0x25d8" />
+	<charbase id="0xa5" basesound="0x1d2" shrink="0x2100" />
+	<charbase id="0xa6" basesound="0x10c" shrink="0x25d9" />
+	<charbase id="0xa7" basesound="0x4c2" shrink="0x211e" type="2" />
+	<charbase id="0xa8" basesound="0x3bf" shrink="0x259f" />
+	<charbase id="0xaa" basesound="0x3f3" shrink="0x20f6" type="2" />
+	<charbase id="0xab" basesound="0xb7" shrink="0x25b4" soundmode="2" type="2" />
+	<charbase id="0xac" basesound="0x16a" shrink="0x20d6" flags="0x1" />
+	<charbase id="0xad" basesound="0x388" shrink="0x25c3" />
+	<charbase id="0xae" basesound="0x4b0" shrink="0x259f" flags="0x1" />
+	<charbase id="0xaf" basesound="0x2fa" shrink="0x2589" />
+	<charbase id="0xb0" basesound="0x46c" shrink="0x25b6" flags="0x1" />
+	<charbase id="0xb2" basesound="0xa8" shrink="0x259c" type="2" />
+	<charbase id="0xb3" basesound="0xa8" shrink="0x259c" type="2" />
+	<charbase id="0xb4" basesound="0x2c0" shrink="0x20d6" flags="0x1" />
+	<charbase id="0xb5" basesound="0x1b0" shrink="0x25af" />
+	<charbase id="0xb6" basesound="0x1b0" shrink="0x25b0" />
+	<charbase id="0xbb" basesound="0x365" shrink="0x25b2" type="2" />
+	<charbase id="0xbc" basesound="0x365" shrink="0x25b2" type="2" />
+	<charbase id="0xbd" basesound="0x45a" shrink="0x25b0" />
+	<charbase id="0xc8" basesound="0xa8" shrink="0x211f" type="2" />
+	<charbase id="0xc9" basesound="0x69" shrink="0x211b" type="2" flags="0x2" />
+	<charbase id="0xca" basesound="0x5a" shrink="0x20da" type="2" />
+	<charbase id="0xcb" basesound="0xc4" shrink="0x2101" type="2" />
+	<charbase id="0xcc" basesound="0xa8" shrink="0x2121" type="2" />
+	<charbase id="0xcd" basesound="0xc9" shrink="0x2125" soundmode="2" type="2" />
+	<charbase id="0xcf" basesound="0xd6" shrink="0x20eb" type="2" />
+	<charbase id="0xd0" basesound="0x6e" shrink="0x20d1" type="2" />
+	<charbase id="0xd1" basesound="0x99" shrink="0x20e6" type="2" />
+	<charbase id="0xd3" basesound="0x5f" shrink="0x20cf" type="2" />
+	<charbase id="0xd4" basesound="0x5f" shrink="0x20db" type="2" />
+	<charbase id="0xd5" basesound="0x5f" shrink="0x20e1" type="2" />
+	<charbase id="0xd6" basesound="0xba" shrink="0x2119" type="2" flags="0x2" />
+	<charbase id="0xd7" basesound="0x188" shrink="0x20d0" />
+	<charbase id="0xd8" basesound="0x78" shrink="0x20f0" type="2" />
+	<charbase id="0xd9" basesound="0x85" shrink="0x20d5" type="2" />
+	<charbase id="0xda" basesound="0x3f5" shrink="0x25b3" type="2" />
+	<charbase id="0xdb" basesound="0x3f5" shrink="0x25b4" type="2" />
+	<charbase id="0xdc" basesound="0xb7" shrink="0x20f6" soundmode="2" type="2" />
+	<charbase id="0xdd" basesound="0xe0" shrink="0x20ff" type="1" />
+	<charbase id="0xdf" basesound="0xd8" shrink="0x20e6" soundmode="2" type="2" />
+	<charbase id="0xe1" basesound="0xe5" shrink="0x20ea" type="2" flags="0x2" />
+	<charbase id="0xe2" basesound="0xa8" shrink="0x2124" type="2" />
+	<charbase id="0xe4" basesound="0xa8" shrink="0x2120" type="2" />
+	<charbase id="0xe7" basesound="0x78" shrink="0x20f0" type="2" flags="0x2" />
+	<charbase id="0xe8" basesound="0x64" shrink="0x20ef" type="2" flags="0x2" />
+	<charbase id="0xe9" basesound="0x78" shrink="0x2103" type="2" flags="0x2" />
+	<charbase id="0xea" basesound="0x82" shrink="0x20d4" soundmode="2" type="2" />
+	<charbase id="0xed" basesound="0x82" shrink="0x20d4" soundmode="2" type="2" />
+	<charbase id="0xee" basesound="0xcc" shrink="0x2123" type="2" />
+	<charbase id="0x122" basesound="0xc4" shrink="0x2101" type="2" />
+	<charbase id="0x123" basesound="0xa8" shrink="0x2126" type="2" />
+	<charbase id="0x124" basesound="0xb7" shrink="0x2127" soundmode="2" type="2" />
+	<charbase id="0x190" basesound="0x0" shrink="0x2106" />
+	<charbase id="0x191" basesound="0x0" shrink="0x2107" />
+	<charbase id="0x192" basesound="0x0" shrink="0x25f0" />
+	<charbase id="0x193" basesound="0x0" shrink="0x25f1" />
+	<charbase id="0x23d" basesound="0x107" flags="0x04"/>
+	<charbase id="0x23e" basesound="0x200" soundmode="4" flags="0x04"/>
+	<charbase id="0x2f0" basesound="0x10c" shrink="0x25b1" />
+	<charbase id="0x2f1" basesound="0x174" shrink="0x258d" flags="0x1" />
+	<charbase id="0x2f2" basesound="0x174" shrink="0x258d" flags="0x1" />
+	<charbase id="0x2f3" basesound="0x174" shrink="0x258d" flags="0x1" />
+	<charbase id="0x2f4" basesound="0x36d" shrink="0x258f" />
+	<charbase id="0x2f5" basesound="0x36d" shrink="0x258f" />
+	<charbase id="0x2f6" basesound="0x174" shrink="0x258d" flags="0x1" />
+	<charbase id="0x2fb" basesound="0x36d" shrink="0x258f" />
+	<charbase id="0x307" basesound="0x351" shrink="0x20e8" />
+	<charbase id="0x308" basesound="0x35f" shrink="0x212f" />
+	<charbase id="0x309" basesound="0x456" shrink="0x25d5" />
+	<charbase id="0x30a" basesound="0x36d" shrink="0x258f" />
+	<charbase id="0x30b" basesound="0x2f8" shrink="0x20d7" />
+	<charbase id="0x30c" basesound="0x300" shrink="0x2582" />
+	<charbase id="0x30d" basesound="0x346" shrink="0x25c9" />
+	<charbase id="0x30e" basesound="0x346" shrink="0x25ca" />
+	<charbase id="0x30f" basesound="0x346" shrink="0x25cb" />
+	<charbase id="0x310" basesound="0x165" shrink="0x2585" />
+	<charbase id="0x311" basesound="0x2b8" shrink="0x2586" />
+	<charbase id="0x312" basesound="0x388" shrink="0x25c3" />
+	<charbase id="0x313" basesound="0x18d" shrink="0x25b9" />
+	<charbase id="0x314" basesound="0x3ee" shrink="0x25cf" />
+	<charbase id="0x315" basesound="0x451" shrink="0x25c4" />
+	<charbase id="0x316" basesound="0x28f" shrink="0x25d9" />
+	<charbase id="0x317" basesound="0x2bd" shrink="0x25c3" type="2" />
+	<charbase id="0x318" basesound="0x165" shrink="0x2584" />
+	<charbase id="0x319" basesound="0xa8" shrink="0x259b" type="2" />
+	<charbase id="0x31a" basesound="0x16a" shrink="0x2593" type="2" flags="0x1" />
+	<charbase id="0x31b" basesound="0x2b9" shrink="0x2584" />
+	<charbase id="0x31c" basesound="0x2b9" shrink="0x2584" />
+	<charbase id="0x31d" basesound="0x111" shrink="0x20d6" flags="0x1" />
+	<charbase id="0x31e" basesound="0x16a" shrink="0x20d6" flags="0x1" />
+	<charbase id="0x31f" basesound="0x16a" shrink="0x20d6" type="2" flags="0x1" />
+	<charbase id="0x334" basesound="0xa8" shrink="0x2598" type="2" />
+	<charbase id="0x338" basesound="0xa8" shrink="0x259a" type="2" />
+	<charbase id="0x339" basesound="0x3f5" shrink="0x25b2" type="2" />
+	<charbase id="0x33a" basesound="0x3f5" shrink="0x25b3" type="2" />
+	<charbase id="0x33b" basesound="0x3f5" shrink="0x25b4" type="2" />
+	<charbase id="0x33c" basesound="0xb7" shrink="0x20f6" soundmode="2" type="2" />
+	<charbase id="0x33f" basesound="0xbf" shrink="0x211a" type="2" />
+	<charbase id="0x340" basesound="0x2ee" shrink="0x20f2" type="2" />
+	<charbase id="0x341" basesound="0x275" shrink="0x211a" type="2" />
+	<charbase id="0x342" basesound="0x2a2" shrink="0x2597" type="2" />
+	<charbase id="0x343" basesound="0xc9" shrink="0x2125" soundmode="2" type="2" />
+	<charbase id="0x345" basesound="0xdb" shrink="0x25c0" type="2" />
+	<charbase id="0x346" basesound="0xdb" shrink="0x25c1" type="2" />
+	<charbase id="0x347" basesound="0x365" shrink="0x25b2" type="2" />
+	<charbase id="0x348" basesound="0x365" shrink="0x25b2" type="2" />
+	<charbase id="0x349" basesound="0x365" shrink="0x25b2" type="2" />
+	<charbase id="0x34a" basesound="0x365" shrink="0x25b2" type="2" />
+	<charbase id="0x34b" basesound="0xcc" shrink="0x2123" type="2" />
+	<charbase id="0x34e" basesound="0xa8" shrink="0x2599" type="2" />
+	<charbase id="0x350" basesound="0xa8" shrink="0x259e" type="2" />
+	<charbase id="0x3e6" basesound="0xa8" shrink="0x25a0" type="2" />
+
+</definitions>
