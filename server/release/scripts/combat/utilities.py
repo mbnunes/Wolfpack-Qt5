@@ -91,7 +91,7 @@ def getbestskill(char):
 # If bestskill is 1 and the weapon has the given property.
 # The best skill is used instead.
 #
-def weaponskill(char, weapon, bestskill = 0):
+def weaponskill(char, weapon, bestskill = False):
 	if not weapon:
 		return WRESTLING
 	else:

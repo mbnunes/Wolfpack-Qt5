@@ -11,7 +11,8 @@ def onLoad():
 
 def commandRemove(socket, cmd, args):
 	socket.sysmessage( "Please select the object for removal." )
-	socket.sysmessage( "Caution: This can remove players!" )
+	if( socket.account.authorized('Misc', 'May Remove Players') ):
+		socket.sysmessage( "Caution: This can remove players!" )
 	socket.attachtarget( "commands.remove.doRemove", [] )
 	return True
 

@@ -67,6 +67,7 @@ def response(player, arguments, response):
 	item.settag('mininterval', mininterval)
 	item.settag('maxinterval', maxinterval)
 
+	item.resendtooltip()
 #
 # Show a configuration gump to gms.
 #
