@@ -898,7 +898,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			htmltime=currenttime+(SrvParams->html()*MY_CLOCKS_PER_SEC);
 	}
 
-	if (saveinterval != 0)
+	if (SrvParams->saveInterval() != 0)
 	{
 		if (autosaved == 0)
 		{
@@ -908,13 +908,13 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		time( (time_t*) ( &newtime)) ;
 
 		if (dosavewarning==1)
-		if (difftime(newtime,oldtime)==saveinterval-10) 
+		if (difftime(newtime,oldtime)==SrvParams->saveInterval()-10) 
 		{
 		   sysbroadcast("World will be saved in 10 seconds..");
 		   dosavewarning = 0;
 		}
 
-		if (difftime(newtime, oldtime)>=saveinterval || cwmWorldState->Saving() )
+		if (difftime(newtime, oldtime)>=SrvParams->saveInterval() || cwmWorldState->Saving() )
 		{
 			autosaved = 0;
 			cwmWorldState->savenewworld(0);

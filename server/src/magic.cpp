@@ -2640,7 +2640,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					if (region[R].priv&0x01) // Ripper 11-14-99
 						if (region[R].priv&0x80 || region[R].priv&0x40) // LB magic region changes !
 						{
-							sysmessage(s," You cant cast in town!");
+							sysmessage(s, tr(" You cant cast in town!"));
 							return;
 						}
 						for( j=0; j<=j2; j++ )

@@ -60,9 +60,8 @@ void bitprint(FILE *fp, unsigned char x)
 }
 #endif
 
-cMapStuff::cMapStuff() : versionCache(NULL), versionRecordCount(0), versionMemory(0), StaMem(0), TileMem(0),
-Cache(0), StaticBlocks(0),
-mapfile(NULL), sidxfile(NULL), statfile(NULL), verfile(NULL), tilefile(NULL), multifile(NULL), midxfile(NULL)
+cMapStuff::cMapStuff( const QString& mulPath ) : versionCache(NULL), versionRecordCount(0), versionMemory(0), StaMem(0), TileMem(0),
+Cache(0), StaticBlocks(0), mapfile(NULL), sidxfile(NULL), statfile(NULL), verfile(NULL), tilefile(NULL), multifile(NULL), midxfile(NULL)
 {
 	// after a mess of bugs with the structures not matching the physical record sizes
 	// i've gotten paranoid...
@@ -75,16 +74,21 @@ mapfile(NULL), sidxfile(NULL), statfile(NULL), verfile(NULL), tilefile(NULL), mu
 	// staticrecord is not listed here because we explicitly don't read in some
 	// unknown bytes to save memory
 	
-	mapname[0] = sidxname[0] = statname[0] = vername[0] =
-		tilename[0] = multiname[0] = midxname[0] = '\0';
-	
 	MapCache = new QIntCache<map_st>( 100, 521); // should be a prime number
 	// http://www.utm.edu/research/primes/lists/small/1000.txt contains a prime table.
 
 	TileCache = new QIntCache<tile_st>( 100, 512 );
-//	memset(tilecache, 0x00, sizeof(tilecache));
 	memset(StaticCache, 0x00, sizeof(StaticCache));
-	
+	QString basePath = mulPath;
+	if ( basePath.left(1) != "/" )
+		basePath += "/";
+	strcpy(this->mapname, basePath + "map0.mul");
+	strcpy(this->sidxname, basePath + "staidx0.mul");
+	strcpy(this->statname, basePath + "statics0.mul");
+	strcpy(this->vername, basePath + "verdata.mul");
+	strcpy(this->tilename, basePath + "tiledata.mul");
+	strcpy(this->multiname, basePath + "multi.mul");
+	strcpy(this->midxname, basePath + "multi.idx");
 }
 
 cMapStuff::~cMapStuff()

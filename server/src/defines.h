@@ -64,7 +64,6 @@ char *strupr(char *);
 };
 #include <sys/types.h>
 extern time_t  oldtime, newtime;
-void Writeslot(char *lpszMessage);
 #define SLPMULTI 1000
 #define Sleep(sec) usleep(sec * 1000)
 
@@ -73,7 +72,6 @@ void Writeslot(char *lpszMessage);
 extern WSADATA wsaData;
 extern WORD wVersionRequested;
 extern long int oldtime, newtime;
-void Writeslot(LPSTR lpszMessage);
 
 #endif
 //#ifndef MSG_NOSIGNAL

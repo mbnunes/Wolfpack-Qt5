@@ -1797,8 +1797,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		pc->setSkin( 0x83EA );
 	}
 	pc->setXSkin(pc->skin());
-	pc->setPriv(defaultpriv1);
-	pc->priv2=defaultpriv2;
+	pc->setPriv(SrvParams->defaultpriv1());
+	pc->priv2=SrvParams->defaultpriv2();
 
 	if (acctno[s]==0)
 	{
@@ -2581,14 +2581,6 @@ void checkkey ()
 						clConsole.send( "Account 0 disconnected\n");
 					}
 					break;
-			case 'H':
-			case 'h':				// Enable/Disable heartbeat
-				if (heartbeat)
-					clConsole.send("WOLFPACK: Heartbeat Disabled\n");
-				else
-					clConsole.send("WOLFPACK: Heartbeat Enabled\n");
-				heartbeat = !heartbeat;
-				break;
 			case 'P':
 			case 'p':				// Display profiling information
 				clConsole.send("Performace Dump:\n");
@@ -2644,11 +2636,6 @@ void checkkey ()
 				clConsole.send("	D - Disconnect Account 0\n");
 				clConsole.send("	1 - Sysmessage: Attention Players Server being brought down!\n");
 				clConsole.send("	2 - Broadcast Message 2\n");
-				clConsole.send("	H - Toggle hearbeat ");
-				if (heartbeat)
-					clConsole.send( "[enabled]\n");
-				else
-					clConsole.send( "[disabled]\n");
 				clConsole.send("	P - Preformance Dump\n");
 				clConsole.send("	W - Display logged in characters\n");
 				clConsole.send("	A - Reload accounts\n");
@@ -2869,7 +2856,6 @@ int main( int argc, char *argv[] )
 	ScriptManager->load();
 
 	Map->Cache = 0;
-	Admin->ReadIni();
 
 	clConsole.send( "Loading scripts:\n" );
 	for(i=0;i<NUM_SCRIPTS;i++)
@@ -4475,37 +4461,6 @@ void dosocketmidi(int s)
 		playmidi(s, 0, midiarray[i]);
 	}
 }
-
-
-#ifndef __unix__
-void Writeslot(LPSTR lpszMessage)
-{
-	BOOL fResult;
-	HANDLE hFile;
-	DWORD cbWritten;
-
-	hFile = CreateFile("\\\\*\\mailslot\\uoxmail", GENERIC_WRITE,FILE_SHARE_READ,
-		(LPSECURITY_ATTRIBUTES) NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,
-		(HANDLE) NULL);
-	fResult = WriteFile(hFile,lpszMessage,(DWORD) lstrlen(lpszMessage) + 1,
-		&cbWritten,(LPOVERLAPPED) NULL);
-	fResult = CloseHandle(hFile);
-	if(!atoi(lpszMessage)) clConsole.send("WOLFPACK: %s\n",lpszMessage);
-}
-#else
-void Writeslot(char * lpszMessage)
-{
-	FILE *f;
-
-	f=fopen("WOLFPACK.log","a");
-	if(f==NULL) return;
-	fprintf(f,"%s\n",lpszMessage);
-	if(!atoi(lpszMessage)) clConsole.send("WOLFPACK: %s\n",lpszMessage);
-	fclose(f);
-	return;
-}
-#endif
-
 
 int numbitsset( int number )
 {
@@ -6290,13 +6245,12 @@ void StartClasses(void)
 	cwmWorldState	= new CWorldMain;
 	mapRegions		= new cRegion;
 	Accounts		= new cAccount;
-	Admin			= new cAdmin;
 	Boats			= new cBoat;
 	Combat			= new cCombat;
 	Commands		= new cCommands;
 	Gumps			= new cGump;
 	Items			= new cAllItems;
-	Map				= new cMapStuff;
+	Map				= new cMapStuff ( SrvParams->mulPath());
 	Npcs			= new cCharStuff;
 	Skills			= new cSkills;
 	Weight			= new cWeight;

@@ -92,15 +92,11 @@ extern int hbu;       // heartbeat update var
 
 extern int goldamount;
 
-extern int defaultpriv1;
-extern int defaultpriv2;
-
 extern unsigned int nextfieldeffecttime;
 extern unsigned int nextnpcaitime;
 extern unsigned int nextdecaytime;
 
-extern int autosaved, saveinterval,dosavewarning;
-extern bool heartbeat;
+extern int autosaved, dosavewarning;
 extern int len_connection_addr;
 extern struct sockaddr_in connection;
 extern struct sockaddr_in client_addr;

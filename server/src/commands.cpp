@@ -526,7 +526,6 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 			struct tm *local = localtime(&current_time);
 			sprintf(counspages[i].timeofcall, "%02d:%02d:%02d", local->tm_hour, local->tm_min, local->tm_sec);
 			sprintf((char*)temp,"%s [%8x] called at %s, %s",counspages[i].name.c_str(),pc_currchar->serial,counspages[i].timeofcall,counspages[i].reason.c_str());
-			if(heartbeat) Writeslot((char*)temp);
 			pc_currchar->setPlayerCallNum( i );
 			pc_currchar->inputmode = cChar::enPageCouns;
 			x2++;
@@ -586,7 +585,6 @@ void cCommands::GMPage(int s, char *reason)
 			struct tm *local = localtime(&current_time);
 			sprintf(gmpages[i].timeofcall, "%02d:%02d:%02d", local->tm_hour, local->tm_min, local->tm_sec);
 			sprintf((char*)temp,"%s [%8x] called at %s, %s",gmpages[i].name.c_str(),pc_currchar->serial,gmpages[i].timeofcall,gmpages[i].reason.c_str());
-			if(heartbeat) Writeslot((char*)temp);
 			pc_currchar->setPlayerCallNum( i );
 			pc_currchar->inputmode = cChar::enPageCouns;
 			x2++;

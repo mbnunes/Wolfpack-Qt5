@@ -93,6 +93,7 @@ void cSrvParams::readData()
 	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
 	beggingTime_            = getNumber("Game Speed", "Begging Time", 120, true);
 	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 1.0, true);
+
     
 	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
@@ -149,8 +150,14 @@ void cSrvParams::readData()
 	beggingRange_           = getNumber("General",  "Begging Range", 3, true);
 	worldSaveModule_		= getString("General",  "WorldSave Module", "binary", true);
 	clientsAllowed_			= QStringList::split(",", getString("General", "Allowed Clients", "SERVER_DEFAULT", true).upper());
-	uoTime.fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T00:00:00", true), Qt::ISODate);
+	uoTime.fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T01:00:00", true), Qt::ISODate);
 	worldSaveDirectory_		= getString("General",	"SavePath", "./", true);
+	saveInterval_			= getNumber("General", "Save Interval", 900, true);
+	heartBeat_				= getBool("General", "HeartBeat", false, true);
+	defaultpriv1_			= getNumber("General", "DefaultPrivileage1", 0, true);
+	defaultpriv2_			= getNumber("General", "DefaultPrivileage2", 0, true);
+	mulPath_				= getString("General", "MulPath", "./", true);
+
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );

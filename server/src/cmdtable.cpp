@@ -1730,8 +1730,8 @@ void command_addnpc(UOXSOCKET s)
 void command_readini(UOXSOCKET s)
 // Re-loads the WOLFPACK.INI file.
 {
-	Admin->ReadIni();
-	sysmessage(s, tr("INI file reloaded."));
+	SrvParams->reload();
+	sysmessage(s, tr("wolfpack.xml file reloaded."));
 	return;
 }
 

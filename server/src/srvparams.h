@@ -146,6 +146,11 @@ protected:
 	unsigned char season_;
 	QString worldSaveModule_;
 	QString worldSaveDirectory_;
+	int saveInterval_;
+	bool heartBeat_;
+	int defaultpriv1_;
+	int defaultpriv2_;
+	QString mulPath_;
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -319,7 +324,11 @@ public:
 	void setSeason( unsigned char );
 	QString worldSaveModule() const;
 	QString worldSaveDirectory() const;
-
+	int saveInterval() const;
+	bool heartBeat() const;
+	int defaultpriv1() const;
+	int defaultpriv2() const;
+	QString mulPath() const;
 
 	// Remote Admin
 	unsigned int ra_port() const;
@@ -1101,6 +1110,31 @@ inline QString cSrvParams::worldSaveModule() const
 inline QString cSrvParams::worldSaveDirectory() const
 {
 	return worldSaveDirectory_;
+}
+
+inline int cSrvParams::saveInterval() const
+{
+	return saveInterval_;
+}
+
+inline bool cSrvParams::heartBeat() const
+{
+	return heartBeat_;
+}
+
+inline int cSrvParams::defaultpriv1() const
+{
+	return defaultpriv1_;
+}
+
+inline int cSrvParams::defaultpriv2() const
+{
+	return defaultpriv2_;
+}
+
+inline QString cSrvParams::mulPath() const
+{
+	return mulPath_;
 }
 
 #endif //__SRVPARAMS_H___

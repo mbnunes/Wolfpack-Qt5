@@ -36,7 +36,6 @@ HEADERS         = Client.h \
 		  TmpEff.h \
 		  Trade.h \
 		  accounts.h \
-		  admin.h \
 		  basics.h \
 		  boats.h \
 		  books.h \
@@ -114,7 +113,6 @@ SOURCES         = Client.cpp \
 		  TmpEff.cpp \
 		  Trade.cpp \
 		  accounts.cpp \
-		  admin.cpp \
 		  basics.cpp \
 		  boats.cpp \
 		  books.cpp \

@@ -103,7 +103,7 @@ private:
 	bool DoesStaticBlock( const Coord_cl& pos );
 
 public:
-	cMapStuff();
+	explicit cMapStuff( const QString& );
 	~cMapStuff();
 
 	void Load();
