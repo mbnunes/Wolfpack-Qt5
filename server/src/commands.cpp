@@ -193,6 +193,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 				pChar->removeFromView( false );
 				pChar->moveTo( newPos );
 				pChar->resend( false );
+				socket->resendPlayer();
 				socket->resendWorld();
 				return;
 			}
@@ -206,6 +207,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false );
+			socket->resendPlayer();
 			socket->resendWorld();
 			return;
 		}			
@@ -236,7 +238,7 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 void commandFix( cUOSocket *socket, const QString &command, QStringList &args )
 {
 	// TODO: Eventually check if the character is stuck etc.
-	socket->updatePlayer();
+	socket->resendPlayer();
 }
 
 void commandAddItem( cUOSocket *socket, const QString &command, QStringList &args )
@@ -407,6 +409,7 @@ void commandSet( cUOSocket *socket, const QString &command, QStringList &args )
 
 void commandResend( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	socket->resendPlayer();
 	socket->resendWorld();
 }
 
@@ -649,7 +652,8 @@ public:
 		socket->player()->moveTo( newPos );
 
 		socket->player()->resend( false );
-        socket->updatePlayer();
+		socket->resendWorld();
+        socket->resendPlayer();
 	}
 };
 

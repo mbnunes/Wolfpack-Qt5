@@ -142,6 +142,7 @@ public:
 	void sendContainer( P_ITEM pCont );
 	void bounceItem( P_ITEM pItem, eBounceReason reason );
 	void updatePlayer();
+	void resendPlayer();
 	void poll();
 	void soundEffect( UINT16 soundId, cUObject *source = NULL ); 
 	void attachTarget( cTargetRequest *request );

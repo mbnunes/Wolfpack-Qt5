@@ -1864,10 +1864,6 @@ void cChar::update( void )
 			pChar->socket()->send( &drawChar );
 		}
 	}
-
-	// Additionally resend ourself to ourself
-	if( socket_ )
-		socket_->updatePlayer();
 }
 
 // Resend the char to all sockets in range
@@ -1900,10 +1896,6 @@ void cChar::resend( bool clean )
 		if( pChar->pos.distance( pos ) <= pChar->VisRange )
 			pChar->socket()->send( &drawChar );
 	}
-
-	// Update ourself
-	if( socket_ )
-		socket_->updatePlayer();
 }
 
 QString cChar::fullName( void )

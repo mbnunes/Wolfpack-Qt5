@@ -911,6 +911,19 @@ void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 	Movement->Walking( _player, packet->direction(), packet->key());
 }
 
+void cUOSocket::resendPlayer()
+{
+	if( !_player )
+		return;
+
+	cUOTxDrawPlayer drawPlayer;
+	drawPlayer.fromChar( _player );
+	send( &drawPlayer );
+
+	// Reset the walking sequence
+	_walkSequence = 0xFF;
+}
+
 void cUOSocket::updateChar( P_CHAR pChar )
 {
 	cUOTxUpdatePlayer updatePlayer;
@@ -953,7 +966,7 @@ void cUOSocket::setPlayer( P_CHAR pChar )
 		_player->setSocket( this );
 	}
 
-	updatePlayer(); // Set our location
+	resendPlayer(); // Set our location
 
 	// Send our equipment
 	vector< SERIAL > equipment = contsp.getData( _player->serial );
@@ -1227,26 +1240,15 @@ void cUOSocket::removeObject( cUObject *object )
 	send( &rObject );
 }
 
-// Updates OUR char when teleported around
-// and if flags etc. have changed
+// if flags etc. have changed
 void cUOSocket::updatePlayer()
 {
 	if( !_player )
 		return;
 
-	// Remove it first (?)
-	//removeObject( _player );
-
 	cUOTxUpdatePlayer pUpdate;
 	pUpdate.fromChar( _player );
 	send( &pUpdate );
-
-	/*cUOTxDrawPlayer pUpdate;
-	pUpdate.fromChar( _player );
-	send( &pUpdate );*/
-
-	// Reset the walking sequence
-	_walkSequence = 0xFF;
 }
 
 // Do periodic stuff for this socket
@@ -1533,7 +1535,7 @@ void cUOSocket::resendWorld( bool clean )
 
 void cUOSocket::resync()
 {
-	updatePlayer();
+	resendPlayer();
 	sendChar( _player );
 }
 

@@ -652,6 +652,8 @@ void cMovement::checkStealth( P_CHAR pChar )
 				pChar->setStealth( -1 );
 				pChar->setHidden( 0 );
 				pChar->resend( false );
+				if( pChar->socket() )
+					pChar->socket()->updatePlayer();
 			}
 		}
 		else
@@ -660,6 +662,8 @@ void cMovement::checkStealth( P_CHAR pChar )
 				pChar->socket()->sysMessage( tr( "You have been revealed." ) );
 			pChar->setHidden( 0 );
 			pChar->resend( false );
+			if( pChar->socket() )
+				pChar->socket()->updatePlayer();
 		}
 	}
 }
