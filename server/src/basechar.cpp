@@ -1581,6 +1581,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if (name == "skin") {
 		skin_ = value.toInt();		
 		removeFromView(false);
+		return 0;
 	}		
 
 		// \property char.direction This is the direction this character is facing.
