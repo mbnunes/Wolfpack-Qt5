@@ -2015,7 +2015,7 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 //			}
 //		case 156: Skills->PoisoningTarget(s); break;
 
-		case 160: Skills->Inscribe(s,0); break;
+//		case 160: Skills->Inscribe(s,0); break;
 
 		case 164: Skills->Wheel(s, YARN); break;
 		case 165: Skills->Loom(s); break;

@@ -62,16 +62,11 @@
 
 
 #include "wpconsole.h"
-//#include "netsys.h"
 #include "typedefs.h"
 #include "verinfo.h"
-//#include "worldmain.h"
 #include "boats.h"    // Boats
 #include "msgboard.h" // Bulletin Boards
 #include "hCache.h"   // MUL Cache stuff.
-//#include "hFile.h"  // New File IO stuff //Currently unused
-//#include "accounts.h" // Account System.
-#include "cweather.h" // Weather System
 #include "house.h"    // Housing System
 #include "defines.h"
 #include "structs.h"
@@ -79,7 +74,6 @@
 #include "globals.h"
 #include "itemsmgr.h"
 #include "charsmgr.h"
-//#include "gumpsmgr.h"
 
 #include "prototypes.h"
 

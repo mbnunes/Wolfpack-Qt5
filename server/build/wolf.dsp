@@ -153,10 +153,6 @@ SOURCE=.\customtags.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\cweather.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\dbl_single_click.cpp
 # End Source File
 # Begin Source File
@@ -194,10 +190,6 @@ SOURCE=.\house.cpp
 # Begin Source File
 
 SOURCE=.\html.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\im.cpp
 # End Source File
 # Begin Source File
 
@@ -465,10 +457,6 @@ SOURCE=.\customtags.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\cweather.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\daemon.h
 # End Source File
 # Begin Source File
@@ -510,10 +498,6 @@ SOURCE=.\hCache.h
 # Begin Source File
 
 SOURCE=.\house.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\im.h
 # End Source File
 # Begin Source File
 

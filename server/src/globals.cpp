@@ -216,7 +216,6 @@ cTargets		*Targ;
 cMagic			*Magic;
 cAccounts		*Accounts;
 cMovement		*Movement;
-cWeather		*Weather;
 cSpeech	        *Speech;
 cTrade	        *Trade;
 cBounty         *Bounty;
@@ -315,21 +314,5 @@ list<SERIAL> guilds;
 ///////////// global string vars /////////
 /////////////////////////////////////////
 
-// char idname[256];
- char fametitle[128];
- char skilltitle[50];
- char prowesstitle[50];
- char *completetitle;
- char gettokenstr[256];
-// char goldamountstr[10];
-// char defaultpriv1str[2];
-// char defaultpriv2str[2];
  char temp[1024];
-// char schei___[512];
-
-// char mapname[512], sidxname[512], statname[512], vername[512], tilename[512], multiname[512], midxname[512];
-// char saveintervalstr[4];
-
-
-
 

@@ -29,11 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-/****************************************************
- *	      All weight function are coded here		*										
- *               Done by Moongraven					*
- ****************************************************/
-
 #include "weight.h"
 #include "srvparams.h"
 #include "classes.h"

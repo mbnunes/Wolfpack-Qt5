@@ -46,7 +46,6 @@
 #include "SndPkg.h"
 #include "territories.h"
 #include "commands.h"
-#include "im.h"
 #include "remadmin.h"
 #include "utilsys.h"
 #include "worldmain.h"
@@ -321,129 +320,7 @@ int bestskill(P_CHAR pc_p) // Which skill is the highest for character p
 	return a;
 }
 
-void loadcustomtitle() // for custom titles
-{
-/*	int titlecount=0;
-	char sect[512];
-
-	for (int a=0; a<ALLSKILLS; a++)
-	{
-		title[a].fame[0] = 0;
-		title[a].other[0] = 0;
-		title[a].prowess[0] = 0;
-		title[a].skill[0] = 0;
-	}
-
-	openscript("titles.scp");
-	strcpy(sect,"SKILL");
-
-	if(!i_scripts[titles_script]->find(sect))
-	{
-		closescript();
-		return;
-	}
-
-	unsigned long loopexit=0;
-	do
-	{
-		read1();
-		if (script1[0]!='}')
-		{
-			if ( !strcmp((char*)script1, "NONE") ) ;
-			else strcpy(title[titlecount].skill,(char*)script1);
-
-			titlecount++;
-		}
-	}
-	while ((script1[0]!='}') && (++loopexit < MAXLOOPS) );
-	closescript();
-
-	script1[0]=0;
-	titlecount=0;
-	openscript("titles.scp");
-
-	strcpy(sect,"PROWESS");
-	if(!i_scripts[titles_script]->find(sect))
-	{
-		closescript();
-		return;
-	}
-
-	loopexit=0;
-	do
-	{
-		read1();
-		if (script1[0]!='}')
-		{
-			if ( !strcmp((char*)script1, "NONE") ) ;
-			else strcpy(title[titlecount].prowess,(char*)script1);
-			titlecount++;
-		}
-	}
-	while ((script1[0]!='}') && (++loopexit < MAXLOOPS) );
-
-	closescript();
-
-	script1[0]=0;
-	titlecount=0;
-	openscript("titles.scp");
-	strcpy(sect,"FAME");
-
-	if(!i_scripts[titles_script]->find(sect))
-	{
-		closescript();
-		return;
-	}
-
-	loopexit=0;
-	do
-	{
-		read1();
-		if (script1[0]!='}')
-		{
-			if ( !strcmp((char*)script1, "NONE") ) ;
-			else strcpy(title[titlecount].fame,(char*)script1);
-
-			if (titlecount==23)
-			{
-				title[titlecount].fame[0] = '\0';
-				strcpy(title[++titlecount].fame, (char*)script1);
-			}
-
-			titlecount++;
-		}
-	}
-	while ((script1[0]!='}') && (++loopexit < MAXLOOPS) );
-	closescript();
-
-	script1[0]=0;
-	titlecount=0;
-	openscript("titles.scp");
-	strcpy(sect,"OTHER");
-
-	if(!i_scripts[titles_script]->find(sect))
-	{
-		closescript();
-		return;
-	}
-
-	loopexit=0;
-	do
-	{
-		read1(); // dont split paramters
-		if (script1[0]!='}')
-		{
-			if ( !strcmp((char*)script1, "NONE") ) ;
-			else strcpy(title[titlecount].other,(char*)script1);
-			titlecount++;
-		}
-	}
-	while ((script1[0]!='}') && (++loopexit < MAXLOOPS) );
-	closescript();
-*/
-}
-
-char *title1(P_CHAR pc) // Paperdoll title for character p (1)
+QString title1(P_CHAR pc) // Paperdoll title for character p (1)
 {
 	int titlenum = 0;
 	int x = pc->baseSkill(bestskill(pc));
@@ -459,27 +336,24 @@ char *title1(P_CHAR pc) // Paperdoll title for character p (1)
 	else if (x>=400) titlenum=2;
 	else if (x>=300) titlenum=1;
     if(pc->isNpc())
-	    strcpy(prowesstitle," ");
+	    return QString(" ");
     else
-		strcpy(prowesstitle,title[titlenum].prowess);
-	return prowesstitle;
+		return title[titlenum].prowess;
 }
 
-char *title2(P_CHAR pc) // Paperdoll title for character p (2)
+QString title2(P_CHAR pc) // Paperdoll title for character p (2)
 {
 
 	int titlenum=0;
 	int x=bestskill(pc);
 	titlenum=x+1;
     if(pc->isNpc())
-    strcpy(skilltitle," ");
+		return QString(" ");
     else
-	strcpy(skilltitle, title[titlenum].skill);
-
-	return skilltitle;
+		return title[titlenum].skill;
 }
 
-char *title3(P_CHAR pc) // Paperdoll title for character p (3)
+QString title3(P_CHAR pc) // Paperdoll title for character p (3)
 {
 	char thetitle[50];
 	int titlenum=0;
@@ -572,24 +446,25 @@ char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 	sprintf(thetitle,"%s ",title[titlenum].fame);
 	if (titlenum==24) thetitle [0] = 0;
 
+	QString fametitle;
 	if (f>=10000) // Morollans bugfix for repsys
 	{
 		if (pc->kills() >= (unsigned)SrvParams->maxkills())
 		{
-			if (pc->id()==0x0191) strcpy(fametitle,"The Murderous Lady ");//Morrolan rep
-			else strcpy(fametitle,"The Murderer Lord ");
+			if (pc->id()==0x0191) fametitle = "The Murderous Lady ";//Morrolan rep
+			else fametitle = "The Murderer Lord ";
 		}
-		else if (pc->id()==0x0191) sprintf(fametitle,"The %sLady ",thetitle);
-		else sprintf(fametitle,"The %sLord ",thetitle);
+		else if (pc->id()==0x0191) fametitle = QString("The %1Lady ").arg(thetitle);
+		else fametitle = QString("The %1Lord ").arg(thetitle);
 	}
 	else
 	{
 		if (pc->kills() >= (unsigned)SrvParams->maxkills())
 		{
-			strcpy(fametitle,"The Murderer "); //Morrolan rep
+			fametitle = "The Murderer "; //Morrolan rep
 		}
-		else if (!(strcmp(thetitle," ")==0)) sprintf(fametitle,"The %s",thetitle);
-		else fametitle[0] = 0;
+		else if (!(strcmp(thetitle," ")==0)) fametitle = QString("The %1").arg(thetitle);
+		else fametitle = "";
 	}
 	return fametitle;
 }
@@ -1548,7 +1423,7 @@ int main( int argc, char *argv[] )
 
 	#endif	
 
-	#define CIAO_IF_ERROR if (error==1) { cNetwork::instance()->shutdown(); im_clearmenus(); DeleteClasses(); exit(-1); }
+	#define CIAO_IF_ERROR if (error==1) { cNetwork::instance()->shutdown(); DeleteClasses(); exit(-1); }
 
 	int i;
 	unsigned long tempSecs;
@@ -1639,7 +1514,7 @@ int main( int argc, char *argv[] )
 
 	Map->Load();
 
-	if (keeprun==0) { cNetwork::instance()->shutdown(); im_clearmenus(); DeleteClasses(); exit(-1); }
+	if (keeprun==0) { cNetwork::instance()->shutdown(); DeleteClasses(); exit(-1); }
 		
 	srand(uiCurrentTime); // initial randomization call
 
@@ -1695,10 +1570,6 @@ int main( int argc, char *argv[] )
 	clConsole.ProgressDone();
 
 	clConsole.PrepareProgress( "Initializing GM Pages" );
-	clConsole.ProgressDone();
-
-	clConsole.PrepareProgress( "Loading custom tiles" );
-	loadcustomtitle();
 	clConsole.ProgressDone();
 
 	cwmWorldState->announce(SrvParams->announceWorldSaves());
@@ -1863,7 +1734,6 @@ int main( int argc, char *argv[] )
 
 	// No need for progress bar
 	Magic->unload();
-	im_clearmenus();
 	
 	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
 	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
@@ -4227,8 +4097,6 @@ void SetGlobalVars()
 	
 	w_anim[0]=0; w_anim[1]=0; w_anim[2]=0;
 
-	for (i=0; i>ALLSKILLS; i++) { strcpy(title[i].other, "old titles.scp error"); }
-	completetitle = new char[1024];
 	for (i=0;i<(MAXCLIENT);i++) { clientDimension[i]=2; noweather[i]=1; } // LB	
 	//for (i=0;i<cmem;i++) talkingto[i]=0; // cmem isnt set here !
 	
@@ -4273,7 +4141,6 @@ void StartClasses(void)
 	Targ			= NULL;
 	Magic			= NULL;
 	Movement		= NULL;
-	Weather			= NULL;
 	DragonAI		= NULL;
 	BankerAI		= NULL;
 	ScriptManager	= NULL;
@@ -4306,7 +4173,6 @@ void StartClasses(void)
 
 void DeleteClasses()
 {
-	//Weather->kill();
 	delete SrvParams;
 	delete cwmWorldState;
 	delete Accounts;

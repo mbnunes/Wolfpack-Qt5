@@ -89,7 +89,7 @@ private:
 
 class cAllConMenus
 {
-protected:
+private:
 	cAllConMenus() {};
 	
 public:

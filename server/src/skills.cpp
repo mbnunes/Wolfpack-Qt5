@@ -37,7 +37,6 @@
 #include "wpdefmanager.h"
 #include "basics.h"
 #include "itemid.h"
-#include "im.h"
 #include "SndPkg.h"
 #include "guildstones.h"
 #include "tracking.h"
@@ -2304,41 +2303,6 @@ void TellScroll( char *menu_name, int s, long snum )
 			}
 		}
 	}//else if*/
-}
-
-/////////////////////////////
-// name:	Inscribe
-// history:	unknown, modified by AntiChrist
-//			partially revamped by Duke,8 April 2000
-// Purpose:	bring up inscription menue
-// Remarks:	snum is not needed here. Should change classes.h and targeting.cpp
-//
-int cSkills::Inscribe(int s,long snum) 
-{
-	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) 
-	{
-		LogError("Morrolan - Inscribing click on invalid object?");
-		return 0;	// don't do this if the buffer got flushed - Morrolan prevents CRASH!
-					// are you sure ??? that is click xLoc & click yLoc ! - Duke
-	}
-
-	P_ITEM pi = FindItemBySerPtr(buffer[s]+7);		// Find what they clicked on
-	if (pi == NULL || !((pi->id()==0x0E34)||  //its a scroll
-		(pi->att>0 || pi->def>0 || pi->hidamage()>0)))	// its something else
-	{
-		sysmessage(s,"You could not possibly engrave on that!");
-		currchar[s]->lastTarget = INVALID_SERIAL;
-	}
-	else
-	{
-		currchar[s]->lastTarget = pi->serial;		//we gotta remember what they clicked on!
-
-		/* select spell gump menu system here, must return control to WOLFPACK so we dont
-		freeze the game. when returning to this routine, use snum to determine where to go
-		and snum is also the value of what they selected. */
-		im_sendmenu( "InscribeMenu", s );  //this is in im.cpp file using inscribe.gmp
-	}
-	return 0;
 }
 
 ////////////////////////

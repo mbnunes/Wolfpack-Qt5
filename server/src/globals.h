@@ -269,20 +269,8 @@ extern jail_st jails[11];
 ///////////// global string vars /////////
 /////////////////////////////////////////
 
-//extern char idname[256];
-extern char fametitle[128];
-extern char skilltitle[50];
-extern char prowesstitle[50];
-extern char *completetitle;
 extern char gettokenstr[256];
-//extern char goldamountstr[10];
-//extern char defaultpriv1str[2];
-//extern char defaultpriv2str[2];
 extern char temp[1024];
-//extern char schei___[512];
-
-//extern char mapname[512], sidxname[512], statname[512], vername[512], tilename[512], multiname[512], midxname[512];
-//extern char saveintervalstr[4];
 
 
 ////////////////////////////////

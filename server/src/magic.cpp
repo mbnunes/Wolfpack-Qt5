@@ -268,6 +268,12 @@ cSpell *cMagic::getSpell( UI08 spellId )
 	
 void cMagic::openSpellBook( P_CHAR mage, P_ITEM spellbook )
 {
+/*
+
+	Since DS is rewritting this stuff, I think it's safe to assume he have
+	already done this conversion... taking out those cPacket stuff, we use cUOPacket
+
+
 	UI16 i;
 
 	// Sends a spellbook to the client
@@ -321,6 +327,7 @@ void cMagic::openSpellBook( P_CHAR mage, P_ITEM spellbook )
 		containerItems.addItem( 0x41000000 + spells[ i ], 0, spells[ i ], 0, 0, spellbook->serial, 0x450 );
 
 	containerItems.send( socket );
+	*/
 }
 
 // This should get one spellbook

@@ -213,10 +213,10 @@ struct jail_st
 
 struct title_st // For custom titles
 {
-	char fame[50];
-	char skill[50];
-	char prowess[50];
-	char other[50];
+	QString fame;
+	QString skill;
+	QString prowess;
+	QString other;
 };
 
 struct reag_st
