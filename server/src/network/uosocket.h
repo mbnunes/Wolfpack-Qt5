@@ -49,6 +49,9 @@ class cUObject;
 #include "uotxpackets.h"
 #include "../typedefs.h"
 #include "../wptargetrequests.h"
+#include "../customtags.h"
+
+class cCustomTags;
 
 class cUOSocket : public QObject
 {
@@ -64,6 +67,7 @@ private:
 	UINT8 lastPacket, _viewRange, _walkSequence;
 	cTargetRequest *targetRequest;
 	QString _lang,_version;
+	cCustomTags tags_;
 
 	QMap< SERIAL, cGump* > gumps;
 
@@ -71,6 +75,8 @@ private:
 //	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
 
 public:
+	cCustomTags tags() const	{ return tags_;		}
+	cCustomTags& tags()			{ return tags_;		}
 
 	cUOSocket( QSocketDevice *sDevice );
 	virtual ~cUOSocket( void );

@@ -1193,6 +1193,7 @@ void cUOSocket::setPlayer( P_CHAR pChar )
 		_player->setSocket( this );
 	}
 
+	_player->setClientIdleTime( uiCurrentTime + 300 * 1000 );
 	_state = InGame;
 }
 

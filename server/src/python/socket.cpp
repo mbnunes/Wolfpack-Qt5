@@ -438,6 +438,96 @@ PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Returns the custom tag passed
+*/
+PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return Py_None;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	QString key = getArgStr( 0 );
+	cVariant value = self->pSock->tags().get( key );
+
+	if( value.type() == cVariant::String )
+		return PyString_FromString( value.asString().latin1() );
+	else if( value.type() == cVariant::Int )
+		return PyInt_FromLong( value.asInt() );
+
+	return Py_None;
+}
+
+/*!
+	Sets a custom tag
+*/
+PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) || ( !checkArgStr( 1 ) && !checkArgInt( 1 )  ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	QString key = getArgStr( 0 );
+
+	self->pSock->tags().remove( key );
+
+	if( checkArgStr( 1 ) )
+		self->pSock->tags().set( key, cVariant( getArgStr( 1 ) ) );
+	else if( checkArgInt( 1 ) )
+		self->pSock->tags().set( key, cVariant( (int)getArgInt( 1 ) ) );
+
+	return PyTrue;
+}
+
+/*!
+	Checks if a certain tag exists
+*/
+PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	QString key = getArgStr( 0 );
+	
+	return self->pSock->tags().get( key ).isValid() ? PyTrue : PyFalse;
+}
+
+/*!
+	Deletes a given tag
+*/
+PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	QString key = getArgStr( 0 );
+	self->pSock->tags().remove( key );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpSocketMethods[] = 
 {
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
@@ -451,6 +541,10 @@ static PyMethodDef wpSocketMethods[] =
 	{ "resendplayer",		(getattrofunc)wpSocket_resendplayer,  METH_VARARGS, "Resends the player only." },
 	{ "sendcontainer",		(getattrofunc)wpSocket_sendcontainer,  METH_VARARGS, "Sends a container to the socket." },
 	{ "sendpacket",			(getattrofunc)wpSocket_sendpacket,		METH_VARARGS, "Sends a packet to this socket." },
+	{ "gettag",				(getattrofunc)wpSocket_gettag,	METH_VARARGS,	"Gets a tag from a socket." },
+	{ "settag",				(getattrofunc)wpSocket_settag,	METH_VARARGS,	"Sets a tag to a socket." },
+	{ "hastag",				(getattrofunc)wpSocket_hastag,	METH_VARARGS,	"Checks if a socket has a specific tag." },
+	{ "dettag",				(getattrofunc)wpSocket_deltag,	METH_VARARGS,	"Delete specific tag." },
     { NULL, NULL, 0, NULL }
 };
 
