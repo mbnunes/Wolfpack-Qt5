@@ -34,13 +34,13 @@ time = 24 * 3600000 # Value * Hours
 """
 	\command optimizedb
 	\description Optimize the world and account database.
-	\notes This command can only be used if one of your 
+	\notes This command can only be used if one of your
 	databases is using the MySQL driver.
 """
 
 def onLoad():
 	if accountsdriver == 'mysql' or worlddriver == 'mysql':
-		wolfpack.addtimer( time, "mysql_optimize_db.timer", [] )
+		wolfpack.addtimer( time, "system.mysql_optimize_db.timer", [] )
 		wolfpack.registercommand( "optimizedb", cmdoptimizedb )
 
 def cmdoptimizedb( socket, command, arguments ):
@@ -54,7 +54,7 @@ def timer( timer, args ):
 	if accountsdriver == 'mysql' or worlddriver == 'mysql':
 		# Optimize and restart timer
 		optimize_db()
-		wolfpack.addtimer( time, "custom.shard_status.timer", [] )
+		wolfpack.addtimer( time, "system.mysql_optimize_db.timer", [] )
 		return
 
 def optimize_db():
