@@ -304,3 +304,4 @@ inline void cBufferedWriter::writeDouble( double value, bool unbuffered )
 }
 
 #endif
+

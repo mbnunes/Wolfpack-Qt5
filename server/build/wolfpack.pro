@@ -5,8 +5,6 @@
 #  ( (  ;._ \\ ctr # Last Modification: check cvs logs          #
 #################################################################
 
-include( config.pri )
-
 PROJECT = wolfpack
 TARGET = wolfpack
 TEMPLATE = app
@@ -18,119 +16,20 @@ unix {
 
 	CONFIG += console
 
-	# Common unix settings
-	# Lets try to figure some paths
-	# Checking in /usr first, then /usr/local
-	# This will use custom installs over package installs.
-
-
-	# MySQL Checks
-	mysql {
-		isEmpty( MySQL_INCDIR ) {
-			message( "Warning: MySQL_INCDIR was not defined!" )
-			exists( /usr/local/include/mysql/mysql.h ) {
-				message( "MySQL included found in: /usr/local/include/mysql" )
-				MySQL_INCDIR = /usr/local/include/mysql
-			}
-			else:exists( /usr/include/mysql/mysql.h ) {
-				message( "MySQL included found in: /usr/include/mysql" )
-				MySQL_INCDIR = /usr/include/mysql
-			}
-		}
-		isEmpty( MySQL_LIBDIR ) {
-			message( "Warning: MySQL_LIBDIR was not defined!" )
-			exists( /usr/local/lib/mysql/libmysqlclient.so ) {
-				message( "Found libmysqlclient.so in: /usr/local/lib/mysql" )
-				MySQL_LIBDIR = -L/usr/local/lib/mysql -lmysqlclient
-			}
-			else:exists( /usr/lib/mysql/libmysqlclient.so ) {
-				message( "Found libmysqlclient.so in: /usr/lib/mysql" )
-				MySQL_LIBDIR = -L/usr/lib/mysql -lmysqlclient
-			}
-		}
-	}
-
-	# SQLite Checks
-	sqlite {
-		isEmpty( SQLite_INCDIR ) {
-			message( "Warning: SQLite_INCDIR was not defined!" )
-			SQLite_INCDIR = sqlite
-		}
-		isEmpty( SQLite_LIBDIR ) {
-			message( "Warning: SQLite_LIBDIR was not defined!" )
-			SQLite_LIBDIR = -Lsqlite
-		}
-	}
-
-	# Python includes. Run configure script to initialize it.
-	isEmpty( PY_INCDIR ) {
-		message( "Warinng: PY_INCDIR was not defined!" )
-		exists( /usr/local/include/python2.3/Python.h ) {
-			message( "Python includes found in: /usr/local/include/python2.3" )
-			PY_INCDIR = /usr/local/include/python2.3
-		}
-		else:exists( /usr/local/include/Python2.3/Python.h ) {
-			message( "Python includes found in: /usr/local/include/Python2.3" )
-			PY_INCDIR = /usr/local/include/Python2.3
-		}
-		else:exists( /usr/include/python2.3/Python.h ) {
-			message( "Python includes found in: /usr/include/python2.3" )
-			PY_INCDIR = /usr/include/python2.3
-		}
-		else:exists( /usr/include/Python2.3/Python.h ) {
-			message( "Python includes found in: /usr/include/Python2.3" )
-			PY_INCDIR = /usr/include/Python2.3
-		}
-
-	}
-	isEmpty( PY_LIBDIR ) {
-		message( "Warinng: PY_LIBDIR was not defined!" )
-		shared {
-			message( "Using Shared Python Configuration..." )
-			exists( /usr/local/lib/python2.3/config/libpython2.3.a ) {
-				message( "Found libpython2.3.a in /usr/local/lib/python2.3/config" )
-				PY_LIBDIR = -L/usr/local/lib/python2.3/config -lpython2.3
-			}
-			else:exists( /usr/lib/python2.3/config/libpython2.3.a ) {
-				message( "Found libpython2.3.a in /usr/lib/python2.3/config" )
-				PY_LIBDIR = -L/usr/lib/python2.3/config -lpython2.3
-			}
-
-		}
-		else {
-			message( "Using Static Python Configuration..." )
-			exists( /usr/local/lib/libpython2.3.so ) {
-				message( "Found libpython2.3.so in /usr/local/lib" )
-				PY_LIBDIR = -lpython2.3
-			}
-			exists( /usr/lib/libpython2.3.so ) {
-				message( "Found libpython2.3.so in /usr/lib" )
-				PY_LIBDIR = -lpython2.3
-			}
-
-		}
-	}
-
-	INCLUDEPATH += $$PY_INCDIR $$MySQL_INCDIR $$SQLite_INCDIR
-	LIBS += $$PY_LIBDIR $$MySQL_LIBDIR $$SQLite_LIBDIR
-
-	# We need to remove these to be safe
+	# We need to remove these, unnecessary dependency 
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 }
 
-win32 {
-	INCLUDEPATH += $$PY_INCDIR $$MySQL_INCDIR $$SQLite_INCDIR
-	LIBS += $$PY_LIBDIR $$MySQL_LIBDIR $$SQLite_LIBDIR
-}
+DEFINES += QT_CLEAN_NAMESPACE 
 
 RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
 
-win32:INCLUDEPATH += sqlite
+INCLUDEPATH += sqlite
 win32:DEFINES -= UNICODE
 
-# Include configure's settings
+# Include configure settings
 !include(config.pri) {
 	message("HINT: use ./configure script!")
 }
@@ -377,8 +276,3 @@ DISTFILES += \
 	data/AUTHORS.txt \
 	LICENSE.GPL
 
-unix {
-	INCPATH -= /usr/include/python2.2
-}
-
-message( "Please make sure you execute: python configure.py" )
