@@ -2,12 +2,30 @@ Wolfpack 13.0.0 ChangeLog
 
 Wolfpack 12.9.9 Beta (CVS)
 	* Core Changes:
-		- Added an email field for accounts.
-		- Timer fixes.
-		- Changes to event/script functions. ( See Python changes. )
-		- Fixes for walking and ladders
-		- Added support for basescripts, read-only assigned scripts.
-		- Added compression support for binary saves.
+		- Allowed viewing and setting account properties via .set and .show.
+			Replace <property> with the name of the account property and <value>
+			with the value you want to set:
+			set account.<property> <value>
+			show account.<property>
+		- Moved the account property getters and setters into the cAccount class.
+		- Added an e-mail field to the account database.
+		- Added the "email" property for accounts to the python interface.
+		- .exportdefinitions now exports data about NPCs and their equipment to the
+			categories.db database.
+		- .exportdefinitions now exports data about multis to the
+			categories.db database.
+		- Backup functionality for the binary save driver.
+		- Binary backups can automatically be compressed using gzip.
+		- The number of backups kept can be limited.
+		- Allowed scripts to be attached to base definitions by using
+			<basescripts>a,b,c</basescripts>.
+			Those scripts are attached to objects by using their baseid property.
+			If you change the <basescripts> tags in the definition, all objects using
+			that definition will use the new scripts automatically.
+		- onDetach and onAttach are not called for those scripts.
+		- hasscript(a) will return true if a is in the basescripts.
+		- addscript now prepends a new script rather than appending it.
+		- Fix for spawnregions where y1 > y2.
 	* Definition Changes:
 		- Tag Changes:
 			<events></events> is now <scripts></scripts>
