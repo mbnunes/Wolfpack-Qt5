@@ -521,7 +521,7 @@ void cUOSocket::sendCharList()
 	cUOTxClientFeatures clientFeatures;
 	clientFeatures.setLbr( true );
 	clientFeatures.setT2a( true );
-	clientFeatures.setShort( 1, 0x801f ); // AoS TEST
+	clientFeatures.setShort( 1, 0xFFFF ); // AoS TEST
 	send( &clientFeatures );
 
 	cUOTxCharTownList charList;

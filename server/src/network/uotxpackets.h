@@ -124,7 +124,7 @@ protected:
 	unsigned int flags;
 	short charLimit;
 public:
-	cUOTxCharTownList() : cUOPacket( 9 ), flags( 0x8 ), charLimit( -1 )
+	cUOTxCharTownList() : cUOPacket( 9 ), flags( 0x48 ), charLimit( -1 )
 	{
 	}
 
