@@ -6,14 +6,70 @@
 #  ( (  ;._ \\ ctr # Last Modification: check cvs logs          #
 #################################################################
 
-#Searching Include paths
-#MYSQL
-echo Searching Mysql include...
-MYSQLINC=`mysql_config --cflags|awk '{print(substr($1,4,length($1)-4))}'`
-#PYTHON
-echo Searching Python include searching...
-PYTHONINC=`perl -e 'print (substr(((\`find / -name Python.h\`)[0]),0,length()-10))'`
+# TODO: check for dependencies like "seq".
+
+ask_path()
+{
+	echo "not found.";
+	SUPPLIED_PATH="";
+	while ! [ -d "$SUPPLIED_PATH" ];
+	do
+		echo -en "\nor just press enter to skip.";
+		echo -en "\e[A\rPlease enter the correct include directory: ";
+		read SUPPLIED_PATH;
+	done;
+}
+
+# <mysql>
+echo -n "Searching for MySQL includes... ";
+
+MYSQLINC=$(mysql_config --cflags|cut -d\' -f2);
+
+if ! [ "$MYSQLINC" ];
+then
+	ask_path;
+	MYSQLINC="$SUPPLIED_PATH";
+else
+	echo "$MYSQLINC";
+fi;
+# </mysql>
+
+# <python>
+echo -n "Searching for Python includes... ";
+
+for py_incpath in \
+	/usr/include/[Pp]ython*/Python.h \
+	/usr/local/include/[Pp]ython*/Python.h \
+	;
+do
+	if [ -e "$py_incpath" ];
+	then
+		py_pathes="$py_pathes\n$py_incpath";
+	fi;
+done;
+
+PYTHONINC="$(echo -e "$py_pathes"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+
+if ! [ "$PYTHONINC" ];
+then
+	ask_path;
+	PYTHONINC="$SUPPLIED_PATH";
+else
+	echo "$PYTHONINC";
+fi;
+# </python>
+
 export MYSQLINC PYTHONINC
-echo Running qmake...
-$QTDIR/bin/qmake -o Makefile wolfpack.pro
-echo Run make now!
+
+echo -n "Creating Makefile using qmake... "
+
+if [ -x "$QTDIR/bin/qmake" ];
+then
+	$QTDIR/bin/qmake -o Makefile wolfpack.pro > /dev/null;
+else
+	qmake -o Makefile wolfpack.pro > /dev/null;
+fi;
+
+echo "done.";
+
+echo "Configure finished. Please run make now.";
