@@ -81,7 +81,7 @@ def response( char, args, target ):
 	if target.item:
 		item = target.item
 		pos = item.pos
-		if not newmap:
+		if type(newmap) == int:
 			newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
 		else:
 			newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
@@ -92,7 +92,7 @@ def response( char, args, target ):
 		if target.char.npc:
 			npc = target.char
 			pos = npc.pos
-			if not newmap:
+			if type(newmap) == int:
 				newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
 			else:
 				newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
@@ -102,7 +102,7 @@ def response( char, args, target ):
 		else:
 			player = target.char
 			pos = player.pos
-			if not newmap:
+			if type(newmap) == int:
 				newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
 			else:
 				newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
