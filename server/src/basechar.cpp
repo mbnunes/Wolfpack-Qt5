@@ -3121,3 +3121,9 @@ double cBaseChar::getManaRate() {
 
 	return 1.0 / (0.1 * points);
 }
+
+// Light and Region checks
+void cBaseChar::moveTo(const Coord_cl &pos, bool noremove) {	
+	cUObject::moveTo(pos, noremove);
+	AllTerritories::instance()->check(this);
+}

@@ -106,6 +106,7 @@ public:
 	bool canSee(cUObject *object);
 	virtual bool canSeeChar(P_CHAR character);
 	virtual bool canSeeItem(P_ITEM item);
+	virtual void moveTo(const Coord_cl &pos, bool noremove = false);
 	bool lineOfSight(P_ITEM item, bool touch = false);
 	bool lineOfSight(Coord_cl position, bool touch = false);
 	bool lineOfSight(P_CHAR character, bool touch = false);

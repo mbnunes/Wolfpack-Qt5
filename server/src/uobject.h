@@ -144,7 +144,7 @@ public:
 	cUObject( const cUObject& ); // Copy constructor
 	virtual ~cUObject() {};
 
-	void moveTo( const Coord_cl&, bool noRemove = false );
+	virtual void moveTo( const Coord_cl&, bool noRemove = false );
 	unsigned int	dist(cUObject* d) const;
 	QString			bindmenu()		const { return bindmenu_; }
 	QString			name()			const { return name_;		}

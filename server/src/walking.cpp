@@ -505,8 +505,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		// We moved so let's update our location
 		pChar->moveTo(newCoord);
-		pChar->setLastMovement(uiCurrentTime);
-		AllTerritories::instance()->check(pChar);
+		pChar->setLastMovement(uiCurrentTime);		
 		checkStealth( pChar ); // Reveals the user if neccesary
 	} else {
 		if( player && player->socket() )

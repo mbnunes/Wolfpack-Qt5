@@ -344,17 +344,22 @@ void cAllTerritories::check( P_CHAR pc )
 	if( !currRegion )
 		return;
 
-	if( !lastRegion )
-	{
-		pc->setRegion( currRegion );
+	if (!lastRegion) {
+		pc->setRegion(currRegion);
 		return;
 	}
 
-	if (currRegion != lastRegion)
-	{
+	if (currRegion != lastRegion) {
 		pc->setRegion(currRegion);
 
 		if (socket) {
+			// If the last region was a cave or if the new region is a cave, 
+			// update the lightlevel.
+			if ((currRegion->isCave() && !lastRegion->isCave()) ||
+				(!currRegion->isCave() && lastRegion->isCave())) {
+					socket->updateLightLevel();
+				}
+
 			socket->playMusic();
 		}
 

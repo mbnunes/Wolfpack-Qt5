@@ -75,7 +75,7 @@ cTiming::cTiming() {
 	nextUOTimeTick = 0;
 }
 
-inline int round(double f) {
+inline int froundf(double f) {
 	int i = floor(f);
 	if (f - i >= 0.50) {
 		++i;
@@ -128,12 +128,12 @@ void cTiming::poll() {
 		// 6 to 10 = Dawn (Scaled)
 		} else if (hour >= 6 && hour < 11) {
 			double factor = ((hour - 6) * 60 + uoTime.time().minute()) / 240.0;
-			newLevel = darklevel - QMIN(darklevel, round(factor * (float)difference));
+			newLevel = darklevel - QMIN(darklevel, froundf(factor * (float)difference));
 
 		// 18 to 22 = Nightfall (Scaled)
 		} else {
 			double factor = ((hour - 18) * 60 + uoTime.time().minute()) / 240.0;
-			newLevel = brightlevel + round(factor * (float)difference);
+			newLevel = brightlevel + froundf(factor * (float)difference);
 		}
 
 		if (newLevel != currentLevel) {
