@@ -684,6 +684,10 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 	d->wba.setAutoDelete(FALSE);
 	d->wba.clear();
 	d->wba.setAutoDelete(TRUE);
+	
+	if (d->ewba.count() == 0) {
+		return;
+	}
 
 	// Before we continue, we should guarantee no one writes packets to the buffer.
 	QMutexLocker lock( &d->wmutex );
