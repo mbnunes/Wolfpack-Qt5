@@ -58,32 +58,32 @@
 	<script>deeds.hairstyle</script>
 
 	<!-- Commands -->
-	<script>wolfpack.commands</script>
-	<script>wolfpack.commands.edit</script>
-	<script>wolfpack.commands.skillinfo</script>
-	<script>wolfpack.commands.tags</script>
-	<script>wolfpack.commands.tile</script>
-	<script>wolfpack.commands.action</script>
-	<script>wolfpack.commands.add</script>
-	<script>wolfpack.commands.addtree</script>
-	<script>wolfpack.commands.bank</script>
-	<script>wolfpack.commands.cast</script>
-	<script>wolfpack.commands.decoration</script>
-	<script>wolfpack.commands.dupe</script>
-	<script>wolfpack.commands.dye</script>
-	<script>wolfpack.commands.export</script>
-	<script>wolfpack.commands.go</script>
-	<script>wolfpack.commands.import</script>
-	<script>wolfpack.commands.info</script>
-	<script>wolfpack.commands.invul</script>
-	<script>wolfpack.commands.where</script>
-	<script>wolfpack.commands.wipe</script>
-	<script>wolfpack.commands.skill</script>
-	<script>wolfpack.commands.stat</script>
-	<script>wolfpack.commands.sound</script>
-	<script>wolfpack.commands.travel</script>
-	<script>wolfpack.commands.serverinfo</script>
-	<script>wolfpack.commands.restore</script>
+	<script>commands</script>
+	<script>commands.edit</script>
+	<script>commands.skillinfo</script>
+	<script>commands.tags</script>
+	<script>commands.tile</script>
+	<script>commands.action</script>
+	<script>commands.add</script>
+	<script>commands.addtree</script>
+	<script>commands.bank</script>
+	<script>commands.cast</script>
+	<script>commands.decoration</script>
+	<script>commands.dupe</script>
+	<script>commands.dye</script>
+	<script>commands.export</script>
+	<script>commands.go</script>
+	<script>commands.import</script>
+	<script>commands.info</script>
+	<script>commands.invul</script>
+	<script>commands.where</script>
+	<script>commands.wipe</script>
+	<script>commands.skill</script>
+	<script>commands.stat</script>
+	<script>commands.sound</script>
+	<script>commands.travel</script>
+	<script>commands.serverinfo</script>
+	<script>commands.restore</script>
 
 	<!-- Magic -->
 	<script>magic</script>
