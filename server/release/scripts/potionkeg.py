@@ -1,69 +1,13 @@
 
 import wolfpack
+from wolfpack import tr
 import wolfpack.utilities
-from potions.utilities import consumePotion
+from potions.utilities import *
 from potions.consts import *
-
-### Filling the keg ###
-def onDropOnItem( potionkeg, potion ):
-	char = potion.container
-	socket = char.socket
-
-	if not char or not socket:
-		return False
-
-	if not potionkeg.hasscript( 'potionkeg' ) or not potion.hasscript( 'potions' ):
-		return False
-
-	if not potionkeg.hastag( 'kegfill' ):
-		kegfill = 0
-		potionkeg.settag( 'kegfill', kegfill )
-	else:
-		kegfill = int( potionkeg.gettag( 'kegfill' ) )
-		if kegfill < 0: # Safeguard against negative fills
-			kegfill = 0
-
-	if not potion.hastag( 'potiontype' ):
-		socket.sysmessage("Only potions may be added to a potion keg!")
-		return True
-
-	if kegfill >= 100:
-		socket.clilocmessage( 502247 )
-		return True
-
-	if potionkeg.id in [0x1ad6, 0x1ad7, 0x1940]:
-		if potionkeg.hastag( 'potiontype' ):
-			if potion.gettag( 'potiontype' ) == potionkeg.gettag( 'potiontype' ):
-				if kegfill < 100 and kegfill >= 0:
-					kegfill += 1
-					potionkeg.settag( 'kegfill', kegfill )
-					char.soundeffect( 0x240 )
-					consumePotion( char, potion )
-					potionkeg.update()
-					kegfillmessage( char, kegfill )
-					socket.clilocmessage( 502239 )
-					return True
-				else:
-					socket.clilocmessage( 502233 ) # The keg will not hold any more!
-					return True
-			else:
-				socket.clilocmessage( 502236 ) # You decide that it would be a bad idea to mix different types of potions.
-				return True
-		else:
-			kegtype = potion.gettag( 'potiontype' )
-			potionkeg.settag( 'potiontype', kegtype )
-			potionkeg.settag( 'kegfill', 1 )
-			potionkeg.name = POTIONS[ potion.gettag('potiontype') ][ KEG_NAME ]
-			char.soundeffect( 0x240 )
-			consumePotion( char, potion )
-			potionkeg.update()
-			return True
-	else:
-		return True
-
 
 # Pouring a potion.
 def onUse( char, potionkeg ):
+	kegtype = None
 	socket = char.socket
 	backpack = char.getbackpack()
 
@@ -81,15 +25,24 @@ def onUse( char, potionkeg ):
 		if kegfill < 0: # Safeguard against negative fills
 			kegfill = 0
 
-	if potionkeg.hastag( 'potiontype' ) and potionkeg.name != POTIONS[ potionkeg.gettag( 'potiontype' ) ][ KEG_NAME ]:
-		potionkeg.name = POTIONS[ potionkeg.gettag( 'potiontype' ) ][ KEG_NAME ]
+	if potionkeg.hasintproperty( 'potiontype' ):
+		kegtype = potionkeg.getintproperty( 'potiontype' )
+	if potionkeg.hastag( 'potiontype' ):
+		kegtype = int( potionkeg.gettag( 'potiontype' ) )
+
+	if not kegtype:
+		socket.clilocmessage( 502222 )
+		return True
+
+	if potionkeg.name != POTIONS[ kegtype ][ KEG_NAME ]:
+		potionkeg.name = POTIONS[ kegtype ][ KEG_NAME ]
 		potionkeg.update()
 
 	if kegfill > 0 and kegfill <= 100:
 		count = backpack.countitems( [ 'f0e' ] )
 		if count >= 1:
 			backpack.removeitems( [ 'f0e' ], 1 )
-			newpot = wolfpack.additem( POTIONS[ potionkeg.gettag( 'potiontype' ) ][ POT_DEF ] )
+			newpot = wolfpack.additem( POTIONS[ kegtype ][ POT_DEF ] )
 			if not newpot:
 				return False
 			newpot.decay = 1
