@@ -13,6 +13,7 @@
 #include "basechar.h"
 
 #include <math.h>
+#include <algorithm>
 
 // 8 uses more memory but is faster
 // 16 uses a lot less memory but is slower
@@ -385,6 +386,13 @@ cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, uns
 	unsigned int count = 0;	
 	unsigned int gridSize = sector->gridWidth() * sector->gridHeight();
 	unsigned int xBlock, yBlock;
+
+	if ( x1 > x2 )
+	{
+		std::swap(x1, x2);
+		std::swap(y1, y2);
+	}
+
 
 	for( xBlock = x1 / SECTOR_SIZE; xBlock <= x2 / SECTOR_SIZE; xBlock++ )
 		for( yBlock = y1 / SECTOR_SIZE; yBlock <= y2 / SECTOR_SIZE; yBlock++ )

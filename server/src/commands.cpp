@@ -1017,15 +1017,6 @@ void commandMove( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->attachTarget( new cMoveTarget( x, y, z ) );
 }
 
-void commandNuke( cUOSocket *socket, const QString &command, QStringList &args ) throw()
-{
-	Q_UNUSED(args);
-	Q_UNUSED(command);
-	// Nuke does not take any parameters (At least for now it does not.)
-	socket->sysMessage( tr( "Please select first corner of the box you want to nuke." ) );
-	socket->attachTarget( new cNukeTarget );
-}
-
 void commandTile( cUOSocket *socket, const QString &command, QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -1247,7 +1238,6 @@ stCommand cCommands::commands[] =
 	{ "KILL",			commandKill },
 	{ "MAKEMENU",		commandMakeMenu },
 	{ "MOVE",			commandMove },
-	{ "NUKE",			commandNuke },
 	{ "PAGES",			commandPages },
 	{ "PAGENOTIFY",		commandPageNotify },
 	{ "PASSWORD",		commandPassword },

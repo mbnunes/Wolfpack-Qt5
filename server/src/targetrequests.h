@@ -573,69 +573,6 @@ public:
 	}
 };
 
-class cNukeTarget: public cTargetRequest
-{
-	Q_OBJECT
-private:
-	INT16 x1, y1;
-public:
-	cNukeTarget( INT16 _x1 = -1, INT16 _y1 = -1 ): x1( _x1 ), y1( _y1 ) {}
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		// Set the first corner and readd ourself
-		if( x1 == -1 || y1 == -1 )
-		{
-			x1 = target->x();
-			y1 = target->y();
-			socket->sysMessage( tr( "Please select the second corner of the box you want to nuke." ) );
-			return false;
-		}
-		else
-		{
-			INT16 x2;
-			if( target->x() < x1 )
-			{
-				x2 = x1;
-				x1 = target->x();
-			}
-			else
-				x2 = target->x();
-
-			INT16 y2;
-			if( target->y() < y1 )
-			{
-				y2 = y1;
-				y1 = target->y();
-			}
-			else
-				y2 = target->y();
-
-			socket->sysMessage( tr( "Nuking from %1,%2 to %3,%4" ).arg( x1 ).arg( y1 ).arg( x2 ).arg( y2 ) );
-			UINT16 dCount = 0;
-			std::vector< P_ITEM > toDelete;
-
-			// This could eventually be optimized
-			cItemIterator iter;
-			for( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )
-			{
-				if( pItem && pItem->isInWorld() && pItem->pos().x >= x1 && pItem->pos().x <= x2 && pItem->pos().y >= y1 && pItem->pos().y <= y2 )
-				{
-					// Delete the item
-					toDelete.push_back( pItem );
-					dCount++;
-				}
-			}
-
-			for( std::vector< P_ITEM >::iterator sIter = toDelete.begin(); sIter != toDelete.end(); ++sIter )
-				(*sIter)->remove();
-
-			socket->sysMessage( tr( "Deleted %1 items." ).arg( dCount ) );
-			return true;
-		}		
-	}
-};
-
 class cTileTarget: public cTargetRequest
 {
 	Q_OBJECT
