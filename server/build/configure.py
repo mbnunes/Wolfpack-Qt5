@@ -113,6 +113,20 @@ def checkPython(options):
 		sys.stdout.write( "failed\n" )
 		sys.stdout.write( "Wolfpack requires Python version greater than 2.3.0 " )
 		sys.exit();
+
+	sys.stdout.write( "Checking unicode support... " )
+	if sys.maxunicode > 65535:
+                sys.stdout.write( "failed\n" )
+                sys.stdout.write( "Wolfpack currently requires python to be compiled with UCS2, its compiled with UCS4\n" )
+                sys.exit();
+        else:
+                sys.stdout.write( "ok\n" )
+
+        sys.stdout.write( "Checking CPU byte order... %s" % sys.byteorder )
+        if sys.byteorder != 'little':
+                sys.stdout.write("\nError: Wolfpack currently only supports little endian systems\n" )
+                sys.exit();
+        
 	sys.stdout.write( "Searching for Python library... " )
 	
 	global py_libpath
