@@ -43,13 +43,6 @@ bool cTileCache::load( const QString &nPath )
 	memset( &emptyLandTile, 0, sizeof( land_st ) );
 	memset( &emptyStaticTile, 0, sizeof( tile_st ) );
 
-	if( !QFile::exists( path + "tiledata.mul" ) )
-	{
-		clConsole.ProgressFail();
-		clConsole.send( "Couldn't find tiledata.mul, this file is required!" );
-		return false;
-	}
-
 	QFile input( path + "tiledata.mul"  );
 	
 	if( !input.open( IO_ReadOnly ) )
