@@ -102,18 +102,14 @@ public:
 	*/
     static void registerPacketHandler(unsigned char packet, PyObject *handler);
 
-	/*
+	/*!
 		\brief This function clears all installed packet handlers.
 	*/
 	static void clearPacketHandlers();
 
-	inline unsigned short screenWidth() const {
-		return _screenWidth;
-	}
+	inline unsigned short screenWidth() const {		return _screenWidth;	}
 
-	inline unsigned short screenHeight() const {
-		return _screenHeight;
-	}
+	inline unsigned short screenHeight() const {	return _screenHeight;	}
 
 	cCustomTags tags() const	{ return tags_;		}
 	cCustomTags& tags()			{ return tags_;		}

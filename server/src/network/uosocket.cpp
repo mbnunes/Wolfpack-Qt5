@@ -111,43 +111,32 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 }
 
 // Initialize all packet handlers to zero
-PyObject *cUOSocket::handlers[255] = {
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
+PyObject *cUOSocket::handlers[255] = { 0, };
 
 void cUOSocket::registerPacketHandler(unsigned char packet, PyObject *handler) {
-	if (handlers[packet]) {
+
+	if (handlers[packet])
 		Py_DECREF(handlers[packet]);
-	}
 
 	// Only install callable packet handlers.
-	if (handler && PyCallable_Check(handler)) {
+	if (handler && PyCallable_Check(handler)) 
+	{
 		Py_INCREF(handler);
 		handlers[packet] = handler;
-	} else {
+	} 
+	else
+	{
 		// Clear the packet handler.
 		handlers[packet] = 0;
 	}	
 }
 
-void cUOSocket::clearPacketHandlers() {
-	for (int i = 0; i < 256; ++i) {
-		if (handlers[i]) {
+void cUOSocket::clearPacketHandlers() 
+{
+	for (int i = 0; i < 256; ++i) 
+	{
+		if (handlers[i]) 
+		{
 			Py_DECREF(handlers[i]);
 			handlers[i] = 0;
 		}		
@@ -209,17 +198,14 @@ void cUOSocket::send( cGump *gump )
 	gumps.insert( gump->serial(), gump );
 
 	QString layout = gump->layout().join( "" );
-	if (gump->noClose()) {
+	if (gump->noClose()) 
 		layout.prepend("{noclose}");
-	}
 
-	if (gump->noMove()) {
+	if (gump->noMove())
 		layout.prepend("{nomove}");
-	}
 
-	if (gump->noDispose()) {
+	if (gump->noDispose())
 		layout.prepend("{nodispose}");
-	}
 
 	Q_UINT32 gumpsize = 24 + layout.length();
 	QStringList text = gump->text();
@@ -247,23 +233,24 @@ void cUOSocket::recieve()
 {
 	cUOPacket *packet = cNetwork::instance()->netIo()->recvPacket( _socket );
 
-	if (!packet) {
+	if (!packet) 
 		return;
-	}
 
 	unsigned char packetId = (*packet)[0];
 
-	if (handlers[packetId]) {
+	if (handlers[packetId]) 
+	{
 		PyObject *args = Py_BuildValue("(NN)", PyGetSocketObject(this), CreatePyPacket(packet));
 		PyObject *result = PyObject_CallObject(handlers[packetId], args);
 		Py_DECREF(args);
 
 		bool handled = result && PyObject_IsTrue(result);
 		Py_XDECREF(result);
-		reportPythonError(QString::null);
+		reportPythonError();
 
 		// Override the internal packet handler.
-		if (handled) {
+		if (handled) 
+		{
 			_lastActivity = getNormalizedTime();
 			delete packet;
 			return;
@@ -271,7 +258,8 @@ void cUOSocket::recieve()
 	}
 
 	// Disconnect harmful clients
-	if ((_account == 0) && (packetId != 0x80) && (packetId != 0x91)) {
+	if ((_account == 0) && (packetId != 0x80) && (packetId != 0x91))
+	{
 		log(QString("Communication error: 0x%1 instead of 0x80 or 0x91\n").arg(packetId, 2, 16));
 		
 		cUOTxDenyLogin denyLogin;

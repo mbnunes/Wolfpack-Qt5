@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -487,12 +487,10 @@ void cAsyncNetIO::run() throw()
 								crypt->init( 0xFFFFFFFF ); // Seed is fixed anyway
 								d->encryption = crypt;
 							}							
-						// Special client (no encryption)
-						} else if (d->login && d->rsize < 62) {
-							d->encryption = new cNoEncryption;
-
-						// LoginServer Encryption
-						} else if( d->login && d->rsize >= 62 ) {
+						
+						} // LoginServer Encryption
+						else if( d->login && d->rsize >= 62 ) 
+						{
 							// The 0x80 packet is 62 byte, but we want to have everything
 							nread = d->rsize;
 							d->consumeReadBuf( d->rsize, &buf[0] );
@@ -533,7 +531,7 @@ void cAsyncNetIO::run() throw()
 							// possible keys
 						}
 
-            // If we found an encryption let's decrypt what we got in our buffer
+						// If we found an encryption let's decrypt what we got in our buffer
 						if( d->encryption )
 						{
 							d->encryption->clientDecrypt( &buf[0], nread );

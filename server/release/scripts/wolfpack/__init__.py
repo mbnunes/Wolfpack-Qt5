@@ -185,3 +185,6 @@ queueaction = _wolfpack.queueaction
 charbase = _wolfpack.charbase
 registerpackethook = _wolfpack.registerpackethook
 currenttime = _wolfpack.currenttime
+charcount = _wolfpack.charcount
+itemcount = _wolfpack.itemcount
+

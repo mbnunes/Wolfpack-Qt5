@@ -1193,6 +1193,20 @@ static PyObject* wpCharBase( PyObject* self, PyObject* args )
 	return dict;
 }
 
+static PyObject* wpCharCount( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	Q_UNUSED(args);
+	return PyLong_FromLong( World::instance()->charCount() );
+}
+
+static PyObject* wpItemCount( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	Q_UNUSED(args);
+	return PyLong_FromLong( World::instance()->itemCount() );
+}
+
 static PyObject* wpPacket( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
@@ -1272,6 +1286,8 @@ static PyMethodDef wpGlobal[] =
 	{ "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" },
 	{ "charbase",			wpCharBase,						METH_VARARGS, NULL },
 	{ "queueaction",		wpQueueAction,					METH_VARARGS, NULL },
+	{ "charcount",			wpCharCount,					METH_NOARGS,  "Returns the number of chars in the world" },
+	{ "itemcount",			wpItemCount,					METH_NOARGS,  "Returns the number of items in the world" },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
