@@ -166,7 +166,7 @@
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
 		<npcs>
-			<npc>standard_guard</npc>
+			<npc>male_guard</npc>
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
@@ -177,7 +177,7 @@
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
 		<npcs>
-			<npc>standard_guard</npc>
+			<npc>female_guard</npc>
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>
@@ -188,7 +188,7 @@
 		<mintime>0</mintime>
 		<maxtime>1</maxtime>
 		<npcs>
-			<npc>standard_guard</npc>
+			<npc>male_guard</npc>
 		</npcs>
 
 		<npcspercycle>1</npcspercycle>

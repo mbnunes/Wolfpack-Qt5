@@ -15,6 +15,10 @@
 		<events>speech_banker</events>
 		<bindmenu>banker_menu</bindmenu>
 		<ai>Human_Vendor</ai>
+		<equipped>
+			<item inherit="1515" /> <!-- Cloak -->
+			<item inherit="1541" /> <!-- Sash -->
+		</equipped>
 		<category>Vendors\Banker (Male)</category>
 	</npc>
 	<npc id="banker_female">
@@ -23,6 +27,10 @@
 		<events>speech_banker</events>
 		<bindmenu>banker_menu</bindmenu>
 		<ai>Human_Vendor</ai>
+		<equipped>
+			<item inherit="1515" /> <!-- Cloak -->
+			<item inherit="1719" /> <!-- Bonnet -->
+		</equipped>
 		<category>Vendors\Banker (Female)</category>
 	</npc>
 	<!-- Barber (no real vendor) -->
