@@ -23,15 +23,15 @@
 		<!-- Damage -->
 		<lodamage>29</lodamage>
 		<hidamage>35</hidamage>
-		<colddamage>25</colddamage>
-		<physicaldamage>75</physicaldamage>
+		<tag name="colddamage" value="25" />
+		<tag name="physicaldamage" value="75" />
 		<!-- Resists -->
 		<defense><random min="65" max="75" /></defense>
-		<coldresist><random min="45" max="55"/></coldresist>
-		<energyresist><random min="50" max="60"/></energyresist>
-		<fireresist><random min="50" max="60"/></fireresist>
-		<physicalresist><random min="65" max="75"/></physicalresist>
-		<poisonresist><random min="20" max="30"/></poisonresist>
+		<tag name="coldresist" value="45,55" />
+		<tag name="energyresist" value="50,60" />
+		<tag name="fireresist" value="50,60" />
+		<tag name="physicalresist" value="65,75" />
+		<tag name="poisonresist" value="20,30" />
 		<!-- Misc. -->
 		<desc>Much like the other members of its species, the Shadow Wyrm is an extraordinarily intelligent creature with an incredible fighting ability and a wicked arsenal of magic spells at its disposal. Many believe that these mighty draconic creatures once practiced a dark and evil magic in Britannia, but were banished to the realm of shadows for their misdeeds. Banished, but not defeated, they remain forever bound to the world in shadow-form.</desc>
 		<category>Monsters\Dragons\Shadow Wyrm</category>

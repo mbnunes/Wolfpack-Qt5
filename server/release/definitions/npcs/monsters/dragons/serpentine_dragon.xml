@@ -23,15 +23,15 @@
 		<!-- Damage -->
 		<lodamage>5</lodamage>
 		<hidamage>12</hidamage>
-		<physicaldamage>75</physicaldamage>
-		<poisondamage>25</poisondamage>
+		<tag name="physicaldamage" value="75" />
+		<tag name="poisondamage" value="25" />
 		<!-- Resists -->
 		<defense><random min="35" max="40" /></defense>
-		<coldresist><random min="25" max="35"/></coldresist>
-		<energyresist><random min="25" max="35"/></energyresist>
-		<fireresist><random min="25" max="35"/></fireresist>
-		<physicalresist><random min="35" max="40"/></physicalresist>
-		<poisonresist><random min="25" max="35"/></poisonresist>
+		<tag name="coldresist" value="25,35" />
+		<tag name="energyresist" value="25,35" />
+		<tag name="fireresist" value="25,35" />
+		<tag name="physicalresist" value="35,40" />
+		<tag name="poisonresist" value="25,35" />
 		<!-- Misc. -->
 		<category>Monsters\Dragons\Serpentine Dragon</category>
 	</npc>

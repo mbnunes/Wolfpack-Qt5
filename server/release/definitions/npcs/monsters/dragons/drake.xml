@@ -20,15 +20,15 @@
 		<!-- Damage -->
 		<lodamage>11</lodamage>
 		<hidamage>17</hidamage>
-		<firedamage>20</firedamage>
-		<physicaldamage>80</physicaldamage>
+		<tag name="firedamage" value="20" />
+		<tag name="physicaldamage" value="80" />
 		<!-- Resists -->
 		<defense><random min="45" max="50"/></defense>
-		<coldresist><random min="40" max="50"/></coldresist>
-		<energyresist><random min="30" max="40"/></energyresist>
-		<fireresist><random min="50" max="60"/></fireresist>
-		<physicalresist><random min="45" max="50"/></physicalresist>
-		<poisonresist><random min="20" max="30"/></poisonresist>
+		<tag name="coldresist" value="40,50" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="50,60" />
+		<tag name="physicalresist" value="45,50" />
+		<tag name="poisonresist" value="20,30" />
 		<!-- Misc. -->
 		<totame>843</totame>
 		<carve>carve_drake_gray</carve>

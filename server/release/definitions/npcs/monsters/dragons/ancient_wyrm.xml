@@ -23,15 +23,15 @@
 		<!-- Damage -->
 		<lodamage>29</lodamage>
 		<hidamage>35</hidamage>
-		<firedamage>25</firedamage>
-		<physicaldamage>75</physicaldamage>
+		<tag name="firedamage" value="25" />
+		<tag name="physicaldamage" value="75" />
 		<!-- Resists -->
 		<defense><random min="65" max="75"/></defense>
-		<coldresist><random min="70" max="80"/></coldresist>
-		<energyresist><random min="60" max="70"/></energyresist>
-		<fireresist><random min="80" max="90"/></fireresist>
-		<physicalresist><random min="65" max="75"/></physicalresist>
-		<poisonresist><random min="60" max="70"/></poisonresist>
+		<tag name="coldresist" value="70,80" />
+		<tag name="energyresist" value="60,70" />
+		<tag name="fireresist" value="80,90" />
+		<tag name="physicalresist" value="65,75" />
+		<tag name="poisonresist" value="60,70" />
 		<!-- Misc. -->
 		<desc>The eldest of the Draconian race are rarely seen by any other than drake eyes. Ancient in origin, the wizened Elder is said to long forthe days when the reptile was the guardian of the land now known as Britannia. Patience is not a virtue of the Elder Wyrm, and disturbing one may lead to a quick death. Death, of course, being the quickest way for these ancient ones to be rid of the intruder and get back to their studies.</desc>
 		<category>Monsters\Dragons\Ancient Wyrm</category>
