@@ -36,6 +36,7 @@
 #include "typedefs.h"
 
 // Forward class declarations
+class ISerialization;
 class Coord_cl;
 
 class cUObject
@@ -55,6 +56,7 @@ public:
 	cUObject();
 	cUObject( cUObject& ); // Copy constructor
 	virtual ~cUObject() = 0;
+	virtual void Serialize(ISerialization &archive);
 };
 
 #endif // __UOBJECT_H__

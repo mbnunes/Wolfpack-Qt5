@@ -26,60 +26,23 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.sf.net/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// Platform Specifics
-#include "platform.h"
-
-// Wolfpack includes
+#include "iserialization.h"
 #include "coord.h"
 #include "uobject.h"
-#include "iserialization.h"
-#include "defines.h"
 
-// Debug includes and defines
-#undef  DBGFILE
-#define DBGFILE "uobject.cpp"
+// System Headers
+#include <string>
 
-cUObject::cUObject()
+
+void ISerialization::readObject( cUObject *base )
 {
-	init();
+	base->Serialize(*this);
 }
 
-cUObject::cUObject( cUObject &src )
+void ISerialization::writeObject( cUObject *base )
 {
-	this->serial = src.serial;
-	this->multis = src.multis;
-	strncpy(this->name, src.name, 50);
-	this->free = src.free;
-}
-
-cUObject::~cUObject()
-{
-}
-
-void cUObject::init()
-{
-	this->serial = INVALID_SERIAL;
-	this->multis = INVALID_SERIAL;
-	this->name[0] = 0;
-	this->free = false;
-}
-
-void cUObject::Serialize(ISerialization &archive)
-{
-	if (archive.isReading())
-	{
-	//	archive.read("name", name);
-		archive.read("serial", serial);
-		archive.read("multis", multis);
-	}
-	else if (archive.isWritting())
-	{
-	//	archive.write("name", name);
-		archive.write("serial", serial);
-		archive.write("multis", multis);
-	}
-	archive.doneWritting();
+	base->Serialize(*this);
 }

@@ -195,6 +195,10 @@ SOURCE=.\im.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\iserialization.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\itemid.cpp
 # End Source File
 # Begin Source File
@@ -288,6 +292,10 @@ SOURCE=.\scriptc.cpp
 # Begin Source File
 
 SOURCE=.\scripts.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\sertextfile.cpp
 # End Source File
 # Begin Source File
 
@@ -491,6 +499,10 @@ SOURCE=.\inlines.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\iserialization.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\itemid.h
 # End Source File
 # Begin Source File
@@ -571,7 +583,7 @@ SOURCE=.\scriptc.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\serimplementor.h
+SOURCE=.\sertextfile.h
 # End Source File
 # Begin Source File
 
