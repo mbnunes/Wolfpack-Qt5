@@ -1042,7 +1042,7 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->pos.y=pp->TyLoc;
 	pc->dispz=pc->pos.z=pp->TzLoc+Map->TileHeight(pp->model);
 	mapRegions->Add(pc); // add it to da regions ...
-	pc->npc=1;
+	pc->isNpc();
 	updatechar(c);
 }
 
