@@ -12,6 +12,7 @@ import glob
 import fnmatch
 import dircache
 import string
+from optparse import OptionParser
 
 # These are the variables we are trying to figure out
 py_libpath = ""
@@ -62,7 +63,7 @@ def checkQt():
 	
 	return True
 
-def checkPython():
+def checkPython(options):
 	if sys.platform == "win32":
 		PYTHONLIBSEARCHPATH = [ sys.prefix + "\Libs\python*.lib" ]
 		PYTHONINCSEARCHPATH = [ sys.prefix + "\include\Python.h" ]
@@ -78,6 +79,13 @@ def checkPython():
 
 	else:
 		sys.stdout.write("ERROR: Unknown platform %s to checkPython()" % sys.platform )
+
+	# if it was overiden...
+	if options.py_incpath:
+		PYTHONINCSEARCHPATH = [ options.py_incpath ]
+	if options.py_libpath:
+		PYTHONLIBSEARCHPATH = [ options.py_libpath ]
+	
 	sys.stdout.write( "Checking Python version... " )
 	if sys.hexversion >= 0x020300F0:
 		sys.stdout.write("ok\n")
@@ -111,7 +119,17 @@ def checkPython():
 
 # Entry point
 def main():
-	checkPython()
+
+	# Setup command line parser
+	parser = OptionParser(version="%prog 0.1")
+	parser.add_option("--dsp", action="store_true", dest="dsp", help="also Generate Visual Studio project files")
+	parser.add_option("--python-includes",  dest="py_incpath", help="Python include directory")
+	parser.add_option("--python-libraries", dest="py_libpath", help="Python library path")
+	parser.add_option("--qt-directory", dest="qt_dir", help="Base directory of Qt")
+	
+	(options, args) = parser.parse_args()
+	
+	checkPython(options)
 	checkQt()
 
 	# Create config.pri
@@ -135,9 +153,13 @@ def main():
 	config.write("LIBS += %s\n" % LIBS)
 	config.close()
 	
-	sys.stdout.write("Generating makefile...")
-	os.execv(qt_qmake, [qt_qmake, "wolfpack.pro"])
-
+	sys.stdout.write("Generating makefile...\n")
+	os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro"])
+	if options.dsp:
+		sys.stdout.write("Generating Visual Studio project files...\n")
+		os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro", "-t vcapp"])
+	sys.stdout.write("Done")
+	sys.stdout.write("Configure finished. Please run make now.")
 	
 if __name__ == "__main__":
     main()
