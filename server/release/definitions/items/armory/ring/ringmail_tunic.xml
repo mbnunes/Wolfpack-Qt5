@@ -14,17 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="40" max="50" /></durability>
-		<!--<tag name="req_str" value="20" type="int" />-->
-		<!--<tag name="boni_dex" value="-2" type="int" />-->
-		<tag name="req_str" value="40" type="int" />
-		<!--<tag name="boni_dex" value="0" type="int" />-->
-		<!--
-		<tag name="res_physical" value="3" type="int" />
-		<tag name="res_fire" value="3" type="int" />
-		<tag name="res_cold" value="1" type="int" />
-		<tag name="res_poison" value="5" type="int" />
-		<tag name="res_energy" value="3" type="int" />
-		-->
 		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>11</smelt>
@@ -38,6 +27,7 @@
 
 	<item id="13ed" inherit="13ec">
 		<id>0x13ed</id>
+		<baseid>13ec</baseid>
 		<category>Armor\Base\Ringmail\Tunic (E/W)</category>
 	</item>
 

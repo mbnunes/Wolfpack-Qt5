@@ -1,125 +1,116 @@
 
 <definitions>
 
-	<item id="leather_armor" inherit="1c06">
+	<item id="1c06_leather" inherit="1c06">
 		<baseid>1c06</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Armor</category>
 	</item>
 
-	<item id="leather_armor_2" inherit="leather_armor">
-		<baseid>1c07</baseid>
-		<id>0x1c07</id>
+	<item id="1c07_leather" inherit="1c07">
+		<baseid>1c06</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Armor 2</category>
 	</item>
 
-	<item id="leather_bustier" inherit="1c0a">
+	<item id="1c0a_leather" inherit="1c0a">
 		<baseid>1c0a</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Bustier</category>
 	</item>
 
-	<item id="leather_bustier_2" inherit="leather_bustier">
-		<baseid>1c0b</baseid>
-		<id>0x1c0b</id>
+	<item id="1c0b_leather" inherit="1c0b">
+		<baseid>1c0a</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Bustier 2</category>
 	</item>
 
-	<item id="leather_cap" inherit="1db9">
+	<item id="1db9_leather" inherit="1db9">
 		<baseid>1db9</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Cap</category>
 	</item>
 
-	<item id="leather_cap_2" inherit="leather_cap">
-		<baseid>1dba</baseid>
-		<id>0x1dba</id>
+	<item id="1dba_leather" inherit="1dba">
+		<baseid>1db9</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Cap 2</category>
 	</item>
 
-	<item id="leather_gloves" inherit="13c6">
+	<item id="13c6_leather" inherit="13c6">
 		<baseid>13c6</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Gloves</category>
 	</item>
 
-	<item id="leather_gloves_2" inherit="leather_gloves">
-		<baseid>13ce</baseid>
-		<id>0x13ce</id>
+	<item id="13ce_leather" inherit="13ce">
+		<baseid>13c6</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Gloves 2</category>
 	</item>
 
-	<item id="leather_gorget" inherit="13c7">
+	<item id="13c7_leather" inherit="13c7">
 		<baseid>13c7</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Gorget</category>
 	</item>
 
-	<item id="leather_leggings" inherit="13cb">
+	<item id="13cb_leather" inherit="13cb">
 		<baseid>13cb</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Leggings</category>
 	</item>
 
-	<item id="leather_leggings_2" inherit="leather_leggings">
-		<baseid>13d2</baseid>
-		<id>0x13d2</id>
+	<item id="13d2_leather" inherit="13d2">
+		<baseid>13cb</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Leggings 2</category>
 	</item>
 
-	<item id="leather_shorts" inherit="1c00">
+	<item id="1c00_leather" inherit="1c00">
 		<baseid>1c00</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Shorts</category>
 	</item>
 
-	<item id="leather_shorts_2" inherit="leather_shorts">
-		<baseid>1c01</baseid>
-		<id>0x1c01</id>
+	<item id="1c01_leather" inherit="1c01">
+		<baseid>1c00</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Shorts 2</category>
 	</item>
 
-	<item id="leather_skirt" inherit="1c08">
+	<item id="1c08_leather" inherit="1c08">
 		<baseid>1c08</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Skirt</category>
 	</item>
 
-	<item id="leather_skirt_2" inherit="leather_skirt">
-		<baseid>1c09</baseid>
-		<id>0x1c09</id>
+	<item id="1c09_leather" inherit="1c09">
+		<baseid>1c08</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Skirt 2</category>
 	</item>
 
-	<item id="leather_sleeves" inherit="13c5">
+	<item id="13c5_leather" inherit="13c5">
 		<baseid>13c5</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Sleeves</category>
 	</item>
 
-	<item id="leather_sleeves_2" inherit="leather_sleeves">
-		<baseid>13cd</baseid>
-		<id>0x13cd</id>
+	<item id="13cd_leather" inherit="13cd">
+		<baseid>13c5</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Sleeves 2</category>
 	</item>
 
-	<item id="leather_tunic" inherit="13cc">
+	<item id="13cc_leather" inherit="13cc">
 		<baseid>13cc</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Tunic</category>
 	</item>
 
-	<item id="leather_tunic_2" inherit="leather_tunic">
-		<baseid>13d3</baseid>
-		<id>0x13d3</id>
+	<item id="13d3_leather" inherit="13d3">
+		<baseid>13cc</baseid>
 		<leather_armor />
 		<category>Armor\Leather Armor\Leather\Leather Tunic 2</category>
 	</item>

@@ -1,125 +1,116 @@
 
 <definitions>
 
-	<item id="horned_leather_armor" inherit="1c06">
+	<item id="1c06_horned" inherit="1c06">
 		<baseid>1c06</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Armor</category>
 	</item>
 
-	<item id="horned_leather_armor_2" inherit="horned_leather_armor">
-		<baseid>1c07</baseid>
-		<id>0x1c07</id>
+	<item id="1c07_horned" inherit="1c07">
+		<baseid>1c06</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Armor 2</category>
 	</item>
 
-	<item id="horned_leather_bustier" inherit="1c0a">
+	<item id="1c0a_horned" inherit="1c0a">
 		<baseid>1c0a</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Bustier</category>
 	</item>
 
-	<item id="horned_leather_bustier_2" inherit="horned_leather_bustier">
-		<baseid>1c0b</baseid>
-		<id>0x1c0b</id>
+	<item id="1c0b_horned" inherit="1c0b">
+		<baseid>1c0a</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Bustier 2</category>
 	</item>
 
-	<item id="horned_leather_cap" inherit="1db9">
+	<item id="1db9_horned" inherit="1db9">
 		<baseid>1db9</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Cap</category>
 	</item>
 
-	<item id="horned_leather_cap_2" inherit="horned_leather_cap">
-		<baseid>1dba</baseid>
-		<id>0x1dba</id>
+	<item id="1dba_horned" inherit="1dba">
+		<baseid>1db9</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Cap 2</category>
 	</item>
 
-	<item id="horned_leather_gloves" inherit="13c6">
+	<item id="13c6_horned" inherit="13c6">
 		<baseid>13c6</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Gloves</category>
 	</item>
 
-	<item id="horned_leather_gloves_2" inherit="horned_leather_gloves">
-		<baseid>13ce</baseid>
-		<id>0x13ce</id>
+	<item id="13ce_horned" inherit="13ce">
+		<baseid>13c6</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Gloves 2</category>
 	</item>
 
-	<item id="horned_leather_gorget" inherit="13c7">
+	<item id="13c7_horned" inherit="13c7">
 		<baseid>13c7</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Gorget</category>
 	</item>
 
-	<item id="horned_leather_leggings" inherit="13cb">
+	<item id="13cb_horned" inherit="13cb">
 		<baseid>13cb</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Leggings</category>
 	</item>
 
-	<item id="horned_leather_leggings_2" inherit="horned_leather_leggings">
-		<baseid>13d2</baseid>
-		<id>0x13d2</id>
+	<item id="13d2_horned" inherit="13d2">
+		<baseid>13cb</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Leggings 2</category>
 	</item>
 
-	<item id="horned_leather_shorts" inherit="1c00">
+	<item id="1c00_horned" inherit="1c00">
 		<baseid>1c00</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Shorts</category>
 	</item>
 
-	<item id="horned_leather_shorts_2" inherit="horned_leather_shorts">
-		<baseid>1c01</baseid>
-		<id>0x1c01</id>
+	<item id="1c01_horned" inherit="1c01">
+		<baseid>1c00</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Shorts 2</category>
 	</item>
 
-	<item id="horned_leather_skirt" inherit="1c08">
+	<item id="1c08_horned" inherit="1c08">
 		<baseid>1c08</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Skirt</category>
 	</item>
 
-	<item id="horned_leather_skirt_2" inherit="horned_leather_skirt">
-		<baseid>1c09</baseid>
-		<id>0x1c09</id>
+	<item id="1c09_horned" inherit="1c09">
+		<baseid>1c08</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Skirt 2</category>
 	</item>
 
-	<item id="horned_leather_sleeves" inherit="13c5">
+	<item id="13c5_horned" inherit="13c5">
 		<baseid>13c5</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Sleeves</category>
 	</item>
 
-	<item id="horned_leather_sleeves_2" inherit="horned_leather_sleeves">
-		<baseid>13cd</baseid>
-		<id>0x13cd</id>
+	<item id="13cd_horned" inherit="13cd">
+		<baseid>13c5</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Sleeves 2</category>
 	</item>
 
-	<item id="horned_leather_tunic" inherit="13cc">
+	<item id="13cc_horned" inherit="13cc">
 		<baseid>13cc</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Tunic</category>
 	</item>
 
-	<item id="horned_leather_tunic_2" inherit="horned_leather_tunic">
-		<baseid>13d3</baseid>
-		<id>0x13d3</id>
+	<item id="13d3_horned" inherit="13d3">
+		<baseid>13cc</baseid>
 		<horned_leather_armor />
 		<category>Armor\Leather Armor\Horned Leather\Leather Tunic 2</category>
 	</item>

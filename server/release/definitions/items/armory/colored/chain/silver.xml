@@ -10,41 +10,41 @@
 
 	<!-- chainmail armor -->
 	<!-- chainmail coif -->
-	<item id="silver_armor_chain_coif"  inherit="13bb">
+	<item id="13bb_silver"  inherit="13bb">
 		<silver_armor />
 		<baseid>13bb</baseid>
 		<category>Armor\Silver\Chainmail\Coif (N/S)</category>
 	</item>
 
-	<item id="silver_armor_chain_coif_2"  inherit="13c0">
+	<item id="13c0_silver"  inherit="13c0">
 		<silver_armor />
-		<baseid>13c0</baseid>
+		<baseid>13bb</baseid>
 		<category>Armor\Silver\Chainmail\Coif (E/W)</category>
 	</item>
 
 	<!-- chainmail leggings -->
-	<item id="silver_armor_chain_leggings" inherit="13be">
+	<item id="13be_silver" inherit="13be">
 		<silver_armor />
 		<baseid>13be</baseid>
 		<category>Armor\Silver\Chainmail\Leggings (N/S)</category>
 	</item>
 
-	<item id="silver_armor_chain_leggings_2" inherit="13c3">
+	<item id="13c3_silver" inherit="13c3">
 		<silver_armor />
-		<baseid>13c3</baseid>
+		<baseid>13be</baseid>
 		<category>Armor\Silver\Chainmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- chainmail tunic -->
-	<item id="silver_armor_chain_tunic" inherit="13bf">
+	<item id="13bf_silver" inherit="13bf">
 		<silver_armor />
 		<baseid>13bf</baseid>
 		<category>Armor\Silver\Chainmail\Tunic (N/S)</category>
 	</item>
 
-	<item id="silver_armor_chain_tunic_2" inherit="13c4">
+	<item id="13c4_silver" inherit="13c4">
 		<silver_armor />
-		<baseid>13c4</baseid>
+		<baseid>13bf</baseid>
 		<category>Armor\Silver\Chainmail\Tunic (E/W)</category>
 	</item>
 

@@ -14,15 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="25" max="30" /></durability>
-		<!--<tag name="req_str" value="40" type="int" />-->
-		<tag name="req_str" value="55" type="int" />
-		<!--
-		<tag name="res_physical" value="3" type="int" />
-		<tag name="res_fire" value="3" type="int" />
-		<tag name="res_cold" value="4" type="int" />
-		<tag name="res_poison" value="2" type="int" />
-		<tag name="res_energy" value="4" type="int" />
-		-->
 		<tag name="resname" value="leather" />
 		<restock>10</restock>
 		<weight>3</weight>
@@ -35,6 +26,7 @@
 	<!-- Bone Leggings East-West -->
 	<item id="1457" inherit="1452">
 		<id>0x1457</id>
+		<baseid>1452</baseid>
 		<category>Armor\Base\Bone\Leggings (E/W)</category>
 	</item>
 

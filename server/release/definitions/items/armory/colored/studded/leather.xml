@@ -1,81 +1,81 @@
 
 <definitions>
 
-	<item id="leather_studded_gorget" inherit="13d6">
+	<item id="13d6_leather" inherit="13d6">
 		<leather_armor />
 		<baseid>13d6</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Gorget</category>
 	</item>
 
-	<item id="leather_studded_armor" inherit="1c02">
+	<item id="1c02_leather" inherit="1c02">
 		<leather_armor />
 		<baseid>1c02</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Armor</category>
 	</item>
 
-	<item id="leather_studded_armor_2" inherit="leather_studded_armor">
-		<id>0x1c03</id>
-		<baseid>1c03</baseid>
+	<item id="1c03_leather" inherit="1c03">
+		<leather_armor />
+		<baseid>1c02</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Armor 2</category>
 	</item>
 
-	<item id="leather_studded_bustier" inherit="1c0c">
+	<item id="1c0c_leather" inherit="1c0c">
 		<leather_armor />
 		<baseid>1c0c</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Bustier</category>
 	</item>
 
-	<item id="leather_studded_bustier_2" inherit="leather_studded_bustier">
-		<id>0x1c0d</id>
-		<baseid>1c0d</baseid>
+	<item id="1c0d_leather" inherit="1c0d">
+		<leather_armor />
+		<baseid>1c0c</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Bustier 2</category>
 	</item>
 
-	<item id="leather_studded_gloves" inherit="13d5">
+	<item id="13d5_leather" inherit="13d5">
 		<leather_armor />
 		<baseid>13d5</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Gloves</category>
 	</item>
 
-	<item id="leather_studded_gloves_2" inherit="leather_studded_gloves">
-		<id>0x13dd</id>
-		<baseid>13dd</baseid>
+	<item id="13dd_leather" inherit="13dd">
+		<leather_armor />
+		<baseid>13d5</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Gloves 2</category>
 	</item>
 
-	<item id="leather_studded_leggings" inherit="13da">
+	<item id="13da_leather" inherit="13da">
 		<leather_armor />
 		<baseid>13da</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Leggings</category>
 	</item>
 
-	<item id="leather_studded_leggings_2" inherit="leather_studded_leggings">
-		<id>0x13e1</id>
-		<baseid>13e1</baseid>
+	<item id="13e1_leather" inherit="13e1">
+		<leather_armor />
+		<baseid>13da</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Leggings 2</category>
 	</item>
 
-	<item id="leather_studded_sleeves" inherit="13d4">
+	<item id="13d4_leather" inherit="13d4">
 		<leather_armor />
 		<baseid>13d4</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Sleeves</category>
 	</item>
 
-	<item id="leather_studded_sleeves_2" inherit="leather_studded_sleeves">
-		<id>0x13dc</id>
-		<baseid>13dc</baseid>
+	<item id="13dc_leather" inherit="13dc">
+		<leather_armor />
+		<baseid>13d4</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Sleeves 2</category>
 	</item>
 
-	<item id="leather_studded_tunic" inherit="13db">
+	<item id="13db_leather" inherit="13db">
 		<leather_armor />
 		<baseid>13db</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Tunic</category>
 	</item>
 
-	<item id="leather_studded_tunic_2" inherit="leather_studded_tunic">
-		<id>0x13e2</id>
-		<baseid>13e2</baseid>
+	<item id="13e2_leather" inherit="13e2">
+		<leather_armor />
+		<baseid>13db</baseid>
 		<category>Armor\Studded Leather Armor\Leather\Studded Tunic 2</category>
 	</item>
 

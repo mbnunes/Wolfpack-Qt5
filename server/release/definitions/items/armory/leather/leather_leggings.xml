@@ -14,15 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="31" max="37" /></durability>
-		<!--<tag name="req_str" value="10" type="int" />-->
-		<tag name="req_str" value="20" type="int" />
-		<!--
-		<tag name="res_physical" value="2" type="int" />
-		<tag name="res_fire" value="4" type="int" />
-		<tag name="res_cold" value="3" type="int" />
-		<tag name="res_poison" value="3" type="int" />
-		<tag name="res_energy" value="3" type="int" />
-		-->
 		<tag name="resname" value="leather" />
 		<restock>10</restock>
 		<weight>4.0</weight>
@@ -35,6 +26,7 @@
 
 	<item id="13d2" inherit="13cb">
 		<id>0x13d2</id>
+		<baseid>13cb</baseid>
 		<category>Armor\Base\Leather\Leggings (E/W)</category>
 	</item>
 

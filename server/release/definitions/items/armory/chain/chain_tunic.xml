@@ -14,17 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="45" max="60" /></durability>
-		<!--<tag name="req_str" value="20" type="int" />-->
-		<!--<tag name="boni_dex" value="-3" type="int" />-->
-		<tag name="req_str" value="60" type="int" />
-		<!--<tag name="aos_boni_dex" value="0" type="int" />-->
-		<!--
-		<tag name="res_physical" value="4" type="int" />
-		<tag name="res_fire" value="4" type="int" />
-		<tag name="res_cold" value="4" type="int" />
-		<tag name="res_poison" value="1" type="int" />
-		<tag name="res_energy" value="2" type="int" />
-		-->
 		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>14</smelt>
@@ -38,6 +27,7 @@
 	<!--  Chainmail Tunic East-West -->
 	<item id="13c4" inherit="13bf">
 		<id>0x13c4</id>
+		<baseid>13bf</baseid>
 		<category>Armor\Base\Chainmail\Tunic EW</category>
 	</item>
 

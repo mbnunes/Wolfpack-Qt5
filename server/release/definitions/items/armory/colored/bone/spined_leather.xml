@@ -1,63 +1,68 @@
 
 <definitions>
 
-	<item id="spined_leather_bone_armor" inherit="144f">
+	<!-- Bone Armor -->
+	<item id="144f_spined" inherit="144f">
 		<baseid>144f</baseid>
 		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Armor</category>
 	</item>
 
-	<item id="spined_leather_bone_armor_2" inherit="spined_leather_bone_armor">
-		<id>0x1454</id>
-		<baseid>1454</baseid>
+	<item id="1454_spined" inherit="1454">
+		<baseid>144f</baseid>
+		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Armor 2</category>
 	</item>
 
-	<item id="spined_leather_bone_arms" inherit="144e">
+	<!-- Bone Arms -->
+	<item id="144e_spined" inherit="144e">
 		<baseid>144e</baseid>
 		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Arms</category>
 	</item>
 
-	<item id="spined_leather_bone_arms_2" inherit="spined_leather_bone_arms">
-		<id>0x1453</id>
-		<baseid>1453</baseid>
+	<item id="1453_spined" inherit="1453">
+		<baseid>144e</baseid>
+		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Arms 2</category>
 	</item>
 
-	<item id="spined_leather_bone_gloves" inherit="1450">
+	<!-- Bone Gloves -->
+	<item id="1450_spined" inherit="1450">
 		<baseid>1450</baseid>
 		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Gloves</category>
 	</item>
 
-	<item id="spined_leather_bone_gloves_2" inherit="spined_leather_bone_gloves">
-		<id>0x1455</id>
-		<baseid>1455</baseid>
+	<item id="1455_spined" inherit="1455">
+		<baseid>1450</baseid>
+		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Gloves 2</category>
 	</item>
 
-	<item id="spined_leather_bone_helm" inherit="1451">
+	<!-- Bone Helm -->
+	<item id="1451_spined" inherit="1451">
 		<baseid>1451</baseid>
 		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Helm</category>
 	</item>
 
-	<item id="spined_leather_bone_helm_2" inherit="spined_leather_bone_helm">
-		<id>0x1456</id>
-		<baseid>1456</baseid>
+	<item id="1456_spined" inherit="1456">
+		<baseid>1451</baseid>
+		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Helm 2</category>
 	</item>
 
-	<item id="spined_leather_bone_leggings" inherit="1452">
+	<!-- Bone Leggings -->
+	<item id="1452_spined" inherit="1452">
 		<baseid>1452</baseid>
 		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Leggings</category>
 	</item>
 
-	<item id="spined_leather_bone_leggings_2" inherit="spined_leather_bone_leggings">
-		<id>0x1457</id>
-		<baseid>1457</baseid>
+	<item id="1457_spined" inherit="1457">
+		<baseid>1452</baseid>
+		<spined_leather_armor />
 		<category>Armor\Bone Armor\Spined Leather\Bone Leggings 2</category>
 	</item>
 

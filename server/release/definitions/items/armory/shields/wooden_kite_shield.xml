@@ -14,15 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="50" max="65" /></durability>
-		<!--<tag name="req_str" value="20" type="int" />-->
-		<tag name="req_str" value="20" type="int" />
-		<!--
-		<tag name="res_physical" value="0" type="int" />
-		<tag name="res_fire" value="0" type="int" />
-		<tag name="res_cold" value="0" type="int" />
-		<tag name="res_poison" value="0" type="int" />
-		<tag name="res_energy" value="1" type="int" />
-		-->
 		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>6</smelt>
@@ -36,6 +27,7 @@
 
 	<item id="1b79" inherit="1b78">
 		<id>0x1b79</id>
+		<baseid>1b78</baseid>
 		<category>Armor\Base\Shields\Wooden Kite (E/W)</category>
 	</item>
 

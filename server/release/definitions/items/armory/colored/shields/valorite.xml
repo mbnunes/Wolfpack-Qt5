@@ -10,94 +10,83 @@
 
 	<!-- shields -->
 	<!-- buckler -->
-	<item id="valorite_shields_buckler">
-		<inherit id="1b73" />
+	<item id="1b73_valorite" inherit="1b73">
 		<valorite_armor />
 		<baseid>1b73</baseid>
 		<category>Armor\Valorite\Shields\Buckler</category>
 	</item>
 
 	<!-- bronze shield -->
-	<item id="valorite_shields_bronze_shield">
-		<inherit id="1b72" />
+	<item id="1b72_valorite" inherit="1b72">
 		<valorite_armor />
 		<baseid>1b72</baseid>
 		<category>Armor\Valorite\Shields\Bronze</category>
 	</item>
 
 	<!-- heater -->
-	<item id="valorite_shields_heater_shield">
-		<inherit id="1b76" />
+	<item id="1b76_valorite" inherit="1b76">
 		<valorite_armor />
 		<baseid>1b76</baseid>
 		<category>Armor\Valorite\Shields\Heater (N/S)</category>
 	</item>
 
-	<item id="valorite_shields_heater_shield_2">
-		<inherit id="1b77" />
+	<item id="1b77_valorite" inherit="1b77">
 		<valorite_armor />
-		<baseid>1b77</baseid>
+		<baseid>1b76</baseid>
 		<category>Armor\Valorite\Shields\Heater (E/W)</category>
 	</item>
 
 	<!-- metal shield -->
-	<item id="valorite_shields_metal_shield">
-		<inherit id="1b7b" />
+	<item id="1b7b_valorite" inherit="1b7b">
 		<valorite_armor />
 		<baseid>1b7b</baseid>
 		<category>Armor\Valorite\Shields\Metal Shield</category>
 	</item>
 
 	<!-- metal kite shield -->
-	<item id="valorite_shields_metal_kite_shield">
-		<inherit id="1b74" />
+	<item id="1b74_valorite" inherit="1b74">
 		<baseid>1b74</baseid>
 		<valorite_armor />
 		<category>Armor\Valorite\Shields\Metal Kite (N/S)</category>
 	</item>
 
-	<item id="valorite_shields_metal_kite_shield_2">
-		<inherit id="1b75" />
+	<item id="1b75_valorite" inherit="1b75">
 		<valorite_armor />
-		<baseid>1b75</baseid>
+		<baseid>1b74</baseid>
 		<category>Armor\Valorite\Shields\Metal Kite (E/W)</category>
 	</item>
 
 	<!-- wooden kite shield -->
-	<item id="valorite_shields_wooden_kite_shield">
-		<inherit id="1b78" />
+	<item id="1b78_valorite" inherit="1b78">
 		<valorite_armor />
 		<baseid>1b78</baseid>
 		<category>Armor\Valorite\Shields\Wooden Kite (N/S)</category>
 	</item>
 
-	<item id="valorite_shields_wooden_kite_shield_2">
-		<inherit id="1b79" />
+	<item id="1b79_valorite" inherit="1b79">
 		<valorite_armor />
-		<baseid>1b79</baseid>
+		<baseid>1b78</baseid>
 		<category>Armor\Valorite\Shields\Wooden Kite (E/W)</category>
 	</item>
 
 	<!-- chaos shield -->
-	<item id="valorite_shields_chaos_shield">
-		<inherit id="1bc3" />
+	<item id="1bc3_valorite" inherit="1bc3">
 		<valorite_armor />
 		<baseid>1bc3</baseid>
 		<category>Armor\Valorite\Shields\Chaos Shield</category>
 	</item>
 
 	<!-- order shield -->
-	<item id="valorite_shields_order_shield">
+	<item id="1bc4_valorite" inherit="1bc4">
 		<inherit id="1bc4" />
 		<valorite_armor />
 		<baseid>1bc4</baseid>
 		<category>Armor\Valorite\Shields\Order Shield (N/S)</category>
 	</item>
 
-	<item id="valorite_shields_order_shield_2">
-		<inherit id="1bc5" />
+	<item id="1bc5_valorite" inherit="1bc5">
 		<valorite_armor />
-		<baseid>1bc5</baseid>
+		<baseid>1bc4</baseid>
 		<category>Armor\Valorite\Shields\Order Shield (E/W)</category>
 	</item>
 

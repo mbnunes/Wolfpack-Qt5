@@ -6,7 +6,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="60" max="100" /></durability>
-		<tag name="req_str" value="70" type="int" />
 		<tag name="resname" value="iron" />
 		<smelt>9</smelt>
 		<weight>2.0</weight>
@@ -18,6 +17,7 @@
 	<!-- dragon gloves -->
 	<item id="2644" inherit="2643">
 		<id>0x2644</id>
+		<baseid>2643</baseid>
 		<category>Armor\Base\Dragon\Dragon Gloves 2</category>
 	</item>
 

@@ -6,7 +6,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="60" max="100" /></durability>
-		<tag name="req_str" value="80" type="int" />
 		<tag name="resname" value="iron" />
 		<smelt>14</smelt>
 		<weight>5.0</weight>
@@ -18,6 +17,7 @@
 	<!-- dragon sleeves -->
 	<item id="2658" inherit="2657">
 		<id>0x2658</id>
+		<baseid>2657</baseid>
 		<category>Armor\Base\Dragon\Dragon Sleeves 2</category>
 	</item>
 

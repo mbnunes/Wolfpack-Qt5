@@ -10,94 +10,83 @@
 
 	<!-- shields -->
 	<!-- buckler -->
-	<item id="silver_shields_buckler">
-		<inherit id="1b73" />
+	<item id="1b73_silver" inherit="1b73">
 		<silver_armor />
 		<baseid>1b73</baseid>
 		<category>Armor\Silver\Shields\Buckler</category>
 	</item>
 
 	<!-- bronze shield -->
-	<item id="silver_shields_bronze_shield">
-		<inherit id="1b72" />
+	<item id="1b72_silver" inherit="1b72">
 		<silver_armor />
 		<baseid>1b72</baseid>
 		<category>Armor\Silver\Shields\Bronze</category>
 	</item>
 
 	<!-- heater -->
-	<item id="silver_shields_heater_shield">
-		<inherit id="1b76" />
+	<item id="1b76_silver" inherit="1b76">
 		<silver_armor />
 		<baseid>1b76</baseid>
 		<category>Armor\Silver\Shields\Heater (N/S)</category>
 	</item>
 
-	<item id="silver_shields_heater_shield_2">
-		<inherit id="1b77" />
+	<item id="1b77_silver" inherit="1b77">
 		<silver_armor />
-		<baseid>1b77</baseid>
+		<baseid>1b76</baseid>
 		<category>Armor\Silver\Shields\Heater (E/W)</category>
 	</item>
 
 	<!-- metal shield -->
-	<item id="silver_shields_metal_shield">
-		<inherit id="1b7b" />
+	<item id="1b7b_silver" inherit="1b7b">
 		<silver_armor />
 		<baseid>1b7b</baseid>
 		<category>Armor\Silver\Shields\Metal Shield</category>
 	</item>
 
 	<!-- metal kite shield -->
-	<item id="silver_shields_metal_kite_shield">
-		<inherit id="1b74" />
+	<item id="1b74_silver" inherit="1b74">
 		<baseid>1b74</baseid>
 		<silver_armor />
 		<category>Armor\Silver\Shields\Metal Kite (N/S)</category>
 	</item>
 
-	<item id="silver_shields_metal_kite_shield_2">
-		<inherit id="1b75" />
+	<item id="1b75_silver" inherit="1b75">
 		<silver_armor />
-		<baseid>1b75</baseid>
+		<baseid>1b74</baseid>
 		<category>Armor\Silver\Shields\Metal Kite (E/W)</category>
 	</item>
 
 	<!-- wooden kite shield -->
-	<item id="silver_shields_wooden_kite_shield">
-		<inherit id="1b78" />
+	<item id="1b78_silver" inherit="1b78">
 		<silver_armor />
 		<baseid>1b78</baseid>
 		<category>Armor\Silver\Shields\Wooden Kite (N/S)</category>
 	</item>
 
-	<item id="silver_shields_wooden_kite_shield_2">
-		<inherit id="1b79" />
+	<item id="1b79_silver" inherit="1b79">
 		<silver_armor />
-		<baseid>1b79</baseid>
+		<baseid>1b78</baseid>
 		<category>Armor\Silver\Shields\Wooden Kite (E/W)</category>
 	</item>
 
 	<!-- chaos shield -->
-	<item id="silver_shields_chaos_shield">
-		<inherit id="1bc3" />
+	<item id="1bc3_silver" inherit="1bc3">
 		<silver_armor />
 		<baseid>1bc3</baseid>
 		<category>Armor\Silver\Shields\Chaos Shield</category>
 	</item>
 
 	<!-- order shield -->
-	<item id="silver_shields_order_shield">
+	<item id="1bc4_silver" inherit="1bc4">
 		<inherit id="1bc4" />
 		<silver_armor />
 		<baseid>1bc4</baseid>
 		<category>Armor\Silver\Shields\Order Shield (N/S)</category>
 	</item>
 
-	<item id="silver_shields_order_shield_2">
-		<inherit id="1bc5" />
+	<item id="1bc5_silver" inherit="1bc5">
 		<silver_armor />
-		<baseid>1bc5</baseid>
+		<baseid>1bc4</baseid>
 		<category>Armor\Silver\Shields\Order Shield (E/W)</category>
 	</item>
 
