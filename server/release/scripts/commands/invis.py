@@ -19,6 +19,7 @@ def onLoad():
 def commandInvis( socket, cmd, args ):
 	char = socket.player
 	char.invisible = booleantoggle( char.invisible )
+	char.removefromview()
 	char.update()
 	socket.sysmessage( "Invisible is now '%i'." % char.invisible )
 	return True
