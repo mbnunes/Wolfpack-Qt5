@@ -140,7 +140,7 @@ def goname(socket, command, arguments):
 
 		char = chars.next
 		
-	if not found:
+	if not found or found.rank > socket.player.rank:
 		socket.sysmessage('A character with the given name was not found.')
 	else:
 		socket.sysmessage("Going to character '%s' [Serial: 0x%x]." % (found.name, found.serial))
@@ -186,7 +186,7 @@ def gouid(socket, command, arguments):
 		return
 	elif uid > 0:
 		char = wolfpack.findchar(uid)
-		if char:
+		if char and char.rank <= socket.player.rank:
 			socket.sysmessage('Going to char 0x%x.' % (uid))
 			pos = char.pos
 			socket.player.removefromview()
