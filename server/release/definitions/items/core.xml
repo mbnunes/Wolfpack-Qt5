@@ -162,4 +162,11 @@
 		<type>406</type>
 	</item>
 
+	<item id="bank_check">
+		<id>0x14ef</id>
+		<events>check</events>
+		<name>a bank check</name>
+		<weight>0.1</weight>
+	</item>
+
 </definitions>

@@ -165,7 +165,7 @@ def onSpeech( pet, char, text, keywords ):
 				pet.sound( SND_ATTACK )
 
 		# "follow me"
-		elif keyword == 0x163
+		elif keyword == 0x163:
 			# Check for all follow me
 			if 0x16C in keywords:
 				for pet in char.followers:
