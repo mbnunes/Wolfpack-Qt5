@@ -104,14 +104,12 @@ public:
 	void addRadioButton( Q_INT32 radioX, Q_INT32 radioY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, Q_INT32 returnVal, bool checked = false  ) { layout_.push_back( QString( "{radio %1 %2 %3 %4 %5 %6}" ).arg( radioX ).arg( radioY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) ); }
 
 	// HTML Stuff
-	// void addHtmlGump( );
+	void addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack = false );
 	// void addXmfHtmlGump( );
 	// void addXmfHtmlColorGump( );
 
 	// CheckerTrans
-	// void addCheckerTrans( );
-
-	//void send( cUOSocket *socket );
+	void addCheckertrans( INT32 x, INT32 y, INT32 width, INT32 height );
 };
 
 /*****************************************************************************

@@ -225,6 +225,30 @@ PyObject* wpItem_distance( wpItem* self, PyObject* args )
 	return PyInt_FromLong( -1 );
 }
 
+/*!
+	Returns the weaponskill needed to use this 
+	weapon. It returns -1 if it is unable to
+	determine the weapon skill.
+*/
+PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyInt_FromLong( -1 );
+
+	UINT16 id = self->pItem->id();
+
+	if( IsSwordType( id ) )
+		return PyInt_FromLong( SWORDSMANSHIP );
+	else if( IsMaceType( id ) )
+		return PyInt_FromLong( MACEFIGHTING );
+	else if( IsFencingType( id ) )
+		return PyInt_FromLong( FENCING );
+	else if( IsBowType( id ) )
+		return PyInt_FromLong( ARCHERY );
+
+	return PyInt_FromLong( -1 );
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
@@ -233,6 +257,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "moveto",				(getattrofunc)wpItem_moveto, METH_VARARGS, "Moves the item to the specified location." },
 	{ "soundeffect",		(getattrofunc)wpItem_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." },
 	{ "distance",			(getattrofunc)wpItem_distance, METH_VARARGS, "Distance to another object or a given position." },
+	{ "weaponskill",		(getattrofunc)wpItem_weaponskill, METH_VARARGS, "Returns the skill used with this weapon. -1 if it isn't a weapon." },
     { NULL, NULL, 0, NULL }
 };
 

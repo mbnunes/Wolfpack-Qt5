@@ -159,7 +159,6 @@ void cUOSocket::recieve()
 
 	Q_UINT8 packetId = (*packet)[0];
 
-
 	// After two pings we idle-disconnect
 	if( lastPacket == 0x73 && packetId == 0x73 )
 	{

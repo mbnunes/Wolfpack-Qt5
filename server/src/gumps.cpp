@@ -1227,6 +1227,21 @@ void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
 	}
 }
 
+void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack )
+{
+	QString layout = "{htmlgump %1 %2 %3 %4 %5 %6 0}";
+	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
+	layout = layout.arg( addRawText( html ) ).arg( hasBack ? 1 : 0 );
+	layout_.push_back( layout );
+}
+
+void cGump::addCheckertrans( INT32 x, INT32 y, INT32 width, INT32 height )
+{
+	QString layout = "{checkertrans %1 %2 %3 %4}";
+	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
+	layout_.push_back( layout );
+}
+
 cWhoChildGump::cWhoChildGump( cUOSocket* socket )
 {
 	socket_ = socket;
@@ -1350,5 +1365,3 @@ void cWhoChildGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	else
 		socket->sysMessage( tr("ERROR: Socket has disconnected or changed character!") );
 }
-
-  

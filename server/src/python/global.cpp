@@ -230,6 +230,9 @@ static PyMethodDef wpGlobal[] =
 void init_wolfpack_globals()
 {
 	PyObject *wpNamespace = Py_InitModule( "wolfpack", wpGlobal );
+	
+	for( UINT8 i = 0; i < ALLSKILLS; ++i )
+		PyModule_AddIntConstant( wpNamespace, skillname[ i ], i );
 
 	PyObject *mConsole = Py_InitModule( "console", wpConsole );
     PyObject_SetAttrString( wpNamespace, "console", mConsole );

@@ -490,10 +490,10 @@ public:
 				pItem->setHp( hex2dec( value ).toInt() );
 		}
 
-		else if( key = "stamina" && pChar )
+		else if( key == "stamina" && pChar )
 			pChar->stm = hex2dec( value ).toInt();
 
-		else if( key = "mana" && pChar )
+		else if( key == "mana" && pChar )
 			pChar->mn = hex2dec( value ).toInt();
 
 		// Object tags
@@ -519,6 +519,7 @@ public:
 				{
 					pChar->setBaseSkill( i, hex2dec( value ).toInt() );
 					Skills->updateSkillLevel( pChar, i );
+					socket->sendSkill( i );
 					found = true;
 					break;
 				}
@@ -1563,6 +1564,14 @@ void commandWho( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->send( pGump );
 }
 
+void commandTest( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	cGump *gump = new cGump;
+	gump->addBackground( 0xE10, 400, 200 );
+	gump->addCheckertrans( 15, 15, 370, 170 );
+	socket->send( gump );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1585,6 +1594,7 @@ stCommand cCommands::commands[] =
 	{ "SPAWNREGION",	commandSpawnRegion },
 	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },
+	{ "TEST",			commandTest },
 	{ "WHERE",			commandWhere },
 	{ "WHO",			commandWho },
 	{ NULL, NULL }

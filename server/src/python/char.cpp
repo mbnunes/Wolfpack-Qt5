@@ -33,9 +33,11 @@
 #include "item.h"
 #include "char.h"
 #include "socket.h"
+#include "skills.h"
 #include "../chars.h"
 #include "../prototypes.h"
 #include "../junk.h"
+#include "../classes.h"
 
 extern cCharStuff *Npcs;
 
@@ -203,7 +205,7 @@ PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
 /*!
 	Returns the distance towards a given object or position
 */
-PyObject* wpChar_distance( wpChar* self, PyObject* args )
+PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
 		return PyInt_FromLong( -1 );
@@ -235,8 +237,121 @@ PyObject* wpChar_distance( wpChar* self, PyObject* args )
 		return PyInt_FromLong( self->pChar->pos.distance( pos ) );
 	}
 
-	clConsole.send( "Minimum argment count for char.distance is 1\n" );
+	clConsole.send( "Minimum argment count for char.distanceto is 1\n" );
 	return PyInt_FromLong( -1 );
+}
+
+/*!
+	Lets the character perform an action
+*/
+PyObject* wpChar_action( wpChar* self, PyObject* args )
+{
+	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
+	{
+		clConsole.send( "Minimum argument count for char.action is 1" );
+		return PyFalse;
+	}
+
+	self->pChar->action( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
+	return PyTrue;
+}
+
+/*!
+	Returns the direction of a character 
+	toward some object or position
+*/
+PyObject* wpChar_directionto( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyInt_FromLong( -1 );
+
+	// Probably an object
+	if( PyTuple_Size( args ) == 1 )
+	{
+		PyObject *pObj = PyTuple_GetItem( args, 0 );
+
+		// Item
+		P_ITEM pItem = getWpItem( pObj );
+		if( pItem )
+			return PyInt_FromLong( chardirxyz( self->pChar, pItem->pos.x, pItem->pos.y ) );
+
+		P_CHAR pChar = getWpChar( pObj );
+        if( pChar )
+			return PyInt_FromLong( chardir( pChar, self->pChar ) );
+	}
+	else if( PyTuple_Size( args ) >= 2 ) // Min 2 
+	{
+		Coord_cl pos = self->pChar->pos;
+
+		if( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+			return PyInt_FromLong( -1 );
+
+		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );  
+
+		return PyInt_FromLong( chardirxyz( self->pChar, pos.x, pos.y ) );
+	}
+
+	clConsole.send( "Minimum argment count for char.directionto is 1\n" );
+	return PyInt_FromLong( -1 );
+}
+
+/*!
+	Performs a skillcheck using the given skill
+	and minimum and maximum arguments.
+*/
+PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	// 3 Args: skill-id, min, max
+	if( PyTuple_Size( args ) < 3 || 
+		!PyInt_Check( PyTuple_GetItem( args, 0 ) ) ||
+		!PyInt_Check( PyTuple_GetItem( args, 1 ) ) ||
+		!PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
+	{
+		clConsole.send( "Minimum argument count for char.checkskill is 3\n" );
+		return PyFalse;
+	}
+
+	UINT16 skillId = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	UINT16 min = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	UINT16 max = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
+
+	bool success = Skills->CheckSkill( self->pChar, skillId, min, max );
+
+	return success ? PyTrue : PyFalse;
+}
+
+/*!
+	Returns an item object for an item equipped
+	on the specified layer. If there is no item
+	it returns py_none.
+*/
+PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
+	{
+		clConsole.send( "Miniumum argument count for char.itemonlayer is 1\n" );
+		return Py_None;
+	}
+
+	return PyGetItemObject( self->pChar->GetItemOnLayer( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) ) );
+}
+
+/*!
+	Returns the combat skill currently used by the character
+*/
+PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	return PyInt_FromLong( Skills->GetCombatSkill( self->pChar ) );
 }
 
 static PyMethodDef wpCharMethods[] = 
@@ -246,7 +361,12 @@ static PyMethodDef wpCharMethods[] =
 	{ "removefromview", (getattrofunc)wpChar_removefromview, METH_VARARGS, "Removes the char from all surrounding clients." },
 	{ "message",		(getattrofunc)wpChar_message, METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
 	{ "soundeffect",	(getattrofunc)wpChar_soundeffect, METH_VARARGS, "Plays a soundeffect for the character." },
-	{ "distance",		(getattrofunc)wpChar_distance, METH_VARARGS, "Distance to another object or a given position." },
+	{ "distanceto",		(getattrofunc)wpChar_distanceto, METH_VARARGS, "Distance to another object or a given position." },
+	{ "action",			(getattrofunc)wpChar_action, METH_VARARGS, "Lets the char perform an action." },
+	{ "directionto",	(getattrofunc)wpChar_directionto, METH_VARARGS, "Distance to another object or a given position." },
+	{ "checkskill",		(getattrofunc)wpChar_checkskill, METH_VARARGS, "Performs a skillcheck for the character." },
+	{ "itemonlayer",	(getattrofunc)wpChar_itemonlayer, METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
+	{ "combatskill",	(getattrofunc)wpChar_combatskill, METH_VARARGS, "Returns the combat skill the character would currently use." },
     { NULL, NULL, 0, NULL }
 };
 
@@ -281,6 +401,22 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else getIntProperty( "flags2", pChar->priv2 )
 	else getIntProperty( "hidamage", pChar->hidamage )
 	else getIntProperty( "lodamage", pChar->lodamage )
+
+	else if( !strcmp( "baseskill", name ) )
+	{
+		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
+		skills->base = true;
+		skills->pChar = self->pChar;
+		return (PyObject*)( skills );
+	}
+
+	else if( !strcmp( "skill", name ) )
+	{
+		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
+		skills->base = false;
+		skills->pChar = self->pChar;
+		return (PyObject*)( skills );
+	}
 
 	else if( !strcmp( "socket", name ) )
 		return PyGetSocketObject( self->pChar->socket() );
