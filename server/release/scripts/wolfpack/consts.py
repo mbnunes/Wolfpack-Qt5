@@ -74,6 +74,10 @@ ITEM_SHIELD = 3 # Shield
 ITEM_MELEE = 4 # Melee weapon
 ITEM_RANGED = 5 # Ranged weapon
 
+ITEM_PIERCING = 6	# fencing : type 1005
+ITEM_SLASHING = 7	# sword : type 1001, 1002
+ITEM_BASHING = 8	# mace : type 1003, 1004
+
 # Money Resource Types
 GOLD_COIN = 0xeed
 COPPER_COIN = 0xeea

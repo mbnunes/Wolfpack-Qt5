@@ -270,4 +270,12 @@ def itemcheck(item, check):
 	if check == ITEM_RANGED:
 		return item.type == 1006 or item.type == 1007
 
+	# Check weapon combat skill : only type check
+	if check == ITEM_SLASHING:
+		return item.type == 1001 or item.type == 1002
+	if check == ITEM_BASHING:
+		return item.type == 1003 or item.type == 1004
+	if check == ITEM_PIERCING:
+		return item.type == 1005
+
 	return 0
