@@ -47,8 +47,8 @@ def onUse( char, item ):
 
 	# Create the campfire
 	campfire = wolfpack.additem( "de3" )
-	campfire.moveto( pos )
 	campfire.decay = True
+	campfire.moveto( pos )	
 	campfire.update()
 
 	# Delete the kindlings

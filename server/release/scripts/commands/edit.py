@@ -23,11 +23,14 @@ def response(player, arguments, response):
 
 	command = (response.button >> 28) & 0xC
 	item = wolfpack.finditem((response.button & 0x3FFFFFFF) | 0x40000000)
-
+	target = item.container
+	
 	# Delete Item
 	if command == 0x04:
 		player.log(LOG_MESSAGE, 'Deleting item 0x%x from character 0x%x.\n' % (item.serial, item.container.serial))
 		item.delete()
+		
+		showEditGump(player, target)
 
 	# Bounce Item
 	elif command == 0x08:
@@ -35,6 +38,8 @@ def response(player, arguments, response):
 		
 		if not tobackpack(item, player):			
 			item.update()
+			
+		showEditGump(player, target)
 
 	# Show Info For Item
 	elif command == 0x0C:
@@ -50,14 +55,20 @@ def response(player, arguments, response):
 def callback(player, arguments, target):
 	if not target.char:
 		return
+		
+	showEditGump(player, target.char)
 
+#
+# Show the edit gump
+#
+def showEditGump(player, target):
 	dialog = wolfpack.gumps.cGump()
 	dialog.setCallback("commands.edit.response")
 
 	items = []
 
 	for layer in range(LAYER_RIGHTHAND, LAYER_TRADING+1):
-		item = target.char.itemonlayer(layer)
+		item = target.itemonlayer(layer)
 		if item:
 			items.append(item)
 
