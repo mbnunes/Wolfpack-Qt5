@@ -122,14 +122,14 @@ public:
 	virtual void read(const char* Key, double		 &data) = 0;
 
 	// I hate to polute it but, as a temp measure:
-	void read( const char* Key, QString &data )
+	virtual void read( const char* Key, QString &data )
 	{
 		std::string temp;
 		read( Key, temp );
 		data = temp.c_str();
 	}
 
-	void write(const char* Key, QString &data)
+	virtual void write(const char* Key, QString &data)
 	{
 		std::string temp;
 
