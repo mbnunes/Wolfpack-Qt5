@@ -80,7 +80,9 @@ HEADERS		= CharWrap.h \
 		  wolfpack.h \
 		  worldmain.h \
 		  wpconsole.h \
-		  tilecache.h
+		  tilecache.h \
+		  walking2.h
+
 SOURCES		= CharWrap.cpp \
 		  Client.cpp \
 		  ItemWrap.cpp \
@@ -151,5 +153,7 @@ SOURCES		= CharWrap.cpp \
 		  wolfpack.cpp \
 		  worldmain.cpp \
 		  wpconsole.cpp \
-		  tilecache.cpp
-INTERFACES	= 
+		  tilecache.cpp \
+		  walking2.cpp
+INTERFACES	=
+ 

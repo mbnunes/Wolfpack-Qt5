@@ -80,3 +80,4 @@ private:
 };
 
 #endif // __WALKING2_H__
+

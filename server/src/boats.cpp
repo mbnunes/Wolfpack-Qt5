@@ -892,7 +892,7 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 		id2--;
 	}
 	if(items[b].dir>7) items[b].dir-=4;//Make sure we dont have any DIR errors
-	if(items[b].dir<0) items[b].dir+=4;
+	//if(items[b].dir<0) items[b].dir+=4;
 	if(id2<items[b].more1) id2+=4;//make sure we don't have any id errors either
 	if(id2>items[b].more2) id2-=4;//Now you know what the min/max id is for :-)
 	

@@ -460,12 +460,13 @@ void loadchar(int x) // Load a character from WSC
 
  int max_x = MapTileWidth  * 8;
  int max_y = MapTileHeight * 8;
-
- if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
+   if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account == -1))
+// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
  {
 	 Npcs->DeleteChar(DEREF_P_CHAR(pc)); //character in an invalid location
  }
- if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
+if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account != -1) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account !=-1))
+// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
  {
 	 pc->MoveTo(900,300,30); //player in an invalid location
  }
@@ -771,7 +772,8 @@ void loaditem (int x) // Load an item from WSC
 	 int max_x = MapTileWidth  * 8;
      int max_y = MapTileHeight * 8;
 	 mapRegions->Add(pi); // it reurns 1 if inalid, if invalid it DOESNT get added !!!
-	 if (pi->pos.x<0 || pi->pos.y<0 || pi->pos.x>max_x || pi->pos.y>max_y)	// lord bianry
+	if (pi->pos.x>max_x || pi->pos.y>max_y) 
+	//if (pi->pos.x<0 || pi->pos.y<0 || pi->pos.x>max_x || pi->pos.y>max_y)	// lord bianry
 	 {
 		 Items->DeleItem(x);	//these are invalid locations, delete them!
 	 }
