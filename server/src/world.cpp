@@ -197,7 +197,6 @@ struct {
   def int(10)  NOT NULL default '0',\
   hidamage smallint(6) NOT NULL default '0',\
   lodamage smallint(6) NOT NULL default '0',\
-  time_unused int(10)  NOT NULL default '0',\
   weight int(11) NOT NULL default '0',\
   hp smallint(6) NOT NULL default '0',\
   maxhp smallint(6) NOT NULL default '0',\
@@ -211,6 +210,7 @@ struct {
   sellprice int(11) NOT NULL default '0',\
   buyprice int(11) NOT NULL default '0',\
   restock smallint(5)  NOT NULL default '0',\
+  baseid varchar(32) NOT NULL default '',\
   PRIMARY KEY (serial)\
 );" },
 

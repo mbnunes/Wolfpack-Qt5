@@ -36,20 +36,54 @@
 #include "uobject.h"
 #include "defines.h"
 #include "network/uotxpackets.h"
+#include "singleton.h"
 
 // Library Includes
 #include <qvaluevector.h>
+#include <qdict.h>
 
 // Forward Class declarations
 class ISerialization;
 class cUOSocket;
+class cItemBases;
 
+/**
+ *  Provides properties to types of items. There is one instance of this
+ *  class per item definition. There should be no thread issues as this is
+ *  read only during runtime, except for the DefManager.
+ */
+class cItemBase
+{
+friend class cItemBases;
+private:
+	QString id_;
+public:
+	inline const QString &id() const { return id_; }
+};
+
+/**
+ *  Manages all cItemBase instances and provides an interface for
+ *  cItem to retrieve pointers.
+ */
+class cItemBases
+{
+protected:
+	QDict< cItemBase > itembases;
+
+public:
+	cItemBases();
+	void load();
+	inline cItemBase *getItemBase( const QString &id );
+};
+
+typedef SingletonHolder< cItemBases > ItemBases;
 
 class cItem : public cUObject
 {
 private:
 	bool changed_;
 	void flagChanged() { changed_ = true; } // easier to debug, compiler should make it inline;
+	cItemBase *base;
 
 public:
 	typedef QValueVector<cItem*> ContainerContent;
@@ -158,12 +192,6 @@ public:
 
 //*******************************************END ADDED SETTERS**********
 
-	bool incognito; //AntiChrist - for items under incognito effect
-	// ^^ NUTS !! - move that to priv
-
-	uint time_unused;     // LB -> used for house decay and possibly for more in future, gets saved
-	uint timeused_last; // helper attribute for time_unused, doesnt get saved
-	
 	virtual void Init( bool mkser = true );
 	void setSerial(SERIAL ser);
 	bool isInWorld() const			{ return (!container_); }
@@ -229,8 +257,10 @@ public:
 
 ////
 	virtual void flagUnchanged() { cItem::changed_ = false; cUObject::flagUnchanged(); }
-	static P_ITEM createFromScript( const QString& Section );
-	static P_ITEM createFromId( unsigned short id );
+
+	static P_ITEM createFromScript( const QString &section );
+	static P_ITEM createFromList( const QString &list );
+	static P_ITEM createFromId( unsigned short id );	
 	void respawn( unsigned int currenttime );
 	void decay( unsigned int currenttime );
 	void remove();

@@ -46,6 +46,7 @@
 #include "makemenus.h"
 #include "contextmenu.h"
 #include "skills.h"
+#include "items.h"
 #include "world.h"
 #include "skills.h"
 #include "srvparams.h"
@@ -301,7 +302,7 @@ void WPDefManager::reload( void )
 	Resources::instance()->reload();
 	MakeMenus::instance()->reload();
 	ContextMenus::instance()->reload();
-	Skills->reload();
+	Skills->reload();	
 
 	// Update the Regions
 	cCharIterator iter;
@@ -373,6 +374,7 @@ void WPDefManager::load( void )
 
 	Commands::instance()->loadACLs();
 	BaseDefManager::instance()->load();
+	ItemBases::instance()->load();
 }
 
 // Returns a list of section-names found

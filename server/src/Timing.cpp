@@ -229,44 +229,6 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 	}
 }
 
-static int check_house_decay()
-{
-	int houses=0;   
-	int decayed_houses=0;
-	unsigned long int timediff;
-	unsigned long int ct=getNormalizedTime();
-	
-	cItemIterator iter_items;
-	P_ITEM pi;
-	for( pi = iter_items.first(); pi; pi = iter_items.next() )
-	{   
-		if (!pi->free && IsHouse(pi->id()))
-		{
-			if (pi->time_unused>SrvParams->housedecay_secs()) // not used longer than max_unused time ? delete the house
-			{          
-				decayed_houses++;
-				(dynamic_cast< cHouse* >(pi))->remove();
-			}
-			else // house ok -> update unused-time-attribute
-			{
-				timediff=(ct-pi->timeused_last)/MY_CLOCKS_PER_SEC;
-				pi->time_unused+=timediff; // might be over limit now, but it will be cought next check anyway
-				
-				pi->timeused_last=ct;	// if we don't do that and housedecay is checked every 11 minutes,
-				// it would add 11,22,33,... minutes. So now timeused_last should in fact
-				// be called timeCHECKED_last. but as there is a new timer system coming up
-				// that will make things like this much easier, I'm too lazy now to rename
-				// it (Duke, 16.2.2001)
-			}
-			
-			houses++;			
-		}		
-	}
-	
-	return decayed_houses;
-}
-
-
 void checkPC( P_PLAYER pc, unsigned int currenttime )
 {
 	cUOSocket *socket = pc->socket();
@@ -445,44 +407,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 	if( shoprestocktime == 0 )
 		shoprestocktime = currenttime + MY_CLOCKS_PER_SEC * 60 * 20;
-
-	//static unsigned int repairworldtimer=0;
-
-	if (housedecaytimer<=currenttime)
-	{
-		//////////////////////
-		///// check_houses
-		/////////////////////
-		if(SrvParams->housedecay_secs() != -1)
-			check_house_decay();
-
-/*	TODO: rewrite STABLEMASTER with python
-		////////////////////
-		// check stabling
-		///////////////////
-		unsigned long int diff;
-		cCharIterator iter_char;
-		for( P_CHAR pc = iter_char.first(); pc; pc = iter_char.next() )
-		{
-			if( pc->npc_type() == 1 )
-			{
-				vector<SERIAL> pets( stablesp.getData(pc->serial()) );
-				unsigned int ci;
-				for (ci = 0; ci < pets.size();ci++)
-				{
-					P_CHAR pc_pet = FindCharBySerial(pets[ci]);
-					if (pc_pet != NULL)
-					{
-						diff = (getNormalizedTime() - pc_pet->timeused_last()) / MY_CLOCKS_PER_SEC;
-						pc_pet->setTime_unused( pc_pet->time_unused() + diff );
-					}
-				}
-			}
-		}
-*/
-		housedecaytimer=uiCurrentTime+MY_CLOCKS_PER_SEC*60*30; // check only each 30 minutes
-	}
-
 
 	if(checkspawnregions<=currenttime && SrvParams->spawnRegionCheckTime() != -1)//Regionspawns
 	{

@@ -759,58 +759,41 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setSkillValue( packet->skillId2(), packet->skillValue2()*10 );
 	pChar->setSkillValue( packet->skillId3(), packet->skillValue3()*10 );
 
-	// Create the char equipment (JUST the basics !!)
-	P_ITEM pItem = new cItem;
-	pItem->Init();
-
+	// Create the char equipment (shirt, paint, hair and beard only)
+	P_ITEM pItem;
+	
 	// Shirt
-	pItem->setId( 0x1517 );
+	pItem = cItem::createFromScript( "1517" );
 	pItem->setColor( packet->shirtColor() );
-	pItem->setMaxhp( RandomNum( 25, 50 ) );
-	pItem->setHp( pItem->maxhp() );
-	pChar->addItem( cBaseChar::Shirt, pItem );	
-	pItem->setDye(1);
 	pItem->setNewbie( true );
-
-	pItem = new cItem;
-	pItem->Init();
+	pChar->addItem( cBaseChar::Shirt, pItem );	
 
 	// Skirt or Pants
-	pItem->setId( ( packet->gender() != 0 ) ? 0x1516 : 0x152E );
+	pItem = cItem::createFromScript( ( packet->gender() != 0 ) ? "1516" : "152e" );
 	pItem->setColor( packet->pantsColor() );
-	pItem->setMaxhp( RandomNum( 25, 50 ) );
-	pItem->setHp( pItem->maxhp() );
-	pChar->addItem( cBaseChar::Pants, pItem );
-	pItem->setDye(1);
 	pItem->setNewbie( true );
+	pChar->addItem( cBaseChar::Pants, pItem );
 
 	// Hair & Beard
 	if( packet->hairStyle() )
 	{
-		pItem = new cItem;
-		pItem->Init();
-
-		pItem->setDye(1);
+		pItem = cItem::createFromScript( QString( "%1" ).arg( packet->hairStyle(), 0, 16 ) );
 		pItem->setNewbie( true );
-		pItem->setId( packet->hairStyle() );
 		pItem->setColor( packet->hairColor() );
 		pChar->addItem( cBaseChar::Hair, pItem );
 	}
 
 	if( packet->beardStyle() )
 	{
-		pItem = new cItem;
-		pItem->Init();
-
-		pItem->setId( packet->beardStyle() );
+		pItem = cItem::createFromScript( QString( "%1" ).arg( packet->beardStyle(), 0, 16 ) );
 		pItem->setNewbie( true );
 		pItem->setColor( packet->beardColor() );
 		pChar->addItem( cBaseChar::FacialHair, pItem );
 	}
 
-	// Backpack + Bankbox autocreate
-	pItem = pChar->getBankBox();
-	pItem = pChar->getBackpack();
+	// Automatically create Backpack + Bankbox
+	pChar->getBankBox();
+	pChar->getBackpack();
 	
 	pChar->setAccount( _account );
 

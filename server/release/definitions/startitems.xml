@@ -22,10 +22,10 @@
 	        <!--Robe --><equipment id="1f03"></equipment>
 		<!--Mortar & pestle --><item id="e9b"></item>
 		<!--Bottle --><item id="f0e"><amount>4</amount></item>
-		<!--Random Reagents--><item><inherit><random list="REAGENTS" /></inherit><amount>3</amount></item>
-	        <!--Random Reagents--><item><inherit><random list="REAGENTS" /></inherit><amount>3</amount></item>
-	        <!--Random Reagents--><item><inherit><random list="REAGENTS" /></inherit><amount>3</amount></item>
-	        <!--Random Reagents--><item><inherit><random list="REAGENTS" /></inherit><amount>3</amount></item>
+		<!--Random Reagents--><item list="REAGENTS"><amount>3</amount></item>
+	        <!--Random Reagents--><item list="REAGENTS"><amount>3</amount></item>
+	        <!--Random Reagents--><item list="REAGENTS"><amount>3</amount></item>
+	        <!--Random Reagents--><item list="REAGENTS"><amount>3</amount></item>
 	</startitems>
 
 	<!--  Anatomy -->
@@ -62,16 +62,25 @@
 	<!--  Begging -->
 	<startitems id="begging">
 	        <inherit id="default" />
-	        <!--Gnarled Staff --><equipment id="13f9"></equipment>
+	        <!--Gnarled Staff -->
+	        <equipment id="13f9" />
 	</startitems>
 
 	<!--  Blacksmithing -->
 	<startitems id="blacksmithing">
 	        <inherit id="default" />
-	        <!--Half Apron --><equipment id="153b"></equipment>
-	        <!--Ingots --><item id="1bf2"><amount>50</amount></item>
-	        <!--Random Mining Tool--><item><inherit><random list="MININGTOOLS" /></inherit></item>
-	        <!--Random Blacksmith Tool--><equipment><inherit><random list="BLACKSMITHTOOLS" /></inherit></equipment>
+	        
+	        <!--Half Apron -->
+	        <equipment id="153b" />
+	        
+	        <!--Ingots -->
+	        <item id="1bf2"><amount>50</amount></item>
+	        
+	        <!--Random Mining Tool-->
+	        <item list="MININGTOOLS" />
+	        
+	        <!--Random Blacksmith Tool-->
+	        <equipment list="BLACKSMITHTOOLS"/>
 	</startitems>
 
 	<!--  Bowcraft -->
@@ -85,7 +94,7 @@
 	<!--  Peacemaking -->
 	<startitems id="peacemaking">
 	        <inherit id="default" />
-	        <!--Random Instrument--><item><inherit><random list="INSTRUMENTS" /></inherit></item>
+	        <!--Random Instrument--><item list="INSTRUMENTS" />
 	</startitems>
 
 	<!--  Camping -->
@@ -100,7 +109,9 @@
 	        <inherit id="default" />
 	        <!--Half Apron --><equipment id="153b"></equipment>
 	        <!--Boards --><item id="1bd7"><amount>10</amount></item>
-	        <!--Random Carpentry Tool--><item><inherit><random list="CARPENTRYTOOLS" /></inherit></item>
+
+	        <!--Random Carpentry Tool-->
+	        <item list="CARPENTRYTOOLS" />
 	</startitems>
 
 	<!--  Cartography -->
@@ -130,7 +141,8 @@
 	<!--  Discordance -->
 	<startitems id="enticement">
 	        <inherit id="default" />
-	        <!--Random Instrument--><item><inherit><random list="INSTRUMENTS" /></inherit></item>
+	        <!--Random Instrument-->
+	        <item list="INSTRUMENTS" />
 	</startitems>
 
 	<!--  Evaluating Intelligence -->
@@ -172,7 +184,8 @@
 	<!--  Provocation -->
 	<startitems id="provocation">
 	        <inherit id="default" />
-	        <!--Random Instrument--><item><inherit><random list="INSTRUMENTS" /></inherit></item>
+	        <!--Random Instrument-->
+	        <item list="INSTRUMENTS" />
 	</startitems>
 
 	<!--  Inscription -->
@@ -194,9 +207,9 @@
 	        <!--Spellbook --><equipment id="efa"></equipment>
 	        <!--Wizards Hat --><equipment id="1718"></equipment>
 	        <!--Robe --><equipment id="1f03"></equipment>
-	        <!--Random 1-4 Circle Scrolls--><item><inherit><random list="1_THRU_4_CIRCLE" /></inherit></item>
-	        <!--Random 1-4 Circle Scrolls--><item><inherit><random list="1_THRU_4_CIRCLE" /></inherit></item>
-	        <!--Random 1-4 Circle Scrolls--><item><inherit><random list="1_THRU_4_CIRCLE" /></inherit></item>
+	        <!--Random 1-4 Circle Scrolls--><item list="1_THRU_4_CIRCLE" />
+	        <!--Random 1-4 Circle Scrolls--><item list="1_THRU_4_CIRCLE" />
+	        <!--Random 1-4 Circle Scrolls--><item list="1_THRU_4_CIRCLE" />
 	        <!--Black Pearl --><item id="f7a"><amount>30</amount></item>
 	        <!--Bloodmoss --><item id="f7b"><amount>30</amount></item>
 	        <!--Garlic --><item id="f84"><amount>30</amount></item>
@@ -227,7 +240,7 @@
 	<!--  Musicianship -->
 	<startitems id="musicianship">
 	        <inherit id="default" />
-	        <!--Random Instrument--><item><inherit><random list="INSTRUMENTS" /></inherit></item>
+	        <!--Random Instrument--><item list="INSTRUMENTS" />
 	</startitems>
 
 	<!--  Poisoning -->
@@ -267,9 +280,9 @@
 	<!--  Tasteid -->
 	<startitems id="tasteid">
 	        <inherit id="default" />
-	        <!--Random Potion--><item><inherit><random list="POTIONS" /></inherit></item>
-	        <!--Random Potion--><item><inherit><random list="POTIONS" /></inherit></item>
-	        <!--Random Potion--><item><inherit><random list="POTIONS" /></inherit></item>
+	        <!--Random Potion--><item list="POTIONS" />
+	        <!--Random Potion--><item list="POTIONS" />
+	        <!--Random Potion--><item list="POTIONS" />
 	</startitems>
 
 	<!--  Tinkering -->
@@ -322,7 +335,9 @@
 	<!--  Mining -->
 	<startitems id="mining">
 	        <inherit id="default" />
-	        <!--Random Mining Tool--><item><inherit><random list="MININGTOOLS" /></inherit></item>
+	        
+	        <!--Random Mining Tool-->
+	        <item list="MININGTOOLS" />
 	</startitems>
 
 </definitions>

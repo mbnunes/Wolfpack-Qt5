@@ -1053,9 +1053,7 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 
 	while( total > 0 )
 	{
-		P_ITEM pile = new cItem;
-		pile->Init();
-		pile->setId( 0xEED );
+		P_ITEM pile = cItem::createFromScript( "eed" );
 		pile->setAmount( QMIN( total, static_cast<Q_UINT32>(65535) ) );
 		pCont->addItem( pile );
 		total -= pile->amount();
@@ -1115,124 +1113,92 @@ void cPlayer::giveNewbieItems( Q_UINT8 skill )
 	applyStartItemDefinition( startItems );
 }
 
-void cPlayer::applyStartItemDefinition( const cElement *Tag )
+void cPlayer::applyStartItemDefinition( const cElement *element )
 {
-	for( unsigned int i = 0; i < Tag->childCount(); ++i )
+	for( unsigned int i = 0; i < element->childCount(); ++i )
 	{
-		const cElement *node = Tag->getChild( i );
+		const cElement *node = element->getChild( i );
 
-		if( node->name() == "item" )
+		// Apply another startitem definition
+		if( node->name() == "inherit" )
 		{
-			P_ITEM pItem = NULL;
-			const cElement *DefSection = DefManager->getDefinition( WPDT_ITEM, node->getAttribute( "id" ) );
-			if( DefSection )
+			const cElement* inheritNode = DefManager->getDefinition( WPDT_STARTITEMS, node->getAttribute( "id" ) );
+			
+			if( inheritNode )			
 			{
-				// books wont work without this
-				pItem = cItem::createFromScript( node->getAttribute("id") );
-			}
-			else
-			{
-				pItem = new cItem;
-				pItem->Init( true );
-			}
-
-			if( pItem )
-			{
-				pItem->applyDefinition( node );
-				pItem->setNewbie( true ); // make it newbie
-
-				if( pItem->id() <= 1 )
-					pItem->remove();
-				else
-				{
-					// Put it into the backpack
-					P_ITEM backpack = getBackpack();
-					if( backpack )
-						backpack->addItem( pItem );
-					else
-						pItem->remove();
-				}
+				applyStartItemDefinition( inheritNode );
 			}
 		}
-		else if( node->name() == "bankitem" )
-		{
-			P_ITEM pItem = NULL;
-			const cElement *DefSection = DefManager->getDefinition( WPDT_ITEM, node->getAttribute( "id" ) );
-			if( DefSection )
-			{
-				// books wont work without this
-				pItem = cItem::createFromScript( node->getAttribute("id") );
-			}
-			else
-			{
-				pItem = new cItem;
-				pItem->Init( true );
-			}
 
-			if( pItem )
-			{
-				pItem->applyDefinition( node );
-				pItem->setNewbie( true ); // make it newbie
-
-				if( pItem->id() <= 1 )
-					pItem->remove();
-				else
-				{
-					// Put it into the bankbox
-					P_ITEM bankbox = getBankBox();
-					if( bankbox )
-						bankbox->addItem( pItem );
-					else
-						pItem->remove();
-				}
-			}
-		}
-		else if( node->name() == "equipment" )
-		{
-			P_ITEM pItem = NULL;
-			const cElement *DefSection = DefManager->getDefinition( WPDT_ITEM, node->getAttribute( "id" ) );
-			if( DefSection )
-			{
-				// books wont work without this
-				pItem = cItem::createFromScript( node->getAttribute("id") );
-			}
-			else
-			{
-				pItem = new cItem;
-				pItem->Init( true );
-			}
-
-			if( pItem )
-			{
-				pItem->applyDefinition( node );
-				pItem->setNewbie( true ); // make it newbie
-
-				UINT16 mLayer = pItem->layer();
-				pItem->setLayer( 0 );
-				if( !mLayer )
-				{
-					tile_st tile = TileCache::instance()->getTile( pItem->id() );
-					mLayer = tile.layer;
-				}
-
-				if( pItem->id() <= 1 || !mLayer )
-					pItem->remove();
-				else
-				{
-					// Put it onto the char
-					this->addItem( static_cast<cBaseChar::enLayer>( mLayer ), pItem );
-				}
-			}
-		}
+		// Add gold to the players backpack
 		else if( node->name() == "gold" )
 		{
 			giveGold( node->getValue().toUInt() );
 		}
-		else if( node->name() == "inherit" )
+
+		// Item related nodes
+		else
 		{
-			const cElement* inheritNode = DefManager->getDefinition( WPDT_STARTITEMS, node->getAttribute("id") );
-			if( inheritNode )
-				applyStartItemDefinition( inheritNode );
+			P_ITEM pItem = 0;
+			const QString &id = node->getAttribute( "id" );
+
+			if( id != QString::null )
+			{		
+				pItem = cItem::createFromScript( id );
+			}
+			else
+			{		
+				const QString &list = node->getAttribute( "list" );
+	
+				if( list != QString::null )
+				{
+					pItem = cItem::createFromList( list );
+				}
+			}
+
+			if( !pItem )
+			{
+				Console::instance()->log( LOG_ERROR, QString( "Invalid item tag without id or list in startitem definition '%1'" ).arg( element->getAttribute( "id" ) ) );
+			}
+			else
+			{
+				pItem->applyDefinition( node );
+				pItem->setNewbie( true );
+
+				if( node->name() == "item"  )
+				{
+					pItem->toBackpack( this );
+				}
+				else if( node->name() == "bankitem" )
+				{
+					getBackpack()->addItem( pItem );
+				}
+				else if( node->name() == "equipment" )
+				{
+					unsigned char layer = pItem->layer();
+					pItem->setLayer( 0 );
+
+					if( !layer )
+					{
+						tile_st tile = TileCache::instance()->getTile( pItem->id() );
+						layer = tile.layer;
+					}
+
+					if( layer )
+					{
+						addItem( static_cast<cBaseChar::enLayer>( layer ), pItem );
+					}
+					else
+					{
+						Console::instance()->log( LOG_ERROR, QString( "Trying to equip invalid item (%1) in startitem definition '%2'" ).arg( pItem->id(), 0, 16 ).arg( element->getAttribute( "id" ) ) );
+					}
+				}
+				else
+				{
+					pItem->remove();
+					Console::instance()->log( LOG_ERROR, QString( "Unrecognized startitem tag '%1' in definition '%2'.").arg( node->name(), element->getAttribute( "id" ) ) );
+				}
+			}
 		}
 	}
 }

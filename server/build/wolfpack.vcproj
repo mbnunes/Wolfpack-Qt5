@@ -36,8 +36,10 @@
 					MinimalRebuild="1"
 					BasicRuntimeChecks="3"
 					RuntimeLibrary="1"
+					ForceConformanceInForLoopScope="0"
 					RuntimeTypeInfo="1"
-					AllOptions="/c  /I &quot;sqlite&quot; /Zi /nologo /W1 /Wp64 /Od /D &quot;WIN32&quot; /D &quot;_DEBUG&quot; /D &quot;_WINDOWS&quot; /D &quot;QT_DLL&quot; /D &quot;QT_NO_STL&quot; /D &quot;QT_THREAD_SUPPORT&quot; /D &quot;_MBCS&quot; /Gm /EHsc /RTC1 /MTd /GR /Fo&quot;Debug/&quot; /Fd&quot;Debug/vc70.pdb&quot; /FR&quot;Debug/&quot; /Gd /TP /GR"/>
+					AllOptions="/c  /I &quot;sqlite&quot; /Zi /nologo /W1 /Wp64 /Od /D &quot;WIN32&quot; /D &quot;_DEBUG&quot; /D &quot;_WINDOWS&quot; /D &quot;QT_DLL&quot; /D &quot;QT_NO_STL&quot; /D &quot;QT_THREAD_SUPPORT&quot; /D &quot;_MBCS&quot; /Gm /EHsc /RTC1 /MTd /GR /Fo&quot;Debug/&quot; /Fd&quot;Debug/vc70.pdb&quot; /FR&quot;Debug/&quot; /Gd /TP /GR"
+					MSOriginalAdditionalOptions="/GR"/>
 			</Tool>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -50,9 +52,11 @@
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/wolfpack.pdb"
 				SubSystem="2"
-				TargetMachine="1">
+				TargetMachine="1"
+				AdditionalOptions="">
 				<IntelOptions
-					AllOptions="/NOLOGO /OUT:&quot;../wolfpack.exe&quot; /INCREMENTAL qt-mt321.lib ws2_32.lib /DEBUG /PDB:&quot;Debug/wolfpack.pdb&quot; /SUBSYSTEM:WINDOWS /TLBID:1 /MACHINE:IX86  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"/>
+					AllOptions="/NOLOGO /OUT:&quot;../wolfpack.exe&quot; /INCREMENTAL qt-mt321.lib ws2_32.lib /DEBUG /PDB:&quot;Debug/wolfpack.pdb&quot; /SUBSYSTEM:WINDOWS /TLBID:1 /MACHINE:IX86  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
+					MSOriginalAdditionalOptions=""/>
 			</Tool>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -93,7 +97,8 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"
-				CallingConvention="1">
+				CallingConvention="1"
+				AdditionalOptions="">
 				<IntelOptions
 					Optimization="2"
 					InlineFunctionExpansion="1"
@@ -102,8 +107,10 @@
 					RuntimeLibrary="4"
 					BufferSecurityCheck="1"
 					EnableFunctionLevelLinking="1"
+					ForceConformanceInForLoopScope="1"
 					RuntimeTypeInfo="1"
-					AllOptions="/c  /Zi /nologo /W3 /Wp64 /O2 /Ob1 /Oy /D &quot;WIN32&quot; /D &quot;NDEBUG&quot; /D &quot;_WINDOWS&quot; /D &quot;QT_DLL&quot; /D &quot;QT_NO_STL&quot; /D &quot;QT_THREAD_SUPPORT&quot; /D &quot;_MBCS&quot; /GF /FD /EHsc /ML /GS /Gy /GR /Fo&quot;Release/&quot; /Fd&quot;Release/vc70.pdb&quot; /FR&quot;Release/&quot; /Gr /TP"/>
+					AllOptions="/c  /Zi /nologo /W3 /Wp64 /O2 /Ob1 /Oy /D &quot;WIN32&quot; /D &quot;NDEBUG&quot; /D &quot;_WINDOWS&quot; /D &quot;QT_DLL&quot; /D &quot;QT_NO_STL&quot; /D &quot;QT_THREAD_SUPPORT&quot; /D &quot;_MBCS&quot; /GF /FD /EHsc /ML /GS /Gy /Zc:forScope /GR /Fo&quot;Release/&quot; /Fd&quot;Release/vc70.pdb&quot; /FR&quot;Release/&quot; /Gr /TP"
+					MSOriginalAdditionalOptions=""/>
 			</Tool>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -117,9 +124,11 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1">
+				TargetMachine="1"
+				AdditionalOptions="">
 				<IntelOptions
-					AllOptions="/NOLOGO /OUT:&quot;Release/wolfpack.exe&quot; /INCREMENTAL:NO qt-mt321.lib ws2_32.lib /DEBUG /PDB:&quot;Release/wolfpack.pdb&quot; /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /MACHINE:IX86  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"/>
+					AllOptions="/NOLOGO /OUT:&quot;Release/wolfpack.exe&quot; /INCREMENTAL:NO qt-mt321.lib ws2_32.lib /DEBUG /PDB:&quot;Release/wolfpack.pdb&quot; /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /MACHINE:IX86  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
+					MSOriginalAdditionalOptions=""/>
 			</Tool>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -271,20 +280,6 @@
 			<File
 				RelativePath=".\makemenus.h"/>
 			<File
-				RelativePath=".\maps.cpp"/>
-			<File
-				RelativePath=".\maps.h"/>
-			<File
-				RelativePath=".\mulstructs.h"/>
-			<File
-				RelativePath=".\multis.cpp"/>
-			<File
-				RelativePath=".\multis.h"/>
-			<File
-				RelativePath=".\multiscache.cpp"/>
-			<File
-				RelativePath=".\multiscache.h"/>
-			<File
 				RelativePath=".\network.cpp"/>
 			<File
 				RelativePath=".\network.h"/>
@@ -366,12 +361,6 @@
 				RelativePath=".\territories.cpp"/>
 			<File
 				RelativePath=".\territories.h"/>
-			<File
-				RelativePath=".\tilecache.cpp"/>
-			<File
-				RelativePath=".\tilecache.h"/>
-			<File
-				RelativePath=".\tileflags.h"/>
 			<File
 				RelativePath=".\Timing.cpp"/>
 			<File
@@ -569,6 +558,30 @@
 			Filter="">
 			<File
 				RelativePath=".\twofish\twofish2.c"/>
+		</Filter>
+		<Filter
+			Name="MulReading"
+			Filter="">
+			<File
+				RelativePath=".\maps.cpp"/>
+			<File
+				RelativePath=".\maps.h"/>
+			<File
+				RelativePath=".\mulstructs.h"/>
+			<File
+				RelativePath=".\multis.cpp"/>
+			<File
+				RelativePath=".\multis.h"/>
+			<File
+				RelativePath=".\multiscache.cpp"/>
+			<File
+				RelativePath=".\multiscache.h"/>
+			<File
+				RelativePath=".\tilecache.cpp"/>
+			<File
+				RelativePath=".\tilecache.h"/>
+			<File
+				RelativePath=".\tileflags.h"/>
 		</Filter>
 	</Files>
 	<Globals/>

@@ -127,6 +127,9 @@ public:
 
 class WPDefManager  
 {
+private:
+	cDefManagerPrivate *impl;
+
 public:
 	WPDefManager();
 	virtual ~WPDefManager();
@@ -136,9 +139,6 @@ public:
 	void unload( void );
 
 	bool ImportSections( const QString& FileName );
-
-	cDefManagerPrivate *impl;
-
 	const cElement*		getDefinition( eDefCategory Type, const QString& id ) const;
 	const QValueVector< cElement* > &getDefinitions( eDefCategory Type ) const;
 

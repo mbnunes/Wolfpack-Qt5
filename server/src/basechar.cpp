@@ -704,11 +704,8 @@ P_ITEM cBaseChar::getBackpack()
 	// None found so create one
 	if( !backpack )
 	{
-		backpack = new cItem;
-		backpack->Init();
-		backpack->setId( 0xE75 );
+		backpack = cItem::createFromScript( "e75" );
 		backpack->setOwner( this );
-		backpack->setType( 1 );
 		addItem( Backpack, backpack );
 		backpack->update();
 	}

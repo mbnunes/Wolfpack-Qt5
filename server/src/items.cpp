@@ -68,14 +68,48 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
 
+/**
+ * Loads item definitions and transforms them into cItemBase instances.
+ */
+cItemBases::cItemBases()
+{
+	itembases.setAutoDelete( true );
+}
+
+void cItemBases::load()
+{
+	// Clear all current ItemBases
+	itembases.clear();
+
+	QStringList sections = DefManager->getSections( WPDT_ITEM );
+
+	for( unsigned int i = 0; i < sections.size(); ++i )
+	{
+		const cElement *element = DefManager->getDefinition( WPDT_ITEM, sections[i] );
+		const QString &id = element->getAttribute( "id" );
+
+		if( id != QString::null )
+		{
+			cItemBase *itembase = new cItemBase;
+			itembase->id_ = id;
+			
+			itembases.insert( id, itembase );
+		}
+	}
+}
+
+inline cItemBase *cItemBases::getItemBase( const QString &id )
+{
+	return itembases.find( id );
+}
+
 /*****************************************************************************
   cItem member functions
  *****************************************************************************/
 
 // constructor
-cItem::cItem(): container_(0), totalweight_(0), incognito(false),
-timeused_last(0), sellprice_( 0 ), 
-buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 )
+cItem::cItem(): container_(0), totalweight_(0), sellprice_( 0 ), 
+buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 ), base( 0 )
 {
 	spawnregion_ = QString::null;
 	Init( false );
@@ -105,7 +139,6 @@ cItem::cItem( const cItem &src )
 	this->free = false;
 	this->hidamage_=src.hidamage_;
 	this->hp_ = src.hp_;
-	this->incognito = src.incognito;
 	this->isPersistent = src.isPersistent;
 	this->layer_ = src.layer_;
 	this->lodamage_=src.lodamage_;
@@ -118,14 +151,13 @@ cItem::cItem( const cItem &src )
 	this->setId(src.id());
 	this->setOwnSerialOnly(src.ownSerial());
 	this->spawnregion_=src.spawnregion_;
-	this->speed_=src.speed_;
-	this->time_unused=src.time_unused;
-	this->timeused_last=getNormalizedTime();
+	this->speed_=src.speed_;	
 	this->totalweight_ = src.totalweight_;
 	this->type2_ = src.type2_;
 	this->type_ = src.type_;
 	this->visible_=src.visible_;
 	this->weight_ = src.weight_;
+	this->base = src.base;
 	
 	this->setTotalweight( amount_ * weight_ );
 	this->recreateEvents();
@@ -434,7 +466,6 @@ void cItem::save()
 		addField("def",				def_);
 		addField("hidamage",		hidamage_);
 		addField("lodamage",		lodamage_);
-		addField("time_unused",		time_unused);
 		addField("weight",			weight_);
 		addField("hp",				hp_ );
 		addField("maxhp",			maxhp_ );
@@ -524,7 +555,6 @@ void cItem::Init( bool createSerial )
 		this->setSerial( World::instance()->findItemSerial() );
 
 	this->container_ = 0;
-	this->incognito=false;//AntiChrist - incognito
 
 	this->setMultis( INVALID_SERIAL ); //Multi serial
 	this->free = false;
@@ -548,8 +578,6 @@ void cItem::Init( bool createSerial )
 	this->visible_=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->priv_ = 0; // Bit 0, nodecay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
-	this->time_unused = 0;
-	this->timeused_last=getNormalizedTime();
 }
 
 /*!
@@ -825,36 +853,6 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 }*/
 }
 
-
-/*!
-	Retrieves the Item Information stored in Section and creates an item based on it
-*/
-P_ITEM cItem::createFromScript( const QString& Section )
-{
-	if( Section.length() == 0 )
-		return NULL;
-
-	P_ITEM nItem = NULL;
-
-	// Get an Item and assign a serial to it
-	const cElement* DefSection = DefManager->getDefinition( WPDT_ITEM, Section );
-	
-	if( !DefSection ) // section not found 
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unable to create unscripted item: %1\n" ).arg( Section ) );
-		return NULL;
-	}
-
-	nItem = new cItem;
-	nItem->Init( true );
-	nItem->applyDefinition( DefSection );
-
-	nItem->onCreate( Section );
-
-	return nItem;
-}
-
-// Added by DarkStorm
 bool cItem::onSingleClick( P_PLAYER Viewer )
 {
 	bool result = false;
@@ -1858,7 +1856,6 @@ void cItem::load( char **result, UINT16 &offset )
 	def_ = atoi( result[offset++] );
 	hidamage_ = atoi( result[offset++] );
 	lodamage_ = atoi( result[offset++] );
-	time_unused = atoi( result[offset++] );
 	weight_ = atoi( result[offset++] );
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
@@ -1888,7 +1885,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawnregion,items.priv,items.sellprice,items.buyprice,items.restock" );
+	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawnregion,items.priv,items.sellprice,items.buyprice,items.restock,items.baseid" );
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2064,6 +2061,11 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	SET_INT_PROPERTY( "id", id_ )
 	else SET_INT_PROPERTY( "color", color_ )
 	
+	else if( name == "baseid" )
+	{
+		base = ItemBases::instance()->getItemBase( value.toString() );
+	}
+
 	// Amount needs weight handling
 	else if( name == "amount" )
 	{
@@ -2167,9 +2169,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "buyprice", buyprice_ )
 	else SET_INT_PROPERTY( "restock", restock_ )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
-	else SET_INT_PROPERTY( "incognito", incognito )
-	else SET_INT_PROPERTY( "timeunused", time_unused )
-	else SET_INT_PROPERTY( "timeusedlast", timeused_last )
 	else SET_INT_PROPERTY( "magic", magic_ )
 	else SET_INT_PROPERTY( "visible", visible_ )
 
@@ -2241,10 +2240,10 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 stError *cItem::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "id", id_ )
+	else GET_PROPERTY( "baseid", ( base ? base->id() : QString::null ) )
 	else GET_PROPERTY( "color", color_ )
 	else GET_PROPERTY( "amount", amount_ )
 	else GET_PROPERTY( "layer", layer_ )
-	// Flag properties are set elsewhere!!
 	else GET_PROPERTY( "type", type_ )
 	else GET_PROPERTY( "type2", type2_ )
 	else GET_PROPERTY( "speed", speed_ )
@@ -2283,9 +2282,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "sellprice", sellprice_ )
 	else GET_PROPERTY( "restock", restock_ )
 	else GET_PROPERTY( "poisoned", (int)poisoned_ )
-	else GET_PROPERTY( "incognito", incognito ? 1 : 0 )
-	else GET_PROPERTY( "timeunused", (int)time_unused )
-	else GET_PROPERTY( "timeusedlast", (int)timeused_last )
 	else GET_PROPERTY( "magic", magic_ )
 
 	// Flags
@@ -2332,6 +2328,41 @@ void cItem::sendTooltip( cUOSocket* mSock )
 	}
 
 	cUObject::sendTooltip( mSock );
+}
+
+/*!
+	Selects an item id from a list and creates it.
+*/
+P_ITEM cItem::createFromList( const QString &id )
+{
+	QString entry = DefManager->getRandomListEntry( id );
+	return createFromScript( entry);
+}
+
+/*!
+	Creates a new item and applies the specified definition section on it.
+*/
+P_ITEM cItem::createFromScript( const QString& id )
+{
+	P_ITEM nItem = 0;
+
+	// Get an Item and assign a serial to it
+	const cElement* section = DefManager->getDefinition( WPDT_ITEM, id );
+
+	if( section )
+	{
+		nItem = new cItem;
+		nItem->Init( true );
+		nItem->base = ItemBases::instance()->getItemBase( id );
+		nItem->applyDefinition( section );
+		nItem->onCreate( id );
+	}
+	else
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Unable to create unscripted item: %1\n" ).arg( id ) );
+	}
+
+	return nItem;
 }
 
 P_ITEM cItem::createFromId( unsigned short id )
