@@ -180,8 +180,8 @@ def carve_corpse( char, corpse ):
 		bloodid = random.choice( blood )
 		blooditem = wolfpack.additem( bloodid )
 		blooditem.color = bloodcolor
+		blooditem.decay = True
 		blooditem.moveto( corpse.pos )
-		blooditem.decay = 1
 		blooditem.update()
 
 	# Mark the corpse as carved
