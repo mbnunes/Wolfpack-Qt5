@@ -41,7 +41,7 @@
 	</npc>
 
 	<!-- Super Chicken -->
-	<npc id="super_chicken" import="chicken">
+	<npc id="super_chicken" inherit="chicken">
 		<karma>0</karma>
 		<fame><random min="0" max="150" /></fame>
 		<!-- Stats -->
