@@ -105,8 +105,7 @@ HEADERS         = client.h \
 		  menuactions.h \
 		  wptargetrequests.h \
 		  corpse.h \
-		  
-		  python/content.h	  
+		  python/content.h
 		  
 SOURCES         = client.cpp \
 		  LoS.cpp \
