@@ -6,10 +6,11 @@
 #################################################################
 
 import wolfpack
+import wolfpack.time
 import skills
 import random
-from wolfpack.consts import *
-from wolfpack.time import *
+from wolfpack.consts import MINING, GRAY, MINING_REFILLTIME, MINING_ORE, \
+	MINING_MAX_DISTANCE, ANIM_ATTACK3, SOUND_MINING
 from wolfpack import console
 from wolfpack.utilities import ismountainorcave, tobackpack
 

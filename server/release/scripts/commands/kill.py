@@ -23,6 +23,7 @@ def commandKill(socket, cmd, args):
 	return True
 
 def dokill( char, args, target ):
+	socket = char.socket
 	if target.char and not target.char.dead:
 		if target.char.invulnerable:
 			socket.sysmessage( "This target is invulnerable!" )
