@@ -306,7 +306,7 @@ protected:
 	bool					dead_; // Is character dead
 	SERIAL					packitem_; // Serial of backpack
 //END ADDED FROM PUBLIC ******************************************
-	std::map< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
+	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
 	// Public Methods
 public:
@@ -477,28 +477,9 @@ public:
 	bool					dead() const { return dead_; }
 	SERIAL					packitem() const { return packitem_; }
 //END ADDED GETTERS***********************************************
-	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu )
-	{ 
-		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastselections_.find( basemenu );
-		if( it != lastselections_.end() )
-			return it->second;
-		else
-			return QPtrList< cMakeSection >();
-	}
+	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
 
-	cMakeSection*			lastSection( cMakeMenu* basemenu )
-	{
-		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastselections_.find( basemenu );
-		QPtrList< cMakeSection > lastsections_;
-		if( it != lastselections_.end() )
-			 lastsections_ = it->second;
-		else return NULL;
-
-		if( lastsections_.count() > 0 )
-			return lastsections_.at(0);
-		else
-			return NULL;
-	}
+	cMakeSection*			lastSection( cMakeMenu* basemenu );
 	
 	// Setters
 	void					setGuildType(short data);
@@ -639,6 +620,7 @@ public:
 	void					setCell( unsigned char data ) { cell_ = data; }
 	void					setJailTimer( unsigned int data ) { jailtimer_ = data; }
 	void					setJailSecs( int data ) { jailsecs_ = data; }
+	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data );
 	void					setOwnSerial( int data ) { ownserial_ = data; }
 	void					setRobe( int data ) { robe_ = data; }
 	void					setKarma( int data ) { karma_ = data; }
@@ -649,39 +631,9 @@ public:
 	void					setDead( bool data ) { dead_ = data; }
 	void					setPackItem( SERIAL data ) { packitem_ = data; }
 	//END SETTERS********************************************************
-	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data )
-	{
-		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator mit = lastselections_.find( basemenu );
-		QPtrList< cMakeSection > lastsections_;
-//		lastsections_.setAutoDelete( true ); NEVER DELETE THE SECTIONS :) THEY ARE DELETED WITH THEIR MAKEMENU PARENTS
-		if( mit != lastselections_.end() )
-			lastsections_ = mit->second;
-		else
-		{
-			lastsections_.append( data );
-			lastselections_.insert( make_pair< cMakeMenu*, QPtrList< cMakeSection > >(basemenu, lastsections_) );
-			return;
-		}
-			
-		QPtrListIterator< cMakeSection > it( lastsections_ );
-		while( it.current() )
-		{
-			if( data == it.current() )
-				return;
-			++it;
-		}
-		lastsections_.prepend( data );
-		while( lastsections_.count() > 10 )
-			lastsections_.removeLast();
 
-		mit->second = lastsections_;
-		return;
-	}
 
-	void					clearLastSelections( void )
-	{
-		lastselections_.clear();
-	}
+	void					clearLastSelections( void );
 
 	void wear( P_ITEM );
 	void updateWornItems();

@@ -7,10 +7,6 @@ Project: "ZTHREAD_2_2_9_static"=.\lib\ZThread\ZTHREAD_static.dsp - Package Owner
 
 Package=<5>
 {{{
-    begin source code control
-    ZTHREAD_static
-    .\lib\zthread
-    end source code control
 }}}
 
 Package=<4>
@@ -23,10 +19,6 @@ Project: "moc"=.\lib\wrl\src\moc\moc.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    moc
-    .\lib\wrl\src
-    end source code control
 }}}
 
 Package=<4>
@@ -51,10 +43,6 @@ Project: "wolf"=.\wolf.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    wolf
-    .
-    end source code control
 }}}
 
 Package=<4>
@@ -64,9 +52,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name ZTHREAD_2_2_9_static
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name wrl
     End Project Dependency
 }}}
 
@@ -80,6 +65,9 @@ Package=<5>
 
 Package=<4>
 {{{
+    Begin Project Dependency
+    Project_Dep_Name moc
+    End Project Dependency
 }}}
 
 ###############################################################################

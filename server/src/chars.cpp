@@ -2731,3 +2731,61 @@ void cChar::giveNewbieItems( Q_UINT8 skill )
 	}
 }
 
+QPtrList< cMakeSection > cChar::lastSelections( cMakeMenu* basemenu )
+{ 
+	QMap< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastselections_.find( basemenu );
+	if( it != lastselections_.end() )
+		return it.data();
+	else
+		return QPtrList< cMakeSection >();
+}
+
+cMakeSection* cChar::lastSection( cMakeMenu* basemenu )
+{
+	QMap< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastselections_.find( basemenu );
+	QPtrList< cMakeSection > lastsections_;
+	if( it != lastselections_.end() )
+		 lastsections_ = it.data();
+	else 
+		return 0;
+
+	if( lastsections_.count() > 0 )
+		return lastsections_.at(0);
+	else
+		return 0;
+}
+
+void cChar::setLastSection( cMakeMenu* basemenu, cMakeSection* data )
+{
+	QMap< cMakeMenu*, QPtrList< cMakeSection > >::iterator mit = lastselections_.find( basemenu );
+	QPtrList< cMakeSection > lastsections_;
+	//		lastsections_.setAutoDelete( true ); NEVER DELETE THE SECTIONS :) THEY ARE DELETED WITH THEIR MAKEMENU PARENTS
+	if( mit != lastselections_.end() )
+		lastsections_ = mit.data();
+	else
+	{
+		lastsections_.append( data );
+		lastselections_.insert( basemenu, lastsections_ );
+		return;
+	}
+	
+	QPtrListIterator< cMakeSection > it( lastsections_ );
+	while( it.current() )
+	{
+		if( data == it.current() )
+			return;
+		++it;
+	}
+	lastsections_.prepend( data );
+	while( lastsections_.count() > 10 )
+		lastsections_.removeLast();
+	
+	mit.data() = lastsections_;
+	return;
+}
+
+void cChar::clearLastSelections( void )
+{
+	lastselections_.clear();
+}
+
