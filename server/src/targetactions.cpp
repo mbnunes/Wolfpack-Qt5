@@ -177,7 +177,7 @@ bool cSkLockpicking::responsed( cUOSocket *socket, cUORxTarget *target )
 		
 		if(pi->type()==8 || pi->type()==13 || pi->type()==64)
 		{
-			if(pi->more1==0 && pi->more2==0 && pi->more3==0 && pi->more4==0)
+			if(pi->more1()==0 && pi->more2()==0 && pi->more3()==0 && pi->more4()==0)
 			{ //Make sure it isn't an item that has a key (i.e. player house, chest..etc)
 				if(pc_currchar->checkSkill( LOCKPICKING, 0, 1000))
 				{

@@ -57,7 +57,7 @@ struct max_serialPred : binary_function<pair<SERIAL, cItem*>, pair<SERIAL, cItem
 cItemsManager::~cItemsManager()
 {
 	purge();
-	iterator it = begin();
+	const_iterator it = begin();
 	const_iterator end(end());
 	for (; it != end; ++it )
 		delete it->second;
@@ -136,7 +136,7 @@ void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
  */
 void cItemsManager::purge()
 {
-	list<cItem*>::iterator it;
+	list<cItem*>::const_iterator it;
 	list<cItem*>::const_iterator end(deletedItems.end());
 	for (it = deletedItems.begin(); it != end; ++it)
 	{
