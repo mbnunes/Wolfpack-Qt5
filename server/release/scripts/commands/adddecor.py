@@ -102,6 +102,7 @@ forest_decor = [
 	'cc9', # Spider Tree
 	'd3f', # Brambles
 	'd40', # Brambles
+	'c9e', # O'hii Tree
 	'd29', # Flowers
 	'd2b', # Flowers
 	'd2d', # Flowers
@@ -142,6 +143,7 @@ plains_decor = [
 	'cc5', # Grasses
 	'cc6', # Grasses
 	'cc7', # Weed
+	'c9e', # O'hii Tree
 	'd29', # Flowers
 	'd2b', # Flowers
 	'd2d', # Flowers
@@ -168,12 +170,75 @@ desert_decor = [
 	'd35', # Pipe Cactus
 	'd34', # Morning Glories
 	'd33', # Grasses
+	'c95', # Coconut Palm
+	'c96', # Date Palm
 	'd32' # Grasses
 ]
 swamp_decor = [
+	'd04', # Water Plants
+	'd05', # Reeds
+	'd06', # Lilypad
+	'd07', # Lilypad
+	'd08', # Lilypad
+	'd09', # Lilypad
+	'd0a', # Lilypad
+	'd0b', # Lilypad
+	'dbc', # Lilypad
+	'dbd', # Lilypad
+	'dbe', # Lilypads
+	'dc1', # Water Lily
+	'dc2', # Water Lily
+	'dc3', # Water Lily
 ]
 jungle_decor = [
-
+	'd09', # Lilypad
+	'd0a', # Lilypad
+	'd0b', # Lilypad
+	'dbc', # Lilypad
+	'dbd', # Lilypad
+	'dbe', # Lilypads
+	'c93', # Blade Plant
+	'c94', # Bulrushes
+	'c97', # Elephant Ear Plant
+	'c98', # Fan Plant
+	'c99', # Small Palm
+	'c9a', # Small Palm
+	'c9b', # Small Palm
+	'c9c', # Small Palm
+	'c9d', # Small Palm
+	'c9e', # O'hii Tree
+	'c9f', # Fern
+	'ca0', # Fern
+	'ca1', # Large Fern
+	'ca2', # Fern
+	'ca3', # Fern
+	'ca4', # Fern
+	'ca5', # Pampas Grass
+	'ca6', # Ponytail Palm
+	'ca7', # Rushes
+	'ca8', # Small Banana Tree
+	'ca9', # Snake Plant
+	'caa', # Banana Tree
+	'cab', # Banana Tree
+	'cac', # Grasses
+	'cad', # Grasses
+	'cae', # Grasses
+	'caf', # Grasses
+	'cb0', # Grasses
+	'cb1', # Grasses
+	'cb2', # Grasses
+	'cb3', # Grasses
+	'cb4', # Grasses
+	'cb5', # Grasses
+	'cb6', # Grasses
+	'cb7', # Cattails
+	'cb8', # Cattails
+	'cb9', # Grasses
+	'cba', # Grasses
+	'cbc', # Grasses
+	'cbd', # Grasses
+	'cc3', # Muck
+	'cc5' # Grasses
 ]
 
 # Constants
