@@ -65,7 +65,7 @@ struct stTargetItem
 
 class cUOSocket
 {
-	OBJECTDEF(cUOSocket)
+	OBJECTDEF( cUOSocket )
 
 public:
 	enum eSocketState

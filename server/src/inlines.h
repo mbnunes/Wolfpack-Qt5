@@ -58,19 +58,19 @@ inline bool isHairColor( Q_UINT16 color )
 	return ( ( color >= 0x44E ) && ( color <= 0x47D ) ) ? true : false;
 }
 
-template<typename T>
+template <typename T>
 inline T wpAbs( T a )
 {
-	return ( a >= 0  ? a : -a );
+	return ( a >= 0 ? a : -a );
 }
 
-template<typename T>
+template <typename T>
 inline T wpMin( T a, T b )
 {
 	return ( a > b ? b : a );
 }
 
-template<typename T>
+template <typename T>
 inline T wpMax( T a, T b )
 {
 	return ( a < b ? b : a );
@@ -81,52 +81,64 @@ inline int roundInt( double n )
 	return static_cast<int>( n + 0.5 );
 }
 
-inline bool isBetween(double n, int lower, int higher, double tolerance = 0.5) {
+inline bool isBetween( double n, int lower, int higher, double tolerance = 0.5 )
+{
 	// Swap the bounds if they are out of order
-	if (lower > higher) {
-		std::swap(lower, higher);
+	if ( lower > higher )
+	{
+		std::swap( lower, higher );
 	}
 
-	return (n > lower - tolerance) && (n < higher + tolerance);
+	return ( n > lower - tolerance ) && ( n < higher + tolerance );
 }
 
-inline QString makeAscii(const QString &input) {
+inline QString makeAscii( const QString& input )
+{
 	QString result;
 
-	for( unsigned int i = 0; i < input.length(); ++i )
+	for ( unsigned int i = 0; i < input.length(); ++i )
 	{
-		QChar c = input.at(i);
+		QChar c = input.at( i );
 
 		// German umlauts can be represented differently
-		switch (c) {
-			case 129: // ü
-				result.append("ue");
-				continue;
-			case 132: // ä
-				result.append("ae");
-				continue;
-			case 148: // ö
-				result.append("oe");
-				continue;
-			case 225: // ß
-				result.append("ss");
-				continue;
-			case 154: // Ü
-				result.append("Ue");
-				continue;
-			case 142: // Ä
-				result.append("Ae");
-				continue;
-			case 153: // Ö
-				result.append("Oe");
-				continue;
+		switch ( c )
+		{
+		case 129:
+			// ü
+			result.append( "ue" );
+			continue;
+		case 132:
+			// ä
+			result.append( "ae" );
+			continue;
+		case 148:
+			// ö
+			result.append( "oe" );
+			continue;
+		case 225:
+			// ß
+			result.append( "ss" );
+			continue;
+		case 154:
+			// Ü
+			result.append( "Ue" );
+			continue;
+		case 142:
+			// Ä
+			result.append( "Ae" );
+			continue;
+		case 153:
+			// Ö
+			result.append( "Oe" );
+			continue;
 		}
 
 		// Other non representable char
-		if (c.latin1() < 1 || (c.latin1() > 122 && c.latin1() != 127)) {
+		if ( c.latin1() < 1 || ( c.latin1() > 122 && c.latin1() != 127 ) )
+		{
 			continue;
 		}
-		result.append(c);
+		result.append( c );
 	}
 
 	return result;

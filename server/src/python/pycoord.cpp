@@ -192,7 +192,8 @@ static PyObject* wpCoord_effect( wpCoord* self, PyObject* args )
 	unsigned short id, duration, speed;
 	int rendermode = 0;
 	short hue = 0;
-	if (!PyArg_ParseTuple(args, "hhh|hi:coord.effect(id, speed, duration, [hue], [rendermode])", &id, &speed, &duration, &hue, &rendermode)) {
+	if ( !PyArg_ParseTuple( args, "hhh|hi:coord.effect(id, speed, duration, [hue], [rendermode])", &id, &speed, &duration, &hue, &rendermode ) )
+	{
 		return 0;
 	}
 
@@ -202,8 +203,8 @@ static PyObject* wpCoord_effect( wpCoord* self, PyObject* args )
 	effect.setSourcePos( self->coord );
 	effect.setDuration( duration );
 	effect.setSpeed( speed );
-    effect.setHue(hue);
-	effect.setRenderMode(rendermode);
+	effect.setHue( hue );
+	effect.setRenderMode( rendermode );
 
 	cUOSocket* mSock;
 	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
@@ -223,13 +224,14 @@ static PyObject* wpCoord_effect( wpCoord* self, PyObject* args )
 static PyObject* wpCoord_soundeffect( wpCoord* self, PyObject* args )
 {
 	unsigned short id;
-	if (!PyArg_ParseTuple(args, "h:coord.soundeffect(id)", &id)) {
+	if ( !PyArg_ParseTuple( args, "h:coord.soundeffect(id)", &id ) )
+	{
 		return 0;
 	}
 
 	cUOTxSoundEffect effect;
-	effect.setSound(id);
-	effect.setCoord(self->coord);
+	effect.setSound( id );
+	effect.setCoord( self->coord );
 
 	cUOSocket* mSock;
 	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
@@ -247,8 +249,8 @@ static PyMethodDef wpCoordMethods[] =
 { "direction", ( getattrofunc ) wpCoord_direction, METH_VARARGS, NULL },
 { "validspawnspot",	( getattrofunc ) wpCoord_validspawnspot, METH_VARARGS, NULL },
 { "lineofsight", ( getattrofunc ) wpCoord_lineofsight, METH_VARARGS, NULL },
-{ "effect", (getattrofunc) wpCoord_effect, METH_VARARGS, NULL },
-{ "soundeffect", (getattrofunc) wpCoord_soundeffect, METH_VARARGS, NULL },
+{ "effect", ( getattrofunc ) wpCoord_effect, METH_VARARGS, NULL },
+{ "soundeffect", ( getattrofunc ) wpCoord_soundeffect, METH_VARARGS, NULL },
 { 0, 0, 0, 0 }
 };
 

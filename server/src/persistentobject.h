@@ -48,7 +48,7 @@ public:
 	{
 	}
 
-	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
+	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 	virtual bool del();
 
 	virtual void load( char**, ushort& );
@@ -75,7 +75,8 @@ public:
 	classes that should be serialized by the binary
 	serialization system.
 */
-class cBinaryTypemap {
+class cBinaryTypemap
+{
 protected:
 	typedef QMap<unsigned char, QCString> Container;
 	typedef Container::iterator Iterator;
@@ -90,18 +91,21 @@ public:
 		Register a new type with this object and return
 		the 8-bit identifier assigned to this type.
 	*/
-	unsigned int registerType(QCString type) {
+	unsigned int registerType( QCString type )
+	{
 		// Find the largest typeid in use
 		int lastid = -1;
-		for (Iterator it = typemap.begin(); it != typemap.end(); ++it) {
-			if (it.key() > lastid) {
+		for ( Iterator it = typemap.begin(); it != typemap.end(); ++it )
+		{
+			if ( it.key() > lastid )
+			{
 				lastid = it.key();
 			}
 		}
 
 		// Increase the typeid and register the type
 		lastid += 1;
-		typemap.insert(lastid, type);
+		typemap.insert( lastid, type );
 
 		// Return the assigned type id.
 		return lastid;
@@ -110,8 +114,10 @@ public:
 	/*
 		Get a type identified by its 8-bit key.
 	*/
-	QString getType(unsigned char key) {
-		if (!typemap.contains(key)) {
+	QString getType( unsigned char key )
+	{
+		if ( !typemap.contains( key ) )
+		{
 			return QString::null;
 		}
 
@@ -121,14 +127,16 @@ public:
 	/*
 		Check if a given 8-bit key is known.
 	*/
-	bool hasType(unsigned char key) {
-		return typemap.contains(key);
+	bool hasType( unsigned char key )
+	{
+		return typemap.contains( key );
 	}
 
 	/*
 		Return the full typemap.
 	*/
-	const QMap<unsigned char, QCString> &getTypemap() {
+	const QMap<unsigned char, QCString>& getTypemap()
+	{
 		return typemap;
 	}
 };
@@ -139,24 +147,27 @@ typedef Singleton<cBinaryTypemap> BinaryTypemap;
 	This factory creates objects from type ids used in the
 	binary and database serialization process.
 */
-class cPersistentFactory : public Factory<PersistentObject, QString> {
+class cPersistentFactory : public Factory<PersistentObject, QString>
+{
 public:
 	/*
 		Register a SQL query to retrieve objects of a given type.
 	*/
-	void registerSqlQuery( const QString& type, const QString& query, const QString &sqlcount ) {
-		sql_queries.insert(type, query);
-		sql_count_queries.insert(type, sqlcount);
+	void registerSqlQuery( const QString& type, const QString& query, const QString& sqlcount )
+	{
+		sql_queries.insert( type, query );
+		sql_count_queries.insert( type, sqlcount );
 		sql_keys.push_back( type );
 	}
 
 	/*
 		Retrieve a SQL query to retrieve the number of objects for a given type.
 	*/
-	QString findSqlCountQuery(const QString& type) const {
+	QString findSqlCountQuery( const QString& type ) const
+	{
 		QMap<QString, QString>::const_iterator iter = sql_count_queries.find( type );
 
-		if (iter == sql_count_queries.end())
+		if ( iter == sql_count_queries.end() )
 			return QString::null;
 		else
 			return iter.data();
@@ -165,10 +176,11 @@ public:
 	/*
 		Retrieve a SQL query to retrieve objects of a given type.
 	*/
-	QString findSqlQuery(const QString& type) const {
+	QString findSqlQuery( const QString& type ) const
+	{
 		QMap<QString, QString>::const_iterator iter = sql_queries.find( type );
 
-		if (iter == sql_queries.end())
+		if ( iter == sql_queries.end() )
 			return QString::null;
 		else
 			return iter.data();
@@ -177,7 +189,8 @@ public:
 	/*
 		Retrieve the list of registered object types.
 	*/
-	const QStringList &objectTypes() const {
+	const QStringList& objectTypes() const
+	{
 		return sql_keys;
 	}
 
@@ -195,36 +208,41 @@ typedef Singleton<cPersistentFactory> PersistentFactory;
 	The registration order isn't predictable though.
 */
 template <class C>
-class FactoryRegistration {
+class FactoryRegistration
+{
 public:
-	static PersistentObject *productCreator() {
+	static PersistentObject* productCreator()
+	{
 		return new C;
 	}
 
-	FactoryRegistration(const char *className) {
+	FactoryRegistration( const char* className )
+	{
 		// Register the type for creation
-		PersistentFactory::instance()->registerType(className, productCreator);
+		PersistentFactory::instance()->registerType( className, productCreator );
 
 		// Build the SQL query for selecting all objects of this type
 		QStringList fields, tables, conditions;
-		C::buildSqlString(className, fields, tables, conditions);
-		QString sqlString = QString("SELECT %1 FROM %2").arg(fields.join(",")).arg(tables.join(","));
-		if (conditions.count() > 0) {
-			sqlString.append(" WHERE ");
-			sqlString.append(conditions.join(" AND "));
+		C::buildSqlString( className, fields, tables, conditions );
+		QString sqlString = QString( "SELECT %1 FROM %2" ).arg( fields.join( "," ) ).arg( tables.join( "," ) );
+		if ( conditions.count() > 0 )
+		{
+			sqlString.append( " WHERE " );
+			sqlString.append( conditions.join( " AND " ) );
 		}
 
-		QString sqlCountString = QString("SELECT COUNT(*) FROM %1").arg(tables.join(","));
-		if (conditions.count() > 0) {
-			sqlCountString.append(" WHERE ");
-			sqlCountString.append(conditions.join(" AND "));
+		QString sqlCountString = QString( "SELECT COUNT(*) FROM %1" ).arg( tables.join( "," ) );
+		if ( conditions.count() > 0 )
+		{
+			sqlCountString.append( " WHERE " );
+			sqlCountString.append( conditions.join( " AND " ) );
 		}
 
 		// Register the SQL query for this type in the factory
-		PersistentFactory::instance()->registerSqlQuery(className, sqlString, sqlCountString);
+		PersistentFactory::instance()->registerSqlQuery( className, sqlString, sqlCountString );
 
 		// Register the type for the 8-bit binary mapping
-		C::setClassid(BinaryTypemap::instance()->registerType(className));
+		C::setClassid( BinaryTypemap::instance()->registerType( className ) );
 	}
 };
 

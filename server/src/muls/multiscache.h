@@ -53,29 +53,35 @@ protected:
 public:
 	MultiDefinition();
 
-	const QValueVector<multiItem_st> &itemsAt(int x, int y);
+	const QValueVector<multiItem_st>& itemsAt( int x, int y );
 
-	unsigned int getHeight() {
+	unsigned int getHeight()
+	{
 		return height;
 	}
 
-	unsigned int getWidth() {
+	unsigned int getWidth()
+	{
 		return width;
 	}
 
-	int getLeft() {
+	int getLeft()
+	{
 		return left;
 	}
 
-	int getRight() {
+	int getRight()
+	{
 		return right;
 	}
 
-	int getBottom() {
+	int getBottom()
+	{
 		return bottom;
 	}
 
-	int getTop() {
+	int getTop()
+	{
 		return top;
 	}
 

@@ -67,20 +67,22 @@ public:
 	P_ITEM next();
 };
 
-class cBackupThread : public QThread {
+class cBackupThread : public QThread
+{
 private:
 	QString filename;
 public:
 	void run();
 
-	void setFilename(const QString &name) {
+	void setFilename( const QString& name )
+	{
 		filename = name;
 	}
 };
 
 class cWorld : public cComponent
 {
-	OBJECTDEF(cWorld)
+	OBJECTDEF( cWorld )
 	friend class cCharIterator;
 	friend class cItemIterator;
 
@@ -95,7 +97,7 @@ private:
 	unsigned int _playerCount, _npcCount;
 	void loadTag( cBufferedReader& reader, unsigned int version );
 	QMap<QString, QString> options;
-	void backupWorld( const QString &filename, unsigned int count, bool compress);
+	void backupWorld( const QString& filename, unsigned int count, bool compress );
 	QPtrList<cBackupThread> backupThreads;
 
 public:
@@ -105,8 +107,8 @@ public:
 
 	// WorldLoader interface
 	void load();
-	void loadBinary(QPtrList<PersistentObject> &objects);
-	void loadSQL(QPtrList<PersistentObject> &objects);
+	void loadBinary( QPtrList<PersistentObject>& objects );
+	void loadSQL( QPtrList<PersistentObject>& objects );
 	void unload();
 	void save();
 

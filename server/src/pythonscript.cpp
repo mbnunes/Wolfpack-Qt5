@@ -555,7 +555,7 @@ It's triggered for the item, then for the npc and then for the global hook.
 \param multi The multi the object or the object is in.
 \param item The item the player is seeking access to.
 \condition Triggered when a player tries to use an item that is within a multi, tries to drop an item into a container that is within a multi or tries to grab
-	an item that is in a container that is in a multi.
+an item that is in a container that is in a multi.
 \notes Return True to deny access to the item.
 */
 "onCheckSecurity",
@@ -764,7 +764,7 @@ PyObject* cPythonScript::callEvent( const QString& name, PyObject* args, bool ig
 				reportPythonError( name_ );
 		}
 
-		Py_XDECREF(event);
+		Py_XDECREF( event );
 	}
 
 	return result;

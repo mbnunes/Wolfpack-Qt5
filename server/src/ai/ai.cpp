@@ -52,46 +52,46 @@
 
 #ifdef __VC6
 
-AbstractAI* productCreatorFunctor_Animal_Domestic(  )
+AbstractAI* productCreatorFunctor_Animal_Domestic()
 {
-	return new Animal_Domestic(0);
+	return new Animal_Domestic( 0 );
 }
 
-AbstractAI* productCreatorFunctor_Animal_Wild(  )
+AbstractAI* productCreatorFunctor_Animal_Wild()
 {
-	return new Animal_Wild(0);
+	return new Animal_Wild( 0 );
 }
 
-AbstractAI* productCreatorFunctor_Human_Guard(  )
+AbstractAI* productCreatorFunctor_Human_Guard()
 {
-	return new Human_Guard(0);
+	return new Human_Guard( 0 );
 }
 
-AbstractAI* productCreatorFunctor_Human_Guard_Called(  )
+AbstractAI* productCreatorFunctor_Human_Guard_Called()
 {
-	return new Human_Guard_Called(0);
+	return new Human_Guard_Called( 0 );
 }
 
-AbstractAI* productCreatorFunctor_Human_Vendor(  )
+AbstractAI* productCreatorFunctor_Human_Vendor()
 {
-	return new Human_Vendor(0);
+	return new Human_Vendor( 0 );
 }
 
-AbstractAI* productCreatorFunctor_Human_Stablemaster(  )
+AbstractAI* productCreatorFunctor_Human_Stablemaster()
 {
-	return new Human_Stablemaster(0);
+	return new Human_Stablemaster( 0 );
 }
-AbstractAI* productCreatorFunctor_Monster_Aggressive_L0(  )
+AbstractAI* productCreatorFunctor_Monster_Aggressive_L0()
 {
-	return new Monster_Aggressive_L0(0);
+	return new Monster_Aggressive_L0( 0 );
 }
-AbstractAI* productCreatorFunctor_Monster_Berserk(  )
+AbstractAI* productCreatorFunctor_Monster_Berserk()
 {
-	return new Monster_Berserk(0);
+	return new Monster_Berserk( 0 );
 }
-AbstractAI* productCreatorFunctor_Monster_Aggressive_L1(  )
+AbstractAI* productCreatorFunctor_Monster_Aggressive_L1()
 {
-	return new Monster_Aggressive_L1(0);
+	return new Monster_Aggressive_L1( 0 );
 }
 #endif
 void cAIFactory::checkScriptAI( const QStringList& oldSections, const QStringList& newSections )
@@ -174,7 +174,7 @@ void AbstractAI::check()
 	AbstractAction* oldaction = m_currentAction;
 #endif
 
-	startProfiling(PF_AICHECKFINDACTION);
+	startProfiling( PF_AICHECKFINDACTION );
 	// If we have no current action or our action cant be executed, we must get a new one
 	if ( !m_currentAction || ( m_currentAction && m_currentAction->preCondition() <= 0.0f ) )
 	{
@@ -196,7 +196,7 @@ void AbstractAI::check()
 			++it;
 		}
 	}
-	stopProfiling(PF_AICHECKFINDACTION);
+	stopProfiling( PF_AICHECKFINDACTION );
 
 	// Action is changing
 #if defined(AIDEBUG)
@@ -207,14 +207,15 @@ void AbstractAI::check()
 	}
 #endif
 
-	m_npc->setAICheckTime(Server::instance()->time() + m_npc->wanderSpeed());
+	m_npc->setAICheckTime( Server::instance()->time() + m_npc->wanderSpeed() );
 
 	// Now we should have a current action set, else do nothing!
-	startProfiling(PF_AICHECKEXECUTEACTION);
+	startProfiling( PF_AICHECKEXECUTEACTION );
 	if ( m_currentAction )
 	{
-		if (!m_currentAction->isPassive()) {
-			m_npc->setAICheckTime(Server::instance()->time() + m_npc->actionSpeed());
+		if ( !m_currentAction->isPassive() )
+		{
+			m_npc->setAICheckTime( Server::instance()->time() + m_npc->actionSpeed() );
 		}
 
 		m_currentAction->execute();
@@ -234,7 +235,7 @@ void AbstractAI::check()
 		}
 	}
 
-	stopProfiling(PF_AICHECKEXECUTEACTION);
+	stopProfiling( PF_AICHECKEXECUTEACTION );
 }
 
 static AbstractAI* productCreator_SCP()
@@ -267,7 +268,7 @@ void ScriptAI::processNode( const cElement* Tag )
 			m_actions.append( action );
 		}
 		else
-			Console::instance()->send( tr("Action tag in ai definition must contain attributes for pre-,postcondition and execute at least\n") );
+			Console::instance()->send( tr( "Action tag in ai definition must contain attributes for pre-,postcondition and execute at least\n" ) );
 	}
 	else if ( TagName == "onspeech" )
 	{
@@ -346,9 +347,9 @@ float ScriptAction::preCondition()
 					// Create our Argument list
 					PyObject* p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
-					Py_INCREF(Py_None); // SetItem steals a reference
+					Py_INCREF( Py_None ); // SetItem steals a reference
 					PyTuple_SetItem( p_args, 1, Py_None );
-					Py_INCREF(Py_None); // SetItem steals a reference
+					Py_INCREF( Py_None ); // SetItem steals a reference
 					PyTuple_SetItem( p_args, 2, Py_None );
 
 					PyObject* returnValue = PyObject_CallObject( pFunc, p_args );
@@ -401,9 +402,9 @@ float ScriptAction::postCondition()
 					// Create our Argument list
 					PyObject* p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
-					Py_INCREF(Py_None);
+					Py_INCREF( Py_None );
 					PyTuple_SetItem( p_args, 1, Py_None );
-					Py_INCREF(Py_None);
+					Py_INCREF( Py_None );
 					PyTuple_SetItem( p_args, 2, Py_None );
 
 					PyObject* returnValue = PyObject_CallObject( pFunc, p_args );
@@ -456,9 +457,9 @@ void ScriptAction::execute()
 					// Create our Argument list
 					PyObject* p_args = PyTuple_New( 3 );
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
-					Py_INCREF(Py_None);
+					Py_INCREF( Py_None );
 					PyTuple_SetItem( p_args, 1, Py_None );
-					Py_INCREF(Py_None);
+					Py_INCREF( Py_None );
 					PyTuple_SetItem( p_args, 2, Py_None );
 
 					Py_XDECREF( PyEval_CallObject( pFunc, p_args ) );
@@ -475,16 +476,21 @@ void ScriptAction::execute()
 	}
 }
 
-bool Action_Wander::isPassive() {
-	if (m_npc->attackTarget()) {
+bool Action_Wander::isPassive()
+{
+	if ( m_npc->attackTarget() )
+	{
 		return false;
 	}
 
 	enWanderTypes type = m_npc->wanderType();
 
-	if (type == enFreely || type == enWanderSpawnregion || type == enCircle || type == enRectangle) {
+	if ( type == enFreely || type == enWanderSpawnregion || type == enCircle || type == enRectangle )
+	{
 		return true;
-	} else {
+	}
+	else
+	{
 		return false;
 	}
 }
@@ -577,8 +583,9 @@ void Action_Wander::execute()
 				unsigned char dir = m_npc->direction();
 
 				// There is a 5% chance of changing the direction
-				if (!RandomNum(0, 19)) {
-					dir = RandomNum(0, 7);
+				if ( !RandomNum( 0, 19 ) )
+				{
+					dir = RandomNum( 0, 7 );
 				}
 
 				Coord newpos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
@@ -600,13 +607,15 @@ void Action_Wander::execute()
 					newpos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() ); // Recalculate the new one
 
 					// See if it's still invalid
-					if ( !region->isValidSpot( newpos ) ) {
+					if ( !region->isValidSpot( newpos ) )
+					{
 						return;
 					}
 				}
 
 				// Change our current heading first.
-				if (m_npc->direction() != dir) {
+				if ( m_npc->direction() != dir )
+				{
 					Movement::instance()->Walking( m_npc, dir, 0xFF );
 				}
 
@@ -668,7 +677,8 @@ void Action_Wander::execute()
 
 			Q_UINT8 dir = m_npc->pos().direction( pos );
 
-			if (m_npc->direction() != dir) {
+			if ( m_npc->direction() != dir )
+			{
 				Movement::instance()->Walking( m_npc, dir, 0xFF );
 			}
 
@@ -680,11 +690,15 @@ void Action_Wander::execute()
 			if ( Config::instance()->pathfind4Follow() )
 			{
 				P_CHAR pTarget = m_npc->wanderFollowTarget();
-				if (pTarget) {
-					if ( m_npc->dist(pTarget) < 4 ) {
+				if ( pTarget )
+				{
+					if ( m_npc->dist( pTarget ) < 4 )
+					{
 						movePath( pTarget->pos() );
-					} else {
-						moveTo( pTarget->pos());
+					}
+					else
+					{
+						moveTo( pTarget->pos() );
 					}
 				}
 			}
@@ -700,9 +714,12 @@ void Action_Wander::execute()
 		}
 	case enDestination:
 		{
-			if (m_npc->pos().distance( m_npc->wanderDestination() ) < 6 ) {
+			if ( m_npc->pos().distance( m_npc->wanderDestination() ) < 6 )
+			{
 				movePath( m_npc->wanderDestination() );
-			} else {
+			}
+			else
+			{
 				moveTo( m_npc->wanderDestination() );
 			}
 			break;
@@ -743,17 +760,24 @@ bool Action_Wander::moveTo( const Coord& pos, bool run )
 
 	// If we're not facing the direction we're trying to walk to,
 	// call Movement once more.
-	if (m_npc->direction() != dir) {
-		if (run) {
-			Movement::instance()->Walking( m_npc, dir|0x80, 0xFF );
-		} else {
+	if ( m_npc->direction() != dir )
+	{
+		if ( run )
+		{
+			Movement::instance()->Walking( m_npc, dir | 0x80, 0xFF );
+		}
+		else
+		{
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 		}
 	}
 
-	if (run) {
-		return Movement::instance()->Walking( m_npc, dir|0x80, 0xFF );
-	} else {
+	if ( run )
+	{
+		return Movement::instance()->Walking( m_npc, dir | 0x80, 0xFF );
+	}
+	else
+	{
 		return Movement::instance()->Walking( m_npc, dir, 0xFF );
 	}
 }
@@ -790,18 +814,25 @@ bool Action_Wander::movePath( const Coord& pos, bool run )
 		Q_UINT8 dir = m_npc->pos().direction( nextmove );
 
 		// Make sure we face the direction...
-		if (m_npc->direction() != dir) {
-			if (run) {
-				Movement::instance()->Walking( m_npc, dir|0x80, 0xFF );
-			} else {
+		if ( m_npc->direction() != dir )
+		{
+			if ( run )
+			{
+				Movement::instance()->Walking( m_npc, dir | 0x80, 0xFF );
+			}
+			else
+			{
 				Movement::instance()->Walking( m_npc, dir, 0xFF );
 			}
 		}
 
 		bool result;
-		if (run) {
-			result = Movement::instance()->Walking( m_npc, dir|0x80, 0xFF );
-		} else {
+		if ( run )
+		{
+			result = Movement::instance()->Walking( m_npc, dir | 0x80, 0xFF );
+		}
+		else
+		{
 			result = Movement::instance()->Walking( m_npc, dir, 0xFF );
 		}
 		m_npc->popMove();
@@ -816,9 +847,10 @@ bool Action_Wander::movePath( const Coord& pos, bool run )
 
 void Action_Flee::execute()
 {
-	P_CHAR pFleeFrom = World::instance()->findChar(pFleeFromSer);
+	P_CHAR pFleeFrom = World::instance()->findChar( pFleeFromSer );
 
-	if (!pFleeFrom) {
+	if ( !pFleeFrom )
+	{
 		pFleeFromSer = INVALID_SERIAL;
 		return;
 	}
@@ -1090,6 +1122,7 @@ void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 	}
 }
 
-bool ScriptAction::isPassive() {
+bool ScriptAction::isPassive()
+{
 	return false;
 }

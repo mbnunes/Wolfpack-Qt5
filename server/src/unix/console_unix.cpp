@@ -222,21 +222,24 @@ void cConsole::changeColor( enConsoleColors Color )
 	send( cb );
 }
 
-void cConsole::rollbackChars(unsigned int count) {
-	for (unsigned int i = 0; i < count; ++i) {
+void cConsole::rollbackChars( unsigned int count )
+{
+	for ( unsigned int i = 0; i < count; ++i )
+	{
 		fprintf( stdout, "\b" );
 	}
-	fflush(stdout);
+	fflush( stdout );
 
 	// Remove from the end of the linebuffer
-	linebuffer_.truncate(linebuffer_.length() - count);
+	linebuffer_.truncate( linebuffer_.length() - count );
 }
 
 //========================================================================================
 // Send a message to the console
 void cConsole::send( const QString& sMessage )
 {
-	if (sMessage.isNull() || sMessage.isEmpty()) {
+	if ( sMessage.isNull() || sMessage.isEmpty() )
+	{
 		return;
 	}
 
@@ -245,18 +248,18 @@ void cConsole::send( const QString& sMessage )
 	{
 		QString temp = progress;
 		progress = QString::null;
-		rollbackChars(temp.length());
+		rollbackChars( temp.length() );
 		progress = temp;
 	}
 
 	// Replace %'s by %%'s
 	QString newMessage = sMessage;
-	newMessage.replace("%", "%%");
+	newMessage.replace( "%", "%%" );
 
 	fprintf( stdout, newMessage.latin1() );
 	fflush( stdout );
 
-	linebuffer_.append(sMessage);
+	linebuffer_.append( sMessage );
 
 	// Resend the Progress message if neccesary.
 	if ( !progress.isEmpty() )

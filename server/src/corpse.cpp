@@ -42,11 +42,11 @@
 
 using namespace std;
 
-static FactoryRegistration<cCorpse> registration("cCorpse");
+static FactoryRegistration<cCorpse> registration( "cCorpse" );
 
 unsigned char cCorpse::classid;
 
-void cCorpse::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
+void cCorpse::buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cItem::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "corpses.bodyid,corpses.hairstyle,corpses.haircolor,corpses.beardstyle,corpses.beardcolor" );
@@ -309,30 +309,30 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 	*/
 	SET_INT_PROPERTY( "bodyid", bodyId_ )
 	else
-		/*
-			\property item.hairstyle The id of the hairstyle displayed on the corpse.
-			For no hair use 0.
-			This property only exists for corpses.
-		*/
+			/*
+				\property item.hairstyle The id of the hairstyle displayed on the corpse.
+				For no hair use 0.
+				This property only exists for corpses.
+			*/
 		SET_INT_PROPERTY( "hairstyle", hairStyle_ )
 	else
-		/*
-			\property item.haircolor The color of the hair displayed on the corpse.
-			This property only exists for corpses.
-		*/
+			/*
+				\property item.haircolor The color of the hair displayed on the corpse.
+				This property only exists for corpses.
+			*/
 		SET_INT_PROPERTY( "haircolor", hairColor_ )
 	else
-		/*
-			\property item.beardstyle The id of the beardstyle displayed on the corpse.
-			For no beard use 0.
-			This property only exists for corpses.
-		*/
+			/*
+				\property item.beardstyle The id of the beardstyle displayed on the corpse.
+				For no beard use 0.
+				This property only exists for corpses.
+			*/
 		SET_INT_PROPERTY( "beardstyle", beardStyle_ )
 	else
-		/*
-			\property item.beardcolor The color of the beard displayed on the corpse.
-			This property only exists for corpses.
-		*/
+			/*
+				\property item.beardcolor The color of the beard displayed on the corpse.
+				This property only exists for corpses.
+			*/
 		SET_INT_PROPERTY( "beardcolor", beardColor_ )
 
 		/*

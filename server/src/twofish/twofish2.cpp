@@ -604,8 +604,8 @@ int reKey( keyInstance* key )
 #if !CHECK_TABLE
 #if defined(USE_ASM)				/* only do this if not using assember */
 	if ( !( useAsm & 4 ) )
-		#endif
-		#endif
+			#endif
+			#endif
 	{
 		subkeyCnt = ROUND_SUBKEYS + 2 * key->numRounds;
 		keyLen = key->keyLen;
@@ -630,7 +630,7 @@ int reKey( keyInstance* key )
 		reKey_86( key );
 	}
 	else
-		#endif
+			#endif
 	{
 		for ( i = q = 0; i < subkeyCnt / 2; i++,q += SK_STEP )
 		{
@@ -907,7 +907,7 @@ int blockEncrypt( cipherInstance* cipher, keyInstance* key, CONST BYTE* input, i
 
 #ifdef USE_ASM
 	if ( ( useAsm & 1 ) && ( inputLen ) )
-		  #ifdef COMPILE_KEY
+			  #ifdef COMPILE_KEY
 		if ( key->keySig == VALID_SIG )
 			return ( ( CipherProc * ) ( key->encryptFuncPtr ) ) ( cipher, key, input, inputLen, outBuffer );
 #else	
@@ -1074,7 +1074,7 @@ int blockDecrypt( cipherInstance* cipher, keyInstance* key, CONST BYTE* input, i
 		ReverseRoundSubkeys( key, DIR_DECRYPT );	/* reverse the round subkey order */
 #ifdef USE_ASM
 	if ( ( useAsm & 2 ) && ( inputLen ) )
-		  #ifdef COMPILE_KEY
+			  #ifdef COMPILE_KEY
 		if ( key->keySig == VALID_SIG )
 			return ( ( CipherProc * ) ( key->decryptFuncPtr ) ) ( cipher, key, input, inputLen, outBuffer );
 #else	

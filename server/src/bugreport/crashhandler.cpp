@@ -485,29 +485,29 @@ LPCTSTR __stdcall InternalGetStackTraceString( DWORD				dwOpts, EXCEPTION_POINTE
 
 		int iCurr = 0 ;
 		/*
-						// At a minimum, put the address in.
-				#ifdef _ALPHA_
-						iCurr += wsprintf ( g_szBuff + iCurr		,
-											_T ( "0x%08X" ) 		,
-											g_stFrame.AddrPC.Offset  ) ;
-				#else
-						iCurr += wsprintf ( g_szBuff + iCurr			  ,
-											_T ( "%04X:%08X" )  		  ,
-											pExPtrs->ContextRecord->SegCs ,
-											g_stFrame.AddrPC.Offset 	   ) ;
-				#endif
-				*/
+							// At a minimum, put the address in.
+					#ifdef _ALPHA_
+							iCurr += wsprintf ( g_szBuff + iCurr		,
+												_T ( "0x%08X" ) 		,
+												g_stFrame.AddrPC.Offset  ) ;
+					#else
+							iCurr += wsprintf ( g_szBuff + iCurr			  ,
+												_T ( "%04X:%08X" )  		  ,
+												pExPtrs->ContextRecord->SegCs ,
+												g_stFrame.AddrPC.Offset 	   ) ;
+					#endif
+					*/
 		// Do the parameters?
 		/*if ( GSTSO_PARAMS == ( dwOpts & GSTSO_PARAMS ) )
-				{
-					iCurr += wsprintf ( g_szBuff + iCurr		  ,
-										_T ( " (0x%08X 0x%08X "\
-											  "0x%08X 0x%08X)"  ) ,
-										g_stFrame.Params[ 0 ]     ,
-										g_stFrame.Params[ 1 ]     ,
-										g_stFrame.Params[ 2 ]     ,
-										g_stFrame.Params[ 3 ]      ) ;
-				}*/
+					{
+						iCurr += wsprintf ( g_szBuff + iCurr		  ,
+											_T ( " (0x%08X 0x%08X "\
+												  "0x%08X 0x%08X)"  ) ,
+											g_stFrame.Params[ 0 ]     ,
+											g_stFrame.Params[ 1 ]     ,
+											g_stFrame.Params[ 2 ]     ,
+											g_stFrame.Params[ 3 ]      ) ;
+					}*/
 
 		if ( GSTSO_MODULE == ( dwOpts & GSTSO_MODULE ) )
 		{
@@ -719,8 +719,8 @@ BOOL CALLBACK EnumerateLoadedModulesProc( PSTR ModuleName, DWORD ModuleBase, ULO
 	if ( !SymLoadModule( GetCurrentProcess(), NULL, "wolfpack.pdb", ModuleName, ModuleBase, ModuleSize ) )
 	{
 		/*char message[512];
-				  sprintf(message, "Couldn't load symbol information for module %s (0x%x).", ModuleName, GetLastError());
-				  MessageBox(0, message, "Failure", 0);*/
+					  sprintf(message, "Couldn't load symbol information for module %s (0x%x).", ModuleName, GetLastError());
+					  MessageBox(0, message, "Failure", 0);*/
 	}
 
 	moduleBases.append( QPair<unsigned int, unsigned int>( ModuleBase, ModuleSize ) );

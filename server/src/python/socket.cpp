@@ -343,7 +343,8 @@ static PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
 
 	cPythonTarget* target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );
 
-	if ( timeout ) {
+	if ( timeout )
+	{
 		target->setTimeout( Server::instance()->time() + timeout );
 	}
 
@@ -547,18 +548,23 @@ static PyObject* wpSocket_sendobject( wpSocket* self, PyObject* args )
 
 	cUObject *object;
 
-	if (!PyArg_ParseTuple(args, "O&:socket.sendobject( object )", &PyConvertObject, &object)) {
+	if ( !PyArg_ParseTuple( args, "O&:socket.sendobject( object )", &PyConvertObject, &object ) )
+	{
 		return 0;
 	}
 
-	P_ITEM pItem = dynamic_cast<P_ITEM>(object);
+	P_ITEM pItem = dynamic_cast<P_ITEM>( object );
 
-	if (pItem) {
-		pItem->update(self->pSock);
-	} else {
-		P_CHAR pChar = dynamic_cast<P_CHAR>(object);
-		if (pChar) {
-			self->pSock->sendChar(pChar);
+	if ( pItem )
+	{
+		pItem->update( self->pSock );
+	}
+	else
+	{
+		P_CHAR pChar = dynamic_cast<P_CHAR>( object );
+		if ( pChar )
+		{
+			self->pSock->sendChar( pChar );
 		}
 	}
 
@@ -578,12 +584,14 @@ static PyObject* wpSocket_removeobject( wpSocket* self, PyObject* args )
 
 	cUObject *object;
 
-	if (!PyArg_ParseTuple(args, "O&:socket.removeobject( object )", &PyConvertObject, &object)) {
+	if ( !PyArg_ParseTuple( args, "O&:socket.removeobject( object )", &PyConvertObject, &object ) )
+	{
 		return 0;
 	}
 
-	if (object) {
-		self->pSock->removeObject(object);
+	if ( object )
+	{
+		self->pSock->removeObject( object );
 	}
 
 	Py_RETURN_NONE;
@@ -691,7 +699,7 @@ static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 	cVariant value = self->pSock->tags().get( key );
 
 	if ( value.type() == cVariant::StringType )
-		return QString2Python(value.toString());
+		return QString2Python( value.toString() );
 	else if ( value.type() == cVariant::IntType )
 		return PyInt_FromLong( value.asInt() );
 	else if ( value.type() == cVariant::DoubleType )
@@ -876,14 +884,16 @@ static PyObject* wpSocket_updateskill( wpSocket* self, PyObject* args )
 	\description Send a deny move packet and bounce the character back to its current position.
 	Use this in the onWalk event.
 */
-static PyObject *wpSocket_denymove( wpSocket* self, PyObject* args ) {
+static PyObject* wpSocket_denymove( wpSocket* self, PyObject* args )
+{
 	unsigned char sequence;
 
-	if (!PyArg_ParseTuple( args, "b:socket.denymove(sequence)", &sequence)) {
+	if ( !PyArg_ParseTuple( args, "b:socket.denymove(sequence)", &sequence ) )
+	{
 		return 0;
 	}
 
-	self->pSock->denyMove(sequence);
+	self->pSock->denyMove( sequence );
 	Py_RETURN_NONE;
 }
 

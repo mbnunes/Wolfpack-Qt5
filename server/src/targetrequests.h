@@ -44,7 +44,7 @@
 
 class cKillTarget : public cTargetRequest
 {
-	OBJECTDEF(cKillTarget)
+	OBJECTDEF( cKillTarget )
 public:
 	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{
@@ -78,7 +78,7 @@ public:
 
 class cSetTarget : public cTargetRequest
 {
-	OBJECTDEF(cSetTarget)
+	OBJECTDEF( cSetTarget )
 	QString key, value;
 public:
 	cSetTarget( const QString& nKey, const QString& nValue ) : key( nKey ), value( nValue )
@@ -89,7 +89,7 @@ public:
 
 class cRemoveTarget : public cTargetRequest
 {
-	OBJECTDEF(cRemoveTarget)
+	OBJECTDEF( cRemoveTarget )
 public:
 	bool responsed( cUOSocket* socket, cUORxTarget* target );
 };
@@ -120,7 +120,7 @@ public:
 
 class cShowTarget : public cTargetRequest
 {
-	OBJECTDEF(cShowTarget)
+	OBJECTDEF( cShowTarget )
 private:
 	QString key;
 public:
@@ -133,7 +133,7 @@ public:
 
 class cSetTagTarget : public cTargetRequest
 {
-	OBJECTDEF(cSetTagTarget)
+	OBJECTDEF( cSetTagTarget )
 private:
 	Q_UINT8 type_;
 	QString key_;
@@ -191,7 +191,7 @@ public:
 
 class cGetTagTarget : public cTargetRequest
 {
-	OBJECTDEF(cGetTagTarget)
+	OBJECTDEF( cGetTagTarget )
 private:
 	QString key_;
 public:
@@ -226,7 +226,7 @@ public:
 
 class cRemoveTagTarget : public cTargetRequest
 {
-	OBJECTDEF(cRemoveTagTarget)
+	OBJECTDEF( cRemoveTagTarget )
 private:
 	QString key_;
 public:
@@ -302,7 +302,7 @@ public:
 
 class cMoveTarget : public cTargetRequest
 {
-	OBJECTDEF(cMoveTarget)
+	OBJECTDEF( cMoveTarget )
 private:
 	Q_INT16 x, y, z;
 public:
@@ -362,7 +362,7 @@ public:
 
 class cRestockTarget : public cTargetRequest
 {
-	OBJECTDEF(cRestockTarget)
+	OBJECTDEF( cRestockTarget )
 public:
 	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
 	{

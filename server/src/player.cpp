@@ -85,11 +85,11 @@ cPlayer& cPlayer::operator=( const cPlayer& right )
 	return *this;
 }
 
-static FactoryRegistration<cPlayer> registration("cPlayer");
+static FactoryRegistration<cPlayer> registration( "cPlayer" );
 
 unsigned char cPlayer::classid;
 
-void cPlayer::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
+void cPlayer::buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cBaseChar::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "players.account,players.additionalflags,players.visualrange" );
@@ -102,14 +102,16 @@ void cPlayer::buildSqlString( const char *objectid, QStringList& fields, QString
 void cPlayer::postload( unsigned int version )
 {
 	cBaseChar::postload( version );
-	
-	if (!pos_.isInternalMap()) {
+
+	if ( !pos_.isInternalMap() )
+	{
 		MapObjects::instance()->add( this );
 	}
 
 	// account removed?
-	if( account() == 0 ) {
-		Console::instance()->log(LOG_WARNING, tr("Removing player %1 (0x%2) because of missing account.\n").arg(orgName_).arg(serial_, 0, 16));
+	if ( account() == 0 )
+	{
+		Console::instance()->log( LOG_WARNING, tr( "Removing player %1 (0x%2) because of missing account.\n" ).arg( orgName_ ).arg( serial_, 0, 16 ) );
 		remove();
 		return;
 	}
@@ -134,7 +136,7 @@ void cPlayer::load( cBufferedReader& reader, unsigned int version )
 	dexterityLock_ = reader.readByte();
 	intelligenceLock_ = reader.readByte();
 
-	if( version > 7 )
+	if ( version > 7 )
 		maxControlSlots_ = reader.readByte();
 }
 
@@ -149,8 +151,9 @@ void cPlayer::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeByte( strengthLock_ );
 	writer.writeByte( dexterityLock_ );
 	writer.writeByte( intelligenceLock_ );
-	if (version > 7) {
-		writer.writeByte(maxControlSlots_);
+	if ( version > 7 )
+	{
+		writer.writeByte( maxControlSlots_ );
 	}
 }
 
@@ -316,7 +319,7 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 	textSpeech->setText( message );
 
 	QString ghostSpeech;
-	bool gmSpiritSpeak = skillValue(SPIRITSPEAK) >= 1000;
+	bool gmSpiritSpeak = skillValue( SPIRITSPEAK ) >= 1000;
 
 	// Generate the ghost-speech *ONCE*
 	if ( isDead() && !gmSpiritSpeak )
@@ -334,7 +337,7 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 	{
 		// Take the dead-status into account
 		if ( isDead() && !gmSpiritSpeak )
-			if ( !socket->player()->isDead() && !socket->player()->isGMorCounselor() && socket->player()->skillValue(SPIRITSPEAK) < 1000 )
+			if ( !socket->player()->isDead() && !socket->player()->isGMorCounselor() && socket->player()->skillValue( SPIRITSPEAK ) < 1000 )
 				textSpeech->setText( ghostSpeech );
 			else
 				textSpeech->setText( message );
@@ -350,7 +353,7 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 			{
 				// Take the dead-status into account
 				if ( isDead() && !gmSpiritSpeak )
-					if ( !mSock->player()->isDead() && !mSock->player()->isGMorCounselor() && mSock->player()->skillValue(SPIRITSPEAK) < 1000 )
+					if ( !mSock->player()->isDead() && !mSock->player()->isGMorCounselor() && mSock->player()->skillValue( SPIRITSPEAK ) < 1000 )
 						textSpeech->setText( ghostSpeech );
 					else
 						textSpeech->setText( message );
@@ -445,13 +448,15 @@ bool cPlayer::mount( P_NPC pMount )
 	if ( !pMount )
 		return false;
 
-	if (isDead()) {
+	if ( isDead() )
+	{
 		return false;
 	}
 
 	unsigned short mountId = pMount->mountId();
 
-	if (!mountId) {
+	if ( !mountId )
+	{
 		return false; // Not mountable
 	}
 
@@ -472,7 +477,8 @@ bool cPlayer::mount( P_NPC pMount )
 		pMountItem->setId( mountId );
 		pMountItem->setColor( pMount->skin() );
 
-		if (direction() != pMount->direction()) {
+		if ( direction() != pMount->direction() )
+		{
 			setDirection( pMount->direction() );
 			update();
 		}
@@ -482,7 +488,8 @@ bool cPlayer::mount( P_NPC pMount )
 		pMountItem->update();
 
 		// if this is a gm lets tame the animal in the process
-		if ( isGM() ) {
+		if ( isGM() )
+		{
 			pMount->setOwner( this );
 		}
 
@@ -532,8 +539,8 @@ void cPlayer::showName( cUOSocket* socket )
 	{
 		cGuild::MemberInfo* info = guild_->getMemberInfo( this );
 
-                if ( info && info->showSign() )
-                {
+		if ( info && info->showSign() )
+		{
 			affix.append( QString( "[%1]" ).arg( guild_->abbreviation() ) );
 		}
 	}
@@ -626,7 +633,7 @@ bool cPlayer::canPickUp( cItem* pi )
 {
 	if ( !pi )
 	{
-		Console::instance()->log( LOG_ERROR, tr("cChar::canPickUp() - bad parm") );
+		Console::instance()->log( LOG_ERROR, tr( "cChar::canPickUp() - bad parm" ) );
 		return false;
 	}
 
@@ -689,7 +696,8 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 		total -= pile->amount();
 
 		pCont->addItem( pile );
-		if (!pile->free) {
+		if ( !pile->free )
+		{
 			pile->update();
 		}
 	}
@@ -895,7 +903,8 @@ bool cPlayer::onTradeStart( P_PLAYER partner, P_ITEM firstitem )
 {
 	bool result = false;
 
-	if (canHandleEvent(EVENT_TRADESTART)) {
+	if ( canHandleEvent( EVENT_TRADESTART ) )
+	{
 		PyObject* args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetCharObject, partner, PyGetItemObject, firstitem );
 		result = callEventHandler( EVENT_TRADESTART, args );
 		Py_DECREF( args );
@@ -908,11 +917,11 @@ bool cPlayer::onTrade( unsigned int type, unsigned int buttonstate, SERIAL items
 {
 	bool result = false;
 
-	if ( canHandleEvent(EVENT_TRADE) )
+	if ( canHandleEvent( EVENT_TRADE ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&iii)", PyGetCharObject, this, type, buttonstate, itemserial );
 
-		result = callEventHandler(EVENT_TRADE, args );
+		result = callEventHandler( EVENT_TRADE, args );
 
 		Py_DECREF( args );
 	}
@@ -923,7 +932,7 @@ bool cPlayer::onPickup( P_ITEM pItem )
 {
 	bool result = false;
 
-	if ( canHandleEvent(EVENT_PICKUP) )
+	if ( canHandleEvent( EVENT_PICKUP ) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
 
@@ -942,7 +951,7 @@ bool cPlayer::onLogin()
 
 	// trigger the script event
 	bool result = false;
-	if( canHandleEvent( EVENT_LOGIN ) )
+	if ( canHandleEvent( EVENT_LOGIN ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 		result = callEventHandler( EVENT_LOGIN, args );
@@ -954,7 +963,7 @@ bool cPlayer::onLogin()
 bool cPlayer::onConnect( bool reconnecting )
 {
 	bool result = false;
-	if( canHandleEvent( EVENT_CONNECT ) )
+	if ( canHandleEvent( EVENT_CONNECT ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&i)", PyGetCharObject, this, reconnecting );
 		result = callEventHandler( EVENT_CONNECT, args );
@@ -966,7 +975,7 @@ bool cPlayer::onConnect( bool reconnecting )
 bool cPlayer::onDisconnect()
 {
 	bool result = false;
-	if( canHandleEvent( EVENT_DISCONNECT ) )
+	if ( canHandleEvent( EVENT_DISCONNECT ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 		result = callEventHandler( EVENT_DISCONNECT, args );
@@ -978,13 +987,14 @@ bool cPlayer::onDisconnect()
 bool cPlayer::onLogout()
 {
 	// move the char from the online to the offline chars structure
-	if (!pos_.isInternalMap()) {
+	if ( !pos_.isInternalMap() )
+	{
 		MapObjects::instance()->updateOnlineStatus( this, false );
 	}
 
 	// trigger the script event
 	bool result = false;
-	if( canHandleEvent( EVENT_LOGOUT ) )
+	if ( canHandleEvent( EVENT_LOGOUT ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 		result = callEventHandler( EVENT_LOGOUT, args );
@@ -998,7 +1008,7 @@ bool cPlayer::onHelp()
 {
 	bool result = false;
 
-	if ( canHandleEvent(EVENT_HELP) )
+	if ( canHandleEvent( EVENT_HELP ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 
@@ -1029,7 +1039,7 @@ bool cPlayer::onUse( P_ITEM pItem )
 {
 	bool result = false;
 
-	if ( canHandleEvent(EVENT_USE) )
+	if ( canHandleEvent( EVENT_USE ) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
 		result = callEventHandler( EVENT_USE, args );
@@ -1087,10 +1097,10 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 	else
 		SET_INT_PROPERTY( "logouttime", logoutTime_ )
 
-	/*
+		/*
 		\property char.maxcontrolslots This property indicates how many control slots this character has.
 		This property is exclusive to players.
-	*/
+		*/
 	else
 		SET_INT_PROPERTY( "maxcontrolslots", maxControlSlots_ )
 
@@ -1175,7 +1185,9 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 				socket_->sendSkill( skillId );
 			return 0;
 		}
-	} else if ( name.startsWith( "account." ) && account_ ) {
+	}
+	else if ( name.startsWith( "account." ) && account_ )
+	{
 		return account_->setProperty( name.right( name.length() - 8 ), value );
 	}
 	else
@@ -1214,8 +1226,9 @@ PyObject* cPlayer::getProperty( const QString& name )
 	PY_PROPERTY( "maxcontrolslots", maxControlSlots_ )
 
 	// Forward the property to the account
-	if (name.startsWith("account.") && account_) {
-		return account_->getProperty(name.right(name.length() - 8));
+	if ( name.startsWith( "account." ) && account_ )
+	{
+		return account_->getProperty( name.right( name.length() - 8 ) );
 	}
 
 	return cBaseChar::getProperty( name );
@@ -1389,7 +1402,7 @@ bool cPlayer::canSeeChar( P_CHAR character )
 
 		if ( player )
 		{
-			if( privileged )
+			if ( privileged )
 			{
 				// Determine if we are more privileged than the target
 				if ( player->account() )
@@ -1400,7 +1413,7 @@ bool cPlayer::canSeeChar( P_CHAR character )
 					}
 				}
 			}
-			else if( !player->isOnline() )
+			else if ( !player->isOnline() )
 			{
 				// offline players are invisible for normal players
 				return false;
@@ -1606,10 +1619,13 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 
 		if ( info && info->showSign() )
 		{
-			if (affix.length() == 1) {
-				affix = QString(" [%1]").arg(guild_->abbreviation());
-			} else {
-				affix.append(QString(" [%1]").arg(guild_->abbreviation()));
+			if ( affix.length() == 1 )
+			{
+				affix = QString( " [%1]" ).arg( guild_->abbreviation() );
+			}
+			else
+			{
+				affix.append( QString( " [%1]" ).arg( guild_->abbreviation() ) );
 			}
 		}
 	}
@@ -1674,7 +1690,7 @@ void cPlayer::poll( unsigned int time, unsigned int events )
 			{
 				PyObject* args = Py_BuildValue( "(N)", getPyObject() );
 				callEventHandler( EVENT_TIMECHANGE, args );
-				Py_DECREF(args);
+				Py_DECREF( args );
 			}
 		}
 	}
@@ -1734,15 +1750,18 @@ void cPlayer::remove()
 
 	// Remove the owner tag from all of our followers
 	CharContainer::iterator it;
-	for (it = pets_.begin(); it != pets_.end(); ++it) {
-		P_NPC npc = dynamic_cast<P_NPC>((*it));
+	for ( it = pets_.begin(); it != pets_.end(); ++it )
+	{
+		P_NPC npc = dynamic_cast<P_NPC>( ( *it ) );
 
-		if (npc && npc->owner() == this) {
-			npc->setOwner(NULL, true);
-			npc->setTamed(false);
+		if ( npc && npc->owner() == this )
+		{
+			npc->setOwner( NULL, true );
+			npc->setTamed( false );
 
 			// Remove his stabled NPCs.
-			if (npc->stablemasterSerial() != INVALID_SERIAL) {
+			if ( npc->stablemasterSerial() != INVALID_SERIAL )
+			{
 				npc->remove();
 			}
 		}
@@ -1752,20 +1771,24 @@ void cPlayer::remove()
 	cBaseChar::remove();
 }
 
-unsigned int cPlayer::damage( eDamageType type, unsigned int amount, cUObject* source ) {
+unsigned int cPlayer::damage( eDamageType type, unsigned int amount, cUObject* source )
+{
 	// Save the hitpoints for further calculation
 	unsigned int hitpoints = hitpoints_;
 	unsigned int stamina = stamina_;
 
-	amount = cBaseChar::damage(type, amount, source);
+	amount = cBaseChar::damage( type, amount, source );
 
-	if (amount != 0) {
+	if ( amount != 0 )
+	{
 		// the more stamina we have, the more we loose
 		// the more hitpoints we have, the less we loose
-		int value = (int)(amount * (100.0 / hitpoints) * (stamina / 100.0)) - 5;
-		if (value > 0) {
+		int value = ( int ) ( amount * ( 100.0 / hitpoints ) * ( stamina / 100.0 ) ) - 5;
+		if ( value > 0 )
+		{
 			stamina_ = wpMax<short>( 0, stamina_ - value );
-			if (socket_) {
+			if ( socket_ )
+			{
 				socket_->updateStamina();
 			}
 		}
@@ -1774,14 +1797,17 @@ unsigned int cPlayer::damage( eDamageType type, unsigned int amount, cUObject* s
 	return amount;
 }
 
-bool cPlayer::isOverloaded() {
-	if (isDead() || isGMorCounselor()) {
+bool cPlayer::isOverloaded()
+{
+	if ( isDead() || isGMorCounselor() )
+	{
 		return false;
 	}
 
-	return weight_  > maxWeight();
+	return weight_ > maxWeight();
 }
 
-unsigned int cPlayer::maxWeight() {
-	return (unsigned int)( 40 + strength_ * 3.5 );
+unsigned int cPlayer::maxWeight()
+{
+	return ( unsigned int ) ( 40 + strength_ * 3.5 );
 }

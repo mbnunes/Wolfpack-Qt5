@@ -43,7 +43,7 @@ class AbstractAI;
 // Class for Non Player Characters. Implements cBaseChar.
 class cNPC : public cBaseChar
 {
-	OBJECTDEF(cNPC)
+	OBJECTDEF( cNPC )
 public:
 	const char* objectID() const
 	{
@@ -202,7 +202,8 @@ public:
 	PyObject* getPyObject();
 	const char* className() const;
 
-	static void setClassid(unsigned char id) {
+	static void setClassid( unsigned char id )
+	{
 		cNPC::classid = id;
 	}
 
@@ -211,7 +212,7 @@ public:
 		return cNPC::classid;
 	}
 
-	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
+	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
 private:
 	bool changed_;

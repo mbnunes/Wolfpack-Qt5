@@ -39,28 +39,35 @@
 #include <math.h>
 
 // Is this an invalid target?
-bool invalidTarget(P_NPC npc, P_CHAR victim, int dist) {
-	if (!victim) {
+bool invalidTarget( P_NPC npc, P_CHAR victim, int dist )
+{
+	if ( !victim )
+	{
 		return true;
 	}
 
-	if (victim->isInvulnerable() || victim->isDead()) {
+	if ( victim->isInvulnerable() || victim->isDead() )
+	{
 		return true;
 	}
 
-	if (npc->owner() == victim) {
+	if ( npc->owner() == victim )
+	{
 		return true;
 	}
 
-	if (dist == -1) {
-		dist = npc->dist(victim);
+	if ( dist == -1 )
+	{
+		dist = npc->dist( victim );
 	}
 
-	if (dist > Config::instance()->attack_distance()) {
+	if ( dist > Config::instance()->attack_distance() )
+	{
 		return true;
 	}
 
-	if (!npc->canSee(victim)) {
+	if ( !npc->canSee( victim ) )
+	{
 		return true;
 	}
 
@@ -68,47 +75,56 @@ bool invalidTarget(P_NPC npc, P_CHAR victim, int dist) {
 }
 
 // Is this a valid target?
-bool validTarget(P_NPC npc, P_CHAR victim, int dist) {
-	if (invalidTarget(npc, victim, dist)) {
+bool validTarget( P_NPC npc, P_CHAR victim, int dist )
+{
+	if ( invalidTarget( npc, victim, dist ) )
+	{
 		return false;
 	}
 
-	if (!npc->lineOfSight(victim)) {
+	if ( !npc->lineOfSight( victim ) )
+	{
 		return false;
 	}
 
 	bool result = true;
 
 	// Check if the NPC has a script for target validation
-	if (npc->canHandleEvent(EVENT_CHECKVICTIM)) {
-		PyObject *args = Py_BuildValue("(NNi)", npc->getPyObject(), victim->getPyObject(), dist);
-		result = npc->callEventHandler(EVENT_CHECKVICTIM, args);
-		Py_DECREF(args);
+	if ( npc->canHandleEvent( EVENT_CHECKVICTIM ) )
+	{
+		PyObject *args = Py_BuildValue( "(NNi)", npc->getPyObject(), victim->getPyObject(), dist );
+		result = npc->callEventHandler( EVENT_CHECKVICTIM, args );
+		Py_DECREF( args );
 	}
 
 	return result;
 }
 
 // Find the best target for this NPC
-P_CHAR findBestTarget(P_NPC npc) {
+P_CHAR findBestTarget( P_NPC npc )
+{
 	unsigned int distance = ~0;
 	P_CHAR target = 0;
 
 	// Search for targets in our list of current targets first
 	QPtrList<cFightInfo> fights = npc->fights();
-	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
+	for ( cFightInfo*info = fights.first(); info; info = fights.next() )
+	{
 		P_CHAR victim = info->victim();
-		if (victim == npc) {
+		if ( victim == npc )
+		{
 			victim = info->attacker();
 		}
 
 		// We don't already attack the target, right?
 		// If we're tamed we only choose this target if
 		// it's fighting us.
-		if (victim != target && (!npc->isTamed() || victim->attackTarget() == npc)) {
+		if ( victim != target && ( !npc->isTamed() || victim->attackTarget() == npc ) )
+		{
 			// See if it's a target we want
-			unsigned int dist = npc->dist(victim);
-			if (dist < distance && validTarget(npc, victim, dist)) {
+			unsigned int dist = npc->dist( victim );
+			if ( dist < distance && validTarget( npc, victim, dist ) )
+			{
 				target = victim;
 				distance = dist;
 			}
@@ -116,26 +132,32 @@ P_CHAR findBestTarget(P_NPC npc) {
 	}
 
 	// If we're not tamed, we attack other players as well.
-	if (!npc->isTamed()) {
+	if ( !npc->isTamed() )
+	{
 		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( npc->pos(), VISRANGE );
 		for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 		{
 			// We limit ourself to players and pets owned by players.
-			P_PLAYER victim= dynamic_cast<P_PLAYER>( pChar );
+			P_PLAYER victim = dynamic_cast<P_PLAYER>( pChar );
 			P_NPC npcVictim = dynamic_cast<P_NPC>( pChar );
 
 			// We don't already attack the target, right?
-			if (victim && victim != target) {
+			if ( victim && victim != target )
+			{
 				// See if it's a target we want
-				unsigned int dist = npc->dist(victim);
-				if (dist < distance && validTarget(npc, victim, dist)) {
+				unsigned int dist = npc->dist( victim );
+				if ( dist < distance && validTarget( npc, victim, dist ) )
+				{
 					target = victim;
 					distance = dist;
 				}
-			} else if (npcVictim && npcVictim->owner() && npcVictim != target) {
+			}
+			else if ( npcVictim && npcVictim->owner() && npcVictim != target )
+			{
 				// See if it's a target we want
-				unsigned int dist = npc->dist(victim);
-				if (dist < distance && validTarget(npc, victim, dist)) {
+				unsigned int dist = npc->dist( victim );
+				if ( dist < distance && validTarget( npc, victim, dist ) )
+				{
 					target = victim;
 					distance = dist;
 				}
@@ -149,25 +171,30 @@ P_CHAR findBestTarget(P_NPC npc) {
 void Monster_Aggressive::check()
 {
 	// Our current victim
-	P_CHAR m_currentVictim = World::instance()->findChar(m_currentVictimSer);
-	if (!m_currentVictim) {
+	P_CHAR m_currentVictim = World::instance()->findChar( m_currentVictimSer );
+	if ( !m_currentVictim )
+	{
 		m_currentVictimSer = INVALID_SERIAL;
 	}
 
-	if (m_currentVictim && invalidTarget(m_npc, m_currentVictim)) {
+	if ( m_currentVictim && invalidTarget( m_npc, m_currentVictim ) )
+	{
 		m_currentVictim = 0;
 		m_currentVictimSer = INVALID_SERIAL;
-		m_npc->fight(0);
+		m_npc->fight( 0 );
 	}
 
-	if (nextVictimCheck < Server::instance()->time()) {
+	if ( nextVictimCheck < Server::instance()->time() )
+	{
 		// Don't switch if we can hit it...
-		if (!m_currentVictim || m_currentVictim->dist(m_npc) > 1) {
-			P_CHAR target = findBestTarget(m_npc);
-			if (target) {
+		if ( !m_currentVictim || m_currentVictim->dist( m_npc ) > 1 )
+		{
+			P_CHAR target = findBestTarget( m_npc );
+			if ( target )
+			{
 				m_currentVictim = target;
 				m_currentVictimSer = target->serial();
-				m_npc->fight(target);
+				m_npc->fight( target );
 			}
 		}
 
@@ -244,13 +271,14 @@ float Monster_Aggr_MoveToTarget::preCondition()
 
 	Monster_Aggressive* pAI = dynamic_cast<Monster_Aggressive*>( m_ai );
 
-	if (!pAI) {
+	if ( !pAI )
+	{
 		return 0.0f;
 	}
 
 	P_CHAR currentVictim = pAI->currentVictim();
 
-	if ( !currentVictim || !validTarget(m_npc, currentVictim) )
+	if ( !currentVictim || !validTarget( m_npc, currentVictim ) )
 		return 0.0f;
 
 	Q_UINT8 range = 1;
@@ -258,9 +286,12 @@ float Monster_Aggr_MoveToTarget::preCondition()
 
 	if ( weapon )
 	{
-		if ( weapon->hasTag( "range" ) ) {
+		if ( weapon->hasTag( "range" ) )
+		{
 			range = weapon->getTag( "range" ).toInt();
-		} else if ( weapon->basedef() ) {
+		}
+		else if ( weapon->basedef() )
+		{
 			range = weapon->basedef()->getIntProperty( "range", 1 );
 		}
 	}
@@ -290,22 +321,26 @@ float Monster_Aggr_MoveToTarget::postCondition()
 
 	Monster_Aggressive* pAI = dynamic_cast<Monster_Aggressive*>( m_ai );
 
-	if (!pAI) {
+	if ( !pAI )
+	{
 		return 1.0f;
 	}
 
 	P_CHAR currentVictim = pAI->currentVictim();
 
-	if ( !currentVictim || !validTarget(m_npc, currentVictim) )
+	if ( !currentVictim || !validTarget( m_npc, currentVictim ) )
 		return 1.0f;
 
 	Q_UINT8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 	if ( weapon )
 	{
-		if ( weapon->hasTag( "range" ) ) {
+		if ( weapon->hasTag( "range" ) )
+		{
 			range = weapon->getTag( "range" ).toInt();
-		} else if ( weapon->basedef() ) {
+		}
+		else if ( weapon->basedef() )
+		{
 			range = weapon->basedef()->getIntProperty( "range", 1 );
 		}
 	}
@@ -327,7 +362,8 @@ float Monster_Aggr_MoveToTarget::postCondition()
 void Monster_Aggr_MoveToTarget::execute()
 {
 	// We failed several times to reach the target so we wait
-	if (nextTry > Server::instance()->time() || m_npc->nextMoveTime() > Server::instance()->time()) {
+	if ( nextTry > Server::instance()->time() || m_npc->nextMoveTime() > Server::instance()->time() )
+	{
 		return;
 	}
 
@@ -339,21 +375,24 @@ void Monster_Aggr_MoveToTarget::execute()
 
 	P_CHAR currentVictim = pAI->currentVictim();
 
-	if ( !currentVictim ) {
+	if ( !currentVictim )
+	{
 		return;
 	}
 
 	// Even if the victim is zero, thats correct.
-	if ( !m_npc->attackTarget() ) {
+	if ( !m_npc->attackTarget() )
+	{
 		m_npc->fight( currentVictim );
 	}
 
-	bool run = m_npc->dist(currentVictim) > 3;
+	bool run = m_npc->dist( currentVictim ) > 3;
 
-	if ( Config::instance()->pathfind4Combat() && m_npc->dist(currentVictim) < 5 )
+	if ( Config::instance()->pathfind4Combat() && m_npc->dist( currentVictim ) < 5 )
 	{
-		if (!movePath( currentVictim->pos(), run )) {
-			nextTry = Server::instance()->time() + RandomNum(1250, 2250);
+		if ( !movePath( currentVictim->pos(), run ) )
+		{
+			nextTry = Server::instance()->time() + RandomNum( 1250, 2250 );
 		}
 	}
 	else
@@ -383,9 +422,12 @@ float Monster_Aggr_Fight::preCondition()
 	P_ITEM weapon = m_npc->getWeapon();
 	if ( weapon )
 	{
-		if ( weapon->hasTag( "range" ) ) {
+		if ( weapon->hasTag( "range" ) )
+		{
 			range = weapon->getTag( "range" ).toInt();
-		} else if ( weapon->basedef() ) {
+		}
+		else if ( weapon->basedef() )
+		{
 			range = weapon->basedef()->getIntProperty( "range", 1 );
 		}
 	}
@@ -422,9 +464,12 @@ float Monster_Aggr_Fight::postCondition()
 	P_ITEM weapon = m_npc->getWeapon();
 	if ( weapon )
 	{
-		if ( weapon->hasTag( "range" ) ) {
+		if ( weapon->hasTag( "range" ) )
+		{
 			range = weapon->getTag( "range" ).toInt();
-		} else if ( weapon->basedef() ) {
+		}
+		else if ( weapon->basedef() )
+		{
 			range = weapon->basedef()->getIntProperty( "range", 1 );
 		}
 	}

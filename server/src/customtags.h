@@ -55,7 +55,7 @@ public:
 
 	enum Type
 	{
-		InvalidType = 0,
+		InvalidType			= 0,
 		StringType,
 		IntType,
 		LongType,

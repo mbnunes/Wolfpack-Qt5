@@ -242,7 +242,7 @@ void cTimers::check()
 	while ( !teffects.empty() )
 	{
 		tEffect = *teffects.begin();
-	 	if ( !tEffect || tEffect->expiretime > Server::instance()->time() )
+		if ( !tEffect || tEffect->expiretime > Server::instance()->time() )
 			break;
 
 		if ( isCharSerial( tEffect->getDest() ) )
@@ -300,7 +300,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool 
 	{
 		cTimer* effect = *it;
 
-		if ( ( !onlyDispellable || effect->dispellable ) && ( uint )effect->getDest() == ( uint )pc_dest->serial() && effect->objectID() == type )
+		if ( ( !onlyDispellable || effect->dispellable ) && ( uint ) effect->getDest() == ( uint ) pc_dest->serial() && effect->objectID() == type )
 		{
 			pc_dest->removeTimer( effect );
 			effect->Dispel( pSource, silent );
@@ -342,7 +342,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 	QPtrList<cTimer> eraselist;
 	std::vector<cTimer*>::iterator i = teffects.begin();
 	for ( i = teffects.begin(); i != teffects.end(); i++ )
-		if ( ( *i ) != NULL && ( *i )->dispellable && ( uint )( *i )->getDest() == ( uint )pc_dest->serial() )
+		if ( ( *i ) != NULL && ( *i )->dispellable && ( uint ) ( *i )->getDest() == ( uint ) pc_dest->serial() )
 		{
 			if ( isCharSerial( ( *i )->getDest() ) )
 			{
@@ -426,8 +426,7 @@ int cTimers::countSerializables()
 	return count;
 }
 
-cDelayedOnCreateCall::cDelayedOnCreateCall( cUObject* obj, const QString& definition ) :
-	objSer_(obj->serial()), def_(definition)
+cDelayedOnCreateCall::cDelayedOnCreateCall( cUObject* obj, const QString& definition ) : objSer_( obj->serial() ), def_( definition )
 {
 	setSerializable( false );
 	expiretime = 0; // right on the next loop.
@@ -435,10 +434,11 @@ cDelayedOnCreateCall::cDelayedOnCreateCall( cUObject* obj, const QString& defini
 
 void cDelayedOnCreateCall::Expire()
 {
-	cUObject *object = World::instance()->findObject(objSer_);
+	cUObject *object = World::instance()->findObject( objSer_ );
 
-	if (object) {
-		object->onCreate(def_);
+	if ( object )
+	{
+		object->onCreate( def_ );
 	}
 }
 
@@ -475,7 +475,7 @@ void cTimers::erase( cTimer* pT )
 	}
 }
 
-void cTimer::load(cBufferedReader &reader, unsigned int /*version*/)
+void cTimer::load( cBufferedReader& reader, unsigned int /*version*/ )
 {
 	serializable = true;
 	expiretime = Server::instance()->time() + reader.readInt();
@@ -484,49 +484,54 @@ void cTimer::load(cBufferedReader &reader, unsigned int /*version*/)
 	destSer = reader.readInt();
 }
 
-void cTimer::save(cBufferedWriter &writer, unsigned int /*version*/)
+void cTimer::save( cBufferedWriter& writer, unsigned int /*version*/ )
 {
-	writer.writeInt(expiretime - Server::instance()->time());
-	writer.writeBool(dispellable);
-	writer.writeInt(sourSer);
-	writer.writeInt(destSer);
+	writer.writeInt( expiretime - Server::instance()->time() );
+	writer.writeBool( dispellable );
+	writer.writeInt( sourSer );
+	writer.writeInt( destSer );
 }
 
-void cTimers::save(cBufferedWriter &writer)
+void cTimers::save( cBufferedWriter& writer )
 {
 	std::vector<cTimer*>::iterator it;
-	for (it = teffects.begin(); it != teffects.end(); ++it)
+	for ( it = teffects.begin(); it != teffects.end(); ++it )
 	{
-		if ((*it)->isSerializable())
+		if ( ( *it )->isSerializable() )
 		{
-			writer.writeByte(0xFC);
-			writer.writeAscii((*it)->objectID().latin1());
-			(*it)->save(writer, writer.version());
+			writer.writeByte( 0xFC );
+			writer.writeAscii( ( *it )->objectID().latin1() );
+			( *it )->save( writer, writer.version() );
 		}
 	}
 }
 
-void cTimers::load(cBufferedReader &reader)
+void cTimers::load( cBufferedReader& reader )
 {
 	QCString objectId = reader.readAscii();
 
 	cTimer *timer = 0;
 
-	if (objectId == "cPythonEffect") {
+	if ( objectId == "cPythonEffect" )
+	{
 		timer = new cPythonEffect;
-	} else {
-		throw QString("Unknown TempEffect Type: %1").arg(objectId);
+	}
+	else
+	{
+		throw QString( "Unknown TempEffect Type: %1" ).arg( objectId );
 	}
 
-	timer->load(reader, reader.version());
-	insert(timer);
+	timer->load( reader, reader.version() );
+	insert( timer );
 }
 
-cTimers::~cTimers() {
+cTimers::~cTimers()
+{
 	// Clear all teffects
 	std::vector<cTimer*>::iterator it;
-	for (it = teffects.begin(); it != teffects.end(); ++it) {
-		delete *it;
+	for ( it = teffects.begin(); it != teffects.end(); ++it )
+	{
+		delete * it;
 	}
 	teffects.clear();
 }

@@ -349,7 +349,7 @@ cWorld::cWorld()
 	lastTooltip = 0;
 	_lastCharSerial = 0;
 	_lastItemSerial = ITEM_SPACE;
-	backupThreads.setAutoDelete(true);
+	backupThreads.setAutoDelete( true );
 }
 
 /*!
@@ -358,7 +358,8 @@ cWorld::cWorld()
 cWorld::~cWorld()
 {
 	cBackupThread *thread;
-	for (thread = backupThreads.first(); thread; thread = backupThreads.next()) {
+	for ( thread = backupThreads.first(); thread; thread = backupThreads.next() )
+	{
 		thread->wait();
 	}
 
@@ -378,8 +379,8 @@ static void quickdelete( P_ITEM pi ) throw()
 	PersistentBroker::instance()->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( pi->serial() ) );
 
 	// Also delete all items inside if it's a container.
-	for (ContainerIterator it(pi); !it.atEnd(); ++it)
-		quickdelete(*it);
+	for ( ContainerIterator it( pi ); !it.atEnd(); ++it )
+		quickdelete( *it );
 
 	// if it is within a multi, delete it from the multis vector
 	if ( pi->multi() )
@@ -418,160 +419,181 @@ void cWorld::loadTag( cBufferedReader& reader, unsigned int version )
 	}
 }
 
-void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
+void cWorld::loadBinary( QPtrList<PersistentObject>& objects )
 {
-		QString filename = Config::instance()->binarySavepath();
+	QString filename = Config::instance()->binarySavepath();
 
-		if ( QFile::exists( filename ) )
+	if ( QFile::exists( filename ) )
+	{
+		cBufferedReader reader( "WOLFPACK", DATABASE_VERSION );
+		reader.open( filename );
+
+		Console::instance()->log( LOG_MESSAGE, tr( "Loading %1 objects from %2.\n" ).arg( reader.objectCount() ).arg( filename ) );
+		Console::instance()->send( "0%" );
+		Console::instance()->setProgress( "0%" );
+
+		unsigned char type;
+		const QMap<unsigned char, QCString> &typemap = reader.typemap();
+		unsigned int loaded = 0;
+		unsigned int count = reader.objectCount();
+		unsigned int lastpercent = 0;
+		unsigned int percent = 0;
+		QPtrList<cUObject> invalidSpawnregion;
+		invalidSpawnregion.setAutoDelete( false );
+
+		do
 		{
-			cBufferedReader reader( "WOLFPACK", DATABASE_VERSION );
-			reader.open( filename );
-
-			Console::instance()->log( LOG_MESSAGE, tr( "Loading %1 objects from %2.\n" ).arg( reader.objectCount() ).arg( filename ) );
-			Console::instance()->send( "0%" );
-			Console::instance()->setProgress( "0%" );
-
-			unsigned char type;
-			const QMap<unsigned char, QCString> &typemap = reader.typemap();
-			unsigned int loaded = 0;
-			unsigned int count = reader.objectCount();
-			unsigned int lastpercent = 0;
-			unsigned int percent = 0;
-			QPtrList<cUObject> invalidSpawnregion;
-			invalidSpawnregion.setAutoDelete(false);
-
-			do
+			type = reader.readByte();
+			if ( typemap.contains( type ) )
 			{
-				type = reader.readByte();
-				if ( typemap.contains( type ) )
+				PersistentObject *object = PersistentFactory::instance()->createObject( typemap[type] );
+
+				if ( object )
 				{
-					PersistentObject *object = PersistentFactory::instance()->createObject( typemap[type] );
-
-					if (object) {
-						try {
-							object->load( reader );
-
-							if (reader.hasError()) {
-								Console::instance()->log(LOG_ERROR, reader.error());
-								reader.setError(QString::null);
-
-								cUObject *obj = dynamic_cast<cUObject*>(object);
-								if (obj) {
-									obj->setSpawnregion(0);
-									MapObjects::instance()->remove(obj);
-									unregisterObject(obj);
-
-									if (obj->multi()) {
-										obj->multi()->removeObject(obj);
-										obj->setMulti(0);
-									}
-								}
-
-								P_ITEM item = dynamic_cast<P_ITEM>(object);
-								if (item) {
-                                    item->removeFromCont();
-									item->setOwner(0);
-								}
-
-								P_NPC npc = dynamic_cast<P_NPC>(object);
-								if (npc) {
-									npc->setOwner(0);
-									npc->setAI(0);
-								}
-								delete object;
-							} else {
-								objects.append(object);
-							}
-						} catch (wpException& e) {
-							Console::instance()->log( LOG_WARNING, e.error() + "\n" );
-						}
-					} else {
-						// Skip an unknown object type.
-					}
-
-					loaded += 100;
-					percent = loaded / count;
-					if ( percent != lastpercent )
+					try
 					{
-						Console::instance()->setProgress(QString::null);
-						unsigned int revert = QString::number( lastpercent ).length() + 1;
-						Console::instance()->rollbackChars(revert);
-						lastpercent = percent;
-						Console::instance()->send( QString::number( percent ) + "%" );
-						Console::instance()->setProgress(QString::number( percent ) + "%");
-					}
-					// Special Type for Tags
-				}
-				else if ( type == 0xFA )
-				{
-					QString spawnregion = reader.readUtf8();
-					SERIAL serial = reader.readInt();
+						object->load( reader );
 
-					cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
-					cUObject *object = findObject( serial );
-					if (object && region) {
-						object->setSpawnregion(region);
-					} else if (object) {
-						invalidSpawnregion.append(object);
-					}
-				}
-				else if ( type == 0xFB )
-				{
-					QString name = reader.readUtf8();
-					QString value = reader.readUtf8();
-					setOption(name, value);
-				}
-				else if ( type == 0xFC )
-				{
-					Timers::instance()->load(reader);
-				}
-				else if ( type == 0xFD )
-				{
-					cGuild *guild = 0;
+						if ( reader.hasError() )
+						{
+							Console::instance()->log( LOG_ERROR, reader.error() );
+							reader.setError( QString::null );
 
-					try {
-						guild = new cGuild(false);
-						guild->load(reader, reader.version());
-						Guilds::instance()->registerGuild(guild);
-					} catch (wpException& ) {
-						delete guild;
+							cUObject *obj = dynamic_cast<cUObject*>( object );
+							if ( obj )
+							{
+								obj->setSpawnregion( 0 );
+								MapObjects::instance()->remove( obj );
+								unregisterObject( obj );
+
+								if ( obj->multi() )
+								{
+									obj->multi()->removeObject( obj );
+									obj->setMulti( 0 );
+								}
+							}
+
+							P_ITEM item = dynamic_cast<P_ITEM>( object );
+							if ( item )
+							{
+								item->removeFromCont();
+								item->setOwner( 0 );
+							}
+
+							P_NPC npc = dynamic_cast<P_NPC>( object );
+							if ( npc )
+							{
+								npc->setOwner( 0 );
+								npc->setAI( 0 );
+							}
+							delete object;
+						}
+						else
+						{
+							objects.append( object );
+						}
+					}
+					catch ( wpException& e )
+					{
+						Console::instance()->log( LOG_WARNING, e.error() + "\n" );
 					}
 				}
-				else if ( type == 0xFE )
+				else
 				{
-					loadTag( reader, reader.version() );
+					// Skip an unknown object type.
 				}
-				else if ( type != 0xFF )
+
+				loaded += 100;
+				percent = loaded / count;
+				if ( percent != lastpercent )
 				{
-					Console::instance()->log(LOG_ERROR, tr( "Invalid worldfile, unknown and unskippable type %1." ).arg( type ) );
-					return;
+					Console::instance()->setProgress( QString::null );
+					unsigned int revert = QString::number( lastpercent ).length() + 1;
+					Console::instance()->rollbackChars( revert );
+					lastpercent = percent;
+					Console::instance()->send( QString::number( percent ) + "%" );
+					Console::instance()->setProgress( QString::number( percent ) + "%" );
+				}
+				// Special Type for Tags
+			}
+			else if ( type == 0xFA )
+			{
+				QString spawnregion = reader.readUtf8();
+				SERIAL serial = reader.readInt();
+
+				cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
+				cUObject *object = findObject( serial );
+				if ( object && region )
+				{
+					object->setSpawnregion( region );
+				}
+				else if ( object )
+				{
+					invalidSpawnregion.append( object );
 				}
 			}
-			while ( type != 0xFF );
-			reader.close();
-
-			// Rollback the last percentage
-			Console::instance()->setProgress( QString::null );
-			unsigned int revert = QString::number( lastpercent ).length() + 1;
-			Console::instance()->rollbackChars(revert);
-
-			// post process all loaded objects
-			QPtrList<PersistentObject>::const_iterator cit(objects.begin());
-			while (cit != objects.end()) {
-				(*cit)->postload(reader.version());
-				++cit;
+			else if ( type == 0xFB )
+			{
+				QString name = reader.readUtf8();
+				QString value = reader.readUtf8();
+				setOption( name, value );
 			}
-
-			// Delete all objects with an invalid spawnregion
-			QPtrList<cUObject>::const_iterator sit(invalidSpawnregion.begin());
-			while (sit != invalidSpawnregion.end()) {
-				(*sit)->remove();
-				++sit;
+			else if ( type == 0xFC )
+			{
+				Timers::instance()->load( reader );
 			}
+			else if ( type == 0xFD )
+			{
+				cGuild *guild = 0;
 
-			// Flush the delete queue
-			p->purgePendingObjects();
+				try
+				{
+					guild = new cGuild( false );
+					guild->load( reader, reader.version() );
+					Guilds::instance()->registerGuild( guild );
+				}
+				catch ( wpException& )
+				{
+					delete guild;
+				}
+			}
+			else if ( type == 0xFE )
+			{
+				loadTag( reader, reader.version() );
+			}
+			else if ( type != 0xFF )
+			{
+				Console::instance()->log( LOG_ERROR, tr( "Invalid worldfile, unknown and unskippable type %1." ).arg( type ) );
+				return;
+			}
 		}
+		while ( type != 0xFF );
+		reader.close();
+
+		// Rollback the last percentage
+		Console::instance()->setProgress( QString::null );
+		unsigned int revert = QString::number( lastpercent ).length() + 1;
+		Console::instance()->rollbackChars( revert );
+
+		// post process all loaded objects
+		QPtrList<PersistentObject>::const_iterator cit( objects.begin() );
+		while ( cit != objects.end() )
+		{
+			( *cit )->postload( reader.version() );
+			++cit;
+		}
+
+		// Delete all objects with an invalid spawnregion
+		QPtrList<cUObject>::const_iterator sit( invalidSpawnregion.begin() );
+		while ( sit != invalidSpawnregion.end() )
+		{
+			( *sit )->remove();
+			++sit;
+		}
+
+		// Flush the delete queue
+		p->purgePendingObjects();
+	}
 
 	// load server time from db
 	QString db_time;
@@ -580,283 +602,293 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 	UoTime::instance()->setMinutes( db_time.toInt() );
 }
 
-void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
+void cWorld::loadSQL( QPtrList<PersistentObject>& objects )
 {
 	if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
-		{
-			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
-			return;
-		}
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
+		return;
+	}
 
-		if ( !PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() ) )
-		{
-			throw tr( "Unable to open the world database." );
-		}
+	if ( !PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() ) )
+	{
+		throw tr( "Unable to open the world database." );
+	}
 
-		QString objectID;
-		register unsigned int i = 0;
+	QString objectID;
+	register unsigned int i = 0;
 
-		while ( tableInfo[i].name )
+	while ( tableInfo[i].name )
+	{
+		if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
 		{
-			if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
+			PersistentBroker::instance()->executeQuery( tableInfo[i].create );
+
+			// create default settings
+			if ( !strcmp( tableInfo[i].name, "settings" ) )
 			{
-				PersistentBroker::instance()->executeQuery( tableInfo[i].create );
+				setOption( "db_version", WP_DATABASE_VERSION );
+			}
+		}
 
-				// create default settings
-				if ( !strcmp( tableInfo[i].name, "settings" ) )
+		++i;
+	}
+
+	// Load Options
+	QString settingsSql = "SELECT option,value FROM settings;";
+	if ( Config::instance()->databaseDriver() == "mysql" )
+	{
+		settingsSql = "SELECT `option`,`value` FROM `settings`;";
+	}
+	cDBResult oresult = PersistentBroker::instance()->query( settingsSql );
+	while ( oresult.fetchrow() )
+	{
+		setOption( oresult.getString( 0 ), oresult.getString( 1 ) );
+	}
+	oresult.free();
+
+	// Get Database Version (Since Version 7 SQL has it)
+	QString db_version;
+	getOption( "db_version", db_version, "7" );
+
+	if ( db_version.toInt() != DATABASE_VERSION )
+	{
+		cPythonScript *script = ScriptManager::instance()->getGlobalHook( EVENT_UPDATEDATABASE );
+		if ( !script || !script->canHandleEvent( EVENT_UPDATEDATABASE ) )
+		{
+			throw wpException( tr( "Unable to load world database. Version mismatch: %1 != %2." ).arg( db_version.toInt() ).arg( DATABASE_VERSION ) );
+		}
+
+		PyObject *args = Py_BuildValue( "(ii)", DATABASE_VERSION, db_version.toInt() );
+		bool result = script->callEventHandler( EVENT_UPDATEDATABASE, args );
+		Py_DECREF( args );
+
+		if ( !result )
+		{
+			throw wpException( tr( "Unable to load world database. Version mismatch: %1 != %2." ).arg( db_version.toInt() ).arg( DATABASE_VERSION ) );
+		}
+	}
+
+	QStringList types = PersistentFactory::instance()->objectTypes();
+
+	for ( uint j = 0; j < types.count(); ++j )
+	{
+		QString type = types[j];
+
+		QString countQuery = PersistentFactory::instance()->findSqlCountQuery( type );
+		cDBResult res = PersistentBroker::instance()->query( countQuery );
+
+		// Find out how many objects of this type are available
+		if ( !res.isValid() )
+			throw PersistentBroker::instance()->lastError();
+
+		res.fetchrow();
+		Q_UINT32 count = res.getInt( 0 );
+		res.free();
+
+		if ( count == 0 )
+			continue; // Move on...
+
+		Console::instance()->send( "\n" + tr( "Loading %1 objects of type %2" ).arg( count ).arg( type ) );
+
+		res = PersistentBroker::instance()->query( PersistentFactory::instance()->findSqlQuery( type ) );
+
+		// Error Checking
+		if ( !res.isValid() )
+			throw PersistentBroker::instance()->lastError();
+
+		//Q_UINT32 sTime = getNormalizedTime();
+		PersistentObject* object;
+		progress_display progress( count );
+
+		// Fetch row-by-row
+		PersistentBroker::instance()->driver()->setActiveConnection( CONN_SECOND );
+		while ( res.fetchrow() )
+		{
+			unsigned short offset = 0;
+			char** row = res.data();
+
+			// do something with data
+			object = PersistentFactory::instance()->createObject( type );
+			object->load( row, offset );
+			objects.append( object );
+
+			++progress;
+		}
+
+		while ( progress.count() < progress.expected_count() )
+			++progress;
+
+		res.free();
+		PersistentBroker::instance()->driver()->setActiveConnection();
+	}
+
+	// Load Temporary Effects
+	Timers::instance()->load();
+
+	// It's not possible to use cItemIterator during postprocessing because it skips lingering items
+	ItemMap::iterator iter;
+	QPtrList<cItem> deleteItems;
+
+	for ( iter = p->items.begin(); iter != p->items.end(); ++iter )
+	{
+		P_ITEM pi = iter->second;
+		size_t contserial = reinterpret_cast<size_t>( pi->container() );
+
+		size_t multiserial = reinterpret_cast<size_t>( pi->multi() );
+		cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
+		pi->setMulti( multi );
+		if ( multi )
+		{
+			multi->addObject( pi );
+		}
+
+		if ( !contserial )
+		{
+			pi->setUnprocessed( false ); // This is for safety reasons
+			int max_x = Maps::instance()->mapTileWidth( pi->pos().map ) * 8;
+			int max_y = Maps::instance()->mapTileHeight( pi->pos().map ) * 8;
+			if ( pi->pos().x > max_x || pi->pos().y > max_y )
+			{
+				Console::instance()->log( LOG_ERROR, tr( "Item with invalid position %1,%2,%3,%4.\n" ).arg( pi->pos().x ).arg( pi->pos().y ).arg( pi->pos().z ).arg( pi->pos().map ) );
+				deleteItems.append( pi );
+				continue;
+			}
+		}
+		else
+		{
+			// 1. Handle the Container Value
+			if ( isItemSerial( contserial ) )
+			{
+				P_ITEM pCont = FindItemBySerial( contserial );
+
+				if ( pCont )
 				{
-					setOption("db_version", WP_DATABASE_VERSION);
+					pCont->addItem( pi, false, true, true );
+				}
+				else
+				{
+					Console::instance()->log( LOG_ERROR, tr( "Item with invalid container [0x%1].\n" ).arg( contserial, 0, 16 ) );
+					deleteItems.append( pi ); // Queue this item up for deletion
+					continue; // Skip further processing
 				}
 			}
-
-			++i;
-		}
-
-		// Load Options
-		QString settingsSql = "SELECT option,value FROM settings;";
-		if (Config::instance()->databaseDriver() == "mysql") {
-			settingsSql = "SELECT `option`,`value` FROM `settings`;";
-		}
-		cDBResult oresult = PersistentBroker::instance()->query(settingsSql);
-		while (oresult.fetchrow()) {
-			setOption(oresult.getString(0), oresult.getString(1));
-		}
-		oresult.free();
-
-		// Get Database Version (Since Version 7 SQL has it)
-		QString db_version;
-		getOption("db_version", db_version, "7");
-
-		if (db_version.toInt() != DATABASE_VERSION) {
-			cPythonScript *script = ScriptManager::instance()->getGlobalHook(EVENT_UPDATEDATABASE);
-			if (!script || !script->canHandleEvent(EVENT_UPDATEDATABASE)) {
-				throw wpException(tr("Unable to load world database. Version mismatch: %1 != %2.").arg(db_version.toInt()).arg(DATABASE_VERSION));
-			}
-
-			PyObject *args = Py_BuildValue("(ii)", DATABASE_VERSION, db_version.toInt());
-			bool result = script->callEventHandler(EVENT_UPDATEDATABASE, args);
-			Py_DECREF(args);
-
-			if (!result) {
-				throw wpException(tr("Unable to load world database. Version mismatch: %1 != %2.").arg(db_version.toInt()).arg(DATABASE_VERSION));
-			}
-		}
-
-		QStringList types = PersistentFactory::instance()->objectTypes();
-
-		for ( uint j = 0; j < types.count(); ++j )
-		{
-			QString type = types[j];
-
-			QString countQuery = PersistentFactory::instance()->findSqlCountQuery(type);
-			cDBResult res = PersistentBroker::instance()->query( countQuery );
-
-			// Find out how many objects of this type are available
-			if ( !res.isValid() )
-				throw PersistentBroker::instance()->lastError();
-
-			res.fetchrow();
-			Q_UINT32 count = res.getInt( 0 );
-			res.free();
-
-			if ( count == 0 )
-				continue; // Move on...
-
-			Console::instance()->send( "\n" + tr( "Loading %1 objects of type %2" ).arg( count ).arg( type ) );
-
-			res = PersistentBroker::instance()->query( PersistentFactory::instance()->findSqlQuery( type ) );
-
-			// Error Checking
-			if ( !res.isValid() )
-				throw PersistentBroker::instance()->lastError();
-
-			//Q_UINT32 sTime = getNormalizedTime();
-			PersistentObject* object;
-			progress_display progress( count );
-
-			// Fetch row-by-row
-			PersistentBroker::instance()->driver()->setActiveConnection( CONN_SECOND );
-			while ( res.fetchrow() ) {
-				unsigned short offset = 0;
-				char** row = res.data();
-
-				// do something with data
-				object = PersistentFactory::instance()->createObject( type );
-				object->load( row, offset );
-				objects.append(object);
-
-				++progress;
-			}
-
-			while ( progress.count() < progress.expected_count() )
-				++progress;
-
-			res.free();
-			PersistentBroker::instance()->driver()->setActiveConnection();
-		}
-
-		// Load Temporary Effects
-		Timers::instance()->load();
-
-		// It's not possible to use cItemIterator during postprocessing because it skips lingering items
-		ItemMap::iterator iter;
-		QPtrList<cItem> deleteItems;
-
-		for ( iter = p->items.begin(); iter != p->items.end(); ++iter )
-		{
-			P_ITEM pi = iter->second;
-			size_t contserial = reinterpret_cast<size_t>( pi->container() );
-
-			size_t multiserial = reinterpret_cast<size_t>( pi->multi() );
-			cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
-			pi->setMulti( multi );
-			if ( multi )
+			else if ( isCharSerial( contserial ) )
 			{
-				multi->addObject( pi );
-			}
+				P_CHAR pCont = FindCharBySerial( contserial );
 
-			if ( !contserial )
-			{
-				pi->setUnprocessed( false ); // This is for safety reasons
-				int max_x = Maps::instance()->mapTileWidth( pi->pos().map ) * 8;
-				int max_y = Maps::instance()->mapTileHeight( pi->pos().map ) * 8;
-				if ( pi->pos().x > max_x || pi->pos().y > max_y )
+				if ( pCont )
 				{
-					Console::instance()->log( LOG_ERROR, tr( "Item with invalid position %1,%2,%3,%4.\n" ).arg( pi->pos().x ).arg( pi->pos().y ).arg( pi->pos().z ).arg( pi->pos().map ) );
+					pCont->addItem( ( cBaseChar::enLayer ) pi->layer(), pi, true, true );
+				}
+
+				if ( !pCont || pi->container() != pCont )
+				{
+					Console::instance()->log( LOG_ERROR, QString( "Item with invalid wearer [%1].\n" ).arg( contserial ) );
 					deleteItems.append( pi );
 					continue;
 				}
 			}
+
+			pi->setUnprocessed( false );
+		}
+
+		pi->flagUnchanged(); // We've just loaded, nothing changes.
+	}
+
+	// Post Process Characters
+	cCharIterator charIter;
+	P_CHAR pChar;
+	for ( pChar = charIter.first(); pChar; pChar = charIter.next() )
+	{
+		P_NPC pNPC = dynamic_cast<P_NPC>( pChar );
+
+		// Find Guarding
+		// this needs to move to postprocessing
+		if ( pChar->guarding() )
+		{
+			size_t guarding = reinterpret_cast<size_t>( pChar->guarding() );
+
+			P_CHAR pGuarding = FindCharBySerial( guarding );
+			if ( pGuarding )
+			{
+				pChar->setGuarding( pGuarding );
+				pGuarding->addGuard( pChar, true );
+			}
 			else
 			{
-				// 1. Handle the Container Value
-				if ( isItemSerial( contserial ) )
-				{
-					P_ITEM pCont = FindItemBySerial( contserial );
-
-					if ( pCont )
-					{
-						pCont->addItem( pi, false, true, true );
-					}
-					else
-					{
-						Console::instance()->log( LOG_ERROR, tr( "Item with invalid container [0x%1].\n" ).arg( contserial, 0, 16 ) );
-						deleteItems.append( pi ); // Queue this item up for deletion
-						continue; // Skip further processing
-					}
-				}
-				else if ( isCharSerial( contserial ) )
-				{
-					P_CHAR pCont = FindCharBySerial( contserial );
-
-					if ( pCont )
-					{
-						pCont->addItem( ( cBaseChar::enLayer ) pi->layer(), pi, true, true );
-					}
-
-					if ( !pCont || pi->container() != pCont )
-					{
-						Console::instance()->log( LOG_ERROR, QString( "Item with invalid wearer [%1].\n" ).arg( contserial ) );
-						deleteItems.append( pi );
-						continue;
-					}
-				}
-
-				pi->setUnprocessed( false );
+				Console::instance()->send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
+				pChar->setGuarding( 0 );
 			}
-
-			pi->flagUnchanged(); // We've just loaded, nothing changes.
 		}
 
-		// Post Process Characters
-		cCharIterator charIter;
-		P_CHAR pChar;
-		for ( pChar = charIter.first(); pChar; pChar = charIter.next() )
+		cTerritory* region = Territories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+		pChar->setRegion( region );
+
+		size_t multiserial = reinterpret_cast<size_t>( pChar->multi() );
+		cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
+		pChar->setMulti( multi );
+		if ( multi )
 		{
-			P_NPC pNPC = dynamic_cast<P_NPC>( pChar );
-
-			// Find Guarding
-			// this needs to move to postprocessing
-			if ( pChar->guarding() )
-			{
-				size_t guarding = reinterpret_cast<size_t>( pChar->guarding() );
-
-				P_CHAR pGuarding = FindCharBySerial( guarding );
-				if ( pGuarding )
-				{
-					pChar->setGuarding( pGuarding );
-					pGuarding->addGuard( pChar, true );
-				}
-				else
-				{
-					Console::instance()->send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
-					pChar->setGuarding( 0 );
-				}
-			}
-
-			cTerritory* region = Territories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-			pChar->setRegion( region );
-
-			size_t multiserial = reinterpret_cast<size_t>( pChar->multi() );
-			cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
-			pChar->setMulti( multi );
-			if ( multi )
-			{
-				multi->addObject( pChar );
-			}
-
-			pChar->flagUnchanged(); // We've just loaded, nothing changes
+			multi->addObject( pChar );
 		}
 
-		// post process all loaded objects
-		// Note from DarkStorm: I THINK it's important to do this before
-		// the deletion of objects, otherwise you might have items in this
-		// list that are already deleted.
-		QPtrList<PersistentObject>::const_iterator cit(objects.begin());
+		pChar->flagUnchanged(); // We've just loaded, nothing changes
+	}
 
-		while (cit != objects.end()) {
-			(*cit)->postload(0);
-			++cit;
-		}
+	// post process all loaded objects
+	// Note from DarkStorm: I THINK it's important to do this before
+	// the deletion of objects, otherwise you might have items in this
+	// list that are already deleted.
+	QPtrList<PersistentObject>::const_iterator cit( objects.begin() );
 
-		if ( deleteItems.count() > 0 )
+	while ( cit != objects.end() )
+	{
+		( *cit )->postload( 0 );
+		++cit;
+	}
+
+	if ( deleteItems.count() > 0 )
+	{
+		// Do we have to delete items?
+		for ( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
+			quickdelete( pItem );
+
+		Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
+		deleteItems.clear();
+	}
+
+	// Load SpawnRegion information
+	cDBResult result = PersistentBroker::instance()->query( "SELECT spawnregion,serial FROM spawnregions;" );
+
+	while ( result.fetchrow() )
+	{
+		QString spawnregion = result.getString( 0 );
+		SERIAL serial = result.getInt( 1 );
+
+		cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
+		cUObject *object = findObject( serial );
+		if ( object && region )
 		{
-			// Do we have to delete items?
-			for ( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
-				quickdelete( pItem );
-
-			Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
-			deleteItems.clear();
+			object->setSpawnregion( region );
 		}
-
-		// Load SpawnRegion information
-		cDBResult result = PersistentBroker::instance()->query( "SELECT spawnregion,serial FROM spawnregions;" );
-
-		while ( result.fetchrow() )
+		else if ( object )
 		{
-			QString spawnregion = result.getString( 0 );
-			SERIAL serial = result.getInt( 1 );
-
-			cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
-			cUObject *object = findObject( serial );
-			if (object && region) {
-				object->setSpawnregion(region);
-			} else if (object) {
-				object->remove();
-			}
+			object->remove();
 		}
+	}
 
-		result.free();
+	result.free();
 
-		Guilds::instance()->load();
+	Guilds::instance()->load();
 
-		// load server time from db
-		QString db_time;
-		QString default_time = Config::instance()->getString( "General", "UO Time", "", true );
-		getOption( "worldtime", db_time, default_time );
-		UoTime::instance()->setMinutes( db_time.toInt() );
+	// load server time from db
+	QString db_time;
+	QString default_time = Config::instance()->getString( "General", "UO Time", "", true );
+	getOption( "worldtime", db_time, default_time );
+	UoTime::instance()->setMinutes( db_time.toInt() );
 
-		PersistentBroker::instance()->disconnect();
+	PersistentBroker::instance()->disconnect();
 }
 
 void cWorld::load()
@@ -880,12 +912,13 @@ void cWorld::load()
 	cComponent::load();
 }
 
-void cWorld::save() {
+void cWorld::save()
+{
 	// Broadcast a message to all connected clients
-	Network::instance()->broadcast(tr("Worldsave Initialized"));
+	Network::instance()->broadcast( tr( "Worldsave Initialized" ) );
 
-	Console::instance()->send( tr("Saving World...") );
-	setOption("db_version", WP_DATABASE_VERSION); // Make SURE it's saved
+	Console::instance()->send( tr( "Saving World..." ) );
+	setOption( "db_version", WP_DATABASE_VERSION ); // Make SURE it's saved
 
 	// Send a nice status gump to all sockets if enabled
 	bool fancy = Config::instance()->getBool( "General", "Fancy Worldsave Status", true, true );
@@ -919,11 +952,12 @@ void cWorld::save() {
 	try
 	{
 		// Save the Current Time
-		setOption("worldtime", QString::number( UoTime::instance()->getMinutes() ));
+		setOption( "worldtime", QString::number( UoTime::instance()->getMinutes() ) );
 
-		if (Config::instance()->databaseDriver() == "binary") {
+		if ( Config::instance()->databaseDriver() == "binary" )
+		{
 			// Make a backup of the old world.
-			backupWorld(Config::instance()->binarySavepath(), Config::instance()->binaryBackups(), Config::instance()->binaryCompressBackups());
+			backupWorld( Config::instance()->binarySavepath(), Config::instance()->binaryBackups(), Config::instance()->binaryCompressBackups() );
 
 			// Save in binary format
 			cBufferedWriter writer( "WOLFPACK", DATABASE_VERSION );
@@ -931,35 +965,41 @@ void cWorld::save() {
 
 			cCharIterator charIterator;
 			P_CHAR character;
-			for (character = charIterator.first(); character; character = charIterator.next()) {
-				if (!character->multi()) {
-					character->save(writer);
+			for ( character = charIterator.first(); character; character = charIterator.next() )
+			{
+				if ( !character->multi() )
+				{
+					character->save( writer );
 				}
 			}
 
 			cItemIterator itemIterator;
 			P_ITEM item;
-			for (item = itemIterator.first(); item; item = itemIterator.next()) {
-				if (!item->container() && !item->multi()) {
+			for ( item = itemIterator.first(); item; item = itemIterator.next() )
+			{
+				if ( !item->container() && !item->multi() )
+				{
 					item->save( writer );
 				}
 			}
 
 			// Write Guilds
 			cGuilds::iterator git;
-			for (git = Guilds::instance()->begin(); git != Guilds::instance()->end(); ++git) {
-				(*git)->save(writer, writer.version());
+			for ( git = Guilds::instance()->begin(); git != Guilds::instance()->end(); ++git )
+			{
+				( *git )->save( writer, writer.version() );
 			}
 
 			// Write Temporary Effects
-			Timers::instance()->save(writer);
+			Timers::instance()->save( writer );
 
 			// Write Options
 			QMap<QString, QString>::iterator oit;
-			for (oit = options.begin(); oit != options.end(); ++oit) {
-				writer.writeByte(0xFB);
-				writer.writeUtf8(oit.key());
-				writer.writeUtf8(oit.data());
+			for ( oit = options.begin(); oit != options.end(); ++oit )
+			{
+				writer.writeByte( 0xFB );
+				writer.writeUtf8( oit.key() );
+				writer.writeUtf8( oit.data() );
 			}
 
 			writer.writeByte( 0xFF ); // Terminator Type
@@ -967,15 +1007,21 @@ void cWorld::save() {
 
 			Config::instance()->flush();
 			p->purgePendingObjects();
-		} else {
-			if (!PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver())) {
+		}
+		else
+		{
+			if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
+			{
 				Console::instance()->log( LOG_ERROR, tr( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
 				return;
 			}
 
-			try {
+			try
+			{
 				PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
-			} catch (QString& e) {
+			}
+			catch ( QString& e )
+			{
 				Console::instance()->log( LOG_ERROR, tr( "Couldn't open the database: %1\n" ).arg( e ) );
 				return;
 			}
@@ -1034,17 +1080,18 @@ void cWorld::save() {
 
 			Guilds::instance()->save();
 
-            PersistentBroker::instance()->commitTransaction();
+			PersistentBroker::instance()->commitTransaction();
 
 			// Write Options
-			PersistentBroker::instance()->executeQuery("DELETE FROM settings;");
+			PersistentBroker::instance()->executeQuery( "DELETE FROM settings;" );
 
 			QMap<QString, QString>::iterator oit;
-			for (oit = options.begin(); oit != options.end(); ++oit) {
-				QString sql = QString("INSERT INTO settings VALUES('%1','%2');")
-					.arg(PersistentBroker::instance()->quoteString(oit.key()))
-					.arg(PersistentBroker::instance()->quoteString(oit.data()));
-				PersistentBroker::instance()->executeQuery(sql);
+			for ( oit = options.begin(); oit != options.end(); ++oit )
+			{
+				QString sql = QString( "INSERT INTO settings VALUES('%1','%2');" )
+				.arg( PersistentBroker::instance()->quoteString( oit.key() ) )
+				.arg( PersistentBroker::instance()->quoteString( oit.data() ) );
+				PersistentBroker::instance()->executeQuery( sql );
 			}
 
 			PersistentBroker::instance()->disconnect();
@@ -1056,7 +1103,7 @@ void cWorld::save() {
 		Server::instance()->refreshTime();
 
 		Console::instance()->changeColor( WPC_GREEN );
-		Console::instance()->send( tr(" Done") );
+		Console::instance()->send( tr( " Done" ) );
 		Console::instance()->changeColor( WPC_NORMAL );
 
 		Console::instance()->send( tr( " [%1ms]\n" ).arg( Server::instance()->time() - startTime ) );
@@ -1066,14 +1113,14 @@ void cWorld::save() {
 		PersistentBroker::instance()->rollbackTransaction();
 
 		Console::instance()->changeColor( WPC_RED );
-		Console::instance()->send( tr(" Failed\n") );
+		Console::instance()->send( tr( " Failed\n" ) );
 		Console::instance()->changeColor( WPC_NORMAL );
 
-		Console::instance()->log( LOG_ERROR, tr("Saving failed: %1").arg( e ) );
+		Console::instance()->log( LOG_ERROR, tr( "Saving failed: %1" ).arg( e ) );
 	}
 
 	// Broadcast a message to all connected clients
-	Network::instance()->broadcast(tr("Worldsave Completed In %1ms").arg(Server::instance()->time() - startTime));
+	Network::instance()->broadcast( tr( "Worldsave Completed In %1ms" ).arg( Server::instance()->time() - startTime ) );
 
 	if ( fancy )
 	{
@@ -1094,10 +1141,13 @@ void cWorld::save() {
  */
 void cWorld::getOption( const QString& name, QString& value, const QString fallback )
 {
-	QMap<QString, QString>::iterator it = options.find(name);
-	if (it == options.end()) {
+	QMap<QString, QString>::iterator it = options.find( name );
+	if ( it == options.end() )
+	{
 		value = fallback;
-	} else {
+	}
+	else
+	{
 		value = it.data();
 	}
 }
@@ -1107,14 +1157,14 @@ void cWorld::getOption( const QString& name, QString& value, const QString fallb
  */
 void cWorld::setOption( const QString& name, const QString& value )
 {
-	options.insert(name, value, true);
+	options.insert( name, value, true );
 }
 
 void cWorld::registerObject( cUObject* object )
 {
 	if ( !object )
 	{
-		Console::instance()->log( LOG_ERROR, tr("Couldn't register a NULL object in the world.") );
+		Console::instance()->log( LOG_ERROR, tr( "Couldn't register a NULL object in the world." ) );
 		return;
 	}
 
@@ -1125,7 +1175,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 {
 	if ( !object )
 	{
-		Console::instance()->log( LOG_ERROR, tr("Trying to register a null object in the World.") );
+		Console::instance()->log( LOG_ERROR, tr( "Trying to register a null object in the World." ) );
 		return;
 	}
 
@@ -1200,7 +1250,7 @@ void cWorld::unregisterObject( cUObject* object )
 {
 	if ( !object )
 	{
-		Console::instance()->log( LOG_ERROR, tr("Trying to unregister a null object from the world.") );
+		Console::instance()->log( LOG_ERROR, tr( "Trying to unregister a null object from the world." ) );
 		return;
 	}
 
@@ -1223,9 +1273,9 @@ void cWorld::unregisterObject( SERIAL serial )
 		_itemCount--;
 
 		/*
-		This isn't good...
-		if ( _lastItemSerial == serial )
-			_lastItemSerial--;*/
+			This isn't good...
+			if ( _lastItemSerial == serial )
+				_lastItemSerial--;*/
 	}
 	else if ( isCharSerial( serial ) )
 	{
@@ -1251,9 +1301,9 @@ void cWorld::unregisterObject( SERIAL serial )
 		_charCount--;
 
 		/*
-		This sometimes kills stuff...
-		if ( _lastCharSerial == serial )
-			_lastCharSerial--;*/
+			This sometimes kills stuff...
+			if ( _lastCharSerial == serial )
+				_lastCharSerial--;*/
 	}
 	else
 	{
@@ -1308,7 +1358,7 @@ void cWorld::deleteObject( cUObject* object )
 {
 	if ( !object )
 	{
-		Console::instance()->log( LOG_ERROR, tr("Tried to delete a null object from the worldsave.") );
+		Console::instance()->log( LOG_ERROR, tr( "Tried to delete a null object from the worldsave." ) );
 		return;
 	}
 
@@ -1328,41 +1378,45 @@ void cWorld::purge()
 	p->purgePendingObjects();
 }
 
-QMap<QDateTime, QString> listBackups(const QString &filename) {
+QMap<QDateTime, QString> listBackups( const QString& filename )
+{
 	// Get the path the file is in
-	QString name = QFileInfo(filename).baseName(false);
+	QString name = QFileInfo( filename ).baseName( false );
 
-	QDir dir = QFileInfo(filename).dir();
-	QStringList entries = dir.entryList(name + "*", QDir::Files);
+	QDir dir = QFileInfo( filename ).dir();
+	QStringList entries = dir.entryList( name + "*", QDir::Files );
 	QMap<QDateTime, QString> backups;
 
 	QStringList::iterator sit;
-	for (sit = entries.begin(); sit != entries.end(); ++sit) {
-		QString backup = QFileInfo(*sit).baseName(false);
-		QString timestamp = backup.right(backup.length() - name.length());
+	for ( sit = entries.begin(); sit != entries.end(); ++sit )
+	{
+		QString backup = QFileInfo( *sit ).baseName( false );
+		QString timestamp = backup.right( backup.length() - name.length() );
 		QDate date;
 		QTime time;
 
 		// Length has to be -YYYYMMDD-HHMM (14 Characters)
-		if (timestamp.length() != 14) {
+		if ( timestamp.length() != 14 )
+		{
 			continue;
 		}
 
 		bool ok[5];
-		int year = timestamp.mid(1, 4).toInt(&ok[0]);
-		int month = timestamp.mid(5, 2).toInt(&ok[1]);
-		int day = timestamp.mid(7, 2).toInt(&ok[2]);
-		int hour = timestamp.mid(10, 2).toInt(&ok[3]);
-		int minute = timestamp.mid(12, 2).toInt(&ok[4]);
+		int year = timestamp.mid( 1, 4 ).toInt( &ok[0] );
+		int month = timestamp.mid( 5, 2 ).toInt( &ok[1] );
+		int day = timestamp.mid( 7, 2 ).toInt( &ok[2] );
+		int hour = timestamp.mid( 10, 2 ).toInt( &ok[3] );
+		int minute = timestamp.mid( 12, 2 ).toInt( &ok[4] );
 
-		if (!ok[0] || !ok[1] || !ok[2] || !ok[3] || !ok[4]) {
+		if ( !ok[0] || !ok[1] || !ok[2] || !ok[3] || !ok[4] )
+		{
 			continue;
 		}
 
-		date.setYMD(year, month, day);
-		time.setHMS(hour, minute, 0);
+		date.setYMD( year, month, day );
+		time.setHMS( hour, minute, 0 );
 
-		backups.insert(QDateTime(date, time), *sit);
+		backups.insert( QDateTime( date, time ), *sit );
 	}
 
 	return backups;
@@ -1371,85 +1425,96 @@ QMap<QDateTime, QString> listBackups(const QString &filename) {
 /*
 	Backup old worldfile
 */
-void cWorld::backupWorld(const QString &filename, unsigned int count, bool compress) {
+void cWorld::backupWorld( const QString& filename, unsigned int count, bool compress )
+{
 	// Looks like there is nothing to backup
-	if (count == 0 || !QFile::exists(filename)) {
+	if ( count == 0 || !QFile::exists( filename ) )
+	{
 		return;
 	}
 
 	// Check if we need to remove a previous backup
-	QMap<QDateTime, QString> backups = listBackups(filename);
+	QMap<QDateTime, QString> backups = listBackups( filename );
 
-	QString backupName = QFileInfo(filename).dirPath(true) + QDir::separator();
+	QString backupName = QFileInfo( filename ).dirPath( true ) + QDir::separator();
 
-	if (backups.count() >= count) {
+	if ( backups.count() >= count )
+	{
 		// Remove the oldest backup
 		QDateTime current;
 		QString backup = QString::null;
 
 		QMap<QDateTime, QString>::iterator it;
-		for (it = backups.begin(); it != backups.end(); ++it) {
-			if (current.isNull() || it.key() < current) {
+		for ( it = backups.begin(); it != backups.end(); ++it )
+		{
+			if ( current.isNull() || it.key() < current )
+			{
 				current = it.key();
 				backup = it.data();
 			}
 		}
 
-		if (!backup.isNull() && !QFile::remove( backupName + backup )) {
-			Console::instance()->log(LOG_ERROR, tr("Unable to remove backup %1. No new backup has been created.\n").arg(backup));
+		if ( !backup.isNull() && !QFile::remove( backupName + backup ) )
+		{
+			Console::instance()->log( LOG_ERROR, tr( "Unable to remove backup %1. No new backup has been created.\n" ).arg( backup ) );
 			return;
 		}
 	}
 
 	// Rename the old worldfile to the new backup name
-	backupName.append( QFileInfo(filename).baseName(false) );
+	backupName.append( QFileInfo( filename ).baseName( false ) );
 	QDateTime current = QDateTime::currentDateTime();
-	backupName.append(current.toString("-yyyyMMdd-hhmm")); // Append Timestamp
-	backupName.append(".");
-	backupName.append(QFileInfo(filename).extension(true)); // Append Extension
+	backupName.append( current.toString( "-yyyyMMdd-hhmm" ) ); // Append Timestamp
+	backupName.append( "." );
+	backupName.append( QFileInfo( filename ).extension( true ) ); // Append Extension
 
 	// Rename the old worldfile
 	QDir dir = QDir::current();
-	dir.rename(filename, backupName, true);
+	dir.rename( filename, backupName, true );
 
 	// Start the compression thread if requested by the user
 	cBackupThread *backupThread = new cBackupThread();
-	backupThread->setFilename(backupName);
-	backupThread->start(QThread::LowPriority);
+	backupThread->setFilename( backupName );
+	backupThread->start( QThread::LowPriority );
 }
 
-extern "C" {
-	extern void *gzopen(const char *path, const char *mode);
-	extern int gzwrite(void *file, void *buf, unsigned len);
-	extern int gzclose(void *file);
+extern "C"
+{
+	extern void* gzopen( const char* path, const char* mode );
+	extern int gzwrite( void* file, void* buf, unsigned len );
+	extern int gzclose( void* file );
 };
 
 /*
 	Pipe a backup trough
 */
-void cBackupThread::run() {
+void cBackupThread::run()
+{
 	// Open the backup input file and the backup output file and compress
-	QFile input(filename);
+	QFile input( filename );
 	QString outputName = filename + ".gz";
 
-	if (!input.open(IO_ReadOnly)) {
+	if ( !input.open( IO_ReadOnly ) )
+	{
 		return;
 	}
 
-	void *output = gzopen(outputName.latin1(), "wb");
-	if (!output) {
+	void *output = gzopen( outputName.latin1(), "wb" );
+	if ( !output )
+	{
 		input.close();
 		return;
 	}
 
 	int readSize;
 	char buffer[4096];
-	while ((readSize = input.readBlock(buffer, 4096)) > 0) {
-		gzwrite(output, buffer, readSize);
+	while ( ( readSize = input.readBlock( buffer, 4096 ) ) > 0 )
+	{
+		gzwrite( output, buffer, readSize );
 	}
 
 	input.close();
-	gzclose(output);
+	gzclose( output );
 
 	input.remove();
 }

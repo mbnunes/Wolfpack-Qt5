@@ -121,7 +121,8 @@ struct stBlockItem
 // the tile we're walking on is impassable
 bool checkWalkable( P_CHAR pChar, Q_UINT16 tileId )
 {
-	if (!pChar) {
+	if ( !pChar )
+	{
 		return false;
 	}
 
@@ -138,12 +139,15 @@ struct compareTiles : public std::binary_function<stBlockItem, stBlockItem, bool
 		int itemTopA = a.height + a.z;
 		int itemTopB = b.height + b.z;
 
-		if (itemTopA == itemTopB) {
-			if (a.height == 0 && a.walkable) {
+		if ( itemTopA == itemTopB )
+		{
+			if ( a.height == 0 && a.walkable )
+			{
 				return true;
 			}
 
-			if (b.height == 0 && b.walkable) {
+			if ( b.height == 0 && b.walkable )
+			{
 				return false;
 			}
 		}
@@ -237,7 +241,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 			continue;
 
 		stBlockItem blockItem;
-		blockItem.height = (tTile.flag2 & 0x04) ? (tTile.height / 2) : tTile.height;
+		blockItem.height = ( tTile.flag2 & 0x04 ) ? ( tTile.height / 2 ) : tTile.height;
 		blockItem.z = pItem->pos().z;
 
 		// Once again: see above for a description of this part
@@ -254,7 +258,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 	// deal with the multis now, or not.
 	// 18 has been tested with castle sides and corners...
 	MapMultisIterator iter = MapObjects::instance()->listMultisInCircle( pos, 18 );
-	for( cMulti *pMulti = iter.first(); pMulti; pMulti = iter.next() )
+	for ( cMulti*pMulti = iter.first(); pMulti; pMulti = iter.next() )
 	{
 		MultiDefinition* def = MultiCache::instance()->getMulti( pMulti->id() - 0x4000 );
 		if ( !def )
@@ -262,7 +266,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 
 		QValueVector<multiItem_st> multi = def->getEntries();
 
-		for( unsigned int j = 0; j < multi.size(); ++j )
+		for ( unsigned int j = 0; j < multi.size(); ++j )
 		{
 			if ( multi[j].visible && ( pMulti->pos().x + multi[j].x == pos.x ) && ( pMulti->pos().y + multi[j].y == pos.y ) )
 			{
@@ -271,7 +275,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 					continue;
 
 				stBlockItem blockItem;
-				blockItem.height = (tTile.flag2 & 0x04) ? (tTile.height / 2) : tTile.height;
+				blockItem.height = ( tTile.flag2 & 0x04 ) ? ( tTile.height / 2 ) : tTile.height;
 				blockItem.z = pMulti->pos().z + multi[j].z;
 
 				if ( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
@@ -290,7 +294,6 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 	sort_heap( blockList.begin(), blockList.end(), compareTiles() );
 
 	return blockList;
-
 };
 
 // May a character walk here ?
@@ -316,7 +319,8 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 
 		// If we found something to step on and the next tile
 		// below would block us, use the good one instead
-		if (found && (itemTop > pos.z - P_M_MAX_Z_BLOCKS || !item.walkable)) {
+		if ( found && ( itemTop > pos.z - P_M_MAX_Z_BLOCKS || !item.walkable ) )
+		{
 			break;
 		}
 
@@ -326,43 +330,53 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 		if ( !item.walkable && !priviledged && itemTop <= pos.z )
 			return false;
 
-		if ( item.walkable || priviledged ) {
+		if ( item.walkable || priviledged )
+		{
 			// If the top of the item is within our max-climb reach
 			// then the first check passed. in addition we need to
 			// check if the "bottom" of the item is reachable
 			// I would say 2 is a good "reach" value for the bottom
 			// of any item
-			if ( itemTop < pos.z + P_M_MAX_Z_CLIMB && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+			if ( itemTop < pos.z + P_M_MAX_Z_CLIMB && itemTop >= pos.z - P_M_MAX_Z_FALL )
+			{
 				// We already found something to step on above.
 				// See if it's easier to step down.
-				if (found && abs(oldz - pos.z) < abs(oldz - itemTop)) {
+				if ( found && abs( oldz - pos.z ) < abs( oldz - itemTop ) )
+				{
 					break;
 				}
 
 				pos.z = itemTop;
 				found = true;
 
-				if (item.height > 1) {
+				if ( item.height > 1 )
+				{
 					break;
 				}
 
 				// break; - We can't break here anymore since we have to check if the ground would be easier
 				// to step on
-			// Climbing maptiles is 5 tiles easier
-			} else if ( item.maptile && itemTop < pos.z + P_M_MAX_Z_CLIMB + 5 && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+				// Climbing maptiles is 5 tiles easier
+			}
+			else if ( item.maptile && itemTop < pos.z + P_M_MAX_Z_CLIMB + 5 && itemTop >= pos.z - P_M_MAX_Z_FALL )
+			{
 				// We already found something to step on above.
 				// See if it's easier to step down.
-				if (found && abs(oldz - pos.z) < abs(oldz - itemTop)) {
+				if ( found && abs( oldz - pos.z ) < abs( oldz - itemTop ) )
+				{
 					break;
 				}
 
 				pos.z = itemTop;
 				found = true;
 				break;
-			} else if ( itemTop < pos.z ) {
+			}
+			else if ( itemTop < pos.z )
+			{
 				// We already found something to step on above.
 				// See if it's easier to step down.
-				if (found && abs(oldz - pos.z) < abs(oldz - itemTop)) {
+				if ( found && abs( oldz - pos.z ) < abs( oldz - itemTop ) )
+				{
 					break;
 				}
 
@@ -393,7 +407,8 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 		Q_INT8 itemTop = ( item.z + item.height );
 
 		// If the item is below what we step on, ignore it
-		if (itemTop <= pos.z) {
+		if ( itemTop <= pos.z )
+		{
 			continue;
 		}
 
@@ -407,7 +422,7 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 		// note: the following test was commented out.  by putting the code back in,
 		// npcs stop wandering through the walls of multis.  I am curious if this code
 		// has other (negative) affects besides that.
-		 if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS / 2 ) )
+		if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS / 2 ) )
 			return false;
 
 		// Or does it spread the whole range ?
@@ -415,7 +430,7 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 			return false;
 
 		// Is it at the new position ?
-		 if ( ( item.z >= pos.z ) && ( item.z < pos.z + P_M_MAX_Z_BLOCKS ) )
+		if ( ( item.z >= pos.z ) && ( item.z < pos.z + P_M_MAX_Z_BLOCKS ) )
 			return false;
 	}
 
@@ -447,7 +462,7 @@ void handleItems( P_CHAR pChar, const Coord& oldpos )
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
 	MapItemsIterator iter = MapObjects::instance()->listItemsInCircle( pChar->pos(), VISRANGE );
-	for( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )
+	for ( P_ITEM pItem = iter.first(); pItem; pItem = iter.next() )
 	{
 		// Check for item collisions here.
 		if ( pChar->pos().x == pItem->pos().x && pChar->pos().y == pItem->pos().y )
@@ -462,10 +477,10 @@ void handleItems( P_CHAR pChar, const Coord& oldpos )
 		}
 
 		// If we are a connected player then send new items
-		if( player && player->socket() )
+		if ( player && player->socket() )
 		{
 			UI32 oldDist = oldpos.distance( pItem->pos() );
-			if( oldDist >= player->visualRange() )
+			if ( oldDist >= player->visualRange() )
 			{
 				// was out of range before and now is in range
 				pItem->update( player->socket() );
@@ -482,15 +497,15 @@ void handleMultis( P_CHAR pChar, const Coord& oldpos )
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
 	MapMultisIterator multis = MapObjects::instance()->listMultisInCircle( pChar->pos(), BUILDRANGE );
-	for( P_MULTI multi = multis.first(); multi; multi = multis.next() )
+	for ( P_MULTI multi = multis.first(); multi; multi = multis.next() )
 	{
 		// TODO: handle multi collisions here.
 
 		// If we are a connected player then send new multis
-		if( player && player->socket() )
+		if ( player && player->socket() )
 		{
 			UI32 oldDist = oldpos.distance( multi->pos() );
-			if( oldDist >= BUILDRANGE )
+			if ( oldDist >= BUILDRANGE )
 			{
 				// was out of range before and now is in range
 				multi->update( player->socket() );
@@ -535,7 +550,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	bool running = dir & 0x80;
 	dir = dir & 0x7; // Remove all unneeded stuff
 
-	pChar->setRunning(running);
+	pChar->setRunning( running );
 
 	bool turning = dir != pChar->direction();
 
@@ -554,26 +569,26 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		}
 
 		// Check if we're going to collide with characters
-		if( player )
+		if ( player )
 		{
 			// Player vs characters
-			if( player->socket() && player->pos().map == 0 && !player->account()->isStaff() )
+			if ( player->socket() && player->pos().map == 0 && !player->account()->isStaff() )
 			{
 				// Currently hard-limiting collisions to Felucca; this should be a server option!
 				MapCharsIterator charCollisions = MapObjects::instance()->listCharsAtCoord( newCoord );
-				for( P_CHAR them = charCollisions.first(); them; them = charCollisions.next() )
+				for ( P_CHAR them = charCollisions.first(); them; them = charCollisions.next() )
 				{
-					if( them == player )
+					if ( them == player )
 						continue;
 
 					P_PLAYER otherplayer = dynamic_cast<P_PLAYER>( them );
-					if( otherplayer && otherplayer->account()->isStaff() )
+					if ( otherplayer && otherplayer->account()->isStaff() )
 						continue; // no collisions against the staff
 
-					if( wpAbs<SI08>( newCoord.z - them->pos().z ) < P_M_MAX_Z_CLIMB )
+					if ( wpAbs<SI08>( newCoord.z - them->pos().z ) < P_M_MAX_Z_CLIMB )
 					{
 						// to push another char we must have maximum stamina
-						if( player->stamina() >= player->maxStamina() )
+						if ( player->stamina() >= player->maxStamina() )
 						{
 							player->socket()->clilocMessage( them->isHidden() ? 1019043 : 1019042 );
 							player->setStamina( player->stamina() - 10 );
@@ -592,7 +607,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		{
 			// NPC vs characters
 			P_NPC npc = dynamic_cast<P_NPC>( pChar );
-			if( npc && CheckForCharacterAtXYZ( pChar, newCoord ) )
+			if ( npc && CheckForCharacterAtXYZ( pChar, newCoord ) )
 			{
 				npc->clearPath();
 				return false;
@@ -629,43 +644,51 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// set the player direction to contain only the cardinal direction bits
 	pChar->setDirection( dir );
 
-	Coord upperLeft = pChar->pos() + Coord(- (VISRANGE + 1), - (VISRANGE + 1));
-	Coord lowerRight = pChar->pos() + Coord(VISRANGE + 1, VISRANGE + 1);
+	Coord upperLeft = pChar->pos() + Coord( -( VISRANGE + 1 ), -( VISRANGE + 1 ) );
+	Coord lowerRight = pChar->pos() + Coord( VISRANGE + 1, VISRANGE + 1 );
 
-	MapCharsIterator ri = MapObjects::instance()->listCharsInRect(upperLeft, lowerRight);
-	for( P_CHAR observer = ri.first(); observer; observer = ri.next() )
+	MapCharsIterator ri = MapObjects::instance()->listCharsInRect( upperLeft, lowerRight );
+	for ( P_CHAR observer = ri.first(); observer; observer = ri.next() )
 	{
-		if( observer == pChar )
+		if ( observer == pChar )
 			continue;
 
-		bool wasVisible = observer->pos().distance(oldpos) < VISRANGE; // We were previously in range
-		bool isVisible = pChar->dist(observer) < VISRANGE; // We are now in range
+		bool wasVisible = observer->pos().distance( oldpos ) < VISRANGE; // We were previously in range
+		bool isVisible = pChar->dist( observer ) < VISRANGE; // We are now in range
 
 		// If we are a player, send us new characters
-		if( player && player->socket() ) {
+		if ( player && player->socket() )
+		{
 			// Send the observer to us if he was previously not visible and came into range recently
-			if( !wasVisible && isVisible ) {
-				player->socket()->sendChar(observer);
+			if ( !wasVisible && isVisible )
+			{
+				player->socket()->sendChar( observer );
 			}
 		}
 
 		// Send our movement to the observer
-		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>(observer);
+		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>( observer );
 
-		if (!otherplayer || !otherplayer->socket()) {
+		if ( !otherplayer || !otherplayer->socket() )
+		{
 			continue; // Skip this character, it's a player.
 			// TODO: OnSeePlayer, OnLoosePlayer
 		}
 
-		if (wasVisible) {
-			if (isVisible) {
-				otherplayer->socket()->updateChar(pChar); // We walked inside the visible range
-			} else {
-				otherplayer->socket()->removeObject(pChar); // We walked out of visible range
+		if ( wasVisible )
+		{
+			if ( isVisible )
+			{
+				otherplayer->socket()->updateChar( pChar ); // We walked inside the visible range
 			}
-
-		} else if (isVisible) {
-			otherplayer->socket()->sendChar(pChar); // We walked into visible range
+			else
+			{
+				otherplayer->socket()->removeObject( pChar ); // We walked out of visible range
+			}
+		}
+		else if ( isVisible )
+		{
+			otherplayer->socket()->sendChar( pChar ); // We walked into visible range
 		}
 	}
 
@@ -683,12 +706,12 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 bool cMovement::CheckForCharacterAtXYZ( P_CHAR pc, const Coord& pos )
 {
 	MapCharsIterator ri = MapObjects::instance()->listCharsAtCoord( pos );
-	for( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
+	for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 	{
-		if( pChar != pc && !pChar->isHidden() && !pChar->isInvisible() )
+		if ( pChar != pc && !pChar->isHidden() && !pChar->isInvisible() )
 		{
 			// x=x,y=y, and distance btw z's <= MAX STEP
-			if( wpAbs<SI08>( pChar->pos().z - pos.z ) <= P_M_MAX_Z_CLIMB )
+			if ( wpAbs<SI08>( pChar->pos().z - pos.z ) <= P_M_MAX_Z_CLIMB )
 			{
 				return true;
 			}
@@ -799,29 +822,34 @@ Coord cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord& oldCoords )
   Calculates the amount of Stamina needed for a move of the
   passed character.
 */
-bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
+bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
+{
 	// Dead people and gms don't care about weight
-	if (pChar->isDead() || pChar->isGMorCounselor()) {
+	if ( pChar->isDead() || pChar->isGMorCounselor() )
+	{
 		return true;
 	}
 
 	// Calculate the stones we weight too much
-	int overWeight = ( int )( pChar->weight() - pChar->maxWeight() );
-	bool mounted = pChar->atLayer(cBaseChar::Mount) != 0;
+	int overWeight = ( int ) ( pChar->weight() - pChar->maxWeight() );
+	bool mounted = pChar->atLayer( cBaseChar::Mount ) != 0;
 	bool update = false;
 
 	// We carry too much
-	if (overWeight > 0) {
+	if ( overWeight > 0 )
+	{
 		// How much stamina we loose
-		int amount = 5 + (overWeight / 25);
+		int amount = 5 + ( overWeight / 25 );
 
 		// Only one third loss if mounted
-		if (mounted) {
+		if ( mounted )
+		{
 			amount = amount / 3;
 		}
 
 		// Double loss if running
-		if (running) {
+		if ( running )
+		{
 			amount = amount * 2;
 		}
 
@@ -830,9 +858,10 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
 		update = true;
 
 		// We are overloaded
-		if (pChar->stamina() == 0) {
+		if ( pChar->stamina() == 0 )
+		{
 			pChar->socket()->updateStamina();
-			pChar->socket()->clilocMessage(500109);
+			pChar->socket()->clilocMessage( 500109 );
 			return false;
 		}
 	}
@@ -846,19 +875,22 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
 	}
 
 	// We can't move anymore because we are exhausted
-	if ( pChar->stamina() == 0 ) {
+	if ( pChar->stamina() == 0 )
+	{
 		pChar->socket()->updateStamina();
 		pChar->socket()->clilocMessage( 500110 );
 		return false;
 	}
 
 	// Normally reduce stamina every few steps
-	if ( pChar->stepsTaken() % ( mounted ? 48 : 16 ) == 0 ) {
+	if ( pChar->stepsTaken() % ( mounted ? 48 : 16 ) == 0 )
+	{
 		pChar->setStamina( wpMax<Q_INT16>( 0, pChar->stamina() - 1 ) );
 		update = true;
 	}
 
-	if (update) {
+	if ( update )
+	{
 		pChar->socket()->updateStamina();
 	}
 
@@ -868,7 +900,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
 Q_UINT16 DynTile( const Coord& pos )
 {
 	MapItemsIterator ri = MapObjects::instance()->listItemsInCircle( pos, 18 );
-	for( P_ITEM mapitem = ri.first(); mapitem; mapitem = ri.next() )
+	for ( P_ITEM mapitem = ri.first(); mapitem; mapitem = ri.next() )
 	{
 		if ( mapitem->isMulti() )
 		{
@@ -885,7 +917,7 @@ Q_UINT16 DynTile( const Coord& pos )
 				}
 			}
 		}
-		else if( mapitem->pos() == pos )
+		else if ( mapitem->pos() == pos )
 		{
 			return mapitem->id();
 		}
@@ -917,22 +949,28 @@ bool cMovement::canLandMonsterMoveHere( Coord& pos ) const
 		if ( !item.walkable && itemTop < pos.z )
 			return false;
 
-		if ( item.walkable ) {
+		if ( item.walkable )
+		{
 			// If the top of the item is within our max-climb reach
 			// then the first check passed. in addition we need to
 			// check if the "bottom" of the item is reachable
 			// I would say 2 is a good "reach" value for the bottom
 			// of any item
-			if ( itemTop < pos.z + P_M_MAX_Z_CLIMB && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+			if ( itemTop < pos.z + P_M_MAX_Z_CLIMB && itemTop >= pos.z - P_M_MAX_Z_FALL )
+			{
 				pos.z = itemTop;
 				found = true;
 				break;
-			// Climbing maptiles is 5 tiles easier
-			} else if ( item.maptile && itemTop < pos.z + P_M_MAX_Z_CLIMB + 5 && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+				// Climbing maptiles is 5 tiles easier
+			}
+			else if ( item.maptile && itemTop < pos.z + P_M_MAX_Z_CLIMB + 5 && itemTop >= pos.z - P_M_MAX_Z_FALL )
+			{
 				pos.z = itemTop;
 				found = true;
 				break;
-			} else if ( itemTop < pos.z ) {
+			}
+			else if ( itemTop < pos.z )
+			{
 				pos.z = itemTop;
 				found = true;
 				break;
@@ -955,7 +993,8 @@ bool cMovement::canLandMonsterMoveHere( Coord& pos ) const
 		Q_INT8 itemTop = ( item.z + item.height );
 
 		// If the item is below what we step on, ignore it
-		if (itemTop <= pos.z) {
+		if ( itemTop <= pos.z )
+		{
 			continue;
 		}
 
@@ -969,7 +1008,7 @@ bool cMovement::canLandMonsterMoveHere( Coord& pos ) const
 		// note: the following test was commented out.  by putting the code back in,
 		// npcs stop wandering through the walls of multis.  I am curious if this code
 		// has other (negative) affects besides that.
-		 if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS / 2 ) )
+		if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS / 2 ) )
 			return false;
 
 		// Or does it spread the whole range ?

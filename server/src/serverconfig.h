@@ -65,7 +65,7 @@ const unsigned int FIRST_YEAR = 1970;
 
 class cConfig : public Preferences, public cComponent
 {
-	OBJECTDEF(cConfig)
+	OBJECTDEF( cConfig )
 protected:
 	QString getGroupDoc( const QString& group );
 	QString getEntryDoc( const QString& group, const QString& entry );
@@ -243,7 +243,7 @@ public:
 	unsigned int poisonTimer() const;
 	signed int maxStealthSteps() const;
 	unsigned int runningStamSteps() const;
-    unsigned int hungerRate() const;
+	unsigned int hungerRate() const;
 	unsigned int hungerDamageRate() const;
 	unsigned char hungerDamage() const;
 	float boatSpeed() const;
@@ -259,11 +259,13 @@ public:
 		return binaryBackups_;
 	}
 
-	inline const QString &binarySavepath() const {
+	inline const QString& binarySavepath() const
+	{
 		return binarySavepath_;
 	}
 
-	inline bool binaryCompressBackups() const {
+	inline bool binaryCompressBackups() const
+	{
 		return binaryCompressBackups_;
 	}
 

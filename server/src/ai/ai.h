@@ -52,8 +52,8 @@ class AbstractAI;
 // #define AIDEBUG
 
 // Export this for other AI functions
-bool invalidTarget(P_NPC npc, P_CHAR victim, int dist = -1);
-bool validTarget(P_NPC npc, P_CHAR victim, int dist = -1);
+bool invalidTarget( P_NPC npc, P_CHAR victim, int dist = -1 );
+bool validTarget( P_NPC npc, P_CHAR victim, int dist = -1 );
 
 class AbstractAction
 {
@@ -134,7 +134,8 @@ public:
 
 	virtual QString name() = 0;
 
-	AbstractAction *currentAction() {
+	AbstractAction* currentAction()
+	{
 		return m_currentAction;
 	}
 
@@ -260,7 +261,8 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
-	virtual bool isPassive() {
+	virtual bool isPassive()
+	{
 		return false;
 	}
 	virtual const char* name()
@@ -302,7 +304,8 @@ public:
 		nextTry = 0;
 	}
 
-	virtual bool isPassive() {
+	virtual bool isPassive()
+	{
 		return false;
 	}
 
@@ -323,7 +326,8 @@ protected:
 	{
 	}
 public:
-	virtual bool isPassive() {
+	virtual bool isPassive()
+	{
 		return false;
 	}
 
@@ -358,8 +362,9 @@ public:
 
 	virtual void check();
 
-	P_CHAR currentVictim() const {
-		return World::instance()->findChar(m_currentVictimSer);
+	P_CHAR currentVictim() const
+	{
+		return World::instance()->findChar( m_currentVictimSer );
 	}
 protected:
 	virtual void selectVictim() = 0;
@@ -465,7 +470,7 @@ public:
 
 class Human_Vendor : public AbstractAI
 {
-	OBJECTDEF(Human_Vendor)
+	OBJECTDEF( Human_Vendor )
 protected:
 	Human_Vendor() : AbstractAI()
 	{
@@ -493,7 +498,7 @@ class cUORxTarget;
 
 class Human_Stablemaster : public Human_Vendor
 {
-	OBJECTDEF(Human_Stablemaster)
+	OBJECTDEF( Human_Stablemaster )
 protected:
 	Human_Stablemaster()
 	{
@@ -673,7 +678,7 @@ protected:
 
 class Human_Guard_Called_Fight : public AbstractAction
 {
-	OBJECTDEF(Human_Guard_Called_Fight)
+	OBJECTDEF( Human_Guard_Called_Fight )
 protected:
 	Human_Guard_Called_Fight() : AbstractAction()
 	{
@@ -685,7 +690,8 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
-	virtual bool isPassive() {
+	virtual bool isPassive()
+	{
 		return false;
 	}
 
@@ -705,7 +711,8 @@ public:
 	Human_Guard_Called_TeleToTarget( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
 	}
-	virtual bool isPassive() {
+	virtual bool isPassive()
+	{
 		return false;
 	}
 	virtual void execute();
@@ -728,7 +735,8 @@ public:
 	Human_Guard_Called_Disappear( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
 	}
-	virtual bool isPassive() {
+	virtual bool isPassive()
+	{
 		return false;
 	}
 	virtual void execute();
@@ -805,7 +813,7 @@ public:
 
 class Human_Guard_Fight : public AbstractAction
 {
-	OBJECTDEF(Human_Guard_Fight)
+	OBJECTDEF( Human_Guard_Fight )
 protected:
 	Human_Guard_Fight() : AbstractAction()
 	{
@@ -814,7 +822,8 @@ public:
 	Human_Guard_Fight( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
 	}
-	virtual bool isPassive() {
+	virtual bool isPassive()
+	{
 		return false;
 	}
 	virtual void execute();
@@ -848,7 +857,7 @@ public:
 
 	P_CHAR currentVictim() const
 	{
-		return World::instance()->findChar(m_currentVictimSer);
+		return World::instance()->findChar( m_currentVictimSer );
 	}
 protected:
 	virtual void selectVictim();
@@ -857,20 +866,20 @@ protected:
 };
 
 #ifndef __VC6
-template< typename T >
+template <typename T>
 AbstractAI* productCreatorFunctor()
 {
-	return new T(0);
+	return new T( 0 );
 }
 #else
-AbstractAI* productCreatorFunctor_Animal_Domestic(  );
-AbstractAI* productCreatorFunctor_Animal_Wild(  );
-AbstractAI* productCreatorFunctor_Human_Guard(  );
-AbstractAI* productCreatorFunctor_Human_Guard_Called(  );
-AbstractAI* productCreatorFunctor_Human_Vendor(  );
-AbstractAI* productCreatorFunctor_Human_Stablemaster(  );
-AbstractAI* productCreatorFunctor_Monster_Aggressive_L0(  );
-AbstractAI* productCreatorFunctor_Monster_Berserk(  );
-AbstractAI* productCreatorFunctor_Monster_Aggressive_L1(  );
+AbstractAI* productCreatorFunctor_Animal_Domestic();
+AbstractAI* productCreatorFunctor_Animal_Wild();
+AbstractAI* productCreatorFunctor_Human_Guard();
+AbstractAI* productCreatorFunctor_Human_Guard_Called();
+AbstractAI* productCreatorFunctor_Human_Vendor();
+AbstractAI* productCreatorFunctor_Human_Stablemaster();
+AbstractAI* productCreatorFunctor_Monster_Aggressive_L0();
+AbstractAI* productCreatorFunctor_Monster_Berserk();
+AbstractAI* productCreatorFunctor_Monster_Aggressive_L1();
 #endif
 #endif /* AI_H_HEADER_INCLUDED */

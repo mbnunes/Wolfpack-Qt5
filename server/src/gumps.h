@@ -243,7 +243,7 @@ inline void cGump::setNoDispose( bool data )
 
 class cSpawnRegionInfoGump : public cGump
 {
-	OBJECTDEF(cSpawnRegionInfoGump)
+	OBJECTDEF( cSpawnRegionInfoGump )
 protected:
 	cSpawnRegion* region_;
 

@@ -72,7 +72,7 @@ cItem::cItem() : totalweight_( 0 ), container_( 0 )
 	Init( false );
 };
 
-cItem::cItem( const cItem& src ) : cUObject(src), totalweight_( 0 ), container_( 0 )
+cItem::cItem( const cItem& src ) : cUObject( src ), totalweight_( 0 ), container_( 0 )
 {
 	Init( false );
 	// Copy Events
@@ -199,22 +199,38 @@ short cItem::containerGumpType() const
 	case 0x09a8:
 	case 0x09aa:
 	case 0x09b0:
-	case 0x0A2C:	// chest of drawers
-	case 0x0A30:	// chest of drawers
-	case 0x0A34:	// chest of drawers
-	case 0x0A38:	// chest of drawers
-	case 0x0A4D:	// armoire
-	case 0x0A4F:	// armoire
-	case 0x0A51:	// armoire
-	case 0x0A53:	// armoire
-	case 0x0A97:	// bookshelf
-	case 0x0A98:	// bookshelf
-	case 0x0A99:	// bookshelf
-	case 0x0A9A:	// bookshelf
-	case 0x0A9B:	// bookshelf
-	case 0x0A9C:	// bookshelf
-	case 0x0A9D:	// bookshelf
-	case 0x0A9E:	// bookshelf
+	case 0x0A2C:
+		// chest of drawers
+	case 0x0A30:
+		// chest of drawers
+	case 0x0A34:
+		// chest of drawers
+	case 0x0A38:
+		// chest of drawers
+	case 0x0A4D:
+		// armoire
+	case 0x0A4F:
+		// armoire
+	case 0x0A51:
+		// armoire
+	case 0x0A53:
+		// armoire
+	case 0x0A97:
+		// bookshelf
+	case 0x0A98:
+		// bookshelf
+	case 0x0A99:
+		// bookshelf
+	case 0x0A9A:
+		// bookshelf
+	case 0x0A9B:
+		// bookshelf
+	case 0x0A9C:
+		// bookshelf
+	case 0x0A9D:
+		// bookshelf
+	case 0x0A9E:
+		// bookshelf
 	case 0x0e76:
 	case 0x0e79:
 	case 0x0e7a:
@@ -280,7 +296,8 @@ bool cItem::pileItem( cItem* pItem )
 */
 bool cItem::containerPileItem( cItem* pItem )
 {
-	for (ContainerIterator it(this); !it.atEnd(); ++it) {
+	for ( ContainerIterator it( this ); !it.atEnd(); ++it )
+	{
 		if ( ( *it )->pileItem( pItem ) )
 			return true;
 	}
@@ -327,7 +344,8 @@ int cItem::deleteAmount( int amount, unsigned short _id, unsigned short _color )
 {
 	unsigned int rest = amount;
 	P_ITEM pi;
-	for (ContainerCopyIterator it(this); !it.atEnd(); ++it) {
+	for ( ContainerCopyIterator it( this ); !it.atEnd(); ++it )
+	{
 		pi = *it;
 		if ( pi->type() == 1 )
 			rest = pi->deleteAmount( rest, _id, _color );
@@ -341,8 +359,9 @@ int cItem::deleteAmount( int amount, unsigned short _id, unsigned short _color )
 
 void cItem::save( cBufferedWriter& writer, unsigned int version )
 {
-	if (free || (container_ && container_->free)) {
-		Console::instance()->log(LOG_ERROR, tr("Saving item 0x%1 although it's already freed.\n").arg(serial_, 0, 16));
+	if ( free || ( container_ && container_->free ) )
+	{
+		Console::instance()->log( LOG_ERROR, tr( "Saving item 0x%1 although it's already freed.\n" ).arg( serial_, 0, 16 ) );
 	}
 
 	cUObject::save( writer, version );
@@ -363,11 +382,13 @@ void cItem::save( cBufferedWriter& writer, unsigned int version )
 
 void cItem::postload( unsigned int /*version*/ )
 {
-	if (container_) {
+	if ( container_ )
+	{
 		pos_.setInternalMap();
 	}
 
-	if( !container_ && !pos_.isInternalMap() ) {
+	if ( !container_ && !pos_.isInternalMap() )
+	{
 		MapObjects::instance()->add( this );
 	}
 }
@@ -408,9 +429,13 @@ void cItem::load( cBufferedReader& reader, unsigned int version )
 				cContainer->addItem( ( cBaseChar::enLayer ) layer(), this, true, true );
 			}
 		}
-	} else {
-		if (containerSerial != INVALID_SERIAL) { // Indicate an error
-			reader.setError(tr("Deleting item 0x%1 because of invalid container 0x%2.\n").arg(serial_, 0, 16).arg(containerSerial, 0, 16));
+	}
+	else
+	{
+		if ( containerSerial != INVALID_SERIAL )
+		{
+			// Indicate an error
+			reader.setError( tr( "Deleting item 0x%1 because of invalid container 0x%2.\n" ).arg( serial_, 0, 16 ).arg( containerSerial, 0, 16 ) );
 		}
 	}
 }
@@ -457,7 +482,7 @@ bool cItem::del()
 
 QString cItem::getName( bool shortName )
 {
-	if ( !name_.isEmpty() && !name_.startsWith("#") )
+	if ( !name_.isEmpty() && !name_.startsWith( "#" ) )
 		return name_;
 
 	tile_st tile = TileCache::instance()->getTile( id_ );
@@ -493,9 +518,10 @@ void cItem::setSerial( const SERIAL ser )
 		return;
 
 	// is the new serial already occupied?
-	P_ITEM other = World::instance()->findItem(ser);
-	if (other && other != this) {
-		Console::instance()->log(LOG_ERROR, tr("Trying to change the serial of item 0x%1 to the already occupied serial 0x%2.\n").arg(serial_, 0, 16).arg(ser, 0, 16));
+	P_ITEM other = World::instance()->findItem( ser );
+	if ( other && other != this )
+	{
+		Console::instance()->log( LOG_ERROR, tr( "Trying to change the serial of item 0x%1 to the already occupied serial 0x%2.\n" ).arg( serial_, 0, 16 ).arg( ser, 0, 16 ) );
 		return;
 	}
 
@@ -582,18 +608,20 @@ void cItem::remove()
 	}
 
 	// Create a copy of the content so we don't accidently change our working copy
-	for (ContainerCopyIterator it2(this); !it2.atEnd(); ++it2)
+	for ( ContainerCopyIterator it2( this ); !it2.atEnd(); ++it2 )
 		( *it2 )->remove();
 
 	cUObject::remove();
 }
 
-bool cItem::onSingleClick( P_PLAYER Viewer ) {
+bool cItem::onSingleClick( P_PLAYER Viewer )
+{
 	bool result = false;
-	if (canHandleEvent(EVENT_SINGLECLICK)) {
-		PyObject* args = Py_BuildValue("O&O&", PyGetItemObject, this, PyGetCharObject, Viewer);
-		result = callEventHandler(EVENT_SINGLECLICK, args);
-		Py_DECREF(args);
+	if ( canHandleEvent( EVENT_SINGLECLICK ) )
+	{
+		PyObject* args = Py_BuildValue( "O&O&", PyGetItemObject, this, PyGetCharObject, Viewer );
+		result = callEventHandler( EVENT_SINGLECLICK, args );
+		Py_DECREF( args );
 	}
 	return result;
 }
@@ -601,10 +629,11 @@ bool cItem::onSingleClick( P_PLAYER Viewer ) {
 bool cItem::onDropOnItem( P_ITEM pItem )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_DROPONITEM)) {
+	if ( canHandleEvent( EVENT_DROPONITEM ) )
+	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetItemObject, layer_ == 0x1E ? pItem : this, PyGetItemObject, layer_ == 0x1E ? this : pItem );
-		result = callEventHandler(EVENT_DROPONITEM, args);
-		Py_DECREF(args);
+		result = callEventHandler( EVENT_DROPONITEM, args );
+		Py_DECREF( args );
 	}
 	return result;
 }
@@ -612,10 +641,11 @@ bool cItem::onDropOnItem( P_ITEM pItem )
 bool cItem::onDropOnGround( const Coord& pos )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_DROPONGROUND)) {
+	if ( canHandleEvent( EVENT_DROPONGROUND ) )
+	{
 		PyObject* args = Py_BuildValue( "O&N", PyGetItemObject, this, PyGetCoordObject( pos ) );
-		result = callEventHandler(EVENT_DROPONGROUND, args);
-		Py_DECREF(args);
+		result = callEventHandler( EVENT_DROPONGROUND, args );
+		Py_DECREF( args );
 	}
 	return result;
 }
@@ -624,11 +654,11 @@ bool cItem::onPickup( P_CHAR pChar )
 {
 	bool result = false;
 
-	if (canHandleEvent(EVENT_PICKUP))
+	if ( canHandleEvent( EVENT_PICKUP ) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
-		result = callEventHandler(EVENT_PICKUP, args);
-		Py_DECREF(args);
+		result = callEventHandler( EVENT_PICKUP, args );
+		Py_DECREF( args );
 	}
 
 	return result;
@@ -637,10 +667,11 @@ bool cItem::onPickup( P_CHAR pChar )
 bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_EQUIP)) {
+	if ( canHandleEvent( EVENT_EQUIP ) )
+	{
 		PyObject* args = Py_BuildValue( "O&O&b", PyGetCharObject, pChar, PyGetItemObject, this, layer );
-		result = callEventHandler(EVENT_EQUIP, args);
-		Py_DECREF(args);
+		result = callEventHandler( EVENT_EQUIP, args );
+		Py_DECREF( args );
 	}
 	return result;
 }
@@ -648,10 +679,11 @@ bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 bool cItem::onUnequip( P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_UNEQUIP)) {
+	if ( canHandleEvent( EVENT_UNEQUIP ) )
+	{
 		PyObject* args = Py_BuildValue( "O&O&b", PyGetCharObject, pChar, PyGetItemObject, this, layer );
-		result = callEventHandler(EVENT_UNEQUIP, args);
-		Py_DECREF(args);
+		result = callEventHandler( EVENT_UNEQUIP, args );
+		Py_DECREF( args );
 	}
 	return result;
 }
@@ -659,31 +691,35 @@ bool cItem::onUnequip( P_CHAR pChar, unsigned char layer )
 bool cItem::onWearItem( P_PLAYER pPlayer, P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_WEARITEM)) {
+	if ( canHandleEvent( EVENT_WEARITEM ) )
+	{
 		PyObject* args = Py_BuildValue( "O&O&O&b", PyGetCharObject, pPlayer, PyGetCharObject, pChar, PyGetItemObject, this, layer );
-		result = callEventHandler(EVENT_WEARITEM, args);
-		Py_DECREF(args);
+		result = callEventHandler( EVENT_WEARITEM, args );
+		Py_DECREF( args );
 	}
 	return result;
 }
 
-bool cItem::onUse(P_CHAR pChar) {
-	bool result = false;
-	if (canHandleEvent(EVENT_USE)) {
-		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
-		result = callEventHandler(EVENT_USE, args);
-		Py_DECREF(args);
-	}
-	return result;
-}
-
-bool cItem::onCollide(P_CHAR pChar)
+bool cItem::onUse( P_CHAR pChar )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_COLLIDE)) {
+	if ( canHandleEvent( EVENT_USE ) )
+	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
-		result = callEventHandler(EVENT_COLLIDE, args);
-		Py_DECREF(args);
+		result = callEventHandler( EVENT_USE, args );
+		Py_DECREF( args );
+	}
+	return result;
+}
+
+bool cItem::onCollide( P_CHAR pChar )
+{
+	bool result = false;
+	if ( canHandleEvent( EVENT_COLLIDE ) )
+	{
+		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
+		result = callEventHandler( EVENT_COLLIDE, args );
+		Py_DECREF( args );
 	}
 	return result;
 }
@@ -691,10 +727,11 @@ bool cItem::onCollide(P_CHAR pChar)
 bool cItem::onDropOnChar( P_CHAR pChar )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_DROPONCHAR)) {
+	if ( canHandleEvent( EVENT_DROPONCHAR ) )
+	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
-		result = callEventHandler(EVENT_DROPONCHAR, args);
-		Py_DECREF(args);
+		result = callEventHandler( EVENT_DROPONCHAR, args );
+		Py_DECREF( args );
 	}
 	return result;
 }
@@ -832,11 +869,11 @@ void cItem::processModifierNode( const cElement* Tag )
 		else
 		{
 			/*
-			int offset = Value.find( "%1" );
-			QString left = Value.left( offset );
-			QString right = Value.right( Value.length() - ( offset + 2 ) );
-			name_ = left + name_ + right;
-			*/
+					int offset = Value.find( "%1" );
+					QString left = Value.left( offset );
+					QString right = Value.right( Value.length() - ( offset + 2 ) );
+					name_ = left + name_ + right;
+					*/
 			name_ = Value.arg( name_ );
 		}
 	}
@@ -873,7 +910,8 @@ void cItem::processContainerNode( const cElement* tag )
 			if ( element->hasAttribute( "id" ) )
 			{
 				cItem* nItem = cItem::createFromScript( element->getAttribute( "id" ) );
-				if (nItem) {
+				if ( nItem )
+				{
 					addItem( nItem );
 					for ( unsigned int j = 0; j < element->childCount(); ++j )
 						nItem->processNode( element->getChild( j ) );
@@ -1097,7 +1135,8 @@ P_ITEM cItem::dupe()
 		{
 			P_ITEM item = dynamic_cast<P_ITEM>( container_ );
 
-			if ( item ) {
+			if ( item )
+			{
 				item->addItem( nItem, false, true, false, false );
 			}
 		}
@@ -1158,20 +1197,20 @@ void cItem::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospa
 
 	switch ( type )
 	{
-		case 0x01:
-			speechType = cUOTxUnicodeSpeech::Broadcast; break;
-		case 0x06:
-			speechType = cUOTxUnicodeSpeech::System; break;
-		case 0x09:
-			speechType = cUOTxUnicodeSpeech::Yell; break;
-		case 0x02:
-			speechType = cUOTxUnicodeSpeech::Emote; break;
-		case 0x08:
-			speechType = cUOTxUnicodeSpeech::Whisper; break;
-		case 0x0A:
-			speechType = cUOTxUnicodeSpeech::Spell; break;
-		default:
-			speechType = cUOTxUnicodeSpeech::Regular; break;
+	case 0x01:
+		speechType = cUOTxUnicodeSpeech::Broadcast; break;
+	case 0x06:
+		speechType = cUOTxUnicodeSpeech::System; break;
+	case 0x09:
+		speechType = cUOTxUnicodeSpeech::Yell; break;
+	case 0x02:
+		speechType = cUOTxUnicodeSpeech::Emote; break;
+	case 0x08:
+		speechType = cUOTxUnicodeSpeech::Whisper; break;
+	case 0x0A:
+		speechType = cUOTxUnicodeSpeech::Spell; break;
+	default:
+		speechType = cUOTxUnicodeSpeech::Regular; break;
 	};
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
@@ -1180,7 +1219,7 @@ void cItem::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospa
 	textSpeech->setFont( 3 ); // Default Font
 	textSpeech->setType( speechType );
 	textSpeech->setLanguage( "" );
-	textSpeech->setName( getName(true) );
+	textSpeech->setName( getName( true ) );
 	textSpeech->setColor( color );
 	textSpeech->setText( message );
 
@@ -1276,7 +1315,8 @@ QPtrList< cItem > cItem::getContainment() const
 {
 	QPtrList<cItem> itemlist;
 
-	for (ContainerIterator it(content_); !it.atEnd(); ++it) {
+	for ( ContainerIterator it( content_ ); !it.atEnd(); ++it )
+	{
 		P_ITEM pItem = *it;
 
 		// we'v got a container
@@ -1303,7 +1343,7 @@ QPtrList< cItem > cItem::getContainment() const
 
 unsigned char cItem::classid;
 
-static FactoryRegistration<cItem> registration("cItem");
+static FactoryRegistration<cItem> registration( "cItem" );
 
 void cItem::load( char** result, Q_UINT16& offset )
 {
@@ -1337,14 +1377,14 @@ void cItem::load( char** result, Q_UINT16& offset )
 	//  as it should be.
 	if ( containerSerial != INVALID_SERIAL )
 	{
-		container_ = reinterpret_cast<cUObject*>( static_cast<size_t>(containerSerial) );
+		container_ = reinterpret_cast<cUObject*>( static_cast<size_t>( containerSerial ) );
 		setUnprocessed( true );
 	}
 	// ugly optimization ends here.
 	World::instance()->registerObject( this );
 }
 
-void cItem::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
+void cItem::buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cUObject::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "items.id,items.color,items.cont,items.layer,items.amount,items.hp,items.maxhp,items.movable,items.owner,items.visible,items.priv,items.baseid" );
@@ -1402,7 +1442,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 		}
 	}
 
-	if ( !content_.contains(pItem) && handleWeight )
+	if ( !content_.contains( pItem ) && handleWeight )
 	{
 		// Increase the totalweight upward recursively
 		setTotalweight( totalweight() + pItem->totalweight() );
@@ -1410,7 +1450,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 
 	content_.add( pItem );
 	pItem->layer_ = 0;
-	pItem->setContainer(this);
+	pItem->setContainer( this );
 
 	// If the Server is running and this happens, resend the tooltip of us and
 	// all our parent containers.
@@ -1428,9 +1468,11 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 void cItem::removeItem( cItem* pItem, bool handleWeight )
 {
 	// only do this if it's really in the container
-	if (content_.contains(pItem)) {
-		content_.remove(pItem);
-		if ( handleWeight ) {
+	if ( content_.contains( pItem ) )
+	{
+		content_.remove( pItem );
+		if ( handleWeight )
+		{
 			setTotalweight( this->totalweight() - pItem->totalweight() );
 		}
 	}
@@ -1453,14 +1495,14 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 	}
 }
 
-const ContainerContent &cItem::content() const
+const ContainerContent& cItem::content() const
 {
 	return content_;
 }
 
 bool cItem::contains( const cItem* pItem ) const
 {
-	return content_.contains(pItem);
+	return content_.contains( pItem );
 }
 
 
@@ -1915,11 +1957,11 @@ void cItem::sendTooltip( cUOSocket* mSock )
 	unsigned short id = this->id();
 
 	// Mostly Signs (not movable but still have tooltips shown)
-	if ( ( id >= 0xba3 && id <= 0xc0e ) ||    // House Signs
-		( id >= 0x1297 && id <= 0x129e ) ||    // Road Signs
-		( id >= 0x3e4a && id <= 0x3e55 ) ||    // Tillermen
-		( id >= 0xed4 && id <= 0xede ) ||    // Graves and Guildstones
-		( id >= 0x1165 && id <= 0x1184 ) ||    // More Gravestones
+	if ( ( id >= 0xba3 && id <= 0xc0e ) ||     // House Signs
+		( id >= 0x1297 && id <= 0x129e ) || 	// Road Signs
+		( id >= 0x3e4a && id <= 0x3e55 ) || 	// Tillermen
+		( id >= 0xed4 && id <= 0xede ) ||     // Graves and Guildstones
+		( id >= 0x1165 && id <= 0x1184 ) || 	// More Gravestones
 		( id == 0x2006 ) || !name_.isEmpty() // Non Default Name
 	   )
 	{
@@ -2080,7 +2122,8 @@ unsigned int cItem::countItems( const QStringList& baseids ) const
 		count += amount();
 	}
 
-	for (ContainerIterator it(this); !it.atEnd(); ++it) {
+	for ( ContainerIterator it( this ); !it.atEnd(); ++it )
+	{
 		count += ( *it )->countItems( baseids );
 	}
 	return count;
@@ -2127,7 +2170,8 @@ unsigned int cItem::removeItems( const QStringList& baseids, unsigned int amount
 		}
 	}
 
-	for (ContainerCopyIterator it(this); !it.atEnd(); ++it) {
+	for ( ContainerCopyIterator it( this ); !it.atEnd(); ++it )
+	{
 		amount = ( *it )->removeItems( baseids, amount );
 	}
 
@@ -2136,17 +2180,21 @@ unsigned int cItem::removeItems( const QStringList& baseids, unsigned int amount
 
 void cItem::moveTo( const Coord& newpos )
 {
-	if ( container_ ) {
+	if ( container_ )
+	{
 		pos_ = newpos;
 		pos_.setInternalMap(); // We're not in the sector maps
 		changed_ = true;
-	} else {
+	}
+	else
+	{
 		// See if the map is valid
-		if ( !newpos.isInternalMap() && !Maps::instance()->hasMap( newpos.map ) ) {
+		if ( !newpos.isInternalMap() && !Maps::instance()->hasMap( newpos.map ) )
+		{
 			return;
 		}
 
-		cUObject::moveTo(newpos);
+		cUObject::moveTo( newpos );
 	}
 }
 
@@ -2156,7 +2204,7 @@ bool cItem::isInLockedItem()
 	{
 		P_ITEM pCont = dynamic_cast<P_ITEM>( container_ );
 
-		if ( pCont->hasScript( "lock" ) && pCont->hasTag("locked") && pCont->getTag("locked").toInt() != 0 )
+		if ( pCont->hasScript( "lock" ) && pCont->hasTag( "locked" ) && pCont->getTag( "locked" ).toInt() != 0 )
 		{
 			return true;
 		}
@@ -2193,7 +2241,7 @@ unsigned short cItem::restock()
 
 unsigned int cItem::decayDelay()
 {
-	if ( container_ || nodecay() || (!corpse() && multi_) )
+	if ( container_ || nodecay() || ( !corpse() && multi_ ) )
 	{
 		return 0;
 	}
@@ -2208,11 +2256,12 @@ unsigned int cItem::decayDelay()
 
 void cItem::save( cBufferedWriter& writer )
 {
-	cUObject::save(writer);
+	cUObject::save( writer );
 
 	// Save container content
-	for (ContainerIterator it(this); !it.atEnd(); ++it) {
-		(*it)->save(writer);
+	for ( ContainerIterator it( this ); !it.atEnd(); ++it )
+	{
+		( *it )->save( writer );
 	}
 }
 
@@ -2223,72 +2272,90 @@ void cItem::load( cBufferedReader& reader )
 	World::instance()->registerObject( this );
 }
 
-bool cItem::callEventHandler(ePythonEvent event, PyObject *args, bool ignoreErrors) {
-	PyObject *result = callEvent(event, args, ignoreErrors);
+bool cItem::callEventHandler( ePythonEvent event, PyObject* args, bool ignoreErrors )
+{
+	PyObject *result = callEvent( event, args, ignoreErrors );
 
-	if (result) {
-		if (PyObject_IsTrue(result)) {
-			Py_DECREF(result);
+	if ( result )
+	{
+		if ( PyObject_IsTrue( result ) )
+		{
+			Py_DECREF( result );
 			return true;
-		} else {
-			Py_DECREF(result);
+		}
+		else
+		{
+			Py_DECREF( result );
 		}
 	}
 	return false;
 }
 
-PyObject *cItem::callEvent(ePythonEvent event, PyObject *args, bool ignoreErrors) {
+PyObject* cItem::callEvent( ePythonEvent event, PyObject* args, bool ignoreErrors )
+{
 	PyObject *result = 0;
 
-	if (scriptChain) {
-		result = cPythonScript::callChainedEvent(event, scriptChain, args);
+	if ( scriptChain )
+	{
+		result = cPythonScript::callChainedEvent( event, scriptChain, args );
 
 		// Break if there has been a result already
-		if (result && PyObject_IsTrue(result)) {
+		if ( result && PyObject_IsTrue( result ) )
+		{
 			return result;
 		}
 	}
 
 	// call the basescripts
-	if (basedef_) {
+	if ( basedef_ )
+	{
 		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
-		QPtrList<cPythonScript>::const_iterator it(list.begin());
-		for (; it != list.end(); ++it) {
-			result = (*it)->callEvent(event, args, ignoreErrors);
+		QPtrList<cPythonScript>::const_iterator it( list.begin() );
+		for ( ; it != list.end(); ++it )
+		{
+			result = ( *it )->callEvent( event, args, ignoreErrors );
 
-			if (result && PyObject_IsTrue(result)) {
+			if ( result && PyObject_IsTrue( result ) )
+			{
 				return result;
 			}
 		}
 	}
 
 	// check for a global handler
-	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
+	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook( event );
 
-	if (globalHook) {
-		result = globalHook->callEvent(event, args, ignoreErrors);
+	if ( globalHook )
+	{
+		result = globalHook->callEvent( event, args, ignoreErrors );
 	}
 
 	return result;
 }
 
-bool cItem::canHandleEvent(ePythonEvent event) {
+bool cItem::canHandleEvent( ePythonEvent event )
+{
 	// Is there a global event?
-	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
+	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook( event );
 
-	if (globalHook) {
+	if ( globalHook )
+	{
 		return true;
 	}
 
-	if (cPythonScript::canChainHandleEvent(event, scriptChain)) {
+	if ( cPythonScript::canChainHandleEvent( event, scriptChain ) )
+	{
 		return true;
 	}
 
-	if (basedef_) {
+	if ( basedef_ )
+	{
 		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
-		QPtrList<cPythonScript>::const_iterator it(list.begin());
-		for (; it != list.end(); ++it) {
-			if ((*it)->canHandleEvent(event)) {
+		QPtrList<cPythonScript>::const_iterator it( list.begin() );
+		for ( ; it != list.end(); ++it )
+		{
+			if ( ( *it )->canHandleEvent( event ) )
+			{
 				return true;
 			}
 		}
@@ -2299,84 +2366,105 @@ bool cItem::canHandleEvent(ePythonEvent event) {
 
 bool cItem::hasScript( const QCString& name )
 {
-	if (basedef_) {
+	if ( basedef_ )
+	{
 		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
-		QPtrList<cPythonScript>::const_iterator it(list.begin());
-		for (; it != list.end(); ++it) {
-			if ((*it)->name() == name) {
+		QPtrList<cPythonScript>::const_iterator it( list.begin() );
+		for ( ; it != list.end(); ++it )
+		{
+			if ( ( *it )->name() == name )
+			{
 				return true;
 			}
 		}
 	}
 
-	return cUObject::hasScript(name);
+	return cUObject::hasScript( name );
 }
 
-Coord cItem::getOutmostPos() {
-	if (container_) {
-		if (container_->isChar()) {
+Coord cItem::getOutmostPos()
+{
+	if ( container_ )
+	{
+		if ( container_->isChar() )
+		{
 			return container_->pos();
 		}
-		P_ITEM container = dynamic_cast<P_ITEM>(container_);
-		if (container) {
+		P_ITEM container = dynamic_cast<P_ITEM>( container_ );
+		if ( container )
+		{
 			return container->getOutmostPos();
 		}
 	}
 	return pos_;
 }
 
-unsigned int cItem::getSellPrice(P_CHAR pVendor) {
+unsigned int cItem::getSellPrice( P_CHAR pVendor )
+{
 	unsigned int sellprice = this->sellprice();
 	bool fromItem = false;
-	bool itemCanHandle = canHandleEvent(EVENT_GETSELLPRICE);
-	bool npcCanHandle = pVendor->canHandleEvent(EVENT_GETSELLPRICE);
+	bool itemCanHandle = canHandleEvent( EVENT_GETSELLPRICE );
+	bool npcCanHandle = pVendor->canHandleEvent( EVENT_GETSELLPRICE );
 	PyObject *args = 0;
 
-	if (itemCanHandle || npcCanHandle) {
-		args = Py_BuildValue("(NN)", getPyObject(), pVendor->getPyObject());
+	if ( itemCanHandle || npcCanHandle )
+	{
+		args = Py_BuildValue( "(NN)", getPyObject(), pVendor->getPyObject() );
 	}
 
-	if (itemCanHandle) {
-		PyObject *result = callEvent(EVENT_GETSELLPRICE, args);
-		if (result) {
-			if (PyInt_CheckExact(result)) {
-				sellprice = PyInt_AsLong(result);
+	if ( itemCanHandle )
+	{
+		PyObject *result = callEvent( EVENT_GETSELLPRICE, args );
+		if ( result )
+		{
+			if ( PyInt_CheckExact( result ) )
+			{
+				sellprice = PyInt_AsLong( result );
 				fromItem = true;
-			} else if (PyLong_CheckExact(result)) {
-				sellprice = PyLong_AsLong(result);
+			}
+			else if ( PyLong_CheckExact( result ) )
+			{
+				sellprice = PyLong_AsLong( result );
 				fromItem = true;
 			}
 		}
-		Py_XDECREF(result);
+		Py_XDECREF( result );
 	}
 
-	if (npcCanHandle && !fromItem) {
-		PyObject *result = pVendor->callEvent(EVENT_GETSELLPRICE, args);
-		if (result) {
-			if (PyInt_CheckExact(result)) {
-				sellprice = PyInt_AsLong(result);
+	if ( npcCanHandle && !fromItem )
+	{
+		PyObject *result = pVendor->callEvent( EVENT_GETSELLPRICE, args );
+		if ( result )
+		{
+			if ( PyInt_CheckExact( result ) )
+			{
+				sellprice = PyInt_AsLong( result );
 				fromItem = true;
-			} else if (PyLong_CheckExact(result)) {
-				sellprice = PyLong_AsLong(result);
+			}
+			else if ( PyLong_CheckExact( result ) )
+			{
+				sellprice = PyLong_AsLong( result );
 				fromItem = true;
 			}
 		}
-		Py_XDECREF(result);
+		Py_XDECREF( result );
 	}
 
-	Py_XDECREF(args);
+	Py_XDECREF( args );
 
 	return sellprice;
 }
 
 void cItem::setContainer( cUObject* d )
 {
-	if (d && !pos_.isInternalMap()) {
-		MapObjects::instance()->remove(this);
+	if ( d && !pos_.isInternalMap() )
+	{
+		MapObjects::instance()->remove( this );
 		pos_.setInternalMap();
 
-		if (multi_) {
-			multi_->removeObject(this);
+		if ( multi_ )
+		{
+			multi_->removeObject( this );
 			multi_ = 0;
 		}
 	}

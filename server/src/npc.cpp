@@ -56,7 +56,7 @@
 
 cNPC::cNPC()
 {
-	setWanderFollowTarget(0);
+	setWanderFollowTarget( 0 );
 	nextMsgTime_ = 0;
 	nextGuardCallTime_ = 0;
 	nextBeggingTime_ = 0;
@@ -69,10 +69,10 @@ cNPC::cNPC()
 	aiid_ = "Monster_Aggressive_L1";
 	ai_ = new Monster_Aggressive_L1( this );
 	aiCheckInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
-	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_ + RandomNum(0, 1000);
+	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_ + RandomNum( 0, 1000 );
 }
 
-cNPC::cNPC( const cNPC& right ) : cBaseChar(right)
+cNPC::cNPC( const cNPC& right ) : cBaseChar( right )
 {
 }
 
@@ -86,11 +86,11 @@ cNPC& cNPC::operator=( const cNPC& /*right*/ )
 	return *this;
 }
 
-static FactoryRegistration<cNPC> registration("cNPC");
+static FactoryRegistration<cNPC> registration( "cNPC" );
 
 unsigned char cNPC::classid;
 
-void cNPC::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
+void cNPC::buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cBaseChar::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "npcs.summontime,npcs.additionalflags,npcs.owner" );
@@ -104,7 +104,8 @@ void cNPC::buildSqlString( const char *objectid, QStringList& fields, QStringLis
 
 void cNPC::postload( unsigned int version )
 {
-	if (stablemasterSerial_ != INVALID_SERIAL) {
+	if ( stablemasterSerial_ != INVALID_SERIAL )
+	{
 		pos_.setInternalMap();
 	}
 
@@ -116,15 +117,18 @@ void cNPC::postload( unsigned int version )
 	if ( wanderType() == enFollowTarget )
 		setWanderType( enFreely );
 
-	if( stablemasterSerial() == INVALID_SERIAL && !pos_.isInternalMap() ) {
+	if ( stablemasterSerial() == INVALID_SERIAL && !pos_.isInternalMap() )
+	{
 		MapObjects::instance()->add( this );
 	}
 
 	// If our stablemaster is missing, remove us
-	if (stablemasterSerial_ != INVALID_SERIAL) {
-		cUObject *stablemaster = World::instance()->findObject(stablemasterSerial_);
-		if (!stablemaster) {
-			Console::instance()->log(LOG_WARNING, tr("Removing NPC %1 (0x%2) because of invalid stablemaster 0x%3.\n").arg(name()).arg(serial_, 0, 16).arg(stablemasterSerial_, 0, 16));
+	if ( stablemasterSerial_ != INVALID_SERIAL )
+	{
+		cUObject *stablemaster = World::instance()->findObject( stablemasterSerial_ );
+		if ( !stablemaster )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Removing NPC %1 (0x%2) because of invalid stablemaster 0x%3.\n" ).arg( name() ).arg( serial_, 0, 16 ).arg( stablemasterSerial_, 0, 16 ) );
 			stablemasterSerial_ = INVALID_SERIAL;
 			remove();
 		}
@@ -183,7 +187,7 @@ void cNPC::load( char** result, Q_UINT16& offset )
 	if ( summonTime_ )
 		summonTime_ += Server::instance()->time();
 	additionalFlags_ = atoi( result[offset++] );
-	owner_ =  reinterpret_cast<P_PLAYER>(atoi(result[offset++]));
+	owner_ = reinterpret_cast<P_PLAYER>( atoi( result[offset++] ) );
 	stablemasterSerial_ = atoi( result[offset++] );
 	setAI( result[offset++] );
 	setWanderType( ( enWanderTypes ) atoi( result[offset++] ) );
@@ -244,7 +248,6 @@ void cNPC::setOwner( P_PLAYER data, bool nochecks )
 	if ( !nochecks && owner_ )
 	{
 		owner_->removePet( this, true );
-
 	}
 
 	owner_ = data;
@@ -258,74 +261,86 @@ void cNPC::setOwner( P_PLAYER data, bool nochecks )
 	}
 }
 
-void cNPC::setNextMoveTime(bool changedDirection)
+void cNPC::setNextMoveTime( bool changedDirection )
 {
 	unsigned int interval;
 	bool passive = true;
-	bool controlled = summoned() || (owner() != 0);
+	bool controlled = summoned() || ( owner() != 0 );
 
-	if (ai_ && ai_->currentAction()) {
+	if ( ai_ && ai_->currentAction() )
+	{
 		passive = ai_->currentAction()->isPassive();
 	}
 
 	// Wander slowly if wandering freely.
-	if ( passive ) {
+	if ( passive )
+	{
 		interval = wanderSpeed();
-	} else {
+	}
+	else
+	{
 		interval = actionSpeed();
 	}
 
 	// Transform certain standard intervals.
-	switch (interval) {
-		case 200:
-			interval = 300;
-			break;
-		case 250:
-			interval = 450;
-			break;
-		case 300:
-			interval = 600;
-			break;
-		case 400:
-			interval = 900;
-			break;
-		case 500:
-			interval = 1050;
-			break;
-		case 800:
-			interval = 1500;
-			break;
-		default:
-			break;
+	switch ( interval )
+	{
+	case 200:
+		interval = 300;
+		break;
+	case 250:
+		interval = 450;
+		break;
+	case 300:
+		interval = 600;
+		break;
+	case 400:
+		interval = 900;
+		break;
+	case 500:
+		interval = 1050;
+		break;
+	case 800:
+		interval = 1500;
+		break;
+	default:
+		break;
 	};
 
 	// Wandering creatures are even slower than usual
-	if (passive) {
+	if ( passive )
+	{
 		interval += 200;
 	}
 
-	if (owner() && wanderFollowTarget() == owner() && ai_ && dynamic_cast<Action_Wander*>(ai_->currentAction()) != 0) {
-        interval >>= 1; // Half the time
+	if ( owner() && wanderFollowTarget() == owner() && ai_ && dynamic_cast<Action_Wander*>( ai_->currentAction() ) != 0 )
+	{
+		interval >>= 1; // Half the time
 	}
 
 	// This creature is not player or monster controlled. Thus slower.
-	if (isTamed()) {
+	if ( isTamed() )
+	{
 		// Creatures following their owner are a lot faster than usual
 		interval -= 75; // A little faster
-	} else if (!summoned()) {
+	}
+	else if ( !summoned() )
+	{
 		interval += 100; // The creature is not summoned nor tamed, make it a little slower
 	}
 
 	// Creatures become slower if hurt
-	if (hitpoints() < maxHitpoints()) {
-		float ratio = 1.0f - wpMax<float>( 0, wpMin<float>( 1, (float)hitpoints() / (float)maxHitpoints())); // Range from 0.0 to 1.0
+	if ( hitpoints() < maxHitpoints() )
+	{
+		float ratio = 1.0f - wpMax<float>( 0, wpMin<float>( 1, ( float ) hitpoints() / ( float ) maxHitpoints() ) ); // Range from 0.0 to 1.0
 		interval += ( static_cast<unsigned int>( ratio ) * 800 );
 	}
 
-	setNextMoveTime(Server::instance()->time() + interval);
+	setNextMoveTime( Server::instance()->time() + interval );
 
-	if (nextMoveTime() < aiCheckTime()) {
-		setAICheckTime(nextMoveTime());
+	if ( nextMoveTime() < aiCheckTime() )
+	{
+		setAICheckTime( nextMoveTime() );
 	}
 }
 
@@ -799,15 +814,15 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 		return 0;
 
 		/*
-				\property char.wandertype This integer is the type of wander algorithm used for this character. One of the following values is possible:
-				<code>0x00 Standing
-				0x01 Rectangle
-				0x02 Circle
-				0x03 FollowTarget
-				0x04 Destination
-				0x04 Inside Spawnregion only</code>
-				This property is exclusive to NPC objects.
-			*/
+					\property char.wandertype This integer is the type of wander algorithm used for this character. One of the following values is possible:
+					<code>0x00 Standing
+					0x01 Rectangle
+					0x02 Circle
+					0x03 FollowTarget
+					0x04 Destination
+					0x04 Inside Spawnregion only</code>
+					This property is exclusive to NPC objects.
+				*/
 	}
 	else if ( name == "wandertype" )
 	{
@@ -960,13 +975,13 @@ Coord cNPC::nextMove()
 	Coord ret;
 	QValueList<Coord>::const_iterator it = path_.begin();
 
-	if (it != path_.end())
+	if ( it != path_.end() )
 	{
 		ret = *it;
 	}
 	else
 	{
-		ret = Coord( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
+		ret = Coord( 0xFFFF, 0xFFFF, ( SI08 ) 0xFF, 0 );
 	}
 
 	return ret;
@@ -984,7 +999,8 @@ void cNPC::pushMove( const Coord& move )
 
 void cNPC::popMove( void )
 {
-	if (!path_.empty()) {
+	if ( !path_.empty() )
+	{
 		path_.pop_front();
 	}
 }
@@ -1001,9 +1017,8 @@ bool cNPC::hasPath( void )
 
 Coord cNPC::pathDestination( void ) const
 {
-
 	if ( path_.empty() )
-		return Coord( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
+		return Coord( 0xFFFF, 0xFFFF, ( SI08 ) 0xFF, 0 );
 	else
 		return path_.back();
 }
@@ -1432,16 +1447,18 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 
 void cNPC::setStablemasterSerial( SERIAL data )
 {
-	if( stablemasterSerial_ == data )
+	if ( stablemasterSerial_ == data )
 		return;
 
-	if( data != INVALID_SERIAL ) {
-		MapObjects::instance()->remove(this);
-        pos_.setInternalMap();
+	if ( data != INVALID_SERIAL )
+	{
+		MapObjects::instance()->remove( this );
+		pos_.setInternalMap();
 
-		if (multi_) {
-			multi_->removeObject(this);
-			multi_ = 0;			
+		if ( multi_ )
+		{
+			multi_->removeObject( this );
+			multi_ = 0;
 		}
 	}
 
@@ -1476,7 +1493,7 @@ cNPC* cNPC::createFromScript( const QString& section, const Coord& pos )
 	// Now we call onCreate
 	cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( pChar, section );
 	Timers::instance()->insert( onCreateCall );
-	pChar->resend(true);
+	pChar->resend( true );
 	return pChar;
 }
 
@@ -1501,14 +1518,17 @@ void cNPC::remove()
 	cBaseChar::remove();
 }
 
-unsigned int cNPC::damage( eDamageType type, unsigned int amount, cUObject* source ) {
-	amount = cBaseChar::damage(type, amount, source);
+unsigned int cNPC::damage( eDamageType type, unsigned int amount, cUObject* source )
+{
+	amount = cBaseChar::damage( type, amount, source );
 
-	if (amount != 0) {
+	if ( amount != 0 )
+	{
 		// the more stamina we have, the more we loose
 		// the more hitpoints we have, the less we loose
-		int value = (int)(amount * (100.0 / hitpoints_) * (stamina_ / 100.0)) - 5;
-		if (value > 0) {
+		int value = ( int ) ( amount * ( 100.0 / hitpoints_ ) * ( stamina_ / 100.0 ) ) - 5;
+		if ( value > 0 )
+		{
 			stamina_ = wpMax<short>( 0, stamina_ - value );
 		}
 	}
@@ -1516,20 +1536,26 @@ unsigned int cNPC::damage( eDamageType type, unsigned int amount, cUObject* sour
 	return amount;
 }
 
-bool cNPC::isOverloaded() {
+bool cNPC::isOverloaded()
+{
 	return false;
 }
 
-unsigned int cNPC::maxWeight() {
+unsigned int cNPC::maxWeight()
+{
 	return 0;
 }
 
-void cNPC::moveTo(const Coord &newpos) {
+void cNPC::moveTo( const Coord& newpos )
+{
 	// Never call local function for this
-	if (stablemasterSerial_ != INVALID_SERIAL) {
+	if ( stablemasterSerial_ != INVALID_SERIAL )
+	{
 		pos_ = newpos;
 		pos_.setInternalMap();
-	} else {
-		cBaseChar::moveTo(newpos);
+	}
+	else
+	{
+		cBaseChar::moveTo( newpos );
 	}
 }

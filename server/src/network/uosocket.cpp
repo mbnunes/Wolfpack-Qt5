@@ -112,7 +112,8 @@ PyObject* cUOSocket::handlers[255] =
 
 void cUOSocket::registerPacketHandler( unsigned char packet, PyObject* handler )
 {
-	if ( handlers[packet] ) {
+	if ( handlers[packet] )
+	{
 		Py_DECREF( handlers[packet] );
 		handlers[packet] = 0;
 	}
@@ -343,7 +344,7 @@ void cUOSocket::recieve()
 	case 0x22:
 		resync(); break;
 	case 0x2C:
-		handleResurrectionMenu( dynamic_cast<cUORxResurrectionMenu*>(packet) ); break;
+		handleResurrectionMenu( dynamic_cast<cUORxResurrectionMenu*>( packet ) ); break;
 	case 0x34:
 		handleQuery( dynamic_cast<cUORxQuery*>( packet ) ); break;
 	case 0x3A:
@@ -441,12 +442,16 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 
 	vector<ServerList_st> shards = Config::instance()->serverList();
 
-	for ( Q_UINT8 i = 0; i < shards.size(); ++i ) {
+	for ( Q_UINT8 i = 0; i < shards.size(); ++i )
+	{
 		ServerList_st server = shards[i];
 		// we are connecting from the same ip, send 127.0.0.1 as the ip
-		if (server.sIP == ip().latin1()) {
+		if ( server.sIP == ip().latin1() )
+		{
 			shardList.addServer( i, server.sServer, 0x00, server.uiTime, 0x7F000001 );
-		} else {
+		}
+		else
+		{
 			shardList.addServer( i, server.sServer, 0x00, server.uiTime, server.ip );
 		}
 	}
@@ -473,10 +478,10 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo* packet )
 */
 void cUOSocket::disconnect()
 {
-	if( _account )
+	if ( _account )
 		_account->setInUse( false );
 
-	if( _player )
+	if ( _player )
 	{
 		_player->onDisconnect();
 		_player->setSocket( 0 );
@@ -495,12 +500,12 @@ void cUOSocket::disconnect()
 	Network::instance()->netIo()->flush( _socket );
 	_socket->close();
 
-	if( _player )
+	if ( _player )
 	{
 		_player->removeFromView( true );
 
 		// is the player allowed to logoff instantly?
-		if( _player->isGMorCounselor() || ( _player->region() && _player->region()->isGuarded() ) )
+		if ( _player->isGMorCounselor() || ( _player->region() && _player->region()->isGuarded() ) )
 		{
 			_player->onLogout();
 		}
@@ -573,7 +578,7 @@ void cUOSocket::sendCharList()
 	if ( maxChars == 6 )
 		clientFeatures.setSixthCharacterSlot( true );
 	//clientFeatures.setShort( 1, 0xFFFF ); // AoS TEST
-	clientFeatures.setShort(1, 0x80FF);
+	clientFeatures.setShort( 1, 0x80FF );
 	send( &clientFeatures );
 
 	cUOTxCharTownList charList;
@@ -601,7 +606,7 @@ void cUOSocket::sendCharList()
 
 	// Ask the client for a viewrange
 	cUOTxUpdateRange range;
-	range.setRange(VISRANGE);
+	range.setRange( VISRANGE );
 	send( &range );
 }
 
@@ -641,7 +646,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	// Check the character the user wants to play
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
-	if( packet->slot() >= characters.size() )
+	if ( packet->slot() >= characters.size() )
 	{
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
@@ -649,7 +654,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 		return;
 	}
 
-	if( _account->inUse() )
+	if ( _account->inUse() )
 	{
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( cUOTxDenyLogin::DL_INUSE );
@@ -661,13 +666,13 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	P_PLAYER pChar = characters.at( packet->slot() );
 
 	// check if any other account character is still online (lingering)
-	for( QValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
+	for ( QValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
 	{
 		P_PLAYER otherChar = *it;
-		if( pChar == otherChar )
+		if ( pChar == otherChar )
 			continue;
 
-		if( otherChar->isOnline() )
+		if ( otherChar->isOnline() )
 		{
 			cUOTxMessageWarning message;
 			message.setReason( cUOTxMessageWarning::AlreadyInWorld );
@@ -680,7 +685,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	playChar( pChar );
 
 	// if this char was lingering, cancel the auto-logoff and don't send the onLogin() event
-	if( pChar->logoutTime() )
+	if ( pChar->logoutTime() )
 	{
 		pChar->onConnect( true );
 		pChar->setLogoutTime( 0 );
@@ -695,7 +700,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 // Set up the necessary stuff to play
 void cUOSocket::playChar( P_PLAYER pChar )
 {
-	if( !pChar )
+	if ( !pChar )
 		pChar = _player;
 
 	// Minimum Requirements for log in
@@ -704,7 +709,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// c) Start the Game
 	// d) Set the Game Time
 
-	if( !Maps::instance()->hasMap( pChar->pos().map ) )
+	if ( !Maps::instance()->hasMap( pChar->pos().map ) )
 	{
 		Coord pos;
 		pos.x = 0;
@@ -729,11 +734,14 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// Enable Sta+Map Diffs
 	cUOTxMapDiffs diffs;
 	diffs.addEntry( Maps::instance()->mapPatches( 0 ), Maps::instance()->staticPatches( 0 ) );
-	if (Maps::instance()->hasMap(1)) {
+	if ( Maps::instance()->hasMap( 1 ) )
+	{
 		diffs.addEntry( Maps::instance()->mapPatches( 1 ), Maps::instance()->staticPatches( 1 ) );
-		if (Maps::instance()->hasMap(2)) {
+		if ( Maps::instance()->hasMap( 2 ) )
+		{
 			diffs.addEntry( Maps::instance()->mapPatches( 2 ), Maps::instance()->staticPatches( 2 ) );
-			if (Maps::instance()->hasMap(3)) {
+			if ( Maps::instance()->hasMap( 3 ) )
+			{
 				diffs.addEntry( Maps::instance()->mapPatches( 3 ), Maps::instance()->staticPatches( 3 ) );
 			}
 		}
@@ -746,11 +754,16 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	send( &changeMap );
 
 	cUOTxChangeSeason season;
-	if (Config::instance()->enableFeluccaSeason() && _player->pos().map == 0) {
+	if ( Config::instance()->enableFeluccaSeason() && _player->pos().map == 0 )
+	{
 		season.setSeason( ST_DESOLATION );
-	} else if (Config::instance()->enableTrammelSeason() && _player->pos().map == 1) {
+	}
+	else if ( Config::instance()->enableTrammelSeason() && _player->pos().map == 1 )
+	{
 		season.setSeason( ST_SPRING );
-	} else {
+	}
+	else
+	{
 		season.setSeason( ST_SUMMER );
 	}
 	send( &season );
@@ -917,10 +930,10 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	}
 
 	// If another character in the account is still online (lingering)
-	for( QValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
+	for ( QValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
 	{
 		P_PLAYER otherChar = *it;
-		if( otherChar->isOnline() )
+		if ( otherChar->isOnline() )
 		{
 			cUOTxMessageWarning message;
 			message.setReason( cUOTxMessageWarning::AlreadyInWorld );
@@ -1117,7 +1130,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	pChar->giveNewbieItems( skillid );
 	pChar->giveNewbieItems( skillid2 );
 
-	log(LOG_MESSAGE, tr("Created character '%1' (0x%2).\n").arg(pChar->name()).arg(pChar->serial(), 0, 16));
+	log( LOG_MESSAGE, tr( "Created character '%1' (0x%2).\n" ).arg( pChar->name() ).arg( pChar->serial(), 0, 16 ) );
 
 	// Start the game with the newly created char -- OR RELAY HIM !!
 	playChar( pChar );
@@ -1300,7 +1313,7 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose* packet )
 		handleParty( packet );
 		return;
 
-	// Unknown Packet
+		// Unknown Packet
 	case 0x24:
 		return;
 	};
@@ -1346,13 +1359,13 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 		handleCHRevert( packet ); break;
 	case cUORxAosMultiPurpose::GuildButton:
 		{
-			PyObject *args = Py_BuildValue("(N)", _player->getPyObject());
-			_player->callEventHandler(EVENT_GUILDBUTTON, args);
-			Py_DECREF(args);
+			PyObject *args = Py_BuildValue( "(N)", _player->getPyObject() );
+			_player->callEventHandler( EVENT_GUILDBUTTON, args );
+			Py_DECREF( args );
 		}
 		break;
 		/*		case cUORxAosMultiPurpose::AbilitySelect:
-							handleAbilitySelect( dynamic_cast< */
+								handleAbilitySelect( dynamic_cast< */
 	default:
 		Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );
 	};
@@ -1609,11 +1622,16 @@ void cUOSocket::resendPlayer( bool quick )
 	send( &changeMap );
 
 	cUOTxChangeSeason season;
-	if (Config::instance()->enableFeluccaSeason() && _player->pos().map == 0) {
+	if ( Config::instance()->enableFeluccaSeason() && _player->pos().map == 0 )
+	{
 		season.setSeason( ST_DESOLATION );
-	} else if (Config::instance()->enableTrammelSeason() && _player->pos().map == 1) {
+	}
+	else if ( Config::instance()->enableTrammelSeason() && _player->pos().map == 1 )
+	{
 		season.setSeason( ST_SPRING );
-	} else {
+	}
+	else
+	{
 		season.setSeason( ST_SUMMER );
 	}
 	send( &season );
@@ -1690,13 +1708,13 @@ void cUOSocket::updateChar( P_CHAR pChar )
 // Sends a foreign char including equipment
 void cUOSocket::sendChar( P_CHAR pChar )
 {
-	if( pChar == _player )
+	if ( pChar == _player )
 	{
 		updatePlayer();
 		return;
 	}
 
-	if( canSee( pChar ) )
+	if ( canSee( pChar ) )
 	{
 		// Then completely resend it
 		cUOTxDrawChar drawChar;
@@ -1707,10 +1725,10 @@ void cUOSocket::sendChar( P_CHAR pChar )
 
 		// Send item tooltips
 		cBaseChar::ItemContainer content = pChar->content();
-		for( cBaseChar::ItemContainer::const_iterator it = content.begin(); it != content.end(); ++it )
+		for ( cBaseChar::ItemContainer::const_iterator it = content.begin(); it != content.end(); ++it )
 		{
 			P_ITEM item = it.data();
-			if( item->layer() <= 0x19 )
+			if ( item->layer() <= 0x19 )
 			{
 				item->sendTooltip( this );
 			}
@@ -1730,13 +1748,14 @@ void cUOSocket::handleSetLanguage( cUORxSetLanguage* packet )
 void cUOSocket::setPlayer( P_PLAYER pChar )
 {
 	// If we're already playing a char and changing reset the socket status of that player
-	if( !pChar && !_player )
+	if ( !pChar && !_player )
 		return;
 
 	// If the player is changing
-	if( pChar && ( pChar != _player ) )
+	if ( pChar && ( pChar != _player ) )
 	{
-		if( _player ) {
+		if ( _player )
+		{
 			// This should never happen, we should deny logins while there's a lingering
 			// char; but just in case, as this may avoid problems:
 			_player->onLogout();
@@ -1745,7 +1764,7 @@ void cUOSocket::setPlayer( P_PLAYER pChar )
 			_player->setLogoutTime( 0 );
 			_player->resend( false );
 		}
-		
+
 		_player = pChar;
 		_player->setSocket( this );
 		_player->resend( false );
@@ -2086,7 +2105,8 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 
 	QPtrList<cItem> tooltipItems;
 
-	for (ContainerIterator it(pCont); !it.atEnd(); ++it) {
+	for ( ContainerIterator it( pCont ); !it.atEnd(); ++it )
+	{
 		P_ITEM pItem = *it;
 
 		if ( !pItem || !canSee( pItem ) )
@@ -2097,9 +2117,10 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		++count;
 	}
 
-	cCorpse* pCorpse = dynamic_cast<cCorpse*>(pCont);
+	cCorpse* pCorpse = dynamic_cast<cCorpse*>( pCont );
 
-	if (pCorpse) {
+	if ( pCorpse )
+	{
 		if ( pCorpse->hairStyle() )
 		{
 			itemContent.addItem( 0x4FFFFFFE, pCorpse->hairStyle(), pCorpse->hairColor(), 0, 0, 1, pCorpse->serial() );
@@ -2225,9 +2246,9 @@ void cUOSocket::attachTarget( cTargetRequest* request, Q_UINT16 multiid, unsigne
 	targetRequest = request;
 
 	cUOTxPlace target;
-	target.setXOffset(xoffset);
-	target.setYOffset(yoffset);
-	target.setZOffset(zoffset);
+	target.setXOffset( xoffset );
+	target.setYOffset( yoffset );
+	target.setZOffset( zoffset );
 	target.setTargSerial( 1 );
 	target.setModelID( multiid - 0x4000 );
 	send( &target );
@@ -2295,7 +2316,7 @@ void cUOSocket::resendWorld( bool clean )
 
 	// resend items
 	MapItemsIterator itemIt = MapObjects::instance()->listItemsInCircle( _player->pos(), _player->visualRange() );
-	for( P_ITEM item = itemIt.first(); item; item = itemIt.next() )
+	for ( P_ITEM item = itemIt.first(); item; item = itemIt.next() )
 	{
 		if ( clean )
 			removeObject( item );
@@ -2305,9 +2326,9 @@ void cUOSocket::resendWorld( bool clean )
 
 	// resend multis
 	MapMultisIterator multiIt = MapObjects::instance()->listMultisInCircle( _player->pos(), BUILDRANGE );
-	for( P_MULTI multi = multiIt.first(); multi; multi = multiIt.next() )
+	for ( P_MULTI multi = multiIt.first(); multi; multi = multiIt.next() )
 	{
-		if( clean )
+		if ( clean )
 			removeObject( multi );
 
 		multi->update( this );
@@ -2315,12 +2336,12 @@ void cUOSocket::resendWorld( bool clean )
 
 	// send online characters
 	MapCharsIterator charIt = MapObjects::instance()->listCharsInCircle( _player->pos(), _player->visualRange() );
-	for( P_CHAR character = charIt.first(); character; character = charIt.next() )
+	for ( P_CHAR character = charIt.first(); character; character = charIt.next() )
 	{
-		if( character == _player )
+		if ( character == _player )
 			continue;
 
-		if( clean )
+		if ( clean )
 			removeObject( character );
 
 		sendChar( character );
@@ -2600,18 +2621,21 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 {
 	// There is special handling for the virtue gump button
 	// on the paperdoll.
-	if (packet->type() == 461) {
-		P_CHAR target = World::instance()->findChar(packet->serial());
+	if ( packet->type() == 461 )
+	{
+		P_CHAR target = World::instance()->findChar( packet->serial() );
 		std::vector<unsigned int> switches = packet->choice().switches;
 
-		if (switches.size() == 1) {
-			target = World::instance()->findChar(switches[0]);
+		if ( switches.size() == 1 )
+		{
+			target = World::instance()->findChar( switches[0] );
 		}
 
-		if (target) {
-			PyObject *args = Py_BuildValue("(NN)", target->getPyObject(), _player->getPyObject());
-			target->callEventHandler(EVENT_SHOWVIRTUEGUMP, args);
-			Py_DECREF(args);
+		if ( target )
+		{
+			PyObject *args = Py_BuildValue( "(NN)", target->getPyObject(), _player->getPyObject() );
+			target->callEventHandler( EVENT_SHOWVIRTUEGUMP, args );
+			Py_DECREF( args );
 		}
 
 		return;
@@ -2656,7 +2680,8 @@ protected:
 	}
 };
 
-void cUOSocket::sendVendorCont( P_ITEM pItem ) {
+void cUOSocket::sendVendorCont( P_ITEM pItem )
+{
 	pItem->update( this ); // Make sure it's visible to the client
 
 	// Only allowed for pItem's contained by a character
@@ -2670,20 +2695,25 @@ void cUOSocket::sendVendorCont( P_ITEM pItem ) {
 	QPtrList<cItem> items;
 
 	SortedSerialList sortedList;
-	for ( ContainerIterator it(pItem); !it.atEnd(); ++it) {
+	for ( ContainerIterator it( pItem ); !it.atEnd(); ++it )
+	{
 		sortedList.append( *it );
 	}
 	sortedList.sort();
 
 	bool restockNow = false;
-	if (pItem->layer() == cBaseChar::BuyRestockContainer) {
+	if ( pItem->layer() == cBaseChar::BuyRestockContainer )
+	{
 		if ( pItem->hasTag( "last_restock_time" ) )
 		{
-			if ( uint( pItem->getTag( "last_restock_time" ).toInt() ) + Config::instance()->shopRestock() * 60 * MY_CLOCKS_PER_SEC < Server::instance()->time() ) {
+			if ( uint( pItem->getTag( "last_restock_time" ).toInt() ) + Config::instance()->shopRestock() * 60 * MY_CLOCKS_PER_SEC < Server::instance()->time() )
+			{
 				restockNow = true;
 				pItem->setTag( "last_restock_time", cVariant( int( Server::instance()->time() ) ) );
 			}
-		} else {
+		}
+		else
+		{
 			pItem->setTag( "last_restock_time", cVariant( int( Server::instance()->time() ) ) );
 		}
 	}
@@ -2714,12 +2744,14 @@ void cUOSocket::sendVendorCont( P_ITEM pItem ) {
 	send( &vendorBuy );
 }
 
-void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
+void cUOSocket::sendBuyWindow( P_NPC pVendor )
+{
 	P_ITEM pBought = pVendor->atLayer( cBaseChar::BuyNoRestockContainer );
 	P_ITEM pStock = pVendor->atLayer( cBaseChar::BuyRestockContainer );
 	P_ITEM pSell = pVendor->atLayer( cBaseChar::SellContainer );
 
-	if (!pBought || !pStock || !pSell) {
+	if ( !pBought || !pStock || !pSell )
+	{
 		return;
 	}
 
@@ -2727,34 +2759,43 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 	unsigned int inventoryDecay = 60 * 60 * MY_CLOCKS_PER_SEC;
 
 	// Perform maintaineance
-	int lastRestockTime = pStock->getTag("last_restock_time").toInt();
+	int lastRestockTime = pStock->getTag( "last_restock_time" ).toInt();
 
 	// If the next restock interval has been reached or if the last restock time is in the future (server restart)
 	// restock the vendor
-	if (lastRestockTime + restockInterval < Server::instance()->time() || lastRestockTime > Server::instance()->time()) {
-		pStock->setTag("last_restock_time", Server::instance()->time()); // Set the last restock time
+	if ( lastRestockTime + restockInterval <Server::instance()->time() || lastRestockTime> Server::instance()->time() )
+	{
+		pStock->setTag( "last_restock_time", Server::instance()->time() ); // Set the last restock time
 
-		for ( ContainerIterator it(pStock); !it.atEnd(); ++it) {
+		for ( ContainerIterator it( pStock ); !it.atEnd(); ++it )
+		{
 			P_ITEM pItem = *it;
 
 			// This increases the maximum amount of this item by a factor of 2 if
 			// it has been sold out
-			if (pItem->restock() <= 0) {
-				pItem->setAmount(pItem->amount() * 2);
-				if (pItem->amount() > 999) {
-					pItem->setAmount(999);
+			if ( pItem->restock() <= 0 )
+			{
+				pItem->setAmount( pItem->amount() * 2 );
+				if ( pItem->amount() > 999 )
+				{
+					pItem->setAmount( 999 );
 				}
-			// If more than half of the items were still in stock when restocking
-			// was issued, half the amount
-			} else if (pItem->restock() >= pItem->amount() / 2) {
-				if (pItem->amount() == 999) {
-					pItem->setAmount(640);
-				} else if (pItem->amount() > 10) {
-					pItem->setAmount(pItem->amount() / 2);
+				// If more than half of the items were still in stock when restocking
+				// was issued, half the amount
+			}
+			else if ( pItem->restock() >= pItem->amount() / 2 )
+			{
+				if ( pItem->amount() == 999 )
+				{
+					pItem->setAmount( 640 );
+				}
+				else if ( pItem->amount() > 10 )
+				{
+					pItem->setAmount( pItem->amount() / 2 );
 				}
 			}
 
-			pItem->setRestock(pItem->amount()); // Restock full
+			pItem->setRestock( pItem->amount() ); // Restock full
 		}
 	}
 
@@ -2762,91 +2803,103 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 	SortedSerialList itemList;
 
 	// Process all items for sale first
-	for ( ContainerIterator it(pStock); !it.atEnd(); ++it) {
-		if (itemList.count() >= 250) {
+	for ( ContainerIterator it( pStock ); !it.atEnd(); ++it )
+	{
+		if ( itemList.count() >= 250 )
+		{
 			break; // Only 250 items fit into the buy packet
 		}
 
-		if ((*it)->buyprice() <= 0 || (*it)->restock() <= 0) {
+		if ( ( *it )->buyprice() <= 0 || ( *it )->restock() <= 0 )
+		{
 			continue; // This item is not for sale
 		}
 
-        itemList.append(*it);
+		itemList.append( *it );
 	}
 
 	// Now process all items that have been bought by the vendor
-	for (ContainerCopyIterator it2(pBought); !it2.atEnd(); ++it2) {
+	for ( ContainerCopyIterator it2( pBought ); !it2.atEnd(); ++it2 )
+	{
 		// Check all bought items if they decayed (one hour)
-		int buy_time = (*it2)->getTag("buy_time").toInt();
+		int buy_time = ( *it2 )->getTag( "buy_time" ).toInt();
 
 		// Remove the item from the vendors inventory if its there for more than one hour or if it has been
 		// bought in the future.
-		if (buy_time + inventoryDecay < Server::instance()->time() || buy_time > Server::instance()->time()) {
-			(*it2)->remove();
+		if ( buy_time + inventoryDecay <Server::instance()->time() || buy_time> Server::instance()->time() )
+		{
+			( *it2 )->remove();
 			continue;
 		}
 
 		// Only 250 items fit into the buy list
-		if (itemList.count() < 250) {
-			if ((*it2)->buyprice() <= 0) {
+		if ( itemList.count() < 250 )
+		{
+			if ( ( *it2 )->buyprice() <= 0 )
+			{
 				continue; // This item is not for sale
 			}
 
-			itemList.append(*it2);
+			itemList.append( *it2 );
 		}
 	}
 
 	// Process the items we found for sale
-	if (itemList.count() == 0) {
+	if ( itemList.count() == 0 )
+	{
 		return; // Nothing for sale
 	}
 
 	// Send both containers to the client
-	pBought->update(this);
-	pStock->update(this);
-	pSell->update(this);
+	pBought->update( this );
+	pStock->update( this );
+	pSell->update( this );
 
 	itemList.sort(); // Organize the container content by serial
 
 	// Create the container content
 	cUOTxItemContent containerContent;
-	containerContent.resize(5 + itemList.count() * 19);
-	containerContent.setShort(1, containerContent.size());
-	containerContent.setShort(3, itemList.count());
+	containerContent.resize( 5 + itemList.count() * 19 );
+	containerContent.setShort( 1, containerContent.size() );
+	containerContent.setShort( 3, itemList.count() );
 	unsigned int pOffset = containerContent.size() - 19; // Start at the last item
 	unsigned int i = itemList.count();
 
 	// This packet has the pricing information
 	cUOTxVendorBuy vendorBuy;
-	vendorBuy.setSerial(pStock->serial());
+	vendorBuy.setSerial( pStock->serial() );
 
 	// This is something i dont understand. Why does it have to be backwards??
-	SortedSerialList::const_iterator cit(itemList.begin());
-	while (cit != itemList.end()) {
-		P_ITEM pItem = *(cit++); // Get the current item and advance to the next
-		containerContent.setInt(pOffset, pItem->serial());
-		containerContent.setShort(pOffset + 4, pItem->id());
+	SortedSerialList::const_iterator cit( itemList.begin() );
+	while ( cit != itemList.end() )
+	{
+		P_ITEM pItem = *( cit++ ); // Get the current item and advance to the next
+		containerContent.setInt( pOffset, pItem->serial() );
+		containerContent.setShort( pOffset + 4, pItem->id() );
 		containerContent[pOffset + 6] = 0; // Unknown
 
-		if (pItem->hasTag("restock")) {
-			containerContent.setShort(pOffset + 7, pItem->restock());
-		} else {
-			containerContent.setShort(pOffset + 7, pItem->amount());
+		if ( pItem->hasTag( "restock" ) )
+		{
+			containerContent.setShort( pOffset + 7, pItem->restock() );
 		}
-		containerContent.setShort(pOffset + 9, i--); // Item Id in packet (1 to n)
-		containerContent.setShort(pOffset + 11, pItem->amount());
-		containerContent.setInt(pOffset + 13, pStock->serial());
-		containerContent.setShort(pOffset + 17, pItem->color());
+		else
+		{
+			containerContent.setShort( pOffset + 7, pItem->amount() );
+		}
+		containerContent.setShort( pOffset + 9, i-- ); // Item Id in packet (1 to n)
+		containerContent.setShort( pOffset + 11, pItem->amount() );
+		containerContent.setInt( pOffset + 13, pStock->serial() );
+		containerContent.setShort( pOffset + 17, pItem->color() );
 		pOffset -= 19; // Previous item
 
-		if (!pItem->name().isEmpty())
-			vendorBuy.addItem(pItem->buyprice(), pItem->name()); // add it to the other packet as well
+		if ( !pItem->name().isEmpty() )
+			vendorBuy.addItem( pItem->buyprice(), pItem->name() ); // add it to the other packet as well
 		else
-			vendorBuy.addItem(pItem->buyprice(), QString::number(1020000 + pItem->id()));
+			vendorBuy.addItem( pItem->buyprice(), QString::number( 1020000 + pItem->id() ) );
 	}
 
-	send(&containerContent); // Send container content
-	send(&vendorBuy); // Send pricing information
+	send( &containerContent ); // Send container content
+	send( &vendorBuy ); // Send pricing information
 
 	cUOTxDrawContainer drawContainer;
 	drawContainer.setSerial( pVendor->serial() );
@@ -2854,28 +2907,36 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 	send( &drawContainer );
 
 	cit = itemList.begin();
-	while (cit != itemList.end()) {
-		(*(cit++))->sendTooltip(this);
+	while ( cit != itemList.end() )
+	{
+		( *( cit++ ) )->sendTooltip( this );
 	}
 
 	// Send status gump with gold info
 	sendStatWindow();
 }
 
-static void walkSellItems(P_ITEM pCont, P_ITEM pPurchase, QPtrList<cItem> &items) {
+static void walkSellItems( P_ITEM pCont, P_ITEM pPurchase, QPtrList<cItem>& items )
+{
 	// For every pack item search for an equivalent sellitem
-	for ( ContainerIterator pit(pCont); !pit.atEnd(); ++pit) {
+	for ( ContainerIterator pit( pCont ); !pit.atEnd(); ++pit )
+	{
 		P_ITEM pItem = *pit;
 
 		// Containers with content are walked and _not_ sold
-		if (pItem->type() == 1 && pItem->content().count() > 0) {
-			walkSellItems(pItem, pPurchase, items);
-		} else {
+		if ( pItem->type() == 1 && pItem->content().count() > 0 )
+		{
+			walkSellItems( pItem, pPurchase, items );
+		}
+		else
+		{
 			// Search all sellable items
-			for ( ContainerIterator it(pPurchase); !it.atEnd(); ++it) {
+			for ( ContainerIterator it( pPurchase ); !it.atEnd(); ++it )
+			{
 				P_ITEM mItem = *it;
-				if ( pItem->baseid() == mItem->baseid() && pItem->scriptList() == mItem->scriptList() ) {
-					items.append(pItem);
+				if ( pItem->baseid() == mItem->baseid() && pItem->scriptList() == mItem->scriptList() )
+				{
+					items.append( pItem );
 					break; // Break the inner loop
 				}
 			}
@@ -2894,14 +2955,16 @@ void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 		cUOTxSellList itemContent;
 		itemContent.setSerial( pVendor->serial() );
 
-		walkSellItems(pBackpack, pPurchase, items);
+		walkSellItems( pBackpack, pPurchase, items );
 
 		// Transfer the found items to the sell list
 		P_ITEM pItem;
 		unsigned int count = 0;
-		for (pItem = items.first(); pItem; pItem = items.next()) {
-			unsigned int sellprice = pItem->getSellPrice(pVendor);
-			if (sellprice != 0) {
+		for ( pItem = items.first(); pItem; pItem = items.next() )
+		{
+			unsigned int sellprice = pItem->getSellPrice( pVendor );
+			if ( sellprice != 0 )
+			{
 				itemContent.addItem( pItem->serial(), pItem->id(), pItem->color(), pItem->amount(), sellprice, pItem->getName() );
 				++count;
 			}
@@ -3055,11 +3118,11 @@ void cUOSocket::updateLightLevel()
 		cTerritory* region = Territories::instance()->region( _player->pos() );
 		if ( region && region->isCave() )
 		{
-			level = wpMin<int>(0x1f, wpMax<int>( 0, Config::instance()->dungeonLightLevel() - static_cast<int>( _player->fixedLightLevel() ) ));
+			level = wpMin<int>( 0x1f, wpMax<int>( 0, Config::instance()->dungeonLightLevel() - static_cast<int>( _player->fixedLightLevel() ) ) );
 		}
 		else
 		{
-			level = wpMin<int>(0x1f, wpMax<int>( 0, Config::instance()->worldCurrentLevel() - static_cast<int>( _player->fixedLightLevel() ) ));
+			level = wpMin<int>( 0x1f, wpMax<int>( 0, Config::instance()->worldCurrentLevel() - static_cast<int>( _player->fixedLightLevel() ) ) );
 		}
 		pLight.setLevel( level );
 		send( &pLight );
@@ -3249,17 +3312,20 @@ bool cUOSocket::useItem( P_ITEM item )
 	cMulti *multi = outmostItem->multi();
 
 	// Check security if using items within a multi
-	if (multi && multi->canHandleEvent(EVENT_CHECKSECURITY)) {
-		PyObject *args = Py_BuildValue("(NNN)", _player->getPyObject(), multi->getPyObject(), outmostItem->getPyObject());
-		bool result = multi->callEventHandler(EVENT_CHECKSECURITY, args);
-		Py_DECREF(args);
+	if ( multi && multi->canHandleEvent( EVENT_CHECKSECURITY ) )
+	{
+		PyObject *args = Py_BuildValue( "(NNN)", _player->getPyObject(), multi->getPyObject(), outmostItem->getPyObject() );
+		bool result = multi->callEventHandler( EVENT_CHECKSECURITY, args );
+		Py_DECREF( args );
 
-		if (result) {
+		if ( result )
+		{
 			return false; // Access Denied
 		}
 	}
 
-	if (item->type() != 1 && !item->corpse()) {
+	if ( item->type() != 1 && !item->corpse() )
+	{
 		if ( !_player->isGM() && _player->objectDelay() >= Server::instance()->time() )
 		{
 			sysMessage( tr( "You must wait to perform another action." ) );
@@ -3281,22 +3347,25 @@ bool cUOSocket::useItem( P_ITEM item )
 
 	// It's not a container and not on use, assume it has a special behaviour that is not activated
 	// using snooping
-	if (pOutmostChar && pOutmostChar != _player && item->type() != 1) {
+	if ( pOutmostChar && pOutmostChar != _player && item->type() != 1 )
+	{
 		bool allowed = false;
 
-		PyObject *args = Py_BuildValue("(NN)", _player->getPyObject(), item->getPyObject());
+		PyObject *args = Py_BuildValue( "(NN)", _player->getPyObject(), item->getPyObject() );
 
-		if (_player->callEventHandler(EVENT_REMOTEUSE, args)) {
+		if ( _player->callEventHandler( EVENT_REMOTEUSE, args ) )
+		{
 			allowed = true;
 		}
 
-		if (!allowed && pOutmostChar->callEvent(EVENT_REMOTEUSE, args)) {
+		if ( !allowed && pOutmostChar->callEvent( EVENT_REMOTEUSE, args ) )
+		{
 			allowed = true;
 		}
 
-		Py_DECREF(args);
+		Py_DECREF( args );
 
-		if (!allowed)
+		if ( !allowed )
 			return false;
 	}
 
@@ -3316,15 +3385,19 @@ bool cUOSocket::useItem( P_ITEM item )
 		}
 
 		// TODO: Add a XML option for this
-		if ( !_player->owns( item ) && !_player->isGM() && _player->isInnocent() ) {
+		if ( !_player->owns( item ) && !_player->isGM() && _player->isInnocent() )
+		{
 			// Innocent Corpse and not in the same party && party allowance for looting?
-			if ( item->hasTag( "notoriety" ) && item->getTag( "notoriety" ).toInt() == 0x01 ) {
+			if ( item->hasTag( "notoriety" ) && item->getTag( "notoriety" ).toInt() == 0x01 )
+			{
 				P_PLAYER owner = dynamic_cast<P_PLAYER>( item->owner() );
 				bool allowed = false;
 
-				if ( owner && owner->party() && owner->party() == _player->party() ) {
+				if ( owner && owner->party() && owner->party() == _player->party() )
+				{
 					// Check if the player allowed looting his corpse by party members
-					if ( owner->party()->lootingAllowed().contains( owner ) ) {
+					if ( owner->party()->lootingAllowed().contains( owner ) )
+					{
 						allowed = true;
 					}
 				}
@@ -3337,10 +3410,11 @@ bool cUOSocket::useItem( P_ITEM item )
 		}
 
 		// Get the corpse owner
-		P_PLAYER owner = dynamic_cast<P_PLAYER>(item->owner());
+		P_PLAYER owner = dynamic_cast<P_PLAYER>( item->owner() );
 
-		if (owner && owner != _player) {
-			log(LOG_NOTICE, tr("Looking into corpse of player '%1' ('%2', 0x%3)\n").arg(owner->name()).arg(owner->account() ? owner->account()->login() : QString("unknown")).arg(owner->serial(), 0, 16));
+		if ( owner && owner != _player )
+		{
+			log( LOG_NOTICE, tr( "Looking into corpse of player '%1' ('%2', 0x%3)\n" ).arg( owner->name() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ) );
 		}
 	}
 
@@ -3504,14 +3578,16 @@ void cUOSocket::handleAllNames( cUORxAllNames* packet )
 	}
 }
 
-void cUOSocket::handleResurrectionMenu( cUORxResurrectionMenu* packet ) {
-	if (packet->choice() != cUORxResurrectionMenu::Manifest) {
+void cUOSocket::handleResurrectionMenu( cUORxResurrectionMenu* packet )
+{
+	if ( packet->choice() != cUORxResurrectionMenu::Manifest )
+	{
 		return; // Only 0x00 toggles visibility
 	}
 
 	cUOTxWarmode warmode;
-	warmode.setStatus(_player->isAtWar());
-	send(&warmode);
+	warmode.setStatus( _player->isAtWar() );
+	send( &warmode );
 
 	return;
 }

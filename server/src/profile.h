@@ -28,8 +28,9 @@
 #if !defined(__PROFILE_H__)
 #define __PROFILE_H__
 
-enum eProfileKeys {
-	PF_NICENESS = 0,
+enum eProfileKeys
+{
+	PF_NICENESS					= 0,
 	PF_SPAWNCHECK,
 	PF_DECAYCHECK,
 	PF_WORLDSAVE,
@@ -48,8 +49,8 @@ enum eProfileKeys {
 //#define ENABLE_PROFILING 0
 
 #if defined(ENABLE_PROFILING)
-void startProfiling(eProfileKeys key);
-void stopProfiling(eProfileKeys key);
+void startProfiling( eProfileKeys key );
+void stopProfiling( eProfileKeys key );
 void dumpProfilingInfo();
 void clearProfilingInfo();
 #else

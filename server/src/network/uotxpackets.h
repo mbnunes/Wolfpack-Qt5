@@ -162,7 +162,6 @@ public:
 	{
 		data ? flags |= 0x40 : flags &= ~0x40;
 	}
-
 };
 
 enum eCharChangeResult
@@ -454,7 +453,7 @@ public:
 	*/
 	void setAos( bool enable )
 	{
-		enable ? (*this)[1] |= 0x80 : (*this)[1] &= ~0x80;
+		enable ? ( *this )[1] |= 0x80 : ( *this )[1] &= ~0x80;
 	}
 };
 
@@ -1240,7 +1239,7 @@ public:
 // 0x88 Open Paperdoll
 class cUOTxOpenPaperdoll : public cUOPacket
 {
-	OBJECTDEF(cUOTxOpenPaperdoll)
+	OBJECTDEF( cUOTxOpenPaperdoll )
 public:
 	cUOTxOpenPaperdoll() : cUOPacket( 0x88, 66 )
 	{
@@ -1362,14 +1361,17 @@ public:
 	{
 		setShort( 18, data );
 	}
-	void setXOffset( unsigned short data ) {
-		setShort(20, data);
+	void setXOffset( unsigned short data )
+	{
+		setShort( 20, data );
 	}
-	void setYOffset( unsigned short data ) {
-		setShort(22, data);
+	void setYOffset( unsigned short data )
+	{
+		setShort( 22, data );
 	}
-	void setZOffset( unsigned short data ) {
-		setShort(24, data);
+	void setZOffset( unsigned short data )
+	{
+		setShort( 24, data );
 	}
 };
 

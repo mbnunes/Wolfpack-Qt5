@@ -139,12 +139,14 @@ bool cAccount::authorized( const QString& group, const QString& value ) const
 void cAccount::remove()
 {
 	QValueVector<P_PLAYER>::iterator it;
-	for (it = characters_.begin(); it != characters_.end(); ++it) {
-		(*it)->setAccount(0, false);
-		if ((*it)->socket()) {
-			(*it)->socket()->setAccount(0);
+	for ( it = characters_.begin(); it != characters_.end(); ++it )
+	{
+		( *it )->setAccount( 0, false );
+		if ( ( *it )->socket() )
+		{
+			( *it )->socket()->setAccount( 0 );
 		}
-		(*it)->remove();
+		( *it )->remove();
 	}
 	characters_.clear();
 
@@ -356,11 +358,11 @@ void cAccounts::save()
 
 		if ( !PersistentBroker::instance()->tableExists( "accounts" ) )
 		{
-			Console::instance()->send( tr("Accounts database didn't exist! Creating one\n") );
+			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
 			PersistentBroker::instance()->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
-			Console::instance()->send( tr("Created default admin account: Login = admin, Password = admin\n") );
+			Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
 		}
 
 		// Lock the table
@@ -376,13 +378,13 @@ void cAccounts::save()
 
 			QString sql( "REPLACE INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6, '%7' );" );
 
-			sql = sql.arg( PersistentBroker::instance()->quoteString(account->login_) )
-				.arg( PersistentBroker::instance()->quoteString(account->password_) )
-				.arg( account->flags_ )
-				.arg( PersistentBroker::instance()->quoteString(account->aclName_) )
-				.arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 )
-				.arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 )
-				.arg( PersistentBroker::instance()->quoteString(account->email_) );
+			sql = sql.arg( PersistentBroker::instance()->quoteString( account->login_ ) )
+			.arg( PersistentBroker::instance()->quoteString( account->password_ ) )
+			.arg( account->flags_ )
+			.arg( PersistentBroker::instance()->quoteString( account->aclName_ ) )
+			.arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 )
+			.arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 )
+			.arg( PersistentBroker::instance()->quoteString( account->email_ ) );
 
 			PersistentBroker::instance()->executeQuery( sql );
 		}
@@ -400,7 +402,7 @@ void cAccounts::save()
 	{
 		if ( connected )
 			PersistentBroker::instance()->executeQuery( "ROLLBACK;" );
-		Console::instance()->log( LOG_ERROR, tr("Unknown error while saving Accounts.") );
+		Console::instance()->log( LOG_ERROR, tr( "Unknown error while saving Accounts." ) );
 	}
 }
 
@@ -419,11 +421,11 @@ void cAccounts::load()
 
 		if ( !PersistentBroker::instance()->tableExists( "accounts" ) )
 		{
-			Console::instance()->send( tr("Accounts database didn't exist! Creating one\n") );
+			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
 			PersistentBroker::instance()->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
-			Console::instance()->send( tr("Created default admin account: Login = admin, Password = admin\n") );
+			Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
 		}
 
 		PersistentBroker::instance()->lockTable( "accounts" );
@@ -476,7 +478,7 @@ void cAccounts::load()
 	}
 	catch ( ... )
 	{
-		throw wpException( tr("Unknown error while loading Accounts") );
+		throw wpException( tr( "Unknown error while loading Accounts" ) );
 	}
 
 	cComponent::load();
@@ -590,37 +592,45 @@ void cAccounts::clearAcls()
 	}
 }
 
-const char* cAccount::className() const {
+const char* cAccount::className() const
+{
 	return "account";
 }
 
-bool cAccount::implements( const QString& name ) const {
-	if (name == "account") {
+bool cAccount::implements( const QString& name ) const
+{
+	if ( name == "account" )
+	{
 		return true;
-	} else {
-		return cPythonScriptable::implements(name);
+	}
+	else
+	{
+		return cPythonScriptable::implements( name );
 	}
 }
 
-PyObject* cAccount::getPyObject() {
-	return createPyObject(this);
+PyObject* cAccount::getPyObject()
+{
+	return createPyObject( this );
 }
 
-PyObject* cAccount::getProperty( const QString& name ) {
-	PY_PROPERTY("acl", acl());
-	PY_PROPERTY("email", email());
+PyObject* cAccount::getProperty( const QString& name )
+{
+	PY_PROPERTY( "acl", acl() );
+	PY_PROPERTY( "email", email() );
 	// \rproperty account.name The name of this account.
-	PY_PROPERTY("name", login());
-	PY_PROPERTY("multigems", isMultiGems() );
-	PY_PROPERTY("password", password());
-	PY_PROPERTY("rawpassword", password());
-	PY_PROPERTY("flags", flags());
+	PY_PROPERTY( "name", login() );
+	PY_PROPERTY( "multigems", isMultiGems() );
+	PY_PROPERTY( "password", password() );
+	PY_PROPERTY( "rawpassword", password() );
+	PY_PROPERTY( "flags", flags() );
 	/*
 		\rproperty account.characters A list of <object id="CHAR">char</object> objects.
 		This list contains all characters assigned to this account.
 	*/
-	if (name == "characters") {
-		PyObject* list = PyList_New(characters_.size());
+	if ( name == "characters" )
+	{
+		PyObject* list = PyList_New( characters_.size() );
 		for ( uint i = 0; i < characters_.size(); ++i )
 			PyList_SetItem( list, i, PyGetCharObject( characters_[i] ) );
 		return list;
@@ -629,27 +639,31 @@ PyObject* cAccount::getProperty( const QString& name ) {
 		\rproperty account.lastlogin The last login date of this account or
 		an empty string if it's unknown.
 	*/
-	PY_PROPERTY("lastlogin", lastLogin().toString());
-	PY_PROPERTY("blockuntil", blockUntil.toString());
+	PY_PROPERTY( "lastlogin", lastLogin().toString() );
+	PY_PROPERTY( "blockuntil", blockUntil.toString() );
 	// \rproperty account.inuse Indicates whether this account is currently in use.
-	PY_PROPERTY("inuse", inUse());
+	PY_PROPERTY( "inuse", inUse() );
 	// \rproperty account.rank Returns the integer rank of this account. This is inherited by the ACL of this account.
-	PY_PROPERTY("rank", rank());
+	PY_PROPERTY( "rank", rank() );
 
-	return cPythonScriptable::getProperty(name);
+	return cPythonScriptable::getProperty( name );
 }
 
-stError* cAccount::setProperty( const QString& name, const cVariant& value ) {
+stError* cAccount::setProperty( const QString& name, const cVariant& value )
+{
 	// \property account.acl The name of the ACL used to check the permissions of this account.
-	if (name == "acl") {
-		setAcl(value.toString());
+	if ( name == "acl" )
+	{
+		setAcl( value.toString() );
 		return 0;
 	}
 	// \property account.email The E-Mail address associated with this account.
-	else SET_STR_PROPERTY("email", email_)
-	// \property account.multigems Indicates whether Multis should be sent as Worldgems to this account.
-	else if (name == "multigems") {
-		setMultiGems(value.toInt() != 0);
+	else
+		SET_STR_PROPERTY( "email", email_ )
+		// \property account.multigems Indicates whether Multis should be sent as Worldgems to this account.
+	else if ( name == "multigems" )
+	{
+		setMultiGems( value.toInt() != 0 );
 		return 0;
 	}
 	/*
@@ -657,8 +671,9 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value ) {
 		this property will only return the hashed password. But when setting this property you don't need to
 		specify the MD5 hashed password as it will be automatically converted.
 	*/
-	else if (name == "password") {
-		setPassword(value.toString());
+	else if ( name == "password" )
+	{
+		setPassword( value.toString() );
 		return 0;
 	}
 	/*
@@ -666,7 +681,8 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value ) {
 		conversions will be done automatically if you set this property. If you don't use MD5 hashing,
 		this property is equivalent to the password property.
 	*/
-	else if (name == "rawpassword") {
+	else if ( name == "rawpassword" )
+	{
 		password_ = value.toString();
 		return 0;
 	}
@@ -681,16 +697,17 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value ) {
 		0x00000020 staff - gm mode on/off
 		0x00000040 multigems on/off</code>
 	*/
-	SET_INT_PROPERTY("flags", flags_)
+	SET_INT_PROPERTY( "flags", flags_ )
 	/*
-		\property account.blockuntil This is the date and time when this account will be unblocked.
-		The following format for the date and time is used (from the QT documentation):
-		<code>
-		Qt::ISODate - ISO 8601 extended format (YYYY-MM-DD, or with time, YYYY-MM-DDTHH:MM:SS)
-		</code>
+	\property account.blockuntil This is the date and time when this account will be unblocked.
+	The following format for the date and time is used (from the QT documentation):
+	<code>
+	Qt::ISODate - ISO 8601 extended format (YYYY-MM-DD, or with time, YYYY-MM-DDTHH:MM:SS)
+	</code>
 	*/
-	else if (name == "blockuntil") {
-		QDateTime datetime = QDateTime::fromString(value.toString(), Qt::ISODate);
+	else if ( name == "blockuntil" )
+	{
+		QDateTime datetime = QDateTime::fromString( value.toString(), Qt::ISODate );
 		setBlockUntil( datetime );
 		return 0;
 	}

@@ -47,32 +47,38 @@
 using namespace std;
 
 // Custom position classes
-class cSpawnPoint : public cSpawnPosition {
+class cSpawnPoint : public cSpawnPosition
+{
 private:
 	Coord pos;
 public:
-	cSpawnPoint(const Coord &pos) {
+	cSpawnPoint( const Coord& pos )
+	{
 		this->pos = pos;
 		points_ = 1;
 	}
 
-	Coord findSpot() {
+	Coord findSpot()
+	{
 		return pos;
 	}
 
-	bool inBounds(const Coord &pos) {
+	bool inBounds( const Coord& pos )
+	{
 		return this->pos == pos;
 	}
 };
 
-class cSpawnRectangle : public cSpawnPosition {
+class cSpawnRectangle : public cSpawnPosition
+{
 private:
 	int x1, y1, x2, y2;
 	bool fixedZ;
 	signed char z;
 	unsigned char map;
 public:
-	cSpawnRectangle(const Coord &from, const Coord &to, unsigned char map, bool fixedZ = false, signed char z = 0) {
+	cSpawnRectangle( const Coord& from, const Coord& to, unsigned char map, bool fixedZ = false, signed char z = 0 )
+	{
 		this->x1 = from.x;
 		this->y1 = from.y;
 		this->x2 = to.x;
@@ -81,40 +87,46 @@ public:
 		this->fixedZ = fixedZ;
 		this->z = z;
 
-		if (x1 > x2) {
-			std::swap(x1, x2);
+		if ( x1 > x2 )
+		{
+			std::swap( x1, x2 );
 		}
 
-		if (y1 > y2) {
-			std::swap(y1, y2);
+		if ( y1 > y2 )
+		{
+			std::swap( y1, y2 );
 		}
 
-		int xDiff = abs(x2 - x1) + 1;
-		int yDiff = abs(y2 - y1) + 1;
+		int xDiff = abs( x2 - x1 ) + 1;
+		int yDiff = abs( y2 - y1 ) + 1;
 
 		// Calculate number of points
 		points_ = xDiff * yDiff;
 	}
 
-	Coord findSpot() {
+	Coord findSpot()
+	{
 		// Simply select one random point within the rectangle
-		Coord pos = Coord(RandomNum(x1, x2), RandomNum(y1, y2), z, map);
+		Coord pos = Coord( RandomNum( x1, x2 ), RandomNum( y1, y2 ), z, map );
 
 		// If a fixed z value should not be used, make sure to
 		// find a good one.
-		if (!fixedZ) {
-			pos.z = Maps::instance()->mapElevation(pos);
+		if ( !fixedZ )
+		{
+			pos.z = Maps::instance()->mapElevation( pos );
 		}
 
 		return pos;
 	}
 
-	bool inBounds(const Coord &pos) {
-		return (pos.map == map && pos.x >= x1 && pos.x <= x2 && pos.y >= y1 && pos.y <= y2);
+	bool inBounds( const Coord& pos )
+	{
+		return ( pos.map == map && pos.x >= x1 && pos.x <= x2 && pos.y >= y1 && pos.y <= y2 );
 	}
 };
 
-class cSpawnCircle : public cSpawnPosition {
+class cSpawnCircle : public cSpawnPosition
+{
 private:
 	int x,y;
 	int radius;
@@ -123,7 +135,8 @@ private:
 	signed char z;
 	unsigned char map;
 public:
-	cSpawnCircle(const Coord &center, int radius, unsigned char map, bool fixedZ = false, signed char z = 0) {
+	cSpawnCircle( const Coord& center, int radius, unsigned char map, bool fixedZ = false, signed char z = 0 )
+	{
 		this->x = center.x;
 		this->y = center.y;
 		this->radius = radius;
@@ -135,32 +148,37 @@ public:
 		// Calculate the surface of the circle
 		// 2 * pi * r
 		const float pi = 3.1415926535897932384626433832795;
-		points_ = (int)(pi * (float)radius * (float)radius);
+		points_ = ( int ) ( pi * ( float ) radius * ( float ) radius );
 	}
 
 	// Calculate the distance to the center and check if it's smaller than the radius
-	bool inBounds(const Coord &pos) {
+	bool inBounds( const Coord& pos )
+	{
 		int xDiff = pos.x - x;
 		int yDiff = pos.y - y;
-		return (xDiff * xDiff + yDiff * yDiff) <= radius2;
+		return ( xDiff * xDiff + yDiff * yDiff ) <= radius2;
 	}
 
-	Coord findSpot() {
+	Coord findSpot()
+	{
 		Coord pos;
 
 		// now get a point on this circle around the m_npc
-		float rnddist = (float)RandomNum(0, radius);
-		float rndphi = (float)RandomNum(0, 100) / 100.0f * 2.0f * 3.14159265358979323846f;
+		float rnddist = ( float ) RandomNum( 0, radius );
+		float rndphi = ( float ) RandomNum( 0, 100 ) / 100.0f * 2.0f * 3.14159265358979323846f;
 
-		pos.x = x + (unsigned short)floor(cos(rndphi) * rnddist);
-		pos.y = y + (unsigned short)floor(sin(rndphi) * rnddist);
+		pos.x = x + ( unsigned short ) floor( cos( rndphi ) * rnddist );
+		pos.y = y + ( unsigned short ) floor( sin( rndphi ) * rnddist );
 		pos.map = map;
 
 		// If a fixed z value should not be used, make sure to
 		// find a good one.
-		if (!fixedZ) {
-			pos.z = Maps::instance()->mapElevation(pos);
-		} else {
+		if ( !fixedZ )
+		{
+			pos.z = Maps::instance()->mapElevation( pos );
+		}
+		else
+		{
 			pos.z = z;
 		}
 
@@ -172,7 +190,8 @@ public:
 	cSpawnRegion member functions
 *****************************************************************************/
 
-cSpawnRegion::cSpawnRegion(const cElement *tag) {
+cSpawnRegion::cSpawnRegion( const cElement* tag )
+{
 	maxNpcAmt_ = 0;
 	maxItemAmt_ = 0;
 	npcsPerCycle_ = 1;
@@ -180,32 +199,37 @@ cSpawnRegion::cSpawnRegion(const cElement *tag) {
 	minTime_ = 0;
 	maxTime_ = 600;
 	nextTime_ = 0;
-	id_ = tag->getAttribute("id");
-	positions_.setAutoDelete(true);
-	exceptions_.setAutoDelete(true);
+	id_ = tag->getAttribute( "id" );
+	positions_.setAutoDelete( true );
+	exceptions_.setAutoDelete( true );
 	checkFreeSpot_ = false;
 	npcNodesTotal_ = 0;
 	itemNodesTotal_ = 0;
 	active_ = true;
 
 	// Load the spawnregion
-	applyDefinition(tag);
+	applyDefinition( tag );
 
 	// No Positions, No NPCs, No Items -> Inactive
-	if (active_ && (positions_.isEmpty() || (npcNodes_.isEmpty() && itemNodes_.isEmpty()) || countPoints() == 0)) {
-		Console::instance()->log(LOG_WARNING, tr("Active spawnregion '%1' has been flagged inactive because its incomplete.\n").arg(id_));
+	if ( active_ && ( positions_.isEmpty() || ( npcNodes_.isEmpty() && itemNodes_.isEmpty() ) || countPoints() == 0 ) )
+	{
+		Console::instance()->log( LOG_WARNING, tr( "Active spawnregion '%1' has been flagged inactive because its incomplete.\n" ).arg( id_ ) );
 		active_ = false;
 	}
 }
 
-cSpawnRegion::~cSpawnRegion() {
+cSpawnRegion::~cSpawnRegion()
+{
 }
 
-bool cSpawnRegion::isValidSpot(const Coord &pos) {
+bool cSpawnRegion::isValidSpot( const Coord& pos )
+{
 	// Check all sub positions
 	cSpawnPosition *position;
-	for (position = positions_.first(); position; position = positions_.next()) {
-		if (position->inBounds(pos)) {
+	for ( position = positions_.first(); position; position = positions_.next() )
+	{
+		if ( position->inBounds( pos ) )
+		{
 			return true;
 		}
 	}
@@ -236,82 +260,82 @@ void cSpawnRegion::remove( cUObject* object )
 	}
 }
 
-void cSpawnRegion::processNode( const cElement *tag )
+void cSpawnRegion::processNode( const cElement* tag )
 {
 	QString name = tag->name();
 	QString value = tag->value();
 
-	if ( name == "npc" ) {
+	if ( name == "npc" )
+	{
 		bool ok;
-		unsigned int value = tag->getAttribute("frequency", "1").toUInt(&ok);
+		unsigned int value = tag->getAttribute( "frequency", "1" ).toUInt( &ok );
 
-		if (!ok || value < 1) {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a npc tag with an invalid frequency attribute '%2'.\n").arg(id_).arg(tag->getAttribute("frequency")));
+		if ( !ok || value < 1 )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a npc tag with an invalid frequency attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "frequency" ) ) );
 			value = 1;
 		}
 
-		npcNodes_.append(tag); // Append to npc nodes
-		npcNodeFrequencies_.append(value);
+		npcNodes_.append( tag ); // Append to npc nodes
+		npcNodeFrequencies_.append( value );
 		npcNodesTotal_ += value;
-	} else if ( name == "item" ) {
+	}
+	else if ( name == "item" )
+	{
 		bool ok;
-		unsigned int value = tag->getAttribute("frequency", "1").toUInt(&ok);
+		unsigned int value = tag->getAttribute( "frequency", "1" ).toUInt( &ok );
 
-		if (!ok || value < 1) {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has an item tag with an invalid frequency attribute '%2'.\n").arg(id_).arg(tag->getAttribute("frequency")));
+		if ( !ok || value < 1 )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has an item tag with an invalid frequency attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "frequency" ) ) );
 			value = 1;
 		}
 
-		itemNodes_.append(tag); // Append to item nodes
-		itemNodeFrequencies_.append(value);
+		itemNodes_.append( tag ); // Append to item nodes
+		itemNodeFrequencies_.append( value );
 		itemNodesTotal_ += value;
 	}
-
 	else if ( name == "checkfreespot" )
 		this->checkFreeSpot_ = true;
-
 	else if ( name == "nocheckfreespot" )
 		this->checkFreeSpot_ = false;
 
 	// <maxnpcamount value="10" />
-	else if ( name == "maxnpcamount" && tag->hasAttribute("value")  )
-		this->maxNpcAmt_ = tag->getAttribute("value").toUShort();
-
+	else if ( name == "maxnpcamount" && tag->hasAttribute( "value" ) )
+		this->maxNpcAmt_ = tag->getAttribute( "value" ).toUShort();
 	else if ( name == "maxnpcamount" )
 		this->maxNpcAmt_ = value.toUShort();
 
 	// <maxitemamount value="5" />
-	else if ( name == "maxitemamount" && tag->hasAttribute("value")  )
-		this->maxItemAmt_ = tag->getAttribute("value").toUShort();
-
+	else if ( name == "maxitemamount" && tag->hasAttribute( "value" ) )
+		this->maxItemAmt_ = tag->getAttribute( "value" ).toUShort();
 	else if ( name == "maxitemamount" )
 		this->maxItemAmt_ = value.toUShort();
 
 	// <npcspercycle value="3" />
-	else if ( name == "npcspercycle" && tag->hasAttribute("value" ) )
-		this->npcsPerCycle_ = tag->getAttribute("value").toUShort();
-
+	else if ( name == "npcspercycle" && tag->hasAttribute( "value" ) )
+		this->npcsPerCycle_ = tag->getAttribute( "value" ).toUShort();
 	else if ( name == "npcspercycle" )
 		this->npcsPerCycle_ = value.toUShort();
 
 	// <itemspercycle value="3" />
-	else if ( name == "itemspercycle" && tag->hasAttribute("value" ) )
-		this->itemsPerCycle_ = tag->getAttribute("value").toUShort();
-
+	else if ( name == "itemspercycle" && tag->hasAttribute( "value" ) )
+		this->itemsPerCycle_ = tag->getAttribute( "value" ).toUShort();
 	else if ( name == "itemspercycle" )
 		this->itemsPerCycle_ = value.toUShort();
 
 	// <delay min="xx" max="xx" />
 	// <delay value="" />
-	else if ( name == "delay" && tag->hasAttribute("value") ) {
-		unsigned int delay = tag->getAttribute("value").toUInt();
+	else if ( name == "delay" && tag->hasAttribute( "value" ) )
+	{
+		unsigned int delay = tag->getAttribute( "value" ).toUInt();
 		minTime_ = delay;
 		maxTime_ = delay;
 	}
-
-	else if ( name == "delay" && tag->hasAttribute("min") && tag->hasAttribute("max") ) {
-		minTime_ = tag->getAttribute("min").toUInt();
-		maxTime_ = tag->getAttribute("max").toUInt();
+	else if ( name == "delay" && tag->hasAttribute( "min" ) && tag->hasAttribute( "max" ) )
+	{
+		minTime_ = tag->getAttribute( "min" ).toUInt();
+		maxTime_ = tag->getAttribute( "max" ).toUInt();
 	}
 
 	// <active />
@@ -324,33 +348,38 @@ void cSpawnRegion::processNode( const cElement *tag )
 
 	// Add this to a spawngroup
 	else if ( name == "group" )
-		this->groups_.append(value);
+		this->groups_.append( value );
 
 	// <rectangle from="0,1000" to="0,1000" map="" z="" />
-	else if ( name == "rectangle" && tag->hasAttribute("from") && tag->hasAttribute("to") && tag->hasAttribute("map") ) {
+	else if ( name == "rectangle" && tag->hasAttribute( "from" ) && tag->hasAttribute( "to" ) && tag->hasAttribute( "map" ) )
+	{
 		// Parse from/to
 		Coord from, to;
-		if (!parseCoordinates(tag->getAttribute("from"), from, true)) {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a rectangle with an invalid from attribute '%2'.\n").arg(id_).arg(tag->getAttribute("from")));
+		if ( !parseCoordinates( tag->getAttribute( "from" ), from, true ) )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a rectangle with an invalid from attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "from" ) ) );
 			return;
 		}
 
-		if (!parseCoordinates(tag->getAttribute("to"), to, true)) {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a rectangle with an invalid from attribute '%2'.\n").arg(id_).arg(tag->getAttribute("from")));
+		if ( !parseCoordinates( tag->getAttribute( "to" ), to, true ) )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a rectangle with an invalid from attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "from" ) ) );
 			return;
 		}
 
 		bool ok;
 
-		unsigned char map = tag->getAttribute("map").toUShort(&ok);
+		unsigned char map = tag->getAttribute( "map" ).toUShort( &ok );
 
-		if (!ok) {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a rectangle with an invalid map attribute '%2'.\n").arg(id_).arg(tag->getAttribute("map")));
+		if ( !ok )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a rectangle with an invalid map attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "map" ) ) );
 			return;
 		}
 
-		if (!Maps::instance()->hasMap(map)) {
-			Console::instance()->log(LOG_WARNING, tr("Ignoring rectangle with unknown map %1 for spawnregion '%2'.\n").arg(map).arg(id_));
+		if ( !Maps::instance()->hasMap( map ) )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Ignoring rectangle with unknown map %1 for spawnregion '%2'.\n" ).arg( map ).arg( id_ ) );
 			return;
 		}
 
@@ -358,63 +387,78 @@ void cSpawnRegion::processNode( const cElement *tag )
 		bool fixedZ = false;
 		signed char z = 0;
 
-		if (tag->hasAttribute("z")) {
-			z = tag->getAttribute("z").toShort(&ok);
-			if (!ok) {
-				Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a rectangle with an invalid z attribute '%2'.\n").arg(id_).arg(tag->getAttribute("z")));
+		if ( tag->hasAttribute( "z" ) )
+		{
+			z = tag->getAttribute( "z" ).toShort( &ok );
+			if ( !ok )
+			{
+				Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a rectangle with an invalid z attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "z" ) ) );
 				return;
 			}
 			fixedZ = true;
 		}
 
-		if (tag->getAttribute("exception", "false").lower() == "true") {
-			exceptions_.append(new cSpawnRectangle(from, to, map, fixedZ, z)); // Append to position
-		} else {
-			positions_.append(new cSpawnRectangle(from, to, map, fixedZ, z)); // Append to position
+		if ( tag->getAttribute( "exception", "false" ).lower() == "true" )
+		{
+			exceptions_.append( new cSpawnRectangle( from, to, map, fixedZ, z ) ); // Append to position
+		}
+		else
+		{
+			positions_.append( new cSpawnRectangle( from, to, map, fixedZ, z ) ); // Append to position
 		}
 	}
 
 	// <point pos="x,y,z,map" />
-	else if ( name == "point" && tag->hasAttribute( "pos" ) ) {
+	else if ( name == "point" && tag->hasAttribute( "pos" ) )
+	{
 		Coord pos;
-		if (!parseCoordinates(tag->getAttribute("pos"), pos)) {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a point with an invalid pos attribute '%2'.\n").arg(id_).arg(tag->getAttribute("pos")));
+		if ( !parseCoordinates( tag->getAttribute( "pos" ), pos ) )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a point with an invalid pos attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "pos" ) ) );
 			return;
 		}
 
-		if (tag->getAttribute("exception", "false").lower() == "true") {
-			exceptions_.append(new cSpawnPoint(pos));
-		} else {
-			positions_.append(new cSpawnPoint(pos));
+		if ( tag->getAttribute( "exception", "false" ).lower() == "true" )
+		{
+			exceptions_.append( new cSpawnPoint( pos ) );
+		}
+		else
+		{
+			positions_.append( new cSpawnPoint( pos ) );
 		}
 	}
 
 	// <circle center="x,y" radius="" map="" [z=""] />
-	else if ( name == "circle" && tag->hasAttribute( "center" ) && tag->hasAttribute( "radius" ) && tag->hasAttribute( "map" ) ) {
+	else if ( name == "circle" && tag->hasAttribute( "center" ) && tag->hasAttribute( "radius" ) && tag->hasAttribute( "map" ) )
+	{
 		// Parse center
 		Coord center;
-		if (!parseCoordinates(tag->getAttribute("center"), center, true)) {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a circle with an invalid center attribute '%2'.\n").arg(id_).arg(tag->getAttribute("center")));
+		if ( !parseCoordinates( tag->getAttribute( "center" ), center, true ) )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a circle with an invalid center attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "center" ) ) );
 			return;
 		}
 
 		bool ok;
-		unsigned char map = tag->getAttribute("map").toUShort(&ok);
+		unsigned char map = tag->getAttribute( "map" ).toUShort( &ok );
 
-		if (!ok) {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a circle with an invalid map attribute '%2'.\n").arg(id_).arg(tag->getAttribute("map")));
+		if ( !ok )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a circle with an invalid map attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "map" ) ) );
 			return;
 		}
 
-		unsigned int radius = tag->getAttribute("radius").toUInt(&ok);
+		unsigned int radius = tag->getAttribute( "radius" ).toUInt( &ok );
 
-		if (!ok) {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a circle with an invalid radius attribute '%2'.\n").arg(id_).arg(tag->getAttribute("radius")));
+		if ( !ok )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a circle with an invalid radius attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "radius" ) ) );
 			return;
 		}
 
-		if (!Maps::instance()->hasMap(map)) {
-			Console::instance()->log(LOG_WARNING, tr("Ignoring circle with unknown map %1 for spawnregion '%2'.\n").arg(map).arg(id_));
+		if ( !Maps::instance()->hasMap( map ) )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Ignoring circle with unknown map %1 for spawnregion '%2'.\n" ).arg( map ).arg( id_ ) );
 			return;
 		}
 
@@ -422,95 +466,121 @@ void cSpawnRegion::processNode( const cElement *tag )
 		bool fixedZ = false;
 		signed char z = 0;
 
-		if (tag->hasAttribute("z")) {
-			z = tag->getAttribute("z").toShort(&ok);
-			if (!ok) {
-				Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' has a circle with an invalid z attribute '%2'.\n").arg(id_).arg(tag->getAttribute("z")));
+		if ( tag->hasAttribute( "z" ) )
+		{
+			z = tag->getAttribute( "z" ).toShort( &ok );
+			if ( !ok )
+			{
+				Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' has a circle with an invalid z attribute '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "z" ) ) );
 				return;
 			}
 		}
 
-		if (tag->getAttribute("exception", "false").lower() == "true") {
-			exceptions_.append(new cSpawnCircle(center, radius, map, fixedZ, z)); // Append to position
-		} else {
-			positions_.append(new cSpawnCircle(center, radius, map, fixedZ, z)); // Append to position
+		if ( tag->getAttribute( "exception", "false" ).lower() == "true" )
+		{
+			exceptions_.append( new cSpawnCircle( center, radius, map, fixedZ, z ) ); // Append to position
+		}
+		else
+		{
+			positions_.append( new cSpawnCircle( center, radius, map, fixedZ, z ) ); // Append to position
 		}
 	}
 
 	// Inherit from another spawnregion
-	else if ( name == "inherit" && tag->hasAttribute("id") ) {
-		const cElement *node = Definitions::instance()->getDefinition(WPDT_SPAWNREGION, tag->getAttribute("id"));
-		if (node) {
-			applyDefinition(node);
-		} else {
-			Console::instance()->log(LOG_WARNING, tr("Spawnregion '%1' is inheriting from unknown spawnregion '%2'.\n").arg(id_).arg(tag->getAttribute("id")));
+	else if ( name == "inherit" && tag->hasAttribute( "id" ) )
+	{
+		const cElement *node = Definitions::instance()->getDefinition( WPDT_SPAWNREGION, tag->getAttribute( "id" ) );
+		if ( node )
+		{
+			applyDefinition( node );
+		}
+		else
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Spawnregion '%1' is inheriting from unknown spawnregion '%2'.\n" ).arg( id_ ).arg( tag->getAttribute( "id" ) ) );
 		}
 		return;
 	}
 }
 
 // Counts the total number of points this spawnregion has
-unsigned int cSpawnRegion::countPoints() {
+unsigned int cSpawnRegion::countPoints()
+{
 	cSpawnPosition *position;
 	unsigned int total = 0;
-	for (position = positions_.first(); position; position = positions_.next()) {
+	for ( position = positions_.first(); position; position = positions_.next() )
+	{
 		total += position->points();
 	}
 	return total;
 }
 
-bool cSpawnRegion::findValidSpot(Coord& result, int tries) {
-	if (tries == -1) {
+bool cSpawnRegion::findValidSpot( Coord& result, int tries )
+{
+	if ( tries == -1 )
+	{
 		tries = 20; // Try 20 times (should be a config option instead)
-	} else if (tries == 0) {
+	}
+	else if ( tries == 0 )
+	{
 		return false; // We exceeded the maximum number of tries
 	}
 
 	unsigned int points = countPoints(); // Count the number of available points
 
-	if (points == 0) {
+	if ( points == 0 )
+	{
 		return false; // No points available
 	}
 
-	unsigned int chosen = RandomNum(0, points - 1); // Chose one random point
+	unsigned int chosen = RandomNum( 0, points - 1 ); // Chose one random point
 	unsigned int offset = 0; // Initialize the offset
 	cSpawnPosition *position; // Current partition
 
 	// Search for a random position from out positions list.
-	for (position = positions_.first(); position; position = positions_.next()) {
+	for ( position = positions_.first(); position; position = positions_.next() )
+	{
 		offset += position->points(); // Increase the offset
 
 		// Is this the correct partition?
-		if (chosen < offset) {
+		if ( chosen < offset )
+		{
 			// Find a random position within the partition
 			Coord rndPos = position->findSpot();
 
 			// See if the spot is valid.
-			if (!Movement::instance()->canLandMonsterMoveHere(rndPos)) {
-				return findValidSpot(result, tries - 1); // Invalid spot, search for another one
+			if ( !Movement::instance()->canLandMonsterMoveHere( rndPos ) )
+			{
+				return findValidSpot( result, tries - 1 ); // Invalid spot, search for another one
 			}
 
 			// See if there already are items or characters at the given position
-			if (checkFreeSpot_) {
+			if ( checkFreeSpot_ )
+			{
 				cUObject *pItem;
-				for (pItem = items_.first(); pItem; pItem = items_.next()) {
-					if (pItem->pos() == rndPos) {
-						return findValidSpot(result, tries - 1); // Invalid spot, search for another one
+				for ( pItem = items_.first(); pItem; pItem = items_.next() )
+				{
+					if ( pItem->pos() == rndPos )
+					{
+						return findValidSpot( result, tries - 1 ); // Invalid spot, search for another one
 					}
 				}
 
 				cUObject *pChar;
-				for (pChar = npcs_.first(); pChar; pChar = npcs_.next()) {
-					if (pChar->pos() == rndPos) {
-						return findValidSpot(result, tries - 1); // Invalid spot, search for another one
+				for ( pChar = npcs_.first(); pChar; pChar = npcs_.next() )
+				{
+					if ( pChar->pos() == rndPos )
+					{
+						return findValidSpot( result, tries - 1 ); // Invalid spot, search for another one
 					}
 				}
 			}
 
 			// This checks if the point is within one of the exempt areas
-			for (cSpawnPosition *exception = exceptions_.first(); exception; exception = exceptions_.next()) {
-				if (exception->inBounds(rndPos)) {
-					return findValidSpot(result, tries - 1); // Invalid spot, search for another one
+			for ( cSpawnPosition*exception = exceptions_.first(); exception; exception = exceptions_.next() )
+			{
+				if ( exception->inBounds( rndPos ) )
+				{
+					return findValidSpot( result, tries - 1 ); // Invalid spot, search for another one
 				}
 			}
 
@@ -534,59 +604,67 @@ void cSpawnRegion::spawnSingleNPC()
 		// So we treat every NPC section as a 1 point section and then select accordingly...
 		// The frequency="" attribute is used for this
 		cElement *node;
-		unsigned int selected = RandomNum(0, npcNodesTotal_ - 1); // Random number
+		unsigned int selected = RandomNum( 0, npcNodesTotal_ - 1 ); // Random number
 		unsigned int offset = 0; // Random offset
 		unsigned int i = 0; // Index for the npcNodeFrequencies
 		const cElement *tag = 0;
 
 		// Search the selected element
-		for (node = npcNodes_.first(); node; node = npcNodes_.next()) {
+		for ( node = npcNodes_.first(); node; node = npcNodes_.next() )
+		{
 			unsigned int value = npcNodeFrequencies_[i++];
 			offset += value;
 
-			if (selected < offset) {
+			if ( selected < offset )
+			{
 				tag = node;
 				break;
 			}
 		}
 
 		// We didn't find a npc
-		if (!tag) {
-			Console::instance()->log(LOG_ERROR, tr("Unable to find a valid npc definition for spawnregion '%1'.\n").arg(id_));
+		if ( !tag )
+		{
+			Console::instance()->log( LOG_ERROR, tr( "Unable to find a valid npc definition for spawnregion '%1'.\n" ).arg( id_ ) );
 			return;
 		}
 
 		// Get the id of the NPC we want to spawn... (important -> basedef)
-		QString id = tag->getAttribute("id");
+		QString id = tag->getAttribute( "id" );
 
-		if (id.isEmpty() || id.isNull()) {
-			Console::instance()->log(LOG_ERROR, tr("Npc tag for spawnregion '%1' lacks id attribute.\n").arg(id_));
+		if ( id.isEmpty() || id.isNull() )
+		{
+			Console::instance()->log( LOG_ERROR, tr( "Npc tag for spawnregion '%1' lacks id attribute.\n" ).arg( id_ ) );
 			return;
 		}
 
-		const cElement *parent = Definitions::instance()->getDefinition(WPDT_NPC, id);
+		const cElement *parent = Definitions::instance()->getDefinition( WPDT_NPC, id );
 
-		if (!parent) {
-			Console::instance()->log(LOG_ERROR, tr("Npc tag for spawnregion '%1' has invalid id attribute '%2'.\n").arg(id_).arg(id));
+		if ( !parent )
+		{
+			Console::instance()->log( LOG_ERROR, tr( "Npc tag for spawnregion '%1' has invalid id attribute '%2'.\n" ).arg( id_ ).arg( id ) );
 			return;
 		}
 
 		// Create the NPC
 		P_NPC pChar = new cNPC;
 		pChar->Init();
-		pChar->setSpawnregion(this);
-		pChar->setBaseid(id.latin1());
+		pChar->setSpawnregion( this );
+		pChar->setBaseid( id.latin1() );
 		pChar->moveTo( pos );
 
 		pChar->applyDefinition( parent ); // Apply the definition from the id first
 
 		// Apply these settings between the inherited npc and the custom settings in the spawnregion
 		// file
-		if (pointCount == 1) {
+		if ( pointCount == 1 )
+		{
 			pChar->setWanderType( enHalt ); // Most likely a vendor spawn with only one point
 			pChar->setWanderX1( pos.x );
 			pChar->setWanderY1( pos.y );
-		} else {
+		}
+		else
+		{
 			pChar->setWanderType( enWanderSpawnregion );
 			pChar->setWanderX1( pos.x );
 			pChar->setWanderY1( pos.y );
@@ -603,12 +681,14 @@ void cSpawnRegion::spawnSingleNPC()
 		cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( pChar, id );
 		Timers::instance()->insert( onCreateCall );
 
-		pChar->resend(false); // Resend the NPC
+		pChar->resend( false ); // Resend the NPC
 		onSpawn( pChar ); // Call the onSpawn event
 
-	// Only warn if there is only ONE spot
-	} else if(pointCount <= 1) {
-		Console::instance()->log(LOG_WARNING, tr("Unable to find valid spot for spawnregion %1.\n").arg(id_));
+		// Only warn if there is only ONE spot
+	}
+	else if ( pointCount <= 1 )
+	{
+		Console::instance()->log( LOG_WARNING, tr( "Unable to find valid spot for spawnregion %1.\n" ).arg( id_ ) );
 	}
 }
 
@@ -624,48 +704,53 @@ void cSpawnRegion::spawnSingleItem()
 		// So we treat every item section as a 1 point section and then select accordingly...
 		// The frequency="" attribute is used for this
 		cElement *node;
-		unsigned int selected = RandomNum(0, itemNodesTotal_ - 1); // Random number
+		unsigned int selected = RandomNum( 0, itemNodesTotal_ - 1 ); // Random number
 		unsigned int offset = 0; // Random offset
 		unsigned int i = 0; // Index for the npcNodeFrequencies
 		const cElement *tag = 0;
 
 		// Search the selected element
-		for (node = itemNodes_.first(); node; node = itemNodes_.next()) {
+		for ( node = itemNodes_.first(); node; node = itemNodes_.next() )
+		{
 			unsigned int value = itemNodeFrequencies_[i++];
 			offset += value;
 
-			if (selected < offset) {
+			if ( selected < offset )
+			{
 				tag = node;
 				break;
 			}
 		}
 
 		// We didn't find a item
-		if (!tag) {
-			Console::instance()->log(LOG_ERROR, tr("Unable to find a valid item definition for spawnregion '%1'.\n").arg(id_));
+		if ( !tag )
+		{
+			Console::instance()->log( LOG_ERROR, tr( "Unable to find a valid item definition for spawnregion '%1'.\n" ).arg( id_ ) );
 			return;
 		}
 
 		// Get the id of the item we want to spawn... (important -> basedef)
-		QString id = tag->getAttribute("id");
+		QString id = tag->getAttribute( "id" );
 
-		if (id.isEmpty() || id.isNull()) {
-			Console::instance()->log(LOG_ERROR, tr("Item tag for spawnregion '%1' lacks id attribute.\n").arg(id_));
+		if ( id.isEmpty() || id.isNull() )
+		{
+			Console::instance()->log( LOG_ERROR, tr( "Item tag for spawnregion '%1' lacks id attribute.\n" ).arg( id_ ) );
 			return;
 		}
 
-		const cElement *parent = Definitions::instance()->getDefinition(WPDT_ITEM, id);
+		const cElement *parent = Definitions::instance()->getDefinition( WPDT_ITEM, id );
 
-		if (!parent) {
-			Console::instance()->log(LOG_ERROR, tr("Item tag for spawnregion '%1' has invalid id attribute '%2'.\n").arg(id_).arg(id));
+		if ( !parent )
+		{
+			Console::instance()->log( LOG_ERROR, tr( "Item tag for spawnregion '%1' has invalid id attribute '%2'.\n" ).arg( id_ ).arg( id ) );
 			return;
 		}
 
 		// Create the item
 		P_ITEM pItem = new cItem;
 		pItem->Init();
-		pItem->setSpawnregion(this);
-		pItem->setBaseid(id.latin1());
+		pItem->setSpawnregion( this );
+		pItem->setBaseid( id.latin1() );
 		pItem->moveTo( pos );
 
 		pItem->applyDefinition( parent ); // Apply the definition from the id first
@@ -677,8 +762,10 @@ void cSpawnRegion::spawnSingleItem()
 
 		pItem->update(); // Resend the NPC
 		onSpawn( pItem ); // Call the onSpawn event
-	} else if(pointCount <= 1) {
-		Console::instance()->log(LOG_WARNING, tr("Unable to find valid spot for spawnregion %1.\n").arg(id_));
+	}
+	else if ( pointCount <= 1 )
+	{
+		Console::instance()->log( LOG_WARNING, tr( "Unable to find valid spot for spawnregion %1.\n" ).arg( id_ ) );
 	}
 }
 
@@ -686,7 +773,8 @@ void cSpawnRegion::onSpawn( cUObject* obj )
 {
 	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SPAWN );
 
-	if ( global ) {
+	if ( global )
+	{
 		PyObject* args = Py_BuildValue( "NN", PyGetSpawnRegionObject( this ), PyGetObjectObject( obj ) );
 		global->callEventHandler( EVENT_SPAWN, args );
 		Py_DECREF( args );
@@ -696,7 +784,8 @@ void cSpawnRegion::onSpawn( cUObject* obj )
 // do one spawn and reset the timer
 void cSpawnRegion::reSpawn( void )
 {
-	if (active_) {
+	if ( active_ )
+	{
 		unsigned int i = 0;
 		for ( i = 0; i < npcsPerCycle_; ++i )
 			if ( npcs() < maxNpcAmt_ )
@@ -712,22 +801,27 @@ void cSpawnRegion::reSpawn( void )
 
 void cSpawnRegion::reSpawnToMax( void )
 {
-	if (active_) {
+	if ( active_ )
+	{
 		unsigned int failed = 0;
 
-		while ( npcs() < maxNpcAmt_  && failed < 50) {
+		while ( npcs() < maxNpcAmt_ && failed < 50 )
+		{
 			unsigned int oldamount = npcs();
 			spawnSingleNPC();
-			if (npcs() == oldamount) {
+			if ( npcs() == oldamount )
+			{
 				failed++;
 			}
 		}
 
 		failed = 0;
-		while ( items() < maxItemAmt_ ) {
+		while ( items() < maxItemAmt_ )
+		{
 			unsigned int oldamount = items();
 			spawnSingleItem();
-			if (npcs() == oldamount) {
+			if ( npcs() == oldamount )
+			{
 				failed++;
 			}
 		}
@@ -759,7 +853,8 @@ void cSpawnRegion::deSpawn( void )
 // check the timer and if expired do reSpawn
 void cSpawnRegion::checkTimer( void )
 {
-	if (active_) {
+	if ( active_ )
+	{
 		if ( this->nextTime_ <= Server::instance()->time() )
 			this->reSpawn();
 	}
@@ -777,7 +872,8 @@ void cAllSpawnRegions::check( void )
 	iterator it( this->begin() );
 	while ( it != this->end() && respawned < 10 )
 	{
-		if ( it->second->active() && it->second->nextTime() <= Server::instance()->time() ) {
+		if ( it->second->active() && it->second->nextTime() <= Server::instance()->time() )
+		{
 			it->second->reSpawn();
 			respawned++;
 		}
@@ -785,12 +881,14 @@ void cAllSpawnRegions::check( void )
 	}
 }
 
-bool cAllSpawnRegions::reSpawnToMaxGroup( const QString &group ) {
+bool cAllSpawnRegions::reSpawnToMaxGroup( const QString& group )
+{
 	iterator it( this->begin() );
 	bool found = false;
 	while ( it != this->end() )
 	{
-		if (it->second->groups().contains(group)) {
+		if ( it->second->groups().contains( group ) )
+		{
 			it->second->reSpawnToMax();
 			found = true;
 		}
@@ -799,12 +897,14 @@ bool cAllSpawnRegions::reSpawnToMaxGroup( const QString &group ) {
 	return found;
 }
 
-bool cAllSpawnRegions::reSpawnGroup( const QString &group ) {
+bool cAllSpawnRegions::reSpawnGroup( const QString& group )
+{
 	iterator it( this->begin() );
 	bool found = false;
 	while ( it != this->end() )
 	{
-		if (it->second->groups().contains(group)) {
+		if ( it->second->groups().contains( group ) )
+		{
 			it->second->reSpawn();
 			found = true;
 		}
@@ -813,12 +913,14 @@ bool cAllSpawnRegions::reSpawnGroup( const QString &group ) {
 	return found;
 }
 
-bool cAllSpawnRegions::deSpawnGroup( const QString &group ) {
+bool cAllSpawnRegions::deSpawnGroup( const QString& group )
+{
 	iterator it( this->begin() );
 	bool found = false;
 	while ( it != this->end() )
 	{
-		if (it->second->groups().contains(group)) {
+		if ( it->second->groups().contains( group ) )
+		{
 			it->second->deSpawn();
 			found = true;
 		}
@@ -842,7 +944,8 @@ void cAllSpawnRegions::reSpawnToMax( void )
 	iterator it( this->begin() );
 	while ( it != this->end() )
 	{
-		if (it->second->active()) {
+		if ( it->second->active() )
+		{
 			it->second->reSpawnToMax();
 		}
 		++it;
@@ -854,7 +957,8 @@ void cAllSpawnRegions::deSpawn( void )
 	iterator it( this->begin() );
 	while ( it != this->end() )
 	{
-		if (it->second->active()) {
+		if ( it->second->active() )
+		{
 			it->second->deSpawn();
 		}
 		++it;
@@ -875,7 +979,8 @@ void cAllSpawnRegions::load()
 	this->clear(); // clear the std::map
 
 	// Don't load spawnregions if disabled
-	if (!Config::instance()->getBool("General", "Disable Spawnregions", false, true)) {
+	if ( !Config::instance()->getBool( "General", "Disable Spawnregions", false, true ) )
+	{
 		QStringList DefSections = Definitions::instance()->getSections( WPDT_SPAWNREGION );
 
 		QStringList::iterator it = DefSections.begin();
@@ -945,7 +1050,9 @@ void cAllSpawnRegions::reload()
 			{
 				object->setSpawnregion( region );
 			}
-		} else {
+		}
+		else
+		{
 			cUObject *object;
 			QPtrList<cUObject> &list = it.data();
 			for ( object = list.first(); object; object = list.next() )

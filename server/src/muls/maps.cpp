@@ -291,12 +291,14 @@ void cMaps::load()
 	cComponent::load();
 }
 
-void MapsPrivate::flushCache() {
+void MapsPrivate::flushCache()
+{
 	this->staticsCache.clear();
 	this->mapCache.clear();
 }
 
-void cMaps::flushCache() {
+void cMaps::flushCache()
+{
 	for ( iterator it = d.begin(); it != d.end(); ++it )
 	{
 		it.data()->flushCache();
@@ -351,10 +353,13 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 				staticsFileName = *it;
 		}
 
-		try {
+		try
+		{
 			p = new MapsPrivate( basePath + staticsIdxName, basePath + mapFileName, basePath + staticsFileName );
-		} catch(wpFileNotFoundException &e) {
-			Console::instance()->log(LOG_WARNING, tr("Unable to find the files for map %1.\n").arg(id));
+		}
+		catch ( wpFileNotFoundException& e )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Unable to find the files for map %1.\n" ).arg( id ) );
 			return false;
 		}
 
@@ -363,9 +368,11 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 		p->loadDiffs( basePath, id );
 		d.insert( id, p );
 		return true;
-	} catch ( wpFileNotFoundException& e ) {
+	}
+	catch ( wpFileNotFoundException& e )
+	{
 		delete p;
-		Console::instance()->log(LOG_WARNING, e.error());
+		Console::instance()->log( LOG_WARNING, e.error() );
 		return false;
 	}
 }
@@ -442,23 +449,23 @@ uint cMaps::mapTileWidth( uint id ) const
 	return it.data()->width;
 }
 
-void cMaps::mapTileSpan( const Coord &pos, unsigned short &id, int &bottom, int &top ) const
+void cMaps::mapTileSpan( const Coord& pos, unsigned short& id, int& bottom, int& top ) const
 {
 	int topZ, bottomZ, leftZ, rightZ;
 
 	// Get the elevation of the tile itself
-	map_st tile = seekMap(pos.map, pos.x, pos.y);
+	map_st tile = seekMap( pos.map, pos.x, pos.y );
 	topZ = tile.z;
 	id = tile.id;
 
 	// Get the elevation of the tile on the lower left
-	leftZ = seekMap(pos.map, pos.x, pos.y + 1).z;
+	leftZ = seekMap( pos.map, pos.x, pos.y + 1 ).z;
 
 	// Get the elevation of the tile on the lower right
-	rightZ = seekMap(pos.map, pos.x + 1, pos.y).z;
+	rightZ = seekMap( pos.map, pos.x + 1, pos.y ).z;
 
 	// Get the elevation of the tile below
-	bottomZ = seekMap(pos.map, pos.x + 1, pos.y + 1).z;
+	bottomZ = seekMap( pos.map, pos.x + 1, pos.y + 1 ).z;
 
 	// Get the smallest of the z values
 	bottom = wpMin<int>( wpMin<int>( wpMin<int>( topZ, leftZ ), rightZ ), bottomZ );
@@ -634,8 +641,9 @@ signed char cMaps::height( const Coord& pos )
 StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact /* = true */ ) const throw( wpException )
 {
 	const_iterator it = d.find( id );
-	if ( it == d.end() ) {
-		Console::instance()->log(LOG_ERROR, tr( "[cMaps::staticsIterator line %1] map id(%2) not registered!\n" ).arg( __LINE__ ).arg( id ) );
+	if ( it == d.end() )
+	{
+		Console::instance()->log( LOG_ERROR, tr( "[cMaps::staticsIterator line %1] map id(%2) not registered!\n" ).arg( __LINE__ ).arg( id ) );
 		return StaticsIterator( x, y, 0, true );
 	}
 	return StaticsIterator( x, y, it.data(), exact );
@@ -699,9 +707,9 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 
 #if !defined(_DEBUG)
 	if ( !p )
-		#else
+			#else
 		if ( true )
-				#endif
+						#endif
 		{
 			QDataStream staticStream;
 			staticStream.setByteOrder( QDataStream::LittleEndian );

@@ -125,7 +125,7 @@ public:
 	bool hasMap( uint id ) const;
 	signed char mapElevation( const Coord& p ) const;
 	signed char mapAverageElevation( const Coord& p, int* top = 0, int* botton = 0 ) const;
-	void mapTileSpan(const Coord &pos, unsigned short &id, int &bottom, int &top) const;
+	void mapTileSpan( const Coord& pos, unsigned short& id, int& bottom, int& top ) const;
 	signed char dynamicElevation( const Coord& pos ) const;
 	signed char height( const Coord& pos );
 	uint mapTileWidth( uint ) const;

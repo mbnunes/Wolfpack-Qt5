@@ -81,12 +81,12 @@ static PyObject* wpTarget_getAttr( wpTarget* self, char* name )
 }
 
 
-static void wpTarget_Dealloc( wpTarget * self )
+static void wpTarget_Dealloc( wpTarget* self )
 {
-	Py_XDECREF( self->py_pos	);
-	Py_XDECREF( self->py_obj	);
+	Py_XDECREF( self->py_pos );
+	Py_XDECREF( self->py_obj );
 
-	wpDealloc( (PyObject*) self );
+	wpDealloc( ( PyObject * ) self );
 }
 
 
@@ -97,7 +97,7 @@ PyObject_HEAD_INIT( NULL )
 "wpTarget",
 sizeof( wpTargetType ),
 0,
-( destructor )  wpTarget_Dealloc,
+( destructor ) wpTarget_Dealloc,
 0,
 ( getattrfunc ) wpTarget_getAttr,
 0,
@@ -124,12 +124,12 @@ static PyObject* PyGetTarget( cUORxTarget* target, Q_UINT8 map )
 	pos.z = target->z();
 	pos.map = map;
 
-	returnVal->pos			= pos;
-	returnVal->object		= target->serial();
-	returnVal->model		= target->model();
+	returnVal->pos = pos;
+	returnVal->object = target->serial();
+	returnVal->model = target->model();
 
-	returnVal->py_pos		= NULL;
-	returnVal->py_obj		= NULL;
+	returnVal->py_pos = NULL;
+	returnVal->py_obj = NULL;
 
 	return ( PyObject * ) returnVal;
 }
@@ -156,7 +156,7 @@ bool cPythonTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 				// Create our Argument list
 				PyObject* p_args = PyTuple_New( 3 );
 				PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
-				Py_INCREF(args);
+				Py_INCREF( args );
 				PyTuple_SetItem( p_args, 1, args );
 				PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos().map ) );
 

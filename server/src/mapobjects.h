@@ -48,16 +48,17 @@ class MapObjectsGrid;
 
 	@warning Do not replicate iterator objects, as they have implicitly shared states.
  */
-template<typename T = cUObject>
+template <typename T = cUObject>
 class MapObjectsIterator
 {
 public:
 	//! Constructs an invalid iterator.
 	inline MapObjectsIterator() : mState( NULL )
-	{;}
+	{
+		;}
 
 	//! Copy constructor.
-	inline MapObjectsIterator( const MapObjectsIterator &other ) : mState( other.mState )
+	inline MapObjectsIterator( const MapObjectsIterator& other ) : mState( other.mState )
 	{
 		incrementRefCount();
 	}
@@ -68,18 +69,18 @@ public:
 	}
 
 	//! Rewinds the iterator and returns the first element (NULL if empty).
-	inline T * first();
+	inline T* first();
 
 	//! Fetches the next element (NULL if there are no more elements).
-	inline T * next();
+	inline T* next();
 
 	//! Copy operator.
-	MapObjectsIterator & operator=( const MapObjectsIterator &other );
+	MapObjectsIterator& operator=( const MapObjectsIterator& other );
 
 private:
 	friend class MapObjects;
 
-	inline MapObjectsIterator( void *state ) : mState( state )
+	inline MapObjectsIterator( void* state ) : mState( state )
 	{
 		incrementRefCount();
 	}
@@ -123,26 +124,25 @@ public:
 	void addMap( UI08 map, UI16 width, UI16 height );
 
 	//! Adds an UObject to the structure.
-	void add( cUObject *object );
+	void add( cUObject* object );
 
 	/*!
 		Updates an UObjects that's already in the structure.
 		This is equivalent to removing&re-adding the UObject, but much faster.
 		Must be called just before the object's position changes, with the new position.
 	 */
-	void update( cUObject *object, const Coord &newPos );
+	void update( cUObject* object, const Coord& newPos );
 
 	/*!
 		This must be called whenever a player's online status changes (as defined by
 		isOnline(), which takes lingering into consideration).
-
 		If 'online' is true, the player's status is considered to have changed from
 		offline to online; or if it's false, from online to offline.
 	 */
-	void updateOnlineStatus( cPlayer *player, bool online );
+	void updateOnlineStatus( cPlayer* player, bool online );
 
 	//! Removes an UObject from the structure.
-	void remove( cUObject *object );
+	void remove( cUObject* object );
 
 	//! Whether a map is valid.
 	bool validMap( UI08 map )
@@ -155,22 +155,22 @@ public:
 	MapItemsIterator listItemsInRect( UI08 map, UI16 x1, UI16 y1, UI16 x2, UI16 y2 );
 	MapItemsIterator listItemsInCircle( UI08 map, UI16 x, UI16 y, UI16 radius );
 
-	inline MapItemsIterator listItemsAtCoord( const Coord &pos )
+	inline MapItemsIterator listItemsAtCoord( const Coord& pos )
 	{
 		return listItemsAtCoord( pos.map, pos.x, pos.y );
 	}
 
-	inline MapItemsIterator listItemsInBlock( const Coord &pos )
+	inline MapItemsIterator listItemsInBlock( const Coord& pos )
 	{
 		return listItemsInBlock( pos.map, pos.x, pos.y );
 	}
 
-	inline MapItemsIterator listItemsInRect( const Coord &p1, const Coord &p2 )
+	inline MapItemsIterator listItemsInRect( const Coord& p1, const Coord& p2 )
 	{
 		return listItemsInRect( p1.map, p1.x, p1.y, p2.x, p2.y );
 	}
 
-	inline MapItemsIterator listItemsInCircle( const Coord &center, UI16 radius )
+	inline MapItemsIterator listItemsInCircle( const Coord& center, UI16 radius )
 	{
 		return listItemsInCircle( center.map, center.x, center.y, radius );
 	}
@@ -180,22 +180,22 @@ public:
 	MapMultisIterator listMultisInRect( UI08 map, UI16 x1, UI16 y1, UI16 x2, UI16 y2 );
 	MapMultisIterator listMultisInCircle( UI08 map, UI16 x, UI16 y, UI16 radius );
 
-	inline MapMultisIterator listMultisAtCoord( const Coord &pos )
+	inline MapMultisIterator listMultisAtCoord( const Coord& pos )
 	{
 		return listMultisAtCoord( pos.map, pos.x, pos.y );
 	}
 
-	inline MapMultisIterator listMultisInBlock( const Coord &pos )
+	inline MapMultisIterator listMultisInBlock( const Coord& pos )
 	{
 		return listMultisInBlock( pos.map, pos.x, pos.y );
 	}
 
-	inline MapMultisIterator listMultisInRect( const Coord &p1, const Coord &p2 )
+	inline MapMultisIterator listMultisInRect( const Coord& p1, const Coord& p2 )
 	{
 		return listMultisInRect( p1.map, p1.x, p1.y, p2.x, p2.y );
 	}
 
-	inline MapMultisIterator listMultisInCircle( const Coord &center, UI16 radius )
+	inline MapMultisIterator listMultisInCircle( const Coord& center, UI16 radius )
 	{
 		return listMultisInCircle( center.map, center.x, center.y, radius );
 	}
@@ -206,22 +206,22 @@ public:
 	MapCharsIterator listCharsInRect( UI08 map, UI16 x1, UI16 y1, UI16 x2, UI16 y2, bool offline = false );
 	MapCharsIterator listCharsInCircle( UI08 map, UI16 x, UI16 y, UI16 radius, bool offline = false );
 
-	inline MapCharsIterator listCharsAtCoord( const Coord &pos, bool offline = false )
+	inline MapCharsIterator listCharsAtCoord( const Coord& pos, bool offline = false )
 	{
 		return listCharsAtCoord( pos.map, pos.x, pos.y, offline );
 	}
 
-	inline MapCharsIterator listCharsInBlock( const Coord &pos, bool offline = false )
+	inline MapCharsIterator listCharsInBlock( const Coord& pos, bool offline = false )
 	{
 		return listCharsInBlock( pos.map, pos.x, pos.y, offline );
 	}
 
-	inline MapCharsIterator listCharsInRect( const Coord &p1, const Coord &p2, bool offline = false )
+	inline MapCharsIterator listCharsInRect( const Coord& p1, const Coord& p2, bool offline = false )
 	{
 		return listCharsInRect( p1.map, p1.x, p1.y, p2.x, p2.y, offline );
 	}
 
-	inline MapCharsIterator listCharsInCircle( const Coord &center, UI16 radius, bool offline = false )
+	inline MapCharsIterator listCharsInCircle( const Coord& center, UI16 radius, bool offline = false )
 	{
 		return listCharsInCircle( center.map, center.x, center.y, radius, offline );
 	}
@@ -232,51 +232,51 @@ private:
 	friend class MapObjectsIterator<cMulti>;
 	friend class MapObjectsIterator<cBaseChar>;
 
-	static cUObject * firstIteration( void *state );
-	static cUObject * nextIteration( void *state );
-	static void releaseIterator( void *state );
+	static cUObject* firstIteration( void* state );
+	static cUObject* nextIteration( void* state );
+	static void releaseIterator( void* state );
 
 private:
 	QPtrVector<GridSet> mMaps;
 };
 
 
-template<typename T>
-inline T * MapObjectsIterator<T>::first()
+template <typename T>
+inline T* MapObjectsIterator<T>::first()
 {
-	return reinterpret_cast<T *>( MapObjects::firstIteration( mState ) );
+	return reinterpret_cast<T*>( MapObjects::firstIteration( mState ) );
 }
 
-template<typename T>
-inline T * MapObjectsIterator<T>::next()
+template <typename T>
+inline T* MapObjectsIterator<T>::next()
 {
-	return reinterpret_cast<T *>( MapObjects::nextIteration( mState ) );
+	return reinterpret_cast<T*>( MapObjects::nextIteration( mState ) );
 }
 
-template<typename T>
+template <typename T>
 inline void MapObjectsIterator<T>::incrementRefCount()
 {
 	// first UI16 in state holds our refcount
-	if( mState )
-		++( *reinterpret_cast<UI08 *>( mState ) );
+	if ( mState )
+		++( *reinterpret_cast<UI08*>( mState ) );
 }
 
-template<typename T>
+template <typename T>
 inline void MapObjectsIterator<T>::decrementRefCount()
 {
 	// if refcount reaches zero, release the iterator
-	if( mState && --( *reinterpret_cast<UI08 *>( mState ) ) == 0 )
+	if ( mState && --( *reinterpret_cast<UI08*>( mState ) ) == 0 )
 		MapObjects::releaseIterator( mState );
 }
 
-template<typename T>
-MapObjectsIterator<T> & MapObjectsIterator<T>::operator=( const MapObjectsIterator &other )
+template <typename T>
+MapObjectsIterator<T> & MapObjectsIterator<T> ::operator=( const MapObjectsIterator& other )
 {
-	if( mState != other.mState )
+	if ( mState != other.mState )
 	{
 		// increment other's refcount
-		if( other.mState )
-			++( *reinterpret_cast<UI08 *>( other.mState ) );
+		if ( other.mState )
+			++( *reinterpret_cast<UI08*>( other.mState ) );
 
 		decrementRefCount();
 		mState = other.mState;

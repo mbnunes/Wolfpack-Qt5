@@ -123,8 +123,10 @@ public:
 	}
 };
 
-void cServer::queueAction( enActionType type ) {
-	switch (type) {
+void cServer::queueAction( enActionType type )
+{
+	switch ( type )
+	{
 	case RELOAD_SCRIPTS:
 		queueAction( new cActionReloadScripts );
 		break;
@@ -148,13 +150,15 @@ void cServer::queueAction( enActionType type ) {
 	}
 }
 
-void cServer::queueAction( cAction *action )
+void cServer::queueAction( cAction* action )
 {
 	if ( d->state == RUNNING )
 	{
 		QMutexLocker lock( &d->actionMutex );
 		d->actionQueue.push_back( action );
-	} else {
+	}
+	else
+	{
 		delete action; // Delete it right away
 	}
 }
@@ -165,8 +169,8 @@ void cServer::pollQueuedActions()
 	if ( !d->actionQueue.empty() )
 	{
 		d->actionMutex.lock();
-		cAction *action = *(d->actionQueue.begin());
-		d->actionQueue.erase(d->actionQueue.begin());
+		cAction *action = *( d->actionQueue.begin() );
+		d->actionQueue.erase( d->actionQueue.begin() );
 		d->actionMutex.unlock();
 
 		try
@@ -215,27 +219,27 @@ cServer::cServer()
 	d->app = 0;
 
 	// Register Components
-	registerComponent( Config::instance(), QT_TR_NOOP("configuration"), true, false );
+	registerComponent( Config::instance(), QT_TR_NOOP( "configuration" ), true, false );
 
 	// We want to start this independently
 	//registerComponent(PythonEngine::instance(), "python", false, true, "configuration");
 
-	registerComponent( Maps::instance(), QT_TR_NOOP("maps"), true, false, "configuration" );
-	registerComponent( MapObjects::instance(), QT_TR_NOOP("sectormaps"), false, true, "maps" );
-	registerComponent( TileCache::instance(), QT_TR_NOOP("tiledata"), true, false, "configuration" );
-	registerComponent( MultiCache::instance(), QT_TR_NOOP("multis"), true, false, "configuration" );
+	registerComponent( Maps::instance(), QT_TR_NOOP( "maps" ), true, false, "configuration" );
+	registerComponent( MapObjects::instance(), QT_TR_NOOP( "sectormaps" ), false, true, "maps" );
+	registerComponent( TileCache::instance(), QT_TR_NOOP( "tiledata" ), true, false, "configuration" );
+	registerComponent( MultiCache::instance(), QT_TR_NOOP( "multis" ), true, false, "configuration" );
 
-	registerComponent( Definitions::instance(), QT_TR_NOOP("definitions"), true, false, "configuration" );
-	registerComponent( ScriptManager::instance(), QT_TR_NOOP("scripts"), true, false, "definitions" );
-	registerComponent( ContextMenus::instance(), QT_TR_NOOP("contextmenus"), true, false, "scripts" );
-	registerComponent( SpawnRegions::instance(), QT_TR_NOOP("spawnregions"), true, false, "definitions" );
-	registerComponent( Territories::instance(), QT_TR_NOOP("territories"), true, false, "definitions" );
+	registerComponent( Definitions::instance(), QT_TR_NOOP( "definitions" ), true, false, "configuration" );
+	registerComponent( ScriptManager::instance(), QT_TR_NOOP( "scripts" ), true, false, "definitions" );
+	registerComponent( ContextMenus::instance(), QT_TR_NOOP( "contextmenus" ), true, false, "scripts" );
+	registerComponent( SpawnRegions::instance(), QT_TR_NOOP( "spawnregions" ), true, false, "definitions" );
+	registerComponent( Territories::instance(), QT_TR_NOOP( "territories" ), true, false, "definitions" );
 
 	// Accounts come before world
-	registerComponent( Accounts::instance(), QT_TR_NOOP("accounts"), true, false );
-	registerComponent( World::instance(), QT_TR_NOOP("world"), false, true );
+	registerComponent( Accounts::instance(), QT_TR_NOOP( "accounts" ), true, false );
+	registerComponent( World::instance(), QT_TR_NOOP( "world" ), false, true );
 
-	registerComponent( Network::instance(), QT_TR_NOOP("network"), true, false );
+	registerComponent( Network::instance(), QT_TR_NOOP( "network" ), true, false );
 }
 
 cServer::~cServer()
@@ -268,53 +272,53 @@ bool cServer::run( int argc, char** argv )
 {
 	// If have no idea where i should put this otherwise
 #if defined(Q_OS_UNIX)
-	signal(SIGPIPE, SIG_IGN);
+	signal( SIGPIPE, SIG_IGN );
 #endif
 
 	bool error = false;
 
 	setState( STARTUP );
 
-	d->app = new QApplication ( argc, argv, false );
+	d->app = new QApplication( argc, argv, false );
 
-/*	cItem *item1 = (cItem*)0;
-	cItem *item2 = (cItem*)1;
-	cItem *item3 = (cItem*)2;
+	/*	cItem *item1 = (cItem*)0;
+		cItem *item2 = (cItem*)1;
+		cItem *item3 = (cItem*)2;
 
-	ContainerContent content;
-	for (int i = 0; i < 18; ++i) {
-		content.add((cItem*)i);
-	}
-
-	content.remove((cItem*)16);
-	content.remove((cItem*)15);
-	content.remove((cItem*)16);
-	content.remove((cItem*)17);
-
-	Console::instance()->send(content.dump());
-
-	ContainerIterator it(content);
-	while (!it.atEnd()) {
-		Console::instance()->send(QString::number(reinterpret_cast<size_t>(*it)) + "\n");
-		if ((*it) == item3) {
-			content.remove(item3);
+		ContainerContent content;
+		for (int i = 0; i < 18; ++i) {
+			content.add((cItem*)i);
 		}
-		++it;
-	}
 
-	return false;*/
+		content.remove((cItem*)16);
+		content.remove((cItem*)15);
+		content.remove((cItem*)16);
+		content.remove((cItem*)17);
+
+		Console::instance()->send(content.dump());
+
+		ContainerIterator it(content);
+		while (!it.atEnd()) {
+			Console::instance()->send(QString::number(reinterpret_cast<size_t>(*it)) + "\n");
+			if ((*it) == item3) {
+				content.remove(item3);
+			}
+			++it;
+		}
+
+		return false;*/
 
 	// Load wolfpack.xml
 	Config::instance()->load();
 	if ( !Config::instance()->fileState() )
 	{
-		Console::instance()->log( LOG_WARNING, "Your configuration file [wolfpack.xml] have just been created with default settings.\n");
-		Console::instance()->log( LOG_WARNING, "You might have to change it accordingly before running again\n");
+		Console::instance()->log( LOG_WARNING, "Your configuration file [wolfpack.xml] have just been created with default settings.\n" );
+		Console::instance()->log( LOG_WARNING, "You might have to change it accordingly before running again\n" );
 	}
 
 #if !defined( QT_NO_TRANSLATION )
 	// Start the QT translator
-	QString languageFile = Config::instance()->getString( "General", "Language File", QString("wolfpack_") + QTextCodec::locale(), true );
+	QString languageFile = Config::instance()->getString( "General", "Language File", QString( "wolfpack_" ) + QTextCodec::locale(), true );
 	if ( !languageFile.isEmpty() && QFile::exists( languageFile ) )
 	{
 		QTranslator* translator = new QTranslator( qApp );
@@ -345,14 +349,15 @@ bool cServer::run( int argc, char** argv )
 	{
 		load();
 	}
-	catch(wpException &e)
+	catch ( wpException& e )
 	{
-		Console::instance()->log(LOG_ERROR, e.error() + "\n");
+		Console::instance()->log( LOG_ERROR, e.error() + "\n" );
 		return false;
 	}
 
 
-	try {
+	try
+	{
 		// Open the Worldsave and Account Database drivers.
 		if ( Config::instance()->databaseDriver() != "binary" && !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 		{
@@ -377,11 +382,12 @@ bool cServer::run( int argc, char** argv )
 
 		clearProfilingInfo();
 
-		while ( isRunning() ) {
+		while ( isRunning() )
+		{
 			// Every 10th cycle we sleep for a while and give other threads processing time.
 			if ( ++cycles == 10 )
 			{
-				startProfiling(PF_NICENESS);
+				startProfiling( PF_NICENESS );
 
 				cycles = 0;
 				_save = PyEval_SaveThread(); // Python threading - start
@@ -414,7 +420,7 @@ bool cServer::run( int argc, char** argv )
 				qApp->processEvents( 40 );
 				PyEval_RestoreThread( _save ); // Python threading - end
 
-				stopProfiling(PF_NICENESS);
+				stopProfiling( PF_NICENESS );
 			}
 
 			pollQueuedActions();
@@ -434,18 +440,19 @@ bool cServer::run( int argc, char** argv )
 		}
 
 		dumpProfilingInfo();
-
-	} catch (wpException &exception) {
-		Console::instance()->log(LOG_ERROR, exception.error() + "\n" );
+	}
+	catch ( wpException& exception )
+	{
+		Console::instance()->log( LOG_ERROR, exception.error() + "\n" );
 		error = true;
 	} /*catch (...) {
-		error = true;
-	}*/
+	  	error = true;
+	  }*/
 
 	setState( SHUTDOWN );
 	Console::instance()->stop();
 	ScriptManager::instance()->onServerStop(); // Notify python scripts about shutdown
-	Network::instance()->broadcast( tr("The server is shutting down.") );
+	Network::instance()->broadcast( tr( "The server is shutting down." ) );
 	unload();
 
 	// Stop Python
@@ -462,9 +469,9 @@ void cServer::setupConsole()
 
 	Console::instance()->send( "Copyright (C) 2000-2004 Wolfpack Development Team\n" );
 	Console::instance()->send( "Wolfpack Homepage: http://www.wpdev.org/\n" );
-	Console::instance()->send( tr("By using this software you agree to the license accompanying this release.\n") );
-	Console::instance()->send( tr("Compiled on %1 %2\n").arg( __DATE__ , __TIME__ ) );
-	Console::instance()->send( tr("Compiled for Qt %1 (Using: %2 %3)\n").arg(QT_VERSION_STR, qVersion(), qSharedBuild() ? " Shared" : " Static" ) );
+	Console::instance()->send( tr( "By using this software you agree to the license accompanying this release.\n" ) );
+	Console::instance()->send( tr( "Compiled on %1 %2\n" ).arg( __DATE__, __TIME__ ) );
+	Console::instance()->send( tr( "Compiled for Qt %1 (Using: %2 %3)\n" ).arg( QT_VERSION_STR, qVersion(), qSharedBuild() ? " Shared" : " Static" ) );
 	QString pythonBuild = Py_GetVersion();
 	pythonBuild = pythonBuild.left( pythonBuild.find( ' ' ) );
 
@@ -475,16 +482,16 @@ void cServer::setupConsole()
 #endif
 
 #if defined(Py_UNICODE_WIDE)
-	QString UnicodeType("UCS-4");
+	QString UnicodeType( "UCS-4" );
 #else
-	QString UnicodeType("UCS-2");
+	QString UnicodeType( "UCS-2" );
 #endif
-	Console::instance()->send( tr("Compiled for Python %1 %2 (Using: %3)\n").arg(PY_VERSION, UnicodeType, pythonBuild) );
-	Console::instance()->send( tr("Compiled with SQLite %1\n" ).arg( SQLITE_VERSION ) );
+	Console::instance()->send( tr( "Compiled for Python %1 %2 (Using: %3)\n" ).arg( PY_VERSION, UnicodeType, pythonBuild ) );
+	Console::instance()->send( tr( "Compiled with SQLite %1\n" ).arg( SQLITE_VERSION ) );
 #if defined (MYSQL_DRIVER)
 	Console::instance()->send( tr( "Compiled for MySQL %1 (Using: %2)\n" ).arg( MYSQL_SERVER_VERSION, mysql_get_client_info() ) );
 #else
-	Console::instance()->send( tr("MySQL Support: disabled\n") );
+	Console::instance()->send( tr( "MySQL Support: disabled\n" ) );
 #endif
 	Console::instance()->send( "\n" );
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( productString(), productBeta(), productVersion() );
@@ -662,7 +669,7 @@ void cServer::reload( const QString& name )
 	{
 		if ( !component->isSilent() )
 		{
-			Console::instance()->sendProgress( tr( "Reloading %1" ).arg( tr(component->getName()) ) );
+			Console::instance()->sendProgress( tr( "Reloading %1" ).arg( tr( component->getName() ) ) );
 		}
 
 		component->reload();

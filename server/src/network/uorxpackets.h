@@ -557,15 +557,16 @@ public:
 
 	eChoice choice( void ) const
 	{
-		unsigned char choice = (*this)[1];
-		switch (choice) {
-			case 0:
-				return Manifest;
-			case 1:
-				return Resurrect;
-			default:
-			case 2:
-				return Ghost;			
+		unsigned char choice = ( *this )[1];
+		switch ( choice )
+		{
+		case 0:
+			return Manifest;
+		case 1:
+			return Resurrect;
+		default:
+		case 2:
+			return Ghost;
 		};
 	}
 };

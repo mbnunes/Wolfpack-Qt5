@@ -37,7 +37,7 @@
 
 class cTiming
 {
-	OBJECTDEF(cTiming)
+	OBJECTDEF( cTiming )
 private:
 	unsigned int nextSpawnRegionCheck;
 	unsigned int nextLightCheck;

@@ -40,7 +40,8 @@
 class cElement;
 class cPythonScript;
 
-class cBaseDef : public cDefinable, public cPythonScriptable {
+class cBaseDef : public cDefinable, public cPythonScriptable
+{
 protected:
 	// Our id
 	QCString id_;
@@ -61,34 +62,44 @@ protected:
 public:
 	void processNode( const cElement* node );
 
-	inline unsigned int getIntProperty(const QString &name, unsigned int def = 0) {
+	inline unsigned int getIntProperty( const QString& name, unsigned int def = 0 )
+	{
 		load();
-		QMap<QString, unsigned int>::const_iterator it = intproperties.find(name);
-		if (it == intproperties.end()) {
+		QMap<QString, unsigned int>::const_iterator it = intproperties.find( name );
+		if ( it == intproperties.end() )
+		{
 			return def;
-		} else {
+		}
+		else
+		{
 			return *it;
 		}
 	}
 
-	inline bool hasIntProperty(const QString &name) {
+	inline bool hasIntProperty( const QString& name )
+	{
 		load();
-		return intproperties.contains(name);
+		return intproperties.contains( name );
 	}
 
-	inline const QString &getStrProperty(const QString &name, const QString &def = QString::null) {
+	inline const QString& getStrProperty( const QString& name, const QString& def = QString::null )
+	{
 		load();
-		QMap<QString, QString>::const_iterator it = properties.find(name);
-		if (it == properties.end()) {
+		QMap<QString, QString>::const_iterator it = properties.find( name );
+		if ( it == properties.end() )
+		{
 			return def;
-		} else {
+		}
+		else
+		{
 			return *it;
 		}
 	}
 
-	inline bool hasStrProperty(const QString &name) {
+	inline bool hasStrProperty( const QString& name )
+	{
 		load();
-		return properties.contains(name);
+		return properties.contains( name );
 	}
 
 	inline const QCString& id() const
@@ -102,7 +113,7 @@ public:
 		return baseScriptList_;
 	}
 
-	inline const QPtrList<cPythonScript> &baseScripts()
+	inline const QPtrList<cPythonScript>& baseScripts()
 	{
 		load();
 		return baseScripts_;
@@ -117,8 +128,8 @@ public:
 	// Python Scriptable
 	const char* className() const;
 	PyObject* getPyObject();
-	bool implements(const QString& name) const;
-	PyObject *getProperty( const QString& name );
+	bool implements( const QString& name ) const;
+	PyObject* getProperty( const QString& name );
 };
 
 class cCharBaseDef : public cBaseDef
@@ -161,27 +172,32 @@ public:
 		return controlSlots_;
 	}
 
-	inline const QValueVector<unsigned short> &attackSound() {
+	inline const QValueVector<unsigned short>& attackSound()
+	{
 		load();
 		return attackSound_;
 	}
 
-	inline const QValueVector<unsigned short> &idleSound() {
+	inline const QValueVector<unsigned short>& idleSound()
+	{
 		load();
 		return idleSound_;
 	}
 
-	inline const QValueVector<unsigned short> &hitSound() {
+	inline const QValueVector<unsigned short>& hitSound()
+	{
 		load();
 		return hitSound_;
 	}
 
-	inline const QValueVector<unsigned short> &gethitSound() {
+	inline const QValueVector<unsigned short>& gethitSound()
+	{
 		load();
 		return gethitSound_;
 	}
 
-	inline const QValueVector<unsigned short> &deathSound() {
+	inline const QValueVector<unsigned short>& deathSound()
+	{
 		load();
 		return deathSound_;
 	}
@@ -246,7 +262,7 @@ public:
 		return lootPacks_;
 	}
 
-	PyObject *getProperty( const QString& name );
+	PyObject* getProperty( const QString& name );
 };
 
 #define BODY_UNKNOWN 0
@@ -256,7 +272,8 @@ public:
 #define BODY_HUMAN 4
 #define BODY_EQUIPMENT 5
 
-struct stBodyInfo {
+struct stBodyInfo
+{
 	unsigned short body;
 	unsigned short basesound;
 	unsigned short figurine;
@@ -274,7 +291,7 @@ struct stBodyInfo {
 
 class cCharBaseDefs
 {
-friend class cCharBaseDef;
+	friend class cCharBaseDef;
 
 protected:
 	typedef QMap<QCString, cCharBaseDef*> Container;
@@ -290,10 +307,14 @@ public:
 	// This is guaranteed to return a basedef. Even if uninitialized.
 	cCharBaseDef* get( const QCString& id );
 
-	inline const stBodyInfo &getBodyInfo(unsigned short body) {
-		if (body < 0x400) {
+	inline const stBodyInfo& getBodyInfo( unsigned short body )
+	{
+		if ( body < 0x400 )
+		{
 			return bodyinfo[body];
-		} else {
+		}
+		else
+		{
 			return bodyinfo[0];
 		}
 	}
@@ -385,7 +406,7 @@ public:
 		return ( flags_ & 0x01 ) != 0;
 	}
 
-	PyObject *getProperty( const QString& name );
+	PyObject* getProperty( const QString& name );
 };
 
 class cItemBaseDefs

@@ -50,7 +50,7 @@ typedef struct
 
 static void wpItemIteratorDealloc( PyObject* self )
 {
-	reinterpret_cast<wpRegionIteratorItems *>( self )->iter.~MapItemsIterator();
+	reinterpret_cast<wpRegionIteratorItems*>( self )->iter.~MapItemsIterator();
 	PyObject_Del( self );
 }
 
@@ -74,42 +74,42 @@ static PyObject* wpRegionIteratorItems_getAttr( wpRegionIteratorItems* self, cha
 
 static PyTypeObject wpRegionIteratorItemsType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"wpItemRegionIterator",
-	sizeof( wpRegionIteratorItemsType ),
-	0,
-	wpItemIteratorDealloc,
-	0,
-	( getattrfunc ) wpRegionIteratorItems_getAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpItemRegionIterator",
+sizeof( wpRegionIteratorItemsType ),
+0,
+wpItemIteratorDealloc,
+0,
+( getattrfunc ) wpRegionIteratorItems_getAttr,
+0,
+0,
+0,
+0,
+0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 static PyObject* PyGetItemRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map )
 {
 	// must manually initialize the iterator's state to zero
 	wpRegionIteratorItems* returnVal = PyObject_New( wpRegionIteratorItems, &wpRegionIteratorItemsType );
-	*reinterpret_cast<void **>( &returnVal->iter ) = NULL;
+	*reinterpret_cast<void**>( &returnVal->iter ) = NULL;
 
 	returnVal->iter = MapObjects::instance()->listItemsInRect( map, x1, y1, x2, y2 );
 
-	return reinterpret_cast<PyObject *>( returnVal );
+	return reinterpret_cast<PyObject*>( returnVal );
 }
 
 static PyObject* PyGetItemRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
 {
 	// must manually initialize the iterator's state to zero
 	wpRegionIteratorItems* returnVal = PyObject_New( wpRegionIteratorItems, &wpRegionIteratorItemsType );
-	*reinterpret_cast<void **>( &returnVal->iter ) = NULL;
+	*reinterpret_cast<void**>( &returnVal->iter ) = NULL;
 
 	returnVal->iter = MapObjects::instance()->listItemsInBlock( map, xBlock * 8, yBlock * 8 );
 
-	return reinterpret_cast<PyObject *>( returnVal );
+	return reinterpret_cast<PyObject*>( returnVal );
 }
 
 /*
@@ -133,7 +133,7 @@ typedef struct
 
 static void wpCharIteratorDealloc( PyObject* self )
 {
-	reinterpret_cast<wpRegionIteratorChars *>( self )->iter.~MapCharsIterator();
+	reinterpret_cast<wpRegionIteratorChars*>( self )->iter.~MapCharsIterator();
 	PyObject_Del( self );
 }
 
@@ -157,42 +157,42 @@ static PyObject* wpRegionIteratorChars_getAttr( wpRegionIteratorChars* self, cha
 
 static PyTypeObject wpRegionIteratorCharsType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"wpCharRegionIterator",
-	sizeof( wpRegionIteratorCharsType ),
-	0,
-	wpCharIteratorDealloc,
-	0,
-	( getattrfunc ) wpRegionIteratorChars_getAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpCharRegionIterator",
+sizeof( wpRegionIteratorCharsType ),
+0,
+wpCharIteratorDealloc,
+0,
+( getattrfunc ) wpRegionIteratorChars_getAttr,
+0,
+0,
+0,
+0,
+0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 static PyObject* PyGetCharRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map, bool offline = false )
 {
 	// must manually initialize the iterator's state to zero
 	wpRegionIteratorChars* returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
-	*reinterpret_cast<void **>( &returnVal->iter ) = NULL;
+	*reinterpret_cast<void**>( &returnVal->iter ) = NULL;
 
 	returnVal->iter = MapObjects::instance()->listCharsInRect( map, x1, y1, x2, y2, offline );
 
-	return reinterpret_cast<PyObject *>( returnVal );
+	return reinterpret_cast<PyObject*>( returnVal );
 }
 
 static PyObject* PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map, bool offline = false )
 {
 	// must manually initialize the iterator's state to zero
 	wpRegionIteratorChars* returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
-	*reinterpret_cast<void **>( &returnVal->iter ) = NULL;
+	*reinterpret_cast<void**>( &returnVal->iter ) = NULL;
 
 	returnVal->iter = MapObjects::instance()->listCharsInBlock( map, xBlock * 8, yBlock * 8, offline );
 
-	return reinterpret_cast<PyObject *>( returnVal );
+	return reinterpret_cast<PyObject*>( returnVal );
 }
 
 #endif

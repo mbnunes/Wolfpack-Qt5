@@ -103,9 +103,9 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 		if ( message.contains( " STABLE" ) )
 		{
 			m_npc->talk( 1042558 ); /* I charge 30 gold per pet for a real week's stable time.
-									*  I will withdraw it from thy bank account.
-									*  Which animal wouldst thou like to stable here?
-									*/
+											*  I will withdraw it from thy bank account.
+											*  Which animal wouldst thou like to stable here?
+											*/
 			pTalker->socket()->attachTarget( new cStableTarget( m_npc ) );
 		}
 		else if ( message.contains( " CLAIM" ) )
@@ -115,23 +115,29 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 			QPtrList<cItem> stableitems;
 			if ( pPack )
 			{
-				for (ContainerIterator it(pPack); !it.atEnd(); ++it) {
+				for ( ContainerIterator it( pPack ); !it.atEnd(); ++it )
+				{
 					if ( !( *it )->hasTag( "player" ) || !( *it )->hasTag( "pet" ) )
 						continue;
 
-					if ( ( *it ) && ( uint )( *it )->getTag( "player" ).toInt() == pTalker->serial() )
+					if ( ( *it ) && ( uint ) ( *it )->getTag( "player" ).toInt() == pTalker->serial() )
 						stableitems.append( ( *it ) );
 				}
 			}
 
 			if ( !stableitems.isEmpty() )
 			{
-				for (P_ITEM pItem = stableitems.first(); pItem; pItem = stableitems.next()) {
+				for ( P_ITEM pItem = stableitems.first(); pItem; pItem = stableitems.next() )
+				{
 					P_NPC pPet = dynamic_cast<P_NPC>( World::instance()->findChar( pItem->getTag( "pet" ).toInt() ) );
-					if ( pPet ) {
-						if (pTalker->pets().count() + pPet->controlSlots() > pTalker->maxControlSlots()) {
-							m_npc->talk(1049612, pPet->name());
-						} else {
+					if ( pPet )
+					{
+						if ( pTalker->pets().count() + pPet->controlSlots() > pTalker->maxControlSlots() )
+						{
+							m_npc->talk( 1049612, pPet->name() );
+						}
+						else
+						{
 							pPet->free = false;
 							// we need this for db saves
 							pPet->setStablemasterSerial( INVALID_SERIAL );
@@ -145,7 +151,9 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 
 				pPack->update();
 				m_npc->talk( 1042559 ); // Here you go... and good day to you!;
-			} else {
+			}
+			else
+			{
 				m_npc->talk( 502671 ); // But I have no animals stabled with me at the moment!
 			}
 		}
@@ -209,7 +217,7 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 
 			//pPet->free = true;
 			pPet->setStablemasterSerial( this->m_npc->serial() );
-			pPet->setOwner(0); // Remove ownership from this player since it's stabled
+			pPet->setOwner( 0 ); // Remove ownership from this player since it's stabled
 			pPet->removeFromView();
 			m_npc->talk( 502679 ); // Very well, thy pet is stabled. Thou mayst recover it by saying 'claim' to me. In one real world week, I shall sell it off if it is not claimed!
 		}
@@ -356,9 +364,10 @@ void Human_Guard::check()
 
 void Human_Guard::selectVictim()
 {
-	P_CHAR m_currentVictim = World::instance()->findChar(m_currentVictimSer);
+	P_CHAR m_currentVictim = World::instance()->findChar( m_currentVictimSer );
 
-	if (!m_currentVictim) {
+	if ( !m_currentVictim )
+	{
 		m_currentVictimSer = INVALID_SERIAL;
 	}
 
@@ -368,10 +377,13 @@ void Human_Guard::selectVictim()
 		// - Target not dead.
 		// - Target in attack range.
 		// - Target not innocent.
-		if ( m_currentVictim->isDead() || m_currentVictim->isInnocent() ) {
+		if ( m_currentVictim->isDead() || m_currentVictim->isInnocent() )
+		{
 			m_currentVictim = NULL;
 			m_currentVictimSer = INVALID_SERIAL;
-		} else if ( !m_npc->inRange( m_currentVictim, Config::instance()->attack_distance() ) ) {
+		}
+		else if ( !m_npc->inRange( m_currentVictim, Config::instance()->attack_distance() ) )
+		{
 			m_currentVictim = NULL;
 			m_currentVictimSer = INVALID_SERIAL;
 		}
@@ -386,40 +398,53 @@ void Human_Guard::selectVictim()
 			if ( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
 			{
 				// If its a NPC... special handling
-				P_NPC pNpc = dynamic_cast<P_NPC>(pChar);
+				P_NPC pNpc = dynamic_cast<P_NPC>( pChar );
 
 				// If the character has a checkvictim processing function, use that instead
-				if (m_npc->canHandleEvent(EVENT_CHECKVICTIM)) {
-					if (pNpc && pNpc->owner()) {
+				if ( m_npc->canHandleEvent( EVENT_CHECKVICTIM ) )
+				{
+					if ( pNpc && pNpc->owner() )
+					{
 						pChar = pNpc->owner();
 					}
 
-					PyObject *args = Py_BuildValue("(NNi)", m_npc->getPyObject(), pChar->getPyObject(), pChar->dist(m_npc));
-					bool result = m_npc->callEventHandler(EVENT_CHECKVICTIM, args);
-					Py_DECREF(args);
+					PyObject *args = Py_BuildValue( "(NNi)", m_npc->getPyObject(), pChar->getPyObject(), pChar->dist( m_npc ) );
+					bool result = m_npc->callEventHandler( EVENT_CHECKVICTIM, args );
+					Py_DECREF( args );
 
-					if (!result) {
+					if ( !result )
+					{
 						continue;
 					}
-				} else {
+				}
+				else
+				{
 					// NPCs owned by innocent players aren't attacked
-					if (pNpc) {
-						if (pNpc->isTamed() && pNpc->owner()) {
-							if ((pNpc->owner()->isInnocent() || pNpc->owner()->isGMorCounselor())) {
-								continue;
-							}
-						} else {
-							// Check for the AI, guards only attack other npcs if they
-							// are monsters.
-							Monster_Aggressive *npcai = dynamic_cast<Monster_Aggressive*>(pNpc->ai());
-							if (!npcai) {
+					if ( pNpc )
+					{
+						if ( pNpc->isTamed() && pNpc->owner() )
+						{
+							if ( ( pNpc->owner()->isInnocent() || pNpc->owner()->isGMorCounselor() ) )
+							{
 								continue;
 							}
 						}
-					} else {
+						else
+						{
+							// Check for the AI, guards only attack other npcs if they
+							// are monsters.
+							Monster_Aggressive *npcai = dynamic_cast<Monster_Aggressive*>( pNpc->ai() );
+							if ( !npcai )
+							{
+								continue;
+							}
+						}
+					}
+					else
+					{
 						// Innocent players aren't attacked
 						P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
-						if ( pPlayer && (pPlayer->isInnocent() || pPlayer->isGMorCounselor()) )
+						if ( pPlayer && ( pPlayer->isInnocent() || pPlayer->isGMorCounselor() ) )
 							continue;
 					}
 				}

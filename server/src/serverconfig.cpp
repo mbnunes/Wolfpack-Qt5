@@ -143,8 +143,8 @@ void cConfig::readData()
 	tamedNpcMoveTime_ = getDouble( "Game Speed", "Tamed NPC Move Time", 0.6, true );
 
 	// General Group
-	enableFeluccaSeason_ = getBool("General", "Enable Felucca Season", true, true);
-	enableTrammelSeason_ = getBool("General", "Enable Trammel Season", true, true);
+	enableFeluccaSeason_ = getBool( "General", "Enable Felucca Season", true, true );
+	enableTrammelSeason_ = getBool( "General", "Enable Trammel Season", true, true );
 	showSkillTitles_ = getBool( "General", "ShowSkillTitles", true, true );
 	skillcap_ = getNumber( "General", "SkillCap", 700, true );
 	statcap_ = getNumber( "General", "StatsCap", 225, true );
@@ -209,9 +209,9 @@ void cConfig::readData()
 	pathfindFleeRadius_ = getNumber( "Path Finding", "Flee Radius", 10, true );
 
 	// Binary Saves
-	binarySavepath_ = getString( "Binary Save Driver", "Save Path", "world.bin", true);
-	binaryBackups_ = getNumber( "Binary Save Driver", "Number Of Backups", 5, true);
-	binaryCompressBackups_ = getBool( "Binary Save Driver", "Compress Backups", false, true);
+	binarySavepath_ = getString( "Binary Save Driver", "Save Path", "world.bin", true );
+	binaryBackups_ = getNumber( "Binary Save Driver", "Number Of Backups", 5, true );
+	binaryCompressBackups_ = getBool( "Binary Save Driver", "Compress Backups", false, true );
 }
 
 void cConfig::load()
@@ -371,10 +371,10 @@ QString cConfig::getGroupDoc( const QString& group )
 {
 	static stGroupDoc group_doc[] =
 	{
-		{"AI", QT_TR_NOOP("This group configures the NPC AI.")},
-		{"Accounts", QT_TR_NOOP("This group configures the account management.")},
-		{"Database", QT_TR_NOOP("This group configures access to the worldsave database.")},
-		{0, 0}
+	{"AI", QT_TR_NOOP( "This group configures the NPC AI." )},
+	{"Accounts", QT_TR_NOOP( "This group configures the account management." )},
+	{"Database", QT_TR_NOOP( "This group configures access to the worldsave database." )},
+	{0, 0}
 	};
 
 	// Try to find documentation for a group in our table
@@ -384,7 +384,7 @@ QString cConfig::getGroupDoc( const QString& group )
 	{
 		if ( group == group_doc[i].group )
 		{
-			return tr(group_doc[i].documentation);
+			return tr( group_doc[i].documentation );
 		}
 		++i;
 	}
@@ -403,13 +403,13 @@ QString cConfig::getEntryDoc( const QString& group, const QString& entry )
 {
 	static stEntryDoc entry_doc[] =
 	{
-		{"Accounts", "Auto Create", QT_TR_NOOP("If active login attempts with non-existing login names will create a new account automatically\n"
-			"This is very usefull for new shards without account policy\n")},
-		{"Accounts", "Database Driver", QT_TR_NOOP("Possible values are: sqlite, mysql")},
-		{"Accounts", "Maximum Number of Characters", QT_TR_NOOP("Should not be more than 6, due to client restrictions")},
-		{"Accounts", "Use MD5 Hashed Passwords", QT_TR_NOOP("This will store hashed passwords, increasing password security.")},
-		{"Accounts", "Automatically Hash Loaded Passwords", QT_TR_NOOP("If active, will convert older plain text passwords into MD5 hash")},
-		{0, 0, 0}
+	{"Accounts", "Auto Create", QT_TR_NOOP( "If active login attempts with non-existing login names will create a new account automatically\n"
+	"This is very usefull for new shards without account policy\n" )},
+	{"Accounts", "Database Driver", QT_TR_NOOP( "Possible values are: sqlite, mysql" )},
+	{"Accounts", "Maximum Number of Characters", QT_TR_NOOP( "Should not be more than 6, due to client restrictions" )},
+	{"Accounts", "Use MD5 Hashed Passwords", QT_TR_NOOP( "This will store hashed passwords, increasing password security." )},
+	{"Accounts", "Automatically Hash Loaded Passwords", QT_TR_NOOP( "If active, will convert older plain text passwords into MD5 hash" )},
+	{0, 0, 0}
 	};
 
 	// Try to find documentation for an entry in our table
@@ -419,7 +419,7 @@ QString cConfig::getEntryDoc( const QString& group, const QString& entry )
 	{
 		if ( group == entry_doc[i].group && entry == entry_doc[i].entry )
 		{
-			return tr(entry_doc[i].documentation);
+			return tr( entry_doc[i].documentation );
 		}
 		++i;
 	}

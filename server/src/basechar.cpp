@@ -119,7 +119,7 @@ cBaseChar::cBaseChar()
 	regenManaTime_ = 0;
 }
 
-cBaseChar::cBaseChar( const cBaseChar& right ) : cUObject(right)
+cBaseChar::cBaseChar( const cBaseChar& right ) : cUObject( right )
 {
 }
 
@@ -132,7 +132,7 @@ cBaseChar& cBaseChar::operator=( const cBaseChar& /*right*/ )
 	return *this;
 }
 
-void cBaseChar::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
+void cBaseChar::buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cUObject::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "characters.name,characters.title,characters.creationdate" );
@@ -203,7 +203,7 @@ void cBaseChar::load( cBufferedReader& reader, unsigned int version )
 	gender_ = reader.readByte();
 	propertyFlags_ = reader.readInt();
 	murdererSerial_ = reader.readInt();
-	guarding_ = reinterpret_cast<P_CHAR>( static_cast<size_t>(reader.readInt()) ); // PostProcess
+	guarding_ = reinterpret_cast<P_CHAR>( static_cast<size_t>( reader.readInt() ) ); // PostProcess
 	hitpointsBonus_ = reader.readShort();
 	staminaBonus_ = reader.readShort();
 	manaBonus_ = reader.readShort();
@@ -216,8 +216,9 @@ void cBaseChar::load( cBufferedReader& reader, unsigned int version )
 
 	// Load Skills
 	unsigned int count = ALLSKILLS;
-	
-	if (version < 9) {
+
+	if ( version < 9 )
+	{
 		count = CHIVALRY + 1; // Before version 9 the highest skill was chivalry
 	}
 
@@ -307,7 +308,7 @@ void cBaseChar::load( char** result, Q_UINT16& offset )
 	SERIAL ser;
 
 	orgName_ = result[offset++];
-	title_ = QString::fromUtf8(result[offset++]);
+	title_ = QString::fromUtf8( result[offset++] );
 	creationDate_ = QDateTime::fromString( result[offset++], Qt::ISODate );
 	body_ = atoi( result[offset++] );
 	orgBody_ = atoi( result[offset++] );
@@ -334,12 +335,14 @@ void cBaseChar::load( char** result, Q_UINT16& offset )
 	hunger_ = atoi( result[offset++] );
 	poison_ = ( char ) atoi( result[offset++] );
 	murdererTime_ = atoi( result[offset++] );
-	if (murdererTime_ != 0) {
-		 murdererTime_ += Server::instance()->time();
+	if ( murdererTime_ != 0 )
+	{
+		murdererTime_ += Server::instance()->time();
 	}
 	criminalTime_ = atoi( result[offset++] );
-	if (criminalTime_ != 0) {
-		 criminalTime_ += Server::instance()->time();
+	if ( criminalTime_ != 0 )
+	{
+		criminalTime_ += Server::instance()->time();
 	}
 	gender_ = atoi( result[offset++] );
 	propertyFlags_ = atoi( result[offset++] );
@@ -506,7 +509,7 @@ bool cBaseChar::isCriminal() const
 void cBaseChar::updateHealth()
 {
 	MapCharsIterator cIter = MapObjects::instance()->listCharsInCircle( pos(), 18 );
-	for( P_CHAR pChar = cIter.first(); pChar; pChar = cIter.next() )
+	for ( P_CHAR pChar = cIter.first(); pChar; pChar = cIter.next() )
 	{
 		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
 
@@ -520,9 +523,9 @@ void cBaseChar::updateHealth()
 
 void cBaseChar::action( unsigned char id, unsigned char speed, bool reverse )
 {
-	if( isAntiBlink() )
+	if ( isAntiBlink() )
 	{
-		if( id == ANIM_CAST_DIR )
+		if ( id == ANIM_CAST_DIR )
 			id = ANIM_CAST_AREA;
 	}
 
@@ -770,7 +773,7 @@ bool cBaseChar::resurrect( cUObject* source )
 	MapItemsIterator iter = MapObjects::instance()->listItemsAtCoord( pos() );
 	for ( P_ITEM item = iter.first(); item; item = iter.next() )
 	{
-		corpse = dynamic_cast<cCorpse *>( item );
+		corpse = dynamic_cast<cCorpse*>( item );
 
 		if ( !corpse || corpse->owner() != this )
 		{
@@ -828,7 +831,7 @@ bool cBaseChar::resurrect( cUObject* source )
 	{
 		// Move all items from the corpse to the backpack and then look for
 		// previous equipment
-		for (ContainerCopyIterator it(corpse); !it.atEnd(); ++it)
+		for ( ContainerCopyIterator it( corpse ); !it.atEnd(); ++it )
 		{
 			backpack->addItem( *it, false );
 			( *it )->update();
@@ -865,8 +868,8 @@ bool cBaseChar::resurrect( cUObject* source )
 
 		corpse->remove();
 
-		removeFromView(false); // The skin changed
-		resend(false);
+		removeFromView( false ); // The skin changed
+		resend( false );
 
 		// Let him "stand up"
 		this->action( action, 2, true );
@@ -958,8 +961,8 @@ int cBaseChar::countItems( short ID, short col )
 {
 	// Dont you think it's better to search the char's equipment as well?
 	Q_UINT32 number = 0;
-	ItemContainer::const_iterator it(content_.begin());
-	ItemContainer::const_iterator end(content_.end());
+	ItemContainer::const_iterator it( content_.begin() );
+	ItemContainer::const_iterator end( content_.end() );
 
 	for ( ; it != end; ++it )
 	{
@@ -1026,9 +1029,10 @@ void cBaseChar::setSerial( const SERIAL ser )
 		return;
 
 	// is the new serial already occupied?
-	P_CHAR other = World::instance()->findChar(ser);
-	if (other && other != this) {
-		Console::instance()->log(LOG_ERROR, tr("Trying to change the serial of char 0x%1 to the already occupied serial 0x%2.\n").arg(serial_, 0, 16).arg(ser, 0, 16));
+	P_CHAR other = World::instance()->findChar( ser );
+	if ( other && other != this )
+	{
+		Console::instance()->log( LOG_ERROR, tr( "Trying to change the serial of char 0x%1 to the already occupied serial 0x%2.\n" ).arg( serial_, 0, 16 ).arg( ser, 0, 16 ) );
 		return;
 	}
 
@@ -1219,9 +1223,9 @@ void cBaseChar::processNode( const cElement* Tag )
 #if !defined(QT_NO_TRANSLATION)
 	else if ( TagName == "title" )
 	{
-		QString context = Tag->getAttribute("context", "@default");
-		Value = qApp->translate(context, Value);
-		setTitle(Value);
+		QString context = Tag->getAttribute( "context", "@default" );
+		Value = qApp->translate( context, Value );
+		setTitle( Value );
 	}
 #endif
 
@@ -1400,14 +1404,14 @@ void cBaseChar::processNode( const cElement* Tag )
 	{
 		bool ok;
 		ushort color = Value.toUShort( &ok );
-		if( ok )
+		if ( ok )
 		{
 			P_ITEM hair = getItemOnLayer( Hair );
-			if( hair )
+			if ( hair )
 				hair->setColor( color );
 
 			P_ITEM facialHair = getItemOnLayer( FacialHair );
-			if( facialHair )
+			if ( facialHair )
 				facialHair->setColor( color );
 		}
 	}
@@ -1438,11 +1442,12 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	{
 		log( LOG_ERROR, tr( "Trying to put item 0x%1 on layer %2 which is already occupied.\n" ).arg( pi->serial(), 0, 16 ).arg( layer ) );
 		pi->container_ = 0; // Remove from cont
-		pi->moveTo(pos_); // Move to world
+		pi->moveTo( pos_ ); // Move to world
 		return;
 	}
 
-	if ( !noRemove ) {
+	if ( !noRemove )
+	{
 		pi->removeFromCont();
 	}
 
@@ -1452,8 +1457,8 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	{
 		pi->setLayer( layer );
 	}
-	
-	pi->setContainer(this);
+
+	pi->setContainer( this );
 
 	if ( handleWeight && ( pi->layer() < 0x1A || pi->layer() == 0x1E ) )
 	{
@@ -1579,13 +1584,14 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	/*
 		\property char.skin This integer property contains the skin color of the character.
 	*/
-	else if (name == "skin") {
+	else if ( name == "skin" )
+	{
 		skin_ = value.toInt();
-		removeFromView(false);
+		removeFromView( false );
 		return 0;
 	}
 
-		// \property char.direction This is the direction this character is facing.
+	// \property char.direction This is the direction this character is facing.
 	else
 		SET_INT_PROPERTY( "direction", direction_ )
 
@@ -1638,11 +1644,12 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		/*
 		\property char.running This boolean property indicates whether this character was running when he made his last step.
 		*/
-	else if (name == "running") {
+	else if ( name == "running" )
+	{
 		setRunning( value.toInt() != 0 );
 		return 0;
 	}
-		/*
+	/*
 		\property char.tamed This boolean property indicates whether the character is tamed or not.
 		*/
 	else if ( name == "tamed" )
@@ -1750,43 +1757,43 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		setStrength( value.toInt() );
 		return 0;
 		/*
-				\property char.dexterity This integer property is the dexterity of this character.
-			*/
+					\property char.dexterity This integer property is the dexterity of this character.
+				*/
 	}
 	else if ( name == "dexterity" )
 	{
 		setDexterity( value.toInt() );
 		return 0;
 		/*
-				\property char.intelligence This integer property is the intelligence of this character.
-			*/
+					\property char.intelligence This integer property is the intelligence of this character.
+				*/
 	}
 	else if ( name == "intelligence" )
 	{
 		setIntelligence( value.toInt() );
 		return 0;
 		/*
-				\property char.strength2 This integer property contains a modification value applied to strength. This is used to
-				determine the real strength of the character if needed.
-			*/
+					\property char.strength2 This integer property contains a modification value applied to strength. This is used to
+					determine the real strength of the character if needed.
+				*/
 	}
 	else if ( name == "strength2" )
 	{
 		setStrengthMod( value.toInt() );
 		return 0;
 		/*
-				\property char.dexterity2 This integer property contains a modification value applied to dexterity. This is used to
-				determine the real dexterity of the character if needed.
-			*/
+					\property char.dexterity2 This integer property contains a modification value applied to dexterity. This is used to
+					determine the real dexterity of the character if needed.
+				*/
 	}
 	else if ( name == "dexterity2" )
 	{
 		setDexterityMod( value.toInt() );
 		return 0;
 		/*
-				\property char.intelligence2 This integer property contains a modification value applied to intelligence. This is used to
-				determine the real intelligence of the character if needed.
-			*/
+					\property char.intelligence2 This integer property contains a modification value applied to intelligence. This is used to
+					determine the real intelligence of the character if needed.
+				*/
 	}
 	else if ( name == "intelligence2" )
 	{
@@ -1896,24 +1903,24 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		setHitpointsBonus( value.toInt() );
 		return 0;
 		/*
-				\property char.staminabonus The integer bonus awarded to the maximum stamina of this character.
-			*/
+					\property char.staminabonus The integer bonus awarded to the maximum stamina of this character.
+				*/
 	}
 	else if ( name == "staminabonus" )
 	{
 		setStaminaBonus( value.toInt() );
 		return 0;
 		/*
-				\property char.manabonus The integer bonus awarded to the maximum mana of this character.
-			*/
+					\property char.manabonus The integer bonus awarded to the maximum mana of this character.
+				*/
 	}
 	else if ( name == "manabonus" )
 	{
 		setManaBonus( value.toInt() );
 		return 0;
 		/*
-				\property char.invulnerable Indicates whether the character is invulnerable or not.
-			*/
+					\property char.invulnerable Indicates whether the character is invulnerable or not.
+				*/
 	}
 	else if ( name == "invulnerable" )
 	{
@@ -1981,13 +1988,13 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	*/
 	PY_PROPERTY( "stepstaken", stepsTaken() )
 	/*
-		\rproperty char.bodytype The type of this characters bodies.
-		<code>0 - Unknown
-		1 Monster
-		2 Sea
-		3 Animal
-		4 Human
-		5 Equipment</code>
+	\rproperty char.bodytype The type of this characters bodies.
+	<code>0 - Unknown
+	1 Monster
+	2 Sea
+	3 Animal
+	4 Human
+	5 Equipment</code>
 	*/
 	PY_PROPERTY( "bodytype", bodytype() )
 	PY_PROPERTY( "orgname", orgName_ )
@@ -2236,7 +2243,7 @@ void cBaseChar::callGuards()
 
 	// Is there a criminal around?
 	MapCharsIterator cIter = MapObjects::instance()->listCharsInCircle( pos(), 18 );
-	for( P_CHAR pChar = cIter.first(); pChar; pChar = cIter.next() )
+	for ( P_CHAR pChar = cIter.first(); pChar; pChar = cIter.next() )
 	{
 		if ( !pChar->isDead() && !pChar->isInnocent() )
 		{
@@ -2247,7 +2254,8 @@ void cBaseChar::callGuards()
 
 unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject* source )
 {
-	if (isInvulnerable()) {
+	if ( isInvulnerable() )
+	{
 		return 0;
 	}
 
@@ -2257,26 +2265,28 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		resendTooltip();
 	}
 
-	P_CHAR sourceChar = dynamic_cast<P_CHAR>(source);
+	P_CHAR sourceChar = dynamic_cast<P_CHAR>( source );
 
-	if (sourceChar && sourceChar->canHandleEvent(EVENT_DODAMAGE)) {
+	if ( sourceChar && sourceChar->canHandleEvent( EVENT_DODAMAGE ) )
+	{
 		PyObject* args = Py_BuildValue( "NiiN", sourceChar->getPyObject(), type, amount, getPyObject() );
-		PyObject* result = sourceChar->callEvent(EVENT_DODAMAGE, args);
+		PyObject* result = sourceChar->callEvent( EVENT_DODAMAGE, args );
 
-		if (result) {
-			if (PyInt_Check(result))
-				amount = PyInt_AsLong(result);
-			Py_DECREF(result);
+		if ( result )
+		{
+			if ( PyInt_Check( result ) )
+				amount = PyInt_AsLong( result );
+			Py_DECREF( result );
 		}
 
-		Py_DECREF(args);
+		Py_DECREF( args );
 	}
 
 	//
 	// First of all, call onDamage with the damage-type, amount and source
 	// to modify the damage if needed
 	//
-	if ( canHandleEvent(EVENT_DAMAGE) )
+	if ( canHandleEvent( EVENT_DAMAGE ) )
 	{
 		PyObject* args = 0;
 		if ( sourceChar )
@@ -2286,7 +2296,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		else
 			args = Py_BuildValue( "O&iiO", PyGetCharObject, this, ( unsigned int ) type, amount, Py_None );
 
-		PyObject* result = callEvent(EVENT_DAMAGE, args);
+		PyObject* result = callEvent( EVENT_DAMAGE, args );
 
 		if ( result )
 		{
@@ -2301,7 +2311,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 
 	// The damage has been resisted or scripts have taken care of the damage otherwise
 	// Invulnerable Targets don't take any damage at all
-	if (amount == 0) {
+	if ( amount == 0 )
+	{
 		return 0;
 	}
 
@@ -2326,33 +2337,39 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		player->socket()->send( &damage );
 	}
 
-    // There is a 25% chance that blood is created on hit by phsical means
+	// There is a 25% chance that blood is created on hit by phsical means
 	if ( type == DAMAGE_PHYSICAL && !RandomNum( 0, 4 ) )
 	{
 		int bloodColor = 0;
 
-		if (basedef_) {
-			bloodColor = (int)basedef_->getIntProperty("bloodcolor", 0);
+		if ( basedef_ )
+		{
+			bloodColor = ( int ) basedef_->getIntProperty( "bloodcolor", 0 );
 
 			// If we have a strproperty with a custom list of colors,
 			// that is used instead
-			if (bloodColor != -1) {
+			if ( bloodColor != -1 )
+			{
 				// this property means: from,to
-				if (basedef_->hasStrProperty("bloodcolor")) {
-					QStringList bloodColors = QStringList::split(",", basedef_->getStrProperty("bloodcolor"));
-					if (bloodColors.count() == 2) {
+				if ( basedef_->hasStrProperty( "bloodcolor" ) )
+				{
+					QStringList bloodColors = QStringList::split( ",", basedef_->getStrProperty( "bloodcolor" ) );
+					if ( bloodColors.count() == 2 )
+					{
 						bool ok1, ok2;
-						int from = bloodColors[0].toInt(&ok1);
-						int to = bloodColors[1].toInt(&ok2);
-						if (ok1 && ok2) {
-							bloodColor = RandomNum(from, to);
+						int from = bloodColors[0].toInt( &ok1 );
+						int to = bloodColors[1].toInt( &ok2 );
+						if ( ok1 && ok2 )
+						{
+							bloodColor = RandomNum( from, to );
 						}
 					}
 				}
 			}
 		}
 
-		if (bloodColor != -1) {
+		if ( bloodColor != -1 )
+		{
 			P_ITEM blood = 0;
 
 			// If more than 50% of the maximum healthpoints has been dealt as damage
@@ -2378,7 +2395,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 
 			if ( blood )
 			{
-				blood->setColor(bloodColor);
+				blood->setColor( bloodColor );
 				blood->setNoDecay( false ); // Override the nodecay tag in the definitions
 				blood->moveTo( pos_ ); // Move it to the feet of the victim
 				blood->update(); // Send it to all sockets in range
@@ -2404,24 +2421,25 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 
 void cBaseChar::bark( enBark type )
 {
-	switch (type) {
-		case Bark_Attacking:
-			playAttackSound();
-			break;
-		case Bark_Idle:
-			playIdleSound();
-			break;
-		case Bark_Hit:
-			playHitSound();
-			break;
-		case Bark_GetHit:
-			playGetHitSound();
-			break;
-		case Bark_Death:
-			playDeathSound();
-			break;
-		default:
-			break;
+	switch ( type )
+	{
+	case Bark_Attacking:
+		playAttackSound();
+		break;
+	case Bark_Idle:
+		playIdleSound();
+		break;
+	case Bark_Hit:
+		playHitSound();
+		break;
+	case Bark_GetHit:
+		playGetHitSound();
+		break;
+	case Bark_Death:
+		playDeathSound();
+		break;
+	default:
+		break;
 	};
 }
 
@@ -2435,9 +2453,9 @@ void cBaseChar::goldSound( unsigned short amount, bool hearall )
 		sound = 0x36;
 	else
 		sound = 0x37;*/
-	if (amount <= 1)
+	if ( amount <= 1 )
 		sound = 0x2e4;
-	else if (amount <= 5)
+	else if ( amount <= 5 )
 		sound = 0x2e5;
 	else
 		sound = 0x2e6;
@@ -2466,16 +2484,21 @@ void cBaseChar::showPaperdoll( cUOSocket* source, bool hotkey )
 		source->sendPaperdoll( this );
 	}
 
-	P_NPC npc = dynamic_cast<P_NPC>(this);
+	P_NPC npc = dynamic_cast<P_NPC>( this );
 
 	// Mounting and pack animals
-	if (npc) {
-		if (body_ == 0x123 || body_  == 0x124) {
-			if ( npc->owner() == pChar || pChar->isGM() ) {
+	if ( npc )
+	{
+		if ( body_ == 0x123 || body_ == 0x124 )
+		{
+			if ( npc->owner() == pChar || pChar->isGM() )
+			{
 				source->sendContainer( getBackpack() );
 			}
-		} else {
-			pChar->mount(npc); // Try mounting this
+		}
+		else
+		{
+			pChar->mount( npc ); // Try mounting this
 		}
 	}
 }
@@ -2486,10 +2509,10 @@ void cBaseChar::showPaperdoll( cUOSocket* source, bool hotkey )
 bool cBaseChar::onWalk( unsigned char direction, unsigned char sequence )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_WALK))
+	if ( canHandleEvent( EVENT_WALK ) )
 	{
 		PyObject* args = Py_BuildValue( "O&bb", PyGetCharObject, this, direction, sequence );
-		result = callEventHandler(EVENT_WALK, args);
+		result = callEventHandler( EVENT_WALK, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2498,10 +2521,10 @@ bool cBaseChar::onWalk( unsigned char direction, unsigned char sequence )
 bool cBaseChar::onTalk( unsigned char type, unsigned short color, unsigned short font, const QString& text, const QString& lang )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_TALK))
+	if ( canHandleEvent( EVENT_TALK ) )
 	{
-		PyObject* args = Py_BuildValue( "O&bhhNN", PyGetCharObject, this, type, color, font, QString2Python(text), QString2Python(lang) );
-		result = callEventHandler(EVENT_TALK, args);
+		PyObject* args = Py_BuildValue( "O&bhhNN", PyGetCharObject, this, type, color, font, QString2Python( text ), QString2Python( lang ) );
+		result = callEventHandler( EVENT_TALK, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2510,10 +2533,10 @@ bool cBaseChar::onTalk( unsigned char type, unsigned short color, unsigned short
 bool cBaseChar::onWarModeToggle( bool war )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_WARMODETOGGLE))
+	if ( canHandleEvent( EVENT_WARMODETOGGLE ) )
 	{
 		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, war ? 1 : 0 );
-		result = callEventHandler(EVENT_WARMODETOGGLE, args);
+		result = callEventHandler( EVENT_WARMODETOGGLE, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2522,10 +2545,10 @@ bool cBaseChar::onWarModeToggle( bool war )
 bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_SHOWPAPERDOLL))
+	if ( canHandleEvent( EVENT_SHOWPAPERDOLL ) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
-		result = callEventHandler(EVENT_SHOWPAPERDOLL, args);
+		result = callEventHandler( EVENT_SHOWPAPERDOLL, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2534,10 +2557,10 @@ bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 bool cBaseChar::onShowSkillGump()
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_SHOWSKILLGUMP))
+	if ( canHandleEvent( EVENT_SHOWSKILLGUMP ) )
 	{
 		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
-		result = callEventHandler(EVENT_SHOWSKILLGUMP, args);
+		result = callEventHandler( EVENT_SHOWSKILLGUMP, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2546,10 +2569,10 @@ bool cBaseChar::onShowSkillGump()
 bool cBaseChar::onSkillUse( unsigned char skill )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_SKILLUSE))
+	if ( canHandleEvent( EVENT_SKILLUSE ) )
 	{
 		PyObject* args = Py_BuildValue( "O&b", PyGetCharObject, this, skill );
-		result = callEventHandler(EVENT_SKILLUSE, args);
+		result = callEventHandler( EVENT_SKILLUSE, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2558,10 +2581,10 @@ bool cBaseChar::onSkillUse( unsigned char skill )
 bool cBaseChar::onDropOnChar( P_ITEM pItem )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_DROPONCHAR))
+	if ( canHandleEvent( EVENT_DROPONCHAR ) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
-		result = callEventHandler(EVENT_DROPONCHAR, args);
+		result = callEventHandler( EVENT_DROPONCHAR, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2572,17 +2595,18 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 	// I hate this event by the way (DarkStorm)
 	QString name = QString::null;
 
-	if ( canHandleEvent(EVENT_SHOWPAPERDOLLNAME) )
+	if ( canHandleEvent( EVENT_SHOWPAPERDOLLNAME ) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
 
-		PyObject* result = callEvent(EVENT_SHOWPAPERDOLLNAME, args);
+		PyObject* result = callEvent( EVENT_SHOWPAPERDOLLNAME, args );
 
-		if (result) {
-			name = Python2QString(result);
+		if ( result )
+		{
+			name = Python2QString( result );
 		}
 
-		Py_XDECREF(result);
+		Py_XDECREF( result );
 		Py_DECREF( args );
 	}
 
@@ -2592,10 +2616,10 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 bool cBaseChar::onDeath( cUObject* source, P_ITEM corpse )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_DEATH))
+	if ( canHandleEvent( EVENT_DEATH ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetObjectObject, source, PyGetItemObject, corpse );
-		result = callEventHandler(EVENT_DEATH, args);
+		result = callEventHandler( EVENT_DEATH, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2604,10 +2628,10 @@ bool cBaseChar::onDeath( cUObject* source, P_ITEM corpse )
 bool cBaseChar::onResurrect( cUObject* source )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_RESURRECT))
+	if ( canHandleEvent( EVENT_RESURRECT ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&O&)", PyGetCharObject, this, PyGetObjectObject, source );
-		result = callEventHandler(EVENT_RESURRECT, args);
+		result = callEventHandler( EVENT_RESURRECT, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2616,10 +2640,10 @@ bool cBaseChar::onResurrect( cUObject* source )
 bool cBaseChar::onCHLevelChange( unsigned int level )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_CHLEVELCHANGE))
+	if ( canHandleEvent( EVENT_CHLEVELCHANGE ) )
 	{
 		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, level );
-		result = callEventHandler(EVENT_CHLEVELCHANGE, args);
+		result = callEventHandler( EVENT_CHLEVELCHANGE, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2628,10 +2652,10 @@ bool cBaseChar::onCHLevelChange( unsigned int level )
 bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_SKILLGAIN))
+	if ( canHandleEvent( EVENT_SKILLGAIN ) )
 	{
 		PyObject* args = Py_BuildValue( "O&bhhi", PyGetCharObject, this, skill, min, max, success ? 1 : 0 );
-		result = callEventHandler(EVENT_SKILLGAIN, args);
+		result = callEventHandler( EVENT_SKILLGAIN, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -2747,37 +2771,54 @@ bool cBaseChar::kill( cUObject* source )
 
 	// Kill Logging
 	QString logName;
-	if (npc) {
-		if (summoned) {
-			logName = tr("Summoned npc '%1' ('%2', 0x%3)").arg(name()).arg(baseid()).arg(serial_, 0, 16);
-		} else {
-			logName = tr("Npc '%1' ('%2', 0x%3)").arg(name()).arg(baseid()).arg(serial_, 0, 16);
+	if ( npc )
+	{
+		if ( summoned )
+		{
+			logName = tr( "Summoned npc '%1' ('%2', 0x%3)" ).arg( name() ).arg( baseid() ).arg( serial_, 0, 16 );
 		}
-	} else if (player) {
-		logName = tr("Player '%1' ('%2', 0x%3)").arg(name()).arg(player->account() ? player->account()->login() : QString("Unknown")).arg(serial_, 0, 16);
+		else
+		{
+			logName = tr( "Npc '%1' ('%2', 0x%3)" ).arg( name() ).arg( baseid() ).arg( serial_, 0, 16 );
+		}
+	}
+	else if ( player )
+	{
+		logName = tr( "Player '%1' ('%2', 0x%3)" ).arg( name() ).arg( player->account() ? player->account()->login() : QString( "Unknown" ) ).arg( serial_, 0, 16 );
 	}
 
 	QString killerName;
-	if (pKiller && pKiller != this) {
-		P_NPC pKillerNpc = dynamic_cast<P_NPC>(pKiller);
-		P_PLAYER pKillerPlayer = dynamic_cast<P_PLAYER>(pKiller);
+	if ( pKiller && pKiller != this )
+	{
+		P_NPC pKillerNpc = dynamic_cast<P_NPC>( pKiller );
+		P_PLAYER pKillerPlayer = dynamic_cast<P_PLAYER>( pKiller );
 
-		if (pKillerNpc) {
-			if (pKillerNpc->summoned()) {
-				killerName = tr("summoned npc '%1' ('%2', 0x%3)").arg(pKiller->name()).arg(pKiller->baseid()).arg(pKiller->serial(), 0, 16);
-			} else {
-				killerName = tr("npc '%1' ('%2', 0x%3)").arg(pKiller->name()).arg(pKiller->baseid()).arg(pKiller->serial(), 0, 16);
+		if ( pKillerNpc )
+		{
+			if ( pKillerNpc->summoned() )
+			{
+				killerName = tr( "summoned npc '%1' ('%2', 0x%3)" ).arg( pKiller->name() ).arg( pKiller->baseid() ).arg( pKiller->serial(), 0, 16 );
 			}
-		} else if (pKillerPlayer) {
-			killerName = tr("player '%1' ('%2', 0x%3)").arg(pKiller->name()).arg(pKillerPlayer->account() ? pKillerPlayer->account()->login() : QString("Unknown")).arg(pKillerPlayer->serial(), 0, 16);
+			else
+			{
+				killerName = tr( "npc '%1' ('%2', 0x%3)" ).arg( pKiller->name() ).arg( pKiller->baseid() ).arg( pKiller->serial(), 0, 16 );
+			}
 		}
-	} else if (pKiller && pKiller == this) {
-		killerName = tr("himself");
-	} else if (!pKiller) {
-		killerName = tr("accident");
+		else if ( pKillerPlayer )
+		{
+			killerName = tr( "player '%1' ('%2', 0x%3)" ).arg( pKiller->name() ).arg( pKillerPlayer->account() ? pKillerPlayer->account()->login() : QString( "Unknown" ) ).arg( pKillerPlayer->serial(), 0, 16 );
+		}
+	}
+	else if ( pKiller && pKiller == this )
+	{
+		killerName = tr( "himself" );
+	}
+	else if ( !pKiller )
+	{
+		killerName = tr( "accident" );
 	}
 
-	log(LOG_TRACE, tr("%1 was killed by %2.\n").arg(logName).arg(killerName));
+	log( LOG_TRACE, tr( "%1 was killed by %2.\n" ).arg( logName ).arg( killerName ) );
 
 	if ( player )
 		player->unmount();
@@ -2865,7 +2906,7 @@ bool cBaseChar::kill( cUObject* source )
 	}
 
 	// Create Loot - Either on the corpse or on the ground
-	for (ContainerCopyIterator it(backpack); !it.atEnd(); ++it)
+	for ( ContainerCopyIterator it( backpack ); !it.atEnd(); ++it )
 	{
 		P_ITEM item = *it;
 		if ( !item->newbie() )
@@ -2903,17 +2944,21 @@ bool cBaseChar::kill( cUObject* source )
 
 	playDeathSound();
 
-	if ( npc ) {
+	if ( npc )
+	{
 		remove();
-	} else if (player && player->socket()) {
+	}
+	else if ( player && player->socket() )
+	{
 		cUOTxCharDeath death;
-		death.setDead(true);
-		player->socket()->send(&death);
+		death.setDead( true );
+		player->socket()->send( &death );
 	}
 
 	onDeath( source, corpse );
 
-	if ( player ) {
+	if ( player )
+	{
 		// Create a death shroud for the player
 		P_ITEM shroud = cItem::createFromScript( "204e" );
 		if ( shroud )
@@ -2926,11 +2971,11 @@ bool cBaseChar::kill( cUObject* source )
 		{
 			// Notify the player of his death
 			cUOTxCharDeath death;
-			death.setDead(false);
+			death.setDead( false );
 			player->socket()->send( &death );
 		}
 
-		player->resend(false);
+		player->resend( false );
 
 		// Notify the party that we died.
 		if ( player->party() )
@@ -3211,9 +3256,12 @@ void cBaseChar::poll( unsigned int time, unsigned int events )
 
 			if ( weapon )
 			{
-				if ( weapon->hasTag( "range" ) ) {
+				if ( weapon->hasTag( "range" ) )
+				{
 					range = weapon->getTag( "range" ).toInt();
-				} else if ( weapon->basedef() ) {
+				}
+				else if ( weapon->basedef() )
+				{
 					range = weapon->basedef()->getIntProperty( "range", 1 );
 				}
 			}
@@ -3267,12 +3315,13 @@ void cBaseChar::refreshMaximumValues()
 
 bool cBaseChar::lineOfSight( P_CHAR target, bool debug )
 {
-	if (target == this) {
+	if ( target == this )
+	{
 		return true;
 	}
 
-    // From us (eye) to target (no eye)
-	return pos_.losCharPoint(true).lineOfSight(target->pos().losCharPoint(), debug);
+	// From us (eye) to target (no eye)
+	return pos_.losCharPoint( true ).lineOfSight( target->pos().losCharPoint(), debug );
 }
 
 bool cBaseChar::lineOfSight( P_ITEM target, bool debug )
@@ -3280,23 +3329,26 @@ bool cBaseChar::lineOfSight( P_ITEM target, bool debug )
 	target = target->getOutmostItem();
 	Coord pos;
 
-	if (target->container() && target->container()->isChar()) {
-		pos = target->container()->pos().losCharPoint(false);
-	} else {
-		pos = target->pos().losItemPoint(target->id());
+	if ( target->container() && target->container()->isChar() )
+	{
+		pos = target->container()->pos().losCharPoint( false );
+	}
+	else
+	{
+		pos = target->pos().losItemPoint( target->id() );
 	}
 
-	return pos_.losCharPoint(true).lineOfSight(pos, debug);
+	return pos_.losCharPoint( true ).lineOfSight( pos, debug );
 }
 
 bool cBaseChar::lineOfSight( const Coord& target, bool debug )
 {
-	return pos_.losCharPoint(true).lineOfSight(target.losMapPoint(), debug);
+	return pos_.losCharPoint( true ).lineOfSight( target.losMapPoint(), debug );
 }
 
 bool cBaseChar::lineOfSight( const Coord& target, unsigned short id, bool debug )
 {
-	return pos_.losCharPoint(true).lineOfSight(target.losItemPoint(id), debug);
+	return pos_.losCharPoint( true ).lineOfSight( target.losItemPoint( id ), debug );
 }
 
 double cBaseChar::getHitpointRate()
@@ -3347,7 +3399,8 @@ double cBaseChar::getManaRate()
 		checkSkill( FOCUS, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
 	}
 
-	if ( !isMeditating() ) {
+	if ( !isMeditating() )
+	{
 		double chance = ( double ) mana() / maxMana();
 		double value = sqrt( skillValue( MEDITATION ) * 0.0005 );
 		chance *= ( 1.0 - value );
@@ -3387,13 +3440,15 @@ double cBaseChar::getManaRate()
 // Light and Region checks
 void cBaseChar::moveTo( const Coord& pos )
 {
-	if (!pos.isInternalMap() && !Maps::instance()->hasMap(pos.map)) {
+	if ( !pos.isInternalMap() && !Maps::instance()->hasMap( pos.map ) )
+	{
 		return;
 	}
 
-	cUObject::moveTo(pos);
-	if (!pos_.isInternalMap()) {
-		Territories::instance()->check(this);
+	cUObject::moveTo( pos );
+	if ( !pos_.isInternalMap() )
+	{
+		Territories::instance()->check( this );
 	}
 }
 
@@ -3408,7 +3463,8 @@ void cBaseChar::remove()
 	}
 
 	// Call the onDelete event.
-	if (canHandleEvent(EVENT_DELETE)) {
+	if ( canHandleEvent( EVENT_DELETE ) )
+	{
 		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
 		callEventHandler( EVENT_DELETE, args );
 		Py_DECREF( args );
@@ -3416,9 +3472,10 @@ void cBaseChar::remove()
 
 	// Kill all timers
 	TimerContainer::iterator iter = timers_.begin();
-	while ( iter != timers_.end() ) {
+	while ( iter != timers_.end() )
+	{
 		Timers::instance()->erase( *iter );
-		delete *iter;
+		delete * iter;
 		++iter;
 	}
 	timers_.clear();
@@ -3458,58 +3515,71 @@ void cBaseChar::load( cBufferedReader& reader )
 	World::instance()->registerObject( this );
 }
 
-PyObject *cBaseChar::callEvent(ePythonEvent event, PyObject *args, bool ignoreErrors) {
+PyObject* cBaseChar::callEvent( ePythonEvent event, PyObject* args, bool ignoreErrors )
+{
 	PyObject *result = 0;
 
-	if (scriptChain) {
-		result = cPythonScript::callChainedEvent(event, scriptChain, args);
+	if ( scriptChain )
+	{
+		result = cPythonScript::callChainedEvent( event, scriptChain, args );
 
 		// Break if there has been a result already
-		if (result && PyObject_IsTrue(result)) {
+		if ( result && PyObject_IsTrue( result ) )
+		{
 			return result;
 		}
 	}
 
 	// call the basescripts
-	if (basedef_) {
+	if ( basedef_ )
+	{
 		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
-		QPtrList<cPythonScript>::const_iterator it(list.begin());
-		for (; it != list.end(); ++it) {
-			result = (*it)->callEvent(event, args, ignoreErrors);
+		QPtrList<cPythonScript>::const_iterator it( list.begin() );
+		for ( ; it != list.end(); ++it )
+		{
+			result = ( *it )->callEvent( event, args, ignoreErrors );
 
-			if (result && PyObject_IsTrue(result)) {
+			if ( result && PyObject_IsTrue( result ) )
+			{
 				return result;
 			}
 		}
 	}
 
 	// check for a global handler
-	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
+	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook( event );
 
-	if (globalHook) {
-		result = globalHook->callEvent(event, args, ignoreErrors);
+	if ( globalHook )
+	{
+		result = globalHook->callEvent( event, args, ignoreErrors );
 	}
 
 	return result;
 }
 
-bool cBaseChar::canHandleEvent(ePythonEvent event) {
+bool cBaseChar::canHandleEvent( ePythonEvent event )
+{
 	// Is there a global event?
-	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook(event);
+	cPythonScript *globalHook = ScriptManager::instance()->getGlobalHook( event );
 
-	if (globalHook) {
+	if ( globalHook )
+	{
 		return true;
 	}
 
-	if (cPythonScript::canChainHandleEvent(event, scriptChain)) {
+	if ( cPythonScript::canChainHandleEvent( event, scriptChain ) )
+	{
 		return true;
 	}
 
-	if (basedef_) {
+	if ( basedef_ )
+	{
 		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
-		QPtrList<cPythonScript>::const_iterator it(list.begin());
-		for (; it != list.end(); ++it) {
-			if ((*it)->canHandleEvent(event)) {
+		QPtrList<cPythonScript>::const_iterator it( list.begin() );
+		for ( ; it != list.end(); ++it )
+		{
+			if ( ( *it )->canHandleEvent( event ) )
+			{
 				return true;
 			}
 		}
@@ -3518,15 +3588,20 @@ bool cBaseChar::canHandleEvent(ePythonEvent event) {
 	return false;
 }
 
-bool cBaseChar::callEventHandler(ePythonEvent event, PyObject *args, bool ignoreErrors) {
-	PyObject *result = callEvent(event, args, ignoreErrors);
+bool cBaseChar::callEventHandler( ePythonEvent event, PyObject* args, bool ignoreErrors )
+{
+	PyObject *result = callEvent( event, args, ignoreErrors );
 
-	if (result) {
-		if (PyObject_IsTrue(result)) {
-			Py_DECREF(result);
+	if ( result )
+	{
+		if ( PyObject_IsTrue( result ) )
+		{
+			Py_DECREF( result );
 			return true;
-		} else {
-			Py_DECREF(result);
+		}
+		else
+		{
+			Py_DECREF( result );
 		}
 	}
 	return false;
@@ -3534,118 +3609,172 @@ bool cBaseChar::callEventHandler(ePythonEvent event, PyObject *args, bool ignore
 
 bool cBaseChar::hasScript( const QCString& name )
 {
-	if (basedef_) {
+	if ( basedef_ )
+	{
 		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
-		QPtrList<cPythonScript>::const_iterator it(list.begin());
-		for (; it != list.end(); ++it) {
-			if ((*it)->name() == name) {
+		QPtrList<cPythonScript>::const_iterator it( list.begin() );
+		for ( ; it != list.end(); ++it )
+		{
+			if ( ( *it )->name() == name )
+			{
 				return true;
 			}
 		}
 	}
 
-	return cUObject::hasScript(name);
+	return cUObject::hasScript( name );
 }
 
-void cBaseChar::playAttackSound() {
-	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+void cBaseChar::playAttackSound()
+{
+	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo( body_ );
 	int sound = -1;
 
-	if (basedef_ && basedef_->attackSound().size() != 0) {
-		sound = basedef_->attackSound()[RandomNum(0, basedef_->attackSound().size() - 1)];
-	} else if (basedef_ && basedef_->basesound() != 0) {
+	if ( basedef_ && basedef_->attackSound().size() != 0 )
+	{
+		sound = basedef_->attackSound()[RandomNum( 0, basedef_->attackSound().size() - 1 )];
+	}
+	else if ( basedef_ && basedef_->basesound() != 0 )
+	{
 		sound = basedef_->basesound();
-	} else if (bodyinfo.attackSound != -1) {
+	}
+	else if ( bodyinfo.attackSound != -1 )
+	{
 		sound = bodyinfo.attackSound;
-	} else if (bodyinfo.basesound != 0) {
+	}
+	else if ( bodyinfo.basesound != 0 )
+	{
 		sound = bodyinfo.basesound;
 	}
 
-	if (sound >= 0) {
-		soundEffect((unsigned short)sound);
+	if ( sound >= 0 )
+	{
+		soundEffect( ( unsigned short ) sound );
 	}
 }
 
-void cBaseChar::playIdleSound() {
-	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+void cBaseChar::playIdleSound()
+{
+	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo( body_ );
 	int sound = -1;
 
-	if (basedef_ && basedef_->idleSound().size() != 0) {
-		sound = basedef_->idleSound()[RandomNum(0, basedef_->idleSound().size() - 1)];
-	} else if (basedef_ && basedef_->basesound() != 0) {
+	if ( basedef_ && basedef_->idleSound().size() != 0 )
+	{
+		sound = basedef_->idleSound()[RandomNum( 0, basedef_->idleSound().size() - 1 )];
+	}
+	else if ( basedef_ && basedef_->basesound() != 0 )
+	{
 		sound = basedef_->basesound() + 1;
-	} else if (bodyinfo.idleSound != -1) {
+	}
+	else if ( bodyinfo.idleSound != -1 )
+	{
 		sound = bodyinfo.idleSound;
-	} else if (bodyinfo.basesound != 0) {
+	}
+	else if ( bodyinfo.basesound != 0 )
+	{
 		sound = bodyinfo.basesound + 1;
 	}
 
-	if (sound >= 0) {
-		soundEffect((unsigned short)sound);
+	if ( sound >= 0 )
+	{
+		soundEffect( ( unsigned short ) sound );
 	}
 }
 
-void cBaseChar::playHitSound() {
-	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+void cBaseChar::playHitSound()
+{
+	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo( body_ );
 	int sound = -1;
 
-	if (basedef_ && basedef_->hitSound().size() != 0) {
-		sound = basedef_->hitSound()[RandomNum(0, basedef_->hitSound().size() - 1)];
-	} else if (basedef_ && basedef_->basesound() != 0) {
+	if ( basedef_ && basedef_->hitSound().size() != 0 )
+	{
+		sound = basedef_->hitSound()[RandomNum( 0, basedef_->hitSound().size() - 1 )];
+	}
+	else if ( basedef_ && basedef_->basesound() != 0 )
+	{
 		sound = basedef_->basesound() + 2;
-	} else if (bodyinfo.hitSound != -1) {
+	}
+	else if ( bodyinfo.hitSound != -1 )
+	{
 		sound = bodyinfo.hitSound;
-	} else if (bodyinfo.basesound != 0) {
+	}
+	else if ( bodyinfo.basesound != 0 )
+	{
 		sound = bodyinfo.basesound + 2;
 	}
 
-	if (sound >= 0) {
-		soundEffect((unsigned short)sound);
+	if ( sound >= 0 )
+	{
+		soundEffect( ( unsigned short ) sound );
 	}
 }
 
-void cBaseChar::playGetHitSound() {
-	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+void cBaseChar::playGetHitSound()
+{
+	stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo( body_ );
 	int sound = -1;
 
-	if (basedef_ && basedef_->gethitSound().size() != 0) {
-		sound = basedef_->gethitSound()[RandomNum(0, basedef_->gethitSound().size() - 1)];
-	} else if (basedef_ && basedef_->basesound() != 0) {
+	if ( basedef_ && basedef_->gethitSound().size() != 0 )
+	{
+		sound = basedef_->gethitSound()[RandomNum( 0, basedef_->gethitSound().size() - 1 )];
+	}
+	else if ( basedef_ && basedef_->basesound() != 0 )
+	{
 		sound = basedef_->basesound() + 3;
-	} else if (bodyinfo.gethitSound != -1) {
+	}
+	else if ( bodyinfo.gethitSound != -1 )
+	{
 		sound = bodyinfo.gethitSound;
-	} else if (bodyinfo.basesound != 0) {
+	}
+	else if ( bodyinfo.basesound != 0 )
+	{
 		sound = bodyinfo.basesound + 3;
 	}
 
-	if (sound >= 0) {
-		soundEffect((unsigned short)sound);
+	if ( sound >= 0 )
+	{
+		soundEffect( ( unsigned short ) sound );
 	}
 }
 
-void cBaseChar::playDeathSound() {
-	if (isHuman()) {
-		if (isFemale()) {
-			soundEffect( 0x150 + RandomNum(0, 3) );
-		} else {
-			soundEffect( 0x15A + RandomNum(0, 3) );
+void cBaseChar::playDeathSound()
+{
+	if ( isHuman() )
+	{
+		if ( isFemale() )
+		{
+			soundEffect( 0x150 + RandomNum( 0, 3 ) );
 		}
-	} else {
-		stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo(body_);
+		else
+		{
+			soundEffect( 0x15A + RandomNum( 0, 3 ) );
+		}
+	}
+	else
+	{
+		stBodyInfo bodyinfo = CharBaseDefs::instance()->getBodyInfo( body_ );
 		int sound = -1;
 
-		if (basedef_ && basedef_->deathSound().size() != 0) {
-			sound = basedef_->deathSound()[RandomNum(0, basedef_->deathSound().size() - 1)];
-		} else if (basedef_ && basedef_->basesound() != 0) {
+		if ( basedef_ && basedef_->deathSound().size() != 0 )
+		{
+			sound = basedef_->deathSound()[RandomNum( 0, basedef_->deathSound().size() - 1 )];
+		}
+		else if ( basedef_ && basedef_->basesound() != 0 )
+		{
 			sound = basedef_->basesound() + 4;
-		} else if (bodyinfo.deathSound != -1) {
+		}
+		else if ( bodyinfo.deathSound != -1 )
+		{
 			sound = bodyinfo.deathSound;
-		} else if (bodyinfo.basesound != 0) {
+		}
+		else if ( bodyinfo.basesound != 0 )
+		{
 			sound = bodyinfo.basesound + 4;
 		}
 
-		if (sound >= 0) {
-			soundEffect((unsigned short)sound);
+		if ( sound >= 0 )
+		{
+			soundEffect( ( unsigned short ) sound );
 		}
 	}
 }

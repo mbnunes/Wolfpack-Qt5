@@ -1,29 +1,29 @@
-	/*
- *     Wolfpack Emu (WP)
- * UO Server Emulation Program
- *
- * Copyright 2001-2004 by holders identified in AUTHORS.txt
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
- *
- * In addition to that license, if you are running this program or modified
- * versions of it on a public system you HAVE TO make the complete source of
- * the version used by you available or provide people with a location to
- * download it.
- *
- * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
- */
+/*
+*     Wolfpack Emu (WP)
+* UO Server Emulation Program
+*
+* Copyright 2001-2004 by holders identified in AUTHORS.txt
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Palace - Suite 330, Boston, MA 02111-1307, USA.
+*
+* In addition to that license, if you are running this program or modified
+* versions of it on a public system you HAVE TO make the complete source of
+* the version used by you available or provide people with a location to
+* download it.
+*
+* Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
+*/
 
 #ifndef CBASECHAR_H_HEADER_INCLUDED
 #define CBASECHAR_H_HEADER_INCLUDED
@@ -55,7 +55,7 @@ class cUOTxTooltipList;
 // This class is the base interface for all char objects.
 class cBaseChar : public cUObject
 {
-	OBJECTDEF(cBaseChar)
+	OBJECTDEF( cBaseChar )
 public:
 	const char* objectID() const
 	{
@@ -331,10 +331,10 @@ public:
 	//	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual bool onCHLevelChange( uint level ); // Fired when player moving trough levels
 	virtual bool onSkillGain( unsigned char skill, unsigned short min, unsigned short max, bool success );
-	PyObject *callEvent(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false);
-	bool callEventHandler(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false);
-	bool canHandleEvent(ePythonEvent event);
-	bool hasScript(const QCString &name);
+	PyObject* callEvent( ePythonEvent event, PyObject* args = 0, bool ignoreErrors = false );
+	bool callEventHandler( ePythonEvent event, PyObject* args = 0, bool ignoreErrors = false );
+	bool canHandleEvent( ePythonEvent event );
+	bool hasScript( const QCString& name );
 
 	// Combat
 	inline P_CHAR attackTarget() const
@@ -362,7 +362,7 @@ public:
 		return basedef_ ? basedef_->id() : 0;
 	}
 
-	inline cCharBaseDef *basedef() const
+	inline cCharBaseDef* basedef() const
 	{
 		return basedef_;
 	}
@@ -485,7 +485,7 @@ public:
 	void setOrgSkin( ushort data );
 	void setLastMovement( unsigned int data );
 	void setPoison( signed char data );
-	void setStepsTaken(unsigned int value);
+	void setStepsTaken( unsigned int value );
 	void setPropertyFlags( uint data );
 	void setRegenHitpointsTime( uint data );
 	void setRegenStaminaTime( uint data );
@@ -562,14 +562,16 @@ public:
 	inline unsigned short basesound()
 	{
 		unsigned short result = basedef_ ? basedef_->basesound() : 0;
-		if (!result) {
-			result = CharBaseDefs::instance()->getBodyInfo(body()).basesound;
+		if ( !result )
+		{
+			result = CharBaseDefs::instance()->getBodyInfo( body() ).basesound;
 		}
 		return result;
 	}
 
-	inline unsigned short mountId() {
-		return CharBaseDefs::instance()->getBodyInfo(body()).mountid;
+	inline unsigned short mountId()
+	{
+		return CharBaseDefs::instance()->getBodyInfo( body() ).mountid;
 	}
 
 	virtual QCString bindmenu()
@@ -579,7 +581,7 @@ public:
 
 	inline unsigned char bodytype()
 	{
-		return CharBaseDefs::instance()->getBodyInfo(body()).type;
+		return CharBaseDefs::instance()->getBodyInfo( body() ).type;
 	}
 
 	inline unsigned int wanderSpeed()
@@ -595,8 +597,9 @@ public:
 	inline unsigned short figurine()
 	{
 		unsigned short result = basedef_ ? basedef_->figurine() : 0;
-		if (!result) {
-			result = CharBaseDefs::instance()->getBodyInfo(body()).figurine;
+		if ( !result )
+		{
+			result = CharBaseDefs::instance()->getBodyInfo( body() ).figurine;
 		}
 		return result;
 	}
@@ -638,17 +641,17 @@ public:
 
 	inline bool isCanFly()
 	{
-		return (CharBaseDefs::instance()->getBodyInfo(body()).flags & 0x01) != 0;
+		return ( CharBaseDefs::instance()->getBodyInfo( body() ).flags & 0x01 ) != 0;
 	}
 
 	inline bool isAntiBlink()
 	{
-		return (CharBaseDefs::instance()->getBodyInfo(body()).flags & 0x02) != 0;
+		return ( CharBaseDefs::instance()->getBodyInfo( body() ).flags & 0x02 ) != 0;
 	}
 
 	inline bool isNoCorpse()
 	{
-		return (CharBaseDefs::instance()->getBodyInfo(body()).flags & 0x04) != 0;
+		return ( CharBaseDefs::instance()->getBodyInfo( body() ).flags & 0x04 ) != 0;
 	}
 private:
 	bool changed_;
@@ -692,7 +695,7 @@ protected:
 	};
 
 	// other protected methods
-	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
+	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 	virtual void processNode( const cElement* Tag );
 
 	// The body ID for this character. cOldChar::id_
@@ -956,7 +959,8 @@ inline unsigned int cBaseChar::stepsTaken() const
 	return stepsTaken_;
 }
 
-inline void cBaseChar::setStepsTaken(unsigned int value) {
+inline void cBaseChar::setStepsTaken( unsigned int value )
+{
 	stepsTaken_ = value;
 }
 
@@ -1576,11 +1580,13 @@ inline bool cBaseChar::isFemale() const
 
 inline bool cBaseChar::isHuman() const
 {
-	if ( body_ >= 0x190 && body_ <= 0x193 ) {
+	if ( body_ >= 0x190 && body_ <= 0x193 )
+	{
 		return true; // Human female, Human male + ghosts
 	}
 
-	if ( body_ == 0x3df || body_ == 0x3db || body_ == 0x3e2) {
+	if ( body_ == 0x3df || body_ == 0x3db || body_ == 0x3e2 )
+	{
 		return true; // Blackthorne, GM, Dupree
 	}
 

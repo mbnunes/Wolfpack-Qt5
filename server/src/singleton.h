@@ -32,20 +32,20 @@
 #include <stdlib.h>
 
 /************************************************************************/
-/* LifeTime Policies                                                    */
+/* LifeTime Policies													*/
 /************************************************************************/
 struct NoDestroy
 {
-	template<typename T>
-	static void scheduleDestruction( T*, void( * )() )
+	template <typename T>
+	static void scheduleDestruction( T*, void( * ) () )
 	{
 	}
 };
 
 struct DefaultLifeTime
 {
-	template<typename T>
-	static void scheduleDestruction( T*, void( *pFun )() )
+	template <typename T>
+	static void scheduleDestruction( T*, void( *pFun ) () )
 	{
 		atexit( pFun );
 	}
@@ -55,7 +55,7 @@ struct DefaultLifeTime
 	Singleton Template Class
 	Provides an unified interface and handling of uniqueness of	a Singleton.
 */
-template<typename T, typename Policy = DefaultLifeTime>
+template <typename T, typename Policy = DefaultLifeTime>
 class Singleton
 {
 public:
@@ -64,10 +64,12 @@ public:
 
 protected:
 	Singleton()
-	{;}
+	{
+		;}
 
 	~Singleton()
-	{;}
+	{
+		;}
 
 private:
 	inline static void makeInstance();
@@ -83,35 +85,35 @@ private:
 };
 
 /************************************************************************/
-/* Singleton Member Functions                                           */
+/* Singleton Member Functions   										*/
 /************************************************************************/
 
-template<typename T, typename Policy>
+template <typename T, typename Policy>
 T* Singleton<T, Policy>::smInstance = NULL;
 
-template<typename T, typename Policy>
+template <typename T, typename Policy>
 bool Singleton<T, Policy>::smDestroyed = false;
 
-template<typename T, typename Policy>
+template <typename T, typename Policy>
 inline T* Singleton<T, Policy>::instance()
 {
-	if( !smInstance )
+	if ( !smInstance )
 	{
 		makeInstance();
 	}
 	return smInstance;
 }
 
-template<typename T, typename Policy>
+template <typename T, typename Policy>
 inline bool Singleton<T, Policy>::wasDestroyed()
 {
 	return smDestroyed;
 }
 
-template<typename T, typename Policy>
+template <typename T, typename Policy>
 inline void Singleton<T, Policy>::makeInstance()
 {
-	if( !smInstance )
+	if ( !smInstance )
 	{
 		smInstance = new T();
 		Policy::scheduleDestruction( smInstance, &destroySingleton );
@@ -119,7 +121,7 @@ inline void Singleton<T, Policy>::makeInstance()
 	}
 }
 
-template<typename T, class Policy>
+template <typename T, class Policy>
 inline void Singleton<T, Policy>::destroySingleton()
 {
 	delete smInstance;

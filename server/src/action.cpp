@@ -30,32 +30,40 @@
 #include "server.h"
 #include "world.h"
 
-cAction::cAction() {
+cAction::cAction()
+{
 }
 
-cAction::~cAction() {
+cAction::~cAction()
+{
 }
 
-void cActionReloadScripts::execute() {
+void cActionReloadScripts::execute()
+{
 	Server::instance()->reload( "definitions" );
 }
 
-void cActionReloadPython::execute() {
+void cActionReloadPython::execute()
+{
 	Server::instance()->reload( "scripts" );
 }
 
-void cActionReloadAccounts::execute() {
+void cActionReloadAccounts::execute()
+{
 	Server::instance()->reload( "accounts" );
 }
 
-void cActionReloadConfiguration::execute() {
+void cActionReloadConfiguration::execute()
+{
 	Server::instance()->reload( "configuration" );
 }
 
-void cActionSaveWorld::execute() {
+void cActionSaveWorld::execute()
+{
 	World::instance()->save();
 }
 
-void cActionSaveAccounts::execute() {
+void cActionSaveAccounts::execute()
+{
 	Accounts::instance()->save();
 }

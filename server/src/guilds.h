@@ -65,51 +65,51 @@ public:
 		}
 
 		/*!
-					\returns A timestamp indicating when the member joined the guild.
-				*/
+						\returns A timestamp indicating when the member joined the guild.
+					*/
 		unsigned int joined()
 		{
 			return joined_.toTime_t();
 		}
 
 		/*!
-					\brief Specifies when the user joined the guild.
-					\param time A Unix timestamp.
-				*/
+						\brief Specifies when the user joined the guild.
+						\param time A Unix timestamp.
+					*/
 		void setJoined( unsigned int time )
 		{
 			joined_.setTime_t( time );
 		}
 
 		/*!
-					\returns Whether the guild sign should be shown or not.
-				*/
+						\returns Whether the guild sign should be shown or not.
+					*/
 		inline bool showSign()
 		{
 			return showSign_;
 		}
 
 		/*!
-					\brief Should the guildsign be shown?
-					\param data The new state of this flag.
-				*/
+						\brief Should the guildsign be shown?
+						\param data The new state of this flag.
+					*/
 		inline void setShowSign( bool data )
 		{
 			showSign_ = data;
 		}
 
 		/*!
-			\returns A custom guild title for this member. Otherwise QString::null.
-			*/
+				\returns A custom guild title for this member. Otherwise QString::null.
+				*/
 		inline const QString& guildTitle()
 		{
 			return guildTitle_;
 		}
 
 		/*!
-					\brief Sets a custom title for this guild member.
-					\param data The custom guild title.
-				*/
+						\brief Sets a custom title for this guild member.
+						\param data The custom guild title.
+					*/
 		inline void setGuildTitle( const QString& data )
 		{
 			guildTitle_ = data;
@@ -131,7 +131,8 @@ private:
 	QMap<P_PLAYER, MemberInfo*> memberinfo_;
 
 public:
-	const char* objectID() const {
+	const char* objectID() const
+	{
 		return "cGuild";
 	}
 

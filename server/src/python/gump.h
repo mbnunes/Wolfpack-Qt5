@@ -75,7 +75,6 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 		\rproperty gumpresponse.switches Unlike the text property this property is a list of integers for every enabled radiobox and
 		checkbox on the closed gump. Each integer value is an id of a checkbox or radiobutton. You can easily check if a checkbox with the
 		id 321 was checked on the gump by using this statement:
-
 		<code>if 321 in response.switches:
 		&nbsp;&nbsp;pass # Do something</code>
 	*/
@@ -131,11 +130,12 @@ public:
 	cPythonGump( const QString& _callback, PyObject* _args ) : callback( _callback ), args( _args )
 	{
 		// Increase ref-count for argument list
-		Py_INCREF(args);
+		Py_INCREF( args );
 	}
 
-	virtual ~cPythonGump() {
-		Py_XDECREF(args);
+	virtual ~cPythonGump()
+	{
+		Py_XDECREF( args );
 	}
 
 	void handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
@@ -162,19 +162,19 @@ public:
 
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
 
-					Py_INCREF(args);
+					Py_INCREF( args );
 					PyTuple_SetItem( p_args, 1, args );
 					PyTuple_SetItem( p_args, 2, PyGetGumpResponse( choice ) );
 
 					PyObject *result = PyEval_CallObject( pFunc, p_args );
-					Py_XDECREF(result);
+					Py_XDECREF( result );
 
-					Py_DECREF(p_args);
+					Py_DECREF( p_args );
 
 					reportPythonError( sModule );
 				}
-				Py_XDECREF(pFunc);
-				Py_DECREF(pModule);
+				Py_XDECREF( pFunc );
+				Py_DECREF( pModule );
 			}
 			else
 			{

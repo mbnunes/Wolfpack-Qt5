@@ -80,10 +80,10 @@ void cCommands::process( cUOSocket* socket, const QString& command )
 	// Dispatch the command
 	socket->log( tr( "Used command '%1'.\n" ).arg( command ) );
 
-	if ( !dispatch( socket, pCommand, pArgs ) ) {
-		socket->log(tr("Unknown command used: %1.\n").arg(command));
+	if ( !dispatch( socket, pCommand, pArgs ) )
+	{
+		socket->log( tr( "Unknown command used: %1.\n" ).arg( command ) );
 	}
-
 }
 
 // Selects the right command Stub
@@ -100,7 +100,7 @@ bool cCommands::dispatch( cUOSocket* socket, const QString& command, const QStri
 	{
 		QString argString = arguments.join( " " );
 
-		PyObject* args = Py_BuildValue( "O&NN", PyGetSocketObject, socket, QString2Python(command), QString2Python(argString) );
+		PyObject* args = Py_BuildValue( "O&NN", PyGetSocketObject, socket, QString2Python( command ), QString2Python( argString ) );
 
 		PyObject* result = PyObject_CallObject( function, args );
 		Py_XDECREF( result );
@@ -134,8 +134,8 @@ void cCommands::loadACLs( void )
 
 	if ( ScriptSections.isEmpty() )
 	{
-		Console::instance()->log( LOG_WARNING, tr("No ACLs for players, counselors, gms and admins defined!\n"
-												   "Check your scripts, wolfpack.xml and make sure to run Wolfpack from the proper folder\n") );
+		Console::instance()->log( LOG_WARNING, tr( "No ACLs for players, counselors, gms and admins defined!\n"
+												   "Check your scripts, wolfpack.xml and make sure to run Wolfpack from the proper folder\n" ) );
 		return;
 	}
 
@@ -335,9 +335,12 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
 			{
-				if ( !SpawnRegions::instance()->reSpawnGroup( args[1] ) ) {
+				if ( !SpawnRegions::instance()->reSpawnGroup( args[1] ) )
+				{
 					socket->sysMessage( tr( "Spawnregion %1 does not exist." ).arg( args[1] ) );
-				} else {
+				}
+				else
+				{
 					socket->sysMessage( tr( "Spawnregion group '%1' has respawned." ).arg( args[1] ) );
 				}
 			}
@@ -366,9 +369,12 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
 			{
-				if ( !SpawnRegions::instance()->deSpawnGroup(args[1])) {
+				if ( !SpawnRegions::instance()->deSpawnGroup( args[1] ) )
+				{
 					socket->sysMessage( tr( "Spawnregion %1 does not exist." ).arg( args[1] ) );
-				} else {
+				}
+				else
+				{
 					socket->sysMessage( tr( "Spawnregion group '%1' has been cleared." ).arg( args[1] ) );
 				}
 			}
@@ -397,9 +403,12 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
 			{
-				if (!SpawnRegions::instance()->reSpawnToMaxGroup( args[1] ) ) {
+				if ( !SpawnRegions::instance()->reSpawnToMaxGroup( args[1] ) )
+				{
 					socket->sysMessage( tr( "Spawnregion %1 does not exist." ).arg( args[1] ) );
-				} else {
+				}
+				else
+				{
 					socket->sysMessage( tr( "Spawnregion group '%1' has been filled." ).arg( args[1] ) );
 				}
 			}
@@ -530,29 +539,29 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 	}
 	else if ( subCommand == "python" )
 	{
-		Network::instance()->broadcast(tr("Reloading python scripts."));
+		Network::instance()->broadcast( tr( "Reloading python scripts." ) );
 		Server::instance()->reload( "scripts" );
-		Network::instance()->broadcast(tr("Finished reloading python scripts."));
+		Network::instance()->broadcast( tr( "Finished reloading python scripts." ) );
 	}
 	else if ( subCommand == "scripts" )
 	{
-		Network::instance()->broadcast(tr("Reloading definitions."));
+		Network::instance()->broadcast( tr( "Reloading definitions." ) );
 		Server::instance()->reload( "definitions" );
-		Network::instance()->broadcast(tr("Finished reloading definitions."));
+		Network::instance()->broadcast( tr( "Finished reloading definitions." ) );
 	}
 	else if ( subCommand == "muls" )
 	{
-		Network::instance()->broadcast(tr("Reloading mul files."));
+		Network::instance()->broadcast( tr( "Reloading mul files." ) );
 		Maps::instance()->reload();
 		TileCache::instance()->reload();
 		MultiCache::instance()->reload();
-		Network::instance()->broadcast(tr("Finished reloading mul files."));
+		Network::instance()->broadcast( tr( "Finished reloading mul files." ) );
 	}
 	else if ( subCommand == "all" )
 	{
-		Network::instance()->broadcast(tr("Reloading server configuration."));
+		Network::instance()->broadcast( tr( "Reloading server configuration." ) );
 		Server::instance()->reload( "configuration" ); // This will reload nearly everything
-		Network::instance()->broadcast(tr("Finished reloading server configuration."));
+		Network::instance()->broadcast( tr( "Finished reloading server configuration." ) );
 	}
 }
 
@@ -565,11 +574,11 @@ void commandAllShow( cUOSocket* socket, const QString& command, const QStringLis
 	Q_UNUSED( command );
 
 	P_PLAYER player = socket->player();
-	if( !player )
+	if ( !player )
 		return;
 
 	MapCharsIterator offlineChars = MapObjects::instance()->listCharsInCircle( player->pos(), player->visualRange(), true );
-	for( P_CHAR offChar = offlineChars.first(); offChar; offChar = offlineChars.next() )
+	for ( P_CHAR offChar = offlineChars.first(); offChar; offChar = offlineChars.next() )
 	{
 		socket->removeObject( offChar );
 		socket->sendChar( offChar );
@@ -678,21 +687,23 @@ void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList
 /*
 	Recursive processing function to get neccesary information about multis.
 */
-static void processMulti( QMap<QCString, QString> &item, const cElement *node )
+static void processMulti( QMap<QCString, QString>& item, const cElement* node )
 {
 	// If there is an inherit tag, inherit a parent item definition.
 	QString inherit = node->getAttribute( "inherit" );
 	if ( inherit != QString::null )
 	{
 		const cElement *parent = Definitions::instance()->getDefinition( WPDT_MULTI, inherit );
-		if ( parent ) {
+		if ( parent )
+		{
 			processMulti( item, parent );
 		}
 	}
 
 	int count = node->childCount();
 	int i;
-	for ( i = 0; i < count; ++i ) {
+	for ( i = 0; i < count; ++i )
+	{
 		const cElement *child = node->getChild( i );
 
 		// Inherit properties from another item definition
@@ -700,7 +711,7 @@ static void processMulti( QMap<QCString, QString> &item, const cElement *node )
 		{
 			const cElement *parent = 0;
 
-			if ( child->hasAttribute("id") )
+			if ( child->hasAttribute( "id" ) )
 			{
 				parent = Definitions::instance()->getDefinition( WPDT_MULTI, child->getAttribute( "id" ) );
 			}
@@ -716,11 +727,11 @@ static void processMulti( QMap<QCString, QString> &item, const cElement *node )
 		}
 		else if ( child->name() == "id" )
 		{
-			item[ "dispid" ] = child->value();
+			item["dispid"] = child->value();
 		}
 		else if ( child->name() == "name" )
 		{
-			item[ "name" ] = child->text();
+			item["name"] = child->text();
 		}
 	}
 }
@@ -728,7 +739,7 @@ static void processMulti( QMap<QCString, QString> &item, const cElement *node )
 /*
 	Recursive processing function to get neccesary information about items.
 */
-static void processItem( QMap<QCString, QString> &item, const cElement *node )
+static void processItem( QMap<QCString, QString>& item, const cElement* node )
 {
 	// If there is an inherit tag, inherit a parent item definition.
 	QString inherit = node->getAttribute( "inherit" );
@@ -752,7 +763,7 @@ static void processItem( QMap<QCString, QString> &item, const cElement *node )
 		{
 			const cElement *parent = 0;
 
-			if ( child->hasAttribute("id") )
+			if ( child->hasAttribute( "id" ) )
 			{
 				parent = Definitions::instance()->getDefinition( WPDT_ITEM, child->getAttribute( "id" ) );
 			}
@@ -768,19 +779,19 @@ static void processItem( QMap<QCString, QString> &item, const cElement *node )
 		}
 		else if ( child->name() == "id" )
 		{
-			item[ "dispid" ] = child->value();
+			item["dispid"] = child->value();
 		}
 		else if ( child->name() == "name" )
 		{
-			item[ "name" ] = child->text();
+			item["name"] = child->text();
 		}
 		else if ( child->name() == "color" )
 		{
-			item[ "color" ] = child->value();
+			item["color"] = child->value();
 		}
 		else if ( child->name() == "category" )
 		{
-			item[ "categoryname" ] = child->text();
+			item["categoryname"] = child->text();
 		}
 	}
 }
@@ -790,7 +801,7 @@ typedef QMap< unsigned char, QMap<QCString, QString> > EquipmentContainer;
 /*
 	Recursive processing function to get neccesary information about npcs.
 */
-static void processNpc( QMap<QCString, QString> &item, const cElement *node, EquipmentContainer &equipment )
+static void processNpc( QMap<QCString, QString>& item, const cElement* node, EquipmentContainer& equipment )
 {
 	// If there is an inherit tag, inherit a parent item definition.
 	QString inherit = node->getAttribute( "inherit" );
@@ -830,22 +841,22 @@ static void processNpc( QMap<QCString, QString> &item, const cElement *node, Equ
 		}
 		else if ( child->name() == "id" )
 		{
-			item[ "bodyid" ] = child->value();
+			item["bodyid"] = child->value();
 		}
 		else if ( child->name() == "skin" )
 		{
-			item[ "skin" ] = child->value();
+			item["skin"] = child->value();
 		}
 		else if ( child->name() == "category" )
 		{
-			item[ "categoryname" ] = child->text();
+			item["categoryname"] = child->text();
 		}
 		else if ( child->name() == "equipped" )
 		{
 			uint j;
 			for ( j = 0; j < child->childCount(); ++j )
 			{
-				const cElement *subchild = child->getChild(j);
+				const cElement *subchild = child->getChild( j );
 
 				if ( subchild->name() == "item" )
 				{
@@ -866,11 +877,11 @@ static void processNpc( QMap<QCString, QString> &item, const cElement *node, Equ
 						QMap<QCString, QString> item;
 						processItem( item, itemNode );
 
-						unsigned int id = item[ "dispid" ].toInt();
+						unsigned int id = item["dispid"].toInt();
 						tile_st tile = TileCache::instance()->getTile( id );
 						if ( tile.layer != 0 && tile.layer <= 0x19 && tile.animation != 0 )
 						{
-							item[ "anim" ] = QString::number( tile.animation );
+							item["anim"] = QString::number( tile.animation );
 							equipment.insert( tile.layer, item );
 						}
 					}
@@ -880,7 +891,7 @@ static void processNpc( QMap<QCString, QString> &item, const cElement *node, Equ
 	}
 }
 
-static void ensureCategory( QMap<QString, unsigned int> &categories, unsigned int &lastcategory, QString category )
+static void ensureCategory( QMap<QString, unsigned int>& categories, unsigned int& lastcategory, QString category )
 {
 	int pos = category.findRev( '\\' );
 	if ( pos != -1 )
@@ -901,7 +912,7 @@ static void ensureCategory( QMap<QString, unsigned int> &categories, unsigned in
 	\notes This command will export the definitions used by the WPGM utility to
 	a file called categories.db in your wolfpack directory.
 */
-void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/) throw()
+void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ ) throw()
 {
 	if ( QFile::exists( "categories.db" ) && !QFile::remove( "categories.db" ) )
 	{
@@ -914,7 +925,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 
 	if ( !driver.open() )
 	{
-		socket->sysMessage( tr("Unable to open categories.db in your wolfpack directory.") );
+		socket->sysMessage( tr( "Unable to open categories.db in your wolfpack directory." ) );
 		return;
 	}
 
@@ -991,12 +1002,13 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 		QMap<QString, unsigned int> categories;
 		QMap<QString, unsigned int>::iterator categoriesIt;
 
-		QStringList sections = Definitions::instance()->getSections(WPDT_ITEM);
+		QStringList sections = Definitions::instance()->getSections( WPDT_ITEM );
 		QStringList::const_iterator sectionIt;
 		QMap<QCString, QString> item;
 
-		for (sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt) {
-			const cElement *element = Definitions::instance()->getDefinition(WPDT_ITEM, *sectionIt);
+		for ( sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt )
+		{
+			const cElement *element = Definitions::instance()->getDefinition( WPDT_ITEM, *sectionIt );
 
 			item.clear();
 			item.insert( "name", QString::null );
@@ -1007,7 +1019,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 
 			processItem( item, element );
 
-			QString category = item[ "categoryname" ];
+			QString category = item["categoryname"];
 
 			if ( category.isNull() )
 			{
@@ -1025,32 +1037,32 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			if ( !categories.contains( category ) )
 			{
 				ensureCategory( categories, lastcategory, category );
-				item[ "category" ] = QString::number( lastcategory );
+				item["category"] = QString::number( lastcategory );
 			}
 			else
 			{
-				item[ "category" ] = QString::number( categories[ category ] );
+				item["category"] = QString::number( categories[category] );
 			}
 
 			// See if there has been a custom name definition
-			QString categoryname = item[ "categoryname" ];
+			QString categoryname = item["categoryname"];
 			if ( pos != -1 )
 			{
-				item[ "name" ] = categoryname.right( categoryname.length() - ( pos + 1 ) );
+				item["name"] = categoryname.right( categoryname.length() - ( pos + 1 ) );
 			}
 			else
 			{
-				item[ "name" ] = categoryname;
+				item["name"] = categoryname;
 			}
 
 			// Insert the item into the table.
 			QString section = *sectionIt;
 			QString sql = QString( "INSERT INTO items VALUES(NULL,'%1',%2,%3,%4,'%5');" )
-				.arg( item[ "name" ].replace( "'", "''" ) )
-				.arg( item[ "category" ] )
-				.arg( item[ "dispid" ] )
-				.arg( item[ "color" ] )
-				.arg( section.replace( "'", "''" ) );
+			.arg( item["name"].replace( "'", "''" ) )
+			.arg( item["category"] )
+			.arg( item["dispid"] )
+			.arg( item["color"] )
+			.arg( section.replace( "'", "''" ) );
 			driver.exec( sql );
 		}
 
@@ -1064,17 +1076,17 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 				QString parentName = categoriesIt.key().left( pos );
 				if ( categories.contains( parentName ) )
 				{
-					parent = categories[ parentName ];
+					parent = categories[parentName];
 				}
 			}
 
 			QString name = categoriesIt.key();
-			name = name.right(name.length() - (pos + 1));
+			name = name.right( name.length() - ( pos + 1 ) );
 
 			QString sql = QString( "INSERT INTO categories VALUES(%1,'%2',%3,0);" )
-				.arg( categoriesIt.data() )
-				.arg( name.replace( "'", "''" ) )
-				.arg( parent );
+			.arg( categoriesIt.data() )
+			.arg( name.replace( "'", "''" ) )
+			.arg( parent );
 			driver.exec( sql );
 		}
 
@@ -1111,7 +1123,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			}
 			else
 			{
-				categoryId = categories[ category ];
+				categoryId = categories[category];
 			}
 
 			Coord coord;
@@ -1119,13 +1131,13 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			QString id = *sectionIt;
 
 			QString sql = QString( "INSERT INTO locations VALUES(NULL,'%1',%2,%3,%4,%5,%6,'%7');" )
-				.arg( name.replace( "'", "''" ) )
-				.arg( categoryId )
-				.arg( coord.x )
-				.arg( coord.y )
-				.arg( coord.z )
-				.arg( coord.map )
-				.arg( id.replace( "'", "''" ) );
+			.arg( name.replace( "'", "''" ) )
+			.arg( categoryId )
+			.arg( coord.x )
+			.arg( coord.y )
+			.arg( coord.z )
+			.arg( coord.map )
+			.arg( id.replace( "'", "''" ) );
 
 			driver.exec( sql );
 		}
@@ -1140,7 +1152,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 				QString parentName = categoriesIt.key().left( pos );
 				if ( categories.contains( parentName ) )
 				{
-					parent = categories[ parentName ];
+					parent = categories[parentName];
 				}
 			}
 
@@ -1148,9 +1160,9 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			name = name.right( name.length() - ( pos + 1 ) );
 
 			QString sql = QString( "INSERT INTO locationcategories VALUES(%1,'%2',%3,0);" )
-				.arg( categoriesIt.data() )
-				.arg( name.replace( "'", "''" ) )
-				.arg( parent );
+			.arg( categoriesIt.data() )
+			.arg( name.replace( "'", "''" ) )
+			.arg( parent );
 			driver.exec( sql );
 		}
 
@@ -1175,7 +1187,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 
 			processNpc( item, element, equipment );
 
-			QString category = item[ "categoryname" ];
+			QString category = item["categoryname"];
 
 			if ( category.isNull() )
 			{
@@ -1193,31 +1205,31 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			if ( !categories.contains( category ) )
 			{
 				ensureCategory( categories, lastcategory, category );
-				item[ "category" ] = QString::number( lastcategory );
+				item["category"] = QString::number( lastcategory );
 			}
 			else
 			{
-				item[ "category" ] = QString::number( categories[ category ] );
+				item["category"] = QString::number( categories[category] );
 			}
 
-			QString categoryname = item[ "categoryname" ];
+			QString categoryname = item["categoryname"];
 			if ( pos != -1 )
 			{
-				item[ "name" ] = categoryname.right( categoryname.length() - ( pos + 1 ) );
+				item["name"] = categoryname.right( categoryname.length() - ( pos + 1 ) );
 			}
 			else
 			{
-				item[ "name" ] = categoryname;
+				item["name"] = categoryname;
 			}
 
 			// Insert the item into the table.
 			QString section = *sectionIt;
 			QString sql = QString( "INSERT INTO npcs VALUES(NULL,'%1',%2,%3,%4,'%5');" )
-				.arg( item[ "name" ].replace( "'", "''" ) )
-				.arg( item[ "category" ] )
-				.arg( item[ "bodyid" ] )
-				.arg( item[ "skin" ] )
-				.arg( section.replace( "'", "''" ) );
+			.arg( item["name"].replace( "'", "''" ) )
+			.arg( item["category"] )
+			.arg( item["bodyid"] )
+			.arg( item["skin"] )
+			.arg( section.replace( "'", "''" ) );
 			driver.exec( sql );
 
 			int lastInsertId = driver.lastInsertId();
@@ -1226,10 +1238,10 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			for ( eIt = equipment.begin(); eIt != equipment.end(); ++eIt )
 			{
 				QString sql = QString( "INSERT INTO npcequipment VALUES(%1,%2,%3,%4);" )
-					.arg( lastInsertId )
-					.arg( eIt.data()[ "anim" ].toInt() )
-					.arg( eIt.key() )
-					.arg( eIt.data()[ "color" ].toInt() );
+				.arg( lastInsertId )
+				.arg( eIt.data()["anim"].toInt() )
+				.arg( eIt.key() )
+				.arg( eIt.data()["color"].toInt() );
 				driver.exec( sql );
 			}
 		}
@@ -1244,7 +1256,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 				QString parentName = categoriesIt.key().left( pos );
 				if ( categories.contains( parentName ) )
 				{
-					parent = categories[ parentName ];
+					parent = categories[parentName];
 				}
 			}
 
@@ -1252,9 +1264,9 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			name = name.right( name.length() - ( pos + 1 ) );
 
 			QString sql = QString( "INSERT INTO npccategories VALUES(%1,'%2',%3,0);" )
-				.arg( categoriesIt.data() )
-				.arg( name.replace( "'", "''" ) )
-				.arg( parent );
+			.arg( categoriesIt.data() )
+			.arg( name.replace( "'", "''" ) )
+			.arg( parent );
 			driver.exec( sql );
 		}
 
@@ -1269,26 +1281,27 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 
 			processMulti( item, element );
 
-			if (item["name"].isNull() || item["dispid"].toInt() < 0x4000) {
+			if ( item["name"].isNull() || item["dispid"].toInt() < 0x4000 )
+			{
 				continue;
 			}
 
 			// Insert the item into the table.
 			QString section = *sectionIt;
 			QString sql = QString( "INSERT INTO multis VALUES(NULL,'%1','%2',%3);" )
-				.arg( item[ "name" ].replace( "'", "''" ) )
-				.arg( section.replace( "'", "''" ) )
-				.arg( item[ "dispid" ].toInt() );
+			.arg( item["name"].replace( "'", "''" ) )
+			.arg( section.replace( "'", "''" ) )
+			.arg( item["dispid"].toInt() );
 			driver.exec( sql );
 		}
 
 		socket->sysMessage( "Finished exporting definitions to categories.db." );
 	}
-	catch( const QString &e )
+	catch ( const QString& e )
 	{
 		socket->sysMessage( e );
 	}
-	catch( const wpException &e )
+	catch ( const wpException& e )
 	{
 		socket->sysMessage( e.error() );
 	}
@@ -1306,12 +1319,15 @@ void commandWalkTest( cUOSocket* socket, const QString& /*command*/, const QStri
 	Coord newpos = socket->player()->pos();
 	newpos = Movement::instance()->calcCoordFromDir( socket->player()->direction(), newpos );
 
-	bool result = mayWalk(socket->player(), newpos);
+	bool result = mayWalk( socket->player(), newpos );
 
-	if (!result) {
-		socket->sysMessage(tr("You may not walk in that direction."), 0x26);
-	} else {
-		socket->sysMessage(tr("You may walk in that direction. (New Z: %1)").arg(newpos.z), 0x3a);
+	if ( !result )
+	{
+		socket->sysMessage( tr( "You may not walk in that direction." ), 0x26 );
+	}
+	else
+	{
+		socket->sysMessage( tr( "You may walk in that direction. (New Z: %1)" ).arg( newpos.z ), 0x3a );
 	}
 }
 
@@ -1553,7 +1569,8 @@ void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const 
 }
 
 // Clear ACLs
-cCommands::~cCommands() {
+cCommands::~cCommands()
+{
 	QMap<QString, cAcl*>::iterator itA( _acls.begin() );
 	for ( ; itA != _acls.end(); ++itA )
 		delete itA.data();

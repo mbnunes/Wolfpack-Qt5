@@ -68,9 +68,9 @@ static PyObject* wpContent_get( wpContent* self, int id )
 			goto error;
 		cBaseChar::ItemContainer::const_iterator it( container.begin() );
 		/*
-			 * Ask Correa before trying to `optimize` this,
-			 * there isn't much standard complient options here.
-			 */
+				 * Ask Correa before trying to `optimize` this,
+				 * there isn't much standard complient options here.
+				 */
 		for ( int i = 0; i < id && it != container.end(); ++i )
 			++it;
 
@@ -88,11 +88,11 @@ static PyObject* wpContent_get( wpContent* self, int id )
 		if ( id < 0 || static_cast<uint>( id ) >= container.count() )
 			goto error;
 
-		ContainerIterator it(container);
-		it.seek(id);
+		ContainerIterator it( container );
+		it.seek( id );
 
-		if (!it.atEnd())
-			return (*it)->getPyObject();
+		if ( !it.atEnd() )
+			return ( *it )->getPyObject();
 		else
 			goto error;
 	}

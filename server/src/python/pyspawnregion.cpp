@@ -66,14 +66,16 @@ wpDealloc,
 \param object
 \description Add the given object to this spawnregion.
 */
-static PyObject* wpSpawnRegion_add( wpSpawnRegion *self, PyObject *args) {
+static PyObject* wpSpawnRegion_add( wpSpawnRegion* self, PyObject* args )
+{
 	cUObject *object;
 
-	if (!PyArg_ParseTuple(args, "O&:spawnregion.add(obj)", &PyConvertObject, &object)) {
+	if ( !PyArg_ParseTuple( args, "O&:spawnregion.add(obj)", &PyConvertObject, &object ) )
+	{
 		return 0;
 	}
 
-	object->setSpawnregion(self->pRegion);
+	object->setSpawnregion( self->pRegion );
 	Py_RETURN_NONE;
 }
 
@@ -207,10 +209,14 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	/*
 	\property spawnregion.active Indicates whether this spawnregion is currently active.
 	*/
-	else if (!strcmp( name, "active") ) {
-		if (self->pRegion->active()) {
+	else if ( !strcmp( name, "active" ) )
+	{
+		if ( self->pRegion->active() )
+		{
 			Py_RETURN_TRUE;
-		} else {
+		}
+		else
+		{
 			Py_RETURN_FALSE;
 		}
 	}
@@ -224,11 +230,15 @@ static int wpSpawnRegion_setAttr( wpSpawnRegion* self, char* name, PyObject* val
 	Q_UNUSED( name );
 	Q_UNUSED( value );
 
-	if (!strcmp(name, "active")) {
-		if (PyObject_IsTrue(value)) {
-			self->pRegion->setActive(true);
-		} else {
-			self->pRegion->setActive(false);
+	if ( !strcmp( name, "active" ) )
+	{
+		if ( PyObject_IsTrue( value ) )
+		{
+			self->pRegion->setActive( true );
+		}
+		else
+		{
+			self->pRegion->setActive( false );
 		}
 	}
 

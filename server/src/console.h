@@ -69,7 +69,7 @@ enum enFontType
 */
 class cConsole
 {
-	OBJECTDEF(cConsole)
+	OBJECTDEF( cConsole )
 private:
 	QString linebuffer_;
 	QString incompleteLine_;
@@ -124,7 +124,7 @@ public:
 	*/
 	void stop();
 
-	void rollbackChars(unsigned int count);
+	void rollbackChars( unsigned int count );
 
 	/*!
 		\brief Send a progress line to the console.
@@ -184,7 +184,8 @@ public:
 	*/
 	void queueCommand( const QString& command );
 
-	inline void setProgress(const QString &progress) {
+	inline void setProgress( const QString& progress )
+	{
 		this->progress = progress;
 	}
 

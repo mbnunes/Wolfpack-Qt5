@@ -85,16 +85,16 @@ static PyObject* wpChar_str( wpChar* object )
 
 
 
-static void wpChar_Dealloc( wpChar * self )
+static void wpChar_Dealloc( wpChar* self )
 {
-	Py_XDECREF( self->py_account	);
-	Py_XDECREF( self->py_region	);
-	Py_XDECREF( self->py_socket	);
-	Py_XDECREF( self->py_skill		);
-	Py_XDECREF( self->py_skillcap	);
-	Py_XDECREF( self->py_skilllock);
+	Py_XDECREF( self->py_account );
+	Py_XDECREF( self->py_region );
+	Py_XDECREF( self->py_socket );
+	Py_XDECREF( self->py_skill );
+	Py_XDECREF( self->py_skillcap );
+	Py_XDECREF( self->py_skilllock );
 
-	wpDealloc( (PyObject*) self );
+	wpDealloc( ( PyObject * ) self );
 }
 
 /*!
@@ -107,7 +107,7 @@ PyObject_HEAD_INIT( &PyType_Type )
 "wpchar",
 sizeof( wpCharType ),
 0,
-( destructor )	 wpChar_Dealloc,
+( destructor ) wpChar_Dealloc,
 0,
 ( getattrfunc ) wpChar_getAttr,
 ( setattrfunc ) wpChar_setAttr,
@@ -156,17 +156,19 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 	if ( !pChar )
 	{
 		Py_RETURN_NONE;
-	} else {
+	}
+	else
+	{
 		//	wpChar *returnVal = CharCache::instance()->allocObj( &wpCharType );
 		wpChar* returnVal = PyObject_New( wpChar, &wpCharType );
 		returnVal->pChar = pChar;
 
-		returnVal->py_account	= NULL;
-		returnVal->py_region		= NULL;
-		returnVal->py_socket		= NULL;
-		returnVal->py_skill		= NULL;
-		returnVal->py_skillcap	= NULL;
-		returnVal->py_skilllock	= NULL;
+		returnVal->py_account = NULL;
+		returnVal->py_region = NULL;
+		returnVal->py_socket = NULL;
+		returnVal->py_skill = NULL;
+		returnVal->py_skillcap = NULL;
+		returnVal->py_skilllock = NULL;
 
 		return ( PyObject * ) returnVal;
 	}
@@ -854,14 +856,18 @@ static PyObject* wpChar_getintproperty( wpChar* self, PyObject* args )
 	unsigned int def = 0;
 	PyObject *pyname;
 
-	if (!PyArg_ParseTuple(args, "O|i:char.getintproperty(name, def)", &pyname, &def)) {
+	if ( !PyArg_ParseTuple( args, "O|i:char.getintproperty(name, def)", &pyname, &def ) )
+	{
 		return 0;
 	}
 
-	QString name = Python2QString(pyname);
-	if (self->pChar->basedef() ) {
+	QString name = Python2QString( pyname );
+	if ( self->pChar->basedef() )
+	{
 		return PyInt_FromLong( self->pChar->basedef()->getIntProperty( name, def ) );
-	} else {
+	}
+	else
+	{
 		return PyInt_FromLong( def );
 	}
 }
@@ -879,20 +885,27 @@ static PyObject* wpChar_getstrproperty( wpChar* self, PyObject* args )
 	PyObject *pydef = 0;
 	PyObject *pyname;
 
-	if (!PyArg_ParseTuple(args, "O|O:char.getstrproperty(name, def)", &pyname, &pydef)) {
+	if ( !PyArg_ParseTuple( args, "O|O:char.getstrproperty(name, def)", &pyname, &pydef ) )
+	{
 		return 0;
 	}
 
-	QString name = Python2QString(pyname);
-	QString def = Python2QString(pydef);
+	QString name = Python2QString( pyname );
+	QString def = Python2QString( pydef );
 
-	if (self->pChar->basedef() ) {
+	if ( self->pChar->basedef() )
+	{
 		return QString2Python( self->pChar->basedef()->getStrProperty( name, def ) );
-	} else {
-		if (pydef) {
-			Py_INCREF(pydef);
+	}
+	else
+	{
+		if ( pydef )
+		{
+			Py_INCREF( pydef );
 			return pydef;
-		} else {
+		}
+		else
+		{
 			return QString2Python( "" );
 		}
 	}
@@ -908,15 +921,19 @@ static PyObject* wpChar_hasstrproperty( wpChar* self, PyObject* args )
 {
 	PyObject *pyname;
 
-	if (!PyArg_ParseTuple(args, "O:char.hasstrproperty(name)", &pyname)) {
+	if ( !PyArg_ParseTuple( args, "O:char.hasstrproperty(name)", &pyname ) )
+	{
 		return 0;
 	}
 
-	QString name = Python2QString(pyname);
+	QString name = Python2QString( pyname );
 
-	if (self->pChar->basedef() && self->pChar->basedef()->hasStrProperty(name)) {
+	if ( self->pChar->basedef() && self->pChar->basedef()->hasStrProperty( name ) )
+	{
 		Py_RETURN_TRUE;
-	} else {
+	}
+	else
+	{
 		Py_RETURN_FALSE;
 	}
 }
@@ -931,15 +948,19 @@ static PyObject* wpChar_hasintproperty( wpChar* self, PyObject* args )
 {
 	PyObject *pyname;
 
-	if (!PyArg_ParseTuple(args, "O:char.hasintproperty(name)", &pyname)) {
+	if ( !PyArg_ParseTuple( args, "O:char.hasintproperty(name)", &pyname ) )
+	{
 		return 0;
 	}
 
-	QString name = Python2QString(pyname);
+	QString name = Python2QString( pyname );
 
-	if (self->pChar->basedef() && self->pChar->basedef()->hasIntProperty(name)) {
+	if ( self->pChar->basedef() && self->pChar->basedef()->hasIntProperty( name ) )
+	{
 		Py_RETURN_TRUE;
-	} else {
+	}
+	else
+	{
 		Py_RETURN_FALSE;
 	}
 }
@@ -968,7 +989,7 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	cVariant value = self->pChar->getTag( key );
 
 	if ( value.type() == cVariant::StringType )
-		return QString2Python(value.toString());
+		return QString2Python( value.toString() );
 	else if ( value.type() == cVariant::IntType )
 		return PyInt_FromLong( value.asInt() );
 	else if ( value.type() == cVariant::DoubleType )
@@ -1013,7 +1034,7 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 	}
 	else
 	{
-        PyErr_SetString( PyExc_TypeError, "You passed an unknown object type to char.settag." );
+		PyErr_SetString( PyExc_TypeError, "You passed an unknown object type to char.settag." );
 		return 0;
 	}
 
@@ -1569,7 +1590,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 		if ( !dispelargs )
 			dispelargs = PyTuple_New( 0 );
 
-		if ( self->pChar->canHandleEvent(EVENT_DISPEL) )
+		if ( self->pChar->canHandleEvent( EVENT_DISPEL ) )
 		{
 			PyObject* source;
 			if ( pSource )
@@ -1995,8 +2016,9 @@ static PyObject* wpChar_notoriety( wpChar* self, PyObject* args )
 	object was a static item.
 	\return True if the character can reach the given object, false otherwise.
 */
-static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
-	if (self->pChar->free)
+static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
+{
+	if ( self->pChar->free )
 		Py_RETURN_FALSE;
 
 	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( self->pChar );
@@ -2008,100 +2030,135 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 	int range;
 	short model = 0;
 
-	if (!PyArg_ParseTuple(args, "Oi|h:char.canreach(target, range, model)", &target, &range, &model)) {
+	if ( !PyArg_ParseTuple( args, "Oi|h:char.canreach(target, range, model)", &target, &range, &model ) )
+	{
 		return 0;
 	}
 
 	Coord targetPos;
 
-	if (checkWpCoord(target)) {
-		if (range == 0) {
+	if ( checkWpCoord( target ) )
+	{
+		if ( range == 0 )
+		{
 			Py_RETURN_FALSE;
 		}
 
-		if (model == -1) {
-			targetPos = getWpCoord(target).losMapPoint();
-		} else {
-			targetPos = getWpCoord(target).losItemPoint(model);
+		if ( model == -1 )
+		{
+			targetPos = getWpCoord( target ).losMapPoint();
 		}
-	} else if (checkWpItem(target)) {
-		P_ITEM pItem = getWpItem(target);
+		else
+		{
+			targetPos = getWpCoord( target ).losItemPoint( model );
+		}
+	}
+	else if ( checkWpItem( target ) )
+	{
+		P_ITEM pItem = getWpItem( target );
 
 		P_CHAR pOutmost = pItem->getOutmostChar();
 
-		if (pOutmost == self->pChar) {
+		if ( pOutmost == self->pChar )
+		{
 			Py_RETURN_TRUE;
 		}
 
 		// Range -1 means that the item has to be on the char
-		if (range == -1 && pOutmost != self->pChar) {
+		if ( range == -1 && pOutmost != self->pChar )
+		{
 			Py_RETURN_FALSE;
 		}
 
-		targetPos = pItem->pos().losItemPoint(pItem->id());
-	} else if (checkWpChar(target)) {
-		if (range == -1) {
+		targetPos = pItem->pos().losItemPoint( pItem->id() );
+	}
+	else if ( checkWpChar( target ) )
+	{
+		if ( range == -1 )
+		{
 			Py_RETURN_FALSE;
 		}
 
-		P_CHAR pChar = getWpChar(target);
-		targetPos = pChar->pos().losCharPoint(false);
-	} else if (target->ob_type == &wpTargetType) {
-		SERIAL object = ((wpTarget*)target)->object;
-		Coord pos = ((wpTarget*)target)->pos;
-		unsigned short model = ((wpTarget*)target)->model;
+		P_CHAR pChar = getWpChar( target );
+		targetPos = pChar->pos().losCharPoint( false );
+	}
+	else if ( target->ob_type == &wpTargetType )
+	{
+		SERIAL object = ( ( wpTarget* ) target )->object;
+		Coord pos = ( ( wpTarget* ) target )->pos;
+		unsigned short model = ( ( wpTarget * ) target )->model;
 
-		P_ITEM pItem = dynamic_cast<P_ITEM>(World::instance()->findItem(object));
+		P_ITEM pItem = dynamic_cast<P_ITEM>( World::instance()->findItem( object ) );
 
-		if (pItem) {
+		if ( pItem )
+		{
 			pItem = pItem->getOutmostItem();
 
-			if (pItem->container() && pItem->container()->isChar()) {
-				if (range == -1) {
+			if ( pItem->container() && pItem->container()->isChar() )
+			{
+				if ( range == -1 )
+				{
 					Py_RETURN_TRUE;
 				}
 
 				targetPos = pItem->container()->pos().losCharPoint();
-			} else {
-				if (range == -1) {
+			}
+			else
+			{
+				if ( range == -1 )
+				{
 					Py_RETURN_FALSE;
 				}
 
-				targetPos = pItem->pos().losItemPoint(pItem->id());
+				targetPos = pItem->pos().losItemPoint( pItem->id() );
 			}
-		} else {
-			if (range == -1) {
+		}
+		else
+		{
+			if ( range == -1 )
+			{
 				Py_RETURN_FALSE;
 			}
 
-			P_CHAR pChar = dynamic_cast<P_CHAR>(World::instance()->findChar(object));
-			if (pChar) {
+			P_CHAR pChar = dynamic_cast<P_CHAR>( World::instance()->findChar( object ) );
+			if ( pChar )
+			{
 				targetPos = pChar->pos().losCharPoint();
-			} else {
-				if (model != 0) {
-					targetPos = pos.losItemPoint(model);
-				} else {
+			}
+			else
+			{
+				if ( model != 0 )
+				{
+					targetPos = pos.losItemPoint( model );
+				}
+				else
+				{
 					targetPos = pos.losMapPoint();
 				}
 			}
 		}
-	} else {
-		PyErr_SetString(PyExc_TypeError, "Unknown target type for char.canreach()");
+	}
+	else
+	{
+		PyErr_SetString( PyExc_TypeError, "Unknown target type for char.canreach()" );
 		return 0;
 	}
 
 	// Now that we have the target position, measure the distance.
-	Coord pos = self->pChar->pos().losCharPoint(true);
+	Coord pos = self->pChar->pos().losCharPoint( true );
 
-	if (pos.map != targetPos.map) {
+	if ( pos.map != targetPos.map )
+	{
 		Py_RETURN_FALSE;
 	}
 
-	if ( (int)pos.distance(targetPos) > range ) {
+	if ( ( int ) pos.distance( targetPos ) > range )
+	{
 		Py_RETURN_FALSE;
 	}
 
-	if (!pos.lineOfSight(targetPos)) {
+	if ( !pos.lineOfSight( targetPos ) )
+	{
 		Py_RETURN_FALSE;
 	}
 
@@ -2448,11 +2505,12 @@ static PyObject* wpChar_callevent( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	PyObject *result = self->pChar->callEvent((ePythonEvent)event, eventargs);
+	PyObject *result = self->pChar->callEvent( ( ePythonEvent ) event, eventargs );
 
-	if (!result) {
+	if ( !result )
+	{
 		result = Py_None;
-		Py_INCREF(result);
+		Py_INCREF( result );
 	}
 
 	return result;
@@ -2466,15 +2524,18 @@ static PyObject* wpChar_callevent( wpChar* self, PyObject* args )
 static PyObject* wpChar_getopponents( wpChar* self, PyObject* args )
 {
 	QPtrList<cFightInfo> &fights = self->pChar->fights();
-	PyObject *list = PyList_New(fights.count());
+	PyObject *list = PyList_New( fights.count() );
 	unsigned int i = 0;
 
-	for ( cFightInfo *fight = fights.first(); fight; fight = fights.next() )
+	for ( cFightInfo*fight = fights.first(); fight; fight = fights.next() )
 	{
-		if (fight->attacker() == self->pChar) {
-			PyList_SetItem(list, i++, fight->victim()->getPyObject());
-		} else {
-			PyList_SetItem(list, i++, fight->attacker()->getPyObject());
+		if ( fight->attacker() == self->pChar )
+		{
+			PyList_SetItem( list, i++, fight->victim()->getPyObject() );
+		}
+		else
+		{
+			PyList_SetItem( list, i++, fight->attacker()->getPyObject() );
 		}
 	}
 
@@ -2601,9 +2662,9 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		return player->isGM() ? PyTrue() : PyFalse();
 
 		/*
-			\rproperty char.tags This property is a list of names for all tags attached to this character.
-			This property is exclusive to python scripts and overrides normal properties with the same name.
-		*/
+				\rproperty char.tags This property is a list of names for all tags attached to this character.
+				This property is exclusive to python scripts and overrides normal properties with the same name.
+			*/
 	}
 	else if ( !strcmp( "tags", name ) )
 	{
@@ -2623,10 +2684,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		return list;
 
 		/*
-					\rproperty char.party A <object id="party">party</object> object for the party the player belongs to.
-					None for NPCs or if the player is not in a party.
-					This property is exclusive to python scripts and overrides normal properties with the same name.
-				*/
+						\rproperty char.party A <object id="party">party</object> object for the party the player belongs to.
+						None for NPCs or if the player is not in a party.
+						This property is exclusive to python scripts and overrides normal properties with the same name.
+					*/
 	}
 	else if ( !strcmp( "party", name ) )
 	{
@@ -2640,10 +2701,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		Py_RETURN_NONE;
 
 		/*
-					\rproperty char.guild A <object id="guild">guild</object> object for the guild the player belongs to.
-					None for NPCs or if the player is not in a guild.
-					This property is exclusive to python scripts and overrides normal properties with the same name.
-				*/
+						\rproperty char.guild A <object id="guild">guild</object> object for the guild the player belongs to.
+						None for NPCs or if the player is not in a guild.
+						This property is exclusive to python scripts and overrides normal properties with the same name.
+					*/
 	}
 	else if ( !strcmp( "guild", name ) )
 	{
@@ -2657,10 +2718,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		Py_RETURN_NONE;
 
 		/*
-					\rproperty char.rank The rank for the players account.
-					NPCs and players without accounts always have rank 1.
-					This property is exclusive to python scripts and overrides normal properties with the same name.
-				*/
+						\rproperty char.rank The rank for the players account.
+						NPCs and players without accounts always have rank 1.
+						This property is exclusive to python scripts and overrides normal properties with the same name.
+					*/
 	}
 	else if ( !strcmp( "rank", name ) )
 	{
@@ -2681,15 +2742,15 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		}
 
 		/*
-					\rproperty char.region A <object id="REGION">region</object> object for the region the character is in.
-					May be None if the region the character is in is undefined.
-					This property is exclusive to python scripts and overrides normal properties with the same name.
-				*/
+						\rproperty char.region A <object id="REGION">region</object> object for the region the character is in.
+						May be None if the region the character is in is undefined.
+						This property is exclusive to python scripts and overrides normal properties with the same name.
+					*/
 	}
 	else if ( !strcmp( "region", name ) )
 	{
 		if ( !self->py_region )
-			self->py_region	= PyGetRegionObject( self->pChar->region() );
+			self->py_region = PyGetRegionObject( self->pChar->region() );
 		Py_INCREF( self->py_region );
 		return self->py_region;
 	}
@@ -2707,7 +2768,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 			Py_RETURN_NONE;
 		}
 		if ( !self->py_account )
-			self->py_account	= PyGetAccountObject( player->account() );
+			self->py_account = PyGetAccountObject( player->account() );
 		Py_INCREF( self->py_account );
 		return self->py_account;
 	}
@@ -2725,7 +2786,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 			Py_RETURN_NONE;
 		}
 		if ( !self->py_socket )
-			self->py_socket	= PyGetSocketObject( player->socket() );
+			self->py_socket = PyGetSocketObject( player->socket() );
 		Py_INCREF( self->py_socket );
 		return self->py_socket;
 	}
@@ -2737,10 +2798,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 	{
 		if ( !self->py_skill )
 		{
-			wpSkills* skills	= PyObject_New( wpSkills, &wpSkillsType );
-			skills->pChar		= self->pChar;
-			skills->type		= 0;
-			self->py_skill		= (PyObject *) skills;
+			wpSkills* skills = PyObject_New( wpSkills, &wpSkillsType );
+			skills->pChar = self->pChar;
+			skills->type = 0;
+			self->py_skill = ( PyObject * ) skills;
 		}
 		Py_INCREF( self->py_skill );
 		return self->py_skill;
@@ -2754,10 +2815,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 	{
 		if ( !self->py_skillcap )
 		{
-			wpSkills* skills	= PyObject_New( wpSkills, &wpSkillsType );
-			skills->pChar		= self->pChar;
-			skills->type		= 1;
-			self->py_skillcap	= (PyObject *) skills;
+			wpSkills* skills = PyObject_New( wpSkills, &wpSkillsType );
+			skills->pChar = self->pChar;
+			skills->type = 1;
+			self->py_skillcap = ( PyObject * ) skills;
 		}
 		Py_INCREF( self->py_skillcap );
 		return self->py_skillcap;
@@ -2770,10 +2831,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 	{
 		if ( !self->py_skilllock )
 		{
-			wpSkills* skills		= PyObject_New( wpSkills, &wpSkillsType );
-			skills->pChar			= self->pChar;
-			skills->type			= 2;
-			self->py_skilllock	= (PyObject *) skills;
+			wpSkills* skills = PyObject_New( wpSkills, &wpSkillsType );
+			skills->pChar = self->pChar;
+			skills->type = 2;
+			self->py_skilllock = ( PyObject * ) skills;
 		}
 		Py_INCREF( self->py_skilllock );
 		return self->py_skilllock;
@@ -2822,11 +2883,13 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 	else if ( !strcmp( "scripts", name ) )
 	{
 		QStringList scripts = QStringList::split( ",", self->pChar->scriptList() );
-		if (self->pChar->basedef()) {
+		if ( self->pChar->basedef() )
+		{
 			const QPtrList<cPythonScript> &list = self->pChar->basedef()->baseScripts();
-			QPtrList<cPythonScript>::const_iterator it(list.begin());
-			while (it != list.end()) {
-				scripts.append( (*it)->name() );
+			QPtrList<cPythonScript>::const_iterator it( list.begin() );
+			while ( it != list.end() )
+			{
+				scripts.append( ( *it )->name() );
 				++it;
 			}
 		}
@@ -2888,13 +2951,14 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 
 	stError * error = self->pChar->setProperty( name, val );
 
-	if (error) {
+	if ( error )
+	{
 		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
 		delete error;
 		return -1;
 	}
 
-    return 0;
+	return 0;
 }
 
 P_CHAR getWpChar( PyObject* pObj )

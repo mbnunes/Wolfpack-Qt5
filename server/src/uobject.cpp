@@ -54,15 +54,14 @@
 
 // Library Includes
 
-cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ),
-	tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), spawnregion_( 0 )
+cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), spawnregion_( 0 )
 {
 	pos_.setInternalMap(); // We're not in the map objects yet
 }
 
 cUObject::~cUObject()
 {
-	if( scriptChain )
+	if ( scriptChain )
 	{
 		if ( isScriptChainFrozen() )
 		{
@@ -78,7 +77,7 @@ cUObject::~cUObject()
 	}
 }
 
-cUObject::cUObject( const cUObject& src ) : cDefinable(src), cPythonScriptable(src), PersistentObject( src )
+cUObject::cUObject( const cUObject& src ) : cDefinable( src ), cPythonScriptable( src ), PersistentObject( src )
 {
 	// Copy Events
 	if ( src.scriptChain )
@@ -104,27 +103,36 @@ cUObject::cUObject( const cUObject& src ) : cDefinable(src), cPythonScriptable(s
 	changed_ = true;
 }
 
-void cUObject::moveTo(const Coord& newpos) {
-	if (pos_ == newpos) {
+void cUObject::moveTo( const Coord& newpos )
+{
+	if ( pos_ == newpos )
+	{
 		return; // Nothing changed
 	}
 
 	// See if the map is valid
-	if ( !newpos.isInternalMap() && !Maps::instance()->hasMap( newpos.map ) ) {
+	if ( !newpos.isInternalMap() && !Maps::instance()->hasMap( newpos.map ) )
+	{
 		return;
 	}
 
 	// We're moved to the internal map although we're not on the internal map
-	if (newpos.isInternalMap() && !pos_.isInternalMap()) {		
-		MapObjects::instance()->remove(this); // Remove from the sectors
-		if (multi_) {
-			multi_->removeObject(this);
+	if ( newpos.isInternalMap() && !pos_.isInternalMap() )
+	{
+		MapObjects::instance()->remove( this ); // Remove from the sectors
+		if ( multi_ )
+		{
+			multi_->removeObject( this );
 			multi_ = 0;
 		}
-	} else if (pos_.isInternalMap() && !newpos.isInternalMap()) {
+	}
+	else if ( pos_.isInternalMap() && !newpos.isInternalMap() )
+	{
 		pos_ = newpos; // Add uses this coordinate internally
-		MapObjects::instance()->add(this); // Add to the sectors
-	} else if (!newpos.isInternalMap()) {
+		MapObjects::instance()->add( this ); // Add to the sectors
+	}
+	else if ( !newpos.isInternalMap() )
+	{
 		MapObjects::instance()->update( this, newpos );
 	}
 
@@ -132,18 +140,21 @@ void cUObject::moveTo(const Coord& newpos) {
 	changed_ = true;
 
 	// We're not on an internal map
-	if (!pos_.isInternalMap()) {
+	if ( !pos_.isInternalMap() )
+	{
 		// Position Changed
 		cMulti* multi = cMulti::find( newpos );
 		// Don't put multis into themselves
 		if ( multi != this && multi_ != multi )
 		{
-			if ( multi_ ) {
-				multi_->removeObject(this);
+			if ( multi_ )
+			{
+				multi_->removeObject( this );
 			}
 
-			if ( multi ) {
-				multi->addObject(this);
+			if ( multi )
+			{
+				multi->addObject( this );
 			}
 
 			multi_ = multi;
@@ -169,7 +180,7 @@ void cUObject::load( char** result, Q_UINT16& offset )
 	name_ = ( result[offset] == 0 ) ? QString::null : QString::fromUtf8( result[offset] );
 	offset++;
 	serial_ = atoi( result[offset++] );
-	multi_ = reinterpret_cast<cMulti*>( static_cast<size_t>(atoi(result[offset++])) );
+	multi_ = reinterpret_cast<cMulti*>( static_cast<size_t>( atoi( result[offset++] ) ) );
 	pos_.x = atoi( result[offset++] );
 	pos_.y = atoi( result[offset++] );
 	pos_.z = atoi( result[offset++] );
@@ -252,8 +263,9 @@ void cUObject::load( cBufferedReader& reader, unsigned int /*version*/ )
 	name_ = reader.readUtf8();
 	serial_ = reader.readInt();
 	setMulti( dynamic_cast<cMulti*>( World::instance()->findItem( reader.readInt() ) ) );
-	if (multi_) {
-		multi_->addObject(this);
+	if ( multi_ )
+	{
+		multi_->addObject( this );
 	}
 	pos_.x = reader.readShort();
 	pos_.y = reader.readShort();
@@ -284,14 +296,14 @@ bool cUObject::del()
 /*!
 	Builds the SQL string needed to retrieve all objects of this type.
 */
-void cUObject::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
+void cUObject::buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	// We are requiring fixed order by now, so this *is* possible
 	fields.push_back( "uobject.name,uobject.serial,uobject.multis,uobject.pos_x,uobject.pos_y,uobject.pos_z,uobject.pos_map,uobject.events,uobject.havetags" );
 	tables.push_back( "uobject" );
 	tables.push_back( "uobjectmap" );
 	conditions.push_back( "uobjectmap.serial = uobject.serial" );
-	conditions.push_back( QString("uobjectmap.type = '%1'").arg(objectid) );
+	conditions.push_back( QString( "uobjectmap.type = '%1'" ).arg( objectid ) );
 }
 
 /*!
@@ -332,7 +344,7 @@ void cUObject::clearScripts()
 	Checks if the object has a specific event \a name
 	\sa addEvent
 */
-bool cUObject::hasScript( const QCString &name )
+bool cUObject::hasScript( const QCString& name )
 {
 	if ( scriptChain )
 	{
@@ -413,19 +425,22 @@ void cUObject::removeScript( const QCString& name )
 	}
 
 	bool found = false;
-	if (scriptChain) {
+	if ( scriptChain )
+	{
 		size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 
 		for ( size_t i = 1; i <= count; ++i )
 		{
-			if ( scriptChain[i]->name() == name ) {
+			if ( scriptChain[i]->name() == name )
+			{
 				found = true;
 				break;
 			}
 		}
 	}
 
-	if (!found) {
+	if ( !found )
+	{
 		return;
 	}
 
@@ -743,11 +758,13 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	changed( TOOLTIP );
 	changed_ = true;
 	// \rproperty object.serial This integer property contains the serial for this object.
-	if (name == "serial") {
-		if (!value.canCast(cVariant::IntType)) {
+	if ( name == "serial" )
+	{
+		if ( !value.canCast( cVariant::IntType ) )
+		{
 			PROPERTY_ERROR( -3, QString( "Invalid integer value: '%1'" ).arg( value.toString() ) );
 		}
-		setSerial(value.toInt());
+		setSerial( value.toInt() );
 		return 0;
 	}
 
@@ -790,7 +807,6 @@ PyObject* cUObject::getProperty( const QString& name )
 {
 	/*
 		\rproperty object.bindmenu This string property contains a comma separated list of context menu ids for this object.
-
 		This property is inherited by the baseid property of this object.
 	*/
 	PY_PROPERTY( "bindmenu", bindmenu() )
@@ -953,9 +969,10 @@ void cUObject::resendTooltip()
 bool cUObject::onCreate( const QString& definition )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_CREATE)) {
-		PyObject* args = Py_BuildValue("(Ns)", getPyObject(), definition.latin1());
-		result = callEventHandler(EVENT_CREATE, args);
+	if ( canHandleEvent( EVENT_CREATE ) )
+	{
+		PyObject* args = Py_BuildValue( "(Ns)", getPyObject(), definition.latin1() );
+		result = callEventHandler( EVENT_CREATE, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -964,9 +981,10 @@ bool cUObject::onCreate( const QString& definition )
 bool cUObject::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 	bool result = false;
-	if (canHandleEvent(EVENT_SHOWTOOLTIP)) {
+	if ( canHandleEvent( EVENT_SHOWTOOLTIP ) )
+	{
 		PyObject* args = Py_BuildValue( "(NNN)", PyGetCharObject( sender ), getPyObject(), PyGetTooltipObject( tooltip ) );
-		result = callEventHandler(EVENT_SHOWTOOLTIP, args);
+		result = callEventHandler( EVENT_SHOWTOOLTIP, args );
 		Py_DECREF( args );
 	}
 	return result;
@@ -987,14 +1005,16 @@ void cUObject::remove()
 {
 	setSpawnregion( 0 ); // Remove from a spawnregion if applicable
 
-	if (multi_) {
-		multi_->removeObject(this);
+	if ( multi_ )
+	{
+		multi_->removeObject( this );
 		multi_ = 0;
 	}
 
 	// Remove from the sectors if we previously were on the map
-	if (!pos_.isInternalMap()) {
-		MapObjects::instance()->remove(this);
+	if ( !pos_.isInternalMap() )
+	{
+		MapObjects::instance()->remove( this );
 		pos_.setInternalMap();
 	}
 
@@ -1111,14 +1131,16 @@ void cUObject::setScriptList( const QCString& eventlist )
 		}
 	}
 
-	if (scriptChain && cPythonScript::canChainHandleEvent(EVENT_ATTACH, scriptChain)) {
-		PyObject* args = Py_BuildValue("(N)", getPyObject());
-		cPythonScript::callChainedEventHandler(EVENT_ATTACH, scriptChain, args);
-		Py_DECREF(args);
+	if ( scriptChain && cPythonScript::canChainHandleEvent( EVENT_ATTACH, scriptChain ) )
+	{
+		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
+		cPythonScript::callChainedEventHandler( EVENT_ATTACH, scriptChain, args );
+		Py_DECREF( args );
 	}
 }
 
-void cUObject::save(cBufferedWriter& writer) {
+void cUObject::save( cBufferedWriter& writer )
+{
 	writer.setObjectCount( writer.objectCount() + 1 );
 	writer.writeByte( getClassid() );
 
@@ -1128,10 +1150,11 @@ void cUObject::save(cBufferedWriter& writer) {
 	writer.setSkipSize( getClassid(), length );
 
 	// Save the spawnregion association
-	if (spawnregion_) {
-		writer.writeByte(0xFA);
-		writer.writeUtf8(spawnregion_->id());
-		writer.writeInt(serial_);
+	if ( spawnregion_ )
+	{
+		writer.writeByte( 0xFA );
+		writer.writeUtf8( spawnregion_->id() );
+		writer.writeInt( serial_ );
 	}
 
 	// Save tags for this object

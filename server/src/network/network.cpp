@@ -121,7 +121,7 @@ void cNetwork::poll( void )
 			// Check for disconnected sockets
 			if ( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isWritable() || uoSocket->socket()->isInactive() || !uoSocket->socket()->isOpen() )
 			{
-				uoSocket->log( tr("Client disconnected.\n") );
+				uoSocket->log( tr( "Client disconnected.\n" ) );
 				uoSocket->disconnect();
 				d->netIo_->unregisterSocket( uoSocket->socket() );
 				d->uoSockets.remove( uoSocket );
@@ -138,7 +138,7 @@ void cNetwork::poll( void )
 				catch ( wpException e )
 				{
 					uoSocket->log( LOG_PYTHON, e.error() + "\n" );
-					uoSocket->log( LOG_ERROR, tr("Disconnecting due to an unhandled exception.\n") );
+					uoSocket->log( LOG_ERROR, tr( "Disconnecting due to an unhandled exception.\n" ) );
 					uoSocket->disconnect();
 				}
 			}
@@ -148,7 +148,7 @@ void cNetwork::poll( void )
 		{
 			if ( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isOpen() )
 			{
-				uoSocket->log( tr("Client disconnected.\n") );
+				uoSocket->log( tr( "Client disconnected.\n" ) );
 				d->netIo_->unregisterSocket( uoSocket->socket() );
 				d->loginSockets.remove();
 				continue;
@@ -175,7 +175,7 @@ void cNetwork::load()
 		d->loginServer_->start();
 		Console::instance()->send( tr( "LoginServer running on port %1\n" ).arg( Config::instance()->loginPort() ) );
 		if ( Config::instance()->serverList().size() < 1 )
-			Console::instance()->log( LOG_WARNING, tr("LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings") );
+			Console::instance()->log( LOG_WARNING, tr( "LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings" ) );
 	}
 
 	if ( Config::instance()->enableGame() )

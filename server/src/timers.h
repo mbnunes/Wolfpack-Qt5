@@ -85,8 +85,8 @@ public:
 	bool loadChar( unsigned int id, const QString& key, P_CHAR& character );
 	bool loadItem( unsigned int id, const QString& key, P_ITEM& item );
 
-	virtual void load(cBufferedReader &reader, unsigned int version);
-	virtual void save(cBufferedWriter &writer, unsigned int version);
+	virtual void load( cBufferedReader& reader, unsigned int version );
+	virtual void save( cBufferedWriter& writer, unsigned int version );
 
 	//	cTimer() { serializable = true; }
 	cTimer( cTimer* left_ = NULL, cTimer* right_ = NULL, cTimer* father_ = NULL, cTimer* son_ = NULL, int rank_ = 0, bool marker_ = false )
@@ -185,8 +185,8 @@ public:
 
 	void load();
 	void save();
-	void save(cBufferedWriter &writer);
-	void load(cBufferedReader &reader);
+	void save( cBufferedWriter& writer );
+	void load( cBufferedReader& reader );
 
 	void check();
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent = false );

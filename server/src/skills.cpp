@@ -184,7 +184,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 			sawOkItem = true; // We have items that could be stolen (just in case we reach the end of our list)
 
 			// We have the chance of 1/chance that we reached our desired item
-			if ( RandomNum( 1, ( int )chance ) == ( int )chance )
+			if ( RandomNum( 1, ( int ) chance ) == ( int ) chance )
 			{
 				pToSteal = pItem;
 				break;
@@ -197,7 +197,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 	socket->sysMessage( tr( "You reach into %1's backpack and try to steal something..." ).arg( pVictim->name() ) );
 
 	// The success of our Theft depends on the weight of the stolen item
-	bool success = pChar->checkSkill( STEALING, 0, ( long int )pToSteal->weight() );
+	bool success = pChar->checkSkill( STEALING, 0, ( long int ) pToSteal->weight() );
 	bool caught = false;
 
 	if ( success )
@@ -209,7 +209,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		if ( !pToSteal->free )
 			pToSteal->update();
 
-		caught = pChar->skillValue( STEALING ) < RandomNum(0, 1000);
+		caught = pChar->skillValue( STEALING ) < RandomNum( 0, 1000 );
 	}
 	else
 	{
@@ -287,27 +287,31 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 {
 	P_CHAR owner = container->getOutmostChar();
 
-	if (!owner)
+	if ( !owner )
 		return; // Snooping into something thats not equipped?!
 
-	PyObject *args = Py_BuildValue("(NNN)", owner->getPyObject(), container->getPyObject(), player->getPyObject());
+	PyObject *args = Py_BuildValue( "(NNN)", owner->getPyObject(), container->getPyObject(), player->getPyObject() );
 
 	// Event prfen
-	if (player->canHandleEvent(EVENT_SNOOPING)) {
-		if (player->callEventHandler(EVENT_SNOOPING, args)) {
-			Py_DECREF(args);
+	if ( player->canHandleEvent( EVENT_SNOOPING ) )
+	{
+		if ( player->callEventHandler( EVENT_SNOOPING, args ) )
+		{
+			Py_DECREF( args );
 			return;
 		}
 	}
 
-	if (owner->canHandleEvent(EVENT_SNOOPING)) {
-		if (owner->callEventHandler(EVENT_SNOOPING, args)) {
-			Py_DECREF(args);
+	if ( owner->canHandleEvent( EVENT_SNOOPING ) )
+	{
+		if ( owner->callEventHandler( EVENT_SNOOPING, args ) )
+		{
+			Py_DECREF( args );
 			return;
 		}
 	}
 
-	Py_DECREF(args);
+	Py_DECREF( args );
 
 	cUOSocket* socket = player->socket();
 
@@ -412,7 +416,7 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 
 		if ( title >= skillRanks.size() )
 		{
-			pChar->log( LOG_ERROR, tr("Invalid skill rank information.\n") );
+			pChar->log( LOG_ERROR, tr( "Invalid skill rank information.\n" ) );
 			return skillTitle;
 		}
 

@@ -260,17 +260,18 @@ private:
 public:
 	std::map<UI32, good_st> tradesystem_;
 
-	inline void addTeleporter(const Coord &from, const Coord &to) {
+	inline void addTeleporter( const Coord& from, const Coord& to )
+	{
 		teleporters_st t;
 		t.source = from;
 		t.destination = to;
-		teleporters.append(t);
+		teleporters.append( t );
 	}
 };
 
 class cTerritories : public cComponent
 {
-	OBJECTDEF(cTerritories)
+	OBJECTDEF( cTerritories )
 private:
 	QMap<uint, QPtrList<cTerritory> > topregions;
 public:

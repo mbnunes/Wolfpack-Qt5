@@ -56,18 +56,21 @@ unsigned int cGuilds::findFreeSerial()
 	return serial;
 }
 
-void cGuilds::save() {
+void cGuilds::save()
+{
 	// Clear the tables first: guilds are not saved incremental.
 	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds;" );
 	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_members;" );
 	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_canidates;" );
 
-	for (iterator it = begin(); it != end(); ++it) {
+	for ( iterator it = begin(); it != end(); ++it )
+	{
 		it.data()->save();
 	}
 }
 
-void cGuilds::load() {
+void cGuilds::load()
+{
 	// Get all guilds from the database
 	cDBResult result = PersistentBroker::instance()->query( "SELECT serial,name,abbreviation,charta,website,alignment,leader,founded,guildstone FROM guilds" );
 
@@ -135,7 +138,7 @@ void cGuild::load( const cDBResult& result )
 		leader_ = 0;
 	}
 
-	Guilds::instance()->registerGuild(this);
+	Guilds::instance()->registerGuild( this );
 }
 
 void cGuild::save()
@@ -248,13 +251,17 @@ void cGuild::setSerial( unsigned int data )
 
 void cGuilds::registerGuild( cGuild* guild )
 {
-	iterator it = guilds.find(guild->serial());
+	iterator it = guilds.find( guild->serial() );
 
-	if (it != guilds.end()) {
-		if (it.data() != guild) {
+	if ( it != guilds.end() )
+	{
+		if ( it.data() != guild )
+		{
 			delete it.data();
-			guilds.erase(it);
-		} else {
+			guilds.erase( it );
+		}
+		else
+		{
 			return; // Already registered
 		}
 	}
@@ -531,7 +538,7 @@ PyObject* wpGuild_setmemberinfo( wpGuild* self, PyObject* args )
 	PyObject* guildtitle = PyDict_GetItemString( dict, "guildtitle" );
 	if ( guildtitle )
 	{
-			info->setGuildTitle( Python2QString( guildtitle ) );
+		info->setGuildTitle( Python2QString( guildtitle ) );
 	}
 
 	PyObject* joined = PyDict_GetItemString( dict, "joined" );
@@ -581,7 +588,7 @@ PyObject* wpGuild_getmemberinfo( wpGuild* self, PyObject* args )
 	PyObject* result = PyDict_New();
 	PyDict_SetItemString( result, "showsign", PyInt_FromLong( info->showSign() ? 1 : 0 ) );
 	PyDict_SetItemString( result, "joined", PyInt_FromLong( info->joined() ) );
-	PyDict_SetItemString( result, "guildtitle", QString2Python(info->guildTitle()) );
+	PyDict_SetItemString( result, "guildtitle", QString2Python( info->guildTitle() ) );
 
 	return result;
 }
@@ -665,7 +672,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	else if ( !strcmp( name, "name" ) )
 	{
 		const QString& value = self->guild->name();
-		return QString2Python(value);
+		return QString2Python( value );
 	}
 	/*
 		\property guild.abbreviation This is the abbreviation of this guilds name.
@@ -673,7 +680,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	else if ( !strcmp( name, "abbreviation" ) )
 	{
 		const QString& value = self->guild->abbreviation();
-		return QString2Python(value);
+		return QString2Python( value );
 	}
 	/*
 		\property guild.charta This is the charta of this guild.
@@ -681,7 +688,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	else if ( !strcmp( name, "charta" ) )
 	{
 		const QString& value = self->guild->charta();
-		return QString2Python(value);
+		return QString2Python( value );
 	}
 	/*
 		\property guild.website This is the URL of the website for this guild.
@@ -689,7 +696,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	else if ( !strcmp( name, "website" ) )
 	{
 		const QString& value = self->guild->website();
-		return QString2Python(value);
+		return QString2Python( value );
 	}
 	/*
 		\property guild.alignment This integer value indicates the alignment of the guild.
@@ -813,16 +820,17 @@ void cGuild::load( cBufferedReader& reader, unsigned int /*version*/ )
 	abbreviation_ = reader.readUtf8();
 	charta_ = reader.readUtf8();
 	website_ = reader.readUtf8();
-	alignment_ = (eAlignment)reader.readByte();
-	leader_ = dynamic_cast<P_PLAYER>(World::instance()->findChar(reader.readInt()));
-	founded_.setTime_t(reader.readInt());
-	guildstone_ = World::instance()->findItem(reader.readInt());
+	alignment_ = ( eAlignment ) reader.readByte();
+	leader_ = dynamic_cast<P_PLAYER>( World::instance()->findChar( reader.readInt() ) );
+	founded_.setTime_t( reader.readInt() );
+	guildstone_ = World::instance()->findItem( reader.readInt() );
 
 	// Save Members/Canidates
 
 	int count, i;
 	count = reader.readInt();
-	for (i = 0; i < count; ++i) {
+	for ( i = 0; i < count; ++i )
+	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( reader.readInt() ) );
 
 		MemberInfo* info = new MemberInfo;
@@ -830,54 +838,61 @@ void cGuild::load( cBufferedReader& reader, unsigned int /*version*/ )
 		info->setGuildTitle( reader.readUtf8() );
 		info->setJoined( reader.readInt() );
 
-		if (player) {
-			player->setGuild(this);
-			members_.append(player);
+		if ( player )
+		{
+			player->setGuild( this );
+			members_.append( player );
 			memberinfo_.insert( player, info );
-		} else {
+		}
+		else
+		{
 			delete info;
 		}
 	}
 
 	count = reader.readInt();
-	for (i = 0; i < count; ++i) {
+	for ( i = 0; i < count; ++i )
+	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( reader.readInt() ) );
 
-		if (player) {
-			addCanidate(player);
+		if ( player )
+		{
+			addCanidate( player );
 		}
 	}
 }
 
 void cGuild::save( cBufferedWriter& writer, unsigned int /*version*/ )
 {
-	writer.writeByte(0xFD);
+	writer.writeByte( 0xFD );
 
-	writer.writeInt(serial_);
-	writer.writeUtf8(name_);
-	writer.writeUtf8(abbreviation_);
-	writer.writeUtf8(charta_);
-	writer.writeUtf8(website_);
-	writer.writeByte(alignment_);
-	writer.writeInt(leader_ ? leader_->serial() : INVALID_SERIAL);
-	writer.writeInt(founded_.toTime_t());
-	writer.writeInt(guildstone_ ? guildstone_->serial() : INVALID_SERIAL);
+	writer.writeInt( serial_ );
+	writer.writeUtf8( name_ );
+	writer.writeUtf8( abbreviation_ );
+	writer.writeUtf8( charta_ );
+	writer.writeUtf8( website_ );
+	writer.writeByte( alignment_ );
+	writer.writeInt( leader_ ? leader_->serial() : INVALID_SERIAL );
+	writer.writeInt( founded_.toTime_t() );
+	writer.writeInt( guildstone_ ? guildstone_->serial() : INVALID_SERIAL );
 
 	// Save Members/Canidates
 	P_PLAYER player;
 
-	writer.writeInt(members_.count());
-	for ( player = members_.first(); player; player = members_.next() ) {
-		MemberInfo* info = getMemberInfo(player);
-		writer.writeInt(player->serial());
-		writer.writeBool(info->showSign());
-		writer.writeUtf8(info->guildTitle());
-		writer.writeInt(info->joined());
+	writer.writeInt( members_.count() );
+	for ( player = members_.first(); player; player = members_.next() )
+	{
+		MemberInfo* info = getMemberInfo( player );
+		writer.writeInt( player->serial() );
+		writer.writeBool( info->showSign() );
+		writer.writeUtf8( info->guildTitle() );
+		writer.writeInt( info->joined() );
 	}
 
-	writer.writeInt(canidates_.count());
-	for (player = canidates_.first(); player; player = canidates_.next()) {
-		writer.writeInt(player->serial());
+	writer.writeInt( canidates_.count() );
+	for ( player = canidates_.first(); player; player = canidates_.next() )
+	{
+		writer.writeInt( player->serial() );
 	}
 }
 

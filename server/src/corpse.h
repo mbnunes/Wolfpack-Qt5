@@ -60,14 +60,15 @@ protected:
 	// The meaning of this is that even if the items are inside of the corpse
 	// they're displayed as equipment
 public:
-	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
+	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
 	unsigned char getClassid()
 	{
 		return cCorpse::classid;
 	}
 
-	static void setClassid(unsigned char id) {
+	static void setClassid( unsigned char id )
+	{
 		cCorpse::classid = id;
 	}
 

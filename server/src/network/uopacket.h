@@ -95,12 +95,13 @@ inline char cUOPacket::operator[]( unsigned int index ) const
 * (Make sure WP_CPU_REQUIRES_DATA_ALIGNMENT is defined if you are on a CPU
 * that doesn't like non-word-aligned data reads and writes)
 */
-template<typename T> inline void wpCopyIn(T & dest, const void * source) 
+template <typename T>
+inline void wpCopyIn( T& dest, const void* source )
 {
 #ifdef WP_CPU_REQUIRES_DATA_ALIGNMENT
-	memcpy(&dest, source, sizeof(dest));
+	memcpy( &dest, source, sizeof( dest ) );
 #else
-	dest = *((const T*)source);
+	dest = *( ( const T * ) source );
 #endif
 }
 
@@ -108,12 +109,13 @@ template<typename T> inline void wpCopyIn(T & dest, const void * source)
 * (Make sure WP_CPU_REQUIRES_DATA_ALIGNMENT is defined if you are on a CPU
 *  that doesn't like non-word-aligned data reads and writes)
 */
-template<typename T> inline void wpCopyOut(void * dest, const T & source) 
+template <typename T>
+inline void wpCopyOut( void* dest, const T& source )
 {
 #ifdef WP_CPU_REQUIRES_DATA_ALIGNMENT
-	memcpy(dest, &source, sizeof(source));
+	memcpy( dest, &source, sizeof( source ) );
 #else
-	*((T*)dest) = source;
+	*( ( T * ) dest ) = source;
 #endif
 }
 

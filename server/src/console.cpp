@@ -83,7 +83,7 @@ void cConsole::sendDone()
 {
 	progress = QString::null;
 	changeColor( WPC_GREEN );
-	send( tr("Done\n") );
+	send( tr( "Done\n" ) );
 	changeColor( WPC_NORMAL );
 }
 
@@ -92,7 +92,7 @@ void cConsole::sendFail()
 {
 	progress = QString::null;
 	changeColor( WPC_RED );
-	send( tr("Failed\n") );
+	send( tr( "Failed\n" ) );
 	changeColor( WPC_NORMAL );
 }
 
@@ -101,7 +101,7 @@ void cConsole::sendSkip()
 {
 	progress = QString::null;
 	changeColor( WPC_YELLOW );
-	send( tr("Skipped\n") );
+	send( tr( "Skipped\n" ) );
 	changeColor( WPC_NORMAL );
 }
 
@@ -117,9 +117,9 @@ bool cConsole::handleCommand( const QString& command )
 		Server::instance()->setSecure( !Server::instance()->getSecure() );
 
 		if ( !Server::instance()->getSecure() )
-			Console::instance()->send( tr("WOLFPACK: Secure mode disabled. Press ? for a commands list.\n") );
+			Console::instance()->send( tr( "WOLFPACK: Secure mode disabled. Press ? for a commands list.\n" ) );
 		else
-			Console::instance()->send( tr("WOLFPACK: Secure mode re-enabled.\n") );
+			Console::instance()->send( tr( "WOLFPACK: Secure mode re-enabled.\n" ) );
 
 		return true;
 	}
@@ -127,14 +127,14 @@ bool cConsole::handleCommand( const QString& command )
 	// Allow Help in Secure Mode
 	if ( Server::instance()->getSecure() && c != '?' )
 	{
-		Console::instance()->send( tr("WOLFPACK: Secure mode prevents keyboard commands! Press 'S' to disable.\n") );
+		Console::instance()->send( tr( "WOLFPACK: Secure mode prevents keyboard commands! Press 'S' to disable.\n" ) );
 		return false;
 	}
 
 	switch ( c )
 	{
 	case 'Q':
-		Console::instance()->send( tr("WOLFPACK: Immediate Shutdown initialized!\n") );
+		Console::instance()->send( tr( "WOLFPACK: Immediate Shutdown initialized!\n" ) );
 		Server::instance()->cancel();
 		break;
 
@@ -148,7 +148,7 @@ bool cConsole::handleCommand( const QString& command )
 		break;
 
 	case 'W':
-		Console::instance()->send( tr("Current Users in the World:\n") );
+		Console::instance()->send( tr( "Current Users in the World:\n" ) );
 
 		mSock = Network::instance()->first();
 		i = 0;
@@ -169,19 +169,19 @@ bool cConsole::handleCommand( const QString& command )
 		Server::instance()->queueAction( RELOAD_SCRIPTS );
 		break;
 	case '?':
-		Console::instance()->send( tr("Console commands:\n") );
-		Console::instance()->send( tr("	Q: Shutdown the server.\n") );
-		Console::instance()->send( tr("	# - Save world\n") );
-		Console::instance()->send( tr("	W - Display logged in characters\n") );
-		Console::instance()->send( tr("	A - Reload accounts\n") );
-		Console::instance()->send( tr("	R - Reload scripts\n") );
-		Console::instance()->send( tr("	S - Toggle Secure mode ") );
+		Console::instance()->send( tr( "Console commands:\n" ) );
+		Console::instance()->send( tr( "	Q: Shutdown the server.\n" ) );
+		Console::instance()->send( tr( "	# - Save world\n" ) );
+		Console::instance()->send( tr( "	W - Display logged in characters\n" ) );
+		Console::instance()->send( tr( "	A - Reload accounts\n" ) );
+		Console::instance()->send( tr( "	R - Reload scripts\n" ) );
+		Console::instance()->send( tr( "	S - Toggle Secure mode " ) );
 		if ( Server::instance()->getSecure() )
-			Console::instance()->send( tr("[enabled]\n") );
+			Console::instance()->send( tr( "[enabled]\n" ) );
 		else
-			Console::instance()->send( tr("[disabled]\n") );
-		Console::instance()->send( tr("	? - Commands list (this)\n") );
-		Console::instance()->send( tr("End of commands list.\n") );
+			Console::instance()->send( tr( "[disabled]\n" ) );
+		Console::instance()->send( tr( "	? - Commands list (this)\n" ) );
+		Console::instance()->send( tr( "End of commands list.\n" ) );
 		break;
 	default:
 		break;

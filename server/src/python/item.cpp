@@ -123,11 +123,13 @@ PyObject* PyGetItemObject( P_ITEM item )
 	if ( item == NULL )
 	{
 		Py_RETURN_NONE;
-	} else {
-	//	wpItem *returnVal = ItemCache::instance()->allocObj( &wpItemType );
-	wpItem* returnVal = PyObject_New( wpItem, &wpItemType );
-	returnVal->pItem = item;
-	return ( PyObject * ) returnVal;
+	}
+	else
+	{
+		//	wpItem *returnVal = ItemCache::instance()->allocObj( &wpItemType );
+		wpItem* returnVal = PyObject_New( wpItem, &wpItemType );
+		returnVal->pItem = item;
+		return ( PyObject * ) returnVal;
 	}
 }
 
@@ -396,7 +398,7 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	cVariant value = self->pItem->getTag( key );
 
 	if ( value.type() == cVariant::StringType )
-		return QString2Python(value.toString());
+		return QString2Python( value.toString() );
 	else if ( value.type() == cVariant::IntType )
 		return PyInt_FromLong( value.asInt() );
 	else if ( value.type() == cVariant::DoubleType )
@@ -443,7 +445,7 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	}
 	else
 	{
-        PyErr_SetString( PyExc_TypeError, "You passed an unknown object type to char.settag." );
+		PyErr_SetString( PyExc_TypeError, "You passed an unknown object type to char.settag." );
 		return 0;
 	}
 
@@ -707,7 +709,7 @@ static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 
 	P_ITEM pItem = getArgItem( 0 );
 
-	if (pItem->free)
+	if ( pItem->free )
 		Py_RETURN_FALSE;
 
 	// Secondary Parameters
@@ -846,7 +848,7 @@ static PyObject* wpItem_countitems( wpItem* self, PyObject* args )
 	for ( int i = 0; i < PyList_Size( list ); ++i )
 	{
 		PyObject* item = PyList_GetItem( list, i );
-		baseids.append( Python2QString(item) );
+		baseids.append( Python2QString( item ) );
 	}
 
 	return PyInt_FromLong( self->pItem->countItems( baseids ) );
@@ -875,7 +877,7 @@ static PyObject* wpItem_removeitems( wpItem* self, PyObject* args )
 	for ( int i = 0; i < PyList_Size( list ); ++i )
 	{
 		PyObject* item = PyList_GetItem( list, i );
-		baseids.append( Python2QString(item) );
+		baseids.append( Python2QString( item ) );
 	}
 
 	return PyInt_FromLong( self->pItem->removeItems( baseids, amount ) );
@@ -1028,11 +1030,12 @@ static PyObject* wpItem_callevent( wpItem* self, PyObject* args )
 		return 0;
 	}
 
-	PyObject *result = self->pItem->callEvent((ePythonEvent)event, eventargs);
+	PyObject *result = self->pItem->callEvent( ( ePythonEvent ) event, eventargs );
 
-	if (!result) {
+	if ( !result )
+	{
 		result = Py_None;
-		Py_INCREF(result);
+		Py_INCREF( result );
 	}
 
 	return result;
@@ -1084,14 +1087,18 @@ static PyObject* wpItem_getintproperty( wpItem* self, PyObject* args )
 	unsigned int def = 0;
 	PyObject *pyname;
 
-	if (!PyArg_ParseTuple(args, "O|i:item.getintproperty(name, def)", &pyname, &def)) {
+	if ( !PyArg_ParseTuple( args, "O|i:item.getintproperty(name, def)", &pyname, &def ) )
+	{
 		return 0;
 	}
 
-	QString name = Python2QString(pyname);
-	if (self->pItem->basedef() ) {
+	QString name = Python2QString( pyname );
+	if ( self->pItem->basedef() )
+	{
 		return PyInt_FromLong( self->pItem->basedef()->getIntProperty( name, def ) );
-	} else {
+	}
+	else
+	{
 		return PyInt_FromLong( def );
 	}
 }
@@ -1109,20 +1116,27 @@ static PyObject* wpItem_getstrproperty( wpItem* self, PyObject* args )
 	PyObject *pydef = 0;
 	PyObject *pyname;
 
-	if (!PyArg_ParseTuple(args, "O|O:item.getstrproperty(name, def)", &pyname, &pydef)) {
+	if ( !PyArg_ParseTuple( args, "O|O:item.getstrproperty(name, def)", &pyname, &pydef ) )
+	{
 		return 0;
 	}
 
-	QString name = Python2QString(pyname);
-	QString def = Python2QString(pydef);
+	QString name = Python2QString( pyname );
+	QString def = Python2QString( pydef );
 
-	if (self->pItem->basedef() ) {
+	if ( self->pItem->basedef() )
+	{
 		return QString2Python( self->pItem->basedef()->getStrProperty( name, def ) );
-	} else {
-		if (pydef) {
-			Py_INCREF(pydef);
+	}
+	else
+	{
+		if ( pydef )
+		{
+			Py_INCREF( pydef );
 			return pydef;
-		} else {
+		}
+		else
+		{
 			return QString2Python( "" );
 		}
 	}
@@ -1138,15 +1152,19 @@ static PyObject* wpItem_hasstrproperty( wpItem* self, PyObject* args )
 {
 	PyObject *pyname;
 
-	if (!PyArg_ParseTuple(args, "O:item.hasstrproperty(name)", &pyname)) {
+	if ( !PyArg_ParseTuple( args, "O:item.hasstrproperty(name)", &pyname ) )
+	{
 		return 0;
 	}
 
-	QString name = Python2QString(pyname);
+	QString name = Python2QString( pyname );
 
-	if (self->pItem->basedef() && self->pItem->basedef()->hasStrProperty(name)) {
+	if ( self->pItem->basedef() && self->pItem->basedef()->hasStrProperty( name ) )
+	{
 		Py_RETURN_TRUE;
-	} else {
+	}
+	else
+	{
 		Py_RETURN_FALSE;
 	}
 }
@@ -1161,15 +1179,19 @@ static PyObject* wpItem_hasintproperty( wpItem* self, PyObject* args )
 {
 	PyObject *pyname;
 
-	if (!PyArg_ParseTuple(args, "O:item.hasintproperty(name)", &pyname)) {
+	if ( !PyArg_ParseTuple( args, "O:item.hasintproperty(name)", &pyname ) )
+	{
 		return 0;
 	}
 
-	QString name = Python2QString(pyname);
+	QString name = Python2QString( pyname );
 
-	if (self->pItem->basedef() && self->pItem->basedef()->hasIntProperty(name)) {
+	if ( self->pItem->basedef() && self->pItem->basedef()->hasIntProperty( name ) )
+	{
 		Py_RETURN_TRUE;
-	} else {
+	}
+	else
+	{
 		Py_RETURN_FALSE;
 	}
 }
@@ -1240,7 +1262,7 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 		const ContainerContent &content = self->pItem->content();
 		PyObject* list = PyList_New( content.count() );
 		unsigned int i = 0;
-		for (ContainerIterator it(content); !it.atEnd(); ++it)
+		for ( ContainerIterator it( content ); !it.atEnd(); ++it )
 			PyList_SetItem( list, i++, PyGetItemObject( *it ) );
 		return list;
 	}
@@ -1292,12 +1314,14 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 	*/
 	else if ( !strcmp( "scripts", name ) )
 	{
-		QStringList events = QStringList::split(",", self->pItem->scriptList());
-		if (self->pItem->basedef()) {
+		QStringList events = QStringList::split( ",", self->pItem->scriptList() );
+		if ( self->pItem->basedef() )
+		{
 			const QPtrList<cPythonScript> &list = self->pItem->basedef()->baseScripts();
-			QPtrList<cPythonScript>::const_iterator it(list.begin());
-			while (it != list.end()) {
-				events.append( (*it)->name() );
+			QPtrList<cPythonScript>::const_iterator it( list.begin() );
+			while ( it != list.end() )
+			{
+				events.append( ( *it )->name() );
 				++it;
 			}
 		}

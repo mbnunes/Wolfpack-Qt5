@@ -189,7 +189,8 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 		if ( pPlayer->dist( pNpc ) > 16 )
 			continue;
 
-		if (pNpc->canHandleEvent(EVENT_SPEECH)) {
+		if ( pNpc->canHandleEvent( EVENT_SPEECH ) )
+		{
 			PyObject* pkeywords = PyList_New( keywords.size() );
 
 			// Set Items
@@ -198,7 +199,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 
 			PyObject* args = Py_BuildValue( "(NNNO)", pNpc->getPyObject(), pPlayer->getPyObject(), QString2Python( comm ), pkeywords );
 
-			bool result = pNpc->callEventHandler(EVENT_SPEECH, args);
+			bool result = pNpc->callEventHandler( EVENT_SPEECH, args );
 
 			Py_DECREF( args );
 			Py_DECREF( pkeywords );
@@ -231,7 +232,7 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 		return;
 
 	// log
-	pChar->log(LOG_SPEECH, tr("Saying '%1' (%2, 0x%3).\n").arg(speech).arg(font).arg(color, 0, 16));
+	pChar->log( LOG_SPEECH, tr( "Saying '%1' (%2, 0x%3).\n" ).arg( speech ).arg( font ).arg( color, 0, 16 ) );
 
 	pChar->unhide();
 

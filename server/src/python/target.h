@@ -62,8 +62,9 @@ public:
 		Py_INCREF( args );
 	}
 
-	virtual ~cPythonTarget() {
-		Py_XDECREF(args);
+	virtual ~cPythonTarget()
+	{
+		Py_XDECREF( args );
 	}
 
 	bool responsed( cUOSocket* socket, cUORxTarget* target );

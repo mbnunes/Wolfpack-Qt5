@@ -195,7 +195,8 @@ gumpChoice_st cUORxGumpResponse::choice()
 	choice.button = getInt( 11 );
 	Q_UINT32 numSwitches = getInt( 15 );
 
-	if (numSwitches > 2000) {
+	if ( numSwitches > 2000 )
+	{
 		return choice;
 	}
 
@@ -207,13 +208,15 @@ gumpChoice_st cUORxGumpResponse::choice()
 
 	Q_UINT32 offset = 19 + 4 * numSwitches;
 
-	if (offset >= size()) {
+	if ( offset >= size() )
+	{
 		return choice;
 	}
 
 	Q_UINT32 numTextEntries = getInt( offset );
 
-	if (numTextEntries > 2000) {
+	if ( numTextEntries > 2000 )
+	{
 		return choice;
 	}
 

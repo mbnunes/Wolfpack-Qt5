@@ -49,7 +49,7 @@ struct stSkill
 
 class cSkills
 {
-	OBJECTDEF(cSkills)
+	OBJECTDEF( cSkills )
 private:
 	QStringList skillRanks;
 	QValueVector<stSkill> skills;

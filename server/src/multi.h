@@ -45,7 +45,8 @@ protected:
 	QPtrList<cUObject> objects;
 
 public:
-	static void setClassid(unsigned char id) {
+	static void setClassid( unsigned char id )
+	{
 		cMulti::classid = id;
 	}
 
@@ -63,9 +64,9 @@ public:
 	virtual ~cMulti();
 
 	// This static function can be used to check if the given multi can be placed at the given position
-	static bool canPlace(const Coord &pos, unsigned short multiid, QPtrList<cUObject> &moveOut, unsigned short yard = 5);
+	static bool canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObject>& moveOut, unsigned short yard = 5 );
 
-	static void buildSqlString(const char *objectid, QStringList &fields, QStringList &tables, QStringList &conditions);
+	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 	/*
 	void load( char **, Q_UINT16& );
 	void save();

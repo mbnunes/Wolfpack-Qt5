@@ -62,8 +62,8 @@ cTiming::cTiming()
 
 	lastWorldsave_ = 0;
 	nextSpawnRegionCheck = time + Config::instance()->spawnRegionCheckTime() * MY_CLOCKS_PER_SEC;
-	nextTamedCheck = ( uint )( time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC );
-	nextNpcCheck = ( uint )( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
+	nextTamedCheck = ( uint ) ( time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC );
+	nextNpcCheck = ( uint ) ( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
 	nextItemCheck = time + 10000; // Every 10 seconds
 	nextShopRestock = time + 20 * 60 * MY_CLOCKS_PER_SEC; // Every 20 minutes
 	nextHungerCheck = time + Config::instance()->hungerDamageRate();
@@ -78,16 +78,16 @@ void cTiming::poll()
 	// Check for spawn regions
 	if ( nextSpawnRegionCheck <= time )
 	{
-		startProfiling(PF_SPAWNCHECK);
+		startProfiling( PF_SPAWNCHECK );
 		SpawnRegions::instance()->check();
 		nextSpawnRegionCheck = time + Config::instance()->spawnRegionCheckTime() * MY_CLOCKS_PER_SEC;
-		stopProfiling(PF_SPAWNCHECK);
+		stopProfiling( PF_SPAWNCHECK );
 	}
 
 	// Check for decay items
 	if ( nextItemCheck <= time )
 	{
-		startProfiling(PF_DECAYCHECK);
+		startProfiling( PF_DECAYCHECK );
 		QValueVector<SERIAL> toRemove;
 		DecayIterator it = decayitems.begin();
 
@@ -116,13 +116,13 @@ void cTiming::poll()
 
 		nextItemCheck = time + 5000;
 
-		stopProfiling(PF_DECAYCHECK);
+		stopProfiling( PF_DECAYCHECK );
 	}
 
 	// Check for an automated worldsave
 	if ( Config::instance()->saveInterval() )
 	{
-		startProfiling(PF_WORLDSAVE);
+		startProfiling( PF_WORLDSAVE );
 
 		// Calculate the next worldsave based on the last worldsave
 		unsigned int nextSave = lastWorldsave() + Config::instance()->saveInterval() * MY_CLOCKS_PER_SEC;
@@ -132,7 +132,7 @@ void cTiming::poll()
 			World::instance()->save();
 		}
 
-		stopProfiling(PF_WORLDSAVE);
+		stopProfiling( PF_WORLDSAVE );
 	}
 
 	unsigned int events = 0;
@@ -140,7 +140,7 @@ void cTiming::poll()
 	// Check lightlevel and time
 	if ( nextUOTimeTick <= time )
 	{
-		startProfiling(PF_UOTIMECHECK);
+		startProfiling( PF_UOTIMECHECK );
 
 		unsigned char oldhour = UoTime::instance()->hour();
 		UoTime::instance()->setMinutes( UoTime::instance()->getMinutes() + 1 );
@@ -191,12 +191,12 @@ void cTiming::poll()
 			currentLevel = newLevel;
 		}
 
-		stopProfiling(PF_UOTIMECHECK);
+		stopProfiling( PF_UOTIMECHECK );
 	}
 
 	if ( nextCombatCheck <= time )
 	{
-		startProfiling(PF_COMBATCHECK);
+		startProfiling( PF_COMBATCHECK );
 
 		nextCombatCheck = time + 250;
 
@@ -227,7 +227,7 @@ void cTiming::poll()
 			}
 		}
 
-		stopProfiling(PF_COMBATCHECK);
+		stopProfiling( PF_COMBATCHECK );
 	}
 
 	// Save the positions of connected players
@@ -241,9 +241,9 @@ void cTiming::poll()
 			continue;
 		}
 
-		startProfiling(PF_PLAYERCHECK);
+		startProfiling( PF_PLAYERCHECK );
 		socket->player()->poll( time, events );
-		stopProfiling(PF_PLAYERCHECK);
+		stopProfiling( PF_PLAYERCHECK );
 
 		checkRegeneration( socket->player(), time );
 		checkPlayer( socket->player(), time );
@@ -254,10 +254,10 @@ void cTiming::poll()
 	if ( nextNpcCheck <= time )
 	{
 		cCharIterator chariter;
-		for( P_CHAR character = chariter.first(); character; character = chariter.next() )
+		for ( P_CHAR character = chariter.first(); character; character = chariter.next() )
 		{
 			P_NPC npc = dynamic_cast<P_NPC>( character );
-			if( npc && npc->stablemasterSerial() == INVALID_SERIAL )
+			if ( npc && npc->stablemasterSerial() == INVALID_SERIAL )
 			{
 				// Check if we are anywhere near a player
 				// all other npcs are accounted as inactive
@@ -267,9 +267,9 @@ void cTiming::poll()
 					{
 						checkRegeneration( npc, time );
 						checkNpc( npc, time );
-						startProfiling(PF_NPCCHECK);
+						startProfiling( PF_NPCCHECK );
 						npc->poll( time, events );
-						stopProfiling(PF_NPCCHECK);
+						stopProfiling( PF_NPCCHECK );
 						break;
 					}
 				}
@@ -277,7 +277,7 @@ void cTiming::poll()
 			}
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>( character );
-			if( player && player->logoutTime() && player->logoutTime() <= time )
+			if ( player && player->logoutTime() && player->logoutTime() <= time )
 			{
 				player->onLogout();
 				player->removeFromView( false );
@@ -288,16 +288,16 @@ void cTiming::poll()
 		}
 
 		if ( nextTamedCheck <= time )
-			nextTamedCheck = ( uint )( time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC );
+			nextTamedCheck = ( uint ) ( time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC );
 
 		if ( nextNpcCheck <= time )
-			nextNpcCheck = ( uint )( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
+			nextNpcCheck = ( uint ) ( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
 	}
 
 	// Check the Timers
-	startProfiling(PF_TIMERSCHECK);
+	startProfiling( PF_TIMERSCHECK );
 	Timers::instance()->check();
-	stopProfiling(PF_TIMERSCHECK);
+	stopProfiling( PF_TIMERSCHECK );
 
 	if ( nextHungerCheck <= time )
 		nextHungerCheck = time + Config::instance()->hungerDamageRate() * MY_CLOCKS_PER_SEC;
@@ -311,7 +311,7 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		return;
 	}
 
-	startProfiling(PF_REGENERATION);
+	startProfiling( PF_REGENERATION );
 
 	if ( character->regenHitpointsTime() <= time )
 	{
@@ -322,7 +322,7 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 			{
 				character->setHitpoints( character->hitpoints() + 1 );
 				character->updateHealth();
-				character->setRegenHitpointsTime( ( uint )( Server::instance()->time() + floor( character->getHitpointRate() * 1000 ) ) );
+				character->setRegenHitpointsTime( ( uint ) ( Server::instance()->time() + floor( character->getHitpointRate() * 1000 ) ) );
 			}
 		}
 	}
@@ -332,7 +332,7 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		if ( character->stamina() < character->maxStamina() )
 		{
 			character->setStamina( character->stamina() + 1 );
-			character->setRegenStaminaTime( ( uint )( Server::instance()->time() + floor( character->getStaminaRate() * 1000 ) ) );
+			character->setRegenStaminaTime( ( uint ) ( Server::instance()->time() + floor( character->getStaminaRate() * 1000 ) ) );
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>( character );
 			if ( player && player->socket() )
@@ -347,7 +347,7 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		if ( character->mana() < character->maxMana() )
 		{
 			character->setMana( character->mana() + 1 );
-			character->setRegenManaTime( ( uint )( Server::instance()->time() + floor( character->getManaRate() * 1000 ) ) );
+			character->setRegenManaTime( ( uint ) ( Server::instance()->time() + floor( character->getManaRate() * 1000 ) ) );
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>( character );
 			if ( player )
@@ -366,12 +366,12 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		}
 	}
 
-	stopProfiling(PF_REGENERATION);
+	stopProfiling( PF_REGENERATION );
 }
 
 void cTiming::checkPlayer( P_PLAYER player, unsigned int time )
 {
-	startProfiling(PF_PLAYERCHECK);
+	startProfiling( PF_PLAYERCHECK );
 
 	cUOSocket* socket = player->socket();
 
@@ -399,7 +399,7 @@ void cTiming::checkPlayer( P_PLAYER player, unsigned int time )
 		}
 	}
 
-	stopProfiling(PF_PLAYERCHECK);
+	stopProfiling( PF_PLAYERCHECK );
 }
 
 void cTiming::checkNpc( P_NPC npc, unsigned int time )
@@ -417,9 +417,9 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 	// Give the AI time to process events
 	if ( npc->ai() && npc->aiCheckTime() <= time )
 	{
-		startProfiling(PF_AICHECK);
+		startProfiling( PF_AICHECK );
 		npc->ai()->check();
-		stopProfiling(PF_AICHECK);
+		stopProfiling( PF_AICHECK );
 	}
 
 	// Hunger for npcs
@@ -427,7 +427,8 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 	if ( npc->isTamed() && Config::instance()->hungerRate() && npc->hungerTime() <= time )
 	{
 		// Creatures owned by GMs won't hunger.
-		if ( !npc->owner() || !npc->owner()->isGMorCounselor()) {
+		if ( !npc->owner() || !npc->owner()->isGMorCounselor() )
+		{
 			if ( npc->hunger() )
 			{
 				npc->setHunger( npc->hunger() - 1 );

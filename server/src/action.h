@@ -28,7 +28,8 @@
 #if !defined(__ACTION_H__)
 #define __ACTION_H__
 
-class cAction {
+class cAction
+{
 public:
 	cAction();
 	virtual ~cAction();
@@ -37,32 +38,38 @@ public:
 	virtual void execute() = 0;
 };
 
-class cActionReloadScripts : public cAction {
+class cActionReloadScripts : public cAction
+{
 public:
 	void execute();
 };
 
-class cActionReloadPython : public cAction {
+class cActionReloadPython : public cAction
+{
 public:
 	void execute();
 };
 
-class cActionReloadAccounts : public cAction {
+class cActionReloadAccounts : public cAction
+{
 public:
 	void execute();
 };
 
-class cActionReloadConfiguration : public cAction {
+class cActionReloadConfiguration : public cAction
+{
 public:
 	void execute();
 };
 
-class cActionSaveWorld : public cAction {
+class cActionSaveWorld : public cAction
+{
 public:
 	void execute();
 };
 
-class cActionSaveAccounts : public cAction {
+class cActionSaveAccounts : public cAction
+{
 public:
 	void execute();
 };

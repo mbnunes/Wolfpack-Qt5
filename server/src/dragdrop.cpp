@@ -75,7 +75,8 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 	}
 
 	// Check if the item can be reached
-	if ( !pChar->isGM() && pItem->getOutmostChar() != pChar && !pChar->lineOfSight(pItem)) {
+	if ( !pChar->isGM() && pItem->getOutmostChar() != pChar && !pChar->lineOfSight( pItem ) )
+	{
 		socket->bounceItem( pItem, BR_OUT_OF_REACH );
 		return;
 	}
@@ -84,12 +85,14 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 
 	cMulti *multi = outmostCont->multi();
 	// Check security if using items within a multi
-	if (multi && multi->canHandleEvent(EVENT_CHECKSECURITY)) {
-		PyObject *args = Py_BuildValue("(NNN)", pChar->getPyObject(), multi->getPyObject(), outmostCont->getPyObject());
-		bool result = multi->callEventHandler(EVENT_CHECKSECURITY, args);
-		Py_DECREF(args);
+	if ( multi && multi->canHandleEvent( EVENT_CHECKSECURITY ) )
+	{
+		PyObject *args = Py_BuildValue( "(NNN)", pChar->getPyObject(), multi->getPyObject(), outmostCont->getPyObject() );
+		bool result = multi->callEventHandler( EVENT_CHECKSECURITY, args );
+		Py_DECREF( args );
 
-		if (result) {
+		if ( result )
+		{
 			socket->bounceItem( pItem, BR_NO_REASON );
 			return; // Access Denied
 		}
@@ -204,7 +207,8 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 
 	pChar->addItem( cBaseChar::Dragging, pItem );
 
-	if ( weight != pChar->weight() ) {
+	if ( weight != pChar->weight() )
+	{
 		socket->sendStatWindow();
 	}
 }
@@ -453,7 +457,8 @@ void DragAndDrop::dropItem( cUOSocket* socket, cUORxDropItem* packet )
 		return;
 
 	// If the item is not dragged by us, dont even bother
-	if (pItem->container() != pChar) {
+	if ( pItem->container() != pChar )
+	{
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
@@ -580,7 +585,7 @@ void DragAndDrop::dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord& po
 	P_PLAYER pChar = socket->player();
 
 	// Check if the destination is in line of sight
-	if ( !pChar->lineOfSight( pos.losItemPoint(pItem->id()) ) )
+	if ( !pChar->lineOfSight( pos.losItemPoint( pItem->id() ) ) )
 	{
 		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;
@@ -606,8 +611,9 @@ void DragAndDrop::dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord& po
 	pItem->update();
 
 	// Play Sounds for non gold items
-	if (pItem->id() != 0xEED) {
-		pItem->soundEffect(0x42);
+	if ( pItem->id() != 0xEED )
+	{
+		pItem->soundEffect( 0x42 );
 	}
 }
 
@@ -638,12 +644,14 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 	P_ITEM outmostCont = pCont->getOutmostItem();
 	cMulti *multi = outmostCont->multi();
 	// Check security if using items within a multi
-	if (multi && multi->canHandleEvent(EVENT_CHECKSECURITY)) {
-		PyObject *args = Py_BuildValue("(NNN)", pChar->getPyObject(), multi->getPyObject(), outmostCont->getPyObject());
-		bool result = multi->callEventHandler(EVENT_CHECKSECURITY, args);
-		Py_DECREF(args);
+	if ( multi && multi->canHandleEvent( EVENT_CHECKSECURITY ) )
+	{
+		PyObject *args = Py_BuildValue( "(NNN)", pChar->getPyObject(), multi->getPyObject(), outmostCont->getPyObject() );
+		bool result = multi->callEventHandler( EVENT_CHECKSECURITY, args );
+		Py_DECREF( args );
 
-		if (result) {
+		if ( result )
+		{
 			socket->bounceItem( socket->dragging(), BR_NO_REASON );
 			return; // Access Denied
 		}

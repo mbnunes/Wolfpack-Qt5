@@ -88,7 +88,7 @@ public:
 		// We will ignore silent here.
 		PyObject *list = PyList_New( 0 );
 		Dispel( pSource, list );
-		Py_DECREF(list);
+		Py_DECREF( list );
 	}
 
 	// Dispel args: char, [args], source, [args] (while the last one is optional)
@@ -125,12 +125,12 @@ public:
 						PyTuple_SetItem( p_args, 0, Py_None );
 					}
 
-					Py_INCREF(args); // PyTuple_SetItem steals a reference
+					Py_INCREF( args ); // PyTuple_SetItem steals a reference
 					PyTuple_SetItem( p_args, 1, args );
 
 					PyTuple_SetItem( p_args, 2, PyGetCharObject( pSource ) );
 
-					Py_INCREF(disp_args);
+					Py_INCREF( disp_args );
 					PyTuple_SetItem( p_args, 3, disp_args );
 
 					PyObject* result = PyEval_CallObject( pFunc, p_args );
@@ -169,12 +169,13 @@ public:
 						PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
 					else if ( isCharSerial( destSer ) )
 						PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
-					else {
-						Py_INCREF(Py_None);
+					else
+					{
+						Py_INCREF( Py_None );
 						PyTuple_SetItem( p_args, 0, Py_None );
 					}
 
-					Py_INCREF(args);
+					Py_INCREF( args );
 					PyTuple_SetItem( p_args, 1, args );
 
 					PyObject* result = PyEval_CallObject( pFunc, p_args );
@@ -189,90 +190,107 @@ public:
 		}
 	}
 
-	void save(cBufferedWriter &writer, unsigned int version) {
-		cTimer::save(writer, version);
+	void save( cBufferedWriter& writer, unsigned int version )
+	{
+		cTimer::save( writer, version );
 
-		writer.writeUtf8(functionName);
-		writer.writeUtf8(dispelFunc_);
-		writer.writeUtf8(dispelId_);
+		writer.writeUtf8( functionName );
+		writer.writeUtf8( dispelFunc_ );
+		writer.writeUtf8( dispelId_ );
 
-		int count = PyTuple_Size(args);
-		writer.writeInt(count);
+		int count = PyTuple_Size( args );
+		writer.writeInt( count );
 
-		for (int i = 0; i < count; ++i) {
-			PyObject *object = PyTuple_GetItem(args, i);
+		for ( int i = 0; i < count; ++i )
+		{
+			PyObject *object = PyTuple_GetItem( args, i );
 
-			if ( PyInt_Check( object ) ) {
-				int value = PyInt_AsLong(object);
-				cVariant(value).serialize(writer, version);
-			} else if ( PyString_Check( object ) || PyUnicode_Check( object ) ) {
-				QString value = Python2QString(object);
-				cVariant(value).serialize(writer, version);
-			} else if ( PyFloat_Check( object ) ) {
-				double value = PyFloat_AsDouble(object);
-				cVariant(value).serialize(writer, version);
-			} else if ( checkWpChar( object ) ) {
-				P_CHAR pChar = getWpChar(object);
-				cVariant(pChar).serialize(writer, version);
-			} else if ( checkWpItem( object ) ) {
-				P_ITEM pItem = getWpItem(object);
-				cVariant(pItem).serialize(writer, version);
-			} else if ( checkWpCoord( object ) ) {
-				Coord coord = getWpCoord(object);
-				cVariant(coord).serialize(writer, version);
+			if ( PyInt_Check( object ) )
+			{
+				int value = PyInt_AsLong( object );
+				cVariant( value ).serialize( writer, version );
+			}
+			else if ( PyString_Check( object ) || PyUnicode_Check( object ) )
+			{
+				QString value = Python2QString( object );
+				cVariant( value ).serialize( writer, version );
+			}
+			else if ( PyFloat_Check( object ) )
+			{
+				double value = PyFloat_AsDouble( object );
+				cVariant( value ).serialize( writer, version );
+			}
+			else if ( checkWpChar( object ) )
+			{
+				P_CHAR pChar = getWpChar( object );
+				cVariant( pChar ).serialize( writer, version );
+			}
+			else if ( checkWpItem( object ) )
+			{
+				P_ITEM pItem = getWpItem( object );
+				cVariant( pItem ).serialize( writer, version );
+			}
+			else if ( checkWpCoord( object ) )
+			{
+				Coord coord = getWpCoord( object );
+				cVariant( coord ).serialize( writer, version );
 			}
 		}
 	}
 
-	void load(cBufferedReader &reader, unsigned int version) {
-		cTimer::load(reader, version);
+	void load( cBufferedReader& reader, unsigned int version )
+	{
+		cTimer::load( reader, version );
 
 		functionName = reader.readUtf8();
 		dispelFunc_ = reader.readUtf8();
 		dispelId_ = reader.readUtf8();
 		int count = reader.readInt();
 
-		args = PyTuple_New(count);
-		for(int i = 0; i < count; ++i) {
+		args = PyTuple_New( count );
+		for ( int i = 0; i < count; ++i )
+		{
 			cVariant variant;
 			PyObject *object = 0;
 
-			variant.serialize(reader, version);
-			switch (variant.type()) {
-				case cVariant::LongType:
-				case cVariant::IntType:
-					object = PyInt_FromLong(variant.asInt());
-					break;
+			variant.serialize( reader, version );
+			switch ( variant.type() )
+			{
+			case cVariant::LongType:
+			case cVariant::IntType:
+				object = PyInt_FromLong( variant.asInt() );
+				break;
 
-				case cVariant::StringType:
-					object = QString2Python(variant.asString());
-					break;
+			case cVariant::StringType:
+				object = QString2Python( variant.asString() );
+				break;
 
-				case cVariant::DoubleType:
-					object = PyFloat_FromDouble(variant.asDouble());
-					break;
+			case cVariant::DoubleType:
+				object = PyFloat_FromDouble( variant.asDouble() );
+				break;
 
-				case cVariant::BaseCharType:
-					object = PyGetCharObject(variant.toChar());
-					break;
+			case cVariant::BaseCharType:
+				object = PyGetCharObject( variant.toChar() );
+				break;
 
-				case cVariant::ItemType:
-					object = PyGetItemObject(variant.toItem());
-					break;
+			case cVariant::ItemType:
+				object = PyGetItemObject( variant.toItem() );
+				break;
 
-				case cVariant::CoordType:
-					object = PyGetCoordObject(variant.toCoord());
-					break;
-				case cVariant::InvalidType:
-					break;
+			case cVariant::CoordType:
+				object = PyGetCoordObject( variant.toCoord() );
+				break;
+			case cVariant::InvalidType:
+				break;
 			}
 
-			if (!object) {
-				Py_INCREF(Py_None);
+			if ( !object )
+			{
+				Py_INCREF( Py_None );
 				object = Py_None;
 			}
 
-			PyTuple_SetItem(args, i, object);
+			PyTuple_SetItem( args, i, object );
 		}
 	}
 

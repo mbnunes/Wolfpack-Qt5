@@ -436,7 +436,7 @@ void cAsyncNetIO::run() throw()
 						char temp[4];
 						d->consumeReadBuf( 4, temp );
 						d->skippedUOHeader = true;
-						
+
 						wpCopyIn( d->seed, temp );
 						d->seed = B_BENDIAN_TO_HOST_INT32( d->seed );
 						//d->seed = ( ( temp[0] & 0xFF ) << 24 ) | ( ( temp[1] & 0xFF ) << 16 ) | ( ( temp[2] & 0xFF ) << 8 ) | ( ( temp[3] & 0xFF ) );
@@ -452,9 +452,9 @@ void cAsyncNetIO::run() throw()
 					}
 				}
 				/*else if ( nread == 0 )
-				{
-					d->socket->close();
-				}*/
+						{
+							d->socket->close();
+						}*/
 			}
 			else
 			{
@@ -644,7 +644,7 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 				d->ungetch( *p );
 				d->ungetch( *( p + 1 ) );
 				d->ungetch( packetID );
-				length = B_LENDIAN_TO_HOST_INT32(length); // Because we built as little
+				length = B_LENDIAN_TO_HOST_INT32( length ); // Because we built as little
 				if ( d->rsize < length )
 				{
 					keepExtracting = false;
@@ -686,17 +686,17 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 
 	// Encrypt new packets
 	QByteArray *p = d->wba.first();
-	while (p) 
+	while ( p )
 	{
-    	// Encrypt the outgoing buffer
-        if ( d->encryption )
+		// Encrypt the outgoing buffer
+		if ( d->encryption )
 			d->encryption->serverEncrypt( p->data(), p->size() );
-		d->ewba.append(p);
+		d->ewba.append( p );
 		p = d->wba.next();
 	}
-	d->wba.setAutoDelete(FALSE);
+	d->wba.setAutoDelete( FALSE );
 	d->wba.clear();
-	d->wba.setAutoDelete(TRUE);
+	d->wba.setAutoDelete( TRUE );
 
 	while ( !osBufferFull && d->wsize > 0 )
 	{

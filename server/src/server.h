@@ -46,7 +46,7 @@ class cAction;
 
 enum enActionType
 {
-	RELOAD_SCRIPTS = 0,
+	RELOAD_SCRIPTS			= 0,
 	RELOAD_PYTHON,
 	RELOAD_ACCOUNTS,
 	RELOAD_CONFIGURATION,
@@ -122,7 +122,7 @@ public:
 
 class cServer
 {
-	OBJECTDEF(cServer)
+	OBJECTDEF( cServer )
 private:
 	class Private;
 	Private* d;
@@ -151,7 +151,7 @@ public:
 	cServer();
 	~cServer();
 
-	void queueAction( cAction *action );
+	void queueAction( cAction* action );
 	void queueAction( enActionType type );
 	void setState( enServerState state );
 	enServerState getState();

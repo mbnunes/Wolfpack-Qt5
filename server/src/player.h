@@ -43,7 +43,7 @@ class cGuild;
 // Class for player characters. Implements cBaseChar.
 class cPlayer : public cBaseChar
 {
-	OBJECTDEF(cPlayer)
+	OBJECTDEF( cPlayer )
 public:
 	const char* objectID() const
 	{
@@ -169,7 +169,7 @@ public:
 	cGuild* guild() const;
 
 	// setters
-	void setMaxControlSlots(unsigned char data);
+	void setMaxControlSlots( unsigned char data );
 	void setAccount( cAccount* data, bool moveFromAccToAcc = true );
 	void setAdditionalFlags( Q_UINT32 data );
 	void setLogoutTime( Q_UINT32 data );
@@ -215,7 +215,8 @@ public:
 	PyObject* getPyObject();
 	const char* className() const;
 
-	static void setClassid(unsigned char id) {
+	static void setClassid( unsigned char id )
+	{
 		cPlayer::classid = id;
 	}
 
@@ -224,7 +225,7 @@ public:
 		return cPlayer::classid;
 	}
 
-	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
+	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
 private:
 	bool changed_;

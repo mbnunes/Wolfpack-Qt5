@@ -49,7 +49,10 @@ static QString getUOPath()
 	// Search for T3D preferably
 	const char* Registry3d = "Software\\Origin Worlds Online\\Ultima Online Third Dawn\\1.0";
 	const char* Registry2d = "Software\\Origin Worlds Online\\Ultima Online\\1.0";
-	unsigned char exePath[MAX_PATH] = {0,};
+	unsigned char exePath[MAX_PATH] =
+	{
+		0,
+	};
 	unsigned long pathLen;
 
 	HKEY tempKey;
@@ -107,7 +110,7 @@ QString cConfig::mulPath() const
 			that->setMulPath( uoPath );
 		}
 		else
-			Console::instance()->log( LOG_ERROR, tr("Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"") );
+			Console::instance()->log( LOG_ERROR, tr( "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"" ) );
 	}
 	return mulPath_;
 }
@@ -175,7 +178,7 @@ std::vector<ServerList_st>& cConfig::serverList()
 									Q_UINT8 part1 = ( ip & 0xFF000000 ) >> 24;
 									Q_UINT8 part2 = ( ip & 0x00FF0000 ) >> 16;
 
-									if ( ( part1 == 127 ) ||	//this one is class A too.
+									if ( ( part1 == 127 ) || 	//this one is class A too.
 										( part1 == 10 ) || ( ( part1 == 192 ) && ( part2 == 168 ) ) || ( ( part1 == 172 ) && ( part2 >= 16 ) && ( part2 <= 31 ) ) || ( ( part1 == 169 ) && ( part2 == 254 ) ) // DHCP Space Stuff
 									   )
 									{
@@ -190,7 +193,8 @@ std::vector<ServerList_st>& cConfig::serverList()
 						}
 
 						// Fall back to localhost
-						if ( !server.ip ) {
+						if ( !server.ip )
+						{
 							server.ip = 0x7F000001;
 							server.sIP = "127.0.0.1";
 						}

@@ -149,7 +149,7 @@ static PyObject* wpConsole_log( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "bO:wolfpack.console.log( loglevel, text )", &loglevel, &text ) )
 		return 0;
 
-	Console::instance()->log( ( eLogLevel ) loglevel, Python2QString(text) );
+	Console::instance()->log( ( eLogLevel ) loglevel, Python2QString( text ) );
 
 	Py_RETURN_TRUE;
 }
@@ -580,11 +580,11 @@ static PyObject* wpSpawnregion( PyObject* self, PyObject* args )
 
 	// Three arguments
 	char *name;
-	if ( !PyArg_ParseTuple( args, "s:wolfpack.spawnregion", &name) )
+	if ( !PyArg_ParseTuple( args, "s:wolfpack.spawnregion", &name ) )
 		return 0;
 
-	cSpawnRegion *spawn = SpawnRegions::instance()->region(name);
-	return PyGetSpawnRegionObject(spawn);
+	cSpawnRegion *spawn = SpawnRegions::instance()->region( name );
+	return PyGetSpawnRegionObject( spawn );
 }
 
 /*
@@ -630,20 +630,21 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iii|b:wolfpack.statics", &x, &y, &map, &exact ) )
 		return 0;
 
-	if (!Maps::instance()->hasMap(map)) {
-		PyErr_Format(PyExc_RuntimeError, "Unable to access unknown map %u.", map);
+	if ( !Maps::instance()->hasMap( map ) )
+	{
+		PyErr_Format( PyExc_RuntimeError, "Unable to access unknown map %u.", map );
 	}
 
-	int maxX = Maps::instance()->mapTileWidth(map) * 8;
-	int maxY = Maps::instance()->mapTileHeight(map) * 8;
+	int maxX = Maps::instance()->mapTileWidth( map ) * 8;
+	int maxY = Maps::instance()->mapTileHeight( map ) * 8;
 
-	if (x < 0)
+	if ( x < 0 )
 		x = 0;
-	if (x >= maxX)
+	if ( x >= maxX )
 		x = maxX - 1;
-	if (y < 0)
+	if ( y < 0 )
 		y = 0;
-	if (y >= maxY)
+	if ( y >= maxY )
 		y = maxY - 1;
 
 	StaticsIterator iter = Maps::instance()->staticsIterator( Coord( x, y, 0, map ), exact );
@@ -719,10 +720,13 @@ static PyObject* wpItems( PyObject* self, PyObject* args )
 
 	Coord pos( x, y, 0, map );
 	MapItemsIterator iter;
-	if (range > 0) {
+	if ( range > 0 )
+	{
 		iter = MapObjects::instance()->listItemsInCircle( pos, range );
-	} else {
-		iter = MapObjects::instance()->listItemsAtCoord(pos); // Suppose this is faster
+	}
+	else
+	{
+		iter = MapObjects::instance()->listItemsAtCoord( pos ); // Suppose this is faster
 	}
 
 	PyObject* list = PyList_New( 0 );
@@ -759,7 +763,7 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iii|iO:wolfpack.chars", &x, &y, &map, &range, &offline ) )
 		return 0;
 
-	MapCharsIterator iter = MapObjects::instance()->listCharsInCircle( map, x, y, range, PyObject_IsTrue(offline) != 0 );
+	MapCharsIterator iter = MapObjects::instance()->listCharsInCircle( map, x, y, range, PyObject_IsTrue( offline ) != 0 );
 
 	PyObject* list = PyList_New( 0 );
 	for ( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
@@ -778,32 +782,38 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 	\return True if the given multi can be placed by a player at the given location.
 	\description This function checks if a multi can be placed at a certain location by players.
 */
-static PyObject *wpCanPlace( PyObject* self, PyObject *args ) {
+static PyObject* wpCanPlace( PyObject* self, PyObject* args )
+{
 	Coord pos;
 	unsigned short multiid;
 	unsigned short yard;
-	if (!PyArg_ParseTuple(args, "O&hh:wolfpack.canplace(id, yard)", &PyConvertCoord, &pos, &multiid, &yard)) {
+	if ( !PyArg_ParseTuple( args, "O&hh:wolfpack.canplace(id, yard)", &PyConvertCoord, &pos, &multiid, &yard ) )
+	{
 		return 0;
 	}
 
 	QPtrList<cUObject> moveOut; // List of objects to move out
 
-	PyObject *result = PyTuple_New(2);
+	PyObject *result = PyTuple_New( 2 );
 
-	if (cMulti::canPlace(pos, multiid, moveOut, yard)) {
-		Py_INCREF(Py_True);
-		PyTuple_SET_ITEM(result, 0, Py_True);
+	if ( cMulti::canPlace( pos, multiid, moveOut, yard ) )
+	{
+		Py_INCREF( Py_True );
+		PyTuple_SET_ITEM( result, 0, Py_True );
 
-		PyObject *list = PyTuple_New(moveOut.count());
+		PyObject *list = PyTuple_New( moveOut.count() );
 		int i = 0;
-		for (cUObject *obj = moveOut.first(); obj; obj = moveOut.next()) {
-			PyTuple_SET_ITEM(list, i++, obj->getPyObject());
+		for ( cUObject*obj = moveOut.first(); obj; obj = moveOut.next() )
+		{
+			PyTuple_SET_ITEM( list, i++, obj->getPyObject() );
 		}
-		PyTuple_SET_ITEM(result, 1, list);
-	} else {
-		Py_INCREF(Py_True);
-		PyTuple_SET_ITEM(result, 0, Py_False);
-		PyTuple_SET_ITEM(result, 1, PyTuple_New(0));
+		PyTuple_SET_ITEM( result, 1, list );
+	}
+	else
+	{
+		Py_INCREF( Py_True );
+		PyTuple_SET_ITEM( result, 0, Py_False );
+		PyTuple_SET_ITEM( result, 1, PyTuple_New( 0 ) );
 	}
 
 	return result;
@@ -1531,7 +1541,7 @@ static PyObject* wpQueueCode( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 
-	PyObject *code, *pargs;
+	PyObject *code,* pargs;
 
 	if ( !PyArg_ParseTuple( args, "OO!:wolfpack.queuecode( code, args )", &code, &PyTuple_Type, &pargs ) )
 		return 0;
@@ -1814,7 +1824,7 @@ static PyObject* wpBodyInfo( PyObject* /*self*/, PyObject* args )
 		return 0;
 	}
 
-	const stBodyInfo &info = CharBaseDefs::instance()->getBodyInfo(body);
+	const stBodyInfo &info = CharBaseDefs::instance()->getBodyInfo( body );
 
 	PyObject *dict = PyDict_New();
 	PyDict_SetItemString( dict, "basesound", PyInt_FromLong( info.basesound ) );
@@ -1832,18 +1842,22 @@ static PyObject* wpBodyInfo( PyObject* /*self*/, PyObject* args )
 	\return A <object id="basedef">basedef</object> object.
 	\description Get a <object id="basedef">basedef</object> object for a given npc definition id.
 */
-static PyObject *wpCharBase(PyObject*, PyObject *args) {
+static PyObject* wpCharBase( PyObject*, PyObject* args )
+{
 	char *id;
 	if ( !PyArg_ParseTuple( args, "s:wolfpack.charbase(id)", &id ) )
 	{
 		return 0;
 	}
 
-	cCharBaseDef *basedef = CharBaseDefs::instance()->get(id);
+	cCharBaseDef *basedef = CharBaseDefs::instance()->get( id );
 
-	if (!basedef) {
+	if ( !basedef )
+	{
 		Py_RETURN_NONE;
-	} else {
+	}
+	else
+	{
 		return basedef->getPyObject();
 	}
 }
@@ -1854,18 +1868,22 @@ static PyObject *wpCharBase(PyObject*, PyObject *args) {
 	\return A <object id="basedef">basedef</object> object.
 	\description Get a <object id="basedef">basedef</object> object for a given item definition id.
 */
-static PyObject *wpItemBase(PyObject*, PyObject *args) {
+static PyObject* wpItemBase( PyObject*, PyObject* args )
+{
 	char *id;
 	if ( !PyArg_ParseTuple( args, "s:wolfpack.itembase(id)", &id ) )
 	{
 		return 0;
 	}
 
-	cItemBaseDef *basedef = ItemBaseDefs::instance()->get(id);
+	cItemBaseDef *basedef = ItemBaseDefs::instance()->get( id );
 
-	if (!basedef) {
+	if ( !basedef )
+	{
 		Py_RETURN_NONE;
-	} else {
+	}
+	else
+	{
 		return basedef->getPyObject();
 	}
 }
@@ -1876,7 +1894,7 @@ static PyObject *wpItemBase(PyObject*, PyObject *args) {
 \return The translated message into the current server's language.
 \description Get a message in English and translates it into the current server's language.
 */
-static PyObject* wpTr(PyObject*, PyObject *args)
+static PyObject* wpTr( PyObject*, PyObject* args )
 {
 	char* message = 0;
 	if ( !PyArg_ParseTuple( args, "s:wolfpack.tr(message)", &message ) )

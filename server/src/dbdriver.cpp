@@ -263,16 +263,16 @@ static PyObject* wpDbResult_getstring( wpDbResult* self, PyObject* args )
 
 	QString value = self->result->getString( pos );
 
-	return QString2Python(value);
+	return QString2Python( value );
 }
 
 static PyMethodDef wpDbResultMethods[] =
 {
-	{ "free", ( getattrofunc ) wpDbResult_free, METH_VARARGS, 0 },
-	{ "fetchrow", ( getattrofunc ) wpDbResult_fetchrow, METH_VARARGS, 0 },
-	{ "getint", ( getattrofunc ) wpDbResult_getint, METH_VARARGS, 0 },
-	{ "getstring", ( getattrofunc ) wpDbResult_getstring, METH_VARARGS, 0 },
-	{ 0, 0, 0, 0 }
+{ "free", ( getattrofunc ) wpDbResult_free, METH_VARARGS, 0 },
+{ "fetchrow", ( getattrofunc ) wpDbResult_fetchrow, METH_VARARGS, 0 },
+{ "getint", ( getattrofunc ) wpDbResult_getint, METH_VARARGS, 0 },
+{ "getstring", ( getattrofunc ) wpDbResult_getstring, METH_VARARGS, 0 },
+{ 0, 0, 0, 0 }
 };
 
 static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name )
@@ -308,8 +308,9 @@ const char* cDBResult::className() const
   cSQLiteDriver member functions
  *****************************************************************************/
 
-int cSQLiteDriver::lastInsertId() {
-	return sqlite_last_insert_rowid( (sqlite*)connection );
+int cSQLiteDriver::lastInsertId()
+{
+	return sqlite_last_insert_rowid( ( sqlite * ) connection );
 }
 
 bool cSQLiteDriver::open( int )

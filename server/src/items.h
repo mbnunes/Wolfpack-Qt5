@@ -55,7 +55,7 @@ class cUOSocket;
 #pragma pack(1)
 class cItem : public cUObject
 {
-	OBJECTDEF(cItem)
+	OBJECTDEF( cItem )
 	friend class cBaseChar;
 private:
 	static unsigned char classid;
@@ -68,15 +68,16 @@ private:
 	} // easier to debug, compiler should make it inline;
 
 public:
-	PyObject *callEvent(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false);
-	bool callEventHandler(ePythonEvent event, PyObject *args = 0, bool ignoreErrors = false);
-	bool canHandleEvent(ePythonEvent event);
-	bool hasScript(const QCString &name);
+	PyObject* callEvent( ePythonEvent event, PyObject* args = 0, bool ignoreErrors = false );
+	bool callEventHandler( ePythonEvent event, PyObject* args = 0, bool ignoreErrors = false );
+	bool canHandleEvent( ePythonEvent event );
+	bool hasScript( const QCString& name );
 
 	cItem();
 	cItem( const cItem& src ); // Copy constructor
 
-	static void setClassid(unsigned char id) {
+	static void setClassid( unsigned char id )
+	{
 		cItem::classid = id;
 	}
 
@@ -197,7 +198,7 @@ public:
 	{
 		return basedef_ ? basedef_->id() : 0;
 	}
-	inline cItemBaseDef *basedef() const
+	inline cItemBaseDef* basedef() const
 	{
 		return basedef_;
 	}
@@ -315,7 +316,7 @@ public:
 	bool wearOut(); // The item wears out and true is returned if it's destroyed
 	void toBackpack( P_CHAR pChar );
 	void showName( cUOSocket* socket );
-	unsigned int getSellPrice(P_CHAR vendor);
+	unsigned int getSellPrice( P_CHAR vendor );
 
 	void setMagic( uchar data )
 	{
@@ -366,7 +367,7 @@ public:
 	void addItem( cItem* pItem, bool randomPos = true, bool handleWeight = true, bool noRemove = false, bool autoStack = true ); // Add Item to container
 	void removeItem( cItem*, bool handleWeight = true );
 	void removeFromCont( bool handleWeight = true );
-	const ContainerContent &content() const; // Return a reference to the container content object
+	const ContainerContent& content() const; // Return a reference to the container content object
 	bool contains( const cItem* ) const;
 	unsigned int countItems( const QStringList& baseids ) const;
 	unsigned int countItems( short ID, short col = -1 ) const;
@@ -443,7 +444,7 @@ public:
 	static P_ITEM createFromList( const QString& list );
 	static P_ITEM createFromId( unsigned short id );
 
-	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
+	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
 protected:
 	// Methods

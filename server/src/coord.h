@@ -48,13 +48,13 @@ public:
 	Coord operator-( const Coord& src ) const;
 	unsigned int distance( const Coord& src ) const;
 	unsigned int direction( const Coord& dest ) const;
-	bool lineOfSight(const Coord &dest, bool debug = false) const;
+	bool lineOfSight( const Coord& dest, bool debug = false ) const;
 
 	// Utility functions for getting correct LOS points
-	Coord losCharPoint(bool eye = false) const;
-	Coord losItemPoint(unsigned short id) const;
+	Coord losCharPoint( bool eye = false ) const;
+	Coord losItemPoint( unsigned short id ) const;
 	Coord losMapPoint() const;
-	static Coord losTargetPoint(cUORxTarget *target, unsigned char map);
+	static Coord losTargetPoint( cUORxTarget* target, unsigned char map );
 
 	static UI32 distance( const Coord& a, const Coord& b );
 
@@ -65,11 +65,13 @@ public:
 
 	static Coord null;
 
-	inline bool isInternalMap() const {
+	inline bool isInternalMap() const
+	{
 		return map == 0xFF;
 	}
 
-	inline void setInternalMap() {
+	inline void setInternalMap()
+	{
 		map = 0xFF;
 	}
 

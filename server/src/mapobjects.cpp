@@ -46,16 +46,17 @@
 	- Shrinks by 25% when at half capacity.
 	- Deallocates when empty.
  */
-template<typename T, UI16 minCapacity = 4>
+template <typename T, UI16 minCapacity = 4>
 class OptimalArray
 {
 public:
 	OptimalArray() : mData( NULL )
-	{;}
+	{
+		;}
 
 	~OptimalArray()
 	{
-		if( mData )
+		if ( mData )
 			free( mData );
 	}
 
@@ -78,19 +79,19 @@ public:
 	}
 
 	//! Returns a pointer to the internal array structure.
-	inline T * data()
+	inline T* data()
 	{
 		return ( mData ? &( mData->array ) : NULL );
 	}
 
 	//! Returns the ith array element. i must be valid!
-	inline T & at( UI16 i )
+	inline T& at( UI16 i )
 	{
 		return ( &( mData->array ) )[i];
 	}
 
 	//! Appends an element to the array.
-	inline void add( const T &element )
+	inline void add( const T& element )
 	{
 		grow();
 		at( mData->size++ ) = element;
@@ -100,7 +101,7 @@ public:
 	inline void remove( UI16 i )
 	{
 		UI16 last = --mData->size;
-		if( i < last )
+		if ( i < last )
 		{
 			at( i ) = at( last );
 		}
@@ -111,7 +112,7 @@ public:
 	inline void linearRemove( UI16 i )
 	{
 		UI16 last = --mData->size;
-		for( UI16 k = i; k < last; ++k )
+		for ( UI16 k = i; k < last; ++k )
 		{
 			at( k ) = at( k + 1 );
 		}
@@ -119,7 +120,7 @@ public:
 	}
 
 	//! Alias to add() just to treat the array as a stack.
-	inline void push( const T &element )
+	inline void push( const T& element )
 	{
 		add( element );
 	}
@@ -130,7 +131,7 @@ public:
 		return --mData->size;
 	}
 
-	inline T & operator[]( UI16 i )
+	inline T& operator[]( UI16 i )
 	{
 		return at( i );
 	}
@@ -144,42 +145,44 @@ private:
 	};
 
 	// Forbids copies.
-	inline OptimalArray( const OptimalArray<T> &other )
-	{;}
+	inline OptimalArray( const OptimalArray<T>& other )
+	{
+		;}
 
 	// Forbids copies.
-	inline const OptimalArray<T> & operator=( const OptimalArray<T> &other )
-	{;}
+	inline const OptimalArray<T>& operator=( const OptimalArray<T>& other )
+	{
+		;}
 
 	// If necessary, allocates/increases the container's capacity.
 	inline void grow()
 	{
-		if( mData == NULL )
+		if ( mData == NULL )
 		{
-			mData = reinterpret_cast<Instance *>( realloc( mData, sizeof(Instance) + ( ( minCapacity - 1 ) * sizeof(T) ) ) );
+			mData = reinterpret_cast<Instance*>( realloc( mData, sizeof( Instance ) + ( ( minCapacity - 1 ) * sizeof( T ) ) ) );
 			mData->size = 0;
 			mData->capacity = minCapacity;
 		}
-		else if( mData->size == mData->capacity )
+		else if ( mData->size == mData->capacity )
 		{
 			mData->capacity += ( mData->capacity / 2 );
-			mData = reinterpret_cast<Instance *>( realloc( mData, sizeof(Instance) + ( ( mData->capacity - 1 ) * sizeof(T) ) ) );
+			mData = reinterpret_cast<Instance*>( realloc( mData, sizeof( Instance ) + ( ( mData->capacity - 1 ) * sizeof( T ) ) ) );
 		}
 	}
 
 	// Shrinks the container's capacity to 75% if it's half full or less. Min of 'minCapacity' elements.
 	inline void shrink()
 	{
-		if( mData->size == 0 )
+		if ( mData->size == 0 )
 		{
 			// it's empty, we can deallocate memory.
 			free( mData );
 			mData = NULL;
 		}
-		else if( mData->capacity != minCapacity && mData->size <= mData->capacity / 2 )
+		else if ( mData->capacity != minCapacity && mData->size <= mData->capacity / 2 )
 		{
 			mData->capacity = wpMax<UI16>( minCapacity, mData->capacity - ( mData->capacity / 4 ) );
-			mData = reinterpret_cast<Instance *>( realloc( mData, sizeof(Instance) + ( ( mData->capacity - 1 ) * sizeof(T) ) ) );
+			mData = reinterpret_cast<Instance*>( realloc( mData, sizeof( Instance ) + ( ( mData->capacity - 1 ) * sizeof( T ) ) ) );
 		}
 	}
 
@@ -266,7 +269,7 @@ struct IteratorState
 
 
 /************************************************************************/
-/* MapObjectsGrid: a grid structure to efficiently locate UObjects.     */
+/* MapObjectsGrid: a grid structure to efficiently locate UObjects. 	*/
 /************************************************************************/
 
 class MapObjectsGrid
@@ -275,8 +278,7 @@ public:
 	typedef OptimalArray<cUObject *> Cell;
 
 public:
-	MapObjectsGrid( UI16 width, UI16 height, UI08 cellsize )
-		: mCellSize( cellsize ), mMapWidth( width ), mMapHeight( height )
+	MapObjectsGrid( UI16 width, UI16 height, UI08 cellsize ) : mCellSize( cellsize ), mMapWidth( width ), mMapHeight( height )
 	{
 		mGridWidth = ( width / cellsize );
 		mGridHeight = ( height / cellsize );
@@ -287,10 +289,10 @@ public:
 
 	~MapObjectsGrid()
 	{
-		delete []mCells;
+		delete[]mCells;
 
 		UI16 count = mIterators.size();
-		for( UI16 i = 0; i < count; ++i )
+		for ( UI16 i = 0; i < count; ++i )
 		{
 			delete mIterators[i];
 		}
@@ -313,14 +315,14 @@ public:
 
 	//! add() never fails, no need to return a bool. It doesn't validate the
 	//! object's position, as that can be more effectively done by the caller.
-	void add( cUObject *object )
+	void add( cUObject* object )
 	{
 		const Coord &pos = object->pos();
 		cell( cellId( pos.x, pos.y ) ).add( object );
 	}
 
 	//! Returns true only if the item was removed by this method call.
-	bool remove( cUObject *object )
+	bool remove( cUObject* object )
 	{
 		const Coord &pos = object->pos();
 		UI32 cellId = this->cellId( pos.x, pos.y );
@@ -328,12 +330,12 @@ public:
 
 		// linear search for our item within the cell...
 		UI16 size = cell.size();
-		for( UI16 i = 0; i < size; ++i )
+		for ( UI16 i = 0; i < size; ++i )
 		{
-			if( cell[i] == object )
+			if ( cell[i] == object )
 			{
 				// ok, item found...
-				if( adjustIterators( cellId, i ) )
+				if ( adjustIterators( cellId, i ) )
 					cell.linearRemove( i );
 				else
 					cell.remove( i );
@@ -346,13 +348,13 @@ public:
 		return false;
 	}
 
-	void move( cUObject *object, const Coord &newPos )
+	void move( cUObject* object, const Coord& newPos )
 	{
 		remove( object );
 		cell( cellId( newPos.x, newPos.y ) ).add( object );
 	}
 
-	inline bool validCoord( const Coord &pos )
+	inline bool validCoord( const Coord& pos )
 	{
 		return ( pos.x < mMapWidth && pos.y < mMapHeight );
 	}
@@ -369,15 +371,15 @@ public:
 	}
 
 	// returns a cell by id
-	inline Cell & cell( UI32 id )
+	inline Cell& cell( UI32 id )
 	{
 		return mCells[id];
 	}
 
-	inline IteratorState * reserveIterator()
+	inline IteratorState* reserveIterator()
 	{
 		// reuse iterators
-		if( !mAvailableIterators.isEmpty() )
+		if ( !mAvailableIterators.isEmpty() )
 			return mAvailableIterators[mAvailableIterators.pop()];
 
 		// all iterators are busy - we need a new one
@@ -388,7 +390,7 @@ public:
 		return it;
 	}
 
-	inline void releaseIterator( IteratorState *iterator )
+	inline void releaseIterator( IteratorState* iterator )
 	{
 		mAvailableIterators.push( iterator );
 	}
@@ -399,10 +401,10 @@ private:
 	{
 		bool result = false;
 		UI16 count = mIterators.size();
-		for( UI16 k = 0; k < count; ++k )
+		for ( UI16 k = 0; k < count; ++k )
 		{
 			IteratorState *is = mIterators[k];
-			if( is->valid && is->cellId == cellId && i < is->i )
+			if ( is->valid && is->cellId == cellId && i < is->i )
 			{
 				--is->i;
 				result = true;
@@ -428,16 +430,15 @@ private:
 
 
 /************************************************************************/
-/* MapObjects Implementation                                            */
+/* MapObjects Implementation											*/
 /************************************************************************/
 
 struct MapObjects::GridSet
 {
 	// notice the third parameter - it sets the cellsize (SECTOR_SIZE) for each structure
-	GridSet( UI16 width, UI16 height ) : items( width, height, 8 ),
-		multis( width, height, 16 ), chars( width, height, 8 ),
-		offlineChars( width, height, 32 )
-	{;}
+	GridSet( UI16 width, UI16 height ) : items( width, height, 8 ), multis( width, height, 16 ), chars( width, height, 8 ), offlineChars( width, height, 32 )
+	{
+		;}
 
 	MapObjectsGrid items;
 	MapObjectsGrid multis;
@@ -469,14 +470,14 @@ void MapObjects::load()
 void MapObjects::addMap( UI08 map, UI16 width, UI16 height )
 {
 	// the map width and height must be multiple of 8
-	if( ( width % 8 ) != 0 || ( height % 8 ) != 0 )
+	if ( ( width % 8 ) != 0 || ( height % 8 ) != 0 )
 	{
 		throw wpException( QString( "Invalid map size: must be multiple of 8! (width: %1, height: %2)." ).arg( width ).arg( height ) );
 	}
 
 	GridSet *gridSet = new GridSet( width, height );
 
-	if( mMaps.size() <= map )
+	if ( mMaps.size() <= map )
 	{
 		mMaps.resize( map + 1 );
 	}
@@ -484,9 +485,9 @@ void MapObjects::addMap( UI08 map, UI16 width, UI16 height )
 	mMaps.insert( map, gridSet );
 }
 
-inline MapObjectsGrid * resolveGrid( MapObjects::GridSet *gridSet, cUObject *object )
+inline MapObjectsGrid* resolveGrid( MapObjects::GridSet* gridSet, cUObject* object )
 {
-	if( isItemSerial( object->serial() ) )
+	if ( isItemSerial( object->serial() ) )
 	{
 		return ( reinterpret_cast<P_ITEM>( object )->isMulti() ? &gridSet->multis : &gridSet->items );
 	}
@@ -497,41 +498,42 @@ inline MapObjectsGrid * resolveGrid( MapObjects::GridSet *gridSet, cUObject *obj
 	}
 }
 
-void MapObjects::add( cUObject *object )
+void MapObjects::add( cUObject* object )
 {
-	if( !object )	// compatibility with old code
+	if ( !object )	// compatibility with old code
 		return;
 
-	if( isItemSerial( object->serial() ) ) {
+	if ( isItemSerial( object->serial() ) )
+	{
 		Timing::instance()->addDecayItem( reinterpret_cast<P_ITEM>( object ) );
 	}
 
 	MapObjectsGrid *grid = resolveGrid( mMaps[object->pos().map], object );
-	if( grid->validCoord( object->pos() ) )
+	if ( grid->validCoord( object->pos() ) )
 		grid->add( object );
 }
 
-void MapObjects::update( cUObject *object, const Coord &newPos )
+void MapObjects::update( cUObject* object, const Coord& newPos )
 {
 	const Coord &pos = object->pos();
 	MapObjectsGrid *grid = resolveGrid( mMaps[pos.map], object );
 
-	if( pos.map == newPos.map )
+	if ( pos.map == newPos.map )
 	{
 		// if we're still within the same map and the same cell, no need to update
 		UI08 size = grid->cellSize();
-		if( ( pos.x / size == newPos.x / size ) && ( pos.y / size == newPos.y / size ) )
+		if ( ( pos.x / size == newPos.x / size ) && ( pos.y / size == newPos.y / size ) )
 			return;
 
 		// we must move the object to another cell within the same map...
-		if( grid->validCoord( newPos ) )
+		if ( grid->validCoord( newPos ) )
 			grid->move( object, newPos );
 	}
 	else
 	{
 		// we must move the object to another map (worst case)...
 		MapObjectsGrid *newGrid = resolveGrid( mMaps[newPos.map], object );
-		if( newGrid->validCoord( newPos ) )
+		if ( newGrid->validCoord( newPos ) )
 		{
 			grid->remove( object );
 			newGrid->add( object );
@@ -539,13 +541,13 @@ void MapObjects::update( cUObject *object, const Coord &newPos )
 	}
 }
 
-void MapObjects::updateOnlineStatus( cPlayer *player, bool online )
+void MapObjects::updateOnlineStatus( cPlayer* player, bool online )
 {
 	GridSet *gridSet = mMaps[player->pos().map];
 	MapObjectsGrid *from = ( online ? &gridSet->offlineChars : &gridSet->chars );
 	MapObjectsGrid *to = ( online ? &gridSet->chars : &gridSet->offlineChars );
 
-	if( from->remove( player ) == false )
+	if ( from->remove( player ) == false )
 	{
 		Console::instance()->log( LOG_ERROR, tr( "updateOnlineStatus() failed to remove the player 0x%1 from the %2 characters structure." )
 			.arg( player->serial(), 0, 16 ).arg( online ? "offline" : "online" ) );
@@ -555,22 +557,22 @@ void MapObjects::updateOnlineStatus( cPlayer *player, bool online )
 	to->add( player );
 }
 
-void MapObjects::remove( cUObject *object )
+void MapObjects::remove( cUObject* object )
 {
 	if ( !object )	// compatibility with old code
 		return;
 
-	if( isItemSerial( object->serial() ) )
+	if ( isItemSerial( object->serial() ) )
 	{
 		Timing::instance()->removeDecayItem( reinterpret_cast<P_ITEM>( object ) );
 	}
 
 	MapObjectsGrid *grid = resolveGrid( mMaps[object->pos().map], object );
-	if( grid->validCoord( object->pos() ) )
+	if ( grid->validCoord( object->pos() ) )
 		grid->remove( object );
 }
 
-inline IteratorState * initPointIterator( IteratorState *it, UI16 x, UI16 y )
+inline IteratorState* initPointIterator( IteratorState* it, UI16 x, UI16 y )
 {
 	it->type = ITERATE_POINT;
 	PointIteratorState &state = it->state.point;
@@ -580,23 +582,23 @@ inline IteratorState * initPointIterator( IteratorState *it, UI16 x, UI16 y )
 	return it;
 }
 
-inline IteratorState * initCellIterator( IteratorState *it, UI16 x, UI16 y )
+inline IteratorState* initCellIterator( IteratorState* it, UI16 x, UI16 y )
 {
 	it->type = ITERATE_CELL;
 	it->cellId = it->map->cellId( x, y );
 	return it;
 }
 
-inline IteratorState * initRectIterator( IteratorState *it, UI16 x1, UI16 y1, UI16 x2, UI16 y2 )
+inline IteratorState* initRectIterator( IteratorState* it, UI16 x1, UI16 y1, UI16 x2, UI16 y2 )
 {
 	// make sure the two points are really the min and max points, respectively
-	if( x2 < x1 )
+	if ( x2 < x1 )
 	{
 		UI16 temp = x1;
 		x1 = x2;
 		x2 = x1;
 	}
-	if( y2 < y1 )
+	if ( y2 < y1 )
 	{
 		UI16 temp = y1;
 		y1 = y2;
@@ -613,7 +615,7 @@ inline IteratorState * initRectIterator( IteratorState *it, UI16 x1, UI16 y1, UI
 	return it;
 }
 
-inline IteratorState * initCircleIterator( IteratorState *it, UI16 x, UI16 y, UI16 radius )
+inline IteratorState* initCircleIterator( IteratorState* it, UI16 x, UI16 y, UI16 radius )
 {
 	it->type = ITERATE_CIRCLE;
 	CircleIteratorState &state = it->state.circle;
@@ -694,13 +696,13 @@ MapCharsIterator MapObjects::listCharsInCircle( UI08 map, UI16 x, UI16 y, UI16 r
 
 
 /************************************************************************/
-/* Iteration Code                                                       */
+/* Iteration Code   													*/
 /************************************************************************/
 
-inline cUObject * nextObjectInCell( IteratorState *is )
+inline cUObject* nextObjectInCell( IteratorState* is )
 {
 	MapObjectsGrid::Cell &cell = is->map->cell( is->cellId );
-	if( is->i < cell.size() )
+	if ( is->i < cell.size() )
 	{
 		return cell[is->i++];
 	}
@@ -709,16 +711,16 @@ inline cUObject * nextObjectInCell( IteratorState *is )
 	return NULL;
 }
 
-inline cUObject * nextObjectAtPoint( IteratorState *is )
+inline cUObject* nextObjectAtPoint( IteratorState* is )
 {
 	PointIteratorState &state = is->state.point;
 	MapObjectsGrid::Cell &cell = is->map->cell( is->cellId );
 	UI16 size = cell.size();
-	while( is->i < size )
+	while ( is->i < size )
 	{
 		cUObject *object = cell[is->i++];
 		const Coord &pos = object->pos();
-		if( pos.x == state.x && pos.y == state.y )
+		if ( pos.x == state.x && pos.y == state.y )
 		{
 			return object;
 		}
@@ -728,7 +730,7 @@ inline cUObject * nextObjectAtPoint( IteratorState *is )
 	return NULL;
 }
 
-inline cUObject * nextObjectInRectangle( IteratorState *is )
+inline cUObject* nextObjectInRectangle( IteratorState* is )
 {
 	MapObjectsGrid *map = is->map;
 	RectangleIteratorState &state = is->state.rect;
@@ -738,11 +740,11 @@ inline cUObject * nextObjectInRectangle( IteratorState *is )
 		// fetch next object within the current cell
 		MapObjectsGrid::Cell &cell = map->cell( is->cellId );
 		UI16 size = cell.size();
-		while( is->i < size )
+		while ( is->i < size )
 		{
 			cUObject *object = cell[is->i++];
 			const Coord &pos = object->pos();
-			if( state.x1 <= pos.x && state.x2 >= pos.x && state.y1 <= pos.y && state.y2 >= pos.y )
+			if ( state.x1 <= pos.x && state.x2 >= pos.x && state.y1 <= pos.y && state.y2 >= pos.y )
 			{
 				return object;
 			}
@@ -750,7 +752,7 @@ inline cUObject * nextObjectInRectangle( IteratorState *is )
 
 		// we're done with the current cell, step into the next cell...
 		is->i = 0;
-		if( ++state.cellY > state.lastCellY )
+		if ( ++state.cellY > state.lastCellY )
 		{
 			++state.cellX;
 			state.cellY = ( state.y1 / map->cellSize() );
@@ -761,13 +763,13 @@ inline cUObject * nextObjectInRectangle( IteratorState *is )
 			++is->cellId;
 		}
 	}
-	while( state.cellX <= state.lastCellX );
+	while ( state.cellX <= state.lastCellX );
 
 	is->valid = false;
 	return NULL;
 }
 
-inline cUObject * nextObjectInCircle( IteratorState *is )
+inline cUObject* nextObjectInCircle( IteratorState* is )
 {
 	MapObjectsGrid *map = is->map;
 	CircleIteratorState &state = is->state.circle;
@@ -777,13 +779,13 @@ inline cUObject * nextObjectInCircle( IteratorState *is )
 		// fetch next object within the current cell
 		MapObjectsGrid::Cell &cell = map->cell( is->cellId );
 		UI16 size = cell.size();
-		while( is->i < size )
+		while ( is->i < size )
 		{
 			cUObject *object = cell[is->i++];
 			const Coord &pos = object->pos();
 			SI16 dx = ( pos.x - state.x );
 			SI16 dy = ( pos.y - state.y );
-			if( ( ( dx * dx ) + ( dy * dy ) ) <= state.radius2 )
+			if ( ( ( dx * dx ) + ( dy * dy ) ) <= state.radius2 )
 			{
 				return object;
 			}
@@ -791,7 +793,7 @@ inline cUObject * nextObjectInCircle( IteratorState *is )
 
 		// we're done with the current cell, step into the next cell...
 		is->i = 0;
-		if( ++state.cellY > state.lastCellY )
+		if ( ++state.cellY > state.lastCellY )
 		{
 			++state.cellX;
 			state.cellY = ( ( state.y - state.radius ) / map->cellSize() );
@@ -802,50 +804,55 @@ inline cUObject * nextObjectInCircle( IteratorState *is )
 			++is->cellId;
 		}
 	}
-	while( state.cellX <= state.lastCellX );
+	while ( state.cellX <= state.lastCellX );
 
 
 	is->valid = false;
 	return NULL;
 }
 
-cUObject * MapObjects::nextIteration( void *state )
+cUObject* MapObjects::nextIteration( void* state )
 {
-	IteratorState *is = reinterpret_cast<IteratorState *>( state );
-	if( !is->valid )
+	IteratorState *is = reinterpret_cast<IteratorState*>( state );
+	if ( !is->valid )
 		return NULL;
 
-	switch( is->type )
+	switch ( is->type )
 	{
-	case ITERATE_CELL:			return nextObjectInCell( is );
-	case ITERATE_POINT:			return nextObjectAtPoint( is );
-	case ITERATE_RECTANGLE:		return nextObjectInRectangle( is );
-	case ITERATE_CIRCLE:		return nextObjectInCircle( is );
-	default:					return NULL;
+	case ITERATE_CELL:
+		return nextObjectInCell( is );
+	case ITERATE_POINT:
+		return nextObjectAtPoint( is );
+	case ITERATE_RECTANGLE:
+		return nextObjectInRectangle( is );
+	case ITERATE_CIRCLE:
+		return nextObjectInCircle( is );
+	default:
+		return NULL;
 	}
 }
 
-inline cUObject * firstObjectInCell( IteratorState *is )
+inline cUObject* firstObjectInCell( IteratorState* is )
 {
 	is->i = 0;
 	is->valid = true;
 	return nextObjectInCell( is );
 }
 
-inline cUObject * firstObjectAtPoint( IteratorState *is )
+inline cUObject* firstObjectAtPoint( IteratorState* is )
 {
 	is->i = 0;
 	is->valid = true;
 	return nextObjectAtPoint( is );
 }
 
-inline cUObject * firstObjectInRectangle( IteratorState *is )
+inline cUObject* firstObjectInRectangle( IteratorState* is )
 {
 	MapObjectsGrid *map = is->map;
 	RectangleIteratorState &state = is->state.rect;
 
-	state.cellX = wpMax<int>(0, ( state.x1 / map->cellSize() ));
-	state.cellY = wpMax<int>(0, ( state.y1 / map->cellSize() ));
+	state.cellX = wpMax<int>( 0, ( state.x1 / map->cellSize() ) );
+	state.cellY = wpMax<int>( 0, ( state.y1 / map->cellSize() ) );
 	state.lastCellX = wpMin<UI16>( map->gridWidth() - 1, state.x2 / map->cellSize() );
 	state.lastCellY = wpMin<UI16>( map->gridHeight() - 1, state.y2 / map->cellSize() );
 
@@ -856,13 +863,13 @@ inline cUObject * firstObjectInRectangle( IteratorState *is )
 	return nextObjectInRectangle( is );
 }
 
-inline cUObject * firstObjectInCircle( IteratorState *is )
+inline cUObject* firstObjectInCircle( IteratorState* is )
 {
 	MapObjectsGrid *map = is->map;
 	CircleIteratorState &state = is->state.circle;
 
-	state.cellX = wpMax<int>(0, ( ( state.x - state.radius ) / map->cellSize() ));
-	state.cellY = wpMax<int>(0, ( ( state.y - state.radius ) / map->cellSize() ));
+	state.cellX = wpMax<int>( 0, ( ( state.x - state.radius ) / map->cellSize() ) );
+	state.cellY = wpMax<int>( 0, ( ( state.y - state.radius ) / map->cellSize() ) );
 	state.lastCellX = wpMin<UI16>( map->gridWidth() - 1, ( state.x + state.radius ) / map->cellSize() );
 	state.lastCellY = wpMin<UI16>( map->gridHeight() - 1, ( state.y + state.radius ) / map->cellSize() );
 
@@ -873,25 +880,30 @@ inline cUObject * firstObjectInCircle( IteratorState *is )
 	return nextObjectInCircle( is );
 }
 
-cUObject * MapObjects::firstIteration( void *state )
+cUObject* MapObjects::firstIteration( void* state )
 {
 	// it's safe to call first() on invalid iterators
-	if( !state )
+	if ( !state )
 		return NULL;
 
-	IteratorState *is = reinterpret_cast<IteratorState *>( state );
-	switch( is->type )
+	IteratorState *is = reinterpret_cast<IteratorState*>( state );
+	switch ( is->type )
 	{
-	case ITERATE_CELL:			return firstObjectInCell( is );
-	case ITERATE_POINT:			return firstObjectAtPoint( is );
-	case ITERATE_RECTANGLE:		return firstObjectInRectangle( is );
-	case ITERATE_CIRCLE:		return firstObjectInCircle( is );
-	default:					return NULL;
+	case ITERATE_CELL:
+		return firstObjectInCell( is );
+	case ITERATE_POINT:
+		return firstObjectAtPoint( is );
+	case ITERATE_RECTANGLE:
+		return firstObjectInRectangle( is );
+	case ITERATE_CIRCLE:
+		return firstObjectInCircle( is );
+	default:
+		return NULL;
 	}
 }
 
-void MapObjects::releaseIterator( void *state )
+void MapObjects::releaseIterator( void* state )
 {
-	IteratorState *is = reinterpret_cast<IteratorState *>( state );
+	IteratorState *is = reinterpret_cast<IteratorState*>( state );
 	is->map->releaseIterator( is );
 }

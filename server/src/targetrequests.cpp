@@ -107,7 +107,7 @@ bool cRemoveTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 		pItem->remove();
 	}
 	else
-		socket->sysMessage( tr("You need to select either an item or a character") );
+		socket->sysMessage( tr( "You need to select either an item or a character" ) );
 	return true;
 }
 
@@ -136,13 +136,16 @@ bool cShowTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 	}
 	else
 	{
-		if (PyUnicode_Check(result) || PyString_Check(result)) {
-			socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( Python2QString(result) ) );
-		} else {
-			PyObject *repr = PyObject_Str(result);
-			QString value = Python2QString(repr);
+		if ( PyUnicode_Check( result ) || PyString_Check( result ) )
+		{
+			socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( Python2QString( result ) ) );
+		}
+		else
+		{
+			PyObject *repr = PyObject_Str( result );
+			QString value = Python2QString( repr );
 			socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( value ) );
-			Py_XDECREF(repr);
+			Py_XDECREF( repr );
 		}
 
 		Py_DECREF( result );

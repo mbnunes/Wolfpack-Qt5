@@ -234,22 +234,27 @@ static PyMethodDef wpAccountMethods[] =
 { NULL, NULL, 0, NULL }
 };
 
-static PyObject* wpAccount_getAttr( wpAccount* self, char* name ) {
-	if (!self->account) {
+static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
+{
+	if ( !self->account )
+	{
 		return 0;
 	}
 
-	PyObject *result = self->account->getProperty(name);
+	PyObject *result = self->account->getProperty( name );
 
-	if (result) {
+	if ( result )
+	{
 		return result;
-	} else {
+	}
+	else
+	{
 		return Py_FindMethod( wpAccountMethods, ( PyObject * ) self, name );
 	}
 }
 
-static int wpAccount_setAttr(wpAccount* self, char* name, PyObject* value) {
-
+static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
+{
 	cVariant val;
 	if ( PyString_Check( value ) || PyUnicode_Check( value ) )
 		val = cVariant( Python2QString( value ) );
@@ -270,7 +275,8 @@ static int wpAccount_setAttr(wpAccount* self, char* name, PyObject* value) {
 
 	stError * error = self->account->setProperty( name, val );
 
-	if (error) {
+	if ( error )
+	{
 		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
 		delete error;
 		return 0;

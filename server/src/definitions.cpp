@@ -121,27 +121,27 @@ public:
 
 	virtual ~cXmlHandler()
 	{
-		while( !elements.isEmpty() )
+		while ( !elements.isEmpty() )
 		{
 			cElement *parent;
-			while( elements.current() != NULL )
+			while ( elements.current() != NULL )
 			{
 				parent = elements.pop();
 			}
 
 			delete parent;
-			while( elements.current() == NULL )
+			while ( elements.current() == NULL )
 				elements.pop();
 		}
 	}
 
-	void load( const QString &filename )
+	void load( const QString& filename )
 	{
 		QFile file( filename );
 
-		if( !file.open( IO_ReadOnly ) )
+		if ( !file.open( IO_ReadOnly ) )
 		{
-			Console::instance()->send( tr("Unable to open %1!\n").arg( filename ) );
+			Console::instance()->send( tr( "Unable to open %1!\n" ).arg( filename ) );
 			return;
 		}
 
@@ -181,9 +181,9 @@ public:
 		levels.back()++;
 
 		// Ignore document root
-		if( levels.back() == 1 )
+		if ( levels.back() == 1 )
 		{
-			if( levels.isEmpty() )
+			if ( levels.isEmpty() )
 			{
 				// Top level
 				elements.push( NULL );
@@ -197,7 +197,7 @@ public:
 		}
 
 		// Include another file
-		if( qName == "include" )
+		if ( qName == "include" )
 		{
 			QString value = atts.value( "file" );
 			load( value );
@@ -211,7 +211,7 @@ public:
 		element->copyAttributes( atts );
 
 		// Child Element?
-		if( elements.current() != NULL )
+		if ( elements.current() != NULL )
 		{
 			cElement* parent = elements.current(); // Pop the potential parent
 			parent->addChild( element ); // Add the child to it's parent
@@ -226,20 +226,20 @@ public:
 	bool endElement( const QString& /*namespaceURI*/, const QString& /*localName*/, const QString& /*qName*/ )
 	{
 		cElement* element = elements.pop();
-		if( --( levels.back() ) == 0 )
+		if ( --( levels.back() ) == 0 )
 		{
 			// Ignore root
 			return true;
 		}
 
-		if( element == elements.current() )
+		if ( element == elements.current() )
 		{
 			// Ignore include
 			return true;
 		}
 
 		// Did we complete a parent node?
-		if( elements.current() == NULL )
+		if ( elements.current() == NULL )
 		{
 			// Find a category node
 			unsigned int i = 0;
@@ -285,10 +285,10 @@ public:
 
 	bool characters( const QString& ch )
 	{
-		if( !elements.isEmpty() )
+		if ( !elements.isEmpty() )
 		{
 			cElement *element = elements.current();
-			if( element )
+			if ( element )
 				element->setText( element->text() + ch );
 		}
 
@@ -365,7 +365,7 @@ void cDefinitions::load( void )
 {
 	impl->imports = QStringList::split( ";", Config::instance()->getString( "General", "Definitions", "definitions/index.xml", true ) );
 
-	for( unsigned int i = 0; i < impl->imports.size(); ++i )
+	for ( unsigned int i = 0; i < impl->imports.size(); ++i )
 	{
 		cXmlHandler handler( impl );
 		handler.load( impl->imports[i] );
@@ -837,7 +837,7 @@ static PyObject* wpElement_getattribute( wpElement* self, PyObject* args )
 
 	QString result = self->element->getAttribute( name, defvalue );
 
-	return QString2Python(result);
+	return QString2Python( result );
 }
 
 /*
@@ -931,15 +931,16 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name )
 		This converts hexadecimal numbers to decimal numers and
 		computes random values. The result still is a unicode string.
 	*/
-	else if ( !strcmp( name, "value" ) ) {
-		return QString2Python(element->value());
+	else if ( !strcmp( name, "value" ) )
+	{
+		return QString2Python( element->value() );
 	}
 	/*
 		\rproperty element.text This is the text enclosed by this element.
 	*/
 	else if ( !strcmp( name, "text" ) )
 	{
-		return QString2Python(element->text());
+		return QString2Python( element->text() );
 	}
 	/*
 		\rproperty element.childcount This is the number of children this

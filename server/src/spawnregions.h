@@ -36,22 +36,25 @@
 #include <map>
 
 // Abstract class for spawn position
-class cSpawnPosition {
+class cSpawnPosition
+{
 protected:
 	unsigned int points_; // The number of points
 public:
-	virtual unsigned int points() {
+	virtual unsigned int points()
+	{
 		return points_;
 	}
 
 	virtual Coord findSpot() = 0;
-	virtual bool inBounds(const Coord &pos) = 0;
+	virtual bool inBounds( const Coord& pos ) = 0;
 };
 
-class cSpawnRegion : public cDefinable {
-	OBJECTDEF(cSpawnRegion)
+class cSpawnRegion : public cDefinable
+{
+	OBJECTDEF( cSpawnRegion )
 public:
-	cSpawnRegion(const cElement* tag);
+	cSpawnRegion( const cElement* tag );
 	~cSpawnRegion();
 
 	// Manage spawned objects
@@ -68,15 +71,18 @@ public:
 	bool findValidSpot( Coord& pos, int tries = -1 );
 
 	// Getters
-	const QString &id() const {
+	const QString& id() const
+	{
 		return id_;
 	}
 
-	unsigned int npcs( void ) const {
+	unsigned int npcs( void ) const
+	{
 		return npcs_.count();
 	}
 
-	unsigned int items( void ) const {
+	unsigned int items( void ) const
+	{
 		return items_.count();
 	}
 
@@ -100,27 +106,33 @@ public:
 		return npcs_;
 	}
 
-	const QStringList &groups() const {
+	const QStringList& groups() const
+	{
 		return groups_;
 	}
 
-	bool active() const {
+	bool active() const
+	{
 		return active_;
 	}
 
-	inline void setActive(bool value) {
+	inline void setActive( bool value )
+	{
 		active_ = value;
 	}
 
-	inline unsigned int nextTime() {
+	inline unsigned int nextTime()
+	{
 		return nextTime_;
 	}
 
-	inline unsigned int minTime() {
+	inline unsigned int minTime()
+	{
 		return minTime_;
 	}
 
-	inline unsigned int maxTime() {
+	inline unsigned int maxTime()
+	{
 		return maxTime_;
 	}
 
@@ -173,11 +185,11 @@ public:
 	cSpawnRegion* region( const QString& regName );
 
 	void reSpawn( void );
-	bool reSpawnGroup( const QString &group );
+	bool reSpawnGroup( const QString& group );
 	void reSpawnToMax( void );
-	bool reSpawnToMaxGroup( const QString &group );
+	bool reSpawnToMaxGroup( const QString& group );
 	void deSpawn( void );
-	bool deSpawnGroup( const QString &group );
+	bool deSpawnGroup( const QString& group );
 
 	UI16 npcs( void )
 	{
@@ -185,7 +197,7 @@ public:
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
-			numNpcs += (*it).second->npcs();
+			numNpcs += ( *it ).second->npcs();
 			++it;
 		}
 		return numNpcs;
@@ -197,7 +209,7 @@ public:
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
-			numItems += (*it).second->items();
+			numItems += ( *it ).second->items();
 			++it;
 		}
 		return numItems;
@@ -209,7 +221,7 @@ public:
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
-			numNpcs += (*it).second->maxNpcs();
+			numNpcs += ( *it ).second->maxNpcs();
 			++it;
 		}
 		return numNpcs;
@@ -221,7 +233,7 @@ public:
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
-			numItems += (*it).second->maxItems();
+			numItems += ( *it ).second->maxItems();
 			++it;
 		}
 		return numItems;

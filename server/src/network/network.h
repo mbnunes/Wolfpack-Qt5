@@ -45,7 +45,7 @@ class QHostAddress;
 
 class cNetwork : public cComponent
 {
-	OBJECTDEF(cNetwork)
+	OBJECTDEF( cNetwork )
 	class cNetworkPrivate;
 	cNetworkPrivate* d;
 public:

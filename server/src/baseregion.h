@@ -164,12 +164,14 @@ protected:
 			toinsert_.y2 = Tag->getAttribute( "y2" ).toUShort();
 			toinsert_.map = Tag->getAttribute( "map" ).toUShort();
 
-			if (toinsert_.y1 > toinsert_.y2) {
-				std::swap(toinsert_.y1, toinsert_.y2);
+			if ( toinsert_.y1 > toinsert_.y2 )
+			{
+				std::swap( toinsert_.y1, toinsert_.y2 );
 			}
 
-			if (toinsert_.x1 > toinsert_.x2) {
-				std::swap(toinsert_.x1, toinsert_.x2);
+			if ( toinsert_.x1 > toinsert_.x2 )
+			{
+				std::swap( toinsert_.x1, toinsert_.x2 );
 			}
 
 			this->rectangles_.push_back( toinsert_ );

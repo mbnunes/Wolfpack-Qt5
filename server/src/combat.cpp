@@ -140,8 +140,9 @@ void cFightInfo::clear()
 {
 	if ( victim_ )
 	{
-		if (victim_->attackTarget() == attacker_) {
-			victim_->setAttackTarget(0);
+		if ( victim_->attackTarget() == attacker_ )
+		{
+			victim_->setAttackTarget( 0 );
 		}
 
 		victim_->fights().remove( this );
@@ -149,8 +150,9 @@ void cFightInfo::clear()
 
 	if ( attacker_ )
 	{
-		if (attacker_->attackTarget() == victim_) {
-			attacker_->setAttackTarget(0);
+		if ( attacker_->attackTarget() == victim_ )
+		{
+			attacker_->setAttackTarget( 0 );
 		}
 
 		attacker_->fights().remove( this );

@@ -56,12 +56,14 @@ static MTRand mtrand;
   Returns a random number between \a nLowNum
   and \a nHighNum.
 */
-int RandomNum(int nLowNum, int nHighNum) {
-	if (nLowNum > nHighNum) {
-		std::swap(nLowNum, nHighNum);
+int RandomNum( int nLowNum, int nHighNum )
+{
+	if ( nLowNum > nHighNum )
+	{
+		std::swap( nLowNum, nHighNum );
 	}
-	int diff = (nHighNum - nLowNum) + 1;
-	return nLowNum + (mtrand.randInt() % diff);
+	int diff = ( nHighNum - nLowNum ) + 1;
+	return nLowNum + ( mtrand.randInt() % diff );
 }
 
 /*!
@@ -99,7 +101,7 @@ bool parseCoordinates( const QString& input, Coord& coord, bool ignoreZ )
 	QStringList coords = QStringList::split( ",", input );
 
 	// We at least need x, y, z
-	if ( coords.size() < (ignoreZ ? 2 : 3) )
+	if ( coords.size() < ( ignoreZ ? 2 : 3 ) )
 		return false;
 
 	bool ok = false;
@@ -113,7 +115,8 @@ bool parseCoordinates( const QString& input, Coord& coord, bool ignoreZ )
 		return false;
 
 	Q_INT8 z = 0;
-	if (!ignoreZ) {
+	if ( !ignoreZ )
+	{
 		z = coords[2].toShort( &ok );
 		if ( !ok )
 			return false;
@@ -311,9 +314,11 @@ void cBufferedWriter::close()
 	}
 }
 
-void cBufferedWriter::flush() {
-	if (d->bufferpos != 0) {
-        d->file.writeBlock( d->buffer, d->bufferpos );
+void cBufferedWriter::flush()
+{
+	if ( d->bufferpos != 0 )
+	{
+		d->file.writeBlock( d->buffer, d->bufferpos );
 		d->bufferpos = 0;
 	}
 }
@@ -516,7 +521,8 @@ unsigned short cBufferedReader::readShort()
 	return result;
 }
 
-bool cBufferedReader::readBool() {
+bool cBufferedReader::readBool()
+{
 	return readByte() != 0;
 }
 

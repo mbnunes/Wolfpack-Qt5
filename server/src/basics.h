@@ -168,15 +168,18 @@ public:
 
 	unsigned int objectCount();
 
-	inline void setError(const QString &error) {
+	inline void setError( const QString& error )
+	{
 		error_ = error;
 	}
 
-	inline bool hasError() {
+	inline bool hasError()
+	{
 		return !error_.isNull();
 	}
 
-	inline const QString &error() {
+	inline const QString& error()
+	{
 		return error_;
 	}
 };
@@ -184,22 +187,27 @@ public:
 inline void cBufferedWriter::writeInt( unsigned int data, bool unbuffered )
 {
 	// Inplace Swapping (data is a copy anyway)
-	if ( d->needswap ) {
+	if ( d->needswap )
+	{
 		swapBytes( data );
 	}
 
-	if (unbuffered) {
+	if ( unbuffered )
+	{
 		flush();
-		d->file.writeBlock((char*)&data, sizeof(data));
-	} else {
-		if (d->bufferpos > buffersize - sizeof(data)) {
+		d->file.writeBlock( ( char * ) &data, sizeof( data ) );
+	}
+	else
+	{
+		if ( d->bufferpos > buffersize - sizeof( data ) )
+		{
 			flush();
 		}
 
-		d->buffer[d->bufferpos++] = ((char*)&data)[0];
-		d->buffer[d->bufferpos++] = ((char*)&data)[1];
-		d->buffer[d->bufferpos++] = ((char*)&data)[2];
-		d->buffer[d->bufferpos++] = ((char*)&data)[3];
+		d->buffer[d->bufferpos++] = ( ( char * ) &data )[0];
+		d->buffer[d->bufferpos++] = ( ( char * ) &data )[1];
+		d->buffer[d->bufferpos++] = ( ( char * ) &data )[2];
+		d->buffer[d->bufferpos++] = ( ( char * ) &data )[3];
 	}
 }
 
@@ -211,20 +219,25 @@ inline void cBufferedWriter::writeShort( unsigned short data, bool unbuffered )
 		swapBytes( data );
 	}
 
-	if (unbuffered) {
+	if ( unbuffered )
+	{
 		flush();
-		d->file.writeBlock((char*)&data, sizeof(data));
-	} else {
-		if (d->bufferpos > buffersize - sizeof(data)) {
+		d->file.writeBlock( ( char * ) &data, sizeof( data ) );
+	}
+	else
+	{
+		if ( d->bufferpos > buffersize - sizeof( data ) )
+		{
 			flush();
 		}
 
-		d->buffer[d->bufferpos++] = ((char*)&data)[0];
-		d->buffer[d->bufferpos++] = ((char*)&data)[1];
+		d->buffer[d->bufferpos++] = ( ( char * ) &data )[0];
+		d->buffer[d->bufferpos++] = ( ( char * ) &data )[1];
 	}
 }
 
-inline void cBufferedWriter::writeBool( bool data, bool unbuffered ) {
+inline void cBufferedWriter::writeBool( bool data, bool unbuffered )
+{
 	writeByte( data ? 1 : 0, unbuffered );
 }
 
@@ -237,11 +250,12 @@ inline void cBufferedWriter::writeByte( unsigned char data, bool unbuffered )
 	}
 	else
 	{
-		if (d->bufferpos >= 4096) {
+		if ( d->bufferpos >= 4096 )
+		{
 			flush();
 		}
 
-		d->buffer[d->bufferpos++] = (char)data;
+		d->buffer[d->bufferpos++] = ( char ) data;
 	}
 }
 

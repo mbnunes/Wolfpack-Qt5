@@ -358,41 +358,51 @@ void cTerritories::load()
 	}
 
 	// Get the toplevel teleporters and insert them
-	const QValueVector<cElement*> &teleporters = Definitions::instance()->getDefinitions(WPDT_TELEPORTER);
+	const QValueVector<cElement*> &teleporters = Definitions::instance()->getDefinitions( WPDT_TELEPORTER );
 	QValueVector<cElement*>::const_iterator tit;
-	for (tit = teleporters.begin(); tit != teleporters.end(); ++tit) {
+	for ( tit = teleporters.begin(); tit != teleporters.end(); ++tit )
+	{
 		cElement *element = *tit;
 
 		// Source + Destination
-		QString source = element->getAttribute("source");
-		QString destination = element->getAttribute("destination");
+		QString source = element->getAttribute( "source" );
+		QString destination = element->getAttribute( "destination" );
 
-		if (source.isEmpty() || destination.isEmpty()) {
+		if ( source.isEmpty() || destination.isEmpty() )
+		{
 			continue; // Skip broken teleporters
 		}
 
 		// Convert into coordinates
 		Coord clSource, clDestination;
-		if (!parseCoordinates(source, clSource) || !parseCoordinates(destination, clDestination)) {
+		if ( !parseCoordinates( source, clSource ) || !parseCoordinates( destination, clDestination ) )
+		{
 			continue; // Skip broken coordinates
 		}
 
 		// Search the region for the source spot
-		cTerritory *rSource = region(clSource);
-		if (rSource) {
-			rSource->addTeleporter(clSource, clDestination); // Add the teleportation spot
-		} else if(Maps::instance()->hasMap(clSource.map)) {
-			Console::instance()->log(LOG_WARNING, tr("Couldn't find source region for teleporter at %1.").arg(source));
+		cTerritory *rSource = region( clSource );
+		if ( rSource )
+		{
+			rSource->addTeleporter( clSource, clDestination ); // Add the teleportation spot
+		}
+		else if ( Maps::instance()->hasMap( clSource.map ) )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Couldn't find source region for teleporter at %1." ).arg( source ) );
 		}
 
 		// Add another teleportation spot at the destination coordinate if this is a two-way teleporter
-		QString bothways = element->getAttribute("bothways", "false");
-		if (bothways == "true" || bothways == "1" || bothways == "on") {
-			cTerritory *rDestination = region(clDestination);
-			if (rDestination) {
-				rDestination->addTeleporter(clDestination, clSource); // Add the teleportation spot
-			} else if(Maps::instance()->hasMap(clDestination.map)) {
-				Console::instance()->log(LOG_WARNING, tr("Couldn't find destination region for two-way teleporter at %1.").arg(destination));
+		QString bothways = element->getAttribute( "bothways", "false" );
+		if ( bothways == "true" || bothways == "1" || bothways == "on" )
+		{
+			cTerritory *rDestination = region( clDestination );
+			if ( rDestination )
+			{
+				rDestination->addTeleporter( clDestination, clSource ); // Add the teleportation spot
+			}
+			else if ( Maps::instance()->hasMap( clDestination.map ) )
+			{
+				Console::instance()->log( LOG_WARNING, tr( "Couldn't find destination region for two-way teleporter at %1." ).arg( destination ) );
 			}
 		}
 	}
@@ -467,8 +477,8 @@ void cTerritories::check( P_CHAR pc )
 			if ( currRegion->isGuarded() == lastRegion->isGuarded() )
 			{
 				/* Only show if you haven't gotten a message before.
-							Or, only show if the guard owner changes.
-						 */
+									Or, only show if the guard owner changes.
+								 */
 				if ( ( !currRegion->isNoGuardMessage() && !lastRegion->isNoGuardMessage() ) && ( currRegion->guardOwner() != lastRegion->guardOwner() ) )
 				{
 					if ( currRegion->guardOwner().isEmpty() )

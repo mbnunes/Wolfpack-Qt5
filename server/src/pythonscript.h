@@ -120,7 +120,7 @@ public:
 	{
 		name_ = value;
 	}
-	const QCString &name() const
+	const QCString& name() const
 	{
 		return name_;
 	}
