@@ -220,7 +220,6 @@ def createjungletree( player, arguments, target):
 	return
 
 def createyewtree( player, arguments, target):
-
 	# Tree
 	yew1 = wolfpack.additem( '12b6' )
 	yew2 = wolfpack.additem( '12b7' )
@@ -329,7 +328,7 @@ def addtree(socket, command, arguments):
 				return
 		elif item == 'yew':
 			socket.sysmessage( "Where do you want to place the yew tree?" )
-			socket.attachitemtarget( 'commands.addtree.createyewtree', yewindex, 0, 0, 0, [] )
+			socket.attachtarget( 'commands.addtree.createyewtree', [] )
 			return
 		elif item in logindex: #added by Jim 20040814
 			socket.sysmessage( "Where do you want to place the fallen log [%s]?" % ( item ) )
@@ -339,7 +338,7 @@ def addtree(socket, command, arguments):
 			if wolfpack.getdefinition( WPDT_ITEM, trees[item][TREE] ) and wolfpack.getdefinition( WPDT_ITEM, trees[item][LEAVES] ):
 				socket.sysmessage( "Where do you want to place the tree '%s', '%s' ?" % ( trees[item][TREE], trees[item][LEAVES]) )
 				socket.attachtarget( 'commands.addtree.createtree', [ item ] )
-		elif item in jungletreeindex and item in jungleindex:
+		elif item in jungletreeindex:
 			socket.sysmessage( "Where do you want to place the jungle tree [%s]?" %( item ) )
 			socket.attachtarget(  'commands.addtree.createjungletree', [ item ] )
 			return
