@@ -48,6 +48,8 @@
 #include "boats.h"
 #include "wpdefaultscript.h"
 #include "itemid.h"
+#include "player.h"
+#include "npc.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -59,12 +61,12 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"
 
-bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
+bool InputSpeech( cUOSocket *socket, P_PLAYER pChar, const QString &speech )
 {
-	if( pChar->inputmode() == cChar::enNone )
+	if( pChar->inputMode() == cPlayer::enNone )
 		return false;
 
-	P_ITEM pItem = FindItemBySerial( pChar->inputitem() );
+	P_ITEM pItem = FindItemBySerial( pChar->inputItem() );
 
 	if( !pItem )
 		return false;
@@ -73,10 +75,10 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 	INT32 num = speech.toInt( &ok ); // Generally try to convert it
 	QString notification;
 
-	switch (pChar->inputmode())
+	switch (pChar->inputMode())
 	{
 	// Pricing an item - PlayerVendors
-	case cChar::enPricing:
+	case cPlayer::enPricing:
 		if (ok)
 		{
 			pItem->setPrice( num );
@@ -85,44 +87,44 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 		else
 			socket->sysMessage( tr( "You have to enter a numeric price" ) );
 
-		pChar->setInputMode(cChar::enDescription);
+		pChar->setInputMode(cPlayer::enDescription);
 		socket->sysMessage( tr( "Enter a description for this item." ) );
 		break;
 
 	// Describing an item
-	case cChar::enDescription:
+	case cPlayer::enDescription:
 		pItem->setDescription( speech );
 		socket->sysMessage( tr( "This item is now described as %1." ).arg( speech ) );
-		pChar->setInputMode(cChar::enNone);
+		pChar->setInputMode(cPlayer::enNone);
 		pChar->setInputItem(INVALID_SERIAL);
 		break;
 
 	// Renaming a rune
-	case cChar::enRenameRune:
+	case cPlayer::enRenameRune:
 		pItem->setName( tr( "Rune to: %1" ).arg( speech ) );
 		socket->sysMessage( tr( "Rune renamed to: Rune to: %1" ).arg( speech ) );
-		pChar->setInputMode(cChar::enNone);
+		pChar->setInputMode(cPlayer::enNone);
 		pChar->setInputItem(INVALID_SERIAL);
 		break;
 
 	// Renaming ourself
-	case cChar::enNameDeed: 
+	case cPlayer::enNameDeed: 
 		pChar->setName( speech );
 		socket->sysMessage( tr( "Your new name is: %1" ).arg( speech ) );
-		pChar->setInputMode(cChar::enNone);
+		pChar->setInputMode(cPlayer::enNone);
 		pChar->setInputItem(INVALID_SERIAL);
 		break;
 
 	// Renaming a house sign
-	case cChar::enHouseSign:
+	case cPlayer::enHouseSign:
 		pItem->setName( speech ); 
 		socket->sysMessage( tr( "Your house has been renamed to: %1" ).arg( speech ) );
-		pChar->setInputMode(cChar::enNone);
+		pChar->setInputMode(cPlayer::enNone);
 		pChar->setInputItem(INVALID_SERIAL);
 		break;
 
 	// Paging a GM
-	case cChar::enPageGM:
+	case cPlayer::enPageGM:
 		{
 			cPage* pPage = new cPage( pChar->serial(), PT_GM, speech, pChar->pos() );
 			cPagesManager::getInstance()->push_back( pPage );
@@ -137,12 +139,12 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 				else
 					socket->sysMessage( tr( "There was no Game Master available, page queued." ) );
 				
-				pChar->setInputMode(cChar::enNone);
+				pChar->setInputMode(cPlayer::enNone);
 		}
 		break;
 		
 	// Paging a Counselor
-	case cChar::enPageCouns:
+	case cPlayer::enPageCouns:
 		{
 			cPage* pPage = new cPage( pChar->serial(), PT_COUNSELOR, speech, pChar->pos() );
 			cPagesManager::getInstance()->push_back( pPage );
@@ -157,7 +159,7 @@ bool InputSpeech( cUOSocket *socket, cChar* pChar, const QString &speech )
 				else
 					socket->sysMessage( tr( "There was no Counselor available, page queued." ) );
 				
-				pChar->setInputMode(cChar::enNone);
+				pChar->setInputMode(cPlayer::enNone);
 		}
 		break;
 
@@ -374,7 +376,7 @@ bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QStri
 }
 
 // All this Stuff should be scripted
-bool QuestionSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pChar, const QString& comm )
+bool QuestionSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pChar, const QString& comm )
 {
 	if( pChar->npcaitype()==2 || !pChar->isHuman() || pPlayer->dist( pChar ) > 3 )
 		return false;
@@ -929,7 +931,7 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, 
 	return false;
 }
 
-void cSpeech::talking( P_CHAR pChar, const QString &lang, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT16 font, UINT8 type ) // PC speech
+void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT16 font, UINT8 type ) // PC speech
 {	
 	// handle things like renaming or describing an item
 	if( !pChar->socket() )

@@ -36,7 +36,7 @@
 #include "qvaluevector.h"
 
 /*!
-	The object for Wolfpack Coord items
+	The object for Wolfpack AccountRecord items
 */
 typedef struct {
     PyObject_HEAD;

@@ -195,7 +195,7 @@ void cCorpse::update( cUOSocket *mSock )
 	{
 		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
-			if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
+			if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			{
 				// Send item
 				// Send corpse clothing

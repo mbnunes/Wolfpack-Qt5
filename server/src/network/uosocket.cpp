@@ -364,6 +364,7 @@ void cUOSocket::disconnect( void )
 			mSocket->sysMessage( tr("%1 left the world!").arg( _player->name() ), 0x25 );
 		}		
 		_player->setSocket( NULL );
+		_player->account()->setInUse( false );
 	}
 
 	cNetwork::instance()->netIo()->flush( _socket );
@@ -533,6 +534,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	// We're now playing this char
 	pChar->setHidden( 0 ); // Unhide us (logged out)
 	setPlayer( pChar );
+	pChar->account()->setInUse( true );
 
 	// This needs to be sent once
 	cUOTxConfirmLogin confirmLogin;

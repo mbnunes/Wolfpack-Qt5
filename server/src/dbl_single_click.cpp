@@ -108,11 +108,11 @@ void usehairdye(cUOSocket* socket, P_ITEM piDye)
 		return;
 
 	P_ITEM pi;
-	P_CHAR pc_currchar = socket->player();
+	P_PLAYER pc_currchar = socket->player();
 
-	cChar::ContainerContent container(pc_currchar->content());
-	cChar::ContainerContent::const_iterator it (container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
+	cPlayer::ItemContainer container(pc_currchar->content());
+	cPlayer::ItemContainer::const_iterator it (container.begin());
+	cPlayer::ItemContainer::const_iterator end(container.end());
 	for (; it != end; ++it )
 	{
 		pi = *it;
