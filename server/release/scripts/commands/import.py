@@ -78,7 +78,9 @@ def import_command( socket, command, arguments ):
 
 	# InputField
 	gump.addResizeGump( x=20, y=210, id=0xBB8, width=310, height=25 )
-	gump.addInputField( x=25, y=212, width=295, height=20, hue=0x834, id=1, starttext="export.wsc" )
+	if len(arguments) == 0:
+		arguments = 'export.wsc'
+	gump.addInputField( x=25, y=212, width=295, height=20, hue=0x834, id=1, starttext=arguments )
 
 	gump.addText( x=265, y=250, text='Import', hue=0x835 )
 	gump.addButton( x=310, y=250, up=0x26af, down=0x26b1, returncode=1 )
