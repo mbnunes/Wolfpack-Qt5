@@ -59,6 +59,9 @@ def cmdWho( socket, command, argstring ):
 			if not serial:
 				break
 			player = wolfpack.findchar( serial )
+			if not player or not player.account or not player.socket:
+				continue
+
 			# serialcount + 10 for callback, we will -10 there and look at wholist.
 			gump.addButton( 20, 40 + upby, 0xFA5, 0xFA7, ( serialcount + 10 ) )
 			gump.addText( 50, 40 + upby, unicode( "%s [%s]" % ( player.name, player.account.name ) ), 0x834 )

@@ -118,7 +118,7 @@ def onUse( char, potionkeg ):
 			potionkeg.name = '#1041641'
 		if potionkeg.hastag( 'potiontype' ):
 			potionkeg.deltag( 'potiontype' )
-		socket.clilocmessag( 502222 )
+		socket.clilocmessage( 502222 )
 		potionkeg.update()
 		return True
 
