@@ -42,15 +42,28 @@ void cWeather::DoWeather(int s)
 	char rain[5]="\x65\x01\x46\x00";
 	char snow[5]="\x65\x02\x46\xEC";
 	char dry[5]="\x65\x00\x00\x00";
-	int Region=chars[currchar[s]].region;
-	if(Type[Region]==-1)
-		CalcType(s);
-	else if(Type[Region]==1)
-		Network->xSend(s,rain,4,0);
-	else if(Type[Region]==2)
-		Network->xSend(s,snow,4,0);
-	else
-		Network->xSend(s,dry,4,0);
+	int Region;
+	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	if (pc_currchar != NULL)
+	{
+	    Region=pc_currchar->region;
+	    if(Type[Region]==-1)
+		{
+		    CalcType(DEREF_P_CHAR(pc_currchar));
+		}
+	    else if(Type[Region]==1)
+		{
+		    Network->xSend(s,rain,4,0);
+		}
+	    else if(Type[Region]==2)
+		{
+		    Network->xSend(s,snow,4,0);
+		}
+	    else
+		{
+		    Network->xSend(s,dry,4,0);
+		}
+	}
 	return;
 }
 
@@ -59,25 +72,27 @@ void cWeather::CalcType(int s)
 	int rchance=0;
 	int schance=0;
 	int wchance=0;
-	rchance=RainChance[chars[currchar[s]].region]; // chance % for it to rain in this region
-	schance=SnowChance[chars[currchar[s]].region]; // chance % for it to snow in this region
+	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
+	if (pc_currchar != NULL)
+	rchance=RainChance[pc_currchar->region]; // chance % for it to rain in this region
+	schance=SnowChance[pc_currchar->region]; // chance % for it to snow in this region
 	wchance=rand()%100; // the chance for there to be rain or snow (the lower the bigger chance of weather)
 
 	if(rchance>schance) // if the rain chance is bigger then the snow chance
 	{
 		if(schance>wchance) 
 		{
-			Type[chars[currchar[s]].region]=2;
+			Type[pc_currchar->region]=2;
 			return;
 		} // if schance>wchance
 		else if(rchance>wchance) // if the rain chance is bigger then the weather chance
 		{
-			Type[chars[currchar[s]].region]=1;
+			Type[pc_currchar->region]=1;
 			return;
 		} // if rchance>wchance
 		else
 		{
-			Type[chars[currchar[s]].region]=0;
+			Type[pc_currchar->region]=0;
 			return;
 		} // if it doesnt rain or snow, it is dry :)
 	}// if rchance>schance
@@ -85,17 +100,17 @@ void cWeather::CalcType(int s)
 	{
 		if(rchance>wchance)
 		{
-			Type[chars[currchar[s]].region]=1;
+			Type[pc_currchar->region]=1;
 			return;
 		}// if rchance>wchance
 		else if(schance>wchance)
 		{
-			Type[chars[currchar[s]].region]=2;
+			Type[pc_currchar->region]=2;
 			return;
 		} //if schance>wchance
 		else // if it doesnt rain or snow
 		{
-			Type[chars[currchar[s]].region]=0;
+			Type[pc_currchar->region]=0;
 			return;
 		}// if it doesnt rain or snow
 	} // if schance>rchance
