@@ -12,6 +12,7 @@ events = []
 objects = []
 objectsmethods = []
 objectsproperties = []
+functions = []
 
 if len(paths) == 0:
 	print "Usage: python generate.py path1[,path2,...]"
@@ -23,44 +24,48 @@ def examine(path):
 	global objects
 	global objectsmethods
 	global objectsproperties
+	global functions
 	
 	#print "Examining %s..." % path
 	files = glob(path + '/*.py')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties) = parsepython(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsepython(file)
 			commands += newcommands
 			events += newevents
+			functions += newfunctions
 			
 	files = glob(path + '/*.cpp')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties) = parsecpp(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsecpp(file)
 			commands += newcommands
 			events += newevents
 			objects += newobjects
 			objectsmethods += newobjectsmethods
 			objectsproperties += newobjectsproperties
+			functions += newfunctions
 			
 	files = glob(path + '/*.h')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties) = parsecpp(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsecpp(file)
 			commands += newcommands
 			events += newevents
 			objects += newobjects
 			objectsmethods += newobjectsmethods
 			objectsproperties += newobjectsproperties			
+			functions += newfunctions
 	
 	# Get subdirectories and process them
 	entries = glob(path + '/*')
 	for entry in entries:
 		if os.path.isdir(entry):
 			examine(entry)
-			
+					
 for path in paths:
 	examine(path)
 
@@ -106,3 +111,4 @@ for method in objectsmethods:
 
 for property in objectsproperties:
 	print "REPLACE INTO documentation_objects_properties VALUES('%s', '%s', '%s', '%s');" % (quote(property['object']), quote(property['property']), quote(property['description']), quote(property['readonly']))
+

@@ -13,15 +13,11 @@ events = []
 objects = []
 objectsmethods = []
 objectsproperties = []
+functions = []
 
 if len(paths) == 0:
-	print "Usage: python generate_html.py path1[,path2,...]"
+	print "Usage: python generate.py path1[,path2,...]"
 	sys.exit()
-
-try:
-	os.mkdir('output')
-except:
-	pass
 
 def examine(path):
 	global commands
@@ -29,68 +25,57 @@ def examine(path):
 	global objects
 	global objectsmethods
 	global objectsproperties
+	global functions
 	
 	#print "Examining %s..." % path
 	files = glob(path + '/*.py')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties) = parsepython(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsepython(file)
 			commands += newcommands
 			events += newevents
+			functions += newfunctions
 			
 	files = glob(path + '/*.cpp')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties) = parsecpp(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsecpp(file)
 			commands += newcommands
 			events += newevents
 			objects += newobjects
 			objectsmethods += newobjectsmethods
 			objectsproperties += newobjectsproperties
+			functions += newfunctions
 			
 	files = glob(path + '/*.h')
 	
 	for file in files:
 		if os.path.isfile(file):
-			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties) = parsecpp(file)
+			(newcommands, newevents, newobjects, newobjectsmethods, newobjectsproperties, newfunctions) = parsecpp(file)
 			commands += newcommands
 			events += newevents
 			objects += newobjects
 			objectsmethods += newobjectsmethods
 			objectsproperties += newobjectsproperties			
+			functions += newfunctions
 	
 	# Get subdirectories and process them
 	entries = glob(path + '/*')
 	for entry in entries:
 		if os.path.isdir(entry):
 			examine(entry)
-			
+					
 for path in paths:
 	examine(path)
-
+	
 def quote(text):
 	return text.replace("'", "\\'")
 
 # Time
 version = getVersion()
 generated = time.strftime("%d.%m.%Y %H:%M")
-
-# Generate index page
-template = open('templates/index.html')
-text = template.read()
-template.close()
-
-text = text.replace('{GENERATED}', generated)
-text = text.replace('{VERSION}', version)
-text = text.replace('{COMMANDS}', str(len(commands)))
-text = text.replace('{OBJECTS}', str(len(objects)))
-text = text.replace('{EVENTS}', str(len(events)))
-
-output = open('output/index.html', "wt")
-output.write(text)
-output.close()
 
 def namesort(a, b):
 	return cmp(a['name'], b['name'])
@@ -311,7 +296,7 @@ for object in objects:
 	
 		for col in range(0, cols):
 			id = col * rows + row
-			if id < len(methods):
+			if id < len(properties):
 				property = properties[id]
 				overview += '<td>-&#160;<a href="#prop_%s">%s</a></td>' % (property['property'].lower(), property['property'])
 		else:
@@ -395,11 +380,144 @@ for object in objects:
 	output = open('output/object_%s.html' % object['object'].lower(), "wt")
 	output.write(text)
 	output.close()
-			
-	#print "INSERT INTO documentation_objects VALUES('%s', '%s');" % (quote(object['object']), quote(object['description']))
-	
-#for method in objectsmethods:
-	#print "INSERT INTO documentation_objects_methods VALUES('%s', '%s', '%s', '%s', '%s', '%s');" % (quote(method['object']), quote(method['method']), quote(method['prototype']), quote(method['parameters']), quote(method['returnvalue']), quote(method['description']))
 
-#for property in objectsproperties:
-	#print "INSERT INTO documentation_objects_properties VALUES('%s', '%s', '%s', '%s');" % (quote(property['object']), quote(property['property']), quote(property['description']), quote(property['readonly']))
+# Generate a module list
+modules = []
+
+for function in functions:
+	module = function['module']
+	current = ''
+	fmodules = module.split('.')
+	for module in fmodules:
+		if current != '':
+			current += '.' + module
+		else:
+			current = module		
+			
+		if current not in modules:
+			modules.append(current)
+
+# Create an overview
+# Compile a command overview
+overview = ''
+cols = 7
+rows = int(math.ceil(len(modules) / 7.0))
+modules.sort()
+
+for row in range(0, rows):
+	overview += "<tr>\n"
+
+	for col in range(0, cols):
+		id = col * rows + row
+		if id < len(modules):
+			module = modules[id]
+			overview += '<td>- <a href="module_%s.html">%s</a></td>' % (module.replace('.', '_').lower(), module)
+	else:
+		overview += "<td>&nbsp;</td>\n";
+
+	overview += "</tr>\n" 	
+
+# Write an index file for the objects.
+template = open('templates/modules.html')
+text = template.read()
+template.close()
+
+text = text.replace('{OVERVIEW}', overview)
+text = text.replace('{GENERATED}', generated)
+text = text.replace('{VERSION}', version)
+
+output = open('output/modules.html', "wt")
+output.write(text)
+output.close()
+
+# Find every function for the module and write
+# a module index file.
+for module in modules:
+	# Create a list of functions for this module
+	localfunctions = []
+	for function in functions:
+		if function['module'] == module:
+			localfunctions.append(function)
+
+	template = open('templates/module.html')
+	text = template.read()
+	template.close()
+	
+	text = text.replace('{GENERATED}', generated)
+	text = text.replace('{VERSION}', version)
+
+	# Create a function overview first
+	overview = ''
+	cols = 7
+	rows = int(math.ceil(len(localfunctions) / 7.0))
+	
+	for row in range(0, rows):
+		overview += "<tr>\n"
+	
+		for col in range(0, cols):
+			id = col * rows + row
+			if id < len(localfunctions):
+				function = localfunctions[id]
+				overview += '<td>-&#160;<a href="#func_%s">%s</a></td>' % (function['name'].lower(), function['name'])
+		else:
+			overview += "<td>&nbsp;</td>\n";
+	
+		overview += "</tr>\n"
+		
+	text = text.replace('{FUNCTIONOVERVIEW}', overview)
+	
+	# Generate a list of methods
+	overview = ''
+	for i in range(0, len(localfunctions)):
+		function = localfunctions[i]
+		
+		parameters = ''
+		if len(function['parameters']) > 0:
+			parameters = "%s<br/><br/>\n" % function['parameters']
+			
+		returnvalue = ''
+		if len(function['returnvalue']) > 0:
+			returnvalue = "<span class=\"style2\">Return Value:</span><br/>%s<br/><br/>\n" % function['returnvalue']
+		
+		description = ''
+		if len(function['description']) > 0:
+			description = "<span class=\"style2\">Description:</span><br />%s<br />\n" % function['description']
+		
+		overview += "<a name=\"func_%(lowername)s\"></a> \
+					<b><code style=\"font-size: 12px\">%(prototype)s</code></b><br />\
+					<br/>%(parameters)s\n\
+					%(returnvalue)s\n\
+					%(description)s\n\
+						<br /><a href=\"#top\">Back to top</a>\n" % {
+							'lowername': function['name'].lower(),
+							'name': function['name'],
+							'prototype': function['prototype'],
+							'parameters': parameters,
+							'returnvalue': returnvalue,
+							'description': description
+						}
+						
+		if i != len(localfunctions) - 1:
+			overview += '<hr size="1">'
+						
+	text = text.replace('{MODULEFUNCTIONS}', overview)
+	
+	output = open('output/module_%s.html' % module.replace('.', '_').lower(), "wt")
+	output.write(text)
+	output.close()
+
+# Generate index page
+template = open('templates/index.html')
+text = template.read()
+template.close()
+
+text = text.replace('{GENERATED}', generated)
+text = text.replace('{VERSION}', version)
+text = text.replace('{COMMANDS}', str(len(commands)))
+text = text.replace('{OBJECTS}', str(len(objects)))
+text = text.replace('{EVENTS}', str(len(events)))
+text = text.replace('{MODULES}', str(len(modules)))
+
+output = open('output/index.html', "wt")
+output.write(text)
+output.close()

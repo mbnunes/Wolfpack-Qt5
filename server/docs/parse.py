@@ -12,8 +12,9 @@ NOTES_PATTERN = re.compile('\\\\notes\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
 RETURNVALUE_PATTERN = re.compile('\\\\return\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
 CALLCONDITION_PATTERN = re.compile('\\\\condition\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
 EVENT_NAME_PATTERN = re.compile("\\\\event\s(\w+)", re.S)
-PARAM_PATTERN = re.compile('\\\\param\s+(\w+)\s+(.*?)(?=\Z|[\s\n]+\\\\\w)', re.S)
+PARAM_PATTERN = re.compile('\\\\param\s+(\w+)\s+([^\\\\]*?)\s*(?=\Z|[\s\n]+\\\\\w)', re.S)
 INHERIT_PATTERN = re.compile('\\\\inherit\s+(\w+)\s*(?=\Z|[\s\n]+\\\\\w)', re.S)
+FUNCTION_NAME_PATTERN = re.compile("\\\\function\s([\w\.]+)", re.S)
 
 VERSION = "Unknown"
 BETA = ""
@@ -154,6 +155,63 @@ def parsemethod(text):
 		'parameters': processtext("\n\n".join(parameters)),
 		'prototype': processtext(prototype),
 	}		
+	
+#
+# Parse an object function comment
+#
+def parsefunction(text):
+	module = ''
+	name = ''
+	description = ''
+	prototype = ''
+	parameters = ''
+	returnvalue = ''
+
+	# Get the object name we're documenting
+	result = FUNCTION_NAME_PATTERN.search(text)
+	if not result:
+		return None
+	else:
+		name = result.group(1).split('.')
+		if len(name) < 2:
+			return None
+		else:
+			module = '.'.join(name[:len(name)-1])
+			name = name[len(name) - 1]
+
+	# Search for the description
+	result = DESCRIPTION_PATTERN.search(text)
+	if result:
+		description = result.group(1)
+	
+	# Search for the returnvalue
+	result = RETURNVALUE_PATTERN.search(text)
+	if result:
+		returnvalue = result.group(1)	
+
+	parameters = [] # Generate a list of parameters
+	paramnames = []
+	
+	results = PARAM_PATTERN.findall(text)
+	for result in results:
+		param = result[0].strip()
+		desc = result[1].strip()
+		if len(desc) > 0:
+			desc += "\n"
+		parameters.append("- <i>%s</i>\n%s" % (param, desc))
+		paramnames.append(param)
+
+	# Generate the prototype
+	prototype = "%s.%s(%s)" % (module, name, ', '.join(paramnames))
+	
+	return {
+		'module': processtext(module),
+		'name': processtext(name),
+		'description': processtext(description),
+		'returnvalue': processtext(returnvalue),
+		'parameters': processtext("\n".join(parameters)),
+		'prototype': processtext(prototype),
+	}
 
 #
 # Parse a event comment
@@ -221,6 +279,7 @@ def parsepython(filename):
 	file.close()
 
 	commands = []
+	functions = []
 	results = pattern.finditer(content)
 	for result in results:
 		text = result.group(1)
@@ -228,7 +287,11 @@ def parsepython(filename):
 			command = parsecommand(text)
 			if command:
 				commands.append(command)
-	return (commands, [], [], [], [])
+		elif text.startswith('\\function'):
+			function = parsefunction(text)
+			if function:
+				functions.append(function)
+	return (commands, [], [], [], [], functions)
 
 #
 # The following function parses a C++ file 
@@ -244,6 +307,7 @@ def parsecpp(filename):
 	commands = []
 	events = []
 	objects = []
+	functions = []
 	objectsmethods = []
 	objectsproperties = []
 
@@ -266,6 +330,10 @@ def parsecpp(filename):
 			method = parsemethod(text)
 			if method:
 				objectsmethods.append(method)
+		elif text.startswith('\\function'):
+			function = parsefunction(text)
+			if function:
+				functions.append(function)
 		elif text.startswith('\\property '):
 			text = text[10:]
 			if ' ' in text:
@@ -340,4 +408,4 @@ def parsecpp(filename):
 		global BETA
 		BETA = result.group(1)		
 
-	return (commands, events, objects, objectsmethods, objectsproperties)
+	return (commands, events, objects, objectsmethods, objectsproperties, functions)
