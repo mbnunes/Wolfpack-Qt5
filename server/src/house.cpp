@@ -261,7 +261,9 @@ void BuildHouse(UOXSOCKET s, int i)
 		
 		if (othername) 
 			strcpy((char*)temp, name);
-		
+
+		pMulti->name = temp;
+
 		P_ITEM pMulti = NULL;
 		if (!boat)
 		{
@@ -280,7 +282,6 @@ void BuildHouse(UOXSOCKET s, int i)
 		pMulti->priv = 0;
 		pMulti->more4 = itemsdecay; // set to 1 to make items in houses decay
 		pMulti->morex = hdeed; // crackerjack 8/9/99 - for converting back *into* deeds
-		pMulti->name = temp;
 		pMulti->SetOwnSerial(pc_currchar->serial);
 		
 		if (houseItems.empty() && !boat)
