@@ -89,6 +89,12 @@ def checkPython(options):
 					 "/usr/lib/[Pp]ython*/libpython*.so", \
 					 "/usr/lib/[Pp]ython*/config/libpython*.so", \
 					 "/usr/local/lib/[Pp]ython*/config/libpython*.so"]
+		PYTHONLIBSTATICSEARCHPATH = [ "/usr/local/lib/libpython*.a", \
+					 "/usr/local/lib/[Pp]ython*/libpython*.a", \
+					 "/usr/lib/libpython*.a", \
+					 "/usr/lib/[Pp]ython*/libpython*.a", \
+					 "/usr/lib/[Pp]ython*/config/libpython*.a", \
+					 "/usr/local/lib/[Pp]ython*/config/libpython*.a"]
 		PYTHONINCSEARCHPATH = [ "/usr/local/include/[Pp]ython*/Python.h", \
 					 "/usr/include/[Pp]ython*/Python.h"]
 
@@ -160,7 +166,7 @@ def main():
 	parser.add_option("--python-includes",  dest="py_incpath", help="Python include directory")
 	parser.add_option("--python-libraries", dest="py_libpath", help="Python library path")
 	parser.add_option("--qt-directory", dest="qt_dir", help="Base directory of Qt")
-        parser.add_option("--static", dest="staticlink", help="Build wokfpack using static libraries")
+        parser.add_option("--static", action="store_true" dest="staticlink", help="Build wokfpack using static libraries")
 	(options, args) = parser.parse_args()
 	
 	checkPython(options)
