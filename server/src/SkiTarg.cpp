@@ -2336,7 +2336,7 @@ void cSkills::AnimalLoreTarget(int s)
 		if (Skills->CheckSkill(pc_currchar, ANIMALLORE, 0, 1000))
 		{
 			sprintf((char*)temp, "Attack [%i] Defense [%i] Taming [%i] Hit Points [%i]", pc->att, pc->def, pc->taming/10, pc->hp);
-			npcemote(s, DEREF_P_CHAR(pc), (char*)temp, 0);
+			npcemote(s, pc, (char*)temp, 0);
 			return;
 		}
 		else

@@ -335,7 +335,7 @@ char cMagic::GateCollision(PLAYER s)
 //
 void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, char * monstername, unsigned char color1, unsigned char color2, int x, int y, int z, int spellnum)
 {
-	CHARACTER c;
+	//CHARACTER c;
 //	CHARACTER cc = currchar[s];
 	P_CHAR pc_currchar = currchar[s];
 	P_CHAR pc_monster = NULL;
@@ -345,13 +345,12 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	{
 	case 0x0000:	// summon monster
  		soundeffect( s, 0x02, 0x15 );
- 		c=Npcs->AddRandomNPC( s, "10000", -1 );
- 		if( c == -1 )
+ 		pc_monster = MAKE_CHAR_REF(Npcs->AddRandomNPC( s, "10000", -1 ));
+ 		if( pc_monster == NULL )
  		{
  			sysmessage( s, "Contact your shard op to setup the summon list!" );
  			return;
  		}
-		pc_monster = MAKE_CHARREF_LR(c);
 		pc_monster->SetOwnSerial(pc_currchar->serial);
 		pc_monster->MoveTo(pc_currchar->pos.x+rand()%2, pc_currchar->pos.y+rand()%2, pc_currchar->pos.z);
  		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
@@ -364,8 +363,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		if (color1==0x00 && color2==0x75)
 		{
 			soundeffect(s, 0x02, 0x12); // EV
-			c=Npcs->AddNPCxyz(s,295,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-			pc_monster = MAKE_CHARREF_LR(c);
+			pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,295,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
             pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 			pc_monster->npcaitype=50;
 			pc_monster->tamed=false;			
@@ -373,8 +371,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		else
 		{
 			soundeffect(s, 0x02, 0x17); // AE
-			c=Npcs->AddNPCxyz(s,291,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-			pc_monster = MAKE_CHARREF_LR(c);
+			pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,291,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
 			pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 			pc_monster->npcaitype=50;
 			pc_monster->tamed=true;
@@ -382,44 +379,38 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x000A: // Daemon
 		soundeffect(s, 0x02, 0x16);
-		c=Npcs->AddNPCxyz(s,290,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-		pc_monster = MAKE_CHARREF_LR(c);
+		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,290,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->tamed=true;
 		break;
 	case 0x000E: //Earth
 		soundeffect(s, 0x02, 0x17);
-		c=Npcs->AddNPCxyz(s,292,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-		pc_monster = MAKE_CHARREF_LR(c);
+		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,292,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->tamed=true;
 		break;
 	case 0x000F: //Fire
 		soundeffect(s, 0x02, 0x17);
-		c=Npcs->AddNPCxyz(s,293,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-		pc_monster = MAKE_CHARREF_LR(c);
+		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,293,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->tamed=true;
 		break;
 	case 0x0010: //Water
 		soundeffect(s, 0x02, 0x17);
-		c=Npcs->AddNPCxyz(s,294,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-		pc_monster = MAKE_CHARREF_LR(c);
+		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,294,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->tamed=true;
 		break;
 	case 0x023E: //Blade Spirits
 		soundeffect(s, 0x02, 0x12); // I don't know if this is the right effect...	
-		c=Npcs->AddNPCxyz(s,296,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-		pc_monster = MAKE_CHARREF_LR(c);
+		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,296,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->npcaitype=50;
 		pc_monster->tamed=false;
 		break;
 	case 0x03e2: // Dupre The Hero
 		soundeffect(s, 0x02, 0x46);
-		c=Npcs->MemCharFree ();
-		pc_monster = MAKE_CHARREF_LR(c);
+		pc_monster = MAKE_CHAR_REF(Npcs->MemCharFree ());
 		pc_monster->Init();
 		pc_monster->def=50;
 		pc_monster->lodamage=50;
@@ -440,8 +431,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x000B: // Black Night
 		soundeffect(s, 0x02, 0x16);
-		c=Npcs->MemCharFree ();
-		pc_monster = MAKE_CHARREF_LR(c);
+		pc_monster = MAKE_CHAR_REF(Npcs->MemCharFree ());
 		pc_monster->Init();
 		pc_monster->def=50;
 		pc_monster->lodamage=50;
@@ -460,8 +450,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x0190: // Death Knight
 		soundeffect(s, 0x02, 0x46);
-		c=Npcs->MemCharFree ();
-		pc_monster = MAKE_CHARREF_LR(c);
+		pc_monster = MAKE_CHAR_REF(Npcs->MemCharFree ());
 		pc_monster->Init();
 		pc_monster->def=20;
 		pc_monster->lodamage=10;
@@ -518,7 +507,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	P_CHAR pc_i = FindCharBySerial( serial );
 	if(pc_i == NULL) return;
 
-	npcattacktarget(DEREF_P_CHAR(pc_i), c);
+	npcattacktarget(pc_i, pc_monster);
 }
 
 ///////////////////
@@ -978,7 +967,7 @@ void cMagic::SpellFail(UOXSOCKET s)
 	else 
 		staticeffect(pc_currchar, 0x37, 0x35, 0, 30);
 	soundeffect2(pc_currchar, 0x005C);
-	npcemote(s, DEREF_P_CHAR(pc_currchar), "The spell fizzles.",0);
+	npcemote(s, pc_currchar, "The spell fizzles.",0);
 }
 
 
@@ -1864,7 +1853,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s," They are Invulnerable merchants!");
 							return;
 						}
-						npcattacktarget(DEREF_P_CHAR(pc_defender), DEREF_P_CHAR(pc_currchar));
+						npcattacktarget(pc_defender, pc_currchar);
 					}
 					if( spellReflectable( curSpell ) )
 					{
@@ -2393,7 +2382,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										}
 										
 										if (mapchar->isNpc()) 
-											npcattacktarget(DEREF_P_CHAR(mapchar), DEREF_P_CHAR(pc_currchar));
+											npcattacktarget(mapchar, pc_currchar);
 										doStaticEffect(mapchar, curSpell);
 										soundeffect2(mapchar, 0x01FB);
 										if(CheckResist(pc_currchar, mapchar, 6)) j=pc_currchar->skill[MAGERY]/200;
@@ -2496,7 +2485,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											return;
 										}
 										if (mapchar->isNpc()) 
-											npcattacktarget(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar));
+											npcattacktarget(pc_currchar, mapchar);
 										bolteffect(DEREF_P_CHAR(mapchar),true);
 										soundeffect2(pc_currchar, 0x0029); //Homey fix for chainlightning sound
 										
@@ -2569,7 +2558,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									{
 										if(CheckResist(pc_currchar, mapchar, 7) && rand()%2==0 ) // cant be 100% resisted , LB, osi
 										{
-											if (mapchar->isNpc()) npcattacktarget(DEREF_P_CHAR(mapchar), DEREF_P_CHAR(pc_currchar));
+											if (mapchar->isNpc()) npcattacktarget(mapchar, pc_currchar);
 											return;
 										}
 										if (mapchar->isNpc()) deathstuff(DEREF_P_CHAR(mapchar)); // LB !!!!
@@ -2607,7 +2596,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											sysmessage(s," They are Invulnerable merchants!");
 											return;
 										}
-										if (mapchar->isNpc()) npcattacktarget(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(mapchar));
+										if (mapchar->isNpc()) npcattacktarget(pc_currchar,mapchar);
 										soundeffect2(mapchar, 0x0160); //sound fix for swarm--Homey
 										cMagic::doMoveEffect(curSpell, pc_currchar, mapchar );
 										cMagic::doStaticEffect(mapchar, curSpell);
@@ -2897,7 +2886,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										if (pc->isNpc())
 										{
 											npcaction(DEREF_P_CHAR(pc), 0x2); 
-											npcattacktarget(DEREF_P_CHAR(currchar[s]),DEREF_P_CHAR(pc)); 
+											npcattacktarget(currchar[s],pc); 
 										}
 									}
 								}	

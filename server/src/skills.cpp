@@ -2533,7 +2533,7 @@ void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 				{
 					pc_currchar->emotecolor1=0x00;
 					pc_currchar->emotecolor2=0x26;
-					npcemote(j, DEREF_P_CHAR(target), (char*)temp, 1);
+					npcemote(j, target, (char*)temp, 1);
 				}
 			}
 		} else

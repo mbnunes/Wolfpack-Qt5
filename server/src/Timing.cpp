@@ -329,13 +329,13 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 			soundeffect2(pc, 0x002B);
 			switch( RandomNum(0, 6) )
 			{
-			 case 0:	npcemote(s, DEREF_P_CHAR(pc), "*Drags in deep*",1 );	break;
-			 case 1:	npcemote(s, DEREF_P_CHAR(pc), "*Coughs*",1 );			break;
-			 case 2:	npcemote(s, DEREF_P_CHAR(pc), "*Retches*",1 );			break;
-			 case 3:	npcemote(s, DEREF_P_CHAR(pc), "*Hacking cough*",1 );	break;
-			 case 4:	npcemote(s, DEREF_P_CHAR(pc), "*Sighs in contentment*",1 ); break;
-			 case 5:	npcemote(s, DEREF_P_CHAR(pc), "*Puff puff*",1 );		break;
-			 case 6:	npcemote(s, DEREF_P_CHAR(pc), "Wheeeee!!! Xuri's smoking!",1 ); break;
+			 case 0:	npcemote(s, pc, "*Drags in deep*",1 );				break;
+			 case 1:	npcemote(s, pc, "*Coughs*",1 );						break;
+			 case 2:	npcemote(s, pc, "*Retches*",1 );					break;
+			 case 3:	npcemote(s, pc, "*Hacking cough*",1 );				break;
+			 case 4:	npcemote(s, pc, "*Sighs in contentment*",1 );		break;
+			 case 5:	npcemote(s, pc, "*Puff puff*",1 );					break;
+			 case 6:	npcemote(s, pc, "Wheeeee!!! Xuri's smoking!",1 );	break;
 			 default:	break;
 			}
 		}

@@ -53,7 +53,7 @@ class cTrigger
 {
 public:
 	void triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype);
-    void triggernpc(UOXSOCKET ts, int ti, int ttype);
+    void triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype);
 	int  checkenvoke(char eid1, char eid2);
 };
 

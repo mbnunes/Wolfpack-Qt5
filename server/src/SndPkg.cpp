@@ -2155,14 +2155,13 @@ void npctalk_runic(int s, int npc, char *txt,char antispam) // NPC speech
 	}
 }
 
-void npcemote(int s, int npc, char *txt, char antispam) // NPC speech
+void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam) // NPC speech
 {
 	int tl;
 	char machwas;
 
-	if (s==-1 || npc==-1) return;
+	if (s==-1 || pc_npc == NULL) return;
 
-	P_CHAR pc_npc = MAKE_CHARREF_LR(npc);
 	P_CHAR pc_currchar = currchar[s];
 
 	if (antispam)

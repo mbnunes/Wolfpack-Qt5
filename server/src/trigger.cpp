@@ -166,7 +166,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 	int j, c, r;
 	P_ITEM pi_itemnum  = NULL;
 	P_ITEM pi_needitem = NULL;
-	int npcnum=-1;
+	P_CHAR npcnum = NULL;
 	int trig = 0;
 	int x1 = 0, y1 = 0, x2 = 0, y2 = 0, z2 = 0, dx, dy;
 	long int pos;
@@ -1223,14 +1223,13 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 							pos = ftell(scpfile);
 							closescript();
-							Npcs->AddNPC(INVALID_SOCKET, pi, uiNpcNum);
+							npcnum = MAKE_CHAR_REF(Npcs->AddNPC(INVALID_SOCKET, pi, uiNpcNum));
 							// Npcs->AddRespawnNPC(ts,str2num(script2),1);
-							npcnum = triggerx;
 							
 							/*
 							if (uiTimer>0)
 							{// if we have a timer
-							chars[npcnum].summontimer = uiCurrentTime +(uiTimer*MY_CLOCKS_PER_SEC);
+							npcnum->summontimer = uiCurrentTime +(uiTimer*MY_CLOCKS_PER_SEC);
 							}
 							Commented out by Correa, reason: Bug fix. Should it be a new feature? If so,
 							it's not parsing the second param when it doesn't exist, so uiTimer == uiNpcNum.
@@ -1257,17 +1256,17 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							{
 								pi_itemnum->SetOwnSerial(currchar[ts]->serial);
 							}
-							if (npcnum>-1)
+							if (npcnum!=NULL)
 							{
-								chars[npcnum].SetOwnSerial(currchar[ts]->serial);
-								chars[npcnum].tamed = true;// AntiChrist FIX
+								npcnum->SetOwnSerial(currchar[ts]->serial);
+								npcnum->tamed = true;// AntiChrist FIX
 							}
 						}
 						else if (!(strcmp("NEWSPEECH", (char*)script1)))  // Give the new npc a new spech -- MAgius(CHE) §
 						{
-							if (npcnum>-1)
+							if (npcnum!=NULL)
 							{
-								chars[npcnum].speech = str2num(script2);
+								npcnum->speech = str2num(script2);
 							}
 						}
 						else if (!(strcmp("NEED", (char*)script1)))  // The item here is required and will be removed
@@ -1466,9 +1465,9 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							{
 								strcpy(pi_itemnum->name, (char*)script2);
 							}
-							if (npcnum>-1)
+							if (npcnum!=NULL)
 							{
-								strcpy(chars[npcnum].name, (char*)script2);
+								strcpy(npcnum->name, (char*)script2);
 							}
 						}
 						else if (!(strcmp("NEWTRIG", (char*)script1)))  // Give the new item/npc a dynamic trigger number
@@ -1477,16 +1476,16 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							{
 								pi_itemnum->trigger = str2num(script2);
 							}
-							if (npcnum>-1)
+							if (npcnum!=NULL)
 							{
-								chars[npcnum].trigger = str2num(script2);
+								npcnum->trigger = str2num(script2);
 							}
 						}
 						else if (!(strcmp("NEWWORD", (char*)script1)))  // Give the new npc a trigger word
 						{
-							if (npcnum>-1)
+							if (npcnum!=NULL)
 							{
-								strcpy(chars[npcnum].trigword, (char*)script2);
+								strcpy(npcnum->trigword, (char*)script2);
 							}
 						}
 						break;
@@ -2056,14 +2055,14 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 // This routine processes tokens for the NPC triggers.
 // ts: socket!!!! (Player fire the trigger)- AntiChrist
 // ti: no-socket!!!! (NPC triggered) - Magius(CHE)
-void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
+void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magius(CHE) §
 {
 	char sect[512], effect[29];
 	signed int j;
 	int p, c;
 	unsigned int i;
 	P_ITEM pi_itemnum = NULL;
-	int npcnum=-1;
+	P_CHAR npcnum = NULL;
 	P_ITEM pi_needitem = NULL;
 	long int pos;
 	char fmsg[512];
@@ -2092,9 +2091,9 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 	if (ttype == 1)
 	{
 		openscript("ntrigrs.scp");
-		sprintf(sect, "TRG %i", chars[ti].trigger);
-		if (ti>-1)
-			trig = chars[ti].trigger;
+		sprintf(sect, "TRG %i", ti->trigger);
+		if (ti != NULL)
+			trig = ti->trigger;
 		if (!i_scripts[ntrigger_script]->find(sect))
 		{
 			closescript();
@@ -2113,10 +2112,10 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 			return;
 		}
 	}
-	if (chars[ti].disabled>uiCurrentTime) // Added by Magius(CHE) §
+	if (ti->disabled>uiCurrentTime) // Added by Magius(CHE) §
 	{
-		if (!chars[ti].disabledmsg[0] == 0x0)
-			strcpy((char*)temp, chars[ti].disabledmsg);
+		if (!ti->disabledmsg[0] == 0x0)
+			strcpy((char*)temp, ti->disabledmsg);
 		else 
 			strcpy((char*)temp, "You cant work now! Wait more time!");
 		sysmessage(ts, (char*)temp);
@@ -2193,10 +2192,10 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 					}
 					else if (!(strcmp("DISABLE", (char*)script1)))  // Disable NPC for n seconds
 					{
-						if (ti>-1)
+						if (ti!=NULL)
 						{
-							chars[ti].disabled = (uiCurrentTime +(MY_CLOCKS_PER_SEC*str2num(script2)));
-							strcpy(chars[ti].disabledmsg, dismsg); // Added by Magius(CHE) §
+							ti->disabled = (uiCurrentTime +(MY_CLOCKS_PER_SEC*str2num(script2)));
+							strcpy(ti->disabledmsg, dismsg); // Added by Magius(CHE) §
 						}
 					}
 					else if (!(strcmp("DISABLEMSG", (char*)script1)))  // Disable NPC Message --- by Magius(CHE) §
@@ -2539,9 +2538,9 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						}
 						else if (!(strcmp("IFOWNER", (char*)script1)))  // If character is owned by triggerer
 						{
-							if (ti>-1)
+							if (ti!=NULL)
 							{
-								if (!pc_ts->Owns(&chars[ti]))
+								if (!pc_ts->Owns(ti))
 								{
 									sysmessage(ts, "You do not own this creature.");
 									closescript();
@@ -2574,7 +2573,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						}
 						else if (!(strcmp("IDFX", (char*)script1)))  // Makes an effect at players by ID
 						{
-							if (ti>-1)
+							if (ti!=NULL)
 							{
 								for (i = 0; i < 29; i++)
 								{
@@ -2584,21 +2583,21 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 								splitline();
 								effect[0] = 0x70; // Effect message
 								effect[1] = 0x00; // Moving effect
-								effect[2] = chars[ti].ser1;
-								effect[3] = chars[ti].ser2;
-								effect[4] = chars[ti].ser3;
-								effect[5] = chars[ti].ser4;
+								effect[2] = ti->ser1;
+								effect[3] = ti->ser2;
+								effect[4] = ti->ser3;
+								effect[5] = ti->ser4;
 								effect[6] = pc_ts->ser1;
 								effect[7] = pc_ts->ser2;
 								effect[8] = pc_ts->ser3;
 								effect[9] = pc_ts->ser4;
 								effect[10] = hexnumber(0);// Object id of the effect
 								effect[11] = hexnumber(1);
-								effect[12] = chars[ti].pos.x >> 8;
-								effect[13] = chars[ti].pos.x%256;
-								effect[14] = chars[ti].pos.y >> 8;
-								effect[15] = chars[ti].pos.y%256;
-								effect[16] = chars[ti].pos.z;
+								effect[12] = ti->pos.x >> 8;
+								effect[13] = ti->pos.x%256;
+								effect[14] = ti->pos.y >> 8;
+								effect[15] = ti->pos.y%256;
+								effect[16] = ti->pos.z;
 								effect[17] = pc_ts->pos.x >> 8;
 								effect[18] = pc_ts->pos.x%256;
 								effect[19] = pc_ts->pos.y >> 8;
@@ -2774,7 +2773,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						{
 							cline = &script2[0];
 							splitline();
-							npcaction(ti, hexnumber(0));
+							npcaction(DEREF_P_CHAR(ti), hexnumber(0));
 						}
 						else if (!(strcmp("NADD", (char*)script1)))  // Add a NPC at given location - AntiChrist -- Fixed here by Magius(CHE) §
 						{// Usage: NADD <npc_number> <life_in_seconds>
@@ -2791,12 +2790,11 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							
 							pos = ftell(scpfile);
 							closescript();
-							Npcs->AddNPC(INVALID_SOCKET, NULL, uiNpcNum, triggerx, triggery, triggerz);
-							npcnum = triggerx;
+							npcnum = MAKE_CHAR_REF(Npcs->AddNPC(INVALID_SOCKET, NULL, uiNpcNum, triggerx, triggery, triggerz));
 #pragma note("get a x coord and interpret as a char[]? This can't be right...")
 							if (uiTimer>0)
 							{// if we have a timer
-								chars[npcnum].summontimer = uiCurrentTime +(uiTimer*MY_CLOCKS_PER_SEC);
+								npcnum->summontimer = uiCurrentTime +(uiTimer*MY_CLOCKS_PER_SEC);
 							}
 							
 							triggerx = 0;
@@ -2811,13 +2809,11 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						{
 							if (pi_itemnum != NULL)
 							{// item
-								p = DEREF_P_CHAR(pc_ts);
 								pi_itemnum->SetOwnSerial(pc_ts->serial);
 							}
-							if (npcnum>-1)
+							if (npcnum!= NULL)
 							{// char
-								p = DEREF_P_CHAR(pc_ts);
-								chars[npcnum].SetOwnSerial(pc_ts->serial);
+								npcnum->SetOwnSerial(pc_ts->serial);
 							}
 						}
 						else if (!(strcmp("NEEDCOLOR", (char*)script1)))  // Set the color check on NEEDED item by Magius(CHE) §
@@ -2899,9 +2895,9 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							{
 								strcpy(pi_itemnum->name, (char*)script2);
 							}
-							if (npcnum>-1)
+							if (npcnum!=NULL)
 							{
-								strcpy(chars[npcnum].name, (char*)script2);
+								strcpy(npcnum->name, (char*)script2);
 							}
 						}
 						else if (!(strcmp("NEWTRIG", (char*)script1)))  // Give the new item/npc a dynamic trigger number
@@ -2910,23 +2906,23 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							{
 								pi_itemnum->trigger = str2num(script2);
 							}
-							if (npcnum>-1)
+							if (npcnum!=NULL)
 							{
-								chars[npcnum].trigger = str2num(script2);
+								npcnum->trigger = str2num(script2);
 							}
 						}
 						else if (!(strcmp("NEWWORD", (char*)script1)))  // Give the new npc a triggerword
 						{
-							if (npcnum>-1)
+							if (npcnum!=NULL)
 							{
-								strcpy(chars[npcnum].trigword, (char*)script2);
+								strcpy(npcnum->trigword, (char*)script2);
 							}
 						}
 						else if (!(strcmp("NEWSPEECH", (char*)script1)))  // Give the new npc a new spech -- MAgius(CHE) §
 						{
-							if (npcnum>-1)
+							if (npcnum!=NULL)
 							{
-								chars[npcnum].speech = str2num(script2);
+								npcnum->speech = str2num(script2);
 							}
 						}
 						break;
@@ -3024,24 +3020,25 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						{
 							cline = &script2[0];
 							splitline();
-							soundeffect2(ti, hexnumber(0), hexnumber(1));
+							short snd = ((short)(hexnumber(0) << 8) | hexnumber(1));
+							soundeffect2(ti, snd);
 						}
 						else if (!(strcmp("SETTRG", (char*)script1)))  // Set npcs trigger to new trigger
 						{
-							if (ti>-1)
-								chars[ti].trigger = str2num(script2);
+							if (ti!=NULL)
+								ti->trigger = str2num(script2);
 						}
 						else if (!(strcmp("SPEECH", (char*)script1)))  // Set the triggered npc a new spech -- Magius(CHE) §
 						{
-							if (ti>-1)
+							if (ti!=NULL)
 							{
-								chars[ti].speech = str2num(script2);
+								ti->speech = str2num(script2);
 							}
 						}
 						// End NPC Triggers
 						else if (!(strcmp("SETID", (char*)script1)))  // Set chars id to new id
 						{
-							if (ti>-1)
+							if (ti!=NULL)
 							{
 								cline = &script2[0];
 								splitline();
@@ -3087,8 +3084,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						}
 						else if (!(strcmp("SETWORD", (char*)script1)))  // Sets the trigger word of an NPC
 						{
-							if (ti>-1)
-								strcpy(chars[ti].trigword, script2);
+							if (ti!=NULL)
+								strcpy(ti->trigword, script2);
 						}
 						else if (!(strcmp("SKL", (char*)script1)))  // Do math on the players skill
 						{
@@ -3113,17 +3110,17 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						}
 						else if (!(strcmp("SETOWNER", (char*)script1)))  // Set ownership of NPC
 						{
-							if (ti>-1)
+							if (ti!=NULL)
 							{
 //								p = DEREF_P_CHAR(currchar[ts]);
-								chars[ti].SetOwnSerial(pc_ts->serial);
+								ti->SetOwnSerial(pc_ts->serial);
 							}
 						}
 						break;
 					case 'T':
 						if (!(strcmp("TALK", (char*)script1)))  // the triggered NPC now talking! --- by Magius(CHE) §
 						{
-							if (ti>-1 && strlen((char*)script2)>0)
+							if (ti!=NULL && strlen((char*)script2)>0)
 								npctalk(ts, ti, (char*)script2, 0);
 						}
 						break;

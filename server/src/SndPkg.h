@@ -102,7 +102,7 @@ void npctalk(int s, cChar* pNpc, char *txt,char antispam); // NPC speech
 void npctalk(int s, int npc, char *txt,char antispam); // NPC speech
 void npctalkall(cChar* pNpc, char *txt,char antispam); // NPC speech to all in range.
 void npctalk_runic(int s, int npc, char *txt,char antispam); // NPC speech
-void npcemote(int s, int npc, char *txt, char antispam); // NPC speech
+void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam); // NPC speech
 
 
 void staticeffect (P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, bool UO3DonlyEffekt=false, stat_st *str=NULL, bool skip_old=false );

@@ -2150,7 +2150,7 @@ void cTargets::AttackTarget(int s)
         return;
 	}
 	if (target2 == NULL || target == NULL) return;
-	npcattacktarget(DEREF_P_CHAR(target2), DEREF_P_CHAR(target));
+	npcattacktarget(target2, target);
 }
 
 void cTargets::FollowTarget(int s)
@@ -3592,7 +3592,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				P_CHAR pc_i = FindCharBySerial(serial);
 				if(pc_i != NULL)
 				{
-					Trig->triggernpc(s,DEREF_P_CHAR(pc_i),0);
+					Trig->triggernpc(s, pc_i, 0);
 					pc_currchar->envokeid1=0x00;
 					pc_currchar->envokeid2=0x00;
 					return;

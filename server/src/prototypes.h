@@ -116,7 +116,7 @@ int unmounthorse(int s);
 void telltime(int s);
 void impaction(int s, int act);
 int fielddir(int s, int x, int y, int z);
-void npcattacktarget(int target2, int target);
+void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target);
 void npcsimpleattacktarget(int target2, int target);
 int RandomNum(int nLowNum, int nHighNum);
 void enlist(int s, int listnum); // For enlisting in army
@@ -256,7 +256,6 @@ void fileArchive(char *pFile2Archive_chars, char *pFile2Archive_items, char *pAr
 
 //Trigger routines
 void triggerwitem(UOXSOCKET ts, P_ITEM pi, int ttype);  // trigger.cpp
-void triggernpc(UOXSOCKET ts,int ti, int ttype);  // trigger.cpp --- Changed by Magius(CHE) §
 int checkenvoke(char eid1, char eid2);  //trigger.scp
 
 inline int calcserial(unsigned char a1,unsigned char a2,unsigned char a3,unsigned char a4) {return (static_cast<int>((a1<<24))|static_cast<int>((a2<<16)) | static_cast<int>((a3<<8)) | static_cast<int>(a4));}

@@ -1453,7 +1453,6 @@ void explodeitem(int s, P_ITEM pi)
 			dz=abs(pc->pos.z-pi->pos.z);
 			if ((dx<=len)&&(dy<=len)&&(dz<=len))
 			{
-				c=DEREF_P_CHAR(pc);
 				pc->hp-=dmg+(2-min(dx,dy));
 				updatestats(pc, 0);
 				if (pc->hp<=0)
@@ -1462,7 +1461,7 @@ void explodeitem(int s, P_ITEM pi)
 				}
 				else
 				{
-					npcattacktarget(DEREF_P_CHAR(pc), DEREF_P_CHAR(pc_currchar));
+					npcattacktarget(pc, pc_currchar);
 					updatechar(pc);
 				}
 			}
@@ -2388,7 +2387,7 @@ void npcemoteall(P_CHAR npc, char *txt,unsigned char antispam) // NPC speech to 
 
 	for (i=0;i<now;i++)
 		if (inrange1p(npc, currchar[i])&&perm[i])
-			npcemote(i, DEREF_P_CHAR(npc), txt,antispam);
+			npcemote(i, npc, txt,antispam);
 }
 
 //taken from 6904t2(5/10/99) - AntiChrist
@@ -3559,12 +3558,11 @@ char indungeon(int s)
 	return 0;
 }
 
-void npcattacktarget(int target2, int target)
+void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 {
-	if (target==target2) return;
-	if (target < 0 || target2<0 || target>cmem || target2>cmem) return;
-	P_CHAR pc_target  = MAKE_CHARREF_LR(target);
-	P_CHAR pc_target2 = MAKE_CHARREF_LR(target2);
+	if (pc_target == pc_target2) return;
+	if (pc_target == NULL || pc_target2 == NULL) return;
+
 	if (pc_target->dispz > (pc_target2->dispz +10)) return;//FRAZAI
 	if (pc_target->dispz < (pc_target2->dispz -10)) return;//FRAZAI
 	if (!(line_of_sight(-1,pc_target2->pos, pc_target->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) return; //From Leviathan - Morrolan
@@ -3623,7 +3621,7 @@ void npcattacktarget(int target2, int target)
 		 {
 			  pc_target->emotecolor1=0x00;
 			  pc_target->emotecolor2=0x26;
-			  npcemote(i, DEREF_P_CHAR(pc_target2), (char*)temp,1);
+			  npcemote(i, pc_target2, (char*)temp,1);
 		 }
 	}
 }

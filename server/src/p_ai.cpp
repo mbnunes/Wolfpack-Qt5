@@ -175,7 +175,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 								Magic->NPCDispel(pc_i, pc);
 							}
 						}
-						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						npcattacktarget(pc_i, pc);
 						return;
 					}
 				}
@@ -232,7 +232,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							continue;
 						if(pc->isCriminal() || pc->isMurderer())
 						{
-							npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+							npcattacktarget(pc_i, pc);
 							npctalkall(pc_i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
 						}
 					}
@@ -318,7 +318,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							pc_i->pos.z = pc->pos.z;
 							soundeffect2(pc_i, 0x01FE); // crashfix, LB
 							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
-							npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+							npcattacktarget(pc_i, pc);
 							npctalkall(pc_i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
 							return;
 						}
@@ -340,7 +340,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						d = chardist( pc_i, pc );
 						if (d > 10 || pc->isPlayer() || pc->npcaitype != 61)
 							continue;
-						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						npcattacktarget(pc_i, pc);
 						return;
 					}
 				}
@@ -363,7 +363,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							continue;
 						if (pc->isPlayer() && !onl)
 							continue;
-						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						npcattacktarget(pc_i, pc);
 					}
 				}
 			}
@@ -405,7 +405,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						d = chardist(pc_i, pc);
 						if (d > 10 || pc->isInvul() || pc->dead || pc->npcaitype != 2 || !onl)
 							continue;
-						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						npcattacktarget(pc_i, pc);
 						return;
 					}
 				}
@@ -427,7 +427,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						if (pc->Owns(pc_i))
 						{
 							P_CHAR pc_target = FindCharBySerial(pc->attacker);
-							npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_target));
+							npcattacktarget(pc_i, pc_target);
 							return;
 						}
 					}
@@ -449,7 +449,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							continue;
 						if (Races.CheckRelation(pc,pc_i)==1)
 							continue;
-						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+						npcattacktarget(pc_i, pc);
 						return;
 					}
 				}
@@ -576,7 +576,7 @@ void cCharStuff::cDragonAI::HealMagic(int i, int currenttime)
 			Magic->NPCHeal(i);
 		}
 		if (pc_i->targ != INVALID_SERIAL)
-			npcattacktarget(i, DEREF_P_CHAR(FindCharBySerial(pc_i->targ)));
+			npcattacktarget(pc_i, FindCharBySerial(pc_i->targ));
 	}
 	DoneAI(i, currenttime);
 }

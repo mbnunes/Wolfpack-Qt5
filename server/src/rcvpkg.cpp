@@ -109,7 +109,7 @@ void RcvAttack(P_CLIENT ps)
 				P_CHAR toCheck = iter_char.GetData();
 				if (pc_i->Owns(toCheck) && toCheck->npcaitype == 32 && chardist( pc_currchar, toCheck )<= 10 )
 				{
-					npcattacktarget( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(toCheck) );
+					npcattacktarget( pc_currchar, toCheck );
 				}
 			}
 		}
@@ -135,7 +135,7 @@ void RcvAttack(P_CLIENT ps)
 			else if( pc_i->isNpc() && pc_i->npcaitype==4)
 			{
 				criminal( pc_currchar );
-				npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_currchar));
+				npcattacktarget(pc_i, pc_currchar);
 			}
 			else if ((pc_i->isNpc() || pc_i->tamed) && !pc_i->war && pc_i->npcaitype!=4) // changed from 0x40 to 4, cauz 0x40 was removed LB
 			{
@@ -155,7 +155,7 @@ void RcvAttack(P_CLIENT ps)
 				{
 					pc_i->emotecolor1=0x00;
 					pc_i->emotecolor2=0x26;
-					npcemote(j, DEREF_P_CHAR(pc_currchar), (char*)temp,1);
+					npcemote(j, pc_currchar, (char*)temp,1);
 				}
 			}
 		}
@@ -170,12 +170,12 @@ void RcvAttack(P_CLIENT ps)
 				else if (pc_i->isNpc() && pc_i->tamed)
 				{
 					criminal( pc_currchar );
-					npcattacktarget(DEREF_P_CHAR(pc_i),DEREF_P_CHAR(pc_currchar));
+					npcattacktarget(pc_i, pc_currchar);
 				}
 				else if (pc_i->isNpc())
 				{
 					criminal( pc_currchar );
-					npcattacktarget(DEREF_P_CHAR(pc_i),DEREF_P_CHAR(pc_currchar));
+					npcattacktarget(pc_i, pc_currchar);
 					if (pc_i->isHuman() )
 					{
 						npctalkall(pc_i, "Help! Guards! Tis a murder being commited!", 1);
