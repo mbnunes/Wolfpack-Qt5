@@ -14,7 +14,7 @@
 		<twohanded />
 		<decay/>
 		<value>30</value>
-		<category>Skill Items\Magery\Spellbook</category>
+		<category>Skill Items\Magery\Spellbook (N/S)</category>
 	</item>
 
 	<!-- Recall Runes -->
@@ -687,4 +687,102 @@
 		<category>Skill Items\Magery\Scrolls\Summon Water Elemental</category>
 	</item>
 	
+	<!-- Wands -->
+	<item id="df2">
+		<id>0x0df2</id>
+		<category>Skill Items\Magery\Wands\Wand 1</category>
+	</item>
+
+	<item id="df3">
+		<id>0x0df3</id>
+		<category>Skill Items\Magery\Wands\Wand 2</category>
+	</item>
+
+	<item id="df4">
+		<id>0x0df4</id>
+		<category>Skill Items\Magery\Wands\Wand 3</category>
+	</item>
+
+	<item id="df5">
+		<id>0x0df5</id>
+		<category>Skill Items\Magery\Wands\Wand 4</category>
+	</item>
+
+	<!-- Another Spellbook + Empty Scrolls -->
+	<item id="e34">
+		<id>0x0e34</id>
+		<decay />
+		<category>Skill Items\Magery\Empty Scroll (W/E)</category>
+	</item>
+
+	<item id="e35">
+		<id>0x0e35</id>
+		<category>Skill Items\Magery\Scroll 1 (W/E)</category>
+	</item>
+
+	<item id="e36">
+		<id>0x0e36</id>
+		<category>Skill Items\Magery\Scroll 2 (W/E)</category>
+	</item>
+
+	<item id="e37">
+		<id>0x0e37</id>
+		<category>Skill Items\Magery\Scroll 3 (W/E)</category>
+	</item>
+
+	<item id="e38">
+		<id>0x0e38</id>
+		<category>Skill Items\Magery\Scroll 4 (W/E)</category>
+	</item>
+
+	<item id="e39">
+		<id>0x0e39</id>
+		<category>Skill Items\Magery\Scroll 5 (W/E)</category>
+	</item>
+
+	<item id="e3a">
+		<id>0x0e3a</id>
+		<category>Skill Items\Magery\Scroll 6 (W/E)</category>
+	</item>
+
+	<item id="e3b" type="spellbook">
+		<inherit id="efa" />
+		<id>0x0e3b</id>
+		<category>Skill Items\Magery\Spellbook (W/E)</category>
+	</item>
+
+	<item id="ef3">
+		<id>0x0ef3</id>
+		<category>Skill Items\Magery\Empty Scroll (N/S)</category>
+	</item>
+
+	<item id="ef4">
+		<id>0x0ef4</id>
+		<category>Skill Items\Magery\Scroll 1 (N/S)</category>
+	</item>
+
+	<item id="ef5">
+		<id>0x0ef5</id>
+		<category>Skill Items\Magery\Scroll 2 (N/S)</category>
+	</item>
+
+	<item id="ef6">
+		<id>0x0ef6</id>
+		<category>Skill Items\Magery\Scroll 3 (N/S)</category>
+	</item>
+
+	<item id="ef7">
+		<id>0x0ef7</id>
+		<category>Skill Items\Magery\Scroll 4 (N/S)</category>
+	</item>
+
+	<item id="ef8">
+		<id>0x0ef8</id>
+		<category>Skill Items\Magery\Scroll 5 (N/S)</category>
+	</item>
+
+	<item id="ef9">
+		<id>0x0ef9</id>
+		<category>Skill Items\Magery\Scroll 6 (N/S)</category>
+	</item>
 </definitions>

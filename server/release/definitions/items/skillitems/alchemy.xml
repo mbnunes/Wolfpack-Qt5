@@ -9,7 +9,13 @@
 <definitions>
 	<!-- Mortar & pestle -->
 	<item id="e9b">
-		<id>0xe9b</id>
+		<id>0x0e9b</id>
+		<category>Skill Items\Alchemy\Mortar &amp; Pestle</category>
+	</item>
+
+	<item id="f0e">
+		<id>0x0f0e</id>
+		<category>Skill Items\Alchemy\Empty Bottle</category>
 	</item>
 
 	<!-- Black potion -->
@@ -23,6 +29,7 @@
 		<morey>5</morey>
 		<morez>1</morez>
 		<value>15</value>
+		<category>Skill Items\Alchemy\Nightsight Potion</category>
 	</item>
 
 	<!-- Orange potion -->
@@ -36,6 +43,7 @@
 		<morey>2</morey>
 		<morez>1</morez>
 		<value>15</value>
+		<category>Skill Items\Alchemy\Cure Potion</category>
 	</item>
 
 	<!-- Blue potion -->
@@ -49,6 +57,7 @@
 		<morey>1</morey>
 		<morez>1</morez>
 		<value>15</value>
+		<category>Skill Items\Alchemy\Agility Potion</category>
 	</item>
 
 	<!-- White potion -->
@@ -62,6 +71,7 @@
 		<morey>8</morey>
 		<morez>1</morez>
 		<value>15</value>
+		<category>Skill Items\Alchemy\Strength Potion</category>
 	</item>
 
 	<!-- poison potion -->
@@ -74,6 +84,7 @@
 		<morey>6</morey>
 		<morez>1</morez>
 		<value>15</value>
+		<category>Skill Items\Alchemy\Poison Potion</category>
 	</item>
 
 	<!-- Energy potion -->
@@ -86,6 +97,7 @@
 		<morey>7</morey>
 		<morez>1</morez>
 		<value>15</value>
+		<category>Skill Items\Alchemy\Refresh Potion</category>
 	</item>
 
 	<!-- Yellow potion -->
@@ -99,6 +111,7 @@
 		<morey>4</morey>
 		<morez>1</morez>
 		<value>15</value>
+		<category>Skill Items\Alchemy\Lesser Heal Potion</category>
 	</item>
 
 	<!-- Purple potion -->
@@ -112,6 +125,7 @@
 		<morey>3</morey>
 		<morez>1</morez>
 		<value>15</value>
+		<category>Skill Items\Alchemy\Lesser Explosion Potion</category>
 	</item>
 
 </definitions>

@@ -70,7 +70,7 @@
 	<item id="9a9">
 		<id>0x09a9</id>
 		<type>1</type>
-		<category>Equipment\Containers\Small Crate (N/S)</category>
+		<category>Equipment\Containers\Small Crate 1 (N/S)</category>
 	</item>
 
 	<item id="9aa">
@@ -119,5 +119,95 @@
 		<type>1</type>
 		<category>Equipment\Containers\Backpack (N/S)</category>
 		<weight>3.0</weight>
+	</item>
+
+	<item id="e3c">
+		<id>0x0e3c</id>
+		<type>1</type>
+		<category>Equipment\Containers\Big Crate (W/E)</category>
+	</item>
+
+	<item id="e3d">
+		<id>0x0e3d</id>
+		<type>1</type>
+		<category>Equipment\Containers\Big Crate (N/S)</category>
+	</item>
+
+	<item id="e3e">
+		<id>0x0e3e</id>
+		<type>1</type>
+		<category>Equipment\Containers\Small Crate 2 (W/E)</category>
+	</item>
+
+	<item id="e3f">
+		<id>0x0e3f</id>
+		<type>1</type>
+		<category>Equipment\Containers\Small Crate 2 (N/S)</category>
+	</item>
+
+	<item id="e40">
+		<id>0x0e40</id>
+		<type>1</type>
+		<category>Equipment\Containers\Golden Metal Chest (W/E)</category>
+	</item>
+
+	<item id="e41">
+		<id>0x0e41</id>
+		<type>1</type>
+		<category>Equipment\Containers\Golden Metal Chest (N/S)</category>
+	</item>
+
+	<item id="e42">
+		<id>0x0e42</id>
+		<type>1</type>
+		<category>Equipment\Containers\Wooden Metal Chest (W/E)</category>
+	</item>
+
+	<item id="e43">
+		<id>0x0e43</id>
+		<type>1</type>
+		<category>Equipment\Containers\Wooden Metal Chest (N/S)</category>
+	</item>
+
+	<item id="e77">
+		<id>0x0e77</id>
+		<type>1</type>
+		<category>Equipment\Containers\Barrel 1</category>
+	</item>
+
+	<item id="e78">
+		<id>0x0e78</id>
+		<category>Equipment\Containers\Basin</category>
+	</item>
+
+	<item id="e7a">
+		<id>0x0e7a</id>
+		<type>1</type>
+		<category>Equipment\Containers\Picnic Basket</category>
+	</item>
+
+	<item id="e7b">
+		<id>0x0e7b</id>
+		<category>Equipment\Containers\Water Tub</category>
+	</item>
+
+	<item id="e7c">
+		<id>0x0e7c</id>
+		<category>Equipment\Containers\Metal Chest (W/E)</category>
+	</item>
+
+	<item id="e7e">
+		<id>0x0e7e</id>
+		<category>Equipment\Containers\Small Crate 1 (W/E)</category>
+	</item>
+
+	<item id="e7f">
+		<id>0x0e7f</id>
+		<category>Equipment\Containers\Keg</category>
+	</item>
+
+	<item id="e83">
+		<id>0x0e83</id>
+		<category>Equipment\Containers\Empty Tub</category>
 	</item>
 </definitions>

@@ -8,19 +8,6 @@
 | Trees and Palms                                               |
 =================================================================
 -->
-<!-- Aus der base.xml müssen folgende Items (insgesamt 205) gelöscht werden:
-c95, c96
-c99 bis c9e
-ca6, ca8, caa, cab
-cc9 bis cea
-cf3 bis d03
-d37, d38
-d41 bis dad
-e56 bis e59
-1b1f bis 1b26
-1b7e
-12b6 bis 12c7
--->
 <definitions>
         <!-- Palms -->
         <item id="C95">
@@ -1050,4 +1037,19 @@ e56 bis e59
                 <id>0x12C7</id>
                 <category>Vegetation\Trees\Yew Tree Leaves 10</category>
         </item>
+
+	<item id="d3b">
+		<id>0x0d3b</id>
+                <category>Vegetation\Trees\Fallen Branch 1</category>
+	</item>
+
+	<item id="d3c">
+		<id>0x0d3c</id>
+                <category>Vegetation\Trees\Fallen Branch 2</category>
+	</item>
+
+	<item id="d3d">
+		<id>0x0d3d</id>
+                <category>Vegetation\Trees\Fallen Branch 3</category>
+	</item>
 </definitions>

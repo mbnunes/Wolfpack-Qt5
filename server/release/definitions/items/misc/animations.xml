@@ -9,102 +9,102 @@
 <definitions>
         <item id="36b0">
                 <id>0x36b0</id>
-                <category>Misc\Animations\Explosion 1</category>
+                <category>Animations\Explosion 1</category>
         </item>
 
         <item id="36bd">
                 <id>0x36bd</id>
-                <category>Misc\Animations\Explosion 2</category>
+                <category>Animations\Explosion 2</category>
         </item>
 
         <item id="36cb">
                 <id>0x36cb</id>
-                <category>Misc\Animations\Explosion 3</category>
+                <category>Animations\Explosion 3</category>
         </item>
 
         <item id="36d4">
                 <id>0x36d4</id>
-                <category>Misc\Animations\Fireball (large)</category>
+                <category>Animations\Fireball (large)</category>
         </item>
 
         <item id="36e4">
                 <id>0x36e4</id>
-                <category>Misc\Animations\Fireball (small)</category>
+                <category>Animations\Fireball (small)</category>
         </item>
 
         <item id="36f4">
                 <id>0x36f4</id>
-                <category>Misc\Animations\Fire Snake</category>
+                <category>Animations\Fire Snake</category>
         </item>
 
         <item id="36fe">
                 <id>0x36fe</id>
-                <category>Misc\Animations\Explosion Ball</category>
+                <category>Animations\Explosion Ball</category>
         </item>
 
         <item id="3709">
                 <id>0x3709</id>
-                <category>Misc\Animations\Fire Column</category>
+                <category>Animations\Fire Column</category>
         </item>
 
         <item id="3728">
                 <id>0x3728</id>
-                <category>Misc\Animations\Smoke</category>
+                <category>Animations\Smoke</category>
         </item>
 
         <item id="3735">
                 <id>0x3735</id>
-                <category>Misc\Animations\Fizzle</category>
+                <category>Animations\Fizzle</category>
         </item>
 
         <item id="373a">
                 <id>0x373a</id>
-                <category>Misc\Animations\Sparkle (blue) 1</category>
+                <category>Animations\Sparkle (blue) 1</category>
         </item>
 
         <item id="3779">
                 <id>0x3779</id>
-                <category>Misc\Animations\Sparkle (blue) 2</category>
+                <category>Animations\Sparkle (blue) 2</category>
         </item>
 
         <item id="374a">
                 <id>0x374a</id>
-                <category>Misc\Animations\Sparkle (red)</category>
+                <category>Animations\Sparkle (red)</category>
         </item>
 
         <item id="375a">
                 <id>0x375a</id>
-                <category>Misc\Animations\Sparkle (blue &amp; gold) 1</category>
+                <category>Animations\Sparkle (blue &amp; gold) 1</category>
         </item>
 
         <item id="376a">
                 <id>0x376a</id>
-                <category>Misc\Animations\Sparkle (blue &amp; gold) 2</category>
+                <category>Animations\Sparkle (blue &amp; gold) 2</category>
         </item>
 
         <item id="3789">
                 <id>0x3789</id>
-                <category>Misc\Animations\Death Vortex</category>
+                <category>Animations\Death Vortex</category>
         </item>
 
         <item id="37a0">
                 <id>0x37a0</id>
-                <category>Misc\Animations\Field of Blades</category>
+                <category>Animations\Field of Blades</category>
         </item>
 
         <item id="37b9">
                 <id>0x37b9</id>
-                <category>Misc\Animations\Glow</category>
+                <category>Animations\Glow</category>
         </item>
 
         <item id="37c4">
                 <id>0x37c4</id>
-                <category>Misc\Animations\Glow (like a star)</category>
+                <category>Animations\Glow (like a star)</category>
         </item>
 
         <item id="37cc">
                 <id>0x37cc</id>
-                <category>Misc\Animations\Death Vortex</category>
+                <category>Animations\Death Vortex</category>
         </item>
 
         <item id="3818">
@@ -161,4 +161,46 @@
                 <id>0x3996</id>
                 <category>Field of Fire (W/E)</category>
         </item>
+
+        <item id="1153"> 
+                <id>0x1153</id> 
+                <category>Animations\Magical Sparkles</category> 
+        </item>
+
+	<item id="f53">
+		<id>0x0f53</id>
+	</item>
+
+	<item id="f54">
+		<id>0x0f54</id>
+	</item>
+
+	<item id="f55">
+		<id>0x0f55</id>
+	</item>
+
+	<item id="f56">
+		<id>0x0f56</id>
+	</item>
+
+	<item id="f57">
+		<id>0x0f57</id>
+	</item>
+
+	<item id="f58">
+		<id>0x0f58</id>
+	</item>
+
+	<item id="f59">
+		<id>0x0f59</id>
+	</item>
+
+	<item id="f5a">
+		<id>0x0f5a</id>
+	</item>
+
+	<item id="f5b">
+		<id>0x0f5b</id>
+	</item>
 </definitions>
+

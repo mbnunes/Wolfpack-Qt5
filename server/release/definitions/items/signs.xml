@@ -501,82 +501,102 @@
 
 	<item id="bf7">
 		<id>0x0bf7</id>
+		<category>Signs\Guild Signs\Shipwrights Guild (N/S)</category>
 	</item>
 
 	<item id="bf8">
 		<id>0x0bf8</id>
+		<category>Signs\Guild Signs\Shipwrights Guild (W/E)</category>
 	</item>
 
 	<item id="bf9">
 		<id>0x0bf9</id>
+		<category>Signs\Guild Signs\Tailors Guild (N/S)</category>
 	</item>
 
 	<item id="bfa">
 		<id>0x0bfa</id>
+		<category>Signs\Guild Signs\Tailors Guild (W/E)</category>
 	</item>
 
 	<item id="bfb">
 		<id>0x0bfb</id>
+		<category>Signs\Guild Signs\Thieves Guild (N/S)</category>
 	</item>
 
 	<item id="bfc">
 		<id>0x0bfc</id>
+		<category>Signs\Guild Signs\Thieves Guild (W/E)</category>
 	</item>
 
 	<item id="bfd">
 		<id>0x0bfd</id>
+		<category>Signs\Guild Signs\Rogues Guild (N/S)</category>
 	</item>
 
 	<item id="bfe">
 		<id>0x0bfe</id>
+		<category>Signs\Guild Signs\Rogues Guild (W/E)</category>
 	</item>
 
 	<item id="bff">
 		<id>0x0bff</id>
+		<category>Signs\Guild Signs\Assassins Guild (N/S)</category>
 	</item>
 
 	<item id="c00">
 		<id>0x0c00</id>
+		<category>Signs\Guild Signs\Assassins Guild (W/E)</category>
 	</item>
 
 	<item id="c01">
 		<id>0x0c01</id>
+		<category>Signs\Guild Signs\Tinkers Guild (N/S)</category>
 	</item>
 
 	<item id="c02">
 		<id>0x0c02</id>
+		<category>Signs\Guild Signs\Tinkers Guild (W/E)</category>
 	</item>
 
 	<item id="c03">
 		<id>0x0c03</id>
+		<category>Signs\Guild Signs\Warriors Guild (N/S)</category>
 	</item>
 
 	<item id="c04">
 		<id>0x0c04</id>
+		<category>Signs\Guild Signs\Warriors Guild (W/E)</category>
 	</item>
 
 	<item id="c05">
 		<id>0x0c05</id>
+		<category>Signs\Guild Signs\Cavalry Guild (N/S)</category>
 	</item>
 
 	<item id="c06">
 		<id>0x0c06</id>
+		<category>Signs\Guild Signs\Cavalry Guild (W/E)</category>
 	</item>
 
 	<item id="c07">
 		<id>0x0c07</id>
+		<category>Signs\Guild Signs\Fighters Guild (N/S)</category>
 	</item>
 
 	<item id="c08">
 		<id>0x0c08</id>
+		<category>Signs\Guild Signs\Fighters Guild (W/E)</category>
 	</item>
 
 	<item id="c09">
 		<id>0x0c09</id>
+		<category>Signs\Guild Signs\Merchants Guild (N/S)</category>
 	</item>
 
 	<item id="c0a">
 		<id>0x0c0a</id>
+		<category>Signs\Guild Signs\Merchants Guild (W/E)</category>
 	</item>
 
 	<item id="c0b">

@@ -9,7 +9,7 @@
 =================================================================
 -->
 <definitions>
-	<!-- Water Trough -->
+	<!-- Stablemaster -->
 	<item id="b41">
 		<id>0x0b41</id>
 		<category>Decoration\Professions\Stablemaster\Water Trough (N/S) (1/2)</category>
@@ -28,5 +28,745 @@
 	<item id="b44">
 		<id>0x0b44</id>
 		<category>Decoration\Professions\Stablemaster\Water Trough (W/E) (2/2)</category>
+	</item>
+
+	<item id="f31">
+		<id>0x0f31</id>
+		<category>Decoration\Professions\Stablemaster\Twig (N/S)</category>
+	</item>
+
+	<item id="f32">
+		<id>0x0f32</id>
+		<category>Decoration\Professions\Stablemaster\Twig (W/E)</category>
+	</item>
+
+	<item id="f34">
+		<id>0x0f34</id>
+		<category>Decoration\Professions\Stablemaster\Hay 1</category>
+	</item>
+
+	<item id="f35">
+		<id>0x0f35</id>
+		<category>Decoration\Professions\Stablemaster\Hay 2</category>
+	</item>
+
+	<item id="f36">
+		<id>0x0f36</id>
+		<category>Decoration\Professions\Stablemaster\Sheaf of Hay 1</category>
+	</item>
+
+	<item id="f37">
+		<id>0x0f37</id>
+		<category>Decoration\Professions\Stablemaster\Saddle (N/S)</category>
+	</item>
+
+	<item id="f38">
+		<id>0x0f38</id>
+		<category>Decoration\Professions\Stablemaster\Saddle (W/E)</category>
+	</item>
+
+	<!-- Fishing Decoration -->
+	<item id="dc8">
+		<id>0x0dc8</id>
+		<category>Decoration\Professions\Fisher\Fishing Net 1</category>
+	</item>
+
+	<item id="dc9">
+		<id>0x0dc9</id>
+		<category>Decoration\Professions\Fisher\Fishing Net 2</category>
+	</item>
+
+	<item id="dca">
+		<id>0x0dca</id>
+		<category>Decoration\Professions\Fisher\Fishing Net 3</category>
+	</item>
+
+	<item id="dcb">
+		<id>0x0dcb</id>
+		<category>Decoration\Professions\Fisher\Fishing Weight 1</category>
+	</item>
+
+	<item id="dcc">
+		<id>0x0dcc</id>
+		<category>Decoration\Professions\Fisher\Fishing Weight 2</category>
+	</item>
+
+	<item id="dcd">
+		<id>0x0dcd</id>
+		<category>Decoration\Professions\Fisher\Fishing Weight 3</category>
+	</item>
+
+	<item id="dce">
+		<id>0x0dce</id>
+		<category>Decoration\Professions\Fisher\Fishing Weight 4</category>
+	</item>
+
+	<item id="dcf">
+		<id>0x0dcf</id>
+		<category>Decoration\Professions\Fisher\Fishing Weight 5</category>
+	</item>
+
+	<item id="dd0">
+		<id>0x0dd0</id>
+		<category>Decoration\Professions\Fisher\Fishing Net 4</category>
+	</item>
+
+	<item id="dd1">
+		<id>0x0dd1</id>
+		<category>Decoration\Professions\Fisher\Fishing Net 5</category>
+	</item>
+
+	<item id="dd2">
+		<id>0x0dd2</id>
+		<category>Decoration\Professions\Fisher\Fishing Net 6</category>
+	</item>
+
+	<item id="dd3">
+		<id>0x0dd3</id>
+		<category>Decoration\Professions\Fisher\Fishing Net 7</category>
+	</item>
+
+	<item id="dd4">
+		<id>0x0dd4</id>
+		<category>Decoration\Professions\Fisher\Fishing Net 8</category>
+	</item>
+
+	<item id="dd5">
+		<id>0x0dd5</id>
+		<category>Decoration\Professions\Fisher\Fishing Net 9</category>
+	</item>
+
+	<item id="dd6">
+		<id>0x0dd6</id>
+		<category>Decoration\Professions\Fisher\Small Fish 1</category>
+	</item>
+
+	<item id="dd7">
+		<id>0x0dd7</id>
+		<category>Decoration\Professions\Fisher\Small Fish 2</category>
+	</item>
+
+	<item id="dd8">
+		<id>0x0dd8</id>
+		<category>Decoration\Professions\Fisher\Small Fish 3</category>
+	</item>
+
+	<item id="dd9">
+		<id>0x0dd9</id>
+		<category>Decoration\Professions\Fisher\Small Fish 4</category>
+	</item>
+
+	<!-- Tailorer -->
+	<item id="def">
+		<id>0x0def</id>
+		<category>Decoration\Professions\Tailorer\Raw Cotton</category>
+	</item>
+
+	<item id="df6">
+		<id>0x0df6</id>
+		<category>Decoration\Professions\Tailorer\Knitting (N/S)</category>
+	</item>
+
+	<item id="df7">
+		<id>0x0df7</id>
+		<category>Decoration\Professions\Tailorer\Knitting (W/E)</category>
+	</item>
+
+	<item id="ec6">
+		<id>0x0ec6</id>
+		<category>Decoration\Professions\Tailorer\Dress Form (N/S)</category>
+	</item>
+
+	<item id="ec7">
+		<id>0x0ec7</id>
+		<category>Decoration\Professions\Tailorer\Dress Form (W/E)</category>
+	</item>
+
+	<!-- Fletcher -->
+	<item id="dfa">
+		<id>0x0dfa</id>
+		<category>Decoration\Professions\Fletcher\Feathers 1</category>
+	</item>
+
+	<item id="dfb">
+		<id>0x0dfb</id>
+		<category>Decoration\Professions\Fletcher\Feathers 2</category>
+	</item>
+
+	<!-- Barber -->
+	<item id="dfc">
+		<id>0x0dfc</id>
+		<category>Decoration\Professions\Barber\Barber Scissors (W/E)</category>
+	</item>
+
+	<item id="dfd">
+		<id>0x0dfd</id>
+		<category>Decoration\Professions\Barber\Barber Scissors (N/S)</category>
+	</item>
+
+	<item id="dfe">
+		<id>0x0dfe</id>
+		<category>Decoration\Professions\Barber\Cut Hair</category>
+	</item>
+
+	<item id="dff">
+		<id>0x0dff</id>
+		<category>Decoration\Professions\Barber\Wig 1 (N/S)</category>
+	</item>
+
+	<item id="e00">
+		<id>0x0e00</id>
+		<category>Decoration\Professions\Barber\Wig 1 (W/E)</category>
+	</item>
+
+	<item id="e01">
+		<id>0x0e01</id>
+		<category>Decoration\Professions\Barber\Wig 2 (N/S)</category>
+	</item>
+
+	<item id="e02">
+		<id>0x0e02</id>
+		<category>Decoration\Professions\Barber\Wig 2 (W/E)</category>
+	</item>
+
+	<item id="e03">
+		<id>0x0e03</id>
+		<category>Decoration\Professions\Barber\Wig 3 (N/S)</category>
+	</item>
+
+	<item id="e04">
+		<id>0x0e04</id>
+		<category>Decoration\Professions\Barber\Wig 3 (W/E)</category>
+	</item>
+
+	<item id="e05">
+		<id>0x0e05</id>
+		<category>Decoration\Professions\Barber\Wig Stand 1 (N/S)</category>
+	</item>
+
+	<item id="e06">
+		<id>0x0e06</id>
+		<category>Decoration\Professions\Barber\Wig Stand 1 (W/E)</category>
+	</item>
+
+	<item id="e07">
+		<id>0x0e07</id>
+		<category>Decoration\Professions\Barber\Wig Stand 2 (N/S)</category>
+	</item>
+
+	<item id="e08">
+		<id>0x0e08</id>
+		<category>Decoration\Professions\Barber\Wig Stand 2 (W/E)</category>
+	</item>
+
+	<item id="e09">
+		<id>0x0e09</id>
+		<category>Decoration\Professions\Barber\Wig 4 (N/S)</category>
+	</item>
+
+	<item id="e0a">
+		<id>0x0e0a</id>
+		<category>Decoration\Professions\Barber\Wig 4 (W/E)</category>
+	</item>
+
+	<item id="e0b">
+		<id>0x0e0b</id>
+		<category>Decoration\Professions\Barber\Wig 5 (N/S)</category>
+	</item>
+
+	<item id="e0c">
+		<id>0x0e0c</id>
+		<category>Decoration\Professions\Barber\Wig 5 (W/E)</category>
+	</item>
+
+	<item id="e0d">
+		<id>0x0e0d</id>
+		<category>Decoration\Professions\Barber\Wig 6 (N/S)</category>
+	</item>
+
+	<item id="e0e">
+		<id>0x0e0e</id>
+		<category>Decoration\Professions\Barber\Wig 6 (W/E)</category>
+	</item>
+
+	<!-- Barkeeper -->
+	<item id="e12">
+		<id>0x0e12</id>
+		<category>Decoration\Professions\Barkeeper\Chessmen 1</category>
+	</item>
+
+	<item id="e13">
+		<id>0x0e13</id>
+		<category>Decoration\Professions\Barkeeper\Chessmen 2</category>
+	</item>
+
+	<item id="e14">
+		<id>0x0e14</id>
+		<category>Decoration\Professions\Barkeeper\Chessmen 3</category>
+	</item>
+
+	<item id="e15">
+		<id>0x0e15</id>
+		<category>Decoration\Professions\Barkeeper\Cards 1</category>
+	</item>
+
+	<item id="e16">
+		<id>0x0e16</id>
+		<category>Decoration\Professions\Barkeeper\Cards 2</category>
+	</item>
+
+	<item id="e17">
+		<id>0x0e17</id>
+		<category>Decoration\Professions\Barkeeper\Cards 3</category>
+	</item>
+
+	<item id="e18">
+		<id>0x0e18</id>
+		<category>Decoration\Professions\Barkeeper\Cards 4</category>
+	</item>
+
+	<item id="e19">
+		<id>0x0e19</id>
+		<category>Decoration\Professions\Barkeeper\Cards 5</category>
+	</item>
+
+	<item id="e1a">
+		<id>0x0e1a</id>
+		<category>Decoration\Professions\Barkeeper\Checkers 1</category>
+	</item>
+
+	<item id="e1b">
+		<id>0x0e1b</id>
+		<category>Decoration\Professions\Barkeeper\Checkers 2</category>
+	</item>
+
+	<item id="e1c">
+		<id>0x0e1c</id>
+		<category>Decoration\Professions\Barkeeper\Backgammon Board</category>
+	</item>
+
+	<!-- Healer -->
+	<item id="e22">
+		<id>0x0e22</id>
+		<category>Decoration\Professions\Healer\Bloody Bandages</category>
+	</item>
+
+	<item id="ee9">
+		<id>0x0ee9</id>
+		<category>Decoration\Professions\Healer\Clean Bandages</category>
+	</item>
+
+	<item id="e23">
+		<id>0x0e23</id>
+		<category>Decoration\Professions\Healer\Bloody Water</category>
+	</item>
+
+	<!-- Alchemist -->
+	<item id="e24">
+		<id>0x0e24</id>
+		<category>Decoration\Professions\Alchemist\Empty Vials</category>
+	</item>
+
+	<item id="e25">
+		<id>0x0e25</id>
+		<category>Decoration\Professions\Alchemist\Bottle 1</category>
+	</item>
+
+	<item id="e26">
+		<id>0x0e26</id>
+		<category>Decoration\Professions\Alchemist\Bottle 2</category>
+	</item>
+
+	<item id="e27">
+		<id>0x0e27</id>
+		<category>Decoration\Professions\Alchemist\Bottle 3</category>
+	</item>
+
+	<item id="e28">
+		<id>0x0e28</id>
+		<category>Decoration\Professions\Alchemist\Bottle 4</category>
+	</item>
+
+	<item id="e29">
+		<id>0x0e29</id>
+		<category>Decoration\Professions\Alchemist\Bottle 5</category>
+	</item>
+
+	<item id="e2a">
+		<id>0x0e2a</id>
+		<category>Decoration\Professions\Alchemist\Bottle 6</category>
+	</item>
+
+	<item id="e2b">
+		<id>0x0e2b</id>
+		<category>Decoration\Professions\Alchemist\Bottle 7</category>
+	</item>
+
+	<item id="e2c">
+		<id>0x0e2c</id>
+		<category>Decoration\Professions\Alchemist\Bottle 8</category>
+	</item>
+
+	<item id="e44">
+		<id>0x0e44</id>
+		<category>Decoration\Professions\Alchemist\Empty Jars 1</category>
+	</item>
+
+	<item id="e45">
+		<id>0x0e45</id>
+		<category>Decoration\Professions\Alchemist\Empty Jars 2</category>
+	</item>
+
+	<item id="e46">
+		<id>0x0e46</id>
+		<category>Decoration\Professions\Alchemist\Empty Jars 3</category>
+	</item>
+
+	<item id="e47">
+		<id>0x0e47</id>
+		<category>Decoration\Professions\Alchemist\Empty Jars 4</category>
+	</item>
+
+	<item id="e48">
+		<id>0x0e48</id>
+		<category>Decoration\Professions\Alchemist\Full Jars 1</category>
+	</item>
+
+	<item id="e49">
+		<id>0x0e49</id>
+		<category>Decoration\Professions\Alchemist\Full Jars 2</category>
+	</item>
+
+	<item id="e4a">
+		<id>0x0e4a</id>
+		<category>Decoration\Professions\Alchemist\Full Jars 3</category>
+	</item>
+
+	<item id="e4b">
+		<id>0x0e4b</id>
+		<category>Decoration\Professions\Alchemist\Full Jars 4</category>
+	</item>
+
+	<item id="e4c">
+		<id>0x0e4c</id>
+		<category>Decoration\Professions\Alchemist\Jars 1</category>
+	</item>
+
+	<item id="e4d">
+		<id>0x0e4d</id>
+		<category>Decoration\Professions\Alchemist\Jars 2</category>
+	</item>
+
+	<item id="e4e">
+		<id>0x0e4e</id>
+		<category>Decoration\Professions\Alchemist\Jars 3</category>
+	</item>
+
+	<item id="e4f">
+		<id>0x0e4f</id>
+		<category>Decoration\Professions\Alchemist\Jars 4</category>
+	</item>
+
+	<item id="efb">
+		<id>0x0efb</id>
+		<category>Decoration\Professions\Alchemist\Bottle 9</category>
+	</item>
+
+	<item id="efc">
+		<id>0x0efc</id>
+		<category>Decoration\Professions\Alchemist\Bottle 10</category>
+	</item>
+
+	<item id="efd">
+		<id>0x0efd</id>
+		<category>Decoration\Professions\Alchemist\Bottle 11</category>
+	</item>
+
+	<item id="efe">
+		<id>0x0efe</id>
+		<category>Decoration\Professions\Alchemist\Bottle 12</category>
+	</item>
+
+	<item id="eff">
+		<id>0x0eff</id>
+		<category>Decoration\Professions\Alchemist\Bottle 13</category>
+	</item>
+
+	<item id="f00">
+		<id>0x0f00</id>
+		<category>Decoration\Professions\Alchemist\Bottle 14</category>
+	</item>
+
+	<item id="f01">
+		<id>0x0f01</id>
+		<category>Decoration\Professions\Alchemist\Bottle 15</category>
+	</item>
+
+	<item id="f02">
+		<id>0x0f02</id>
+		<category>Decoration\Professions\Alchemist\Bottle 16</category>
+	</item>
+
+	<item id="f03">
+		<id>0x0f03</id>
+		<category>Decoration\Professions\Alchemist\Bottle 17</category>
+	</item>
+
+	<item id="f04">
+		<id>0x0f04</id>
+		<category>Decoration\Professions\Alchemist\Bottle 18</category>
+	</item>
+
+	<!-- Gipsy -->
+	<item id="e2d">
+		<id>0x0e2d</id>
+		<category>Decoration\Professions\Gipsy\Crystal Ball 1</category>
+	</item>
+
+	<item id="e2e">
+		<id>0x0e2e</id>
+		<category>Decoration\Professions\Gipsy\Crystal Ball 2</category>
+	</item>
+
+	<item id="e2f">
+		<id>0x0e2f</id>
+		<category>Decoration\Professions\Gipsy\Crystal Ball 3</category>
+	</item>
+
+	<item id="e30">
+		<id>0x0e30</id>
+		<category>Decoration\Professions\Gipsy\Crystal Ball 4</category>
+	</item>
+
+	<!-- Musician -->
+	<item id="eb5">
+		<id>0x0eb5</id>
+		<category>Decoration\Professions\Musician\Music Stand 1</category>
+	</item>
+
+	<item id="eb6">
+		<id>0x0eb6</id>
+		<category>Decoration\Professions\Musician\Music Stand 2</category>
+	</item>
+
+	<item id="eb7">
+		<id>0x0eb7</id>
+		<category>Decoration\Professions\Musician\Music Stand 3</category>
+	</item>
+
+	<item id="eb8">
+		<id>0x0eb8</id>
+		<category>Decoration\Professions\Musician\Music Stand 4</category>
+	</item>
+
+	<item id="eb9">
+		<id>0x0eb9</id>
+		<category>Decoration\Professions\Musician\Music Stand 5</category>
+	</item>
+
+	<item id="eba">
+		<id>0x0eba</id>
+		<category>Decoration\Professions\Musician\Music Stand 6</category>
+	</item>
+
+	<item id="ebb">
+		<id>0x0ebb</id>
+		<category>Decoration\Professions\Musician\Music Stand 7</category>
+	</item>
+
+	<item id="ebc">
+		<id>0x0ebc</id>
+		<category>Decoration\Professions\Musician\Music Stand 8</category>
+	</item>
+
+	<item id="ebd">
+		<id>0x0ebd</id>
+		<category>Decoration\Professions\Musician\Music Sheet 1</category>
+	</item>
+
+	<item id="ebe">
+		<id>0x0ebe</id>
+		<category>Decoration\Professions\Musician\Music Sheet 2</category>
+	</item>
+
+	<item id="ebf">
+		<id>0x0ebf</id>
+		<category>Decoration\Professions\Musician\Music Sheet 3</category>
+	</item>
+
+	<item id="ec0">
+		<id>0x0ec0</id>
+		<category>Decoration\Professions\Musician\Music Sheet 4</category>
+	</item>
+
+	<!-- Jewelier -->
+	<item id="f0f">
+		<id>0x0f0f</id>
+		<category>Decoration\Professions\Jeweler\Star Sapphire 1</category>
+	</item>
+
+	<item id="f10">
+		<id>0x0f10</id>
+		<category>Decoration\Professions\Jeweler\Emerald 1</category>
+	</item>
+
+	<item id="f11">
+		<id>0x0f11</id>
+		<category>Decoration\Professions\Jeweler\Sapphire 1</category>
+	</item>
+
+	<item id="f12">
+		<id>0x0f12</id>
+		<category>Decoration\Professions\Jeweler\Sapphire 2</category>
+	</item>
+
+	<item id="f13">
+		<id>0x0f13</id>
+		<category>Decoration\Professions\Jeweler\Ruby 1</category>
+	</item>
+
+	<item id="f14">
+		<id>0x0f14</id>
+		<category>Decoration\Professions\Jeweler\Ruby 2</category>
+	</item>
+
+	<item id="f15">
+		<id>0x0f15</id>
+		<category>Decoration\Professions\Jeweler\Citrine 1</category>
+	</item>
+
+	<item id="f16">
+		<id>0x0f16</id>
+		<category>Decoration\Professions\Jeweler\Amethyst 1</category>
+	</item>
+
+	<item id="f17">
+		<id>0x0f17</id>
+		<category>Decoration\Professions\Jeweler\Amethyst 2</category>
+	</item>
+
+	<item id="f18">
+		<id>0x0f18</id>
+		<category>Decoration\Professions\Jeweler\Tourmaline 1</category>
+	</item>
+
+	<item id="f19">
+		<id>0x0f19</id>
+		<category>Decoration\Professions\Jeweler\Sapphire 3</category>
+	</item>
+
+	<item id="f1a">
+		<id>0x0f1a</id>
+		<category>Decoration\Professions\Jeweler\Ruby 3</category>
+	</item>
+
+	<item id="f1b">
+		<id>0x0f1b</id>
+		<category>Decoration\Professions\Jeweler\Star Sapphire 2</category>
+	</item>
+
+	<item id="f1c">
+		<id>0x0f1c</id>
+		<category>Decoration\Professions\Jeweler\Ruby 4</category>
+	</item>
+
+	<item id="f1d">
+		<id>0x0f1d</id>
+		<category>Decoration\Professions\Jeweler\Ruby 5</category>
+	</item>
+
+	<item id="f1e">
+		<id>0x0f1e</id>
+		<category>Decoration\Professions\Jeweler\Tourmaline 2</category>
+	</item>
+
+	<item id="f1f">
+		<id>0x0f1f</id>
+		<category>Decoration\Professions\Jeweler\Sapphire 4</category>
+	</item>
+
+	<item id="f20">
+		<id>0x0f20</id>
+		<category>Decoration\Professions\Jeweler\Tourmaline 3</category>
+	</item>
+
+	<item id="f21">
+		<id>0x0f21</id>
+		<category>Decoration\Professions\Jeweler\Star Sapphire 3</category>
+	</item>
+
+	<item id="f22">
+		<id>0x0f22</id>
+		<category>Decoration\Professions\Jeweler\Amethyst 3</category>
+	</item>
+
+	<item id="f23">
+		<id>0x0f23</id>
+		<category>Decoration\Professions\Jeweler\Citrine 2</category>
+	</item>
+
+	<item id="f24">
+		<id>0x0f24</id>
+		<category>Decoration\Professions\Jeweler\Citrine 3</category>
+	</item>
+
+	<item id="f25">
+		<id>0x0f25</id>
+		<category>Decoration\Professions\Jeweler\Amber</category>
+	</item>
+
+	<item id="f26">
+		<id>0x0f26</id>
+		<category>Decoration\Professions\Jeweler\Diamond 1</category>
+	</item>
+
+	<item id="f27">
+		<id>0x0f27</id>
+		<category>Decoration\Professions\Jeweler\Diamond 2</category>
+	</item>
+
+	<item id="f28">
+		<id>0x0f28</id>
+		<category>Decoration\Professions\Jeweler\Diamond 3</category>
+	</item>
+
+	<item id="f29">
+		<id>0x0f29</id>
+		<category>Decoration\Professions\Jeweler\Diamond 4</category>
+	</item>
+
+	<item id="f2a">
+		<id>0x0f2a</id>
+		<category>Decoration\Professions\Jeweler\Ruby 6</category>
+	</item>
+
+	<item id="f2b">
+		<id>0x0f2b</id>
+		<category>Decoration\Professions\Jeweler\Ruby 7</category>
+	</item>
+
+	<item id="f2c">
+		<id>0x0f2c</id>
+		<category>Decoration\Professions\Jeweler\Citrine 4</category>
+	</item>
+
+	<item id="f2d">
+		<id>0x0f2d</id>
+		<category>Decoration\Professions\Jeweler\Tourmaline 4</category>
+	</item>
+
+	<item id="f2e">
+		<id>0x0f2e</id>
+		<category>Decoration\Professions\Jeweler\Amethyst 4</category>
+	</item>
+
+	<item id="f2f">
+		<id>0x0f2f</id>
+		<category>Decoration\Professions\Jeweler\Emerald 2</category>
+	</item>
+
+	<item id="f30">
+		<id>0x0f30</id>
+		<category>Decoration\Professions\Jeweler\Diamond 5</category>
 	</item>
 </definitions>

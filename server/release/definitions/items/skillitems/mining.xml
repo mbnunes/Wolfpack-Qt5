@@ -9,13 +9,20 @@
 <definitions>
 	<!-- pickaxe -->
 	<item id="e85">
-		<name>pickaxe</name>
-		<id>0x0E85</id>
+		<id>0x0e85</id>
 		<durability>50</durability>
 		<value>25</value>
 		<decay/>
+		<type>1104</type>
+		<category>Skill Items\Mining\Pickaxe (W/E)</category>
 	</item>
-	
+
+	<item id="e86">
+		<inherit id="e85" />
+		<id>0x0e86</id>
+		<category>Skill Items\Mining\Pickaxe (N/S)</category>
+	</item>
+
 	<!-- forge -->
 	<item id="fb1">
 		<name>forge</name>
@@ -23,12 +30,19 @@
 		<nodecay />
 	</item>
 
-        <!-- Shovel -->
+    <!-- Shovel -->
 	<item id="f39">
-		<name>shovel</name>
 		<id>0x0f39</id>
+		<type>1104</type>
 		<durability>30</durability>
 		<value>15</value>
 		<decay/>
+		<category>Skill Items\Mining\Shovel (W/E)</category>
+	</item>
+
+	<item id="f3a">
+		<inherit id="f39" />
+		<id>0x0f3a</id>
+		<category>Skill Items\Mining\Shovel (N/S)</category>
 	</item>
 </definitions>

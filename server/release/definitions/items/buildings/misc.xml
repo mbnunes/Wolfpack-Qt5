@@ -438,4 +438,198 @@
 		<id>0x0b48</id>
 		<category>Decoration\Vases\Vase 4</category>
 	</item>	
+
+	<!-- Campfire -->
+	<item id="de3">
+		<id>0x0de3</id>
+		<category>Decoration\Campfire\Campfire</category>
+	</item>
+
+	<item id="de9">
+		<id>0x0de9</id>
+		<category>Decoration\Campfire\Embers</category>
+	</item>
+
+	<item id="dea">
+		<id>0x0dea</id>
+		<category>Decoration\Campfire\Burned Wood</category>
+	</item>
+
+	<!-- Glowing Runes -->
+	<item id="e5c">
+		<id>0x0e5c</id>
+		<category>Decoration\Glowing Runes\Rune 1</category>
+	</item>
+
+	<item id="e5f">
+		<id>0x0e5f</id>
+		<category>Decoration\Glowing Runes\Rune 2</category>
+	</item>
+
+	<item id="e62">
+		<id>0x0e62</id>
+		<category>Decoration\Glowing Runes\Rune 3</category>
+	</item>
+
+	<item id="e65">
+		<id>0x0e65</id>
+		<category>Decoration\Glowing Runes\Rune 4</category>
+	</item>
+
+	<item id="e68">
+		<id>0x0e68</id>
+		<category>Decoration\Glowing Runes\Rune 5</category>
+	</item>
+
+	<!-- Wall Cracks -->
+        <item id="1B01"> 
+                <id>0x1B01</id> 
+                <category>Buildings\Cracks\Floor Cracks 1</category> 
+        </item> 
+ 
+        <item id="1B02"> 
+                <id>0x1B02</id> 
+                <category>Buildings\Cracks\Floor Cracks 2</category> 
+        </item> 
+ 
+        <item id="1B03"> 
+                <id>0x1B03</id> 
+                <category>Buildings\Cracks\Floor Cracks 3</category> 
+        </item> 
+ 
+        <item id="1B04"> 
+                <id>0x1B04</id> 
+                <category>Buildings\Cracks\Floor Cracks 4</category> 
+        </item> 
+ 
+        <item id="1B05"> 
+                <id>0x1B05</id> 
+                <category>Buildings\Cracks\Floor Cracks 5</category> 
+        </item> 
+ 
+        <item id="1B06"> 
+                <id>0x1B06</id> 
+                <category>Buildings\Cracks\Floor Cracks 6</category> 
+        </item> 
+ 
+        <item id="1B07"> 
+                <id>0x1B07</id> 
+                <category>Buildings\Cracks\Floor Cracks 7</category> 
+        </item> 
+ 
+        <item id="1B08"> 
+                <id>0x1B08</id> 
+                <category>Buildings\Cracks\Floor Cracks 8</category> 
+        </item> 
+
+        <item id="1B6C"> 
+                <id>0x1B6C</id> 
+                <category>Buildings\Cracks\Wall Cracks 1</category> 
+        </item> 
+ 
+        <item id="1B6D"> 
+                <id>0x1B6D</id> 
+                <category>Buildings\Cracks\Wall Cracks 2</category> 
+        </item> 
+ 
+        <item id="1B6E"> 
+                <id>0x1B6E</id> 
+                <category>Buildings\Cracks\Wall Cracks 3</category> 
+        </item>
+
+	<!-- Paintings & Tapestry -->
+	<item id="e9f">
+		<id>0x0e9f</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 1</category> 
+	</item>
+
+	<item id="ea0">
+		<id>0x0ea0</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 2</category> 
+	</item>
+
+	<item id="ea1">
+		<id>0x0ea1</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 3</category> 
+	</item>
+
+	<item id="ea2">
+		<id>0x0ea2</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 4</category> 
+	</item>
+
+	<item id="ea3">
+		<id>0x0ea3</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 5</category> 
+	</item>
+
+	<item id="ea4">
+		<id>0x0ea4</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 6</category> 
+	</item>
+
+	<item id="ea5">
+		<id>0x0ea5</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 7</category> 
+	</item>
+
+	<item id="ea6">
+		<id>0x0ea6</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 8</category> 
+	</item>
+
+	<item id="ea7">
+		<id>0x0ea7</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 9</category> 
+	</item>
+
+	<item id="ea8">
+		<id>0x0ea8</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 10</category> 
+	</item>
+
+	<item id="eaa">
+		<id>0x0eaa</id>
+		<category>Buildings\Paintings &amp; Tapestry\Tapestry 1 (1/2)</category> 
+	</item>
+
+	<item id="eab">
+		<id>0x0eab</id>
+		<category>Buildings\Paintings &amp; Tapestry\Tapestry 1 (2/2)</category> 
+	</item>
+
+	<item id="eac">
+		<id>0x0eac</id>
+		<category>Buildings\Paintings &amp; Tapestry\Tapestry 2 (1/2)</category> 
+	</item>
+
+	<item id="ead">
+		<id>0x0ead</id>
+		<category>Buildings\Paintings &amp; Tapestry\Tapestry 2 (2/2)</category> 
+	</item>
+
+	<item id="eae">
+		<id>0x0eae</id>
+		<category>Buildings\Paintings &amp; Tapestry\Tapestry 3 (1/2)</category> 
+	</item>
+
+	<item id="eaf">
+		<id>0x0eaf</id>
+		<category>Buildings\Paintings &amp; Tapestry\Tapestry 3 (2/2)</category> 
+	</item>
+
+	<item id="ec8">
+		<id>0x0ec8</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 11</category> 
+	</item>
+
+	<item id="ec9">
+		<id>0x0ec9</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 12</category> 
+	</item>
+
+   <item id="EE7">
+        <id>0xEE7</id>
+		<category>Buildings\Paintings &amp; Tapestry\Painting 12</category> 
+    </item>
 </definitions>

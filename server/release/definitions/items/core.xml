@@ -27,14 +27,6 @@
 		<weight>1.0</weight>
 	</item>
 	
-	<!-- Blank Scroll -->
-	<item id="e34">
-		<id>0x0e34</id>
-		<decay/>
-		<value>5</value>
-		<weight>.2</weight>
-	</item>
-	
 	<!-- Lockpick -->
 	<item id="14fb">
 		<id>0x14fb</id>

@@ -512,6 +512,36 @@
 		<category>Decoration\Bedroom\Untidy Double Bed 2 (W/E) (4/4)</category>
 	</item>
 
+	<item id="db0">
+		<id>0x0db0</id>
+		<category>Decoration\Bedroom\Untidy Double Bed (N/S) (1/4)</category>
+	</item>
+
+	<item id="db1">
+		<id>0x0db1</id>
+		<category>Decoration\Bedroom\Untidy Double Bed (N/S) (2/4)</category>
+	</item>
+
+	<item id="db2">
+		<id>0x0db2</id>
+		<category>Decoration\Bedroom\Untidy Double Bed 1 (N/S) (3/4)</category>
+	</item>
+
+	<item id="db3">
+		<id>0x0db3</id>
+		<category>Decoration\Bedroom\Untidy Double Bed 1 (N/S) (4/4)</category>
+	</item>
+
+	<item id="db4">
+		<id>0x0db4</id>
+		<category>Decoration\Bedroom\Untidy Double Bed 2 (N/S) (3/4)</category>
+	</item>
+
+	<item id="db5">
+		<id>0x0db5</id>
+		<category>Decoration\Bedroom\Untidy Double Bed 2 (N/S) (4/4)</category>
+	</item>
+
 	<item id="a92">
 		<id>0x0a92</id>
 		<category>Decoration\Bedroom\Folded Sheet 1</category>
@@ -1002,5 +1032,212 @@
 	<item id="b90">
 		<id>0x0b90</id>
 		<category>Decoration\Tables\Wooden Table 6 (N/S)</category>
+	</item>
+
+	<!-- Broken Furniture -->
+	<item id="c10">
+		<id>0x0c10</id>
+		<category>Decoration\Broken Furniture\Broken Chair 1 (N/S)</category>
+	</item>
+
+	<item id="c11">
+		<id>0x0c11</id>
+		<category>Decoration\Broken Furniture\Broken Chair 1 (W/E)</category>
+	</item>
+
+	<item id="c12">
+		<id>0x0c12</id>
+		<category>Decoration\Broken Furniture\Broken Armoire (W/E)</category>
+	</item>
+
+	<item id="c13">
+		<id>0x0c13</id>
+		<category>Decoration\Broken Furniture\Broken Armoire (N/S)</category>
+	</item>
+
+	<item id="c14">
+		<id>0x0c14</id>
+		<category>Decoration\Broken Furniture\Ruined Bookcase (N/S)</category>
+	</item>
+
+	<item id="c15">
+		<id>0x0c15</id>
+		<category>Decoration\Broken Furniture\Ruined Bookcase (W/E)</category>
+	</item>
+
+	<item id="c16">
+		<id>0x0c16</id>
+		<category>Decoration\Broken Furniture\Damaged Books</category>
+	</item>
+
+	<item id="c17">
+		<id>0x0c17</id>
+		<category>Decoration\Broken Furniture\Covered Chair (N/S)</category>
+	</item>
+
+	<item id="c18">
+		<id>0x0c18</id>
+		<category>Decoration\Broken Furniture\Covered Chair (W/E)</category>
+	</item>
+
+	<item id="c19">
+		<id>0x0c19</id>
+		<category>Decoration\Broken Furniture\Broken Chair 2 (N/S)</category>
+	</item>
+
+	<item id="c1a">
+		<id>0x0c1a</id>
+		<category>Decoration\Broken Furniture\Broken Chair 2 (W/E)</category>
+	</item>
+
+	<item id="c1b">
+		<id>0x0c1b</id>
+		<category>Decoration\Broken Furniture\Broken Chair 3 (N/S)</category>
+	</item>
+
+	<item id="c1c">
+		<id>0x0c1c</id>
+		<category>Decoration\Broken Furniture\Broken Chair 3 (W/E)</category>
+	</item>
+
+	<item id="c1d">
+		<id>0x0c1d</id>
+		<category>Decoration\Broken Furniture\Broken Chair 4 (W/E)</category>
+	</item>
+
+	<item id="c1e">
+		<id>0x0c1e</id>
+		<category>Decoration\Broken Furniture\Broken Chair 4 (N/S)</category>
+	</item>
+
+	<item id="c1f">
+		<id>0x0c1f</id>
+		<category>Decoration\Broken Furniture\Broken Clock</category>
+	</item>
+
+	<item id="c20">
+		<id>0x0c20</id>
+		<category>Decoration\Broken Furniture\Broken Dresser (W/E) (1/2)</category>
+	</item>
+
+	<item id="c21">
+		<id>0x0c21</id>
+		<category>Decoration\Broken Furniture\Broken Dresser (W/E) (2/2)</category>
+	</item>
+
+	<item id="c22">
+		<id>0x0c22</id>
+		<category>Decoration\Broken Furniture\Broken Dresser (N/S) (1/2)</category>
+	</item>
+
+	<item id="c23">
+		<id>0x0c23</id>
+		<category>Decoration\Broken Furniture\Broken Dresser (N/S) (2/2)</category>
+	</item>
+
+	<item id="c24">
+		<id>0x0c24</id>
+		<category>Decoration\Broken Furniture\Broken Furniture (N/S)</category>
+	</item>
+
+	<item id="c25">
+		<id>0x0c25</id>
+		<category>Decoration\Broken Furniture\Broken Furniture (W/E)</category>
+	</item>
+
+	<item id="c26">
+		<id>0x0c26</id>
+		<category>Decoration\Broken Furniture\Ruined Bed (W/E) (1/3)</category>
+	</item>
+
+	<item id="c27">
+		<id>0x0c27</id>
+		<category>Decoration\Broken Furniture\Ruined Bed (W/E) (2/3)</category>
+	</item>
+
+	<item id="c28">
+		<id>0x0c28</id>
+		<category>Decoration\Broken Furniture\Ruined Bed (W/E) (3/3)</category>
+	</item>
+
+	<item id="c29">
+		<id>0x0c29</id>
+		<category>Decoration\Broken Furniture\Ruined Bed (N/S) (1/3)</category>
+	</item>
+
+	<item id="c2a">
+		<id>0x0c2a</id>
+		<category>Decoration\Broken Furniture\Ruined Bed (N/S) (2/3)</category>
+	</item>
+
+	<item id="c2b">
+		<id>0x0c2b</id>
+		<category>Decoration\Broken Furniture\Ruined Bed (N/S) (3/3)</category>
+	</item>
+
+	<item id="c2c">
+		<id>0x0c2c</id>
+		<category>Decoration\Broken Furniture\Ruined Painting</category>
+	</item>
+
+	<item id="c2d">
+		<id>0x0c2d</id>
+		<category>Decoration\Broken Furniture\Debris 1</category>
+	</item>
+
+	<item id="c2e">
+		<id>0x0c2e</id>
+		<category>Decoration\Broken Furniture\Debris 2</category>
+	</item>
+
+	<item id="c2f">
+		<id>0x0c2f</id>
+		<category>Decoration\Broken Furniture\Debris 3</category>
+	</item>
+
+	<item id="c30">
+		<id>0x0c30</id>
+		<category>Decoration\Broken Furniture\Debris 4</category>
+	</item>
+
+	<item id="c31">
+		<id>0x0c31</id>
+		<category>Decoration\Broken Furniture\Sheets 1</category>
+	</item>
+
+	<item id="c32">
+		<id>0x0c32</id>
+		<category>Decoration\Broken Furniture\Sheets 2</category>
+	</item>
+
+	<item id="c33">
+		<id>0x0c33</id>
+		<category>Decoration\Broken Furniture\Sheets 3</category>
+	</item>
+
+	<item id="c34">
+		<id>0x0c34</id>
+		<category>Decoration\Broken Furniture\Sheets 4</category>
+	</item>
+
+	<item id="c35">
+		<id>0x0c35</id>
+		<category>Decoration\Broken Furniture\Sheets 5</category>
+	</item>
+
+	<item id="c36">
+		<id>0x0c36</id>
+		<category>Decoration\Broken Furniture\Sheets 6</category>
+	</item>
+
+	<!-- Peg Board -->
+	<item id="c39">
+		<id>0x0c39</id>
+		<category>Decoration\Peg Board\Peg Board (N/S)</category>
+	</item>
+
+	<item id="c3a">
+		<id>0x0c3a</id>
+		<category>Decoration\Peg Board\Peg Board (W/E)</category>
 	</item>
 </definitions>

@@ -209,4 +209,9 @@
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 3 (On)</category>
 	</item>
+
+	<item id="e31">
+		<id>0x0e31</id>
+		<category>Decoration\Lightsources\Brazier</category>
+	</item>
 </definitions>

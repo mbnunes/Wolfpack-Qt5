@@ -12,6 +12,7 @@
 		<id>0xe9c</id>
 		<decay/>
 		<value>25</value>
+		<category>Skill Items\Music\Drum</category>
 	</item>
 	
 	<!-- Tamberine -->
@@ -19,6 +20,7 @@
 		<id>0xe9d</id>
 		<decay/>
 		<value>25</value>
+		<category>Skill Items\Music\Tamberine</category>
 	</item>
 	
 	<!-- Tamberine with Ribbon -->
@@ -26,6 +28,7 @@
 		<id>0xe9e</id>
 		<decay/>
 		<value>25</value>
+		<category>Skill Items\Music\Tamberine with Ribbon</category>
 	</item>
 	
 	<!-- Standing Harp -->
@@ -33,6 +36,7 @@
 		<id>0xeb1</id>
 		<decay/>
 		<value>25</value>
+		<category>Skill Items\Music\Standing Harp</category>
 	</item>
 	
 	<!-- Harp -->
@@ -40,6 +44,7 @@
 		<id>0xeb2</id>
 		<decay/>
 		<value>25</value>
+		<category>Skill Items\Music\Harp</category>
 	</item>
 	
 	<!-- Lute -->
@@ -47,6 +52,7 @@
 		<id>0xeb3</id>
 		<decay/>
 		<value>25</value>
+		<category>Skill Items\Music\Lute (N/S)</category>
 	</item>
 	
 	<!-- Lute -->
@@ -54,6 +60,7 @@
 		<id>0xeb4</id>
 		<decay/>
 		<value>25</value>
+		<category>Skill Items\Music\Lute (W/E)</category>
 	</item>
 
 </definitions>

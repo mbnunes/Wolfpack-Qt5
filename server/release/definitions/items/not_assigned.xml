@@ -2,6 +2,21 @@
 	These items are not available ingame.
 -->
 <definitions>
+	<!-- Arrow used for "flying" animation -->
+	<item id="f42">
+		<id>0x0f42</id>
+	</item>
+
+	<!-- Broken Knive -->
+	<item id="ec1">
+		<id>0x0ec1</id>
+	</item>
+
+	<!-- Duplicate Kindling -->
+	<item id="de2">
+		<id>0xde2</id>
+	</item>	
+
 	<!-- Duplicate ("Nightstand") -->
 	<item id="b36">
 		<id>0x0b36</id>

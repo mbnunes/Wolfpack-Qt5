@@ -776,4 +776,35 @@ dc1 bis dc3
                 <id>0x1AA2</id>
                 <category>Vegetation\Plants\Hops cones</category>
         </item>
+
+	<!-- Growing Plants -->
+	<item id="c68">
+		<id>0x0c68</id>
+		<category>Vegetation\Growing\Sprouts 1</category>
+	</item>
+
+	<item id="c69">
+		<id>0x0c69</id>
+		<category>Vegetation\Growing\Sprouts 2</category>
+	</item>
+
+	<item id="c6f">
+		<id>0x0c6f</id>
+		<category>Vegetation\Growing\Onions</category>
+	</item>
+
+	<item id="c76">
+		<id>0x0c76</id>
+		<category>Vegetation\Growing\Carrots</category>
+	</item>
+
+	<item id="c7d">
+		<id>0x0c7d</id>
+		<category>Vegetation\Growing\Corn Stalk 1</category>
+	</item>
+
+	<item id="c7e">
+		<id>0x0c7e</id>
+		<category>Vegetation\Growing\Corn Stalk 2</category>
+	</item>
 </definitions>

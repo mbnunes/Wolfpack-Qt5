@@ -69,4 +69,37 @@
 		<id>0x13f9</id>
 		<category>Weapons\Staffs\Gnarled Staff W/E</category>
 	</item>	
+
+	<!-- Shepherds Crook -->
+	<item id="e81">
+		<twohanded />
+		<attack min="10" max="30" />
+		<durability>30</durability>
+		<decay />
+		<value>65</value>
+		<requires type="str">20</requires>
+		<speed>33</speed>
+		<type>1003</type>
+		<weight>3.00</weight>
+		<id>0x0e81</id>
+		<category>Weapons\Staffs\Shepherds Crook (W/E)</category>
+	</item>
+
+	<item id="e82">
+		<inherit id="e81" />
+		<id>0x0e82</id>
+		<category>Weapons\Staffs\Shepherds Crook (W/E)</category>
+	</item>
+
+	<!-- Pitchfork -->
+	<item id="e87">
+		<id>0x0e87</id>
+		<category>Weapons\Staffs\Pitchfork (W/E)</category>
+	</item>
+
+	<item id="e88">
+		<inherit id="e87" />
+		<id>0x0e88</id>
+		<category>Weapons\Staffs\Pitchfork (N/S)</category>
+	</item>
 </definitions>

@@ -7,11 +7,4 @@
 =================================================================
 -->
 <definitions>
-	<!-- Bandages -->
-	<item id="e21">
-		<id>0xe21</id>
-		<decay/>
-		<value>6</value>
-	</item>
-
 </definitions>
