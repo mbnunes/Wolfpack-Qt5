@@ -1444,38 +1444,45 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x12:// Ext. Command
-			
-					if (buffer[s][3]==(unsigned char)'\xC7') // Action
+					unsigned int i ;
+					
+					// Switch on the sub commands
+					switch (static_cast<unsigned char>(buffer[s][3]))
 					{
-						if (pc_currchar->onhorse) // Ripper
-                				    return; // Ripper
-
-						if (!(strcmp((char*)&buffer[s][4],"bow"))) action(s, 0x20);
-						if (!(strcmp((char*)&buffer[s][4],"salute"))) action(s, 0x21);
-						break; // Morrolan 
-					} 
-					else if (buffer[s][3]=='\x24') // Skill
-					{
-						int i=4;
+					
+					case 0xC7: 
+					// Action
+						if (!pc_currchar->onhorse) 
+						{
+							if (!(strcmp((char*)&buffer[s][4],"bow"))) action(s, 0x20);
+							if (!(strcmp((char*)&buffer[s][4],"salute"))) action(s, 0x21);
+						}
+						break;
+					
+					case 0x24:
+					// skill
+						i=4;
 						while ( (buffer[s][i]!=' ') && (++loopexit < MAXLOOPS) ) i++;
 						buffer[s][i]=0;
 						if(false == Races[pc_currchar->race]->CheckSkillUse(str2num((char*)&buffer[s][4]))) // RACE skill check!
 						{
 							sysmessage(s,"Your race can not use this skill!");
-							break;
 						}
-						Skills->SkillUse(s, str2num((char*)&buffer[s][4]));
+						else
+							Skills->SkillUse(s, str2num((char*)&buffer[s][4]));
 						break;
-					} 
-					else if ((buffer[s][3]=='\x27')||(buffer[s][3]=='\x56'))  // Spell
-					{
+					
+					case 0x56:
+					case 0x27:
+					/*		
+					// Spell
 						P_ITEM pj = NULL;
 						P_ITEM pBackpack = Packitem(pc_currchar);
+				
 						if (pBackpack != NULL) //lb
 						{
 							serial = pBackpack->serial;
 							vector<SERIAL> vecContainer = contsp.getData(serial);
-							unsigned int i;
 							for (i = 0; i < vecContainer.size(); i++)
 							{
 								P_ITEM ci = FindItemBySerial(vecContainer[i]);
@@ -1491,7 +1498,6 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						{
 							serial = pc_currchar->serial;
 							vector<SERIAL> vecContainer = contsp.getData(serial);
-							unsigned int i;
 							for (i = 0; i < vecContainer.size(); i++)
 							{
 								P_ITEM ci = FindItemBySerial(vecContainer[i]);
@@ -1511,7 +1517,9 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 								book=(book*10)+(buffer[s][5]-0x30);
 							}
 						}
-						if (pj != NULL && Magic->CheckBook(((book-1)/8)+1, (book-1)%8, pj)) 
+						if (pj != NULL && Magic->CheckBook(((book-1)/8)+1, (book-1)%8, pj))
+						{
+						
 							if (pc_currchar->priv2&2) // REAL cant cast while frozen bugfix, lord binary
 							{
 								sysmessage(s, "You cannot cast spells while frozen.");
@@ -1525,20 +1533,25 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 								currentSpellType[s]=0;
 								Magic->newSelectSpell2Cast( s, book );
 							}
-					}
-					else 
-					{
-						sysmessage(s, "You don't have that spell."); 
-					}
-
-					if ((buffer[s][2]=='\x05')&&(buffer[s][3]=='\x43'))  // Open spell book
-					{
-						P_ITEM pi = FindItemBySerPtr(buffer[s]+1);
-						Magic->SpellBook(s, pi);
+						}
+						
+						else 
+						{
+							sysmessage(s, "You don't have that spell."); 
+						}
+						*/
+						break ;
+					
+					case 0x43:
+					// Open Spell Book
+						
+						Magic->SpellBook(s );
 						break;
-					} else if ((buffer[s][2]=='\x05')&&(buffer[s][3]=='\x58'))  // Door macro
-					{
+					case 0x58:
+					// door Macro
 						// search for closest door and open it ...			
+						break;
+					default:
 						break;
 					}
 					break; // Lord Binary !!!!

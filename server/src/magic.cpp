@@ -119,6 +119,10 @@ int cMagic::InitSpells(void)
 //			memorized spells) to player when doubleclicked.
 
 //##ModelId=3C5D930E02FD
+void cMagic::SpellBook(UOXSOCKET s)
+{
+	SpellBook(s,FindItemBySerPtr(buffer[s])) ;
+}
 void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 {
 	if (pi == NULL)

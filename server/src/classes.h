@@ -218,6 +218,7 @@ public:
 	void PoisonDamage(P_CHAR pc, int poison);
 	void CheckFieldEffects2(unsigned int currenttime, P_CHAR pc, char timecheck);
 	int InitSpells( void );
+	void SpellBook(UOXSOCKET s) ;
 	void SpellBook(UOXSOCKET s, P_ITEM pi);
 	int  SpellsInBook(P_ITEM pi);
 	char GateCollision(P_CHAR pc_player);
