@@ -44,16 +44,19 @@ protected:
 	QByteArray compressedBuffer;
 	QByteArray rawPacket;
 	void compress();
+	void assign( cUOPacket& );
 
 public:
 	cUOPacket( QByteArray );
 	cUOPacket( Q_UINT32 );
+	cUOPacket( cUOPacket& );
 	cUOPacket( Q_UINT8, Q_UINT32 );
 	virtual ~cUOPacket() {}
 
 	virtual QByteArray compressed();
 	virtual QByteArray uncompressed() { return rawPacket; }
 	char& operator [](unsigned int);
+	cUOPacket& operator=( cUOPacket& p );
 	int   getInt( unsigned int );
 	short getShort( unsigned int);
 	void  setInt( unsigned int, unsigned int );

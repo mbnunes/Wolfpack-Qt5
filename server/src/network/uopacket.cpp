@@ -41,7 +41,12 @@ cUOPacket::cUOPacket( QByteArray d )
 	rawPacket = d.copy();
 }
 
-cUOPacket::cUOPacket( Q_UINT32 size )  : rawPacket( size )
+cUOPacket::cUOPacket( cUOPacket& p ) // copy constructor
+{
+	assign(p);
+}
+
+cUOPacket::cUOPacket( Q_UINT32 size ) : rawPacket( size )
 {
 	rawPacket.fill( (char)0 );
 }
@@ -50,6 +55,13 @@ cUOPacket::cUOPacket( Q_UINT8 packetId, Q_UINT32 size ) : rawPacket( size )
 {
 	rawPacket.fill( (char)0 );
 	rawPacket[0] = packetId;
+}
+
+void cUOPacket::assign( cUOPacket& p)
+{
+	rawPacket = p.rawPacket.copy();
+	if ( p.compressedBuffer.size() )
+		compressedBuffer = p.compressedBuffer.copy();
 }
 
 // Compresses the packet
@@ -149,11 +161,6 @@ QByteArray cUOPacket::compressed()
 	return compressedBuffer;
 }
 
-char& cUOPacket::operator[] ( unsigned int index )
-{
-	return rawPacket.at( index );
-}
-
 int cUOPacket::getInt( unsigned int pos )
 {
 	int value = rawPacket.at(pos+3) & 0x000000FF;
@@ -165,8 +172,8 @@ int cUOPacket::getInt( unsigned int pos )
 
 short cUOPacket::getShort( unsigned int pos )
 {
-	short value = (Q_INT8)rawPacket.at(pos+1);
-	value |= rawPacket.at(pos) << 8;
+	short value = (Q_INT16)(rawPacket.at(pos+1)) & 0x00FF;
+	value |= ((Q_INT16)(rawPacket.at(pos)) << 8) & 0xFF00;
 	return value;
 }
 
@@ -182,6 +189,17 @@ void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 {
 	rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
 	rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
+}
+
+char& cUOPacket::operator[] ( unsigned int index )
+{
+	return rawPacket.at( index );
+}
+
+cUOPacket& cUOPacket::operator=( cUOPacket& p )
+{
+	assign(p);
+	return *this;
 }
 
 // Leave as last method, please
@@ -222,3 +240,4 @@ QString cUOPacket::dump( const QByteArray &data )
 	}
 	return dumped;
 }
+
