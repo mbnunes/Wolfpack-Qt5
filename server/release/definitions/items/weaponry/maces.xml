@@ -106,7 +106,7 @@
 	<item id="143d">
 		<inherit id="mace_base" />
 		<name>mace</name>
-		<id>0x0f5c</id>
+		<id>0x143d</id>
 		<onehanded />
 		<decay />
 		<nodye />

@@ -1,11 +1,11 @@
 <definitions>
-	<script id="training_dummy"	type="python" module="training_dummy" />
-	<script id="pickpocket_dip"	type="python" module="pickpocket_dip" />
+	<script id="training_dummy" 	type="python" module="training_dummy" />
+	<script id="pickpocket_dip" 	type="python" module="pickpocket_dip" />
 	<script id="archery_butte" 	type="python" module="archery_butte" />
 	<script id="wall_clock" 	type="python" module="wall_clock" />
 	<script id="slotmachine" 	type="python" module="slotmachine" />
 	<script id="kindling" 		type="python" module="kindling" />
-	<script id="check"			type="python" module="check" />
+	<script id="check"		type="python" module="check" />
 	<script id="lightsource"	type="python" module="lightsource" />
 	<script id="weapons_blades"	type="python" module="weapons.blades" />
 	<script id="scissors" 		type="python" module="scissors" />
@@ -14,6 +14,9 @@
 	<script id="yarn" 			type="python" module="yarn" />
 	<script id="potions" 		type="python" module="potions" />
 	<script id="shrink" 		type="python" module="shrink" />
+	<script id="commoditydeed" type="python" module="commoditydeed" />
+	<script id="clothing_bless_deed" type="python" module="clothing_bless_deed" />
+	<script id="item_bless_deed"	type="python" module="item_bless_deed" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
@@ -40,8 +43,14 @@
 	<script id="tooltip"		type="python" module="tooltip" />
 
 	<!-- Skills -->
-	<script id="skills.anatomy"			type="python" module="skills.anatomy" />
-	<script id="skills.animallore"		type="python" module="skills.animallore" />
+	<script id="anatomy"		type="python" module="skills.anatomy" />
+	<script id="animallore"		type="python" module="skills.animallore" />
+	<script id="fishing"		type="python" module="skills.fishing" />
+	<script id="armslore"		type="python" module="skills.armslore" />
+	<script id="skills.anatomy"	type="python" module="skills.anatomy" />
+	<script id="skills.animallore"	type="python" module="skills.animallore" />
+	<script id="skills.fishing"	type="python" module="skills.fishing" />
+	<script id="skills.armslore"	type="python" module="skills.armslore" />
 
 	<!-- Load *LAST* thats important -->
 	<script id="errorhandler"	type="python" module="errorhandler" />

@@ -34,7 +34,7 @@
 		<weight>5</weight>
 		<buyprice>66</buyprice>
 		<sellprice>33</sellprice>
-		<category>Armor\Non Magical\Shields\buckler</category>
+		<category>Armor\Shields\buckler</category>
 	</item>
 
 	<!-- wooden shield -->
@@ -50,7 +50,7 @@
 		<weight>5</weight>
 		<buyprice>64</buyprice>
 		<sellprice>32</sellprice>
-		<category>Armor\Non Magical\Shields\wooden shield</category>
+		<category>Armor\Shields\wooden shield</category>
 	</item>
 
 	<!-- metal shield -->
@@ -67,7 +67,7 @@
 		<weight>6</weight>
 		<buyprice>98</buyprice>
 		<sellprice>49</sellprice>
-		<category>Armor\Non Magical\Shields\metal shield</category>
+		<category>Armor\Shields\metal shield</category>
 	</item>
 
 	<!-- bronze shield -->
@@ -84,7 +84,7 @@
 		<weight>27</weight>
 		<buyprice>100</buyprice>
 		<sellprice>50</sellprice>
-		<category>Armor\Non Magical\Shields\bronze shield</category>
+		<category>Armor\Shields\bronze shield</category>
 	</item>
 
 	<!-- wooden kite shield -->
@@ -101,7 +101,7 @@
 		<weight>7</weight>
 		<buyprice>121</buyprice>
 		<sellprice>60</sellprice>
-		<category>Armor\Non Magical\Shields\wooden kite</category>
+		<category>Armor\Shields\wooden kite</category>
 	</item>
 
 	<!-- metal kite shield -->
@@ -118,7 +118,7 @@
 		<weight>5</weight>
 		<buyprice>135</buyprice>
 		<sellprice>67</sellprice>
-		<category>Armor\Non Magical\Shields\metal kite</category>
+		<category>Armor\Shields\metal kite</category>
 	</item>
 
 	<!-- heater -->
@@ -135,7 +135,7 @@
 		<weight>8</weight>
 		<buyprice>175</buyprice>
 		<sellprice>87</sellprice>
-		<category>Armor\Non Magical\Shields\heater</category>
+		<category>Armor\Shields\heater</category>
 	</item>
 
 	<!-- order shield -->
@@ -146,12 +146,12 @@
 		<defense>2.2</defense>
 		<durability>108</durability>
 		<id>0x1BC4</id>
-		<requires type='str'>0</requires> 
+		<requires type='str'>95</requires> 
 		<restock>0</restock>
 		<weight>5</weight>
 		<buyprice>0</buyprice>
 		<sellprice>0</sellprice>
-		<category>Armor\Non Magical\Shields\order shield</category>
+		<category>Armor\Shields\order shield</category>
 	</item>
 
 	<!-- chaos shield -->
@@ -162,11 +162,11 @@
 		<defense>2.4</defense>
 		<durability>108</durability>
 		<id>0x1BC3</id>
-		<requires type='str'>0</requires> 
+		<requires type='str'>95</requires> 
 		<restock>0</restock>
 		<weight>5</weight>
 		<buyprice>0</buyprice>
 		<sellprice>0</sellprice>
-		<category>Armor\Non Magical\Shields\chaos shield</category>
+		<category>Armor\Shields\chaos shield</category>
 	</item>
 </definitions>

@@ -28,7 +28,7 @@
 
 	<!-- Large Battle Axe -->
 	<item id="13fb">
-		<id>0x13fa</id>
+		<id>0x13fb</id>
 		<name>large battle axe</name>
 		<twohanded />
 		<decay />

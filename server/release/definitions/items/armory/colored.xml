@@ -104,7 +104,7 @@
 	<item id="dull_copper_armor_chain_coif">
 		<inherit id="13bb" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Chainmail\Coif</category>
+		<category>Armor\Dull Copper\Chainmail\Coif</category>
 	</item>
 
 	<item id="bronze_armor_chain_coif">
@@ -165,7 +165,7 @@
 	<item id="dull_copper_armor_chain_leggings">
 		<inherit id="13be" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Chainmail\Leggings</category>
+		<category>Armor\Dull Copper\Chainmail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_chain_leggings">
@@ -226,7 +226,7 @@
 	<item id="dull_copper_armor_chain_tunic">
 		<inherit id="13bf" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Chainmail\Tunic</category>
+		<category>Armor\Dull Copper\Chainmail\Tunic</category>
 	</item>
 
 	<item id="bronze_armor_chain_tunic">
@@ -288,7 +288,7 @@
 	<item id="dull_copper_armor_plate_female">
 		<inherit id="1c04" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Platemail\Female Breastplate</category>
+		<category>Armor\Dull Copper\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="bronze_armor_plate_female">
@@ -349,7 +349,7 @@
 	<item id="dull_copper_armor_plate_male">
 		<inherit id="1415" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Platemail\Breastplate</category>
+		<category>Armor\Dull Copper\Platemail\Breastplate</category>
 	</item>
 
 	<item id="bronze_armor_plate_male">
@@ -410,7 +410,7 @@
 	<item id="dull_copper_armor_plate_arms">
 		<inherit id="1410" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Platemail\Arms</category>		
+		<category>Armor\Dull Copper\Platemail\Arms</category>		
 	</item>
 
 	<item id="bronze_armor_plate_arms">
@@ -471,7 +471,7 @@
 	<item id="dull_copper_armor_plate_gloves">
 		<inherit id="1414" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Platemail\Gloves</category>
+		<category>Armor\Dull Copper\Platemail\Gloves</category>
 	</item>
 
 	<item id="bronze_armor_plate_gloves">
@@ -532,7 +532,7 @@
 	<item id="dull_copper_armor_plate_gorget">
 		<inherit id="1413" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Platemail\Gorget</category>
+		<category>Armor\Dull Copper\Platemail\Gorget</category>
 	</item>
 
 	<item id="bronze_armor_plate_gorget">
@@ -593,7 +593,7 @@
 	<item id="dull_copper_armor_plate_helmet">
 		<inherit id="1412" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Platemail\Helmet</category>
+		<category>Armor\Dull Copper\Platemail\Helmet</category>
 	</item>
 
 	<item id="bronze_armor_plate_helmet">
@@ -654,7 +654,7 @@
 	<item id="dull_copper_armor_plate_leggings">
 		<inherit id="1411" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Platemail\Leggings</category>
+		<category>Armor\Dull Copper\Platemail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_plate_leggings">
@@ -716,7 +716,7 @@
 	<item id="dull_copper_armor_ring_gloves">
 		<inherit id="13eb" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Ringmail\Gloves</category>
+		<category>Armor\Dull Copper\Ringmail\Gloves</category>
 	</item>
 
 	<item id="bronze_armor_ring_gloves">
@@ -777,7 +777,7 @@
 	<item id="dull_copper_armor_ring_leggings">
 		<inherit id="13f0" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Ringmail\Leggings</category>
+		<category>Armor\Dull Copper\Ringmail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_ring_leggings">
@@ -838,7 +838,7 @@
 	<item id="dull_copper_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Ringmail\Sleeves</category>
+		<category>Armor\Dull Copper\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="bronze_armor_ring_sleeves">
@@ -899,7 +899,7 @@
 	<item id="dull_copper_armor_ring_tunic">
 		<inherit id="13ec" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Ringmail\Tunic</category>
+		<category>Armor\Dull Copper\Ringmail\Tunic</category>
 	</item>
 
 	<item id="bronze_armor_ring_tunic">
@@ -961,7 +961,7 @@
 	<item id="dull_copper_helmets_bascinet">
 		<inherit id="140c" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Helmets\Bascinet</category>
+		<category>Armor\Dull Copper\Helmets\Bascinet</category>
 	</item>
 
 	<item id="bronze_helmets_bascinet">
@@ -1022,7 +1022,7 @@
 	<item id="dull_copper_helmets_nose">
 		<inherit id="140e" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Helmets\Nose</category>
+		<category>Armor\Dull Copper\Helmets\Nose</category>
 	</item>
 
 	<item id="bronze_helmets_nose">
@@ -1083,7 +1083,7 @@
 	<item id="dull_copper_helmets_helmet">
 		<inherit id="140a" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Helmets\Helmet</category>
+		<category>Armor\Dull Copper\Helmets\Helmet</category>
 	</item>
 
 	<item id="bronze_helmets_helmet">
@@ -1144,7 +1144,7 @@
 	<item id="dull_copper_helmets_close">
 		<inherit id="1408" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Helmets\Close</category>
+		<category>Armor\Dull Copper\Helmets\Close</category>
 	</item>
 
 	<item id="bronze_helmets_close">
@@ -1206,7 +1206,7 @@
 	<item id="dull_copper_shields_buckler">
 		<inherit id="1b73" />		
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Shields\Buckler</category>
+		<category>Armor\Dull Copper\Shields\Buckler</category>
 	</item>
 
 	<item id="bronze_shields_buckler">
@@ -1267,7 +1267,7 @@
 	<item id="dull_copper_shields_heater">
 		<inherit id="1b76" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Shields\Heater</category>
+		<category>Armor\Dull Copper\Shields\Heater</category>
 	</item>
 
 	<item id="bronze_shields_heater">
@@ -1328,7 +1328,7 @@
 	<item id="dull_copper_shields_shield">
 		<inherit id="1b7b" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Shields\Shield</category>
+		<category>Armor\Dull Copper\Shields\Shield</category>
 	</item>
 
 	<item id="bronze_shields_shield">
@@ -1389,7 +1389,7 @@
 	<item id="dull_copper_shields_kite">
 		<inherit id="1b74" />
 		<dull_copper_armor />
-		<category>ArmorDull Copper\Shields\Kite</category>
+		<category>Armor\Dull Copper\Shields\Kite</category>
 	</item>
 
 	<item id="bronze_shields_kite">

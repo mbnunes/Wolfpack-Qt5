@@ -1,0 +1,30 @@
+<!-- =================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Viper                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+
+<definitions>
+	<item id="commodity_deed">
+		<id>0x14f0</id>
+		<color>0x47</color>
+		<newbie />
+		<events>commoditydeed</events>
+	</item>
+
+	<item id="item_bless_deed">
+		<id>0x14f0</id>
+		<color>0x00</color>
+		<newbie />
+		<events>item_bless_deed</events>
+	</item>
+
+	<item id="clothing_bless_deed">
+		<id>0x14f0</id>
+		<color>0x00</color>
+		<newbie />
+		<events>clothing_bless_deed</events>
+	</item>
+</definitions>
