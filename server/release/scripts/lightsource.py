@@ -129,7 +129,7 @@ def onDropOnItem( container, item ):
 		wolfpack.queuecode(update_light, (item.serial, ))
 		dropper.soundeffect(0x226)
 
-	return True
+	return False
 
 def onDropOnChar( char, item ):
 
