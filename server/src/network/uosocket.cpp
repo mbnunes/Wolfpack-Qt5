@@ -1546,8 +1546,6 @@ void cUOSocket::setPlayer( P_PLAYER pChar )
 */
 void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 {
-	*(unsigned char*)0 = 0;
-
 	if( !_player )
 		return;
 
