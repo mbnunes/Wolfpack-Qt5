@@ -131,6 +131,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
 			ProcessNode( NodeList.item( i ).toElement() );
 		}
 	}
+
 	return true;
 }
 
@@ -177,7 +178,15 @@ void WPDefManager::load( void )
 	clConsole.PrepareProgress( "Loading Definitions" );
 
 	if( ImportSections( "definitions.xml" )	)
+	{
 		clConsole.ProgressDone();
+		clConsole.send( QString("Item Sections:           %1\n").arg( Items.size() ) );
+		clConsole.send( QString("Npc Sections:            %1\n").arg( NPCs.size() ) );
+		clConsole.send( QString("Menu Sections:           %1\n").arg( Menus.size() ) );
+		clConsole.send( QString("PrivLevel Sections:      %1\n").arg( PrivLevels.size() ) );
+		clConsole.send( QString("Spell Sections:          %1\n").arg( Spells.size() ) );
+		clConsole.send( QString("List Sections:           %1\n").arg( StringLists.size() ) );
+	}
 	else
 		clConsole.ProgressFail();
 }

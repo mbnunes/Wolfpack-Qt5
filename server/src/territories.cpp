@@ -44,7 +44,7 @@
 void cTerritory::init( void )
 {
 	cBaseRegion::init();
-	midilist_ = 0;
+	midilist_ = "";
 	setGuarded( false );
 	setMark( true );
 	setGate( true );
@@ -110,9 +110,9 @@ void cTerritory::processNode( const QDomElement &Tag )
 	else if( TagName == "guardowner" )
 		this->guardowner_ = Value;
 
-	// <midilist>1</midilist>
+	// <midilist>MIDI_COMBAT</midilist>
 	else if( TagName == "midilist" )
-		this->midilist_ = Value.toInt();
+		this->midilist_ = Value;
 
 	// <guarded />
 	else if( TagName == "guarded" )

@@ -1358,8 +1358,8 @@ void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& o
 	// well, we wouldn't be in Walking() if we weren't trying to move!
 	if ((pc->pos.x != oldpos.x) || (pc->pos.y != oldpos.y))
 	{
-		if ( pc->isPlayer())
-			objTeleporters( pc );   // ripper
+//		if ( pc->isPlayer())
+//			objTeleporters( pc );   // ripper
 		teleporters( pc );
 	}
 }

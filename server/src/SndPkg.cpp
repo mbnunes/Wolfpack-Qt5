@@ -49,6 +49,7 @@
 #include "network.h"
 #include "classes.h"
 #include "territories.h"
+#include "wpdefmanager.h"
 
 #undef  DBGFILE
 #define DBGFILE "SndPkg.cpp"
@@ -1736,49 +1737,39 @@ void statwindow(int s, P_CHAR pc) // Opens the status window
 
 void updates(UOXSOCKET s) // Update Window
 {
-	int x, y, pos, j;
-	char temp[512];
+	UI32 x, y = 10;
 
-	openscript("misc.scp");
-	if (!i_scripts[misc_script]->find("MOTD"))
+#pragma note("new xml format: convert section MOTD to <list> with id MOTD")
+	QStringList motdText = DefManager->getList( "MOTD" );
+	QStringList::iterator it = motdText.begin();
+	while( it != motdText.end() )
 	{
-		closescript();
-		return;
+		y += (*it).length();
+		it++;
 	}
-	pos=ftell(scpfile);
-	x=-1;
-	y=-2;
-	unsigned long loopexit=0;
-	do
-	{
-		read1();
-		x++;
-		y+=strlen((char*)script1)+1;
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-	y+=10;
-	fseek(scpfile, pos, SEEK_SET);
+	x = motdText.size();
+	
 	updscroll[1]=y>>8;
 	updscroll[2]=y%256;
 	updscroll[3]=2;
 	updscroll[8]=(y-10)>>8;
 	updscroll[9]=(y-10)%256;
 	Xsend(s, updscroll, 10);
-	for (j=0;j<x;j++)
+	
+	it = motdText.begin();
+	while( it != motdText.end() )
 	{
-		read1();
-		sprintf(temp, "%s ", script1);
-		Xsend(s, temp, strlen(temp));
+		Xsend(s, (*it).latin1(), (*it).length() );
+		it++;
 	}
-	closescript();
 }
 
 void tips(int s, int i) // Tip of the day window
 {
-	int x, y, pos, j;
+	int x, y
 	char temp[512];
 
-	if (i==0) i=1;
+	if (i==0) i=1; // WTF IS THAT i ??? impossible immortal indisposed ???
 	openscript("misc.scp");
 	if (!i_scripts[misc_script]->find("TIPS"))
 	{

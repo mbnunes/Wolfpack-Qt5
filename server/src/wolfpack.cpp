@@ -261,12 +261,12 @@ void signal_handler(int signal)
 	switch (signal)
 	{
 	case SIGHUP:
-		loadspawnregions();
-		loadregions();
-		Commands->loadPrivLvlCmds();
 		SrvParams->reload();
 		Network->LoadHosts_deny();
 		DefManager->reload();
+		cAllSpawnRegions::getInstance()->reload();
+		cAllTerritories::getInstance()->reload();
+		Commands->loadPrivLvlCmds();
 		ScriptManager->reload();
 		break ;
 		
@@ -2609,12 +2609,12 @@ void checkkey ()
 			case 'R':
 				clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
 
+				SrvParams->reload(); // Reload wolfpack.xml
+				DefManager->reload(); //Reload Definitions
 				cAllSpawnRegions::getInstance()->reload();
 				cAllTerritories::getInstance()->reload();
 				Commands->loadPrivLvlCmds();
 
-				SrvParams->reload(); // Reload wolfpack.xml
-				DefManager->reload(); //Reload Definitions
 				ScriptManager->reload(); // Reload Scripts
 
 				Network->LoadHosts_deny(); // This will be integrated into the normal definition system soon
@@ -4323,54 +4323,22 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 
 void dosocketmidi(int s)
 {
-	Script *pScp=i_scripts[regions_script];
-	if (!pScp->Open()) return;
-	//openscript("regions.scp");
-
-	char sect[512];
 	P_CHAR pc_currchar = currchar[s];
 	cTerritory* Region = cAllTerritories::getInstance()->region( pc_currchar->region );
+	UI32 midi = 0;
 
 	if (pc_currchar->war)
 	{
-		strcpy(sect, "MIDILIST COMBAT");
+#pragma note("new xml format: convert section MIDILIST COMBAT to <list> with id MIDI_COMBAT")
+		midi = DefManager->getRandomListEntry( "MIDI_COMBAT" ).toInt();
 	}
 	else if( Region != NULL )
 	{
-			sprintf(sect, "MIDILIST %i", Region->midilist());
+		midi = DefManager->getRandomListEntry( Region->midilist() ).toInt();
 	}
 
-	if (Region != NULL && Region->midilist() != 0 && !pScp->find(sect))
-	{
-		//closescript();
-		pScp->Close();
-		return;
-	}
-
-	char midiarray[50];
-	int i=0;
-	unsigned long loopexit=0;
-	do
-	{
-		//read2();
-		pScp->NextLineSplitted();
-		if (script1[0]!='}')
-		{
-			if (!(strcmp("MIDI",(char*)script1)))
-			{
-				midiarray[i]=str2num(script2);
-				i++;
-			}
-		}
-	}
-	while ((script1[0]!='}') && (++loopexit < MAXLOOPS) );
-	pScp->Close();
-	//closescript();
-	if (i!=0)
-	{
-		i=rand()%(i);
-		playmidi(s, 0, midiarray[i]);
-	}
+	if( midi != 0 )
+		playmidi(s, 0, midi);
 }
 
 int numbitsset( int number )

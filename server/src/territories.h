@@ -56,7 +56,7 @@ public:
 
 	// Getters
 	QString		name( void )			{ return name_; }
-	UI32		midilist( void )		{ return midilist_; }
+	QString		midilist( void )		{ return midilist_; }
 	bool		isGuarded( void )		{ return flags_ & 0x01; }
 	bool		allowsMark( void )		{ return flags_ & 0x02; }
 	bool		allowsGate( void )		{ return flags_ & 0x04; }
@@ -82,7 +82,7 @@ private:
 	virtual void processNode( const QDomElement &Tag );
 
 private:
-	UI32					midilist_;		// midilist to play
+	QString					midilist_;		// midilist to play
 
 	UI08					flags_;			// flags like guarded, mark allowed, etc. (see getters)
 	

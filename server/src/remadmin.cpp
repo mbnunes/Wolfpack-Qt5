@@ -56,6 +56,7 @@
 #include "srvparams.h"
 #include "network.h"
 #include "classes.h"
+#include "wpdefmanager.h"
 
 #include <iostream>
 
@@ -518,7 +519,8 @@ void racProcessInput(int s)
 			racPrintf(s, "WOLFPACK: Reloading accounts file...");
 			Accounts->LoadAccounts( false );
 			racPrintf(s, "Done!\r\n");
-			racPrintf(s, "WOLFPACK: Reloading Server.scp, Spawn.scp, and Regions.scp....");
+			racPrintf(s, "WOLFPACK: Reloading Script, SpawnRegions and Regions....");
+			DefManager->reload();
 			cAllSpawnRegions::getInstance()->reload();
 			cAllTerritories::getInstance()->reload();
 			Commands->loadPrivLvlCmds();
