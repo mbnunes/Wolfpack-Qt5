@@ -90,6 +90,9 @@ using namespace std;
 //
 // signal handlers
 #if defined( Q_OS_UNIX )
+
+#include <signal.h>
+
 void signal_handler(int signal)
 {
 	cCharIterator iter;
