@@ -346,9 +346,14 @@ def onUse(char, item, norange=0):
 	char.objectdelay = 0
 
 	# In Range?
-	if not norange and not char.gm and not char.canreach(item, 2):
-		char.message( "You cannot reach the handle from here." )
-		return 1
+	if not char.cansee( item ):
+		char.socket.sysmessage( "You cannot see the door from here." )
+		return True
+	elif ( not char.canreach( item, 2 ) or char.distanceto( item ) > 2 ) and not \
+		( ( char.pos.z == item.pos.z ) or ( char.pos.z < item.pos.z and char.pos.z >= ( item.pos.z - 5) ) or \
+		( char.pos.z > item.pos.z and char.pos.z <= ( item.pos.z + 5) ) ):
+		char.socket.sysmessage( "You cannot reach the handle from here." )
+		return True
 
 	# Do we have a linked door, is this door not open?
 	if item.hastag('link') and not item.hastag('opened'):

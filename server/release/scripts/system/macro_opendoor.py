@@ -21,15 +21,16 @@ def openDoor( socket, packet ):
 		return 0
 
 	if not socket.player:
-		return 0
+		return False
 
 	char = socket.player
 	dir = char.direction
 	doors = wolfpack.items(char.pos.x + dirs[dir][0], char.pos.y + dirs[dir][1], char.pos.map, 0)
 
 	if not doors:
-		return 0
+		return False
 
+	opendoor = 0
 	reach = 0
 	for door in doors:
 		if char.pos.z == door.pos.z:
@@ -39,8 +40,7 @@ def openDoor( socket, packet ):
 		elif char.pos.z > door.pos.z and char.pos.z <= ( door.pos.z + 5):
 			reach = 1
 		if reach == 1:
-			events = door.events
-			for event in events:
+			for event in door.events:
 				if event == 'door':
 					opendoor = 1
 					break
