@@ -76,7 +76,7 @@ def onUse(player, item):
 		return True
 
 	dialog = wolfpack.gumps.cGump()
-	dialog.setCallback("spawngem.response")
+	dialog.setCallback(response)
 	dialog.setArgs([item.serial])
 
 	if item.hastag('spawndef'):

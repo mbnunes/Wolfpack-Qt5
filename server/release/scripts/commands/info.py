@@ -143,7 +143,7 @@ def charinfo( socket, char ):
 		return
 
 	gump = wolfpack.gumps.cGump()
-	gump.setCallback( "commands.info.charinfo_response" )
+	gump.setCallback( charinfo_response )
 	gump.setArgs( [char.serial] )
 
 	gump.startPage(0)
@@ -970,7 +970,7 @@ def iteminfo( socket, item ):
 		return False
 
 	gump = wolfpack.gumps.cGump()
-	gump.setCallback( "commands.info.iteminfo_response" )
+	gump.setCallback( iteminfo_response )
 	gump.setArgs( [item] )
 
 	gump.startPage(0)

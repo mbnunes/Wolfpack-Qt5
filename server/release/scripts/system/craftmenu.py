@@ -149,7 +149,7 @@ class CraftItemAction2(CraftAction):
 		gump = cGump()
 		gump.setType(self.parent.gumptype)
 		gump.setArgs(['%s:%u' % (self.parent.id, self.parent.subactions.index(self))] + arguments)
-		gump.setCallback("system.craftmenu.CraftActionResponse")
+		gump.setCallback(CraftActionResponse)
 
 		gump.addResizeGump(0, 0, 5054, 530, 417)
 		gump.addTiledGump(10, 10, 510, 22, 2624)

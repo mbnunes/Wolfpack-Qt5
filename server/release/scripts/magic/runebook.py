@@ -315,7 +315,7 @@ def sendGump(char, item):
 	
 	runebook.setArgs( [ item.serial ] )
 	runebook.setType( 0x87654322 )
-	runebook.setCallback( "magic.runebook.callback" )
+	runebook.setCallback( callback )
 
 	# send it
 	runebook.send( char )

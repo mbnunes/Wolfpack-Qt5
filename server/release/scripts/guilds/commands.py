@@ -11,7 +11,7 @@ import guilds.stone
 
 def commandGuilds(socket, command, arguments):
   dialog = wolfpack.gumps.cGump()
-  dialog.setCallback("guilds.commands.overview_response")
+  dialog.setCallback(overview_response)
   dialog.startPage(0)
   dialog.addResizeGump(64, 34, 9260, 464, 462)
   dialog.addGump(30, 33, 10421, 0)

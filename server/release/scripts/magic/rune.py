@@ -30,12 +30,12 @@ def onUse( char, item ):
 	# It needs to be on our body
 	if item.getoutmostchar() != char:
 		char.socket.sysmessage( "The rune needs to be in your posession to rename it." )
-		return 1
+		return True
 
 	# We only can rename marked runes
 	if item.gettag( 'marked' ) != 1:
 		char.socket.sysmessage( "This rune is not marked." )
-		return 1
+		return True
 
 	gump = cGump( 0, 0, 0, 50, 50 )
 	# Header
@@ -51,11 +51,11 @@ def onUse( char, item ):
 	gump.addButton( 43, 125, 2128, 2129, 1000 ) # Ok
 	gump.addButton( 110, 125, 2119, 2120, 0 ) # Cancel
 
-	gump.setCallback( "magic.rune.rename_callback" )
+	gump.setCallback( rename_callback )
 	gump.setArgs( [ item ] )
 	gump.send( char )
 
-	return 1
+	return True
 
 def rename_callback( char, args, response ):
 	if( response.button == 0 ):
@@ -103,10 +103,10 @@ def onSingleClick( item, char ):
 	# Blank rune
 	if item.gettag( 'marked' ) == 0:
 		char.socket.showspeech( item, "a Blank recall rune" )
-		return 1
+		return True
 	else:
 		char.socket.showspeech( item, "Rune to: " + item.name )
-		return 1
+		return True
 
 	# Override the internal name
 	return 0

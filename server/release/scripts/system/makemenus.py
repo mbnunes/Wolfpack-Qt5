@@ -156,7 +156,7 @@ class MakeItemAction(MakeAction):
 		gump = cGump()
 		gump.setType(self.parent.gumptype)
 		gump.setArgs(['%s:%u' % (self.parent.id, self.parent.subactions.index(self))] + arguments)
-		gump.setCallback("system.makemenus.MakeActionResponse")
+		gump.setCallback(MakeActionResponse)
 
 		gump.addResizeGump(0, 0, 5054, 530, 417)
 		gump.addTiledGump(10, 10, 510, 22, 2624)

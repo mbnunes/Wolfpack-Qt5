@@ -150,7 +150,7 @@ def onSpeech( listener, speaker, text, keywords ):
 	gump.addHtmlGump( 183, 292, 150, 20, '<basefont color="#333333">Rideable</basefont>' )
 
 
-	gump.setCallback( "speech.stablemaster.gump_callback" )
+	gump.setCallback( gump_callback )
 	gump.setArgs( [ listener.serial ] )
 	gump.send( speaker )
 

@@ -185,7 +185,7 @@ def guildMemberDetails(player, guild, char):
 
   # Show detail menu
   dialog = wolfpack.gumps.cGump()
-  dialog.setCallback("guilds.stone.guildMemberDetailsResponse")
+  dialog.setCallback(guildMemberDetailsResponse)
   dialog.setArgs([guild.serial, char.serial])
 
   dialog.startPage(0)
@@ -399,7 +399,7 @@ def guildMembers(player, guild):
     abbreviation = tr(' [%s]') % guild.abbreviation
 
   dialog = wolfpack.gumps.cGump()
-  dialog.setCallback("guilds.stone.guildMembersResponse")
+  dialog.setCallback(guildMembersResponse)
   dialog.setArgs([guild.serial])
 
   dialog.startPage(0)
@@ -513,7 +513,7 @@ def guildCanidatesOverview(player, guild):
     html += tr('<br><br>')
 
   dialog = wolfpack.gumps.cGump()
-  dialog.setCallback("guilds.stone.guildCanidatesOverviewResponse")
+  dialog.setCallback(guildCanidatesOverviewResponse)
   dialog.setArgs([guild.serial])
   dialog.startPage(0)
   dialog.addResizeGump(64, 34, 9260, 464, 462)
@@ -640,7 +640,7 @@ def guildCanidates(player, guild):
       abbreviation = tr(' [%s]') % guild.abbreviation
 
     dialog = wolfpack.gumps.cGump()
-    dialog.setCallback("guilds.stone.guildCanidatesResponse")
+    dialog.setCallback(guildCanidatesResponse)
     dialog.setArgs([guild.serial])
 
     dialog.startPage(0)
@@ -777,7 +777,7 @@ def guildProperties(player, guild):
 
   dialog = wolfpack.gumps.cGump()
   #dialog.setType(YOUR_TYPE_HERE)
-  dialog.setCallback("guilds.stone.guildPropertiesResponse")
+  dialog.setCallback(guildPropertiesResponse)
   dialog.setArgs([guild.serial])
 
   dialog.startPage(0)
@@ -921,7 +921,7 @@ def guildMembership(player, guild):
     abbreviation = tr(' [%s]') % guild.abbreviation
 
   dialog = wolfpack.gumps.cGump()
-  dialog.setCallback("guilds.stone.guildMembershipResponse")
+  dialog.setCallback(guildMembershipResponse)
   dialog.setArgs([guild.serial])
 
   dialog.startPage(0)
@@ -1028,7 +1028,7 @@ def mainMenu(player, guild):
   canidates = guild.canidates
 
   dialog = wolfpack.gumps.cGump()
-  dialog.setCallback("guilds.stone.mainMenuResponse")
+  dialog.setCallback(mainMenuResponse)
   dialog.setArgs([guild.serial])
   #dialog.setType(YOUR_TYPE_HERE)
 

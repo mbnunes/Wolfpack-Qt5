@@ -100,7 +100,7 @@ def onUse(player, item):
 		gump.addButton( 83, 150, 2128, 2129, 1000 ) # Ok
 		gump.addButton( 150, 150, 2119, 2120, 0 ) # Cancel
 
-		gump.setCallback( "gate.gate_callback" )
+		gump.setCallback( gate_callback )
 		gump.setArgs( [ item ] )
 		gump.send( player )
 		return 1

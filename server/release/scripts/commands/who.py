@@ -82,7 +82,7 @@ def showWhoGump(player, page):
 		offset += 24
 	
 	gump.setArgs( [ current_page ] )
-	gump.setCallback( "commands.who.callbackWho" )
+	gump.setCallback( callbackWho )
 	gump.send( player.socket )
 
 def callbackWho( char, args, choice ):
@@ -154,7 +154,7 @@ def details(char, player):
 	gump.addButton( 220, 200, 0xFA5, 0xFA7, 7 )
 	gump.addText( 250, 200, unicode( "Disconnect" ), 0x834 )
 	# Stuff and Send
-	gump.setCallback( "commands.who.callbackSocket" )
+	gump.setCallback( callbackSocket )
 	gump.setArgs( [ player.serial ] )
 	gump.send( char.socket )
 

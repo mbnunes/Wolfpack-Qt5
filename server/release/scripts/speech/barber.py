@@ -83,7 +83,7 @@ def changeHairHue(vendor, char, item, args):
 			gump.addText(278 + (j / 16) * 80, 52 + (j % 16) * 17, entries[i][0], entries[i][1] + j - 1)
 			gump.addRadioButton( 255 + (j / 16) * 80, 52 + (j % 16) * 17, 210, 211, j * len(entries) + i, False )
 	
-	gump.setCallback('speech.barber.changehairhue_response')
+	gump.setCallback(changehairhue_response)
 	gump.setArgs([vendor.serial, entries, layers, price])
 	gump.send(char)
 	
@@ -217,7 +217,7 @@ def changeHairStyle(vendor, char, item, args):
 			gump.addRadioButton( 40 + (xTable + 1) * offsetWidth, 240, 208, 209, i, False )
 			gump.addXmfHtmlGump( 65 + (xTable + 1) * offsetWidth, 240, 85, 35, 1011064, False, False) # Bald
 
-	gump.setCallback('speech.barber.hairstyle_response')
+	gump.setCallback(hairstyle_response)
 	gump.setArgs([vendor.serial, entries, facial, item[1]])
 	gump.send(char)
 		
@@ -354,7 +354,7 @@ def gump( listener, speaker ):
 
 	gump.setType(TYPE_BUYGUMP)
 	gump.setArgs([listener.serial])
-	gump.setCallback("speech.barber.gump_response")
+	gump.setCallback(gump_response)
 	gump.send(speaker)
 
 def gump_response(char, arguments, response):

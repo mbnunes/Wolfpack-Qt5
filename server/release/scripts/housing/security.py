@@ -91,7 +91,7 @@ def showGump(player, item):
 		dialog.addXmfHtmlGump( 45, 130, 150, 20, 1061626, False, False, 0x7FFF )	
 		
 	dialog.setArgs([item.serial])
-	dialog.setCallback("housing.security.callback")
+	dialog.setCallback(callback)
 	dialog.send(player)
 
 #

@@ -210,7 +210,7 @@ def sendGump( char, item ):
 
 
 	# set callback function and its arguments
-	gateGump.setCallback( "moongate.gateCallback" )
+	gateGump.setCallback( gateCallback )
 	# send it
 	gateGump.setArgs( [ item ] )
 

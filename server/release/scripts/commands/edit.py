@@ -63,7 +63,7 @@ def callback(player, arguments, target):
 #
 def showEditGump(player, target):
 	dialog = wolfpack.gumps.cGump()
-	dialog.setCallback("commands.edit.response")
+	dialog.setCallback(response)
 
 	items = []
 

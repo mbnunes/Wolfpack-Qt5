@@ -97,7 +97,7 @@ def taginfo_response(player, arguments, target):
 	tags = object.tags
 
 	dialog = wolfpack.gumps.cGump()
-	dialog.setCallback("commands.tags.taginfo_callback")
+	dialog.setCallback(taginfo_callback)
 	dialog.setArgs([object.serial] + tags)
 
 	dialog.startPage(0)

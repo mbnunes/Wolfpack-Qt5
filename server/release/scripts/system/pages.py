@@ -195,7 +195,7 @@ class Page:
 		gump.addText( 70, 400, tr("Close"), 0x834 )
 		gump.addButton( 30, 400, 0xFB1, 0xFB3, 0 )
 		
-		gump.setCallback("system.pages.page_details_response")
+		gump.setCallback(page_details_response)
 		gump.setArgs([self])
 		gump.send(player.socket)
 		
@@ -499,7 +499,7 @@ def onHelp(char):
 
 	gump.startPage( 1 );
 
-	gump.setCallback('system.pages.help_response')
+	gump.setCallback(help_response)
 	gump.send(char.socket)
 	
 	return True
@@ -600,7 +600,7 @@ def pages_gump(player, i=0):
 
 	gump.setArgs([i])
 	gump.setType(0x87bde41a)
-	gump.setCallback("system.pages.pages_gump_response")
+	gump.setCallback(pages_gump_response)
 	gump.send(player.socket)
 
 #

@@ -60,7 +60,7 @@ def showgump(player, target, page):
 		return	
 	
 	dialog = wolfpack.gumps.cGump()
-	dialog.setCallback("commands.skillinfo.response")
+	dialog.setCallback(response)
 	dialog.setArgs([target.serial])
 
 	dialog.startPage(0)

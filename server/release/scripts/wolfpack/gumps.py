@@ -92,8 +92,8 @@ class cGump:
   # Sets the Callback function which is going to be called whenever the user
   # clicks something on the gump
   def setCallback( self, callback ):
-    if not type( callback ) is StringType:
-      raise TypeError( "You have to pass a string to setCallback" )
+    if not type( callback ) is FunctionType:
+      raise TypeError( "You have to pass a function to setCallback" )
     else:
       self.callback = callback
 
@@ -253,7 +253,7 @@ class WarningGump:
       raise TypeError( "You passed an invalid socket." )
 
     self.gump.setArgs([self.callback, self.state])
-    self.gump.setCallback("wolfpack.gumps.WarningGump_onResponse")
+    self.gump.setCallback(WarningGump_onResponse)
     self.gump.send( socket )
 
 
@@ -306,7 +306,7 @@ class NoticeGump:
       raise TypeError( "You passed an invalid socket." )
 
     self.gump.setArgs([self.callback, self.state])
-    self.gump.setCallback("wolfpack.gumps.NoticeGump_onResponse")
+    self.gump.setCallback(NoticeGump_onResponse)
     self.gump.send( socket )
 
 

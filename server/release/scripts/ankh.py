@@ -66,7 +66,7 @@ def showTitheGump(player, ankh, amount = 0):
 	dialog.addButton(217, 272, 4023, 4024, 5) # Make Offering
 
 	dialog.setArgs([amount, ankh.serial])
-	dialog.setCallback('ankh.titheGoldCallback')
+	dialog.setCallback(titheGoldCallback)
 	dialog.send(player)
 
 def titheGoldCallback(player, arguments, response):

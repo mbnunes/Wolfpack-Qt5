@@ -123,7 +123,7 @@ class Pattern:
 	#
 	def edit(self, player):
 		dialog = wolfpack.gumps.cGump()
-		dialog.setCallback("commands.tilepattern.edit_response")
+		dialog.setCallback(edit_response)
 		dialog.setArgs([self.id])
 		
 		height = 200 + 40 * self.height
@@ -245,7 +245,7 @@ def tilepattern_response(player, arguments, response):
 def tilepattern(socket, command, arguments):
 	if arguments == '':	
 		dialog = wolfpack.gumps.cGump()
-		dialog.setCallback("commands.tilepattern.tilepattern_response")
+		dialog.setCallback(tilepattern_response)
 		
 		dialog.startPage(0)
 		dialog.addResizeGump(0, 0, 9250, 453, 375)
