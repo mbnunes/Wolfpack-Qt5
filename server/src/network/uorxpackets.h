@@ -549,13 +549,24 @@ public:
 
 	enum eChoice
 	{
+		Manifest		= 0,
 		Resurrect		= 1,
-		Ghost
+		Ghost			= 2,
+		Count			= 3,
 	};
 
 	eChoice choice( void ) const
 	{
-		return ( ( *this )[1] == 0x01 ) ? Resurrect : Ghost;
+		unsigned char choice = (*this)[1];
+		switch (choice) {
+			case 0:
+				return Manifest;
+			case 1:
+				return Resurrect;
+			default:
+			case 2:
+				return Ghost;			
+		};
 	}
 };
 

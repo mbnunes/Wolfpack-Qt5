@@ -343,7 +343,7 @@ void cUOSocket::recieve()
 	case 0x22:
 		resync(); break;
 	case 0x2C:
-		/* Resurrection menu */ break;
+		handleResurrectionMenu( dynamic_cast<cUORxResurrectionMenu*>(packet) ); break;
 	case 0x34:
 		handleQuery( dynamic_cast<cUORxQuery*>( packet ) ); break;
 	case 0x3A:
@@ -3495,4 +3495,16 @@ void cUOSocket::handleAllNames( cUORxAllNames* packet )
 		allnames.setName( object->name() );
 		send( &allnames );
 	}
+}
+
+void cUOSocket::handleResurrectionMenu( cUORxResurrectionMenu* packet ) {
+	if (packet->choice() != cUORxResurrectionMenu::Manifest) {
+		return; // Only 0x00 toggles visibility
+	}
+
+	cUOTxWarmode warmode;
+	warmode.setStatus(_player->isAtWar());
+	send(&warmode);
+
+	return;
 }

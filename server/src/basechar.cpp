@@ -2880,8 +2880,6 @@ bool cBaseChar::kill( cUObject* source )
 		}
 	}
 
-	playDeathSound();
-
 	cUOTxDeathAction dAction;
 	dAction.setSerial( serial_ );
 
@@ -2903,15 +2901,19 @@ bool cBaseChar::kill( cUObject* source )
 		}
 	}
 
-	onDeath( source, corpse );
+	playDeathSound();
 
-	if ( npc )
-	{
+	if ( npc ) {
 		remove();
+	} else if (player && player->socket()) {
+		cUOTxCharDeath death;
+		death.setDead(true);
+		player->socket()->send(&death);
 	}
 
-	if ( player )
-	{
+	onDeath( source, corpse );
+
+	if ( player ) {
 		// Create a death shroud for the player
 		P_ITEM shroud = cItem::createFromScript( "204e" );
 		if ( shroud )
@@ -2920,14 +2922,15 @@ bool cBaseChar::kill( cUObject* source )
 			shroud->update();
 		}
 
-		player->resend( false );
-
 		if ( player->socket() )
 		{
 			// Notify the player of his death
 			cUOTxCharDeath death;
+			death.setDead(false);
 			player->socket()->send( &death );
 		}
+
+		player->resend(false);
 
 		// Notify the party that we died.
 		if ( player->party() )

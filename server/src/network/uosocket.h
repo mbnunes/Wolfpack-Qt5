@@ -195,6 +195,7 @@ public:
 	void handleDoubleClick( cUORxDoubleClick* packet );
 	void handleGetTip( cUORxGetTip* packet );
 	void handleChangeWarmode( cUORxChangeWarmode* packet );
+	void handleResurrectionMenu( cUORxResurrectionMenu* packet );
 	void handleTarget( cUORxTarget* packet );
 	void handleRequestAttack( cUORxRequestAttack* packet );
 	void handleExtendedStats( cUORxExtendedStats* packet );
