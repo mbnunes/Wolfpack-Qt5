@@ -452,7 +452,7 @@ PyObject *wpGuild_getmemberinfo(wpGuild *self, PyObject *args) {
 	if (info->guildTitle().isNull()) {
 		PyDict_SetItemString(result, "guildtitle", PyUnicode_FromWideChar(L"", 0));		
 	} else {
-		PyDict_SetItemString(result, "guildtitle", PyUnicode_FromWideChar(info->guildTitle().ucs2(), info->guildTitle().length()));		
+		PyDict_SetItemString(result, "guildtitle", PyUnicode_FromUnicode(info->guildTitle().ucs2(), info->guildTitle().length()));		
 	}
 
 	return result;
@@ -514,28 +514,28 @@ static PyObject *wpGuild_getAttr(wpGuild *self, char *name) {
 		if (value == QString::null) {
 			return PyUnicode_FromWideChar(L"", 0);
 		} else {
-			return PyUnicode_FromWideChar((unsigned short*)value.ucs2(), value.length());
+			return PyUnicode_FromUnicode((unsigned short*)value.ucs2(), value.length());
 		}
 	} else if (!strcmp(name, "abbreviation")) {
 		const QString &value = self->guild->abbreviation();
 		if (value == QString::null) {
 			return PyUnicode_FromWideChar(L"", 0);
 		} else {
-			return PyUnicode_FromWideChar((unsigned short*)value.ucs2(), value.length());
+			return PyUnicode_FromUnicode((unsigned short*)value.ucs2(), value.length());
 		}
 	} else if (!strcmp(name, "charta")) {
 		const QString &value = self->guild->charta();
 		if (value == QString::null) {
 			return PyUnicode_FromWideChar(L"", 0);
 		} else {
-			return PyUnicode_FromWideChar((unsigned short*)value.ucs2(), value.length());
+			return PyUnicode_FromUnicode((unsigned short*)value.ucs2(), value.length());
 		}
 	} else if (!strcmp(name, "website")) {
 		const QString &value = self->guild->website();
 		if (value == QString::null) {
 			return PyUnicode_FromWideChar(L"", 0);
 		} else {
-			return PyUnicode_FromWideChar((unsigned short*)value.ucs2(), value.length());
+			return PyUnicode_FromUnicode((unsigned short*)value.ucs2(), value.length());
 		}
 	} else if (!strcmp(name, "alignment")) {
 		return PyInt_FromLong(self->guild->alignment());
