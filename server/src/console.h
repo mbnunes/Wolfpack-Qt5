@@ -69,7 +69,7 @@ enum enFontType
 class cConsole
 {
 private:
-	QStringList linebuffer_;
+	QString linebuffer_;
 	QString incompleteLine_;
 	QStringList commandQueue;
 	QMutex commandMutex;
@@ -122,6 +122,8 @@ public:
 	*/
 	void stop();
 
+	void rollbackChars(unsigned int count);
+
 	/*!
 		\brief Send a progress line to the console.
 			It has to be terminted by \s sendDone,
@@ -169,7 +171,7 @@ public:
 		\brief Returns a reference to the linebuffer
 			storing all lines sent to the console.
 	*/
-	const QStringList& linebuffer() const
+	const QString& linebuffer() const
 	{
 		return linebuffer_;
 	}

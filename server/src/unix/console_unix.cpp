@@ -222,6 +222,16 @@ void cConsole::changeColor( enConsoleColors Color )
 	send( cb );
 }
 
+void cConsole::rollbackChars(unsigned int count) {
+	for (int i = 0; i < count; ++i) {
+		fprintf( stdout, "\b" );
+	}
+	fflush(stdout);
+
+	// Remove from the end of the linebuffer
+	linebuffer_.truncate(linebuffer_.length() - count);
+}
+
 //========================================================================================
 // Send a message to the console
 void cConsole::send( const QString& sMessage )
@@ -235,31 +245,14 @@ void cConsole::send( const QString& sMessage )
 	{
 		QString temp = progress;
 		progress = QString::null;
-		for ( uint i = 0; i < temp.length() + 4; ++i )
-		{
-			fprintf( stdout, "\b" );
-		}
+		rollbackChars(temp.length() + 4);
 		progress = temp;
 	}
 
 	fprintf( stdout, sMessage.latin1() );
 	fflush( stdout );
 
-	if ( sMessage.contains( "\n" ) )
-	{
-		incompleteLine_.append( sMessage ); // Split by \n
-		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
-
-		// Insert all except the last element
-		for ( uint i = 0; i < lines.count() - 1; ++i )
-			linebuffer_.push_back( lines[i] );
-
-		incompleteLine_ = lines[lines.count() - 1];
-	}
-	else
-	{
-		incompleteLine_.append( sMessage );
-	}
+	linebuffer_.append(sMessage);
 
 	// Resend the Progress message if neccesary.
 	if ( !progress.isEmpty() )

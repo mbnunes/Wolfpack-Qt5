@@ -238,16 +238,8 @@ static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	Q_UNUSED( args );
-	QStringList linebuffer = Console::instance()->linebuffer();
-	PyObject* list = PyList_New( linebuffer.count() );
 
-	for ( uint i = 0; i < linebuffer.count(); ++i )
-		if ( linebuffer[i].isNull() )
-			PyList_SetItem( list, i, PyString_FromString( "" ) );
-		else
-			PyList_SetItem( list, i, PyString_FromString( linebuffer[i].latin1() ) );
-
-	return list;
+	return QString2Python( Console::instance()->linebuffer() );
 }
 
 /*

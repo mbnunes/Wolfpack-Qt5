@@ -462,10 +462,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 					if ( percent != lastpercent )
 					{
 						unsigned int revert = QString::number( lastpercent ).length() + 1;
-						for ( unsigned int i = 0; i < revert; ++i )
-						{
-							Console::instance()->send( "\b" );
-						}
+						Console::instance()->rollbackChars(revert);
 
 						lastpercent = percent;
 						Console::instance()->send( QString::number( percent ) + "%" );
@@ -519,6 +516,10 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 			}
 			while ( type != 0xFF );
 			reader.close();
+
+			// Rollback the last percentage
+			unsigned int revert = QString::number( lastpercent ).length() + 1;
+			Console::instance()->rollbackChars(revert);
 
 			// post process all loaded objects
 			QPtrList<PersistentObject>::const_iterator cit(objects.begin());
@@ -827,12 +828,9 @@ void cWorld::load()
 		loadSQL( objects );
 	}
 
-
-
 	unsigned int duration = getNormalizedTime() - loadStart;
 
-	Console::instance()->send( "\n\b\b\b\b" ); // 100%
-	Console::instance()->log( LOG_MESSAGE, QString( "\nThe world loaded in %1 ms.\n" ).arg( duration ) );
+	Console::instance()->log( LOG_MESSAGE, QString( "The world loaded in %1 ms.\n" ).arg( duration ) );
 
 	cComponent::load();
 }

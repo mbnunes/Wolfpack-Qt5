@@ -852,6 +852,20 @@ void cConsole::stop()
 {
 }
 
+void cConsole::rollbackChars(unsigned int count) {
+	int length = GetWindowTextLength(logWindow);
+
+	// Select the rest
+	CHARRANGE range;
+	SendMessage( logWindow, EM_EXGETSEL, 0, ( LPARAM ) & range );
+	range.cpMin -= count;
+	SendMessage( logWindow, EM_EXSETSEL, 0, (LPARAM)&range );
+	SendMessage( logWindow, EM_REPLACESEL, FALSE, ( LPARAM ) "" );
+
+	// Remove from the end of the linebuffer
+	linebuffer_.truncate(linebuffer_.length() - count);
+}
+
 void cConsole::send( const QString& sMessage )
 {
 	// If a progress message is waiting, remove it.
@@ -859,10 +873,7 @@ void cConsole::send( const QString& sMessage )
 	{
 		QString temp = progress;
 		progress = QString::null;
-		for ( uint i = 0; i < temp.length() + 4; ++i )
-		{
-			send( "\b" );
-		}
+		rollbackChars(temp.length() + 4);
 		progress = temp;
 	}
 
@@ -893,29 +904,6 @@ void cConsole::send( const QString& sMessage )
 		SendMessage( logWindow, EM_REPLACESEL, FALSE, ( LPARAM ) "" );
 	}
 
-	// process \b properly
-	if ( sMessage.contains( "\b" ) )
-	{
-		// Split the message
-		uint pos = sMessage.find( "\b" );
-		if ( pos > 0 )
-			send( sMessage.right( pos ) );
-		else
-		{
-			CHARRANGE range;
-			SendMessage( logWindow, EM_EXGETSEL, 0, ( LPARAM ) & range );
-			range.cpMin -= 1;
-			SendMessage( logWindow, EM_EXSETSEL, 0, ( LPARAM ) & range );
-			SendMessage( logWindow, EM_REPLACESEL, FALSE, 0 );
-
-			if ( sMessage.length() > 1 )
-			{
-				send( sMessage.left( sMessage.length() - 1 ) );
-			}
-			return;
-		}
-	}
-
 	unsigned int tLength = GetWindowTextLength( logWindow );
 	SendMessage( logWindow, EM_SETSEL, tLength, tLength );
 
@@ -929,22 +917,8 @@ void cConsole::send( const QString& sMessage )
 	if ( !GetCapture() )
 		SendMessage( logWindow, WM_VSCROLL, SB_BOTTOM, 0 );
 
-	// Update linebuffer_, so that web console works as well.
-	if ( sMessage.contains( "\n" ) )
-	{
-		incompleteLine_.append( sMessage ); // Split by \n
-		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
-
-		// Insert all except the last element
-		for ( uint i = 0; i < lines.count() - 1; ++i )
-			linebuffer_.push_back( lines[i] );
-
-		incompleteLine_ = lines[lines.count() - 1];
-	}
-	else
-	{
-		incompleteLine_.append( sMessage );
-	}
+	// Append to the linebuffer
+	linebuffer_.append(sMessage);
 
 	// Resend the Progress message if neccesary.
 	if ( !progress.isEmpty() )

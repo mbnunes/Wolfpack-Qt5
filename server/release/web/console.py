@@ -63,20 +63,20 @@ Below you see the Wolfpack console output. Use your browsers refresh button in o
 <textarea cols="70" rows="25" readonly="readonly" style="background-color: #DDDDDD">
 """
 
-for line in wolfpack.console.getbuffer():
-	# Replace \b characters
-	i = line.find( "\b" )
-	while i >= 0:
-		# Take it out
-		line = line[:i-1] + line[i+1:]
-		i = line.find( "\b" )
+line = wolfpack.console.getbuffer()
 
-	line = string.replace( line, "", "" )
-	line = string.replace( line, "[1;37m", "" )
-	line = string.replace( line, "[1;32m", "" )
-	line = string.replace( line, "[0m", "" )
-	
-	content += line + "\n"
+# Replace \b characters
+i = line.find( "\b" )
+while i >= 0:
+	line = line[:i] + line[i+1:]
+	i = line.find( "\b" )
+
+line = line.replace( "", "" )
+line = line.replace( "[1;37m", "" )
+line = line.replace( "[1;32m", "" )
+line = line.replace( "[0m", "" )
+
+content += line + "\n"
 
 content += """
 </textarea>
