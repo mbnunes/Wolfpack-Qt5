@@ -986,7 +986,7 @@ void showcname (int s, int i, char b) // Singleclick text for a character
 //
 void deathstuff(int i)
 {
-	int z, c, l, q, ele, p;
+	int z, c, l, q, ele;
 	char murderername[50]; //AntiChrist
 	char clearmsg[8];
 	int nType=0;
@@ -1132,7 +1132,7 @@ void deathstuff(int i)
 
 //    if(pc_player->isNpc() || pc_player->isPlayer())
 
-//	ele=pi_c->amount=(pc_player->xid1<<8)+pc_player->xid2; // Amount == corpse type
+	ele=pi_c->amount=(pc_player->xid1<<8)+pc_player->xid2; // Amount == corpse type
 	pi_c->morey=ishuman(DEREF_P_CHAR(pc_player));//is human?? - AntiChrist
 	pi_c->carve=pc_player->carve;//store carve section - AntiChrist
 	strcpy(pi_c->name2,pc_player->name);
