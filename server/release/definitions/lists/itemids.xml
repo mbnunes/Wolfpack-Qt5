@@ -71,6 +71,17 @@
 		<item>204a</item>
 	</list>
 
+	<!-- Item IDs of Facial Hair -->
+	<list id="FACIAL_HAIR">
+		<item>203e</item>
+		<item>203f</item>
+		<item>2040</item>
+		<item>2041</item>
+		<item>204b</item>
+		<item>204c</item>
+		<item>204d</item>
+	</list>
+
 	<!-- IDs of Potions -->
 	<list id="POTIONS">
 		<item>f06</item>

@@ -7,6 +7,26 @@
 =================================================================
 -->
 <definitions>
+
+	<npc id="npc_empty">
+		<!-- Empty NPC definition, works as a NOOP for inheritance. -->
+	</npc>
+
+	<!-- NPC with a beard -->
+	<npc id="npc_with_beard">
+		<equipped>
+			<item list="FACIAL_HAIR"/>
+		</equipped>
+	</npc>
+
+	<!-- Inheriting from this yields a 75% chance of getting a beard -->
+	<list id="NPC_BEARD_CHANCE">
+		<item>npc_empty</item>
+		<item>npc_with_beard</item>
+		<item>npc_with_beard</item>
+		<item>npc_with_beard</item>
+	</list>
+
 	<!-- Male Base -->
 	<npc id="base_male">
 		<id>0x190</id>
@@ -17,7 +37,7 @@
 		<saycolor><random min="2" max="1000" /></saycolor>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
- 
+
 		<!-- The Equipment of a standard human -->
 		<equipped>
 			<item id="e75" /> <!-- Backpack -->
@@ -26,6 +46,10 @@
 			<item list="PANTS" /> <!-- Random Pants -->
 			<item list="SHOES" /> <!-- Random Shoes -->
 		</equipped>
+
+		<inherit><random list="NPC_BEARD_CHANCE"/></inherit>
+
+		<haircolor><random list="HAIRCOLOR" /></haircolor>
 
 		<str><random min="71" max="85" /></str>
 		<dex><random min="66" max="80" /></dex>
@@ -43,7 +67,7 @@
 		<saycolor><random min="2" max="1000" /></saycolor>
         <wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
- 
+
 		<!-- The Equipment of a standard human -->
 		<equipped>
 			<item id="e75" /> 			<!-- Backpack -->
@@ -53,12 +77,14 @@
 			<item list="SHOES" /> 		<!-- Random Shoes -->
 		</equipped>
 
+		<haircolor><random list="HAIRCOLOR" /></haircolor>
+
 		<str><random min="71" max="85" /></str>
 		<dex><random min="66" max="80" /></dex>
 		<int><random min="66" max="80" /></int>
 		<basescripts>speech.pets</basescripts>
 	</npc>
-	
+
 	<!-- Pirate -->
 	<npc id="pirate_male">
 		<inherit>base_male</inherit>
@@ -87,4 +113,5 @@
 		<invulnerable />
 		<wandertype>0</wandertype>
 	</npc>
+
 </definitions>

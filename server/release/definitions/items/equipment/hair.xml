@@ -13,104 +13,87 @@
 	<!-- Hair -->
 	<item id="203b">
 		<id>0x203b</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\Short Hair</category>
 	</item>
 
 	<item id="203c">
 		<id>0x203c</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\Long Hair</category>
 	</item>
 
 	<item id="203d">
 		<id>0x203d</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\Pony Tail</category>
 	</item>
 
 	<item id="2044">
 		<id>0x2044</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\Mohawk</category>
 	</item>
 
 	<item id="2045">
 		<id>0x2045</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\Pageboy</category>
 	</item>
 
 	<item id="2046">
 		<id>0x2046</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\Buns hair</category>
 	</item>
 
 	<item id="2047">
 		<id>0x2047</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\Afro</category>
 	</item>
 
 	<item id="2048">
 		<id>0x2048</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\Receding Hair</category>
 	</item>
 
 	<item id="2049">
 		<id>0x2049</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\2 pig-tails</category>
 	</item>
 
 	<item id="204a">
 		<id>0x204a</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Hair\Krisna Hair</category>
 	</item>
 
 	<!-- Beards -->
 	<item id="203e">
 		<id>0x203e</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Long Beard</category>
 	</item>
 
 	<item id="203f">
 		<id>0x203f</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Short Beard</category>
 	</item>
 
 	<item id="2040">
 		<id>0x2040</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Goatee</category>
 	</item>
 
 	<item id="2041">
 		<id>0x2041</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Mustache</category>
 	</item>
 
 	<item id="204b">
 		<id>0x204b</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Med Short Beard</category>
 	</item>
 
 	<item id="204c">
 		<id>0x204c</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Med Long Beard</category>
 	</item>
 
 	<item id="204d">
 		<id>0x204d</id>
-		<color><random list="HAIRCOLOR" /></color>
 		<category>Equipment\Beards\Vandyke</category>
 	</item>
 
