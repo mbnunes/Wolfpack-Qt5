@@ -24,8 +24,8 @@
 		<id>0xefa</id>
 		<type>9</type> <!-- Keep this for now -->
 		<onehanded />
-		<newbied />
-		<decay/>
+		<newbie />
+		<decay />
 		<value>30</value>
 		<category>Professions\Mage\Spellbook (N/S)</category>
 	</item>
@@ -33,9 +33,9 @@
 	<!-- Runebook -->
 	<item id="22c5">
 		<id>0x22c5</id>
-		<onehanded>
+		<onehanded />
 		<decay />
-		<newbied />
+		<newbie />
 		<category>Professions\Mage\Runebook </category>
 		<events>runebook</events>
 	</item>
