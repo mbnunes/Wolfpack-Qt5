@@ -85,33 +85,35 @@ CLUMSY_DURATION = 60000
 # How long does it take Cotton plants to regrow (in seconds)
 COTTONPLANTS_REGROW = 30
 
-# Potions
+# Potion Delays
+HEAL_POT_DELAY = 10000 # 10 Seconds
+AGILITY_TIME = 120000  # 2 minutes
+STRENGTH_TIME = 120000  # 2 minutes
+INTELLIGENCE_TIME = 120000 # 2 minutes
+# Potion Ranges
 POTION_LESSERHEAL_RANGE = [ 1, 16 ]
 POTION_HEAL_RANGE = [ 3, 19 ]
 POTION_GREATERHEAL_RANGE = [ 5, 25 ]
+POTION_LESSEREXPLOSION_RANGE = [ 1, 5 ]
+POTION_EXPLOSION_RANGE = [ 6, 10 ]
+POTION_GREATEREXPLOSION_RANGE = [ 11, 20 ]
 
 # Fishing Settings
-FISHING_MIN_FISH = 25	 # Minimum fish in a 8x8 block
-FISHING_MAX_FISH = 30	 # Maximum fish in a 8x8 block
-FISHING_REFILLTIME = 60 * 5 # 5 Minute refresh time
+FISHING_FISH = [25, 30]	 # Min to Max fish in a 8x8 block
+FISHING_REFILLTIME = [300000, 600000]  # 5 to 10 Minutes refresh time
 FISHING_MAX_DISTANCE = 6 # Maximum Distance to fishing ground
 FISHING_BLOCK_RANGE = 13 # How many Z-Units of free space need to be above the fishing ground
 
 # Lumberjacking Settings
-LUMBERJACKING_MIN_LOGS = 5 # 5 chops = 10 or 20 per chop
-LUMBERJACKING_MAX_LOGS = 10 # 10 chops = 10 or 20 per chop
-LUMBERJACKING_MIN_SKILL = 0
-LUMBERJACKING_MAX_SKILL = 850
-LUMBERJACKING_MIN_REFILLTIME = 300000 # 5 Minutes Min Refresh time for trees
-LUMBERJACKING_MAX_REFILLTIME = 600000 # 10 Minutes Max Refresh time for trees
+LUMBERJACKING_LOGS = [5, 10] # 5 to 10 chops = 10 or 20 per chop
+LUMBERJACKING_SKILL = [0, 850]
+LUMBERJACKING_REFILLTIME = [300000, 600000] # 5 to 10 Minutes Refresh time for trees
 LUMBERJACKING_MAX_DISTANCE = 1 # Makes sure we are next to the tree
 
 # Mining Settings
 MINING_MAX_DISTANCE = 2
-MINING_MIN_REFILLTIME = 300000 # 5 Minutes Min Refresh time for trees
-MINING_MAX_REFILLTIME = 600000 # 10 Minutes Max Refresh time for trees
-MINING_MIN_ORE = 10
-MINING_MAX_ORE = 34
+MINING_REFILLTIME = [300000, 600000] # 5 to 10 Minutes Refresh time for trees
+MINING_ORE = [10, 34]
 
 # Skill Constants
 ALCHEMY = 0

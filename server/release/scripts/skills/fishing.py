@@ -230,7 +230,7 @@ def itemtimer( char, args ):
 	if resource:
 		amount = max( 0, int( resource.gettag( 'resourcecount' ) ) ) # We need this twice
 	else:
-		amount = random.randint( FISHING_MIN_FISH, FISHING_MAX_FISH )
+		amount = random.randint( FISHING_FISH[0], FISHING_FISH[1] )
 
 	if resource and amount <= 0:
 		socket.clilocmessage( 0x7ad80, "", 0x3b2, 3, char ) # The fish don't seem to be biting here.
@@ -259,7 +259,7 @@ def itemtimer( char, args ):
 			pos = args[ 0 ]
 			resource.moveto( wolfpack.coord( int( floor( pos.x / 8 ) ) * 8, int( floor( pos.y / 8 ) ) * 8, int( pos.z - 5 ), pos.map ) )
 			resource.decay = 1
-			resource.decaytime = wolfpack.time.servertime() + ( FISHING_REFILLTIME * 1000 )
+			resource.decaytime = wolfpack.time.servertime() + ( random.randint(FISHING_REFILLTIME[0], FISHING_REFILLTIME[1]) )
 			resource.update() # Send to GMs
 
 		else:

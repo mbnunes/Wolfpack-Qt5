@@ -8,8 +8,8 @@ from wolfpack.utilities import *
 from random import randint
 #import weapons.blades
 
-woodrespawndelay = randint( LUMBERJACKING_MIN_REFILLTIME, LUMBERJACKING_MAX_REFILLTIME )
-woodspawnamount = randint( LUMBERJACKING_MIN_LOGS, LUMBERJACKING_MAX_LOGS )
+woodrespawndelay = randint( LUMBERJACKING_REFILLTIME[0], LUMBERJACKING_REFILLTIME[1] )
+woodspawnamount = randint( LUMBERJACKING_LOGS[0], LUMBERJACKING_LOGS[1] )
 chopdistance = LUMBERJACKING_MAX_DISTANCE
 nextchopdelay = 3000
 

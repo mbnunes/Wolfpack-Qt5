@@ -6,11 +6,6 @@ from wolfpack.utilities import hex2dec, throwobject, energydamage
 import math
 from system import poison
 
-HEAL_POT_DELAY = 10000 # 10 Seconds
-AGILITY_TIME = 120000  # 2 minutes
-STRENGTH_TIME = 120000  # 2 minutes
-INTELLIGENCE_TIME = 120000 # 2 minutes
-
 # potion [ return_bottle, aggressive, target, name ]
 potions = \
 {
@@ -237,13 +232,13 @@ def potionregion( args ):
 # Explosion Potion Function
 def potiondamage( char, target, potion ):
 	if potion.gettag('potiontype') == 11:
-		damage = randint(1, 5)
+		damage = randint(POTION_LESSEREXPLOSION_RANGE[0], POTION_LESSEREXPLOSION_RANGE[1])
 	elif potion.gettag('potiontype') == 12:
-		damage = randint(6, 10)
+		damage = randint(POTION_EXPLOSION_RANGE[0], POTION_EXPLOSION_RANGE[1])
 	elif potion.gettag('potiontype') == 13:
-		damage = randint(11, 20)
+		damage = randint(POTION_GREATEREXPLOSION_RANGE[0], POTION_GREATEREXPLOSION_RANGE[1])
 	else:
-		damage = randint(1, 20)
+		damage = randint(POTION_LESSEREXPLOSION_RANGE[0], POTION_GREATEREXPLOSION_RANGE[1])
 	if char.skill[ALCHEMY] == 1200:
 		bonus = 10
 	elif char.skill[ALCHEMY] >= 1100:

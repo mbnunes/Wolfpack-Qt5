@@ -28,7 +28,7 @@ FINDCHANCE = 4
 ORENAME = 5
 INGOTNAME = 6
 
-# resname, reqSkill, minSkill, sucessmessage, color, find rate (will make a percentage of the total amount), 
+# resname, reqSkill, minSkill, sucessmessage, color, find rate (will make a percentage of the total amount),
 # name of ore, name of ingot
 ORES = {
 	'iron': 			[0, 	-250, 1007072, 0x0, 	49, '#1042853', '#1042692'],
@@ -51,10 +51,10 @@ def mining( char, pos, tool ):
 
 def createoregem(pos):
 	gem = wolfpack.additem('ore_gem')
-	gem.settag('resourcecount', randint(MINING_MIN_ORE, MINING_MAX_ORE)) # 10 - 34 ore
+	gem.settag('resourcecount', randint(MINING_ORE[0], MINING_ORE[1])) # 10 - 34 ore
 	gem.settag('resname', 'iron') # All veins should default to iron ore.
-	
-	# This will give it a chance to be a random ore type, this can change later.	
+
+	# This will give it a chance to be a random ore type, this can change later.
 	totalchance = 0
 	for ore in ORES.values():
 		totalchance += ore[FINDCHANCE]
@@ -77,7 +77,7 @@ def getvein(socket, pos):
 	# 4x4 resource grid
 	gem_x = (pos.x / 4) * 4
 	gem_y = (pos.y / 4) * 4
-	
+
 	gems = wolfpack.items(gem_x, gem_y, pos.map, 0)
 	for gem in gems:
 		if gem.hastag('resource') and gem.gettag('resource') == 'ore' and gem.hastag('resname'):
@@ -153,7 +153,7 @@ def domining(time, args):
 	if not veingem or not veingem.hastag('resourcecount'):
 		return 0
 
-	# 50% chance to dig up primary resource, 
+	# 50% chance to dig up primary resource,
 	# even if the vein has something else.
 	if veingem.hastag('resname2') and random.random() >= 0.50:
 		resname = veingem.gettag('resname2')
@@ -166,13 +166,13 @@ def domining(time, args):
 	# Refill the resource gem.
 	if resourcecount == 0:
 		socket.sysmessage("There is no ore here to mine.")
-		
+
 		if not veingem.hastag('resource_empty'):
-			duration = randint(MINING_MIN_REFILLTIME, MINING_MAX_REFILLTIME)
+			duration = randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 			wolfpack.addtimer(duration, "skills.mining.respawnvein", [veingem], 1)
 			veingem.settag('resource_empty', 1)
 		return 0
-		
+
 	# You loosen some rocks but fail to find any usable ore.
 	if char.skill < reqskill:
 		socket.clilocmessage(501869)
@@ -183,16 +183,16 @@ def domining(time, args):
 
 	if not skills.checkskill(char, MINING, chance):
 		socket.clilocmessage(501869)
-		return 0	
-	
+		return 0
+
 	# Digs up the large ore.
 	if resourcecount >= 5:
 		successmining(char, veingem, resname, 3)
-	
+
 	# Picks one of the smaller ore types
 	elif resourcecount == 3 or resourcecount == 4:
 		successmining(char, veingem, resname, 2)
-	
+
 	# Smallest ore only
 	elif resourcecount == 1 or resourcecount == 2:
 		successmining(char, veingem, resname, 1)
@@ -237,8 +237,8 @@ def successmining(char, gem, resname, size):
 	gem.settag('resourcecount', resourcecount - 1)
 
 	# Start respawning the ore
-	if not gem.hastag('resource_empty') and resourcecount <= 1:		
-		delay = randint(MINING_MIN_REFILLTIME, MINING_MAX_REFILLTIME)
+	if not gem.hastag('resource_empty') and resourcecount <= 1:
+		delay = randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 		wolfpack.addtimer(delay, "skills.mining.respawnvein", [gem], 1)
 		gem.settag('resource_empty', 1)
 
@@ -253,6 +253,6 @@ def successmining(char, gem, resname, size):
 def respawnvein( time, args ):
 	vein = args[0]
 	if vein and vein.hastag('resource_empty') and vein.gettag('resourcecount') == 0:
-		vein.settag('resourcecount', randint(MINING_MIN_ORE, MINING_MAX_ORE))
+		vein.settag('resourcecount', randint(MINING_ORE[0], MINING_ORE[1]))
 		vein.deltag('resource_empty')
 	return OK
