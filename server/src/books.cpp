@@ -49,11 +49,14 @@ void cBook::Serialize( ISerialization &archive )
 		archive.read( "book.author", author_ );
 		UINT32 contsize = 0;
 		archive.read( "book.contsize", contsize );
+		content_.clear();
 		UI32 i;
 		for( i = 0; i < contsize; i++ )
 		{
 			QString currPage = (char*)0;
 			archive.read( (char*)QString("book.content.page%1").arg(i).latin1(), currPage );
+			while( i >= content_.size() ) // lets fill it up with empty strings
+				content_.push_back( QString("") );
 			content_[i] = currPage;
 		}
 		archive.read( "book.readonly", readonly_ );
