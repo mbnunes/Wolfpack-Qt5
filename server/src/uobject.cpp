@@ -418,9 +418,10 @@ void cUObject::removeScript( const QCString& name )
 
 		for ( size_t i = 1; i <= count; ++i )
 		{
-			if ( scriptChain[i]->name() == name )
+			if ( scriptChain[i]->name() == name ) {
 				found = true;
 				break;
+			}
 		}
 	}
 
