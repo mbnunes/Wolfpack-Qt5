@@ -39,6 +39,7 @@
 #include "../spellbook.h"
 #include "../books.h"
 #include "../basechar.h"
+#include "../singleton.h"
 
 extern cAllItems *Items;
 
@@ -46,14 +47,6 @@ extern cAllItems *Items;
 #include "content.h"
 #include "tempeffect.h"
 #include "objectcache.h"
-#include "../singleton.h"
-
-typedef SingletonHolder< cItemObjectCache > ItemCache;
-
-static void FreeItemObject( PyObject *obj )
-{
-	ItemCache::instance()->freeObj( obj );
-}
 
 /*!
 	The object for Wolfpack Python items
@@ -63,6 +56,18 @@ struct wpItem
     PyObject_HEAD;
 	P_ITEM pItem;
 };
+
+// Note: Must be of a different type to cause more then 1 template instanciation
+class cItemObjectCache : public cObjectCache< wpItem, 50>
+{
+};
+
+typedef SingletonHolder< cItemObjectCache > ItemCache;
+
+static void FreeItemObject( PyObject *obj )
+{
+	ItemCache::instance()->freeObj( obj );
+}
 
 // Forward Declarations
 PyObject *wpItem_getAttr( wpItem *self, char *name );
@@ -86,12 +91,12 @@ static PyTypeObject wpItemType = {
 	wpItem_compare
 };
 
-inline PyObject* PyGetItemObject( P_ITEM item )
+PyObject* PyGetItemObject( P_ITEM item )
 {
 	if( item == NULL )
 		return Py_None;
 
-//	wpItem *returnVal = (wpItem*)ItemCache::instance()->allocObj( 50, &wpItemType );
+//	wpItem *returnVal = ItemCache::instance()->allocObj( &wpItemType );
 	wpItem *returnVal = PyObject_New( wpItem, &wpItemType );
 	returnVal->pItem = item;
 	return (PyObject*)returnVal;

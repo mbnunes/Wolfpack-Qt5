@@ -28,60 +28,84 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include <qptrstack.h>
-#include <Python.h>
+#if !defined( __PYTHON_OBJECTCACHE_H__ )
+#define __PYTHON_OBJECTCACHE_H__
 
+#include "engine.h"
+
+template <class T, unsigned int S> 
+class FixedSizePtrStack 
+{
+private:
+	T **base, **top, **end;
+	
+    FixedSizePtrStack (const FixedSizePtrStack& src);	// disable copy
+    FixedSizePtrStack& operator = (const FixedSizePtrStack& src);	// disable assignment
+
+public:
+	
+	FixedSizePtrStack() : base(0), top(0), end(0)
+	{
+		base = new T*[S];
+		top = base;
+		end = base + S;
+	}
+	
+    ~FixedSizePtrStack (void)
+    {
+		delete [] base;
+    }
+
+    bool isEmpty() const { return (top == base); }	// check if stack is emptied
+    bool isFull() const { return (top == end); } 	// check if stack reached limit
+    int size() const { return int(top-base); }  // current number of elements
+
+    void push (T* x)			// push object
+    {
+		if (top < end) *top++ = x;
+    }
+	
+    T* pop (void)	// pop object - return as function
+    {
+        if (top > base) return *--top;
+		else if ( top == base ) return *base;
+		return 0;
+    }
+	
+};
+
+template< class T, unsigned int size >
 class cObjectCache
 {
-	private:
-		unsigned int amount;
-		QPtrStack< PyObject > stack;
-		bool init;
-
-	public:
-		cObjectCache()
-		{
-			init = false;
-			stack.setAutoDelete( true );
-		}
-
-		PyObject *allocObj( unsigned int amount, PyTypeObject *type )
-		{
-			if( !init )
-			{	
-				unsigned int i;
-				for( i = 0; i < amount; ++i )	
-					stack.push( _PyObject_New( type ) );
-
-				init = true;
-			}
-
-			if( !stack.isEmpty() )
-				return stack.pop();
-
-			return _PyObject_New( type );
-		}
-
-		void freeObj( PyObject *obj )
-		{
-			if( stack.count() >= amount )
-			{
-				PyObject_Del( obj );
-				return;
-			}
-
-			stack.push( obj );
-		}
-};
-
-class cCharObjectCache : public cObjectCache
-{
+private:
+	FixedSizePtrStack< PyObject, size > stack;
+	
 public:
-	cCharObjectCache() : cObjectCache() {}
+	
+	virtual ~cObjectCache()
+	{
+		while ( !stack.isEmpty() )
+			PyObject_Del( stack.pop() );
+	}
+	
+	T *allocObj( PyTypeObject *type )
+	{
+		if( !stack.isEmpty() )
+			return (T*)stack.pop();
+		
+		return PyObject_New( T, type );
+	}
+	
+	void freeObj( PyObject *obj )
+	{
+		if( stack.size() >= size )
+		{
+			PyObject_Del( obj );
+			return;
+		}
+		
+		stack.push( obj );
+	}
 };
 
-class cItemObjectCache : public cObjectCache
-{
-public:
-	cItemObjectCache() : cObjectCache() {}
-};
+#endif // __PYTHON_OBJECTCACHE_H__

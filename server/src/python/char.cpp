@@ -46,15 +46,8 @@
 #include "../npc.h"
 #include "../basechar.h"
 #include "../player.h"
-#include "objectcache.h"
 #include "../singleton.h"
-
-typedef SingletonHolder< cCharObjectCache > CharCache;
-
-static void FreeCharObject( PyObject *obj )
-{
-	CharCache::instance()->freeObj( obj );
-}
+#include "objectcache.h"
 
 /*!
 	Struct for WP Python Chars
@@ -63,6 +56,18 @@ typedef struct {
     PyObject_HEAD;
 	P_CHAR pChar;
 } wpChar;
+
+// Note: Must be of a different type to cause more then 1 template instanciation
+class cCharObjectCache : public cObjectCache< wpChar, 50 >
+{
+};
+
+typedef SingletonHolder< cCharObjectCache > CharCache;
+
+static void FreeCharObject( PyObject *obj )
+{
+	CharCache::instance()->freeObj( obj );
+}
 
 // Forward Declarations
 #define pGetInt( a, b ) if( !strcmp( name, a ) ) return PyInt_FromLong( self->pChar->b );
@@ -94,7 +99,7 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 	if( !pChar )
 		return Py_None;
 
-	//wpChar *returnVal = (wpChar*)CharCache::instance()->allocObj( 50, &wpCharType );
+//	wpChar *returnVal = CharCache::instance()->allocObj( &wpCharType );
 	wpChar *returnVal = PyObject_New( wpChar, &wpCharType );
 	returnVal->pChar = pChar;
 	return (PyObject*)returnVal;
