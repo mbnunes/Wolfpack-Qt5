@@ -74,6 +74,10 @@
 #include <mysql.h>
 #endif
 
+#if defined(Q_OS_UNIX)
+#include <signal.h>
+#endif
+
 cComponent::cComponent()
 {
 	this->loaded = false;
@@ -259,6 +263,11 @@ bool cServer::getSecure()
 
 bool cServer::run( int argc, char** argv )
 {
+	// If have no idea where i should put this otherwise
+#if defined(Q_OS_UNIX)
+	signal(SIGPIPE, SIG_IGN);
+#endif
+
 	bool error = false;
 	
 	setState( STARTUP );
