@@ -8,12 +8,13 @@
 		<menu>
 			<name>Combat items</name>
 		</menu>
+		
 		<menu>
 			<name>Decoration</name>
 		</menu>
-		<menu>
-			<name>Skill items</name>
-		</menu>
+		
+		<menu inherit="ADD_skillitems" />
+		
 		<menu>
 			<name>Building</name>
 		</menu>
@@ -23,99 +24,15 @@
 		<menu>
 			<name>Vegetation</name>
 		</menu>
+		
 		<menu>
 			<name>Python scripted special items</name>
 		</menu>
+		
 		<menu>
 			<name>Food</name>
 		</menu> 
 		
-		<menu>
-			<name>Example Crafting Menu</name>
-			
-			<action>
-				<name>Broad sword</name>
-				<model>0x0F5E</model>
-				<description>Craft a broad sword with this option. You can select different materials for this item if you are skilled enough and have the necessary resources!</description>
-				<make name="iron">
-					<useitem itemid="0x1BF2" name="iron ingots" amount="5" />
-					<makeitem section="WEAPONS_IRON_SWORDS_broad" amount="1" />
-					<skillcheck skillid="7" min="350" max="850" />
-					<skillcheck skillid="4" min="180" max="500" />
-				</make>
-				<make name="bronze">
-					<useitem itemid="0x1BF2" name="bronze ingots" amount="7" />
-					<makeitem section="WEAPONS_BRONZE_SWORDS_broad" amount="1" />
-					<skillcheck skillid="7" min="400" max="950" />
-					<skillcheck skillid="4" min="260" max="600" />
-				</make>
-				<make name="silver">
-					<useitem itemid="0x1BF2" name="silver ingots" amount="8" />
-					<makeitem section="WEAPONS_SILVER_SWORDS_broad" amount="1" />
-					<skillcheck skillid="7" min="470" max="955" />
-					<skillcheck skillid="4" min="280" max="640" />
-				</make>
-				<make name="gold">
-					<useitem itemid="0x1BF2" name="gold ingots" amount="8" />
-					<makeitem section="WEAPONS_GOLD_SWORDS_broad" amount="1" />
-					<skillcheck skillid="7" min="500" max="955" />
-					<skillcheck skillid="4" min="300" max="640" />
-				</make>
-				<make name="agapit">
-					<useitem itemid="0x1BF2" name="agapit ingots" amount="8" />
-					<makeitem section="WEAPONS_AGAPIT_SWORDS_broad" amount="1" />
-					<skillcheck skillid="7" min="520" max="955" />
-					<skillcheck skillid="4" min="320" max="640" />
-				</make>
-				<make  name="shadow">
-					<useitem itemid="0x1BF2" name="shadow ingots" amount="8" />
-					<makeitem section="WEAPONS_SHADOW_SWORDS_broad" amount="1" />
-					<skillcheck skillid="7" min="570" max="955" />
-					<skillcheck skillid="4" min="310" max="640" />
-				</make>
-			</action>
-			<action>
-				<name>Viking sword</name>
-				<model>0x13B9</model>
-				<description>Craft a viking sword with this option.</description>
-				<make>
-					<useitem itemid="0x1BF2" name="iron ingots" amount="6" />
-					<makeitem section="WEAPONS_IRON_SWORDS_viking" amount="1" name="iron viking sword" />
-					<skillcheck skillid="7" min="400" max="850" />
-					<skillcheck skillid="4" min="200" max="500" />
-				</make>
-				<make>
-					<useitem itemid="0x1BF2" name="bronze ingots" amount="8" />
-					<makeitem section="WEAPONS_BRONZE_SWORDS_viking" amount="1" name="bronze viking sword" />
-					<skillcheck skillid="7" min="450" max="950" />
-					<skillcheck skillid="4" min="280" max="600" />
-				</make>
-				<make>
-					<useitem itemid="0x1BF2" name="silver ingots" amount="9" />
-					<makeitem section="WEAPONS_SILVER_SWORDS_viking" amount="1" name="silver viking sword" />
-					<skillcheck skillid="7" min="520" max="955" />
-					<skillcheck skillid="4" min="300" max="640" />
-				</make>
-				<make>
-					<useitem itemid="0x1BF2" name="gold ingots" amount="9" />
-					<makeitem section="WEAPONS_GOLD_SWORDS_viking" amount="1" name="gold viking sword" />
-					<skillcheck skillid="7" min="550" max="955" />
-					<skillcheck skillid="4" min="320" max="640" />
-				</make>
-				<make>
-					<useitem itemid="0x1BF2" name="agapit ingots" amount="9" />
-					<makeitem section="WEAPONS_AGAPIT_SWORDS_viking" amount="1" name="agapit viking sword" />
-					<skillcheck skillid="7" min="590" max="955" />
-					<skillcheck skillid="4" min="340" max="640" />
-				</make>
-				<make>
-					<useitem itemid="0x1BF2" name="shadow ingots" amount="9" />
-					<makeitem section="WEAPONS_SHADOW_SWORDS_viking" amount="1" name="shadow viking sword" />
-					<skillcheck skillid="7" min="620" max="955" />
-					<skillcheck skillid="4" min="330" max="640" />
-				</make>
-			</action>
-		</menu>
 	</menu>
 
 	<menu id="ADD_equipment">
@@ -124,10 +41,6 @@
 		<menu inherit="ADD_EQUIPMENT_clothes" />
 	</menu>
 
-	<menu id="ADD_magic">
-		<name>Magic</name>
-	</menu>
-	
 	<menu id="ADD_EQUIPMENT_clothes">
 		<name>Clothes</name>
 		
@@ -139,16 +52,12 @@
 				<makeitem section="shirt" amount="1" />
 			</make>
 		</action>
-
-		<action>
-			<name>Throne</name>
-			<model>0xB33</model>
-			<description>A throne for us kings</description>
-			<make>
-				<makeitem section="throne" amount="1" />
-			</make>
-		</action>
 	</menu>
+
+	<menu id="ADD_magic">
+		<name>Magic</name>
+	</menu>
+	
 	
 	<menu id="ADD_deeds">
 		<name>Deeds</name>
@@ -167,6 +76,142 @@
 			<description>A small boat to have some fun on.</description>
 			<make>
 				<makeitem section="deed_smallboat" amount="1" name="small boat deed" />
+			</make>
+		</action>
+	</menu>
+	
+	<menu id="ADD_skillitems">
+		<name>Skill Items</name>
+		
+		<menu inherit="ADD_SKILLITEMS_carpentry" />
+	</menu>
+
+	<menu id="ADD_SKILLITEMS_carpentry">
+		<name>Carpentry Skill Items</name>
+		
+		<menu inherit="ADD_SKILLITEMS_CARPENTRY_tools" />
+		<menu inherit="ADD_SKILLITEMS_CARPENTRY_resources" />
+	</menu>
+	
+	<menu id="ADD_SKILLITEMS_CARPENTRY_tools">
+		<name>Carpentry Tools</name>
+		<action>
+			<name>Saw</name>
+			<model>0x1034</model>
+			<description>A standard saw for carpentry</description>
+			<make>
+				<makeitem section="1034" amount="1" />
+			</make>
+		</action>
+	</menu>	
+
+	<menu id="ADD_SKILLITEMS_CARPENTRY_resources">
+		<name>Carpentry Resources</name>
+		<action>
+			<name>Board</name>
+			<model>0x1BD7</model>
+			<description>Wooden board for carpentry</description>
+			<make name="(1)">
+				<makeitem section="1bd7" amount="1" />
+			</make>
+			<make name="(2)">
+				<makeitem section="1bd7" amount="2" />
+			</make>
+			<make name="(5)">
+				<makeitem section="1bd7" amount="5" />
+			</make>
+			<make name="(10)">
+				<makeitem section="1bd7" amount="10" />
+			</make>
+			<make name="(100)">
+				<makeitem section="1bd7" amount="100" />
+			</make>
+		</action>
+	</menu>	
+
+	<menu id="BLACKSMITHING_swords">
+		<name>Blacksmithing - Swords</name>
+		
+		<action>
+			<name>Broad sword</name>
+			<model>0x0F5E</model>
+			<description>Craft a broad sword with this option. You can select different materials for this item if you are skilled enough and have the necessary resources!</description>
+			<make name="iron">
+				<useitem itemid="0x1BF2" name="iron ingots" amount="5" />
+				<makeitem section="WEAPONS_IRON_SWORDS_broad" amount="1" />
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+			<make name="bronze">
+				<useitem itemid="0x1BF2" name="bronze ingots" amount="7" />
+				<makeitem section="WEAPONS_BRONZE_SWORDS_broad" amount="1" />
+				<skillcheck skillid="7" min="400" max="950" />
+				<skillcheck skillid="4" min="260" max="600" />
+			</make>
+			<make name="silver">
+				<useitem itemid="0x1BF2" name="silver ingots" amount="8" />
+				<makeitem section="WEAPONS_SILVER_SWORDS_broad" amount="1" />
+				<skillcheck skillid="7" min="470" max="955" />
+				<skillcheck skillid="4" min="280" max="640" />
+			</make>
+			<make name="gold">
+				<useitem itemid="0x1BF2" name="gold ingots" amount="8" />
+				<makeitem section="WEAPONS_GOLD_SWORDS_broad" amount="1" />
+				<skillcheck skillid="7" min="500" max="955" />
+				<skillcheck skillid="4" min="300" max="640" />
+			</make>
+			<make name="agapit">
+				<useitem itemid="0x1BF2" name="agapit ingots" amount="8" />
+				<makeitem section="WEAPONS_AGAPIT_SWORDS_broad" amount="1" />
+				<skillcheck skillid="7" min="520" max="955" />
+				<skillcheck skillid="4" min="320" max="640" />
+			</make>
+			<make  name="shadow">
+				<useitem itemid="0x1BF2" name="shadow ingots" amount="8" />
+				<makeitem section="WEAPONS_SHADOW_SWORDS_broad" amount="1" />
+				<skillcheck skillid="7" min="570" max="955" />
+				<skillcheck skillid="4" min="310" max="640" />
+			</make>
+		</action>
+		<action>
+			<name>Viking sword</name>
+			<model>0x13B9</model>
+			<description>Craft a viking sword with this option.</description>
+			<make>
+				<useitem itemid="0x1BF2" name="iron ingots" amount="6" />
+				<makeitem section="WEAPONS_IRON_SWORDS_viking" amount="1" name="iron viking sword" />
+				<skillcheck skillid="7" min="400" max="850" />
+				<skillcheck skillid="4" min="200" max="500" />
+			</make>
+			<make>
+				<useitem itemid="0x1BF2" name="bronze ingots" amount="8" />
+				<makeitem section="WEAPONS_BRONZE_SWORDS_viking" amount="1" name="bronze viking sword" />
+				<skillcheck skillid="7" min="450" max="950" />
+				<skillcheck skillid="4" min="280" max="600" />
+			</make>
+			<make>
+				<useitem itemid="0x1BF2" name="silver ingots" amount="9" />
+				<makeitem section="WEAPONS_SILVER_SWORDS_viking" amount="1" name="silver viking sword" />
+				<skillcheck skillid="7" min="520" max="955" />
+				<skillcheck skillid="4" min="300" max="640" />
+			</make>
+			<make>
+				<useitem itemid="0x1BF2" name="gold ingots" amount="9" />
+				<makeitem section="WEAPONS_GOLD_SWORDS_viking" amount="1" name="gold viking sword" />
+				<skillcheck skillid="7" min="550" max="955" />
+				<skillcheck skillid="4" min="320" max="640" />
+			</make>
+			<make>
+				<useitem itemid="0x1BF2" name="agapit ingots" amount="9" />
+				<makeitem section="WEAPONS_AGAPIT_SWORDS_viking" amount="1" name="agapit viking sword" />
+				<skillcheck skillid="7" min="590" max="955" />
+				<skillcheck skillid="4" min="340" max="640" />
+			</make>
+			<make>
+				<useitem itemid="0x1BF2" name="shadow ingots" amount="9" />
+				<makeitem section="WEAPONS_SHADOW_SWORDS_viking" amount="1" name="shadow viking sword" />
+				<skillcheck skillid="7" min="620" max="955" />
+				<skillcheck skillid="4" min="330" max="640" />
 			</make>
 		</action>
 	</menu>

@@ -17,6 +17,8 @@
 				<makeitem section="throne" amount="1" />
 				<skillcheck skillid="11" min="350" max="850" />
 			</make>
+			<fail>You failed to craft the throne</fail>
+			<success>You succeeded in crafting the throne</success>
 		</action>
 	</menu>
 </definitions>
