@@ -55,6 +55,7 @@ Wolfpack 12.9.13 Beta (CVS)
     recalculation of Maxhitpoints/Maxmana/Maxstamina.
   - Added a warning in the console if translation file could not be found.
   - Fixed monsters not attacking players pets.
+  - Fixed bug #0000363. (Pets don't attack a target if it's already fighting)
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.

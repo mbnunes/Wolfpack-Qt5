@@ -122,9 +122,7 @@ P_CHAR findBestTarget( P_NPC npc )
 		}
 
 		// We don't already attack the target, right?
-		// If we're tamed we only choose this target if
-		// it's fighting us.
-		if ( victim != target && ( !npc->isTamed() || victim->attackTarget() == npc ) )
+		if ( victim != target  )
 		{
 			// See if it's a target we want
 			unsigned int dist = npc->dist( victim );
