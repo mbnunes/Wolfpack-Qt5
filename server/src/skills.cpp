@@ -94,27 +94,6 @@ void cSkills::SkillUse( cUOSocket* socket, UINT16 id ) // Skill is clicked on th
 
 	switch ( id )
 	{
-	case STEALING:
-		if ( !Config::instance()->stealingEnabled() )
-		{
-			socket->sysMessage( tr( "That skill has been disabled." ) );
-			return;
-		}
-
-		message = tr( "What do you wish to steal?" );
-		targetRequest = new cSkStealing;
-		break;
-	case TRACKING:
-		trackingMenu( socket );
-		break;
-	case FORENSICS:
-		message = tr( "What corpse do you want to examine?" );
-		targetRequest = new cSkForensics;
-		break;
-	case POISONING:
-		message = tr( "What poison do you want to apply?" );
-		targetRequest = new cSkPoisoning;
-		break;
 	case MEDITATION:
 		Skills::instance()->Meditation( socket );
 		break;
