@@ -704,11 +704,11 @@ void cCustomTags::save( SERIAL key )
 		}
 
 		// Save the Variant type and value
-		QString type = it.data().typeName();
-		QString value = it.data().toString();
 		QString name = it.key();
+		QString type = it.data().typeName();
+		QString value = it.data().toString();		
 
-		persistentBroker->executeQuery( QString( "INSERT INTO tags SET serial = '%1', type = '%2', value = '%3', name = '%4'" ).arg( key ).arg( type ).arg( persistentBroker->quoteString( value ) ).arg( persistentBroker->quoteString( name ) ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO tags VALUES(%1,'%2','%3','%4')" ).arg( key ).arg( persistentBroker->quoteString( name ) ).arg( type ).arg( persistentBroker->quoteString( value ) ) );
 	}
 
 	changed = false;

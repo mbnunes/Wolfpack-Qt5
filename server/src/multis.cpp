@@ -131,10 +131,10 @@ void cMulti::save()
 	// Friends + Bans
 	INT32 i;
 	for ( i = 0; i < bans_.size(); ++i )
-		persistentBroker->executeQuery( QString( "INSERT INTO multis_bans SET serial = '%1', ban = '%2'" ).arg( serial() ).arg( bans_[i] ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO multis_bans VALUES(%1,%2)" ).arg( serial() ).arg( bans_[i] ) );
 
 	for ( i = 0; i < friends_.size(); ++i )
-		persistentBroker->executeQuery( QString( "INSERT INTO multis_friends SET serial = '%1', friend = '%2'" ).arg( serial() ).arg( friends_[i] ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO multis_friends VALUES(%1,%2)" ).arg( serial() ).arg( friends_[i] ) );
 
 	cItem::save();
 }

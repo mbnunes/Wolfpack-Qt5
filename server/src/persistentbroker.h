@@ -83,66 +83,6 @@ public:
 	cDBDriver* driver() const;
 };
 
-#define savePersistentIntValue(field, value) \
-	SqlStatement += QString("%1='%2',").arg(field).arg(value)
-
-#define savePersistentStrValue(field, value) \
-	if ( !value.isNull() ) \
-		SqlStatement += QString("%1='%2',").arg(field).arg(persistentBroker->quoteString(value))
-
-#define startSaveSqlStatement(table)	\
-	QString SqlStatement; \
-	if ( this->isPersistent ) \
-		SqlStatement = QString("UPDATE %1 SET ").arg(table); \
-	else \
-		SqlStatement = QString("INSERT INTO %1 SET ").arg(table); 
-
-#define endSaveSqlStatement(condition)	\
-	SqlStatement = SqlStatement.left( SqlStatement.length() - 1 ); \
-	if ( this->isPersistent ) \
-		persistentBroker->executeQuery( SqlStatement + QString("WHERE %1;").arg(condition)); \
-	else \
-		persistentBroker->executeQuery( SqlStatement + ";" ); 
-
-#define startLoadSqlStatement(table, keyfield, keyvalue) \
-	static QSqlCursor cursor(table); \
-	cursor.setMode( QSqlCursor::ReadOnly ); \
-	cursor.select( QString("%1='%2'").arg(keyfield).arg(keyvalue) ); \
-	if ( cursor.first() ) 
-
-#define endLoadSqlStatement(keyvalue) \
-	else \
-		qWarning(QString("Error trying to load persistent object %1, key %2").arg(typeid(this).name()).arg(keyvalue));
-
-#define loadPersistentStrValue(fieldName, property) \
-	property = cursor.field(fieldName)->value().toString();
-
-#if defined(_DEBUG)
-	#define loadPersistentIntValue(fieldName, property) \
-		{\
-			bool ok = false; \
-			property = cursor.field(fieldName)->value().toInt(&ok); \
-			if ( !ok ) \
-				qWarning(QString("Error trying to read Integer value from field %1").arg(fieldName));\
-		}
-#else
-	#define loadPersistentIntValue(fieldName, property) \
-		property = cursor.field(fieldName)->value().toInt()
-#endif
-
-#if defined(_DEBUG)
-	#define loadPersistentUIntValue(fieldName, property) \
-		{ \
-			bool ok = false; \
-			property = cursor.field(fieldName)->value().toUInt(&ok); \
-			if ( !ok ) \
-				qWarning(QString("Error trying to read UInt value from field %1").arg(fieldName));\
-		}
-#else
-	#define loadPersistentUIntValue(fieldName, property) \
-		property = cursor.field(fieldName)->value().toUInt()
-#endif
-
 #define initSave QStringList conditions, fields, values; QString table;
 #define clearFields conditions.clear(); fields.clear(); values.clear();
 #define setTable( value ) table = value;

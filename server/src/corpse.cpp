@@ -110,10 +110,12 @@ void cCorpse::save()
 
 	// Equipment can change as well
 	if( isPersistent )
+	{
 		persistentBroker->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial() ) );
+	}
 
 	for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
-		persistentBroker->executeQuery( QString( "INSERT INTO corpses_equipment SET serial = '%1', layer = '%2', item = '%3'" ).arg( serial() ).arg( it->first ).arg( it->second ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it->first ).arg( it->second ) );
 
 	cItem::save();
 }

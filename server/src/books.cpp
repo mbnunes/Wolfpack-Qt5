@@ -141,7 +141,7 @@ void cBook::save()
 		UINT32 i = 0;
 		for ( QStringList::iterator it = content_.begin(); it != content_.end(); ++it )
 		{
-			persistentBroker->executeQuery( QString( "INSERT INTO bookpages SET serial = '%1', page = '%2', text = '%3'" ).arg( serial() ).arg( i ).arg( persistentBroker->quoteString( *it ) ) );
+			persistentBroker->executeQuery( QString( "INSERT INTO bookpages VALUES (%1,%2,'%3')" ).arg( serial() ).arg( i ).arg( persistentBroker->quoteString( *it ) ) );
 			++i;
 		}
 	}
@@ -159,96 +159,6 @@ bool cBook::del()
 	changed_ = true;
 	return cItem::del();
 }
-
-/*void cBook::Serialize( ISerialization &archive )
-{
-	if( archive.isReading() )
-	{
-	}
-	else
-	{
-		archive.write( "book.title", title_ );
-		archive.write( "book.author", author_ );
-		UINT32 contsize = content_.size();
-		archive.write( "book.contsize", contsize );
-		UI32 i;
-		for( i = 0; i < content_.size(); i++ )
-		{
-			archive.write( (char*)QString("book.content.page%1").arg(i).latin1(), content_[i] );
-		}
-		archive.write( "book.readonly", readonly_ );
-		archive.write( "book.predefined", predefined_ );
-		archive.write( "book.section", section_ );
-		archive.write( "book.pages", pages_ );
-	}
-	cItem::Serialize( archive );
-}*/
-
-/*void cBook::save( const QString& s )
-{
-	startSaveSqlStatement("Books");
-	savePersistentIntValue("serial",		serial); // never forget we have serials on each table
-	savePersistentStrValue("title",			title_ );
-	savePersistentStrValue("author",		author_ );
-	for ( QMap<int, QString>::iterator it = content_.begin(); it != content_.end(); ++it )
-	{
-		startSaveSqlStatement("BookPages");
-		savePersistentIntValue("serial",	serial );
-		savePersistentIntValue("page",		it.key() );
-		savePersistentStrValue("text",		it.data() );
-		endSaveSqlStatement(QString("serial='%1' AND page='%2'").arg(serial).arg(it.key()));
-	}
-	savePersistentIntValue("readonly",		readonly_ );
-	savePersistentIntValue("predefined",	predefined_ );
-	savePersistentStrValue("section",		section_ );
-	savePersistentIntValue("pages",			pages_ );
-	endSaveSqlStatement(QString("serial='%1'").arg(serial));
-	cItem::save(s);
-}*/
-
-/*void cBook::load( const QString& s )
-{
-	startLoadSqlStatement("Books", "serial", s)
-	{
-		loadPersistentStrValue("title",  title_ );
-		loadPersistentStrValue("author", author_ );
-		QSqlCursor bookPages("BookPages");
-		bookPages.select(QString("serial='%1'").arg(serial));
-		while( bookPages.next() )
-		{
-			content_[bookPages.value("page").toInt()] = bookPages.value("text").toString();
-		}
-		loadPersistentIntValue( "readonly", readonly_ );
-		loadPersistentIntValue( "predefined", predefined_ );
-		loadPersistentStrValue( "section", section_ );
-		loadPersistentIntValue( "pages", pages_ );
-	}
-	endLoadSqlStatement(s);
-	cItem::load(s);
-}*/
-
-/*bool cBook::del( const QString& s )
-{
-	QSqlCursor cursor("Books");
-	cursor.select(QString("serial='%1'").arg(serial));
-	while ( cursor.next() )
-	{
-		cursor.primeDelete();
-		if ( cursor.del() > 1 )
-		{
-			qWarning("More than one record was deleted in table Books when only 1 was expected, delete criteria was:");
-			qWarning(cursor.filter());
-		}
-	}
-	cursor.setName("BookPages");
-	cursor.select(QString("serial='%1'").arg(serial));
-	while ( cursor.next() )
-	{
-		cursor.primeDelete();
-		cursor.del();
-	}
-	return cItem::del( s );
-}*/
 
 void cBook::processNode( const cElement *Tag )
 {
