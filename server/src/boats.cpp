@@ -41,6 +41,14 @@
 
 cBoat::cBoat()
 {
+	cItem::Init();
+
+	this->contserial = INVALID_SERIAL;
+	this->deedsection_ = (char*)0;
+	this->boatdir = 0;
+	this->autosail_ = 0;
+
+
 	// default special-item ids!
 	this->itemids[0][0] = this->itemids[2][2] = 0x3EB1;
 	this->itemids[1][0] = this->itemids[3][2] = 0x3E8A;
