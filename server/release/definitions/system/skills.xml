@@ -585,6 +585,28 @@
 		<title>Paladin</title>
 	</skill>
 
+	<!-- Ninjitu -->
+	<skill id="52">
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
+		<defname>NINJITSU</defname>
+		<name>Ninjitsu</name>
+		<title>Ninja</title>
+	</skill>
+
+	<!-- Bushido -->
+	<skill id="53">
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
+		<defname>BUSHIDO</defname>
+		<name>Bushido</name>
+		<title>Samurai</title>
+	</skill>
+
 	<!--
 		This list represents the "rank" of a player in a
 		specific skill. It's ordered from the lowest to the

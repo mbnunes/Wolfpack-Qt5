@@ -63,22 +63,7 @@
 	<include file="definitions/multis/index.xml"/>
 
 	<!-- NPCs -->
-		<!-- Creatures -->
-		<!--<include file="definitions/npcs/creatures.xml"/>-->
-		<!-- NPC Base Stats -->
-		<include file="definitions/npcs/animals/base.xml"/>
-		<include file="definitions/npcs/monsters/base.xml"/>
-
-		<!-- Animal Index -->
-		<include file="definitions/npcs/animals/animal_list.xml"/>
-
-		<!-- Human Index -->
-		<include file="definitions/npcs/humans/civilists.xml"/>
-		<include file="definitions/npcs/humans/guards.xml"/>
-		<include file="definitions/npcs/humans/vendors.xml"/>
-
-		<!-- Monster Index -->
-		<include file="definitions/npcs/monsters/monster_list.xml"/>
+	<include file="definitions/npcs/index.xml"/>
 
 	<!-- Spawn Regions -->
 	<include file="definitions/spawnregions/index.xml" />
