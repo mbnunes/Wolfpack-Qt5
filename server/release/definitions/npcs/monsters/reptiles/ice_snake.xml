@@ -6,8 +6,8 @@
 		<name>an ice snake</name>
 		<id>0x345</id>
 		<inherit id="monster_base" />
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma>-900</karma>
+		<fame>900</fame>
 		<!-- Stats -->
 		<str><random min="42" max="54" /></str>
 		<dex><random min="36" max="45" /></dex>
@@ -17,10 +17,18 @@
 		<tactics><random min="393" max="540" /></tactics>
 		<magicresistance><random min="151" max="200" /></magicresistance>
 		<!-- Damage -->
-		<lodamage>5</lodamage>
-		<hidamage>17</hidamage>
+		<lodamage>4</lodamage>
+		<hidamage>12</hidamage>
+		<tag name="colddamage" value="25" />s
+		<tag name="physicaldamage" value="25" />
+		<tag name="poisondamage" value="50" />
 		<!-- Resists -->
 		<defense><random min="20" max="25" /></defense>
+		<tag name="coldresist" value="80,90" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="-10,0" />
+		<tag name="physicalresist" value="20,25" />
+		<tag name="poisonresist" value="60,70" />
 		<!-- Misc. -->
 		<category>Monsters\Reptiles\Ice Snake</category>
 	</npc>

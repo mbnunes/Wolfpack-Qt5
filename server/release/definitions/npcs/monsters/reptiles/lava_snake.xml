@@ -6,8 +6,8 @@
 		<name>a lava snake</name>
 		<id>0x346</id>
 		<inherit id="monster_base" />
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma>-600</karma>
+		<fame>600</fame>
 		<!-- Stats -->
 		<str><random min="43" max="55" /></str>
 		<dex><random min="16" max="25" /></dex>
@@ -18,9 +18,13 @@
 		<magicresistance><random min="151" max="200" /></magicresistance>
 		<!-- Damage -->
 		<lodamage>1</lodamage>
-		<hidamage>10</hidamage>
+		<hidamage>8</hidamage>
 		<!-- Resists -->
 		<defense><random min="20" max="25" /></defense>
+		<tag name="energyresist" value="10,20" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="35,45" />
+		<tag name="poisonresist" value="20,30" />
 		<!-- Misc. -->
 		<category>Monsters\Reptiles\Lava Snake</category>
 	</npc>
