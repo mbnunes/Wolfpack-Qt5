@@ -167,55 +167,6 @@
 		<category>Buildings\Docks\Winch (W/E) (Animated)</category>
 	</item>
 
-	<!-- Ankhs -->
-	<item id="2">
-		<id>0x02</id>
-		<nodecay />
-		<category>Decoration\Ankhs\Ankh 1</category>
-	</item>
-
-	<item id="3">
-		<id>0x03</id>
-		<nodecay />
-		<category>Decoration\Ankhs\Ankh 2</category>
-	</item>
-
-	<item id="4">
-		<id>0x04</id>
-		<nodecay />
-		<category>Decoration\Ankhs\Ankh 3</category>
-	</item>
-
-	<item id="5">
-		<id>0x05</id>
-		<nodecay />
-		<category>Decoration\Ankhs\Ankh 4</category>
-	</item>
-
-	<item id="1d97">
-		<id>0x1d97</id>
-		<nodecay />
-		<category>Decoration\Ankhs\Ankh of Sacrifice (W/E) (1/2)</category>
-	</item>
-
-	<item id="1d98">
-		<id>0x1d98</id>
-		<nodecay />
-		<category>Decoration\Ankhs\Ankh of Sacrifice (W/E) (2/2)</category>
-	</item>
-
-	<item id="1e5c">
-		<id>0x1e5c</id>
-		<nodecay />
-		<category>Decoration\Ankhs\Ankh of Sacrifice (N/S) (1/2)</category>
-	</item>
-
-	<item id="1e5d">
-		<id>0x1e5d</id>
-		<nodecay />
-		<category>Decoration\Ankhs\Ankh of Sacrifice (N/S) (2/2)</category>
-	</item>
-
 	<!-- Suspension Bridge -->
 	<item id="7e1">
 		<id>0x7e1</id>
