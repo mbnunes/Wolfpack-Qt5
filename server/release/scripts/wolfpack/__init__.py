@@ -42,6 +42,9 @@ def region( x, y, map ):
 	else:
 		return _wolfpack.region( x, y, map )
 
+def itemregion( x1, y1, x2, y2, map ):
+	return _wolfpack.itemregion( x1, y1, x2, y2, map )
+
 # Statics, Items, Map
 def map( x, y, map ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType:

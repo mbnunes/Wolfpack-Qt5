@@ -126,6 +126,8 @@ void cBook::save( FlatStore::OutputFile *output, bool first ) throw()
 
 	cItem::save( output );
 
+	output->startChunkGroup( CHUNK_BOOK );
+
 	if( predefined_ )
 		output->startChunk( BOOK_PREDEFINED );
 

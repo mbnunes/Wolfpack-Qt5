@@ -59,6 +59,7 @@
 #include "../npc.h"
 #include "../targetrequests.h"
 
+#include "regioniterator.h"
 #include "utilities.h"
 #include "tempeffect.h"
 
@@ -903,6 +904,18 @@ PyObject* wpIsClosing( PyObject* self )
 		return PyFalse;
 }
 
+static PyObject* wpItemRegion( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	unsigned int x1, y1, x2, y2;
+	unsigned char map;
+
+	if( !PyArg_ParseTuple( args, "iiiib:wolfpack.itemregion", &x1, &y1, &x2, &y2, &map ) )
+		return 0;
+
+	return PyGetRegionIterator( x1, y1, x2, y2, map );
+}
 
 /*!
 	wolfpack
@@ -910,7 +923,8 @@ PyObject* wpIsClosing( PyObject* self )
 */
 static PyMethodDef wpGlobal[] = 
 {
-    { "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" },
+	{ "itemregion",		wpItemRegion,				METH_VARARGS, NULL },
+	{ "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" },
 	{ "addnpc",				wpAddnpc,						METH_VARARGS, "Adds a npc with the specified script-section" },
 	{ "finditem",			wpFinditem,						METH_VARARGS, "Tries to find an item based on it's serial" },
 	{ "findchar",			wpFindchar,						METH_VARARGS, "Tries to find a char based on it's serial" },

@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Module with timing functions									#
+# Functions for modifying settings				#
 #===============================================================#
 
 import _wolfpack.settings

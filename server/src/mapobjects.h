@@ -65,7 +65,7 @@ public:
 	void	add( cUObject* object );
 	void	remove( cUObject* object );
 
-protected:
+	void	search( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map, std::vector<type> &serials );
 	void	search( const Coord_cl &pos, UI32 distance, std::vector<type> &serials );
 
 protected:

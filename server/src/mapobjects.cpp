@@ -76,7 +76,9 @@ public:
 	UI32	distance( UI16 srcx, UI16 srcy );
 	enQuadrants	compare( UI16 srcx, UI16 srcy );
 	bool	inRange( UI16 srcx, UI16 srcy, UI32 distance );
+
 	bool	overlap( UI16 left, UI16 right, UI16 top, UI16 bottom, UI16 srcx, UI16 srcy, UI32 distance );
+	bool	overlap( UI16 left, UI16 right, UI16 top, UI16 bottom, UI16 x1, UI16 y1, UI16 x2, UI16 y2 );
 
 	void	setParent( cQuadNode* node )	{ parent_ = node; }
 
@@ -84,8 +86,8 @@ public:
 
 	cQuadNode* childs[enNumberOfChilds];
 
-
 	void	search( UI16 left, UI16 right, UI16 top, UI16 bottom, UI16 srcx, UI16 srcy, UI32 distance, std::vector< cMapObjects::type > &serials );
+	void	search( UI16 left, UI16 right, UI16 top, UI16 bottom, UI16 x1, UI16 y1, UI16 x2, UI16 y2, std::vector< cMapObjects::type > &serials );
 
 	bool	contains( cMapObjects::type serial );
 	void	add( UI16 srcx, UI16 srcy, cMapObjects::type serial );
@@ -143,6 +145,38 @@ cQuadNode::enQuadrants cQuadNode::compare( UI16 srcx, UI16 srcy )
 bool cQuadNode::inRange( UI16 srcx, UI16 srcy, UI32 distance )
 {
 	return ( this->distance( srcx, srcy ) <= distance );
+}
+
+/*!
+	This checks if two rectangles overlap.
+*/
+bool cQuadNode::overlap( UI16 left, UI16 right, UI16 top, UI16 bottom, UI16 x1, UI16 y1, UI16 x2, UI16 y2 )
+{	
+	return  
+		// Horizontal check
+		( ( left >= x1 && left <= x2 ) || (right >= x1 && right <= x2 ) || ( right >= x2 && left <= x1 ) ) &&
+
+		// Vertical Check
+		( ( top >= y1 && top <= y2  ) || ( bottom >= y1 && bottom <= y2 ) || ( bottom >= y2 && top <= y1 ) );
+}
+
+void cQuadNode::search( UI16 left, UI16 right, UI16 bottom, UI16 top, UI16 x1, UI16 y1, UI16 x2, UI16 y2, std::vector< cMapObjects::type > &serials )
+{
+	// Add our own object to the list of we are inside of the requested rectangle
+	if( x_ >= x1 && x_ <= x2 && y_ >= y1 && y_ <= y2 )
+		serials.insert( serials.end(), objectserials.begin(), objectserials.end() );
+
+	if( childs[ northeast ] && childs[ northeast ]->overlap( x_, right, y_, top, x1, y1, x2, y2 ) )
+		childs[ northeast ]->search( x_, right, y_, top, x1, y1, x2, y2, serials );
+
+	if( childs[ northwest ] && childs[ northwest ]->overlap( left, x_, y_, top, x1, y1, x2, y2 ) )
+		childs[ northwest ]->search( left, x_, y_, top, x1, y1, x2, y2, serials );
+
+	if( childs[ southwest ] && childs[ southwest ]->overlap( left, x_, bottom, y_, x1, y1, x2, y2 ) )
+		childs[ southwest ]->search( left, x_, bottom, y_, x1, y1, x2, y2, serials );
+
+	if( childs[ southeast ] && childs[ southeast ]->overlap( x_, right, bottom, y_, x1, y1, x2, y2 ) )
+		childs[ southeast ]->search( x_, right, bottom, y_, x1, y1, x2, y2, serials );
 }
 
 bool cQuadNode::overlap( UI16 left, UI16 right, UI16 bottom, UI16 top, UI16 srcx, UI16 srcy, UI32 distance )
@@ -315,13 +349,19 @@ cMapObjects::~cMapObjects()
 	}
 }
 
+void cMapObjects::search( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map, std::vector<type> &serials )
+{
+	QMap< UI08, cQuadNode* >::iterator nit = rootmap_.find( map );
+
+	if( nit != rootmap_.end() )
+		nit.data()->search( 0,  Map->mapTileWidth( map ) * 8, 0, Map->mapTileHeight( map ) * 8, x1, y1, x2, y2, serials );
+}
+
 void cMapObjects::search( const Coord_cl &pos, UI32 distance, std::vector< cMapObjects::type > &serials )
 {
 	QMap< UI08, cQuadNode* >::iterator nit = rootmap_.find( pos.map );
 	if( nit != rootmap_.end() )
 		nit.data()->search( 0,  Map->mapTileWidth( pos.map ) * 8, 0, Map->mapTileHeight( pos.map ) * 8, pos.x, pos.y, distance, serials );
-	else
-		return;
 }
 
 void cMapObjects::add( cUObject* object )

@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="lib/Python/PC,lib/Python/include,lib\bugreport,lib\ZThread\include,$(QTDIR)\include,c:\mysql\include"
-				PreprocessorDefinitions="_CONSOLE;ZTHREAD_STATIC;PY_NOSOCKETS;_DEBUG;WIN32;QT_DLL;WP_DONT_USE_HASH_MAP"
+				PreprocessorDefinitions="_CONSOLE;ZTHREAD_STATIC;PY_NOSOCKETS;_DEBUG;WIN32;QT_DLL;WP_DONT_USE_HASH_MAP;QT_THREAD_SUPPORT"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				BufferSecurityCheck="TRUE"
@@ -48,7 +48,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386 /FIXED:NO"
-				AdditionalDependencies="ws2_32.lib ZThread.lib qt-mt.lib libmysql.lib flatstore\debug\flatstore.lib"
+				AdditionalDependencies="ws2_32.lib qt-mt312.lib libmysql.lib flatstore\debug\flatstore.lib"
 				ShowProgress="0"
 				OutputFile="D:\Wolfpack\Wolfpack.exe"
 				Version="12.9"
@@ -162,6 +162,21 @@
 				RelativePath=".\accounts.cpp">
 			</File>
 			<File
+				RelativePath="ai.cpp">
+			</File>
+			<File
+				RelativePath="ai_monsters.cpp">
+			</File>
+			<File
+				RelativePath="ai_vendors.cpp">
+			</File>
+			<File
+				RelativePath="basechar.cpp">
+			</File>
+			<File
+				RelativePath="basechar_flatstore.cpp">
+			</File>
+			<File
 				RelativePath=".\basics.cpp">
 			</File>
 			<File
@@ -169,9 +184,6 @@
 			</File>
 			<File
 				RelativePath=".\books.cpp">
-			</File>
-			<File
-				RelativePath="char_flatstore.cpp">
 			</File>
 			<File
 				RelativePath=".\chars.cpp">
@@ -261,10 +273,10 @@
 				RelativePath=".\newmagic.cpp">
 			</File>
 			<File
-				RelativePath=".\npcs.cpp">
+				RelativePath="npc.cpp">
 			</File>
 			<File
-				RelativePath=".\p_ai.cpp">
+				RelativePath="npc_flatstore.cpp">
 			</File>
 			<File
 				RelativePath=".\persistentbroker.cpp">
@@ -274,6 +286,12 @@
 			</File>
 			<File
 				RelativePath=".\pfactory.cpp">
+			</File>
+			<File
+				RelativePath="player.cpp">
+			</File>
+			<File
+				RelativePath="player_flatstore.cpp">
 			</File>
 			<File
 				RelativePath=".\preferences.cpp">
@@ -397,6 +415,19 @@
 				RelativePath=".\accounts.h">
 			</File>
 			<File
+				RelativePath="basechar.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing basechar.h"
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						AdditionalDependencies=""
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\baseregion.h">
 			</File>
 			<File
@@ -446,27 +477,6 @@
 			</File>
 			<File
 				RelativePath=".\bounty.h">
-			</File>
-			<File
-				RelativePath=".\chars.h">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="MOCing chars.h..."
-						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
-"
-						Outputs="$(InputDir)moc_$(InputName).cpp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="MOCing chars.h..."
-						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
-"
-						Outputs="$(InputDir)moc_$(InputName).cpp"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\classes.h">
@@ -712,6 +722,19 @@
 				RelativePath=".\newmagic.h">
 			</File>
 			<File
+				RelativePath="npc.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing npc.h"
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						AdditionalDependencies=""
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\pagesystem.h">
 			</File>
 			<File
@@ -752,6 +775,19 @@
 			</File>
 			<File
 				RelativePath=".\platform.h">
+			</File>
+			<File
+				RelativePath="player.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="MOCing player.h"
+						CommandLine="%qtdir%\bin\moc.exe $(InputDir)$(InputName).h -o $(InputDir)moc_$(InputName).cpp
+"
+						AdditionalDependencies=""
+						Outputs="$(InputDir)moc_$(InputName).cpp"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\preferences.h">
@@ -1070,6 +1106,9 @@
 				RelativePath="python\multi.cpp">
 			</File>
 			<File
+				RelativePath="python\npcai.cpp">
+			</File>
+			<File
 				RelativePath=".\python\pyaccount.cpp">
 			</File>
 			<File
@@ -1110,13 +1149,13 @@
 				RelativePath=".\moc_TmpEff.cpp">
 			</File>
 			<File
+				RelativePath="moc_basechar.cpp">
+			</File>
+			<File
 				RelativePath=".\moc_boats.cpp">
 			</File>
 			<File
 				RelativePath=".\moc_books.cpp">
-			</File>
-			<File
-				RelativePath=".\moc_chars.cpp">
 			</File>
 			<File
 				RelativePath=".\moc_commands.cpp">
@@ -1143,7 +1182,13 @@
 				RelativePath=".\moc_multis.cpp">
 			</File>
 			<File
+				RelativePath="moc_npc.cpp">
+			</File>
+			<File
 				RelativePath=".\moc_persistentobject.cpp">
+			</File>
+			<File
+				RelativePath="moc_player.cpp">
 			</File>
 			<File
 				RelativePath=".\moc_resources.cpp">

@@ -685,12 +685,6 @@ static void parseParameter( const QString &param )
 	{
 		if ( QFile::exists( param ) )
 		{
-			FILE* f = fopen(param, "r");
-			if ( f )
-			{
-				PyRun_SimpleFile(f, const_cast<char*>(param.latin1()));
-				exit(0);
-			}
 		}
 		else
 			clConsole.error( QString("The specified python script [%1] doesn't exist.").arg(param) );
@@ -855,7 +849,6 @@ int main( int argc, char *argv[] )
 	for( i = 1; i <= argc; ++i )
 		parseParameter( QString( argv[ i ] ) );
 
-
 	// Load data
 	DefManager->load();
 	clConsole.send( "\n" );
@@ -963,7 +956,7 @@ int main( int argc, char *argv[] )
 	Monster_Aggressive_L1::registerInFactory();
 	Human_Vendor::registerInFactory();
 	Human_Stablemaster::registerInFactory();
-	Animal_Wild::registerInFactory();
+	//Animal_Wild::registerInFactory();
 
 	try
 	{

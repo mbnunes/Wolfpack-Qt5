@@ -324,7 +324,7 @@ std::vector<StartLocation_st>& cSrvParams::startLocation()
 					{
 						loc.pos.x = strList2[0].toUShort();
 						loc.pos.y = strList2[1].toUShort();
-						loc.pos.z = strList2[2].toUShort();
+						loc.pos.z = strList2[2].toShort();
 						loc.pos.map = strList2[3].toUShort();
 						startLocation_.push_back(loc);
 					}

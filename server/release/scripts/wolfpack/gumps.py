@@ -10,18 +10,18 @@
 from types import *
 
 class cGump:
-	def __init__(self, noclose=0, nomove=0, nodispose=0, x=0, y=0):
+	def __init__(self, noclose=0, nomove=0, nodispose=0, x=0, y=0, callback="", args = [], type = 0, serial = 0):
 		self.layout = []
 		self.texts = []
-		self.args = []
-		self.callback = ""
+		self.args = args
+		self.callback = callback
 		self.noclose = noclose
 		self.nomove = nomove
 		self.nodispose = nodispose
 		self.x = x
 		self.y = y
-		self.typeid = 0
-		self.serialid = 0
+		self.typeid = type
+		self.serialid = serial
 
 	# Send the gump
 	def send( self, char ):
