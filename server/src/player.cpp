@@ -147,7 +147,19 @@ static void playerRegisterAfterLoading( P_PLAYER pc )
 {
 	if (pc->account() == 0)
 	{
-		cCharStuff::DeleteChar(pc);
+		// We need to remove the equipment here.
+		cBaseChar::ItemContainer container(pc->content());
+		cBaseChar::ItemContainer::const_iterator it (container.begin());
+		cBaseChar::ItemContainer::const_iterator end(container.end());
+		for (; it != end; ++it )
+		{
+			P_ITEM pItem = *it;
+			if( !pItem )
+				continue;
+
+			Items->DeleItem( pItem );
+		}
+		pc->del();
 		return;
 	} 
 /*	else

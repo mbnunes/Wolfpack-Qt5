@@ -54,7 +54,7 @@ int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value );
 	The typedef for Wolfpack Python items
 */
 static PyTypeObject wpAccountType = {
-    PyObject_HEAD_INIT(NULL)
+    PyObject_HEAD_INIT(&wpAccountType)
     0,
     "wpaccount",
     sizeof(wpAccountType),
@@ -202,7 +202,12 @@ static PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 		return list;
 	}
 	else if( !strcmp( name, "lastlogin" ) )
-		return PyString_FromString( self->account->lastLogin().toString().latin1() );
+	{
+		if ( !self->account->lastLogin().isValid() )
+			return PyString_FromString("Unknown");
+		else
+			return PyString_FromString( self->account->lastLogin().toString().latin1() );
+	}
 	else if( !strcmp( name, "blockuntil" ) )
 	{
 		if( self->account->blockedUntil() > QDateTime::currentDateTime() )
