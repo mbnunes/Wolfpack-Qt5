@@ -8,32 +8,55 @@
 <definitions>
 	<contextmenu id="train_menu">
 		<events>trainmenu</events>
-		<option tag="1"  msgid="6000" checkvisible="true" checkenabled="true" />
-		<option tag="2"  msgid="6001" checkvisible="true" checkenabled="true" />
-		<option tag="3"  msgid="6002" checkvisible="true" checkenabled="true" />
-		<option tag="4"  msgid="6003" checkvisible="true" checkenabled="true" />
-		<option tag="5"  msgid="6004" checkvisible="true" checkenabled="true" />
-		<option tag="6"  msgid="6005" checkvisible="true" checkenabled="true" />
-		<option tag="7"  msgid="6006" checkvisible="true" checkenabled="true" />
-		<option tag="8"  msgid="6007" checkvisible="true" checkenabled="true" />
-		<option tag="9"  msgid="6008" checkvisible="true" checkenabled="true" />
-		<option tag="10" msgid="6009" checkvisible="true" checkenabled="true" />
-		<option tag="11" msgid="6010" checkvisible="true" checkenabled="true" />
-		<option tag="12" msgid="6011" checkvisible="true" checkenabled="true" />
-		<option tag="13" msgid="6012" checkvisible="true" checkenabled="true" />
-		<option tag="14" msgid="6013" checkvisible="true" checkenabled="true" />
-		<option tag="15" msgid="6014" checkvisible="true" checkenabled="true" />
-		<option tag="16" msgid="6015" checkvisible="true" checkenabled="true" />
-		<option tag="17" msgid="6016" checkvisible="true" checkenabled="true" />
-		<option tag="18" msgid="6017" checkvisible="true" checkenabled="true" />
-		<option tag="19" msgid="6018" checkvisible="true" checkenabled="true" />
-		<option tag="20" msgid="6019" checkvisible="true" checkenabled="true" />
-		<option tag="21" msgid="6020" checkvisible="true" checkenabled="true" />
-		<option tag="22" msgid="6021" checkvisible="true" checkenabled="true" />
-		<option tag="23" msgid="6022" checkvisible="true" checkenabled="true" />
-		<option tag="24" msgid="6023" checkvisible="true" checkenabled="true" />
-		<option tag="25" msgid="6024" checkvisible="true" checkenabled="true" />
-		<option tag="26" msgid="6025" checkvisible="true" checkenabled="true" />
+		<option tag="1"  msgid="6000" checkvisible="true" checkenabled="true" /> <!-- Alchemy -->
+		<option tag="2"  msgid="6001" checkvisible="true" checkenabled="true" /> <!-- Anatomy -->
+		<option tag="3"  msgid="6002" checkvisible="true" checkenabled="true" /> <!-- AnimalLore -->
+		<option tag="4"  msgid="6003" checkvisible="true" checkenabled="true" /> <!-- ItemID -->
+		<option tag="5"  msgid="6004" checkvisible="true" checkenabled="true" /> <!-- ArmsLore -->
+		<option tag="6"  msgid="6005" checkvisible="true" checkenabled="true" /> <!-- Parry -->
+		<option tag="7"  msgid="6006" checkvisible="true" checkenabled="true" /> <!-- Begging -->
+		<option tag="8"  msgid="6007" checkvisible="true" checkenabled="true" /> <!-- Blacksmith -->
+		<option tag="9"  msgid="6008" checkvisible="true" checkenabled="true" /> <!-- Fletching -->
+		<option tag="10" msgid="6009" checkvisible="true" checkenabled="true" /> <!-- Peacemaking -->
+		<option tag="11" msgid="6010" checkvisible="true" checkenabled="true" /> <!-- Camping -->
+		<option tag="12" msgid="6011" checkvisible="true" checkenabled="true" /> <!-- Carpentery -->
+		<option tag="13" msgid="6012" checkvisible="true" checkenabled="true" /> <!-- Cartography -->
+		<option tag="14" msgid="6013" checkvisible="true" checkenabled="true" /> <!-- Cooking -->
+		<option tag="15" msgid="6014" checkvisible="true" checkenabled="true" /> <!-- Detect Hidden -->
+		<option tag="16" msgid="6015" checkvisible="true" checkenabled="true" /> <!-- Discordance -->
+		<option tag="17" msgid="6016" checkvisible="true" checkenabled="true" /> <!-- Evaluate Int -->
+		<option tag="18" msgid="6017" checkvisible="true" checkenabled="true" /> <!-- Healing -->
+		<option tag="19" msgid="6018" checkvisible="true" checkenabled="true" /> <!-- Fishing -->
+		<option tag="20" msgid="6019" checkvisible="true" checkenabled="true" /> <!-- Forensics -->
+		<option tag="21" msgid="6020" checkvisible="true" checkenabled="true" /> <!-- Hearding -->
+		<option tag="22" msgid="6021" checkvisible="true" checkenabled="true" /> <!-- Hiding -->
+		<option tag="23" msgid="6022" checkvisible="true" checkenabled="true" /> <!-- Provocation -->
+		<option tag="24" msgid="6023" checkvisible="true" checkenabled="true" /> <!-- Inscribe -->
+		<option tag="25" msgid="6024" checkvisible="true" checkenabled="true" /> <!-- Lockpicking -->
+		<option tag="26" msgid="6025" checkvisible="true" checkenabled="true" /> <!-- Magery -->
+		<option tag="27" msgid="6026" checkvisible="true" checkenabled="true" /> <!-- Magic Resist -->
+		<option tag="28" msgid="6027" checkvisible="true" checkenabled="true" /> <!-- Tactics -->
+		<option tag="29" msgid="6028" checkvisible="true" checkenabled="true" /> <!-- Snooping -->
+		<option tag="30" msgid="6029" checkvisible="true" checkenabled="true" /> <!-- Musicianship -->
+		<option tag="31" msgid="6030" checkvisible="true" checkenabled="true" /> <!-- Poisoning -->
+		<option tag="32" msgid="6031" checkvisible="true" checkenabled="true" /> <!-- Archery -->
+		<option tag="33" msgid="6032" checkvisible="true" checkenabled="true" /> <!-- Spirit Speak -->
+		<option tag="34" msgid="6033" checkvisible="true" checkenabled="true" /> <!-- Stealing -->
+		<option tag="35" msgid="6034" checkvisible="true" checkenabled="true" /> <!-- Tailoring -->
+		<option tag="36" msgid="6035" checkvisible="true" checkenabled="true" /> <!-- Animal Taming -->
+		<option tag="37" msgid="6036" checkvisible="true" checkenabled="true" /> <!-- Taste ID -->
+		<option tag="38" msgid="6037" checkvisible="true" checkenabled="true" /> <!-- Tinkering -->
+		<option tag="39" msgid="6038" checkvisible="true" checkenabled="true" /> <!-- Tracking -->
+		<option tag="40" msgid="6039" checkvisible="true" checkenabled="true" /> <!-- Veterinary -->
+		<option tag="41" msgid="6040" checkvisible="true" checkenabled="true" /> <!-- Swordsmanship -->
+		<option tag="42" msgid="6041" checkvisible="true" checkenabled="true" /> <!-- Macing -->
+		<option tag="43" msgid="6042" checkvisible="true" checkenabled="true" /> <!-- Fencing -->
+		<option tag="44" msgid="6043" checkvisible="true" checkenabled="true" /> <!-- Wrestling -->
+		<option tag="45" msgid="6044" checkvisible="true" checkenabled="true" /> <!-- Lumberjacking -->
+		<option tag="46" msgid="6045" checkvisible="true" checkenabled="true" /> <!-- Mining -->
+		<option tag="47" msgid="6046" checkvisible="true" checkenabled="true" /> <!-- Meditation -->
+		<option tag="48" msgid="6047" checkvisible="true" checkenabled="true" /> <!-- Stealth -->
+		<option tag="49" msgid="6048" checkvisible="true" checkenabled="true" /> <!-- Remove Trap -->
 	</contextmenu>
 
 	<contextmenu id="banker_menu">

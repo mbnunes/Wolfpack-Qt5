@@ -95,6 +95,7 @@
 	<!-- Context menu scripts -->
 	<script>daggermenu</script>
 	<script>bankermenu</script>
+	<script>trainmenu</script>
 
 	<!-- Speech Scripts -->
 	<script>speech.pets</script>
