@@ -7,17 +7,4 @@
 =================================================================
 -->
 <definitions>
-
-	<spawnregion id="felucca_ocllo_bank">
-		<maxnpcamount>1</maxnpcamount>
-		<mintime>0</mintime>
-		<maxtime>1</maxtime>
-		<npcs>
-			<npc>banker_male</npc>
-			<npc>banker_female</npc>
-		</npcs>
-		<npcspercycle>1</npcspercycle>
-		<rectangle x1="3689" x2="3694" y1="2510" y2="2518" map="0" />
-	</spawnregion>
-
 </definitions>

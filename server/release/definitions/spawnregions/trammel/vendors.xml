@@ -1,0 +1,1117 @@
+<definitions>
+	<spawnregion id="trammel_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>trammel</group>
+		<group>trammel_vendors</group>
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_1">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="556,991,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_2">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="560,2148,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_3">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="588,2165,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_4">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="593,2205,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_5">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="602,2183,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_6">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="606,2179,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_7">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="606,2178,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_8">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="606,2180,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_9">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="619,2217,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_10">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="621,2215,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_11">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="619,2216,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_12">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="626,2192,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_13">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="626,2192,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_14">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="646,2182,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_15">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="649,2182,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_16">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="653,2158,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_17">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="747,2144,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_18">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1317,3774,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_19">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1341,1737,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_20">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1341,1735,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_21">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1355,3783,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_22">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1353,3780,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_23">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1362,3704,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_24">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1358,3757,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_25">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1359,3734,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_26">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1392,3707,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_27">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1393,3706,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_28">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1413,3776,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_29">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1412,3778,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_30">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1413,3778,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_31">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1420,3853,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_32">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1418,3851,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_33">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1420,1549,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_34">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1419,1548,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_35">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1425,3980,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_36">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1423,3980,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_37">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1423,3982,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_38">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1422,1579,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_39">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1440,3719,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_40">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1441,1650,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_41">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1445,3982,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_42">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1454,3853,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_43">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1452,1683,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_44">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1450,1612,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_45">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1452,4005,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_46">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1452,4006,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_47">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1477,3856,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_48">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1471,1581,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_49">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1482,1585,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_50">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1489,1551,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_51">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1490,1553,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_52">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1490,1553,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_53">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1490,1553,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_54">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1499,1660,27,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_55">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1498,1661,27,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_56">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1499,1660,27,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_57">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1555,1658,26,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_58">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1554,1656,26,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_59">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1591,1653,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_60">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1593,1653,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_61">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1592,1655,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_62">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1591,1655,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_63">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1637,1698,36,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_64">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1653,1642,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_65">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1859,2714,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_66">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1856,2714,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_67">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1856,2713,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_68">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1889,2801,33,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_69">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1894,2651,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_70">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1876,2821,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_71">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1876,2821,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_72">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1876,2821,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_73">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1876,2821,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_74">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1937,2768,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_75">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1939,2776,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_76">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1988,2846,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_77">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1990,2846,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_78">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2215,1166,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_79">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2214,1169,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_80">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2244,1229,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_81">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2244,1231,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_82">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2241,1229,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_83">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2838,803,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_84">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2837,800,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_85">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2839,875,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_86">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2837,875,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_87">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2856,809,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_88">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2863,854,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_89">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2864,854,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_90">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2920,856,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_91">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2920,855,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_92">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2919,852,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_93">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2920,977,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_94">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2923,977,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_95">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2923,978,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_96">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2988,3351,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_97">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2985,3353,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_98">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2987,3352,35,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_99">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2987,3351,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_100">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2984,3353,35,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_101">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2987,3353,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_102">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2984,3353,35,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_103">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2992,839,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_104">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2992,838,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_105">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2998,761,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_106">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3006,3386,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_107">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3007,3385,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_108">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3008,3387,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_109">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3016,3432,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_110">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3630,2572,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_111">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3632,2570,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_112">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3631,2570,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_113">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3631,2570,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_114">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3632,2570,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_115">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3632,2569,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_116">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3639,2608,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_117">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3706,2176,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_118">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3708,2177,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_119">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3708,2177,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_120">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3706,2176,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_121">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3689,2474,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_122">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3691,2475,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_123">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3744,1254,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_124">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3742,1257,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_125">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4388,1112,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_126">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4390,1063,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_127">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4388,1086,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_128">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4389,1087,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_129">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4390,1083,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_130">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4413,1110,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_131">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4413,1110,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_132">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4438,1158,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_133">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4454,1086,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_134">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4455,1085,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_135">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4455,1084,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_136">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4453,1062,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_137">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4456,1065,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_138">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4545,860,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_139">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4544,857,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_140">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4684,1412,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_141">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4681,1413,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_142">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5806,3296,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_143">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2455,487,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_144">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2467,559,5,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_145">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2469,561,5,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_146">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2501,432,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_147">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2529,574,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_148">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2853,737,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_149">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2876,722,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_150">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2889,653,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_151">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2887,653,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_152">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2889,654,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_153">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2918,669,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_154">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2918,671,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_155">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2918,672,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_156">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2918,671,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_157">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2961,621,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_vendor" id="trammel_vendor_158">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2960,620,0,1" />
+	</spawnregion>
+</definitions>

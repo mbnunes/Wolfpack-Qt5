@@ -1,0 +1,1138 @@
+<definitions>	
+	<spawnregion id="felucca_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>felucca_vendors</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_1">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="556,991,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_2">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="560,2146,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_3">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="566,968,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_4">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="589,2166,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_5">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="596,2208,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_6">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="603,2180,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_7">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="603,2182,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_8">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="606,2182,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_9">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="606,2180,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_10">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="621,2216,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_11">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="619,2216,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_12">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="619,2215,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_13">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="627,2193,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_14">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="626,2194,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_15">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="648,2182,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_16">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="649,2183,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_17">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="655,2161,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_18">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="748,2146,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_19">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1317,3774,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_20">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1342,1737,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_21">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1339,1737,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_22">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1355,3782,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_23">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1357,3779,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_24">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1361,3704,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_25">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1357,3757,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_26">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1359,3734,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_27">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1391,3706,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_28">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1395,3705,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_29">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1411,3778,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_30">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1412,3777,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_31">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1414,3776,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_32">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1418,3850,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_33">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1420,3851,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_34">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1420,1549,30,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_35">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1418,1549,30,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_36">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1425,3981,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_37">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1425,3980,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_38">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1424,3983,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_39">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1424,1579,50,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_40">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1440,3717,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_41">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1443,1649,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_42">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1445,3982,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_43">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1451,3852,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_44">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1451,1683,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_45">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1450,1610,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_46">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1452,4006,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_47">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1453,4004,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_48">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1475,3855,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_49">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1474,1583,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_50">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1484,1584,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_51">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1490,1553,30,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_52">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1490,1554,30,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_53">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1490,1553,30,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_54">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1489,1553,30,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_55">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1499,1661,27,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_56">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1499,1660,27,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_57">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1498,1659,27,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_58">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1554,1657,26,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_59">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1554,1657,26,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_60">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1592,1652,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_61">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1593,1655,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_62">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1593,1654,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_63">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1591,1654,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_64">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1637,1698,36,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_65">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1656,1645,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_66">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1856,2713,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_67">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1855,2712,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_68">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1854,2713,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_69">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1889,2805,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_70">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1896,2650,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_71">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1876,2821,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_72">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1876,2821,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_73">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1876,2821,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_74">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1876,2821,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_75">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1937,2768,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_76">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1939,2776,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_77">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1988,2846,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_78">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1989,2842,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_79">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2216,1168,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_80">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2214,1167,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_81">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2241,1232,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_82">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2242,1230,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_83">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2241,1229,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_84">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2837,803,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_85">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2838,801,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_86">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2837,874,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_87">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2837,876,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_88">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2858,808,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_89">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2862,853,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_90">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2862,851,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_91">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2920,854,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_92">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2919,855,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_93">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2919,853,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_94">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2921,978,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_95">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2924,979,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_96">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2921,979,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_97">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2985,3353,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_98">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2986,3354,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_99">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2985,3353,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_100">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2985,3354,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_101">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2985,3353,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_102">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2985,3352,35,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_103">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2985,3352,35,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_104">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2991,835,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_105">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2989,836,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_106">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2998,764,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_107">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3007,3385,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_108">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3005,3386,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_109">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3006,3386,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_110">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3013,3433,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_111">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3612,2572,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_112">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3628,2539,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_113">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3629,2540,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_114">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3629,2538,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_115">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3630,2607,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_116">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3628,2606,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_117">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3627,2604,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_118">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3638,2594,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_119">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3638,2596,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_120">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3667,2588,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_121">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3665,2588,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_122">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3705,2175,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_123">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3705,2177,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_124">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3705,2176,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_125">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3706,2174,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_126">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3744,1256,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_127">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3744,1254,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_128">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4388,1112,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_129">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4390,1065,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_130">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4387,1083,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_131">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4390,1084,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_132">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4387,1084,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_133">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4413,1114,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_134">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4412,1111,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_135">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4438,1160,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_136">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4454,1084,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_137">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4453,1085,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_138">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4454,1086,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_139">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4453,1064,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_140">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4453,1061,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_141">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4543,857,30,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_142">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4545,858,30,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_143">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4681,1413,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_144">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4681,1412,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_145">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5808,3296,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_146">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2455,487,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_147">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2469,560,5,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_148">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2471,561,5,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_149">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2502,431,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_150">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2528,576,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_151">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2854,736,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_152">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2878,722,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_153">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2886,653,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_154">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2889,653,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_155">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2886,652,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_156">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2918,670,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_157">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2918,671,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_158">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2919,670,40,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_159">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2917,671,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_160">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2963,622,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vendor" id="felucca_vendor_161">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2961,624,0,0" />
+	</spawnregion>
+</definitions>

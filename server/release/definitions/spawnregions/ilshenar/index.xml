@@ -8,6 +8,8 @@
 -->
 
 <definitions>
+	<include file="definitions/spawnregions/ilshenar/vendors.xml" />
+
 	<!-- Town Spawns -->
 	<include file="definitions/spawnregions/ilshenar/ancient_citadel.xml" />
 	<include file="definitions/spawnregions/ilshenar/gargoyle_city.xml" />
