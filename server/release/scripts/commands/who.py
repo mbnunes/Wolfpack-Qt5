@@ -34,8 +34,10 @@ def showWhoGump(player, page):
 	while worldsocket:
 		char = worldsocket.player
 		if char.invisible and char.rank > player.rank:
+			worldsocket = wolfpack.sockets.next()
 			continue
 		if not char.account:
+			wolfpack.sockets.next()
 			continue	
 		wholist.append(char)
 		worldsocket = wolfpack.sockets.next()
@@ -44,6 +46,10 @@ def showWhoGump(player, page):
 		
 	# Skip page * 10 users
 	newwholist = wholist[page * 10:]
+
+	while len(newwholist) == 0 and page > 0:
+		page -= 1
+		newwholist = wholist[page * 10:]
 
 	wholist = newwholist
 	
