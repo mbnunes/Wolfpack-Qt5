@@ -26,31 +26,29 @@ def canUsePotion( char, item ):
 
 # Consume the potion
 def consumePotion( char, potion, givebottle=True ):
-
 	if potion.amount == 1:
 		potion.delete()
 	else:
 		potion.amount -= 1
 		potion.update()
-
 	# Lets add an empty bottle!
 	if givebottle:
 		# Empty Bottle Definition
 		bottle = wolfpack.additem( 'f0e' )
 		if not wolfpack.utilities.tocontainer( bottle, char.getbackpack() ):
 			bottle.update()
-
 	return True;
 
 #Throw the potion at something
 def targetpotion( char, args, target ):
 	check = 10
 	socket = char.socket
-	potion = wolfpack.finditem( args[0] )
-	if potion.hastag( 'range' ):
+	pitem = wolfpack.finditem( args[0] )
+	# Range Check Override
+	if pitem.hastag( 'range' ):
 		check = int( potion.gettag( 'range' ) )
-
-	if not potion:
+	# Target Checking
+	if not pitem:
 		return False
 	if target.char:
 		if not char.cansee( target.char ):
@@ -73,7 +71,7 @@ def targetpotion( char, args, target ):
 		else:
 			pos = item.pos
 	else:
-		if not char.canreach(target, check):
+		if not char.canreach( target, check ):
 			return False
 		pos = target.pos
 	# Distance Checking
@@ -81,13 +79,13 @@ def targetpotion( char, args, target ):
 		socket.clilocmessage( 1005539 )
 		return False
 	#verify the potion still exists to be thrown...
-	if potion:
-		if potion.amount == 1:
-			throwobject( char, potion, pos, 1, 3, 5 )
+	if pitem:
+		if pitem.amount == 1:
+			throwobject( char, pitem, pos, 1, 3, 5 )
 		else:
-			potion.amount -= 1
-			potion.update()
-			socket.sysmessage( 'Stackable potions is not yet complete.' )
+			#pitem.amount -= 1
+			#pitem.update()
+			#throwobject( char, pitem, pos, 1, 3, 5 )
 			return False
 
 	return True
