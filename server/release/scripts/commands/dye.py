@@ -9,7 +9,7 @@
 
 """
 	\command dye
-	\description Changes the color of the targetted item.
+	\description Changes the color of the targetted item or skin of the targetted character.
 	\usage - <code>dye color</code>
 	The color can either be passed as a decimal number or in the standard hexadecimal notation.
 """
@@ -27,13 +27,17 @@ def dye( socket, command, arguments ):
 def response( char, args, target ):
 	if target.item:
 		color = args[0]
-		paint( char.socket, target.item, [color] )
+		target.item.color = hex(color)
+		target.item.update()
+	elif target.char:
+		skin = args[0]
+		if skin == 0:
+			skin = target.char.orgskin
+		target.char.skin = hex(skin)
+		target.char.update()
 	else:
 		char.socket.sysmessage( 'That was not a valid object.', GRAY )
-
-def paint( socket, item, args ):
-	item.color = hex(args[0])
-	item.update()
+	return
 
 def onLoad():
 	wolfpack.registercommand( "dye", dye )
