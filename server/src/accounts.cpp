@@ -501,7 +501,7 @@ void cAccounts::clearAcls() {
 	iterator it = accounts.begin();
 
 	while (it != accounts.end()) {
-		it.data()->acl_ = 0;
+    it.data()->refreshAcl();
 		++it;
 	}
 }
