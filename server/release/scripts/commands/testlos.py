@@ -6,10 +6,9 @@
 #===============================================================#
 
 """
-	\command decoration
-	\description Places decoration read from a xml file.
-	\notes The decoration will be read from a XML file called
-	'data\decoration.1.xml'.
+	\command testlos
+	\description Tests line of sight between you and the target?
+	\notes Tests line of sight between you and the target?
 """
 
 
