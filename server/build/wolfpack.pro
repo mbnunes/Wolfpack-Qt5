@@ -48,8 +48,8 @@ AI_CPP = ../src/ai
 MULS_H = ../src/muls
 MULS_CPP = ../src/muls
 
-DEPENDPATH += ;$$SQLITE_H;$$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;.
-INCLUDEPATH += $$SQLITE_H
+DEPENDPATH += ;$$SQLITE_H;$$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;../src
+INCLUDEPATH += $$SQLITE_H;../src
 
 
 #modules
@@ -61,6 +61,7 @@ include($$MULS_CPP/muls.pri)
 # Common files
 
 HEADERS += \
+	./resource.h \
 	../src/accounts.h \
 	../src/action.h \
 	../src/basechar.h \
@@ -101,7 +102,6 @@ HEADERS += \
 	../src/profile.h \
 	../src/progress.h \
 	../src/pythonscript.h \
-	resource.h \
 	../src/scriptmanager.h \
 	../src/server.h \
 	../src/singleton.h \
@@ -201,5 +201,5 @@ DISTFILES += \
 # used by tools/translationupdate, our own version of lupdate
 # WPDEFINITIONS is the folder where xml definitons are.
 # WPSCRIPTS is the folder where Python scripts are.
-WPDEFINITIONS = ../definitions
-WPSCRIPTS = ../scripts
+WPDEFINITIONS = ../release/definitions
+WPSCRIPTS = ../release/scripts
