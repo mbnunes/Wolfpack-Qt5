@@ -1,0 +1,19 @@
+<definitions>
+	<!-- An empty plant bowl -->
+	<item id="plantbowl">
+		<name>#1060834</name>
+		<weight>1.0</weight>
+		<id>0x15fd</id>
+		<category>Plant Growing\Empty Plant Bowl</category>
+		<basescript>plants.bowl</basescript>
+	</item>
+	
+	<!-- A plant -->
+	<item id="plant">
+		<weight>1.0</weight>
+		<id>0x1602</id>
+		<category>Plant Growing\Plant</category>
+		<scriptlist>plants.plant</scriptlist>
+	</item>
+
+</definitions>
