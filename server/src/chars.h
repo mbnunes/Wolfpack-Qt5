@@ -308,7 +308,6 @@ protected:
 	// Public Methods
 public:
 	cChar();
-	virtual ~cChar() {}
 	virtual void Serialize(ISerialization &archive);
 	virtual QString objectID() const;
     
