@@ -80,6 +80,7 @@ HEADERS         = client.h \
                   srvparams.h \
                   serxmlfile.h \
                   serbinfile.h \
+                  skills.h \
 		  stream.h \
 		  structs.h \
 		  targeting.h \
@@ -103,7 +104,6 @@ HEADERS         = client.h \
 		  wpdefaultscript.h \
 		  wpdefmanager.h \
 		  wpscriptmanager.h \
-		  menuactions.h \
 		  wptargetrequests.h \
 		  corpse.h \
 		  python/content.h
@@ -180,7 +180,6 @@ SOURCES         = client.cpp \
 		  packlen.cpp \
 		  wpdefmanager.cpp \
 		  wpscriptmanager.cpp \
-		  menuactions.cpp \
 		  wptargetrequests.cpp 
 
 # Network Module

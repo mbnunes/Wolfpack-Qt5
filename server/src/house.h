@@ -81,7 +81,7 @@ public:
 
 	cHouse() 
 	{
-		cItem::Init();
+		cItem::Init( false );
 
 		contserial = INVALID_SERIAL;
 		deedsection_ = (char*)0;

@@ -3995,7 +3995,7 @@ void cMagic::invisibleItemParticles(P_CHAR pc, int spellNum, short x, short y, s
 	// because the client has to tihnk its still there. np because it's an invisible item anyway
 	// but we have to tell the memory manger to delete it
 	cItemsManager::getInstance()->unregisterItem(it);
-	delete it;	
+	delete it;
 }
 
 sound_st cMagic::getSoundEffects( int num )

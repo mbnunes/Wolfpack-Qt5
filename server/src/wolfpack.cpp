@@ -2102,11 +2102,11 @@ int main( int argc, char *argv[] )
 	Magic->unload();
 	im_clearmenus();
 	
+	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
 	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
 
 	clConsole.PrepareProgress( "Closing sockets" );
 	cNetwork::shutdown();
-	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
 	clConsole.ProgressDone();
 		
 	DefManager->unload();
@@ -2120,6 +2120,12 @@ int main( int argc, char *argv[] )
 		clConsole.send("New ERRORS have been logged. Please send the error*.log and critical*.log files to the dev team !\n");
 	if (NewWarningsLogged())
 		clConsole.send("New WARNINGS have been logged. Probably scripting errors. See the warnings*.log for details !\n");
+
+/*	delete cItemsManager::getInstance();
+	delete cCharsManager::getInstance();
+	delete cAllSpawnRegions::getInstance();
+	delete cAllTerritories::getInstance();
+	delete cAllMakeMenus::getInstance();*/
 
 	if (error) {
 		clConsole.send("ERROR: Server terminated by error!\n");

@@ -382,7 +382,7 @@ void cSpawnRegion::checkTimer( void )
 cAllSpawnRegions::~cAllSpawnRegions( void )
 {
 	delete topregion_;
-	// the destructor of cBaseRegion contains the deletement of its subregion!
+	// the destructor of cBaseRegion contains the deletion of its subregion!
 	// so the regions will be deleted recursively from the stack by this one
 	// operation!
 }

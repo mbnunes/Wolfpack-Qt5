@@ -47,7 +47,7 @@ class cBook : public cItem
 public:
 	cBook()
 	{
-		cItem::Init();
+		cItem::Init( false );
 		this->setType( 11 ); // book type
 		this->predefined_ = false;
 		this->readonly_ = false;

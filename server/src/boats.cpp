@@ -44,8 +44,9 @@
 
 cBoat::cBoat()
 {
-	cItem::Init();
+	cItem::Init( false );
 
+	this->free = true;
 	this->contserial = INVALID_SERIAL;
 	//this->deedsection_ = (char*)0;
 	this->boatdir = 0;
