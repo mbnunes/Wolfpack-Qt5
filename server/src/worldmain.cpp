@@ -112,6 +112,8 @@ CWorldMain::~CWorldMain()
 
 void loadchar(int x) // Load a character from WSC
 {
+	/* This function is deprecated, REMOVE ME after release
+
 	unsigned long k,b,c1 ;
 	int i ;
 	int j, loops=0;
@@ -498,11 +500,14 @@ void loadchar(int x) // Load a character from WSC
 		pc->moveTo(pos); //player in an invalid location
 	}
 	setcharflag(pc);//AntiChrist
+*/
 }
 
 void loaditem (int x) // Load an item from WSC
 {
-	unsigned long int i,b;
+	/* This function is deprecated, remove me after release 
+
+    unsigned long int i,b;
 	int si;
 	int loops=0;
 	char bad=0;
@@ -513,8 +518,8 @@ void loaditem (int x) // Load an item from WSC
 	pi->Init(0);
 	pi->serial = 0x40000000;
 
-	/*pi->id1='\x0F';
-	pi->id2='\xA6'; */
+	//pi->id1='\x0F';
+	//pi->id2='\xA6';
 
 	// who did this why ?
 	// 0xfa6 is a client crasher casue it doesnt exist..
@@ -797,6 +802,7 @@ void loaditem (int x) // Load an item from WSC
 	}
 	if (bad) 
 		Items->DeleItem(pi);
+*/
 }
 
 void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
@@ -837,6 +843,12 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		pi->SetContSerial(pi->contserial);
 		pi->SetOwnSerial(pi->ownserial);
 
+		if (pi->spawnregion < 0)
+			pi->spawnregion = 0;
+		else
+			++spawnregion[pi->spawnregion].current;
+
+
 		//add item weight if item doesn't have it yet
 		if (pi->weight<=0) // LB, changed from 29 to 0
 		{
@@ -847,8 +859,8 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		// Tauriel adding region pointers
 		if (pi->isInWorld())
 		{
-			int max_x = cMapStuff::mapTileWidth(pi->pos) * 8;
-			int max_y = cMapStuff::mapTileHeight(pi->pos) * 8;
+			int max_x = Map->mapTileWidth(pi->pos) * 8;
+			int max_y = Map->mapTileHeight(pi->pos) * 8;
 			if (pi->pos.x>max_x || pi->pos.y>max_y) 
 			{
 				Items->DeleItem(pi);	//these are invalid locations, delete them!
@@ -1072,6 +1084,8 @@ bool CWorldMain::Saving( void )
 
 void CWorldMain::SaveChar( P_CHAR pc )
 {
+/*   This function is deprecated REMOVE ME after release
+
 	char valid=0;
 	int j;
 	if ( pc == NULL )
@@ -1353,8 +1367,10 @@ void CWorldMain::SaveChar( P_CHAR pc )
 	}
 	delete pc_reference;
 	pc_reference = NULL;
+	*/
 }
 
+/*  Deprecated stuff, REMOVE ME after release
 #if 0
 	#define save_int(a,b) fprintf(iWsc,"%s %i\n",a,b)
 	#define save_str(a,b) fprintf(iWsc,"%s %s\n",a,b)
@@ -1374,7 +1390,7 @@ void CWorldMain::SaveChar( P_CHAR pc )
 	}
 
 #endif
-
+*/
 static void decay1(P_ITEM pi, P_ITEM pItem)
 {
 	long serial;
@@ -1443,6 +1459,7 @@ void swapDragInfo(P_ITEM pi)
 
 void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 {
+/*	This function is deprecated REMOVE ME after release
 
 	if (pi == NULL)
 		return;
@@ -1552,6 +1569,7 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 	{
 		swapDragInfo(pi);		// swap it back
 	}
+*/
 }
 
 //o--------------------------------------------------------------------------
