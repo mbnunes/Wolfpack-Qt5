@@ -2509,7 +2509,7 @@ void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 				target->mn = 0;
 			else 
 				target->mn-=decrease;//decrease mana
-			updatestats(DEREF_P_CHAR(target),1);//update
+			updatestats(target,1);//update
 			sysmessage(s,"Your spiritual forces disturb the enemy!");
 			sysmessage(calcSocketFromChar(target),"A damned soul is disturbing your mind!");
 			SetSkillDelay(DEREF_P_CHAR(pc_currchar));

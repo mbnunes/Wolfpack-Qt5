@@ -49,7 +49,6 @@ public:
 	cClient(int s);
 	~cClient();
 	UOXSOCKET GetSocket();
-	CHARACTER GetCurrChar();
 	cChar* getPlayer();
 	bool IsDragging();
 	void SetDragging();

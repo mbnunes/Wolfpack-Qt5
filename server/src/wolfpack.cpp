@@ -1451,15 +1451,15 @@ void explodeitem(int s, P_ITEM pi)
 			{
 				c=DEREF_P_CHAR(pc);
 				pc->hp-=dmg+(2-min(dx,dy));
-				updatestats(c, 0);
+				updatestats(pc, 0);
 				if (pc->hp<=0)
 				{
-					deathstuff(c);
+					deathstuff(DEREF_P_CHAR(pc));
 				}
 				else
 				{
-					npcattacktarget(c, DEREF_P_CHAR(pc_currchar));
-					updatechar(c);
+					npcattacktarget(DEREF_P_CHAR(pc), DEREF_P_CHAR(pc_currchar));
+					updatechar(DEREF_P_CHAR(pc));
 				}
 			}
 		}
@@ -4065,7 +4065,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			return;
 		}
 		soundeffect2(p, 0x01, 0xE7);
-		if (s!=-1) updatestats(p, 2);
+		if (s!=-1) updatestats(pc_p, 2);
 		break;
 
 	case 2: // Cure Potion
@@ -4147,7 +4147,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		if (s!=-1) updatestats(p, 0);
+		if (s!=-1) updatestats(pc_p, 0);
 		staticeffect(p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
 		soundeffect2(p, 0x01, 0xF2); //Healing Sound - SpaceDog
 		break;
@@ -4179,7 +4179,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		if (s!=-1) updatestats(p, 2);
+		if (s!=-1) updatestats(pc_p, 2);
 		staticeffect(p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
 		soundeffect2(p, 0x01, 0xF2); //Healing Sound
 		break;
@@ -4219,7 +4219,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, usepotion()\n"); //Morrolan
 			return;
 		}
-		if (s!=-1) updatestats(p, 1);
+		if (s!=-1) updatestats(pc_p, 1);
 		staticeffect(p, 0x37, 0x6A, 0x09, 0x06); // Sparkle effect
 		soundeffect2(p, 0x01, 0xE7); //agility sound - SpaceDog
 		break;

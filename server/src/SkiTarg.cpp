@@ -512,7 +512,7 @@ void cSkills::Mine(int s)
 	pc->stm+=resource.miningstamina;
 	if(pc->stm<0) pc->stm=0;
 	if(pc->stm>pc->effDex()) pc->stm=pc->effDex();
-	updatestats(DEREF_P_CHAR(pc),2);
+	updatestats(pc,2);
 
 	if(resource.orearea<10) resource.orearea=10;
 	
@@ -717,7 +717,7 @@ void cSkills::TreeTarget(int s)
 	pc->stm+=resource.logstamina;
 	if(pc->stm<0) pc->stm=0;
 	if(pc->stm>pc->effDex()) pc->stm=pc->effDex();
-	updatestats(DEREF_P_CHAR(pc),2);
+	updatestats(pc,2);
 
 	if(resource.logarea<10) resource.logarea=10; //New -- Zippy
 	
@@ -1721,7 +1721,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				if(j>(pp->st-pp->hp))
 					j=(pp->st-pp->hp);
 				pp->hp=j;
-				updatestats(DEREF_P_CHAR(ph), 0);
+				updatestats(ph, 0);
 				sysmessage(s,"You apply the bandages and the creature looks a bit healthier.");
 			}
 		}

@@ -831,9 +831,9 @@ void objTeleporters(int s)
 									pc_s->hp = pc_s->hp - (pmi->morex + RandomNum(pmi->morey, pmi->morez));
 									if (pc_s->hp < 1)
 										pc_s->hp = 0;
-									updatestats(s, 0);
+									updatestats(pc_s, 0);
 									if (pc_s->hp <= 0)
-										deathstuff(s);
+										deathstuff(DEREF_P_CHAR(pc_s));
 								}
 								// monster gates
 								if (pmi->type == 82)

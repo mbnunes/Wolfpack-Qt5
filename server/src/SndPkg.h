@@ -90,7 +90,7 @@ void teleport2(CHARACTER s); // used for /RESEND only - Morrolan, so people can 
 void updatechar(CHARACTER c); // If character status has been changed (Polymorph);, resend him
 void target(UOXSOCKET s, int a1, int a2, int a3, int a4, char *txt); // Send targetting cursor to client
 void skillwindow(int s); // Opens the skills list, updated for client 1.26.2b by LB
-void updatestats(CHARACTER c, char x);
+void updatestats(P_CHAR pc, char x);
 void statwindow(int s, int i); // Opens the status window
 void updates(UOXSOCKET s); // Update Window
 void tips(int s, int i); // Tip of the day window

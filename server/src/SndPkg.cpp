@@ -1661,12 +1661,13 @@ void skillwindow(int s) // Opens the skills list, updated for client 1.26.2b by 
 }
 
 
-void updatestats( CHARACTER c, char x )
+void updatestats( P_CHAR pc, char x )
 {
 	int i, a = 0, b = 0;
 	char updater[10]="\xA1\x01\x02\x03\x04\x01\x03\x01\x02";
 	
-	P_CHAR pc = MAKE_CHARREF_LR(c)
+	if ( pc == NULL )
+		return;
 
 
 	switch (x)
@@ -1697,7 +1698,7 @@ void updatestats( CHARACTER c, char x )
 	if (x == 0)  //Send to all, only if it's Health change
 	{
 		for (i=0;i<now;i++) 
-			if (perm[i] && inrange1p(currchar[i], c) ) 
+			if (perm[i] && inrange1p(currchar[i], DEREF_P_CHAR(pc)) ) 
 				Xsend(i, updater, 9);
 	} else {
 		UOXSOCKET s = calcSocketFromChar(pc);

@@ -683,7 +683,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 			//The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
 			pc->running=0;
 			pc->stm--;
-			updatestats(DEREF_P_CHAR(pc),2);
+			updatestats(pc,2);
 		}
 		if( pc->war && pc->targ != INVALID_SERIAL )
 		{
@@ -1067,20 +1067,20 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 								sprintf(temp, "Being perfectly rested, you shoved something invisible out of the way.", mapchar->name);
 								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
 							    pc->stm = max(pc->stm-4, 0);
-								updatestats(DEREF_P_CHAR(pc), 2);  // arm code
+								updatestats(pc, 2);  // arm code
 							}
 						    else if (!mapchar->isHidden() && !mapchar->dead && (!(mapchar->isInvul())) &&(!(mapchar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
 							{
 								sprintf(temp, "Being perfectly rested, you shove %s out of the way.", mapchar->name);
 								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
 								pc->stm = max(pc->stm-4, 0);
-								updatestats(DEREF_P_CHAR(pc), 2);  // arm code
+								updatestats(pc, 2);  // arm code
 							}
 						    else if(!mapchar->isGMorCounselor() && !mapchar->isInvul())//A normal player (No priv1(Not a gm))
 							{
 								if (socket != INVALID_UOXSOCKET) sysmessage(socket, "Being perfectly rested, you shove something invisible out of the way.");
 								pc->stm=max(pc->stm-4, 0);
-								updatestats(DEREF_P_CHAR(pc), 2);  // arm code
+								updatestats(pc, 2);  // arm code
 							}
 						}
 					}

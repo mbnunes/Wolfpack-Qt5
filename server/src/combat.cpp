@@ -99,7 +99,7 @@ void cCombat::ItemCastSpell(UOXSOCKET s, CHARACTER c, P_ITEM pi)//S=Socket c=Cha
 	pc_currchar->mn+=tempmana;
 	pc_currchar->skill[MAGERY]=tempmage;
 	if(pc_currchar->in<pc_currchar->mn) pc_currchar->mn=pc_currchar->in;//Shouldn't happen, but just in case;
-	updatestats(s, 1);
+	updatestats(pc_currchar, 1);
 	
 	pi->morez--;
 	if(pi->morez==0)//JUST lost it's charge....
@@ -455,7 +455,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 						// for now make it subtract mana
 						//pc_attacker->mn-=(pc_attacker->mn/2);
 					}
-					updatestats(a, 0);
+					updatestats(pc_attacker, 0);
 				}
 				else 
 				{	// -Fraz- Now needs adjusted to happen on a skill percentage 
@@ -474,7 +474,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 						tempeffect(a, DEREF_P_CHAR(pc_deffender), 45, 0, 0, 0);
 						//pc_attacker->mn-=(pc_attacker->mn/2); //-Fraz- temp use of this for concussion
 					}
-					updatestats(DEREF_P_CHAR(pc_deffender), 0);
+					updatestats((pc_deffender), 0);
 				}
 				// blood shred by blackwind
 				if (damage>10)
@@ -513,7 +513,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 				if((fightskill==ARCHERY && los)|| fightskill!=ARCHERY)
 					doSoundEffect(a, fightskill, pWeapon);
 			if (pc_deffender->hp<0) pc_deffender->hp=0;
-			updatestats(DEREF_P_CHAR(pc_deffender), 0);
+			updatestats((pc_deffender), 0);
 			x = pc_deffender->id();
 			if (x>=0x0190)
 			{
@@ -826,7 +826,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 							pc_attacker->stm += SrvParms->attackstamina;
 							if (pc_attacker->stm>pc_attacker->effDex()) pc_attacker->stm=pc_attacker->effDex();
 							if (pc_attacker->stm<0) pc_attacker->stm=0;
-							updatestats(DEREF_P_CHAR(pc_attacker),2); //LB, crashfix, was currchar[a]
+							updatestats((pc_attacker),2); //LB, crashfix, was currchar[a]
 							// --------ATTACK STAMINA END ------
 						}
 						

@@ -1826,7 +1826,7 @@ static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
 		else
 			amt=4; 
 		soundeffect(s,0x00,0x50);
-		P_ITEM pi=Items->SpawnItem(pC->GetCurrChar(),amt,"#",1,0x097A,0,1);
+		P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(pC->getPlayer()),amt,"#",1,0x097A,0,1);
 		if(!pi)
 			return;
 		RefreshItem(pi);
@@ -1842,12 +1842,11 @@ void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 
 	if (IsTree(pp->model))
 	{
-		CHARACTER c = pC->GetCurrChar();
 		P_CHAR pc = pC->getPlayer();
 		if (!pc->onhorse) action(s,0x0D);
 		else action(s,0x1d);
 		soundeffect(s,0x01,0x3E);
-		P_ITEM pi=Items->SpawnItem(c,1,"#",1,0x0DE1,0,0); //Kindling
+		P_ITEM pi=Items->SpawnItem(DEREF_P_CHAR(pc),1,"#",1,0x0DE1,0,0); //Kindling
 		if(!pi)
 			return;
 		pi->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
@@ -2046,7 +2045,7 @@ void cTargets::StaminaTarget(int s)
 		soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xF2);
 		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
 		pc->stm = pc->effDex();
-		updatestats(DEREF_P_CHAR(pc), 2);
+		updatestats(pc, 2);
 		return;
 	}
 	sysmessage(s,"That is not a person.");
@@ -2061,7 +2060,7 @@ void cTargets::ManaTarget(int s)
 		soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xF2);
 		staticeffect(DEREF_P_CHAR(pc), 0x37, 0x6A, 0x09, 0x06);
 		pc->mn = pc->in;
-		updatestats(DEREF_P_CHAR(pc), 1);
+		updatestats(pc, 1);
 		return;
 	}
 	sysmessage(s,"That is not a person.");
@@ -2362,9 +2361,9 @@ void cTargets::FullStatsTarget(int s)
 		pc->mn=pc->in;
 		pc->hp=pc->st;
 		pc->stm=pc->effDex();
-		updatestats(DEREF_P_CHAR(pc), 0);
-		updatestats(DEREF_P_CHAR(pc), 1);
-		updatestats(DEREF_P_CHAR(pc), 2);
+		updatestats(pc, 0);
+		updatestats(pc, 1);
+		updatestats(pc, 2);
 		return;
 	}
 	sysmessage(s,"That is not a person.");

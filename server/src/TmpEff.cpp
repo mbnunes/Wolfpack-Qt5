@@ -452,7 +452,7 @@ void cTmpEff::Expire()
 		int iHp;
 		iHp=(int)more1;
 		pc_s->hp+=iHp;
-		updatestats(DEREF_P_CHAR(pc_s), 0);
+		updatestats(pc_s, 0);
 		if (!more2)
 			tempeffect(DEREF_P_CHAR(pc_s),DEREF_P_CHAR(pc_s),35,more1+1,1,more3,0);
 		break;

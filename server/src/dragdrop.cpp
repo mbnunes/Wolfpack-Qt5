@@ -150,8 +150,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 {
 	int amount, update = 0, serial;
 	UOXSOCKET s = ps->GetSocket();
-	int cc = ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+	P_CHAR pc_currchar = ps->getPlayer();
 	
 	P_CHAR npc = NULL;
 	
@@ -577,8 +576,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s = ps->GetSocket();
-	CHARACTER cc = ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHAR_REF(cc);
+	P_CHAR pc_currchar = ps->getPlayer();
 	P_CHAR pc_target = FindCharBySerial(pp->Tserial);
 
 	if( pc_target->hunger < 6 && pi->type == 14 )//AntiChrist new hunger code for npcs
@@ -617,7 +615,6 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
-//	CHARACTER cc=ps->GetCurrChar();
 	P_CHAR pc_currchar = ps->getPlayer();
 	P_CHAR target = FindCharBySerial(pp->Tserial);
 	// Search for the key word "the head of"
@@ -1027,8 +1024,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	int j, serial;
 	bool abort=false;
 	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+	P_CHAR pc_currchar = ps->getPlayer();
 	
 	serial=pp->Tserial;
 	if(serial == INVALID_SERIAL) abort=true;
@@ -1283,7 +1279,6 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 void cDragdrop::drop_item(P_CLIENT ps) // Item is dropped
 {
 	UOXSOCKET s=ps->GetSocket();
-//	CHARACTER cc=ps->GetCurrChar();
 
 	PKGx08 pkgbuf, *pp=&pkgbuf;
 

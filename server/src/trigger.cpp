@@ -736,7 +736,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							pc_ts->hp += j;
 							if (pc_ts->hp>pc_ts->st)
 								pc_ts->hp = pc_ts->st;
-							updatestats(DEREF_P_CHAR(currchar[ts]), 0);
+							updatestats(currchar[ts], 0);
 						}
 						break;
 					case 'I':
@@ -1111,7 +1111,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							pc_ts->mn += j;
 							if (pc_ts->mn>pc_ts->in)
 								pc_ts->mn = pc_ts->in;
-							updatestats(DEREF_P_CHAR(currchar[ts]), 1);
+							updatestats(currchar[ts], 1);
 						}
 						else if (!(strcmp("MAKE", (char*)script1)))  // Give user the make menu
 						{
@@ -1865,7 +1865,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							pc_ts->stm += j;
 							if (pc_ts->stm>pc_ts->effDex())
 								pc_ts->stm = pc_ts->effDex();
-							updatestats(DEREF_P_CHAR(currchar[ts]), 2);
+							updatestats(currchar[ts], 2);
 						}
 						else if (!(strcmp("STR", (char*)script1)))  // Do math on players strength
 						{
@@ -1955,19 +1955,19 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										pc_ts->st -= j;
 										if (pc_ts->st < 1)
 											pc_ts->st = 1;
-										updatestats(ts, p);
+										updatestats(pc_ts, p);
 									}
 									if (p==50)// dexterity
 									{
 										pc_ts->chgRealDex(-1 * j);
-										updatestats(ts, p);
+										updatestats(pc_ts, p);
 									}
 									if (p==51)// intelligence
 									{
 										pc_ts->in -= j;
 										if (pc_ts->in < 1)
 											pc_ts->in = 1;
-										updatestats(ts, p);
+										updatestats(pc_ts, p);
 									}
 									pi->trigon=0;
 								}
@@ -1988,19 +1988,19 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										pc_ts->st += j;
 										if (pc_ts->st < 1)
 											pc_ts->st = 1;
-										updatestats(ts, p);
+										updatestats(pc_ts, p);
 									}
 									if (p==50)// dexterity
 									{
 										pc_ts->chgRealDex(j);
-										updatestats(ts, p);
+										updatestats(pc_ts, p);
 									}
 									if (p==51)// intelligence
 									{
 										pc_ts->in += j;
 										if (pc_ts->in < 1)
 											pc_ts->in = 1;
-										updatestats(ts, p);
+										updatestats(pc_ts, p);
 									}
 									pi->trigon=1;
 								}
@@ -2403,7 +2403,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							pc_ts->hp += j;
 							if (pc_ts->hp>pc_ts->st)
 								pc_ts->hp = pc_ts->st;
-							updatestats(DEREF_P_CHAR(pc_ts), 0);
+							updatestats(pc_ts, 0);
 						}
 						else if (!(strcmp("HUNGER", (char*)script1)))  // Do math on players hunger from 0 to 6 - Magius(CHE)
 						{
@@ -2737,7 +2737,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							pc_ts->mn += j;
 							if (pc_ts->mn>pc_ts->in)
 								pc_ts->mn = pc_ts->in;
-							updatestats(DEREF_P_CHAR(pc_ts), 1);
+							updatestats(pc_ts, 1);
 						}
 						else if (!(strcmp("MEMCOLOR", (char*)script1)))  // Store the item color in memory by Magius(CHE) §
 						{
@@ -3068,7 +3068,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							pc_ts->stm += j;
 							if (pc_ts->stm>pc_ts->effDex())
 								pc_ts->stm = pc_ts->effDex();
-							updatestats(DEREF_P_CHAR(pc_ts), 2);
+							updatestats(pc_ts, 2);
 						}
 						else if (!(strcmp("STR", (char*)script1)))  // Do math on players strength
 						{

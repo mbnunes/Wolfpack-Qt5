@@ -182,17 +182,17 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 		if (pc->hp>pc->st)
 		{
 			pc->hp = pc->st;
-			updatestats(DEREF_P_CHAR(pc), 0);
+			updatestats(pc, 0);
 		}
 		if (pc->stm>pc->effDex())
 		{
 			pc->stm = pc->effDex();
-			updatestats(DEREF_P_CHAR(pc), 2);
+			updatestats(pc, 2);
 		}
 		if (pc->mn>pc->in)
 		{
 			pc->mn = pc->in;
-			updatestats(DEREF_P_CHAR(pc), 1);
+			updatestats(pc, 1);
 		}
 		if ((pc->regen <= currenttime) || (overflow))
 		{
@@ -214,7 +214,7 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 							pc->hp = pc->st;
 							break;
 						}
-						updatestats(DEREF_P_CHAR(pc), 0);
+						updatestats(pc, 0);
 					}
 				}
 			}
@@ -233,7 +233,7 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 						pc->stm = pc->effDex();
 						break;
 					}
-					updatestats(DEREF_P_CHAR(pc), 2);
+					updatestats(pc, 2);
 				}
 			}
 			pc->regen2 = currenttime + interval;
@@ -261,7 +261,7 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 							pc->mn = pc->in;
 							break;
 						}
-						updatestats(DEREF_P_CHAR(pc), 1);
+						updatestats(pc, 1);
 					}
 				}
 				if (SrvParms->armoraffectmana)
@@ -503,7 +503,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 		{
 			sysmessage(s,"You are starving !");
 			pc->hp -= SrvParms->hungerdamage;
-			updatestats(DEREF_P_CHAR(pc), 0);
+			updatestats(pc, 0);
 			if(pc->hp<=0)
 			{
 				sysmessage(s,"You have died of starvation");
@@ -535,7 +535,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 				 
 					pc->hp -= max(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
  
-					updatestats(DEREF_P_CHAR(pc), 0);
+					updatestats(pc, 0);
 					break;
 				case 2:
 					pc->poisontime=currenttime+(4*MY_CLOCKS_PER_SEC);
@@ -550,7 +550,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 					
 					pc->hp -= max(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
  
-					updatestats(DEREF_P_CHAR(pc), 0);
+					updatestats(pc, 0);
 					break;
 				case 3:
 					pc->poisontime=currenttime+(3*MY_CLOCKS_PER_SEC);
@@ -568,7 +568,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 					
 					pc->hp -= max(((pc->hp)*RandomNum(20,30))/100, RandomNum(0,1)); //between 20% and 30% of player's hp 
 
-					updatestats(DEREF_P_CHAR(pc), 0);
+					updatestats(pc, 0);
 					break; // lb !!!
 				case 4:
 					pc->poisontime = currenttime+(3*MY_CLOCKS_PER_SEC);
@@ -585,7 +585,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 					y = 20;
 				
 					pc->hp -= max(((pc->hp)*RandomNum(30,40))/100, 1); //between 30% and 40% of player's hp 
-					updatestats(DEREF_P_CHAR(pc), 0);
+					updatestats(pc, 0);
 					break;
 
 				default:
@@ -719,7 +719,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 						npcemoteall(DEREF_P_CHAR(pc),t,1);
 					}
 					pc->hp -= RandomNum(1,2);
-					updatestats(DEREF_P_CHAR(pc), 0);
+					updatestats(pc, 0);
 					break;
 				case 2:
 					pc->poisontime=currenttime+(4*MY_CLOCKS_PER_SEC);
@@ -734,7 +734,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 					pcalc = ( ( pc->hp * RandomNum(2,5) ) / 100) + RandomNum(0,2); // damage: 1..2..5% of hp's+ 1..2 constant
 					pc->hp -= pcalc;
-					updatestats(DEREF_P_CHAR(pc), 0);
+					updatestats(pc, 0);
 					break;
 				case 3:
 					pc->poisontime=currenttime+(3*MY_CLOCKS_PER_SEC);
@@ -748,7 +748,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					}
 					pcalc=( ( pc->hp * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
 					pc->hp -= pcalc;
-					updatestats(DEREF_P_CHAR(pc), 0);
+					updatestats(pc, 0);
 					break; // lb !!!
 				case 4:
 					pc->poisontime=currenttime+(3*MY_CLOCKS_PER_SEC);
@@ -763,7 +763,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 					pcalc=( (pc->hp * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
 					pc->hp -= pcalc;
-					updatestats(DEREF_P_CHAR(pc), 0);
+					updatestats(pc, 0);
 					break;
 				default:
 					clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, checkNPC()\n"); //Morrolan

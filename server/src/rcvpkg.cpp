@@ -40,8 +40,7 @@
 void RcvAttack(P_CLIENT ps)
 {
 	UOXSOCKET s = ps->GetSocket();
-	CHARACTER cc = ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+	P_CHAR pc_currchar = ps->getPlayer();
 	int j;
 
 	SERIAL serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);

@@ -629,7 +629,7 @@ char cMagic::SubtractMana(P_CHAR pc, int mana)
 	else 
 		pc->mn = 0;
 
-	updatestats(DEREF_P_CHAR(pc), 1);//AntiChrist - bugfix
+	updatestats((pc), 1);//AntiChrist - bugfix
 	return 1;
 }
 
@@ -718,7 +718,7 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 	{
 		if (pc->isNpc()) amount *= 2;			// double damage against non-players
 		pc->hp = max(0, pc->hp-amount);
-		updatestats(DEREF_P_CHAR(pc), 0);
+		updatestats((pc), 0);
 		if (pc->hp <= 0)
 		{
 			deathstuff(DEREF_P_CHAR(pc));
@@ -1030,8 +1030,8 @@ void cMagic::NPCHeal(CHARACTER s)
 		SubtractMana(pc, 10);
 		int j=pc->hp+(pc->skill[MAGERY]/30+RandomNum(1,12));
 		pc->hp=min(pc->st, j);
-		doStaticEffect(s, 4);
-		updatestats(s, 0);
+		doStaticEffect(DEREF_P_CHAR(pc), 4);
+		updatestats(pc, 0);
 	}
 }
 
@@ -1961,7 +1961,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										if (h>2) h+=rand()%3;
 										
 										pc_defender->hp=pc_defender->hp+h;
-										updatestats(DEREF_P_CHAR(pc_defender), 0);
+										updatestats((pc_defender), 0);
 										
 										break;
 										//////////// (5) MAGIC ARROW ////////////
@@ -2060,7 +2060,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						}
 						j=pc_defender->hp+(pc_currchar->skill[MAGERY]/30+RandomNum(1,12));
 						pc_defender->hp=min(pc_defender->st, j);
-						updatestats(DEREF_P_CHAR(pc_defender), 0);
+						updatestats((pc_defender), 0);
 						break;
 						//////////// (30) LIGHTNING /////////////
 					case 30:
@@ -2076,7 +2076,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						{
 							pc_defender->mn-=pc_currchar->skill[MAGERY]/35;
 							if (pc_defender->mn<0) pc_defender->mn=0;
-							updatestats(DEREF_P_CHAR(pc_defender), 1);
+							updatestats((pc_defender), 1);
 						}
 						break;
 						//////////// (37) MIND BLAST ////////////
@@ -2157,8 +2157,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								pc_defender->mn-=40;
 								pc_currchar->mn+=40;
 							}
-							updatestats(DEREF_P_CHAR(pc_defender), 1);
-							updatestats(DEREF_P_CHAR(pc_currchar), 1);
+							updatestats((pc_defender), 1);
+							updatestats((pc_currchar), 1);
 						}
 						break;
 						//////////// (59) RESURRECTION //////////
@@ -3978,7 +3978,7 @@ void cMagic::Heal(UOXSOCKET s)
 		playSound( DEREF_P_CHAR(pc_currchar), 4);
 		doStaticEffect(DEREF_P_CHAR(pc_defender), 4);
 		pc_defender->hp = pc_defender->st;
-		updatestats(DEREF_P_CHAR(pc_defender), 0);
+		updatestats((pc_defender), 0);
 	} else 
 		sysmessage(s,"Not a valid heal target");
 
