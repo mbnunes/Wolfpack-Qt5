@@ -670,8 +670,14 @@ static PyObject* wpSocket_useitem( wpSocket* self, PyObject* args )
 	}
 }
 
-/*!
-	Returns the custom tag passed
+/*
+	\method socket.gettag
+	\description Get a custom tag attached to the socket.
+	Please keep in mind these tags are temporary in nature. 
+	When the socket disconnects, the tag will be gone.
+	\return None if there is no such tag, the tag value otherwise.
+	Possible return types are: unicode (string), float, integer.
+	\param name The name of the tag.
 */
 static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 {
@@ -694,8 +700,14 @@ static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
-/*!
-	Sets a custom tag
+/*
+	\method socket.settag
+	\description Set a custom tag on the object.
+	\param name The name of the tag.
+	Please keep in mind these tags are temporary in nature. 
+	When the socket disconnects, the tag will be gone.
+	\param value The value of the tag. Possible value types
+	are string, unicode, float and integer.
 */
 static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 {
@@ -721,8 +733,11 @@ static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
-/*!
-	Checks if a certain tag exists
+/*
+	\method socket.hastag
+	\description Check if the socket has a certain custom tag attached to it.
+	\return True if the tag is present. False otherwise.
+	\param name The name of the tag.
 */
 static PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
 {
@@ -740,8 +755,10 @@ static PyObject* wpSocket_hastag( wpSocket* self, PyObject* args )
 	return self->pSock->tags().has( key ) ? PyTrue() : PyFalse();
 }
 
-/*!
-	Deletes a given tag
+/*
+	\method socket.deltag
+	\description Deletes a tag attached to the socket.
+	\param name The name of the tag.
 */
 static PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 {
@@ -760,8 +777,10 @@ static PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
-/*!
-	Resends the status window to this client.
+/*
+	\method socket.resendstatus
+	\description Resends the status window to this socket.
+	Use this for updating weight and other properties.
 */
 static PyObject* wpSocket_resendstatus( wpSocket* self, PyObject* args )
 {
@@ -770,7 +789,12 @@ static PyObject* wpSocket_resendstatus( wpSocket* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
-// Resend lightlevel
+/*
+	\method socket.updatelightlevel
+	\description Send the current lightlevel to this socket.
+	Use this for updating the lightlevel after you change the
+	lightbonus property on character objects.
+*/
 static PyObject* wpSocket_updatelightlevel( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED( args );
@@ -778,6 +802,13 @@ static PyObject* wpSocket_updatelightlevel( wpSocket* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
+/*
+	\method socket.questarrow
+	\param show This boolean flag indicates whether the questarrow should be shown.
+	\param x The x position the quest arrow points to.
+	\param y The y position the quest arrow points to.
+	\description This method shows a quest arrow that points to a given location on the map.
+*/
 static PyObject* wpSocket_questarrow( wpSocket* self, PyObject* args )
 {
 	int show;
@@ -788,9 +819,15 @@ static PyObject* wpSocket_questarrow( wpSocket* self, PyObject* args )
 		return 0;
 
 	self->pSock->sendQuestArrow( show, x, y );
-	return PyTrue();
+	Py_RETURN_NONE;
 }
 
+/*
+	\method socket.log
+	\param level The loglevel for this event. Check <library id="wolfpack.consts">wolfpack.consts</library> for constants.
+	\param text The text that should be logged.
+	\description Sends a given text to the logfile and console and prepends a timestamp and the socket id.
+*/
 static PyObject* wpSocket_log( wpSocket* self, PyObject* args )
 {
 	char loglevel;
@@ -800,16 +837,26 @@ static PyObject* wpSocket_log( wpSocket* self, PyObject* args )
 		return 0;
 
 	self->pSock->log( ( eLogLevel ) loglevel, text );
-	return PyTrue();
+	Py_RETURN_NONE;
 }
 
+/*
+	\method socket.updateplayer
+	\description Resend the player of this socket only.
+	Handle with care.
+*/
 static PyObject* wpSocket_updateplayer( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	self->pSock->updatePlayer();
-	return PyTrue();
+	Py_RETURN_NONE;
 }
 
+/*
+	\method socket.updateskill
+	\param skill The skill id.
+	\description Resends the value of one single skill.
+*/
 static PyObject* wpSocket_updateskill( wpSocket* self, PyObject* args )
 {
 	unsigned short skill;
@@ -820,7 +867,7 @@ static PyObject* wpSocket_updateskill( wpSocket* self, PyObject* args )
 	}
 
 	self->pSock->sendSkill( skill );
-	return PyTrue();
+	Py_RETURN_NONE;
 }
 
 static PyMethodDef wpSocketMethods[] =

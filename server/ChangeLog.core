@@ -19,6 +19,8 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Static tile color can now be retrieved via wolfpack.statics()
 	- Only 100 spawnregions per cycle are respawned now.
 	- Fixed even more UCS4 problems.
+	- Fixed documentation for the socket object.
+	- Changed some return values from true to none for socket methods.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.
