@@ -65,3 +65,5 @@ screen away to open bank. helps to open from outsidebank. (Ripper)
 54) Fixed: targeting.cpp:3111 invalid item index <-1> (Lonewolf)
 55) Fixed: jailing someone via 'wholist gave strange jailtime (Lonewolf)
 56) Fixed: when loading a jailed char, the cell# wasn't set correctly (potentially severe damage) (Lonewolf)
+57) Added: More commands for player vendors, now you can say vendor buy,purchase,gold,
+collect,get and packup. A little code change for them also. (Ripper)

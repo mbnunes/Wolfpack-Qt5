@@ -54,7 +54,7 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 			{
 				sysmessage(s, "No price entered, ignored.");
 			}
-			pPlayer->inputmode = cChar::enPricing;
+			pPlayer->inputmode = cChar::enDescription;
 			sysmessage(s, "Enter a description for this item.");
 			return true;
 		case cChar::enDescription:// Describing an item
@@ -404,31 +404,6 @@ bool QuestionSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
 		
 		sprintf(temp, "%i %i (%i)",pPlayer->pos.x,pPlayer->pos.y,pPlayer->pos.z); 
 		npctalkall(pc,temp,0);
-		return 1;
-	}
-	return 0;
-}
-
-//Ripper...Packup a player vendor without redeeding house.
-bool PackupSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
-{
-	if (   pc->npcaitype != 17	// player vendor
-		|| !pPlayer->Owns(pc)	// you own the vendor
-		|| pPlayer->dist(pc) > 3) // must be within 3 tiles.
-		return 0;
-
-	if (strstr( comm, "PACKUP"))
-	{
-		// lets make the deed and place in your pack and delete vendor.
-		P_ITEM pDeed = Items->SpawnItem(DEREF_P_CHAR(pPlayer), 1, "employment deed", 0, 0x14F0, 0, 1);
-		if (pDeed)
-		{
-			pDeed->type = 217;
-			pDeed->value = 2000;
-			RefreshItem( pDeed );
-			Npcs->DeleteChar( DEREF_P_CHAR(pc) );
-			sysmessage(s, "Packed up vendor %s.", pc->name);
-		}
 		return 1;
 	}
 	return 0;
@@ -801,47 +776,71 @@ bool VendorChkName(cChar* pVendor, char* comm)
 	return false;
 }
 
+bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
+{
+	CHARACTER vendor = DEREF_P_CHAR(pVendor);
+
+	if (!(pVendor->npcaitype == 17))
+	     return 0;
+
+	if (pPlayer->dist(pVendor) > 4)
+		return 0;
+
+	if (!VendorChkName(pVendor,comm))
+		return false;
+
+	if (strstr(comm, " BUY") || strstr(comm, " PURCHASE"))
+	{
+		addx[s]=vendor;
+		npctalk(s,pVendor,"What would you like to buy?",0);
+		target(s,0,1,0,224," ");
+		return true;
+	}
+
+	if (!pPlayer->Owns(pVendor))
+			return 0;
+
+	if (strstr( comm, " COLLECT") || strstr( comm, " GOLD") || strstr( comm, " GET"))
+	{
+		PlVGetgold(s, pVendor);
+		return true;
+	}
+	if (strstr( comm, "PACKUP"))
+	{
+		P_ITEM pDeed = Items->SpawnItem(DEREF_P_CHAR(pPlayer), 1, "employment deed", 0, 0x14F0, 0, 1);
+		if (pDeed)
+		{
+			pDeed->type = 217;
+			pDeed->value = 2000;
+			RefreshItem( pDeed );
+			Npcs->DeleteChar( DEREF_P_CHAR(pVendor) );
+			sysmessage(s, "Packed up vendor %s.", pVendor->name);
+			return true;
+		}
+	}
+	return true;
+}
+
 bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 {
 	CHARACTER vendor = DEREF_P_CHAR(pVendor);
 
+	if (pVendor->npcaitype == 17)
+		return 0;
+
 	if (pPlayer->dist(pVendor) > 4)
 		return 0;
-	
-	if (strstr(comm, " BUY"))
-	{
-		if (!VendorChkName(pVendor,comm))
-			return false;
 
-		if(pVendor->npcaitype==17)
-		{					
-			addx[s]=vendor;
-			npctalk(s,pVendor,"What would you like to buy?",0);
-			target(s,0,1,0,224," ");
-			return true;
-		}
-		else
-			if(Targ->BuyShop(s, vendor))
-				return true;
-	}
-	
-	if (strstr( comm, " GOLD"))
-	{
-		if (!VendorChkName(pVendor,comm))
-			return false;
+	if (!VendorChkName(pVendor,comm))
+		return false;
 
-		if (pVendor->npcaitype==17)	//PlayerVendors
-		{
-			PlVGetgold(s, pVendor);
-			return true;
-		}
+    if (strstr(comm, " BUY"))
+	{
+	    Targ->BuyShop(s, vendor);
+		return true;
 	}
-	
 	if (strstr( comm, " SELL"))
-	{						
-		if (!VendorChkName(pVendor,comm))
-			return false;
-
+	{
 		sellstuff(s, vendor);						
 		return true;
 	}
@@ -893,9 +892,6 @@ int response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
 		if (QuestionSpeech(pc, comm, pPlayer, s))
 			return 1;
 		
-		if (PackupSpeech(pc, comm, pPlayer, s))
-			return 1;
-		
 		if (TriggerSpeech(pc, comm, pPlayer, s))
 			return 1;
 		
@@ -909,6 +905,9 @@ int response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
 			return 1;
 		
 		if (PetCommand(pc, comm, pPlayer, s))
+			return 1;
+
+		if (PlayerVendorSpeech(pc, comm, pPlayer, s))
 			return 1;
 		
 		if (VendorSpeech(pc, comm, pPlayer, s))

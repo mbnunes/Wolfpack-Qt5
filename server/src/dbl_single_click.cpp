@@ -815,10 +815,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						pc_vendor->SetOwnSerial(pc_currchar->serial);
 						pc_vendor->tamed = false;
 						Items->DeleItem(pi);
+						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", pc_vendor->name);
+						npctalk(s, DEREF_P_CHAR(pc_vendor), (char*)temp, 1);
 						updatechar(DEREF_P_CHAR(pc_vendor));
 						teleport(DEREF_P_CHAR(pc_vendor));
-						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", pc_vendor->name);
-						npctalk(s, DEREF_P_CHAR(pc_vendor), (char*)temp, 0);
 					}
 					else 
 						sysmessage(s, "You must be close to a house and have a key in your pack to place that.");
