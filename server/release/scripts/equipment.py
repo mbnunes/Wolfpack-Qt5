@@ -2,6 +2,8 @@
 import wolfpack
 from wolfpack.utilities import *
 from wolfpack.consts import *
+import wolfpack.weaponinfo
+import wolfpack.armorinfo
 from wolfpack import properties
 from combat.utilities import weaponskill
 from math import ceil
@@ -65,44 +67,44 @@ def onShowTooltip(viewer, object, tooltip):
 		prefix1 = None
 		if object.hastag('resname'):
 			resname = str(object.gettag('resname'))
-			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
-				resinfo = properties.armorinfo.ARMOR_RESNAME_BONI[resname]
+			if armor and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix1 = resinfo[MATERIALPREFIX]
-			if weapon and properties.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
-				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname]
+			if weapon and wolfpack.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
+				resinfo = wolfpack.weaponinfo.WEAPON_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix1 = resinfo[MATERIALPREFIX]
 		elif object.hasstrproperty( 'resname' ):
 			resname = str( object.getstrproperty( 'resname' ) )
-			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
-				resinfo = properties.armorinfo.ARMOR_RESNAME_BONI[resname]
+			if armor and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix1 = resinfo[MATERIALPREFIX]
-			if weapon and properties.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
-				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname]
+			if weapon and wolfpack.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
+				resinfo = wolfpack.weaponinfo.WEAPON_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix1 = resinfo[MATERIALPREFIX]
 
 		prefix2 = None
 		if object.hastag('resname2'):
 			resname2 = str(object.gettag('resname2'))
-			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
-				resinfo = properties.armorinfo.ARMOR_RESNAME_BONI[resname2]
+			if armor and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
+				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname2]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix2 = resinfo[MATERIALPREFIX]
-			if weapon and properties.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
-				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname2]
+			if weapon and wolfpack.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
+				resinfo = wolfpack.weaponinfo.WEAPON_RESNAME_BONI[resname2]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix2 = resinfo[MATERIALPREFIX]
 		elif object.hasstrproperty( 'resname2' ):
 			resname2 = str( object.getstrproperty( 'resname2' ) )
-			if armor and properties.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
-				resinfo = properties.armorinfo.ARMOR_RESNAME_BONI[resname2]
+			if armor and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
+				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname2]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix2 = resinfo[MATERIALPREFIX]
-			if weapon and properties.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
-				resinfo = properties.weaponinfo.WEAPON_RESNAME_BONI[resname2]
+			if weapon and wolfpack.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
+				resinfo = wolfpack.weaponinfo.WEAPON_RESNAME_BONI[resname2]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix2 = resinfo[MATERIALPREFIX]
 
@@ -186,21 +188,10 @@ def onShowTooltip(viewer, object, tooltip):
 		tooltip.add(1061167, str(speed))
 
 		# Physical Damage Distribution
-		fire = object.getintproperty( 'dmg_fire', 0 )
-		if object.hastag( 'dmg_fire' ):
-			fire = int( object.gettag( 'dmg_fire' ) )
-
-		cold = object.getintproperty( 'dmg_cold', 0 )
-		if object.hastag( 'dmg_cold' ):
-			cold = int( object.gettag( 'dmg_cold' ) )
-
-		poison = object.getintproperty( 'dmg_poison', 0 )
-		if object.hastag( 'dmg_poison' ):
-			poison = int( object.gettag( 'dmg_poison' ) )
-
-		energy = object.getintproperty( 'dmg_energy', 0 )
-		if object.hastag( 'dmg_energy' ):
-			energy = int( object.gettag( 'dmg_energy' ) )
+		fire = properties.fromitem(object, DAMAGE_FIRE)
+		cold = properties.fromitem(object, DAMAGE_COLD)
+		poison = properties.fromitem(object, DAMAGE_POISON)
+		energy = properties.fromitem(object, DAMAGE_ENERGY)
 
 		# This must always total 100
 		physical = 100 - (fire + cold + poison + energy)
@@ -231,25 +222,11 @@ def onShowTooltip(viewer, object, tooltip):
 		if spellchanneling != 0:
 			tooltip.add(1060482, "")
 
-	physical = object.getintproperty( 'res_physical', 0 )
-	if object.hastag( 'res_physical' ):
-		physical = int( object.gettag( 'res_physical' ) )
-
-	fire = object.getintproperty( 'res_fire', 0 )
-	if object.hastag( 'res_fire' ):
-		fire = int( object.gettag( 'res_fire' ) )
-
-	cold = object.getintproperty( 'res_cold', 0 )
-	if object.hastag( 'res_cold' ):
-		cold = int( object.gettag( 'res_cold' ) )
-
-	poison = object.getintproperty( 'res_poison', 0 )
-	if object.hastag( 'res_poison' ):
-		poison = int( object.gettag( 'res_poison' ) )
-
-	energy = object.getintproperty( 'res_energy', 0 )
-	if object.hastag( 'res_energy' ):
-		energy = int( object.gettag( 'res_energy' ) )
+	physical = properties.fromitem(object, RESISTANCE_PHYSICAL)
+	fire = properties.fromitem(object, RESISTANCE_FIRE)
+	cold = properties.fromitem(object, RESISTANCE_COLD)
+	poison = properties.fromitem(object, RESISTANCE_POISON)
+	energy = properties.fromitem(object, RESISTANCE_ENERGY)
 
 	if physical:
 		tooltip.add(1060448, str(physical))

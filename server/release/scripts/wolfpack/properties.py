@@ -1,7 +1,9 @@
 
 from math import floor
-from wolfpack import weaponinfo
-from wolfpack import armorinfo
+#from wolfpack import weaponinfo
+#from wolfpack import armorinfo
+import wolfpack.armorinfo
+import wolfpack.weaponinfo
 from wolfpack.consts import RESISTANCE_PHYSICAL, RESISTANCE_ENERGY, \
 	RESISTANCE_COLD, RESISTANCE_POISON, RESISTANCE_FIRE, DAMAGE_PHYSICAL, \
 	DAMAGE_ENERGY, DAMAGE_COLD, DAMAGE_POISON, DAMAGE_FIRE, DAMAGEBONUS, \
@@ -99,87 +101,55 @@ def fromitem(item, property):
 		return info[1]
 
 	# Tags Always go first, override system.
-	if item.hastag( info[0] ):
+	if item.hastag(info[0]):
 		# HITSOUND and MISSSOUND need special treatment beacuse of
 		# the list character.
-		if property == HITSOUND or property == MISSSOUND:
+		if property in [HITSOUND, MISSSOUND, SWING]:
 			return str(item.gettag(info[0])).split(',')
+		elif property == AMMUNITION:
+			return str(item.gettag(info[0]))
 		else:
 			return int(item.gettag(info[0]))
 
-	elif item.hasintproperty( info[0] ):
-		return int( item.getintproperty( info[0], 0 ) )
-
-	elif item.hasstrproperty( info[0] ):
-		if property == HITSOUND or property == MISSSOUND:
-			return str(item.getstrproperty( info[0], '' ) ).split(',')
-		else:
-			return str(item.getstrproperty( info[0], '' ) )
-
 	else:
-		# See if our weapon info has anything for the
-		# requested item. Otherwise return the default value.
+		# Take three properties from the hardcoded property list for weapons
+		if property in [HITSOUND, MISSSOUND, SWING]:
+			if not wolfpack.weaponinfo.WEAPONINFO.has_key(item.baseid):
+				return info[1]
+			else:
+				return info[1]	
+	
+		# Get the base property from the item
+		if type(info[1]) == int:
+			value = item.getintproperty( info[0], info[1] )
+		elif type(info[1]) == str:
+			value = item.getstrproperty( info[0], info[1] )
+		else:
+			raise Exception, "Unsupported property type %s for property %u." % (type(info[1]).__name__, property)	
+
+		resboni = None
+
+		# Get Resname boni from the weapon list.
 		if itemcheck(item, ITEM_WEAPON):
-			if weaponinfo.WEAPONINFO.has_key(item.baseid):
-				weapondata = weaponinfo.WEAPONINFO[item.baseid]
-
-				if weapondata.has_key(property):
-					value = weapondata[property]
-				else:
-					value = info[1]
-
-				# Resource dependant boni
-				if item.hastag('resname'):
-					resname = str(item.gettag('resname'))
-					if weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
-						if weaponinfo.WEAPON_RESNAME_BONI[resname].has_key(property):
-							value += weaponinfo.WEAPON_RESNAME_BONI[resname][property]
-
-				if item.hastag('resname2'):
-					resname = str(item.gettag('resname2'))
-					if weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
-						if weaponinfo.WEAPON_RESNAME_BONI[resname].has_key(property):
-							value += weaponinfo.WEAPON_RESNAME_BONI[resname][property]
-
-				return value
-
+			resboni = wolfpack.weaponinfo.WEAPON_RESNAME_BONI
+		
+		# Get Resname boni from the ARMOR list
 		elif itemcheck(item, ITEM_ARMOR) or itemcheck(item, ITEM_SHIELD):
-			if armorinfo.ARMORINFO.has_key(item.baseid):
-				armordata = armorinfo.ARMORINFO[item.baseid]
+			resboni = wolfpack.armorinfo.ARMOR_RESNAME_BONI
 
-				if armordata.has_key(property):
-					value = armordata[property]
-				else:
-					value = info[1]
+		if resboni and item.hastag('resname'):
+			resname = str(item.gettag('resname'))
+			if resboni.has_key(resname) and resboni[resname].has_key(property):
+				value += resboni[resname][property]
+				
+		if resboni and item.hastag('resname2'):
+			resname = str(item.gettag('resname2'))
+			if resboni.has_key(resname) and resboni[resname].has_key(property):
+				value += resboni[resname][property]
 
-				# Resource dependant boni
-				if item.hastag('resname'):
-					resname = str(item.gettag('resname'))
-					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
-						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
-							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
-				# No tag, what about property?
-				elif item.hasstrproperty('resname'):
-					resname = str( item.getstrproperty( 'resname', '' ) )
-					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
-						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
-							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
+		return value
 
-				if item.hastag('resname2'):
-					resname = str(item.gettag('resname2'))
-					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
-						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
-							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
-				# No tag, what about property?
-				elif item.hasstrproperty('resname2'):
-					resname = str( item.getstrproperty( 'resname2', '' ) )
-					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
-						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
-							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
-
-				return value
-
-		return info[1]
+	return info[1]
 
 #
 # Calculates a certain property for the character by

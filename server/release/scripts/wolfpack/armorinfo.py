@@ -171,8 +171,3 @@ ARMOR_RESNAME_BONI = {
 		MATERIALPREFIX: 'Blue Scale',
 	}
 }
-
-
-ARMORINFO = {
-
-}
