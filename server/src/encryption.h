@@ -2,11 +2,8 @@
 #if !defined(__ENCRYPTION_H__)
 #define __ENCRYPTION_H__
 
-// Twofish is a C Header
+#include "twofish/twofish.h"
 
-extern "C" {
-#include "twofish/aes.h"
-}
 
 #include <vector>
 #include "qstring.h"
@@ -63,8 +60,12 @@ private:
 	unsigned short recvPos; // Position in our CipherTable (Recv)
 	unsigned char sendPos; // Offset in our XOR Table (Send)
 	unsigned char cipherTable[256];
-	cipherInstance tfCipher;
-	keyInstance tfKey;
+
+	BYTE key[16];
+	UINT32 *S;
+	UINT32 K[40];
+	int k;
+	UINT32 QF[4][256];
 
 	void decryptByte( unsigned char &byte );
 

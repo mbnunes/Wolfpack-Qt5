@@ -8,8 +8,6 @@
 #include "globals.h"
 #include "prototypes.h"
 
-
-
 /*!
 	Initializes this "LoginCrypt" object. 
 	Seed is the DWORD sent by the client in the beginning of each connection.
@@ -99,21 +97,13 @@ void cLoginEncryption::clientDecrypt( char *buffer, unsigned int length )
 */
 void cGameEncryption::init( unsigned int seed )
 {
+	
 	for( unsigned int i = 0; i < 256; ++i )
 		cipherTable[i] = i;
 
-	memset( &tfCipher, 0, sizeof( cipherInstance ) );
-	memset( &tfKey, 0, sizeof( keyInstance ) );
-
-	makeKey( &tfKey, DIR_DECRYPT, 0x80, 0 ); // 128 bit key (=4 dwords)
-	
-
-	// Byte-swap the seed
-	// Seed is *fixed* to 0xFFFFFFFF
-	tfKey.key32[0] = tfKey.key32[1] = tfKey.key32[2] = tfKey.key32[3] = 0xFFFFFFFF;
-	
-	cipherInit( &tfCipher, MODE_ECB, 0 );
-	reKey( &tfKey );
+	memset( key, 0xFF, 16 );
+	keySched( key, 128, &S, K, &k );
+	fullKey( S, k, QF );
 	
 	recvPos = 256;
 	sendPos = 0x00;
@@ -128,8 +118,24 @@ void cGameEncryption::decryptByte( unsigned char &byte )
 	if( recvPos >= 256 )
 	{
 		UINT8 tempBuffer[256];
-		blockEncrypt( &tfCipher, &tfKey, cipherTable, 256*8, tempBuffer );
-		memcpy( cipherTable, tempBuffer, 256 );
+		
+		// just for little speedup I don't use for loop
+		encrypt( K, QF, &cipherTable [0]  );  // 1 
+		encrypt( K, QF, &cipherTable[16]  );  // 2
+		encrypt( K, QF, &cipherTable[32]  );  // 3
+		encrypt( K, QF, &cipherTable[48]  );  // 4
+		encrypt( K, QF, &cipherTable[64]  );  // 5
+		encrypt( K, QF, &cipherTable[80]  );  // 6
+		encrypt( K, QF, &cipherTable[96]  );  // 7
+		encrypt( K, QF, &cipherTable[112] );  // 8
+		encrypt( K, QF, &cipherTable[128] );  // 9
+		encrypt( K, QF, &cipherTable[144] );  // 10
+		encrypt( K, QF, &cipherTable[160] );  // 11
+		encrypt( K, QF, &cipherTable[176] );  // 12
+		encrypt( K, QF, &cipherTable[192] );  // 13
+		encrypt( K, QF, &cipherTable[208] );  // 14
+		encrypt( K, QF, &cipherTable[224] );  // 15
+		encrypt( K, QF, &cipherTable[240] );  // 16 
 		recvPos = 0;
 	}
 
