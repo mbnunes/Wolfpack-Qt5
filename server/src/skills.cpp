@@ -989,13 +989,13 @@ void cSkills::BottleTarget(int s)
 	{
 		pi->ReduceAmount(1);
 
-		int mortar=calcItemFromSer(addid1[s], addid2[s], addid3[s], addid4[s]);
-		if(mortar <= -1) return;
-		if (items[mortar].type==17) 
+		P_ITEM mortar = FindItemBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s]));
+		if(mortar == NULL) return;
+		if (mortar->type == 17) 
 		{
 			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc_currchar->name);
 			npcemoteall(DEREF_P_CHAR(pc_currchar), (char*)temp,0);
-			Skills->PotionToBottle(DEREF_P_CHAR(pc_currchar), mortar);
+			Skills->PotionToBottle(DEREF_P_CHAR(pc_currchar), DEREF_P_ITEM(mortar));
 		}
 	}
 	else

@@ -1612,12 +1612,11 @@ void cAllItems::DecayItem(unsigned int currenttime, int i)
 				{
 					preservebody=0;
 					serial=pi->serial;
-					serhash=serial%HASHMAX;
 					vector<SERIAL> vecContainer = contsp.getData(serial);
 					for( ci=0; ci < vecContainer.size(); ci++ )
 					{
-						j=calcItemFromSer(vecContainer[ci]);
-						if( j != -1 )
+						P_ITEM pj = FindItemBySerial(vecContainer[ci]);
+						if( pj != NULL )
 						{
 							preservebody++;
 						}

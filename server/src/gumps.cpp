@@ -44,7 +44,7 @@
 
 void cGump::Button(int s, int button, SERIAL serial, char type)
 {
-	int j=-1,i,c,serhash;
+	int i,c,serhash;
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	
     // if ((button)==0 || (button==1)) clConsole.send("gump-menu, type# %i closed\n",type); // lord bin
@@ -56,94 +56,66 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 
 	switch (type)
 	{
-	case 1: //Tweaking an Item
-		j=calcItemFromSer( serial );
-		break;
-	case 2: //Tweaking a Character
-		j=calcCharFromSer( serial );
-		break;
-	case 4:
-		j = 1;
-		break;
-	case 5:	//house functions - cj 8/12/99
-		{
-			int is;
-			is=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-			j = calcItemFromSer( is );
-			if(j>-1) {
-				is=calcserial(items[j].more1,items[j].more2,items[j].more3,items[j].more4);
-				j = calcItemFromSer( is );
-			}
-		}
-		break;
-	default:
-		return;
-	}
-
-	/*if (type==3) //Townstones
-		j = calcItemFromSer( serial );*/ // townstones taken out by LB
-
-	switch (type)
-	{
 	case 1: // Item
-		switch( button )
 		{
-		case 2:		entrygump( s, serial, type, button, 50, "Enter a new name for the item. (# = default name)" );	break;
-		case 3:		entrygump( s, serial, type, button, 4, "Enter the new ID number for the item in hex." );			break;
-		case 4:		entrygump( s, serial, type, button, 4, "Enter the new hue for the item in hex." );				break;
-		case 5:		entrygump( s, serial, type, button, 4, "Enter the new X coordinate for the item in decimal." );	break;
-		case 6:		entrygump( s, serial, type, button, 4, "Enter the new Y coordinate for the item in decimal." );	break;
-		case 7:		entrygump( s, serial, type, button, 4, "Enter the new Z coordinate for the item in decimal." );	break;
-		case 8:		entrygump( s, serial, type, button, 4, "Enter the new type for the item in decimal." );			break;
-		case 9:		entrygump( s, serial, type, button, 4, "Enter the new itemhand for the item in decimal." );		break;//Xuri
-		case 10:	entrygump( s, serial, type, button, 4, "Enter the new layer for the item in decimal." );			break;
-		case 11:	entrygump( s, serial, type, button, 4, "Enter the new amount for the item in decimal." );			break;
-		case 12:	entrygump( s, serial, type, button, 8, "Enter the new More for the item in hex." );				break;
-		case 13:	entrygump( s, serial, type, button, 8, "Enter the new MoreB for the item in hex." );				break;
-		case 14:	entrygump( s, serial, type, button, 1, "Enter the new stackable toggle for the item. (0/1)" );	break;
-		case 15:	entrygump( s, serial, type, button, 1, "Enter the new dyeable toggle for the item. (0/1)" );		break;
-		case 16:	entrygump( s, serial, type, button, 1, "Enter the new corpse toggle for the item. (0/1)" );		break;
-		case 17:	entrygump( s, serial, type, button, 5, "Enter the new LODAMAGE value for the item in decimal." );	break;//|
-		case 18:	entrygump( s, serial, type, button, 5, "Enter the new HIDAMAGE value for the item in decimal." );	break;//| both of these replace the old "attack value" (Xuri)
-		case 19:	entrygump( s, serial, type, button, 5, "Enter the new defence value for the item in decimal." );	break;
-		case 20:	entrygump( s, serial, type, button, 1, "Enter the new magic value for the item in decimal." );	break;
-		case 21:	entrygump( s, serial, type, button, 1, "Enter the new visible value for the item in decimal." );	break;
-		//start addons by Xuri
-		case 22:	entrygump( s, serial, type, button, 5, "Enter the new HP value for the item in decimal." );		break;
-		case 23:	entrygump( s, serial, type, button, 5, "Enter the new Max HP value for the item in decimal." );	break;
-		case 24:	entrygump( s, serial, type, button, 5, "Enter the new Speed value for the item in decimal." );	break;
-		case 25:	entrygump( s, serial, type, button, 5, "Enter the new Rank value for the item in decimal." );		break;
-		case 26:	entrygump( s, serial, type, button, 5, "Enter the new Value for the item in decimal." );			break;
-		case 27:	entrygump( s, serial, type, button, 5, "Enter the new Good value for the item in decimal." );		break;
-		case 28:	entrygump( s, serial, type, button, 5, "Enter the new Made Skill value for the item in decimal." );	break;
-		case 29:	entrygump( s, serial, type, button, 50, "Enter the new Creator name for the item." );				break;
-		//end addons by Xuri
-		default:	clConsole.send( "Unknown button pressed %i", button );																		break;
+			switch( button )
+			{
+			case 2:		entrygump( s, serial, type, button, 50, "Enter a new name for the item. (# = default name)" );	break;
+			case 3:		entrygump( s, serial, type, button, 4, "Enter the new ID number for the item in hex." );			break;
+			case 4:		entrygump( s, serial, type, button, 4, "Enter the new hue for the item in hex." );				break;
+			case 5:		entrygump( s, serial, type, button, 4, "Enter the new X coordinate for the item in decimal." );	break;
+			case 6:		entrygump( s, serial, type, button, 4, "Enter the new Y coordinate for the item in decimal." );	break;
+			case 7:		entrygump( s, serial, type, button, 4, "Enter the new Z coordinate for the item in decimal." );	break;
+			case 8:		entrygump( s, serial, type, button, 4, "Enter the new type for the item in decimal." );			break;
+			case 9:		entrygump( s, serial, type, button, 4, "Enter the new itemhand for the item in decimal." );		break;//Xuri
+			case 10:	entrygump( s, serial, type, button, 4, "Enter the new layer for the item in decimal." );			break;
+			case 11:	entrygump( s, serial, type, button, 4, "Enter the new amount for the item in decimal." );			break;
+			case 12:	entrygump( s, serial, type, button, 8, "Enter the new More for the item in hex." );				break;
+			case 13:	entrygump( s, serial, type, button, 8, "Enter the new MoreB for the item in hex." );				break;
+			case 14:	entrygump( s, serial, type, button, 1, "Enter the new stackable toggle for the item. (0/1)" );	break;
+			case 15:	entrygump( s, serial, type, button, 1, "Enter the new dyeable toggle for the item. (0/1)" );		break;
+			case 16:	entrygump( s, serial, type, button, 1, "Enter the new corpse toggle for the item. (0/1)" );		break;
+			case 17:	entrygump( s, serial, type, button, 5, "Enter the new LODAMAGE value for the item in decimal." );	break;//|
+			case 18:	entrygump( s, serial, type, button, 5, "Enter the new HIDAMAGE value for the item in decimal." );	break;//| both of these replace the old "attack value" (Xuri)
+			case 19:	entrygump( s, serial, type, button, 5, "Enter the new defence value for the item in decimal." );	break;
+			case 20:	entrygump( s, serial, type, button, 1, "Enter the new magic value for the item in decimal." );	break;
+			case 21:	entrygump( s, serial, type, button, 1, "Enter the new visible value for the item in decimal." );	break;
+			case 22:	entrygump( s, serial, type, button, 5, "Enter the new HP value for the item in decimal." );		break;
+			case 23:	entrygump( s, serial, type, button, 5, "Enter the new Max HP value for the item in decimal." );	break;
+			case 24:	entrygump( s, serial, type, button, 5, "Enter the new Speed value for the item in decimal." );	break;
+			case 25:	entrygump( s, serial, type, button, 5, "Enter the new Rank value for the item in decimal." );		break;
+			case 26:	entrygump( s, serial, type, button, 5, "Enter the new Value for the item in decimal." );			break;
+			case 27:	entrygump( s, serial, type, button, 5, "Enter the new Good value for the item in decimal." );		break;
+			case 28:	entrygump( s, serial, type, button, 5, "Enter the new Made Skill value for the item in decimal." );	break;
+			case 29:	entrygump( s, serial, type, button, 50, "Enter the new Creator name for the item." );				break;
+			default:	clConsole.send( "Unknown button pressed %i", button );																		break;
+			}
+			break;
 		}
-		break;
 	case 2:
-		switch( button )
 		{
-		case 2:	 entrygump( s, serial, type, button, 50, "Enter a new Name for the character." );							break;
-		case 3:	 entrygump( s, serial, type, button, 50, "Enter a new Title for the character." );							break;
-		case 4:	 entrygump( s, serial, type, button, 4, "Enter a new X coordinate for the character in decimal." );			break;
-		case 5:	 entrygump( s, serial, type, button, 4, "Enter a new Y coordinate for the character in decimal." );			break;
-		case 6:	 entrygump( s, serial, type, button, 4, "Enter a new Z coordinate for the character in decimal." );			break;
-		case 7:	 entrygump( s, serial, type, button, 3, "Enter a new Direction for the character in decimal." );				break;
-		case 8:	 entrygump( s, serial, type, button, 4, "Enter a new Body Type for the character in hex." );					break;
-		case 9:	 entrygump( s, serial, type, button, 4, "Enter a new Skin Hue for the character in hex." );					break;
-		case 10: entrygump( s, serial, type, button, 3, "Enter a new Defence value for the character in decimal." );		break;
-		case 11: entrygump( s, serial, type, button, 1, "Enter a new Hunger value for the character in decimal(0-6).");		break;			
-		case 12: entrygump( s, serial, type, button, 5, "Enter a new Strength value for the character in decimal.");		break;			
-		case 13: entrygump( s, serial, type, button, 5, "Enter a new Dexterity value for the character in decimal.");		break;			
-		case 14: entrygump( s, serial, type, button, 5, "Enter a new Intelligence value for the character in decimal.");	break;
-		case 15: entrygump( s, serial, type, button, 5, "Enter a new Karma value for the character in decimal.");	break;
-		case 16: entrygump( s, serial, type, button, 5, "Enter a new Fame value for the character in decimal.");	break;
-		case 17: entrygump( s, serial, type, button, 5, "Enter a new Kills value for the character in decimal.");	break;
-		case 18: entrygump( s, serial, type, button, 5, "Enter a new Jail time for the character in seconds");	break;
-
+			switch( button )
+			{
+			case 2:	 entrygump( s, serial, type, button, 50, "Enter a new Name for the character." );							break;
+			case 3:	 entrygump( s, serial, type, button, 50, "Enter a new Title for the character." );							break;
+			case 4:	 entrygump( s, serial, type, button, 4, "Enter a new X coordinate for the character in decimal." );			break;
+			case 5:	 entrygump( s, serial, type, button, 4, "Enter a new Y coordinate for the character in decimal." );			break;
+			case 6:	 entrygump( s, serial, type, button, 4, "Enter a new Z coordinate for the character in decimal." );			break;
+			case 7:	 entrygump( s, serial, type, button, 3, "Enter a new Direction for the character in decimal." );				break;
+			case 8:	 entrygump( s, serial, type, button, 4, "Enter a new Body Type for the character in hex." );					break;
+			case 9:	 entrygump( s, serial, type, button, 4, "Enter a new Skin Hue for the character in hex." );					break;
+			case 10: entrygump( s, serial, type, button, 3, "Enter a new Defence value for the character in decimal." );		break;
+			case 11: entrygump( s, serial, type, button, 1, "Enter a new Hunger value for the character in decimal(0-6).");		break;			
+			case 12: entrygump( s, serial, type, button, 5, "Enter a new Strength value for the character in decimal.");		break;			
+			case 13: entrygump( s, serial, type, button, 5, "Enter a new Dexterity value for the character in decimal.");		break;			
+			case 14: entrygump( s, serial, type, button, 5, "Enter a new Intelligence value for the character in decimal.");	break;
+			case 15: entrygump( s, serial, type, button, 5, "Enter a new Karma value for the character in decimal.");	break;
+			case 16: entrygump( s, serial, type, button, 5, "Enter a new Fame value for the character in decimal.");	break;
+			case 17: entrygump( s, serial, type, button, 5, "Enter a new Kills value for the character in decimal.");	break;
+			case 18: entrygump( s, serial, type, button, 5, "Enter a new Jail time for the character in seconds");	break;
+			}
+			break;
 		}
-		break;
 	case 4:			// Wholist
 		if(button<200)	
 		{		
@@ -179,7 +151,6 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				doGmMoveEff(s); 
 				break;
 			case 201://xtele
-				//Targ->XTeleport(s, 3);
 				pc_c->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 				teleport(c);
 				
@@ -222,19 +193,26 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 			return;
 		}
 		break;
-    // uups, someone deleted that 
-	// readded by LB 10-dec 1999
 	case 5:           // House
-		i = (buffer[s][21] << 8) + buffer[s][22];
-		if (button != 20 && button != 2)
 		{
-			addid1[s] = items[j].ser1;
-			addid2[s] = items[j].ser2;
-			addid3[s] = items[j].ser3;
-			addid4[s] = items[j].ser4;
-		}
-		switch (button)
-		{
+			SERIAL is = calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
+			P_ITEM pj = FindItemBySerial( is );
+			if(pj != NULL) 
+			{
+				is=calcserial(pj->more1, pj->more2, pj->more3, pj->more4);
+				pj = FindItemBySerial( is );
+			}
+
+			i = (buffer[s][21] << 8) + buffer[s][22];
+			if (button != 20 && button != 2)
+			{
+				addid1[s] = pj->ser1;
+				addid2[s] = pj->ser2;
+				addid3[s] = pj->ser3;
+				addid4[s] = pj->ser4;
+			}
+			switch (button)
+			{
 			case 20: // Change house sign's appearance
 				if (i>0)
 				{
@@ -277,7 +255,8 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				sysmessage(s, (char*)temp);
 				return;
 			}
-		break;
+			break;
+		}
 	}
 }
 
@@ -432,11 +411,12 @@ void cGump::Menu(UOXSOCKET s, int m, ITEM it)
 	short int length, length2, textlines=0;
 	unsigned int i;
 	bool house_gump=false, new_decay=false;
-	int is,j=-1,ds;
+	int is,ds;
 	char tt[255];
 	char tt2[255];
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
-	
+	P_ITEM pj = NULL;
+
 	openscript("gumps.scp");
 	sprintf(sect, "GUMPMENU %i", m);
 	if (!i_scripts[gump_script]->find(sect))
@@ -530,18 +510,18 @@ void cGump::Menu(UOXSOCKET s, int m, ITEM it)
 		if (it!=-1) // should be !=-1 for house's gumps (only!), but to be on safe side, lets check it.
 		{
 		    is=items[it].serial;
-       	    j = calcItemFromSer( is );
-		    if(j>-1) 
+       	    pj = FindItemBySerial( is );
+		    if(pj != NULL) 
 			{
-			   is=calcserial(items[j].more1,items[j].more2,items[j].more3,items[j].more4);
-			   j = calcItemFromSer( is );			  
+			   is=calcserial(pj->more1, pj->more2, pj->more3, pj->more4);
+			   pj = FindItemBySerial( is );			  
 			}
 
             // 2) calc decay % number	
 
-			if (j>-1) 
+			if (pj!= NULL) 
 			{   if (SrvParms->housedecay_secs!=0)				
-				ds=((items[j].time_unused)*100)/(SrvParms->housedecay_secs);
+				ds=((pj->time_unused)*100)/(SrvParms->housedecay_secs);
 			    else ds=-1;
 			    numtostr(ds,  tt);
 			} else ds=-1;
@@ -597,7 +577,7 @@ void cGump::Menu(UOXSOCKET s, int m, ITEM it)
 			/*sprintf(tt,"pos3: %s\n",script1);
 			LogMessage(tt);*/
 
-			if (house_gump && j>-1)
+			if (house_gump && pj != NULL)
 			{
 				if (!strcmp((char*)script1,"Decay Status :"))
 				{				 
@@ -1368,7 +1348,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 
 	if (main>1246 && main<1255)
 	{
-		Skills->DoPotion(s, main-1246, sub, calcItemFromSer(addid1[s], addid2[s], addid3[s], addid4[s]));
+		Skills->DoPotion(s, main-1246, sub, DEREF_P_ITEM(FindItemBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s]))));
 		return;
 	}
 	else if (main<ITEMMENUOFFSET) // GM Menus

@@ -1035,9 +1035,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 
 void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 {
-	int nCont=-1, nItem=-1;
 	int j, z, serial, serhash;
-//	tile_st tile;
 	bool abort=false;
 	UOXSOCKET s=ps->GetSocket();
 	CHARACTER cc=ps->GetCurrChar();
@@ -1045,23 +1043,19 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	
 	serial=pp->Tserial;
 	if(serial == INVALID_SERIAL) abort=true;
-	serhash=serial%HASHMAX;
-	nCont = calcItemFromSer( serial );
+	const P_ITEM pCont= FindItemBySerial( serial );
 	
 	serial=pp->Iserial;
 	if(serial == INVALID_SERIAL) abort=true;
-	serhash=serial%HASHMAX;
-	nItem = calcItemFromSer( serial );
+	const P_ITEM pItem = FindItemBySerial( serial );
 	
-	if (nCont==-1)
+	if (pCont == NULL)
 	{
-		RefreshItem(nCont);//AntiChrist
+		RefreshItem(pCont);//AntiChrist
 		return;
 	} 
 	
-	if (nItem==-1) return; //LB
-	const P_ITEM pCont=MAKE_ITEMREF_LR(nCont);	// on error return  (This one could be const ! Duke)
-	const P_ITEM pItem=MAKE_ITEMREF_LR(nItem);	// on error return
+	if (pItem == NULL || pCont == NULL) return; //LB
 	pItem->flags.isBeeingDragged=false;
 
 	if (pItem->id1>=0x40) 
@@ -1071,11 +1065,11 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	}
 	j=GetPackOwner(DEREF_P_ITEM(pCont));
 	if (j>-1)
-	if (chars[j].npcaitype==17 && chars[j].isNpc() && !pc_currchar->Owns(&chars[j]))
-	{
-	   abort=true;
-	   sysmessage(s,"This aint your vendor!");				
-	}
+		if (chars[j].npcaitype==17 && chars[j].isNpc() && !pc_currchar->Owns(&chars[j]))
+		{
+			abort=true;
+			sysmessage(s, "This aint your vendor!");				
+		}
 
 	if(abort)
 	{//AntiChrist to preview item disappearing
@@ -1089,14 +1083,14 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		// Trade window???
 		serial=calcserial(pCont->moreb1, pCont->moreb2, pCont->moreb3, pCont->moreb4);
 		if(serial == INVALID_SERIAL) return;
-		z = calcItemFromSer( serial );
+		P_ITEM pi_z = FindItemBySerial( serial );
 		
-		if (z!=-1)
-			if ((items[z].morez || pCont->morez))
+		if (pi_z != NULL)
+			if ((pi_z->morez || pCont->morez))
 			{
-				items[z].morez=0;
+				pi_z->morez=0;
 				pCont->morez=0;
-				sendtradestatus(z, DEREF_P_ITEM(pCont));
+				sendtradestatus(DEREF_P_ITEM(pi_z), DEREF_P_ITEM(pCont));
 			}
 	}
 	
@@ -1118,7 +1112,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 
 				pItem->SetContSerial(-1);
 				pItem->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
-				RefreshItem(nItem);//AntiChrist
+				RefreshItem(pItem);//AntiChrist
 				itemsfx(s,pItem->id());
 				return;
 			}
@@ -1147,7 +1141,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	// - Trash container
 	if (pCont->type==87)
 	{
-		Items->DeleItem(nItem);
+		Items->DeleItem(pItem);
 		sysmessage(s, "As you let go of the item it disappears.");
 		return;
 	}
@@ -1184,15 +1178,15 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				strcpy((char*)temp2,pItem->name);
 
 			vector<SERIAL> vecContainer = contsp.getData(pCont->serial);
-			for (int i=0;i<vecContainer.size();i++) // antichrist , bugfix for inscribing scrolls
+			for (unsigned int i = 0; i < vecContainer.size(); i++) // antichrist , bugfix for inscribing scrolls
 			{
-				int ci=calcItemFromSer(vecContainer[i]);
-				if (ci!=-1)
+				P_ITEM pi = FindItemBySerial(vecContainer[i]);
+				if (pi != NULL)
 				{
-					if(items[ci].name[0]=='#')
-						items[ci].getName(temp);
+					if(pi->name[0]=='#')
+						pi->getName(temp);
 					else
-						strcpy((char*)temp,items[ci].name);
+						strcpy((char*)temp, pi->name);
 
 					if(!(strcmp((char*)temp,(char*)temp2)) || !(strcmp((char*)temp,"All-Spell Scroll")))
 					{
@@ -1214,7 +1208,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		{
 			if (chars[j].npcaitype==17 && chars[j].isNpc() && pc_currchar->Owns(&chars[j]))
 			{
-				pc_currchar->inputitem = items[nItem].serial;
+				pc_currchar->inputitem = pItem->serial;
 				pc_currchar->inputmode = cChar::enPricing;
 				sysmessage(s, "Set a price for this item.");
 			}
@@ -1242,7 +1236,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			pItem->pos.z=pp->TzLoc;
 			
 			SndRemoveitem(pItem->serial);
-			RefreshItem(nItem);//AntiChrist
+			RefreshItem(pItem);//AntiChrist
 			itemsfx(s, pItem->id());
 			
 		}
@@ -1254,13 +1248,13 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 					pItem->amount -= (65535-pCont->amount);
 					Commands->DupeItem(s, DEREF_P_ITEM(pCont), pItem->amount);
 					pCont->amount = 65535;
-					Items->DeleItem(nItem);
+					Items->DeleItem(pItem);
 				}
 				else
 				{
 					pCont->amount=pCont->amount+pItem->amount;
 					itemsfx(s, pItem->id());
-					Items->DeleItem(nItem);
+					Items->DeleItem(pItem);
 				}
 				SndRemoveitem(pItem->serial);
 				RefreshItem(DEREF_P_ITEM(pCont));//AntiChrist
@@ -1318,7 +1312,7 @@ void drop_item(P_CLIENT ps) // Item is dropped
 	  // sometimes we HAVE to swallow it, sometimes it has to be interpreted
 	  // if UO:3D specific item loss problems are reported, this is probably the code to blame :)
 	  // LB
-	  ITEM i = calcItemFromSer(pp->Iserial);
+	  P_ITEM pi = FindItemBySerial(pp->Iserial);
 
 	  #ifdef debug_dragg 
 	    if (i!=-1) { sprintf(temp, "%04x %02x %02x %01x %04x i-name: %s EVILDRAG-old: %i\n",pp->Iserial, pp->TxLoc, pp->TyLoc, pp->TzLoc, pp->Tserial, items[i].name, EVILDRAGG[s]); clConsole.send(temp); }
@@ -1333,14 +1327,13 @@ void drop_item(P_CLIENT ps) // Item is dropped
           #endif
 		  return; 
 	  }	 // swallow! note: previous evildrag !
-
 	  else if ( (pp->TxLoc==-1) && (pp->TyLoc==-1) && (pp->Tserial==0)  && (EVILDRAGG[s]==0) ) 
 	  {
           #ifdef debug_dragg
 		    clConsole.send("Bounce & Swallow\n"); 
           #endif
 
-		  item_bounce6(ps, &items[i]); 
+		  item_bounce6(ps, pi); 
 		  return; 
 	  }
 	  else if ( ( (pp->TxLoc!=-1) && (pp->TyLoc!=-1) && ( pp->Tserial!=-1)) || ( (isItemSerial(pp->Iserial)) && (isItemSerial(pp->Tserial)) ) ) EVILDRAGG[s]=1; // calc new evildrag value

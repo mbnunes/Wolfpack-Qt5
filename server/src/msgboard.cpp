@@ -396,7 +396,7 @@ void MsgBoardList( int s )
 	int          msgOffset    = 0;  // Total number of bytes between messages from start of file
 	unsigned int segmentSize  = 0;  // Size of a segment (Author, Subject, Date)
 	int          foundMsg     = 0;  // Flag when message has been found
-	int          boardSN      = 0;  // Bulletin Boards serial number (to determine what regions messages to display
+//	int          boardSN      = 0;  // Bulletin Boards serial number (to determine what regions messages to display
 	int          currentFile  = 1;  // Starting file to open and iterate through (1=GLOBAL.bbp, 2=REGIONAL.bbp, 3=LOCAL.bbp)
 	int          w            = 0;  // Counter
 	int          x            = 0;  // Counter
@@ -407,14 +407,14 @@ void MsgBoardList( int s )
 	// LOCAL    Posts start at 03 00 00 00 -> 03 FF FF FF
 	
 	// Determine the Bulletin Boards serial number
-	boardSN = calcItemFromSer(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
+	P_ITEM boardSN = FindItemBySerial(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
 	
 	// GLOBAL post file
 	strcpy( fileName1, "global.bbp" );
 	
 	// REGIONAL post file
 	// sprintf( fileName2, "%s.bbp", region[calcRegionFromXY(items[boardSN].x, items[boardSN].y)].name );
-	sprintf( fileName2, "region%d.bbp", calcRegionFromXY(items[boardSN].pos.x, items[boardSN].pos.y) );
+	sprintf( fileName2, "region%d.bbp", calcRegionFromXY(boardSN->pos.x, boardSN->pos.y) );
 	
 	// LOCAL post file
 	sprintf( fileName3, "%02x%02x%02x%02x.bbp", buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
@@ -644,8 +644,8 @@ int MsgBoardGetMaxMsgSN( int msgType, int autoPost=0 )
 		}
 		else
 		{
-			msgBoardSerial = calcItemFromSer(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]);
-			sprintf( (char*)temp, "region%d.bbi", calcRegionFromXY(items[msgBoardSerial].pos.x, items[msgBoardSerial].pos.y) );
+			P_ITEM msgBoardSerial = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
+			sprintf( (char*)temp, "region%d.bbi", calcRegionFromXY(msgBoardSerial->pos.x, msgBoardSerial->pos.y) );
 		}
 		break;
 		
@@ -1014,8 +1014,8 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 		}
 		else
 		{
-			msgBoardSerial = calcItemFromSer(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]);
-			sprintf( (char*)temp, "region%d.bbp", calcRegionFromXY(items[msgBoardSerial].pos.x, items[msgBoardSerial].pos.y) );
+			P_ITEM msgBoardSerial = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
+			sprintf( (char*)temp, "region%d.bbp", calcRegionFromXY(msgBoardSerial->pos.x, msgBoardSerial->pos.y) );
 		}
 		break;
 		
@@ -1250,7 +1250,7 @@ void MsgBoardOpenPost( int s )
 		strcpy( fileName, SrvParms->msgboardpath );
 	
 	
-	msgSN = (buffer[s][8]*16777216) + (buffer[s][9]*65536) + (buffer[s][10]*256) + buffer[s][11];
+	msgSN = calcserial(buffer[s][8], buffer[s][9], buffer[s][10], buffer[s][11]);
 	
 	// Is msgSN within the GLOBAL post range
 	if ( (msgSN>=0x01000000) && (msgSN<=0x01FFFFFF) )
@@ -1267,8 +1267,8 @@ void MsgBoardOpenPost( int s )
 #ifdef DEBUG
 		sysmessage( s, "Opening REGIONAL.bbp posting");
 #endif
-		msgBoardSerial = calcItemFromSer(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
-		sprintf( (char*)temp, "region%d.bbp", calcRegionFromXY(items[msgBoardSerial].pos.x, items[msgBoardSerial].pos.y) );
+		P_ITEM msgBoardSerial = FindItemBySerial(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
+		sprintf( (char*)temp, "region%d.bbp", calcRegionFromXY(msgBoardSerial->pos.x, msgBoardSerial->pos.y) );
 		strcat( fileName,(char*) temp );
 		file = fopen( fileName, "rb" );
 	}
@@ -1469,16 +1469,15 @@ void MsgBoardRemovePost( int s )
 	
 	FILE *file = NULL;
 	// 50 chars for prefix and 4 for the extension plus the ending NULL
-	char fileName[256] = "";
+	char fileName[256] = {0,};
 	
 	int msgSN      = 0;
-	int msgBoardSN = 0;
 	
 	// Get the integer value of the message serial number
-	msgSN = (buffer[s][8]*16777216) + (buffer[s][9]*65536) + (buffer[s][10]*256) + buffer[s][11];
+	msgSN = calcserial(buffer[s][8], buffer[s][9], buffer[s][10], buffer[s][11]);
 	
 	// Calculate the Bulletin Boards serial number
-	msgBoardSN = calcItemFromSer(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]);
+	P_ITEM msgBoardSN = FindItemBySerial(calcserial(buffer[s][4], buffer[s][5], buffer[s][6], buffer[s][7]));
 	
 	// Switch depending on what type of message this is:
 	// GLOBAL = 0x01000000 -> 0x01FFFFFF
@@ -1496,7 +1495,7 @@ void MsgBoardRemovePost( int s )
 	case 0x02:
 		{
 			// REGIONAL post file
-			sprintf( (char*)temp, "region%d.bbi", calcRegionFromXY(items[msgBoardSN].pos.x, items[msgBoardSN].pos.y) );
+			sprintf( (char*)temp, "region%d.bbi", calcRegionFromXY(msgBoardSN->pos.x, msgBoardSN->pos.y) );
 			break;
 		}
 		

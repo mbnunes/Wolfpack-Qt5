@@ -129,7 +129,6 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	// By Polygon: This one is needed to show the location on treasure maps
 	unsigned char map3[12] = "\x56\x40\x01\x02\x03\x01\x00\x00\x00\x00\x00";
 	int los = 0;
-	int p;
 	bool t2a;
 	int itype;
 	
@@ -159,19 +158,19 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	P_ITEM pi = FindItemBySerial(serial);
 	if (pi == NULL)
 		return;
-	
+
 	if (isItemSerial(pi->contserial) && pi->type != 1 && !pi->isInWorld())
 	{// Cant use stuff that isn't in your pack.
-		p = GetPackOwner(calcItemFromSer(pi->contserial));
-		if (p!=-1)
-			if (p != DEREF_P_CHAR(pc_currchar))
+		P_CHAR pc_p = GetPackOwner(FindItemBySerial(pi->contserial));
+		if (pc_p != NULL)
+			if (pc_p != pc_currchar)
 				return;
 	}
 	else if (isCharSerial(pi->contserial) && pi->type!=-1 && !pi->isInWorld())
 	{// in a character.
-		p = calcCharFromSer(pi->contserial);
-		if (p!=-1)
-			if (p != DEREF_P_CHAR(pc_currchar) && pi->layer != 15 && pi->type != 1)
+		P_CHAR pc_p = FindCharBySerial(pi->contserial);
+		if (pc_p != NULL)
+			if (pc_p != pc_currchar && pi->layer != 15 && pi->type != 1)
 				return;
 	}
 	
@@ -774,16 +773,14 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				{	
 					if (!ishouse(pi_multi))
 						return; // LB
-					p = packitem(currchar[s]);
-					const P_ITEM pi_p=MAKE_ITEMREF_LR(p);	// on error return
+					const P_ITEM pi_p = Packitem(pc_currchar);
 					if (pi_p != NULL)
 					{
 						los = 0;
 						vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
 						for (j = 0; j < vecContainer.size(); j++)
 						{
-							i = calcItemFromSer(vecContainer[j]);
-							const P_ITEM pi_i=MAKE_ITEMREF_LR(i);	// on error return
+							const P_ITEM pi_i = FindItemBySerial(vecContainer[j]);
 							if ((pi_i != NULL) && (pi_p != NULL)) // lb
 								if (pi_i->type == 7 && calcserial(pi_i->more1, pi_i->more2, pi_i->more3, pi_i->more4) == pi_multi->serial)
 								{
@@ -1081,9 +1078,10 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					}
 					return; // mining
 				case 0x0E24: // empty vial
-					p = packitem(currchar[s]);
-					if (p>-1)
-						if (pi->contserial == items[p].serial)
+					{
+					P_ITEM pBackpack = Packitem(pc_currchar);
+					if (pBackpack != NULL)
+						if (pi->contserial == pBackpack->serial)
 						{
 							addx[s] = DEREF_P_ITEM(pi); // save the vials number, LB
 							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");
@@ -1091,6 +1089,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						else 
 							sysmessage(s, "The vial is not in your pack");
 						return;
+					}
 				case 0x0DF9: 
 					pc_currchar->tailitem = DEREF_P_ITEM(pi);   
 					target(s, 0, 1, 0, 166, "Select spinning wheel to spin cotton.");
@@ -1507,8 +1506,7 @@ void singleclick(UOXSOCKET s)
 	// Click in a Player Vendor item, show description, price and return
 	if (!pi->isInWorld() && isItemSerial(pi->contserial))
 	{
-		j = GetPackOwner(calcItemFromSer(pi->contserial));
-		P_CHAR pc_j = MAKE_CHARREF_LR(j);
+		P_CHAR pc_j = GetPackOwner(FindItemBySerial(pi->contserial));
 		if (pc_j != NULL)
 		{
 			if (pc_j->npcaitype == 17)

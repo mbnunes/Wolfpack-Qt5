@@ -646,18 +646,16 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	checkregion(DEREF_P_CHAR(pc_currchar));
 	//Tauriel set packitem at login
 	serial=pc_currchar->serial;
-	serhash=serial%HASHMAX;
 
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for (i=0;i<vecContainer.size();i++)
 	{
-		ci=calcItemFromSer(vecContainer[i]);
-		if (ci >-1)
+		const P_ITEM pi = FindItemBySerial(vecContainer[i]);
+		if (pi != NULL)
 		{
-			const P_ITEM pi=MAKE_ITEMREF_LR(ci);	// on error return
 			if (pi->contserial==serial && (pi->layer==0x15))
 			{
-				pc_currchar->packitem=ci;
+				pc_currchar->packitem = pi->serial;
 			}
 		}
 	}

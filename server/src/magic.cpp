@@ -1729,19 +1729,19 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	int	StartGrid;
 	int	getcell;
 	int dmg, dmgmod;
-
+	
 	unsigned int increment;
 	unsigned int checkgrid;
-
+	
 	int loskill, hiskill;//AntiChrist moved here
-//	int cc=currchar[s];
+	//	int cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
-//	P_ITEM pi = MAKE_ITEMREF_LR(cc)
+	//	P_ITEM pi = MAKE_ITEMREF_LR(cc)
 	int curSpell = pc_currchar->spell;
 	short xo,yo;
 	signed char zo;
 	bool b;
-
+	
 	int calcreg;
 	int defender;
 	unsigned long loopexit=0;
@@ -1754,24 +1754,24 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	unsigned char id1, id2;	
 	int snr;
 	bool char_selected, item_selected, terrain_selected;
-
+	
 	if (pc_currchar->dead==1) return;
 	if (currentSpellType[s]==0)
 	{
 		loskill=spells[curSpell].loskill;
 		hiskill=spells[curSpell].hiskill;
-	    if (!(pc_currchar->isGM()) && !Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MAGERY, loskill, hiskill))
+		if (!(pc_currchar->isGM()) && !Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MAGERY, loskill, hiskill))
 		{
-		   SpellFail(s);
-		   pc_currchar->spell = 0;
-		   pc_currchar->casting = 0;
-		   return;
+			SpellFail(s);
+			pc_currchar->spell = 0;
+			pc_currchar->casting = 0;
+			return;
 		}
 	}
 	if (currentSpellType[s]!=2) SubtractMana(pc_currchar, spells[curSpell].mana);
-
+	
 	if (currentSpellType[s]==0) DelReagents(DEREF_P_CHAR(pc_currchar), spells[curSpell].reagents );
-
+	
 	if( requireTarget( curSpell ) )					// target spells if true
 	{
 		if( travelSpell( curSpell )	)				// travel spells.... mark, recall and gate
@@ -1789,7 +1789,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
 						switch( curSpell )
 						{
-						//////////// (32) RECALL ////////////////
+							//////////// (32) RECALL ////////////////
 						case 32:
 							if ( pi->morex<=200 && pi->morey<=200 )
 							{
@@ -1805,12 +1805,12 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}
 							else
 							{										
-						        xo=pc_currchar->pos.x;
-						        yo=pc_currchar->pos.y;
-						        zo=pc_currchar->pos.z;											                                  
-
+								xo=pc_currchar->pos.x;
+								yo=pc_currchar->pos.y;
+								zo=pc_currchar->pos.z;											                                  
+								
 								cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_currchar), curSpell, xo, yo, zo);
-
+								
 								pc_currchar->MoveTo(pi->morex,pi->morey,pi->morez); //LB
 								teleport(DEREF_P_CHAR(pc_currchar));
 								doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
@@ -1818,7 +1818,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								recalled=true;
 							}
 							break;
-						//////////// (45) MARK //////////////////
+							//////////// (45) MARK //////////////////
 						case 45:
 							pi->morex=pc_currchar->pos.x;
 							pi->morey=pc_currchar->pos.y;
@@ -1829,9 +1829,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sprintf(pi->name, "Rune to: %s.", region[calcreg].name);
 							
 							cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_currchar), curSpell, pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);						
-
+							
 							break;
-						//////////// (52) GATE //////////////////
+							//////////// (52) GATE //////////////////
 						case 52:
 							if ( pi->morex<=200 && pi->morey<=200 )
 							{
@@ -1847,7 +1847,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								gatey[gatecount][1]=pi->morey;
 								gatez[gatecount][1]=pi->morez;
 								recalled=true;
-
+								
 								for (n=0;n<2;n++)
 								{
 									strcpy((char*)temp,"a blue moongate");
@@ -1862,7 +1862,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
 										pi_c->gatenumber=gatecount;
 										pi_c->dir=1;
-
+										
 										mapRegions->Add(pi_c);	//add gate to list of items in the region
 										RefreshItem(DEREF_P_ITEM(pi_c));//AntiChrist
 									}
@@ -1890,11 +1890,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			pc_currchar->spell = 0;
 			return;
 		}
-
+		
 		/////////////////////////////////////////////////////////
 		// spell code goes starts for targetted spells
 		/////////////////////////////////////////////////////////
-
+		
 		if( reqCharTarget( curSpell ) )
 		{
 			// TARGET CALC HERE
@@ -1935,263 +1935,263 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						//clConsole.send("spell-reflectable\n");
 						pc_defender = CheckMagicReflect(pc_currchar, pc_defender);
 					}
-										
+					
 					playSound( DEREF_P_CHAR(pc_currchar), curSpell );
 					doMoveEffect( curSpell, DEREF_P_CHAR(pc_defender), DEREF_P_CHAR(pc_currchar) );
 					if (curSpell !=30 && curSpell !=58) doStaticEffect( DEREF_P_CHAR(pc_defender), curSpell ); // Lb, bugfix, was (DEREF_P_CHAR(pc_currchar) ...)																									
-				
+					
 					switch( curSpell )
 					{
 						//////////// (1) CLUMSY /////////////////
-						case 1:
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 3, pc_currchar->skill[MAGERY]/100, 0, 0);
-							break;
+					case 1:
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 3, pc_currchar->skill[MAGERY]/100, 0, 0);
+						break;
 						//////////// (3) FEEBLEMIND /////////////
-						case 3:
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4, pc_currchar->skill[MAGERY]/100, 0, 0);
-							break;
+					case 3:
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4, pc_currchar->skill[MAGERY]/100, 0, 0);
+						break;
 						//////////// (4) HEAL ///////////////////
-						case 4:
-							int m,h;
-							m=pc_currchar->skill[MAGERY];
-							if ((pc_currchar->isInnocent()) &&(pc_currchar->serial != pc_defender->serial))
+					case 4:
+						int m,h;
+						m=pc_currchar->skill[MAGERY];
+						if ((pc_currchar->isInnocent()) &&(pc_currchar->serial != pc_defender->serial))
+						{
+							if ((pc_defender->crimflag>0) ||(pc_defender->isMurderer()))
 							{
-								if ((pc_defender->crimflag>0) ||(pc_defender->isMurderer()))
-								{
-									criminal(DEREF_P_CHAR(pc_currchar));
-								}
+								criminal(DEREF_P_CHAR(pc_currchar));
 							}
-
-							if (m<100) h=1; else
+						}
+						
+						if (m<100) h=1; else
 							if (m>=100 && m<200) h=2; else
-							if (m>=200 && m<300) h=4; else
-							if (m>=300 && m<400) h=5; else
-							if (m>=400) h=6;
-							if (h>2) h+=rand()%3;
-
-							pc_defender->hp=pc_defender->hp+h;
-							updatestats(DEREF_P_CHAR(pc_defender), 0);
-
-							break;
-						//////////// (5) MAGIC ARROW ////////////
-						case 5:
-							MagicDamage(DEREF_P_CHAR(pc_defender), (1+(rand()%1)+1)*(pc_currchar->skill[MAGERY]/2000+1));
-							break;
+								if (m>=200 && m<300) h=4; else
+									if (m>=300 && m<400) h=5; else
+										if (m>=400) h=6;
+										if (h>2) h+=rand()%3;
+										
+										pc_defender->hp=pc_defender->hp+h;
+										updatestats(DEREF_P_CHAR(pc_defender), 0);
+										
+										break;
+										//////////// (5) MAGIC ARROW ////////////
+					case 5:
+						MagicDamage(DEREF_P_CHAR(pc_defender), (1+(rand()%1)+1)*(pc_currchar->skill[MAGERY]/2000+1));
+						break;
 						//////////// (6) NIGHT SIGHT ////////////
-						case 6:
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 2, 0, 0, 0);
-							break;
+					case 6:
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 2, 0, 0, 0);
+						break;
 						//////////// (7) REACTIVE ARMOR /////////
-						case 7:
-							if (Skills->GetAntiMagicalArmorDefence(DEREF_P_CHAR(pc_currchar))>10)
-							{
-                                sysmessage(s,"Spell fails due to the armor on target!");
-                                break;
-							}
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 15, pc_currchar->skill[MAGERY]/100, 0, 0 );
-							pc_defender->ra=1;
+					case 7:
+						if (Skills->GetAntiMagicalArmorDefence(DEREF_P_CHAR(pc_currchar))>10)
+						{
+							sysmessage(s,"Spell fails due to the armor on target!");
 							break;
+						}
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 15, pc_currchar->skill[MAGERY]/100, 0, 0 );
+						pc_defender->ra=1;
+						break;
 						//////////// (8) WEAKEN /////////////////
-						case 8:
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 5, pc_currchar->skill[MAGERY]/100, 0, 0);
-							break;
+					case 8:
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 5, pc_currchar->skill[MAGERY]/100, 0, 0);
+						break;
 						//////////// (9) AGILITY ////////////////
-						case 9:
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6, pc_currchar->skill[MAGERY]/100, 0, 0);
-							break;
+					case 9:
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6, pc_currchar->skill[MAGERY]/100, 0, 0);
+						break;
 						//////////// (10) CUNNING ///////////////
-						case 10:
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7, pc_currchar->skill[MAGERY]/100, 0, 0);
-							break;
+					case 10:
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7, pc_currchar->skill[MAGERY]/100, 0, 0);
+						break;
 						//////////// (11) CURE //////////////////
-						case 11:
-							pc_defender->poisoned=0;
-							pc_defender->poisonwearofftime=uiCurrentTime;
-							impowncreate(s,DEREF_P_CHAR(pc_defender),1); // updating to blue bar
-							break;
+					case 11:
+						pc_defender->poisoned=0;
+						pc_defender->poisonwearofftime=uiCurrentTime;
+						impowncreate(s,DEREF_P_CHAR(pc_defender),1); // updating to blue bar
+						break;
 						//////////// (12) HARM //////////////////
-						case 12:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 2))
-								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/500+1);
-							else
-								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(249+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,2));
-							break;
+					case 12:
+						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 2))
+							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/500+1);
+						else
+							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(249+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,2));
+						break;
 						//////////// (15) PROTECTION ////////////
-						case 15:
-							if (Skills->GetAntiMagicalArmorDefence(DEREF_P_CHAR(pc_currchar))>10)
-							{
-                                sysmessage(s,"Spell fails due to the armor on target!");
-                                break;
-							}
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
+					case 15:
+						if (Skills->GetAntiMagicalArmorDefence(DEREF_P_CHAR(pc_currchar))>10)
+						{
+							sysmessage(s,"Spell fails due to the armor on target!");
 							break;
+						}
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
+						break;
 						//////////// (16) STRENGTH //////////////
-						case 16:
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 8, pc_currchar->skill[MAGERY]/100, 0, 0);
-							break;
+					case 16:
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 8, pc_currchar->skill[MAGERY]/100, 0, 0);
+						break;
 						//////////// (17) BLESS /////////////////
-						case 17:
-							j=pc_currchar->skill[MAGERY]/100;
-							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 11, j, j, j);
-							break;
+					case 17:
+						j=pc_currchar->skill[MAGERY]/100;
+						tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 11, j, j, j);
+						break;
 						//////////// (18) FIREBALL //////////////
-						case 18:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 3))
-								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/280+1);
-							else
-								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(139+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,4));
-							break;
+					case 18:
+						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 3))
+							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/280+1);
+						else
+							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(139+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,4));
+						break;
 						//////////// (20) POISON ////////////////
-						case 20:
-							if(CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1)) return;
-							{
-								pc_defender->poisoned=2;
-								pc_defender->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // LB
-								impowncreate( s, DEREF_P_CHAR(pc_defender), 1); //Lb, sends the green bar !
-							}
-							break;
+					case 20:
+						if(CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1)) return;
+						{
+							pc_defender->poisoned=2;
+							pc_defender->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // LB
+							impowncreate( s, DEREF_P_CHAR(pc_defender), 1); //Lb, sends the green bar !
+						}
+						break;
 						//////////// (27) CURSE /////////////////
-						case 27:
-							if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1))
-							{
-								j=pc_currchar->skill[MAGERY]/100;
-								tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 12, j, j, j);
-							}
-							break;
+					case 27:
+						if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1))
+						{
+							j=pc_currchar->skill[MAGERY]/100;
+							tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 12, j, j, j);
+						}
+						break;
 						//////////// (29) GREATER HEAL //////////
-						case 29:
-							if ((pc_currchar->isInnocent()) &&(pc_currchar->serial != pc_defender->serial))
+					case 29:
+						if ((pc_currchar->isInnocent()) &&(pc_currchar->serial != pc_defender->serial))
+						{
+							if ((pc_defender->crimflag>0) ||(pc_defender->isMurderer()))
 							{
-								if ((pc_defender->crimflag>0) ||(pc_defender->isMurderer()))
-								{
-									criminal(DEREF_P_CHAR(pc_currchar));
-								}
+								criminal(DEREF_P_CHAR(pc_currchar));
 							}
-							j=pc_defender->hp+(pc_currchar->skill[MAGERY]/30+RandomNum(1,12));
-							pc_defender->hp=min(pc_defender->st, j);
-							updatestats(DEREF_P_CHAR(pc_defender), 0);
-							break;
+						}
+						j=pc_defender->hp+(pc_currchar->skill[MAGERY]/30+RandomNum(1,12));
+						pc_defender->hp=min(pc_defender->st, j);
+						updatestats(DEREF_P_CHAR(pc_defender), 0);
+						break;
 						//////////// (30) LIGHTNING /////////////
-						case 30:
-							bolteffect(DEREF_P_CHAR(pc_defender), true);
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4))
-								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/180+RandomNum(1,2));
-							else
-								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(89+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,5));
-							break;
+					case 30:
+						bolteffect(DEREF_P_CHAR(pc_defender), true);
+						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4))
+							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/180+RandomNum(1,2));
+						else
+							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(89+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,5));
+						break;
 						//////////// (31) MANA DRAIN ////////////
-						case 31:
-							if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4))
-							{
-								pc_defender->mn-=pc_currchar->skill[MAGERY]/35;
-								if (pc_defender->mn<0) pc_defender->mn=0;
-								updatestats(DEREF_P_CHAR(pc_defender), 1);
-							}
-							break;
+					case 31:
+						if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4))
+						{
+							pc_defender->mn-=pc_currchar->skill[MAGERY]/35;
+							if (pc_defender->mn<0) pc_defender->mn=0;
+							updatestats(DEREF_P_CHAR(pc_defender), 1);
+						}
+						break;
 						//////////// (37) MIND BLAST ////////////
-						case 37:
-							if (pc_currchar->in>pc_defender->in)
-							{
-								if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 5))
-									MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->in-pc_defender->in)/4);
-								else
-									MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->in-pc_defender->in)/2);
-							}
+					case 37:
+						if (pc_currchar->in>pc_defender->in)
+						{
+							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 5))
+								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->in-pc_defender->in)/4);
 							else
-							{
-								if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 5))
-									MagicDamage(DEREF_P_CHAR(pc_currchar), (pc_defender->in-pc_currchar->in)/4);
-								else
-									MagicDamage(DEREF_P_CHAR(pc_currchar), (pc_defender->in-pc_currchar->in)/2);
-							}
-							cMagic::afterParticles(37, DEREF_P_CHAR(pc_currchar));
-							break;
+								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->in-pc_defender->in)/2);
+						}
+						else
+						{
+							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar), 5))
+								MagicDamage(DEREF_P_CHAR(pc_currchar), (pc_defender->in-pc_currchar->in)/4);
+							else
+								MagicDamage(DEREF_P_CHAR(pc_currchar), (pc_defender->in-pc_currchar->in)/2);
+						}
+						cMagic::afterParticles(37, DEREF_P_CHAR(pc_currchar));
+						break;
 						//////////// (38) PARALYZE //////////////
-						case 38:
-							if (!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
-								tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1, 0, 0, 0);
-							break;
+					case 38:
+						if (!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
+							tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1, 0, 0, 0);
+						break;
 						//////////// (41) DISPEL ////////////////
-						case 41:
-							if (pc_defender->priv2&0x20)
-							{
-								//staticeffect(DEREF_P_CHAR(pc_defender), 0x37, 0x2A, 0x09, 0x06);
-								tileeffect(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z, 0x37, 0x2A, 0x00, 0x00);
-								if (pc_defender->isNpc()) Npcs->DeleteChar(DEREF_P_CHAR(pc_defender));
-								else deathstuff(DEREF_P_CHAR(pc_defender));
-							}
-							break;
+					case 41:
+						if (pc_defender->priv2&0x20)
+						{
+							//staticeffect(DEREF_P_CHAR(pc_defender), 0x37, 0x2A, 0x09, 0x06);
+							tileeffect(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z, 0x37, 0x2A, 0x00, 0x00);
+							if (pc_defender->isNpc()) Npcs->DeleteChar(DEREF_P_CHAR(pc_defender));
+							else deathstuff(DEREF_P_CHAR(pc_defender));
+						}
+						break;
 						//////////// (42) ENERGY BOLT ///////////
-						case 42:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6))
-								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/120);
-							else
-								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));						
-													
-							break;
+					case 42:
+						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6))
+							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/120);
+						else
+							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));						
+						
+						break;
 						//////////// (43) EXPLOSION /////////////
-						case 43:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6))
-								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/120+RandomNum(1,5));
-							else
-								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));
-							break;
+					case 43:
+						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6))
+							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/120+RandomNum(1,5));
+						else
+							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));
+						break;
 						//////////// (44) INVISIBILITY //////////
-						case 44:						
-                           
-							cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_defender), curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z+12);
-
-							pc_defender->hidden=2;
-							updatechar(DEREF_P_CHAR(pc_defender));
-							pc_defender->invistimeout=uiCurrentTime+(SrvParms->invisibiliytimer*MY_CLOCKS_PER_SEC);
-							break;
+					case 44:						
+						
+						cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_defender), curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z+12);
+						
+						pc_defender->hidden=2;
+						updatechar(DEREF_P_CHAR(pc_defender));
+						pc_defender->invistimeout=uiCurrentTime+(SrvParms->invisibiliytimer*MY_CLOCKS_PER_SEC);
+						break;
 						//////////// (51) FLAMESTRIKE ///////////
-						case 51:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
-								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/80);
-							else
-								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,25));
-							break;
+					case 51:
+						if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
+							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/80);
+						else
+							MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,25));
+						break;
 						//////////// (53) MANA VAMPIRE //////////
-						case 53:
-							if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
+					case 53:
+						if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
+						{
+							if (pc_defender->mn<40)
 							{
-								if (pc_defender->mn<40)
-								{
-									pc_currchar->mn += pc_defender->mn;
-									pc_defender->mn=0;
-								}
-								else
-								{
-									pc_defender->mn-=40;
-									pc_currchar->mn+=40;
-								}
-								updatestats(DEREF_P_CHAR(pc_defender), 1);
-								updatestats(DEREF_P_CHAR(pc_currchar), 1);
+								pc_currchar->mn += pc_defender->mn;
+								pc_defender->mn=0;
 							}
-							break;
-						//////////// (59) RESURRECTION //////////
-						case 59:
-							if (pc_defender->dead && online(DEREF_P_CHAR(pc_defender)))
-							{
-								cMagic::doStaticEffect(DEREF_P_CHAR(pc_defender), curSpell);
-								b=Targ->NpcResurrectTarget(DEREF_P_CHAR(pc_defender));		
-								cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_defender), curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z);
-								return;
-							}
-							else if (!pc_defender->dead) sysmessage(s,"That player isn't dead!");
-							else sysmessage(s,"That player isn't online!");
-							break;
-							//////////// (66) CANNON FIRING /////////
-						case 66:
-							if (CheckParry(DEREF_P_CHAR(pc_defender), 6))
-								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[TACTICS]/50);
 							else
-								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[TACTICS]/25);
-							break;
-						default:
+							{
+								pc_defender->mn-=40;
+								pc_currchar->mn+=40;
+							}
+							updatestats(DEREF_P_CHAR(pc_defender), 1);
+							updatestats(DEREF_P_CHAR(pc_currchar), 1);
+						}
+						break;
+						//////////// (59) RESURRECTION //////////
+					case 59:
+						if (pc_defender->dead && online(DEREF_P_CHAR(pc_defender)))
+						{
+							cMagic::doStaticEffect(DEREF_P_CHAR(pc_defender), curSpell);
+							b=Targ->NpcResurrectTarget(DEREF_P_CHAR(pc_defender));		
+							cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_defender), curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z);
+							return;
+						}
+						else if (!pc_defender->dead) sysmessage(s,"That player isn't dead!");
+						else sysmessage(s,"That player isn't online!");
+						break;
+						//////////// (66) CANNON FIRING /////////
+					case 66:
+						if (CheckParry(DEREF_P_CHAR(pc_defender), 6))
+							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[TACTICS]/50);
+						else
+							MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[TACTICS]/25);
+						break;
+					default:
 						clConsole.send("MAGIC-ERROR: Unknown CharacterTarget spell %i, magic.cpp\n", curSpell );
-							break;
+						break;
 					}
 				}
 				else
@@ -2209,114 +2209,114 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			y=fy[0]=(buffer[s][13]<<8)+buffer[s][14];
 			//z=buffer[s][16];
 			z=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]); // bugfix, LB
-
+			
 			defender=LongFromCharPtr(buffer[s]+7);
 			int i = calcCharFromSer( defender );
-			int l = calcItemFromSer( defender );
-		
+			P_ITEM pi_l = FindItemBySerial( defender );
+			
 			// ..[1] 0-> object or item selected, 1-> terrain selected
 			char_selected=item_selected=terrain_selected=false;
 			if      (i!=-1 && buffer[s][1]==0)      char_selected=true;
-            else if (l!=-1 && buffer[s][1]==0)      item_selected=true;
+            else if (pi_l != NULL && buffer[s][1]==0)      item_selected=true;
 			else                                    terrain_selected=true;
-					
+			
 			//AntiChrist - location check
 			if (!(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF))
 			{
-				Coord_cl clTemp1(x,y,z) ;
-
-			if ((line_of_sight( s, pc_currchar->pos, clTemp1,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
-				(pc_currchar->isGM())))
-			{
-				if( fieldSpell( curSpell ) )
+				Coord_cl clTemp1(x,y,z);
+				
+				if ((line_of_sight( s, pc_currchar->pos, clTemp1,WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+					(pc_currchar->isGM())))
 				{
+					if( fieldSpell( curSpell ) )
+					{
 					/*
 					int i; i=pc_currchar->targ;
 					if(pc_defender->flag==0x04) criminal(cc);
-				{
-				*/
-					//AntiChrist - fixed the fields missing middle piece - 9/99
-					//(changed the order of fy and fy also!)
-					j=fielddir(DEREF_P_CHAR(pc_currchar), x, y, z); // lb bugfix, socket char# confusion
-					if (j)
 					{
-						fx[0]=fx[1]=fx[2]=fx[3]=fx[4]=x;
-						fy[0]=y;
-						fy[1]=y+1;
-						fy[2]=y-1;
-						fy[3]=y+2;
-						fy[4]=y-2;
-					}
-					else
+						*/
+						//AntiChrist - fixed the fields missing middle piece - 9/99
+						//(changed the order of fy and fy also!)
+						j=fielddir(DEREF_P_CHAR(pc_currchar), x, y, z); // lb bugfix, socket char# confusion
+						if (j)
+						{
+							fx[0]=fx[1]=fx[2]=fx[3]=fx[4]=x;
+							fy[0]=y;
+							fy[1]=y+1;
+							fy[2]=y-1;
+							fy[3]=y+2;
+							fy[4]=y-2;
+						}
+						else
+						{
+							fy[0]=fy[1]=fy[2]=fy[3]=fy[4]=y;
+							fx[0]=x;
+							fx[1]=x+1;
+							fx[2]=x-1;
+							fx[3]=x+2;
+							fx[4]=x-2;
+						}	// end else
+					}	// end if
+					
+					playSound( DEREF_P_CHAR(pc_currchar), curSpell );
+					//doMoveEffect( curSpell, i, DEREF_P_CHAR(pc_currchar) );
+					if (curSpell != 33 && curSpell !=58) doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
+					
+					cRegion::RegionIterator4Chars ri(pc_currchar->pos);
+					Coord_cl clTemp2(x,y,z) ;
+					
+					switch( curSpell )
 					{
-						fy[0]=fy[1]=fy[2]=fy[3]=fy[4]=y;
-						fx[0]=x;
-						fx[1]=x+1;
-						fx[2]=x-1;
-						fx[3]=x+2;
-						fx[4]=x-2;
-					}	// end else
-				}	// end if
-
-				playSound( DEREF_P_CHAR(pc_currchar), curSpell );
-				//doMoveEffect( curSpell, i, DEREF_P_CHAR(pc_currchar) );
-				if (curSpell != 33 && curSpell !=58) doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
-
-				cRegion::RegionIterator4Chars ri(pc_currchar->pos);
-				Coord_cl clTemp2(x,y,z) ;
-
-				switch( curSpell )
-				{
-					//////////// (22) TELEPORT //////////////////
+						//////////// (22) TELEPORT //////////////////
 					case 22:
 						{
-
-						if (char_selected) { sysmessage(s, "You can't use that spell on characters");  return; }
-						if (item_selected) { sysmessage(s, "You can't teleport there.");  return; }
-
-						P_ITEM pi_multi = findmulti( Coord_cl(x, y, z) );
-						if( pi_multi == NULL )
-						{
-							sysmessage( s, "You can't teleport here!" );
-							return;
-						}
-						tile_st tile;
-						Map->SeekTile(((buffer[s][0x11]<<8)+buffer[s][0x12]), &tile);
-						if( (!strcmp((char *)tile.name, "water")) || (tile.flag1&0x80) )
-						{
-							sysmessage(s,"Give up wanabe Jesus !");
-							return;
-						}
-
-						mapRegions->Remove(pc_currchar); //LB
-
-						xo=pc_currchar->pos.x;
-						yo=pc_currchar->pos.y;
-						zo=pc_currchar->pos.z;
-
-						pc_currchar->MoveTo(x,y,z);
-						teleport( DEREF_P_CHAR(pc_currchar) );
-						doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
-						cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_currchar), curSpell, xo, yo, zo);
+							
+							if (char_selected) { sysmessage(s, "You can't use that spell on characters");  return; }
+							if (item_selected) { sysmessage(s, "You can't teleport there.");  return; }
+							
+							P_ITEM pi_multi = findmulti( Coord_cl(x, y, z) );
+							if( pi_multi == NULL )
+							{
+								sysmessage( s, "You can't teleport here!" );
+								return;
+							}
+							tile_st tile;
+							Map->SeekTile(((buffer[s][0x11]<<8)+buffer[s][0x12]), &tile);
+							if( (!strcmp((char *)tile.name, "water")) || (tile.flag1&0x80) )
+							{
+								sysmessage(s,"Give up wanabe Jesus !");
+								return;
+							}
+							
+							mapRegions->Remove(pc_currchar); //LB
+							
+							xo=pc_currchar->pos.x;
+							yo=pc_currchar->pos.y;
+							zo=pc_currchar->pos.z;
+							
+							pc_currchar->MoveTo(x,y,z);
+							teleport( DEREF_P_CHAR(pc_currchar) );
+							doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
+							cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_currchar), curSpell, xo, yo, zo);
 						}
 						break;
-					//////////// (24) WALL OF STONE /////////////
+						//////////// (24) WALL OF STONE /////////////
 					case 24:
-
+						
 						if (char_selected) { sysmessage(s, "You can't use that spell on characters");  return; }
 						id1 = 0x00;
 						id2 = 0x80;
 						snr = 24;
 						break;
-					//////////// (25) ARCH CURE /////////////////
+						//////////// (25) ARCH CURE /////////////////
 					case 25:
-
+						
 						if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
-
+						
 						x1=0; x2=0; y1=0; y2=0; z1=0; z2=0;
-
+						
 						BoxSpell(s, x1, x2, y1, y2, z1, z2);
-
+						
 						//Char mapRegions
 						ri = pc_currchar->pos;
 						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
@@ -2325,8 +2325,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (mapchar != NULL)
 							{
 								if ((online(DEREF_P_CHAR(mapchar)) || (mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
-									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
-									(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
+								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
+								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
 								{
 									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
@@ -2346,42 +2346,42 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						}
 						break;
 						////////// (26) ARCH PROTECTION ///////////////
-						case 26:
-
-							if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
-
-							x1 = x2 = y1 = y2 = z1 = z2 = 0;
-							BoxSpell( s, x1, x2, y1, y2, z1, z2 );
-							for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+					case 26:
+						
+						if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
+						
+						x1 = x2 = y1 = y2 = z1 = z2 = 0;
+						BoxSpell( s, x1, x2, y1, y2, z1, z2 );
+						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+						{
+							P_CHAR mapchar = ri.GetData();
+							if( mapchar != NULL )
 							{
-								P_CHAR mapchar = ri.GetData();
-								if( mapchar != NULL )
+								if (( online( DEREF_P_CHAR(mapchar) ) || ( mapchar->isNpc() )) && ( mapchar->pos.x >= x1 && mapchar->pos.x <= x2 ) &&
+								( mapchar->pos.y >= y1 && mapchar->pos.y <= y2 ) /*&&
+								( chars[ii].pos.z >= z1 && chars[ii].pos.z <= z2 )*/)
 								{
-									if (( online( DEREF_P_CHAR(mapchar) ) || ( mapchar->isNpc() )) && ( mapchar->pos.x >= x1 && mapchar->pos.x <= x2 ) &&
-										( mapchar->pos.y >= y1 && mapchar->pos.y <= y2 ) /*&&
-										( chars[ii].pos.z >= z1 && chars[ii].pos.z <= z2 )*/)
+									if(( line_of_sight( s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
+										( pc_currchar->isGM() )))
 									{
-										if(( line_of_sight( s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
-											( pc_currchar->isGM() )))
-										{
-											playSound( DEREF_P_CHAR(mapchar), curSpell );
-											doStaticEffect( DEREF_P_CHAR(mapchar), 26 );	// protection
-											tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar), 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
-										}
-										else
-										{
-											sprintf( (char*)temp, "There seems to be something in the way between you and %s.", mapchar->name );
-											sysmessage( s, (char*)temp );
-										}
+										playSound( DEREF_P_CHAR(mapchar), curSpell );
+										doStaticEffect( DEREF_P_CHAR(mapchar), 26 );	// protection
+										tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar), 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
 									}
-								} // if mapitem
-							}
-							break;
-					//////////// (28) FIRE FIELD ////////////////
+									else
+									{
+										sprintf( (char*)temp, "There seems to be something in the way between you and %s.", mapchar->name );
+										sysmessage( s, (char*)temp );
+									}
+								}
+							} // if mapitem
+						}
+						break;
+						//////////// (28) FIRE FIELD ////////////////
 					case 28:
-
+						
 						if (char_selected) { sysmessage(s, "This spell can't be used on characters");  return; }
-
+						
 						if (j)
 						{
 							id1=0x39;
@@ -2394,12 +2394,12 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						}		// end else
 						snr = 28;
 						break;
-					//////////// (33) BLADE SPIRITS /////////////
+						//////////// (33) BLADE SPIRITS /////////////
 					case 33:
 						if (char_selected) { sysmessage(s, "This spell can't be used on characters");  return; }
 						SummonMonster( s, 0x02, 0x3E, "a blade spirit", 0x00, 0x00, x, y, z, curSpell );
 						break;
-					//////////// (34) DISPEL FIELD //////////////
+						//////////// (34) DISPEL FIELD //////////////
 					case 34:
 						{
 							if (char_selected) { sysmessage(s, "This spell can't be used on characters");  return; }							
@@ -2419,7 +2419,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}
 						}
 						break;
-					//////////// (39) POISON FIELD //////////////
+						//////////// (39) POISON FIELD //////////////
 					case 39:
 						if (char_selected) { sysmessage(s, "This spell can't be used on characters");  return; }
 						if (j)
@@ -2434,13 +2434,13 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						}
 						snr = 39;
 						break;
-					//////////// (46) MASS CURSE ////////////////
+						//////////// (46) MASS CURSE ////////////////
 					case 46:
 						x1=0; x2=0; y1=0; y2=0; z1=0; z2=0;
 						if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
-
+						
 						BoxSpell(s, x1, x2, y1, y2, z1, z2);
-
+						
 						//Char mapRegions
 						ri = pc_currchar->pos;
 						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
@@ -2449,8 +2449,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (mapchar != NULL)
 							{
 								if ((online(DEREF_P_CHAR(mapchar))||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
-									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
-									(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
+								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
+								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
 								{
 									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
@@ -2478,7 +2478,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}//if	mapitem
 						}
 						break;
-					//////////// (47) PARALYZE FIELD ////////////
+						//////////// (47) PARALYZE FIELD ////////////
 					case 47:
 						if (char_selected) { sysmessage(s, "This spell can't be used on characters");  return; }
 						if (j)
@@ -2493,7 +2493,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						}
 						snr = 47;
 						break;
-					//////////// (48) REVEAL ////////////////////
+						//////////// (48) REVEAL ////////////////////
 					case 48:
 						if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
 						
@@ -2504,11 +2504,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							range=(((j-261)*(15))/739)+5;
 							//If the caster has a Magery of 26.1 (min to cast reveal w/ scroll), range radius is
 							//5 tiles, if magery is maxed out at 100.0 (except for gms I suppose), range is 20
-
+							
 							//Char mapRegions
 							StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
 							getcell=mapRegions->GetCell(pc_currchar->pos.x,pc_currchar->pos.y);
-
+							
 							increment=0;
 							cRegion::RegionIterator4Chars ri(pc_currchar->pos);
 							for (ri.Begin(); ri.GetData() != ri.End(); ri++)
@@ -2536,15 +2536,15 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s, "You would like to see if anything was there, but there is too much stuff in the way.");
 						}
 						break;
-
+						
 					case 49:///////// Chain Lightning ///////////
-							///////// Forgotten, added by LB ////
-	                   
+						///////// Forgotten, added by LB ////
+						
 						x1=0; x2=0; y1=0; y2=0; z1=0; z2=0;
 						BoxSpell(s, x1, x2, y1, y2, z1, z2);
-
+						
 						if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
-
+						
 						//Char mapRegions
 						ri = pc_currchar->pos;
 						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
@@ -2553,8 +2553,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (mapchar != NULL)
 							{
 								if ((online(DEREF_P_CHAR(mapchar))||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
-									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
-									(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
+								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
+								(chars[ii].pos.z>=z1&&chars[ii].pos.z<=z2)*/)
 								{
 									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
@@ -2595,9 +2595,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								}
 							}//if Mapitem
 						}
-					break;
-
-					//////////// (50) ENERGY FIELD //////////////
+						break;
+						
+						//////////// (50) ENERGY FIELD //////////////
 					case 50:
 						if (char_selected) { sysmessage(s, "This spell can't be used on characters");  return; }
 						if (j)
@@ -2612,14 +2612,14 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						}
 						snr = 50;
 						break;
-					//////////// (54) MASS DISPEL ///////////////
+						//////////// (54) MASS DISPEL ///////////////
 					case 54:
 						x1=0; x2=0; y1=0; y2=0; z1=0; z2=0;
-
+						
 						BoxSpell(s, x1, x2, y1, y2, z1, z2);
-
+						
 						//if (char_selected) { sysmessage(s, "This spell can't be used on characters");  return; }
-
+						
 						//Char mapRegions
 						ri = pc_currchar->pos;
 						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
@@ -2649,14 +2649,14 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}//if mapitem
 						}
 						break;
-					//////////// (55) METEOR SWARM //////////////
+						//////////// (55) METEOR SWARM //////////////
 					case 55:
-
+						
 						if (terrain_selected || item_selected) { sysmessage(s, "This spell can be used only on characters");  return; }
 						x1=0; x2=0; y1=0; y2=0; z1=0; z2=0;
-
+						
 						BoxSpell(s, x1, x2, y1, y2, z1, z2);
-
+						
 						//Char mapRegions
 						ri = pc_currchar->pos;
 						for (ri.Begin(); ri.GetData() != ri.End(); ri++)
@@ -2666,8 +2666,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							{
 								ii = DEREF_P_CHAR(mapchar);
 								if ((online(DEREF_P_CHAR(mapchar))||(mapchar->isNpc())) && (mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
-									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
-									(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
+								(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
+								(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
 								{
 									if ((line_of_sight(s, pc_currchar->pos, mapchar->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)||
 										(pc_currchar->isGM())))
@@ -2698,7 +2698,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}//if Mapitem
 						}
 						break;
-					//////////// (58) ENERGY VORTEX /////////////
+						//////////// (58) ENERGY VORTEX /////////////
 					case 58:
 						SummonMonster( s, 0x00, 0x0d, "an energy vortex", 0x00, 0x75, x, y, z, curSpell );
 						break;
@@ -2706,7 +2706,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						clConsole.send("MAGIC-ERROR: Unknown LocationTarget spell %i, magic.cpp\n", curSpell );
 						break;
 				}
-
+				
 				//AntiChrist - bugfix -
 				//wall of stone has to be 3 tiles of length, like OSI
 				int j2;
@@ -2723,29 +2723,29 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					if (R==-1) R=255;
 					//clConsole.send("x: %i, y: %i, z: %i",x,y,z);
 					if (region[R].priv&0x01) // Ripper 11-14-99
-					if (region[R].priv&0x80 || region[R].priv&0x40) // LB magic region changes !
-					{
-						sysmessage(s," You cant cast in town!");
-						return;
-					}
-					for( j=0; j<=j2; j++ )
-					{
-						P_ITEM pi=Items->SpawnItem(currchar[s],1,"#",0,(id1<<8)+id2,0,0);
-						if(pi)
+						if (region[R].priv&0x80 || region[R].priv&0x40) // LB magic region changes !
 						{
-							pi->priv |= 0x05;
-							pi->decaytime=uiCurrentTime+((pc_currchar->skill[MAGERY]/15)*MY_CLOCKS_PER_SEC);
-							pi->morex=pc_currchar->skill[MAGERY]; // remember casters magery skill for damage, LB
-							pi->MoveTo(fx[j], fy[j], Map->Height( fx[j], fy[j], z ));
-							pi->dir=29;
-							pi->magic=2;
-							RefreshItem(pi);
-							cMagic::itemParticles(snr,pi);
+							sysmessage(s," You cant cast in town!");
+							return;
 						}
-					}
+						for( j=0; j<=j2; j++ )
+						{
+							P_ITEM pi=Items->SpawnItem(currchar[s],1,"#",0,(id1<<8)+id2,0,0);
+							if(pi)
+							{
+								pi->priv |= 0x05;
+								pi->decaytime=uiCurrentTime+((pc_currchar->skill[MAGERY]/15)*MY_CLOCKS_PER_SEC);
+								pi->morex=pc_currchar->skill[MAGERY]; // remember casters magery skill for damage, LB
+								pi->MoveTo(fx[j], fy[j], Map->Height( fx[j], fy[j], z ));
+								pi->dir=29;
+								pi->magic=2;
+								RefreshItem(pi);
+								cMagic::itemParticles(snr,pi);
+							}
+						}
 				}
 			} // if los
-
+			
 			} else { // location check
 				sysmessage(s,"That is not a valid location.");
 			}
@@ -2763,104 +2763,104 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					switch( curSpell )
 					{
 						//////////// (13) MAGIC TRAP ////////////
-						case 13:
-							if((pi->type==1 || pi->type==63 ||
-								pi->type==8 || pi->type==64)
-								&& pi->id()!=0x0E75)
-							{
-								pi->moreb1=1;
-								pi->moreb2=pc_currchar->skill[MAGERY]/20;
-								pi->moreb3=pc_currchar->skill[MAGERY]/10;
-								soundeffect3(pi,0x01F0);									
-								cMagic::itemParticles(13,pi);
-								sysmessage(s,"It's trapped!");
-							}
-							else
-								sysmessage(DEREF_P_CHAR(pc_currchar),"You cannot trap this!!!");
-							break;
+					case 13:
+						if((pi->type==1 || pi->type==63 ||
+							pi->type==8 || pi->type==64)
+							&& pi->id()!=0x0E75)
+						{
+							pi->moreb1=1;
+							pi->moreb2=pc_currchar->skill[MAGERY]/20;
+							pi->moreb3=pc_currchar->skill[MAGERY]/10;
+							soundeffect3(pi,0x01F0);									
+							cMagic::itemParticles(13,pi);
+							sysmessage(s,"It's trapped!");
+						}
+						else
+							sysmessage(DEREF_P_CHAR(pc_currchar),"You cannot trap this!!!");
+						break;
 						//////////// (14) MAGIC UNTRAP //////////
-						case 14:
-							if((pi->type==1 || pi->type==63 ||
-								pi->type==8 || pi->type==64))
+					case 14:
+						if((pi->type==1 || pi->type==63 ||
+							pi->type==8 || pi->type==64))
+						{
+							if(pi->moreb1==1)
 							{
-								if(pi->moreb1==1)
+								if(rand()%100<=50+(pc_currchar->skill[MAGERY]/10)-pi->moreb3)
 								{
-									if(rand()%100<=50+(pc_currchar->skill[MAGERY]/10)-pi->moreb3)
-									{
-										pi->moreb1=0;
-										pi->moreb2=0;
-										pi->moreb3=0;
-										soundeffect3(pi, 0x01F1);
-										cMagic::itemParticles(14,pi);
-										sysmessage(s,"You successfully untrap this item!");
-									}
-									else sysmessage(s,"You miss to untrap this item!");
+									pi->moreb1=0;
+									pi->moreb2=0;
+									pi->moreb3=0;
+									soundeffect3(pi, 0x01F1);
+									cMagic::itemParticles(14,pi);
+									sysmessage(s,"You successfully untrap this item!");
 								}
-								else sysmessage(s,"This item doesn't seem to be trapped!");
+								else sysmessage(s,"You miss to untrap this item!");
 							}
-							else sysmessage(s,"This item cannot be trapped!");
-							break;
+							else sysmessage(s,"This item doesn't seem to be trapped!");
+						}
+						else sysmessage(s,"This item cannot be trapped!");
+						break;
 						//////////// (19) MAGIC LOCK ////////////
-						case 19:
-							if((pi->type==1 || pi->type==63)
-								&& pi->id()!=0x0E75 )
+					case 19:
+						if((pi->type==1 || pi->type==63)
+							&& pi->id()!=0x0E75 )
+						{
+							switch(pi->type)
 							{
+							case 1:	pi->type=8; break;
+							case 63: pi->type=64; break;
+							default:
+								clConsole.send("ERROR: Fallout of switch statement without default. magic.cpp, magiclocktarget()/n"); //Morrolan
+								break;
+							}
+							soundeffect3(pi, 0x0200);
+							cMagic::itemParticles(19,pi);
+							sysmessage(s,"It's locked!");
+						}
+						else
+							sysmessage(s,"You cannot lock this!!!");
+						break;
+						
+						//////////// (23) MAGIC UNLOCK //////////
+						
+					case 23:
+						if(pi->type==8 || pi->type==64)
+						{
+							if(pi->more1==0 && pi->more2==0 && pi->more3==0 && pi->more4==0)
+							{ //Make sure it isn't an item that has a key (i.e. player house, chest..etc)
 								switch(pi->type)
 								{
-								case 1:	pi->type=8; break;
-								case 63: pi->type=64; break;
+								case 8: pi->type=1; break;
+								case 64: pi->type=63; break;
 								default:
-									clConsole.send("ERROR: Fallout of switch statement without default. magic.cpp, magiclocktarget()/n"); //Morrolan
-									break;
+									//LogError("switch reached default");
+									return;
 								}
-								soundeffect3(pi, 0x0200);
-								cMagic::itemParticles(19,pi);
-								sysmessage(s,"It's locked!");
+								soundeffect3(pi,0x01FF);
+								cMagic::itemParticles(23,pi);
+								sysmessage(s, "You manage to pick the lock.");
+							}
+						} else
+						{
+							if ( pi->type==1 || pi->type==63 || pi->type == 65 || pi->type == 87 )
+							{
+								sysmessage( s, "That is not locked." );
 							}
 							else
-								sysmessage(s,"You cannot lock this!!!");
-							break;
-
-						//////////// (23) MAGIC UNLOCK //////////
-
-						case 23:
-							if(pi->type==8 || pi->type==64)
 							{
-								if(pi->more1==0 && pi->more2==0 && pi->more3==0 && pi->more4==0)
-								{ //Make sure it isn't an item that has a key (i.e. player house, chest..etc)
-									switch(pi->type)
-									{
-									case 8: pi->type=1; break;
-									case 64: pi->type=63; break;
-									default:
-										//LogError("switch reached default");
-										return;
-									}
-									soundeffect3(pi,0x01FF);
-									cMagic::itemParticles(23,pi);
-									sysmessage(s, "You manage to pick the lock.");
-								}
-							} else
-							{
-								if ( pi->type==1 || pi->type==63 || pi->type == 65 || pi->type == 87 )
-								{
-									sysmessage( s, "That is not locked." );
-								}
-								else
-								{
-									sysmessage( s, "That does not have a lock.");
-								}
+								sysmessage( s, "That does not have a lock.");
 							}
-							break;
+						}
+						break;
 						//////////// (41) DISPEL ////////////////
 						//case 41:
 						//	if (pi->isInvul()) Items->DeleItem(i);
 						//	break;
 						// Uhmm.....this already is in CharacterTarget spells
 						// don't think if it should be here......
-						default:
-							clConsole.send("MAGIC-ERROR: Unknown ItemTarget spell %i, magic.cpp\n", curSpell );
-							break;
+					default:
+						clConsole.send("MAGIC-ERROR: Unknown ItemTarget spell %i, magic.cpp\n", curSpell );
+						break;
 					}
 				}
 				else
@@ -2879,140 +2879,140 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		// non targetted spells
 		playSound( DEREF_P_CHAR(pc_currchar), curSpell );
 		if ( curSpell != 35 && curSpell !=40) doStaticEffect( DEREF_P_CHAR(pc_currchar), curSpell );
-
+		
 		switch( curSpell )
 		{
 			//////////// (2) CREATE FOOD ////////////////
-			case 2:
-				{
+		case 2:
+			{
 				P_ITEM pi_j = Items->SpawnItem(s, DEREF_P_CHAR(pc_currchar), 1, "#", 1, 0x09, 0xD3, 0x00, 0x00, 1, 1 );
 				if(pi_j != NULL)//AntiChrist - to prevent crashes
 				{
 					pi_j->type=14;
 					RefreshItem(pi_j);
 				}
-				}
-				break; // LB crashfix
+			}
+			break; // LB crashfix
 			//////////// (3) SUMMON MONSTER ////////////
-			case 40: //33:
-				SummonMonster( s, 0, 0, "#", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
-				break;
+		case 40: //33:
+			SummonMonster( s, 0, 0, "#", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
+			break;
 			//////////// (35) INCOGNITO ////////////
-			case 35:
-				tempeffect(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_currchar),19,0,0,0);//Incognito temp effect
-				cMagic::doStaticEffect(DEREF_P_CHAR(pc_currchar), curSpell);
-				break;
+		case 35:
+			tempeffect(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_currchar),19,0,0,0);//Incognito temp effect
+			cMagic::doStaticEffect(DEREF_P_CHAR(pc_currchar), curSpell);
+			break;
 			//////////// (36) MAGIC REFLECTION /////////
-			case 36:
-				pc_currchar->priv2=pc_currchar->priv2|0x40;
-				break;
+		case 36:
+			pc_currchar->priv2=pc_currchar->priv2|0x40;
+			break;
 			//////////// (56) POLYMORPH /////////////////
-			case 56:
-				PolymorphMenu( s, POLYMORPHMENUOFFSET ); // Antichrist's Polymorph
-				break;
+		case 56:
+			PolymorphMenu( s, POLYMORPHMENUOFFSET ); // Antichrist's Polymorph
+			break;
 			//////////// (57) EARTHQUAKE ///////////////
-			case 57:
-				
-				dmg=(pc_currchar->skill[MAGERY]/40)+(rand()%20-10);
-				dmgmod = 0;
-				
-				//Char mapRegions
-				loopexit=0;
-				StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
-				getcell=mapRegions->GetCell(pc_currchar->pos.x,pc_currchar->pos.y);
-				increment=0;
-				for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+		case 57:
+			
+			dmg=(pc_currchar->skill[MAGERY]/40)+(rand()%20-10);
+			dmgmod = 0;
+			
+			//Char mapRegions
+			loopexit=0;
+			StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
+			getcell=mapRegions->GetCell(pc_currchar->pos.x,pc_currchar->pos.y);
+			increment=0;
+			for (checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+			{
+				for (a=0;a<3;a++)
 				{
-					for (a=0;a<3;a++)
+					vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
+					for ( unsigned int k = 0; k < vecEntries.size(); k++)
 					{
-						vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-						for ( unsigned int k = 0; k < vecEntries.size(); k++)
+						P_CHAR pc = FindCharBySerial(vecEntries[k]);
+						if (pc != NULL)
 						{
-							P_CHAR pc = FindCharBySerial(vecEntries[k]);
-							if (pc != NULL)
+							if (pc->isInvul() || pc->npcaitype==17)		// don't affect vendors
+								continue;
+							if (pc->isSameAs(pc_currchar))				// nor the caster
+								continue;
+							ii=DEREF_P_CHAR(pc);
+							distx=abs(pc->pos.x - pc_currchar->pos.x);
+							disty=abs(pc->pos.y - pc_currchar->pos.y);
+							if(distx<=15 && disty<=15 && (pc->isNpc() || online(ii)))
 							{
-								if (pc->isInvul() || pc->npcaitype==17)		// don't affect vendors
-									continue;
-								if (pc->isSameAs(pc_currchar))				// nor the caster
-									continue;
-								ii=DEREF_P_CHAR(pc);
-								distx=abs(pc->pos.x - pc_currchar->pos.x);
-								disty=abs(pc->pos.y - pc_currchar->pos.y);
-								if(distx<=15 && disty<=15 && (pc->isNpc() || online(ii)))
+								if(pc->isInnocent()) criminal(currchar[s]);
+								
+								if (!pc->isGM() && pc->account!=0)
+									dmgmod = min(distx,disty);
+								dmgmod = -(dmgmod - 7);
+								pc->hp -=  dmg+dmgmod;
+								pc->stm -= rand()%10+5;
+								
+								if(pc->stm<0)  pc->stm=0;
+								if(pc->hp<0) pc->hp=0;						 							
+								
+								if (pc->isPlayer() && online(ii))
 								{
-									if(pc->isInnocent()) criminal(currchar[s]);
-									
-									if (!pc->isGM() && pc->account!=0)
-										dmgmod = min(distx,disty);
-									dmgmod = -(dmgmod - 7);
-									pc->hp -=  dmg+dmgmod;
-									pc->stm -= rand()%10+5;
-									
-									if(pc->stm<0)  pc->stm=0;
-									if(pc->hp<0) pc->hp=0;						 							
-									
-									if (pc->isPlayer() && online(ii))
+									if(rand()%2) npcaction(ii, 0x15); else npcaction(ii, 0x16);
+									if((pc->isNpc() || online(ii)) && pc->hp==0)
 									{
-										if(rand()%2) npcaction(ii, 0x15); else npcaction(ii, 0x16);
-										if((pc->isNpc() || online(ii)) && pc->hp==0)
-										{
-											deathstuff(ii);                              
-										}
-									}	
+										deathstuff(ii);                              
+									}
+								}	
+								else
+								{ 
+									if (pc->hp<=0) deathstuff(ii); 
 									else
 									{ 
-										if (pc->hp<=0) deathstuff(ii); 
-										else
-										{ 
-											if (pc->isNpc())
-											{
-												npcaction(ii, 0x2); 
-												npcattacktarget(currchar[s],ii); 
-											}
+										if (pc->isNpc())
+										{
+											npcaction(ii, 0x2); 
+											npcattacktarget(currchar[s],ii); 
 										}
-									}	
-								} //if Distance
-							}
+									}
+								}	
+							} //if Distance
 						}
 					}
 				}
-				break;			//////////// (60) SUMMON AIR ELEMENTAL /////
-			case 60:
-				SummonMonster( s, 0x00, 0x0d, "Air", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
-				break;
+			}
+			break;			//////////// (60) SUMMON AIR ELEMENTAL /////
+		case 60:
+			SummonMonster( s, 0x00, 0x0d, "Air", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
+			break;
 			//////////// (61) SUMMON DAEMON ////////////
-			case 61:
-				SummonMonster( s, 0x00, 0x0A, "Daemon", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
-				break;
+		case 61:
+			SummonMonster( s, 0x00, 0x0A, "Daemon", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
+			break;
 			//////////// (62) SUMMON EARTH ELEMENTAL ///
-			case 62:
-				SummonMonster( s, 0x00, 0x0E, "Earth", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
-				break;
+		case 62:
+			SummonMonster( s, 0x00, 0x0E, "Earth", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
+			break;
 			//////////// (63) SUMMON FIRE ELEMENTAL ////
-			case 63:
-				SummonMonster( s, 0x00, 0x0F, "Fire", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
-				break;
+		case 63:
+			SummonMonster( s, 0x00, 0x0F, "Fire", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
+			break;
 			//////////// (64) SUMMON WATER ELEMENTAL ///
-			case 64:
-				SummonMonster( s, 0x00, 0x10, "Water", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
-				break;
+		case 64:
+			SummonMonster( s, 0x00, 0x10, "Water", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
+			break;
 			//////////// (65) SUMMON HERO //////////////
-			case 65:
-				SummonMonster( s, 0x03, 0xE2, "Dupre the Hero", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
-				break;
+		case 65:
+			SummonMonster( s, 0x03, 0xE2, "Dupre the Hero", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
+			break;
 			//////////// (67) SUMMON BLACK NIGHT ///////
-			case 67:
-				SummonMonster( s, 0x00, 0x0A, "Black Night", 5000>>8, 5000%256, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
-				break;
-			default:
-				clConsole.send("MAGIC-ERROR: Unknown NonTarget spell %i, magic.cpp\n", curSpell );
-				break;
+		case 67:
+			SummonMonster( s, 0x00, 0x0A, "Black Night", 5000>>8, 5000%256, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
+			break;
+		default:
+			clConsole.send("MAGIC-ERROR: Unknown NonTarget spell %i, magic.cpp\n", curSpell );
+			break;
 		}
 		//sysmessage( s, "Spells like meteor swarm will go here, eventually" );
 		pc_currchar->spell = 0;
 		return;
 	}
-
+	
 }
 
 bool cMagic::townTarget( unsigned char num )

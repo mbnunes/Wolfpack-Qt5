@@ -45,7 +45,7 @@ void buyaction(int s)
 {
 	char clearmsg[8];
 	int clear, i, j;
-	int buyit[512];
+	P_ITEM buyit[256];
 	int amount[512];
 	int layer[512];
 	int playergoldtotal;
@@ -69,21 +69,20 @@ void buyaction(int s)
 	itemtotal=(((256*(buffer[s][1]))+buffer[s][2])-8)/7;
 	if (itemtotal>256) return; //LB
 
-	for(i=0;i<itemtotal;i++)
+	for(i = 0; i < itemtotal; i++)
 	{
 		layer[i]=buffer[s][8+(7*i)];
-		buyit[i]=calcItemFromSer(buffer[s][8+(7*i)+1], buffer[s][8+(7*i)+2],
-			buffer[s][8+(7*i)+3], buffer[s][8+(7*i)+4]);
+		buyit[i] = FindItemBySerial(calcserial(buffer[s][8+(7*i)+1], buffer[s][8+(7*i)+2], buffer[s][8+(7*i)+3], buffer[s][8+(7*i)+4]));
 		amount[i]=(256*(buffer[s][8+(7*i)+5]))+buffer[s][8+(7*i)+6];
 
-		if (buyit[i]>-1)
+		if (buyit[i] != NULL)
 		{
-			items[buyit[i]].rank=10;
+			buyit[i]->rank=10;
 			// Fixed for adv trade system -- Magius(CHE) §
-			tmpvalue=items[buyit[i]].value;
-			tmpvalue=calcValue(buyit[i], tmpvalue);
-			if (SrvParms->trade_system==1) tmpvalue=calcGoodValue(s,buyit[i],tmpvalue,0);
-			goldtotal=goldtotal+(amount[i]*tmpvalue);
+			tmpvalue = buyit[i]->value;
+			tmpvalue = calcValue(DEREF_P_ITEM(buyit[i]), tmpvalue);
+			if (SrvParms->trade_system==1) tmpvalue = calcGoodValue(s, DEREF_P_ITEM(buyit[i]), tmpvalue,0);
+			goldtotal += (amount[i]*tmpvalue);
 			// End Fix for adv trade system -- Magius(CHE) §
 		}
 	}
@@ -98,20 +97,20 @@ void buyaction(int s)
 
 	if ((playergoldtotal>=goldtotal)||(pc_currchar->isGM()))
 	{
-		for (i=0;i<itemtotal;i++)
+		for (i = 0; i < itemtotal; i++)
 		{
-			if (buyit[i]>-1)
+			if (buyit[i] != NULL)
 			{
-				if (items[buyit[i]].amount<amount[i])
+				if (buyit[i]->amount < amount[i])
 				{
-					soldout=1;
+					soldout = 1;
 				}
 			}
 		}
 		if (soldout)
 		{
 			npctalk(s, npc, "Alas, I no longer have all those goods in stock. Let me know if there is something else thou wouldst buy.",0);
-			clear=1;
+			clear = 1;
 		}
 		else
 		{
@@ -137,7 +136,7 @@ void buyaction(int s)
 			npctalkall(npc, (char*)temp,0);
 			npcaction(npc,0x20);		// bow (Duke, 17.3.2001)
 
-			clear=1;
+			clear = 1;
 			if( !(pc_currchar->isGM() ) ) 
 			{
 				if( useBank )
@@ -147,20 +146,20 @@ void buyaction(int s)
 			}
 			for (i=0;i<itemtotal;i++)
 			{
-				P_ITEM pi = MAKE_ITEM_REF(buyit[i]);
+				P_ITEM pi = buyit[i];
 				if (pi != NULL)
 				{
 					if (pi->amount>amount[i])
 					{
 						if (pi->pileable)
 						{
-							Commands->DupeItem(s, buyit[i], amount[i]);
+							Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), amount[i]);
 						}
 						else
 						{
 							for (j=0;j<amount[i];j++)
 							{
-								Commands->DupeItem(s, buyit[i], 1);
+								Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), 1);
 							}
 						}
 						pi->amount-=amount[i];
@@ -173,13 +172,13 @@ void buyaction(int s)
 						case 0x1A:
 							if (pi->pileable)
 							{
-								Commands->DupeItem(s, buyit[i], amount[i]);
+								Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), amount[i]);
 							}
 							else
 							{
 								for (j=0;j<amount[i];j++)
 								{
-									Commands->DupeItem(s, buyit[i], 1);
+									Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), 1);
 								}
 							}
 							pi->amount=pi->amount-amount[i];
@@ -195,10 +194,10 @@ void buyaction(int s)
 							{
 								for (j=0;j<amount[i]-1;j++)
 								{
-									Commands->DupeItem(s, buyit[i], 1);
+									Commands->DupeItem(s, DEREF_P_ITEM(buyit[i]), 1);
 								}
 								pi->SetContSerial(pi_pack->serial);
-								pi->amount=1;
+								pi->amount = 1;
 								RefreshItem(buyit[i]);//AntiChrist
 							}
 							break;
@@ -546,54 +545,53 @@ void trademsg(int s)
 	}
 }
 
-void dotrade(int cont1, int cont2)
+void dotrade(int cont1_1, int cont2_1)
 {
-	int p1, p2, bp1, bp2, s1, s2, i;
+	int i;
 	int serial,serhash,ci;
 
-	p1=calcCharFromSer(items[cont1].contserial);
-	if(p1<0) return;
-	p2=calcCharFromSer(items[cont2].contserial);
-	if(p2<0) return;
-	if(items[cont1].morez==0 || items[cont2].morez==0)
-	{//not checked - give items to previous owners - AntiChrist
-		int t;
-		t=p1;
-		p1=p2;
-		p2=t;
-	}
-	bp1=packitem(p1);
-	if(bp1<0) return;
-	bp2=packitem(p2);
-	if(bp2<0) return;
-	s1=calcSocketFromChar(p1);
-	s2=calcSocketFromChar(p2);
+	P_ITEM cont1 = MAKE_ITEM_REF(cont1_1);
+	P_ITEM cont2 = MAKE_ITEM_REF(cont2_1);
 
-	serial=items[cont1].serial;
-	serhash=serial%HASHMAX;
+
+	P_CHAR p1 = FindCharBySerial(cont1->contserial);
+	if(p1 == NULL) return;
+	P_CHAR p2 = FindCharBySerial(cont2->contserial);
+	if(p2 == NULL) return;
+	if(cont1->morez==0 || cont2->morez==0)
+	{//not checked - give items to previous owners - AntiChrist
+		P_CHAR t;
+		t  = p1;
+		p1 = p2;
+		p2 = t;
+	}
+	P_ITEM bp1 = Packitem(p1);
+	if(bp1 == NULL) return;
+	P_ITEM bp2 = Packitem(p2);
+	if(bp2 == NULL) return;
+	UOXSOCKET s1 = calcSocketFromChar(p1);
+	UOXSOCKET s2 = calcSocketFromChar(p2);
+
+	serial = cont1->serial;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for (ci=0;ci<vecContainer.size();ci++)
+	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
-		i=calcItemFromSer(vecContainer[ci]);
-		if (i!=-1)
-			if ((items[i].contserial==serial))
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+		if (pi != NULL)
+			if ((pi->contserial==serial))
 			{
-				if (items[i].glow != INVALID_SERIAL) 
-					glowsp.remove(chars[currchar[s2]].serial, items[i].serial); // lb, glowing stuff
-				items[i].SetContSerial(items[bp2].serial);
-				if (items[i].glow != INVALID_SERIAL) 
-					glowsp.insert(chars[currchar[s1]].serial, items[i].serial);
-				items[i].pos.x=50+(rand()%80);
-				items[i].pos.y=50+(rand()%80);
-				items[i].pos.z=9;
+				if (pi->glow != INVALID_SERIAL) 
+					glowsp.remove(p2->serial, pi->serial); // lb, glowing stuff
+				bp2->AddItem(pi);
+				if (pi->glow != INVALID_SERIAL) 
+					glowsp.insert(p1->serial, pi->serial);
 				if (s1!=-1)
-					RefreshItem(i);//AntiChrist
-				if (s2!=-1) sendbpitem(s2, i);
-					RefreshItem(i);//AntiChrist
+					RefreshItem(pi);//AntiChrist
+				if (s2!=-1) sendbpitem(s2, DEREF_P_ITEM(pi));
+					RefreshItem(pi);//AntiChrist
 			}
 	}
-	serial=items[cont2].serial;
-	serhash=serial%HASHMAX;
+	serial = cont2->serial;
 	vecContainer.clear();
 	vecContainer = contsp.getData(serial);
 	for (ci=0;ci<vecContainer.size();ci++)
@@ -603,13 +601,10 @@ void dotrade(int cont1, int cont2)
 			if ((pi->contserial==serial))
 			{
 				if (pi->glow != INVALID_SERIAL) 
-					glowsp.remove(chars[currchar[s2]].serial, pi->serial); // lb, glowing stuff
-				pi->SetContSerial(items[bp1].serial);
+					glowsp.remove(p2->serial, pi->serial); // lb, glowing stuff
+				bp1->AddItem(pi);
 				if (pi->glow != INVALID_SERIAL) 
 					glowsp.insert(chars[currchar[s1]].serial, pi->serial);
-				pi->pos.x=50+(rand()%80);
-				pi->pos.y=50+(rand()%80);
-				pi->pos.z=9;
 				if (s2 != INVALID_UOXSOCKET)
 					RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
 				if (s1 != INVALID_UOXSOCKET) sendbpitem(s1, DEREF_P_ITEM(pi));

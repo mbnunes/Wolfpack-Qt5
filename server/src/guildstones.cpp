@@ -539,14 +539,14 @@ void cGuilds::EraseGuild(int guildnumber)
 
 	if (guildnumber<0 || guildnumber >=MAXGUILDS) return;
 
-	int stone = calcItemFromSer(guilds[guildnumber].stone);
-	if (stone==-1) return;
+	P_ITEM pStone = FindItemBySerial(guilds[guildnumber].stone);
+	if (pStone == NULL) return;
 	int war;
 	int counter;
 	
 	memset(&guilds[guildnumber], 0, sizeof(guild_st));
 	guilds[guildnumber].free = true;
-	Items->DeleItem(stone);
+	Items->DeleItem(pStone);
 	for (counter=1;counter<MAXGUILDS;counter++)
 	{
 		if (!guilds[counter].free)
@@ -767,8 +767,8 @@ void cGuilds::StoneMove(int s)
 {
 	int guildnumber=Guilds->SearchByStone(s);
 	if (guildnumber==-1) return;
-	int stone = calcItemFromSer( guilds[guildnumber].stone );
-	if (stone==-1) return;
+	P_ITEM pStone = FindItemBySerial( guilds[guildnumber].stone );
+	if (pStone == NULL) return;
 															// Get stone
 	P_ITEM newstone;										// For the new stone
 	char stonename[80];                                     // And for its name
@@ -779,7 +779,7 @@ void cGuilds::StoneMove(int s)
 	if (newstone == NULL) return; //AntiChrist
 	newstone->type=202;										// Set Guildstone to Type 'Guild Related'
 	guilds[guildnumber].stone=newstone->serial;				// Remember its serial number
-	Items->DeleItem(stone);									// Remove the guildstone
+	Items->DeleItem(pStone);									// Remove the guildstone
 	sysmessage(s,"Take care of that stone!");				// And tell him also
 	return;													// Bye bye
 }
@@ -1115,8 +1115,8 @@ void cGuilds::ChangeName(int s, char *text)
 
 	if (guildnumber==-1) return;
 
-	int stone = calcItemFromSer( guilds[guildnumber].stone );
-	if (stone==-1) return;
+	P_ITEM pStone = FindItemBySerial( guilds[guildnumber].stone );
+	if (pStone == NULL) return;
 	int guild;
 	bool exists = false;
 	char txt[200];
@@ -1128,7 +1128,7 @@ void cGuilds::ChangeName(int s, char *text)
 	if (!exists)
 	{
 		strcpy(guilds[guildnumber].name, (char*)text);
-		sprintf(items[stone].name,"Guildstone for %s",guilds[guildnumber].name);
+		sprintf(pStone->name,"Guildstone for %s",guilds[guildnumber].name);
 		sprintf(txt,"Your guild got renamed to %s",guilds[guildnumber].name);
 		Guilds->Broadcast(guildnumber,txt);
 	}
@@ -1610,13 +1610,13 @@ int cGuilds::CheckValidPlace(int s)
 	p=packitem(currchar[s]);
 	if(p>-1)
 	{
-		los=0;
+		los = 0;
 		vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
-		for (int j=0;j<vecContainer.size();j++)
+		for (int j = 0; j < vecContainer.size(); j++)
 		{
-			i=calcItemFromSer(vecContainer[j]);
-			if (i!=-1) 
-				if (items[i].type==7 && calcserial(items[i].more1,items[i].more2,items[i].more3,items[i].more4) == pi_multi->serial)
+			P_ITEM pi = FindItemBySerial(vecContainer[j]);
+			if (pi != NULL) 
+				if (pi->type==7 && calcserial(pi->more1, pi->more2, pi->more3, pi->more4) == pi_multi->serial)
 				{
 					los=1;
 					break;
@@ -1670,9 +1670,9 @@ void cGuilds::CheckConsistancy(void )
 	     if (ok) // don't erease twice ;)
 		 {          		 
             serial=guilds[guildnumber].stone;
-	        i = calcItemFromSer( serial );
+	        P_ITEM pi = FindItemBySerial( serial );
 
-		    if (i==-1)
+		    if (pi == NULL)
 			{
 			  ok=0;
 			  sprintf((char*)temp,"guild: %s ereased because guildstone vanished",guilds[guildnumber].name);

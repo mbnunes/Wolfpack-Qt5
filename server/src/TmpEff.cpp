@@ -393,7 +393,7 @@ void cTmpEff::Expire()
 		break;
 	case 17: //Explosion potion explosion	Tauriel			
 		pc_s = FindCharBySerial(getSour());
-		explodeitem(calcSocketFromChar(DEREF_P_CHAR(pc_s)), calcItemFromSer(getDest())); //explode this item
+		explodeitem(calcSocketFromChar(DEREF_P_CHAR(pc_s)), DEREF_P_ITEM(FindItemBySerial(getDest()))); //explode this item
 		break;
 	case 18: //Polymorph spell by AntiChrist 9/99
 		if(pc_s->polymorph)//let's ensure it's under polymorph effect!

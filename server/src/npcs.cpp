@@ -1784,7 +1784,6 @@ P_ITEM cChar::GetBankBox( short banktype )
 	pi = Items->SpawnItem(DEREF_P_CHAR(this),1,(char*)temp,0,0x09AB,0,0);
 	if(pi == NULL) 
 		return NULL;
-	ITEM c = calcItemFromSer(pi->serial);
 	pi->layer=0x1d;
 	pi->SetOwnSerial(this->serial);
 	pi->SetContSerial(this->serial);

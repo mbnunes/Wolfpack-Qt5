@@ -495,13 +495,12 @@ bool cBoat::Block(ITEM b, short int xmove, short int ymove, int dir)//Check to s
 	map_st map;
 	land_st land;
 	tile_st tile;
-	cItem p1, p2, t, h;
 
     ser = calcserial(items[b].moreb1,items[b].moreb2,items[b].moreb3,items[b].moreb4);
-	t	= items[calcItemFromSer( ser )];
-	p1	= items[calcItemFromSer( items[b].morex )];
-	p2	= items[calcItemFromSer( items[b].morey )];
-	h	= items[calcItemFromSer( items[b].morez )];
+	P_ITEM t	= FindItemBySerial( ser );
+	P_ITEM p1	= FindItemBySerial( items[b].morex );
+	P_ITEM p2	= FindItemBySerial( items[b].morey );
+	P_ITEM h	= FindItemBySerial( items[b].morez );
 
 	switch(dir)
 	{
@@ -509,8 +508,8 @@ bool cBoat::Block(ITEM b, short int xmove, short int ymove, int dir)//Check to s
 	case 7: // U & L
 	case 0: // U
 	case 1: // U & R
-		x = min( t.pos.x, min( h.pos.x, min( p1.pos.x, p2.pos.x ) ) );
-		y = min( t.pos.y, min( h.pos.y, min( p1.pos.y, p2.pos.y ) ) );
+		x = min( t->pos.x, min( h->pos.x, min( p1->pos.x, p2->pos.x ) ) );
+		y = min( t->pos.y, min( h->pos.y, min( p1->pos.y, p2->pos.y ) ) );
 		if ( dir != 6 )
 			type = 1;
 		else if ( dir == 0 )
@@ -523,8 +522,8 @@ bool cBoat::Block(ITEM b, short int xmove, short int ymove, int dir)//Check to s
 	case 3: // D & R
 	case 4: // D
 	case 5: // D & L
-		x = max( t.pos.x, max( h.pos.x, max( p1.pos.x, p2.pos.x ) ) );
-		y = min( t.pos.y, min( h.pos.y, min( p1.pos.y, p2.pos.y ) ) );
+		x = max( t->pos.x, max( h->pos.x, max( p1->pos.x, p2->pos.x ) ) );
+		y = min( t->pos.y, min( h->pos.y, min( p1->pos.y, p2->pos.y ) ) );
 		if ( dir != 2 )
 			type = 1;
 		else if ( dir == 4 )
@@ -580,7 +579,7 @@ bool cBoat::Block(ITEM b, short int xmove, short int ymove, int dir)//Check to s
 			y++;
 		}
 
-		sz=Map->StaticTop(x,y, items[b].pos.z);
+		sz = Map->StaticTop(x,y, items[b].pos.z);
 
 		if (sz==illegal_z) 
 			typ=0; //0: map-tile 
