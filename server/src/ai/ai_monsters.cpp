@@ -69,7 +69,7 @@ bool validTarget(P_NPC npc, P_CHAR victim, int dist = -1) {
 		return false;
 	}
 
-	if (!npc->lineOfSight(victim, true)) {
+	if (!npc->lineOfSight(victim)) {
 		return false;
 	}
 
