@@ -11,7 +11,7 @@
 	<!-- a lich -->
 	<npc id="lich" inherit="undead_base">
 		<name>lich</name>
-		<id>0x18</id>
+		<id>24</id>
 		<karma>-8000</karma>
 		<fame>8000</fame>
 		<!-- Stats -->

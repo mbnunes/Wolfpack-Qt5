@@ -10,7 +10,7 @@
 
 	<!-- stone harpy -->
 	<npc id="stone_harpy" inherit="monster_base">
-		<name>a stone harpy</name>
+		<name>stone harpy</name>
 		<id>73</id>
 		<karma>-4500</karma>
 		<fame>4500</fame>

@@ -1,0 +1,34 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Elemental -->
+	<include file="definitions/npcs/monsters/elemental/acid_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/agapite_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/air_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/blood_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/bronze_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/copper_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/crystal_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/dull_copper_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/earth_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/efreet.xml" />
+	<include file="definitions/npcs/monsters/elemental/fire_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/gold_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/ice_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/poison_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/sand_vortex.xml" />
+	<include file="definitions/npcs/monsters/elemental/shadow_iron_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/snow_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/treefellow.xml" />
+	<include file="definitions/npcs/monsters/elemental/valorite_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/verite_elemental.xml" />
+	<include file="definitions/npcs/monsters/elemental/water_elemental.xml" />
+
+</definitions>

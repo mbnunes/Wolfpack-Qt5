@@ -12,185 +12,60 @@
 	<include file="definitions/npcs/monsters/undead/undead_base.xml"/>
 
 	<!-- Beasts -->
-	<include file="definitions/npcs/monsters/beasts/bog_thing.xml" />
-	<include file="definitions/npcs/monsters/beasts/bogling.xml" />
-	<include file="definitions/npcs/monsters/beasts/plague_beast.xml" />
-	<include file="definitions/npcs/monsters/beasts/plague_beast_lord.xml" />
+	<include file="definitions/npcs/monsters/beasts/index.xml" />
 
 	<!-- Clockwork -->
-	<include file="definitions/npcs/monsters/clockwork/betrayer.xml" />
-	<include file="definitions/npcs/monsters/clockwork/blackthorn_juggernaut.xml" />
-	<include file="definitions/npcs/monsters/clockwork/centaur.xml" />
-	<include file="definitions/npcs/monsters/clockwork/exodus_minion.xml" />
-	<include file="definitions/npcs/monsters/clockwork/exodus_overseer.xml" />
-	<include file="definitions/npcs/monsters/clockwork/golem.xml" />
+	<include file="definitions/npcs/monsters/clockwork/index.xml" />
+
+	<!-- Champions -->
+	<include file="definitions/npcs/monsters/champions/index.xml" />
 
 	<!-- Common -->
-	<include file="definitions/npcs/monsters/common/corpser.xml" />
-	<include file="definitions/npcs/monsters/common/elder_gazer.xml" />
-	<include file="definitions/npcs/monsters/common/frost_ooze.xml" />
-	<include file="definitions/npcs/monsters/common/gazer.xml" />
-	<include file="definitions/npcs/monsters/common/giant_rat.xml" />
-	<include file="definitions/npcs/monsters/common/phoenix.xml" />
-	<include file="definitions/npcs/monsters/common/reaper.xml" />
-	<include file="definitions/npcs/monsters/common/sewer_rat.xml" />
-	<include file="definitions/npcs/monsters/common/shadow_wisp.xml" />
-	<include file="definitions/npcs/monsters/common/slime.xml" />
-	<include file="definitions/npcs/monsters/common/swamp_tentacle.xml" />
-	<include file="definitions/npcs/monsters/common/vorpal_bunny.xml" />
-	<include file="definitions/npcs/monsters/common/wisp.xml" />
+	<include file="definitions/npcs/monsters/common/index.xml" />
 
 	<!-- Daemonic -->
-	<include file="definitions/npcs/monsters/daemonic/balron.xml" />
-	<include file="definitions/npcs/monsters/daemonic/daemon.xml" />
-	<include file="definitions/npcs/monsters/daemonic/enslaved_gargoyle.xml" />
-	<include file="definitions/npcs/monsters/daemonic/fire_gargoyle.xml" />
-	<include file="definitions/npcs/monsters/daemonic/gargoyle.xml" />
-	<include file="definitions/npcs/monsters/daemonic/gargoyle_destroyer.xml" />
-	<include file="definitions/npcs/monsters/daemonic/gargoyle_enforcer.xml" />
-	<include file="definitions/npcs/monsters/daemonic/harpy.xml" />
-	<include file="definitions/npcs/monsters/daemonic/hell_cat.xml" />
-	<include file="definitions/npcs/monsters/daemonic/hell_cat_preditor.xml" />
-	<include file="definitions/npcs/monsters/daemonic/hell_hound.xml" />
-	<include file="definitions/npcs/monsters/daemonic/horde_minion.xml" />
-	<include file="definitions/npcs/monsters/daemonic/ice_fiend.xml" />
-	<include file="definitions/npcs/monsters/daemonic/imp.xml" />
-	<include file="definitions/npcs/monsters/daemonic/mongbat.xml" />
-	<include file="definitions/npcs/monsters/daemonic/mongbat_strong.xml" />
-	<include file="definitions/npcs/monsters/daemonic/stone_gargoyle.xml" />
-	<include file="definitions/npcs/monsters/daemonic/stone_harpy.xml" />
-	<include file="definitions/npcs/monsters/daemonic/succubus.xml" />
+	<include file="definitions/npcs/monsters/daemonic/index.xml" />
 
 	<!-- Dragons -->
-	<include file="definitions/npcs/monsters/dragons/ancient_wyrm.xml" />
-	<include file="definitions/npcs/monsters/dragons/dragon.xml" />
-	<include file="definitions/npcs/monsters/dragons/drake.xml" />
-	<include file="definitions/npcs/monsters/dragons/serpentine_dragon.xml" />
-	<include file="definitions/npcs/monsters/dragons/shadow_wyrm.xml" />
-	<include file="definitions/npcs/monsters/dragons/white_wyrm.xml" />
-	<include file="definitions/npcs/monsters/dragons/wyvern.xml" />
+	<include file="definitions/npcs/monsters/dragons/index.xml" />
 
 	<!-- Elemental -->
-	<include file="definitions/npcs/monsters/elemental/acid_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/agapite_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/air_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/blood_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/bronze_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/copper_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/dull_copper_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/earth_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/efreet.xml" />
-	<include file="definitions/npcs/monsters/elemental/fire_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/gold_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/ice_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/poison_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/sand_vortex.xml" />
-	<include file="definitions/npcs/monsters/elemental/shadow_iron_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/snow_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/valorite_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/verite_elemental.xml" />
-	<include file="definitions/npcs/monsters/elemental/water_elemental.xml" />
-
+	<include file="definitions/npcs/monsters/elemental/index.xml" />
 
 	<!-- Giants -->
-	<include file="definitions/npcs/monsters/giants/arctic_ogre_lord.xml" />
-	<include file="definitions/npcs/monsters/giants/cyclopian_warrior.xml" />
-	<include file="definitions/npcs/monsters/giants/ettin.xml" />
-	<include file="definitions/npcs/monsters/giants/frost_troll.xml" />
-	<include file="definitions/npcs/monsters/giants/ogre.xml" />
-	<include file="definitions/npcs/monsters/giants/ogre_lord.xml" />
-	<include file="definitions/npcs/monsters/giants/titan.xml" />
-	<include file="definitions/npcs/monsters/giants/troll.xml" />
+	<include file="definitions/npcs/monsters/giants/index.xml" />
 
 	<!-- Insect / Arachnid -->
-	<include file="definitions/npcs/monsters/insect/ant_lion.xml" />
-	<include file="definitions/npcs/monsters/insect/black_solen_infiltrator_queen.xml" />
-	<include file="definitions/npcs/monsters/insect/black_solen_infiltrator_warrior.xml" />
-	<include file="definitions/npcs/monsters/insect/black_solen_queen.xml" />
-	<include file="definitions/npcs/monsters/insect/black_solen_warrior.xml" />
-	<include file="definitions/npcs/monsters/insect/black_solen_worker.xml" />
-	<include file="definitions/npcs/monsters/insect/dread_spider.xml" />
-	<include file="definitions/npcs/monsters/insect/frost_spider.xml" />
-	<include file="definitions/npcs/monsters/insect/giant_black_widow.xml" />
-	<include file="definitions/npcs/monsters/insect/giant_spider.xml" />
-	<include file="definitions/npcs/monsters/insect/red_solen_infiltrator_queen.xml" />
-	<include file="definitions/npcs/monsters/insect/red_solen_infiltrator_warrior.xml" />
-	<include file="definitions/npcs/monsters/insect/red_solen_queen.xml" />
-	<include file="definitions/npcs/monsters/insect/red_solen_warrior.xml" />
-	<include file="definitions/npcs/monsters/insect/red_solen_worker.xml" />
-	<include file="definitions/npcs/monsters/insect/scorpion.xml" />
+	<include file="definitions/npcs/monsters/insect/index.xml" />
 
 	<!-- Lizardmen -->
-	<include file="definitions/npcs/monsters/lizardmen/lizardmen.xml" />
+	<include file="definitions/npcs/monsters/lizardmen/index.xml" />
 
 	<!-- Ophidian -->
-	<include file="definitions/npcs/monsters/ophidian/ophidian_apprentice_mage.xml" />
-	<include file="definitions/npcs/monsters/ophidian/ophidian_avenger.xml" />
-	<include file="definitions/npcs/monsters/ophidian/ophidian_enforcer.xml" />
-	<include file="definitions/npcs/monsters/ophidian/ophidian_justicar.xml" />
-	<include file="definitions/npcs/monsters/ophidian/ophidian_knight_errant.xml" />
-	<include file="definitions/npcs/monsters/ophidian/ophidian_matriarch.xml" />
-	<include file="definitions/npcs/monsters/ophidian/ophidian_shaman.xml" />
-	<include file="definitions/npcs/monsters/ophidian/ophidian_warrior.xml" />
-	<include file="definitions/npcs/monsters/ophidian/ophidian_zealot.xml" />
+	<include file="definitions/npcs/monsters/ophidian/index.xml" />
 
 	<!-- Orc -->
-	<include file="definitions/npcs/monsters/orc/orc_bomber.xml" />
-	<include file="definitions/npcs/monsters/orc/orc_brute.xml" />
-	<include file="definitions/npcs/monsters/orc/orc_captain.xml" />
-	<include file="definitions/npcs/monsters/orc/orc_chopper.xml" />
-	<include file="definitions/npcs/monsters/orc/orc_mage.xml" />
-	<include file="definitions/npcs/monsters/orc/orc_scout.xml" />
-	<include file="definitions/npcs/monsters/orc/orcish_lord.xml" />
-	<include file="definitions/npcs/monsters/orc/orcs.xml" />
+	<include file="definitions/npcs/monsters/orc/index.xml" />
 
 	<!-- Ratmen -->
-	<include file="definitions/npcs/monsters/ratmen/ratman_archer.xml" />
-	<include file="definitions/npcs/monsters/ratmen/ratman_mage.xml" />
-	<include file="definitions/npcs/monsters/ratmen/ratmen.xml" />
+	<include file="definitions/npcs/monsters/ratmen/index.xml" />
 
 	<!-- Reptiles -->
-	<include file="definitions/npcs/monsters/reptiles/giant_ice_serpent.xml" />
-	<include file="definitions/npcs/monsters/reptiles/giant_ice_worm.xml" />
-	<include file="definitions/npcs/monsters/reptiles/giant_serpent.xml" />
-	<include file="definitions/npcs/monsters/reptiles/giant_toad.xml" />
-	<include file="definitions/npcs/monsters/reptiles/ice_snake.xml" />
-	<include file="definitions/npcs/monsters/reptiles/lava_lizard.xml" />
-	<include file="definitions/npcs/monsters/reptiles/lava_serpent.xml" />
-	<include file="definitions/npcs/monsters/reptiles/lava_snake.xml" />
-	<include file="definitions/npcs/monsters/reptiles/silver_serpent.xml" />
+	<include file="definitions/npcs/monsters/reptiles/index.xml" />
 
 	<!-- Sea Creatures -->
-	<include file="definitions/npcs/monsters/sea/deep_sea_serpent.xml" />
-	<include file="definitions/npcs/monsters/sea/kraken.xml" />
-	<include file="definitions/npcs/monsters/sea/sea_serpent.xml" />
+	<include file="definitions/npcs/monsters/sea/index.xml" />
+
+	<!-- Shadows -->
+	<include file="definitions/npcs/monsters/shadows/index.xml"/>
 
 	<!-- Summoned -->
-	<include file="definitions/npcs/monsters/summoned/blade_spirit.xml"/>
-	<include file="definitions/npcs/monsters/summoned/tinkered_golem.xml"/>
-	<include file="definitions/npcs/monsters/summoned/energy_vortex.xml" />
+	<include file="definitions/npcs/monsters/summoned/index.xml"/>
 
-	<!-- Terathen -->
-	<include file="definitions/npcs/monsters/terathen/terathen_avenger.xml"/>
-	<include file="definitions/npcs/monsters/terathen/terathen_drone.xml"/>
-	<include file="definitions/npcs/monsters/terathen/terathen_matriarch.xml"/>
-	<include file="definitions/npcs/monsters/terathen/terathen_warrior.xml"/>
+	<!-- Terathan -->
+	<include file="definitions/npcs/monsters/terathen/index.xml"/>
 
 	<!-- Undead -->
-	<include file="definitions/npcs/monsters/undead/bone_knight.xml"/>
-	<include file="definitions/npcs/monsters/undead/bone_magi.xml"/>
-	<include file="definitions/npcs/monsters/undead/ethereal_warrior.xml"/>
-	<include file="definitions/npcs/monsters/undead/ghoul.xml"/>
-	<include file="definitions/npcs/monsters/undead/headless_one.xml"/>
-	<include file="definitions/npcs/monsters/undead/lich.xml"/>
-	<include file="definitions/npcs/monsters/undead/lich_lord.xml"/>
-	<include file="definitions/npcs/monsters/undead/mummy.xml"/>
-	<include file="definitions/npcs/monsters/undead/rotting_corpse.xml"/>
-	<include file="definitions/npcs/monsters/undead/shade.xml"/>
-	<include file="definitions/npcs/monsters/undead/skeletal_dragon.xml"/>
-	<include file="definitions/npcs/monsters/undead/skeletal_knight.xml"/>
-	<include file="definitions/npcs/monsters/undead/skeletal_mage.xml"/>
-	<include file="definitions/npcs/monsters/undead/skeletons.xml"/>
-	<include file="definitions/npcs/monsters/undead/zombie.xml"/>
+	<include file="definitions/npcs/monsters/undead/index.xml"/>
 
 </definitions>

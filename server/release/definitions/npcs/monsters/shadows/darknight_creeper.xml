@@ -1,0 +1,48 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Darknight Creeper -->
+	<npc id="darknight_creeper" inherit="monster_base">
+		<name>darknight creeper</name>
+		<id>313</id>
+		<karma>-25000</karma>
+		<fame>25000</fame>
+		<!-- Stats -->
+		<str><random min="301" max="330"/></str>
+		<dex><random min="101" max="110"/></dex>
+		<int><random min="301" max="330"/></int>
+		<maxhitpoints>4000</maxhitpoints>
+		<!-- Skills -->
+		<magicresistance><random min="901" max="909"/></magicresistance>
+		<tactics>1000</tactics>
+		<wrestling><random min="901" max="909"/></wrestling>
+		<anatomy>0</anatomy>
+		<evaluatingintel><random min="1181" max="1200"/></evaluatingintel>
+		<magery><random min="776" max="875"/></magery>
+		<meditation>1500</meditation>
+		<poisoning>1200</poisoning>
+		<!-- Damage -->
+		<mindamage>59</mindamage>
+		<maxdamage>69</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_poison" value="15" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="60" type="int" />
+		<tag name="res_fire" value="60" type="int" />
+		<tag name="res_cold" value="100" type="int" />
+		<tag name="res_poison" value="90" type="int" />
+		<tag name="res_energy" value="75" type="int" />
+		<!-- Loot Packs -->
+		<!--<lootpacks></lootpacks>-->
+		<!-- Misc. -->
+		<category>Monsters\Shadows\Darknight Creeper</category>
+	</npc>
+
+</definitions>

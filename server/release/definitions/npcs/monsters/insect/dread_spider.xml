@@ -9,9 +9,10 @@
 <definitions>
 
 	<!-- dread spider -->
+	<!-- Second id: 11 -->
 	<npc id="dread_spider" inherit="monster_base">
 		<name>dread spider</name>
-		<id>11</id>
+		<id>19</id>
 		<karma>-5000</karma>
 		<fame>5000</fame>
 		<!-- Stats -->

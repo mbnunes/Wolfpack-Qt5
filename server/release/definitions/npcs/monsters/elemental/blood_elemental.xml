@@ -9,6 +9,7 @@
 <definitions>
 
 	<!-- a blood elemental -->
+	<!-- Second ID: 160 -->
 	<npc id="blood_elemental" inherit="monster_base">
 		<name>blood elemental</name>
 		<id>159</id>

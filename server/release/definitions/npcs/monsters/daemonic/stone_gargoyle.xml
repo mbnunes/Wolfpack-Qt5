@@ -10,7 +10,7 @@
 
 	<!-- stone gargoyle -->
 	<npc id="stone_gargoyle" inherit="monster_base">
-		<name>a stone gargoyle</name>
+		<name>stone gargoyle</name>
 		<id>67</id>
 		<karma>-4000</karma>
 		<fame>4000</fame>

@@ -1,0 +1,31 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Common -->
+	<include file="definitions/npcs/monsters/common/corpser.xml" />
+	<include file="definitions/npcs/monsters/common/elder_gazer.xml" />
+	<include file="definitions/npcs/monsters/common/frost_ooze.xml" />
+	<include file="definitions/npcs/monsters/common/gazer.xml" />
+	<include file="definitions/npcs/monsters/common/gazer_larva.xml" />
+	<include file="definitions/npcs/monsters/common/giant_rat.xml" />
+	<include file="definitions/npcs/monsters/common/gibberling.xml" />
+	<include file="definitions/npcs/monsters/common/mound_of_maggots.xml" />
+	<include file="definitions/npcs/monsters/common/phoenix.xml" />
+	<include file="definitions/npcs/monsters/common/reaper.xml" />
+	<include file="definitions/npcs/monsters/common/sewer_rat.xml" />
+	<include file="definitions/npcs/monsters/common/shadow_wisp.xml" />
+	<include file="definitions/npcs/monsters/common/skittering_hopper.xml" />
+	<include file="definitions/npcs/monsters/common/slime.xml" />
+	<include file="definitions/npcs/monsters/common/swamp_tentacle.xml" />
+	<include file="definitions/npcs/monsters/common/vampire_bat.xml" />
+	<include file="definitions/npcs/monsters/common/vorpal_bunny.xml" />
+	<include file="definitions/npcs/monsters/common/wisp.xml" />
+
+</definitions>

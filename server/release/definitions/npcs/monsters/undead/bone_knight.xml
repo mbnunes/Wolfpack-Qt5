@@ -11,7 +11,7 @@
 	<!-- bone knight -->
 	<npc id="bone_knight" inherit="undead_base">
 		<name>bone knight</name>
-		<id>0x39</id>
+		<id>147</id>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->

@@ -9,6 +9,7 @@
 <definitions>
 
 	<!-- giant black widow -->
+	<!-- Large Version ID: 173 -->
 	<npc id="giant_black_widow" inherit="monster_base">
 		<name>giant black widow</name>
 		<id>157</id>

@@ -11,7 +11,7 @@
 	<!-- wyvern -->
 	<npc id="wyvern" inherit="monster_base">
 		<name>wyvern</name>
-		<id>62</id>
+		<id>14</id>
 		<karma>-4000</karma>
 		<fame>4000</fame>
 		<!-- Stats -->

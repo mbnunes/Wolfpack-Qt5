@@ -9,10 +9,9 @@
 <definitions>
 
 	<!-- tinker's golem -->
-	<npc id="tinkered_golem" inherit="golem">
-		<category>Monsters\Summoned\Golem (Tinkered)</category>
-		<karma>-3500</karma>
-		<fame>3500</fame>
+	<npc id="summoned_golem" inherit="golem">
+		<karma>0</karma>
+		<fame>0</fame>
 		<!-- Stats -->
 		<str><random min="251" max="350" /></str>
 		<dex><random min="76" max="100" /></dex>
@@ -22,6 +21,9 @@
 		<tactics><random min="601" max="1000" /></tactics>
 		<magicresist><random min="1501" max="1900" /></magicresist>
 		<anatomy>0</anatomy>
+		<!-- Misc. -->
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Summoned\Golem (Tinkered)</category>
 	</npc>
 
 </definitions>

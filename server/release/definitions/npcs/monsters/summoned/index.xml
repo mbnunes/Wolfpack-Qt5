@@ -1,0 +1,30 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Summoned -->
+	<include file="definitions/npcs/monsters/summoned/air_elemental.xml"/>
+	<include file="definitions/npcs/monsters/summoned/blade_spirit.xml"/>
+	<include file="definitions/npcs/monsters/summoned/daemon.xml"/>
+	<include file="definitions/npcs/monsters/summoned/dark_wolf.xml"/>
+	<include file="definitions/npcs/monsters/summoned/death_adder.xml"/>
+	<include file="definitions/npcs/monsters/summoned/earth_elemental"/>
+	<include file="definitions/npcs/monsters/summoned/energy_vortex.xml" />
+	<include file="definitions/npcs/monsters/summoned/fire_elemental"/>
+	<include file="definitions/npcs/monsters/summoned/hellsteed.xml"/>
+	<include file="definitions/npcs/monsters/summoned/horde_minion.xml"/>
+	<include file="definitions/npcs/monsters/summoned/mound_of_maggots.xml"/>
+	<include file="definitions/npcs/monsters/summoned/revenant.xml"/>
+	<include file="definitions/npcs/monsters/summoned/shadow_wisp.xml"/>
+	<include file="definitions/npcs/monsters/summoned/skeletal_steed.xml"/>
+	<include file="definitions/npcs/monsters/summoned/tinkered_golem.xml"/>
+	<include file="definitions/npcs/monsters/summoned/vampire_bat.xml"/>
+	<include file="definitions/npcs/monsters/summoned/water_elemental.xml"/>
+
+</definitions>

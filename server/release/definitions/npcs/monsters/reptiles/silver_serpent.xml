@@ -9,6 +9,7 @@
 <definitions>
 
 	<!-- Silver Serpent -->
+	<!-- Two more ids: 92 and 93 -->
 	<npc id="silver_serpent" inherit="monster_base">
 		<name>silver serpent</name>
 		<id>91</id>

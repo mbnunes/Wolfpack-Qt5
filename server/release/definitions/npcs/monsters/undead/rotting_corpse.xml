@@ -11,7 +11,7 @@
 	<!-- rotting corpse -->
 	<npc id="rotting_corpse" inherit="undead_base">
 		<name>rotting corpse</name>
-		<id>0x9b</id>
+		<id>155</id>
 		<karma>-6000</karma>
 		<fame>6000</fame>
 		<!-- Stats -->

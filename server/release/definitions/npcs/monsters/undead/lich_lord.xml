@@ -9,9 +9,10 @@
 <definitions>
 
 	<!-- lich lord -->
+	<!-- Two more IDs: 79 and 82 -->
 	<npc id="lich_lord" inherit="undead_base">
 		<name>lich lord</name>
-		<id>0x4e</id>
+		<id>78</id>
 		<karma>-18000</karma>
 		<fame>18000</fame>
 		<!-- Stats -->

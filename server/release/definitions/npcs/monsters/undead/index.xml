@@ -1,0 +1,32 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Undead -->
+	<include file="definitions/npcs/monsters/undead/bone_knight.xml"/>
+	<include file="definitions/npcs/monsters/undead/bone_magi.xml"/>
+	<include file="definitions/npcs/monsters/undead/dark_guardian.xml"/>
+	<include file="definitions/npcs/monsters/undead/ethereal_warrior.xml"/>
+	<include file="definitions/npcs/monsters/undead/ghoul.xml"/>
+	<include file="definitions/npcs/monsters/undead/headless_one.xml"/>
+	<include file="definitions/npcs/monsters/undead/hellsteed.xml"/>
+	<include file="definitions/npcs/monsters/undead/lich.xml"/>
+	<include file="definitions/npcs/monsters/undead/lich_lord.xml"/>
+	<include file="definitions/npcs/monsters/undead/mummy.xml"/>
+	<include file="definitions/npcs/monsters/undead/patchwork_skeleton.xml"/>
+	<include file="definitions/npcs/monsters/undead/rotting_corpse.xml"/>
+	<include file="definitions/npcs/monsters/undead/shade.xml"/>
+	<include file="definitions/npcs/monsters/undead/skeletal_knight.xml"/>
+	<include file="definitions/npcs/monsters/undead/skeletal_mage.xml"/>
+	<include file="definitions/npcs/monsters/undead/skeletal_steed.xml"/>
+	<include file="definitions/npcs/monsters/undead/skeletons.xml"/>
+	<include file="definitions/npcs/monsters/undead/wailing_bashee.xml"/>
+	<include file="definitions/npcs/monsters/undead/zombie.xml"/>
+
+</definitions>

@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- horde minion -->
+	<!-- Random Horde Minion -->
 	<npc id="horde_minion" inherit="monster_base">
 		<name>horde minion</name>
 		<id>776</id>
@@ -30,17 +30,25 @@
 		<tag name="res_fire" value="5,10" type="int" />
 		<!-- Misc. -->
 		<desc>These creatures are only two to three feet tall with extremely large heads. The lower jaw of the creature is enormous, nearly half the size of the entire head, with a small, piggish nose that perches between two bulbous, yellow eyes. Short, sturdy arms and legs sprout from the shaggy torso, but convey surprising speed as it scuttles about. Cowardly as individuals, the Horde Demon will always prefer to run than to fight. However, in numbers, they gain courage and thrive on the confusion their appearance creates.</desc>
-		<category>Monsters\Daemonic\Horde Minion</category>
+		<category>Monsters\AoS\Horde Minion (Random)</category>
 	</npc>
 
+	<!-- Small Horde Minion -->
+	<npc id="horde_minion_1" inherit="horde_minion">
+		<id>776</id>
+		<category>Monsters\AoS\Horde Minion (Small)</category>
+	</npc>
+
+	<!-- Medium Horde Minion -->
 	<npc id="horde_minion_2" inherit="horde_minion">
-		<name>horde daemon</name>
 		<id>795</id>
+		<category>Monsters\AoS\Horde Minion (Medium)</category>
 	</npc>
 
+	<!-- Large Horde Minion -->
 	<npc id="horde_minion_3" inherit="horde_minion">
-		<name>horde daemon</name>
 		<id>796</id>
+		<category>Monsters\AoS\Horde Minion (Large)</category>
 	</npc>
 
 </definitions>

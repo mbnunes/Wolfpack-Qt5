@@ -11,8 +11,7 @@
 	<!-- terathan avenger -->
 	<npc id="terathan_avenger" inherit="monster_base">
 		<name>terathan avenger</name>
-		<id>70</id>
-		<skin>0x66d</skin>
+		<id>26</id>
 		<karma>-15000</karma>
 		<fame>15000</fame>
 		<!-- Stats -->

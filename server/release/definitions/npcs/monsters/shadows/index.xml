@@ -1,0 +1,26 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Shadows -->
+	<include file="definitions/npcs/monsters/shadows/abyssmal_horror.xml"/>
+	<include file="definitions/npcs/monsters/shadows/bone_daemon.xml"/>
+	<include file="definitions/npcs/monsters/shadows/dark_father.xml"/>
+	<include file="definitions/npcs/monsters/shadows/darknight_creeper.xml"/>
+	<include file="definitions/npcs/monsters/shadows/devourer_of_souls.xml"/>
+	<include file="definitions/npcs/monsters/shadows/flesh_golem.xml"/>
+	<include file="definitions/npcs/monsters/shadows/flesh_renderer.xml"/>
+	<include file="definitions/npcs/monsters/shadows/gore_fiend.xml"/>
+	<include file="definitions/npcs/monsters/shadows/impaler.xml"/>
+	<include file="definitions/npcs/monsters/shadows/ravager.xml"/>
+	<include file="definitions/npcs/monsters/shadows/shadow_knight.xml"/>
+	<include file="definitions/npcs/monsters/shadows/sphynx.xml"/>
+	<include file="definitions/npcs/monsters/shadows/wanderer_of_the_void.xml"/>
+
+</definitions>

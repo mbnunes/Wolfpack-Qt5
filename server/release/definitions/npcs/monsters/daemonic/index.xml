@@ -1,0 +1,39 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Daemonic -->
+	<include file="definitions/npcs/monsters/daemonic/arcame_daemon.xml" />
+	<include file="definitions/npcs/monsters/daemonic/balron.xml" />
+	<include file="definitions/npcs/monsters/daemonic/black_gate_daemon.xml" />
+	<include file="definitions/npcs/monsters/daemonic/chaos_daemon.xml" />
+	<include file="definitions/npcs/monsters/daemonic/daemon.xml" />
+	<include file="definitions/npcs/monsters/daemonic/doppleganger.xml" />
+	<include file="definitions/npcs/monsters/daemonic/enslaved_gargoyle.xml" />
+	<include file="definitions/npcs/monsters/daemonic/exodus_daemon.xml" />
+	<include file="definitions/npcs/monsters/daemonic/fire_gargoyle.xml" />
+	<include file="definitions/npcs/monsters/daemonic/gargoyle.xml" />
+	<include file="definitions/npcs/monsters/daemonic/gargoyle_destroyer.xml" />
+	<include file="definitions/npcs/monsters/daemonic/gargoyle_enforcer.xml" />
+	<include file="definitions/npcs/monsters/daemonic/harpy.xml" />
+	<include file="definitions/npcs/monsters/daemonic/hell_cat.xml" />
+	<include file="definitions/npcs/monsters/daemonic/hell_cat_preditor.xml" />
+	<include file="definitions/npcs/monsters/daemonic/hell_hound.xml" />
+	<include file="definitions/npcs/monsters/daemonic/horde_minion.xml" />
+	<include file="definitions/npcs/monsters/daemonic/ice_fiend.xml" />
+	<include file="definitions/npcs/monsters/daemonic/imp.xml" />
+	<include file="definitions/npcs/monsters/daemonic/moloch.xml" />
+	<include file="definitions/npcs/monsters/daemonic/mongbat.xml" />
+	<include file="definitions/npcs/monsters/daemonic/mongbat_strong.xml" />
+	<include file="definitions/npcs/monsters/daemonic/quagmire.xml" />
+	<include file="definitions/npcs/monsters/daemonic/stone_gargoyle.xml" />
+	<include file="definitions/npcs/monsters/daemonic/stone_harpy.xml" />
+	<include file="definitions/npcs/monsters/daemonic/succubus.xml" />
+
+</definitions>

@@ -51,10 +51,4 @@
 		<category>Monsters\Daemonic\Daemon 2</category>
 	</npc>
 
-	<npc id="daemon_exodus" inherit="daemon">
-		<id>102</id>
-		<name>exodus daemon</name>
-		<category>Monsters\Daemonic\Daemon (Exodus)</category>
-	</npc>
-
 </definitions>

@@ -1,0 +1,22 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Reptiles -->
+	<include file="definitions/npcs/monsters/reptiles/giant_ice_serpent.xml" />
+	<include file="definitions/npcs/monsters/reptiles/giant_ice_worm.xml" />
+	<include file="definitions/npcs/monsters/reptiles/giant_serpent.xml" />
+	<include file="definitions/npcs/monsters/reptiles/giant_toad.xml" />
+	<include file="definitions/npcs/monsters/reptiles/ice_snake.xml" />
+	<include file="definitions/npcs/monsters/reptiles/lava_lizard.xml" />
+	<include file="definitions/npcs/monsters/reptiles/lava_serpent.xml" />
+	<include file="definitions/npcs/monsters/reptiles/lava_snake.xml" />
+	<include file="definitions/npcs/monsters/reptiles/silver_serpent.xml" />
+
+</definitions>

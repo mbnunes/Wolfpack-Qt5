@@ -11,7 +11,7 @@
 	<!-- skeletal mage -->
 	<npc id="skeletal_mage" inherit="undead_base">
 		<name>skeletal mage</name>
-		<id>0x94</id>
+		<id>148</id>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->

@@ -11,7 +11,7 @@
 	<!-- a ghoul -->
 	<npc id="ghoul" inherit="undead_base">
 		<name>ghoul</name>
-		<id>0x1a</id>
+		<id>153</id>
 		<karma><random min="-2500" max="-4999"/></karma>
 		<fame><random min="2500" max="4999"/></fame>
 		<!-- Stats -->
