@@ -54,6 +54,12 @@ def map( x, y, map ):
 		raise TypeError, "x, y and map need to be integer values"
 	else:
 		return _wolfpack.map( x, y, map )
+
+def hasmap( map ):
+    if not type( map ) is IntType:
+        raise TypeError, "map needs to be integer value"
+    else:
+        return _wolfpack.hasmap( map )
 	
 def statics( x, y, map, exact=1 ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType or not type( exact ) is IntType:
@@ -143,9 +149,6 @@ def spell( id ):
 
 def multi( id ):
 	return _wolfpack.multi( id )
-	
-def map( x, y, map ):
-	return _wolfpack.map( x, y, map )
 	
 def tiledata( id ):
 	return _wolfpack.tiledata( id )

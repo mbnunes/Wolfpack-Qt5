@@ -38,6 +38,7 @@
 	<script>wolfpack.commands.import</script>
 	<script>wolfpack.commands.info</script>
 	<script>wolfpack.commands.where</script>
+	<script>wolfpack.commands.decoration</script>
 
 	<!-- Magic -->
 	<script>recall_rune</script>
