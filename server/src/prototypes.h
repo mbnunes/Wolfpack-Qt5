@@ -40,8 +40,6 @@ QString hex2dec( const QString& value );
 void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
 void savelog(const char *msg, char *logfile);
 
-void endmessage(int x);
-
 void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );
 
 int getamount(P_CHAR pc, short id);

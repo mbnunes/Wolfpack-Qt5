@@ -271,11 +271,6 @@ void interpretCommand( const QString &command )
 				clConsole.send("WOLFPACK: Immediate Shutdown initialized!\n");
 				keeprun=0;
 				break;
-			case 'T':
-			case 't':
-				endtime=uiCurrentTime+(MY_CLOCKS_PER_SEC*600);
-				endmessage(0);
-				break;
 
 			case '#':
 				World::instance()->save();
@@ -1060,22 +1055,4 @@ int DeleBankItem( P_PLAYER pc, unsigned short itemid, unsigned short color, int 
 		return pBank->DeleteAmount( amt, itemid, color );
 	else
 		return 0;
-}
-
-void endmessage(int x) // If shutdown is initialized
-{
-	x = 0;
-	unsigned int igetclock = uiCurrentTime;
-	if (endtime < igetclock)
-		endtime = igetclock;
-
-	QString message;
-
-	if( ( ( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC ) / 60 ) < 1 ) 	
-		message = tr( "Server going down in %1 secs." ).arg( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC );
-	else
-		message = tr( "Server going down in %1 minutes." ).arg( ( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC ) / 60 );
-	
-	cNetwork::instance()->broadcast( message );
-	clConsole.send( message );
 }
