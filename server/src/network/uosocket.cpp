@@ -98,10 +98,10 @@ cUOSocket::~cUOSocket(void)
 	delete _socket;
 	delete targetRequest;
 
-	std::map< SERIAL, cGump* >::iterator it = gumps.begin();
+	std::vector< cGump* >::iterator it = gumps.begin();
 	while( it != gumps.end() )
 	{
-		delete it->second;
+		delete (*it);
 		it++;
 	}
 }
@@ -124,7 +124,7 @@ void cUOSocket::send( cUOPacket *packet )
 void cUOSocket::send( cGump *gump )
 {
 	gump->setSerial( gumps.size() + 1 );
-	gumps.insert( make_pair< SERIAL, cGump* >( gump->serial(), gump ) );
+	gumps.push_back( gump );
 
 	QString layout = gump->layout().join( "" );
 	Q_UINT32 gumpsize = 21 + layout.length() + 2;
@@ -1834,14 +1834,11 @@ void cUOSocket::handleAction( cUORxAction *packet )
 
 void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 {
-	cGump* pGump = NULL;
-	std::map< SERIAL, cGump* >::iterator it = gumps.find( packet->serial() );
-	if( it != gumps.end() )
-		pGump = it->second;
+	cGump* pGump = gumps[ packet->serial() ];
 	
 	if( pGump )
 	{
-		gumps.erase( it );
+		gumps[ packet->serial() ] = NULL;
 		pGump->handleResponse( this, packet->choice() );
 		delete pGump;
 	}

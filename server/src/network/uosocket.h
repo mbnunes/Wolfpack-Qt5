@@ -64,7 +64,7 @@ private:
 	cTargetRequest *targetRequest;
 	QString _lang,_version;
 
-	std::map< SERIAL, cGump* > gumps;
+	std::vector< cGump* > gumps;
 
 	bool authenticate( const QString &username, const QString &password );
 	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
