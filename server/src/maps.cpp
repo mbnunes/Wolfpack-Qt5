@@ -73,7 +73,7 @@ MapsPrivate::MapsPrivate( QString index, QString map, QString statics )
 {
 	idxfile.setName( index );
 	if ( !idxfile.open( IO_ReadOnly ) )
-		qFatal( QString("Couldn't open file %1").arg( statics ) );
+		qFatal( QString("Couldn't open file %1").arg( index ) );
 
 	mapfile.setName( map );
 	if ( !mapfile.open( IO_ReadOnly ) )
