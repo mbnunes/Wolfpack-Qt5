@@ -107,16 +107,16 @@ public:
 	QStringList getTags() const;
 
 	// Event Management Methods
-	void clearEvents();
-	void addEvent( cPythonScript * Event, bool append = false );
-	void removeEvent( const QString& Name );
-	bool hasEvent( const QString& Name ) const;
+	void clearScripts();
+	void addScript( cPythonScript * script, bool append = false );
+	void removeScript( const QString& Name );
+	bool hasScript( const QString& Name ) const;
 	void freezeScriptChain();
 	void unfreezeScriptChain();
 	bool isScriptChainFrozen();
-	void setEventList( const QString& events );
-	QString eventList() const;
-	inline cPythonScript** getEvents()
+	void setScriptList( const QString& scripts );
+	QString scriptList() const;
+	inline cPythonScript** getScripts()
 	{
 		return scriptChain;
 	}

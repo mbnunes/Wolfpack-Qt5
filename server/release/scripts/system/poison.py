@@ -26,9 +26,9 @@ def stroke(char, arguments):
 	# First: Check if the character disconnected
 	# If he did, save the strokes and level and restore it later
 	if char.player and not char.socket and char.logouttime == 0:
-		if not char.hasevent( 'system.poison' ):
+		if not char.hasscript( 'system.poison' ):
 			char.settag( 'poison_strokes', strokes )
-			char.addevent( 'system.poison' )
+			char.addscript( 'system.poison' )
 		return
 
 	if not POISONS.has_key(char.poison):
@@ -102,7 +102,7 @@ def poison(char, level):
 # Reattach the poison timer
 #
 def onLogin(char):
-	char.removeevent( 'system.poison' )
+	char.removescript( 'system.poison' )
 
 	if not POISONS.has_key(char.poison):
 		if char.poison != -1:

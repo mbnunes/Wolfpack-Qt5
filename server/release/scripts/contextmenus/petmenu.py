@@ -16,7 +16,7 @@ def onContextCheckVisible(player, object, tag):
 	return object.owner == player
 
 def onContextEntry(char, target, tag):
-	if not target.hasevent( 'speech.pets' ):
+	if not target.hasscript( 'speech.pets' ):
 		return 0
 
 	if target.owner != char or not target.tamed:

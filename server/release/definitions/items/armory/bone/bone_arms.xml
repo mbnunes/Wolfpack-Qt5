@@ -19,7 +19,7 @@
 		<value>0</value>
 		<tag name="resname" value="leather" />
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Bone\Bone Arms (N/S)</category>
 	</item>
 

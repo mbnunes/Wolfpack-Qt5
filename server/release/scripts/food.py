@@ -90,9 +90,9 @@ def onUse(player, item):
 
 def onCollide( char, item ):
 	if char.npc and item.baseid in farm_food and char.baseid in farm_eaters:
-		if char.hasevent( 'food' ):
+		if char.hasscript( 'food' ):
 			return True
-		char.addevent( 'food' )
+		char.addscript( 'food' )
 		char.say( "*nibbles*" )
 		item.movable = 3
 		item.update()
@@ -106,7 +106,7 @@ def onWalk(char, dir, sequence):
 
 		food = None
 		for item in items:
-			if item.hasevent( 'food' ) and item.baseid in farm_food:
+			if item.hasscript( 'food' ) and item.baseid in farm_food:
 				food = item
 				break
 
@@ -118,5 +118,5 @@ def onWalk(char, dir, sequence):
 				char.hitpoints += 1
 				char.update()
 
-	char.removeevent('food')
+	char.removescript('food')
 	return True

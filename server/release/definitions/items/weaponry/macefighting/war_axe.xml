@@ -19,7 +19,7 @@
 		<durability><random min="30" max="68" /></durability>
 		<weight>3.0</weight>
 		<tag name="resname" value="iron" />
-		<events>equipment,blades</events>
+		<scripts>equipment,blades</scripts>
 		<type>1004</type>
 		<category>Weapons\Axes\War Axe (N/S)</category>
 	</item>

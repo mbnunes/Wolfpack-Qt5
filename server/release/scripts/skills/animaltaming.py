@@ -179,7 +179,7 @@ def callback( char, args ):
 				num_tamed = totame.gettag( 'num_tamed' ) + 1
 			totame.settag( 'num_tamed', num_tamed )
 			# remove "Tame" context menu
-			totame.addevent('speech.pets')
+			totame.addscript('speech.pets')
 
 			# success msg : 502799
 			char.socket.clilocmessage( 502799, "", 0x3b2, 3, totame )

@@ -61,7 +61,7 @@ def selecttarget( char, args, target ):
 	if not target.item:
 		char.socket.clilocmessage( 502145 )
 		return
-	if not ( target.item.hasevent( 'food' ) or target.item.hasevent( 'blades' ) ):
+	if not ( target.item.hasscript( 'food' ) or target.item.hasscript( 'blades' ) ):
 		char.socket.clilocmessage( 502145 )
 		return
 
@@ -121,7 +121,7 @@ def poisonit( char, args ):
 	item.settag( 'poisoning_skill', skill )
 	# weapon : poison chance when hit % = char.skill[ POISONING ] / 4
 	# 	number of uses before the poison wears off
-	if item.hasevent( 'blades' ):
+	if item.hasscript( 'blades' ):
 		item.settag( 'poisoning_uses', 20 - strength * 2 )
 	return 1
 

@@ -5,7 +5,7 @@
 <definitions>
 
 	<npc id="players_base">
-		<events>system.players,system.regionchange,system.hunger</events>
+		<scripts>system.players,system.regionchange,system.hunger</scripts>
 	</npc>
 
 	<npc id="player_male" inherit="players_base">

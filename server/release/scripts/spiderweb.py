@@ -8,10 +8,10 @@ from wolfpack.consts import DAMAGE_MAGICAL, DAMAGE_PHYSICAL
 #
 def onCollide(char, item):
 	# Ignore if the character already has the event
-	if char.hasevent( 'spiderweb' ):
+	if char.hasscript( 'spiderweb' ):
 		return
 
-	char.addevent( 'spiderweb' )
+	char.addscript( 'spiderweb' )
 	if char.socket:
 		char.socket.sysmessage('You are entangled in the spiderweb. You have to break free!')
 
@@ -27,7 +27,7 @@ def onWalk(char, dir, sequence):
 	spiderweb = None
 
 	for item in items:
-		if item.hasevent( 'spiderweb' ):
+		if item.hasscript( 'spiderweb' ):
 			spiderweb = item
 			break
 
@@ -50,7 +50,7 @@ def onWalk(char, dir, sequence):
 				char.socket.walksequence = 0
 			return True
 
-	char.removeevent( 'spiderweb' )
+	char.removescript( 'spiderweb' )
 	char.socket.sysmessage('You manage to break free of the spiderweb.')
 	return False
 
@@ -65,7 +65,7 @@ def onDamage(char, type, amount, source):
 	spiderweb = None
 
 	for item in items:
-		if item.hasevent( 'spiderweb' ):
+		if item.hasscript( 'spiderweb' ):
 			spiderweb = item
 			break
 
@@ -81,6 +81,6 @@ def onDamage(char, type, amount, source):
 			targets = wolfpack.chars(char.pos.x, char.pos.y, char.pos.map, 0)
 
 			for target in targets:
-				target.removeevent( 'spiderweb' )
+				target.removescript( 'spiderweb' )
 
 	return amount

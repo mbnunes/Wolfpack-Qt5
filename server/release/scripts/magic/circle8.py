@@ -126,7 +126,7 @@ class SummonElementBase(Spell):
 			creature.delete()
 			char.socket.clilocmessage(1049645)
 		else:
-			creature.addevent('speech.pets')
+			creature.addscript('speech.pets')
 			creature.owner = char
 			creature.summontime = wolfpack.time.currenttime() + 120000
 			creature.summoned = 1

@@ -552,7 +552,7 @@ def recruitResponse(player, arguments, target):
 
         sendMessage(target.char, 'You have been recruited as a canidate for %s by %s.' % (guild.name, player.name))
         guild.addcanidate(target.char)
-        target.char.addevent( 'guilds.member' )
+        target.char.addscript( 'guilds.member' )
         target.char.resendtooltip()
         if guild.guildstone:
           guild.guildstone.resendtooltip()
@@ -606,7 +606,7 @@ def guildCanidatesResponse(player, arguments, response):
             char.deltag('permissions_' + str(guild.serial))
 
             # Make sure our member has the neccesary event
-            char.addevent( 'guilds.member' )
+            char.addscript( 'guilds.member' )
             char.resendtooltip()
             if guild.guildstone:
               guild.guildstone.resendtooltip()

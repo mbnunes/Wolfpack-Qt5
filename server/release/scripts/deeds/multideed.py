@@ -198,7 +198,7 @@ def foundation( char, target, width, height, multiid ):
 	signpost.moveto( newpos )
 	sign.moveto( newpos )
 	sign.settag( 'house', multi.serial )
-	sign.addevent( 'signpost' )
+	sign.addscript( 'signpost' )
 	#woodenpost.update()
 	signpost.update()
 	sign.update()

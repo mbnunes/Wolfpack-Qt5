@@ -316,7 +316,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 
 			if ( ( *it )->id() == pItem->id() && ( *it )->color() == pItem->color() &&
 				//					(*it)->amount() >= pItem->amount() &&
-				( *it )->eventList() == pItem->eventList() )
+				( *it )->scriptList() == pItem->scriptList() )
 			{
 				found = true;
 				break;

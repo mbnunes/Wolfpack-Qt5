@@ -20,7 +20,7 @@
 		<weight>16.0</weight>
 		<tag name="resname" value="iron" />
 		<type>1002</type>
-		<events>equipment,blades</events>
+		<scripts>equipment,blades</scripts>
 		<category>Weapons\Swords\Halberd (N/S)</category>
 	</item>
 

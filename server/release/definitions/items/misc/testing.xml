@@ -57,140 +57,140 @@
 				<color>0x8A5</color>
 				<tag name="itemdef" value="potion_nightsight" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Lesser Heal Potions</name>
 				<color>0x8A5</color>
 				<tag name="itemdef" value="potion_lesserheal" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Heal Potions</name>
 				<color>0x8A5</color>
 				<tag name="itemdef" value="potion_heal" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Greater Heal Potions</name>
 				<color>0x8A5</color>
 				<tag name="itemdef" value="potion_greaterheal" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Lesser Cure Potions</name>
 				<color>0x2C</color>
 				<tag name="itemdef" value="potion_lessercure" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Cure Potions</name>
 				<color>0x2C</color>
 				<tag name="itemdef" value="potion_cure" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Greater Cure Potions</name>
 				<color>0x2C</color>
 				<tag name="itemdef" value="potion_greatercure" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Agility Potions</name>
 				<color>0xC4</color>
 				<tag name="itemdef" value="potion_agility" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Greater Agility Potions</name>
 				<color>0xC4</color>
 				<tag name="itemdef" value="potion_greateragility" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Strength Potions</name>
 				<color>0x835</color>
 				<tag name="itemdef" value="potion_strength" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Greater Strength Potions</name>
 				<color>0x835</color>
 				<tag name="itemdef" value="potion_greaterstrength" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Lesser Explosion Potions</name>
 				<color>0x79</color>
 				<tag name="itemdef" value="potion_lesserexplosion" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Explosion Potions</name>
 				<color>0x79</color>
 				<tag name="itemdef" value="potion_explosion" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<name>Greater Explosion Potions</name>
 				<color>0x79</color>
 				<tag name="itemdef" value="potion_greaterexplosion" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<color>0x44</color>
 				<name>Lesser Poison Potions</name>
 				<tag name="itemdef" value="potion_lesserpoison" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<color>0x44</color>
 				<name>Poison Potions</name>
 				<tag name="itemdef" value="potion_poison" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<color>0x44</color>
 				<name>Greater Poison Potions</name>
 				<tag name="itemdef" value="potion_greaterpoison" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<color>0x44</color>
 				<name>Deadly Poison Potions</name>
 				<tag name="itemdef" value="potion_deadlypoison" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<color>0x21</color>
 				<name>Refresh Potions</name>
 				<tag name="itemdef" value="potion_refresh" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 			<item id="e76">
 				<color>0x21</color>
 				<name>Total Refresh Potions</name>
 				<tag name="itemdef" value="potion_totalrefresh" />
 				<tag name="itemamount" value="100" />
-				<events>testing.multibag</events>
+				<scripts>testing.multibag</scripts>
 			</item>
 		</content>
 	</item>

@@ -28,4 +28,4 @@ def onAttach(object):
 
 	object.deltag('itemdef')
 	object.deltag('itemamount')
-	object.removeevent('testing.multibag')
+	object.removescript('testing.multibag')

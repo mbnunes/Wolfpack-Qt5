@@ -19,7 +19,7 @@
 		<durability><random min="30" max="47" /></durability>
 		<weight>7.0</weight>
 		<tag name="resname" value="iron" />
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Spear (N/S)</category>
 	</item>

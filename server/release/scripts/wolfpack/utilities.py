@@ -600,7 +600,7 @@ def createlockandkey( container ):
 			key.settag('lock', rkeyid)
 			tocontainer( key, container )
 			container.settag( 'lock', rkeyid )
-			container.addevent( 'lock' )
+			container.addscript( 'lock' )
 	return
 
 """

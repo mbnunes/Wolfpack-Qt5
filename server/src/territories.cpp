@@ -388,7 +388,7 @@ void cTerritories::check( P_CHAR pc )
 		}
 
 		PyObject* args = Py_BuildValue( "(NNN)", PyGetCharObject( pc ), PyGetRegionObject( lastRegion ), PyGetRegionObject( currRegion ) );
-		if ( !cPythonScript::callChainedEventHandler( EVENT_CHANGEREGION, pc->getEvents(), args ) && socket )
+		if ( !cPythonScript::callChainedEventHandler( EVENT_CHANGEREGION, pc->getScripts(), args ) && socket )
 		{
 			if ( lastRegion && !lastRegion->name().isEmpty() && !lastRegion->isNoEnterMessage() )
 				socket->sysMessage( tr( "You have left %1." ).arg( lastRegion->name() ) );

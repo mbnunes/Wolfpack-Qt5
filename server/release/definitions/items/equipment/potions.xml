@@ -12,7 +12,7 @@
 
 	<item id="potion_base">
 		<weight>0.5</weight>
-		<events>potions</events>
+		<scripts>potions</scripts>
 	</item>
 
 	<!-- Empty Potion Keg -->
@@ -22,13 +22,13 @@
 		<weight>10.0</weight>
 		<tag name="kegfill" value="0" type="int" />
 		<movable>1</movable>
-		<events>potionkeg</events>
+		<scripts>potionkeg</scripts>
 	</item>
 
 	<!-- Empty Potion Keg, second direction -->
 	<item id="potion_keg_empty2" inherit="potion_keg">
 		<id>0x1ad7</id>
-		<events>potionkeg</events>
+		<scripts>potionkeg</scripts>
 	</item>
 
 	<!-- Nightsight -->

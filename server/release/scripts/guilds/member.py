@@ -26,7 +26,7 @@ def onLogin(player):
       elif tag.startswith('permissions_'):
         player.deltag(tag)
 
-    player.removeevent( 'guilds.member' )
+    player.removescript( 'guilds.member' )
   else:
     # Remove voting tags just in case
     if player.guild.leader:

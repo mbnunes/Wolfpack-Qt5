@@ -20,7 +20,7 @@
 		<buyprice>128</buyprice>
 		<sellprice>64</sellprice>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Studded Leather\Tunic (N/S)</category>
 	</item>
 

@@ -258,7 +258,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 		if ( pPlayer->dist( pNpc ) > 16 )
 			continue;
 
-		cPythonScript** events = pNpc->getEvents();
+		cPythonScript** events = pNpc->getScripts();
 
 		if ( events )
 		{

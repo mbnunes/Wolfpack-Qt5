@@ -20,7 +20,7 @@
 		<buyprice>120</buyprice>
 		<sellprice>60</sellprice>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Studded Leather\Bustier (N/S)</category>
 	</item>
 

@@ -19,7 +19,7 @@
 		<durability><random min="30" max="38" /></durability>
 		<weight>10.0</weight>
 		<tag name="resname" value="iron" />
-		<events>equipment,blades</events>
+		<scripts>equipment,blades</scripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Pike (N/S)</category>
 	</item>

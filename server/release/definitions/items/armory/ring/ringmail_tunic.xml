@@ -21,7 +21,7 @@
 		<buyprice>218</buyprice>
 		<sellprice>109</sellprice>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Ringmail\Tunic (N/S)</category>
 	</item>
 

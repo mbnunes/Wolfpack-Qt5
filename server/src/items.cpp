@@ -192,7 +192,7 @@ cItem::cItem( const cItem& src ) : cUObject(src), totalweight_( 0 ), container_(
 	Init( false );
 	// Copy Events
 	scriptChain = 0;
-	setEventList( src.eventList() );
+	setScriptList( src.scriptList() );
 	this->name_ = src.name_;
 	this->tags_ = src.tags_;
 	//cItem properties setting
@@ -646,7 +646,7 @@ void cItem::remove()
 		Py_DECREF( args );
 	}
 
-	clearEvents();
+	clearScripts();
 	removeFromView( false ); // Remove it from all clients in range
 	free = true;
 
@@ -2188,7 +2188,7 @@ bool cItem::canStack( cItem* pItem )
 
 	// Do some basic checks and see if the item is a
 	// container (they never stack).
-	if ( id() != pItem->id() || color() != pItem->color() || type() == 1 || type() != pItem->type() || bindmenu() != pItem->bindmenu() || eventList() != pItem->eventList() || baseid() != pItem->baseid() )
+	if ( id() != pItem->id() || color() != pItem->color() || type() == 1 || type() != pItem->type() || bindmenu() != pItem->bindmenu() || scriptList() != pItem->scriptList() || baseid() != pItem->baseid() )
 	{
 		return false;
 	}
@@ -2303,7 +2303,7 @@ bool cItem::isInLockedItem()
 	{
 		P_ITEM pCont = dynamic_cast<P_ITEM>( container_ );
 
-		if ( pCont->hasEvent( "lock" ) )
+		if ( pCont->hasScript( "lock" ) )
 		{
 			return true;
 		}

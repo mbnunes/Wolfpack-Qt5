@@ -19,7 +19,7 @@
 		<durability><random min="50" max="85" /></durability>
 		<weight>1.0</weight>
 		<tag name="resname" value="iron" />
-		<events>equipment,blades</events>
+		<scripts>equipment,blades</scripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Kryss (N/S)</category>
 	</item>

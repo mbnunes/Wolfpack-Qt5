@@ -17,7 +17,7 @@
 		<buyprice>18</buyprice>
 		<durability><random min="30" max="49" /></durability>
 		<weight>3.0</weight>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<type>1003</type>
 		<twohanded />
 		<category>Weapons\Staves\Grarled Staff (N/S)</category>

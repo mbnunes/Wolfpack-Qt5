@@ -235,7 +235,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 		else if ( pChar->isDead() )
 		{
 			// Doors can be passed by ghosts
-			if ( pItem->hasEvent( "door" ) )
+			if ( pItem->hasScript( "door" ) )
 			{
 				continue;
 			}

@@ -21,7 +21,7 @@
 		<buyprice>145</buyprice>
 		<sellprice>72</sellprice>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Platemail\Gloves (N/S)</category>
 	</item>
 

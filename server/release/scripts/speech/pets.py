@@ -149,7 +149,7 @@ def release(char, pet):
 		pet.tamed = 0
 	pet.sound(SND_ATTACK)
 
-	pet.removeevent('speech.pets')
+	pet.removescript('speech.pets')
 
 def onSpeech(pet, char, text, keywords):
 	if not char.socket:

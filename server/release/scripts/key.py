@@ -87,7 +87,7 @@ def lock_response(char, args, target):
   if target.item == key:
     rename_key(char,key)
 
-  elif target.item.hasevent( 'lock' ):
+  elif target.item.hasscript( 'lock' ):
     if target.item.hastag('locked') and int(target.item.gettag('locked')) == 1:
       target.item.deltag('locked')
     else:
@@ -109,7 +109,7 @@ def copy_response(char, args, target):
     return
 
   # Check if the targetted item is a key
-  if not target.item or not target.item.hasevent( 'key' ):
+  if not target.item or not target.item.hasscript( 'key' ):
     char.socket.clilocmessage(501679)
     return
 

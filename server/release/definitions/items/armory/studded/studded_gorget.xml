@@ -20,7 +20,7 @@
 		<buyprice>73</buyprice>
 		<sellprice>36</sellprice>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Studded Leather\Gorget</category>
 	</item>
 

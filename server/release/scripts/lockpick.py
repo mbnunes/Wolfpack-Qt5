@@ -11,7 +11,7 @@ def response(char, args, target):
 	elif not char.cansee(lockpick) or not char.canpickup(lockpick):
 		char.socket.clilocmessage(500312)
 	else:
-		if not target.item or not target.item.hasevent( 'lock' ):
+		if not target.item or not target.item.hasscript( 'lock' ):
 			char.socket.clilocmessage(502069)
 		elif not char.canreach(target.item, 3):
 			char.socket.clilocmessage(502070)
@@ -30,7 +30,7 @@ def response(char, args, target):
 			else:
 				if char.checkskill(LOCKPICKING, 0, 1200):
 					# SUCCESS: Remove lockpick and the lock
-					target.item.removeevent( 'lock' )
+					target.item.removescript( 'lock' )
 					target.item.deltag('lock')
 					target.item.deltag('locked')
 

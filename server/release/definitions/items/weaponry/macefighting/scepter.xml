@@ -19,7 +19,7 @@
 		<durability><random min="50" max="98" /></durability>
 		<weight>7.0</weight>
 		<tag name="resname" value="iron" />
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<type>1004</type>
 		<category>Weapons\Maces\Scepter (N/S)</category>
 	</item>

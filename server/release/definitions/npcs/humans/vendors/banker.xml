@@ -15,7 +15,7 @@
 		<bindmenu>banker_menu,vendor_menu</bindmenu>
 		<invulnerable />
 		<title>the Banker</title>
-		<events>speech.banker</events>
+		<scripts>speech.banker</scripts>
 		<equipped>
 			<item id="1515" /> <!-- Cloak -->
 			<item id="1541" /> <!-- Sash -->
@@ -35,7 +35,7 @@
 		<bindmenu>banker_menu,vendor_menu</bindmenu>
 		<invulnerable />
 		<title>the Banker</title>
-		<events>speech.banker</events>
+		<scripts>speech.banker</scripts>
 		<equipped>
 			<item id="1515" /> <!-- Cloak -->
 			<item id="1719" /> <!-- Bonnet -->

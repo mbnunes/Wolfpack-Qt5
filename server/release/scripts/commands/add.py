@@ -218,7 +218,7 @@ def generateAddMenu():
 
 def onLoad():
 	wolfpack.registercommand('add', add)
-
+	
 def onUnload():
         global generated
         generated = 0

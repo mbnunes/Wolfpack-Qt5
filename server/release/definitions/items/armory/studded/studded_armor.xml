@@ -20,7 +20,7 @@
 		<buyprice>142</buyprice>
 		<sellprice>71</sellprice>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Studded Leather\Female Armor (N/S)</category>
 	</item>
 

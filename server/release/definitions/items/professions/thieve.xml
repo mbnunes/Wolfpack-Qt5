@@ -13,7 +13,7 @@
 	<item id="14fb">
 		<id>0x14fb</id>
 		<category>Professions\Thieve\Lockpick (W/E)</category>
-		<events>lockpick</events>
+		<scripts>lockpick</scripts>
 	</item>
 
 	<item id="14fc">
@@ -25,7 +25,7 @@
 	<item id="14fd">
 		<id>0x14fd</id>
 		<category>Professions\Thieve\Lockpicks (W/E)</category>
-		<events>lockpick</events>
+		<scripts>lockpick</scripts>
 	</item>
 
 	<item id="14fe">
@@ -41,7 +41,7 @@
 
 	<item id="1ec1">
 		<id>0x1ec1</id>
-		<events>pickpocket_dip</events>
+		<scripts>pickpocket_dip</scripts>
 		<category>Professions\Thieve\Pickpocket Dip (Animated)</category>
 	</item>
 

@@ -21,7 +21,7 @@
 		<durability><random min="30" max="40" /></durability>
 		<tag name="remaining_uses" type="int" value="45" />
 		<tag name="resname" value="iron" />
-		<events>skills.blacksmithing,equipment</events>
+		<scripts>skills.blacksmithing,equipment</scripts>
 		<category>Weapons\Maces\Sledge Hammer (W/E)</category>
 	</item>
 

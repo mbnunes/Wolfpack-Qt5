@@ -42,7 +42,7 @@
 
 	<item id="fbb">
 		<id>0xfbb</id>
-		<events>skills.blacksmithing,equipment</events>
+		<scripts>skills.blacksmithing,equipment</scripts>
 		<category>Professions\Blacksmith\Tongs (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>

@@ -28,7 +28,7 @@ def response(player, args, target):
         guild.addmember(player)
         guild.leader = player
 
-        player.addevent( 'guilds.member' )
+        player.addscript( 'guilds.member' )
 
         # Create a guildstone at the given location
         guildstone = wolfpack.additem("guildstone")

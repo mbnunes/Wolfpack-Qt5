@@ -1420,7 +1420,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 		if ( !dispelargs )
 			dispelargs = PyTuple_New( 0 );
 
-		if ( cPythonScript::canChainHandleEvent( EVENT_DISPEL, self->pChar->getEvents() ) )
+		if ( cPythonScript::canChainHandleEvent( EVENT_DISPEL, self->pChar->getScripts() ) )
 		{
 			PyObject* source;
 			if ( pSource )
@@ -1439,7 +1439,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 			}
 
 			PyObject* args = Py_BuildValue( "(NNBBsN", self->pChar->getPyObject(), source, 0, force ? 1 : 0, ptype, dispelargs );
-			bool result = cPythonScript::callChainedEventHandler( EVENT_DISPEL, self->pChar->getEvents(), args );
+			bool result = cPythonScript::callChainedEventHandler( EVENT_DISPEL, self->pChar->getScripts(), args );
 			Py_DECREF( args );
 
 			if ( result )
@@ -2165,62 +2165,62 @@ static PyObject* wpChar_log( wpChar* self, PyObject* args )
 }
 
 /*
-	\method char.removeevent
-	\description Remove a python script from the event chain for this object.
-	\param event The id of the python script you want to remove from the event chain.
+	\method char.removescript
+	\description Remove a python script from the script chain for this object.
+	\param script The id of the python script you want to remove from the script chain.
 */
-static PyObject* wpChar_removeevent( wpChar* self, PyObject* args )
+static PyObject* wpChar_removescript( wpChar* self, PyObject* args )
 {
-	char* event;
-	if ( !PyArg_ParseTuple( args, "s:char.removeevent(name)", &event ) )
+	char* script;
+	if ( !PyArg_ParseTuple( args, "s:char.removescript(name)", &script ) )
 	{
 		return 0;
 	}
-	self->pChar->removeEvent( event );
+	self->pChar->removeScript( script );
 	Py_RETURN_NONE;
 }
 
 /*
-	\method char.addevent
-	\description Add a pythonscript to the event chain of this object.
-	Does nothing if the object already has that event.
-	\param event The id of the python script you want to add to the event chain.
+	\method char.addscript
+	\description Add a pythonscript to the script chain of this object.
+	Does nothing if the object already has that script.
+	\param script The id of the python script you want to add to the script chain.
 */
-static PyObject* wpChar_addevent( wpChar* self, PyObject* args )
+static PyObject* wpChar_addscript( wpChar* self, PyObject* args )
 {
-	char* event;
-	if ( !PyArg_ParseTuple( args, "s:char.addevent(name)", &event ) )
+	char* script;
+	if ( !PyArg_ParseTuple( args, "s:char.addscript(name)", &script ) )
 	{
 		return 0;
 	}
 
-	cPythonScript* script = ScriptManager::instance()->find( event );
+	cPythonScript* pscript = ScriptManager::instance()->find( script );
 
-	if ( !script )
+	if ( !pscript )
 	{
-		PyErr_Format( PyExc_RuntimeError, "No such script: %s", event );
+		PyErr_Format( PyExc_RuntimeError, "No such script: %s", script );
 		return 0;
 	}
 
-	self->pChar->addEvent( script );
+	self->pChar->addScript( pscript );
 	Py_RETURN_NONE;
 }
 
 /*
-	\method char.hasevent
-	\description Check if this object has a python script in its event chain.
-	\param event The id of the python script you are looking for.
+	\method char.hasscript
+	\description Check if this object has a python script in its script chain.
+	\param script The id of the python script you are looking for.
 	\return True of the script is in the chain. False otherwise.
 */
-static PyObject* wpChar_hasevent( wpChar* self, PyObject* args )
+static PyObject* wpChar_hasscript( wpChar* self, PyObject* args )
 {
-	char* event;
-	if ( !PyArg_ParseTuple( args, "s:char.hasevent(name)", &event ) )
+	char* script;
+	if ( !PyArg_ParseTuple( args, "s:char.hasscript(name)", &script ) )
 	{
 		return 0;
 	}
 
-	if ( self->pChar->hasEvent( event ) )
+	if ( self->pChar->hasScript( script ) )
 	{
 		Py_INCREF( Py_True );
 		return Py_True;
@@ -2267,9 +2267,9 @@ static PyObject* wpChar_callevent( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	if ( cPythonScript::canChainHandleEvent( ( ePythonEvent ) event, self->pChar->getEvents() ) )
+	if ( cPythonScript::canChainHandleEvent( ( ePythonEvent ) event, self->pChar->getScripts() ) )
 	{
-		bool result = cPythonScript::callChainedEventHandler( ( ePythonEvent ) event, self->pChar->getEvents(), eventargs );
+		bool result = cPythonScript::callChainedEventHandler( ( ePythonEvent ) event, self->pChar->getScripts(), eventargs );
 
 		if ( result )
 		{
@@ -2328,9 +2328,9 @@ static PyMethodDef wpCharMethods[] =
 { "dispel",			( getattrofunc ) wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
 
 // Event handling functions
-{ "addevent",		( getattrofunc ) wpChar_addevent,			METH_VARARGS, 0},
-{ "removeevent",	( getattrofunc ) wpChar_removeevent,		METH_VARARGS, 0},
-{ "hasevent",		( getattrofunc ) wpChar_hasevent,			METH_VARARGS, 0},
+{ "addscript",		( getattrofunc ) wpChar_addscript,			METH_VARARGS, 0},
+{ "removescript",	( getattrofunc ) wpChar_removescript,		METH_VARARGS, 0},
+{ "hasscript",		( getattrofunc ) wpChar_hasscript,			METH_VARARGS, 0},
 { "callevent",		( getattrofunc ) wpChar_callevent,			METH_VARARGS, 0},
 
 // Update Stats
@@ -2395,9 +2395,9 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		return player->isGM() ? PyTrue() : PyFalse();
 
 		/*
-					\rproperty char.tags This property is a list of names for all tags attached to this character.
-					This property is exclusive to python scripts and overrides normal properties with the same name.
-				*/
+			\rproperty char.tags This property is a list of names for all tags attached to this character.
+			This property is exclusive to python scripts and overrides normal properties with the same name.
+		*/
 	}
 	else if ( !strcmp( "tags", name ) )
 	{
@@ -2584,15 +2584,15 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		return rVal;
 	}
 	/*
-		\property char.events The names of the scripts attached to this character.
+		\rproperty char.scripts The names of the scripts attached to this character.
 		This property is exclusive to python scripts and overrides normal properties with the same name.
 	*/
-	else if ( !strcmp( "events", name ) )
+	else if ( !strcmp( "scripts", name ) )
 	{
-		QStringList events = QStringList::split( ",", self->pChar->eventList() );
-		PyObject* list = PyList_New( events.count() );
-		for ( uint i = 0; i < events.count(); ++i )
-			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
+		QStringList scripts = QStringList::split( ",", self->pChar->scriptList() );
+		PyObject* list = PyList_New( scripts.count() );
+		for ( uint i = 0; i < scripts.count(); ++i )
+			PyList_SetItem( list, i, PyString_FromString( scripts[i].latin1() ) );
 		return list;
 		/*
 					\rproperty char.npc True if this character is a npc, false otherwise.
@@ -2626,55 +2626,29 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 
 int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 {
-	// Special Python things.
-	if ( !strcmp( "events", name ) )
-	{
-		if ( !PyList_Check( value ) )
-		{
-			PyErr_BadArgument();
-			return -1;
-		}
+	cVariant val;
+	if ( PyString_Check( value ) || PyUnicode_Check( value ) )
+		val = cVariant( Python2QString( value ) );
+	else if ( PyInt_Check( value ) )
+		val = cVariant( PyInt_AsLong( value ) );
+	else if ( checkWpItem( value ) )
+		val = cVariant( getWpItem( value ) );
+	else if ( checkWpChar( value ) )
+		val = cVariant( getWpChar( value ) );
+	else if ( checkWpCoord( value ) )
+		val = cVariant( getWpCoord( value ) );
+	else if ( PyFloat_Check( value ) )
+		val = cVariant( PyFloat_AsDouble( value ) );
+	else if ( value == Py_True ) 
+		val = cVariant( 1 ); // True
+	else if ( value == Py_False )
+		val = cVariant( 0 ); // false
 
-		self->pChar->clearEvents();
-		int i;
-		for ( i = 0; i < PyList_Size( value ); ++i )
-		{
-			if ( !PyString_Check( PyList_GetItem( value, i ) ) )
-				continue;
+	stError * error = self->pChar->setProperty( name, val );
 
-			cPythonScript* script = ScriptManager::instance()->find( PyString_AsString( PyList_GetItem( value, i ) ) );
-			if ( script )
-				self->pChar->addEvent( script );
-		}
-	}
-	else
-	{
-		cVariant val;
-		if ( PyString_Check( value ) || PyUnicode_Check( value ) )
-			val = cVariant( Python2QString( value ) );
-		else if ( PyInt_Check( value ) )
-			val = cVariant( PyInt_AsLong( value ) );
-		else if ( checkWpItem( value ) )
-			val = cVariant( getWpItem( value ) );
-		else if ( checkWpChar( value ) )
-			val = cVariant( getWpChar( value ) );
-		else if ( checkWpCoord( value ) )
-			val = cVariant( getWpCoord( value ) );
-		else if ( PyFloat_Check( value ) )
-			val = cVariant( PyFloat_AsDouble( value ) );
-		else if ( value == Py_True ) 
-			val = cVariant( 1 ); // True
-		else if ( value == Py_False )
-			val = cVariant( 0 ); // false
-
-		stError * error = self->pChar->setProperty( name, val );
-
-		if ( error )
-		{
-			PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
-			delete error;
-			return 0;
-		}
+	if (error) {
+		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
+		delete error;
 	}
 
 	return 0;

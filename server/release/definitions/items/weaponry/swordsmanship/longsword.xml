@@ -20,7 +20,7 @@
 		<weight>7.0</weight>
 		<tag name="resname" value="iron" />
 		<type>1001</type>
-		<events>equipment,blades</events>
+		<scripts>equipment,blades</scripts>
 		<category>Weapons\Swords\Longsword (N/S)</category>
 	</item>
 

@@ -92,7 +92,7 @@ class MagicTrap (Spell):
 		target.settag('trap_owner', char.serial)
 		target.settag('trap_damage', random.randint(10, 50))
 		target.settag('trap_type', 'magic')
-		target.addevent( 'magic.trap' )
+		target.addscript( 'magic.trap' )
 
 
 class RemoveTrap (Spell):
@@ -109,7 +109,7 @@ class RemoveTrap (Spell):
 			return
 
 		# Already Trapped?
-		if not target.hasevent( 'magic.trap' ):
+		if not target.hasscript( 'magic.trap' ):
 			fizzle(char)
 			return
 
@@ -117,7 +117,7 @@ class RemoveTrap (Spell):
 		target.soundeffect(0x1f0)
 
 		# Remove the Trap Properties from the Item
-		target.removeevent( 'magic.trap' )
+		target.removescript( 'magic.trap' )
 		target.deltag('trap_owner')
 		target.deltag('trap_damage')
 		target.deltag('trap_type')

@@ -825,7 +825,7 @@
 			Name="Encryption"
 			Filter="">
 			<File
-				RelativePath=".\twofish\twofish2.c">
+				RelativePath=".\twofish\twofish2.cpp">
 			</File>
 		</Filter>
 		<Filter

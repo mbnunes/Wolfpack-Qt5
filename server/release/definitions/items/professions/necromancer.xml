@@ -19,6 +19,6 @@
 		<sellprice>9</sellprice>
 		<value>30</value>
 		<category>Professions\Necromancer\Spellbook</category>
-		<events>magic.necrospellbook</events>
+		<scripts>magic.necrospellbook</scripts>
 	</item>
 </definitions>

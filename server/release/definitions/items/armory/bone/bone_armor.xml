@@ -19,7 +19,7 @@
 		<weight>6</weight>
 		<value>0</value>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Bone\Bone Armor (N/S)</category>
 	</item>
 

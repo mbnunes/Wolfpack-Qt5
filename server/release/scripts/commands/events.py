@@ -2,8 +2,8 @@
 import wolfpack
 from wolfpack.consts import LOG_MESSAGE, EVENT_USE
 
-def addevent_response(player, arguments, target):
-	event = arguments[0]
+def addscript_response(player, arguments, target):
+	script = arguments[0]
 	object = None
 
 	if target.item:
@@ -18,35 +18,35 @@ def addevent_response(player, arguments, target):
 		player.socket.sysmessage('You have to target a character or item.')
 		return
 
-	player.log(LOG_MESSAGE, "Adds event '%s' to object 0x%x.\n" % (event, object.serial))
-	object.addevent(event)
+	player.log(LOG_MESSAGE, "Adds script '%s' to object 0x%x.\n" % (script, object.serial))
+	object.addscript(script)
 	object.resendtooltip()
-	player.socket.sysmessage('You add the event to your target.')
+	player.socket.sysmessage('You add the script to your target.')
 
 """
-	\command addevent
+	\command addscript
 	\description Attach a script to an object.
-	\usage - <code>addevent [script]</code>
+	\usage - <code>addscript [script]</code>
 	Script is the id of the script you want to attach.
 """
-def commandAddevent(socket, command, arguments):
+def commandAddscript(socket, command, arguments):
 	if len(arguments) == 0:
-		socket.sysmessage('Usage: addevent <identifier>')
+		socket.sysmessage('Usage: addscript <identifier>')
 		return
 
-	event = arguments.strip()
+	script = arguments.strip()
 
 	try:
-		wolfpack.hasevent(event, EVENT_USE)
+		wolfpack.hasscript(script, EVENT_USE)
 	except:
-		socket.sysmessage('No such event: %s.' % event)
+		socket.sysmessage('No such script: %s.' % script)
 		return
 
-	socket.sysmessage("Please select the object you want to add the event '%s' to." % event)
-	socket.attachtarget('commands.events.addevent_response', [event])
+	socket.sysmessage("Please select the object you want to add the script '%s' to." % script)
+	socket.attachtarget('commands.events.addscript_response', [script])
 
-def removeevent_response(player, arguments, target):
-	event = arguments[0]
+def removescript_response(player, arguments, target):
+	script = arguments[0]
 	object = None
 
 	if target.item:
@@ -61,36 +61,36 @@ def removeevent_response(player, arguments, target):
 		player.socket.sysmessage('You have to target a character or item.')
 		return
 
-	if object.hasevent(event):
-		player.log(LOG_MESSAGE, "Removes event '%s' from object 0x%x.\n" % (event, object.serial))
-		object.removeevent(event)
+	if object.hasscript(script):
+		player.log(LOG_MESSAGE, "Removes script '%s' from object 0x%x.\n" % (script, object.serial))
+		object.removescript(script)
 		object.resendtooltip()
-		player.socket.sysmessage('You remove the event from your target.')
+		player.socket.sysmessage('You remove the script from your target.')
 	else:
-		player.socket.sysmessage('Your target does not have the given event.')
+		player.socket.sysmessage('Your target does not have the given script.')
 
 """
-	\command removeevent
+	\command removescript
 	\description Remove a script from an object.
-	\usage - <code>removeevent [script]</code>
+	\usage - <code>removescript [script]</code>
 	Script is the id of the script you want to remove.
 """
-def commandRemoveevent(socket, command, arguments):
+def commandRemovescript(socket, command, arguments):
 	if len(arguments) == 0:
-		socket.sysmessage('Usage: removeevent <identifier>')
+		socket.sysmessage('Usage: removescript <identifier>')
 		return
 
-	event = arguments.strip()
+	script = arguments.strip()
 
 	try:
-		wolfpack.hasevent(event, EVENT_USE)
+		wolfpack.hasscript(script, EVENT_USE)
 	except:
-		socket.sysmessage('No such event: %s.' % event)
+		socket.sysmessage('No such script: %s.' % script)
 		return
 
-	socket.sysmessage("Please select the object you want to remove the event '%s' from." % event)
-	socket.attachtarget('commands.events.removeevent_response', [event])
+	socket.sysmessage("Please select the object you want to remove the script '%s' from." % script)
+	socket.attachtarget('commands.events.removescript_response', [script])
 
 def onLoad():
-	wolfpack.registercommand('addevent', commandAddevent)
-	wolfpack.registercommand('removeevent', commandRemoveevent)
+	wolfpack.registercommand('addscript', commandAddscript)
+	wolfpack.registercommand('removescript', commandRemovescript)

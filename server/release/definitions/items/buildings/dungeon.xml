@@ -375,7 +375,7 @@
 	<item id="ee3">
 		<id>0xEE3</id>
 		<category>Dungeon\Spiderwebs\Spiderweb 1</category>
-		<events>spiderweb</events>
+		<scripts>spiderweb</scripts>
 		<maxhealth>100</maxhealth>
 		<health>100</health>
 	</item>

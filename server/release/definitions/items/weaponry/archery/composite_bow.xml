@@ -20,7 +20,7 @@
 		<tag name="range" value="12" type="int" />
 		<durability><random min="30" max="70" /></durability>
 		<weight>7.0</weight>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<type>1006</type>
 		<category>Weapons\Bows\Composite Bow (N/S)</category>
 	</item>

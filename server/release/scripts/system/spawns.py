@@ -17,7 +17,7 @@ def spawn(spawner, spawntype, spawndef, current, area):
       npc.settag('spawner', spawner.serial)
       npc.wandertype = 3
       npc.wanderradius = area
-      npc.addevent( 'system.spawns' )
+      npc.addscript( 'system.spawns' )
       npc.update()
     elif spawntype == 0:
       pass
@@ -77,7 +77,7 @@ class SpawnThread(Thread):
 
         # Check if the spawn is valid.
         valid = item != None
-        if valid and not item.hasevent( 'spawngem' ):
+        if valid and not item.hasscript( 'spawngem' ):
           valid = 0
         if valid and not item.hastag('spawntype') or not item.hastag('spawndef'):
           valid = 0

@@ -19,7 +19,7 @@
 	<!-- small bed deeds -->
 	<item id="ballot_box_deed" inherit="blank_deed">
 		<name>Ballot Box Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="ballot_box" />
 		<category>Misc\Deeds\Carpentry\Ballot Box Deed</category>
 	</item>
@@ -27,7 +27,7 @@
 	<!-- small bed deeds -->
 	<item id="small_bed_s_deed" inherit="blank_deed">
 		<name>Small Bed South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="small_bed_s" />
 		<category>Misc\Deeds\Carpentry\Small Bed South Deed</category>
 	</item>
@@ -41,7 +41,7 @@
 	<!-- large bed deeds -->
 	<item id="large_bed_s_deed" inherit="blank_deed">
 		<name>Large Bed South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="large_bed_s" />
 		<category>Misc\Deeds\Carpentry\Small Bed South Deed</category>
 	</item>
@@ -55,7 +55,7 @@
 	<!-- dart board deeds -->
 	<item id="dart_board_s_deed" inherit="blank_deed">
 		<name>Dart Board South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="dart_board_s" />
 		<category>Misc\Deeds\Carpentry\Dart Board South Deed</category>
 	</item>
@@ -69,7 +69,7 @@
 	<!-- pentagram deed -->
 	<item id="pentagram_deed" inherit="blank_deed">
 		<name>Pentagram Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="pentagram" />
 		<category>Misc\Deeds\Carpentry\Pentagram Deed</category>
 	</item>
@@ -77,7 +77,7 @@
 	<!-- arbattoir deed -->
 	<item id="arbattoir_deed" inherit="blank_deed">
 		<name>Arbattoir Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="arbattoir" />
 		<category>Misc\Deeds\Carpentry\Arbattoir Deed</category>
 	</item>
@@ -85,7 +85,7 @@
 	<!-- anvil deeds -->
 	<item id="anvil_s_deed" inherit="blank_deed">
 		<name>Anvil South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="anvil_s" />
 		<category>Misc\Deeds\Carpentry\Anvil South Deed</category>
 	</item>
@@ -99,7 +99,7 @@
 	<!-- small forge deed -->
 	<item id="small_forge_deed" inherit="blank_deed">
 		<name>Small Forge Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="small_forge" />
 		<category>Misc\Deeds\Carpentry\Small Forge Deed</category>
 	</item>
@@ -107,7 +107,7 @@
 	<!-- large forge deeds -->
 	<item id="large_forge_s_deed" inherit="blank_deed">
 		<name>Large Forge South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="large_forge_s" />
 		<category>Misc\Deeds\Carpentry\Large Forge South Deed</category>
 	</item>
@@ -121,7 +121,7 @@
 	<!-- training dummy deeds -->
 	<item id="training_dummy_s_deed" inherit="blank_deed">
 		<name>Training Dummy South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="training_dummy_s" />
 		<category>Misc\Deeds\Carpentry\Training Dummy South Deed</category>
 	</item>
@@ -135,7 +135,7 @@
 	<!-- pickpocket dip deed -->
 	<item id="pickpocket_dip_e_deed" inherit="blank_deed">
 		<name>Pickpocket Dip Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="pickpocket_dip_e" />
 		<category>Misc\Deeds\Carpentry\Pickpocket Dip Deed</category>
 	</item>
@@ -143,7 +143,7 @@
 	<!-- spinning wheel deeds -->
 	<item id="spinning_wheel_s_deed" inherit="blank_deed">
 		<name>Spinning Wheel South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="spinning_wheel_s" />
 		<category>Misc\Deeds\Carpentry\Spinning Wheel South Deed</category>
 	</item>
@@ -157,7 +157,7 @@
 	<!-- loom deeds -->
 	<item id="loom_s_deed" inherit="blank_deed">
 		<name>Loom South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="loom_s" />
 		<category>Misc\Deeds\Carpentry\Loom South Deed</category>
 	</item>
@@ -171,7 +171,7 @@
 	<!-- stone oven deeds -->
 	<item id="stone_oven_s_deed" inherit="blank_deed">
 		<name>Stone Oven South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="stone_oven_s" />
 		<category>Misc\Deeds\Carpentry\Stone Oven South Deed</category>
 	</item>
@@ -185,7 +185,7 @@
 	<!-- flour mill deeds -->
 	<item id="flour_mill_s_deed" inherit="blank_deed">
 		<name>Flour Mill South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="flour_mill_s" />
 		<category>Misc\Deeds\Carpentry\Flour Mill South Deed</category>
 	</item>
@@ -199,7 +199,7 @@
 	<!-- water trough deeds -->
 	<item id="water_trough_s_deed" inherit="blank_deed">
 		<name>Water Trough South Deed</name>
-		<events>deeds.carpentry_deed</events>
+		<scripts>deeds.carpentry_deed</scripts>
 		<tag name="carpentry_type" value="water_trough_s" />
 		<category>Misc\Deeds\Carpentry\Water Trough South Deed</category>
 	</item>
@@ -213,28 +213,28 @@
 	<!-- Other Deeds -->
 	<!-- house deed -->
 	<item id="house" inherit="blank_deed">
-		<events>deeds.multideed</events>
+		<scripts>deeds.multideed</scripts>
 		<category>Buildings\House deed (Classic and Custom)</category>
 	</item>
 
 	<item id="commodity_deed" inherit="blank_deed">
 		<color>0x47</color>
 		<buyprice>5</buyprice>
-		<events>deeds.commoditydeed</events>
+		<scripts>deeds.commoditydeed</scripts>
 	</item>
 
 	<item id="item_bless_deed" inherit="blank_deed">
-		<events>deeds.item_bless_deed</events>
+		<scripts>deeds.item_bless_deed</scripts>
 	</item>
 
 	<item id="clothing_bless_deed" inherit="blank_deed">
-		<events>deeds.clothing_bless_deed</events>
+		<scripts>deeds.clothing_bless_deed</scripts>
 	</item>
 
 	<item id="guildstone_deed" inherit="blank_deed">
 		<name>Guildstone Deed</name>
 		<color>0x3c</color>
-		<events>guilds.deed</events>
+		<scripts>guilds.deed</scripts>
 		<category>Misc\Guilds\Guildstone Deed</category>
 	</item>
 

@@ -21,7 +21,7 @@
 		<buyprice>181</buyprice>
 		<sellprice>90</sellprice>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Platemail\Arms (N/S)</category>
 	</item>
 

@@ -14,7 +14,7 @@
 		<id>0x1ea8</id>
 		<color>386</color>
 		<name>a slotmachine</name>
-		<events>slotmachine</events>
+		<scripts>slotmachine</scripts>
 	</item>
 
 	<!-- The Prizes -->

@@ -18,7 +18,7 @@
 		<smelt>20</smelt>
 		<weight>10.0</weight>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Dragon\Dragon Breastplate 1</category>
 	</item>
 

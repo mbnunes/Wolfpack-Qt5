@@ -122,7 +122,7 @@ class MagicLock(Spell):
 		char.turnto(target)
 
 		# We can only lock unlocked chests
-		if target.type != 1 or target.hasevent( 'lock' ) or target.container:
+		if target.type != 1 or target.hasscript( 'lock' ) or target.container:
 			char.message(501762)
 			return
 
@@ -134,7 +134,7 @@ class MagicLock(Spell):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
-		target.addevent( 'lock' )
+		target.addscript( 'lock' )
 		target.settag('lock', 'magic')
 
 		char.message(501763)
@@ -152,7 +152,7 @@ class Unlock(Spell):
 		char.turnto(target)
 
 		# We can only lock unlocked chests
-		if not target.hasevent( 'lock' ):
+		if not target.hasscript( 'lock' ):
 			char.message(503101)
 			return
 
@@ -163,7 +163,7 @@ class Unlock(Spell):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
-		target.removeevent( 'lock' )
+		target.removescript( 'lock' )
 		target.deltag('lock', 'magic')
 
 		wolfpack.effect(0x376a, target.pos, 9, 32)
@@ -182,12 +182,12 @@ class Telekinesis(Spell):
 		hasevent = 0
 
 		# Check if there is an event handling onUse but not onTelekinesis
-		for event in target.events:
-			if wolfpack.hasevent(event, EVENT_TELEKINESIS):
+		for event in target.scripts:
+			if wolfpack.hasscript(event, EVENT_TELEKINESIS):
 				hasevent = 1 # The object has at least one telekinesis handler
 				continue
 
-			if wolfpack.hasevent(event, EVENT_USE):
+			if wolfpack.hasscript(event, EVENT_USE):
 				if char.socket:
 					char.socket.clilocmessage(501857)
 				return
@@ -205,9 +205,9 @@ class Telekinesis(Spell):
 
 		result = 0
 
-		for event in target.events:
+		for event in target.scripts:
 			# If the event can handle onTelekinesis, call it
-			if wolfpack.hasevent(event, EVENT_TELEKINESIS):
+			if wolfpack.hasscript(event, EVENT_TELEKINESIS):
 				if wolfpack.callevent(event, EVENT_TELEKINESIS, (char, target)):
 					return
 

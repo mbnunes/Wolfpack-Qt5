@@ -21,7 +21,7 @@
 		<buyprice>175</buyprice>
 		<sellprice>87</sellprice>
 		<type>1008</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Shields\Heater (N/S)</category>
 	</item>
 

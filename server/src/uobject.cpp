@@ -156,11 +156,11 @@ void cUObject::load( char** result, Q_UINT16& offset )
 	pos_.y = atoi( result[offset++] );
 	pos_.z = atoi( result[offset++] );
 	pos_.map = atoi( result[offset++] );
-	QString eventList = ( result[offset] == 0 ) ? QString::null : QString( result[offset] );
+	QString scriptList = ( result[offset] == 0 ) ? QString::null : QString( result[offset] );
 	offset++;
 	bool havetags_ = atoi( result[offset++] );
 
-	setEventList( eventList );
+	setScriptList( scriptList );
 
 	if ( havetags_ )
 		tags_.load( serial_ );
@@ -202,8 +202,8 @@ void cUObject::save()
 		addField( "pos_y", pos_.y );
 		addField( "pos_z", pos_.z );
 		addField( "pos_map", pos_.map );
-		QString eventList = this->eventList();
-		addStrField( "events", eventList == QString::null ? QString( "" ) : eventList );
+		QString scriptList = this->scriptList();
+		addStrField( "events", scriptList == QString::null ? QString( "" ) : scriptList );
 		addCondition( "serial", serial_ );
 		addField( "havetags", havetags_ );
 		saveFields;
@@ -226,7 +226,7 @@ void cUObject::save( cBufferedWriter& writer, unsigned int /*version*/ )
 	writer.writeShort( pos_.y );
 	writer.writeByte( pos_.z );
 	writer.writeByte( pos_.map );
-	writer.writeUtf8( eventList() );
+	writer.writeUtf8( scriptList() );
 }
 
 void cUObject::load( cBufferedReader& reader, unsigned int /*version*/ )
@@ -238,7 +238,7 @@ void cUObject::load( cBufferedReader& reader, unsigned int /*version*/ )
 	pos_.y = reader.readShort();
 	pos_.z = reader.readByte();
 	pos_.map = reader.readByte();
-	setEventList( reader.readUtf8() );
+	setScriptList( reader.readUtf8() );
 }
 
 /*!
@@ -276,7 +276,7 @@ void cUObject::buildSqlString( const char *objectid, QStringList& fields, QStrin
 /*!
 	Clears the script-chain
 */
-void cUObject::clearEvents()
+void cUObject::clearScripts()
 {
 	if ( scriptChain )
 	{
@@ -311,7 +311,7 @@ void cUObject::clearEvents()
 	Checks if the object has a specific event \a name
 	\sa addEvent
 */
-bool cUObject::hasEvent( const QString& name ) const
+bool cUObject::hasScript( const QString& name ) const
 {
 	if ( scriptChain )
 	{
@@ -330,14 +330,14 @@ bool cUObject::hasEvent( const QString& name ) const
 /*!
 	Adds an event handler to this object
 */
-void cUObject::addEvent( cPythonScript* event, bool append )
+void cUObject::addScript( cPythonScript* event, bool append )
 {
 	if ( isScriptChainFrozen() )
 	{
 		return;
 	}
 
-	if ( hasEvent( event->name() ) )
+	if ( hasScript( event->name() ) )
 	{
 		return;
 	}
@@ -384,14 +384,14 @@ void cUObject::addEvent( cPythonScript* event, bool append )
 /*!
 	Removes an event handler from the object
 */
-void cUObject::removeEvent( const QString& name )
+void cUObject::removeScript( const QString& name )
 {
 	if ( isScriptChainFrozen() )
 	{
 		return;
 	}
 
-	if ( !hasEvent( name ) )
+	if ( !hasScript( name ) )
 	{
 		return;
 	}
@@ -404,7 +404,7 @@ void cUObject::removeEvent( const QString& name )
 
 		if ( count == 1 )
 		{
-			clearEvents();
+			clearScripts();
 		}
 		else
 		{
@@ -516,10 +516,10 @@ void cUObject::processNode( const cElement* Tag )
 			}
 		}
 	}
-	// <events>a,b,c</events>
-	else if ( TagName == "events" )
+	// <scripts>a,b,c</scripts>
+	else if ( TagName == "scripts" )
 	{
-		setEventList( Value );
+		setScriptList( Value );
 	}
 	else
 	{
@@ -729,15 +729,15 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	}
 
 	// \property object.eventlist This string property contains a comma separated list of the names of the scripts that are assigned to this object.
-	else if ( name == "eventlist" )
+	else if ( name == "scriptlist" )
 	{
-		clearEvents();
+		clearScripts();
 		QStringList list = QStringList::split( ",", value.toString() );
 		for ( QStringList::const_iterator it( list.begin() ); it != list.end(); ++it )
 		{
 			cPythonScript* script = ScriptManager::instance()->find( ( *it ).latin1() );
 			if ( script )
-				addEvent( script );
+				addScript( script );
 			else
 				PROPERTY_ERROR( -3, QString( "Script not found: '%1'" ).arg( *it ) )
 		}
@@ -764,7 +764,7 @@ PyObject* cUObject::getProperty( const QString& name )
 	PY_PROPERTY( "free", free ? 1 : 0 )
 	PY_PROPERTY( "name", this->name() )
 	PY_PROPERTY( "pos", pos() )
-	PY_PROPERTY( "eventlist", eventList() )
+	PY_PROPERTY( "scriptlist", scriptList() )
 	// \rproperty object.multi This item property contains the multi this object is contained in.
 	PY_PROPERTY( "multi", multi_ )
 
@@ -1022,7 +1022,7 @@ bool cUObject::isScriptChainFrozen()
 	return ( count & 0x80000000 ) != 0;
 }
 
-QString cUObject::eventList() const
+QString cUObject::scriptList() const
 {
 	if ( !scriptChain )
 	{
@@ -1047,7 +1047,7 @@ QString cUObject::eventList() const
 	return result;
 }
 
-void cUObject::setEventList( const QString& eventlist )
+void cUObject::setScriptList( const QString& eventlist )
 {
 	if ( isScriptChainFrozen() )
 	{
@@ -1058,7 +1058,7 @@ void cUObject::setEventList( const QString& eventlist )
 	unsigned int i = 1;
 	QStringList::iterator it;
 
-	clearEvents();
+	clearScripts();
 	scriptChain = new cPythonScript * [1 + events.count()];
 	scriptChain[0] = reinterpret_cast<cPythonScript*>( 0 );
 

@@ -21,7 +21,7 @@
 		<buyprice>116</buyprice>
 		<sellprice>58</sellprice>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Helmets\Normal Helm (N/S)</category>
 	</item>
 

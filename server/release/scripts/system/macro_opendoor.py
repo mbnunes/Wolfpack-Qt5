@@ -37,7 +37,7 @@ def openDoor( socket, packet ):
 			elif char.pos.z > door.pos.z and char.pos.z <= ( door.pos.z + 5):
 				reach = 1
 			if reach == 1:
-				for event in door.events:
+				for event in door.scripts:
 					if event == 'door':
 						opendoor = 1
 						break

@@ -18,7 +18,7 @@
 		<smelt>14</smelt>
 		<weight>5.0</weight>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Dragon\Dragon Sleeves 1</category>
 	</item>
 

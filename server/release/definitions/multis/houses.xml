@@ -191,30 +191,4 @@
 		<name>Wandering Bank Camp</name>
 		<id>0x41f6</id>
 	</multi>
-
-	<!--<multi id="house_small" type="house">
-		<id>0x4064</id>
-		<name>small test house</name>
-		<deedsection>house_small</deedsection>
-		<movechar x="0" y="0" z="5" />
-		<item id="6c5">
-			<type>13</type>
-			<lock />
-			<position x="0" y="3" z="5" />
-		</item>
-		<item id="bd0">
-			<type>222</type>
-			<lock />
-			<position x="2" y="4" z="5" />
-		</item>
-	</multi>
-
-	<item id="house_small">
-		<id>0x14F0</id>
-		<name>small test house</name>
-		<tag type="string">
-			<key>multisection</key>
-			<value>house_small</value>
-		</tag>
-	</item>-->
 </definitions>

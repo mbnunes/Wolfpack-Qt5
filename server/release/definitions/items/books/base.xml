@@ -14,7 +14,7 @@
 		<decay />
 		<weight>1.0</weight> <!-- A bit low i think -->
 		<type>11</type>
-		<events>book</events>
+		<scripts>book</scripts>
 	</item>
 
 	<!-- Book 1 -->

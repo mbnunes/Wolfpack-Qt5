@@ -20,7 +20,7 @@
 		<sellprice>13</sellprice>
 		<weight>1.0</weight>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 	</item>
 
 </definitions>

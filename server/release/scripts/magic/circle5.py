@@ -300,7 +300,7 @@ class PoisonField(Spell):
 			newitem.decay = 0 # Dont decay. TempEffect will take care of them
 			newitem.settag('dispellable_field', 1)
 			newitem.settag('level', level)
-			newitem.addevent( 'magic.poisonfield' )
+			newitem.addscript( 'magic.poisonfield' )
 			newitem.update()
 			serials.append(newitem.serial)
 
@@ -354,7 +354,7 @@ class SummonCreature (Spell):
 			char.socket.clilocmessage(1049645)
 		else:
 			creature.tamed = 1
-			creature.addevent('speech.pets')
+			creature.addscript('speech.pets')
 			creature.owner = char
 			creature.summontime = wolfpack.time.servertime() + int(char.skill[MAGERY] * 400)
 			creature.summoned = 1

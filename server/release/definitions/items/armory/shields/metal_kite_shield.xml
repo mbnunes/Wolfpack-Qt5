@@ -21,7 +21,7 @@
 		<buyprice>135</buyprice>
 		<sellprice>67</sellprice>
 		<type>1008</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Shields\Metal Kite (N/S)</category>
 	</item>
 

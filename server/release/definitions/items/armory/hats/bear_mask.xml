@@ -18,7 +18,7 @@
 		<decay />
 		<value>40</value>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 	</item>
 
 	<!-- Bear Mask w/e -->

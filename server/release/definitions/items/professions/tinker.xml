@@ -72,25 +72,25 @@
 	<item id="1057">
 		<id>0x1057</id>
 		<category>Professions\Tinker\Sextant (W/E)</category>
-		<events>environment</events>
+		<scripts>environment</scripts>
 	</item>
 
 	<item id="1058">
 		<id>0x1058</id>
 		<category>Professions\Tinker\Sextant (N/S)</category>
-		<events>environment</events>
+		<scripts>environment</scripts>
 	</item>
 
 	<item id="1059">
 		<id>0x1059</id>
 		<category>Professions\Tinker\Sextant Parts (W/E)</category>
-		<events>environment</events>
+		<scripts>environment</scripts>
 	</item>
 
 	<item id="105a">
 		<id>0x105a</id>
 		<category>Professions\Tinker\Sextant Parts (N/S)</category>
-		<events>environment</events>
+		<scripts>environment</scripts>
 	</item>
 
 	<item id="105b">
@@ -159,21 +159,21 @@
 		<id>0x1eba</id>
 		<category>Professions\Tinker\Tools\Toolkit 2 (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<events>skills.tinkering</events>
+		<scripts>skills.tinkering</scripts>
 	</item>
 
 	<item id="1ebb">
 		<id>0x1ebb</id>
 		<category>Professions\Tinker\Tools\Toolkit 2 (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<events>skills.tinkering</events>
+		<scripts>skills.tinkering</scripts>
 	</item>
 
 	<item id="1ebc">
 		<id>0x1ebc</id>
 		<category>Professions\Tinker\Tools\Tinker Tools</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<events>equipment,skills.tinkering</events>
+		<scripts>equipment,skills.tinkering</scripts>
 	</item>
 
 	<item id="26b1">

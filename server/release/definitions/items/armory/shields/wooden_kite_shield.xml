@@ -21,7 +21,7 @@
 		<buyprice>121</buyprice>
 		<sellprice>60</sellprice>
 		<type>1008</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Shields\Wooden Kite (N/S)</category>
 	</item>
 

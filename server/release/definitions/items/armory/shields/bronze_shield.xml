@@ -21,7 +21,7 @@
 		<buyprice>100</buyprice>
 		<sellprice>50</sellprice>
 		<type>1008</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Shields\Bronze Shield</category>
 	</item>
 

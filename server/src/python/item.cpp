@@ -890,62 +890,62 @@ static PyObject* wpItem_removeitems( wpItem* self, PyObject* args )
 }
 
 /*
-	\method item.removeevent
-	\description Remove a python script from the event chain for this object.
-	\param event The id of the python script you want to remove from the event chain.
+	\method item.removescript
+	\description Remove a python script from the script chain for this object.
+	\param script The id of the python script you want to remove from the script chain.
 */
-static PyObject* wpItem_removeevent( wpItem* self, PyObject* args )
+static PyObject* wpItem_removescript( wpItem* self, PyObject* args )
 {
-	char* event;
-	if ( !PyArg_ParseTuple( args, "s:item.removeevent(name)", &event ) )
+	char* script;
+	if ( !PyArg_ParseTuple( args, "s:item.removescript(name)", &script ) )
 	{
 		return 0;
 	}
-	self->pItem->removeEvent( event );
+	self->pItem->removeScript( script );
 	Py_RETURN_NONE;
 }
 
 /*
-	\method item.addevent
-	\description Add a pythonscript to the event chain of this object.
-	Does nothing if the object already has that event.
-	\param event The id of the python script you want to add to the event chain.
+	\method item.addscript
+	\description Add a pythonscript to the script chain of this object.
+	Does nothing if the object already has that script.
+	\param script The id of the python script you want to add to the script chain.
 */
-static PyObject* wpItem_addevent( wpItem* self, PyObject* args )
+static PyObject* wpItem_addscript( wpItem* self, PyObject* args )
 {
-	char* event;
-	if ( !PyArg_ParseTuple( args, "s:item.addevent(name)", &event ) )
+	char* script;
+	if ( !PyArg_ParseTuple( args, "s:item.addscript(name)", &script ) )
 	{
 		return 0;
 	}
 
-	cPythonScript* script = ScriptManager::instance()->find( event );
+	cPythonScript* pscript = ScriptManager::instance()->find( script );
 
-	if ( !script )
+	if ( !pscript )
 	{
-		PyErr_Format( PyExc_RuntimeError, "No such script: %s", event );
+		PyErr_Format( PyExc_RuntimeError, "No such script: %s", script );
 		return 0;
 	}
 
-	self->pItem->addEvent( script );
+	self->pItem->addScript( pscript );
 	Py_RETURN_NONE;
 }
 
 /*
-	\method item.hasevent
-	\description Check if this object has a python script in its event chain.
-	\param event The id of the python script you are looking for.
+	\method item.hasscript
+	\description Check if this object has a python script in its script chain.
+	\param script The id of the python script you are looking for.
 	\return True of the script is in the chain. False otherwise.
 */
-static PyObject* wpItem_hasevent( wpItem* self, PyObject* args )
+static PyObject* wpItem_hasscript( wpItem* self, PyObject* args )
 {
-	char* event;
-	if ( !PyArg_ParseTuple( args, "s:item.hasevent(name)", &event ) )
+	char* script;
+	if ( !PyArg_ParseTuple( args, "s:item.hasscript(name)", &script ) )
 	{
 		return 0;
 	}
 
-	if ( self->pItem->hasEvent( event ) )
+	if ( self->pItem->hasScript( script ) )
 	{
 		Py_INCREF( Py_True );
 		return Py_True;
@@ -1038,9 +1038,9 @@ static PyObject* wpItem_callevent( wpItem* self, PyObject* args )
 		return 0;
 	}
 
-	if ( cPythonScript::canChainHandleEvent( ( ePythonEvent ) event, self->pItem->getEvents() ) )
+	if ( cPythonScript::canChainHandleEvent( ( ePythonEvent ) event, self->pItem->getScripts() ) )
 	{
-		bool result = cPythonScript::callChainedEventHandler( ( ePythonEvent ) event, self->pItem->getEvents(), eventargs );
+		bool result = cPythonScript::callChainedEventHandler( ( ePythonEvent ) event, self->pItem->getScripts(), eventargs );
 
 		if ( result )
 		{
@@ -1114,9 +1114,9 @@ static PyMethodDef wpItemMethods[] =
 
 // Event handling
 { "callevent",			( getattrofunc ) wpItem_callevent, METH_VARARGS, 0 },
-{ "addevent",			( getattrofunc ) wpItem_addevent,			METH_VARARGS, 0},
-{ "removeevent",		( getattrofunc ) wpItem_removeevent,		METH_VARARGS, 0},
-{ "hasevent",			( getattrofunc ) wpItem_hasevent,			METH_VARARGS, 0},
+{ "addscript",			( getattrofunc ) wpItem_addscript,			METH_VARARGS, 0},
+{ "removescript",		( getattrofunc ) wpItem_removescript,		METH_VARARGS, 0},
+{ "hasscript",			( getattrofunc ) wpItem_hasscript,			METH_VARARGS, 0},
 
 // Effects
 { "movingeffect",		( getattrofunc ) wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
@@ -1151,7 +1151,7 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 		return list;
 	}
 	/*
-		\property item.tags A list of all tag names the object currently has.
+		\rproperty item.tags A list of all tag names the object currently has.
 	*/
 	else if ( !strcmp( "tags", name ) )
 	{
@@ -1194,11 +1194,11 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 		return tuple;
 	}
 	/*
-		\rproperty item.events Returns a list of all event names the object has.
+		\rproperty item.scripts Returns a list of all script names the object has.
 	*/
-	else if ( !strcmp( "events", name ) )
+	else if ( !strcmp( "scripts", name ) )
 	{
-		QStringList events = QStringList::split( ",", self->pItem->eventList() );
+		QStringList events = QStringList::split( ",", self->pItem->scriptList() );
 		PyObject* list = PyList_New( events.count() );
 		for ( uint i = 0; i < events.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
@@ -1218,31 +1218,10 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 
 static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 {
-	// Special Python things.
-	if ( !strcmp( "events", name ) )
-	{
-		if ( !PyList_Check( value ) )
-		{
-			PyErr_BadArgument();
-			return -1;
-		}
-
-		self->pItem->clearEvents();
-		int i;
-		for ( i = 0; i < PyList_Size( value ); ++i )
-		{
-			if ( !PyString_Check( PyList_GetItem( value, i ) ) )
-				continue;
-
-			cPythonScript* script = ScriptManager::instance()->find( PyString_AsString( PyList_GetItem( value, i ) ) );
-			if ( script )
-				self->pItem->addEvent( script );
-		}
-	}
 	/*
 		\rproperty item.container Returns the serial of the container this item is in. Returns 0 if no container.
 	*/
-	else if ( !strcmp( "container", name ) )
+	if ( !strcmp( "container", name ) )
 	{
 		if ( checkWpItem( value ) )
 		{

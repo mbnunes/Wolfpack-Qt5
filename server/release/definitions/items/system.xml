@@ -29,7 +29,7 @@
 	<!-- Spawngem -->
 	<item id="spawngem" inherit="1f13">
 		<invisible />
-		<events>spawngem</events>
+		<scripts>spawngem</scripts>
 		<nodecay />
 		<movable>2</movable>
 	</item>
@@ -38,7 +38,7 @@
 	<item id="trashcan">
 		<id>0xe77</id>
 		<name>trashcan</name>
-		<events>trashcan</events>
+		<scripts>trashcan</scripts>
 		<color>0x430</color>
 		<nodecay />
 		<movable>2</movable>

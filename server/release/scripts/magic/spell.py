@@ -39,7 +39,7 @@ def consumeReagents(item, items):
 
 
 def callback(char, args):
-	char.removeevent('magic')
+	char.removescript('magic')
 	
 	# target
 	if args[3] and type(args[3]) is int:
@@ -116,7 +116,7 @@ class Spell:
 			return 0
 
 		# We are already casting a spell
-		if char.hasevent('magic') or (socket and socket.hastag('cast_target')):
+		if char.hasscript('magic') or (socket and socket.hastag('cast_target')):
 			char.socket.clilocmessage(502642)
 			return 0
 
@@ -136,7 +136,7 @@ class Spell:
 			char.say(self.mantra)
 
 		# Precasting
-		char.addevent('magic')
+		char.addscript('magic')
 		char.action(self.castaction)
 		
 		if item:

@@ -21,7 +21,7 @@
 		<buyprice>127</buyprice>
 		<sellprice>63</sellprice>
 		<type>1009</type>
-		<events>equipment</events>
+		<scripts>equipment</scripts>
 		<category>Armor\Base\Helmets\Bascinet (N/S)</category>
 	</item>
 

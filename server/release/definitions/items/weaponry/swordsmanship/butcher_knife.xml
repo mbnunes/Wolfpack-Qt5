@@ -20,7 +20,7 @@
 		<weight>1.0</weight>
 		<tag name="resname" value="iron" />
 		<type>1001</type>
-		<events>equipment,blades</events>
+		<scripts>equipment,blades</scripts>
 		<category>Weapons\Swords\Butcher Knife (N/S)</category>
 	</item>
 

@@ -274,7 +274,7 @@ void cTimers::check()
 */
 void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool silent, bool onlyDispellable )
 {
-	/*if (cPythonScript::canChainHandleEvent(EVENT_DISPEL, pc_dest->getEvents())) {
+	/*if (cPythonScript::canChainHandleEvent(EVENT_DISPEL, pc_dest->getScripts())) {
 		PyObject *source;
 		if (pSource) {
 			source = pSource->getPyObject();
@@ -288,7 +288,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool 
 		}
 		PyObject *args = Py_BuildValue("(NNBBsN", pc_dest->getPyObject(), source,
 			silent ? 1 : 0, onlyDispellable ? 0 : 1, ptype, PyTuple_New(0));
-		bool result = cPythonScript::callChainedEventHandler(EVENT_DISPEL, pc_dest->getEvents(), args);
+		bool result = cPythonScript::callChainedEventHandler(EVENT_DISPEL, pc_dest->getScripts(), args);
 		Py_DECREF(args);
 		if (result) {
 			return;
@@ -321,7 +321,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool 
 
 void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 {
-	if ( cPythonScript::canChainHandleEvent( EVENT_DISPEL, pc_dest->getEvents() ) )
+	if ( cPythonScript::canChainHandleEvent( EVENT_DISPEL, pc_dest->getScripts() ) )
 	{
 		PyObject* source;
 		if ( pSource )
@@ -335,7 +335,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 		}
 
 		PyObject* args = Py_BuildValue( "(NNBBsN", pc_dest->getPyObject(), source, silent ? 1 : 0, 0, "", PyTuple_New( 0 ) );
-		bool result = cPythonScript::callChainedEventHandler( EVENT_DISPEL, pc_dest->getEvents(), args );
+		bool result = cPythonScript::callChainedEventHandler( EVENT_DISPEL, pc_dest->getScripts(), args );
 		Py_DECREF( args );
 
 		if ( result )
