@@ -625,7 +625,7 @@ void cWorld::load()
 
 		cSpawnRegion *region = SpawnRegions::instance()->region(spawnregion);
 		cUObject *object = findObject(serial);
-		if (region)
+		if (object && region)
 		{
 			object->setSpawnregion(region);
 		}
