@@ -550,11 +550,16 @@ void cUOSocket::sendCharList()
 	// NOTE:
 	// Send the server/account features here as well
 	// AoS needs it most likely for account creation
+	const uint maxChars = QMIN( 6, Config::instance()->maxCharsPerAccount() );
 	cUOTxClientFeatures clientFeatures;
 	clientFeatures.setLbr( true );
 	clientFeatures.setT2a( true );
+	clientFeatures.setAos( true );
+	clientFeatures.setAllowPaladinNecromancer( true );
+	if ( maxChars == 6 )
+		clientFeatures.setSixthCharacterSlot( true );
 	//clientFeatures.setShort( 1, 0xFFFF ); // AoS TEST
-	clientFeatures.setShort(1, 0x1F);
+	clientFeatures.setShort(1, 0x801F);
 	send( &clientFeatures );
 
 	cUOTxCharTownList charList;
@@ -570,7 +575,12 @@ void cUOSocket::sendCharList()
 	for ( i = 0; i < startLocations.size(); ++i )
 		charList.addTown( i, startLocations[i].name, startLocations[i].name );
 
-	charList.setAgeOfShadows( true );
+	charList.setAgeOfShadows( true ); // Activates Heaven city
+	charList.setContextMenus( true );
+	if ( maxChars == 1 )
+		charList.setOneCharacter( true );
+	else if ( maxChars == 6 )
+		charList.setEnableSixthSlot( true );
 
 	charList.compile();
 	send( &charList );

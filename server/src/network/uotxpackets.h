@@ -128,17 +128,39 @@ public:
 	{
 	}
 
-	virtual void addCharacter( const QString& name );
-	virtual void addTown( unsigned char index, const QString& name, const QString& area );
-	virtual void setCharLimit( short limit = -1 )
+	void addCharacter( const QString& name );
+	void addTown( unsigned char index, const QString& name, const QString& area );
+	void setCharLimit( short limit = -1 )
 	{
 		charLimit = limit;
 	}
 	virtual void compile();
-	virtual void setAgeOfShadows( bool data )
+	
+	void setAgeOfShadows( bool data )
 	{
-		data ? flags |= 0x20 : flags &= 0xFFFFFFDF;
+		data ? flags |= 0x20 : flags &= ~0x20;
 	}
+	
+	void setLimitCharacters( bool data )
+	{
+		data ? flags |= 0x4 : flags &= ~0x4;
+	}
+	
+	void setContextMenus( bool data )
+	{
+		data ? flags |= 0x8 : flags &= ~0x8;
+	}
+
+	void setOneCharacter( bool data )
+	{
+		data ? flags |= 0x10 : flags &= ~0x10;
+	}
+
+	void setEnableSixthSlot( bool data )
+	{
+		data ? flags |= 0x40 : flags &= ~0x40;
+	}
+
 };
 
 enum eCharChangeResult
@@ -383,24 +405,54 @@ public:
 	}
 };
 
-// 0xB9 ClientFeatures
+/*!
+	0xB9 ClientFeatures, server side packet.
+	This packet enables various client-side features, and should be sent 
+	before the Character List packet.
+
+	Note that in order to create a Paladin or Necromancer or use the sixth 
+	character slot, the corresponding flags in the Character List packet 
+	must be set.
+*/
 class cUOTxClientFeatures : public cUOPacket
 {
 public:
+
 	cUOTxClientFeatures() : cUOPacket( 0xB9, 3 )
 	{
 	}
+
 	cUOTxClientFeatures( const QByteArray& d ) : cUOPacket( d )
 	{
 	}
 
-	void setLbr( bool enable )
-	{
-		enable ? ( *this )[2] |= 0x02 : ( *this )[2] &= 0xFD;
-	}
 	void setT2a( bool enable )
 	{
-		enable ? ( *this )[2] |= 0x01 : ( *this )[2] &= 0xFE;
+		enable ? ( *this )[2] |= 0x01 : ( *this )[2] &= ~0x01;
+	}
+
+	void setLbr( bool enable )
+	{
+		enable ? ( *this )[2] |= 0x02 : ( *this )[2] &= ~0x02;
+	}
+
+	void setSixthCharacterSlot( bool enable )
+	{
+		enable ? ( *this )[2] |= 0x20 : ( *this )[2] &= ~0x20;
+	}
+	
+	void setAllowPaladinNecromancer( bool enable )
+	{
+		enable ? ( *this )[2] |= 0x10 : ( *this )[2] &= ~0x10;
+	}
+
+	/*!
+		This flag must be present to enable Age of Shadows 
+		features or the Sixth Character Slot
+	*/
+	void setAos( bool enable )
+	{
+		enable ? (*this)[1] |= 0x80 : (*this)[1] &= ~0x80;
 	}
 };
 
