@@ -96,25 +96,25 @@ void cUObject::save()
 	if( !isPersistent )
 	{
 		setTable( "uobjectmap" );
-		addField( "uobjectmap.serial", serial );
-		addStrField( "uobjectmap.type", objectID() );
-		addCondition( "uobjectmap.serial", serial );
+		addField( "serial", serial );
+		addStrField( "type", objectID() );
+		addCondition( "serial", serial );
 		saveFields;
 		clearFields;
 	}
 	
 	// uobject fields
 	setTable( "uobject" );	
-	addStrField( "uobject.name", name );
-	addField( "uobject.serial", serial );
-	addField( "uobject.multis", multis );
-	addField( "uobject.pos_x", pos.x );
-	addField( "uobject.pos_y", pos.y );
-	addField( "uobject.pos_z", pos.z );
-	addField( "uobject.pos_map", pos.map );
-	addStrField( "uobject.events", eventList_.join( "," ) );
-	addStrField( "uobject.bindmenu", bindmenu_ );
-	addCondition( "uobject.serial", serial );
+	addStrField( "name", name );
+	addField( "serial", serial );
+	addField( "multis", multis );
+	addField( "pos_x", pos.x );
+	addField( "pos_y", pos.y );
+	addField( "pos_z", pos.z );
+	addField( "pos_map", pos.map );
+	addStrField( "events", eventList_.join( "," ) );
+	addStrField( "bindmenu", bindmenu_ );
+	addCondition( "serial", serial );
 	saveFields;
 
 	PersistentObject::save();
