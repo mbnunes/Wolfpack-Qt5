@@ -12,6 +12,8 @@ import skills
 import wolfpack.time
 
 EVALINTDELAY = 1000
+MINSKILL = 0
+MAXSKILL = 1200
 
 def evaluatingintel( char, skill ):
 	#Only Handle Evalint
@@ -60,7 +62,7 @@ def response( char, args, target ):
 
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + EVALINTDELAY ) )
 
-	if not char.checkskill( EVALUATINGINTEL, 0, 1200 ):
+	if not char.checkskill( EVALUATINGINTEL, MINSKILL, MAXSKILL ):
 		char.socket.clilocmessage( 0xFD756, "", 0x3b2, 3, target.char )
 		return False
 

@@ -63,7 +63,7 @@ def onShowTooltip(player, runebook, tooltip):
 # Convert this runebook by moving all the old runes out of it
 #
 def convertRunebook(runebook):
-	if runebook.container.isitem():
+	if runebook.container and runebook.container.isitem():
 		wolfpack.utilities.cont2cont(runebook, runebook.container)
 
 #
@@ -75,6 +75,7 @@ def onUse(player, runebook):
 	if player.canreach(runebook, 1):
 		closeGump(player, runebook)
 		sendGump(player, runebook)
+
 	return True
 
 #
@@ -162,52 +163,55 @@ def onDropOnItem(runebook, item):
 	
 	player = item.container
 	
-	if isRune(item):
-		location = None
-		if item.hastag('marked') and item.hastag('location'):
-			try:
-				(x, y, z, map) = item.gettag('location').split(',')
-				location = wolfpack.coord(int(x), int(y), int(z), int(map))
-			except:
-				pass
-			
-		if location:
-			index = getFreeIndex(runebook)
-			
-			if index != -1:
-				tagname = 'entry%u' % index
-				name = item.name.strip()
-				if len(name) != 0:
-					runebook.settag(tagname + 'name', name)
-				else:
-					runebook.deltag(tagname + 'name') # Make sure there is no old name
-				runebook.settag(tagname, str(location))
-				player.soundeffect(0x42)
-				item.delete()
-				return True
+	if runebook.getoutmostchar() != player:
+		player.socket.sysmessage(tr('The runebook has to be in your belongings to modify it.'))
+	else:		
+		if isRune(item):
+			location = None
+			if item.hastag('marked') and item.hastag('location'):
+				try:
+					(x, y, z, map) = item.gettag('location').split(',')
+					location = wolfpack.coord(int(x), int(y), int(z), int(map))
+				except:
+					pass
 				
+			if location:
+				index = getFreeIndex(runebook)
+				
+				if index != -1:
+					tagname = 'entry%u' % index
+					name = item.name.strip()
+					if len(name) != 0:
+						runebook.settag(tagname + 'name', name)
+					else:
+						runebook.deltag(tagname + 'name') # Make sure there is no old name
+					runebook.settag(tagname, str(location))
+					player.soundeffect(0x42)
+					item.delete()
+					return True
+					
+				else:
+					player.socket.clilocmessage(502401)
 			else:
-				player.socket.clilocmessage(502401)
-		else:
-			player.socket.clilocmessage(502409)		
+				player.socket.clilocmessage(502409)
 
-	elif isRecallScroll(item):
-		# Recharge if possible
-		(charges, maxcharges) = getCharges(runebook)
-		if charges < maxcharges:
-			consume = min(item.amount, maxcharges - charges)
-			runebook.settag('charges', charges + consume)
-			player.soundeffect(0x249)
-			
-			if consume == item.amount:
-				item.delete()
-				return True # The item has been removed
+		elif isRecallScroll(item):
+			# Recharge if possible
+			(charges, maxcharges) = getCharges(runebook)
+			if charges < maxcharges:
+				consume = min(item.amount, maxcharges - charges)
+				runebook.settag('charges', charges + consume)
+				player.soundeffect(0x249)
+				
+				if consume == item.amount:
+					item.delete()
+					return True # The item has been removed
+				else:
+					item.amount -= consume
+					#item.update()
+					#item.resendtooltip()
 			else:
-				item.amount -= consume
-				#item.update()
-				#item.resendtooltip()
-		else:
-			player.socket.clilocmessage(502410)
+				player.socket.clilocmessage(502410)
 
 	return False
 
@@ -221,7 +225,7 @@ def onDropOnItem(runebook, item):
 	return True
 
 def closeGump(char, item):
-	char.socket.closegump(0x87654322)
+	char.socket.closegump(0x87654322, 100000)
 	char.socket.deltag('runebook_open')
 
 def sendGump(char, item):
@@ -367,8 +371,11 @@ def onTextInputCancel(player, runebook, id):
 	return True
 
 # callback function - process gump callback
-def callback( char, args, target ):
-	item = wolfpack.finditem(args[0])
+def callback(char, args, target):
+	if target.button == 100000:
+		return # Automatic Close
+	
+	item = wolfpack.finditem(args[0])	
 	closeGump(char, item)
 
 	if target.button == 0:
@@ -377,8 +384,15 @@ def callback( char, args, target ):
 	if not char.canreach(item, 1):
 		return
 
+	maymodify = item.getoutmostchar() == char or char.gm
+
 	if target.button == 1000:
-		renameBook(char, item)
+		if not maymodify:
+			char.socket.sysmessage(tr('The runebook has to be in your belongings to modify it.'))			
+			closeGump(char, item)
+			sendGump(char, item)
+		else:
+			renameBook(char, item)
 		return
 
 	button = target.button
@@ -405,26 +419,32 @@ def callback( char, args, target ):
 
 	# Drop Rune
 	elif( button > 200 and button < 217 ):
-		name = ''
-		if item.hastag('entry%uname' % runenum):
-			name = unicode(item.gettag('entry%uname' % runenum))
-		
-		RUNEIDS = ['1f14', '1f15', '1f16', '1f17']
-		rune = wolfpack.additem(random.choice(RUNEIDS))
-		rune.settag('marked', 1)
-		rune.settag('location', str(target))
-		rune.name = name
-		
-		if not wolfpack.utilities.tobackpack(rune, char):
-			rune.update()
-		
-		char.socket.clilocmessage(502421)
-		
-		item.deltag('entry%u' % runenum)
-		item.deltag('entry%uname' % runenum)
-		
-		closeGump(char, item)
-		sendGump(char, item)
+		it not maymodify:
+			char.socket.sysmessage(tr('The runebook has to be in your belongings to modify it.'))
+			
+			closeGump(char, item)
+			sendGump(char, item)
+		else:		
+			name = ''
+			if item.hastag('entry%uname' % runenum):
+				name = unicode(item.gettag('entry%uname' % runenum))
+			
+			RUNEIDS = ['1f14', '1f15', '1f16', '1f17']
+			rune = wolfpack.additem(random.choice(RUNEIDS))
+			rune.settag('marked', 1)
+			rune.settag('location', str(target))
+			rune.name = name
+			
+			if not wolfpack.utilities.tobackpack(rune, char):
+				rune.update()
+			
+			char.socket.clilocmessage(502421)
+			
+			item.deltag('entry%u' % runenum)
+			item.deltag('entry%uname' % runenum)
+			
+			closeGump(char, item)
+			sendGump(char, item)
 
 	# recall button - spell : 301 - 316
 	elif( button > 300 and button < 317 ):

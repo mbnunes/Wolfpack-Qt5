@@ -12,6 +12,8 @@ from wolfpack.consts import ANATOMY
 from math import floor
 
 ANATOMY_DELAY = 1000
+MINSKILL = 0
+MAXSKILL = 1200
 
 # Button for Anatomy pressed on skill gump
 def anatomy( char, skill ):
@@ -66,7 +68,7 @@ def response( char, args, target ):
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + ANATOMY_DELAY ) )
 
 	# Make a skillcheck and display the fail or success message above the targets head
-	if not char.checkskill( ANATOMY, 0, 1000 ):
+	if not char.checkskill( ANATOMY, MINSKILL, MAXSKILL ):
 		socket.clilocmessage( 0xFE8EA, "", 0x3b2, 3, target.char ) # You cannot quite get a sense of their physical characteristics.
 		return
 
