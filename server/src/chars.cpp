@@ -2817,8 +2817,12 @@ void cChar::giveNewbieItems( Q_UINT8 skill )
 			return;
 	}
 
-	// Just one type of node: item
-	QDomNode childNode = startItems->firstChild();
+	applyStartItemDefinition( *startItems );
+}
+
+void cChar::applyStartItemDefinition( const QDomElement &Tag )
+{
+	QDomNode childNode = Tag.firstChild();
 
 	while( !childNode.isNull() )
 	{
@@ -2870,6 +2874,12 @@ void cChar::giveNewbieItems( Q_UINT8 skill )
 			else if( node.nodeName() == "gold" )
 			{
 				giveGold( node.text().toUInt() );
+			}
+			else if( node.nodeName() == "inherit" )
+			{
+				QDomElement* inheritNode = DefManager->getSection( WPDT_STARTITEMS, node.attribute("id") );
+				if( inheritNode && !inheritNode->isNull() )
+					applyStartItemDefinition( *inheritNode );
 			}
 		}
 		childNode = childNode.nextSibling();

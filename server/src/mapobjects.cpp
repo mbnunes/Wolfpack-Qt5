@@ -115,10 +115,23 @@ void cQuadNode::pushdown( cQuadNode* node )
 {
 	if( node )
 	{
+		register int i = 0;
+		while( i < enNumberOfChilds )
+		{
+			cQuadNode* currchild = node->childs[i];
+			if( currchild )
+			{
+				node->childs[i] = NULL;
+				pushdown( currchild );
+			}
+			++i;
+		}
+
 		if( x_ == node->x() && y_ == node->y() )
 		{
 			clConsole.send( tr("Warning: two nodes on same positions found!\n") );
 			delete node;
+			return;
 		}
 
 		enQuadrants child = compare( node->x(), node->y() );

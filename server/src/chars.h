@@ -740,6 +740,7 @@ public:
 	// Definition loading - sereg
 protected:
 	virtual void processNode( const QDomElement& Tag );
+	void applyStartItemDefinition( const QDomElement &Tag );
 };
 
 class cCharStuff
