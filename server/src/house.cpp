@@ -672,32 +672,27 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 	//} else sysmessage(s,"Only the house owner can lock down items!");
 }
 
-bool cHouseManager::HomeBuildSite(int x, int y, int z, int sx, int sy)
+bool CheckBuildSite(int x, int y, int z, int sx, int sy)
 {
-	signed int checkz;
-	//char statc;
-	int checkx;
-	int checky;
-	int ycount=0;
-	checkx=x-(sx/2);
-	for (;checkx<(x+(sx/2));checkx++)
+signed int checkz;
+//char statc;
+int checkx;
+int checky;
+int ycount=0;
+checkx=x-abs(sx/2);
+for (;checkx<(x+abs(sx/2));checkx++)
+{
+	checky=y-(sy/2);
+	for (;checky<(y+(sy/2));checky++)
 	{
-		for (checky=y-(sy/2);checky<(y+(sy/2));checky++)
+		checkz=Map->MapElevation(checkx,checky);
+		if ((checkz<(z-7)) || (checkz>(z+7)))
 		{
-			checkz=Map->MapElevation(checkx,checky);
-			if ((checkz>(z-10))&&(checkz<(z+10)))
-			{
-				ycount++;
-			}
-			//	statc=Map->StaHeight(checkx,checky,checkz);
-			//	if (statc>0)
-			//		statb=true;
+			return false;
 		}
 	}
-	if (ycount==(sx*sy)) //&& (statb==false))
-		return true;
-	else
-		return false;
+}
+return true;
 }
 
 int cHouseManager::GetHouseNum(P_CHAR pc)
