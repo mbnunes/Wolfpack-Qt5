@@ -1539,7 +1539,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, SI32 min, SI32 max, bool
 			return false;
 	}
 
-	stAdvancement advance = 0;
+	stAdvancement advance = {0,};
 	bool found = false;
 
 	// Find the stAdvance for our current skillLevel
