@@ -272,6 +272,7 @@ class cUOTxClientFeatures: public cUOPacket
 {
 public:
 	cUOTxClientFeatures(): cUOPacket( 0xB9, 3 ) {}
+	cUOTxClientFeatures( const QByteArray& d ) : cUOPacket( d ) {}
 
 	void setLbr( bool enable ) { enable ? (*this)[ 2 ] |= 0x02 : (*this)[ 2 ] &= 0xFD; }
 	void setT2a( bool enable ) { enable ? (*this)[ 2 ] |= 0x01 : (*this)[ 2 ] &= 0xFE; }
@@ -380,7 +381,7 @@ public:
 	cUOTxUpdateSkill(): cUOPacket( 0x3A, 13 ) 
 	{ 
 		setShort( 1, 13 );
-		(*this)[3] = 0xDF;
+		(*this)[3] = static_cast<uchar>(0xDF);
 	}
 
 	enum eStatus
@@ -625,7 +626,7 @@ public:
 		setShort( 1, 9 );
 		setShort( 3, 0x18 );
 	}
-	void addEntry( UINT32 mappatches, UINT32 staticpatches );
+	void addEntry( uint mappatches, uint staticpatches );
 };
 /*
 [dynamic packet:bf , Generic Command:Enable map diffs ,len:0021, freq:2]
@@ -676,7 +677,7 @@ class cUOTxOpenPaperdoll: public cUOPacket
 {
 public:
 	cUOTxOpenPaperdoll(): cUOPacket( 0x88, 66 ) {}
-	void setSerial( UINT32 data )		{ setInt( 1, data ); }
+	void setSerial( uint data )		{ setInt( 1, data ); }
 	void setName( const QString &name ) { this->setAsciiString(5, name.left( 59 ).latin1(), QMIN( name.length()+1, 60 ) ); }
 	void setFlag( UINT8 flag )			{ (*this)[65] = flag; }
 	UINT8 flag() const					{ return (*this)[65]; }
@@ -689,7 +690,7 @@ class cUOTxBookTitle: public cUOPacket
 public:
 	cUOTxBookTitle(): cUOPacket( 0x93, 99 ) {}
 
-	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setSerial( uint data )	{ setInt( 1, data ); }
 	void setWriteable( bool data )	{ (*this)[5] = data ? 1 : 0; }
 	void setFlag( UINT8 data )		{ (*this)[6] = data; }
 	void setPages( UINT16 data )	{ setShort( 7, data ); }
@@ -702,13 +703,13 @@ class cUOTxBookPage: public cUOPacket
 {
 public:
 	// the size of this packet is variable...
-	cUOTxBookPage( UINT32 size ): cUOPacket( 0x66, size ) 
+	cUOTxBookPage( uint size ): cUOPacket( 0x66, size ) 
 	{
 		currPageOffset = 0;
 	}
 
 	void setBlockSize( UINT16 data )	{ setShort( 1, data ); }
-	void setSerial( UINT32 data )		{ setInt( 3, data ); }
+	void setSerial( uint data )		{ setInt( 3, data ); }
 	void setPages( UINT16 data )		{ setShort( 7, data ); }
 
 	void setPage( UINT16 page, UINT16 numLines, const QStringList &lines );
@@ -729,7 +730,7 @@ class cUOTxRemoveObject: public cUOPacket
 {
 public:
 	cUOTxRemoveObject(): cUOPacket( 0x1d, 5 ) {}
-	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setSerial( uint data ) { setInt( 1, data ); }
 };
 
 // 0x1A SendItem
@@ -737,7 +738,7 @@ class cUOTxSendItem: public cUOPacket
 {
 public:
 	cUOTxSendItem(): cUOPacket( 0x1A, 20 )	{ setShort( 1, 20 ); }
-	void setSerial( UINT32 data )			{ setInt( 3, data | 0x80000000 ); }
+	void setSerial( uint data )			{ setInt( 3, data | 0x80000000 ); }
 	void setId( UINT16 data )				{ setShort( 7, data ); }
 	void setAmount( UINT16 data )			{ setShort( 9, data ); }
 	void setCoord( const Coord_cl &coord );
@@ -753,7 +754,7 @@ class cUOTxTarget: public cUOPacket
 public:
 	cUOTxTarget(): cUOPacket( 0x6c, 19 ) {}
 	void setAllowGround( bool data )		{ (*this)[1] = data ? 1 : 0; }
-	void setTargSerial( UINT32 data )		{ setInt( 2, data ); }
+	void setTargSerial( uint data )		{ setInt( 2, data ); }
 };
 
 // 0x99 Place
@@ -761,7 +762,7 @@ class cUOTxPlace: public cUOPacket
 {
 public:
 	cUOTxPlace(): cUOPacket( 0x99, 26 )		{ (*this)[1] = 0x01; }
-	void setTargSerial( UINT32 data )		{ setInt( 2, data ); }
+	void setTargSerial( uint data )		{ setInt( 2, data ); }
 	void setModelID( UINT16 data )			{ setShort( 18, data ); }
 };
 
@@ -809,7 +810,7 @@ class cUOTxUpdateHealth: public cUOPacket
 {
 public:
 	cUOTxUpdateHealth(): cUOPacket( 0xA1, 9 ) {}
-	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setSerial( uint data )	{ setInt( 1, data ); }
 	void setMaximum( UINT16 data )	{ setShort( 5, data ); }
 	void setCurrent( UINT16 data )	{ setShort( 7, data ); }
 };
@@ -819,7 +820,7 @@ class cUOTxUpdateMana: public cUOPacket
 {
 public:
 	cUOTxUpdateMana(): cUOPacket( 0xA2, 9 ) {}
-	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setSerial( uint data )	{ setInt( 1, data ); }
 	void setMaximum( UINT16 data )	{ setShort( 5, data ); }
 	void setCurrent( UINT16 data )	{ setShort( 7, data ); }
 };
@@ -829,7 +830,7 @@ class cUOTxUpdateStamina: public cUOPacket
 {
 public:
 	cUOTxUpdateStamina(): cUOPacket( 0xA3, 9 ) {}
-	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setSerial( uint data )	{ setInt( 1, data ); }
 	void setMaximum( UINT16 data )	{ setShort( 5, data ); }
 	void setCurrent( UINT16 data )	{ setShort( 7, data ); }
 };
@@ -839,7 +840,7 @@ class cUOTxAttackResponse: public cUOPacket
 {
 public:
 	cUOTxAttackResponse(): cUOPacket( 0xAA, 5 ) {}
-	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setSerial( uint data )	{ setInt( 1, data ); }
 };
 
 // 0x72 Warmode
@@ -855,7 +856,7 @@ class cUOTxAction: public cUOPacket
 {
 public:
 	cUOTxAction(): cUOPacket( 0x6E, 14 ) {}
-	void setSerial( UINT32 data )			{ setInt( 1, data ); }
+	void setSerial( uint data )			{ setInt( 1, data ); }
 	void setAction( UINT16 data )			{ setShort( 5, data ); }
 	void setUnknown1( UINT8 data )			{ (*this)[7] = data; }
 	void setDirection( UINT8 data )			{ (*this)[8] = data; }
@@ -870,9 +871,9 @@ class cUOTxDeathAction: public cUOPacket
 {
 public:
 	cUOTxDeathAction(): cUOPacket( 0xAF, 13 ) {}
-	void setSerial( UINT32 data )		{ setInt( 1, data ); }
-	void setCorpse( UINT32 data )		{ setInt( 5, data ); }
-	void setUnknown1( UINT32 data )		{ setInt( 9, data ); }
+	void setSerial( uint data )		{ setInt( 1, data ); }
+	void setCorpse( uint data )		{ setInt( 5, data ); }
+	void setUnknown1( uint data )		{ setInt( 9, data ); }
 };
 
 // 0x3B ClearBuy
@@ -880,7 +881,7 @@ class cUOTxClearBuy: public cUOPacket
 {
 public:
 	cUOTxClearBuy(): cUOPacket( 0x3B, 8 )	{ setShort( 1, 8 ); }
-	void setSerial( UINT32 data )			{ setInt( 3, data ); }
+	void setSerial( uint data )			{ setInt( 3, data ); }
 };
 
 // 0xBA QuestArrow
@@ -902,8 +903,8 @@ class cUOTxCorpseEquipment: public cUOPacket
 public:
 	cUOTxCorpseEquipment(): cUOPacket( 0x89, 8 ) { setShort( 1, 8 ); }
 
-	void setSerial( UINT32 data )			{ setInt( 3, data ); }
-	void addItem( UINT8 layer, UINT32 serial );
+	void setSerial( uint data )			{ setInt( 3, data ); }
+	void addItem( UINT8 layer, uint serial );
 };
 
 // 0x2C CharDeath
@@ -919,7 +920,7 @@ class cUOTxItemContent: public cUOPacket
 public:
 	cUOTxItemContent(): cUOPacket( 0x3C, 5 ) { setShort( 1, 5 ); }
 	void addItem( P_ITEM pItem );
-	void addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, UINT32 container );
+	void addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, uint container );
 };
 
 // 0x74 VendorBuy
@@ -927,8 +928,8 @@ class cUOTxVendorBuy: public cUOPacket
 {
 public:
 	cUOTxVendorBuy(): cUOPacket( 0x74, 8 ) { setShort( 1, 8 ); }
-	void setSerial( UINT32 data ) { setInt( 3, data ); }
-	void addItem( UINT32 price, const QString &description );
+	void setSerial( uint data ) { setInt( 3, data ); }
+	void addItem( uint price, const QString &description );
 };
 
 // 0xB0 Gump Dialog
@@ -939,10 +940,10 @@ public:
 	{
 		setShort( 1, size );
 	}
-	void setSerial( UINT32 data )	{ setInt( 3, data ); }
-	void setType( UINT32 data )		{ setInt( 7, data ); }
-	void setX( UINT32 data )		{ setInt( 11, data ); }
-	void setY( UINT32 data )		{ setInt( 15, data ); }
+	void setSerial( uint data )	{ setInt( 3, data ); }
+	void setType( uint data )		{ setInt( 7, data ); }
+	void setX( uint data )		{ setInt( 11, data ); }
+	void setY( uint data )		{ setInt( 15, data ); }
 	void setContent( const QString& layout, const QStringList& text );
 };
 
@@ -951,7 +952,7 @@ class cUOTxDyeTub: public cUOPacket
 {
 public:
 	cUOTxDyeTub(): cUOPacket( 0x95, 9 ) {}
-	void setSerial( UINT32 data )	{ setInt( 1, data ); }
+	void setSerial( uint data )	{ setInt( 1, data ); }
 	void setModel( UINT16 data )	{ setShort( 7, data ); }
 };
 
@@ -995,7 +996,7 @@ class cUOTxCloseGump: public cUOPacket
 public:
 	cUOTxCloseGump(): cUOPacket( 0xBF, 13 ) { setShort( 1, 13 ); setShort( 3, 0x04 ); }
 	void setType( SERIAL data ) { setInt( 5, data ); }
-	void setButton( UINT32 data ) { setInt( 9, data ); }
+	void setButton( uint data ) { setInt( 9, data ); }
 };
 
 // 0xBF sub 0x1b New spellbook
@@ -1133,8 +1134,8 @@ public:
 	void setUnknown1( UINT16 data ) { setShort( 24, data ); }
 	void setFixedDirection( bool data ) { (*this)[26] = data ? 1 : 0; }
 	void setExplodes( bool data ) { (*this)[27] = data ? 1 : 0; }
-	void setHue( UINT32 data ) { setInt( 28, data ); }
-	void setRenderMode( UINT32 data ) { setInt( 32, data ); }
+	void setHue( uint data ) { setInt( 28, data ); }
+	void setRenderMode( uint data ) { setInt( 32, data ); }
 };
 
 // 0xC7 3d Particle Effect (also send to 2d clients)
@@ -1166,8 +1167,8 @@ public:
 	void setUnknown1( UINT16 data ) { setShort( 24, data ); }
 	void setFixedDirection( bool data ) { (*this)[26] = data ? 1 : 0; }
 	void setExplodes( bool data ) { (*this)[27] = data ? 1 : 0; }
-	void setHue( UINT32 data ) { setInt( 28, data ); }
-	void setRenderMode( UINT32 data ) { setInt( 32, data ); }
+	void setHue( uint data ) { setInt( 28, data ); }
+	void setRenderMode( uint data ) { setInt( 32, data ); }
 	
 	// 3d Specific Stuff
 	void set3dEffectId( UINT16 data ) { setShort( 36, data ); }
@@ -1209,8 +1210,8 @@ class cUOTxProfile : public cUOPacket
 {
 public:
 	cUOTxProfile(): cUOPacket( 0xB8, 12 ) { setShort( 1, 12 ); }
-	void setSerial( UINT32 data ) { setInt( 3, data ); }
-	void setInfo( QString title, QString staticText, QString dynamicText );
+	void setSerial( uint data ) { setInt( 3, data ); }
+	void setInfo( const QString& title, const QString& staticText, const QString& dynamicText );
 };
 
 // 0x97 Force Walk
@@ -1228,7 +1229,7 @@ public:
 	cUOTxItemTarget(): cUOPacket( 0xb4, 16 ) { setShort( 1, 16 ); }
 
 	void setAllowGround( bool data )		{ (*this)[3] = data ? 1 : 0; }
-	void setTargSerial( UINT32 data )		{ setInt( 4, data ); }
+	void setTargSerial( uint data )		{ setInt( 4, data ); }
 
 	void setXOffset( INT16 data )			{ setShort( 8, data ); }
 	void setYOffset( INT16 data )			{ setShort( 10, data ); }
@@ -1247,10 +1248,10 @@ public:
 		setShort( 3, 1 );
 	}
 
-	void setSerial( UINT32 data ) { setInt( 5, data ); }
-	void setId( UINT32 data ) { setInt( 11, data ); }
+	void setSerial( uint data ) { setInt( 5, data ); }
+	void setId( uint data )     { setInt( 11, data ); }
 
-	void addLine( UINT32 id, QString params );
+	void addLine( uint id, const QString& params );
 };
 
 // 0xBF 0x10 Subpacket (Attach Tooltip)
@@ -1263,8 +1264,8 @@ public:
 		setShort( 3, 0x10 ); // Subcommand
 	}
 
-	void setSerial( UINT32 data ) { setInt( 5, data ); }
-	void setId( UINT32 data ) { setInt( 9, data ) ; }
+	void setSerial( uint data ) { setInt( 5, data ); }
+	void setId( uint data ) { setInt( 9, data ) ; }
 };
 
 // 0xBF sub 0x1d : Ask client - this version of custom house is cached ?
@@ -1276,8 +1277,8 @@ public:
 		setShort( 1, 0x0D );
 		setShort( 3, 0x1D );
 	}
-	void setSerial( UINT32 data ) { setInt( 5, data ); }
-	void setId( UINT32 data ) { setInt( 9, data ); }
+	void setSerial( uint data ) { setInt( 5, data ); }
+	void setId( uint data ) { setInt( 9, data ); }
 };
 
 class cUOTxCustomHouse : public cUOPacket
@@ -1288,8 +1289,8 @@ public:
 		setShort( 1, 0x11 );
 	}
 	void setCompression( UINT8 data ) { (*this)[3] = data; }
-	void setSerial( UINT32 data ) { setInt( 5, data ); }
-	void setRevision( UINT32 data ) { setInt( 9, data ); }
+	void setSerial( uint data ) { setInt( 5, data ); }
+	void setRevision( uint data ) { setInt( 9, data ); }
 	void addTile( UINT16 id, short x, short y, short z );
 	void addTile( UINT16 id, Coord_cl coords ) { addTile( id, coords.x, coords.y, coords.z ); }
 };
@@ -1308,7 +1309,7 @@ public:
 		setShort( 14, 0xFFFF );
 		setShort( 15, 0xFFFF );
 	}
-	void setSerial( UINT32 data ) { setInt( 5, data ); }
+	void setSerial( uint data ) { setInt( 5, data ); }
 };
 
 // 0xBF 0x11 - Finish house customization
@@ -1324,7 +1325,7 @@ public:
 		setInt( 12, 0xFF );
 		(*this)[16] = 0xFF;
 	}
-	void setSerial( UINT32 data ) { setInt( 5, data ); }
+	void setSerial( uint data ) { setInt( 5, data ); }
 };
 
 // 0x9E
@@ -1332,8 +1333,8 @@ class cUOTxSellList : public cUOPacket
 {
 public:
 	cUOTxSellList() : cUOPacket( 0x9E, 9 ) { setShort( 1, 9 ); }
-	void setSerial( UINT32 data ) { setInt( 3, data ); }
-	void addItem( UINT32 serial, UINT16 id, UINT16 hue, UINT16 amount, UINT16 value, const QString &name );
+	void setSerial( uint data ) { setInt( 3, data ); }
+	void addItem( uint serial, UINT16 id, UINT16 hue, UINT16 amount, UINT16 value, const QString &name );
 };
 
 #endif // __UO_TXPACKETS__

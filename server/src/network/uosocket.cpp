@@ -422,7 +422,7 @@ void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 {
 	// Re-Authenticate the user !!
-	if( !_account && !authenticate( packet->username(), packet->password() ) )
+	if( !authenticate( packet->username(), packet->password() ) )
 		disconnect();
 	else
 	{
@@ -687,7 +687,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	Q_UINT16 statSum = ( packet->strength() + packet->dexterity() + packet->intelligence() );
 	if( statSum > 80 )
 	{
-		clConsole.send( tr( "%1 is trying to create char with wrong stats: %2" ).arg( _account->login() ).arg( statSum ) );
+		clConsole.send( tr( "%1 is trying to create character with wrong stats: %2\n" ).arg( _account->login() ).arg( statSum ) );
 		cancelCreate( tr( "Invalid Character stat sum: %1" ).arg( statSum ) )
 	}
 

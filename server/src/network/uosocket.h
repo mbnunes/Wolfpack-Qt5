@@ -71,7 +71,7 @@ public:
 	enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
 private:
 	QSocketDevice *_socket;
-	UINT32 _rxBytes, _txBytes, _uniqueId, _tempInt;
+	UINT32 _rxBytes, _txBytes, _uniqueId;
 	AccountRecord* _account;
 	P_PLAYER _player;
 	eSocketState _state;
@@ -98,10 +98,6 @@ public:
 
 	cUOSocket( QSocketDevice *sDevice );
 	virtual ~cUOSocket( void );
-
-	// Temporary stuff, should be replaced by a tag-like system later
-	void setTempInt( UINT32 data );
-	UINT32 tempInt() const;
 
 	Q_UINT8 walkSequence( void ) const;
 	void setWalkSequence( Q_UINT8 data );
@@ -220,16 +216,6 @@ private: // Private methods
 };
 
 // Inline members
-inline void cUOSocket::setTempInt( UINT32 data ) 
-{
-	_tempInt = data; 
-}
-
-inline UINT32 cUOSocket::tempInt() const
-{ 
-	return _tempInt; 
-}
-
 inline Q_UINT8 cUOSocket::walkSequence( void ) const
 { 
 	return _walkSequence; 

@@ -34,7 +34,7 @@
 
 using namespace std;
 
-cUOPacket *getUOPacket( const QByteArray &data )
+cUOPacket *getUORxPacket( const QByteArray &data )
 {
 	if( data.isEmpty() )
 	{

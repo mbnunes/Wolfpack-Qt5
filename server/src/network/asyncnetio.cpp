@@ -537,8 +537,7 @@ void cAsyncNetIO::run() throw()
 						}
 					}					
 				}
-
-				if( nread == 0 )
+				else if( nread == 0 )
 				{
 					d->socket->close();
 				}
@@ -597,7 +596,7 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 				{
 					QByteArray packetData(length);
 					d->readBlock( packetData.data(), length );
-					cUOPacket* packet = getUOPacket( packetData );
+					cUOPacket* packet = getUORxPacket( packetData );
 					if( !packet )
 						d->socket->close();
 					QMutexLocker lock(&d->packetsMutex);
@@ -629,7 +628,7 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 
 				QByteArray packetData( length );
 				d->readBlock( packetData.data(), length );
-				cUOPacket* packet = getUOPacket( packetData );
+				cUOPacket* packet = getUORxPacket( packetData );
 				if( !packet )
 					d->socket->close();
 				QMutexLocker lock(&d->packetsMutex);

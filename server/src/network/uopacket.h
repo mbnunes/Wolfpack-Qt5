@@ -62,17 +62,17 @@ public:
 	uint	size() const;
 	uint    count() const;
 
-	virtual QByteArray compressed();
-	virtual QByteArray uncompressed() { return rawPacket; }
-	int		getInt( uint ) const;
-	short	getShort( uint) const;
-	QString getAsciiString( uint, uint = 0 ) const;
-	QString getUnicodeString( uint, uint ) const;
-	void	setInt( uint, uint );
-	void	setShort( uint, ushort );
-	void	setUnicodeString( uint, const QString&, uint );
-	void	setAsciiString( uint, const char*, uint );
-	static	QString dump( const QByteArray& );
+	virtual  QByteArray compressed();
+	virtual  QByteArray uncompressed() { return rawPacket; }
+	int		 getInt( uint ) const;
+	short	 getShort( uint) const;
+	QCString getAsciiString( uint, uint = 0 ) const;
+	QString  getUnicodeString( uint, uint ) const;
+	void	 setInt( uint, uint );
+	void	 setShort( uint, ushort );
+	void	 setUnicodeString( uint, const QString&, uint );
+	void	 setAsciiString( uint, const char*, uint );
+	static	 QCString dump( const QByteArray& );
 
 	virtual void print( std::ostream* );
 

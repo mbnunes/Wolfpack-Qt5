@@ -529,7 +529,7 @@ void cUOTxTrade::setName( const QString &name )
 	//strcpy( &rawPacket.data()[17], name.latin1() );
 }
 
-void cUOTxProfile::setInfo( QString title, QString staticText, QString dynamicText )
+void cUOTxProfile::setInfo( const QString& title, const QString& staticText, const QString& dynamicText )
 {
 	// Reset to the correct size
 	UINT16 size = 13 + title.length() + ( staticText.length() * 2 ) + ( dynamicText.length() * 2 );
@@ -572,7 +572,7 @@ void cUOTxItemTarget::addItem( UINT16 id, INT16 deltaX, INT16 deltaY, INT16 delt
 	setShort( offset+8, hue );
 }
 
-void cUOTxTooltipList::addLine( UINT32 id, QString params )
+void cUOTxTooltipList::addLine( UINT32 id, const QString& params )
 {
 	// 4 + 2 + length * 2
 	UINT32 offset = size() - 4;

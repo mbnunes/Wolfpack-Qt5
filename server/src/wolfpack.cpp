@@ -690,6 +690,18 @@ static void parseParameter( const QString &param )
 	{
 		if ( QFile::exists( param ) )
 		{
+			FILE *fp = fopen(param.latin1(), "r");
+			
+			if (fp != NULL)
+			{
+				(void) PyRun_SimpleFile(fp, (char*)param.latin1());
+				PyErr_Clear();
+				fclose(fp);
+			}
+			else
+			{
+				clConsole.send( QString("Can't open %1. Critical macro support data not available!\n").arg(param) );
+			}
 		}
 		else
 			clConsole.error( QString("The specified python script [%1] doesn't exist.").arg(param) );

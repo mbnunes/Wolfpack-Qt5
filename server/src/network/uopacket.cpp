@@ -223,6 +223,10 @@ static bitTable[257] =
 */
 void cUOPacket::compress( void )
 {
+
+//	compressedBuffer.duplicate( rawPacket.data(), rawPacket.size() );
+//	return;
+
 	QByteArray temp( rawPacket.size()*2 ); // worst case scenario for memory size
 //#define OLDCOMPRESS
 #ifdef OLDCOMPRESS
@@ -412,7 +416,7 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
   \a fieldLength can be 0, in which case, no size check is performed the string
   is read until a \0 is found.
 */
-QString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
+QCString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 {
 #if defined(_DEBUG)
 	if ( rawPacket.size() < fieldLength + pos )
@@ -426,7 +430,7 @@ QString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 		char* buffer = new char[fieldLength+1];
 		qstrncpy(buffer, rawPacket.data() + pos, fieldLength);
 		buffer[fieldLength] = 0; // truncate if larger
-		QString result(buffer);
+		QCString result(buffer);
 		delete[] buffer;
 		return result;
 	}
@@ -556,7 +560,7 @@ cUOPacket& cUOPacket::operator=( cUOPacket& p )
 void cUOPacket::print( std::ostream* s )
 {
 	if ( s )
-		(*s) << dump( rawPacket ).latin1() << std::endl;
+		(*s) << dump( rawPacket ).data() << std::endl;
 }
 
 
@@ -566,10 +570,10 @@ void cUOPacket::print( std::ostream* s )
   This method behaves just like print method.
   \sa print()
 */
-QString cUOPacket::dump( const QByteArray &data )
+QCString cUOPacket::dump( const QByteArray &data )
 {
 	Q_INT32 length = data.count();
-	QString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( (Q_UINT8)data[0], 2, 16 ).arg( data.count() );
+	QCString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( (Q_UINT8)data[0], 2, 16 ).arg( data.count() ).latin1();
 
 	int lines = length / 16;
 	if ( length % 16 ) // always round up.
@@ -577,14 +581,14 @@ QString cUOPacket::dump( const QByteArray &data )
 
 	for (int actLine = 0; actLine < lines; ++actLine)
 	{
-		QString line; //= QString("%1: ").arg(actLine*16, 4, 16); // Faster, but doesn't look so good
+		QCString line; //= QString("%1: ").arg(actLine*16, 4, 16); // Faster, but doesn't look so good
 		line.sprintf( "%04x: ", actLine * 16 );
 		int actRow = 0;
 		for(; actRow < 16; ++actRow)
 		{
 			if( actLine * 16 + actRow < length )
 			{
-				QString number = QString::number( (uint)data[actLine*16 + actRow], 16 ) + " ";
+				QCString number = QString::number( static_cast<uint>(static_cast<Q_UINT8>(data[actLine*16 + actRow])), 16 ) + " ";
 				//line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
 				if ( number.length() < 3 )
 					number.prepend( "0" );
