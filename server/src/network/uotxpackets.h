@@ -1174,6 +1174,7 @@ public:
 // 0xB4 ItemTarget
 class cUOTxItemTarget : public cUOPacket
 {
+public:
 	cUOTxItemTarget(): cUOPacket( 0xb4, 16 ) { setShort( 1, 16 ); }
 
 	void setAllowGround( bool data )		{ (*this)[3] = data ? 1 : 0; }

@@ -1570,6 +1570,31 @@ void cUOSocket::poll()
 	}
 }
 
+void cUOSocket::attachTarget( cTargetRequest *request, std::vector< stTargetItem > items, INT16 xOffset, INT16 yOffset, INT16 zOffset )
+{
+	// Let the old one time out
+	if( targetRequest && targetRequest != request )
+	{
+		targetRequest->canceled( this );
+		delete targetRequest;
+	}
+
+	// attach the new one
+	targetRequest = request;
+
+	cUOTxItemTarget target;
+	target.setTargSerial( 1 );
+	target.setAllowGround( true ); // Not sure how to handle this
+	target.setXOffset( xOffset );
+	target.setYOffset( yOffset );
+	target.setZOffset( zOffset );
+
+	for( unsigned int i = 0; i < items.size(); ++i )
+		target.addItem( items[i].id, items[i].xOffset, items[i].yOffset, items[i].zOffset, items[i].hue );
+
+	send( &target );
+}
+
 void cUOSocket::attachTarget( cTargetRequest *request )
 {
 	// Let the old one time out

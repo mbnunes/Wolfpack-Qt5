@@ -36,6 +36,7 @@
 #include <qsocketdevice.h>
 #include <qobject.h>
 #include <qmap.h>
+#include <vector>
 
 // Forward Declarations
 class cUOPacket;
@@ -52,6 +53,15 @@ class cUObject;
 #include "../customtags.h"
 
 class cCustomTags;
+
+struct stTargetItem
+{
+	UINT16 id;
+	INT16 xOffset;
+	INT16 yOffset;
+	INT16 zOffset;
+	UINT16 hue;
+};
 
 class cUOSocket : public QObject
 {
@@ -168,8 +178,9 @@ public:
 	void poll();
 	void soundEffect( UINT16 soundId, cUObject *source = NULL ); 
 	void attachTarget( cTargetRequest *request );
-	void cancelTarget();
 	void attachTarget( cTargetRequest *request, UINT16 multiid );
+	void attachTarget( cTargetRequest *request, std::vector< stTargetItem > items, INT16 xOffset = 0, INT16 yOffset = 0, INT16 zOffset = 0 );
+	void cancelTarget();	
 	void resendWorld( bool clean = true );
 	void resync();
 	void updateStamina( P_CHAR pChar = NULL );
