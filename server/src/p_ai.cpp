@@ -381,6 +381,28 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 			break;
 		case 17: 
 			break; // Zippy Player Vendors.
+		case 18: // Ripper.. Escort speech.
+		if (!pc_i->war && pc_i->questType == ESCORTQUEST)
+		{
+			cRegion::RegionIterator4Chars ri(pc_i->pos);
+			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+			{
+				P_CHAR pc = ri.GetData();
+				if (pc != NULL)
+				{
+				    onl = online(DEREF_P_CHAR(pc));
+				    d = chardist(i, DEREF_P_CHAR(pc));
+				    if (d > 10 || pc->isNpc() || pc->isInvul() || pc->dead || (pc->isPlayer() && !onl))
+					    continue;
+
+				    sprintf((char*)temp,"I am waiting for my escort to %s, Will you take me?", region[pc_i->questDestRegion].name);
+				    npctalkall(i,(char*)temp,1);
+				    pc_i->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*30;
+				    return;
+				}
+			}
+		}
+		break;
 		case 30: // why is this the same as case 50???..Ripper
 			if (!pc_i->war)
 			{

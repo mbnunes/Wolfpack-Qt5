@@ -457,6 +457,7 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 			{
 				pEscortee->ftarg = currchar[s];		// Set the NPC to follow the PC
 				pEscortee->npcWander = 1;			// Set the NPC to wander freely
+				pEscortee->npcaitype = 0;           // Set AI to 0
 				// Set the expire time if nobody excepts the quest
 				pEscortee->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParms->escortactiveexpire ) );
 				// Send out the rant about accepting the escort

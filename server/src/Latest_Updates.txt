@@ -79,3 +79,4 @@ collect,get,look,view,browse and packup. A little code change for them also. (Ri
 66) Added: You cant evaluate int on yourself. (Ripper)
 67) Fixed: you get message "You don`t have that spell" when you do have the spell.
 Needs more testing.(Ripper)
+68) Added: Escorts will now yell out to players they need help. (Ripper)
