@@ -32,6 +32,8 @@
 #ifndef __CHARS_H
 #define __CHARS_H
 
+#include "qptrlist.h"
+#include <map>
 // Platform Include
 #include "platform.h"
 
@@ -49,6 +51,8 @@
 class QString;
 class cUOSocket;
 class cGuildStone;
+class cMakeSection;
+class cMakeMenu;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
@@ -291,6 +295,8 @@ protected:
 
 	QString					loot_; // holds the lootlist section
 
+	std::map< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
+
 	// Public Methods
 public:
 	cChar();
@@ -419,6 +425,27 @@ public:
 	unsigned short			weight() const { return weight_; }
 	unsigned short			stones() const { return (weight_ / 10); }
 	QString					lootList() const { return loot_; }
+	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu )
+	{ 
+		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastselections_.find( basemenu );
+		if( it != lastselections_.end() )
+			return it->second;
+		else
+			return QPtrList< cMakeSection >();
+	}
+	cMakeSection*			lastSection( cMakeMenu* basemenu )
+	{
+		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastselections_.find( basemenu );
+		QPtrList< cMakeSection > lastsections_;
+		if( it != lastselections_.end() )
+			 lastsections_ = it->second;
+		else return NULL;
+
+		if( lastsections_.count() > 0 )
+			return lastsections_.at(0);
+		else
+			return NULL;
+	}
 	
 	// Setters
 	void					setGuildType(short data);
@@ -527,6 +554,39 @@ public:
 	void					setSocket( cUOSocket* data ) { socket_ = data; }
 	void					setWeight( unsigned short data ) { weight_ = data; }
 	void					setLootList( QString data ) { loot_ = data; }
+
+	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data )
+	{
+		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator mit = lastselections_.find( basemenu );
+		QPtrList< cMakeSection > lastsections_;
+		if( mit != lastselections_.end() )
+			lastsections_ = mit->second;
+		else
+		{
+			lastsections_.append( data );
+			lastselections_.insert( make_pair< cMakeMenu*, QPtrList< cMakeSection > >(basemenu, lastsections_) );
+			return;
+		}
+			
+		QPtrListIterator< cMakeSection > it( lastsections_ );
+		while( it.current() )
+		{
+			if( data == it.current() )
+				return;
+			++it;
+		}
+		lastsections_.prepend( data );
+		while( lastsections_.count() > 10 )
+			lastsections_.removeLast();
+
+		mit->second = lastsections_;
+		return;
+	}
+
+	void					clearLastSelections( void )
+	{
+		lastselections_.clear();
+	}
 
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity

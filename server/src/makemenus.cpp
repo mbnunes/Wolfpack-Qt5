@@ -35,6 +35,7 @@
 #include "classes.h"
 #include "targetrequests.h"
 #include "wpdefmanager.h"
+#include "charsmgr.h"
 
 #include "debug.h"
 
@@ -140,8 +141,10 @@ void cSkillCheck::processNode( const QDomElement &Tag )
 		max_ = Value.toUShort();
 }
 
-cMakeSection::cMakeSection( const QDomElement &Tag )
+cMakeSection::cMakeSection( const QDomElement &Tag, cMakeAction* baseaction )
 {
+	baseaction_ = baseaction;
+	name_ = Tag.attribute( "name" );
 	if( Tag.hasAttribute( "inherit" ) )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_MAKESECTION, Tag.attribute( "inherit" ) );
@@ -173,6 +176,14 @@ void cMakeSection::processNode( const QDomElement &Tag )
 		skillchecks_.append( pSkillCheck );
 	}
 
+	else if( TagName == "name" )
+		name_ = Value;
+
+	else if( TagName == "makenpc" )
+	{
+		makenpc_.name = Tag.attribute( "name" );
+		makenpc_.section = Tag.attribute( "id" );
+	}
 }
 
 bool	cMakeSection::hasEnough( cItem* pBackpack )
@@ -276,108 +287,41 @@ UINT32	cMakeSection::calcRank( cChar* pChar )
 		return ranksum;
 }
 
-cMakeAction::cMakeAction( const QDomElement &Tag )
+void cMakeSection::execute( cUOSocket* socket )
 {
-	name_ = Tag.attribute( "id" );
-	description_ = (char*)0;
-	failmsg_ = (char*)0;
-	succmsg_ = (char*)0;
-	charaction_ = 0;
-	sound_ = 0;
-	if( Tag.hasAttribute( "inherit" ) )
-	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_ACTION, Tag.attribute( "inherit" ) );
-		applyDefinition( *DefSection );
-	}
-	applyDefinition( Tag );
-}
-
-void cMakeAction::processNode( const QDomElement &Tag )
-{
-	// CAUTION: the base tag attributes are evaluated in the constructor!!
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
-
-	if( TagName == "make" )
-	{
-		cMakeSection* pMakeSection = new cMakeSection( Tag );
-		if( pMakeSection )
-			makesections_.push_back( pMakeSection );
-	}
-
-	else if( TagName == "makenpc" )
-	{
-		makenpc_.name = Tag.attribute( "name" );
-		makenpc_.section = Tag.attribute( "id" );
-	}
-
-	else if( TagName == "fail" )
-		failmsg_ = Value;
-
-	else if( TagName == "success" )
-		succmsg_ = Value;
-
-	else if( TagName == "description" )
-		description_ = Value;
-
-	else if( TagName == "charaction" )
-		charaction_ = Value.toUShort();
-
-	else if( TagName == "name" )
-		name_ = Value;
-
-	else if( TagName == "sound" )
-		sound_ = Value.toUShort();
-
-	else if( TagName == "model" )
-		model_ = Value.toUShort();
-
-	else if( TagName == "bodymodel" )
-		model_ = creatures[ Value.toUShort() ].icon;
-}
-
-void cMakeAction::execute( cUOSocket* socket, UINT32 makesection )
-{
-	if( makesection >= makesections_.size() )
-		return;
-
-	cMakeSection* pSection = makesections_[ makesection ];
-	if( !pSection )
-		return;
-
 	P_CHAR pChar = socket->player();
 	P_ITEM pBackpack = FindItemBySerial( pChar->packitem );
 
-	if( !socket || !pChar )
+	if( !socket || !pChar || !baseaction_ )
 		return;
 
 	// first check for necessary items
-	if( !pSection->hasEnough( pBackpack ) )
+	if( !hasEnough( pBackpack ) )
 	{
 		socket->sysMessage( tr("You do not have enough resources to create this!") );
 		return;
 	}
 
 	// now we have to use the resources up!
-	pSection->useResources( pBackpack );
+	useResources( pBackpack );
 
 	// then lets check the skill and calculate the item rank!
-	UINT32 ranksum = pSection->calcRank( pChar );
+	UINT32 ranksum = calcRank( pChar );
 	if( ranksum == 0 )
 	{
-		if( !failmsg_.isNull() )
-		socket->sysMessage( failmsg_ );
+		if( !baseaction_->failMsg().isNull() )
+		socket->sysMessage( baseaction_->failMsg() );
 		return;
 	}
-	else if( !succmsg_.isNull() )
-		socket->sysMessage( succmsg_ );
+	else if( !baseaction_->succMsg().isNull() )
+		socket->sysMessage( baseaction_->succMsg() );
 
 	// lets calculate the rank for the item now
 	UINT16 rank;
-	if( pSection->skillchecks().count() == 0 )
+	if( skillchecks_.count() == 0 )
 		rank = 10;
 	else
-		rank = (UINT16)(ceil( ranksum / pSection->skillchecks().count() ));
+		rank = (UINT16)(ceil( ranksum / skillchecks_.count() ));
 	if( rank > 10 )
 		rank = 10;
 	if( rank < 1 )
@@ -386,8 +330,8 @@ void cMakeAction::execute( cUOSocket* socket, UINT32 makesection )
 	// finally lets create the items/npcs!
 
 	// items:
-	QPtrList< cMakeItem > makeitems = pSection->makeitems();
-	QPtrListIterator< cMakeItem > miit( makeitems );
+	QPtrList< cMakeItem > makeitems = makeitems_;
+	QPtrListIterator< cMakeItem > miit( makeitems_ );
 	while( miit.current() )
 	{
 		if( miit.current()->section().isNull() )
@@ -428,20 +372,85 @@ void cMakeAction::execute( cUOSocket* socket, UINT32 makesection )
 	if( !makenpc_.section.isEmpty() )
 		socket->attachTarget( new cAddNpcTarget( makenpc_.section ) );
 
-	if( charaction_ > 0 )
-		pChar->action( charaction_ );
+	if( baseaction_->charAction() > 0 )
+		pChar->action( baseaction_->charAction() );
 
-	if( sound_ > 0 )
-		pChar->soundEffect( sound_ );
+	if( baseaction_->sound() > 0 )
+		pChar->soundEffect( baseaction_->sound() );
 
 	// TODO rank messages
+}
+
+cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
+{
+	basemenu_ = basemenu;
+	name_ = Tag.attribute( "id" );
+	description_ = (char*)0;
+	failmsg_ = (char*)0;
+	succmsg_ = (char*)0;
+	charaction_ = 0;
+	sound_ = 0;
+	if( Tag.hasAttribute( "inherit" ) )
+	{
+		QDomElement* DefSection = DefManager->getSection( WPDT_ACTION, Tag.attribute( "inherit" ) );
+		applyDefinition( *DefSection );
+	}
+	applyDefinition( Tag );
+}
+
+void cMakeAction::processNode( const QDomElement &Tag )
+{
+	// CAUTION: the base tag attributes are evaluated in the constructor!!
+	QString TagName = Tag.nodeName();
+	QString Value = getNodeValue( Tag );
+
+	if( TagName == "make" )
+	{
+		cMakeSection* pMakeSection = new cMakeSection( Tag, this );
+		if( pMakeSection )
+			makesections_.push_back( pMakeSection );
+	}
+
+	else if( TagName == "fail" )
+		failmsg_ = Value;
+
+	else if( TagName == "success" )
+		succmsg_ = Value;
+
+	else if( TagName == "description" )
+		description_ = Value;
+
+	else if( TagName == "charaction" )
+		charaction_ = Value.toUShort();
+
+	else if( TagName == "name" )
+		name_ = Value;
+
+	else if( TagName == "sound" )
+		sound_ = Value.toUShort();
+
+	else if( TagName == "model" )
+		model_ = Value.toUShort();
+
+	else if( TagName == "bodymodel" )
+		model_ = creatures[ Value.toUShort() ].icon;
+}
+
+void cMakeAction::execute( cUOSocket* socket, UINT32 makesection )
+{
+	if( makesection >= makesections_.size() )
+		return;
+
+	cMakeSection* pSection = makesections_[ makesection ];
+	if( !pSection )
+		return;
+
+	pSection->execute( socket );
 }
 
 cMakeMenu::cMakeMenu( const QDomElement &Tag, cMakeMenu* previous )
 {
 	name_ = Tag.attribute( "id" );
-	description_ = (char*)0;
-	type_ = 1; // defaults to compact
 	if( Tag.hasAttribute( "inherit" ) )
 	{
 		QDomElement* DefSection = DefManager->getSection( WPDT_MENU, Tag.attribute( "inherit" ) );
@@ -465,434 +474,241 @@ void cMakeMenu::processNode( const QDomElement &Tag )
 
 	else if( TagName == "action" )
 	{
-		cMakeAction* pMakeAction = new cMakeAction( Tag );
+		cMakeAction* pMakeAction = new cMakeAction( Tag, this );
 		actions_.push_back( pMakeAction );
-	}
-
-	else if( TagName == "description" )
-	{
-		description_ = Value;
 	}
 
 	else if( TagName == "name" )
 		name_ = Value;
-
-	else if( TagName == "model" )
-		model_ = Value.toUShort();
-
-	else if( TagName == "type" )
-	{
-		if( Value == "detail" )
-			type_ = 0;
-		else if( Value == "compact" )
-			type_ = 1;
-		else
-			type_ = Value.toUShort();
-	}
 }
 
-void cMakeMenuGump::buildSection( UINT32 x, UINT32 y, UINT32 width, cMakeSection* makesection )
+cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu, QString notices )
 {
-	if( !makesection )
-		return;
-	QString content;
+	QString htmlmask = "<body text=\"#FFFFFF\">%1</body>";
+	QString htmlmaskcenter = "<body text=\"#FFFFFF\"><div align=\"center\">%1</div></body>";
 
-	QPtrList< cUseItem > useitems = makesection->useitems();
-	QPtrListIterator< cUseItem > uiit( useitems );
-
-	if( useitems.count() == 0 )
-		content="use no resources";
-	else
-		content="use";
-
-	if( uiit.current() )
-	{
-		content += QString( " %1x %2" ).arg( uiit.current()->amount() ).arg( uiit.current()->name() );
-		++uiit;
-	}
-	while( uiit.current() )
-	{
-		content += QString( ", %1x %2" ).arg( uiit.current()->amount() ).arg( uiit.current()->name() );
-		++uiit;
-	}
-	
-	QPtrList< cMakeItem > makeitems = makesection->makeitems();
-	QPtrListIterator< cMakeItem > miit( makeitems );
-
-	if( makeitems.count() == 0 )
-		content+=" to craft nothing";
-	else
-		content+=" to craft";
-
-	if( miit.current() )
-	{
-		content += QString( " %1x %2" ).arg( miit.current()->amount() ).arg( miit.current()->name() );
-		++miit;
-	}
-	while( miit.current() )
-	{
-		content += QString( ", %1x %2" ).arg( miit.current()->amount() ).arg( miit.current()->name() );
-		++miit;
-	}
-	content += ".";
-	addText( x, y, content, 0x530 );
-
-	content = "";
-	QPtrList< cSkillCheck > skills = makesection->skillchecks();
-	QPtrListIterator< cSkillCheck > skit( skills );
-
-	if( skills.count() == 0 )
-		content="checks no skill";
-	else
-		content="checks skill";
-	if( skills.count() > 1 )
-		content += "s";
-
-	if( skit.current() )
-	{
-		content += QString(" %1(%2)").arg( skillname[ skit.current()->skillid() ] ).arg( QString::number( (double)skit.current()->min()/10.0f,'f',1 ) ).lower();
-		++skit;
-	}
-	while( skit.current() )
-	{
-		content += QString(", %1(%2)").arg( skillname[ skit.current()->skillid() ] ).arg( QString::number( (double)skit.current()->min()/10.0f,'f',1 ) ).lower();
-		++skit;
-	}
-	content += ".";
-	addText( x, y+20, content, 0x834 );
-}
-
-void cMakeMenuGump::buildSubMenus( UINT32 x, UINT32 y, UINT32 width, UINT32 height )
-{
-	addResizeGump( x, y, 0xE10, width, height );
-	addCheckertrans( x+15, y+15, width-30, height-30 );
-
-	addText( x+25, y+15, tr( "Categories:" ), 0x834 );
-	std::vector< cMakeMenu* > submenus = menu_->subMenus();
-	std::vector< cMakeMenu* >::iterator mit = submenus.begin();
-
-	UINT32 i = 0;
-
-	while( mit != submenus.end() )
-	{
-		addButton( x+15, y+35 + i * 22, 0xFA5, 0xFA7, i+1 );
-		addText( x+55, y+35 + i * 22, (*mit)->name(), 0x530 );
-		mit++;
-		i++;
-	}
-}
-
-cMakeMenuGump::cMakeMenuGump( cMakeMenu* menu )
-{
+	action_ = NULL;
 	menu_ = menu;
 	prev_ = menu->prevMenu();
-	setY( 40 );
+
+	setX( 50 );
+	setY( 50 );
 
 	startPage();
-	addBackground( 0xE10, 640, 480 ); //Background
-	addCheckertrans( 15, 15, 610, 450 );
+	addResizeGump( 0, 0, 0x13BE, 530, 417 );
+	addTiledGump( 10, 10, 510, 22, 0xA40, -1 );
+	addTiledGump( 10,292, 150, 45, 0xA40, -1 );
+	addTiledGump( 165, 292, 355, 45, 0xA40, -1 );
+	addTiledGump( 10, 342, 510, 65, 0xA40, -1 );
+	addTiledGump( 10, 37, 200, 250, 0xA40, -1 );
+	addTiledGump( 215, 37, 305, 250, 0xA40, -1 );
+	addCheckertrans( 10, 10, 510, 397 );
 
-	if( menu->model() > 0 )
-	{
-		addTilePic( 20, 20, menu->model() );
-		addText( 70, 20, (menu->name().isEmpty() ? tr("Make Menu") : menu->name()), 0x530 );
-		addText( 70, 40, menu->description(), 0x834 );
-	}
-	else
-	{
-		addText( 20, 20, (menu->name().isEmpty() ? tr("Make Menu") : menu->name()), 0x530 );
-		addText( 20, 40, menu->description(), 0x834 );
-	}
-	
-	// X button
-	addText( 70, 440, "Close", 0x834 );
-	addButton( 30, 440, 0xFB1, 0xFB3, 0 ); 
+	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( menu_->name() ) ); 
+	addHtmlGump( 10, 39, 200, 20, htmlmaskcenter.arg( tr("CATEGORIES") ) ); 
+	addHtmlGump( 215, 39, 305, 20, htmlmaskcenter.arg( tr("SELECTIONS") ) ); 
+	addHtmlGump( 10, 294, 150, 20, htmlmaskcenter.arg( tr("NOTICES") ) );
+
+	if( !notices.isEmpty() )
+		addHtmlGump( 170, 292, 345, 41, htmlmask.arg( notices ) );
+
+	// EXIT button , return value: 0
+	addButton( 15, 382, 0xFB1, 0xFB3, 0 );
+	addHtmlGump( 50, 385, 150, 18, htmlmask.arg( tr("EXIT") ) );
+
+	// LAST TEN button , return value: 1
+	addButton( 15, 60, 4011, 4012, 1 );
+	addHtmlGump( 50, 63, 150, 18, htmlmask.arg( tr("LAST TEN") ) );
+
+	// MARK ITEM switch , switch index: 1
+	addCheckbox( 270, 362, 4005, 4007, 1, false );
+	addHtmlGump( 305, 365, 150, 18, htmlmask.arg( tr("MARK ITEM") ) );
+
+	// MAKE LAST button , return value: 2
+	addButton( 270, 382, 4005, 4007, 2 );
+	addHtmlGump( 305, 385, 150, 18, htmlmask.arg( tr("MAKE LAST") ) );
+
+	// PREVIOUS MENU button, return value: -1
 	if( menu_->prevMenu() )
 	{
-		addText( 220, 440, "Previous", 0x834 );
-		addButton( 180, 440, 0xFAE, 0xFB0, -1 ); 
+		addButton( 15, 362, 0xFAE, 0xFB0, -1 );
+		addHtmlGump( 50, 365, 150, 18, htmlmask.arg( tr("PREVIOUS MENU") ) );
 	}
 
-	if( menu->subMenus().size() > 0 && menu->actions().size() > 0 ) // submenus and actions in one gump!
+	std::vector< cMakeMenu* > submenus = menu_->subMenus();
+	std::vector< cMakeAction* > actions = menu_->actions();
+	std::vector< cMakeMenu* >::iterator mit = submenus.begin();
+	std::vector< cMakeAction* >::iterator ait = actions.begin();
+
+	UINT32 page_;
+	UINT32 menupages = ((UINT32)ceil( (double)submenus.size() / 9.0f ));
+	UINT32 actionpages = ((UINT32)ceil( (double)actions.size() / 10.0f ));
+	UINT32 pages = ( menupages > actionpages ) ? menupages : actionpages;
+
+	for( page_ = 1; page_ <= pages; page_++ )
 	{
-		buildSubMenus( 425, 15, 200, 405 );
-
-		QStringList actNames;
-		QStringList actDescr;
-		std::vector< UINT16 > actModels;
-		std::vector< cMakeAction* > actions = menu->actions();
-		std::vector< cMakeAction* >::iterator it = actions.begin();
-
-		while( it != actions.end() )
+		startPage( page_ );
+		UINT32 yoffset = 80;
+		UINT32 i = (page_-1) * 9;
+		if( i  <= submenus.size() )
 		{
-			actNames.push_back( (*it)->name() );
-			actDescr.push_back( (*it)->description() );
-			actModels.push_back( (*it)->model() );
-			it++;
-		}
-		
-		UINT32 pagemod, linemod;
-		if( menu_->type() == 0 )
-		{
-			pagemod = 1;
-			linemod = 50;
-		}
-		else
-		{
-			pagemod = 6;
-			linemod = 40;
-		}
-
-		UINT32 page_;
-		UINT32 pages = ((UINT32)ceil( (double)actions.size() / (double)pagemod ));
-		UINT32 boffset = 0;
-
-		for( page_ = 1; page_ <= pages; page_++ )
-		{
-			startPage( page_ );
-
-			UINT32 right = page_ * pagemod - 1;
-			UINT32 left = page_ * pagemod - pagemod;
-			if( actions.size() <= right )
-				right = actions.size()-1;
-
-			std::vector< cMakeMenu* > submenus = menu_->subMenus();
-			UINT32 i = left;
-			while( i <= right )
+			while( mit != submenus.end() && i <= submenus.size() && i < (page_ * 9) )
 			{
-				if( menu_->type() == 1 )
-				{
-					addButton( 30, 80 + (i-left) * linemod, 0xFA5, 0xFA7, submenus.size()+i*2+1 );
-					addButton( 30, 100 + (i-left) * linemod, 0xFAB, 0xFAD, submenus.size()+i*2+2 ); 
-				}
-				if( actModels[i] > 0 )
-					addTilePic( 70, 80 + (i-left) * linemod, actModels[i] );
-				addText( 120, 80 + (i-left) * linemod, QString("%1").arg( actNames[i] ), 0x530 );
-				addText( 120, 100 + (i-left) * linemod, QString("%1").arg( actDescr[i] ), 0x834 );
-
-				if( menu_->type() == 0 )
-				{
-					UINT32 yoffset = 130;
-					std::vector< cMakeSection* > sections = actions[i]->makesections();
-					std::vector< cMakeSection* >::iterator sit = sections.begin();
-					while( sit != sections.end() )
-					{
-						addButton( 30, yoffset+10, 0xFA5, 0xFA7, submenus.size()+1+boffset );
-						buildSection( 70, yoffset, 490, (*sit) );
-						sit++;
-						boffset++;
-						yoffset += linemod;
-					}
-				}
+				// category buttons, return values: 3 -> submenus.size()+3-1
+				addButton( 15, yoffset, 4005, 4007, i+3 );
+				addHtmlGump( 50, yoffset+3, 150, 18, htmlmask.arg( (*mit)->name() ) );
+				yoffset += 20;
 				i++;
+				mit++;
 			}
-
-
-			addText( 440, 440, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
-			if( page_ > 1 ) // previous page
-				addPageButton( 400, 440, 0x0FC, 0x0FC, page_-1 );
-
-			if( page_ < pages ) // next page
-				addPageButton( 420, 440, 0x0FA, 0x0FA, page_+1 );
 		}
-	}
-	else if( menu->subMenus().size() > 0 ) // only submenus in the menu!
-	{
-		addText( 30, 70, tr( "Categories:" ), 0x834 );
 
-		QStringList subNames;
-		QStringList subDescr;
-		std::vector< UINT16 > subModels;
-		std::vector< cMakeMenu* > submenus = menu->subMenus();
-		std::vector< cMakeMenu* >::iterator it = submenus.begin();
-
-		while( it != submenus.end() )
+		yoffset = 60;
+		i = (pages-1) * 10;
+		if( i  <= actions.size() )
 		{
-			subNames.push_back( (*it)->name() );
-			subDescr.push_back( (*it)->description() );
-			subModels.push_back( (*it)->model() );
-			it++;
-		}
-		
-		UINT32 page_;
-		UINT32 pages = ((UINT32)ceil( (double)submenus.size() / 6.0f ));
-		for( page_ = 1; page_ <= pages; page_++ )
-		{
-			startPage( page_ );
-
-			UINT32 i;
-			UINT32 right = page_ * 6 - 1;
-			UINT32 left = page_ * 6 - 6;
-			if( submenus.size() <= right )
-				right = submenus.size()-1;
-
-			i = left;
-			while( i <= right )
+			while( ait != actions.end() && i <= actions.size() && i < (page_ * 10) )
 			{
-				addButton( 30, 110 + (i-left) * 50, 0xFA5, 0xFA7, i+1 );
-				if( subModels[i] > 0 )
-					addTilePic( 70, 100 + (i-left) * 50, subModels[i] );
-				addText( 120, 100 + (i-left) * 50, QString("%1").arg( subNames[i] ), 0x530 );
-				addText( 120, 120 + (i-left) * 50, QString("%1").arg( subDescr[i] ), 0x834 );
+				// selection buttons, return values: submenus.size()+3 -> actions.size()+submenus.size()+3-1
+				addButton( 220, yoffset, 4005, 4007, i + submenus.size() + 4 );
+				addButton( 480, yoffset, 4011, 4012, i + submenus.size() + 4 + 1000 );
+				addHtmlGump( 255, yoffset+3, 220, 18, htmlmask.arg( (*ait)->name() ) );
+				yoffset += 20;
 				i++;
+				ait++;
 			}
-
-
-			addText( 440, 440, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
-			if( page_ > 1 ) // previous page
-				addPageButton( 400, 440, 0x0FC, 0x0FC, page_-1 );
-
-			if( page_ < pages ) // next page
-				addPageButton( 420, 440, 0x0FA, 0x0FA, page_+1 );
 		}
-	}
-	else if( menu->actions().size() > 0 ) // only actions in the menu!
-	{
-		QStringList actNames;
-		QStringList actDescr;
-		std::vector< UINT16 > actModels;
-		std::vector< cMakeAction* > actions = menu->actions();
-		std::vector< cMakeAction* >::iterator it = actions.begin();
 
-		while( it != actions.end() )
+		// page switch buttons
+		if( page_ > 1 )
 		{
-			actNames.push_back( (*it)->name() );
-			actDescr.push_back( (*it)->description() );
-			actModels.push_back( (*it)->model() );
-			it++;
+			addPageButton( 15, 342, 0xFAE, 0xFB0, page_-1 );
+			addHtmlGump( 50, 345, 150, 18, htmlmask.arg( tr("PREVIOUS PAGE") ) );
 		}
-		
-		UINT32 pagemod, linemod;
-		if( menu_->type() == 0 )
+		if( page_ < pages )
 		{
-			pagemod = 1;
-			linemod = 50;
-		}
-		else
-		{
-			pagemod = 6;
-			linemod = 40;
+			addPageButton( 270, 342, 4005, 4007, page_+1 );
+			addHtmlGump( 305, 345, 150, 18, htmlmask.arg( tr("NEXT PAGE") ) );
 		}
 
-		UINT32 i;
-		UINT32 page_;
-		UINT32 pages = ((UINT32)ceil( (double)actions.size() / (double)pagemod ));
-		UINT32 boffset = 0;
-
-		for( page_ = 1; page_ <= pages; page_++ )
-		{
-			startPage( page_ );
-
-			std::vector< cMakeMenu* > submenus = menu_->subMenus();
-			UINT32 right = page_ * pagemod - 1;
-			UINT32 left = page_ * pagemod - pagemod;
-			if( actions.size() <= right )
-				right = actions.size()-1;
-
-			i = left;
-			while( i <= right )
-			{
-				if( menu_->type() == 1 )
-				{
-					addButton( 30, 80 + (i-left) * linemod, 0xFA5, 0xFA7, submenus.size()+i*2+1 );
-					addButton( 30, 100 + (i-left) * linemod, 0xFAB, 0xFAD, submenus.size()+i*2+2 ); 
-				}
-				if( actModels[i] > 0 )
-					addTilePic( 70, 80 + (i-left) * linemod, actModels[i] );
-				addText( 120, 80 + (i-left) * linemod, QString("%1").arg( actNames[i] ), 0x530 );
-				addText( 120, 100 + (i-left) * linemod, QString("%1").arg( actDescr[i] ), 0x834 );
-
-				if( menu_->type() == 0 )
-				{
-					UINT32 yoffset = 120;
-					std::vector< cMakeSection* > sections = actions[i]->makesections();
-					std::vector< cMakeSection* >::iterator sit = sections.begin();
-					while( sit != sections.end() )
-					{
-						addButton( 30, yoffset+10, 0xFA5, 0xFA7, submenus.size()+1+boffset );
-						buildSection( 70, yoffset, 580, (*sit) );
-						sit++;
-						boffset++;
-						yoffset += linemod;
-					}
-				}
-				i++;
-			}
-
-
-			addText( 440, 440, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
-			if( page_ > 1 ) // previous page
-				addPageButton( 400, 440, 0x0FC, 0x0FC, page_-1 );
-
-			if( page_ < pages ) // next page
-				addPageButton( 420, 440, 0x0FA, 0x0FA, page_+1 );
-		}
 	}
 }
 
-cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cMakeMenu* previous )
+cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cChar* pChar )
 {
-	menu_ = previous;
-	prev_ = previous;
-	setY( 40 );
+	action_ = action;
+	menu_ = action->baseMenu();
+	prev_ = action->baseMenu();
+
+	setY( 50 );
+	setX( 50 );
+
+	QString htmlmask = "<body text=\"#FFFFFF\">%1</body>";
+	QString htmlmaskcenter = "<body text=\"#FFFFFF\"><div align=\"center\">%1</div></body>";
 
 	startPage();
-	addBackground( 0xE10, 640, 480 ); //Background
-	addCheckertrans( 15, 15, 610, 450 );
+	addResizeGump( 0, 0, 5054, 530, 417 );
+	addTiledGump( 10, 10, 510, 22, 2624, -1 );
+	addTiledGump( 165,	37, 355, 88, 2624, -1 );
+	addTiledGump( 165, 130, 355, 80, 2624, -1 );
+	addTiledGump( 165, 215, 355, 80, 2624, -1 );
+	addTiledGump( 165, 300, 355, 80, 2624, -1 );
+	addTiledGump( 10, 385, 510, 22, 2624, -1 );
+	addTiledGump( 10,  37, 150, 88, 2624, -1 );
+	addTiledGump( 10, 130, 150, 22, 2624, -1 );
+	addTiledGump( 10, 215, 150, 22, 2624, -1 );
+	addTiledGump( 10, 300, 150, 22, 2624, -1 );
+	addCheckertrans( 10, 10, 510, 397 );
 
-	if( menu_->model() > 0 )
-	{
-		addTilePic( 20, 20, menu_->model() );
-		addText( 70, 20, (menu_->name().isEmpty() ? tr("Make Menu") : menu_->name()), 0x530 );
-		addText( 70, 40, menu_->description(), 0x834 );
-	}
-	else
-	{
-		addText( 20, 20, (menu_->name().isEmpty() ? tr("Make Menu") : menu_->name()), 0x530 );
-		addText( 20, 40, menu_->description(), 0x834 );
-	}
-	
-	// X button
-	addText( 70, 440, "Close", 0x834 );
-	addButton( 30, 440, 0xFB1, 0xFB3, 0 ); 
-	if( prev_ )
-	{
-		addText( 220, 440, "Previous", 0x834 );
-		addButton( 180, 440, 0xFAE, 0xFB0, -1 ); 
-	}
-		
-	UINT32 pagemod, linemod;
-	pagemod = 1;
-	linemod = 50;
-
-	UINT32 i;
-	UINT32 boffset = 0;
-
-	std::vector< cMakeAction* > actions = menu_->actions();
-	std::vector< cMakeAction* >::iterator ait = actions.begin();
-	while( ait != actions.end() && (*ait) != action )
-	{
-		boffset += (*ait)->makesections().size();
-		ait++;
-	}
-
-	startPage( 1 );
-			
+	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( menu_->name() ) ); 
 	if( action->model() > 0 )
-		addTilePic( 30, 80, action->model() );
-	addText( 80, 80, QString("%1").arg( action->name() ), 0x530 );
-	addText( 80, 100, QString("%1").arg( action->description() ), 0x834 );
+		addTilePic( 15, 42, action->model() );
+	addHtmlGump( 10, 132, 150, 20, htmlmaskcenter.arg( tr("SKILLS") ) );
+	addHtmlGump( 10, 217, 150, 20, htmlmaskcenter.arg( tr("MATERIALS") ) );
+	addHtmlGump( 10, 302, 150, 20, htmlmaskcenter.arg( tr("OTHER") ) );
 
-	UINT32 yoffset = 130;
+	if( !action->description().isNull() )
+		addHtmlGump( 170, 302, 345, 76, htmlmask.arg( action->description() ), false, true );
+
+	addHtmlGump( 170, 39, 70, 20, htmlmask.arg( tr("ITEM") ) );
+
+	addButton( 15, 387, 0xFAE, 0xFB0, -1 );
+	addHtmlGump( 50, 389, 80, 18, htmlmask.arg( tr("BACK") ) );
+
+	UINT32 page = 1;
+	UINT32 button = 1;
 	std::vector< cMakeSection* > sections = action->makesections();
-	std::vector< cMakeSection* >::iterator sit = sections.begin();
-	while( sit != sections.end() )
+	std::vector< cMakeSection* >::iterator next = sections.begin();
+	next++;
+	std::vector< cMakeSection* >::iterator it = sections.begin();
+	cItem* pBackpack = NULL;
+	if( pChar )
+		 pBackpack = FindItemBySerial( pChar->packitem );
+
+	while( it != sections.end() )
 	{
-		addButton( 30, yoffset+10, 0xFA5, 0xFA7, menu_->subMenus().size()+1+boffset );
-		buildSection( 70, yoffset, 490, (*sit) );
-		sit++;
-		boffset++;
-		yoffset += linemod;
+		QString content;
+		startPage( page );
+
+		if( !pChar || !pBackpack || !(*it)->hasEnough( pBackpack ) || (*it)->skilledEnough( pChar ) )
+		{
+			it++;
+			next++;
+			button++;
+			continue;
+		}
+
+		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( QString("%1 %2").arg(action->name()).arg((*it)->name()) ) );
+
+		if( sections.size() > 1 )
+		{
+			content = "";
+			addPageButton( 135, 387, 4005, 4007, (page < sections.size()) ? (page+1) : 1 );
+			if( next != sections.end() )
+				content = (*next)->name();
+			else
+				content = (*(sections.begin()))->name();
+
+			if( content.isEmpty() )
+				content = tr("NEXT");
+			addHtmlGump( 170, 389, 200, 18, htmlmask.arg( content.upper() ) );
+		}
+
+		addButton( 375, 387, 4005, 4007, button );
+		addHtmlGump( 410, 389, 95, 18, htmlmask.arg( tr("MAKE NOW") ) );
+
+		content = "";
+		QPtrList< cSkillCheck > skillchecks = (*it)->skillchecks();
+		QPtrListIterator< cSkillCheck > sit( skillchecks );
+		while( sit.current() )
+		{
+			content += QString("%2% %1<br>").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->min() / 10.0f, 'f', 1 ).lower() );
+			++sit;
+		}
+		content = htmlmask.arg( content );
+		addHtmlGump( 170, 132, 345, 76, content, false, (skillchecks.count() > 4) );
+
+		content = "";
+		QPtrList< cUseItem > useitems = (*it)->useitems();
+		QPtrListIterator< cUseItem > uit( useitems );
+		while( uit.current() )
+		{
+			content += QString("%2 %1<br>").arg( uit.current()->name() ).arg( uit.current()->amount() );
+			++uit;
+		}
+		content = htmlmask.arg( content );
+		addHtmlGump( 170, 217, 345, 76, content, false, (useitems.count() > 4) );
+
+
+		page++;
+		button++;
+		it++;
+		next++;
+	}
+	// not enough resources or not skilled enough
+	if( page == 1 )
+	{
+		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( QString("%1").arg(action->name()) ) );
 	}
 }
 
@@ -912,31 +728,178 @@ void cMakeMenuGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 
 	if( choice.button == -1 && prev_ && cAllMakeMenus::getInstance()->contains( prev_ ) )
 		socket->send( new cMakeMenuGump( prev_ ) );
-	else if( (choice.button-1) < submenus.size() )
+	else if( action_ ) // we have response of a detail menu
 	{
-		socket->send( new cMakeMenuGump( submenus[ choice.button-1 ] ) );
-	}
-	else if( menu_->type() == 1 && (choice.button-1-submenus.size()) < (actions.size()*2) && menu_ != prev_ ) // menu_ == prev means we have a action detail menu
-	{
-		if( ((choice.button-1-submenus.size())%2) == 0 ) // if its even
-			actions[ (UINT32)floor( (double)(choice.button-1-submenus.size())/2.0f ) ]->execute( socket, 0 );
-		else
-			socket->send( new cMakeMenuGump( actions[ (UINT32)floor( (double)(choice.button-1-submenus.size())/2.0f ) ], menu_ ) );
-	}
-	else if( menu_->type() == 0 || menu_ == prev_ )
-	{
-		std::vector< cMakeAction* > actions = menu_->actions();
-		std::vector< cMakeAction* >::iterator it = actions.begin();
-		UINT32 boffset = 0;
-		while( it != actions.end() )
+		std::vector< cMakeSection* > sections = action_->makesections();
+		if( choice.button <= sections.size() )
 		{
-			std::vector< cMakeSection* > sections = (*it)->makesections();
-			if( (choice.button-1-submenus.size()-boffset) < sections.size() )
-				(*it)->execute( socket, (choice.button-1-submenus.size()-boffset) );
-			else
-				boffset += sections.size();
+			cMakeSection* section = sections[ choice.button-1 ];
+			cMakeMenu* basemenu = menu_->baseMenu();
+			if( socket->player() )
+				socket->player()->setLastSection( basemenu, section );
+			section->execute( socket );
+		}
+	}
+	else if( choice.button == 1 )
+	{
+		cChar* pChar = socket->player();
+		if( !pChar )
+			return;
+		QPtrList< cMakeSection > sections = pChar->lastSelections( menu_->baseMenu() );
+		socket->send( new cLastTenGump( sections, menu_ ) ); 
+	}
+	else if( choice.button == 2 )
+	{
+		cChar* pChar = socket->player();
+		if( !pChar )
+			return;
+		if( pChar->lastSection( menu_->baseMenu() ) )
+			pChar->lastSection( menu_->baseMenu() )->execute( socket );
+	}
+	else if( choice.button < submenus.size()+3 )
+	{
+		socket->send( new cMakeMenuGump( submenus[ choice.button-3 ] ) );
+	}
+	else if( choice.button < (actions.size()+submenus.size()+4) )
+	{
+		cChar* pChar = socket->player();
+		if( !pChar )
+			return;
+		cItem* pBackpack = FindItemBySerial( pChar->packitem );
+		std::vector< cMakeSection* > sections = actions[ choice.button - submenus.size() - 4 ]->makesections();
+		if( sections[0]->hasEnough( pBackpack ) )
+		{
+			cMakeAction* action = actions[ choice.button - submenus.size() - 4 ];
+			cMakeSection* section = action->makesections()[0];
+			cMakeMenu* basemenu = menu_->baseMenu();
+			pChar->setLastSection( basemenu, section );
+			section->execute( socket );
+		}
+		else
+			socket->send( new cMakeMenuGump( menu_, tr("You do not have enough resources to make this item") ) );
+	}
+	else if( choice.button < (actions.size()+submenus.size()+4+1000) )
+	{
+		cChar* pChar = socket->player();
+		if( !pChar )
+			return;
+		cMakeAction* action = actions[ choice.button - submenus.size() - 4 - 1000 ];
+		std::vector< UINT32 > switches = choice.switches;
+		std::vector< UINT32 >::iterator it = switches.begin();
+		cMakeSection* section = action->makesections()[0];
+		cMakeMenu* basemenu = menu_->baseMenu();
+		while( it != switches.end() )
+		{
+			if( (*it) == 1 )
+				pChar->setLastSection( basemenu, section );
 			it++;
 		}
+		socket->send( new cMakeMenuGump( action, socket->player() ) );
+	}
+}
+
+cLastTenGump::cLastTenGump( QPtrList< cMakeSection > sections, cMakeMenu* prev, QString notices )
+{
+	QString htmlmask = "<body text=\"#FFFFFF\">%1</body>";
+	QString htmlmaskcenter = "<body text=\"#FFFFFF\"><div align=\"center\">%1</div></body>";
+
+	sections_ = sections;
+	prev_ = prev;
+
+	setX( 50 );
+	setY( 50 );
+
+	startPage();
+	addResizeGump( 0, 0, 0x13BE, 530, 417 );
+	addTiledGump( 10, 10, 510, 22, 0xA40, -1 );
+	addTiledGump( 10,292, 150, 45, 0xA40, -1 );
+	addTiledGump( 165, 292, 355, 45, 0xA40, -1 );
+	addTiledGump( 10, 342, 510, 65, 0xA40, -1 );
+	addTiledGump( 10, 37, 200, 250, 0xA40, -1 );
+	addTiledGump( 215, 37, 305, 250, 0xA40, -1 );
+	addCheckertrans( 10, 10, 510, 397 );
+
+	addHtmlGump( 10, 12, 510, 20, htmlmaskcenter.arg( tr("LAST TEN") ) ); 
+	addHtmlGump( 10, 39, 200, 20, htmlmaskcenter.arg( tr("CATEGORIES") ) ); 
+	addHtmlGump( 215, 39, 305, 20, htmlmaskcenter.arg( tr("SELECTIONS") ) ); 
+	addHtmlGump( 10, 294, 150, 20, htmlmaskcenter.arg( tr("NOTICES") ) );
+
+	if( !notices.isEmpty() )
+		addHtmlGump( 170, 292, 345, 41, htmlmask.arg( notices ) );
+
+	// EXIT button , return value: 0
+	addButton( 15, 382, 0xFB1, 0xFB3, 0 );
+	addHtmlGump( 50, 385, 150, 18, htmlmask.arg( tr("EXIT") ) );
+
+	// PREVIOUS MENU button, return value: -1
+	if( prev_ )
+	{
+		addButton( 15, 362, 0xFAE, 0xFB0, -1 );
+		addHtmlGump( 50, 365, 150, 18, htmlmask.arg( tr("PREVIOUS MENU") ) );
+	}
+
+	QPtrListIterator< cMakeSection > it( sections );
+
+	startPage( 1 );
+	UINT32 yoffset = 60;
+	UINT32 i = 1;
+	while( it.current() )
+	{
+		if( it.current()->baseAction() && it.current()->baseAction()->baseMenu() )
+		{
+			// category buttons, return values: 1 -> 10
+			addButton( 15, yoffset, 4005, 4007, i );
+			addHtmlGump( 50, yoffset+3, 150, 18, htmlmask.arg( it.current()->baseAction()->baseMenu()->name() ) );
+		}
+		// selection buttons, return values: 11 -> 20
+		addButton( 220, yoffset, 4005, 4007, i+10 );
+		// detail buttons, return values: 21 -> 30
+		addButton( 480, yoffset, 4011, 4012, i+20 );
+		addHtmlGump( 255, yoffset+3, 295, 18, htmlmask.arg( QString("%1 %2").arg(it.current()->baseAction()->name()).arg(it.current()->name()) ) );
+		yoffset += 20;
+		i++;
+		++it;
+	}
+}
+
+void cLastTenGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+{
+	if( choice.button == 0 || !socket )
+		return;
+
+	// script reload will lose any object, so it is enough to search for the prev menu.
+	if( !cAllMakeMenus::getInstance()->contains( prev_ ) )
+	{
+		socket->sysMessage( tr("Menu lost because of script reload. Try again please!") );
+		return;
+	}
+
+	if( choice.button == -1 && prev_ )
+		socket->send( new cMakeMenuGump( prev_ ) );
+	else if( choice.button > 0 && choice.button <= 10 )
+	{
+		cMakeSection* section = sections_.at( choice.button-1 );
+		socket->send( new cMakeMenuGump( section->baseAction()->baseMenu() ) );
+	}
+	else if( choice.button > 10 && choice.button <= 20 )
+	{
+		cMakeSection* section = sections_.at( choice.button-11 );
+		cChar* pChar = socket->player();
+		if( !pChar )
+			return;
+		cItem* pBackpack = FindItemBySerial( pChar->packitem );
+		if( section && section->hasEnough( pBackpack ) )
+		{
+			section->execute( socket );
+		}
+		else
+			socket->send( new cLastTenGump( sections_, prev_, tr("You do not have enough resources to make this item") ) );
+	}
+	else if( choice.button > 20 && choice.button <= 30 )
+	{
+		cMakeSection* section = sections_.at( choice.button-21 );
+		cMakeAction* action = section->baseAction();
+		socket->send( new cMakeMenuGump( action, socket->player() ) ); 
 	}
 }
 
@@ -969,6 +932,13 @@ void cAllMakeMenus::reload()
 	}
 	menus_.clear();
 
+	AllCharsIterator iterChars;
+	for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
+	{
+		P_CHAR pc = iterChars.GetData();
+		if ( pc )
+			pc->clearLastSelections();
+	}
 	load();
 }
 

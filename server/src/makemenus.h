@@ -44,6 +44,9 @@
 #include "qptrlist.h"
 
 // Forward declaration
+class cMakeMenu;
+class cMakeAction;
+class cMakeSection;
 class cMakeMenuGump;
 class cItem;
 
@@ -114,7 +117,7 @@ private:
 class cMakeSection : public cDefinable
 {
 public:
-	cMakeSection( const QDomElement &Tag );
+	cMakeSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
 	~cMakeSection() 
 	{
 		makeitems_.setAutoDelete( true );
@@ -131,10 +134,21 @@ public:
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );
 
+	struct makenpcprops_st
+	{
+		QString			name;
+		QString			section;
+	};
+
 	// Getters
 	QPtrList< cMakeItem >		makeitems()		const { return makeitems_; }
 	QPtrList< cUseItem >		useitems()		const { return useitems_; }
-	QPtrList< cSkillCheck >	skillchecks()		const { return skillchecks_; }
+	QPtrList< cSkillCheck >		skillchecks()	const { return skillchecks_; }
+	QString						name()			const { return name_; }
+	cMakeAction*				baseAction()	const { return baseaction_; }
+	makenpcprops_st				makenpc()		const { return makenpc_; }
+
+	void		execute( cUOSocket* socket );
 
 	// execute helper methods
 	bool	hasEnough( cItem* pBackpack );
@@ -147,13 +161,17 @@ public:
 private:
 	QPtrList< cMakeItem >		makeitems_;
 	QPtrList< cUseItem >		useitems_;
-	QPtrList< cSkillCheck >	skillchecks_;
+	QPtrList< cSkillCheck >		skillchecks_;
+	makenpcprops_st				makenpc_;
+
+	QString						name_;
+	cMakeAction*				baseaction_;
 };
 
 class cMakeAction : public cDefinable
 {
 public:
-	cMakeAction( const QDomElement &Tag );
+	cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu = NULL );
 	~cMakeAction() 
 	{
 		std::vector< cMakeSection* >::iterator it = makesections_.begin();
@@ -171,19 +189,17 @@ public:
 	QString		name()			{ return name_; }
 	UINT16		model()			{ return model_; }
 	QString		description()	{ return description_; }
+	cMakeMenu*	baseMenu()		{ return basemenu_; }
+	QString		failMsg()		const { return failmsg_; }
+	QString		succMsg()		const { return succmsg_; }
+	UINT8		charAction()	const { return charaction_; }
+	UINT16		sound()			const { return sound_; }
 
 	// Setters
 	void		setName( QString data )		{ name_ = data; }
 	void		setModel( UINT16 data )		{ model_ = data; }
 
-	struct makenpcprops_st
-	{
-		QString			name;
-		QString			section;
-	};
-
 	std::vector< cMakeSection* >		makesections()	const { return makesections_; }
-	makenpcprops_st						makenpc()		const { return makenpc_; }
 
 	void		execute( cUOSocket* socket, UINT32 makesection );
 
@@ -191,19 +207,20 @@ private:
 	QString							name_;
 	UINT16							model_;
 	QString							description_;
+	cMakeMenu*						basemenu_;
 
 	std::vector< cMakeSection* >		makesections_;
-	makenpcprops_st						makenpc_;
 	QString								failmsg_;
 	QString								succmsg_;
 	UINT8								charaction_;
 	UINT16								sound_;
+
 };
 
 class cMakeMenu : public cDefinable
 {
 public:
-	cMakeMenu::cMakeMenu( const QDomElement &Tag, cMakeMenu* previous = NULL );
+	cMakeMenu( const QDomElement &Tag, cMakeMenu* previous = NULL );
 	~cMakeMenu()
 	{
 		std::vector< cMakeMenu* >::iterator mit = submenus_.begin();
@@ -228,14 +245,10 @@ public:
 	std::vector< cMakeMenu* >	subMenus()		{ return submenus_; }
 	std::vector< cMakeAction* > actions()		{ return actions_; }
 	QString						name()			{ return name_; }
-	UINT16						model()			{ return model_; }
-	QString						description()	{ return description_; }
 	cMakeMenu*					prevMenu()		{ return prev_; }
-	UINT8						type()			{ return type_; }
 
 	// Setters
 	void	setName( QString data )							{ name_ = data; }
-	void	setModel( UINT16 data )							{ model_ = data; }
 
 	bool	contains( cMakeMenu* pMenu )
 	{
@@ -252,11 +265,16 @@ public:
 		return false;
 	}
 
+	cMakeMenu* baseMenu()
+	{
+		if( prev_ )
+			return prev_->baseMenu();
+		else
+			return this;
+	}
+
 private:
 	QString						name_;
-	UINT16						model_;
-	QString						description_;
-	UINT8						type_;
 
 	cMakeMenu*					prev_;
 	std::vector< cMakeMenu* >	submenus_;
@@ -268,16 +286,25 @@ class cMakeMenuGump : public cGump
 private:
 	cMakeMenu* menu_;
 	cMakeMenu* prev_;
+	cMakeAction* action_;
 public:
-	cMakeMenuGump( cMakeMenu* menu );
-	cMakeMenuGump( cMakeAction* action, cMakeMenu* prev );
+	cMakeMenuGump( cMakeMenu* menu, QString notices = "" );
+	cMakeMenuGump( cMakeAction* action, cChar* pChar );
 	
 	// implements cGump
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+};
 
-	// gump build helper methods
-	void	buildSection( UINT32 x, UINT32 y, UINT32 width, cMakeSection* makesection );
-	void	buildSubMenus( UINT32 x, UINT32 y, UINT32 width, UINT32 height );
+class cLastTenGump : public cGump
+{
+private:
+	cMakeMenu* prev_;
+	QPtrList< cMakeSection > sections_;
+public:
+	cLastTenGump( QPtrList< cMakeSection >, cMakeMenu* prev, QString notices = "" );
+
+	// implements cGump
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
 
 class cAllMakeMenus
