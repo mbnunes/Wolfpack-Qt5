@@ -348,15 +348,18 @@ P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 P_ITEM cChar::getBankBox( void )
 {
 	P_ITEM pi = atLayer( BankBox );
+	
 	if ( pi )
 		return pi;
-	QString temp = QString("%1's bank box").arg(name);
-	pi = Items->SpawnItem(this, 1, temp.latin1(), 0, 0x09AB, 0, 0);
-	if(pi == 0) 
-		return 0;
+
+	pi = new cItem;
+	pi->Init();
+	pi->setId( 0x9ab );
 	pi->SetOwnSerial(this->serial);
 	pi->morex=1;
 	pi->setType( 1 );
+	pi->setName( tr( "%1's bank box" ).arg( name ) );
+	addItem( BankBox, pi, true, true );
 
 	return pi;
 }
@@ -521,14 +524,13 @@ P_ITEM cChar::getBackpack()
 	// None found so create one
 	if( !backpack )
 	{
-		backpack = Items->SpawnItem( this, 1, "#", false, 0xE75, 0x0000, false );
-		if( backpack )
-		{
-			backpack->setOwner( this );
-			this->addItem( Backpack, backpack );
-			backpack->setType( 1 );
-			backpack->update();
-		}
+		backpack = new cItem;
+		backpack->Init();
+		backpack->setId( 0xE75 );
+		backpack->setOwner( this );
+		backpack->setType( 1 );		
+		addItem( Backpack, backpack );
+		backpack->update();
 	}
 
 	return backpack;
@@ -2813,7 +2815,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 						mLayer = tile.layer;
 					}
 
-					if( pItem->id() <= 1 || mLayer )
+					if( pItem->id() <= 1 || !mLayer )
 						Items->DeleItem( pItem );
 					else
 					{
@@ -3505,9 +3507,19 @@ P_ITEM cChar::getWeapon()
 
 void cChar::addEffect( cTempEffect *effect )
 {
+	effects_.push_back( effect );
 }
 
 void cChar::removeEffect( cTempEffect *effect )
 {
+	Effects::iterator iter = effects_.begin();
+	while( iter != effects_.end() )
+	{
+		if( (*iter) == effect )
+		{
+			effects_.erase( iter );
+			break;
+		}
+		++iter;
+	}	
 }
-

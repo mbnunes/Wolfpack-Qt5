@@ -1342,7 +1342,7 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, P_CHAR pc, char timech
 {
 	// - Tauriel's region stuff 3/6/99
 
-	int j;
+/*	int j;
 
 	if (timecheck)
 	{
@@ -1392,7 +1392,7 @@ void cMagic::CheckFieldEffects2(unsigned int currenttime, P_CHAR pc, char timech
 				}
 			}
 		}
-	}
+	}*/
 }
 
 ///////////////////

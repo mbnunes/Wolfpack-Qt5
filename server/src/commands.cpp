@@ -2142,19 +2142,24 @@ public:
 
 			socket->sysMessage( tr( "Nuking from %1,%2 to %3,%4" ).arg( x1 ).arg( y1 ).arg( x2 ).arg( y2 ) );
 			UINT16 dCount = 0;
+			vector< P_ITEM > toDelete;
 
 			// This could eventually be optimized
 			AllItemsIterator iter;
 			for( iter.Begin(); !iter.atEnd(); ++iter )
 			{
 				P_ITEM pItem = iter.GetData();
-				if( pItem && pItem->pos.x >= x1 && pItem->pos.x <= x2 && pItem->pos.y >= y1 && pItem->pos.y <= y2 )
+
+				if( pItem && pItem->isInWorld() && pItem->pos.x >= x1 && pItem->pos.x <= x2 && pItem->pos.y >= y1 && pItem->pos.y <= y2 )
 				{
 					// Delete the item
-					Items->DeleItem( pItem );
+					toDelete.push_back( pItem );
 					dCount++;
 				}
 			}
+
+			for( vector< P_ITEM >::iterator sIter = toDelete.begin(); sIter != toDelete.end(); ++sIter )
+				Items->DeleItem( (*sIter) );
 
 			socket->sysMessage( tr( "Deleted %1 items." ).arg( dCount ) );
 			return true;
@@ -2167,6 +2172,100 @@ void commandNuke( cUOSocket *socket, const QString &command, QStringList &args )
 	// Nuke does not take any parameters (At least for now it does not.)
 	socket->sysMessage( tr( "Please select first corner of the box you want to nuke." ) );
 	socket->attachTarget( new cNukeTarget );
+}
+
+class cTileTarget: public cTargetRequest
+{
+private:
+	INT16 x1, y1;
+	INT8 z;
+	QStringList ids;
+public:
+	cTileTarget( INT8 _z, const QStringList &_ids ): x1( -1 ), y1( -1 ), z( _z ), ids( _ids ) {}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( !socket->player() )
+			return true;
+
+		// Set the first corner and readd ourself
+		if( x1 == -1 || y1 == -1 )
+		{
+			x1 = target->x();
+			y1 = target->y();
+			socket->sysMessage( tr( "Please select the second corner." ) );
+			return false;
+		}
+		else
+		{
+			INT16 x2;
+			if( target->x() < x1 )
+			{
+				x2 = x1;
+				x1 = target->x();
+			}
+			else
+				x2 = target->x();
+
+			INT16 y2;
+			if( target->y() < y1 )
+			{
+				y2 = y1;
+				y1 = target->y();
+			}
+			else
+				y2 = target->y();
+
+			socket->sysMessage( tr( "Tiling from %1,%2 to %3,%4" ).arg( x1 ).arg( y1 ).arg( x2 ).arg( y2 ) );
+			UINT16 dCount = 0;
+
+			for( UINT16 x = x1; x <= x2; ++x )
+				for( UINT16 y = y1; y <= y2; ++y )
+				{
+					// Select a Random Tile from the list
+					QString id = ids[ RandomNum( 0, ids.count()-1 ) ];
+					P_ITEM pItem = Items->createScriptItem( id );
+					
+					if( pItem )
+					{
+						pItem->moveTo( socket->player()->pos );
+						pItem->pos.x = x;
+						pItem->pos.y = y;
+						pItem->pos.z = z;
+						pItem->update();
+						dCount++;
+					}
+				}
+
+			socket->sysMessage( tr( "Created %1 items." ).arg( dCount ) );
+			return true;
+		}		
+	}
+};
+
+void commandTile( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( args.count() < 2 )
+	{
+		socket->sysMessage( "Usage: tile <z> <id>[,<idn>]" );
+		return;
+	}
+
+	INT8 z = args[0].toInt();
+	QStringList ids = QStringList::split( ",", args[1] );
+
+	// Check if the given ids are valid
+	for( QStringList::iterator iter = ids.begin(); iter != ids.end(); ++iter )
+	{
+		if( !DefManager->getSection( WPDT_ITEM, (*iter) ) )
+		{
+			socket->sysMessage( tr( "Item definition '%1' is undefined." ).arg( *iter ) );
+			return;
+		}
+	}
+	
+	socket->sysMessage( tr( "Please select the first corner." ) );
+	socket->attachTarget( new cTileTarget( z, ids ) );
 }
 
 // Command Table (Keep this at the end)
@@ -2203,6 +2302,7 @@ stCommand cCommands::commands[] =
 	{ "REMOVEEVENT",	commandRemoveEvent },
 	{ "MOVE",			commandMove },
 	{ "NUKE",			commandNuke },
+	{ "TILE",			commandTile },
 	{ NULL, NULL }
 };
 

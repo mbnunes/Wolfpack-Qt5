@@ -684,9 +684,20 @@ void cTempEffects::On()
 
 void cTempEffects::check()
 {
+	cTempEffect *tEffect;
+
 	while( teffects.accessMin() && teffects.accessMin()->expiretime <= uiCurrentTime )
 	{
-		teffects.accessMin()->Expire();
+		tEffect = teffects.accessMin();
+
+		if( isCharSerial( tEffect->getDest() ) )
+		{
+			P_CHAR pChar = dynamic_cast< P_CHAR >( FindCharBySerial( tEffect->getDest() ) );
+			if( pChar )
+				pChar->removeEffect( tEffect );
+		}
+
+		tEffect->Expire();
 		teffects.deleteMin();
 	}
 
@@ -1313,26 +1324,40 @@ void cTempEffects::serialize(ISerialization &archive)
 	If only Dispellable is false then all effects on this character
 	of the specified type are reverted.
 */
-void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool onlyDispellable )
+void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent, bool onlyDispellable )
 {
 	std::vector< cTempEffect* > teffects_ = teffects.asVector();
 	std::vector< cTempEffect* >::iterator i = teffects_.begin();
 	for( i = teffects_.begin(); i != teffects_.end(); i++ )
 		if( i != NULL && (*i) != NULL && ( !onlyDispellable || (*i)->dispellable ) && (*i)->getDest() == pc_dest->serial && (*i)->objectID() == type )
 		{
-			(*i)->Off( pc_dest );
+			if( isCharSerial( (*i)->getSour() ) )
+			{
+				P_CHAR pChar = FindCharBySerial( (*i)->getSour() );
+				if( pChar )
+					pChar->removeEffect( (*i) );
+			}
+
+			(*i)->Dispel( pc_dest, pSource );
 			teffects.erase( (*i) );
 		}
 }
 
-void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource )
+void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 {
 	std::vector< cTempEffect* > teffects_ = teffects.asVector();
 	std::vector< cTempEffect* >::iterator i = teffects_.begin();
 	for( i = teffects_.begin(); i != teffects_.end(); i++ )
 		if( i != NULL && (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial )
 		{
-			(*i)->Off( pc_dest );
+			if( isCharSerial( (*i)->getDest() ) )
+			{
+				P_CHAR pChar = FindCharBySerial( (*i)->getDest() );
+				if( pChar )
+					pChar->removeEffect( (*i) );
+			}
+
+			(*i)->Dispel( pSource, silent );
 			teffects.erase( (*i) );
 		}
 }
@@ -1693,4 +1718,18 @@ void cRepeatAction::Expire()
 
 	if( pMage )
 		TempEffects::instance()->insert( new cRepeatAction( pMage, _anim, _delay ) );
+}
+
+void cTempEffects::insert( cTempEffect *pT )
+{
+	// If the tempeffect has a char it affects, 
+	// then don't forge to add it to his effects
+	if( isCharSerial( pT->getDest() ) )
+	{
+		P_CHAR pChar = FindCharBySerial( pT->getDest() );
+		if( pChar )
+			pChar->addEffect( pT );
+	}
+
+	teffects.insert( pT );
 }

@@ -823,7 +823,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 	if (pc_ch == NULL) 
 		return NULL;
 
-	P_ITEM pPack = pc_ch->atLayer(cChar::Backpack);
+	P_ITEM pPack = pc_ch->getBackpack();
 	bool pile = false;
 	
 	if (pileable)
@@ -886,24 +886,12 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 		}
 	}
 	
-	//clConsole.send("Adding Harditems settings in items.cpp:spawnitem\n");
-	GetScriptItemSetting(pi); // Added by Magius(CHE) (2)
 	pi->update();
 	return pi;
 }
 
 void cAllItems::GetScriptItemSetting(P_ITEM pi)
-{// rewritten by sereg
-	if(pi == NULL) 
-		return;
-
-	char buff[512] = {0};
-
-	sprintf(buff,"x%x",pi->id());
-
-	QDomElement* itemSect = DefManager->getSection( WPDT_ITEM, buff );
-	if( !itemSect->isNull() )
-		pi->applyDefinition( *itemSect );
+{
 }
 
 P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging) // Added by Genesis 11-5-98

@@ -108,7 +108,7 @@ public:
 	void				Off(P_CHAR pc) {;}
 	virtual void		Expire() = 0;
 	virtual void		Serialize(ISerialization &archive);
-	virtual void		Dispel( P_CHAR pSource ) {;}
+	virtual void		Dispel( P_CHAR pSource, bool silent = false ) {;}
 	virtual QString		objectID() const  { return objectid;}
 	bool				isSerializable( void ) { return serializable; }
 	void				setSerializable( bool data ) { serializable = data; }
@@ -214,13 +214,10 @@ public:
 	bool add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
 	bool add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
 	void serialize(ISerialization &archive);
-	void dispel( P_CHAR pc_dest, P_CHAR pSource );
-	void dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool onlyDispellable = true );
+	void dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent = false );
+	void dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent = false, bool onlyDispellable = true );
 
-	void insert( cTempEffect* pT )
-	{
-		teffects.insert( pT );
-	}
+	void insert( cTempEffect* pT );
 
 	int	 size()
 	{
