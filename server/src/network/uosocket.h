@@ -54,6 +54,7 @@ class cCustomTags;
 #include "../wptargetrequests.h"
 #include "../customtags.h"
 
+enum eLogLevel;
 
 struct stTargetItem
 {
@@ -206,6 +207,8 @@ public:
 	void updateLightLevel( UINT8 level );
 	void sendQuestArrow( bool show, UINT16 x, UINT16 y );
 	void closeGump( UINT32 type, UINT32 returnCode );
+	void log( eLogLevel loglevel, const QString &message );
+	void log( const QString &message );
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );

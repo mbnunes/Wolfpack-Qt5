@@ -47,6 +47,7 @@
 #include "tilecache.h"
 #include "skills.h"
 #include "pythonscript.h"
+#include "log.h"
 #include "scriptmanager.h"
 #include "inlines.h"
 
@@ -473,14 +474,9 @@ void cPlayer::kill()
 
 					setcharflag( pp_t );
 				}
-
-				if( SrvParams->pvpLog() )
-				{
-					sprintf((char*)temp,"%s was killed by %s!\n", name().latin1(),pp_t->name().latin1());
-					savelog((char*)temp,"PvP.log");
-				}
 			}
 
+			Log::instance()->print( LOG_NOTICE, QString( "%1 was killed by %2\n" ).arg( name() ).arg( pc_t->name() ) );
 
 			if( pc_t->objectType() == enNPC && pc_t->isAtWar() )
 			{
@@ -1771,4 +1767,14 @@ void cPlayer::awardKarma( P_CHAR pKilled, short amount )
 	}
 
 	socket()->clilocMessage( message );
+}
+
+void cPlayer::log( eLogLevel loglevel, const QString &string )
+{
+	Log::instance()->print( loglevel, socket_, string );
+}
+
+void cPlayer::log( const QString &string )
+{
+	log( LOG_NOTICE, string );
 }

@@ -48,6 +48,7 @@
 #include "typedefs.h"
 #include "wpdefmanager.h"
 #include "basechar.h"
+#include "log.h"
 #include "player.h"
 #include "npc.h"
 #include "chars.h"
@@ -1041,13 +1042,9 @@ namespace Combat
 							pp->socket()->sysMessage( tr("You are now a murderer!") );
 					}
 				}
-				
-				if( SrvParams->pvpLog() )
-				{
-					sprintf((char*)temp,"%s was killed by %s!\n",pDefender->name().latin1(), pAttacker->name().latin1());
-					savelog((char*)temp,"PvP.log");
-				}
 			}
+
+			Log::instance()->print( LOG_NOTICE, QString( "%1 was killed by %2\n" ).arg( pDefender->name() ).arg( pAttacker->name() ) );
 
 			if( pAttacker->objectType() == enNPC && pAttacker->isAtWar() )
 			{

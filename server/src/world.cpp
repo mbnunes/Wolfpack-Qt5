@@ -44,6 +44,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"
+#include "log.h"
 #include <sqlite.h>
 
 // Postprocessing stuff, can be deleted later on
@@ -266,7 +267,7 @@ void cWorld::load()
 			
 			else
 			{
-				clConsole.log( LOG_FATAL, tr( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
+				clConsole.log( LOG_ERROR, tr( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
 				continue; // Skip the class, not a good habit but at the moment the user couldn't really debug the error
 			}
 			
@@ -448,7 +449,7 @@ void cWorld::save()
 	}
 	catch( QString &e )
 	{
-		clConsole.log( LOG_FATAL, QString( "Couldn't open the database: %1\n" ).arg( e ) );
+		clConsole.log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
 		return;
 	}
 

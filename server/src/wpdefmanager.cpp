@@ -38,6 +38,7 @@
 #include "commands.h"
 #include "encryption.h"
 #include "basedef.h"
+#include "log.h"
 
 // Library Includes
 #include <qdom.h>

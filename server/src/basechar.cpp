@@ -49,6 +49,7 @@
 #include "tilecache.h"
 #include "pythonscript.h"
 #include "scriptmanager.h"
+#include "log.h"
 #include "skills.h"
 #include "wpdefmanager.h"
 #include "srvparams.h"
@@ -1462,8 +1463,8 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 {
 	// DoubleEquip is *NOT* allowed
 	if ( atLayer( layer ) != 0 )
-	{
-		clConsole.log( LOG_WARNING, QString( "Trying to put an item on layer %1 which is already occupied\n" ).arg( layer ) );
+	{		
+		log( LOG_WARNING, QString( "Trying to put an item on layer %1 which is already occupied\n" ).arg( layer ) );
 		pi->setContainer( 0 );
 		return;
 	}

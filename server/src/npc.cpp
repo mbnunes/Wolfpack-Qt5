@@ -44,6 +44,7 @@
 #include "dbdriver.h"
 #include "sectors.h"
 #include "srvparams.h"
+#include "log.h"
 #include "corpse.h"
 #include "wpdefmanager.h"
 #include "chars.h"
@@ -1547,4 +1548,15 @@ void cNPC::awardFame( short amount )
 		nChange = ( amount - nCurFame ) / 75;
 		setFame( nCurFame+nChange );
 	}
+}
+
+void cNPC::log( eLogLevel loglevel, const QString &string )
+{
+	// NPC's usually don't have sockets
+	Log::instance()->print( loglevel, string );
+}
+
+void cNPC::log( const QString &string )
+{
+	log( LOG_NOTICE, string );
 }

@@ -32,6 +32,7 @@
 // Wolfpack Includes
 #include "wpconsole.h"
 #include "pythonscript.h"
+#include "log.h"
 
 // Library Includes
 #include <qstring.h>
@@ -111,30 +112,13 @@ void WPConsole_cl::send(const QString &sMessage)
 //========================================================================================
 void WPConsole_cl::log( UINT8 logLevel, const QString &message )
 {
-	if( incompleteLine_.length() > 0 ) 
-		send( "\n" ); // End line
+	// Legacy Code
+	QString msg = message;
+	
+	if( msg.endsWith( "\n" ) )
+		msg = msg.left( msg.length() - 1 );
 
-	switch( logLevel )
-	{
-	case LOG_ERROR:
-	case LOG_FATAL:
-		ChangeColor( WPC_RED );
-		send( "ERROR" );
-		ChangeColor( WPC_NORMAL );
-		break;
-	case LOG_NOTICE:
-		ChangeColor( WPC_WHITE );
-		send( "NOTICE" );
-		ChangeColor( WPC_NORMAL );
-		break;
-	case LOG_WARNING:
-		ChangeColor( WPC_YELLOW );
-		send( "WARNING" );
-		ChangeColor( WPC_NORMAL );
-		break;
-	}
-
-	send( ": " + message + "\n" );
+	Log::instance()->print( (eLogLevel)logLevel, msg + "\n" );
 }
 
 //========================================================================================

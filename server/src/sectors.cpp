@@ -11,6 +11,7 @@
 #include "world.h"
 #include "items.h"
 #include "basechar.h"
+#include "log.h"
 
 #include <math.h>
 #include <algorithm>

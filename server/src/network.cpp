@@ -112,10 +112,11 @@ void cNetwork::poll( void )
 	{
 		QSocketDevice *socket = loginServer_->getNewConnection(); 
 		netIo_->registerSocket( socket, true );
-		loginSockets.append( new cUOSocket(socket) );
+		cUOSocket *uosocket = new cUOSocket(socket);
+		loginSockets.append( uosocket );
 
 		// Notify the admin
-		clConsole.send( QString( "[%1] Client connected (LoginServer)\n" ).arg( socket->peerAddress().toString() ) );
+		uosocket->log( QString( "Client connected to login server (%1).\n" ).arg( socket->peerAddress().toString() ) );
 	}
 
 	// Check for new Connections (GameServer)
@@ -123,10 +124,11 @@ void cNetwork::poll( void )
 	{
 		QSocketDevice *socket = gameServer_->getNewConnection(); 
 		netIo_->registerSocket( socket, false );
-		loginSockets.append( new cUOSocket(socket) );
+		cUOSocket *uosocket = new cUOSocket(socket);
+		loginSockets.append( uosocket );
 
 		// Notify the admin
-		clConsole.send( QString( "[%1] Client connected (GameServer)\n" ).arg( socket->peerAddress().toString() ) );
+		uosocket->log( QString( "Client connected to game server (%1).\n" ).arg( socket->peerAddress().toString() ) );
 	}
 
 	// fast return
@@ -140,7 +142,7 @@ void cNetwork::poll( void )
 		// Check for disconnected sockets
 		if ( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isWritable() || uoSocket->socket()->isInactive() || !uoSocket->socket()->isOpen() )
 		{
-			clConsole.send( tr( "[%1] Client disconnected\n" ).arg( uoSocket->ip() ) );			
+			uoSocket->log( "Client disconnected.\n" );
 			uoSocket->disconnect();
 			netIo_->unregisterSocket( uoSocket->socket() );			
 			uoSockets.remove( uoSocket );
@@ -158,7 +160,7 @@ void cNetwork::poll( void )
 	{
 		if( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isOpen() )
 		{
-			clConsole.send( tr( "[%1] Client disconnected\n" ).arg( uoSocket->ip() ) );
+			uoSocket->log( "Client disconnected.\n" );
 			netIo_->unregisterSocket( uoSocket->socket() );
 			loginSockets.remove();
 			continue;

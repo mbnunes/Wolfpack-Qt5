@@ -202,6 +202,10 @@ SOURCE=.\items.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\log.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\makemenus.cpp
 # End Source File
 # Begin Source File
@@ -613,6 +617,10 @@ SOURCE=.\itemid.h
 
 SOURCE=.\items.h
 # PROP Ignore_Default_Tool 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\log.h
 # End Source File
 # Begin Source File
 

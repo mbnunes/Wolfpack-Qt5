@@ -43,6 +43,7 @@ II. make sure to hold the map up to date !
 #include "defines.h"
 #include "maps.h"
 #include "walking.h"
+#include "log.h"
 #include "utilsys.h"
 #include "chars.h"
 #include "npc.h"

@@ -79,6 +79,8 @@ public:
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 	virtual void flagUnchanged();
+	void log( eLogLevel, const QString &string );
+	void log( const QString &string );
 	void awardFame( short amount );
 	void awardKarma( P_CHAR pKilled, short amount );
 

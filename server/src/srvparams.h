@@ -153,6 +153,7 @@ protected:
 	bool heartBeat_;
 	int defaultpriv2_;
 	QString mulPath_;
+	QString logPath_;
 	int maxLoginAttempts_;
 	int resetAttemptCount_;
 	int accountsBlockTime_;
@@ -332,7 +333,9 @@ public:
 	bool heartBeat() const;
 	int defaultpriv2() const;
 	QString mulPath() const;
+	QString logPath() const;
 	void setMulPath( const QString& data );
+	void setLogPath( const QString& data );
 	int MaxLoginAttempts() const;
 	int AccountBlockTime() const;
 	int resetAttemptCount() const;
@@ -1148,6 +1151,11 @@ inline float cSrvParams::pathfindFollowMinCost() const
 inline int cSrvParams::pathfindFleeRadius() const
 {
 	return pathfindFleeRadius_;
+}
+
+inline QString cSrvParams::logPath() const
+{
+	return logPath_;
 }
 
 inline int cSrvParams::pathfindMaxIterations() const

@@ -41,6 +41,7 @@
 #include "wpconsole.h"
 #include "globals.h"
 #include "prototypes.h"
+#include "log.h"
 
 /*!
 	Initializes this "LoginCrypt" object. 
@@ -220,7 +221,7 @@ void cKeyManager::load()
         
 		if( elements.size() < 3 )
 		{
-			clConsole.log( LOG_WARNING, QString( "Invalid encryption key line: %1" ).arg( *it ) );
+			Log::instance()->print( LOG_WARNING, QString( "Invalid encryption key: %1" ).arg( *it ) );
 			continue;
 		}
 
@@ -232,7 +233,7 @@ void cKeyManager::load()
 
 		if( !ok )
 		{
-			clConsole.log( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[1].stripWhiteSpace() ) );
+			Log::instance()->print( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[1].stripWhiteSpace() ) );
 			continue;
 		}
 
@@ -240,7 +241,7 @@ void cKeyManager::load()
 
 		if( !ok )
 		{
-			clConsole.log( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[2].stripWhiteSpace() ) );
+			Log::instance()->print( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[2].stripWhiteSpace() ) );
 			continue;
 		}
 		

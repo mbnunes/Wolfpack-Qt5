@@ -81,6 +81,7 @@ HEADERS         = \
                   iserialization.h \
 		  itemid.h \
 		  items.h \
+		  log.h \
 		  makemenus.h \
 		  multis.h \
 		  network.h \
@@ -149,6 +150,7 @@ SOURCES         = \
 		iserialization.cpp \
 		itemid.cpp \
 		items.cpp \
+		log.cpp \
 		makemenus.cpp \
 		maps.cpp \
 		multis.cpp \

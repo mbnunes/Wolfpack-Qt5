@@ -63,6 +63,7 @@
 #include "../basechar.h"
 #include "../chars.h"
 #include "../npc.h"
+#include "../log.h"
 #include "../ai.h"
 
 //#include <conio.h>
@@ -100,6 +101,7 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 {
 	_socket->resetStatus();
 	_ip = _socket->peerAddress().toString();
+	_uniqueId = sDevice->socket();
 	tooltipscache_ = new QBitArray;
 }
 
@@ -192,7 +194,7 @@ void cUOSocket::recieve()
 	// After two pings we idle-disconnect
 	if( lastPacket == 0x73 && packetId == 0x73 )
 	{
-		clConsole.send( tr( "[%1] Idle Disconnected" ).arg( _socket->peerAddress().toString() ) );
+		log( "Disconnected idling socket.\n" );
 		disconnect();
 		return;
 	}
@@ -200,11 +202,14 @@ void cUOSocket::recieve()
 	// Disconnect harmful clients
 	if( ( _account < 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
 	{
-		clConsole.send( tr( "Communication Error [%1 instead of 0x80|0x91] [%2]\n" ).arg( packetId, 2, 16 ).arg( _socket->peerAddress().toString() ) );
+		log( QString( "Communication error: %1 instead of 0x80 or 0x91\n" ).arg( packetId, 2, 16 ) );
+		
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( DL_BADCOMMUNICATION );
 		send( &denyLogin );
+
 		disconnect();
+
 		return;
 	}
 
@@ -626,7 +631,7 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 				authRet = Accounts::instance()->createAccount( username, password );
 				_account = authRet;
 				
-				clConsole.send( tr( "[%2] Account autocreated: '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
+				log( QString( "Automatically created account '%1'.\n" ).arg( username ) );
 				return true;
 			}
 			else
@@ -641,12 +646,12 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			denyPacket.setReason( DL_INUSE ); break;
 		};
 
-		clConsole.send( tr( "[%2] Failed to log in as '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
+		log( QString( "Failed to log in as '%1'.\n" ).arg( username ) );
 		send( &denyPacket );
 	}
 	else if( error == cAccounts::NoError )
 	{
-		clConsole.send( tr( "[%2] Identified as '%1'\n" ).arg( username ).arg( _socket->peerAddress().toString() ) );
+		log( QString( "Logged in as '%1'.\n" ).arg( username ) );
 	}
 
 	_account = authRet;
@@ -667,7 +672,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	// Several security checks
 	if ( !_account )
 	{
-		clConsole.send( tr("%1 sent cUORxCreateChar without being authenticated, disconnecting. Probably a crypt client").arg(this->_socket->peerAddress().toString()) );
 		this->_socket->close();
 		return;
 	}
@@ -676,22 +680,16 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
     // If we have more than 5 characters
 	if( characters.size() >= 5 )
 	{
-		clConsole.send( tr( "%1 is trying to create char but has more than 5 characters" ).arg( _account->login() ) );
 		cancelCreate( tr("You already have more than 5 characters") )
 	}
 
 	// Check the stats
 	Q_UINT16 statSum = ( packet->strength() + packet->dexterity() + packet->intelligence() );
-	if( statSum > 80 )
-	{
-		clConsole.send( tr( "%1 is trying to create character with wrong stats: %2\n" ).arg( _account->login() ).arg( statSum ) );
-		cancelCreate( tr( "Invalid Character stat sum: %1" ).arg( statSum ) )
-	}
 
-	// Every stat needs to be below 60
-	if( ( packet->strength() > 60 ) || ( packet->dexterity() > 60 ) || ( packet->intelligence() > 60 ) )
+	// Every stat needs to be below 60 && the sum lower/equal than 80
+	if( statSum > 80 || ( packet->strength() > 60 ) || ( packet->dexterity() > 60 ) || ( packet->intelligence() > 60 ) )
 	{
-		clConsole.send( tr( "%1 is trying to create char with wrong stats: %2 [str] %3 [dex] %4 [int]" ).arg( _account->login() ).arg( packet->strength() ).arg( packet->dexterity() ).arg( packet->intelligence() ) );
+		log( QString( "Submitted invalid stats during char creation (%1,%2,%3).\n" ).arg( packet->strength() ).arg( packet->dexterity() ).arg( packet->intelligence() ) );
 		cancelCreate( tr("Invalid Character stats") )
 	}
 
@@ -701,43 +699,44 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		( packet->skillId3() >= ALLSKILLS ) || ( packet->skillValue3() > 50 ) ||
 		( packet->skillValue1() + packet->skillValue2() + packet->skillValue3() > 100 ) )
 	{
-		clConsole.send( tr( "%1 is trying to create char with wrong skills: %1 [%2%] %3 [%4%] %5 [%6%]" ).arg( _account->login() ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() ) );
-		cancelCreate( tr("Invalid Character skills") )
+		log( QString( "Submitted invalid skills during char creation (%1=%2,%3=%4,%5=%6).\n" ).arg( packet->skillId1() ).arg( packet->skillValue1() ).arg( packet->skillId2() ).arg( packet->skillValue2() ).arg( packet->skillId3() ).arg( packet->skillValue3() ) );
+		cancelCreate( tr( "Invalid Character skills" ) )
 	}
 
 	// Check Hair
 	if( packet->hairStyle() && ( !isHair( packet->hairStyle() ) || !isHairColor( packet->hairColor() ) ) )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong hair %2 [Color: %3]" ).arg( _account->login() ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
+		log( QString( "Submitted wrong hair style (%1) or wrong hair color (%2) during char creation.\n" ).arg( packet->hairStyle() ).arg( packet->hairColor() ) );
 		cancelCreate( tr("Invalid hair") )
 	}
 
 	// Check Beard
 	if( packet->beardStyle() && ( !isBeard( packet->beardStyle() ) || !isHairColor( packet->beardColor() ) ) )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong beard %2 [Color: %3]" ).arg( _account->login() ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
+		log( QString( "Submitted wrong beard style (%1) or wrong beard color (%2) during char creation.\n" ).arg( packet->beardStyle() ).arg( packet->beardColor() ) );
 		cancelCreate( tr("Invalid beard") )
 	}
 
 	// Check color for pants and shirt
 	if( !isNormalColor( packet->shirtColor() ) || !isNormalColor( packet->pantsColor() ) )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong shirt [%2] or pant [%3] color" ).arg( _account->login() ).arg( packet->shirtColor() ).arg( packet->pantsColor() ) );
+		log( QString( "Submitted wrong shirt (%1) or pant (%2) color during char creation.\n" ).arg( packet->shirtColor() ).arg( packet->pantsColor() ) );
 		cancelCreate( tr("Invalid shirt or pant color") )
 	}
 
 	// Check the start location
 	vector< StartLocation_st > startLocations = SrvParams->startLocation();
-	if( packet->startTown() > startLocations.size() )
+
+	if( packet->startTown() >= startLocations.size() )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong start location: %2" ).arg( _account->login() ).arg( packet->startTown() ) );
+		log( QString( "Submitted wrong starting location (%1) during char creation.\n" ).arg( packet->startTown() ) );
 		cancelCreate( tr("Invalid start location") )
 	}
 
 	// Finally check the skin
 	if( !isSkinColor( packet->skinColor() ) )
 	{
-		clConsole.send( tr( "%1 is trying to create a char with wrong skin color: %2" ).arg( _account->login() ).arg( packet->skinColor() ) );
+		log( QString( "Submitted a wrong skin color (%1) during char creation.\n" ).arg( packet->skinColor() ) );
 		cancelCreate( tr("Invalid skin color") )
 	}
 
@@ -2187,16 +2186,11 @@ void cUOSocket::handleAction( cUORxAction *packet )
 
 void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 {
-	if( gumps.find( packet->serial() ) == gumps.end() )
+	QMap< SERIAL, cGump* >::iterator it( gumps.find( packet->serial() ) );
+
+	if( it == gumps.end() )
 	{
 		sysMessage( tr( "Unexpected button input" ) );
-		return;
-	}
-
-	QMap< SERIAL, cGump* >::iterator it( gumps.find( packet->serial() ) );
-	if ( it == gumps.end() )
-	{
-		clConsole.send( tr("Invalid gump response packet received from %1").arg(_account->login()) );
 		return;
 	}
 
@@ -2548,4 +2542,14 @@ void cUOSocket::addTooltip( UINT32 data )
 		tooltipscache_->resize( data+2 );
 
 	tooltipscache_->setBit( data );
+}
+
+void cUOSocket::log( const QString &message )
+{
+	Log::instance()->print( LOG_MESSAGE, this, message );
+}
+
+void cUOSocket::log( eLogLevel loglevel, const QString &message )
+{
+	Log::instance()->print( loglevel, this, message );
 }

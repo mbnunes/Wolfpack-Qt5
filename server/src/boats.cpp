@@ -46,6 +46,7 @@
 #include "world.h"
 #include "globals.h"
 #include "wpconsole.h"
+#include "log.h"
 #include "player.h"
 #include "inlines.h"
 

@@ -4,7 +4,7 @@
 //	UO Server Emulation Program
 //
 //	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//      Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -29,21 +29,50 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#if !defined(__PROTOTYPES_H__)
-#define __PROTOTYPES_H__
+#if !defined( __LOG_H__ )
+#define __LOG_H__
 
-class QString;
+// QT Includes
+#include <qfile.h>
+
+// Wolfpack Includes
+#include "singleton.h"
+
+// Log Levels
+enum eLogLevel
+{
+	LOG_MESSAGE = 0,
+	LOG_ERROR,
+	LOG_WARNING,
+	LOG_NOTICE,
+	LOG_TRACE,
+	LOG_DEBUG
+};
+
 class cUOSocket;
 
-QString hex2dec( const QString& value );
-void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
+class cLog
+{
+protected:
+	eLogLevel loglevel;
+	QFile logfile;
+	bool checkLogFile();
+	unsigned char currentday; // Day of the month our current logfile is for
 
-void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );
+public:
+	cLog(): loglevel( LOG_DEBUG ) {}
+	virtual ~cLog();
+	
+	// Prints to the logfile only
+	void log( eLogLevel, cUOSocket*, const QString&, bool timestamp = true );
 
-void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
-void reloadScripts();
+	// Sends to the console and logs too
+	void print( eLogLevel, const QString&, bool timestamp = true );
+	void print( eLogLevel, cUOSocket*, const QString&, bool timestamp = true );
+};
 
-void setcharflag(P_CHAR pc);
+typedef SingletonHolder< cLog > Log;
+
+#define DEBUG_LOG( value ) Log::instance()->log( LOG_DEBUG, QString( "%1 (%2:%3)" ).arg( value ).arg( __FILE__ ).arg( __LINE__ ) );
 
 #endif
-

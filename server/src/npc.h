@@ -101,6 +101,8 @@ public:
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 	virtual void applyDefinition( const cElement* );
 	virtual void flagUnchanged() { cNPC::changed_ = false; cBaseChar::flagUnchanged();	}
+	void log( eLogLevel, const QString &string );
+	void log( const QString &string );
 	void awardFame( short amount );
 	void awardKarma( P_CHAR pKilled, short amount );
 

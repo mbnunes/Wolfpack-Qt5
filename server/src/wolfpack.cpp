@@ -29,7 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-
 #include "wolfpack.h"
 #include "world.h"
 #include "verinfo.h"
@@ -54,6 +53,7 @@
 #include "contextmenu.h"
 #include "maps.h"
 #include "wpdefmanager.h"
+#include "log.h"
 #include "scriptmanager.h"
 #include "wptargetrequests.h"
 #include "python/engine.h"
@@ -519,7 +519,7 @@ int main( int argc, char *argv[] )
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_FATAL, "Couldn't start up classes." );
+		clConsole.log( LOG_ERROR, "Couldn't start up classes.\n" );
 		exit( -1 );
 	}
 
@@ -535,7 +535,7 @@ int main( int argc, char *argv[] )
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_FATAL, "Couldn't load translator." );
+		clConsole.log( LOG_ERROR, "Couldn't load translator.\n" );
 		exit( -1 );
 	}
 
@@ -546,7 +546,7 @@ int main( int argc, char *argv[] )
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_FATAL, "Couldn't start up python." );
+		clConsole.log( LOG_ERROR, "Couldn't start up python.\n" );
 		exit( -1 );
 	}
 
@@ -611,12 +611,12 @@ int main( int argc, char *argv[] )
 	}
 	catch( wpException &exception )
 	{
-		clConsole.log( LOG_FATAL, exception.error() );
+		clConsole.log( LOG_ERROR, exception.error() );
 		exit( -1 );
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_FATAL, "Unknown error while loading data files." );
+		clConsole.log( LOG_ERROR, "Unknown error while loading data files.\n" );
 		exit( -1 );
 	}
 
@@ -631,7 +631,7 @@ int main( int argc, char *argv[] )
 	// Try to open our driver
 	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
 	{		
-		clConsole.log( LOG_FATAL, QString("Error trying to open %1 database driver, check your wolfpack.xml").arg(SrvParams->databaseDriver()) );
+		clConsole.log( LOG_ERROR, QString("Error trying to open %1 database driver, check your wolfpack.xml").arg(SrvParams->databaseDriver()) );
 		exit( -1 );
 	}
 
@@ -666,12 +666,12 @@ int main( int argc, char *argv[] )
 	}
 	catch( QString &error )
 	{
-		clConsole.log( LOG_FATAL, error );
+		clConsole.log( LOG_ERROR, error );
 		exit( -1 );
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_FATAL, "An unknown error occured while loading the world." );
+		clConsole.log( LOG_ERROR, "An unknown error occured while loading the world.\n" );
 		exit( -1 );
 	}
 
@@ -682,9 +682,6 @@ int main( int argc, char *argv[] )
 	starttime = uiCurrentTime;
 	endtime = 0;
 	lclock = 0;
-	
-	if( SrvParams->serverLog() )
-		savelog( "Server startup", "server.log" );
 
 	uiCurrentTime = getNormalizedTime();
 	serverstarttime = getNormalizedTime(); // dont remove, its absolutly necassairy that its 3 times in the startup sequence for several timing reasons.
@@ -850,9 +847,6 @@ int main( int argc, char *argv[] )
 	// Stop Python Interpreter.
 	ScriptManager->unload();
 	stopPython();
-
-	if( SrvParams->serverLog() ) 
-		savelog( "Server shutdown","server.log" );
 
 	return 0;
 }
@@ -1025,20 +1019,4 @@ void setcharflag( P_CHAR pc )
 				break;
 		}*/
 	}
-}
-
-
-void savelog(const char *msg, char *logfile)
-{
-	FILE *file;
-	file = fopen( logfile, "a" );
-	
-	QString logMessage = QString( "[%1] %2\n" ).arg( QDateTime::currentDateTime().toString() ).arg( msg );
-	
-	// Remove newlines
-	logMessage = logMessage.replace( QRegExp( "\n" ), "" );
-	
-	fprintf( file, "%s", logMessage.ascii() );
-	
-	fclose( file );
 }

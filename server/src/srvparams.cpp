@@ -211,7 +211,8 @@ void cSrvParams::readData()
 	saveInterval_			= getNumber("General", "Save Interval", 900, true);
 	heartBeat_				= getBool("General", "HeartBeat", false, true);
 	defaultpriv2_			= getNumber("General", "DefaultPrivileage2", 0, true);
-	mulPath_				= QDir::convertSeparators( getString("General", "MulPath", "./", true) );
+	mulPath_				= QDir::convertSeparators( getString("General", "MulPath", "./muls/", true) );
+	logPath_				= QDir::convertSeparators( getString("General", "LogPath", "./logs/", true ) );
 
 	// Network
 	loginPort_				= getNumber( "Network",		"Loginserver Port", 2593, true );
@@ -381,6 +382,13 @@ void cSrvParams::setMulPath( const QString& data )
 { 
 	mulPath_ = data; 
 	setString("General", "MulPath", data);
+	flush();
+}
+
+void cSrvParams::setLogPath( const QString &data )
+{
+	logPath_ = data;
+	setString("General", "LogPath", data );
 	flush();
 }
 

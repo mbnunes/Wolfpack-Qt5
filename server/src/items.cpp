@@ -47,6 +47,7 @@
 #include "pythonscript.h"
 #include "maps.h"
 #include "network.h"
+#include "log.h"
 #include "multis.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"

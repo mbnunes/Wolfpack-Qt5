@@ -44,6 +44,7 @@
 #include "sectors.h"
 #include "wpdefmanager.h"
 #include "wpconsole.h"
+#include "log.h"
 
 // Qt Includes
 #include <qstringlist.h>
