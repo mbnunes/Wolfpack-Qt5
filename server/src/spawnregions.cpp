@@ -556,9 +556,13 @@ void cSpawnRegion::spawnSingleNPC()
 
 		// Apply these settings between the inherited npc and the custom settings in the spawnregion
 		// file
-		pChar->setWanderType( enWanderSpawnregion );
-		pChar->setWanderX1( pos.x );
-		pChar->setWanderY1( pos.y );
+		if (countPoints() == 1) {
+			pChar->setWanderType( enHalt ); // Most likely a vendor spawn with only one point
+		} else {
+			pChar->setWanderType( enWanderSpawnregion );
+			pChar->setWanderX1( pos.x );
+			pChar->setWanderY1( pos.y );
+		}
 
 		pChar->applyDefinition( tag ); // Now apply the given tag
 

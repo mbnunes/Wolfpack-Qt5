@@ -530,7 +530,14 @@ void Action_Wander::execute()
 						newdir += RandomNum( 0, 1 ) ? -1 : 1;
 					}
 					dir = newdir;
-				}
+
+					newpos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() ); // Recalculate the new one
+
+					// See if it's still invalid
+					if ( !region->isValidSpot( newpos ) ) {
+						return;
+					}
+				}				
 
 				if (m_npc->direction() != dir) {
 					Movement::instance()->Walking( m_npc, dir, 0xFF );
