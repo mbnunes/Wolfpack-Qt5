@@ -44,8 +44,8 @@
 				<makeitem section="map_world_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>World map (middle)</name>
@@ -56,8 +56,8 @@
 				<makeitem section="map_world_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>World map (large)</name>
@@ -68,8 +68,8 @@
 				<makeitem section="map_world_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_LAND">
@@ -83,8 +83,8 @@
 				<makeitem section="map_land_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Land world map (middle)</name>
@@ -95,8 +95,8 @@
 				<makeitem section="map_land_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Land world map (large)</name>
@@ -107,8 +107,8 @@
 				<makeitem section="map_land_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_REGIONAL">
@@ -122,8 +122,8 @@
 				<makeitem section="map_regional_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Regional world map (middle)</name>
@@ -134,8 +134,8 @@
 				<makeitem section="map_regional_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Regional world map (large)</name>
@@ -146,8 +146,8 @@
 				<makeitem section="map_regional_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_DETAL">
@@ -161,8 +161,8 @@
 				<makeitem section="map_world_detaled_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Detaled world map (middle)</name>
@@ -173,8 +173,8 @@
 				<makeitem section="map_world_detaled_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Detaled world map (large)</name>
@@ -185,8 +185,8 @@
 				<makeitem section="map_world_detaled_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_BRITAIN">
@@ -200,8 +200,8 @@
 				<makeitem section="map_city_britain_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Britain map (middle)</name>
@@ -212,8 +212,8 @@
 				<makeitem section="map_city_britain_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Britain map (large)</name>
@@ -224,8 +224,8 @@
 				<makeitem section="map_city_britain_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_BUCCANEERS_DEN">
@@ -239,8 +239,8 @@
 				<makeitem section="map_city_buccaneersden_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Buccaneers Den map (middle)</name>
@@ -251,8 +251,8 @@
 				<makeitem section="map_city_buccaneersden_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Buccaneers Den map (large)</name>
@@ -263,8 +263,8 @@
 				<makeitem section="map_city_buccaneersden_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_COVE">
@@ -278,8 +278,8 @@
 				<makeitem section="map_city_cove_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Cove map (middle)</name>
@@ -290,8 +290,8 @@
 				<makeitem section="map_city_cove_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Cove map (large)</name>
@@ -302,8 +302,8 @@
 				<makeitem section="map_city_cove_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_JHELOM">
@@ -317,8 +317,8 @@
 				<makeitem section="map_city_jhelom_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Jhelom map (middle)</name>
@@ -329,8 +329,8 @@
 				<makeitem section="map_city_jhelom_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Jhelom map (large)</name>
@@ -341,8 +341,8 @@
 				<makeitem section="map_city_jhelom_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_NUJELM">
@@ -356,8 +356,8 @@
 				<makeitem section="map_city_nujelm_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Nujelm map (middle)</name>
@@ -368,8 +368,8 @@
 				<makeitem section="map_city_nujelm_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Nujelm map (large)</name>
@@ -380,8 +380,8 @@
 				<makeitem section="map_city_nujelm_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_MAGINCIA">
@@ -395,8 +395,8 @@
 				<makeitem section="map_city_magincia_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Magincia map (middle)</name>
@@ -407,8 +407,8 @@
 				<makeitem section="map_city_magincia_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Magincia map (large)</name>
@@ -419,8 +419,8 @@
 				<makeitem section="map_city_magincia_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_MINOC">
@@ -434,8 +434,8 @@
 				<makeitem section="map_city_Minoc_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Minoc map (middle)</name>
@@ -446,8 +446,8 @@
 				<makeitem section="map_city_Minoc_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Minoc map (large)</name>
@@ -458,8 +458,8 @@
 				<makeitem section="map_city_Minoc_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_MOON_GLOW">
@@ -473,8 +473,8 @@
 				<makeitem section="map_city_moonglow_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Moon Glow map (middle)</name>
@@ -485,8 +485,8 @@
 				<makeitem section="map_city_moonglow_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Moon Glow map (large)</name>
@@ -497,8 +497,8 @@
 				<makeitem section="map_city_moonglow_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_OCLLO">
@@ -512,8 +512,8 @@
 				<makeitem section="map_city_ocllo_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Ocllo map (middle)</name>
@@ -524,8 +524,8 @@
 				<makeitem section="map_city_ocllo_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Ocllo map (large)</name>
@@ -536,8 +536,8 @@
 				<makeitem section="map_city_ocllo_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_SERPENTS_HOLD">
@@ -551,8 +551,8 @@
 				<makeitem section="map_city_serpentshold_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Serpents Hold map (middle)</name>
@@ -563,8 +563,8 @@
 				<makeitem section="map_city_serpentshold_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Serpents Hold map (large)</name>
@@ -575,8 +575,8 @@
 				<makeitem section="map_city_serpentshold_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_SKARA_BRAE">
@@ -590,8 +590,8 @@
 				<makeitem section="map_city_skarabrae_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Skara Brae map (middle)</name>
@@ -602,8 +602,8 @@
 				<makeitem section="map_city_skarabrae_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Skara Brae map (large)</name>
@@ -614,8 +614,8 @@
 				<makeitem section="map_city_skarabrae_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_TRINSIC">
@@ -629,8 +629,8 @@
 				<makeitem section="map_city_trinsic_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Trinsic map (middle)</name>
@@ -641,8 +641,8 @@
 				<makeitem section="map_city_trinsic_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Trinsic map (large)</name>
@@ -653,8 +653,8 @@
 				<makeitem section="map_city_trinsic_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_VESPER">
@@ -668,8 +668,8 @@
 				<makeitem section="map_city_vesper_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Vesper map (middle)</name>
@@ -680,8 +680,8 @@
 				<makeitem section="map_city_vesper_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Vesper map (large)</name>
@@ -692,8 +692,8 @@
 				<makeitem section="map_city_vesper_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 	<menu id="CARTOGRAPHY_CITY_YEW">
@@ -707,8 +707,8 @@
 				<makeitem section="map_city_yew_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Yew map (middle)</name>
@@ -719,8 +719,8 @@
 				<makeitem section="map_city_yew_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 		<action>
 			<name>Yew map (large)</name>
@@ -731,8 +731,8 @@
 				<makeitem section="map_city_yew_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
+			<fail>You failed to make the map</fail>
+			<success>You succeded in making the map</success>
 		</action>
 	</menu>
 </definitions>
