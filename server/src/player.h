@@ -121,7 +121,6 @@ public:
     cAccount*			account() const;
     UINT32					additionalFlags() const;
     UINT32					logoutTime() const;
-    UINT32					muteTime() const;
     UINT32					objectDelay() const;
 	UINT32					trackingTime() const;
 	cUOSocket*				socket() const;
@@ -131,7 +130,6 @@ public:
 	QString					profile() const;
     UINT8					fixedLightLevel() const;
 	// bit flag getters
-	bool					isMuted() const;
 	bool					maySnoop() const;
 	bool					mayBroadcast() const;
 	bool					showSerials() const;
@@ -148,7 +146,6 @@ public:
     void setAccount(cAccount* data, bool moveFromAccToAcc = true);
     void setAdditionalFlags(UINT32 data);
     void setLogoutTime(UINT32 data);
-    void setMuteTime(UINT32 data);
     void setObjectDelay(UINT32 data);
 	void setTrackingTime(UINT32 data);
 	void setSocket(cUOSocket* data);
@@ -158,7 +155,6 @@ public:
 	void setProfile(const QString &data);
     void setFixedLightLevel(UINT8 data);
 	// bit flag setters
-	void setMuted(bool data);
 	void setMaySnoop(bool data);
 	void setMayBroadcast(bool data);
 	void setShowSerials(bool data);
@@ -206,17 +202,12 @@ protected:
     // cOldChar::logout_
     UINT32 logoutTime_;
 
-    // Time till player will become unmuted again
-    // cOldChar::mutetime_
-    UINT32 muteTime_;
-
     // Time till the player can use another object.
     UINT32 objectDelay_;
 
     // Additional property flags.
     // 
     // Bits:
-    // 01 - muted, cOldChar::squelched_
 	// 02 - may snoop, cOldChar::priv Bit 7
 	// 03 - may broadcast, cOldChar::priv Bit 2
 	// 04 - show serials, cOldChar::priv Bit 4
@@ -299,17 +290,6 @@ inline void cPlayer::setLogoutTime(UINT32 data)
 	changed_ = true;
 }
 
-inline UINT32 cPlayer::muteTime() const
-{
-    return muteTime_;
-}
-
-inline void cPlayer::setMuteTime(UINT32 data)
-{
-    muteTime_ = data;
-	changed_ = true;
-}
-
 inline UINT32 cPlayer::objectDelay() const
 {
     return objectDelay_;
@@ -384,11 +364,6 @@ inline void cPlayer::setFixedLightLevel(UINT8 data)
 	changed_ = true;
 }
 
-inline bool cPlayer::isMuted() const
-{
-	return additionalFlags_ & 0x0001;
-}
-
 inline bool cPlayer::maySnoop() const
 {
 	return additionalFlags_ & 0x0002;
@@ -402,12 +377,6 @@ inline bool cPlayer::mayBroadcast() const
 inline bool cPlayer::showSerials() const
 {
 	return additionalFlags_ & 0x0008;
-}
-
-inline void cPlayer::setMuted(bool data)
-{
-	if( data ) additionalFlags_ |= 0x0001; else additionalFlags_ &= ~0x0001; 
-	changed_ = true;
 }
 
 inline void cPlayer::setMaySnoop(bool data)

@@ -598,6 +598,9 @@
 				RelativePath=".\python\pyaccount.cpp">
 			</File>
 			<File
+				RelativePath=".\python\pyai.cpp">
+			</File>
+			<File
 				RelativePath=".\python\pycoord.cpp">
 			</File>
 			<File

@@ -61,516 +61,398 @@
 #include <math.h>
 #include <time.h>
 
-using namespace std;
+cTiming::cTiming() {
+	unsigned int time = getNormalizedTime();
 
-#undef  DBGFILE
-#define DBGFILE "Timing.cpp"
-
-// global junk
-time_t oldtime;
-time_t newtime;
-
-void restockNPC( UINT32 currenttime, P_NPC pc_i )
-{
-	if( SrvParams->shopRestock() && ( shoprestocktime <= currenttime ) )
-	{
-//		pc_i->restock();
-	}
+	lastWorldsave_ = 0;
+	nextSpawnRegionCheck = time + SrvParams->spawnRegionCheckTime() * MY_CLOCKS_PER_SEC;
+	nextTamedCheck = time + SrvParams->checkTamedTime() * MY_CLOCKS_PER_SEC;
+	nextNpcCheck = time + SrvParams->checkNPCTime() * MY_CLOCKS_PER_SEC;
+	nextItemCheck = time + SrvParams->checkItemTime() * MY_CLOCKS_PER_SEC;
+	nextShopRestock = time + 20 * 60 * MY_CLOCKS_PER_SEC; // Every 20 minutes
+	nextLightCheck = time + MY_CLOCKS_PER_SEC * 30; // Every 30 seconds
+	nextHungerCheck = time + SrvParams->hungerDamageRate();
 }
 
-void checkRegeneration( P_CHAR pc, unsigned int currenttime )
-{
-	if( !pc )
-		return;
+void cTiming::poll() {
+	unsigned int time = getNormalizedTime();
 
-	INT32 oldHealth = pc->hitpoints();
-	INT32 oldStamina = pc->stamina();
-	INT32 oldMana = pc->mana();
+	// Check for spawn regions
+	if (nextSpawnRegionCheck <= time) {
+		SpawnRegions::instance()->check();
+		nextSpawnRegionCheck = time + SrvParams->spawnRegionCheckTime() * MY_CLOCKS_PER_SEC;
+	}
 
-	// Regeneration stuff
-	if( !pc->isDead() )
-	{
-		// Health regeneration
-		if( pc->regenHitpointsTime() <= currenttime )
-		{
-			UINT32 interval = SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
+	// Check for an automated worldsave
+	if (SrvParams->saveInterval()) {
+		// Calculate the next worldsave based on the last worldsave
+		unsigned int nextSave = lastWorldsave() + SrvParams->saveInterval() * MY_CLOCKS_PER_SEC;
 
-			// If it's not disabled hunger affects our health regeneration
-			if( pc->hitpoints() < pc->maxHitpoints() && pc->hunger() > 3 || SrvParams->hungerRate() == 0 )
-			{
-				for( UINT16 c = 0; c < pc->maxHitpoints() + 1; ++c )
-				{
-					if( pc->regenHitpointsTime() + ( c * interval ) <= currenttime && pc->hitpoints() <= pc->maxHitpoints() )
-					{
-						if( pc->skillValue( HEALING ) < 500 )
-							pc->setHitpoints( pc->hitpoints() + 1 );
+		if (nextSave <= time) {
+			World::instance()->save();
+		}
+	}
+
+	// Resend the lightlevel too all clients outside of dungeons?
+	bool updateLight = false;
+
+	// Check lightlevel
+	if (nextLightCheck <= time) {
+		unsigned char &currentLevel = SrvParams->worldCurrentLevel();
+		unsigned char newLevel;
+
+		if (uoTime.time().hour() <= 3 || uoTime.time().hour() >= 10) {
+			newLevel = SrvParams->worldDarkLevel();
+		} else {
+			newLevel = SrvParams->worldBrightLevel();
+		}
+
+		if (newLevel != currentLevel) {
+			updateLight = true;
+            currentLevel = newLevel;
+		}
+
+		// Update lightlevel every 30 seconds
+		nextLightCheck = time + 30 * MY_CLOCKS_PER_SEC;
+	}
+
+	// Save the positions of connected players
+	QValueVector<Coord_cl> positions;
+
+	// Periodic checks for connected players
+	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+		if (!socket->player()) {
+			continue;
+		}
+
+		checkRegeneration(socket->player(), time);
+		checkPlayer(socket->player(), time);
+		positions.append(socket->player()->pos());
+	}
+
+	// Check all other characters
+	if (nextTamedCheck <= time || nextNpcCheck <= time) {
+		cCharIterator chariter;
+		for (P_CHAR character = chariter.first(); character; character = chariter.next()) {
+			P_NPC npc = dynamic_cast<P_NPC>(character);
+
+			if (npc) {
+				if ((npc->isTamed() && nextTamedCheck <= time) || (!npc->isTamed() && nextNpcCheck <= time)) {
+					checkRegeneration(npc, time);
 					
-						else if (pc->skillValue( HEALING ) < 800)
-							pc->setHitpoints( pc->hitpoints() + 2 );
-
-						else 
-							pc->setHitpoints( pc->hitpoints() + 3 );
-
-						if( pc->hitpoints() > pc->maxHitpoints() )
-						{
-							pc->setHitpoints( pc->maxHitpoints() );
+					// Check if we are anywhere near a player
+					// all other npcs are accounted as inactive
+					for (QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it) {
+						if ((*it).distance(npc->pos()) <= 24) {
+							checkNpc(npc, time);
 							break;
 						}
 					}
 				}
-			}
 
-			pc->setRegenHitpointsTime( currenttime + interval );
-		}
-
-		// Stamina regeneration
-		if( pc->regenStaminaTime() <= currenttime )
-		{
-			UINT32 interval = SrvParams->staminarate()*MY_CLOCKS_PER_SEC;
-			for( UINT16 c = 0; c < pc->maxStamina() + 1; ++c )
-			{
-				if (pc->regenStaminaTime() + (c*interval) <= currenttime && pc->stamina() <= pc->maxStamina())
-				{
-					if( pc->stamina() == pc->maxStamina() )
-						break;
-					else if( pc->stamina() > pc->maxStamina() )
-					{
-						pc->setStamina( pc->maxStamina() );
-						break;
-					}
-					else
-						pc->setStamina( pc->stamina() + 1 );
-				}
-			}
-			pc->setRegenStaminaTime( currenttime + interval );			
-		}
-
-		// OSI Style Mana regeneration by blackwind
-		// if (pc->in>pc->mn)  this leads to the 'mana not subtracted' bug (Duke)
-		if( pc->regenManaTime() <= currenttime )
-		{
-			unsigned int interval = SrvParams->manarate()*MY_CLOCKS_PER_SEC;
-			for( UINT16 c = 0; c < pc->maxMana() + 1 ; ++c )
-			{
-				if (pc->regenManaTime() + (c*interval) <= currenttime && pc->mana() <= pc->maxMana())
-				{
-					if (pc->mana()+1>pc->maxMana())
-					{
-						if ( pc->isMeditating() )
-						{
-							if( pc->objectType() == enPlayer )
-							{
-								P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
-								if( pp->socket() )
-									pp->socket()->sysMessage( tr("You are at peace." ) );
-							}
-							pc->setMeditating( false );
-						}
-						pc->setMana( pc->maxMana() );
-						break;
-					}
-					else
-						pc->setMana( pc->mana() + 1 );
-				}
-			}
-			if( SrvParams->armoraffectmana() )
-			{
-				int ratio = ( ( 100 + 50 ) / SrvParams->manarate() );
-				// 100 = Maximum skill (GM)
-				// 50 = int affects mana regen (%50)
-				int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParams->manarate());
-				int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skillValue(MEDITATION) + 1)/10) + ((pc->intelligence() + 1) / 2)) / ratio));
-				if (pc->isMeditating())
-				{
-					pc->setRegenManaTime( currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC) );
-				}
-				else
-					pc->setRegenManaTime( currenttime + ((armorhandicap + charsmeditsecs)* MY_CLOCKS_PER_SEC) );
-			}
-			else 
-				pc->setRegenManaTime( currenttime + interval );
-			}
-			// end Mana regeneration
-			
-/* should be a temporal effect!
-		// only if not permanently hidden
-			if( ( pc->hidden() == 2 ) && ( pc->invisnextHitTime() <= currenttime ) && !pc->isHiddenPermanently() )
-			{
-				pc->setHidden( 0 );
-				pc->setStealth(-1);
-				pc->resend( false );
-			}
-*/
-	}
-
-	if( pc->hitpoints() > pc->maxHitpoints() )
-		pc->setHitpoints( pc->maxHitpoints() );
-
-	if( pc->stamina() > pc->maxStamina() )
-		pc->setStamina( pc->maxStamina() );
-
-	if( pc->mana() > pc->maxMana() )
-		pc->setMana( pc->maxMana() );
-
-	// Now check if our Health, Stamina or Mana has changed
-	if( oldHealth != pc->hitpoints() )
-		pc->updateHealth();
-
-	if( pc->objectType() == enPlayer )
-	{
-		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
-		if( pp->socket() )
-		{
-			if( oldHealth != pp->hitpoints() )
-				pp->socket()->updateHealth(); // send it to the socket itself
-
-			if( oldStamina != pp->stamina() )
-				pp->socket()->updateStamina();
-
-			if( oldMana != pp->mana() )
-				pp->socket()->updateMana();
-		}
-	}
-}
-
-void checkPC( P_PLAYER pc, unsigned int currenttime )
-{
-	cUOSocket *socket = pc->socket();
-
-	// We are not logged in so dont check anything at all.
-	if( !socket )
-		return;
-	unsigned int tempuint;
-	signed short tempshort;
-	int timer;//, valid=0;
-
-	if ( pc == NULL ) return;
-
-	
-	// We are not swinging 
-	// So set up a swing target and start swinging
-	if( !pc->isDead() && pc->swingTarget() == INVALID_SERIAL )
-		Combat::combat( pc );
-
-	// We are swinging and completed swinging
-	else if( !pc->isDead() && ( pc->swingTarget() >= 0 && pc->nextHitTime() <= currenttime ) )
-		Combat::checkandhit( pc );
-
-	// Unmute players who have been muted for a certain amount of time
-	if( pc->isMuted() )
-	{
-		if( pc->muteTime() && ( pc->muteTime() <= currenttime ) )
-		{
-			pc->setMuted( false );
-			pc->setMuteTime( 0 );
-			socket->sysMessage( tr( "You are no longer muted." ) );
-		}
-	}
-
-	// Reputation System
-	if( pc->criminalTime() > 0 && pc->criminalTime() <= currenttime  )
-	{
-		socket->sysMessage( tr( "You are no longer criminal" ) );
-		pc->setCriminalTime(0);
-	}
-
-	if( pc->murdererTime() > 0 && pc->murdererTime() < currenttime )
-	{
-		if( pc->kills() > 0 )
-			pc->setKills( pc->kills() - 1 );
-
-		if ((pc->kills()<=SrvParams->maxkills())&&(SrvParams->maxkills()>0))
-			socket->sysMessage( tr( "You are no longer a murderer." ) );
-		else
-			pc->setMurdererTime( ( SrvParams->murderdecay() * MY_CLOCKS_PER_SEC ) + currenttime );
-	}
-
-	if( SrvParams->hungerRate() > 1 && ( pc->hungerTime() <= currenttime  ) )
-	{
-		if( !pc->isGMorCounselor() && pc->hunger() ) 
-			pc->setHunger( pc->hunger() - 1 ); // GMs and Counselors don't get hungry
-
-		switch( pc->hunger() )
-		{
-		case 6: break; //Morrolan
-		case 5: socket->sysMessage( tr("You are still stuffed from your last meal") );	break;
-		case 4:	socket->sysMessage( tr("You are not very hungry but could eat more") );	break;
-		case 3:	socket->sysMessage( tr("You are feeling fairly hungry") );				break;
-		case 2:	socket->sysMessage( tr("You are extremely hungry") );						break;
-		case 1:	socket->sysMessage( tr("You are very weak from starvation") );			break;
-		case 0:
-			if (!pc->isGMorCounselor())
-				socket->sysMessage( tr( "You must eat very soon or you will die!" ) );
-			break;
-		}
-		pc->setHungerTime( currenttime + ( SrvParams->hungerRate() * MY_CLOCKS_PER_SEC ) );
-	}
-
-	 // Damage them if they are very hungry
-	if( ( hungerdamagetimer <= currenttime ) && SrvParams->hungerDamage() )
-	{
-		hungerdamagetimer = currenttime + ( SrvParams->hungerDamageRate() * MY_CLOCKS_PER_SEC );
-
-		if( pc->hitpoints() > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->isDead() )
-		{
-			socket->sysMessage( tr( "You are starving." ) );
-			pc->damage( DAMAGE_HUNGER, SrvParams->hungerDamage() );
-		}
-	}
-}
-
-void checkNPC( P_NPC pc, unsigned int currenttime )
-{
-	if (pc == NULL)
-		return;
-	if (pc->stablemasterSerial() != INVALID_SERIAL) return;
-
-	int pcalc;
-	char t[120];
-
-	if( currenttime >= pc->aiCheckTime() )
-	{
-		pc->setAICheckTime( uiCurrentTime + (float)pc->aiCheckInterval() * 0.001f * MY_CLOCKS_PER_SEC );
-		if( pc->ai() )
-			pc->ai()->check();
-	}
-
-	// We are at war and want to prepare a new swing
-	if( !pc->isDead() && pc->swingTarget() == -1 && pc->isAtWar() )
-		Combat::combat( pc );
-
-	// We are swinging and completed our move
-	else if( !pc->isDead() && ( pc->swingTarget() >= 0 && pc->nextHitTime() <= currenttime ) )
-		Combat::checkandhit( pc );
-
-	if( !pc->free )
-	{
-		if( pc->summonTime() && ( pc->summonTime() <= currenttime ) )
-		{
-			pc->soundEffect( 0x01FE );
-			pc->setDead( true );
-			cCharStuff::DeleteChar(pc);
-			return;
-		}
-	}
-
-	//hunger code for npcs
-	if( SrvParams->hungerRate() && (pc->hungerTime() <= currenttime ) )
-	{
-		t[0] = '\0';
-
-		if (pc->hunger()) 
-			pc->setHunger( pc->hunger()-1 ); //Morrolan GMs and Counselors don't get hungry
-
-		if(pc->isTamed()) // && pc->npcaitype() != 17)
-		{//if tamed let's display his hungry status
-			switch(pc->hunger())
-			{
-			case 6:
-			case 5:	break;
-			case 4:	pc->emote( tr("* %1 looks a little hungry *").arg(pc->name()), 0x0026);		break;
-			case 3:	pc->emote( tr("* %1 looks fairly hungry *").arg(pc->name()), 0x0026);			break;
-			case 2:	pc->emote( tr("* %1 looks extremely hungry *").arg(pc->name()), 0x0026);		break;
-			case 1:	pc->emote( tr("* %1 looks weak from starvation *",pc->name()), 0x0026);		break;
-			case 0:
-				//maximum hunger - untame code
-				//pet release code here
-				if( pc->isTamed() )
-				{
-					pc->setWanderType( enFreely );
-					pc->setTamed( false );
-
-					if( pc->owner() )
-						pc->setOwner( NULL );
-
-					pc->emote( tr("%1 appears to have decided that it is better off without a master").arg(pc->name()), 0x0026 );
-
-					pc->soundEffect( 0x01FE );
-
-					if( SrvParams->tamedDisappear() == 1 )
-						cCharStuff::DeleteChar(pc);
-				}
-				break;
-			}
-		}//if tamed
-		pc->setHungerTime( currenttime+(SrvParams->hungerRate()*MY_CLOCKS_PER_SEC) );
-	}//if hungerrate>1
-}
-
-void checkauto() // Check automatic/timer controlled stuff (Like fighting and regeneration)
-{
-	//int k;
-	unsigned int currenttime = uiCurrentTime;
-	static unsigned int checkspawnregions = 0;
-	static unsigned int checknpcs = 0;
-	static unsigned int checktamednpcs = 0;
-	static unsigned int checknpcfollow = 0;
-	static unsigned int checkitemstime = 0;
-	static unsigned int lighttime = 0;
-	static unsigned int housedecaytimer = 0;
-
-	if( shoprestocktime == 0 )
-		shoprestocktime = currenttime + MY_CLOCKS_PER_SEC * 60 * 20;
-
-	if(checkspawnregions<=currenttime && SrvParams->spawnRegionCheckTime() != -1)//Regionspawns
-	{
-		SpawnRegions::instance()->check();
-		checkspawnregions=uiCurrentTime+SrvParams->spawnRegionCheckTime()*MY_CLOCKS_PER_SEC;//Don't check them TOO often (Keep down the lag)
-	}
-
-	if( SrvParams->saveInterval() != 0 )
-	{
-		if (autosaved == 0)
-		{
-			autosaved = 1;
-			time( (time_t*) (&oldtime)) ;
-		}
-		time( (time_t*) ( &newtime)) ;
-
-		if (dosavewarning==1)
-		if (difftime(newtime,oldtime)==SrvParams->saveInterval()-10) 
-		{
-			cNetwork::instance()->broadcast( tr( "World will be saved in 10 seconds.." ) );
-			dosavewarning = 0;
-		}
-
-		if (difftime(newtime, oldtime)>=SrvParams->saveInterval() )
-		{
-			autosaved = 0;
-			World::instance()->save();
-			dosavewarning = 1;
-		}
-	}
-
-	// Recalculate and Resend Lightlevel
-	if( lighttime <= currenttime )
-	{
-		// Resend the lightlevel to all clients
-		UINT16 level = 0xFF;
-
-		if( uoTime.time().hour() <= 3 && uoTime.time().hour() >= 10 )
-			level = SrvParams->worldDarkLevel();
-		else
-			level = SrvParams->worldBrightLevel();
-
-		if( level == 0xFFFF )
-		{
-			level = ( ( ( 60 * ( uoTime.time().hour() - 4 ) ) + uoTime.time().minute()) * (SrvParams->worldDarkLevel()-SrvParams->worldBrightLevel())) / 360;
-
-			if(uoTime.time().hour() < 12)
-				level += SrvParams->worldBrightLevel();
-			else
-				level = SrvParams->worldDarkLevel() - level;
-		}
-
-		// Only update and resend when the lightlevel
-		// Really changed
-		if( level != SrvParams->worldCurrentLevel() )
-		{
-			SrvParams->worldCurrentLevel() = level;
-
-			cUOSocket *mSock = cNetwork::instance()->first();
-
-			while( mSock )
-			{
-				mSock->updateLightLevel( level );
-				mSock = cNetwork::instance()->next();
-			}
-		}
-
-		// Update lightlevel every 30 seconds
-		lighttime = currenttime + 30 * MY_CLOCKS_PER_SEC;
-	}
-
-	// Regenerate only players who are online
-	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
-	{
-		if( !socket->player() )
-			continue;
-
-		checkRegeneration( socket->player(), currenttime );
-		checkPC( socket->player(), currenttime );
-
-		// Check all Characters first (Intersting. we seem to check characters more than once)
-		RegionIterator4Chars iterator( socket->player()->pos() );
-		for( iterator.Begin(); !iterator.atEnd(); iterator++ )
-		{
-			P_CHAR pChar = iterator.GetData();
-
-			if( !pChar )
 				continue;
+			}
 
-			// we check tamed npcs more often than
-			// untamed npcs so they can react faster
-			if( ( !pChar->isTamed() && checknpcs <= currenttime ) ||
-				( pChar->isTamed() && checktamednpcs <= currenttime ) )
-			{
-				if( pChar->objectType() == enNPC )
-				{
-					// Regenerate Mana+Stamina+Health
-					checkRegeneration( pChar, currenttime );
-
-					// We only process the AI for NPCs who are in a used area
-					if( pChar->dist( socket->player() ) <= 24 )
-						checkNPC( dynamic_cast<P_NPC>(pChar), currenttime );
+			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
+			if (player) {
+				if (!player->socket() && player->logoutTime() && player->logoutTime() >= time) {
+					player->setLogoutTime(0);
+					player->removeFromView(false);
+					player->resend(false);
 				}
-				// Timed for logout
-				else if( pChar->objectType() == enPlayer )
-				{
-					P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
-					if( pp->logoutTime() && pp->logoutTime() >= currenttime )
-					{
-						pp->setLogoutTime( 0 );
-						pp->removeFromView( false );
-						pp->resend( false );
-					}
-				}
-			}		
+				continue;
+			}
 		}
 
-		// Check the mapregions around this character. 
-		// This *could* be expensive when many characters are in the same
-		// region.
-		if( checkitemstime <= currenttime  )
-		{
-			RegionIterator4Items itemIter( socket->player()->pos() );
-			for( itemIter.Begin(); !itemIter.atEnd(); itemIter++ )
-			{
-				P_ITEM pItem = itemIter.GetData();
-				
-				pItem->respawn( currenttime ); // Checks if the item is a spawner
-				pItem->decay( currenttime ); // Checks if the Item should decay
+		if (nextTamedCheck <= time) {
+			nextTamedCheck = time + SrvParams->checkTamedTime() * MY_CLOCKS_PER_SEC;
+		}
 
-				switch( pItem->type() )
-				{
+		if (nextNpcCheck <= time) {
+			nextNpcCheck = time + SrvParams->checkNPCTime() * MY_CLOCKS_PER_SEC;
+		}
+	}
+
+	// Change all worlditems
+	if (nextItemCheck <= time) {
+		cItemIterator itemiter;
+		for (P_ITEM item = itemiter.first(); item; item = itemiter.next()) {
+			item->respawn(time);
+			item->decay(time);
+
+			switch(item->type()) {
 				// Move Boats
 				case 117:
-					{
-						bool ok = false;
-						if( pItem->getTag( "tiller" ).isValid() && 
-							pItem->getTag("gatetime").toInt(&ok) <= currenttime  && ok )
-						{
-							cBoat* pBoat = dynamic_cast< cBoat* >( FindItemBySerial( pItem->getTag( "boatserial" ).toInt() ) );
-							if( pBoat )
-							{
-								pBoat->move();
-								pItem->setTag("gatetime", (int)( currenttime + (double)( SrvParams->boatSpeed() * MY_CLOCKS_PER_SEC ) ) );
-							}
+				{
+					bool ok = false;
+					if (item->getTag( "tiller" ).isValid() && item->getTag("gatetime").toInt(&ok) <= time && ok) {
+						cBoat* pBoat = dynamic_cast<cBoat*>(FindItemBySerial(item->getTag("boatserial").toInt()));
+						if (pBoat) {
+							pBoat->move();
+							item->setTag("gatetime", time + SrvParams->boatSpeed() * MY_CLOCKS_PER_SEC);
 						}
-						break;
 					}
-				};				
+					break;
+				}
 			}
 		}
+
+		nextItemCheck = time + SrvParams->checkItemTime() * MY_CLOCKS_PER_SEC;
 	}
 
 	// Check the TempEffects
 	TempEffects::instance()->check();
 
-	if( checknpcs <= currenttime ) checknpcs=(unsigned int)((double)(SrvParams->checkNPCTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
-	if( checktamednpcs <= currenttime ) checktamednpcs=(unsigned int)((double) currenttime+(SrvParams->checkTamedTime()*MY_CLOCKS_PER_SEC)); //AntiChrist
-	if( checknpcfollow <= currenttime ) checknpcfollow=(unsigned int)((double) currenttime+(SrvParams->checkFollowTime()*MY_CLOCKS_PER_SEC)); //Ripper
-	if( checkitemstime <= currenttime ) checkitemstime=(unsigned int)((double)(SrvParams->checkItemTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
-	if( shoprestocktime <= currenttime )
-		shoprestocktime = currenttime + MY_CLOCKS_PER_SEC * 60 * 20;
+	if (nextHungerCheck <= time) {
+		nextHungerCheck = time + SrvParams->hungerDamageRate() * MY_CLOCKS_PER_SEC;
+	}
+}
+
+void cTiming::checkRegeneration(P_CHAR character, unsigned int time) {
+	// Dead characters dont regenerate
+	if (character->isDead()) {
+		return;
+	}
+
+	unsigned int oldHealth = character->hitpoints();
+	unsigned int oldStamina = character->stamina();
+	unsigned int oldMana = character->mana();
+
+	if (character->regenHitpointsTime() <= time) {
+		unsigned int interval = SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
+
+		// If it's not disabled hunger affects our health regeneration
+		if (character->hitpoints() < character->maxHitpoints() && character->hunger() > 3 || SrvParams->hungerRate() == 0) {
+			for (unsigned short c = 0; c < character->maxHitpoints() + 1; ++c) {
+				if (character->regenHitpointsTime() + (c * interval) <= time && character->hitpoints() <= character->maxHitpoints()) {
+					if (character->skillValue(HEALING) < 500) {
+						character->setHitpoints(character->hitpoints() + 1);
+					} else if (character->skillValue(HEALING) < 800) {
+						character->setHitpoints(character->hitpoints() + 2);
+					} else {
+						character->setHitpoints(character->hitpoints() + 3);
+					}
+
+					if (character->hitpoints() > character->maxHitpoints()) {
+						character->setHitpoints(character->maxHitpoints());
+						break;
+					}
+				}
+			}
+		}
+
+		character->setRegenHitpointsTime(time + interval);
+	}
+
+	if (character->regenStaminaTime() <= time) {
+		unsigned int interval = SrvParams->staminarate() * MY_CLOCKS_PER_SEC;
+		for (unsigned short c = 0; c < character->maxStamina() + 1; ++c) {
+			if (character->regenStaminaTime() + (c * interval) <= time && character->stamina() <= character->maxStamina()) {
+				if (character->stamina() >= character->maxStamina()) {
+					character->setStamina(character->maxStamina());
+					break;
+				} else {
+					character->setStamina(character->stamina() + 1);
+				}
+			}
+		}
+		character->setRegenStaminaTime(time + interval);
+	}
+
+	// OSI Style Mana regeneration by blackwind
+	// if (character->in>character->mn)  this leads to the 'mana not subtracted' bug (Duke)
+	if (character->regenManaTime() <= time) {
+		unsigned int interval = SrvParams->manarate() * MY_CLOCKS_PER_SEC;
+		for (unsigned short c = 0; c < character->maxMana() + 1 ; ++c) {
+			if (character->regenManaTime() + (c * interval) <= time) {
+				if (character->mana() >= character->maxMana()) {
+					if (character->isMeditating()) {
+						P_PLAYER player = dynamic_cast<P_PLAYER>(character);
+
+						if (player->socket()) {
+							player->socket()->clilocMessage(501846);
+						}
+						character->setMeditating(false);
+					}
+					character->setMana(character->maxMana());
+					break;
+				} else {
+					character->setMana(character->mana() + 1);
+				}
+			}
+		}
+
+		if (SrvParams->armoraffectmana()) {
+			int ratio = (150 / SrvParams->manarate());
+			// 100 = Maximum skill (GM)
+			// 50 = int affects mana regen (%50)
+			int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(character) + 1) / SrvParams->manarate());
+			int charsmeditsecs = (1 + SrvParams->manarate() - ((((character->skillValue(MEDITATION) + 1)/10) + ((character->intelligence() + 1) / 2)) / ratio));
+			if (character->isMeditating()) {
+				character->setRegenManaTime(time + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC));
+			} else {
+				character->setRegenManaTime(time + ((armorhandicap + charsmeditsecs)* MY_CLOCKS_PER_SEC));
+			}
+		}
+		else 
+			character->setRegenManaTime( time + interval );
+		}
+
+	if (character->hitpoints() > character->maxHitpoints()) {
+		character->setHitpoints(character->maxHitpoints());
+	}
+
+	if (character->stamina() > character->maxStamina()) {
+		character->setStamina(character->maxStamina());
+	}
+
+	if (character->mana() > character->maxMana()) {
+		character->setMana(character->maxMana());
+	}
+
+	P_PLAYER player = dynamic_cast<P_PLAYER>(character);
+	if (player && player->socket()) {
+		if (oldHealth != player->hitpoints()) {
+			player->socket()->updateHealth();
+		}
+
+		if (oldStamina != player->stamina()) {
+			player->socket()->updateStamina();
+		}
+
+		if (oldMana != player->mana()) {
+			player->socket()->updateMana();
+		}
+	} else if (oldHealth != character->hitpoints()) {
+		character->updateHealth();
+	}
+}
+
+void cTiming::checkPlayer(P_PLAYER player, unsigned int time) {
+	cUOSocket *socket = player->socket();
+
+	unsigned int tempuint;
+	signed short tempshort;
+	int timer;//, valid=0;
+	
+	// We are not swinging 
+	// So set up a swing target and start swinging
+	if (!player->isDead() && player->swingTarget() == INVALID_SERIAL) {
+		Combat::combat(player);
+	}
+
+	// We are swinging and completed swinging
+	else if (!player->isDead() && (player->swingTarget() >= 0 && player->nextHitTime() <= time)) {
+		Combat::checkandhit(player);
+	}
+
+	// Criminal Flagging
+	if (player->criminalTime() > 0 && player->criminalTime() <= time) {
+		socket->sysMessage(tr("You are no longer criminal."));
+		player->setCriminalTime(0);
+	}
+
+    // Murder Decay
+	if (player->murdererTime() > 0 && player->murdererTime() < time) {
+		if (player->kills() > 0)
+			player->setKills(player->kills() - 1);
+
+		if ( player->kills() <= SrvParams->maxkills() && SrvParams->maxkills() > 0 ) {
+			socket->sysMessage( tr( "You are no longer a murderer." ) );
+		} else {
+			player->setMurdererTime(time + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
+		}
+	}
+
+	// All food related things are disabled for gms
+	if (player->isGMorCounselor()) {
+		// Decrease food level
+		if (SrvParams->hungerRate() > 1 && (player->hungerTime() <= time )) {
+			if (player->hunger()) { 
+				player->setHunger(player->hunger() - 1);
+			}
+	
+			player->setHungerTime(time + SrvParams->hungerRate() * MY_CLOCKS_PER_SEC);
+		}
+	
+		// Damage if we are starving
+		if (SrvParams->hungerDamage() && nextHungerCheck <= time) {
+			if (player->hitpoints() > 0 && player->hunger() < 2 && !player->isDead()) {
+				socket->sysMessage(tr("You are starving."));
+				player->damage(DAMAGE_HUNGER, SrvParams->hungerDamage());
+			}
+		}
+	}
+}
+
+void cTiming::checkNpc(P_NPC npc, unsigned int time) {
+	// We are stabled and don't receive events
+	if (npc->stablemasterSerial() != INVALID_SERIAL) {
+		return;
+	}
+
+	// Give the AI time to process events
+	if (npc->aiCheckTime() <= time) {
+		npc->setAICheckTime(uiCurrentTime + npc->aiCheckInterval());
+
+		if (npc->ai()) {
+			npc->ai()->check();
+		}
+	}
+
+	// We are at war and want to prepare a new swing
+	if (!npc->isDead() && npc->swingTarget() == INVALID_SERIAL && npc->isAtWar()) {
+		Combat::combat(npc);
+	
+	// We completed the swing
+	} else if (!npc->isDead() && npc->swingTarget() != INVALID_SERIAL && npc->nextHitTime() <= time) {
+		Combat::checkandhit(npc);
+	}
+
+	// Remove summoned npcs
+	if (npc->summonTime() && npc->summonTime() <= time) {
+		npc->kill(0);
+		return;
+	}
+
+	// Hunger for npcs
+	// This only applies to tamed creatures
+	if (npc->isTamed() && SrvParams->hungerRate() && npc->hungerTime() <= time) {
+		if (npc->hunger()) {
+			npc->setHunger(npc->hunger() - 1);
+		}
+
+		npc->setHungerTime(time + SrvParams->hungerRate() * MY_CLOCKS_PER_SEC);
+
+		switch(npc->hunger()) {
+		case 4:
+			npc->emote( tr("*%1 looks a little hungry*").arg(npc->name()), 0x26);
+			break;
+		case 3:
+			npc->emote( tr("*%1 looks fairly hungry*").arg(npc->name()), 0x26);
+			break;
+		case 2:
+			npc->emote( tr("*%1 looks extremely hungry*").arg(npc->name()), 0x26);
+			break;
+		case 1:
+			npc->emote( tr("*%1 looks weak from starvation*").arg(npc->name()), 0x26);
+			break;
+		case 0:
+			npc->setWanderType(enFreely);
+			npc->setTamed(false);
+
+			if (npc->owner()) {
+				npc->setOwner(NULL);
+			}
+	
+			npc->bark(cBaseChar::Bark_Attacking);
+			npc->talk(1043255, npc->name(), 0, false, 0x26);
+
+			if (SrvParams->tamedDisappear() == 1) {
+				npc->soundEffect(0x1FE);
+				cCharStuff::DeleteChar(npc);
+			}
+			break;
+		}
+	}
 }

@@ -32,8 +32,49 @@
 #if !defined(__TIMING_H__)
 #define __TIMING_H__
 
-void checkauto();	// Check automatic/timer controlled stuff (Like fighting and regeneration)
-void checktimers();	// Check shutdown timers
+#include "singleton.h"
+#include "typedefs.h"
+
+class cTiming {
+private:
+	unsigned int nextSpawnRegionCheck;
+	unsigned int nextLightCheck;
+	unsigned int nextTamedCheck;
+	unsigned int nextNpcCheck;
+	unsigned int nextItemCheck;
+	unsigned int nextShopRestock;
+	unsigned int nextHungerCheck;
+
+protected:
+	unsigned int lastWorldsave_;
+	void checkRegeneration(P_CHAR character, unsigned int time);
+    void checkPlayer(P_PLAYER player, unsigned int time);
+	void checkNpc(P_NPC npc, unsigned int time);
+
+public:
+	cTiming();
+
+	/*!
+		\brief Process periodic events.
+	*/
+	void poll();
+
+	/*!
+		\returns The time the world was saved last.
+	*/
+	inline unsigned int lastWorldsave() {
+		return lastWorldsave_;
+	}
+
+	/*!
+		\brief Sets the time the world was saved last.
+		\param data The new time.
+	*/
+	inline void setLastWorldsave(unsigned int data) {
+		lastWorldsave_ = data;
+	}
+};
+
+typedef SingletonHolder<cTiming> Timing;
 
 #endif
-

@@ -71,8 +71,8 @@ cNPC::cNPC()
 	wanderType_			= stWanderType();
 	aiid_				= "Monster_Aggressive_L1";
 	ai_					= new Monster_Aggressive_L1( this );
-	aiCheckInterval_	= (UINT16)floor(SrvParams->checkAITime() * 1000.0f);
-	aiCheckTime_		= uiCurrentTime + (float)aiCheckInterval_ * 0.001f * MY_CLOCKS_PER_SEC;
+	aiCheckInterval_	= (UINT16)floor(SrvParams->checkAITime() * MY_CLOCKS_PER_SEC);
+	aiCheckTime_		= uiCurrentTime + aiCheckInterval_;
 	criticalHealth_		= 10; // 10% !
 	spellsLow_			= 0;
 	spellsHigh_			= 0;

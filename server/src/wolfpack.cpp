@@ -176,8 +176,6 @@ void SetGlobalVars()
 {
 	keeprun = 1;
 	secure = 1;
-	autosaved = 0;
-	dosavewarning = 0;
 }
 
 static void InitMultis()
@@ -603,11 +601,8 @@ int main( int argc, char **argv )
 		actionMutex.unlock();
 
 		Console::instance()->poll();
-
-		// Process any Network Events
 		cNetwork::instance()->poll();
-
-		checkauto();
+		Timing::instance()->poll();
 	}
 
 	serverState = SHUTDOWN;

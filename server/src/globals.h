@@ -51,16 +51,9 @@ extern enServerState serverState;
 extern unsigned int uiCurrentTime;
 extern QDateTime uoTime;
 
-extern unsigned int nextnpcaitime;
-
-extern int autosaved, dosavewarning;
 extern volatile int keeprun;
 
 extern int secure; // Secure mode
-
-extern unsigned int shoprestocktime;
-
-extern unsigned int hungerdamagetimer; // Used for hunger damage
 
 class cSrvParams;
 class cBoat;

@@ -721,13 +721,6 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 	if( InputSpeech( socket, pChar, speech ) )	
 		return;
 
-	// not allowed to talk
-	if( pChar->isMuted() )
-	{
-		socket->sysMessage( tr( "You re squelched and cannot talk" ) );
-		return;
-	}
-
 	pChar->unhide();
 		
 	// Check for Bogus Color

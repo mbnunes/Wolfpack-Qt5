@@ -50,12 +50,8 @@ wp_version_info wp_version;
 
 enServerState serverState;
 QDateTime uoTime;
-int autosaved;
 int secure = 1;
-int dosavewarning = 0;
 volatile int keeprun;
-unsigned int shoprestocktime = 0;
-unsigned int hungerdamagetimer = 0;
 
 cSrvParams		*SrvParams;
 Maps			*Map;

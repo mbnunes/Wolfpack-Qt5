@@ -44,6 +44,7 @@
 #include "player.h"
 #include "npc.h"
 #include "log.h"
+#include "timing.h"
 #include "basics.h"
 #include <sqlite.h>
 
@@ -725,6 +726,7 @@ void cWorld::load()
 void cWorld::save()
 {
 	Console::instance()->send( "Saving World..." );
+	Timing::instance()->setLastWorldsave(getNormalizedTime());
 
 	// Send a nice status gump to all sockets if enabled
 	bool fancy = SrvParams->getBool("General", "Fancy Worldsave Status", true, true);

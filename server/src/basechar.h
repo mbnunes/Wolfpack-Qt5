@@ -63,6 +63,46 @@ public:
         return "cBaseChar";
 	}
 
+	/*!
+		\brief This structure contains information about an ongoing fight.
+	*/
+	struct FightInfo {
+		/*!
+			\brief A pointer to the character who attacked first.
+		*/
+		P_CHAR attacker;
+
+		/*!
+			\brief A pointer to the character who was attacked.
+		*/
+		P_CHAR victim;
+
+		/*!
+			\brief Specifies whether attacking the victim was not a crime.
+			If this value is true, no kill is awarded to the winner of this fight.
+		*/
+		bool legitimate;
+		
+		/*!
+			\brief The amount of damage the attacker dealt in this fight.
+			This value is used for looting rights.
+		*/
+        unsigned int attackerDamage;
+
+		/*!
+			\brief The amount of damage the victim dealt in this fight.
+			This value is used for looting rights.
+		*/
+		unsigned int victimDamage;
+
+		/*!
+			\brief The servertime the last action in this fight was taken.
+			This value is used to time out the fight after no action was taken
+			for a while.
+		*/
+		unsigned int lastaction;
+	};
+
 	// con-/destructors
     cBaseChar();
     cBaseChar(const cBaseChar& right);
@@ -349,10 +389,21 @@ public:
 	void addItem( enLayer layer, cItem*, bool handleWeight = true, bool noRemove = false );
 	void removeItem( enLayer layer, bool handleWeight = true );
 
+	/*!
+		Return a reference to the list of ongoing fights.
+	*/
+	QPtrList<FightInfo> &fights() {
+		return fights_;
+	}
 private:
 	bool changed_;
 
 protected:
+	/*!
+		\brief Collection of information about ongoing fights.
+	*/
+	QPtrList<FightInfo> fights_;
+
 	// type definitions
 	struct stSkillValue
 	{

@@ -57,7 +57,6 @@ cPlayer::cPlayer()
 {
 	account_			= NULL;
 	logoutTime_			= 0;
-	muteTime_			= 0;
 	objectDelay_		= 0;
 	additionalFlags_	= 0;
 	trackingTime_		= 0;
@@ -542,10 +541,6 @@ void cPlayer::showName( cUOSocket *socket )
 	if (guild_ && !guild_->abbreviation().isEmpty()) {
 		affix.append(QString(" [%1]").arg(guild_->abbreviation()));
 	}
-
-	// Are we squelched ?
-	if( isMuted() )
-		affix.append( tr(" [muted]" ) );
 
 	// Append serial for GMs
 	if( socket->player()->showSerials() )
@@ -1215,12 +1210,6 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	else SET_INT_PROPERTY( "logouttime", logoutTime_ )
-	else if( name == "muted" )
-	{
-		setMuted( value.toInt() );
-		return 0;
-	}
-	else SET_INT_PROPERTY( "mutetime", muteTime_ )
 	else SET_INT_PROPERTY( "lightbonus", fixedLightLevel_ )
 	else if( name == "inputmode" )
 	{
@@ -1253,9 +1242,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
-	else GET_PROPERTY( "logouttime", (int)logoutTime_ )
-	else GET_PROPERTY( "muted", isMuted() )
-	else GET_PROPERTY( "mutetime", (int)muteTime_ )
+	else GET_PROPERTY( "logouttime", (int)logoutTime_ )	
 	else GET_PROPERTY( "npc", false )
 	else GET_PROPERTY( "lightbonus", fixedLightLevel_ )
 	else GET_PROPERTY( "inputmode", inputMode_ )
