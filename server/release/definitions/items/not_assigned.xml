@@ -1,0 +1,774 @@
+<!--
+	These items are not available ingame.
+-->
+<definitions>
+	<!-- Profession "Texts" -->
+	<item id="2008">
+		<id>0x2008</id>
+	</item>
+
+	<item id="2009">
+		<id>0x2009</id>
+	</item>
+
+	<item id="200a">
+		<id>0x200a</id>
+	</item>
+
+	<item id="200b">
+		<id>0x200b</id>
+	</item>
+
+	<item id="200c">
+		<id>0x200c</id>
+	</item>
+
+	<item id="200d">
+		<id>0x200d</id>
+	</item>
+
+	<item id="200e">
+		<id>0x200e</id>
+	</item>
+
+	<item id="200f">
+		<id>0x200f</id>
+	</item>
+
+	<item id="2010">
+		<id>0x2010</id>
+	</item>
+
+	<item id="2011">
+		<id>0x2011</id>
+	</item>
+
+	<item id="2012">
+		<id>0x2012</id>
+	</item>
+
+	<item id="2013">
+		<id>0x2013</id>
+	</item>
+
+	<item id="2014">
+		<id>0x2014</id>
+	</item>
+
+	<item id="2015">
+		<id>0x2015</id>
+	</item>
+
+	<item id="2016">
+		<id>0x2016</id>
+	</item>
+
+	<item id="2017">
+		<id>0x2017</id>
+	</item>
+
+	<item id="2018">
+		<id>0x2018</id>
+	</item>
+
+	<item id="2019">
+		<id>0x2019</id>
+	</item>
+
+	<item id="201a">
+		<id>0x201a</id>
+	</item>
+
+	<item id="201b">
+		<id>0x201b</id>
+	</item>
+
+	<item id="201c">
+		<id>0x201c</id>
+	</item>
+
+	<item id="201d">
+		<id>0x201d</id>
+	</item>
+
+	<item id="201e">
+		<id>0x201e</id>
+	</item>
+
+	<item id="201f">
+		<id>0x201f</id>
+	</item>
+
+	<item id="2020">
+		<id>0x2020</id>
+	</item>
+
+	<item id="2021">
+		<id>0x2021</id>
+	</item>
+
+	<item id="2022">
+		<id>0x2022</id>
+	</item>
+
+	<item id="2023">
+		<id>0x2023</id>
+	</item>
+
+	<item id="2024">
+		<id>0x2024</id>
+	</item>
+
+	<item id="2025">
+		<id>0x2025</id>
+	</item>
+
+	<item id="2026">
+		<id>0x2026</id>
+	</item>
+
+	<item id="2027">
+		<id>0x2027</id>
+	</item>
+
+	<item id="2028">
+		<id>0x2028</id>
+	</item>
+
+	<item id="2029">
+		<id>0x2029</id>
+	</item>
+
+	<item id="202a">
+		<id>0x202a</id>
+	</item>
+
+	<item id="202b">
+		<id>0x202b</id>
+	</item>
+
+	<item id="202c">
+		<id>0x202c</id>
+	</item>
+
+	<item id="202d">
+		<id>0x202d</id>
+	</item>
+
+	<item id="202e">
+		<id>0x202e</id>
+	</item>
+
+	<item id="202f">
+		<id>0x202f</id>
+	</item>
+
+	<item id="2030">
+		<id>0x2030</id>
+	</item>
+
+	<item id="2031">
+		<id>0x2031</id>
+	</item>
+
+	<item id="2032">
+		<id>0x2032</id>
+	</item>
+
+	<item id="2033">
+		<id>0x2033</id>
+	</item>
+
+	<item id="2034">
+		<id>0x2034</id>
+	</item>
+
+	<item id="2035">
+		<id>0x2035</id>
+	</item>
+
+	<item id="2036">
+		<id>0x2036</id>
+	</item>
+
+	<!-- Red Cursor -->
+	<item id="2053">
+		<id>0x2053</id>
+	</item>
+
+	<item id="2054">
+		<id>0x2054</id>
+	</item>
+
+	<item id="2055">
+		<id>0x2055</id>
+	</item>
+
+	<item id="2056">
+		<id>0x2056</id>
+	</item>
+
+	<item id="2057">
+		<id>0x2057</id>
+	</item>
+
+	<item id="2058">
+		<id>0x2058</id>
+	</item>
+
+	<item id="2059">
+		<id>0x2059</id>
+	</item>
+
+	<item id="205a">
+		<id>0x205a</id>
+	</item>
+
+	<item id="205b">
+		<id>0x205b</id>
+	</item>
+
+	<item id="205c">
+		<id>0x205c</id>
+	</item>
+
+	<item id="205d">
+		<id>0x205d</id>
+	</item>
+
+	<item id="205e">
+		<id>0x205e</id>
+	</item>
+
+	<item id="205f">
+		<id>0x205f</id>
+	</item>
+
+	<item id="2060">
+		<id>0x2060</id>
+	</item>
+
+	<item id="2061">
+		<id>0x2061</id>
+	</item>
+
+	<item id="2062">
+		<id>0x2062</id>
+	</item>
+
+	<!-- Normal Cursor -->
+	<item id="206a">
+		<id>0x206a</id>
+	</item>
+
+	<item id="206b">
+		<id>0x206b</id>
+	</item>
+
+	<item id="206c">
+		<id>0x206c</id>
+	</item>
+
+	<item id="206d">
+		<id>0x206d</id>
+	</item>
+
+	<item id="206e">
+		<id>0x206e</id>
+	</item>
+
+	<item id="206f">
+		<id>0x206f</id>
+	</item>
+
+	<item id="2070">
+		<id>0x2070</id>
+	</item>
+
+	<item id="2071">
+		<id>0x2071</id>
+	</item>
+
+	<item id="2072">
+		<id>0x2072</id>
+	</item>
+
+	<item id="2073">
+		<id>0x2073</id>
+	</item>
+
+	<item id="2074">
+		<id>0x2074</id>
+	</item>
+
+	<item id="2075">
+		<id>0x2075</id>
+	</item>
+
+	<item id="2076">
+		<id>0x2076</id>
+	</item>
+
+	<item id="2077">
+		<id>0x2077</id>
+	</item>
+
+	<item id="2078">
+		<id>0x2078</id>
+	</item>
+
+	<item id="2079">
+		<id>0x2079</id>
+	</item>
+
+	<!-- Unused Tiles -->
+	<item id="2051">
+		<id>0x2051</id>
+	</item>
+
+	<item id="2052">
+		<id>0x2052</id>
+	</item>
+
+	<item id="2063">
+		<id>0x2063</id>
+	</item>
+
+	<item id="2064">
+		<id>0x2064</id>
+	</item>
+
+	<item id="2065">
+		<id>0x2065</id>
+	</item>
+
+	<item id="2066">
+		<id>0x2066</id>
+	</item>
+
+	<item id="2067">
+		<id>0x2067</id>
+	</item>
+
+	<item id="2068">
+		<id>0x2068</id>
+	</item>
+
+	<item id="2069">
+		<id>0x2069</id>
+	</item>
+	
+	<!-- No Draw Tiles -->
+	<item id="2198">
+		<id>0x2198</id>
+	</item>
+
+	<item id="2199">
+		<id>0x2199</id>
+	</item>
+
+	<item id="219a">
+		<id>0x219a</id>
+	</item>
+
+	<item id="219b">
+		<id>0x219b</id>
+	</item>
+
+	<item id="219c">
+		<id>0x219c</id>
+	</item>
+
+	<item id="219d">
+		<id>0x219d</id>
+	</item>
+
+	<item id="219e">
+		<id>0x219e</id>
+	</item>
+
+	<item id="219f">
+		<id>0x219f</id>
+	</item>
+
+	<item id="21a0">
+		<id>0x21a0</id>
+	</item>
+
+	<item id="21a1">
+		<id>0x21a1</id>
+	</item>
+
+	<item id="21a2">
+		<id>0x21a2</id>
+	</item>
+
+	<item id="21a4">
+		<id>0x21a4</id>
+	</item>
+
+	<item id="21bc">
+		<id>0x21bc</id>
+	</item>
+
+	<!-- Broken Landtile graphics -->
+	<item id="32c4">
+		<id>0x32c4</id>
+	</item>
+
+	<item id="32c5">
+		<id>0x32c5</id>
+	</item>
+
+	<item id="32c6">
+		<id>0x32c6</id>
+	</item>
+
+	<item id="32c7">
+		<id>0x32c7</id>
+	</item>
+
+	<item id="32c8">
+		<id>0x32c8</id>
+	</item>
+
+	<item id="32e8">
+		<id>0x32e8</id>
+	</item>
+
+	<item id="32e9">
+		<id>0x32e9</id>
+	</item>
+
+	<item id="32ea">
+		<id>0x32ea</id>
+	</item>
+
+	<item id="32eb">
+		<id>0x32eb</id>
+	</item>
+
+	<item id="3341">
+		<id>0x3341</id>
+	</item>
+
+	<item id="3342">
+		<id>0x3342</id>
+	</item>
+
+	<item id="3343">
+		<id>0x3343</id>
+	</item>
+
+	<item id="3344">
+		<id>0x3344</id>
+	</item>
+
+	<item id="3345">
+		<id>0x3345</id>
+	</item>
+
+	<item id="3346">
+		<id>0x3346</id>
+	</item>
+
+	<item id="3347">
+		<id>0x3347</id>
+	</item>
+
+	<item id="3348">
+		<id>0x3348</id>
+	</item>
+
+	<item id="3349">
+		<id>0x3349</id>
+	</item>
+
+	<item id="334a">
+		<id>0x334a</id>
+	</item>
+
+	<item id="334b">
+		<id>0x334b</id>
+	</item>
+
+	<item id="334c">
+		<id>0x334c</id>
+	</item>
+
+	<item id="334d">
+		<id>0x334d</id>
+	</item>
+
+	<item id="334e">
+		<id>0x334e</id>
+	</item>
+
+	<item id="334f">
+		<id>0x334f</id>
+	</item>
+
+	<item id="3350">
+		<id>0x3350</id>
+	</item>
+
+	<item id="3351">
+		<id>0x3351</id>
+	</item>
+
+	<item id="342a">
+		<id>0x342a</id>
+	</item>
+
+	<item id="342b">
+		<id>0x342b</id>
+	</item>
+
+	<item id="3431">
+		<id>0x3431</id>
+	</item>
+
+	<item id="3432">
+		<id>0x3432</id>
+	</item>
+
+	<item id="3433">
+		<id>0x3433</id>
+	</item>
+
+	<item id="3434">
+		<id>0x3434</id>
+	</item>
+
+	<item id="3435">
+		<id>0x3435</id>
+	</item>
+
+	<item id="3436">
+		<id>0x3436</id>
+	</item>
+
+	<item id="3437">
+		<id>0x3437</id>
+	</item>
+
+	<item id="3438">
+		<id>0x3438</id>
+	</item>
+
+	<item id="3439">
+		<id>0x3439</id>
+	</item>
+
+	<item id="34d9">
+		<id>0x34d9</id>
+	</item>
+
+	<item id="34da">
+		<id>0x34da</id>
+	</item>
+
+	<item id="34db">
+		<id>0x34db</id>
+	</item>
+
+	<item id="34dc">
+		<id>0x34dc</id>
+	</item>
+
+	<item id="34dd">
+		<id>0x34dd</id>
+	</item>
+
+	<item id="34de">
+		<id>0x34de</id>
+	</item>
+
+	<item id="34df">
+		<id>0x34df</id>
+	</item>
+
+	<item id="34e0">
+		<id>0x34e0</id>
+	</item>
+
+	<item id="34e1">
+		<id>0x34e1</id>
+	</item>
+
+	<item id="34e2">
+		<id>0x34e2</id>
+	</item>
+
+	<item id="34e3">
+		<id>0x34e3</id>
+	</item>
+
+	<item id="34e4">
+		<id>0x34e4</id>
+	</item>
+
+	<item id="34e5">
+		<id>0x34e5</id>
+	</item>
+
+	<item id="34e6">
+		<id>0x34e6</id>
+	</item>
+
+	<item id="34e7">
+		<id>0x34e7</id>
+	</item>
+
+	<item id="34e8">
+		<id>0x34e8</id>
+	</item>
+
+	<item id="34e9">
+		<id>0x34e9</id>
+	</item>
+
+	<item id="34ea">
+		<id>0x34ea</id>
+	</item>
+
+	<item id="34eb">
+		<id>0x34eb</id>
+	</item>
+
+	<item id="34ec">
+		<id>0x34ec</id>
+	</item>
+
+	<item id="3567">
+		<id>0x3567</id>
+	</item>
+
+	<item id="3568">
+		<id>0x3568</id>
+	</item>
+
+	<item id="3569">
+		<id>0x3569</id>
+	</item>
+
+	<item id="356a">
+		<id>0x356a</id>
+	</item>
+
+	<item id="356b">
+		<id>0x356b</id>
+	</item>
+
+	<item id="356c">
+		<id>0x356c</id>
+	</item>
+
+	<item id="356d">
+		<id>0x356d</id>
+	</item>
+
+	<item id="356e">
+		<id>0x356e</id>
+	</item>
+
+	<item id="356f">
+		<id>0x356f</id>
+	</item>
+
+	<item id="3570">
+		<id>0x3570</id>
+	</item>
+
+	<item id="3571">
+		<id>0x3571</id>
+	</item>
+
+	<item id="3572">
+		<id>0x3572</id>
+	</item>
+
+	<item id="3573">
+		<id>0x3573</id>
+	</item>
+
+	<item id="3574">
+		<id>0x3574</id>
+	</item>
+
+	<item id="3575">
+		<id>0x3575</id>
+	</item>
+
+	<item id="3576">
+		<id>0x3576</id>
+	</item>
+
+	<item id="3577">
+		<id>0x3577</id>
+	</item>
+
+	<item id="3578">
+		<id>0x3578</id>
+	</item>
+
+	<item id="3579">
+		<id>0x3579</id>
+	</item>
+
+	<item id="357a">
+		<id>0x357a</id>
+	</item>
+
+	<item id="357b">
+		<id>0x357b</id>
+	</item>
+
+	<item id="357c">
+		<id>0x357c</id>
+	</item>
+
+	<item id="357d">
+		<id>0x357d</id>
+	</item>
+
+	<item id="357e">
+		<id>0x357e</id>
+	</item>
+
+	<item id="35ae">
+		<id>0x35ae</id>
+	</item>
+
+	<item id="35af">
+		<id>0x35af</id>
+	</item>
+
+	<item id="35b0">
+		<id>0x35b0</id>
+	</item>
+
+	<item id="35b1">
+		<id>0x35b1</id>
+	</item>
+
+	<item id="36b0">
+		<id>0x36b0</id>
+	</item>
+
+	<item id="36b1">
+		<id>0x36b1</id>
+	</item>
+
+	<!-- Strange yellow dot -->
+	<item id="3ee8">
+		<id>0x3ee8</id>
+	</item>
+	
+	<!-- Obviously not finished jungle wall -->
+	<item id="2546">
+		<id>0x2546</id>
+	</item>
+
+	
+</definitions>
