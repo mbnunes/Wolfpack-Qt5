@@ -660,6 +660,11 @@ void commandInfo( cUOSocket *socket, const QString &command, QStringList &args )
 	}
 }
 
+void commandServerTime( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	Q_UNUSED(command);
+	socket->sysMessage( tr( "Server time: %1" ).arg( uiCurrentTime ) );
+}
 
 void commandShow( cUOSocket *socket, const QString &command, QStringList &args )
 {
@@ -1417,6 +1422,7 @@ stCommand cCommands::commands[] =
 	{ "RESTOCK",		commandRestock },
 	{ "RESURRECT",		commandResurrect },
 	{ "SAVE",			commandSave },
+	{ "SERVERTIME",		commandServerTime },
 	{ "SET",			commandSet },
 	{ "SHOW",			commandShow },
 	{ "SHOWSERIALS",	commandShowSerials },
