@@ -88,7 +88,7 @@ def statmodifier_expire( char, args ):
 
 	return
 
-def statmodifier( char, time, mStr, mDex, mInt ):
+def statmodifier( char, time, mStr = 0, mDex = 0, mInt = 0 ):
 	# Dispel any old stat modifiers on this character
 	# And readd a new one (remove the old ones silently)
 	char.dispel( char, 0, "statmodifier", [ "silent" ] )
