@@ -288,6 +288,50 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 
 	return PyTrue;
 }
+/*!
+	Attachs a multi target request to the socket.
+*/
+PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	if( !checkArgStr( 0 ) && !checkArgInt( 1 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	// Collect Data
+	QString responsefunc = getArgStr( 0 );
+	UINT16 multiid = getArgInt( 1 );
+	QString cancelfunc, timeoutfunc;
+	UINT16 timeout = 0;
+	PyObject *targetargs = 0;
+
+	// If Third argument is present, it has to be a tuple
+	if( PyTuple_Size( args ) > 2 && PyList_Check( PyTuple_GetItem( args, 2 ) ) )
+		targetargs = PyList_AsTuple( PyTuple_GetItem( args, 2 ) );
+
+	if( !targetargs )
+		targetargs = PyTuple_New( 0 );
+
+	if( checkArgStr( 2 ) )
+		cancelfunc = getArgStr( 2 );
+
+	if( checkArgStr( 3 ) && checkArgInt( 4 ) )
+	{
+		timeoutfunc = getArgStr( 3 );
+		timeout = getArgInt( 4 );
+	}
+
+	cPythonTarget *target = new cPythonTarget( responsefunc, timeoutfunc, cancelfunc, targetargs );
+	if( timeout != 0 )
+		target->setTimeout( uiCurrentTime + timeout );
+	self->pSock->attachTarget( target, multiid + 0x4000 );
+
+	return PyTrue;
+}
 
 /*!
 	Sends a gump to the socket. This function is used internally only.
@@ -566,6 +610,7 @@ static PyMethodDef wpSocketMethods[] =
 	{ "showspeech",			(getattrofunc)wpSocket_showspeech, METH_VARARGS, "Sends raw speech to the socket." },
 	{ "disconnect",			(getattrofunc)wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
 	{ "attachtarget",		(getattrofunc)wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" },
+	{ "attachmultitarget",	(getattrofunc)wpSocket_attachmultitarget,  METH_VARARGS, "Adds a multi target request to the socket" },
 	{ "sendgump",			(getattrofunc)wpSocket_sendgump,	METH_VARARGS, "INTERNAL! Sends a gump to this socket." },
 	{ "closegump",			(getattrofunc)wpSocket_closegump,	METH_VARARGS, "Closes a gump that has been sent to the client." },
 	{ "resendworld",		(getattrofunc)wpSocket_resendworld,  METH_VARARGS, "Sends the surrounding world to this socket." },
