@@ -24,30 +24,30 @@ def addmulti(player, arguments, target):
 	if target.item and target.item.container:
 		player.socket.sysmessage("You can't add the multi there.")
 		return
-		
+
 	multi = wolfpack.addmulti(str(arguments[0]))
-	
+
 	# If arguments[1] is true, make the item
 	# static
 	if arguments[1]:
 		multi.decay = False
 		multi.movable = 3
-	
+
 	multi.moveto(target.pos)
 	multi.update()
 
 #
 # Target response for adding an item
 #
-def additem(player, arguments, target):		
+def additem(player, arguments, target):
 	item = wolfpack.additem(str(arguments[0]))
-	
+
 	# If arguments[1] is true, make the item
 	# static
 	if arguments[1]:
 		item.decay = False
 		item.movable = 3
-	
+
 	if target.item:
 		if target.item.type == 1:
 			target.item.additem(item, 1, 1, 0)
@@ -136,7 +136,7 @@ class AddItemAction(MakeItemAction):
 
 	def make(self, player, arguments, nodelay=0):
 		player.socket.sysmessage("Where do you want to place the item '%s'?" % self.definition)
-		player.socket.attachtarget("commands.add.additem", [self.definition])
+		player.socket.attachtarget("commands.add.additem", [self.definition, False])
 		MakeAction.make(self, player, arguments, nodelay)
 
 #
@@ -249,10 +249,10 @@ def generateAddMenu():
 def onLoad():
 	wolfpack.registercommand('add', add)
 	wolfpack.registercommand('static', static)
-	
+
 def onUnload():
-        global generated
-        generated = 0
+	global generated
+	generated = 0
 
 """
 	\command add
