@@ -141,19 +141,24 @@ def export( char, args, choice ):
 		elif format == 2: # WSC
 			output.write( "SECTION WORLDITEM %d\r\n{\r\n" % i )
 			output.write( "SERIAL %d\r\n" % item.serial )
+			if item.baseid != '':
+				output.write( "BASEID %s\r\n" % item.baseid )
 			if item.name != '#':
 				output.write( "NAME %s\r\n" % item.name )
 			output.write( "ID %d\r\n" % item.id )
 			output.write( "X %d\r\n" % item.pos.x )
 			output.write( "Y %d\r\n" % item.pos.y )
 			output.write( "Z %i\r\n" % item.pos.z )
-			output.write( "CONT -1\r\nTYPE 0\r\n" )
+			output.write( "MAP %i\r\n" % item.pos.map )
+			output.write( "CONT -1\r\n" )
+			output.write( "TYPE 255\r\n" ) # Useful for World Freezes
 			output.write( "AMOUNT %d\r\n" % item.amount )
 			output.write( "COLOR %d\r\n" % item.color )
+
 			output.write( "}\r\n\r\n" )
 
 		else: # Text
-			output.write( "0x%x %d %d %i 0x%x\r\n" % ( item.id, item.pos.x, item.pos.y, item.pos.z, item.color ) )
+			output.write( "%s 0x%x %i %i %i %i 0x%x\r\n" % ( item.baseid, item.id, item.pos.x, item.pos.y, item.pos.z, item.pos.map, item.color ) )
 			pass
 
 		if item.amount > 1:

@@ -46,6 +46,7 @@ from wolfpack.consts import *
 from wolfpack.gumps import cGump
 from wolfpack.utilities import hex2dec
 from wolfpack import console
+from string import lstrip
 
 def import_command( socket, command, arguments ):
 	char = socket.player
@@ -137,16 +138,18 @@ def parseTxt( file, map ):
 		line = line.replace( "\r", "" )
 		line = line.replace( "\n", "" )
 
-		( id, x, y, z, color ) = line.split( ' ' )
+		( baseid, id, x, y, z, map, color ) = line.split( ' ' )
 
+		baseid = baseid
 		id = hex2dec( id )
 		color = hex2dec( color )
 		x = int( x )
 		y = int( y )
 		z = int( z )
+		map = int( map )
 
 		step2 = wolfpack.tickcount()
-		newitem = wolfpack.newitem( 1 ) # Generate a new serial for us
+		newitem = wolfpack.additem( '%s' % baseid ) # Generate a new serial for us
 		step3 = wolfpack.tickcount()
 
 		newitem.decay = 0
@@ -164,7 +167,7 @@ def parseTxt( file, map ):
 		propTickCount += step4 - step3
 		moveTickCount += step5 - step4
 
-		#newitem.update()
+		newitem.update()
 
 		count += 1
 
@@ -263,6 +266,11 @@ def parseWsc( file, map ):
 			if item.has_key( 'SERIAL' ):
 				serial = hex( int( item[ 'SERIAL' ] ) )
 
+			if item.has_key( 'BASEID' ):
+				baseid = item[ 'BASEID' ]
+			else:
+				baseid = ''
+
 			if not item.has_key( 'ID' ):
 				warnings += 'Item (%s) has no ID property. Skipping.<br>' % ( serial )
 				continue
@@ -285,6 +293,9 @@ def parseWsc( file, map ):
 				z = int( item['Z'] )
 			else:
 				z = 0
+			if item.has_key('MAP'):
+				map = int( item['MAP'] )
+
 			color = 0
 			if item.has_key( 'COLOR' ):
 				color = int( item[ 'COLOR' ] )
@@ -307,10 +318,14 @@ def parseWsc( file, map ):
 			#print 'Item %x, Color %x, Pos %i,%i,%i<br>' % ( id, color, x, y, z )
 
 			# REMEMBER: Set them to nodecay!!!
-			newitem = wolfpack.additem( "%x" % hex2dec( id ) ) # Generate a new serial for us
+			if baseid != '':
+				newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
+			else:
+				baseid = lstrip( str( hex( id ) ), "0x" )
+				newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
 
-			if not newitem:
-				newitem = wolfpack.newitem( 1 ) # Generate a new serial for us
+			#if not newitem:
+			#	newitem = wolfpack.newitem( 1 ) # Generate a new serial for us
 
 			newitem.decay = 0
 			newitem.color = color
