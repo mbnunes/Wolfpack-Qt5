@@ -49,51 +49,46 @@
 		<menu>
 			<name>Example Crafting Menu</name>
 			<model>0x0FB5</model>
+			<type>detail</type>
 			<description>Ability and flexibility of WP 13.x.</description>
-			
-			<menu>
-				<name>Armor</name>
-				<model>0x0FB5</model>
-				<description>any kind of armor</description>
-			</menu>
 			
 			<action>
 				<name>Broad sword</name>
 				<model>0x0F5E</model>
-				<description>Craft a broad sword with this option.</description>
-				<make>
+				<description>Craft a broad sword with this option. You can select different materials for this item if you are skilled enough and have the necessary resources!</description>
+				<make name="iron">
 					<useitem itemid="0x1BF2" name="iron ingots" amount="5" />
-					<makeitem section="WEAPONS_IRON_SWORDS_broad" amount="1" name="iron broad sword" />
+					<makeitem section="WEAPONS_IRON_SWORDS_broad" amount="1" />
 					<skillcheck skillid="7" min="350" max="850" />
 					<skillcheck skillid="4" min="180" max="500" />
 				</make>
-				<make>
+				<make name="bronze">
 					<useitem itemid="0x1BF2" name="bronze ingots" amount="7" />
-					<makeitem section="WEAPONS_BRONZE_SWORDS_broad" amount="1" name="bronze broad sword" />
+					<makeitem section="WEAPONS_BRONZE_SWORDS_broad" amount="1" />
 					<skillcheck skillid="7" min="400" max="950" />
 					<skillcheck skillid="4" min="260" max="600" />
 				</make>
-				<make>
+				<make name="silver">
 					<useitem itemid="0x1BF2" name="silver ingots" amount="8" />
-					<makeitem section="WEAPONS_SILVER_SWORDS_broad" amount="1" name="silver broad sword" />
+					<makeitem section="WEAPONS_SILVER_SWORDS_broad" amount="1" />
 					<skillcheck skillid="7" min="470" max="955" />
 					<skillcheck skillid="4" min="280" max="640" />
 				</make>
-				<make>
+				<make name="gold">
 					<useitem itemid="0x1BF2" name="gold ingots" amount="8" />
-					<makeitem section="WEAPONS_GOLD_SWORDS_broad" amount="1" name="gold broad sword" />
+					<makeitem section="WEAPONS_GOLD_SWORDS_broad" amount="1" />
 					<skillcheck skillid="7" min="500" max="955" />
 					<skillcheck skillid="4" min="300" max="640" />
 				</make>
-				<make>
+				<make name="agapit">
 					<useitem itemid="0x1BF2" name="agapit ingots" amount="8" />
-					<makeitem section="WEAPONS_AGAPIT_SWORDS_broad" amount="1" name="agapit broad sword" />
+					<makeitem section="WEAPONS_AGAPIT_SWORDS_broad" amount="1" />
 					<skillcheck skillid="7" min="520" max="955" />
 					<skillcheck skillid="4" min="320" max="640" />
 				</make>
-				<make>
+				<make  name="shadow">
 					<useitem itemid="0x1BF2" name="shadow ingots" amount="8" />
-					<makeitem section="WEAPONS_SHADOW_SWORDS_broad" amount="1" name="shadow broad sword" />
+					<makeitem section="WEAPONS_SHADOW_SWORDS_broad" amount="1" />
 					<skillcheck skillid="7" min="570" max="955" />
 					<skillcheck skillid="4" min="310" max="640" />
 				</make>
