@@ -1614,36 +1614,36 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		return;
 
 
-	if (((target->isNpc())&&((target->id1==(unsigned char)'\x00')||(target->id1==(unsigned char)'\x03')))&&
-		((target->id2==(unsigned char)'\x34')||
-		(target->id2==(unsigned char)'\x4E')||
-		(target->id2==(unsigned char)'\x38')||
-		(target->id2==(unsigned char)'\x50')||
-		(target->id2==(unsigned char)'\x3A')||
-		(target->id2==(unsigned char)'\x39')||
-		(target->id2==(unsigned char)'\x3B')||
-		(target->id2==(unsigned char)'\x74')||
-		(target->id2==(unsigned char)'\x75')||
-		(target->id2==(unsigned char)'\x72')||
-		(target->id2==(unsigned char)'\x7A')||
-		(target->id2==(unsigned char)'\x84')||
-		(target->id2==(unsigned char)'\x73')||
-		(target->id2==(unsigned char)'\x76')||
-		(target->id2==(unsigned char)'\x77')||
-		(target->id2==(unsigned char)'\x78')||
-        (target->id2==(unsigned char)'\x79')||
-		(target->id2==(unsigned char)'\xAA')||
-		(target->id2==(unsigned char)'\xAB')||
-		(target->id2==(unsigned char)'\xBB')||
-		(target->id2==(unsigned char)'\x90')||
-		(target->id2==(unsigned char)'\xC8')||
-		(target->id2==(unsigned char)'\xE2')||
-		(target->id2==(unsigned char)'\xE4')||
-		(target->id2==(unsigned char)'\xCC')||
-		(target->id2==(unsigned char)'\xDC')||
-		(target->id2==(unsigned char)'\xD2')||
-		(target->id2==(unsigned char)'\xDA')||
-		(target->id2==(unsigned char)'\xDB')))
+	if ((target->isNpc())&&
+		(target->id() == 0x0334)||
+		(target->id() == 0x034E)||
+		(target->id() == 0x0338)||
+		(target->id() == 0x0350)||
+		(target->id() == 0x033A)||
+		(target->id() == 0x0339)||
+		(target->id() == 0x033B)||
+		(target->id() == 0x0374)||
+		(target->id() == 0x0375)||
+		(target->id() == 0x0372)||
+		(target->id() == 0x037A)||
+		(target->id() == 0x0384)||
+		(target->id() == 0x0373)||
+		(target->id() == 0x0376)||
+		(target->id() == 0x0377)||
+		(target->id() == 0x0378)||
+        (target->id() == 0x0379)||
+		(target->id() == 0x03AA)||
+		(target->id() == 0x03AB)||
+		(target->id() == 0x03BB)||
+		(target->id() == 0x0390)||
+		(target->id() == 0x00C8)||
+		(target->id() == 0x00E2)||
+		(target->id() == 0x00E4)||
+		(target->id() == 0x00CC)||
+		(target->id() == 0x00DC)||
+		(target->id() == 0x00D2)||
+		(target->id() == 0x00DA)||
+		(target->id() == 0x00DB))
 	{//if mount
 		if (chardist( pc_currchar, target )<2 || pc_currchar->isGM())
 		{
