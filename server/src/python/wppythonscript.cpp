@@ -103,6 +103,18 @@ void WPPythonScript::load( const QDomElement &Data )
 		clConsole.PrepareProgress( "Continuing loading" );
 		return;
 	}
+
+	// Call the load Function
+	if( PyObject_HasAttr( codeModule, PyString_FromString( "onLoad" ) ) ) 
+	{
+		PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onLoad" ) ); 
+		
+		if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) 
+			return; 
+		
+		PyObject_CallObject( method, NULL ); 
+		PyReportError();
+	}
 }
 
 //========================== OVERRIDDEN DEFAULT EVENTS

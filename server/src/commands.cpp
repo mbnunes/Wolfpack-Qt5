@@ -1794,6 +1794,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 	}
 
 	QString subCommand = args[0].lower();
+	AllCharsIterator iter;
 
 	// accounts
 	if( subCommand == "accounts" )
@@ -1817,6 +1818,18 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 
 		ScriptManager->reload(); // Reload Scripts
 
+		// Update the Regions
+		for( iter.Begin(); !iter.atEnd(); iter++ )
+		{
+			P_CHAR pChar = iter.GetData();
+
+			if( pChar )
+			{
+				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+				pChar->setRegion( region );
+			}
+		}
+
 		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
 		socket->sysMessage( tr("Definitions, scripts and wolfpack.xml reloaded") );
 	}
@@ -1835,6 +1848,18 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cCommands::instance()->loadACLs();
 
 		ScriptManager->reload(); // Reload Scripts
+
+		// Update the Regions
+		for( iter.Begin(); !iter.atEnd(); iter++ )
+		{
+			P_CHAR pChar = iter.GetData();
+
+			if( pChar )
+			{
+				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+				pChar->setRegion( region );
+			}
+		}
 
 		cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
 		socket->sysMessage( tr("Accounts, definitions, scripts and wolfpack.xml reloaded") );

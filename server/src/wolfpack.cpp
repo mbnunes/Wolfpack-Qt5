@@ -1053,6 +1053,8 @@ void interpretCommand( const QString &command )
 				return;
 			}
 
+			AllCharsIterator iter;
+
 			switch(c)
 			{
 			case '\x1B':
@@ -1123,8 +1125,19 @@ void interpretCommand( const QString &command )
 				MakeMenus::instance()->reload();
 				ContextMenus::instance()->reload();
 				cCommands::instance()->loadACLs();
-
 				ScriptManager->reload(); // Reload Scripts
+
+				// Update the Regions
+				for( iter.Begin(); !iter.atEnd(); iter++ )
+				{
+					P_CHAR pChar = iter.GetData();
+
+					if( pChar )
+					{
+						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+						pChar->setRegion( region );
+					}
+				}
 
 				cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
 				break;
