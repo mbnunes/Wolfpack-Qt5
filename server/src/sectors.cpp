@@ -33,10 +33,20 @@ cSectorMap::~cSectorMap()
 	{
 		if( grid[i] )
 		{
-			delete grid[i]->data;
+			free( grid[i]->data );
 			delete grid[i];
 		}
 	}
+}
+
+#undef realloc
+
+inline void *realloc( void *ptr, unsigned int size )
+{
+	void *newPtr = malloc( size );
+	memcpy( newPtr, ptr, size );
+	free( ptr );
+	return newPtr;
 }
 
 unsigned int cSectorMap::gridHeight() const
@@ -65,13 +75,16 @@ bool cSectorMap::init( unsigned int width, unsigned int height ) throw()
 	gridHeight_ = (unsigned int)ceil( (double)height / (double)SECTOR_SIZE );
 	gridWidth_ = (unsigned int)ceil( (double)width / (double)SECTOR_SIZE );
 
-	grid = new stSector*[ gridHeight_ * gridWidth_ ];
+	grid = (stSector**)malloc( gridHeight_ * gridWidth_ * sizeof( stSector* ) );
 	memset( grid, 0, sizeof( stSector* ) * gridHeight_ * gridWidth_ );
 	return true;
 }
 
-bool cSectorMap::addItem( unsigned short x, unsigned short y, cUObject *object ) throw()
+bool cSectorMap::addItem( cUObject *object )
 {
+	unsigned short x = object->pos().x;
+	unsigned short y = object->pos().y;
+
 	if( x >= gridWidth_ * SECTOR_SIZE || y >= gridHeight_ * SECTOR_SIZE )
 	{
 		error_ = "X or Y is out of the grid boundaries.";
@@ -85,12 +98,18 @@ bool cSectorMap::addItem( unsigned short x, unsigned short y, cUObject *object )
 	{
 		grid[block] = new stSector;
 		grid[block]->count = 1;
-		grid[block]->data = new cUObject*[1];
+		grid[block]->data = (cUObject**)malloc( sizeof( cUObject* ) );
 		grid[block]->data[0] = object;
 		clConsole.send( QString("NERVIGES SCHEISS TEIL ZEIGT AN: neuer sektor gemacht\n") );
 	}
 	else
 	{
+		// Check if the item is already inside of our array
+		unsigned int i;
+		for( i = 0; i < grid[block]->count; ++i )
+			if( grid[block]->data[i] == object )
+				return true;
+
 		// Append our item to the array
 		grid[block]->count++;
 		grid[block]->data = (cUObject**)realloc( grid[block]->data, grid[block]->count * sizeof( cUObject* ) );
@@ -101,8 +120,11 @@ bool cSectorMap::addItem( unsigned short x, unsigned short y, cUObject *object )
 	return true;
 }
 
-bool cSectorMap::removeItem( unsigned short x, unsigned short y, cUObject *object ) throw()
+bool cSectorMap::removeItem( cUObject *object )
 {
+	unsigned short x = object->pos().x;
+	unsigned short y = object->pos().y;
+
 	if( x >= gridWidth_ * SECTOR_SIZE || y >= gridHeight_ * SECTOR_SIZE )
 	{
 		error_ = "X or Y is out of the grid boundaries.";
@@ -123,12 +145,25 @@ bool cSectorMap::removeItem( unsigned short x, unsigned short y, cUObject *objec
 		if( grid[block]->data[i] == object )
 		{
 			// We found our object. Create a new array and copy the rest over
-			cUObject **newData = new cUObject*[ grid[block]->count - 1 ];
+			cUObject **newData = (cUObject**)malloc( ( grid[block]->count - 1 ) * sizeof( cUObject* ) );
 			
-			memcpy( newData, grid[block]->data, sizeof( cUObject* ) * i );
-			memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + ( sizeof( cUObject* ) * (i+1) ), sizeof( cUObject* ) * ( grid[block]->count - ( i + 1 ) ) );
+			unsigned int offset = 0;
+			unsigned int j;
+
+			// MemCpy is nice 'n all but we're too stupid to use it
+			// Copy the old elements over
+			for( j = 0; j < grid[block]->count; ++j )
+			{
+				if( j == i )
+					continue;
+
+				newData[offset++] = grid[block]->data[j];
+			}
+
+			/*memcpy( newData, grid[block]->data, sizeof( cUObject* ) * i );
+			memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + sizeof( cUObject* ) * ( i + 1 ), QMAX( 0, sizeof( cUObject* ) * ( grid[block]->count - ( i + 1 ) ) ) );*/
 			
-			delete [] grid[block]->data;
+			free( grid[block]->data );
 			grid[block]->data = newData;
 			grid[block]->count--;
 			break;
@@ -140,7 +175,7 @@ bool cSectorMap::removeItem( unsigned short x, unsigned short y, cUObject *objec
 	// Check if the block can be freed
 	if( !grid[block]->count )
 	{
-		delete [] grid[block]->data;
+		free( grid[block]->data );
 		delete grid[block];
 		grid[block] = 0; // This makes *sure* it gets resetted to 0
 	}
@@ -190,7 +225,7 @@ cSectorIterator::cSectorIterator( unsigned int count, cUObject **items )
 
 cSectorIterator::~cSectorIterator()
 {
-	delete [] this->items;
+	free( this->items );
 }
 
 /*
@@ -262,46 +297,6 @@ void cSectorMaps::addMap( unsigned char map, unsigned int width, unsigned int he
 	charmaps.insert( std::make_pair( map, charmap ) );
 	itemmaps.insert( std::make_pair( map, itemmap ) );
 }
-	
-void cSectorMaps::add( const Coord_cl &pos, cItem *pItem )
-{
-	std::map< unsigned char, cSectorMap* >::const_iterator it = itemmaps.find( pos.map );
-
-	if( it == itemmaps.end() )
-		throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
-	
-	it->second->addItem( pos.x, pos.y, (cUObject*)pItem );
-}
-
-void cSectorMaps::add( const Coord_cl &pos, cBaseChar *pChar )
-{
-	std::map< unsigned char, cSectorMap* >::const_iterator it = charmaps.find( pos.map );
-
-	if( it == charmaps.end() )
-		throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
-	
-	it->second->addItem( pos.x, pos.y, (cUObject*)pChar );
-}
-
-void cSectorMaps::remove( const Coord_cl &pos, cItem *pItem )
-{
-	std::map< unsigned char, cSectorMap* >::const_iterator it = itemmaps.find( pos.map );
-
-	if( it == itemmaps.end() )
-		throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
-	
-	it->second->removeItem( pos.x, pos.y, (cUObject*)pItem );
-}
-
-void cSectorMaps::remove( const Coord_cl &pos, cBaseChar *pChar )
-{
-	std::map< unsigned char, cSectorMap* >::const_iterator it = charmaps.find( pos.map );
-
-	if( it == charmaps.end() )
-		throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
-	
-	it->second->removeItem( pos.x, pos.y, (cUObject*)pChar );
-}
 
 void cSectorMaps::add( cUObject *object )
 {
@@ -315,13 +310,31 @@ void cSectorMaps::add( cUObject *object )
 	{
 		P_ITEM pItem = dynamic_cast< P_ITEM >( object );
 		if( pItem )
-			add( pItem->pos(), pItem );
+		{
+			Coord_cl pos = pItem->pos();
+
+			std::map< unsigned char, cSectorMap* >::const_iterator it = itemmaps.find( pos.map );
+
+			if( it == itemmaps.end() )
+				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
+			
+			it->second->addItem( (cUObject*)pItem );
+		}
 	}
 	else if( isCharSerial( object->serial() ) )
 	{
 		P_CHAR pChar = dynamic_cast< P_CHAR >( object );
 		if( pChar )
-			add( pChar->pos(), pChar );
+		{
+			Coord_cl pos = pChar->pos();
+
+			std::map< unsigned char, cSectorMap* >::const_iterator it = charmaps.find( pos.map );
+
+			if( it == charmaps.end() )
+				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
+			
+			it->second->addItem( (cUObject*)pChar );
+		}
 	}
 }
 
@@ -337,13 +350,31 @@ void cSectorMaps::remove( cUObject *object )
 	{
 		P_ITEM pItem = dynamic_cast< P_ITEM >( object );
 		if( pItem )
-			remove( pItem->pos(), pItem );
+		{
+			Coord_cl pos = pItem->pos();
+
+			std::map< unsigned char, cSectorMap* >::const_iterator it = itemmaps.find( pos.map );
+
+			if( it == itemmaps.end() )
+				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
+			
+			it->second->removeItem( (cUObject*)pItem );
+		}
 	}
 	else if( isCharSerial( object->serial() ) )
 	{
 		P_CHAR pChar = dynamic_cast< P_CHAR >( object );
 		if( pChar )
-			remove( pChar->pos(), pChar );
+		{
+			Coord_cl pos = pChar->pos();
+
+			std::map< unsigned char, cSectorMap* >::const_iterator it = charmaps.find( pos.map );
+
+			if( it == charmaps.end() )
+				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
+			
+			it->second->removeItem( (cUObject*)pChar );
+		}
 	}
 }
 
@@ -359,7 +390,7 @@ cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, uns
 			count += sector->countItems( ( xBlock * sector->gridHeight() ) + yBlock );
 
 	// Second step: actually "compile" our list of items
-	cUObject **items = new cUObject*[ count ];
+	cUObject **items = (cUObject**)malloc( count * sizeof( cUObject* ) );
 	unsigned int offset = 0;
 
 	for( xBlock = x1 / SECTOR_SIZE; xBlock <= x2 / SECTOR_SIZE; xBlock++ )
@@ -412,7 +443,7 @@ cSectorIterator *cSectorMaps::findObjects( MapType type, cSectorMap *sector, uns
 	if( !count )
 		return new cSectorIterator( 0, 0 );
 
-	cUObject **items = new cUObject*[ count ];
+	cUObject **items = (cUObject**)malloc( sizeof( cUObject* ) * count );
 	count = sector->getItems( block, items );
 
 	switch( type )

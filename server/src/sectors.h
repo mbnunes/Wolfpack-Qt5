@@ -62,11 +62,11 @@ protected:
 	unsigned int gridHeight_;
 	char *error_;
 
-	bool addItem( unsigned short x, unsigned short y, cUObject *object ) throw();
-	bool removeItem( unsigned short x, unsigned short y, cUObject *object ) throw();
+	bool addItem( cUObject *object );
+	bool removeItem( cUObject *object );
 	
-	unsigned int countItems( unsigned int id ) throw(); // Returns the count of items in a specific block
-	unsigned int getItems( unsigned int id, cUObject **items ) throw(); // Returns the count of items copied
+	unsigned int countItems( unsigned int id ); // Returns the count of items in a specific block
+	unsigned int getItems( unsigned int id, cUObject **items ); // Returns the count of items copied
 public:
 	cSectorMap();
 	virtual ~cSectorMap();
@@ -74,11 +74,11 @@ public:
 	unsigned int gridHeight() const;
 	unsigned int gridWidth() const;
 	
-	bool init( unsigned int width, unsigned int height ) throw();
+	bool init( unsigned int width, unsigned int height );
 	const char *error() const { return error_; }
 
 	// Get an iterator for one specific block
-	unsigned int calcBlockId( unsigned int x, unsigned int y ) throw();
+	unsigned int calcBlockId( unsigned int x, unsigned int y );
 };
 
 // Manager Class for cSectorMap
@@ -90,9 +90,6 @@ private:
 
 	void remove( const Coord_cl &pos, cItem *pItem );
 	void remove( const Coord_cl &pos, cBaseChar *pChar );
-
-	void add( const Coord_cl &pos, cItem *pItem );
-	void add( const Coord_cl &pos, cBaseChar *pChar );
 
 	// Internal functions for searching items
 	enum MapType
