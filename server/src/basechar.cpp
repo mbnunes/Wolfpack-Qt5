@@ -112,9 +112,9 @@ cBaseChar::cBaseChar()
     guarding_			= NULL;
 	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );	
 	setDead(false);  // we want to live ;)
-	regenHitpointsTime_	= uiCurrentTime + SrvParams->hitpointrate() * MY_CLOCKS_PER_SEC;
-	regenStaminaTime_	= uiCurrentTime + SrvParams->staminarate() * MY_CLOCKS_PER_SEC;
-	regenManaTime_		= uiCurrentTime + SrvParams->manarate() * MY_CLOCKS_PER_SEC;
+	regenHitpointsTime_	= uiCurrentTime + floor(getHitpointRate() * 1000);
+	regenStaminaTime_	= uiCurrentTime + floor(getStaminaRate() * 1000);
+	regenManaTime_		= uiCurrentTime + floor(getManaRate() * 1000);
 	saycolor_			= 600;
 	hitpointsBonus_		= 0;
 	staminaBonus_		= 0;

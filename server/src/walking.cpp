@@ -727,8 +727,8 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 	}
 
 	// Don't regenerate stamina while running
-	pChar->setRegenStaminaTime( uiCurrentTime + ( SrvParams->staminarate() * MY_CLOCKS_PER_SEC ) );
-	pChar->setRunningSteps( pChar->runningSteps() + 1 );
+	pChar->setRegenStaminaTime(uiCurrentTime + floor(pChar->getStaminaRate() * 1000));
+	pChar->setRunningSteps(pChar->runningSteps() + 1);
 	
 	// If we're running on our feet, check for stamina loss
 	// Crap
