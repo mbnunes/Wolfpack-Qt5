@@ -33,10 +33,6 @@
 #include "winsock.h"
 #endif
 
-#ifndef INADDR_NONE
-#define INADDR_NONE (-1)
-#endif
-
 #include "srvparams.h"
 #include "globals.h"
 
@@ -55,6 +51,10 @@ const char preferencesFileVersion[] = "1.0";
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h> 
+#endif
+
+#ifndef INADDR_NONE
+#define INADDR_NONE (-1)
 #endif
 
 Q_INT32 resolveName( const QString& data )
