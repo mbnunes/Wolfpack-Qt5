@@ -177,3 +177,30 @@ void cUOTxSendSkills::fromChar( P_CHAR pChar )
 	for( Q_UINT8 i = 0; i < ALLSKILLS; ++i )
 		addSkill( i, pChar->skill( i ), pChar->baseSkill( i ), cUOTxSendSkills::Up );
 }
+
+void cUOTxContextMenu::addEntry( Q_UINT16 textId, Q_UINT16 returnVal )
+{
+	Q_UINT32 offset = rawPacket.count();
+	
+	if( rawPacket.count() > 8 )
+	{
+		// Not the first entry anymore
+		rawPacket.resize( offset + 6 );
+		setShort( offset, returnVal );
+		setShort( offset+2, textId );
+		setShort( offset+4, 0x0000 );
+	}
+	else
+	{
+		// First entry
+		rawPacket.resize( offset + 8 );
+		setShort( offset, returnVal );
+		setShort( offset+2, textId );
+		setShort( offset+4, 0x0020 );
+		setShort( offset+6, 0xFFFF );
+	}
+	
+	// Increase the item-count + the menu-length
+    rawPacket[ 7 ]++;
+	setShort( 1, rawPacket.count() );
+}

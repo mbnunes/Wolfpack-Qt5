@@ -99,6 +99,10 @@ public:
 	void handleCreateChar( cUORxCreateChar *packet );
 	void handleUpdateRange( cUORxUpdateRange *packet );
 	void handleQuery( cUORxQuery *packet );
+	void handleRequestLook( cUORxRequestLook *packet );
+	void handleRequestUse( cUORxRequestUse *packet );
+	void handleMultiPurpose( cUORxMultiPurpose *packet );
+	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
 
 	// Utilities
 	void sysMessage( const QString &message, Q_UINT16 color = 0x0037 );

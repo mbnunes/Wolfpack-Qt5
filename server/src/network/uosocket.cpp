@@ -127,6 +127,10 @@ void cUOSocket::recieve()
 		handlePlayCharacter( dynamic_cast< cUORxPlayCharacter* >( packet ) ); break;
 	case 0xC8:
 		handleUpdateRange( dynamic_cast< cUORxUpdateRange* >( packet ) ); break;
+	case 0x09:
+		handleRequestLook( dynamic_cast< cUORxRequestLook* >( packet ) ); break;
+	case 0xBF:
+		handleMultiPurpose( dynamic_cast< cUORxMultiPurpose* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -660,4 +664,32 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 {
 	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
 	_viewRange = packet->range();
+}
+
+void cUOSocket::handleRequestLook( cUORxRequestLook *packet )
+{
+}
+
+void cUOSocket::handleRequestUse( cUORxRequestUse *packet )
+{
+}
+
+void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
+{
+	switch( packet->subCommand() )
+	{
+	case 0x13:
+		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( packet ) ); break;
+	default:
+		packet->print( &cout ); // Dump the packet
+	};
+}
+
+// Show a context menu
+void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
+{
+	// Send a dummy popup menu
+	cUOTxContextMenu menu;
+	menu.addEntry( 0x17EB, 0x0001 );
+	send( &menu );
 }

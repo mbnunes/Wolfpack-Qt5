@@ -65,6 +65,14 @@ cUOPacket *getUOPacket( const QByteArray &data )
 		return new cUORxUpdateRange( data );
 	case 0x34:
 		return new cUORxQuery( data );
+	case 0x06:
+		return new cUORxRequestUse( data );
+	case 0x09:
+		return new cUORxRequestLook( data );
+	case 0x05:
+		return new cUORxRequestAttack( data );
+	case 0xBF:
+		return new cUORxMultiPurpose( data );
 	default:
 		return new cUOPacket( data );
 	};	
@@ -72,3 +80,14 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	cout << "Packet built was: " << QString::number(packetId, 16).latin1() << endl;
 }
 
+cUOPacket *cUORxMultiPurpose::packet( void )
+{
+	// Switch the Subcommand
+	switch( getShort( 3 ) )
+	{
+	case 0x13:
+		return new cUORxContextMenuRequest( rawPacket ); break;
+	default:
+		return new cUOPacket( (*this) );
+	};
+}

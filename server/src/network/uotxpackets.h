@@ -527,4 +527,12 @@ public:
 	void setWeight( Q_UINT16 data ) { setShort( 64, data ); }
 };
 
+// 0xBF Subcommand: 0x14
+class cUOTxContextMenu: public cUOPacket
+{
+public:
+	cUOTxContextMenu(): cUOPacket( 0xBF, 8 ) { setShort( 1, 8 ); setShort( 3, 0x14 ); setShort( 5, 0x0001 ); }
+	void addEntry( Q_UINT16 textId, Q_UINT16 returnVal );
+};
+
 #endif

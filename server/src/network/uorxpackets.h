@@ -178,6 +178,33 @@ public:
 	Q_UINT32 ip( void ) { return getInt( 69 ); }
 };
 
+// 0x05 Request Use
+class cUORxRequestAttack: public cUOPacket
+{
+public:
+	cUORxRequestAttack( const QByteArray &data ): cUOPacket( data ) {}
+
+	Q_UINT32 serial( void ) { return getInt( 1 ); }
+};
+
+// 0x06 Request Use
+class cUORxRequestUse: public cUOPacket
+{
+public:
+	cUORxRequestUse( const QByteArray &data ): cUOPacket( data ) {}
+
+	Q_UINT32 serial( void ) { return getInt( 1 ); }
+};
+
+// 0x09 Request Look
+class cUORxRequestLook: public cUOPacket
+{
+public:
+	cUORxRequestLook( const QByteArray &data ): cUOPacket( data ) {}
+
+	Q_UINT32 serial( void ) { return getInt( 1 ); }
+};
+
 // 0x2C Resurrection Menu
 class cUORxResurrectionMenu: public cUOPacket
 {
@@ -191,6 +218,45 @@ public:
 	};
 
 	eChoice choice( void ) { return ( rawPacket[1] == 0x01 ) ? Resurrect : Ghost; }
+};
+
+// 0xBF Multi Purpose Packet -> Split up into other packets later
+class cUORxMultiPurpose: public cUOPacket
+{
+public:
+	enum eSubCommands
+	{
+		unknown = 0,
+		initFastWalk,
+	};
+
+	cUORxMultiPurpose( const QByteArray &data ): cUOPacket( data ) {}
+	cUOPacket *packet( void );
+	eSubCommands subCommand( void ) { return (eSubCommands)getShort( 3 ); }
+};
+
+// 0xBF 0x13 PopUp Menu Request
+class cUORxContextMenuRequest: public cUOPacket
+{
+public:
+	cUORxContextMenuRequest( const QByteArray &data ): cUOPacket( data ) {}
+	Q_UINT32 serial( void ) { return getInt( 5 ); }
+};
+
+// 0xBF 0x11 Set Client Language
+class cUORxSetLanguage: public cUOPacket
+{
+public:
+	cUORxSetLanguage( const QByteArray &data ): cUOPacket( data ) {}
+	QString language( void )
+	{
+		char temp[4];
+		memset( temp, 0, 4 );
+		memcpy( temp, &rawPacket.data()[5], 3 );
+		QString rVal;
+		rVal.setLatin1( temp );
+		return rVal;
+	}
 };
 
 #endif
