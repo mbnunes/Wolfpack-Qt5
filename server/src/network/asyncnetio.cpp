@@ -440,6 +440,11 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 {
 	bool osBufferFull = false;
 	int consumed = 0;
+
+	// Buffer has closed
+	if( !d->socket->isValid() || !d->socket->isWritable() )
+		return;
+
 	// Before we continue, we should guarantee no one writes packets to the buffer.
 	d->wmutex.acquire();
 	while ( !osBufferFull && d->wsize > 0 )

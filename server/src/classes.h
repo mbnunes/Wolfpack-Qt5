@@ -92,7 +92,7 @@ public:
 	int TrackingDirection(UOXSOCKET s, P_CHAR pc_i);
 	void CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar);
 	char AdvanceSkill(P_CHAR pc, int sk, char skillused);
-	void AdvanceStats(P_CHAR pc, int sk);
+	void AdvanceStats(P_CHAR pc, UINT16 sk);
 	void TinkerAxel(int s);
 	void TinkerAwg(int s);
 	void TinkerClock(int s);

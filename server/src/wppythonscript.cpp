@@ -770,6 +770,7 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	}
 
 	else getIntProperty( "weight", Item->weight() )
+	else getIntProperty( "totalweight", Item->totalweight() )
 	else getIntProperty( "racehate", Item->racehate() )
 	else getIntProperty( "more1", Item->more1 )
 	else getIntProperty( "more2", Item->more2 )

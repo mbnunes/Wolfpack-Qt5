@@ -65,6 +65,7 @@ protected:
 	SI16		maxhp_;
 	SI08		smelt_;
 	QString		spawnregion_;
+	INT32		totalweight_;
 
 	// More values
 	UI08 moreb1_;
@@ -98,6 +99,7 @@ public:
 	bool			wipe()			const { return priv&0x10; }		// Should the item be wiped when affected by /WIPE
 	SI16			racehate()		const { return racehate_; }		// Race ID this weapon does double damage to
 	SI16			weight()		const { return weight_; }
+	SI16			stones()		const { return (SI16)( weight_ / 10 ); } // Weight transformed to UO Stones
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
 	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
 	SI32			smelt()			const { return smelt_; }		// For item smelting
@@ -107,7 +109,9 @@ public:
 	UI08			moreb3()		const { return moreb3_; }
 	UI08			moreb4()		const { return moreb4_; }
 	bool			corpse()		const { return priv&0x40; }		// Is the item a corpse
+	bool			newbie()		const { return priv&0x02; }		// Is the Item Newbie
 	P_CHAR			owner();
+	INT32			totalweight()	const { return totalweight_; }
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -138,8 +142,10 @@ public:
 	void	setMoreb2( UI08 nValue ) { moreb2_ = nValue; };
 	void	setMoreb3( UI08 nValue ) { moreb3_ = nValue; };
 	void	setMoreb4( UI08 nValue ) { moreb4_ = nValue; };
-	void	setCorpse( bool nValue ) { ( nValue ) ? priv &= 0x40 : priv |= 0xBF; }
+	void	setCorpse( bool nValue ) { ( nValue ) ? priv |= 0x40 : priv &= 0xBF; }
+	void	setNewbie( bool nValue ) { ( nValue ) ? priv |= 0x02 : priv &= 0xFD; }
 	void	setOwner( P_CHAR nOwner );
+	void	setTotalweight( INT32 data ) { totalweight_ = data; }
 
 	cItem() {;};
 	cItem( cItem& src); // Copy constructor
@@ -264,7 +270,6 @@ public:
 	int  CountItems(short ID, short col= -1);
 	int  DeleteAmount(int amount, unsigned short _id, unsigned short _color = 0);
 	int getName(char* itemname);
-	int getWeight();
 	QString getName(void);
 	void startDecay();
 	void setAllMovable()		{this->magic=1;} // set it all movable..

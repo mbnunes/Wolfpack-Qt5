@@ -72,13 +72,14 @@ public:
 	// Events
 	bool onUse( cUObject *Target );
 	bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
-
+	
 	SERIAL serial;
 	SERIAL multis;
 	bool free;
 
 	std::string name;
 	Coord_cl pos;
+	bool inRange( cUObject *object, UINT32 range );
 
 	cCustomTags tags;
 // Methods

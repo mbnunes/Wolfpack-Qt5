@@ -1081,8 +1081,6 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		//goxyz[18]=pc->dispz;
 		goxyz[18]=pc->pos.z;
 		Xsend(k, goxyz, 19);
-		Weight->NewCalc(pc);	// Ison 2-20-99
-		statwindow(k, pc);	// Ison 2-20-99
 		walksequence[k]=-1;
 	}
 	for (i=0;i<now;i++) // Send the update to all players.
@@ -1163,8 +1161,7 @@ void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can fin
 		Xsend(k, goxyz, 19);
 		all_items(k);
 		Weight->NewCalc(pc);	// Ison 2-20-99
-		statwindow(k, pc);	// Ison 2-20-99
-		walksequence[k]=-1;
+			walksequence[k]=-1;
 	}
 	for (i=0;i<now;i++) // Send the update to all players.
 	{
@@ -1322,101 +1319,6 @@ void updatestats( P_CHAR pc, char x )
 		if (s != -1)
 			Xsend(s, updater, 9);
 	}
-}
-
-void statwindow(int s, P_CHAR pc) // Opens the status window
-{
-	int x;
-	unsigned char statstring[67]="\x11\x00\x42\x00\x05\xA8\x90XYZ\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x34\xFF\x01\x00\x00\x5F\x00\x60\x00\x61\x00\x62\x00\x63\x00\x64\x00\x65\x00\x00\x75\x30\x01\x2C\x00\x00";
-	
-	if (s<0 || s>=MAXCLIENT || pc == NULL) return; // lb, fixes a few (too few) -1 crashes ...
-
-	P_CHAR pc_currchar = currchar[s];
-
-	bool ghost = false;
-	if ((pc->id() == 0x0192) || (pc->id() ==0x0193)) 
-		ghost = true; 
-
-	LongToCharPtr(pc->serial, &statstring[3]);
-	strncpy((char*)&statstring[7],pc->name.c_str(), 30); // can not be more than 30 at least no without changing packet lenght
-
-	if (!ghost)
-	{
-		statstring[37]=pc->hp>>8;
-		statstring[38]=pc->hp%256;
-	} 
-	else
-	{
-		statstring[37] = statstring[38] = 0;
-	}
-	//Changed, so ghosts can see their maximum hit points.
-	statstring[39]=pc->st>>8;
-	statstring[40]=pc->st%256;
-
-	if (((pc_currchar->isGM())|| pc_currchar->Owns(pc))&&(currchar[s]!=pc))
-	{
-		statstring[41]=0xFF;
-	} 
-	else if (pc_currchar->Owns(pc) && currchar[s]!=pc ) //Morrolan - from Banter
-	{
-		statstring[41]=0xFF;
-	}
-	else
-	{
-		statstring[41]=0x00;
-	}
-
-	if (ghost) statstring[41]=0x00;
-
-	// packet #42 has some problems, dont try to be smart and replace the workaround by
-	// if (ghost) statstring[42]=0; else statstring[42]=1, LB
-
-	if ( pc->id() == 0x0191 || pc->id() == 0x0193 ) statstring[43] = 1;
-	else statstring[43]=0; // LB, prevents very female looking male players ... :-)
-
-	//Changed so ghosts can see their str, dex and int, their char haven't lose those attributes.
-	statstring[44]=pc->st>>8;
-	statstring[45]=pc->st%256;
-	statstring[46]=pc->effDex()>>8;
-	statstring[47]=pc->effDex()%256;
-	statstring[48]=pc->in>>8; // Real INT
-	statstring[49]=pc->in%256;
-
-	if (!ghost)
-	{
-		statstring[50]=pc->stm>>8;
-		statstring[51]=pc->stm%256;
-		statstring[54]=pc->mn>>8;
-		statstring[55]=pc->mn%256;
-	}
-	else
-	{
-		// Sets to 0 stamina and mana
-		for (int a = 50; a <= 57; a++) 
-			statstring[a] = 0;
-	}
-	// ghosts will see their mana as 0/x, ie 0/100
-	// This will show red bars when status are displayed as percentages (little status window)
-	statstring[52]=pc->effDex()>>8; // MaxStamina
-	statstring[53]=pc->effDex()%256;
-	statstring[56]=pc->in>>8; // MaxMana
-	statstring[57]=pc->in%256;
-
-	
-	x = pc->CountGold();
-	statstring[58]=x>>24;
-	statstring[59]=x>>16;
-	statstring[60]=x>>8;
-	statstring[61]=x%256;
-	
-	x = Combat->CalcDef(pc,0);
-	statstring[62]=x>>8; // AC
-	statstring[63]=x%256;
-	x = (int)(pc->weight);
-	statstring[64]=x>>8;
-	statstring[65]=x%256;
-	Xsend(s, statstring, 66);
-	
 }
 
 void updates(UOXSOCKET s) // Update Window

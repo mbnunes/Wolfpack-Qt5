@@ -44,8 +44,6 @@ private:
 public:
 	void Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence );
 	void CombatWalk( P_CHAR pc );
-	bool CanCharWalk( P_CHAR pc, Coord_cl &coord );
-	bool CanCharMove( P_CHAR pc, Coord_cl &coord, UI08 dir );
 	void NpcMovement( unsigned int currenttime, P_CHAR pc_i );
 	int validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s );
 private:
@@ -72,6 +70,8 @@ private:
 	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
 	void PathFind( P_CHAR pc, unsigned short gx, unsigned short gy );
 
+	bool consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running );
+	bool checkObstacles( cUOSocket *socket, P_CHAR pChar, const Coord_cl &newPos, bool running );
 	bool verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw();
 	void checkRunning( cUOSocket*, P_CHAR, Q_UINT8 );
 	void checkStealth( P_CHAR );

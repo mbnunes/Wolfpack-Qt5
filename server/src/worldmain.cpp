@@ -962,13 +962,6 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		pi->setContSerial(pi->contserial);
 		pi->SetOwnSerial(pi->ownserial);
 
-		//add item weight if item doesn't have it yet
-		if( pi->weight() <= 0 )
-		{
-			pi->setWeight( 0 );
-			pi->setWeight( pi->getWeight() );
-		}
-
 		if( pi->maxhp() == 0) 
 			pi->setMaxhp( pi->hp() );
 

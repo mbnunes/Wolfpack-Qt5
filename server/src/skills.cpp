@@ -479,11 +479,9 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			RefreshItem(pi);
 		}
 		if(!pc_currchar->making) sysmessage(s,"You create the item and place it in your backpack.");
-//		itemmake[s].has=0;
-//		itemmake[s].has2=0;
-		statwindow(s, pc_currchar);
 		Zero_Itemmake(s);
-		/*		
+
+/*		
 		Code added by Polygon
 		Creates a key for every chest-container
 		and puts it in the chest
@@ -1134,30 +1132,30 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 
 char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 {
-	char skillused=0;
-	if ( pc == NULL ) 
-		return 0;
-    UOXSOCKET s=-1;
-    if(pc->isPlayer()) 
-		s = calcSocketFromChar(pc);
+	char skillused = 0;
 	
+	if( !pc ) 
+		return 0;
+    
+	cUOSocket *socket = pc->socket();
+
 	if( pc->dead ) // fix for magic resistance exploit and probably others too, LB
 	{
-		sprintf((char*)temp,"Ghosts can not train %s",skillname[sk]);
-		sysmessage(s, (char*)temp );
+		if( socket )
+			socket->sysMessage( tr( "Ghosts can not train %1" ).arg( skillname[sk] ) );
 		return 0;
 	}
 
-	// How should we test skills...
-	//if (pc->isGM())
-	//	return 1;
+	if( high > 1200 )
+		high = 1200;
 
-	if(high>1200) high=1200;
+	// how far is the player's skill above the required minimum ?
+	int charrange = pc->skill( sk ) - low;	
+	
+	if( charrange < 0 )
+		charrange = 0;
 
-	int charrange=pc->skill(sk)-low;	// how far is the player's skill above the required minimum ?
-	if(charrange<0) charrange=0;
-
-	if (!(high-low))
+	if( high == low )
 	{
 		LogCritical("minskill equals maxskill");
 		return 0;
@@ -1167,16 +1165,18 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 	
 	if( chance >= rand()%1000 ) skillused = 1;
 	
-	if(pc->baseSkill(sk)<high)
+	if( pc->baseSkill( sk ) < high )
 	{
-		if (sk!=MAGERY || (sk==MAGERY && pc->isPlayer() && currentSpellType[s]==0))
-		{
-			if(Skills->AdvanceSkill(pc, sk, skillused))
+		// Take care. Only gain skill when not using scrolls
+		//if( sk != MAGERY || ( sk == MAGERY && pc->isPlayer() && currentSpellType[s] == 0 ) )
+		//{
+			if( Skills->AdvanceSkill( pc, sk, skillused ) )
 			{
 				Skills->updateSkillLevel(pc, sk); 
-				if(pc->isPlayer() && online(pc)) updateskill(s, sk);
+				if( pc->socket() )
+					pc->socket()->sendSkill( sk );
 			}
-		}
+		//}
 	}
 	return skillused;
 }
@@ -1342,50 +1342,52 @@ static int AdvanceOneStat(int sk, int i, signed short *stat, signed short *stat2
 //			gives all three stats the chance (from skills.scp & server.scp) to rise
 //			and reduces the two other stats if necessary
 //
-void cSkills::AdvanceStats(P_CHAR pc, int sk)
+void cSkills::AdvanceStats( P_CHAR pChar, UINT16 skillId )
 {
-	int i,so;
-	bool update=false;
-	bool atCap=false;
-	bool isGM=false;
+	bool update = false;
+	bool atCap = false;
 
-	if ( pc == NULL ) return;
-
-	if(pc->isGM())		// a GM ?
-		isGM=true;
+	if ( !pChar ) 
+		return;
 	
-	i=skill[sk].advance_index;
-	int mod = SrvParams->statsAdvanceModifier();
+	INT32 i = skill[skillId].advance_index;
+	INT32 mod = SrvParams->statsAdvanceModifier();
 	
-	if (skill[sk].st>rand()%mod)
-		if (AdvanceOneStat(sk, i, &(pc->st), &(pc->st2), &update, isGM) && atCap && !isGM)
-			if (rand()%2) pc->chgRealDex(-1); else pc->in-=1;
+	// Strength advancement
+	if( skill[skillId].st > rand() % mod )
+		if( AdvanceOneStat( skillId, i, &(pChar->st), &(pChar->st2), &update, pChar->isGM() ) && atCap && !pChar->isGM() )
+			if( rand() % 2 ) 
+				pChar->chgRealDex(-1); 
+			else 
+				pChar->in-=1;
 	
-	if (skill[sk].dx>rand()%mod)
-		if (pc->incDecDex(calcStatIncrement(sk,i,pc->realDex())))
+	if( skill[skillId].dx > rand() % mod )
+		if( pChar->incDecDex( calcStatIncrement( skillId, i, pChar->realDex() ) ) )
 		{
 			update = true;
-			if (atCap)
-				if (rand()%2) pc->st-=1; else pc->in-=1;
+			if( atCap )
+				if( rand() % 2 )
+					pChar->st -= 1;
+				else 
+					pChar->in -= 1;
 		}
 	
-	if (skill[sk].in>rand()%mod)
-		if (AdvanceOneStat(sk, i, &(pc->in), &(pc->in2), &update, isGM) && atCap && !isGM)
-			if (rand()%2) pc->chgRealDex(-1); else pc->st-=1;
+	if( skill[skillId].in > rand() % mod )
+		if( AdvanceOneStat( skillId, i, &( pChar->in ), &(pChar->in2), &update, pChar->isGM() ) && atCap && !pChar->isGM() )
+			if( rand()%2 ) 
+				pChar->chgRealDex(-1); 
+			else 
+				pChar->st-=1;
 	
-	so=calcSocketFromChar(pc);
-	if (update && (so!=-1))
+	cUOSocket *socket = pChar->socket();
+	if( update && socket )
 	{
-		statwindow(so, pc);				// update client's status window
-		for (i=0; i<ALLSKILLS; i++)
-		{
-			updateSkillLevel(pc, i);		// update client's skill window
-		}
-		if (atCap && !isGM)
-		{
-			sprintf((char*)temp,"You have reached the stat-cap of %i!" ,SrvParams->statcap());
-			sysmessage(so,(char*)temp);
-		}
+		socket->sendStatWindow();
+		for( i = 0; i < ALLSKILLS; ++i )
+			updateSkillLevel(pChar, i); // When advancing stats we dont update the client (?)
+
+		if( atCap && !pChar->isGM() )
+			socket->sysMessage( tr( "You have reached the stat-cap of %1!" ).arg( SrvParams->statcap() ) );
 	}
 }
 
@@ -1625,10 +1627,9 @@ void cSkills::RandomSteal(int s)
 
 	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name.c_str(), item->name().ascii());
 	sysmessage(s, (char*)temp);
-	if (npcinrange(s, pc_npc, 1))
+	if( pc_currchar->inRange( pc_npc, 1 ) )
 	{
-		if ((item->weight()>cansteal) && (item->type()!=1 && item->type()!=63 &&
-			item->type()!=65 && item->type()!=87))//Containers
+		if( ( (item->totalweight()/10) > cansteal ) && (item->type()!=1 && item->type()!=63 && item->type()!=65 && item->type()!=87))//Containers
 		{
 			sysmessage(s,"That is too heavy.");
 			return;

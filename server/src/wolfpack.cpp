@@ -209,17 +209,6 @@ bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance)
 	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,pi->pos.x,pi->pos.y,distance);
 }
 
-unsigned char npcinrange (UOXSOCKET s, P_CHAR pc, int distance)
-{
-	if (pc == NULL)
-		return 0;
-	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->isGM())
-		return 1;
-	return inRange(pc_currchar->pos.x,pc_currchar->pos.y, pc->pos.x, pc->pos.y, distance);
-}
-
-
 //================================================================================
 //
 // signal handlers
@@ -1028,8 +1017,10 @@ void deathstuff(P_CHAR pc_player)
 				for ( ci1 = 0; ci1 < vecContainer.size(); ++ci1)
 				{
 					P_ITEM pi_k = FindItemBySerial(vecContainer[ci1]);
-					if ( (!(pi_k->priv&0x02)) && (pi_k->type()!=9))//Morrolan spellbook disappearance fix
-					{//put the item in the corpse only of we're sure it's not a newbie item or a spellbook
+
+					//put the item in the corpse only of we're sure it's not a newbie item or a spellbook
+					if ( !pi_k->newbie() && ( pi_k->type() != 9 ) )
+					{
 						pi_k->setLayer( 0 );
 						pi_k->setContSerial(pi_c->serial);
 						pi_k->SetRandPosInCont(pi_c);
@@ -1349,12 +1340,6 @@ void explodeitem(int s, P_ITEM pi)
 	Items->DeleItem(pi);
 }
 
-void srequest(int s)
-{
-	if (buffer[s][5]==4) statwindow(s, FindCharBySerial(calcserial(buffer[s][6], buffer[s][7], buffer[s][8], buffer[s][9])));
-	if (buffer[s][5]==5) skillwindow(s);
-}
-
 // Dupois - added doorsfx() to be used with dooruse()
 // Added Oct 8, 1998
 // Plays the proper door sfx for doors/gates/secretdoors
@@ -1408,183 +1393,179 @@ static void doorsfx(P_ITEM pi, int x, int y)
 } // doorsfx() END
 
 
-void dooruse(UOXSOCKET s, P_ITEM pi)
+void dooruse( cUOSocket *socket, P_ITEM pi )
 {
-	int i, db, x;//, z;
-	char changed=0;
-	if (pi == NULL) return;
+	if( !pi )
+		return;
 
-	if (s != INVALID_UOXSOCKET && (iteminrange(s,pi,2)==0)) {sysmessage(s, "You cannot reach the handle from here"); return;}
-	for (i=0;i<DOORTYPES;i++)
+	if( socket && socket->player() )
+		if( !socket->player()->inRange( pi, 2 ) )
+			socket->sysMessage( tr( "You cannot reach the handle from here." ) );
+
+	UINT16 x = pi->id();
+	UINT16 db;
+
+	for( UINT32 i = 0; i < DOORTYPES; ++i )
 	{
-		db=doorbase[i];
+		db = doorbase[i];
 
-		x = pi->id();
-		if (x==(db+0))
+		if( x == ( db + 0 ) )
 		{
 			pi->setId( pi->id() + 1 );
 			pi->pos.x--;
 			pi->pos.y++;
-			RefreshItem(pi);
-			changed=1;
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
-		} else if (x==(db+1))
+		}
+		else if( x == ( db + 1 ) )
 		{
 			pi->setId( pi->id() - 1 );
 			pi->pos.x++;
 			pi->pos.y--;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
-		} else if (x==(db+2))
+		}
+		else if (x==(db+2))
 		{
 			pi->setId( pi->id() + 1 );
 			pi->pos.x++;
 			pi->pos.y++;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
-		} else if (x==(db+3))
+		}
+		else if (x==(db+3))
 		{
 			pi->setId( pi->id() - 1 );
 			pi->pos.x--;
 			pi->pos.y--;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
-		} else if (x==(db+4))
+		}
+		else if (x==(db+4))
 		{
 			pi->setId( pi->id() + 1 );
 			pi->pos.x--;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
-		} else if (x==(db+5))
+		}
+		else if (x==(db+5))
 		{
 			pi->setId( pi->id() - 1 );
 			pi->pos.x++;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
-		} else if (x==(db+6))
+		}
+		else if (x==(db+6))
 		{
 			pi->setId( pi->id() + 1 );
 			pi->pos.x++;
 			pi->pos.y--;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
-		} else if (x==(db+7))
+		}
+		else if (x==(db+7))
 		{
 			pi->setId( pi->id() - 1 );
 			pi->pos.x--;
 			pi->pos.y++;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
-		} else if (x==(db+8))
+		}
+		else if (x==(db+8))
 		{
 			pi->setId( pi->id() + 1 );
 			pi->pos.x++;
 			pi->pos.y++;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
-		} else if (x==(db+9))
+		}
+		else if (x==(db+9))
 		{
 			pi->setId( pi->id() - 1 );
 			pi->pos.x--;
 			pi->pos.y--;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
-		} else if (x==(db+10))
+		}
+		else if (x==(db+10))
 		{
 			pi->setId( pi->id() + 1 );
 			pi->pos.x++;
 			pi->pos.y--;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
-		} else if (x==(db+11))
+		}
+		else if (x==(db+11))
 		{
 			pi->setId( pi->id() - 1 );
 			pi->pos.x--;
 			pi->pos.y++;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		}
 		else if (x==(db+12))
 		{
 			pi->setId( pi->id() + 1 );
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 0);
 			tempeffect2(0, pi, 13, 0, 0, 0);
-		} else if (x==(db+13))
+		}
+		else if (x==(db+13))
 		{
 			pi->setId( pi->id() - 1 );
-			RefreshItem(pi);//AntiChrist
-			changed=1;
-			doorsfx(pi, x, 1);
-			pi->dooropen=0;
-		} else if (x==(db+14))
-		{
-			pi->setId( pi->id() + 1 );
-			pi->pos.y--;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
-			doorsfx(pi, x, 0);
-			tempeffect2(0, pi, 13, 0, 0, 0);
-		} else if (x==(db+15))
-		{
-			pi->setId( pi->id() - 1 );
-			pi->pos.y++;
-			RefreshItem(pi);//AntiChrist
-			changed=1;
 			doorsfx(pi, x, 1);
 			pi->dooropen=0;
 		}
+		else if( x == ( db + 14 ) )
+		{
+			pi->setId( pi->id() + 1 );
+			pi->pos.y--;
+			doorsfx(pi, x, 0);
+			tempeffect2(0, pi, 13, 0, 0, 0);
+		}
+		else if( x == ( db + 15 ) )
+		{
+			pi->setId( pi->id() - 1 );
+			pi->pos.y++;
+			doorsfx(pi, x, 1);
+			pi->dooropen=0;
+		}
+
+		// This is *so* obvious...
+		if( x != pi->id() )
+		{
+			pi->update();
+			break;
+		}
 	}
 	
-	if (changed && s != INVALID_UOXSOCKET)
+	if( socket && ( x != pi->id() ) )
 	{
 		// house refreshment when a house owner or friend of a houe opens the house door
-		float ds=0;
-		P_CHAR pc_currchar = currchar[s];
+		float ds = 0;
+		P_CHAR pChar = socket->player();
+
+		if( !pChar )
+			return;
 		
-		cHouse* pHouse = dynamic_cast<cHouse*>(findmulti(pi->pos));
-		if (pHouse == NULL)
+		cHouse* pHouse = dynamic_cast<cHouse*>( findmulti( pi->pos ) );
+		if( !pHouse )
 			return;
 
-		if(!(pc_currchar->Owns(pHouse) || pHouse->isFriend(pc_currchar)))
+		if( !( pChar->Owns( pHouse ) || pHouse->isFriend( pChar ) ) )
 			return;
-		if (SrvParams->housedecay_secs()!=0)
+
+		if( SrvParams->housedecay_secs() != 0 )
 			ds = static_cast<float>((pHouse->time_unused)*100) / (SrvParams->housedecay_secs());
 		else
-			ds = -1;	
-		if (ds >= 50) // sysmessage if decay status >=50%
+			ds = -1;
+
+		if( ds >= 50 ) // sysmessage if decay status >= 50%
 		{
-			sysmessage(s,"You refreshed the house");
+			socket->sysMessage( tr( "You refreshed the house" ) );
 		}
 		pHouse->time_unused = 0;
 		pHouse->last_used = getNormalizedTime();
 	}
-	if (!changed && s != INVALID_UOXSOCKET)
-		sysmessage(s, "This doesnt seem to be a valid door type. Contact a GM.");
 }
 
 int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn new horse)
@@ -1736,8 +1717,9 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 	if ( pc_mount == NULL ) return;
 	P_CHAR pc_currchar = currchar[s];
 	
-	if (npcinrange(s, pc_mount, 2) == 0 && !pc_currchar->isGM())
+	if( pc_currchar->inRange( pc_mount, 2 ) && !pc_currchar->isGM() )
 		return;
+
 	if (pc_currchar->Owns(pc_mount) || pc_currchar->isGM())
 	{
 		if (pc_currchar->onHorse())

@@ -48,7 +48,7 @@
 
 void cTrade::buyaction(int s)
 {
-	char clearmsg[8];
+/*	char clearmsg[8];
 	int clear, i, j;
 	P_ITEM buyit[256];
 	int amount[512];
@@ -239,7 +239,7 @@ void cTrade::buyaction(int s)
 		Xsend(s, clearmsg, 8);
 	}
 	Weight->NewCalc(pc_currchar);	// Ison 2-20-99
-	statwindow(s, pc_currchar);
+	statwindow(s, pc_currchar);*/
 }
 
 void cTrade::restock(int s)

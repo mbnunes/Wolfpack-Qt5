@@ -136,7 +136,6 @@ void goldsfx(int s, int goldtotal);
 void gcollect();
 
 void weather(int s, unsigned char bolt);
-unsigned char npcinrange (UOXSOCKET s, P_CHAR i, int distance);  //check for horse distance...
 int getamount(P_CHAR pc, short id);
 void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
 void gettokennum(char * s, int num);
@@ -149,7 +148,7 @@ char *title2(P_CHAR pc);
 char *title3(P_CHAR pc);
 void buyaction(int s);
 void restock(int s);
-void dooruse(int s, P_ITEM pi);
+void dooruse( cUOSocket*, P_ITEM );
 void readFullLine ();
 
 void who(int s);

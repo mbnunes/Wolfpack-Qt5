@@ -76,7 +76,7 @@ bool CheckInPack(UOXSOCKET s, PC_ITEM pi)
 
 void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 {
-	const P_ITEM pi_bolts = FindItemBySerPtr(buffer[s]+7);
+/*	const P_ITEM pi_bolts = FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 	if (pi_bolts == NULL) return; 
 	short int amt=0;
@@ -136,12 +136,12 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			return;
 		}
 		sysmessage(s,tr("You cannot use that material for tailoring.") );
-	}
+	}*/
 }
 
 void cSkills::Fletching(int s)
 {
-	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+/*	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 	if (pi && !pi->isLockedDown()) // Ripper
 	{
@@ -158,12 +158,12 @@ void cSkills::Fletching(int s)
 			return;
 		}
 	}
-	sysmessage(s,tr("You cannot use that for fletching.") );
+	sysmessage(s,tr("You cannot use that for fletching.") );*/
 }
 
 void cSkills::BowCraft(int s)
 {
-	P_CHAR pc_currchar = currchar[s];
+/*	P_CHAR pc_currchar = currchar[s];
 
 	action(s,pc_currchar->onHorse() ? 0x1C : 0x0D);
 	
@@ -184,7 +184,7 @@ void cSkills::BowCraft(int s)
 				}
 			}
 		} 
-	}
+	}*/
 }
 
 ////////////////////
@@ -198,7 +198,7 @@ void cSkills::BowCraft(int s)
 
 void cSkills::Carpentry(int s)
 {
-	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	/*const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 	if (pi && !pi->isLockedDown())
 	{
@@ -215,12 +215,12 @@ void cSkills::Carpentry(int s)
 		}
 	}
 	else
-		sysmessage(s,tr("You cannot use that material for carpentry.") );
+		sysmessage(s,tr("You cannot use that material for carpentry.") );*/
 }
 
 static bool ForgeInRange(int s)
 {
-	P_CHAR pc = currchar[s];
+/*	P_CHAR pc = currchar[s];
 	bool rc = false;
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos);
@@ -242,12 +242,13 @@ static bool ForgeInRange(int s)
 			}
 		}
 	}
-	return rc;
+	return rc;*/
+	return true;
 }
 
 static bool AnvilInRange(int s)
 {
-	P_CHAR pc = currchar[s];
+/*	P_CHAR pc = currchar[s];
 	bool rc = false;
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos);
@@ -269,7 +270,8 @@ static bool AnvilInRange(int s)
 			}
 		}
 	}
-	return rc;
+	return rc;*/
+	return true;
 }
 
 ////////////////////
@@ -285,7 +287,7 @@ static void AnvilTarget2(int s,				// socket #
 						 int mm,			// makemenu # to invoke from create.scp
 						 char* matname)		// name of the metal
 {
-	if (!AnvilInRange(s))
+/*	if (!AnvilInRange(s))
 		sysmessage(s, tr("The anvil is too far away.") );
 	else
 	{
@@ -301,7 +303,7 @@ static void AnvilTarget2(int s,				// socket #
 		}
 		else
 			Skills->MakeMenu(s,mm,BLACKSMITHING);
-	}
+	}*/
 }
 
 //////////////////////////
@@ -318,7 +320,7 @@ extern int ingottype;
 
 void cSkills::Smith(int s)
 {
-	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+/*	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (pi && !pi->isLockedDown()) // Ripper
 	{
 		itemmake[s].Mat1id = pi->id();
@@ -345,12 +347,12 @@ void cSkills::Smith(int s)
 		}
 		itemmake[s].Mat1id = 0;
 	}
-	sysmessage(s, tr("You cannot use that material for blacksmithing") );
+	sysmessage(s, tr("You cannot use that material for blacksmithing") );*/
 }
 
 void cSkills::TasteIDTarget(int s)
 {
-	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+/*	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 	if (pi && !pi->isLockedDown()) // Ripper
 	{
@@ -404,7 +406,7 @@ void cSkills::TasteIDTarget(int s)
 					} else sysmessage(s, tr("You can't know its creator!") );
 				}
 		}
-	}
+	}*/
 }
 
 struct Ore
@@ -1099,9 +1101,8 @@ void cSkills::SmeltOre(int s)
 			}
 		}
 	}
+
 	pc_currchar->setSmeltItem( INVALID_SERIAL );
-	Weight->NewCalc(pc_currchar);	// Ison 2-20-99
-	statwindow(s, pc_currchar);		// Ison 2-20-99
 }
 
 void cSkills::Wheel(int s, int mat)//Spinning wheel
@@ -1617,8 +1618,6 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
-			Weight->NewCalc(pc_currchar);
-			statwindow(s, pc_currchar);
 			return;
 		}	
 		if( IsBoltOfCloth(pi->id()) )
@@ -1632,10 +1631,8 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			if(pi_c == NULL) return;
 			pi_c->setWeight( 10 );
 			pi_c->setAmount( amt );
-			RefreshItem(pi_c);
+			pi_c->update();
 			Items->DeleItem(pi);
-			Weight->NewCalc(pc_currchar);
-			statwindow(s, pc_currchar);
 			return;
 		}
 		if( IsHide(pi->id()) )
@@ -1643,13 +1640,12 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			amt = pi->amount();
 			soundeffect(s,0x02,0x48);
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"leather piece",0,0x10,0x67,col1,1,1);
-			if(pi_c == NULL) return;
+			if( !pi_c ) 
+				return;
 			pi_c->setWeight( 100 );
 			pi_c->setAmount( amt );
-			RefreshItem(pi_c);
+			pi_c->update();
 			Items->DeleItem(pi);
-			Weight->NewCalc(pc_currchar);
-			statwindow(s, pc_currchar);
 			return;
 		}
 		sysmessage(s, tr("You cannot cut anything from that item.") );
@@ -2159,7 +2155,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	char temp2[512];
 	tile_st tile;
 	P_CHAR pc_currchar = currchar[s];
-    int cansteal = QMAX(1,pc_currchar->baseSkill(STEALING)/10);
+    int cansteal = QMAX( 1, pc_currchar->baseSkill( STEALING ) / 10 );
 	cansteal = cansteal * 10;
 		
 	if (buffer[s][7]<0x40)
@@ -2180,13 +2176,13 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 		return;
 	}
 	if ( pi->layer()!=0	// no stealing for items on layers other than 0 (equipped!) ,
-		|| pi->priv&2	// newbie items,
+		|| pi->newbie()	// newbie items,
 		|| pi->isInWorld() )	// and items not being in containers allowed !
 	{
 		sysmessage(s, tr("You cannot steal that.") );
 		return;
 	}
-	if( pi->weight() > cansteal ) // LB, bugfix, (no weight check)
+	if( (pi->totalweight()/10) > cansteal ) // LB, bugfix, (no weight check)
 	{
 		sysmessage(s, tr("That is too heavy.") );
 		return;
@@ -2207,7 +2203,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	}
 
 	skill = Skills->CheckSkill(pc_currchar,STEALING,0,999);
-	if (npcinrange(s, pc_npc, 1))
+	if( pc_currchar->inRange( pc_npc, 1 ) )
 	{
 		if (skill)
 		{
@@ -2879,7 +2875,9 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 	if (!pi) return; 
 	if (!CheckInPack(s,pi)) return;
 
-	int a = 1 + pi->weight() / 100;	// number of ingots you get depends on the weight (Duke)
+	// number of ingots you get depends on the weight 
+	// from what i can tell it's 1 + 1 per stone
+	int a = 1 + pi->stones();
 
 	if (pi->isLockedDown() || pi->rank!=30 || (pi->smelt() < 1 || pi->smelt() > 10 ))
 	{

@@ -373,18 +373,15 @@ public:
 	void resume( void ) { rawPacket[1] = 1; }
 };
 
-// 0x3A UpdateSkill (one Skill Version)
+// 0x3A UpdateSkill (one skill)
 class cUOTxUpdateSkill: public cUOPacket
 {
 public:
-	cUOTxUpdateSkill(): cUOPacket( 0x3A, 11 ) {
+	cUOTxUpdateSkill(): cUOPacket( 0x3A, 11 ) 
+	{ 
 		setShort( 1, 11 );
-		rawPacket[3] = static_cast<uchar>(0xFF);
+		rawPacket[3] = 0xFF;
 	}
-    
-	void setSkillId( Q_UINT16 data ) { setShort( 4, data ); }
-	void setSkill( Q_UINT16 data ) { setShort( 6, data ); }
-	void setRealSkill( Q_UINT16 data ) { setShort( 8, data ); }
 
 	enum eStatus
 	{
@@ -393,7 +390,10 @@ public:
 		Locked = 2
 	};
 
-	void setStatus( eStatus status ) { rawPacket[10] = status; }
+	void setId( UINT16 data ) { setShort( 4, data ); }
+	void setValue( UINT16 data ) { setShort( 6, data ) ; }
+	void setRealValue( UINT16 data ) { setShort( 8, data ); }
+	void setStatus( eStatus data ) { rawPacket[10] = data; }
 };
 
 // 0x3A SendSkills( multiple skills )

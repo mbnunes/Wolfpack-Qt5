@@ -304,7 +304,9 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 	return true;
 }
 
-// This handles if a character actually tries to walk (NPC & Player)
+/*!
+	This handles if a character actually tries to walk (NPC & Player)
+*/
 void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 {
 	if( !pChar )
@@ -333,16 +335,6 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			socket->denyMove( sequence );
 		return;
 	}
-	
-	if( isOverloaded( pChar ) )
-	{
-		if( socket )
-		{
-			socket->sysMessage( tr( "You are too fatigued to carry %1 stones" ).arg( pChar->weight ) );
-			socket->denyMove( sequence );
-		}
-		return;
-	}
 
 	// save our original location before we even think about moving
 	const Coord_cl oldpos( pChar->pos );
@@ -351,20 +343,30 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// We're turning and NOT moving into a specific direction
 	// Clear the running flag here (!)
 	// If the direction we're moving is already equal to our current direction
-	dir = dir & 0x7F; // Remove the running flag
 	bool running = dir & 0x80;
+	dir = dir & 0x7F; // Remove the running flag
 
+	// This happens if we're moving
 	if( dir == pChar->dir )
 	{
-		if( running )
-			checkRunning( socket, pChar, dir ); // Reduces Stamina and does other things related to running
-		else
-			pChar->setRunning( 0 );
-
-		checkStealth( pChar ); // Reveals the user if neccesary
-
 		// Note: Do NOT use the copy constructor as it'll create a reference
 		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos );
+
+		// Check if the stamina parameters
+		if( !consumeStamina( socket, pChar, running ) )
+		{
+			socket->denyMove( sequence );
+			return;
+		}
+	
+		// Check for Characters in our way
+		if( !checkObstacles( socket, pChar, newCoord, running ) )
+		{
+			socket->denyMove( sequence );
+			return;
+		}
+
+		checkStealth( pChar ); // Reveals the user if neccesary
 
 		// Check if the char can move to those new coordinates
 		// It is going to automatically calculate the new coords (!)
@@ -377,16 +379,6 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 			return;
 		}
-
-		/*if( !CanCharMove( pChar, newCoord, dir ) )
-		{
-			if( socket )
-				socket->denyMove( sequence );
-			else if( pChar->isNpc() )
-				pChar->pathnum += P_PF_MRV;
-
-			return;
-		}*/
         
 		// Check if we're going to collide with characters
 		if( pChar->isNpc() && CheckForCharacterAtXYZ( pChar, newCoord.x, newCoord.y, newCoord.z ) )
@@ -401,22 +393,20 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	
 	// do all of the following regardless of whether turning or moving i guess
 	// set the player direction to contain only the cardinal direction bits
-	pChar->dir = ( dir & 0x07 );
+	pChar->dir = dir;
 	
 	if( socket )
 		socket->allowMove( sequence );
 
 	cRegion::RegionIterator4Chars ri( pChar->pos );
 
-	for (ri.Begin(); !ri.atEnd(); ri++)
+	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pChar_vis = ri.GetData();
 
 		if( pChar_vis && ( pChar_vis != pChar ) )
 			sendWalkToOther( pChar_vis, pChar, oldpos );
 	}
-	
-	outputShoveMessage( pChar, socket, oldpos );
 	
 	// keep on checking this even if we just turned, because if you are taking damage
 	// for standing here, lets keep on dishing it out. if we pass whether we actually
@@ -1205,7 +1195,7 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 			pf_dir += ( i * pf_neg );
 			Coord_cl newCoord = pc->pos;
 
-			if( CanCharMove( pc, newCoord, pf_dir ) )
+			if( mayWalk( pc, newCoord ) )
 			{
 				if ( ( pn < P_PF_MRV ) && CheckForCharacterAtXYZ( pc, newCoord.x, newCoord.y, newCoord.z ) )
 					continue;
@@ -1390,138 +1380,6 @@ short int cMovement::Direction(short int sx, short int sy, short int dx, short i
 	return dir;
 }
 
-bool cMovement::CanCharWalk(P_CHAR pc, Coord_cl &coord )
-{
-	Q_INT8 moveType = CheckMovementType( pc );
-	Q_INT8 oldZ = coord.z;
-	coord.z = illegal_z; // This is needed
-
-	bool blocked = false;
-
-	// This is a three pass process,
-	// In the first pass we check for a blocking map (mountain etc.)
-	// In the second pass we check for blocking statics
-	// And THEN we check for blocking dynamics
-	for( Q_INT32 cnt = 0; cnt < 3 ; ++cnt )
-	{
-		Q_INT32 xycount = 0;
-		unitile_st xyblock[XYMAX];
-
-		switch( cnt )
-		{
-		case 0:
-			GetBlockingMap( coord, xyblock, xycount );
-			break;
-		case 1:
-			GetBlockingStatics( coord, xyblock, xycount );
-			break;
-		case 2:
-			GetBlockingDynamics( coord, xyblock, xycount );
-			break;
-		}
-
-		// This loop calculates the new Z Value of the walking creature
-		Q_INT32 i;
-		for( i = 0; i < xycount; ++i )
-		{
-		    unitile_st *thisblock = &xyblock[i]; // this is a easy/little tricky, to save a little calculation
-		                                     // since the [i] is calclated several times below
-			                                 // if it doesn't help, it doesn't hurt either.
-
-			Q_INT8 nItemTop = thisblock->basez + thisblock->height; // Calculate the items total height
-
-			if ( thisblock->flag2 & 4 ) // Stair -> cut down z height for movement ?
-				nItemTop -= thisblock->height / 2; 
-
-			// check if the creature is floating on a static (keeping Z or falling)
-			if ( ( nItemTop >= coord.z ) &&  ( ( ( nItemTop <= oldZ ) && ( abs(oldZ - nItemTop) <= P_M_MAX_Z_FALL ) ) || ( ( nItemTop >= oldZ ) && ( nItemTop < oldZ + P_M_MAX_Z_CLIMB ) ) ) )
-			{
-				if ( ( moveType & P_C_IS_GM_BODY ) && ( CanGMWalk(xyblock[i]) ) )
-					coord.z = nItemTop;
-
-				if ( ( moveType & P_C_IS_PLAYER ) && ( CanPlayerWalk(xyblock[i]) ) )
-					coord.z = nItemTop;
-
-				if ( ( moveType & P_C_IS_FISH ) && ( CanFishWalk(xyblock[i]) ) )
-					coord.z = nItemTop;
-
-				if ( ( moveType & P_C_IS_NPC ) && ( CanNPCWalk(xyblock[i]) ) )
-					coord.z = nItemTop;
-
-				if ( ( moveType & P_C_IS_BIRD ) && ( CanBirdWalk(xyblock[i]) ) )
-					coord.z = nItemTop;
-			}
-		}
-
-		// now the new Z-cordinate of creature is known,
-		// check if it hits it's head against something (blocking in other words)
-		for( i = 0; i < xycount; ++i )
-		{
-			unitile_st *thisblock = &xyblock[i];
-			signed char nItemTop = thisblock->basez + thisblock->height; // Calculate the items total height
-			
-			// If something is above us in the new location and it's less than 15 height-units above us
-			// Check if it's blocking or if we can pass
-			if( ( nItemTop >= coord.z ) && ( thisblock->basez <= coord.z + P_M_MAX_Z_INFLUENCE ) )
-			{
-				// GMs can ALWAYS move there
-				if ( moveType & P_C_IS_GM_BODY )
-					continue;
-
-				// Check if a fish can walk here (special handling)
-				if ( ( moveType & P_C_IS_FISH ) && ( CanFishWalk( xyblock[ i ] ) ) )
-					continue;
-
-				// Check if the char is a bird and if he can fly here
-				if ( ( moveType & P_C_IS_BIRD ) && ( CanBirdWalk( xyblock[ i ] ) ) )
-					continue;
-
-				// Otherwise check if it's a blocking tile
-				// If so just deny the move
-				if ( thisblock->flag1 & 0x40 )
-					return false;
-			}
- 		}
-	}
-
-	if ( coord.z == illegal_z )
-		return false;
-	else
-		return true;
-}
-
-// Function      : cMovement::CanCharMove()
-// Written by    : Thyme
-// Revision Date : 2000.09.17
-// Purpose       : Check if a character can walk to a from x,y to dir direction
-// Method        : This handles the funky diagonal moves.
-bool cMovement::CanCharMove( P_CHAR pc, Coord_cl &coord, UI08 dir )
-{
-	// We're interested in the Z Value we are moving to
-	// So we need to calculate the new location and maintain
-	// the reference
-	Coord_cl newCoord = calcCoordFromDir( dir, coord );
-
-	if ( ( dir & 0x07 ) % 2 )
-	{
-		Coord_cl temp = calcCoordFromDir( dir - 1, coord );
-		if( !CanCharWalk( pc, temp ) )
-			return false;
-
-		temp = calcCoordFromDir( dir + 1, coord );
-		if( !CanCharWalk( pc, temp ) )
-			return false;
-	}
-
-	// This call has two functions
-	// a) it sets the new Z value for newCoord
-	// b) it returns if we can even walk there
-	bool canWalk = CanCharWalk( pc, newCoord );
-	coord = newCoord;
-
-	return canWalk;
-}
-
 // knox, reinserted it since some other files access it,
 //       100% sure this is wrong, however the smaller ill.
 int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s )
@@ -1552,9 +1410,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
                 {
                     if (pc_s->isNpc() && (!pc_s->title().isEmpty() || pc_s->npcaitype() != 0))
                     {
-                        // clConsole.send("doors!!!\n");
-                        dooruse(-1, mapitem);
-
+                        dooruse( NULL, mapitem );
                     }
                     pc_s->blocked=0;
                     return 0;
@@ -1603,11 +1459,19 @@ bool cMovement::checkBoundingCircle(const Coord_cl pos, int fx1, int fy1, int ra
 		return false;
 }
 
+/*! 
+	Checks if the direction we're moving to is valid.
+*/
 inline bool cMovement::isValidDirection( Q_UINT8 dir ) 
 {
 	return ( dir == ( dir & 0x87 ) );
 }
 
+/*!
+	Checks if the character is overloaded
+	this function is deprecataed and will
+	most likely be removed soon.
+*/
 inline bool cMovement::isOverloaded( P_CHAR pc )
 {
 	if ( !pc->dead && !pc->isNpc() && !pc->isGMorCounselor() )
@@ -1617,7 +1481,10 @@ inline bool cMovement::isOverloaded( P_CHAR pc )
 	return false;	
 }
 
-// Does what getxfromdir and getyfromdir did before
+/*!
+	Calculates a new position out of the old position
+	and the direction we're moving to.
+*/
 Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
 {
 	Coord_cl newCoords(oldCoords);
@@ -1646,4 +1513,51 @@ Coord_cl cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords )
 	return newCoords;
 }
 
+/*!
+  Calculates the amount of Stamina needed for a move of the
+  passed character.
+*/
+bool cMovement::consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running )
+{
+	// TODO: Stamina loss is disabled for now -- Weight system needs to be rediscussed
+	return true;
 
+	// Weight percent
+	UINT32 allowedWeight = ( pChar->st * WEIGHT_PER_STR ) + 30;
+	UINT8 load = pChar->weight() / allowedWeight;
+
+	if( running )
+		load *= 2;
+
+	// 200% load is too much
+	if( load >= 200 )
+	{
+		socket->sysMessage( tr( "You are too overloaded to move." ) );
+		return false;
+	}
+
+	// 20% overweight = ( 0.20 * 0.10 ) * (Weight carrying) = Stamina needed to move
+	INT32 overweight = load - 100;
+
+	// We're not overloaded so we dont need additional stamina
+	if( overweight < 0 )
+		return true;
+
+	INT32 requiredStamina = ( overweight * 0.10 ) * pChar->weight();
+	
+	if( pChar->stm < requiredStamina ) 
+	{
+		pChar->talk( tr( "You are too exhausted to move" ) );
+		return false;
+	}
+}
+
+/*!
+  This checks the new tile we're moving to
+  for Character we could eventually bump into.
+*/
+bool cMovement::checkObstacles( cUOSocket *socket, P_CHAR pChar, const Coord_cl &newPos, bool running )
+{
+	// TODO: insert code here
+	return true;
+}

@@ -149,7 +149,9 @@ public:
 	void updateStamina( P_CHAR pChar = NULL );
 	void updateMana( P_CHAR pChar = NULL );
 	void updateHealth( P_CHAR pChar = NULL );
+	void sendStatWindow( P_CHAR pChar = NULL );
 	bool inRange( cUOSocket* ) const;
+	void sendSkill( UINT16 skill );
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );

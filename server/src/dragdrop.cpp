@@ -219,26 +219,6 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	pItem->setContSerial( pChar->serial );
 	pItem->SetMultiSerial( INVALID_SERIAL ); 
 	pItem->setLayer( 0x1E );
-	
-	// It's in the equipment of another character
-	if( itemOwner && ( itemOwner != pChar ) )
-	{
-		itemOwner->weight -= pItem->getWeight();
-		statwindow( calcSocketFromChar( itemOwner ), itemOwner );
-	}
-
-	// If the item is in the bank or any sell-container it's NOT counted as char-weight
-	bool inBank = ( outmostCont && 	( outmostCont->contserial == pChar->serial ) && ( outmostCont->layer() >= 0x1A ) );
-
-	// Add the weight if:
-	//  - Picked from ground
-	//  - Picked out of another character
-	//  - Picked out of our bank or any other non-visible container
-	if( ( itemOwner != pChar ) || !inBank )
-	{
-		pChar->weight += pItem->getWeight();	
-		//statwindow( socket->socket(), pChar );
-	}
 }
 
 // Tries to equip an item
@@ -429,17 +409,6 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// At this point we're certain that we can wear the item
 	pItem->setContSerial( packet->wearer() );
 	pItem->setLayer( pTile.layer ); // Don't trust the user input on this one
-
-	// Handle the weight if the item is leaving our "body"
-	if( pWearer != pChar )
-	{
-		pChar->weight -= pItem->getWeight();
-		pWearer->weight += pItem->getWeight();
-
-		// TODO: Update the status-windows
-		/*statwindow( client->socket(), pChar );
-		statwindow( calcSocketFromChar( pWearer ), pWearer );*/
-	}
 
 	if( pTile.layer == 0x19 )
 		pWearer->setOnHorse( true );
@@ -676,10 +645,6 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 				pItem->SetMultiSerial( pMulti->serial );
 		}
 	}
-
-	// Here we can be sure that noone else subtracted the weight
-	// for us, so let's do that here
-	pChar->weight -= pItem->getWeight();
 }
 
 void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )
@@ -748,7 +713,6 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// Trash can
 	if( pCont->type()==87 )
 	{
-		pChar->weight -= pItem->getWeight();
 		Items->DeleItem( pItem );
 		socket->sysMessage( tr( "As you let go of the item it disappears." ) );
 		return;
@@ -797,12 +761,6 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			}
 		}
 	*/
-	
-	// The Item cannot bounce anymore
-	pChar->weight -= pItem->getWeight();
-
-	if( packOwner )
-		packOwner->weight += pItem->getWeight();
 
 	// We may also drop into *any* locked chest
 	// So we can have post-boxes ;o)
@@ -1079,7 +1037,8 @@ void cDragItems::dropOnBanker( P_CLIENT client, P_ITEM pItem, P_CHAR pBanker )
 	pBanker->talk( QString( "%1 I have cashed thy cheque and deposited %2 gold." ).arg( pChar->name.c_str() ).arg( pItem->amount() ) );
 
 	pItem->ReduceAmount();
-	statwindow( client->socket(), pChar );
+	//if( pItem->ReduceAmount() > 0 )
+	//	socket->bounce( pItem, BR_NO_REASON );
 }
 
 void cDragItems::dropOnTrainer( P_CLIENT client, P_ITEM pItem, P_CHAR pTrainer )

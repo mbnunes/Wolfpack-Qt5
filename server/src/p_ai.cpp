@@ -740,7 +740,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, const string& comm)
 			DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
 			P_ITEM bankbox = pc_currchar->getBankBox();
 			bankbox->AddItem(pi);
-			statwindow(c, pc_currchar);
+			//statwindow(c, pc_currchar);
 			sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name.c_str(), goldcount);
 			npctalk(c, pBanker, temp, 1);
 			return true;

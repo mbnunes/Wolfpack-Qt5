@@ -299,3 +299,12 @@ void cUObject::removeFromView( bool clean )
 		if( clean || ( socket->player() && ( socket->player()->pos.distance( pos ) <= socket->player()->VisRange ) ) )
 			socket->removeObject( this );
 }
+
+// Checks if the specified object is in range
+bool cUObject::inRange( cUObject *object, UINT32 range )
+{
+	if( !object ) 
+		return false;
+
+	return ( pos.distance( object->pos ) <= range );
+}

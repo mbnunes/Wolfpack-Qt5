@@ -193,6 +193,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 				pChar->removeFromView( false );
 				pChar->moveTo( newPos );
 				pChar->resend( false );
+				socket->resendWorld();
 				return;
 			}
 
@@ -205,6 +206,7 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false );
+			socket->resendWorld();
 			return;
 		}			
 	}

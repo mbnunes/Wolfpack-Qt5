@@ -666,7 +666,7 @@ void cTargets::TargIdTarget(int s) // Fraz
 }
 static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 {
-	UOXSOCKET s = ps->socket();
+	/*UOXSOCKET s = ps->socket();
 
 	sprintf((char*)temp, "Ser [%8x] ID [%2x] Name [%s] Skin [%x] Account [%x] Priv [%x %x] Position [%i %i %i] CTimeout [%i] Fame [%i] Karma [%i] Deaths [%i] Kills [%i] NPCAI [%x] NPCWANDER [%d] WEIGHT [%.2f]",
 		pc->serial,pc->id(),
@@ -680,7 +680,7 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 		pc->poisoned(),pc->poison(),pc->hunger(),pc->attacker,pc->targ,pc->carve()); //Changed by Magius(CHE)
 	sysmessage(s, (char*)temp);
 	cGumps::instance()->Open(s, pc, 0, 8);
-	statwindow(s, pc);
+	statwindow(s, pc);*/
 }
 
 static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
@@ -2801,7 +2801,7 @@ void cTargets::BuyShopTarget(int s)
 
 int cTargets::BuyShop(UOXSOCKET s, P_CHAR pc)
 {
-	P_ITEM pCont1=NULL, pCont2=NULL;
+	/*P_ITEM pCont1=NULL, pCont2=NULL;
 
 	if ( pc == NULL )
 		return 0;
@@ -2832,6 +2832,7 @@ int cTargets::BuyShop(UOXSOCKET s, P_CHAR pc)
 	sendshopinfo(s, pc, pCont2); // Send items sold to shop by players
 	SndShopgumpopen(s,pc->serial);
 	statwindow(s, currchar[s]); // Make sure the gold total has been sent.
+	return 1;*/
 	return 1;
 }
 

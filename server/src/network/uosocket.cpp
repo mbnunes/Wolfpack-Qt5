@@ -103,7 +103,7 @@ cUOSocket::~cUOSocket(void)
 void cUOSocket::send( cUOPacket *packet )
 {
 	// Don't send when we're already disconnected
-	if( !_socket->isOpen() )
+	if( !_socket || !_socket->isOpen() )
 		return;
 
 	cNetwork::instance()->netIo()->sendPacket( _socket, packet, ( _state != LoggingIn ) );
@@ -759,36 +759,7 @@ void cUOSocket::handleQuery( cUORxQuery *packet )
 	}
 	else if( packet->type() == cUORxQuery::Stats )
 	{
-		// For other chars we only send the basic stats
-		cUOTxSendStats sendStats;
-		sendStats.setAllowRename( _player->Owns( pChar ) || _player->isGM() );
-		
-		sendStats.setMaxHp( 100 );
-		sendStats.setHp( (pChar->hp/pChar->st)*100 );
-
-		sendStats.setName( pChar->name.c_str() );
-		sendStats.setSerial( pChar->serial );
-		
-		sendStats.setFullMode( pChar == _player );
-
-		// Set the rest - and reset if nec.
-		if( pChar == _player )
-		{
-			sendStats.setHp( pChar->hp );
-			sendStats.setMaxHp( pChar->st );
-			sendStats.setStamina( pChar->stm );
-			sendStats.setMaxStamina( pChar->effDex() );
-			sendStats.setMana( pChar->mn );
-			sendStats.setMaxMana( pChar->in );
-			sendStats.setStrength( pChar->st );
-			sendStats.setDexterity( pChar->effDex() );
-			sendStats.setIntelligence( pChar->in );
-			sendStats.setWeight( pChar->weight );
-			sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
-			sendStats.setArmor( pChar->def ); // TODO: Inaccurate			
-		}
-
-		send( &sendStats );
+		sendStatWindow( pChar );
 	}
 }
 
@@ -1634,6 +1605,46 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 	send( &update );
 }
 
+void cUOSocket::sendStatWindow( P_CHAR pChar )
+{
+	if( !pChar )
+		pChar = _player;
+
+	if( !pChar )
+		return;
+
+	// For other chars we only send the basic stats
+	cUOTxSendStats sendStats;
+	sendStats.setAllowRename( _player->Owns( pChar ) || _player->isGM() );
+	
+	sendStats.setMaxHp( 100 );
+	sendStats.setHp( (pChar->hp/pChar->st)*100 );
+
+	sendStats.setName( pChar->name.c_str() );
+	sendStats.setSerial( pChar->serial );
+		
+	sendStats.setFullMode( pChar == _player );
+
+	// Set the rest - and reset if nec.
+	if( pChar == _player )
+	{
+		sendStats.setHp( pChar->hp );
+		sendStats.setMaxHp( pChar->st );
+		sendStats.setStamina( pChar->stm );
+		sendStats.setMaxStamina( pChar->effDex() );
+		sendStats.setMana( pChar->mn );
+		sendStats.setMaxMana( pChar->in );
+		sendStats.setStrength( pChar->st );
+		sendStats.setDexterity( pChar->effDex() );
+		sendStats.setIntelligence( pChar->in );
+		sendStats.setWeight( pChar->weight() );
+		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
+		sendStats.setArmor( Combat->CalcDef( pChar, 0 ) ); // TODO: Inaccurate			
+	}
+
+	send( &sendStats );
+}
+
 bool cUOSocket::inRange( cUOSocket* socket ) const
 {
 	if ( !socket || !socket->player() )
@@ -1681,3 +1692,14 @@ void cUOSocket::handleUpdateBook( cUORxUpdateBook* packet )
 	}
 }
 
+void cUOSocket::sendSkill( UINT16 skill )
+{
+	if( !_player )
+		return;
+
+	cUOTxUpdateSkill pUpdate;
+	pUpdate.setId( skill+1 );
+	pUpdate.setValue( _player->skill( skill ) );
+	pUpdate.setRealValue( _player->baseSkill( skill ) );
+	send( &pUpdate );
+}

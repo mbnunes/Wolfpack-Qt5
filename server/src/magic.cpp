@@ -2110,9 +2110,9 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}
 							else if (!pc_currchar->isGM()) //Morrolan no recall if too heavy, GM's excempt
 							{
-								sysmessage(s, "You are too heavy to do that!");
+								/*sysmessage(s, "You are too heavy to do that!");
 								sysmessage(s, "You feel drained from the attempt.");
-								statwindow(s, pc_currchar);
+								statwindow(s, pc_currchar);*/
 								recalled = false;
 							}
 							else

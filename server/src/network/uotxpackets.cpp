@@ -141,7 +141,7 @@ void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer
 	setShort( 1, rawPacket.count() );
 
 	setInt( offset, serial );
-	setShort( offset+4, model );
+	setShort( offset+4, model|0x8000 );
 	rawPacket[offset+6] = layer;
 	setShort( offset+7, color );
 	setInt( offset+9, 0 ); // Terminator
@@ -282,7 +282,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 
 	// Add our equipment - This does not seem to work !?
 	vector< SERIAL > equipment = contsp.getData( pChar->serial );
-	bool layers[0x19] = {0,};
+	bool layers[0x20] = {0,};
 
 	for( Q_UINT32 i = 0; i < equipment.size(); ++i )
 	{

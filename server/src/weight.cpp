@@ -57,9 +57,9 @@ void newcalcweight(int);
 
 void cWeight::NewCalc(P_CHAR pc)
 {
-	float totalweight=0.0;
+	/*float totalweight=0.0;
 
-	//get weight for items on players
+	// get weight for items on players
 	unsigned int ci = 0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
@@ -81,7 +81,7 @@ void cWeight::NewCalc(P_CHAR pc)
 
 	pc->weight = (int)totalweight;
 
-	return;
+	return;*/
 }
 
 //////////////////
@@ -92,7 +92,7 @@ void cWeight::NewCalc(P_CHAR pc)
 //
 float cWeight::RecursePacks( P_ITEM bp )
 {
-	float totalweight=0.0;
+/*	float totalweight=0.0;
 
 	if( !bp ) 
 		return 0.0f;
@@ -119,13 +119,14 @@ float cWeight::RecursePacks( P_ITEM bp )
 		else
 			totalweight += (float)((itemsweight * pi->amount())/100.0f);
 	}
-	return totalweight;
+	return totalweight;*/
+	return 0.0f;
 }
 
  // Check when player is walking if overloaded
 bool cWeight::CheckWeight( P_CHAR pChar )
 {
-	if( !pChar )
+	/*if( !pChar )
 		return false;
 
 	if( ( pChar->weight > ( pChar->st * WEIGHT_PER_STR ) + 30 ) )
@@ -140,12 +141,13 @@ bool cWeight::CheckWeight( P_CHAR pChar )
 		}
 	}
 
+	return true;*/
 	return true;
 }
 
 int cWeight::CheckWeight2(int s) // Morrolan - Check when player is teleporting if overloaded
 {
-	P_CHAR pc = currchar[s];
+	/*P_CHAR pc = currchar[s];
 	if (pc != NULL)
 	if ((pc->weight > (pc->st*WEIGHT_PER_STR)+30))
 	{
@@ -156,13 +158,14 @@ int cWeight::CheckWeight2(int s) // Morrolan - Check when player is teleporting 
 		}
 		return 1;
 	}
+	return 0;*/
 	return 0;
 }
 
 //	history:	added containersearch Duke, 4.11.2k
 float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 {
-	float totalweight=0.0;
+	/*float totalweight=0.0;
 	if (!pItem) 
 	{
 		*total=0;
@@ -195,10 +198,12 @@ float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 		*total=pItem->amount();
 		*total=*total*-1; // Indicate that not a pack ! on osi servers in that case weigt/items count isnt shown
 		                  // thus i set it negative, if you want to show it anyway, add something like if (weight<0) weight*=-1; 
-		return ((((float)pItem->getWeight())/100)*pItem->amount()); // if no pack return single item weight*/        		
+		return ((((float)pItem->getWeight())/100)*pItem->amount()); // if no pack return single item weight        		
 		
 	}
 	else
-		return totalweight;
+		return totalweight;*/
+
+	return 0;
 }
 

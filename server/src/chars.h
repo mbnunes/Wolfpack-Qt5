@@ -110,7 +110,6 @@ public:
 	SERIAL					packitem; // Serial of backpack
 	unsigned char			fixedlight; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	unsigned char			speech; // For NPCs: Number of the assigned speech block
-	int						weight; //Total weight
 	unsigned int			att; // Intrinsic attack (For monsters that cant carry weapons)
 	unsigned int			def; // Intrinsic defense
 	bool					war; // War Mode
@@ -157,12 +156,10 @@ public:
     // 1 = FlameStrike 
     // 2-6 = Sparkles
     int						gmMoveEff;
-
 	int						VisRange;
 
 	// Protected Data Members	
 protected:
-
 	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
 	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	QString					orgname_;//original name - for Incognito
@@ -274,6 +271,7 @@ protected:
 	unsigned short  		baseSkill_[ALLSKILLS+1]; // Base skills without stat modifiers
 	unsigned short  		skill_[ALLSKILLS+1]; // List of skills (with stat modifiers)
 	cUOSocket*				socket_;
+	unsigned short			weight_;
 
 	
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
@@ -411,8 +409,9 @@ public:
 	unsigned short			baseSkill( int v ) const { return baseSkill_[v]; }
 	unsigned short			skill( int v ) const {return skill_[v];} // List of skills (with stat modifiers)
 	cUOSocket*				socket() const { return socket_; }
+	unsigned short			weight() const { return weight_; }
+	unsigned short			stones() const { return (weight_ / 10); }
 	QString					lootList() const { return loot_; }
-
 	
 	// Setters
 	void					setGuildType(short data);
@@ -521,9 +520,9 @@ public:
 	void					setBaseSkill( int s, unsigned short v) { baseSkill_[s] = v; }
 	void					setSkill( int s, unsigned short v) { skill_[s] = v;}
 	void					setSocket( cUOSocket* data ) { socket_ = data; }
+	void					setWeight( unsigned short data ) { weight_ = data; }
 	void					setLootList( QString data ) { loot_ = data; }
 
-	
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity
 	short decDex()				{return dx2;}	// returns the 3 digits behind the decimal point

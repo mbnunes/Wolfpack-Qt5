@@ -163,16 +163,9 @@ UI08 WPConsole_cl::getkey(void)
 
 //=========================================================================================
 // Prepare a "progess" line
-void WPConsole_cl::PrepareProgress( string sMessage )
+void WPConsole_cl::PrepareProgress( const QString &sMessage )
 {
-	// We assume a console width of 70 chars here
-	while( sMessage.size() > 50 ) 
-	{
-		send( sMessage.substr( 0, 50 ) + "\n" );
-		sMessage = sMessage.substr( 0, 50 );
-	}
-
-	UI08 PrintedChars = sMessage.size() + 1; // one spacer
+	UI08 PrintedChars = sMessage.length() + 1; // one spacer
 
 	send( sMessage + " " );
 

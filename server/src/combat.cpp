@@ -44,6 +44,7 @@
 #include "srvparams.h"
 #include "classes.h"
 #include "network.h"
+#include "network/uosocket.h"
 #include "territories.h"
 
 #include "debug.h"
@@ -1055,28 +1056,25 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 		} 
 	} else pj=NULL; 
 
-	UOXSOCKET k=calcSocketFromChar(pc); 
-	if (pj && k!=-1) 
+	// TODO: MOVE THAT TO THE DAMN APPROPIATE FUNCTION !! THIS DAMGES EVERYTHING WHEN JUST CALCULATING
+
+	cUOSocket *mSock = pc->socket();
+	if( pj && mSock ) 
 	{ 
-		//AntiChrist - don't damage hairs, beard and backpack 
-		//important! this sometimes cause backpack destroy! 
-		// 
-		if(pj->layer()!=0x0B && pj->layer()!=0x10 && pj->layer()!=0x15) // bugfix lB,was 0x15, 0x15,0x15 !! 
-		{ 
-			if((rand()%2)==0) 
-				pj->setHp( pj->hp() - 1 ); //Take off a hit point 
-			if(pj->hp()<=0) 
+		// don't damage hairs, beard and backpack 
+		// important! this sometimes cause backpack destroy! 
+		if( pj->layer() != 0x0B && pj->layer() != 0x10 && pj->layer() != 0x15 )
+		{
+			//Take off a hit point
+			if( !( rand() % 2 ) )
+				pj->setHp( pj->hp() - 1 ); 
+			if( pj->hp() <= 0 ) 
 			{ 
-				sysmessage(k, tr("Your %1 has been destroyed").arg(pj->getName()));
-				pc->removeItemBonus(pj);	// remove BONUS STATS given by equipped special items
-				//-Frazurbluu-  need to have tactics bonus removed also
-				if ((pj->trigon==1) && (pj->layer() >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
-				{
-					Trig->triggerwitem(k, pj, 1); // trigger is fired when item destroyed
-				}
-				Items->DeleItem(pj);		 
+				mSock->sysMessage( tr( "Your %1 has been destroyed" ).arg( pj->getName() ) );
+				pc->removeItemBonus( pj ); // remove BONUS STATS given by equipped special items
+
+				Items->DeleItem( pj );
 			}
-			statwindow(k, currchar[k]);
 		}
 	}
 	if (total < 2) total = 2;

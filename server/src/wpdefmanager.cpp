@@ -33,6 +33,7 @@
 #include "globals.h"
 #include "prototypes.h"
 #include "basics.h"
+#include "inlines.h"
 
 // Library Includes
 #include "qdom.h"
@@ -115,7 +116,11 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	QString errorMessage;
 	int errorLine, errorColumn;
 	
-	if( !Document.setContent( &File, &errorMessage, &errorLine, &errorColumn ) ) 
+	clConsole.PrepareProgress( tr( "Parsing %1" ).arg( FileName ) );
+
+	QByteArray data = File.readAll();
+
+	if( !Document.setContent( data, false, &errorMessage, &errorLine, &errorColumn ) ) 
 	{
         File.close();
         
@@ -124,6 +129,8 @@ bool WPDefManager::ImportSections( const QString& FileName )
 
 		return false;
 	}
+
+	clConsole.ProgressDone();
 
     File.close();
 
@@ -187,24 +194,7 @@ void WPDefManager::reload( void )
 // Load the Definitions
 void WPDefManager::load( void )
 {
-	clConsole.PrepareProgress( "Loading Definitions" );
-
-	if( ImportSections( "definitions.xml" )	)
-	{
-		clConsole.ProgressDone();
-		clConsole.send( QString("Item Sections:           %1\n").arg( Items.size() ) );
-		clConsole.send( QString("Npc Sections:            %1\n").arg( NPCs.size() ) );
-		clConsole.send( QString("Menu Sections:           %1\n").arg( Menus.size() ) );
-		clConsole.send( QString("ACL Sections:            %1\n").arg( PrivLevels.size() ) );
-		clConsole.send( QString("Spell Sections:          %1\n").arg( Spells.size() ) );
-		clConsole.send( QString("List Sections:           %1\n").arg( StringLists.size() ) );
-		clConsole.send( QString("Multi Sections:          %1\n").arg( Multis.size() ) );
-		clConsole.send( QString("Text Sections:           %1\n").arg( Texts.size() ) );
-		clConsole.send( QString("StartItem Sections:      %1\n").arg( StartItems.count() ) );
-		clConsole.send( QString("Locations:               %1\n").arg( Locations.count() ) );
-	}
-	else
-		clConsole.ProgressFail();
+	ImportSections( "definitions.xml" );
 }
 
 // Returns one Section

@@ -49,6 +49,7 @@
 #include "classes.h"
 #include "network.h"
 #include "wpdefmanager.h"
+#include "network/uosocket.h"
 
 #include <algorithm>
 #include <typeinfo>
@@ -308,16 +309,20 @@ void cTmpEff::Expire()
 		//Added by TANiS to fix errors, memory corruption and door auto-close 10-6-98
 		// Check to see if it's a dead char and delete the wrong effect, or if it's just
 		// a door auto-close effect and process it the right way.
-		if ( pc_s == NULL )
+		if ( !pc_s )
 		{
 			return;		// just remove this effect
 		} //End of TANiS' change
 	}
 
+	cUOSocket *socket = NULL;
+	if( pc_s ) 
+		socket = pc_s->socket();
+
 	switch(num)
 	{
 	case 1:
-		if (pc_s->priv2&0x02)
+		if( pc_s->isFrozen() )
 		{
 			pc_s->priv2 &= 0xFD;
 			UOXSOCKET sk=calcSocketFromChar((pc_s));
@@ -331,49 +336,55 @@ void cTmpEff::Expire()
 		dolight(calcSocketFromChar(pc_s), SrvParams->worldBrightLevel());
 		break;
 	case 3:
-		pc_s->chgDex(more1);
-		statwindow(calcSocketFromChar(pc_s), pc_s);
+		pc_s->chgDex( more1 );
+		if( socket )
+			socket->updateStamina();
 		break;
 	case 4:
-		pc_s->in+=more1;
-		statwindow(calcSocketFromChar(pc_s), pc_s);
+		pc_s->in += more1;
+		if( socket )
+			socket->updateMana();
 		break;
 	case 5:
-		pc_s->st+=more1;
-		statwindow(calcSocketFromChar(pc_s), pc_s);
+		pc_s->st += more1;
+		// TODO: Update the health-bars for all people in range (It *HAS* changed here)
+        if( socket )
+			socket->updateHealth();
 		break;
 	case 6:
-		pc_s->chgDex(-1 * more1);
+		pc_s->chgDex( -1 * more1 );
 		pc_s->stm=QMIN(pc_s->stm, pc_s->effDex());
-		statwindow(calcSocketFromChar(pc_s), pc_s);
+		if( socket )
+			socket->updateStamina();
 		break;
 	case 7:
 		pc_s->in-=more1;
 		pc_s->mn=QMIN(pc_s->mn, pc_s->in);
-		statwindow(calcSocketFromChar(pc_s), pc_s);
+		if( socket )
+			socket->updateMana();
 		break;
 	case 8:
 		pc_s->st-=more1;
 		pc_s->hp=QMIN(pc_s->hp, pc_s->st);
-		statwindow(calcSocketFromChar(pc_s), pc_s);
+		if( socket )
+			socket->updateHealth();
 		break;
 	case 9:
-		if (more1 == 0)
+		if( more1 == 0 )
 		{
-			if (more2!=0)
-			{
-				sprintf((char*)temp, "*%s continues grinding.*", pc_s->name.c_str());
-				npcemoteall(pc_s, (char*)temp,1);
-			}
-			soundeffect2(pc_s, 0x0242);
+			if( more2 != 0 )
+				pc_s->emote( tr( "*%1 continues grinding.*" ).arg( pc_s->name.c_str() ) );
+			
+			pc_s->soundEffect( 0x242 );
 		}
 		break;
 	case 10:
 		{
-		pc_s = FindCharBySerial(getSour());
-		P_ITEM pMortar = FindItemBySerial(getDest());
-		if(pMortar != NULL) //AntiChrist - to prevent crashes
-			Skills->CreatePotion(pc_s, more1, more2, pMortar);
+		pc_s = FindCharBySerial( getSour() );
+		P_ITEM pMortar = FindItemBySerial( getDest() );
+		//AntiChrist - to prevent crashes
+		if( pMortar )
+			Skills->CreatePotion( pc_s, more1, more2, pMortar );
 		}
 		break;
 	case 11:
@@ -383,42 +394,44 @@ void cTmpEff::Expire()
 		pc_s->stm=QMIN(pc_s->stm, pc_s->effDex());
 		pc_s->in-=more3;
 		pc_s->mn=QMIN(pc_s->mn, pc_s->in);
-		statwindow(calcSocketFromChar(pc_s), pc_s);
+		if( socket )
+			socket->sendStatWindow();
 		break;
 	case 12:
 		pc_s->st+=more1;
 		pc_s->chgDex(more2);
 		pc_s->in+=more3;
-		statwindow(calcSocketFromChar(pc_s), pc_s);
+		if( socket )
+			socket->sendStatWindow();
 		break;
 	case 13:
 		{
-			P_ITEM pDoor = FindItemBySerial(getDest());// door
-			if (pDoor)
+			P_ITEM pDoor = FindItemBySerial( getDest() );
+			if( pDoor )
 			{
-				if (pDoor->dooropen==0)
+				if( !pDoor->dooropen )
 					break;
-				pDoor->dooropen=0;
-				dooruse(INVALID_UOXSOCKET, pDoor);
+				pDoor->dooropen = 0;
+				dooruse( NULL, pDoor );
 			}
 			break;
 		}
 	case 14: //- training dummies Tauriel check to see if item moved or not before searching for it
 		{
-			P_ITEM pTrainDummy = FindItemBySerial(getDest());
-			if (pTrainDummy)
+			P_ITEM pTrainDummy = FindItemBySerial( getDest() );
+			if( pTrainDummy )
 			{
-				if (pTrainDummy->id()==0x1071)
+				if( pTrainDummy->id() == 0x1071 )
 				{
-					pTrainDummy->setId(0x1070);
-					pTrainDummy->gatetime=0;
-					RefreshItem(pTrainDummy);//AntiChrist
+					pTrainDummy->setId( 0x1070 );
+					pTrainDummy->gatetime = 0;
+					RefreshItem( pTrainDummy );
 				}
-				else if (pTrainDummy->id()==0x1075)
+				else if( pTrainDummy->id() == 0x1075 )
 				{
-					pTrainDummy->setId(0x1074);
-					pTrainDummy->gatetime=0;
-					RefreshItem(pTrainDummy);//AntiChrist
+					pTrainDummy->setId( 0x1074 );
+					pTrainDummy->gatetime = 0;
+					RefreshItem( pTrainDummy );
 				}
 			}
 		}
@@ -426,47 +439,27 @@ void cTmpEff::Expire()
 	case 15: //reactive armor
 		pc_s->setRa(0);
 		break;
-	case 16: //Explosion potion messages	Tauriel
-		sprintf((char*)temp, "%i", more3);
-		sysmessage(calcSocketFromChar(pc_s), (char*)temp); // crashfix, LB
+	case 16: // Explosion potions
+		// TODO: Let the item itself talk here...
+		if( socket )
+			socket->sysMessage( QString( "%1" ).arg( more3 ) );
 		break;
-	case 17: //Explosion potion explosion	Tauriel			
-		pc_s = FindCharBySerial(getSour());
-		explodeitem(calcSocketFromChar((pc_s)), FindItemBySerial(getDest())); //explode this item
+	case 17: //Explosion potion explosion
+		pc_s = FindCharBySerial( getSour() );
+		explodeitem( calcSocketFromChar( pc_s ), FindItemBySerial( getDest() ) ); //explode this item
 		break;
-	case 18: //Polymorph spell by AntiChrist 9/99
-		if(pc_s->polymorph())//let's ensure it's under polymorph effect!
+	case 18: //Polymorph spell wearoff
+		if( pc_s->polymorph() )//let's ensure it's under polymorph effect!
 		{
-			pc_s->setId(pc_s->xid);
-			pc_s->setPolymorph(false);
-			teleport(pc_s);
+			pc_s->setId( pc_s->xid );
+			pc_s->setPolymorph( false );
+			pc_s->update();
 		}
 		break;
-	case 19: //Incognito spell by AntiChrist 12/99
-		reverseIncognito(pc_s);
+	case 19: //Incognito spell wearoff
+		reverseIncognito( pc_s );
 		break;
-		
-	case 20: // LSD potions, LB 5'th nov 1999
-		{
-			k=calcSocketFromChar((pc_s));
-			if (k==-1) return;
-			LSD[k]=0;
-			sysmessage(k, tr("LSD has worn off").latin1());
-			pc_s->stm=3; // stamina near 0
-			pc_s->mn=3;
-			pc_s->hp=pc_s->hp/7;
-			impowncreate(k, pc_s, 0);
-			all_items(k); // absolutely necassairy here !!!
-			AllCharsIterator it;
-			for (it.Begin(); !it.atEnd(); it++) // that hurts, but there's no other good way
-			{
-				P_CHAR pc = it.GetData();
-				if (chardist( pc_s, pc ) < 15 && ( online(pc) || pc->isNpc() ) ) 
-					updatechar(pc);
-			}
-		}
-		break;
-		
+
 	case 21:
 		int toDrop;
 		toDrop = more1; //Effect->more1;
@@ -477,31 +470,34 @@ void cTmpEff::Expire()
 		break;
 		
 	case 33: // delayed hiding for gms after flamestrike effect
-		k=calcSocketFromChar((pc_s));
-		sysmessage(k, tr("You have hidden yourself well."));
+		if( socket )
+			socket->sysMessage( tr( "You have hidden yourself well." ) );
 		pc_s->setHidden( 1 );
-		updatechar(pc_s);
+		pc_s->update();
 		break;
 		
 	case 34: // delayed unhide for gms
 		// Changed to be uniform with delayed hideing  (Aldur)
-		k = calcSocketFromChar((pc_s)); 
-		sysmessage(k, tr("You are now visible.")); 
+		if( socket )
+			socket->sysMessage( tr( "You are now visible." ) );
 		pc_s->setHidden( 0 ); 
-		updatechar(pc_s); 
+		pc_s->update();
 		break;
 		
-	case 35: //heals some pf - solarin
-		int iHp;
-		iHp=(int)more1;
-		pc_s->hp+=iHp;
-		updatestats(pc_s, 0);
-		if (!more2)
-			tempeffect(pc_s, pc_s, 35, more1+1, 1, more3, 0);
+	case 35: // heals some hp (??)
+		pc_s->hp += more1;
+		
+		// TODO: Need to update the inrange sockets
+		if( socket )
+			socket->updateHealth();
+
+		if( !more2 )
+			tempeffect( pc_s, pc_s, 35, more1+1, 1, more3, 0 );
+		
 		break;
 		
 	default:
-		LogErrorVar("Fallout of switch (num = %i).", num);
+		LogErrorVar( "Fallout of switch (num = %i).", num);
 		break;
 	}
 	Items->CheckEquipment(pc_s); //AntiChrist - checks equipments for stats requirements
@@ -677,6 +673,8 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 	pTE->setDest(pc_dest->serial);
 	pTE->num = num;
 
+	cUOSocket *mSock = pc_dest->socket();
+
 	switch (num)
 	{
 	case 1:
@@ -703,8 +701,9 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if (pc_dest->effDex()<more1)
 			more1=pc_dest->effDex();
 		pc_dest->chgDex(-1 * more1);
-		pc_dest->stm=QMIN(pc_dest->stm, pc_dest->effDex());
-		statwindow(calcSocketFromChar(pc_dest), pc_dest);
+		pc_dest->stm = QMIN(pc_dest->stm, pc_dest->effDex());
+		if( mSock )
+			mSock->updateStamina();
 		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -715,7 +714,8 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			more1=pc_dest->in;
 		pc_dest->in-=more1;
 		pc_dest->mn=QMIN(pc_dest->mn, pc_dest->in);
-		statwindow(calcSocketFromChar(pc_dest), pc_dest);
+		if( mSock )
+			mSock->updateMana();
 		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -726,7 +726,8 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			more1=pc_dest->st;
 		pc_dest->st-=more1;
 		pc_dest->hp=QMIN(pc_dest->hp, pc_dest->st);
-		statwindow(calcSocketFromChar(pc_dest), pc_dest);
+		if( mSock )
+			mSock->updateHealth();
 		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -736,11 +737,16 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if (pc_dest->effDex()+more1>250)
 			more1=250-pc_dest->effDex();
 		pc_dest->chgDex(more1);
-		statwindow(calcSocketFromChar(pc_dest), pc_dest);
-		if(dur > 0)		// if a duration is given (potions), use that (Duke, 31.10.2000)
+
+		if( mSock )
+			mSock->updateStamina();
+		
+		// if a duration is given (potions), use that
+		if( dur )		
 			pTE->setExpiretime_s(dur);
 		else
 			pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
+
 		pTE->more1=more1;
 		pTE->more2=0;
 		pTE->dispellable=1;
@@ -749,7 +755,8 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if (pc_dest->in+more1>255)
 			more1=pc_dest->in-255;
 		pc_dest->in+=more1;
-		statwindow(calcSocketFromChar(pc_dest), pc_dest);
+		if( mSock )
+			mSock->updateMana();
 		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=0;
@@ -759,8 +766,12 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if (pc_dest->st+more1>255)
 			more1=pc_dest->st-255;
 		pc_dest->st+=more1;
-		statwindow(calcSocketFromChar(pc_dest), pc_dest);
-		if(dur > 0)		// if a duration is given (potions), use that (Duke, 31.10.2000)
+
+		if( mSock )
+			mSock->updateHealth();
+
+		// if a duration is given (potions), use that
+		if( dur )		
 			pTE->setExpiretime_s(dur);
 		else			// else use caster's skill
 			pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
@@ -788,7 +799,11 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pc_dest->st+=more1;
 		pc_dest->chgDex(more2);
 		pc_dest->in+=more3;
-		statwindow(calcSocketFromChar(pc_dest), pc_dest);
+
+		// TODO: Send to other players here.
+		if( mSock )
+			mSock->sendStatWindow();
+
 		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=more2;
@@ -805,7 +820,11 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pc_dest->st-=more1;
 		pc_dest->chgDex(-1 * more2);
 		pc_dest->in-=more3;
-		statwindow(calcSocketFromChar(pc_dest), pc_dest);
+
+		// TODO: Send to other players here.
+		if( mSock )
+			mSock->sendStatWindow();
+
 		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
 		pTE->more1=more1;
 		pTE->more2=more2;
@@ -1101,8 +1120,9 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if (pc_dest->in<more1)
 			more1=pc_dest->in;
 		pc_dest->in-=more1;
-		pc_dest->mn=QMIN(pc_dest->mn, pc_dest->in);
-		statwindow(calcSocketFromChar(pc_dest), pc_dest);
+		pc_dest->mn = QMIN( pc_dest->mn, pc_dest->in );
+		if( mSock )
+			mSock->updateMana();
 		pTE->setExpiretime_s(30);
 		pTE->num=4;
 		pTE->more1=more1;

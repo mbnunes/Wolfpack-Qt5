@@ -75,12 +75,6 @@ bool cItem::isPileable()
 void cItem::toBackpack( P_CHAR pChar )
 {
 	P_ITEM pPack = Packitem( pChar );
-	P_CHAR curOwner = GetPackOwner( this, 64 );
-
-	if( curOwner && curOwner != pChar )
-		curOwner->weight -= getWeight();
-	
-	setLayer( 0 );
 	
 	// Pack it to the ground
 	if( !pPack )
@@ -88,23 +82,10 @@ void cItem::toBackpack( P_CHAR pChar )
 		setContSerial( INVALID_SERIAL );
 		moveTo( pChar->pos );
 		update();
-		return;
 	}
 	// Or to the backpack
 	else
-	{
-		setContSerial( pPack->serial );
-		
-		// Place it at a random position in our backpack
-		pos.x = 50 + ( rand() % 80 );
-		pos.y = 50 + ( rand() % 80 );
-		pos.z = 9;
-		update();
-	}
-	
-	// Recalc the weight( just to be sure )
-	if( pChar != curOwner )
-		pChar->weight += getWeight();
+		pPack->AddItem( this );
 }
 
 // Gets the corpse an item is in
@@ -229,29 +210,67 @@ void cItem::startDecay()
 //
 long cItem::ReduceAmount(const short amt)
 {
-	long rest=0;
+	UINT16 rest = 0;
 	if( amount_ > amt )
 	{
-		amount_ -= amt;
-		RefreshItem(this);
+		setAmount( amount_ - amt );
+		update();
 	}
 	else
 	{
 		Items->DeleItem(this);
 		rest = amt - amount_;
 	}
+
 	return rest;
 }
 
 void cItem::setContSerial( SERIAL nValue )
 {
+	// If the item is in the bank or any sell-container it's NOT counted as char-weight
+	// bool inBank = ( outmostCont && 	( outmostCont->contserial == pChar->serial ) && ( outmostCont->layer() >= 0x1A ) );
+
+	P_CHAR oldOwner = 0;
+	P_CHAR newOwner = 0;
 	if( this->contserial != INVALID_SERIAL )
+	{
+		// Get the Old owner only if it's dropped to ground etc.
+		P_ITEM pCont = GetOutmostCont( this, 64 );
+		if( isCharSerial( pCont->contserial ) && ( ( pCont->layer() <= 0x19 ) || ( pCont->layer() == 0x1E ) ) )
+			oldOwner = FindCharBySerial( pCont->contserial );
+
 		contsp.remove( this->contserial, this->serial );
+	}
 
 	this->contserial = nValue;
 
 	if( this->contserial != INVALID_SERIAL )
+	{
+		// Get the New owner only if we're taking an item along (no bank no sell conts. etc.)
+		P_ITEM pCont = GetOutmostCont( this, 64 );
+		if( isCharSerial( pCont->contserial ) && ( ( pCont->layer() <= 0x19 ) || ( pCont->layer() == 0x1E ) ) )
+			newOwner = FindCharBySerial( pCont->contserial );
+
 		contsp.insert( this->contserial, this->serial );
+	}
+
+	// The owner has changed
+	if( newOwner != oldOwner )
+	{
+		if( newOwner )
+		{
+			newOwner->setWeight( newOwner->weight() + totalweight() );
+			if( newOwner->socket() )
+				newOwner->socket()->sendStatWindow();
+		}
+
+		if( oldOwner )
+		{
+			oldOwner->setWeight( oldOwner->weight() - totalweight() );
+			if( oldOwner->socket() )
+				oldOwner->socket()->sendStatWindow();
+		}
+	}
 }
 
 void cItem::setOwnSerialOnly(long ownser)
@@ -691,32 +710,6 @@ QString cItem::getName(void)
 	return QString(itemname);
 }
 
-// return the weight of an item. May have to seek it from MUL files
-int cItem::getWeight()
-{
-	unsigned int itemweight=0;
-
-	if( this->weight_ > 0 ) //weight is defined in scripts for this item
-		itemweight = this->weight_;
-	else
-	{
-		tile_st tile = cTileCache::instance()->getTile( id_ );
-		if( tile.weight == 0 ) // Stupid - Tiles can have weight 0 !!
-		{
-			if( this->type_ != 14 )
-				itemweight = 2;		// not food weights .02 stone
-			else
-				itemweight = 100;	//food weighs 1 stone
-		}
-		else //found the weight from the tile, set it for next time
-		{			
-			itemweight = tile.weight * 100;
-			this->weight_ = itemweight; // set weight so next time don't have to search
-		}
-	}
-	return itemweight;
-}
-
 P_ITEM cAllItems::MemItemFree()// -- Find a free item slot, checking freeitemmem[] first
 {
 	return new cItem;
@@ -820,12 +813,14 @@ void cItem::Init(bool mkser)
 	this->spawnregion_="";
 }
 
-// -- delete an item (Actually just mark it is free)
+/*!
+	This Function is used for removing items
+*/
 void cAllItems::DeleItem(P_ITEM pi)
-{		
-	int j;
+{
+	// TODO: Insert handling of the unequip events here
 
-	if ( pi == NULL )
+	if( !pi )
 		return;
 
 	if (!pi->free)
@@ -841,13 +836,18 @@ void cAllItems::DeleItem(P_ITEM pi)
 
 		pi->SetSpawnSerial(-1);
 		pi->SetOwnSerial(-1);
+
 		// - remove from mapRegions if a world item
-		if (pi->isInWorld()) 
+		if( pi->isInWorld() ) 
 		{
 			mapRegions->Remove(pi);
 		}
 		else
-			pi->setContSerial(INVALID_SERIAL);
+		{
+			pi->setContSerial( INVALID_SERIAL );
+		}
+
+        // if a new book gets deleted also delete the corresponding bok file
 
 		// Also delete all items inside if it's a container.
 		vector<SERIAL> vecContainer = contsp.getData(pi->serial);
@@ -914,12 +914,7 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 					unsigned short cColorId,
 					int nPack, int nSend)
 {
-	P_ITEM pi = SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), cColorId, nPack);
-	if (pi == NULL) 
-		return NULL;
-	if (nSend && nSocket>=0)
-		statwindow(nSocket, ch);
-	return pi;
+	return SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), cColorId, nPack);
 }
 
 P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, QString nItem)
@@ -935,7 +930,6 @@ P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, QString nItem)
 		return NULL;
 	GetScriptItemSetting(pi); 
 	bankbox->AddItem(pi);
-	statwindow(s, pc_ch);
 	return pi;
 }
 
@@ -1057,9 +1051,7 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging) /
 	GetScriptItemSetting(pi);
 
 	backpack->AddItem(pi);
-	RefreshItem(pi);
-	
-	statwindow(s, currchar[s]);
+	pi->update();
 	return pi;
 }
 
@@ -1552,7 +1544,7 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <weight>10</weight>
 	else if( TagName == "weight" )
-		this->setWeight( Value.toUInt() );
+		this->setWeight( (UINT32)( Value.toFloat() * 10 ) );
 
 	// <value>10</value>
 	else if( TagName == "value" )

@@ -307,7 +307,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 		if( owner != pc_currchar )
 		{
-			socket->sysMessage(tr("The scroll must be in your backpack to envoke its magic." ));
+			socket->sysMessage( tr( "The scroll must be in your possession to envoke its magic." ) );
+			return;
 		}
 
 		UI16 model = Magic->calcSpellId( pi->id() );
@@ -318,7 +319,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		return;
 	}
 	// Begin checking objects that we force an object delay for (std objects)
-	// taken from 6904t2(5/10/99) - AntiChrist
 	else if( socket )
 	{
 		// start trigger stuff
@@ -326,7 +326,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		{
 			if (pi->trigtype == 0)
 			{
-				if (pi->disabled <= uiCurrentTime) // changed by Magius(CHE) §
+				if (pi->disabled <= uiCurrentTime)
 				{
 					Trig->triggerwitem(s, pi, 1); // if players uses trigger
 					return;
@@ -367,21 +367,20 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		if (pc_currchar->dead)
 		{
 			Targ->NpcResurrectTarget(pc_currchar);
-			socket->sysMessage(tr("You have been resurrected."));
+			socket->sysMessage( tr( "You have been resurrected." ) );
 			return;
 		} 
 		else 
 		{
-			socket->sysMessage(tr("You are already living!"));
+			socket->sysMessage( tr( "You are already living!" ) );
 			return;
 		}
 		
-	case 117:
-		
+	case 117:		
 		// Boats ->
 		if (pi->type2() == 3)
 		{
-			if (iteminrange(s, pi, 3))
+			if( pc_currchar->inRange( pi, 3 ) )
 			{
 				if (pi->tags.get("boatserial").isValid())
 				{
@@ -408,7 +407,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			pc_currchar->objectdelay = 0;	// no delay for opening containers
 			
 			SERIAL contser = pi->contserial;
-			if ((contser <= 0 && iteminrange(s, pi, 2)) ||  // Backpack in world - free access to everyone
+			if ( ( contser == INVALID_SERIAL && pc_currchar->inRange( pi, 2 ) ) ||  // Backpack in world - free access to everyone
 				pc_currchar->Wears( pi ) )	// primary pack
 			{
 				pc_currchar->objectdelay = 0;
@@ -418,9 +417,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			if (isItemSerial(pi->contserial))
 			{
 				P_ITEM pio = GetOutmostCont(pi);
-				if (pio == NULL) return;		// this should *not* happen, but it does ! Watch the logfiles (Duke)
-				if (pc_currchar->Wears(pio) ||	// sub-pack
-					(pio->isInWorld() && iteminrange(s, pio, 2)))	// in world and in range
+				if( !pio ) 
+					return;		// this should *not* happen, but it does ! Watch the logfiles (Duke)
+
+				if( pc_currchar->Wears( pio ) || ( pio->isInWorld() && pc_currchar->inRange( pi, 2 ) ) ) // in world and in range
 				{
 					socket->sendContainer( pi );
 					return;
@@ -429,7 +429,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			P_CHAR pco;
 			pco = GetPackOwner(pi);
 			
-			if ((npcinrange(s, pco, 2)) || (iteminrange(s, pi, 2)))
+			if( pc_currchar->inRange( pco, 2 ) || pc_currchar->inRange( pi, 2 ) )
 			{	
 				if (pco == NULL)// reorganized by AntiChrist to avoid crashes
 					socket->sendContainer( pi );
@@ -558,35 +558,33 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			pc_currchar->objectdelay = 0;
 			pBook->open( socket );
 		}
-		return;// book
+		return;
 	}	
 	case 12: // door(unlocked)
 		pc_currchar->objectdelay = 0;
-		dooruse(s, pi);
-		return; // doors
+		dooruse( socket, pi );
+		return;
 	case 13: // locked door
 		{
-			P_ITEM pPack = Packitem(pc_currchar);
-			if (pPack != NULL) // LB
+			P_ITEM pPack = pc_currchar->getBackpack();
+			if( pPack )
 			{
 				vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
-				unsigned int j;
-				for (j = 0; j < vecContainer.size(); j++) // Morrolan come back here and change this to search only backpack items 
+				for( UINT32 j = 0; j < vecContainer.size(); ++j )
 				{
 					P_ITEM pj = FindItemBySerial(vecContainer[j]);
-					if (pj != NULL && pj->type() == 7)
-						if (((pj->more1 == pi->more1) &&(pj->more2 == pi->more2)&&
-							(pj->more3 == pi->more3) &&(pj->more4 == pi->more4)))
+					if( pj && pj->type() == 7 )
+						if( ( ( pj->more1 == pi->more1 ) &&( pj->more2 == pi->more2 ) && (pj->more3 == pi->more3) &&(pj->more4 == pi->more4)))
 						{
-							socket->sysMessage(tr("You quickly unlock, use, and then relock the door."));
+							socket->sysMessage( tr( "You quickly unlock, use, and then relock the door." ) );
 							pc_currchar->objectdelay = 0;
-							dooruse(s, pi);
+							dooruse( socket, pi );
 							return;
-						}// if
-				}// for
-			} // end if p!=-1
-			socket->sysMessage(tr("This door is locked."));
-			return;// case 13 (locked door)
+						}
+				}
+			}
+			socket->sysMessage( tr( "This door is locked." ) );
+			return;
 		}
 	case 14: // For eating food
 		pc_currchar->objectdelay = 0;
@@ -707,7 +705,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			Items->DeleItem(pi);
 			return;// rename deed! -- eagle 1/29/00
 		case 187: // Ripper...slotmachine
-            if (iteminrange(s, pi, 1))
+            if( pc_currchar->inRange( pi, 1 ) )
 			{ 
 	             slotmachine(s, pi);
 				 return;
@@ -825,7 +823,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return; 
 				} // added by ripper, bugfixed by LB
 				P_ITEM pi_multi = findmulti(pc_currchar->pos); // boats are also multis zippy, btw !!!		
-				if (pi_multi != NULL && iteminrange(s, pi_multi, 18))
+				if (pi_multi != NULL && pc_currchar->inRange( pi_multi, 18 ) )
 				{	
 					if (!IsHouse(pi_multi->id()))
 						return; // LB
@@ -997,7 +995,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;// dye
 				case 0x0FAF:
 				case 0x0FB0: // Anvils
-					if (!iteminrange(s, pi, 3))
+					if( !pc_currchar->inRange( pi, 3 ) )
 					{
 						socket->sysMessage(tr("Must be closer to use this!"));
 						return;
@@ -1011,7 +1009,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x1986: // partial lg forge
 				case 0x198A: // partial lg forge
 				case 0x198E: // partial lg forge
-					if (!iteminrange(s, pi, 3))
+					if( !pc_currchar->inRange( pi, 3 ) )
 					{
 						socket->sysMessage(tr("Must be closer to use this!"));
 						return;
@@ -1475,10 +1473,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x1070:
 				case 0x1074: // training dummies
-					if (iteminrange(s, pi, 1))
+					if( pc_currchar->inRange( pi, 1 ) )
 						Skills->TDummy(s);
 					else 
-						socket->sysMessage(tr("You need to be closer to use that."));
+						socket->sysMessage( tr( "You need to be closer to use that." ) );
 					return;
 				case 0x1071:
 				case 0x1073:

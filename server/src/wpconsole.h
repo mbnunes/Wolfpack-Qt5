@@ -97,7 +97,7 @@ public:
 	// Prepare a 
 	// xxxxx -----------------------[         ]
 	// line
-	void PrepareProgress( string sMessage );
+	void PrepareProgress( const QString &sMessage );
 	void ProgressDone( void );
 	void ProgressFail( void );
 	void ProgressSkip( void );

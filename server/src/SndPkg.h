@@ -160,7 +160,6 @@ void updatechar(P_CHAR pc); // If character status has been changed (Polymorph);
 void target(UOXSOCKET s, int a1, int a2, int a3, int a4, const QString& txt); // Send targetting cursor to client
 void skillwindow(int s); // Opens the skills list, updated for client 1.26.2b by LB
 void updatestats(P_CHAR pc, char x);
-void statwindow(int s, P_CHAR pc); // Opens the status window
 void updates(UOXSOCKET s); // Update Window
 void tips(cUOSocket* socket, int i); // Tip of the day window
 void weblaunch(int s, char *txt); // Direct client to a web page

@@ -85,11 +85,10 @@ void cChar::giveGold( Q_UINT32 amount, bool inBank )
 		pile->setId( 0xEED );
 		pile->setAmount( QMIN( total, static_cast<Q_UINT32>(65535) ) );
 		pCont->AddItem( pile );
-
 		total -= pile->amount();
 	}
 
-	if( online( this ) )
+	if( socket() )
 		goldsfx( calcSocketFromChar( this ), amount );
 }
 
@@ -186,7 +185,7 @@ void cChar::Init(bool ser)
 	this->fixedlight=255; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	// changed to -1, LB, bugfix
 	this->speech=0; // For NPCs: Number of the assigned speech block
-	this->weight=0; //Total weight
+	this->setWeight( 0 );
 	this->att=0; // Intrinsic attack (For monsters that cant carry weapons)
 	this->def=0; // Intrinsic defense
 	this->war=false; // War Mode
