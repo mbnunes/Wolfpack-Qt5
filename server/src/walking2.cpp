@@ -83,7 +83,7 @@
 #define DEBUG_WALK_ERROR	1
 
 #define DEBUG_NPCWALK		0
-#define DEBUG_WALK			0
+#define DEBUG_WALK			1
 #define DEBUG_PATHFIND		0
 
 //#define DBGFILE "walking2.cpp"
