@@ -212,6 +212,12 @@
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Oven 1 (N/S) (2/2)</category>
 	</item>
 
+	<item id="932">
+		<id>0x932</id>
+		<nodecay />
+		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 2 (N/S) (1/2)</category>
+	</item>
+
 	<item id="935">
 		<id>0x935</id>
 		<nodecay />
@@ -309,6 +315,12 @@
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (W/E) (2/2)</category>
 	</item>
 
+	<item id="95d">
+		<id>0x95d</id>
+		<nodecay />
+		<category>Decoration\Fireplaces &amp; Ovens\Empty Stone Fireplace 3 (W/E) (2/2)</category>
+	</item>
+
 	<item id="95f">
 		<id>0x95f</id>
 		<nodecay />
@@ -327,10 +339,22 @@
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (N/S) (1/2)</category>
 	</item>
 
+	<item id="964">
+		<id>0x964</id>
+		<nodecay />
+		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (N/S) (1/2)</category>
+	</item>
+
 	<item id="967">
 		<id>0x967</id>
 		<nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (N/S) (2/2)</category>
+	</item>
+
+	<item id="96c">
+		<id>0x96c</id>
+		<nodecay />
+		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 3 (N/S) (1/2)</category>
 	</item>
 
 	<!-- Small Stone Fireplace -->
