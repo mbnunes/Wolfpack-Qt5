@@ -7,18 +7,6 @@
 =================================================================
 -->
 <definitions>
-   	<!-- Wooden Shield -->
-	<item id="1b7a">
-		<id>0x1b7a</id>
-		<itemhand>3</itemhand>
-		<durability>20</durability>
-		<decay />
-		<requires type="str">5</requires>
-		<defense>2</defense>
-		<buyprice>39</buyprice>
-		<sellprice>19</sellprice>
-		<weight>5.0</weight>
-	</item>
 
 	<!-- buckler -->
 	<item id="1b73">

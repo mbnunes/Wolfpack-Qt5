@@ -315,7 +315,7 @@
         </npc>
 
         <!-- gargoyle destroyer -->
-        <npc id="gargoyle_destoryer">
+        <npc id="gargoyle_destroyer">
                 <name>a gargoyle destroyer</name>
                 <id>0x2f3</id>
                 <category>Monsters\deamons\Gargoyle Destroyer</category>
@@ -388,7 +388,7 @@
         </npc>
 
         <!-- horde minion -->
-        <npc id="gargoyle_destoryer">
+        <npc id="horde_minion">
                 <name>a horde minion</name>
                 <id>0x308</id>
                 <category>Monsters\deamons\Horde Minion</category>

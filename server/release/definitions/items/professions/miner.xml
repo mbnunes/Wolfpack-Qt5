@@ -188,12 +188,6 @@
 		<category>Professions\Miner\Pickaxe (W/E)</category>
 	</item>
 
-	<item id="e86">
-		<inherit id="e85" />
-		<id>0x0e86</id>
-		<category>Professions\Miner\Pickaxe (N/S)</category>
-	</item>
-
     <!-- Shovel -->
 	<item id="f39">
 		<id>0x0f39</id>

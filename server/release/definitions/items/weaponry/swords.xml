@@ -239,6 +239,7 @@
 		<weight>11.0</weight>
 		<requires type="str">50</requires>
 		<category>Weapons\Swords\Pickaxe</category>
+		<category>Professions\Miner\Pickaxe (N/S)</category>
 		</item>
 
 	<!-- Bone Harvester -->
