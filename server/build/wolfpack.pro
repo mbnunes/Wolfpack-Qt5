@@ -163,6 +163,7 @@ SOURCES         = \
 		  spawnregions.cpp \
                   srvparams.cpp \
 		  storage.cpp \
+		  targetactions.cpp \
 		  targeting.cpp \
 		  targetrequests.cpp \
 		  telport.cpp \

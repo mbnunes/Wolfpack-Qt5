@@ -1730,10 +1730,8 @@ int sellstuff(int s, P_CHAR pc)
 					P_ITEM pi_j = FindItemBySerial(vecContainer2[ci1]);
 					if (pi_j != NULL) // LB crashfix
 					{
-						sprintf(ciname,"'%s'",pi_j->name().ascii()); // Added by Magius(CHE)
-						sprintf(cinam2,"'%s'",pi_q->name().ascii()); // Added by Magius(CHE)
-						strupr(ciname); // Added by Magius(CHE)
-						strupr(cinam2); // Added by Magius(CHE)
+						sprintf(ciname,"'%s'",pi_j->name().upper().ascii()); // Added by Magius(CHE)
+						sprintf(cinam2,"'%s'",pi_q->name().upper().ascii()); // Added by Magius(CHE)
 
 						if (pi_j->contserial==serial1 &&
 							pi_j->id()==pi_q->id()  &&
