@@ -7,16 +7,6 @@
 =================================================================
 -->
 <definitions>
-	<!-- Default Player privs -->
-	<acl id="player" rank="1">
-		<group name="command">
-			<action name="WHERE" permit="true" />
-			<action name="TRAVEL" permit="true" />
-			<action name="STAT" permit="true" />
-			<action name="SKILL" permit="true" />
-		</group>
-		<group name="multi"></group>
-	</acl>
 
 	<!-- Admin privs -->
 	<acl id="admin" rank="100">
@@ -32,20 +22,91 @@
 	</acl>
 
 	<!-- GameMaster privs -->
-	<acl id="gm" rank="50">
+	<acl id="gm" rank="75">
 		<group name="command">
 			<action name="any" permit="true" />
+			<action name="ACCOUNT" permit="false" />
+			<action name="ALLMOVE" permit="false" />
+			<action name="ALLSHOW" permit="false" />
+			<action name="DECORATION" permit="false" />
+			<action name="DOORGEN" permit="false" />
+			<action name="EXPORT" permit="false" />
+			<action name="IMPORT" permit="false" />
+			<action name="OPTIMIZEDB" permit="false" />
+			<action name="SEASON" permit="false" />
+			<action name="SHUTDOWN" permit="false" />
 		</group>
 		<group name="multi">
 			<action name="any" permit="true" />
 		</group>
 	</acl>
 
-	<!-- Counselor privs -->
-	<acl id="counselor" rank="25">
+	<!-- Seer privs -->
+	<acl id="seer" rank="50">
 		<group name="command">
 			<action name="any" permit="true" />
+			<action name="ACCOUNT" permit="false" />
+			<action name="ALLMOVE" permit="false" />
+			<action name="ALLSHOW" permit="false" />
+			<action name="DECORATION" permit="false" />
+			<action name="DOORGEN" permit="false" />
+			<action name="EDIT" permit="false" />
+			<action name="EXPORT" permit="false" />
+			<action name="GMTALK" permit="false" />
+			<action name="GUILDS" permit="false" />
+			<action name="IMPORT" permit="false" />
+			<action name="INFO" permit="false" />
+			<action name="INVUL" permit="false" />
+			<action name="NUKE" permit="false" />
+			<action name="WIPE" permit="false" />
+			<action name="OPTIMIZEDB" permit="false" />
+			<action name="SAVE" permit="false" />
+			<action name="SEASON" permit="false" />
+			<action name="SET" permit="false" />
+			<action name="SHUTDOWN" permit="false" />
+			<action name="TILE" permit="false" />
 		</group>
 		<group name="multi"></group>
 	</acl>
+
+	<!-- Counselor privs -->
+	<acl id="counselor" rank="25">
+		<group name="command">
+			<action name="any" permit="false" />
+			<action name="ACTION" permit="true" />
+			<action name="FIX" permit="true" />
+			<action name="GO" permit="true" />
+			<action name="FIX" permit="true" />
+			<action name="PAGENOTIFY" permit="true" />
+			<action name="PAGES" permit="true" />
+			<action name="PASSWORD" permit="true" />
+			<action name="TIME" permit="true" />
+			<action name="UPDATEPLAYER" permit="true" />
+			<action name="RESEND" permit="true" />
+			<action name="SERVERINFO" permit="true" />
+			<action name="STAFF" permit="true" />
+			<action name="TELE" permit="true" />
+			<action name="TRAVEL" permit="true" />
+			<action name="WHERE" permit="true" />
+			<action name="WHO" permit="true" />
+		</group>
+		<group name="multi"></group>
+	</acl>
+
+	<!-- Default Player privs -->
+	<acl id="player" rank="1">
+		<group name="command">
+			<action name="any" permit="false" />
+			<action name="ACTION" permit="true" />
+			<action name="FIX" permit="true" />
+			<action name="PASSWORD" permit="true" />
+			<action name="TIME" permit="true" />
+			<action name="UPDATEPLAYER" permit="true" />
+			<action name="RESEND" permit="true" />
+			<action name="SERVERINFO" permit="true" />
+			<action name="WHERE" permit="true" />
+		</group>
+		<group name="multi"></group>
+	</acl>
+
 </definitions>
