@@ -7,7 +7,6 @@
 # Speech Script for Pets                                        #
 #===============================================================#
 
-from wolfpack.speech import addKeyword,setCatchAll
 from wolfpack.consts import *
 import wolfpack
 

@@ -7,7 +7,6 @@
 # Speech Script for Barbers                                     #
 #===============================================================#
 
-from wolfpack.speech import addKeyword,setCatchAll
 from wolfpack.consts import *
 from wolfpack.gumps import cGump
 import wolfpack
