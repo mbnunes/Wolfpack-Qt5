@@ -46,6 +46,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fix for skills.xml and NPCs: magicresist is now magicresistance.
   - Fixed weaponsmith not buying weapons.
   - Adjusted light radius of some items.
+  - Added books to learn special abilities (mining sand/stone; glassblowing; masonry)
+  - Added granite and sand definitions
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
   - Added an follow button to who menu.
@@ -97,6 +99,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Updated the allskills command to account for the ALLSKILLS constant.
   - Tweaked the plant system a little so pressing the water button searches for water in the backpack.
   - Tinker can repair items.
+  - Added scripts for special books (learning special abilities).
+  - Miners can dig sand if they learned it from a book (sandmining_book).
+  - Implemented masonry.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
