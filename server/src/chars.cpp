@@ -2795,9 +2795,8 @@ void cChar::turnTo( cUObject *object )
 	{
 		changed_ = true;
 		dir_ = nDir;
-		// TODO: we could try to use an update here because our direction
-		// changed for sure
-		resend( false );
+		
+		update();
 	}
 }
 
