@@ -35,8 +35,7 @@
 		<tactics><random min="192" max="290" /></tactics>
 		<magicresistance><random min="151" max="200" /></magicresistance>
 		<anatomy>0</anatomy>
-		<!-- Misc. -->
-		<mintaming>1100</mintaming>
+		<!-- Misc. -->S
 		<carve>carve_dolphin</carve>
 		<category>Animals\Sea\Dolphin</category>
 	</npc>
