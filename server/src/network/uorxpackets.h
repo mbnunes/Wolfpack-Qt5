@@ -387,10 +387,10 @@ public:
 	cUORxBookPage( const QByteArray &data ): cUOPacket( data ) {}
 	UINT16 size() { return getShort( 1 ); }
 	UINT32 serial() { return getInt( 3 ); }
-	UINT16 pages() { return getShort( 7 ); }
+	UINT16 page() { return getShort( 9 ); }
+	UINT16 numOfLines() { return getShort( 11 ); }
 
-	UINT16 numOfLinesOnPage( UINT16 page );
-	QStringList linesOnPage( UINT16 page );
+	QStringList lines();
 };
 
 #endif

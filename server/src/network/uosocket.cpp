@@ -1644,34 +1644,27 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 	cBook* pBook = dynamic_cast< cBook* >(FindItemBySerial( packet->serial() ));
 	if( pBook )
 	{
-		UINT16 currPage = 1;
-		UINT16 currNumLines;
-		while( currPage <= packet->pages() )
+		if( packet->numOfLines() == (UINT16)-1 )
 		{
-			currNumLines = packet->numOfLinesOnPage( currPage );
-			if( currNumLines == (UINT16)-1 )
+			// simple page request
+			pBook->readPage( this, packet->page() );
+		}
+		else
+		{
+			// page write request
+			QStringList content_ = pBook->content();
+			QStringList lines = packet->lines();
+			
+			QString toInsert = QString();
+			QStringList::const_iterator it = lines.begin();
+			while( it != lines.end() )
 			{
-				// simple page request
-				pBook->readPage( this, currPage );
+				toInsert += (*it);
+				it++;
 			}
-			else
-			{
-				// page write request
-				QStringList content_ = pBook->content();
-				QStringList lines = packet->linesOnPage( currPage );
-				
-				QString toInsert = QString();
-				QStringList::const_iterator it = lines.begin();
-				while( it != lines.end() )
-				{
-					toInsert += (*it);
-					it++;
-				}
 
-				content_[currPage-1] = toInsert;
-				pBook->setContent( content_ );
-			}
-			currPage++;
+			content_[packet->page() - 1] = toInsert;
+			pBook->setContent( content_ );
 		}
 	}	
 }
