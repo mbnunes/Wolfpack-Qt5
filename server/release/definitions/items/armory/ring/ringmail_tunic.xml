@@ -32,12 +32,12 @@
 		<sellprice>109</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Ringmail\Tunic (N/S)</category>
+		<category>Armor\Base\Ringmail\Tunic (N/S)</category>
 	</item>
 
 	<item id="13ed" inherit="13ec">
 		<id>0x13ed</id>
-		<category>Armor\Ringmail\Tunic (E/W)</category>
+		<category>Armor\Base\Ringmail\Tunic (E/W)</category>
 	</item>
 
 </definitions>

@@ -10,42 +10,42 @@
 
 	<!-- chainmail armor -->
 	<!-- chainmail coif -->
-	<item id="golden_armor_chain_coif">
+	<item id="gold_armor_chain_coif">
 		<inherit id="13bb" />
-		<golden_armor />
-		<category>Armor\Golden\Chainmail\Coif (N/S)</category>
+		<gold_armor />
+		<category>Armor\gold\Chainmail\Coif (N/S)</category>
 	</item>
 
-	<item id="golden_armor_chain_coif_2">
+	<item id="gold_armor_chain_coif_2">
 		<inherit id="13c0" />
-		<golden_armor />
-		<category>Armor\Golden\Chainmail\Coif (E/W)</category>
+		<gold_armor />
+		<category>Armor\gold\Chainmail\Coif (E/W)</category>
 	</item>
 
 	<!-- chainmail leggings -->
-	<item id="golden_armor_chain_leggings">
+	<item id="gold_armor_chain_leggings">
 		<inherit id="13be" />
-		<golden_armor />
-		<category>Armor\Golden\Chainmail\Leggings (N/S)</category>
+		<gold_armor />
+		<category>Armor\gold\Chainmail\Leggings (N/S)</category>
 	</item>
 
-	<item id="golden_armor_chain_leggings_2">
+	<item id="gold_armor_chain_leggings_2">
 		<inherit id="13c3" />
-		<golden_armor />
-		<category>Armor\Golden\Chainmail\Leggings (E/W)</category>
+		<gold_armor />
+		<category>Armor\gold\Chainmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- chainmail tunic -->
-	<item id="golden_armor_chain_tunic">
+	<item id="gold_armor_chain_tunic">
 		<inherit id="13bf" />
-		<golden_armor />
-		<category>Armor\Golden\Chainmail\Tunic (N/S)</category>
+		<gold_armor />
+		<category>Armor\gold\Chainmail\Tunic (N/S)</category>
 	</item>
 
-	<item id="golden_armor_chain_tunic_2">
+	<item id="gold_armor_chain_tunic_2">
 		<inherit id="13c4" />
-		<golden_armor />
-		<category>Armor\Golden\Chainmail\Tunic (E/W)</category>
+		<gold_armor />
+		<category>Armor\gold\Chainmail\Tunic (E/W)</category>
 	</item>
 
 </definitions>

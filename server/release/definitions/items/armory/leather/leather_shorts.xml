@@ -29,12 +29,12 @@
 		<sellprice>43</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Leather\Shorts (N/S)</category>
+		<category>Armor\Base\Leather\Shorts (N/S)</category>
 	</item>
 
 	<item id="1c01" inherit="1c00">
 		<id>0x1c01</id>
-		<category>Armor\Leather\Shorts (E/W)</category>
+		<category>Armor\Base\Leather\Shorts (E/W)</category>
 	</item>
 
 </definitions>

@@ -10,55 +10,55 @@
 
 	<!-- ring armor -->
 	<!-- ring gloves -->
-	<item id="golden_armor_ring_gloves">
+	<item id="gold_armor_ring_gloves">
 		<inherit id="13eb" />
-		<golden_armor />
-		<category>Armor\Golden\Ringmail\Gloves (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Ringmail\Gloves (N/S)</category>
 	</item>
 
-	<item id="golden_armor_ring_gloves_2">
+	<item id="gold_armor_ring_gloves_2">
 		<inherit id="13f2" />
-		<golden_armor />
-		<category>Armor\Golden\Ringmail\Gloves (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Ringmail\Gloves (E/W)</category>
 	</item>
 
 	<!-- ring leggings -->
-	<item id="golden_armor_ring_leggings">
+	<item id="gold_armor_ring_leggings">
 		<inherit id="13f0" />
-		<golden_armor />
-		<category>Armor\Golden\Ringmail\Leggings (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Ringmail\Leggings (N/S)</category>
 	</item>
 
-	<item id="golden_armor_ring_leggings_2">
+	<item id="gold_armor_ring_leggings_2">
 		<inherit id="13f1" />
-		<golden_armor />
-		<category>Armor\Golden\Ringmail\Leggings (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Ringmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- ring sleeves -->
-	<item id="golden_armor_ring_sleeves">
+	<item id="gold_armor_ring_sleeves">
 		<inherit id="13ee" />
-		<golden_armor />
-		<category>Armor\Golden\Ringmail\Sleeves (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Ringmail\Sleeves (N/S)</category>
 	</item>
 
-	<item id="golden_armor_ring_sleeves_2">
+	<item id="gold_armor_ring_sleeves_2">
 		<inherit id="13ef" />
-		<golden_armor />
-		<category>Armor\Golden\Ringmail\Sleeves (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Ringmail\Sleeves (E/W)</category>
 	</item>
 
 	<!-- ring tunic -->
-	<item id="golden_armor_ring_tunic">
+	<item id="gold_armor_ring_tunic">
 		<inherit id="13ec" />
-		<golden_armor />
-		<category>Armor\Golden\Ringmail\Tunic (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Ringmail\Tunic (N/S)</category>
 	</item>
 
-	<item id="golden_armor_ring_tunic_2">
+	<item id="gold_armor_ring_tunic_2">
 		<inherit id="13ed" />
-		<golden_armor />
-		<category>Armor\Golden\Ringmail\Tunic (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Ringmail\Tunic (E/W)</category>
 	</item>
 
 </definitions>

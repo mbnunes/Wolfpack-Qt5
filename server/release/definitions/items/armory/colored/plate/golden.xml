@@ -10,88 +10,75 @@
 
 	<!-- plate armor -->
 	<!-- female plate armor -->
-	<item id="golden_armor_plate_female">
-		<inherit id="1c04" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Female Armor (N/S)</category>
+	<item id="gold_armor_plate_female" inherit="1c04">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Female Armor (N/S)</category>
 	</item>
 
-	<item id="golden_armor_plate_female_2">
-		<inherit id="1c05" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Female Armor (E/W)</category>
+	<item id="gold_armor_plate_female_2" inherit="1c05">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Female Armor (E/W)</category>
 	</item>
 
 	<!-- male plate armor -->
-	<item id="golden_armor_plate_male">
-		<inherit id="1415" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Male Armor (N/S)</category>
+	<item id="gold_armor_plate_male" inherit="1415">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Male Armor (N/S)</category>
 	</item>
 
-	<item id="golden_armor_plate_male_2">
-		<inherit id="1416" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Male Armor (E/W)</category>
+	<item id="gold_armor_plate_male_2" inherit="1416">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Male Armor (E/W)</category>
 	</item>
 
 	<!-- plate arms -->
-	<item id="golden_armor_plate_arms">
-		<inherit id="1410" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Arms (N/S)</category>
+	<item id="gold_armor_plate_arms" inherit="1410">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Arms (N/S)</category>
 	</item>
 
-	<item id="golden_armor_plate_arms_2">
-		<inherit id="1417" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Arms (E/W)</category>
+	<item id="gold_armor_plate_arms_2" inherit="1417">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Arms (E/W)</category>
 	</item>
 
 	<!-- plate gloves -->
-	<item id="golden_armor_plate_gloves">
-		<inherit id="1414" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Gloves (N/S)</category>
+	<item id="gold_armor_plate_gloves" inherit="1414">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Gloves (N/S)</category>
 	</item>
 
-	<item id="golden_armor_plate_gloves_2">
-		<inherit id="1418" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Gloves (E/W)</category>
+	<item id="gold_armor_plate_gloves_2" inherit="1418">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Gloves (E/W)</category>
 	</item>
 
 	<!-- plate gorget -->
-	<item id="golden_armor_plate_gorget">
-		<inherit id="1413" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Gorget</category>
+	<item id="gold_armor_plate_gorget" inherit="1413">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Gorget</category>
 	</item>
 
 	<!-- plate helmet -->
-	<item id="golden_armor_plate_helmet">
-		<inherit id="1412" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Helm (N/S)</category>
+	<item id="gold_armor_plate_helmet" inherit="1412">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Helm (N/S)</category>
 	</item>
 
-	<item id="golden_armor_plate_helmet_2">
-		<inherit id="1419" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Helm (E/W)</category>
+	<item id="gold_armor_plate_helmet_2" inherit="1419">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Helm (E/W)</category>
 	</item>
 
 	<!-- plate leggings -->
-	<item id="golden_armor_plate_leggings">
-		<inherit id="1411" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Legs (N/S)</category>
+	<item id="gold_armor_plate_leggings" inherit="1411">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Legs (N/S)</category>
 	</item>
 
-	<item id="golden_armor_plate_leggings_2">
-		<inherit id="141a" />
-		<golden_armor />
-		<category>Armor\Golden\Platemail\Legs (E/W)</category>
+	<item id="gold_armor_plate_leggings_2" inherit="141a">
+		<gold_armor />
+		<category>Armor\Gold\Platemail\Legs (E/W)</category>
 	</item>
 
 </definitions>

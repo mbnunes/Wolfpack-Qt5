@@ -29,7 +29,7 @@
 		<sellprice>0</sellprice>
 		<type>1008</type>
 		<events>equipment</events>
-		<category>Armor\Shields\Chaos Shield</category>
+		<category>Armor\Base\Shields\Chaos Shield</category>
 	</item>
 
 </definitions>

@@ -15,8 +15,8 @@
 		<decay />
 		<nodye />
 		<durability><random min="35" max="44" /></durability>
-		<tag name="req_str" value="20" type="int" />
-		<tag name="aos_req_str" value="25" type="int" />
+		<!-- <tag name="req_str" value="20" type="int" /> -->
+		<tag name="req_str" value="25" type="int" />
 		<tag name="res_physical" value="2" type="int" />
 		<tag name="res_fire" value="4" type="int" />
 		<tag name="res_cold" value="3" type="int" />
@@ -29,12 +29,12 @@
 		<sellprice>43</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Studded Leather\Sleeves (N/S)</category>
+		<category>Armor\Base\Studded Leather\Sleeves (N/S)</category>
 	</item>
 
 	<item id="13dc" inherit="13d4">
 		<id>0x13dc</id>
-		<category>Armor\Studded Leather\Sleeves (E/W)</category>
+		<category>Armor\Base\Studded Leather\Sleeves (E/W)</category>
 	</item>
 
  </definitions>

@@ -32,12 +32,12 @@
 		<sellprice>73</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Ringmail\Leggings (N/S)</category>
+		<category>Armor\Base\Ringmail\Leggings (N/S)</category>
 	</item>
 
 	<item id="13f1" inherit="13f0">
 		<id>0x13f1</id>
-		<category>Armor\Ringmail\Leggings (E/W)</category>
+		<category>Armor\Base\Ringmail\Leggings (E/W)</category>
 	</item>
 
 </definitions>

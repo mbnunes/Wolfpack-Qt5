@@ -30,7 +30,7 @@
 		<sellprice>33</sellprice>
 		<type>1008</type>
 		<events>equipment</events>
-		<category>Armor\Shields\Buckler</category>
+		<category>Armor\Base\Shields\Buckler</category>
 	</item>
 
 </definitions>

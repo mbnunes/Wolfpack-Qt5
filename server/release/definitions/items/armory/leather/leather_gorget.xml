@@ -29,7 +29,7 @@
 		<sellprice>37</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Leather\Gorget</category>
+		<category>Armor\Base\Leather\Gorget</category>
 	</item>
 
 </definitions>

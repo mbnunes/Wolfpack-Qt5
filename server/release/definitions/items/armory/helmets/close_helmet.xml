@@ -30,13 +30,13 @@
 		<sellprice>72</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Helmets\Close Helm (N/S)</category>
+		<category>Armor\Base\Helmets\Close Helm (N/S)</category>
 	</item>
 
 	<!-- Close Helmet East-West -->
 	<item id="1408" inherit="1409">
 		<id>0x1408</id>
-		<category>Armor\Helmets\Close Helm (E/W)</category>
+		<category>Armor\Base\Helmets\Close Helm (E/W)</category>
 	</item>
 
 </definitions>

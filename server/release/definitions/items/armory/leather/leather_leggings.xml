@@ -29,12 +29,12 @@
 		<sellprice>40</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Leather\Leggings (N/S)</category>
+		<category>Armor\Base\Leather\Leggings (N/S)</category>
 	</item>
 
 	<item id="13d2" inherit="13cb">
 		<id>0x13d2</id>
-		<category>Armor\Leather\Leggings (E/W)</category>
+		<category>Armor\Base\Leather\Leggings (E/W)</category>
 	</item>
 
 </definitions>

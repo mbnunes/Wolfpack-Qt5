@@ -32,12 +32,12 @@
 		<sellprice>61</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Ringmail\Gloves (N/S)</category>
+		<category>Armor\Base\Ringmail\Gloves (N/S)</category>
 	</item>
 
 	<item id="13f2" inherit="13eb">
 		<id>0x13f2</id>
-		<category>Armor\Ringmail\Gloves (E/W)</category>
+		<category>Armor\Base\Ringmail\Gloves (E/W)</category>
 	</item>
 
 </definitions>

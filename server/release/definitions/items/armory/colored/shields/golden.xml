@@ -10,83 +10,83 @@
 
 	<!-- shields -->
 	<!-- buckler -->
-	<item id="golden_shields_buckler">
+	<item id="gold_shields_buckler">
 		<inherit id="1b73" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Buckler</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Buckler</category>
 	</item>
 
 	<!-- bronze shield -->
-	<item id="golden_shields_bronze_shield">
+	<item id="gold_shields_bronze_shield">
 		<inherit id="1b72" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Bronze</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Bronze</category>
 	</item>
 
 	<!-- heater -->
-	<item id="golden_shields_heater_shield">
+	<item id="gold_shields_heater_shield">
 		<inherit id="1b76" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Heater (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Heater (N/S)</category>
 	</item>
 
-	<item id="golden_shields_heater_shield_2">
+	<item id="gold_shields_heater_shield_2">
 		<inherit id="1b77" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Heater (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Heater (E/W)</category>
 	</item>
 
 	<!-- metal shield -->
-	<item id="golden_shields_metal_shield">
+	<item id="gold_shields_metal_shield">
 		<inherit id="1b7b" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Metal Shield</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Metal Shield</category>
 	</item>
 
 	<!-- metal kite shield -->
-	<item id="golden_shields_metal_kite_shield">
+	<item id="gold_shields_metal_kite_shield">
 		<inherit id="1b74" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Metal Kite (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Metal Kite (N/S)</category>
 	</item>
 
-	<item id="golden_shields_metal_kite_shield_2">
+	<item id="gold_shields_metal_kite_shield_2">
 		<inherit id="1b75" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Metal Kite (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Metal Kite (E/W)</category>
 	</item>
 
 	<!-- wooden kite shield -->
-	<item id="golden_shields_wooden_kite_shield">
+	<item id="gold_shields_wooden_kite_shield">
 		<inherit id="1b78" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Wooden Kite (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Wooden Kite (N/S)</category>
 	</item>
 
-	<item id="golden_shields_wooden_kite_shield_2">
+	<item id="gold_shields_wooden_kite_shield_2">
 		<inherit id="1b79" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Wooden Kite (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Wooden Kite (E/W)</category>
 	</item>
 
 	<!-- chaos shield -->
-	<item id="golden_shields_chaos_shield">
+	<item id="gold_shields_chaos_shield">
 		<inherit id="1bc3" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Chaos Shield</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Chaos Shield</category>
 	</item>
 
 	<!-- order shield -->
-	<item id="golden_shields_order_shield">
+	<item id="gold_shields_order_shield">
 		<inherit id="1bc4" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Order Shield (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Order Shield (N/S)</category>
 	</item>
 
-	<item id="golden_shields_order_shield_2">
+	<item id="gold_shields_order_shield_2">
 		<inherit id="1bc5" />
-		<golden_armor />
-		<category>Armor\Golden\Shields\Order Shield (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Shields\Order Shield (E/W)</category>
 	</item>
 
 </definitions>

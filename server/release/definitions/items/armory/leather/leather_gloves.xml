@@ -29,12 +29,12 @@
 		<sellprice>30</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Leather\Gloves (N/S)</category>
+		<category>Armor\Base\Leather\Gloves (N/S)</category>
 	</item>
 
 	<item id="13ce" inherit="13c6">
 		<id>0x13ce</id>
-		<category>Armor\Leather\Gloves (E/W)</category>
+		<category>Armor\Base\Leather\Gloves (E/W)</category>
 	</item>
 
 </definitions>

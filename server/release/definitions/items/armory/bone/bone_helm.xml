@@ -29,13 +29,13 @@
 		<value>0</value>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Bone\Bone Helmet (N/S)</category>
+		<category>Armor\Base\Bone\Bone Helmet (N/S)</category>
 	</item>
 
 	<!-- Bone Helm East-West -->
 	<item id="1456" inherit="1451">
 		<id>0x1456</id>
-		<category>Armor\Bone\Bone Helmet (E/W)</category>
+		<category>Armor\Base\Bone\Bone Helmet (E/W)</category>
 	</item>
 
 </definitions>

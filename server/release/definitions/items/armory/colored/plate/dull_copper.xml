@@ -10,86 +10,73 @@
 
 	<!-- plate armor -->
 	<!-- female plate armor -->
-	<item id="dull_copper_armor_plate_female">
-		<inherit id="1c04" />
+	<item id="dull_copper_armor_plate_female" inherit="1c04">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Female Armor (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_plate_female_2">
-		<inherit id="1c05" />
+	<item id="dull_copper_armor_plate_female_2" inherit="1c05">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Female Armor (E/W)</category>
 	</item>
 
 	<!-- male plate armor -->
-	<item id="dull_copper_armor_plate_male">
-		<inherit id="1415" />
+	<item id="dull_copper_armor_plate_male" inherit="1415">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Male Armor (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_plate_male_2">
-		<inherit id="1416" />
+	<item id="dull_copper_armor_plate_male_2" inherit="1416">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Male Armor (E/W)</category>
 	</item>
 
 	<!-- plate arms -->
-	<item id="dull_copper_armor_plate_arms">
-		<inherit id="1410" />
+	<item id="dull_copper_armor_plate_arms" inherit="1410">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Arms (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_plate_arms_2">
-		<inherit id="1417" />
+	<item id="dull_copper_armor_plate_arms_2" inherit="1417">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Arms (E/W)</category>
 	</item>
 
 	<!-- plate gloves -->
-	<item id="dull_copper_armor_plate_gloves">
-		<inherit id="1414" />
+	<item id="dull_copper_armor_plate_gloves" inherit="1414">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Gloves (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_plate_gloves_2">
-		<inherit id="1418" />
+	<item id="dull_copper_armor_plate_gloves_2" inherit="1418">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Gloves (E/W)</category>
 	</item>
 
 	<!-- plate gorget -->
-	<item id="dull_copper_armor_plate_gorget">
-		<inherit id="1413" />
+	<item id="dull_copper_armor_plate_gorget" inherit="1413">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Gorget</category>
 	</item>
 
 	<!-- plate helmet -->
-	<item id="dull_copper_armor_plate_helmet">
-		<inherit id="1412" />
+	<item id="dull_copper_armor_plate_helmet" inherit="1412">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Helm (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_plate_helmet_2">
-		<inherit id="1419" />
+	<item id="dull_copper_armor_plate_helmet_2" inherit="1419">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Helm (E/W)</category>
 	</item>
 
 	<!-- plate leggings -->
-	<item id="dull_copper_armor_plate_leggings">
-		<inherit id="1411" />
+	<item id="dull_copper_armor_plate_leggings" inherit="1411">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Legs (N/S)</category>
 	</item>
 
-	<item id="dull_copper_armor_plate_leggings_2">
-		<inherit id="141a" />
+	<item id="dull_copper_armor_plate_leggings_2" inherit="141a">
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Platemail\Legs (E/W)</category>
 	</item>

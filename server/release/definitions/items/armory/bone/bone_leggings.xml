@@ -29,13 +29,13 @@
 		<value>0</value>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Bone\Leggings (N/S)</category>
+		<category>Armor\Base\Bone\Leggings (N/S)</category>
 	</item>
 
 	<!-- Bone Leggings East-West -->
 	<item id="1457" inherit="1452">
 		<id>0x1457</id>
-		<category>Armor\Bone\Leggings (E/W)</category>
+		<category>Armor\Base\Bone\Leggings (E/W)</category>
 	</item>
 
 </definitions>

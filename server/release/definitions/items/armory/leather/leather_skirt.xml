@@ -29,12 +29,12 @@
 		<sellprice>43</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Leather\Skirt (N/S)</category>
+		<category>Armor\Base\Leather\Skirt (N/S)</category>
 	</item>
 
 	<item id="1c09" inherit="1c08">
 		<id>0x1c09</id>
-		<category>Armor\Leather\Skirt (E/W)</category>
+		<category>Armor\Base\Leather\Skirt (E/W)</category>
 	</item>
 
 </definitions>

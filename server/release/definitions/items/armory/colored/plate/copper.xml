@@ -10,86 +10,73 @@
 
 	<!-- plate armor -->
 	<!-- female plate armor -->
-	<item id="copper_armor_plate_female">
-		<inherit id="1c04" />
+	<item id="copper_armor_plate_female" inherit="1c04">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Female Armor (N/S)</category>
 	</item>
 
-	<item id="copper_armor_plate_female_2">
-		<inherit id="1c05" />
+	<item id="copper_armor_plate_female_2" inherit="1c05">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Female Armor (E/W)</category>
 	</item>
 
 	<!-- male plate armor -->
-	<item id="copper_armor_plate_male">
-		<inherit id="1415" />
+	<item id="copper_armor_plate_male" inherit="1415">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Male Armor (N/S)</category>
 	</item>
 
-	<item id="copper_armor_plate_male_2">
-		<inherit id="1416" />
+	<item id="copper_armor_plate_male_2" inherit="1416">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Male Armor (E/W)</category>
 	</item>
 
 	<!-- plate arms -->
-	<item id="copper_armor_plate_arms">
-		<inherit id="1410" />
+	<item id="copper_armor_plate_arms" inherit="1410">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Arms (N/S)</category>
 	</item>
 
-	<item id="copper_armor_plate_arms_2">
-		<inherit id="1417" />
+	<item id="copper_armor_plate_arms_2" inherit="1417">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Arms (E/W)</category>
 	</item>
 
 	<!-- plate gloves -->
-	<item id="copper_armor_plate_gloves">
-		<inherit id="1414" />
+	<item id="copper_armor_plate_gloves" inherit="1414">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Gloves (N/S)</category>
 	</item>
 
-	<item id="copper_armor_plate_gloves_2">
-		<inherit id="1418" />
+	<item id="copper_armor_plate_gloves_2" inherit="1418">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Gloves (E/W)</category>
 	</item>
 
 	<!-- plate gorget -->
-	<item id="copper_armor_plate_gorget">
-		<inherit id="1413" />
+	<item id="copper_armor_plate_gorget" inherit="1413">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Gorget</category>
 	</item>
 
 	<!-- plate helmet -->
-	<item id="copper_armor_plate_helmet">
-		<inherit id="1412" />
+	<item id="copper_armor_plate_helmet" inherit="1412">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Helm (N/S)</category>
 	</item>
 
-	<item id="copper_armor_plate_helmet_2">
-		<inherit id="1419" />
+	<item id="copper_armor_plate_helmet_2" inherit="1419">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Helm (E/W)</category>
 	</item>
 
 	<!-- plate leggings -->
-	<item id="copper_armor_plate_leggings">
-		<inherit id="1411" />
+	<item id="copper_armor_plate_leggings" inherit="1411">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Legs (N/S)</category>
 	</item>
 
-	<item id="copper_armor_plate_leggings_2">
-		<inherit id="141a" />
+	<item id="copper_armor_plate_leggings_2" inherit="141a">
 		<copper_armor />
 		<category>Armor\Copper\Platemail\Legs (E/W)</category>
 	</item>

@@ -29,12 +29,12 @@
 		<sellprice>40</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Leather\Sleeves (N/S)</category>
+		<category>Armor\Base\Leather\Sleeves (N/S)</category>
 	</item>
 
 	<item id="13cd" inherit="13c5">
 		<id>0x13cd</id>
-		<category>Armor\Leather\Sleeves (E/W)</category>
+		<category>Armor\Base\Leather\Sleeves (E/W)</category>
 	</item>
 
 </definitions>

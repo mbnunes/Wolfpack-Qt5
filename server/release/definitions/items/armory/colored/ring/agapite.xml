@@ -10,53 +10,48 @@
 
 	<!-- ring armor -->
 	<!-- ring gloves -->
-	<item id="agapite_armor_ring_gloves">
-		<inherit id="13eb" />
+	<item id="agapite_armor_ring_gloves" inherit="13eb">
 		<agapite_armor />
+
 		<category>Armor\Agapite\Ringmail\Gloves (N/S)</category>
 	</item>
 
-	<item id="agapite_armor_ring_gloves_2">
-		<inherit id="13f2" />
+	<item id="agapite_armor_ring_gloves_2" inherit="13f2">
+		 />
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Gloves (E/W)</category>
 	</item>
 
 	<!-- ring leggings -->
-	<item id="agapite_armor_ring_leggings">
-		<inherit id="13f0" />
+	<item id="agapite_armor_ring_leggings" inherit="13f0">
+		 />
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Leggings (N/S)</category>
 	</item>
 
-	<item id="agapite_armor_ring_leggings_2">
-		<inherit id="13f1" />
+	<item id="agapite_armor_ring_leggings_2" inherit="13f1">
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- ring sleeves -->
-	<item id="agapite_armor_ring_sleeves">
-		<inherit id="13ee" />
+	<item id="agapite_armor_ring_sleeves" inherit="13ee">
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Sleeves (N/S)</category>
 	</item>
 
-	<item id="agapite_armor_ring_sleeves_2">
-		<inherit id="13ef" />
+	<item id="agapite_armor_ring_sleeves_2" inherit="13ef">
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Sleeves (E/W)</category>
 	</item>
 
 	<!-- ring tunic -->
-	<item id="agapite_armor_ring_tunic">
-		<inherit id="13ec" />
+	<item id="agapite_armor_ring_tunic" inherit="13ec">
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Tunic (N/S)</category>
 	</item>
 
-	<item id="agapite_armor_ring_tunic_2">
-		<inherit id="13ed" />
+	<item id="agapite_armor_ring_tunic_2" inherit="13ed">
 		<agapite_armor />
 		<category>Armor\Agapite\Ringmail\Tunic (E/W)</category>
 	</item>

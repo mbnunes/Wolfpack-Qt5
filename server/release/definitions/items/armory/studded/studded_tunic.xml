@@ -15,8 +15,8 @@
 		<decay />
 		<nodye />
 		<durability><random min="35" max="45" /></durability>
-		<tag name="req_str" value="30" type="int" />
-		<tag name="aos_req_str" value="35" type="int" />
+		<!-- <tag name="req_str" value="30" type="int" /> -->
+		<tag name="req_str" value="35" type="int" />
 		<tag name="res_physical" value="2" type="int" />
 		<tag name="res_fire" value="4" type="int" />
 		<tag name="res_cold" value="3" type="int" />
@@ -29,12 +29,12 @@
 		<sellprice>64</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Studded Leather\Tunic (N/S)</category>
+		<category>Armor\Base\Studded Leather\Tunic (N/S)</category>
 	</item>
 
 	<item id="13e2" inherit="13db">
 		<id>0x13e2</id>
-		<category>Armor\Studded Leather\Tunic (E/W)</category>
+		<category>Armor\Base\Studded Leather\Tunic (E/W)</category>
 	</item>
 
 </definitions>

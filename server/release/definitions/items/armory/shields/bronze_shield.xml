@@ -30,7 +30,7 @@
 		<sellprice>50</sellprice>
 		<type>1008</type>
 		<events>equipment</events>
-		<category>Armor\Shields\Bronze Shield</category>
+		<category>Armor\Base\Shields\Bronze Shield</category>
 	</item>
 
 </definitions>

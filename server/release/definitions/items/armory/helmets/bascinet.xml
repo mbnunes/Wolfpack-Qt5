@@ -30,13 +30,13 @@
 		<sellprice>63</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Helmets\Bascinet (N/S)</category>
+		<category>Armor\Base\Helmets\Bascinet (N/S)</category>
 	</item>
 
 	<!-- Bascinet Helmet East-West-->
 	<item id="140c" inherit="140d">
 		<id>0x140c</id>
-		<category>Armor\Helmets\Bascinet (E/W)</category>
+		<category>Armor\Base\Helmets\Bascinet (E/W)</category>
 	</item>
 
 </definitions>

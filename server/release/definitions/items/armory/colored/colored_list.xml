@@ -15,12 +15,12 @@
 	<include file="definitions/items/armory/colored/chain/copper.xml"/>
 	<include file="definitions/items/armory/colored/chain/bronze.xml"/>
 	<include file="definitions/items/armory/colored/chain/golden.xml"/>
-	<include file="definitions/items/armory/colored/chain/silver.xml"/>
+	<!--<include file="definitions/items/armory/colored/chain/silver.xml"/>-->
 	<include file="definitions/items/armory/colored/chain/agapite.xml"/>
 	<include file="definitions/items/armory/colored/chain/verite.xml"/>
 	<include file="definitions/items/armory/colored/chain/valorite.xml"/>
-	<include file="definitions/items/armory/colored/chain/merkite.xml"/>
-	<include file="definitions/items/armory/colored/chain/mythril.xml"/>
+	<!--<include file="definitions/items/armory/colored/chain/merkite.xml"/>-->
+	<!--<include file="definitions/items/armory/colored/chain/mythril.xml"/>-->
 
 	<!-- Helmets -->
 	<include file="definitions/items/armory/colored/helmets/iron.xml"/>
@@ -29,12 +29,12 @@
 	<include file="definitions/items/armory/colored/helmets/copper.xml"/>
 	<include file="definitions/items/armory/colored/helmets/bronze.xml"/>
 	<include file="definitions/items/armory/colored/helmets/golden.xml"/>
-	<include file="definitions/items/armory/colored/helmets/silver.xml"/>
+	<!--<include file="definitions/items/armory/colored/helmets/silver.xml"/>-->
 	<include file="definitions/items/armory/colored/helmets/agapite.xml"/>
 	<include file="definitions/items/armory/colored/helmets/verite.xml"/>
 	<include file="definitions/items/armory/colored/helmets/valorite.xml"/>
-	<include file="definitions/items/armory/colored/helmets/merkite.xml"/>
-	<include file="definitions/items/armory/colored/helmets/mythril.xml"/>
+	<!--<include file="definitions/items/armory/colored/helmets/merkite.xml"/>-->
+	<!--<include file="definitions/items/armory/colored/helmets/mythril.xml"/>-->
 
 	<!-- Plate -->
 	<include file="definitions/items/armory/colored/plate/iron.xml"/>
@@ -43,12 +43,12 @@
 	<include file="definitions/items/armory/colored/plate/copper.xml"/>
 	<include file="definitions/items/armory/colored/plate/bronze.xml"/>
 	<include file="definitions/items/armory/colored/plate/golden.xml"/>
-	<include file="definitions/items/armory/colored/plate/silver.xml"/>
+	<!--<include file="definitions/items/armory/colored/plate/silver.xml"/>-->
 	<include file="definitions/items/armory/colored/plate/agapite.xml"/>
 	<include file="definitions/items/armory/colored/plate/verite.xml"/>
 	<include file="definitions/items/armory/colored/plate/valorite.xml"/>
-	<include file="definitions/items/armory/colored/plate/merkite.xml"/>
-	<include file="definitions/items/armory/colored/plate/mythril.xml"/>
+	<!--<include file="definitions/items/armory/colored/plate/merkite.xml"/>-->
+	<!--<include file="definitions/items/armory/colored/plate/mythril.xml"/>-->
 
 	<!-- Ring -->
 	<include file="definitions/items/armory/colored/ring/iron.xml"/>
@@ -57,12 +57,12 @@
 	<include file="definitions/items/armory/colored/ring/copper.xml"/>
 	<include file="definitions/items/armory/colored/ring/bronze.xml"/>
 	<include file="definitions/items/armory/colored/ring/golden.xml"/>
-	<include file="definitions/items/armory/colored/ring/silver.xml"/>
+	<!--<include file="definitions/items/armory/colored/ring/silver.xml"/>-->
 	<include file="definitions/items/armory/colored/ring/agapite.xml"/>
 	<include file="definitions/items/armory/colored/ring/verite.xml"/>
 	<include file="definitions/items/armory/colored/ring/valorite.xml"/>
-	<include file="definitions/items/armory/colored/ring/merkite.xml"/>
-	<include file="definitions/items/armory/colored/ring/mythril.xml"/>
+	<!--<include file="definitions/items/armory/colored/ring/merkite.xml"/>-->
+	<!--<include file="definitions/items/armory/colored/ring/mythril.xml"/>-->
 
 	<!-- Shields -->
 	<include file="definitions/items/armory/colored/shields/iron.xml"/>
@@ -71,11 +71,11 @@
 	<include file="definitions/items/armory/colored/shields/copper.xml"/>
 	<include file="definitions/items/armory/colored/shields/bronze.xml"/>
 	<include file="definitions/items/armory/colored/shields/golden.xml"/>
-	<include file="definitions/items/armory/colored/shields/silver.xml"/>
+	<!--<include file="definitions/items/armory/colored/shields/silver.xml"/>-->
 	<include file="definitions/items/armory/colored/shields/agapite.xml"/>
 	<include file="definitions/items/armory/colored/shields/verite.xml"/>
 	<include file="definitions/items/armory/colored/shields/valorite.xml"/>
-	<include file="definitions/items/armory/colored/shields/merkite.xml"/>
-	<include file="definitions/items/armory/colored/shields/mythril.xml"/>
+	<!--<include file="definitions/items/armory/colored/shields/merkite.xml"/>-->
+	<!--<include file="definitions/items/armory/colored/shields/mythril.xml"/>-->
 
 </definitions>

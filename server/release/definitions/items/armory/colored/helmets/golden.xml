@@ -10,55 +10,55 @@
 
 	<!-- helmets -->
 	<!-- bascinet helmet -->
-	<item id="golden_helmets_bascinet">
+	<item id="gold_helmets_bascinet">
 		<inherit id="140d" />
-		<golden_armor />
-		<category>Armor\Golden\Helmets\Bascinet (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Helmets\Bascinet (N/S)</category>
 	</item>
 
-	<item id="golden_helmets_bascinet_2">
+	<item id="gold_helmets_bascinet_2">
 		<inherit id="140c" />
-		<golden_armor />
-		<category>Armor\Golden\Helmets\Bascinet (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Helmets\Bascinet (E/W)</category>
 	</item>
 
 	<!-- nose helmet -->
-	<item id="golden_helmets_nose">
+	<item id="gold_helmets_nose">
 		<inherit id="140f" />
-		<golden_armor />
-		<category>Armor\Golden\Helmets\Nose (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Helmets\Nose (N/S)</category>
 	</item>
 
-	<item id="golden_helmets_nose_2">
+	<item id="gold_helmets_nose_2">
 		<inherit id="140e" />
-		<golden_armor />
-		<category>Armor\Golden\Helmets\Nose (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Helmets\Nose (E/W)</category>
 	</item>
 
 	<!-- normal helmet -->
-	<item id="golden_helmets_helmet">
+	<item id="gold_helmets_helmet">
 		<inherit id="140b" />
-		<golden_armor />
-		<category>Armor\Golden\Helmets\Helmet (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="golden_helmets_helmet_2">
+	<item id="gold_helmets_helmet_2">
 		<inherit id="140a" />
-		<golden_armor />
-		<category>Armor\Golden\Helmets\Helmet (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Helmets\Helmet (E/W)</category>
 	</item>
 
 	<!-- close helmet -->
-	<item id="golden_helmets_close">
+	<item id="gold_helmets_close">
 		<inherit id="1409" />
-		<golden_armor />
-		<category>Armor\Golden\Helmets\Close Helm (N/S)</category>
+		<gold_armor />
+		<category>Armor\Gold\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="golden_helmets_close_2">
+	<item id="gold_helmets_close_2">
 		<inherit id="1408" />
-		<golden_armor />
-		<category>Armor\Golden\Helmets\Close Helm (E/W)</category>
+		<gold_armor />
+		<category>Armor\Gold\Helmets\Close Helm (E/W)</category>
 	</item>
 
 </definitions>

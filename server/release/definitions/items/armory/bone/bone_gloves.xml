@@ -29,13 +29,13 @@
 		<value>0</value>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Bone\Bone Gloves (N/S)</category>
+		<category>Armor\Base\Bone\Bone Gloves (N/S)</category>
 	</item>
 
 	<!-- Bone Gloves East-West -->
 	<item id="1455" inherit="1450">
 		<id>0x1455</id>
-		<category>Armor\Bone\Bone Gloves (E/W)</category>
+		<category>Armor\Base\Bone\Bone Gloves (E/W)</category>
 	</item>
 
 </definitions>

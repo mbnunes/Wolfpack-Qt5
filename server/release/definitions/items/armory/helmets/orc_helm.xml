@@ -23,13 +23,13 @@
 		<sellprice>63</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Helmets\Orc Helm (N/S)</category>
+		<category>Armor\Base\Helmets\Orc Helm (N/S)</category>
 	</item>
 
 	<!-- Orc Helmet East-West -->
 	<item id="1f0c" inherit="1f0b">
 		<id>0x1f0c</id>
-		<category>Armor\Helmets\Orc Helm (E/W)</category>
+		<category>Armor\Base\Helmets\Orc Helm (E/W)</category>
 	</item>
 
 </definitions>

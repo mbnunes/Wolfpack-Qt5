@@ -30,12 +30,12 @@
 		<sellprice>87</sellprice>
 		<type>1008</type>
 		<events>equipment</events>
-		<category>Armor\Shields\Heater (N/S)</category>
+		<category>Armor\Base\Shields\Heater (N/S)</category>
 	</item>
 
 	<item id="1b77" inherit="1b76">
 		<id>0x1b77</id>
-		<category>Armor\Shields\Heater (E/W)</category>
+		<category>Armor\Base\Shields\Heater (E/W)</category>
 	</item>
 
 </definitions>

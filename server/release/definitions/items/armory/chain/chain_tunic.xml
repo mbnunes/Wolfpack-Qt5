@@ -32,13 +32,13 @@
 		<buyprice>103</buyprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Chainmail\Tunic NS</category>
+		<category>Armor\Base\Chainmail\Tunic NS</category>
 	</item>
 
 	<!--  Chainmail Tunic East-West -->
 	<item id="13c4" inherit="13bf">
 		<id>0x13c4</id>
-		<category>Armor\Chainmail\Tunic EW</category>
+		<category>Armor\Base\Chainmail\Tunic EW</category>
 	</item>
 
 </definitions>

@@ -29,12 +29,12 @@
 		<sellprice>52</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Leather\Tunic (N/S)</category>
+		<category>Armor\Base\Leather\Tunic (N/S)</category>
 	</item>
 
 	<item id="13d3" inherit="13cc">
 		<id>0x13d3</id>
-		<category>Armor\Leather\Tunic (E/W)</category>
+		<category>Armor\Base\Leather\Tunic (E/W)</category>
 	</item>
 
 </definitions>

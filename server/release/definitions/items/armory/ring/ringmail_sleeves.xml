@@ -31,12 +31,12 @@
 		<sellprice>63</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Ringmail\Sleeves (N/S)</category>
+		<category>Armor\Base\Ringmail\Sleeves (N/S)</category>
 	</item>
 
 	<item id="13ef" inherit="13ee">
 		<id>0x13ef</id>
-		<category>Armor\Ringmail\Sleeves (E/W)</category>
+		<category>Armor\Base\Ringmail\Sleeves (E/W)</category>
 	</item>
 
 </definitions>

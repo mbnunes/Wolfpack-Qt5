@@ -33,13 +33,13 @@
 		<sellprice>83</sellprice>
 		<type>1009</type>
 		<events>equipment</events>
-		<category>Armor\Chainmail\Leggings (N/S)</category>
+		<category>Armor\Base\Chainmail\Leggings (N/S)</category>
 	</item>
 
 	<!--  Chainmail Leggings East-West -->
 	<item id="13c3" inherit="13be">
 		<id>0x13c3</id>
-		<category>Armor\Chainmail\Leggings (E/W)</category>
+		<category>Armor\Base\Chainmail\Leggings (E/W)</category>
 	</item>
 
 </definitions>
