@@ -2,8 +2,8 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh	                        |
-|   )).-' {{ ;'`   | Revised by: sereg                          |
-|  ( (  ;._ \\ ctr | Last Modification: reorganized             |
+|   )).-' {{ ;'`   | Revised by: sereg, Viper                   |
+|  ( (  ;._ \\ ctr | Last Modification: item corrections        |
 =================================================================
 -->
 <definitions>
@@ -22,99 +22,142 @@
 
 	<!-- buckler -->
 	<item id="1b73">
+		<name>buckler</name>
 		<decay />
-		<defense>5</defense>
-		<durability>100</durability>
 		<nodye />
+		<defense>1.1</defense>
+		<durability>28</durability>
 		<id>0x1B73</id>
-		<layer>6</layer>
-		<modifier type='dex'>-2</modifier>
-		<requires type='str'>45</requires> 
+		<requires type='str'>15</requires> 
+		<restock>10</restock>
+		<smelt>8</smelt>
+		<weight>5</weight>
+		<value>66</value>
+		<category>Armor\Non Magical\Shields\buckler</category>
+	</item>
+
+	<!-- wooden shield -->
+	<item id="1b7a">
+		<name>wooden shield</name>
+		<decay />
+		<nodye />
+		<defense>1.2</defense>
+		<durability>22</durability>
+		<id>0x1B7A</id>
+		<requires type='str'>5</requires> 
+		<restock>10</restock>
+		<weight>5</weight>
+		<value>64</value>
+		<category>Armor\Non Magical\Shields\wooden shield</category>
+	</item>
+
+	<!-- metal shield -->
+	<item id="1b7b">
+		<name>metal shield</name>
+		<decay />
+		<nodye />
+		<defense>1.3</defense>
+		<durability>40</durability>
+		<id>0x1B7B</id>
+		<requires type='str'>20</requires> 
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>6</weight>
+		<value>98</value>
+		<category>Armor\Non Magical\Shields\metal shield</category>
+	</item>
+
+	<!-- bronze shield -->
+	<item id="1b72">
+		<name>bronze shield</name>
+		<decay />
+		<nodye />
+		<defense>1.4</defense>
+		<durability>28</durability>
+		<id>0x1B72</id>
+		<requires type='str'>20</requires> 
 		<restock>10</restock>
 		<smelt>4</smelt>
-		<type>1008</type>
 		<weight>27</weight>
-		<value>10.0</value>
+		<value>100</value>
+		<category>Armor\Non Magical\Shields\bronze shield</category>
+	</item>
+
+	<!-- wooden kite shield -->
+	<item id="1b78">
+		<name>kite shield</name>
+		<decay />
+		<nodye />
+		<defense>1.6</defense>
+		<durability>52</durability>
+		<id>0x1B78</id>
+		<requires type='str'>15</requires> 
+		<restock>10</restock>
+		<smelt>6</smelt>
+		<weight>7</weight>
+		<value>121</value>
+		<category>Armor\Non Magical\Shields\wooden kite</category>
+	</item>
+
+	<!-- metal kite shield -->
+	<item id="1b74">
+		<name>kite shield</name>
+		<decay />
+		<dye />
+		<defense>1.8</defense>
+		<durability>108</durability>
+		<id>0x1B74</id>
+		<requires type='str'>30</requires> 
+		<restock>10</restock>
+		<smelt>13</smelt>
+		<weight>5</weight>
+		<value>135</value>
+		<category>Armor\Non Magical\Shields\metal kite</category>
 	</item>
 
 	<!-- heater -->
 	<item id="1b76">
+		<name>heater shield</name>
 		<decay />
-		<defense>15</defense>
-		<durability>100</durability>
 		<nodye />
+		<defense>2.0</defense>
+		<durability>34</durability>
 		<id>0x1B76</id>
-		<layer>13</layer>
-		<modifier type='dex'>-15</modifier>
-		<requires type='str'>95</requires> 
-		<restock>10</restock>
-		<smelt>18</smelt>
-		<weight>36</weight>
-		<type>1008</type>
-		<value>30.0</value>
-	</item>
-
-	<!-- normal shield -->
-	<item id="1b7b">
-		<decay />
-		<defense>18</defense>
-		<type>1008</type>
-		<durability>100</durability>
-		<nodye />
-		<id>0x1B7B</id>
-		<layer>2</layer>
-		<modifier type='dex'>-8</modifier>
-		<requires type='str'>100</requires> 
-		<restock>10</restock>
-		<smelt>6</smelt>
-		<weight>126</weight>
-		<value>36.0</value>
-	</item>
-
-	<!-- kite shield -->
-	<item id="1b74">
-		<decay />
-		<defense>25</defense>
-		<durability>100</durability>
-		<dye />
-		<id>0x1B74</id>
-		<layer>24</layer>
-		<modifier type='dex'>-12</modifier>
-		<requires type='str'>85</requires> 
+		<requires type='str'>30</requires> 
 		<restock>10</restock>
 		<smelt>14</smelt>
-		<weight>5.4</weight>
-		<type>1008</type>
-		<value>500</value>
+		<weight>8</weight>
+		<value>175</value>
+		<category>Armor\Non Magical\Shields\heater</category>
 	</item>
 
-	<item id="1bc3">
-		<id>0x1bc3</id>
-		<type>1008</type>
-		<category>Armor\Shields\Chaos Shield</category>
-	</item>
-
+	<!-- order shield -->
 	<item id="1bc4">
-		<id>0x1bc4</id>
-		<type>1008</type>
-		<category>Armor\Shields\Order Shield (N/S)</category>
+		<name>order shield</name>
+		<decay />
+		<nodye />
+		<defense>2.2</defense>
+		<durability>108</durability>
+		<id>0x1BC4</id>
+		<requires type='str'>0</requires> 
+		<restock>0</restock>
+		<weight>5</weight>
+		<value>0</value>
+		<category>Armor\Non Magical\Shields\order shield</category>
 	</item>
 
-	<item id="1bc5">
-		<inherit id="1bc4" />
-		<id>0x1bc5</id>
-		<category>Armor\Shields\Order Shield (W/E)</category>
-	</item>
-
-	<item id="1bc6">
-		<type>1008</type>
-		<id>0x1bc6</id>
-		<category>Armor\Shields\Scale Shield (W/E)</category>
-	</item>
-
-	<item id="1bc7">
-		<inherit id="1bc6" />
-		<id>0x1bc7</id>
-		<category>Armor\Shields\Scale Shield (N/S)</category>
+	<!-- chaos shield -->
+	<item id="1bc3">
+		<name>order shield</name>
+		<decay />
+		<nodye />
+		<defense>2.4</defense>
+		<durability>108</durability>
+		<id>0x1BC3</id>
+		<requires type='str'>0</requires> 
+		<restock>0</restock>
+		<weight>5</weight>
+		<value>0</value>
+		<category>Armor\Non Magical\Shields\chaos shield</category>
 	</item>
 </definitions>

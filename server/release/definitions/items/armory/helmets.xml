@@ -18,8 +18,9 @@
 		<requires type='str'>10</requires> 
 		<restock>10</restock>
 		<smelt>12</smelt>
-		<weight>5</weight>
-		<value>127</value>
+		<weight>5.0</weight>
+		<buyprice>127</buyprice>
+		<sellprice>63</sellprice>
 		<category>Armor\Helmets\Bascinet</category>
 	</item>
 
@@ -34,8 +35,9 @@
 		<requires type='str'>40</requires> 
 		<restock>10</restock>
 		<smelt>12</smelt>
-		<weight>5</weight>
-		<value>145</value>
+		<weight>5.0</weight>
+		<buyprice>145</buyprice>
+		<sellprice>72</sellprice>
 		<category>Armor\Helmets\Nose Helm</category>
 	</item>
 
@@ -50,8 +52,9 @@
 		<requires type='str'>40</requires> 
 		<restock>10</restock>
 		<smelt>12</smelt>
-		<weight>5</weight>
-		<value>116</value>
+		<weight>5.0</weight>
+		<buyprice>116</buyprice>
+		<sellprice>58</sellprice>
 		<category>Armor\Helmets\Normal Helm</category>
 	</item>
 
@@ -66,8 +69,9 @@
 		<requires type='str'>40</requires> 
 		<restock>10</restock>
 		<smelt>12</smelt>
-		<weight>5</weight>
-		<value>145</value>
+		<weight>5.0</weight>
+		<buyprice>145</buyprice>
+		<sellprice>72</sellprice>
 		<category>Armor\Helmets\Close Helm</category>
 	</item>
 </definitions>

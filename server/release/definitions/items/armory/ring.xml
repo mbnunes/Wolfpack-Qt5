@@ -19,8 +19,9 @@
 		<requires type='str'>20</requires> 
 		<restock>10</restock>
 		<smelt>8</smelt>
-		<weight>2</weight>
-		<value>122</value>
+		<weight>2.0</weight>
+		<buyprice>122</buyprice>
+		<sellprice>61</sellprice>
 		<category>Armor\Ringmail\gloves</category>
 	</item>
 
@@ -36,8 +37,9 @@
 		<requires type='str'>20</requires> 
 		<restock>10</restock>
 		<smelt>13</smelt>
-		<weight>15</weight>
-		<value>147</value>
+		<weight>15.0</weight>
+		<buyprice>147</buyprice>
+		<sellprice>73</sellprice>
 		<category>Armor\Ringmail\leggings</category>
 	</item>
 
@@ -53,8 +55,9 @@
 		<requires type='str'>20</requires> 
 		<restock>10</restock>
 		<smelt>11</smelt>
-		<weight>15</weight>
-		<value>127</value>
+		<weight>15.0</weight>
+		<buyprice>127</buyprice>
+		<sellprice>63</sellprice>
 		<category>Armor\Ringmail\sleeves</category>
 	</item>
 
@@ -70,8 +73,9 @@
 		<requires type='str'>20</requires> 
 		<restock>10</restock>
 		<smelt>11</smelt>
-		<weight>126</weight>
-		<value>300</value>
+		<weight>15.0</weight>
+		<buyprice>218</buyprice>
+		<sellprice>109</sellprice>
 		<category>Armor\Ringmail\tunic</category>
 	</item>
 </definitions>

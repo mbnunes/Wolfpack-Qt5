@@ -2,7 +2,7 @@
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh	                        |
 |   )).-' {{ ;'`   | Revised by: sereg, Viper                   |
-|  ( (  ;._ \\ ctr | Last Modification: item corrections        |
+|  ( (  ;._ \\ ctr | Last Modification:                         |
 ================================================================= --> 
 <definitions>
 <!--  chainmail coif --> 
@@ -16,8 +16,9 @@
   <id>0x13BB</id> 
   <restock>10</restock> 
   <smelt>8</smelt> 
-  <weight>7</weight> 
-  <value>130</value> 
+  <weight>7.0</weight> 
+  <buyprice>130</buyprice>
+  <sellprice>65</sellprice> 
   <category>Armor\Chainmail\Coif</category>
   </item>
 <!--  chainmail leggings --> 
@@ -32,8 +33,9 @@
   <id>0x13BE</id>   
   <restock>10</restock> 
   <smelt>14</smelt> 
-  <weight>7</weight> 
-  <value>166</value> 
+  <weight>7.0</weight> 
+  <buyprice>166</buyprice>
+  <sellprice>83</sellprice> 
   <category>Armor\Chainmail\Leggings</category>
   </item>
 <!--  chainmail tunic --> 
@@ -48,8 +50,8 @@
   <id>0x13bf</id>  
   <restock>10</restock> 
   <smelt>14</smelt> 
-  <weight>7</weight> 
-  <value>207</value>
+  <weight>7.0</weight> 
+  <buyprice>103</buyprice>
   <category>Armor\Chainmail\Tunic</category> 
   </item>
   </definitions>

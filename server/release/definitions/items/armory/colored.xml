@@ -2,107 +2,79 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh	                        |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+|   )).-' {{ ;'`   | Revised by: Viper                          |
+|  ( (  ;._ \\ ctr | Last Modification: Colors & Stats          |
 =================================================================
 -->
 <definitions>
 	<!-- the following define sections are for application on all types of armor -->
 	<define id="iron_armor">
 		<name>iron %1</name>
-		<color>0x0961</color>
 	</define>
 	
+	<define id="dull_copper_armor">
+		<name>dull copper %1</name>
+		<color>0x0973</color>
+		<defense>1.1</defense>
+		<value>1.1</value>		
+	</define>
+
 	<define id="shadow_armor">
 		<name>shadow %1</name>
-		<color>0x0386</color>
-		<defense>1.1</defense> <!-- this means 110 percent of original defense -->
-		<durability>1.1</durability>
-		<requires type='str'>5</requires> <!-- this means (75) +5 str needed (=80) -->
-		<weight>2.0</weight> <!-- 2x weight of base -->
-		<value>1.5</value>
+		<color>0x0966</color>
+		<defense>1.2</defense> <!-- this means 110 percent of original defense -->
+		<value>1.2</value>
+	</define>
+	
+	<define id="copper_armor">
+		<name>copper %1</name>
+		<color>0x096e</color>
+		<defense>1.3</defense>
+		<value>1.3</value>		
+	</define>
+	
+	<define id="bronze_armor">
+		<name>bronze %1</name>
+		<color>0x08a9</color>
+		<defense>1.4</defense>
+		<value>1.4</value>		
+	</define>
+	
+	<define id="golden_armor">
+		<name>gold %1</name>
+		<color>0x08a5</color>
+		<defense>1.5</defense>
+		<value>1.5</value>		
+	</define>
+	
+	<define id="agapite_armor">
+		<name>agapite %1</name>
+		<color>0x0979</color>
+		<defense>1.6</defense>
+		<value>1.6</value>		
+	</define>
+	
+	<define id="verite_armor">
+		<name>verite %1</name>
+		<color>0x089f</color>
+		<defense>1.7</defense>
+		<value>1.7</value>		
+	</define>
+	
+	<define id="valorite_armor">
+		<name>valorite %1</name>
+		<color>0x08ab</color>
+		<defense>1.8</defense>
+		<value>1.8</value>		
 	</define>
 	
 	<define id="merkite_armor">
 		<name>merkite %1</name>
 		<color>0x02C3</color>
 		<defense>1.2</defense>
-		<durability>1.2</durability>
-		<requires type='str'>10</requires> <!-- this means (75) +10 str needed (=85) -->
-		<weight>3.0</weight>
-		<value>2.0</value>		
-	</define>
-	
-	<define id="copper_armor">
-		<name>copper %1</name>
-		<color>0x046E</color>
-		<defense>1.3</defense>
-		<durability>1.3</durability>
-		<requires type='str'>15</requires> <!-- this means (75) +15 str needed (=90) -->
-		<weight>4.0</weight>
-		<value>2.5</value>		
+		<value>1.6</value>		
 	</define>
 
-	<define id="silver_armor">
-		<name>silver %1</name>
-		<color>0x0965</color>
-		<defense>1.4</defense>
-		<durability>1.4</durability>
-		<requires type='str'>20</requires> <!-- this means (75) +15 str needed (=90) -->
-		<weight>5.0</weight>
-		<value>3.0</value>		
-	</define>
-	
-	<define id="bronze_armor">
-		<name>bronze %1</name>
-		<color>0x02E7</color>
-		<defense>1.5</defense>
-		<durability>1.5</durability>
-		<requires type='str'>25</requires> 
-		<weight>6.0</weight>
-		<value>3.5</value>		
-	</define>
-	
-	<define id="golden_armor">
-		<name>golden %1</name>
-		<color>0x0466</color>
-		<defense>1.6</defense>
-		<durability>1.6</durability>
-		<requires type='str'>30</requires> 
-		<weight>7.0</weight>
-		<value>4.0</value>		
-	</define>
-	
-	<define id="agapite_armor">
-		<name>agapite %1</name>
-		<color>0x0150</color>
-		<defense>1.7</defense>
-		<durability>1.7</durability>
-		<requires type='str'>35</requires> 
-		<weight>8.0</weight>
-		<value>4.5</value>		
-	</define>
-	
-	<define id="verite_armor">
-		<name>verite %1</name>
-		<color>0x022F</color>
-		<defense>1.8</defense>
-		<durability>1.8</durability>
-		<requires type='str'>40</requires> 
-		<weight>9.0</weight>
-		<value>5.0</value>		
-	</define>
-	
-	<define id="mythril_armor">
-		<name>mythril %1</name>
-		<color>0x0191</color>
-		<defense>1.9</defense>
-		<durability>1.9</durability>
-		<requires type='str'>45</requires> 
-		<weight>10.0</weight>
-		<value>5.5</value>		
-	</define>
-	
 	<!-- chainmail armor -->
 	<!-- chainmail coif -->
 	<item id="iron_armor_chain_coif">
@@ -129,10 +101,10 @@
 		<category>Armor\Copper\Chainmail\Coif</category>
 	</item>
 
-	<item id="silver_armor_chain_coif">
+	<item id="dull_copper_armor_chain_coif">
 		<inherit id="13bb" />
-		<silver_armor />
-		<category>Armor\Silver\Chainmail\Coif</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Chainmail\Coif</category>
 	</item>
 
 	<item id="bronze_armor_chain_coif">
@@ -159,10 +131,10 @@
 		<category>Armor\Verite\Chainmail\Coif</category>
 	</item>
 
-	<item id="mythril_armor_chain_coif">
+	<item id="valorite_armor_chain_coif">
 		<inherit id="13bb" />
-		<mythril_armor />
-		<category>Armor\Mythril\Chainmail\Coif</category>
+		<valorite_armor />
+		<category>Armor\valorite\Chainmail\Coif</category>
 	</item>
 
 	<!-- chainmail leggings -->
@@ -190,10 +162,10 @@
 		<category>Armor\Copper\Chainmail\Leggings</category>
 	</item>
 
-	<item id="silver_armor_chain_leggings">
+	<item id="dull_copper_armor_chain_leggings">
 		<inherit id="13be" />
-		<silver_armor />
-		<category>Armor\Silver\Chainmail\Leggings</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Chainmail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_chain_leggings">
@@ -220,10 +192,10 @@
 		<category>Armor\Verite\Chainmail\Leggings</category>
 	</item>
 
-	<item id="mythril_armor_chain_leggings">
+	<item id="valorite_armor_chain_leggings">
 		<inherit id="13be" />
-		<mythril_armor />
-		<category>Armor\Mythril\Chainmail\Leggings</category>
+		<valorite_armor />
+		<category>Armor\valorite\Chainmail\Leggings</category>
 	</item>
 
 	<!-- chainmail tunic -->
@@ -251,10 +223,10 @@
 		<category>Armor\Copper\Chainmail\Tunic</category>
 	</item>
 
-	<item id="silver_armor_chain_tunic">
+	<item id="dull_copper_armor_chain_tunic">
 		<inherit id="13bf" />
-		<silver_armor />
-		<category>Armor\Silver\Chainmail\Tunic</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Chainmail\Tunic</category>
 	</item>
 
 	<item id="bronze_armor_chain_tunic">
@@ -281,10 +253,10 @@
 		<category>Armor\Verite\Chainmail\Tunic</category>
 	</item>
 
-	<item id="mythril_armor_chain_tunic">
+	<item id="valorite_armor_chain_tunic">
 		<inherit id="13bf" />
-		<mythril_armor />
-		<category>Armor\Mythril\Chainmail\Tunic</category>
+		<valorite_armor />
+		<category>Armor\valorite\Chainmail\Tunic</category>
 	</item>
 
 	<!-- plate armor -->
@@ -313,10 +285,10 @@
 		<category>Armor\Copper\Platemail\Female Breastplate</category>
 	</item>
 
-	<item id="silver_armor_plate_female">
+	<item id="dull_copper_armor_plate_female">
 		<inherit id="1c04" />
-		<silver_armor />
-		<category>Armor\Silver\Platemail\Female Breastplate</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="bronze_armor_plate_female">
@@ -343,10 +315,10 @@
 		<category>Armor\Verite\Platemail\Female Breastplate</category>
 	</item>
 
-	<item id="mythril_armor_plate_female">
+	<item id="valorite_armor_plate_female">
 		<inherit id="1c04" />
-		<mythril_armor />
-		<category>Armor\Mythril\Platemail\Female Breastplate</category>
+		<valorite_armor />
+		<category>Armor\valorite\Platemail\Female Breastplate</category>
 	</item>
 
 	<!-- male plate armor -->
@@ -374,10 +346,10 @@
 		<category>Armor\Copper\Platemail\Breastplate</category>
 	</item>
 
-	<item id="silver_armor_plate_male">
+	<item id="dull_copper_armor_plate_male">
 		<inherit id="1415" />
-		<silver_armor />
-		<category>Armor\Silver\Platemail\Breastplate</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Platemail\Breastplate</category>
 	</item>
 
 	<item id="bronze_armor_plate_male">
@@ -404,10 +376,10 @@
 		<category>Armor\Verite\Platemail\Breastplate</category>
 	</item>
 
-	<item id="mythril_armor_plate_male">
+	<item id="valorite_armor_plate_male">
 		<inherit id="1415" />
-		<mythril_armor />
-		<category>Armor\Mythril\Platemail\Breastplate</category>
+		<valorite_armor />
+		<category>Armor\valorite\Platemail\Breastplate</category>
 	</item>
 
 	<!-- plate arms -->
@@ -435,10 +407,10 @@
 		<category>Armor\Copper\Platemail\Arms</category>		
 	</item>
 
-	<item id="silver_armor_plate_arms">
+	<item id="dull_copper_armor_plate_arms">
 		<inherit id="1410" />
-		<silver_armor />
-		<category>Armor\Silver\Platemail\Arms</category>		
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Platemail\Arms</category>		
 	</item>
 
 	<item id="bronze_armor_plate_arms">
@@ -465,10 +437,10 @@
 		<category>Armor\Verite\Platemail\Arms</category>		
 	</item>
 
-	<item id="mythril_armor_plate_arms">
+	<item id="valorite_armor_plate_arms">
 		<inherit id="1410" />
-		<mythril_armor />
-		<category>Armor\Mythril\Platemail\Arms</category>
+		<valorite_armor />
+		<category>Armor\valorite\Platemail\Arms</category>
 	</item>
 
 	<!-- plate gloves -->
@@ -496,10 +468,10 @@
 		<category>Armor\Copper\Platemail\Gloves</category>
 	</item>
 
-	<item id="silver_armor_plate_gloves">
+	<item id="dull_copper_armor_plate_gloves">
 		<inherit id="1414" />
-		<silver_armor />
-		<category>Armor\Silver\Platemail\Gloves</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Platemail\Gloves</category>
 	</item>
 
 	<item id="bronze_armor_plate_gloves">
@@ -526,10 +498,10 @@
 		<category>Armor\Verite\Platemail\Gloves</category>
 	</item>
 
-	<item id="mythril_armor_plate_gloves">
+	<item id="valorite_armor_plate_gloves">
 		<inherit id="1414" />
-		<mythril_armor />
-		<category>Armor\Mythril\Platemail\Gloves</category>
+		<valorite_armor />
+		<category>Armor\valorite\Platemail\Gloves</category>
 	</item>
 
 	<!-- plate gorget -->
@@ -557,10 +529,10 @@
 		<category>Armor\Copper\Platemail\Gorget</category>
 	</item>
 
-	<item id="silver_armor_plate_gorget">
+	<item id="dull_copper_armor_plate_gorget">
 		<inherit id="1413" />
-		<silver_armor />
-		<category>Armor\Silver\Platemail\Gorget</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Platemail\Gorget</category>
 	</item>
 
 	<item id="bronze_armor_plate_gorget">
@@ -587,10 +559,10 @@
 		<category>Armor\Verite\Platemail\Gorget</category>		
 	</item>
 
-	<item id="mythril_armor_plate_gorget">
+	<item id="valorite_armor_plate_gorget">
 		<inherit id="1413" />
-		<mythril_armor />
-		<category>Armor\Mythril\Platemail\Gorget</category>		
+		<valorite_armor />
+		<category>Armor\valorite\Platemail\Gorget</category>		
 	</item>
 
 	<!-- plate helmet -->
@@ -618,10 +590,10 @@
 		<category>Armor\Copper\Platemail\Helmet</category>
 	</item>
 
-	<item id="silver_armor_plate_helmet">
+	<item id="dull_copper_armor_plate_helmet">
 		<inherit id="1412" />
-		<silver_armor />
-		<category>Armor\Silver\Platemail\Helmet</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Platemail\Helmet</category>
 	</item>
 
 	<item id="bronze_armor_plate_helmet">
@@ -648,10 +620,10 @@
 		<category>Armor\Verite\Platemail\Helmet</category>
 	</item>
 
-	<item id="mythril_armor_plate_helmet">
+	<item id="valorite_armor_plate_helmet">
 		<inherit id="1412" />
-		<mythril_armor />
-		<category>Armor\Mythril\Platemail\Helmet</category>
+		<valorite_armor />
+		<category>Armor\valorite\Platemail\Helmet</category>
 	</item>
 
 	<!-- plate leggings -->
@@ -679,10 +651,10 @@
 		<category>Armor\Copper\Platemail\Leggings</category>
 	</item>
 
-	<item id="silver_armor_plate_leggings">
+	<item id="dull_copper_armor_plate_leggings">
 		<inherit id="1411" />
-		<silver_armor />
-		<category>Armor\Silver\Platemail\Leggings</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Platemail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_plate_leggings">
@@ -709,10 +681,10 @@
 		<category>Armor\Verite\Platemail\Leggings</category>
 	</item>
 
-	<item id="mythril_armor_plate_leggings">
+	<item id="valorite_armor_plate_leggings">
 		<inherit id="1411" />
-		<mythril_armor />
-		<category>Armor\Mythril\Platemail\Leggings</category>
+		<valorite_armor />
+		<category>Armor\valorite\Platemail\Leggings</category>
 	</item>
 
 	<!-- ring armor -->
@@ -741,10 +713,10 @@
 		<category>Armor\Copper\Ringmail\Gloves</category>
 	</item>
 
-	<item id="silver_armor_ring_gloves">
+	<item id="dull_copper_armor_ring_gloves">
 		<inherit id="13eb" />
-		<silver_armor />
-		<category>Armor\Silver\Ringmail\Gloves</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Ringmail\Gloves</category>
 	</item>
 
 	<item id="bronze_armor_ring_gloves">
@@ -771,10 +743,10 @@
 		<category>Armor\Verite\Ringmail\Gloves</category>
 	</item>
 
-	<item id="mythril_armor_ring_gloves">
+	<item id="valorite_armor_ring_gloves">
 		<inherit id="13eb" />
-		<mythril_armor />
-		<category>Armor\Mythril\Ringmail\Gloves</category>
+		<valorite_armor />
+		<category>Armor\valorite\Ringmail\Gloves</category>
 	</item>
 
 	<!-- ring leggings -->
@@ -802,10 +774,10 @@
 		<category>Armor\Copper\Ringmail\Leggings</category>
 	</item>
 
-	<item id="silver_armor_ring_leggings">
+	<item id="dull_copper_armor_ring_leggings">
 		<inherit id="13f0" />
-		<silver_armor />
-		<category>Armor\Silver\Ringmail\Leggings</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Ringmail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_ring_leggings">
@@ -832,10 +804,10 @@
 		<category>Armor\Verite\Ringmail\Leggings</category>
 	</item>
 
-	<item id="mythril_armor_ring_leggings">
+	<item id="valorite_armor_ring_leggings">
 		<inherit id="13f0" />
-		<mythril_armor />
-		<category>Armor\Mythril\Ringmail\Leggings</category>
+		<valorite_armor />
+		<category>Armor\valorite\Ringmail\Leggings</category>
 	</item>
 
 	<!-- ring sleeves -->
@@ -863,10 +835,10 @@
 		<category>Armor\Copper\Ringmail\Sleeves</category>
 	</item>
 
-	<item id="silver_armor_ring_sleeves">
+	<item id="dull_copper_armor_ring_sleeves">
 		<inherit id="13ef" />
-		<silver_armor />
-		<category>Armor\Silver\Ringmail\Sleeves</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="bronze_armor_ring_sleeves">
@@ -893,10 +865,10 @@
 		<category>Armor\Verite\Ringmail\Sleeves</category>
 	</item>
 
-	<item id="mythril_armor_ring_sleeves">
+	<item id="valorite_armor_ring_sleeves">
 		<inherit id="13ef" />
-		<mythril_armor />
-		<category>Armor\Mythril\Ringmail\Sleeves</category>
+		<valorite_armor />
+		<category>Armor\valorite\Ringmail\Sleeves</category>
 	</item>
 
 	<!-- ring tunic -->
@@ -924,10 +896,10 @@
 		<category>Armor\Copper\Ringmail\Tunic</category>
 	</item>
 
-	<item id="silver_armor_ring_tunic">
+	<item id="dull_copper_armor_ring_tunic">
 		<inherit id="13ec" />
-		<silver_armor />
-		<category>Armor\Silver\Ringmail\Tunic</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Ringmail\Tunic</category>
 	</item>
 
 	<item id="bronze_armor_ring_tunic">
@@ -954,10 +926,10 @@
 		<category>Armor\Verite\Ringmail\Tunic</category>
 	</item>
 
-	<item id="mythril_armor_ring_tunic">
+	<item id="valorite_armor_ring_tunic">
 		<inherit id="13ec" />
-		<mythril_armor />
-		<category>Armor\Mythril\Ringmail\Tunic</category>
+		<valorite_armor />
+		<category>Armor\valorite\Ringmail\Tunic</category>
 	</item>
 
 	<!-- helmets -->
@@ -986,10 +958,10 @@
 		<category>Armor\Copper\Helmets\Bascinet</category>
 	</item>
 
-	<item id="silver_helmets_bascinet">
+	<item id="dull_copper_helmets_bascinet">
 		<inherit id="140c" />
-		<silver_armor />
-		<category>Armor\Silver\Helmets\Bascinet</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Helmets\Bascinet</category>
 	</item>
 
 	<item id="bronze_helmets_bascinet">
@@ -1016,10 +988,10 @@
 		<category>Armor\Verite\Helmets\Bascinet</category>
 	</item>
 
-	<item id="mythril_helmets_bascinet">
+	<item id="valorite_helmets_bascinet">
 		<inherit id="140c" />
-		<mythril_armor />
-		<category>Armor\Mythril\Helmets\Bascinet</category>
+		<valorite_armor />
+		<category>Armor\valorite\Helmets\Bascinet</category>
 	</item>
 
 	<!-- nose helmet -->
@@ -1047,10 +1019,10 @@
 		<category>Armor\Copper\Helmets\Nose</category>
 	</item>
 
-	<item id="silver_helmets_nose">
+	<item id="dull_copper_helmets_nose">
 		<inherit id="140e" />
-		<silver_armor />
-		<category>Armor\Silver\Helmets\Nose</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Helmets\Nose</category>
 	</item>
 
 	<item id="bronze_helmets_nose">
@@ -1077,10 +1049,10 @@
 		<category>Armor\Verite\Helmets\Nose</category>
 	</item>
 
-	<item id="mythril_helmets_nose">
+	<item id="valorite_helmets_nose">
 		<inherit id="140e" />
-		<mythril_armor />
-		<category>Armor\Mythril\Helmets\Nose</category>
+		<valorite_armor />
+		<category>Armor\valorite\Helmets\Nose</category>
 	</item>
 
 	<!-- normal helmet -->
@@ -1108,10 +1080,10 @@
 		<category>Armor\Copper\Helmets\Helmet</category>
 	</item>
 
-	<item id="silver_helmets_helmet">
+	<item id="dull_copper_helmets_helmet">
 		<inherit id="140a" />
-		<silver_armor />
-		<category>Armor\Silver\Helmets\Helmet</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Helmets\Helmet</category>
 	</item>
 
 	<item id="bronze_helmets_helmet">
@@ -1138,10 +1110,10 @@
 		<category>Armor\Verite\Helmets\Helmet</category>
 	</item>
 
-	<item id="mythril_helmets_helmet">
+	<item id="valorite_helmets_helmet">
 		<inherit id="140a" />
-		<mythril_armor />
-		<category>Armor\Mythril\Helmets\Helmet</category>
+		<valorite_armor />
+		<category>Armor\valorite\Helmets\Helmet</category>
 	</item>
 
 	<!-- close helmet -->
@@ -1169,10 +1141,10 @@
 		<category>Armor\Copper\Helmets\Close</category>
 	</item>
 
-	<item id="silver_helmets_close">
+	<item id="dull_copper_helmets_close">
 		<inherit id="1408" />
-		<silver_armor />
-		<category>Armor\Silver\Helmets\Close</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Helmets\Close</category>
 	</item>
 
 	<item id="bronze_helmets_close">
@@ -1199,10 +1171,10 @@
 		<category>Armor\Verite\Helmets\Close</category>
 	</item>
 
-	<item id="mythril_helmets_close">
+	<item id="valorite_helmets_close">
 		<inherit id="1408" />
-		<mythril_armor />
-		<category>Armor\Mythril\Helmets\Close</category>
+		<valorite_armor />
+		<category>Armor\valorite\Helmets\Close</category>
 	</item>
 
 	<!-- shields -->
@@ -1231,10 +1203,10 @@
 		<category>Armor\Copper\Shields\Buckler</category>
 	</item>
 
-	<item id="silver_shields_buckler">
+	<item id="dull_copper_shields_buckler">
 		<inherit id="1b73" />		
-		<silver_armor />
-		<category>Armor\Silver\Shields\Buckler</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Shields\Buckler</category>
 	</item>
 
 	<item id="bronze_shields_buckler">
@@ -1261,10 +1233,10 @@
 		<category>Armor\Verite\Shields\Buckler</category>
 	</item>
 
-	<item id="mythril_shields_buckler">
+	<item id="valorite_shields_buckler">
 		<inherit id="1b73" />
-		<mythril_armor />
-		<category>Armor\Mythril\Shields\Buckler</category>
+		<valorite_armor />
+		<category>Armor\valorite\Shields\Buckler</category>
 	</item>
 
 	<!-- heater -->
@@ -1292,10 +1264,10 @@
 		<category>Armor\Copper\Shields\Heater</category>
 	</item>
 
-	<item id="silver_shields_heater">
+	<item id="dull_copper_shields_heater">
 		<inherit id="1b76" />
-		<silver_armor />
-		<category>Armor\Silver\Shields\Heater</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Shields\Heater</category>
 	</item>
 
 	<item id="bronze_shields_heater">
@@ -1322,10 +1294,10 @@
 		<category>Armor\Verite\Shields\Heater</category>
 	</item>
 
-	<item id="mythril_shields_heater">
+	<item id="valorite_shields_heater">
 		<inherit id="1b76" />
-		<mythril_armor />
-		<category>Armor\Mythril\Shields\Heater</category>
+		<valorite_armor />
+		<category>Armor\valorite\Shields\Heater</category>
 	</item>
 
 	<!-- normal shield -->
@@ -1353,10 +1325,10 @@
 		<category>Armor\Copper\Shields\Shield</category>
 	</item>
 
-	<item id="silver_shields_shield">
+	<item id="dull_copper_shields_shield">
 		<inherit id="1b7b" />
-		<silver_armor />
-		<category>Armor\Silver\Shields\Shield</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Shields\Shield</category>
 	</item>
 
 	<item id="bronze_shields_shield">
@@ -1383,10 +1355,10 @@
 		<category>Armor\Verite\Shields\Shield</category>
 	</item>
 
-	<item id="mythril_shields_shield">
+	<item id="valorite_shields_shield">
 		<inherit id="1b7b" />
-		<mythril_armor />
-		<category>Armor\Mythril\Shields\Shield</category>
+		<valorite_armor />
+		<category>Armor\valorite\Shields\Shield</category>
 	</item>
 
 	<!-- kite shield -->
@@ -1414,10 +1386,10 @@
 		<category>Armor\Copper\Shields\Kite</category>
 	</item>
 
-	<item id="silver_shields_kite">
+	<item id="dull_copper_shields_kite">
 		<inherit id="1b74" />
-		<silver_armor />
-		<category>Armor\Silver\Shields\Kite</category>
+		<dull_copper_armor />
+		<category>ArmorDull Copper\Shields\Kite</category>
 	</item>
 
 	<item id="bronze_shields_kite">
@@ -1444,9 +1416,9 @@
 		<category>Armor\Verite\Shields\Kite</category>
 	</item>
 
-	<item id="mythril_shields_kite">
+	<item id="valorite_shields_kite">
 		<inherit id="1b74" />
-		<mythril_armor />
-		<category>Armor\Mythril\Shields\Kite</category>
+		<valorite_armor />
+		<category>Armor\valorite\Shields\Kite</category>
 	</item>
 </definitions>

@@ -11,31 +11,31 @@
 
 		<item id="def_bascinet">
 			<inherit id="140c" />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Defense\Bascinet</category>
 		</item>
 
 		<item id="guard_bascinet">
 			<inherit id="140c" />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Guarding\Bascinet</category>
 		</item>
 
 		<item id="hard_bascinet">
 			<inherit id="140c" />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Hardening\Bascinet</category>
 		</item>
 
 		<item id="fort_bascinet">
 			<inherit id="140c" />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Fortification\Bascinet</category>
 		</item>
 
 		<item id="invul_bascinet">
 			<inherit id="140c" />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Invulnerability\Bascinet</category>
 		</item>
 
@@ -48,35 +48,35 @@
 		<item id="dur_def_bascinet">
 			<inherit id="140c" />
 			<durable />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Defense\Bascinet</category>
 		</item>
 
 		<item id="dur_guard_bascinet">
 			<inherit id="140c" />
 			<durable />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Guarding\Bascinet</category>
 		</item>
 
 		<item id="dur_hard_bascinet">
 			<inherit id="140c" />
 			<durable />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Hardening\Bascinet</category>
 		</item>
 
 		<item id="dur_fort_bascinet">
 			<inherit id="140c" />
 			<durable />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Fortification\Bascinet</category>
 		</item>
 
 		<item id="dur_invul_bascinet">
 			<inherit id="140c" />
 			<durable />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Invulnerability\Bascinet</category>
 		</item>
 
@@ -90,35 +90,35 @@
 		<item id="sub_def_bascinet">
 			<inherit id="140c" />
 			<substantial />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Defense\Bascinet</category>
 		</item>
 
 		<item id="sub_guard_bascinet">
 			<inherit id="140c" />
 			<substantial />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Guarding\Bascinet</category>
 		</item>
 
 		<item id="sub_hard_bascinet">
 			<inherit id="140c" />
 			<substantial />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Hardening\Bascinet</category>
 		</item>
 
 		<item id="sub_fort_bascinet">
 			<inherit id="140c" />
 			<substantial />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Fortification\Bascinet</category>
 		</item>
 
 		<item id="sub_invul_bascinet">
 			<inherit id="140c" />
 			<substantial />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Invulnerability\Bascinet</category>
 		</item>
 
@@ -132,35 +132,35 @@
 		<item id="mass_def_bascinet">
 			<inherit id="140c" />
 			<massive />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Defense\Bascinet</category>
 		</item>
 
 		<item id="mass_guard_bascinet">
 			<inherit id="140c" />
 			<massive />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Guarding\Bascinet</category>
 		</item>
 
 		<item id="mass_hard_bascinet">
 			<inherit id="140c" />
 			<massive />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Hardening\Bascinet</category>
 		</item>
 
 		<item id="mass_fort_bascinet">
 			<inherit id="140c" />
 			<massive />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Fortification\Bascinet</category>
 		</item>
 
 		<item id="mass_invul_bascinet">
 			<inherit id="140c" />
 			<massive />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Invulnerability\Bascinet</category>
 		</item>
 
@@ -174,35 +174,35 @@
 		<item id="fort_def_bascinet">
 			<inherit id="140c" />
 			<fortified />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Defense\Bascinet</category>
 		</item>
 
 		<item id="fort_guard_bascinet">
 			<inherit id="140c" />
 			<fortified />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Guarding\Bascinet</category>
 		</item>
 
 		<item id="fort_hard_bascinet">
 			<inherit id="140c" />
 			<fortified />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Hardening\Bascinet</category>
 		</item>
 
 		<item id="fort_fort_bascinet">
 			<inherit id="140c" />
 			<fortified />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Fortification\Bascinet</category>
 		</item>
 
 		<item id="fort_invul_bascinet">
 			<inherit id="140c" />
 			<fortified />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Invulnerability\Bascinet</category>
 		</item>
 
@@ -216,35 +216,35 @@
 		<item id="indes_def_bascinet">
 			<inherit id="140c" />
 			<indestructible />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Defense\Bascinet</category>
 		</item>
 
 		<item id="indes_guard_bascinet">
 			<inherit id="140c" />
 			<indestructible />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Guarding\Bascinet</category>
 		</item>
 
 		<item id="indes_hard_bascinet">
 			<inherit id="140c" />
 			<indestructible />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Hardening\Bascinet</category>
 		</item>
 
 		<item id="indes_fort_bascinet">
 			<inherit id="140c" />
 			<indestructible />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Fortification\Bascinet</category>
 		</item>
 
 		<item id="indes_invul_bascinet">
 			<inherit id="140c" />
 			<indestructible />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Invulnerability\Bascinet</category>
 		</item>
 
@@ -252,31 +252,31 @@
 
 		<item id="def_nose_helm">
 			<inherit id="140e" />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Defense\Nose Helm</category>
 		</item>
 
 		<item id="guard_nose_helm">
 			<inherit id="140e" />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Guarding\Nose Helm</category>
 		</item>
 
 		<item id="hard_nose_helm">
 			<inherit id="140e" />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Hardening\Nose Helm</category>
 		</item>
 
 		<item id="fort_nose_helm">
 			<inherit id="140e" />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Fortification\Nose Helm</category>
 		</item>
 
 		<item id="invul_nose_helm">
 			<inherit id="140e" />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Invulnerability\Nose Helm</category>
 		</item>
 
@@ -289,35 +289,35 @@
 		<item id="dur_def_nose_helm">
 			<inherit id="140e" />
 			<durable />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Defense\Nose Helm</category>
 		</item>
 
 		<item id="dur_guard_nose_helm">
 			<inherit id="140e" />
 			<durable />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Guarding\Nose Helm</category>
 		</item>
 
 		<item id="dur_hard_nose_helm">
 			<inherit id="140e" />
 			<durable />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Hardening\Nose Helm</category>
 		</item>
 
 		<item id="dur_fort_nose_helm">
 			<inherit id="140e" />
 			<durable />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Fortification\Nose Helm</category>
 		</item>
 
 		<item id="dur_invul_nose_helm">
 			<inherit id="140e" />
 			<durable />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Invulnerability\Nose Helm</category>
 		</item>
 
@@ -331,35 +331,35 @@
 		<item id="sub_def_nose_helm">
 			<inherit id="140e" />
 			<substantial />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Defense\Nose Helm</category>
 		</item>
 
 		<item id="sub_guard_nose_helm">
 			<inherit id="140e" />
 			<substantial />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Guarding\Nose Helm</category>
 		</item>
 
 		<item id="sub_hard_nose_helm">
 			<inherit id="140e" />
 			<substantial />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Hardening\Nose Helm</category>
 		</item>
 
 		<item id="sub_fort_nose_helm">
 			<inherit id="140e" />
 			<substantial />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Fortification\Nose Helm</category>
 		</item>
 
 		<item id="sub_invul_nose_helm">
 			<inherit id="140e" />
 			<substantial />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Invulnerability\Nose Helm</category>
 		</item>
 
@@ -373,35 +373,35 @@
 		<item id="mass_def_nose_helm">
 			<inherit id="140e" />
 			<massive />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Defense\Nose Helm</category>
 		</item>
 
 		<item id="mass_guard_nose_helm">
 			<inherit id="140e" />
 			<massive />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Guarding\Nose Helm</category>
 		</item>
 
 		<item id="mass_hard_nose_helm">
 			<inherit id="140e" />
 			<massive />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Hardening\Nose Helm</category>
 		</item>
 
 		<item id="mass_fort_nose_helm">
 			<inherit id="140e" />
 			<massive />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Fortification\Nose Helm</category>
 		</item>
 
 		<item id="mass_invul_nose_helm">
 			<inherit id="140e" />
 			<massive />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Invulnerability\Nose Helm</category>
 		</item>
 
@@ -415,35 +415,35 @@
 		<item id="fort_def_nose_helm">
 			<inherit id="140e" />
 			<fortified />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Defense\Nose Helm</category>
 		</item>
 
 		<item id="fort_guard_nose_helm">
 			<inherit id="140e" />
 			<fortified />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Guarding\Nose Helm</category>
 		</item>
 
 		<item id="fort_hard_nose_helm">
 			<inherit id="140e" />
 			<fortified />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Hardening\Nose Helm</category>
 		</item>
 
 		<item id="fort_fort_nose_helm">
 			<inherit id="140e" />
 			<fortified />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Fortification\Nose Helm</category>
 		</item>
 
 		<item id="fort_invul_nose_helm">
 			<inherit id="140e" />
 			<fortified />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Invulnerability\Nose Helm</category>
 		</item>
 
@@ -457,65 +457,65 @@
 		<item id="indes_def_nose_helm">
 			<inherit id="140e" />
 			<indestructible />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Defense\Nose Helm</category>
 		</item>
 
 		<item id="indes_guard_nose_helm">
 			<inherit id="140e" />
 			<indestructible />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Guarding\Nose Helm</category>
 		</item>
 
 		<item id="indes_hard_nose_helm">
 			<inherit id="140e" />
 			<indestructible />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Hardening\Nose Helm</category>
 		</item>
 
 		<item id="indes_fort_nose_helm">
 			<inherit id="140e" />
 			<indestructible />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Fortification\Nose Helm</category>
 		</item>
 
 		<item id="indes_invul_nose_helm">
 			<inherit id="140e" />
 			<indestructible />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Invulnerability\Nose Helm</category>
 		</item>
 
 	<item id="def_helm">
 			<inherit id="140b" />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Defense\Helm</category>
 		</item>
 
 		<item id="guard_helm">
 			<inherit id="140b" />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Guarding\Helm</category>
 		</item>
 
 		<item id="hard_helm">
 			<inherit id="140b" />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Hardening\Helm</category>
 		</item>
 
 		<item id="fort_helm">
 			<inherit id="140b" />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Fortification\Helm</category>
 		</item>
 
 		<item id="invul_helm">
 			<inherit id="140b" />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Invulnerability\Helm</category>
 		</item>
 
@@ -528,35 +528,35 @@
 		<item id="dur_def_helm">
 			<inherit id="140b" />
 			<durable />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Defense\Helm</category>
 		</item>
 
 		<item id="dur_guard_helm">
 			<inherit id="140b" />
 			<durable />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Guarding\Helm</category>
 		</item>
 
 		<item id="dur_hard_helm">
 			<inherit id="140b" />
 			<durable />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Hardening\Helm</category>
 		</item>
 
 		<item id="dur_fort_helm">
 			<inherit id="140b" />
 			<durable />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Fortification\Helm</category>
 		</item>
 
 		<item id="dur_invul_helm">
 			<inherit id="140b" />
 			<durable />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Invulnerability\Helm</category>
 		</item>
 
@@ -570,35 +570,35 @@
 		<item id="sub_def_helm">
 			<inherit id="140b" />
 			<substantial />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Defense\Helm</category>
 		</item>
 
 		<item id="sub_guard_helm">
 			<inherit id="140b" />
 			<substantial />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Guarding\Helm</category>
 		</item>
 
 		<item id="sub_hard_helm">
 			<inherit id="140b" />
 			<substantial />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Hardening\Helm</category>
 		</item>
 
 		<item id="sub_fort_helm">
 			<inherit id="140b" />
 			<substantial />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Fortification\Helm</category>
 		</item>
 
 		<item id="sub_invul_helm">
 			<inherit id="140b" />
 			<substantial />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Invulnerability\Helm</category>
 		</item>
 
@@ -612,35 +612,35 @@
 		<item id="mass_def_helm">
 			<inherit id="140b" />
 			<massive />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Defense\Helm</category>
 		</item>
 
 		<item id="mass_guard_helm">
 			<inherit id="140b" />
 			<massive />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Guarding\Helm</category>
 		</item>
 
 		<item id="mass_hard_helm">
 			<inherit id="140b" />
 			<massive />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Hardening\Helm</category>
 		</item>
 
 		<item id="mass_fort_helm">
 			<inherit id="140b" />
 			<massive />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Fortification\Helm</category>
 		</item>
 
 		<item id="mass_invul_helm">
 			<inherit id="140b" />
 			<massive />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Invulnerability\Helm</category>
 		</item>
 
@@ -654,35 +654,35 @@
 		<item id="fort_def_helm">
 			<inherit id="140b" />
 			<fortified />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Defense\Helm</category>
 		</item>
 
 		<item id="fort_guard_helm">
 			<inherit id="140b" />
 			<fortified />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Guarding\Helm</category>
 		</item>
 
 		<item id="fort_hard_helm">
 			<inherit id="140b" />
 			<fortified />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Hardening\Helm</category>
 		</item>
 
 		<item id="fort_fort_helm">
 			<inherit id="140b" />
 			<fortified />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Fortification\Helm</category>
 		</item>
 
 		<item id="fort_invul_helm">
 			<inherit id="140b" />
 			<fortified />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Invulnerability\Helm</category>
 		</item>
 
@@ -696,65 +696,65 @@
 		<item id="indes_def_helm">
 			<inherit id="140b" />
 			<indestructible />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Defense\Helm</category>
 		</item>
 
 		<item id="indes_guard_helm">
 			<inherit id="140b" />
 			<indestructible />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Guarding\Helm</category>
 		</item>
 
 		<item id="indes_hard_helm">
 			<inherit id="140b" />
 			<indestructible />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Hardening\Helm</category>
 		</item>
 
 		<item id="indes_fort_helm">
 			<inherit id="140b" />
 			<indestructible />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Fortification\Helm</category>
 		</item>
 
 		<item id="indes_invul_helm">
 			<inherit id="140b" />
 			<indestructible />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Invulnerability\Helm</category>
 		</item>
 
 	<item id="def_close_helm">
 			<inherit id="1408" />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Defense\Close Helm</category>
 		</item>
 
 		<item id="guard_close_helm">
 			<inherit id="1408" />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Guarding\Close Helm</category>
 		</item>
 
 		<item id="hard_close_helm">
 			<inherit id="1408" />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Hardening\Close Helm</category>
 		</item>
 
 		<item id="fort_close_helm">
 			<inherit id="1408" />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Fortification\Close Helm</category>
 		</item>
 
 		<item id="invul_close_helm">
 			<inherit id="1408" />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\AR Modified Only\Invulnerability\Close Helm</category>
 		</item>
 
@@ -767,35 +767,35 @@
 		<item id="dur_def_close_helm">
 			<inherit id="1408" />
 			<durable />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Defense\Close Helm</category>
 		</item>
 
 		<item id="dur_guard_close_helm">
 			<inherit id="1408" />
 			<durable />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Guarding\Close Helm</category>
 		</item>
 
 		<item id="dur_hard_close_helm">
 			<inherit id="1408" />
 			<durable />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Hardening\Close Helm</category>
 		</item>
 
 		<item id="dur_fort_close_helm">
 			<inherit id="1408" />
 			<durable />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Fortification\Close Helm</category>
 		</item>
 
 		<item id="dur_invul_close_helm">
 			<inherit id="1408" />
 			<durable />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Durable\Invulnerability\Close Helm</category>
 		</item>
 
@@ -809,35 +809,35 @@
 		<item id="sub_def_close_helm">
 			<inherit id="1408" />
 			<substantial />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Defense\Close Helm</category>
 		</item>
 
 		<item id="sub_guard_close_helm">
 			<inherit id="1408" />
 			<substantial />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Guarding\Close Helm</category>
 		</item>
 
 		<item id="sub_hard_close_helm">
 			<inherit id="1408" />
 			<substantial />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Hardening\Close Helm</category>
 		</item>
 
 		<item id="sub_fort_close_helm">
 			<inherit id="1408" />
 			<substantial />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Fortification\Close Helm</category>
 		</item>
 
 		<item id="sub_invul_close_helm">
 			<inherit id="1408" />
 			<substantial />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Substantial\Invulnerability\Close Helm</category>
 		</item>
 
@@ -851,35 +851,35 @@
 		<item id="mass_def_close_helm">
 			<inherit id="1408" />
 			<massive />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Defense\Close Helm</category>
 		</item>
 
 		<item id="mass_guard_close_helm">
 			<inherit id="1408" />
 			<massive />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Guarding\Close Helm</category>
 		</item>
 
 		<item id="mass_hard_close_helm">
 			<inherit id="1408" />
 			<massive />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Hardening\Close Helm</category>
 		</item>
 
 		<item id="mass_fort_close_helm">
 			<inherit id="1408" />
 			<massive />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Fortification\Close Helm</category>
 		</item>
 
 		<item id="mass_invul_close_helm">
 			<inherit id="1408" />
 			<massive />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Massive\Invulnerability\Close Helm</category>
 		</item>
 
@@ -893,35 +893,35 @@
 		<item id="fort_def_close_helm">
 			<inherit id="1408" />
 			<fortified />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Defense\Close Helm</category>
 		</item>
 
 		<item id="fort_guard_close_helm">
 			<inherit id="1408" />
 			<fortified />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Guarding\Close Helm</category>
 		</item>
 
 		<item id="fort_hard_close_helm">
 			<inherit id="1408" />
 			<fortified />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Hardening\Close Helm</category>
 		</item>
 
 		<item id="fort_fort_close_helm">
 			<inherit id="1408" />
 			<fortified />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Fortification\Close Helm</category>
 		</item>
 
 		<item id="fort_invul_close_helm">
 			<inherit id="1408" />
 			<fortified />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Fortified\Invulnerability\Close Helm</category>
 		</item>
 
@@ -935,35 +935,35 @@
 		<item id="indes_def_close_helm">
 			<inherit id="1408" />
 			<indestructible />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Defense\Close Helm</category>
 		</item>
 
 		<item id="indes_guard_close_helm">
 			<inherit id="1408" />
 			<indestructible />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Guarding\Close Helm</category>
 		</item>
 
 		<item id="indes_hard_close_helm">
 			<inherit id="1408" />
 			<indestructible />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Hardening\Close Helm</category>
 		</item>
 
 		<item id="indes_fort_close_helm">
 			<inherit id="1408" />
 			<indestructible />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Fortification\Close Helm</category>
 		</item>
 
 		<item id="indes_invul_close_helm">
 			<inherit id="1408" />
 			<indestructible />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Helmets\Indestructible\Invulnerability\Close Helm</category>
 		</item>
 </definitions>

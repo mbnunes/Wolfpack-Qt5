@@ -9,178 +9,155 @@
 =================================================================
 -->
 <definitions>
+<!-- Male Leather -->
 	<item id="13c5">
 		<id>0x13c5</id>
-		<category>Armor\Leather\Sleeves (N/S)</category>
-	</item>
-
-	<item id="13cd">
-		<inherit id="13c5" />
-		<id>0x13cd</id>
-		<category>Armor\Leather\Sleeves (W/E)</category>
+  		<name>leather sleeves</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">10</requires> 
+  		<defense>1.9</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>2.0</weight> 
+  		<buyprice>80</buyprice>
+		<sellprice>40</sellprice> 
+		<category>Armor\Leather\Sleeves</category>
 	</item>
 
 	<item id="13c6">
 		<id>0x13c6</id>
-		<category>Armor\Leather\Gloves (N/S)</category>
-	</item>
-
-	<item id="13ce">
-		<inherit id="13c6" />
-		<id>0x13ce</id>
-		<category>Armor\Leather\Gloves (W/E)</category>
+  		<name>leather gloves</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">10</requires> 
+  		<defense>0.9</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>1.0</weight> 
+  		<buyprice>60</buyprice>
+		<sellprice>30</sellprice> 
+		<category>Armor\Leather\Gloves</category>
 	</item>
 
 	<item id="13c7">
 		<id>0x13c7</id>
+  		<name>leather gorget</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">10</requires> 
+  		<defense>0.9</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>2.0</weight> 
+  		<buyprice>74</buyprice> 
+		<sellprice>37</sellprice>
 		<category>Armor\Leather\Gorget</category>
 	</item>
 
 	<item id="13cb">
 		<id>0x13cb</id>
-		<category>Armor\Leather\Leggings (N/S)</category>
-	</item>
-
-	<item id="13d2">
-		<inherit id="13cb" />
-		<id>0x13d2</id>
-		<category>Armor\Leather\Leggings (W/E)</category>
+  		<name>leather leggings</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">10</requires> 
+  		<defense>2.9</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>4.0</weight> 
+  		<buyprice>80</buyprice> 
+		<sellprice>40</sellprice>
+		<category>Armor\Leather\Leggings</category>
 	</item>
 
 	<item id="13cc">
 		<id>0x13cc</id>
-		<category>Armor\Leather\Tunic (N/S)</category>
+  		<name>leather tunic</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">15</requires> 
+  		<defense>4.7</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>2.0</weight> 
+  		<buyprice>101</buyprice> 
+		<sellprice>52</sellprice>
+		<category>Armor\Leather\Tunic</category>
 	</item>
 
-	<item id="13d3">
-		<inherit id="13cc" />
-		<id>0x13d3</id>
-		<category>Armor\Leather\Tunic (W/E)</category>
-	</item>
-
+<!-- Female -->
 	<item id="1c06">
 		<id>0x1c06</id>
-		<category>Armor\Leather\Female Tunic (N/S)</category>
-	</item>
-
-	<item id="1c07">
-		<inherit id="1c06" />
-		<id>0x1c07</id>
-		<category>Armor\Leather\Female Tunic (W/E)</category>
+  		<name>female leather armor</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">15</requires> 
+  		<defense>4.7</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>1.0</weight> 
+  		<buyprice>116</buyprice> 
+		<sellprice>58</sellprice>
+		<category>Armor\Leather\Female Leather Armor</category>
 	</item>
 
 	<item id="1c08">
 		<id>0x1c08</id>
-		<category>Armor\Leather\Female Skirt (N/S)</category>
-	</item>
-
-	<item id="1c09">
-		<inherit id="1c08" />
-		<id>0x1c09</id>
-		<category>Armor\Leather\Female Skirt (W/E)</category>
+  		<name>leather skirt</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">10</requires> 
+  		<defense>2.9</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>1.0</weight> 
+  		<buyprice>87</buyprice> 
+		<sellprice>43</sellprice>
+		<category>Armor\Leather\Female Skirt</category>
 	</item>
 
 	<item id="1c0a">
 		<id>0x1c0a</id>
-		<category>Armor\Leather\Bustier (N/S)</category>
-	</item>
-
-	<item id="1c0b">
-		<inherit id="1c0a" />
-		<id>0x1c0b</id>
-		<category>Armor\Leather\Bustier (W/E)</category>
+  		<name>leather bustier</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">10</requires> 
+  		<defense>4.7</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>2.0</weight> 
+  		<buyprice>97</buyprice> 
+		<sellprice>48</sellprice>
+		<category>Armor\Leather\Bustier</category>
 	</item>
 
 	<item id="1db9">
 		<id>0x1db9</id>
-		<category>Armor\Leather\Cap (N/S)</category>
-	</item>
-
-	<item id="1dba">
-		<inherit id="1db9" />
-		<id>0x1dba</id>
-		<category>Armor\Leather\Cap (W/E)</category>
-	</item>
-
-	<!-- Studded -->
-	<item id="13d4">
-		<id>0x13d4</id>
-		<category>Armor\Studded Leather\Sleeves (N/S)</category>
-	</item>
-
-	<item id="13dc">
-		<inherit id="13d4" />
-		<id>0x13dc</id>
-		<category>Armor\Studded Leather\Sleeves (W/E)</category>
-	</item>
-
-	<item id="13d5">
-		<id>0x13d5</id>
-		<category>Armor\Studded Leather\Gloves (N/S)</category>
-	</item>
-
-	<item id="13dd">
-		<inherit id="13d5" />
-		<id>0x13dd</id>
-		<category>Armor\Studded Leather\Gloves (W/E)</category>
-	</item>
-
-	<item id="13d6">
-		<id>0x13d6</id>
-		<category>Armor\Studded Leather\Gorget</category>
-	</item>
-
-	<item id="13da">
-		<id>0x13da</id>
-		<category>Armor\Studded Leather\Leggings (N/S)</category>
-	</item>
-
-	<item id="13e1">
-		<inherit id="13da" />
-		<id>0x13e1</id>
-		<category>Armor\Studded Leather\Leggings (W/E)</category>
-	</item>
-
-	<item id="13db">
-		<id>0x13db</id>
-		<category>Armor\Studded Leather\Tunic (N/S)</category>
-	</item>
-
-	<item id="13e2">
-		<inherit id="13db" />
-		<id>0x13e2</id>
-		<category>Armor\Studded Leather\Tunic (W/E)</category>
+  		<name>leather cap</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">15</requires> 
+  		<defense>1.8</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>2.0</weight> 
+  		<buyprice>63</buyprice> 
+		<sellprice>31</sellprice>
+		<category>Armor\Leather\Cap</category>
 	</item>
 
 	<item id="1c00">
 		<id>0x1c00</id>
-		<category>Armor\Studded Leather\Female Leggings (N/S)</category>
-	</item>
-
-	<item id="1c01">
-		<inherit id="1c00" />
-		<id>0x1c01</id>
-		<category>Armor\Studded Leather\Female Leggings (W/E)</category>
-	</item>
-
-	<item id="1c02">
-		<id>0x1c02</id>
-		<category>Armor\Studded Leather\Female Tunic 1</category>
-	</item>
-
-	<item id="1c03">
-		<id>0x1c03</id>
-		<category>Armor\Studded Leather\Female Tunic 2</category>
-	</item>
-
-	<item id="1c0c">
-		<id>0x1c0c</id>
-		<category>Armor\Studded Leather\Bustier (N/S)</category>
-	</item>
-
-	<item id="1c0d">
-		<inherit id="1c0c" />
-		<id>0x1c0d</id>
-		<category>Armor\Studded Leather\Bustier (W/E)</category>
+  		<name>leather shorts</name> 
+  		<decay /> 
+  		<nodye /> 
+  		<requires type="str">10</requires> 
+  		<defense>2.9</defense> 
+  		<durability>34</durability> 
+  		<restock>10</restock> 
+  		<weight>2.0</weight> 
+  		<buyprice>86</buyprice> 
+		<sellprice>43</sellprice>
+		<category>Armor\Leather\Shorts</category>
 	</item>
 </definitions>

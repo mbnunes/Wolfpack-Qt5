@@ -10,31 +10,31 @@
 	<!-- Chain Coifs -->
 		<item id="def_chain_coif">
 			<inherit id="13bb" />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Defense\Coif</category>
 		</item>
 
 		<item id="guard_chain_coif">
 			<inherit id="13bb" />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Guarding\Coif</category>
 		</item>
 
 		<item id="hard_chain_coif">
 			<inherit id="13bb" />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Hardening\Coif</category>
 		</item>
 
 		<item id="fort_chain_coif">
 			<inherit id="13bb" />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Fortification\Coif</category>
 		</item>
 
 		<item id="invul_chain_coif">
 			<inherit id="13bb" />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Invulnerability\Coif</category>
 		</item>
 
@@ -48,35 +48,35 @@
 		<item id="dur_def_chain_coif">
 			<inherit id="13bb" />
 			<durable />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Defense\Coif</category>
 		</item>
 
 		<item id="dur_guard_chain_coif">
 			<inherit id="13bb" />
 			<durable />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Guarding\Coif</category>
 		</item>
 
 		<item id="dur_hard_chain_coif">
 			<inherit id="13bb" />
 			<durable />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Hardening\Coif</category>
 		</item>
 
 		<item id="dur_fort_chain_coif">
 			<inherit id="13bb" />
 			<durable />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Fortification\Coif</category>
 		</item>
 
 		<item id="dur_invul_chain_coif">
 			<inherit id="13bb" />
 			<durable />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Invulnerability\Coif</category>
 		</item>
 
@@ -90,35 +90,35 @@
 		<item id="sub_def_chain_coif">
 			<inherit id="13bb" />
 			<substantial />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Defense\Coif</category>
 		</item>
 
 		<item id="sub_guard_chain_coif">
 			<inherit id="13bb" />
 			<substantial />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Guarding\Coif</category>
 		</item>
 
 		<item id="sub_hard_chain_coif">
 			<inherit id="13bb" />
 			<substantial />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Hardening\Coif</category>
 		</item>
 
 		<item id="sub_fort_chain_coif">
 			<inherit id="13bb" />
 			<substantial />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Fortification\Coif</category>
 		</item>
 
 		<item id="sub_invul_chain_coif">
 			<inherit id="13bb" />
 			<substantial />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Invulnerability\Coif</category>
 		</item>
 
@@ -132,35 +132,35 @@
 		<item id="mass_def_chain_coif">
 			<inherit id="13bb" />
 			<massive />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Defense\Coif</category>
 		</item>
 
 		<item id="mass_guard_chain_coif">
 			<inherit id="13bb" />
 			<massive />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Guarding\Coif</category>
 		</item>
 
 		<item id="mass_hard_chain_coif">
 			<inherit id="13bb" />
 			<massive />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Hardening\Coif</category>
 		</item>
 
 		<item id="mass_fort_chain_coif">
 			<inherit id="13bb" />
 			<massive />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Fortification\Coif</category>
 		</item>
 
 		<item id="mass_invul_chain_coif">
 			<inherit id="13bb" />
 			<massive />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Invulnerability\Coif</category>
 		</item>
 
@@ -174,35 +174,35 @@
 		<item id="fort_def_chain_coif">
 			<inherit id="13bb" />
 			<fortified />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Defense\Coif</category>
 		</item>
 
 		<item id="fort_guard_chain_coif">
 			<inherit id="13bb" />
 			<fortified />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Guarding\Coif</category>
 		</item>
 
 		<item id="fort_hard_chain_coif">
 			<inherit id="13bb" />
 			<fortified />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Hardening\Coif</category>
 		</item>
 
 		<item id="fort_fort_chain_coif">
 			<inherit id="13bb" />
 			<fortified />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Fortification\Coif</category>
 		</item>
 
 		<item id="fort_invul_chain_coif">
 			<inherit id="13bb" />
 			<fortified />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Invulnerability\Coif</category>
 		</item>
 
@@ -216,35 +216,35 @@
 		<item id="indes_def_chain_coif">
 			<inherit id="13bb" />
 			<indestructible />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Defense\Coif</category>
 		</item>
 
 		<item id="indes_guard_chain_coif">
 			<inherit id="13bb" />
 			<indestructible />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Guarding\Coif</category>
 		</item>
 
 		<item id="indes_hard_chain_coif">
 			<inherit id="13bb" />
 			<indestructible />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Hardening\Coif</category>
 		</item>
 
 		<item id="indes_fort_chain_coif">
 			<inherit id="13bb" />
 			<indestructible />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Fortification\Coif</category>
 		</item>
 
 		<item id="indes_invul_chain_coif">
 			<inherit id="13bb" />
 			<indestructible />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Invulnerability\Coif</category>
 		</item>
 
@@ -252,31 +252,31 @@
 
 		<item id="def_chain_legs">
 			<inherit id="13be" />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Defense\leggings</category>
 		</item>
 
 		<item id="guard_chain_legs">
 			<inherit id="13be" />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Guarding\leggings</category>
 		</item>
 
 		<item id="hard_chain_legs">
 			<inherit id="13be" />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Hardening\leggings</category>
 		</item>
 
 		<item id="fort_chain_legs">
 			<inherit id="13be" />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Fortification\leggings</category>
 		</item>
 
 		<item id="invul_chain_legs">
 			<inherit id="13be" />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\AR Modified Only\Invulnerability\leggings</category>
 		</item>
 
@@ -290,35 +290,35 @@
 		<item id="dur_def_chain_legs">
 			<inherit id="13be" />
 			<durable />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Defense\leggings</category>
 		</item>
 
 		<item id="dur_guard_chain_legs">
 			<inherit id="13be" />
 			<durable />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Guarding\leggings</category>
 		</item>
 
 		<item id="dur_hard_chain_legs">
 			<inherit id="13be" />
 			<durable />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Hardening\Leggings</category>
 		</item>
 
 		<item id="dur_fort_chain_legs">
 			<inherit id="13be" />
 			<durable />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Fortification\leggings</category>
 		</item>
 
 		<item id="dur_invul_chain_legs">
 			<inherit id="13be" />
 			<durable />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Durable\Invulnerability\leggings</category>
 		</item>
 
@@ -332,35 +332,35 @@
 		<item id="sub_def_chain_legs">
 			<inherit id="13be" />
 			<substantial />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Defense\leggings</category>
 		</item>
 
 		<item id="sub_guard_chain_legs">
 			<inherit id="13be" />
 			<substantial />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Guarding\leggings</category>
 		</item>
 
 		<item id="sub_hard_chain_legs">
 			<inherit id="13be" />
 			<substantial />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Hardening\leggings</category>
 		</item>
 
 		<item id="sub_fort_chain_legs">
 			<inherit id="13be" />
 			<substantial />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Fortification\leggings</category>
 		</item>
 
 		<item id="sub_invul_chain_legs">
 			<inherit id="13be" />
 			<substantial />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Substantial\Invulnerability\leggings</category>
 		</item>
 
@@ -374,35 +374,35 @@
 		<item id="mass_def_chain_legs">
 			<inherit id="13be" />
 			<massive />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Defense\leggings</category>
 		</item>
 
 		<item id="mass_guard_chain_legs">
 			<inherit id="13be" />
 			<massive />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Guarding\leggings</category>
 		</item>
 
 		<item id="mass_hard_chain_legs">
 			<inherit id="13be" />
 			<massive />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Hardening\leggings</category>
 		</item>
 
 		<item id="mass_fort_chain_legs">
 			<inherit id="13be" />
 			<massive />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Fortification\leggings</category>
 		</item>
 
 		<item id="mass_invul_chain_legs">
 			<inherit id="13be" />
 			<massive />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Massive\Invulnerability\leggings</category>
 		</item>
 
@@ -416,35 +416,35 @@
 		<item id="fort_def_chain_legs">
 			<inherit id="13be" />
 			<fortified />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Defense\leggings</category>
 		</item>
 
 		<item id="fort_guard_chain_legs">
 			<inherit id="13be" />
 			<fortified />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Guarding\leggings</category>
 		</item>
 
 		<item id="fort_hard_chain_legs">
 			<inherit id="13be" />
 			<fortified />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Hardening\leggings</category>
 		</item>
 
 		<item id="fort_fort_chain_legs">
 			<inherit id="13be" />
 			<fortified />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Fortification\leggings</category>
 		</item>
 
 		<item id="fort_invul_chain_legs">
 			<inherit id="13be" />
 			<fortified />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Fortified\Invulnerability\leggings</category>
 		</item>
 
@@ -458,35 +458,35 @@
 		<item id="indes_def_chain_legs">
 			<inherit id="13be" />
 			<indestructible />
-			<defense_arms_legs_head />
+			<defense_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Defense\leggings</category>
 		</item>
 
 		<item id="indes_guard_chain_legs">
 			<inherit id="13be" />
 			<indestructible />
-			<guarding_arms_legs_head />
+			<guarding_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Guarding\leggings</category>
 		</item>
 
 		<item id="indes_hard_chain_legs">
 			<inherit id="13be" />
 			<indestructible />
-			<hardening_arms_legs_head />
+			<hardening_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Hardening\leggings</category>
 		</item>
 
 		<item id="indes_fort_chain_legs">
 			<inherit id="13be" />
 			<indestructible />
-			<fortification_arms_legs_head />
+			<fortification_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Fortification\leggings</category>
 		</item>
 
 		<item id="indes_invul_chain_legs">
 			<inherit id="13be" />
 			<indestructible />
-			<invulnerability_arms_legs_head />
+			<invulnerability_arms_head_legs />
 			<category>Armor\Magical\Chainmail\Indestructible\Invulnerability\leggings</category>
 		</item>
 	<!-- Chain Tunic -->
