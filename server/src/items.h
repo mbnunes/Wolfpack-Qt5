@@ -78,6 +78,7 @@ public:
 	SI16			speed()		const { return speed_; }; // Weapon speed
 	SI16			lodamage()	const { return lodamage_; }; // Minimum damage weapon inflicts
 	SI16			hidamage()	const { return hidamage_; }; // Maximum damage weapon inflicts
+	bool			wipe()		const { return priv&0x10; }; // Should the item be wiped when affected by /WIPE
 	
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -97,6 +98,7 @@ public:
 	void	setContSerial( UI32 nValue ); // Defined in items.cpp
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; };
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; };
+	void	setWipe( bool nValue ) { ( nValue ) ? priv &= 0x10 : priv |= 0xEF; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -125,6 +127,8 @@ public:
 	unsigned char doordir; // Reserved for doors
 	unsigned char dooropen;
 	bool pileable; // Can item be piled
+	// NUTS - move to priv
+
 	unsigned char dye; // Reserved: Can item be dyed by dye kit
 	unsigned char corpse; // Is item a corpse
 	unsigned int att; // Item attack
@@ -139,7 +143,6 @@ public:
 	signed short in; // The intelligence needed to equip the item
 	signed short in2; // The intelligence the item gives
 	int smelt; // for item smelting
-	bool wipe; //Should this item be wiped with the /wipe command
 	unsigned char magic; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
 	unsigned int gatetime;
 	int gatenumber;
@@ -150,7 +153,16 @@ public:
 	SERIAL spawnserial;
 	unsigned char dir;
 	//char dir; // Direction, or light source type.
-	unsigned char priv; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable. Bit 3 secure
+
+	// Bit | Description
+	//===================
+	//   0 | Decay
+	//   1 | Newbie
+	//   2 | Dispellable
+	//   3 | Secured (Chests)
+	//   4 | Wipeable (/WIPE affects the item)
+	UI08 priv;
+	
 	int value; // Price shopkeeper sells item at.
 	int restock; // Number up to which shopkeeper should restock this item
 	int trigger; //Trigger number that item activates
@@ -192,6 +204,8 @@ public:
 	
 	int carve; //AntiChrist - for new carve system
 	bool incognito; //AntiChrist - for items under incognito effect
+	// ^^ NUTS !! - move that to priv
+
 	unsigned int time_unused;     // LB -> used for house decay and possibly for more in future, gets saved
 	unsigned int timeused_last; // helper attribute for time_unused, doesnt get saved
 	int spawnregion;

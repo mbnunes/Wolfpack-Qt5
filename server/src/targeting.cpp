@@ -1343,7 +1343,7 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
 		{
 			P_ITEM pi=iterItems.GetData();
-			if (!(pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2) && pi->isInWorld() && !pi->wipe)
+			if (!(pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2) && pi->isInWorld() && !pi->wipe())
 			{
 				iterItems--;
 				Items->DeleItem(pi);
@@ -1356,7 +1356,7 @@ void cTargets::Wiping(int s) // Clicking the corners of wiping calls this functi
 		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
 		{
 			P_ITEM pi=iterItems.GetData();
-			if (pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2 && pi->isInWorld() && !pi->wipe)
+			if (pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2 && pi->isInWorld() && !pi->wipe())
 			{
 				iterItems--;
 				Items->DeleItem(pi);
@@ -4027,7 +4027,7 @@ static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
 		RefreshItem(pi);
 		break;
 	case 133://SetWipeTarget
-		pi->wipe = addid1[s] != 0 ? true : false;
+		pi->setWipe( addid1[s] != 0 ? true : false );
 		RefreshItem(pi);
 		break;
 	}

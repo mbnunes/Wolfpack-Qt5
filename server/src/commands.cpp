@@ -1017,7 +1017,7 @@ void cCommands::Wipe(int s)
 	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
 	{
 		pi = iterItems.GetData();
-		if(pi->isInWorld() && !pi->wipe)
+		if( pi->isInWorld() && !pi->wipe() )
 		{
 			iterItems--; // Iterator will became invalid when we delete it.
 			Items->DeleItem(pi);

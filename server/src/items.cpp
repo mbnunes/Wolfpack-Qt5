@@ -109,7 +109,6 @@ cItem::cItem( cItem &src )
 	this->in=src.in;
 	this->in2=src.in2;
 	this->speed_=src.speed_;
-	this->wipe=src.wipe;
 	this->magic=src.magic;
 	this->gatetime=src.gatetime;
 	this->gatenumber=src.gatenumber;
@@ -479,7 +478,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("trigon",		trigon);
 		archive.read("speed",		speed_);
 		archive.read("poisoned",	poisoned);
-		archive.read("wipe",		wipe);
 		archive.read("magic",		magic);
 		archive.read("owner",		ownserial);
 		archive.read("visible",		visible);
@@ -549,7 +547,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("trigon",		trigon);
 		archive.write("speed",		speed_);
 		archive.write("poisoned",	poisoned);
-		archive.write("wipe",		wipe);
 		archive.write("magic",		magic);
 		archive.write("owner",		ownserial);
 		archive.write("visible",	visible);
@@ -732,7 +729,6 @@ void cItem::Init(bool mkser)
 	this->in=0; // The intelligence needed to equip the item
 	this->in2=0; // The intelligence the item gives
 	this->speed_=0; //The speed of the weapon
-	this->wipe=false; //Should this item be wiped with the /wipe command
 	this->magic=0; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable.
 	this->gatetime=0;
 	this->gatenumber=-1;
