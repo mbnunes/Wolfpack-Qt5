@@ -160,6 +160,7 @@
 
 	<!-- System Scripts -->
 	<script>system.hardwareinfo</script>
+	<script>system.hunger</script>
 	<script>system.loot</script>
 	<script>system.macro_opendoor</script>
 	<script>system.makemenus</script>
@@ -170,9 +171,10 @@
 	<script>system.skillgain</script>
 	<script>system.spawns</script>
 	<script>system.trading</script>
+	<!--
 	<script>system.uogstatus</script>
 	<script>system.webadmin</script>
-
+	-->
 	<!-- Skills -->
 	<script>skills</script>
 	<script>skills.alchemy</script>
