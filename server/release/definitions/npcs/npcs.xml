@@ -8,10 +8,12 @@
 -->
 <definitions>
 	<!-- Male Base -->
-	<npc id="human_male_base">
+	<npc id="base_male">
 		<name><random list="NAMES_MALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
 
+		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
+ 
 		<!-- The Equipment of a standard human -->
 		<equipped>
 			<item inherit="e75" />
@@ -21,4 +23,16 @@
 			<item inheritlist="SHOES" />
 		</equipped>
 	</npc>
+	
+	<!-- A sample blacksmith vendor -->
+	<npc id="blacksmith">
+		<inherit>base_male</inherit>
+		<title>the Blacksmith</title>
+		<shopkeeper>
+			<restockable>
+				<item inherit="F60"><amount>10</amount></item>
+			</restockable>
+		</shopkeeper>
+	</npc>
+	
 </definitions>

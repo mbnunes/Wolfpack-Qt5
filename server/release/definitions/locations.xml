@@ -7,5 +7,26 @@
 =================================================================
 -->
 <definitions>
-	<location id="britain center">1000,1000,0</location>
+	<!-- Britain -->
+	<location id="britain">1500,1630,10</location>
+	<location id="britain graveyard">1384,1497,10</location>
+	<location id="britain bank">1430,1688,0</location>
+	
+	<!-- Vesper -->
+	<location id="vesper">2895,688,0</location>
+	<location id="vesper graveyard">2782,867,0</location>
+	<location id="vesper docks">3003,830,0</location>
+	
+	<location id="yew">546,991,0</location>
+	<location id="wind">1361,895,0</location>	
+	<location id="trinsic">1815,2822,0</location>
+	<location id="skara brae">591,2147,0</location>
+	<location id="serpents hold">3021,3397,15</location>
+	<location id="occlo">3686,2519,0</location>
+	<location id="njuhelm">3756,1244,0</location>
+	<location id="moonglow">4442,1171,0</location>
+	<location id="minoc">2466,443,15</location>
+	<location id="jhelom">1376,3817,0</location>
+	<location id="cove">2246,1214,0</location>
+	<location id="bucaneers den">2736,2166,1</location>
 </definitions>

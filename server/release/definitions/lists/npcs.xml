@@ -7,8 +7,8 @@
 =================================================================
 -->
 <definitions>
-	<list id="NPCS_BASE">
-		<item>human_male_base</item>
-		<item>man</item>
+	<list id="UNDEADS_WEAK">
+		<item>headless</item>
+		<item>skeleton</item>
 	</list>
 </definitions>

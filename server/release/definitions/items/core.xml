@@ -7,6 +7,47 @@
 =================================================================
 -->
 <definitions>
+	<!-- Hatchet -->
+	<item id="f43">
+		<id>0xf43</id>
+		<itemhand>2</itemhand>
+		<attack min="2" max="17" />
+		<durability>50</durability>
+		<decay />
+		<value>35</value>
+		<requires type="str">15</requires>
+		<speed>15</speed>
+		<weight>4.0</weight>
+	</item>
+	
+	<!-- Gold -->
+	<item id="eed">
+		<id>0xeed</id>
+	</item>
+
+	<!-- LongSword -->
+	<item id="f60">
+		<id>0xf60</id>
+		<durability>10</durability>
+		<attack min="2" max="8" />
+		<decay />
+		<speed>48</speed>
+		<weight>40.0</weight>
+		<value>65</value>
+	</item>
+
+	<!-- Resurrection Robe -->
+	<item id="1f03">
+		<id>0x1f03</id>
+		<durability>1</durability>
+	</item>
+
+	<!-- Death Shroud -->
+	<item id="204e">
+		<id>0x204e</id>
+		<defense>1</defense> <!-- needed -->
+	</item>
+
 	<!-- Fancy Shirt -->
 	<item id="1efd">
 		<id>0x1efd</id>
