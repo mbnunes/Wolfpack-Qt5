@@ -805,13 +805,11 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("speech",			speech_);
 
 		archive.read("disablemsg",		disabledmsg_);
-		unsigned int j;
-		for (j=0;j<TRUESKILLS;j++)
+		register unsigned int j;
+		for ( j = 0; j < TRUESKILLS; j++ )
 		{
-			QString temp = QString("skill") + QString::number(j);
-			archive.read(temp, baseSkill_[j]);
-			temp = QString("skl") + QString::number(j);
-			archive.read(temp, lockSkill[j] );
+			archive.read( (char*)QString( "skill%1" ).arg( j ).latin1(), baseSkill_[j] );
+			archive.read( (char*)QString( "skl%1" ).arg( j ).latin1(), lockSkill[j] );
 		}
 		archive.read("cantrain",		cantrain_);
 		
@@ -944,15 +942,11 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("fixedlight",		fixedlight_);
 		archive.write("speech",			speech_);
 		archive.write("disablemsg",		disabledmsg_);
-		unsigned int j;
-		for (j=0;j<TRUESKILLS;j++)
+		register unsigned int j;
+		for( j = 0; j < TRUESKILLS; j++ )
 		{
-			char t[256] = {0,};
-			numtostr(j, t);
-			string temp = string("skill") + string(t);
-			archive.write(temp.c_str(), baseSkill_[j]);
-			temp = string("skl") + string(t);
-			archive.write(temp.c_str(), lockSkill[j] );
+			archive.write( (char*)QString( "skill%1" ).arg( j ).latin1(), baseSkill_[j] );
+			archive.write( (char*)QString( "skl%1" ).arg( j ).latin1(), lockSkill[j] );
 		}
 		archive.write("cantrain", cantrain_);
 		
