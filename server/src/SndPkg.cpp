@@ -286,7 +286,7 @@ void sysbroadcast(const char *txt) // System broadcast in bold text
 	talk[6]=1;
 	talk[7]=1;
 	talk[8]=1;
-	talk[9]=1;
+	talk[9]=0;
 	talk[10]=0x08;
 	talk[11]=0x4d;
 	talk[12]=0;
