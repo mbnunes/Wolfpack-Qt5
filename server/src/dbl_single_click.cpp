@@ -489,30 +489,52 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	// Food, OSI style
 	case 14:
 		pc_currchar->setObjectDelay( 0 );
+		
 		if( pi->isLockedDown() )
 			return; // Ripper..cant eat locked down food :)
 		
+		if( pi->container() && pi->getOutmostChar() != pc_currchar )
+		{
+			socket->clilocMessage( 0x7A482 ); // You can't eat that, it belongs to someone else.
+		}
+
+		if( pc_currchar->hunger() < 0 )
+			pc_currchar->setHunger( 0 );
+
 		if( pc_currchar->hunger() >= 6 )
 		{
-			socket->sysMessage( tr( "You are simply too full to eat any more!" ) );
+			socket->clilocMessage( 0x7A483 ); // You are simply too full to eat any more!
 			return;
 		}
-		else if( pi->type2() == COOKEDMEAT || pi->type2() == COOKEDFISH || pi->type2() == PASTRIES )
+
+		if( pi->type2() == COOKEDMEAT || pi->type2() == COOKEDFISH || pi->type2() == PASTRIES || pi->type2() == FRUIT || pi->type2() == OTHER || pi->type2() == VEGETABLES )
 		{
 			pc_currchar->soundEffect( 0x3A + RandomNum( 0, 2 ) );
 			
 			switch( pc_currchar->hunger() )
 			{
-			case 0:  socket->sysMessage( tr( "You eat the food, but are still extremely hungry." ) );		break;
-			case 1:  socket->sysMessage( tr( "You eat the food, but are still extremely hungry." ) );		break;
-			case 2:  socket->sysMessage( tr( "After eating the food, you feel much less hungry." ) );		break;
-			case 3:  socket->sysMessage( tr( "You eat the food, and begin to feel more satiated." ) );		break;
-			case 4:  socket->sysMessage( tr( "You feel quite full after consuming the food." ) );			break;
-			case 5:  socket->sysMessage( tr( "You are nearly stuffed, but manage to eat the food." ) );		break;
-			case 6:  
-			default: socket->sysMessage( tr( "You are simply too full to eat any more!" ) );				break;
-			}// switch(pc_currchar->hunger)
-			
+			case 0:
+			case 1:
+				socket->clilocMessage( 0x7A484 ); // You eat the food, but are still extremely hungry.
+				break;
+
+			case 2:
+				socket->clilocMessage( 0x7A486 ); // After eating the food, you feel much less hungry.
+				break;
+
+			case 3:
+				socket->clilocMessage( 0x7A485 ); // You eat the food, and begin to feel more satiated.
+				break;
+
+			case 4:
+				socket->clilocMessage( 0x7A487 ); // You feel quite full after consuming the food.
+				break;
+
+			case 5:
+				socket->clilocMessage( 0x7A488 ); // You manage to eat the food, but you are stuffed!
+				break;
+			}
+
 			if ((pi->poisoned()) &&(pc_currchar->poisoned() < pi->poisoned())) 
 			{
 				socket->sysMessage(tr("You have been poisoned!"));
@@ -523,8 +545,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				pc_currchar->resend( false );
 			}
 			
-			pi->ReduceAmount(1);	// Remove a food item
-			pc_currchar->setHunger( pc_currchar->hunger()+1 );
+			pi->ReduceAmount( 1 );	// Remove a food item
+			pc_currchar->setHunger( pc_currchar->hunger() + 1 );
 		}
 		else
 		{
@@ -553,40 +575,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		}// switch
 		//soundeffect(s, 0x01, 0xEC);
 		return;// case 18 (crystal ball?)
-			
-		case 100:  // type 100?  this ain't in the docs...
-			{
-				AllItemsIterator it;
-				for (it.Begin(); !it.atEnd(); it++)
-				{
-					P_ITEM pj = it.GetData();
-					if (((pj->moreb1() == pi->morex()) &&(pj->moreb2() == pi->morey()) &&(pj->moreb3() == pi->morez()))
-						||((pj->morex() == pi->morex()) &&(pj->morey() == pi->morey()) &&(pj->morez() == pi->morez()))
-						&&((pj != pi) &&(pi->morex() != 0) &&(pi->morey() != 0) &&(pi->morez() != 0)))
-					{ 
-						if ((pj->morex() == 0) &&(pj->morey() == 0) &&(pj->morez() == 0))
-						{ 
-							pj->setMoreX(pj->moreb1());
-							pj->setMoreY(pj->moreb2());
-							pj->setMoreZ(pj->moreb3());
-							pj->setVisible( 0 );
-							pj->update();// AntiChrist
-						} 
-						else 
-						{
-							pj->setMoreb1( pj->morex() );
-							pj->setMoreb2( pj->morey() );
-							pj->setMoreb3( pj->morez() );
-							pj->setMoreX(0);
-							pj->setMoreY(0);
-							pj->setMoreZ(0);
-							pj->setVisible( 2 );
-							pj->update();// AntiChrist
-						}
-					}
-				}
-			}
-			return;
 
 		// Teleport object
 		case 104: 
@@ -928,16 +916,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 							socket->sysMessage(tr("The vial is not in your pack"));
 						return;
 					}
-				case 0x0DF9: 
-					pc_currchar->setTailItem( pi->serial() );
-//					target(s, 0, 1, 0, 166, "Select spinning wheel to spin cotton.");
-					return;
-					/*
-					case 0x09F1: // Raw meat to Cooked
-					pc_currchar->tailitem = x;   
-					target(s, 0, 1, 0, 168, "Select where to cook meat on.");
-					return;
-					*/
 				case 0x0FA0:
 				case 0x0FA1: // thread to Bolt
 				case 0x0E1D:

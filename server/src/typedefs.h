@@ -111,6 +111,8 @@ enum enFoodTypes
 	PASTRIES,		//  all bakery products
 	LEATHER,		//  leather, leather items and hides
 	METAL,			//  all metal items
+	VEGETABLES,		//	vegetables
+	OTHER,			//  all other foods (cheese i.e.)
 	enNumberOfFood
 };
 
