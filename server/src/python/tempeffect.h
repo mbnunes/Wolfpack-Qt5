@@ -203,9 +203,6 @@ public:
 
 		args = PyTuple_New( count );
 
-		for( int i = 0; i < count; ++i )
-			PyTuple_SetItem( args, i, Py_None );
-
 		cDBResult res = persistentBroker->query( QString( "SELECT keyname,type,value FROM effects_properties WHERE id = %1 AND keyname LIKE 'pyarg_%'" ).arg( id ) );
 
 		while( res.fetchrow() )
@@ -214,7 +211,7 @@ public:
 			QString type = res.getString( 1 );
 			QString value = res.getString( 2 );
 
-			int id = key.right( key.length() - 3 ).toInt();
+			int id = key.right( key.length() - 6 ).toInt();
 
 			if( id >= count )
 				continue;

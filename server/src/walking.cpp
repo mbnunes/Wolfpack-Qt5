@@ -1032,10 +1032,8 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	}
 	
     // if there's a static block here in our way, return false
-	StaticsIterator msi = Map->staticsIterator( pos );
-	
-	while( !msi.atEnd() )
-	{
+	StaticsIterator msi = Map->staticsIterator( pos );	
+	while (!msi.atEnd()) {
 		tile_st tile = TileCache::instance()->getTile( msi->itemid );
 		const INT32 elev = msi->zoff + cTileCache::tileHeight(tile);
 		if( (elev >= pos.z) && (msi->zoff <= pos.z ) )
@@ -1045,5 +1043,18 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 		}
 		msi++;
 	}
+
+	RegionIterator4Items items(pos, 0);
+	for (items.Begin(); !items.atEnd(); items++) {
+		P_ITEM item = items.GetData();
+		tile_st tile = TileCache::instance()->getTile(item->id());
+		const INT32 elev = item->pos().z + cTileCache::tileHeight(tile);
+		if( (elev >= pos.z) && (item->pos().z  <= pos.z ) )
+		{
+			if (tile.isBlocking() || tile.isWet()) 
+				return false;
+		}
+	}
+
     return true;
 }
