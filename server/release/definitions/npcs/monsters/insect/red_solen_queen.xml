@@ -10,21 +10,22 @@
 
 	<!-- red solen queen -->
 	<npc id="red_solen_queen" inherit="monster_base">
-		<name>a red solen infiltrator</name>
-		<id>0x30f</id>
-		<karma>-4500</karma>
-		<fame>4500</fame>
+		<name>red solen infiltrator</name>
+		<id>783</id>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="296" max="320"/></str>
 		<dex><random min="121" max="145"/></dex>
 		<int><random min="76" max="100"/></int>
+		<maxhitpoints><random min="151" max="162"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance>700</magicresistance>
 		<tactics>900</tactics>
 		<wrestling>900</wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="10" type="int" />
-		<tag name="maxdamage" value="15" type="int" />
+		<mindamage>26</mindamage>
+		<maxdamage>39</maxdamage>
 		<tag name="dmg_poison" value="30" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />

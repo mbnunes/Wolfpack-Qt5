@@ -13,12 +13,13 @@
 	<npc id="giant_black_widow" inherit="monster_base">
 		<name>giant black widow</name>
 		<id>157</id>
-		<karma>-3500</karma>
-		<fame>3500</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="76" max="100" /></str>
 		<dex><random min="96" max="115" /></dex>
 		<int><random min="36" max="60" /></int>
+		<maxhitpoints><random min="46" max="60" /></maxhitpoints>
 		<!-- Skills -->
 		<anatomy><random min="303" max="750"/></anatomy>
 		<poisoning><random min="601" max="800"/></poisoning>
@@ -26,8 +27,8 @@
 		<tactics><random min="651" max="800"/></tactics>
 		<wrestling><random min="701" max="850"/></wrestling>
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>17</maxdamage>
+		<mindamage>11</mindamage>
+		<maxdamage>35</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />

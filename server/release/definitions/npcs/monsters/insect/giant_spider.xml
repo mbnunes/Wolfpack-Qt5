@@ -12,20 +12,21 @@
 	<npc id="spider_giant" inherit="monster_base">
 		<name>giant spider</name>
 		<id>28</id>
-		<karma>-600</karma>
-		<fame>600</fame>
+		<karma><random list="KARMA_L1" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>
 		<dex><random min="76" max="95"/></dex>
 		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
 		<!-- Skills -->
 		<poisoning><random min="601" max="800"/></poisoning>
 		<magicresistance><random min="251" max="400"/></magicresistance>
 		<tactics><random min="351" max="500"/></tactics>
 		<wrestling><random min="501" max="650"/></wrestling>
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>13</maxdamage>
+		<mindamage>7</mindamage>
+		<maxdamage>19</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_poison" value="25,35" type="int" />

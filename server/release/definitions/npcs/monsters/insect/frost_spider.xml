@@ -12,19 +12,21 @@
 	<npc id="frost_spider" inherit="monster_base">
 		<name>frost spider</name>
 		<id>20</id>
-		<karma>-775</karma>
-		<fame>775</fame>
+		<karma><random list="KARMA_L1" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>
 		<dex><random min="126" max="145"/></dex>
 		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Skills -->
 		<magicresistance><random min="251" max="400"/></magicresistance>
 		<tactics><random min="351" max="500"/></tactics>
 		<wrestling><random min="501" max="650"/></wrestling>
 		<!-- Damage -->
-		<mindamage>6</mindamage>
-		<maxdamage>16</maxdamage>
+		<mindamage>9</mindamage>
+		<maxdamage>28</maxdamage>
 		<tag name="dmg_fire" value="80" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />

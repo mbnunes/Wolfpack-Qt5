@@ -12,21 +12,22 @@
 	<npc id="giant_scorpion" inherit="monster_base">
 		<name>giant scorpion</name>
 		<id>48</id>
-		<karma>-2000</karma>
-		<fame>2000</fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="73" max="115"/></str>
 		<dex><random min="76" max="95"/></dex>
 		<int><random min="16" max="30"/></int>
+		<maxhitpoints><random min="50" max="63"/></maxhitpoints>
 		<!-- Skills -->
 		<poisoning><random min="801" max="1000"/></poisoning>
 		<magicresistance><random min="301" max="350"/></magicresistance>
 		<tactics><random min="603" max="750"/></tactics>
 		<wrestling><random min="503" max="650"/></wrestling>
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>10</maxdamage>
+		<mindamage>8</mindamage>
+		<maxdamage>17</maxdamage>
 		<tag name="dmg_poison" value="40" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="20,25" type="int" />

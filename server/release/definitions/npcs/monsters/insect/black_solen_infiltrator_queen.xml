@@ -12,19 +12,20 @@
 	<npc id="black_solen_infiltrator_queen" inherit="monster_base">
 		<name>black solen infiltrator</name>
 		<id>807</id>
-		<karma>-6500</karma>
-		<fame>6500</fame>
+		<karma><random list="KARMA_L4" /></karma>
+		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
 		<str><random min="326" max="350"/></str>
 		<dex><random min="141" max="165"/></dex>
 		<int><random min="96" max="120"/></int>
+		<maxhitpoints><random min="151" max="162" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance>900</magicresistance>
 		<tactics>900</tactics>
 		<wrestling>900</wrestling>
 		<!-- Damage -->
-		<mindamage>10</mindamage>
-		<maxdamage>15</maxdamage>
+		<mindamage>26</mindamage>
+		<maxdamage>37</maxdamage>
 		<tag name="dmg_poison" value="30" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />

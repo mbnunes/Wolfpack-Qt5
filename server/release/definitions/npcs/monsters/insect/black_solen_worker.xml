@@ -12,19 +12,20 @@
 	<npc id="black_solen_worker" inherit="monster_base">
 		<name>black solen worker</name>
 		<id>805</id>
-		<karma>-1500</karma>
-		<fame>1500</fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="81" max="105"/></dex>
 		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="58" max="72"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance>600</magicresistance>
 		<tactics>650</tactics>
 		<wrestling>600</wrestling>
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>7</maxdamage>
+		<mindamage>8</mindamage>
+		<maxdamage>12</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />

@@ -12,12 +12,13 @@
 	<npc id="black_solen_infiltrator_warrior" inherit="monster_base">
 		<name>black solen infiltrator</name>
 		<id>806</id>
-		<karma>-3000</karma>
-		<fame>3000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="206" max="230"/></str>
 		<dex><random min="121" max="145"/></dex>
 		<int><random min="66" max="90"/></int>
+		<maxhitpoints><random min="96" max="107" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance>800</magicresistance>
 		<tactics>800</tactics>
