@@ -262,7 +262,7 @@ public:
 						}
 						else
 						{
-							impl->unique[categories[i].key].insert( tagId, element );
+							impl->unique[categories[i].key].insert( tagId, element, true );
 						}
 					}
 					else
