@@ -741,9 +741,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	Skills->updateSkillLevel( pChar, packet->skillId2() );
 	Skills->updateSkillLevel( pChar, packet->skillId3() );
 
-	pChar->setClientIdleTime( uiCurrentTime + 120 * MY_CLOCKS_PER_SEC );
-
-
 	CharsManager::instance()->registerChar( pChar );
 
 	// Create the char equipment (JUST the basics !!)
