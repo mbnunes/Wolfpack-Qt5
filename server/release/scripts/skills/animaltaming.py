@@ -182,6 +182,8 @@ def callback( char, args ):
 
 			# set owner
 			totame.tamed = True
+			if totame.hunger < 3:
+				totame.hunger = 3 # Otherwise they go wild again
 			totame.owner = char
 
 			# A creature can only be tamed a few times
