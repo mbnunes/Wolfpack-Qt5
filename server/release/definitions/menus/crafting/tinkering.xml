@@ -20,29 +20,29 @@
 	<menu id="TINKERING_WOODEN" name="Wooden Items">
 		<tinker definition="1030" name="Jointing Plane">
 			<tinkering min="0" max="500" />
-			<logs amount="4" name="Boards, Logs" />
+			<logs amount="4" />
 		</tinker>
 		<tinker definition="102c" name="Moulding Plane">
 			<tinkering min="0" max="500" />
-			<logs amount="4" name="Boards, Logs" />
+			<logs amount="4" />
 		</tinker>
 		<tinker definition="1032" name="Smoothing Plane">
 			<tinkering min="0" max="500" />
-			<logs amount="4" name="Boards, Logs" />
+			<logs amount="4" />
 		</tinker>
 		<tinker definition="104f" name="Clock Frame">
 			<tinkering min="0" max="500" />
-			<logs amount="6" name="Boards, Logs" />
+			<logs amount="6" />
 			<nomark />
 		</tinker>
 		<tinker definition="105b" name="Axle">
 			<tinkering min="-250" max="250" />
-			<logs amount="2" name="Boards, Logs" />
+			<logs amount="2" />
 			<nomark />
 		</tinker>
 		<tinker definition="1043" name="Rolling Pin">
 			<tinkering min="0" max="500" />
-			<logs amount="5" name="Boards, Logs" />
+			<logs amount="5" />
 		</tinker>
 	</menu>
 
@@ -253,12 +253,12 @@
 			<nomark />
 		</tinker>
 		<tinker definition="104f" name="Clock Parts">
-			<material id="1051;1052" amount="1" name="Axle & Gears" /> <!-- Axle + Gears -->
+			<material id="1051;1052" amount="1" name="Axle &amp; Gears" /> <!-- Axle + Gears -->
 			<material id="105d;105e" amount="1" name="Spring"  /> <!-- Spring -->
 			<nomark />
 		</tinker>
 		<tinker definition="1059" name="Sextant Parts">
-			<material id="1051;1052" amount="1" name="Axle & Gears" /> <!-- Axle + Gears -->
+			<material id="1051;1052" amount="1" name="Axle &amp; Gears" /> <!-- Axle + Gears -->
 			<material id="1055;1056" amount="1" name="Hinge" /> <!-- Hinge -->
 			<nomark />
 		</tinker>
