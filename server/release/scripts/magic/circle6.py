@@ -220,7 +220,6 @@ class ParalyzeField(Spell):
 			newitem.settag('dispellable_field', 1)
 			newitem.settag('strength', char.skill[self.damageskill])
 			newitem.events = ['magic.paralyzefield']
-			newitem.direction = 29
 			newitem.update()
 			serials.append(newitem.serial)
 			wolfpack.effect(0x376A, newitem.pos, 9, 10)
