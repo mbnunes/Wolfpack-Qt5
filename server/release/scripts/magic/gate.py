@@ -1,5 +1,6 @@
 
 import wolfpack
+from wolfpack import utilities
 
 def onCollide(player, item):
 	if not item.hastag('target'):
@@ -31,9 +32,8 @@ def onCollide(player, item):
 		player.socket.resendworld()
 
 	# An der alten und neuen position soundeffekt und effekt spielen
-	player.soundeffect(0x1fe)
 	item.soundeffect(0x1fe)
-	wolfpack.effect(0x3728, player.pos, 10, 30)
-	pos = item.pos
-	wolfpack.effect(0x3728, pos, 10, 30)
+	
+	utilities.smokepuff(player, player.pos)
+	utilities.smokepuff(player, item.pos)
 	return 1

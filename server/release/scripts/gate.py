@@ -1,7 +1,7 @@
 
 import wolfpack
 from wolfpack.consts import LOG_ERROR
-from wolfpack import console
+from wolfpack import console, utilities
 from wolfpack.gumps import cGump
 
 #
@@ -40,11 +40,9 @@ def onCollide(player, item):
 
 	# show some nice effects
 	if not item.hastag('silent'):
-		player.soundeffect(0x1fe)
 		item.soundeffect(0x1fe)
-		wolfpack.effect(0x3728, player.pos, 10, 30)
-		pos = item.pos
-		wolfpack.effect(0x3728, pos, 10, 30)
+		utilities.smokepuff(player, pos)
+		utilities.smokepuff(player, item.pos)
 
 	return 1
 

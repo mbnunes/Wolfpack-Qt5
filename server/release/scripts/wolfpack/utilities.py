@@ -719,3 +719,16 @@ class ObjectWrapper:
 				return item
 
 		return None
+
+"""
+	Show a smoke puff for the given character.
+	Teleportation effect.
+"""
+def smokepuff(char, position):
+	if char.invisible:
+		return
+
+	wolfpack.effect(0x3728, position, 10, 15)
+	# Only do it once
+	if position == char.pos:
+		char.soundeffect(0x1fe)

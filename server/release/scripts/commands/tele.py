@@ -4,6 +4,7 @@
 """
 
 import wolfpack
+from wolfpack import utilities
 from wolfpack.consts import *
 
 def onLoad():
@@ -28,7 +29,6 @@ def teleport( char, args, target ):
 	char.update()
 	if char.socket:
 		char.socket.resendworld()
-	wolfpack.effect(0x3728, source, 10, 15)
-	wolfpack.effect(0x3728, target, 10, 15)
-	char.soundeffect(0x1fe)
+	utilities.smokepuff(char, source)
+	utilities.smokepuff(char, target)	
 	return True

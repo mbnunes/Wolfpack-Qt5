@@ -180,24 +180,20 @@ class GateTravel (Spell):
 		serials = []
 
 		# Create the two gates
-		gate = wolfpack.newitem(1)
-		gate.id = 0xf6c
+		gate = wolfpack.additem('f6c')
 		gate.moveto(char.pos)
 		gate.settag('dispellable_field', 1)
 		gate.addscript( 'magic.gate' )
 		gate.settag('target', target.gettag('location'))
-		gate.direction = 9
 		gate.update()
 		gate.soundeffect(0x20e)
 		serials.append(gate.serial)
 
-		gate = wolfpack.newitem(1)
-		gate.id = 0xf6c
+		gate = wolfpack.additem('f6c')
 		gate.moveto(location)
 		gate.settag('target', '%u,%u,%d,%u' % (char.pos.x, char.pos.y, char.pos.z, char.pos.map))
 		gate.settag('dispellable_field', 1)
 		gate.addscript( 'magic.gate' )
-		gate.direction = 9
 		gate.update()
 		gate.soundeffect(0x20e)
 		serials.append(gate.serial)

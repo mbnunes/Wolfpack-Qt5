@@ -5,7 +5,7 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from magic.utilities import *
 import random
 import wolfpack
-from wolfpack.utilities import tobackpack, energydamage
+from wolfpack.utilities import tobackpack, energydamage, smokepuff
 from system import poison
 
 class Bless (CharEffectSpell):
@@ -108,10 +108,8 @@ class Teleport(Spell):
 		if char.socket:
 			char.socket.resendworld()
 
-		wolfpack.effect(0x3728, source, 10, 15)
-		wolfpack.effect(0x3728, target, 10, 15)
-		char.soundeffect(0x1fe)
-
+		smokepuff(char, source)
+		smokepuff(char, target)
 
 class MagicLock(Spell):
 	def __init__(self):
