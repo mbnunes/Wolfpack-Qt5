@@ -534,8 +534,63 @@ PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 	return PyGetCharObject( self->pItem->getOutmostChar() );
 }
 
+/*!
+	Adds an item to this container.
+*/
+PyObject* wpItem_additem( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
+
+	if( !checkArgItem( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	P_ITEM pItem = getArgItem( 0 );
+
+	// Secondary Parameters
+	bool randomPos = true;
+	bool handleWeight = true;
+	bool autoStack = true;
+
+	if( checkArgInt( 1 ) )
+		randomPos = getArgInt( 1 ) != 0;
+
+	if( checkArgInt( 2 ) )
+		handleWeight = getArgInt( 2 ) != 0;
+
+	if( checkArgInt( 3 ) )
+		autoStack = getArgInt( 3 ) != 0;
+
+	// Special rules:
+	// If randomPos == false but autoStack == true then manually set a random position as well
+	// If randomPos == true but autoStack = false then manually set the random position
+
+	if( randomPos && !autoStack )
+	{
+		self->pItem->addItem( pItem, false, handleWeight );
+		pItem->SetRandPosInCont( self->pItem );
+	}
+	else if( !randomPos && autoStack )
+	{
+		Coord_cl pos = pItem->pos;
+		self->pItem->addItem( pItem, true, handleWeight );
+		if( !pItem->free )
+			pItem->moveTo( pos );
+	}
+	else
+	{
+		self->pItem->addItem( pItem, randomPos, handleWeight );
+	}
+
+	return PyTrue;
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
+	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
 	{ "removefromview",		(getattrofunc)wpItem_removefromview, METH_VARARGS, "Removes the item from the view of all in-range clients." },
 	{ "delete",				(getattrofunc)wpItem_delete, METH_VARARGS, "Deletes the item and the underlying reference." },
