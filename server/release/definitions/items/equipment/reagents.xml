@@ -17,6 +17,7 @@
 		<category>Professions\Mage\Reagents\Batwing</category>
 		<category>Equipment\Reagents\Batwing</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f79">
@@ -27,6 +28,7 @@
 		<category>Professions\Mage\Reagents\Blackmoor</category>
 		<category>Equipment\Reagents\Blackmoor</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f7a">
@@ -37,6 +39,7 @@
 		<category>Professions\Mage\Reagents\Black Pearl</category>
 		<category>Equipment\Reagents\Black Pearl</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f7b">
@@ -47,6 +50,7 @@
 		<category>Professions\Mage\Reagents\Blood Moss</category>
 		<category>Equipment\Reagents\Blood Moss</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f7c">
@@ -57,6 +61,7 @@
 		<category>Professions\Mage\Reagents\Bloodspawn</category>
 		<category>Equipment\Reagents\Bloodspawn</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f7d">
@@ -67,6 +72,7 @@
 		<category>Professions\Mage\Reagents\Daemon Blood</category>
 		<category>Equipment\Reagents\Daemon Blood</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f7e">
@@ -77,6 +83,7 @@
 		<category>Professions\Mage\Reagents\Bone</category>
 		<category>Equipment\Reagents\Bone</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f7f">
@@ -87,6 +94,7 @@
 		<category>Professions\Mage\Reagents\Brimstone</category>
 		<category>Equipment\Reagents\Brimstone</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f80">
@@ -97,6 +105,7 @@
 		<category>Professions\Mage\Reagents\Daemon Bone</category>
 		<category>Equipment\Reagents\Daemon Bone</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f81">
@@ -107,6 +116,7 @@
 		<category>Professions\Mage\Reagents\Fertile Dirt</category>
 		<category>Equipment\Reagents\Fertile Dirt</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f82">
@@ -117,6 +127,7 @@
 		<category>Professions\Mage\Reagents\Dragon's Blood</category>
 		<category>Equipment\Reagents\Dragon's Blood</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f83">
@@ -127,6 +138,7 @@
 		<category>Professions\Mage\Reagents\Executioner's cap</category>
 		<category>Equipment\Reagents\Executioner's Cap</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f84">
@@ -137,6 +149,7 @@
 		<category>Professions\Mage\Reagents\Garlic</category>
 		<category>Equipment\Reagents\Garlic</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f85">
@@ -147,6 +160,7 @@
 		<category>Professions\Mage\Reagents\Ginseng</category>
 		<category>Equipment\Reagents\Ginseng</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f86">
@@ -157,6 +171,7 @@
 		<category>Professions\Mage\Reagents\Mandrake Root</category>
 		<category>Equipment\Reagents\Mandrake Root</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f87">
@@ -167,6 +182,7 @@
 		<category>Professions\Mage\Reagents\Eye of Newt</category>
 		<category>Equipment\Reagents\Eye of Newt</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f88">
@@ -177,7 +193,8 @@
 		<category>Professions\Mage\Reagents\Nightshade</category>
 		<category>Equipment\Reagents\Nightshade</category>
 		<weight>0.1</weight>
-	</item>
+		<intproperty name="min_restock_amount" value="50" />
+	</item>	
 
 	<item id="f89">
 		<id>0x0f89</id>
@@ -187,6 +204,7 @@
 		<category>Professions\Mage\Reagents\Obsidian</category>
 		<category>Equipment\Reagents\Obsidian</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f8a">
@@ -197,6 +215,7 @@
 		<category>Professions\Mage\Reagents\Pig Iron</category>
 		<category>Equipment\Reagents\Pig Iron</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f8b">
@@ -207,6 +226,7 @@
 		<category>Professions\Mage\Reagents\Pumice</category>
 		<category>Equipment\Reagents\Pumice</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f8c">
@@ -217,6 +237,7 @@
 		<category>Professions\Mage\Reagents\Sulfurous Ash</category>
 		<category>Equipment\Reagents\Sulfurous Ash</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f8d">
@@ -227,6 +248,7 @@
 		<category>Professions\Mage\Reagents\Spider's Silk</category>
 		<category>Equipment\Reagents\Spider's Silk</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f8e">
@@ -237,6 +259,7 @@
 		<category>Professions\Mage\Reagents\Nox Crystal</category>
 		<category>Equipment\Reagents\Nox Crystal</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f8f">
@@ -247,6 +270,7 @@
 		<category>Professions\Mage\Reagents\Grave Dust</category>
 		<category>Equipment\Reagents\Grave Dust</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f90">
@@ -257,6 +281,7 @@
 		<category>Professions\Mage\Reagents\Dead Wood</category>
 		<category>Equipment\Reagents\Dead Wood</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f91">
@@ -267,6 +292,7 @@
 		<category>Professions\Mage\Reagents\Wyrm's Heart</category>
 		<category>Equipment\Reagents\Wyrm's Heart</category>
 		<weight>0.1</weight>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 </definitions>

@@ -25,7 +25,8 @@
 		<id>0xf3f</id>
 		<weight>0.1</weight>
 		<category>Professions\Fletcher\Arrow</category>
-		<buyprice value="12" />
+		<buyprice>12</buyprice>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="f40">
@@ -84,7 +85,8 @@
 		<id>0x1bfb</id>
 		<weight>0.1</weight>
 		<category>Professions\Fletcher\Crossbow Bolt</category>
-		<buyprice value="16" />
+		<buyprice>16</buyprice>
+		<intproperty name="min_restock_amount" value="50" />
 	</item>
 
 	<item id="1bfc">
