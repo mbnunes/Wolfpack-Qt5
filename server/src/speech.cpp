@@ -514,7 +514,7 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 				pEscortee->npcWander = 1;			// Set the NPC to wander freely
 				pEscortee->npcaitype = 0;           // Set AI to 0
 				// Set the expire time if nobody excepts the quest
-				pEscortee->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParms->escortactiveexpire ) );
+				pEscortee->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) );
 				// Send out the rant about accepting the escort
 				sprintf(temp, "Lead on! Payment shall be made when we arrive at %s.", region[pEscortee->questDestRegion].name);
 				npctalkall(pEscortee,temp, 0);

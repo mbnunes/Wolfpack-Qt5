@@ -137,7 +137,7 @@ void racInit(void)
 		return;
 	}
 	
-	rac_port = SrvParms->ra_port;
+	rac_port = SrvParams->ra_port();
 	
 	
 	raclen_connection_addr = sizeof(struct sockaddr_in);

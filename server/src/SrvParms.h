@@ -50,7 +50,6 @@ void saveserverscript(void);
 
 #define FISHINGTIMEBASE 10              // it takes at least FISHINGTIMEBASE sec to fish
 #define FISHINGTIMER 5
-#define DEFAULTJAILTIME 86400	// blackwind
 #define ECLIPSETIMER .5
 
 #define DECAYTIMER 300  // 5 minute decay rate
@@ -59,29 +58,14 @@ struct server_st
 {
 	unsigned int eclipsemode;
 	unsigned int eclipsetimer;
-	unsigned int snoopdelay;
 	unsigned int minecheck;
 	char archivepath[256];
-	unsigned int skilllevel; // Magius(CHE)
-	unsigned short int quittime;//Instalog
 	char specialbanktrigger[50]; //special bank trigger - AntiChrist
 	int usespecialbank; //special bank - AntiChrist
-	char errors_to_console; // LB
-	unsigned long int housedecay_secs;
-	unsigned int ra_port;
-	bool EnableRA;
-	unsigned char showCVCS; // Show client verification stuff at login ? (blackwind) 
-	unsigned int default_jail_time; // Default jail time (86400) 
 	char msgboardpath[256];   // Dupois - Added April 4, 1999 for msgboard.cpp - path to store BB* files (ie C:\POSTS\)
 	int  msgpostaccess;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to post messages (0=GM only, 1 = everyone)
 	int  msgpostremove;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to remove post messages (0=GM only, 1 = everyone)
 	int  msgretention;        // Dupois - Added April 4, 1999 for msgboard.cpp - how long to keep posts before deleting them automatically (in days - default 30)
-	int  escortactive;        // Dupois - Added April 4, 1999 for escort quests - are escort quests created
-	int  escortinitexpire;    // Dupois - Added April 4, 1999 for escort quests - time to expire after spawning NPC in secs(0=never)
-	int  escortactiveexpire;  // Dupois - Added April 4, 1999 for escort quests - time to expire after quest has been accepted by player in secs(0=never)
-	int  escortdoneexpire;    // Dupois - Added April 4, 1999 for escort quests - time to expire after quest has been completed by player in secs(0=never)
-	int  bountysactive;       // Dupois - Added July 18, 2000 for bounty quests - whether bounties are active (1-default) or inactive (0)
-	int  bountysexpire;       // Dupois - Added July 18, 2000 for bounty quests - number of days when an unclaimed bounty expires and is deleted (0=never-default)
 };
 
 

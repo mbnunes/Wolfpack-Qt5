@@ -88,6 +88,22 @@ protected:
 	unsigned int shopRestock_;
 	unsigned int badNpcsRed_;
 	unsigned int slotAmount_;
+	unsigned int snoopdelay_;
+	int  escortactive_;
+	int  escortinitexpire_;
+	int  escortactiveexpire_;
+	int  escortdoneexpire_;
+	int  bountysactive_;
+	int  bountysexpire_;
+	unsigned short int quittime_;
+	char errors_to_console_;
+	unsigned long int housedecay_secs_;
+	unsigned int default_jail_time_;
+	unsigned char showCVCS_;
+
+	// Remote Admin
+	unsigned int ra_port_;
+	bool EnableRA_;
 
 	// Regenerate
 	unsigned int hitpointrate_;
@@ -180,6 +196,22 @@ public:
 	unsigned int shopRestock() const;
 	unsigned int badNpcsRed() const;
 	unsigned int slotAmount() const;
+	unsigned int snoopdelay() const;
+	int  escortactive() const;
+	int  escortinitexpire() const;
+	int  escortactiveexpire() const;
+	int  escortdoneexpire() const;
+	int  bountysactive() const;
+	int  bountysexpire() const;
+	unsigned short int quittime() const;
+	char errors_to_console() const;
+	unsigned long int housedecay_secs() const;
+	unsigned int default_jail_time() const;
+	unsigned char showCVCS() const;
+
+	// Remote Admin
+	unsigned int ra_port() const;
+	bool EnableRA() const;
 
 	// Regenerate
 	unsigned int hitpointrate() const;
@@ -610,6 +642,76 @@ inline unsigned int cSrvParams::manarate() const
 inline char cSrvParams::armoraffectmana() const
 {
 	return armoraffectmana_;
+}
+
+inline unsigned int cSrvParams::snoopdelay() const
+{
+	return snoopdelay_;
+}
+
+inline int cSrvParams::escortactive() const
+{
+	return escortactive_;
+}
+
+inline int cSrvParams::escortinitexpire() const
+{
+	return escortinitexpire_;
+}
+
+inline int cSrvParams::escortactiveexpire() const
+{
+	return escortactiveexpire_;
+}
+
+inline int cSrvParams::escortdoneexpire() const
+{
+	return escortdoneexpire_;
+}
+
+inline int cSrvParams::bountysactive() const
+{
+	return bountysactive_;
+}
+
+inline int cSrvParams::bountysexpire() const
+{
+	return bountysexpire_;
+}
+
+inline unsigned short int cSrvParams::quittime() const
+{
+	return quittime_;
+}
+
+inline char cSrvParams::errors_to_console() const
+{
+	return errors_to_console_;
+}
+
+inline unsigned long int cSrvParams::housedecay_secs() const
+{
+	return housedecay_secs_;
+}
+
+inline unsigned int cSrvParams::default_jail_time() const
+{
+	return default_jail_time_;
+}
+
+inline unsigned char cSrvParams::showCVCS() const
+{
+	return showCVCS_;
+}
+
+inline unsigned int cSrvParams::ra_port() const
+{
+	return ra_port_;
+}
+
+inline bool cSrvParams::EnableRA() const
+{
+	return EnableRA_;
 }
 
 #endif __SRVPARAMS_H___

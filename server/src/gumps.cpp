@@ -167,7 +167,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				}
 				else
 				{
-					addmitem[s] = SrvParms->default_jail_time;
+					addmitem[s] = SrvParams->default_jail_time();
 					Targ->JailTarget (s,pc_c->serial);
 					break;
 				}						 
@@ -523,8 +523,8 @@ void cGump::Menu(UOXSOCKET s, int m, P_ITEM it)
             // 2) calc decay % number	
 
 			if (pj!= NULL) 
-			{   if (SrvParms->housedecay_secs!=0)				
-				ds=((pj->time_unused)*100)/(SrvParms->housedecay_secs);
+			{   if (SrvParams->housedecay_secs()!=0)				
+				ds=((pj->time_unused)*100)/(SrvParams->housedecay_secs());
 			    else ds=-1;
 			    numtostr(ds,  tt);
 			} else ds=-1;
@@ -1459,7 +1459,7 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
 				
 				script->NextLineSplitted();
 				itemmake[s].minskill=str2num(script2);
-				itemmake[s].maxskill=itemmake[s].minskill*SrvParms->skilllevel;
+				itemmake[s].maxskill=itemmake[s].minskill*SrvParams->skillLevel();
 				// clConsole.send("needs %i, has %i\nskillneed %i, skillhas %i\n",itemmake[s].need,itemmake[s].has,itemmake[s].minskill,pc_currchar->skill[pc_currchar->making]);
 				// Duke: we must count with the same criteria as in MakeMenu() !
 				if (    itemmake[s].has<itemmake[s].needs

@@ -1725,8 +1725,8 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 
 		if(!(pc_currchar->Owns(pHouse) || pHouse->isFriend(pc_currchar)))
 			return;
-		if (SrvParms->housedecay_secs!=0)
-			ds = static_cast<float>((pHouse->time_unused)*100) / (SrvParms->housedecay_secs);
+		if (SrvParams->housedecay_secs()!=0)
+			ds = static_cast<float>((pHouse->time_unused)*100) / (SrvParams->housedecay_secs());
 		else
 			ds = -1;	
 		if (ds >= 50) // sysmessage if decay status >=50%
@@ -3019,7 +3019,7 @@ int main(int argc, char *argv[])
 	clConsole.send("Loading IP Blocking rules...");
 	Network->LoadHosts_deny();
 	clConsole.send("Done\n");
-    if (SrvParms->EnableRA)
+    if (SrvParams->EnableRA())
          racInit();
 
 #ifndef __unix__
@@ -3182,13 +3182,13 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		if( uiNextCheckConn<=uiCurrentTime || overflow) // Cut lag on CheckConn by not doing it EVERY loop.
 		{
 			Network->CheckConn();
-            if (SrvParms->EnableRA)
+            if (SrvParams->EnableRA())
                racCheckConn();
 			uiNextCheckConn = (unsigned int)( uiCurrentTime + ( double )( 3 * MY_CLOCKS_PER_SEC ) );
 		}
 
 		Network->CheckMessage();
-        if (SrvParms->EnableRA)
+        if (SrvParams->EnableRA())
            racCheckInp();
 		tempTime = getNormalizedTime() - tempSecs ;
 		networkTime += tempTime;

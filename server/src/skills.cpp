@@ -80,10 +80,10 @@ int cSkills::CalcRank(int s,int skill)
 		rank = itemmake[s].maxrank;
 	else
 	{
-		if (SrvParms->skilllevel==11)
+		if (SrvParams->skillLevel()==11)
 			randnum1=(float) (rand()%1000);
 		else
-			randnum1=(float) (rand()%1000)-((randnum-sk_range)/(11-SrvParms->skilllevel));
+			randnum1=(float) (rand()%1000)-((randnum-sk_range)/(11-SrvParams->skillLevel()));
 
 		rank=(int) (randnum1*rk_range)/1000;
 		rank+=itemmake[s].minrank-1;
@@ -574,7 +574,7 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 
 			pScp->NextLineSplitted();
 			imk->minskill=str2num(script2);
-			imk->maxskill=imk->minskill*SrvParms->skilllevel; // by Magius(CHE)
+			imk->maxskill=imk->minskill*SrvParams->skillLevel(); // by Magius(CHE)
 			if (strcmp((char*)script1,"SKILL"))
 			{
 				sprintf(tmp,"create.scp, MAKEMENU %i: Expected 'SKILL <num>' after 'RESOURCE %i'!", m,imk->needs);
@@ -2702,7 +2702,7 @@ void cSkills::Snooping(P_CHAR player, P_ITEM container)
 		// Karma(currchar[s],-1,-2000);//AntiChrist
 		// criminal(currchar[s]);//AntiChrist
 	}
-	SetTimerSec(&player->objectdelay, SrvParams->objectDelay()+SrvParms->snoopdelay);//adds a delay - solarin
+	SetTimerSec(&player->objectdelay, SrvParams->objectDelay()+SrvParams->snoopdelay());//adds a delay - solarin
 }
 
 

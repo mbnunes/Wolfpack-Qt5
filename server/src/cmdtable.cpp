@@ -426,7 +426,7 @@ void command_bounty(UOXSOCKET s)
 	P_CHAR pc_cs = currchar[s];
 	if (pc_cs == NULL) return;
 	
-	if( !SrvParms->bountysactive )
+	if( !SrvParams->bountysactive() )
 	{
 		sysmessage(s, tr("The bounty system is not active."));
 		return;
@@ -2546,7 +2546,7 @@ void command_jail(UOXSOCKET s)
 	} 
 	else 
 	{ 
-		addmitem[s] = server_data.default_jail_time; 
+		addmitem[s] = SrvParams->default_jail_time(); 
 		sprintf((char*)temp, "Select Character to jail. [Jailtime:Server default of %i secs]", addmitem[s]); 
 		target(s, 0, 1, 0, 126, (char*)temp); 
 	} 

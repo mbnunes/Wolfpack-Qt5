@@ -91,34 +91,15 @@ void loadserverdefaults(void)
 	server_data.usespecialbank=0;	//AntiChrist - 1= Special Bank enabled
 
 	// Should we check character age for delete?
-	server_data.snoopdelay=7;
 	server_data.minecheck=2;
-	server_data.errors_to_console=0;
-
-	server_data.quittime=300;//Instalog
 
 	server_data.msgboardpath[0] = 0;	   // Dupois - Added Dec 20, 1999 for message boards (current dir)
 	
 	server_data.msgpostaccess=0;           // Dupois - Added Dec 20, 1999 for message boards (GM only)
 	server_data.msgpostremove=0;           // Dupois - Added Dec 20, 1999 for message boards (GM only)
 	server_data.msgretention=30;           // Dupois - Added Dec 20, 1999 for message boards (30 Days)
-	server_data.escortactive=1;            // Dupois - Added Dec 20, 1999 for message boards (Active)
-	server_data.escortinitexpire=86400;    // Dupois - Added Dec 20, 1999 for message boards (24 hours)
-	server_data.escortactiveexpire=1800;   // Dupois - Added Dec 20, 1999 for message boards (1/2 Hour)
-	server_data.escortdoneexpire=1800;     // Dupois - Added Dec 20, 1999 for message boards (1/2 Hour)
-		
-	server_data.bountysactive=1;           // Dupois - Added July 18, 2000 for bountys (1-Active)
-	server_data.bountysexpire=0;           // Dupois - Added July 18, 2000 for bountys (0-Never - in days)
-
-	server_data.housedecay_secs=604800; // LB, one week
 
     server_data.eclipsemode=0; // Light to dark..
-	server_data.ra_port = 2594;
-	server_data.EnableRA = false;
-
-	server_data.showCVCS = 1; // blackwind 
-	server_data.default_jail_time=86400; // 
-
 
 	cwmWorldState->SetLoopSaveAmt(-1);
 		
@@ -225,30 +206,14 @@ void loadserver()
 				server_data.specialbanktrigger[i] = toupper(server_data.specialbanktrigger[i]);
 		}
 		else if(!(strcmp((char*)script1,"ARCHIVEPATH"))) strcpy(server_data.archivepath,(char*)script2);
-
-		else if(!(strcmp((char*)script1,"CHAR_TIME_OUT"))) server_data.quittime = str2num(script2);//Instalog
 	
 		else if(!(strcmp((char*)script1,"MSGBOARDPATH"))) strcpy(server_data.msgboardpath,(char*)script2);               // Dupois - Added Dec 20, 1999 for message boards
 		else if(!(strcmp((char*)script1,"MSGPOSTACCESS"))) server_data.msgpostaccess=str2num(script2);            // Dupois - Added Dec 20, 1999 for message boards
 		else if(!(strcmp((char*)script1,"MSGPOSTREMOVE"))) server_data.msgpostremove=str2num(script2);            // Dupois - Added Dec 20, 1999 for message boards
 		else if(!(strcmp((char*)script1,"MSGRETENTION"))) server_data.msgretention=str2num(script2);              // Dupois - Added Dec 20, 1999 for message boards
-		else if(!(strcmp((char*)script1,"ESCORTACTIVE"))) server_data.escortactive=str2num(script2);              // Dupois - Added Dec 20, 1999 for escorts
-		else if(!(strcmp((char*)script1,"ESCORTINITEXPIRE"))) server_data.escortinitexpire=str2num(script2);      // Dupois - Added Dec 20, 1999 for escorts
-		else if(!(strcmp((char*)script1,"ESCORTACTIVEEXPIRE"))) server_data.escortactiveexpire=str2num(script2);  // Dupois - Added Dec 20, 1999 for escorts
-		else if(!(strcmp((char*)script1,"ESCORTDONEEXPIRE"))) server_data.escortdoneexpire=str2num(script2);      // Dupois - Added Dec 20, 1999 for escorts
-
-		else if(!(strcmp((char*)script1,"BOUNTYSACTIVE"))) server_data.bountysactive=str2num(script2);            // Dupois - Added July 18, 2000 for bountys
-		else if(!(strcmp((char*)script1,"BOUNTYSEXPIRE"))) server_data.bountysexpire=str2num(script2);            // Dupois - Added July 18, 2000 for bountys
 
 	 
 		else if(!(strcmp((char*)script1,"LOOPSAVE"))) cwmWorldState->SetLoopSaveAmt( str2num( script2 ) );
-
-
-		else if(!(strcmp((char*)script1,"ERRORS_TO_CONSOLE"))) server_data.errors_to_console=str2num( script2 ); // LB
-
-		else if(!(strcmp((char*)script1,"HOUSEDECAY_SECS"))) server_data.housedecay_secs=str2num( script2 ); // LB
-		else if(!(strcmp((char*)script1,"SHOW_CVCS_INFO_AT_LOGIN"))) server_data.showCVCS=str2num(script2); //blackwind 
-		else if(!(strcmp((char*)script1,"DEFAULT_JAIL_TIME"))) server_data.default_jail_time=str2num(script2);// blackwind 
 	}
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
@@ -337,19 +302,6 @@ void loadtime_light()
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS));
 }
 
-void loadremote_admin()
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"ENABLE"))) SrvParms->EnableRA = true;
-		else if(!(strcmp((char*)script1,"DISABLE"))) SrvParms->EnableRA = false;
-		else if(!(strcmp((char*)script1,"PORT"))) SrvParms->ra_port = str2num(script2);
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS));
-}
-
 void loadserverscript(char *fn) // Load a server script
 {
 	unsigned long loopexit=0;
@@ -375,7 +327,6 @@ void loadserverscript(char *fn) // Load a server script
 			else if(!(strcmp((char*)script2, "SPIRITSPEAK"))) loadspiritspeak();
 			else if(!(strcmp((char*)script2, "TIME_LIGHT"))) loadtime_light();
 			// added by Magius(CHE)
-			else if(!(strcmp((char*)script2, "REMOTE_ADMIN"))) loadremote_admin();
 			// end addons by Magius(CHE)
 		}
 	}
@@ -415,37 +366,13 @@ void saveserverscript(void)
 	fprintf(file, "USESPECIALBANK %i\n",server_data.usespecialbank);	//AntiChrist - specialbank
 	fprintf(file, "SPECIALBANKTRIGGER %s\n",server_data.specialbanktrigger);
 	fprintf(file, "ARCHIVEPATH %s\n",server_data.archivepath);
-	
-	fprintf(file, "CHAR_TIME_OUT %i\n",server_data.quittime);//Instalog
     
 	fprintf(file, "MSGBOARDPATH %s\n",server_data.msgboardpath);              // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	fprintf(file, "MSGPOSTACCESS %i\n",server_data.msgpostaccess);            // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	fprintf(file, "MSGPOSTREMOVE %i\n",server_data.msgpostremove);            // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	fprintf(file, "MSGRETENTION %i\n",server_data.msgretention);              // Dupois - Added Dec 20, 1999 for msgboard.cpp
-	fprintf(file, "ESCORTACTIVE %i\n",server_data.escortactive);              // Dupois - Added Dec 20, 1999 for escorts
-	fprintf(file, "ESCORTINITEXPIRE %i\n",server_data.escortinitexpire);      // Dupois - Added Dec 20, 1999 for escorts
-	fprintf(file, "ESCORTACTIVEEXPIRE %i\n",server_data.escortactiveexpire);  // Dupois - Added Dec 20, 1999 for escorts
-	fprintf(file, "ESCORTDONEEXPIRE %i\n",server_data.escortdoneexpire);      // Dupois - Added Dec 20, 1999 for escorts
 	
-	fprintf(file, "BOUNTYSACTIVE %i\n",server_data.bountysactive);            // Dupois - Added July 18, 2000 for bountys
-	fprintf(file, "BOUNTYSEXPIRE %i\n",server_data.bountysexpire);            // Dupois - Added July 18, 2000 for bountys
-	
-	fprintf(file, "LOOPSAVE %i\n",cwmWorldState->LoopSaveAmt());  
-	fprintf(file, "ERRORS_TO_CONSOLE %i\n",server_data.errors_to_console);
-	fprintf(file, "HOUSEDECAY_SECS %i\n",server_data.housedecay_secs);
-	fprintf(file, "SHOW_CVCS_INFO_AT_LOGIN %i\n",server_data.showCVCS); // blackwind 
-	fprintf(file, "DEFAULT_JAIL_TIME %i\n",server_data.default_jail_time);
-
-	
-	fprintf(file, "}\n\n");
-
-	fprintf(file, "SECTION REMOTE_ADMIN\n");
-	fprintf(file, "{\n");
-	if (server_data.EnableRA)
-		fprintf(file, "ENABLE\n");
-	else
-		fprintf(file, "DISABLE\n");
-	fprintf(file, "PORT %i\n", server_data.ra_port);
+	fprintf(file, "LOOPSAVE %i\n",cwmWorldState->LoopSaveAmt());
 	fprintf(file, "}\n\n");
 	
 

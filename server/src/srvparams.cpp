@@ -18,6 +18,10 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true);
 	autoAccountReload_		= getNumber("Accounts",	"Auto Reload",		10, true);
 	checkCharAge_			= getBool("Accounts",	"Check Delete Age", true, true);
+
+	// Remote Admin
+	ra_port_		        = getNumber("Remote Admin",	"Port", 2594, true);
+	EnableRA_			    = getBool("Remote Admin",	"Enable", false, true);
     
 	// Game Speed Group
 	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
@@ -33,6 +37,9 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	hungerRate_				= getNumber("Game Speed", "Hunger Rate", 6000, true);
 	hungerDamageRate_		= getNumber("Game Speed", "Hunger Damage Rate", 10, true);
 	boatSpeed_              = getDouble("Game Speed", "Boat Speed", 0.750000, true);
+	snoopdelay_			    = getNumber("Game Speed", "Snoop Delay", 7, true);
+	housedecay_secs_	    = getNumber("Game Speed", "House Decay-Sec.", 604800, true);
+	default_jail_time_	    = getNumber("Game Speed", "Default Jail Time", 86400, true);
     
 	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
@@ -72,6 +79,15 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	shopRestock_            = getNumber("General",  "Shop Restock", 1, true);
 	badNpcsRed_             = getNumber("General",  "Bad Npcs Red", 1, true);
 	slotAmount_             = getNumber("General",  "Slot Amount", 5, true);
+	escortactive_           = getNumber("General",  "Escort Active", 1, true);
+	escortinitexpire_       = getNumber("General",  "Escorting Expire", 86400, true);
+	escortactiveexpire_     = getNumber("General",  "Escort Active Expire", 1800, true);
+	escortdoneexpire_       = getNumber("General",  "Escort Done Expire", 1800, true);
+	bountysactive_          = getNumber("General",  "Bounty Active", 1, true);
+	bountysexpire_          = getNumber("General",  "Bounty Expire", 0, true);
+	quittime_               = getNumber("General",  "Char Time Out", 300, true);
+	errors_to_console_      = getNumber("General",  "Errors To Console", 0, true);
+	showCVCS_               = getNumber("General",  "Show CVCS", 1, true);
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );
@@ -92,7 +108,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	trade_system_	        = getNumber("Vendor", "Trade System", 0, true );
 	rank_system_	        = getNumber("Vendor", "Rank System", 0, true );
 	checkBank_	            = getNumber("Vendor", "Check Bank", 2000, true );
-	vendorGreet_	        = getNumber("Vendor", "Vendor Greet", 2000, true );
+	vendorGreet_	        = getNumber("Vendor", "Vendor Greet", 1, true );
 
 	// Regenerate
 	hitpointrate_			= getNumber("Regenerate", "Hitpoints Regenerate", 8, true);

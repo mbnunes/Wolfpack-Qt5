@@ -34,6 +34,7 @@
 #include "wolfpack.h"
 #include "debug.h"
 #include "verinfo.h"
+#include "srvparams.h"
 static long entries_e=0;
 static long entries_c=0;
 static long entries_w=0;
@@ -88,7 +89,7 @@ void MessageReady(char *OutputMessage, char type)
 	
 	fprintf(er_log,OutputMessage); // ignoring I/O errors for now !
 
-	if (SrvParms->errors_to_console && type!='M')
+	if (SrvParams->errors_to_console() && type!='M')
 		clConsole.send(OutputMessage);
 
 	fclose(er_log);

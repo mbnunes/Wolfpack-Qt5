@@ -674,10 +674,10 @@ int check_house_decay()
 		P_ITEM pi = iter_items.GetData(); // there shouldnt be an error here !		 
 		if (!pi->free && ishouse(pi->id()))
 		{
-			if (pi->time_unused>SrvParms->housedecay_secs) // not used longer than max_unused time ? delete the house
+			if (pi->time_unused>SrvParams->housedecay_secs()) // not used longer than max_unused time ? delete the house
 			{          
 				decayed_houses++;
-				sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name.c_str(), SrvParms->housedecay_secs);
+				sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name.c_str(), SrvParams->housedecay_secs());
 				LogMessage((char*)temp);
 				RemoveHouse(pi);
 			}

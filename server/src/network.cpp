@@ -631,7 +631,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 
 	updates(s);
 
-	if (SrvParms->showCVCS || pc_currchar->isGM())
+	if (SrvParams->showCVCS() || pc_currchar->isGM())
 	{
 		const char * t;
 		std::vector < std::string>::const_iterator vis;
@@ -733,7 +733,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 		if (perm[s])
 		{
 			Accounts->SetOffline(pc_currchar->account);  // Allows next login.
-		    pc_currchar->logout=uiCurrentTime+SrvParms->quittime*MY_CLOCKS_PER_SEC;
+		    pc_currchar->logout=uiCurrentTime+SrvParams->quittime()*MY_CLOCKS_PER_SEC;
 		}
 	}
 
@@ -1603,7 +1603,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 				case 0x2C:// Resurrect menu choice			
 					if(buffer[s][1]==0x02)
 					{
-						if( ( pc_currchar->murdererSer > 0 ) && SrvParms->bountysactive )
+						if( ( pc_currchar->murdererSer > 0 ) && SrvParams->bountysactive() )
 						{
 							sprintf( (char*)temp, "To place a bounty on %s, use the command BOUNTY <Amount>.",
 						        FindCharBySerial(pc_currchar->murdererSer)->name.c_str() );

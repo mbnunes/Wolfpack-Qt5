@@ -972,7 +972,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc,P_CHAR us, int dir, short int o
 				if (socket != -1)
 					impowncreate(socket,pc,1) ;
 		}
-		else
+		else if ( visSocket != INVALID_SOCKET ) // did we get a valid socket?
 		{
 				// We just need to send out a 77
 
