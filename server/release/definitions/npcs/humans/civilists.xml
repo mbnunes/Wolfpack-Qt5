@@ -20,7 +20,7 @@
 		<equipped>
 			<item inherit="e75" /> <!-- Backpack -->
 			<item inheritlist="HAIR" /> <!-- Random Hair -->
-			<item inherit="1efd" /> <!-- Fancy Shirts -->
+			<item inheritlist="SHIRTS" /> <!-- Random Shirts -->
 			<item inheritlist="PANTS" /> <!-- Random Pants -->
 			<item inheritlist="SHOES" /> <!-- Random Shoes -->
 		</equipped>
@@ -41,9 +41,9 @@
  
 		<!-- The Equipment of a standard human -->
 		<equipped>
-			<item inherit="e75" /> 				<!-- Backpack -->
+			<item inherit="e75" /> 			<!-- Backpack -->
 			<item inheritlist="HAIR_FEMALE" /> 	<!-- Random Hair -->
-			<item inherit="1efd" /> 			<!-- Fancy Shirts -->
+			<item inheritlist="DRESS" /> 		<!-- Random Dress`s -->
 			<item inheritlist="PANTS" /> 		<!-- Random Pants -->
 			<item inheritlist="SHOES" /> 		<!-- Random Shoes -->
 		</equipped>

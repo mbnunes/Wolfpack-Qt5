@@ -7,6 +7,18 @@
 =================================================================
 -->
 <definitions>
+        <!-- IDs of Shirts -->
+	<list id="SHIRTS">
+		<item>1efd</item> <!-- Fancy -->
+		<item>1517</item> <!-- Plain -->
+	</list>
+	
+	<!-- IDs of Dress`s -->
+	<list id="DRESS">
+		<item>1eff</item> <!-- Fancy -->
+		<item>1f01</item> <!-- Plain -->
+	</list>
+	
 	<!-- IDs of Pants -->
 	<list id="PANTS">
 		<item>152e</item> <!-- Short -->
