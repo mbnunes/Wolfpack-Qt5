@@ -1,0 +1,46 @@
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+.maintitle {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 16px;
+	font-weight: bold;
+	color: #336633;
+}
+
+.smalltext {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 10px;
+	color: #999999;
+}
+
+.sectiontitle {
+
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 14px;
+	font-weight: bold;
+	color: #666666;
+}
+
+.text {
+	font-family: "Trebuchet MS", Arial, Helvetica;
+	font-size: 12px;
+}
+
+img {
+	border: 0;
+}
+
+a {
+	color: #0000FF;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #FF0000;
+}

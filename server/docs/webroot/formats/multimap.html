@@ -1,17 +1,170 @@
-<html>
-	<head>
-		<title>
-			Ultima Online File Format Document : C# (C Sharp)
-		</title>
-	</head><body bgcolor="#C8C8C8" text="black" link="black" vlink="black" alink="#404040">
-		<span style="position:absolute;left:5;top:5;"><img border="0" src="images/background_x33.gif" width="102" height="662"></span><span style="position:absolute;left:6;top:6;"><a href="../../index.html" title="ModifyUO"><img border="0" name="linkToModifyUO" onMouseOver="document.linkToModifyUO.src='images/modifyuo_over.png'" onMouseOut="document.linkToModifyUO.src='images/modifyuo_regular.png'" src="images/modifyuo_regular.png" width="100" height="20"></a><br><a href="../../mapeditor.html" title="ModifyUO's Map Editor"><img border="0" name="linkToMapEditor" onMouseOver="document.linkToMapEditor.src='images/mapeditor_over.png'" onMouseOut="document.linkToMapEditor.src='images/mapeditor_regular.png'" src="images/mapeditor_regular.png" width="100" height="20"></a><br><img border="0" src="images/fileformats_header.png" width="100" height="20"><br><img border="0" src="images/indent_x28.gif" width="10" height="560"><br></span><span style="position:absolute;left:16;top:66;"><a href="../index.html" title="File Format Documentation"><img border="0" name="linkToFileFormatsMain" onMouseOver="document.linkToFileFormatsMain.src='images/main_over.png'" onMouseOut="document.linkToFileFormatsMain.src='images/main_regular.png'" src="images/main_regular.png" width="90" height="20"><br></a><img border="0" src="images/csharp_header.png" width="90" height="20"><br><img border="0" src="images/indent_x24.gif" width="10" height="480"></span><span style="position:absolute;left:26;top:106;"><a href="default.html" title="C# (C Sharp)"><img border="0" name="linkToFileFormatsLangcsharpMain" onMouseOver="document.linkToFileFormatsLangcsharpMain.src='images/main_x80_over.png'" onMouseOut="document.linkToFileFormatsLangcsharpMain.src='images/main_x80_regular.png'" src="images/main_x80_regular.png" width="80" height="20"></a><br><a href="index.html" title="Index"><img border="0" name="linkToFileFormatsFileindex" onMouseOver="document.linkToFileFormatsFileindex.src='images/index_over.png'" onMouseOut="document.linkToFileFormatsFileindex.src='images/index_regular.png'" src="images/index_regular.png" width="80" height="20"></a><br><a href="colors.html" title="Colors"><img border="0" name="linkToFileFormatsFilecolors" onMouseOver="document.linkToFileFormatsFilecolors.src='images/colors_over.png'" onMouseOut="document.linkToFileFormatsFilecolors.src='images/colors_regular.png'" src="images/colors_regular.png" width="80" height="20"></a><br><a href="animations.html" title="Animations"><img border="0" name="linkToFileFormatsFileanimations" onMouseOver="document.linkToFileFormatsFileanimations.src='images/animations_over.png'" onMouseOut="document.linkToFileFormatsFileanimations.src='images/animations_regular.png'" src="images/animations_regular.png" width="80" height="20"></a><br><a href="animdata.html" title="Animdata"><img border="0" name="linkToFileFormatsFileanimdata" onMouseOver="document.linkToFileFormatsFileanimdata.src='images/animdata_over.png'" onMouseOut="document.linkToFileFormatsFileanimdata.src='images/animdata_regular.png'" src="images/animdata_regular.png" width="80" height="20"></a><br><a href="art.html" title="Art"><img border="0" name="linkToFileFormatsFileart" onMouseOver="document.linkToFileFormatsFileart.src='images/art_over.png'" onMouseOut="document.linkToFileFormatsFileart.src='images/art_regular.png'" src="images/art_regular.png" width="80" height="20"></a><br><a href="fonts.html" title="Fonts"><img border="0" name="linkToFileFormatsFilefonts" onMouseOver="document.linkToFileFormatsFilefonts.src='images/fonts_over.png'" onMouseOut="document.linkToFileFormatsFilefonts.src='images/fonts_regular.png'" src="images/fonts_regular.png" width="80" height="20"></a><br><a href="gumps.html" title="Gumps"><img border="0" name="linkToFileFormatsFilegumps" onMouseOver="document.linkToFileFormatsFilegumps.src='images/gumps_over.png'" onMouseOut="document.linkToFileFormatsFilegumps.src='images/gumps_regular.png'" src="images/gumps_regular.png" width="80" height="20"></a><br><a href="lights.html" title="Lights"><img border="0" name="linkToFileFormatsFilelights" onMouseOver="document.linkToFileFormatsFilelights.src='images/lights_over.png'" onMouseOut="document.linkToFileFormatsFilelights.src='images/lights_regular.png'" src="images/lights_regular.png" width="80" height="20"></a><br><a href="maps.html" title="Maps"><img border="0" name="linkToFileFormatsFilemaps" onMouseOver="document.linkToFileFormatsFilemaps.src='images/maps_over.png'" onMouseOut="document.linkToFileFormatsFilemaps.src='images/maps_regular.png'" src="images/maps_regular.png" width="80" height="20"></a><br><img border="0" src="images/multimap_header.png" width="80" height="20"><br><a href="multis.html" title="Multis"><img border="0" name="linkToFileFormatsFilemultis" onMouseOver="document.linkToFileFormatsFilemultis.src='images/multis_over.png'" onMouseOut="document.linkToFileFormatsFilemultis.src='images/multis_regular.png'" src="images/multis_regular.png" width="80" height="20"></a><br><a href="palette.html" title="Palette"><img border="0" name="linkToFileFormatsFilepalette" onMouseOver="document.linkToFileFormatsFilepalette.src='images/palette_over.png'" onMouseOut="document.linkToFileFormatsFilepalette.src='images/palette_regular.png'" src="images/palette_regular.png" width="80" height="20"></a><br><a href="radarcol.html" title="Radarcol"><img border="0" name="linkToFileFormatsFileradarcol" onMouseOver="document.linkToFileFormatsFileradarcol.src='images/radarcol_over.png'" onMouseOut="document.linkToFileFormatsFileradarcol.src='images/radarcol_regular.png'" src="images/radarcol_regular.png" width="80" height="20"></a><br><a href="sjis2uni.html" title="Sjis2uni"><img border="0" name="linkToFileFormatsFilesjis2uni" onMouseOver="document.linkToFileFormatsFilesjis2uni.src='images/sjis2uni_over.png'" onMouseOut="document.linkToFileFormatsFilesjis2uni.src='images/sjis2uni_regular.png'" src="images/sjis2uni_regular.png" width="80" height="20"></a><br><a href="skillgroups.html" title="Skillgroups"><img border="0" name="linkToFileFormatsFileskillgroups" onMouseOver="document.linkToFileFormatsFileskillgroups.src='images/skillgroups_over.png'" onMouseOut="document.linkToFileFormatsFileskillgroups.src='images/skillgroups_regular.png'" src="images/skillgroups_regular.png" width="80" height="20"></a><br><a href="skills.html" title="Skills"><img border="0" name="linkToFileFormatsFileskills" onMouseOver="document.linkToFileFormatsFileskills.src='images/skills_over.png'" onMouseOut="document.linkToFileFormatsFileskills.src='images/skills_regular.png'" src="images/skills_regular.png" width="80" height="20"></a><br><a href="sounds.html" title="Sounds"><img border="0" name="linkToFileFormatsFilesounds" onMouseOver="document.linkToFileFormatsFilesounds.src='images/sounds_over.png'" onMouseOut="document.linkToFileFormatsFilesounds.src='images/sounds_regular.png'" src="images/sounds_regular.png" width="80" height="20"></a><br><a href="speech.html" title="Speech"><img border="0" name="linkToFileFormatsFilespeech" onMouseOver="document.linkToFileFormatsFilespeech.src='images/speech_over.png'" onMouseOut="document.linkToFileFormatsFilespeech.src='images/speech_regular.png'" src="images/speech_regular.png" width="80" height="20"></a><br><a href="statics.html" title="Statics"><img border="0" name="linkToFileFormatsFilestatics" onMouseOver="document.linkToFileFormatsFilestatics.src='images/statics_over.png'" onMouseOut="document.linkToFileFormatsFilestatics.src='images/statics_regular.png'" src="images/statics_regular.png" width="80" height="20"></a><br><a href="textures.html" title="Textures"><img border="0" name="linkToFileFormatsFiletextures" onMouseOver="document.linkToFileFormatsFiletextures.src='images/textures_over.png'" onMouseOut="document.linkToFileFormatsFiletextures.src='images/textures_regular.png'" src="images/textures_regular.png" width="80" height="20"></a><br><a href="tiledata.html" title="Tiledata"><img border="0" name="linkToFileFormatsFiletiledata" onMouseOver="document.linkToFileFormatsFiletiledata.src='images/tiledata_over.png'" onMouseOut="document.linkToFileFormatsFiletiledata.src='images/tiledata_regular.png'" src="images/tiledata_regular.png" width="80" height="20"></a><br><a href="unifont.html" title="Unifont"><img border="0" name="linkToFileFormatsFileunifont" onMouseOver="document.linkToFileFormatsFileunifont.src='images/unifont_over.png'" onMouseOut="document.linkToFileFormatsFileunifont.src='images/unifont_regular.png'" src="images/unifont_regular.png" width="80" height="20"></a><br><a href="verdata.html" title="Verdata"><img border="0" name="linkToFileFormatsFileverdata" onMouseOver="document.linkToFileFormatsFileverdata.src='images/verdata_over.png'" onMouseOut="document.linkToFileFormatsFileverdata.src='images/verdata_regular.png'" src="images/verdata_regular.png" width="80" height="20"></a><br></span><span style="position:absolute;left:16;top:586;"><a href="../vbasic/default.html" title="Visual Basic .NET"><img border="0" name="linkTovbasic" onMouseOver="document.linkTovbasic.src='images/vbasic_over.png'" onMouseOut="document.linkTovbasic.src='images/vbasic_regular.png'" src="images/vbasic_regular.png" width="90" height="20"></a><br><a href="../vbasic6/default.html" title="Visual Basic 6"><img border="0" name="linkTovbasic6" onMouseOver="document.linkTovbasic6.src='images/vbasic6_over.png'" onMouseOut="document.linkTovbasic6.src='images/vbasic6_regular.png'" src="images/vbasic6_regular.png" width="90" height="20"></a><br></span><span style="position:absolute;left:6;top:626;"><a href="http://www.uoxdev.com/phpBB/viewforum.php?forum=11" title="Discuss ModifyUO"><img border="0" name="linkToForums" onMouseOver="document.linkToForums.src='images/forums_over.png'" onMouseOut="document.linkToForums.src='images/forums_regular.png'" src="images/forums_regular.png" width="100" height="20"></a><br><a href="mailto:krrios@uoxdev.com" title="E-Mail Krrios"><img border="0" name="linkToContact" onMouseOver="document.linkToContact.src='images/contact_over.png'" onMouseOut="document.linkToContact.src='images/contact_regular.png'" src="images/contact_regular.png" width="100" height="20"></a></span><span style="position:absolute;left:112;top:5;"><h2><a title="MultiMap.rle">Multi Map</a></h2><p><b>Data File: </b>MultiMap.rle<br></p>This file contains an overhead view of the Britannia map.<br><font face="Courier New"><p><h4>Data:</h4>
-		<font color="MediumBlue">int</font> width;<br><font color="MediumBlue">int</font> height;<br><i>Pixel Data......</i></p></font>This file contains an overhead view of the Britannia map. The image dimensions are defined by Width and Height.<br>Pixels are either on or off.<br><font face="Courier New"><p><h4><a title="8-bits">Pixel Data</a>:</h4>
-		<table border="1">
-			<tr>
-				<td>7</td><td>6</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td>
-			</tr><tr>
-				<td colspan="1" bgcolor="#C80000"><font color="#FFFFFF"><a title="Bitmask: 0x80">On?</a></font></td><td colspan="7"><a title="Bitmask: 0x7F">Count</a></td>
-			</tr>
-		</table></p></font>Then the on/off pixel is repeated Count number of times.<br>If X exceeds width, set X to (X Modulus width)<br></span><br><br>
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Krrios File Formats</title>
+<style type="text/css">
+<!--
+body {
+	background-color: #FFFFFF;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="#004B2C"><a href="index.html"><img src="top_logo.jpg" width="586" height="87" border="0"/></a></td>
+  </tr>
+  <tr>
+    <td height="3" bgcolor="#999999"><img src="spacer.gif" width="1" height="3" /></td>
+  </tr>
+</table>
+<div align="center">
+  <p> <span class="maintitle">Krrios File Format Reference </span></p>
+</div>
+<table width="740"  border="0" align="center" cellpadding="2" cellspacing="0" class="text">
+  <tr>
+    <td width="125" valign="top"><table width="125" border="0" cellspacing="0">
+      <tr>
+        <td><a href="colors.html" title="Colors">Colors</a></td>
+      </tr>
+      <tr>
+        <td><a href="index.html" title="Index">Index Files</a></td>
+      </tr>
+      <tr>
+        <td><a href="animations.html" title="Animations">Anim.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="animations.html" title="Animations">Anim.idx</a></td>
+      </tr>
+      <tr>
+        <td><a href="animdata.html" title="Animdata">AnimData.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="art.html" title="Art">Art.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="art.html" title="Art">ArtIdx.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="fonts.html" title="Fonts">Fonts.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="gumps.html" title="Gumps">GumpArt.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="gumps.html" title="Gumps">GumpIdx.mul</a></td>
+      </tr>
+      <tr>
+        <td>Hues.mul</td>
+      </tr>
+      <tr>
+        <td><a href="lights.html" title="Lights">Light.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="lights.html" title="Lights">LightIdx.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="maps.html" title="Maps">Map&lt;n&gt;.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="multimap.html" title="Multimap">MultiMap.rle</a></td>
+      </tr>
+      <tr>
+        <td><a href="multis.html" title="Multis">Multi.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="multis.html" title="Multis">Multi.idx</a></td>
+      </tr>
+      <tr>
+        <td><a href="palette.html" title="Palette">Palette.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="radarcol.html" title="Radarcol">RadarCol.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="sjis2uni.html" title="Sjis2uni">SJIS2Uni.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="skillgroups.html" title="Skillgroups">SkillGrp.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="skills.html" title="Skills">Skills.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="skills.html" title="Skills">Skills.idx</a></td>
+      </tr>
+      <tr>
+        <td><a href="sounds.html" title="Sounds">Sound.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="sounds.html" title="Sounds">SoundIdx.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="speech.html" title="Speech">Speech.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="statics.html" title="Statics">StaIdx&lt;n&gt;.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="statics.html" title="Statics">Statics&lt;n&gt;.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="textures.html" title="Textures">TexIdx.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="textures.html" title="Textures">TexMaps.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="tiledata.html" title="Tiledata">TileData.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="unifont.html" title="Unifont">UniFont[n].mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="verdata.html" title="Verdata">VerData.mul</a></td>
+      </tr>
+      <tr>
+        <td><a href="../index.html"> <br />
+Back to Reference</a> </td>
+      </tr>
+    </table>      </td>
+    <td width="607" valign="top"><h2><a title="MultiMap.rle" class="sectiontitle">Multi Map</a></h2>
+      <p><b>Data File: </b>MultiMap.rle<br />
+      </p>
+      This file contains an overhead view of the Britannia map.<br />
+      <h4><font face="Courier New">Data:</font></h4>
+      <font color="MediumBlue" face="Courier New">int</font> width;<br />
+      <font color="MediumBlue" face="Courier New">int</font> height;<br />
+      <i><font face="Courier New">Pixel Data......</font></i>
+      <p></p>
+      This file contains an overhead view of the Britannia map. The image dimensions are defined by Width and Height.<br />
+      Pixels are either on or off.<br />
+      <h4><font face="Courier New"><a title="8-bits">Pixel Data</a>:</font></h4>
+      <table border="1">
+        <tr>
+          <td><font face="Courier New">7654321</font></td>
+          <td><font face="Courier New">0</font></td>
+        </tr>
+        <tr>
+          <td colspan="1" bgcolor="#C80000"><font color="#FFFFFF" face="Courier New"><a title="Bitmask: 0x80">On?</a></font></td>
+          <td colspan="7"><font face="Courier New"><a title="Bitmask: 0x7F">Count</a></font></td>
+        </tr>
+      </table>
+      <p></p>
+      Then the on/off pixel is repeated Count number of times.<br />
+      If X exceeds width, set X to (X Modulus width)
+      <h2><br />
+      </h2></td>
+  </tr>
+</table>
+<br />
+</body>
 </html>
