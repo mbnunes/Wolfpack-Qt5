@@ -35,12 +35,18 @@ ask_path()
 	done;
 }
 
+if [ "$" != "--enable-debug" ]
+then
+	echo "Debug: Yes";
+	DEBUGOPTS="-g -D_DEBUG"
+fi;
+
 if [ "$1" != "--disable-mysql" ]
 then
 	# <mysql>
 	echo -n "Searching for MySQL includes... ";
 
-	MYSQLINC=$(mysql_config --cflags|cut -d\' -f2);
+	MYSQLINC=$(mysql_config --include|cut -d'-' -d'I' -f2);
 
 	if ! [ "$MYSQLINC" ];
 	then
@@ -50,7 +56,7 @@ then
 			echo "MySQL support disabled ";
 		fi
 	else
-		echo "$MYSQLINC";
+		echo " ( $MYSQLINC )";
 	fi;
 	# </mysql>
 fi;
@@ -76,7 +82,7 @@ then
 	ask_path;
 	PYTHONINC="$SUPPLIED_PATH";
 else
-	echo "$PYTHONINC";
+	echo "( $PYTHONINC )";
 fi;
 
 echo -n "Searching for Python library.... ";
@@ -99,11 +105,11 @@ if ! [ "PYTHONLIB" ];
 then
 	echo -n "Not found :((";
 else
-	echo "$PYTHONLIB";
+	echo "( $PYTHONLIB )";
 fi;
 # </python>
 
-export MYSQLINC PYTHONINC PYTHONLIB
+export MYSQLINC PYTHONINC PYTHONLIB DEBUGOPTS
 
 echo -n "Creating Makefile using qmake... "
 
