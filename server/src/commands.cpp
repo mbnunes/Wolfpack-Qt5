@@ -1245,6 +1245,8 @@ void commandBroadcast( cUOSocket *socket, const QString &command, QStringList &a
 
 void commandInvis( cUOSocket *socket, const QString &command, QStringList &args )
 {
+	socket->player()->removeFromView();
+	
 	if( socket->player()->hidden() || ( args.count() > 0 && args[0].toInt() == 0 ) )
 	{
 		socket->player()->setHidden( 0 );
@@ -1257,6 +1259,8 @@ void commandInvis( cUOSocket *socket, const QString &command, QStringList &args 
 		socket->player()->setPriv2( socket->player()->priv2() | 0x08 );
 		socket->sysMessage( tr( "Invisible is now '1'." ) );
 	}
+
+	socket->player()->resend( false, false );
 }
 
 // Command Table (Keep this at the end)
