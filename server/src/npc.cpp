@@ -235,7 +235,7 @@ void cNPC::setOwner(P_PLAYER data, bool nochecks)
 	if( !nochecks && owner_ )
 	{
 		owner_->addPet( this, true );
-		setTamed( false );
+		setTamed( true );
 	}
 }
 
@@ -675,59 +675,148 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 {
 	changed( TOOLTIP );
 	changed_ = true;
+	/*
+		\property char.nextmsgtime This integer value is the next time the npc will say something.
+		This property is exclusive to NPC objects.
+	*/
 	SET_INT_PROPERTY( "nextmsgtime", nextMsgTime_ )
-	else SET_INT_PROPERTY( "antispamtimer", nextMsgTime_ )
+	/*
+		\property char.nextguardcalltime This integer value is the next time the npc will call for a guard.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_INT_PROPERTY( "nextguardcalltime", nextGuardCallTime_ )
-	else SET_INT_PROPERTY( "antiguardstimer", nextGuardCallTime_ )
+	/*
+		\property char.carve This string property is the id of the carve XML definition used for the corpse this NPC will leave behind.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_STR_PROPERTY( "carve", carve_ )
+	/*
+		\property char.spawnregion This string property is the id of the spawnregion this NPC was spawned by.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
-	else SET_INT_PROPERTY( "stablemaster", stablemasterSerial_ )
+	/*
+		\property char.stablemaster If this integer property is not -1, the NPC won't be visible. Is is something like a container
+		value for NPCs. Item and character serials are valid here. If you set the stablemaster serial, the NPC will be automatically
+		removed from the map.
+		This property is exclusive to NPC objects.
+	*/
+	else if (name == "stablemaster") {
+		setStablemasterSerial(value.toInt());
+		return 0;
+	}
+
+	/*
+		\property char.lootlist This string is the id of the XML definition list for the loot in the corpse this NPC will leave behind.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_STR_PROPERTY( "lootlist", lootList_ )
-	else SET_STR_PROPERTY( "loot", lootList_ )
+
+	/*
+		\property char.maxdamage The maximum damage the natural weapon of this npc can deal.
+		This property is only used if the NPC doesn't use a weapon.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_INT_PROPERTY( "maxdamage", maxDamage_ )
+
+	/*
+		\property char.mindamage The minimum damage the natural weapon of this npc can deal.
+		This property is only used if the NPC doesn't use a weapon.
+		This property is exclusive to NPC objects.
+	*/	
 	else SET_INT_PROPERTY( "mindamage", minDamage_ )
-	else SET_INT_PROPERTY( "hidamage", maxDamage_ )
-	else SET_INT_PROPERTY( "lodamage", minDamage_ )
-	else SET_INT_PROPERTY( "karma", karma_ )
-	else SET_INT_PROPERTY( "fame", fame_ )
+
+	/*
+		\property char.nextmovetime This integer is the time the npc will move next.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_INT_PROPERTY( "nextmovetime", nextMoveTime_ )
-	else SET_INT_PROPERTY( "npcmovetime", nextMoveTime_ )
+
+	/*
+		\property char.summoned This boolean flag indicates whether the NPC was summoned and doesn't leave a corpse behind.
+		This property is exclusive to NPC objects.
+	*/
 	else if (name == "summoned") {
 		setSummoned(value.toInt() == 1);
 		return 0;
+
+	/*
+		\property char.wandertype This integer is the type of wander algorithm used for this character. One of the following values is possible:
+		<code>0x00 Standing
+		0x01 Rectangle
+		0x02 Circle
+		0x03 FollowTarget
+		0x04 Destination</code>
+		This property is exclusive to NPC objects.
+	*/
 	} else if( name == "wandertype" )
 	{
 		setWanderType( (enWanderTypes)value.toInt() );
 		return 0;
 	}
+
+	/*
+		\property char.wanderx1 This integer property is either the x component of the upper left corner of the wander rectangle or the x component of the coordinate used by the Circle wandertype.
+		This property is exclusive to NPC objects.
+	*/
 	else if( name == "fx1" || name == "wanderx1" )
 	{
 		setWanderX1( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.wanderx2 This integer property is the x component of the lower right corner of the wander rectangle.
+		This property is exclusive to NPC objects.
+	*/
 	else if( name == "fx2" || name == "wanderx2" )
 	{
 		setWanderX2( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.wandery1 This integer property is either the y component of the upper left corner of the wander rectangle or the y component of the coordinate used by the Circle wandertype.
+		This property is exclusive to NPC objects.
+	*/
 	else if( name == "fy1" || name == "wandery1" )
 	{
 		setWanderY1( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.wandery2 This integer property is the y component of the lower right corner of the wander rectangle.
+		This property is exclusive to NPC objects.
+	*/
 	else if( name == "fy2" || name == "wandery2" )
 	{
 		setWanderY2( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.wanderradius This integer property is the radius of the circle used by the Circle wandertype.
+		This property is exclusive to NPC objects.
+	*/
 	else if( name == "fz1" || name == "wanderradius" )
 	{
 		setWanderRadius( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.totame The required taming skill to tame this NPC. 
+		Please note that this skill is the float value multiplied by 10 (100.0% = 1000).
+		This property is exclusive to NPC objects.
+	*/
 	else SET_INT_PROPERTY( "totame", tamingMinSkill_ )
+	/*
+		\property char.summontime The servertime when this summoned creature will disappear. 
+		If this integer value is 0, the NPC will never disappear.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_INT_PROPERTY( "summontime", summonTime_)
-	else SET_INT_PROPERTY( "summontimer", summonTime_)
+	/*
+		\property char.owner This is the owner of this NPC. It returns a character object or None.
+		Please note that you automatically tame the NPC by setting a new owner.
+		This property is exclusive to NPC objects.
+	*/
 	else if( name == "owner" )
 	{
 		P_PLAYER pOwner = dynamic_cast<P_PLAYER>(value.toChar());
@@ -747,14 +836,33 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 			return 0;
 		}
 	}
+	/*
+		\property char.ai This string property is the name of the AI used by this NPC.
+		This property is exclusive to NPC objects.
+	*/
 	else if( name == "ai" )
 	{
 		setAI( value.toString() );
 		return 0;
 	}
 	else SET_INT_PROPERTY( "fleeat", criticalHealth_ )
+	/*
+		\property char.criticalhealth If the NPCs hitpoints fall below the percentage given in this integer property,
+		he flees from his attacker if its ai supports it.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_INT_PROPERTY( "criticalhealth", criticalHealth_ )
+	/*
+		\property char.spellslow This integer bitfield indicates the spells of the first 4 circles this NPC is able to 
+		cast without a spellbook.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_INT_PROPERTY( "spellslow", spellsLow_ )
+	/*
+		\property char.spellshigh This integer bitfield indicates the spells of the last 4 circles this NPC is able to 
+		cast without a spellbook.
+		This property is exclusive to NPC objects.
+	*/
 	else SET_INT_PROPERTY( "spellshigh", spellsHigh_ )
 	else if( name == "spell" )
 	{
@@ -780,8 +888,6 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "loot", lootList_ )
 	else GET_PROPERTY( "maxdamage", maxDamage_ )
 	else GET_PROPERTY( "mindamage", minDamage_ )
-	else GET_PROPERTY( "hidamage", maxDamage_ )
-	else GET_PROPERTY( "lodamage", minDamage_ )
 	else GET_PROPERTY( "npc", true )
 	else GET_PROPERTY( "nextmovetime", (int)nextMoveTime_ )
 	else GET_PROPERTY( "npcmovetime", (int)nextMoveTime_ )
@@ -1268,4 +1374,16 @@ void cNPC::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 
 	tooltip.addLine(1050045, QString(" \t%1\t%2").arg(name_).arg(affix));
 	onShowTooltip(player, &tooltip);
+}
+
+void cNPC::setStablemasterSerial(SERIAL data)
+{
+	stablemasterSerial_ = data;
+	changed_ = true;
+
+	if (data == INVALID_SERIAL) {
+		MapObjects::instance()->add(this);
+	} else {
+		MapObjects::instance()->remove(this);
+	}
 }

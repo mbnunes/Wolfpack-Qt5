@@ -41,6 +41,8 @@
 #include "items.h"
 #include "basechar.h"
 #include "log.h"
+#include "npc.h"
+#include "player.h"
 
 #include <math.h>
 #include <algorithm>
@@ -341,6 +343,21 @@ void cSectorMaps::add( cUObject *object )
 	}
 	else if( isCharSerial( object->serial() ) )
 	{
+		// This is a safety check to make sure that 
+		// stabled pets don't appear on our sectormap
+		P_NPC npc = dynamic_cast<P_NPC>(object);
+		
+		if (npc && npc->stablemasterSerial() != INVALID_SERIAL) {
+            return;
+		}
+
+		// The same check for players
+		P_PLAYER player = dynamic_cast<P_PLAYER>(object);
+
+		if (player && !player->socket() && !player->logoutTime()) {
+			return;
+		}
+
 		P_CHAR pChar = dynamic_cast< P_CHAR >( object );
 		if( pChar )
 		{

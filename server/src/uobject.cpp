@@ -668,13 +668,19 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 {
 	changed( TOOLTIP );
 	changed_ = true;
+	// \property object.bindmenu This string property contains a comma separated list of context menu ids for this object.
 	SET_STR_PROPERTY( "bindmenu", bindmenu_ )
+	// \property object.serial This integer property contains the serial for this object.
 	else SET_INT_PROPERTY( "serial", serial_ )
+	// \property object.multi This integer property contains the serial of the multi object this object is in.
 	else SET_INT_PROPERTY( "multi", multis_ )
+	// \property object.direction This is the integer direction of this object.
 	else SET_INT_PROPERTY( "direction", dir_ )
+	// \property object.free This boolean property indicates that the object has been freed and is awaiting deletion.
 	else SET_BOOL_PROPERTY( "free", free )
+	// \property object.name This string property contains the name of the object.
 	else SET_STR_PROPERTY( "name", this->name_ )
-
+	// \property object.pos This string property is the string representation of the position of the object.
 	else if( name == "pos" )
 	{
 		Coord_cl pos;
@@ -684,7 +690,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 
-	// Trying to set new Eventlist
+	// \property object.pos This string property contains a comma separated list of the names of the scripts that are assigned to this object.
 	else if( name == "eventlist" )
 	{
 		clearEvents();

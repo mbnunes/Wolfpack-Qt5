@@ -299,7 +299,6 @@ public:
 	void refreshMaximumValues();
 
 	// getters
-    ushort			bodyArmor() const;
     ushort			bodyID() const;    
     QDateTime		creationDate() const;
     uint			criminalTime() const;
@@ -377,7 +376,6 @@ public:
 	ItemContainer	content() const;
 
 	// setters
-	void setBodyArmor(ushort data);
     void setBodyID(ushort data);
     void setCreationDate(const QDateTime &data);
     void setCriminalTime(uint data);
@@ -554,9 +552,6 @@ protected:
 	short hitpointsBonus_;
 	short staminaBonus_;
 	short manaBonus_;
-
-    // Base body armor value.
-    ushort bodyArmor_;
 
     // Dexterity of the char
     // cOldChar::dx
@@ -738,17 +733,6 @@ inline void cBaseChar::setGuarding(P_CHAR data)
 
 	if( guarding_ )
 		guarding_->addGuard( this );		
-}
-
-inline ushort cBaseChar::bodyArmor() const
-{
-    return bodyArmor_;
-}
-
-inline void cBaseChar::setBodyArmor(ushort data)
-{
-    bodyArmor_ = data;
-	changed_ = true;
 }
 
 inline ushort cBaseChar::bodyID() const

@@ -425,12 +425,6 @@ inline SERIAL cNPC::stablemasterSerial() const
 	return stablemasterSerial_;
 }
 
-inline void cNPC::setStablemasterSerial(SERIAL data)
-{
-	stablemasterSerial_ = data;
-	changed_ = true;
-}
-
 inline QString cNPC::lootList() const
 {
 	return lootList_;

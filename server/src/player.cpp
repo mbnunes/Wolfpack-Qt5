@@ -62,8 +62,6 @@ cPlayer::cPlayer()
 	additionalFlags_	= 0;
 	trackingTime_		= 0;
 	socket_				= NULL;
-	inputMode_			= enNone;
-	inputItem_			= INVALID_SERIAL;
 	visualRange_		= VISRANGE;
 	profile_			= (char*)0;
 	fixedLightLevel_	= 0xFF;
@@ -1111,27 +1109,72 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 {
 	changed( TOOLTIP );
 	changed_ = true;
+	
+	/*
+		\property char.account The name of the account assigned to this player.
+		You can change the account by assignging a new name to this string property.
+		This property is exclusive to player objects.
+	*/
 	if( name == "account" )
 	{
 		setAccount( Accounts::instance()->getRecord( value.toString() ) );
 		return 0;
 	}
+	/*
+		\property char.logouttime This integer property is used when a player disconnects in an unsafe area.
+		This property indicates the time when the character will disappear from the world.
+		This property is exclusive to player objects.
+	*/
 	else SET_INT_PROPERTY( "logouttime", logoutTime_ )
+	/*
+		\property char.fixedlight If this integer property is not 0xFF, it will be used instead of the
+		world's lightlevel for this character.
+		This property is exclusive to player objects.
+	*/
 	else SET_INT_PROPERTY( "fixedlight", fixedLightLevel_ )
-	else if( name == "inputmode" )
-	{
-		inputMode_ = (enInputMode)value.toInt();
-		return 0;
-	}
-	else SET_INT_PROPERTY( "inputitem", inputItem_ )
+	/*
+		\property char.objectdelay If this integer property is not zero, it indicates the servertime in miliseconds
+		when the player will be able to use an item again. Containers ignore this value.
+		This property is exclusive to player objects.
+	*/
 	else SET_INT_PROPERTY( "objectdelay", objectDelay_ )
+	/*
+		\property char.visrange This integer property indicates how far the player can see in tiles.
+		This property is exclusive to player objects.
+	*/
 	else SET_INT_PROPERTY( "visrange", visualRange_ )
+	/*
+		\property char.profile This string property contains the players profile.
+		This property is exclusive to player objects.
+	*/
 	else SET_STR_PROPERTY( "profile", profile_ )
-
+	/*
+		\property char.strengthlock This integer property indicates the lock status for the players strength.
+		It can be one of the following values:
+		<code>0x00 Up
+		0x01 Down
+		0x02 Locked</code>
+		This property is exclusive to player objects.
+	*/
 	else SET_INT_PROPERTY( "strengthlock", strengthLock_ )
+	/*
+		\property char.dexteritylock This integer property indicates the lock status for the players dexterity.
+		It can be one of the following values:
+		<code>0x00 Up
+		0x01 Down
+		0x02 Locked</code>
+		This property is exclusive to player objects.
+	*/	
 	else SET_INT_PROPERTY( "dexteritylock", dexterityLock_ )
+	/*
+		\property char.intelligencelock This integer property indicates the lock status for the players intelligence.
+		It can be one of the following values:
+		<code>0x00 Up
+		0x01 Down
+		0x02 Locked</code>
+		This property is exclusive to player objects.
+	*/	
 	else SET_INT_PROPERTY( "intelligencelock", intelligenceLock_ )
-	// skill.
 	else if( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
@@ -1155,8 +1198,6 @@ stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "logouttime", (int)logoutTime_ )	
 	else GET_PROPERTY( "npc", false )
 	else GET_PROPERTY( "fixedlight", fixedLightLevel_ )
-	else GET_PROPERTY( "inputmode", inputMode_ )
-	else GET_PROPERTY( "inputitem", FindItemBySerial( inputItem_ ) )
 	else GET_PROPERTY( "objectdelay", (int)objectDelay_ )
 	else GET_PROPERTY( "visrange", visualRange_ )
 	else GET_PROPERTY( "profile", profile_ )

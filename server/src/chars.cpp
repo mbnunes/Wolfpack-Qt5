@@ -157,7 +157,6 @@ P_NPC cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )
 
 	pChar->setMinDamage(1);
 	pChar->setMaxDamage(1);
-	pChar->setBodyArmor(1);
 
 	pChar->moveTo( pos );
 

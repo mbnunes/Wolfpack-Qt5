@@ -213,8 +213,11 @@ float Monster_Aggr_MoveToTarget::preCondition()
 		return 0.0f;
 	
 	UINT8 range = 1;
-	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
-		range = ARCHERY_RANGE;
+	P_ITEM weapon = m_npc->getWeapon();
+
+	if (weapon && weapon->hasTag("range")) {
+		range = weapon->getTag("range").toInt();
+	}
 
 	if( m_npc->inRange( pAI->currentVictim(), range ) )
 		return 0.0f;
@@ -237,8 +240,10 @@ float Monster_Aggr_MoveToTarget::postCondition()
 		return 1.0f;
 
 	UINT8 range = 1;
-	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
-		range = ARCHERY_RANGE;
+	P_ITEM weapon = m_npc->getWeapon();
+	if (weapon && weapon->hasTag("range")) {
+		range = weapon->getTag("range").toInt();
+	}
 
 	if( m_npc->inRange( pAI->currentVictim(), range ) )
 		return 1.0f;
@@ -284,8 +289,10 @@ float Monster_Aggr_Fight::preCondition()
 		return 0.0f;
 	
 	UINT8 range = 1;
-	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
-		range = ARCHERY_RANGE;
+	P_ITEM weapon = m_npc->getWeapon();
+	if (weapon && weapon->hasTag("range")) {
+		range = weapon->getTag("range").toInt();
+	}
 
 	if( !m_npc->inRange( pAI->currentVictim(), range ) )
 		return 0.0f;
@@ -309,8 +316,10 @@ float Monster_Aggr_Fight::postCondition()
 		return 1.0f;
 	
 	UINT8 range = 1;
-	if( m_npc->rightHandItem() && IsBowType( m_npc->rightHandItem()->id() ) )
-		range = ARCHERY_RANGE;
+	P_ITEM weapon = m_npc->getWeapon();
+	if (weapon && weapon->hasTag("range")) {
+		range = weapon->getTag("range").toInt();
+	}
 
 	if( !m_npc->inRange( pAI->currentVictim(), range ) )
 		return 1.0f;

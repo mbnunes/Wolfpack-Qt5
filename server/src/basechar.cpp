@@ -71,7 +71,6 @@ cBaseChar::cBaseChar()
 	orgSkin_			= 0;
 	propertyFlags_		= 0;
 	weight_				= 0;
-	bodyArmor_			= 2;
 	dexterity_			= 0;
 	dexterityMod_		= 0;
 	maxStamina_			= 0;
@@ -201,7 +200,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	fame_ = atoi( result[offset++] );
 	kills_ = atoi( result[offset++] );
 	deaths_ = atoi( result[offset++] );
-	bodyArmor_ = atoi( result[offset++] );
+	offset++; // Skip body armor which is out of use
 	hunger_ = atoi( result[offset++] );
 	poison_ = atoi( result[offset++] );
 	poisoned_ = atoi( result[offset++] );
@@ -291,7 +290,7 @@ void cBaseChar::save()
 		addField( "fame", fame_);
 		addField( "kills", kills_);
 		addField( "deaths", deaths_);
-		addField( "def", bodyArmor_);
+		addField( "def", 0);
 		addField( "hunger", hunger_);
 		addField( "poison", poison_);
 		addField( "poisoned", poisoned_);
@@ -1337,23 +1336,42 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 {
 	changed( TOOLTIP );
 	changed_ = true;
+	/*
+		\property char.orgname This string property indicates the original name of the character.
+	*/
 	SET_STR_PROPERTY( "orgname", orgName_ )
+	/*
+		\property char.title This string property contains the title of the character. 
+	*/	
 	else SET_STR_PROPERTY( "title", title_ )
+	/*
+		\property char.incognito This boolean property indicates whether the character is incognito.
+	*/
 	else if( name == "incognito" )
 	{
 		setIncognito( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.polymorph This boolean property indicates whether the character is polymorphed.
+	*/	
 	else if( name == "polymorph" )
 	{
 		setPolymorphed( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.dead This boolean property indicates whether the character is dead.
+	*/		
 	else if( name == "dead" )
 	{
 		setDead( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.haircolor This integer property sets the haircolor of the character.
+		This property is write only.
+	*/
 	else if( name == "haircolor" )
 	{
 		bool ok;
@@ -1363,6 +1381,10 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		setHairColor( data );
 		return 0;
 	}
+	/*
+		\property char.hairstyle This integer property sets the hairstyle of the character.
+		This property is write only.
+	*/	
 	else if( name == "hairstyle" )
 	{
 		bool ok;
@@ -1372,6 +1394,10 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		setHairStyle( data );
 		return 0;
 	}
+	/*
+		\property char.beardcolor This integer property sets the beardcolor of the character.
+		This property is write only.
+	*/	
 	else if( name == "beardcolor" )
 	{
 		bool ok;
@@ -1381,6 +1407,10 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		setBeardColor( data );
 		return 0;
 	}
+	/*
+		\property char.beardstyle This integer property sets the beardstyle of the character.
+		This property is write only.
+	*/	
 	else if( name == "beardstyle" )
 	{
 		bool ok;
@@ -1390,38 +1420,93 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		setBeardStyle( data );
 		return 0;
 	}
+	/*
+		\property char.skin This integer property contains the skin color of the character.
+	*/
 	else SET_INT_PROPERTY( "skin", skin_ )
+	/*
+		\property char.maxhitpoints This integer property contains the maximum hitpoints for the character.
+		Please note that the maximum hitpoints are constantly recalculated. Please see hitpointsbonus for
+		a better way to increase the maximum hitponts of a character.
+	*/	
 	else SET_INT_PROPERTY( "maxhitpoints", maxHitpoints_ )
+	/*
+		\property char.maxstamina This integer property contains the maximum stamina for the character.
+		Please note that the maximum stamina are constantly recalculated. Please see staminabonus for
+		a better way to increase the maximum stamina of a character.
+	*/		
 	else SET_INT_PROPERTY( "maxstamina", maxStamina_ )
+	/*
+		\property char.maxmana This integer property contains the maximum mana for the character.
+		Please note that the maximum mana are constantly recalculated. Please see manabonus for
+		a better way to increase the maximum mana of a character.
+	*/		
 	else SET_INT_PROPERTY( "maxmana", maxMana_ )
+	/*
+		\property char.lastmovement This integer property indicates the servertime of the last movement
+		of this character.
+	*/
 	else SET_INT_PROPERTY( "lastmovement", lastMovement_ )
-	else SET_INT_PROPERTY( "xskin", orgSkin_ )
+	/*
+		\property char.orgskin This integer property indicates the original skin of the character that is restored when he dies or
+		a spell that changed the skin wears off.
+	*/
 	else SET_INT_PROPERTY( "orgskin", orgSkin_ )
+	/*
+		\property char.creationdate This string property indicates the date and time the character was created.
+	*/	
 	else if( name == "creationdate" )
 	{
 		creationDate_ = QDateTime::fromString( value.toString() );
 		return 0;
 	}
+	/*
+		\property char.stealthedsteps This integer property indicates how many steps the character walked when stealthed already.
+	*/		
 	else SET_INT_PROPERTY( "stealthedsteps", stealthedSteps_ )
+	/*
+		\property char.runningsteps This integer property indicates how many steps the character is running so far.
+	*/
 	else SET_INT_PROPERTY( "runningsteps", runningSteps_ )
+	/*
+		\property char.tamed This boolean property indicates whether the character is tamed or not.
+	*/
 	else if( name == "tamed" )
 	{
 		setTamed( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.guarding This character property is the character that is currently guarded by this character.
+	*/	
 	else SET_CHAR_PROPERTY( "guarding", guarding_ )
+	/*
+		\property char.murderer This integer property indicates the serial of the character who killed this character last.
+	*/
 	else SET_INT_PROPERTY( "murderer", murdererSerial_ )
+	/*
+		\property char.casting This boolean property indicates whether the character is currently casting a spell.
+	*/
 	else if( name == "casting" )
 	{
 		setCasting( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.hidden This boolean property indicates whether the character is currently hidden.
+	*/	
 	else if( name == "hidden" )
 	{
 		setHidden( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.hunger This integer property indicates the food level of the character. 0 is the lowest food level, 6 the highest.
+	*/
 	else SET_INT_PROPERTY( "hunger", hunger_ )
+	/*
+		\property char.hungertime This integer property is the next servertime the foodlevel of this character will be reduced.
+	*/	
 	else SET_INT_PROPERTY( "hungertime", hungerTime_ )
 	else SET_INT_PROPERTY( "poison", poison_ )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
@@ -1432,87 +1517,213 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		setReactiveArmor( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.flag This integer property is the property bitfield of this character.
+	*/
 	else SET_INT_PROPERTY( "flag", flag_ )
+	/*
+		\property char.murderertime This integer property indicates when the next kill of the murder count will be removed.
+	*/
 	else SET_INT_PROPERTY( "murderertime", murdererTime_ )
+	/*
+		\property char.criminaltime This integer property indicates the servertime when the criminal flag of this character will wear off.
+	*/
 	else SET_INT_PROPERTY( "criminaltime", criminalTime_ )
+	/*
+		\property char.meditating This boolean property indicates whether this character is currently meditating.
+	*/
 	else if( name == "meditating" )
 	{
 		setMeditating( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.weight This float property indicates the total weight of this character.
+	*/
 	else SET_FLOAT_PROPERTY( "weight", weight_ )
+	/*
+		\property char.saycolor This integer property is the saycolor of this character.
+	*/
 	else SET_INT_PROPERTY( "saycolor", saycolor_ )
+	/*
+		\property char.emotecolor This integer property is the emote color of this character.
+	*/	
 	else SET_INT_PROPERTY( "emotecolor", emoteColor_ )
+	/*
+		\property char.strength This integer property is the strength of this character.
+	*/	
 	else if (name == "strength") {
 		setStrength(value.toInt());
 		return 0;
+	/*
+		\property char.dexterity This integer property is the dexterity of this character.
+	*/			
 	} else if (name == "dexterity") {
 		setDexterity(value.toInt());
 		return 0;
+	/*
+		\property char.intelligence This integer property is the intelligence of this character.
+	*/			
 	} else if (name == "intelligence") {
 		setIntelligence(value.toInt());
 		return 0;
-	} else if (name == "strength2") {
+	/*
+		\property char.strength2 This integer property contains a modification value applied to strength. This is used to 
+		determine the real strength of the character if needed.
+	*/
+	} else if (name == "strength2") {		
 		setStrengthMod(value.toInt());
 		return 0;
+	/*
+		\property char.dexterity2 This integer property contains a modification value applied to dexterity. This is used to 
+		determine the real dexterity of the character if needed.
+	*/		
 	} else if (name == "dexterity2") {
 		setDexterityMod(value.toInt());
 		return 0;
+	/*
+		\property char.intelligence2 This integer property contains a modification value applied to intelligence. This is used to 
+		determine the real intelligence of the character if needed.
+	*/		
 	} else if (name == "intelligence2") {
 		setIntelligenceMod(value.toInt());
 		return 0;
-	} else SET_INT_PROPERTY( "xid", orgBodyID_ )
+	}
+	/*
+		\property char.orgid This is the original body id of the character that is restored when he dies or any spell affecting it
+		expires.
+	*/
 	else SET_INT_PROPERTY( "orgid", orgBodyID_ )
+	/*
+		\property char.hitpoints The current hitpoints of this character.
+	*/	
 	else SET_INT_PROPERTY( "hitpoints", hitpoints_ )
+	/*
+		\property char.health The current hitpoints of this character.
+	*/		
 	else SET_INT_PROPERTY( "health", hitpoints_ )
+	/*
+		\property char.stamina The current stamina of this character.
+	*/			
 	else SET_INT_PROPERTY( "stamina", stamina_ )
+	/*
+		\property char.mana The current mana of this character.
+	*/			
 	else SET_INT_PROPERTY( "mana", mana_ )
+	/*
+		\property char.karma The current karma of this character.
+	*/			
 	else SET_INT_PROPERTY( "karma", karma_ )
+	/*
+		\property char.fame The current fame of this character.
+	*/			
 	else SET_INT_PROPERTY( "fame", fame_ )
+	/*
+		\property char.kills The current kills of this character.
+		This is used to determine the murderer status.
+	*/
 	else SET_INT_PROPERTY( "kills", kills_ )
+	/*
+		\property char.deaths The current deaths of this character.
+	*/
 	else SET_INT_PROPERTY( "deaths", deaths_ )
-	else SET_INT_PROPERTY( "defense", bodyArmor_ )
+	/*
+		\property char.war This boolean property indicates whether the character is in warmode or not.
+	*/		
 	else if( name == "war" )
 	{
 		setAtWar( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.attacktarget The attack target of this character.
+	*/			
 	else SET_CHAR_PROPERTY( "attacktarget", attackTarget_ )
+	/*
+		\property char.nextswing The servertime the character will be able to swing (attack) next.
+	*/
 	else SET_INT_PROPERTY( "nextswing", nextSwing_ )
+	/*
+		\property char.regenhealth The next servertime the character will try to regenerate hitpoints.
+	*/
 	else SET_INT_PROPERTY( "regenhealth", regenHitpointsTime_ )
+	/*
+		\property char.regenstamina The next servertime the character will try to regenerate stamina.
+	*/	
 	else SET_INT_PROPERTY( "regenstamina", regenStaminaTime_ )
+	/*
+		\property char.regenmana The next servertime the character will try to regenerate mana.
+	*/	
 	else SET_INT_PROPERTY( "regenmana", regenManaTime_ )
+	/*
+		\property char.skilldelay The servertime the character will be able to use another active skill again.
+	*/
 	else SET_INT_PROPERTY( "skilldelay", skillDelay_ )
-	else SET_INT_PROPERTY( "sex", gender_ )
+	/*
+		\property char.gender The gender of this character. False means male, true female.
+	*/
 	else SET_INT_PROPERTY( "gender", gender_ )
+	/*
+		\property char.id The body id of this character.
+	*/
 	else SET_INT_PROPERTY( "id", bodyID_ )
+	/*
+		\property char.hitpointsbonus The integer bonus awarded to the maximum hitpoints of this character.
+	*/
 	else if (name == "hitpointsbonus") {
 		setHitpointsBonus(value.toInt());
 		return 0;
-	} else if (name == "staminabonus") {
+	/*
+		\property char.staminabonus The integer bonus awarded to the maximum stamina of this character.
+	*/		
+	} else if (name == "staminabonus") {		
 		setStaminaBonus(value.toInt());
 		return 0;
+	/*
+		\property char.manabonus The integer bonus awarded to the maximum mana of this character.
+	*/
 	} else if (name == "manabonus") {
 		setManaBonus(value.toInt());
 		return 0;
+	/*
+		\property char.invulnerable Indicates whether the character is invulnerable or not.
+	*/		
 	} else if( name == "invulnerable" )
 	{
 		setInvulnerable( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.invisible Indicates whether the character is invisible or not.
+	*/
 	else if( name == "invisible" )
 	{
 		setInvisible( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.frozen Indicates whether the character is frozen or not.
+	*/
 	else if( name == "frozen" )
 	{
 		setFrozen( value.toInt() );
 		return 0;
 	}
+	/*
+		\property char.strengthcap The individual strength cap for this character.
+	*/
 	else SET_INT_PROPERTY( "strengthcap", strengthCap_ )
+	/*
+		\property char.dexteritycap The individual dexterity cap for this character.
+	*/
 	else SET_INT_PROPERTY( "dexteritycap", dexterityCap_ )
+	/*
+		\property char.intelligencecap The individual intelligence cap for this character.
+	*/
 	else SET_INT_PROPERTY( "intelligencecap", intelligenceCap_ )
+	/*
+		\property char.statcap The individual total stat cap for this character.
+	*/
 	else SET_INT_PROPERTY( "statcap", statCap_ )
 
 	return cUObject::setProperty( name, value );
@@ -1527,7 +1738,6 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "polymorph", isPolymorphed() )
 	else GET_PROPERTY( "skin", skin_ )
 	else GET_PROPERTY( "orgskin", orgSkin_ )
-	else GET_PROPERTY( "xskin", orgSkin_ )
 	else GET_PROPERTY( "creationdate", creationDate_.toString() )
 	else GET_PROPERTY( "stealthedsteps", stealthedSteps_ )
 	else GET_PROPERTY( "runningsteps", (int)runningSteps_ )
@@ -1557,7 +1767,6 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "dexterity2", dexterityMod_ )
 	else GET_PROPERTY( "intelligence2", intelligenceMod_ )
 	else GET_PROPERTY( "orgid", orgBodyID_ )
-	else GET_PROPERTY( "xid", orgBodyID_ )
 	else GET_PROPERTY( "maxhitpoints", maxHitpoints_ )
 	else GET_PROPERTY( "hitpoints", hitpoints_ )
 	else GET_PROPERTY( "strengthcap", strengthCap_ )
@@ -1574,7 +1783,6 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "kills", (int)kills_ )
 	else GET_PROPERTY( "deaths", (int)deaths_ )
 	else GET_PROPERTY( "dead", isDead() )
-	else GET_PROPERTY( "defense", (int)bodyArmor_ )
 	else GET_PROPERTY( "war", isAtWar() )
 	else GET_PROPERTY( "attacktarget", attackTarget_ )
 	else GET_PROPERTY( "nextswing", (int)nextSwing_ )
@@ -1584,7 +1792,6 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
 	else GET_PROPERTY( "skilldelay", (int)skillDelay_ )
 	else GET_PROPERTY( "gender", gender_ )
-	else GET_PROPERTY( "sex", gender_ )
 	else GET_PROPERTY( "id", bodyID_ )
 	else GET_PROPERTY( "invulnerable", isInvulnerable() )
 	else GET_PROPERTY( "invisible", isInvisible() )

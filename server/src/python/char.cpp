@@ -54,6 +54,7 @@
 
 /*
 	\object char
+	\inherit object
 	\description This object type represents players and npcs in the world.
 	To determine whether the object instance is for a player or a npc, use the
 	<i>npc</i> and <i>player</i> properties.
@@ -2203,6 +2204,11 @@ static PyMethodDef wpCharMethods[] =
 PyObject *wpChar_getAttr( wpChar *self, char *name )
 {
 	// Python specific stuff
+	/*
+		\rproperty char.gm Indicates whether the player is a gm or not. 
+		Always false for NPCs.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	if ( !strcmp( "gm", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
@@ -2211,6 +2217,11 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 			return PyFalse;
 
 		return player->isGM() ? PyTrue : PyFalse;
+		
+	/*
+		\rproperty char.tags This property is a list of names for all tags attached to this character.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	} else if (!strcmp("tags", name)) {
 		// Return a list with the keynames
 		PyObject *list = PyList_New(0);
@@ -2224,6 +2235,12 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		}
 
 		return list;
+		
+	/*
+		\rproperty char.party A <object id="PARTY">PARTY</object> object for the party the player belongs to.
+		None for NPCs or if the player is not in a party.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	} else if (!strcmp("party", name)) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(self->pChar);
 
@@ -2233,6 +2250,12 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 		Py_INCREF(Py_None);
 		return Py_None;
+		
+	/*
+		\rproperty char.guild A <object id="GUILD">GUILD</object> object for the guild the player belongs to.
+		None for NPCs or if the player is not in a guild.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	} else if (!strcmp("guild", name)) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(self->pChar);
 
@@ -2242,6 +2265,12 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 		Py_INCREF(Py_None);
 		return Py_None;
+		
+	/*
+		\rproperty char.rank The rank for the players account.
+		NPCs and players without accounts always have rank 1.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	} else if( !strcmp("rank", name)) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	
@@ -2255,9 +2284,20 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		} else {
 			return PyInt_FromLong(1);
 		}
+		
+	/*
+		\rproperty char.region A <object id="REGION">REGION</object> object for the region the character is in.
+		May be None if the region the character is in is undefined.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	} else if( !strcmp( "region", name ) )
 		return PyGetRegionObject( self->pChar->region() );
 
+	/*
+		\rproperty char.account An <object id="ACCOUNT">ACCOUNT</object> object for the players account.
+		None for NPCs and players without accounts.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if( !strcmp( "account", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
@@ -2268,6 +2308,11 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		}
 		return PyGetAccountObject( player->account() );
 	}
+	/*
+		\rproperty char.socket The <object id="SOCKET">SOCKET</object> object for this character.
+		None for disconnected players and NPCs.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if( !strcmp( "socket", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
@@ -2279,6 +2324,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		}
 		return PyGetSocketObject( player->socket() );
 	}
+	/*
+		\rproperty char.skill Returns a <object id="SKILL">SKILL</object> object in value mode for the character.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if( !strcmp( "skill", name ) )
 	{
 		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
@@ -2286,7 +2335,11 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		skills->type = 0;
 		return (PyObject*)( skills );
 	}
-
+	
+	/*
+		\rproperty char.skillcap Returns a <object id="SKILL">SKILL</object> object in cap mode for the character.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if( !strcmp( "skillcap", name ) )
 	{
 		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
@@ -2294,7 +2347,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		skills->type = 1;
 		return (PyObject*)( skills );
 	}
-
+	/*
+		\rproperty char.skilllock Returns a <object id="SKILL">SKILL</object> object in lock mode for the character.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if( !strcmp( "skilllock", name ) )
 	{
 		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
@@ -2302,7 +2358,11 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		skills->type = 2;
 		return (PyObject*)( skills );
 	}
-
+	/*
+		\rproperty char.followers Returns the list of followers for this player.
+		This property is None for NPCs, not an empty list.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if( !strcmp( "followers", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
@@ -2321,6 +2381,11 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 		return rVal;
 	}
+	/*
+		\rproperty char.guards Returns a list of NPCs who are guarding this character.
+		This property is valid for NPCs and players.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if( !strcmp( "guards", name ) )
 	{
 		cBaseChar::CharContainer guards = self->pChar->guardedby();
@@ -2331,6 +2396,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 		return rVal;
 	}
+	/*
+		\property char.events The names of the scripts attached to this character.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if( !strcmp( "events", name ) )
 	{
 		QStringList events = QStringList::split( ",", self->pChar->eventList() );
@@ -2338,8 +2407,16 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		for( uint i = 0; i < events.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
+	/*
+		\rproperty char.npc True if this character is a npc, false otherwise.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	} else if (!strcmp("npc", name)) {
     return self->pChar->objectType() == enNPC ? PyTrue : PyFalse;
+  /*
+  	\rproperty char.player True if this character is a player, false otherwise.
+  	This property is exclusive to python scripts and overrides normal properties with the same name.
+  */
   } else if (!strcmp("player", name)) {
     return self->pChar->objectType() == enPlayer ? PyTrue : PyFalse;
   } else {

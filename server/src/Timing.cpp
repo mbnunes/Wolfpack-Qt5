@@ -183,8 +183,9 @@ void cTiming::poll() {
 			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 			if (player && !player->socket() && player->logoutTime() && player->logoutTime() <= time) {
 				player->removeFromView(false);
-				player->setLogoutTime(0);				
+				player->setLogoutTime(0);
 				player->resend(false);
+				MapObjects::instance()->remove(player);
 			}
 		}
 

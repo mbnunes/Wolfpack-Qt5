@@ -45,6 +45,7 @@
 
 /*
 	\object item
+	\inherit object
 	\description This object represents an item in the wolfpack world.
 */
 struct wpItem
@@ -328,19 +329,13 @@ static PyObject* wpItem_weaponskill( wpItem* self, PyObject* args )
 	return PyInt_FromLong( -1 );
 }
 
-/*!
-	Takes at least two arguments (amount,item-id)
-	Optionally the color of the item we
-	want to consume too.
-	It consumes the items and amount specified
-	and returns how much have been really consumed.
-*/
 /*
 	\method item.useresource
 	\description Consumes a given amount of a resource.
 	\param amount The amount to consume.
-	\param item-id The item id of the object to consume.
-	\param color The color of the object to consume
+	\param itemid The item id of the object to consume.
+	\param color Defaults to 0.
+	The color of the object to consume
 */
 static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 {
@@ -366,16 +361,12 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 	return PyInt_FromLong( deleted );
 }
 
-/*!
-	Takes at least one argument (item-id)
-	Optionally the color
-	It returns the amount of a resource
-	available
-*/
 /*
 	\method item.countresource
 	\description Returns the amount of a given resource.
-	\param item-id The item id of the resource to count.
+	\param itemid The item id of the resource to count.
+	\param color Defaults to 0.
+	The color of the items to count.
 	\return The amount of item-id
 */
 static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
@@ -401,13 +392,10 @@ static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 	return PyLong_FromLong( avail );
 }
 
-/*!
-	Returns the custom tag passed
-*/
 /*
 	\method item.gettag
 	\description Returns the value of a custom tag. Three types of tag types: String, Int and Float.
-	\param name
+	\param name The name of the tag.
 	\return Returns the value of the given tag name.
 */
 static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
@@ -501,7 +489,7 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 /*
 	\method item.deltag
 	\description Deletes the tag under a given name.
-	\param name
+	\param name The name of the tag that should be deleted.
 */
 static PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 {
@@ -872,9 +860,10 @@ static PyObject* wpItem_canstack(wpItem *self, PyObject *args) {
 
 /*
 	\method item.countitems
-	\description Counts the amount of baseids in a container.
-	\param baseids The baseids to count.
-	\return Amount of baseids
+	\description Counts items recursively in a container by matching their baseids 
+	against a given list of strings.
+	\param baseids A list of strings the baseids of all items will be matched against.
+	\return Amount of matching items.
 */
 static PyObject* wpItem_countitems(wpItem *self, PyObject *args) {
 	PyObject *list;
@@ -898,10 +887,12 @@ static PyObject* wpItem_countitems(wpItem *self, PyObject *args) {
 
 /*
 	\method item.removeitems
-	\description Removes amount of baseids
-	\param baseids Baseids to remove
-	\param amount Amount to remove
-	\return Amount of baseids removed
+	\description Removes items recursively from a container by matching their baseids 
+	against a given list of strings.
+	\param baseids A list of strings the baseids of the found items will be matched against.
+	\param amount Amount of items to remove.
+	\return The amount of items that still would need to be removed. If the requested amount could be 
+	statisfied, the return value is 0.
 */
 static PyObject* wpItem_removeitems(wpItem *self, PyObject *args) {
 	PyObject *list;

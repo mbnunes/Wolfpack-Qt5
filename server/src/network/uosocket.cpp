@@ -443,6 +443,8 @@ void cUOSocket::disconnect( void )
 		_player->removeFromView(false);
 		if (!_player->region() || !_player->region()->isGuarded()) {
 			_player->setLogoutTime(uiCurrentTime + SrvParams->quittime() * 1000);
+		} else {
+			SectorMaps::instance()->remove(_player);
 		}
 		_player->resend(false);
 	}
@@ -1458,11 +1460,18 @@ void cUOSocket::setPlayer( P_PLAYER pChar )
 	// If the player is changing
 	if( pChar && ( pChar != _player ) )
 	{
-		if( _player )
-			_player->setSocket( NULL );
+		if (_player) {
+			_player->removeFromView(false);
+			_player->setSocket(0);
+			_player->setLogoutTime(0);
+			_player->resend(false);
+			SectorMaps::instance()->remove(_player);
+		}
 
 		_player = pChar;
-		_player->setSocket( this );
+		_player->setSocket(this);
+		_player->resend(false);
+		SectorMaps::instance()->add(_player);
 	}
 
 	_state = InGame;
