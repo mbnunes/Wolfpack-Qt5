@@ -2008,20 +2008,24 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args ) {
 
 	PyObject *target;
 	int range;
-	int debug = 0;
+	short model = 0;
 
-	if (!PyArg_ParseTuple(args, "Oi|i:char.canreach(target, range)", &target, &range, &debug)) {
+	if (!PyArg_ParseTuple(args, "Oi|h:char.canreach(target, range, model)", &target, &range, &model)) {
 		return 0;
 	}
 
 	Coord_cl targetPos;
 
 	if (checkWpCoord(target)) {
-		if (range == -1) {
+		if (range == 0) {
 			Py_RETURN_FALSE;
 		}
 
-		targetPos = getWpCoord(target).losMapPoint();
+		if (model == -1) {
+			targetPos = getWpCoord(target).losMapPoint();
+		} else {
+			targetPos = getWpCoord(target).losItemPoint(model);
+		}
 	} else if (checkWpItem(target)) {
 		P_ITEM pItem = getWpItem(target);
 
