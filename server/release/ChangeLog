@@ -58,6 +58,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Finished a conversion of the plant system from RunUO.
   - Implemented correct logging of changes on the info gump.
   - Fixed bug #0000382 (pets stayed after released) 
+  - Added playervendors from Ancient-Realms.org
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

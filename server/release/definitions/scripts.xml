@@ -266,4 +266,14 @@
 	<script>plants.greenthorns</script>
 	<script>plants.redleaves</script>
 	<script>plants.orangepetals</script>
+	
+	<!-- Playervendors -->
+	<script>npc.playervendor</script>
+	<script>npc.playervendor.item</script>
+	<script>npc.playervendor.backpack</script>
+	<script>npc.playervendor.buygump</script>
+	<script>npc.playervendor.statusgump</script>
+	<script>npc.playervendor.customizegump</script>
+	<script>npc.playervendor.payment</script>
+	<script>npc.playervendor.addplayervendor</script>
 </definitions>

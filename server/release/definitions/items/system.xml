@@ -10,6 +10,10 @@
 	Stuff used internally
 -->
 <definitions>
+	<!-- Backpack for playervendors -->
+	<item id="pv_pack" inherit="e75">
+		<basescript>npc.playervendor.backpack</basescript>
+	</item>
 
 	<!-- Worldgem Bits -->
 	<item id="1ea7">
