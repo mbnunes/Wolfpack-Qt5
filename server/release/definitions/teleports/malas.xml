@@ -11,4 +11,10 @@
 -->
 <definitions>
 
+	<region id="malas_teleports">
+		<!-- The World -->
+		<rectangle x1="1" y1="1" x2="2560" y2="2048" map="3" />
+		<!-- Teleports -->
+	</region>
+
 </definitions>

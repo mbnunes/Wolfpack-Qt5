@@ -11,4 +11,17 @@
 -->
 <definitions>
 
+	<region id="felucca_teleports">
+		<!-- The World -->
+		<rectangle x1="1" y1="1" x2="6144" y2="4096" map="0" />
+		<!-- Teleports -->
+		<!-- Shame --> <!-- Thanks to Ubil_Manther in IRC -->
+		<teleport source="512,1559,0,0" destination="5394,127,0,0" />
+		<teleport source="513,1559,0,0" destination="5395,127,0,0" />
+		<teleport source="514,1559,0,0" destination="5396,127,0,0" />
+		<teleport destination="512,1559,0,0" source="5394,127,0,0" />
+		<teleport destination="513,1559,0,0" source="5395,127,0,0" />
+		<teleport destination="514,1559,0,0" source="5396,127,0,0" />
+	</region>
+
 </definitions>
