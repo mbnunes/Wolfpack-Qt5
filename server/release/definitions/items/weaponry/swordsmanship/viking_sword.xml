@@ -18,10 +18,15 @@
 		<buyprice>51</buyprice>
 		<durability><random min="30" max="56" /></durability>
 		<weight>6.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Viking Sword (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="28" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="17" />
 	</item>
 
 	<item id="13ba" inherit="14b9">

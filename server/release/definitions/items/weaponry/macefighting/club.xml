@@ -21,6 +21,11 @@
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
 		<category>Weapons\Maces\Club (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="44" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="13" />
 	</item>
 
 	<item id="13b3" inherit="13b4">

@@ -17,12 +17,17 @@
 		<nodye />
 		<sellprice>25</sellprice>
 		<buyprice>50</buyprice>
-		<tag name="range" value="12" type="int" />
 		<durability><random min="30" max="49" /></durability>
 		<weight>7.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1007</type>
 		<category>Weapons\Bows\Repeating Crossbow (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="30" />
+		<intproperty name="speed" value="41" />
+		<intproperty name="range" value="12" />
+		<intproperty name="mindamage" value="30" />
+		<intproperty name="maxdamage" value="49" />
 	</item>
 
 	<item id="26c3" inherit="26cd">

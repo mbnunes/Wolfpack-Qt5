@@ -13,7 +13,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="40" max="50" /></durability>
-		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>11</smelt>
 		<weight>15</weight>
@@ -22,6 +21,14 @@
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Ringmail\Sleeves (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="1" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="3" />
 	</item>
 
 	<item id="13ef" inherit="13ee">

@@ -22,6 +22,12 @@
 		<basescripts>equipment,blades</basescripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Kryss (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="53" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
 	</item>
 
 	<item id="1400" inherit="1401">

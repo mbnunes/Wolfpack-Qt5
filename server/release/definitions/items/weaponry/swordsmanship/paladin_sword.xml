@@ -18,10 +18,15 @@
 		<buyprice>31</buyprice>
 		<durability><random min="50" max="77" /></durability>
 		<weight>6.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Paladin Sword (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="30" />
+		<intproperty name="speed" value="33" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="15" />
 	</item>
 
 	<item id="26ce" inherit="26cf">

@@ -18,10 +18,15 @@
 		<buyprice>24</buyprice>
 		<durability><random min="30" max="46" /></durability>
 		<weight>1.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Cleaver (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="46" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="13" />
 	</item>
 
 	<item id="ec2" inherit="ec3">

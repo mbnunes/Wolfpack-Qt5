@@ -18,10 +18,15 @@
 		<buyprice>41</buyprice>
 		<durability><random min="30" max="75" /></durability>
 		<weight>8.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Crescent Blade (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="55" />
+		<intproperty name="speed" value="47" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="14" />
 	</item>
 
 	<item id="26c1" inherit="26cb">

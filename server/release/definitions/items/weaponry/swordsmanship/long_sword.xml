@@ -18,10 +18,15 @@
 		<buyprice>25</buyprice>
 		<durability><random min="30" max="53" /></durability>
 		<weight>1.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Long Sword (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="30" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="16" />
 	</item>
 
 	<item id="13b7" inherit="13b8">

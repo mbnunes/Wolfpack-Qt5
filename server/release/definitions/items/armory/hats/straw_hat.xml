@@ -20,6 +20,12 @@
 		<weight>1.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="9" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
 	</item>
 
 </definitions>

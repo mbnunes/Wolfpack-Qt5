@@ -18,10 +18,15 @@
 		<buyprice>27</buyprice>
 		<durability><random min="30" max="39" /></durability>
 		<weight>1.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment</basescripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\War Fork (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="43" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="13" />
 	</item>
 
 	<item id="1404" inherit="1405">

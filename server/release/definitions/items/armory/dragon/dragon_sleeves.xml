@@ -14,12 +14,19 @@
 		<decay />
 		<nodye />
 		<durability><random min="60" max="100" /></durability>
-		<tag name="resname" value="iron" />
 		<smelt>14</smelt>
 		<weight>5.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Dragon\Dragon Sleeves 1</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="80" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
 	</item>
 
 	<!-- dragon sleeves -->

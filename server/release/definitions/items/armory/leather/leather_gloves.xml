@@ -14,7 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="31" max="37" /></durability>
-		<tag name="resname" value="leather" />
 		<restock>10</restock>
 		<weight>1.0</weight>
 		<buyprice>60</buyprice>
@@ -22,6 +21,14 @@
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Leather\Gloves (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
 	</item>
 
 	<item id="13ce" inherit="13c6">

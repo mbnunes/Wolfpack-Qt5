@@ -18,10 +18,15 @@
 		<buyprice>21</buyprice>
 		<durability><random min="30" max="70" /></durability>
 		<weight>8.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Cutlass (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="25" />
+		<intproperty name="speed" value="44" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="13" />
 	</item>
 
 	<item id="1440" inherit="1441">

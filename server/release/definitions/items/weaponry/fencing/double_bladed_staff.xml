@@ -18,10 +18,15 @@
 		<buyprice>18</buyprice>
 		<durability><random min="30" max="40" /></durability>
 		<weight>7.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment,blades</basescripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Double Bladed Staff (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="50" />
+		<intproperty name="speed" value="49" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="15" />
 	</item>
 
 	<item id="26bf" inherit="26c9">

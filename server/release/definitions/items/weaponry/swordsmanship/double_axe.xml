@@ -18,10 +18,15 @@
 		<buyprice>57</buyprice>
 		<durability><random min="50" max="95" /></durability>
 		<weight>3.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment,blades</basescripts>
 		<type>1002</type>
 		<category>Weapons\Axes\Double Axe (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="33" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="17" />
 	</item>
 
 	<item id="f4c" inherit="f4b">

@@ -21,6 +21,11 @@
 		<type>1003</type>
 		<twohanded />
 		<category>Weapons\Staves\Quarter Staff (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="48" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="14" />
 	</item>
 
 	<item id="e8a" inherit="e89">

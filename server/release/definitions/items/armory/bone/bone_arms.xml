@@ -17,10 +17,17 @@
 		<restock>10</restock>
 		<weight>1</weight>
 		<value>0</value>
-		<tag name="resname" value="leather" />
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Bone\Bone Arms (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="55" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="2" />
+		<intproperty name="res_energy" value="4" />
 	</item>
 
 	<!-- Bone Arms East-West -->

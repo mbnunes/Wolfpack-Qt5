@@ -18,10 +18,15 @@
 		<buyprice>30</buyprice>
 		<durability><random min="30" max="64" /></durability>
 		<weight>14.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
 		<category>Weapons\Maces\Mace (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="40" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="14" />
 	</item>
 
 	<item id="f5d" inherit="f5c">

@@ -16,12 +16,17 @@
 		<nodye />
 		<sellprice>10</sellprice>
 		<buyprice>21</buyprice>
-		<tag name="resname" value="iron" />
 		<durability><random min="30" max="39" /></durability>
 		<weight>1.0</weight>
 		<basescripts>equipment,blades</basescripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Dagger (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="49" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="11" />
 	</item>
 
 	<item id="f52" inherit="f51">

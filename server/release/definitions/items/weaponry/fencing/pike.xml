@@ -18,10 +18,15 @@
 		<buyprice>33</buyprice>
 		<durability><random min="30" max="38" /></durability>
 		<weight>10.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment,blades</basescripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Pike (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="50" />
+		<intproperty name="speed" value="37" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="16" />
 	</item>
 
 	<item id="26c8" inherit="26be">

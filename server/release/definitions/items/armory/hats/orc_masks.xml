@@ -17,6 +17,13 @@
 		<weight>4.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="1" />
+		<intproperty name="res_fire" value="1" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="8" />
 	</item>
 
 	<!-- Orc Mask 1 w/e -->

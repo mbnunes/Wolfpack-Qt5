@@ -14,13 +14,20 @@
 		<decay />
 		<nodye />
 		<durability><random min="25" max="30" /></durability>
-		<tag name="resname" value="leather" />
 		<restock>10</restock>
 		<weight>3</weight>
 		<value>0</value>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Bone\Leggings (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="55" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="2" />
+		<intproperty name="res_energy" value="4" />
 	</item>
 
 	<!-- Bone Leggings East-West -->

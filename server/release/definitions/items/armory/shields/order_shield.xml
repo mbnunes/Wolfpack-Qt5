@@ -14,7 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="100" max="125" /></durability>
-		<tag name="resname" value="iron" />
 		<restock>0</restock>
 		<weight>7</weight>
 		<buyprice>0</buyprice>
@@ -22,6 +21,10 @@
 		<type>1008</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Shields\Order Shield (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="1" />
 	</item>
 
 	<item id="1bc5" inherit="1bc4">

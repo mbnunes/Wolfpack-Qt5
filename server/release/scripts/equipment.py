@@ -127,26 +127,53 @@ def onShowTooltip(viewer, object, tooltip):
 			tooltip.add(1061175, '')
 
 		# Special weapon range
-		if object.hastag('range'):
-			weaponrange = int(object.gettag('range'))
+		if object.hasintproperty( 'range' ) or object.hastag( 'range' ):
+			weaponrange = int( object.getintproperty( 'range' ), 12 )
+			if object.hastag( 'range' ):
+				weaponrange = int( object.gettag( 'range' ) )
 			if weaponrange > 1:
-				tooltip.add(1061169, str(weaponrange))
+				tooltip.add( 1061169, str(weaponrange) )
 
 		# Max-Mindamage
-		mindamage = properties.fromitem(object, MINDAMAGE)
-		maxdamage = properties.fromitem(object, MAXDAMAGE)
-		tooltip.add(1061168, "%u\t%u" % (mindamage, maxdamage))
+		mindamage = object.getintproperty( 'mindamage', 1 )
+		if object.hastag( 'mindamage' ):
+			mindamage = int( object.gettag( 'mindamage' ) )
+		maxdamage = object.getintproperty( 'maxdamage', 2 )
+		if object.hastag( 'maxdamage' ):
+			mindamage = int( object.gettag( 'maxdamage' ) )
+		tooltip.add( 1061168, "%u\t%u" % ( mindamage, maxdamage ) )
 
 		# Speed
-		speed = properties.fromitem(object, SPEED)
+		speed = object.getintproperty( 'speed', 10 )
+		if object.hastag( 'speed' ):
+			speed = int( object.gettag( 'speed' ) )
 		tooltip.add(1061167, str(speed))
 
 		# Physical Damage Distribution
-		fire = properties.fromitem(object, DAMAGE_FIRE)
-		cold = properties.fromitem(object, DAMAGE_COLD)
-		poison = properties.fromitem(object, DAMAGE_POISON)
-		energy = properties.fromitem(object, DAMAGE_ENERGY)
+		fire = object.getintproperty( 'dmg_fire', 0 )
+		if object.hastag( 'dmg_fire' ):
+			fire = int( object.gettag( 'dmg_fire' ) )
+
+		cold = object.getintproperty( 'dmg_cold', 0 )
+		if object.hastag( 'dmg_cold' ):
+			cold = int( object.gettag( 'dmg_cold' ) )
+
+		poison = object.getintproperty( 'dmg_poison', 0 )
+		if object.hastag( 'dmg_poison' ):
+			poison = int( object.gettag( 'dmg_poison' ) )
+
+		energy = object.getintproperty( 'dmg_energy', 0 )
+		if object.hastag( 'dmg_energy' ):
+			energy = int( object.gettag( 'dmg_energy' ) )
+
+		# This must always total 100
 		physical = 100 - (fire + cold + poison + energy)
+		if (physical + fire + cold + poison + energy) != 100:
+			physical = 100
+			fire = 0
+			cold = 0
+			poison = 0
+			energy = 0
 
 		if physical:
 			tooltip.add(1060403, str(physical))
@@ -162,17 +189,31 @@ def onShowTooltip(viewer, object, tooltip):
 
 		if energy:
 			tooltip.add(1060407, str(energy))
-			
+
 		# Spell Channeling
 		spellchanneling = properties.fromitem(object, SPELLCHANNELING)
 		if spellchanneling != 0:
 			tooltip.add(1060482, "")
 
-	fire = properties.fromitem(object, RESISTANCE_FIRE)
-	cold = properties.fromitem(object, RESISTANCE_COLD)
-	poison = properties.fromitem(object, RESISTANCE_POISON)
-	energy = properties.fromitem(object, RESISTANCE_ENERGY)
-	physical = properties.fromitem(object, RESISTANCE_PHYSICAL)
+	physical = object.getintproperty( 'res_physical', 0 )
+	if object.hastag( 'res_physical' ):
+		physical = int( object.gettag( 'res_physical' ) )
+
+	fire = object.getintproperty( 'res_fire', 0 )
+	if object.hastag( 'res_fire' ):
+		fire = int( object.gettag( 'res_fire' ) )
+
+	cold = object.getintproperty( 'res_cold', 0 )
+	if object.hastag( 'res_cold' ):
+		cold = int( object.gettag( 'res_cold' ) )
+
+	poison = object.getintproperty( 'res_poison', 0 )
+	if object.hastag( 'res_poison' ):
+		poison = int( object.gettag( 'res_poison' ) )
+
+	energy = object.getintproperty( 'res_energy', 0 )
+	if object.hastag( 'res_energy' ):
+		energy = int( object.gettag( 'res_energy' ) )
 
 	if physical:
 		tooltip.add(1060448, str(physical))
@@ -196,7 +237,11 @@ def onShowTooltip(viewer, object, tooltip):
 		tooltip.add(1060435, str(lower))
 	lower /= 100.0
 
-	req_str = properties.fromitem(object, REQSTR)
+	# Tag will override.
+	req_str = object.getintproperty( 'req_strength', 0 )
+	if object.hastag( 'req_strength' ):
+		req_str = int( object.gettag( 'req_strength' ) )
+
 	if lower:
 		req_str = int(ceil(req_str) * (1.0 - lower))
 	if req_str:
@@ -208,15 +253,21 @@ def onShowTooltip(viewer, object, tooltip):
 def onWearItem(player, wearer, item, layer):
 	lower = properties.fromitem(item, LOWERREQS) / 100.0
 
-	req_str = properties.fromitem(item, REQSTR)
+	req_str = object.getintproperty( 'req_strength', 0 )
+	if object.hastag( 'req_strength' ):
+		req_str = int( object.gettag( 'req_strength' ) )
 	if lower:
 		req_str = int(ceil(req_str) * (1.0 - lower))
 
-	req_dex = properties.fromitem(item, REQDEX)
+	req_dex = object.getintproperty( 'req_dexterity', 0 )
+	if object.hastag( 'req_dexterity' ):
+		req_str = int( object.gettag( 'req_dexterity' ) )
 	if lower:
 		req_dex = int(ceil(req_dex) * (1.0 - lower))
 
-	req_int = properties.fromitem(item, REQINT)
+	req_int = object.getintproperty( 'req_intelligence', 0 )
+	if object.hastag( 'req_intelligence' ):
+		req_str = int( object.gettag( 'req_intelligence' ) )
 	if lower:
 		req_int = int(ceil(req_int) * (1.0 - lower))
 

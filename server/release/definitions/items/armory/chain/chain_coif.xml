@@ -14,7 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="45" max="60" /></durability>
-		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>8</smelt>
 		<weight>7.0</weight>
@@ -23,6 +22,14 @@
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Chainmail\Coif NS</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="60" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="1" />
+		<intproperty name="res_energy" value="2" />
 	</item>
 
 	<!--  Chainmail Coif East-West -->

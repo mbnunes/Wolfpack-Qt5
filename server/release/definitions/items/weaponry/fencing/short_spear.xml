@@ -18,10 +18,15 @@
 		<buyprice>21</buyprice>
 		<durability><random min="30" max="40" /></durability>
 		<weight>4.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment</basescripts>
 		<type>1005</type>
 		<category>Weapons\Fencing\Short Spear (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="55" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="13" />
 	</item>
 
 	<item id="1402" inherit="1403">

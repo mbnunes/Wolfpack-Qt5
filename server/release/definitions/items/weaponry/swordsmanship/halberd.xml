@@ -18,10 +18,15 @@
 		<buyprice>38</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>16.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1002</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Halberd (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="speed" value="25" />
+		<intproperty name="mindamage" value="18" />
+		<intproperty name="maxdamage" value="19" />
 	</item>
 
 	<item id="143e" inherit="143f">

@@ -18,10 +18,15 @@
 		<buyprice>46</buyprice>
 		<durability><random min="50" max="102" /></durability>
 		<weight>12.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Bladed Staff (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="37" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="16" />
 	</item>
 
 	<item id="26bd" inherit="26c7">

@@ -21,6 +21,11 @@
 		<type>1003</type>
 		<twohanded />
 		<category>Weapons\Staves\Grarled Staff (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="33" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="17" />
 	</item>
 
 	<item id="13f9" inherit="13f8">

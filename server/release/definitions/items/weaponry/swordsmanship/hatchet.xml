@@ -18,10 +18,15 @@
 		<buyprice>36</buyprice>
 		<durability><random min="30" max="46" /></durability>
 		<weight>4.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Axes\Hatchet (N/S)</category>
 		<type>1002</type>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="41" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="15" />
 	</item>
 
 	<item id="f44" inherit="f43">

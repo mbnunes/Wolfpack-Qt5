@@ -160,19 +160,38 @@ def damagetypes(char):
 
 	# See if the npc has specific energy distribution values.
 	if char.npc and not weapon:
+		fire = char.getintproperty( 'dmg_fire', 0 )
 		if char.hastag('dmg_fire'):
 			fire = int(char.gettag('dmg_fire'))
+
+		cold = char.getintproperty( 'dmg_cold', 0 )
 		if char.hastag('dmg_cold'):
 			cold = int(char.gettag('dmg_cold'))
+
+		poison = char.getintproperty( 'dmg_poison', 0 )
 		if char.hastag('dmg_poison'):
 			poison = int(char.gettag('dmg_poison'))
+
+		energy = char.getintproperty( 'dmg_energy', 0 )
 		if char.hastag('dmg_energy'):
 			energy = int(char.gettag('dmg_energy'))
 	elif weapon:
-		fire = properties.fromitem(weapon, DAMAGE_FIRE)
-		cold = properties.fromitem(weapon, DAMAGE_COLD)
-		poison = properties.fromitem(weapon, DAMAGE_POISON)
-		energy = properties.fromitem(weapon, DAMAGE_ENERGY)
+		# Physical Damage Distribution
+		fire = weapon.getintproperty( 'dmg_fire', 0 )
+		if weapon.hastag( 'dmg_fire' ):
+			fire = int( weapon.gettag( 'dmg_fire' ) )
+
+		cold = weapon.getintproperty( 'dmg_cold', 0 )
+		if weapon.hastag( 'dmg_cold' ):
+			cold = int( weapon.gettag( 'dmg_cold' ) )
+
+		poison = weapon.getintproperty( 'dmg_poison', 0 )
+		if weapon.hastag( 'dmg_poison' ):
+			poison = int( weapon.gettag( 'dmg_poison' ) )
+
+		energy = weapon.getintproperty( 'dmg_energy', 0 )
+		if weapon.hastag( 'dmg_energy' ):
+			energy = int( weapon.gettag( 'dmg_energy' ) )
 
 	# See if the energy distribution is correct
 	if fire + cold + poison + energy > 100:

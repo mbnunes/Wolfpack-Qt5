@@ -18,10 +18,15 @@
 		<buyprice>21</buyprice>
 		<durability><random min="30" max="35" /></durability>
 		<weight>9.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
 		<category>Weapons\Maces\Hammer Pick (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="28" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="17" />
 	</item>
 
 	<item id="143c" inherit="143d">

@@ -16,12 +16,17 @@
 		<nodye />
 		<sellprice>18</sellprice>
 		<buyprice>36</buyprice>
-		<tag name="range" value="12" type="int" />
 		<durability><random min="30" max="50" /></durability>
 		<weight>7.0</weight>
 		<basescripts>equipment</basescripts>
 		<type>1006</type>
 		<category>Weapons\Bows\Bow (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="30" />
+		<intproperty name="range" value="12" />
+		<intproperty name="speed" value="25" />
+		<intproperty name="mindamage" value="16" />
+		<intproperty name="maxdamage" value="18" />
 	</item>
 
 	<item id="13b2" inherit="13b1">

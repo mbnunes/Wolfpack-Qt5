@@ -18,12 +18,17 @@
 		<buyprice>23</buyprice>
 		<durability><random min="30" max="55" /></durability>
 		<weight>11.0</weight>
-		<tag name="resname" value="iron" />
-		<tag name="remaining_uses" type="int" value="35" />
 		<type>1001</type>
 		<basescripts>equipment,pickaxe</basescripts>
 		<category>Weapons\Swords\Pickaxe (N/S)</category>
 		<category>Professions\Miner\Tools\Pickaxe (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="35" />
+		<intproperty name="req_strength" value="50" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="15" />
 	</item>
 
 	<item id="e85" inherit="e86">

@@ -18,10 +18,15 @@
 		<buyprice>31</buyprice>
 		<durability><random min="30" max="62" /></durability>
 		<weight>8.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Axes\Two Handed Axe (N/S)</category>
 		<type>1002</type>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="31" />
+		<intproperty name="mindamage" value="16" />
+		<intproperty name="maxdamage" value="17" />
 	</item>
 
 	<item id="1442" inherit="1443">

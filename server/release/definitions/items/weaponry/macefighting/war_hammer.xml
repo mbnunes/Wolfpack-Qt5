@@ -18,10 +18,15 @@
 		<buyprice>23</buyprice>
 		<durability><random min="30" max="59" /></durability>
 		<weight>10.0</weight>
-		<tag name="resname" value="iron" />
 		<basescripts>equipment</basescripts>
 		<type>1004</type>
 		<category>Weapons\Maces\War Hammer (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="speed" value="28" />
+		<intproperty name="mindamage" value="17" />
+		<intproperty name="maxdamage" value="18" />
 	</item>
 
 	<item id="1438" inherit="1439">

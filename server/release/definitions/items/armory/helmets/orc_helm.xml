@@ -22,6 +22,14 @@
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Helmets\Orc Helm (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="30" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="1" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="5" />
 	</item>
 
 	<!-- Orc Helmet East-West -->

@@ -18,10 +18,15 @@
 		<buyprice>42</buyprice>
 		<durability><random min="30" max="89" /></durability>
 		<weight>10.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1002</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Scythe (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="32" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
 	</item>
 
 	<item id="26ba" inherit="26c4">

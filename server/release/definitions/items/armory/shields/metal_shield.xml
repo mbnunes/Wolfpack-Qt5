@@ -14,7 +14,6 @@
 		<decay />
 		<nodye />
 		<durability><random min="50" max="65" /></durability>
-		<tag name="resname" value="iron" />
 		<restock>10</restock>
 		<smelt>11</smelt>
 		<weight>6</weight>
@@ -23,6 +22,10 @@
 		<type>1008</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Shields\Metal Shield</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="res_fire" value="1" />
 	</item>
 
 </definitions>

@@ -4,6 +4,7 @@ Wolfpack 12.9.10 Beta (CVS)
 	* Core Changes:
 	* Definition Changes:
 		- Added random speech for lizardmen, ratmen and orcs.
+		- Moved equipment properties to the definitions again.
 	* Python Script Changes:
 		- Added a script for database structure updates (system/dbupdate.py).
 		- Added an event for database updates (onUpdateDatabase).
@@ -11,6 +12,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		  have it.
 		- Added speech.monster.
 		- Fixed a chance calculation bug with bowcraft.
+		- Updated equipment.py and related scripts for equipment property changes.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

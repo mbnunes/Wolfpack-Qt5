@@ -18,10 +18,15 @@
 		<buyprice>60</buyprice>
 		<durability><random min="30" max="79" /></durability>
 		<weight>7.0</weight>
-		<tag name="resname" value="iron" />
 		<type>1002</type>
 		<basescripts>equipment,blades</basescripts>
 		<category>Weapons\Swords\Bardiche (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="28" />
+		<intproperty name="mindamage" value="17" />
+		<intproperty name="maxdamage" value="18" />
 	</item>
 
 	<item id="f4e" inherit="f4d">

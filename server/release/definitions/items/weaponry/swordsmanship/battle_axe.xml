@@ -18,11 +18,16 @@
 		<buyprice>30</buyprice>
 		<durability><random min="30" max="63" /></durability>
 		<weight>4.0</weight>
-		<tag name="resname" value="iron" />
-		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,blades</basescripts>
 		<type>1002</type>
 		<category>Weapons\Axes\Battle Axe (N/S)</category>
+		<!-- Properties -->
+		<tag name="remaining_uses" type="int" value="35" />
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="31" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="17" />
 	</item>
 
 	<item id="f48" inherit="f47">
