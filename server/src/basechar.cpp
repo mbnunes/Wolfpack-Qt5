@@ -108,6 +108,7 @@ cBaseChar::cBaseChar()
     guarding_			= NULL;
 	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );
 	skills_.resize( ALLSKILLS );
+	setDead(false);  // we want to live ;)
 }
 
 cBaseChar::cBaseChar(const cBaseChar& right)

@@ -40,7 +40,7 @@
 
 
 // Library Include
-#include "qstring.h"
+#include <qstring.h>
 
 ///// do not chang those
 
@@ -141,7 +141,7 @@ struct wp_version_info
 
 		   verstruct.major_version  = 12;
 		   verstruct.sub_version    = 9;
-		   verstruct.subsub_version = 2; // no subsub
+		   verstruct.subsub_version = 3; // no subsub
 
 		   verstruct.flags    = WPV_RELEASE;
 		   verstruct.derivate = WOLF;
@@ -149,7 +149,7 @@ struct wp_version_info
            vernumber = to_32bitver(verstruct);		   
 		  
 		   /// code for auto generation of verstring, productstring and betareleasestring coming soon (LB) ...
-		   verstring = "12.9.2";  // Wolfpack version 
+		   verstring = "12.9.3";  // Wolfpack version 
 		   productstring = "Wolfpack"; // selfexplainatory, isnt't it :)
 		   betareleasestring = "Beta"; // release status
 

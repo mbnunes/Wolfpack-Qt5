@@ -63,11 +63,11 @@ cNPC::cNPC()
 	summonTime_			= 0;
 	additionalFlags_	= 0;
 	owner_				= NULL;
-	carve_				= (char*)0;
-	spawnregion_		= (char*)0;
+//	carve_				= (char*)0;
+//	spawnregion_		= (char*)0;
 	stablemasterSerial_	= INVALID_SERIAL;
 	wanderType_			= stWanderType();
-	lootList_			= (char*)0;
+//	lootList_			= (char*)0;
 }
 
 cNPC::cNPC(const cNPC& right)
