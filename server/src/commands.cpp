@@ -1556,6 +1556,13 @@ void commandTags( cUOSocket *socket, const QString &command, QStringList &args )
 	}
 }
 
+void commandWho( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	// Who
+	cWhoMenuGump* pGump = new cWhoMenuGump();
+	socket->send( pGump );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1564,21 +1571,22 @@ stCommand cCommands::commands[] =
 	{ "ADD",			commandAdd },
 	{ "ADDITEM",		commandAddItem },
 	{ "ADDNPC",			commandAddNpc },
+	{ "BANK",			commandBank },
 	{ "FIX",			commandFix },
 	{ "GO",				commandGo },
 	{ "INFO",			commandInfo },
+	{ "KILL",			commandKill },
 	{ "REMOVE",			commandRemove },
 	{ "RESEND",			commandResend },
+	{ "RESURRECT",		commandResurrect },
 	{ "SAVE",			commandSave },
 	{ "SET",			commandSet },
 	{ "SHOW",			commandShow },
 	{ "SPAWNREGION",	commandSpawnRegion },
-	{ "KILL",			commandKill },
 	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },
 	{ "WHERE",			commandWhere },
-	{ "RESURRECT",		commandResurrect },
-	{ "BANK",			commandBank },
+	{ "WHO",			commandWho },
 	{ NULL, NULL }
 };
 

@@ -260,5 +260,13 @@ public:
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
 
+class cWhoMenuGump : public cGump
+{
+public:
+	cWhoMenuGump();
+
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+};
+
 #endif
 

@@ -1079,4 +1079,76 @@ void cTagsInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	}
 }
 
+cWhoMenuGump::cWhoMenuGump()
+{
+	type_ = 6;
+	QStringList charNames;
+	QStringList charLocations;
+	QStringList charRegions;
+
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		cChar* pChar = mSock->player();
+		if( pChar )
+		{
+			charNames.push_back( pChar->name.c_str() );
+			charLocations.push_back( QString("%1,%2,%3 plane %4").arg( pChar->pos.x ).arg( pChar->pos.y ).arg( pChar->pos.z ).arg( pChar->pos.plane ) );
+			charRegions.push_back( pChar->region );
+		}
+	}
+
+	UINT32 page_ = 0;
+	UINT32 numsocks = charNames.size();
+	UINT32 pages = ((UINT32)floor( numsocks / 10 ))+1;
+
+	startPage();
+	// Basic .INFO Header
+	addResizeGump( 0, 40, 0xA28, 600, 420 ); //Background
+	addGump( 180, 18, 0x58B ); // Fancy top-bar
+	addGump( 257, 0, 0x589 ); // "Button" like gump
+	addTilePic( 277, 23, 0x14eb ); // Type of info menu
+	addText( 258, 90, tr( "Who Menu" ), 0x530 );
+	
+	// OK button
+	addButton( 50, 410, 0x481, 0x483, 0 ); 
+	addText( 90, 410, tr( "Close" ), 0x834 );
+
+	for( page_ = 1; page_ <= pages; page_++ )
+	{
+		startPage( page_ );
+
+		UINT32 i;
+		UINT32 right = page_ * 19 - 1;
+		UINT32 left = page_ * 19 - 19;
+		if( numsocks < right )
+			right = numsocks-1;
+
+		for( i = left; i <= right; i++ )
+		{
+			addButton( 30, 120 + (i-left) * 20, 0x0D0, 0x0D1, i+1 ); 
+			addText( 50, 120 + (i-left) * 20, QString( "%1" ).arg( charNames[i] ), 0x834 );
+			addText( 200, 120 + (i-left) * 20, QString( "%1" ).arg( charLocations[i] ), 0x834 );
+			addText( 370, 120 + (i-left) * 20, QString( "%1" ).arg( charRegions[i] ), 0x834 );
+		}
+
+		addText( 460, 410, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
+		if( page_ > 1 ) // previous page
+			addPageButton( 420, 410, 0x0FC, 0x0FC, page_-1 );
+
+		if( page_ < pages ) // next page
+			addPageButton( 440, 410, 0x0FA, 0x0FA, page_+1 );
+	}
+}
   
+void cWhoMenuGump::handleResponse( cUOSocket *socket, gumpChoice_st choice )
+{
+	if( choice.button == 0 )
+		return;
+	else
+	{
+		cWhoMenuGump* pGump = new cWhoMenuGump();
+		socket->send( pGump );
+
+		// TODO: implement child gump for further options for the chosen socket!
+	}
+}
