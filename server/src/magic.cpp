@@ -2785,16 +2785,18 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		switch( curSpell )
 		{
 			//////////// (2) CREATE FOOD ////////////////
-		case 2:
+        case 2: // Fallen/Ripper - Now random food from scripts (ITEMLIST 75)
 			{
-				P_ITEM pi_j = Items->SpawnItem(s, pc_currchar, 1, "#", 1, 0x09, 0xD3, 0x00, 1, 1 );
-				if(pi_j != NULL)//AntiChrist - to prevent crashes
-				{
-					pi_j->type=14;
-					RefreshItem(pi_j);
-				}
+	           P_ITEM pj = Items->SpawnItemBackpack2(s,Items->CreateRandomItem("75"),1);
+			   {
+	              if (pj != NULL) // Ripper
+				  {
+	                 pj->type=14;
+	                 RefreshItem(pj);
+				  }
+			   }
 			}
-			break; // LB crashfix
+	    break;
 			//////////// (3) SUMMON MONSTER ////////////
 		case 40: //33:
 			SummonMonster( s, 0, 0, "#", 0, 0, pc_currchar->pos.x+1, pc_currchar->pos.y+1, pc_currchar->pos.z, curSpell );
