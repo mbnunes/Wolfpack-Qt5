@@ -204,7 +204,7 @@ public:
 		for( int i = 0; i < count; ++i )
 			PyTuple_SetItem( args, i, Py_None );
 
-		cDBResult res = persistentBroker->query( QString( "SELECT key,type,value FROM effects_properties WHERE id = %1 AND key LIKE 'pyarg_%'" ).arg( id ) );
+		cDBResult res = persistentBroker->query( QString( "SELECT keyname,type,value FROM effects_properties WHERE id = %1 AND keyname LIKE 'pyarg_%'" ).arg( id ) );
 
 		while( res.fetchrow() )
 		{

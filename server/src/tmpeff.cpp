@@ -116,7 +116,7 @@ void cTempEffect::saveString( unsigned int id, QString key, const QString &value
  */
 bool cTempEffect::loadFloat( unsigned int id, QString key, double &value )
 {
-	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND key = '%2' AND type = 'float'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'float'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
 
 	if( !result.fetchrow() )
 	{
@@ -136,7 +136,7 @@ bool cTempEffect::loadFloat( unsigned int id, QString key, double &value )
  */
 bool cTempEffect::loadInt( unsigned int id, QString key, int &value )
 {
-	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND key = '%2' AND type = 'int'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'int'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
 
 	if( !result.fetchrow() )
 	{
@@ -156,7 +156,7 @@ bool cTempEffect::loadInt( unsigned int id, QString key, int &value )
  */
 bool cTempEffect::loadString( unsigned int id, QString key, QString &value )
 {
-	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND key = '%2' AND type = 'string'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'string'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
 
 	if( !result.fetchrow() )
 	{
@@ -276,6 +276,8 @@ void cTempEffects::load()
 
 	cDBResult result = persistentBroker->query( "SELECT id,objectid,expiretime,dispellable,source,destination FROM effects ORDER BY expiretime ASC;" );
 
+	persistentBroker->driver()->setActiveConnection( CONN_SECOND );
+		
 	while( result.fetchrow() )
 	{
 		unsigned int id = result.getInt( 0 );
@@ -297,10 +299,13 @@ void cTempEffects::load()
 		}
 
 		const char **res = (const char**)result.data(); // Skip id, objectid
+		
 		effect->load( id, res );
-
+		
 		insert( effect );
 	}
+	result.free();
+	persistentBroker->driver()->setActiveConnection();
 }
 
 void cTempEffects::save()

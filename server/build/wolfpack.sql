@@ -251,10 +251,10 @@ CREATE TABLE `effects` (
 
 CREATE TABLE `effects_properties` (
  `id` int(11) NOT NULL default '0',
- `key` varchar(64) NOT NULL default '',
+ `keyname` varchar(64) NOT NULL default '',
  `type` varchar(64) NOT NULL default '',
  `value` text NOT NULL,
-  PRIMARY KEY  (`id`,`key`)
+  PRIMARY KEY  (`id`,`keyname`)
 );
 
 

@@ -318,10 +318,10 @@ struct {
 
 	{ "effects_properties", "CREATE TABLE effects_properties (\
   id int NOT NULL,\
-  key varchar(64) NOT NULL,\
+  keyname varchar(64) NOT NULL,\
   type varchar(64) NOT NULL,\
   value text NOT NULL,\
-  PRIMARY KEY (id,key)\
+  PRIMARY KEY (id,keyname)\
 );" },
 
 	{ NULL, NULL }
