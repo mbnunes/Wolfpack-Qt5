@@ -213,7 +213,7 @@ public:
 
 private: // Private methods
 	void updateCharList();
-	void playChar( P_CHAR player ); // Play a character
+	void playChar( P_PLAYER player ); // Play a character
 };
 
 // Inline members

@@ -44,8 +44,9 @@ II. make sure to hold the map up to date !
 #include "maps.h"
 #include "walking.h"
 #include "utilsys.h"
-
-#include "wolfpack.h" // needed for objects Npcs and Items
+#include "chars.h"
+#include "npc.h"
+//#include "wolfpack.h" // needed for objects Npcs and Items
 
 using namespace std;
 
@@ -249,7 +250,7 @@ void cSpawnRegion::reSpawn( void )
 			if( this->findValidSpot( pos ) )
 			{
 				QString NpcSect = this->npcSections_[ RandomNum( 1, this->npcSections_.size() ) - 1 ];
-				P_CHAR pc = cCharStuff::createScriptNpc( NpcSect, pos );
+				P_NPC pc = cCharStuff::createScriptNpc( NpcSect, pos );
 				if( pc != NULL )
 				{
 					this->npcSerials_.push_back( pc->serial() );
@@ -295,7 +296,7 @@ void cSpawnRegion::reSpawnToMax( void )
 		if( this->findValidSpot( pos ) )
 		{
 			QString NpcSect = this->npcSections_[ RandomNum( 1, static_cast<uint>(this->npcSections_.size()) ) - 1 ];
-			P_CHAR pc = cCharStuff::createScriptNpc( NpcSect, pos );
+			P_NPC pc = cCharStuff::createScriptNpc( NpcSect, pos );
 			if( pc != NULL )
 			{
 				this->npcSerials_.push_back( pc->serial() );
@@ -354,7 +355,7 @@ void cSpawnRegion::checkForDeleted( void )
 	std::vector< SERIAL >::iterator it = this->npcSerials_.begin();
 	while( it != this->npcSerials_.end() )
 	{
-		P_CHAR pChar = FindCharBySerial( *it );
+		P_NPC pChar = dynamic_cast<P_NPC>( FindCharBySerial( *it ) );
 		if( pChar && !pChar->free && pChar->spawnregion() == name_ )
 			foundSerials.push_back( (*it) );
 		it++;

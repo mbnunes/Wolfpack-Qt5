@@ -36,6 +36,8 @@
 #include "newmagic.h"
 #include "persistentbroker.h"
 #include "globals.h"
+#include "basechar.h"
+#include "player.h"
 
 // Library Includes
 #include <qdom.h>
@@ -96,8 +98,8 @@ bool cSpellBook::onUse( cUObject *Target )
 	if( cItem::onUse( Target ) )
 		return true;
 
-	// We assume that target is a character here
-	P_CHAR pChar = dynamic_cast< P_CHAR >( Target );
+	// We assume that target is a player here
+	P_PLAYER pChar = dynamic_cast< P_PLAYER >( Target );
 
 	if( !pChar || !pChar->socket() )
 		return true;

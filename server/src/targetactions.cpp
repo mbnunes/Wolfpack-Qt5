@@ -39,6 +39,9 @@
 #include "network/uorxpackets.h"
 #include "network/uosocket.h"
 #include "world.h"
+#include "basechar.h"
+#include "player.h"
+#include "debug.h"
 
 bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 {
@@ -52,7 +55,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	}
 		
-	P_CHAR pHealer = socket->player();
+	P_PLAYER pHealer = socket->player();
 
 	// Check for an ongoing fight
 	if( !SrvParams->bandageInCombat() && ( pTarget->war() || pHealer->war() ) )
@@ -74,10 +77,10 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 
 	// Healing Criminals flags you criminal as well
 	if( pHealer->isInnocent() && !pTarget->isInnocent() )
-		pHealer->criminal();
+		pHealer->isCriminal();
 
 	// Resurrecting
-	if( pTarget->dead() )
+	if( pTarget->isDead() )
 	{
 		if( pHealer->skillValue( HEALING ) < 800 || pHealer->skillValue( ANATOMY ) < 800 )
 		{
@@ -139,7 +142,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 
 	// Normal Healing
-	if( pTarget->hp() == pTarget->st() )
+	if( pTarget->hitpoints() == pTarget->strength() )
 	{
 		socket->sysMessage( tr( "That being is not damaged." ) );
 		return true;
@@ -158,7 +161,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( !pHealer->checkSkill( firstSkill, 0, 1000 ) )
 	{
 		socket->sysMessage( tr( "You apply the bandages, but they barely help!" ) );
-		pTarget->setHp( pTarget->hp() + 1 );
+		pTarget->setHitpoints( pTarget->hitpoints() + 1 );
 	}
 	else
 	{
@@ -167,8 +170,8 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 		unsigned int amount = RandomNum( healmin, healmax );
 		
 		// We don't heal over the maximum amount.
-		if( pTarget->hp() + amount > pTarget->st() )
-			amount = pTarget->st() - pTarget->hp();
+		if( pTarget->hitpoints() + amount > pTarget->strength() )
+			amount = pTarget->strength() - pTarget->hitpoints();
 
 		// Show the HitUnarmed Animation and Make the Effect delayed
 		pHealer->action( 0x09 );
@@ -177,7 +180,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 		TempEffects::instance()->insert( tEff );
 	}
 
-	pHealer->setObjectDelay( SetTimerSec( pHealer->objectdelay(), SrvParams->objectDelay() + SrvParams->bandageDelay() ) );	
+	pHealer->setObjectDelay( SetTimerSec( pHealer->objectDelay(), SrvParams->objectDelay() + SrvParams->bandageDelay() ) );	
 	pBandage->ReduceAmount();
 
 	return true;

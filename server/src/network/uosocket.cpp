@@ -63,7 +63,8 @@
 #include "../uobject.h"
 #include "../player.h"
 #include "../multis.h"
-
+#include "../basechar.h"
+#include "../chars.h"
 
 //#include <conio.h>
 #include <iostream>
@@ -441,7 +442,7 @@ void cUOSocket::sendCharList()
 	send( &clientFeatures );
 
 	cUOTxCharTownList charList;
-	QValueVector< cChar* > characters = _account->caracterList();
+	QValueVector< P_PLAYER > characters = _account->caracterList();
 
 	// Add the characters
 	Q_UINT8 i = 0;
@@ -466,7 +467,7 @@ void cUOSocket::sendCharList()
 */
 void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 {
-	QValueVector< P_CHAR > charList = _account->caracterList();
+	QValueVector< P_PLAYER > charList = _account->caracterList();
 
 	if( packet->index() >= charList.size() )
 	{
@@ -476,7 +477,7 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 		return;
 	}
 
-	P_CHAR pChar = charList[ packet->index() ];
+	P_PLAYER pChar = charList[ packet->index() ];
 
 	if( pChar )
 	{
@@ -494,7 +495,7 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 {
 	// Check the character the user wants to play
-	QValueVector< cChar* > characters = _account->caracterList();
+	QValueVector< P_PLAYER > characters = _account->caracterList();
 
 	if( packet->slot() >= characters.size() )
 	{
@@ -520,7 +521,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 }
 
 // Set up the neccesary stuff to play
-void cUOSocket::playChar( P_CHAR pChar )
+void cUOSocket::playChar( P_PLAYER pChar )
 {
 	if( !pChar )
 		pChar = _player;
@@ -657,7 +658,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		this->_socket->close();
 		return;
 	}
-	QValueVector<cChar*> characters = _account->caracterList();
+	QValueVector<P_PLAYER> characters = _account->caracterList();
 
     // If we have more than 5 characters
 	if( characters.size() >= 5 )
@@ -728,10 +729,10 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	}
 
 	// FINALLY create the char
-	P_CHAR pChar = new cChar;
+	P_PLAYER pChar = new cPlayer;
 	pChar->Init();
 
-	pChar->setSex( packet->gender() );
+	pChar->setGender( packet->gender() );
 	
 	pChar->setPriv2( SrvParams->defaultpriv2() );
 
@@ -741,19 +742,19 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setXSkin( packet->skinColor() );
 
 	pChar->moveTo( startLocations[ packet->startTown() ].pos );
-	pChar->setDir(4);
+	pChar->setDirection(4);
 
-	pChar->setId( ( packet->gender() == 1 ) ? 0x191 : 0x190 );
-	pChar->setXid( pChar->id() );
+	pChar->setBodyID( ( packet->gender() == 1 ) ? 0x191 : 0x190 );
+	pChar->setXid( pChar->bodyID() );
 
-	pChar->setSt( packet->strength() );
-	pChar->setHp( pChar->st() );
+	pChar->setStrength( packet->strength() );
+	pChar->setHitpoints( pChar->strength() );
 
-	pChar->setDex( packet->dexterity() );
-	pChar->setStm( pChar->effDex() );
+	pChar->setDexterity( packet->dexterity() );
+	pChar->setStamina( pChar->dexterity() );
 
-	pChar->setIn( packet->intelligence() );
-	pChar->setMn( pChar->in() );
+	pChar->setIntelligence( packet->intelligence() );
+	pChar->setMana( pChar->intelligence() );
 
 	pChar->setSkillValue( packet->skillId1(), packet->skillValue1()*10 );
 	pChar->setSkillValue( packet->skillId2(), packet->skillValue2()*10 );
@@ -768,7 +769,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem->setColor( packet->shirtColor() );
 	pItem->setMaxhp( RandomNum( 25, 50 ) );
 	pItem->setHp( pItem->maxhp() );
-	pChar->addItem( cChar::Shirt, pItem );	
+	pChar->addItem( cBaseChar::Shirt, pItem );	
 	pItem->setDye(1);
 	pItem->setNewbie( true );
 
@@ -780,7 +781,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem->setColor( packet->pantsColor() );
 	pItem->setMaxhp( RandomNum( 25, 50 ) );
 	pItem->setHp( pItem->maxhp() );
-	pChar->addItem( cChar::Pants, pItem );
+	pChar->addItem( cBaseChar::Pants, pItem );
 	pItem->setDye(1);
 	pItem->setNewbie( true );
 
@@ -794,7 +795,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->setNewbie( true );
 		pItem->setId( packet->hairStyle() );
 		pItem->setColor( packet->hairColor() );
-		pChar->addItem( cChar::Hair, pItem );
+		pChar->addItem( cBaseChar::Hair, pItem );
 	}
 
 	if( packet->beardStyle() )
@@ -805,7 +806,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->setId( packet->beardStyle() );
 		pItem->setNewbie( true );
 		pItem->setColor( packet->beardColor() );
-		pChar->addItem( cChar::FacialHair, pItem );
+		pChar->addItem( cBaseChar::FacialHair, pItem );
 	}
 
 	// Backpack + Bankbox autocreate
@@ -859,7 +860,7 @@ void cUOSocket::sysMessage( const QString &message, Q_UINT16 color, UINT16 font 
 void cUOSocket::updateCharList()
 {
 	cUOTxUpdateCharList charList;
-	QValueVector<cChar*> characters = _account->caracterList();
+	QValueVector<P_PLAYER> characters = _account->caracterList();
 
 	// Add the characters
 	for( Q_UINT8 i = 0; i < characters.size(); ++i )
@@ -1173,8 +1174,8 @@ void cUOSocket::resendPlayer( bool quick )
 	send( &drawPlayer );
 
 	// Send the equipment Tooltips
-	cChar::ContainerContent content = _player->content();
-	cChar::ContainerContent::const_iterator it;
+	cBaseChar::ItemContainer content = _player->content();
+	cBaseChar::ItemContainer::const_iterator it;
 
 	for( it = content.begin(); it != content.end(); it++ )
 	{	
@@ -1225,7 +1226,7 @@ void cUOSocket::sendChar( P_CHAR pChar )
 	if( !pChar->isNpc() && !pChar->socket() && !_player->account()->isAllShow() )
 		return;
 
-	if( ( pChar->isHidden() || ( pChar->dead() && !pChar->war() ) ) && !_player->isGMorCounselor() )
+	if( ( pChar->isHidden() || ( pChar->isDead() && !pChar->war() ) ) && !_player->isGMorCounselor() )
 		return;
 	
 	// Then completely resend it
@@ -2022,13 +2023,13 @@ void cUOSocket::updateMana( P_CHAR pChar )
 	
 	if( pChar == _player )
 	{
-		update.setMaximum( pChar->in() );
-		update.setCurrent( pChar->mn() );
+		update.setMaximum( pChar->intelligence() );
+		update.setCurrent( pChar->mana() );
 	}
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( (UINT16)((pChar->mn()/pChar->in())*100) );
+		update.setCurrent( (UINT16)((pChar->mana()/pChar->intelligence())*100) );
 	}
 
 	send( &update );
@@ -2044,8 +2045,8 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 
 	cUOTxUpdateHealth update;
 	update.setSerial( pChar->serial() );
-	update.setMaximum( pChar->st() );
-	update.setCurrent( pChar->hp() );
+	update.setMaximum( pChar->strength() );
+	update.setCurrent( pChar->hitpoints() );
 
 	send( &update );
 }
@@ -2067,8 +2068,8 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	// Dont allow rename-self
 	sendStats.setAllowRename( ( ( pChar->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
 	
-	sendStats.setMaxHp( pChar->st() );
-	sendStats.setHp( pChar->hp() );
+	sendStats.setMaxHp( pChar->strength() );
+	sendStats.setHp( pChar->hitpoints() );
 
 	sendStats.setName( pChar->name() );
 	sendStats.setSerial( pChar->serial() );
@@ -2078,15 +2079,15 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	{
 		sendStats.setStamina( pChar->stm() );
 		sendStats.setMaxStamina( pChar->effDex() );
-		sendStats.setMana( pChar->mn() );
-		sendStats.setMaxMana( pChar->in() );
-		sendStats.setStrength( pChar->st() );
-		sendStats.setDexterity( pChar->effDex() );
-		sendStats.setIntelligence( pChar->in() );
+		sendStats.setMana( pChar->mana() );
+		sendStats.setMaxMana( pChar->intelligence() );
+		sendStats.setStrength( pChar->strength() );
+		sendStats.setDexterity( pChar->dexterity() );
+		sendStats.setIntelligence( pChar->intelligence() );
 		sendStats.setWeight( pChar->stones() );
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
-		sendStats.setSex( pChar->sex() );
+		sendStats.setSex( pChar->gender() );
 		sendStats.setPets( _player->followers().size() );
 		sendStats.setMaxPets( 0xFF );
 		sendStats.setStatCap( SrvParams->statcap() );

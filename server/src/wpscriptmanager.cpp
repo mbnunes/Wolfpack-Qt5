@@ -34,7 +34,7 @@
 #include "wpscriptmanager.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
-
+#include "basechar.h"
 #include "python/wppythonscript.h"
 #include "python/engine.h"
 

@@ -45,9 +45,6 @@
 // Forward class declaration
 class QString;
 
-#undef  DBGFILE
-#define DBGFILE "chars.h"
-
 namespace cCharStuff
 {
 	void DeleteChar(P_CHAR pc_k);

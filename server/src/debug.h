@@ -57,10 +57,10 @@ void LogMessageF(unsigned char Type, long Line, char *File, char *Message, ...);
 //---------------------------------------------------------------------------
 //     Translator macros for functions
 //---------------------------------------------------------------------------
-#define LogMessage(Message)	LogMessageF('M', __LINE__, DBGFILE, Message)
-#define LogWarning(WarningMessage)	LogMessageF('W', __LINE__, DBGFILE, WarningMessage)
-#define LogError(ErrorMessage)	LogMessageF('E', __LINE__, DBGFILE, ErrorMessage)
-#define LogCritical(CriticalMessage)	LogMessageF('C', __LINE__, DBGFILE, CriticalMessage)
+#define LogMessage(Message)	LogMessageF('M', __LINE__, __FILE__, Message)
+#define LogWarning(WarningMessage)	LogMessageF('W', __LINE__, __FILE__, WarningMessage)
+#define LogError(ErrorMessage)	LogMessageF('E', __LINE__, __FILE__, ErrorMessage)
+#define LogCritical(CriticalMessage)	LogMessageF('C', __LINE__, __FILE__, CriticalMessage)
 
 #define LogMessageVar(FormatString,var)	{char t[512];sprintf(t,FormatString,var);LogMessage(t);}
 #define LogWarningVar(FormatString,var)	{char t[512];sprintf(t,FormatString,var);LogWarning(t);}
