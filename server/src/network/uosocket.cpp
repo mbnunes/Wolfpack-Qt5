@@ -406,16 +406,25 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 		return;
 	}
 
-	// Otherwise build the shard-list
-	cUOTxShardList *shardList = new cUOTxShardList;
+	std::vector<ServerList_st> shards = SrvParams->serverList();
 
-	vector< ServerList_st > shards = SrvParams->serverList();
-	
-	for( Q_UINT8 i = 0; i < shards.size(); ++i )
-		shardList->addServer( i, shards[i].sServer, 0x00, shards[i].uiTime, shards[i].ip );
-	
-	send( shardList );
-	delete shardList;
+	if (shards.size() == 1) {
+		cUOTxRelayServer relay;
+		relay.setServerIp(shards[0].ip);
+		relay.setServerPort(shards[0].uiPort);
+		relay.setAuthId(0xFFFFFFFF); // This is NO AUTH ID !!!
+		// This is the thing it sends next time it connects to 
+		// know whether it's gameserver or loginserver encryption
+		send(&relay);
+	} else {
+		// Otherwise build the shard-list
+		cUOTxShardList shardList;
+
+		for( Q_UINT8 i = 0; i < shards.size(); ++i )
+			shardList.addServer( i, shards[i].sServer, 0x00, shards[i].uiTime, shards[i].ip );
+		
+		send(&shardList);
+	}
 }
 
 /*!
@@ -2168,7 +2177,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setSex( _player->gender() );
 		sendStats.setPets( _player->pets().size() );
 		sendStats.setMaxPets( 5 );
-		sendStats.setStatCap( SrvParams->statcap() );
+		sendStats.setStatCap(_player->statCap());
 
 		// Call the callback to insert additional aos combat related info
 		cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SHOWSTATUS);

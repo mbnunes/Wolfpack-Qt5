@@ -98,18 +98,18 @@ bool cContextMenu::onCheckVisible( cPlayer* from, cUObject* target, ushort entry
 		return true;
 
 	bool returnValue = true;
-	PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, from, PyGetObjectObject, target, entries_[entry]->scriptTag() );
-	for ( cPythonScript* script = scriptChain_.first(); script; script = scriptChain_.next() )
+	PyObject *args = Py_BuildValue("NNH", from->getPyObject(), target->getPyObject(), entries_[entry]->scriptTag());
+	for (cPythonScript* script = scriptChain_.first(); script; script = scriptChain_.next())
 	{
-		PyObject* obj = script->callEvent( "onContextMenuCheckVisible", args );
-		if ( obj )
+		PyObject* obj = script->callEvent("onContextMenuCheckVisible", args);
+		if (obj)
 		{
-			if ( !PyObject_IsTrue( obj ) )
+			if (!PyObject_IsTrue(obj))
 				returnValue = false;
-			Py_XDECREF( obj );
+			Py_DECREF(obj);
 		}
 
-		if ( !returnValue )
+		if (!returnValue)
 			return false;
 	}
 	return true;

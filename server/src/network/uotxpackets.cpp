@@ -266,7 +266,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	} else {
 		setBody(pChar->bodyID());
 
-		if (pChar->isHuman()) {
+		if (pChar->isHuman() && pChar->skin() > 0) {
 			setHue(pChar->skin() | 0x8000);
 		} else {
 			setHue(pChar->skin());
@@ -319,7 +319,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	} else {
 		setModel(pChar->bodyID());
 
-		if (pChar->isHuman()) {
+		if (pChar->isHuman() && pChar->skin() > 0) {
 			setColor(pChar->skin()|0x8000);
 		} else {
 			setColor( pChar->skin() );
@@ -397,7 +397,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	} else {
 		setBody(pChar->bodyID());
 
-		if (pChar->isHuman()) {
+		if (pChar->isHuman() && pChar->skin() > 0) {
 			setSkin(pChar->skin() | 0x8000);
 		} else {
 			setSkin(pChar->skin());

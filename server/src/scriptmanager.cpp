@@ -36,6 +36,7 @@
 #include "world.h"
 #include "items.h"
 #include "pythonscript.h"
+#include "../contextmenu.h"
 #include "python/engine.h"
 #include "network/uosocket.h"
 
@@ -94,6 +95,8 @@ void cScriptManager::reload( void )
 	
 	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->recreateEvents();
+
+	ContextMenus::instance()->reload();
 
 	serverState = RUNNING;
 }

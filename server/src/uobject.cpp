@@ -36,6 +36,7 @@
 #include "uobject.h"
 #include "globals.h"
 #include "network.h"
+#include "console.h"
 #include "defines.h"
 #include "pythonscript.h"
 #include "scriptmanager.h"
@@ -126,8 +127,8 @@ void cUObject::load( char **result, UINT16 &offset )
 	bindmenu_ = result[offset++];
 	bool havetags_ = atoi( result[offset++] );
 
-	// Get our events
 	recreateEvents();
+
 	if( havetags_ )
 		tags_.load( serial_ );
 
@@ -328,24 +329,27 @@ void cUObject::removeEvent( const QString& name )
 }
 
 // If the scripts are reloaded call that for each and every existing object
-void cUObject::recreateEvents()
-{
-	// clearEvents() would flag us as changed, but we didn't
-	if (!eventList_.isEmpty()) {
-		delete [] scriptChain;
+void cUObject::recreateEvents() {
+	// Destroy the old one
+	if (eventList_.isEmpty()) {
+		delete scriptChain;
 		scriptChain = 0;
+	} else {
+		QStringList events = QStringList::split(",", eventList_);
+		scriptChain = new cPythonScript*[events.size() + 1];
+		unsigned int count = 0;
 
-		// Walk the eventList and recreate
-		QStringList::const_iterator myIter;
-		QStringList eventList = QStringList::split(",", eventList_);
-
-		for (myIter = eventList.begin(); myIter != eventList.end(); ++myIter) {
-			cPythonScript *event = ScriptManager::instance()->find((*myIter).latin1());
-
-			if (event) {
-				addEvent(event);
+		QStringList::const_iterator it;
+		for (it = events.begin(); it != events.end(); ++it) {
+			cPythonScript *script = ScriptManager::instance()->find((*it).latin1());
+			if (!script) {
+				Console::instance()->log(LOG_ERROR, QString("Unknown event '%1' for object 0x%2").arg(*it).arg(serial_, 0, 16));
+			} else {
+				scriptChain[++count] = script;
 			}
 		}
+
+		scriptChain[0] = reinterpret_cast<cPythonScript*>(count);
 	}
 }
 

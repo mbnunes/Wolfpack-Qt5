@@ -1503,7 +1503,7 @@ void cPlayer::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 		}
 	} else {
 		tooltip.addLine(1050045, QString(" \t%1\t%2").arg(name_).arg(affix));
-	}	
+	}
 
 	// Append guild title and name
 	if (guild_) {

@@ -922,7 +922,6 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 	if( subCommand == "python" )
 	{
 		ScriptManager::instance()->reload();
-		ContextMenus::instance()->reload();
     socket->sysMessage("The python scripts have been reloaded.");
 	}
 	if( subCommand == "scripts" )
@@ -940,8 +939,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 		MakeMenus::instance()->reload();
 		ScriptManager::instance()->reload(); // Reload Scripts
 		Skills->reload();
-		ContextMenus::instance()->reload();
-
+		
 		// Update the Regions
 		cCharIterator iter;
 		P_CHAR pChar;
@@ -970,8 +968,7 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
 		ScriptManager::instance()->reload(); // Reload Scripts
-		ContextMenus::instance()->reload();
-
+		
 		// Update the Regions
 		cCharIterator iter;
 		P_CHAR pChar;
