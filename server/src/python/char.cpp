@@ -1796,15 +1796,10 @@ static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 	0x06 - Murderer
 	0x07 - Invulnerable</code>
 */
-static PyObject* wpChar_notoriety( wpChar* self, PyObject* args )
-{
-	if (self->pChar->free) {
-		return PyFalse();
-	}
-
+static PyObject* wpChar_notoriety(wpChar* self, PyObject* args) {
 	P_CHAR target = 0;
 
-	if (!PyArg_ParseTuple( args, "|O&:char.notoriety([char])", PyConvertChar, &target))
+	if (!PyArg_ParseTuple( args, "|O&:char.notoriety([char])", &PyConvertChar, &target))
 		return 0;
 
 	if (!target) {
@@ -2197,6 +2192,24 @@ static PyObject *wpChar_hasevent(wpChar *self, PyObject *args) {
 }
 
 /*
+	\method char.showname
+	\description Show the name of this character over the characters head for a given socket. 
+	This looks like the "Show Incoming Names" option in the client.
+	\param socket The <object id="SOCKET">socket</object> object of the receiving socket.
+*/
+static PyObject *wpChar_showname(wpChar *self, PyObject *args) {
+	cUOSocket *target;
+
+	if (!PyArg_ParseTuple( args, "O&:char.showname(socket)", &PyConvertSocket, &target))
+		return 0;
+
+	self->pChar->showName(target);
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+/*
 	\method char.callevent
 	\description Call a python event chain for this object. Ignore global hooks.
 	\param event The id of the event you want to call. See <library id="wolfpack.consts">wolfpack.consts</library> for constants.
@@ -2300,6 +2313,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "removefollower",	(getattrofunc)wpChar_removefollower,	METH_VARARGS, "Removes a follower from the user." },
 	{ "hasfollower",	(getattrofunc)wpChar_hasfollower,		METH_VARARGS, "Checks if a certain character is a follower of this." },
 	{ "reveal", (getattrofunc)wpChar_reveal, METH_VARARGS, 0 },
+	{ "showname", (getattrofunc)wpChar_showname, METH_VARARGS, 0 },
 
 	// Tag System
 	{ "gettag",			(getattrofunc)wpChar_gettag,			METH_VARARGS, "Gets a tag assigned to a specific char." },
