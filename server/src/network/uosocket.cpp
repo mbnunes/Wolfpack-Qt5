@@ -2423,6 +2423,9 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 	drawContainer.setSerial( pVendor->serial() );
 	drawContainer.setGump( 0x30 );
 	send( &drawContainer );
+
+	// Send status gump with gold info
+	sendStatWindow();
 }
 
 void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
