@@ -146,25 +146,6 @@ public:
 	}
 };
 
-class cResurectTarget : public cTargetRequest
-{
-public:
-	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
-	{
-		P_CHAR pChar = FindCharBySerial( target->serial() );
-
-		if ( !pChar )
-		{
-			socket->sysMessage( tr( "This is not a living being." ) );
-			return true;
-		}
-
-		pChar->resurrect();
-		return true;
-	}
-};
-
-
 class cKillTarget : public cTargetRequest
 {
 public:

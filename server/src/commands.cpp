@@ -194,20 +194,6 @@ void cCommands::loadACLs( void )
 }
 
 /*
-	\command resurrect
-	\description Resurrects a character.
-	\notes If the character is standing on his corpse he will regain
-	all his posessions and equipment.
-*/
-void commandResurrect( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( args );
-	Q_UNUSED( command );
-	socket->sysMessage( tr( "Select the being you want to resurrect" ) );
-	socket->attachTarget( new cResurectTarget );
-}
-
-/*
 	\command kill
 	\description Kills the selected character.
 	\notes You cannot kill invulnerable characters this way.
@@ -1364,7 +1350,6 @@ stCommand cCommands::commands[] =
 	{ "REMOVE", commandRemove }, 
 	{ "RESEND", commandResend }, 
 	{ "RESTOCK", commandRestock }, 
-	{ "RESURRECT", commandResurrect }, 
 	{ "SAVE", commandSave }, 
 	{ "SERVERTIME", commandServerTime },
 	{ "SET", commandSet },
