@@ -521,7 +521,7 @@ def createpack(char, killer, corpse, pack):
 						
 						# 10% Jewelry
 						if value > 0.90:
-							citem = wolfpack.additem(random.choice(DEF_JEWELRY))
+							citem = wolfpack.additem(random.choice(DEF_JEWELERY))
 						# 10% Shield
 						elif value > 0.80:
 							citem = wolfpack.additem(random.choice(DEF_SHIELDS))

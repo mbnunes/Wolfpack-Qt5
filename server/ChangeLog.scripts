@@ -13,6 +13,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Added teleporter stairs to ilshenar decoration.
 		- Added index.xml files to armor categories.
 		- Began to add new Samurai armor and weapons (not complete).
+		- Fiexd bug #0000347. (Campfires not disappearing, wrong light id)
 	* Python Script Changes:
 		- Fixed BONUS* properties.
 		- Fixed other property issues.
@@ -40,6 +41,8 @@ Wolfpack 12.9.12 Beta (CVS)
 		- The character info page now logs every changed property.
 		- The characters weight is now being resent on lumberjacking and other skills.
 		- Fixed bug #0000346. (Unmovable items crafted by carpenters)
+		- Fixed a bug with loot (typo)
+		- Fixed a bug with the who menu related to more than 10 players connected.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
