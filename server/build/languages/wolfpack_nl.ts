@@ -791,12 +791,16 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>The server is shutting down.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Compiled for Qt %1 (Using: %2 %3)
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Compiled for Python %1 %2 (Using: %3 )
+        <source>Compiled for Python %1 %2 (Using: %3)
 </source>
         <translation type="unfinished"></translation>
     </message>
