@@ -1,0 +1,12 @@
+<!--
+	Vegitation Index File
+-->
+<definitions>
+	<include file="definitions/items/vegetation/crystals.xml"/>
+	<include file="definitions/items/vegetation/dried.xml"/>
+	<include file="definitions/items/vegetation/fruits.xml"/>
+	<include file="definitions/items/vegetation/mushrooms.xml"/>
+	<include file="definitions/items/vegetation/plants.xml"/>
+	<include file="definitions/items/vegetation/trees.xml"/>
+	<include file="definitions/items/vegetation/wood.xml"/>
+</definitions>
