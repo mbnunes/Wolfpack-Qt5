@@ -2768,24 +2768,24 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor ) {
 	}
 
 	// Now process all items that have been bought by the vendor
-	for (ContainerCopyIterator it(pBought); !it.atEnd(); ++it) {
+	for (ContainerCopyIterator it2(pBought); !it2.atEnd(); ++it2) {
 		// Check all bought items if they decayed (one hour)
-		int buy_time = (*it)->getTag("buy_time").toInt();
+		int buy_time = (*it2)->getTag("buy_time").toInt();
 
 		// Remove the item from the vendors inventory if its there for more than one hour or if it has been
 		// bought in the future.
 		if (buy_time + inventoryDecay < Server::instance()->time() || buy_time > Server::instance()->time()) {
-			(*it)->remove();
+			(*it2)->remove();
 			continue;
 		}
 
 		// Only 250 items fit into the buy list
 		if (itemList.count() < 250) {
-			if ((*it)->buyprice() <= 0) {
+			if ((*it2)->buyprice() <= 0) {
 				continue; // This item is not for sale
 			}
 
-			itemList.append(*it);
+			itemList.append(*it2);
 		}
 	}
 
