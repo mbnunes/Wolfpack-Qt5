@@ -39,8 +39,6 @@
 #include <qptrlist.h>
 #include <qmap.h>
 
-#include <winsock.h>
-
 #undef CONST
 
 // Twofish

@@ -157,7 +157,6 @@ void cSrvParams::readData()
 	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 1.0, true);
     
 	// General Group
-	allowUnencryptedClients_ = getBool("General",	"Allow Unencrypted Clients", true, true );
 	showSkillTitles_		= getBool("General", "ShowSkillTitles", true, true );
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
 	statcap_				= getNumber("General",	"StatsCap",			300, true);
@@ -224,6 +223,7 @@ void cSrvParams::readData()
 	gamePort_               = getNumber( "Network",		"Gameserver Port", 2592, true );
 	enableLogin_			= getBool( "Network",		"Enable Loginserver", true, true );
 	enableGame_				= getBool( "Network",		"Enable Gameserver", true, true );
+	allowUnencryptedClients_ = getBool("Network",	"Allow Unencrypted Clients", true, true );
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );
