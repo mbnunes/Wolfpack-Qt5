@@ -108,12 +108,12 @@ class SummonElementBase(Spell):
 		self.validtarget = TARGET_GROUND
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1}
 		self.casttime = 6000
-		self.controlslots = 3
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if char.player and char.controlslots + self.controlslots > 5:
+		# Lowest controlslots we see is 2, Earth Elemental
+		if char.player and char.controlslots + 2 > 5:
 			char.socket.clilocmessage(1049645)
 			return
 
@@ -121,12 +121,16 @@ class SummonElementBase(Spell):
 			return
 
 		creature = wolfpack.addnpc(self.elementid, target)
-		creature.controlslots = self.controlslots
-		creature.addevent('speech.pets')
-		creature.owner = char
-		creature.summontime = wolfpack.time.currenttime() + 120000
-		creature.summoned = 1
-		creature.soundeffect(0x217)
+		# If the creature is out of our control, delete it.
+		if char.player and char.controlslots + creature.controlslots > 5:
+			creature.delete()
+			char.socket.clilocmessage(1049645)
+		else:
+			creature.addevent('speech.pets')
+			creature.owner = char
+			creature.summontime = wolfpack.time.currenttime() + 120000
+			creature.summoned = 1
+			creature.soundeffect(0x217)
 
 class SummonAirElement(SummonElementBase):
 	def __init__(self):
@@ -164,4 +168,3 @@ class SummonDaemon(SummonElementBase):
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
 		self.elementid = 'summoned_daemon'
 		self.casttime = 6000
-		self.controlslots = 5

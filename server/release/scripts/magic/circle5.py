@@ -348,6 +348,7 @@ class SummonCreature (Spell):
 				'hind', 'dog', 'boar', 'chicken', 'rabbit'] )
 
 		creature = wolfpack.addnpc(npcid, target)
+		# If the creature is out of our control, delete it.
 		if creature.controlslots + char.controlslots > 5:
 			creature.delete()
 			char.socket.clilocmessage(1049645)
