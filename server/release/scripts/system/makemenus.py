@@ -369,7 +369,7 @@ class CraftItemAction(MakeItemAction):
 					break # Break the inner loop
 
 		# We didn't find any submaterial1
-		if submaterial1amount == self.submaterial1:
+		if self.submaterial1 > 0 and submaterial1amount == self.submaterial1:
 			if not silent:
 				if self.parent.submaterial1missing != 0:
 					player.socket.clilocmessage(self.parent.submaterial1missing)
@@ -400,7 +400,6 @@ class CraftItemAction(MakeItemAction):
 
 		# Check if we found all the normal material we need to produce this item.
 		for material in materials:
-			player.socket.sysmessage(str(material))
 			if material[1] > 0:
 				player.socket.sysmessage(self.lackmaterial)
 				return False
