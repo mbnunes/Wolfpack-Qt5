@@ -34,9 +34,6 @@
 #include "wpconsole.h"
 #include "globals.h"
 #include "srvparams.h"
-#include "uobject.h"
-#include "items.h"
-#include "chars.h"
 #include "dbdriver.h"
 #include "progress.h"
 #include "iserialization.h"
@@ -45,10 +42,17 @@
 #include "accounts.h"
 #include "inlines.h"
 
+// Objects
+#include "uobject.h"
+#include "items.h"
+#include "chars.h"
+
+// Python Includes
 #include "python/utilities.h"
 #include "python/tempeffect.h"
 
 // FlatStore Includes
+#include "flatstore_keys.h"
 #include "flatstore/flatstore.h"
 
 // Library Includes
@@ -237,6 +241,39 @@ void cWorld::loadSql()
 
 void cWorld::loadFlatstore( const QString &prefix )
 {
+	FlatStore::InputFile input;
+
+	input.startRead( QString( "%1world.fsd" ).arg( prefix ).latin1() );
+
+	unsigned int serial;
+	unsigned short objectType;
+
+	while( input.readObject( objectType, serial ) )
+	{
+		// Create a new object based on the object-type
+		unsigned char group, chunk;
+		cUObject *object = 0;
+
+		switch( objectType )
+		{
+		case CHUNK_CHAR:
+			object = new cChar;
+			break;
+
+		};
+
+		object->setSerial( serial ); // This autoregisters with us
+
+		while( input.readChunk( group, chunk ) )
+		{
+			if( !object->load( group, chunk, &input ) )
+			{
+				clConsole.log( LOG_ERROR, QString( "Invalid chunk key found in worldfile: %1 (Group: %2)." ).arg( chunk ).arg( group ) );
+			}
+		}
+	}
+
+	input.finishRead();	
 }
 
 void cWorld::load( QString basepath, QString prefix, QString module )
@@ -415,7 +452,7 @@ void cWorld::registerObject( cUObject *object )
 {
 	if( !object )
 	{
-		clConsole.log( LOG_ERROR, "Trying to register a null object in the World." );
+		clConsole.log( LOG_ERROR, "Couldn't register a NULL object in the world." );
 		return;
 	}
 

@@ -60,7 +60,42 @@ bool cUObject::load( unsigned char chunkGroup, unsigned char chunkType, FlatStor
 
 	switch( chunkType )
 	{
+	case OBJECT_NAME:
+		name_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case OBJECT_POS_X:
+		input->readUShort( pos_.x );
+		break;
+
+	case OBJECT_POS_Y:
+		input->readUShort( pos_.y );
+		break;
+
+	case OBJECT_POS_Z:
+		input->readChar( (char&)pos_.z );
+		break;
+
+	case OBJECT_POS_MAP:
+		input->readUChar( pos_.map );
+		break;
+
+	case OBJECT_BINDMENU:
+		bindmenu_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case OBJECT_MULTI:
+		input->readUInt( (unsigned int&)multis_ );
+		break;
+
+	case OBJECT_EVENTS:
+		eventList_ = QString::fromUtf8( input->readString() );
+		recreateEvents();
+		break;
+
 	default:
 		return false;
 	};
+	
+	return true;
 }

@@ -329,3 +329,330 @@ void cChar::save( FlatStore::OutputFile *output, bool first )
 	if( first )
 		output->finishObject();
 }
+
+bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile *input )
+{
+	if( chunkGroup == CHUNK_SKILLS )
+	{
+		// Skills
+		return true;
+	}
+
+	unsigned int temp;
+	
+	if( chunkGroup != CHUNK_CHAR )
+		return cUObject::load( chunkGroup, chunkType, input );
+
+	switch( chunkType )
+	{
+	case CHAR_ORGNAME:
+		orgname_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case CHAR_TITLE:
+		title_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case CHAR_ACCOUNT:
+		account_ = Accounts::instance()->getRecord( QString::fromUtf8( input->readString() ) );
+		break;
+
+	case CHAR_GUILDTYPE:
+		input->readShort( GuildType );
+		break;
+
+	case CHAR_GUILDTRAITOR:
+		GuildTraitor = true;
+		break;
+
+	case CHAR_CELL:
+		input->readUChar( cell_ );
+		break;
+
+	case CHAR_DIR:
+		input->readUChar( dir_ );
+		break;
+
+	case CHAR_BODY:
+		input->readUShort( id_ );
+		break;
+
+	case CHAR_XBODY:
+		input->readUShort( xid_ );
+		break;
+
+	case CHAR_SKIN:
+		input->readUShort( skin_ );
+		break;
+
+	case CHAR_XSKIN:
+		input->readUShort( xskin_ );
+		break;
+
+	case CHAR_PRIV:
+		input->readUChar( priv );
+		break;
+
+	case CHAR_PRIV2:
+		input->readUChar( priv2_ );
+		break;
+
+	case CHAR_STABLEMASTER:
+		input->readUInt( (unsigned int&)stablemaster_serial_ );
+		break;
+
+	case CHAR_NPCTYPE:
+		input->readUChar( npc_type_ );
+		break;
+
+	case CHAR_TIMEUNUSED:
+		input->readUInt( time_unused_ );
+		break;
+
+	case CHAR_FONT:
+		input->readUChar( fonttype_ );
+		break;
+
+	case CHAR_SAY:
+		input->readUShort( saycolor_ );
+		break;
+
+	case CHAR_EMOTE:
+		input->readUShort( emotecolor_ );
+		break;
+
+	case CHAR_STRENGTH:
+		input->readShort( st_ );
+		break;
+
+	case CHAR_STRENGTH2:
+		input->readShort( st2_ );
+		break;
+
+	case CHAR_DEXTERITY:
+		input->readShort( dx );
+		break;
+
+	case CHAR_DEXTERITY2:
+		input->readShort( dx2 );
+		break;
+
+	case CHAR_INTELLIGENCE:
+		input->readShort( in_ );
+		break;
+
+	case CHAR_INTELLIGENCE2:
+		input->readShort( in2_ );
+		break;
+
+	case CHAR_HITPOINTS:
+		input->readShort( hp_ );
+		break;
+
+	case CHAR_SPAWNREGION:
+		spawnregion_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case CHAR_STAMINA:
+		input->readShort( stm_ );
+		break;
+
+	case CHAR_MANA:
+		input->readShort( mn_ );
+		break;
+
+	case CHAR_HOLDGOLD:
+		input->readUInt( holdg_ );
+		break;
+
+	case CHAR_SHOP:
+		shop_ = true;
+		break;
+
+	case CHAR_OWNER:
+		/*
+			WARNING
+			We are using a Pointer to store an unsigned
+			integer here. That assumes the pointer is 
+			at least 32 bit. So this software won't work
+			in 16 bit environments anymore. It will work
+			in 64 bit environments though.
+		*/
+		input->readUInt( temp );
+		owner_ = reinterpret_cast< cChar* >( temp );
+		break;
+
+	case CHAR_KARMA:
+		input->readInt( karma_ );
+		break;
+
+	case CHAR_FAME:
+		input->readInt( fame_ );
+		break;
+
+	case CHAR_KILLS:
+		input->readUInt( kills_ );
+		break;
+
+	case CHAR_DEATHS:
+		input->readUInt( deaths_ );
+		break;
+
+	case CHAR_DEAD:
+		dead_= true;
+		break;
+
+	case CHAR_FIXEDLIGHT:
+		input->readUChar( fixedlight_ );
+		break;
+
+	case CHAR_CANTRAIN:
+		cantrain_ = true;
+		break;
+
+	case CHAR_DEFENSE:
+		input->readUInt( def_ );
+		break;
+
+	case CHAR_LODAMAGE:
+		input->readInt( lodamage_ );
+		break;
+
+	case CHAR_HIDAMAGE:
+		input->readInt( hidamage_ );
+		break;
+
+	case CHAR_WAR:
+		war_ = true;
+		break;
+
+	case CHAR_NPCWANDER:
+		input->readUChar( npcWander_ );
+		break;
+
+	case CHAR_OLDNPCWANDER:
+		input->readUChar( oldnpcWander_ );
+		break;
+
+	case CHAR_CARVE:
+		carve_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case CHAR_FX1:
+		input->readInt( fx1_ );
+		break;
+
+	case CHAR_FY1:
+		input->readInt( fy1_ );
+		break;
+
+	case CHAR_FX2:
+		input->readInt( fx2_ );
+		break;
+
+	case CHAR_FY2:
+		input->readInt( fy2_ );
+		break;
+
+	case CHAR_FZ1:
+		input->readChar( (char&)fz1_ );
+		break;
+
+	case CHAR_SPAWN:
+		input->readUInt( (unsigned int&)spawnserial_ );
+		break;
+
+	case CHAR_HIDDEN:
+		input->readUChar( hidden_ );
+		break;
+
+	case CHAR_HUNGER:
+		input->readInt( hunger_ );
+		break;
+
+	case CHAR_NPCAITYPE:
+		input->readInt( npcaitype_ );
+		break;
+
+	case CHAR_TAMING:
+		input->readInt( taming_ );
+		break;
+
+	case CHAR_UNSUMMONTIMER:
+		input->readUInt( summontimer_ );
+		summontimer_ += uiCurrentTime;
+		break;
+
+	case CHAR_POISON:
+		input->readInt( poison_ );
+		break;
+
+	case CHAR_POISONED:
+		input->readUInt( poisoned_ );
+		break;
+
+	case CHAR_FLEEAT:
+		input->readShort( fleeat_ );
+		break;
+
+	case CHAR_REATTACKAT:
+		input->readShort( reattackat_ );
+		break;
+
+	case CHAR_SPLIT:
+		input->readUChar( split_ );
+		break;
+
+	case CHAR_SPLITCHANCE:
+		input->readUChar( splitchnc_ );
+		break;
+
+	case CHAR_GUILDTOGGLE:
+		guildtoggle_ = true;
+		break;
+
+	case CHAR_GUILDSTONE:
+		input->readUInt( (unsigned int&)guildstone_ );
+		break;
+
+	case CHAR_GUILDTITLE:
+		guildtitle_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case CHAR_GUILDFEALTY:
+		input->readUInt( (unsigned int&)guildfealty_ );
+		break;
+
+	case CHAR_MURDERRATE:
+		input->readUInt( murderrate_ );
+		break;
+
+	case CHAR_LOOTLIST:
+		loot_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case CHAR_FOOD:
+		input->readUInt( food_ );
+		break;
+
+	case CHAR_PROFILE:
+		profile_ = QString::fromUtf8( input->readString() );
+		break;
+
+	case CHAR_DESTINATION:
+		input->readUShort( ptarg_.x );
+		input->readUShort( ptarg_.y );
+		input->readChar( (char&)ptarg_.z );
+		input->readUChar( ptarg_.map );
+		break;
+
+	case CHAR_SEX:
+		sex_ = true;
+		break;
+
+	default:
+		return false;
+	}
+
+	return true;
+}

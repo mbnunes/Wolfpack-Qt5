@@ -297,6 +297,7 @@ public:
 	void load( char **, UINT16& );
 	void save();
 	void save( FlatStore::OutputFile*, bool first = false );
+	bool load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::InputFile* );
 	bool del();
     
 	// A typical sequence for the following could be:

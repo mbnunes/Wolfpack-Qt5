@@ -85,7 +85,10 @@ void cItem::registerInFactory()
 cItem::cItem(): 
 container_(0), totalweight_(0), incognito(false),
 rndvaluerate_(0), dooropen_(0),gatetime_(0),gatenumber_(-1),murdertime_(0),
-timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 ) {};
+timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 )
+{
+	Init( false );
+};
 
 cItem::cItem( const cItem &src )
 {
